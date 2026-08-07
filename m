@@ -1,120 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39134395AFA
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 07:04:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4CA37757C
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 07:09:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786086280; cv=none; b=nAGrfDRh/5NUm0GPB3/moqVkYORLtgYQBWOyosTzAzoVgUeXYoa1aazYcAs/hsMcJvDBCXdE7ZoVVxVOndAcgimOGp+t8H16xg6KALCo272XQJGROVUcMIDUH4Pb1k9NTjK39gIXw+XYvQRjOu5nlx0BK3kTgnMBuAlKwycW24I=
+	t=1786086566; cv=none; b=QmLrlRaUbL2d0+UuMdQh+KEonAhn4ADsN3z+txvsVabFUeIhlj/WLE4/6UdwJzTDXbFGXG6oCz8Qnj8ofnzlFOiuJ7faJRJ6pbZnBV7Gualujj8Rzeip7FaHfOn5Zly6MWBZCvD1vTZzx3zrQKEvkF6V2O1AOFy//+CA25LgOtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786086280; c=relaxed/simple;
-	bh=yp3DcnSzMzAME5DOlWQebCmiTigsOCelERO525YTTYU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c+MpJvvJBjyry2c/oWLHQcLBoCWOjBjXj72PPoDaFxK7HNhXcIgpgSNweBBzBYfjNeVdxuOf+WOyFBsJ12lnoin12IVUpCTxWNrkIBUosni9RJ3dGDMSP0CdnR3SEfjEWyjvpAznlzjR05kNRtKv+rpmaGP/XpjGQv21Sn/jdMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UezLM5Ch; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786086566; c=relaxed/simple;
+	bh=cs+sCnn7xWiEgcV9ZSxKwtCGXZUQ9wbMPoLQAd9HEts=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eE9xpex51k6Hiofao84NOk4lu4FGEQIkwR956gnBFXgiiZLEbtDHBdLd56AO7EfkChOiyn90eloyg5uhz7TfOMSfl5WHGF1xtcYGF/BcdUWrI6NmHP3iCAKRVhzgt0atGijwOFqx4fC4r1axmo/hluOG+B1JUsl6AMmSo4Y1K/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=ZVE73slM; arc=none smtp.client-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UezLM5Ch"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE60D1F000E9;
-	Fri,  7 Aug 2026 07:04:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786086274;
-	bh=Ik7JUoi/i7BkukvJnP9Jbz5M5xZ0snZSGsm0+Mukigs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UezLM5ChX4MM32Is7Hj0PFsxCp2k8pIAQm+f5MCpVcaGb/H8J7s7ohEFIJpWrDMYQ
-	 +bsUQpp3WG+tERJW7W/v4hQxKz3T5fDZcyeMSUnLuCnZiviv9NvQMYBdYLviGKf9WJ
-	 n1Xaj3WGruisHWtrSSDjVnE/+YtJL5H/GbuogedTyW7AcGKVjroIpmDKOk+eXLfwzD
-	 73Txxjpt5cr5aGFr4YoRsB/5/F7mIGwqsnIZL0Mz7ghAN7cO2mGTIz8epvt4//xvCY
-	 ZFJeHlzNfMonBrGQo/YrHn1CpICRUWaXuZrRHNdp0xhg/phmPsUGcUIqEKnJOjq9hR
-	 zCSJA8sHdZRSg==
-Date: Fri, 7 Aug 2026 10:04:26 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, vova tokarev <vladimirelitokarev@gmail.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Linus Torvalds <torvalds@linuxfoundation.org>,
-	Oleg Nesterov <oleg@redhat.com>, Peter Xu <peterx@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 6.18.y] userfaultfd: prevent registration of special VMAs
-Message-ID: <anWDehFtjeTTV_AM@kernel.org>
-References: <2026072906-estranged-sinless-b8ff@gregkh>
- <20260807033459.1725973-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="ZVE73slM"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81f3b227a4aso49767317b3.1
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 00:09:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=xbow.com; s=google; t=1786086564; x=1786691364; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G7gB99jopYOI8TNqTIZ3KOn+F7j/uZRYCXYb3SJDHNc=;
+        b=ZVE73slM2iSPT9P/Bo1pcg7ZLuJREBXejbMiTHysbfpeeKrSNimG3C7FC9aapU3bA1
+         BKmEEJF+5HNIIXPMbw12NExY9BM20PWd+Ef2xTc7ChBk8regOpOUt2mCMZEShNsz79VX
+         pR3no+L1bFmvuxf3I3DOFje5QfScQWGA6UC0JFwwLJJMqPL9EOfBJQwyugdE5W+yankV
+         /8Uh1/Ko6axwshAL1SzIIt5icIjc2+RC1YSCjfstFcSJIJoSpxyU+RE4Tpd0WXq3h/2h
+         Pe8aAqZ5nEBUmUQCJIL2UUeiUt+QovYfjmmrddHWFC3BWY0xfLw+hSn6jgKTyTt/n0D3
+         VMnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786086564; x=1786691364;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G7gB99jopYOI8TNqTIZ3KOn+F7j/uZRYCXYb3SJDHNc=;
+        b=rlDlRckfXh4MjMg33bXHuKJ2H79soYK7WjG3wsLn3nVXrA5YckVNSjcrJUUgm+7+72
+         neLjKvjmiqtEqUn7lQu3xwngTJDso58aKGQyrwXOeONQPlI29yCwbpxldGWQa0eZDthc
+         S/AKeLkZSPPGmaQ+24UrsqFT1p3SepeG0GSDldd2uLjs+hfCS4q8Y1SyyVZcJgDLAqud
+         SrUXCP9L1xTrRII6fm7sVooEun7ZP+kze+BbUvasLC1r39ZQ/i8SdhQZaN0KglXZ1OY1
+         RAcmjQ3d1oVx/s+66P7ZjYzhLcgke95V7zSJcGKo3NTF1jVr8Kd9esHTa57nVm0Bx6eh
+         H0Xg==
+X-Forwarded-Encrypted: i=1; AHgh+RredOCrcPu14nYdNpQw7zGxQ3exDAB3omkuyFYXm9274Bx/KyhQjrT0Z8flauJboUp0kVybpI0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxbbO5qcfgzl68rO6xIYx2+yAXMPYt1znEbK67tRUCjTmujf+aU
+	Ei1f7PkRN3M1wVkBy7g9o5z4VUBGCuqt8+pWAbRQslgdUbg1fELF2Bd9qhJNY5lxais=
+X-Gm-Gg: AR+sD13uTw83fTMQqQHj5tUVVM+j5tHUUzxT5/lkdnzzSDFUZJ7LsIOGseQoZYyzUQC
+	D1vS5aVI1z4CHiLolbESNZWQdjyUUOEWLg1b0SOWfloY/vKxWUreLaXI6EiVGZ4+52ycBG3mzS4
+	5xegQhhAG+d2+O+yahiHkBKJFDJsEeOHWi3pMrHxPBkMFXBGX9EYoBZ53QDXiyqRysrXaauYwKZ
+	Qhq7+KrJmoOi7Mkg3BOyRQi59YWNzTm62/r3OapMxJm2A0gt900FC69A6xQd1Y5xkHJ8l1Jxt0D
+	CdIB96V59oHDDDJ35TIKwu0EQIIamsSSOPvGUFtsmozehCpfZD5sIcJLDQZi7z4DBE9qvTrJAeD
+	97RsvpQNDY5uqfcswh3Z9+/cQok5rf60Kd0MzWdUoRADr5d9WjgoKlbCVEqz9LqfLEupHlZqnSq
+	Nypk3VpA4cPcvxR9yvD3qB7wxphHHf7oQl6AgWdmeIUM+lbQfIQ2/rIYnofMV+xWDSPWy1rIQdG
+	cwDnRGZYKCB2GBrPxR4KXwo2TbYyb8DHRK0aLChvxJO/QYFX2WPNtP9ZdgF6SuXesiWjxGcmQE7
+	52NEt/882+XsNts9hTfY7BHkxpHQGPci6cc=
+X-Received: by 2002:a05:690c:6602:b0:80b:a1c7:9f95 with SMTP id 00721157ae682-8201bccf906mr129185607b3.5.1786086563843;
+        Fri, 07 Aug 2026 00:09:23 -0700 (PDT)
+Received: from buildmachine.tailf331da.ts.net (ec2-3-14-143-233.us-east-2.compute.amazonaws.com. [3.14.143.233])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-823f0e64324sm5230367b3.19.2026.08.07.00.09.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 07 Aug 2026 00:09:23 -0700 (PDT)
+From: Baul Lee <baul.lee@xbow.com>
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Brian Gix <brian.gix@intel.com>
+Cc: Baul Lee <baul.lee@xbow.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	federico.kirschbaum@xbow.com
+Subject: [PATCH 0/3] Bluetooth: MGMT: fix use-after-free of struct mgmt_mesh_tx
+Date: Fri,  7 Aug 2026 16:09:13 +0900
+Message-ID: <20260807070916.85771-1-baul.lee@xbow.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807033459.1725973-1-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 06, 2026 at 11:34:59PM -0400, Sasha Levin wrote:
-> From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-> 
-> [ Upstream commit 3c58f641e813c3c71039f8fd4d4e2a3aab713288 ]
-> 
-> Vova Tokarev says:
-> 
->   userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
->   access, you can register on the shadow stack, discard a page ... and
->   inject a page with chosen return addresses via UFFDIO_COPY.
-> 
-> Update vma_can_userfault() to reject VM_SHADOW_STACK.
-> 
-> While on it, also reject VM_SPECIAL so that if a driver would implement
-> vm_uffd_ops, it wouldn't be possible to register special VMAs with
-> userfaultfd.
-> 
-> Since VM_SPECIAL includes VM_DONTEXPAND which is set but hugetlb, exclude
-> hugetlb VMAs from the check for VM_SPECIAL.
-> 
-> Link: https://lore.kernel.org/20260618095017.2553004-1-rppt@kernel.org
-> Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: Al Viro <viro@zeniv.linux.org.uk>
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: Linus Torvalds <torvalds@linuxfoundation.org>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Oleg Nesterov <oleg@redhat.com>
-> Cc: Peter Xu <peterx@redhat.com>
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  include/linux/userfaultfd_k.h | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-> index c0e716aec26aa..796a380664bd8 100644
-> --- a/include/linux/userfaultfd_k.h
-> +++ b/include/linux/userfaultfd_k.h
-> @@ -214,7 +214,10 @@ static inline bool vma_can_userfault(struct vm_area_struct *vma,
->  {
->  	vm_flags &= __VM_UFFD_FLAGS;
->  
-> -	if (vma->vm_flags & VM_DROPPABLE)
-> +	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
-> +		return false;
-> +
-> +	if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
+hdev->mesh_pending is extended and walked from syscall context under
+hdev->lock, and unlinked and freed from the hci_cmd_sync worker under
+hci_req_sync_lock, so the list has no protection; the objects on it are
+also handed to hci_cmd_sync_queue() as raw pointers, and those work
+entries outlive the list.  Three use-after-frees follow, all reproduced
+under KASAN.
 
-Yeah, that's the right place :)
+Patch 1 removes mgmt_cleanup(), the one walker of the list that cannot
+take hdev->lock.  Patch 2 puts the list under hdev->lock on the worker
+side and asserts it in the helpers.  Patch 3 gives the object a
+reference count for the work entry.  The order matters: the assertions
+in patch 2 have no violating caller left once patch 1 is in, and the
+reference in patch 3 is only well defined once every unlink happens
+under one lock.
 
-Thanks!
+Reaching any of this needs CAP_NET_ADMIN in the init user namespace.
+hci_sock.c sets HCI_SOCK_TRUSTED at bind under capable() rather than
+ns_capable() and gates every later mgmt command on it, and the mesh
+commands additionally need HCI_MESH_EXPERIMENTAL.  Nothing in
+hci_event.c touches hdev->mesh_pending.
 
->  		return false;
->  
->  	if ((vm_flags & VM_UFFD_MINOR) &&
-> -- 
-> 2.53.0
-> 
+Each reproducer was run at identical parameters on the unpatched and the
+patched kernel, built with KASAN, PROVE_LOCKING, DEBUG_LIST and
+DEBUG_ATOMIC_SLEEP: every splat the unpatched kernel produces is gone.
+
+Baul Lee (3):
+  Bluetooth: MGMT: remove the mesh walk from the socket destructor
+  Bluetooth: MGMT: protect hdev->mesh_pending with hdev->lock
+  Bluetooth: MGMT: reference-count struct mgmt_mesh_tx
+
+ include/net/bluetooth/bluetooth.h |  1 -
+ net/bluetooth/hci_sock.c          |  1 -
+ net/bluetooth/mgmt.c              | 72 ++++++++++++++++++++++++---------------
+ net/bluetooth/mgmt_util.c         | 31 +++++++++++++++--
+ net/bluetooth/mgmt_util.h         |  3 ++
+ 5 files changed, 76 insertions(+), 32 deletions(-)
 
 -- 
-Sincerely yours,
-Mike.
+2.50.1 (Apple Git-155)
