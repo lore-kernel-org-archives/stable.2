@@ -1,123 +1,199 @@
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E7F47427A
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 16:37:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DC647ECEB
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 16:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786120672; cv=none; b=i6y0ZitnZkWhGAAvrvj+M1YdgOYJwNvtVYw8waLSP+TsV2zPRKnOASu2b4jCP6xeA302jwS806z4kX6lix7BjM9t15njgWg30BK+mdPuLzf2oiWfete6N5jcJReum8rOrKSfvgbOyyqdvPDQ3s91GUUfnNIDhdGsLPQ8200vNfc=
+	t=1786121049; cv=none; b=IWHOH587PPiKwiRohJDK6F8KNYQ5KOZkZd6oRBwaRDrFFNro7F8yAWRohKlp0pf055UBAfAv+0VsEiHISVNoF5qESV9IPQhMLYtkSJLsWqChXt8870Ey39xkA2J37cHSzZhgr5iU25PhpuC8D0bI3Ijce4EKfKTCey6iuf3ClBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786120672; c=relaxed/simple;
-	bh=W2vPaAvbBFaEnI5PS+wWp9fGPFM0lRF90ZCyeiQzTGA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N4uYo8YAe0jQRJlQk40MiY9WE/fFpx1M4PR7KxOCTjPM0TkuWBQE7T+kNNO8gb/zxJa54iI5iUcSN280P7Rio2BpKxSa5DVVg/VzgkHKjSsHhTOe3rIProgj6s4fk2kkBp92y8xVSOYMoRF97Hkc0Q229slA1GHKvjk4p706oY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DHt8Ax+q; arc=none smtp.client-ip=209.85.167.178
+	s=arc-20240116; t=1786121049; c=relaxed/simple;
+	bh=uPhLGPhcYhdMfSp4rrZp74jm8xFS8hjXR/BosdftPU0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UwGhkLgkTSz3cqbNN3HMZHdJ9elwRfbDZu2Ff4ZdnJyESr6m7WBdFUzMvSMUpvD2cAErhIwrdSYSBDUHkX14EDJtduw+G9efghmkSqNKIcPs7X951h0IsWIVsuyXEsSB89RH8M9dlGSzSQBcypI03HOkeRSJ1cY9cBrz+uhMxlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UcT2M3h9; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DHt8Ax+q"
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4a475bd9ff7so482288b6e.3
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 09:37:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UcT2M3h9"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso32989065e9.3
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 09:44:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786120668; x=1786725468; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RYnU/CjNnSldiurArBMef+rqNUycTmCsidAIhbgMp9k=;
-        b=DHt8Ax+qYqOHOoWvUdhpnMRIVBkxqKnIdxQ7tdmDFFySm92vEYggSVFloJb/tidux3
-         ihfnuTzADaYMF8ARHfD7yLJQc/zGABeW9XSe3wqDRjJYcNWtxc0sg2YOl/NIeQXQX//j
-         xpL5dtDkGx30iuT1TqxEBqSBC7BmTHNaUssGxVHSGdgEArDQmwxPWSXvwkFI1iXwkExX
-         46imgyIpN6Ydo4Qcl5JGxO1kYfg4wqkU5tivfMIvvaUj1/R9lgBKiv6Acc/sfwY0v1Dz
-         FxJQV3pioqK1KMH1eQaV1WaNp6oDUD55dxqSYz5njHMeZfzpr7JsdjxwH4owbGWpiT4w
-         Jdxg==
+        d=gmail.com; s=20251104; t=1786121044; x=1786725844; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3QXb84XN1127M+aZY6/SeCM+ISG9Q4eDpoIhqwUcmGU=;
+        b=UcT2M3h9RMhWwlsYKBJV4IzIj8IK0p8L6BlAMqKaHKzJ90hXgWWBUlqgwRHRMBu3HP
+         zHInYBcMuQXkiT1I2mPxrGCNoltKBHnVz8wZAbVkAtjoN2O03c3K00G9JiHsnisc4ztF
+         TZaIUYe0JEEjqw4HZV1LrYrWp4QQFk4P4VadnUQc0mi8nUfyWp/yAAWdmP8zDGiDE2q3
+         3OKxdlKbL2MFiwuTxa7evZraV3ekmPpCr66dgH3PbhNcG1IiK96TDjvgUbr88lyFX1Ol
+         Eh/AiM8gXCkoLesPfVRow1Sz2K8GnEnjSlfdjPyZ4Zlzq9tiGS0Mmt8UIKjwoQ41bHK7
+         PATA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786120668; x=1786725468;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RYnU/CjNnSldiurArBMef+rqNUycTmCsidAIhbgMp9k=;
-        b=ESR1D6XsJo1SDWNGwHixQjxw86yAM5bBI8pz9cp/nc7dulbN6HM/AQuueNSOH60zd7
-         urcyTkMsD/4LrrT3Kb2rbQymLNJCkR+r2Nx0wFF0jioqxFWQCcbu/4a0+hw3NmvvqDFW
-         ufvNUwVs7dKdMwirHbHrtOW//IvPCCsVwDUYObasuY9/rGrRcEVF6XCuUoh+oKqRrOdG
-         ybqZyDinkcZx1a1Bkok8bL/M5NFe2QmGJmnzZb9UCMHTx3nLwMKXTzzorsMU/mDwzSbH
-         wWFhv/EorCcSTG0zG/o2QlWd8gCkDgnCiAE8KH0ysyRJkAM3dPmQg8wKpXXqX2tiK6+l
-         NAfg==
-X-Forwarded-Encrypted: i=1; AHgh+RppuTzt2bLqZ13OcPPyiEj4ONp+H2sgN6s+M11vA8Ngy+rE8eLYzd6rMGEUIHMkDzdyBOl4cZs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxW0B/bw3W/ESK2o83ldNytX3zh7dvfOqPZ/ejWl1FA5juB/lvg
-	0mjX+pJZ+S5pypzGuKgV2cqXuX7mSfYOpF3IkqbS3j3MlEju0PDgblo/
-X-Gm-Gg: AR+sD13656XmwNf4OYTR6Xz1XnnOMs2tUWJmxT1i/SwrJqqgl+/KBqZF12WOPy/QFdJ
-	nb0nky7BOgN9TnAsWM/e1TrkA5/r15ydGeimb0dUr347366dNs4mD/5fJD2l9WqMq3Zm9Zzuym6
-	+uPfyWFwVWpgd9cc5KNwXkJ8AP2o7TgeIkQXVGcIquYZhFusdGyyQ1HpQ21uYCeiybZjJfSLdjn
-	ReU+lq7l8msGHr40YnFXSlc3vGoXbpBs1F+twBWYxTVcV+cQ41gnWm1kTrUMUTCfKTwDrjCAbrC
-	GUh91PezKl0RhIgwA28MhtcSMqizgkmyhCIFIUrBSJE0EA5xpq/kzopBA/QICuIj7KQAkQ6q4Tj
-	JEPQrBMjB+MjRpfiUCwqUa+W+FdWjPrWEcWlBlcdH6u2TGzcQlfwRDoArSn2sGmdUHesTf/pwPY
-	cJR1kQMmmzCKSj9MUjbXqRRGGqF8dBheufNQkfBYHtx2x4Q3dj+Up4R1AdokrGu2pDF6HMhANgf
-	STW/DsA/8TmaEphSx4vw0yritLIBDFX3eL/NzwV1lZDYVuXnS4MtodcejgxWm8=
-X-Received: by 2002:a05:6808:13c2:b0:495:d9fc:238a with SMTP id 5614622812f47-4afae30e48cmr8312577b6e.3.1786120667910;
-        Fri, 07 Aug 2026 09:37:47 -0700 (PDT)
-Received: from antares ([149.88.25.215])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4afae769393sm7731773b6e.16.2026.08.07.09.37.46
+        d=1e100.net; s=20251104; t=1786121044; x=1786725844;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3QXb84XN1127M+aZY6/SeCM+ISG9Q4eDpoIhqwUcmGU=;
+        b=qHWQtpb2r+ScWoaJDdft6mJ1mAATvt0SfVxD5ydf+ikI4gz/dmBYMSVPULRIA4l6we
+         2sJreTOp2QJVNYo6lfD4cxKDMkrCtmG18RndDhK8/XTWVQE4KB0/T0zCyLhPg3IK2JkK
+         g0iT9H/SDUYCI2mIcCj6PIwrzkiRk97BC/mhqvZR1/UOpbuhshv3cBU72drfCvzUSwVG
+         oPfLZyWNY1plfYF4h1TtXKDRPAkEaGV6ckGIf+s60Pn6mep0FdjEX5zzDYUN9zEEm48/
+         Z1tzLNcqwJ0YQYGhNfSTRYgRBGAHMCThayxqwjm5+fFXFN0eIGLoxBys4wfS663NEu8/
+         IIVg==
+X-Forwarded-Encrypted: i=1; AHgh+RqKZ/KRqkZVdATRQUlNLDPcRdqXR86p5ILDusxKlnDPTlTSM4Vg3y830plQBBCtX5u1vRbNwyo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVMWXVp3ZuzUric5+nWtipZ7L0BryiqvOLQxjjAsclYWE5f05u
+	W0axJOHVFRSBoDGuyWJpH6ltHKMhR81UrmUuBvK2fs9QZZin5fjg2lRsyYQKxnswwL4=
+X-Gm-Gg: AR+sD10jw9/mk5L2uhBuW6wJDREUSpOiNvxyN6U8a4lTbcvIziduE+Ys4tf5vBtsr1j
+	pySbADoFIneHWd3d3wlWD0N+v7EKRXpI0ZeW4MNDFwIAOjBarc4nN5tvl64DBOEK1Mi4SJOKK+6
+	VDakeI3HAL32rxR9TJYQYmeDiEZ0t3lN3wrirMDR0f8g4OHnxt3y8kgLTC+LPauGQrmHX8LKwHR
+	8mUQ+1TV+k5xmMrictqqljuSz1/9UlMk77+dYAbFPHq0d1UU8xoqZrrg2I0MOUVrCkOdTzGIV3n
+	5HNRjOpyKC9FJJRckWY+ggvOTZOOyeOm6RA8QrYhEEGXcigdg0GI7c3BK59AZqcvkVtd7kF48wC
+	vzoFT05jCywtaU3VmKKhSmnCAxt5ToUliRtD48MpcnPyJkbiwD+2FO/CpOZJomUaP6PcL0D3SBU
+	Qt4+n6PzLwDc2SLACDX7YKKX9IoDJi6bWIj28lCUfB8pDzrHY1tW5571gHMU3fUBCFb5z0JB1yl
+	6HD5+3XtGk+QUgqvTuYd97Meg==
+X-Received: by 2002:a05:600c:46cc:b0:495:4e89:3f30 with SMTP id 5b1f17b1804b1-49961b8a027mr11821095e9.15.1786121044328;
+        Fri, 07 Aug 2026 09:44:04 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021f9182sm7368787f8f.28.2026.08.07.09.44.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 09:37:47 -0700 (PDT)
-From: Bogdan Nicolae <bogdan.nicolae@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v6] wifi: brcmfmac: cyw: pass PMKID to firmware if present
-Date: Fri,  7 Aug 2026 11:34:18 -0500
-Message-ID: <20260807163418.487508-1-bogdan.nicolae@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Fri, 07 Aug 2026 09:44:03 -0700 (PDT)
+Date: Fri, 7 Aug 2026 17:44:02 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net 1/2] ipv4: mcast: getsockopt: do not overwrite past
+ optlen
+Message-ID: <20260807174402.2dfc12d6@pumpkin>
+In-Reply-To: <20260806-mcast_fix-v1-1-bed0a5518e57@debian.org>
+References: <20260806-mcast_fix-v1-0-bed0a5518e57@debian.org>
+	<20260806-mcast_fix-v1-1-bed0a5518e57@debian.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Zero out auth_status on initialization. Otherwise, garbage will
-leak from the stack to the firmware (when ssid is less than 32 bytes
-and/or when params->pmkid is set). Then, pass the params->pmkid to the
-firmware (without it, the firmware caches a garbage PMKID on successful
-authentication and denies a subsequent association request that includes
-the PMKID).
+On Thu, 06 Aug 2026 02:42:00 -0700
+Breno Leitao <leitao@debian.org> wrote:
 
-Fixes: 66f909308a7c ("wifi: brcmfmac: cyw: support external SAE authentication in station mode")
-Signed-off-by: Bogdan Nicolae <bogdan.nicolae@gmail.com>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
----
-v6: Fixed diff line number
-v5: Fixed line length > 80 chars
-v4: Fixed indentation
-v3: Added Fixes, Cc: stable, and Acked-by tags
-v2: Split into a separate patch
+> getsockopt(MCAST_MSFILTER) can write past the end of the buffer the caller
+> declared.
+> 
+> This is because the copy_to_user() does not respect the optlen, and can
+> write over the allocated buffer, overwriting userspace undesired
+> memory
 
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Nak. This is just the way it is defined.
+The application provides a length that is just the header.
+As you noted the header contains details of the real buffer.
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
-index 873754be5..2c59b5e57 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
-@@ -200,7 +200,7 @@ brcmf_cyw_external_auth(struct wiphy *wiphy, struct net_device *dev,
- {
- 	struct brcmf_if *ifp;
- 	struct brcmf_pub *drvr;
--	struct brcmf_auth_req_status_le auth_status;
-+	struct brcmf_auth_req_status_le auth_status = {};
- 	int ret = 0;
- 
- 	brcmf_dbg(TRACE, "Enter\n");
-@@ -208,6 +208,9 @@ brcmf_cyw_external_auth(struct wiphy *wiphy, struct net_device *dev,
- 	ifp = netdev_priv(dev);
- 	drvr = ifp->drvr;
- 	if (params->status == WLAN_STATUS_SUCCESS) {
-+		if (params->pmkid)
-+			memcpy(auth_status.pmkid, params->pmkid,
-+			       WLAN_PMKID_LEN);
- 		auth_status.flags = cpu_to_le16(BRCMF_EXTAUTH_SUCCESS);
- 	} else {
- 		bphy_err(drvr, "External authentication failed: status=%d\n",
---
-2.55.0
+There are quite a few sockopt like it, you have to support them.
+There may be some where the length isn't checked and is just assumed
+to be the right size - they have to continue to work as well.
+
+	David
+
+> 
+> The amount written comes from the numsrc the caller left in optval, not
+> from optlen. do_ip_getsockopt() reads optlen once, to check that the header
+> fits, and then reuses the variable for the length of the reply, so by the
+> time ip_mc_gsfget() fills the source list nothing remembers how big the
+> buffer was.
+> 
+> The copies go through copy_to_user(), so this reaches only the caller's own
+> address space.
+> 
+> setsockopt has had the matching check from the start:
+> 
+> 	if (GROUP_FILTER_SIZE(gsf->gf_numsrc) > optlen)
+> 		return -EINVAL;
+> 
+> Clamp numsrc to what optlen holds rather than rejecting. Another option
+> would be to reject (-EINVAL), but, that might break userspace _more_.
+> 
+> For reviewing purposes: size0 is the header size, so, the available
+> buffer is len - size0.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+>  net/ipv4/ip_sockglue.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/net/ipv4/ip_sockglue.c b/net/ipv4/ip_sockglue.c
+> index a55ef327ec932..2e4e19b90645b 100644
+> --- a/net/ipv4/ip_sockglue.c
+> +++ b/net/ipv4/ip_sockglue.c
+> @@ -1447,6 +1447,7 @@ static int ip_get_mcast_msfilter(struct sock *sk, sockptr_t optval,
+>  {
+>  	const int size0 = offsetof(struct group_filter, gf_slist_flex);
+>  	struct group_filter gsf;
+> +	unsigned int max_numsrc;
+>  	int num, gsf_size;
+>  	int err;
+>  
+> @@ -1455,6 +1456,10 @@ static int ip_get_mcast_msfilter(struct sock *sk, sockptr_t optval,
+>  	if (copy_from_sockptr(&gsf, optval, size0))
+>  		return -EFAULT;
+>  
+> +	/* Maximum number of sources that would fit in the userspace buffer*/
+> +	max_numsrc = (len - size0) / sizeof(gsf.gf_slist_flex[0]);
+> +	gsf.gf_numsrc = min_t(u32, gsf.gf_numsrc, max_numsrc);
+> +
+>  	num = gsf.gf_numsrc;
+>  	err = ip_mc_gsfget(sk, &gsf, optval,
+>  			   offsetof(struct group_filter, gf_slist_flex));
+> @@ -1474,6 +1479,7 @@ static int compat_ip_get_mcast_msfilter(struct sock *sk, sockptr_t optval,
+>  {
+>  	const int size0 = offsetof(struct compat_group_filter, gf_slist_flex);
+>  	struct compat_group_filter gf32;
+> +	unsigned int max_numsrc;
+>  	struct group_filter gf;
+>  	int num;
+>  	int err;
+> @@ -1483,6 +1489,9 @@ static int compat_ip_get_mcast_msfilter(struct sock *sk, sockptr_t optval,
+>  	if (copy_from_sockptr(&gf32, optval, size0))
+>  		return -EFAULT;
+>  
+> +	max_numsrc = (len - size0) / sizeof(gf32.gf_slist_flex[0]);
+> +	gf32.gf_numsrc = min_t(u32, gf32.gf_numsrc, max_numsrc);
+> +
+>  	gf.gf_interface = gf32.gf_interface;
+>  	gf.gf_fmode = gf32.gf_fmode;
+>  	num = gf.gf_numsrc = gf32.gf_numsrc;
+> @@ -1705,6 +1714,7 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
+>  	switch (optname) {
+>  	case IP_MSFILTER:
+>  	{
+> +		unsigned int max_numsrc;
+>  		struct ip_msfilter msf;
+>  
+>  		if (len < IP_MSFILTER_SIZE(0)) {
+> @@ -1715,6 +1725,12 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
+>  			err = -EFAULT;
+>  			goto out;
+>  		}
+> +		/* Do not write more sources than the caller said optval can
+> +		 * hold.
+> +		 */
+> +		max_numsrc = (len - IP_MSFILTER_SIZE(0)) /
+> +			     sizeof(msf.imsf_slist_flex[0]);
+> +		msf.imsf_numsrc = min_t(u32, msf.imsf_numsrc, max_numsrc);
+>  		err = ip_mc_msfget(sk, &msf, optval, optlen);
+>  		goto out;
+>  	}
+> 
+
