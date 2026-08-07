@@ -1,61 +1,61 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E739374195;
-	Fri,  7 Aug 2026 18:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7575A381E9A;
+	Fri,  7 Aug 2026 18:43:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786128193; cv=none; b=diZdJGiTlPnHNgWtzrpZKKubDxemUHJTCUwG4CvccMxerBurLjQU1EbDrcyUawbxSHh0bEeuUFlaL6h7kQuQjtkKKVgYJCkVSGhFWWM7r8zQtb7/aXy5Lu3x/g6+sm3H2b8NsFJxmSQBffYd5ZfQqI+W8jx6YsUCu8TEvGuYEMY=
+	t=1786128242; cv=none; b=a4hydrCjnkvLlLQ81rddmu2U/7FOd5tnRFfIYtNuRkJn9UlsO+sfK9rfwKMXtrqwl6qPPkrXIxx/PSeyUptxaN3/DsEWObRXwe5XFUQ1d8q1pP/qcY+4faQ6gbFzMaCNzr0aoTnAWA5j9VWGt3SA3jgCJCRmXv5A+txstYtNKQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786128193; c=relaxed/simple;
-	bh=SoTuwKA3BkWL/NHeL8b9r41+rq5IGM6tczn+0UacSKU=;
+	s=arc-20240116; t=1786128242; c=relaxed/simple;
+	bh=Li2bF1Qa1Kne42S2clg+CXLFGUErXVc50f7GFkXcp38=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=d/l4MmEThIG6nTvhFqUV7IFOYdBQvb2rL9a0dVx444EYk8XlHU26EBJ3Bi5IfPVgRf9jTvAMC5DkIgmJQZODx9PCiz+ceoTb18uEvyw8kZEO3w8i68YfxaD6ZvU+NTg6eUWNN2y4XqG+WkpueHGbGYyK7xJOMPRAJ2gAgZzunXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P5FlBlQz; arc=none smtp.client-ip=198.175.65.19
+	 Content-Type:MIME-Version; b=K27SaKJ0s4QKOk25mkpLcrXQ8q3c/vfw7lYWR4QT/D4s5nwKFjn3c49rRxScyRln7/xo2WHH9kCd5XOjjpAHrNW61kPUIYM5fLB+cwIVkh1ozw+bXDKDWBZctpuEB9LsoNbmAsWu8UW5/91z9QE+0lmsB9pj5fG7hJxSSTCR8MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fNBUlcaH; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P5FlBlQz"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fNBUlcaH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786128191; x=1817664191;
+  t=1786128240; x=1817664240;
   h=message-id:subject:from:to:cc:date:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=SoTuwKA3BkWL/NHeL8b9r41+rq5IGM6tczn+0UacSKU=;
-  b=P5FlBlQzbr8+WTBX5HP4Vp9CzfB0R+o5gkWfU0WzuIZ+tSSTW84Js9N+
-   SFxGSTu63RtQxpWSJy5CAd+xhzxwNV4SOtl82HHryqhQVpE45n5Kd/b81
-   fSmJ7Kt3TZTOAXrHrsb/CZEpWS/J5bNF/Z8zvrALkTqsmTfFSbUJMCHQs
-   41m8FZtcR8ZoOgN4E79isWGVYNv9Vqz0xxBdC+9ktbkegKn1kkDEKycu6
-   xykcn8gEq8/sJSS+EeM5ci5LYWMAldKbv3wlXIJUQn5VBHDN2QG+yLiX9
-   NcPme9qdvujHZZiQRX0zgkIvdHZoWnLkLGBYgcQNWXdU+czy8IX+B9VIR
-   w==;
-X-CSE-ConnectionGUID: SdUByA90RO+wLerkWorxsg==
-X-CSE-MsgGUID: tD/SGrewRAmrsU7FDwT0gA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="86682991"
+  bh=Li2bF1Qa1Kne42S2clg+CXLFGUErXVc50f7GFkXcp38=;
+  b=fNBUlcaHg3Eg3VEiBXgPSeq5EwSEigEAXdoTHI3rQQlNPOii/lsWEHIU
+   /LiRAlVIzqN0DEGrp1nAOvyNh5H3A4lvh5Y7KhgCbuIbzV9FxPqVmYMkd
+   pXZwqI7UBTiUIwqf7UarhCgTRTXhyW2tJENst426UyrKEfbRIiYwO9+Gn
+   5jMQ++nYTBAQ2E0S48zUQrxKc3cQ+hjdeuj5DvvgzIpHiwQhged7wUwRR
+   csvkkZ32A+ydIJ/F8F89OdZBX6jlezExc0lkpPXFXtQJkzNx6PeiGiK0h
+   S+semB3LnrTOtjHk/I9urj+GGMRTcsavqxjjskjCcSLkjvPLDgRPtpxdx
+   Q==;
+X-CSE-ConnectionGUID: aDVHFwYbStmNoB8munSmfQ==
+X-CSE-MsgGUID: Xjs6SeJgQNSRIfHR2YBZTg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="104141374"
 X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
-   d="scan'208";a="86682991"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 11:43:10 -0700
-X-CSE-ConnectionGUID: bwRb/FjfS0GiKHWOZaDBHw==
-X-CSE-MsgGUID: FVYq6/jVQR2k8B9eZ60k0Q==
+   d="scan'208";a="104141374"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 11:43:58 -0700
+X-CSE-ConnectionGUID: YHSRs9BSTBm5Sp0UH0hGhQ==
+X-CSE-MsgGUID: CqO1PwEYQHuBYLDjdtWBEA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
-   d="scan'208";a="261176612"
+   d="scan'208";a="260718813"
 Received: from spandruv-desk1.amr.corp.intel.com ([10.124.222.41])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 11:43:09 -0700
-Message-ID: <188a703dcb1334750fb389cd7142e262bddae72c.camel@linux.intel.com>
-Subject: Re: [PATCH 1/2] platform/x86: ISST: Validate socket ID in
- clos_assoc ioctl
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 11:43:58 -0700
+Message-ID: <930a4677a7c8a65f621893549b1527a8f3ecb536.camel@linux.intel.com>
+Subject: Re: [PATCH 2/2] platform/x86: ISST: Validate level in perf mask
+ ioctls
 From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
 To: HyeongJun An <sammiee5311@gmail.com>, Hans de Goede <hansg@kernel.org>, 
  Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
 	 <ilpo.jarvinen@linux.intel.com>
 Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Date: Fri, 07 Aug 2026 11:43:03 -0700
-In-Reply-To: <20260807144003.3498972-2-sammiee5311@gmail.com>
+Date: Fri, 07 Aug 2026 11:43:57 -0700
+In-Reply-To: <20260807144003.3498972-3-sammiee5311@gmail.com>
 References: <20260807144003.3498972-1-sammiee5311@gmail.com>
-	 <20260807144003.3498972-2-sammiee5311@gmail.com>
+	 <20260807144003.3498972-3-sammiee5311@gmail.com>
 Autocrypt: addr=srinivas.pandruvada@linux.intel.com; prefer-encrypt=mutual;
  keydata=mQGNBGYHNAsBDAC7tv5u9cIsSDvdgBBEDG0/a/nTaC1GXOx5MFNEDL0LWia2p8Asl7igx
  YrB68fyfPNLSIgtCmps0EbRUkPtoN5/HTbAEZeJUTL8Xdoe6sTywf8/6/DMheEUzprE4Qyjt0HheW
@@ -85,27 +85,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 On Fri, 2026-08-07 at 23:40 +0900, HyeongJun An wrote:
-> isst_if_clos_assoc() validates the user-supplied socket_id with
-> 'socket_id > topology_max_packages()', but isst_common.sst_inst[] is
-> allocated with topology_max_packages() entries, so the valid index
-> range
-> is [0, topology_max_packages()).=C2=A0 The '>' comparison lets
-> socket_id =3D=3D topology_max_packages() pass and index one entry past
+> isst_if_get_perf_level_mask() and isst_if_get_base_freq_mask() use
 > the
-> array.
+> user-provided level as an index into perf_levels[] via
+> _read_pp_level_info() and _read_bf_level_info(), but neither helper
+> validates it first.
 >=20
-> In addition, isst_common.sst_inst[socket_id] is NULL for an in-range
-> package that has no bound TPMI SST instance, and the pointer is used
-> without a NULL check.=C2=A0 Both the out-of-bounds entry and the NULL
-> pointer
-> are then dereferenced by map_partition_power_domain_id() and the
-> following power_domain_info access.
+> The adjacent level-info helpers reject levels above max_level before
+> reading the same per-level register block. Add the same bounds checks
+> to
+> the mask helpers, and reject disabled SST-PP levels in
+> isst_if_get_perf_level_mask() to match isst_if_get_perf_level_info().
 >=20
-> Reject socket_id >=3D topology_max_packages() and a NULL sst_inst,
-> matching
-> the checks already performed by get_instance().
+> This prevents out-of-bounds reads from the per-level offset table on
+> invalid ioctl input.
 >=20
-> Fixes: 12a7d2cb811d ("platform/x86: ISST: Add SST-CP support via
+> Fixes: ea009e4769fa3 ("platform/x86: ISST: Add SST-PP support via
+> TPMI")
+> Fixes: 06a61df83209 ("platform/x86: ISST: Add SST-BF support via
 > TPMI")
 > Cc: stable@vger.kernel.org
 > Assisted-by: Claude:claude-opus-5
@@ -114,33 +111,43 @@ On Fri, 2026-08-07 at 23:40 +0900, HyeongJun An wrote:
 Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
 > ---
-> =C2=A0drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c | 4 +++=
--
-> =C2=A01 file changed, 3 insertions(+), 1 deletion(-)
+> =C2=A0.../platform/x86/intel/speed_select_if/isst_tpmi_core.c=C2=A0 | 9
+> +++++++++
+> =C2=A01 file changed, 9 insertions(+)
 >=20
 > diff --git
 > a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
 > b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-> index 24334ae70d82..b2965baeaa36 100644
+> index b2965baeaa36..f1b6109521c5 100644
 > --- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
 > +++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-> @@ -729,7 +729,7 @@ static long isst_if_clos_assoc(void __user *argp)
-> =C2=A0		if (copy_from_user(&clos_assoc, ptr,
-> sizeof(clos_assoc)))
-> =C2=A0			return -EFAULT;
+> @@ -1263,6 +1263,12 @@ static int isst_if_get_perf_level_mask(void
+> __user *argp)
+> =C2=A0	if (!power_domain_info)
+> =C2=A0		return -EINVAL;
 > =C2=A0
-> -		if (clos_assoc.socket_id > topology_max_packages())
-> +		if (clos_assoc.socket_id >=3D topology_max_packages())
-> =C2=A0			return -EINVAL;
+> +	if (cpumask.level > power_domain_info->max_level)
+> +		return -EINVAL;
+> +
+> +	if (!(power_domain_info->pp_header.level_en_mask &
+> BIT(cpumask.level)))
+> +		return -EINVAL;
+> +
+> =C2=A0	_read_pp_level_info("mask", mask, cpumask.level,
+> SST_PP_INFO_2_OFFSET,
+> =C2=A0			=C2=A0=C2=A0=C2=A0 SST_PP_RSLVD_CORE_MASK_START,
+> SST_PP_RSLVD_CORE_MASK_WIDTH,
+> =C2=A0			=C2=A0=C2=A0=C2=A0 SST_MUL_FACTOR_NONE)
+> @@ -1344,6 +1350,9 @@ static int isst_if_get_base_freq_mask(void
+> __user *argp)
+> =C2=A0	if (!power_domain_info)
+> =C2=A0		return -EINVAL;
 > =C2=A0
-> =C2=A0		cpu =3D clos_assoc.logical_cpu;
-> @@ -747,6 +747,8 @@ static long isst_if_clos_assoc(void __user *argp)
-> =C2=A0		pkg_id =3D clos_assoc.socket_id;
-> =C2=A0
-> =C2=A0		sst_inst =3D isst_common.sst_inst[pkg_id];
-> +		if (!sst_inst)
-> +			return -EINVAL;
-> =C2=A0
-> =C2=A0		punit_id =3D map_partition_power_domain_id(sst_inst,
-> punit_id, &part);
-> =C2=A0		if (punit_id < 0)
+> +	if (cpumask.level > power_domain_info->max_level)
+> +		return -EINVAL;
+> +
+> =C2=A0	_read_bf_level_info("BF-cpumask", mask, cpumask.level,
+> SST_BF_INFO_1_OFFSET,
+> =C2=A0			=C2=A0=C2=A0=C2=A0 P1_HI_CORE_MASK_START,
+> P1_HI_CORE_MASK_WIDTH,
+> =C2=A0			=C2=A0=C2=A0=C2=A0 SST_MUL_FACTOR_NONE)
