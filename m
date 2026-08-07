@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED5C38F626;
-	Fri,  7 Aug 2026 14:44:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC0539CCFC;
+	Fri,  7 Aug 2026 14:44:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786113855; cv=none; b=h9g9/+esMiwzmr0ox+hFXR5hlTV0mnafJONyeMs7l+gSfmYqyH8JS2yEihaGrsLpoytdcmst4EhE9ZSXKxssw37HH6EjnvWv4e1VRuCpTH+fI9JbMQlTeV5zIDWhzu5Ncx+ZM3lE3tsARQFRqHJ8hln7xFfyWUNRij/yTkVEBnw=
+	t=1786113859; cv=none; b=Bjn5UtrkbGIxZABjz28YelBIs0fvGrFhPqY5yJxYeCTap86YWJ2RLaOFTWaNXfcO/A7Bm/p0uK2xQkStS0SwKvDufsPwmLbMZIv5+bzZJZb5hYcR4sLDMZXfV0sOZczr4eI8Nzl7RD9SGrExRGb6umnqstSDkJ/k/A/wG9dVSZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786113855; c=relaxed/simple;
-	bh=5dcSrHbf3TYicVaesgV2PqG/6S7NB7qIJtN7vvRZCcg=;
+	s=arc-20240116; t=1786113859; c=relaxed/simple;
+	bh=ZYiCTWzREBOIBN3c6f2KVI+V12JvN8AaZzP3CZpIgnI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OI2zSWnDR1IFFUHAQ6ArXgUBy0N1yaw+d2sENfA7YeP6z6O5R6RSEotlZy6rGupwaLuVdmriOlMVomxd2T+s3eSqhnxoCrhZvNclAbRSlR6MU8xEV52qyzvs5A95Y0n3IgGQK8u9m5DrTLMzZOCacGRtW2FFyHVPO1hAu3bF5Yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OAoS6Zvy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=q4VyLLtjazTPDPOUGVjRxszrybujqDGJzpNruA+aqalpPNCqGLn6l0T6hhL1FLEXZMfVOoZlRQtxEw6kANtiYuE95iYFUkHqJx+oX8OKA3YPFhff1AD2XcR2c5Ytldll+VyFg7w83CrBokhvZfosfYBsGnQskkaoaL7n2q6kjXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fKSEvQRc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OAoS6Zvy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23CCF1F00A3D;
-	Fri,  7 Aug 2026 14:44:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fKSEvQRc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F17791F00A3F;
+	Fri,  7 Aug 2026 14:44:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786113845;
-	bh=0qFJFINBM54Ce4rfYrg/KSOW4KDmUnHuJjd5Vrxmg8U=;
+	s=korg; t=1786113848;
+	bh=8Xu74S+nGx/N6a2tjaF0LTJwmhhKosaAwyNDMs29uuk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OAoS6ZvydwtTg93T0vWfot3o/zJRGl7zJ+KC0z3rNCtZzaz1j9JiJ1tkNJMUSdXCD
-	 5I6lxKD1DPtwD5Sgg9AzLg8MDqGOSOvcFHsAJ7hxwmoT+xlPC3By+RJOvtFrrzW7pu
-	 mxXYCoUoZ2tkOFrYpMffDO8gIsi5spsh7useZeu0=
+	b=fKSEvQRcwBJxdpOOsdGlqsLa4Bnnz/ssDQ9REo4/ZbuEnQ+Qr8ExCtLih9q41adIU
+	 Q1aPDOYSbly+CU+rezf6OBG08e7MytZ+gPBtyvEddbIwDy+2BDgojM8F1iWd1suYRo
+	 ruPO/Qh8gpjAcoqugUv0nmDcbfBs2xAh9JOPMF9c=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Chris Leech <cleech@redhat.com>,
-	HyeongJun An <sammiee5311@gmail.com>,
+	Xingui Yang <yangxingui@huawei.com>,
+	John Garry <john.g.garry@oracle.com>,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 055/337] scsi: libiscsi_tcp: Bound SCSI Response data segment to the connection buffer
-Date: Fri,  7 Aug 2026 16:34:18 +0200
-Message-ID: <20260807143419.705697561@linuxfoundation.org>
+Subject: [PATCH 6.12 056/337] scsi: libsas: Fix HA resume deadlock and hisi_sas disk-wake race
+Date: Fri,  7 Aug 2026 16:34:19 +0200
+Message-ID: <20260807143419.727945612@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -52,68 +52,163 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: HyeongJun An <sammiee5311@gmail.com>
+From: Xingui Yang <yangxingui@huawei.com>
 
-[ Upstream commit c1dea15f819cded9b3faf58f8bec72323568b6e6 ]
+[ Upstream commit 3dbbbf656b850c9c8de05df6ad4a1dfc6ff02845 ]
 
-iscsi_tcp_hdr_dissect() receives the data segment of several PDU types
-into the fixed-size conn->data buffer, which is allocated for
-ISCSI_DEF_MAX_RECV_SEG_LEN (8192) bytes.  For the LOGIN_RSP, TEXT_RSP,
-REJECT and ASYNC_EVENT opcodes the dissect path already rejects a PDU
-whose DataSegmentLength exceeds that buffer.
+Commit fbefe22811c3 ("scsi: libsas: Don't always drain event workqueue
+for HA resume") introduced sas_resume_ha_no_sync() to avoid a deadlock:
+the PHYE_RESUME_TIMEOUT handler, running on the HA event workqueue,
+calls sas_deform_port() -> sas_destruct_devices(), which removes SCSI
+devices and waits for the host to become runtime-active. But the host
+cannot resume until sas_resume_ha() -> sas_drain_work() returns, and the
+drain is blocked on that very handler.
 
-The SCSI Command Response (ISCSI_OP_SCSI_CMD_RSP) path also copies its
-data segment (sense/response data) into conn->data via
-iscsi_tcp_data_recv_prep(), but it does so without the same check.  The
-only upstream bound on in.datalen is conn->max_recv_dlength, the
-initiator's advertised MaxRecvDataSegmentLength, which is commonly
-negotiated well above 8192 (open-iscsi defaults to 262144).  A target
-that returns a SCSI Response with a DataSegmentLength between 8193 and
-max_recv_dlength therefore overflows the 8192-byte conn->data buffer.
+However skipping the drain reintroduces a race: hisi_sas returns from
+resume before all PHY UP work and libsas discovery work finish. The
+controller may then autosuspend while disks are still waking up. The
+disks issue IO to a suspended controller, the IO fails, and the disks
+get disabled.
 
-Once the same bound applies, ISCSI_OP_SCSI_CMD_RSP is handled exactly
-like those responses: bound the data segment, receive it into conn->data
-when present, and otherwise complete the PDU with no data.  Fold the
-opcode into that case group rather than duplicating the check.
+Fix the deadlock at its source by moving the PHYE_RESUME_TIMEOUT
+notification to after sas_drain_work(). By then the host resume is about
+to complete, so device removal through device_link no longer blocks on
+the resume and the cycle is broken.
 
-Fixes: a081c13e39b5 ("[SCSI] iscsi_tcp: split module into lib and lld")
-Suggested-by: Chris Leech <cleech@redhat.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Acked-by: Chris Leech <cleech@redhat.com>
-Link: https://patch.msgid.link/20260716065848.1653431-1-sammiee5311@gmail.com
+With the deadlock gone, restore sas_resume_ha() (the draining variant)
+in hisi_sas and remove sas_resume_ha_no_sync().
+
+The reorder is safe for the other libsas consumers (isci, pm8001,
+aic94xx, mvsas). During suspend, sas_suspend_devices() calls
+sas_notify_lldd_dev_gone() for each device, which sets dev->lldd_dev to
+NULL. When scsi_unblock_requests re-enables I/O in resume, any I/O to a
+timed-out phy's disk is immediately rejected by the LLDD before reaching
+hardware: isci returns SAS_DEVICE_UNKNOWN (mapped to DID_BAD_TARGET),
+and pm8001 returns SAS_PHY_DOWN (mapped to DID_NO_CONNECT). Both
+complete directly via scsi_done() without entering SCSI EH. This is
+identical in both the old and new ordering since lldd_dev_gone runs
+during suspend, before resume. The reorder only affects when the
+PHYE_RESUME_TIMEOUT handler runs (synchronized by sas_drain_work()
+vs. asynchronous after resume returns), not whether I/O can reach the
+device. aic94xx and mvsas do not register any PM ops and never reach
+this code path.
+
+Fixes: fbefe22811c3 ("scsi: libsas: Don't always drain event workqueue for HA resume")
+Signed-off-by: Xingui Yang <yangxingui@huawei.com>
+Reviewed-by: John Garry <john.g.garry@oracle.com>
+Link: https://patch.msgid.link/20260716081145.3950172-1-yangxingui@huawei.com
 Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/libiscsi_tcp.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+ drivers/scsi/hisi_sas/hisi_sas_v3_hw.c | 10 +------
+ drivers/scsi/libsas/sas_init.c         | 37 +++++++++++++-------------
+ include/scsi/libsas.h                  |  1 -
+ 3 files changed, 19 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/scsi/libiscsi_tcp.c b/drivers/scsi/libiscsi_tcp.c
-index c182aa83f2c93..4d23205129432 100644
---- a/drivers/scsi/libiscsi_tcp.c
-+++ b/drivers/scsi/libiscsi_tcp.c
-@@ -763,13 +763,6 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
- 		rc = __iscsi_complete_pdu(conn, hdr, NULL, 0);
- 		spin_unlock(&conn->session->back_lock);
- 		break;
--	case ISCSI_OP_SCSI_CMD_RSP:
--		if (tcp_conn->in.datalen) {
--			iscsi_tcp_data_recv_prep(tcp_conn);
--			return 0;
--		}
--		rc = iscsi_complete_pdu(conn, hdr, NULL, 0);
--		break;
- 	case ISCSI_OP_R2T:
- 		if (ahslen) {
- 			rc = ISCSI_ERR_AHSLEN;
-@@ -777,6 +770,7 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
+diff --git a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
+index e958b588d078f..b7dd4efca0c7f 100644
+--- a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
++++ b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
+@@ -5219,15 +5219,7 @@ static int _resume_v3_hw(struct device *device)
+ 		return rc;
+ 	}
+ 	phys_init_v3_hw(hisi_hba);
+-
+-	/*
+-	 * If a directly-attached disk is removed during suspend, a deadlock
+-	 * may occur, as the PHYE_RESUME_TIMEOUT processing will require the
+-	 * hisi_hba->device to be active, which can only happen when resume
+-	 * completes. So don't wait for the HA event workqueue to drain upon
+-	 * resume.
+-	 */
+-	sas_resume_ha_no_sync(sha);
++	sas_resume_ha(sha);
+ 	clear_bit(HISI_SAS_RESETTING_BIT, &hisi_hba->flags);
+ 
+ 	dev_warn(dev, "end of resuming controller\n");
+diff --git a/drivers/scsi/libsas/sas_init.c b/drivers/scsi/libsas/sas_init.c
+index 8566bb1208a05..ac157ab6a3011 100644
+--- a/drivers/scsi/libsas/sas_init.c
++++ b/drivers/scsi/libsas/sas_init.c
+@@ -409,7 +409,7 @@ static void sas_resume_insert_broadcast_ha(struct sas_ha_struct *ha)
+ 	}
+ }
+ 
+-static void _sas_resume_ha(struct sas_ha_struct *ha, bool drain)
++void sas_resume_ha(struct sas_ha_struct *ha)
+ {
+ 	const unsigned long tmo = msecs_to_jiffies(25000);
+ 	int i;
+@@ -425,6 +425,23 @@ static void _sas_resume_ha(struct sas_ha_struct *ha, bool drain)
+ 		dev_info(ha->dev, "waiting up to 25 seconds for %d phy%s to resume\n",
+ 			 i, i > 1 ? "s" : "");
+ 	wait_event_timeout(ha->eh_wait_q, phys_suspended(ha) == 0, tmo);
++
++	/*
++	 * All phys are back up or timed out. Turn on I/O and drain
++	 * pending work.
++	 */
++	scsi_unblock_requests(ha->shost);
++	sas_drain_work(ha);
++
++	/*
++	 * Send PHYE_RESUME_TIMEOUT after sas_drain_work(). The handler
++	 * calls sas_deform_port() -> sas_destruct_devices(), which removes
++	 * SCSI devices and, for LLDDs using device_link() PM sync, waits
++	 * for the host to be runtime-active. Sending it before the drain
++	 * would deadlock: the drain waits for the handler, the handler
++	 * waits for host resume, and host resume waits for the drain to
++	 * finish.
++	 */
+ 	for (i = 0; i < ha->num_phys; i++) {
+ 		struct asd_sas_phy *phy = ha->sas_phy[i];
+ 
+@@ -435,12 +452,6 @@ static void _sas_resume_ha(struct sas_ha_struct *ha, bool drain)
  		}
- 		rc = iscsi_tcp_r2t_rsp(conn, hdr);
- 		break;
-+	case ISCSI_OP_SCSI_CMD_RSP:
- 	case ISCSI_OP_LOGIN_RSP:
- 	case ISCSI_OP_TEXT_RSP:
- 	case ISCSI_OP_REJECT:
+ 	}
+ 
+-	/* all phys are back up or timed out, turn on i/o so we can
+-	 * flush out disks that did not return
+-	 */
+-	scsi_unblock_requests(ha->shost);
+-	if (drain)
+-		sas_drain_work(ha);
+ 	clear_bit(SAS_HA_RESUMING, &ha->state);
+ 
+ 	sas_queue_deferred_work(ha);
+@@ -449,20 +460,8 @@ static void _sas_resume_ha(struct sas_ha_struct *ha, bool drain)
+ 	 */
+ 	sas_resume_insert_broadcast_ha(ha);
+ }
+-
+-void sas_resume_ha(struct sas_ha_struct *ha)
+-{
+-	_sas_resume_ha(ha, true);
+-}
+ EXPORT_SYMBOL(sas_resume_ha);
+ 
+-/* A no-sync variant, which does not call sas_drain_ha(). */
+-void sas_resume_ha_no_sync(struct sas_ha_struct *ha)
+-{
+-	_sas_resume_ha(ha, false);
+-}
+-EXPORT_SYMBOL(sas_resume_ha_no_sync);
+-
+ void sas_suspend_ha(struct sas_ha_struct *ha)
+ {
+ 	int i;
+diff --git a/include/scsi/libsas.h b/include/scsi/libsas.h
+index 1324068dd950f..2e3fcae62e27e 100644
+--- a/include/scsi/libsas.h
++++ b/include/scsi/libsas.h
+@@ -676,7 +676,6 @@ extern int sas_register_ha(struct sas_ha_struct *);
+ extern int sas_unregister_ha(struct sas_ha_struct *);
+ extern void sas_prep_resume_ha(struct sas_ha_struct *sas_ha);
+ extern void sas_resume_ha(struct sas_ha_struct *sas_ha);
+-extern void sas_resume_ha_no_sync(struct sas_ha_struct *sas_ha);
+ extern void sas_suspend_ha(struct sas_ha_struct *sas_ha);
+ 
+ int sas_phy_reset(struct sas_phy *phy, int hard_reset);
 -- 
 2.53.0
 
