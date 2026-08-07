@@ -1,179 +1,97 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429BA472F70
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 12:33:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B616E4756A5;
+	Fri,  7 Aug 2026 12:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786105995; cv=none; b=V3aM4cRVfxoTi/IH1NFqZ3xXZBNHAiWBH0gfDE8yvY2MLXVh5u6XLRYWccS/0jkHM+5DrzGaQBDl8Xk6v2rznyb6uDHL8oxTd9Rs9IuJqO+vIRNc/OlpTCkOLFPCZyxHMPU4d9BxZOB9D4FT3TiEvC0ZqbOHkw+3zYCRgWTuAs0=
+	t=1786106396; cv=none; b=jkYeJ3RGCY+nimf4QUsKDB9vIBtkrcpi2T827dv1rsVJtWFou6ypVytN7/yb5rE1GV2cr874zFsS/nIVeg04o1VjBdgC9HPfOmQYToi6yDfWIsCM6rCM7SepQ2mIzVhKhc80ndzIaF0n5lN5uIvnhl9qvap7fnZfwI7BTUaes2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786105995; c=relaxed/simple;
-	bh=PDu+3BXTyXpwPgVrtJxUe/m0n6DzpTg9MQ5tOKffmxE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sH3UpJOYIpqDhGQkgQkaWT3fFOvmpbph6YbU2Z5d35q3ECrkEOhYI8QJk9ax8sK/JmZ5FVT3PdldVwmJuBSg83AlZ0Rof2LXsoGPWmPRJJQMDX755Vw7+70I/G4I6MNCvkoOGTQAmqPq77KpTqiDvgiJAVnt4QTgWIP/81tFM1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b=Db1Is0pI; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786106396; c=relaxed/simple;
+	bh=gUztX7aVlm0QkztdNBiRFkWvXDdxFPmm50jIYqOP9UM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=cnzDK8VLA0DPXd6YxODXE8uuy9JAE4nG0v6+qn5cXxYMXc2O4E0Mk8QWH2JF1lJGtzVcEcZ6Fm1yoguyqS5kG3MkGa9W1TwoiHig9dYdxUpR1FFHk4CJIZp3ly+uaVJcGyKnL09Orqkms9hJi4DLIth5eOjuAq2qEJqCY5BBsyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AY3FcVR0; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b="Db1Is0pI"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7eb1dc6bd53so2007650a34.2
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 05:33:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786105980; x=1786710780;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aBpSBcnVEC7d3b8VCypHKN8KFVfSMJhdR2dxrFOJYmQ=;
-        b=IdxvTvCQQx/1EkzSqMNWJtmi47TaG0FDPLPHpsdCC5ErxheNqlnfjTTTZnvhGgSVdi
-         q1NOXLRVUwEajH2aZzLeA4FOohxZ2opwIL/oqLiknZ+t+51r/MnOS9l/NICZThWz9PlE
-         VwG8IaQZb42iYKr0hkkVCaEdqsA/E/iWYSCnRZKAMFcKn4feEU421QAZZbHuBhsIZOl8
-         Be5jnA1kCp0vb9yMiVrqCoBLAqFBAHXMbfN5MUCTeM1E9eq7lvBEiwCn9nTpxgs25P/F
-         bOHppYUvYvwTjMO/VgPyUQaqRbkgfpKjviVkfFirQ66igykZ1tKSLI5jJ7N2iSSJmd4Q
-         wKfA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4w8Ra7gUbyTGsU1FP9qO8sYyMh1sJG9hhYI6J61lIuy1SQRobfWQv7FmCOSnnM7mG0Kj8GSI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1MuMsDcvBpdbUvxIR/t+QuvgaouYGgXEzUhvxUtkSomn6nJyc
-	OloF9ElyOXrBHU0QS3hl7Gs0qqIJU1Y2wmAJV/w9gPlh697n8VJLm4SZ
-X-Gm-Gg: AR+sD1322yKSp8Fhy3B4uBH33BgImWJocigw+4cQyapSA4Q0fYDpukd6R1KBYsuinE8
-	O37fWEF7GQ/DKaa6YGrT9ElDk2K+aa35K3iW9g2Wy/tdMmCSs68+9tt7LdhssvbP9kyAjXrc5V6
-	Axwdvpj5UxOvvS84//Bw47voFjGcjVgwfeHLftGLKz7eUulfmvbI/tT73tENG0xE6M9ApdlK9Nb
-	aRPH1yjtquEjop59UgY9KWrC/4mtdOs1mQu//cfmNbnzO92z6W0U98uOBeLKWnDKfMSB+iRshf3
-	it6KYrM84iiCc1Y/6Lymx/UlzVNA1bm67qQPRHWPOkCwrnrK9fxPzjt1tqnwNCxdf9kaYkgX4oh
-	2jdSRrW3HsKHAc2UloP7+L6C7jQbd+lRIWL4UgOmjH3iuyYiXYakA1ETz9rvlb3R2QLND/mHqpn
-	jXj4zUQjJc/JgXARd1xEdbt9co1lzJaHMMgZUztlsCCpGVAfT7hc5lfXMjTNQgm8s+b+mPdWrw7
-	uS/1c7dWARjhXuY7UngEDOrZ3pbOuqMnUIbYB/M0aioLd9BY/CgSEpOIdHOHimt3mKR2eHaOZo3
-X-Received: by 2002:a05:6830:67f6:b0:7e9:d3aa:e391 with SMTP id 46e09a7af769-7f1e5d182fbmr12781875a34.6.1786105980389;
-        Fri, 07 Aug 2026 05:33:00 -0700 (PDT)
-Received: from mail.marliere.net (137.65.66.34.bc.googleusercontent.com. [34.66.65.137])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f35b807227sm1141532a34.27.2026.08.07.05.32.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 05:32:58 -0700 (PDT)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 802C760895;
-	Fri,  7 Aug 2026 12:32:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
-	s=dkim; t=1786105976;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=aBpSBcnVEC7d3b8VCypHKN8KFVfSMJhdR2dxrFOJYmQ=;
-	b=Db1Is0pIQ3dOMju6mbp/5O1REnHMBoPTWAqsfE0Qv0lrG5Q1cHjx3P2j+N9N9osDfB/WQ2
-	TQU5aE36pTpS96xn6y7I7WthValEuCGlBp3F5PUFSBCJzCa/51x7MLnRb7Qn3yB1VqjGNh
-	LMyM1Z5WQZzKUH7QHUXg+QSreZmP+zBXgdWiFRP2GB1pIJrWRHoSyFdvYZqW8HKnTWVRDZ
-	fs/ofJ3nkYvNbRTU6ltnuoxxwaiLzsjsJvaQAKD37938LN5G2pLLsX9bVMe+mpQ9pnk5oX
-	/l5ANzKpXlYNhRNSoaCKqh1OaVpf4dM1rXgze7cxz3+F33pVA73ZEzHzgqaIRQ==
-From: =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
-Date: Fri, 07 Aug 2026 09:32:43 -0300
-Subject: [PATCH 7.1.y v2] selftests/bpf: Add tests for sleepable tracepoint
- programs
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AY3FcVR0"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A147B1A148B;
+	Fri,  7 Aug 2026 12:39:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 606B9603F0;
+	Fri,  7 Aug 2026 12:39:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7914111C3779F;
+	Fri,  7 Aug 2026 14:39:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1786106366; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=9cjfll9Ld3UQKLhTcpG7qSNojtvD2IM9y5+iFB7Ik9o=;
+	b=AY3FcVR0fopvVNiK4+vWCM3zx6O5OT9G0ygM5ThrXIOxu5/KexxdWs1hkCwFl1plYDbf0u
+	MNRJTkPdp801gl8PD2PsTAbKSUNgb/Z32A9N3wzIZq/UtqZyzNRmQKxUO3CLhLYjjyIUrU
+	6/jFyRHmlDp1GbndZb0I4ovYxpr7JApmw4qNvv7Nskx0H8c3fnF6p80iobad7SSY2wAZtz
+	/xXmOsZ/Vk6SWd5760ghB4lc0gjEIwd75xOPGWkURtGDgiLhi+BnwdQ5WsgTHPWpO8a8Fj
+	K1qSOmko1I2bjeue/Ys+WfyOSU83d30G1QQ7+xFNsGN0BJJr8pBho+z+S33bVA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-wpan@vger.kernel.org,  Stefan Schmidt <stefan@datenfreihafen.org>,
+  Alexander Aring <alex.aring@gmail.com>,  Varka Bhadram <varkab@cdac.in>,
+  Andrew Lunn <andrew+netdev@lunn.ch>,  "David S . Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,  Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,
+  netdev@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] ieee802154: cc2520: fix FIFOP work use-after-free
+In-Reply-To: <20260806050328.422480-1-fanwu01@zju.edu.cn> (Fan Wu's message of
+	"Thu, 6 Aug 2026 05:03:28 +0000")
+References: <20260806050328.422480-1-fanwu01@zju.edu.cn>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Fri, 07 Aug 2026 14:39:18 +0200
+Message-ID: <87pkzucdft.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260807-selftests-bpf-sleepable-v2-1-f7e6566f36a1@marliere.net>
-X-B4-Tracking: v=1; b=H4sIAGrQdWoC/4XOQQ6CMBAF0KuYri2hFRRceQ/Doi2/UoNAOpVoC
- HeXoisXupw/My9/YgTvQOy4mZjH6Mj13TLI7YaZRnUXcFcvM5Op3KdFuuOE1gZQIK4Hy6kFBqV
- bcEBbWZd7KVPBlu/Bw7rHKp/ZIRHJk1XvmO76ChOiGg+1InDtVWeaGFGIXFw0jkLvn2u1UazO3
- xaj4ILXJjO6KHaHDOXppnzr4JF0CFH9EPlvArK0Klc2E+KLqOZ5fgEA4JSwNgEAAA==
-X-Change-ID: 20260803-selftests-bpf-sleepable-eebf2d962201
-To: Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- Martin KaFai Lau <martin.lau@linux.dev>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, sashal@kernel.org, 
- gregkh@linuxfoundation.org
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Mykyta Yatsenko <yatsenko@meta.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1786105970; l=2967;
- i=ricardo@marliere.net; h=from:subject:message-id;
- bh=QLheeulIJ7HGlvz8iFzvKmtgtUgQwyFXfWaZE6pfNsQ=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgguRCc5X8/UX9M40lkMnr//aFGOhce
- x5ezt8MFNUFlqYAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QI1sbqPaaYnCoqAVjS7/0CJAD6XeShanEL7075pmHQDoR8FTDMKYyPWGpnevcLGwjyZ+7e077gy
- AWSb2I+9WMAQ=
-X-Developer-Key: i=ricardo@marliere.net; a=openssh;
- fpr=SHA256:pzhe0fJpYLz+3cZ33FFPhIfaUElk9CXPFFXmalIH+1g
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Last-TLS-Session-Version: TLSv1.3
 
-From: Mykyta Yatsenko <yatsenko@meta.com>
+Hi Fan,
 
-[ Upstream commit 8a20655749c625dcc4debdfdeeaa0cf8bb85c203 ]
+On 06/08/2026 at 05:03:28 GMT, Fan Wu <fanwu01@zju.edu.cn> wrote:
 
-Cover all three sleepable tracepoint types (tp_btf.s, raw_tp.s, tp.s)
-and sys_exit (via bpf_task_pt_regs) with functional tests using
-bpf_copy_from_user() on getcwd. Verify alias and bare SEC variants,
-bpf_prog_test_run_raw_tp() with BPF_F_TEST_RUN_ON_CPU rejection,
-attach-time rejection on non-faultable tracepoints, and load-time
-rejection for sleepable tp_btf on non-faultable tracepoints.
+> The FIFOP interrupt handler queues cc2520_fifop_irqwork.  On
+> removal, cc2520_remove() only flushes the work.  The devm-managed
+> FIFOP IRQ remains active until after ->remove() returns and can queue
+> the work again after that flush, allowing it to run after the private
+> data is released.
+>
+> Release the FIFOP IRQ and cancel the work before unregistering and
+> freeing the hardware.  Keep the SFD IRQ active while
+> ieee802154_unregister_hw() flushes the mac802154 workqueue: synchronous
+> TX waits in cc2520_tx() for the completion signalled by the SFD handler.
+> Release the SFD IRQ afterwards.  Destroy buffer_mutex last, since
+> unregistering can invoke the driver's stop callback, which uses it.
+>
+> Install the SFD IRQ before cc2520_register(), so it is available when
+> the netdev becomes visible.  Install the FIFOP IRQ afterwards, so a
+> registration failure cannot schedule RX work while its hardware is
+> being released.  Move ieee802154_free_hw() to the probe cleanup.
+>
+> Found by an in-house static analysis tool.
+>
+> Fixes: 0da6bc8cc341 ("ieee802154: cc2520: adds driver for TI CC2520 radio=
+")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-[ rbm: Removed hunks from (new) files:
-        tools/testing/selftests/bpf/prog_tests/sleepable_tracepoints.c
-        tools/testing/selftests/bpf/progs/test_sleepable_tracepoints.c
-        tools/testing/selftests/bpf/progs/test_sleepable_tracepoints_fail.c
-       These rely on libbpf's ".s" tracepoint section handlers
-       (0cd420a6f40c7) and on kernel-side sleepable tracepoint runtime
-       support (439ebd5b5708, 12628ffaf98b, 57918341dd19), none of which
-       are backported here; kept only the verifier/sleepable.c hunk, which
-       is correct and needed on its own. ]
+While I may agree on the problem, I don't like the solution. It is
+overly complex. If the problem is the fact that we might queue works,
+what about disable_work[_sync]() ?
 
-Signed-off-by: Mykyta Yatsenko <yatsenko@meta.com>
-Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Link: https://lore.kernel.org/bpf/20260422-sleepable_tracepoints-v13-6-99005dff21ef@meta.com
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
----
-Changes in v2:
-- Dropped hunks which miss dependencies
-- Added a small note about it in the commit
-- Link to v1: https://patch.msgid.link/20260805-selftests-bpf-sleepable-v1-1-e29fa5af4119@marliere.net
----
- tools/testing/selftests/bpf/verifier/sleepable.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/tools/testing/selftests/bpf/verifier/sleepable.c b/tools/testing/selftests/bpf/verifier/sleepable.c
-index c2b7f5ebf168..6dabc5522945 100644
---- a/tools/testing/selftests/bpf/verifier/sleepable.c
-+++ b/tools/testing/selftests/bpf/verifier/sleepable.c
-@@ -76,7 +76,20 @@
- 	.runs = -1,
- },
- {
--	"sleepable raw tracepoint reject",
-+	"sleepable raw tracepoint accept",
-+	.insns = {
-+	BPF_MOV64_IMM(BPF_REG_0, 0),
-+	BPF_EXIT_INSN(),
-+	},
-+	.prog_type = BPF_PROG_TYPE_TRACING,
-+	.expected_attach_type = BPF_TRACE_RAW_TP,
-+	.kfunc = "sys_enter",
-+	.result = ACCEPT,
-+	.flags = BPF_F_SLEEPABLE,
-+	.runs = -1,
-+},
-+{
-+	"sleepable raw tracepoint reject non-faultable",
- 	.insns = {
- 	BPF_MOV64_IMM(BPF_REG_0, 0),
- 	BPF_EXIT_INSN(),
-@@ -85,7 +98,7 @@
- 	.expected_attach_type = BPF_TRACE_RAW_TP,
- 	.kfunc = "sched_switch",
- 	.result = REJECT,
--	.errstr = "Only fentry/fexit/fsession/fmod_ret, lsm, iter, uprobe, and struct_ops programs can be sleepable",
-+	.errstr = "Sleepable program cannot attach to non-faultable tracepoint",
- 	.flags = BPF_F_SLEEPABLE,
- 	.runs = -1,
- },
-
----
-base-commit: 74b69060ba6e44e20c2e4dc1847eca21db6e4a7c
-change-id: 20260803-selftests-bpf-sleepable-eebf2d962201
-
-Best regards,
---  
-Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
-
+Thanks,
+Miqu=C3=A8l
