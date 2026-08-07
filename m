@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC81388E43;
-	Fri,  7 Aug 2026 14:55:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A4137F334;
+	Fri,  7 Aug 2026 14:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786114524; cv=none; b=J45dahqG1XTWUB8qbVxGjeWnBnxNoJFkxxeu6l4ri5+sJYsNMttmhajXfS40plXFkHaWYG0F+0duIk6kbqoXjZNbon3cL6fJ4hUGVLOn1XQyMqYowcFgzrNRvx2jRTeUInPTKNJLVywbznHAv0D1Brj4w//EGnVvM4BivVX3Kko=
+	t=1786114524; cv=none; b=Io14hU5+E8+LTHm4TM+gGM1DDXS8X6xvlbUvYndjuPX/QC8kdUyFQ0330kwpqPVQGzOSiK5WAexjpUFYUo7B+1r/Zg9QXJ9fkMAQIotEcBqOAe+NrFB59v+PAqQ6UhLGExXEjPZ/17Gb9H8i5F4F234HlRa/+/7Z5Esqm10MVjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786114524; c=relaxed/simple;
-	bh=+1Y6pKf16WP5TOetfI0NGLUcjPzsscq9DZ5RMWLe6Eg=;
+	bh=lLdYcU2/BNeU/BoX5GfkHSeeosA477jsu8z/RBTRmVk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U2+cAO3KZ+vaajY9e5MnF95wTigV2W7To9J2dl7wjEXBXYwVZcvtwtDkF2RWM2Hpk68Tgl4qEcHTD9IJ8TdtIhmT3raKe6AWnnrfgPGDaZ2nr+9YhcjMYLb1ihzFbMukq6J5PAwKphxFImvbJFpE5UGxMCPXjHKbxd1qIoNHlqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tIwRWl7F; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=A9c2YBuwEgu1UTLQMX5L9DwUhKYZ0o+0ndLqWp3zBvGr56xw0PHF0GPb+GwkHB7+VUkahoakVqf/I+2mwXTkaeXx//aLoL+aJsetK1HXtmdKizPKnHDJ28QY/JonyX9nh0lf2ryRAcg93PwVSDr4KnuyduA2PbSEbCYCiW1mYpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MAHY+htG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tIwRWl7F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76C891F00A3A;
-	Fri,  7 Aug 2026 14:55:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MAHY+htG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5601F00A3E;
+	Fri,  7 Aug 2026 14:55:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786114519;
-	bh=zBVmPgt4bc73k5ZVlA75I/xy/US3BTGUYIFSoAk6AGs=;
+	s=korg; t=1786114516;
+	bh=p7WidOy9NIcmkCNU5p8Rk2DIdmm4hWleoj0jajPsJzI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tIwRWl7F2tKY3RzSb4I59je1r6A+P5eH0rvnndCNi7vnqvLdYjuMmZAnc40J3hA6t
-	 J6ECeF6s7W1KjRAeed0YvVi7Dmde+jRlUUi/XPDunU+uR2pcFRZPJeaK1RLv0irfy+
-	 qzC6ko6Tn/moN4ov6AKpFSbY3fRwo1fd9WvgBSSs=
+	b=MAHY+htGwWmPLgOww2IFBEx1KInM6geP0W+irc8hObnbCj0UkVev2z8pxDykr3toH
+	 5+tyWA3y5oZArtyWQyCBFThdh6Ugy81LmsoQiyoz0aaA1EXumh0QMbfYkfyHJ2GqzC
+	 jbTDJgRnb24pID8CqHKxamAQV1P7U/mfp/Pptq1Y=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	stable <stable@kernel.org>,
+	Cen Zhang <zzzccc427@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 292/337] usb: typec: ucsi: split connector lock classes
-Date: Fri,  7 Aug 2026 16:38:15 +0200
-Message-ID: <20260807143424.859113804@linuxfoundation.org>
+Subject: [PATCH 6.12 291/337] usb: gadget: f_tcm: synchronize delayed set_alt with teardown
+Date: Fri,  7 Aug 2026 16:38:14 +0200
+Message-ID: <20260807143424.838461346@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -51,121 +51,385 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
+From: Cen Zhang <zzzccc427@gmail.com>
 
-[ Upstream commit 8c22256bbafad3dc5fdbe9f684d045b67ff06a68 ]
+[ Upstream commit 79e2d75725c85607f8a9d87ae9cace62a19f767d ]
 
-Lockdep detects a possible recursive locking scenario during
-ucsi init:
+The f_tcm set_alt() path defers endpoint setup to a work item and
+completes the delayed status response from process context. The delayed
+work uses f_tcm private state and may complete the setup request after
+disconnect or function teardown has already moved on.
 
-[    5.418616] ============================================
-[    5.418634] WARNING: possible recursive locking detected
-[    5.418706] --------------------------------------------
-[    5.418725] kworker/4:1/82 is trying to acquire lock:
-[    5.418759] ffff888119a34648 (&con->lock){+.+.}-{3:3}, at: ucsi_init_work+0x1a78/0x2eb0 [typec_ucsi]
-[    5.418801]
-               but task is already holding lock:
-[    5.418835] ffff888119a34080 (&con->lock){+.+.}-{3:3}, at: ucsi_init_work+0x1a78/0x2eb0 [typec_ucsi]
-[    5.418884]
-               other info that might help us debug this:
-[    5.418904]  Possible unsafe locking scenario:
+Cancel and drain the delayed set_alt work when the function is unbound or
+freed. For disable paths, which are reached under the composite device
+lock, use a small state machine and a non-sleeping cancellation path
+instead of cancel_work_sync(). If the work is already running, mark it
+cancelled and let the worker own the cleanup; otherwise tcm_disable() can
+cancel the queued work and clean up immediately.
 
-[    5.418937]        CPU0
-[    5.418956]        ----
-[    5.418991]   lock(&con->lock);
-[    5.419013]   lock(&con->lock);
-[    5.419033]
-                *** DEADLOCK ***
+Also serialize the final delayed-status completion with the cancellation
+check while holding the composite device lock. This prevents a disconnect
+from clearing delayed_status while the worker is about to complete the
+control request.
 
-[    5.419387] Call Trace:
-[    5.419406]  <TASK>
-[    5.419425]  dump_stack_lvl+0x61/0xa0
-[    5.419448]  print_deadlock_bug+0x4a6/0x650
-[    5.419483]  __lock_acquire+0x62b6/0x7f50
-[    5.419507]  lock_acquire+0x11b/0x390
-[    5.419654]  __mutex_lock+0xbc/0xcd0
-[    5.419741]  ucsi_init_work+0x1a78/0x2eb0
-[    5.419785]  ? worker_thread+0xf53/0x2bc0
-[    5.419819]  worker_thread+0xff4/0x2bc0
-[    5.419842]  kthread+0x2a7/0x330
-[    5.419863]  ? __pfx_worker_thread+0x10/0x10
-[    5.419896]  ? __pfx_kthread+0x10/0x10
-[    5.419916]  ret_from_fork+0x38/0x70
-[    5.419936]  ? __pfx_kthread+0x10/0x10
-[    5.419969]  ret_from_fork_asm+0x1b/0x30
-[    5.419991]  </TASK>
-[    5.420009] ---[ end trace 0000000000000000 ]---
+Validation reproduced this kernel report:
+BUG: KASAN: slab-use-after-free in tcm_delayed_set_alt+0x6c/0xef0
 
-The problem is that all connector locks belong to the same
-lockdep lock class, so the following loop:
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x66/0xa0
+ print_report+0xce/0x630
+ ? tcm_delayed_set_alt+0x6c/0xef0
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __virt_addr_valid+0x188/0x320
+ ? tcm_delayed_set_alt+0x6c/0xef0
+ kasan_report+0xe0/0x110
+ ? tcm_delayed_set_alt+0x6c/0xef0
+ tcm_delayed_set_alt+0x6c/0xef0
+ ? __pfx_tcm_delayed_set_alt+0x10/0x10
+ ? process_one_work+0x4cb/0xb90
+ ? rcu_is_watching+0x20/0x50
+ ? tcm_delayed_set_alt+0x9/0xef0
+ process_one_work+0x4d7/0xb90
+ ? __pfx_process_one_work+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __list_add_valid_or_report+0x37/0xf0
+ ? __pfx_tcm_delayed_set_alt+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ worker_thread+0x2d8/0x570
+ ? __pfx_worker_thread+0x10/0x10
+ kthread+0x1ad/0x1f0
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x3c9/0x540
+ ? __pfx_ret_from_fork+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __switch_to+0x2e9/0x730
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
 
-	for (i = 0; i < ucsi->cap.num_connectors; i++)
-		ucsi_register_port(connector[i])
-			mutex_lock(&connector[i]->lock)
+Allocated by task 544:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ __kasan_kmalloc+0x8f/0xa0
+ tcm_alloc+0x68/0x180
+ usb_get_function+0x36/0x60
+ config_usb_cfg_link+0x125/0x1b0
+ configfs_symlink+0x322/0x890
+ vfs_symlink+0xc2/0x270
+ filename_symlinkat+0x295/0x2f0
+ __x64_sys_symlinkat+0x62/0x90
+ do_syscall_64+0x115/0x6a0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-looks like a recursive acquire of the same mutex.  Put each connector
-lock into a dedicated lock class so that lockdep doesn't see it as a
-possible recursion.
+Freed by task 661:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ kasan_save_free_info+0x3b/0x60
+ __kasan_slab_free+0x43/0x70
+ kfree+0x2f9/0x530
+ config_usb_cfg_unlink+0x173/0x1e0
+ configfs_unlink+0x1fa/0x340
+ vfs_unlink+0x15c/0x510
+ filename_unlinkat+0x2ba/0x450
+ __x64_sys_unlinkat+0x63/0x90
+ do_syscall_64+0x115/0x6a0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20260515060042.136083-1-senozhatsky@chromium.org
+Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
+Cc: stable <stable@kernel.org>
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Link: https://patch.msgid.link/20260627104153.3822495-1-zzzccc427@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 7aa7d4bf9d3f ("usb: typec: ucsi: Fix race condition and ordering in port unregistration")
+[ adjusted context for 6.12's scalar `struct usbg_cdb cmd` and missing `stream_hash`, dropping the `hash_init()` context line ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c |    8 ++++++++
- drivers/usb/typec/ucsi/ucsi.h |    1 +
- 2 files changed, 9 insertions(+)
+ drivers/usb/gadget/function/f_tcm.c |  192 ++++++++++++++++++++++++++++++------
+ drivers/usb/gadget/function/tcm.h   |   13 ++
+ 2 files changed, 177 insertions(+), 28 deletions(-)
 
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1569,6 +1569,7 @@ static int ucsi_register_port(struct ucs
- 	INIT_WORK(&con->work, ucsi_handle_connector_change);
- 	init_completion(&con->complete);
- 	mutex_init(&con->lock);
-+	lockdep_set_class(&con->lock, &con->lock_key);
- 	INIT_LIST_HEAD(&con->partner_tasks);
- 	con->ucsi = ucsi;
+--- a/drivers/usb/gadget/function/f_tcm.c
++++ b/drivers/usb/gadget/function/f_tcm.c
+@@ -2014,31 +2014,158 @@ ep_fail:
+ 	return -ENOTSUPP;
+ }
  
-@@ -1808,6 +1809,9 @@ static int ucsi_init(struct ucsi *ucsi)
- 		goto err_reset;
- 	}
- 
-+	for (i = 0; i < ucsi->cap.num_connectors; i++)
-+		lockdep_register_key(&connector[i].lock_key);
+-struct guas_setup_wq {
+-	struct work_struct work;
+-	struct f_uas *fu;
+-	unsigned int alt;
+-};
++static void tcm_cleanup_old_alt(struct f_uas *fu)
++{
++	if (fu->flags & USBG_IS_UAS)
++		uasp_cleanup_old_alt(fu);
++	else if (fu->flags & USBG_IS_BOT)
++		bot_cleanup_old_alt(fu);
++	fu->flags = 0;
++}
 +
- 	/* Register all connectors */
- 	for (i = 0; i < ucsi->cap.num_connectors; i++) {
- 		connector[i].num = i + 1;
-@@ -1837,6 +1841,9 @@ static int ucsi_init(struct ucsi *ucsi)
- 	return 0;
- 
- err_unregister:
-+	for (i = 0; i < ucsi->cap.num_connectors; i++)
-+		lockdep_unregister_key(&connector[i].lock_key);
++static void tcm_delayed_set_alt_done(struct f_uas *fu)
++{
++	unsigned long flags;
 +
- 	for (con = connector; con->port; con++) {
- 		if (con->wq)
- 			destroy_workqueue(con->wq);
-@@ -2107,6 +2114,7 @@ void ucsi_unregister(struct ucsi *ucsi)
- 		usb_power_delivery_unregister(ucsi->connector[i].pd);
- 		ucsi->connector[i].pd = NULL;
- 		typec_unregister_port(ucsi->connector[i].port);
-+		lockdep_unregister_key(&ucsi->connector[i].lock_key);
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++	fu->delayed_set_alt_cancel = false;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++}
++
++static bool tcm_delayed_set_alt_cancelled(struct f_uas *fu)
++{
++	bool cancelled;
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	cancelled = fu->delayed_set_alt_cancel;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++	return cancelled;
++}
++
++static bool tcm_complete_delayed_status(struct f_uas *fu)
++{
++	struct usb_composite_dev *cdev = fu->function.config->cdev;
++	struct usb_request *req = cdev->req;
++	unsigned long cdev_flags;
++	bool cancelled;
++	int ret;
++
++	spin_lock_irqsave(&cdev->lock, cdev_flags);
++	spin_lock(&fu->delayed_set_alt_lock);
++	cancelled = fu->delayed_set_alt_cancel;
++	if (!cancelled) {
++		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++		fu->delayed_set_alt_cancel = false;
++	}
++	spin_unlock(&fu->delayed_set_alt_lock);
++
++	if (cancelled) {
++		spin_unlock_irqrestore(&cdev->lock, cdev_flags);
++		return false;
++	}
++
++	if (cdev->delayed_status == 0) {
++		WARN(cdev, "%s: Unexpected call\n", __func__);
++	} else if (--cdev->delayed_status == 0) {
++		req->length = 0;
++		req->context = cdev;
++		ret = usb_ep_queue(cdev->gadget->ep0, req, GFP_ATOMIC);
++		if (ret == 0) {
++			cdev->setup_pending = true;
++		} else {
++			req->status = 0;
++			req->complete(cdev->gadget->ep0, req);
++		}
++	}
++
++	spin_unlock_irqrestore(&cdev->lock, cdev_flags);
++
++	return true;
++}
++
++static bool tcm_cancel_delayed_set_alt(struct f_uas *fu)
++{
++	bool cleanup = false;
++	bool cancel = false;
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	switch (fu->delayed_set_alt_state) {
++	case USBG_DELAYED_SET_ALT_IDLE:
++		cleanup = true;
++		break;
++	case USBG_DELAYED_SET_ALT_QUEUED:
++	case USBG_DELAYED_SET_ALT_RUNNING:
++		fu->delayed_set_alt_cancel = true;
++		cancel = true;
++		break;
++	}
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++	if (cancel && cancel_work(&fu->delayed_set_alt)) {
++		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++		if (fu->delayed_set_alt_state == USBG_DELAYED_SET_ALT_QUEUED) {
++			fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++			fu->delayed_set_alt_cancel = false;
++			cleanup = true;
++		}
++		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++	}
++
++	return cleanup;
++}
++
++static void tcm_cancel_delayed_set_alt_sync(struct f_uas *fu)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE)
++		fu->delayed_set_alt_cancel = true;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++	cancel_work_sync(&fu->delayed_set_alt);
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++	fu->delayed_set_alt_cancel = false;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++}
+ 
+ static void tcm_delayed_set_alt(struct work_struct *wq)
+ {
+-	struct guas_setup_wq *work = container_of(wq, struct guas_setup_wq,
+-			work);
+-	struct f_uas *fu = work->fu;
+-	int alt = work->alt;
++	struct f_uas *fu = container_of(wq, struct f_uas, delayed_set_alt);
++	unsigned long flags;
++	unsigned int alt;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_QUEUED) {
++		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++		return;
++	}
++	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_RUNNING;
++	alt = fu->delayed_alt;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
+ 
+-	kfree(work);
++	tcm_cleanup_old_alt(fu);
+ 
+-	if (fu->flags & USBG_IS_BOT)
+-		bot_cleanup_old_alt(fu);
+-	if (fu->flags & USBG_IS_UAS)
+-		uasp_cleanup_old_alt(fu);
++	if (tcm_delayed_set_alt_cancelled(fu))
++		goto out_done;
+ 
+ 	if (alt == USB_G_ALT_INT_BBB)
+ 		bot_set_alt(fu);
+ 	else if (alt == USB_G_ALT_INT_UAS)
+ 		uasp_set_alt(fu);
+-	usb_composite_setup_continue(fu->function.config->cdev);
++
++	if (tcm_complete_delayed_status(fu))
++		return;
++
++	tcm_cleanup_old_alt(fu);
++out_done:
++	tcm_delayed_set_alt_done(fu);
+ }
+ 
+ static int tcm_get_alt(struct usb_function *f, unsigned intf)
+@@ -2064,15 +2191,20 @@ static int tcm_set_alt(struct usb_functi
+ 		return -EOPNOTSUPP;
+ 
+ 	if ((alt == USB_G_ALT_INT_BBB) || (alt == USB_G_ALT_INT_UAS)) {
+-		struct guas_setup_wq *work;
++		unsigned long flags;
++
++		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++		if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE) {
++			spin_unlock_irqrestore(&fu->delayed_set_alt_lock,
++					       flags);
++			return -EBUSY;
++		}
++		fu->delayed_alt = alt;
++		fu->delayed_set_alt_cancel = false;
++		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_QUEUED;
++		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
+ 
+-		work = kmalloc(sizeof(*work), GFP_ATOMIC);
+-		if (!work)
+-			return -ENOMEM;
+-		INIT_WORK(&work->work, tcm_delayed_set_alt);
+-		work->fu = fu;
+-		work->alt = alt;
+-		schedule_work(&work->work);
++		schedule_work(&fu->delayed_set_alt);
+ 		return USB_GADGET_DELAYED_STATUS;
  	}
+ 	return -EOPNOTSUPP;
+@@ -2082,11 +2214,8 @@ static void tcm_disable(struct usb_funct
+ {
+ 	struct f_uas *fu = to_f_uas(f);
  
- 	kfree(ucsi->connector);
---- a/drivers/usb/typec/ucsi/ucsi.h
-+++ b/drivers/usb/typec/ucsi/ucsi.h
-@@ -422,6 +422,7 @@ struct ucsi_connector {
+-	if (fu->flags & USBG_IS_UAS)
+-		uasp_cleanup_old_alt(fu);
+-	else if (fu->flags & USBG_IS_BOT)
+-		bot_cleanup_old_alt(fu);
+-	fu->flags = 0;
++	if (tcm_cancel_delayed_set_alt(fu))
++		tcm_cleanup_old_alt(fu);
+ }
  
- 	struct ucsi *ucsi;
- 	struct mutex lock; /* port lock */
-+	struct lock_class_key lock_key;
- 	struct work_struct work;
- 	struct completion complete;
- 	struct workqueue_struct *wq;
+ static int tcm_setup(struct usb_function *f,
+@@ -2234,11 +2363,16 @@ static void tcm_free(struct usb_function
+ {
+ 	struct f_uas *tcm = to_f_uas(f);
+ 
++	tcm_cancel_delayed_set_alt_sync(tcm);
+ 	kfree(tcm);
+ }
+ 
+ static void tcm_unbind(struct usb_configuration *c, struct usb_function *f)
+ {
++	struct f_uas *fu = to_f_uas(f);
++
++	tcm_cancel_delayed_set_alt_sync(fu);
++	tcm_cleanup_old_alt(fu);
+ 	usb_free_all_descriptors(f);
+ }
+ 
+@@ -2271,6 +2405,8 @@ static struct usb_function *tcm_alloc(st
+ 	fu->function.disable = tcm_disable;
+ 	fu->function.free_func = tcm_free;
+ 	fu->tpg = tpg_instances[i].tpg;
++	INIT_WORK(&fu->delayed_set_alt, tcm_delayed_set_alt);
++	spin_lock_init(&fu->delayed_set_alt_lock);
+ 	mutex_unlock(&tpg_instances_lock);
+ 
+ 	return &fu->function;
+--- a/drivers/usb/gadget/function/tcm.h
++++ b/drivers/usb/gadget/function/tcm.h
+@@ -3,6 +3,7 @@
+ #define __TARGET_USB_GADGET_H__
+ 
+ #include <linux/kref.h>
++#include <linux/spinlock.h>
+ /* #include <linux/usb/uas.h> */
+ #include <linux/usb/composite.h>
+ #include <linux/usb/uas.h>
+@@ -26,6 +27,12 @@ enum {
+ 
+ #define USB_G_DEFAULT_SESSION_TAGS	128
+ 
++enum {
++	USBG_DELAYED_SET_ALT_IDLE = 0,
++	USBG_DELAYED_SET_ALT_QUEUED,
++	USBG_DELAYED_SET_ALT_RUNNING,
++};
++
+ struct tcm_usbg_nexus {
+ 	struct se_session *tvn_se_sess;
+ };
+@@ -117,6 +124,12 @@ struct f_uas {
+ #define USBG_IS_BOT		(1 << 3)
+ #define USBG_BOT_CMD_PEND	(1 << 4)
+ 
++	struct work_struct	delayed_set_alt;
++	spinlock_t		delayed_set_alt_lock; /* protects delayed_set_alt_* */
++	unsigned int		delayed_alt;
++	unsigned int		delayed_set_alt_state;
++	bool			delayed_set_alt_cancel;
++
+ 	struct usbg_cdb		cmd;
+ 	struct usb_ep		*ep_in;
+ 	struct usb_ep		*ep_out;
 
 
