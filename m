@@ -1,233 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FAA4446F6;
-	Fri,  7 Aug 2026 21:02:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786136553; cv=none; b=i0tDmqhdRNAjrgcfzR0IaFEeaFdpmkUW5zcToZOWjuhIvxHwgVwVeM1fON4jdYGBVa7TiZtG23ySKHGxKlWvZ0o3szILmcFOJ9FGYInmvStehar0jr0vVuTfFRLrIh35JCcU7Ka3Sx0ZsTANfwoSiFdJn2lIhJCew5i6Ls8IuUY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786136553; c=relaxed/simple;
-	bh=dXpRDPPkZ7FXk/if8Zksu1au2E5kN/Xx+PsUMqEtGLk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L9JDhvDJwD1Bdnj+Pn1cV4rLkqY5A8XaGqc2JTpVS9HPFagr6Vyz1qPOdGQPr/WQmEGwdNFhvJABquSI5jMNci++lt8JFYplhdQ6oj54dPk020Lcu2+BnBDaAuuBhjrXODDBj/wkPYLO77O/W5hFC/HimnUtBd7kzo1/Tz/jmtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JdDNi+qi; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E113D3C3459
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 21:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786136743; cv=pass; b=MPGKO/uKxRKQy8hghyforP4hiCJ79ftbcO0O38IDdrdBGrajwp04jD0O/7I593OR13CmuOTe5R9RpWPyguqpsa2mILJWo7iDYT0W3n6TzExSudMZBipDwfZJomKs3c5yAKq+ICmNHmERksxiEp9vjbAqOi1x00BH0Zytp72CwWM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786136743; c=relaxed/simple;
+	bh=kytDPo8HnX5iyg+/NrxJ2zSt0k/50deKUGEYvcWP0nc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dCU00n/sDEpoDcL12njClQASU8ASSksEzoblEXJuQB7mWNr4Iw8iP27sAqnQQF1cwsRyPWwPDU/vTkAlSfuJ+k4LmUoX5pStxGovlRA86kT3NUgS2NaSungqp3jYTs6rVXLeTVqM3RbMW654p95sur9JGgLcx0G+Yty69SYFtHY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JOOqj80a; arc=pass smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JdDNi+qi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BABB1F00A3E;
-	Fri,  7 Aug 2026 21:02:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786136548;
-	bh=od1zWNBwoQfHu7v8WDhmT1GKRF4GP5l9oYthNA0KAM0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JdDNi+qi6+lQzjIsMlU4Su+msVuW29SUfurOsByk7jMBdo6tEuGb0ynMWT5dWRIhI
-	 t0WcWLdjqWj06A/iwemyl3rWAIyPwSNlVUX8oQXoIOBjjzSr2zfKuChNfjwgyNYsSa
-	 Q2ZOZlgfvoboyaBTCSDEeGU5cwPseDJkOPzKNBUnOPteFD71WwLZpDgS33Mdkk/YMp
-	 cMhbfSRmA3EiiNJNC4Hm4nUwgUXy9m1tt1Ek5f+eqSvGMkrtGfMcAlFSnDzr/Lvtks
-	 JxHGvyR3c4dm/BrKE/w8KcSQj6f3X3M5iBcJYm9larG/V0rYScAmrwNcRehd6crIuy
-	 PyMNGkwz+hIVA==
-From: Tejun Heo <tj@kernel.org>
-To: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	sched-ext@lists.linux.dev
-Cc: Emil Tsalapatis <emil@etsalapatis.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	ElXreno <elxreno@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 6/6] sched_ext: Fix rq->core_pick corruption under core scheduling
-Date: Fri,  7 Aug 2026 11:02:21 -1000
-Message-ID: <20260807210221.232543-7-tj@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807210221.232543-1-tj@kernel.org>
-References: <20260807210221.232543-1-tj@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JOOqj80a"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-383cb94f742so3797979a91.3
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 14:05:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786136741; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jN0xxOBNA9bSMIPNsZAGslHNioGYW0aeEpGyLX/C5wVxksei0N8Ba23MOpHX7gxQ7c
+         6RtTUYkCACuD1+zHKAK6CEt1FzNyELCMCZYVzcJJMn1oDdaFpQ+fgwwZobjUwNEI721z
+         OoUOhICF7aTLD6/UWnKp8BfnGkXZTGOsbqCI7Dqg/DLY0AvOwK7o62VPxjMZVwEStJhP
+         ib46xriir8UK0Uv1P0YcaZWDB4aTiwZzRIHbid81ihnAtB1JNbdah6vmEWfLYicT6Epr
+         X7aR/ZD5ffGwPcSxfVlr7dL/EomyKD0dj6yFs3tnTsjyFRs5tm5AGuZVFCUHLFNEGF3J
+         3fJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ggp29CQNblSswdt0DUUbGA8xSyK4NsLp/d1DHWuTV/U=;
+        fh=zpp+UjG4Q3TtvuBtu8pWvsSaamhWLh7bYKYFm+AdmZ0=;
+        b=AXvqW3YsWDv3xa7bEJyFkQiwL2NEwqxG8k5Z1Z9PC4EowzOn8pYdcCXObTqTRdI8ZR
+         NKNoHzISxjM2q3uIEquy/5Vk+NLoT3X/JZ9v+6gcPOcd4ChVnaB7ZM/hvJq662Kd3We1
+         E6eAH1yxBeakiRNnBzLbBtbHvSNcfCrCGxrpPqjzMObnuNHJ+YiAuJ1hwMte31WQQZid
+         392XrkNtMpVo+WRiCGlA/T0Shl54Zw2vjaiuXN4yD3yUM9poerCH5GFkRVPy9YOxeIEF
+         qmWH0fSFlGTa5H2655S+PoixM3z6UErt+j2CqaTO8BcUNuF0L75OlRPcGGvNLUXwci+r
+         nXXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1786136741; x=1786741541; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ggp29CQNblSswdt0DUUbGA8xSyK4NsLp/d1DHWuTV/U=;
+        b=JOOqj80a32tDzSnhHN7fIHd2DzKKBEr6wtiLSux9LxD8Qlpr4yOTClGLL2sS4UaNh0
+         OGe3Qs3bGx+iQWwEgQDKDWjCkm4OIb9wfotQxOtDCmGXhXob1KuaV5lAn4ELbK5jgzgo
+         AEg16T8yZifuJbYNPWf/MqzD7/xRfnkmCcwuXKKYWX0g8kYdipy9Ftc+46f81jvNaLgn
+         h75E6aBYz1DcpqtGNOPO5rzHMo3Sv9Kgj0oldsVLuA9+6w3+UBLhA6/9CtPZjmGwCu/Q
+         TZhYrASFuQW8bi6KJFXup/MnnEJDmLk8A+8W2/asbk1YH97jhGRNyd3JVY4FVXPxB0nN
+         e0Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786136741; x=1786741541;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ggp29CQNblSswdt0DUUbGA8xSyK4NsLp/d1DHWuTV/U=;
+        b=mIPx+xV1zJ0b0mAcJD3efFcQrNddcDFsd5oYekc3tyT3is7uzBpDBqHSGqZa8WHfe+
+         b5HFhkKf188ZlHnfJ+KHoG2T9lk2CCjQMejeePAlpVgUQvqshSCF4/pjig0vIM3XudMm
+         0jWuWauJBuXOEN3dkMBRWvjcSeIb4KIvUlqjFcs+mGV5YhSgGxbccmpNqiXtXjiD1dZ2
+         3UikpU1gv6KPKHc9uBo4QwZAKQsIAj8vbPGWRzL+FJGcy//sWbbiIWeGZT/hcU09Fp09
+         VlqAJsN+vulZplaK1i5XDljVRj8n7dTZDhnLlD9XDWGDrtoRr5qHusjYdwZgJvcadWeD
+         tZEw==
+X-Forwarded-Encrypted: i=1; AHgh+RrO22hSqn0kw8vJdS7e3UZCiPDwrhcwcuUdbvkzn9MX7+FAVbxjoH7e5ewgaBAXf/6Yy8VFX4s=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZPIqOzbDhWuMxgOsDfCNp1Ch7RCrdAphgBukR4Kbb/AZ2R/hQ
+	nVQCyPqbi6brNeR9SsPhvxOm94/6/fv7sZtRIapOowItus/D+WdQmMZo5jzmaLH6AQs7rq8n2/F
+	OlxXiPG0CAAFZuivmEZfUI5eC7yqSl6EA049Mwi8L
+X-Gm-Gg: AR+sD11LNYwD+ISWEySZl6xPQ6n7pe08CEhQ/MQZIz+d8NLB7UAJizx3FFCaMw/h8NY
+	sAhglMRarJslVocEhcbxTVmqdiJhZAti3Gu6TQCcSuSzybzk4fvuSYTPaLa5Au7Te+Fjm/AWm3N
+	uO/8o0eMr5uEFa7AcIB86atj7ynZEvJjENBSFJfxtUPBbn17vw4OLOK8G3K01ihAbOdgolK/kF1
+	EHM/mHkYCJtpbJOLaiI9IlW1wRly1kC77nD1e76wrJUQeO3F4hI2FX/9I4HEQNJRTTAZKI8Zvxu
+	CAtW8Zq9njCijKXLO0mq+rRVa0aisqkYi4qCAJsD0y4M2ds0zZdSPp7lDkZdXY2LhnhW0DbNghJ
+	q3F2Szr9uTsRaKss6DE5yU+3ya/3M0g5PJExZoyX8rRfInHP+gXM9nq8q+zScLbqO/8c31dAf4z
+	Wi2egJn3nLlwoyNnx1ROMzVrjm
+X-Received: by 2002:a17:90a:ec8c:b0:38d:c74d:29c5 with SMTP id
+ 98e67ed59e1d1-3903c5c0c92mr27535169a91.19.1786136740640; Fri, 07 Aug 2026
+ 14:05:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260807194513.1263310-1-ast@fiberby.net>
+In-Reply-To: <20260807194513.1263310-1-ast@fiberby.net>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Fri, 7 Aug 2026 14:05:29 -0700
+X-Gm-Features: AUfX_mzQFi-uXERPQ9kt_5_Ty_nEDRctoxhVpqJ1GjuGcBC5FQwLLvt3Ft4_Wys
+Message-ID: <CAAVpQUD9RTxs742Ty-UQXJJwTbN2wrnFGQDffKN0eZL4udq3Ng@mail.gmail.com>
+Subject: Re: [PATCH net] tcp: reset late connection after listening socket close
+To: =?UTF-8?B?QXNiasO4cm4gU2xvdGggVMO4bm5lc2Vu?= <ast@fiberby.net>
+Cc: Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Kristian Nielsen <knielsen@knielsen-hq.org>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Core scheduling's pick_next_task() picks what to run on every SMT sibling of
-the core in a single pass under the shared core-wide rq lock. The selection
-state is consistent only while the lock is held continuously, so
-->pick_task() originally could not release it. However, since 4c95380701f5
-("sched/ext: Fold balance_scx() into pick_task_scx()"), sched_ext runs
-dispatch from inside the pick and dispatching can drop the rq lock. To
-support this, pick_next_task() has been updated to restart the whole
-selection when a pick returns RETRY_TASK after releasing the lock.
+On Fri, Aug 7, 2026 at 12:47=E2=80=AFPM Asbj=C3=B8rn Sloth T=C3=B8nnesen <a=
+st@fiberby.net> wrote:
+>
+> In commit c82199061009 ("task_work: remove fifo ordering guarantee")
+> Eric removed the ordering guarantee, thereby changing it from a
+> guaranteed FIFO to currently LIFO ordering, in an effort to reduce
+> jitter.
 
-When selections on the same core interleave through the dropped lock, they
-corrupt each other's state: one clears the other's rq->core_pick leading to
-a NULL deref, or invalidates its keep-the-previous-task decision leaving a
-dequeued task running, which deadlocks the next wakeup and matches the
-reported hard hangs. A cookied ping-pong load on an SMT machine makes the
-interleavings frequent and kills the kernel within seconds.
+Could you elaborate a bit more on how c82199061009 introduced the issue?
 
-Fix it by making the pick return RETRY_TASK whenever dispatch released the
-rq lock, so that a selection only ever commits picks made under a
-continuously held lock. The previous patch's rq->scx.lock_drop_seq counts
-the releases. A dispatch that touched nothing never releases the lock and
-its verdict, including "nothing to run", stands: retries are bounded, each
-following a dispatch that actually did something, and an idle CPU does not
-loop.
+I didn't quite see the connection between the first and second paragraphs.
 
-If another dispatch is already in flight on the rq, skip dispatching and
-pick from what is already queued locally - the in-flight dispatch has
-released the lock, so its own selection will retry and re-pick this rq,
-while returning RETRY_TASK here would only spin on the lock that dispatch
-needs to finish.
+The listener's state could change at any time on SMP.
 
-Balance callbacks must run in the context that queued them, so they can only
-be queued on the CPU's own rq. When dispatching for another rq, run the
-deferred work directly instead - that rq may consume all its picks through
-the core-sched fast path and never queue the callback itself.
+>
+> This allows for a TCP handshake to complete, after the listening socket
+> has been closed, and after inet_csk_listen_stop() has been run.
+>
+> In that case the client sees the connection as ESTABLISHED, however in
+> tcp_v{4,6}_syn_recv_sock() the call to __inet_inherit_port() returns
+> -ENOENT, and the new connection is dropped silently by put_and_exit.
 
-The put_prev_task_scx() warning about a runnable task being left behind
-assumed that dispatch ran as part of the very pick that is switching away.
-That now only holds on the non-core path, so gate it and drop the
-cookie-match test, which is always true without core scheduling, from its
-condition.
+Note that if __inet_inherit_port() passes, inet_csk_reqsk_queue_add()
+calls inet_child_forget().
 
-Fixes: 4c95380701f5 ("sched/ext: Fold balance_scx() into pick_task_scx()")
-Cc: stable@vger.kernel.org # v6.19+
-Reported-by: ElXreno <elxreno@gmail.com>
-Link: https://github.com/sched-ext/scx/issues/3715
-Signed-off-by: Tejun Heo <tj@kernel.org>
----
- kernel/sched/ext/ext.c | 86 ++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 78 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index ebe40953acf0..c70458885487 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -2797,6 +2797,7 @@ enum scx_dsp_verdict {
- 	SCX_DSP_NONE,		/* nothing to run */
- 	SCX_DSP_LOCAL,		/* local DSQ has tasks */
- 	SCX_DSP_PREV,		/* keep running @prev */
-+	SCX_DSP_RETRY,		/* pick helpers only: restart the pick */
- };
- 
- /*
-@@ -3142,12 +3143,12 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
- 		 * ops.enqueue() that @p is the only one available for this cpu,
- 		 * which should trigger an explicit follow-up scheduling event.
- 		 *
--		 * Core scheduling can force this CPU idle while @p stays
--		 * runnable. @p's cookie then won't match the core's, so skip
--		 * the warning in that case.
-+		 * Under core scheduling, a pick dispatches only when nothing is
-+		 * locally runnable and can legitimately go idle with @p still
-+		 * runnable (see do_pick_task_scx()).
- 		 */
- 		if (next && sched_class_above(&ext_sched_class, next->sched_class)) {
--			WARN_ON_ONCE(sched_cpu_cookie_match(rq, p) &&
-+			WARN_ON_ONCE(!sched_core_enabled(rq) &&
- 				     !(sch->ops.flags & SCX_OPS_ENQ_LAST));
- 			do_enqueue_task(rq, p, SCX_ENQ_LAST, -1);
- 		} else {
-@@ -3241,6 +3242,70 @@ static enum scx_dsp_verdict dispatch_pick(struct rq *rq, struct rq_flags *rf,
- 	return verdict;
- }
- 
-+#ifdef CONFIG_SCHED_CORE
-+/*
-+ * Dispatch for a pick when core scheduling is enabled. The selection picks for
-+ * all SMT siblings and the rq_i->core_pick state it builds must stay atomic
-+ * throughout. If the dispatch released the rq lock, anything can have happened
-+ * in between - return %SCX_DSP_RETRY to restart the selection against current
-+ * state.
-+ */
-+static enum scx_dsp_verdict dispatch_core_pick(struct rq *rq, struct rq_flags *rf,
-+					       struct task_struct *prev)
-+{
-+	enum scx_dsp_verdict verdict;
-+	u32 seq = rq->scx.lock_drop_seq;
-+
-+	/* another dispatch is in flight on @rq, let that handle it */
-+	if (rq->scx.flags & SCX_RQ_IN_BALANCE)
-+		return SCX_DSP_NONE;
-+
-+	rq_unpin_lock(rq, rf);
-+
-+	verdict = balance_one(rq, prev);
-+
-+	if (cpu_of(rq) == smp_processor_id()) {
-+		maybe_queue_balance_callback(rq);
-+
-+		/* see dispatch_pick() */
-+		if (unlikely(rq->scx.kick_sync_pending)) {
-+			rq->scx.kick_sync_pending = false;
-+			queue_balance_callback(rq, &rq->scx.kick_sync_bal_cb,
-+					       kick_sync_wait_bal_cb);
-+		}
-+	} else if (unlikely(rq->scx.flags & SCX_RQ_BAL_CB_PENDING)) {
-+		/*
-+		 * Balance callbacks must run in the context that queued them,
-+		 * so they can't be queued on another CPU's rq. Run the deferred
-+		 * work directly instead.
-+		 */
-+		rq->scx.flags &= ~SCX_RQ_BAL_CB_PENDING;
-+		run_deferred(rq);
-+	}
-+
-+	rq_repin_lock(rq, rf);
-+
-+	/* if balance_one() released the rq lock, restart the selection */
-+	if (rq->scx.lock_drop_seq != seq)
-+		return SCX_DSP_RETRY;
-+
-+	/* see dispatch_pick() */
-+	if (unlikely(verdict == SCX_DSP_PREV &&
-+		     prev->sched_class != &ext_sched_class)) {
-+		WARN_ON_ONCE(scx_enable_state() == SCX_ENABLED);
-+		verdict = SCX_DSP_LOCAL;
-+	}
-+
-+	return verdict;
-+}
-+#else	/* CONFIG_SCHED_CORE */
-+static enum scx_dsp_verdict dispatch_core_pick(struct rq *rq, struct rq_flags *rf,
-+					       struct task_struct *prev)
-+{
-+	return SCX_DSP_NONE;
-+}
-+#endif	/* CONFIG_SCHED_CORE */
-+
- static struct task_struct *
- do_pick_task_scx(struct rq *rq, struct rq_flags *rf, bool force_scx)
- {
-@@ -3253,7 +3318,13 @@ do_pick_task_scx(struct rq *rq, struct rq_flags *rf, bool force_scx)
- 
- 	rq_modified_begin(rq, &ext_sched_class);
- 
--	verdict = dispatch_pick(rq, rf, prev);
-+	if (sched_core_enabled(rq))
-+		verdict = dispatch_core_pick(rq, rf, prev);
-+	else
-+		verdict = dispatch_pick(rq, rf, prev);
-+
-+	if (verdict == SCX_DSP_RETRY)
-+		return RETRY_TASK;
- 
- 	/*
- 	 * If any higher-priority sched class enqueued a runnable task on this
-@@ -3267,9 +3338,8 @@ do_pick_task_scx(struct rq *rq, struct rq_flags *rf, bool force_scx)
- 		return RETRY_TASK;
- 
- 	/*
--	 * If balance_one() is telling us to keep running @prev, replenish slice
--	 * if necessary and keep running @prev. Otherwise, pop the first one
--	 * from the local DSQ.
-+	 * If we're keeping @prev, replenish slice if necessary and keep running
-+	 * @prev. Otherwise, pop the first one from the local DSQ.
- 	 */
- 	if (verdict == SCX_DSP_PREV) {
- 		p = prev;
--- 
-2.55.0
+>
+> A client may therefore hang indefinitely on a blocking read() if the
+> used data communication protocol is initiated by the server, like SMTP
+> and the reporter[1]'s MariaDB protocol both are.
+>
+> Had the new connection been processed before the listening socket was
+> closed, it would have been in the accept queue, and been notified when
+> inet_csk_listen_stop() was run, and the client would have got a reset.
+>
+> This patch adds a check on the state of the listening socket, and
+> resets the new connection, before discarding it with put_and_exit.
+> The check is placed just before it would fail in __inet_inherit_port(),
+> and just after TCP MD5 and AO options have been copied to newsk.
+>
+> The blamed commit was identified by testing on ancient Debian stable
+> releases to get a rough scope of where to look, then identifying in
+> which release between v3.16 and v4.19 it broke, and finally bisecting
+> v4.2..v4.3 on a fresh Debian then-stable (jessie) VM with tooling from
+> that era, and confirmed by reverting it from v4.3, v5.10.y and net.
+>
+> Reproducer:
+>   https://files.fiberby.net/ast/2026/kernel/socket_teardown_test.c
+>
+> Reported-by: Kristian Nielsen <knielsen@knielsen-hq.org>
+> Link: https://lore.kernel.org/87sf0ldk41.fsf@urd.knielsen-hq.org # [1]
+> Fixes: c82199061009 ("task_work: remove fifo ordering guarantee")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Asbj=C3=B8rn Sloth T=C3=B8nnesen <ast@fiberby.net>
+> ---
+>
+> I'm not submitting a selftest at this time, as I have only found an
+> efficient way to often detect the issue, not disprove it, and I would
+> need more test data from different systems, before I can reliably
+> disprove it with a low runtime budget, without getting false negatives.
+>
+> The check could also be "sk->sk_state !=3D TCP_LISTEN".  I have only
+> seen TCP_LISTEN and TCP_CLOSE at this location during my testing.
+>
+> IMHO socket migration is out of scope for this patch, see commit
+> 54b92e841937 ("tcp: Migrate TCP_ESTABLISHED/TCP_SYN_RECV sockets in
+> accept queues."), as it would complicate backporting to stable.
+>
+> I have not yet tested that MD5/AO works, I guess that would involve
+> extending my reproducer to place client and server in distinct netns.
+>
+>  net/ipv4/tcp_ipv4.c | 5 +++++
+>  net/ipv6/tcp_ipv6.c | 5 +++++
+>  2 files changed, 10 insertions(+)
+>
+> diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+> index b8887cdd66c57..45d9a7e40e951 100644
+> --- a/net/ipv4/tcp_ipv4.c
+> +++ b/net/ipv4/tcp_ipv4.c
+> @@ -1756,6 +1756,11 @@ struct sock *tcp_v4_syn_recv_sock(const struct soc=
+k *sk, struct sk_buff *skb,
+>                 goto put_and_exit; /* OOM, release back memory */
+>  #endif
+>
+> +       if (sk->sk_state =3D=3D TCP_CLOSE) {
+> +               tcp_v4_send_reset(newsk, skb, SK_RST_REASON_TCP_STATE);
+> +               goto put_and_exit;
+> +       }
 
+What happens if the state changes here ?
+
+
+> +
+>         if (__inet_inherit_port(sk, newsk) < 0)
+>                 goto put_and_exit;
+
+-ENOENT should be checked to jump to a new label and
+call req->rsk_ops->send_reset() there.
+
+
+>         *own_req =3D inet_ehash_nolisten(newsk, req_to_sk(req_unhash),
+> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+> index 9e9155b1b3aa7..c7aa3c6b1c314 100644
+> --- a/net/ipv6/tcp_ipv6.c
+> +++ b/net/ipv6/tcp_ipv6.c
+> @@ -1512,6 +1512,11 @@ static struct sock *tcp_v6_syn_recv_sock(const str=
+uct sock *sk, struct sk_buff *
+>                 goto put_and_exit; /* OOM */
+>  #endif
+>
+> +       if (sk->sk_state =3D=3D TCP_CLOSE) {
+> +               tcp_v6_send_reset(newsk, skb, SK_RST_REASON_TCP_STATE);
+> +               goto put_and_exit;
+> +       }
+> +
+>         if (__inet_inherit_port(sk, newsk) < 0)
+>                 goto put_and_exit;
+>         *own_req =3D inet_ehash_nolisten(newsk, req_to_sk(req_unhash),
+>
+> base-commit: 594d905195024b228c962627ae5ae7c17bd582a4
+> --
+> 2.53.0
+>
