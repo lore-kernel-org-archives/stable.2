@@ -1,141 +1,74 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C634C6D
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 00:41:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C17F1CD2C;
+	Fri,  7 Aug 2026 00:51:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786063305; cv=none; b=AT1grl8EbRAZJjGyGEryzIj9g+rooIb65ZHINTT9C18GVX5OT4X6EluvGRVVpfXRUMP3NZvrq13g7MVSjv9K9fGeMReI9xau/OqDukIGCy1vHVO4S1ogT4+zEfr+T6QPv+lmOjta1sG/hyW81PWr93xCvRTE9IroM4RmeQMnl9U=
+	t=1786063909; cv=none; b=FHetYjVfV4URivhD8kI6YLfTrjpvqbCiC/OCaLpR7XKhKRMv/vQUdGaJucVv+MqljJmVEd0CIpnfyL1Z7f1Qh0wG8oxmow9Gd6bLK7u6l2dbJSzZrMNogx+XkgmkHYXT7KfM48UIzu9gLBLbmKT/7T3eV6ATsgUm+vIp5CMJMYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786063305; c=relaxed/simple;
-	bh=ZL9+sQZHP4asdqRDP1EZKwR4QQUfjUwzOHzZncI0HUg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bdUOBW90A8fwOy5oqVJksV1snEk96MGYUWOLGbboxMLh+uk0QT9cBkPfiEwyZHHyyYCi4Adl6gbjfOOK8jWHjcVAkkao+GCvMyA6hoQ8OQ4rEaqtaC1hW/R7fntj5LeVKe7dE9KXOiJ4p0/MpKaHsP3zXrQm4Qag1qQpCL4T4no=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ape0tNYu; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ape0tNYu"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b159850b16so2706588e87.3
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 17:41:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786063302; x=1786668102; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jg9t6USd7aCBm3DCerjF5PDOcPoho7Pj+WkMHzrBY40=;
-        b=Ape0tNYuKCjFJKx+9LCTzZC54swhSWC02VWN44NKQTZWWSJcfp5h0/RkFtqgN5mNF+
-         igfBpqMC8fEBWtfe4oEQvSHLT5TuV0163iO0JiREJIHfB+wu/mjJh3DpQFN9WUQEkyGH
-         VSQdNPJEb8NPD5PC0qjihYUyu44BmCqWXHMNUV2QBNpZ4up0QzQbx4URKEL9PC+kJWsj
-         VVHS2vwcFL11zPq3Hr6E5pVryWvdn2J3pjznnuvW/GyLjbB4mqE7UhK5gD3FE2JYLcrn
-         LJcIi3zuMtMlhLU51bWM7gVN9mA3n/1dy6mIRsQE3IHgnzFAzlTBgTgm5NHEqERcyWqI
-         3vaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786063302; x=1786668102;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jg9t6USd7aCBm3DCerjF5PDOcPoho7Pj+WkMHzrBY40=;
-        b=I2LApipFq6ZeRKFC0DZBOuTYjtrLvs3A4QEsSpHnPtn4NgTbZQoihSYFNu+uCy9i0U
-         I/5iYGKa4j1nTFIrRsjNE+dx9l20HeRyXc8ThEWAs+a5NfELVXHB01g+Qj5nWYuKdZsa
-         b8hpi0omSnL9PTQhMx8exGCtk7wqFagqSIHhw3uPSHM0To+1VZBkDCi8Acr/O3vjp9Ph
-         bSghMqRJnEdk9nMkuqVtsJ7vIBXecv786Dk4zAYhrEw27G0UWIbcMgkqYUrPo5//Ipbn
-         EeiIvvwZ1cWgGEwy5QHqmcVV1RJ8jw5zrz2QQPrLwCGm/G5avwF/VuKLEAHq/8FV3gpC
-         yvMg==
-X-Forwarded-Encrypted: i=1; AHgh+RrDpCeJzugOWVcR0+n9XmvEGLwAQqs0ZP/E6uFrWw0Kj5FSCDrewFWjKoBrVMmy40ZNYdpHEqE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2gbC1lrJBbE+nLy5RyfoLQDa+oCt9Ty84tndwhRqLstzju4vu
-	hCfqytbf5lOX1gxvkUZ9CDTx1JFdaf9avLFnkJ02ea9f8Yw/NdpM7wAz0kDu+nI=
-X-Gm-Gg: AR+sD11esp5iC5TIPazg4xj5kL5Ha0VLjlTIuqxBqTDYS2RCxn0UIjZzPDXK9+7CqDW
-	9Kt8Z6JN74wqWgXK8sifuuRSduhO2+Q8J2hs4ma/nvnbyxElXdSvVkt7E7IPMvzxCw9+ZlFVC54
-	tO13kLqMSd/nQA1TOk+P4Fx0eZENk/c3H+OpXsagpIVkkPHLIvhY+vK+6q347G+6yfUqB/M4r4z
-	OSA/3aSCTRSHKZ507ANJvGuCQguKP3udmNPDArmDkgFty0+Qd8cuq84vOF3xmPI48ZeB9+g0fPU
-	2MT09l+1EBFAZrxuPV0KcEizKji7XChcT2dhg8C3RVuKhv095fq0uOgmGNBqn+t2ZVhx7DVbRjp
-	3oAacPn1uKiTuiNeRvZx8ExH5YFI+DaD6oBIPiSkx1ac9LBbqFH6C2Xm7JMqkv2wAGPnnaVhsOd
-	5ZB0SNG1wtTnWmLHwU6Nb8XJ6Wu9ZDLPu32ita/v8qpdmFiLd6JOo=
-X-Received: by 2002:ac2:5dcf:0:b0:5ae:bb19:1864 with SMTP id 2adb3069b0e04-5b2f4b90286mr1828052e87.21.1786063301532;
-        Thu, 06 Aug 2026 17:41:41 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b3055f2b86sm189232e87.66.2026.08.06.17.41.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 17:41:41 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: Lorenzo Bianconi <lorenzo@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Vitaliy Sochnev <sochnev.v.74@gmail.com>,
-	stable@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org (moderated list:AIROHA ETHERNET DRIVER),
-	linux-mediatek@lists.infradead.org (moderated list:AIROHA ETHERNET DRIVER),
-	netdev@vger.kernel.org (open list:AIROHA ETHERNET DRIVER),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net] net: airoha: npu: load the firmware without the sysfs fallback
-Date: Fri,  7 Aug 2026 03:41:08 +0100
-Message-ID: <20260807024125.434055-1-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1786063909; c=relaxed/simple;
+	bh=01keEssM2pfQURojUTved7d4H7nUBBDxgoI2vsofQhc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nQ03/mXdUV9gpIqlqM5xQToUbq3x19snYCN5F4LcEKmk9Ri0YRaYCItSJtencKiY70LtLZ0txrQbGeK9MqS6t57yq71dCG5TIOH0oHWTKBBR8pjcRS2yKTgCUz3/Okq1GeOYTE9n9nSch2EQS44WEEUV5HQ3jZ9ki8yOATuktnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id 80256A0297;
+	Fri,  7 Aug 2026 00:51:45 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id B9C3660010;
+	Fri,  7 Aug 2026 00:51:42 +0000 (UTC)
+Date: Thu, 6 Aug 2026 20:51:44 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
+Cc: Song Liu <song@kernel.org>, bpf@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, live-patching@vger.kernel.org,
+ mbenes@suse.cz, jolsa@kernel.org, mhiramat@kernel.org, jpoimboe@kernel.org,
+ joe.lawrence@redhat.com, mark.rutland@arm.com, corbet@lwn.net,
+ stable@vger.kernel.org, linux-open-source@crowdstrike.com
+Subject: Re: [RFC PATCH bpf-next v3 2/2] selftests/livepatch: update
+ test-ftrace.sh for deprecated ftrace_enabled
+Message-ID: <20260806205144.743c45e6@gandalf.local.home>
+In-Reply-To: <CAOu3gNi8i9m7nEuKF28G8cYqJULvE4W6CuDeYVFk58z1xSbBoQ@mail.gmail.com>
+References: <20260806153000.4184871-1-andrey.grodzovsky@crowdstrike.com>
+	<20260806153000.4184871-3-andrey.grodzovsky@crowdstrike.com>
+	<CAPhsuW7gOs2Opo5DRm+YKxBxwU+ncBmEAKHYO5jPjzxM9S8i5w@mail.gmail.com>
+	<CAOu3gNi8i9m7nEuKF28G8cYqJULvE4W6CuDeYVFk58z1xSbBoQ@mail.gmail.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 5zfnhh6ut1ssh6e4s9n16387x8pcxeb6
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: B9C3660010
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19eeDB4FpqEJL/2APlOa7B9xmLJHkxneOM=
+X-HE-Tag: 1786063902-337523
+X-HE-Meta: U2FsdGVkX18UJCA9frgFzHQVwTlQchQN2qwyC+8xDwuAPnoPiivACw5MKDdRrKw5LuoGR0kbuLNy7UAfNe7BKzeT+K6za6A9oswqa8WJYCkKTNq+utIxYiH1ChKn8wvkYeu/wTablTp1K8l5138fZ3XRTX7NlipfJRxyPjovZ45Y+7K2bpcy3ibHz58n4MO4g8SPKxLD5xFjt9VPcKT9NtGkyAqllOl8aWDiY4HivwFapf8zn6hZTmq5G12rfhsfG9gTTAhWWRuByBuo7L1R+1KCE0FX3VoAAkTo+V+9COyhlXYtPZpiikfSJedPpuZmPZgE5LHNuF26C72YNh3KlMZx3lMgZ9s5
 
-airoha_npu_load_firmware() maps a missing firmware file to -EPROBE_DEFER
-so that the NPU can be brought up once the rootfs carrying /lib/firmware
-has been mounted. That mapping holds only as long as request_firmware()
-reports -ENOENT.
+On Thu, 6 Aug 2026 17:45:00 -0400
+Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com> wrote:
 
-It does not when the sysfs fallback is in play. With
-CONFIG_FW_LOADER_USER_HELPER_FALLBACK set, or with the fallback armed at
-runtime through /proc/sys/kernel/firmware_config/force_sysfs_fallback,
-request_firmware() hands the request to a userspace helper, waits out the
-full loading_timeout and returns -ETIMEDOUT. The -ENOENT test no longer
-matches, dev_err_probe() turns the result into a hard failure, and the
-NPU is left unbound after stalling the boot for 60 seconds:
+> > Since the selftests are shipped with the kernel code, I think
+> > we don't need to handle backward compatibility here. Instead,
+> > we can just assume disabling ftrace is no longer supported.
 
-  airoha-npu 1e900000.npu: Direct firmware load for airoha/en7581_npu_rv32.bin failed with error -2
-  airoha-npu 1e900000.npu: Falling back to sysfs fallback for: airoha/en7581_npu_rv32.bin
-  airoha-npu 1e900000.npu: error -ETIMEDOUT: failed to run npu firmware
-  airoha-npu 1e900000.npu: probe with driver airoha-npu failed with error -110
+Incorrect.
 
-Clearing FW_LOADER_USER_HELPER in the configuration is not a dependable
-guard against this, because unrelated drivers select it. On the affected
-build the symbol was turned back on by LEDS_LP55XX_COMMON, even though
-the platform had explicitly disabled it.
+> >
+> > Thanks,
+> > Song  
+> 
+> I tend to agree but I think here[1] Steve and Miroslav asked for
+> backward compatability. V1 was actually the way you prefer.
 
-request_firmware_direct() sets FW_OPT_NOFALLBACK_SYSFS, so a missing file
-is reported as -ENOENT whatever the firmware loader is configured to do,
-and the deferred probe path works as it was meant to.
+Right. We test older kernels (think LTS) with newer testing environments.
+We need them to be backward compatible.
 
-Measured on a Nokia XG-040G-MD with FW_LOADER_USER_HELPER=y and
-FW_LOADER_USER_HELPER_FALLBACK=y, on two images from the same tree
-differing only by this patch: without it the probe fails with
--ETIMEDOUT after 64.5s and the NPU stays unbound, with it the NPU
-reports its firmware version at 3.7s. The fallback is compiled in and
-forced in both cases; the patch does not disable it, it only keeps the
-driver from falling into it.
-
-Fixes: 23290c7bc190 ("net: airoha: Introduce Airoha NPU support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
----
- drivers/net/ethernet/airoha/airoha_npu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/airoha/airoha_npu.c b/drivers/net/ethernet/airoha/airoha_npu.c
-index b679bed95..ca33e615a 100644
---- a/drivers/net/ethernet/airoha/airoha_npu.c
-+++ b/drivers/net/ethernet/airoha/airoha_npu.c
-@@ -202,7 +202,7 @@ static int airoha_npu_load_firmware(struct device *dev, void __iomem *addr,
- 	const struct firmware *fw;
- 	int ret;
- 
--	ret = request_firmware(&fw, fw_name, dev);
-+	ret = request_firmware_direct(&fw, fw_name, dev);
- 	if (ret)
- 		return ret == -ENOENT ? -EPROBE_DEFER : ret;
- 
--- 
-2.55.0
-
+-- Steve
