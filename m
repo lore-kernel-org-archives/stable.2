@@ -1,126 +1,210 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B0B37DAA6;
-	Fri,  7 Aug 2026 18:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F3D37CD52
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 18:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786128271; cv=none; b=oNyqlSgLjuAiCWuDzQ9zKDHq1B6yqdAUXP4ocKDQhM/OwzxBq1W4U3jS/Sqf7U1qtR9udvHgumIxOVQ2eJ+2ejpN8r102L6lCQirLtvsD/pHAFOrWv5xID3chEGJNaqcpsPvkSjrq8WclDPshjpdJH1GNvyhHv5WqnJF5CUDAto=
+	t=1786128607; cv=none; b=PWhFKYddYuDVNztRwm6Rz9zLCh7w/H/2j+8C71Jw3+xiJ48AdAJ7ciKOZ8mVmvF0mmaiMzdBtjp99wPs6h4KSF3VxNZXlrGRi7E7jqCbg+tlqIdtgyOj9B9zX3xonnrrboyJJ8kWZai+zbveRiNlZrTtn+WsLz7DG9g6BajebzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786128271; c=relaxed/simple;
-	bh=KFObHX1iI+l/6qrQhGhFFBiQyOqRqeWlGZE4C0B+E/c=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=E05BoymIu7a5N7C2TGwQkVhSNh3L6YDBl95KEZ5xh3kRcrBEfJVhP2jaG907drAEBww3mdV6cTKkPsZy6OIi0p3IFDpFj1uGw0oD/TvuRuUY+KvEQGytXwvDhRiQSelEExiuHhJGbb3STrrQxEhczfEyQTJzDfzNjtLwnktPWaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EWHlAF3+; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786128607; c=relaxed/simple;
+	bh=+3wTgAFnTJYPHbUPPeUV7lOVdwIT8iGTw/w+VNPZE1I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TmqEZZQ1EnIp0QnhBlEy8iZP3TvHGb38p1WjSGijHmHNMplWPifYdOAe8lr6v+Igzr5qI4gaHEooV4zsw3+m0Krc5/Z/kEAfG3FL+qcKTm6uF6G2VgiIssDYJhVU/AEY9uDp0TBs/iSufZY+VrgGMF9VucKIHG5LwuUqZkxDGQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z5J78NId; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EWHlAF3+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786128270; x=1817664270;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=KFObHX1iI+l/6qrQhGhFFBiQyOqRqeWlGZE4C0B+E/c=;
-  b=EWHlAF3+jaOci7i79lA0QLK9hk+jJy3s08ZNQTRGL7AqJ7q6xe3rX1hZ
-   pAXbJXBOZ5hC84rFBit1t5N7B+VtI7KdXwCSG5K0Z1bXiN8sh9FcGSOZM
-   yWmUBWRMQREogalODMnPAMxTFjeZq/pu3XMgx+3UeIie5ZyKxE2hCzvV3
-   6GSR0Juhe6Q6ip0qa6gj9at6JDmXKpfFgX1jAG5kpsAUDzSCY2dm4zQs4
-   ksmLFjGYIiGJzbCuThJDQonSv13LvEtpdTghpgLNnaEeuewlModJ9yfUe
-   mcvbt4MfFXX8NLM47wzXPP7EdkaYE8PQCMk3YyetibTP5aNnNND5soJg8
-   Q==;
-X-CSE-ConnectionGUID: n2G9/mzWSIWIDERZWN5y3A==
-X-CSE-MsgGUID: 6jRQGXcJSMquSB8588OPeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="86754004"
-X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
-   d="scan'208";a="86754004"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 11:44:29 -0700
-X-CSE-ConnectionGUID: wNxO9ySrQpK10FPvC7PH0g==
-X-CSE-MsgGUID: 8MXiUvy9SuuFwHxoelSR2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
-   d="scan'208";a="287162162"
-Received: from spandruv-desk1.amr.corp.intel.com ([10.124.222.41])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 11:44:28 -0700
-Message-ID: <184506c48a92d6ada2696360a59d10c0cc641ee1.camel@linux.intel.com>
-Subject: Re: [PATCH 0/2] platform/x86: ISST: Two ioctl input validation fixes
-From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-To: HyeongJun An <sammiee5311@gmail.com>, Hans de Goede <hansg@kernel.org>, 
- Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
-	 <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Fri, 07 Aug 2026 11:44:28 -0700
-In-Reply-To: <20260807144003.3498972-1-sammiee5311@gmail.com>
-References: <20260807144003.3498972-1-sammiee5311@gmail.com>
-Autocrypt: addr=srinivas.pandruvada@linux.intel.com; prefer-encrypt=mutual;
- keydata=mQGNBGYHNAsBDAC7tv5u9cIsSDvdgBBEDG0/a/nTaC1GXOx5MFNEDL0LWia2p8Asl7igx
- YrB68fyfPNLSIgtCmps0EbRUkPtoN5/HTbAEZeJUTL8Xdoe6sTywf8/6/DMheEUzprE4Qyjt0HheW
- y1JGvdOA0f1lkxCnPXeiiDY4FUqQHr3U6X4FPqfrfGlrMmGvntpKzOTutlQl8eSAprtgZ+zm0Jiwq
- NSiSBOt2SlbkGu9bBYx7mTsrGv+x7x4Ca6/BO9o5dIvwJOcfK/cXC/yxEkr1ajbIUYZFEzQyZQXrT
- GUGn8j3/cXQgVvMYxrh3pGCq9Q0Q6PAwQYhm97ipXa86GcTpP5B2ip9xclPtDW99sihiL8euTWRfS
- TUsEI+1YzCyz5DU32w3WiXr3ITicaMV090tMg9phIZsjfFbnR8hY03n0kRNWWFXi/ch2MsZCCqXIB
- oY/SruNH9Y6mnFKW8HSH762C7On8GXBYJzH6giLGeSsbvis2ZmV/r+LmswwZ6ACcOKLlvvIukAEQE
- AAbQ5U3Jpbml2YXMgUGFuZHJ1dmFkYSA8c3Jpbml2YXMucGFuZHJ1dmFkYUBsaW51eC5pbnRlbC5j
- b20+iQHRBBMBCAA7FiEEdki2SeUi0wlk2xcjOqtdDMJyisMFAmYHNAsCGwMFCwkIBwICIgIGFQoJC
- AsCBBYCAwECHgcCF4AACgkQOqtdDMJyisMobAv+LLYUSKNuWhRN3wS7WocRPCi3tWeBml+qivCwyv
- oZbmE2LcxYFnkcj6YNoS4N1CHJCr7vwefWTzoKTTDYqz3Ma0D0SbR1p/dH0nDgN34y41HpIHf0tx0
- UxGMgOWJAInq3A7/mNkoLQQ3D5siG39X3bh9Ecg0LhMpYwP/AYsd8X1ypCWgo8SE0J/6XX/HXop2a
- ivimve15VklMhyuu2dNWDIyF2cWz6urHV4jmxT/wUGBdq5j87vrJhLXeosueRjGJb8/xzl34iYv08
- wOB0fP+Ox5m0t9N5yZCbcaQug3hSlgp9hittYRgIK4GwZtNO11bOzeCEMk+xFYUoa5V8JWK9/vxrx
- NZEn58vMJ/nxoJzkb++iV7KBtsqErbs5iDwFln/TRJAQDYrtHJKLLFB9BGUDuaBOmFummR70Rbo55
- J9fvUHc2O70qteKOt5A0zv7G8uUdIaaUHrT+VOS7o+MrbPQcSk+bl81L2R7TfWViCmKQ60sD3M90Y
- oOfCQxricddC
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z5J78NId"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5141F00A3A;
+	Fri,  7 Aug 2026 18:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786128606;
+	bh=1s6l2JJgLjzoQWikoLzvZXdjXPyqpnKnkFiidrZKkf8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Z5J78NIdXOgSfldyMmZswtDSVmfz5fS4YpL/rfxZ0hYXmSFRLm2IuxDeXFztj/JLs
+	 WgGvWuv75iEHSFmJHpTEMbm1ZsOU9AmiVQCHFJVQKKCm7vATMhXubeSi822drXMNR1
+	 Dca4u2WhzZRUyZP11KWH9gOvUGY+wxrdfjA0Imr5A8TN/AKfOUjnK0X7gOyc39s4Cr
+	 9N3SfO4ZH9oYBr18wi7tlR8KQnFgxIsTRiwzjOqn/UeteiEmUPIwyly8bTCRe8xe3a
+	 +SsbhKIpNUiOtacYabjoZB3uo8oKmf1ksT170ot7uyFuual32Jq9Oa6dxZYS3hh0xG
+	 2btdyS+ifxM6w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] ceph: fix hanging __ceph_get_caps() with stale mds_wanted
+Date: Fri,  7 Aug 2026 14:50:03 -0400
+Message-ID: <20260807185003.3021525-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072907-hangover-plexiglas-6669@gregkh>
+References: <2026072907-hangover-plexiglas-6669@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-08-07 at 23:40 +0900, HyeongJun An wrote:
-> Two out-of-bounds accesses reachable from the ISST character device
-> ioctls, both from user-supplied index values that are not bounded
-> before
-> use.
->=20
-> The first is an off-by-one on socket_id in the CLOS association
-> ioctl,
-> plus a missing NULL check on the resulting instance pointer. The same
-> file already gets both of these right in get_instance(), which
-> rejects
-> pkg_id with in_range(pkg_id, 0, topology_max_packages()) and then
-> checks
-> the instance for NULL before returning it.
->=20
-> The second is a missing level bound in the two perf-mask ioctls. The
-> four adjacent helpers that read the same per-level register block all
-> reject a level above max_level first.
->=20
-> Neither path is behind CAP_SYS_ADMIN. Commit 69cd1ca440a9
-> ("platform/x86:
-> ISST: Check for admin capability for write commands") describes
-> deployments that relax the permissions on /dev/isst_interface so that
-> non-root users can read SST capabilities, and deliberately gates only
-> the
-> write commands.
->=20
-> Found by inspection, not reproduced on hardware.
+From: Max Kellermann <max.kellermann@ionos.com>
 
-Thanks for the fixes.
+[ Upstream commit 50958bb928bad3bdba9e5d1b7ff4bbadcf6951e6 ]
 
--Srinivas
+A reader can hang forever in __ceph_get_caps() when the client no
+longer holds `FILE_RD`, but local cap state still says that the
+capability is already wanted (via `mds_wanted`).
 
->=20
-> HyeongJun An (2):
-> =C2=A0 platform/x86: ISST: Validate socket ID in clos_assoc ioctl
-> =C2=A0 platform/x86: ISST: Validate level in perf mask ioctls
->=20
-> =C2=A0.../x86/intel/speed_select_if/isst_tpmi_core.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 | 13
-> ++++++++++++-
-> =C2=A01 file changed, 12 insertions(+), 1 deletion(-)
+One way to trigger this is through MDS cap revocation.  If another
+client performs a conflicting operation, the MDS can revoke `FILE_RD`
+from the reader; the next read then has to reacquire `FILE_RD`.  If
+the cap update that should request `FILE_RD` never reaches the MDS
+after `cap->mds_wanted` was raised, the reader is left holding only
+non-file caps while local `mds_wanted` still includes the file read
+caps.
+
+In that state, try_get_cap_refs() sees `need <= mds_wanted` and
+returns 0, so __ceph_get_caps() just waits on `i_cap_wq`.  If the cap
+update that was supposed to request `FILE_RD never reaches the MDS
+after `cap->mds_wanted was` raised, no further request is sent and the
+waiter can sleep indefinitely until unrelated cap traffic happens to
+wake it up.
+
+The ordering issue is that `cap->mds_wanted` is updated in
+__prep_cap() before the `CEPH_MSG_CLIENT_CAPS message` is actually
+queued for send.  That makes one field serve two different meanings at
+once: what this client wants, and what the client believes the MDS
+already knows it wants.
+
+A proper fix would be to split those states and track whether a cap
+update is actually in flight or has been observed by the MDS.
+However, simply moving the `cap->mds_wanted assignment` later would
+not be sufficient: queueing the message in the messenger does not
+guarantee that the MDS processed that specific wanted set, and
+reconnect or message loss can still invalidate that assumption.
+Fixing that properly would require a larger rework of the cap state
+machine.
+
+To allow simpler backports to stable kernels, this patch implements a
+simpler workaround:
+
+- stop waiting forever in __ceph_get_caps(); after a bounded wait,
+  fall back to the renew path
+
+- make ceph_renew_caps() issue a synchronous `OPEN` request whenever
+  the inode still does not actually hold the wanted caps, instead of
+  only calling ceph_check_caps()
+
+The extra issued-vs-wanted check in ceph_renew_caps() is necessary
+because the previous test only checked whether the inode still had any
+real caps at all.  That is not enough after revocation: the client can
+still hold something like `pLs` and yet be missing `FILE_RD`
+completely.  In that case, falling back to ceph_check_caps() is not
+sufficient, because it still trusts `cap->mds_wanted` and may resend
+nothing.  By requiring `(issued & wanted) == wanted` before taking the
+asynchronous path, the code only uses ceph_check_caps() when the
+`wanted caps` are already actually issued.  Otherwise, it sends the
+synchronous `OPEN` renew.
+
+This preserves the existing asynchronous fast path when the wanted
+caps are already issued, avoids changing cap-state semantics, and
+fixes the hang by guaranteeing that a stalled waiter eventually
+retries through a path that does not rely on the stale `mds_wanted`
+state.
+
+[ idryomov: move CEPH_GET_CAPS_WAIT_TIMEOUT from libceph.h to
+  mds_client.h, formatting ]
+
+Cc: stable@vger.kernel.org
+Fixes: 0a454bdd501a ("ceph: reorganize __send_cap for less spinlock abuse")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ceph/caps.c       | 17 +++++++++++++++--
+ fs/ceph/file.c       |  9 +++++----
+ fs/ceph/mds_client.h |  1 +
+ 3 files changed, 21 insertions(+), 6 deletions(-)
+
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index d9924ef55f4a2..07e3236e0f976 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -3090,7 +3090,19 @@ int __ceph_get_caps(struct inode *inode, struct ceph_file_info *fi, int need,
+ 					ret = -ERESTARTSYS;
+ 					break;
+ 				}
+-				wait_woken(&wait, TASK_INTERRUPTIBLE, MAX_SCHEDULE_TIMEOUT);
++
++				/*
++				 * If a cap update is lost after
++				 * mds_wanted was raised, waiting
++				 * forever will never make progress.
++				 * Retry the renew path periodically
++				 * so we can resend synchronously.
++				 */
++				if (!wait_woken(&wait, TASK_INTERRUPTIBLE,
++						CEPH_GET_CAPS_WAIT_TIMEOUT)) {
++					ret = -EUCLEAN;
++					break;
++				}
+ 			}
+ 
+ 			remove_wait_queue(&ci->i_cap_wq, &wait);
+@@ -3124,7 +3136,8 @@ int __ceph_get_caps(struct inode *inode, struct ceph_file_info *fi, int need,
+ 				continue;
+ 			}
+ 			if (ret == -EUCLEAN) {
+-				/* session was killed, try renew caps */
++				/* session was killed or a waited cap
++				 * request needs a retry */
+ 				ret = ceph_renew_caps(inode, flags);
+ 				if (ret == 0)
+ 					continue;
+diff --git a/fs/ceph/file.c b/fs/ceph/file.c
+index ceb5706fe3665..f640aff749edc 100644
+--- a/fs/ceph/file.c
++++ b/fs/ceph/file.c
+@@ -295,7 +295,7 @@ static int ceph_init_file(struct inode *inode, struct file *file, int fmode)
+ }
+ 
+ /*
+- * try renew caps after session gets killed.
++ * Retry cap acquisition after a stale session or a lost cap update.
+  */
+ int ceph_renew_caps(struct inode *inode, int fmode)
+ {
+@@ -303,14 +303,15 @@ int ceph_renew_caps(struct inode *inode, int fmode)
+ 	struct ceph_client *cl = mdsc->fsc->client;
+ 	struct ceph_inode_info *ci = ceph_inode(inode);
+ 	struct ceph_mds_request *req;
+-	int err, flags, wanted;
++	int err, flags, wanted, issued;
+ 
+ 	spin_lock(&ci->i_ceph_lock);
+ 	__ceph_touch_fmode(ci, mdsc, fmode);
+ 	wanted = __ceph_caps_file_wanted(ci);
++	issued = __ceph_caps_issued(ci, NULL);
+ 	if (__ceph_is_any_real_caps(ci) &&
+-	    (!(wanted & CEPH_CAP_ANY_WR) || ci->i_auth_cap)) {
+-		int issued = __ceph_caps_issued(ci, NULL);
++	    (!(wanted & CEPH_CAP_ANY_WR) || ci->i_auth_cap) &&
++	    (issued & wanted) == wanted) {
+ 		spin_unlock(&ci->i_ceph_lock);
+ 		doutc(cl, "%p %llx.%llx want %s issued %s updating mds_wanted\n",
+ 		      inode, ceph_vinop(inode), ceph_cap_string(wanted),
+diff --git a/fs/ceph/mds_client.h b/fs/ceph/mds_client.h
+index 0428a5eaf28c6..3720d5f16e064 100644
+--- a/fs/ceph/mds_client.h
++++ b/fs/ceph/mds_client.h
+@@ -74,6 +74,7 @@ struct ceph_fs_client;
+ struct ceph_cap;
+ 
+ #define MDS_AUTH_UID_ANY -1
++#define CEPH_GET_CAPS_WAIT_TIMEOUT (5 * HZ)
+ 
+ struct ceph_mds_cap_match {
+ 	s64 uid;  /* default to MDS_AUTH_UID_ANY */
+-- 
+2.53.0
+
