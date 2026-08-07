@@ -1,75 +1,100 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3526736C9D0;
-	Fri,  7 Aug 2026 01:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3373A6417;
+	Fri,  7 Aug 2026 02:00:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786067958; cv=none; b=QhG0TNYHhFtiMKsELszSUBGNCC9ijQBptN3NWJphmn7VghpJNPakvAfZVOMB7RKr1r+MXT9IrBc9A3c/P0HFZHMOfQRAk/0aJtsn/Mw6Jb8ZHZ2wDsS63FaeWQR9XwIrXIx02dnpEBplqtByf2VyrSOXcOm9KTUoQuortWuhRlU=
+	t=1786068018; cv=none; b=tbKjp3m4BRMXkJju/b1604DfjsM4dTcQaClAHBYnBG9OuW7nl+hmnwB74DE+9ft/LVUOouMlvQZVrg2SkYB3qVOQuR3ZB819uClJHsgMsI4ERQgjgLvEPlz5agAzNzOI8yPE0b7rEOM0ZJJHhU0BCPh3CeQvfb4NJ0uOV4rUx5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786067958; c=relaxed/simple;
-	bh=on2D0luqT6mzoqhF+mDYoAnSPwR8IXyf430Vv0Aw674=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=hcnqc9na2GG3VhRQRJkMzJmDg20HkkozaNwbRPznTi2y1q8kEB84x0djWjVKbG5YJoOJKlm9Pxfzn2gtWLNjkxVyA4aAjIbwHFcLhwjGYqKbe+f/LzKjl6mh1gabAftlcefHbQzELNV58SbHYZYWqtxqCTFtWq6q9UsTEotx+4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=dGGo+H1p; arc=none smtp.client-ip=117.135.210.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1786068018; c=relaxed/simple;
+	bh=q13mwXOfDj1yWBi5/FP75LuMh748vMXRPuq/MpRvMNQ=;
+	h=Date:To:From:Subject:Message-Id; b=CsS6aqiiU6jbOfnEc0FlJM65cQb7I5mCTChYwd7hrBCiwOB/0HD6oocq0YkZ2JqosY0f29B3kotx3F34bM3MsA3wN+yqjNYSqyl+xoePYbjxdQZ86tjZG+KYw0NFAO3lTdJ28bNSlFqHKx+ltVJnT5d8og7sIVkV5+ekN7LQE9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=LuHiKy7m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="dGGo+H1p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
-	Content-Type; bh=5DUrrGdlyZvyvoUP0goFItoyUXVm51ZRkbFuiWOVPCQ=;
-	b=dGGo+H1pBBL8Z09tJjOMsqy4Bv0+zz08RGo/Ta/UE+57b/ny8sPOUqcmMQMbLM
-	SOwyqPWA1pCMCPWwAqb3MeVlQUF+WaqIuemQGJjakwzc7qetTLI38fOykEAZ2xHv
-	RoH9CWR3u4VOeZI1qzNWXnNMOk3ebZE/RiYicO2EiupXU=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnf4Y6O3Vq21rUEw--.16321S2;
-	Fri, 07 Aug 2026 09:56:10 +0800 (CST)
-Message-ID: <6A753B23.3070908@126.com>
-Date: Fri, 07 Aug 2026 09:55:47 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="LuHiKy7m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AD7E1F00A3D;
+	Fri,  7 Aug 2026 02:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1786068009;
+	bh=aDYvrNe+hwJM/nPB1kYfpxvQcIQJc7YjkZobH34uUNw=;
+	h=Date:To:From:Subject;
+	b=LuHiKy7mZZNhbHwvYVKJstKJ6HG1xdxeBQIHYh/ibk9YjJ6I6gWnZPKmZ5CxNkjZ7
+	 TK2k9k7QYUmtjHZEOlCSVWEvGzG1JTHR4+yFMKGAExJrCkmA4NKgZ5CMIluw9IFZ8e
+	 IiOpiScUNyW0kK5yrSExuvmxGPppjT9deUbyNxbk=
+Date: Thu, 06 Aug 2026 19:00:08 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@suse.com,hannes@cmpxchg.org,zhangguopeng@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-stable] mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings.patch removed from -mm tree
+Message-Id: <20260807020009.2AD7E1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-To: Namjae Jeon <linkinjeon@kernel.org>, 
- Hongling Zeng <zenghongling@kylinos.cn>
-CC: hyc.lee@gmail.com, alexandro.calo@nozominetworks.com, 
- ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Subject: Re: [PATCH v3] ntfs: validate non-resident attribute offsets
-References: <20260806055713.42067-1-zenghongling@kylinos.cn> <CAKYAXd91TzMghrpOG4pBYr-9UBY9qJ6by=mrkS0m4BxMZEbrHg@mail.gmail.com>
-In-Reply-To: <CAKYAXd91TzMghrpOG4pBYr-9UBY9qJ6by=mrkS0m4BxMZEbrHg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnf4Y6O3Vq21rUEw--.16321S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Jw48AFWrWrWDKr1rCw1UGFg_yoWftrX_Wa
-	93Xr1xu395Aw45Ca1DKrWxKFy7t39rX3W3Xrs8CF4fZry8JFZxXan5Xa4jvryDJrZYq3ZI
-	y34kWFyUGwsF9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8q0P3UUUUU==
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBoBrUpWp1OzqfdAAA3+
 
 
-在 2026年08月06日 21:17, Namjae Jeon 写道:
->> +       /* Ensure there's room for the compressed_size field if needed. */
->> +       if (!(a->flags & ATTR_IS_SPARSE) &&
->> +           !(a->flags & ATTR_IS_COMPRESSED) &&
->> +           attr_len - mp_offset < sizeof(a->data.non_resident.compressed_size))
->> +               return false;
-> Sorry for the confusion. I rechecked the code and realized that
-> ATTR_COMPRESSION_MASK is correct here. It covers the entire
-> compression field, while ATTR_IS_COMPRESSED checks only the 0x0001
-> bit. Since this validation checks whether the attribute layout
-> includes compressed_size, it should use the mask, consistent with the
-> existing min_len check.  So I have applied the previously attached
-> patch.
->
-> Thanks!
-You're absolutely correct， Thanks for the guidance and applied the 
-patch . I now understand that ATTR_COMPRESSION_MASK
-   (0x00ff) is the correct choice—it covers all compression cases, not 
-just  the 0x0001 flag.
+The quilt patch titled
+     Subject: mm: memcg-v1: fix wrong linux-mm list address in deprecation warnings
+has been removed from the -mm tree.  Its filename was
+     mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings.patch
+
+This patch was dropped because it was merged into the mm-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+------------------------------------------------------
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: mm: memcg-v1: fix wrong linux-mm list address in deprecation warnings
+Date: Mon, 13 Jul 2026 16:57:56 +0800
+
+The deprecation warnings for memory.oom_control and memory.pressure_level
+use linux-mm-@kvack.org instead of the linux-mm mailing list address. 
+Remove the extra hyphen.
+
+Link: https://lore.kernel.org/20260713085756.2973549-1-guopeng.zhang@linux.dev
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Acked-by: Michal Hocko <mhocko@suse.com>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/memcontrol-v1.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--- a/mm/memcontrol-v1.c~mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings
++++ a/mm/memcontrol-v1.c
+@@ -1182,13 +1182,13 @@ static ssize_t memcg_write_event_control
+ 		event->unregister_event = mem_cgroup_usage_unregister_event;
+ 	} else if (!strcmp(name, "memory.oom_control")) {
+ 		pr_warn_once("oom_control is deprecated and will be removed. "
+-			     "Please report your usecase to linux-mm-@kvack.org"
++			     "Please report your usecase to linux-mm@kvack.org"
+ 			     " if you depend on this functionality.\n");
+ 		event->register_event = mem_cgroup_oom_register_event;
+ 		event->unregister_event = mem_cgroup_oom_unregister_event;
+ 	} else if (!strcmp(name, "memory.pressure_level")) {
+ 		pr_warn_once("pressure_level is deprecated and will be removed. "
+-			     "Please report your usecase to linux-mm-@kvack.org "
++			     "Please report your usecase to linux-mm@kvack.org "
+ 			     "if you depend on this functionality.\n");
+ 		event->register_event = vmpressure_register_event;
+ 		event->unregister_event = vmpressure_unregister_event;
+@@ -2340,7 +2340,7 @@ static int mem_cgroup_oom_control_write(
+ 	struct mem_cgroup *memcg = mem_cgroup_from_css(css);
+ 
+ 	pr_warn_once("oom_control is deprecated and will be removed. "
+-		     "Please report your usecase to linux-mm-@kvack.org if you "
++		     "Please report your usecase to linux-mm@kvack.org if you "
+ 		     "depend on this functionality.\n");
+ 
+ 	/* cannot set to root cgroup and only 0 and 1 are allowed */
+_
+
+Patches currently in -mm which might be from zhangguopeng@kylinos.cn are
+
+mm-memcg-stop-reclaim-when-a-limit-update-is-superseded.patch
 
