@@ -1,144 +1,281 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012013.outbound.protection.outlook.com [52.101.43.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E346B285CAA;
-	Fri,  7 Aug 2026 18:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E915369D42
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 18:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786127013; cv=fail; b=sAFns7AoeUqKQqhMO4qR98L+JpTt55IQsvnFK8KPLw0KZm5299wj4znoWNRopXl0e7RstOdMWZC40Oac2S9j/PWMHEtnrGHkOeZRfnDLRV6VHd5swAf+mexiSoCTyuAt0frSH6EFRQ1aBhFoxYmGBL9+wMsFpuyxNgfe+bO2zrQ=
+	t=1786127067; cv=pass; b=ngdSaUDW5lLJW2AaOFTjAv8hTph07kQpFTnNeQ2zPbmZN/KURgCMp2TRJU09tYQHadUBCLFar6svck1kw8czZX8/8YngMZEUK33GDbPJV/PCok1AG0S/3aNEyI5ZozzU2nTjLYIrx8tJ5gLwzh+d4Da3O51XIpoxIYiEkGI/TeE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786127013; c=relaxed/simple;
-	bh=+FScmWliC8LlU38d6yBT1pHehQuVXN6DvhkwfmKe3Do=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=J9ufby/wYRQDR9zZEKdPe5GrdDEAPdqX67kC1Tvi/Unyzfzdgzy7DKu557ZNLv+PObzT3bShfJlE4hwsZTCRCbxoJdPltRX5vjzTLh8ntwjkw5EdEcGgbs/eKCr1x8+/bwdZqtICCn/EWpgMejqawsme+NkxjW8SodG9fe9WVhw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=5pddWDzY; arc=fail smtp.client-ip=52.101.43.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1786127067; c=relaxed/simple;
+	bh=UADlG41M5thctfgmS6ugHJOYzI+CaH8VYjB2Qk3aRNA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dOB2Q3JYm1L5HSUvuiwWV6F4nkXyeMDJRfp6VyCl3KPcC62dXAQ6dtsrXL9wObjaw6QhZxT4kf5cRPMKLWqMhYU+b3oyMv4/KbA0b1EkAVRdGz7W4TLOM2pl3DLKQ24E22rF/ljks1Bry1J9anLUn/0jdXtRkX6pBfJB9gYRhWI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QFuwcDxB; arc=pass smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="5pddWDzY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eb/jWydlL/EOa2YnlBkRyZ640ih7MUQ7mkmFb2K2IxAJtZnTEDG8TtR4B/ulWchenAloePtyNTqiB3j8zXeWPEI/7hiDEHqyPUpBNH/3WfJE4bgjVI+9B/qfexy4uW/v9XaWhJu0LHV/37M4ui77BXxuuDQhnFxT/2Oy2UQdPwS4pV6wAPoDAwlaGH85MosDrP9Q6IH6oySABuhjB5MRnNc4j7EZREal2hixAdwucDkZb7awWNg7fhZBc0zR/siWV7Ay9SELuiWr5ETkYzMZJF1TjY79gZG2iGYp5umPX07YJVpfqrD/iHTqRWOgiyEcYNVioUK5TXlzsLLY1i9Oew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KHB2Armig0HCvseXkKRl5ZOjKFZwNhil1y/2w2oM/MY=;
- b=K9vNYKXeDt45tImXZ3T1ckv9bnHWdNBu3k05IWowKIcqvyB5eF3fZw1MCVI2/9FFoJGFhXK5iROHRYJnIeVv4eC2bTL3yPln+XJfbTbgg1Tii1T9PZurkmOmLat+vXoYyUW5QjvQ6xVLUjBtYk9O4pr/NMR9wgixc5Vp3S8PuVsSOWKHGDFg03DgsSW0DVBVbGnSPXfIq7ubUy/FZPI1qdCoGk29D8vNp/gpnfYeOBTIxmR11uJiRZKFZjuKW5d0ZAQNmpMWiUdTGhD6ZrVhGlIYos7MM+0TuextKAlTzvfbixlv9yd6e1VNn4tf6+FdeJ1iuaBa9OtgHZ18JEkbdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=synopsys.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KHB2Armig0HCvseXkKRl5ZOjKFZwNhil1y/2w2oM/MY=;
- b=5pddWDzYY8AgaSTth74LMgBy3t05uIjDk0umJwQOccMbpR4HAz+kffUfRB9r7ismqFDOs1T99UV66g/I5oLUbP/bs7/RRHKxD7m0dhq5LPWpGTfuP0SqpT7LJfCI+oE0ZudhJF9ymlKxTJeaF0rKm/WwrkvfgIWrQNP0P1j2c9A=
-Received: from BL1PR13CA0229.namprd13.prod.outlook.com (2603:10b6:208:2bf::24)
- by SJ2PR12MB9210.namprd12.prod.outlook.com (2603:10b6:a03:561::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.21; Fri, 7 Aug
- 2026 18:23:26 +0000
-Received: from BL02EPF0002992B.namprd02.prod.outlook.com
- (2603:10b6:208:2bf:cafe::51) by BL1PR13CA0229.outlook.office365.com
- (2603:10b6:208:2bf::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.8 via Frontend Transport; Fri, 7
- Aug 2026 18:23:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL02EPF0002992B.mail.protection.outlook.com (10.167.249.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Fri, 7 Aug 2026 18:23:25 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 7 Aug
- 2026 13:23:24 -0500
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 7 Aug 2026 13:23:23 -0500
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <Thinh.Nguyen@synopsys.com>, <gregkh@linuxfoundation.org>
-CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Radhey Shyam
- Pandey" <radhey.shyam.pandey@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH] usb: dwc3: gadget: cancel NoStream work before endpoint teardown
-Date: Fri, 7 Aug 2026 23:53:18 +0530
-Message-ID: <20260807182318.3736662-1-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.44.4
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QFuwcDxB"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-69fdfd98eb8so484711a12.0
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 11:24:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786127063; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aXhBbvNt1N8b8eEUbmeaLDVvm8eCX2t7Elc2SFvs968Czf+X62ToxaL1WO8Q8SfmHN
+         1va2qk70OFVBDKfgMD0Q5dpcTw7PuRyCSUSZVuwSd1q6hs5iV4mtY3VIzngwzo1nY9VD
+         /wIW6gte/1UlHrJBGGW9zn7SqL5oRdhGlbK42NERDWzBheSdYzP6VMKKkAtJ4mA8dcXr
+         ZKnbtYGqorF/CRB460OXGHAJiOfnqJl2REE9KcI9gpwxKbBS66T+jASo9jLKKgRwXgn+
+         Ou3+I3C1wZ7YVrZWGIggWhY7+AcyZr6gWexYqWERvRiD85nIjEV3WhuZ9AORvk9aA4nb
+         sxwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dUwOEzdPWu8zymOmaEkTRLskubFdeih2HqEaKUwkN9U=;
+        fh=paD5URV8JXS2klpSatJgpbtBfAY3znDxIoYqQxiA9oE=;
+        b=gN6RnF0+HBsLUDTiFCZ48n0OflgZbpKju4ol3BCqYpsxsVchcVywLfd241Nxxs+xQM
+         QBdGc4GTjI21l/JchJOkXisQCWk85IshQbSsKS4LxtK03dN6r/dn7DXWtAtTme/98kA9
+         ALNl7tYMkzmgFdU0YwBofZPP7nCDE1Tl0fQkpxYSZwsvpcxtsIKHZCMix05J+YFBSbYl
+         a9EqDODAbT8jBYHv6VwqBOX5NXxwiSvML/RQIt1eX0UGjLO6fyxedGyiezgDfuI9BLVn
+         IiiTMSYSTZmisx7KbBXe6OrApiW9wAI42n/f+/mCrYNV6EEUXlOFFEcGbFV/YjHJpU41
+         35wg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786127063; x=1786731863; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dUwOEzdPWu8zymOmaEkTRLskubFdeih2HqEaKUwkN9U=;
+        b=QFuwcDxBiiK9+rEFH6Ixe9sEfBT93KPwRcETWINbwg5m/z5fwisBzT0fcyl4qxnnwC
+         8aQ+tX2udbRy2yPW1FPdNtVg1k//EAxAebjxrrUceMSZ6zNIMdy/iDsHmC1iSocHi+wS
+         7trGtZ1JtNjjcGvupaOgcOYM9hy+ePvdsZijyM0Bu93hbPkDO+mY5LwUdF+MJ5y9Kmtx
+         dNmMs5GlasUnnncGZs09Nv8eus+Uf9qbJ9cT9RJDjOy/oHOSOw7oehN7SncLP1XDcgsO
+         P2eGC9KVC9VtXQacDODyoCbiL7hoijDuvTD+RjGtJEW4k1SMAb3asl+bke654u3VWnQv
+         lvjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786127063; x=1786731863;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dUwOEzdPWu8zymOmaEkTRLskubFdeih2HqEaKUwkN9U=;
+        b=svJdvvrsXSDVQgpNfTR2Zs5OIP+go/hC12hvpOJjv5VP9/9VpqOxS1K61Vkw9XAPlW
+         qeY3ZIktgg4fXnQ0ZeUsL1UKha5hk3RkgtveQP40H7leURfnhwrH80IeJz2dX5I0r/xr
+         AjW1WbFTtoUxC87c8ggAkvUBvEqwrNI11gykH8u05AqW0XCLyZ2B7or2HhvHVAN2jpYC
+         meCtgFf9eSi4gnGV1g+zHmPr2FFpkOz9qRp/1YWkhAf1jSbTve4LFbzo9h9mrDKxbyUy
+         0STQi5arhDhVJXN1a2XHI3iW3yK/MVZyYYsM19X7rQ4i6NOsHa4oWmTvEBRNBlFryxXY
+         Vanw==
+X-Forwarded-Encrypted: i=1; AHgh+RrBs2uNfZcM8c97okCSEFACbBwBJpo58Oeput8t1M/dBjKYQnfoL2Qnm/TIVU6WXVHaWMb19zc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqtAPdxJf2yt90btOCQL+dEmfI7Ex/UgonJlZOW7LqloyFFVRr
+	k4Qz+JpeYjtJn7tgL0jx8yqfROTe0Xk9qcmrvrOQSO21kOWGrnvv6aO065E6N8WSSRvJqrv9qta
+	QPLoWoOnoN73uLvk+YvYGXLVY6o3AL/A=
+X-Gm-Gg: AR+sD11D2pdFtlEdmrYIhPEe3PN+xgqrezkvlJE3+VfURw49lvxlr4wapbPqjWKeFat
+	CLoU6cFJslhZN6ztU/uzUuMSluv0lqtP9VrP/U1JBBFDdA9Up0FiXZFqfByqkImqM1+UMPT4/BD
+	Q1ZXiTr2fhN9bf/pDkqGIEzXCS/gQ01eKzJ+B2L6i1RZ58SGLgsOQ5+FKG0N59Ciy9Y85eZ3zrt
+	ePLFZzywU5RywfGk1hdeGx9SAFo2rm08EffcJXX0+FKvQ1wuUrR8a4bQESgZdtgHgHYZyLKd/yG
+	zxHRYh68ocPFiFIvfRganm/F1/o0eExVjfMxq+ghJ5fqF6b23Jj0cnmdKYGX2qkIko8DpmZKLQ=
+	=
+X-Received: by 2002:a05:6402:3506:b0:6a0:f1f9:e026 with SMTP id
+ 4fb4d7f45d1cf-6a14f2a66a8mr6336836a12.4.1786127063387; Fri, 07 Aug 2026
+ 11:24:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992B:EE_|SJ2PR12MB9210:EE_
-X-MS-Office365-Filtering-Correlation-Id: 712f6fc7-0d2f-4e57-c72a-08def4b0f86a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|6133799003|56012099006|11063799006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	McQmASH+BjHxnKHNiGBMvKUkdXF3e2V5LzqkDunQZ5Tl9WdXrdh5VRhVhErZ+QtMfHb6SXpTSQ+3DQ20XzR5t2QKKo1pe5hwOk9h/DStNFlBKf/iIsTiDZ/uiGwn9X1ETW0YIQXkzBaAbt/vIw8LLcIB/DarH8PUQ0pRGJjfhRuPelBI1j86Hcu7ZU0w3A/nGiV/KDSPMJ4Ur0awIgYDlZRCIcegZ2WprRYnKi3pKuK2s9aShZvZIaAEV9sEKTBq5PnK8HJ0jwwiTT1WZQv0hD7tQP4FzB+zAfZnwGuGUYS2okWFWMFnfRitPF1D2eq2hJTpSWwDm3Xs7P0JVykGgCIO4gEA/5YsE0QkZiPdeQ7+HlpdkDCSc8aERGCTau6GgIdKhSvKySmLSjr2X38gOo7vOcxP6SLJOxenLUr2bZRnLZpehvgM0ZmM8ZaIIDrxJwhbo+vjVmPBCz3E8paNl5llIGbpsnm1KzuJvfkYBXE0EiYPacDNfqDd9pTUOdAqu48mGC3wAlq/rN5Q/RQn4nNXoChQK+qatz/znnyiwzGN9RQY8WgIZFuTrrzbJqOEYSxlvN+EJ/h3lmninGvLCjjtw8mrhB0uVaIpC1iCMQGatQ4c36swEdnV6EukhXIQtxdBxsVOkhCVNlJ4JP8SVd5nkfAhp3OGU4oOjG3/na7E5NFwTTk8opaYqABC+JC7nfhpPoAmJot1clvnGebdEg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dUdfHvy4vt05Jek+2B+UbU71F7uQLNHUWXutRouDh523UPFRFyKqe6hNYfeNVfj5w/Jx9Fa0OMr0BKwt9tNdETmtsV0UKHVCNS+2BHOnla9CkGDZXNw1jtIQdrwIonDeICe3Fi9zkwMUiJW86P7VrJLrJRTVpnzi2VSUOXcY7EuWyFgBFfTiq1AjYKtC4K3JvAlophAi7hUF3jjFlrNwjdUDvvZKomlyNXdIWRPAZKMy1QDwZwLyB/nFStZBQnpnWA3bwGXeMmtLK1pp8l/2aWZn5k1aJXsPHlPgiOIvHjA0eed11bLR4jYChM4xagA+zlWOBvjQZNJnHzHiuaSrfzJLRFiI2IP8/2o95Yip6SEcPTvEWkx0xaX6CGXQKNv+W+3kdw+xi6QJrOdkaJCK951A9FXhEJ9pBBJ30FdAZxxXPkmF05h4v2LvEscwAibC
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 18:23:25.1903
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 712f6fc7-0d2f-4e57-c72a-08def4b0f86a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0002992B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9210
+References: <20260806133309.731709-1-nicoyip.dev@gmail.com> <20260806144225.GA1940054@shredder>
+In-Reply-To: <20260806144225.GA1940054@shredder>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Sat, 8 Aug 2026 02:24:10 +0800
+X-Gm-Features: AUfX_mwI3opsf-KUy5fEjZu1-_oNK5jjwxAyCm7penD7Up_h_DON19HI2hd2OA8
+Message-ID: <CAAo+4rUVQkHhKupHOx-x4dq+qxkeeqs+nS=OK0pELZVzgeWTgw@mail.gmail.com>
+Subject: Re: [PATCH net v2] ipv4: fix use-after-free in fib_nhc_update_mtu()
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: David Ahern <dsahern@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Stefano Brivio <sbrivio@redhat.com>, 
+	Sabrina Dubroca <sd@queasysnail.net>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-DEPEVT_STREAM_NOSTREAM schedules dwc3_nostream_work() with a 100 ms delay.
-Neither dwc3_gadget_ep_disable() nor dwc3_gadget_free_endpoints() cancel
-this work before freeing struct dwc3_ep, so the handler may run after
-kfree(dep) during DRD/OTG role switch teardown.
+Dear Ido,
 
-To fix it cancel the delayed work synchronously in both paths before
-disable or free the endpoint.
+No problem, the patch looks really good, and I just posted it as v3
+with a few minor comment wording changes. Thanks again for your
+detailed reply.
+https://lore.kernel.org/netdev/20260807181710.1178747-1-nicoyip.dev@gmail.c=
+om/T/#u
 
-Assisted-by: claude-mythos-preview-high
-Fixes: dcfe437492e2 ("usb: dwc3: gadget: Reinitiate stream for all host NoStream behavior")
-Cc: stable@vger.kernel.org
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
----
- drivers/usb/dwc3/gadget.c | 3 +++
- 1 file changed, 3 insertions(+)
+Best regards,
+Chengfeng
 
-diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index fa0f16ffafef..ddf1e262e2aa 100644
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -1175,6 +1175,8 @@ static int dwc3_gadget_ep_disable(struct usb_ep *ep)
- 					dep->name))
- 		return 0;
- 
-+	cancel_delayed_work_sync(&dep->nostream_work);
-+
- 	spin_lock_irqsave(&dwc->lock, flags);
- 	ret = __dwc3_gadget_ep_disable(dep);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
-@@ -3508,6 +3510,7 @@ static void dwc3_gadget_free_endpoints(struct dwc3 *dwc)
- 		}
- 
- 		dwc3_debugfs_remove_endpoint_dir(dep);
-+		cancel_delayed_work_sync(&dep->nostream_work);
- 		kfree(dep);
- 	}
- }
-
-base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
--- 
-2.44.4
-
+On Thu, Aug 6, 2026 at 10:42=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wr=
+ote:
+>
+> On Thu, Aug 06, 2026 at 09:33:09PM +0800, Chengfeng Ye wrote:
+> > fib_nhc_update_mtu() walks the nexthop exception table under RTNL, but
+> > RTNL does not serialize this walk with PMTU exception updates. The walk
+> > uses rcu_dereference_protected() with a constant true condition without
+> > holding fnhe_lock.
+> >
+> > The following interleaving can therefore occur:
+> >
+> >   CPU 0                              CPU 1
+> >   fib_nhc_update_mtu()               update_or_create_fnhe()
+> >     load fnhe                          spin_lock_bh(&fnhe_lock)
+> >                                        fnhe_remove_oldest()
+> >                                          unlink fnhe
+> >                                          kfree_rcu(fnhe, rcu)
+> >     <quiescent state>
+> >     access fnhe after grace period
+>
+> [...]
+>
+> > The same walk updates fnhe_pmtu and fnhe_mtu_locked. These fields form =
+a
+> > pair and other writers serialize them with fnhe_lock. RCU alone would
+> > prevent reclamation, but would still allow concurrent writers to leave =
+a
+> > mixed pair.
+> >
+> > Expose fnhe_lock to fib_semantics.c and hold it across the exception-ta=
+ble
+> > walk. This prevents entries from being unlinked while they are visited =
+and
+> > serializes the paired PMTU state updates with all other writers.
+>
+> Looks correct, but can't we use RCU for the traversal and only acquire
+> the global lock when updating an entry? Otherwise, whenever a device MTU
+> changes, we acquire the global lock (and disable softIRQs) across a scan
+> of 2048 buckets and we do that for each nexthop using this device.
+>
+> How about something like [1] (vibe coded, compile-tested only)?
+>
+> It also avoids exporting the global lock.
+>
+> Please wait at least 24h before posting v3.
+>
+> Thanks
+>
+> [1]
+> diff --git a/include/net/route.h b/include/net/route.h
+> index f90106f383c5..45290177a33c 100644
+> --- a/include/net/route.h
+> +++ b/include/net/route.h
+> @@ -276,6 +276,8 @@ int fib_dump_info_fnhe(struct sk_buff *skb, struct ne=
+tlink_callback *cb,
+>                        u32 table_id, struct fib_info *fi,
+>                        int *fa_index, int fa_start, unsigned int flags);
+>
+> +void fnhe_update_pmtu(struct fib_nh_exception *fnhe, u32 new, u32 orig);
+> +
+>  static inline void ip_rt_put(struct rtable *rt)
+>  {
+>         /* dst_release() accepts a NULL parameter.
+> diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+> index 4f3c0740dde9..61286948c5d9 100644
+> --- a/net/ipv4/fib_semantics.c
+> +++ b/net/ipv4/fib_semantics.c
+> @@ -1864,42 +1864,30 @@ static int call_fib_nh_notifiers(struct fib_nh *n=
+h,
+>         return NOTIFY_DONE;
+>  }
+>
+> -/* Update the PMTU of exceptions when:
+> - * - the new MTU of the first hop becomes smaller than the PMTU
+> - * - the old MTU was the same as the PMTU, and it limited discovery of
+> - *   larger MTUs on the path. With that limit raised, we can now
+> - *   discover larger MTUs
+> - * A special case is locked exceptions, for which the PMTU is smaller
+> - * than the minimal accepted PMTU:
+> - * - if the new MTU is greater than the PMTU, don't make any change
+> - * - otherwise, unlock and set PMTU
+> +/* Walk the exceptions of a nexthop after its first hop MTU changed.  Th=
+e
+> + * chain is only RCU protected here, fnhe_update_pmtu() takes fnhe_lock =
+for
+> + * the update of each entry.
+>   */
+>  void fib_nhc_update_mtu(struct fib_nh_common *nhc, u32 new, u32 orig)
+>  {
+>         struct fnhe_hash_bucket *bucket;
+>         int i;
+>
+> -       bucket =3D rcu_dereference_protected(nhc->nhc_exceptions, 1);
+> +       rcu_read_lock();
+> +       bucket =3D rcu_dereference(nhc->nhc_exceptions);
+>         if (!bucket)
+> -               return;
+> +               goto out;
+>
+>         for (i =3D 0; i < FNHE_HASH_SIZE; i++) {
+>                 struct fib_nh_exception *fnhe;
+>
+> -               for (fnhe =3D rcu_dereference_protected(bucket[i].chain, =
+1);
+> +               for (fnhe =3D rcu_dereference(bucket[i].chain);
+>                      fnhe;
+> -                    fnhe =3D rcu_dereference_protected(fnhe->fnhe_next, =
+1)) {
+> -                       if (fnhe->fnhe_mtu_locked) {
+> -                               if (new <=3D fnhe->fnhe_pmtu) {
+> -                                       fnhe->fnhe_pmtu =3D new;
+> -                                       fnhe->fnhe_mtu_locked =3D false;
+> -                               }
+> -                       } else if (new < fnhe->fnhe_pmtu ||
+> -                                  orig =3D=3D fnhe->fnhe_pmtu) {
+> -                               fnhe->fnhe_pmtu =3D new;
+> -                       }
+> -               }
+> +                    fnhe =3D rcu_dereference(fnhe->fnhe_next))
+> +                       fnhe_update_pmtu(fnhe, new, orig);
+>         }
+> +out:
+> +       rcu_read_unlock();
+>  }
+>
+>  void fib_sync_mtu(struct net_device *dev, u32 orig_mtu)
+> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+> index fd688e1f879f..604cc51dfd9b 100644
+> --- a/net/ipv4/route.c
+> +++ b/net/ipv4/route.c
+> @@ -741,6 +741,35 @@ static void update_or_create_fnhe(struct fib_nh_comm=
+on *nhc, __be32 daddr,
+>         spin_unlock_bh(&fnhe_lock);
+>  }
+>
+> +/* Update the PMTU of an exception when:
+> + * - the new MTU of the first hop becomes smaller than the PMTU
+> + * - the old MTU was the same as the PMTU, and it limited discovery of
+> + *   larger MTUs on the path. With that limit raised, we can now
+> + *   discover larger MTUs
+> + * A special case is locked exceptions, for which the PMTU is smaller
+> + * than the minimal accepted PMTU:
+> + * - if the new MTU is greater than the PMTU, don't make any change
+> + * - otherwise, unlock and set PMTU
+> + *
+> + * fnhe_lock keeps fnhe_pmtu and fnhe_mtu_locked consistent against
+> + * update_or_create_fnhe(), which sets both under the same lock.
+> + */
+> +void fnhe_update_pmtu(struct fib_nh_exception *fnhe, u32 new, u32 orig)
+> +{
+> +       spin_lock_bh(&fnhe_lock);
+> +
+> +       if (fnhe->fnhe_mtu_locked) {
+> +               if (new <=3D fnhe->fnhe_pmtu) {
+> +                       fnhe->fnhe_pmtu =3D new;
+> +                       fnhe->fnhe_mtu_locked =3D false;
+> +               }
+> +       } else if (new < fnhe->fnhe_pmtu || orig =3D=3D fnhe->fnhe_pmtu) =
+{
+> +               fnhe->fnhe_pmtu =3D new;
+> +       }
+> +
+> +       spin_unlock_bh(&fnhe_lock);
+> +}
+> +
+>  static void __ip_do_redirect(struct rtable *rt, struct sk_buff *skb, str=
+uct flowi4 *fl4,
+>                              bool kill_route)
+>  {
