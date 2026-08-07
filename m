@@ -1,275 +1,255 @@
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A4B35200B
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 18:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786126440; cv=pass; b=P/f/HPDkhoSu7QRjs47F0TItObcVpXe2O+P8fvxzuQdAWWFFx+zau/wxQxHH/7svj5HIaw5hVho9hPpfxFTpFv4H1YNJsrdpDAUJHcyvQd2y17+yIkpM6qm7QpKJzhFxKMC2bpUXxqbrLNY7fmQbN3KRscMzjGQEcOaYkipL6z0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786126440; c=relaxed/simple;
-	bh=K3Xuf0R4IM+Zbo4XXVROPT6Z2IDLZipVyLye6XobMiY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s/Q1+EHtQGW2skFS6QoabylR/7WmOt4jb2fnjmwHGl9snNDzsFBW5V3B2dYX2W6ieNCGC/wisOjncO2oNE26jZFm3cesZYWwLNlVaHs4C10DozZ/vBKpLxVvQ6EmghnQMZMvy5ByQyCix3hYyRg7Ff/pGEQn2h+Rb2zuqe7GC0M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WnmoyMzW; arc=pass smtp.client-ip=209.85.217.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E391F32B133
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 18:17:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786126652; cv=none; b=OLz7mlgCcIdSsF6zPTB0K+bpyiNovxXV7WJ3ZJNgdY6JMcAg7Xuqy+Nm04nj3i0i6PtvaFlu9fB/nOO00+P6mftqf3oxCj5qS9yHlEEWWv3yx5Flfscv92QEtF+P8aulE3Z/RRVa9dfdWw0Y0aRlnSxbqzUfknSrNVCMUygntVI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786126652; c=relaxed/simple;
+	bh=iHqdeXDvyAh8OuI3xDZM2Mg8lwsinPA8tT43LXr/qDo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jviIuU8ObjtmAKzApGoe5xBNnVANXRXE3VaqbkJcBqeoQPTEGSosWCo+pqEHZgh1tYcDnhQFBP6i330QDjk06G25ZZ6POt/g5aEclsvprnwH5lO/f5uQfozHPPwIRC3ON+cMXc5US+ieQP/FaBLgyUf1C1vHWC59ux7UDWsteZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RkOWBv+z; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WnmoyMzW"
-Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-74ad03fa605so1910323137.0
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 11:13:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786126437; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i/VGLyPNuoZ9NPEv8fsb9QxyNWVFV/802uvScYQli5ohs9TOwzLRpvuu2uQdnpJpbF
-         u7pN2OQQpHboqjHJ+BKHrns4UvpHFAAC3n7I7a7kLXqnvVX0wPO/cD2pfrXAvLd5Te3a
-         5I7iwN3Q0C2xyB9i8fEg9ECQLa8OQShrb0Itdc4pcO5XBJbRMMr98SmwoFWHkCcTpjsa
-         DqZaydhNEZhrfE6vhJjBwVb2evQqAm+JZud4N45s94pEtqJWbn6bBfuhko8OwmC+kxXN
-         sWnwDoSdv6DK01Hv7jQAbgccDy4TjL6pQG50M56VU0/2NvBrXO1g6LM2JN5hsOFNwcSo
-         fEWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hgI6+3KvWcvXEIakyf/wGqB9TCKQvRkK///h7uD9yMM=;
-        fh=EX0JApOOjGieIMnh1OCa+ZlBHRTD/EBjDBm3ydigiAY=;
-        b=Y+rzqK//AEO1nwAUVg8QrbE+IKSq2cwGpmRrUGSQ4C1J3yOMWYhuZdQdKSiyxMFbpo
-         M29wbMJXY3jcsTflplgRc3E5Om3xx+x/dYKmZVPfgMnANldPw4QfPJbWrOami1S0EgAd
-         uFE7w9LRkqDBJ4dNnyTh6uRuH7+L38Jq2m8tnkKN1CBVv5LYUznXDpuSjKPcvZcdl6W0
-         Evtt27nL1p5u2jRhLy2gO7Ypae4lTpO7rQmBAkF5DJqNl7yDIIMXmD8sXMK/uPeByLVM
-         ukm69Qg0j9IsH1fureFS5Ebb33UCTq4n+pc7KkAo1GPOH7oTcA1r5D40XJ2KSRODq9WQ
-         HuEg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RkOWBv+z"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cf4c37dbe6so3770475ad.2
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 11:17:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786126437; x=1786731237; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hgI6+3KvWcvXEIakyf/wGqB9TCKQvRkK///h7uD9yMM=;
-        b=WnmoyMzWba4poxUVruEJ+D1IobNEGN0K/4akehXk5m9BqgN2CO01QABrJv1l3n2OFj
-         dJqO85xLp9bCK2LeepIQoETrGHOP+Q2BtxnMyDFvqVK2yFrwWMzkqirDgZ3iwAU3MmaI
-         hYbF9toVcWoO7gWgwnf5VAyJiDdSKUKDIUT5tl+PS7czKU8xD5Omi0CKDEDZKeSSjSsS
-         adTvHfQZr+u8UUEDSreBCYms0mSNdZ5j0CmNYoXm8Bit1J+g1NixSAE8/KJ7Km7HWbZV
-         D72SB9uPMz8meIXkIyLuMe6pyHfDSXKuBllhGgxWWtDKWdrCZBJtpSxUKDfnwV3l2W6A
-         r3wQ==
+        d=gmail.com; s=20251104; t=1786126650; x=1786731450; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8YehZV8pGgThZgWk/4T4DcEH08k8INHztawGZMSNBxg=;
+        b=RkOWBv+zoJSKKl3WaJQqSc0AGch/Bt253cNcGlUplcaHkPc/Mk1HoyVkfOm0EX6PuR
+         iXHnT0xHm2d4JR0TiszLzCg4MIu7zCw8EVW3A4abxbo+ZTUbMSX1Tre6qXlZ+dXllOnz
+         f79Zc4DlyQ/Cl+fA/WltE4rJqaZ9SpnTVsRkeB8K5QFn9cUlGxjO+yVsLMGZF9rhcC/r
+         4ZuDpGIfTD1oLIW8tJavTa4TwWFQgoxDxSPTvgrC8SpYl+EWMblNywcm6+g+Lwm0/iC2
+         AvJmCSNTtXVRfgfl5rh9gYrnLfCcTn+AC0DURlRBuFT4i+yOpT3/pyCFJ1f4JCOXoSZT
+         g/fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786126437; x=1786731237;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hgI6+3KvWcvXEIakyf/wGqB9TCKQvRkK///h7uD9yMM=;
-        b=XTKdfCKYZlRVpyiwFVSR47ylhxuQQ5ceLYYJTPnSZ0Vd5TkXI+i7xiJWRMZB/P6n/f
-         W1FzJZP2sXdmyQy/8nP1sy44QqZ1PsLvKXfQ7lHlKC+yNQ2ExEPPeD+Ule+0TQ8vLjAx
-         A39T48+ZhrJDt/W2cllkeN7EssJebc3t+dJHfz/TQ3URW56H8p+NXDMHb2u49nxz4L7x
-         2aq//GD64r3qleolhOxqw/brzdxGgG4B/dGgLnux/QLy3KF4u1QVu7lE9W2D6NVvkGTt
-         eiI/QAHvwWb/fA+z/QnlugaLaHysYWkAaCtqp77fQo8QErbsnkuBWZG9VbtR5QrjloyP
-         dUow==
-X-Forwarded-Encrypted: i=1; AHgh+RpjcjixC9qAuQgV/qQ5Z4DjQWBYSBd2V55iD/5kzy6G+TKoYY+LoqmwkXPcyYIIG7umjDvPXco=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNKRQROYl6xBK+FSa/u24y+2nVUOMdKjthi2OZFlWBQ0k7WSbw
-	bKHbd0KHm8HggwBQhxFOzp71EjjmpQ4AhWlNCF2mi2dYMOow/0kmSo6aUMYi4tvH5kG+qN3PGCQ
-	5SmgeDQ2T/R0WFJA+gYaBP7NrsHBpr9uBEk/0
-X-Gm-Gg: AR+sD13Cd5gANOkraVOoZvsrhAQgSi1CtPVSuaOe2+H5ht+uw65PD1IdixuHLria+ip
-	/W4RzIww3KZjuLJWl6aFnTqI1uBuJUKNNCUaNYtQCBrz88DBNmGu6oAfkJklRQjwm5cByvq+tCN
-	ULJkqoirAaC+LdUnl7nmXnhyZpzK5OEwvkrUhqbSaciIdjfCZaHLEfOvLl2zAxMRiql4O41AqVj
-	ep8KrdgSsl8If/pR6cBwl3vPwS5pUSgb+ulmU/lsg3U7nIpw3mE5INvMTzfax0gMdBtHuSVHGEl
-	FyGQheKxgXqmLxy3RP7eHVG5tHOFO6uCCumFbdTX2cPYhnUMNXYjfYlD5VgGRgEDbDgl6YuQmOK
-	V4w==
-X-Received: by 2002:a05:6102:4bcd:b0:74a:b492:3a62 with SMTP id
- ada2fe7eead31-760e7cf60a9mr9067303137.4.1786126436709; Fri, 07 Aug 2026
- 11:13:56 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786126650; x=1786731450;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8YehZV8pGgThZgWk/4T4DcEH08k8INHztawGZMSNBxg=;
+        b=PYRAPOYL+KMxW9vaopfNoFP6nsY5uhlw3EU/D3zWv72wK7bfdho0C+UGlZ3vTYaAzF
+         U/g9RCYTxfOr0iCvG4LFxb/BO8qjUDRBuVR+XpaxKNRwHCc/9S8/RH/tT2rKs5mS//Bh
+         6a5ohYrLrnUXh0kIljJDCoVi4lPuZzrLMFauGoJ7RyuSe/Dr4z6f3muY4cC4k1r+TXgx
+         eqNf78CRausKKIYMtxNYcFqJ8lr8DhQyCkKay2u6gfZK39rk4R6Ny1riklc/1M0Kg69y
+         HXfjrLFnLBFvixxH5ZEqJzUxIwb0Xau8JnIlC1O1mEoTwCv7TZ1yLZSgoL0L73t7ULda
+         kwFA==
+X-Forwarded-Encrypted: i=1; AHgh+RoOihiZpHTZ95CvV1BL5uahd5+TIFR3ArL28uvVt2DaziF+YTTegkwibI+rLdN2nnG1NmNXC8I=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKyxnKMzYvQmJ/Y+IHWKoVCoX4L5P2fJtgTD866uZkLH9ZCf4B
+	O4OJb84DDCN36RbgLyvpPr6DQWSyOwFblfBfAjIMYR/If41F/ffS2/X4
+X-Gm-Gg: AR+sD112SLOHzwabld/ZKAWvhIY7zZs8ZH2v7RjO1JWpo+RNnHpl1oDWId5vBr5t+Br
+	EnKXoH9wISGJTz0s9/2v72DJouS6X7EOMxJiVR/3T4znT5iPnSXIp+gLdpGWAiFmoKvJQSaPSKm
+	WNSaLk/fvfxGYFeO1jEMuU0/3DObhkqHB4aNAOJn9+II6fGc+HSEZ6exShcT6PVvGCU37Wc52Q7
+	03lozL+r2E3V2Quu16ikVDEKm8gWJ8/jdvmdSUOy855wWFn3UQSeqB7JLfQ1FAT/KGxMAmF+Rul
+	f3iEcYUSQvCPeHMZakFMQTFc6xKFVHx9UIShk+2/hVNW8qzTuJ2Kx+Kkz9O8g9x9w/Vho/z+6C7
+	cuyblMBgSAjLrm+M6hSbvq5oV/hs+6+oADzMAlxk9UiEjCvSFoHu39Xo3Sa6jyNQBcLMArCadPy
+	QDMOEmNKL0BpTBMGsgu2OFG8xMApRQ/aZhs7U8WJX0nBUYLvIbVTtap3W6L3dbITItAeZ5SGp5E
+	xH50yd70Qn7DhtETtaA1kQazaOAUe1Pcg==
+X-Received: by 2002:a17:903:1b2b:b0:2ca:ecf6:9115 with SMTP id d9443c01a7336-2d0caa9bb8bmr211590575ad.2.1786126650048;
+        Fri, 07 Aug 2026 11:17:30 -0700 (PDT)
+Received: from localhost.localdomain ([14.216.81.160])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14dbeaaa0sm12947345ad.50.2026.08.07.11.17.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 11:17:29 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Stefano Brivio <sbrivio@redhat.com>,
+	Sabrina Dubroca <sd@queasysnail.net>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] ipv4: fix use-after-free in fib_nhc_update_mtu()
+Date: Sat,  8 Aug 2026 02:17:10 +0800
+Message-ID: <20260807181710.1178747-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <581a303fac01d2854bc32cf2afff928990026aa0.camel@ibm.com>
- <20260602050219.1043295-1-jhapavitra98@gmail.com> <CALFbBicS9nhcGbJDbiiwExxaTXPMVUq4OVgd1Md2xu3azO68DA@mail.gmail.com>
-In-Reply-To: <CALFbBicS9nhcGbJDbiiwExxaTXPMVUq4OVgd1Md2xu3azO68DA@mail.gmail.com>
-From: Ilya Dryomov <idryomov@gmail.com>
-Date: Fri, 7 Aug 2026 20:13:44 +0200
-X-Gm-Features: AUfX_myaOVIROm8ifzt-g7-Tn9KOW2aJbXRe1sRMeX-CyhuzEZwrcqkF_L5RqaY
-Message-ID: <CAOi1vP_4FW-j=UNw0HGUpuK2+7gY8W1bSexu4-92bikYvxoXwg@mail.gmail.com>
-Subject: Re: [PATCH v3] ceph: fix multiple unsafe decodes in decode_locker()
-To: Pavitra Jha <jhapavitra98@gmail.com>
-Cc: Slava.Dubeyko@ibm.com, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 7, 2026 at 5:15=E2=80=AFPM Pavitra Jha <jhapavitra98@gmail.com>=
- wrote:
->
-> Ilya,
->
-> This has been Reviewed-by'd by Slava since Jun 2 (v3), no outstanding
-> comments or NACKs on this one. It's been quiet for two months now.
-> Any blocker to applying, or should I rebase and resend?
+fib_nhc_update_mtu() walks the nexthop exception table under RTNL, but
+RTNL does not serialize this walk with PMTU exception updates. The walk
+uses rcu_dereference_protected() with a constant true condition without
+holding fnhe_lock.
 
-Hi Pavitra,
+The following interleaving can therefore occur:
 
-Sorry, no need to resend.  Slava forgot to add this patch to our
-integration branch like he did another similar patch of yours which
-is already upstream -- "libceph: fix two unsafe bare decodes in
-decode_lockers()".  I'll eventually scrub the list and pick up anything
-that was missed this way, at this point likely into 7.3.
+  CPU 0                              CPU 1
+  fib_nhc_update_mtu()               update_or_create_fnhe()
+    load fnhe                          spin_lock_bh(&fnhe_lock)
+                                       fnhe_remove_oldest()
+                                         unlink fnhe
+                                         kfree_rcu(fnhe, rcu)
+    <quiescent state>
+    access fnhe after grace period
 
-Thanks,
+KASAN reported:
 
-                Ilya
+  BUG: KASAN: slab-use-after-free in fib_nhc_update_mtu+0x3df/0x410
+  Read of size 8 at addr ffff888107d49000 by task poc/90
+  Call Trace:
+   fib_nhc_update_mtu+0x3df/0x410
+   fib_sync_mtu+0x7a/0xd0
+   fib_netdev_event+0x229/0x3f0
+   netif_set_mtu_ext+0x33a/0x570
+   dev_set_mtu+0x88/0x120
 
->
-> thanks,
-> Pavitra
->
-> On Tue, 2 Jun 2026 at 10:32, Pavitra Jha <jhapavitra98@gmail.com> wrote:
-> >
-> > decode_locker() in cls_lock_client.c contains three unsafe decode
-> > operations that allow a malicious or compromised OSD to trigger
-> > slab-out-of-bounds reads:
-> >
-> > 1. ceph_decode_copy() at the locker_id_t name field has no preceding
-> >    bounds check. With p =3D=3D end after ceph_start_decoding() accepts
-> >    struct_len=3D0, this reads sizeof(ceph_entity_name) =3D 9 bytes past
-> >    the validated buffer boundary.
-> >
-> > 2. *p +=3D sizeof(struct ceph_timespec) after the locker_info_t header
-> >    is an unchecked pointer advance. A malicious OSD can position p
-> >    past end, causing all subsequent _safe checks to pass against a
-> >    bogus boundary.
-> >
-> > 3. len =3D ceph_decode_32(p) has no preceding bounds check, and the
-> >    immediately following *p +=3D len is uncapped. A malicious OSD can
-> >    send len=3D0xffffffff, advancing p gigabytes past end and escaping
-> >    the decode window entirely.
-> >
-> > Fix all three by replacing bare operations with their safe variants:
-> >   ceph_decode_copy   -> ceph_decode_copy_safe
-> >   *p +=3D sizeof(...)  -> ceph_decode_skip_n
-> >   ceph_decode_32(p)  -> ceph_decode_32_safe
-> >   *p +=3D len          -> ceph_decode_skip_n
-> >
-> > A new out_bad: label is added to return -EINVAL on any bounds
-> > violation. -EINVAL is appropriate here: the data received from the OSD
-> > is structurally malformed, which is an invalid argument to the decode
-> > contract regardless of whether the caller or the wire is at fault.
-> >
-> > KASAN report (kernel 7.0.0-rc7, QEMU/x86_64, KASLR disabled):
-> >
-> >   [   26.183969] ceph_oob4_poc: buf=3Dffff888009e31000 end=3Dffff888009=
-e31fa0
-> >   [   26.186087] ceph_oob4_poc: struct_v=3D1 struct_len=3D0 p=3D=3Dend:=
- 1
-> >   [   26.186738] ceph_oob4_poc: triggering bare ceph_decode_32 past sla=
-b boundary...
-> >   [   26.187679] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >   [   26.188236] BUG: KASAN: slab-out-of-bounds in ceph_oob4_init+0x22b=
-/0xff0 [ceph_oob4_poc]
-> >   [   26.188236] Read of size 4 at addr ffff888009e31fa0 by task insmod=
-/59
-> >   [   26.188236] CPU: 0 UID: 0 PID: 59 Comm: insmod Tainted: G         =
-  O        7.0.0-rc7-g9c2abf69da83-dirty #15 PREEMPT(lazy)
-> >   [   26.188236] Tainted: [O]=3DOOT_MODULE
-> >   [   26.188236] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996),=
- BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-> >   [   26.188236] Call Trace:
-> >   [   26.188236]  <TASK>
-> >   [   26.188236]  dump_stack_lvl+0x4d/0x70
-> >   [   26.188236]  print_report+0x170/0x4f3
-> >   [   26.188236]  kasan_report+0xda/0x110
-> >   [   26.188236]  ceph_oob4_init+0x22b/0xff0 [ceph_oob4_poc]
-> >   [   26.188236]  do_one_initcall+0x9a/0x3a0
-> >   [   26.188236]  do_init_module+0x27c/0x790
-> >   [   26.188236]  load_module+0x4a9a/0x6350
-> >   [   26.188236]  init_module_from_file+0x15c/0x180
-> >   [   26.188236]  idempotent_init_module+0x21f/0x750
-> >   [   26.188236]  __x64_sys_finit_module+0xba/0x120
-> >   [   26.188236]  do_syscall_64+0xe2/0x570
-> >   [   26.188236]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> >   [   26.188236]  </TASK>
-> >   [   26.188236] The buggy address belongs to the object at ffff888009e=
-31000
-> >   [   26.188236]  which belongs to the cache kmalloc-4k of size 4096
-> >   [   26.188236] The buggy address is located 0 bytes to the right of
-> >   [   26.188236]  allocated 4000-byte region [ffff888009e31000, ffff888=
-009e31fa0)
-> >   [   26.188236]  ffff888009e31f80: 00 00 00 00 fc fc fc fc fc fc fc fc=
- fc fc fc fc
-> >   [   26.188236]                                ^
-> >   [   26.188236]  ffff888009e32000: fc fc fc fc fc fc fc fc fc fc fc fc=
- fc fc fc fc
-> >   [   26.188236] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >   [   26.255513] ceph_oob4_poc: len=3D0xcccccccc (OOB garbage from KASA=
-N redzone)
-> >
-> >   0xCCCCCCCC is KASAN redzone poison, confirming the read landed in
-> >   the slab redzone immediately past the 4000-byte allocation.
-> >
-> > Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
-> > deployment can trigger this against any kernel client that issues the
-> > lock.get_info class method (e.g. during RBD exclusive lock acquisition)
-> > without any further privileges beyond OSD session establishment.
-> >
-> > Fixes: d4ed4a530562 ("libceph: support for lock.lock_info")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
-> > ---
-> > v3: Split ceph_decode_copy_safe call to fit 80-column limit,
-> >     per Viacheslav Dubeyko's review of v2.
-> > v2: Move inline comments above ceph_decode_skip_n calls, rename
-> >     label bad -> out_bad, per Viacheslav Dubeyko's review.
-> > ---
-> >  net/ceph/cls_lock_client.c | 13 +++++++++----
-> >  1 file changed, 9 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/net/ceph/cls_lock_client.c b/net/ceph/cls_lock_client.c
-> > index 4e6a6d3e4..79a449897 100644
-> > --- a/net/ceph/cls_lock_client.c
-> > +++ b/net/ceph/cls_lock_client.c
-> > @@ -259,7 +259,8 @@ static int decode_locker(void **p, void *end, struc=
-t ceph_locker *locker)
-> >         if (ret)
-> >                 return ret;
-> >
-> > -       ceph_decode_copy(p, &locker->id.name, sizeof(locker->id.name));
-> > +       ceph_decode_copy_safe(p, end, &locker->id.name,
-> > +                             sizeof(locker->id.name), out_bad);
-> >         s =3D ceph_extract_encoded_string(p, end, NULL, GFP_NOIO);
-> >         if (IS_ERR(s))
-> >                 return PTR_ERR(s);
-> > @@ -270,19 +271,23 @@ static int decode_locker(void **p, void *end, str=
-uct ceph_locker *locker)
-> >         if (ret)
-> >                 return ret;
-> >
-> > -       *p +=3D sizeof(struct ceph_timespec); /* skip expiration */
-> > +       /* skip expiration */
-> > +       ceph_decode_skip_n(p, end, sizeof(struct ceph_timespec), out_ba=
-d);
-> >
-> >         ret =3D ceph_decode_entity_addr(p, end, &locker->info.addr);
-> >         if (ret)
-> >                 return ret;
-> >
-> > -       len =3D ceph_decode_32(p);
-> > -       *p +=3D len; /* skip description */
-> > +       ceph_decode_32_safe(p, end, len, out_bad);
-> > +       /* skip description */
-> > +       ceph_decode_skip_n(p, end, len, out_bad);
-> >
-> >         dout("%s %s%llu cookie %s addr %s\n", __func__,
-> >              ENTITY_NAME(locker->id.name), locker->id.cookie,
-> >              ceph_pr_addr(&locker->info.addr));
-> >         return 0;
-> > +out_bad:
-> > +       return -EINVAL;
-> >  }
-> >
-> >  static int decode_lockers(void **p, void *end, u8 *type, char **tag,
-> > --
-> > 2.53.0
-> >
+The same walk updates fnhe_pmtu and fnhe_mtu_locked. These fields form a
+pair and other writers serialize them with fnhe_lock. RCU alone prevents
+reclamation, but would still allow concurrent writers to leave a mixed
+pair.
+
+Walk the table under RCU and acquire fnhe_lock only while updating each
+exception. RCU keeps the current entry alive while the short critical
+section serializes its paired PMTU fields. This avoids holding the global
+lock while scanning all 2048 buckets for every nexthop.
+
+Fixes: af7d6cce5369 ("net: ipv4: update fnhe_pmtu when first hop's MTU changes")
+Cc: stable@vger.kernel.org
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+
+---
+Changes in v3:
+- Walk the exception table under RCU.
+- Move the PMTU update into route.c and take fnhe_lock around each entry
+  update instead of exporting and holding it across the full table scan.
+
+Link: https://lore.kernel.org/netdev/20260806133309.731709-1-nicoyip.dev@gmail.com/ [v2]
+Link: https://lore.kernel.org/netdev/20260731162938.3388534-1-nicoyip.dev@gmail.com/ [v1]
+---
+ include/net/route.h      |  2 ++
+ net/ipv4/fib_semantics.c | 34 +++++++++++-----------------------
+ net/ipv4/route.c         | 29 +++++++++++++++++++++++++++++
+ 3 files changed, 42 insertions(+), 23 deletions(-)
+
+diff --git a/include/net/route.h b/include/net/route.h
+index f90106f383c5..45290177a33c 100644
+--- a/include/net/route.h
++++ b/include/net/route.h
+@@ -276,6 +276,8 @@ int fib_dump_info_fnhe(struct sk_buff *skb, struct netlink_callback *cb,
+ 		       u32 table_id, struct fib_info *fi,
+ 		       int *fa_index, int fa_start, unsigned int flags);
+ 
++void fnhe_update_pmtu(struct fib_nh_exception *fnhe, u32 new, u32 orig);
++
+ static inline void ip_rt_put(struct rtable *rt)
+ {
+ 	/* dst_release() accepts a NULL parameter.
+diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+index 78f84ae3ee12..0483519b7fb0 100644
+--- a/net/ipv4/fib_semantics.c
++++ b/net/ipv4/fib_semantics.c
+@@ -1895,42 +1895,30 @@ static int call_fib_nh_notifiers(struct fib_nh *nh,
+ 	return NOTIFY_DONE;
+ }
+ 
+-/* Update the PMTU of exceptions when:
+- * - the new MTU of the first hop becomes smaller than the PMTU
+- * - the old MTU was the same as the PMTU, and it limited discovery of
+- *   larger MTUs on the path. With that limit raised, we can now
+- *   discover larger MTUs
+- * A special case is locked exceptions, for which the PMTU is smaller
+- * than the minimal accepted PMTU:
+- * - if the new MTU is greater than the PMTU, don't make any change
+- * - otherwise, unlock and set PMTU
++/* Walk the exceptions of a nexthop after its first hop MTU changed. The
++ * chain is RCU protected here, while fnhe_update_pmtu() takes fnhe_lock
++ * for the update of each entry.
+  */
+ void fib_nhc_update_mtu(struct fib_nh_common *nhc, u32 new, u32 orig)
+ {
+ 	struct fnhe_hash_bucket *bucket;
+ 	int i;
+ 
+-	bucket = rcu_dereference_protected(nhc->nhc_exceptions, 1);
++	rcu_read_lock();
++	bucket = rcu_dereference(nhc->nhc_exceptions);
+ 	if (!bucket)
+-		return;
++		goto out;
+ 
+ 	for (i = 0; i < FNHE_HASH_SIZE; i++) {
+ 		struct fib_nh_exception *fnhe;
+ 
+-		for (fnhe = rcu_dereference_protected(bucket[i].chain, 1);
++		for (fnhe = rcu_dereference(bucket[i].chain);
+ 		     fnhe;
+-		     fnhe = rcu_dereference_protected(fnhe->fnhe_next, 1)) {
+-			if (fnhe->fnhe_mtu_locked) {
+-				if (new <= fnhe->fnhe_pmtu) {
+-					fnhe->fnhe_pmtu = new;
+-					fnhe->fnhe_mtu_locked = false;
+-				}
+-			} else if (new < fnhe->fnhe_pmtu ||
+-				   orig == fnhe->fnhe_pmtu) {
+-				fnhe->fnhe_pmtu = new;
+-			}
+-		}
++		     fnhe = rcu_dereference(fnhe->fnhe_next))
++			fnhe_update_pmtu(fnhe, new, orig);
+ 	}
++out:
++	rcu_read_unlock();
+ }
+ 
+ void fib_sync_mtu(struct net_device *dev, u32 orig_mtu)
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index 152d8cb28f65..b82401a6baed 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -741,6 +741,35 @@ static void update_or_create_fnhe(struct fib_nh_common *nhc, __be32 daddr,
+ 	spin_unlock_bh(&fnhe_lock);
+ }
+ 
++/* Update the PMTU of an exception when:
++ * - the new MTU of the first hop becomes smaller than the PMTU
++ * - the old MTU was the same as the PMTU, and it limited discovery of
++ *   larger MTUs on the path. With that limit raised, we can now
++ *   discover larger MTUs
++ * A special case is locked exceptions, for which the PMTU is smaller
++ * than the minimal accepted PMTU:
++ * - if the new MTU is greater than the PMTU, don't make any change
++ * - otherwise, unlock and set PMTU
++ *
++ * fnhe_lock keeps fnhe_pmtu and fnhe_mtu_locked consistent against
++ * update_or_create_fnhe(), which sets both under the same lock.
++ */
++void fnhe_update_pmtu(struct fib_nh_exception *fnhe, u32 new, u32 orig)
++{
++	spin_lock_bh(&fnhe_lock);
++
++	if (fnhe->fnhe_mtu_locked) {
++		if (new <= fnhe->fnhe_pmtu) {
++			fnhe->fnhe_pmtu = new;
++			fnhe->fnhe_mtu_locked = false;
++		}
++	} else if (new < fnhe->fnhe_pmtu || orig == fnhe->fnhe_pmtu) {
++		fnhe->fnhe_pmtu = new;
++	}
++
++	spin_unlock_bh(&fnhe_lock);
++}
++
+ static void __ip_do_redirect(struct rtable *rt, struct sk_buff *skb, struct flowi4 *fl4,
+ 			     bool kill_route)
+ {
+-- 
+2.43.0
+
