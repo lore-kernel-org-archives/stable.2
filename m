@@ -1,66 +1,67 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD6740D588
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 12:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFB640DFD7
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 12:42:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786192902; cv=none; b=Wh9BrL+91hzGtn6oV6ncfUSC6VIKgUMybWJ4arigzGHLtQBPoq5Fg8B7Wy7NWzSyDb8/qE+uXmtnvPiUFa4teTrhd8GE4ZfvAb5a8gJE9E32I9rxqxJtSCI6uC+xD3ZiXjz6VzOnoEiwi6EI6GkKf90cK/yTPi/gQ/hhMyfVYZY=
+	t=1786192947; cv=none; b=BGEZpLb7rcANs6WiL4LIeDqw+j5vyNO1l0hjLzLw8xzTVvX/yo4ja0vtAu/eRGaLjgB5IS/gupqgo4URL/4oBSpvRWY/iFr+bg4gM4nW+dm8jRSXP0TA/I6EdH4DDH7NNTOS7qXwiciNfgcPQaA7/TwQwz3rjQzJiKtisLdvCsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786192902; c=relaxed/simple;
-	bh=3lxrWPAXShGIF4WokebW2QU8IfNJNi2a46LUj++s6BM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YfVbpkZI4+l+j/fONyBXijUfdEaAN5nd1BriQlAXMGmPHKh8waGo+n6pgHj0BDHNBAj5mRsHZq0SMCGKaug7VbGqb0zT6OhsyHOEMFpL9dCSpRFCukHRslOOXplRLRLspfarFKiyl7WPTslgfay+qhfGQaEhnl+R0pQoIdQrjSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b=QJm9AIoP; arc=none smtp.client-ip=209.85.210.54
+	s=arc-20240116; t=1786192947; c=relaxed/simple;
+	bh=MqwfpCfPpwUsLwz0eQR5bEDe0+77f+x/Tg6mBc1Kj3o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OgeaLJVUaJvhXphIT7/B2C7wt62ZIWwib8HP1yzO0M8yEuz/s2AGKa3uTUJ1YQBsZfUAd5zRPh8G2+wj/qnnFiHL9GoeLu9cr1hjctDw0NYN2HDtLUNV70xK8tqmUCb4dIoR9N2pbeAohV8kZw1ETq7V/qyoeDyOc24XP3GGitQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b=cd6FsAkp; arc=none smtp.client-ip=209.85.161.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b="QJm9AIoP"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7ee37dc91f5so259698a34.3
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 05:41:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b="cd6FsAkp"
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6aaf3f54dbeso243556eaf.2
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 05:42:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786192891; x=1786797691;
+        d=1e100.net; s=20251104; t=1786192938; x=1786797738;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=osXi6LaDiTO28e9dN3yuQi9vCnsQZpZjj6p/k64AO1A=;
-        b=AAm3gkmZpa0K1/87YwqMYP6iJNtvpexNvYbeJJ4QCoupVY3fmNoujAxP/BmnXiaVfS
-         M0NxjBi0V7dUVGxQMcsrzhI+jMGPiCqBRYtoOHdcWdfRLIqzf3+Qti1yse1MsCdmQTnB
-         fyLlCc3YF2sO+GLTdBIyQWUGa5HH8UeCyF/DPmly8gz9enC3DBeJbXccABEh4kkqGKmU
-         JqWUHpCq4YRwVw0FCNXMRueUiFFaJlzW/gJITFL7XS+Tk5htoUJm1J7c2IXDTr3dmgbF
-         u7WBIkwbffKRtsBYzD+QXbpG0o2QFgCMCHmlQfakRfH3mqYhhySgacmetTk55B58XIpX
-         DJ9A==
-X-Forwarded-Encrypted: i=1; AHgh+RrLIX4UuH9uh8RgRt2iX7q4o92iy9+WwcMVLcZhqmCikCHmhOD+RJOI9mwpNJW2QCwuLDYIElA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwD2IB34CbduOI1LFje57TwyZc96rRmfXjvNE5y80TPL3ZoK1P7
-	MSqDtO+rC7fZeoZHpnMKeU0X+XHKkECoup+x8f6j9tsreNANgq/3QQEI
-X-Gm-Gg: AR+sD13pz1cbO5XD9fazvcwxRSNqzT6YhaxjI12j9zDqqDnG3XdAa/I18PeXErhA1I8
-	x0dckHyZRnQ/pSsWybHJ7uLfTvqBIqgC8QYOi+I6rfeDv+gGPs1ucXPDF4ZDD9kj5CYxrhpALdV
-	qQz5kQ6ddncCAl+ko6A5f2s16ad/3A2jlOeqUO747+monMIjm80lU6nn5ocYqPg1mwvy7fNFnfO
-	IiY8z6z/JL1MBgwkJ8I91VkVDE9xpCGE8Z7kWYdI+oC1g019KBnRh3lzCRhKzRvCeONjuAHKQrd
-	UkjyGx1j0jCPVrQghkJzKaY8RCrCiqvhbIHEae0vYNijzFEPFTYcMRFKSqx6z2oEbgcDE6JL0oV
-	A4jdow3gm43otJyVP6O4m1xNdW/L5/aL77Ko+EJeO0bY1fa4SB5JNb+kNvzjxrt55zcTFbToCs5
-	ZnmGf14tAPiyfFhwOmPlEmjj+rQckkMD4yxAaLWrYLK/PJYwuOc892wnj6JaWgv8e+l6J2yfmJ1
-	jsD00O7g12US9AjaSWVU19BWAyCIL9xhnPPSlH2/NqxbulYXMK1E8UnkKJvFYUL6A==
-X-Received: by 2002:a05:6809:115:10b0:4b1:b83c:cbff with SMTP id 5614622812f47-4b1b83ccca8mr926374b6e.14.1786192891032;
-        Sat, 08 Aug 2026 05:41:31 -0700 (PDT)
+        bh=M36Y4nsmek7mvOPX1W1gLnRACNnaeg9N6lEHl/R6IK4=;
+        b=pyUXcLiWn6iEVs87Y+DQ2H5FTqnph/T4kqdEuK2aB1DVHLVRZM02mjHNSb2jWxdd0B
+         +2Q8ZyHn7m9AWbcmxA/MboNBqEtda9AzMRIG2Jnz/rI85Dt4LFDALQyxB15kikxyqbNO
+         THy/PKYeYNAtIIaFzSPOprG4eJq5ImBGOeT+tPa8BThspShDkcxwWhwVO0PpdV60gbzL
+         QUwzALiadbTAjfSvr7fv09cQFY9WauEzRwRdmjVi+eYygIPjCqKzTYUvRuw/7qnZBjJK
+         Zd4eg917O5EedY8k7yHtDzjSlsDrt/wwg/1GJ2zuXLzpgUS0cxEFK1edRp1xr8UyTee6
+         CHdw==
+X-Forwarded-Encrypted: i=1; AHgh+RqruEcvmwgtlIHXEQgRwBSXNWlrXFHXxVkUWM29Q2bxiguNWBrVVNvWMQDeQF3el7UhaQHeqR0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqSrR5nvhTJ9LjPmdANli472wxEgWHm2yPTizN43zdn8v3Px3B
+	fx0l+f7puNKg8WbgxqD1LUJMbx7ZKA9vbgvDvHAHwullY5YSFjHJ7IxZ
+X-Gm-Gg: AR+sD12djOpXdsTWQ6Tt9lb52bvgHOEhgzYZbEcMfpzPNF+F99ICz/4dQfpTqXm/DoZ
+	rcVypVHY5a7gLrIjlIhIfhHFXLkR6Lbkk0gODsvlAsIbTdeRrqF0K0kdwzVqqWdlvIHvIrOMy7u
+	JZSJwfgDBbKKBjwqNM1Ty1XD9iSuxcft8VO5Mmk0zYoRewzDKB2Lmmz56EOb4iYzNWS54jf5+BP
+	1c3JGJmsKom943h7iulohg0f3N14BHffEyK2dqazhSmcKiECMiBGPdAQIdSWt81Z7iq7Kq0bszh
+	iWsEFf4UwziTaFgJOR7UB/29/1w7epPW4Cq+riuDXTa5+CHgZFbQKOcD91uTvIxpWOOqZVu8df5
+	dI4x5QiPwrDagdVhqnB4Ph6axFDWStcmNJiipMnezH610OUozk+KX5DGjf43LjPNDzNjlqK/Unl
+	g1jx8nHjD4qbQHjXIRuf+5Ykc0fsbizCejCOF5he2wHESADsEAMpomfafqwt+U79BuwOQwVbOiD
+	vWDb5hy6VCD69CaVDyAuK7AIAubjpLG2SGSR0Z2MmHIvC1b76eZhGkTNCcQ4+nPdg==
+X-Received: by 2002:a4a:ec4c:0:b0:6aa:8fb6:b951 with SMTP id 006d021491bc7-6b0420b728fmr3347539eaf.19.1786192937673;
+        Sat, 08 Aug 2026 05:42:17 -0700 (PDT)
 Received: from mail.marliere.net (137.65.66.34.bc.googleusercontent.com. [34.66.65.137])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b1af63d8acsm1957414b6e.15.2026.08.08.05.41.30
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b0512521a1sm985611eaf.5.2026.08.08.05.42.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 05:41:30 -0700 (PDT)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 44EA760CCA;
-	Sat,  8 Aug 2026 12:41:24 +0000 (UTC)
+        Sat, 08 Aug 2026 05:42:16 -0700 (PDT)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 547AB609D3;
+	Sat,  8 Aug 2026 12:42:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
-	s=dkim; t=1786192888;
+	s=dkim; t=1786192935;
 	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=osXi6LaDiTO28e9dN3yuQi9vCnsQZpZjj6p/k64AO1A=;
-	b=QJm9AIoPWD8yutMlKlTwJWZaPaJRBe74IyCDGTnc5vrunBbOsFDDOzalruPL5QirVKcAuM
-	i1Lf4qGvjgHAkDVUDU+HM8s8IUiOaBbTkIzryNYdpPaLGPPAcJImvvbdBiSd2z7DFfk6lI
-	rLBLC+yeySPxMbfK9ZUKDtUg14eoXE9MOIjjTFX/qdx3rh8VSUiM1wDo0wMd/ppMIHhE8G
-	/djRZnu8TaKX3K+DYfo+S9X0LJbyhVFME9MqI9GprlKDxhK1+rYian30och4fc+Soc75qx
-	45te9yWvH99aCFWUKPGLPuMhhKsaIH47jVsMKeURuQsLYLImPQlFMrrDj3fafw==
+	 content-transfer-encoding; bh=M36Y4nsmek7mvOPX1W1gLnRACNnaeg9N6lEHl/R6IK4=;
+	b=cd6FsAkpNabpqwn3VQV1TiAyPcc4Jtj62/EiQMLpbpzwbM1s8MOChMrefIJ03ZELyAnm81
+	wP4f4VjXMkPS6wAuY5SjWQGdnwM/cum+T2yrjMmOOoUlwNiaFBrpC2/a/du2wuwNPLqYex
+	bcSM0Awl3RI6hFlpvpKfbKIldNIAU9nYluNAqomckLrafrbY3iLZOPc3cGWFw6N8WXR3V6
+	vC6I+hGk6DXnSUduhUDmX8LYJ8zxL6Z8XyKxYwR+DTZp2wo3PUsLZkNnmfKHHqY+HsGmPF
+	sbNnDTZwMf37xLprVgqzL4JVYjY0sLCdV9Fs/ihPdRJmi5wXof2JmqKf4ppRUw==
 From: =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
-Date: Sat, 08 Aug 2026 09:41:11 -0300
-Subject: [PATCH 7.1.y v2] selftests/bpf: Fail unbound UDP on sockmap update
+Date: Sat, 08 Aug 2026 09:42:11 -0300
+Subject: [PATCH 7.1.y v3] selftests/bpf: Add tests for sleepable tracepoint
+ programs
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,97 +70,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260808-selftests-bpf-sockmap-v2-1-c7ffa9a2a652@marliere.net>
-X-B4-Tracking: v=1; b=H4sIAOYjd2oC/4WOSw6CMBRFt0Le2BJaCB9H7sMwaMurVKGQvkokh
- L1LcQEO7+/kbkDoLRJckw08Lpbs5A4hLgnoXroHMtsdGkQmyqzOKkY4mIAUiKnZMJr0a5Qzq2r
- eKdHowjQFHNvZo7Gfk3uHKuXpCu3Pprd6og6RGYtKEjLlpdN9tChINWAMekth8ut5bOEn58+Hh
- TPOal00eWlkluvuNko/WPSYOgzQ7vv+BcWSsUTvAAAA
-X-Change-ID: 20260807-selftests-bpf-sockmap-781db29c4f94
-To: Shuah Khan <shuah@kernel.org>, sashal@kernel.org, 
- gregkh@linuxfoundation.org, Andrii Nakryiko <andrii@kernel.org>, 
+Message-Id: <20260808-selftests-bpf-sleepable-v3-1-45ace406061a@marliere.net>
+X-B4-Tracking: v=1; b=H4sIACIkd2oC/4XPTW6DMBAF4KtEXtcIGzCQVe4RdWGb5+CKEuRxU
+ aOIuxeTLKJISZfz9+nNlRGCB7H97soCZk/+PK5F8bFjttfjCdx3a81kLlXe5AUnDC6CInEzOU4
+ DMGkzgAPGya5VUuaCrddTgPO/m3xkdSayC/u8tenHfMHGpKZFowncBD3aPrUoJi4Nek/xHC5bt
+ Flszr8pZsEF72xpTdMUdYn28K3D4BGQjYhJvRPVewKydbrSrhTiiUhPzPIxTf2akivlaqhKKVc
+ oLZ6oZVn+AFHmFsmBAQAA
+X-Change-ID: 20260803-selftests-bpf-sleepable-eebf2d962201
+To: Andrii Nakryiko <andrii@kernel.org>, 
  Eduard Zingerman <eddyz87@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
  Daniel Borkmann <daniel@iogearbox.net>, 
  Martin KaFai Lau <martin.lau@linux.dev>, 
  Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Shuah Khan <shuah@kernel.org>, sashal@kernel.org, 
+ gregkh@linuxfoundation.org
 Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Michal Luczaj <mhal@rbox.co>, 
- Kuniyuki Iwashima <kuniyu@google.com>, 
- Jakub Sitnicki <jakub@cloudflare.com>, 
+ stable@vger.kernel.org, Mykyta Yatsenko <yatsenko@meta.com>, 
  =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1786192881; l=2322;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1786192932; l=3439;
  i=ricardo@marliere.net; h=from:subject:message-id;
- bh=qHrSlgjj3za7PJl8EnqfTO8/vRQJwzZVFEAcqanD1UA=;
+ bh=g58F76qg6k8m7EjeGVVW4PoJeUMQe4Mk6i/jWW8k71c=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgguRCc5X8/UX9M40lkMnr//aFGOhce
  x5ezt8MFNUFlqYAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QCT/rpBMqA7HKxECSLIgqYnZkVGVBOYjQYzEOy5xK/bpGxxkt7fajmEKXvLC4qBEWYpYEJqZtYa
- +uZpLTqSUegE=
+ QNqHo6RdztrUIAQ7hx/DvsItndW3x6XAEWkiIwCVLPeOSSFuVZozMAvs7d2/J4IDxRdj08w6mMc
+ pNyUetMFJ7wc=
 X-Developer-Key: i=ricardo@marliere.net; a=openssh;
  fpr=SHA256:pzhe0fJpYLz+3cZ33FFPhIfaUElk9CXPFFXmalIH+1g
 X-Last-TLS-Session-Version: TLSv1.3
 
-From: Michal Luczaj <mhal@rbox.co>
+From: Mykyta Yatsenko <yatsenko@meta.com>
 
-[ Upstream commit 203b06932777b9ad5085319389dea566f5c2ca63 ]
+[ Upstream commit 8a20655749c625dcc4debdfdeeaa0cf8bb85c203 ]
 
-sockmap now rejects unbound UDP sockets. Adjust test_maps. While at it,
-check socket()'s return value.
+Cover all three sleepable tracepoint types (tp_btf.s, raw_tp.s, tp.s)
+and sys_exit (via bpf_task_pt_regs) with functional tests using
+bpf_copy_from_user() on getcwd. Verify alias and bare SEC variants,
+bpf_prog_test_run_raw_tp() with BPF_F_TEST_RUN_ON_CPU rejection,
+attach-time rejection on non-faultable tracepoints, and load-time
+rejection for sleepable tp_btf on non-faultable tracepoints.
 
-This effectively reverts commit c39aa2159974 ("bpf, selftests: Fix
-test_maps now that sockmap supports UDP").
+[ rbm: Removed hunks from (new) files:
+        tools/testing/selftests/bpf/prog_tests/sleepable_tracepoints.c
+        tools/testing/selftests/bpf/progs/test_sleepable_tracepoints.c
+        tools/testing/selftests/bpf/progs/test_sleepable_tracepoints_fail.c
+       These rely on libbpf's ".s" tracepoint section handlers
+       (0cd420a6f40c7) and on kernel-side sleepable tracepoint runtime
+       support (439ebd5b5708, 12628ffaf98b, 57918341dd19), none of which
+       are backported here; kept only the verifier/sleepable.c hunk, which
+       is correct and needed on its own. ]
 
-Signed-off-by: Michal Luczaj <mhal@rbox.co>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Jakub Sitnicki <jakub@cloudflare.com>
-Link: https://lore.kernel.org/bpf/20260707-sockmap-lookup-udp-leak-v4-4-f878346f27ab@rbox.co
+Signed-off-by: Mykyta Yatsenko <yatsenko@meta.com>
+Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Link: https://lore.kernel.org/bpf/20260422-sleepable_tracepoints-v13-6-99005dff21ef@meta.com
 Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
 Signed-off-by: Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
 ---
-Hi, backporting commit 66efd3368ae1 ("bpf, sockmap: Reject unhashed UDP
-sockets on sockmap update") without this one broke the selftest in openSUSE
-CI:
+Hi, backporting commit 23b933c6223f ("bpf: Verifier support for sleepable
+tracepoint programs") without backporting this commit breaks the selftest,
+as seen in openSUSE CI:
 
-https://openqa.opensuse.org/tests/6147940/logfile?filename=test_maps.tap.txt
+https://openqa.opensuse.org/tests/6145723/logfile?filename=test_verifier.tap.txt#line-780
+
+Changes in v3:
+- Sign off
+- Link to v2: https://patch.msgid.link/20260807-selftests-bpf-sleepable-v2-1-f7e6566f36a1@marliere.net
 
 Changes in v2:
-- Sign off
-- Link to v1: https://patch.msgid.link/20260807-selftests-bpf-sockmap-v1-1-8c4936fa03cd@marliere.net
+- Dropped hunks which miss dependencies
+- Added a small note about it in the commit
+- Link to v1: https://patch.msgid.link/20260805-selftests-bpf-sleepable-v1-1-e29fa5af4119@marliere.net
 ---
- tools/testing/selftests/bpf/test_maps.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ tools/testing/selftests/bpf/verifier/sleepable.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/test_maps.c b/tools/testing/selftests/bpf/test_maps.c
-index ccc5acd55ff9..d194b44ff8be 100644
---- a/tools/testing/selftests/bpf/test_maps.c
-+++ b/tools/testing/selftests/bpf/test_maps.c
-@@ -748,16 +748,15 @@ static void test_sockmap(unsigned int tasks, void *data)
- 		goto out_sockmap;
- 	}
- 
--	/* Test update with unsupported UDP socket */
-+	/* Test update with unsupported unbound UDP socket */
- 	udp = socket(AF_INET, SOCK_DGRAM, 0);
--	i = 0;
--	err = bpf_map_update_elem(fd, &i, &udp, BPF_ANY);
--	if (err) {
--		printf("Failed socket update SOCK_DGRAM '%i:%i'\n",
--		       i, udp);
-+	CHECK(udp < 0, "socket(AF_INET, SOCK_DGRAM)", "errno:%d\n", errno);
-+	err = bpf_map_update_elem(fd, &(int){0}, &udp, BPF_ANY);
-+	close(udp);
-+	if (!err) {
-+		printf("Unexpectedly succeeded unbound UDP update '0:%i'\n", udp);
- 		goto out_sockmap;
- 	}
--	close(udp);
- 
- 	/* Test update without programs */
- 	for (i = 0; i < 6; i++) {
+diff --git a/tools/testing/selftests/bpf/verifier/sleepable.c b/tools/testing/selftests/bpf/verifier/sleepable.c
+index c2b7f5ebf168..6dabc5522945 100644
+--- a/tools/testing/selftests/bpf/verifier/sleepable.c
++++ b/tools/testing/selftests/bpf/verifier/sleepable.c
+@@ -76,7 +76,20 @@
+ 	.runs = -1,
+ },
+ {
+-	"sleepable raw tracepoint reject",
++	"sleepable raw tracepoint accept",
++	.insns = {
++	BPF_MOV64_IMM(BPF_REG_0, 0),
++	BPF_EXIT_INSN(),
++	},
++	.prog_type = BPF_PROG_TYPE_TRACING,
++	.expected_attach_type = BPF_TRACE_RAW_TP,
++	.kfunc = "sys_enter",
++	.result = ACCEPT,
++	.flags = BPF_F_SLEEPABLE,
++	.runs = -1,
++},
++{
++	"sleepable raw tracepoint reject non-faultable",
+ 	.insns = {
+ 	BPF_MOV64_IMM(BPF_REG_0, 0),
+ 	BPF_EXIT_INSN(),
+@@ -85,7 +98,7 @@
+ 	.expected_attach_type = BPF_TRACE_RAW_TP,
+ 	.kfunc = "sched_switch",
+ 	.result = REJECT,
+-	.errstr = "Only fentry/fexit/fsession/fmod_ret, lsm, iter, uprobe, and struct_ops programs can be sleepable",
++	.errstr = "Sleepable program cannot attach to non-faultable tracepoint",
+ 	.flags = BPF_F_SLEEPABLE,
+ 	.runs = -1,
+ },
 
 ---
 base-commit: 74b69060ba6e44e20c2e4dc1847eca21db6e4a7c
-change-id: 20260807-selftests-bpf-sockmap-781db29c4f94
+change-id: 20260803-selftests-bpf-sleepable-eebf2d962201
 
 Best regards,
 --  
