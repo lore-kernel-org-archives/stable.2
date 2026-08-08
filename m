@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE40379C46
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 16:16:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834CA1A275
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 16:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786205775; cv=none; b=EO5ASl4qfrD51R3+Z90mYpvn9J2mH6G+vyI97IjDj/Xh+ezxD++oZmhg3eNWjK3ht9wJlvuI37es9fui90Rd2O8ZANLAQLcbZl4e+Eel28T6sC+cBVV9hnLcPiwpWyIPVx/y1fEyKDSomi5GKFPx6tcwcHrnB31dk3gloSCOC1E=
+	t=1786207630; cv=none; b=t1JPGOJzUWxI38F31RaoMF3N6G1TbrnUk053ylDvxWOSQfOyiNvwkIyaOG+0BdegzKwtnrRbW66NLtipeBRIE17mPQO5I5mxrSP5sEDfOfnjA0WQ5BEofJyCI9k4nJLZI3OWnrSNfOXvmEj/FxAZIXeeko1DXy3csZbyqJabICs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786205775; c=relaxed/simple;
-	bh=rlSEUNQ54ZK5az5YCNg1vXHQ+6yDpXZ3Fppxhzrf8oc=;
+	s=arc-20240116; t=1786207630; c=relaxed/simple;
+	bh=2FpG2LaEm6Jx497/lssi9tx23gucpzF36JxjC+uZVEo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HytVAFYvgQMub6SxZMYeQVhEil/abfcAHlfS/GvpU1RAjftqTR0Ix7dzYId0C+0azOtI9yfadFsY4iI1f8xvdFMGrECkbP23x7X1ZtD1gWloco7XgsksCtbjlmX7Sl3hWXf8FvKdt0ZoJhWeJNyvg3+3w4MSOxVXb5oMEdtDBkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYbb6qzf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mhhULgyAq8A9AxR6J+fur0t0F2DWafTA8rHaYSowuVdEGsRsYhxLRYszcUHYfbvDDr4AgXmU7XvB4eSVCEB8oOx+HYLCDigvnQ6wVZkEFyW7xX7wgFqCE4HJoMHU1c3rvtZa/Ewq9AMTio+ACUuBtWl8rRCHxets/49Bpbm1ADU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TLU8fAZY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYbb6qzf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AEA31F000E9;
-	Sat,  8 Aug 2026 16:16:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TLU8fAZY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B3F51F000E9;
+	Sat,  8 Aug 2026 16:47:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786205774;
-	bh=Wm1IDBCgmJy4Xe4dvLlDuPXHERgP9TIg+Wi79ao48P8=;
+	s=k20260515; t=1786207629;
+	bh=YE3cY6Kuw28asiZmmCx/DYmduiLYUpRdgTvfyDeE6KY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HYbb6qzfq3RLwVpvJ7jr+nIhVNQbUblPVVYdIJk6Yxtf/Ra1ibG7CHmhPVDNI+4xE
-	 R9yCLh31JJuxBGR9xQte5zYpmUA1qlv3g/um4K1ZHB2jAwb52jCm9h0WjUZqvUhjY2
-	 pQn+xlFLi4Hsea1J2R/lMLO5O5ksQ6IAZCXoG4ZFeWn4wzoWVKWhkYFGvxqXUSIhGN
-	 RDjHQkcZlMr3nZrwi7XmsAUHmGhk13tKTLI82vWXaxGLkieOymfDvrSJIARdchnVFj
-	 8UbrwMfFsI4exbseJPwi/vZEvFbK5Pe21/AKuDgKfGrg0pvrmyZLvf98+XrzcT+Yix
-	 6igt91brF7Ipw==
+	b=TLU8fAZYf4r64YvcGsGphN78fQ9017kDrozarS9sl+fIMU1sR21b4a225eIT/oXzi
+	 ZC+eV3v1rImeOoEZ8bkVrvM8pawe8w4sTuN7ySIDI2qnEybJK0+VcwpGM8imfyv9Rk
+	 nC/ZYGbPYyT7d1C1ZAOWu6qi/hf76geb8kmj64LPoHkuZDpp+UzMieaw9cPOcw0EAP
+	 586e/+MArsUVChdBS+etUIZtEMMBfVqjmEGFUrmzb2dLrinfWliabFBeCoXDmGriYp
+	 ZnDEj3r9az28gt+eNMWB56WV8RsaR942BbjVIQB7tkFy8G5ocHTGwwYElQqe57PJju
+	 7XaCZ2tIe/Fpg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
@@ -33,12 +33,12 @@ Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
 	Jamal Hadi Salim <jhs@mojatatu.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] net/sched: serialize qdisc_rtab_list against concurrent get/put
-Date: Sat,  8 Aug 2026 12:16:11 -0400
-Message-ID: <20260808161611.432858-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] net/sched: serialize qdisc_rtab_list against concurrent get/put
+Date: Sat,  8 Aug 2026 12:47:06 -0400
+Message-ID: <20260808164706.447748-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072927-reunite-vixen-fd67@gregkh>
-References: <2026072927-reunite-vixen-fd67@gregkh>
+In-Reply-To: <2026072927-exploit-isotope-4690@gregkh>
+References: <2026072927-exploit-isotope-4690@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -100,7 +100,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 19 insertions(+), 5 deletions(-)
 
 diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
-index c9f7e793a375b..c67d95a078f75 100644
+index 932c98b5b347e..34229be42c47f 100644
 --- a/net/sched/sch_api.c
 +++ b/net/sched/sch_api.c
 @@ -410,12 +410,13 @@ static __u8 __detect_linklayer(struct tc_ratespec *r, __u32 *rtab)
