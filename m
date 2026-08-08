@@ -1,170 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA81F30C632;
-	Sat,  8 Aug 2026 00:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56802EC56E
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 01:21:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786150747; cv=none; b=RDUwglaB+nXI8i14zIR7EAiPKZT7l+Q94va04CVIeAMmv+PRV5Li73Gaxsm/t2mEu9O/LvmMtpP7UNYtgfyPmbzuvnw41svarmUAU2Pq3Q8CaVysY8DhC0/Luw4bWHpdZYCY7FGHBNx4QF63mzG6c2s9m367I8S6Ovm5d22b/QI=
+	t=1786152080; cv=none; b=QMCWMUTWKKv2NOa/BCam8fZGXO2/SiQRh+lclPF7bor977fzhsOhd5tAi5NUJpsIg92FFegrY/hmYBJDSopHNIfDhwXZr1OOorY72mSMhrYjcMpG3WF9VUAHmVDDOvyWKmsuU/5kNe2agT/bSTzkAf9hQcF/cb3csXNUnNMJLlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786150747; c=relaxed/simple;
-	bh=tDsgwi2+k+THwubQx+A8h/nHxkN0MXsHSi+73LAr1l8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fr5FJrjX27rC8yrH2DKPKUwiIxFGZc0qshuVmlKMpBKNgzjk9a2kIqnoyWJDVfVPUEdPlukLVMQ5C4i6EuAhZzSvv2dv6okXxZm4/o2OFIso0UPooRhd9ntDg7Ut1sguITRDonZNb1FhbXGJakB2o1ZHzvTSsShHC2DdECayJbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e9sTGxuc; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786152080; c=relaxed/simple;
+	bh=rNkmRRpHkjSa3uaDe3c67+rPcGRwfoMM6FHkaO04Gd8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OjT36u1ae2JKCm+gCii9zSqZ619mtymP4Sw9m1K+0tiV4VC0rpAxPZYb8cWfHFkeYo9wc+EA2p+8GoQQpy/2Hnb/YupRaXDoKgc4WK/hRbPhZyCM5nDeFq5r1Is3C77jcMdBIyY5wLsjP5dOcNbUoLTq36YIPee2Pd+jcW6YR+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=BAgYA4yO; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e9sTGxuc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786150744; x=1817686744;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tDsgwi2+k+THwubQx+A8h/nHxkN0MXsHSi+73LAr1l8=;
-  b=e9sTGxucwP8CBTYH7k+gP62HlFh5W2aXNhJi5nDiD+e3XNTpX2kxBQ1z
-   l/PiKFoooyaH2FRQy6e3sulFBpWH4yF4kxKw5VVrfL3kHpGPJ9Emm3uE+
-   ZDMAa9+kw51PL/mwR/FiE34ZtU/bRlyECmWfUNcrWBHq8/NPaS0PavKdO
-   cQbIt7bivCZb/JN60/mohLeds6wC4xSNE/58j8PB6s5vt6ClrEBOW/fch
-   qNzbFSes2togTKJlBBowJSdyvOQveTWovDQTLkQZGbZnMwJ4p6DGbPa3n
-   5WYsr2iSlNTggP/vA9lemUH+sx/Bk6ieYrHqgVBTHu0YxV9KxERugpbg3
-   g==;
-X-CSE-ConnectionGUID: IuvnsDHiSSGtBxvBIpIcHQ==
-X-CSE-MsgGUID: cJIQoy4kRmukJ87gPCHAtg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="86841946"
-X-IronPort-AV: E=Sophos;i="6.25,211,1779174000"; 
-   d="scan'208";a="86841946"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 17:59:04 -0700
-X-CSE-ConnectionGUID: oVI4r9TbROqmryREAQmPiQ==
-X-CSE-MsgGUID: 1u6Sx5aARbCQUu/2v1uMnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,211,1779174000"; 
-   d="scan'208";a="256310033"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 07 Aug 2026 17:59:00 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wsVOr-00000000Jab-02ue;
-	Sat, 08 Aug 2026 00:58:57 +0000
-Date: Sat, 8 Aug 2026 08:58:47 +0800
-From: kernel test robot <lkp@intel.com>
-To: WenTao Liang <vulab@iscas.ac.cn>, Zack Rusin <zack.rusin@broadcom.com>,
-	dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	bcm-kernel-feedback-list@broadcom.com,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Thomas Hellstrom <thellstrom@vmware.com>, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
-Subject: Re: [PATCH] fix: drm/vmwgfx: vmw_user_shader_alloc: fix base object
- refcount leak on ttm_base_object_init failure
-Message-ID: <202608080849.rqxWdd9U-lkp@intel.com>
-References: <20260626150142.49732-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="BAgYA4yO"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47fe377a217so38622f8f.1
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 18:21:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1786152077; x=1786756877; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8rcoxkqGpzG40Z3CfGl8roTFSAXZr79E6UUmvO3lWu4=;
+        b=BAgYA4yOE6Z5L8Df/YxrR11vZJ1aqJGTBsOGgO4Dh5YLnY7Q6bqMVJH4UGkFlWK/aD
+         GRNI+cuhTqVgRAQZJ7LQe1w+xFZZnG+9seauuyZAM+IrYWiyN5k8bh5GYaJsrTzttEU6
+         xwZhC/lL8DaRINtQ3CPmj8Z9i8w2ad+ZaYNoZTl4ok4So0ivEJGUjZ35HkJ+LS5JHtdc
+         8T9R6CNR8GF3OWPS2qpqstW771arpIv1VnztsXT6U1DXEDs/OwY3TVR/lrG/gLrknit5
+         /MJOvMSM/V3u9AjmgcLcx4mCsTshrrAcGR24UHr3NwYfaV3P63+SQbMlJgOKLsSCpE1e
+         DMhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786152077; x=1786756877;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8rcoxkqGpzG40Z3CfGl8roTFSAXZr79E6UUmvO3lWu4=;
+        b=ThE0/qYtieQYwMysYlxtae3+KoIZ3Z67NeJYOrgMx5k0NUO1DMXkFXz5vgMDXWQBUJ
+         bXJRDbp6ch1EiFhrSCYI0y7l3xCMfdoKLdtAu1kIU4XU8+0mSXwWCgJOQNtTcJ8Nw/HS
+         PioElzUOV2+0Q5agrXVYB//svwN1OOADxsLjiRhhnU9PYubpG4ZU31EWSiuNihH7ZBpg
+         UFP8NrMhqzxdehWUSi6hWeY44iNiTOL8IBRA36ONkTYF+bNUvsRI7Iu7kKBFQMqZ076v
+         TgUgklHDvi4ThusbVtNx81z2jaKWKq/FlzPaRetIxRPgnpyS4PEUes7pdLh3uIuIXKnG
+         1xDg==
+X-Forwarded-Encrypted: i=1; AHgh+RrcmT0ohTL2yA5LLADY8sV2ejQgb7iOKdyLtPTzR2KypHQ4Kzm5T61KtSjOX5B9YiUXtfZVrd8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yze6r1hZvwIr0EhN8n7PjwRxaHZwJk5KsCL0955ED0agnfDqafe
+	iCHAWm7J2e5sHJ7iCnltYB94c6FCBwnMKl+RY/xvUnjnjWT7suNwlcU=
+X-Gm-Gg: AR+sD10sgfEQlmKZyjd8X+rayAhDypQMMyVvA5Zo+/69HwBOQjsCzPfFtRE4mFeU6u8
+	G+e08nL+Icw6W7j2EjH1C8UQwvdpIIrBjMJIgbvHnjA5o0vvsfp+6mYfluvqSLi/ymHF/VvocyU
+	7WRsGw3aOswVmqS97Ns9HeLqbTCd1lB/DPE/BLC30JF9vGRn1RsOP41eVux4KUhSWufiSxskBDE
+	Vb0hoc/qO2I32OS/0UI57MO1lvBEXAQgjHeIayxX9QKD6hbW/90Ngh5ElhrnJdm9djaPegh4doh
+	qilEgsj08HsBkLGx8zOyRK0+OM9+lChXXyu2ysnoO8T7VDVn+LJ/2PAD3B5bontc24Q7Wc8YWTO
+	9q54uf7IvI93nCpkPB7b6K/8qv/WOYa1VhZtGi4f8M4DQomjVcLxniSJoJw2+kULd7D+iP77Ukj
+	ToItlMinkJq1lxIpbtGHp9If1FCqZRN3lRa6EcANhg9VTHUMTurou3zX1aNSzAQbBpcZ2Ly5Luw
+	DcYgiJpZjWVzmhK59iI5YxF3jzKiNNhW/YFj6mE
+X-Received: by 2002:a05:6000:29d5:b0:47f:2de3:b351 with SMTP id ffacd0b85a97d-47fec63538dmr30399389f8f.26.1786152076941;
+        Fri, 07 Aug 2026 18:21:16 -0700 (PDT)
+Received: from [192.168.1.3] (p5b0574f6.dip0.t-ipconnect.de. [91.5.116.246])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021506desm10520745f8f.10.2026.08.07.18.21.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 07 Aug 2026 18:21:16 -0700 (PDT)
+Message-ID: <5392720e-f6bf-4ba7-8e44-fe20079c4c20@googlemail.com>
+Date: Sat, 8 Aug 2026 03:21:15 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260626150142.49732-1-vulab@iscas.ac.cn>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.6 000/261] 6.6.151-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260807143415.358597922@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260807143415.358597922@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi WenTao,
+Am 07.08.2026 um 16:35 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.6.151 release.
+> There are 261 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-kernel test robot noticed the following build errors:
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.2-rc6 next-20260807]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/WenTao-Liang/fix-drm-vmwgfx-vmw_user_shader_alloc-fix-base-object-refcount-leak-on-ttm_base_object_init-failure/20260807-080356
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260626150142.49732-1-vulab%40iscas.ac.cn
-patch subject: [PATCH] fix: drm/vmwgfx: vmw_user_shader_alloc: fix base object refcount leak on ttm_base_object_init failure
-config: arm64-randconfig-002-20260807 (https://download.01.org/0day-ci/archive/20260808/202608080849.rqxWdd9U-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 12df34b8469b8095359de8c249cb1b2753fadeea)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260808/202608080849.rqxWdd9U-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608080849.rqxWdd9U-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/vmwgfx/vmwgfx_shader.c:727:25: error: incompatible pointer types passing 'struct ttm_base_object *' to parameter of type 'struct ttm_base_object **' [-Wincompatible-pointer-types]
-     727 |                 ttm_base_object_unref(&ushader->base);
-         |                                       ^~~~~~~~~~~~~~
-   drivers/gpu/drm/vmwgfx/ttm_object.h:192:60: note: passing argument to parameter 'p_base' here
-     192 | extern void ttm_base_object_unref(struct ttm_base_object **p_base);
-         |                                                            ^
-   1 error generated.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
 
-vim +727 drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
+Beste Grüße,
+Peter Schneider
 
-   684	
-   685	static int vmw_user_shader_alloc(struct vmw_private *dev_priv,
-   686					 struct vmw_bo *buffer,
-   687					 size_t shader_size,
-   688					 size_t offset,
-   689					 SVGA3dShaderType shader_type,
-   690					 uint8_t num_input_sig,
-   691					 uint8_t num_output_sig,
-   692					 struct ttm_object_file *tfile,
-   693					 u32 *handle)
-   694	{
-   695		struct vmw_user_shader *ushader;
-   696		struct vmw_resource *res, *tmp;
-   697		int ret;
-   698	
-   699		ushader = kzalloc_obj(*ushader);
-   700		if (unlikely(!ushader)) {
-   701			ret = -ENOMEM;
-   702			goto out;
-   703		}
-   704	
-   705		res = &ushader->shader.res;
-   706		ushader->base.shareable = false;
-   707		ushader->base.tfile = NULL;
-   708	
-   709		/*
-   710		 * From here on, the destructor takes over resource freeing.
-   711		 */
-   712	
-   713		ret = vmw_gb_shader_init(dev_priv, res, shader_size,
-   714					 offset, shader_type, num_input_sig,
-   715					 num_output_sig, buffer,
-   716					 vmw_user_shader_free);
-   717		if (unlikely(ret != 0))
-   718			goto out;
-   719	
-   720		tmp = vmw_resource_reference(res);
-   721		ret = ttm_base_object_init(tfile, &ushader->base, false,
-   722					   VMW_RES_SHADER,
-   723					   &vmw_user_shader_base_release);
-   724	
-   725		if (unlikely(ret != 0)) {
-   726			vmw_resource_unreference(&tmp);
- > 727			ttm_base_object_unref(&ushader->base);
-   728			goto out_err;
-   729		}
-   730	
-   731		if (handle)
-   732			*handle = ushader->base.handle;
-   733	out_err:
-   734		vmw_resource_unreference(&res);
-   735	out:
-   736		return ret;
-   737	}
-   738	
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
