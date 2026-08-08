@@ -1,132 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD243DA7FF
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 12:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7013F4825;
+	Sat,  8 Aug 2026 12:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786192158; cv=none; b=OVsvHoqVJ3H7pOaE08kkCKzPUZOpeWdcSBE9Frtt0cm9EuiiqOhMgRlznw8oLh2df16y+W1g+YdYyD6uWWkstlYeX+fqtMrdYAekzlzMgCzStEjOmaJAugwnn9gGkAZoym2ZF5opGKdX7wxgaKgcLKkYgDm7+YXuuYcXbKvc6QA=
+	t=1786192456; cv=none; b=eegMRDMEs48H/qUwgaDNO5iYIJtuMPcEH91ahpPokq4yNyBboFHtjXd0b8CEY7kcM4LwhDXED49U0IK0wCNX0kG/0UVEPS6yDENjjgmoO4yhyCoqPrzgA4w4ONZG8re/0bS9AxQTchvENkWg+3uL46qMqstIOQ7EXMeiTD3//os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786192158; c=relaxed/simple;
-	bh=snriT2gkTZwp3uh5iEO3vSu9qqopTyhv2WMb13QgMDk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O7AzqduBg4ZZr1hqa/MjLcwCeusf2q3vYL5tlkSpn27I4oZQSZ4t6+04CpIrlCachJC+p7eNhzkzKnTqlaGSAFtDn+LLcJiEXuJwHCpuBFxYa6yGGCsYKWYEVuIKWDVlwyt4m8uzGO02ehv5L8vvaUKlblCYuWkfAaB/h8IERaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iuifs6QN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786192456; c=relaxed/simple;
+	bh=VO45/OrpvyMRSv31o6DUyBFT40+x4My/isyMECLSRTE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GJ8nBBzbsXCu+FzvAg9/eMs+gWX7EpwHU2D+dJv5F44tAcy9TmJHQK80yOc9FEQVp8vvVDhkfdOnSUo7aXkSEuxlsuKQXhkmQgB1HxwtfVzfgSqU1EYMBnMWgq02UVweA2tg7htY5Ctk5QDpB3VT3bh+C13vPmUFF0VrJyPKiJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=RuB31H2Q; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iuifs6QN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535431F00A3F;
-	Sat,  8 Aug 2026 12:29:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786192148;
-	bh=+imq7TPi+oANxkO3LKMJuWwcIgjpRZh8Njy1pahT5qY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Iuifs6QNOT/W3nryxKjUTHMjtQqE+gPUzp3KXCwKlsdtkcgfXKMiA8Ovq758HIfjj
-	 /dtodYMOLnL08vLWJ/mIgDZQk1YyWtgZM/rrKj8mzZWkU89upujHX7YWMjQ+TgM7h3
-	 WfsleUFv4+pF/VVM7ZNeM71q6AYFleiRwf/zvuZ48AmomeCLH8/tVd+N++De2MJd/M
-	 mWg2gxKCmzuQaLe0gt/TSFjFRjPAwekVXnlJmtIoRLZaN6/wGqW+kNkcwRGqxR7YZg
-	 t0MyL7uMRv7EmH2TC4ufvJMdbzy+v3zUHeQYLTMY/COQKo/NU3G/fIr6mQQMzuy0jN
-	 thLgnFZ+8ywxg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Shiming Cheng <shiming.cheng@mediatek.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] net: gro: fix double aggregation of flush-marked skbs
-Date: Sat,  8 Aug 2026 08:29:05 -0400
-Message-ID: <20260808122905.253730-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260808122905.253730-1-sashal@kernel.org>
-References: <2026072946-scavenger-smelting-3d16@gregkh>
- <20260808122905.253730-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="RuB31H2Q"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hHL6d18rgzKnXJ;
+	Sat, 08 Aug 2026 14:34:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786192441;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=asS7C+y/dFykJyfRfzEWCUFGhwziarJWy9DBfLDG4v8=;
+	b=RuB31H2Qpm1Yiz7tomqvaCirRf1R1UfTL/fPXA/LLb8Lz+ZFKAzuz/Cl4X6+hUFHxPMdGu
+	6seA01npyXGaGYOOJayi8UYdq5JpPXL1rGrIZGseexbRyeYqwkD3K3aCV4+WCKqY+W3fW9
+	+9OKUeBrgt39j2n42Pl4MXvTk0rJedyXhe2xtFwCTDU5XjTkcvICm8sGrIBGMuMZWtU7Ay
+	TsMg0lbEW96VtPGygmwzTG3bphLrjOvkPYjAwhphPoJS/0erBDfBGZ6PFaYQPaJ6G26ght
+	DBoIcFeJhApXerQSuU2xt5WGEOx2l/OcVRTKI9WF2pW+FYhbdyLrRmYom/ETnw==
+Date: Sat, 8 Aug 2026 14:33:54 +0200
+From: Benjamin Boortz <bennib@mailbox.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
+	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.1 000/438] 7.1.8-rc1 review
+Message-ID: <anchJ-8DBwucRYKW@bb-82jq>
+References: <20260807143428.008222056@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
+X-MBO-RS-META: abhyp8kwpzuwu4anak5mx8hccbkxxt6t
+X-MBO-RS-ID: 4116689aac6728e52ea
 
-From: Shiming Cheng <shiming.cheng@mediatek.com>
+On Fri, Aug 07, 2026 at 04:33:16PM +0200, Greg Kroah-Hartman wrote:
 
-[ Upstream commit e751256486d0ded20f5a9f9863467f1dce65142f ]
+>This is the start of the stable review cycle for the 7.1.8 release.
+>There are 438 patches in this series, all will be posted as a response
+>to this one.  If anyone has any issues with these being applied, please
+>let me know.
 
-Commit 0ab03f353d36 ("net-gro: Fix GRO flush when receiving a GSO
-packet.") added a flush check to skb_gro_receive(), but
-skb_gro_receive_list() lacks the same validation.
+Build and boot tested with QEMU for x86_64, i386, arm64, and riscv
+across multiple configurations, and boots on AMD Ryzen 7 5800H.
+No regressions observed.
 
-As a result, packets marked with NAPI_GRO_CB(skb)->flush may still be
-re-aggregated.
-
-This allows already-GRO'd packets with existing frag_list to be
-re-aggregated into a new GRO session, corrupting the frag_list chain
-structure. When skb_segment() attempts to unpack these malformed packets,
-it encounters invalid state and triggers a kernel panic.
-
-Scenario (Tethering/Device forwarding):
-  1. Driver: Generated aggregated packet P1 via LRO with frag_list
-  2. Dev A: Receives aggregated fraglist packet and flush flag set
-  3. Dev A: Re-enters GRO, skb_gro_receive_list() is called
-  4. Missing flush check allows re-aggregation despite flush flag
-  5. Frag_list chain becomes corrupted (loops or dangling refs)
-  6. Dev B: TX path calls skb_segment(), crashes on corrupted frag_list
-
-Root cause in skb_segment():
-  The check at line ~4891:
-    if (hsize <= 0 && i >= nfrags && skb_headlen(list_skb) &&
-        (skb_headlen(list_skb) == len || sg)) {
-
-  When frag_list is corrupted by double aggregation, when list_skb is
-  a NULL pointer from skb->next, skb_headlen(list_skb) dereference
-  NULL/corrupted pointers occurs.
-
-Call Trace:
- skb_headlen(NULL skb)
- skb_segment
- tcp_gso_segment
- tcp4_gso_segment
- inet_gso_segment
- skb_mac_gso_segment
- __skb_gso_segment
- skb_gso_segment
- validate_xmit_skb
- validate_xmit_skb_list
- sch_direct_xmit
- qdisc_restart
- __qdisc_run
- qdisc_run
- net_tx_action
-
-Fix: Add NAPI_GRO_CB(skb)->flush validation to the early-return check in
-skb_gro_receive_list(), matching the defensive programming pattern of
-skb_gro_receive().
-
-Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260709014704.3625-1-shiming.cheng@mediatek.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/core/gro.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/net/core/gro.c b/net/core/gro.c
-index 616b34275e356..e9ed98dc628d8 100644
---- a/net/core/gro.c
-+++ b/net/core/gro.c
-@@ -232,7 +232,9 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
- 
- int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
- {
--	if (unlikely(p->len + skb->len >= 65536))
-+	/* make sure to check flush flag and to not merge */
-+	if (unlikely(p->len + skb->len >= 65536 ||
-+		     NAPI_GRO_CB(skb)->flush))
- 		return -E2BIG;
- 
- 	if (NAPI_GRO_CB(p)->last == p)
--- 
-2.53.0
-
+Tested-by: Benjamin Boortz <bennib@mailbox.org>
