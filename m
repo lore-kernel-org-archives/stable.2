@@ -1,194 +1,174 @@
-Received: from mx-relay94-hz2-if1.hornetsecurity.com (mx-relay94-hz2-if1.hornetsecurity.com [94.100.137.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F6525B0BE
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 21:37:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=94.100.137.104
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786225028; cv=pass; b=MDxILxBrQTHpHfHR5QyhWY+C3KmNKMAsc5ejzT5KKPRaVFUZBQK12qPcWafciVfhIpvk5DQ4Gb828dmcgVl9mcQoVEA0WT1yY+us2OuMV+0UcgLPoqgQih6rrRqYQHhx/6k20Z0U00wZCRuyRtOmXYCS3Uu8o7+aUcvNOvoSkZs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786225028; c=relaxed/simple;
-	bh=ssUlLYZW485ICnysZpLwxNIdK905wC/hRowV3zeAoOA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bikEUAJyhh3qXwgguc/sIY/t6Z4HAe/sGGoAXWIjtxqmdt9pkbu7p2Vgg7PPXGVsZ8WbkqR9c40ZcdmBftRIA3lLaF76g9mA/doBWLzsF1qtUzeyHB5wuUPQs9uLvoSl33Ev5Wo31f1mh5Bv2ekRqpD1L52oKKBXy7qzos16ATg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=marcant.net; spf=pass smtp.mailfrom=marcant.net; dkim=pass (1024-bit key) header.d=marcant.net header.i=@marcant.net header.b=gKOT8jIJ; dkim=pass (2048-bit key) header.d=marcant.net header.i=@marcant.net header.b=OSv+3egd; arc=pass smtp.client-ip=94.100.137.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=marcant.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marcant.net
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A10FF1A683A;
+	Sat,  8 Aug 2026 21:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786225307; cv=none; b=gthJs9L9pN6zeEQith9CuVytJUkn7wzc71mngs75PYz2KV2JS2R/6W7aOhD9kou/MqxXlmQFKPIkdp/RL2sGzbjkgG6PD71rFmPNPmdW84VciMmo5Zjl2iuFAW6NncqfItyp8d8yrFDUnBoNziA70j/P85m9+b6/x+8DAkEz2ls=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786225307; c=relaxed/simple;
+	bh=I4DdleW8mzxVeMyiB3L8HY8f1W4aXjk83V1EP/T4+I4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K7S4oamDmHX2zm6F4cGvxLa89Xkz0w3q9ppUYyrC6hqL7Ze2c2EpET62VcfIjX1H67/MD2N1btPTi9Oa7suXQhm4bXK35y1p5oyP6iClcrHIdZeZooQYT6mTFkvb7XMTdiNn9E/3e5np1XWTduGLKVN5WSdjxSd31ZIV4wqX2Ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BI9ksKow; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=marcant.net header.i=@marcant.net header.b="gKOT8jIJ";
-	dkim=pass (2048-bit key) header.d=marcant.net header.i=@marcant.net header.b="OSv+3egd"
-ARC-Authentication-Results: i=1; mx-gate94-hz2.hornetsecurity.com 1; spf=pass
- reason=mailfrom (ip=217.14.160.69, headerfrom=marcant.net)
- smtp.mailfrom=marcant.net smtp.helo=rossini.marcant.net; dkim=pass
- header.d=marcant.net header.s=gandalf header.a=rsa-sha256; dmarc=pass
- header.from=marcant.net orig.disposition=pass
-ARC-Message-Signature: a=rsa-sha256;
- bh=7rwRHGIWKNrcw+0UyMxYv++6Gv0JL9gOrsYEbGDhe+A=; c=relaxed/relaxed;
- d=hornetsecurity.com; h=from:to:date:subject:mime-version:; i=1; s=hse1;
- t=1786224961;
- b=VneODvtCQ6bRvjV/8/GV6IWbYPp0IRNyR860Qc8vqDvTS7Am6GGOfHvkcysBJ7u67ll3M9/b
- eIqQkeVso3Cy8BBDX155VoOa9cf+g/bERZOGXdzutN3wntPo8k+606rCLSC9+rdlQqntp4xLwLn
- tTZ746EbJmLnWMdnHitLExvqb6feawT8MmK/3ODivA2oRXWiyZp6kRu8cRmVuEMT90s3ZTRZhDN
- KcfNC01LZl/Gi+dcbmuNthHYKtEQ4aW9Rkwafzx6BrHBCkm/+clNrjd32D2hd4G331HoqzMhatM
- 9eJYIRl0lPs6xg0byq1MPMD0LuBRWLzJW6bxIjR1x2fMQ==
-ARC-Seal: a=rsa-sha256; cv=none; d=hornetsecurity.com; i=1; s=hse1;
- t=1786224961;
- b=VZ2+TRjN7xx04YX2RXf719UMxvUZQArAOXp4mVlKmwOGnG8dZaUoN0VlDs3CUoDGmB6l7twr
- QJ9X0JYmUAAb7V1EkNmbxFSS2ePnMs/Ug3m2TuxBckTR5rc5dVyqZMyildXZbFycLJX8E+Lp8qr
- NxPFbfATIkXx6Am3WjvzhmkKZ+JRE1wmQeFiZ+Bjz4hs8mm8PCgH+xQT7rCNGq06FRTF/p1l2Cc
- 7K91UOHMys+Bh8QRpMG7puVlI8A1ARTfmCIB3Tso7xgpxx+eHPZOJdJh3vU8f0rd2d3zzbt0+kS
- tS4MfTEiXnpdlLknbtmVqA6VhvjpXk4EM9ZC4hM/3gVPA==
-Received: from rossini.marcant.net ([217.14.160.69]) by mx-gate94-hz2;
- Sat, 08 Aug 2026 23:36:01 +0200
-Received: from futile.kalnet.hooya.de (unknown [192.168.203.16])
-	by rossini.marcant.net (Postfix) with ESMTP id 5CEB49600B2;
-	Sat,  8 Aug 2026 23:35:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 rossini.marcant.net 5CEB49600B2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marcant.net;
-	s=gandalf; t=1786224951;
-	bh=7rwRHGIWKNrcw+0UyMxYv++6Gv0JL9gOrsYEbGDhe+A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gKOT8jIJtjWi/mxqdBIo6tk83rOwvZRdkcWLe18pQ2uHrcnLhCMry7KOEASBHzjmy
-	 z1T52gh2/6MPszvyPEoAZm2FhaTqeWBLzu92aDNDtJkL9+e6qoPQyZArb8DwuKJ8Y9
-	 xr2CauJ/RKKd8dAkDqA7jiNITzxsFZXlH4D+Er9M=
-From: =?UTF-8?q?Andr=C3=A9=20Valentin?= <avalentin@marcant.net>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
-	Kalle Valo <kvalo@kernel.org>,
-	avalentin@marcant.net,
-	stable@vger.kernel.org,
-	Manikanta Pubbisetty <manikanta.pubbisetty@oss.qualcomm.com>
-Subject: [PATCH v2] wifi: ath11k: run ahb shutdown() teardown only on WCN6750
-Date: Sat,  8 Aug 2026 23:35:51 +0200
-Message-ID: <20260808213551.4169863-1-avalentin@marcant.net>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260807094858.1548216-1-avalentin@marcant.net>
-References: <20260807094858.1548216-1-avalentin@marcant.net>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BI9ksKow"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B301C152B;
+	Sat,  8 Aug 2026 14:41:39 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7C103F9A2;
+	Sat,  8 Aug 2026 14:41:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1786225303; bh=I4DdleW8mzxVeMyiB3L8HY8f1W4aXjk83V1EP/T4+I4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BI9ksKowFBrkK396n5hsWjimnlOOable3MsLV4y3n7S5+1tgNqP6N6WFXFGtDTE32
+	 hEr/u9esRbfm0i0MrHb1lIeDuaaWjUuK/9esr7GvjoQEWbNKWioArCRJofLMM62J3r
+	 8+yBNoBgpQhKZ7WczfW/mYTuBK0b3wymIrkMqDnE=
+Date: Sat, 8 Aug 2026 22:41:31 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev, 
+	kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Hyunwoo Kim <imv4bel@gmail.com>, Yao Yuan <yaoyuan@linux.alibaba.com>, ljs@kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/8] KVM: arm64: Correctly handle end of VA space TLBI
+ invalidation
+Message-ID: <yifz3wn5gk5sr6mapi32trgk5m5kp33bquctsjmkifebnsnndt@fix6u4rthx4g>
+References: <20260806091026.620700-1-maz@kernel.org>
+ <20260806091026.620700-5-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-cloud-security-sender:avalentin@marcant.net
-X-cloud-security-recipient:stable@vger.kernel.org
-X-cloud-security-Mailarchiv: E-Mail archived for: avalentin@marcant.net
-X-cloud-security-Mailarchivtype:outbound
-X-cloud-security-Virusscan:CLEAN
-X-cloud-security-disclaimer: This E-Mail was scanned by E-Mailservice on mx-gate94-hz2 with 4hHZ7q73lPz3ckwG
-X-cloud-security-connect: rossini.marcant.net[217.14.160.69], TLS=1, IP=217.14.160.69
-X-cloud-security-Digest:bbf02fdbf85ecbf72d52eefa7ab56159
-X-cloud-security:scantime:1.616
-DKIM-Signature: a=rsa-sha256;
- bh=7rwRHGIWKNrcw+0UyMxYv++6Gv0JL9gOrsYEbGDhe+A=; c=relaxed/relaxed;
- d=marcant.net; h=content-type:mime-version:subject:from:to:message-id:date;
- s=hse1; t=1786224960; v=1;
- b=OSv+3egd5b8Vmb4AttFG3tL/pQQzvmzzskfI5RrtOkjbpbP9D0b3pBaxOd0Vww7lx5rd1uKw
- zgDD1bj/J3kjlS9G1dXurhWAsyOFPMXSMA7CKRQmbEBKEvTN0K+670EtxmXIp51MOvcvV5LjBg3
- GA6owr1W1VxeEOmKOKzZw8fKhWVJ5zbmSDi5aaljO5P3VgSq1uTGfDG/7LSILlg2xPteKgF+lcL
- ky+Y1anpYjyovyFMYnPoYYurgJWEA6rEsVWlJNJEuI7zrKm0rIkGQ/WRku57uF/0tBoVPKJ2/QM
- B2f1emitvSNEMlDrr+9qdrIcnZVLKsEDcQzHFesfbruag==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806091026.620700-5-maz@kernel.org>
 
-The AHB shutdown() callback was added solely for WCN6750, which must stop
-DMA before the SMMU is torn down at system reboot/shutdown. It was
-registered unconditionally in the shared
-ath11k_ahb_driver, so it also runs on the IPQ AHB targets (IPQ8074/
-IPQ6018/IPQ5018), which never had a shutdown() handler before and have no
-such SMMU requirement.
+Hi Marc,
 
-The commit message claimed the change "will not impact other AHB ath11k
-devices", but it does: on IPQ6018 the teardown stops the WCSS Q6 remote
-processor firmware, which leaves shared WCSS state such that the boot ROM
-hangs during DDR training on the following warm reset -- only a cold
-(power-on) reset recovers, so a plain reboot never comes back and needs a
-physical power cycle. This was pinned by bisecting the teardown: skipping
-ath11k_qmi_firmware_stop() (i.e. not stopping the Q6) is what lets the
-warm reset train DDR and boot normally, whereas none of the q6v5 power,
-reset or clock steps reproduce it on their own.
+On Thu, Aug 06, 2026 at 10:10:22AM +0100, Marc Zyngier wrote:
+> Our TLB invalidation by VA code is based on comparing two ranges,
+> one defined by the TLB, and one defined by the TLBI instruction.
+> 
+> Each range is defined by a start and a size. However, the way the
+> comparison is done doesn't account for address rollover, as it
+> compares an address with (base + size). This works nicely until
+> this expression represent the last page/block in the TTBR1 VA space,
+> as the result is a big fat 0. And a failed TLB invalidation.
+> 
+> Rewrite the comparison in a way that is immune to the address
+> rollover (making the end address inclusive instead of exclusive),
+> and move this into a common helper that is used by both VA and IPA
+> invalidations, as suggested by Hyunwoo Kim (although the IPA version
+> didn't suffer from this particular problem, obviously).
+> 
+> Fixes: 4ffa72ad8f37e ("KVM: arm64: nv: Add S1 TLB invalidation primitive for VNCR_EL2")
+> Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> Cc: stable@vger.kernel.org
+> ---
+>  arch/arm64/kvm/nested.c | 43 ++++++++++++++++++-----------------------
+>  1 file changed, 19 insertions(+), 24 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index 27bc7ee4b3382..8a602d074dbb4 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -999,6 +999,20 @@ static void invalidate_vncr(struct vncr_tlb *vt)
+>  		clear_fixmap(vncr_fixmap(vt->cpu));
+>  }
+>  
+> +static bool vncr_tlb_intersects(struct vncr_tlb *vt, u64 addr,
+> +				u64 scope_start, u64 scope_size)
+> +{
+> +	u64 tlb_size, tlb_start, tlb_end, scope_end;
+> +
+> +	tlb_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift, vt->wr.level));
+> +
+> +	tlb_start = addr & ~(tlb_size - 1);
+> +	tlb_end = tlb_start + tlb_size - 1;
+> +	scope_end = scope_start + scope_size - 1;
 
-Restrict the shutdown() teardown to WCN6750 via hw_params, restoring the
-pre-regression behaviour for the IPQ AHB targets: they simply have no
-shutdown() teardown again, exactly as they did for years before that
-change, and on reboot/shutdown the SoC reset re-initializes the WCSS from
-scratch. WCN6750 keeps the teardown. Module removal (rmmod / remove()) is
-unchanged for all targets.
+I think if scope_end overflows,
 
-Verified on a MikroTik Chateau 5G R17 ax (IPQ6018): before, a plain
-reboot froze in the boot ROM during DDR training; after, it trains DDR
-and boots the kernel across repeated reboots.
+> +
+> +	return !(tlb_end < scope_start || tlb_start > scope_end);
 
-Fixes: ac41c2b642b1 ("wifi: ath11k: Register shutdown handler for WCN6750")
-Cc: stable@vger.kernel.org
-Cc: Manikanta Pubbisetty <manikanta.pubbisetty@oss.qualcomm.com>
-Signed-off-by: André Valentin <avalentin@marcant.net>
----
-Changes in v2 (per Jeff Johnson's review):
-- Drive the difference from hw_params instead of comparing ab->hw_rev in
-  ath11k_ahb_shutdown(): add shutdown_teardown, set only for WCN6750.
-- Frame it as restoring the pre-regression behaviour for the IPQ AHB
-  targets (no shutdown() teardown), rather than a per-SoC quirk.
+tlb_start > scope_end can evaluate to true and we return false even when
+there is overlap near the end of the TTBR1 address space.
 
-v1: https://lore.kernel.org/linux-wireless/20260807094858.1548216-1-avalentin@marcant.net/
+Therefore I think we need to saturate scope_end to ULONG_MAX when overflow
+happens. This is also what the architecture does when looking at the
+pseudocode J1.2.3.442 TLBIRange (M.c).
 
- drivers/net/wireless/ath/ath11k/ahb.c  | 11 +++++++++++
- drivers/net/wireless/ath/ath11k/core.c |  1 +
- drivers/net/wireless/ath/ath11k/hw.h   |  4 ++++
- 3 files changed, 16 insertions(+)
+Thanks,
+Wei-Lin Chang
 
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
-index 1e1dea4..5d71ff4 100644
---- a/drivers/net/wireless/ath/ath11k/ahb.c
-+++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -1288,6 +1288,17 @@ static void ath11k_ahb_shutdown(struct platform_device *pdev)
- 	 * remove() is invoked during rmmod & shutdown() during
- 	 * system reboot/shutdown.
- 	 */
-+
-+	/* The teardown below is only needed on WCN6750 (stop DMA before the
-+	 * SMMU is torn down). It was registered for all AHB targets, but on
-+	 * the IPQ SoCs it stops the WCSS Q6 firmware and leaves shared state
-+	 * that hangs the boot ROM during DDR training on the next warm reset;
-+	 * they never had a shutdown() teardown before and the SoC reset
-+	 * re-initializes the WCSS from scratch, so skip it there.
-+	 */
-+	if (!ab->hw_params.shutdown_teardown)
-+		return;
-+
- 	ath11k_ahb_remove_prepare(ab);
- 
- 	if (!(test_bit(ATH11K_FLAG_REGISTERED, &ab->dev_flags)))
-diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
-index 8dacc87..c6df829 100644
---- a/drivers/net/wireless/ath/ath11k/core.c
-+++ b/drivers/net/wireless/ath/ath11k/core.c
-@@ -578,6 +578,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 	{
- 		.name = "wcn6750 hw1.0",
- 		.hw_rev = ATH11K_HW_WCN6750_HW10,
-+		.shutdown_teardown = true,
- 		.fw = {
- 			.dir = "WCN6750/hw1.0",
- 			.board_size = 256 * 1024,
-diff --git a/drivers/net/wireless/ath/ath11k/hw.h b/drivers/net/wireless/ath/ath11k/hw.h
-index 4996536..8279eb4 100644
---- a/drivers/net/wireless/ath/ath11k/hw.h
-+++ b/drivers/net/wireless/ath/ath11k/hw.h
-@@ -231,6 +231,10 @@ struct ath11k_hw_params {
- 	bool cfr_support;
- 	u32 cfr_num_stream_bufs;
- 	u32 cfr_stream_buf_size;
-+	/* run the ahb shutdown() teardown; only WCN6750 needs it, to stop
-+	 * DMA before the SMMU is torn down at reboot/shutdown
-+	 */
-+	bool shutdown_teardown;
- };
- 
- struct ath11k_hw_ops {
-
-base-commit: f9a2394a23482bfd330911e9c8295b71724feacd
--- 
-2.47.3
-
+> +}
+> +
+>  /*
+>   * VNCR TLB invalidation occurs from MMU notifiers or TLBI instructions, and
+>   * either can race against a vcpu not being onlined yet (no pseudo-TLB
+> @@ -1021,19 +1035,9 @@ static void kvm_invalidate_vncr_ipa(struct kvm *kvm, u64 start, u64 end)
+>  	if (!kvm_has_feat(kvm, ID_AA64MMFR4_EL1, NV_frac, NV2_ONLY))
+>  		return;
+>  
+> -	kvm_for_each_vncr_tlb(i, vcpu, vt, kvm) {
+> -		u64 ipa_start, ipa_end, ipa_size;
+> -
+> -		ipa_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift,
+> -							    vt->wr.level));
+> -		ipa_start = vt->wr.pa & ~(ipa_size - 1);
+> -		ipa_end = ipa_start + ipa_size;
+> -
+> -		if (ipa_end <= start || ipa_start >= end)
+> -			continue;
+> -
+> -		invalidate_vncr(vt);
+> -	}
+> +	kvm_for_each_vncr_tlb(i, vcpu, vt, kvm)
+> +		if (vncr_tlb_intersects(vt, vt->wr.pa, start, end - start))
+> +			invalidate_vncr(vt);
+>  }
+>  
+>  struct s1e2_tlbi_scope {
+> @@ -1059,28 +1063,19 @@ static void invalidate_vncr_va(struct kvm *kvm,
+>  	lockdep_assert_held_write(&kvm->mmu_lock);
+>  
+>  	kvm_for_each_vncr_tlb(i, vcpu, vt, kvm) {
+> -		u64 va_start, va_end, va_size;
+> -
+> -		va_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift,
+> -							   vt->wr.level));
+> -		va_start = vt->gva & ~(va_size - 1);
+> -		va_end = va_start + va_size;
+> -
+>  		switch (scope->type) {
+>  		case TLBI_ALL:
+>  			break;
+>  
+>  		case TLBI_VA:
+> -			if (va_end <= scope->va ||
+> -			    va_start >= (scope->va + scope->size))
+> +			if (!vncr_tlb_intersects(vt, vt->gva, scope->va, scope->size))
+>  				continue;
+>  			if (vt->wr.nG && vt->wr.asid != scope->asid)
+>  				continue;
+>  			break;
+>  
+>  		case TLBI_VAA:
+> -			if (va_end <= scope->va ||
+> -			    va_start >= (scope->va + scope->size))
+> +			if (!vncr_tlb_intersects(vt, vt->gva, scope->va, scope->size))
+>  				continue;
+>  			break;
+>  
+> -- 
+> 2.47.3
+> 
