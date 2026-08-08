@@ -1,82 +1,44 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E023B2AA
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 12:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81504373BE6
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 12:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786191111; cv=none; b=Gca7bwoT30onXSIyZMz/el+W0PgLSSyEgSeuxx4JAzDXp45nul6DwOsJJaXfUP680D1c1g2EJy6ic5mbIwofg/wylioLLrk3LZqRrjBLuaspua/jpHttaD4dE+pqOCcJYxtyJxYXCxWrOiuYqVwP2l8ZgjrQIitYgU5/wvldY+I=
+	t=1786191134; cv=none; b=YqqUgGCQocVe2S/vxfe0h+p9DYmuoAe1GjuvgFXWirxjcUnlsU6y22biTjZZyxHgVeoPdIlVIyEIJ/I12arFOJwcZgC65Gxgd+VqpxnFGfZn3PlY5uvFgetGKR7TyNTrwVdR9JJ1oTKol7oSbe2bVORLFGA1zcoWW4kmLmTF1h0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786191111; c=relaxed/simple;
-	bh=9wZYwXRVe2G/vTq2B8Znoy+bMm9uJkSKcgJbIjP/slI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cCI7gbgUmsMQCQlqixkGgnDZHzCqr+/N123Zwh0S6xmp4LXj4GL3I8A6ttiHAxLQZitAhVjRo6WfLLlLUNtnv9P2/hQzCHKnYv2w+LJWH1zgniVRB4sOGiitf2aIY3Ws/f6P/T9EoA797BKi0GhCYIZNiLSRusGcSAFPvfefXGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S5Bnauo8; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786191134; c=relaxed/simple;
+	bh=rHwLWonz+1injjqxTfDFfwRSMrefk4mN8dVu9gpBkas=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uYjgCkcnuiqv38DGwrmYMTeNbOggtz4czf8dvvm9qo/2q9swe+r0j7xwcWu7SyQT4SrcebGWk6TT/OvFpL8kvgsDUfvsReM3DCwuEJD4BdT1EAVT2al+bxg52KpKy6PtB3ShtmDKhCvcHQOCHcS9CgUhe/Zl8CVZT0VKuwavG7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RPeLDBWG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S5Bnauo8"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ce7d2adef4so6266135ad.3
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 05:11:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786191109; x=1786795909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qqtodrANULHy2HebqvyH0gpSUnDrF1cP92+56xd0b6c=;
-        b=S5Bnauo8jx+b1bt++IOJt5EktqgoJQMmvFP7FW3MEIbbNfTm4ae1yc5I13D5ytmfuQ
-         2kgw5cMLbyKnzTf5kYgDCai8DzwHdUknP+6FzY/ZPvPO5V2Pb5b5ysBhVWwfk09n4D/N
-         IYnan3bPA1ujc26N0w0KlotBUYME4HHMVUfqrAcS8ARsmVtUpZst3fIZKiCSuZL074g6
-         sTmyz1jDE1N6GypMCopKVo3HrnVHURp+fWJxlc6E2eg7O7JVFNaCDDTLzZzsBl/0Gf7h
-         OaMPmrGKatjS7tltqUo7iOIpSQ4C4uIqGn4UMdripnyKs5nRGfZPBw9hMDNGNDk18ls9
-         6JLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786191109; x=1786795909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qqtodrANULHy2HebqvyH0gpSUnDrF1cP92+56xd0b6c=;
-        b=WdYvQiNxTx98SB3aUwb+19FZzJHgL3dk+CP3Jdp4HvkcmBzps4HC+YiAUK4ydXl7PE
-         I49p/wnwzhCQJ02BfFNWxMozeuW75C9oYIP8SWx2/EMSlyF0AvwhnOXoQgWCFm28uG8z
-         nmCYbi1J7vHLgnEP763I2392e5YMBXp6xLr8NgTrWjTfAIVNBJ85Hpt6ZpsMc9Rv841P
-         Danl30mffP1BUERiWK4/CL43sZl1gwxUI54g6gP4I3gfZaKSUW3KcusDXyj8tMHU2BMS
-         C650iLUlTCdKuBI9txtcTFrP9nxfe1IAWtmjvzwGJxRfv3vsyK+UymP1XKEMI8V2TT3w
-         ZMcQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqGjhsKhP5cv3Iook8SD/FAFnYrUZEWnBxKd6sXRmpqdP3+rUZvDok4vk89Tad4cnkRTfVtljk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxNtv1wXIekH/GFo/72NIVJFO2BJZ5GbTtuo41r4uYq1vUyrH9E
-	zFtxdxvmwNGhethUV/pOzYxRBv20qzuJB9EVCwwom6ZWpcZWI+RfPDNZ
-X-Gm-Gg: AR+sD11thTso5WrlgRdnBZbXlx5BKVTht4ari8NbBHVThGpzM6wkT83uIlHeGB44Nzu
-	nyivhCW7hJiTb87XTjz6cIbJ+UYC+JJ0Rcfn4ZqPzAHoC/G6/psJMvT7rgvFSx+mA+SYW6cP/jD
-	ZBb7ywEG1V97yuu7BOs9KVhSKwvGD1sKKWqXoJYd2iaKIs47VsD+eRJzwzewjfBDCDPcXnr5QPn
-	OJjyuf+BoPR9u69i63AhS5U4B4DJShKemcL+mTDGbep7Hv8dU5FWYlUB5M9z5eBnnbTM/QTUPuN
-	0LBYCD0HC1dK9nE95EK5pS+XpAhSDv5UF34UeBQZ2Z5xBwNxqUZBM9Y40yQLmmLJMX1BUJs0dc2
-	qkWb1M4V+Ei43RGi+r8cvbss3wDZliwAHSzWc2t9Lwbj4wNcQL5I768elsfqMdHZAhQMkimrGdM
-	QJLgAyuLDWTaSL1npbGbxGe53ERRbnIswrvMmiI9j7hyI=
-X-Received: by 2002:a17:903:2383:b0:2cf:4544:104b with SMTP id d9443c01a7336-2d294b29144mr139478015ad.5.1786191109424;
-        Sat, 08 Aug 2026 05:11:49 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14dbedec6sm18151975ad.44.2026.08.08.05.11.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 05:11:48 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Lijo Lazar <lijo.lazar@amd.com>,
-	Ivan Lipski <ivan.lipski@amd.com>,
-	"Jesse.Zhang" <Jesse.Zhang@amd.com>,
-	Jammy Zhou <Jammy.Zhou@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: fix autosuspend cleanup during removal
-Date: Sat,  8 Aug 2026 20:09:34 +0800
-Message-ID: <20260808120934.2813010-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RPeLDBWG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CDCC1F000E9;
+	Sat,  8 Aug 2026 12:12:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786191133;
+	bh=mT3yiKAy2sDqKW4xH7qmpfZB6nOPFbZT1iqW5zCt1SY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RPeLDBWGc6vykuTFPphgbGEFXgc7+n9NZdBp2LKPmsEZat/Fq5JMDvQUF8R5Zfyps
+	 gtjnd+ySvqk1ZgPvviW4ovMvyYUv6+CHQlKC2qbJBoatceoCtweI4FW7dMdqMzTuX5
+	 u4RCzyYqmF65PzbKsQ6Hg7luSowqsTqSvOopG3pVM9o2VTGjkAzWJw+XII2xnSdFyX
+	 EkmGMymJd1L8+bqL/vDkJWNlnV9JjDFPh8gAVhB+nnDNucE5HJZbuCtCV0RRXkF388
+	 Q5EFqJkqIBqBilPokeKoqIH95KLwqdExBGtKawBpXXXsBFMhYh41Wtkup8JZ8Yk7Aq
+	 cB80Nbf0nzzHQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] net/sched: serialize qdisc_rtab_list against concurrent get/put
+Date: Sat,  8 Aug 2026 08:12:10 -0400
+Message-ID: <20260808121210.222033-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072925-democracy-struggle-c5e9@gregkh>
+References: <2026072925-democracy-struggle-c5e9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,45 +47,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-amdgpu_pci_probe() calls pm_runtime_use_autosuspend(), but
-amdgpu_pci_remove() does not call the matching
-pm_runtime_dont_use_autosuspend().
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped and usage_count remains
-unbalanced.
+[ Upstream commit f43ee0c0730d6191629b5ee1ceae27b1ebfdc047 ]
 
-The documentation for pm_runtime_use_autosuspend() also notes that it
-is important to undo it with pm_runtime_dont_use_autosuspend() at
-driver exit time, unless runtime PM was initially enabled with
-devm_pm_runtime_enable().
+qdisc_get_rtab() and qdisc_put_rtab() mutate the process-global singly
+linked list qdisc_rtab_list and a plain non-atomic 'int refcnt' with no
+lock. This was only safe because every caller historically held the RTNL
+mutex, which serialized all rate-table lookups, inserts and frees.
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-path.
+That invariant no longer holds. cls_flower sets
+TCF_PROTO_OPS_DOIT_UNLOCKED, so tc_new_tfilter() keeps rtnl_held == false
+for it and sets TCA_ACT_FLAGS_NO_RTNL. That flag propagates through
+tcf_exts_validate_ex() -> tcf_action_init() -> tcf_action_init_1() ->
+tcf_police_init(), which calls qdisc_get_rtab()/qdisc_put_rtab() with the
+RTNL mutex NOT held. Two RTM_NEWTFILTER requests on different CPUs, each
+adding a flower filter with a police action carrying the same rate, then
+race on qdisc_rtab_list and on the non-atomic refcnt, leading to a
+use-after-free / double-free of the kmalloc-2k struct qdisc_rate_table.
+qdisc_rtab_list is a single global (not per-netns), so the corrupted
+object is shared system-wide.
 
-This issue was found by manual code inspection.
+  BUG: KASAN: slab-use-after-free in qdisc_put_rtab+0x12f/0x160
+   qdisc_put_rtab+0x12f/0x160
+   tcf_police_init+0xda9/0x1590
+   tcf_action_init_1+0x460/0x6b0
+   tcf_action_init+0x439/0xa40
+   tcf_exts_validate_ex+0x42d/0x550
+   fl_change+0xddd/0x7da0
+   tc_new_tfilter+0xaa7/0x2420
+   rtnetlink_rcv_msg+0x95e/0xe90
+  which belongs to the cache kmalloc-2k of size 2048
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+Protect qdisc_rtab_list and the refcount with a dedicated spinlock. The
+(sleeping, GFP_KERNEL) allocation in qdisc_get_rtab() is performed before
+taking the lock; if a concurrent inserter added an identical table in the
+meantime the freshly allocated one is freed under the lock, so no
+duplicate is leaked. qdisc_put_rtab() now decrements the refcount and
+unlinks under the same lock.
+
+Fixes: 470502de5bdb ("net: sched: unlock rules update API")
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260715114114.446841-1-qwe.aldo@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/sched/sch_api.c | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 1aed121f4ddb..e814701bc8fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2548,6 +2548,7 @@ amdgpu_pci_remove(struct pci_dev *pdev)
- 	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
- 		pm_runtime_get_sync(dev->dev);
- 		pm_runtime_forbid(dev->dev);
-+		pm_runtime_dont_use_autosuspend(dev->dev);
+diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
+index 709d851d0b1e8..cc979ecc6b78b 100644
+--- a/net/sched/sch_api.c
++++ b/net/sched/sch_api.c
+@@ -413,12 +413,13 @@ static __u8 __detect_linklayer(struct tc_ratespec *r, __u32 *rtab)
+ }
+ 
+ static struct qdisc_rate_table *qdisc_rtab_list;
++static DEFINE_SPINLOCK(qdisc_rtab_lock);
+ 
+ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 					struct nlattr *tab,
+ 					struct netlink_ext_ack *extack)
+ {
+-	struct qdisc_rate_table *rtab;
++	struct qdisc_rate_table *rtab, *new_rtab;
+ 
+ 	if (tab == NULL || r->rate == 0 ||
+ 	    r->cell_log == 0 || r->cell_log >= 32 ||
+@@ -427,15 +428,20 @@ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 		return NULL;
  	}
  
- 	amdgpu_driver_unload_kms(dev);
++	new_rtab = kmalloc_obj(*new_rtab);
++
++	spin_lock(&qdisc_rtab_lock);
+ 	for (rtab = qdisc_rtab_list; rtab; rtab = rtab->next) {
+ 		if (!memcmp(&rtab->rate, r, sizeof(struct tc_ratespec)) &&
+ 		    !memcmp(&rtab->data, nla_data(tab), 1024)) {
+ 			rtab->refcnt++;
++			spin_unlock(&qdisc_rtab_lock);
++			kfree(new_rtab);
+ 			return rtab;
+ 		}
+ 	}
+ 
+-	rtab = kmalloc(sizeof(*rtab), GFP_KERNEL);
++	rtab = new_rtab;
+ 	if (rtab) {
+ 		rtab->rate = *r;
+ 		rtab->refcnt = 1;
+@@ -447,6 +453,7 @@ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 	} else {
+ 		NL_SET_ERR_MSG(extack, "Failed to allocate new qdisc rate table");
+ 	}
++	spin_unlock(&qdisc_rtab_lock);
+ 	return rtab;
+ }
+ EXPORT_SYMBOL(qdisc_get_rtab);
+@@ -455,18 +462,25 @@ void qdisc_put_rtab(struct qdisc_rate_table *tab)
+ {
+ 	struct qdisc_rate_table *rtab, **rtabp;
+ 
+-	if (!tab || --tab->refcnt)
++	if (!tab)
+ 		return;
+ 
++	spin_lock(&qdisc_rtab_lock);
++	if (--tab->refcnt) {
++		spin_unlock(&qdisc_rtab_lock);
++		return;
++	}
++
+ 	for (rtabp = &qdisc_rtab_list;
+ 	     (rtab = *rtabp) != NULL;
+ 	     rtabp = &rtab->next) {
+ 		if (rtab == tab) {
+ 			*rtabp = rtab->next;
+-			kfree(rtab);
+-			return;
++			break;
+ 		}
+ 	}
++	spin_unlock(&qdisc_rtab_lock);
++	kfree(tab);
+ }
+ EXPORT_SYMBOL(qdisc_put_rtab);
+ 
 -- 
-2.43.0
+2.53.0
 
