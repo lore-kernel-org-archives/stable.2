@@ -1,107 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3A93D3012;
-	Sat,  8 Aug 2026 12:24:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EAB3DD528
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 12:29:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786191901; cv=none; b=MgXCAC+by784119WLa+0swlcivQffcwFkT0Dk4CWGXA2a9ReII5+rZAG3nEPmM9MdHV6ns+schvz1erxxgFg3w0PmfMHbrDnsSwD9wOs1JQp23Ii+4TSNMbCJoD9XILwMNKS+cWi0TpbXfy2fy9qVQTHyOMM4x5dqIOWA8sPaaY=
+	t=1786192148; cv=none; b=U7lciOnq1pLyKkSpEapAuv9g7MclW9R8sJ82izkZ/N1lU+3WUinBuVUng3EvOZ1f66e8PH41BqOk8xhS8FeJLLFEp+egwwNpI0eINPKtc8qk7nP8utsxmVxuioi8cBsRWNfD9HzeAyVUX2+yHRTMrxOYaidWD8mPCrnh6BeW1C0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786191901; c=relaxed/simple;
-	bh=u6OkWdgL9IIkg+Eo0JTn9YR3RdOm3oe030uRK54blGY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=lrUxWz9b+Zv/L4ia1pz6l4XYZIfCNS2jteAoB0tVJfzwYruEF5akCfzCWhA3kixuOkYywA9t0//lIDwdGqJ/nvpsM05Yayh5t84enRaLADmjwcCCif5UUd+4qXFM0L3mOFicEK9Jgciwev6DFsDNvD1qnnv9+Qw73Xonfoj5s2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXUCxO9H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786192148; c=relaxed/simple;
+	bh=EkwY1Uik3MR9XhF66mmUMtKp9yklwSwlFXKXZwB92Kc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KfKtTQHa5OJqSkFZF7Ywz+FrOuvGLqZlWzAn5jGxOkpaFS4ZnCd8g1Ob7quBUY1GfaIVOT+GAv/Rz3vt/TuXBvyMnFjzYqwsbRL1t3Di6+zgOzS4xTJeFOg9fMqw5P7tVw/R+PFfDSghWjTZhkAGtKpsVxcWYimtfZV15iMjpoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iijh9JcM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXUCxO9H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADBFE1F000E9;
-	Sat,  8 Aug 2026 12:24:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iijh9JcM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA36B1F000E9;
+	Sat,  8 Aug 2026 12:29:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786191899;
-	bh=mzVBl53Epi0FUdH9E8YWWkCnOOfHEhABPUneBvvcFYA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=FXUCxO9H+bF/FzRVocEE+nxwknE5wf+FE681v2UY+b8Horxb8hXlgHu7PeQQivzqF
-	 ShNdPnXvGjiEocQvWa/wO5O7ZAhbeOh1BoGizgybcxMeyLr7mKhV9cBmYJiscyhvgE
-	 oacDUBDTOXi4l0FFiL58M0U03ltwmJoVWWbRbJvUxIvolc+rlxumHoqKNWylFagMe4
-	 SrOd1MPKfd8sRKuBqvlqj6pdmadot0SXmgEom8Vxxec0HpNVbeJoaeekfcyi0Ltb28
-	 +/fHkt0SkdQnQDhKtT4GMFPiLqKpFdo/AP/wOd9KKLbjxqO5mUau7c3jsdChOCTmQ5
-	 ts64hgEyy11sw==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: linux-sound@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260805104149.9795-1-peter.ujfalusi@linux.intel.com>
-References: <20260805104149.9795-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/5] ASoC: TI codecs: sort the reg_defaults tables
-Message-Id: <178611434428.279158.13806880797963574362.b4-ty@b4>
-Date: Fri, 07 Aug 2026 15:52:24 +0100
+	s=k20260515; t=1786192143;
+	bh=sPZPx/oxYTacmoiTkLT6TsVJ5MdmxBuXY8TsqWbY0ik=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iijh9JcMwU1yyG2vU1Q+OI8aAD6A6OqDTFN9BMK73hqtDiRWFRowl+S+VXuhhnfKG
+	 h9e41EbRYySue/C/QsnnLG22pMKUfXdZ9y5ck70wbUST78txe6kQA/syystVyaPMgs
+	 rEPnKn7gc1UKL/QGwP/vEy01S3iVilJH377ysyhD+oSTtrvCHnOGZvt3LdG1dQXVJ6
+	 Exb9FCr1qAbMsTYkmtX9INhsDRMbu12oDlnUYrKs549eSOvNMVH3mLyg7RusINxsfN
+	 gS1GN5VE/KZo/x6HlLA/LqNxdFeSPGgqrndnQ7ZzAgtIXR1dHlx426UQYQkacU7BFp
+	 NERb0vm3Eqlzg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: James Montgomery <james_montgomery@disroot.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] ksmbd: defer destroy_previous_session() until after NTLM authentication
+Date: Sat,  8 Aug 2026 08:29:01 -0400
+Message-ID: <20260808122901.253582-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072903-union-lagging-6c3f@gregkh>
+References: <2026072903-union-lagging-6c3f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1893; i=broonie@kernel.org;
- h=from:subject:message-id; bh=u6OkWdgL9IIkg+Eo0JTn9YR3RdOm3oe030uRK54blGY=;
- b=kA0DAAoBJNaLcl1Uh9AByyZiAGp3IBigsvlVYSNdeHPw192rhuZxUkd+CS0FK8M41ME67rfcO
- 4kBMwQAAQoAHRYhBK3maKpnVxi1n+Kf6iTWi3JdVIfQBQJqdyAYAAoJECTWi3JdVIfQTcIIAIMs
- mQMcwf9SkjonLd2SNAGqePAAAyj71+m2LL4T/Ucdhw7O8n8DfGyazoY7f65O2r4iIsoiUa+y2nB
- U73ojsHC/BOI+1eDkDFB9JFLIvRyYyhC7Rm+PCGE419t/5gyLwEK3HP9kMpnjJdsZOEyUNpUf5L
- Y1xZ/M/ZljNCQoKlEMDxBv4VNa7Xnbw2rhGVmCLZLdhqCmIIstjVUlgEsPukHfi3Im9JuDceAE6
- LVDHIhQEVCitMomZ2wx0lWoRATA76ZX2LNCLrU7UH6LHV3VAsl8d45Jiuv0uWqEzSWsv94GJJW7
- Fi00w7+4FEGfscuZaTyR7DMxfq0nObdEXn8hXjo=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Wed, 05 Aug 2026 13:41:44 +0300, Peter Ujfalusi wrote:
-> ASoC: TI codecs: sort the reg_defaults tables
-> 
-> The reg_defaults array of a regmap_config must be sorted by ascending
-> register address: regcache_lookup_reg() finds entries in it with
-> bsearch(), and regcache_init() only kmemdup_array()s the array, it never
-> sorts it.  See commit fd80df352ba1 ("regcache: Add support for sorting
-> defaults arrays").
-> 
-> [...]
+From: James Montgomery <james_montgomery@disroot.org>
 
-Applied to
+[ Upstream commit c74801ee524f477c174a1899782b6c3b6918d407 ]
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+In ntlm_authenticate(), destroy_previous_session() is called using a
+user pointer resolved from the client-supplied NTLM blob username field
+before the NTLMv2 response is validated. An authenticated attacker can
+set the NTLM blob username to match a victim account and set
+PreviousSessionId to the victim's session ID; destroy_previous_session()
+destroys the victim's session while ksmbd_decode_ntlmssp_auth_blob()
+subsequently rejects the request with -EPERM.
 
-Thanks!
+Move destroy_previous_session() and the prev_id assignment to after
+ksmbd_decode_ntlmssp_auth_blob() returns success and use sess->user
+rather than the pre-authentication lookup result. This matches the
+ordering already used by krb5_authenticate(), where
+destroy_previous_session() is called only after
+ksmbd_krb5_authenticate() returns success.
 
-[1/5] ASoC: pcm512x: sort the register default table
-      https://git.kernel.org/broonie/sound/c/767d9ae714e3
-[2/5] ASoC: tas2552: sort the register default table
-      https://git.kernel.org/broonie/sound/c/1cc0cb62d306
-[3/5] ASoC: tas2764: sort the register default table
-      https://git.kernel.org/broonie/sound/c/e7643c3f7eb3
-[4/5] ASoC: tas2780: sort the register default table
-      https://git.kernel.org/broonie/sound/c/e725093e9e53
-[5/5] ASoC: tas675x: sort the register default table
-      https://git.kernel.org/broonie/sound/c/3521d209ca70
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/linux-cifs/20260702155449.3639773-1-james_montgomery@disroot.org/
+Signed-off-by: James Montgomery <james_montgomery@disroot.org>
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ksmbd/smb2pdu.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/fs/ksmbd/smb2pdu.c b/fs/ksmbd/smb2pdu.c
+index f7eeb79be48ab..f012b85e1d0d9 100644
+--- a/fs/ksmbd/smb2pdu.c
++++ b/fs/ksmbd/smb2pdu.c
+@@ -1495,11 +1495,6 @@ static int ntlm_authenticate(struct ksmbd_work *work,
+ 		return -EPERM;
+ 	}
+ 
+-	/* Check for previous session */
+-	prev_id = le64_to_cpu(req->PreviousSessionId);
+-	if (prev_id && prev_id != sess->id)
+-		destroy_previous_session(conn, user, prev_id);
+-
+ 	if (sess->state == SMB2_SESSION_VALID) {
+ 		/*
+ 		 * Reuse session if anonymous try to connect
+@@ -1537,6 +1532,10 @@ static int ntlm_authenticate(struct ksmbd_work *work,
+ 		}
+ 	}
+ 
++	prev_id = le64_to_cpu(req->PreviousSessionId);
++	if (prev_id && prev_id != sess->id)
++		destroy_previous_session(conn, sess->user, prev_id);
++
+ 	/*
+ 	 * If session state is SMB2_SESSION_VALID, We can assume
+ 	 * that it is reauthentication. And the user/password
+-- 
+2.53.0
 
