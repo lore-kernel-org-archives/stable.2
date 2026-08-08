@@ -1,133 +1,184 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CCC380FCE
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 09:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E43B205E02;
+	Sat,  8 Aug 2026 09:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786179695; cv=none; b=qXvJwcPkI+9GYTR9ga5ony7m2Xr37hTDRDPvmmxF6/7043FU1E5/l/p0FByE+TL3LKIySKi1e4LdtlR0nju7GNpHIqaQyxzchT8YYhUHEQV+O8VEix/thOq1pXFn1DOBrV3tOd/WXalVKpHKl6k9mgV0cVtGFpUCwV34eXTKQqI=
+	t=1786179911; cv=none; b=E3MmvQO+GdhSMvJKb91ozq4PR0VZIdt1I60K6zA+1kzqx0RX/ACogTS8SICbLWqo1s256YZtzE0pW0SxYSpzUfW/biNOZYLDEIbBHUC9ds3S8Rj5AAA6uYQdvtcsvnuKMyV0R1BO2j1J1S9/8LgfX9J0HnWwX4eMz5tS1sgMol0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786179695; c=relaxed/simple;
-	bh=k2o7RLdEaMQf8liSnLShdk2zw3dk1hd297iCbzakkMc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V0enV5p+v6o23QOgJ/oyRBQ5aEvByy9Ah0/LeACvaxmjzzGH8z8gBvXcapZ+McqT832sipE1FmneOHMMffjYh5SU082ZwH8k0tl4tEc9FvhB26OPjbdnCtgC+VSX5vvRtVUxdaCXH/4Tou+vKFNvJcu8BS4IlxxdD0YStMXfG1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aODdhckz; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786179911; c=relaxed/simple;
+	bh=bzaEg3gm2Oynfwunq94gF4vhX2Dly/Gcow3HBJqo3o8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=q885EtXgN5TBKDrz5HrIFu5zhOy3RpOTlqs5LsZeN8Z3MYYJtJvCP4N714z0Vai291O9MgviPuXbQ8g53A19yHyI24wWoycCP8hcq+x7tlRyPp028HIdCXx/lslFVK5srzSj80EWeBgEWCrQNr+0AwYiUbGcQPHKTBuhz3sB8po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkTGYsW1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aODdhckz"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38de840f2f0so183580a91.0
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 02:01:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786179693; x=1786784493; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z8XEbNxmFITtGAeV3qoLd7HeCqmH9Ffgh8sG2RD/33I=;
-        b=aODdhckzHMdGqUfPAE2aJFy2fKfRkVRAZlfgKQ1rZTC+vvDnORdhAc26Y8gylCV/Xh
-         KZs8MkRWpCHl++ceU7kBkmAeScqg37XSlEB611yunwH0OLNcd+8jEHnfBkIjdZxqdq06
-         ins7RvizitqNGRFU8vXvMeOxPe0ZCpsx+ExWKlnVKCWjNSquHNFDgcu4Zt+230dBOA3M
-         LIJ1U9reE03bXFIQKSgzDTBCQHSE0gxro9fYnUa4ck0TK6ofwPY7lgazcVHyXc7sPoqi
-         aYZM6LqJ/eyQ8Adcmu6auSdC3I9Am3O/EYLIan8kKhkNdyHODJYodiI+9VVCf+OSGF1I
-         LGvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786179693; x=1786784493;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z8XEbNxmFITtGAeV3qoLd7HeCqmH9Ffgh8sG2RD/33I=;
-        b=CX3BoH4fiUWlPDeBUEFd0SStLJuMIG9aCQ8pVtS5vvCc88V5wvPWBfhtEqLa0xzdtg
-         vCrIfSbShytqTXUrOxbaORSOJO8aI4pwgv8qaOZTa9O9ZJkKrGhv1uj4UAQ8ihqD1V5A
-         bHyXB3aXzh+o9O585K2640KHvPP8KQEKmprxBLnk3I7nqXyT5h/MUNlsp1isfNU9FzFt
-         RQbGS7+9nU6ber5MbUen7Dug40mYyf/sSPu8/X4J5HqnEjEJlqbMlaPg5tP+liAbweyp
-         yrYtWvnaxUHVklfYvmXy4lMGOFD/q4SWqo2lZgr4wwPy9uz8JU01/hXwaygeMlCbFZYM
-         Kd3w==
-X-Gm-Message-State: AOJu0YzVYvxPQzBhbddldWFbGTv0wPODKr3z02IgS+/gkmzG/C2ll/TT
-	c9Nu/iM1yBvaxLoukUwWv1lNj6T2LbWcPOT4d+cZbCQ1rpO7cHVt7oH/
-X-Gm-Gg: AR+sD10h7vd7RFhERC9ENqNXHNbb47ZPhWpq4oZk5vSfPWxkwn9mvwXqyXwr9OOcwgO
-	2bDOmPwdrWkaBSs0poPLMCwoCB/vxyUy40T/GmYzJWzm0cXw8HknYm+tihEPIcYef12fC73cESH
-	ppLV/jXS+46ScHNq8JgOKGKy8HC4M92TmcQp95o2g+mippkrM/lyMdbwpk1lfIAC71O8TcLhkVG
-	KZfKvx5NVKBs2AhhHb5lqrl3jDfEtWDqENEW1mseqkHsKhSr6nbgIqL+z8yaq3pmFE0MO+rgcjf
-	/sWby1ZDE5Y3N/sf57exPOga3uZDV/vFroHICYbMX7izkFjUH7FNiLM3Yv6V72iUKLxgwR7rYOj
-	8bf6oMJbhQXoHgC2djsejUNzcSb7+yeQ21SgkWeyYXDKmuCUFnbC2+X7WAqVJegEUTAGZfNB69A
-	k/OQaaX4Gv8Uln++qsThZLTiFp0zHqabXsogAtfZpMS3r2teuQh+V1KvVvnmyTvpOm/uH6
-X-Received: by 2002:a17:90b:582e:b0:38e:485c:ebd3 with SMTP id 98e67ed59e1d1-392823d97aamr5991393a91.15.1786179692981;
-        Sat, 08 Aug 2026 02:01:32 -0700 (PDT)
-Received: from lgs.. ([101.76.249.46])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3925ff24b91sm5349083a91.9.2026.08.08.02.01.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 02:01:32 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Corentin Labbe <clabbe.montjoie@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	linux-crypto@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkTGYsW1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E52511F000E9;
+	Sat,  8 Aug 2026 09:05:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786179909;
+	bh=BcQpUXzQNF+2Q+6o8/0P7HWncW1idJum/qJtU1Voeqo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lkTGYsW1dZasSDUaE9oKcDoNEJuYeo3oNBSycdPzNb9GtBwb9fh8lUX1B+hnDKyBN
+	 LDjvFM/0hlJaHuObNzAnGsZnYgQ6Kz5WYQLet5RwUGQ4llz7MS5l7gnsLdv9g8dzaU
+	 yLEh2e704eiOD488zCQUHBvIQG7J5ZnS2VD8qU/P9Jo9yNeCqtWj4xbJKeTE2L5JbP
+	 kMqaNt6gAkTOJ1M8o+gXFvUDS5a3VNavTNH0OSydcHIwS/Uy7/qUkirAk4fmc2oD/H
+	 ky4rJojkbfGyDVqbNNFpY0Zy4KKvn6X3ldnkXiJP6ixcVZG0lBS8544tnLqsLIVnv7
+	 VUrSTq3sj8Jsw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wsczL-0000000Dd90-3XoN;
+	Sat, 08 Aug 2026 09:05:07 +0000
+Date: Sat, 08 Aug 2026 10:06:31 +0100
+Message-ID: <87bjbdouaw.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] crypto: sun8i-ss: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 17:01:21 +0800
-Message-ID: <20260808090121.2718855-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Yao Yuan <yaoyuan@linux.alibaba.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/8] KVM: arm64: Handle negative S1 walk levels in VNCR TLB size evaluation
+In-Reply-To: <anYL8J1ejjujgp-A@lucifer>
+References: <20260806091026.620700-1-maz@kernel.org>
+	<20260806091026.620700-3-maz@kernel.org>
+	<anYL8J1ejjujgp-A@lucifer>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ljs@kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, imv4bel@gmail.com, yaoyuan@linux.alibaba.com, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-sun8i_ss_pm_init() calls pm_runtime_use_autosuspend(), but the
-autosuspend setting is not undone if pm_runtime_set_suspended() fails
-or when runtime PM is later torn down by sun8i_ss_pm_exit().
+On Fri, 07 Aug 2026 18:12:18 +0100,
+"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during cleanup, this reference is not dropped and usage_count remains
-unbalanced.
+[...]
 
-Undo the autosuspend setting when pm_runtime_set_suspended() fails and
-in sun8i_ss_pm_exit() before disabling runtime PM.
+> So actually if granularity is TLBI_TTL_TG_4K this will return SZ_1G and 0 in the
+> other cases unless I'm getting something wrong here?
+>
+> This is really more a 'maybe worth mentioning in the commit log to be pedantic'
+> kind of thing :)
+> 
+> IOW you could luck out before with SZ_1G for TLBI_TTL_TG_4K.
 
-This issue was found by manual code inspection.
+Yes, and that's what happens in most cases. But as Huynwoo Kim's
+reports, 16k and 64k lead to something really bad. And even 4k works
+by pure luck, so this is all fsck'd in my book.
 
-Fixes: f08fcced6d00 ("crypto: allwinner - Add sun8i-ss cryptographic offloader")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> >
+> > Tidy-up pgshift_level_to_ttl() to handle these negative levels, and
+> > ttl_to_size() to always return SZ_1G when no valid TTL is present.
+> > This allows the removal of open-coded checks for similar situations.
+> 
+> I guess SZ_1G is a reasonable default here?
 
-diff --git a/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c b/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c
-index 59c9bc45ec0f..775355ac9f9e 100644
---- a/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c
-+++ b/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c
-@@ -664,14 +664,18 @@ static int sun8i_ss_pm_init(struct sun8i_ss_dev *ss)
- 	pm_runtime_set_autosuspend_delay(ss->dev, 2000);
- 
- 	err = pm_runtime_set_suspended(ss->dev);
--	if (err)
-+	if (err) {
-+		pm_runtime_dont_use_autosuspend(ss->dev);
- 		return err;
-+	}
-+
- 	pm_runtime_enable(ss->dev);
- 	return err;
- }
- 
- static void sun8i_ss_pm_exit(struct sun8i_ss_dev *ss)
- {
-+	pm_runtime_dont_use_autosuspend(ss->dev);
- 	pm_runtime_disable(ss->dev);
- }
- 
+It is more than a reasonable default. It is the maximum block size
+that can architecturally be mapped in the absence of FEAT_LPA*. In
+this situation, 16k pages imply a 32M max block mapping, and 64k
+implies 512M. 4K pages, by virtue of allowing a level-1 block mapping
+result in a 1G size.
+
+> 
+> >
+> > Note that the check for a negative value not explicitely checking for
+> 
+> NIT: explicitely -> explicitly
+> 
+> > S1_MMU_DISABLED is deliberate, so that actual negative levels introduced
+> > with LVA2 and D128 can take the same path if we ever support them.
+> >
+> > Fixes: 7270cc9157f47 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU notifiers")
+> > Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+> > Link: https://lore.kernel.org/r/ameGoxbn2wzBq2kL@v4bel
+> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> > Cc: stable@vger.kernel.org
+> > ---
+> >  arch/arm64/kvm/nested.c | 26 +++++++++++++++++++-------
+> >  1 file changed, 19 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > index f3c75954cf36c..035cda256e2a5 100644
+> > --- a/arch/arm64/kvm/nested.c
+> > +++ b/arch/arm64/kvm/nested.c
+> > @@ -505,7 +505,7 @@ int kvm_walk_nested_s2(struct kvm_vcpu *vcpu, phys_addr_t gipa,
+> >  	return ret;
+> >  }
+> >
+> > -static unsigned int ttl_to_size(u8 ttl)
+> > +static unsigned int __ttl_to_size(u8 ttl)
+> >  {
+> >  	int level = ttl & 3;
+> >  	int gran = (ttl >> 2) & 3;
+> > @@ -561,10 +561,22 @@ static unsigned int ttl_to_size(u8 ttl)
+> >  	return max_size;
+> >  }
+> >
+> > -static u8 pgshift_level_to_ttl(u16 shift, u8 level)
+> > +static unsigned int ttl_to_size(u8 ttl)
+> > +{
+> > +	return __ttl_to_size(ttl) ?: SZ_1G;
+> > +}
+> 
+> Might be worth a comment about the default?
+
+It's the architecture. I'm trying hard not to make KVM a running
+commentary of the ARM ARM ;-).
+
+> 
+> > +
+> > +static u8 pgshift_level_to_ttl(u16 shift, s8 level)
+> >  {
+> >  	u8 ttl;
+> >
+> > +	/*
+> > +	 * If we don't have a proper level, fallback to the maximum
+> > +	 * size.
+> > +	 */
+> > +	if (level < 0)
+> > +		return 0;
+> > +
+> >  	switch(shift) {
+> >  	case 12:
+> >  		ttl = TLBI_TTL_TG_4K;
+> > @@ -675,7 +687,11 @@ unsigned long compute_tlb_inval_range(struct kvm_s2_mmu *mmu, u64 val)
+> >  		ttl = get_guest_mapping_ttl(mmu, addr);
+> >  	}
+> >
+> > -	max_size = ttl_to_size(ttl);
+> > +	/*
+> > +	 * Don't use the default 1GB fallback, as we can adapt to the
+> > +	 * max mapping size we allow at S2.
+> > +	 */
+> 
+> Being a bit pedantic here but I wonder if simply just to say 'Adapt to the max
+> mapping size allowed at S2' as the fallback is inferred?
+
+Sure.
+
+Thanks,
+
+	M.
+
 -- 
-2.43.0
-
+Jazz isn't dead. It just smells funny.
