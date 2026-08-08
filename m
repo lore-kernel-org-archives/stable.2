@@ -1,184 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D0F2853F3;
-	Sat,  8 Aug 2026 07:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76DC4A32
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 07:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786174796; cv=none; b=rncqnkL/TIMx9O/VL0ejgzkaUy/tFTeBd/panHqigfNw8k8yM0/3ywd8wRLCwNP7R9PtwOUmp78Q5ES60WDDN89CByTYouT5vcYzxThTAtLFUFjIGEa8eoyP/B9EWwPybT2N4AIV+16LqbjxsbAlk+8rOWHlPrLfp+kepFJjR+0=
+	t=1786175212; cv=none; b=Qkbm0nlb41Bv5js9n5PWz5NJWGq15qTjRbuK7diT2DXFb/kPGKIDY3D/cvzxW2y4JpqWEGUcsFgklTfrfwBxu+ojeQUXawPjUAfVtHaws2Hh3Ule+h6n7fxc8e+pJAIpk6/Ivf9HiPa4Ett6dZ/8EFGiBla5Du230SQdHvkJHLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786174796; c=relaxed/simple;
-	bh=5Uz/4jZqi7acQJTemN21hjwjwe126XpTueTHR+e7tFA=;
-	h=Date:To:From:Subject:Message-Id; b=f2R/Sn1h8Wlns9j5eRow8YIfinQShzj1uwI41WWvbvRjS7+bnAN7DzAiDaHiU+1jjJZJeViVRikoSdnazCDbC9VElKqq+IucQuLisMCVhAy1g21M1OAZij2ebhxEdfs8HQjnBPx8ccQyURiQXjpc7GrfJRIVgWZKNOEiizosXnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=qDFxcO44; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786175212; c=relaxed/simple;
+	bh=96QeQH404kv11psTBdIwIsvuB/DrYdWj1xbBgm0+lFo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cJnRZoDboZ5isFo20mWlMw1dXLW+EmLwLsl/aeP3uGw/dblPEXviy5D4bMwllmrfRKKUfS9cloVn8YWufxq1PLe7dARE3o6L3on3tOETGeT8uvlX4Xscg1vzlNeCGDUo2FcXijVuI5ENs9qva4Yj1Q+meG9R/DTDfajbuf0zJ6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qf9fXShW; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="qDFxcO44"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570B11F000E9;
-	Sat,  8 Aug 2026 07:39:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qf9fXShW"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38deea72eebso262063a91.1
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 00:46:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786174794;
-	bh=9BTOeNsTB3YDvmba8T9+VxowMzp4D/f7zHUAEthGP/0=;
-	h=Date:To:From:Subject;
-	b=qDFxcO44QekmHdlPzBUDDsHzckWIjJpB3W1MTLijfTcaillvAGdYpW96SSas0tvzx
-	 Xt4xxF6H0FgWThbofiApYQoZLCxksoQqgiIRiR2ufJSlmlhLtosCzqNhplf/75EU3H
-	 2EIwwiiJ5BKHztrRO15oOvg6Dqx69uNYniK9aAyM=
-Date: Sat, 08 Aug 2026 00:39:53 -0700
-To: mm-commits@vger.kernel.org,vincenzo.frascino@arm.com,stable@vger.kernel.org,ryabinin.a.a@gmail.com,qiang1.zhang@intel.com,glider@google.com,dvyukov@google.com,andreyknvl@gmail.com,sh_def@163.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + kasan-fix-cache-shrink-race-with-cpu-hotplug.patch added to mm-new branch
-Message-Id: <20260808073954.570B11F000E9@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1786175211; x=1786780011; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9y4KPReC2ZyGezILlDFx1J9Ati94r3HeNKJB0BgmAUQ=;
+        b=qf9fXShWiigPkYBXYy5M6V6sXeN7anCf7YcsupKeAgm3gNWkqr4WCR8PA4YhPqYaK0
+         TYA0chvNplVKfQ7j0JmcEGL6fcs7HHXw1oarfigCtn8dgKm9WFAKRx7+0y2KWk/mBQPf
+         CZbFPoy5w/xZ/Kju/vw4aUzAbc7uod3Ewjke/2LsBjNHfPJr3WhbgO/wGufq4R6/W8Pq
+         Tx0yF3lcrQUC5iR2Q9AUjQ/0Ga5mQXzjNJ45ilto3r8sKOYQWmWLJBAJNyaSVD7G+i8X
+         UOyRT/7pqY++xOpYWxI9e1V/ymV2TIDceQO2dYo9F95nmPpeXxENrNfP3GoE1q6aqJJf
+         uWVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786175211; x=1786780011;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9y4KPReC2ZyGezILlDFx1J9Ati94r3HeNKJB0BgmAUQ=;
+        b=DcQsTbfWekNEpqiNMjfbKdDfTEsTj4jDkvxQKJTQXLB5C8Ot1EJUejQ392kGSafuWQ
+         7lmRsDmogoXrBRtGEEsT7o+JDMp9sg407Tx2mXq7AduTBcLrDANOhFCL72ng2u2L8/2j
+         EjkuXPUB9ZmRJI+wTre1B+T/YMLFvX12qs19DK+c+/oyZP+K/z+Jw7v8s9ED+vsfNBcM
+         i5cGiz4S9H8v6k4RIEgxl5ZP7Q/VBoo0J8fVIvt46+6MFa+YqtiwT+gqR3FDVoCo1qva
+         APGR64n0iftlW4xokni5OYtPdw9YjQ91vAg+1AV+s6ZRdMqmuDceA9t1Hvb0a5/6dDi3
+         q8/g==
+X-Gm-Message-State: AOJu0Yzk3tr68iT70IW8ZcQlhsxXAPd/xYkRaH6Hgn6Y4WVHZOO4pLQu
+	SQhteDq//RXr0m39ShujBHVhJEKnqpJxUj3mVU+qODQdgLax0Tjo4+jLfcU3HnLid4s=
+X-Gm-Gg: AR+sD104lvNAyRkyAYVSxfngY3KFLCbdUKKZ/7/ZDjRDndXhxEPi0/7s6xuQ34sfkRL
+	y7GZeboVmM29L/zZuENY/HwDXiTfcV36XW/Q7byKJQegd7nuwrx5zSyCcndqUXgsdF97z9mTLeH
+	CQKpwhifGrLjKBRZ9kBfiIhcrNlTyvEUefwPtjJSN9QS8pAbaE3ti2JTdGhklsI39uxDZKAdDvX
+	zxX58I+ZMvGvb91yv4R0z+9CicsKSlcSRyyfnfJNnXCgYjKQfCilBuir+zw+B/ZrB6yqB5brGh9
+	wbhOG1Xzbh/64DLA1fLMLfcrXHgSPYwqblp4xgzEbHhqENF4FxlqWG09sM+0JFnuC/v5G7+umdI
+	FB6jXF4CUyJDygD38m3d8DeHGk8eP1UF16826KGZ/9a4hMp5rmc3Gwz5kVZs5j72dkq+zAeBbDE
+	v2Z/SJXjooQcuUP+lA8Cgt+zoUs8cHEGQssd8iesltyHyT3W4/4IfaoBxc1w==
+X-Received: by 2002:a17:90b:2249:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-3928242ffc4mr4644954a91.10.1786175211057;
+        Sat, 08 Aug 2026 00:46:51 -0700 (PDT)
+Received: from lgs.. ([101.76.249.46])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3925fd95794sm5282123a91.7.2026.08.08.00.46.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Aug 2026 00:46:50 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	linux-crypto@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] hwrng: stm32: fix usage_count leak when autosuspend_delay is negative
+Date: Sat,  8 Aug 2026 15:45:10 +0800
+Message-ID: <20260808074510.2655473-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+stm32_rng_probe() calls pm_runtime_use_autosuspend(), but neither the
+probe failure path nor stm32_rng_remove() calls the matching
+pm_runtime_dont_use_autosuspend() before disabling runtime PM.
 
-The patch titled
-     Subject: kasan: fix cache shrink race with CPU hotplug
-has been added to the -mm mm-new branch.  Its filename is
-     kasan-fix-cache-shrink-race-with-cpu-hotplug.patch
+If the autosuspend delay is set to a negative value while autosuspend
+is enabled, the runtime PM core increments usage_count to prevent
+runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+during teardown, this reference is not dropped and usage_count remains
+unbalanced.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/kasan-fix-cache-shrink-race-with-cpu-hotplug.patch
+Add the missing pm_runtime_dont_use_autosuspend() calls to both the
+probe failure and remove paths before disabling runtime PM.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+This issue was found by manual code inspection.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Hui Su <sh_def@163.com>
-Subject: kasan: fix cache shrink race with CPU hotplug
-Date: Sat, 8 Aug 2026 11:14:59 +0800
-
-kasan_quarantine_remove_cache() first invokes per_cpu_remove_cache() on
-all online CPUs.  Each callback moves objects belonging to the cache from
-cpu_quarantine to the CPU's shrink_qlist, where they can later be freed
-from task context.
-
-kmem_cache_destroy() invokes the quarantine removal path while holding
-cpus_read_lock(), but kmem_cache_shrink() does not.  The latter can
-therefore race with CPU offlining as follows:
-
-  kmem_cache_shrink()             CPU hotplug
-  -------------------             -----------
-  on_each_cpu()
-    CPU1 moves objects to
-    CPU1's shrink_qlist
-  on_each_cpu() returns
-                                  CPU1 goes offline
-                                  kasan_cpu_offline()
-                                    drains cpu_quarantine
-                                    leaves shrink_qlist untouched
-  for_each_online_cpu()
-    skips CPU1
-
-The objects left on CPU1's shrink_qlist are not returned to the slab
-allocator.  This may prevent kmem_cache_shrink() from releasing slabs that
-would otherwise become empty.  If CPU1 remains offline, a later
-kmem_cache_destroy() also skips the list and can report that the cache
-still contains objects.
-
-An intermittent occurrence was observed with a virtio-9p filesystem.  The
-mount and umount commands both returned 0, but the kernel logged the
-following during the userspace-triggered teardown:
-
-  [  2994.380134][  T111] BUG 9p-fcall-cache-1 (Tainted: G    B              ): Objects remaining on __kmem_cache_shutdown()
-  [  2994.381140][  T111] Object 0xff11000004361118 @offset=4376
-  [  2994.381607][  T111] Allocated in p9_fcall_init+0x201/0x400 age=19564 cpu=1 pid=104
-  [  2994.382591][  T111]  p9_fcall_init+0x201/0x400
-  [  2994.382810][  T111]  p9_tag_alloc+0x12f/0x700
-  [  2994.382982][  T111]  p9_client_prepare_req+0x102/0x3e0
-  [  2994.383165][  T111]  p9_client_rpc+0x1ab/0xa50
-  [  2994.383334][  T111]  p9_client_getattr_dotl+0xb0/0x1a0
-  [  2994.383515][  T111]  v9fs_vfs_getattr_dotl+0x115/0x360
-  [  2994.383719][  T111]  vfs_getattr_nosec+0x22c/0x3a0
-  [  2994.383910][  T111]  vfs_statx+0xd7/0x170
-  [  2994.384062][  T111]  vfs_fstatat+0x45/0x80
-  [  2994.384215][  T111]  __do_sys_newfstatat+0x84/0xe0
-  [  2994.384386][  T111]  do_syscall_64+0x115/0x6a0
-  [  2994.384566][  T111]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  [  2994.399720][  T111] WARNING: mm/slub.c:1244 at __kmem_cache_shutdown+0x363/0x500, CPU#0: busybox/111
-  [  2994.405655][  T111] Call Trace:
-  [  2994.406325][  T111]  kmem_cache_destroy+0x73/0x1b0
-  [  2994.406630][  T111]  p9_client_destroy+0x271/0x3c0
-  [  2994.407210][  T111]  v9fs_session_close+0x3c/0x260
-  [  2994.407409][  T111]  v9fs_kill_super+0x48/0x90
-  [  2994.407584][  T111]  deactivate_locked_super+0xa3/0x160
-  [  2994.407778][  T111]  cleanup_mnt+0x1dd/0x3e0
-
-Thus, a successful umount left objects in the 9p fcall cache and prevented
-the cache from being destroyed cleanly.
-
-Per-CPU shrink_qlist storage exists for every possible CPU, and each list
-is protected by its own raw spinlock.  Iterate over possible CPUs so that
-a list populated before its CPU went offline is drained as well.
-
-for_each_possible_cpu() can do more work than for_each_online_cpu(), but
-this change only affects CONFIG_KASAN_GENERIC kernels.  The extra work is
-limited to cache shrink and cache destruction paths and does not affect
-the normal allocation/free fast path.  It adds one raw-spinlock-protected
-scan of each possible CPU's shrink list.  These lists are normally empty;
-a non-empty list is traversed to remove objects belonging to the cache
-being shrunk or destroyed.
-
-Link: https://lore.kernel.org/20260808031459.3032812-1-sh_def@163.com
-Fixes: 07d067e4f2ce ("kasan: fix sleeping function called from invalid context on RT kernel")
-Signed-off-by: Hui Su <sh_def@163.com>
-Cc: Alexander Potapenko <glider@google.com>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Dmitry Vyukov <dvyukov@google.com>
-Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
-Cc: "Zhang, Qiang1" <qiang1.zhang@intel.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: c6a97c42e399 ("hwrng: stm32 - add support for STM32 HW RNG")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
+ drivers/char/hw_random/stm32-rng.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
- mm/kasan/quarantine.c |    7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
---- a/mm/kasan/quarantine.c~kasan-fix-cache-shrink-race-with-cpu-hotplug
-+++ a/mm/kasan/quarantine.c
-@@ -355,7 +355,12 @@ void kasan_quarantine_remove_cache(struc
- 	 */
- 	on_each_cpu(per_cpu_remove_cache, cache, 1);
+diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
+index 9a8c00586ab0..6de4c52bd4d6 100644
+--- a/drivers/char/hw_random/stm32-rng.c
++++ b/drivers/char/hw_random/stm32-rng.c
+@@ -370,6 +370,7 @@ static int stm32_rng_init(struct hwrng *rng)
  
--	for_each_online_cpu(cpu) {
-+	/*
-+	 * A CPU can go offline after on_each_cpu() returns, leaving cache
-+	 * objects on that CPU's shrink list. Scan all possible CPUs to
-+	 * drain those lists.
-+	 */
-+	for_each_possible_cpu(cpu) {
- 		sq = per_cpu_ptr(&shrink_qlist, cpu);
- 		raw_spin_lock_irqsave(&sq->lock, flags);
- 		qlist_move_cache(&sq->qlist, &to_free, cache);
-_
-
-Patches currently in -mm which might be from sh_def@163.com are
-
-kasan-fix-cache-shrink-race-with-cpu-hotplug.patch
+ static void stm32_rng_remove(struct platform_device *ofdev)
+ {
++	pm_runtime_dont_use_autosuspend(&ofdev->dev);
+ 	pm_runtime_disable(&ofdev->dev);
+ }
+ 
+@@ -592,7 +593,14 @@ static int stm32_rng_probe(struct platform_device *ofdev)
+ 	pm_runtime_use_autosuspend(dev);
+ 	pm_runtime_enable(dev);
+ 
+-	return devm_hwrng_register(dev, &priv->rng);
++	ret = devm_hwrng_register(dev, &priv->rng);
++	if (ret) {
++		pm_runtime_dont_use_autosuspend(dev);
++		pm_runtime_disable(dev);
++		return ret;
++	}
++
++	return 0;
+ }
+ 
+ static struct platform_driver stm32_rng_driver = {
+-- 
+2.43.0
 
