@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAEBA418A44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F8B4137AE
 	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 14:09:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786198194; cv=none; b=p4HAGgR0VpNrEIP5R4FAtqJnhad3qGXQKBkmelW2QAyN35ZLqbPnWA+b0bqfOxx4BQMlVl0rWBNoDaj8/BrFv8YhOmEabfwGG6slONLQ0cmDDeWQTkS2HCPoFzGKAkqKru5DOIHTphZYNZlMc43CqylguIrpTSjHkJ9q2jR9Zo4=
+	t=1786198195; cv=none; b=jaNH77DHOrPm17jO6RlU/b+d6iAp9OT7i0zQgEbDN35casDDI3xslMmlinLPoX3cxeT8PrlZDG2BLxh/RVIqVYiVh/BN7Z9Ummxa4RglkpwK437cEPZc3IpbIyCoVbflIf69yAVwuNROuiHKAOrDc/txdkEfU2dSm4G3SDDi3C4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786198194; c=relaxed/simple;
-	bh=DnFdA4+7RJ7ak2ZbFxBP/qtQmQMTxTqKoseLe0nOHQo=;
+	s=arc-20240116; t=1786198195; c=relaxed/simple;
+	bh=L1PH7FJk7Sc0NZclNqR38U48MRaILAnyRLF8+pfGdwg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V5ays/m/fwTNpn6ajZxMB5q/4ACTOCRB6u2N4gCRbjM2JfM+pJRR3zIfu48JN0eSf63n0rq7ViaUraQqTty/Q+yKj74Nsu8cfdJrGJeENG/ptGbuDk/MlViGyk3gbSGeUrq/PLR6bFqXys/d3TQQjhT+CWx+nRvAOvbA0EKW1nI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P9XmMsMt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tweFy79VfrsXvq8/p8lrBdtDsaNDWTGxWnHPjfFBCMSf7bqhD6QiGLYQzK3OeIr3EJTFXHvjmsbsKVelGLMVk2tRSq72CH/gP9ZhQEGR9rNszCLF31xvSAK2mltRg7q7BOdg2+tT+0M84RthWS27eIWmB2UwoXhA/dn+mkt9RAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XWgcyxlO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P9XmMsMt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C411F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XWgcyxlO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B88B1F00A3F;
 	Sat,  8 Aug 2026 14:09:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786198193;
-	bh=vXBfCR8MZGsHZw4ACXxHibCAwEeTbyKeFct5N1YU6Fw=;
+	bh=f6z+DauANsA6iYVOJd8QK6AMopD0mpGg07WgcLLpxtY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P9XmMsMtNEDWJ+9SrjnW1wMMaUhK5MTxEb1Rvty6+nhzhXo9USKJFpNynbc8/RaZV
-	 YEmoVtlzmFQ9tyTJRMP5yDK805CNGiqL/hI4yCYYdOC0kA3d+jfXHq3KWxdHRBURUh
-	 IkQfmK2z0ubfZyttuCj/GU1pZIVI56qu/JB/qPuWXHC/thl69LNUcqcWUn0TdRRdHQ
-	 6DFQTGHyIYl2qlD6Q0zXizzLgt/E2kg+I6vbusj8dRIon39MSPpew1TLfeTnIzK4WL
-	 n6UPrOre+ZIdsNGSHU5BHDgeI0nG7eaR5q52VzWHJX7T3jVl4qI/Wf6734KdWwKAog
-	 l5DfrU7/387Vg==
+	b=XWgcyxlOgg8vit/SR9TFf+tzCe0MBasTtvTYqKGnX4tuWTEGsrF4iFGgxEbiIvoaG
+	 rdJYjtR/6MJih+cGqwmIsmmK2daW5VYEtoAQTzaQmRExJ7KeBK1VC0kJCg82nG0nTK
+	 O+vj3pTqVLkdN039ymUtTB/sDicVvIkR85Z8XTVYCnaOonXGtRgUFcnXeG/eadIRpM
+	 vslIOLUMOOwND5Yah/ldgC4HEMkSocZKCPdo2vhEbznlYD3LBUmnYdvOPu56dCf8Bd
+	 a4SCiYBAJ3T3s7RJbIniqI8c/j67YRWdGzPxHgkRb9xim50qtopC5IHhSKO9aRNXPD
+	 9z5lv6e1LB7lg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: ChenXiaoSong <chenxiaosong@kylinos.cn>,
-	David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 5/7] smb/server: fix minimum SMB1 PDU size
-Date: Sat,  8 Aug 2026 10:09:46 -0400
-Message-ID: <20260808140948.340323-5-sashal@kernel.org>
+Subject: [PATCH 6.6.y] net/sched: serialize qdisc_rtab_list against concurrent get/put
+Date: Sat,  8 Aug 2026 10:09:51 -0400
+Message-ID: <20260808140951.340551-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260808140948.340323-1-sashal@kernel.org>
-References: <2026072924-aviator-carton-3ed9@gregkh>
- <20260808140948.340323-1-sashal@kernel.org>
+In-Reply-To: <2026072926-crane-private-917f@gregkh>
+References: <2026072926-crane-private-917f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,49 +47,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: ChenXiaoSong <chenxiaosong@kylinos.cn>
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-[ Upstream commit 3b9c30eb8f5aaad4a54cdfa470b74c0467cc71e8 ]
+[ Upstream commit f43ee0c0730d6191629b5ee1ceae27b1ebfdc047 ]
 
-Since the RFC1002 header has been removed from `struct smb_hdr`,
-the minimum SMB1 PDU size should be updated as well.
+qdisc_get_rtab() and qdisc_put_rtab() mutate the process-global singly
+linked list qdisc_rtab_list and a plain non-atomic 'int refcnt' with no
+lock. This was only safe because every caller historically held the RTNL
+mutex, which serialized all rate-table lookups, inserts and frees.
 
-Fixes: 83bfbd0bb902 ("cifs: Remove the RFC1002 header from smb_hdr")
-Suggested-by: David Howells <dhowells@redhat.com>
-Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: cfc0b8e5080a ("ksmbd: validate minimum PDU size for transform requests")
+That invariant no longer holds. cls_flower sets
+TCF_PROTO_OPS_DOIT_UNLOCKED, so tc_new_tfilter() keeps rtnl_held == false
+for it and sets TCA_ACT_FLAGS_NO_RTNL. That flag propagates through
+tcf_exts_validate_ex() -> tcf_action_init() -> tcf_action_init_1() ->
+tcf_police_init(), which calls qdisc_get_rtab()/qdisc_put_rtab() with the
+RTNL mutex NOT held. Two RTM_NEWTFILTER requests on different CPUs, each
+adding a flower filter with a police action carrying the same rate, then
+race on qdisc_rtab_list and on the non-atomic refcnt, leading to a
+use-after-free / double-free of the kmalloc-2k struct qdisc_rate_table.
+qdisc_rtab_list is a single global (not per-netns), so the corrupted
+object is shared system-wide.
+
+  BUG: KASAN: slab-use-after-free in qdisc_put_rtab+0x12f/0x160
+   qdisc_put_rtab+0x12f/0x160
+   tcf_police_init+0xda9/0x1590
+   tcf_action_init_1+0x460/0x6b0
+   tcf_action_init+0x439/0xa40
+   tcf_exts_validate_ex+0x42d/0x550
+   fl_change+0xddd/0x7da0
+   tc_new_tfilter+0xaa7/0x2420
+   rtnetlink_rcv_msg+0x95e/0xe90
+  which belongs to the cache kmalloc-2k of size 2048
+
+Protect qdisc_rtab_list and the refcount with a dedicated spinlock. The
+(sleeping, GFP_KERNEL) allocation in qdisc_get_rtab() is performed before
+taking the lock; if a concurrent inserter added an identical table in the
+meantime the freshly allocated one is freed under the lock, so no
+duplicate is leaked. qdisc_put_rtab() now decrements the refcount and
+unlinks under the same lock.
+
+Fixes: 470502de5bdb ("net: sched: unlock rules update API")
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: stable@vger.kernel.org
+Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260715114114.446841-1-qwe.aldo@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/connection.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ net/sched/sch_api.c | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
-index edab0edaf18c3..0c583a7aaf1e2 100644
---- a/fs/smb/server/connection.c
-+++ b/fs/smb/server/connection.c
-@@ -376,7 +376,8 @@ bool ksmbd_conn_alive(struct ksmbd_conn *conn)
- 	return true;
+diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
+index b20dc987b907f..227e970603d47 100644
+--- a/net/sched/sch_api.c
++++ b/net/sched/sch_api.c
+@@ -413,12 +413,13 @@ static __u8 __detect_linklayer(struct tc_ratespec *r, __u32 *rtab)
  }
  
--#define SMB1_MIN_SUPPORTED_HEADER_SIZE (sizeof(struct smb_hdr))
-+/* "+2" for BCC field (ByteCount, 2 bytes) */
-+#define SMB1_MIN_SUPPORTED_PDU_SIZE (sizeof(struct smb_hdr) + 2)
- #define SMB2_MIN_SUPPORTED_HEADER_SIZE (sizeof(struct smb2_hdr) + 4)
+ static struct qdisc_rate_table *qdisc_rtab_list;
++static DEFINE_SPINLOCK(qdisc_rtab_lock);
  
- /**
-@@ -444,7 +445,7 @@ int ksmbd_conn_handler_loop(void *p)
- 		if (pdu_size > MAX_STREAM_PROT_LEN)
- 			break;
+ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 					struct nlattr *tab,
+ 					struct netlink_ext_ack *extack)
+ {
+-	struct qdisc_rate_table *rtab;
++	struct qdisc_rate_table *rtab, *new_rtab;
  
--		if (pdu_size < SMB1_MIN_SUPPORTED_HEADER_SIZE)
-+		if (pdu_size < SMB1_MIN_SUPPORTED_PDU_SIZE)
- 			break;
+ 	if (tab == NULL || r->rate == 0 ||
+ 	    r->cell_log == 0 || r->cell_log >= 32 ||
+@@ -427,15 +428,20 @@ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 		return NULL;
+ 	}
  
- 		/* 4 for rfc1002 length field */
++	new_rtab = kmalloc(sizeof(*new_rtab), GFP_KERNEL);
++
++	spin_lock(&qdisc_rtab_lock);
+ 	for (rtab = qdisc_rtab_list; rtab; rtab = rtab->next) {
+ 		if (!memcmp(&rtab->rate, r, sizeof(struct tc_ratespec)) &&
+ 		    !memcmp(&rtab->data, nla_data(tab), 1024)) {
+ 			rtab->refcnt++;
++			spin_unlock(&qdisc_rtab_lock);
++			kfree(new_rtab);
+ 			return rtab;
+ 		}
+ 	}
+ 
+-	rtab = kmalloc(sizeof(*rtab), GFP_KERNEL);
++	rtab = new_rtab;
+ 	if (rtab) {
+ 		rtab->rate = *r;
+ 		rtab->refcnt = 1;
+@@ -447,6 +453,7 @@ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 	} else {
+ 		NL_SET_ERR_MSG(extack, "Failed to allocate new qdisc rate table");
+ 	}
++	spin_unlock(&qdisc_rtab_lock);
+ 	return rtab;
+ }
+ EXPORT_SYMBOL(qdisc_get_rtab);
+@@ -455,18 +462,25 @@ void qdisc_put_rtab(struct qdisc_rate_table *tab)
+ {
+ 	struct qdisc_rate_table *rtab, **rtabp;
+ 
+-	if (!tab || --tab->refcnt)
++	if (!tab)
+ 		return;
+ 
++	spin_lock(&qdisc_rtab_lock);
++	if (--tab->refcnt) {
++		spin_unlock(&qdisc_rtab_lock);
++		return;
++	}
++
+ 	for (rtabp = &qdisc_rtab_list;
+ 	     (rtab = *rtabp) != NULL;
+ 	     rtabp = &rtab->next) {
+ 		if (rtab == tab) {
+ 			*rtabp = rtab->next;
+-			kfree(rtab);
+-			return;
++			break;
+ 		}
+ 	}
++	spin_unlock(&qdisc_rtab_lock);
++	kfree(tab);
+ }
+ EXPORT_SYMBOL(qdisc_put_rtab);
+ 
 -- 
 2.53.0
 
