@@ -1,77 +1,81 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9350E368D73
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 13:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AEE32DC767
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 13:16:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786194158; cv=none; b=tQZCcGl1Mjbhy4SkUt8aqw/M4vPidAL9y9Wr33x3TxNH0TGAiUvgyfWV3qArTvyP/Hu0XcsxUMeJtljs30xsyJ3LpERsomVtbQfuM/P5NPaR6Y4n1tm0irmX+4NgRNN4/Xa3Z5OrltP6i3as1x1CDRg0+lCt18Z3tQY7P+aVrM4=
+	t=1786195011; cv=none; b=bv1iGg2X531fqP/1VdypsTRIr5icADBGyIrWgGDw2o/8yHPNruNpIbCnDQwaVbXx4BF7Kack0PBv/oE/CBDNEu2vXMRIWtexPzfdu3OXAP00wifYu0qrx7RBgrekLU9G6cijnqxLpschcM7q1j186S4iqQtm55jmZfGexLlTTbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786194158; c=relaxed/simple;
-	bh=Eu2DxpzXT2B2CoowyfVggZHqw8b/0SXNWN1PQiInjI4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SH01PRCOBTOiM9HSds9N6ys1vlLDTpRL5e7xg5UL6+3Ho+MOHvaYmaAYOPsOTwIY6sXUWNMRn4j/gDPIqXKCUTpYkkkygFpVAHDSmzBRsAUiaVHnXQqvDMsPsdyEdODMuL2LMANwbK4qYY+aw92GBusf4faDjqLiY6WwXExgdjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vrp22tvc; arc=none smtp.client-ip=209.85.214.169
+	s=arc-20240116; t=1786195011; c=relaxed/simple;
+	bh=TMYGCPWzWxNWnWnXN5IMnP4GVuS1UaG4vXqIdbqa/6I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kXhkxYXXLHuQz58B9oD2nggSUAbOK5hkkcVRNShjYhJUgvfJuT4B+CXZZwNf6fMoClmc7FFDgXiCZA4iF/hbaqXkxPwRIBHBI0azk1Y7knVm1tB34ak3CLMImL8cq7dNMM1Pj60RyOdwgkC391QPct0f+hmgjmoZ1QevnR5+QxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QxmTsUcN; arc=none smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vrp22tvc"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cc97653887so5221255ad.1
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 06:02:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QxmTsUcN"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38125cebfdaso542346a91.1
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 06:16:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786194153; x=1786798953; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786195010; x=1786799810; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ujnNvGTSQxsZnZMjDYqn4ikZo1KrqP6vWqNprtUTP2Y=;
-        b=Vrp22tvcgAXKg+vbZ4duMjeMbripE82VHekNYB4gq/ODT+3T0ifEboiWb07LGBkLFR
-         i5IGGBr8cpYRIhlJUG8sJFSqXo9DuiQbuETP0qh71Y358/UY5+rc2oGxSSAOEetLtCL3
-         rLuVgqOKMsmM5mMXlIsTOQx3eE4stzlUE0WjDzVbqd9GgMoAFUiXocj/zC3kXDQyn8TO
-         WIXdKtg5hfCLqNpqBNw+KhOUL49IPVR1uagcWyc/lQ6K+4VG9WhKd43yoBUdcXjzryIx
-         FHCElBX0pAlmHXNqae9awMN31a+OfT8eTHg8WeE5w3Ou45/Tdo9P2Jbp9BTDzPMNpLpX
-         nsyw==
+        bh=ScR2OWx8A6oqcrYtXEp2YggGcFi1+8jFkpl9OoPWy+g=;
+        b=QxmTsUcNhSUxb5SLxY269jXkQf5RzF0USGAxymK8Gpl2z3eOp47dvT5w8HeGXtxQK2
+         w6l8I3EShn3C8NCi2YjD9gNeS93m5/3DWkbyfx5BE+iqOP0JlB9CMyN9+1hYDz7eEnWO
+         bXA7Kwhstex+LKQ9DC2MAqxWpWfQtBm/C80GmAgnS7pWHK5RDHv7HkB1PrFZD3uB5KR8
+         +UkTAusjmhKdO+1p+c89f8pJNms3/ftihQ2gR0yn40Lb+OWCZo6+um0KNxnyOCBzOwa8
+         +3+npu/9cMoiOVydP/LNE9heLIM6aaDnAw0KUoG/Mk7uO0o3ycc+dHzFqJlaSve/vMCo
+         y/Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786194153; x=1786798953;
+        d=1e100.net; s=20251104; t=1786195010; x=1786799810;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ujnNvGTSQxsZnZMjDYqn4ikZo1KrqP6vWqNprtUTP2Y=;
-        b=Tg6fr6BeTegPnLiIz4SUvhTPkeAacHtRLoR3Puaz0igsY3zhljLfzQROR3le9wNsn/
-         iVQCegEUKUi+23KFmFSNJ2tdXn5fQAJJUoW7ahy5wNZ3VeTOs+5Sj6Vls9vLrF9eLG0k
-         +uq9u6IXcjQy3+MfyMT4az8tZc943h55siMiXET4nrsWHFTgiy2gr6hnfEA7nytPounj
-         xKzSwJx2qt+A90vxpAnUr626kgZQ4a3+IaaLHjvnClXz2nZ/bXbRVgg19kVQoN6yQ5sg
-         caTpqEtzwPhE3L+z/mtpr0u78S1h5Zl2+yTSfXCD4EuTwhNIc5UvezkyNl+4boeVYi9O
-         s0Xw==
-X-Forwarded-Encrypted: i=1; AHgh+RrkzrpViGP+RzwjMLY+cEnU4qH3HECU7Kz+19I39h6kyx1XN7jldEHQpkg42nC5nx269pbinfk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxpvn+DVTlM8ZJBO/4dJU8h8qOktQGhVDK6islzZJWcktOntRsX
-	2Bcy4/+RzfWpqbNcgFRtDwBm/bshgg6PHbcorawRqr76/lcPLHv+pQYi
-X-Gm-Gg: AR+sD12eyuvRqrw6zSR5NXneEJcGN6lRRG1bRVe+DN1hpwNsn9BOEFdr1Jc16t0tFse
-	RoAZn07Dty3L8vDlUbyV0YcyCZ3d27rocyoih2+Ah9HKUUI7sSwMPANdthsLNqDktgtQYH7pEar
-	QXeFwx+T16bvUM4VOiUy4VSQqPswN1CiXRFrp26QOa1pwd0glgoGMaZ0MjYjvqUAjQOEI0+3Hu3
-	z8raSt6QMfZS4BSvg35V4W8735VMYdq39ENp0wFZO81sBN5K308h0hd75WQPP0etdEoO/MSybQB
-	b3NvPe1rwEqOgrdoryGjirwKrPFP/FPNsN1VKHeiyp4TSJVyBPExd0AWNkRV37i+bN/ORPaht26
-	axwIzKs6LPmQR5SSuTon333zkLzdf8HeVv+TbWrQ9DP8SV5F10YxyvHxZz6o47GRtCp8tApzZAo
-	uiwNof7SC8M2ZBobhjrKQXStshCwnbfvzxIL+aK767eQYQ
-X-Received: by 2002:a17:902:cccf:b0:2d0:cc92:f7b8 with SMTP id d9443c01a7336-2d0cc9302a7mr351828965ad.2.1786194153328;
-        Sat, 08 Aug 2026 06:02:33 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14ccae6f8sm18582125ad.1.2026.08.08.06.02.28
+        bh=ScR2OWx8A6oqcrYtXEp2YggGcFi1+8jFkpl9OoPWy+g=;
+        b=rYNHLCH3HLmrzrteWcXR3bcqH6z1XCwA35wq6wnLuPM71MFR6DMldpAfubA2d0fSze
+         D2w017vTbV61lhZ/mDPgabYQm90jxe/qyi9j2HYEGr7gHpZKSBiGK5WWGFBA65+FTn9X
+         AX7MuziHUJjoI21ittNy6MXkD/49A8mhWjpXMK4lBQGMIjwOdYNxeoIzm8E0uUld+XMf
+         yQBtwT7uA9BsiUnG1vuy1nOJbwaP+vctCfWennuq+ZEn/QTqTbrf80M9gsvzm1VLy7r+
+         CVvLmloYm4uJu3fbgzTp5MzPxeJN1dg8Gtyj0KcLDknQmBnkRwl8TrlMCM1sCGt+cNwr
+         YDeA==
+X-Forwarded-Encrypted: i=1; AHgh+RpnnB7ItJ6e0pbHjUN/6T5sSp80i1VbqRqej75+8Za6kLK1l0rLCXriZfucdjHHEK+Jrfu8Pgc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyc2JcNfRD9yYHfsU3iU6g2Mj1qk0pleuO86uv+CSTb8Rac3Aqm
+	eItvATaCKCACfFBjwlVRXHzfZzw4CMZ3exbzVdY7PWMhMSjd2A2NZWLM
+X-Gm-Gg: AR+sD13g2gPCpfHvhJX3SZWQou4xVbj88htDyf2u6MCMhU2Cr2tdanyEuzTbfECRp06
+	s0IOmRO+rKfcQel2kALAU+CnAcH5aE+4FFPAZHq/vnt9+wQdMVv+1nKvhBJMJtnBmHrTk+sTpzu
+	ru7YbVA/wPkk3DuAyLoWbMHQFYDJIdfwfUnNoctMgiwGrgPpHR99Q2U1wEK6egpnF5Z7GTyFYe3
+	rLgL+PAFM78MhjebicOdGGox1XSv2UFGCZDEam47KkEjeDEDtiqGltY4p/Cz4dYfYDbH/A54caX
+	r6VbOtGkbRGCrTaKgYfuL6xv7kQJ0sl+alvJ0GFKaHmvSn2wyFyK3XscQzzK+8pxAoa8v0WMnNC
+	qzbtoSMPwV/Cx79E/IMzrH/YN52mcs8nZy/Xn6+dIqZ4dd/S+ZJNXZHPU749tsdqAAkD/bchQ/z
+	2qN5E9AFJv8BOqnvPii81HvXbSAMrwGke2OEr5Vq0iVu6V+1+zyQ==
+X-Received: by 2002:a17:90b:288d:b0:38f:26c7:165e with SMTP id 98e67ed59e1d1-39261ff3945mr13138690a91.9.1786195009547;
+        Sat, 08 Aug 2026 06:16:49 -0700 (PDT)
+Received: from lgs.. ([118.193.33.13])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3925fd95c40sm6170661a91.8.2026.08.08.06.16.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 06:02:32 -0700 (PDT)
+        Sat, 08 Aug 2026 06:16:49 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Qiang Yu <yuq825@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Sean Paul <sean@poorly.run>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
-	Vasily Khoruzhick <anarsoul@gmail.com>,
+	linux-arm-msm@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
-	lima@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
 Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/lima: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 20:59:53 +0800
-Message-ID: <20260808125953.2842241-1-lgs201920130244@gmail.com>
+Subject: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teardown
+Date: Sat,  8 Aug 2026 21:16:24 +0800
+Message-ID: <20260808131624.2854412-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -81,53 +85,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-lima_pdev_probe() calls pm_runtime_use_autosuspend(), but its failure
-path does not call the matching pm_runtime_dont_use_autosuspend()
-before disabling runtime PM. The remove path has the same issue.
+adreno_gpu_init() calls pm_runtime_use_autosuspend(), but
+adreno_gpu_cleanup() does not call the matching
+pm_runtime_dont_use_autosuspend() during teardown.
 
-In particular, lima_pdev_remove() explicitly sets the autosuspend
-delay to -1 while autosuspend is still enabled. A negative autosuspend
-delay can increase usage_count to prevent runtime suspend. Without
-calling pm_runtime_dont_use_autosuspend(), this reference is not
-dropped before runtime PM is disabled, leaving usage_count unbalanced.
+If the autosuspend delay is set to a negative value while autosuspend
+is enabled, the runtime PM core increments usage_count to prevent
+runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+during teardown, this reference is not dropped and usage_count remains
+unbalanced.
 
 The documentation for pm_runtime_use_autosuspend() also notes that it
 is important to undo it with pm_runtime_dont_use_autosuspend() at
 driver exit time, unless runtime PM was initially enabled with
 devm_pm_runtime_enable().
 
-Add the missing pm_runtime_dont_use_autosuspend() calls to the probe
-failure and remove paths.
+Add the missing pm_runtime_dont_use_autosuspend() call to
+adreno_gpu_cleanup().
 
 This issue was found by manual code inspection.
 
-Fixes: 50de2e9ebbc0 ("drm/lima: enable runtime pm")
+Fixes: eeb754746b14 ("drm/msm/gpu: use pm-runtime")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/gpu/drm/lima/lima_drv.c | 2 ++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/lima/lima_drv.c b/drivers/gpu/drm/lima/lima_drv.c
-index 9a0eb1092ad3..9bd44c191e6c 100644
---- a/drivers/gpu/drm/lima/lima_drv.c
-+++ b/drivers/gpu/drm/lima/lima_drv.c
-@@ -434,6 +434,7 @@ static int lima_pdev_probe(struct platform_device *pdev)
- 	return 0;
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index c62c45bb0ddb..29c59899fdef 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -1252,6 +1252,8 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+ 	for (i = 0; i < ARRAY_SIZE(adreno_gpu->info->fw); i++)
+ 		release_firmware(adreno_gpu->fw[i]);
  
- err_out3:
-+	pm_runtime_dont_use_autosuspend(ldev->dev);
- 	pm_runtime_disable(ldev->dev);
- 	lima_devfreq_fini(ldev);
- err_out2:
-@@ -456,6 +457,7 @@ static void lima_pdev_remove(struct platform_device *pdev)
++	pm_runtime_dont_use_autosuspend(&gpu->pdev->dev);
++
+ 	if (priv && pm_runtime_enabled(&priv->gpu_pdev->dev))
+ 		pm_runtime_disable(&priv->gpu_pdev->dev);
  
- 	/* stop autosuspend to make sure device is in active state */
- 	pm_runtime_set_autosuspend_delay(ldev->dev, -1);
-+	pm_runtime_dont_use_autosuspend(ldev->dev);
- 	pm_runtime_disable(ldev->dev);
- 
- 	lima_devfreq_fini(ldev);
 -- 
 2.43.0
 
