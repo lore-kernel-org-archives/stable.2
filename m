@@ -1,76 +1,79 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE693009F6
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 09:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB353009F6
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 09:38:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786181436; cv=none; b=NAowP+6lm2RH/1BBN3boCEr9vhBtI66Cv9nq3VxC731AogH4KVPdrCcYpmIQimU1RYFgZNsANIQBC+ce+MmJlQOEnsGnK9zfOu864HgnoNqSXn+/HjbYzRAmwJmqM1Sy1o5dtV+lcwgxiW/5nrXEqgXoczO5AdvwCFRiUjcFspg=
+	t=1786181933; cv=none; b=Qvsu70vxyaGcSpLK75sIysdcA7LkbgotHclgz7Fjih+7ro8S0MSTymjCdls574pzo9grma78MaPkOw9O0z4IPxNmahwULf6VrocjiLAEm8lLtjms151N7ZbgzL1/u/n6V6TjoxDYFzY2o0avQ165tFYlJpMeuMBMzrqhqNiYlJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786181436; c=relaxed/simple;
-	bh=JxTOJo4MhGNdlCG8FhGvKU8SJgXQL9LBKbPWw9wDuhg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uaG2dFgFRtFew1DQs+5spmym4t16eWRkfLMXYmUJ9RoxNboLHCyL+PU2z7RU+VeTjdB0BZJB8/CRIX/JLeE295X6QRChDdgO9nYf3tM1oxTv5Ris2bJtkSpE9C2Qi4DvWmJKTZSLUxaYUYEOP7yrc42wtmsld3kDm6pDn4cc4Ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nhl1hSL2; arc=none smtp.client-ip=209.85.214.177
+	s=arc-20240116; t=1786181933; c=relaxed/simple;
+	bh=hD/EvuRY764RrsJx1wuEKYerRIdAetHJ9oH/4f0ywDs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KMXpxmUD/h9bi9EbpdotLc/8sI4iNAQ2uGywHju3CdhJzLec8tEmyZRP2WfjNfa1199GkR71UOasUVSfpka2KxJ1dxbiqGlG3P5GLwjsFNNA6VKoGvH/UqPdmwrROgGXa3xo1OagiRuCXmhgYRcQNChI72SpisYrjqT827WmuoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QGbb+jKv; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nhl1hSL2"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cea3004256so4499545ad.0
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 02:30:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QGbb+jKv"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e3efab7e0so266650a91.0
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 02:38:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786181434; x=1786786234; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786181931; x=1786786731; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gC2ItiHuCYFgaLZeaOk4o80zqG6tRez0H0meLhFxwtI=;
-        b=Nhl1hSL2gAXO/Z5ct+p8mBtNu+R0MgjJZ3RvY5tZ/DxyWahhLJGietVQ+wZ3wG4iNI
-         yWUXSxLbcL5JaYaMj5UhkyAWrKljpIAyu55jRO3QJZvEhK/7guejTmHNTN6dTi/lMyJI
-         oQVNuXk1isTLeFgSSBSwSQHiS1drHS34j9d0R0GiJyD9co6yR2ROg8YZAkm5fOOiK3JU
-         2F9ujAcSL7hznpITjQyF0nyCJV/5uGjXFyWPbtfGmWEgT83/wf/CtLiDl4E+gSkUVFnG
-         VoCm4lLjqdC4KXLqhUR3Rrsb/NeYSJmflqUzO5Na8pmQsCFQfybD8hp+5Jcw7h1CnmYt
-         ogsg==
+        bh=RX1DphTMSs3B4MvCbqjOAvkckybgUBneK6EG7I97Aec=;
+        b=QGbb+jKvMrc5EKkDBAwrR42oszFlRKcQMVpk1QTwWO0s4mhNBsIW06gS4d61J9nPj3
+         1h/K0Bn1soW0xe9KImLgPsaCyY3fJhuFwDyFDAaLXp6dSC1KKXwFY93xINVrvwifxULp
+         Z+5+9A0uGORET+U5pfujkfjXJRv8EWAeZ2V2u31WYzJt6lhfAuU1dEKzT3CVkzRJpR/h
+         Eor6bYOxaO/NJo/SSQZOgazGBHZGqtuxym5eCh69Mld/2Z+V/ZZodn2+c2pidvdXnnYO
+         54JKGW70snT2n8lMr9TOO55o/sJLvgVE/qYUqfB56XkvcF1Ow3u0edoz9fSM7hIgwudd
+         hJPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786181434; x=1786786234;
+        d=1e100.net; s=20251104; t=1786181931; x=1786786731;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gC2ItiHuCYFgaLZeaOk4o80zqG6tRez0H0meLhFxwtI=;
-        b=FdcVHyfkiHpJKxYHyEIwzAtmfMqXssFhmyVYtxqpZbdZNQNNxywkfywtl5OoogftFP
-         LDm7XU330iabYsI1LyAdksyJ1ZTQDD1lWZqXoJN5KYKMepjCv2OKUhFXjUT5YUV4EW5O
-         1zC/6wfPpv9zOyXn+k2TwBcGWgBJzW9OzmwkLP2A/C68KH+zV7OJY8AT59Pd9YHcAmkO
-         MOOoL3CU3AkUtwUw6iq5L2LV1cyZd4RTnlQjno07sHayJiHcArgLBbd9Prw5VJk8C0JV
-         fGvJuKgMFStLGFqgoLP3UXUBUihz55yP650O+oa+2XciByqW83VS+SU31A/0TUtWKro2
-         +cWw==
-X-Forwarded-Encrypted: i=1; AHgh+Rqf+TG6Os89STkFbOGNfWuGHIgRL9VyyBZs74eY0hCVj1AGA8ISV7ImBqZ4F88nwMjpsqAnUrM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxpOnIGxTMlq7fCYJ2qg5RFrIqgEW2KKA0q+44UVz0K3dIvdV7/
-	Oqe6LwtyTsGnda+yQUTMf/q6OGmpKCdcQKxTni3/qhF/wosTXz4NpXju
-X-Gm-Gg: AR+sD13d9sjbkVxT/K/bQgAOWNPY55sO7+KgTZF5dcbNqQMIQrBCWgd9w8dnnuvatd4
-	T7VW2XaxcajNUK2mx/dEEAMXd6lNfpAXlHNgaXCpPnEsrfDhithnwibv0Bknqlgf6r9eM309877
-	0vGEA0dHDRuTJywdx078Ax1v+wSAjL6RO5AOsVH0hOoV/by6RHN4TAqhGdaIHm+k+pXpflOdTK+
-	oV8hG1wF6mPJ5nA7pYvLAwQGHT2y2o7XLAX1P6gF/B968JEi8Tjo5h5annSFu9PCFG6QHmlTXXk
-	Xmf+QQCRQ2wH6JlItzlz7bi67RFkAdf0dLrg2Lay7/yq1LX0Ps+O1CfDjVs6VS7AAqH7DfZDHD2
-	QiOIJK5E7jzQy5jvFfeqkwga0/NAJbU9V9BIO20g7+Sdk4iIBqtwsfT1TK7O/c1as2k7VA7m1eQ
-	ayP6wIqbc6AvhITB9Qh1lajqG8s9jF17o/sdF6e0HCjuGiPnwmanOukhvbK0EIGLnQxKqS
-X-Received: by 2002:a17:903:3201:b0:2d0:401c:2ebb with SMTP id d9443c01a7336-2d0ca7125cemr362470225ad.4.1786181434060;
-        Sat, 08 Aug 2026 02:30:34 -0700 (PDT)
-Received: from lgs.. ([101.76.249.46])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14ccac0f1sm17098055ad.7.2026.08.08.02.30.30
+        bh=RX1DphTMSs3B4MvCbqjOAvkckybgUBneK6EG7I97Aec=;
+        b=HwmtOgXlF8/+mbaZYXVAl6XMtLnvlKpvg8rtQ//TsSz+I+cuA2iLQdYM11esbEun4p
+         yuiDb/l/+BEnvFO0GestDW2i+1iKI0vNzSEuxwZk1R3STmSIbOo2IHqnaOgYKlqeYp+l
+         6UxwFLwULURTpA3eX6QYsNOFnMy7Ld/mFQbkFefMfieVOPt3dQrdPDB4UmJFtmuZb6Ht
+         6k57gBJTzTcyT+gQADDhl1r4lpZQIEywsrblY0beDpQVD+402YJ1LYXSu3wDYexk9LXP
+         E+a4n+eiYjrAkMCs/yfTrQoNvIT9G9PUK1GrJya64J4mEyKYkzQ2sBN84X79jOCbLwLJ
+         smrw==
+X-Gm-Message-State: AOJu0YwyqywS3ih5XaC/X6bNJzO8aFuPvA9WxDz0U4klIwhawNqOArOK
+	LdYnDtujvepVPzeruuavDwOki57BlbkGoqiE90zqReU/AJnaafPsyhNn
+X-Gm-Gg: AR+sD13DR2AbhNBmjMs+BPrK2LNMCemEh1Z5kj8dIxQzKVgGpYPZZedHjyNoEH0qBO+
+	64Don/DFJBcojDufZJF7zlylXIDCnvJ4F0Km+/vGyRy0ac4Vb25RG84mz192z5a2MantnR+jmgu
+	RZ9rGR3iVrmYR+TJPF/Fl+vTZYp2AJcp7ANRbPkOK8li9Tnex9IuHVONLHKPuI63QMS8reQEhtl
+	dpmtjEEdebeBSKvMkv/5t1UOqkfn+ceP+nZp+o7dBBfTDnXurJWiT1pHKBYo8OnuW7AUKDJi+36
+	cMydBq9C2JBAcdC1u6o88GEd2D+wY4i81QvizSdGIqk4KWQ7sfr60q+0/8d2HzBS0SSUZPBnOJt
+	jakNaxkY7++mKW+Q06Z82bZaO6h9RX/yiVBaqGuwIMkFfo0wwnNZNKrT67R0GL4XnXlIy5ToDWR
+	ksuOQf37dt81SNzy0d/LLJXdkzCNYfDOgrHpMMqOCYE+Qo4zRCsbUI8w==
+X-Received: by 2002:a17:90a:ec86:b0:390:b3c5:e2c9 with SMTP id 98e67ed59e1d1-392846fd57fmr1926782a91.17.1786181931093;
+        Sat, 08 Aug 2026 02:38:51 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::f280])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3925fc6dab4sm5615231a91.3.2026.08.08.02.38.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 02:30:33 -0700 (PDT)
+        Sat, 08 Aug 2026 02:38:50 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Corentin Labbe <clabbe@baylibre.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+To: Herbert Xu <herbert@gondor.apana.org.au>,
 	"David S. Miller" <davem@davemloft.net>,
-	Heiko Stuebner <heiko@sntech.de>,
-	John Keeping <john@keeping.me.uk>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Thorsten Blum <thorsten.blum@linux.dev>,
+	Kees Cook <kees@kernel.org>,
+	=?UTF-8?q?Maxime=20M=C3=A9r=C3=A9?= <maxime.mere@foss.st.com>,
+	Colin Ian King <colin.i.king@gmail.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	"lionel.debieve@st.com" <lionel.debieve@st.com>,
 	linux-crypto@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] crypto: rockchip: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 17:30:16 +0800
-Message-ID: <20260808093016.2738659-1-lgs201920130244@gmail.com>
+Cc: stable@vger.kernel.org
+Subject: [PATCH] crypto: stm32/cryp: fix autosuspend cleanup during teardown
+Date: Sat,  8 Aug 2026 17:36:23 +0800
+Message-ID: <20260808093623.2744314-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,50 +83,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rk_crypto_pm_init() calls pm_runtime_use_autosuspend(), but the
-autosuspend setting is not undone if pm_runtime_set_suspended() fails
-or when runtime PM is later torn down by rk_crypto_pm_exit().
+stm32_cryp_probe() calls pm_runtime_use_autosuspend(), but neither the
+probe failure path nor stm32_cryp_remove() calls the matching
+pm_runtime_dont_use_autosuspend() before disabling runtime PM.
 
 If the autosuspend delay is set to a negative value while autosuspend
 is enabled, the runtime PM core increments usage_count to prevent
 runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during cleanup, this reference is not dropped and usage_count remains
+during teardown, this reference is not dropped and usage_count remains
 unbalanced.
 
-Undo the autosuspend setting when pm_runtime_set_suspended() fails and
-in rk_crypto_pm_exit() before disabling runtime PM.
+Add the missing pm_runtime_dont_use_autosuspend() calls to both the
+probe failure and remove paths before disabling runtime PM.
 
 This issue was found by manual code inspection.
 
-Fixes: a216be3964c1 ("crypto: rockchip - introduce PM")
+Fixes: 65f9aa36ee47 ("crypto: stm32/cryp - Add power management support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/crypto/rockchip/rk3288_crypto.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/crypto/stm32/stm32-cryp.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/crypto/rockchip/rk3288_crypto.c b/drivers/crypto/rockchip/rk3288_crypto.c
-index b77bdce8e7fc..cfca472f996f 100644
---- a/drivers/crypto/rockchip/rk3288_crypto.c
-+++ b/drivers/crypto/rockchip/rk3288_crypto.c
-@@ -150,14 +150,17 @@ static int rk_crypto_pm_init(struct rk_crypto_info *rkdev)
- 	pm_runtime_set_autosuspend_delay(rkdev->dev, 2000);
+diff --git a/drivers/crypto/stm32/stm32-cryp.c b/drivers/crypto/stm32/stm32-cryp.c
+index b79877099942..74f6e329b1fa 100644
+--- a/drivers/crypto/stm32/stm32-cryp.c
++++ b/drivers/crypto/stm32/stm32-cryp.c
+@@ -2691,6 +2691,7 @@ static int stm32_cryp_probe(struct platform_device *pdev)
+ 		dma_release_channel(cryp->dma_lch_out);
+ err_dma:
+ err_rst:
++	pm_runtime_dont_use_autosuspend(dev);
+ 	pm_runtime_disable(dev);
+ 	pm_runtime_put_noidle(dev);
  
- 	err = pm_runtime_set_suspended(rkdev->dev);
--	if (err)
-+	if (err) {
-+		pm_runtime_dont_use_autosuspend(rkdev->dev);
- 		return err;
-+	}
- 	pm_runtime_enable(rkdev->dev);
- 	return err;
- }
+@@ -2722,6 +2723,7 @@ static void stm32_cryp_remove(struct platform_device *pdev)
+ 	if (cryp->dma_lch_out)
+ 		dma_release_channel(cryp->dma_lch_out);
  
- static void rk_crypto_pm_exit(struct rk_crypto_info *rkdev)
- {
-+	pm_runtime_dont_use_autosuspend(rkdev->dev);
- 	pm_runtime_disable(rkdev->dev);
- }
++	pm_runtime_dont_use_autosuspend(cryp->dev);
+ 	pm_runtime_disable(cryp->dev);
+ 	pm_runtime_put_noidle(cryp->dev);
  
 -- 
 2.43.0
