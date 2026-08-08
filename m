@@ -1,184 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E43B205E02;
-	Sat,  8 Aug 2026 09:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FE42D8DDF
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 09:05:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.244.194.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786179911; cv=none; b=E3MmvQO+GdhSMvJKb91ozq4PR0VZIdt1I60K6zA+1kzqx0RX/ACogTS8SICbLWqo1s256YZtzE0pW0SxYSpzUfW/biNOZYLDEIbBHUC9ds3S8Rj5AAA6uYQdvtcsvnuKMyV0R1BO2j1J1S9/8LgfX9J0HnWwX4eMz5tS1sgMol0=
+	t=1786179930; cv=none; b=ZZ8Q4sr4O0C4yJTppiEI/ppi4Mz5TqBgsUGvyph7YCiJXxRxm98XhYm+eZD0L9nWwtg63EKXme7oYlwrbpKAlpTIV+cP4+JNBOpiijPfRWHisdLe8YFMQANHywKFTKXmUHr/RGXerjDfTNi1ENyB6RcbKwgKlKOPRk9BYYoWS0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786179911; c=relaxed/simple;
-	bh=bzaEg3gm2Oynfwunq94gF4vhX2Dly/Gcow3HBJqo3o8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=q885EtXgN5TBKDrz5HrIFu5zhOy3RpOTlqs5LsZeN8Z3MYYJtJvCP4N714z0Vai291O9MgviPuXbQ8g53A19yHyI24wWoycCP8hcq+x7tlRyPp028HIdCXx/lslFVK5srzSj80EWeBgEWCrQNr+0AwYiUbGcQPHKTBuhz3sB8po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkTGYsW1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786179930; c=relaxed/simple;
+	bh=2kSy3J/wNpIdu37Lk3qZBr1b2w31GsuA/GqIUIKNO68=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DG03PAFK2DsIM/YhKXs+ZD9CpyjWwf3kh4lyReiYb4kp4HIvX77RU94cx5QOCfV98efQHy8UXghZ/ZflOi332BMNm75Z4yRfGz0ETygftxYziroBzwiAY/ho2CiYhUx5gXT6G92o581Z3XkqVVcswueSUin+VJoiqoxdHba0W54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=AXg9wN65; arc=none smtp.client-ip=185.244.194.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkTGYsW1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E52511F000E9;
-	Sat,  8 Aug 2026 09:05:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786179909;
-	bh=BcQpUXzQNF+2Q+6o8/0P7HWncW1idJum/qJtU1Voeqo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lkTGYsW1dZasSDUaE9oKcDoNEJuYeo3oNBSycdPzNb9GtBwb9fh8lUX1B+hnDKyBN
-	 LDjvFM/0hlJaHuObNzAnGsZnYgQ6Kz5WYQLet5RwUGQ4llz7MS5l7gnsLdv9g8dzaU
-	 yLEh2e704eiOD488zCQUHBvIQG7J5ZnS2VD8qU/P9Jo9yNeCqtWj4xbJKeTE2L5JbP
-	 kMqaNt6gAkTOJ1M8o+gXFvUDS5a3VNavTNH0OSydcHIwS/Uy7/qUkirAk4fmc2oD/H
-	 ky4rJojkbfGyDVqbNNFpY0Zy4KKvn6X3ldnkXiJP6ixcVZG0lBS8544tnLqsLIVnv7
-	 VUrSTq3sj8Jsw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wsczL-0000000Dd90-3XoN;
-	Sat, 08 Aug 2026 09:05:07 +0000
-Date: Sat, 08 Aug 2026 10:06:31 +0100
-Message-ID: <87bjbdouaw.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	Yao Yuan <yaoyuan@linux.alibaba.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/8] KVM: arm64: Handle negative S1 walk levels in VNCR TLB size evaluation
-In-Reply-To: <anYL8J1ejjujgp-A@lucifer>
-References: <20260806091026.620700-1-maz@kernel.org>
-	<20260806091026.620700-3-maz@kernel.org>
-	<anYL8J1ejjujgp-A@lucifer>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="AXg9wN65"
+Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hHFTn4pR4z9BJF;
+	Sat,  8 Aug 2026 11:05:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1786179917;
+	bh=2kSy3J/wNpIdu37Lk3qZBr1b2w31GsuA/GqIUIKNO68=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=AXg9wN65vWiAIMqrQLZLvi5NjF/KHOND9OpPwmIRYZ1Kl7657cer4g8D5KSBqIz4Q
+	 7mNpB2eOKtkMU9lGI79HPDcQFUgXaJqJPm3ZwgYfm2ZHlcHmqDLu9RVjhhLLeE9jrn
+	 HUyKPOK40kb5AKYMeZsfLZw3XKjGjvdPgM/4P/dP5UEfrFxGHleZVvteJWY7ikPsO/
+	 QDuYbHpp4rzkD3Z7jRB/XhdtuaGyAf4f2qzvmoEfS7gPyONwvDR79c0Szi2LMinz8w
+	 r2m2Fq/GJui0LhxQ/xz1sCsoin+8GPfckfXwCqQYxRqdUV+GX2eFTgmlTXKMJ+4F3y
+	 DoRiWBvwurDxg==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hHFTn45MBz7xV8;
+	Sat,  8 Aug 2026 11:05:17 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.901
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hHFTl2kV2z8tY8;
+	Sat,  8 Aug 2026 11:05:15 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 9620F5FA12;
+	Sat,  8 Aug 2026 11:05:10 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <a7b06f6d-b9c8-4e2f-abf8-8d2a84f287d5@leemhuis.info>
+Date: Sat, 8 Aug 2026 11:05:09 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: ljs@kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, imv4bel@gmail.com, yaoyuan@linux.alibaba.com, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 326/438] i2c: designware: defer probe if child GpioInt
+ controllers are not bound
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Mario Limonciello <mario.limonciello@amd.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Hardik Prakash <hardikprakash.official@gmail.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Andi Shyti <andi.shyti@kernel.org>
+References: <20260807143428.008222056@linuxfoundation.org>
+ <20260807143434.924930262@linuxfoundation.org>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <20260807143434.924930262@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178617991101.3188982.5619938524368659315@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 9620F5FA12
+X-NC-CID: aR87k7tPudRCIVs1XLzdeH+CJMcQp+xyKrNBVaqWeGlqnd6F2WA=
 
-On Fri, 07 Aug 2026 18:12:18 +0100,
-"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-
-[...]
-
-> So actually if granularity is TLBI_TTL_TG_4K this will return SZ_1G and 0 in the
-> other cases unless I'm getting something wrong here?
->
-> This is really more a 'maybe worth mentioning in the commit log to be pedantic'
-> kind of thing :)
+On 8/7/26 16:38, Greg Kroah-Hartman wrote:
+> 7.1-stable review patch.  If anyone has any objections, please let me know.
 > 
-> IOW you could luck out before with SZ_1G for TLBI_TTL_TG_4K.
-
-Yes, and that's what happens in most cases. But as Huynwoo Kim's
-reports, 16k and 64k lead to something really bad. And even 4k works
-by pure luck, so this is all fsck'd in my book.
-
+> ------------------
 > 
-> >
-> > Tidy-up pgshift_level_to_ttl() to handle these negative levels, and
-> > ttl_to_size() to always return SZ_1G when no valid TTL is present.
-> > This allows the removal of open-coded checks for similar situations.
+> From: Hardik Prakash <hardikprakash.official@gmail.com>
 > 
-> I guess SZ_1G is a reasonable default here?
-
-It is more than a reasonable default. It is the maximum block size
-that can architecturally be mapped in the absence of FEAT_LPA*. In
-this situation, 16k pages imply a 32M max block mapping, and 64k
-implies 512M. 4K pages, by virtue of allowing a level-1 block mapping
-result in a 1G size.
-
+> commit 0a4bb2abc3e56d7be6e69b050c88ba52c87e22bf upstream.
 > 
-> >
-> > Note that the check for a negative value not explicitely checking for
-> 
-> NIT: explicitely -> explicitly
-> 
-> > S1_MMU_DISABLED is deliberate, so that actual negative levels introduced
-> > with LVA2 and D128 can take the same path if we ever support them.
-> >
-> > Fixes: 7270cc9157f47 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU notifiers")
-> > Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-> > Link: https://lore.kernel.org/r/ameGoxbn2wzBq2kL@v4bel
-> > Signed-off-by: Marc Zyngier <maz@kernel.org>
-> > Cc: stable@vger.kernel.org
-> > ---
-> >  arch/arm64/kvm/nested.c | 26 +++++++++++++++++++-------
-> >  1 file changed, 19 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> > index f3c75954cf36c..035cda256e2a5 100644
-> > --- a/arch/arm64/kvm/nested.c
-> > +++ b/arch/arm64/kvm/nested.c
-> > @@ -505,7 +505,7 @@ int kvm_walk_nested_s2(struct kvm_vcpu *vcpu, phys_addr_t gipa,
-> >  	return ret;
-> >  }
-> >
-> > -static unsigned int ttl_to_size(u8 ttl)
-> > +static unsigned int __ttl_to_size(u8 ttl)
-> >  {
-> >  	int level = ttl & 3;
-> >  	int gran = (ttl >> 2) & 3;
-> > @@ -561,10 +561,22 @@ static unsigned int ttl_to_size(u8 ttl)
-> >  	return max_size;
-> >  }
-> >
-> > -static u8 pgshift_level_to_ttl(u16 shift, u8 level)
-> > +static unsigned int ttl_to_size(u8 ttl)
-> > +{
-> > +	return __ttl_to_size(ttl) ?: SZ_1G;
-> > +}
-> 
-> Might be worth a comment about the default?
+> I2C controllers may have child devices with GpioInt resources that
+> depend on GPIO controllers being fully initialized. If the I2C
+> controller probes and enumerates children before the referenced GPIO
+> controller has completed probe, GPIO interrupts may not be properly
+> configured, leading to device failures.> [...]
 
-It's the architecture. I'm trying hard not to make KVM a running
-commentary of the ARM ARM ;-).
+Hi Greg, just noticed yesterday with mainline that this change broke the
+touchpad of my ThinkPad T14s Gen 4 (AMD), so you might want to consider
+not backporting it for now:
+https://lore.kernel.org/all/b4a4eadb-282f-464c-843a-19d415a34d0c@leemhuis.info/
 
-> 
-> > +
-> > +static u8 pgshift_level_to_ttl(u16 shift, s8 level)
-> >  {
-> >  	u8 ttl;
-> >
-> > +	/*
-> > +	 * If we don't have a proper level, fallback to the maximum
-> > +	 * size.
-> > +	 */
-> > +	if (level < 0)
-> > +		return 0;
-> > +
-> >  	switch(shift) {
-> >  	case 12:
-> >  		ttl = TLBI_TTL_TG_4K;
-> > @@ -675,7 +687,11 @@ unsigned long compute_tlb_inval_range(struct kvm_s2_mmu *mmu, u64 val)
-> >  		ttl = get_guest_mapping_ttl(mmu, addr);
-> >  	}
-> >
-> > -	max_size = ttl_to_size(ttl);
-> > +	/*
-> > +	 * Don't use the default 1GB fallback, as we can adapt to the
-> > +	 * max mapping size we allow at S2.
-> > +	 */
-> 
-> Being a bit pedantic here but I wonder if simply just to say 'Adapt to the max
-> mapping size allowed at S2' as the fallback is inferred?
-
-Sure.
-
-Thanks,
-
-	M.
-
--- 
-Jazz isn't dead. It just smells funny.
+Ciao, Thorsten
