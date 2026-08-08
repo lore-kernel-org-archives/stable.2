@@ -1,69 +1,52 @@
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81E72F0C7E
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 22:39:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69DA2C0F93
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 22:43:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786228753; cv=none; b=YXATT8sOevj60X1qXvBBp7mOnEmGX3cHsDO8//ZmcQBgEmFb13qX4XvUGMzx+ErfAonKHDEHMyebCbwLRCm7Gk5kBuMNFOMSAQsaQvnIrCryIaMI3N4xmTDyCjofU8i/EZK+ahRrdA/2xYkDFtOrZz7jTEwm24xmrRvjiAn3i5w=
+	t=1786229026; cv=none; b=CvWjC7HO4LfSjeOO7IBxNbtrkyh+OViaVT0U7abi/GkcVVOYEFTrOVaYAEfZWW4wye9RiQose64xAsjF6CugjkxAR7UvTEzPEzWiHnQjsxJkEJaxbgHBZSKHj3x77MFjLUjbNrCRQp5vdyjOT4kbztcgfzeeumd5uvtqcXO0474=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786228753; c=relaxed/simple;
-	bh=niXm/N5BBBtoVsM6jszdquk/kqKSZ0XTjTTqc2jw024=;
+	s=arc-20240116; t=1786229026; c=relaxed/simple;
+	bh=WQNO37vNbjBWm/v0T9sYB4LoJdUqvKhHkyJsKNQtHd0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZMh7kKLdg045wvPwlPDQJa/BzJqoJW8mncHYPKA1saFk0m5hGUueWjRkF4HCS8JSq7GBnePAPNzzjElNL5Kj6ImBoAyaRFtIJpgYiCWXhiu6vANn+DhIDasYDAykhq0wNuiaQsZZ2A6iVx/mLpfI7aCYj4K50bf9+elPhlwcx7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Oh/Tgfna; arc=none smtp.client-ip=209.85.161.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 In-Reply-To:Content-Type; b=p6O4gYMEyGHLnvmb57CHGNda/zVn1cye55niB/sHINxoETGlhhXv411z2mpkI5+YTcCc73c6h9zHvQN8JqUNxWlrxygX2SuhZNfFZQpScMdTvB5tA3F+GeWdXOg4qygohwjBCoES4arKhMlgHcHwc3lsOuSXJaNuh/5cJIw51n8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=FmnQFj9X; arc=none smtp.client-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Oh/Tgfna"
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6ae542c486eso203987eaf.0
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 15:39:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786228749; x=1786833549; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JI1+G+6qkA/DFYJt6nTy2HlA5K1RIKwf70bN14N3C2Y=;
-        b=Oh/TgfnagF/GCeKHVj3gjdlNvejOI/5ukn23yMPxGVyPI/08a4La9EJ3mjnv7inS0x
-         WYUpm/xr7rLYV7WfPCFLkrFC1wNaIIkcPP3TiZbflbBrRV9YfQQWg1ltcVZEh7ISCbyI
-         2TnIy/PX0Jcz91+I+61KmE58ELkqC0FwOAlrcZo+Px8YDJyUUDSGV/P8vWy7k0G2B0q8
-         FqLsKfQFgEXvJ0OrpyMTS+OqmJOrCz1AWDT1Y+jE+U9IjElCCPrqF28l04sVWqxR+vTy
-         +ApmCrcMqrZ5LC4BVTyTX4Ixbqwqaz0jYWHE5javPvHYwTxZ3cbJbJnAZdPzv7XWjJiH
-         FUtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786228749; x=1786833549;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JI1+G+6qkA/DFYJt6nTy2HlA5K1RIKwf70bN14N3C2Y=;
-        b=jWJP6ifGsxKVnqdlVd+eRP/G60s0nWCQajJ0afL0KkfkS8X71Uc/jlXs4xLST1VXwo
-         7DN6Q22uXS3qyDjTx1bFf8bLmUXGMzXg2+dlny+8axRBiYL2Ni9naFB0GttLzupHs4+4
-         y+9dFGyWXMGwuL9SJhGTT9S78OCJ6VSaf66Iio0vvvsxYQT3V7vQsiXfMKFuaz5iS/XU
-         +Cgjz+KC6R4YsyO5TmC7HXIf5pNsWNdr9O3kj3Xe5GTBT3iLm9ixBEmHXrOS0ZpN9sRC
-         /LLzcCZZebNBtOdW0kxvdVbBAH/hADRflpoXBn6E5lwSnBXc07aRukXVh6RByKtoD8pg
-         WSIQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp7wWJM4cgcO05ixVJ/DsRcQYgy28h8aS1F1um4gemiMpp9Gw1YywoHSXK2l4MMkbd419Ztnvk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUNtpxAQvvfzJM3bRzvcMYzwodI70HEbzhyj5lNLB12aK0UaCC
-	swAb2DrxxM9ZieJEknQH32pVukJ0VdSMg/JJo0BCxIN7KG/SCfb5pcg58dGaIs1TxIO4jC+IIwj
-	VkPshCFY=
-X-Gm-Gg: AR+sD13utqJws9YBeNKC6dAx+AKvwAxyI5hwfrQzTnbcQMG3DKd+8pY6oOT5Fv/xNh7
-	dOBehiLTg4AGi36AoXGxg6+Es3TaP8CUgZXztYlyv/GpfixZkxHWYjKdXEh3YUd5+E9ow4s1a+K
-	iJgmCsNErP9dG/e/+kz0RQOk8R71co1tdLkmK0Oz4tUbQNAIx5hsh38oCiW+0nFH7FK/aYZJmq4
-	lYubRlm2pwdjp8LjmxyQpLHCvKsufe4xnVxtaG+24HYjdRzHezLPrm56xh9zXcNRiXXsTIbQoIq
-	OGISPgFByApxX2v/GGQwfAvpufq8wW//MeT+QyLyMZ1qaVeYvkkO9G0bQurxQrnp7IxIljFOztP
-	AfnOrDe6q6OSrDolPrFjO4uBv80bMmlAXhmHpMA3hXIwS/Jf9PbcXjlgEmpMpP4Mdb1OMtJybfD
-	/WTgtydZDG6LoV526KLsD5ZxLqcfoFGiO2uN6gQ8U9tcy+G/CWxnCDAZ37WfClPggCZqBRYgoK3
-	HHQm/1lkj5AgHsvWbSwOpitpXtPHBK33vYbCDb+
-X-Received: by 2002:a05:6820:992:b0:6ae:9815:7c8e with SMTP id 006d021491bc7-6b04213b973mr5509347eaf.21.1786228748829;
-        Sat, 08 Aug 2026 15:39:08 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:99c2:f16e:201c:3bb5? ([2600:8803:e7e4:500:99c2:f16e:201c:3bb5])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-459f1a0224bsm4901696fac.3.2026.08.08.15.39.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 08 Aug 2026 15:39:07 -0700 (PDT)
-Message-ID: <f35f30e7-15c4-46f5-8aca-8a4a79c740ab@baylibre.com>
-Date: Sat, 8 Aug 2026 17:39:05 -0500
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="FmnQFj9X"
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
+	by cmsmtp with ESMTPS
+	id semaweUOxuFzgspk0ws3sM; Sat, 08 Aug 2026 22:42:08 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id spjzwBuvjxg8Yspk0wcWfF; Sat, 08 Aug 2026 22:42:08 +0000
+X-Authority-Analysis: v=2.4 cv=R44DGcRX c=1 sm=1 tr=0 ts=6a77b0c0
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=HqJ6fxJBhJPsP3w6xxD6j9r1CBfPL7YdRkdOM3J2fbA=; b=FmnQFj9XBmLgK8+MuFm//VqJkH
+	MgjOtRre0FvK5z3gUmYyglWUDxM21ZPmrIxGKeHe89NfTQhxp9DwrKFDS4Fg0Z+rRrV4eN21i2tYd
+	LB2VmgHw90ECdx+JqSgbjT2+v+fKKAcqtkgk1sbvbxuaQllo93uzsZoN1U5ak/Tnv7idgFa2Y8j4l
+	Xx6AbHpPZenHQr9V0+WdWH6wwBIw4+PiPVc8JzSOeix1WkbYx42y9BNoRzupJzXjNdR2L5fy7ceMl
+	juBxuFXxQKUX/q1ZyXH5iGPDPoV1DpjfLukGnkgoP+8FuVIiqKeygk3RXcgS0c1Bd2H3T/cT9Ja0u
+	t9pKdaVw==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:57908 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <re@w6rz.net>)
+	id 1wspjz-00000002yIA-1MwF;
+	Sat, 08 Aug 2026 16:42:07 -0600
+Message-ID: <0f2c030e-313f-4c6a-bb7c-4f274c0c3d72@w6rz.net>
+Date: Sat, 8 Aug 2026 15:42:05 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,75 +54,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v2] iio: accel: fxls8962af: clamp FIFO sample count
-To: Shengzhuo Wei <me@cherr.cc>, Jonathan Cameron <jic23@kernel.org>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Sean Nyekjaer <sean@geanix.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>
-References: <20260809-fxls8962af-fifo-v2-1-80ff1be1f1f2@cherr.cc>
+Subject: Re: [PATCH 7.1 000/438] 7.1.8-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260807143428.008222056@linuxfoundation.org>
 Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260809-fxls8962af-fifo-v2-1-80ff1be1f1f2@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wspjz-00000002yIA-1MwF
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:57908
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfMDofey1rDmSM/RTD+5XYmr+PDnnZWe2PfH1k92FxA+zd1lmn86mmtktMy+0zWKrCLhMYfzjC92CqcQn8CCgWk4rqrTarBo6Qd52oNQUnfxUAONUj9x1
+ vsNVell5JZp79DfjfHAIiU3AH+/QkWp3V1x2aLu3zG/lhwettm11lUq7gXRT2c38qJKY48JDpqIMEg==
 
-On 8/8/26 4:04 PM, Shengzhuo Wei wrote:
-> fxls8962af_fifo_flush() copies the number of samples the device reports
-> in its FIFO status register into an on-stack buffer
-> 
-> 	u16 buffer[FXLS8962AF_FIFO_LENGTH * 3];
-> 
-> which is sized for at most FXLS8962AF_FIFO_LENGTH (32) samples. The
-> sample count is read from the BUF_STATUS register and only masked to its
-> 6 valid bits (0..63), with no clamp to the buffer size. The watermark
-> path caps the count on the write side (fxls8962af_set_watermark) but
-> the read path does not, so a malfunctioning or malicious device
-> reporting BUF_CNT > 32 overflows the buffer.
-> 
-> Clamp count to FXLS8962AF_FIFO_LENGTH, mirroring the watermark clamp.
-> 
-> Fixes: 79e3a5bdd9ef ("iio: accel: fxls8962af: add hw buffered sampling")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GLM:5.2
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-> ---
-> The transfer reads count * 6 bytes through regmap, so a device reporting
-> up to 63 samples writes up to 378 bytes into the 192-byte buffer,
-> clobbering the stack canary, saved registers and the return address.
-> This mirrors the bmc150 fix (ce0e1cae2609). A well-formed flush reports
-> at most FXLS8962AF_FIFO_LENGTH samples, so legitimate devices are
-> unaffected.
-> ---
+On 8/7/26 07:33, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.8 release.
+> There are 438 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 09 Aug 2026 14:33:46 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.8-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-When you do a RESEND, please say here why, otherwise we don't know.
-Did something change?
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-> Changes in v2:
-> - Use min() instead of min_t() as suggested by Andy Shevchenko.
-> - Link to v1: https://lore.kernel.org/r/20260806-fxls8962af-fifo-v1-1-bd9d27047fee@cherr.cc
-> ---
->  drivers/iio/accel/fxls8962af-core.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/iio/accel/fxls8962af-core.c b/drivers/iio/accel/fxls8962af-core.c
-> index d0c2a8daef0db964134ad10b25782b9f5752613d..18d7b09bddd2b4f506c3348bf4e8cf94ce1c554a 100644
-> --- a/drivers/iio/accel/fxls8962af-core.c
-> +++ b/drivers/iio/accel/fxls8962af-core.c
-> @@ -969,6 +969,8 @@ static int fxls8962af_fifo_flush(struct iio_dev *indio_dev)
->  	if (!count)
->  		return 0;
->  
-> +	count = min(count, FXLS8962AF_FIFO_LENGTH);
-> +
->  	data->old_timestamp = data->timestamp;
->  	data->timestamp = iio_get_time_ns(indio_dev);
->  
-> 
-> ---
-> base-commit: 848acc8ffe1b7cd5f1bf427b93069becfebc2c9d
-> change-id: 20260806-fxls8962af-fifo-c3812fd02eeb
-> 
-> Best regards,
+Tested-by: Ron Economos <re@w6rz.net>
 
