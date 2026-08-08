@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E659F233923
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:12:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC04392829
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:12:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786187560; cv=none; b=ivZBFN51pRnaz21TrgaNhJVvnJis1VVCAVFOdT1SospXP8exAGQ5+kZnocgM95eE3L9WR8PoNjld0pWYmhpgY4oyEk5Mb6qRwyBpotp/b9gf/+DUiHR+MAWFGPzUhiVcOArLl3cVNcxlMMaZjXduhtg1Nq4WBTDHMd3oqI3wN2I=
+	t=1786187564; cv=none; b=jTf0EUVT3flkwDWtgtgpNMr/KZOhiHuvFW+j9l9KqrghpKNG+hKE1sJxc0LGs3jsTDu1YSUI2worMSnhDl57UsTRc1FlJLXzOUM7aMQ8SdYbr3P4ip0si6GySCQaif+ORhpWgnjrdQ4DqPiAGkiSkNVU3O/N7iYoXW5z5ac+f+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786187560; c=relaxed/simple;
-	bh=4rlknMyK1LlQyVNn1iiIJlu4v5R7VKJxZCP7Xxkl+BU=;
+	s=arc-20240116; t=1786187564; c=relaxed/simple;
+	bh=UicqrhoENM+47wchf7LFuvjXdp6IwiaBt2Hiv18cFx4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ilGLxO9X6BLvF8zHz62WYLtLZq2/vigGFfVG6xhf5XN1etD9rCkXJvBsOC9tu8X7yUY2eD0BuUTfp5lJvfjG+Poqgouuv35OPwwhe/GdPP511To2j0vQ/H/RmerwiOaiqYIqVD88fnAkyEqxaf1tFyLJizEt1tXhxv9ReTUb7UI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AYufHyml; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AAV/LHyMj8UzOc35kQanOhZmMfUxZH/7CWVi48JrILrvef4Xi6PgsrBpuO2dEMHzNRKNEj1kCiu88lmctyQPX0qg3ZXJuU8659YM1zS1rpGzxSBU9F74h4S7znagY4oItUDOXIPdbJB/yU5te3mHxPxtK6EyKBR2HsTtmc/VV98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1M87heQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AYufHyml"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6E321F00A3D;
-	Sat,  8 Aug 2026 11:12:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1M87heQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F2C1F000E9;
+	Sat,  8 Aug 2026 11:12:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786187558;
-	bh=TPUJgPA5yvu+9niqr4m14c8vOxcKoVga03kqHLGoDcc=;
+	s=k20260515; t=1786187562;
+	bh=JlYhBFaU6QTPyRgb0kf4vDiJZ/CXkCVX49vjwBsHEZc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AYufHymlcvpF1M0lrl6/T2YwKRNIdbHLBQAye+wf7+SgI+cL8tU9iaAGp4p1pl6MC
-	 6jT8rZn+1R0O3n5nNL+qKkOxI+TB4mqcuI/y4RetFySxCyBr7S0pQMLVu0w0674QTE
-	 Hb0LC8i5lwMfr5TOD9jDXLT0d8pEu+fB8TRAVCtWCXN+a0XikLOXp3VZhmkSShpR+6
-	 JXBzzsPfVw3wcJ4DsQ1PC3cjveJZsSxMlV8BVhnTTyahMO/vzDWe5OcTTEUBYWTOdK
-	 oZhUBf2MNItx7MtKNGiCvvpca5WxRie2NznKtVIlZT+f20iDW5yp4yiIO+CjjvIRhA
-	 0vV1lxVymv4pQ==
+	b=h1M87heQ/v1XQx4VuRJBxq3yIZx4n11pRjXlRdLWiD98vWgmUKm8whuH/5rZapadE
+	 6bvkKuNj0XUdBq0sN8bakeyHMIsVtXklv4cCj4VQAgx+qm0tQYLS6gJysMhVsZAHGA
+	 7YKtVMt2OFk15EW5ZieoDVEI7szN5oxzI/tlj3mI27vTZEMacu12stS3rW2iKyvU40
+	 OqeL6w6uPMr0oAVkAkqiXiTNmYZKOlo3l884dt6Q0b3FPTbQjnj4Ns3L/FcWyAa0I0
+	 vTRDcdGL3mmLz9DySwGFNip3k5UE9wff91Is4LVhTxu5KY4UM6p8MLrYN9IaZK/EGD
+	 +LN5tUobyTfKA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhang Yi <yi.zhang@huawei.com>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Xiubo Li <xiubli@redhat.com>,
+	Patrick Donnelly <pdonnell@redhat.com>,
+	Milind Changire <mchangir@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] iomap: fix out-of-bounds bitmap_set() with zero-length range
-Date: Sat,  8 Aug 2026 07:12:33 -0400
-Message-ID: <20260808111233.93672-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] libceph: add doutc and *_client debug macros support
+Date: Sat,  8 Aug 2026 07:12:37 -0400
+Message-ID: <20260808111240.93994-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260808111233.93672-1-sashal@kernel.org>
-References: <2026072923-divinely-glorifier-714d@gregkh>
- <20260808111233.93672-1-sashal@kernel.org>
+In-Reply-To: <2026072911-tipoff-trilogy-a6d0@gregkh>
+References: <2026072911-tipoff-trilogy-a6d0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,84 +47,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhang Yi <yi.zhang@huawei.com>
+From: Xiubo Li <xiubli@redhat.com>
 
-[ Upstream commit 9c7d8f7c8994c790fca501dc45ce66e7356cbe05 ]
+[ Upstream commit 5c5f0d2b5f92c47baf82b9b211e27edd7d195158 ]
 
-ifs_set_range_dirty() and ifs_set_range_uptodate() compute last_blk
-as (off + len - 1) >> i_blkbits.  When off is 0 and len is 0, the
-unsigned subtraction underflows to SIZE_MAX, producing a huge
-last_blk and nr_blks value that causes bitmap_set() to write far
-beyond the ifs->state allocation.
+This will help print the fsid and client's global_id in debug logs,
+and also print the function names.
 
-Regarding ifs_set_range_uptodate(), it is temporarily safe because len
-cannot be passed in as 0. However, for ifs_set_range_dirty() this is
-reachable from __iomap_write_end(): when copy_folio_from_iter_atomic()
-returns 0 (e.g. user buffer fault) and the folio is already uptodate,
-the guard at the top of __iomap_write_end() does not trigger because
-!folio_test_uptodate() is false, and iomap_set_range_dirty() is called
-with copied == 0.
+[ idryomov: %lld -> %llu, leading space for doutc(), don't include
+  __func__ in pr_*() variants ]
 
-Add a !len guard to both functions before the computation, so that a
-zero-length range is a no-op.
-
-Fixes: 4ce02c679722 ("iomap: Add per-block dirty state tracking to improve performance")
-Cc: stable@vger.kernel.org # v6.6
-Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-Link: https://patch.msgid.link/20260714082325.325163-5-yi.zhang@huaweicloud.com
-Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Link: https://tracker.ceph.com/issues/61590
+Signed-off-by: Xiubo Li <xiubli@redhat.com>
+Reviewed-by: Patrick Donnelly <pdonnell@redhat.com>
+Reviewed-by: Milind Changire <mchangir@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Stable-dep-of: 50958bb928ba ("ceph: fix hanging __ceph_get_caps() with stale mds_wanted")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/iomap/buffered-io.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ include/linux/ceph/ceph_debug.h | 38 +++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 03e3a6417596d..549490acb229e 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -61,11 +61,13 @@ static bool ifs_set_range_uptodate(struct folio *folio,
- 		struct iomap_folio_state *ifs, size_t off, size_t len)
- {
- 	struct inode *inode = folio->mapping->host;
--	unsigned int first_blk = off >> inode->i_blkbits;
--	unsigned int last_blk = (off + len - 1) >> inode->i_blkbits;
--	unsigned int nr_blks = last_blk - first_blk + 1;
-+	unsigned int first_blk, last_blk;
+diff --git a/include/linux/ceph/ceph_debug.h b/include/linux/ceph/ceph_debug.h
+index d5a5da838cafa..11a92a946016e 100644
+--- a/include/linux/ceph/ceph_debug.h
++++ b/include/linux/ceph/ceph_debug.h
+@@ -19,12 +19,25 @@
+ 	pr_debug("%.*s %12.12s:%-4d : " fmt,				\
+ 		 8 - (int)sizeof(KBUILD_MODNAME), "    ",		\
+ 		 kbasename(__FILE__), __LINE__, ##__VA_ARGS__)
++#  define doutc(client, fmt, ...)					\
++	pr_debug("%.*s %12.12s:%-4d : [%pU %llu] " fmt,			\
++		 8 - (int)sizeof(KBUILD_MODNAME), "    ",		\
++		 kbasename(__FILE__), __LINE__,				\
++		 &client->fsid, client->monc.auth->global_id,		\
++		 ##__VA_ARGS__)
+ # else
+ /* faux printk call just to see any compiler warnings. */
+ #  define dout(fmt, ...)	do {				\
+ 		if (0)						\
+ 			printk(KERN_DEBUG fmt, ##__VA_ARGS__);	\
+ 	} while (0)
++#  define doutc(client, fmt, ...)	do {			\
++		if (0)						\
++			printk(KERN_DEBUG "[%pU %llu] " fmt,	\
++			&client->fsid,				\
++			client->monc.auth->global_id,		\
++			##__VA_ARGS__);				\
++		} while (0)
+ # endif
  
--	bitmap_set(ifs->state, first_blk, nr_blks);
-+	if (len) {
-+		first_blk = off >> inode->i_blkbits;
-+		last_blk = (off + len - 1) >> inode->i_blkbits;
-+		bitmap_set(ifs->state, first_blk, last_blk - first_blk + 1);
-+	}
- 	return ifs_is_fully_uptodate(folio, ifs);
- }
+ #else
+@@ -33,7 +46,32 @@
+  * or, just wrap pr_debug
+  */
+ # define dout(fmt, ...)	pr_debug(" " fmt, ##__VA_ARGS__)
++# define doutc(client, fmt, ...)					\
++	pr_debug(" [%pU %llu] %s: " fmt, &client->fsid,			\
++		 client->monc.auth->global_id, __func__, ##__VA_ARGS__)
  
-@@ -127,13 +129,17 @@ static void ifs_set_range_dirty(struct folio *folio,
- {
- 	struct inode *inode = folio->mapping->host;
- 	unsigned int blks_per_folio = i_blocks_per_folio(inode, folio);
--	unsigned int first_blk = (off >> inode->i_blkbits);
--	unsigned int last_blk = (off + len - 1) >> inode->i_blkbits;
--	unsigned int nr_blks = last_blk - first_blk + 1;
-+	unsigned int first_blk, last_blk;
- 	unsigned long flags;
+ #endif
  
-+	if (!len)
-+		return;
++#define pr_notice_client(client, fmt, ...)				\
++	pr_notice("[%pU %llu]: " fmt, &client->fsid,			\
++		  client->monc.auth->global_id, ##__VA_ARGS__)
++#define pr_info_client(client, fmt, ...)				\
++	pr_info("[%pU %llu]: " fmt, &client->fsid,			\
++		client->monc.auth->global_id, ##__VA_ARGS__)
++#define pr_warn_client(client, fmt, ...)				\
++	pr_warn("[%pU %llu]: " fmt, &client->fsid,			\
++		client->monc.auth->global_id, ##__VA_ARGS__)
++#define pr_warn_once_client(client, fmt, ...)				\
++	pr_warn_once("[%pU %llu]: " fmt, &client->fsid,			\
++		     client->monc.auth->global_id, ##__VA_ARGS__)
++#define pr_err_client(client, fmt, ...)					\
++	pr_err("[%pU %llu]: " fmt, &client->fsid,			\
++	       client->monc.auth->global_id, ##__VA_ARGS__)
++#define pr_warn_ratelimited_client(client, fmt, ...)			\
++	pr_warn_ratelimited("[%pU %llu]: " fmt, &client->fsid,		\
++			    client->monc.auth->global_id, ##__VA_ARGS__)
++#define pr_err_ratelimited_client(client, fmt, ...)			\
++	pr_err_ratelimited("[%pU %llu]: " fmt, &client->fsid,		\
++			   client->monc.auth->global_id, ##__VA_ARGS__)
 +
-+	first_blk = off >> inode->i_blkbits;
-+	last_blk = (off + len - 1) >> inode->i_blkbits;
- 	spin_lock_irqsave(&ifs->state_lock, flags);
--	bitmap_set(ifs->state, first_blk + blks_per_folio, nr_blks);
-+	bitmap_set(ifs->state, first_blk + blks_per_folio,
-+		   last_blk - first_blk + 1);
- 	spin_unlock_irqrestore(&ifs->state_lock, flags);
- }
- 
+ #endif
 -- 
 2.53.0
 
