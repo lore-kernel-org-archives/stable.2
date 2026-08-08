@@ -1,150 +1,170 @@
-Received: from zg8tmtu5ljg5lje1ms4xmtka.icoremail.net (zg8tmtu5ljg5lje1ms4xmtka.icoremail.net [159.89.151.119])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6196D2D6E58;
-	Sat,  8 Aug 2026 00:58:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.89.151.119
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA81F30C632;
+	Sat,  8 Aug 2026 00:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786150706; cv=none; b=EnRYmAU2K+02JoYAWyb1N9PkU6iMe+SJBPjqJSU046I83Qk3LVssq+CGmRZlJ+1hArRtAydH6AgfhX+YTo/Ks8G2XSVmjpEfzfCIqW+0xjAYkn8yJUfARDVhqCwnZyFCNsQJl9sThowsUWYND3VJGn8UN+WjnkcBt2Q3/bedilI=
+	t=1786150747; cv=none; b=RDUwglaB+nXI8i14zIR7EAiPKZT7l+Q94va04CVIeAMmv+PRV5Li73Gaxsm/t2mEu9O/LvmMtpP7UNYtgfyPmbzuvnw41svarmUAU2Pq3Q8CaVysY8DhC0/Luw4bWHpdZYCY7FGHBNx4QF63mzG6c2s9m367I8S6Ovm5d22b/QI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786150706; c=relaxed/simple;
-	bh=yZkREdEjHQEDUr57udPnaYwkQLcQxYJhgfKaohafuPg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=b2rfGKXXLNb+ZsfDbLEXOKo4WyUzY1ITZrqLGqyIYPUykL4dtUZvd3BkBovdLE9WgBdon8EMiA2i4FaVlfku94RqTKNcKJ12d5vOwrpUUgkYyBB04THo1tcEYjPbIa/CA0ajHqP+Pe3Rof5NlytUzpXZ3TjNWUCIFpbkg8ASDz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=QepjMXoc; arc=none smtp.client-ip=159.89.151.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1786150747; c=relaxed/simple;
+	bh=tDsgwi2+k+THwubQx+A8h/nHxkN0MXsHSi+73LAr1l8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fr5FJrjX27rC8yrH2DKPKUwiIxFGZc0qshuVmlKMpBKNgzjk9a2kIqnoyWJDVfVPUEdPlukLVMQ5C4i6EuAhZzSvv2dv6okXxZm4/o2OFIso0UPooRhd9ntDg7Ut1sguITRDonZNb1FhbXGJakB2o1ZHzvTSsShHC2DdECayJbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e9sTGxuc; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="QepjMXoc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=TNDApsOsnp2m2lDrTJuIAVtUvQ2U/qmosQ
-	3lDWNOF4A=; b=QepjMXocUszGkTzHW3esG5/gCgz7RAoajs/svlf+M2KcxcwnWs
-	Tw9XF/U1iwB2SXPfdwrqjJ5eB87NWOxdorrxSAb3C33RPYEaoyiIApK8ccez4N0e
-	tsKxgPwN1eAsWXPSGbqGpMw+JigNC9jpAzsIfRWOfuUjZrYT8ts5DW9KU=
-Received: from gpu-server-2.tailcd67b0.ts.net (unknown [101.52.241.91])
-	by web2 (Coremail) with SMTP id yQQGZQCHgrQOf3ZqgbvKAA--.21278S2;
-	Sat, 08 Aug 2026 08:58:04 +0800 (CST)
-From: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-To: linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: marcelo.leitner@gmail.com,
-	lucien.xin@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	stable@vger.kernel.org,
-	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	yyxroy22@gmail.com
-Subject: [PATCH net v2] sctp: fix use-after-free of cached ASCONF chunk
-Date: Sat,  8 Aug 2026 08:57:48 +0800
-Message-Id: <20260808005748.1981039-1-yangyx22@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <CADvbK_ekVxEzb=-sbphAtmzYYXqfggWX2h3CK24s84MmQvahJg@mail.gmail.com>
-References: <CADvbK_ekVxEzb=-sbphAtmzYYXqfggWX2h3CK24s84MmQvahJg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e9sTGxuc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786150744; x=1817686744;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tDsgwi2+k+THwubQx+A8h/nHxkN0MXsHSi+73LAr1l8=;
+  b=e9sTGxucwP8CBTYH7k+gP62HlFh5W2aXNhJi5nDiD+e3XNTpX2kxBQ1z
+   l/PiKFoooyaH2FRQy6e3sulFBpWH4yF4kxKw5VVrfL3kHpGPJ9Emm3uE+
+   ZDMAa9+kw51PL/mwR/FiE34ZtU/bRlyECmWfUNcrWBHq8/NPaS0PavKdO
+   cQbIt7bivCZb/JN60/mohLeds6wC4xSNE/58j8PB6s5vt6ClrEBOW/fch
+   qNzbFSes2togTKJlBBowJSdyvOQveTWovDQTLkQZGbZnMwJ4p6DGbPa3n
+   5WYsr2iSlNTggP/vA9lemUH+sx/Bk6ieYrHqgVBTHu0YxV9KxERugpbg3
+   g==;
+X-CSE-ConnectionGUID: IuvnsDHiSSGtBxvBIpIcHQ==
+X-CSE-MsgGUID: cJIQoy4kRmukJ87gPCHAtg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="86841946"
+X-IronPort-AV: E=Sophos;i="6.25,211,1779174000"; 
+   d="scan'208";a="86841946"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 17:59:04 -0700
+X-CSE-ConnectionGUID: oVI4r9TbROqmryREAQmPiQ==
+X-CSE-MsgGUID: 1u6Sx5aARbCQUu/2v1uMnQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,211,1779174000"; 
+   d="scan'208";a="256310033"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 07 Aug 2026 17:59:00 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wsVOr-00000000Jab-02ue;
+	Sat, 08 Aug 2026 00:58:57 +0000
+Date: Sat, 8 Aug 2026 08:58:47 +0800
+From: kernel test robot <lkp@intel.com>
+To: WenTao Liang <vulab@iscas.ac.cn>, Zack Rusin <zack.rusin@broadcom.com>,
+	dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	bcm-kernel-feedback-list@broadcom.com,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Thomas Hellstrom <thellstrom@vmware.com>, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
+Subject: Re: [PATCH] fix: drm/vmwgfx: vmw_user_shader_alloc: fix base object
+ refcount leak on ttm_base_object_init failure
+Message-ID: <202608080849.rqxWdd9U-lkp@intel.com>
+References: <20260626150142.49732-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yQQGZQCHgrQOf3ZqgbvKAA--.21278S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuF4kuw43CFyfZrWrAr4rGrg_yoW5Ar17pa
-	98Wr4ayry5AryxurWfJr1Duw43Krs5J3y3Gr9YqwsYyFs8XryYkry7Ka4jqrWkCF4kAa43
-	KryYqFn8Gr90yaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvK1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
-	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4
-	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2
-	z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0x
-	vYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VCjz48v1sIEY20_
-	GrWkJr1UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zV
-	CS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAI
-	w28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GrWkJr1UJwCFx2IqxVCFs4IE7xkEbV
-	WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
-	67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
-	IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
-	0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
-	VjvjDU0xZFpf9x0JUEAp5UUUUU=
-X-CM-SenderInfo: 51dqw5r0ssqzpdlo2hxwvl0wxkxdhvlgxou0/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260626150142.49732-1-vulab@iscas.ac.cn>
 
-addip_last_asconf caches the outstanding outbound ASCONF chunk. The normal
-ASCONF-ACK completion path releases the chunk and clears the pointer.
+Hi WenTao,
 
-However, sctp_asconf_queue_teardown() releases the cached chunk without
-clearing addip_last_asconf. During peer restart handling,
-sctp_sf_do_dupcook_a() queues SCTP_CMD_PURGE_ASCONF_QUEUE, which invokes
-sctp_asconf_queue_teardown() while the association remains alive and leaves
-the pointer dangling.
+kernel test robot noticed the following build errors:
 
-A delayed authenticated ASCONF-ACK can then reach sctp_sf_do_asconf_ack(),
-which accesses the stale chunk and passes it to sctp_process_asconf_ack(),
-causing a use-after-free and a second release.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.2-rc6 next-20260807]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Clearing the pointer exposes a race with T4 expiry. Peer restart handling
-queues the timer stop before the purge, but SCTP_CMD_TIMER_STOP uses
-timer_delete(), which does not wait for a callback already running on
-another CPU. Such a callback can reach sctp_sf_t4_timer_expire() after
-the purge and dereference NULL.
+url:    https://github.com/intel-lab-lkp/linux/commits/WenTao-Liang/fix-drm-vmwgfx-vmw_user_shader_alloc-fix-base-object-refcount-leak-on-ttm_base_object_init-failure/20260807-080356
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260626150142.49732-1-vulab%40iscas.ac.cn
+patch subject: [PATCH] fix: drm/vmwgfx: vmw_user_shader_alloc: fix base object refcount leak on ttm_base_object_init failure
+config: arm64-randconfig-002-20260807 (https://download.01.org/0day-ci/archive/20260808/202608080849.rqxWdd9U-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 12df34b8469b8095359de8c249cb1b2753fadeea)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260808/202608080849.rqxWdd9U-lkp@intel.com/reproduce)
 
-Clear addip_last_asconf after releasing the cached chunk, and make
-sctp_sf_t4_timer_expire() consume a stale T4 expiry if no outstanding
-ASCONF remains.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608080849.rqxWdd9U-lkp@intel.com/
 
-Fixes: a000c01e60e4 ("sctp: stop pending timers and purge queues when peer restart asoc")
-Cc: stable@vger.kernel.org
-Suggested-by: Xin Long <lucien.xin@gmail.com>
-Assisted-by: Claude-Code:GLM-5.2
-Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
----
-Changes in v2:
-- Guard sctp_sf_t4_timer_expire() against a cleared cached ASCONF pointer,
-  as requested by Xin Long.
-- Explain why the T4 callback may run after the restart purge.
+All errors (new ones prefixed by >>):
 
- net/sctp/associola.c    | 4 +++-
- net/sctp/sm_statefuns.c | 6 +++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
+>> drivers/gpu/drm/vmwgfx/vmwgfx_shader.c:727:25: error: incompatible pointer types passing 'struct ttm_base_object *' to parameter of type 'struct ttm_base_object **' [-Wincompatible-pointer-types]
+     727 |                 ttm_base_object_unref(&ushader->base);
+         |                                       ^~~~~~~~~~~~~~
+   drivers/gpu/drm/vmwgfx/ttm_object.h:192:60: note: passing argument to parameter 'p_base' here
+     192 | extern void ttm_base_object_unref(struct ttm_base_object **p_base);
+         |                                                            ^
+   1 error generated.
 
-diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-index 5b0ae61..737f8ea 100644
---- a/net/sctp/associola.c
-+++ b/net/sctp/associola.c
-@@ -1713,6 +1713,8 @@ void sctp_asconf_queue_teardown(struct sctp_association *asoc)
- 	sctp_assoc_free_asconf_queue(asoc);
- 
- 	/* Free any cached ASCONF chunk. */
--	if (asoc->addip_last_asconf)
-+	if (asoc->addip_last_asconf) {
- 		sctp_chunk_free(asoc->addip_last_asconf);
-+		asoc->addip_last_asconf = NULL;
-+	}
- }
-diff --git a/net/sctp/sm_statefuns.c b/net/sctp/sm_statefuns.c
-index 708fa07..3a8e16b 100644
---- a/net/sctp/sm_statefuns.c
-+++ b/net/sctp/sm_statefuns.c
-@@ -6145,8 +6145,12 @@ enum sctp_disposition sctp_sf_t4_timer_expire(
- 					struct sctp_cmd_seq *commands)
- {
- 	struct sctp_chunk *chunk = asoc->addip_last_asconf;
--	struct sctp_transport *transport = chunk->transport;
-+	struct sctp_transport *transport;
-+
-+	if (!chunk)
-+		return SCTP_DISPOSITION_CONSUME;
- 
-+	transport = chunk->transport;
- 	SCTP_INC_STATS(net, SCTP_MIB_T4_RTO_EXPIREDS);
- 
- 	/* ADDIP 4.1 B1) Increment the error counters and perform path failure
--- 
-2.25.1
 
+vim +727 drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
+
+   684	
+   685	static int vmw_user_shader_alloc(struct vmw_private *dev_priv,
+   686					 struct vmw_bo *buffer,
+   687					 size_t shader_size,
+   688					 size_t offset,
+   689					 SVGA3dShaderType shader_type,
+   690					 uint8_t num_input_sig,
+   691					 uint8_t num_output_sig,
+   692					 struct ttm_object_file *tfile,
+   693					 u32 *handle)
+   694	{
+   695		struct vmw_user_shader *ushader;
+   696		struct vmw_resource *res, *tmp;
+   697		int ret;
+   698	
+   699		ushader = kzalloc_obj(*ushader);
+   700		if (unlikely(!ushader)) {
+   701			ret = -ENOMEM;
+   702			goto out;
+   703		}
+   704	
+   705		res = &ushader->shader.res;
+   706		ushader->base.shareable = false;
+   707		ushader->base.tfile = NULL;
+   708	
+   709		/*
+   710		 * From here on, the destructor takes over resource freeing.
+   711		 */
+   712	
+   713		ret = vmw_gb_shader_init(dev_priv, res, shader_size,
+   714					 offset, shader_type, num_input_sig,
+   715					 num_output_sig, buffer,
+   716					 vmw_user_shader_free);
+   717		if (unlikely(ret != 0))
+   718			goto out;
+   719	
+   720		tmp = vmw_resource_reference(res);
+   721		ret = ttm_base_object_init(tfile, &ushader->base, false,
+   722					   VMW_RES_SHADER,
+   723					   &vmw_user_shader_base_release);
+   724	
+   725		if (unlikely(ret != 0)) {
+   726			vmw_resource_unreference(&tmp);
+ > 727			ttm_base_object_unref(&ushader->base);
+   728			goto out_err;
+   729		}
+   730	
+   731		if (handle)
+   732			*handle = ushader->base.handle;
+   733	out_err:
+   734		vmw_resource_unreference(&res);
+   735	out:
+   736		return ret;
+   737	}
+   738	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
