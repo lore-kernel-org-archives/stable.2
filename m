@@ -1,182 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834CA1A275
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 16:47:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0318125B085;
+	Sat,  8 Aug 2026 16:53:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786207630; cv=none; b=t1JPGOJzUWxI38F31RaoMF3N6G1TbrnUk053ylDvxWOSQfOyiNvwkIyaOG+0BdegzKwtnrRbW66NLtipeBRIE17mPQO5I5mxrSP5sEDfOfnjA0WQ5BEofJyCI9k4nJLZI3OWnrSNfOXvmEj/FxAZIXeeko1DXy3csZbyqJabICs=
+	t=1786208030; cv=none; b=p3ph8wpgql3dIu4m7GrRXbPOw/2bmTpKDe++if0h4HcY07agki2QC8FO4FB/cqsd3utr6VG27YHnX5Lq1oWbwViLJyMGwkkPpm3XzmeGFGpALW3AqEKzUvorNwWRiLqNYz+iMBjmy9/5Bs4ux1R/EsgmrdUQ/YC7eThFYCR+NDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786207630; c=relaxed/simple;
-	bh=2FpG2LaEm6Jx497/lssi9tx23gucpzF36JxjC+uZVEo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mhhULgyAq8A9AxR6J+fur0t0F2DWafTA8rHaYSowuVdEGsRsYhxLRYszcUHYfbvDDr4AgXmU7XvB4eSVCEB8oOx+HYLCDigvnQ6wVZkEFyW7xX7wgFqCE4HJoMHU1c3rvtZa/Ewq9AMTio+ACUuBtWl8rRCHxets/49Bpbm1ADU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TLU8fAZY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786208030; c=relaxed/simple;
+	bh=gZRaFiBukDh3EZxovMXnuh60OG/dMwucPpfGT5gaD8Q=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=r8/d68ieCIUedVBN3UkiKXpV0XxTOO0h/dj04Bys4rkcGILPFFxlGK/x7zBnBTp75JApufEPptEoXLeQrc9h2MwdXns7XkK+Aem4BQ9hhajBjSi9wv4TiN7NwlmVI6HiBcgN66AJ+HHyl/tQks9MsUJHTaBU+YESMevu/ExX6MM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=TOCoY9zj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TLU8fAZY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B3F51F000E9;
-	Sat,  8 Aug 2026 16:47:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786207629;
-	bh=YE3cY6Kuw28asiZmmCx/DYmduiLYUpRdgTvfyDeE6KY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TLU8fAZYf4r64YvcGsGphN78fQ9017kDrozarS9sl+fIMU1sR21b4a225eIT/oXzi
-	 ZC+eV3v1rImeOoEZ8bkVrvM8pawe8w4sTuN7ySIDI2qnEybJK0+VcwpGM8imfyv9Rk
-	 nC/ZYGbPYyT7d1C1ZAOWu6qi/hf76geb8kmj64LPoHkuZDpp+UzMieaw9cPOcw0EAP
-	 586e/+MArsUVChdBS+etUIZtEMMBfVqjmEGFUrmzb2dLrinfWliabFBeCoXDmGriYp
-	 ZnDEj3r9az28gt+eNMWB56WV8RsaR942BbjVIQB7tkFy8G5ocHTGwwYElQqe57PJju
-	 7XaCZ2tIe/Fpg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net/sched: serialize qdisc_rtab_list against concurrent get/put
-Date: Sat,  8 Aug 2026 12:47:06 -0400
-Message-ID: <20260808164706.447748-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072927-exploit-isotope-4690@gregkh>
-References: <2026072927-exploit-isotope-4690@gregkh>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="TOCoY9zj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31CA01F000E9;
+	Sat,  8 Aug 2026 16:53:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1786208028;
+	bh=Ax9y1xfFH3chaxJ3oaEZM1cwYboqVTK0vjI4kxFoY/w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TOCoY9zjFfXkLgyDmi66obQzYFxAcWbQFoGdPmRWiDqW3K9Uod304Z0AuSwCz8zFY
+	 jnBfK+vzR6CYIXRaqDtfqt0uWSB39jpA7C5a8+WGZN30dnWG1pdY0ghByl6GVRJYBr
+	 LUP+dzlKMd7iWUtO02S92Hn+UPZKtAGOKQFwflx4=
+Date: Sat, 8 Aug 2026 09:53:47 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Hui Su <sh_def@163.com>
+Cc: andreyknvl@gmail.com, dvyukov@google.com, glider@google.com,
+ kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, qiang1.zhang@intel.com, ryabinin.a.a@gmail.com,
+ stable@vger.kernel.org, vincenzo.frascino@arm.com
+Subject: Re: [PATCH v2] kasan: fix cache shrink race with CPU hotplug
+Message-Id: <20260808095347.d9335a79ea6513d613784d48@linux-foundation.org>
+In-Reply-To: <20260808093803.3138988-3-sh_def@163.com>
+References: <20260808003921.fdb0df9ee4417b38f15e8c68@linux-foundation.org>
+	<20260808093803.3138988-3-sh_def@163.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+On Sat,  8 Aug 2026 17:38:05 +0800 Hui Su <sh_def@163.com> wrote:
 
-[ Upstream commit f43ee0c0730d6191629b5ee1ceae27b1ebfdc047 ]
+> Thanks Andrew,
+> 
+> On Sat, Aug 08, 2026 at 12:39:21AM -0700, Andrew Morton wrote:
+> > AI review suggests that there's a pre-existing quarantine_size
+> > accounting flaw later in this function:
+> >
+> > 	https://sashiko.dev/#/patchset/20260808031459.3032812-1-sh_def@163.com
+> >
+> > If true, I'm surprised this hasn't yet been reported.
+> 
+> I'll take a closer look at this. If it turns out to be a real issue,
+> I'll send a separate patch since it's pre-existing and unrelated to the
+> hotplug race fix.
+> 
+> > Also, I'd like to see a need_resched() wrapping that expensive
+> >
+> > 		/* Scanning whole quarantine can take a while. */
+> > 		raw_spin_unlock_irqrestore(&quarantine_lock, flags);
+> > 		cond_resched();
+> > 		raw_spin_lock_irqsave(&quarantine_lock, flags);
+> 
+> Good point, that makes sense. Would you prefer that I fold this into a
+> v3 of this patch, or send it as a separate follow-up patch?
 
-qdisc_get_rtab() and qdisc_put_rtab() mutate the process-global singly
-linked list qdisc_rtab_list and a plain non-atomic 'int refcnt' with no
-lock. This was only safe because every caller historically held the RTNL
-mutex, which serialized all rate-table lookups, inserts and frees.
-
-That invariant no longer holds. cls_flower sets
-TCF_PROTO_OPS_DOIT_UNLOCKED, so tc_new_tfilter() keeps rtnl_held == false
-for it and sets TCA_ACT_FLAGS_NO_RTNL. That flag propagates through
-tcf_exts_validate_ex() -> tcf_action_init() -> tcf_action_init_1() ->
-tcf_police_init(), which calls qdisc_get_rtab()/qdisc_put_rtab() with the
-RTNL mutex NOT held. Two RTM_NEWTFILTER requests on different CPUs, each
-adding a flower filter with a police action carrying the same rate, then
-race on qdisc_rtab_list and on the non-atomic refcnt, leading to a
-use-after-free / double-free of the kmalloc-2k struct qdisc_rate_table.
-qdisc_rtab_list is a single global (not per-netns), so the corrupted
-object is shared system-wide.
-
-  BUG: KASAN: slab-use-after-free in qdisc_put_rtab+0x12f/0x160
-   qdisc_put_rtab+0x12f/0x160
-   tcf_police_init+0xda9/0x1590
-   tcf_action_init_1+0x460/0x6b0
-   tcf_action_init+0x439/0xa40
-   tcf_exts_validate_ex+0x42d/0x550
-   fl_change+0xddd/0x7da0
-   tc_new_tfilter+0xaa7/0x2420
-   rtnetlink_rcv_msg+0x95e/0xe90
-  which belongs to the cache kmalloc-2k of size 2048
-
-Protect qdisc_rtab_list and the refcount with a dedicated spinlock. The
-(sleeping, GFP_KERNEL) allocation in qdisc_get_rtab() is performed before
-taking the lock; if a concurrent inserter added an identical table in the
-meantime the freshly allocated one is freed under the lock, so no
-duplicate is leaked. qdisc_put_rtab() now decrements the refcount and
-unlinks under the same lock.
-
-Fixes: 470502de5bdb ("net: sched: unlock rules update API")
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: stable@vger.kernel.org
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260715114114.446841-1-qwe.aldo@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/sched/sch_api.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
-
-diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
-index 932c98b5b347e..34229be42c47f 100644
---- a/net/sched/sch_api.c
-+++ b/net/sched/sch_api.c
-@@ -410,12 +410,13 @@ static __u8 __detect_linklayer(struct tc_ratespec *r, __u32 *rtab)
- }
- 
- static struct qdisc_rate_table *qdisc_rtab_list;
-+static DEFINE_SPINLOCK(qdisc_rtab_lock);
- 
- struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
- 					struct nlattr *tab,
- 					struct netlink_ext_ack *extack)
- {
--	struct qdisc_rate_table *rtab;
-+	struct qdisc_rate_table *rtab, *new_rtab;
- 
- 	if (tab == NULL || r->rate == 0 ||
- 	    r->cell_log == 0 || r->cell_log >= 32 ||
-@@ -424,15 +425,20 @@ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
- 		return NULL;
- 	}
- 
-+	new_rtab = kmalloc(sizeof(*new_rtab), GFP_KERNEL);
-+
-+	spin_lock(&qdisc_rtab_lock);
- 	for (rtab = qdisc_rtab_list; rtab; rtab = rtab->next) {
- 		if (!memcmp(&rtab->rate, r, sizeof(struct tc_ratespec)) &&
- 		    !memcmp(&rtab->data, nla_data(tab), 1024)) {
- 			rtab->refcnt++;
-+			spin_unlock(&qdisc_rtab_lock);
-+			kfree(new_rtab);
- 			return rtab;
- 		}
- 	}
- 
--	rtab = kmalloc(sizeof(*rtab), GFP_KERNEL);
-+	rtab = new_rtab;
- 	if (rtab) {
- 		rtab->rate = *r;
- 		rtab->refcnt = 1;
-@@ -444,6 +450,7 @@ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
- 	} else {
- 		NL_SET_ERR_MSG(extack, "Failed to allocate new qdisc rate table");
- 	}
-+	spin_unlock(&qdisc_rtab_lock);
- 	return rtab;
- }
- EXPORT_SYMBOL(qdisc_get_rtab);
-@@ -452,18 +459,25 @@ void qdisc_put_rtab(struct qdisc_rate_table *tab)
- {
- 	struct qdisc_rate_table *rtab, **rtabp;
- 
--	if (!tab || --tab->refcnt)
-+	if (!tab)
- 		return;
- 
-+	spin_lock(&qdisc_rtab_lock);
-+	if (--tab->refcnt) {
-+		spin_unlock(&qdisc_rtab_lock);
-+		return;
-+	}
-+
- 	for (rtabp = &qdisc_rtab_list;
- 	     (rtab = *rtabp) != NULL;
- 	     rtabp = &rtab->next) {
- 		if (rtab == tab) {
- 			*rtabp = rtab->next;
--			kfree(rtab);
--			return;
-+			break;
- 		}
- 	}
-+	spin_unlock(&qdisc_rtab_lock);
-+	kfree(tab);
- }
- EXPORT_SYMBOL(qdisc_put_rtab);
- 
--- 
-2.53.0
-
+Separate patches, please.  One patch per concept.
