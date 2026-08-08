@@ -1,44 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7F4418A44
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 14:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F95D37B40A
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 14:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786198196; cv=none; b=m9oGYD/nwSMbm3gaB3EbQJ9Joi9CZuOTnY7ex50vWWeuO5R0KIVrwgL+EHHYClmiCLCS4EB263lwfo3xllUARBn+kjKO5cBdwPzrRAbi6UkTr/Jn8PN92dGPnjKmNANdz8zikFzgKQ7raO67DPAfoWLufuNZbOEd6Gb77DxUPoA=
+	t=1786199074; cv=none; b=R2Y1s7oVFKIwVqswOboFlwZd09QoEmoCYOc4PeMp73sTmwfUzD6hvmYOZiJW7JWvWKob6sFwyGJ2XapeYNZf9+q9tc8jFAZIWIUv3JrSOJEzi7Eonc9MJB7H/A2da/IdaRDz2Lju2wdOjwAEx4ZBkunO7LhqIqwVjizM7zqpXd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786198196; c=relaxed/simple;
-	bh=AFtHcdMypOjeg9r5cQllgAt9I05RwVH3IFjVSFHQrWc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r/c4J6/pcuM2zzyJWMKMMPNbyU3M12kM3/4TIsfYFeAL1zU1ZtlNwtbPVmNi16ZMFvhCMGWKjg66ZKao105yaJ4VmoW3zcdig3gGMytxFL9+mjZeK20c/zxNB5V1Dp7AUrjGMTlxPrwqFnW5ICcIdtH8j4yZd19C/fX+6CbKCv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JmTGX2is; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786199074; c=relaxed/simple;
+	bh=av6XO+17J96c4SZFz2NPpPHSbOVHbpxI8Aytmo7MDKY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ajMIU6yS3KQ3UwhlDkM8oozHSzEvF62nwviPveZMgAw+GgktqIVormj9VOgJXqHA+0zf5rXXZPWTgy3CRvSqpynNf5rvTTPgKlpml67fAVwRrF+XBvPqzXPtW+70nuU0IHQO+M7GTCx607zXC+Aud9E0q/O8JlQgbhHDM1zGIgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EuLI4R2+; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JmTGX2is"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06F91F00A3E;
-	Sat,  8 Aug 2026 14:09:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786198195;
-	bh=ZUScZUdflganX3liUyC0M3pmtp50GO7+oLv5ZYwn+wQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JmTGX2iswoWxidm0aKl5VZmjumxuhRpnGpJjS5lMI9k2Hxmm3TWQlToUSj+EuxS3B
-	 2wwTb9o9fEGPjpDgPLO1XCUF+Qj3NpjViIFLZzeYibmXa1LrC2bMuIJwuBRZC2eIHB
-	 v0NGNlN1/LAVUC6bofhqoYPq2DJWtX5OW+J9MPzv5Fw0HsSGOal9x+SpZdA3Fb9lXy
-	 BEKQoUdJCDf0hzMj9XV7F7rTcgqNNgqrsON4l5xo51ns9B4iNCXE9YLLy4cy/I65RL
-	 kgTxrNvOXTNPSV4JZlHhOaGgHyYK0CmRwyM6jqoBrK0BWSfEpPe7BdUfCWuZ4WkHD4
-	 XmrhugthjWnrA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	zdi-disclosures@trendmicro.com,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 7/7] ksmbd: validate minimum PDU size for transform requests
-Date: Sat,  8 Aug 2026 10:09:48 -0400
-Message-ID: <20260808140948.340323-7-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260808140948.340323-1-sashal@kernel.org>
-References: <2026072924-aviator-carton-3ed9@gregkh>
- <20260808140948.340323-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EuLI4R2+"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-383cb94f742so455695a91.3
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 07:24:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786199073; x=1786803873; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BxpSzB8c18EmT5JtuB1eU+b+G1XkrOHh1hT/Xfy0Dn0=;
+        b=EuLI4R2+jXlzcYCPMTO26NwWbpWmsNTf3GHgPXaUue8fDV1jRKSAf/p+8GX9Ud6t/P
+         qc1B4oSJVv6NL3n4RwuPTMbfjJL8X0Rr/5iY17TtDPkVDgt8DFqmWikQ7gbzeoyjfcx0
+         PKhkm4W88o4kS17T2ZXlz0gZw56iWE493hlbOVrNT18ydFaXhn/yZPuPjBVDxrMB8DQl
+         MzWaeGzhvdqM/QvBko9E1h+BTu+3pW1Dr+2p8lf1C1yUvoYAA5wkn3HgxP9F9XbY6gXC
+         pRn+iHG8a812XPnAE9BjWIwGnGFji9tYlEfDQz5cI4Y5ybq1Z4LfT9ZNiaHlm0PmCGH1
+         NVmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786199073; x=1786803873;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BxpSzB8c18EmT5JtuB1eU+b+G1XkrOHh1hT/Xfy0Dn0=;
+        b=Dvpf97hyf2aSot9/CjhMUs1lh9EWRL9mYdfQseRLSVtK3r8Q+vBdlddotl8/Nm79v9
+         XKy3CUxuruMCjbXg0s4N9o5fwyv6uUckC/pIDdNgAQkVf8m5gcbI03XOBTNLw44zs3sp
+         wWx0uBxi4TfRzFAnHto5IUf7Fm26ZobCCAJ5drhHUbOTobaxwP5Ko2+ho2z2b6sY7V88
+         MIdkLIVQwpg9zPY6b3ljRe8SjDgl6h1zSNxqtBMbRrtaPIqZqVvR8Bz7Itla2EO/Qs2A
+         dEGMmzfc3Uxmvw56GkdcOvm+CeEj7TJUnmIypIa+fA4H67ywtIt3KPvnOuzTirXqHiCZ
+         qFZw==
+X-Forwarded-Encrypted: i=1; AHgh+RoXcAL9xolZAZ/N8PU4JUrpJpiRGd7QoSUhG6oWeP2NSDhXyKBUrIU7ZPqRh+evFK/Wwq8Ez3s=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNNCy5Bis4J3SI0uNVKoJstnEsJda3jY7tSqrX+cugKoqOHFSh
+	qJtOuGLS21Gw0oYAt80G5mx4MaNnaEaMNNJ2usCDT82u6HrETn1wndBm
+X-Gm-Gg: AR+sD11Yh0W3D17jGGiYG9vjEyCt7lHYcXGFQYHH3/z1O+hh9Rr7PkSBb3wqJUajKS7
+	R6NrULOy1u3QwbX6Sw7MARdMhuPbkBxH2Zfho7tmrT6+ME4zxF4SZZTQAyfAcyabU9z/gB7KmRw
+	SRnTCpzq4EuzwzyliD4n8iGH/SWzEe/FU0Y9mjNLaN+3QnyoutSL8PoPsXIOHkFmYXSxV0yVQs5
+	+BV2Ay8Xiy9Wk/1gKKjfX6yORrkBzmWhVFXJPpiz2kLoduRZ4/VZf6s1TAMBzLO2acu5ixECvrv
+	ZIUYzupry5hIUnm8tGAWGTnunQM9pFW0BmNfw7J8R1+kQn96w+FibXvvHZoXsXGoZQVPgqP2YaW
+	XMevsfk0RoUQ0E4d9HP3XdeEhIvdtk40BQYNCJv9sSbXaMvWw5skQA/Kzcoapoxgm+LQ+ZrnR3z
+	NCvzOPP7nn1LY4bQTL7INrAASeP2uauNIc8w9Mpsp0ALk=
+X-Received: by 2002:a17:90a:d010:b0:38d:eaec:4396 with SMTP id 98e67ed59e1d1-3903c58bdd2mr30385694a91.11.1786199072815;
+        Sat, 08 Aug 2026 07:24:32 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::f280])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39085f2b2easm8638206a91.11.2026.08.08.07.24.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Aug 2026 07:24:32 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/tegra: gr3d: fix autosuspend cleanup during teardown
+Date: Sat,  8 Aug 2026 22:22:16 +0800
+Message-ID: <20260808142217.2893936-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,77 +79,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+gr3d_probe() calls pm_runtime_use_autosuspend(), but gr3d_remove()
+does not call the matching pm_runtime_dont_use_autosuspend() during
+teardown.
 
-[ Upstream commit cfc0b8e5080aec87700774e8568765eaa4b7b92b ]
+If the autosuspend delay is set to a negative value while autosuspend
+is enabled, the runtime PM core increments usage_count to prevent
+runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+during teardown, this reference is not dropped.
 
-The receive path applies the minimum SMB2 PDU size check only when
-ProtocolId is SMB2_PROTO_NUMBER. A packet carrying
-SMB2_TRANSFORM_PROTO_NUM bypasses the check even when the negotiated
-dialect does not provide transform handling.
+The documentation for pm_runtime_use_autosuspend() also notes that it
+is important to undo it with pm_runtime_dont_use_autosuspend() at
+driver exit time, unless runtime PM was initially enabled with
+devm_pm_runtime_enable().
 
-On an SMB 2.1 connection, a short transform packet therefore reaches
-init_smb2_rsp_hdr(), which interprets the request as a full SMB2 header
-and reads beyond the request allocation. The copied fields can then be
-returned to the unauthenticated client.
+Add the missing pm_runtime_dont_use_autosuspend() call to the driver
+remove path.
 
-Compression transforms are converted to ordinary SMB2 messages before
-protocol validation. After that conversion, validate ordinary SMB2
-requests against SMB2_MIN_SUPPORTED_PDU_SIZE and require encryption
-transform requests to contain both a transform header and an SMB2
-header. This rejects truncated requests before work allocation.
+This issue was found by manual code inspection.
 
-Fixes: 368ba06881c3 ("ksmbd: check the validation of pdu_size in ksmbd_conn_handler_loop")
+Fixes: 62fa0a985e2c ("drm/tegra: Enable runtime PM during probe")
 Cc: stable@vger.kernel.org
-Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-31063
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- fs/smb/server/connection.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/tegra/gr3d.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
-index a50213e4307e1..c193b87cfa750 100644
---- a/fs/smb/server/connection.c
-+++ b/fs/smb/server/connection.c
-@@ -379,6 +379,8 @@ bool ksmbd_conn_alive(struct ksmbd_conn *conn)
- /* "+2" for BCC field (ByteCount, 2 bytes) */
- #define SMB1_MIN_SUPPORTED_PDU_SIZE (sizeof(struct smb_hdr) + 2)
- #define SMB2_MIN_SUPPORTED_PDU_SIZE (sizeof(struct smb2_pdu))
-+#define SMB2_TRANSFORM_MIN_SUPPORTED_PDU_SIZE	\
-+	(sizeof(struct smb2_transform_hdr) + sizeof(struct smb2_hdr))
+diff --git a/drivers/gpu/drm/tegra/gr3d.c b/drivers/gpu/drm/tegra/gr3d.c
+index 1ec6ced959e4..5fd1fd32fcc0 100644
+--- a/drivers/gpu/drm/tegra/gr3d.c
++++ b/drivers/gpu/drm/tegra/gr3d.c
+@@ -534,6 +534,7 @@ static void gr3d_remove(struct platform_device *pdev)
+ {
+ 	struct gr3d *gr3d = platform_get_drvdata(pdev);
  
- /**
-  * ksmbd_conn_handler_loop() - session thread to listen on new smb requests
-@@ -393,6 +395,7 @@ int ksmbd_conn_handler_loop(void *p)
- 	struct ksmbd_conn *conn = (struct ksmbd_conn *)p;
- 	struct ksmbd_transport *t = conn->transport;
- 	unsigned int pdu_size, max_allowed_pdu_size, max_req;
-+	__le32 proto;
- 	char hdr_buf[4] = {0,};
- 	int size;
- 
-@@ -476,11 +479,14 @@ int ksmbd_conn_handler_loop(void *p)
- 		if (!ksmbd_smb_request(conn))
- 			break;
- 
--		if (((struct smb2_hdr *)smb_get_msg(conn->request_buf))->ProtocolId ==
--		    SMB2_PROTO_NUMBER) {
--			if (pdu_size < SMB2_MIN_SUPPORTED_PDU_SIZE)
--				break;
--		}
-+		proto = *(__le32 *)smb_get_msg(conn->request_buf);
-+		if (proto == SMB2_PROTO_NUMBER &&
-+		    pdu_size < SMB2_MIN_SUPPORTED_PDU_SIZE)
-+			break;
-+
-+		if (proto == SMB2_TRANSFORM_PROTO_NUM &&
-+		    pdu_size < SMB2_TRANSFORM_MIN_SUPPORTED_PDU_SIZE)
-+			break;
- 
- 		if (!default_conn_ops.process_fn) {
- 			pr_err("No connection request callback\n");
++	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 	host1x_client_unregister(&gr3d->client.base);
+ }
 -- 
-2.53.0
+2.43.0
 
