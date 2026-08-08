@@ -1,81 +1,77 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AE13C37AF
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 10:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73CE3CCA15
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 10:57:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786184471; cv=none; b=Y+Mss0RXqH/BYW7UOT19uF1+ompa4kDj6HLX7txrb77MIV6UVHVB/X8Hwxv08rm8wdixTwIA+gTZS5AruwxwUTlozMCkaKZjYZSWUiTBSJiTepLx2SNlYK6PAiUL3/bkUkj5LWsQvya5MnmstAA3mMEG3lgM8OpZxBOjAdamJjA=
+	t=1786186633; cv=none; b=QfmihCzlTBT0Ig6gqB/IXzlyv7fmQ3mbh51dZ8pizdhOicVLeIY1uMCTvqOxIDRFkF8v6tr35oAiGtX077QvLRD+X5aBM9VKIeyNf+BOvQDSHaZkpUzx9EsbzBtQy13SFkc5fcZtmIMu1KPaQ0oa6cTucUE1tFSBq+4PNBDEBb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786184471; c=relaxed/simple;
-	bh=RXpVzpt7di1+nGOPxTbhDa4AoMa4uRQ9RAyXrUYqYH8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iKR1yF/liIBYCr4z/ive/7KZ2K7eisJpNPocEFpZfugLdvjLb6VWRLO8fEzjW39EfjWpPQnU82FpI8XZBLq2oVrHSugcs3wS3zUa3BhB27Psf9UZyQZCrrebUcxDn976izqeeVhxpV5pJyc4PqQ81Vmb6C+5j57n4sobOUeVMXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=quFBL+oQ; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1786186633; c=relaxed/simple;
+	bh=tb66UxTSAQrQUkai6y4yVLMKfp5NW2EVJnReCmrxdwk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FNCEWyAKWyVcfh8prB3MLeS9z0A6WNYSfpustPXd0P19NgM+eXrSPWC9OZNvrnF48YkmT0o1vRvrK1RVT0RLi6+pcainTm1iaJ2AT3q+7WLaALo+Owba8vsn5tGi8vIabY9KhGfBBQUOS6EXUEXoWnKngxa5uo6fxURTyhgsHIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OBqLjq+g; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="quFBL+oQ"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4955de8797cso2255885e9.3
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 03:21:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OBqLjq+g"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ceb096e675so4393065ad.0
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 03:57:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786184468; x=1786789268; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786186631; x=1786791431; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xQRg1mejXL46bQBa0p78UFbpH6Ut5RwhVRoCIO1su08=;
-        b=quFBL+oQvWu8pzBnRtRQEKaW4d/OVtub9aNNuJ0wiEJT7nJ3d5B6i072GUnY5muwZT
-         90yZIybX+v/zMJyK0ci92DEUPp5/PflLc+cmDhS5ztxH0Oo8RNmsrqaAYJkIXNpQGaqn
-         KWwFuz7rv++8A4YW4EjT6XQiGFC7/+3W7TVGOogoBPwRPc/RJ8vOWIU5MuwNUNR6IJJ1
-         Je+oifvhzVdJplKJ8Arnucj4pFkAQCLxmCZQd7tUt9Keiy7NPAEYvm2zWsKPgkdOnKdP
-         JVoFpt1h6R50Ys6XTLfLstTB4kC11r1wYyUhUN9+/Avga/Efkl9cof3N+wHUcitXzVvN
-         1dDQ==
+        bh=Be6DCppg/DEo+f3Oq+NlhfXUFVlwKCwHdneTqVx4xfY=;
+        b=OBqLjq+gA5gThtZGrTiw2PGoIq7592z7KWZVoTZViQkVoyhaNFQDEMfBpul7CEybEp
+         ZxBieoJ4jXkaCpw8BLEMJ0L73PxPd3fEScInk3Qy6MCdQ9/jdsaQgqNsLrPsTjrSPYUp
+         EK4FiS++xvz4OwzkH0YxatHY3bEE21IDQUjFvAJUlQm7tDCvV2UMm5CTVWuq1XtBHCk+
+         /395/SbmNhFUbql64hkV8NoqX0s/vWv8CkoYQdCdC7Q0lVxZOmxoLvJc+8SrNblGUItN
+         mh9rAgcF9lmSpuRzeS1Xz6ahZmWcbGa1TVG/u/1dkFHd/VBR7N+39UerGefGsXKgBVZc
+         hp5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786184468; x=1786789268;
+        d=1e100.net; s=20251104; t=1786186631; x=1786791431;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xQRg1mejXL46bQBa0p78UFbpH6Ut5RwhVRoCIO1su08=;
-        b=WrSWe/bA6R/Y0eJNsBYiOszpIG8Ibo8RpguM5crulWVxAIzFXSuF5Unk1kujCj9757
-         gd15bCOl7gw9nExGuRXe+3facqi9/QggQI8s3wni0N15UXBMcTNCqzJhyvF6+vXnDlZQ
-         YxA37OJv8YosGGGPz0YdY+i/OC798nEW4PkYdLWoCAQMHkWfQniu9MUAtb7ZXTRrDdYW
-         e+ptOJZ6KQI6uWqfZQz+g/zHez+VvD0IB35RGhEemZInlOHn7pmfqAoS1qTkZEFABLxB
-         AmeeCsh/NTHWyoay/QsUWojkjwWKq5d+0BydbBec8/2deokmOO+1YzUrK4Wq1uq9JMq1
-         72Pg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr7d5+oFD+0TsiWU7snuVfQsWhB9xtm8vaSXnLcn08rPf58FaA6ccobEAf8YcT1BbNguA2Bufg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQPeqjPRi5rufVWVmszPjrtXD9mlFE6mczHGrMmtnY04YMkGen
-	osKzLo05V1QVMztoleXAJGbxZsF705gH7PeVdEqxnhPBr6bPMdhPa03b
-X-Gm-Gg: AR+sD10gwS+BrrU0BCwYKvpP+RewI38ZgzWGL1Qw1KtWCXJX/IlLAPyFg2iw6aE3PCG
-	OY2LQ7/0cfbrAaKFAOO1Q6GKEf7Jw4sQhqR3/4arrGJRHl/jdalaaP7AzTkVgSfOnS4A7Qf9onG
-	IncV2JDXA15U3BvGNYAv8EWqvkGNH6emzF9bE4WAV1JLo9S6Y0i4JSSPTgCwrLDXsNRcp4iGkty
-	chkv4d16pHdS1ZwPmumgVYqjExTafcZGhvxud0qXCmZIKczeWzCMqqcfYTPM8E5NaeHpV1UITFA
-	QoZhgZ4VPvE0FkVQXppVS6dH74zyzVrt2bSB8OHnfnBr16jDu5aZgTWKNbbcv1a6EhiaqFJkHXc
-	9100VjQVdX3u1qL3uG/li62Jl4O+CBC+W51zA5UMSgTkBgn2gK5iXC2lCrz6fq4YYYQo6bcUekP
-	suqEvkP92PUtg1ssUM/rkoMTlu04FIEZDO+G/Fc5WmmSgAmYyo2QOAxBSiB3Zf1bUvkSyZX4t2J
-	Z5kk+WVW8Oakzlq2RHeKnugRdUDr3JhqfkEtS3J48nfvkdKvyo+Dfu8UMgQn+WTqUOGkyfuYuhI
-	KFHkcsTadJodzarmIn6n
-X-Received: by 2002:a05:600c:1987:b0:495:3de8:33a6 with SMTP id 5b1f17b1804b1-4995e0dfb2emr138243805e9.16.1786184468167;
-        Sat, 08 Aug 2026 03:21:08 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-077-007-004-134.77.7.pool.telefonica.de. [77.7.4.134])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021e8c5asm15256604f8f.18.2026.08.08.03.21.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 08 Aug 2026 03:21:07 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Heiner Kallweit <hkallweit1@gmail.com>,
-	nic_swsd@realtek.com
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Javen Xu <javen_xu@realsil.com.cn>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        bh=Be6DCppg/DEo+f3Oq+NlhfXUFVlwKCwHdneTqVx4xfY=;
+        b=I8QZm6CoqVqD8OjfJkCLSu6aMSlOx7WG/pUgqxz8L63srKh3rJ6Ai22zjB/VY6o3O/
+         tvGtHgtHHLYnriW+J+etzkYFdkuLgYSpfYoGifDuT1YrQ/zWZHPONCIghbcObIPkEuEJ
+         1sEOjox/Og8uIFY60AbvgfIRe80nKO3mPhhP5aKgeUgifLh4J8n6TJ0MEGoVcVae0gMZ
+         2wYo+BwT4SXvFGAa8TbrECDEiPJ5C1dlQ9Usl9JtAJY9SUjSg3gf0QVFMeZLo66jOvN5
+         JolCO4TftyLlvF9tvo/lzn1CS8b+0KM+6ygIWT5aJ994DmQZlR5a1R7oJ0S4IJk+Ixty
+         Yr7Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpIB7TgPZv1K42A0j+3e33yQ6TXP9BCtcSPINekLTpNlXfBsU25bWjoVstfjTQLInvf4YA36jo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx3sBIdyLqMtGdkmQnqvT8/bk+0CZj9kevPyzGR3kMXvWmZ/x/Y
+	SxRrYY/oUrW7xF9L9L0aQa6TNTcawi2AslbMSjtAXBJng0Z4N74iRD/W
+X-Gm-Gg: AR+sD11CmTCP2wUDlvh/lXDGGpebtqMR0qUALnyDyHtG98PZALLTcgV+Kb2dV5YurDR
+	876BIBRxJfztnnRCtj4p8bFo9HRtxVO0SldlW6Dzelh45OqPtR1giy7HFWqFAOxHGa3k/cLB1c0
+	dp4tOV4UDucnNsgAYLFUWHOix8YbO9H86b1wF4hOol5wr1dCuOg6Jg8/ytAyec2265bTqbS5+Kw
+	0nUnbZz2wPjxAk1gvjVF7Uud69Pw0aNBM++i2+40UInOjGEE9OLHO4ice/eJPyUC1gweFFEmeX2
+	fHMBe3DXf6yAOWU0WyWYm7hZ79Hz2S+ihUbnYf1K62ER5w3URF6BVxCcz25UbhgUkHyzGx6wcF2
+	mrreJSvsrmQnCN0CY+S2vixy9AqWp4+HgaXvA+vqEocVovket5erTnxvC0ffrTrzmGSleeKL/e7
+	WKAb/fmNWlwKOw3AYsOLNhpaC3en+XSXSn2XSkrNFj6TfhqSfJHA==
+X-Received: by 2002:a17:902:e5c1:b0:2d1:134:b86e with SMTP id d9443c01a7336-2d2a845758amr69362385ad.2.1786186630914;
+        Sat, 08 Aug 2026 03:57:10 -0700 (PDT)
+Received: from lgs.. ([118.193.39.24])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14da67e21sm17661175ad.37.2026.08.08.03.57.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Aug 2026 03:57:10 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Srinidh Kasagar <srinidhi.kasagar@stericsson.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dan Williams <djbw@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net] r8169: give RTL_GIGA_MAC_VER_EXTENDED a distinct value
-Date: Sat,  8 Aug 2026 12:19:41 +0200
-Message-Id: <20260808101941.57666-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Subject: [PATCH] dmaengine: ste_dma40: fix autosuspend cleanup on probe failure
+Date: Sat,  8 Aug 2026 18:56:57 +0800
+Message-ID: <20260808105657.2762974-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,40 +80,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-RTL_GIGA_MAC_VER_EXTENDED implicitly follows
-RTL_GIGA_MAC_VER_LAST = RTL_GIGA_MAC_NONE - 1, so it has the same value
-as RTL_GIGA_MAC_NONE.
+d40_probe() calls pm_runtime_use_autosuspend(), but its error path does
+not call the matching pm_runtime_dont_use_autosuspend() before
+disabling runtime PM.
 
-rtl_init_one() therefore sends unknown chips through extended detection.
-If TX_CONFIG_V2 reads as zero, they are misidentified as RTL9151AS
-instead of being rejected.
+If the autosuspend delay is set to a negative value while autosuspend
+is enabled, the runtime PM core increments usage_count to prevent
+runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+during cleanup, this reference is not dropped and usage_count remains
+unbalanced.
 
-Give RTL_GIGA_MAC_VER_EXTENDED a distinct value. It is only a detection
-marker and is never stored in tp->mac_version.
+Add the missing pm_runtime_dont_use_autosuspend() call to the probe
+failure path before disabling runtime PM.
 
-Found by Clang's -Wduplicate-enum and verified with a QEMU stub.
+This issue was found by manual code inspection.
 
-Fixes: 5e3c5a2b85da9 ("r8169: add support for extended chip version id and RTL9151AS")
+Fixes: 8d318a50b3d7 ("DMAENGINE: Support for ST-Ericssons DMA40 block v3")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/net/ethernet/realtek/r8169.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/dma/ste_dma40.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/realtek/r8169.h b/drivers/net/ethernet/realtek/r8169.h
-index 0b9c1d4eb48ba..fb772cc043105 100644
---- a/drivers/net/ethernet/realtek/r8169.h
-+++ b/drivers/net/ethernet/realtek/r8169.h
-@@ -74,7 +74,7 @@ enum mac_version {
- 	RTL_GIGA_MAC_VER_80,
- 	RTL_GIGA_MAC_NONE,
- 	RTL_GIGA_MAC_VER_LAST = RTL_GIGA_MAC_NONE - 1,
--	RTL_GIGA_MAC_VER_EXTENDED
-+	RTL_GIGA_MAC_VER_EXTENDED = RTL_GIGA_MAC_NONE + 1
- };
+diff --git a/drivers/dma/ste_dma40.c b/drivers/dma/ste_dma40.c
+index 0d9ffa3e2663..e2ad50e0fec4 100644
+--- a/drivers/dma/ste_dma40.c
++++ b/drivers/dma/ste_dma40.c
+@@ -3654,6 +3654,7 @@ static int __init d40_probe(struct platform_device *pdev)
+ 		regulator_disable(base->lcpa_regulator);
+ 		regulator_put(base->lcpa_regulator);
+ 	}
++	pm_runtime_dont_use_autosuspend(base->dev);
+ 	pm_runtime_disable(base->dev);
  
- struct rtl8169_private;
+  report_failure:
 -- 
-2.53.0
+2.43.0
 
