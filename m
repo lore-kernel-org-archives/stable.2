@@ -1,130 +1,164 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AEE32DC767
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 13:16:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786195011; cv=none; b=bv1iGg2X531fqP/1VdypsTRIr5icADBGyIrWgGDw2o/8yHPNruNpIbCnDQwaVbXx4BF7Kack0PBv/oE/CBDNEu2vXMRIWtexPzfdu3OXAP00wifYu0qrx7RBgrekLU9G6cijnqxLpschcM7q1j186S4iqQtm55jmZfGexLlTTbA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786195011; c=relaxed/simple;
-	bh=TMYGCPWzWxNWnWnXN5IMnP4GVuS1UaG4vXqIdbqa/6I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kXhkxYXXLHuQz58B9oD2nggSUAbOK5hkkcVRNShjYhJUgvfJuT4B+CXZZwNf6fMoClmc7FFDgXiCZA4iF/hbaqXkxPwRIBHBI0azk1Y7knVm1tB34ak3CLMImL8cq7dNMM1Pj60RyOdwgkC391QPct0f+hmgjmoZ1QevnR5+QxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QxmTsUcN; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86C53B2FC7
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 13:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786196321; cv=pass; b=eNwc/YqawLuYfPz/w30RXVSbUPRa6kl4xxQtKgc6Qk3i1aTfKHR9FQJKOn/YZF1SXgJQFgQ4Nag+xYitXA7xy06KMysL0qoGif1vj0NXIPoZFVE4SO+t4lm5Rot/tS+VHB+FoXCLZl0plkOwtf1c5HQQh6HPn0qw/CXnjAjQ1KA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786196321; c=relaxed/simple;
+	bh=71wg+Yx9OeDKkrBSUO/2kzZynVoRWwKwtzXMdscHdNM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KjYykCURRiNZzRLkTK7hQRcIIv27hcJ9KwDBSkoaTJ1TDXtliP8BK+3VSaAHVWrfjjY/nhbyzmQicMC2cpu4R7rgrkuKBVASL0IeA37QP8U+134RBJ763PKFLqMwRmQ/F2alp9D1jpv3fc/E5OoRqjwknnOhEbSGkZABGwZfHe8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=khhJ1WJD; arc=pass smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QxmTsUcN"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38125cebfdaso542346a91.1
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 06:16:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="khhJ1WJD"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47de008b020so245919f8f.1
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 06:38:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786196318; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XsMDBZ9hxx7thgP172XulUJAkRNdf57RPmS0Uuw5j9goE/8pgl9fjpLROWf0QzGlVk
+         S96ozmcUIyBHoIoQzU+5sJLBeljMC2wb1OhnOH+1TO12/9ciC3KGRoHtHtcYgKQ5Fu7P
+         ShC0Psb7JPNqMnxE8WnqOQr9BQOXwPjYNHD3F1fIHB1Uw/4G/fsL0kvIql+ZWpbSqEGi
+         r0EoQJaeGdQGVWKRERAm3g7k+qFDIABE6oq20AVcQeWIEAq2ACcY61fKz+r5QF7RzpZM
+         lAE5GkdhfEm037H4HdHezCS3ZWNYRpJA9Qv2TDMeGTZoFnsCNsuI7bBMnRarM9fOBYsg
+         6bKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LfZyWZCjJ1leqVfT0SG7I+7umcPy1TcL4EPeJOs9ZU8=;
+        fh=KgDtKZzdHnjU/l11bGfrarnalPNxaX++v+jaKq+N/SQ=;
+        b=jFYGJxRT9t3UlK21Gi6mZYSONZfEHL+rLeXdLpjyAl5cdjYProXQ23U46ezHmh75vH
+         uTnJqAIssj2U9lM3yknrQzh+nAGUn9YAtV26WmhlbPaTpPOXi8k2e/GPuXqCMCILr6nh
+         I6GPARM0wPMXcQDkokcc7PBQ+s8uy1Da+780EKYl+H0j2VaCmRouZILmU6sUxd8cEjYa
+         GnSyPYrb03Zkui/spjaDGRWZUekQt2og1Hal6kkrEce0FgjKs6uk6BGsXG0GiOcTZqKI
+         KqXb9f3ZVF8/PItixZO8gODKV/xIe27GKPgGo4VISmqBs7Hdumo0XAgyQ9x9TOycMlta
+         Y+nw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786195010; x=1786799810; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ScR2OWx8A6oqcrYtXEp2YggGcFi1+8jFkpl9OoPWy+g=;
-        b=QxmTsUcNhSUxb5SLxY269jXkQf5RzF0USGAxymK8Gpl2z3eOp47dvT5w8HeGXtxQK2
-         w6l8I3EShn3C8NCi2YjD9gNeS93m5/3DWkbyfx5BE+iqOP0JlB9CMyN9+1hYDz7eEnWO
-         bXA7Kwhstex+LKQ9DC2MAqxWpWfQtBm/C80GmAgnS7pWHK5RDHv7HkB1PrFZD3uB5KR8
-         +UkTAusjmhKdO+1p+c89f8pJNms3/ftihQ2gR0yn40Lb+OWCZo6+um0KNxnyOCBzOwa8
-         +3+npu/9cMoiOVydP/LNE9heLIM6aaDnAw0KUoG/Mk7uO0o3ycc+dHzFqJlaSve/vMCo
-         y/Eg==
+        d=brainfault.org; s=google; t=1786196318; x=1786801118; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LfZyWZCjJ1leqVfT0SG7I+7umcPy1TcL4EPeJOs9ZU8=;
+        b=khhJ1WJDczt2RWIekDh2IxOrvdWhLjoMzqGCQVEIvPqFePLrF8UB9/XWtkaKFxM6ot
+         2ohe8ATX/TTMXM3AoNxmweJvdTOJLyHOsuLVwVtXo1UszgGAd5Lo17Q+FXWDLGeuq40g
+         GE8qo644YPVCtGdqHOh4G9UPjmJNy0AXNUdhPkqKWAQZgYby3/+4BRUOuaj4yy6B0+R4
+         GHx/F0b7OfLA+eXOor4MtQY21kOjQU6W5WfxCCGAzyWsnKhjzy9ZqS5G/l7bekl/REj5
+         ec1F2nuhxRkximtsr7rqgsBYbNm/S8zwEgrE7nXVy+cCI+RKcgTCuJXVlbHkgE2aVGAJ
+         FSfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786195010; x=1786799810;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ScR2OWx8A6oqcrYtXEp2YggGcFi1+8jFkpl9OoPWy+g=;
-        b=rYNHLCH3HLmrzrteWcXR3bcqH6z1XCwA35wq6wnLuPM71MFR6DMldpAfubA2d0fSze
-         D2w017vTbV61lhZ/mDPgabYQm90jxe/qyi9j2HYEGr7gHpZKSBiGK5WWGFBA65+FTn9X
-         AX7MuziHUJjoI21ittNy6MXkD/49A8mhWjpXMK4lBQGMIjwOdYNxeoIzm8E0uUld+XMf
-         yQBtwT7uA9BsiUnG1vuy1nOJbwaP+vctCfWennuq+ZEn/QTqTbrf80M9gsvzm1VLy7r+
-         CVvLmloYm4uJu3fbgzTp5MzPxeJN1dg8Gtyj0KcLDknQmBnkRwl8TrlMCM1sCGt+cNwr
-         YDeA==
-X-Forwarded-Encrypted: i=1; AHgh+RpnnB7ItJ6e0pbHjUN/6T5sSp80i1VbqRqej75+8Za6kLK1l0rLCXriZfucdjHHEK+Jrfu8Pgc=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyc2JcNfRD9yYHfsU3iU6g2Mj1qk0pleuO86uv+CSTb8Rac3Aqm
-	eItvATaCKCACfFBjwlVRXHzfZzw4CMZ3exbzVdY7PWMhMSjd2A2NZWLM
-X-Gm-Gg: AR+sD13g2gPCpfHvhJX3SZWQou4xVbj88htDyf2u6MCMhU2Cr2tdanyEuzTbfECRp06
-	s0IOmRO+rKfcQel2kALAU+CnAcH5aE+4FFPAZHq/vnt9+wQdMVv+1nKvhBJMJtnBmHrTk+sTpzu
-	ru7YbVA/wPkk3DuAyLoWbMHQFYDJIdfwfUnNoctMgiwGrgPpHR99Q2U1wEK6egpnF5Z7GTyFYe3
-	rLgL+PAFM78MhjebicOdGGox1XSv2UFGCZDEam47KkEjeDEDtiqGltY4p/Cz4dYfYDbH/A54caX
-	r6VbOtGkbRGCrTaKgYfuL6xv7kQJ0sl+alvJ0GFKaHmvSn2wyFyK3XscQzzK+8pxAoa8v0WMnNC
-	qzbtoSMPwV/Cx79E/IMzrH/YN52mcs8nZy/Xn6+dIqZ4dd/S+ZJNXZHPU749tsdqAAkD/bchQ/z
-	2qN5E9AFJv8BOqnvPii81HvXbSAMrwGke2OEr5Vq0iVu6V+1+zyQ==
-X-Received: by 2002:a17:90b:288d:b0:38f:26c7:165e with SMTP id 98e67ed59e1d1-39261ff3945mr13138690a91.9.1786195009547;
-        Sat, 08 Aug 2026 06:16:49 -0700 (PDT)
-Received: from lgs.. ([118.193.33.13])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3925fd95c40sm6170661a91.8.2026.08.08.06.16.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 06:16:49 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Sean Paul <sean@poorly.run>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 21:16:24 +0800
-Message-ID: <20260808131624.2854412-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1786196318; x=1786801118;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LfZyWZCjJ1leqVfT0SG7I+7umcPy1TcL4EPeJOs9ZU8=;
+        b=g3yJp5w2jl10NjjLpqEoK1ZDcS9xGsG/0aLQBkrhsGho2b8maeZhv/weCzI8A0w2el
+         5l1ApBhvTqNGv4i3AGPoZsdfRshAU5XGx8jn/snW9dt4FSW1pOb/nnyU8DYM5bCCZtWx
+         E6Zq4FVa2PRdWjd85ZpdYmJwQPgFRaDn/RgGr/GYirfwAIMTxdHb1EvmcghDAOTxnGOc
+         X8x8IDv7FOD4Y+yDSUZUr3GQzPQMR7qqPsTO5P3u3t92GiP+Jzq8AU0IYJ8I0O5PJqMR
+         6VEshU2Ga34loVAsdlWxoFXqvuK+GYDjRzzvpYnEzgMT1e/oToy/Yu1YbUAWsOUUx66F
+         MANQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqy5jBzHh1CDsJ7vzVv4FVAggwNCVgZPqU6rbY1Wg12tVZNukM1Z1lf9vxfOP0Mlb7nInc0e9g=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLFIsUCDH+LbpplMe3DO/w6pWLkFl9o+zmT4z7VQPOW5jeh0Yg
+	n1quYtlBdPWIOUeEOi9bKd+yzUegk/RuP5D7J9gCbpybFd08an7ftarfmF9cibCyJQnpXRqTGoT
+	IlbityNoxd2byQUUiCJP6mmamBFuK1z2Mp+Qh8zNTBA==
+X-Gm-Gg: AR+sD11t8oKHM0sZO5MzPl6QhCvfmkqKB6Rq8i8Iie9n6BbyMQ2P9B0GwWjJoDaTnwi
+	ky3JGvCiK3+2dMnuMyi1//cr5ej1BnCvwELBO8zR3ImaIzxm5hldlcyfaMHfqJrKiM++sTQHOC7
+	fQuST41CbY2b73XKbAvk4Ln+yHqETaApDSOEs9oZ3BAHlnI5T/IQMSB/zqg5g5iy0CMHt4Js0Ly
+	uSXv+dao9nTBhnNVw/bwk1OwHzoxNBIFqD76xmwfUV/aayl4jGBK66iFcSaiVBg6VK0xOtH0/Ck
+	+aKW2NWYqiwPbskR+8EeNx0e7J5/CyBHmrsbe0bDGYEZB1zB9SjiwA0lxJBjXEDPdRxodLlq+ig
+	ENZzVM4MMf45wbIYlhl3pFJPVNfGXULlHfD59O1yfJrkX3ay0iWoOiyZaS4mpHOg=
+X-Received: by 2002:a05:6000:1887:b0:47f:ec53:1d2d with SMTP id
+ ffacd0b85a97d-481319549ddmr7552590f8f.7.1786196318049; Sat, 08 Aug 2026
+ 06:38:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260721073612.137259-1-xb@ultrarisc.com>
+In-Reply-To: <20260721073612.137259-1-xb@ultrarisc.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Sat, 8 Aug 2026 19:08:26 +0530
+X-Gm-Features: AUfX_mzyJKN77fdCLGM6gmkcr4GuDsVCUAGD0eNJkavB7H9aI1HM5JR4BzibWXc
+Message-ID: <CAAhSdy3kDmRxcT_+dOpcUVAkvZ-F0kWdQett+mTy93gPDkwS+Q@mail.gmail.com>
+Subject: Re: [PATCH] RISC-V: KVM: Serialize IMSIC attributes with vCPU migration
+To: Xie Bo <xb@ultrarisc.com>
+Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-adreno_gpu_init() calls pm_runtime_use_autosuspend(), but
-adreno_gpu_cleanup() does not call the matching
-pm_runtime_dont_use_autosuspend() during teardown.
+On Tue, Jul 21, 2026 at 1:06=E2=80=AFPM Xie Bo <xb@ultrarisc.com> wrote:
+>
+> KVM device ioctls are not serialized against KVM_RUN. As a result,
+> kvm_riscv_aia_imsic_rw_attr() can snapshot the physical CPU and HGEI of
+> an IMSIC VS-file before a concurrent vCPU migration releases it.
+>
+> The HGEI can then be allocated to another vCPU before imsic_vsfile_rw()
+> uses the stale tuple. A GET or SET attribute may consequently access the
+> new owner's interrupt file.
+>
+> Serialize the entire IMSIC attribute operation with the target vCPU
+> mutex. This prevents the VS-file from being migrated and recycled until
+> the attribute access completes.
+>
+> Fixes: db8b7e97d613 ("RISC-V: KVM: Add in-kernel virtualization of AIA IM=
+SIC")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xie Bo <xb@ultrarisc.com>
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped and usage_count remains
-unbalanced.
+Please address the new issue reported by Sashiko bot
 
-The documentation for pm_runtime_use_autosuspend() also notes that it
-is important to undo it with pm_runtime_dont_use_autosuspend() at
-driver exit time, unless runtime PM was initially enabled with
-devm_pm_runtime_enable().
+Regards,
+Anup
 
-Add the missing pm_runtime_dont_use_autosuspend() call to
-adreno_gpu_cleanup().
-
-This issue was found by manual code inspection.
-
-Fixes: eeb754746b14 ("drm/msm/gpu: use pm-runtime")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index c62c45bb0ddb..29c59899fdef 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -1252,6 +1252,8 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
- 	for (i = 0; i < ARRAY_SIZE(adreno_gpu->info->fw); i++)
- 		release_firmware(adreno_gpu->fw[i]);
- 
-+	pm_runtime_dont_use_autosuspend(&gpu->pdev->dev);
-+
- 	if (priv && pm_runtime_enabled(&priv->gpu_pdev->dev))
- 		pm_runtime_disable(&priv->gpu_pdev->dev);
- 
--- 
-2.43.0
-
+> ---
+>  arch/riscv/kvm/aia_imsic.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
+> index d38f5de08..2a4f88efe 100644
+> --- a/arch/riscv/kvm/aia_imsic.c
+> +++ b/arch/riscv/kvm/aia_imsic.c
+> @@ -969,9 +969,13 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, uns=
+igned long type,
+>         if (!vcpu)
+>                 return -ENODEV;
+>
+> +       mutex_lock(&vcpu->mutex);
+> +
+>         imsic =3D vcpu->arch.aia_context.imsic_state;
+> -       if (!imsic)
+> -               return -ENODEV;
+> +       if (!imsic) {
+> +               rc =3D -ENODEV;
+> +               goto out_unlock;
+> +       }
+>         isel =3D KVM_DEV_RISCV_AIA_IMSIC_GET_ISEL(type);
+>
+>         read_lock_irqsave(&imsic->vsfile_lock, flags);
+> @@ -995,6 +999,8 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsi=
+gned long type,
+>                 rc =3D imsic_vsfile_rw(vsfile_hgei, vsfile_cpu, imsic->nr=
+_eix,
+>                                      isel, write, val);
+>
+> +out_unlock:
+> +       mutex_unlock(&vcpu->mutex);
+>         return rc;
+>  }
+>
+> --
+> 2.54.0
+>
