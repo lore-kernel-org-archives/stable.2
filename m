@@ -1,79 +1,44 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5599D2E11C7
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 16:07:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE40379C46
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 16:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786205271; cv=none; b=FqLwpp3X1NOkVHhvzvso6tr5iM3DJNKP8ronJlJF7WFljDCpbuDCFsO5HKwjPFoSUZhmp/49iHhVm3JTK3Fr1hHYrwOdid6kx5qV4SwV76rTnCOro88Q8ihMZRc6b1HnRMVcxpjGiHWTXxquR9peYz/rtxm0vaEkesj5DCsy5Dg=
+	t=1786205775; cv=none; b=EO5ASl4qfrD51R3+Z90mYpvn9J2mH6G+vyI97IjDj/Xh+ezxD++oZmhg3eNWjK3ht9wJlvuI37es9fui90Rd2O8ZANLAQLcbZl4e+Eel28T6sC+cBVV9hnLcPiwpWyIPVx/y1fEyKDSomi5GKFPx6tcwcHrnB31dk3gloSCOC1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786205271; c=relaxed/simple;
-	bh=xHY+S+KV7aofm8Qyz6ICcsPYKjrEprOF1DxCXtRvUwU=;
+	s=arc-20240116; t=1786205775; c=relaxed/simple;
+	bh=rlSEUNQ54ZK5az5YCNg1vXHQ+6yDpXZ3Fppxhzrf8oc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RxGCSet7BdesuSO4+u1YNb+XyNGgFtthJqPC+bS+4djlgv0GNdM6H86SLOc5I6FW5FWdq8yugM/SgBDFSKXwaZrhKW+prIEl0Icseq4q8rPL/9+oIuGNJUF2Hgd9oaEHB3kpeC5i2SCrUTAjFdgSGmi3pcLTmE+PEVOQf4kwFuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ko2rpens; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=HytVAFYvgQMub6SxZMYeQVhEil/abfcAHlfS/GvpU1RAjftqTR0Ix7dzYId0C+0azOtI9yfadFsY4iI1f8xvdFMGrECkbP23x7X1ZtD1gWloco7XgsksCtbjlmX7Sl3hWXf8FvKdt0ZoJhWeJNyvg3+3w4MSOxVXb5oMEdtDBkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYbb6qzf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ko2rpens"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-c9fe3c9bd5fso2048774a12.0
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 09:07:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786205270; x=1786810070; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SENg9pRRUoZlSlJ+dKSUdZMKiB8mTHxjF4bNd6z+scs=;
-        b=ko2rpenscD/J2gEGs14EKE+UbBicRv/c9QYOfTitVWagMR9VdydBD1NL4XEAWsuydo
-         6KlUYWZCJQtNjXHmVjadWoI6LtWMfXgzT/ugcEqGH6jEk5SVEIHIiTACd5bDNtBWVdkx
-         C3bo4bauLeHYfSnoq34m5SZmQM9VY8n7dZu3E+MuOHHmH2FhMVQWvy6nDGEAHLZjxMVV
-         iIvxR/KOk3V8rVcGMYlN3jMx0SbnurMf7/Hx7bFuGYqu/asjBI7PGiDufOT1ne+7FgrS
-         qBF/SoQegecMZYoDeaQD+qq3TYobJzKQNucagHcReN26LMcFwtuUlxfSThRQGVFXyZj9
-         ArCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786205270; x=1786810070;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SENg9pRRUoZlSlJ+dKSUdZMKiB8mTHxjF4bNd6z+scs=;
-        b=WiOAe2z8h6QMnEmzQQ3BQejwrT8HRE4/XGlrDJ5loeAnn/w57G7dSZKBIPM2CCgop1
-         kHWoS0uvPzvBvLGWT4Le9LDuyO3KPv8NXhK8TDZgjqFP3XhaHbZukuCy8pkpWyeJAaai
-         5EExKlvQJctkmI/asgRwjoRviX+3PTRRcax84PLJkK0P9U4Vb+jhzmdCvy5fOgNOj66V
-         tfVud01J8OPlwfK0kP9/xMSAfXLsa7wZcBtXaXS57TmPaT7+kbxWK0R7HaZwz/FRqqxo
-         rSmdfgxtpnppTFJtHw+hzJEAcrDiQj4QieFyRKzdi9qTUM9Eo8ffjJS919lJkFBhkr8X
-         9fbQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqrCyPVHFVIRId41iJcl6a3jsD8OZPs9y7CpssEWK08oDFF1DEX4CdnWkQULMJZkQypSxkE6VM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzfQ7hmzwLxvTy/N2sDY2WacucaHzXXE+mF1Xx7Vv5QHRLbqVmn
-	ZkBVdcMmiFCmaRPOz/aGPmgs1vWlDsIDdt3fg6UyIMBOdl3lU4bnMDko
-X-Gm-Gg: AR+sD11wSKUK1SnjXNEYU7LP0TVSVckKHHEzfiutQSr9cL+QOzOBUl+3jYGYiDHs36K
-	TqJdZKIUuLMmlX4dEIi/H+RXjnCLwL1igpLyKcmohcNCYjOgy5QzE5j9iuf68Bp7OayTG0YBMjl
-	nwEnAXKoIPArWIZI0jdKmpD+kKOvfntB2rixi+IFe44cvI9NtGNTCGiOBevMvbFkRFViTgBaA90
-	titk3L7Kxb8KvrfaD6BQbcrFIC29ZwShg2/fP8Zu15x/f21pqcGLmm/aBCL93KO2fPp17GDuhyb
-	/dhOuqPAAEn1hJX9mpl+Qv0H/UbBRq9fUmqOBAAZavnc8J2x1s7v2ukR3aTAjLVVxAEFpxiECQh
-	jypApKSxSUPuKrnKv8yNIYHQir3DTgDipQpnkDzy8c7/LehRAuMckAOYOctCgf7Jw9i0BN/YvPP
-	mcOZbPtUWGpNULtXpADwpeC96I325pqKKjwpaHBSUqK+xrpiX2kJKa5c4TumlI0j4THg==
-X-Received: by 2002:a05:6a20:7487:b0:3b3:3506:cf3f with SMTP id adf61e73a8af0-3cbd37eeb43mr5799416637.1.1786205269492;
-        Sat, 08 Aug 2026 09:07:49 -0700 (PDT)
-Received: from Default ([2409:40f4:1004:7586:314d:e5f1:6904:c18e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315beb877b4sm24529384eec.19.2026.08.08.09.07.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 09:07:48 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: i@zenithal.me,
-	jeffinphilip14@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	shuah@kernel.org,
-	stable@vger.kernel.org,
-	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com,
-	valentina.manea.m@gmail.com
-Subject: [PATCH v2] usbip: usbip_host: fix null pointer dereference in
-Date: Sat,  8 Aug 2026 21:37:31 +0530
-Message-ID: <20260808160731.8698-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026080737-drank-trodden-16e4@gregkh>
-References: <2026080737-drank-trodden-16e4@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYbb6qzf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AEA31F000E9;
+	Sat,  8 Aug 2026 16:16:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786205774;
+	bh=Wm1IDBCgmJy4Xe4dvLlDuPXHERgP9TIg+Wi79ao48P8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HYbb6qzfq3RLwVpvJ7jr+nIhVNQbUblPVVYdIJk6Yxtf/Ra1ibG7CHmhPVDNI+4xE
+	 R9yCLh31JJuxBGR9xQte5zYpmUA1qlv3g/um4K1ZHB2jAwb52jCm9h0WjUZqvUhjY2
+	 pQn+xlFLi4Hsea1J2R/lMLO5O5ksQ6IAZCXoG4ZFeWn4wzoWVKWhkYFGvxqXUSIhGN
+	 RDjHQkcZlMr3nZrwi7XmsAUHmGhk13tKTLI82vWXaxGLkieOymfDvrSJIARdchnVFj
+	 8UbrwMfFsI4exbseJPwi/vZEvFbK5Pe21/AKuDgKfGrg0pvrmyZLvf98+XrzcT+Yix
+	 6igt91brF7Ipw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] net/sched: serialize qdisc_rtab_list against concurrent get/put
+Date: Sat,  8 Aug 2026 12:16:11 -0400
+Message-ID: <20260808161611.432858-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072927-reunite-vixen-fd67@gregkh>
+References: <2026072927-reunite-vixen-fd67@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,21 +47,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 07, 2026 at 03:09:56PM +0200, Greg KH wrote:
->If you do not hold a lock when testing and doing something based on a
->field, it will race and is broken.
->
->Again, step back and try to determine what you are trying to fix here,
->and how that can be done in a race-free way.  If you don't know, that's
->fine too, I sure don't!  :)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-I read the whole driver, and udev does not seem to be nulled anywhere
-except in stub_probe(), where it is only assigned. So, we can safely
-check for null udev alone. The driver itself seems to hold itself
-together as currently I don't see a potential race. probe() also 
-cannot run as we set our status to STUB_BUSID_OTHER under lock so 
-probe would ignore that too. Am I missing something else here that
-could create a potential race? Please advise.
+[ Upstream commit f43ee0c0730d6191629b5ee1ceae27b1ebfdc047 ]
 
-Thanks,
-Jeffin.
+qdisc_get_rtab() and qdisc_put_rtab() mutate the process-global singly
+linked list qdisc_rtab_list and a plain non-atomic 'int refcnt' with no
+lock. This was only safe because every caller historically held the RTNL
+mutex, which serialized all rate-table lookups, inserts and frees.
+
+That invariant no longer holds. cls_flower sets
+TCF_PROTO_OPS_DOIT_UNLOCKED, so tc_new_tfilter() keeps rtnl_held == false
+for it and sets TCA_ACT_FLAGS_NO_RTNL. That flag propagates through
+tcf_exts_validate_ex() -> tcf_action_init() -> tcf_action_init_1() ->
+tcf_police_init(), which calls qdisc_get_rtab()/qdisc_put_rtab() with the
+RTNL mutex NOT held. Two RTM_NEWTFILTER requests on different CPUs, each
+adding a flower filter with a police action carrying the same rate, then
+race on qdisc_rtab_list and on the non-atomic refcnt, leading to a
+use-after-free / double-free of the kmalloc-2k struct qdisc_rate_table.
+qdisc_rtab_list is a single global (not per-netns), so the corrupted
+object is shared system-wide.
+
+  BUG: KASAN: slab-use-after-free in qdisc_put_rtab+0x12f/0x160
+   qdisc_put_rtab+0x12f/0x160
+   tcf_police_init+0xda9/0x1590
+   tcf_action_init_1+0x460/0x6b0
+   tcf_action_init+0x439/0xa40
+   tcf_exts_validate_ex+0x42d/0x550
+   fl_change+0xddd/0x7da0
+   tc_new_tfilter+0xaa7/0x2420
+   rtnetlink_rcv_msg+0x95e/0xe90
+  which belongs to the cache kmalloc-2k of size 2048
+
+Protect qdisc_rtab_list and the refcount with a dedicated spinlock. The
+(sleeping, GFP_KERNEL) allocation in qdisc_get_rtab() is performed before
+taking the lock; if a concurrent inserter added an identical table in the
+meantime the freshly allocated one is freed under the lock, so no
+duplicate is leaked. qdisc_put_rtab() now decrements the refcount and
+unlinks under the same lock.
+
+Fixes: 470502de5bdb ("net: sched: unlock rules update API")
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: stable@vger.kernel.org
+Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260715114114.446841-1-qwe.aldo@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sched/sch_api.c | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
+
+diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
+index c9f7e793a375b..c67d95a078f75 100644
+--- a/net/sched/sch_api.c
++++ b/net/sched/sch_api.c
+@@ -410,12 +410,13 @@ static __u8 __detect_linklayer(struct tc_ratespec *r, __u32 *rtab)
+ }
+ 
+ static struct qdisc_rate_table *qdisc_rtab_list;
++static DEFINE_SPINLOCK(qdisc_rtab_lock);
+ 
+ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 					struct nlattr *tab,
+ 					struct netlink_ext_ack *extack)
+ {
+-	struct qdisc_rate_table *rtab;
++	struct qdisc_rate_table *rtab, *new_rtab;
+ 
+ 	if (tab == NULL || r->rate == 0 ||
+ 	    r->cell_log == 0 || r->cell_log >= 32 ||
+@@ -424,15 +425,20 @@ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 		return NULL;
+ 	}
+ 
++	new_rtab = kmalloc(sizeof(*new_rtab), GFP_KERNEL);
++
++	spin_lock(&qdisc_rtab_lock);
+ 	for (rtab = qdisc_rtab_list; rtab; rtab = rtab->next) {
+ 		if (!memcmp(&rtab->rate, r, sizeof(struct tc_ratespec)) &&
+ 		    !memcmp(&rtab->data, nla_data(tab), 1024)) {
+ 			rtab->refcnt++;
++			spin_unlock(&qdisc_rtab_lock);
++			kfree(new_rtab);
+ 			return rtab;
+ 		}
+ 	}
+ 
+-	rtab = kmalloc(sizeof(*rtab), GFP_KERNEL);
++	rtab = new_rtab;
+ 	if (rtab) {
+ 		rtab->rate = *r;
+ 		rtab->refcnt = 1;
+@@ -444,6 +450,7 @@ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 	} else {
+ 		NL_SET_ERR_MSG(extack, "Failed to allocate new qdisc rate table");
+ 	}
++	spin_unlock(&qdisc_rtab_lock);
+ 	return rtab;
+ }
+ EXPORT_SYMBOL(qdisc_get_rtab);
+@@ -452,18 +459,25 @@ void qdisc_put_rtab(struct qdisc_rate_table *tab)
+ {
+ 	struct qdisc_rate_table *rtab, **rtabp;
+ 
+-	if (!tab || --tab->refcnt)
++	if (!tab)
+ 		return;
+ 
++	spin_lock(&qdisc_rtab_lock);
++	if (--tab->refcnt) {
++		spin_unlock(&qdisc_rtab_lock);
++		return;
++	}
++
+ 	for (rtabp = &qdisc_rtab_list;
+ 	     (rtab = *rtabp) != NULL;
+ 	     rtabp = &rtab->next) {
+ 		if (rtab == tab) {
+ 			*rtabp = rtab->next;
+-			kfree(rtab);
+-			return;
++			break;
+ 		}
+ 	}
++	spin_unlock(&qdisc_rtab_lock);
++	kfree(tab);
+ }
+ EXPORT_SYMBOL(qdisc_put_rtab);
+ 
+-- 
+2.53.0
+
