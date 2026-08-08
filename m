@@ -1,143 +1,123 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FE42D8DDF
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 09:05:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.244.194.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76363AB260
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 09:23:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786179930; cv=none; b=ZZ8Q4sr4O0C4yJTppiEI/ppi4Mz5TqBgsUGvyph7YCiJXxRxm98XhYm+eZD0L9nWwtg63EKXme7oYlwrbpKAlpTIV+cP4+JNBOpiijPfRWHisdLe8YFMQANHywKFTKXmUHr/RGXerjDfTNi1ENyB6RcbKwgKlKOPRk9BYYoWS0I=
+	t=1786181027; cv=none; b=LXWjxmSq7DtoQ6TpsaLNbao5+ZHeRmL4qLCwTBjGLgKBDo0hYCypLkVzscvS3vtuNvGEo92Pg6ZnfiQ/KaIvrOBfXzSoO4r32PCYMDZVQHzYPJGQjnFHS5s1tfxGK8bOMqn3yk6QA7U7ovnHHOzJ00WJTpFswJBbWDseEU19oT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786179930; c=relaxed/simple;
-	bh=2kSy3J/wNpIdu37Lk3qZBr1b2w31GsuA/GqIUIKNO68=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DG03PAFK2DsIM/YhKXs+ZD9CpyjWwf3kh4lyReiYb4kp4HIvX77RU94cx5QOCfV98efQHy8UXghZ/ZflOi332BMNm75Z4yRfGz0ETygftxYziroBzwiAY/ho2CiYhUx5gXT6G92o581Z3XkqVVcswueSUin+VJoiqoxdHba0W54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=AXg9wN65; arc=none smtp.client-ip=185.244.194.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1786181027; c=relaxed/simple;
+	bh=yxshTvyoAPGWmZZDuR7TLWMT0v330fFFxJAyBybbt2w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P6ibKB1BdY1rK76QI3tCmnwiwlXwbgpphefeK/mBPTcrZZLitcoKA7mWdlDwYRRZbCsrPE0FfOJOi/6G9feSBZjzqfHAYeN9QZQA8mhzRfaCbFEYB6r6yqwcgEnOak/JPuiAQYNVGC7ei2TgIf0V4J8cEEOMtiyHn7qWLUWSijI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L5AfFqwd; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="AXg9wN65"
-Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hHFTn4pR4z9BJF;
-	Sat,  8 Aug 2026 11:05:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1786179917;
-	bh=2kSy3J/wNpIdu37Lk3qZBr1b2w31GsuA/GqIUIKNO68=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=AXg9wN65vWiAIMqrQLZLvi5NjF/KHOND9OpPwmIRYZ1Kl7657cer4g8D5KSBqIz4Q
-	 7mNpB2eOKtkMU9lGI79HPDcQFUgXaJqJPm3ZwgYfm2ZHlcHmqDLu9RVjhhLLeE9jrn
-	 HUyKPOK40kb5AKYMeZsfLZw3XKjGjvdPgM/4P/dP5UEfrFxGHleZVvteJWY7ikPsO/
-	 QDuYbHpp4rzkD3Z7jRB/XhdtuaGyAf4f2qzvmoEfS7gPyONwvDR79c0Szi2LMinz8w
-	 r2m2Fq/GJui0LhxQ/xz1sCsoin+8GPfckfXwCqQYxRqdUV+GX2eFTgmlTXKMJ+4F3y
-	 DoRiWBvwurDxg==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hHFTn45MBz7xV8;
-	Sat,  8 Aug 2026 11:05:17 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.901
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hHFTl2kV2z8tY8;
-	Sat,  8 Aug 2026 11:05:15 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 9620F5FA12;
-	Sat,  8 Aug 2026 11:05:10 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <a7b06f6d-b9c8-4e2f-abf8-8d2a84f287d5@leemhuis.info>
-Date: Sat, 8 Aug 2026 11:05:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L5AfFqwd"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2caea3f742bso6240435ad.0
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 02:23:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786181025; x=1786785825; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PjXi/qxRj8zV1nCYije6O11THncTCuMbmHOZ9Jpz060=;
+        b=L5AfFqwdY/dV3KWppV0Jo7CjHmdZrXJlrDEh+BpiHzSO8i7nM/Lth3TYvvYG27L9Zi
+         /WWmf7IbfJy4MR4Jf8i6OEmvfIwISKWT4cxz8iZ8I7P5r6qgDEIT3LvXnUcqe5znUNsK
+         wc94jbsnEXOyVpagEuEY+D8q/aJrUfO9M5hh/JR5NBRvOGeXopoPYLOZWfn3s6sth6qD
+         R9oMq40rp+mwf2YtZB6kk3FeviUhq9z7KDMzcoWQDQWw8sajEUdziGj2to212KM2ENGJ
+         2J1NXSMhX1aYmcjVACzh34mWYwwfZ/uEknPZuRQldxTroCGDGNahS4tB3KsajwARQRXD
+         WA/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786181025; x=1786785825;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PjXi/qxRj8zV1nCYije6O11THncTCuMbmHOZ9Jpz060=;
+        b=E9D7SMsB38zwEO2unX+8ljSYcld6NWIrmtK/ZMPNUE/w/5Hgoxy2LY4nraHpfAABKT
+         g+4rbk/Vx0XErsfxYzE3hFKO8SAqEoMbJ0/LFkkJB27MefYwWyaiN1MTe41Fjh9w/mOm
+         J/sDDZA3F8bq26PsYyDoHHC8RCZ3TF5vzytvUF9z8hHHrkKGNMgeq6pfXO5ggxTdOd3R
+         c6xWRB6zjH5IMDmV1dHnJe9HyrEvEp+jQcvK2Qsiyw3gzmINA79vxNfgYix1X3ugwmro
+         mtLbawErvc4WHkY9V3qSmmPU6+bBhflgZ2viLgiEvRfqnk6wTnYahEJcXIQi3sviJHGw
+         XXkw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/KMMgJSJc39JZT4e/dcut4Ups7zQpckRqvPaT2TGZBpb8wNPqNwcEUrZm9mtg+lxyGdkh0ho=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxyC6q8g6/eIpHVip+ZJebDFgSXSuuidT+SyFbZqII0QKO2hjh
+	dqIE2MkWsQ3jue5nsPvl+e0aQvyktxZWhSCvqTaOLHZ/D2ij/z6KdIx6
+X-Gm-Gg: AR+sD13Ek2hNcklFzI66svt6Ku8LR2txh6tmHw/AzEIfsE5TyGZ/4coPVmW/0JDAk64
+	I/8ziHnIlxAy8T0sd8KhikHoBgCdJelXqtRE5eUdvTqFw+h/tT4CXawgE70tjdQ6sF2RBIGOsnO
+	sil1pww4MWCJjLyT9lknVQTrENOJRrMPrp0cOH4clf+JUaYkgDruQSDswqCvPqkio7PTqcFIhNz
+	71i0OByaNhLsz7OR+itqaWXDak9U67X8VPskQ9lDsySZ2pBnLnrLQ2qiZFeHAeeHkEUM9WmRg3w
+	DuvAOJCVUmvmjQAP9T91J+/zB6frNIn/HZ4MkQaxpfofU10wG1wnvyx1G9oD05AEVFPrn5rBKwx
+	r39Hj9rQdjqytKrdXIZet4ADetLr0TqfqPhHriRBx99uUVAXSDaQ4xiQljZhpa3mvF6Rf8/XJE6
+	qZ6P5vkRyJp8AnMU9eEubG5wpxfLXnD+Hu8Q1764eUpbl/zQKNmfctrg==
+X-Received: by 2002:a17:903:17c3:b0:2c9:e86e:aa0a with SMTP id d9443c01a7336-2d0ca165189mr344277915ad.0.1786181025137;
+        Sat, 08 Aug 2026 02:23:45 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::f280])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14dbeaa88sm17171945ad.39.2026.08.08.02.23.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Aug 2026 02:23:44 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Gilad Ben-Yossef <gilad@benyossef.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: ccree: fix autosuspend cleanup during teardown
+Date: Sat,  8 Aug 2026 17:17:34 +0800
+Message-ID: <20260808091734.2727295-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 326/438] i2c: designware: defer probe if child GpioInt
- controllers are not bound
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Mario Limonciello <mario.limonciello@amd.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- Hardik Prakash <hardikprakash.official@gmail.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Andi Shyti <andi.shyti@kernel.org>
-References: <20260807143428.008222056@linuxfoundation.org>
- <20260807143434.924930262@linuxfoundation.org>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <20260807143434.924930262@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178617991101.3188982.5619938524368659315@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 9620F5FA12
-X-NC-CID: aR87k7tPudRCIVs1XLzdeH+CJMcQp+xyKrNBVaqWeGlqnd6F2WA=
+Content-Transfer-Encoding: 8bit
 
-On 8/7/26 16:38, Greg Kroah-Hartman wrote:
-> 7.1-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Hardik Prakash <hardikprakash.official@gmail.com>
-> 
-> commit 0a4bb2abc3e56d7be6e69b050c88ba52c87e22bf upstream.
-> 
-> I2C controllers may have child devices with GpioInt resources that
-> depend on GPIO controllers being fully initialized. If the I2C
-> controller probes and enumerates children before the referenced GPIO
-> controller has completed probe, GPIO interrupts may not be properly
-> configured, leading to device failures.> [...]
+init_cc_resources() calls pm_runtime_use_autosuspend(), but neither
+the probe failure path nor cleanup_cc_resources() calls the matching
+pm_runtime_dont_use_autosuspend() before disabling runtime PM.
 
-Hi Greg, just noticed yesterday with mainline that this change broke the
-touchpad of my ThinkPad T14s Gen 4 (AMD), so you might want to consider
-not backporting it for now:
-https://lore.kernel.org/all/b4a4eadb-282f-464c-843a-19d415a34d0c@leemhuis.info/
+If the autosuspend delay is set to a negative value while autosuspend
+is enabled, the runtime PM core increments usage_count to prevent
+runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+during teardown, this reference is not dropped and usage_count remains
+unbalanced.
 
-Ciao, Thorsten
+Add the missing pm_runtime_dont_use_autosuspend() calls to both the
+probe failure and device cleanup paths before disabling runtime PM.
+
+This issue was found by manual code inspection.
+
+Fixes: 4c3f97276e15 ("crypto: ccree - introduce CryptoCell driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/crypto/ccree/cc_driver.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/crypto/ccree/cc_driver.c b/drivers/crypto/ccree/cc_driver.c
+index 061e68a31c36..b127ec64a087 100644
+--- a/drivers/crypto/ccree/cc_driver.c
++++ b/drivers/crypto/ccree/cc_driver.c
+@@ -567,6 +567,7 @@ static int init_cc_resources(struct platform_device *plat_dev)
+ post_regs_err:
+ 	fini_cc_regs(new_drvdata);
+ post_pm_err:
++	pm_runtime_dont_use_autosuspend(dev);
+ 	pm_runtime_put_noidle(dev);
+ 	pm_runtime_disable(dev);
+ 	pm_runtime_set_suspended(dev);
+@@ -594,6 +595,7 @@ static void cleanup_cc_resources(struct platform_device *plat_dev)
+ 	cc_fips_fini(drvdata);
+ 	cc_debugfs_fini(drvdata);
+ 	fini_cc_regs(drvdata);
++	pm_runtime_dont_use_autosuspend(dev);
+ 	pm_runtime_put_noidle(dev);
+ 	pm_runtime_disable(dev);
+ 	pm_runtime_set_suspended(dev);
+-- 
+2.43.0
+
