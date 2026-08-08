@@ -1,66 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB7F3A83A9
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:12:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BC53002A0
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:12:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786187576; cv=none; b=lvFyP1nr8H8gjN3ygTOsjtkyhQLYK1fFXJRCdQQ1xppt2t5BSbjgEO3bhj4lVMuI2Us6bunkM6a3f8fsZdrQ4LSC0cI+HVy15NmbAsPkbsEVYC47hXkC2f7Ti5pwYdaOLqKETQ+Rt6oXt/G5PDu6HC/jTQSmf7s+y1HbTZmHuWI=
+	t=1786187578; cv=none; b=omPY0wTY/E7XYootM4meWAVcenWMduiT37BjOzewsg5cZ8fgu3HzfmxBVzxb6HJrANEuKNTiyVUfUE2Bxk+FHYfQdonW88sCFhRQdzMCvpb3NS0yUpqwcoPSM8cbeJUZ/xmFiCiH5SwWmaCF0Ei22d740xdyWyOJSYT1lXL8QJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786187576; c=relaxed/simple;
-	bh=y/JhJhY29krL4U6BfMgMK2NzqKyMT9K7xL8MkJojnqA=;
+	s=arc-20240116; t=1786187578; c=relaxed/simple;
+	bh=fYtdSDarUZEzhPkwpg0fGk8S7+vr+Sew9zujkItkRhg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KUXgmBDk/DcMze2POKrTITKlmOjAagqbx8VX8+YQSnio8SYPDZBVUXUoxfi9BulHi2ZpcGz30NxXvAt8GgDCs80SdKzeSZb4F5wIZd4D9Q9C6lS9kqy+qfvtphr48nsint8VVP+P7/3GlH/9NgOIC18gmE/P2ALWetbjTjCXhd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oRj4uZfj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=D7R8VVn6GNjaweQZckR6xs4OFcPoXuTvWv6exYek5UynNmYMRNbOg6+3XV+H/nSfiHXNMuL9GUaApvpiFaLzgQvpi3+VCbLPH26pitzd/P3PCZtXvdmd/fbF384hwIPto7zqvyG3NeeGOI6Twp6wI+HnuvyjSkoIxN3ugWf8ViM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ALwrP/As; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oRj4uZfj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 159D51F000E9;
-	Sat,  8 Aug 2026 11:12:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ALwrP/As"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06EA1F00A3E;
+	Sat,  8 Aug 2026 11:12:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786187574;
-	bh=QXAcVPdvRgxz67Pt3V8gFOHXA3lEsI87xTr09csR0U4=;
+	s=k20260515; t=1786187577;
+	bh=yyV+AcDgw/V23j3pteFsxpqlDVNO5RzrlvCgaIEQHwc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oRj4uZfjVC3Q33EMJVpjYkwZPuXNZewlCzCtHaj2aGszTHvOqJmN1BDzv2NMmBbAs
-	 wJX8W634ar5Z+NekbSIuyCJ612XxgrzrvF6dQmUnfTxDvXLhiA4/jddJ5YoPjD+oQD
-	 OnY6uxgCkYutj1S0rKxjN4ESB/LscLpx4aSS0HHt4rMTyD9+N17ZPs1oJfJWs5aHMG
-	 OHnMkZ+D31h2YfOjP9LeVRZqpdlhnU5RCQRySLNAAGxfVuvhDEOUbYAuV4Aw9QOaJO
-	 ZcchvuWlG7Z1CnG+XJKB/Ff+ouILYGwacGU258B8jVkE6npyfMVr981rGwiTzY9pF5
-	 2EMCDT0NOgw7g==
+	b=ALwrP/AsHh7r8Qx+Tfzc3qf6H8mNnByv8f0MKc3Y2qtncy8pWgk6FZgItl5V6PKSM
+	 Dvp9dQmh1dIPxlF2+nzsffNoq8dOAA1yx9FEU7Ose95KzQFGoVuiPefw/gjrNud50j
+	 L9Jb5fFdAbjaaXQhuuj3jWNoxiM9mskF52VPjrwbIQeHlNMtgApuMfKBbZuRx8Blv5
+	 TajN54BjyB5CU2R0iXlspY1yNSuVAozDRJABu5XFHJq0w2y/pCo3VIp2MpQF/o8y26
+	 AuvXFjT/TqENaS5lD6OHFwB14EadUEKKevr9o76l4uQgRcPjvLQ+DSsv0305JbARnA
+	 UWmb34EH3zWOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chunyan Zhang <zhangchunyan@iscas.ac.cn>,
-	David Hildenbrand <david@redhat.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Alexandre Ghiti <alexghiti@rivosinc.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Andrew Jones <ajones@ventanamicro.com>,
-	Arnd Bergmann <arnd@arndb.de>,
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"David Hildenbrand (Red Hat)" <david@kernel.org>,
+	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
+	Andrea Arcangeli <aarcange@redhat.com>,
+	Andrei Vagin <avagin@google.com>,
 	Axel Rasmussen <axelrasmussen@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor@kernel.org>,
-	Deepak Gupta <debug@rivosinc.com>,
-	Jan Kara <jack@suse.cz>,
-	Liam Howlett <liam.howlett@oracle.com>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Harry Yoo <harry.yoo@oracle.com>,
+	"Harry Yoo (Oracle)" <harry@kernel.org>,
+	Hugh Dickins <hughd@google.com>,
+	James Houghton <jthoughton@google.com>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
 	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Nikita Kalyazin <kalyazin@amazon.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Peter Xu <peterx@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Vlastimil Babka <vbabka@suse.cz>,
-	Yuanchu Xie <yuanchu@google.com>,
+	David Carlier <devnexen@gmail.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] mm: userfaultfd: add pgtable_supports_uffd_wp()
-Date: Sat,  8 Aug 2026 07:12:48 -0400
-Message-ID: <20260808111250.94416-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/3] userfaultfd: move vma_can_userfault out of line
+Date: Sat,  8 Aug 2026 07:12:49 -0400
+Message-ID: <20260808111250.94416-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072906-plank-status-52f6@gregkh>
+In-Reply-To: <20260808111250.94416-1-sashal@kernel.org>
 References: <2026072906-plank-status-52f6@gregkh>
+ <20260808111250.94416-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,191 +69,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chunyan Zhang <zhangchunyan@iscas.ac.cn>
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
-[ Upstream commit f59c0924d61aa2a2bb85936a593140f327112787 ]
+[ Upstream commit a5bb8669872b6b8463b8777a7a259a8305060016 ]
 
-Some platforms can customize the PTE/PMD entry uffd-wp bit making it
-unavailable even if the architecture provides the resource.  This patch
-adds a macro API pgtable_supports_uffd_wp() that allows architectures to
-define their specific implementations to check if the uffd-wp bit is
-available on which device the kernel is running.
+vma_can_userfault() has grown pretty big and it's not called on
+performance critical path.
 
-Also this patch is removing "ifdef CONFIG_HAVE_ARCH_USERFAULTFD_WP" and
-"ifdef CONFIG_PTE_MARKER_UFFD_WP" in favor of pgtable_supports_uffd_wp()
-and uffd_supports_wp_marker() checks respectively that default to
-IS_ENABLED(CONFIG_HAVE_ARCH_USERFAULTFD_WP) and
-"IS_ENABLED(CONFIG_HAVE_ARCH_USERFAULTFD_WP) &&
-IS_ENABLED(CONFIG_PTE_MARKER_UFFD_WP)" if not overridden by the
-architecture, no change in behavior is expected.
+Move it out of line.
 
-Link: https://lkml.kernel.org/r/20251113072806.795029-3-zhangchunyan@iscas.ac.cn
-Signed-off-by: Chunyan Zhang <zhangchunyan@iscas.ac.cn>
-Acked-by: David Hildenbrand <david@redhat.com>
-Cc: Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>
-Cc: Alexandre Ghiti <alexghiti@rivosinc.com>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Andrew Jones <ajones@ventanamicro.com>
-Cc: Arnd Bergmann <arnd@arndb.de>
+No functional changes.
+
+Link: https://lore.kernel.org/20260402041156.1377214-7-rppt@kernel.org
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: David Hildenbrand (Red Hat) <david@kernel.org>
+Reviewed-by: Liam R. Howlett <Liam.Howlett@oracle.com>
+Cc: Andrea Arcangeli <aarcange@redhat.com>
+Cc: Andrei Vagin <avagin@google.com>
 Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Conor Dooley <conor.dooley@microchip.com>
-Cc: Conor Dooley <conor@kernel.org>
-Cc: Deepak Gupta <debug@rivosinc.com>
-Cc: Jan Kara <jack@suse.cz>
-Cc: Liam Howlett <liam.howlett@oracle.com>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Harry Yoo <harry.yoo@oracle.com>
+Cc: Harry Yoo (Oracle) <harry@kernel.org>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
 Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Nikita Kalyazin <kalyazin@amazon.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
 Cc: Peter Xu <peterx@redhat.com>
-Cc: Rob Herring <robh@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>
+Cc: Shuah Khan <shuah@kernel.org>
 Cc: Suren Baghdasaryan <surenb@google.com>
 Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: David Carlier <devnexen@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: 3c58f641e813 ("userfaultfd: prevent registration of special VMAs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/userfaultfd.c                   | 20 ++++++++++----------
- include/asm-generic/pgtable_uffd.h | 17 +++++++++++++++++
- include/linux/mm_inline.h          |  7 ++++---
- include/linux/userfaultfd_k.h      |  8 +++++---
- 4 files changed, 36 insertions(+), 16 deletions(-)
+ include/linux/userfaultfd_k.h | 21 +--------------------
+ mm/userfaultfd.c              | 20 ++++++++++++++++++++
+ 2 files changed, 21 insertions(+), 20 deletions(-)
 
-diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
-index 49f0742625981..0ebdf3c2c9ee6 100644
---- a/fs/userfaultfd.c
-+++ b/fs/userfaultfd.c
-@@ -1354,9 +1354,9 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
- 	if (uffdio_register.mode & UFFDIO_REGISTER_MODE_MISSING)
- 		vm_flags |= VM_UFFD_MISSING;
- 	if (uffdio_register.mode & UFFDIO_REGISTER_MODE_WP) {
--#ifndef CONFIG_HAVE_ARCH_USERFAULTFD_WP
--		goto out;
--#endif
-+		if (!pgtable_supports_uffd_wp())
-+			goto out;
-+
- 		vm_flags |= VM_UFFD_WP;
- 	}
- 	if (uffdio_register.mode & UFFDIO_REGISTER_MODE_MINOR) {
-@@ -2068,13 +2068,13 @@ static int userfaultfd_api(struct userfaultfd_ctx *ctx,
- 	uffdio_api.features &=
- 		~(UFFD_FEATURE_MINOR_HUGETLBFS | UFFD_FEATURE_MINOR_SHMEM);
- #endif
--#ifndef CONFIG_HAVE_ARCH_USERFAULTFD_WP
--	uffdio_api.features &= ~UFFD_FEATURE_PAGEFAULT_FLAG_WP;
--#endif
--#ifndef CONFIG_PTE_MARKER_UFFD_WP
--	uffdio_api.features &= ~UFFD_FEATURE_WP_HUGETLBFS_SHMEM;
--	uffdio_api.features &= ~UFFD_FEATURE_WP_UNPOPULATED;
--#endif
-+	if (!pgtable_supports_uffd_wp())
-+		uffdio_api.features &= ~UFFD_FEATURE_PAGEFAULT_FLAG_WP;
-+
-+	if (!uffd_supports_wp_marker()) {
-+		uffdio_api.features &= ~UFFD_FEATURE_WP_HUGETLBFS_SHMEM;
-+		uffdio_api.features &= ~UFFD_FEATURE_WP_UNPOPULATED;
-+	}
- 
- 	ret = -EINVAL;
- 	if (features & ~uffdio_api.features)
-diff --git a/include/asm-generic/pgtable_uffd.h b/include/asm-generic/pgtable_uffd.h
-index 828966d4c2811..0d85791efdf77 100644
---- a/include/asm-generic/pgtable_uffd.h
-+++ b/include/asm-generic/pgtable_uffd.h
-@@ -1,6 +1,23 @@
- #ifndef _ASM_GENERIC_PGTABLE_UFFD_H
- #define _ASM_GENERIC_PGTABLE_UFFD_H
- 
-+/*
-+ * Some platforms can customize the uffd-wp bit, making it unavailable
-+ * even if the architecture provides the resource.
-+ * Adding this API allows architectures to add their own checks for the
-+ * devices on which the kernel is running.
-+ * Note: When overriding it, please make sure the
-+ * CONFIG_HAVE_ARCH_USERFAULTFD_WP is part of this macro.
-+ */
-+#ifndef pgtable_supports_uffd_wp
-+#define pgtable_supports_uffd_wp()	IS_ENABLED(CONFIG_HAVE_ARCH_USERFAULTFD_WP)
-+#endif
-+
-+static inline bool uffd_supports_wp_marker(void)
-+{
-+	return pgtable_supports_uffd_wp() && IS_ENABLED(CONFIG_PTE_MARKER_UFFD_WP);
-+}
-+
- #ifndef CONFIG_HAVE_ARCH_USERFAULTFD_WP
- static __always_inline int pte_uffd_wp(pte_t pte)
- {
-diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-index 96b1c157554c0..4fbf25c45ec91 100644
---- a/include/linux/mm_inline.h
-+++ b/include/linux/mm_inline.h
-@@ -547,7 +547,6 @@ static inline pte_marker copy_pte_marker(
- 
- 	return dstm;
- }
--#endif
- 
- /*
-  * If this pte is wr-protected by uffd-wp in any form, arm the special pte to
-@@ -565,9 +564,11 @@ static inline void
- pte_install_uffd_wp_if_needed(struct vm_area_struct *vma, unsigned long addr,
- 			      pte_t *pte, pte_t pteval)
- {
--#ifdef CONFIG_PTE_MARKER_UFFD_WP
- 	bool arm_uffd_pte = false;
- 
-+	if (!uffd_supports_wp_marker())
-+		return;
-+
- 	/* The current status of the pte should be "cleared" before calling */
- 	WARN_ON_ONCE(!pte_none(ptep_get(pte)));
- 
-@@ -594,7 +595,6 @@ pte_install_uffd_wp_if_needed(struct vm_area_struct *vma, unsigned long addr,
- 	if (unlikely(arm_uffd_pte))
- 		set_pte_at(vma->vm_mm, addr, pte,
- 			   make_pte_marker(PTE_MARKER_UFFD_WP));
--#endif
- }
- 
- static inline bool vma_has_recency(struct vm_area_struct *vma)
-@@ -607,5 +607,6 @@ static inline bool vma_has_recency(struct vm_area_struct *vma)
- 
- 	return true;
- }
-+#endif
- 
- #endif
 diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index ac8c6854097cd..fac0f3d0deb9a 100644
+index fac0f3d0deb9a..67ff2889374f1 100644
 --- a/include/linux/userfaultfd_k.h
 +++ b/include/linux/userfaultfd_k.h
-@@ -166,15 +166,17 @@ static inline bool vma_can_userfault(struct vm_area_struct *vma,
- 	if ((vm_flags & VM_UFFD_MINOR) &&
- 	    (!is_vm_hugetlb_page(vma) && !vma_is_shmem(vma)))
- 		return false;
--#ifndef CONFIG_PTE_MARKER_UFFD_WP
+@@ -160,26 +160,7 @@ static inline bool userfaultfd_armed(struct vm_area_struct *vma)
+ 	return vma->vm_flags & __VM_UFFD_FLAGS;
+ }
+ 
+-static inline bool vma_can_userfault(struct vm_area_struct *vma,
+-				     unsigned long vm_flags)
+-{
+-	if ((vm_flags & VM_UFFD_MINOR) &&
+-	    (!is_vm_hugetlb_page(vma) && !vma_is_shmem(vma)))
+-		return false;
+-
+-	/*
+-	 * If user requested uffd-wp but not enabled pte markers for
+-	 * uffd-wp, then shmem & hugetlbfs are not supported but only
+-	 * anonymous.
+-	 */
+-	if (!uffd_supports_wp_marker() && (vm_flags & VM_UFFD_WP) &&
+-	    !vma_is_anonymous(vma))
+-		return false;
+-
+-	/* By default, allow any of anon|shmem|hugetlb */
+-	return vma_is_anonymous(vma) || is_vm_hugetlb_page(vma) ||
+-	    vma_is_shmem(vma);
+-}
++bool vma_can_userfault(struct vm_area_struct *vma, unsigned long vm_flags);
+ 
+ extern int dup_userfaultfd(struct vm_area_struct *, struct list_head *);
+ extern void dup_userfaultfd_complete(struct list_head *);
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 92fe2a76f4b51..82aeaa936f019 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -891,3 +891,23 @@ int mwriteprotect_range(struct mm_struct *dst_mm, unsigned long start,
+ 	mmap_read_unlock(dst_mm);
+ 	return err;
+ }
 +
- 	/*
- 	 * If user requested uffd-wp but not enabled pte markers for
- 	 * uffd-wp, then shmem & hugetlbfs are not supported but only
- 	 * anonymous.
- 	 */
--	if ((vm_flags & VM_UFFD_WP) && !vma_is_anonymous(vma))
++bool vma_can_userfault(struct vm_area_struct *vma, unsigned long vm_flags)
++{
++	if ((vm_flags & VM_UFFD_MINOR) &&
++	    (!is_vm_hugetlb_page(vma) && !vma_is_shmem(vma)))
++		return false;
++
++	/*
++	 * If user requested uffd-wp but not enabled pte markers for
++	 * uffd-wp, then shmem & hugetlbfs are not supported but only
++	 * anonymous.
++	 */
 +	if (!uffd_supports_wp_marker() && (vm_flags & VM_UFFD_WP) &&
 +	    !vma_is_anonymous(vma))
- 		return false;
--#endif
++		return false;
 +
 +	/* By default, allow any of anon|shmem|hugetlb */
- 	return vma_is_anonymous(vma) || is_vm_hugetlb_page(vma) ||
- 	    vma_is_shmem(vma);
- }
++	return vma_is_anonymous(vma) || is_vm_hugetlb_page(vma) ||
++	    vma_is_shmem(vma);
++}
 -- 
 2.53.0
 
