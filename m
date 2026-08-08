@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C18233923
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:12:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB77392829
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:12:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786187566; cv=none; b=n8MXc/hq2ZkoaS6d8UNgIUacQt7IjCAq+vINMAX5JsV64/Iv3+z1bNShMaerWfjmC174W3Q+q8voUyVKT3EbdGmNti1KKMYZwExb4pQEIdVporREAxRQSAMgzQKdHXiGvgdnz6/DkspiH8zlLPSBE1QyjGqynKnEQA+BQGoXYdw=
+	t=1786187568; cv=none; b=WAGNT4dTlg+uD6QHmypELHVdXeajQdNNJYlddb99zN1ktAgNZ+xPjPvmVNrOT/fdTLnZ7j26PP4dC1yTanTgC0oNqHZgjFttcMSjGRaaeqXU7kxjp6OKYT+ZsIY5lzeY4DF+48+r5adAaj7uc+C7RDCIO6j7xFzF9nuz4QxeFrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786187566; c=relaxed/simple;
-	bh=1Z50x8z7Jt5XQKfnxgf0nKVcC8KlKGjP/6jxMUGXNAw=;
+	s=arc-20240116; t=1786187568; c=relaxed/simple;
+	bh=IyrLD+xOFGegidxPyTKb2SJKhYGf8XZnAXwmn3D7l4o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kVasJAi1YL8CYXJZjY+G4bX5s4yrWPt6s+vGdggMPhtivA8UNEqvoSLmBDQFAryecHR5c7i1nVvBPNRLcbtHpP7OOCLAOgLg1QfjlZyPFarluGcp0LOZX+KXSf8kSxj4JJx5yYHlhsSCDeUj+nB64+WH+v02eZxlPqYufCaZQEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AWls9sDB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dj/oVGv8aXPo+U4BtAmU9R/JOznGZkIBaQzcDLGr8L1KNSgNbBUImYDTiNYXR71fe24/J2jbFodoeUjjiDxZnHDL8k5vCs8Bkanhus8vudQDFswe4iAXvkxE6ZnybZC2K1OclgkMOZbhZXSgRsCJdaQhm56UaEawRHqPWJR5FhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gclDC0Be; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AWls9sDB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0A5D1F00A3F;
-	Sat,  8 Aug 2026 11:12:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gclDC0Be"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D8991F000E9;
+	Sat,  8 Aug 2026 11:12:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786187565;
-	bh=/O5YdHxo4dk6ZLpl6Grr5787CWz7Mr7eYmliBsjEwVk=;
+	s=k20260515; t=1786187566;
+	bh=92AbvF1fdfv5VQPfXd7FU6e6xgX6YeJMiU0+N3WLGRI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AWls9sDBpPOeQbQeJi3ySwd4q2MePQcPtYqf5xs0R6S08BfgUF2aSAaGJH2lLYoW4
-	 39hN3crmOFDYYXCPN6n4ClUMugE9Z7Ei8CpAxXGQQ28biaKZ9Gv7ze/OHp6uP6KZCh
-	 B7EkVDJiUknMMd+A5eSzlTztIuPe9OxAWAlc97EDWfAOX92jnHDo5CdXQaLTG2DI/e
-	 pje0MLQTNeEZEwy0t2yymZjbc48hX2JM0RVqtifMFH/SSzYD+p/FaYPvRhWMk4psab
-	 WX8sfhDci2oLq/AiEbl4Tne37VtzuxOi9A3XzWbGpeFFuB8KkoZ9N7eDpFDoLIuqEX
-	 Y4cwq1kPv347w==
+	b=gclDC0BeZoq37KQAp7ao95VbTQyWcPdjqjwLHV3yKODAUConpEgWaiaDD+BJbD3w6
+	 zAmz7/nz0cjq06YPx+8W0mGn1xpA4yyzIWTJSW1j+wVGPONKoq414V2T5XSJA1t2TG
+	 bdWHlsBn3JrvwjQKzzcHDGt9Eg2edBGB4PQ9QTxUu5MlO7BauKQKLDhDjEYb6m/2yM
+	 mdbL4mlr2/aaHzzS2VeI+JV9i+O/1FHMBoDl09Nur3pLj9NLSQiLy1UGssh0wDZ/8U
+	 6L6+PuSuuCVCAbt/Uer//z8DAg2k/zqlWYi8EbpN8Qbdodkk4sljMt3LLCEEg+qmR8
+	 BoQeos1Dl9mQQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
-	Alex Markuze <amarkuze@redhat.com>,
+Cc: Pavitra Jha <jhapavitra98@gmail.com>,
+	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
 	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] ceph: fix hanging __ceph_get_caps() with stale mds_wanted
-Date: Sat,  8 Aug 2026 07:12:40 -0400
-Message-ID: <20260808111240.93994-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y] libceph: fix two unsafe bare decodes in decode_lockers()
+Date: Sat,  8 Aug 2026 07:12:44 -0400
+Message-ID: <20260808111244.94166-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260808111240.93994-1-sashal@kernel.org>
-References: <2026072911-tipoff-trilogy-a6d0@gregkh>
- <20260808111240.93994-1-sashal@kernel.org>
+In-Reply-To: <2026072946-spotted-unvented-f2e7@gregkh>
+References: <2026072946-spotted-unvented-f2e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,166 +46,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Max Kellermann <max.kellermann@ionos.com>
+From: Pavitra Jha <jhapavitra98@gmail.com>
 
-[ Upstream commit 50958bb928bad3bdba9e5d1b7ff4bbadcf6951e6 ]
+[ Upstream commit a109a556115271ca7896dcda7b4b7e45e156c227 ]
 
-A reader can hang forever in __ceph_get_caps() when the client no
-longer holds `FILE_RD`, but local cap state still says that the
-capability is already wanted (via `mds_wanted`).
+decode_lockers() in cls_lock_client.c contains two bare decode operations
+that allow a malicious or compromised OSD to trigger slab-out-of-bounds
+reads:
 
-One way to trigger this is through MDS cap revocation.  If another
-client performs a conflicting operation, the MDS can revoke `FILE_RD`
-from the reader; the next read then has to reacquire `FILE_RD`.  If
-the cap update that should request `FILE_RD` never reaches the MDS
-after `cap->mds_wanted` was raised, the reader is left holding only
-non-file caps while local `mds_wanted` still includes the file read
-caps.
+1. ceph_decode_32(p) at the num_lockers field has no preceding bounds
+   check. ceph_start_decoding() accepts struct_len=0 as valid -- the
+   internal ceph_decode_need(p, end, 0, bad) always passes -- so when an
+   OSD sends struct_len=0, ceph_start_decoding() returns success with
+   p == end. The immediately following bare ceph_decode_32(p) then reads
+   4 bytes past the validated buffer boundary. The garbage value is
+   passed directly to kzalloc_objs() as the locker count.
 
-In that state, try_get_cap_refs() sees `need <= mds_wanted` and
-returns 0, so __ceph_get_caps() just waits on `i_cap_wq`.  If the cap
-update that was supposed to request `FILE_RD never reaches the MDS
-after `cap->mds_wanted was` raised, no further request is sent and the
-waiter can sleep indefinitely until unrelated cap traffic happens to
-wake it up.
+   The sibling function decode_watchers() in osd_client.c already uses
+   ceph_decode_32_safe() after its own ceph_start_decoding() call.
+   decode_lockers() was the only site using the bare variant.
 
-The ordering issue is that `cap->mds_wanted` is updated in
-__prep_cap() before the `CEPH_MSG_CLIENT_CAPS message` is actually
-queued for send.  That makes one field serve two different meanings at
-once: what this client wants, and what the client believes the MDS
-already knows it wants.
+2. ceph_decode_8(p) after the decode_locker() loop has no preceding
+   bounds check. If an OSD crafts num_lockers such that the loop
+   advances p exactly to end, the subsequent bare ceph_decode_8(p) reads
+   one byte past the validated buffer boundary. The result is passed
+   directly into *type, which is used as a lock type discriminator by
+   callers, giving an OSD-controlled one-byte OOB read with direct
+   influence over the lock type field.
 
-A proper fix would be to split those states and track whether a cap
-update is actually in flight or has been observed by the MDS.
-However, simply moving the `cap->mds_wanted assignment` later would
-not be sufficient: queueing the message in the messenger does not
-guarantee that the MDS processed that specific wanted set, and
-reconnect or message loss can still invalidate that assumption.
-Fixing that properly would require a larger rework of the cap state
-machine.
+Fix both by replacing bare operations with their safe variants:
+  ceph_decode_32(p) -> ceph_decode_32_safe(p, end, *num_lockers,
+                                           err_inval)
+  ceph_decode_8(p)  -> ceph_decode_8_safe(p, end, *type,
+                                          err_free_lockers)
 
-To allow simpler backports to stable kernels, this patch implements a
-simpler workaround:
+The goto targets differ intentionally:
+  err_inval: is a new label returning -EINVAL directly. It is used for
+  the pre-allocation failure path where *lockers is not yet allocated
+  and must not be passed to ceph_free_lockers().
 
-- stop waiting forever in __ceph_get_caps(); after a bounded wait,
-  fall back to the renew path
+  err_free_lockers: is the existing label. It is used for the
+  post-allocation failure path where *lockers is allocated and must
+  be freed.
 
-- make ceph_renew_caps() issue a synchronous `OPEN` request whenever
-  the inode still does not actually hold the wanted caps, instead of
-  only calling ceph_check_caps()
+ret is set to -EINVAL before ceph_decode_8_safe() so that
+err_free_lockers returns the correct error code on bounds violation.
+Without this, err_free_lockers would return a stale ret value (0 from
+the successful decode_locker() loop), silently swallowing the error.
 
-The extra issued-vs-wanted check in ceph_renew_caps() is necessary
-because the previous test only checked whether the inode still had any
-real caps at all.  That is not enough after revocation: the client can
-still hold something like `pLs` and yet be missing `FILE_RD`
-completely.  In that case, falling back to ceph_check_caps() is not
-sufficient, because it still trusts `cap->mds_wanted` and may resend
-nothing.  By requiring `(issued & wanted) == wanted` before taking the
-asynchronous path, the code only uses ceph_check_caps() when the
-`wanted caps` are already actually issued.  Otherwise, it sends the
-synchronous `OPEN` renew.
+-EINVAL is correct for both failure paths. The data received from the
+OSD is structurally malformed. -ENOMEM would misrepresent the failure
+class to callers and to stable@ backporters triaging error paths.
 
-This preserves the existing asynchronous fast path when the wanted
-caps are already issued, avoids changing cap-state semantics, and
-fixes the hang by guaranteeing that a stalled waiter eventually
-retries through a path that does not rely on the stale `mds_wanted`
-state.
+Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
+deployment can trigger this against any kernel client that issues the
+lock.get_info class method (e.g. during RBD exclusive lock acquisition).
 
-[ idryomov: move CEPH_GET_CAPS_WAIT_TIMEOUT from libceph.h to
-  mds_client.h, formatting ]
+[ idryomov: trim changelog, formatting ]
 
 Cc: stable@vger.kernel.org
-Fixes: 0a454bdd501a ("ceph: reorganize __send_cap for less spinlock abuse")
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Fixes: d4ed4a530562 ("libceph: support for lock.lock_info")
+Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
+Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/caps.c       | 17 +++++++++++++++--
- fs/ceph/file.c       |  9 +++++----
- fs/ceph/mds_client.h |  2 ++
- 3 files changed, 22 insertions(+), 6 deletions(-)
+ net/ceph/cls_lock_client.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-index 8542e06c43cea..dc03de28c5307 100644
---- a/fs/ceph/caps.c
-+++ b/fs/ceph/caps.c
-@@ -2910,7 +2910,19 @@ int ceph_get_caps(struct file *filp, int need, int want, loff_t endoff, int *got
- 					ret = -ERESTARTSYS;
- 					break;
- 				}
--				wait_woken(&wait, TASK_INTERRUPTIBLE, MAX_SCHEDULE_TIMEOUT);
+diff --git a/net/ceph/cls_lock_client.c b/net/ceph/cls_lock_client.c
+index 66136a4c1ce7f..639793597b76c 100644
+--- a/net/ceph/cls_lock_client.c
++++ b/net/ceph/cls_lock_client.c
+@@ -299,7 +299,7 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 	if (ret)
+ 		return ret;
+ 
+-	*num_lockers = ceph_decode_32(p);
++	ceph_decode_32_safe(p, end, *num_lockers, err_inval);
+ 	*lockers = kcalloc(*num_lockers, sizeof(**lockers), GFP_NOIO);
+ 	if (!*lockers)
+ 		return -ENOMEM;
+@@ -310,7 +310,8 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 			goto err_free_lockers;
+ 	}
+ 
+-	*type = ceph_decode_8(p);
++	ret = -EINVAL;
++	ceph_decode_8_safe(p, end, *type, err_free_lockers);
+ 	s = ceph_extract_encoded_string(p, end, NULL, GFP_NOIO);
+ 	if (IS_ERR(s)) {
+ 		ret = PTR_ERR(s);
+@@ -320,6 +321,9 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 	*tag = s;
+ 	return 0;
+ 
++err_inval:
++	return -EINVAL;
 +
-+				/*
-+				 * If a cap update is lost after
-+				 * mds_wanted was raised, waiting
-+				 * forever will never make progress.
-+				 * Retry the renew path periodically
-+				 * so we can resend synchronously.
-+				 */
-+				if (!wait_woken(&wait, TASK_INTERRUPTIBLE,
-+						CEPH_GET_CAPS_WAIT_TIMEOUT)) {
-+					ret = -ESTALE;
-+					break;
-+				}
- 			}
- 
- 			remove_wait_queue(&ci->i_cap_wq, &wait);
-@@ -2942,7 +2954,8 @@ int ceph_get_caps(struct file *filp, int need, int want, loff_t endoff, int *got
- 				continue;
- 			}
- 			if (ret == -ESTALE) {
--				/* session was killed, try renew caps */
-+				/* session was killed or a waited cap
-+				 * request needs a retry */
- 				ret = ceph_renew_caps(inode, flags);
- 				if (ret == 0)
- 					continue;
-diff --git a/fs/ceph/file.c b/fs/ceph/file.c
-index c47c67ca9ce6c..7ecb51384497b 100644
---- a/fs/ceph/file.c
-+++ b/fs/ceph/file.c
-@@ -277,7 +277,7 @@ static int ceph_init_file(struct inode *inode, struct file *file, int fmode)
- }
- 
- /*
-- * try renew caps after session gets killed.
-+ * Retry cap acquisition after a stale session or a lost cap update.
-  */
- int ceph_renew_caps(struct inode *inode, int fmode)
- {
-@@ -285,14 +285,15 @@ int ceph_renew_caps(struct inode *inode, int fmode)
- 	struct ceph_client *cl = mdsc->fsc->client;
- 	struct ceph_inode_info *ci = ceph_inode(inode);
- 	struct ceph_mds_request *req;
--	int err, flags, wanted;
-+	int err, flags, wanted, issued;
- 
- 	spin_lock(&ci->i_ceph_lock);
- 	__ceph_touch_fmode(ci, mdsc, fmode);
- 	wanted = __ceph_caps_file_wanted(ci);
-+	issued = __ceph_caps_issued(ci, NULL);
- 	if (__ceph_is_any_real_caps(ci) &&
--	    (!(wanted & CEPH_CAP_ANY_WR) || ci->i_auth_cap)) {
--		int issued = __ceph_caps_issued(ci, NULL);
-+	    (!(wanted & CEPH_CAP_ANY_WR) || ci->i_auth_cap) &&
-+	    (issued & wanted) == wanted) {
- 		spin_unlock(&ci->i_ceph_lock);
- 		doutc(cl, "%p %llx.%llx want %s issued %s updating mds_wanted\n",
- 		      inode, ceph_vinop(inode), ceph_cap_string(wanted),
-diff --git a/fs/ceph/mds_client.h b/fs/ceph/mds_client.h
-index cd943842f0a3c..4c2741933bf43 100644
---- a/fs/ceph/mds_client.h
-+++ b/fs/ceph/mds_client.h
-@@ -61,6 +61,8 @@ enum ceph_feature_type {
- struct ceph_fs_client;
- struct ceph_cap;
- 
-+#define CEPH_GET_CAPS_WAIT_TIMEOUT (5 * HZ)
-+
- /*
-  * parsed info about a single inode.  pointers are into the encoded
-  * on-wire structures within the mds reply message payload.
+ err_free_lockers:
+ 	ceph_free_lockers(*lockers, *num_lockers);
+ 	return ret;
 -- 
 2.53.0
 
