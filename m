@@ -1,79 +1,42 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BC3329E44
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 15:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADE64B04B4
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 15:48:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786202874; cv=none; b=btDEcYfMCSaAj2Abbuw46n3D/WakzvzxrX1xhWISp2LP5fs248Psz9mttTqcL3XHH+etlucokwOrHE8rUrwv2GlbIPf1mVf/+yiZJIyXKfioeiiHl1/vSYrE1H9QRFvZxSiRqsOlrgJPXLvlr3uyKuYhgRdw0DhO0JLhdwjMcrY=
+	t=1786204136; cv=none; b=DUEWQFM3UyHvyqqg+FLgQavw+4xxA2IIKmWFcU6dK24cJvq5Q+uUI4D4sBIrzY0ZObJZjWqT75L4pgwVLxLEA1Dtb5EItSB5fPabOGO/ffKHzbAMBfzK3/EzvQ20x2wDn8qQ+oz1tHVhDCTpKU3tWIR9SBrtNyo6AC2sKoT7/y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786202874; c=relaxed/simple;
-	bh=kpeaAxS9LFu/8STzYbBglogfC3SD8I76cMF2ZM5B+38=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QyyX8lYPwqkzNBD6T3Wjv0misRSFFJhEC3gVNahLzox1bKT/5fyBzLECNbJSlAjkVVkK+ZW2zHGQltvCQC7Owy1/g5xlDW3P5e6jZkAEuDQQarLCj8yUfzBuOY0JXfuvCq5JZNJaHeG0XUUPb60FpJemYZzVolyYxnSMsB4uVRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KysmkUTq; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786204136; c=relaxed/simple;
+	bh=8Pmup/oxauyx4yWEUEyYU3U+JQ/JKlzMeITYc+OLqfI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=h/9qEhUeATIlEsld/y6tj2WfvNX/VgRGe0xQqzxyU41/hVhj4wQa/7DT4j1745VPgoXi5yQaOJ935PxIwYWtibil/MpcMxb2fo0Gnrh8Q1Ax7XTLIs/gOuplJ8WVdKL/G4aUWbK1TtpsqdJKu0+HLLRGo1pgTRFsVCEM/bt+m/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3uZhjPY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KysmkUTq"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cc891373e0so5576175ad.2
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 08:27:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786202873; x=1786807673; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fosxO2aakWlymDAhSXtvCLChemt0o7MdN2FsRA0clTA=;
-        b=KysmkUTqvEMmUDI6rr3JrQHnS3DNGxej+YMklGux+vGCgE6ao+ia+N0OzoSf/UD+0n
-         zz47KhxwcJbEkljkVssNm3hFW1Q2T0Y14eg7d624Uo5xntn7uJjyz6ZmIyJZmSrWK+pw
-         zMJGsvSj4mXzgBagfdwcJ2Ut+ptz4AGNV6nF92bfzRqX7FqjCET9ZCwnvMMygOAPnxPo
-         jljRQY63iPqBckV5/Zs+9GOlAZJIUoCsmVO8+Vpy43Tx3BwM2c/0evaUXDduLCJWVZpD
-         0KYhi7OtKYkXP9sbQubJc6vwwWpxq67yzgLO7T5BJOQmdD99z8AEFShkmcDs47ff6tDK
-         WbaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786202873; x=1786807673;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fosxO2aakWlymDAhSXtvCLChemt0o7MdN2FsRA0clTA=;
-        b=N9fWIjQOIEnG1euuLLIj0WynzEuOJgoO3ZcsqqlrmRWqoHsH6Kncd9MOSFqqn0vtD+
-         IIAEedUBA0ylYr5v7MYxiKIzNX1VzzX/f48Pih1Nxg4Yi6bhzYGrnpv/j9SFUeSe8G+j
-         FSjPRwtDcTYqn8NYx4R0WhRaVZYl2oirOD/EDeTi+DDnDTKndUTb3GbJFmtBifx4tnrc
-         gMOZhQVXasu9qBKrC8NMwRzlEp8cTNhq12ydMtgiCUMO9P9dHhngImMj1i8km93607xZ
-         tYrwOaMU5GuhUBKu4dGWEaRaDx2LYuaj6UX3BeyxbkQAtBzTNs7n6skaQtRU17ugCl75
-         RI1Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6vju5KNRWielMeeBR89efsDKoq+x5NCOUvPYuxY1eeNq4CPY4gDOfaVbedoCDw/wmSjDBKYY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLQGpMbEfaV00MNLZrzxGNkO8wAWp8i2wU8JzXKInsYA5xTJg3
-	Vrh5WLbXU5JJTKs5vcHMZKL9sdhOZQbVCwtQpCDevSi8JXg2BEfHgRkC/b8fMPzTlV0=
-X-Gm-Gg: AR+sD11sMfDp84p5M5z+oDteznK7g0AJNncMEQZkwXLQrrg0Uh0Hvf2Usc+rGKllgN+
-	lbRvvuwxgyHiVSWAyFnTjX433eG39nFl8TDdGdjOUkAw55P7I95NehZWqGslWjPqFSA/NYuOXX0
-	Gx0t+s12LdnOjOl/GKdA1Mcxw53Fhv+98raRxcUhTiUJEUj2RWH6KaycrPUII012QkG1lPQkOqW
-	lVN1qg5wG+q8w0kXl9H1KBxr2cducr3OgE2IrD3DZYsILwhviWbamdH3mgB4t9kmwRS1MWffo9n
-	fxJbdapIU7+G/50ViWpnVEfZ31w6P6fYYKpxpI3lUYaTzvdSoIpAGuLR8xwourJ2AFWUMRZ+BIv
-	9U0hu29vQS+lR6pWqPBgurpDM6VwychKskeQgbFqkQ6BrLs5YobHIttEUC7U0ExHC/WzvPz0ZO0
-	KqAb7pEiJReJY2s1CNXZTvTn2vOQSu4MX3Mep/FfrWRbMaHlpilKlwXSh7ISSDSk4RDsFRGA==
-X-Received: by 2002:a17:902:e951:b0:2ca:bf68:2a54 with SMTP id d9443c01a7336-2d0ca96246bmr402478875ad.22.1786202872580;
-        Sat, 08 Aug 2026 08:27:52 -0700 (PDT)
-Received: from lgs.. ([101.76.249.46])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14d57f8b7sm19558175ad.30.2026.08.08.08.27.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 08:27:52 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Ludovic Desroches <ludovic.desroches@atmel.com>,
-	Wenyou Yang <wenyou.yang@atmel.com>,
-	Wolfram Sang <wsa@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] i2c: at91: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 23:26:54 +0800
-Message-ID: <20260808152654.2943371-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3uZhjPY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53D7B1F000E9;
+	Sat,  8 Aug 2026 15:48:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786204134;
+	bh=d/6tDp7zNyaxN6ALJS3mnZf1gY2b9GGt8VBEh/Ujw+4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=S3uZhjPY+HJAnDTVHY9GOOMSkRTLGfZwZrTPZB7KgEeo926aT8Zqq9Iqq5kfmp1y/
+	 Naj35BCg+ZNdS7jPJCacgbZOTc/nfkgjMF16xvgrZAxAMQGp0/rYS10uu8CT0EFZ5k
+	 76YrB1jMtSGMb7DvtMxz+XfQ/s3OEb7CS9lDR9opv/SAOdRAcZ3Gw5bsxYwD+Bp3Om
+	 z6P4CDJ2moFD5cjb1HJa9QEiHxqzhlwhIo53UFh6CI8oGEIc15NEhQNZxY8dKBQYvP
+	 viIMMB8/BAa0CESuJWLPPr3Ykn0mY3hp3S/m2E+2CPPSKzK9VXOKgDiIgLur3IrBoM
+	 hVgB57RE32D+Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/6] super: remove pointless s_root checks
+Date: Sat,  8 Aug 2026 11:48:47 -0400
+Message-ID: <20260808154852.370323-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072927-mom-flyover-909f@gregkh>
+References: <2026072927-mom-flyover-909f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,52 +45,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-at91_twi_probe() calls pm_runtime_use_autosuspend(), but neither the
-probe error path nor at91_twi_remove() calls the matching
-pm_runtime_dont_use_autosuspend() during teardown.
+From: Christian Brauner <brauner@kernel.org>
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped.
+[ Upstream commit af7551cf13cf7fb1d4f939db4f1f24c00550ed57 ]
 
-The documentation for pm_runtime_use_autosuspend() also notes that it
-is important to undo it with pm_runtime_dont_use_autosuspend() at
-driver exit time, unless runtime PM was initially enabled with
-devm_pm_runtime_enable().
+The locking guarantees that the superblock is alive and sb->s_root is
+still set. Remove the pointless check.
 
-Add the missing pm_runtime_dont_use_autosuspend() calls to the probe
-error and driver remove paths.
-
-This issue was found by manual code inspection.
-
-Fixes: d64a818859af ("i2c: at91: add support for runtime PM")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Link: https://lore.kernel.org/r/20250329-work-freeze-v2-1-a47af37ecc3d@kernel.org
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 749d7aa0377a ("super: fix emergency thaw deadlock on frozen block devices")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-at91-core.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/super.c | 19 ++++++-------------
+ 1 file changed, 6 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-at91-core.c b/drivers/i2c/busses/i2c-at91-core.c
-index b64adef778d4..65b389d07d2f 100644
---- a/drivers/i2c/busses/i2c-at91-core.c
-+++ b/drivers/i2c/busses/i2c-at91-core.c
-@@ -253,6 +253,7 @@ static int at91_twi_probe(struct platform_device *pdev)
+diff --git a/fs/super.c b/fs/super.c
+index c9c7223bc2a2e..5aabfcab4fc7d 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -930,8 +930,7 @@ void iterate_supers(void (*f)(struct super_block *, void *), void *arg)
  
- 	rc = i2c_add_numbered_adapter(&dev->adapter);
- 	if (rc) {
-+		pm_runtime_dont_use_autosuspend(dev->dev);
- 		pm_runtime_disable(dev->dev);
- 		pm_runtime_set_suspended(dev->dev);
+ 		locked = super_lock_shared(sb);
+ 		if (locked) {
+-			if (sb->s_root)
+-				f(sb, arg);
++			f(sb, arg);
+ 			super_unlock_shared(sb);
+ 		}
  
-@@ -270,6 +271,7 @@ static void at91_twi_remove(struct platform_device *pdev)
+@@ -967,11 +966,8 @@ void iterate_supers_type(struct file_system_type *type,
+ 		spin_unlock(&sb_lock);
  
- 	i2c_del_adapter(&dev->adapter);
+ 		locked = super_lock_shared(sb);
+-		if (locked) {
+-			if (sb->s_root)
+-				f(sb, arg);
+-			super_unlock_shared(sb);
+-		}
++		if (locked)
++			f(sb, arg);
  
-+	pm_runtime_dont_use_autosuspend(dev->dev);
- 	pm_runtime_disable(dev->dev);
- 	pm_runtime_set_suspended(dev->dev);
- }
+ 		spin_lock(&sb_lock);
+ 		if (p)
+@@ -991,18 +987,15 @@ struct super_block *user_get_super(dev_t dev, bool excl)
+ 
+ 	spin_lock(&sb_lock);
+ 	list_for_each_entry(sb, &super_blocks, s_list) {
+-		if (sb->s_dev ==  dev) {
++		if (sb->s_dev == dev) {
+ 			bool locked;
+ 
+ 			sb->s_count++;
+ 			spin_unlock(&sb_lock);
+ 			/* still alive? */
+ 			locked = super_lock(sb, excl);
+-			if (locked) {
+-				if (sb->s_root)
+-					return sb;
+-				super_unlock(sb, excl);
+-			}
++			if (locked)
++				return sb; /* caller will drop */
+ 			/* nope, got unmounted */
+ 			spin_lock(&sb_lock);
+ 			__put_super(sb);
 -- 
-2.43.0
+2.53.0
 
