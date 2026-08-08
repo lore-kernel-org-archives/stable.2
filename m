@@ -1,121 +1,126 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-a6-smtp.messagingengine.com (flow-a6-smtp.messagingengine.com [103.168.172.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EC6375F80
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 05:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4321D1DDC37;
+	Sat,  8 Aug 2026 05:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786166985; cv=none; b=ES+rXjBwcDu82Gw9Au0WGy4IyVgjDcAw0RkI/sRPtR4L6Q5cBz47VA7lONqTviOMCxLAoRwW14sO2HQogmYAAzIAvGK2hk591s0ld7gpVTaa6jPooaDejluKOI0p2wb5CgPA+VFPzqi9K38N51NgfHG3uLQsgK7MhycJWIr4oEI=
+	t=1786167027; cv=none; b=r+DiSer2ZYkcnTVR4CkV5PEMZb4uorqlarLoOMMVr5lyRjNvJw4TFP0JQJf1lmZqBzVVBVIcyx4TpjTFpmG15l5TNkdt4jZ+ckIzZFARA368T+NYj8dG6D4bNP3mz2BPVZNBmW7iJRE9UJobMt0tvs9U+98/AzgHZTbL8ao8FiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786166985; c=relaxed/simple;
-	bh=Q1wBHzLTIq4tK/+/Usog1Gd8RXUwm0ePB/TUbBnrev4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QKZTEx38tQN0ee3Cn1KB5nPTYhoJ8upd8QCDxpUAhnAAH3AncL+MOBm39YtVYw2a23h0J3QLRk/hVkH3IMZv60DuXUHme/euofZHZhW1qOy1zl7KhWqWbkblZxpc3uThPrQTiaY+SLKkifJugC98H+iE2HjEQB7Xq4GYTxsTSSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mUcLGWss; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786167027; c=relaxed/simple;
+	bh=Z7qqH7LW3+V54E3F+JyBOF+7QPST2EdHeRx2nwo8tsY=;
+	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=ERcaaTbcpHRhY5iQcuTNtR14km90uDaiA/g0Fp5olJA4VVCiFl2uWA+fUSULe4ecI5qrWHFXzwAjM0dDVPuVuRzZFQncASZ1lnI3S3D8cQjSyj3S0YFeyiI01yLZ2GSoU0A7VXowQX9uTbcMAGSQ7674yhh/s/EtVy5TiECJ7zI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=Jcz5oemF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IxqkjLw+; arc=none smtp.client-ip=103.168.172.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mUcLGWss"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e3efab7e0so186285a91.0
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 22:29:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786166984; x=1786771784; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wDC6YI5r3sz7/q8pUx056+kBWfhQJhpnlyWFVMa4m8E=;
-        b=mUcLGWssKgoP7FgjhR+lC7JaDoRkDyfw1n/Dokxm4FVsn9o5p5GcGgwlepQXETqT6n
-         oQmRWEDEIXv+oYHX1Atzlj4VKmPegAVP2Jh4COqvgIXJ7ENmhbdnRhV3DN52z2WlsVy3
-         ZcRfwpIXDwTNeC5CLMNt+vNqaAvj39DvUyMbwUk7PvaHDIfl92F6phAQpOQqmEXbGqPa
-         /wnXUHnNYevkTVqX3mMzMlhx1UOKw5N2yf7PxnbCjtzQSuDs70r1O3c6aSekcI1tAdL6
-         BQMjIGiR37qiKwNQwx7rFsSBFBMSa4riRAr1P2EUVOeLbn28hiNZiu8SLmnLXo8Oh/pK
-         bH+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786166984; x=1786771784;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wDC6YI5r3sz7/q8pUx056+kBWfhQJhpnlyWFVMa4m8E=;
-        b=Adkl6UIyNUQMNo/WuRPMnJpc51ICQk7O/jkiiiw5eMi94DC4s/a+iJqpM1EW7VI1I/
-         D3q91V2ZEdS6oFZlqaQpcHHYMJLzOziVVOHVxe3HKAg+73vR4uNT4IG7WvI6KLFHdO8k
-         +MD/GtaxW8vbeYGBwXC9Emud6OrEjSiFpjWB1z7nwqOSB8Xli5PkA8q8U9ioYAQvwCV2
-         ExHrbmgBb2dwRwThD9uRuOzRnzDa/sO7sLkFBYqdzHZjsjH0QczFfJdOcI2osWkic/Ls
-         uzT7rwNpJ3fs5v4PJ7LOteVwncNy+jxOJYP1NOpWd9laONWn0Q9bspymG0I1+KF8Dwxd
-         FgGg==
-X-Forwarded-Encrypted: i=1; AHgh+RoDQFuJ0RNbMnmhIZwI3uadf3DVFNvVhr3qAkuOmoxevIcWsYU4Hp9Q/vuqiI60AhMGvXWOwOA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxC1EeETDE8Y0Gjfpjq4DATxGG97dAWeZZ/M0ofxu1AryiBQyci
-	pH2yaJ0f9uHpRy0nNJukeZm7kujU7DvBAfAAZk21H8ZrYO3YYm59STwO+0yyfC6qeZU=
-X-Gm-Gg: AR+sD10ovYkTaAqntDzsBymUUlecIA0kg7WQDUpesfZ+1uR1I3MPDqg5K4Gc4k380na
-	l3sC/x52d9+kNs2U1JGBJ+UY2eu1A+tqtxoVVNA9D9FJcVhPbGGg2HDoP901piHw7WgDDqM9VoW
-	UiIsac7ZMb9TTh87rIy02Q1KEs4frwC4XYL3ARCmnt4FmQW5URrREErXvW6fSvvGhqDlgtwmx8l
-	9Oet6ayGao1yFnvJwE3VAttPn4ibvNu0eaunwhKrKPjplQkDV6HOQhIF2FsdVYW7VS+PNbMgzta
-	YmDxITDrVq3jlG1Lso/PaVFj7E995GK5kAe7xDjCUix3RDZ+ap6J5N9jkU+NyhcRB+akE6YaEWO
-	1yt9A82UccRx3cDMoy4QRMJLQTYe2+6CpZDrIUzB98z2l4+1TBStUgnT2tg4uDVd2o5aJykC/pI
-	tgKgQd5M+MQqrEQwLFIdrt1z3nFdGGuD8r6nsOBScXQAg=
-X-Received: by 2002:a17:90b:58a3:b0:385:3ab:fecb with SMTP id 98e67ed59e1d1-392845e2350mr991461a91.4.1786166983672;
-        Fri, 07 Aug 2026 22:29:43 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-390b358a6c6sm1881112a91.3.2026.08.07.22.29.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 22:29:43 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Archie Pusaka <apusaka@chromium.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Hilda Wu <hildawu@realtek.com>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: hci_h5: fix usage_count leak when autosuspend_delay is negative
-Date: Sat,  8 Aug 2026 13:26:54 +0800
-Message-ID: <20260808052655.2562268-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="Jcz5oemF";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IxqkjLw+"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.phl.internal (Postfix) with ESMTP id 1C4AC13800FD;
+	Sat,  8 Aug 2026 01:30:24 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Sat, 08 Aug 2026 01:30:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1786167024;
+	 x=1786170624; bh=Z7qqH7LW3+V54E3F+JyBOF+7QPST2EdHeRx2nwo8tsY=; b=
+	Jcz5oemFNcwKRU0VF1OF5IYuMcQXEZ8vs2ZUs4hSKvoNbeTaKF8m4+us+FHkeTdv
+	ijJjMCBGiYqqW0ySD2LbZevioMsYqhzkCOzyOiRq6VA2gZx//IqaVmg4bbjVMSG8
+	IfSXaeHkV695Pyyml1gbazWhYo4zHlRR88rzK6i9EgSAZiF+ZTVJ1HzqXHUe7t2H
+	aEq8bSoJ9CixHyXFB4vEWqjlnV4HyHSzItbYeYeyErx8k6HBdvgv4mcuTQV0y7y5
+	XMqQTvqsuhMAvdkvL25t5We6A9IxE+NC78q2iQISTTTyN6gwtkg8aDTkNXD2YLmc
+	1gBOW5QDnP4uU4wX/LyiPg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786167024; x=
+	1786170624; bh=Z7qqH7LW3+V54E3F+JyBOF+7QPST2EdHeRx2nwo8tsY=; b=I
+	xqkjLw+e5SnqNu2pvvtSL1ctzzGj3BFX65v8HlBRdPYLQb8fLSaOgVMgITdhSAzM
+	IrBPQo77D9OvW0E+ninknzEH9m/f1eYkCeU6L36fR67ddXTHmpziy1G5U+lMxYv7
+	kf3V0l83F9aD48QH2HvsHeYTtuPIzq6Froi4AgEIrD4zlZyPkeqn3MiPgZOECPJN
+	xLgmQD2PErBsnNsZjq/qYCt5Ed1PI/gdKFBNDVJd6rLv2seSvYHqLXtl6Hl3L/J6
+	4a7QqmbPZSV1RnlaNAskXp0PDJ89KPYa+/uGADUUN+Xf8neTd9SOvoHh/zGOJxbP
+	CenaAKLlfSjKt2FBgpKLg==
+X-ME-Sender: <xms:7r52ajLzauOFzcWe9NSyoWIXpMiG3NViCkWxAGVCy9tvjx7QkgLdJg>
+    <xme:7r52ageqfmoI-bOKo4BJ07tfx5NUUTsd8yMi5HKNouLyF49NDUd77OUthySg7rkZF
+    ZtSlVrfuxx3wZpnLiuZ_PbyDslQPdl6E_2s4Gnssqccgl_wqs3XKpU>
+X-ME-Received: <xmr:7r52ajsY9j43_OkBu7c-2meEDn4om7V_QIaKmRrcR_AalMo5jmGiSi1N20bk51wAVlj0ATId_x9LvxR5IkLbR8tI>
+X-ME-Proxy-Cause: dmFkZTFmBd0NuyB3aeGQKppgbGUY2cM5HAd/TJk9kA8lZc0wGCcICpb4AqwPBT1g/SzG+q
+    3/kqa12a9t5mbd5xNvhmx4qa4a/GgJwXgU7vRcoTgQBfz00n2Ju2OT+mOdRaXRSC8tZyhQ
+    TerJb4ASAtl0scbHr6YdI93TOJtnDYTcPICB0NFkabP/Abj+kC5uNsLnhJTjaNJqBPNl3S
+    PrsjFZeunp1YQb6IQ36Piz7Q2O6Ts8OkfRAGwzqzoAEnLdR0tq1h1R28dEiV4vjwh6ez8e
+    W5NVEuEbh9YhDTNqiV5doG6S0KXUeH/+If6ibEOCJ9dwLnHwqscx9QT84HbpEGtsbGxaTp
+    1Iqsj/hlrqndnlf5baJ36iO/mskY07RkwG7BfwAZFVR/7MPbX8t2KTC942I+sWJfChq+8N
+    UfJhG2/tqjcCFnhnagvK/J7JwAlaNO+/eZLbS3v3CYtsHeWGESvQ5VhLS3v30qBwX/UB2M
+    exCCxFVpLwSDTIvuD6MybO2PBmjVgPO6P828+t/h9cH3HGEalGkpPWtns+ykGEJWo3wLxC
+    IPrRpmBVP7B4qwx42Qh6bziIMf8SAR/8UdE+MfPanKYtW3MGebDf+9ACSV+XHpJQhDJv2L
+    ouBNvmBNhGqXRzfCDB4tuZW7VbcF/7ES5VN/ZD3Vr+jesqEjgAsA31nlmH+Q
+X-ME-Proxy: <xmx:7r52amGyAK2aKbReDRN5OTWIKNcqoVt819Fqto8JPVe3Jy275z0G-w>
+    <xmx:7r52alfD7Hxh2iap__dLFRPX2xNFRo4NJhYVVNBL3yrwFEwlzOt6Dw>
+    <xmx:7r52aquteibrkL2SWmaPhhlg73S4VKcLR4fiZJMtC9wYyfDlb-bY4w>
+    <xmx:7r52akmqi4fTiAPH08VW9NanUK-SDfekbtFPTvqAZ38tJwC5LvXXFQ>
+    <xmx:7752aj0MSQ36KqHGPYbqMvWPz-AvM2C4ihgveHSx_gTbkSYPLuvFJqFE>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 8 Aug 2026 01:30:16 -0400 (EDT)
+Date: Sat, 08 Aug 2026 14:30:13 +0900 (JST)
+Message-Id: <20260808.143013.1251068388254615351.tomo@flapping.org>
+To: miguel.ojeda.sandonis@gmail.com
+Cc: tomo@flapping.org, ojeda@kernel.org, arnd@arndb.de, krzk@kernel.org,
+ alexandre.belloni@bootlin.com, linusw@kernel.org, chenhuacai@kernel.org,
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
+ rust-for-linux@vger.kernel.org, fustini@kernel.org,
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
+ kernel@xen0n.name, loongarch@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] rust: bug: fix `dead_code` warning in `warn_on!`
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <CANiq72n4=fz=JNKY0Jdm8BnLa=RmHB2B7s0bO47YTJ7hygqBZg@mail.gmail.com>
+References: <20260807221429.155946-1-ojeda@kernel.org>
+	<20260808.074341.1056015191905819805.tomo@flapping.org>
+	<CANiq72n4=fz=JNKY0Jdm8BnLa=RmHB2B7s0bO47YTJ7hygqBZg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-h5_btrtl_open() calls pm_runtime_use_autosuspend(), but
-h5_btrtl_close() does not call the matching
-pm_runtime_dont_use_autosuspend() when tearing down runtime PM.
-
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during driver teardown, this reference is not dropped and usage_count
-remains unbalanced.
-
-Add the missing pm_runtime_dont_use_autosuspend() call before disabling
-runtime PM.
-
-This issue was found by manual code inspection.
-
-Fixes: d9dd833cf6d2 ("Bluetooth: hci_h5: Add runtime suspend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/bluetooth/hci_h5.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/bluetooth/hci_h5.c b/drivers/bluetooth/hci_h5.c
-index 93cdde981840..a5e7e9b0ea74 100644
---- a/drivers/bluetooth/hci_h5.c
-+++ b/drivers/bluetooth/hci_h5.c
-@@ -1023,8 +1023,10 @@ static void h5_btrtl_open(struct h5 *h5)
- 
- static void h5_btrtl_close(struct h5 *h5)
- {
--	if (!test_bit(H5_WAKEUP_DISABLE, &h5->flags))
-+	if (!test_bit(H5_WAKEUP_DISABLE, &h5->flags)) {
-+		pm_runtime_dont_use_autosuspend(&h5->hu->serdev->dev);
- 		pm_runtime_disable(&h5->hu->serdev->dev);
-+	}
- 
- 	gpiod_set_value_cansleep(h5->device_wake_gpio, 0);
- 	gpiod_set_value_cansleep(h5->enable_gpio, 0);
--- 
-2.43.0
-
+T24gU2F0LCA4IEF1ZyAyMDI2IDAxOjIxOjIzICswMjAwDQpNaWd1ZWwgT2plZGEgPG1pZ3VlbC5v
+amVkYS5zYW5kb25pc0BnbWFpbC5jb20+IHdyb3RlOg0KDQo+IE9uIFNhdCwgQXVnIDgsIDIwMjYg
+YXQgMTI6NDPigK9BTSBGVUpJVEEgVG9tb25vcmkgPHRvbW9AZmxhcHBpbmcub3JnPiB3cm90ZToN
+Cj4+DQo+PiBJIHNlbnQgYSBmaXggZm9yIHRoaXMgYnVnIGEgZmV3IGRheXMgYWdvOg0KPj4NCj4+
+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI2MDgwMTAyNDg0MS43ODY2NjQtMS10b21v
+QGZsYXBwaW5nLm9yZy8NCj4gDQo+IEFoLCByaWdodCwgc29ycnkhIEkgYWxzbyBzYXcgYW5vdGhl
+ciBvbmUgd2l0aCBgcnVzdHRlc3RgIGZvciBhcm02NCBhbmQNCj4gcmlzY3Y2NC4gRGlkIHlvdSBz
+ZWUgdGhhdCBvbmU/IFdlIHByb2JhYmx5IG5lZWQgYSBgY2ZnKHRlc3RsaWIpYA0KPiBzcGxpdC4N
+Cg0KSXMgdGhpcyB0aGUgb25lIHlvdSBzYXc/DQoNCmVycm9yOiBpbnZhbGlkIGluc3RydWN0aW9u
+IG1uZW1vbmljICdicmsnDQogIC0tPiBydXN0L2tlcm5lbC9idWcucnM6NjM6MTcNCiAgIHwNCjYz
+IHwgLyAgICAgICAgICAgICAgICAgY29uY2F0ISgNCjY0IHwgfCAgICAgICAgICAgICAgICAgICAg
+ICIvKiB7c2l6ZX0gKi8iLA0KNjUgfCB8ICAgICAgICAgICAgICAgICAgICAgaW5jbHVkZSEoY29u
+Y2F0IShlbnYhKCJPQkpUUkVFIiksICIvcnVzdC9rZXJuZWwvZ2VuZXJhdGVkX2FyY2hfd2Fybl9h
+c20ucnMiKSksDQo2NiB8IHwgICAgICAgICAgICAgICAgICAgICBpbmNsdWRlIShjb25jYXQhKGVu
+diEoIk9CSlRSRUUiKSwgIi9ydXN0L2tlcm5lbC9nZW5lcmF0ZWRfYXJjaF9yZWFjaGFibGVfYXNt
+LnJzIikpKTsNCiAgIHwgfF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19eDQogICB8DQpub3RlOiBpbnN0YW50aWF0ZWQgaW50byBhc3NlbWJseSBoZXJlDQogIC0t
+PiA8aW5saW5lIGFzbT46MToxMTUNCiAgIHwNCiAxIHwgICAgIC8qIDggKi8ucHVzaHNlY3Rpb24g
+X19idWdfdGFibGUsImF3IjsgLmFsaWduIDI7IDE0NDcwOiAubG9uZyAxNDQ3MWYgLSAuOy5zaG9y
+dCAyMzA1Oy5hbGlnbiAyOyAucG9wc2VjdGlvbjsgMTQ0NzE6YnJrIDB4ODAwDQogICB8ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5e
+Xg0KDQpJdCBzaG93cyB1cCB3aGVuIGBtYWtlIHJ1c3R0ZXN0YCBydW5zIHdpdGggYEFSQ0g9YCBz
+ZXQgdG8gYW4NCmFyY2hpdGVjdHVyZSBvdGhlciB0aGFuIHRoZSBob3N0J3MuDQoNCkkgcG9zdGVk
+IGEgYGNmZyh0ZXN0bGliKWAgc3BsaXQgZm9yIGl0Og0KDQpodHRwczovL2xvcmUua2VybmVsLm9y
+Zy9hbGwvMjAyNjA4MDgwMjI2MDguMTEyNTE3NC0xLXRvbW9AZmxhcHBpbmcub3JnLw0KDQoNCldo
+aWxlIGF0IGl0LCBhIHF1ZXN0aW9uOiB3aGF0IGlzIGBydXN0dGVzdGAgbWVhbnQgdG8gY292ZXIg
+d2hlbg0KYEFSQ0g9YCBpcyBub3QgdGhlIGhvc3Qncz8NCg0K
