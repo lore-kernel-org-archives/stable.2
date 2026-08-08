@@ -1,123 +1,253 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80712306741
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 08:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594C92D1F44;
+	Sat,  8 Aug 2026 08:41:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786178190; cv=none; b=gtLAjS2NdYJ5Smb5NTC0USZZ735yN6SnhPgySH34421zghDiDKcLFeOXwMuK9gbOzyvtkzZXrRL+oKcdMruUsCoYhpiv6LpoEo0D1b76YMy7Iw2sk+d0sqcUhZmrmg4N6OuHPf4wUeZr1vZ568z6PAOZ0mperCVHqyT4ocIDmU4=
+	t=1786178504; cv=none; b=X8Em2oSeBNKqoH71kiSJpaWGeymHOpdwHyBVJfpl9fQ6xNhviPgzHhM6CMgEjzj11jOW6ykZqyep2Ag439XK1NNFiIVVkV5yfdZ5SEq6UC0fhz89dl+9vaOpfXYt7SQJv3rdyxiu5ReFao3myJtM+4diJ1e5u5XXtrHs3K4NKVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786178190; c=relaxed/simple;
-	bh=XJ/DKreYFvcZTMMtcuxtj6GX3d172qVUGH8mKiop0OY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W4iBiN6SyYZP5+GNvPy7zx0x3wepgLRlooCYXmuvkD1IN6xS5u7l5zivHLWT6H5fShhpc1ivjAkry2NtwyrdLH4Z+aqrUYU/so4cUJTOuU0VwnBnOe3kU2MknfmkbmQRUSXAhl1rWHQ1LxfvD+vUkK9kg+rFS7ZY9CaodM/P2R8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nLOCE1vi; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786178504; c=relaxed/simple;
+	bh=1+ccyQHLTyXoTOlZONVYdoSGXrIL+vULPwDfgdkoM28=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=R6UsNLxDzgWvSapOS5FKtgd4n25TWBAThF8BxQ+MdcHX6zSshnuDaS0IseIl9YZHYAwrWL8gr4OS1NLBbA56O5UGRPNPV9bLQXhPxOoJfsuemx6XH2Hl2bMJeOHAKRjhLIYuNx7fgDSw4lD/fQB0AJiAlSxpIglFV+4wanBTzB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AgrKIWaf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nLOCE1vi"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso187566a91.3
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 01:36:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786178189; x=1786782989; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fdduiRQwuJsbrhFMnqTIsNuHvHg3FoBhY9JFBlVgCRM=;
-        b=nLOCE1viDMM9gzwnbKjMFFQOKB5juXEd9s7/qX4kIlDlFHtLN2xFngNLpbdeK6gCKR
-         frNRDXApB9so69IfVdu/y7TwhuOEUc1UYrMcsDg613fW7DtZTNap/btZdigNiphkwtH/
-         NXcu5RqeEx6xNc5Q635BpM/6Ye7QYwvFQGRKXEJ4h3nSX4wVaS+D34XKNxb9N744zQKA
-         5G/P+97/7GQt3TlIFY8OuKp1Azg713ypDPgQzWaITFFcQg1wSPK3BniPVXRTDh0tpJUH
-         UlRUUJza67t54S4ZgZzIxFxhazZBUkxQCac09/46o+RHKg3DUdsgpSD8A7PFtcBMh0Dd
-         Nn0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786178189; x=1786782989;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fdduiRQwuJsbrhFMnqTIsNuHvHg3FoBhY9JFBlVgCRM=;
-        b=fQZCjK5Dgjjuc5TTRomW69WLW+Q+NUHKJwmqnJ4G2eQ8Z/06rLhguc6ra+RVO/CVtf
-         3vvCd98vibqThwYGHZOyliiP191Rg5cO3hZqbgvuMKVHwRlvYETIBZpKW7YM0luxEFdc
-         cy54ThpSvKcf+DbC+PyTDx6oI2wCfY956rSTu77obmCy5maD5JN3XRGj12KAMVUE05vr
-         3NI81dQy7e1Ctx9LgVkbmiJmBMEK0J4P/h2E0haK2qkSNfs3L8NGu43xNOOWjB6bjOJq
-         8zM5o5eZluDui4rqemcWDOFSfDv5Q8Ib/nxXQU6aOVxM5aHnx6H264widZ5PWywd8nXn
-         4qLg==
-X-Forwarded-Encrypted: i=1; AHgh+Rotail2ZJAHqmrTuWOp0nYQk8FvAdCARCsW+c25+XMfdUy4W/k5rr5hhyK4s8Pj5PK9K0Q4X9Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwD0vvl6cY+IFh2HCiTXCiAA6Pf3Kwj0BxE3FdlnI3Y2fTFFb1d
-	/Z7vROyExlrZNadScrKUJSu7M0+HY6qFt7UVo25zKRcT24N4yqNLMMf/
-X-Gm-Gg: AR+sD10GeLSOPbLROBXjJroFIlzwPNZt8l+lVmhh264T1uQdtEdr9syW9U+H/agKGVe
-	Yac4/0gBRcJ5f4Xj/s3pAqV4x4/bI7dAt/UH9XsvPpVpb/zHyurM3xQIdhIJqPFRLTSLNG3D7ad
-	oLyNJVVDMpXYDvQNAyeqQhd8QcauUAYB4wjdc6Di+vMaW87lOymEq67FzIN5PLiklGyUsHmD0CO
-	Yl4ikX4Is5xCj+85FYGihwDAdUspXd85u/vyy8M3ZvoNTBU11k3SnOzZjWf2JzoKGO//K5EiNU4
-	sSoSCj8tKVMXVxuiN6UdqoEpgzdJ4ohQo5CmDyTnz/vurFFzTpDWySe8uwFBv44nxQaTD+RupXJ
-	mnCM22Ck+MyVVmprGoZ/BLMoVTk+0CkbKdflWx5xhgDwaEinBkYQjNmyYVOQFNRCFdKPlFaSxto
-	BvPNBx/6d8ldBdmogIGKHU9kY/U+ewahvL5yopKw56pWPs4stoCkR8XmRIeg==
-X-Received: by 2002:a17:90a:dfd0:b0:38e:5ab7:ce9b with SMTP id 98e67ed59e1d1-3909d928d54mr15940827a91.21.1786178188696;
-        Sat, 08 Aug 2026 01:36:28 -0700 (PDT)
-Received: from lgs.. ([101.76.249.46])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39086164982sm7682051a91.16.2026.08.08.01.36.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 01:36:28 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Mark A. Greer" <mgreer@animalcreek.com>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AgrKIWaf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 899111F000E9;
+	Sat,  8 Aug 2026 08:41:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786178502;
+	bh=oYbHM1vJ7ZgROmF2e4fVFb9BfOOu7HRtmQzEsZWunto=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AgrKIWafk6nNePE4pN+KbC1IIY/La+oPxeIqnbIvh29knKD0FFzwxM7mG98fctUjJ
+	 v58GVlLYonD61hoQpRcL6nFccRYUZ5afpCBqKeVmAy/br6WdT2sY14Rd6BtzAkvQfW
+	 QcF6phEZVXfNPecvXzO49Hb0DGP0crcnRundxCGekAqPiXifgIIphaOeEfF+jHcqZo
+	 3IW/C0+/zlX1IncIGcdUK/42PimVyzq0PlLLX95KOyvOV6bEyc8JnaNjqcd9KsRoZk
+	 THL3f6jCNUHEqk8kkb8Ab2KKLbF8kHg9dq46q469ht0knuaphs18mgD9bejzsyTKBV
+	 FgCr4SxqSo7OA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wscce-0000000Dcrl-1Czv;
+	Sat, 08 Aug 2026 08:41:40 +0000
+Date: Sat, 08 Aug 2026 09:43:04 +0100
+Message-ID: <87cxvtovdz.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Yao Yuan <yaoyuan@linux.alibaba.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] crypto: omap-aes: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 16:36:12 +0800
-Message-ID: <20260808083612.2698779-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH v2 1/8] KVM: arm64: Remove VM-wide VNCR mapping counter
+In-Reply-To: <anXmBQRdORVwl6Rp@lucifer>
+References: <20260806091026.620700-1-maz@kernel.org>
+	<20260806091026.620700-2-maz@kernel.org>
+	<anXmBQRdORVwl6Rp@lucifer>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ljs@kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, imv4bel@gmail.com, yaoyuan@linux.alibaba.com, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-omap_aes_probe() calls pm_runtime_use_autosuspend(), but neither the
-probe failure path nor omap_aes_remove() calls the matching
-pm_runtime_dont_use_autosuspend() before disabling runtime PM.
+On Fri, 07 Aug 2026 17:45:17 +0100,
+"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> 
+> Bear with me being verbose here, as this is both nascent review + learning
+> :)
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped and usage_count remains
-unbalanced.
+No worries.
 
-Add the missing pm_runtime_dont_use_autosuspend() calls to both the
-probe failure and remove paths before disabling runtime PM.
+> 
+> On Thu, Aug 06, 2026 at 10:10:19AM +0100, Marc Zyngier wrote:
+> > The global VNCR mapping counter is used to decide whether an L1
+> > provided VNCR page is mapped in L0 on any CPU at the point of
+> > dealing with a TLB invalidation. It is incremented when a mapping
+> > is made in the fixmap, and decremented when unmapped.
+> >
+> > As it turns out, this tracking has several flaws:
+> >
+> > - we are trying to invalidate TLBs, and the mapping is only an
+> >   opportunistic consequence of the TLB. Checking this counter to
+> >   decide whether a TLB needs to be invalidated may result in missed
+> >   invalidations.
+> 
+> Is it largely the self-invalidation mentioned below or are there other cases?
 
-This issue was found by manual code inspection.
+No. The self-invalidation is only an additional consequence outlining
+that even the most basic requirements cannot be honoured.
 
-Fixes: 5946c4a5e770 ("crypto: omap-aes - Convert to use pm_runtime API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/crypto/omap-aes.c | 2 ++
- 1 file changed, 2 insertions(+)
+The thing to realise is that is that we are dealing with two separate
+"objects" when it comes to VNCR:
 
-diff --git a/drivers/crypto/omap-aes.c b/drivers/crypto/omap-aes.c
-index f31555c0d715..a6f5a689fbcd 100644
---- a/drivers/crypto/omap-aes.c
-+++ b/drivers/crypto/omap-aes.c
-@@ -1243,6 +1243,7 @@ static int omap_aes_probe(struct platform_device *pdev)
- err_irq:
- 	cancel_work_sync(&dd->done_task);
- err_pm_disable:
-+	pm_runtime_dont_use_autosuspend(dev);
- 	pm_runtime_disable(dev);
- err_res:
- 	dd = NULL;
-@@ -1269,6 +1270,7 @@ static void omap_aes_remove(struct platform_device *pdev)
- 
- 	cancel_work_sync(&dd->done_task);
- 	omap_aes_dma_cleanup(dd);
-+	pm_runtime_dont_use_autosuspend(dd->dev);
- 	pm_runtime_disable(dd->dev);
- }
- 
+- a SW TLB, which represent the guest VA to guest IPA to host PA
+  translations. This is the vncr_tlb structure, populated as we walk
+  the S1/S2 page tables. This structure's lifetime is controlled by
+  TLB invalidations from the guest, MMU notifiers from the host, and
+  natural eviction (there is only one such structure per vcpu).
+
+- a shadow page table that implements the translation at *runtime*, as
+  described by vncr_tlb. This is the per-CPU fixmap mapping. It's
+  lifetime is at most a vcpu_load/vcpu_put cycle, but it can also be
+  torn down by TLBI and notifiers.
+
+vncr_map_count only tracks the latter, not the former. Which means
+that if the mapping is not live on a CPU at the point of TLBI on *any*
+CPU, nothing will happen. That's a blatant violation of the
+architecture, and it could lead to memory corruption in the guest.
+
+The obvious fix is in patch 8, tracking the TLBs rather than the
+mappings.
+
+>
+> >
+> > - an L1 vcpu invalidating its own TLB (a very likely case) will not
+> >   succeed in invalidating the VNCR pseudo TLB because that page is
+> >   not mapped in L0 at this stage.
+> 
+> Ahh yes this is pretty compelling then!
+> 
+> >
+> > Given that this tracking fails at delivering the minimum guarantees
+> > that are required and is only a performance optimisation, remove it
+> > completely.
+> >
+> > Fixes: 4ffa72ad8f37e ("KVM: arm64: nv: Add S1 TLB invalidation primitive for VNCR_EL2")
+> > Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
+> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> 
+> The change LGTM, it neatly removes the described mechanism which is well
+> evidenced.
+> 
+> Comments below that are largely me talking out loud as I learn things :)
+> 
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+> > Cc: stable@vger.kernel.org
+> > ---
+> >  arch/arm64/include/asm/kvm_host.h | 3 ---
+> >  arch/arm64/kvm/hyp/vhe/switch.c   | 3 +--
+> >  arch/arm64/kvm/nested.c           | 3 ---
+> >  3 files changed, 1 insertion(+), 8 deletions(-)
+> >
+> > diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> > index bae2c4f92ef5c..ac16f96c878d6 100644
+> > --- a/arch/arm64/include/asm/kvm_host.h
+> > +++ b/arch/arm64/include/asm/kvm_host.h
+> > @@ -411,9 +411,6 @@ struct kvm_arch {
+> >  	/* Masks for VNCR-backed and general EL2 sysregs */
+> >  	struct kvm_sysreg_masks	*sysreg_masks;
+> >
+> > -	/* Count the number of VNCR_EL2 currently mapped */
+> > -	atomic_t vncr_map_count;
+> > -
+> >  	/*
+> >  	 * For an untrusted host VM, 'pkvm.handle' is used to lookup
+> >  	 * the associated pKVM instance in the hypervisor.
+> > diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
+> > index bbe9cebd3d9d5..c09b1d411c584 100644
+> > --- a/arch/arm64/kvm/hyp/vhe/switch.c
+> > +++ b/arch/arm64/kvm/hyp/vhe/switch.c
+> > @@ -427,8 +427,7 @@ static bool kvm_hyp_handle_tlbi_el2(struct kvm_vcpu *vcpu, u64 *exit_code)
+> >  	 * If we have to check for any VNCR mapping being invalidated,
+> >  	 * go back to the slow path for further processing.
+> >  	 */
+> > -	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu) &&
+> > -	    atomic_read(&vcpu->kvm->arch.vncr_map_count))
+> > +	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu))
+> >  		return false;
+> 
+> So this seems to be the crux of it - seems to be 'is there any possibility that
+> we will need to check for VNCR mappings being invalidated?'
+
+Yup. If the guest's state is HCR_EL2.{E2H,TGE}={1,1}, then this is the
+guest hypervisor invalidating TLBs for itself (and not its guest), and
+returning 'false' takes us on the slow path where we'll have to look
+at the individual vcnt_tlb structures to find out if there is any overlap.
+
+> 
+> Checks:
+> 
+> * vcpu_el2_e2h_is_set() - is the guest host kernel (?)'s hcr_el2.e2h
+>   enabled? From what I gather hcr_el2.e2h is what allows sysreg_EL1 ->
+>   sysreg_EL2 for the host kernel to allow unmodified kernels to run in EL2.
+
+Amongst other things, yes. Please see FEAT_VHE in the ARM ARM for a
+description of what HCR_EL2.E2H==1 implies.
+
+>
+>   IOW - is the guest host kernel VHE?
+
+Note that for a KVM guest, if FEAT_VHE is present, the FEAT_E2H0 is
+not implemented, which means that E2H is RES1. As an additional
+restriction, we only expose NV to VHE guests. This greatly simplifies
+the scope of what we need to support, and conveniently hides a bunch
+of architecture defects that cannot be otherwise mitigated.
+
+> 
+> * vcpu_el2_tge_is_set() - Similarly tests for the hcr_el2.tge bit - and this
+>   seems to be is 'EL1 -> EL2 redirection on?' - IOW - is this a kernel running
+>   in EL2?
+
+Not quite. We know for sure this is running at virtual EL2 (we trapped
+with HCR_EL2.NV set, for a start). In the TLBI case, HCR_EL2.TGE
+controls whether the behaviour of a TLBI S1E1* instruction targets the
+host (TGE==1) or the guest (TGE==0).
+
+> 
+> Actually I see in is_hyp_ctxt():
+> 
+> 	 * We are in a hypervisor context if the vcpu mode is EL2 or
+> 	 * E2H and TGE bits are set. The latter means we are in the user space
+> 	 * of the VHE kernel. ARMv8.1 ARM describes this as 'InHost'
+> 
+> So I _think_ the combination of the two is checking to see if you're the L0
+> kernel that _could_ send TLBi's that need to be handled?
+
+The combination of the two bits indicates: is this a VHE hypervisor
+invalidating TLBs for itself. If yes, then we need to check the VNCR
+SW TLBs to complete the job.
+
+> Previously it seemed the logic was 'if there are no VNCR mappings present then
+> we can optimise by short-circuiting the rest of the processing in
+> kvm_hyp_handle_sysreg_vhe()'.
+
+Exactly.
+
+> 
+> It seems that the hardware TLBi has been processed by now so it's actually more
+> like - there's still work to be done maintaining the software TLB and that's
+> done elsewhere.
+
+Yup.
+
+[...]
+
+> I think this is all vaguely sane :)
+
+You have been assimilated.
+
+Thanks for reading thus far!
+
+	M.
+
 -- 
-2.43.0
-
+Jazz isn't dead. It just smells funny.
