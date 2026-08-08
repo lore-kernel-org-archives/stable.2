@@ -1,43 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69B133C1BE
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8023B100A
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786188335; cv=none; b=pu+PaqaxPLhA6hgVfQHecqqEwt8ijQjZ/PCgZ9VWh2r0kCwSHnOG3ytzjLD2a4Y3TNMf2qV7ovXi/OOYnZdB59EAWWRGyWVjbNDN1xUh4PgOaq5MO28jNeQHlNJk0/1eEyOVOFXkMlxCqu6gQkAln0c8/S+S0GLoTUB97f+VHJc=
+	t=1786188365; cv=none; b=UUeH8in5o+3on6RRx4F+z5ZxXIwIcMoFQL3bwpVu5HYtc9ei2y0sJcbq9OCRPCxaSPVzLWH6nYgZZK9JFx9Gzp7GtCEGNiTE564kp8FYu7dGhqCHWMWbyJ3iT8U1Zius6EyYcQSMDuyvzdXTbq2IPpozdR22lOSO2pXW9a08H8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786188335; c=relaxed/simple;
-	bh=IyrLD+xOFGegidxPyTKb2SJKhYGf8XZnAXwmn3D7l4o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p9kPhe65DCwNXXwPCEj4rw5xHB/HXvFd4UbuaLSfQgYRaLKhPh7Z+jjeKjR05vaKZSyMtDM8+FFU2GNZsXB8T++hCtiJ5VKbk13TlGsyebqu6nRU1LCZbFHLKJ6ZxP3o7fZ/68cJ9M2xdIu9YQuJfn/Ih3ixNd1Ayjd32qIgmQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aFwnYq6D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786188365; c=relaxed/simple;
+	bh=79eIeLy6BGI+fBiKuSwA2DDf6rq8Fp/Sbknof2xZaCs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NzivTbo6I6j8BbYz27IiSGAwwEBhzHESmy8NqCfceDbQgR9r8IdAhuzpwXyQ5G1yObe06LexCh9WT3hAWWRdB6DCJK7ijZ3t6K/uGZpmY0Ww2/IxuLXugfgopjYHcHNLJzIDYzq8CiDj/QVrj5GGi5kDy6F1G5jt2as3ldR/yR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhRmPf1o; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aFwnYq6D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96921F000E9;
-	Sat,  8 Aug 2026 11:25:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786188334;
-	bh=92AbvF1fdfv5VQPfXd7FU6e6xgX6YeJMiU0+N3WLGRI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aFwnYq6DOZqGwsRwF7vxc5uGznito8/5k+fHmXozhHRKVN8uxScmez1cxPacuqGm0
-	 SeF2/ZuxcntdVxgOem/ixQ6C5lC7OxAEV+qCWB9yIuw9AknW+cpwDX1wo3rkkLXD6m
-	 6AWFx3jY66t+xABI7O+xpyXD+kYGSPIG1XFwhFlC02IL4GdO86ZC7wyuY9qiYxHl3/
-	 oOx5zhwuroCGBXtscIQlwsjt+rDJwgoPt9vOTaOiJFZjdqdhKjetBcAkzfQJNGDB8V
-	 yvzVxD/9p2ANQO7mCK0RFQEZSvFIHF3CQqSnzSpwL3OoholyR4ae/yw4NA3U9f0yws
-	 JuwyhanW59zFA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Pavitra Jha <jhapavitra98@gmail.com>,
-	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] libceph: fix two unsafe bare decodes in decode_lockers()
-Date: Sat,  8 Aug 2026 07:25:31 -0400
-Message-ID: <20260808112531.101285-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072947-glitter-prevalent-2aff@gregkh>
-References: <2026072947-glitter-prevalent-2aff@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhRmPf1o"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38fdeaed181so445553a91.1
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 04:26:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786188363; x=1786793163; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BtuOINh8YkDKYuvWIfvZnBXqzDMcNfimlyPxz7Xqg8g=;
+        b=NhRmPf1ooNhtD8AfKCgf5GHogVhYqIiEEBRqK3l9qxvopheTpDhbE34jNuuPgz2TIN
+         lRRvX4OOhP8wRUbN71lRCP4fQiYod42+QAXaDOt3EDCJzbBFPpMUdjjKvaz0zD4F5yP+
+         Qjlsz+oJxufHt0W8EsWs3J0DtyL6G3M9gpwXgBPBl9F8Y2rru68Yrqq0/vFuUU462nmG
+         7TlkDBsRYn69p77o9hDhpDHlCkeFN6mwOruoik2OkgC/EKB+fP/krI+vzNpJJbeyWPlM
+         hyftV8N32KNCGYq46E98FlBhPSEu81UUgTsstj4aBDzdeB1w4VS+Ie3xAhw9T3Dmi7Aj
+         xC1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786188363; x=1786793163;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BtuOINh8YkDKYuvWIfvZnBXqzDMcNfimlyPxz7Xqg8g=;
+        b=P0TB8S6X9O9wY1A6KFA5LHD6zbq7/JyJdium8JpA62Ay1RnktFufz2EuhoMj/cUfPa
+         lC5WgUWb6a5HVfNNTw3h1atqSbZ3v+cxvArfdv2eybl6bSo9WNf0aa7q8O39xIxwelb4
+         r1W2Ndickc/6rpv/PFh/ATiu27knXE74FAhT6kChjH3lpyeQFfwKeQ1JJ7dqWjdtK4dO
+         8/jVvLi7oW3BLHdhMShl2aYnvkIYMBSX2RUm3jnjFmw5MX+gBeZ7QQfJoanoNOgpK5P3
+         U0fmbJ4pqgwFOhxUS2X0ud41Ew9EeOzBj9mcz4pO2LbPPGn9nB+b5VQxIQvd35lcD+gl
+         22vQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqAgaVfOYsRGYVWgF/wpKWhEExleniGF/tpbce/zp93vjEm0DoNOHOvL2dhpOPhZndPY3t+i1I=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw10PhrYcmOij6wNyL733zCB2cCgYrUs8UWTo24ARHQJZLlt/ss
+	W1SsohxbDcrlHpdm1a50Pi+TckB2jGCTAhn5N8YFbFf/edkA5EGT4v1z
+X-Gm-Gg: AR+sD13MDSuDxG6s2t0AeW65XjFPxhgjAGNg+/MHEYu/QM/KZzmSWh0eUt9opMCw0cj
+	mCQiX3Ff1KIcXO03wz7+4yby3JgPR1UF4j5ySWTuYL4it/n99ttdTKZIy7yqDqqDNgwrB/IGeoo
+	uTNr1IqDlkecJdT0j+HIL0mmqdNayasJPvJ87ClUdp2Wk4/CRgNNML9IGbLGvkCXGFATxgFRZgX
+	EwBMWDxAU93KkamrLZw05k5LBACUcGWmdhmveWX1ncLqIxrR4inXpWTi35TBjm73fl+K5AwdwtE
+	xRuVJspJuLXt90Fr+N0+k/a7buG2WKuuPa/Tg6yLgVvd858RGLWTlpUjQ+CaSM3IP1aoSxaNXyP
+	XWteUGo28gBxhNrlZ/tZPQYrVixaWXVAb6OtR8dV/fGjxl9oi1v6JKvabZtVbIocm2IcrGUXRcn
+	xlr3UxysmOp7scgBn/sQCS1S2daayChRMp8sH6AQ3YbtYam01WhNA=
+X-Received: by 2002:a17:90b:1e53:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-3903c54cf2bmr27833795a91.4.1786188363482;
+        Sat, 08 Aug 2026 04:26:03 -0700 (PDT)
+Received: from lgs.. ([101.36.107.181])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39085dbf82csm8235726a91.1.2026.08.08.04.26.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Aug 2026 04:26:03 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Sinan Kaya <okaya@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] dmaengine: qcom: hidma: fix autosuspend cleanup during teardown
+Date: Sat,  8 Aug 2026 19:25:51 +0800
+Message-ID: <20260808112551.2786782-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,107 +79,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pavitra Jha <jhapavitra98@gmail.com>
+hidma_probe() calls pm_runtime_use_autosuspend(), but neither the probe
+failure path nor hidma_remove() calls the matching
+pm_runtime_dont_use_autosuspend() before disabling runtime PM.
 
-[ Upstream commit a109a556115271ca7896dcda7b4b7e45e156c227 ]
+If the autosuspend delay is set to a negative value while autosuspend
+is enabled, the runtime PM core increments usage_count to prevent
+runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+during teardown, this reference is not dropped and usage_count remains
+unbalanced.
 
-decode_lockers() in cls_lock_client.c contains two bare decode operations
-that allow a malicious or compromised OSD to trigger slab-out-of-bounds
-reads:
+Add the missing pm_runtime_dont_use_autosuspend() calls to both the
+probe failure and remove paths before disabling runtime PM.
 
-1. ceph_decode_32(p) at the num_lockers field has no preceding bounds
-   check. ceph_start_decoding() accepts struct_len=0 as valid -- the
-   internal ceph_decode_need(p, end, 0, bad) always passes -- so when an
-   OSD sends struct_len=0, ceph_start_decoding() returns success with
-   p == end. The immediately following bare ceph_decode_32(p) then reads
-   4 bytes past the validated buffer boundary. The garbage value is
-   passed directly to kzalloc_objs() as the locker count.
+This issue was found by manual code inspection.
 
-   The sibling function decode_watchers() in osd_client.c already uses
-   ceph_decode_32_safe() after its own ceph_start_decoding() call.
-   decode_lockers() was the only site using the bare variant.
-
-2. ceph_decode_8(p) after the decode_locker() loop has no preceding
-   bounds check. If an OSD crafts num_lockers such that the loop
-   advances p exactly to end, the subsequent bare ceph_decode_8(p) reads
-   one byte past the validated buffer boundary. The result is passed
-   directly into *type, which is used as a lock type discriminator by
-   callers, giving an OSD-controlled one-byte OOB read with direct
-   influence over the lock type field.
-
-Fix both by replacing bare operations with their safe variants:
-  ceph_decode_32(p) -> ceph_decode_32_safe(p, end, *num_lockers,
-                                           err_inval)
-  ceph_decode_8(p)  -> ceph_decode_8_safe(p, end, *type,
-                                          err_free_lockers)
-
-The goto targets differ intentionally:
-  err_inval: is a new label returning -EINVAL directly. It is used for
-  the pre-allocation failure path where *lockers is not yet allocated
-  and must not be passed to ceph_free_lockers().
-
-  err_free_lockers: is the existing label. It is used for the
-  post-allocation failure path where *lockers is allocated and must
-  be freed.
-
-ret is set to -EINVAL before ceph_decode_8_safe() so that
-err_free_lockers returns the correct error code on bounds violation.
-Without this, err_free_lockers would return a stale ret value (0 from
-the successful decode_locker() loop), silently swallowing the error.
-
--EINVAL is correct for both failure paths. The data received from the
-OSD is structurally malformed. -ENOMEM would misrepresent the failure
-class to callers and to stable@ backporters triaging error paths.
-
-Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
-deployment can trigger this against any kernel client that issues the
-lock.get_info class method (e.g. during RBD exclusive lock acquisition).
-
-[ idryomov: trim changelog, formatting ]
-
+Fixes: 67a2003e0607 ("dmaengine: add Qualcomm Technologies HIDMA channel driver")
 Cc: stable@vger.kernel.org
-Fixes: d4ed4a530562 ("libceph: support for lock.lock_info")
-Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
-Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- net/ceph/cls_lock_client.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/dma/qcom/hidma.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/ceph/cls_lock_client.c b/net/ceph/cls_lock_client.c
-index 66136a4c1ce7f..639793597b76c 100644
---- a/net/ceph/cls_lock_client.c
-+++ b/net/ceph/cls_lock_client.c
-@@ -299,7 +299,7 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
- 	if (ret)
- 		return ret;
+diff --git a/drivers/dma/qcom/hidma.c b/drivers/dma/qcom/hidma.c
+index c939635be21d..78fd765c81e4 100644
+--- a/drivers/dma/qcom/hidma.c
++++ b/drivers/dma/qcom/hidma.c
+@@ -893,6 +893,7 @@ static int hidma_probe(struct platform_device *pdev)
+ 		hidma_free(dmadev);
+ bailout:
+ 	pm_runtime_put_sync(&pdev->dev);
++	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 	return rc;
+ }
+@@ -930,6 +931,7 @@ static void hidma_remove(struct platform_device *pdev)
  
--	*num_lockers = ceph_decode_32(p);
-+	ceph_decode_32_safe(p, end, *num_lockers, err_inval);
- 	*lockers = kcalloc(*num_lockers, sizeof(**lockers), GFP_NOIO);
- 	if (!*lockers)
- 		return -ENOMEM;
-@@ -310,7 +310,8 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
- 			goto err_free_lockers;
- 	}
+ 	dev_info(&pdev->dev, "HI-DMA engine removed\n");
+ 	pm_runtime_put_sync_suspend(&pdev->dev);
++	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
  
--	*type = ceph_decode_8(p);
-+	ret = -EINVAL;
-+	ceph_decode_8_safe(p, end, *type, err_free_lockers);
- 	s = ceph_extract_encoded_string(p, end, NULL, GFP_NOIO);
- 	if (IS_ERR(s)) {
- 		ret = PTR_ERR(s);
-@@ -320,6 +321,9 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
- 	*tag = s;
- 	return 0;
- 
-+err_inval:
-+	return -EINVAL;
-+
- err_free_lockers:
- 	ceph_free_lockers(*lockers, *num_lockers);
- 	return ret;
 -- 
-2.53.0
+2.43.0
 
