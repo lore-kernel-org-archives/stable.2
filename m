@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96EFB1E2834
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 15:48:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E5ADF6C
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 15:48:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786204137; cv=none; b=EAptrnEsg8RT5qvWtjIEh/1vJs/+VljIBYbcIygOyXXD0mKLM7sVTTm3GQW/VjUS/SELtLLMga/2DhPpWwLl+Ygt7nTfoWELPRk7MOhDIiKGU099XuUa32P1eFB86GdpApZPKn85MmLz4nI46jbNPL3Zjw6vmpVqnrNZWuL8jBU=
+	t=1786204138; cv=none; b=J/ywalpKOVtVIe3303g+rWBsmVrcgbBsrXlhygfjzeInX9tIDDPKChO39TF4bgFieFcKwjPS287zJRrrMxCpPpqX+TZGPvmmWEJfHWuoTUaOhs6YKJ0aMXxvmR2tWWhlkDP8duqsq5tJnuo8r/gLYZ43ZAS6D4cPL1JKk+NEXjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786204137; c=relaxed/simple;
-	bh=GdzszkS068lRw+lFmyJQif28+HChgTZWcxnrk8Wa4OM=;
+	s=arc-20240116; t=1786204138; c=relaxed/simple;
+	bh=86SsvhYCcUszFj0AlwpJPaQgbyceeRPiaBmI3BObeJU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lQ3Ib666YcriAk/xfOgynwusjflqrvLR8Bzu5UumUDhGZVzeARRo5YZS56kSDPtBPTtQoVk8XHDR6hhKjru18BK152WC+yvVj/93nWzzV1T/S1QS1oIH2FALhcSQE+UWjbIoWH8Sn9ybH8ZbfWHg37xMN6aFFCebmznKRKJJnJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GrIhSTd7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lQUkCoXo3zBXlWSKpqMNxvwPOzVQM+R9bCkF7D1a6t0nUZZDoC2z2V9UIMWM6KVN0iN1DQ8sQkt2w61xOnvSF5bprpH54Ga9ZUMFOyCXIOJhK5fMN4a398deEWTdJaAbAXdl+znDT6lhHWPvLHUvFwJzGaXOXWSGe8a9i2vLDWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lBTgaLhi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GrIhSTd7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C801F00A3D;
-	Sat,  8 Aug 2026 15:48:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lBTgaLhi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D171F000E9;
+	Sat,  8 Aug 2026 15:48:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786204136;
-	bh=mrWUJrVlAyhsM/B25kcAXiWtg5uvDae3VWfeDpdoZ4c=;
+	s=k20260515; t=1786204137;
+	bh=i4+qXHTrgueeHdj8iV+yK1f4/Loq8m9EYTIgeCU6HC8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GrIhSTd7gUfivBiE+AE+hw7rt2yhnemfyQFbzbLSFQp/tbj8Kl+ZGXOI5oXKdAmYB
-	 KiA8asKQ7VEpg58UeSqNR60sj0CYlZit2nDYFoBlTmCD4+cJY9ZHs6DvW9cfNnBRo8
-	 Wk/tVYBP/rzfTu6K4JOznSIAkr4jX1mNn/U9YhhPlycmSp9ZCuiYdiHJ1ml9Ey18pJ
-	 UseOPKWfEp1GQhOTn5eD4/Ry0Mvc3LuykwbJbPafNBWy7IHe0oa57ANUEToWsf9F2g
-	 5rfr0ATFNE10cS7CCebRp5EaqvEVjikZb8zIEObOsvXBzLkLeLRssGz4IzcnLGDrXG
-	 klhetYxXt9xWg==
+	b=lBTgaLhieQSirUefzTS6zJi4hcr/+5OsnfSQ+O22ifT3lvDCIT8XBqcZB6H/ZlFsB
+	 s+Vjg5BdmoTelrDTEi9H4K/fLrWzZ0DyW8tgMH8KeG2KjrCrzJW0qaJjRZvyEJHhuK
+	 esFGoGvPVh5i6ylBjgbEqAHWzxT69tbRZ+C9NHR/Ri71RHf/eUIn2FWLvlug9YzI6G
+	 1cqcjYH20HTiTwX4E9OtbzC7cGKqH/2Eg0SmSNEVgYS6XnWUC1C/wRoy+xETp2iHtN
+	 brhjPlETVMRtBT7+3lU0C7lTNp5MKc4Us/fC6zo7ViwWEGxL+vfuhlxmrre70WIg7a
+	 4g0wVlWSgpBwg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/6] super: use a common iterator (Part 1)
-Date: Sat,  8 Aug 2026 11:48:49 -0400
-Message-ID: <20260808154852.370323-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/6] super: use common iterator (Part 2)
+Date: Sat,  8 Aug 2026 11:48:50 -0400
+Message-ID: <20260808154852.370323-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260808154852.370323-1-sashal@kernel.org>
 References: <2026072927-mom-flyover-909f@gregkh>
@@ -48,155 +48,125 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 2992476528aeecbaee17ba0a6396a817481205a3 ]
+[ Upstream commit b47e42d10e8c20525febccbd6e0dc8528861aea4 ]
 
-Use a common iterator for all callbacks.
+Use a common iterator for all callbacks. We could go for something even
+more elaborate (advance step-by-step similar to iov_iter) but I really
+don't think this is warranted.
 
-Link: https://lore.kernel.org/r/20250329-work-freeze-v2-4-a47af37ecc3d@kernel.org
+Link: https://lore.kernel.org/r/20250329-work-freeze-v2-5-a47af37ecc3d@kernel.org
 Reviewed-by: Jan Kara <jack@suse.cz>
 Signed-off-by: Christian Brauner <brauner@kernel.org>
 Stable-dep-of: 749d7aa0377a ("super: fix emergency thaw deadlock on frozen block devices")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/super.c         | 67 +++++++++-------------------------------------
- include/linux/fs.h |  6 ++++-
- 2 files changed, 18 insertions(+), 55 deletions(-)
+ fs/super.c         | 48 +++++++++++++++++++++++++++++++++++++---------
+ include/linux/fs.h |  6 +-----
+ 2 files changed, 40 insertions(+), 14 deletions(-)
 
 diff --git a/fs/super.c b/fs/super.c
-index f1714752e439b..d01088e55d30c 100644
+index d01088e55d30c..adfaee9e20297 100644
 --- a/fs/super.c
 +++ b/fs/super.c
-@@ -887,37 +887,7 @@ void drop_super_exclusive(struct super_block *sb)
+@@ -887,21 +887,46 @@ void drop_super_exclusive(struct super_block *sb)
  }
  EXPORT_SYMBOL(drop_super_exclusive);
  
--static void __iterate_supers(void (*f)(struct super_block *))
--{
--	struct super_block *sb, *p = NULL;
--
--	spin_lock(&sb_lock);
--	list_for_each_entry(sb, &super_blocks, s_list) {
--		if (super_flags(sb, SB_DYING))
--			continue;
--		sb->s_count++;
--		spin_unlock(&sb_lock);
--
--		f(sb);
--
--		spin_lock(&sb_lock);
--		if (p)
--			__put_super(p);
--		p = sb;
--	}
--	if (p)
--		__put_super(p);
--	spin_unlock(&sb_lock);
--}
--/**
-- *	iterate_supers - call function for all active superblocks
-- *	@f: function to call
-- *	@arg: argument to pass to it
-- *
-- *	Scans the superblock list and calls given function, passing it
-- *	locked superblock and given argument.
-- */
--void iterate_supers(void (*f)(struct super_block *, void *), void *arg)
-+void __iterate_supers(void (*f)(struct super_block *, void *), void *arg, bool excl)
+-void __iterate_supers(void (*f)(struct super_block *, void *), void *arg, bool excl)
++enum super_iter_flags_t {
++	SUPER_ITER_EXCL		= (1U << 0),
++	SUPER_ITER_UNLOCKED	= (1U << 1),
++	SUPER_ITER_REVERSE	= (1U << 2),
++};
++
++static inline struct super_block *first_super(enum super_iter_flags_t flags)
++{
++	if (flags & SUPER_ITER_REVERSE)
++		return list_last_entry(&super_blocks, struct super_block, s_list);
++	return list_first_entry(&super_blocks, struct super_block, s_list);
++}
++
++static inline struct super_block *next_super(struct super_block *sb,
++					     enum super_iter_flags_t flags)
++{
++	if (flags & SUPER_ITER_REVERSE)
++		return list_prev_entry(sb, s_list);
++	return list_next_entry(sb, s_list);
++}
++
++static void __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
++			     enum super_iter_flags_t flags)
  {
  	struct super_block *sb, *p = NULL;
++	bool excl = flags & SUPER_ITER_EXCL;
  
-@@ -927,14 +897,13 @@ void iterate_supers(void (*f)(struct super_block *, void *), void *arg)
+-	spin_lock(&sb_lock);
+-	list_for_each_entry(sb, &super_blocks, s_list) {
+-		bool locked;
++	guard(spinlock)(&sb_lock);
  
++	for (sb = first_super(flags);
++	     !list_entry_is_head(sb, &super_blocks, s_list);
++	     sb = next_super(sb, flags)) {
  		if (super_flags(sb, SB_DYING))
  			continue;
--
  		sb->s_count++;
  		spin_unlock(&sb_lock);
  
--		locked = super_lock_shared(sb);
-+		locked = super_lock(sb, excl);
- 		if (locked) {
+-		locked = super_lock(sb, excl);
+-		if (locked) {
++		if (flags & SUPER_ITER_UNLOCKED) {
++			f(sb, arg);
++		} else if (super_lock(sb, excl)) {
  			f(sb, arg);
--			super_unlock_shared(sb);
-+			super_unlock(sb, excl);
+ 			super_unlock(sb, excl);
  		}
- 
- 		spin_lock(&sb_lock);
-@@ -1110,11 +1079,9 @@ int reconfigure_super(struct fs_context *fc)
- 	return retval;
- }
- 
--static void do_emergency_remount_callback(struct super_block *sb)
-+static void do_emergency_remount_callback(struct super_block *sb, void *unused)
- {
--	bool locked = super_lock_excl(sb);
--
--	if (locked && sb->s_root && sb->s_bdev && !sb_rdonly(sb)) {
-+	if (sb->s_bdev && !sb_rdonly(sb)) {
- 		struct fs_context *fc;
- 
- 		fc = fs_context_for_reconfigure(sb->s_root,
-@@ -1125,13 +1092,11 @@ static void do_emergency_remount_callback(struct super_block *sb)
- 			put_fs_context(fc);
- 		}
+@@ -913,7 +938,11 @@ void __iterate_supers(void (*f)(struct super_block *, void *), void *arg, bool e
  	}
--	if (locked)
--		super_unlock_excl(sb);
+ 	if (p)
+ 		__put_super(p);
+-	spin_unlock(&sb_lock);
++}
++
++void iterate_supers(void (*f)(struct super_block *, void *), void *arg)
++{
++	__iterate_supers(f, arg, 0);
  }
+ 
+ /**
+@@ -1096,7 +1125,8 @@ static void do_emergency_remount_callback(struct super_block *sb, void *unused)
  
  static void do_emergency_remount(struct work_struct *work)
  {
--	__iterate_supers(do_emergency_remount_callback);
-+	__iterate_supers(do_emergency_remount_callback, NULL, true);
+-	__iterate_supers(do_emergency_remount_callback, NULL, true);
++	__iterate_supers(do_emergency_remount_callback, NULL,
++			 SUPER_ITER_EXCL | SUPER_ITER_REVERSE);
  	kfree(work);
  	printk("Emergency Remount complete\n");
  }
-@@ -1147,24 +1112,18 @@ void emergency_remount(void)
- 	}
- }
- 
--static void do_thaw_all_callback(struct super_block *sb)
-+static void do_thaw_all_callback(struct super_block *sb, void *unused)
- {
--	bool locked = super_lock_excl(sb);
--
--	if (locked && sb->s_root) {
--		if (IS_ENABLED(CONFIG_BLOCK))
--			while (sb->s_bdev && !bdev_thaw(sb->s_bdev))
--				pr_warn("Emergency Thaw on %pg\n", sb->s_bdev);
--		thaw_super_locked(sb, FREEZE_HOLDER_USERSPACE);
--		return;
--	}
--	if (locked)
--		super_unlock_excl(sb);
-+	if (IS_ENABLED(CONFIG_BLOCK))
-+		while (sb->s_bdev && !bdev_thaw(sb->s_bdev))
-+			pr_warn("Emergency Thaw on %pg\n", sb->s_bdev);
-+	thaw_super_locked(sb, FREEZE_HOLDER_USERSPACE);
-+	return;
- }
+@@ -1123,7 +1153,7 @@ static void do_thaw_all_callback(struct super_block *sb, void *unused)
  
  static void do_thaw_all(struct work_struct *work)
  {
--	__iterate_supers(do_thaw_all_callback);
-+	__iterate_supers(do_thaw_all_callback, NULL, true);
+-	__iterate_supers(do_thaw_all_callback, NULL, true);
++	__iterate_supers(do_thaw_all_callback, NULL, SUPER_ITER_EXCL);
  	kfree(work);
  	printk(KERN_WARNING "Emergency Thaw complete\n");
  }
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 466a76771b0a1..9cc0ad05bb4de 100644
+index 9cc0ad05bb4de..0815637a47028 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3398,7 +3398,11 @@ extern void put_filesystem(struct file_system_type *fs);
+@@ -3398,11 +3398,7 @@ extern void put_filesystem(struct file_system_type *fs);
  extern struct file_system_type *get_fs_type(const char *name);
  extern void drop_super(struct super_block *sb);
  extern void drop_super_exclusive(struct super_block *sb);
--extern void iterate_supers(void (*)(struct super_block *, void *), void *);
-+void __iterate_supers(void (*f)(struct super_block *, void *), void *arg, bool excl);
-+static inline void iterate_supers(void (*f)(struct super_block *, void *), void *arg)
-+{
-+	__iterate_supers(f, arg, false);
-+}
+-void __iterate_supers(void (*f)(struct super_block *, void *), void *arg, bool excl);
+-static inline void iterate_supers(void (*f)(struct super_block *, void *), void *arg)
+-{
+-	__iterate_supers(f, arg, false);
+-}
++extern void iterate_supers(void (*f)(struct super_block *, void *), void *arg);
  extern void iterate_supers_type(struct file_system_type *,
  			        void (*)(struct super_block *, void *), void *);
  
