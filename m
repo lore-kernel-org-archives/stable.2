@@ -1,111 +1,97 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56802EC56E
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 01:21:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4E8305E3B
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 01:36:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786152080; cv=none; b=QMCWMUTWKKv2NOa/BCam8fZGXO2/SiQRh+lclPF7bor977fzhsOhd5tAi5NUJpsIg92FFegrY/hmYBJDSopHNIfDhwXZr1OOorY72mSMhrYjcMpG3WF9VUAHmVDDOvyWKmsuU/5kNe2agT/bSTzkAf9hQcF/cb3csXNUnNMJLlo=
+	t=1786152986; cv=none; b=TlPQjRMc3GcXOWTEf+XDPqHJ/dUVNcnTkBT6CuCbQUsxuEy+73b5Yu/38EMWdQUcmUTxZe2DNPUCeEUnAbrFqNfpNsneEwljCijxdGhrKsV9/F6gSWpP3JX1xQbPdaKpHB8QbX0nXpwZBgk1aXZIitj504l214E7SgHg17A8e1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786152080; c=relaxed/simple;
-	bh=rNkmRRpHkjSa3uaDe3c67+rPcGRwfoMM6FHkaO04Gd8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OjT36u1ae2JKCm+gCii9zSqZ619mtymP4Sw9m1K+0tiV4VC0rpAxPZYb8cWfHFkeYo9wc+EA2p+8GoQQpy/2Hnb/YupRaXDoKgc4WK/hRbPhZyCM5nDeFq5r1Is3C77jcMdBIyY5wLsjP5dOcNbUoLTq36YIPee2Pd+jcW6YR+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=BAgYA4yO; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1786152986; c=relaxed/simple;
+	bh=VqJ/5vx1+/Tgbi7U14FnSG+i7R5Bb0mRyNoBP8I9kMo=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=E+EgFpys9ngL/tUsEBv4aOpNccsVg2mEqQchlYCytjlEwDwxoDSXAWzr8BOsyJm+itYVoaklmxEl0tSdtGtAKcA/tKL73bjDqOOAddA0RxOwFjV8YMwKEKvbWI9uCEllqZ4JTWUwdOr8U/m6Xc/Nz6+w6tY4Vw+FNxDdU8Om4ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LI/AXB+s; arc=none smtp.client-ip=95.215.58.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="BAgYA4yO"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47fe377a217so38622f8f.1
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 18:21:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1786152077; x=1786756877; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8rcoxkqGpzG40Z3CfGl8roTFSAXZr79E6UUmvO3lWu4=;
-        b=BAgYA4yOE6Z5L8Df/YxrR11vZJ1aqJGTBsOGgO4Dh5YLnY7Q6bqMVJH4UGkFlWK/aD
-         GRNI+cuhTqVgRAQZJ7LQe1w+xFZZnG+9seauuyZAM+IrYWiyN5k8bh5GYaJsrTzttEU6
-         xwZhC/lL8DaRINtQ3CPmj8Z9i8w2ad+ZaYNoZTl4ok4So0ivEJGUjZ35HkJ+LS5JHtdc
-         8T9R6CNR8GF3OWPS2qpqstW771arpIv1VnztsXT6U1DXEDs/OwY3TVR/lrG/gLrknit5
-         /MJOvMSM/V3u9AjmgcLcx4mCsTshrrAcGR24UHr3NwYfaV3P63+SQbMlJgOKLsSCpE1e
-         DMhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786152077; x=1786756877;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8rcoxkqGpzG40Z3CfGl8roTFSAXZr79E6UUmvO3lWu4=;
-        b=ThE0/qYtieQYwMysYlxtae3+KoIZ3Z67NeJYOrgMx5k0NUO1DMXkFXz5vgMDXWQBUJ
-         bXJRDbp6ch1EiFhrSCYI0y7l3xCMfdoKLdtAu1kIU4XU8+0mSXwWCgJOQNtTcJ8Nw/HS
-         PioElzUOV2+0Q5agrXVYB//svwN1OOADxsLjiRhhnU9PYubpG4ZU31EWSiuNihH7ZBpg
-         UFP8NrMhqzxdehWUSi6hWeY44iNiTOL8IBRA36ONkTYF+bNUvsRI7Iu7kKBFQMqZ076v
-         TgUgklHDvi4ThusbVtNx81z2jaKWKq/FlzPaRetIxRPgnpyS4PEUes7pdLh3uIuIXKnG
-         1xDg==
-X-Forwarded-Encrypted: i=1; AHgh+RrcmT0ohTL2yA5LLADY8sV2ejQgb7iOKdyLtPTzR2KypHQ4Kzm5T61KtSjOX5B9YiUXtfZVrd8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yze6r1hZvwIr0EhN8n7PjwRxaHZwJk5KsCL0955ED0agnfDqafe
-	iCHAWm7J2e5sHJ7iCnltYB94c6FCBwnMKl+RY/xvUnjnjWT7suNwlcU=
-X-Gm-Gg: AR+sD10sgfEQlmKZyjd8X+rayAhDypQMMyVvA5Zo+/69HwBOQjsCzPfFtRE4mFeU6u8
-	G+e08nL+Icw6W7j2EjH1C8UQwvdpIIrBjMJIgbvHnjA5o0vvsfp+6mYfluvqSLi/ymHF/VvocyU
-	7WRsGw3aOswVmqS97Ns9HeLqbTCd1lB/DPE/BLC30JF9vGRn1RsOP41eVux4KUhSWufiSxskBDE
-	Vb0hoc/qO2I32OS/0UI57MO1lvBEXAQgjHeIayxX9QKD6hbW/90Ngh5ElhrnJdm9djaPegh4doh
-	qilEgsj08HsBkLGx8zOyRK0+OM9+lChXXyu2ysnoO8T7VDVn+LJ/2PAD3B5bontc24Q7Wc8YWTO
-	9q54uf7IvI93nCpkPB7b6K/8qv/WOYa1VhZtGi4f8M4DQomjVcLxniSJoJw2+kULd7D+iP77Ukj
-	ToItlMinkJq1lxIpbtGHp9If1FCqZRN3lRa6EcANhg9VTHUMTurou3zX1aNSzAQbBpcZ2Ly5Luw
-	DcYgiJpZjWVzmhK59iI5YxF3jzKiNNhW/YFj6mE
-X-Received: by 2002:a05:6000:29d5:b0:47f:2de3:b351 with SMTP id ffacd0b85a97d-47fec63538dmr30399389f8f.26.1786152076941;
-        Fri, 07 Aug 2026 18:21:16 -0700 (PDT)
-Received: from [192.168.1.3] (p5b0574f6.dip0.t-ipconnect.de. [91.5.116.246])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021506desm10520745f8f.10.2026.08.07.18.21.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Aug 2026 18:21:16 -0700 (PDT)
-Message-ID: <5392720e-f6bf-4ba7-8e44-fe20079c4c20@googlemail.com>
-Date: Sat, 8 Aug 2026 03:21:15 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LI/AXB+s"
+Content-Type: text/plain;
+	charset=us-ascii
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786152971;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mBze6R+Yde21iZRthxsluHvPvQaZpfZt7IhiN6kDbGs=;
+	b=LI/AXB+sl/lAsfXlZgmEG1cRftwk6gDS1C1hOcW1gnixTb7sKudbdP/f+F4XA2F7tLCXnF
+	e6sGu5pPc2E6cB4241E+FS8cHpWkWeVlOdYK7nVO+Y0KFRjnp2wcHfJhfjzfj4EZURu/jw
+	/XzeJHn5jY4kzwNsJMVweKHyhZ5XDBA=
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.6 000/261] 6.6.151-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260807143415.358597922@linuxfoundation.org>
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260807143415.358597922@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 07.08.2026 um 16:35 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.6.151 release.
-> There are 261 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
-
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH v3] memcg: keep folio's objcg same as its node
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260807142406.443516-1-shakeel.butt@linux.dev>
+Date: Sat, 8 Aug 2026 09:35:36 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Meta kernel team <kernel-team@meta.com>,
+ linux-mm@kvack.org,
+ cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Karl Erik Hofseth <karl.e.hofseth@opoint.com>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <9B30927B-4154-4FA4-B62E-425F6EC4FA89@linux.dev>
+References: <20260807142406.443516-1-shakeel.butt@linux.dev>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+X-Migadu-Flow: FLOW_OUT
 
 
-Beste Grüße,
-Peter Schneider
 
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+> On Aug 7, 2026, at 22:24, Shakeel Butt <shakeel.butt@linux.dev> wrote:
+>=20
+> memcg_reparent_objcgs() has an inherent assumption that a folio's =
+objcg
+> is the objcg of the folio's node.  Folio migration across nodes breaks
+> that assumption: the new folio simply inherits the old folio's objcg
+> while living on a different node.
+>=20
+> Once the assumption is broken, the reparenting of the folio's objcg =
+and
+> the reparenting of the folio's LRU list are no longer atomic.
+> memcg_reparent_objcgs() handles one node per iteration and drops all =
+the
+> locks in between, so the objcg gets reparented in the iteration for =
+the
+> objcg's node while the LRU list gets spliced in the iteration for the
+> folio's node.  Any LRU operation on that folio in between resolves its
+> lruvec through the objcg, and thus takes the lru_lock of the wrong
+> memcg, not the lru_lock of the list the folio is actually on.
+>=20
+> Fix this by selecting the objcg by folio_nid() at charge time, and by
+> re-deriving it for the destination node in mem_cgroup_migrate() and
+> mem_cgroup_replace_folio().
+>=20
+> Reported-by: Karl Erik Hofseth <karl.e.hofseth@opoint.com>
+> Closes: https://lore.kernel.org/all/anMmd1ADrDVwMO6v@work/
+> Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying =
+memory cgroup for LRU folios")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Johannes Weiner <hannes@cmpxchg.org>
+> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
+
