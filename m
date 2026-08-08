@@ -1,51 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E13D30C159
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 02:52:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED18347529
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 02:52:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786157554; cv=none; b=hv3zdOsFh3QrkTcooNzpQCMy8jjb/4MOLkxo45qPiDmkSH9afEM370sq3XhrOUDpDGACducQQYxxwtYSM7u5u0VkfoZu8vSl+5SS/bBJXdV1Z8ZH+V4TJigr37zCA8kXSDKpEIet/genNSJUaTOuEcJGyhiAG0CHMLl/5W3986Q=
+	t=1786157555; cv=none; b=OBK4780810HhGwYLhuNItX3KzI35G5LxjQdmGFKAwfphF7jHDJQpJcMJ4a0c+T31sP8oWAMSqv6aZVvChRQ10kGeShXan1WSMEZsbhZGYspfZonQIEfB5dPbXu7WgUp5nE11x2JLmExGE0C6DEy8tSlKJ2954q4T1APmDXbNPhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786157554; c=relaxed/simple;
-	bh=A9/5tXbh616nGIZuaxlY4eHF6mxPI/9wBDVM+fbRJr4=;
+	s=arc-20240116; t=1786157555; c=relaxed/simple;
+	bh=iofG20uerzb1i9MRCHhqTyWQ0ETuuhwjR0EMq9C2D+8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oEYYUaFqAbIagQ5R4mRE9SuWMGsaphrJfItzEHheto3WdLs9e44gwaIOq5+zmhvWyJbKE0YMUbMVeH/6JWaw7mhUq4+LcLd68QbW+E06Huh60dDoC66MZOuwF27NbWHgu3B6ON6PF9lJOWnoaq2IdLC4g/XV2v99snLZ0r6dHw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeqx+RZH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sLKppoM2H/tgzHAKGUBBft3g+lwNK1vCHtu/Wyj6TVXvVWFqIng1pTVLlxnthv7xEZo7Te5/7CkcyeNajSVl6SXXZEPHAVc8F7Le1651+tvJ17L16zEcse8kWeCSy391EJMzbmVAQ7n/eUwXt7E6sXA7NI8IrJHi/SYZ53zU3BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ES+J32oN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeqx+RZH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99B8E1F000E9;
-	Sat,  8 Aug 2026 02:52:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ES+J32oN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 275E81F00A3A;
+	Sat,  8 Aug 2026 02:52:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786157552;
-	bh=XuIDCWRnkVPlZaadUjVCr9ZUnXCs015l0TufqDUi6ds=;
+	s=k20260515; t=1786157554;
+	bh=lISNuSz9U27P9mwMb7fnjbz85WqTN7mlQXzGYwEnFpQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oeqx+RZHiWAkBh0EkXhgRqv6aNfBpRHjThBf28HjnVYL1+jYpPHJbsyR09Aan1ZjX
-	 TFkr7PgQ9s+2AIVV7UUuhdwN4tuciTP2tW/wazWUIEdeAVWhG2WupLE+IBsHMIKv7k
-	 OCObShUBHozcpXiok4KypnQy3RlkwN+tErMjiE5zGFuQtUuy7fnCETlpD3fwCWyuUY
-	 KeudLp67FUIGIOdILZrsE5PSFaWK3LOY1fRmjWovNLjjbulJvtqvauhEILQ4R2QEkc
-	 t4XygIAsWqbPaZGlFXYzWMguHeadFsZi4AlOt+z5djUZLD4/IRn5b40EyvQiMIJKfL
-	 IranND19r5tvA==
+	b=ES+J32oNDVT9MpaQaFN+TcavA5CUyZSQGeWWUUOjhMLttJPXHIitU/H3UckxQuqA5
+	 p/QrFDP/QT43J1+4qQIeHwxnOag3p/NzRnCe2e6G95hDZqtiwxY2yDS5SfC/wENf+7
+	 rQgnHhZOWdCOmhp7E/2/7yo3TFqkN+ruCrwJqK+AG7GD1zBGqNC0H9tU0gbPAA7+NT
+	 pAATz+9ozYw/19nDlExyoOOYkrw8lDxSpMy+r8IsaJInybIAWDp1VpEhchdItgWK55
+	 tCQogdg6kh5I/Dy6Fkb79Bp2r1isGl5h5ac+80Xjb+txNqT4zutUDElOlvl3aQFWtI
+	 F6veqhxH8aFVQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Lance Yang <lance.yang@linux.dev>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Nico Pache <npache@redhat.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Wei Yang <richard.weiyang@gmail.com>,
-	David Hildenbrand <david@redhat.com>,
-	Liam Howlett <liam.howlett@oracle.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Zi Yan <ziy@nvidia.com>,
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	vova tokarev <vladimirelitokarev@gmail.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Linus Torvalds <torvalds@linuxfoundation.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Peter Xu <peterx@redhat.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] mm/khugepaged: guard is_zero_pfn() calls with pte_present()
-Date: Fri,  7 Aug 2026 22:52:29 -0400
-Message-ID: <20260808025230.4028587-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] userfaultfd: prevent registration of special VMAs
+Date: Fri,  7 Aug 2026 22:52:30 -0400
+Message-ID: <20260808025230.4028587-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072906-scheming-vocation-25cd@gregkh>
+In-Reply-To: <20260808025230.4028587-1-sashal@kernel.org>
 References: <2026072906-scheming-vocation-25cd@gregkh>
+ <20260808025230.4028587-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,122 +55,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lance Yang <lance.yang@linux.dev>
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
-[ Upstream commit 074f027d15c10cb376b3ad88405b8e512fa5b3a8 ]
+[ Upstream commit 3c58f641e813c3c71039f8fd4d4e2a3aab713288 ]
 
-A non-present entry, like a swap PTE, contains completely different data
-(swap type and offset).  pte_pfn() doesn't know this, so if we feed it a
-non-present entry, it will spit out a junk PFN.
+Vova Tokarev says:
 
-What if that junk PFN happens to match the zeropage's PFN by sheer chance?
-While really unlikely, this would be really bad if it did.
+  userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
+  access, you can register on the shadow stack, discard a page ... and
+  inject a page with chosen return addresses via UFFDIO_COPY.
 
-So, let's fix this potential bug by ensuring all calls to is_zero_pfn() in
-khugepaged.c are properly guarded by a pte_present() check.
+Update vma_can_userfault() to reject VM_SHADOW_STACK.
 
-Link: https://lkml.kernel.org/r/20251020151111.53561-1-lance.yang@linux.dev
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
-Suggested-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Reviewed-by: Nico Pache <npache@redhat.com>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
-Acked-by: David Hildenbrand <david@redhat.com>
-Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Liam Howlett <liam.howlett@oracle.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Wei Yang <richard.weiyang@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>
+While on it, also reject VM_SPECIAL so that if a driver would implement
+vm_uffd_ops, it wouldn't be possible to register special VMAs with
+userfaultfd.
+
+Since VM_SPECIAL includes VM_DONTEXPAND which is set but hugetlb, exclude
+hugetlb VMAs from the check for VM_SPECIAL.
+
+Link: https://lore.kernel.org/20260618095017.2553004-1-rppt@kernel.org
+Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Linus Torvalds <torvalds@linuxfoundation.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Oleg Nesterov <oleg@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 3c58f641e813 ("userfaultfd: prevent registration of special VMAs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/khugepaged.c | 35 +++++++++++++++++++++--------------
- 1 file changed, 21 insertions(+), 14 deletions(-)
+ include/linux/userfaultfd_k.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 95b49ca6b196c..a6b2c7d7d73b6 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -346,6 +346,13 @@ struct attribute_group khugepaged_attr_group = {
- };
- #endif /* CONFIG_SYSFS */
- 
-+static bool pte_none_or_zero(pte_t pte)
-+{
-+	if (pte_none(pte))
-+		return true;
-+	return pte_present(pte) && is_zero_pfn(pte_pfn(pte));
-+}
-+
- int hugepage_madvise(struct vm_area_struct *vma,
- 		     unsigned long *vm_flags, int advice)
+diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
+index 75342022d1441..8ff68ce1860be 100644
+--- a/include/linux/userfaultfd_k.h
++++ b/include/linux/userfaultfd_k.h
+@@ -216,6 +216,12 @@ static inline bool vma_can_userfault(struct vm_area_struct *vma,
+ 				     unsigned long vm_flags,
+ 				     bool wp_async)
  {
-@@ -529,6 +536,7 @@ static void release_pte_pages(pte_t *pte, pte_t *_pte,
++	if (vma->vm_flags & VM_SHADOW_STACK)
++		return false;
++
++	if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
++		return false;
++
+ 	vm_flags &= __VM_UFFD_FLAGS;
  
- 		if (pte_none(pteval))
- 			continue;
-+		VM_WARN_ON_ONCE(!pte_present(pteval));
- 		pfn = pte_pfn(pteval);
- 		if (is_zero_pfn(pfn))
- 			continue;
-@@ -572,8 +580,7 @@ static int __collapse_huge_page_isolate(struct vm_area_struct *vma,
- 	for (_pte = pte; _pte < pte + HPAGE_PMD_NR;
- 	     _pte++, address += PAGE_SIZE) {
- 		pte_t pteval = ptep_get(_pte);
--		if (pte_none(pteval) || (pte_present(pteval) &&
--				is_zero_pfn(pte_pfn(pteval)))) {
-+		if (pte_none_or_zero(pteval)) {
- 			++none_or_zero;
- 			if (!userfaultfd_armed(vma) &&
- 			    (!cc->is_khugepaged ||
-@@ -716,17 +723,17 @@ static void __collapse_huge_page_copy_succeeded(pte_t *pte,
- 	for (_pte = pte; _pte < pte + HPAGE_PMD_NR;
- 	     _pte++, address += PAGE_SIZE) {
- 		pteval = ptep_get(_pte);
--		if (pte_none(pteval) || is_zero_pfn(pte_pfn(pteval))) {
-+		if (pte_none_or_zero(pteval)) {
- 			add_mm_counter(vma->vm_mm, MM_ANONPAGES, 1);
--			if (is_zero_pfn(pte_pfn(pteval))) {
--				/*
--				 * ptl mostly unnecessary.
--				 */
--				spin_lock(ptl);
--				ptep_clear(vma->vm_mm, address, _pte);
--				spin_unlock(ptl);
--				ksm_might_unmap_zero_page(vma->vm_mm, pteval);
--			}
-+			if (pte_none(pteval))
-+				continue;
-+			/*
-+			 * ptl mostly unnecessary.
-+			 */
-+			spin_lock(ptl);
-+			ptep_clear(vma->vm_mm, address, _pte);
-+			spin_unlock(ptl);
-+			ksm_might_unmap_zero_page(vma->vm_mm, pteval);
- 		} else {
- 			struct page *src_page = pte_page(pteval);
- 
-@@ -812,7 +819,7 @@ static int __collapse_huge_page_copy(pte_t *pte, struct folio *folio,
- 		unsigned long src_addr = address + i * PAGE_SIZE;
- 		struct page *src_page;
- 
--		if (pte_none(pteval) || is_zero_pfn(pte_pfn(pteval))) {
-+		if (pte_none_or_zero(pteval)) {
- 			clear_user_highpage(page, src_addr);
- 			continue;
- 		}
-@@ -1305,7 +1312,7 @@ static int hpage_collapse_scan_pmd(struct mm_struct *mm,
- 				goto out_unmap;
- 			}
- 		}
--		if (pte_none(pteval) || is_zero_pfn(pte_pfn(pteval))) {
-+		if (pte_none_or_zero(pteval)) {
- 			++none_or_zero;
- 			if (!userfaultfd_armed(vma) &&
- 			    (!cc->is_khugepaged ||
+ 	if (vm_flags & VM_DROPPABLE)
 -- 
 2.53.0
 
