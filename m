@@ -1,52 +1,46 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED18347529
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 02:52:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057883B1B3;
+	Sat,  8 Aug 2026 03:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786157555; cv=none; b=OBK4780810HhGwYLhuNItX3KzI35G5LxjQdmGFKAwfphF7jHDJQpJcMJ4a0c+T31sP8oWAMSqv6aZVvChRQ10kGeShXan1WSMEZsbhZGYspfZonQIEfB5dPbXu7WgUp5nE11x2JLmExGE0C6DEy8tSlKJ2954q4T1APmDXbNPhA=
+	t=1786159004; cv=none; b=TtFDcKPGkp+Sfs64/QtrhGD6EAi/94fjATYVdtFEeg9AW/+oReuUL5aaJkIHJRRY9dEEDoIHDwbp3VyPEtCNq7j5VEdk1oCfz0XjhwXR5AoFFoxUaJsyqRfM9QLrZeMLi7r4S9/zG7jLDqzV9UvLOxcJLuZkdePGvN7LTJdcePY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786157555; c=relaxed/simple;
-	bh=iofG20uerzb1i9MRCHhqTyWQ0ETuuhwjR0EMq9C2D+8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sLKppoM2H/tgzHAKGUBBft3g+lwNK1vCHtu/Wyj6TVXvVWFqIng1pTVLlxnthv7xEZo7Te5/7CkcyeNajSVl6SXXZEPHAVc8F7Le1651+tvJ17L16zEcse8kWeCSy391EJMzbmVAQ7n/eUwXt7E6sXA7NI8IrJHi/SYZ53zU3BY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ES+J32oN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786159004; c=relaxed/simple;
+	bh=Ola9iQHMJnsFlT9upmL02ADrEDC3KX5FrrmNfmmz75g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X+wzLvkBAHT5mZ5dHsX1whHYV4Cj7YTuxNahYRO+dNRvgQeNiBLssqYz/xsGbNLIX3AFCrM3d+O1rQDxbtADxYQZj2al5+s8Sd4SCgSqSnVrsUDSCRsn+Jc4cXEZH0thD6gOynPM02Y0SzBzge9j53dtkaR+I9ZeITgEBgL+Hhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=d1wj/x2O; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ES+J32oN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 275E81F00A3A;
-	Sat,  8 Aug 2026 02:52:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786157554;
-	bh=lISNuSz9U27P9mwMb7fnjbz85WqTN7mlQXzGYwEnFpQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ES+J32oNDVT9MpaQaFN+TcavA5CUyZSQGeWWUUOjhMLttJPXHIitU/H3UckxQuqA5
-	 p/QrFDP/QT43J1+4qQIeHwxnOag3p/NzRnCe2e6G95hDZqtiwxY2yDS5SfC/wENf+7
-	 rQgnHhZOWdCOmhp7E/2/7yo3TFqkN+ruCrwJqK+AG7GD1zBGqNC0H9tU0gbPAA7+NT
-	 pAATz+9ozYw/19nDlExyoOOYkrw8lDxSpMy+r8IsaJInybIAWDp1VpEhchdItgWK55
-	 tCQogdg6kh5I/Dy6Fkb79Bp2r1isGl5h5ac+80Xjb+txNqT4zutUDElOlvl3aQFWtI
-	 F6veqhxH8aFVQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	vova tokarev <vladimirelitokarev@gmail.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Linus Torvalds <torvalds@linuxfoundation.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] userfaultfd: prevent registration of special VMAs
-Date: Fri,  7 Aug 2026 22:52:30 -0400
-Message-ID: <20260808025230.4028587-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260808025230.4028587-1-sashal@kernel.org>
-References: <2026072906-scheming-vocation-25cd@gregkh>
- <20260808025230.4028587-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="d1wj/x2O"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=yF
+	xoYkm6JojXNUVuKu6qzrezBLUlcTSSEZm/pGV4e6I=; b=d1wj/x2OXuvoqNF1TM
+	tpseKZpWuR5WJcjlhcyDfL0FTyNiVFd8JDkWVBXHlfhlbPE9slIEt6s7uZs0HMCX
+	+LNzByKybG9+L1g21mSXU/U38dgMWMqoHxqRmVjegMkR/WeeAXpHyck3nA4/7Maf
+	VkHP5YAVQppnyASLVMX+rtPS0=
+Received: from localhost (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgC3QCBin3ZqScbJLA--.19934S2;
+	Sat, 08 Aug 2026 11:15:47 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Zqiang <qiang1.zhang@intel.com>,
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH v2] kasan: fix cache shrink race with CPU hotplug
+Date: Sat,  8 Aug 2026 11:14:59 +0800
+Message-ID: <20260808031459.3032812-1-sh_def@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,63 +48,116 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgC3QCBin3ZqScbJLA--.19934S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxurW3XF45WF1rtw48AF1DWrg_yoWrtw47pF
+	y3Ka47Jr18Wr18tanrGa1UWryrAFZ8ZFnxXwsagw1FyF45u34DW34UKrW0vFWUWryrJa15
+	t3Wvya45WFWqyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piHa0PUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6gU5mGp2n2XpBAAA3F
 
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+kasan_quarantine_remove_cache() first invokes per_cpu_remove_cache() on
+all online CPUs. Each callback moves objects belonging to the cache from
+cpu_quarantine to the CPU's shrink_qlist, where they can later be freed
+from task context.
 
-[ Upstream commit 3c58f641e813c3c71039f8fd4d4e2a3aab713288 ]
+kmem_cache_destroy() invokes the quarantine removal path while holding
+cpus_read_lock(), but kmem_cache_shrink() does not. The latter can
+therefore race with CPU offlining as follows:
 
-Vova Tokarev says:
+  kmem_cache_shrink()             CPU hotplug
+  -------------------             -----------
+  on_each_cpu()
+    CPU1 moves objects to
+    CPU1's shrink_qlist
+  on_each_cpu() returns
+                                  CPU1 goes offline
+                                  kasan_cpu_offline()
+                                    drains cpu_quarantine
+                                    leaves shrink_qlist untouched
+  for_each_online_cpu()
+    skips CPU1
 
-  userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
-  access, you can register on the shadow stack, discard a page ... and
-  inject a page with chosen return addresses via UFFDIO_COPY.
+The objects left on CPU1's shrink_qlist are not returned to the slab
+allocator. This may prevent kmem_cache_shrink() from releasing slabs
+that would otherwise become empty. If CPU1 remains offline, a later
+kmem_cache_destroy() also skips the list and can report that the cache
+still contains objects.
 
-Update vma_can_userfault() to reject VM_SHADOW_STACK.
+An intermittent occurrence was observed with a virtio-9p filesystem.
+The mount and umount commands both returned 0, but the kernel logged
+the following during the userspace-triggered teardown:
 
-While on it, also reject VM_SPECIAL so that if a driver would implement
-vm_uffd_ops, it wouldn't be possible to register special VMAs with
-userfaultfd.
+  [  2994.380134][  T111] BUG 9p-fcall-cache-1 (Tainted: G    B              ): Objects remaining on __kmem_cache_shutdown()
+  [  2994.381140][  T111] Object 0xff11000004361118 @offset=4376
+  [  2994.381607][  T111] Allocated in p9_fcall_init+0x201/0x400 age=19564 cpu=1 pid=104
+  [  2994.382591][  T111]  p9_fcall_init+0x201/0x400
+  [  2994.382810][  T111]  p9_tag_alloc+0x12f/0x700
+  [  2994.382982][  T111]  p9_client_prepare_req+0x102/0x3e0
+  [  2994.383165][  T111]  p9_client_rpc+0x1ab/0xa50
+  [  2994.383334][  T111]  p9_client_getattr_dotl+0xb0/0x1a0
+  [  2994.383515][  T111]  v9fs_vfs_getattr_dotl+0x115/0x360
+  [  2994.383719][  T111]  vfs_getattr_nosec+0x22c/0x3a0
+  [  2994.383910][  T111]  vfs_statx+0xd7/0x170
+  [  2994.384062][  T111]  vfs_fstatat+0x45/0x80
+  [  2994.384215][  T111]  __do_sys_newfstatat+0x84/0xe0
+  [  2994.384386][  T111]  do_syscall_64+0x115/0x6a0
+  [  2994.384566][  T111]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  [  2994.399720][  T111] WARNING: mm/slub.c:1244 at __kmem_cache_shutdown+0x363/0x500, CPU#0: busybox/111
+  [  2994.405655][  T111] Call Trace:
+  [  2994.406325][  T111]  kmem_cache_destroy+0x73/0x1b0
+  [  2994.406630][  T111]  p9_client_destroy+0x271/0x3c0
+  [  2994.407210][  T111]  v9fs_session_close+0x3c/0x260
+  [  2994.407409][  T111]  v9fs_kill_super+0x48/0x90
+  [  2994.407584][  T111]  deactivate_locked_super+0xa3/0x160
+  [  2994.407778][  T111]  cleanup_mnt+0x1dd/0x3e0
 
-Since VM_SPECIAL includes VM_DONTEXPAND which is set but hugetlb, exclude
-hugetlb VMAs from the check for VM_SPECIAL.
+Thus, a successful umount left objects in the 9p fcall cache and
+prevented the cache from being destroyed cleanly.
 
-Link: https://lore.kernel.org/20260618095017.2553004-1-rppt@kernel.org
-Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>
-Cc: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Oleg Nesterov <oleg@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Per-CPU shrink_qlist storage exists for every possible CPU, and each
+list is protected by its own raw spinlock. Iterate over possible CPUs
+so that a list populated before its CPU went offline is drained as well.
+
+for_each_possible_cpu() can do more work than for_each_online_cpu(), but
+this change only affects CONFIG_KASAN_GENERIC kernels. The extra work is
+limited to cache shrink and cache destruction paths and does not affect
+the normal allocation/free fast path. It adds one raw-spinlock-protected
+scan of each possible CPU's shrink list. These lists are normally empty;
+a non-empty list is traversed to remove objects belonging to the cache
+being shrunk or destroyed.
+
+Fixes: 07d067e4f2ce ("kasan: fix sleeping function called from invalid context on RT kernel")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Su <sh_def@163.com>
 ---
- include/linux/userfaultfd_k.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+Changes in v2:
+- Document the intermittent virtio-9p slab shutdown log and user-visible effect.
+- Explain the runtime cost of scanning all possible CPUs.
+- No code changes.
 
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index 75342022d1441..8ff68ce1860be 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -216,6 +216,12 @@ static inline bool vma_can_userfault(struct vm_area_struct *vma,
- 				     unsigned long vm_flags,
- 				     bool wp_async)
- {
-+	if (vma->vm_flags & VM_SHADOW_STACK)
-+		return false;
-+
-+	if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
-+		return false;
-+
- 	vm_flags &= __VM_UFFD_FLAGS;
+Link to v1: https://lore.kernel.org/r/20260806121006.1642946-1-sh_def@163.com
+
+ mm/kasan/quarantine.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/mm/kasan/quarantine.c b/mm/kasan/quarantine.c
+index 6958aa713c67..16f4e67beee8 100644
+--- a/mm/kasan/quarantine.c
++++ b/mm/kasan/quarantine.c
+@@ -355,7 +355,12 @@ void kasan_quarantine_remove_cache(struct kmem_cache *cache)
+ 	 */
+ 	on_each_cpu(per_cpu_remove_cache, cache, 1);
  
- 	if (vm_flags & VM_DROPPABLE)
+-	for_each_online_cpu(cpu) {
++	/*
++	 * A CPU can go offline after on_each_cpu() returns, leaving cache
++	 * objects on that CPU's shrink list. Scan all possible CPUs to
++	 * drain those lists.
++	 */
++	for_each_possible_cpu(cpu) {
+ 		sq = per_cpu_ptr(&shrink_qlist, cpu);
+ 		raw_spin_lock_irqsave(&sq->lock, flags);
+ 		qlist_move_cache(&sq->qlist, &to_free, cache);
 -- 
-2.53.0
+2.43.0
 
