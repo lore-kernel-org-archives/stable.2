@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882E3368D73
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:25:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CC73A8743
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:25:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786188332; cv=none; b=m/WqKa3TdtgdFymQOMRIV/ftZoFyTBrbQwrkuwIRJyft0D20tUZ4slVSkYg1hI13Eavp39AZtQWaz4GwxlFMtFSoiTiFu7skivB8NNvUBH2QDWsDLOiFrySwwItP3f/xi5ScNCEgAiQXG3eH/y+0XG7GEZhdRzwT1j2Mz56yjJY=
+	t=1786188333; cv=none; b=X96jWc3qsL+2x37JSQBjuMahY+ec+YZ2r34kLiovAjNCyrcjDh2yRR9vFZmCr+zQPVyhaBsrGvXFO/rRLxSZsyMMsyyQWjjs5mP7qzLae8Pd1oWyU9WVRqIik/NDf/ud4sqMDigXiUAuV8otGBYJXDHov3F1Of0aj+IdTqJ5430=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786188332; c=relaxed/simple;
-	bh=D9idh1bxe+PJzG/E1AQ6DRo7hPvBqlDFpHjhGZf4snQ=;
+	s=arc-20240116; t=1786188333; c=relaxed/simple;
+	bh=CA6uN8OrZ5Jbp8tiB8Tw1OCPDnXRGxI93B2D6EhBnzQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IJV5OYwa/1PAqMcyrbFfAoh6BdXaaaXHQr16cIjZ2krdV0PfgTpYOMp4QUiN7/mVpKQNncbkexz4GEhvEpS/Ox84bPgEj7TFvty5DaZQNzCh6x/whid2rQMF63dtInnMFQeLQ5bwULpFhhYkjJAXoTt+3wlvu4TFdHivIawJr/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kyYeDMWg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TVl+aSB7YxiHIxHukPqqlbHkavGiPCIAzGJk/6E5RIJs83keWkBUdZx9sW1iNd/PM6VeSJbfRFk1m+LWzIy+tXE5siBymkrEKwgtWh1XgTIs7Ej/HjoQi30/9s5WANvHVHQKO1PPO1gyXYbDB1Rnjm4HycuvstCRJVRF9IU6id8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wjg1Ni4B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kyYeDMWg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB4C1F000E9;
-	Sat,  8 Aug 2026 11:25:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wjg1Ni4B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5EF1F00A3A;
+	Sat,  8 Aug 2026 11:25:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786188331;
-	bh=oICWOmP1ErSSC1LNGPejYPueg+GN0VrUv138xZDp7kM=;
+	s=k20260515; t=1786188332;
+	bh=/ws5oHDYDUkU+41pwiihsVwINrMe7IZPX/B3+u0Ba8s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kyYeDMWgPvNirmbBx2UBao4y6YW40xUgydzmbhnDxlMtjlKLDtHaaa/lXXsAjbakK
-	 iBlTM0uQceMbBhO9UciNVABgMX9hTEUNEGPoeq2dfuy0toitB1bTQFZRZV1Fc237tb
-	 G1F5FV4YhZXwnld5+bgEOpwHZ6Q4DOxjI6okvySgYL8BzrG3sQlIU9tQ7IrRdDfVJZ
-	 MI6VfXfvZ0+tRltepbTY0ef7y02zNMpDkcfWVCAgVvdIHUss4hoCz1xFPQopkjx/IS
-	 3GPUHIpaKZQ/rpAwgLh3uoXpB9zDRpx/R6Lo8WkBaFMJ8oA7WsforQObMiQ2TwoTcy
-	 ZkHvW/zOjWakw==
+	b=Wjg1Ni4BFxUPRSI35XLa48gVkUhI+yGpj/rONZfJ2L28qLxHQwrC8XwkJk1ftISU+
+	 we2eCwso6UNjZPCZ7TsH4iwfskk1SXQOETHSB29l/9cL/7oaTilrJ5L0yfl3YPfkdU
+	 Nm2PEHnb5IbI05td8GJOeTNm4IoTXJzgZZpcfEiUeYVUJz9VM4mfCQPXSEcrvkbLLi
+	 qXNr0Vq+bYihBw/0v8ppe2q4I2zd36Nr4JSe73OKgCgVwkzOFca1cO0HanyVAJARfx
+	 qsqpvUtFd4zpTDIcD81e3BATK0v3iR2Z/kQebo4UC8tC6reM2sLpW0dOsX+CeOCihL
+	 DkjnVh86IO78w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+Cc: Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
 	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] libceph: Amend checking to fix `make W=1` build breakage
-Date: Sat,  8 Aug 2026 07:25:27 -0400
-Message-ID: <20260808112528.101249-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] libceph: bound pg_{temp,upmap,upmap_items} length to CEPH_PG_MAX_SIZE
+Date: Sat,  8 Aug 2026 07:25:28 -0400
+Message-ID: <20260808112528.101249-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072929-ritzy-confirm-991b@gregkh>
+In-Reply-To: <20260808112528.101249-1-sashal@kernel.org>
 References: <2026072929-ritzy-confirm-991b@gregkh>
+ <20260808112528.101249-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,43 +48,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+From: Xiang Mei <xmei5@asu.edu>
 
-[ Upstream commit 04d8712b079327409b09dee628378f9583e2e035 ]
+[ Upstream commit 9f00f9cf2be293efe899db67dc5272e3a9c62717 ]
 
-In a few cases the code compares 32-bit value to a SIZE_MAX derived
-constant which is much higher than that value on 64-bit platforms,
-Clang, in particular, is not happy about this
+__decode_pg_temp() decodes an user-controlled length but only rejects
+values large enough to overflow the allocation; it does not bound it to
+CEPH_PG_MAX_SIZE. The helper backs both pg_temp and pg_upmap decoding, and
+apply_upmap()/get_temp_osds() later copy the decoded list into the fixed-size
+on-stack array struct ceph_osds.osds[CEPH_PG_MAX_SIZE]. A monitor that sends
+an OSDMap with a pg_temp/pg_upmap entry longer than 32 thus causes a stack
+out-of-bounds write.
 
-net/ceph/osdmap.c:1441:10: error: result of comparison of constant 4611686018427387891 with expression of type 'u32' (aka 'unsigned int') is always false [-Werror,-Wtautological-constant-out-of-range-compare]
- 1441 |         if (len > (SIZE_MAX - sizeof(*pg)) / sizeof(u32))
-      |             ~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-net/ceph/osdmap.c:1624:10: error: result of comparison of constant 2305843009213693945 with expression of type 'u32' (aka 'unsigned int') is always false [-Werror,-Wtautological-constant-out-of-range-compare]
- 1624 |         if (len > (SIZE_MAX - sizeof(*pg)) / (2 * sizeof(u32)))
-      |             ~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+An OSD set for a single PG can never exceed CEPH_PG_MAX_SIZE, so reject longer
+entries at decode time. The bound is well below the old overflow threshold, so
+it also covers the allocation-size overflow the previous check guarded against.
 
-Fix this by casting to size_t. Note, that possible replacement of SIZE_MAX
-by U32_MAX may lead to the behaviour changes on the corner cases.
+  BUG: KASAN: stack-out-of-bounds in ceph_pg_to_up_acting_osds
+  Write of size 4 ... by task exploit
+   kasan_report (mm/kasan/report.c:595)
+   ceph_pg_to_up_acting_osds (net/ceph/osdmap.c:2617 net/ceph/osdmap.c:2833)
+   calc_target (net/ceph/osd_client.c:1638)
+   __submit_request (net/ceph/osd_client.c:2394)
+   ceph_osdc_start_request (net/ceph/osd_client.c:2490)
+   ceph_osdc_call (net/ceph/osd_client.c:5164)
+   rbd_dev_image_probe (drivers/block/rbd.c:6899)
+   do_rbd_add (drivers/block/rbd.c:7138)
+   ...
+  kernel BUG at net/ceph/osdmap.c:2670!
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+[ idryomov: do the same in __decode_pg_upmap_items() ]
+
+Cc: stable@vger.kernel.org
+Fixes: a303bb0e5834 ("libceph: introduce and switch to decode_pg_mapping()")
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-Stable-dep-of: 9f00f9cf2be2 ("libceph: bound pg_{temp,upmap,upmap_items} length to CEPH_PG_MAX_SIZE")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  net/ceph/osdmap.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
-index 033e8cf57b0ea..763f22a06f05e 100644
+index 763f22a06f05e..5f03bbe78a5a2 100644
 --- a/net/ceph/osdmap.c
 +++ b/net/ceph/osdmap.c
 @@ -1422,7 +1422,7 @@ static struct ceph_pg_mapping *__decode_pg_temp(void **p, void *end,
  	ceph_decode_32_safe(p, end, len, e_inval);
  	if (len == 0 && incremental)
  		return NULL;	/* new_pg_temp: [] to remove */
--	if (len > (SIZE_MAX - sizeof(*pg)) / sizeof(u32))
-+	if ((size_t)len > (SIZE_MAX - sizeof(*pg)) / sizeof(u32))
+-	if ((size_t)len > (SIZE_MAX - sizeof(*pg)) / sizeof(u32))
++	if (len > CEPH_PG_MAX_SIZE)
  		return ERR_PTR(-EINVAL);
  
  	ceph_decode_need(p, end, len * sizeof(u32), e_inval);
@@ -90,8 +108,8 @@ index 033e8cf57b0ea..763f22a06f05e 100644
  	u32 len, i;
  
  	ceph_decode_32_safe(p, end, len, e_inval);
--	if (len > (SIZE_MAX - sizeof(*pg)) / (2 * sizeof(u32)))
-+	if ((size_t)len > (SIZE_MAX - sizeof(*pg)) / (2 * sizeof(u32)))
+-	if ((size_t)len > (SIZE_MAX - sizeof(*pg)) / (2 * sizeof(u32)))
++	if (len > CEPH_PG_MAX_SIZE)
  		return ERR_PTR(-EINVAL);
  
  	ceph_decode_need(p, end, 2 * len * sizeof(u32), e_inval);
