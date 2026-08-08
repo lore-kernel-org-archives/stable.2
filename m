@@ -1,78 +1,43 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF6843B2AA
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 12:01:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8287C3B2AA
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 12:05:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786190499; cv=none; b=rU+ipbU/kmR9wTcIiL8c+0AIsiytOwTUOEH4smAizsfnZ2ZWpwuFBldYvcrQchQYWzLlb+h5lsOlg3KLFGnARG1vs5tFck/BoxGWu2U1tTlCpYSZJ6p+M9ZQRnKr7RrQvni8FXHvzA+G35uDd8NbufOK/gTYbvo+GIhWJI5t85c=
+	t=1786190749; cv=none; b=LLrCdcoAL3yXbZD3s2yD/QRCKNOeoVhoqi5sFnGXsoSLX+872zX8tHxL0MNHcbQ37X+QI7Gh80fLx+8oZBgBoj5gqn2pTSX8t86A8xDYGQe0CgI2bl5SnfVBkJLeiuYSvdwGBj5fzOFXlmDHsY15M4QUsqJRi6rFLykO/oZee9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786190499; c=relaxed/simple;
-	bh=VdKmF0MAy9JnfTs0lWJz1o9FwtWgy0AQWX/cZmeJ1i0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nfj9yDmJ5TCxt4Hgpq5ZeLGhs9ZpytnN8MAHIR0rQOuAzAmXuzrtFWYk5zZBcktFBFZURtugCZsyn8XsY+ngfPg61BVGlfBxDf83sjfvVwq1AKspy2eSaRVxdhrggC7632jNg9YduAy+3vtfN/I7NUeOohq5xhIILqOsFPGwU28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=meotUP5x; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786190749; c=relaxed/simple;
+	bh=Gw70kTeOedPaVNwVvALMqSKf5RTqt5MTFA8rjFtihF4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dZT4whOw+WaWsJfUpapxuDqeTc4tXi1uaiIIg6fzlf4p3agLVZSGQjf99msoEy4kgROdNYJhWZTqYhr7Fk5U96d+Ohe/XyOUnNfveX+a+TIMpc10X5+f4fcLtUwL4z/LBFhrSpAaHyTt4q7h/hIIwNwSU0Nxkddd2lbrdEDrcYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3zsFYAr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="meotUP5x"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d004f135b1so5006185ad.3
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 05:01:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786190497; x=1786795297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K/VDwU6YKDYusuf3bOyqkfoe3Kms6rSYmSwfDWd4AYg=;
-        b=meotUP5xW9HTCr6QK2vUhrYpiZ1EFmoLxKYtRrahu1TkqLv5+VqSMK5iA1h5Jneceu
-         5FVNZKjkwoYTYTLnwrHb4mhADXsDuplAWFbtJSmaNx6k9+EfYRk8RkQTNmrtD4o8HBON
-         cnl+7BMWdEzh+vIQj8g2NhD2j9iECkDMoYdugWvfZfAMqdDgx/QTct3bF5bFqHVudtbH
-         IChVsTlm3c6Nt/zEgCLwLEpAfeYR9zPAqZiAZiUTHgLUl/c/Axt5S4yBzE19uNIByTH/
-         2+DuyLGr7oOJ4J0IWgKI0gAyBvMNo/cZOSvL3e93G6Dm3+eRgfFqsuXF18//Rl5zWBUN
-         iFIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786190497; x=1786795297;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K/VDwU6YKDYusuf3bOyqkfoe3Kms6rSYmSwfDWd4AYg=;
-        b=CoNYJVI9w2+x1ub/PnXCfw/4rXzVz+lYeUIZYqJfs+c6kHXjgzF0uhZxiQe4wFYNB5
-         K+0TQy8WeQsryUnhYbZQS1FqVaUrstICzOzYjcLnC2Ta0GwlO3JO6mrj1KAwUBRHhORl
-         VyutDuVChARmLMzBHmsH7/gN0LJ4QIOpZJfFxhEXpCZmmUHNeOcNQYFlpralmlf97B67
-         jMB3jFVB8k7c5dyHci6MWwATvJIFJpgkn2ZL79TK4KlBSJ7hbTCUWuxnw4Oe0gqkYzyX
-         tYe62S6eAOut3c1SHPHZ7AvQsImP0ZLPGGSRx38mrUO0OG18f/9NMvCgXzyApXEoAhB7
-         pqsw==
-X-Gm-Message-State: AOJu0Ywsovj57W9pt0Zyp8nHGEQupxSof30+sESZ9eW+xIGpbl3iyy+y
-	hyvBt58q0/EWc5XIDaWe7yNvk8VQ9DGKnEwlkvobYybLJnsMjhlU4gN7
-X-Gm-Gg: AR+sD13kOV8VlyqNRaoOM7aFMTPbExO0+QqYjR2JWWgrMmgyVUqlPPagZOOJWp0UpYW
-	xno36NUV+C9q/YyY2LWd/5vh2Dm7wE+b2DGKhKsZ3WgI7w4TSuJQJE5b/YaRgElHVh7ws/8JUDo
-	W6zT9oyINIBlcukBgvXn3SFnQONsApnJ0kjMzPDna9/ytU3K4mPrvE7KcwQfobHLHISm+YLzc3+
-	9dCwH3+NclFKB2Tt1Qk5aywNqHiNUGVdV/XkIxrXbydEOCYdQZVaBPD9bDUF5R0NQkTLpJFke2P
-	wFJycMtqRj+Mn8cWBCKhHPJF2PPFIvWGEZEToWEKSl0qz2deYIlGBuaZoncvJr2CqmX1yB8KYP5
-	O7j88lnEtpxjFZ+GlTYpUJT2LwH6U7CCYhs7npEiMH7YQehwVxG6p58qVPyfuJtUn8gpdfdeXbY
-	78WKnSCFsC+QE3ccayfLFz10plRKtE6sD1sMvbNMfv5SY=
-X-Received: by 2002:a17:902:da87:b0:2cf:4c0f:5129 with SMTP id d9443c01a7336-2d0caa03fcfmr299424925ad.17.1786190497182;
-        Sat, 08 Aug 2026 05:01:37 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14dbeaa88sm18073605ad.39.2026.08.08.05.01.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 05:01:36 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Abin Joseph <abin.joseph@amd.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Kees Cook <kees@kernel.org>,
-	Kedareswara rao Appana <appana.durga.rao@xilinx.com>,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] dmaengine: xilinx: zynqmp_dma: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 19:52:28 +0800
-Message-ID: <20260808115228.2798481-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3zsFYAr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 836261F000E9;
+	Sat,  8 Aug 2026 12:05:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786190748;
+	bh=zoL3/U27KlGEaWKSnUf2OJ5Lk0mC0gYYn6E7oXrjnxk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=d3zsFYAr/7+egESSgd9M3oA7kbyZXfhVtRGzAwrCLExilE8Knoli2WudIf0GB6qM2
+	 6IkjzSpSg2YSX4mbZVNCUJaOBxrZH2MG7dzj+r1U3iA+4sZaEoFON0Y+5bv2HzFZPF
+	 +PGFY0oqXA7vwqo7HTt05av9ZB8N/qvSwJmRt/NhC156CU+W35ihVXUR6D1X6waqKN
+	 qEWQ+vBx0mW3s5+0pjVC0PDMmKh9gsMoKrfT0pxS4kXTLDqA1z4hCTAyJWCbcapbrk
+	 XD1Qnrvh4caMkFWnMOj0F3oLcU/OC94lqeRZgDpjXXhpwcdwIldeMypyjEuWZD2hEx
+	 bJl1ngt1tWX2g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Pavitra Jha <jhapavitra98@gmail.com>,
+	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] libceph: fix two unsafe bare decodes in decode_lockers()
+Date: Sat,  8 Aug 2026 08:05:45 -0400
+Message-ID: <20260808120545.220270-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072949-fresh-evolution-3660@gregkh>
+References: <2026072949-fresh-evolution-3660@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,65 +46,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-zynqmp_dma_probe() calls pm_runtime_use_autosuspend(), but its failure
-paths and zynqmp_dma_remove() do not call the matching
-pm_runtime_dont_use_autosuspend().
+From: Pavitra Jha <jhapavitra98@gmail.com>
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped and usage_count remains
-unbalanced.
+[ Upstream commit a109a556115271ca7896dcda7b4b7e45e156c227 ]
 
-The documentation for pm_runtime_use_autosuspend() also notes that it
-is important to undo it with pm_runtime_dont_use_autosuspend() at
-driver exit time, unless runtime PM was initially enabled with
-devm_pm_runtime_enable().
+decode_lockers() in cls_lock_client.c contains two bare decode operations
+that allow a malicious or compromised OSD to trigger slab-out-of-bounds
+reads:
 
-Add the missing pm_runtime_dont_use_autosuspend() calls to the probe
-failure and remove paths.
+1. ceph_decode_32(p) at the num_lockers field has no preceding bounds
+   check. ceph_start_decoding() accepts struct_len=0 as valid -- the
+   internal ceph_decode_need(p, end, 0, bad) always passes -- so when an
+   OSD sends struct_len=0, ceph_start_decoding() returns success with
+   p == end. The immediately following bare ceph_decode_32(p) then reads
+   4 bytes past the validated buffer boundary. The garbage value is
+   passed directly to kzalloc_objs() as the locker count.
 
-This issue was found by manual code inspection.
+   The sibling function decode_watchers() in osd_client.c already uses
+   ceph_decode_32_safe() after its own ceph_start_decoding() call.
+   decode_lockers() was the only site using the bare variant.
 
-Fixes: 64c6f7da8c2c ("dmaengine: zynqmp_dma: Add runtime pm support")
+2. ceph_decode_8(p) after the decode_locker() loop has no preceding
+   bounds check. If an OSD crafts num_lockers such that the loop
+   advances p exactly to end, the subsequent bare ceph_decode_8(p) reads
+   one byte past the validated buffer boundary. The result is passed
+   directly into *type, which is used as a lock type discriminator by
+   callers, giving an OSD-controlled one-byte OOB read with direct
+   influence over the lock type field.
+
+Fix both by replacing bare operations with their safe variants:
+  ceph_decode_32(p) -> ceph_decode_32_safe(p, end, *num_lockers,
+                                           err_inval)
+  ceph_decode_8(p)  -> ceph_decode_8_safe(p, end, *type,
+                                          err_free_lockers)
+
+The goto targets differ intentionally:
+  err_inval: is a new label returning -EINVAL directly. It is used for
+  the pre-allocation failure path where *lockers is not yet allocated
+  and must not be passed to ceph_free_lockers().
+
+  err_free_lockers: is the existing label. It is used for the
+  post-allocation failure path where *lockers is allocated and must
+  be freed.
+
+ret is set to -EINVAL before ceph_decode_8_safe() so that
+err_free_lockers returns the correct error code on bounds violation.
+Without this, err_free_lockers would return a stale ret value (0 from
+the successful decode_locker() loop), silently swallowing the error.
+
+-EINVAL is correct for both failure paths. The data received from the
+OSD is structurally malformed. -ENOMEM would misrepresent the failure
+class to callers and to stable@ backporters triaging error paths.
+
+Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
+deployment can trigger this against any kernel client that issues the
+lock.get_info class method (e.g. during RBD exclusive lock acquisition).
+
+[ idryomov: trim changelog, formatting ]
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Fixes: d4ed4a530562 ("libceph: support for lock.lock_info")
+Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
+Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma/xilinx/zynqmp_dma.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ net/ceph/cls_lock_client.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
-index f6a812e49ddc..635c3f6cc5c2 100644
---- a/drivers/dma/xilinx/zynqmp_dma.c
-+++ b/drivers/dma/xilinx/zynqmp_dma.c
-@@ -1116,8 +1116,10 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
- 	}
- 	if (!pm_runtime_enabled(zdev->dev)) {
- 		ret = zynqmp_dma_runtime_resume(zdev->dev);
--		if (ret)
-+		if (ret) {
-+			pm_runtime_dont_use_autosuspend(zdev->dev);
- 			return ret;
-+		}
+diff --git a/net/ceph/cls_lock_client.c b/net/ceph/cls_lock_client.c
+index 17447c19d9376..fd39cbda60f65 100644
+--- a/net/ceph/cls_lock_client.c
++++ b/net/ceph/cls_lock_client.c
+@@ -293,7 +293,7 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 	if (ret)
+ 		return ret;
+ 
+-	*num_lockers = ceph_decode_32(p);
++	ceph_decode_32_safe(p, end, *num_lockers, err_inval);
+ 	*lockers = kcalloc(*num_lockers, sizeof(**lockers), GFP_NOIO);
+ 	if (!*lockers)
+ 		return -ENOMEM;
+@@ -304,7 +304,8 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 			goto err_free_lockers;
  	}
  
- 	ret = zynqmp_dma_chan_probe(zdev, pdev);
-@@ -1152,6 +1154,7 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
- err_disable_pm:
- 	if (!pm_runtime_enabled(zdev->dev))
- 		zynqmp_dma_runtime_suspend(zdev->dev);
-+	pm_runtime_dont_use_autosuspend(zdev->dev);
- 	pm_runtime_disable(zdev->dev);
+-	*type = ceph_decode_8(p);
++	ret = -EINVAL;
++	ceph_decode_8_safe(p, end, *type, err_free_lockers);
+ 	s = ceph_extract_encoded_string(p, end, NULL, GFP_NOIO);
+ 	if (IS_ERR(s)) {
+ 		ret = PTR_ERR(s);
+@@ -314,6 +315,9 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 	*tag = s;
+ 	return 0;
+ 
++err_inval:
++	return -EINVAL;
++
+ err_free_lockers:
+ 	ceph_free_lockers(*lockers, *num_lockers);
  	return ret;
- }
-@@ -1172,6 +1175,7 @@ static void zynqmp_dma_remove(struct platform_device *pdev)
- 	zynqmp_dma_chan_remove(zdev->chan);
- 	if (pm_runtime_active(zdev->dev))
- 		zynqmp_dma_runtime_suspend(zdev->dev);
-+	pm_runtime_dont_use_autosuspend(zdev->dev);
- 	pm_runtime_disable(zdev->dev);
- }
- 
 -- 
-2.43.0
+2.53.0
 
