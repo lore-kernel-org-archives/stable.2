@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911654195A1
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 14:09:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BE34137AE
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 14:09:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786198186; cv=none; b=j84cRoeRUDUiKrT/sxUwxQLqBIj4n2kEL7ymhLAGls+bWs6SJueHYSMG2CkbcpCyVztzr1/3TtwztxWjmRkcd1y21kA69GhlmkjhDMJY/P9kTsseS2lggbfMCzIDcLAroR2Wc/QS9JgsW7ILWsFiZWnEk3zSx2N//izAxIrL1/A=
+	t=1786198191; cv=none; b=mddS+MbQgNRndS6QiNRavuB/oKlgRMzf60qQuemeVi/FsTYKhUm2zlgKfyFvfEcaDo4rDYBEFJa6uUv/ty6qqvGlpNxakklqOazEWrh0Ih2T7Zyd66EnRA35+NQUwf7AB1RSfGk6dvD6Meio/bvWj5aDn9sETnmqhUe3b42awgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786198186; c=relaxed/simple;
-	bh=QMql+FyFHfOW5W4wjOCrXh0hDseyyyEtOXOWytK9DDw=;
+	s=arc-20240116; t=1786198191; c=relaxed/simple;
+	bh=70YpSREh5oWinulmhtgYWIttYZ5F6nacKqTSZaQtXuU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ja3RXPTTtP0219Ro8Zvh4a/Xg6hCnxqlrI18gCK/fLktYFq9ANsvfW76bEmn3fnbVyOMR/JGgcJDAZ+MH2anh1BAjCUnC0Py86b+sFQH/myTnyUFNEqso2EJLuTQL2CxBW5QhYNItRg6VOxnlKt74rGhpZNVKG4SsAJwQdNe9ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibc4naOL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Hj82JJ0UksMdFPZ+BRIuxOMme3sAyyWegGC9D8nJxxqm+dtJkofyQiaY0an4ZDmiynPDbqaFZF8ZY+ub1yG78VnCXfAQU4xh1ZZJ7Aj4BQWwtkWUUJ2r7dshQzcZ2oLP/1OoSHOz5+gN1q6QFt5DqQwbUTAe4x0kpt8ulqUED54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzYCB3Fw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibc4naOL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A501F00A3A;
-	Sat,  8 Aug 2026 14:09:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzYCB3Fw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17E01F000E9;
+	Sat,  8 Aug 2026 14:09:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786198184;
-	bh=sATf4Etpqgkp9pJY31uhLnCEbEhoT84Atz/oveUKRzo=;
+	s=k20260515; t=1786198190;
+	bh=HsfGEB1a0VQOtsUS2IHEQpUdqEkNTptg8KLAyOOY54U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ibc4naOLIZMlXFyuC5otr5OMMp/pLH2WaY5iZQhLgXrhy2804rgqo72z/rbyleRps
-	 UmLjqk1FvbR81x6j+2uUDEyJuuhrupicJrMmm94l59BV25HinHhmnqc4E4/RR0g471
-	 yOLE3wfJQXUrRO5zx0gnsb9GnrFdA5moyWmyH16N/zHaD5gtC00rPtaxDcHTkGI1I+
-	 cjOB2hllBZnjFbSTilr9SKprhMDyLyoPsjmhcT8ppxNZalowccg6qIs/L1p/VPWUCb
-	 PCrVWGLeyt2ME5hc91a3VqtGZQlttKtkAgLjsTefcddGMeOYQ7320onWDNaDrHYVwi
-	 ZhEGKD2tXLL5A==
+	b=KzYCB3Fw+6IPjXevPcgOMo7AQqAXIyPEbHiOnDJ1ric8icQO/Ek53y52NTY0OCpKj
+	 PwLlrUE2U3h0TvCXNqWtwEZawhpJKMs8H8WLsMSqcsE5q9KoZFXorM8a8/k8ILQ3yT
+	 8+UbRbOOE8ZUVwtQjTSnRAvzDka/Wx8Mh5RDd3DZlu++oxQdIHt2ukwiyPfRdPeIq9
+	 AbodWNKEmi7e1BFHSXBQ2LpQg/eK4/8T0On2qr+OHPwN5n7xO+UKwVKHfFT/9OBhkU
+	 CyZtfoo4cXV1qOrGUD9RBHsxO1n7V1WQkglNXbGfV+bngs+1GME1zcC4S6fNZpBQCh
+	 8BMg1WZTVm0vQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shiming Cheng <shiming.cheng@mediatek.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: ZhangGuoDong <zhangguodong@kylinos.cn>,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] net: gro: fix double aggregation of flush-marked skbs
-Date: Sat,  8 Aug 2026 10:09:41 -0400
-Message-ID: <20260808140941.339987-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/7] smb: move get_rfc1002_len() to common/smbglob.h
+Date: Sat,  8 Aug 2026 10:09:42 -0400
+Message-ID: <20260808140948.340323-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260808140941.339987-1-sashal@kernel.org>
-References: <2026072946-itunes-reviver-5817@gregkh>
- <20260808140941.339987-1-sashal@kernel.org>
+In-Reply-To: <2026072924-aviator-carton-3ed9@gregkh>
+References: <2026072924-aviator-carton-3ed9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,86 +47,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shiming Cheng <shiming.cheng@mediatek.com>
+From: ZhangGuoDong <zhangguodong@kylinos.cn>
 
-[ Upstream commit e751256486d0ded20f5a9f9863467f1dce65142f ]
+[ Upstream commit 36c31540cf5279262bfd148d8537cd04866499f2 ]
 
-Commit 0ab03f353d36 ("net-gro: Fix GRO flush when receiving a GSO
-packet.") added a flush check to skb_gro_receive(), but
-skb_gro_receive_list() lacks the same validation.
+Rename get_rfc1002_length() to get_rfc1002_len(), then move duplicate
+definitions to common header file.
 
-As a result, packets marked with NAPI_GRO_CB(skb)->flush may still be
-re-aggregated.
-
-This allows already-GRO'd packets with existing frag_list to be
-re-aggregated into a new GRO session, corrupting the frag_list chain
-structure. When skb_segment() attempts to unpack these malformed packets,
-it encounters invalid state and triggers a kernel panic.
-
-Scenario (Tethering/Device forwarding):
-  1. Driver: Generated aggregated packet P1 via LRO with frag_list
-  2. Dev A: Receives aggregated fraglist packet and flush flag set
-  3. Dev A: Re-enters GRO, skb_gro_receive_list() is called
-  4. Missing flush check allows re-aggregation despite flush flag
-  5. Frag_list chain becomes corrupted (loops or dangling refs)
-  6. Dev B: TX path calls skb_segment(), crashes on corrupted frag_list
-
-Root cause in skb_segment():
-  The check at line ~4891:
-    if (hsize <= 0 && i >= nfrags && skb_headlen(list_skb) &&
-        (skb_headlen(list_skb) == len || sg)) {
-
-  When frag_list is corrupted by double aggregation, when list_skb is
-  a NULL pointer from skb->next, skb_headlen(list_skb) dereference
-  NULL/corrupted pointers occurs.
-
-Call Trace:
- skb_headlen(NULL skb)
- skb_segment
- tcp_gso_segment
- tcp4_gso_segment
- inet_gso_segment
- skb_mac_gso_segment
- __skb_gso_segment
- skb_gso_segment
- validate_xmit_skb
- validate_xmit_skb_list
- sch_direct_xmit
- qdisc_restart
- __qdisc_run
- qdisc_run
- net_tx_action
-
-Fix: Add NAPI_GRO_CB(skb)->flush validation to the early-return check in
-skb_gro_receive_list(), matching the defensive programming pattern of
-skb_gro_receive().
-
-Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260709014704.3625-1-shiming.cheng@mediatek.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Co-developed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: ZhangGuoDong <zhangguodong@kylinos.cn>
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: cfc0b8e5080a ("ksmbd: validate minimum PDU size for transform requests")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/gro.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ fs/smb/client/cifsglob.h      | 6 ------
+ fs/smb/client/cifssmb.c       | 6 +++---
+ fs/smb/client/connect.c       | 2 +-
+ fs/smb/client/smb1transport.c | 8 ++++----
+ fs/smb/common/cifsglob.h      | 5 +++++
+ fs/smb/server/smb_common.h    | 5 -----
+ 6 files changed, 13 insertions(+), 19 deletions(-)
 
-diff --git a/net/core/gro.c b/net/core/gro.c
-index 79e81889fcc4d..855ffaaea54f4 100644
---- a/net/core/gro.c
-+++ b/net/core/gro.c
-@@ -297,7 +297,9 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index 69deb29502a8c..38b4053d97919 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -671,12 +671,6 @@ struct cifs_mnt_data {
+ 	int flags;
+ };
  
- int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+-static inline unsigned int
+-get_rfc1002_length(void *buf)
+-{
+-	return be32_to_cpu(*((__be32 *)buf)) & 0xffffff;
+-}
+-
+ struct TCP_Server_Info {
+ 	struct list_head tcp_ses_list;
+ 	struct list_head smb_ses_list;
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index 7694ca283fdc3..cea397617bc9c 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -615,7 +615,7 @@ CIFSSMBEcho(struct TCP_Server_Info *server)
+ 
+ 	iov[0].iov_len = 4;
+ 	iov[0].iov_base = smb;
+-	iov[1].iov_len = get_rfc1002_length(smb);
++	iov[1].iov_len = get_rfc1002_len(smb);
+ 	iov[1].iov_base = (char *)smb + 4;
+ 
+ 	rc = cifs_call_async(server, &rqst, NULL, cifs_echo_callback, NULL,
+@@ -1459,7 +1459,7 @@ cifs_async_readv(struct cifs_io_subrequest *rdata)
+ 	rdata->iov[0].iov_base = smb;
+ 	rdata->iov[0].iov_len = 4;
+ 	rdata->iov[1].iov_base = (char *)smb + 4;
+-	rdata->iov[1].iov_len = get_rfc1002_length(smb);
++	rdata->iov[1].iov_len = get_rfc1002_len(smb);
+ 
+ 	trace_smb3_read_enter(rdata->rreq->debug_id,
+ 			      rdata->subreq.debug_index,
+@@ -1831,7 +1831,7 @@ cifs_async_writev(struct cifs_io_subrequest *wdata)
+ 	/* 4 for RFC1001 length + 1 for BCC */
+ 	iov[0].iov_len = 4;
+ 	iov[0].iov_base = smb;
+-	iov[1].iov_len = get_rfc1002_length(smb) + 1;
++	iov[1].iov_len = get_rfc1002_len(smb) + 1;
+ 	iov[1].iov_base = (char *)smb + 4;
+ 
+ 	rqst.rq_iov = iov;
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index 2ee2199d2a6a2..3e06c0eddb3af 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -1295,7 +1295,7 @@ cifs_demultiplex_thread(void *p)
+ 		 * The right amount was read from socket - 4 bytes,
+ 		 * so we can now interpret the length field.
+ 		 */
+-		pdu_length = get_rfc1002_length(buf);
++		pdu_length = get_rfc1002_len(buf);
+ 
+ 		cifs_dbg(FYI, "RFC1002 header 0x%x\n", pdu_length);
+ 		if (!is_smb_response(server, buf[0]))
+diff --git a/fs/smb/client/smb1transport.c b/fs/smb/client/smb1transport.c
+index 518f764dedcce..bafc5181e0292 100644
+--- a/fs/smb/client/smb1transport.c
++++ b/fs/smb/client/smb1transport.c
+@@ -165,7 +165,7 @@ SendReceiveNoRsp(const unsigned int xid, struct cifs_ses *ses,
+ 	int resp_buf_type;
+ 
+ 	iov[0].iov_base = in_buf;
+-	iov[0].iov_len = get_rfc1002_length(in_buf) + 4;
++	iov[0].iov_len = get_rfc1002_len(in_buf) + 4;
+ 	flags |= CIFS_NO_RSP_BUF;
+ 	rc = SendReceive2(xid, ses, iov, 1, &resp_buf_type, flags, &rsp_iov);
+ 	cifs_dbg(NOISY, "SendRcvNoRsp flags %d rc %d\n", flags, rc);
+@@ -177,7 +177,7 @@ int
+ cifs_check_receive(struct mid_q_entry *mid, struct TCP_Server_Info *server,
+ 		   bool log_error)
  {
--	if (unlikely(p->len + skb->len >= 65536))
-+	/* make sure to check flush flag and to not merge */
-+	if (unlikely(p->len + skb->len >= 65536 ||
-+		     NAPI_GRO_CB(skb)->flush))
- 		return -E2BIG;
+-	unsigned int len = get_rfc1002_length(mid->resp_buf) + 4;
++	unsigned int len = get_rfc1002_len(mid->resp_buf) + 4;
  
- 	if (NAPI_GRO_CB(p)->last == p)
+ 	dump_smb(mid->resp_buf, min_t(u32, 92, len));
+ 
+@@ -370,7 +370,7 @@ SendReceive(const unsigned int xid, struct cifs_ses *ses,
+ 		goto out;
+ 	}
+ 
+-	*pbytes_returned = get_rfc1002_length(midQ->resp_buf);
++	*pbytes_returned = get_rfc1002_len(midQ->resp_buf);
+ 	memcpy(out_buf, midQ->resp_buf, *pbytes_returned + 4);
+ 	rc = cifs_check_receive(midQ, server, 0);
+ out:
+@@ -554,7 +554,7 @@ SendReceiveBlockingLock(const unsigned int xid, struct cifs_tcon *tcon,
+ 		goto out;
+ 	}
+ 
+-	*pbytes_returned = get_rfc1002_length(midQ->resp_buf);
++	*pbytes_returned = get_rfc1002_len(midQ->resp_buf);
+ 	memcpy(out_buf, midQ->resp_buf, *pbytes_returned + 4);
+ 	rc = cifs_check_receive(midQ, server, 0);
+ out:
+diff --git a/fs/smb/common/cifsglob.h b/fs/smb/common/cifsglob.h
+index eda5e666a7617..371160fec1cdf 100644
+--- a/fs/smb/common/cifsglob.h
++++ b/fs/smb/common/cifsglob.h
+@@ -40,6 +40,11 @@ struct smb_version_values {
+ 	size_t		create_posix_size;
+ };
+ 
++static inline unsigned int get_rfc1002_len(void *buf)
++{
++	return be32_to_cpu(*((__be32 *)buf)) & 0xffffff;
++}
++
+ static inline void inc_rfc1001_len(void *buf, int count)
+ {
+ 	be32_add_cpu((__be32 *)buf, count);
+diff --git a/fs/smb/server/smb_common.h b/fs/smb/server/smb_common.h
+index e3be583e803da..3c78acf6ed6d5 100644
+--- a/fs/smb/server/smb_common.h
++++ b/fs/smb/server/smb_common.h
+@@ -423,9 +423,4 @@ unsigned int ksmbd_server_side_copy_max_chunk_size(void);
+ unsigned int ksmbd_server_side_copy_max_total_size(void);
+ bool is_asterisk(char *p);
+ __le32 smb_map_generic_desired_access(__le32 daccess);
+-
+-static inline unsigned int get_rfc1002_len(void *buf)
+-{
+-	return be32_to_cpu(*((__be32 *)buf)) & 0xffffff;
+-}
+ #endif /* __SMB_COMMON_H__ */
 -- 
 2.53.0
 
