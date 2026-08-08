@@ -1,97 +1,118 @@
-Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4E8305E3B
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 01:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE661A683A
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 01:46:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786152986; cv=none; b=TlPQjRMc3GcXOWTEf+XDPqHJ/dUVNcnTkBT6CuCbQUsxuEy+73b5Yu/38EMWdQUcmUTxZe2DNPUCeEUnAbrFqNfpNsneEwljCijxdGhrKsV9/F6gSWpP3JX1xQbPdaKpHB8QbX0nXpwZBgk1aXZIitj504l214E7SgHg17A8e1Q=
+	t=1786153563; cv=none; b=eDtGf0iyaByVErO0yS4SHudNf9Pz1p3xR2bBawVYTp64EnUMKzwY2IMIYxs9VYxGo8FMd+GPivV3OOz4q4xgflywxJDk6p/6SQSEUYiFxZnA+XwY/cYsTC1xrW6RDXL05sR3Lt1b1KGNPFn2etzzi7HLXfk//Js85Zk1cp33wuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786152986; c=relaxed/simple;
-	bh=VqJ/5vx1+/Tgbi7U14FnSG+i7R5Bb0mRyNoBP8I9kMo=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=E+EgFpys9ngL/tUsEBv4aOpNccsVg2mEqQchlYCytjlEwDwxoDSXAWzr8BOsyJm+itYVoaklmxEl0tSdtGtAKcA/tKL73bjDqOOAddA0RxOwFjV8YMwKEKvbWI9uCEllqZ4JTWUwdOr8U/m6Xc/Nz6+w6tY4Vw+FNxDdU8Om4ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LI/AXB+s; arc=none smtp.client-ip=95.215.58.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786153563; c=relaxed/simple;
+	bh=jiYwrHfPMJZupGhgemLkbnAXfR4F0oA1drlrs7PD6eU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CaMqhIwgMiHcqs27UBve8IUfh0A04tMxfxgX+sY0RJh5DyoiR5ANgwWy+xR960f2xO9DyApPqmsgwfxFUT3EKnjc20jv19QRM54OVkrU7qZV1lGuk2Pg1/IvGnJ8rfJofczJtvAfc69V6p+mk+VXpzK6n5sxym9Q5g0QErzGEW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fQFSBdRz; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LI/AXB+s"
-Content-Type: text/plain;
-	charset=us-ascii
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786152971;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mBze6R+Yde21iZRthxsluHvPvQaZpfZt7IhiN6kDbGs=;
-	b=LI/AXB+sl/lAsfXlZgmEG1cRftwk6gDS1C1hOcW1gnixTb7sKudbdP/f+F4XA2F7tLCXnF
-	e6sGu5pPc2E6cB4241E+FS8cHpWkWeVlOdYK7nVO+Y0KFRjnp2wcHfJhfjzfj4EZURu/jw
-	/XzeJHn5jY4kzwNsJMVweKHyhZ5XDBA=
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fQFSBdRz"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38101f85591so2378136a91.1
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 18:46:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786153561; x=1786758361; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1jzH3wz8al5H3PLnRo3rqNbon9VQ+SF4VfOzTEMOvxE=;
+        b=fQFSBdRz45bgahmUZaOTFVnS9vRsJDseTt5dZSzEtEvog5Ek7CMBA0lvjMmGnLmlwy
+         hhYJEYYJIugLtgB4dASuet5m0CS7bwgbMDmOW6yDayCy33vtYs7rK6Cl7neYTcHwrZEK
+         N4n/pAfvDjY9mtdNl2i0J1ro0uWaVqt9+hHSs/k2LKY2AVgAuVwba3dt5SiBQPK3AVMM
+         jHL+R/uzUHg0Iz1m6qd3hjUHQSmltyx7wbd5VxWSeEj99oZo10YzoisSCmgY0QI5WaCu
+         97Xm0v4hksI9pFBDetrGK0NZ5XlkoAEUi7xfN3R023VGdVTZ5EWokOLedAjtTx5/s/X1
+         aUfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786153561; x=1786758361;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1jzH3wz8al5H3PLnRo3rqNbon9VQ+SF4VfOzTEMOvxE=;
+        b=BcfzNXYsJOnn/Peocpbmv9v28PLz1iN8Jgpqkhz63pzrED2/3tjRCMcqQgd29k+tI8
+         icV2QA2qsWwHXvhAPLpM6qAjlNfWstTgImCQJPQlSWhWPLY4Z35IQ4IrGX1MNXyd+Cn1
+         AdED/WKMFDumkOC7MAp+SYTYIVICoOOpTMh2GbBxspuHCZ3q+0dZMbM5cJUMI2zqVhaN
+         2S/eBaqwXsV9q48pIKmXwfQxHdQawESBpfn2QSm36GiA2WQor1/KdgYNO5cua9JEdNaS
+         4Y5Y1qZTgT9X1QAzS25vr+cgpivM0ewUBbfZdLJVYoZox7SwYEa57u550Gtilv5dyeau
+         rRUg==
+X-Forwarded-Encrypted: i=1; AHgh+Rqw3d4iLt4Jyq2nJg8KiWfb1D/Hlavm7kPTG9JPKJPpkTZ+HB8HIdk52unvl3R0U3KeqgAupBU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwiYM/EKNODU46/cpvP8yhSI4FF5HtYr1RAwv1qZR18iR/an6DF
+	o31DYrNYFT9ECbUnYjOMei8uxTnFmmcdV4Exrg/pUQ5AVt90Lauqt62k5bWgp02zOZs=
+X-Gm-Gg: AR+sD12IWBS8ELPLC+1fMVZUG+zn6C2RxmQRNJfxL/OjMjRYBxtur8Pxg6zaUS8JBBw
+	UW0/7QJTXHRGPT9hzbx9L0S+zhM/JBaEtsiyut1TEm/N3qNLvTFq5YOq/kdtwpVlo9h/WC62ihB
+	xe7kEG2ADqC/4c0HTqUIC5rn2i52mMTwtNKjt91xDWxoYHP3e13M/Vj7jbh8aZO0TwmyZssZOcj
+	A/qT1iOfZHDYr4EY4EN/FVwG8krtqoQcg5gNCZnfTjRrvgOPkg387io0vTlRJWChMcOi8obkT8r
+	t9DcWlxiH1COBVXCY1F3k7micGMyVVmHShNvgZVvEBuGLCJXgMjNx3fktwxaYLucp8aHjn9/qx7
+	WIs9oiqWQ02WR8FXiZUej4OyVf4fAJElnXgKmLkvBRRN62y3vRRnGV+sWq7ddIPkYgORwI6Ml/O
+	blE4Vo6wjiB6k21/BwLQqJryK6vb/T3mcdgCC3hoh61uB93fvx8VNc8H7cOXXT2t33LGND0tQN4
+	fO3l/T5TXDG0Bg2xrDZFq3uz8cedcqA8FFgXUJ39dwZxLSwNXjIIQ==
+X-Received: by 2002:a17:90b:3eca:b0:37f:9e21:91d6 with SMTP id 98e67ed59e1d1-392846ac637mr1213667a91.13.1786153561263;
+        Fri, 07 Aug 2026 18:46:01 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39085f5e33fsm6697806a91.14.2026.08.07.18.45.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 18:45:59 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: ump: Fix corrupted data bytes at MIDI 1.0 SysEx to UMP conversion
+Date: Sat,  8 Aug 2026 10:45:54 +0900
+Message-ID: <20260808014554.3550153-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH v3] memcg: keep folio's objcg same as its node
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260807142406.443516-1-shakeel.butt@linux.dev>
-Date: Sat, 8 Aug 2026 09:35:36 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Qi Zheng <qi.zheng@linux.dev>,
- Meta kernel team <kernel-team@meta.com>,
- linux-mm@kvack.org,
- cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Karl Erik Hofseth <karl.e.hofseth@opoint.com>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9B30927B-4154-4FA4-B62E-425F6EC4FA89@linux.dev>
-References: <20260807142406.443516-1-shakeel.butt@linux.dev>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+The cvt_legacy_sysex_to_ump() initialises only the first word of the
+output packet and ORs the data bytes into it.  The second word is left
+alone, and the conversion context is kept across calls, so it still
+carries the previous packet's bytes.  Those stale bits corrupt the new
+data.  Any SysEx longer than six data bytes is affected.
 
+A SysEx with the twelve data bytes 01..0c comes out as:
 
-> On Aug 7, 2026, at 22:24, Shakeel Butt <shakeel.butt@linux.dev> wrote:
->=20
-> memcg_reparent_objcgs() has an inherent assumption that a folio's =
-objcg
-> is the objcg of the folio's node.  Folio migration across nodes breaks
-> that assumption: the new folio simply inherits the old folio's objcg
-> while living on a different node.
->=20
-> Once the assumption is broken, the reparenting of the folio's objcg =
-and
-> the reparenting of the folio's LRU list are no longer atomic.
-> memcg_reparent_objcgs() handles one node per iteration and drops all =
-the
-> locks in between, so the objcg gets reparented in the iteration for =
-the
-> objcg's node while the LRU list gets spliced in the iteration for the
-> folio's node.  Any LRU operation on that folio in between resolves its
-> lruvec through the objcg, and thus takes the lru_lock of the wrong
-> memcg, not the lru_lock of the list the folio is actually on.
->=20
-> Fix this by selecting the objcg by folio_nid() at charge time, and by
-> re-deriving it for the destination node in mem_cgroup_migrate() and
-> mem_cgroup_replace_folio().
->=20
-> Reported-by: Karl Erik Hofseth <karl.e.hofseth@opoint.com>
-> Closes: https://lore.kernel.org/all/anMmd1ADrDVwMO6v@work/
-> Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying =
-memory cgroup for LRU folios")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Johannes Weiner <hannes@cmpxchg.org>
-> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+  30160102 03040506
+  30260708 0b0e0f0e
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+The second packet declares six data bytes and four of them are wrong,
+inside the declared length.
 
-Thanks.
+The sibling cvt_legacy_cmd_to_ump() already clears the second word.  Do
+the same here.
+
+Fixes: 0b5288f5fe63 ("ALSA: ump: Add legacy raw MIDI support")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+ sound/core/ump_convert.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/core/ump_convert.c b/sound/core/ump_convert.c
+index 0fe13d031656..85cc67de6330 100644
+--- a/sound/core/ump_convert.c
++++ b/sound/core/ump_convert.c
+@@ -258,6 +258,7 @@ static int cvt_legacy_sysex_to_ump(struct ump_cvt_to_ump *cvt,
+ 	else
+ 		status = UMP_SYSEX_STATUS_CONTINUE;
+ 	*data = ump_compose(UMP_MSG_TYPE_DATA, group, status, cvt->len);
++	data[1] = 0;
+ 	offset = 8;
+ 	for (i = 0; i < cvt->len; i++) {
+ 		*data |= cvt->buf[i] << offset;
+-- 
+2.43.0
 
