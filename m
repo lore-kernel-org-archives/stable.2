@@ -1,118 +1,167 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118ED3FCB0C
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 12:35:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD6740D588
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 12:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786192567; cv=none; b=mwTVaslpkehbcyHTf8MpWMO9yZQb/Kr3FpjJwJcL27Z4jwg/62LnqbQd7Y1OvhAXJs/a6F1dbQsyIu8Js0PYoO/DvhygVCC8yc7shrP4A+jNA68945lYXLZrKEzHw3Zcgl+qBh5phrZ2Ku/gcY5fCNIKgpYx8Tcj9uT/8RTdyr0=
+	t=1786192902; cv=none; b=Wh9BrL+91hzGtn6oV6ncfUSC6VIKgUMybWJ4arigzGHLtQBPoq5Fg8B7Wy7NWzSyDb8/qE+uXmtnvPiUFa4teTrhd8GE4ZfvAb5a8gJE9E32I9rxqxJtSCI6uC+xD3ZiXjz6VzOnoEiwi6EI6GkKf90cK/yTPi/gQ/hhMyfVYZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786192567; c=relaxed/simple;
-	bh=vSaaDCCuVmF2ar8FmCnssqQGcR+EygdT9BnSZy6oW+k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EHDNDUs7Ic5O39diNc66zqQXrG7MqSFditpO0O/AgNVijbA1i239dgZFz+8Xyl4eMGD3/hOUzB2J9GuHb8q1lQ2CQF5rRImRcvmO6X2TBQBW6IdBvjEju1Up9Ks3B8V6JbFGNbKSVOCCk8DkSzfb/LqtViyrRnMeXiGUzxo1Rqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d6BOgeVQ; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1786192902; c=relaxed/simple;
+	bh=3lxrWPAXShGIF4WokebW2QU8IfNJNi2a46LUj++s6BM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YfVbpkZI4+l+j/fONyBXijUfdEaAN5nd1BriQlAXMGmPHKh8waGo+n6pgHj0BDHNBAj5mRsHZq0SMCGKaug7VbGqb0zT6OhsyHOEMFpL9dCSpRFCukHRslOOXplRLRLspfarFKiyl7WPTslgfay+qhfGQaEhnl+R0pQoIdQrjSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b=QJm9AIoP; arc=none smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d6BOgeVQ"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4954a2e73a9so2409865e9.3
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 05:35:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786192554; x=1786797354; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jRYshfP9Ina/Q+U65sHRZbbE3Lz3C2G7D9AgZHh97hk=;
-        b=d6BOgeVQHqq5vDUaz8W8W3JVB3mneBS9XlBT/pg1zWwvQn0ViyZTq1ibGsqM/A7fLb
-         3QniAm0u9LGZQZwZWYECgcoxjL++7J/IMuB68zatYG7X63wNXrL6QxMKHhvog4riGYqf
-         ck9EMa6L+zsp+h4/qwEwyS6PYNebZ0qBreP+1iqFx8UR2n04M4PEeYDeQCAoqfv2MrSw
-         +SOZGcO6y72MCd7+gT9Cin1/clT4spShrZ6RJpqluov9jDgljKbc4J9Jnulf6yjMMmLL
-         O4eR5xqVyvPQCt/8nG0jsBRmHfzuGdbsLZt6MCSiPsOclexKbgbb1D76gi/hFaGvmqE9
-         9M+Q==
+	dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b="QJm9AIoP"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7ee37dc91f5so259698a34.3
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 05:41:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786192554; x=1786797354;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jRYshfP9Ina/Q+U65sHRZbbE3Lz3C2G7D9AgZHh97hk=;
-        b=cfmdH40p6WJ/ez4vOkOl9Fo5U8ZU85yzjyNEjsfUC32EcxTbknIHoB5CF4nqsDhOXu
-         B5wQN6XbFRbPe+KsG0uztSppdgeSBGQK6751HFyRKAUbU+ZgTWfWTatLPAbx5VYqshpm
-         29G/IcPUlqT4NABUcmiNydCxlTX69l3LWA+Ikyg0Wn+j0EihvNlcXy1VOYcgnPhhNqOG
-         EGv71h7t8eLy0QdCGr6eRPAuPyfw2/9yPqoGP+nFiY2Mov0omvGfIyAcI2/5SKoDzKlS
-         1tbd2bCjmHhNcaVoVMafe4dE59tDGVpAjtnUaMxihj1En19NaCihAmiL+MC6DC6ESSFw
-         DMHg==
-X-Forwarded-Encrypted: i=1; AHgh+RqwI/6m3gsyFnFSwf+STSdUyJbxtnVkUe/IlRxKU6fRWHq4BPAeTqMJ8R9JQcJp6xeQSgmVzio=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwM0uXoMcj4P2Xq8MX6PZBtMrc9+4VJ65SB2VWO3DC3xYigSdbK
-	GiyuPBmAJ1VHMC2f2dnWtv27YGkKrsSIT4jOWFgvj5RGrrwUgMllfXc2
-X-Gm-Gg: AR+sD10nG+JgDwV3l9A1jfJA7LjIiZKqVeieYLciqWJhEOI0XUb0Mf4kGZx7jXKEJd8
-	bH/p4Ar++2R+wdGaeBaiEdPF2yZ6pVGd/lvfb8cbypBUi+6Q7FBA2gsaTvyoNMDIpoh6EgmJAPR
-	/nlC5zLMyBaUMwDzhlcCob/Zbktuh9q5zV4nhiUrGB6hsRw+3Z1iiwChh0bmyt9KtIC7+4396RP
-	he089kwEKJk+Ux+hDnZ3Y06zx11/P/jIPru311m3sP7Z+P4mOdCqHzO2CZ6WNY4gRy6OiJuaQtI
-	BkoBVSvYtuPQ7CFNsy4KiG5+rSbsxsQ20jtX0uON00Xzzg9fHqEIheeXUR2jJpuy4POhEScfNBT
-	HhqkvW6yWG8TDFe+WscnviaT27ouS/3crNhrA26Ic4FZWd2W3sFrpn3eCbQ0d4TceHOLKWTAEKy
-	0QJ5RcwvkraE8z1QJ5HrmKD+a6N8gBHh5SG9EQ8L0tU6qK1zXYX2yZTDzH3hG9kwEyL5UcH8b/J
-	3LxP9eMte1N/lNBTPgSbwWsD2ck9v4U92DynYNCqQkwTC6JjXrufhLxeMT7bljnC/QKhAq+8qSu
-	5Cj4Ubc88vikc2d6Koyd
-X-Received: by 2002:a05:600c:3ba6:b0:499:48be:3189 with SMTP id 5b1f17b1804b1-4994e6c065fmr360149945e9.0.1786192553857;
-        Sat, 08 Aug 2026 05:35:53 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-077-007-004-134.77.7.pool.telefonica.de. [77.7.4.134])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499542858b2sm257587555e9.14.2026.08.08.05.35.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 08 Aug 2026 05:35:52 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: David Howells <dhowells@redhat.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	netfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] netfs: Fix uninitialized return value in netfs_unbuffered_write()
-Date: Sat,  8 Aug 2026 14:34:31 +0200
-Message-Id: <20260808123431.73554-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1786192891; x=1786797691;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=osXi6LaDiTO28e9dN3yuQi9vCnsQZpZjj6p/k64AO1A=;
+        b=AAm3gkmZpa0K1/87YwqMYP6iJNtvpexNvYbeJJ4QCoupVY3fmNoujAxP/BmnXiaVfS
+         M0NxjBi0V7dUVGxQMcsrzhI+jMGPiCqBRYtoOHdcWdfRLIqzf3+Qti1yse1MsCdmQTnB
+         fyLlCc3YF2sO+GLTdBIyQWUGa5HH8UeCyF/DPmly8gz9enC3DBeJbXccABEh4kkqGKmU
+         JqWUHpCq4YRwVw0FCNXMRueUiFFaJlzW/gJITFL7XS+Tk5htoUJm1J7c2IXDTr3dmgbF
+         u7WBIkwbffKRtsBYzD+QXbpG0o2QFgCMCHmlQfakRfH3mqYhhySgacmetTk55B58XIpX
+         DJ9A==
+X-Forwarded-Encrypted: i=1; AHgh+RrLIX4UuH9uh8RgRt2iX7q4o92iy9+WwcMVLcZhqmCikCHmhOD+RJOI9mwpNJW2QCwuLDYIElA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwD2IB34CbduOI1LFje57TwyZc96rRmfXjvNE5y80TPL3ZoK1P7
+	MSqDtO+rC7fZeoZHpnMKeU0X+XHKkECoup+x8f6j9tsreNANgq/3QQEI
+X-Gm-Gg: AR+sD13pz1cbO5XD9fazvcwxRSNqzT6YhaxjI12j9zDqqDnG3XdAa/I18PeXErhA1I8
+	x0dckHyZRnQ/pSsWybHJ7uLfTvqBIqgC8QYOi+I6rfeDv+gGPs1ucXPDF4ZDD9kj5CYxrhpALdV
+	qQz5kQ6ddncCAl+ko6A5f2s16ad/3A2jlOeqUO747+monMIjm80lU6nn5ocYqPg1mwvy7fNFnfO
+	IiY8z6z/JL1MBgwkJ8I91VkVDE9xpCGE8Z7kWYdI+oC1g019KBnRh3lzCRhKzRvCeONjuAHKQrd
+	UkjyGx1j0jCPVrQghkJzKaY8RCrCiqvhbIHEae0vYNijzFEPFTYcMRFKSqx6z2oEbgcDE6JL0oV
+	A4jdow3gm43otJyVP6O4m1xNdW/L5/aL77Ko+EJeO0bY1fa4SB5JNb+kNvzjxrt55zcTFbToCs5
+	ZnmGf14tAPiyfFhwOmPlEmjj+rQckkMD4yxAaLWrYLK/PJYwuOc892wnj6JaWgv8e+l6J2yfmJ1
+	jsD00O7g12US9AjaSWVU19BWAyCIL9xhnPPSlH2/NqxbulYXMK1E8UnkKJvFYUL6A==
+X-Received: by 2002:a05:6809:115:10b0:4b1:b83c:cbff with SMTP id 5614622812f47-4b1b83ccca8mr926374b6e.14.1786192891032;
+        Sat, 08 Aug 2026 05:41:31 -0700 (PDT)
+Received: from mail.marliere.net (137.65.66.34.bc.googleusercontent.com. [34.66.65.137])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b1af63d8acsm1957414b6e.15.2026.08.08.05.41.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Aug 2026 05:41:30 -0700 (PDT)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 44EA760CCA;
+	Sat,  8 Aug 2026 12:41:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
+	s=dkim; t=1786192888;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=osXi6LaDiTO28e9dN3yuQi9vCnsQZpZjj6p/k64AO1A=;
+	b=QJm9AIoPWD8yutMlKlTwJWZaPaJRBe74IyCDGTnc5vrunBbOsFDDOzalruPL5QirVKcAuM
+	i1Lf4qGvjgHAkDVUDU+HM8s8IUiOaBbTkIzryNYdpPaLGPPAcJImvvbdBiSd2z7DFfk6lI
+	rLBLC+yeySPxMbfK9ZUKDtUg14eoXE9MOIjjTFX/qdx3rh8VSUiM1wDo0wMd/ppMIHhE8G
+	/djRZnu8TaKX3K+DYfo+S9X0LJbyhVFME9MqI9GprlKDxhK1+rYian30och4fc+Soc75qx
+	45te9yWvH99aCFWUKPGLPuMhhKsaIH47jVsMKeURuQsLYLImPQlFMrrDj3fafw==
+From: =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
+Date: Sat, 08 Aug 2026 09:41:11 -0300
+Subject: [PATCH 7.1.y v2] selftests/bpf: Fail unbound UDP on sockmap update
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260808-selftests-bpf-sockmap-v2-1-c7ffa9a2a652@marliere.net>
+X-B4-Tracking: v=1; b=H4sIAOYjd2oC/4WOSw6CMBRFt0Le2BJaCB9H7sMwaMurVKGQvkokh
+ L1LcQEO7+/kbkDoLRJckw08Lpbs5A4hLgnoXroHMtsdGkQmyqzOKkY4mIAUiKnZMJr0a5Qzq2r
+ eKdHowjQFHNvZo7Gfk3uHKuXpCu3Pprd6og6RGYtKEjLlpdN9tChINWAMekth8ut5bOEn58+Hh
+ TPOal00eWlkluvuNko/WPSYOgzQ7vv+BcWSsUTvAAAA
+X-Change-ID: 20260807-selftests-bpf-sockmap-781db29c4f94
+To: Shuah Khan <shuah@kernel.org>, sashal@kernel.org, 
+ gregkh@linuxfoundation.org, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>
+Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Michal Luczaj <mhal@rbox.co>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, 
+ Jakub Sitnicki <jakub@cloudflare.com>, 
+ =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1786192881; l=2322;
+ i=ricardo@marliere.net; h=from:subject:message-id;
+ bh=qHrSlgjj3za7PJl8EnqfTO8/vRQJwzZVFEAcqanD1UA=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgguRCc5X8/UX9M40lkMnr//aFGOhce
+ x5ezt8MFNUFlqYAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QCT/rpBMqA7HKxECSLIgqYnZkVGVBOYjQYzEOy5xK/bpGxxkt7fajmEKXvLC4qBEWYpYEJqZtYa
+ +uZpLTqSUegE=
+X-Developer-Key: i=ricardo@marliere.net; a=openssh;
+ fpr=SHA256:pzhe0fJpYLz+3cZ33FFPhIfaUElk9CXPFFXmalIH+1g
+X-Last-TLS-Session-Version: TLSv1.3
 
-If preparation of the first subrequest fails,
-netfs_unbuffered_write() exits its loop before ret is initialized. The
-empty-iterator check can do the same.
+From: Michal Luczaj <mhal@rbox.co>
 
-For synchronous writes, netfs_unbuffered_write_iter_locked() may then
-return an unrelated error instead of wreq->error. This is reachable
-through CIFS if cifs_prepare_write() fails to reopen the file or obtain
-credits.
+[ Upstream commit 203b06932777b9ad5085319389dea566f5c2ca63 ]
 
-Initialize ret to 0 so the caller returns wreq->error if no data was
-written, or the number of bytes already written otherwise.
+sockmap now rejects unbound UDP sockets. Adjust test_maps. While at it,
+check socket()'s return value.
 
-Found with Clang's -Wconditional-uninitialized.
+This effectively reverts commit c39aa2159974 ("bpf, selftests: Fix
+test_maps now that sockmap supports UDP").
 
-Fixes: a0b4c7a49137e ("netfs: Fix unbuffered/DIO writes to dispatch subrequests in strict sequence")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Michal Luczaj <mhal@rbox.co>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Jakub Sitnicki <jakub@cloudflare.com>
+Link: https://lore.kernel.org/bpf/20260707-sockmap-lookup-udp-leak-v4-4-f878346f27ab@rbox.co
+Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Signed-off-by: Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
 ---
- fs/netfs/direct_write.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi, backporting commit 66efd3368ae1 ("bpf, sockmap: Reject unhashed UDP
+sockets on sockmap update") without this one broke the selftest in openSUSE
+CI:
 
-diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
-index c16fbad286a17..b04019097ab8d 100644
---- a/fs/netfs/direct_write.c
-+++ b/fs/netfs/direct_write.c
-@@ -95,7 +95,7 @@ static int netfs_unbuffered_write(struct netfs_io_request *wreq)
- {
- 	struct netfs_io_subrequest *subreq = NULL;
- 	struct netfs_io_stream *stream = &wreq->io_streams[0];
--	int ret;
-+	int ret = 0;
+https://openqa.opensuse.org/tests/6147940/logfile?filename=test_maps.tap.txt
+
+Changes in v2:
+- Sign off
+- Link to v1: https://patch.msgid.link/20260807-selftests-bpf-sockmap-v1-1-8c4936fa03cd@marliere.net
+---
+ tools/testing/selftests/bpf/test_maps.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/test_maps.c b/tools/testing/selftests/bpf/test_maps.c
+index ccc5acd55ff9..d194b44ff8be 100644
+--- a/tools/testing/selftests/bpf/test_maps.c
++++ b/tools/testing/selftests/bpf/test_maps.c
+@@ -748,16 +748,15 @@ static void test_sockmap(unsigned int tasks, void *data)
+ 		goto out_sockmap;
+ 	}
  
- 	_enter("%llx", wreq->len);
+-	/* Test update with unsupported UDP socket */
++	/* Test update with unsupported unbound UDP socket */
+ 	udp = socket(AF_INET, SOCK_DGRAM, 0);
+-	i = 0;
+-	err = bpf_map_update_elem(fd, &i, &udp, BPF_ANY);
+-	if (err) {
+-		printf("Failed socket update SOCK_DGRAM '%i:%i'\n",
+-		       i, udp);
++	CHECK(udp < 0, "socket(AF_INET, SOCK_DGRAM)", "errno:%d\n", errno);
++	err = bpf_map_update_elem(fd, &(int){0}, &udp, BPF_ANY);
++	close(udp);
++	if (!err) {
++		printf("Unexpectedly succeeded unbound UDP update '0:%i'\n", udp);
+ 		goto out_sockmap;
+ 	}
+-	close(udp);
  
--- 
-2.53.0
+ 	/* Test update without programs */
+ 	for (i = 0; i < 6; i++) {
+
+---
+base-commit: 74b69060ba6e44e20c2e4dc1847eca21db6e4a7c
+change-id: 20260807-selftests-bpf-sockmap-781db29c4f94
+
+Best regards,
+--  
+Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
 
