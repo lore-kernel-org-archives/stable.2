@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CC73A8743
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:25:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69B133C1BE
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786188333; cv=none; b=X96jWc3qsL+2x37JSQBjuMahY+ec+YZ2r34kLiovAjNCyrcjDh2yRR9vFZmCr+zQPVyhaBsrGvXFO/rRLxSZsyMMsyyQWjjs5mP7qzLae8Pd1oWyU9WVRqIik/NDf/ud4sqMDigXiUAuV8otGBYJXDHov3F1Of0aj+IdTqJ5430=
+	t=1786188335; cv=none; b=pu+PaqaxPLhA6hgVfQHecqqEwt8ijQjZ/PCgZ9VWh2r0kCwSHnOG3ytzjLD2a4Y3TNMf2qV7ovXi/OOYnZdB59EAWWRGyWVjbNDN1xUh4PgOaq5MO28jNeQHlNJk0/1eEyOVOFXkMlxCqu6gQkAln0c8/S+S0GLoTUB97f+VHJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786188333; c=relaxed/simple;
-	bh=CA6uN8OrZ5Jbp8tiB8Tw1OCPDnXRGxI93B2D6EhBnzQ=;
+	s=arc-20240116; t=1786188335; c=relaxed/simple;
+	bh=IyrLD+xOFGegidxPyTKb2SJKhYGf8XZnAXwmn3D7l4o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TVl+aSB7YxiHIxHukPqqlbHkavGiPCIAzGJk/6E5RIJs83keWkBUdZx9sW1iNd/PM6VeSJbfRFk1m+LWzIy+tXE5siBymkrEKwgtWh1XgTIs7Ej/HjoQi30/9s5WANvHVHQKO1PPO1gyXYbDB1Rnjm4HycuvstCRJVRF9IU6id8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wjg1Ni4B; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=p9kPhe65DCwNXXwPCEj4rw5xHB/HXvFd4UbuaLSfQgYRaLKhPh7Z+jjeKjR05vaKZSyMtDM8+FFU2GNZsXB8T++hCtiJ5VKbk13TlGsyebqu6nRU1LCZbFHLKJ6ZxP3o7fZ/68cJ9M2xdIu9YQuJfn/Ih3ixNd1Ayjd32qIgmQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aFwnYq6D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wjg1Ni4B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5EF1F00A3A;
-	Sat,  8 Aug 2026 11:25:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aFwnYq6D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96921F000E9;
+	Sat,  8 Aug 2026 11:25:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786188332;
-	bh=/ws5oHDYDUkU+41pwiihsVwINrMe7IZPX/B3+u0Ba8s=;
+	s=k20260515; t=1786188334;
+	bh=92AbvF1fdfv5VQPfXd7FU6e6xgX6YeJMiU0+N3WLGRI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wjg1Ni4BFxUPRSI35XLa48gVkUhI+yGpj/rONZfJ2L28qLxHQwrC8XwkJk1ftISU+
-	 we2eCwso6UNjZPCZ7TsH4iwfskk1SXQOETHSB29l/9cL/7oaTilrJ5L0yfl3YPfkdU
-	 Nm2PEHnb5IbI05td8GJOeTNm4IoTXJzgZZpcfEiUeYVUJz9VM4mfCQPXSEcrvkbLLi
-	 qXNr0Vq+bYihBw/0v8ppe2q4I2zd36Nr4JSe73OKgCgVwkzOFca1cO0HanyVAJARfx
-	 qsqpvUtFd4zpTDIcD81e3BATK0v3iR2Z/kQebo4UC8tC6reM2sLpW0dOsX+CeOCihL
-	 DkjnVh86IO78w==
+	b=aFwnYq6DOZqGwsRwF7vxc5uGznito8/5k+fHmXozhHRKVN8uxScmez1cxPacuqGm0
+	 SeF2/ZuxcntdVxgOem/ixQ6C5lC7OxAEV+qCWB9yIuw9AknW+cpwDX1wo3rkkLXD6m
+	 6AWFx3jY66t+xABI7O+xpyXD+kYGSPIG1XFwhFlC02IL4GdO86ZC7wyuY9qiYxHl3/
+	 oOx5zhwuroCGBXtscIQlwsjt+rDJwgoPt9vOTaOiJFZjdqdhKjetBcAkzfQJNGDB8V
+	 yvzVxD/9p2ANQO7mCK0RFQEZSvFIHF3CQqSnzSpwL3OoholyR4ae/yw4NA3U9f0yws
+	 JuwyhanW59zFA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
+Cc: Pavitra Jha <jhapavitra98@gmail.com>,
+	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
 	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] libceph: bound pg_{temp,upmap,upmap_items} length to CEPH_PG_MAX_SIZE
-Date: Sat,  8 Aug 2026 07:25:28 -0400
-Message-ID: <20260808112528.101249-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] libceph: fix two unsafe bare decodes in decode_lockers()
+Date: Sat,  8 Aug 2026 07:25:31 -0400
+Message-ID: <20260808112531.101285-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260808112528.101249-1-sashal@kernel.org>
-References: <2026072929-ritzy-confirm-991b@gregkh>
- <20260808112528.101249-1-sashal@kernel.org>
+In-Reply-To: <2026072947-glitter-prevalent-2aff@gregkh>
+References: <2026072947-glitter-prevalent-2aff@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,71 +46,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xiang Mei <xmei5@asu.edu>
+From: Pavitra Jha <jhapavitra98@gmail.com>
 
-[ Upstream commit 9f00f9cf2be293efe899db67dc5272e3a9c62717 ]
+[ Upstream commit a109a556115271ca7896dcda7b4b7e45e156c227 ]
 
-__decode_pg_temp() decodes an user-controlled length but only rejects
-values large enough to overflow the allocation; it does not bound it to
-CEPH_PG_MAX_SIZE. The helper backs both pg_temp and pg_upmap decoding, and
-apply_upmap()/get_temp_osds() later copy the decoded list into the fixed-size
-on-stack array struct ceph_osds.osds[CEPH_PG_MAX_SIZE]. A monitor that sends
-an OSDMap with a pg_temp/pg_upmap entry longer than 32 thus causes a stack
-out-of-bounds write.
+decode_lockers() in cls_lock_client.c contains two bare decode operations
+that allow a malicious or compromised OSD to trigger slab-out-of-bounds
+reads:
 
-An OSD set for a single PG can never exceed CEPH_PG_MAX_SIZE, so reject longer
-entries at decode time. The bound is well below the old overflow threshold, so
-it also covers the allocation-size overflow the previous check guarded against.
+1. ceph_decode_32(p) at the num_lockers field has no preceding bounds
+   check. ceph_start_decoding() accepts struct_len=0 as valid -- the
+   internal ceph_decode_need(p, end, 0, bad) always passes -- so when an
+   OSD sends struct_len=0, ceph_start_decoding() returns success with
+   p == end. The immediately following bare ceph_decode_32(p) then reads
+   4 bytes past the validated buffer boundary. The garbage value is
+   passed directly to kzalloc_objs() as the locker count.
 
-  BUG: KASAN: stack-out-of-bounds in ceph_pg_to_up_acting_osds
-  Write of size 4 ... by task exploit
-   kasan_report (mm/kasan/report.c:595)
-   ceph_pg_to_up_acting_osds (net/ceph/osdmap.c:2617 net/ceph/osdmap.c:2833)
-   calc_target (net/ceph/osd_client.c:1638)
-   __submit_request (net/ceph/osd_client.c:2394)
-   ceph_osdc_start_request (net/ceph/osd_client.c:2490)
-   ceph_osdc_call (net/ceph/osd_client.c:5164)
-   rbd_dev_image_probe (drivers/block/rbd.c:6899)
-   do_rbd_add (drivers/block/rbd.c:7138)
-   ...
-  kernel BUG at net/ceph/osdmap.c:2670!
+   The sibling function decode_watchers() in osd_client.c already uses
+   ceph_decode_32_safe() after its own ceph_start_decoding() call.
+   decode_lockers() was the only site using the bare variant.
 
-[ idryomov: do the same in __decode_pg_upmap_items() ]
+2. ceph_decode_8(p) after the decode_locker() loop has no preceding
+   bounds check. If an OSD crafts num_lockers such that the loop
+   advances p exactly to end, the subsequent bare ceph_decode_8(p) reads
+   one byte past the validated buffer boundary. The result is passed
+   directly into *type, which is used as a lock type discriminator by
+   callers, giving an OSD-controlled one-byte OOB read with direct
+   influence over the lock type field.
+
+Fix both by replacing bare operations with their safe variants:
+  ceph_decode_32(p) -> ceph_decode_32_safe(p, end, *num_lockers,
+                                           err_inval)
+  ceph_decode_8(p)  -> ceph_decode_8_safe(p, end, *type,
+                                          err_free_lockers)
+
+The goto targets differ intentionally:
+  err_inval: is a new label returning -EINVAL directly. It is used for
+  the pre-allocation failure path where *lockers is not yet allocated
+  and must not be passed to ceph_free_lockers().
+
+  err_free_lockers: is the existing label. It is used for the
+  post-allocation failure path where *lockers is allocated and must
+  be freed.
+
+ret is set to -EINVAL before ceph_decode_8_safe() so that
+err_free_lockers returns the correct error code on bounds violation.
+Without this, err_free_lockers would return a stale ret value (0 from
+the successful decode_locker() loop), silently swallowing the error.
+
+-EINVAL is correct for both failure paths. The data received from the
+OSD is structurally malformed. -ENOMEM would misrepresent the failure
+class to callers and to stable@ backporters triaging error paths.
+
+Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
+deployment can trigger this against any kernel client that issues the
+lock.get_info class method (e.g. during RBD exclusive lock acquisition).
+
+[ idryomov: trim changelog, formatting ]
 
 Cc: stable@vger.kernel.org
-Fixes: a303bb0e5834 ("libceph: introduce and switch to decode_pg_mapping()")
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Fixes: d4ed4a530562 ("libceph: support for lock.lock_info")
+Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
+Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ceph/osdmap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ net/ceph/cls_lock_client.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
-index 763f22a06f05e..5f03bbe78a5a2 100644
---- a/net/ceph/osdmap.c
-+++ b/net/ceph/osdmap.c
-@@ -1422,7 +1422,7 @@ static struct ceph_pg_mapping *__decode_pg_temp(void **p, void *end,
- 	ceph_decode_32_safe(p, end, len, e_inval);
- 	if (len == 0 && incremental)
- 		return NULL;	/* new_pg_temp: [] to remove */
--	if ((size_t)len > (SIZE_MAX - sizeof(*pg)) / sizeof(u32))
-+	if (len > CEPH_PG_MAX_SIZE)
- 		return ERR_PTR(-EINVAL);
+diff --git a/net/ceph/cls_lock_client.c b/net/ceph/cls_lock_client.c
+index 66136a4c1ce7f..639793597b76c 100644
+--- a/net/ceph/cls_lock_client.c
++++ b/net/ceph/cls_lock_client.c
+@@ -299,7 +299,7 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 	if (ret)
+ 		return ret;
  
- 	ceph_decode_need(p, end, len * sizeof(u32), e_inval);
-@@ -1605,7 +1605,7 @@ static struct ceph_pg_mapping *__decode_pg_upmap_items(void **p, void *end,
- 	u32 len, i;
+-	*num_lockers = ceph_decode_32(p);
++	ceph_decode_32_safe(p, end, *num_lockers, err_inval);
+ 	*lockers = kcalloc(*num_lockers, sizeof(**lockers), GFP_NOIO);
+ 	if (!*lockers)
+ 		return -ENOMEM;
+@@ -310,7 +310,8 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 			goto err_free_lockers;
+ 	}
  
- 	ceph_decode_32_safe(p, end, len, e_inval);
--	if ((size_t)len > (SIZE_MAX - sizeof(*pg)) / (2 * sizeof(u32)))
-+	if (len > CEPH_PG_MAX_SIZE)
- 		return ERR_PTR(-EINVAL);
+-	*type = ceph_decode_8(p);
++	ret = -EINVAL;
++	ceph_decode_8_safe(p, end, *type, err_free_lockers);
+ 	s = ceph_extract_encoded_string(p, end, NULL, GFP_NOIO);
+ 	if (IS_ERR(s)) {
+ 		ret = PTR_ERR(s);
+@@ -320,6 +321,9 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 	*tag = s;
+ 	return 0;
  
- 	ceph_decode_need(p, end, 2 * len * sizeof(u32), e_inval);
++err_inval:
++	return -EINVAL;
++
+ err_free_lockers:
+ 	ceph_free_lockers(*lockers, *num_lockers);
+ 	return ret;
 -- 
 2.53.0
 
