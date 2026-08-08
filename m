@@ -1,152 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726ED175A88
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:55:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786190116; cv=none; b=ToXCwbB/IeNZ+rLyDYLHMzVgEJnCrlJLCBCuRxs0B2WSJ8EnEDeQ/Sn2oGu+dataAVFUm35mKwNnuBarssCFvMH5sFGJDGquMIHK6cbsJlimxrEQSucHs+5gOCm1ChYFiVR/UeJBlWgzg6j6juvJ6JFnEF/huPVGjAUwiBZ3xV8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786190116; c=relaxed/simple;
-	bh=IyrLD+xOFGegidxPyTKb2SJKhYGf8XZnAXwmn3D7l4o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wt/Yh43y6HorT02OdSij1Rk2emMz3ZTsZhrXuEY7tMQEBOqKg5/Sq0WDy0VZ8RcIUIkxtxzshuxoaVU/i6Aafxk1CK6TPBSoAIU+ZsVLcM1q14EbqXrIvGg23Gg3E6n0ZyY6jECbV7O9sjTvMZ4hWIz3Nm2Vgk764iYofKj8SeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BjzsHcrO; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC427175A88
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 11:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786190309; cv=pass; b=pyo9OqZwaMQaMzbMz4Q6TI85i/4XKf3RDmBmvWMr+1gPCw/S6ffFYmsNSQawzJ9jg/5ct9rGsl/lMoDt2Ikxs2YAww8no51KC/uK24xkIrb0O/u94IFLsggANrBA02W9yUg8ckWJ+Cz6lhk9qbshgzFYKdPlz++keZ3nKC9Svpc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786190309; c=relaxed/simple;
+	bh=0I05yqIJVobCKPpNehwIbOT5UR4ceGFpLErIALuaidg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KDmpGYG4PyMXp6RkBTMKaeJyTaUyl7pJUC1u+npzgX2l8IR3kjOio08nsZLnDcmV8kXYbzarUU4qgyBcQau4VgUyGwhcu9drvhfDov4WHanEY7IuwMOPbyO2EjNU/g0VH5UKOn0e+uITBF5fi8n8Eo3xRktaiAHlmF60icl3nBQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=vhQCUOqg; arc=pass smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BjzsHcrO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BE001F000E9;
-	Sat,  8 Aug 2026 11:55:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786190115;
-	bh=92AbvF1fdfv5VQPfXd7FU6e6xgX6YeJMiU0+N3WLGRI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BjzsHcrO+k0q6jvxnmrxA36pFiG2OAv66Dq1Li4Jrxl0Go8P2lLx5eaAYuj5VqRCd
-	 iMqmJOgpXeNgrq/JQO/cx3HVXIpkG3Jy3ZOd1P89QYPoFFSdxgG9pGvtoWaaGc4OE3
-	 xB0ROgooGwkPJg5iBW6wBcnHnM19kt0gDy575AMG4P4s4aiBL/b/DJHKahA80i9OE5
-	 awK9CKytsH8EMbgjK/TFyiLS2u4RmcHQwjdk5kn5A0/+r2NvRKnKw2eRcIo8Q78wNE
-	 ZqDCFPvQyHZneVBL1Spi/v8dlROzlCdlVV6ppUaL3IEzfgzWdcW6OxrIe+0iRtW0Ll
-	 98iR6EQrY5Bdw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Pavitra Jha <jhapavitra98@gmail.com>,
-	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] libceph: fix two unsafe bare decodes in decode_lockers()
-Date: Sat,  8 Aug 2026 07:55:12 -0400
-Message-ID: <20260808115512.197333-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072948-wrongdoer-gift-5733@gregkh>
-References: <2026072948-wrongdoer-gift-5733@gregkh>
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="vhQCUOqg"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1fbe461f59so39691966b.2
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 04:58:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786190306; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bCREa8h81OFZ54xq5c3+Ai03iYDi60sMYe43pzEmKCS7HnCLrJ/I5pNzennzWmGSl+
+         zvulbWRRlt6GkJxpMQjJtjhXkQkg4ofV+eG377oIIJ2OoAINBkRYjWZQ7B+LWQuNITsz
+         gAm3te9C29klSBTsWYJZvWDm19y+P49IHAUtwaQ3QDyrMAzTS+KDGD5qXTE22HjytMk9
+         8/59CqjXrmk6d0r0bEv1w0aVPHW1mIqut+y0h4ijSWXaVU+lPGjQaqkTn/sKRijasfIU
+         1O3ds52vM86bvNASl7U3+1Lm7V8eUPPy72Og51vdm4OoabevL/BHRMyPNcBUIwtFXIB9
+         dqyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wFLOC7eT/c7nh4VUjcAPuBvrszC9BumgNA7gF5Zy1o4=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=f0XvFNlJDh0tDywPF9xwLexDY0iKsoV5R8BierNxaQR9B4oW4CtTDpj0cOiiIuMq6u
+         Va3pAeOaHWHV47J8weEC/K58kUAVAEMIQT6DsW1vqdbM0oTWhm7Ls4+bk6+WMollwi0Z
+         9pNAwB9x+FAJweAiqBlBVKNIgL+snsXD9yVOevO5GXDApiy2ZIsb6/CAAQrEe85DIiv0
+         y1wRKbU1rX1/9VOwDvt43lt5Wr75ZjPvsJUpBD/M/tmFCYwU0Ij7fiXL7jQalvIaI71s
+         TNt04RDHLilBuUpqKjyXC2H9VydKNubu8jAgz+Uj55UYFklGznOQnn+UBnpjl205wqRD
+         BJYw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1786190306; x=1786795106; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wFLOC7eT/c7nh4VUjcAPuBvrszC9BumgNA7gF5Zy1o4=;
+        b=vhQCUOqgJ79GnCHnWZFfOCNJUtSKc/vmI2mWuxlLbmnDDq8d+aUsj4AlVaT/A0bpp1
+         aOE1WiEcZcXtpeXn6nxSCP1dKtnH0NcfKy96/IyeBTUTqwg+wKLMFVKgLPtOkziC9fqy
+         Mbo/VXSiPwt/dQzZziiveXN1ljO5U515+c9Mb/hubqDzPVkt/LDHwOjCAux9lzA0NXPr
+         QFHmvePSX/riMxO44GYUxSs6ct1Vq3yJ883nQgWXyP7swm8MeZosNcHeF3dtp0TQaiJR
+         fbVr9KKse2ByU4HofhkAqeHXyz+NpeMq2NJtPV5gHDvQhgDlRuNkJvgczL1enCxLmEJx
+         kCRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786190306; x=1786795106;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wFLOC7eT/c7nh4VUjcAPuBvrszC9BumgNA7gF5Zy1o4=;
+        b=NPB8hukUduKDCJ47CvJ/nv2KssjndYoP4YQkOvhNCUg/2HGDxn4yaEWlO8uWhm65Pe
+         AwhcfL5aJxe2XUs4De3IjtRB+hJ8R0VSgbXRjRnghQvU/4cEsEFho/+A4eqetLsig1em
+         QgkkMAMzgEVZDnHPMK8FhH/lImfM5N1ZFp2DuxwWDeN5XJXyl06bMb6czcxiwIzSsZm+
+         0hpUmQzMXMcFs3ibHGK3Ee2346oEoOqH3nwPDFU3cIrofCuiKs9+IdOgstfz6jrlVJPx
+         IY4mWedclTynWr17ge7PA2rL8dDf1fQ6JyF+mKwPfNbjuuIKHF+DYNcecm/9JeaibQ9d
+         RtIQ==
+X-Gm-Message-State: AOJu0Yy6oAW2MecvEmapO9TpjgoFHkusRPK6I+SQFdy1Z8Cm49EMvXIP
+	JfMGRNQPDmqth9RQczMaazHSGOrZDviAdf5oxRFlxfbqIKzMcGqMD1/Gmj4+eM1g32N5hIthw7G
+	695VKDZtC0PcIEECT9b9xr74MIgS8MVLCVLeLI3XuWw==
+X-Gm-Gg: AR+sD12mxpZzN3/03HBKvSdh3TpaAvJxFdHiJCuj0A0KW18P0FvWAuWDarZuQpFsQDj
+	SqpRqIWgtTbHlrnqmlXfOP2mypjOJBq2qSdpKYiwksb77TMhIL4mfBBrrKCxov/G3uDrGqPyr9i
+	QdehNGxi6CCZ7VpQL+p4Xx53AWTSIqzYPeuVwHTB4hIyF8gmRtZelJtf57RN1My2rF9r0pSASdB
+	EoNh3lm3syQ2dpTMybACNyzOAQj+PZqRKvyvXm8cHY6HBCkClFvSzx5ZXbq7nrcTBUq4AeT0jgj
+	/M5tsW1eIchY5VfoIbEQvDIDvBToWJvzDUQR4Tm30D5ypMPf8bl96AnGwVbVctaPmQplzlmrNdd
+	8OtoSnTwt5Oh0
+X-Received: by 2002:a17:907:9623:b0:c12:e178:9e68 with SMTP id
+ a640c23a62f3a-c2073364351mr755553266b.19.1786190305489; Sat, 08 Aug 2026
+ 04:58:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260807143428.008222056@linuxfoundation.org>
+In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Sat, 8 Aug 2026 20:58:08 +0900
+X-Gm-Features: AUfX_mzpwqkgBW1n_k6fWbBqYsVTji7LrFJ3wK3z4zxHOxmeZUH-tab1NrDfySE
+Message-ID: <CAKL4bV597kbF3OgUxkYESiao8BksS_RYH_HhCPq5tRy0_1AeRQ@mail.gmail.com>
+Subject: Re: [PATCH 7.1 000/438] 7.1.8-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Pavitra Jha <jhapavitra98@gmail.com>
+Hi Greg
 
-[ Upstream commit a109a556115271ca7896dcda7b4b7e45e156c227 ]
+On Sat, Aug 8, 2026 at 2:15=E2=80=AFAM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.1.8 release.
+> There are 438 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 09 Aug 2026 14:33:46 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.1.8-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-decode_lockers() in cls_lock_client.c contains two bare decode operations
-that allow a malicious or compromised OSD to trigger slab-out-of-bounds
-reads:
+Linux version 7.1.8-rc1 tested.
 
-1. ceph_decode_32(p) at the num_lockers field has no preceding bounds
-   check. ceph_start_decoding() accepts struct_len=0 as valid -- the
-   internal ceph_decode_need(p, end, 0, bad) always passes -- so when an
-   OSD sends struct_len=0, ceph_start_decoding() returns success with
-   p == end. The immediately following bare ceph_decode_32(p) then reads
-   4 bytes past the validated buffer boundary. The garbage value is
-   passed directly to kzalloc_objs() as the locker count.
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-   The sibling function decode_watchers() in osd_client.c already uses
-   ceph_decode_32_safe() after its own ceph_start_decoding() call.
-   decode_lockers() was the only site using the bare variant.
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
 
-2. ceph_decode_8(p) after the decode_locker() loop has no preceding
-   bounds check. If an OSD crafts num_lockers such that the loop
-   advances p exactly to end, the subsequent bare ceph_decode_8(p) reads
-   one byte past the validated buffer boundary. The result is passed
-   directly into *type, which is used as a lock type discriminator by
-   callers, giving an OSD-controlled one-byte OOB read with direct
-   influence over the lock type field.
+[    0.000000] Linux version 7.1.8-rc1rv-g91bb55d1d234
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.1.1 20260728, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Sat Aug  8 20:30:10 JST 2026
 
-Fix both by replacing bare operations with their safe variants:
-  ceph_decode_32(p) -> ceph_decode_32_safe(p, end, *num_lockers,
-                                           err_inval)
-  ceph_decode_8(p)  -> ceph_decode_8_safe(p, end, *type,
-                                          err_free_lockers)
+Thanks
 
-The goto targets differ intentionally:
-  err_inval: is a new label returning -EINVAL directly. It is used for
-  the pre-allocation failure path where *lockers is not yet allocated
-  and must not be passed to ceph_free_lockers().
-
-  err_free_lockers: is the existing label. It is used for the
-  post-allocation failure path where *lockers is allocated and must
-  be freed.
-
-ret is set to -EINVAL before ceph_decode_8_safe() so that
-err_free_lockers returns the correct error code on bounds violation.
-Without this, err_free_lockers would return a stale ret value (0 from
-the successful decode_locker() loop), silently swallowing the error.
-
--EINVAL is correct for both failure paths. The data received from the
-OSD is structurally malformed. -ENOMEM would misrepresent the failure
-class to callers and to stable@ backporters triaging error paths.
-
-Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
-deployment can trigger this against any kernel client that issues the
-lock.get_info class method (e.g. during RBD exclusive lock acquisition).
-
-[ idryomov: trim changelog, formatting ]
-
-Cc: stable@vger.kernel.org
-Fixes: d4ed4a530562 ("libceph: support for lock.lock_info")
-Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
-Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/ceph/cls_lock_client.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/net/ceph/cls_lock_client.c b/net/ceph/cls_lock_client.c
-index 66136a4c1ce7f..639793597b76c 100644
---- a/net/ceph/cls_lock_client.c
-+++ b/net/ceph/cls_lock_client.c
-@@ -299,7 +299,7 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
- 	if (ret)
- 		return ret;
- 
--	*num_lockers = ceph_decode_32(p);
-+	ceph_decode_32_safe(p, end, *num_lockers, err_inval);
- 	*lockers = kcalloc(*num_lockers, sizeof(**lockers), GFP_NOIO);
- 	if (!*lockers)
- 		return -ENOMEM;
-@@ -310,7 +310,8 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
- 			goto err_free_lockers;
- 	}
- 
--	*type = ceph_decode_8(p);
-+	ret = -EINVAL;
-+	ceph_decode_8_safe(p, end, *type, err_free_lockers);
- 	s = ceph_extract_encoded_string(p, end, NULL, GFP_NOIO);
- 	if (IS_ERR(s)) {
- 		ret = PTR_ERR(s);
-@@ -320,6 +321,9 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
- 	*tag = s;
- 	return 0;
- 
-+err_inval:
-+	return -EINVAL;
-+
- err_free_lockers:
- 	ceph_free_lockers(*lockers, *num_lockers);
- 	return ret;
--- 
-2.53.0
-
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
