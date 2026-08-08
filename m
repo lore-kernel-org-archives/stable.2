@@ -1,174 +1,136 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A10FF1A683A;
-	Sat,  8 Aug 2026 21:41:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from sonic314-21.consmr.mail.ne1.yahoo.com (sonic314-21.consmr.mail.ne1.yahoo.com [66.163.189.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54FA364EB6
+	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 22:06:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.189.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786225307; cv=none; b=gthJs9L9pN6zeEQith9CuVytJUkn7wzc71mngs75PYz2KV2JS2R/6W7aOhD9kou/MqxXlmQFKPIkdp/RL2sGzbjkgG6PD71rFmPNPmdW84VciMmo5Zjl2iuFAW6NncqfItyp8d8yrFDUnBoNziA70j/P85m9+b6/x+8DAkEz2ls=
+	t=1786226792; cv=none; b=KIr8mry42U5KQmZTt6x/pq5L12LLPBS1JtiDSlYXpyZhyLcgmLXFANuM/Qoghz9oDc1XxdNHvEKr6UjnM4fDFx8KA+hgmE9L71RlFMCpwqPFRXgcprgnKNMPFKod6joMEzOFHPLpOozFfl+SQXpFZGT4jzXZIM2ptV3AWldQhqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786225307; c=relaxed/simple;
-	bh=I4DdleW8mzxVeMyiB3L8HY8f1W4aXjk83V1EP/T4+I4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K7S4oamDmHX2zm6F4cGvxLa89Xkz0w3q9ppUYyrC6hqL7Ze2c2EpET62VcfIjX1H67/MD2N1btPTi9Oa7suXQhm4bXK35y1p5oyP6iClcrHIdZeZooQYT6mTFkvb7XMTdiNn9E/3e5np1XWTduGLKVN5WSdjxSd31ZIV4wqX2Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BI9ksKow; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1786226792; c=relaxed/simple;
+	bh=P9GZKua27kHk87nOoDuIx986vLiN96klWW2v6y0Vzbk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rZquaZMlZAqa5wdHz+y/u1xJgRmYoCTocZaMFrVxGl1H0PmcJ/xh5x8Cklj0G1dfU6AQUrto2CGD5A4jPAU0fNWxi5gaRcBqdiyr0OR3eogq4Hul/L0Fm7oJ4Fz9/QZPvZ23lV8ZiQHJPjlCRRb1FZMb5B9ZIhjXKT2qqpV6mtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=JeMuVF/W; arc=none smtp.client-ip=66.163.189.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BI9ksKow"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B301C152B;
-	Sat,  8 Aug 2026 14:41:39 -0700 (PDT)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7C103F9A2;
-	Sat,  8 Aug 2026 14:41:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1786225303; bh=I4DdleW8mzxVeMyiB3L8HY8f1W4aXjk83V1EP/T4+I4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BI9ksKowFBrkK396n5hsWjimnlOOable3MsLV4y3n7S5+1tgNqP6N6WFXFGtDTE32
-	 hEr/u9esRbfm0i0MrHb1lIeDuaaWjUuK/9esr7GvjoQEWbNKWioArCRJofLMM62J3r
-	 8+yBNoBgpQhKZ7WczfW/mYTuBK0b3wymIrkMqDnE=
-Date: Sat, 8 Aug 2026 22:41:31 +0100
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev, 
-	kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Cc: Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Hyunwoo Kim <imv4bel@gmail.com>, Yao Yuan <yaoyuan@linux.alibaba.com>, ljs@kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/8] KVM: arm64: Correctly handle end of VA space TLBI
- invalidation
-Message-ID: <yifz3wn5gk5sr6mapi32trgk5m5kp33bquctsjmkifebnsnndt@fix6u4rthx4g>
-References: <20260806091026.620700-1-maz@kernel.org>
- <20260806091026.620700-5-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="JeMuVF/W"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1786226784; bh=x4Exd5dUVZzZ1h6YcswkbFiEUHTp13+PB7/Hv0TP+HA=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=JeMuVF/WBpTFcVirDOJrOXdqYGaU2o1ur8teOOz/14n9mFjn4tJiAjwLQ3RlRgf1wVh4lAUkaLzXLa2e7Dq28axDlgCBymSD3WX2ZAz9k4G8A9XWuUjuqztkpCHL9ThArY8gu49jgsdKSQA5fzmGPG1V0IdN+zjhs4jkm78UxK1ybZEDQvBN7uBFN8gvUTpX5aXgTUzzWbBpbfEbMv83NqtsTSm2SFSvvHUQaORno3GsSdk69pldV27wbVayD34sXyf9AJWVKSTGKkyyghHAR/dkpDFg3gPUp7ZE9p+TqNdJt4No0jY8MlKfwXOtzY4Z7+QdZsBOMARn6vaxPMF3uQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1786226784; bh=rIOpyWQTzMssRh6wkxwGSNMEWoT5m/zZos7E+pa/Pwh=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=QP73lFrdKMx+ueVpf3/VCpZWlxv6q8eucZnSUfkMtgImaYN9O7XvWQO+SrPimCWT7SG6zpFGxL/snVJTmb096DOjcw9mEWev4Oq6YtifvFESERVxAI0xmMhHph52lBDm6klCr0gW4Smx4uApDNZc2EKDj/88lBCm8w2HTxiRXPE4bqdFySKMaXdqQO1eFgwOQQDnmIAwqeSVoIsgNi9LQOehW3h2ASCBQyPIATrJlH61XO3pUtehWZxywhM53KU5CjmsV4XuFcvqwo3tz6GDPk5nkMqppxc7FDwChoYWLXI6lbMPTzVKIusowM/KMBx5qnS9fgs7kGiuXPNrDYEDIA==
+X-YMail-OSG: qwBOUr0VM1kRmTXYKP8BIo2gfVQZwq8EcGaOEWPgQjdCXlCuonQd3.Oas1jmRdN
+ BuByy4mhgTPyDJVviPvMIVeQfHP3pBvwKyuYv.od0eZSJv55HPYoC5ofRmxc5Nzjr0YF0dM_LwP5
+ ltzuuW1Vmi00Ki51ikMSMybo4IVgq5pHPbCyhQv9oY9oQGKI6CsXaAhZzG.jc_c5LQh.QX2r0zox
+ wEeCo2K6O1GQVzELFYqLgyLI6eDKo8Z4.qm3B1mOv8w.AKF45FA_AH1QBB7JzLFr763SAlnhTz0F
+ L4_FamyRbQ0KWnQSj8ARxVES0oyszLXEF9BoTvM2bdGT0.RhEMHHfWJTfbFWrREytRXYOJK4JYXe
+ WFFtRlIpUIt_Vu8w_u51yamEW3tHSmo8areeo4sDjElZArFMsGMQ7.Votn7b6ShTXosnwwxp67Xt
+ y.27cnz0qLRrN2_PdDHLzgZQjRTnIcw9MPb0ATmlHc7jBkdF1MMokmOguxil98fDGcSRyZAg4vvI
+ PPGtcoDgh_f3y0EuUohPRV65vr5XbLA_83G.hWFLTPwgAVzbOmz7nWjRjXQ_3V8j8kDJnvZesTlL
+ H6kO43uo8hLsBWMrLqFPoiq7HqAa8fQht_JuAb0lZ0k.mRqzJl9Y1hIhh6KDtC7MXvAibVYzlRTr
+ JDNVs5_BlviU4MI0BRIhJSQwGcRe_Q32l3n3sWXnYJk8VRBP2R_u30QcqOo1SuTgu_0b1FUd.xxv
+ yA3ZLKgfIxVnvlNpoa0tAt2F8kOGaQbJwQZj.fujS0_G76Sek3Et59jBkjf2du7SDt9vRbI16RrQ
+ RUQdrUERJBY4O77TeboWfZVLA0.6fzA5ClTV2qiSdPHo8on777nrYH0qmVFKP5AGpqn2ePFOpkFJ
+ d2dU4R0iau.b75F8vs83H0.T7ERW.jWQ19t82Aq.RjvyKUhud88KZXaSiKOhCLYeWtQXCvnKAYU0
+ SgUVkhKqQW8BDx0XDpI6ALq7u8D5SRpCnQZ1vHbvuEEaQx_HZ1ryYl7bjnsYFbvt9cIHVHG9HgGU
+ HuLCaXpzHv_jUUYLaZCLcA4iiHtRoj3HnVFlCZ4z6C5MB8yxqIZ.kjtORK7cG1EjfzTQLwUq197o
+ eTvQMbDGuk0sbqdNKsCKHJuqz5GsChSUAEKtFlmxzBmhCUW61D39IdCRlSOKdOmO58Y23.qcxduq
+ Cl6J.TVGy70pX488DSixJIjLBYz9gv8QLKXcNBuAKQznuGVIrKTThG67K.aNm_yKKqvbDvqxmiGi
+ lCD.0xzaip_Ao1RD7LaJ9tgBCYPKGs7kPl9SfqH7Txy1VixdWLqtA9rAvJZmUW6NLMwDjRgvvUc5
+ S54bXPRwxJs8Xi2Dh2BbPtVTp5WoBckYQAjhauHTbc78JjQToWGsgJi89I3nS0HPhx3eaKF4X_OH
+ i6Vqd9pBXexN3ZYRmBrXW7aYNphaH39ChEnKupI9qYsmJ.oHJaY4rbZTZkLTBYL_WBTkuiuccuG8
+ PZyIJqlXgWiQjR7.4SWmil74diThmDaMUKIveMtB_80NLcWFNDxDN8n7RrpmgTb6ZfroNe07Gy9b
+ LqQ1ORYHnI7LVHdQBrsJ.XxnAGS_5J9cbwx1uJZjNVwklRDI5FFFxZNVf0ABOcdgBnF9KJOv026g
+ 5xeWARGldU.mpW83ip6mZZqLgNJA1abbKsw2i4MwKN4oQz7wcuWrmNVufOalxSwT3UG894pQVPS3
+ 8VvxeVjRva73Rw8Ff9H1h416VT060n5tCu1L7AUmebhLiX_wDbBPP2H1WF3NeG1FOJqCvr0wxbHE
+ CX9UCvx472pen8HsG9OHIwR11DSkShTabDusMQUGpbExS3TUGXYhIhavRnOOuViqgp66JtKH.Awz
+ SCqwkYMXyEfcT7cIQTb8o.VXY5x7QmXzwUaJ.yhNWIth4dZbd2vxS77qTro1Vrb7w2zaIIulKWLj
+ yGpdB8u7TQmcPxe62bM5cwZSD_HB3lBwXwn4JUtoZ6qjnH5.C4UJIURyAry4wqFD1H5eGikccJ7S
+ sdhdNcFbrN33IZCgnOUJRT7ksm3yvOy043jnE1CUHtVUqqbY3foxP1gJTa7HKMBzZUSm54e8vC6k
+ 5hm9i1umFVhHQnf3qjO6Yd_I7p5.UivovU_w2qIA5kSAHfR5in3XMqVMJEoCHqi4hkmBPxIqOa4a
+ kjU6nTJH9R_IHyyA488uBtKdjOthmUNzuI9VDa6ISRJxXoPkDtCs4RC7loo_nD0Zj7tdvj0uY8az
+ t2Rw29fHJ2qrBm0dBg4gZU0Y56c9_z1WSxctqdgNkfvrTiBY8cd032oroWnfuXtWEnmB.l3ZdO8V
+ wA9qpI5whXKY9VjTaLiJ86cP_KgVTdMiOMw--
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: e3a40ec4-6b56-49ed-8126-18c88621383f
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic314.consmr.mail.ne1.yahoo.com with HTTP; Sat, 8 Aug 2026 22:06:24 +0000
+Received: by hermes--production-ir2-cddf86dcf-dn8m5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 523dfebdc042a695eef441963409944f;
+          Sat, 08 Aug 2026 21:45:44 +0000 (UTC)
+Message-ID: <fdc4410c-18f3-4f34-8519-deb37862477c@yahoo.com>
+Date: Sat, 8 Aug 2026 23:45:41 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806091026.620700-5-maz@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks
+ enabled
+To: Jie Luo <jie.luo@oss.qualcomm.com>, Stanislaw Pal <kuncy7@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Brian Masney <bmasney@redhat.com>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <1dc44e5e-7787-47f7-938f-1ac0676d96d2@oss.qualcomm.com>
+ <20260805081240.11497-1-kuncy7@gmail.com>
+ <7913cc81-5531-42ac-a85c-fb873e439a07@oss.qualcomm.com>
+Content-Language: pl
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+In-Reply-To: <7913cc81-5531-42ac-a85c-fb873e439a07@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26254 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-Hi Marc,
-
-On Thu, Aug 06, 2026 at 10:10:22AM +0100, Marc Zyngier wrote:
-> Our TLB invalidation by VA code is based on comparing two ranges,
-> one defined by the TLB, and one defined by the TLBI instruction.
+On 8/6/2026 4:33 AM, Jie Luo wrote:
 > 
-> Each range is defined by a start and a size. However, the way the
-> comparison is done doesn't account for address rollover, as it
-> compares an address with (base + size). This works nicely until
-> this expression represent the last page/block in the TTBR1 VA space,
-> as the result is a big fat 0. And a failed TLB invalidation.
 > 
-> Rewrite the comparison in a way that is immune to the address
-> rollover (making the end address inclusive instead of exclusive),
-> and move this into a common helper that is used by both VA and IPA
-> invalidations, as suggested by Hyunwoo Kim (although the IPA version
-> didn't suffer from this particular problem, obviously).
+> On 8/5/2026 4:12 PM, Stanislaw Pal wrote:
+>> On 8/5/2026 Jie Luo wrote:
+>>> Is there any use case that requires accessing the CMN PLL registers when
+>>> no downstream consumer is active? If not, I don't think a fix is needed
+>>> here. As you may have observed, debugfs clk_summary can still display
+>>> the clock rate correctly even when there is no downstream consumer and
+>>> the AHB and SYS clocks are disabled.
+>>
+>> The clk_summary observation does not show what it seems to show, and I
+>> have to correct my own previous mail on the same point: this driver does
+>> not set CLK_GET_RATE_NOCACHE, and clk_core_get_rate_recalc() only calls
+>> .recalc_rate for clocks that have that flag. So clk_summary (and
+>> clk_get_rate()) return the rate cached at registration time, when probe
+>> still held the bus clocks enabled - no register access happens at all.
+>> It displaying correct rates with the clocks gated is exactly the cached
+>> value; it says nothing about whether an actual access would survive.
+>>
+>> As for the use case: on IPQ5018 it is booting the SoC. With the clocks
+>> gated after probe, boards hang within milliseconds - 100% reproducible
+>> on some builds, before userspace exists, with no consumer anywhere - and
+>> the only variable that changes the outcome is holding this reference.
+>> That is also why I do not think moving runtime PM references into the
+>> clk ops would help this platform: by your own argument nothing calls the
+>> ops at that point, yet the SoC still dies. Whatever the fatal access is
+>> - a CCF path we have not pinned down, or something else in the same
+>> clock domain - the platform demonstrably does not survive the gate
+>> itself.
 > 
-> Fixes: 4ffa72ad8f37e ("KVM: arm64: nv: Add S1 TLB invalidation primitive for VNCR_EL2")
-> Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> Cc: stable@vger.kernel.org
-> ---
->  arch/arm64/kvm/nested.c | 43 ++++++++++++++++++-----------------------
->  1 file changed, 19 insertions(+), 24 deletions(-)
+> Once the CMN PLL module has been loaded, there should be no further need
+> to access its registers during normal operation. The CMN PLL provides
+> fixed-rate clocks, and its output clocks should be initialized and
+> operating at the correct fixed rates after the module is loaded for the
+> IPQ5018 platform.
 > 
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index 27bc7ee4b3382..8a602d074dbb4 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -999,6 +999,20 @@ static void invalidate_vncr(struct vncr_tlb *vt)
->  		clear_fixmap(vncr_fixmap(vt->cpu));
->  }
->  
-> +static bool vncr_tlb_intersects(struct vncr_tlb *vt, u64 addr,
-> +				u64 scope_start, u64 scope_size)
-> +{
-> +	u64 tlb_size, tlb_start, tlb_end, scope_end;
-> +
-> +	tlb_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift, vt->wr.level));
-> +
-> +	tlb_start = addr & ~(tlb_size - 1);
-> +	tlb_end = tlb_start + tlb_size - 1;
-> +	scope_end = scope_start + scope_size - 1;
-
-I think if scope_end overflows,
-
-> +
-> +	return !(tlb_end < scope_start || tlb_start > scope_end);
-
-tlb_start > scope_end can evaluate to true and we return false even when
-there is overlap near the end of the TTBR1 address space.
-
-Therefore I think we need to saturate scope_end to ULONG_MAX when overflow
-happens. This is also what the architecture does when looking at the
-pseudocode J1.2.3.442 TLBIRange (M.c).
-
-Thanks,
-Wei-Lin Chang
-
-> +}
-> +
->  /*
->   * VNCR TLB invalidation occurs from MMU notifiers or TLBI instructions, and
->   * either can race against a vcpu not being onlined yet (no pseudo-TLB
-> @@ -1021,19 +1035,9 @@ static void kvm_invalidate_vncr_ipa(struct kvm *kvm, u64 start, u64 end)
->  	if (!kvm_has_feat(kvm, ID_AA64MMFR4_EL1, NV_frac, NV2_ONLY))
->  		return;
->  
-> -	kvm_for_each_vncr_tlb(i, vcpu, vt, kvm) {
-> -		u64 ipa_start, ipa_end, ipa_size;
-> -
-> -		ipa_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift,
-> -							    vt->wr.level));
-> -		ipa_start = vt->wr.pa & ~(ipa_size - 1);
-> -		ipa_end = ipa_start + ipa_size;
-> -
-> -		if (ipa_end <= start || ipa_start >= end)
-> -			continue;
-> -
-> -		invalidate_vncr(vt);
-> -	}
-> +	kvm_for_each_vncr_tlb(i, vcpu, vt, kvm)
-> +		if (vncr_tlb_intersects(vt, vt->wr.pa, start, end - start))
-> +			invalidate_vncr(vt);
->  }
->  
->  struct s1e2_tlbi_scope {
-> @@ -1059,28 +1063,19 @@ static void invalidate_vncr_va(struct kvm *kvm,
->  	lockdep_assert_held_write(&kvm->mmu_lock);
->  
->  	kvm_for_each_vncr_tlb(i, vcpu, vt, kvm) {
-> -		u64 va_start, va_end, va_size;
-> -
-> -		va_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift,
-> -							   vt->wr.level));
-> -		va_start = vt->gva & ~(va_size - 1);
-> -		va_end = va_start + va_size;
-> -
->  		switch (scope->type) {
->  		case TLBI_ALL:
->  			break;
->  
->  		case TLBI_VA:
-> -			if (va_end <= scope->va ||
-> -			    va_start >= (scope->va + scope->size))
-> +			if (!vncr_tlb_intersects(vt, vt->gva, scope->va, scope->size))
->  				continue;
->  			if (vt->wr.nG && vt->wr.asid != scope->asid)
->  				continue;
->  			break;
->  
->  		case TLBI_VAA:
-> -			if (va_end <= scope->va ||
-> -			    va_start >= (scope->va + scope->size))
-> +			if (!vncr_tlb_intersects(vt, vt->gva, scope->va, scope->size))
->  				continue;
->  			break;
->  
-> -- 
-> 2.47.3
+> Regarding the hang issue you mentioned, it should not be related to the
+> inability to access the CMN PLL registers. The actual root cause of the
+> hang should be investigated separately.
 > 
+Following along here - just want to make sure this doesn't get lost:
+Stanislaw pointed out earlier that clk_summary can't actually be used
+as evidence here, since this driver doesn't set CLK_GET_RATE_NOCACHE
+and so never reads the registers live; it just returns the cached
+registration-time rate. That seems like a fairly load-bearing point
+for the discussion and I haven't seen it addressed yet.
+
+Given the hang is reportedly 100% reproducible pre-userspace, is there
+a concrete next step to root-cause it, or is v3 the right call for now
+with a follow-up tracked separately?
+
