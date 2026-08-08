@@ -1,131 +1,102 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB3B2E401
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 07:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5744A4B04B7;
+	Sat,  8 Aug 2026 07:39:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786174688; cv=none; b=ptJ0zLUe+E7NtCMI6URqcXDo4nuLh1Y8jlDZq+pSSXh0aZX3XVXmPoFmhtTDosQY1VL0DzzN4qWUHQ9M3W3gdiGMWmCz7EQK09Vn768IoH3payM2ng9CRRBOPc/HhZW3GTjiTZ6a76ak2TBQ4SaY+6/V65g42sR3rnu3ITwE2v4=
+	t=1786174764; cv=none; b=GHAyzJiGvi6vi1TiAQ8mONkBk8/cK0NydI7RI27SuY6xuvvTFE4usYw8uILJaFZCHMs01wMqZo0qK6OwEjfiSbeK1xE2vmmdeHOnL6UjGZbeplJu2uppHjvymNSVi0gvYG1spl8OTseqLIxGK5hZGcdVxhLIfYqSUqpfNWFF2xU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786174688; c=relaxed/simple;
-	bh=a18SA0kQmpnDruLfcZasBwPsx02z9yaF3DFh6MG3i8Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j43r6xqNQPMpgDaCFwflzPQOn/E2GrErguqpsEcZ+8t7JdMthuoetwdSwA6qGf6vGvFGb9LsCots0qRZhFge3jHJ3rbZnqv/azX2FKB32MQoR6+nhz15IfHaWiCmI1JN9vuoY4HLNCoVqWaxHfeaSKkDFoOGqbW3QqV8Ao1Zjnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lDcQKnUN; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786174764; c=relaxed/simple;
+	bh=mgeanBQ1k/1en+JCuP0z5CXbKEJj2IheRnA0/9ssZlM=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=hz7A9z6BWw0ZxfKwzyTRD7d3TUTbRukU5t0l+dmkELzUKTepAO3JrDmd8M3MO7ZYiZDpy61P0CInjX+j4aL0Bf8oJxI4YsYbavNjIJhQUCUsOwJrvLqKxmMlQ0AwEyArtqPoUhhBYeeVLlV0JhXBhMJgtXkceziDwOOhHJn1Ym0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=pzi2XBnq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lDcQKnUN"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cbe827e3cb4so242085a12.3
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 00:38:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="pzi2XBnq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C32A1F000E9;
+	Sat,  8 Aug 2026 07:39:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786174685; x=1786779485; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QZ3y0avheyoaouXFIVz5Hu8HDtYYb6j86ujlX80DrU4=;
-        b=lDcQKnUN530XaW+ieNATqN9EGjJXnDU6tQD8q70fDH9nyU8pAUHFGmHsTBrTPcTNho
-         WYYlsBN34SnFHtuOrKqRySHK6jwNQzL3RrBwi7FarSgDQElFC13QnbIR2GsTlR6yGyrf
-         8VwOgQoqIQVjVzQnUVAJQHLS1/GY6tU4HAtR/YUotzhYreRpF/bVJco19McXG9KQPLWE
-         0ujwXuONAcuK25/tI+ROH/jVzgZsuLDHA/wdKZhWb6JL+7yX57mqjQ6F6VDCogdUKMMx
-         4axFQwaamzfYaKmpF0si4nIQEJnAPJbXfyPCrAy3Yc5O/AkaqelJYtzf01fjXT2Y8kuh
-         /5kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786174685; x=1786779485;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QZ3y0avheyoaouXFIVz5Hu8HDtYYb6j86ujlX80DrU4=;
-        b=pPeJBD/42HyNPdpX92Fau8HjhnSHKZCUlnyNT4kBoimcel5B/xQMMH4STnCFbiI6vc
-         ATrxU4x5iyAb9Ok4rWfI+1VrqTXRUL6/3yCtDTueZgFGdLFCE0VbPO1n8Hro7fbnWmwA
-         J2GgR0lxFFWqXU/rezVNvzerXC9XkUiy8W7ummlZXKLSwznykSLmPd8xYNbyI9AyzbVq
-         ofuPQ9ESPQO2d3BSO6fjhZ8KkDD9mxJpUAWkzZRWX6UMY8W+Uwz+dArcv47Sa4j54YBD
-         W60NJ0azwlLL6iBd5ejzNvGBjLhU88XOLA6aRJ9OEiAHmkFqvbmLrX8KYHSw15fg5D1a
-         ZPYw==
-X-Forwarded-Encrypted: i=1; AHgh+RqZ/yz3W5KS4ruCFJrrG/VXdI+OwuC84JWAsOhSBZ8lL8f2wwUEzYyxtOLodW/5e+8yNihzIHI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnTXA3DPIdrAjhjELH2FNlKzuiANgEQXMuGuP786ZKscyE9DaI
-	0IbFLC+SrCRY8uhoWGfCZLgrQl3QU9et/6rY+53xNKXQJinh1IDhYBlD
-X-Gm-Gg: AR+sD115xr/TvtcHSETMxG54+1OkV9Q8+5DSBFsx6xonUfzLDwHofYgPoq8fs77keL8
-	Ohj7hKARQXXGrFCJOG/Oj9txbVZymw27IL7dYW5chxh9jbwzxBB/H2BHHWw8wrKPYShetsJEtY/
-	4CfPReuvkod5BFt/0PbC8GB8/05QuL3LPFusIQxXY3ME9uOTZALWZJ/f+VS2YceeKioyENYjq9x
-	ONLAFiQ0+aO24caZ7jVP4vK4/2xJWD+4xvaKZD5wDyjht+SbSVZ4ETnIjXU21pap0vT4XGPRWuw
-	+LNSsJ2vtaN6u7kdxv+yfvVM/gOv2u5XKJPmiUVOcd6gG6u5jR3X5lfhhtI1Y+EykYghIRFymWB
-	NGf4sx7iqIh2Co/xsZJKJiQKJG3YrtC4PgrdLImJOHOw3g2uBrav1VPbwlHIHNAWQVVIkA3KIfp
-	aDcxYno6PS/Yn5KZzdbN315ebGzCyd/oUnqq2Vn6WjQu78KWIjFWafMrn+qA==
-X-Received: by 2002:a05:6a00:1ca2:b0:847:8ccc:d7c6 with SMTP id d2e1a72fcca58-84f2e0278d5mr31776713b3a.31.1786174685244;
-        Sat, 08 Aug 2026 00:38:05 -0700 (PDT)
-Received: from lgs.. ([101.76.249.46])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a58dce5sm1891208b3a.58.2026.08.08.00.38.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 00:38:04 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>,
-	Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Daniel Thompson <danielt@kernel.org>,
-	openbmc@lists.ozlabs.org,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] hwrng: npcm: fix usage_count leak when autosuspend_delay is negative
-Date: Sat,  8 Aug 2026 15:37:48 +0800
-Message-ID: <20260808073748.2649808-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	d=linux-foundation.org; s=korg; t=1786174762;
+	bh=fTqmss+78C12rcL4AP/UtiB7LfHQKq113VHbYFFrqcE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=pzi2XBnqjj3cs7kAMZAN+DoWvhbfRQqAvRkg1oPN0Q8iVowtqU6yJ3pCnbMBdycGT
+	 h5aykI8H+JU7shpXU7Pg6MrEMK7Hj86T2nrGYMpY26CVqSPc9KIWD8mtE2mEApQRJI
+	 QlOtPZBeaT4c5tTNcAw41Qvr0b9ZrJ+bhPC+QLHE=
+Date: Sat, 8 Aug 2026 00:39:21 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Hui Su <sh_def@163.com>
+Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Alexander Potapenko
+ <glider@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov
+ <dvyukov@google.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Zqiang
+ <qiang1.zhang@intel.com>, kasan-dev@googlegroups.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] kasan: fix cache shrink race with CPU hotplug
+Message-Id: <20260808003921.fdb0df9ee4417b38f15e8c68@linux-foundation.org>
+In-Reply-To: <20260808031459.3032812-1-sh_def@163.com>
+References: <20260808031459.3032812-1-sh_def@163.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-npcm_rng_probe() calls pm_runtime_use_autosuspend(), but neither the
-probe failure path nor npcm_rng_remove() calls the matching
-pm_runtime_dont_use_autosuspend() before disabling runtime PM.
+On Sat,  8 Aug 2026 11:14:59 +0800 Hui Su <sh_def@163.com> wrote:
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped and usage_count remains
-unbalanced.
+> kasan_quarantine_remove_cache() first invokes per_cpu_remove_cache() on
+> all online CPUs. Each callback moves objects belonging to the cache from
+> cpu_quarantine to the CPU's shrink_qlist, where they can later be freed
+> from task context.
+> 
+> kmem_cache_destroy() invokes the quarantine removal path while holding
+> cpus_read_lock(), but kmem_cache_shrink() does not. The latter can
+> therefore race with CPU offlining as follows:
+> 
+>   kmem_cache_shrink()             CPU hotplug
+>   -------------------             -----------
+>   on_each_cpu()
+>     CPU1 moves objects to
+>     CPU1's shrink_qlist
+>   on_each_cpu() returns
+>                                   CPU1 goes offline
+>                                   kasan_cpu_offline()
+>                                     drains cpu_quarantine
+>                                     leaves shrink_qlist untouched
+>   for_each_online_cpu()
+>     skips CPU1
+> 
+> The objects left on CPU1's shrink_qlist are not returned to the slab
+> allocator. This may prevent kmem_cache_shrink() from releasing slabs
+> that would otherwise become empty. If CPU1 remains offline, a later
+> kmem_cache_destroy() also skips the list and can report that the cache
+> still contains objects.
+> 
+> An intermittent occurrence was observed with a virtio-9p filesystem.
+> The mount and umount commands both returned 0, but the kernel logged
+> the following during the userspace-triggered teardown:
+>
+> ...
+>
 
-Add the missing pm_runtime_dont_use_autosuspend() calls to both the
-probe failure and remove paths before disabling runtime PM.
+Thanks, I'll queue this for testing while we await maintainer review.
 
-This issue was found by manual code inspection.
+AI review suggests that there's a pre-existing quarantine_size
+accounting flaw later in this function:
 
-Fixes: c98429297d8b ("hwrng: npcm - add NPCM RNG driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/char/hw_random/npcm-rng.c | 2 ++
- 1 file changed, 2 insertions(+)
+	https://sashiko.dev/#/patchset/20260808031459.3032812-1-sh_def@163.com
 
-diff --git a/drivers/char/hw_random/npcm-rng.c b/drivers/char/hw_random/npcm-rng.c
-index 40d6e29dea03..43f96abee753 100644
---- a/drivers/char/hw_random/npcm-rng.c
-+++ b/drivers/char/hw_random/npcm-rng.c
-@@ -118,6 +118,7 @@ static int npcm_rng_probe(struct platform_device *pdev)
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to register rng device: %d\n",
- 			ret);
-+		pm_runtime_dont_use_autosuspend(&pdev->dev);
- 		pm_runtime_disable(&pdev->dev);
- 		pm_runtime_set_suspended(&pdev->dev);
- 		return ret;
-@@ -131,6 +132,7 @@ static void npcm_rng_remove(struct platform_device *pdev)
- 	struct npcm_rng *priv = platform_get_drvdata(pdev);
- 
- 	devm_hwrng_unregister(&pdev->dev, &priv->rng);
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- 	pm_runtime_set_suspended(&pdev->dev);
- }
--- 
-2.43.0
+If true, I'm surprised this hasn't yet been reported.
+
+
+Also, I'd like to see a need_resched() wrapping that expensive
+
+		/* Scanning whole quarantine can take a while. */
+		raw_spin_unlock_irqrestore(&quarantine_lock, flags);
+		cond_resched();
+		raw_spin_lock_irqsave(&quarantine_lock, flags);
+
 
