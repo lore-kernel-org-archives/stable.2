@@ -1,49 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5F634DCE3
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 13:54:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8E7156C6A
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 14:02:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786283692; cv=none; b=iztd6vQykCFU/5I8deG+/ssE/6Xxbnp3gwScciaXy9a6EJ3dppt3At1rhqe9DMiJmMhrhfMCQ3B5M+wj/Z7tjPK9BGgh1ksLG23uc4ZQMGlL0BWxDi4eCwLDLI5kJ3QK0z2wi4FxexAhmt3Wbi+oCYZNQEjuM4zPJaEQf+zr3ME=
+	t=1786284162; cv=none; b=CLfxrNr2hEdWI+EBWSXaNY5X2ILhDAbfatL51imaFxpZqLt+trmuXHLxW8C64EqvxIMTCUt4b9kCPMY7vbEJrvwGeOwAZM82zicarvmQWCynv5kN5fJ08JiUg14HYayIVSv/zpirUpgu5ClWvRqQsUlb8HjD0GQI8JvkOvGqHE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786283692; c=relaxed/simple;
-	bh=z37i1tQYSGaQRsRNxvGRymUeyJASee9QB8lYU2aUMjA=;
+	s=arc-20240116; t=1786284162; c=relaxed/simple;
+	bh=bPoHkXKtxglMbvXDmmq75VOHctm+8v1Jcg4oO1pz4tI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MTxmgnYAzVmWbNid8nDqzgrbXZovps1mI+5hALGZAf9u8YqWgmKYQU/JUfiYXUuyBA2Uj6+QRkZYNmCMRaFPHNay/2hci4o4L7xbD53PF+xuN3SysETb2Z38zkOVVXzLURv4+YGBZ/fzcbO00Y9yvn1oNaFARlkS4ijYGdMx8sE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUCKIz4E; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ThgMpH7oATizyayTAmlxWeJ+PsfdBoncywiLhB1eBgdlN85/40PCrQjD92ydeaRf2ghc4L2u8LNFVjEqrNvX9aKR7cqyYh+HiD/SeTyEPS3S9uQ605qN20KEgx1n7d6fv2sarm/dYv9o6EMDIYXYFuOyiHcp6zkGDZgGoF0z7vQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V6APnmqc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUCKIz4E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865631F00A3A;
-	Sun,  9 Aug 2026 13:54:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V6APnmqc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39DC11F000E9;
+	Sun,  9 Aug 2026 14:02:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786283690;
-	bh=ts1BzzHDGjR/dauOs51D1qbiWm5sgbDsmZTyLQB9TVw=;
+	s=k20260515; t=1786284160;
+	bh=Jl0I3FZLRdE8sA0y3jny0pMLxvmOja0gnfdhRUGiUfc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZUCKIz4E/C6ZeJTWw0e/30OcQdh3qkHyWNqu9l11BkaICTGQfmFXfY38MfvNAIyEJ
-	 V5YaepGAb9vuOPueVyZjaijNI5/WlG8fsWbgKkbmRMn3s4kZB62vFWxUj2RVpJsPuV
-	 Tpe53nxDZm+iukCWISa0T2RmmhINoRE9vpUtoDif6Hyo6qPrn2AGyyZD+vIQL18Z2e
-	 oy7w6H2z1cLPgyu+v56+YpduTTpBkEzcGzp5Aqx+A2ee8cHS+WZyeSm8Y64kz/z76J
-	 DlEJ1ClWp++wpLgDGWdR0HEypNS3ryUIkBjbw8s4/da8ETHxzVAmtn0cBNoOZBITxB
-	 NWhOsE2xvOyYg==
+	b=V6APnmqcOMI65DQ7dMhpm7UhtZ+FEWrtZzyPZvQZYLPnWjR6fxq1ICoaBx0F7OP4O
+	 AN4weEmxU24/+hnsqpQCIp9/CfsjaERCqrIlnnRu9gSX7btyP2VSEozJVK9L0bGzjT
+	 TOKeP+EUNolwv7gTQVj5XOT5inCj4DhNpZsOkoiPJ0vv/DOzWb86B32HYhdXWG3Lat
+	 NIgdYT7YHG9gm3o7wwBkTrS59+A7GoT4tbF3URY/FKb+IDLpDUgc3cusskfMFdC3Nu
+	 HJbcUKQy2Ss/NX0Q2rU4bVEV7EqtHZU1yTZeZhJQD0EgWWrlxKen0Lj9p9aQT2RjuD
+	 Ohwv/t2BTTREw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Filipe Manana <fdmanana@suse.com>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] tcp: challenge ACK for non-exact RST in SYN-RECEIVED
-Date: Sun,  9 Aug 2026 09:54:45 -0400
-Message-ID: <20260809135445.1507611-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] btrfs: remove fs_info argument from btrfs_zoned_activate_one_bg()
+Date: Sun,  9 Aug 2026 10:02:37 -0400
+Message-ID: <20260809140238.1592207-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260809135445.1507611-1-sashal@kernel.org>
-References: <2026072945-service-serpent-1ee6@gregkh>
- <20260809135445.1507611-1-sashal@kernel.org>
+In-Reply-To: <2026080520-celestial-balmy-f31a@gregkh>
+References: <2026080520-celestial-balmy-f31a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,172 +46,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+From: Filipe Manana <fdmanana@suse.com>
 
-[ Upstream commit a28c4fcbf774e23b4779cae468e3497a5ad1f4a1 ]
+[ Upstream commit a232ff90d14657c8637c6e94b606bb5d700a2ecb ]
 
-The SYN-RECEIVED request-socket path in tcp_check_req() accepts an
-in-window RST without requiring SEG.SEQ to exactly match RCV.NXT.  A
-non-exact RST therefore removes the request instead of eliciting a
-challenge ACK.
+We don't need it since we can grab fs_info from the given space_info.
+So remove the fs_info argument.
 
-RFC 9293 section 3.10.7.4 applies the RFC 5961 reset check in
-SYN-RECEIVED: an exact RST resets the connection, while a non-exact
-in-window RST must trigger a challenge ACK and be dropped.
-
-Apply that check before the ACK-field validation, following the RFC
-sequence-number, RST, then ACK processing order.  Factor the per-netns
-challenge ACK quota out of tcp_send_challenge_ack() so request sockets
-can share it.  Use the request socket's send_ack() callback and its own
-out-of-window ACK timestamp to send and rate-limit the response.
-
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Fixes: 282f23c6ee34 ("tcp: implement RFC 5961 3.2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260717081443.809393-2-yangyx22@mails.tsinghua.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Signed-off-by: Filipe Manana <fdmanana@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: 8bc4d7209611 ("btrfs: zoned: fix missing chunk metadata reservation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/tcp.h        |  2 ++
- net/ipv4/tcp_input.c     | 56 ++++++++++++++++++++++++++++++----------
- net/ipv4/tcp_minisocks.c | 12 ++++++++-
- 3 files changed, 56 insertions(+), 14 deletions(-)
+ fs/btrfs/block-group.c | 4 ++--
+ fs/btrfs/zoned.c       | 5 ++---
+ fs/btrfs/zoned.h       | 6 ++----
+ 3 files changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 18a1fa7633bae..7de57fe78e09e 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -1659,6 +1659,8 @@ static inline void tcp_fast_path_check(struct sock *sk)
+diff --git a/fs/btrfs/block-group.c b/fs/btrfs/block-group.c
+index e6bac34ebe83d..2c1827cb957c6 100644
+--- a/fs/btrfs/block-group.c
++++ b/fs/btrfs/block-group.c
+@@ -3073,7 +3073,7 @@ int btrfs_inc_block_group_ro(struct btrfs_block_group *cache,
+ 	 * We have allocated a new chunk. We also need to activate that chunk to
+ 	 * grant metadata tickets for zoned filesystem.
+ 	 */
+-	ret = btrfs_zoned_activate_one_bg(fs_info, space_info, true);
++	ret = btrfs_zoned_activate_one_bg(space_info, true);
+ 	if (ret < 0)
+ 		goto out;
  
- bool tcp_oow_rate_limited(struct net *net, const struct sk_buff *skb,
- 			  int mib_idx, u32 *last_oow_ack_time);
-+void tcp_reqsk_send_challenge_ack(struct sock *sk, struct sk_buff *skb,
-+				  struct request_sock *req);
+@@ -4354,7 +4354,7 @@ static void reserve_chunk_space(struct btrfs_trans_handle *trans,
+ 			 * We have a new chunk. We also need to activate it for
+ 			 * zoned filesystem.
+ 			 */
+-			ret = btrfs_zoned_activate_one_bg(fs_info, info, true);
++			ret = btrfs_zoned_activate_one_bg(info, true);
+ 			if (ret < 0)
+ 				return;
  
- static inline void tcp_mib_init(struct net *net)
- {
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index eb1bf58634741..24c5dec0314e3 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -3739,24 +3739,17 @@ bool tcp_oow_rate_limited(struct net *net, const struct sk_buff *skb,
- 	return __tcp_oow_rate_limited(net, mib_idx, last_oow_ack_time);
+diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
+index b8fc97e33009b..b09cc6621c072 100644
+--- a/fs/btrfs/zoned.c
++++ b/fs/btrfs/zoned.c
+@@ -2959,10 +2959,9 @@ int btrfs_zone_finish_one_bg(struct btrfs_fs_info *fs_info)
+ 	return ret < 0 ? ret : 1;
  }
  
--/* RFC 5961 7 [ACK Throttling] */
--static void tcp_send_challenge_ack(struct sock *sk)
-+/* Consume one slot from the per-netns RFC 5961 challenge ACK quota.
-+ * Returns true if a challenge ACK may be sent.
-+ */
-+static bool tcp_challenge_ack_allowed(struct net *net)
+-int btrfs_zoned_activate_one_bg(struct btrfs_fs_info *fs_info,
+-				struct btrfs_space_info *space_info,
+-				bool do_finish)
++int btrfs_zoned_activate_one_bg(struct btrfs_space_info *space_info, bool do_finish)
  {
--	struct tcp_sock *tp = tcp_sk(sk);
--	struct net *net = sock_net(sk);
- 	u32 count, now, ack_limit;
++	struct btrfs_fs_info *fs_info = space_info->fs_info;
+ 	struct btrfs_block_group *bg;
+ 	int index;
  
--	/* First check our per-socket dupack rate limit. */
--	if (__tcp_oow_rate_limited(net,
--				   LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
--				   &tp->last_oow_ack_time))
--		return;
--
- 	ack_limit = READ_ONCE(net->ipv4.sysctl_tcp_challenge_ack_limit);
- 	if (ack_limit == INT_MAX)
--		goto send_ack;
-+		return true;
- 
--	/* Then check host-wide RFC 5961 rate limit. */
- 	now = jiffies / HZ;
- 	if (now != READ_ONCE(net->ipv4.tcp_challenge_timestamp)) {
- 		u32 half = (ack_limit + 1) >> 1;
-@@ -3768,12 +3761,49 @@ static void tcp_send_challenge_ack(struct sock *sk)
- 	count = READ_ONCE(net->ipv4.tcp_challenge_count);
- 	if (count > 0) {
- 		WRITE_ONCE(net->ipv4.tcp_challenge_count, count - 1);
--send_ack:
-+		return true;
-+	}
-+	return false;
-+}
-+
-+/* RFC 5961 7 [ACK Throttling] */
-+static void tcp_send_challenge_ack(struct sock *sk)
-+{
-+	struct tcp_sock *tp = tcp_sk(sk);
-+	struct net *net = sock_net(sk);
-+
-+	/* First check our per-socket dupack rate limit. */
-+	if (__tcp_oow_rate_limited(net,
-+				   LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
-+				   &tp->last_oow_ack_time))
-+		return;
-+
-+	/* Then check the per-netns RFC 5961 rate limit. */
-+	if (tcp_challenge_ack_allowed(net)) {
- 		NET_INC_STATS(net, LINUX_MIB_TCPCHALLENGEACK);
- 		tcp_send_ack(sk);
- 	}
+diff --git a/fs/btrfs/zoned.h b/fs/btrfs/zoned.h
+index 2b807a02d1a8a..5cefdeb08b7b7 100644
+--- a/fs/btrfs/zoned.h
++++ b/fs/btrfs/zoned.h
+@@ -93,8 +93,7 @@ bool btrfs_zoned_should_reclaim(const struct btrfs_fs_info *fs_info);
+ void btrfs_zoned_release_data_reloc_bg(struct btrfs_fs_info *fs_info, u64 logical,
+ 				       u64 length);
+ int btrfs_zone_finish_one_bg(struct btrfs_fs_info *fs_info);
+-int btrfs_zoned_activate_one_bg(struct btrfs_fs_info *fs_info,
+-				struct btrfs_space_info *space_info, bool do_finish);
++int btrfs_zoned_activate_one_bg(struct btrfs_space_info *space_info, bool do_finish);
+ void btrfs_check_active_zone_reservation(struct btrfs_fs_info *fs_info);
+ int btrfs_reset_unused_block_groups(struct btrfs_space_info *space_info, u64 num_bytes);
+ #else /* CONFIG_BLK_DEV_ZONED */
+@@ -261,8 +260,7 @@ static inline int btrfs_zone_finish_one_bg(struct btrfs_fs_info *fs_info)
+ 	return 1;
  }
  
-+/* Send a challenge ACK from a SYN-RECEIVED request socket. Uses
-+ * __tcp_oow_rate_limited() directly so that an RST carrying payload
-+ * cannot bypass the per-request rate limit.
-+ */
-+void tcp_reqsk_send_challenge_ack(struct sock *sk, struct sk_buff *skb,
-+				  struct request_sock *req)
-+{
-+	struct net *net = sock_net(sk);
-+
-+	if (__tcp_oow_rate_limited(net, LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
-+				   &tcp_rsk(req)->last_oow_ack_time))
-+		return;
-+
-+	if (tcp_challenge_ack_allowed(net)) {
-+		NET_INC_STATS(net, LINUX_MIB_TCPCHALLENGEACK);
-+		req->rsk_ops->send_ack(sk, skb, req);
-+	}
-+}
-+
- static void tcp_store_ts_recent(struct tcp_sock *tp)
+-static inline int btrfs_zoned_activate_one_bg(struct btrfs_fs_info *fs_info,
+-					      struct btrfs_space_info *space_info,
++static inline int btrfs_zoned_activate_one_bg(struct btrfs_space_info *space_info,
+ 					      bool do_finish)
  {
- 	tp->rx_opt.ts_recent = tp->rx_opt.rcv_tsval;
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index 2eea9672ca01e..b5dccc3c35bd8 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -727,7 +727,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
- 	 * elsewhere and is checked directly against the child socket rather
- 	 * than req because user data may have been sent out.
- 	 */
--	if ((flg & TCP_FLAG_ACK) && !fastopen &&
-+	if ((flg & TCP_FLAG_ACK) && !(flg & TCP_FLAG_RST) && !fastopen &&
- 	    (TCP_SKB_CB(skb)->ack_seq !=
- 	     tcp_rsk(req)->snt_isn + 1))
- 		return sk;
-@@ -760,6 +760,16 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
- 		flg &= ~TCP_FLAG_SYN;
- 	}
- 
-+	/* RFC 5961 section 3.2, as clarified by RFC 9293 section
-+	 * 3.10.7.4, requires a challenge ACK for a non-exact
-+	 * in-window RST in SYN-RECEIVED.
-+	 */
-+	if ((flg & TCP_FLAG_RST) &&
-+	    TCP_SKB_CB(skb)->seq != tcp_rsk(req)->rcv_nxt) {
-+		tcp_reqsk_send_challenge_ack(sk, skb, req);
-+		return NULL;
-+	}
-+
- 	/* RFC793: "second check the RST bit" and
- 	 *	   "fourth, check the SYN bit"
- 	 */
+ 	/* Consider all the block groups are active */
 -- 
 2.53.0
 
