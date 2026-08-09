@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5816122F01
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDCF72941A
 	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 00:48:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786236500; cv=none; b=cmcWsPfXLW2wI9JBuRBx2V6cNXrnCa3i4Q7OcMzeSQxTjBPj+MnrNOabPmkI8AjZjw7dAEkOuIsridY3mdkj1IIzEeo1j550/xH7sU6VkESw4a89px+F3kTlA9UKN4ah2HtJaX9Bpbk8y30pu4WRS31S+6iwpaJXBdLRcrezJv8=
+	t=1786236501; cv=none; b=Kb7pDwG3BayPM5Nbnoa4AVX7PHWotSEw38r4YpXKqxPoCx1O3T+7nDKI9yNo9rOlwrU0Q1mNiOr90SHnFfh/f8m+9V8KdPJHYHMtQcOX/xEqMVX5raZHku+GwOTfpPM42hxvofvfxirNyCub69rFqaiymRROG1DVAKwH00rUW0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786236500; c=relaxed/simple;
-	bh=8kDB/moSZwWNw8uNbG9PO3H2Tqkr+xGJGh7LdosJoOE=;
+	s=arc-20240116; t=1786236501; c=relaxed/simple;
+	bh=zQCrp54J2DxVSTj2I0r0sHubBKAtojCkXDgPwU1NClU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CHRMUJoZBdseCoRtvlIIz/9RsRz4HdL91q+ilnoPKHXkrHqdtEoTb3DBx4xdr7117ffvuSrOEejwa5CUcYFcILRBo50U/anXPrkQT4mnhotU6JN510xNdr1T7A2TyDIbedo6mtdI/UWEhFLHwQjQ1X6SstrMb7brPJ6rQ95GkmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CC/Iv1u0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Qa9qJSvo+mifax9qhAtqefhz1NdwpuGs1RSHvUfCEfrPL9fCbecTmXJ2trj6tTk/VsC2LY/kuYun7MQHj4DcIAR1nlM7p0Y5t319LkVtVIEn9z9eq55F28Z8FwCv5hCJ6K+GWfDDOmsbKIwr0WXAdehhQURSdV2f/7qCnGxf7KI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nOCCzIJI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CC/Iv1u0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 059841F000E9;
-	Sun,  9 Aug 2026 00:48:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nOCCzIJI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4273D1F00A3E;
+	Sun,  9 Aug 2026 00:48:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786236499;
-	bh=EtQqYQLIHyzn9m/Wkqtv0/l0CkfZnk37ehhyvPksJh0=;
+	bh=66MEpxQ9Ggp2Ef/smcWSlRkaKuxrsDgRns16q+jWiHE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CC/Iv1u0MHsrc+7Fa68E9C/2Sq6Hm+fE2YnH26gysGPoZBxc1QtGf6XyoCzEHrKcP
-	 aCvIzHDsif0eTcXT/llpvzRMI58mlslLmscnMxhC5zeqEd56dBKgEjgYMn5tga/7uQ
-	 K6pM87XgnKNQf0w3OCCyYFEt4fy91+clJUwiUXUwl7/ko9p0etiBq9p3SSzpItdWN3
-	 oqdUYSrGb/MNmQN5JLuJLHeAXJ692+DPmZRZWVRotPQk5yb0MJUULK9GqOHO60aT98
-	 wfPQEPycm82rioE+0r42ujlcH01svU1P4qyUh2tggLSzEhmkxiX5JkzHB3191n19nO
-	 6aCIfcdYjaK8w==
+	b=nOCCzIJIDzFjU2jqN03dYUnjJG0DE+/yztb8aW/Fn70vYdcmzmh78kwr7Vl0fwm0G
+	 s44CopGX+XMz1jWduBS1K6MguHE9Fi/z6tTQHyeayeE/po/IcDvQCOi3xvrw5Bey4y
+	 MA2x5uLfirOIf0bhgJLyUFZG30wCiwDpLpgytxaImMzgNQ+aiZpfnmWWB027w6vljn
+	 A/8ORxG6Xe6/EOFy+0uDQPExYgFRthv0cAW97lFwiaTSUBQ17PvePo5WCsyO8tZos1
+	 JzfU2xcJ6j2A2unVATeZmNr7dIWEvpBLMPBRhrZhcnVJ7QYIe5inf97/VKAv69uPht
+	 7I88KJ71V1EYA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: ChenXiaoSong <chenxiaosong@kylinos.cn>,
-	David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	zdi-disclosures@trendmicro.com,
 	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 6/7] smb/server: fix minimum SMB2 PDU size
-Date: Sat,  8 Aug 2026 20:48:10 -0400
-Message-ID: <20260809004811.874454-6-sashal@kernel.org>
+Subject: [PATCH 6.12.y 7/7] ksmbd: validate minimum PDU size for transform requests
+Date: Sat,  8 Aug 2026 20:48:11 -0400
+Message-ID: <20260809004811.874454-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260809004811.874454-1-sashal@kernel.org>
 References: <2026072924-music-polyester-3132@gregkh>
@@ -48,47 +47,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: ChenXiaoSong <chenxiaosong@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit 4c7d8eb9a79ae5400eac19c4f6f0815bff674452 ]
+[ Upstream commit cfc0b8e5080aec87700774e8568765eaa4b7b92b ]
 
-The minimum SMB2 PDU size should be updated to the size of
-`struct smb2_pdu` (that is, the size of `struct smb2_hdr` + 2).
+The receive path applies the minimum SMB2 PDU size check only when
+ProtocolId is SMB2_PROTO_NUMBER. A packet carrying
+SMB2_TRANSFORM_PROTO_NUM bypasses the check even when the negotiated
+dialect does not provide transform handling.
 
-Suggested-by: David Howells <dhowells@redhat.com>
-Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
+On an SMB 2.1 connection, a short transform packet therefore reaches
+init_smb2_rsp_hdr(), which interprets the request as a full SMB2 header
+and reads beyond the request allocation. The copied fields can then be
+returned to the unauthenticated client.
+
+Compression transforms are converted to ordinary SMB2 messages before
+protocol validation. After that conversion, validate ordinary SMB2
+requests against SMB2_MIN_SUPPORTED_PDU_SIZE and require encryption
+transform requests to contain both a transform header and an SMB2
+header. This rejects truncated requests before work allocation.
+
+Fixes: 368ba06881c3 ("ksmbd: check the validation of pdu_size in ksmbd_conn_handler_loop")
+Cc: stable@vger.kernel.org
+Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-31063
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: cfc0b8e5080a ("ksmbd: validate minimum PDU size for transform requests")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/connection.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/smb/server/connection.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
-index 52ed6acd1c682..9b5d95d0481d6 100644
+index 9b5d95d0481d6..5a896b146f437 100644
 --- a/fs/smb/server/connection.c
 +++ b/fs/smb/server/connection.c
-@@ -378,7 +378,7 @@ bool ksmbd_conn_alive(struct ksmbd_conn *conn)
- 
+@@ -379,6 +379,8 @@ bool ksmbd_conn_alive(struct ksmbd_conn *conn)
  /* "+2" for BCC field (ByteCount, 2 bytes) */
  #define SMB1_MIN_SUPPORTED_PDU_SIZE (sizeof(struct smb_hdr) + 2)
--#define SMB2_MIN_SUPPORTED_HEADER_SIZE (sizeof(struct smb2_hdr) + 4)
-+#define SMB2_MIN_SUPPORTED_PDU_SIZE (sizeof(struct smb2_pdu))
+ #define SMB2_MIN_SUPPORTED_PDU_SIZE (sizeof(struct smb2_pdu))
++#define SMB2_TRANSFORM_MIN_SUPPORTED_PDU_SIZE	\
++	(sizeof(struct smb2_transform_hdr) + sizeof(struct smb2_hdr))
  
  /**
   * ksmbd_conn_handler_loop() - session thread to listen on new smb requests
-@@ -478,7 +478,7 @@ int ksmbd_conn_handler_loop(void *p)
+@@ -393,6 +395,7 @@ int ksmbd_conn_handler_loop(void *p)
+ 	struct ksmbd_conn *conn = (struct ksmbd_conn *)p;
+ 	struct ksmbd_transport *t = conn->transport;
+ 	unsigned int pdu_size, max_allowed_pdu_size, max_req;
++	__le32 proto;
+ 	char hdr_buf[4] = {0,};
+ 	int size;
  
- 		if (((struct smb2_hdr *)smb_get_msg(conn->request_buf))->ProtocolId ==
- 		    SMB2_PROTO_NUMBER) {
--			if (pdu_size < SMB2_MIN_SUPPORTED_HEADER_SIZE)
-+			if (pdu_size < SMB2_MIN_SUPPORTED_PDU_SIZE)
- 				break;
- 		}
+@@ -476,11 +479,14 @@ int ksmbd_conn_handler_loop(void *p)
+ 		if (!ksmbd_smb_request(conn))
+ 			break;
  
+-		if (((struct smb2_hdr *)smb_get_msg(conn->request_buf))->ProtocolId ==
+-		    SMB2_PROTO_NUMBER) {
+-			if (pdu_size < SMB2_MIN_SUPPORTED_PDU_SIZE)
+-				break;
+-		}
++		proto = *(__le32 *)smb_get_msg(conn->request_buf);
++		if (proto == SMB2_PROTO_NUMBER &&
++		    pdu_size < SMB2_MIN_SUPPORTED_PDU_SIZE)
++			break;
++
++		if (proto == SMB2_TRANSFORM_PROTO_NUM &&
++		    pdu_size < SMB2_TRANSFORM_MIN_SUPPORTED_PDU_SIZE)
++			break;
+ 
+ 		if (!default_conn_ops.process_fn) {
+ 			pr_err("No connection request callback\n");
 -- 
 2.53.0
 
