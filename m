@@ -1,66 +1,45 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.freenet.de (mout.freenet.de [194.97.212.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F40287510
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 16:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1446238159
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 16:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.97.212.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786292594; cv=none; b=lkbyikfzZ9/ulY60KAI/7fPxCEbghFeobHapGGnEbeyh9g6sMsXLC2Y5FxaX2RCJdJUGAI3ANttpwCYJuebTnDYgE7fhL5LpOSzzr8dBTEPKcpNWyRuG1u+rtls7/v9bGJJdLec1vZP2Y5bu84dNL2sfbFNxfEpIYX2DDagPvl8=
+	t=1786293566; cv=none; b=JW40w7mpu2N4tpO4gQntv+wrmCaSED7/nGT+ehUXzBqmJmXpf9pUL0fqvkRFAY8LPjJdWf4xdpM8xPd1Lq706jwHf+GpyuCZi1gbJEBVbLvcHZswt26ptv57mybHcfH65k+KP0CDMDXl5yZfVlQfxE6KyUUVyshJyYgGp22Ypyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786292594; c=relaxed/simple;
-	bh=rq+bFQgGz/Hi526ZnDjBsv7YI5XI+jsEFX6tzNLMhA4=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=bPmEnW5iiy5IDrlcocrOEhXbWhDgwvIKyDZ5o6wx1cyJYD1Tqf3hwOZ3fT9BZbupOZ7xOPi5prHNhgFS/lG+DnoJSpQ4z17Vknvg7P23thHCx/CN8nhD5L/ZlwSVMjHIiWhYBcW9S7NI3TJskbPKE9FwxNz3zL05MEn2Bl7SNe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G/L0yvBt; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786293566; c=relaxed/simple;
+	bh=F8voDrvO10NPSHOsZI5cXqnrQA/bShE0uEcfvqCvpUs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T9e1jbAsAvsK1brASDuaM1c69nFGKVy0l9NWrzJRNuYyC2nTdoSlozAfedoQkFYa04W7h+Bhee913ysTk9pzlr9aTqEdsNLCO3wlmdvUXEXUu2RjRVdFbQHtSoy3hTryIxJM6T8h6ERj0P2K3162f9zNnww3z+21+LUk1WmS2T0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=freenet.de; spf=pass smtp.mailfrom=freenet.de; dkim=pass (2048-bit key) header.d=freenet.de header.i=@freenet.de header.b=ctrh+es/; arc=none smtp.client-ip=194.97.212.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=freenet.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freenet.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G/L0yvBt"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so13306655e9.2
-        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 09:23:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786292591; x=1786897391; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ziwloAUX5tf3TB9W7Xw04jSVTkYmBKOdb+f/tuo2ucE=;
-        b=G/L0yvBtXnQ/sHhWh/vzmASgA2q1V8aQaZ+unVHAo7sME2FRgCbgdUN6oH2YTQg7gH
-         b5xx0scB2MHoDQUb8LQYGft1fnrNw3g1m30erlgJp9WErvQfLdwetIZKd/lPzfCn0TtD
-         YFKYj9Y6V0+DBkV1/PN42BQmbBB/MSt4p75QXhEUZyQ69G4NfearKGnUQlxBiRDD94mi
-         R+/qjXlTwLC+GRoseJXfVB1DsWpOXZM5fsHGo374cVuLFik6zhMtQkaRTp85NvR5dB5G
-         SkXTsC95P30ih2/1npf3FuxBo/Jji1uawCklMs0tePOFmhJ3wwFANRdT179oNwWOJTGm
-         1Piw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786292591; x=1786897391;
-        h=content-transfer-encoding:content-type:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ziwloAUX5tf3TB9W7Xw04jSVTkYmBKOdb+f/tuo2ucE=;
-        b=iZWutRnOElsVltwwL7EZrv+tWj+TWJ2K0ffC39NktZ7esZLuUKqzHK50ERpZ+XO30t
-         Jxx4TurVCKRJbQ1GcHpz63GDTJGwtWE+ytf9Ar9UIau8w6twF44nIB8bTJRAM1Mq4+ZR
-         LhFxKJo1sJVccZfgdPCcMG/6pE8euhS1Rs1dvH8HuNy8V/OFtbwcE6jFt2iwTIDIKCR9
-         dDD5ic3/Yl3F7+FFkkkNfVQZjsFx1FgjweUV0P/3o1zKjzUUOiZXg3gw0KTR3E7pmeKT
-         GEy2Gg/QS1XFsXjU8Qsi7IZQu7hJtLJlqak3w097DovLWD4mqUIBEjJRWVci8Oo7GR7f
-         Z2tQ==
-X-Gm-Message-State: AOJu0YwYVbqNxYLd1ZxNceJo81nR4TwtyCHoZr7RRy6W+PUJtQK+irjh
-	GgEIfbOqOgIBkdmZVWIAs+X+lnAsGhJcj3HE8ugolzIbQRCZbI4ykdIEJowbiw==
-X-Gm-Gg: AR+sD127iGKyEqDJg6iNBV+2s8FgSKv3d1cnDvJEiXlcmePlvtdqCfV7IKcJrgZvcoD
-	A1bjkilN0ASmyPhESlAi9r8ra7E5KFADpiA6Q7UY3tSUt/wuxFD5L5R8fQRsYdARqmrzdSEEMq0
-	1GFRoErYgK1+6mZxLO6s+LF0xvKI/1bGhGRDXlDP9MzirYqgAuYhWpVhPyMgJUmPkRmUP0cnQJD
-	M5MGUQJ+BInKESDbOomyrvxEmieMPKQU8T8CV6rUXU9O0NMNfVwcQlFTIUfccMWfWKXnDJmtp6/
-	DqUNJc5DXwFlD97m072KXZf4yrGNu/r0Fn5Jr7hXlIGGTD9Aw8dGd5JisDL+LegNNhF208clO+f
-	vs1d1EVzSicMqzDeg8qURRpt79k7NhWUzLBgCfJG2U7NZ7+HC/HchG23z8Pyn/NzqsqeNO3CwLf
-	VYXazWqAuESk+PYSByuaS66K1U2gb3scntiYex4QOC2v4ouPrE4YOkILatwq5GrOLdgwxJM9kT0
-	kk=
-X-Received: by 2002:a7b:c44d:0:b0:499:484a:98e7 with SMTP id 5b1f17b1804b1-4994e7cc5d0mr402552805e9.14.1786292591280;
-        Sun, 09 Aug 2026 09:23:11 -0700 (PDT)
-Received: from [10.86.162.46] ([193.207.119.173])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499542851d6sm362640525e9.12.2026.08.09.09.23.10
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 09 Aug 2026 09:23:10 -0700 (PDT)
-Message-ID: <d614b8e6-7f95-4e0e-a4ee-436fb418d883@gmail.com>
-Date: Sun, 9 Aug 2026 18:23:09 +0200
+	dkim=pass (2048-bit key) header.d=freenet.de header.i=@freenet.de header.b="ctrh+es/"
+Received: from [2001:748:400:3319::4] (helo=sub6.mail.fnrz.de)
+	by mout6.mail.fnrz.de with esmtpa (ID viktor.jaegerskuepper@freenet.de) (port 25) (Exim 4.98.2 #2)
+	id 1wt6TK-00000002osq-39wF;
+	Sun, 09 Aug 2026 18:34:02 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=freenet.de;
+	s=mjaymdexmjqk; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=Z5h+HN1ZV/0opE4wmzcoMKs6JYkhPMuo4GSsSroU194=; b=ctrh+es/+InlfnA0/5DTEYta5i
+	uu5WylZKvV/OBTR+j7OYoMK4dIf8aG2sbUO9jiba1gr7l2C2YlhxnN/lmkoMVb2jDl/fTH4jqFeN7
+	ihPby7YBTo65KNaFp0vYlvRlll7WPZ1QzVA3mFnVXuZQTNdsXJBDWpthyxb/KEOlPJhjbu+EPL43p
+	l8O2mA1wnoowRmzlK9jt50/QqBnefvw+Cp6NdykDtryXTOCRRAbo/NqunII9uxZa5MeRmawnpVnoi
+	Z9N5F1U4h4fZNCS5wQWIl8o0MxmtqoaDhOWga63j83U+NrhqkWx2dKku7FFiNtP++9fVACyDTNqX5
+	cxTmbpPQ==;
+Authentication-Results: freenet.de;
+	iprev=fail smtp.remote-ip=2a02:8071:a85:f020:34ee:f5fe:6d2d:7961;
+	auth=pass (PLAIN) smtp.auth=viktor.jaegerskuepper@freenet.de
+Received: from [2a02:8071:a85:f020:34ee:f5fe:6d2d:7961] (port=58466 helo=[127.0.0.1])
+	by sub6.mail.fnrz.de with esmtpsa (ID viktor.jaegerskuepper@freenet.de) (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (port 465) (Exim 4.98.2 #2)
+	id 1wt6TK-0000000D53p-2R78;
+	Sun, 09 Aug 2026 18:34:02 +0200
+Message-ID: <608ed117-5fa2-43df-b10e-738cf3b5c2d2@freenet.de>
+Date: Sun, 9 Aug 2026 18:33:56 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,26 +47,90 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: it, en-US-large
-To: stable@vger.kernel.org
-From: Sergio Callegari <sergio.callegari@gmail.com>
-Subject: [REGRESSION] incorrect backlight brightness on AMD in 7.1.6
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: Drop "drm/amd/display: Add AV mute wait frames to
+ dce110_set_avmute" from stable queues
+Content-Language: en-US
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sasha Levin <sashal@kernel.org>, Wayne Lin <wayne.lin@amd.com>,
+ Ray Wu <ray.wu@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
+ daniel.wheeler@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ stable@vger.kernel.org,
+ =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>
+References: <a464c560-8f7b-4609-8bbe-b7048f603d26@freenet.de>
+ <2026080756-garage-series-d50e@gregkh>
+From: =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?=
+ <viktor_jaegerskuepper@freenet.de>
+In-Reply-To: <2026080756-garage-series-d50e@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-FN-MUUID: 1786293242CCF17FA0BE3CO
+X-Scan-TS: Sun, 09 Aug 2026 18:34:02 +0200
 
-Hi,
+On 8/7/26 15:13, Greg Kroah-Hartman wrote:
+> On Thu, Aug 06, 2026 at 10:10:00PM +0200, Viktor Jägersküpper wrote:
+>> Hi Greg and Sasha,
+>>
+>> I noticed that the following patch is in the queues for the 7.1, 6.18 and 6.12
+>> stable trees:
+>>
+>> >From 443290d70b01e9c35830c300e3247c06581b594c Mon Sep 17 00:00:00 2001
+>> From: Ray Wu <ray.wu@amd.com>
+>> Date: Mon, 13 Jul 2026 22:23:34 +0800
+>> Subject: drm/amd/display: Add AV mute wait frames to dce110_set_avmute
+>>
+>> From: Ray Wu <ray.wu@amd.com>
+>>
+>> commit 443290d70b01e9c35830c300e3247c06581b594c upstream.
+>>
+>> Port the three-frame wait logic from dcn30_set_avmute to
+>> dce110_set_avmute so that older DCN versions (1.0, 2.0) also
+>> wait for GCP packets to be sent out before proceeding.
+>>
+>> This ensures HDMI sinks properly process the mute state,
+>> preventing garbled display after link re-establishment.
+>>
+>> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5167
+>> Reviewed-by: Wayne Lin <wayne.lin@amd.com>
+>> Signed-off-by: Ray Wu <ray.wu@amd.com>
+>> Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
+>> Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>> (cherry picked from commit 414da24137ace80d8c59fefd43ba3ec9f5f854ba)
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>> ---
 
-Control of backlight brightness regressed with 7.1.6, possibly due to 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1191285ecb4233e5bf907da7e9394d7999055566 
-that may be incorrect.
+(...)
 
-On this kernel when you try to rise the brightness, it does so up to 
-~95% then it suddenly falls to the minimum brightness. Conversely 0% 
-gives you one step above the minimum brightness.
+>> Please drop this patch because it leads to a regression which I reported for the
+>> mainline kernel here:
+>> https://gitlab.freedesktop.org/drm/amd/-/work_items/5557
+>>
+>> A fix for the regression is already available, but it hasn't landed in the
+>> mainline tree yet. Since the patch above fixes an annoying issue, I propose to
+>> postpone it until the mainline tree has the fix so that both patches can be
+>> applied to the stable trees in the same release. I will notify you when that
+>> can be done.
+> 
+> Now dropped from all queues, thanks.
+> 
+> greg k-h
 
-A possibly related discussion is at 
-https://discuss.cachyos.org/t/brightness-lower-at-100-than-98-on-plasma-asus-g14/33957
+The fix for the regression has landed in the mainline tree, so you can
+now backport
 
-Best regards,
+443290d70b01e9c35830c300e3247c06581b594c
+drm/amd/display: Add AV mute wait frames to dce110_set_avmute
 
-Sergio
+and
+
+3141e3d61469bba2624a91c5e2407f110b33b29e
+drm/amd/display: Check for tg ops in dce110_set_avmute
+
+to the stable kernels (7.1, 6.18 and 6.12), both have 'Cc: stable'. Note
+that the 'Fixes' tag in the second commit refers to a commit on the
+drm-next branch and not the corresponding commit from the drm-fixes
+branch, which might be confusing.
+
+Thanks,
+Viktor
