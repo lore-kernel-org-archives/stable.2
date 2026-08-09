@@ -1,74 +1,73 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586A62F90E0
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 07:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4313A4F31
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 07:44:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786260794; cv=none; b=UAonlgfcmu8aVSF4+IN5Yl3JarI1tZX0vxlDjN4vwP8CY1GstHrVjxlgwoiProXVP6T3QDrCkOzYpjLTTqT/4pAO14sVZwzx1T7neOsESuMwaYRADvcBVrpk38Uc6FFjVkn/XULR8uSS1JDowyx6mg/xHBlW1ybRUgXN5yCg17I=
+	t=1786261443; cv=none; b=Mr5xxROnp3i+EaxDDtZim4jeTT65EoYstc6/XXynqwo96T0NDFC1RT/csB5PqHMi3PibEQV8+5xma+noNa6TyDHb9Vz9C+uyZRrdM2Ervb1qwo3oJLYe7DUCZ2MdzMDp3lCaXrTC5jVKZputmFGQq29xtk4MaeThZoiJxiIIIJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786260794; c=relaxed/simple;
-	bh=KjB2Lr+gNrW4tPidywgCIXL5Whe6bg7M2THcOPT44YY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AiPvfT+U3D5+leBKFQQI0vN1RW1Ks94ObEoFt6jiAAAjWcMzPwXFvkjRQ2eXbQMa6wEUzeh2rWZmR7lswGgHgufX6sIGVpyL2CDJrlCa18ssreQ2dQ9MTlaXdTlqWUFBfKfjrKpxWAk1A5w4D3AehtS+W1sIaLrI0M5EVCkYRDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SKwGycuY; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1786261443; c=relaxed/simple;
+	bh=AraZ1rq8LxasfB6TogqLmzZITaAl0hmJqf7mOyPNC50=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TCDkpq//N3lMv/N9cswsEJlwkWSZyQXeM+4nccU/Edbb7XbWFWdYsjQ0kss+y0/VLAk9Es7Z+P9dVw8Y85KezqrPTnXIBy5TGhKuj+fRjtSdx4gM5nXuZSvO4cwf/pm+ogGoyI49Wnvr9cNe1eh5lQnYSdkH/gTBqGLabPDhRUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T+Ue5ddp; arc=none smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SKwGycuY"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc61541f8cso36880325ad.0
-        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 00:33:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T+Ue5ddp"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84862b0d5aeso834150b3a.2
+        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 00:44:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786260793; x=1786865593; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786261441; x=1786866241; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ENfS7OBp/4A8ZLshWeb8VKrRLZVv7nV81r8Jw7UB3zw=;
-        b=SKwGycuYH2x5dibFopnT7XL5r9+OqAmBy/jwRWdl5pHaFYoOYEoEku6NVXQF15dUvp
-         kmYafpC+zlgOgy1lTlpwoz1EArXmdZSgXSFTs/TYXfExeq5p/9UGN+PH1iYiOJopsZ95
-         +BbP/cH+XdYiwO2XIOVajPSvMAjnJUjqd+Uls57kLW5WA/N/nD2FfC/UxaGsVZ5DA8Xg
-         cyJEJw+ekr0vuiC9HtdUdGK8YcTyaEq1n5Qwq+GEg1sSoCHccUJr4zPJy9P2Ve9SwRJ1
-         uOJt74YI92EfViyGCZ7eOFg4uX/x8FNaePCYvI3DLiLE9ZKDj48RRnRFiccgj8l8pvTJ
-         jNlg==
+        bh=b9ieAFPZ3KCNYtYRe7iipfxjLEguJtXDiYV3GvLkaig=;
+        b=T+Ue5ddp2P13cGPRpcC9wmwp0EATFVw5AB9wCoMXaCA6WMP/EYzdxV2Fg7Yd+p62y6
+         7ges9/R9WzwYvYlb6k0FIUxJMPIdGKaezPN3MwbYdXI2fZdUXhV/c0aWtEa4msIG0Tnj
+         4JEbD3VogwtBRgkSENfRZAFn0Al7OehWQlk1UfYqfwdtBxXABVE/fjfN/zbQhAjk1KtS
+         JPKoo47VkEj5spqN3OgeD0dQ0cnrt3MiHRJp5Mo57ZS+ykNln5RTkSOlkT31pzds2KUu
+         LnUKIbOfW5oyH6S5aEY8d/Q6LAvII5I9T9CI8xh/34efBEiNbUHt6eYFsUhWE9ZGTz6i
+         fWnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786260793; x=1786865593;
+        d=1e100.net; s=20251104; t=1786261441; x=1786866241;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ENfS7OBp/4A8ZLshWeb8VKrRLZVv7nV81r8Jw7UB3zw=;
-        b=CIecpbcvuo9intvqmHtuvauDEXMHqAhPMjYcOs8lrF/oDP4jJuSM1+/c+6ErSQsdK9
-         Zo95garrMvcGXRZTHmnjYphDCFp0A0xXA2aKALNMiVHod6tOsE+R/6PCgef8HnjSNSTr
-         bhqvcSBTNg5/AUBxWN3QNP48INMCyKADg9mPZ+HPqJn2fTi/mI7UrkEvJ+rUiQ0LOdb0
-         QK5AI1mtP/gRmG+Rlr/oU4dcSMTKqWMXCvZJq4QTcX/wf3Qx0J7Wu7IYfE4Vvol5htbn
-         N8JwCd+w7o5M1AyylhI2Gx19ufP6GmGzBuVx5hvfON3Q+jy/EAykwkY33SArd+l0Ult4
-         tsrg==
-X-Forwarded-Encrypted: i=1; AHgh+RqV0CBnfupLcWM7eHh9OeoFknjGVJB+qSp0+1KPYk8o27EyOaSBx11lCZXnbPS6hGh2U6IBEr4=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx7qW97YL+Xkm5Vn4nyfvZZwIIndffxazAXGKGIsvZEIzwTiTFP
-	6TXoEdgc21MlHEaDFVHb/ORmj3fZYWS+WjoEg1i18VmoFzp+DkT2S7WoYw2gpb39uxs=
-X-Gm-Gg: AR+sD12bBU5aE31mmHe1oOJDCxtoNR0g3OBbuUqqqBFuAps6QISrb7LHYK1J02Y6sAG
-	4f5vAp2aZSMicHh5mN1/h/HPkVtC3aco5YcMRhFuNAkeqw3HSaEcwDXcOmjiRq6reWa3c8GY18E
-	8k6+kIeVQDNi3XytRlXC82lYB2Qu/dSITVgzRf6kiiA0SBZwKAGY4ahs0rB2knzc8zuE0a7vWhB
-	sKVZo3S/95VJguKq0kcYKE9SsPseq94LAKixFQnVcEqxPmSawArGwESv2KWhlJ9Ao06FZsWqORV
-	42Mu3lqyB/bb2h4xBjFAB3IwXaZY+X+woIpdPhP/wUhZBliV5E8UyIhJziAbzsPx2FkXJcYcxkK
-	Pg4uiKZEyzFhDd0HOdSum6JHmeFopydXDds6cQ70HLlS+Cf1Ygw7Cz8U7qsxmPmW/9t/F8z4HC4
-	zx3YGMEHg6stL531AqxvG6iQw7xRX6O/SkIvLd0r9pxWysg14NKPixCA==
-X-Received: by 2002:a17:903:2383:b0:2c0:d94f:50c7 with SMTP id d9443c01a7336-2d2b2de58dcmr124370505ad.7.1786260792633;
-        Sun, 09 Aug 2026 00:33:12 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39085f5e33fsm10540532a91.14.2026.08.09.00.33.08
+        bh=b9ieAFPZ3KCNYtYRe7iipfxjLEguJtXDiYV3GvLkaig=;
+        b=EOp3EwZNu2DQa7ZTQ6PMxi1PZzzEdaUKPU+bLJ6n89a+tmJO+5xIoQaaELo8/Q8lyD
+         OdCeTznjuMZe6/cgGJfpXWIreZw5wGH2oN6OK4aE2WnJUkqvIENU3/qsYefLSaFM5x7w
+         l2n+k3B9++wpGwf0j+xZtCLN/gJxocwx2iGsjdEbC2ByxnsVqAqcKBA4Uo0u1mhJeQyP
+         jJGcKkKiJvu0fiL1CxArKh/VeJLXfCtFc4V0Kk5g7kKcSEsde9anO8mLCQ8wKoTsJaOu
+         gq+v0A31wzfM+nna3gExsYyXBg3F1rbV7/kjcQVhN28y9tHYXuBNU4y1eSBRWr1ZfmFi
+         FOzw==
+X-Gm-Message-State: AOJu0YzKWr2jm9ROD+5MclU5PDW5aW4tuQvMn3KXfUojjoWjgGvY9vHW
+	ElSfyZakdNkdlmk/m0n23RLKgd7ziPyYXqSVx12G56rGPiQcY1RewTkbEGF83WonFo1sGuxx
+X-Gm-Gg: AR+sD13e747B5ULZLvHd2hZl7q5eF8pHCL3jwVlB+be46YSP5c6QQc278baBcdqnh4k
+	rxVZQQEuhfzSLT+KDiQpl7x0XcahHS467sS/XLnw4ri7IrLsNrYbkSX2zkw42nPOPtKLJ0K+f1b
+	nPnBpO72epuCTcdqzmPBCJxj9AF7IrDmf+JOy5QZPzQ3VXE4MkpRmDHAKoyl3DVU9q7kdaunP1W
+	Hkpu6FnNDGCeniaxYlHnfUTxFulB+PNrdKyjUeP1zDsV+T/C0c0fF53In8Kroh/tjiueC71berg
+	9+adDCA99DOzHYKjIgdoAqJetlKJwK6Bv6TUUq7UYB2MGh/7jwIBBx6Qjwwadzl52kblUd+5+8T
+	aQO5MtNYnU1bpoKAZP0MMLKeoJvs/8VkTz3n/wB47guoDP0FEQcH+19pUztWIzcHYSaZQNazB7V
+	eAV0xQybdCbAyAl86BE3KjcMdKyVZ6Fw301kYbJY+QJSuGSCCte1Mez7zWoyQlTniPy/YPyP9HY
+	5PblYNBrw==
+X-Received: by 2002:a05:6a00:4218:b0:845:ce5f:c926 with SMTP id d2e1a72fcca58-84f2e210308mr40466210b3a.1.1786261441265;
+        Sun, 09 Aug 2026 00:44:01 -0700 (PDT)
+Received: from LAPTOP-7K7V6NC8.localdomain ([120.212.170.8])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe8f371f4fsm2443827a12.24.2026.08.09.00.43.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 00:33:12 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Ben Dooks <ben-linux@fluff.org>,
-	Dirk Brandewie <dirk.brandewie@gmail.com>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] i2c: designware-pci: fix autosuspend cleanup during teardown
-Date: Sun,  9 Aug 2026 15:30:55 +0800
-Message-ID: <20260809073055.2980971-1-lgs201920130244@gmail.com>
+        Sun, 09 Aug 2026 00:44:00 -0700 (PDT)
+From: pzqqt88198@gmail.com
+To: stable@vger.kernel.org
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	pzqqt88198@gmail.com,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 5.10.y v1] ALSA: usb-audio: Evaluate packsize caps at the right place
+Date: Sun,  9 Aug 2026 15:43:20 +0800
+Message-ID: <20260809074320.1407-1-pzqqt88198@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -78,44 +77,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-i2c_dw_pci_probe() calls pm_runtime_use_autosuspend(), but
-i2c_dw_pci_remove() does not call the matching
-pm_runtime_dont_use_autosuspend() during teardown.
+From: Takashi Iwai <tiwai@suse.de>
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped.
+[ Upstream commit 52521e8398839105ef8eb22b3f0993f9b0d11a57 ]
 
-The documentation for pm_runtime_use_autosuspend() also notes that it
-is important to undo it with pm_runtime_dont_use_autosuspend() at
-driver exit time, unless runtime PM was initially enabled with
-devm_pm_runtime_enable().
+We introduced the upper bound checks of the packet sizes by the
+ep->maxframesize for avoiding the URB submission errors.  However, the
+check was applied at an incorrect place in the function
+snd_usb_endpoint_set_params() where ep->maxframesize isn't defined
+yet; the value is defined at a bit later position.  So this ended up
+with a failure at the first run while the second run works.
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the driver
-remove path.
+For fixing it, move the check at the correct place, right after the
+calculation of ep->maxframesize in the same function.
 
-This issue was found by manual code inspection.
-
-Fixes: 18dbdda89f5c ("i2c-designware: Add runtime power management support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Fixes: 7fe8dec3f628 ("ALSA: usb-audio: Cap the packet size pre-calculations")
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221292
+Cc: <stable@vger.kernel.org>
+Link: https://patch.msgid.link/20260410143220.1676344-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[Pzqqt: Backport to 5.10]
+Signed-off-by: Pzqqt <pzqqt88198@gmail.com>
 ---
- drivers/i2c/busses/i2c-designware-pcidrv.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/usb/endpoint.c | 3 ---
+ sound/usb/pcm.c      | 7 +++++++
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-designware-pcidrv.c b/drivers/i2c/busses/i2c-designware-pcidrv.c
-index 468287922363..f1f4955f9a3f 100644
---- a/drivers/i2c/busses/i2c-designware-pcidrv.c
-+++ b/drivers/i2c/busses/i2c-designware-pcidrv.c
-@@ -300,6 +300,7 @@ static void i2c_dw_pci_remove(struct pci_dev *pdev)
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 8e2b90cb5b95..21bcdc811a81 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -1099,9 +1099,6 @@ int snd_usb_endpoint_set_params(struct snd_usb_endpoint *ep,
+ 		return -EINVAL;
+ 	}
  
- 	i2c_dw_disable(dev);
+-	ep->packsize[0] = min(ep->packsize[0], ep->maxframesize);
+-	ep->packsize[1] = min(ep->packsize[1], ep->maxframesize);
+-
+ 	/* calculate the frequency in 16.16 format */
+ 	ep->freqm = ep->freqn;
+ 	ep->freqshift = INT_MIN;
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index f4494d054917..802ed1dbd23b 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -953,6 +953,13 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
+ 	subs->data_endpoint->curframesize =
+ 		bytes_to_frames(runtime, subs->data_endpoint->curpacksize);
  
-+	pm_runtime_dont_use_autosuspend(device);
- 	pm_runtime_forbid(device);
- 	pm_runtime_get_noresume(device);
- 
++	subs->data_endpoint->packsize[0] = min(
++		subs->data_endpoint->packsize[0],
++		subs->data_endpoint->maxframesize);
++	subs->data_endpoint->packsize[1] = min(
++		subs->data_endpoint->packsize[1],
++		subs->data_endpoint->maxframesize);
++
+ 	/* reset the pointer */
+ 	subs->hwptr_done = 0;
+ 	subs->transfer_done = 0;
 -- 
 2.43.0
 
