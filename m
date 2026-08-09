@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35218145A1F;
-	Sun,  9 Aug 2026 23:29:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7532C08D0;
+	Sun,  9 Aug 2026 23:31:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786318146; cv=none; b=iXYbMkdZnbZLa8LDqEpdVcXfL9waJYaOfZ7qB27l9irzwYebxtoP2gtMM2KE8lQvbUrgMEqIXemsC+Ehs20AH5zlBk3grynVQuvYx/fI7Q6fJrY/6u/stMOyqrF0HN34IR4XZppoikGL35dkQfRSZXtN2g3XHpWM3ZtFaTA0wek=
+	t=1786318266; cv=none; b=TUyRMZn09moctiW3nSLFfoc5gtcrt+NJ6sU1J/b838Fof/TpLZu/O6o6hOEifeY0YoL8a8PKlSfY7thCTzA52GZl9WyMxsTWOJN8H+rpvOlkCMkjUYNnq3Xhrx6uFGoMWyKUOty7J3wK84Vkakj7XUhktXXeI9uMNZ+O4qkLivw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786318146; c=relaxed/simple;
-	bh=lH6hCaoxJ9qNZV1NhVvH1hhkfFg0CwlqvGP6Pk4nQ0U=;
+	s=arc-20240116; t=1786318266; c=relaxed/simple;
+	bh=IM7+SYk+rGmWqE1qhkY/SeZ8qpgEV3KwaUHAx+kY1hw=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nPjra3Vq79x42rmO2yzUEk/TY9YfgTTObdiZBYhJJ8W+cZELSER5ZQgZLcajpz1XwTNwKGOLD+tFST2YcwP8cgCVOYLHEZRKny+j9NydDK7HLix7TmbS4n3KGU3qZEK7F2ul8j1LHd5Z8U2ZuhXiB8mybzxxxt7AoPMKcqISO34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYoSwoOk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=XhahCH/PCYyiG4qyGRY0QxQEss1jmDGFyDhQT9gKcdACKgV34YUIN0ObIhNG/ecMUmzWZ8UyxzPGV90CMwT2jF8bymEGleAsUUCXrGkycoIMuS+lFsE9UgjF11rfjS5DX4ZxAlU1/1hOjF415U8gNR+RjZegWEyMu8/xr+Tnq54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iHbyfhQ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYoSwoOk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F3B91F000E9;
-	Sun,  9 Aug 2026 23:29:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iHbyfhQ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 539771F000E9;
+	Sun,  9 Aug 2026 23:31:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786318144;
-	bh=ESoj1CSYNXs4T5zv6fkm/gcAMz0k6ko6BHpxZHfwO+o=;
+	s=k20260515; t=1786318265;
+	bh=WFm50zDkKXzJOqAKehKXwJtF9ALEWVpbeQsvmVeNkG4=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aYoSwoOkWDB/9srUE7IEwIuFKWWrdx2hHTejHBy+QhN1W0XMow+uAwrbuA9OqITrj
-	 nKMWJP8XTLfxO6R6CpCSPTQ7nf/01Z6uehVvrOcKINOayP9niB+eV6EX0TbyrfqS7/
-	 cAwPYWvpRRufuaHWregN5tRBMBKwgBx1+WXBDPbX4+2wmHQMXZ0dqSpmb1z5YLZ0ob
-	 Q2rMpTpuFT+V++n4+QxbjObNUy6RICNuyGXLNq9qpwPrOKS3nNe0F/w44uvHcS4Psi
-	 Mg6SjuMildDPimSxIu58gyZvxYGnBtavv3n1pTPQT1L2bB1ZZQTrkBhZDII2h+ma/V
-	 rzegzNa33/FaQ==
-Date: Mon, 10 Aug 2026 00:29:00 +0100
+	b=iHbyfhQ86X81uoofC5S4207G0TtPYxzuTj4hEEG/QO/OVZji26P1cGx5PPm6/MQmS
+	 K1rdH/HdQuBbm6zdsVMn/XeneJVk9SKWjD6DFDumL0wcBBIuf7fw0IsEp0K3RaixR6
+	 KoNUbCMXfWrW2kN+jIWFFvaJxFLi1DEhmmBy18k0i/Q6qJXNcVCwPdoXbYgPubXcYk
+	 tIxewM9mKqpBvkxYHgzTtxnen+9CIw66a0jzLekQ4MWmrdsyBZuNo2MlxhavMub1iC
+	 0sZUD1xzpaTy8ddyr4qd/yuRD1o2vollhYSaPVCM14XM14dBcQDL0bfnTLnhqCGYIb
+	 0Gdfpfmzuiqyg==
+Date: Mon, 10 Aug 2026 00:31:01 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: "Shengzhuo Wei" <me@cherr.cc>
-Cc: "Marcelo Schmitt" <marcelo.schmitt@analog.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Michael Hennerich" <Michael.Hennerich@analog.com>,
- "David Lechner" <dlechner@baylibre.com>, "Andy Shevchenko"
- <andy@kernel.org>, "Cosmin Tanislav" <demonsingur@gmail.com>,
- <linux@analog.com>, <linux-iio@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH] iio: accel: adxl367: clamp FIFO sample count
-Message-ID: <20260810002900.4b95dbb7@jic23-huawei>
-In-Reply-To: <20260809-adxl367-fifo-clamp-v1-1-6eb35eaebcde@cherr.cc>
-References: <20260809-adxl367-fifo-clamp-v1-1-6eb35eaebcde@cherr.cc>
+Cc: "David Lechner" <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Sean Nyekjaer"
+ <sean@geanix.com>, <linux-iio@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, "Joshua Crofts"
+ <joshua.crofts1@gmail.com>
+Subject: Re: [PATCH RESEND v2] iio: accel: fxls8962af: clamp FIFO sample
+ count
+Message-ID: <20260810003101.3a2d1967@jic23-huawei>
+In-Reply-To: <20260809-fxls8962af-fifo-v2-1-80ff1be1f1f2@cherr.cc>
+References: <20260809-fxls8962af-fifo-v2-1-80ff1be1f1f2@cherr.cc>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -49,53 +49,67 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun, 09 Aug 2026 06:32:37 +0800
+On Sun, 09 Aug 2026 05:04:41 +0800
 "Shengzhuo Wei" <me@cherr.cc> wrote:
 
-> The FIFO entry count is a 10-bit device-reported value and can therefore
-> be as large as 1023. fifo_buf[], however, only has room for
-> ADXL367_FIFO_SIZE (512) entries.
+> fxls8962af_fifo_flush() copies the number of samples the device reports
+> in its FIFO status register into an on-stack buffer
 > 
-> After rounding the count down to a multiple of fifo_set_size,
-> adxl367_push_fifo_data() uses it directly as the length of a bulk FIFO
-> read. If the reported count exceeds ADXL367_FIFO_SIZE, this can
-> overflow fifo_buf.
+> 	u16 buffer[FXLS8962AF_FIFO_LENGTH * 3];
 > 
-> Clamp the reported entry count to the size of fifo_buf before rounding
-> it down.
+> which is sized for at most FXLS8962AF_FIFO_LENGTH (32) samples. The
+> sample count is read from the BUF_STATUS register and only masked to its
+> 6 valid bits (0..63), with no clamp to the buffer size. The watermark
+> path caps the count on the write side (fxls8962af_set_watermark) but
+> the read path does not, so a malfunctioning or malicious device
+> reporting BUF_CNT > 32 overflows the buffer.
 > 
-> Fixes: cbab791c5e2a ("iio: accel: add ADXL367 driver")
-Same comments as previous patch.
+> Clamp count to FXLS8962AF_FIFO_LENGTH, mirroring the watermark clamp.
+> 
+> Fixes: 79e3a5bdd9ef ("iio: accel: fxls8962af: add hw buffered sampling")
 
-For 'similar' fixes like this, even though they are to different
-drivers I'd put them in a series.  Makes it easy for reviewers
-to post comments on the whole series.
+Same comments as similar patches.
+- Not a fix, but rather hardening against buggy hardware.
+- Don't hide the problem by clamping.  If this happens in the wild
+  we want to know about it!
 
-Jonathan
 
 > Cc: stable@vger.kernel.org
 > Assisted-by: GLM:5.2
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 > Signed-off-by: Shengzhuo Wei <me@cherr.cc>
 > ---
->  drivers/iio/accel/adxl367.c | 1 +
->  1 file changed, 1 insertion(+)
+> The transfer reads count * 6 bytes through regmap, so a device reporting
+> up to 63 samples writes up to 378 bytes into the 192-byte buffer,
+> clobbering the stack canary, saved registers and the return address.
+> This mirrors the bmc150 fix (ce0e1cae2609). A well-formed flush reports
+> at most FXLS8962AF_FIFO_LENGTH samples, so legitimate devices are
+> unaffected.
+> ---
+> Changes in v2:
+> - Use min() instead of min_t() as suggested by Andy Shevchenko.
+> - Link to v1: https://lore.kernel.org/r/20260806-fxls8962af-fifo-v1-1-bd9d27047fee@cherr.cc
+> ---
+>  drivers/iio/accel/fxls8962af-core.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
-> index 8c3de11a10a37d228f8758b688156e3ee958c4e9..c82f6c8e5a0d8f4a66ea6c97b78c3838f6138502 100644
-> --- a/drivers/iio/accel/adxl367.c
-> +++ b/drivers/iio/accel/adxl367.c
-> @@ -787,6 +787,7 @@ static bool adxl367_push_fifo_data(struct iio_dev *indio_dev, u8 status,
->  	if (!FIELD_GET(ADXL367_STATUS_FIFO_FULL_MASK, status))
->  		return false;
+> diff --git a/drivers/iio/accel/fxls8962af-core.c b/drivers/iio/accel/fxls8962af-core.c
+> index d0c2a8daef0db964134ad10b25782b9f5752613d..18d7b09bddd2b4f506c3348bf4e8cf94ce1c554a 100644
+> --- a/drivers/iio/accel/fxls8962af-core.c
+> +++ b/drivers/iio/accel/fxls8962af-core.c
+> @@ -969,6 +969,8 @@ static int fxls8962af_fifo_flush(struct iio_dev *indio_dev)
+>  	if (!count)
+>  		return 0;
 >  
-> +	fifo_entries = min(fifo_entries, ADXL367_FIFO_SIZE);
->  	fifo_entries -= fifo_entries % st->fifo_set_size;
+> +	count = min(count, FXLS8962AF_FIFO_LENGTH);
+> +
+>  	data->old_timestamp = data->timestamp;
+>  	data->timestamp = iio_get_time_ns(indio_dev);
 >  
->  	ret = st->ops->read_fifo(st->context, st->fifo_buf, fifo_entries);
 > 
 > ---
 > base-commit: 848acc8ffe1b7cd5f1bf427b93069becfebc2c9d
-> change-id: 20260809-adxl367-fifo-clamp-50f2110e03f8
+> change-id: 20260806-fxls8962af-fifo-c3812fd02eeb
 > 
 > Best regards,
 
