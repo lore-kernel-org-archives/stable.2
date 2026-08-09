@@ -1,113 +1,152 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCA23CA487
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 10:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786271710; cv=pass; b=gLwzdWElWZ7nthH65L5zMVrPl+m5H7Er3BNoK0GYjuc8L/as4Y7yDASPawGkPDDJhpA/F8MaJwTlFgNfQotJGiIFxtvEQk6x6uFHqHN/KYy4cxhJrWg97+qk5LuLoNaydf4XeuYlAa/AZ8C1j2JBbsvcd9owuqbl408vvw7b+HI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786271710; c=relaxed/simple;
-	bh=NxCAv5xAP2w1ZSf1mlnQlnFF2SO0st2zhPVTddT7mWs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=smlaIiodvgNiz1aF6mt3XU/rRl+VJFTToVxSAk7zPjatK+kTujf7eczv+A9vsK4RZmYqwbBp+WjmwVNxDpFo0Ua4k1OOdq2SBwaQgNXSUL4CVtnVlBrehvBtOLBqkstVGaPCM4GEKvyoOjh4PgQ3JiPCIdaiHCIwaZdFsIhR8PE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in; spf=none smtp.mailfrom=rajagiritech.edu.in; dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b=rbmK/o7a; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=rajagiritech.edu.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F273CC310;
+	Sun,  9 Aug 2026 10:56:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786272963; cv=none; b=WFpiUmlUduaZUlRIQvuVCAGNIETygUduKcJT9CvrD7ZPwKRxCJnCCtnHzqdhYfhPDqRBY+OGV8mklpbMWCraFtjvftLcoNpX+62zXjPl/MpQ1/87mp9vRSeYB6RKazDQRgI9RoBsmB2o9eG7tv+Tw9KwxLbHXhhmXAW393htKn0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786272963; c=relaxed/simple;
+	bh=KcooomG/N7c42eTuLgNXB5Qr0Tr88R+Byg8Pv/56GBA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A6eYVgoIrDakt7oAzYEvbjv5rEvT/mYHMirMWXf4R2KGYBjlZVvhPk88m1dpiHrjHnVwg8oHkdk8jyALwXZc/kPq3hxJS7+WwJfF8qAoEuF1eHvfF7ymzr2Pphv3Mf6K0tFQPCwXLOHmMf8WPVp7QQyjoCZKJ20FgFbcH6q1Q1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=H1H9iJU2; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b="rbmK/o7a"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15c42a45adso515532666b.0
-        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 03:35:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786271706; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lDROPzvOGvpLu/CLBhmBacnyf0rNs0uZQzTFh9KTyQOoW1UOgJnIW0k3N5ifZSypkk
-         DRNMbfD4DIS6ePVPSAvkZZ6zds+SbzginUB3P5f3hNyHRqgt+uZCR3Ghjar+xO9NR9WU
-         JQU8dn/RMtbL5VJZyQOGHGOTtXbMnr91JkgyShtVT3Odkoh99RDmxyCQaQMrCKIjD3mE
-         Kl6CBrc935BKdobMdrFPMY7cD0Xv/ozdrTXn1M6g3IXONtwUU/B9x9T8ibga+9jwZM0n
-         uMcghw/+JkFlrKcrhQZTpuKZwggN+Jd+jNb0SDmXMvr08EFq31mPW/JsMqL0Objl9CyS
-         Jf9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=KdX4rUCEuSYyW8WmNsNZv2tT/KklH6OSuhGI8oVyREc=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=ppHIQ3LQpO9RqTJ/lZolbnffsaQNH4qSdpXlDFObsMp/G2/qBNhEBK1Mz8bYQr0b2v
-         1BlnXGgtqT3EDlyQLxLGF6ZS+thTaFA/W1/ESEbapees8tLibhIo7T0XTj+QLkJYy9Ze
-         OOwWfuEZugIjP6kQb/4DSLItHIXsg5Jaax3wPwHLeFmEwDdGGnejW+yNzNxaQbjJoW4m
-         XBVnC0LbEFqoMmI4HfUoHH/KZWoQ17OQiDFE6V8CTWHU46uYFcXfU1WRUbXK7uhWcJCp
-         19u2qX34FZEtHxdr8VmeuQPJ8R/paY4wX9umvtrH5xGwPDjWSIHbouhJBQd2JI2w7aQh
-         EJ6w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rajagiritech-edu-in.20251104.gappssmtp.com; s=20251104; t=1786271706; x=1786876506; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KdX4rUCEuSYyW8WmNsNZv2tT/KklH6OSuhGI8oVyREc=;
-        b=rbmK/o7aMH3FpD0x6ep1A1LAR2sykdQONn1V3SFUlbNU5TPlr/pNSV+DJJbH8qkMSB
-         ca4VY5iRt+UlB4oNrYAxX09xdV6eZziaL4ds7WLcoC6SC/Dyox5EzEwTF1pfu28bFw6z
-         G6y080hc5WbnHpBXehFBrrnJkU8fjgqIZNIJH/DT7taENaq/hTOOidMiJD225mjfsLIP
-         7vep7jV9p4Ak2xPerHThybY1Oa/kvGyNiywfQTbJi0liKF+4UTjan6VZcQ7D17UskUk5
-         RUrDfc7GFbTMapq/9q02ltx7h8mceA3Tr5qrOaQthMysDyNzPgWmpcb6p4QhKzcOV0SQ
-         cxAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786271706; x=1786876506;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KdX4rUCEuSYyW8WmNsNZv2tT/KklH6OSuhGI8oVyREc=;
-        b=emdhRIgWjHRnINa51MmJRo3GrS3845xzOUNL4aYwoNWtez7QCZG14FkJZlv8wj4Ddl
-         ihK1eS95J4Wx8T/9etCRy12kV4Z0hIhaYl/lfx6pQ9+Ja2FVJMDiCndAe5pHP7myXRbj
-         OWzzUSYYNfWFOp9mCx1wIzGK76m2Q+FYeWFumUZoNKFM1WAHw6x6xxa1RQ61lvLEivBw
-         EnQdxCfKpulYq4ECaHvBXNc8DBM8pxqDFUh9qMZVQRSmoCWiSfTxEwf/8Eln3PfmdeIO
-         byCskG/1+xejqNN0J6KhuzOLqKsl3QX2jqBbXtPL6C30wpKQ57AXJwS7WnqniQz6QN66
-         3kGw==
-X-Gm-Message-State: AOJu0Ywcc5bcqfsD3JLwLzF9hZHt4Ila+zBYY2kzFsJ7X400+iHoLCxN
-	59wJB36i5/gOI88AEqyDQieLa1exR5e9rBxk2L6Ez7OYPJ81XCFY99DIk9DDrOgiqPA52pGSjxZ
-	bTyeK5R1c2Tjap97v+j/+VPwFilp0jTKQHqRsodPLDw==
-X-Gm-Gg: AR+sD10EX2Afs9HZ0N7ABGMFc30mXPUnhfEY0s5iihIt9xDaFvvJSE7Nqp8fBlLM3i9
-	vVS0gZlOhkLwcEgLRiED9IsyMUs18n6aTqWBLAD2lbPsFYycj9P+/ysg768LEzslIzvwJnvSDAF
-	mmCtWLQGqNrK/4s5YSvbjb9LgvoJ3KO0st3yRo7v8OLtDS9IYGiFZA7bUJMDefdTNcO/NQT0bSd
-	djr2AFfrWZp+HF0/i9VpJkorIqFTlyfwgKcpQddNt7y4GD/gNBasrOXEgZ290NfK6RgEWyd09VD
-	5ufJrLLZ/FDrDrsD8vkGzNW1riQFAwH2vz9r2QvaUQAZTI3PHQoVJwnMq8kMNAXrDBa+FqjwcdE
-	jFG8smgDWCFpWvVIVlo+021ri3HqrahjhFXuX3QnPChlaEtRQN/DHPb7/Il/O3EAX+CKKYbLGCh
-	GMqZMa8TUeDkA=
-X-Received: by 2002:a17:907:3cc7:b0:c20:2164:2dd8 with SMTP id
- a640c23a62f3a-c208d50fe96mr561663966b.14.1786271706535; Sun, 09 Aug 2026
- 03:35:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="H1H9iJU2"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6799201D2444502;
+	Sun, 9 Aug 2026 10:55:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=QIvO4B8LUmClQ2MRTWfabEAyNVq3RyN7PxlvvMOFH
+	UQ=; b=H1H9iJU24O1qTpfkoJ2GH3+LRxgjtsH+LC0ojFUIc5xzeIuN9UP1qQF5e
+	fG+P9nuAGehxc9pH/PWtVglo6nnAtt5cSJ7tWMf3ru/2e3xrc2wUFPmda81EJWq/
+	kayTiXyCIHGZbpRLJw7Rs0fxqMF0zwOi2sMngAYmqtZgWI282Z1B5GZBgaZXCE7K
+	fxTK3OMWUTqROaed00PI1McGCj1EmZOyGos343F/S9L4ynwKAzCr+AalHQbmS6/c
+	8KTwM4WA4Ab7qJrxLUvjEgPQD0gHzpm0L0eLE1YTXCCv6ySDfjtj1WD5RVcGD1u2
+	H33R0aVDpKyvX3u9pyeVuVscfq52g==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvkckqba-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 09 Aug 2026 10:55:41 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 679AfnNa026952;
+	Sun, 9 Aug 2026 10:55:40 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fxh0g0xr7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 09 Aug 2026 10:55:40 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 679AtaN935586336
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sun, 9 Aug 2026 10:55:36 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A8F372004B;
+	Sun,  9 Aug 2026 10:55:36 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6C01320040;
+	Sun,  9 Aug 2026 10:55:36 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Sun,  9 Aug 2026 10:55:36 +0000 (GMT)
+From: Aswin Karuvally <aswin@linux.ibm.com>
+To: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: netdev@vger.kernel.org, linux-s390@vger.kernel.org,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Alexandra Winter <wintera@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>,
+        jeff@garzik.org, stable@vger.kernel.org
+Subject: [PATCH net] s390/ctcm: Prevent XID null dereference
+Date: Sun,  9 Aug 2026 12:55:36 +0200
+Message-ID: <20260809105536.541453-1-aswin@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260807143428.008222056@linuxfoundation.org>
-In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
-From: Jeffrin Thalakkottoor <jeffrin@rajagiritech.edu.in>
-Date: Sun, 9 Aug 2026 16:04:27 +0530
-X-Gm-Features: AUfX_mxYytND5X3lPSRMIqhDfeuuBUak7S9E9u56sUUNOrk5fSq5lU4tciuwc28
-Message-ID: <CAG=yYw=wt2S1hCfJL_0Ka7bt0EqZD2wSW6E4uCWVAtes2bb0Mw@mail.gmail.com>
-Subject: Re: [PATCH 7.1 000/438] 7.1.8-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: NGijARh0JhpdpY3-rge1sH6WGfOF_BKC
+X-Authority-Analysis: v=2.4 cv=J86aKgnS c=1 sm=1 tr=0 ts=6a785cae cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=OtRM_J3iQteCy_yeMqoA:9
+X-Proofpoint-ORIG-GUID: mtY_biLqyrpEQxQsmnQ-GGY3hxHW1hPe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA5MDA5MyBTYWx0ZWRfX9n0th8hqHwmO
+ zPq5QiNIEgDqRQyAoxdqE/ckaj0CXI1MIe+8Q6Yhh6/aHzhnLx4xyi2UnK+nRuGfo9lro7zakI5
+ AqEDnIcMhK6XJFFHFLAc+jWx0YuRZo4HZlUpeGyawwa5buGndIeFCx4ARYaaJl1w3V/5F+0KZUB
+ 61JyKnYz+nMmjfpDMOY4Fj5Xh6Wq6TG7B4IHGCrqxBctXMOSFl4482II/Nq2gEMBbfqxPPudab6
+ f72SuhLQLR+FKsHadcSBRcl21VDkP40/ffn4jyztaAoVkOCOONJJrDrmarZfohDRAihouB4JIJ5
+ uSauYFlbQJWktP+3WiW1AGmeveAGgyisDO35WzZxlS2ZRGoUFBQOKFfCDIPHtLXzd6JYADeVdGA
+ LkxRzkMnC+zECGoweo461/M2FXAfsMkuUSA1IjdHAGgo87aKvqK0XkZCj4lx3IpJMqGLcjB8Uom
+ Lk1yEBCe9IzYQRPxkWg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA5MDA5MyBTYWx0ZWRfX3bN1F5WOEeXy
+ t98/rTBrsPiDZzSDlRsTCSI8h6GTi1XrzQMFez+yBeHNXRVNU61olLKWr/xAVRxDBEkrKpLGidg
+ sA2bM9IXYRuDPnHaxlvZWYmZ5gJ3QFw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-09_03,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 priorityscore=1501 suspectscore=0 malwarescore=0 adultscore=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608090093
 
- hello,
+The mpc_validate_xid() function sets grp->saved_xid2->xid2_flag2 to 0x40
+to signal XID validation error. If peer XID is NULL or r/w channel
+pairing mismatch happens, grp->saved_xid2 is never initialized. An
+attempt to set the flag in such case leads to NULL dereference.
 
- Compiled and booted  7.1.8-rc1 (using qemu-system-amd64)
+Fix this by guarding grp->saved_xid2->xid2_flag2 with a NULL check.
+Also update mpc_action_go_ready() to treat uninitialized grp->saved_xid2
+as validation error.
 
-No new typical dmesg regressions .
+Fixes: 293d984f0e36 ("ctcm: infrastructure for replaced ctc driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Alexandra Winter <wintera@linux.ibm.com>
+Signed-off-by: Aswin Karuvally <aswin@linux.ibm.com>
+---
+ drivers/s390/net/ctcm_mpc.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Tested-by: Jeffrin Jose T <jeffrin@rajagiritech.edu.in>
+diff --git a/drivers/s390/net/ctcm_mpc.c b/drivers/s390/net/ctcm_mpc.c
+index aeb102537e7f..a5b55fe6b110 100644
+--- a/drivers/s390/net/ctcm_mpc.c
++++ b/drivers/s390/net/ctcm_mpc.c
+@@ -826,7 +826,7 @@ static void mpc_action_go_ready(fsm_instance *fsm, int event, void *arg)
+ 
+ 	fsm_deltimer(&grp->timer);
+ 
+-	if (grp->saved_xid2->xid2_flag2 == 0x40) {
++	if (!grp->saved_xid2 || grp->saved_xid2->xid2_flag2 == 0x40) {
+ 		priv->xid->xid2_flag2 = 0x00;
+ 		if (grp->estconnfunc) {
+ 			grp->estconnfunc(grp->port_num, 1,
+@@ -1636,7 +1636,13 @@ static int mpc_validate_xid(struct mpcg_info *mpcginfo)
+ 			"The XID used in the MPC protocol is not valid, "
+ 			"rc = %d\n", rc);
+ 		priv->xid->xid2_flag2 = 0x40;
+-		grp->saved_xid2->xid2_flag2 = 0x40;
++
++		/* If xid is NULL (rc=1) or r/w channel pairing mismatch
++		 * (rc=2) happens, grp->saved_xid2 is never initialized
++		 * and becomes NULL
++		 */
++		if (grp->saved_xid2)
++			grp->saved_xid2->xid2_flag2 = 0x40;
+ 	}
+ 
+ 	return rc;
+-- 
+2.53.0
 
-
---
-software engineer
-rajagiri school of engineering and technology
