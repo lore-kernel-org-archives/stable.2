@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC6E30DD22
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 14:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B443D1A8F
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 15:03:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786286889; cv=none; b=bJES4EEhfM95/hZRGXzWLIdj+wZnEnpeksl2vSGd/EvOmkpiW/JR4e7CvmwXFZlxSmCSbbW8z/mYeh+am33HrTMHJbiCwXQ7axbk8RxufANfWfWPYaDixMw3ps1v8uBpl39NFNpXLN0uTnBkzJoOzOMWVt0AoLceYnw2FSvnv/Y=
+	t=1786287840; cv=none; b=m473+fZqyd7/F+fw8WrHpxHWH+lRI4HV7j+zDM3MA8zDQ8IX5C01xS/Z+o8krK66B5cet/Iy7VdCB/9VDbb1qKergZu72UEJUmhJTcCsGfPNno0/JWtspMHOGv5PDF3yMsqKM8yHJ10n9kEraD4NGOQs3XvRa3mME3Ods8+15VI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786286889; c=relaxed/simple;
-	bh=O4Gq3qUcYmQO19Z8++ndT+e3pQ2kDsjBtJ9sYM1uGQ4=;
+	s=arc-20240116; t=1786287840; c=relaxed/simple;
+	bh=Dy2iXH6Zk+vgX4QnOnm8aP/uMiBxLeTmuJ775yU/hiI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R8lQlQvHlmX7we+Vu5kKN8+lkWj/4SpSHmsMxBccTqJOpw7RdJPGOFQwDjiipPPfRQ90/P+gKNpK1vIURNxSAzl1R/35c9geVRCE9u7rvzUd+FQg5RbH7m/si0pOthZ9gQrKbDodw7T0WG/CLJTJYjufv9F67GgJ9iSBM7a8u6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQeF2E+l; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=areWM6hAKWnfYKtuVz4ON/7gArSh4zhfCxtDy/CvzlH0DQw+4lJqNgNUQw8NTtijFRIN8BSLDashhX2KSDibseBRdfaTh+OjFfKsmfA8P7TskOmWysdFiKdO45CXhly9BkeGeHLtfCHAQv8arUVb2poB5oH/KY7oGSl85MOEfPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RF3XTVPW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQeF2E+l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 599161F00A3D;
-	Sun,  9 Aug 2026 14:48:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RF3XTVPW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14D291F00A3A;
+	Sun,  9 Aug 2026 15:03:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786286885;
-	bh=UoPA7kBtZDug/QwlDhfMO2M22Nwl/4XhJlWk94dOKR4=;
+	s=k20260515; t=1786287838;
+	bh=jGcZ5D34SX9uk0cvVfc5iy1AtWh9jTLl/4bNccPvcSk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IQeF2E+lXxj166VgPc282Fqm/8mV7Qj4UFH0dwQ+l37s5bkZranppLI0DoAzjIvO5
-	 BJimBc31DNWcE55UeuBY3sxg5moc/O3282Sx2ISVvjW8EsMmQtUgsmBi7w+/MEQEGi
-	 +7nygaeJE3n/IjZ2K+6Rqi+XmNfzSYF4DnIPvDvNJ9OW0jPkJHMfHkQKNR+HAskDGL
-	 StZgImtQayhY7baa838tz9qYG68nOp/sNaxQQ2IHrqE/Tp/wjwJp20Mlm09NmcRmkw
-	 MnqIbnPILCVFGijBD7YIQ+RmOPXzPMHQQppZN0P7IXP7zDpIg2ITaKBvQ0qibVfDmi
-	 6YglXoQmYNyVw==
+	b=RF3XTVPW3irEZRkZBiBVCGcFUWyJ4QirW1jWmC/8QZsGq/F5VV56IpVeLbZRKIkz5
+	 X5oOO8F0TxLja7cbTPGnybB0g79Wz3JdftYfYex2NR+8TzOalDYUh3PraTgpFuhkz3
+	 ncF3fR6pTfXusJnXEYw1RrWjrzM8o4Tl8gH6vgytoZy0AjTlIITirBapZYps9oOkRb
+	 LU3qNrS4RzLWfeaCx8RoIRAzmGStL9Y7sJ2Hhl9e2oSbMxFcjIhxsMyt/SZu70hAfX
+	 h2Se+mPoW1MZidBPlugZ9RO0WWqQtWzqkr57e/8q4QmZryoF2HAS7BHPpK9UvSY71v
+	 mb7aNhGu/f6XQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Filipe Manana <fdmanana@suse.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: David Sterba <dsterba@suse.com>,
+	Josef Bacik <josef@toxicpanda.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/4] btrfs: remove fs_info argument from btrfs_zoned_activate_one_bg()
-Date: Sun,  9 Aug 2026 10:48:00 -0400
-Message-ID: <20260809144801.1787109-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] btrfs: add debug build only WARN
+Date: Sun,  9 Aug 2026 11:03:53 -0400
+Message-ID: <20260809150356.1872210-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260809144801.1787109-1-sashal@kernel.org>
-References: <2026080520-punk-economist-e412@gregkh>
- <20260809144801.1787109-1-sashal@kernel.org>
+In-Reply-To: <2026080520-wikipedia-kindness-ddd8@gregkh>
+References: <2026080520-wikipedia-kindness-ddd8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,88 +45,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Filipe Manana <fdmanana@suse.com>
+From: David Sterba <dsterba@suse.com>
 
-[ Upstream commit a232ff90d14657c8637c6e94b606bb5d700a2ecb ]
+[ Upstream commit 3db15c6ca6feb2c5000a1cbb39c33866e0349abd ]
 
-We don't need it since we can grab fs_info from the given space_info.
-So remove the fs_info argument.
+Add conditional WARN() wrapper that's enabled only in debug build. It
+should be used for unexpected conditions that should be noisy.  Use it
+instead of ASSERT(0). As it will not lead to BUG() make sure that
+continuing is still possible, e.g. the error is handled anyway.
 
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Signed-off-by: Filipe Manana <fdmanana@suse.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
+Reviewed-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
 Stable-dep-of: 8bc4d7209611 ("btrfs: zoned: fix missing chunk metadata reservation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/block-group.c | 4 ++--
- fs/btrfs/zoned.c       | 5 ++---
- fs/btrfs/zoned.h       | 6 ++----
- 3 files changed, 6 insertions(+), 9 deletions(-)
+ fs/btrfs/messages.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/btrfs/block-group.c b/fs/btrfs/block-group.c
-index a40814eb121b3..2e7351bbd23cc 100644
---- a/fs/btrfs/block-group.c
-+++ b/fs/btrfs/block-group.c
-@@ -3092,7 +3092,7 @@ int btrfs_inc_block_group_ro(struct btrfs_block_group *cache,
- 	 * We have allocated a new chunk. We also need to activate that chunk to
- 	 * grant metadata tickets for zoned filesystem.
- 	 */
--	ret = btrfs_zoned_activate_one_bg(fs_info, space_info, true);
-+	ret = btrfs_zoned_activate_one_bg(space_info, true);
- 	if (ret < 0)
- 		goto out;
+diff --git a/fs/btrfs/messages.h b/fs/btrfs/messages.h
+index 1ae6f8e23e071..dd3647f5530ac 100644
+--- a/fs/btrfs/messages.h
++++ b/fs/btrfs/messages.h
+@@ -181,6 +181,13 @@ do {								\
+ #define ASSERT(expr)	(void)(expr)
+ #endif
  
-@@ -4350,7 +4350,7 @@ static void reserve_chunk_space(struct btrfs_trans_handle *trans,
- 			 * We have a new chunk. We also need to activate it for
- 			 * zoned filesystem.
- 			 */
--			ret = btrfs_zoned_activate_one_bg(fs_info, info, true);
-+			ret = btrfs_zoned_activate_one_bg(info, true);
- 			if (ret < 0)
- 				return;
- 
-diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-index d9c26f4be6634..16f88e76ca30a 100644
---- a/fs/btrfs/zoned.c
-+++ b/fs/btrfs/zoned.c
-@@ -2821,10 +2821,9 @@ int btrfs_zone_finish_one_bg(struct btrfs_fs_info *fs_info)
- 	return ret < 0 ? ret : 1;
- }
- 
--int btrfs_zoned_activate_one_bg(struct btrfs_fs_info *fs_info,
--				struct btrfs_space_info *space_info,
--				bool do_finish)
-+int btrfs_zoned_activate_one_bg(struct btrfs_space_info *space_info, bool do_finish)
- {
-+	struct btrfs_fs_info *fs_info = space_info->fs_info;
- 	struct btrfs_block_group *bg;
- 	int index;
- 
-diff --git a/fs/btrfs/zoned.h b/fs/btrfs/zoned.h
-index f7171ab6ed71e..224e1889dc823 100644
---- a/fs/btrfs/zoned.h
-+++ b/fs/btrfs/zoned.h
-@@ -93,8 +93,7 @@ bool btrfs_zoned_should_reclaim(const struct btrfs_fs_info *fs_info);
- void btrfs_zoned_release_data_reloc_bg(struct btrfs_fs_info *fs_info, u64 logical,
- 				       u64 length);
- int btrfs_zone_finish_one_bg(struct btrfs_fs_info *fs_info);
--int btrfs_zoned_activate_one_bg(struct btrfs_fs_info *fs_info,
--				struct btrfs_space_info *space_info, bool do_finish);
-+int btrfs_zoned_activate_one_bg(struct btrfs_space_info *space_info, bool do_finish);
- void btrfs_check_active_zone_reservation(struct btrfs_fs_info *fs_info);
- #else /* CONFIG_BLK_DEV_ZONED */
- 
-@@ -258,8 +257,7 @@ static inline int btrfs_zone_finish_one_bg(struct btrfs_fs_info *fs_info)
- 	return 1;
- }
- 
--static inline int btrfs_zoned_activate_one_bg(struct btrfs_fs_info *fs_info,
--					      struct btrfs_space_info *space_info,
-+static inline int btrfs_zoned_activate_one_bg(struct btrfs_space_info *space_info,
- 					      bool do_finish)
- {
- 	/* Consider all the block groups are active */
++#ifdef CONFIG_BTRFS_DEBUG
++/* Verbose warning only under debug build. */
++#define DEBUG_WARN(args...)			WARN(1, KERN_ERR args)
++#else
++#define DEBUG_WARN(...)				do {} while(0)
++#endif
++
+ __printf(5, 6)
+ __cold
+ void __btrfs_handle_fs_error(struct btrfs_fs_info *fs_info, const char *function,
 -- 
 2.53.0
 
