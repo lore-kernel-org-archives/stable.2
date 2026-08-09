@@ -1,108 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6C91A6800
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:08:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAEC2E229F
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:19:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786248488; cv=none; b=hZbx7uHNuiaaJ8ulG2XwigG+qaPukrcyCHJLz6JhYPIU6cDNg84k/Z7HWLtr+tVddhkJNUkga42BvCFZR4Qh9RTfJll2efSQiKOCynXCwfE8dcCQeB7VNioU1ydMZJBeIqHhz0A9N3y02zspeUsKTkSOIf/qo9vUUnSVPzGf2uI=
+	t=1786249186; cv=none; b=buhnsP7Z9nwG1nurVv0EPkkyD/hYTN7s1fFp8n9oM/gU/yHju4dGrHDViZeXpThw5QO6N85Rqrb0aODK+llAmyEzU8HabLSfMyaCS3JOy4infp1UaKlk0d5wBReKvWJNFLBhJqUArmXAoEfXJgc0DW+YaOJIg3qmWhgC7dL0gFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786248488; c=relaxed/simple;
-	bh=DVH4IDH2JUFbfAJKtvWhR0yvk9oI7f1Wb+9Vj/W7N4Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Lwur3+Ee2LeAgMwbtmv/xxeoHFpu5O6O4p1HxAqSWoDgNW61Dzq8TPvROA8C8no/3q9mgD9rrW+pq3lmjUqeCpBSwjTMnF5cvZe39pU76VlWOEfuUQN341mWDzi9X/I7yyewtDpqeXThHOfczAFfDkiibEsnRUWOFW+XHh40mho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RRe3qLM6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786249186; c=relaxed/simple;
+	bh=FYrkRfguOKp+MKRajF2w3nwLlh4/Qrg8RdHhswbf0Nk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jRu7K6Bf85MnSTLrGbzUbA8PXqp+qODQWqkQ4tyUQ4507ehOmQq9d8KZ1ALF/Q7T+8Xo3+WJXmWP/1ITQc/9z/mCJBkEAXGzLdhciiAQySGCjUrWNcmkSzXmpz2kaLJrLLhWg7OQ94KdiOadr6mgT/DU8d/bsYRgZMj1Ztxyzxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5jNpV+4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RRe3qLM6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B424C1F00A3F
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:08:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5jNpV+4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D02CC1F000E9;
+	Sun,  9 Aug 2026 04:19:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786248486;
-	bh=NDH0BIVJ0y5dH9ibs+UCIn1aXnjt6eR+IBwhFsTvFwA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=RRe3qLM6pJM0LFqPF+FhY1yGyD7psQIxZDB37j0WF7NNse9hC3hFIwxBIrjyK4nKT
-	 /v81OERaQ1w4LjnSuWozm5KQTSIObaku1RjLq/BoI269frZCtZnoXPJyeSWObfWiSX
-	 5zeHyE5TEgDQ3OVxYt+4GQP35cHTNYY5AB10qPeuz5lzmUIDgupEQjBhfud8Dbb6mr
-	 h2nytOVuH7X5momwGiIYELjS5Hc3n/uDH7d6DAQHLRuaQgsTj9q1Sxjv05E7p8wIm9
-	 OMOFLJ1fgGurncNZxJZwehjZNdyTpavTmHPDLxonPqMXX1SG7KYpf15JihURavjsDy
-	 CAwknTdWdmrjw==
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a063d211ebso869472a12.3
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 21:08:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrD+wn8I9j2qAvPhhJLV9s8/1k69AeCTu4Gts/DH1q/irIMbhd5FvWxfN9iklSjd+fw4NYqhwY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqPOiZ0GGozJhihk4TRPnBqaXJSEOeMUB/s+ZzqhqUyK1hkiJ9
-	y7+4YZW2lUA0rIWdIkGBMq+/hS2+AUnVUdvWAikZNigt7UP8T/fmB1/QTXDMfHzSCuUwucZhKPS
-	mMwJ7jlHHabjyQoBGYjCY4oZTouNGiPw=
-X-Received: by 2002:a05:6402:1f8d:b0:6a0:927e:39e2 with SMTP id
- 4fb4d7f45d1cf-6a14f0c5762mr16676115a12.5.1786248485411; Sat, 08 Aug 2026
- 21:08:05 -0700 (PDT)
+	s=k20260515; t=1786249185;
+	bh=KlkzNf52h+qxswnAR6e12zy/TKs09uXi02+th9QMTs0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=B5jNpV+48KD0gF0Vg5amNBAezLUqsViTGpawsdIjPyuickrIkAoW9X7NZsLy7a/Sy
+	 GaRa8pD5pwOFMOtBDk3syV59dCXo8EZcf4D7zF2Z/JEepiZnHjIkyWtaBDBmhIpup3
+	 LswuwIFboWUbHHKf9t2s2Qmdl+BZm+nFETaIBX9BeVCvHZtAhLUqT2iJR5OlYF2fGk
+	 5TJ4lbd7SXoO2s2DyA+xFzBeva2aC6mEcSLU4FnWcdxwa2nuIpK8HsAA2DHWTaFOIV
+	 uhvWxaXQ/k9qRNfAw6JgotCb7ysG9iL0lx1rdBvbUm8XP/v7AqUJJ+e4yCZ+zmVui4
+	 Wf/uIApcWVjsw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] super: fix emergency thaw deadlock on frozen block devices
+Date: Sun,  9 Aug 2026 00:19:43 -0400
+Message-ID: <20260809041943.1092620-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072928-camcorder-hamlet-7841@gregkh>
+References: <2026072928-camcorder-hamlet-7841@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260804075719.1137338-1-maobibo@loongson.cn> <1793132c-dd25-4ee0-bc66-f3636522164a@linux.dev>
-In-Reply-To: <1793132c-dd25-4ee0-bc66-f3636522164a@linux.dev>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 9 Aug 2026 12:07:55 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7900J7RwUHnJFN7nXb+_SZzoA-xZ1aUGF_6OrjTr1D6w@mail.gmail.com>
-X-Gm-Features: AUfX_mx-xYcnVUraXPcSrpDm5aEi4WRq8y2uR6OZvN7rbDLMbbNmWrUUKydL1iw
-Message-ID: <CAAhV-H7900J7RwUHnJFN7nXb+_SZzoA-xZ1aUGF_6OrjTr1D6w@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: Fix acpi_package_ids array overflow
-To: Tao Cui <cui.tao@linux.dev>
-Cc: Bibo Mao <maobibo@loongson.cn>, WANG Xuerui <kernel@xen0n.name>, 
-	Rong Bao <rong.bao@csmantle.top>, loongarch@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 4, 2026 at 4:57=E2=80=AFPM Tao Cui <cui.tao@linux.dev> wrote:
->
->
->
-> =E5=9C=A8 2026/8/4 15:57, Bibo Mao =E5=86=99=E9=81=93:
-> > With LoongArch virt machine, one typical setting is one core per socket=
-,
-> > there will max 256 sockets on one VM. With PPTT acpi table, array
-> > acpi_package_ids will be overflowed.
-> >
-> > Here change array size of acpi_package_ids with max value of
-> > MAX_PACKAGES and KVM_MAX_VCPUS.
-> >
-> > Fixes: 4e8f58620f67 ("LoongArch: Retrieve CPU package ID from PPTT when=
- available")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
-> > ---
-> >  arch/loongarch/kernel/acpi.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/arch/loongarch/kernel/acpi.c b/arch/loongarch/kernel/acpi.=
-c
-> > index 873e90990771..cb454ee92b20 100644
-> > --- a/arch/loongarch/kernel/acpi.c
-> > +++ b/arch/loongarch/kernel/acpi.c
-> > @@ -13,6 +13,7 @@
-> >  #include <linux/export.h>
-> >  #include <linux/irq.h>
-> >  #include <linux/irqdomain.h>
-> > +#include <linux/kvm_host.h>
-> >  #include <linux/memblock.h>
-> >  #include <linux/of_fdt.h>
-> >  #include <linux/serial_core.h>
-> > @@ -202,7 +203,7 @@ static void __init acpi_process_madt(void)
-> >
-> >  int pptt_enabled;
-> >  static int acpi_nr_packages;
-> > -static int acpi_package_ids[MAX_PACKAGES];
-> > +static int acpi_package_ids[MAX(MAX_PACKAGES, KVM_MAX_VCPUS)];
-> >
-> >  int __init parse_acpi_topology(void)
-> >  {
-> >
-> > base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-> Reviewed-by: Tao Cui <cuitao@kylinos.cn>
-Applied, thanks.
+From: Christian Brauner <brauner@kernel.org>
 
-Huacai
->
+[ Upstream commit 749d7aa0377aae32af8c0a4ad43371e7bf830ab5 ]
+
+do_thaw_all_callback() calls bdev_thaw() while holding sb->s_umount
+exclusively. If the block device was frozen via bdev_freeze() dropping
+the last block layer freeze reference calls fs_bdev_thaw() which
+reacquires s_umount:
+
+  do_thaw_all_callback(sb)
+    super_lock_excl(sb)                     # holds sb->s_umount
+    bdev_thaw(sb->s_bdev)
+      mutex_lock(&bdev->bd_fsfreeze_mutex)
+      # bd_fsfreeze_count drops 1 -> 0
+      bd_holder_ops->thaw == fs_bdev_thaw
+        get_bdev_super(bdev)
+          bdev_super_lock(bdev, true)
+            super_lock(sb, true)
+              down_write(&sb->s_umount)     # same task: deadlock
+
+The emergency thaw worker deadlocks against itself holding both
+s_umount and bd_fsfreeze_mutex. That fscks any subsequent unmount,
+freeze, or thaw of that filesystem and block device.
+
+  [   81.878470] sysrq: Show Blocked State
+  [   81.880140] task:kworker/0:1     state:D stack:0     pid:11    tgid:11    ppid:2      task_flags:0x4208060 flags:0x00080000
+  [   81.884876] Workqueue: events do_thaw_all
+  [   81.886656] Call Trace:
+  [   81.887759]  <TASK>
+  [   81.888763]  __schedule+0x579/0x1420
+  [   81.890372]  schedule+0x3a/0x100
+  [   81.891794]  schedule_preempt_disabled+0x15/0x30
+  [   81.893848]  rwsem_down_write_slowpath+0x1ea/0x900
+  [   81.895191]  ? __pfx_do_thaw_all_callback+0x10/0x10
+  [   81.896528]  down_write+0xbd/0xc0
+  [   81.897505]  super_lock+0x91/0x180
+  [   81.898457]  ? __mutex_lock+0xa99/0x1140
+  [   81.900748]  ? __mutex_unlock_slowpath+0x1f/0x400
+  [   81.902069]  bdev_super_lock+0x5b/0x150
+  [   81.903132]  get_bdev_super+0x10/0x60
+  [   81.904042]  fs_bdev_thaw+0x23/0xf0
+  [   81.904755]  bdev_thaw+0x82/0x100
+  [   81.905484]  do_thaw_all_callback+0x2c/0x50
+  [   81.906298]  __iterate_supers+0x5d/0x130
+  [   81.907067]  do_thaw_all+0x20/0x40
+  [   81.907739]  process_one_work+0x206/0x5e0
+  [   81.908545]  worker_thread+0x1e2/0x3c0
+  [   81.909339]  ? __pfx_worker_thread+0x10/0x10
+  [   81.910171]  kthread+0xf4/0x130
+  [   81.910799]  ? __pfx_kthread+0x10/0x10
+  [   81.911528]  ret_from_fork+0x2e2/0x3b0
+  [   81.912259]  ? __pfx_kthread+0x10/0x10
+  [   81.913010]  ret_from_fork_asm+0x1a/0x30
+  [   81.913806]  </TASK>
+
+bdev_super_lock() even documents the violated requirement with
+lockdep_assert_not_held(&sb->s_umount).
+
+Acquiring bd_fsfreeze_mutex under s_umount also inverts the
+bd_fsfreeze_mutex vs. s_umount ordering established by
+bdev_{freeze,thaw}() and can thus ABBA against a concurrent block-layer
+freeze even when the recursive path isn't hit.
+
+Fix this by not holding s_umount around the bdev_thaw() loop at all. Pin
+the superblock with an active reference instead as
+filesystems_freeze_callback() does. The active reference keeps the
+superblock from being shut down and so ->s_bdev stays valid without
+holding s_umount. The block-layer-held freeze is dropped by
+fs_bdev_thaw() with FREEZE_MAY_NEST | FREEZE_HOLDER_USERSPACE exactly as
+a regular unfreeze would and thaw_super_locked() handles
+filesystem-level freezes as before.
+
+The emergency thaw path has deadlocked like this in one form or
+another for a long long time but the current exclusively-held
+shape dates back to commit [1] where thaw_bdev() already ended in
+thaw_super() with s_umount held by do_thaw_all_callback().
+
+Fixes: 08fdc8a0138a ("buffer.c: call thaw_super during emergency thaw") [1]
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260723-work-super-emergency_thaw-v1-1-7c315c600245@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/super.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/fs/super.c b/fs/super.c
+index b116f72cd122a..87838f342d3dc 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -1045,13 +1045,24 @@ void emergency_remount(void)
+ 
+ static void do_thaw_all_callback(struct super_block *sb)
+ {
++	bool active = false;
++
+ 	down_write(&sb->s_umount);
+-	if (sb->s_root && sb->s_flags & SB_BORN) {
+-		emergency_thaw_bdev(sb);
++	if (sb->s_root && sb->s_flags & SB_BORN)
++		active = atomic_inc_not_zero(&sb->s_active);
++	up_write(&sb->s_umount);
++	if (!active)
++		return;
++
++	/* thaw_bdev() acquires s_umount so it must not be held here */
++	emergency_thaw_bdev(sb);
++
++	down_write(&sb->s_umount);
++	if (sb->s_root && sb->s_flags & SB_BORN)
+ 		thaw_super_locked(sb);
+-	} else {
++	else
+ 		up_write(&sb->s_umount);
+-	}
++	deactivate_super(sb);
+ }
+ 
+ static void do_thaw_all(struct work_struct *work)
+-- 
+2.53.0
+
