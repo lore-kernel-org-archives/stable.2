@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64F02D9484;
-	Sun,  9 Aug 2026 02:32:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187B037DAAD;
+	Sun,  9 Aug 2026 02:32:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786242737; cv=none; b=TyWajyd4qS7Uz7F0NOuY7e9ASTnAf95grv02oKySbr/GTgmVX/HwFyM+WiQR85ctKMgoAeVKTbXdkfhKiXwSDv5v5kG9escUhpbTA/EXh/5JnrIiN89lDlvHD0lUvJc+9rCmpapr5jiiFAofqlj+749bFcXvHFmekx4dNU6KLO8=
+	t=1786242738; cv=none; b=lEh0lM3Hu+DwOhpviLZSgGl8CdRRiYTSF5UFqdSOgx8MXjrvrud340UpGQ2KvKJIrM7k3+Lf0MAKikmCQIetdOLeerwj7W3FHnUCezz233GjJHBypJeHzV/lAbeQQqJv/X8QPXfwFsbniRSHPH3YyDWx+vF//oda6BiKcQgkYUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786242737; c=relaxed/simple;
-	bh=oiqWJDC2i3077dMUP6JnqZ64oRUCFp35NaNbNec2s6U=;
+	s=arc-20240116; t=1786242738; c=relaxed/simple;
+	bh=I4DN6ZYjV/wENBq9wuCDrz5eYZLp+C048DJDjL/cBwk=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=b8aYcXJtvjjnJQmKywKthe3TAbCmCQSxH61dOgZ26kYqbl3mBZ2n+Lgq4wS7WYHpbjQHuFphiA+A6emkGqtrf3msRxpnR070Sf9Nwmg8eGlhC9Ftg5sMVj3goWr2irUFamoZ0IK3DGv/OkVGPlTIU6mvAguc5Bf8z9EX68+1xN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YVbK13Ow; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=fiP+nF+bsRmiTIuwIHDdstrmHmDJcZ9w1GNJqvUWGGq13imxP80lT7/rspIlsNL8LAO4B+L6XFw5NXVDCnA4b7Lc56oELFUt+AUDHcYL4HIbPNcKwVhVTXIwwmW2QXDof/KQx/5KGKJMGJinSBt93+wDvYcY/uUrgKregaHQnkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HIuSuHgU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YVbK13Ow"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5871F00ADB;
-	Sun,  9 Aug 2026 02:32:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HIuSuHgU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C3F31F01558;
+	Sun,  9 Aug 2026 02:32:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786242735;
-	bh=PGNsOxfqDTW8bFGdBdNdVIBp6Eh0qzmzMbRY+9D8jJc=;
+	s=k20260515; t=1786242736;
+	bh=Q817XsXLmkmpVcUhbLOK+pXdDdo488E7ve87OMODTEU=;
 	h=Date:From:To:Cc:Subject:References;
-	b=YVbK13OwH0iis+bCQhTOas5moKgfbeKqTezJe3A3WWK+H2jrOLwXpEloj3U6Eq6vr
-	 FS+f0RROLAn+YanT1P4kMZWqn9+AjjhoyPZHmE55syMy8DVc+1ZfgeLGQaHc/Ku2TP
-	 csIbIZtydQRREF7pZBGk85g+zfwWI1TpifHN6pyCWu38HbJNu+rdXelnS2y0JMkvGe
-	 zXSJeySqDwhmSTOMNVcJJcFqCxVjbPs8JDZ5p2a1sv7XFDW+juprI3J0dRtDBOq1FE
-	 TndFR6KuTRSawT5lOxcUgWwQNzVQ6+h5ZpJ2G8ZKG3FefRfW8aheLLbiX8ncaN6wuv
-	 SADX57NkWDs3g==
+	b=HIuSuHgUqFZFe21QtpTtP/SSDb8nrIng1FbgAZYCsNe9G9Q7Bn6v3kv/EatGpqJwu
+	 PAxFUqS548JpxzVKlvrpqcLWsEXT2H0KHadYx+tr2pLy2t2ZsbjawkqJg652fOv2Q1
+	 iKNJJtquQQK5ZEH4YrXMD9EzLMwhb6wRP+7LxMocMNHO0QNBAMCVuNXuH4LcwcsZsS
+	 I23yanFHniFtTI6o5tSamb7H3EYdhNvhYdXevgdpXFvd3Logcz3CPKholyOvT/gW9F
+	 rXDM5eRbLD9osuAgaTNSgIGkct1zIrebcq3YO37EFVoaGD0Dgdzk9KYqVBDY7ItNGo
+	 1wHgte5Nk7lZA==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wstKn-00000001N4D-4BNk;
-	Sat, 08 Aug 2026 22:32:21 -0400
-Message-ID: <20260809023221.854869492@kernel.org>
+	id 1wstKo-00000001N6g-3H4Z;
+	Sat, 08 Aug 2026 22:32:22 -0400
+Message-ID: <20260809023222.657322893@kernel.org>
 User-Agent: quilt/0.69
-Date: Sat, 08 Aug 2026 22:31:48 -0400
+Date: Sat, 08 Aug 2026 22:31:53 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,9 +40,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Jiri Olsa <jolsa@kernel.org>,
- Leon Hwang <leon.hwang@linux.dev>
-Subject: [for-linus][PATCH 04/12] ftrace: Protect direct_functions in update_ftrace_direct_del
+ Vincent Donnefort <vdonnefort@google.com>
+Subject: [for-linus][PATCH 09/12] ring-buffer: Prevent resizing of persistent ring buffer
 References: <20260809023144.852271250@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -52,74 +51,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Leon Hwang <leon.hwang@linux.dev>
+From: Vincent Donnefort <vdonnefort@google.com>
 
-Fix accessing the __rcu pointer direct_functions with RCU protection.
+Dynamically resizing a persistent ring buffer is not possible. Disable
+the feature.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260730150411.88667-3-leon.hwang@linux.dev
-Fixes: 8d2c1233f371 ("ftrace: Add update_ftrace_direct_del function")
-Acked-by: Jiri Olsa <jolsa@kernel.org>
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+Fixes: be68d63a139b ("ring-buffer: Add ring_buffer_alloc_range()")
+Link: https://patch.msgid.link/20260806211306.3704194-2-vdonnefort@google.com
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/ftrace.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ kernel/trace/ring_buffer.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index c5d1d0d42ccc..9ea39110927f 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -6512,6 +6512,7 @@ int update_ftrace_direct_del(struct ftrace_ops *ops, struct ftrace_hash *hash)
- 	struct ftrace_hash *new_direct_functions;
- 	struct ftrace_hash *new_filter_hash = NULL;
- 	struct ftrace_hash *old_filter_hash;
-+	struct ftrace_hash *direct_hash;
- 	struct ftrace_func_entry *entry;
- 	struct ftrace_func_entry *del;
- 	unsigned long size;
-@@ -6523,11 +6524,13 @@ int update_ftrace_direct_del(struct ftrace_ops *ops, struct ftrace_hash *hash)
- 		return -EINVAL;
- 	if (!(ops->flags & FTRACE_OPS_FL_ENABLED))
- 		return -EINVAL;
--	if (direct_functions == EMPTY_HASH)
--		return -EINVAL;
- 
- 	mutex_lock(&direct_mutex);
- 
-+	direct_hash = rcu_dereference_protected(direct_functions, lockdep_is_held(&direct_mutex));
-+	if (direct_hash == EMPTY_HASH)
-+		goto out_unlock;
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 58dc8995a88d..09d502ef4c55 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -2528,6 +2528,8 @@ rb_allocate_cpu_buffer(struct trace_buffer *buffer, long nr_pages, int cpu)
+ 		if (cpu_buffer->ring_meta->head_buffer)
+ 			rb_meta_buffer_update(cpu_buffer, bpage);
+ 		bpage->range = 1;
 +
- 	old_filter_hash = ops->func_hash ? ops->func_hash->filter_hash : NULL;
- 
- 	if (!hash_count(old_filter_hash))
-@@ -6537,7 +6540,7 @@ int update_ftrace_direct_del(struct ftrace_ops *ops, struct ftrace_hash *hash)
- 	size = 1 << hash->size_bits;
- 	for (int i = 0; i < size; i++) {
- 		hlist_for_each_entry(entry, &hash->buckets[i], hlist) {
--			del = __ftrace_lookup_ip(direct_functions, entry->ip);
-+			del = __ftrace_lookup_ip(direct_hash, entry->ip);
- 			if (!del || del->direct != entry->direct)
- 				goto out_unlock;
- 		}
-@@ -6548,7 +6551,7 @@ int update_ftrace_direct_del(struct ftrace_ops *ops, struct ftrace_hash *hash)
- 	if (!new_filter_hash)
- 		goto out_unlock;
- 
--	new_direct_functions = hash_sub(direct_functions, hash);
-+	new_direct_functions = hash_sub(direct_hash, hash);
- 	if (!new_direct_functions)
- 		goto out_unlock;
- 
-@@ -6575,7 +6578,7 @@ int update_ftrace_direct_del(struct ftrace_ops *ops, struct ftrace_hash *hash)
- 		/* free the new_direct_functions */
- 		old_direct_functions = new_direct_functions;
- 	} else {
--		old_direct_functions = direct_functions;
-+		old_direct_functions = direct_hash;
- 		rcu_assign_pointer(direct_functions, new_direct_functions);
- 	}
++		atomic_inc(&cpu_buffer->resize_disabled);
+ 	} else if (buffer->remote) {
+ 		struct ring_buffer_desc *desc = ring_buffer_desc(buffer->remote->desc, cpu);
  
 -- 
 2.53.0
