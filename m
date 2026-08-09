@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890261AA1D5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FCA2941A
 	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 00:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786236497; cv=none; b=KDvbCeAyF71u2eHY3ouGyEHB1WHy+Jrk6PkYR51fTvCwt1OWsnODlnM4WjWNTmn6mqdk1suxkqULOTSGOj/OGRLwFlIubO26hF7UpZeJ1Je+3IZtRJ2koJkw4J6rqnxy2v2vRrBHlpNyakLFZ+dsidcUUeUvZYljMYSLt9CFTA4=
+	t=1786236498; cv=none; b=o66jR9ymIcfLiuHJzkq544AtC+XpIAdJTpXIEWofpITpa49veWyfbdsHnOFPGS4BnofKrKRIK2UCMoz3IQUi9+oN3oq+4kag7W6cxBSugm2CC5RubRNROfb9oywysZ+2uYIQ/+4ORH1UgB4PAuP13jsLqvd2aXZGXltEqrdmTHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786236497; c=relaxed/simple;
-	bh=m12YWAFrNnU9vrkTfs4RTtQicFYZMkVKBssjqdNYd78=;
+	s=arc-20240116; t=1786236498; c=relaxed/simple;
+	bh=+QK7SaDuS34t9b/NIe2WtkgOKDQaG6Os3eHomgG9yMc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uY9vVa1DpMLgByROsvhjvAQG/3jg1V4lZe7ms1oWcPQEgCGEEIov2BZjsvN8Ze85gfyITYILNQpHm0Mv8/EHFB42BjBUFl4Nc9e+LHBPvsfqAxgwHGMY8UUPkaNzeSzH0IVBnxLJsHyV7oplIha7LD3jUKGqD24guZglp8q/1yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hAtPWX9d; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=s3wdSLLvGoPOzBbgymF7eGpuEkqRgPzAJHMXDv+xj8+f2ok6dbasvkBJYRvcCZ4RSHugRPZ+SvzEiIMJvv7WJG9PtA6Z8pQpYMt4VJRNjC6rStiZR43sKpetV7Q73Enf187I6KZQUYcKqU7CE3qxMX6Pp8KDJQm0/9lz9CDuxpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IR2x9Yj/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hAtPWX9d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AACED1F00A3F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IR2x9Yj/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1411F00AC4;
 	Sun,  9 Aug 2026 00:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786236496;
-	bh=Z4uUYMTZL89G4jlO1igFFLdaOoOU1/pMLHscnKkidQA=;
+	bh=/T+3x3rfwk1G9acOpu85h3Gh2L8LoVF8m91J7GU4LwA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hAtPWX9d3IXC02mZdyVw9lfQq5buQn509SX53IUXykVcLoSA/VQq2duXTfADRsol1
-	 12PCQ5U5b6mBzAITiAYkRmQiY8YFiP6+fpsYvvONvaY5vvJk/MLWqEWwWd9QLohc9V
-	 710iAlMmsZUFdIaNm5/z3gSCPoxmm24FKUpWTsFTeONev9nCv/b3QVhgUCmjBI82ai
-	 9MiIdQUkfdxBpoE7sQsqaDgFTZNrp/s3xBhzz1V/OR9KISAWq2ueVjs50PkSF2IIoc
-	 A/WVr5RThMC2f8l8Q2Azoyxd5zUJj6mlmSnKTMrvyMEsKvYeqpvqNGxxdozMUu7Yfv
-	 F2d3J20JvxYOg==
+	b=IR2x9Yj/lfFZQ8IwiiQh9C5Wy8RAgp5mgtMA3jc2tsX3yK0NB0y0ix0InrFTH5Zbv
+	 y1AP7E++HbLljhjeoQmtrct3qY3OVmKGrifyNwZTHuKDkPyucSBWCDnCt9Bpf7/CZp
+	 yXHMKwSGlqJxopdPDQg8XC04SczSkogv67lkCnIOcTsL8KQfZK1pImBjjzbYgEbNSv
+	 TpzxWWMMhjUckG91SPvRjGRFDlb//OEgVVTvtXme8mXAvRkxjzuG0/2axTMc6BXErb
+	 HNLR4cG2p7ln9tXfsWVgSr0N3RQ+ma5DwQ3/NpUJiq4EMSOI174N4lH0bCenDCUNmQ
+	 1r5A4XRG8Cqhg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guidong Han <2045gemini@gmail.com>,
-	Qi Tang <tpluszz77@gmail.com>,
-	Junxi Qian <qjx1298677004@gmail.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] eventpoll: pin files while checking reverse paths
-Date: Sat,  8 Aug 2026 20:48:13 -0400
-Message-ID: <20260809004813.874894-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/7] ksmbd: rename smb2_get_msg to smb_get_msg
+Date: Sat,  8 Aug 2026 20:48:08 -0400
+Message-ID: <20260809004811.874454-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072903-exact-prototype-2cfe@gregkh>
-References: <2026072903-exact-prototype-2cfe@gregkh>
+In-Reply-To: <20260809004811.874454-1-sashal@kernel.org>
+References: <2026072924-music-polyester-3132@gregkh>
+ <20260809004811.874454-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,176 +46,444 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guidong Han <2045gemini@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit 8b7e8245e2293078f657521236ac92c045552e5a ]
+[ Upstream commit 0b444cfd8b74ebce421ccd96eac9c495e536c92e ]
 
-Commit 319c15174757 ("epoll: take epitem list out of struct file")
-intentionally removed temporary file references from the reverse path
-check list. At the time, both epitems and their files were freed after
-an RCU grace period, so unlist_file() could obtain file->f_lock through
-an epitem while clear_tfile_check_list() held rcu_read_lock().
+With the removal of the RFC1002 length field from the SMB header,
+smb2_get_msg is now used to get the smb1 request from the request buffer.
+Since this function is no longer exclusive to smb2 and now supports smb1
+as well, This patch rename it to smb_get_msg to better reflect its usage.
 
-Commit 0ede61d8589c ("file: convert to SLAB_TYPESAFE_BY_RCU") made
-struct file SLAB_TYPESAFE_BY_RCU and removed its RCU-delayed freeing.
-RCU still protects the epitem, but no longer keeps the referenced file
-from being freed and reused. A concurrent close can therefore make
-unlist_file() lock or unlock f_lock in a recycled file object.
-
-This violates the documented SLAB_TYPESAFE_BY_RCU rule requiring a
-reference before acquiring an object's lock. The race was reproduced,
-causing a wild unlock of f_lock in a recycled file and breaking its
-mutual exclusion.
-
-Add ->file to epitems_head to remember the pinned file independently of
-->epitems. A concurrent EPOLL_CTL_DEL can empty ->epitems before the head
-is unlisted, leaving no epi->ffd.file from which to drop the reference.
-
-In list_file(), acquire the reference before adding the head to the
-check list. The caller either owns a reference or holds the ep->mtx for
-the epitem leading to the file. In the latter case, file_ref_get() can
-fail after the last reference is dropped, but eventpoll_release_file()
-must acquire the same mutex before the file can be freed. The dying leaf
-can be skipped because removing links cannot increase the reverse path
-count.
-
-In unlist_file(), epnested_mutex excludes another list_file() or
-unlist_file(), while head->next prevents a concurrent EPOLL_CTL_DEL from
-freeing the head. Save head->file locally, clear it with head->next
-under f_lock, and drop the reference after the RCU-protected operation.
-
-Christian Brauner <brauner@kernel.org> quotes:
-
-> SLAB_TYPESAFE_BY_RCU allows a slab slot to be reused while an RCU reader
-> still holds its old address. Once that address contains a new live
-> struct file, KASAN sees valid, unpoisoned memory and cannot distinguish
-> the stale object identity. CONFIG_DEBUG_SPINLOCK exposes the failure
-> instead.
->
-> The failing interleaving is:
->
-> CPU0: nested EPOLL_CTL_ADD             CPU1: close/open churn
-> ------------------------------------   ---------------------------------
-> p = hlist_first_rcu(&head->epitems)
-> epi = container_of(p, ...)
->                                        close(victim)
->                                          __fput()
->                                            eventpoll_release_file()
->                                            file_free(victim)
->                                        // the slot is free; f_lock remains
-> spin_lock(&epi->ffd.file->f_lock)
->                                        open() reuses the slot as new_file
->                                          spin_lock_init(&new_file->f_lock)
-> spin_unlock(&epi->ffd.file->f_lock)     // wild unlock of new_file's lock
->
-> CONFIG_DEBUG_SPINLOCK reports:
->
-> BUG: spinlock already unlocked on CPU#0, poc_unlist/150
->  lock: 0xffff8880067fb200, .magic: dead4ead, .owner: <none>/-1, .owner_cpu: -1
-> CPU: 0 UID: 1000 PID: 150 Comm: poc_unlist Not tainted 7.2.0-rc3-dirty #22 PREEMPTLAZY
-> Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> Call Trace:
->  <TASK>
->  dump_stack_lvl+0x64/0x80
->  do_raw_spin_unlock+0x75/0xb0
->  _raw_spin_unlock+0xe/0x30
->  clear_tfile_check_list+0x88/0xe0
->  do_epoll_ctl_file+0x519/0xcf0
->  ? __pfx_ep_ptable_queue_proc+0x10/0x10
->  do_epoll_ctl+0x8f/0x100
->  __x64_sys_epoll_ctl+0x6f/0xa0
->  do_syscall_64+0xdc/0x520
->  ? srso_alias_return_thunk+0x5/0xfbef5
->  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> RIP: 0033:0x42034e
-> Code: 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 e9 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007a657ff3c198 EFLAGS: 00000202 ORIG_RAX: 00000000000000e9
-> RAX: ffffffffffffffda RBX: 00007a657ff3ccdc RCX: 000000000042034e
-> RDX: 0000000000000003 RSI: 0000000000000001 RDI: 0000000000000004
-> RBP: 00007a657ff3c2f0 R08: 0000000000000000 R09: 00007a657ff3c6c0
-> R10: 00007a657ff3c1a4 R11: 0000000000000202 R12: 00007a657ff3c6c0
-> R13: ffffffffffffffb8 R14: 000000000000000d R15: 00007fffb7de0210
->  </TASK>
-> ------------[ cut here ]------------
->
-> unlist_file() does not appear as a separate frame because it was inlined
-> into clear_tfile_check_list(). This report was obtained with mdelay()
-> instrumentation immediately before spin_lock() and spin_unlock() in
-> unlist_file() to widen the two race windows.
->
-> More importantly, this is a wild unlock. The stale unlock can target
-> f_lock of a different live file and invalidate mutual exclusion for
-> state protected by that lock. Turning this into a reliable exploit
-> would require precise scheduling and same-slot reuse and is likely
-> difficult, but the primitive is potentially exploitable.
-
-Reported-by: Qi Tang <tpluszz77@gmail.com>
-Reported-by: Junxi Qian <qjx1298677004@gmail.com>
-Fixes: 0ede61d8589c ("file: convert to SLAB_TYPESAFE_BY_RCU")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guidong Han <2045gemini@gmail.com>
-Link: https://patch.msgid.link/20260718104406.27897-1-2045gemini@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: cfc0b8e5080a ("ksmbd: validate minimum PDU size for transform requests")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/eventpoll.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ fs/smb/server/auth.c       |  4 +--
+ fs/smb/server/connection.c |  2 +-
+ fs/smb/server/oplock.c     |  8 ++---
+ fs/smb/server/smb2pdu.c    | 70 +++++++++++++++++++-------------------
+ fs/smb/server/smb2pdu.h    |  9 -----
+ fs/smb/server/smb_common.c |  6 ++--
+ fs/smb/server/smb_common.h |  9 +++++
+ 7 files changed, 54 insertions(+), 54 deletions(-)
 
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 5a19edda2b777..665a1528ab579 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -404,11 +404,13 @@ static struct kmem_cache *pwq_cache __ro_after_init;
- 
- /*
-  * List of files with newly added links, where we may need to limit the number
-- * of emanating paths. Protected by the epnested_mutex.
-+ * of emanating paths. Protected by the epnested_mutex. The ->file field holds
-+ * a reference to the associated file while the head is on the list.
-  */
- struct epitems_head {
- 	struct hlist_head epitems;
- 	struct epitems_head *next;
-+	struct file *file;
- };
- static struct epitems_head *tfile_check_list = EP_UNACTIVE_PTR;
- 
-@@ -426,6 +428,16 @@ static void list_file(struct file *file)
- 
- 	head = container_of(file->f_ep, struct epitems_head, epitems);
- 	if (!head->next) {
-+		/*
-+		 * The caller owns a reference to @file or holds the ep->mtx for the
-+		 * epitem that led here. The latter blocks eventpoll_release_file()
-+		 * before the file allocation can be freed and reused. A dying leaf
-+		 * can be skipped since removing links cannot increase the reverse
-+		 * path count.
-+		 */
-+		if (!atomic_long_inc_not_zero(&file->f_count))
-+			return;
-+		head->file = file;
- 		head->next = tfile_check_list;
- 		tfile_check_list = head;
- 	}
-@@ -435,15 +447,18 @@ static void unlist_file(struct epitems_head *head)
+diff --git a/fs/smb/server/auth.c b/fs/smb/server/auth.c
+index fea62d1cc4732..bd2e7a8cfbb35 100644
+--- a/fs/smb/server/auth.c
++++ b/fs/smb/server/auth.c
+@@ -920,7 +920,7 @@ int ksmbd_gen_preauth_integrity_hash(struct ksmbd_conn *conn, char *buf,
+ 				     __u8 *pi_hash)
  {
- 	struct epitems_head *to_free = head;
- 	struct hlist_node *p = rcu_dereference(hlist_first_rcu(&head->epitems));
-+	struct file *file = head->file;
- 	if (p) {
- 		struct epitem *epi= container_of(p, struct epitem, fllink);
- 		spin_lock(&epi->ffd.file->f_lock);
- 		if (!hlist_empty(&head->epitems))
- 			to_free = NULL;
- 		head->next = NULL;
-+		head->file = NULL;
- 		spin_unlock(&epi->ffd.file->f_lock);
+ 	int rc;
+-	struct smb2_hdr *rcv_hdr = smb2_get_msg(buf);
++	struct smb2_hdr *rcv_hdr = smb_get_msg(buf);
+ 	char *all_bytes_msg = (char *)&rcv_hdr->ProtocolId;
+ 	int msg_size = get_rfc1002_len(buf);
+ 	struct ksmbd_crypto_ctx *ctx = NULL;
+@@ -1108,7 +1108,7 @@ int ksmbd_crypt_message(struct ksmbd_work *work, struct kvec *iov,
+ 			unsigned int nvec, int enc)
+ {
+ 	struct ksmbd_conn *conn = work->conn;
+-	struct smb2_transform_hdr *tr_hdr = smb2_get_msg(iov[0].iov_base);
++	struct smb2_transform_hdr *tr_hdr = smb_get_msg(iov[0].iov_base);
+ 	unsigned int assoc_data_len = sizeof(struct smb2_transform_hdr) - 20;
+ 	int rc;
+ 	DECLARE_CRYPTO_WAIT(wait);
+diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
+index 8af6e9621d322..eff5f3ee71d89 100644
+--- a/fs/smb/server/connection.c
++++ b/fs/smb/server/connection.c
+@@ -475,7 +475,7 @@ int ksmbd_conn_handler_loop(void *p)
+ 		if (!ksmbd_smb_request(conn))
+ 			break;
+ 
+-		if (((struct smb2_hdr *)smb2_get_msg(conn->request_buf))->ProtocolId ==
++		if (((struct smb2_hdr *)smb_get_msg(conn->request_buf))->ProtocolId ==
+ 		    SMB2_PROTO_NUMBER) {
+ 			if (pdu_size < SMB2_MIN_SUPPORTED_HEADER_SIZE)
+ 				break;
+diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
+index ff0dbf3f8cbf4..d83370f53d6f0 100644
+--- a/fs/smb/server/oplock.c
++++ b/fs/smb/server/oplock.c
+@@ -663,7 +663,7 @@ static void __smb2_oplock_break_noti(struct work_struct *wk)
+ 		goto out;
  	}
- 	free_ephead(to_free);
-+	fput(file);
+ 
+-	rsp_hdr = smb2_get_msg(work->response_buf);
++	rsp_hdr = smb_get_msg(work->response_buf);
+ 	memset(rsp_hdr, 0, sizeof(struct smb2_hdr) + 2);
+ 	rsp_hdr->ProtocolId = SMB2_PROTO_NUMBER;
+ 	rsp_hdr->StructureSize = SMB2_HEADER_STRUCTURE_SIZE;
+@@ -677,7 +677,7 @@ static void __smb2_oplock_break_noti(struct work_struct *wk)
+ 	rsp_hdr->SessionId = 0;
+ 	memset(rsp_hdr->Signature, 0, 16);
+ 
+-	rsp = smb2_get_msg(work->response_buf);
++	rsp = smb_get_msg(work->response_buf);
+ 
+ 	rsp->StructureSize = cpu_to_le16(24);
+ 	if (!br_info->open_trunc &&
+@@ -776,7 +776,7 @@ static void __smb2_lease_break_noti(struct work_struct *wk)
+ 		goto out;
+ 	}
+ 
+-	rsp_hdr = smb2_get_msg(work->response_buf);
++	rsp_hdr = smb_get_msg(work->response_buf);
+ 	memset(rsp_hdr, 0, sizeof(struct smb2_hdr) + 2);
+ 	rsp_hdr->ProtocolId = SMB2_PROTO_NUMBER;
+ 	rsp_hdr->StructureSize = SMB2_HEADER_STRUCTURE_SIZE;
+@@ -790,7 +790,7 @@ static void __smb2_lease_break_noti(struct work_struct *wk)
+ 	rsp_hdr->SessionId = 0;
+ 	memset(rsp_hdr->Signature, 0, 16);
+ 
+-	rsp = smb2_get_msg(work->response_buf);
++	rsp = smb_get_msg(work->response_buf);
+ 	rsp->StructureSize = cpu_to_le16(44);
+ 	rsp->Epoch = br_info->epoch;
+ 	rsp->Flags = 0;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 4ecbe2bb2af01..747307ca2ba46 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -47,8 +47,8 @@ static void __wbuf(struct ksmbd_work *work, void **req, void **rsp)
+ 		*req = ksmbd_req_buf_next(work);
+ 		*rsp = ksmbd_resp_buf_next(work);
+ 	} else {
+-		*req = smb2_get_msg(work->request_buf);
+-		*rsp = smb2_get_msg(work->response_buf);
++		*req = smb_get_msg(work->request_buf);
++		*rsp = smb_get_msg(work->response_buf);
+ 	}
  }
  
- #ifdef CONFIG_SYSCTL
+@@ -154,7 +154,7 @@ void smb2_set_err_rsp(struct ksmbd_work *work)
+ 	if (work->next_smb2_rcv_hdr_off)
+ 		err_rsp = ksmbd_resp_buf_next(work);
+ 	else
+-		err_rsp = smb2_get_msg(work->response_buf);
++		err_rsp = smb_get_msg(work->response_buf);
+ 
+ 	if (err_rsp->hdr.Status != STATUS_STOPPED_ON_SYMLINK) {
+ 		int err;
+@@ -180,7 +180,7 @@ void smb2_set_err_rsp(struct ksmbd_work *work)
+  */
+ bool is_smb2_neg_cmd(struct ksmbd_work *work)
+ {
+-	struct smb2_hdr *hdr = smb2_get_msg(work->request_buf);
++	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
+ 
+ 	/* is it SMB2 header ? */
+ 	if (hdr->ProtocolId != SMB2_PROTO_NUMBER)
+@@ -204,7 +204,7 @@ bool is_smb2_neg_cmd(struct ksmbd_work *work)
+  */
+ bool is_smb2_rsp(struct ksmbd_work *work)
+ {
+-	struct smb2_hdr *hdr = smb2_get_msg(work->response_buf);
++	struct smb2_hdr *hdr = smb_get_msg(work->response_buf);
+ 
+ 	/* is it SMB2 header ? */
+ 	if (hdr->ProtocolId != SMB2_PROTO_NUMBER)
+@@ -230,7 +230,7 @@ u16 get_smb2_cmd_val(struct ksmbd_work *work)
+ 	if (work->next_smb2_rcv_hdr_off)
+ 		rcv_hdr = ksmbd_req_buf_next(work);
+ 	else
+-		rcv_hdr = smb2_get_msg(work->request_buf);
++		rcv_hdr = smb_get_msg(work->request_buf);
+ 	return le16_to_cpu(rcv_hdr->Command);
+ }
+ 
+@@ -243,7 +243,7 @@ void set_smb2_rsp_status(struct ksmbd_work *work, __le32 err)
+ {
+ 	struct smb2_hdr *rsp_hdr;
+ 
+-	rsp_hdr = smb2_get_msg(work->response_buf);
++	rsp_hdr = smb_get_msg(work->response_buf);
+ 	rsp_hdr->Status = err;
+ 
+ 	work->iov_idx = 0;
+@@ -266,7 +266,7 @@ int init_smb2_neg_rsp(struct ksmbd_work *work)
+ 	struct ksmbd_conn *conn = work->conn;
+ 	int err;
+ 
+-	rsp_hdr = smb2_get_msg(work->response_buf);
++	rsp_hdr = smb_get_msg(work->response_buf);
+ 	memset(rsp_hdr, 0, sizeof(struct smb2_hdr) + 2);
+ 	rsp_hdr->ProtocolId = SMB2_PROTO_NUMBER;
+ 	rsp_hdr->StructureSize = SMB2_HEADER_STRUCTURE_SIZE;
+@@ -280,7 +280,7 @@ int init_smb2_neg_rsp(struct ksmbd_work *work)
+ 	rsp_hdr->SessionId = 0;
+ 	memset(rsp_hdr->Signature, 0, 16);
+ 
+-	rsp = smb2_get_msg(work->response_buf);
++	rsp = smb_get_msg(work->response_buf);
+ 
+ 	WARN_ON(ksmbd_conn_good(conn));
+ 
+@@ -454,7 +454,7 @@ static void init_chained_smb2_rsp(struct ksmbd_work *work)
+  */
+ bool is_chained_smb2_message(struct ksmbd_work *work)
+ {
+-	struct smb2_hdr *hdr = smb2_get_msg(work->request_buf);
++	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
+ 	unsigned int len, next_cmd;
+ 
+ 	if (hdr->ProtocolId != SMB2_PROTO_NUMBER)
+@@ -505,8 +505,8 @@ bool is_chained_smb2_message(struct ksmbd_work *work)
+  */
+ int init_smb2_rsp_hdr(struct ksmbd_work *work)
+ {
+-	struct smb2_hdr *rsp_hdr = smb2_get_msg(work->response_buf);
+-	struct smb2_hdr *rcv_hdr = smb2_get_msg(work->request_buf);
++	struct smb2_hdr *rsp_hdr = smb_get_msg(work->response_buf);
++	struct smb2_hdr *rcv_hdr = smb_get_msg(work->request_buf);
+ 
+ 	memset(rsp_hdr, 0, sizeof(struct smb2_hdr) + 2);
+ 	rsp_hdr->ProtocolId = rcv_hdr->ProtocolId;
+@@ -535,7 +535,7 @@ int init_smb2_rsp_hdr(struct ksmbd_work *work)
+  */
+ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
+ {
+-	struct smb2_hdr *hdr = smb2_get_msg(work->request_buf);
++	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
+ 	size_t small_sz = MAX_CIFS_SMALL_BUFFER_SIZE;
+ 	size_t large_sz = small_sz + work->conn->vals->max_trans_size;
+ 	size_t sz = small_sz;
+@@ -551,7 +551,7 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
+ 		    offsetof(struct smb2_query_info_req, OutputBufferLength))
+ 			return -EINVAL;
+ 
+-		req = smb2_get_msg(work->request_buf);
++		req = smb_get_msg(work->request_buf);
+ 		if ((req->InfoType == SMB2_O_INFO_FILE &&
+ 		     (req->FileInfoClass == FILE_FULL_EA_INFORMATION ||
+ 		     req->FileInfoClass == FILE_ALL_INFORMATION)) ||
+@@ -725,10 +725,10 @@ void smb2_send_interim_resp(struct ksmbd_work *work, __le32 status)
+ 	}
+ 
+ 	in_work->conn = work->conn;
+-	memcpy(smb2_get_msg(in_work->response_buf), ksmbd_resp_buf_next(work),
++	memcpy(smb_get_msg(in_work->response_buf), ksmbd_resp_buf_next(work),
+ 	       __SMB2_HEADER_STRUCTURE_SIZE);
+ 
+-	rsp_hdr = smb2_get_msg(in_work->response_buf);
++	rsp_hdr = smb_get_msg(in_work->response_buf);
+ 	rsp_hdr->Flags |= SMB2_FLAGS_ASYNC_COMMAND;
+ 	rsp_hdr->Id.AsyncId = cpu_to_le64(work->async_id);
+ 	smb2_set_err_rsp(in_work);
+@@ -1106,8 +1106,8 @@ static __le32 deassemble_neg_contexts(struct ksmbd_conn *conn,
+ int smb2_handle_negotiate(struct ksmbd_work *work)
+ {
+ 	struct ksmbd_conn *conn = work->conn;
+-	struct smb2_negotiate_req *req = smb2_get_msg(work->request_buf);
+-	struct smb2_negotiate_rsp *rsp = smb2_get_msg(work->response_buf);
++	struct smb2_negotiate_req *req = smb_get_msg(work->request_buf);
++	struct smb2_negotiate_rsp *rsp = smb_get_msg(work->response_buf);
+ 	int rc = 0;
+ 	unsigned int smb2_buf_len, smb2_neg_size, neg_ctxt_len = 0;
+ 	__le32 status;
+@@ -6070,7 +6070,7 @@ int smb2_close(struct ksmbd_work *work)
+  */
+ int smb2_echo(struct ksmbd_work *work)
+ {
+-	struct smb2_echo_rsp *rsp = smb2_get_msg(work->response_buf);
++	struct smb2_echo_rsp *rsp = smb_get_msg(work->response_buf);
+ 
+ 	if (work->next_smb2_rcv_hdr_off)
+ 		rsp = ksmbd_resp_buf_next(work);
+@@ -6636,8 +6636,8 @@ int smb2_set_info(struct ksmbd_work *work)
+ 			pid = work->compound_pfid;
+ 		}
+ 	} else {
+-		req = smb2_get_msg(work->request_buf);
+-		rsp = smb2_get_msg(work->response_buf);
++		req = smb_get_msg(work->request_buf);
++		rsp = smb_get_msg(work->response_buf);
+ 	}
+ 
+ 	if (!test_tree_conn_flag(work->tcon, KSMBD_TREE_CONN_FLAG_WRITABLE)) {
+@@ -6863,8 +6863,8 @@ int smb2_read(struct ksmbd_work *work)
+ 			pid = work->compound_pfid;
+ 		}
+ 	} else {
+-		req = smb2_get_msg(work->request_buf);
+-		rsp = smb2_get_msg(work->response_buf);
++		req = smb_get_msg(work->request_buf);
++		rsp = smb_get_msg(work->response_buf);
+ 	}
+ 
+ 	if (!has_file_id(id)) {
+@@ -7282,7 +7282,7 @@ int smb2_flush(struct ksmbd_work *work)
+ int smb2_cancel(struct ksmbd_work *work)
+ {
+ 	struct ksmbd_conn *conn = work->conn;
+-	struct smb2_hdr *hdr = smb2_get_msg(work->request_buf);
++	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
+ 	struct smb2_hdr *chdr;
+ 	struct ksmbd_work *iter;
+ 	struct list_head *command_list;
+@@ -7299,7 +7299,7 @@ int smb2_cancel(struct ksmbd_work *work)
+ 		spin_lock(&conn->request_lock);
+ 		list_for_each_entry(iter, command_list,
+ 				    async_request_entry) {
+-			chdr = smb2_get_msg(iter->request_buf);
++			chdr = smb_get_msg(iter->request_buf);
+ 
+ 			if (iter->async_id !=
+ 			    le64_to_cpu(hdr->Id.AsyncId))
+@@ -7331,7 +7331,7 @@ int smb2_cancel(struct ksmbd_work *work)
+ 
+ 		spin_lock(&conn->request_lock);
+ 		list_for_each_entry(iter, command_list, request_entry) {
+-			chdr = smb2_get_msg(iter->request_buf);
++			chdr = smb_get_msg(iter->request_buf);
+ 
+ 			if (chdr->MessageId != hdr->MessageId ||
+ 			    iter == work)
+@@ -8275,8 +8275,8 @@ int smb2_ioctl(struct ksmbd_work *work)
+ 			id = work->compound_fid;
+ 		}
+ 	} else {
+-		req = smb2_get_msg(work->request_buf);
+-		rsp = smb2_get_msg(work->response_buf);
++		req = smb_get_msg(work->request_buf);
++		rsp = smb_get_msg(work->response_buf);
+ 	}
+ 
+ 	if (!has_file_id(id))
+@@ -8958,7 +8958,7 @@ int smb2_notify(struct ksmbd_work *work)
+  */
+ bool smb2_is_sign_req(struct ksmbd_work *work, unsigned int command)
+ {
+-	struct smb2_hdr *rcv_hdr2 = smb2_get_msg(work->request_buf);
++	struct smb2_hdr *rcv_hdr2 = smb_get_msg(work->request_buf);
+ 
+ 	if ((rcv_hdr2->Flags & SMB2_FLAGS_SIGNED) &&
+ 	    command != SMB2_NEGOTIATE_HE &&
+@@ -8983,7 +8983,7 @@ int smb2_check_sign_req(struct ksmbd_work *work)
+ 	struct kvec iov[1];
+ 	size_t len;
+ 
+-	hdr = smb2_get_msg(work->request_buf);
++	hdr = smb_get_msg(work->request_buf);
+ 	if (work->next_smb2_rcv_hdr_off)
+ 		hdr = ksmbd_req_buf_next(work);
+ 
+@@ -9058,7 +9058,7 @@ int smb3_check_sign_req(struct ksmbd_work *work)
+ 	struct kvec iov[1];
+ 	size_t len;
+ 
+-	hdr = smb2_get_msg(work->request_buf);
++	hdr = smb_get_msg(work->request_buf);
+ 	if (work->next_smb2_rcv_hdr_off)
+ 		hdr = ksmbd_req_buf_next(work);
+ 
+@@ -9194,7 +9194,7 @@ void smb3_preauth_hash_rsp(struct ksmbd_work *work)
+ static void fill_transform_hdr(void *tr_buf, char *old_buf, __le16 cipher_type)
+ {
+ 	struct smb2_transform_hdr *tr_hdr = tr_buf + 4;
+-	struct smb2_hdr *hdr = smb2_get_msg(old_buf);
++	struct smb2_hdr *hdr = smb_get_msg(old_buf);
+ 	unsigned int orig_len = get_rfc1002_len(old_buf);
+ 
+ 	/* tr_buf must be cleared by the caller */
+@@ -9233,7 +9233,7 @@ int smb3_encrypt_resp(struct ksmbd_work *work)
+ 
+ bool smb3_is_transform_hdr(void *buf)
+ {
+-	struct smb2_transform_hdr *trhdr = smb2_get_msg(buf);
++	struct smb2_transform_hdr *trhdr = smb_get_msg(buf);
+ 
+ 	return trhdr->ProtocolId == SMB2_TRANSFORM_PROTO_NUM;
+ }
+@@ -9245,7 +9245,7 @@ int smb3_decrypt_req(struct ksmbd_work *work)
+ 	unsigned int pdu_length = get_rfc1002_len(buf);
+ 	struct kvec iov[2];
+ 	int buf_data_size = pdu_length - sizeof(struct smb2_transform_hdr);
+-	struct smb2_transform_hdr *tr_hdr = smb2_get_msg(buf);
++	struct smb2_transform_hdr *tr_hdr = smb_get_msg(buf);
+ 	int rc = 0;
+ 
+ 	if (pdu_length < sizeof(struct smb2_transform_hdr) ||
+@@ -9286,7 +9286,7 @@ bool smb3_11_final_sess_setup_resp(struct ksmbd_work *work)
+ {
+ 	struct ksmbd_conn *conn = work->conn;
+ 	struct ksmbd_session *sess = work->sess;
+-	struct smb2_hdr *rsp = smb2_get_msg(work->response_buf);
++	struct smb2_hdr *rsp = smb_get_msg(work->response_buf);
+ 
+ 	if (conn->dialect < SMB30_PROT_ID)
+ 		return false;
+diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
+index 16ae8a10490be..f362892a97457 100644
+--- a/fs/smb/server/smb2pdu.h
++++ b/fs/smb/server/smb2pdu.h
+@@ -496,15 +496,6 @@ int smb2_ioctl(struct ksmbd_work *work);
+ int smb2_oplock_break(struct ksmbd_work *work);
+ int smb2_notify(struct ksmbd_work *ksmbd_work);
+ 
+-/*
+- * Get the body of the smb2 message excluding the 4 byte rfc1002 headers
+- * from request/response buffer.
+- */
+-static inline void *smb2_get_msg(void *buf)
+-{
+-	return buf + 4;
+-}
+-
+ #define POSIX_TYPE_FILE		0
+ #define POSIX_TYPE_DIR		1
+ #define POSIX_TYPE_SYMLINK	2
+diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
+index a29c0494dccb4..2d1b9a6219feb 100644
+--- a/fs/smb/server/smb_common.c
++++ b/fs/smb/server/smb_common.c
+@@ -163,7 +163,7 @@ bool ksmbd_smb_request(struct ksmbd_conn *conn)
+ 	if (conn->request_buf[0] != 0)
+ 		return false;
+ 
+-	proto = (__le32 *)smb2_get_msg(conn->request_buf);
++	proto = (__le32 *)smb_get_msg(conn->request_buf);
+ 	if (*proto == SMB2_COMPRESSION_TRANSFORM_ID) {
+ 		pr_err_ratelimited("smb2 compression not support yet");
+ 		return false;
+@@ -259,14 +259,14 @@ int ksmbd_lookup_dialect_by_id(__le16 *cli_dialects, __le16 dialects_count)
+ static int ksmbd_negotiate_smb_dialect(void *buf)
+ {
+ 	int smb_buf_length = get_rfc1002_len(buf);
+-	__le32 proto = ((struct smb2_hdr *)smb2_get_msg(buf))->ProtocolId;
++	__le32 proto = ((struct smb2_hdr *)smb_get_msg(buf))->ProtocolId;
+ 
+ 	if (proto == SMB2_PROTO_NUMBER) {
+ 		struct smb2_negotiate_req *req;
+ 		int smb2_neg_size =
+ 			offsetof(struct smb2_negotiate_req, Dialects);
+ 
+-		req = (struct smb2_negotiate_req *)smb2_get_msg(buf);
++		req = (struct smb2_negotiate_req *)smb_get_msg(buf);
+ 		if (smb2_neg_size > smb_buf_length)
+ 			goto err_out;
+ 
+diff --git a/fs/smb/server/smb_common.h b/fs/smb/server/smb_common.h
+index 42054a3846523..46bc4f8eea48f 100644
+--- a/fs/smb/server/smb_common.h
++++ b/fs/smb/server/smb_common.h
+@@ -421,4 +421,13 @@ unsigned int ksmbd_server_side_copy_max_chunk_size(void);
+ unsigned int ksmbd_server_side_copy_max_total_size(void);
+ bool is_asterisk(char *p);
+ __le32 smb_map_generic_desired_access(__le32 daccess);
++
++/*
++ * Get the body of the smb message excluding the 4 byte rfc1002 headers
++ * from request/response buffer.
++ */
++static inline void *smb_get_msg(void *buf)
++{
++	return buf + 4;
++}
+ #endif /* __SMB_SERVER_COMMON_H__ */
 -- 
 2.53.0
 
