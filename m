@@ -1,122 +1,203 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26160187346
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 03:01:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6692F8E88
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 03:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786244485; cv=pass; b=JZeF+4Dl9BykSg+yilB+r7RcgLOSocTVdDBaSXLCc7uWiJiRjMNOfk8500kYG5zZzJbS/2TiXSWTHdh+Jc07ctyZNJoFrqV0sdxxbIjGxemNqihN1tOuws8gN5Gh8j0ps9JSssm5fluH3Urv2aq86o2anX3IRl6b169jLR3W0Fk=
+	t=1786245697; cv=pass; b=BrRzhybYCYWt16lkQ9AHuPqhiP4V0D7gAT+i3/Mii253NhaSPBI7GclWqNMMTnoeeZp3o0heWsn+MwvJwMlLWCVJ34H++NICQ8ltAlu+tGt9TwtM/9NOGeN7At2noFArOksDjtnhyofePO2dO1cAZ0m23MpQc2ElazOa5KD9vrI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786244485; c=relaxed/simple;
-	bh=QssombK2y2bxkLpbfBWs6fhMLQY5cUQH/zTynZfaBI4=;
+	s=arc-20240116; t=1786245697; c=relaxed/simple;
+	bh=SXY4u+9DaHUNjX6GPRBNLuUHc3mmM56iddu3WgKxZ5M=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aOVktUa0yoTx8pLEi/H+CQxOEuVRsiM+2bJUEa0o0lj83EyMNEY3PA6G/9/StbLttQrjol8KgARI+MM+T5EGZ7VOquCqBIcAbdvykF4ES3Tpez+KI1zcaPn0j/qoHQu0rB1Rm54TeAFKpyRKf4vK+UkYwOLb3/vOyPdtlkTiC2I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XHe1k+A+; arc=pass smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=bUCGt6WJj9XoIJHAlnMAZoJZzDyDXKbf9/uGvRzl1yxBspZWB4YtPbBX1aWAKyeiLBGd64k1SOXNTwEChu2OhPgfktJ5CVkc8tGKrJ0/X4HP+1WSomc8ZhEUJXKyf075/1BBXtcpJhzu1UinmGwdNQDUM3tEMOK1Yv1bvyCVbd8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pjEALtOp; arc=pass smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XHe1k+A+"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c9d290216d0so52943a12.3
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 20:01:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786244483; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pjEALtOp"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e041ea211so853742a91.0
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 20:21:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786245695; cv=none;
         d=google.com; s=arc-20260327;
-        b=cnjwL77krQ1BZ//roQXFPzSaI80ttyHh/qBa1CSjye3oX8QWXJ1pqCCYde+6chkZnF
-         aWZWVrN2tM62dm8BqfWNRU94OdzLx3f7IMYI1Gols2tBi6rhz0f9+4huL56wBXobJrUE
-         n3G16nHKyK8DKE838znDzjbqgerYNFrowva3XfM0Ud6IwTuZlspI7iIQqW0RI74qX1bD
-         yFuAnU2pRoVr+pz9D8Iehy8Ik+wCxKEfABhXBBduLVO5UGsmuWIIv0phFSzhYFOeVPjn
-         gNKWTSTrj9kdD2DZmKDhe0ifmXkJjFA7JS/HT2N40hePHSIMCMsyQxAqIqtF4Nj+iEDM
-         OAcQ==
+        b=idXDuW35Dz6/kPOmm+LgRNtMTKmPjMoO/b+HE8M4iVW+Qkd+Pj3PVcaLfiehRPHCML
+         sXyrLhsusXKlsofGc8qfgT8CZd57aKFv5EcTc5id695FJQs1YQoc+rx2f71vX3uCHhHd
+         R/5JmnP4E9JM4QpcpXeNKu9S77UKboRsq7HM5TcdW1kuLHSyIH9EqmIKgoe4sYaJC3/q
+         coaWjy8CqnWe/asUbXy3jWdLIofLCg92ze9ReO+gS9BHZKc4zE7Fc6notoD0vesY9Xk/
+         UBLf4iUjg6W/PUvYASV3KGgIlkSaA8nIWQ34H7xopKxk7kAS3XFw9UqD7cUlSKv++Rsx
+         5rcw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=QssombK2y2bxkLpbfBWs6fhMLQY5cUQH/zTynZfaBI4=;
-        fh=mMBVRHComN+3pGukwfdtykRlV0fJ9Xxv57e8OtsOPrI=;
-        b=hs5SokhJMOdRSO7tb8z520ljjiUjmygzepLD/ezZjjYItT+TyIHhSjpYN7HvnAUCeA
-         xGaaQktM28UOgEfINFDI1aspjdmUGmpgOA/3Myame9hquXLTz+kwKUa2i24G73+fF8KE
-         ILj/ujp7daDdCI1/7oD0d6SfjZmSUWQGEVLd3uai/ftXx9NE3/yoWE+WdTfM8wSKBs56
-         F6DhDQ+Ki3y5aAoKrL/1jQbDcLbxaOGEPMrxEElDWk0wa91RSGwY7VOKk4ovy20r/6/S
-         f9vbh14E2otKQ8S9g+pRVciXbfrVsJZeJBjOLKLCadPp2SsYw07kLoWsqtIPih2Cxwyh
-         VlMQ==;
+        bh=zNAXqNIRs3CIyk/KOlrIpIzPwG17uGFnKvl7uh5nBcw=;
+        fh=Jx0YncbQEuhxfgOBLoapBypH6FtSGyFdAIkLkVcFdOY=;
+        b=TaOIJWFwXW9+v7Ncek1COB2W7hO+74pm3WpmCn4ZfCGVZb5iwch9hofnkR5NJScLVz
+         Smi0OarI0wns4aHBlE1NVsBZ8dnsbVB79K5OgBAuBvNFomdHtMi2rA23u/Ifr12sY3Ap
+         f8zsSxVluvrmZlvODM5txw09XD2cTX9WW18X9LKCiCPDMo9JccQ/9xNpzQdSNdmTz3pv
+         MG2soqbVU+DAxOGANfu+8M7t6CsA10cs06VliIxvy5ElChs1E+JeCwTOjZKG+VnnCUrs
+         Dd+FEwVrCNZmrZTZXoz0DzVuzJA2PGwHVGo2/yaTDuLjFj32nQ5NE3TMNOzbp4jSRET+
+         9/Pg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786244483; x=1786849283; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1786245695; x=1786850495; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QssombK2y2bxkLpbfBWs6fhMLQY5cUQH/zTynZfaBI4=;
-        b=XHe1k+A+ofr/m2xBkHUba1sSOt/SKTDPyye8l0XWCLJwKhfcMjUoaWhc22TZNZQW5F
-         qmroRaJQ5Sjdcp6TaB1xyRtJqhtUEvkD1u18mcseqsCPlL36fosipukEf1n/JoHnZqLN
-         xsIZqpGO1pNqAAN92ET6ybqD8rBAqGivBtEBRe5refWahrYWAZQik0ItgmpqQzMGV6Bc
-         jv8+L2BII6w1NMAjBYEVfs6ZamojnVPgzai76p3cSO415Bm++05fhFjivTITm76qjC/y
-         iyNieZdEE3mwwsvUNX/7O3jEg+5w+rFPCfYsULrbqLOuvsifYTborhMmG/nTU0eOdEhK
-         aZkA==
+        bh=zNAXqNIRs3CIyk/KOlrIpIzPwG17uGFnKvl7uh5nBcw=;
+        b=pjEALtOppMnLT4oy+28yB/k7fFSuzI6qnEF/KmoHFEn/6FK+Xrnyc3GKFVrwfmWfY7
+         rbPZCnkVgx7/ezGD5+QAt+BDDUdk+Qj833b2ikc2bX8ctB6dobMiBSbFRLNqraIAqiDo
+         fJWamcDs09eGryDqt4NBZNOf6DJ9lZ87979zryTv/WYloL5g25jwQT/UGHPlidcbw8OY
+         H7ai/9smbV+Y3Hm0bHGYMavpX4LKwIOEBZb3v6ZolMsv3YLqqO4nBXphFG+PfSyc3vaC
+         qYgWnjvGR1oghhAyZMhoE/0sXiAJjaH4OZczKfwxmvt3aJRAaKJ/8AsZmltcxzJndZmX
+         /paA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786244483; x=1786849283;
+        d=1e100.net; s=20251104; t=1786245695; x=1786850495;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QssombK2y2bxkLpbfBWs6fhMLQY5cUQH/zTynZfaBI4=;
-        b=DdZkVu1tFBNqFifaaOJLb3Wf6u623fm+faijwBVkBoWkmpx2xMJlzS8CRKba62578A
-         PHuwVVyNoXHlSiiAAwdIzGJff6t5MnrwnEv6/7ixv0W67m5k1NSD5wR0MI+ddrljKREB
-         WH7KPEJ6c8GywYrectMQ8zTL92oqLT/P7zM/K0BUFSSgBrvFXIZgdG2sNZnqWtMDHjGi
-         E+buY0LCfZigY00NGcMaaMfgd2XrGz/U2gv47/jBIC/Qo+Xfwm3l7jtdSEHOejFmxpLF
-         szyCJq5CxLHPE4VszzNOLm5JOXsHF2NDJm9Bmuz3GyuCqwzHXfanJN33Uz/AfNpTT1Ci
-         5tjQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrZy3VaSAaRFTuihc+QyZQoAR5q6wpeasza94aIE7qFB1splVXzxs11m60GNmKgs2a30Gi6Pb4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzldznttWxK1z0IlgWAejT6C4AcFt6eFff0xN9FiGnXqWtjV8Pf
-	SPpLkKb1Z5D0dqs5xyAccVi9raFTarPkxLEPJ5jyui/wKXivqHmrDDUp8QqdT+6SRnFd+qE/w6Q
-	JSZCJp2ob72MZ2ZC9CkmSuM2pyblHyxo=
-X-Gm-Gg: AR+sD12uGUdb8oAmU4P/U1/AiL5mLLJY9R4yjnrzCI1y+7uTBpNdfwP1pfzCumVOFRf
-	QRTb9eJOKouVTXeyV/5i3sdAKlTDZISNcl5W8bFvf1AH0wRJ12BpAUsQXiqKvBSGRx4Nco3yjLQ
-	YBL4qjoJLAKKxLoMWeUqabfYvmGbvaUGaLBoCH+8Jfnl2iGCVUwz4qcChbfiDho1ZkbqTsDSzFX
-	hDG5H+CCIGR4b5R4eb7i1p7Ap69iIEwz0Q/Pft9PoJ9/yQ1NgOr16VFuQmLSIPFQO6Vn2M/L/9K
-	sIuLbkdfdysZoyOGMdrbsy6gOeKI6ojpCn+cXkYL22jLiPbcTFDzUI6nVRmuz+XdupBOuhTXuPy
-	KgN4QTu+6HuHw6s82fYoq0xZW+kSyek36LGWKkPDa3CQAdfshDbK++l8UK2Qh
-X-Received: by 2002:a17:903:17cd:b0:2cf:ca85:57e2 with SMTP id
- d9443c01a7336-2d0ca7b0285mr257513645ad.1.1786244483476; Sat, 08 Aug 2026
- 20:01:23 -0700 (PDT)
+        bh=zNAXqNIRs3CIyk/KOlrIpIzPwG17uGFnKvl7uh5nBcw=;
+        b=ezSPLWlH0Z3o8ATsxAka0x+VFVAA0n7BttPQ7fRI5X9E9anhakCpUjJVnpxl58xB82
+         9YVe6kISAYwryEjTLh+X8SnqxoQ539vJzQNrKI3UR4k2Wtn1qyDZVpCKBl1qkcZzXTLc
+         hjwXlNMaL2HSBI2cGMuUCfJnAmdfErKJ1VYp+eDm8/c9PsP2Z0UniNprUHGhaSICHnQK
+         EvI4q/qNOsIBRzJeh2Hha+M6xUh6CA7F/Lr9fWSd3hPJDpm/gqSTAKpLEH7BVexZLCjt
+         G2RSlLi53JXPF2n1Xq1nG54U4Gsl0Fs6OB69Ua90p5RMTf/q/hhoiH31pdX9bPTW4cHP
+         af8g==
+X-Forwarded-Encrypted: i=1; AHgh+RqReXgjz/QZc5m1ysdDaCZNtGTg0DS6xRp5PQ7Waa6v5DN1w5Z4RBZwJuaIW2tEfjPxKekUl+o=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQOAoE14nl8+LnsvNqd+xxkmpDJHl8iHrD5mymP/hR4X3BsGY/
+	2KrJ02UKYN1IRSmj2dY0WL6VWcBvliCOqfjZ6MQC4jYIWfC28BPEljuRJKFsKewaHuPyyh0CaJM
+	xGK4tJUOz7sc2C1OkxAyJxKMMyxnF2s7qrVa8kiYO
+X-Gm-Gg: AR+sD10r4Ug36FTKArBbsbfmYyk6M3PyPp2m2SCISUwE0G37qQHlr+CElFeEwUz3aG6
+	S4HPg+l6A+r+aBN8YQ/u9H9PQ1LdsmMUDuBRMyJv3WB256DeR6aTJu1id/FvDEALIHHViiBRCLP
+	abngHFafh1VvBhhAr4o5kJwwLplzNjLZN/agEbnzqG8MSmAzdGgwtTkluDpal9IcaeFsPxeT/UE
+	lqRFn9yqKaY+gd/LxmmU/x34mNtXoKNRRUt0GBJ+Y42FX+ukZKCUksgTWBU0fpgXpm9fHqivBNs
+	t64sd0/xvo/5DzlVmXGQQm80bqhmKRmi7f59X/baVvd1W6ujtUN39haw8mQWVuZ8KUWuh4zNLY6
+	m146DebVwmrOy0o4ki2athKOxyw43nyQysUrKAIY+fnsAv8Rpt3S8bmYtTvJ2mwWmJ0hXTS9MzX
+	YCcJs6GY8zZ1g6pw==
+X-Received: by 2002:a17:90b:53c5:b0:381:bc4c:da5b with SMTP id
+ 98e67ed59e1d1-3903c61098cmr36787938a91.18.1786245694545; Sat, 08 Aug 2026
+ 20:21:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CANiq72n4=fz=JNKY0Jdm8BnLa=RmHB2B7s0bO47YTJ7hygqBZg@mail.gmail.com>
- <20260808.143013.1251068388254615351.tomo@flapping.org> <CANiq72m70uWCRFnhs3axdymSTGCirBrYAvKh2BiT0xqW2j_3jg@mail.gmail.com>
- <20260809.095041.602618436881623934.tomo@flapping.org>
-In-Reply-To: <20260809.095041.602618436881623934.tomo@flapping.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 9 Aug 2026 05:01:09 +0200
-X-Gm-Features: AUfX_mxOkJgVjfpd9Xjn2_lEgaaMyCa2CI5K0zvJDPjtb_T8ut0EX3_Stxulh1A
-Message-ID: <CANiq72nxE05HEyNmxGj2gYHaYL95eQQVF9SAuhDdHX0RDW1i2w@mail.gmail.com>
-Subject: Re: [PATCH] rust: bug: fix `dead_code` warning in `warn_on!`
-To: FUJITA Tomonori <tomo@flapping.org>
-Cc: ojeda@kernel.org, arnd@arndb.de, krzk@kernel.org, 
-	alexandre.belloni@bootlin.com, linusw@kernel.org, chenhuacai@kernel.org, 
-	boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
-	lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com, 
-	tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com, 
-	tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, 
-	rust-for-linux@vger.kernel.org, fustini@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, kernel@xen0n.name, 
-	loongarch@lists.linux.dev, stable@vger.kernel.org
+References: <48BADABE-4DFB-4DAD-8248-E94D8F5238D2@amazon.com>
+ <CAAVpQUCfMsWBpPpywbwBLRCdHUqWqFBoDK=17dwDkG6T0dQxzw@mail.gmail.com>
+ <A7A3F2FE-B18C-4F6D-A5E4-78164D6904F5@amazon.com> <CAAVpQUCKQQF=noqxQwD=dJvO3tuhPZxssDygyuVaZxTQGKiWfQ@mail.gmail.com>
+ <9E49374E-D1D6-4D41-BFE0-03EE734DF9F2@amazon.com> <CAAVpQUBtKBzq36Wz9p3MaHR=G10-NFBtQXgGW3S3QV5THW2iCg@mail.gmail.com>
+ <0A7EC161-4EE6-42D4-A10B-7B4C609C7B32@amazon.com>
+In-Reply-To: <0A7EC161-4EE6-42D4-A10B-7B4C609C7B32@amazon.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Sat, 8 Aug 2026 20:21:23 -0700
+X-Gm-Features: AUfX_myrEsRggJvNv33aIb9loVFZpgzUQX_MJjCGYRy9lkB6LKuULUQRXKGim50
+Message-ID: <CAAVpQUAEV2XVxkEGBEoB5ocEjDS17cV4wjsVud_AHBYuUNj-SQ@mail.gmail.com>
+Subject: Re: [BUG] net: tcp: SO_LINGER with l_linger=0 leaks memory when
+ closing sockets with pending send data
+To: "Ahmed, Aaron" <aarnahmd@amazon.com>
+Cc: "edumazet@google.com" <edumazet@google.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>, 
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "ncardwell@google.com" <ncardwell@google.com>, 
+	aws-binance-tam <aws-binance-tam@amazon.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Aug 9, 2026 at 2:50=E2=80=AFAM FUJITA Tomonori <tomo@flapping.org> =
-wrote:
+On Fri, Aug 7, 2026 at 8:42=E2=80=AFPM Ahmed, Aaron <aarnahmd@amazon.com> w=
+rote:
 >
-> Then `jump_label.rs` needs the same treatment?
+> Hi,
 >
-> `arch_static_branch!` embeds the generated arch asm too. It is not a
-> problem today only because, like `warn_on!` until now, it has no user
-> inside the `kernel` crate itself.
+> Following up since it's been a while. I've tested on 6.18.39 (latest
+> 6.18.y LTS) and the issue is still present.
+>
+> Baseline (55,542 connections, one client SIGSTOP'd):
+>   TCP: inuse 55542 orphan 0 tw 1 alloc 55543 mem 8236
+>   Mem: 94504 total, 693 used
+>
+> After ~1 minute:
+>   TCP: inuse 47394 orphan 1 tw 2 alloc 47395 mem 1404546
+>   Mem: 94504 total, 9023 used
+>
+> Updated repo with new results and .config:
+>   https://github.com/aahmed71/tcp-linger-memleak-reproducer
 
-Yeah, I think we should do it to avoid surprises later.
+I ran the repro, but I didn't see the behaviour described in the
+README.md; unbound growth of "mem" on the server side after
+client SIGSTOP.
 
-Good eyes!
+Before SIGSTOP, each socket on the server side has quite small
+send buffer, and it grows after SIGSTOP on the client side.
 
-Cheers,
-Miguel
+A few minutes later, # of sockets decreased, and "mem" was
+263705 (~=3D 1GiB) and the total send buffer was 700 MiB.
+Given 1.5k MTU and skb overhead (552 bytes), it roughly matches
+the "mem" value.
+
+Also, after killing the server process, the value went down to
+almost zero, and I didn't see the leak.
+
+
+
+server side (before SIGSTOP on the client side):
+
+---8<---
+# cat /proc/sys/net/ipv4/tcp_mem ; echo; cat /proc/net/sockstat; echo; free=
+ -h;
+
+191220  254961  382440
+
+sockets: used 45715
+TCP: inuse 45577 orphan 0 tw 0 alloc 45579 mem 231374
+...
+               total        used        free  shared  buff/cache   availabl=
+e
+Mem:            15Gi   2.3Gi        13Gi   332Ki       159Mi        13Gi
+Swap:             0B          0B          0B
+---8<---
+
+---8<---
+ESTAB    0      1912     192.168.0.1:6666  192.168.0.2:24543
+ESTAB    0      3100     192.168.0.1:6666  192.168.0.2:10770
+ESTAB    0      9640     192.168.0.1:6666  192.168.0.2:47995
+ESTAB    0      2160     192.168.0.1:6666  192.168.0.2:27574
+---8<---
+
+
+server side (after SIGSTOP on the client side):
+
+---8<---
+191220  254961  382440
+
+sockets: used 753
+TCP: inuse 606 orphan 0 tw 0 alloc 608 mem 263705
+...
+               total        used        free  shared  buff/cache   availabl=
+e
+Mem:            15Gi   4.4Gi        11Gi   332Ki       156Mi        11Gi
+Swap:             0B          0B          0B
+---8<---
+
+---8<---
+ESTAB  0      217341   192.168.0.1:6666  192.168.0.2:25684
+ESTAB  0      120004   192.168.0.1:6666  192.168.0.2:23340
+ESTAB  0      128672   192.168.0.1:6666  192.168.0.2:48728
+ESTAB  0      141194   192.168.0.1:6666  192.168.0.2:41513
+ESTAB  0      121421   192.168.0.1:6666  192.168.0.2:33507
+---8<---
+
+---8<---
+# ss -tn | awk 'NR>1 { count++; sum +=3D $3 } END { printf "Sockets: %d
+| Send-Q Total: %.2f MiB (%d bytes)\n", count, sum/1024/1024, sum }'
+Sockets: 601 | Send-Q Total: 722.04 MiB (757118970 bytes)
+---8<---
+
+---8<---
+$ pahole -C sk_buff
+...
+ /* size: 232, cachelines: 4, members: 28 */
+...
+$ pahole -C skb_shared_info
+...
+ /* size: 320, cachelines: 5, members: 13 */
+---8<---
