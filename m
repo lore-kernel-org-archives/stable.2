@@ -1,437 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B36883F;
-	Sun,  9 Aug 2026 11:37:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FE51E0E14
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 11:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786275470; cv=none; b=H4GIrKHiAM89pmancG3v1v7Q9otuWeIp+t4iKEshGmLLBGLdz51jIikyjo/tS/geNALcDnNKIyZ22r1cJxsI2W52Z7S0cTgw8Qn2Mn6lZWj5iTaZ1nTB3Sk9/keLZYuslN1YCQJBvZDN1c1pGfn4ZV5fg0o7VcsYoKDdZuHI5jw=
+	t=1786275554; cv=none; b=betP6cQ6gYNZYhxk6eKW3BVA7fbXcPdS/brO92Q+d4qhr3U158g8ICbUplxemr8aqbceAOaWdcYX0MIkptO7bGYWhSr33M2o1OPYW/RU+ZpWaOdxrxVX/9qXolv6iR7rXAVnsNS67qFt8BIj/z1fLyB0PQK908Xb2EmHotYbufY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786275470; c=relaxed/simple;
-	bh=Mihdpkhce/TFrdR/EodjxkEbNunC1D22L+ZrPHJ1AUU=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CgoZyquCbTzo8nq2w0Ou7D9DSHjw0U8jYJlmT9et5ENfZqaAppVW1cQvunZvP36crf1z2fUniMEbAMo+bGI8lTRSuBYhfdaMQ7+bf6jpORIVixYiOxb0f2vUSwKXd6jezcJ+rhybSC3qeXyWQiL5YMznzJtKrbFJ16lUJOvhXQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AwkBcsrY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786275554; c=relaxed/simple;
+	bh=jtm6uRE6GFaKFBHgeeNQthW+2GwvrpWO0wG3hE1Yz6U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J+dMsU97xTTI8zwagcGczUvNRfBcYR0FwA2r+tyjyTNBALnTNlyJl0nzdB0pWmNBtgYWa1RTQLdtAXx+3+lkiZEqe0nwOoxWMgI/SaH77TZGCc6IEqMS/wtsb1FgtpTm5ieE/MnmGJm/radUHv2pTpVbH28iEWL9O7FpwSa2fxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LOyFfNEV; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AwkBcsrY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A84291F000E9;
-	Sun,  9 Aug 2026 11:37:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786275468;
-	bh=eGImDvWrdGvooPFMK9DurFWRxRaZg9Ere368YZNYCW8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AwkBcsrY7FIV4QNt5mGapjDVXsDaWY1Bbi2SXYTr1f6FDah9+L3/5vYeN7KoSDfrh
-	 3n0jzH6jGQ219aejfq6DgL6K8Onv81ck7jJrXbYqiSHoMdknWuvGOQFEkjPkmTBTIY
-	 8g4FshoXZLNTIZJoe8Ks4Sh7AW1sa0NLVzRfMnziWLqSlfQBjraYT2NLxdgHkCdkWY
-	 /PW16uk56mJ2WygKTuT1BTP286UDucTlXIdrAAhaGlpBYpOMqw3h3avuto5OjT4K6q
-	 echWUIKtylyi4kyzgWd8RzB3xmQI36o4udQpJXuKfBBWwM9w+Fl/t0BJd35Fn0PF42
-	 PDF6O/XSLlcgg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wt1qc-0000000Dpsc-1dm8;
-	Sun, 09 Aug 2026 11:37:46 +0000
-Date: Sun, 09 Aug 2026 12:39:10 +0100
-Message-ID: <878q6fplpd.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LOyFfNEV"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc7ef7ec27so11237545ad.1
+        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 04:39:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786275552; x=1786880352; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mQcTqHAmm1C+bfv7HrU27CCamDvlQ/9miXQRbWE9I1M=;
+        b=LOyFfNEVmN8eNMos8asQ2D1nMKiSolONm9VXgwKnAOfPkAz28Hz5nTDRRh2y2BMxDB
+         7VegvJCISYhgY403GB8QfOaD+kVY2kgAzGd43C93yBArPSl5clxnPGNMBSzk1AccOqV6
+         bzthmxApb7J0kyKXwFIc2/tGLzBC7lmf+4srDSKHbNlDw1tibsLksNocb3s7Wkk8264d
+         wzhtt1xzzBdZZL3MXlNfOgHF+T9XXUuF7k8F1bAJDh+8m832CYllM11l0rN3bDwAfct8
+         rP9bMBJVHLQlvfehUlRsy0qXWy6EdZgtvuuOvPKAGT7QZ0H7ScJu5zmOhYXNJvFsKek0
+         IR6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786275552; x=1786880352;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mQcTqHAmm1C+bfv7HrU27CCamDvlQ/9miXQRbWE9I1M=;
+        b=BSd8rMkLWxkybPTi9iBQs8G4OwjB9nzI37d8RAOyIO/4u5yk7VQKGC0lHrAwQROr2g
+         Co3SMaLGlzyBkBvqgXaOvHdlwTNYN1Fy1H54nY0+bpboPhkw/V6dUctm3L63Nqq3VW4R
+         zDweOmiu3OKDF6h3g1L+SkCZYvj+ljWetqzye1Pyl8sClcuTnVKYtzD4VLfLirWJLhE6
+         Sgik+btIdNZLbbRa++KSjTaRfKkjAUQKhdFSIJo4jcaQA6NrN+HkqFhNJ5DrhnWfwplu
+         MgHz34iUPlCLtkUuoGQ+rZj5ZYQ+7lnphrgY6cPFR8sFUsqf7qBuY9IZeguaBItVYGrf
+         t4Qg==
+X-Forwarded-Encrypted: i=1; AHgh+RpgU5nQiJpcS0MJfmZbGKbigY158Pp9jvQyvhwSDlO6YcLQoZ3MOyckLM/buTyrdermLIYmMdE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQRHX4u/bYLFEsMt86dabWrdeTX9nakA+T+diXi57Dfi+PPjcX
+	bEyXAJbH0jvxaoTf8EFa0nere1RqrVd2NZ4PS8KWZLAGfdHf5RJkrgog3CwBcA==
+X-Gm-Gg: AR+sD13l5URvJmbSSbDnGPDP6ZeuLA0MaR9vVuKllsaVctGCgxNF/VNbwwBCTSl71fD
+	bccGVMU4WqJhOBbmW+7HJR75ioXebmVuZfAsyotr13Y2//ffum6NhASHbpzwcBc6V5DSDA+JHbe
+	WHMk51m+bFL/UsflVcnMemOXiW20H5rnb4ZIcwpZJolc5igbfYJzNLwZ7Zx5JF3+KfDga8j1jqn
+	slUIY8t8+0VpUIlySi28FvlQTEA6730tvD9VTTkrqG+Bvcu/qXdUHJOZa5+jYfUxqBmwy+Mldpr
+	L065tFUlj4FhZBIXpfb4JWGYpbt3zqIzBW2vWrUq38ICO+nCivkQVxCU3gl8E0KEqKK1ccBO61v
+	SUyKr0rpg7ZdGPthbvZPBHSN/KVUclQEZm0Fr1ST4HdwKGPSKe1IgxiN/9PvH0x+8IysQ2B1I+A
+	nN3N4ilZ1QjD+/DPnGgW1JdlBekOxk4tj7aJkc0qWvlCi2E6W4uCXPl4eW9+hqbCCsyhciX41DX
+	3Qq7urWsGWFsYEJXN/k7qGZ
+X-Received: by 2002:a05:6a20:4309:b0:3c4:48da:8102 with SMTP id adf61e73a8af0-3cbce930129mr13010733637.29.1786275552116;
+        Sun, 09 Aug 2026 04:39:12 -0700 (PDT)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14101b7ad29sm24599408c88.13.2026.08.09.04.39.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 09 Aug 2026 04:39:11 -0700 (PDT)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: nv: Allocate the shadow S2 MMUs individually
-In-Reply-To: <anYNTW2e3HalTqTk@gmail.com>
-References: <20260803224405.41468-1-kmehltretter@gmail.com>
-	<86mrv2arf2.wl-maz@kernel.org>
-	<anYNTW2e3HalTqTk@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+Subject: [PATCH wireless] wifi: mac80211_hwsim: send config events to the radio's net namespace
+Date: Sun,  9 Aug 2026 19:39:08 +0800
+Message-Id: <20260809113908.2218030-1-maoyixie.tju@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: kmehltretter@gmail.com, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 07 Aug 2026 18:08:17 +0100,
-Karl Mehltretter <kmehltretter@gmail.com> wrote:
->=20
-> On Tue, Aug 04, 2026 at 03:31:13PM +0100, Marc Zyngier wrote:
-> > See the hack below that seems to work OK.
-> >=20
->=20
-> Hi Marc,
->=20
-> Since error handling has come up again, I should clarify why
-> v2 did not use this sketch verbatim.
->=20
-> > -	kvm_init_nested(kvm);
-> > +	ret =3D kvm_init_nested(kvm);
-> > +	if (ret)
-> > +		return ret;
-> > =20
-> >  	ret =3D kvm_share_hyp(kvm, kvm + 1);
-> >  	if (ret)
->=20
-> Once kvm_init_nested() has allocated the pointer table, failure in
-> kvm_share_hyp() or any subsequent VM initialisation step leaks that
-> table.
->
-> v2 therefore calls kvm_init_nested() after the earlier initialisation
-> steps have succeeded and frees the table if a later step in
-> kvm_arch_init_vm() fails.
+hwsim_mcast_config_msg() sends config notifications. Its info == NULL
+path uses genlmsg_multicast(), which delivers to init_net only. That
+path runs on an asynchronous radio destroy, from remove_user_radios() on
+a closed socket or hwsim_exit_net() on teardown.
 
-https://lore.kernel.org/all/86ecgdaupe.wl-maz@kernel.org/
+hwsim is per-namespace, and a radio records its namespace in wiphy_net()
+of its wiphy. A radio in a non-initial namespace therefore has its
+DEL_RADIO sent to init_net, with its id and name. An unprivileged
+listener there receives it, since the config group has no flags and
+needs no capability to join. The radio's own namespace is never told.
 
->=20
-> > +		for (int i =3D 0; !ret && i < S2_MMU_PER_VCPU; i++)
-> > +			ret =3D init_nested_s2_mmu(kvm, &tmp[i]);
->=20
-> > +		if (ret) {
-> > +			for (int i =3D 0; i < S2_MMU_PER_VCPU; i++)
-> > +				kvm_free_stage2_pgd(&tmp[i]);
->=20
-> This cleanup includes the entry whose initialisation failed and any
-> entries whose initialisation was never attempted. An uninitialised
-> entry has no valid mmu->arch, but kvm_free_stage2_pgd() immediately
-> derives kvm from mmu->arch before checking mmu->pgt. It can therefore
-> dereference an invalid pointer.
->=20
-> This is why v2 tracks successfully initialised MMUs and frees only
-> those entries.
+Send to the radio's namespace with genlmsg_multicast_netns(), using
+wiphy_net() of its wiphy, the net the GET and DUMP filters already use.
 
-Again, that's not exactly hard to fix.
+I found this with a static check for multicast that ignores the object's
+namespace. I reproduced it in a qemu VM as an unprivileged user, with no
+hardware and no kernel changes. A process creates a radio in its own
+namespace and exits. An init_net listener receives the DEL_RADIO before
+the patch, and nothing after it.
 
-Overall, I dislike the pointless helpers, the individual allocations
-of S2 MMUs, the goto nest, and the inconsistency in freeing the vncr
-array (a pre-existing condition).
+hwsim is a test driver, so the leaked metadata is low value. The fix
+still matters, since the radio's own namespace should hear about it.
 
-My current patch is as follows, and so far, I haven't seen much that I
-like better.
-
-	M.
-
-=46rom e6c249a95db508ca036a00d36c4f90af4cbc3eba Mon Sep 17 00:00:00 2001
-From: Marc Zyngier <maz@kernel.org>
-Date: Sun, 9 Aug 2026 11:47:25 +0100
-Subject: [PATCH] KVM: arm64: nv: Fix life cycle of the nested_mmus array
-
-The nested_mmus array holds the shadow page tables that are used when
-a guest is running a nested context. These structures are allocated on
-VCPU_INIT for whole guest, which implies that they may have to be
-relocated as the array grows.
-
-Should a VCPU_INIT occur whilst a vcpu is actively running an L2 and
-that the allocation requires relocation, that vcpu will still be
-running with a pointer to the previous structure, which will have been
-freed.
-
-Fix this by turning the array of structures to an array of pointers,
-which is now allocated at VM creation, sized to the absolute maximum
-that KVM can handle.
-
-In turn, each VCPU_INIT contributes S2_MMU_PER_VCPU to the pool. No
-reallocation is ever performed, and the life cycle of each object is
-much clearer:
-
-- the nested_mmus array is allocated in kvm_init_nested(), and freed
-  in kvm_arch_destroy_vm()
-
-- s2_mmu structures are allocated in kvm_vcpu_init_nested(), and freed
-  on kvm_arch_flush_shadow_all()
-
-Finally, the freeing of vcpu->arch.vncr_array is made consistent
-rather than being done on some failure paths, but not others.
-
-Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu s=
-tructures")
-Reported-by: Shen Yongchao <grayhat@foxmail.com>
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Suggested-by: Karl Mehltretter <kmehltretter@gmail.com>
-Link: https://lore.kernel.org/r/20260803224405.41468-1-kmehltretter@gmail.c=
-om
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Fixes: 100cb9ff40e0 ("mac80211_hwsim: Allow managing radios from non-initial namespaces")
 Cc: stable@vger.kernel.org
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 ---
- arch/arm64/include/asm/kvm_host.h   |  2 +-
- arch/arm64/include/asm/kvm_nested.h |  2 +-
- arch/arm64/kvm/arm.c                |  8 ++-
- arch/arm64/kvm/nested.c             | 86 +++++++++++++----------------
- 4 files changed, 45 insertions(+), 53 deletions(-)
+ .../wireless/virtual/mac80211_hwsim_main.c    | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm=
-_host.h
-index 108966a9db12b..08b2f24dc3c79 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -322,7 +322,7 @@ struct kvm_arch {
- 	 * Stage 2 paging state for VMs with nested S2 using a virtual
- 	 * VMID.
- 	 */
--	struct kvm_s2_mmu *nested_mmus;
-+	struct kvm_s2_mmu **nested_mmus;
- 	size_t nested_mmus_size;
- 	int nested_mmus_next;
-=20
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/k=
-vm_nested.h
-index c83be6d0e79ac..21d0f4cbe07f1 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -66,7 +66,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 tt=
-br0)
-=20
- extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
- extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
--extern void kvm_init_nested(struct kvm *kvm);
-+extern int kvm_init_nested(struct kvm *kvm);
- extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
- extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
- extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 50adfff75be82..7607173c1a40c 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -223,8 +223,6 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long typ=
-e)
- 	mutex_unlock(&kvm->lock);
- #endif
-=20
--	kvm_init_nested(kvm);
--
- 	ret =3D kvm_share_hyp(kvm, kvm + 1);
- 	if (ret)
- 		return ret;
-@@ -239,6 +237,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long ty=
-pe)
- 	if (ret)
- 		goto err_free_cpumask;
-=20
-+	ret =3D kvm_init_nested(kvm);
-+	if (ret)
-+		goto err_uninit_mmu;
-+
- 	if (is_protected_kvm_enabled()) {
- 		/*
- 		 * If any failures occur after this is successful, make sure to
-@@ -267,6 +269,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long typ=
-e)
-=20
- err_uninit_mmu:
- 	kvm_uninit_stage2_mmu(kvm);
-+	kvfree(kvm->arch.nested_mmus);
- err_free_cpumask:
- 	free_cpumask_var(kvm->arch.supported_cpus);
- err_unshare_kvm:
-@@ -324,6 +327,7 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
-=20
- 	kvm_unshare_hyp(kvm, kvm + 1);
-=20
-+	kvfree(kvm->arch.nested_mmus);
- 	kvm_arm_teardown_hypercalls(kvm);
- }
-=20
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 20af94197a8a7..5b69a0f382320 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -44,11 +44,15 @@ struct vncr_tlb {
-  */
- #define S2_MMU_PER_VCPU		2
-=20
--void kvm_init_nested(struct kvm *kvm)
-+int kvm_init_nested(struct kvm *kvm)
+diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+index 75caa97becc8d..4a68cae25b7db 100644
+--- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
++++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+@@ -4372,15 +4372,15 @@ struct hwsim_new_radio_params {
+ 	bool background_radar;
+ };
+ 
+-static void hwsim_mcast_config_msg(struct sk_buff *mcast_skb,
++static void hwsim_mcast_config_msg(struct sk_buff *mcast_skb, struct net *net,
+ 				   struct genl_info *info)
  {
--	kvm->arch.nested_mmus =3D NULL;
-+	kvm->arch.nested_mmus =3D kvmalloc_array(KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
-+					       sizeof(struct s2_mmu *),
-+					       GFP_KERNEL_ACCOUNT);
- 	kvm->arch.nested_mmus_size =3D 0;
- 	atomic_set(&kvm->arch.vncr_tlb_count, 0);
-+
-+	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
+ 	if (info)
+ 		genl_notify(&hwsim_genl_family, mcast_skb, info,
+ 			    HWSIM_MCGRP_CONFIG, GFP_KERNEL);
+ 	else
+-		genlmsg_multicast(&hwsim_genl_family, mcast_skb, 0,
+-				  HWSIM_MCGRP_CONFIG, GFP_KERNEL);
++		genlmsg_multicast_netns(&hwsim_genl_family, net, mcast_skb, 0,
++					HWSIM_MCGRP_CONFIG, GFP_KERNEL);
  }
-=20
- static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
-@@ -69,8 +73,7 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm=
-_s2_mmu *mmu)
- int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- {
- 	struct kvm *kvm =3D vcpu->kvm;
--	struct kvm_s2_mmu *tmp;
--	int num_mmus, ret =3D 0;
-+	int num_mmus;
-=20
- 	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
- 	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
-@@ -83,51 +86,37 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- 	if (!vcpu->arch.ctxt.vncr_array)
- 		return -ENOMEM;
-=20
--	/*
--	 * Let's treat memory allocation failures as benign: If we fail to
--	 * allocate anything, return an error and keep the allocated array
--	 * alive. Userspace may try to recover by initializing the vcpu
--	 * again, and there is no reason to affect the whole VM for this.
--	 */
- 	num_mmus =3D atomic_read(&kvm->online_vcpus) * S2_MMU_PER_VCPU;
-=20
- 	if (num_mmus > kvm->arch.nested_mmus_size) {
--		tmp =3D kvcalloc(num_mmus, sizeof(*tmp), GFP_KERNEL_ACCOUNT);
-+		struct kvm_s2_mmu *tmp;
-+		int i, ret =3D 0;
-+
-+		tmp =3D kvcalloc(S2_MMU_PER_VCPU, sizeof(*tmp), GFP_KERNEL_ACCOUNT);
- 		if (!tmp)
--			return -ENOMEM;
-+			ret =3D -ENOMEM;
-=20
--		write_lock(&kvm->mmu_lock);
-+		for (i =3D 0; !ret && i < S2_MMU_PER_VCPU; i++)
-+			ret =3D init_nested_s2_mmu(kvm, &tmp[i]);
-=20
--		if (kvm->arch.nested_mmus_size) {
--			memcpy(tmp, kvm->arch.nested_mmus,
--			       size_mul(sizeof(*tmp), kvm->arch.nested_mmus_size));
-+		if (ret) {
-+			while (--i >=3D 0)
-+				kvm_free_stage2_pgd(&tmp[i]);
-=20
--			for (int i =3D 0; i < kvm->arch.nested_mmus_size; i++)
--				tmp[i].pgt->mmu =3D &tmp[i];
-+			kvfree(tmp);
-+			free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
-+			vcpu->arch.ctxt.vncr_array =3D NULL;
-+			return ret;
- 		}
-+	=09
-+		guard(write_lock)(&kvm->mmu_lock);
-=20
--		swap(kvm->arch.nested_mmus, tmp);
-+		for (i =3D 0; i < S2_MMU_PER_VCPU; i++)
-+			kvm->arch.nested_mmus[i + kvm->arch.nested_mmus_size] =3D &tmp[i];
-=20
--		write_unlock(&kvm->mmu_lock);
--
--		kvfree(tmp);
-+		kvm->arch.nested_mmus_size +=3D S2_MMU_PER_VCPU;
- 	}
-=20
--	for (int i =3D kvm->arch.nested_mmus_size; !ret && i < num_mmus; i++)
--		ret =3D init_nested_s2_mmu(kvm, &kvm->arch.nested_mmus[i]);
--
--	if (ret) {
--		for (int i =3D kvm->arch.nested_mmus_size; i < num_mmus; i++)
--			kvm_free_stage2_pgd(&kvm->arch.nested_mmus[i]);
--
--		free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
--		vcpu->arch.ctxt.vncr_array =3D NULL;
--
--		return ret;
--	}
--
--	kvm->arch.nested_mmus_size =3D num_mmus;
--
+ 
+ static int append_radio_msg(struct sk_buff *skb, int id,
+@@ -4464,7 +4464,8 @@ static int append_radio_msg(struct sk_buff *skb, int id,
  	return 0;
  }
-=20
-@@ -741,7 +730,7 @@ void kvm_s2_mmu_iterate_by_vmid(struct kvm *kvm, u16 vm=
-id,
- 	write_lock(&kvm->mmu_lock);
-=20
- 	for (int i =3D 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu =3D &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu =3D kvm->arch.nested_mmus[i];
-=20
- 		if (!kvm_s2_mmu_valid(mmu))
- 			continue;
-@@ -783,7 +772,7 @@ struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu)
- 	 *   if S2 translation is disabled.
- 	 */
- 	for (int i =3D 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu =3D &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu =3D kvm->arch.nested_mmus[i];
-=20
- 		if (!kvm_s2_mmu_valid(mmu))
- 			continue;
-@@ -822,7 +811,7 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_=
-vcpu *vcpu)
- 	for (i =3D kvm->arch.nested_mmus_next;
- 	     i < (kvm->arch.nested_mmus_size + kvm->arch.nested_mmus_next);
- 	     i++) {
--		s2_mmu =3D &kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
-+		s2_mmu =3D kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
-=20
- 		if (atomic_read(&s2_mmu->refcnt) =3D=3D 0)
- 			break;
-@@ -1269,7 +1258,7 @@ void kvm_nested_s2_wp(struct kvm *kvm)
- 		return;
-=20
- 	for (i =3D 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu =3D &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu =3D kvm->arch.nested_mmus[i];
-=20
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_wp_range(mmu, 0, kvm_phys_size(mmu));
-@@ -1288,7 +1277,7 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_bl=
-ock)
- 		return;
-=20
- 	for (i =3D 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu =3D &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu =3D kvm->arch.nested_mmus[i];
-=20
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
-@@ -1307,7 +1296,7 @@ void kvm_nested_s2_flush(struct kvm *kvm)
- 		return;
-=20
- 	for (i =3D 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu =3D &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu =3D kvm->arch.nested_mmus[i];
-=20
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_flush_range(mmu, 0, kvm_phys_size(mmu));
-@@ -1316,16 +1305,15 @@ void kvm_nested_s2_flush(struct kvm *kvm)
-=20
- void kvm_arch_flush_shadow_all(struct kvm *kvm)
+ 
+-static void hwsim_mcast_new_radio(int id, struct genl_info *info,
++static void hwsim_mcast_new_radio(int id, struct net *net,
++				  struct genl_info *info,
+ 				  struct hwsim_new_radio_params *param)
  {
--	int i;
--
--	for (i =3D 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu =3D &kvm->arch.nested_mmus[i];
-+	for (int i =3D kvm->arch.nested_mmus_size - 1; i >=3D 0; i--) {
-+		struct kvm_s2_mmu *mmu =3D kvm->arch.nested_mmus[i];
-=20
- 		if (!WARN_ON(atomic_read(&mmu->refcnt)))
- 			kvm_free_stage2_pgd(mmu);
-+
-+		if ((i % S2_MMU_PER_VCPU) =3D=3D 0)
-+			kvfree(mmu);
- 	}
--	kvfree(kvm->arch.nested_mmus);
--	kvm->arch.nested_mmus =3D NULL;
- 	kvm->arch.nested_mmus_size =3D 0;
- 	kvm_uninit_stage2_mmu(kvm);
+ 	struct sk_buff *mcast_skb;
+@@ -4484,7 +4485,7 @@ static void hwsim_mcast_new_radio(int id, struct genl_info *info,
+ 
+ 	genlmsg_end(mcast_skb, data);
+ 
+-	hwsim_mcast_config_msg(mcast_skb, info);
++	hwsim_mcast_config_msg(mcast_skb, net, info);
+ 	return;
+ 
+ out_err:
+@@ -6165,7 +6166,7 @@ static int mac80211_hwsim_new_radio(struct genl_info *info,
+ 	hwsim_radios_generation++;
+ 	spin_unlock_bh(&hwsim_radio_lock);
+ 
+-	hwsim_mcast_new_radio(idx, info, param);
++	hwsim_mcast_new_radio(idx, wiphy_net(data->hw->wiphy), info, param);
+ 
+ 	return idx;
+ 
+@@ -6183,7 +6184,7 @@ static int mac80211_hwsim_new_radio(struct genl_info *info,
  }
---=20
-2.47.3
-
---=20
-Jazz isn't dead. It just smells funny.
+ 
+ static void hwsim_mcast_del_radio(int id, const char *hwname,
+-				  struct genl_info *info)
++				  struct net *net, struct genl_info *info)
+ {
+ 	struct sk_buff *skb;
+ 	void *data;
+@@ -6209,7 +6210,7 @@ static void hwsim_mcast_del_radio(int id, const char *hwname,
+ 
+ 	genlmsg_end(skb, data);
+ 
+-	hwsim_mcast_config_msg(skb, info);
++	hwsim_mcast_config_msg(skb, net, info);
+ 
+ 	return;
+ 
+@@ -6221,7 +6222,7 @@ static void mac80211_hwsim_del_radio(struct mac80211_hwsim_data *data,
+ 				     const char *hwname,
+ 				     struct genl_info *info)
+ {
+-	hwsim_mcast_del_radio(data->idx, hwname, info);
++	hwsim_mcast_del_radio(data->idx, hwname, wiphy_net(data->hw->wiphy), info);
+ 	debugfs_remove_recursive(data->debugfs);
+ 	ieee80211_unregister_hw(data->hw);
+ 	device_release_driver(data->dev);
