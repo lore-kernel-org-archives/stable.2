@@ -1,157 +1,113 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB133793AC;
-	Sun,  9 Aug 2026 10:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786271471; cv=none; b=ExuwZn9+BR+VmvTtSueAIfpkFIAiYSJpExTviHNzAwXasa8tyO+ZpQGLJ1lnBX6eZZaTAwSMOOBHr3dTDULq3sy5mvrAcBDjsEew0AG9rgQPmiq9z1bgz7DxuY3HBf46z7L51EeK1GrHnD0iKzbZ5CxjAPP+thlD5u9tq5JynAs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786271471; c=relaxed/simple;
-	bh=VVzATvCJKYVfUkT1PeCQqkw0oOd6aVbAPq7aVel4aWM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uWnJTosSedHk4tbeg32ePCXSNvFwd2AZOpLa3lL2bDDLfSgGqZTREhMGe6V8QaDsdWa2kXA1o+FvmUoEcYivDruG2dhRvrTyh6XWE6vFEG6i9XsPL/8i5oddNAkwGKIFLP4LC4gmqrll9GVqxEXPnymIy0hsq/Emtooih0qz++Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=oY3npLap; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XkUifjqG; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=f1OOc32x; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=evTs294L; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCA23CA487
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 10:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786271710; cv=pass; b=gLwzdWElWZ7nthH65L5zMVrPl+m5H7Er3BNoK0GYjuc8L/as4Y7yDASPawGkPDDJhpA/F8MaJwTlFgNfQotJGiIFxtvEQk6x6uFHqHN/KYy4cxhJrWg97+qk5LuLoNaydf4XeuYlAa/AZ8C1j2JBbsvcd9owuqbl408vvw7b+HI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786271710; c=relaxed/simple;
+	bh=NxCAv5xAP2w1ZSf1mlnQlnFF2SO0st2zhPVTddT7mWs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=smlaIiodvgNiz1aF6mt3XU/rRl+VJFTToVxSAk7zPjatK+kTujf7eczv+A9vsK4RZmYqwbBp+WjmwVNxDpFo0Ua4k1OOdq2SBwaQgNXSUL4CVtnVlBrehvBtOLBqkstVGaPCM4GEKvyoOjh4PgQ3JiPCIdaiHCIwaZdFsIhR8PE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in; spf=none smtp.mailfrom=rajagiritech.edu.in; dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b=rbmK/o7a; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=rajagiritech.edu.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oY3npLap";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XkUifjqG";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="f1OOc32x";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="evTs294L"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 17A5842E3;
-	Sun,  9 Aug 2026 10:30:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786271463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C4MQmEZ1jVktrdZ/Sdj6XuR/RWJ0jaz/O3XB5SmQt2M=;
-	b=oY3npLapq8LVTeLOgpriVG4AilvXnzrKMsqnzTXaL4yIIS8UE4LLnEd2s8mUiYTwfkfoTe
-	ZRsgk/E8Nz5gqU4g1P5E/GV5ESUDuCUs+lXxTDFYtuRggh56+oxEPvBwubFoFzhsaCBUvT
-	EphRdE5anoYb8DriUaRDGuR/mc5P5Fw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786271463;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C4MQmEZ1jVktrdZ/Sdj6XuR/RWJ0jaz/O3XB5SmQt2M=;
-	b=XkUifjqGDCVLQojlUpDrK/MoI8/XAeGdeW/PVAnIeZxQO4MjtWza8oQ33hfzbGy9XVG5Z5
-	sZ0RQo2cyn/ruzCw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=f1OOc32x;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=evTs294L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786271459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C4MQmEZ1jVktrdZ/Sdj6XuR/RWJ0jaz/O3XB5SmQt2M=;
-	b=f1OOc32xz4uiJSYcdKkLG+TBmJvS1cXxH0peqwCBprmDPJ1ey8sKil9JpEfsL7BmRkckys
-	M6YnA23vn+mkmhXyhc/sGWI5Qa10aZYdJPjm3wfwQJUEDddTK1tOWd+DtMxRWmSGeCIA6q
-	g9fYJXVllPq7fWKjiIsdoFzzCL8OQQY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786271459;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C4MQmEZ1jVktrdZ/Sdj6XuR/RWJ0jaz/O3XB5SmQt2M=;
-	b=evTs294LT03gtDFq308626TBoEG8HRfqQZqAXvMQa8OrvWCUx+ZngZvgvYLHQFzoOJphKs
-	+fzN/eavgwKCKyCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E21C1779B2;
-	Sun,  9 Aug 2026 10:30:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id sDK/NeJWeGpBXwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 09 Aug 2026 10:30:58 +0000
-Date: Sun, 09 Aug 2026 12:30:58 +0200
-Message-ID: <87ecg7a8m5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ajrat Makhmutov <rauty@altlinux.org>
-Cc: tiwai@suse.de,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable headset mic on F+ FLAPTOP r
-In-Reply-To: <20260808185500.2564948-1-rauty@altlinux.org>
-References: <20260808185500.2564948-1-rauty@altlinux.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b="rbmK/o7a"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15c42a45adso515532666b.0
+        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 03:35:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786271706; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lDROPzvOGvpLu/CLBhmBacnyf0rNs0uZQzTFh9KTyQOoW1UOgJnIW0k3N5ifZSypkk
+         DRNMbfD4DIS6ePVPSAvkZZ6zds+SbzginUB3P5f3hNyHRqgt+uZCR3Ghjar+xO9NR9WU
+         JQU8dn/RMtbL5VJZyQOGHGOTtXbMnr91JkgyShtVT3Odkoh99RDmxyCQaQMrCKIjD3mE
+         Kl6CBrc935BKdobMdrFPMY7cD0Xv/ozdrTXn1M6g3IXONtwUU/B9x9T8ibga+9jwZM0n
+         uMcghw/+JkFlrKcrhQZTpuKZwggN+Jd+jNb0SDmXMvr08EFq31mPW/JsMqL0Objl9CyS
+         Jf9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=KdX4rUCEuSYyW8WmNsNZv2tT/KklH6OSuhGI8oVyREc=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=ppHIQ3LQpO9RqTJ/lZolbnffsaQNH4qSdpXlDFObsMp/G2/qBNhEBK1Mz8bYQr0b2v
+         1BlnXGgtqT3EDlyQLxLGF6ZS+thTaFA/W1/ESEbapees8tLibhIo7T0XTj+QLkJYy9Ze
+         OOwWfuEZugIjP6kQb/4DSLItHIXsg5Jaax3wPwHLeFmEwDdGGnejW+yNzNxaQbjJoW4m
+         XBVnC0LbEFqoMmI4HfUoHH/KZWoQ17OQiDFE6V8CTWHU46uYFcXfU1WRUbXK7uhWcJCp
+         19u2qX34FZEtHxdr8VmeuQPJ8R/paY4wX9umvtrH5xGwPDjWSIHbouhJBQd2JI2w7aQh
+         EJ6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rajagiritech-edu-in.20251104.gappssmtp.com; s=20251104; t=1786271706; x=1786876506; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KdX4rUCEuSYyW8WmNsNZv2tT/KklH6OSuhGI8oVyREc=;
+        b=rbmK/o7aMH3FpD0x6ep1A1LAR2sykdQONn1V3SFUlbNU5TPlr/pNSV+DJJbH8qkMSB
+         ca4VY5iRt+UlB4oNrYAxX09xdV6eZziaL4ds7WLcoC6SC/Dyox5EzEwTF1pfu28bFw6z
+         G6y080hc5WbnHpBXehFBrrnJkU8fjgqIZNIJH/DT7taENaq/hTOOidMiJD225mjfsLIP
+         7vep7jV9p4Ak2xPerHThybY1Oa/kvGyNiywfQTbJi0liKF+4UTjan6VZcQ7D17UskUk5
+         RUrDfc7GFbTMapq/9q02ltx7h8mceA3Tr5qrOaQthMysDyNzPgWmpcb6p4QhKzcOV0SQ
+         cxAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786271706; x=1786876506;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KdX4rUCEuSYyW8WmNsNZv2tT/KklH6OSuhGI8oVyREc=;
+        b=emdhRIgWjHRnINa51MmJRo3GrS3845xzOUNL4aYwoNWtez7QCZG14FkJZlv8wj4Ddl
+         ihK1eS95J4Wx8T/9etCRy12kV4Z0hIhaYl/lfx6pQ9+Ja2FVJMDiCndAe5pHP7myXRbj
+         OWzzUSYYNfWFOp9mCx1wIzGK76m2Q+FYeWFumUZoNKFM1WAHw6x6xxa1RQ61lvLEivBw
+         EnQdxCfKpulYq4ECaHvBXNc8DBM8pxqDFUh9qMZVQRSmoCWiSfTxEwf/8Eln3PfmdeIO
+         byCskG/1+xejqNN0J6KhuzOLqKsl3QX2jqBbXtPL6C30wpKQ57AXJwS7WnqniQz6QN66
+         3kGw==
+X-Gm-Message-State: AOJu0Ywcc5bcqfsD3JLwLzF9hZHt4Ila+zBYY2kzFsJ7X400+iHoLCxN
+	59wJB36i5/gOI88AEqyDQieLa1exR5e9rBxk2L6Ez7OYPJ81XCFY99DIk9DDrOgiqPA52pGSjxZ
+	bTyeK5R1c2Tjap97v+j/+VPwFilp0jTKQHqRsodPLDw==
+X-Gm-Gg: AR+sD10EX2Afs9HZ0N7ABGMFc30mXPUnhfEY0s5iihIt9xDaFvvJSE7Nqp8fBlLM3i9
+	vVS0gZlOhkLwcEgLRiED9IsyMUs18n6aTqWBLAD2lbPsFYycj9P+/ysg768LEzslIzvwJnvSDAF
+	mmCtWLQGqNrK/4s5YSvbjb9LgvoJ3KO0st3yRo7v8OLtDS9IYGiFZA7bUJMDefdTNcO/NQT0bSd
+	djr2AFfrWZp+HF0/i9VpJkorIqFTlyfwgKcpQddNt7y4GD/gNBasrOXEgZ290NfK6RgEWyd09VD
+	5ufJrLLZ/FDrDrsD8vkGzNW1riQFAwH2vz9r2QvaUQAZTI3PHQoVJwnMq8kMNAXrDBa+FqjwcdE
+	jFG8smgDWCFpWvVIVlo+021ri3HqrahjhFXuX3QnPChlaEtRQN/DHPb7/Il/O3EAX+CKKYbLGCh
+	GMqZMa8TUeDkA=
+X-Received: by 2002:a17:907:3cc7:b0:c20:2164:2dd8 with SMTP id
+ a640c23a62f3a-c208d50fe96mr561663966b.14.1786271706535; Sun, 09 Aug 2026
+ 03:35:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 17A5842E3
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[altlinux.org:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim,alsa-project.org:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+MIME-Version: 1.0
+References: <20260807143428.008222056@linuxfoundation.org>
+In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
+From: Jeffrin Thalakkottoor <jeffrin@rajagiritech.edu.in>
+Date: Sun, 9 Aug 2026 16:04:27 +0530
+X-Gm-Features: AUfX_mxYytND5X3lPSRMIqhDfeuuBUak7S9E9u56sUUNOrk5fSq5lU4tciuwc28
+Message-ID: <CAG=yYw=wt2S1hCfJL_0Ka7bt0EqZD2wSW6E4uCWVAtes2bb0Mw@mail.gmail.com>
+Subject: Re: [PATCH 7.1 000/438] 7.1.8-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, 08 Aug 2026 20:55:00 +0200,
-Ajrat Makhmutov wrote:
-> 
-> The BIOS of the F+ FLAPTOP r laptop (Realtek ALC897, SSID 1e63:6d9a)
-> declares only pin 0x1b, the headphone output of the 3.5 mm combo jack.
-> Every other external pin is left at 0x411111f0, so the headset mic pin
-> 0x19 is never parsed and no headset mic input exists. The pin is wired
-> on this board - retasking it makes the headset mic record.
-> 
-> Reuse ALC897_FIXUP_HP_HSMIC_VERB, which already sets the pin config this
-> machine needs: 0x19 as a headset mic without its own presence detect.
-> Only 0x1b reports jack presence here, so a mic pin with presence detect
-> would leave the driver in auto-mic mode waiting for an event that never
-> arrives.
-> 
-> Without the quirk the generic parser retasks the lone headphone pin as
-> an input instead. That surfaces as a "Headphone Mic" input which records
-> only the internal mic bleed, so the headset mic appears present but dead.
-> 
-> Tested on ALT Linux, kernel 6.12, by recording a CTIA headset mic on the
-> combo jack with the internal mic as a reference.
-> 
-> ALSA info before the patch:
-> https://alsa-project.org/db/?f=18363eddea933baee100c9bf461d0e5cf74c8de2
-> 
-> ALSA info after the patch:
-> https://alsa-project.org/db/?f=48ae2cd7aaf1eb0f24639ce83cd38cfd93b25f76
-> 
-> Cc: stable@vger.kernel.org # 6.12.x
-> Signed-off-by: Ajrat Makhmutov <rauty@altlinux.org>
+ hello,
 
-Applied to for-next branch now.  Thanks.
+ Compiled and booted  7.1.8-rc1 (using qemu-system-amd64)
+
+No new typical dmesg regressions .
+
+Tested-by: Jeffrin Jose T <jeffrin@rajagiritech.edu.in>
 
 
-Takashi
+--
+software engineer
+rajagiri school of engineering and technology
