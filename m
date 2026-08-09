@@ -1,149 +1,171 @@
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9FB37E5FF
-	for <stable@vger.kernel.org>; Sat,  8 Aug 2026 23:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D681A4B04AC
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 00:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786232426; cv=none; b=X2IOYqKPPV8JjHs/K3RtOghYSheWJQQPoap+KlYsryvIVMXSqN+B+epuExajjVmszXKy4iFMzYXvWc/ti3u4tAGzw22kn2twOBhardyYnF4z4egmpZunRiN1+gXzAa0Z7/e2XH7aWMzoooNZSydcKgsLeM2yImBtcSQL9glQzCk=
+	t=1786236486; cv=none; b=VgE66HeUlHcr+pfzTL56lYXLBD7+93HH8XwiSzH9zBcDBEzDCg2Woqwl9+JqWpht5T8f90OIz99SZHsm8g6G2uNOCXRSoFXOdK0HXV5z2e7YOZGYcSdVX8W6wE0wQnbVld3IbotLurW/4RQhybf4XuM4+E/JMfUEL5Xj95sRo1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786232426; c=relaxed/simple;
-	bh=eywyJoxeJiPzUZHoEDNCnRq967Hjwuh00+xW9hxuF8A=;
+	s=arc-20240116; t=1786236486; c=relaxed/simple;
+	bh=P3NMzWvuU+84FyhcVE3hcQooUusdENDXPnAsUG1ehzo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RglzeqWMvqa7iN7GtDXdMC89C8jcgUQMnKy4h7ouErjby17nmnU68idy1VmJdf69Tab8rNrDhPp2lijhw+WJq+ylXsss1CPNgXW01m9kLGd/56DIoxo4tFH7PTySGGClq6uYhRny3foVyPvNBEaASJk4aMVcy5zLhMWclwXQ9lQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=peridio.com; spf=pass smtp.mailfrom=peridio.com; dkim=pass (2048-bit key) header.d=peridio.com header.i=@peridio.com header.b=yfogSeAT; arc=none smtp.client-ip=209.85.221.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=peridio.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=peridio.com
+	 MIME-Version; b=h7M+c8w4gCEiK2gRNs08kRhhFpuoiI/ACsQsBlk2lRq8IbB3b1NQDljh/lkSbN+6riC7f8i4Y0yz7eaovhKBn8rG5SEIALAWPCRMRqjZtL4k2bw399eVuWNEx/iwLPZENArTZux3tHUuYEDXrJqay6Bh75I0ax9cMd7J7ERX1Gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c+CSPkXj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=peridio.com header.i=@peridio.com header.b="yfogSeAT"
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5bfdb047c1eso16337e0c.2
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 16:40:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=peridio.com; s=google; t=1786232423; x=1786837223; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0zdhFckn2ilRT1BqFxb8uQ/4LTj7nukbKKF9CpzD5YQ=;
-        b=yfogSeATdAJnlHy0rT1dFX9cdX6ubyfo3TJIgqAyQhmpZbN7RhxSYZSX/oHKVdgZuM
-         aN7ggig2SWFWBH3cVamEt8lLcqwVRYNCrl89w4gKGS5eo1VMDx3rWj8AnBimqlXBJFyf
-         pajjWD5w3byhgnqFzhMm/4nMpT4IsHzNZ3m+w3Ihvc1R9bX0XNEsSJyqxO96QmgBh63y
-         7creSr/B0pcaSH/qlhN1lywsEh5gcwTiOn8sUul5lH1ySXNufARJa/Xz0Xgbdw0B4Pjz
-         0nlAi0H2mvGP5tvi1Utl5KK39P1EUPXw02jnv8MVA/RZf0iH56C0Cg01zRJyMGB3CDhP
-         BNiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786232423; x=1786837223;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0zdhFckn2ilRT1BqFxb8uQ/4LTj7nukbKKF9CpzD5YQ=;
-        b=nqJb/CNdQfOuGgzb1dGo7JvJE0V7/dfhOo3AfhsNGDIlkdCloAakRsoLEnTAoON2d0
-         mElX/2zIvYAVfRz+3R/8LIuMuQK+CyMp5C0B9EhRhfMgu1fQCSNmm+Kcxg+ecb/xXGrQ
-         V5RZ9UJXIXVYfrOep41EFu3bS77nC0c38QRfZ+2BJWLH6gYI/viOeXyMoR0ef6NRWa/r
-         G3huZmobIntLK0UNZb82yJkF/jPnGEIB/6kW2hGO8llRiWJ3aeEc9L353nK0ab8HaDBu
-         GwJNDdwUU16RzL9O6/LfSbjYWGVZWESc2aEw247j9YRZix0CGUWnEItGGWbWMMsPYesA
-         q6Sw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp4wJNfveJCN+iWIQhk5LBvmVTlxEAZGpdk4QSrQ/UsWQKZ8Mm+Jc2oSzdA2fPoZUO/9XyNQjY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNYrKO5QqG2JSZ6zEJ+04YEdXiwkKMdNTLVBYgwt8eEydQlsdO
-	qtyyP+XwPbg7XKz8ZBvC5NUWPRfPNIIQcFzcymjbytRbOCE7gDO1mneTtt+BetojBZY=
-X-Gm-Gg: AR+sD12cYVaWo+npL7a+2cu0eOyyTXRGOqDjL/z6dNU2eJFAQoFOlMjDvEVTDxroNuX
-	B4cBOy5D8/5eDJVklgl6brHbY6rXs+39kGdCmIcUI+lgRmytFGck5i+baLgYVxm4H+Hs5GkLGDI
-	axi+Wt4tkfwG9qZ2ZrB5vL2DdRJ6u7snoizjnN3wsFe+oa2XcDcd/16yCTMKwQFnTBIDOar6FaH
-	/Aj5w11QMd/PSNO2g1/QsLwcUfZZvtIVp5N766tJwAxJe+U1QjMK3wYwjkSyjFZ1FpV2XqdClQB
-	jnX8tzzdDH2SO7lmeZMq8eISusD+i8CefQZqaK+bxcGqlAb7lD2mu8B5Ct0b4oXdVLNjBECcMPR
-	sQSBNwAfBrY9pS34uQ/Erlg6npSb0tD+6go3d1PauW06Q+aOTwMMcSShqL+B7q5MZNQbP+yFvHq
-	yfD1qG76Y1lcEThcYm/PQNyN1O1qfyP9W+82HMAeXbpUiMTbUmWCXaqi0=
-X-Received: by 2002:a05:6102:b0b:b0:633:3bf6:977c with SMTP id ada2fe7eead31-760e5cbd79dmr4739370137.1.1786232423622;
-        Sat, 08 Aug 2026 16:40:23 -0700 (PDT)
-Received: from localhost ([190.113.101.40])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-979f2e53fb5sm2083603241.1.2026.08.08.16.40.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 16:40:22 -0700 (PDT)
-Sender: Javier Tia <j.tia@peridio.com>
-From: Javier Tia <javier@peridio.com>
-X-Google-Original-From: Javier Tia <floss@jetm.me>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J . Wong" <djwong@kernel.org>,
-	Dave Chinner <dchinner@redhat.com>,
-	Allison Henderson <allison.henderson@oracle.com>,
-	Andrey Albershteyn <aalbersh@kernel.org>,
-	linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/5] xfs: initialise error in xfs_defer_finish_one()
-Date: Sat,  8 Aug 2026 17:40:18 -0600
-Message-ID: <20260808234016.246054-8-floss@jetm.me>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260808234016.246054-7-floss@jetm.me>
-References: <20260808234016.246054-7-floss@jetm.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c+CSPkXj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF06F1F000E9;
+	Sun,  9 Aug 2026 00:48:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786236484;
+	bh=3IWgGBp9FtmzeBSFJSW02ceSPWAnxGiKW2X0TXzvav4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=c+CSPkXjJNOCxXZwbZckxurzLO2lbfizZhloGsJKZ8GjmnjTbR/pSBaYY9BdjfiXq
+	 eH4K5iL7pjfZEG6pR7DmnHmveCa8mkIEbEDsbyH1HJ/WxokoeoEf5sZ1JEYIh4YfoE
+	 h5xMsZ6iHXe6UGNBixm1HIHOWFOgr+zb6fOHYl1oenemaKCgQYPFaJ+GY5Ks3dbPMr
+	 OiQRodfhUVLF4cxioDTeXs8ilJWFoGJHoBKBT1pF0mMPzGXF4O8AezkTLCuR7Camaz
+	 cA3v7Xdbs08kfAv6xbi2fKvfpWw0LJKA4DouTPZd55lYSAjZAlvrW9xZaRqYPgdHiP
+	 KjLgzxy69p/Dg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] super: fix emergency thaw deadlock on frozen block devices
+Date: Sat,  8 Aug 2026 20:48:01 -0400
+Message-ID: <20260809004801.874118-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072927-overdress-clapped-060b@gregkh>
+References: <2026072927-overdress-clapped-060b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2877; i=floss@jetm.me; h=from:subject; bh=eywyJoxeJiPzUZHoEDNCnRq967Hjwuh00+xW9hxuF8A=; b=owEB7QES/pANAwAKAbXuwwuoZ3cfAcsmYgBqd75gWnthqa0dZDU1DdMYG7SucNZ1t7qzbjI67 QP0Mb4aZVyJAbMEAAEKAB0WIQSbE7ILzw7eI0VKk8m17sMLqGd3HwUCane+YAAKCRC17sMLqGd3 H9vrC/9jM099GVI/qnPe0VN8QrvIS7TxociIcdYmg/ixa9M3Z9arGeKrhQzc/8399hLqAHoy9+x ZAAZH238MBkwf2gJod3cWLc6xjfnKPkLmrdxyGpPcCio4TQmTQA2D5X3JaA/FsaulrNFjTQMjCh h6ZNctMc4bTwFUWf1TrbIhFW9UQhfSg/uk0C7Oz4gDNYx7FBa2zYKd8Ig+5JU1pAycxW0md1ZZf 2+5YAjXQqJXwwOBzawM6HJrfCWjMSzlZJ1rEU9HR+Hao/eo0/KUUmiYdcAEZirGz9EcUC2Dv69g VVwDmKslMmUrc6O3aKo2oZczzkUNyQOTlUEtvEANkpHeRjaio/mziIsJiQfcmTsdKoleBwnvRzp 8km0eGqR6tTG84EU7VWK4xiKmpRSfPx2eE84IarWtVDeUMhsyKXjNtxESZcddZFK9yCFpsG7IGx Yk9vT3DDVoZzRCZaLf+t3O9RPpBMbEqaI3Axhid5gS3br6mkg3cR5pOcXmdAzuRmQDt84=
-X-Developer-Key: i=floss@jetm.me; a=openpgp; fpr=9B13B20BCF0EDE23454A93C9B5EEC30BA867771F
 Content-Transfer-Encoding: 8bit
 
-xfs_defer_finish_one() declares error without an initialiser and only
-assigns it inside the loop over dfp->dfp_work.  When that list is empty
-the loop body never runs, control falls through to the "Done with the
-dfp, free it" path, and the function returns an indeterminate value.
+From: Christian Brauner <brauner@kernel.org>
 
-An item-less pending item is not hypothetical.  Of the three
-xfs_defer_alloc() callers, xfs_defer_add() always follows with
-xfs_defer_add_item(), but the other two do not.
-xfs_defer_start_recovery() is harmless because it adds to a
-caller-supplied r_dfops list rather than to tp->t_dfops, so its items
-never enter this path at all, and they are driven by
-xfs_defer_finish_recovery() and ops->recover_work() rather than by
-xfs_defer_finish_one().  xfs_defer_add_barrier() is neither:
-xfs_defer_create_intents() walks tp->t_dfops without filtering
-item-less entries, so a barrier is spliced onto the pending list and is
-eligible to be picked by xfs_defer_finish_noroll().
-xfs_reap_ag_blocks() adds one every other extent, so online repair
-reaches this on any filesystem built with CONFIG_XFS_ONLINE_REPAIR.
+[ Upstream commit 749d7aa0377aae32af8c0a4ad43371e7bf830ab5 ]
 
-The consequence is a filesystem shutdown that depends on stack
-contents.  xfs_defer_finish_noroll() treats any non--EAGAIN return as
-fatal and calls xfs_force_shutdown(SHUTDOWN_CORRUPT_INCORE), so
-whenever the uninitialised value happens to be non-zero a successful
-barrier is reported as in-core corruption and the filesystem is taken
-down in the middle of a repair.  ops->finish_cleanup() also receives
-the same value where an op type provides one, though no op type that
-can reach the empty-list path defines one.
+do_thaw_all_callback() calls bdev_thaw() while holding sb->s_umount
+exclusively. If the block device was frozen via bdev_freeze() dropping
+the last block layer freeze reference calls fs_bdev_thaw() which
+reacquires s_umount:
 
-Returning zero is the correct result rather than a papered-over error,
-and not only because the barrier type deliberately has no work items:
-reaching the free path at all means the item loop drained without a
-non-zero error, so zero is the truthful value for any op type.
+  do_thaw_all_callback(sb)
+    super_lock_excl(sb)                     # holds sb->s_umount
+    bdev_thaw(sb->s_bdev)
+      mutex_lock(&bdev->bd_fsfreeze_mutex)
+      # bd_fsfreeze_count drops 1 -> 0
+      bd_holder_ops->thaw == fs_bdev_thaw
+        get_bdev_super(bdev)
+          bdev_super_lock(bdev, true)
+            super_lock(sb, true)
+              down_write(&sb->s_umount)     # same task: deadlock
 
-The uninitialised declaration is older than the Fixes: commit below,
-but that commit is where the bug became reachable - it added
-xfs_defer_add_barrier(), the barrier op type and the only caller of it
-in one go, and before it no item-less pending item could exist.
+The emergency thaw worker deadlocks against itself holding both
+s_umount and bd_fsfreeze_mutex. That fscks any subsequent unmount,
+freeze, or thaw of that filesystem and block device.
 
-Fixes: 3f3cec031099 ("xfs: force small EFIs for reaping btree extents")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Javier Tia <floss@jetm.me>
+  [   81.878470] sysrq: Show Blocked State
+  [   81.880140] task:kworker/0:1     state:D stack:0     pid:11    tgid:11    ppid:2      task_flags:0x4208060 flags:0x00080000
+  [   81.884876] Workqueue: events do_thaw_all
+  [   81.886656] Call Trace:
+  [   81.887759]  <TASK>
+  [   81.888763]  __schedule+0x579/0x1420
+  [   81.890372]  schedule+0x3a/0x100
+  [   81.891794]  schedule_preempt_disabled+0x15/0x30
+  [   81.893848]  rwsem_down_write_slowpath+0x1ea/0x900
+  [   81.895191]  ? __pfx_do_thaw_all_callback+0x10/0x10
+  [   81.896528]  down_write+0xbd/0xc0
+  [   81.897505]  super_lock+0x91/0x180
+  [   81.898457]  ? __mutex_lock+0xa99/0x1140
+  [   81.900748]  ? __mutex_unlock_slowpath+0x1f/0x400
+  [   81.902069]  bdev_super_lock+0x5b/0x150
+  [   81.903132]  get_bdev_super+0x10/0x60
+  [   81.904042]  fs_bdev_thaw+0x23/0xf0
+  [   81.904755]  bdev_thaw+0x82/0x100
+  [   81.905484]  do_thaw_all_callback+0x2c/0x50
+  [   81.906298]  __iterate_supers+0x5d/0x130
+  [   81.907067]  do_thaw_all+0x20/0x40
+  [   81.907739]  process_one_work+0x206/0x5e0
+  [   81.908545]  worker_thread+0x1e2/0x3c0
+  [   81.909339]  ? __pfx_worker_thread+0x10/0x10
+  [   81.910171]  kthread+0xf4/0x130
+  [   81.910799]  ? __pfx_kthread+0x10/0x10
+  [   81.911528]  ret_from_fork+0x2e2/0x3b0
+  [   81.912259]  ? __pfx_kthread+0x10/0x10
+  [   81.913010]  ret_from_fork_asm+0x1a/0x30
+  [   81.913806]  </TASK>
+
+bdev_super_lock() even documents the violated requirement with
+lockdep_assert_not_held(&sb->s_umount).
+
+Acquiring bd_fsfreeze_mutex under s_umount also inverts the
+bd_fsfreeze_mutex vs. s_umount ordering established by
+bdev_{freeze,thaw}() and can thus ABBA against a concurrent block-layer
+freeze even when the recursive path isn't hit.
+
+Fix this by not holding s_umount around the bdev_thaw() loop at all. Pin
+the superblock with an active reference instead as
+filesystems_freeze_callback() does. The active reference keeps the
+superblock from being shut down and so ->s_bdev stays valid without
+holding s_umount. The block-layer-held freeze is dropped by
+fs_bdev_thaw() with FREEZE_MAY_NEST | FREEZE_HOLDER_USERSPACE exactly as
+a regular unfreeze would and thaw_super_locked() handles
+filesystem-level freezes as before.
+
+The emergency thaw path has deadlocked like this in one form or
+another for a long long time but the current exclusively-held
+shape dates back to commit [1] where thaw_bdev() already ended in
+thaw_super() with s_umount held by do_thaw_all_callback().
+
+Fixes: 08fdc8a0138a ("buffer.c: call thaw_super during emergency thaw") [1]
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260723-work-super-emergency_thaw-v1-1-7c315c600245@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/libxfs/xfs_defer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/super.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/fs/xfs/libxfs/xfs_defer.c b/fs/xfs/libxfs/xfs_defer.c
-index 89501e8bd2f8..843c33304441 100644
---- a/fs/xfs/libxfs/xfs_defer.c
-+++ b/fs/xfs/libxfs/xfs_defer.c
-@@ -583,7 +583,7 @@ xfs_defer_finish_one(
- 	const struct xfs_defer_op_type	*ops = dfp->dfp_ops;
- 	struct xfs_btree_cur		*state = NULL;
- 	struct list_head		*li, *n;
--	int				error;
-+	int				error = 0;
+diff --git a/fs/super.c b/fs/super.c
+index b142e71eb8dfd..f8fe07501c9ff 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -1217,16 +1217,24 @@ void emergency_remount(void)
  
- 	trace_xfs_defer_pending_finish(tp->t_mountp, dfp);
+ static void do_thaw_all_callback(struct super_block *sb)
+ {
+-	bool born = super_lock_excl(sb);
++	bool active = false;
++
++	if (super_lock_excl(sb))
++		active = atomic_inc_not_zero(&sb->s_active);
++	super_unlock_excl(sb);
++	if (!active)
++		return;
  
+-	if (born && sb->s_root) {
+-		if (IS_ENABLED(CONFIG_BLOCK))
+-			while (sb->s_bdev && !thaw_bdev(sb->s_bdev))
+-				pr_warn("Emergency Thaw on %pg\n", sb->s_bdev);
++	/* thaw_bdev() acquires s_umount so it must not be held here */
++	if (IS_ENABLED(CONFIG_BLOCK))
++		while (sb->s_bdev && !thaw_bdev(sb->s_bdev))
++			pr_warn("Emergency Thaw on %pg\n", sb->s_bdev);
++
++	if (super_lock_excl(sb))
+ 		thaw_super_locked(sb, FREEZE_HOLDER_USERSPACE);
+-	} else {
++	else
+ 		super_unlock_excl(sb);
+-	}
++	deactivate_super(sb);
+ }
+ 
+ static void do_thaw_all(struct work_struct *work)
 -- 
-Javier Tia
+2.53.0
 
