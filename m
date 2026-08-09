@@ -1,77 +1,83 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8033C1D6E
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 09:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81413BC69D
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 09:43:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786268581; cv=none; b=KIO55gUDDe+HSMXQgin60Wa+L1fKcKaeHhAS59xF0VCsJbRXjOGceYVE+psgj6xSssdBEw3eslKXDNyxf5egJEsW0pa1AOnjnie4BY1kq3vC2BFjXG5VUAvqODHohcOxZGNEU341pdYaUk/N5HngMhHr0IpXRlHMGN7p2cJOLyA=
+	t=1786268614; cv=none; b=fy8FF67/C9gSP/ktOQxjNs0P97nuX/x1moxFwcyAsmMGZFDiL0elhejVmEv6nS60BUVXHnNdkSntOFXOP32NE5mbf/+l+irfbl1spuCV1GX4KmWIrGTW/eaUddUoYsInvDv48LShAA/fyZTBU3cOJ6hG197be2DvU1Uhml6S8kI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786268581; c=relaxed/simple;
-	bh=YFtlLngdvCDKxznwW0KFwwqo5LsMIr5V1JdUsdpWzWk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fl4H4HX3rHLboflv79KY6KknMDk+Pt1L/ZDpIt3UOqJiSgvQ78dFwGCAzMFPoM+tOY2VDAv6qUG/z2xMuRx6KnEkJpvuBJvEK65BUndQntn3CKSxWA1BFGn6/2RbogmhMJdJDiJXgvApVPY1vJsZ/OKWpI1XC56CmZNPQAjO2BY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pb18o9tR; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1786268614; c=relaxed/simple;
+	bh=xeQcq1NhioUmZtroV3ZJ/+YDFjoPioowMrw3mFVa7iA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JxInvLFB5paqitvfv8ABck03ydwL7pbHxYTbgTTN0X/MgGSuW5UxTvDmYrVkORfJGQiLm+q5C7chB4CNDyylQA/LUvHla9gFNic1cwubj+F3uIl9Gotu/e5kHSWVqqvswWehqM3xivpw2sxnyWlDjaHQXdRK6BKRjeJMRQLbBv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CDA9UcyT; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pb18o9tR"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cf6d65d8a7so14118695ad.0
-        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 02:42:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CDA9UcyT"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cad8076b01so10073665ad.2
+        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 02:43:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786268579; x=1786873379; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5vhVP2gwsOdEitAqeBQ2V+u61oT/f5wQ296ftm0EiMs=;
-        b=pb18o9tRybnkrPGAam/bPg6Z/2VTapgxIxyPUN+VKxNzFvlAAmzp0RtYNwFqajuL+b
-         AMJ3cI1ruaWkw5gYMYJGMLGeGG38EBbNMnHQvMe0wnjrBRhlTOVPTbtzVAs2PQh70lR1
-         s7DoXqbGannCnObLjsS9b/JySF0kkEjWrFIl+pGA+f0McenqTquGWs6PRWFchvP1xm1K
-         jTYPKjYEWCcoGJy5UxmWfAqsIjvq8LJZtngQIPncTAp3s5OMaSIQLU1/zZ8DO23YtJ1o
-         n2gv0G58YHUNwmW3VRZTlWo99kjSVsgJhg2RO+D9W1HljiReYU5jR7FdckpdrQbABaF/
-         JyOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786268579; x=1786873379;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1786268612; x=1786873412; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5vhVP2gwsOdEitAqeBQ2V+u61oT/f5wQ296ftm0EiMs=;
-        b=X66PejcEu4KiLTPaiW2+iL4e3IDtJTuppXGbpE86XfdrZ6yX+ZOK0xd1pGeycXBaJi
-         62dIbocI+SYn+vambL4SymSp8We/KCqnO8ctdrtUv+R1Bc+1tGcIvLQYAggK4wU7mTHv
-         DNnbY1OTrn/OmcgQS2QY5MJkgLB51RPBwQIstD7kgm6WXVK+pxQI0xfkvJ41+fiSOOLT
-         AE8QP3a2MS/vxzOOVhr09543U5I4cCdjkAX6ZIykidM8jv0cjrRL8eWgny/sw/PBSlxZ
-         4jj719rimysk0MkPKWk1GVWmCOaeiVDryfjtG5owtBPg09v18LjzCHn6F+ajr0rGSRKg
-         NZzA==
-X-Forwarded-Encrypted: i=1; AHgh+RrDiHIru35rXQg2tOUrfiua1ygOLiH+EpEjVR4YD5UXmfbOa6IeLcFNcXd8qq3HHb/gDzwNCBA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx37eAkxz7+rqqH9FYKlyQLqje1s3cXCVzFLTsjaaU6UixOI2eO
-	u/UhS07Mo2mE1fgrNoM2m8vXwkr384NHkDRDHumJfL6zT71SJHTWtqqO
-X-Gm-Gg: AR+sD12QchRxYdNTPeujEnRdK7YE1aNFtHLzMPRgv/3CFzBq+WCfRd4zV3BWDSZEJva
-	GHH9p65PcUhO0KWsJmR7W+M7WbJSweq0QUItImMf/vh0QQTnOK1Qc0oBe5OWgKPJVlIEbuHclOP
-	JEuFElL5zg4aamCORjzpA+yPJGT5tSgWHGZyh5Onfi34xA+eTSVbf6Gy+6jTAsCGWsAK9wNQFl9
-	D8oVdLSfJJ94hy065WjXD4OjkAOgizQlPwX0NQGFUYCtZVSt4x4Q1cw+uqHPS4gKYEfOh7Ru7oP
-	gU/lMSyBUz+pIqA3687AJBoU1ciVsQTFSWGTrYl6G5YXDNlEk7hUe9OrZVEyCGRumm/caa+u7Gt
-	mPtgevErJy+NQagPRaNUQiZOAYkJEaA2AF+LJu5xqHE77s8VkATvaNBzXqV6nlJ8+eA9ul7/GvE
-	UDYPlSPuDuJBol0jLtz52FIV3FDDW9qQMGTomjX9afQVn5YC2YsrZ1pZQOeHF0ATRXWqoUvxRiT
-	YmmNqj/9kh9dg==
-X-Received: by 2002:a05:6a21:6f17:b0:3c3:724d:ae7a with SMTP id adf61e73a8af0-3cbc0175426mr21235402637.9.1786268578350;
-        Sun, 09 Aug 2026 02:42:58 -0700 (PDT)
-Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315be8d60f4sm29364303eec.13.2026.08.09.02.42.55
+        bh=Ih9LpakF+mpkCHb3f5Zwg7Iq6/NHHXiKT9FHsKLCHD4=;
+        b=CDA9UcyTWehoxiHMSbBgQB4cXR6xFpX3kK8zgLAYdzMqmMGDAOp3fqOe6KiKPeLgLG
+         hHmSEp26L74YalXi1PPjkfRF5t18DXFiD/sOhc89c11YmTl3uaOnGktvuXAacdD+y2us
+         hWWsOXKuAKgS+x/T/ferfomdAk72Wmd+tCq0T75j3NRsLFwOa+hDkm0cuFse3RcX26Pp
+         EN450PzNG7h2+R9ITHklpDYb41yUAPoD+qdkFQB73YqQraO3u0Hl8US9ByPM19Kebl5K
+         +r2VMg6t2ibIeVC6WzVRXxi81QGnD9ZfgnKsMFp58PQYv/qrsS96CU3u292sHfO75LgB
+         V25A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786268612; x=1786873412;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ih9LpakF+mpkCHb3f5Zwg7Iq6/NHHXiKT9FHsKLCHD4=;
+        b=emCf5pUmdDZgf2w68RggYCjCAP6xFMitOYb4LyXB+IynsnoZ5MY1B2PhXggIdpGsUm
+         +VGj1tQIHbDfrj458W/c/0L0yQNWGsTnYTeOrxYwXnosPkhUsICS18jN6nOpPewwLXhf
+         roqYqZzWzc/Avrz+ixsBQ+jc19/KmfCUQ9MSwdRNWwq69goS+P6615ZppaFufsuR/MrB
+         lF7ElrBmleQpz8Z6zlZ/7tuTVGe8rYGdC8LOW0X3X60taBXU9T2XuLlD3VYW6HcG2WdM
+         f3mj9T09MBZi2r8ktf6HM9aePAkM68rlZx5G2zQwAbhORgLpGv9tN9PJ9hQ1+aq30wyR
+         E5KA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq463hccODGDsYgYdOHzZW3GLwd9VZmSkwt45OVdYMKyMGAjXnly3Eg8/MdJJpJTE5zhUWSP3Q=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4fGyL2wOe5hZnuDfpMWt6ONG2yeS8BzyGTl+pYydHqgYCuTqL
+	Lh3SgQGfsXEltRUqBTzzdvlPEzAKSmRV09n1BuNWKVFoWvp5Un6R/GJB
+X-Gm-Gg: AR+sD128v3LYwGFnlzfbimk/34oAzFjgjmghzvfbGB3pijTakfecwUSWMJTZ0VXo2Qx
+	1RIFhFMPjcuLAwnHvSBzTs3o5NdqBPUZJJEd7rRrShAI5THpSCH9K344+YEj5gARhAMPsoNbh2N
+	jDq/4gfNn+s7XosEuTeeUsVQWCCyrr1d2OLDagdaanjRCw65Cs9JFLrhsJWTJvjBhAn/kgYgA26
+	zaTTRG3xYJXqeTRMZ2kYDC+VbRBrkeIj4Yuoyu4EInNBSfDC/nW0hQZ0fsHKYTqXrWv3OI52TNQ
+	8foiQQCj0zOKEk8a1z0D9ekYlmz6XPO2S8+wCq8y+X87AjtUZojGqEyUx90difcNCK7Tp++LZY5
+	MyHcpo0cTCBuJkYvHjbxC9GeYZoY1ysB73DE2jaYLce4XDBJXJ3D5CcegkAvjSOut5DFCXYyCau
+	48M4huED3mtpIt1GEojgf/NUbaw5ElvVUpPEThfLK4vOOBu5iF4DnRLE8R0vu7xj+syG81ReU8
+X-Received: by 2002:a17:903:2c10:b0:2c7:f4bd:91b5 with SMTP id d9443c01a7336-2d0ca15d0a1mr422183555ad.0.1786268612237;
+        Sun, 09 Aug 2026 02:43:32 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d16c4a407esm23209675ad.62.2026.08.09.02.43.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 02:42:57 -0700 (PDT)
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-To: "David S . Miller" <davem@davemloft.net>,
+        Sun, 09 Aug 2026 02:43:31 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>,
+	netdev@vger.kernel.org
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	stable@vger.kernel.org,
+	vega@nebusec.ai,
+	Victor Nogueira <victor@mojatatu.com>,
+	David Ward <david.ward@ll.mit.edu>,
+	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: James Chapman <jchapman@katalix.com>,
-	Tom Parkin <tparkin@katalix.com>,
-	Guillaume Nault <gnault@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] l2tp: send netlink notifications in the tunnel's net namespace
-Date: Sun,  9 Aug 2026 17:42:52 +0800
-Message-Id: <20260809094252.2107242-1-maoyixie.tju@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Subject: Re: [PATCH net] net: sched: gred: fix 32-bit backlog wrap in gred_enqueue
+Date: Sun,  9 Aug 2026 17:43:24 +0800
+Message-ID: <20260809094325.2069096-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260809091657.879929-1-jhs@mojatatu.com>
+References: <20260809091657.879929-1-jhs@mojatatu.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,65 +86,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-l2tp_tunnel_notify() and l2tp_session_notify() use
-genlmsg_multicast_allns(), which delivers to listeners in every network
-namespace. l2tp is per-namespace, and a tunnel records the namespace it
-belongs to in tunnel->l2tp_net. Each event concerns one namespace, yet
-every namespace is told about it. A tunnel event carries the tunnel and
-peer tunnel ids, plus the socket's addresses with both ports for a UDP
-tunnel. A session event carries the session and peer session ids, the
-interface name, plus the L2TP cookies where those are set. A listener
-needs no privilege for any of this, because l2tp_multicast_group[]
-carries no flags and genl_bind() asks for no capability.
+On Sun,  9 Aug 2026 05:16:57 -0400, Jamal Hadi Salim wrote:
+> -	if (likely(sch->qstats.backlog + qdisc_pkt_len(skb) <=
+> +	if (likely((u64)sch->qstats.backlog + qdisc_pkt_len(skb) <=
+>  		    sch->limit))
 
-The fix is to send to the tunnel's namespace with
-genlmsg_multicast_netns(). Commit 134e63756d5f ("genetlink: make netns
-aware") added both helpers and drew the line between them. The netns
-variant is for an object that lives in a namespace.
+bfifo_enqueue() in net/sched/sch_fifo.c has the same expression, and this
+patch does not touch it:
 
-I found this by auditing the tree's six genlmsg_multicast_allns() call
-sites for objects that live in a network namespace. Only the two l2tp
-ones do.
+	if (likely(sch->qstats.backlog + qdisc_pkt_len(skb) <=
+		   READ_ONCE(sch->limit)))
 
-I reproduced it on net at dd057113ac7b, in a virtual machine, with no
-real hardware involved. A process in the initial namespace, running as
-an ordinary user with an empty capability set, receives the create and
-delete events of a tunnel. The tunnel was set up inside an unprivileged
-user and network namespace. tools/testing/selftests/net/l2tp.sh passes
-before and after.
+Same u32 backlog, same unsigned int length.  sch->limit comes from
+tc_fifo_qopt.limit, a __u32 documented as "bytes for bfifo", and nothing
+caps it on the way in -- both .init and .change are fifo_init(), which
+stores ctl->limit directly.
 
-On a container host, any local user and every other tenant can read a
-tenant's tunnel parameters.
+The gred check is the newer of the two: it came in with a3eb95f891d6,
+the commit in your Fixes tag, while the bfifo one goes back to the
+initial git import, so there is no useful Fixes: tag for it.
 
-Fixes: 33f72e6f0c67 ("l2tp : multicast notification to the registered listeners")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
----
- net/l2tp/l2tp_netlink.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+bfifo also has more ways in than gred.  sch_red.c and sch_tbf.c install a
+bfifo child through fifo_create_dflt() -> fifo_set_limit(), passing
+ctl->limit and qopt->limit straight from userspace; tc_red_qopt.limit is
+likewise documented as bytes.  Since this is heading to stable, fixing
+gred alone leaves those paths unchanged.
 
-diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
-index 59457c0c14aab..c0c4d1ebc7a3e 100644
---- a/net/l2tp/l2tp_netlink.c
-+++ b/net/l2tp/l2tp_netlink.c
-@@ -116,7 +116,8 @@ static int l2tp_tunnel_notify(struct genl_family *family,
- 				  NLM_F_ACK, tunnel, cmd);
- 
- 	if (ret >= 0) {
--		ret = genlmsg_multicast_allns(family, msg, 0, 0);
-+		ret = genlmsg_multicast_netns(family, tunnel->l2tp_net, msg,
-+					      0, 0, GFP_KERNEL);
- 		/* We don't care if no one is listening */
- 		if (ret == -ESRCH)
- 			ret = 0;
-@@ -144,7 +145,9 @@ static int l2tp_session_notify(struct genl_family *family,
- 				   NLM_F_ACK, session, cmd);
- 
- 	if (ret >= 0) {
--		ret = genlmsg_multicast_allns(family, msg, 0, 0);
-+		ret = genlmsg_multicast_netns(family,
-+					      session->tunnel->l2tp_net, msg,
-+					      0, 0, GFP_KERNEL);
- 		/* We don't care if no one is listening */
- 		if (ret == -ESRCH)
- 			ret = 0;
+Minor, and in the other direction: __fifo_init() does
+
+	u32 limit = qdisc_dev(sch)->tx_queue_len;
+
+	if (is_bfifo)
+		limit *= psched_mtu(qdisc_dev(sch));
+
+which also wraps in 32 bits, but fails safe -- the result stays below
+2^32, so the limit ends up smaller than intended rather than unbounded.
+
+Thanks,
+Zhan Xusheng
