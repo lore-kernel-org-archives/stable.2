@@ -1,74 +1,34 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4313A4F31
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 07:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABD72E1746;
+	Sun,  9 Aug 2026 08:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786261443; cv=none; b=Mr5xxROnp3i+EaxDDtZim4jeTT65EoYstc6/XXynqwo96T0NDFC1RT/csB5PqHMi3PibEQV8+5xma+noNa6TyDHb9Vz9C+uyZRrdM2Ervb1qwo3oJLYe7DUCZ2MdzMDp3lCaXrTC5jVKZputmFGQq29xtk4MaeThZoiJxiIIIJo=
+	t=1786262641; cv=none; b=Uy6JZcX5JAb3/UkeK+h/bt/4TMRY4ZyXknyFnLGl12ulR2fDpecixKJ8LcmiDvZIFBki5JupY8oZRd7lLSDsWendawL4RnjYY2kUpUJ2eWsIPP0HYunfQAZfvqf1lYWuNz7NMb4MNwFxnd03xWDwFP/L8A0Auz7U0k11JIKtiQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786261443; c=relaxed/simple;
-	bh=AraZ1rq8LxasfB6TogqLmzZITaAl0hmJqf7mOyPNC50=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TCDkpq//N3lMv/N9cswsEJlwkWSZyQXeM+4nccU/Edbb7XbWFWdYsjQ0kss+y0/VLAk9Es7Z+P9dVw8Y85KezqrPTnXIBy5TGhKuj+fRjtSdx4gM5nXuZSvO4cwf/pm+ogGoyI49Wnvr9cNe1eh5lQnYSdkH/gTBqGLabPDhRUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T+Ue5ddp; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786262641; c=relaxed/simple;
+	bh=t3/gO21KzVgRcksZkKNXbGp8xOp8Bfe9fDFt7C5Bqu4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=N7bN9EB2PjVr7q60+kwvI27UnBffdMpKvEHolV8Nkm1lxQwrfjuLfDbfzEssV1gtmck1uMnr0BswbC1RxZCpsyuS/y/tmcDeyA9dK/R5dvgXUnMQAbWlY8gZjYR37qDfwYVrrOcMIOzZgr8BdkHH4xyswuY7Uwrr40Y6lBRq3Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=UP2EJ9vQ; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T+Ue5ddp"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84862b0d5aeso834150b3a.2
-        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 00:44:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786261441; x=1786866241; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b9ieAFPZ3KCNYtYRe7iipfxjLEguJtXDiYV3GvLkaig=;
-        b=T+Ue5ddp2P13cGPRpcC9wmwp0EATFVw5AB9wCoMXaCA6WMP/EYzdxV2Fg7Yd+p62y6
-         7ges9/R9WzwYvYlb6k0FIUxJMPIdGKaezPN3MwbYdXI2fZdUXhV/c0aWtEa4msIG0Tnj
-         4JEbD3VogwtBRgkSENfRZAFn0Al7OehWQlk1UfYqfwdtBxXABVE/fjfN/zbQhAjk1KtS
-         JPKoo47VkEj5spqN3OgeD0dQ0cnrt3MiHRJp5Mo57ZS+ykNln5RTkSOlkT31pzds2KUu
-         LnUKIbOfW5oyH6S5aEY8d/Q6LAvII5I9T9CI8xh/34efBEiNbUHt6eYFsUhWE9ZGTz6i
-         fWnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786261441; x=1786866241;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b9ieAFPZ3KCNYtYRe7iipfxjLEguJtXDiYV3GvLkaig=;
-        b=EOp3EwZNu2DQa7ZTQ6PMxi1PZzzEdaUKPU+bLJ6n89a+tmJO+5xIoQaaELo8/Q8lyD
-         OdCeTznjuMZe6/cgGJfpXWIreZw5wGH2oN6OK4aE2WnJUkqvIENU3/qsYefLSaFM5x7w
-         l2n+k3B9++wpGwf0j+xZtCLN/gJxocwx2iGsjdEbC2ByxnsVqAqcKBA4Uo0u1mhJeQyP
-         jJGcKkKiJvu0fiL1CxArKh/VeJLXfCtFc4V0Kk5g7kKcSEsde9anO8mLCQ8wKoTsJaOu
-         gq+v0A31wzfM+nna3gExsYyXBg3F1rbV7/kjcQVhN28y9tHYXuBNU4y1eSBRWr1ZfmFi
-         FOzw==
-X-Gm-Message-State: AOJu0YzKWr2jm9ROD+5MclU5PDW5aW4tuQvMn3KXfUojjoWjgGvY9vHW
-	ElSfyZakdNkdlmk/m0n23RLKgd7ziPyYXqSVx12G56rGPiQcY1RewTkbEGF83WonFo1sGuxx
-X-Gm-Gg: AR+sD13e747B5ULZLvHd2hZl7q5eF8pHCL3jwVlB+be46YSP5c6QQc278baBcdqnh4k
-	rxVZQQEuhfzSLT+KDiQpl7x0XcahHS467sS/XLnw4ri7IrLsNrYbkSX2zkw42nPOPtKLJ0K+f1b
-	nPnBpO72epuCTcdqzmPBCJxj9AF7IrDmf+JOy5QZPzQ3VXE4MkpRmDHAKoyl3DVU9q7kdaunP1W
-	Hkpu6FnNDGCeniaxYlHnfUTxFulB+PNrdKyjUeP1zDsV+T/C0c0fF53In8Kroh/tjiueC71berg
-	9+adDCA99DOzHYKjIgdoAqJetlKJwK6Bv6TUUq7UYB2MGh/7jwIBBx6Qjwwadzl52kblUd+5+8T
-	aQO5MtNYnU1bpoKAZP0MMLKeoJvs/8VkTz3n/wB47guoDP0FEQcH+19pUztWIzcHYSaZQNazB7V
-	eAV0xQybdCbAyAl86BE3KjcMdKyVZ6Fw301kYbJY+QJSuGSCCte1Mez7zWoyQlTniPy/YPyP9HY
-	5PblYNBrw==
-X-Received: by 2002:a05:6a00:4218:b0:845:ce5f:c926 with SMTP id d2e1a72fcca58-84f2e210308mr40466210b3a.1.1786261441265;
-        Sun, 09 Aug 2026 00:44:01 -0700 (PDT)
-Received: from LAPTOP-7K7V6NC8.localdomain ([120.212.170.8])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe8f371f4fsm2443827a12.24.2026.08.09.00.43.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 00:44:00 -0700 (PDT)
-From: pzqqt88198@gmail.com
-To: stable@vger.kernel.org
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	pzqqt88198@gmail.com,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 5.10.y v1] ALSA: usb-audio: Evaluate packsize caps at the right place
-Date: Sun,  9 Aug 2026 15:43:20 +0800
-Message-ID: <20260809074320.1407-1-pzqqt88198@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="UP2EJ9vQ"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 494b8fd73;
+	Sun, 9 Aug 2026 16:03:44 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: dpenkler@gmail.com,
+	gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn
+Subject: [PATCH] gpib: agilent_82357a: unlock allocation mutexes before free
+Date: Sun,  9 Aug 2026 16:03:23 +0800
+Message-Id: <20260809080323.3576223-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,65 +36,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fe58c99cc03a1kunma4bd7ff479be2
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHU0ZVh9LGktCShoYSR4dTlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=UP2EJ9vQ1gxM645ARwolTuK52F42XtHIvawK/13cci350DGeq1GE8NgQnRYet+e+Eodp95NaO5Y7CjM1hq7FNi7/p6+e4QXh2TUQc/sJXa1fk6rgLyi140VE1AM4jGGzMMG97LMoFPRf57nEU6Ac4d+E3BnosDA0crAMhkMibDE=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=dpqqTbiGbkbkZ2mFq3GpxZnYgB9Fs15wS8KdDoCZnKg=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Takashi Iwai <tiwai@suse.de>
+agilent_82357a_detach() takes the control, bulk, and interrupt allocation
+mutexes before cleaning up the URBs. It then frees a_priv without releasing
+them. Since the mutexes are embedded in a_priv, freeing the object while
+they are held triggers lockdep's "held lock freed!" warning and leaves
+lockdep's held-lock state referencing freed memory.
 
-[ Upstream commit 52521e8398839105ef8eb22b3f0993f9b0d11a57 ]
+Release the mutexes in reverse acquisition order before freeing a_priv.
+Keep the existing acquisition order so the detach synchronization with
+concurrent USB operations is unchanged.
 
-We introduced the upper bound checks of the packet sizes by the
-ep->maxframesize for avoiding the URB submission errors.  However, the
-check was applied at an incorrect place in the function
-snd_usb_endpoint_set_params() where ep->maxframesize isn't defined
-yet; the value is defined at a bit later position.  So this ended up
-with a failure at the first run while the second run works.
+This issue was identified by static analysis and manually confirmed by
+tracing the detach path in v7.1.5 and current mainline. A source-level
+lifetime check verified that all three allocation mutexes are released
+before the private object is freed after this change.
 
-For fixing it, move the check at the correct place, right after the
-calculation of ep->maxframesize in the same function.
-
-Fixes: 7fe8dec3f628 ("ALSA: usb-audio: Cap the packet size pre-calculations")
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221292
-Cc: <stable@vger.kernel.org>
-Link: https://patch.msgid.link/20260410143220.1676344-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[Pzqqt: Backport to 5.10]
-Signed-off-by: Pzqqt <pzqqt88198@gmail.com>
+Fixes: 4c41fe886a56 ("staging: gpib: Add Agilent/Keysight 82357x USB GPIB driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- sound/usb/endpoint.c | 3 ---
- sound/usb/pcm.c      | 7 +++++++
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpib/agilent_82357a/agilent_82357a.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 8e2b90cb5b95..21bcdc811a81 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -1099,9 +1099,6 @@ int snd_usb_endpoint_set_params(struct snd_usb_endpoint *ep,
- 		return -EINVAL;
+diff --git a/drivers/gpib/agilent_82357a/agilent_82357a.c b/drivers/gpib/agilent_82357a/agilent_82357a.c
+index 2468a471d175..25093bfe6638 100644
+--- a/drivers/gpib/agilent_82357a/agilent_82357a.c
++++ b/drivers/gpib/agilent_82357a/agilent_82357a.c
+@@ -1426,6 +1426,9 @@ static void agilent_82357a_detach(struct gpib_board *board)
+ 		mutex_lock(&a_priv->interrupt_alloc_lock);
+ 		agilent_82357a_cleanup_urbs(a_priv);
+ 		agilent_82357a_release_urbs(a_priv);
++		mutex_unlock(&a_priv->interrupt_alloc_lock);
++		mutex_unlock(&a_priv->bulk_alloc_lock);
++		mutex_unlock(&a_priv->control_alloc_lock);
+ 		agilent_82357a_free_private(board);
  	}
- 
--	ep->packsize[0] = min(ep->packsize[0], ep->maxframesize);
--	ep->packsize[1] = min(ep->packsize[1], ep->maxframesize);
--
- 	/* calculate the frequency in 16.16 format */
- 	ep->freqm = ep->freqn;
- 	ep->freqshift = INT_MIN;
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index f4494d054917..802ed1dbd23b 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -953,6 +953,13 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
- 	subs->data_endpoint->curframesize =
- 		bytes_to_frames(runtime, subs->data_endpoint->curpacksize);
- 
-+	subs->data_endpoint->packsize[0] = min(
-+		subs->data_endpoint->packsize[0],
-+		subs->data_endpoint->maxframesize);
-+	subs->data_endpoint->packsize[1] = min(
-+		subs->data_endpoint->packsize[1],
-+		subs->data_endpoint->maxframesize);
-+
- 	/* reset the pointer */
- 	subs->hwptr_done = 0;
- 	subs->transfer_done = 0;
+ 	mutex_unlock(&agilent_82357a_hotplug_lock);
 -- 
-2.43.0
-
+2.34.1
