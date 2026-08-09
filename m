@@ -1,49 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B59833F595
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:20:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402E1233941
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:35:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786249236; cv=none; b=JaoaHe0qNP1BAuKMuFUcKo1iRWT5595lLOLovQJU6euyoKLjOpL/Kr7q52nv/JlUXyItLnUzBEPb0Tv1QipHy2B3urNpuMUW9bnGq+VqySnsNaChGEbHTMpKpILuyCz6PQZd4QId6h4PdwkahnfcWx3NbXiE6ODPUQ4HQUg835s=
+	t=1786250159; cv=none; b=qciVd3GoiUlSfDw9LaRipyySNi+mJ/czJtIy771PdItFsLQ1lNl7bmMHlzz6Kuhk0doGQzIkQb6Y4peGtlEOZ6S8Z3NnHj65duvgvlTG88PddoRT5kQqvYk8BlUGFOJ+eWec1IRYih1SmcLAfO81UTlsAH/3KgazYhtHGyScwpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786249236; c=relaxed/simple;
-	bh=2XvPzW71FAbx4oXE++8ZobAnwG+uqTGIfVGyf9ea88U=;
+	s=arc-20240116; t=1786250159; c=relaxed/simple;
+	bh=k3yR1ydiKUFVPYN/NaRXeTrAm/b4RLEQ1gYwuLnlsZQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uSDEaKx0v4WLrJidy/AoRSt1o6M9kBqAj7O5xd86mgEoL7a/y+GhC2MtKxfLrd0beU3Yp3satokkEZ5nMJC/bbnlWh0wzemcSOS7m4OTxUMI0I3e6Ao61vbaGNAU7gVpVYvp1R3B/nwSYvULxjbCWbGhd8fxPMMxVBJToTG/by0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eG4NtWgu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eEk093DRDilMs1fbyNvs/zAtekt7wPhWcCt9ZIS8cigaRgYAm5DyRb3qzBu/OoDnkkvDtS83CODF0wgr7eqcPpfzxguhwicKY4SfsLd02/B2iP98oCjOTBimZBUW59YNP+E5sn4tInItvdjjm6qZjNO+pbLzqSW2KOSFfL5T9A8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZClNYY5J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eG4NtWgu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A4EB1F00A3F;
-	Sun,  9 Aug 2026 04:20:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZClNYY5J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38631F000E9;
+	Sun,  9 Aug 2026 04:35:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786249234;
-	bh=mORn84l1DDnywMQsVzw/dCkibQJKBC4qIRiDhuYNtTo=;
+	s=k20260515; t=1786250157;
+	bh=nEimp7QRVK1zWQW//x4+I3svyW2g8nVq8vSFp5ZAUY4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eG4NtWgu7ZgI0a5i+JwrLqEuySlepzEiPPw9bPziO0EWBlIOJDRllupJ53cYUI7XH
-	 kxUaLMLjQwUIcTcSEpaKtUVhf2uL1JJVb4Fbwgt3NSWAkfNcYetrdsZJPUFszuSO7E
-	 K0Nxi5QNgbUCThWXh8p8Ba0uWUPevqnJdZpIsSMIqgPUd3sesVXkCROnw52gYmlbNs
-	 nN4KV0T5UQfMWH2DVYPP7T4f9rJah94y5a1kHvr67idmaKytcxT28rh8pAqSxYU+Cc
-	 AcPUcu08JKGcbzIwONJ1iQ4sYSlr+yPn41M339f/2FfVeOpSwbXa391AKTg5nkhh6W
-	 Dbt51N2JBys4Q==
+	b=ZClNYY5JjpAx7YQeyKJibbFXOO3YN8RH2Af1zLj1bkX8c0pbn5yqquDSpYO5e2bf/
+	 /9e5hvtMSYvJeZ3eI9bl70MgLJy7mc+jZSgLtkiIw6gAJKOPPvEbBzly29Of0yl/fw
+	 DtS0FkA/n1DNolEsaaCN7rOzr5T3NTCEdvhiNjRxJFoQjEPAOgEtHozZ8GNtwID7og
+	 n5geUogKZtJNqmwrO9Q0BRXtjpIIweU4hDHotcvTqzbp0jn0BeQGQBPIeDhEpzWwCA
+	 04XAxPtRvNaBzOiegQ1FmbTs7GaEZ9cAWlzZlSzAcxHHDt4DRkehb58jOw03uMhBW7
+	 m0zBSZ8bmOV/A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] tcp: challenge ACK for non-exact RST in SYN-RECEIVED
-Date: Sun,  9 Aug 2026 00:20:28 -0400
-Message-ID: <20260809042028.1093837-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y] super: fix emergency thaw deadlock on frozen block devices
+Date: Sun,  9 Aug 2026 00:35:53 -0400
+Message-ID: <20260809043553.1125786-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260809042028.1093837-1-sashal@kernel.org>
-References: <2026072944-maritime-sulfide-d951@gregkh>
- <20260809042028.1093837-1-sashal@kernel.org>
+In-Reply-To: <2026072929-cubical-payable-558f@gregkh>
+References: <2026072929-cubical-payable-558f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,172 +44,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit a28c4fcbf774e23b4779cae468e3497a5ad1f4a1 ]
+[ Upstream commit 749d7aa0377aae32af8c0a4ad43371e7bf830ab5 ]
 
-The SYN-RECEIVED request-socket path in tcp_check_req() accepts an
-in-window RST without requiring SEG.SEQ to exactly match RCV.NXT.  A
-non-exact RST therefore removes the request instead of eliciting a
-challenge ACK.
+do_thaw_all_callback() calls bdev_thaw() while holding sb->s_umount
+exclusively. If the block device was frozen via bdev_freeze() dropping
+the last block layer freeze reference calls fs_bdev_thaw() which
+reacquires s_umount:
 
-RFC 9293 section 3.10.7.4 applies the RFC 5961 reset check in
-SYN-RECEIVED: an exact RST resets the connection, while a non-exact
-in-window RST must trigger a challenge ACK and be dropped.
+  do_thaw_all_callback(sb)
+    super_lock_excl(sb)                     # holds sb->s_umount
+    bdev_thaw(sb->s_bdev)
+      mutex_lock(&bdev->bd_fsfreeze_mutex)
+      # bd_fsfreeze_count drops 1 -> 0
+      bd_holder_ops->thaw == fs_bdev_thaw
+        get_bdev_super(bdev)
+          bdev_super_lock(bdev, true)
+            super_lock(sb, true)
+              down_write(&sb->s_umount)     # same task: deadlock
 
-Apply that check before the ACK-field validation, following the RFC
-sequence-number, RST, then ACK processing order.  Factor the per-netns
-challenge ACK quota out of tcp_send_challenge_ack() so request sockets
-can share it.  Use the request socket's send_ack() callback and its own
-out-of-window ACK timestamp to send and rate-limit the response.
+The emergency thaw worker deadlocks against itself holding both
+s_umount and bd_fsfreeze_mutex. That fscks any subsequent unmount,
+freeze, or thaw of that filesystem and block device.
 
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Fixes: 282f23c6ee34 ("tcp: implement RFC 5961 3.2")
+  [   81.878470] sysrq: Show Blocked State
+  [   81.880140] task:kworker/0:1     state:D stack:0     pid:11    tgid:11    ppid:2      task_flags:0x4208060 flags:0x00080000
+  [   81.884876] Workqueue: events do_thaw_all
+  [   81.886656] Call Trace:
+  [   81.887759]  <TASK>
+  [   81.888763]  __schedule+0x579/0x1420
+  [   81.890372]  schedule+0x3a/0x100
+  [   81.891794]  schedule_preempt_disabled+0x15/0x30
+  [   81.893848]  rwsem_down_write_slowpath+0x1ea/0x900
+  [   81.895191]  ? __pfx_do_thaw_all_callback+0x10/0x10
+  [   81.896528]  down_write+0xbd/0xc0
+  [   81.897505]  super_lock+0x91/0x180
+  [   81.898457]  ? __mutex_lock+0xa99/0x1140
+  [   81.900748]  ? __mutex_unlock_slowpath+0x1f/0x400
+  [   81.902069]  bdev_super_lock+0x5b/0x150
+  [   81.903132]  get_bdev_super+0x10/0x60
+  [   81.904042]  fs_bdev_thaw+0x23/0xf0
+  [   81.904755]  bdev_thaw+0x82/0x100
+  [   81.905484]  do_thaw_all_callback+0x2c/0x50
+  [   81.906298]  __iterate_supers+0x5d/0x130
+  [   81.907067]  do_thaw_all+0x20/0x40
+  [   81.907739]  process_one_work+0x206/0x5e0
+  [   81.908545]  worker_thread+0x1e2/0x3c0
+  [   81.909339]  ? __pfx_worker_thread+0x10/0x10
+  [   81.910171]  kthread+0xf4/0x130
+  [   81.910799]  ? __pfx_kthread+0x10/0x10
+  [   81.911528]  ret_from_fork+0x2e2/0x3b0
+  [   81.912259]  ? __pfx_kthread+0x10/0x10
+  [   81.913010]  ret_from_fork_asm+0x1a/0x30
+  [   81.913806]  </TASK>
+
+bdev_super_lock() even documents the violated requirement with
+lockdep_assert_not_held(&sb->s_umount).
+
+Acquiring bd_fsfreeze_mutex under s_umount also inverts the
+bd_fsfreeze_mutex vs. s_umount ordering established by
+bdev_{freeze,thaw}() and can thus ABBA against a concurrent block-layer
+freeze even when the recursive path isn't hit.
+
+Fix this by not holding s_umount around the bdev_thaw() loop at all. Pin
+the superblock with an active reference instead as
+filesystems_freeze_callback() does. The active reference keeps the
+superblock from being shut down and so ->s_bdev stays valid without
+holding s_umount. The block-layer-held freeze is dropped by
+fs_bdev_thaw() with FREEZE_MAY_NEST | FREEZE_HOLDER_USERSPACE exactly as
+a regular unfreeze would and thaw_super_locked() handles
+filesystem-level freezes as before.
+
+The emergency thaw path has deadlocked like this in one form or
+another for a long long time but the current exclusively-held
+shape dates back to commit [1] where thaw_bdev() already ended in
+thaw_super() with s_umount held by do_thaw_all_callback().
+
+Fixes: 08fdc8a0138a ("buffer.c: call thaw_super during emergency thaw") [1]
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260717081443.809393-2-yangyx22@mails.tsinghua.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://patch.msgid.link/20260723-work-super-emergency_thaw-v1-1-7c315c600245@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/tcp.h        |  2 ++
- net/ipv4/tcp_input.c     | 56 ++++++++++++++++++++++++++++++----------
- net/ipv4/tcp_minisocks.c | 12 ++++++++-
- 3 files changed, 56 insertions(+), 14 deletions(-)
+ fs/super.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index f0ad16496f0f9..1cc25e0b3bdea 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -1745,6 +1745,8 @@ static inline void tcp_fast_path_check(struct sock *sk)
+diff --git a/fs/super.c b/fs/super.c
+index eeb8f745a8bf7..b8638feee1712 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -1006,13 +1006,24 @@ void emergency_remount(void)
  
- bool tcp_oow_rate_limited(struct net *net, const struct sk_buff *skb,
- 			  int mib_idx, u32 *last_oow_ack_time);
-+void tcp_reqsk_send_challenge_ack(struct sock *sk, struct sk_buff *skb,
-+				  struct request_sock *req);
- 
- static inline void tcp_mib_init(struct net *net)
+ static void do_thaw_all_callback(struct super_block *sb)
  {
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index e57917aefd508..a86bd703a480b 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -3786,24 +3786,17 @@ bool tcp_oow_rate_limited(struct net *net, const struct sk_buff *skb,
- 	return __tcp_oow_rate_limited(net, mib_idx, last_oow_ack_time);
- }
- 
--/* RFC 5961 7 [ACK Throttling] */
--static void tcp_send_challenge_ack(struct sock *sk)
-+/* Consume one slot from the per-netns RFC 5961 challenge ACK quota.
-+ * Returns true if a challenge ACK may be sent.
-+ */
-+static bool tcp_challenge_ack_allowed(struct net *net)
- {
--	struct tcp_sock *tp = tcp_sk(sk);
--	struct net *net = sock_net(sk);
- 	u32 count, now, ack_limit;
- 
--	/* First check our per-socket dupack rate limit. */
--	if (__tcp_oow_rate_limited(net,
--				   LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
--				   &tp->last_oow_ack_time))
--		return;
--
- 	ack_limit = READ_ONCE(net->ipv4.sysctl_tcp_challenge_ack_limit);
- 	if (ack_limit == INT_MAX)
--		goto send_ack;
-+		return true;
- 
--	/* Then check host-wide RFC 5961 rate limit. */
- 	now = jiffies / HZ;
- 	if (now != READ_ONCE(net->ipv4.tcp_challenge_timestamp)) {
- 		u32 half = (ack_limit + 1) >> 1;
-@@ -3815,12 +3808,49 @@ static void tcp_send_challenge_ack(struct sock *sk)
- 	count = READ_ONCE(net->ipv4.tcp_challenge_count);
- 	if (count > 0) {
- 		WRITE_ONCE(net->ipv4.tcp_challenge_count, count - 1);
--send_ack:
-+		return true;
-+	}
-+	return false;
-+}
++	bool active = false;
 +
-+/* RFC 5961 7 [ACK Throttling] */
-+static void tcp_send_challenge_ack(struct sock *sk)
-+{
-+	struct tcp_sock *tp = tcp_sk(sk);
-+	struct net *net = sock_net(sk);
-+
-+	/* First check our per-socket dupack rate limit. */
-+	if (__tcp_oow_rate_limited(net,
-+				   LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
-+				   &tp->last_oow_ack_time))
+ 	down_write(&sb->s_umount);
+-	if (sb->s_root && sb->s_flags & SB_BORN) {
+-		emergency_thaw_bdev(sb);
++	if (sb->s_root && sb->s_flags & SB_BORN)
++		active = atomic_inc_not_zero(&sb->s_active);
++	up_write(&sb->s_umount);
++	if (!active)
 +		return;
 +
-+	/* Then check the per-netns RFC 5961 rate limit. */
-+	if (tcp_challenge_ack_allowed(net)) {
- 		NET_INC_STATS(net, LINUX_MIB_TCPCHALLENGEACK);
- 		tcp_send_ack(sk);
- 	}
++	/* thaw_bdev() acquires s_umount so it must not be held here */
++	emergency_thaw_bdev(sb);
++
++	down_write(&sb->s_umount);
++	if (sb->s_root && sb->s_flags & SB_BORN)
+ 		thaw_super_locked(sb);
+-	} else {
++	else
+ 		up_write(&sb->s_umount);
+-	}
++	deactivate_super(sb);
  }
  
-+/* Send a challenge ACK from a SYN-RECEIVED request socket. Uses
-+ * __tcp_oow_rate_limited() directly so that an RST carrying payload
-+ * cannot bypass the per-request rate limit.
-+ */
-+void tcp_reqsk_send_challenge_ack(struct sock *sk, struct sk_buff *skb,
-+				  struct request_sock *req)
-+{
-+	struct net *net = sock_net(sk);
-+
-+	if (__tcp_oow_rate_limited(net, LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
-+				   &tcp_rsk(req)->last_oow_ack_time))
-+		return;
-+
-+	if (tcp_challenge_ack_allowed(net)) {
-+		NET_INC_STATS(net, LINUX_MIB_TCPCHALLENGEACK);
-+		req->rsk_ops->send_ack(sk, skb, req);
-+	}
-+}
-+
- static void tcp_store_ts_recent(struct tcp_sock *tp)
- {
- 	tp->rx_opt.ts_recent = tp->rx_opt.rcv_tsval;
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index 1badb78baa7f9..7149ddb098409 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -775,7 +775,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
- 	 * elsewhere and is checked directly against the child socket rather
- 	 * than req because user data may have been sent out.
- 	 */
--	if ((flg & TCP_FLAG_ACK) && !fastopen &&
-+	if ((flg & TCP_FLAG_ACK) && !(flg & TCP_FLAG_RST) && !fastopen &&
- 	    (TCP_SKB_CB(skb)->ack_seq !=
- 	     tcp_rsk(req)->snt_isn + 1))
- 		return sk;
-@@ -811,6 +811,16 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
- 		flg &= ~TCP_FLAG_SYN;
- 	}
- 
-+	/* RFC 5961 section 3.2, as clarified by RFC 9293 section
-+	 * 3.10.7.4, requires a challenge ACK for a non-exact
-+	 * in-window RST in SYN-RECEIVED.
-+	 */
-+	if ((flg & TCP_FLAG_RST) &&
-+	    TCP_SKB_CB(skb)->seq != tcp_rsk(req)->rcv_nxt) {
-+		tcp_reqsk_send_challenge_ack(sk, skb, req);
-+		return NULL;
-+	}
-+
- 	/* RFC793: "second check the RST bit" and
- 	 *	   "fourth, check the SYN bit"
- 	 */
+ static void do_thaw_all(struct work_struct *work)
 -- 
 2.53.0
 
