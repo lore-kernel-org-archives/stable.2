@@ -1,119 +1,382 @@
-Received: from flow-b3-smtp.messagingengine.com (flow-b3-smtp.messagingengine.com [202.12.124.138])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1BB1DF248;
-	Sun,  9 Aug 2026 00:50:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A00781732
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 01:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786236652; cv=none; b=ZufbEouLA/g0UZFrWK1StmmxHInUQKgDQMSQaEd43CpcOzKsJ0oFOFbQNwXA+2MBIGwvXDVT5Whm41RmV0stazyp0pz8vYwClbKbp/SlJGB71aQKqY/2Q1qB91CNEgQwj2FLyOwFBcn6SkhNQIq2Brv5yBVjsObPEIpHqfNpD6A=
+	t=1786238522; cv=none; b=CGj/BRwq0X0z+7qXrFZmAXDrwGy0mXe81io/SkpyTBxN31t8TE32Y3v3RkhFkb1CjjfXVO15z0IjxudBMMj8V8ridLcATEnIXFQhlkVWYEFylMFABKZiDwll3reifsvkUC3R+WVqtVz8NERHLiIwYUTE5NNDrCTzyuOwp51EWC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786236652; c=relaxed/simple;
-	bh=UEhJ4fOnP6NvvbztpOOHCgRbwBRf2/ifUuwzgPha3lQ=;
-	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=qUTeSDWIbKZPLOEmJq6QZ5KxsRjEwQPBCYMHxFov/PicSFSDUu5ILd2D4BLUc25hiRiOgOEdYWPB3lJvj9ndOrDCdNyy5BOAXpsp+Y4Wp8bTR+qxxW/QSQ2cNIRE847i9RB9M1UnT/HIsVWTwzVZ2ehH/Tqu2uxjbc3dM2gFIyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=NU29sH9Z; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cP0PZJUq; arc=none smtp.client-ip=202.12.124.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	s=arc-20240116; t=1786238522; c=relaxed/simple;
+	bh=Km1/zB9ZmESB+Vqg1hP8tz5ZBpC+HDdfSkeqCEF4ajQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Nu5wNoBUfP5ILiJEAypeaSxeV35jThC7gZR9wsPFuNxJvi6vLlEipQlAl1j3O/zr0OokdVzFcGEYRWTyD4P9asqLIagAkuAhgY4Ig38AryuJolld6Q4tUXQo6xgpUcbcfwaZ3j4/SUrE2S6CrNO3kYfhyGjD+1ZiMeQtBDQaXVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d5MCZLOQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="NU29sH9Z";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cP0PZJUq"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailflow.stl.internal (Postfix) with ESMTP id A53A813003E8;
-	Sat,  8 Aug 2026 20:50:49 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Sat, 08 Aug 2026 20:50:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1786236649;
-	 x=1786240249; bh=xCkSTHTpye1HwdVm99z+AnyQrg5wWGU9aIxGyfSTlQk=; b=
-	NU29sH9ZsRImhMnP8aT4p1yQuwbjPQGMO/KabwgRq2yYxQ/ry+1Z1Vn+aKswp0jA
-	72ClGAM+RK0CQbBBeNZoFnugrY5/elsoMjjCUxL3pA5zBDlm6jLWNbqUBYL41f67
-	qgDYhH/yx+ZZwLI3zLz4969SjC3Hkzs7OCF7+t7vBCb7HqeZjNkk229mhr6p/lmY
-	ofVWspjaKMqFx4U7KFt0wkexc8lm5XJzdfsl9ynow10v4Z14sNyO3MeFVTcyLQA1
-	WjDOG7H51LRjuwr8d4UA8IhwusSfUQ1QEcwc/NJhpbWu+E0RBf6I/XzedDPtAnCR
-	ZukGehUwfRxEDr4N10drrw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786236649; x=
-	1786240249; bh=xCkSTHTpye1HwdVm99z+AnyQrg5wWGU9aIxGyfSTlQk=; b=c
-	P0PZJUq0RL8Rlvcc1fesfcEMhNL6Ow9lK6nfrSGwEflLRYBFoLkzE1Yr5WMGJPYw
-	6Ls8irExU3Ub5sFTx5NcKRAH5xucWJFNRRvkhBduzCdqecm6LWGDrXtoGpRlheXG
-	UFpcHlztpRcjsaONfnp3vPT+8vfMpXaAfrIR19+vZMdYnDXfubUU4eupOvjcIaV4
-	R95/pGjewQ23PSePQl443aNXWIfsQ3xYKTpj+NGD3gg7BeA8hkv88pef8q7vCOHc
-	uIJqmRnetmYNvbFXUd9WY00og5FNwR45IRYTuMkmtVxMmUD0Ji1P5QW5iU0wfdhs
-	WDeCMFaGEthDDbIKAxoWQ==
-X-ME-Sender: <xms:6c53arGSkqmk3IqBNnnQ2VKcHffefbAAip61EJHMKqdmHgKe49MqKA>
-    <xme:6c53ahqtvY3uC-Hfvkr5IP-xm6o0Pileb7gQNwccdKBZKzJzhBjqdpIQ4cylfo457
-    xtuy5QOh6rmIIzNQtjutLHENNBv18XYy4-EnU7K8TUJ0q73feH64Os>
-X-ME-Received: <xmr:6c53alJ5ES3-_J3P-YGMPLo--aGyaHVuglFfyg0kYfADERmZrUU2geEkMC3ojc-Ixuau59UkdNyymLQWD8k7HpOO>
-X-ME-Proxy-Cause: dmFkZTEWyeKTFTOJEnerKErAGQhxs6jY8ZIIz/VM/JukQDWudLXGVHslkG7D0P1qYkOnvC
-    p/N/lf6zobEs4R09BmnLvcyKb6KEUV8BUTXqUMer/pYJTS3yxadkjhC7zWSmUyqan7H6wr
-    iOv96fl5zT6jrqOPwMso0ETzEouIFpNVaqEmeJP6dRigdDAu+IZwRJj3PRqh95KibXDSbH
-    Of4jjPRZQoMGfXL2I60hA+xQxKCbr/Il0tBfaPmtJlZB/9gh2yaivzrZ+UEJhRUq2avrt/
-    6MNUfnrwFjZeD8nPUgpooCWsWDJWaeXgePQ7pwjcD8pNyMNO3hgiId+X/6f2GyobvqrChX
-    NgkPoQKFCUKOdPrSSKZZaMsWyrbXtBaD570Fno2K/4e5Nb5VitmSOsXELC6wzq1o+MMDWY
-    BDRwN8HUmt9AECIMyFVNpR973AKW7u6uPbtbGxU+dTKN1KX7lX/ZxmF9ahMCplvW2k9Dce
-    3Wj2yJqgmIm4lxeGRLk8czefQ+PqJVNwKyd2c5DDek8AwYdsaBtjBXoESSJCZL126CgnZw
-    rh13jAEcLls9u8D5VHKwcbJvvTqbDM+mo/Yit0Ddsv8oXXiRSOEjzRdCiYx27+csmM/vgK
-    hVPN/Z9TSjlgnoTExldLSqYJPnlu92K0CYW1f/ZUOTAU2VW0QljkT4ZNSYpg
-X-ME-Proxy: <xmx:6c53aiyzFxtDYEEDIAstGaAJXGXzDY_IQtzrTj8ejlUY2ird5uDvow>
-    <xmx:6c53asZ7ksw7NU9kx_h8FiWRleYvZnx3smz_-wtFzjvcNQJrn2sdMg>
-    <xmx:6c53au7uETwpLa9d-ku27TH1Z02VJoAkMJxEJcp0Z_5NIXILFSfXrw>
-    <xmx:6c53atClWOEO2nw6sx0n4TuPtVeL-p1G5s-AlrhTW5lZwR2IMp7Zlg>
-    <xmx:6c53agQEeP9Ahk4NyUtA6jCafbY03DdegnZvbcQlkorROei3L2sIXvzX>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 8 Aug 2026 20:50:43 -0400 (EDT)
-Date: Sun, 09 Aug 2026 09:50:41 +0900 (JST)
-Message-Id: <20260809.095041.602618436881623934.tomo@flapping.org>
-To: miguel.ojeda.sandonis@gmail.com
-Cc: tomo@flapping.org, ojeda@kernel.org, arnd@arndb.de, krzk@kernel.org,
- alexandre.belloni@bootlin.com, linusw@kernel.org, chenhuacai@kernel.org,
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
- tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
- rust-for-linux@vger.kernel.org, fustini@kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- kernel@xen0n.name, loongarch@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] rust: bug: fix `dead_code` warning in `warn_on!`
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <CANiq72m70uWCRFnhs3axdymSTGCirBrYAvKh2BiT0xqW2j_3jg@mail.gmail.com>
-References: <CANiq72n4=fz=JNKY0Jdm8BnLa=RmHB2B7s0bO47YTJ7hygqBZg@mail.gmail.com>
-	<20260808.143013.1251068388254615351.tomo@flapping.org>
-	<CANiq72m70uWCRFnhs3axdymSTGCirBrYAvKh2BiT0xqW2j_3jg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d5MCZLOQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A5D1F000E9;
+	Sun,  9 Aug 2026 01:21:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786238520;
+	bh=CIKf97hn30J/x0mJbuXw/NZVRZyIQVEZ63PzM4QXXOQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=d5MCZLOQrIJ4ifeEK5VD9uiyPh4+vnak3UKdG8Jpe8X22bp5xwunAFUM6fsOp5upQ
+	 rQxI6VRvFCY20xN8G7LIfoFeEuPqgUT7Rw4teL1bylVAVTKAHfk10WA7hD3vJbF/0E
+	 GdHvVYM+8WO5q8bdCxgJ6TR58AmEIhoQmuBsPIcSV+2y9TEHpNt1f6LgrVsqMyW0IO
+	 fbSyzEqGR6cVt7Qz709hXqBDnoPBbSVd17P5JGSZNMP39oN9gRrgFtBrFVYNpu8C0R
+	 8IOODU1MBwpWm+m+KrjD/3Gyz78+DodEugftj/5mX2ppYneh4aPSFtFAJGjCO/Dd1D
+	 D3B1GcJwPu7uQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: ZhangGuoDong <zhangguodong@kylinos.cn>,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/7] smb: move smb_version_values to common/smbglob.h
+Date: Sat,  8 Aug 2026 21:21:52 -0400
+Message-ID: <20260809012158.894446-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072925-unloaded-borough-0d66@gregkh>
+References: <2026072925-unloaded-borough-0d66@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 8 Aug 2026 21:40:49 +0200
-Miguel Ojeda <miguel.ojeda.sandonis@gmail.com> wrote:
+From: ZhangGuoDong <zhangguodong@kylinos.cn>
 
->> I posted a `cfg(testlib)` split for it:
->>
->> https://lore.kernel.org/all/20260808022608.1125174-1-tomo@flapping.org/
-> 
-> Thanks! It seems good to me.
+[ Upstream commit 34cf191bb6a349dc88ec2c4f6355fe006ac669e0 ]
 
-Thanks!
+Merge the struct members of the server and the client:
 
->> While at it, a question: what is `rusttest` meant to cover when
->> `ARCH=` is not the host's?
-> 
-> `rusttest` is meant to run tests on the host, regardless of the target.
+  - req_capabilities:		from client
+  - header_preamble_size:	from client
+  - cap_unicode:		from client
+  - capabilities:		from server, rename to req_capabilities
+  - max_read_size:		from server
+  - max_write_size:		from server
+  - max_trans_size:		from server
+  - max_credits:		from server
+  - create_durable_size:	from server
+  - create_durable_v2_size:	from server
+  - create_mxac_size:		from server
+  - create_disk_id_size:	from server
+  - create_posix_size:		from server
 
-Then `jump_label.rs` needs the same treatment?
+Then move duplicate definitions to common header file.
 
-`arch_static_branch!` embeds the generated arch asm too. It is not a
-problem today only because, like `warn_on!` until now, it has no user
-inside the `kernel` crate itself.
+Co-developed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: ZhangGuoDong <zhangguodong@kylinos.cn>
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: cfc0b8e5080a ("ksmbd: validate minimum PDU size for transform requests")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/cifsglob.h   | 21 ---------------------
+ fs/smb/common/cifsglob.h   | 31 +++++++++++++++++++++++++++++++
+ fs/smb/server/smb2misc.c   |  2 +-
+ fs/smb/server/smb2ops.c    | 32 ++++++++++++++++----------------
+ fs/smb/server/smb2pdu.c    | 10 +++++-----
+ fs/smb/server/smb_common.h | 29 -----------------------------
+ 6 files changed, 53 insertions(+), 72 deletions(-)
+
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index 97f70d437a7eb..2c34ac9c57f8c 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -606,27 +606,6 @@ struct smb_version_operations {
+ 				      const char *symname);
+ };
+ 
+-struct smb_version_values {
+-	char		*version_string;
+-	__u16		protocol_id;
+-	__u32		req_capabilities;
+-	__u32		large_lock_type;
+-	__u32		exclusive_lock_type;
+-	__u32		shared_lock_type;
+-	__u32		unlock_lock_type;
+-	size_t		header_preamble_size;
+-	size_t		header_size;
+-	size_t		max_header_size;
+-	size_t		read_rsp_size;
+-	__le16		lock_cmd;
+-	unsigned int	cap_unix;
+-	unsigned int	cap_nt_find;
+-	unsigned int	cap_large_files;
+-	__u16		signing_enabled;
+-	__u16		signing_required;
+-	size_t		create_lease_size;
+-};
+-
+ #define HEADER_SIZE(server) (server->vals->header_size)
+ #define MAX_HEADER_SIZE(server) (server->vals->max_header_size)
+ #define HEADER_PREAMBLE_SIZE(server) (server->vals->header_preamble_size)
+diff --git a/fs/smb/common/cifsglob.h b/fs/smb/common/cifsglob.h
+index 00fd215e3eb54..eda5e666a7617 100644
+--- a/fs/smb/common/cifsglob.h
++++ b/fs/smb/common/cifsglob.h
+@@ -9,6 +9,37 @@
+ #ifndef _COMMON_CIFS_GLOB_H
+ #define _COMMON_CIFS_GLOB_H
+ 
++struct smb_version_values {
++	char		*version_string;
++	__u16		protocol_id;
++	__le16		lock_cmd;
++	__u32		req_capabilities;
++	__u32		max_read_size;
++	__u32		max_write_size;
++	__u32		max_trans_size;
++	__u32		max_credits;
++	__u32		large_lock_type;
++	__u32		exclusive_lock_type;
++	__u32		shared_lock_type;
++	__u32		unlock_lock_type;
++	size_t		header_preamble_size;
++	size_t		header_size;
++	size_t		max_header_size;
++	size_t		read_rsp_size;
++	unsigned int	cap_unix;
++	unsigned int	cap_nt_find;
++	unsigned int	cap_large_files;
++	unsigned int	cap_unicode;
++	__u16		signing_enabled;
++	__u16		signing_required;
++	size_t		create_lease_size;
++	size_t		create_durable_size;
++	size_t		create_durable_v2_size;
++	size_t		create_mxac_size;
++	size_t		create_disk_id_size;
++	size_t		create_posix_size;
++};
++
+ static inline void inc_rfc1001_len(void *buf, int count)
+ {
+ 	be32_add_cpu((__be32 *)buf, count);
+diff --git a/fs/smb/server/smb2misc.c b/fs/smb/server/smb2misc.c
+index ffbddf00d24e9..6a4f1b8a0b13c 100644
+--- a/fs/smb/server/smb2misc.c
++++ b/fs/smb/server/smb2misc.c
+@@ -465,7 +465,7 @@ int ksmbd_smb2_check_message(struct ksmbd_work *work)
+ 	}
+ 
+ validate_credit:
+-	if ((work->conn->vals->capabilities & SMB2_GLOBAL_CAP_LARGE_MTU) &&
++	if ((work->conn->vals->req_capabilities & SMB2_GLOBAL_CAP_LARGE_MTU) &&
+ 	    smb2_validate_credit_charge(work->conn, hdr))
+ 		return 1;
+ 
+diff --git a/fs/smb/server/smb2ops.c b/fs/smb/server/smb2ops.c
+index 606aa3c5189a2..bcf05caa2304d 100644
+--- a/fs/smb/server/smb2ops.c
++++ b/fs/smb/server/smb2ops.c
+@@ -15,7 +15,7 @@
+ static struct smb_version_values smb21_server_values = {
+ 	.version_string = SMB21_VERSION_STRING,
+ 	.protocol_id = SMB21_PROT_ID,
+-	.capabilities = SMB2_GLOBAL_CAP_LARGE_MTU,
++	.req_capabilities = SMB2_GLOBAL_CAP_LARGE_MTU,
+ 	.max_read_size = SMB21_DEFAULT_IOSIZE,
+ 	.max_write_size = SMB21_DEFAULT_IOSIZE,
+ 	.max_trans_size = SMB21_DEFAULT_IOSIZE,
+@@ -41,7 +41,7 @@ static struct smb_version_values smb21_server_values = {
+ static struct smb_version_values smb30_server_values = {
+ 	.version_string = SMB30_VERSION_STRING,
+ 	.protocol_id = SMB30_PROT_ID,
+-	.capabilities = SMB2_GLOBAL_CAP_LARGE_MTU,
++	.req_capabilities = SMB2_GLOBAL_CAP_LARGE_MTU,
+ 	.max_read_size = SMB3_DEFAULT_IOSIZE,
+ 	.max_write_size = SMB3_DEFAULT_IOSIZE,
+ 	.max_trans_size = SMB3_DEFAULT_TRANS_SIZE,
+@@ -68,7 +68,7 @@ static struct smb_version_values smb30_server_values = {
+ static struct smb_version_values smb302_server_values = {
+ 	.version_string = SMB302_VERSION_STRING,
+ 	.protocol_id = SMB302_PROT_ID,
+-	.capabilities = SMB2_GLOBAL_CAP_LARGE_MTU,
++	.req_capabilities = SMB2_GLOBAL_CAP_LARGE_MTU,
+ 	.max_read_size = SMB3_DEFAULT_IOSIZE,
+ 	.max_write_size = SMB3_DEFAULT_IOSIZE,
+ 	.max_trans_size = SMB3_DEFAULT_TRANS_SIZE,
+@@ -95,7 +95,7 @@ static struct smb_version_values smb302_server_values = {
+ static struct smb_version_values smb311_server_values = {
+ 	.version_string = SMB311_VERSION_STRING,
+ 	.protocol_id = SMB311_PROT_ID,
+-	.capabilities = SMB2_GLOBAL_CAP_LARGE_MTU,
++	.req_capabilities = SMB2_GLOBAL_CAP_LARGE_MTU,
+ 	.max_read_size = SMB3_DEFAULT_IOSIZE,
+ 	.max_write_size = SMB3_DEFAULT_IOSIZE,
+ 	.max_trans_size = SMB3_DEFAULT_TRANS_SIZE,
+@@ -204,7 +204,7 @@ void init_smb2_1_server(struct ksmbd_conn *conn)
+ 	conn->signing_algorithm = SIGNING_ALG_HMAC_SHA256_LE;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_LEASES)
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_LEASING;
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_LEASING;
+ }
+ 
+ /**
+@@ -221,20 +221,20 @@ void init_smb3_0_server(struct ksmbd_conn *conn)
+ 	conn->signing_algorithm = SIGNING_ALG_AES_CMAC_LE;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_LEASES)
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_LEASING |
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_LEASING |
+ 			SMB2_GLOBAL_CAP_DIRECTORY_LEASING;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_ENCRYPTION &&
+ 	    conn->cli_cap & SMB2_GLOBAL_CAP_ENCRYPTION)
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_ENCRYPTION;
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_ENCRYPTION;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_ENCRYPTION ||
+ 	    (!(server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_ENCRYPTION_OFF) &&
+ 	     conn->cli_cap & SMB2_GLOBAL_CAP_ENCRYPTION))
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_ENCRYPTION;
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_ENCRYPTION;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB3_MULTICHANNEL)
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_MULTI_CHANNEL;
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_MULTI_CHANNEL;
+ }
+ 
+ /**
+@@ -251,19 +251,19 @@ void init_smb3_02_server(struct ksmbd_conn *conn)
+ 	conn->signing_algorithm = SIGNING_ALG_AES_CMAC_LE;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_LEASES)
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_LEASING |
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_LEASING |
+ 			SMB2_GLOBAL_CAP_DIRECTORY_LEASING;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_ENCRYPTION ||
+ 	    (!(server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_ENCRYPTION_OFF) &&
+ 	     conn->cli_cap & SMB2_GLOBAL_CAP_ENCRYPTION))
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_ENCRYPTION;
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_ENCRYPTION;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB3_MULTICHANNEL)
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_MULTI_CHANNEL;
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_MULTI_CHANNEL;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_DURABLE_HANDLE)
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_PERSISTENT_HANDLES;
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_PERSISTENT_HANDLES;
+ }
+ 
+ /**
+@@ -280,14 +280,14 @@ int init_smb3_11_server(struct ksmbd_conn *conn)
+ 	conn->signing_algorithm = SIGNING_ALG_AES_CMAC_LE;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_LEASES)
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_LEASING |
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_LEASING |
+ 			SMB2_GLOBAL_CAP_DIRECTORY_LEASING;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB3_MULTICHANNEL)
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_MULTI_CHANNEL;
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_MULTI_CHANNEL;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_DURABLE_HANDLE)
+-		conn->vals->capabilities |= SMB2_GLOBAL_CAP_PERSISTENT_HANDLES;
++		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_PERSISTENT_HANDLES;
+ 
+ 	INIT_LIST_HEAD(&conn->preauth_sess_table);
+ 	return 0;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 41bc4b06fad08..bc779472cffde 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -284,7 +284,7 @@ int init_smb2_neg_rsp(struct ksmbd_work *work)
+ 	/* Not setting conn guid rsp->ServerGUID, as it
+ 	 * not used by client for identifying connection
+ 	 */
+-	rsp->Capabilities = cpu_to_le32(conn->vals->capabilities);
++	rsp->Capabilities = cpu_to_le32(conn->vals->req_capabilities);
+ 	/* Default Max Message Size till SMB2.0, 64K*/
+ 	rsp->MaxTransactSize = cpu_to_le32(conn->vals->max_trans_size);
+ 	rsp->MaxReadSize = cpu_to_le32(conn->vals->max_read_size);
+@@ -963,7 +963,7 @@ bool smb3_encryption_negotiated(struct ksmbd_conn *conn)
+ 	 * SMB 3.0 and 3.0.2 dialects use the SMB2_GLOBAL_CAP_ENCRYPTION flag.
+ 	 * SMB 3.1.1 uses the cipher_type field.
+ 	 */
+-	return (conn->vals->capabilities & SMB2_GLOBAL_CAP_ENCRYPTION) ||
++	return (conn->vals->req_capabilities & SMB2_GLOBAL_CAP_ENCRYPTION) ||
+ 	    conn->cipher_type;
+ }
+ 
+@@ -1216,7 +1216,7 @@ int smb2_handle_negotiate(struct ksmbd_work *work)
+ 		rc = -EINVAL;
+ 		goto err_out;
+ 	}
+-	rsp->Capabilities = cpu_to_le32(conn->vals->capabilities);
++	rsp->Capabilities = cpu_to_le32(conn->vals->req_capabilities);
+ 
+ 	/* For stats */
+ 	conn->connection_type = conn->dialect;
+@@ -3480,7 +3480,7 @@ int smb2_open(struct ksmbd_work *work)
+ 	share_ret = ksmbd_smb_check_shared_mode(fp->filp, fp);
+ 	if (!test_share_config_flag(work->tcon->share_conf, KSMBD_SHARE_FLAG_OPLOCKS) ||
+ 	    (req_op_level == SMB2_OPLOCK_LEVEL_LEASE &&
+-	     !(conn->vals->capabilities & SMB2_GLOBAL_CAP_LEASING))) {
++	     !(conn->vals->req_capabilities & SMB2_GLOBAL_CAP_LEASING))) {
+ 		if (share_ret < 0 && !S_ISDIR(file_inode(fp->filp)->i_mode)) {
+ 			rc = share_ret;
+ 			goto err_out1;
+@@ -8081,7 +8081,7 @@ static int fsctl_validate_negotiate_info(struct ksmbd_conn *conn,
+ 		goto err_out;
+ 	}
+ 
+-	neg_rsp->Capabilities = cpu_to_le32(conn->vals->capabilities);
++	neg_rsp->Capabilities = cpu_to_le32(conn->vals->req_capabilities);
+ 	memset(neg_rsp->Guid, 0, SMB2_CLIENT_GUID_SIZE);
+ 	neg_rsp->SecurityMode = cpu_to_le16(conn->srv_sec_mode);
+ 	neg_rsp->Dialect = cpu_to_le16(conn->dialect);
+diff --git a/fs/smb/server/smb_common.h b/fs/smb/server/smb_common.h
+index 3f274af060dab..a364bf319a46d 100644
+--- a/fs/smb/server/smb_common.h
++++ b/fs/smb/server/smb_common.h
+@@ -336,35 +336,6 @@ struct file_id_full_dir_info {
+ 	char FileName[];
+ } __packed; /* level 0x105 FF rsp data */
+ 
+-struct smb_version_values {
+-	char		*version_string;
+-	__u16		protocol_id;
+-	__le16		lock_cmd;
+-	__u32		capabilities;
+-	__u32		max_read_size;
+-	__u32		max_write_size;
+-	__u32		max_trans_size;
+-	__u32		max_credits;
+-	__u32		large_lock_type;
+-	__u32		exclusive_lock_type;
+-	__u32		shared_lock_type;
+-	__u32		unlock_lock_type;
+-	size_t		header_size;
+-	size_t		max_header_size;
+-	size_t		read_rsp_size;
+-	unsigned int	cap_unix;
+-	unsigned int	cap_nt_find;
+-	unsigned int	cap_large_files;
+-	__u16		signing_enabled;
+-	__u16		signing_required;
+-	size_t		create_lease_size;
+-	size_t		create_durable_size;
+-	size_t		create_durable_v2_size;
+-	size_t		create_mxac_size;
+-	size_t		create_disk_id_size;
+-	size_t		create_posix_size;
+-};
+-
+ struct filesystem_posix_info {
+ 	/* For undefined recommended transfer size return -1 in that field */
+ 	__le32 OptimalTransferSize;  /* bsize on some os, iosize on other os */
+-- 
+2.53.0
 
