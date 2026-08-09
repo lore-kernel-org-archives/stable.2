@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186D137C10A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C1337DEAA;
 	Sun,  9 Aug 2026 02:32:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786242738; cv=none; b=mXran7ZCU1zlSLwtiVMK2x9ifveHkjTcJD+UMWU0B3FPt50kveu++0mVPLzbK1GWPhBbP6ghfH/XDH1myy6RxbSbXVymC5z6qZRTNpBWJNVR7rjbLF/NYMD22LCrjjXV73T0Kbp4pol9FywZ/n9jewPqShyEe6pCl752RKLTUPQ=
+	t=1786242738; cv=none; b=QdMgqbYrSjhT2Iv8qV2C1HpRDiAtsaaAAe69AIhopPuw9+2VQoxn8H5xBGmWkFu7gLZm2XL/7c9c3ZOSEmrZIuuOd2Iy9ZKybWEyFJcbjXADhyfpoHRbPZbjtqS9qa/KO+TI2uESHHzr7iLvuy8c0unSpuoRs0fEPI5ajSR+GNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786242738; c=relaxed/simple;
-	bh=7lujbEOmldkRiLrS41CTuOilo6e/XBJd+Wp/yIsUFyQ=;
+	bh=afozUb8E/5FXp1IRFFB2cQW7YrWaCKo+79vBmXSiE/Y=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=GiSkNocfIiS3uEyvj9Glb9UZ8btHtShUTtA45rM645B4oet7ji0gH89eshts+52E5tYMlpVuiUVEDO+7K8eUennrfrwTaQixOGWaH0mpwlkIkLLBIAbf6TkJX/JLTHowj1jIKe1bHQzsFnmz0Sdjy+YY8sbzRz8BhaV1LunyIU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q2e3LFQG; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=hgLeaGC2nqJt3wDDdGgPBb4Ws2RyHux8mBK8qaogJiXQa/Sy/Qus7PrJRvm0nQUulbdvUf23ki6lEdaWUsvmhbJaiJHhZwgosmfJt72my03efqe1T28C4MYIqdO+VWE4KpiKZbxHF5mH94pO16bAw898E56CeDqEkd4sKWaLjLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qg/Yjanv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q2e3LFQG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9541F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qg/Yjanv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C3BE1F00ADE;
 	Sun,  9 Aug 2026 02:32:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786242736;
-	bh=RsZajquT8PdTHqA0S7T6sbbrTm5qKWASenU4d6SqLAk=;
+	bh=JrxP5G/FB4r8xdT3E+9AH8xbkYjIv2lSi5v0y68eIGE=;
 	h=Date:From:To:Cc:Subject:References;
-	b=Q2e3LFQG19dSfuy6kAfEAxyiE6Vu2O8mHOH9xigpsRTgTKoUK4OC7RsPQSiWx75T2
-	 DblYojEGTo44Cr0fmfCyV5V+Xe9zIQoAzGwcwWVGCWvGUPjOtdAZkEMxJAe3PnONAb
-	 VQ6JFbn63ZlHDw39+2FNsNkgx65hQgyZAkY4zoZvObydSXNRohnGErdpN0zBvz+nKi
-	 HX1p0nSelUE83OMvzIaZ60BXGhriCRNl3ByL1eSXW567sxHnYRzPBFCrNVogejgBD3
-	 p8vmKlEpeBRdXRC0MWjqb2eLfOiIHdXezDeKNj7tv9LXhsGm+fu1hqiI69T6DJjjHl
-	 uV9AIDJUMVPhA==
+	b=Qg/YjanvPmshHuWNqXtAj6WhQm3/mTZC4lT/wJXUEM5WqCP5DdaRTXlOmdHdX7BEE
+	 sf/w1ByR9NeY1RIjCg2y9tfsyfuCKhtA/X6L7IQqSsagFo9tdPjApdYnb2Wt+mbsuz
+	 96QT69JpAK/P8kjV6YZytcC9REBzu2b9Iz43nu+YR7TieWYg4Y4LSdxzeTqRuPn41J
+	 iw8NeYujBeSaqLI9l59TyYWlYpoQ0epJcmgBvcVmSLjWj2hGFb83xaxTt946QGa0JO
+	 a1jkYEEgfUXTzE9Ed0Kgse/BhmkTr6XHM9NPd1vmO4eOeqhfxZ55fQOeZL/sgMuvzk
+	 8anUHbqqxUnNA==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wstKo-00000001N5h-20N7;
+	id 1wstKo-00000001N7C-3ucB;
 	Sat, 08 Aug 2026 22:32:22 -0400
-Message-ID: <20260809023222.338674181@kernel.org>
+Message-ID: <20260809023222.799156348@kernel.org>
 User-Agent: quilt/0.69
-Date: Sat, 08 Aug 2026 22:31:51 -0400
+Date: Sat, 08 Aug 2026 22:31:54 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,8 +40,9 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Tengda Wu <wutengda@huaweicloud.com>
-Subject: [for-linus][PATCH 07/12] ring-buffer: Use current_context for safe per-CPU buffer swap
+ syzbot+e0cc44465d6bae735679@syzkaller.appspotmail.com,
+ Vincent Donnefort <vdonnefort@google.com>
+Subject: [for-linus][PATCH 10/12] ring-buffer: Prevent subbuf order change when resizing is disabled
 References: <20260809023144.852271250@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -51,77 +52,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Tengda Wu <wutengda@huaweicloud.com>
+From: Vincent Donnefort <vdonnefort@google.com>
 
-The ring_buffer_swap_cpu() function currently checks the per-CPU
-committing counter to determine if a buffer is actively being written to
-before performing the swap. However, there exists a race window where
-this check can be bypassed:
+Because ring_buffer_subbuf_order_set() frees buffer pages, we can't
+allow it when resizing is disabled. A non-consuming reader is at risk of
+use-after-free (rb_advance_iter()).
 
-    ring_buffer_lock_reserve
-        cpu_buffer = buffer->buffers[cpu];       // cpu_buffer_a
-        rb_reserve_next_event
-            rb_start_commit // inc committing
-            if (unlikely(READ_ONCE(cpu_buffer->buffer) != buffer)) {...}
-            __rb_reserve_next
-                rb_move_tail
-                    rb_end_commit(cpu_buffer);   // dec committing => 0
-                    /* interrupt hits here, successfully swaps! */
-                    local_inc(&cpu_buffer->committing);
-
-    ring_buffer_unlock_commit
-        cpu_buffer = buffer->buffers[cpu];      // cpu_buffer_b
-        rb_commit
-            rb_end_commit
-            RB_WARN_ON(cpu_buffer, !local_read(&cpu_buffer->committing))
-                                                // triggers warning
-
-The committing counter can temporarily drop to 0 during a single write
-operation (within rb_move_tail), creating a window where swap can
-succeed even though the write is still in progress. This leads to
-inconsistent buffer state and triggers the RB_WARN_ON in rb_commit().
-
-Replace the committing counter check with current_context checks, which
-are set at the entry of ring_buffer_lock_reserve() and remain valid
-throughout the entire write operation, providing a reliable indicator of
-buffer busy state during swap.
+Return -EBUSY on resize_disabled, matching ring_buffer_resize()
+behaviour.
 
 Cc: stable@vger.kernel.org
-Fixes: 4239c38fe0b3 ("ring-buffer: Process commits whenever moving to a new page.")
-Link: https://patch.msgid.link/20260803005640.2445666-2-wutengda@huaweicloud.com
-Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
+Link: https://patch.msgid.link/20260806211306.3704194-3-vdonnefort@google.com
+Reported-by: syzbot+e0cc44465d6bae735679@syzkaller.appspotmail.com
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/ring_buffer.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ kernel/trace/ring_buffer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 8e2485bb3aa8..58dc8995a88d 100644
+index 09d502ef4c55..6cbd80ccef37 100644
 --- a/kernel/trace/ring_buffer.c
 +++ b/kernel/trace/ring_buffer.c
-@@ -6852,7 +6852,7 @@ int ring_buffer_swap_cpu(struct trace_buffer *buffer_a,
- {
- 	struct ring_buffer_per_cpu *cpu_buffer_a;
- 	struct ring_buffer_per_cpu *cpu_buffer_b;
--	int ret = -EINVAL;
-+	int ret = -EBUSY;
+@@ -7360,7 +7360,7 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
  
- 	if (!cpumask_test_cpu(cpu, buffer_a->cpumask) ||
- 	    !cpumask_test_cpu(cpu, buffer_b->cpumask))
-@@ -6893,10 +6893,10 @@ int ring_buffer_swap_cpu(struct trace_buffer *buffer_a,
- 	atomic_inc(&cpu_buffer_a->record_disabled);
- 	atomic_inc(&cpu_buffer_b->record_disabled);
+ 		cpu_buffer = buffer->buffers[cpu];
  
--	ret = -EBUSY;
--	if (local_read(&cpu_buffer_a->committing))
-+	/* Do not swap if either buffer is in the process of writing */
-+	if (cpu_buffer_a->current_context)
- 		goto out_dec;
--	if (local_read(&cpu_buffer_b->committing))
-+	if (cpu_buffer_b->current_context)
- 		goto out_dec;
- 
- 	/*
+-		if (cpu_buffer->mapped) {
++		if (atomic_read(&cpu_buffer->resize_disabled)) {
+ 			err = -EBUSY;
+ 			goto error;
+ 		}
 -- 
 2.53.0
 
