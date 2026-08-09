@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EBF3D1CA5
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 15:04:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87CC13D3309
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 15:04:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786287842; cv=none; b=aFH7jsqDUsqyIlRwKvohxxbSA5U2bzi3DB4CNFzncRVi/Zdai6bSx/CnU3W3eT8ezTDAk6Rgl28dK+UwUhEKbHJHRwuy0lJCjaG1Jd4RhxsjOkNARaME1m760PwFzLo2lv6Yh+IT0ZhujGFvBRk6JHmdd6e6D+cZhnrEBOWqleI=
+	t=1786287843; cv=none; b=bKGudg5cWokHnSu9S01DlNEzxr0ekPLubxYmjujX47rpYW0XWPWoUkABtlhc6m1Y0MIGbmHJ3Dme1RRAcwGaSoKxz2W9H5Fw6lBrD+Ls0nV1uZJa/+mjmAvtPuiySGX3bfgH7WriVlv00vxIuxwh6Xc0eNEtx0oeBSdp30ioLjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786287842; c=relaxed/simple;
-	bh=k8UbcOo1xwkt85TcxTtybKCNK3YCuGPSdxgvZJupghQ=;
+	s=arc-20240116; t=1786287843; c=relaxed/simple;
+	bh=IWJY22qyXKGduklHRaoZl2odrsTP1X5JyNk4vncfErM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TOTIqABTogblDfdO0OUjQanRW9FuFYcKrjr/OTB8++PlTGBL1PEwxhOCTbWKNSAZxvQOqh7byFcwmC+qrrXGRY6FxcQEWdZhRubQw1TRSTPqRRIKhF2gyWSPMfzsyZFPPc66rshPlfyqQEMQuAFM7Lvd1HPyUoL0zQEihpzkxXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJnlEx1D; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mFgxr84/qnk3dIzuKU5/WMBFJMvDS6Hx8D3Z3LFhqzA9HwPuFA8ThETe/OJWNfPOskv5PE7ps+4fkeG7n8Tf4/Ndlp/hXT2spXcl2dux41hHvMp49QHfXsnHkDevkCHm9Zk7U+POGOsqwb5Sf/Xo50BP0Kt8VBtRzD5jPVfe3DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XMFtRIBy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJnlEx1D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9971A1F00A3D;
-	Sun,  9 Aug 2026 15:03:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XMFtRIBy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73E581F00A3E;
+	Sun,  9 Aug 2026 15:04:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786287840;
-	bh=W++BkZYC1wk4zryDqovmB53o43oHpYDEVJn79ZUV6Fc=;
+	s=k20260515; t=1786287841;
+	bh=F3Xnk2+OI1JJGxTtMgzx+LeWYG4zXfS1FyfpoB//LTU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eJnlEx1DiUvdiYpQ8WYd4zlZSXLBMVjsLesjMMwEoIG3Ui7aPzzI/BojasOeEg2pX
-	 VbeFm3Wx5vzb1I0vF2Sl5gI5T/3GTbJZvrcGRrvSEV32waJ2v4goDjiYrxWLQMazcL
-	 Ca+3obeyXTZkC771hMbk5kfkZQgiJSC36A06m++BJtccY7c2xezo8iaWYwuL5GwQbs
-	 VdSpwpzMlG93DQWpc5pwrrbjrcZJKtDe2CMzw6wGVvNuR2qT0zbK4gC5uCQvEnPwXz
-	 FeNDcJzYwxjUUJvRiCMgc1zmeOxIcBxNZif1yoylfGMvQkhzJcAEFAlzQ6N0h1FZ7P
-	 svLb0x7IlILrA==
+	b=XMFtRIByof8/D04IMD1mML5kqapqFFeDi69uxf//srR2JMP0Jn30RH53D7Q9bnaiQ
+	 +WQOtu1rF4Cr180YzDSNaVc8ae2xqBVqLdbcNPgvfJgaslkTJWzRI5cz2yHmUqxrxU
+	 26PtMv8h0vSDD0ucrrinIB4G1L7ujxV7e4Wwrns7narJnn2WpsD+H5NtXrQHuVtfwa
+	 fvp15sLpbTh3pmXh0QL/9c8cA+CgbHOLu9wY1CixZZR4yqhkR73KrdghhqLT/E7/OI
+	 gPqcNJZaTrqjlUxeIBuL5BW9qSFhNrr/F19K9wztC9fRARdjuMNb1go59bpePsEU2B
+	 +LV1mJGVSVEkw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Filipe Manana <fdmanana@suse.com>,
+Cc: Guanghui Yang <3497809730@qq.com>,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/4] btrfs: remove fs_info argument from btrfs_zoned_activate_one_bg()
-Date: Sun,  9 Aug 2026 11:03:55 -0400
-Message-ID: <20260809150356.1872210-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/4] btrfs: zoned: fix missing chunk metadata reservation
+Date: Sun,  9 Aug 2026 11:03:56 -0400
+Message-ID: <20260809150356.1872210-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260809150356.1872210-1-sashal@kernel.org>
 References: <2026080520-wikipedia-kindness-ddd8@gregkh>
@@ -47,88 +47,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Filipe Manana <fdmanana@suse.com>
+From: Guanghui Yang <3497809730@qq.com>
 
-[ Upstream commit a232ff90d14657c8637c6e94b606bb5d700a2ecb ]
+[ Upstream commit 8bc4d7209611e8aa9d5409b6a4a86a9eb91b69a3 ]
 
-We don't need it since we can grab fs_info from the given space_info.
-So remove the fs_info argument.
+reserve_chunk_space() stores the return value of
+btrfs_zoned_activate_one_bg() in ret. The helper can return 1 after
+successfully activating a block group, but ret is later used to decide
+whether to reserve metadata for chunk tree updates.
 
+As a result, successful activation skips btrfs_block_rsv_add() and leaves
+trans->chunk_bytes_reserved unchanged. Use a separate variable for the
+activation result so positive success does not affect the later
+reservation. Keep activation failures in ret instead of returning early so
+the function uses the common tail path.
+
+Fixes: b6a98021e401 ("btrfs: zoned: activate necessary block group")
+CC: stable@vger.kernel.org
 Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Signed-off-by: Filipe Manana <fdmanana@suse.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: Guanghui Yang <3497809730@qq.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
-Stable-dep-of: 8bc4d7209611 ("btrfs: zoned: fix missing chunk metadata reservation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/block-group.c | 4 ++--
- fs/btrfs/zoned.c       | 5 ++---
- fs/btrfs/zoned.h       | 6 ++----
- 3 files changed, 6 insertions(+), 9 deletions(-)
+ fs/btrfs/block-group.c | 34 +++++++++++++++++++---------------
+ 1 file changed, 19 insertions(+), 15 deletions(-)
 
 diff --git a/fs/btrfs/block-group.c b/fs/btrfs/block-group.c
-index 2e8c7b530fc25..8741495a8decd 100644
+index 8741495a8decd..a78b233cb8981 100644
 --- a/fs/btrfs/block-group.c
 +++ b/fs/btrfs/block-group.c
-@@ -3018,7 +3018,7 @@ int btrfs_inc_block_group_ro(struct btrfs_block_group *cache,
- 	 * We have allocated a new chunk. We also need to activate that chunk to
- 	 * grant metadata tickets for zoned filesystem.
- 	 */
--	ret = btrfs_zoned_activate_one_bg(fs_info, space_info, true);
-+	ret = btrfs_zoned_activate_one_bg(space_info, true);
- 	if (ret < 0)
- 		goto out;
- 
-@@ -4284,7 +4284,7 @@ static void reserve_chunk_space(struct btrfs_trans_handle *trans,
+@@ -4280,25 +4280,29 @@ static void reserve_chunk_space(struct btrfs_trans_handle *trans,
+ 		if (IS_ERR(bg)) {
+ 			ret = PTR_ERR(bg);
+ 		} else {
++			int activate_ret;
++
+ 			/*
  			 * We have a new chunk. We also need to activate it for
  			 * zoned filesystem.
  			 */
--			ret = btrfs_zoned_activate_one_bg(fs_info, info, true);
-+			ret = btrfs_zoned_activate_one_bg(info, true);
- 			if (ret < 0)
- 				return;
+-			ret = btrfs_zoned_activate_one_bg(info, true);
+-			if (ret < 0)
+-				return;
+-
+-			/*
+-			 * If we fail to add the chunk item here, we end up
+-			 * trying again at phase 2 of chunk allocation, at
+-			 * btrfs_create_pending_block_groups(). So ignore
+-			 * any error here. An ENOSPC here could happen, due to
+-			 * the cases described at do_chunk_alloc() - the system
+-			 * block group we just created was just turned into RO
+-			 * mode by a scrub for example, or a running discard
+-			 * temporarily removed its free space entries, etc.
+-			 */
+-			btrfs_chunk_alloc_add_chunk_item(trans, bg);
++			activate_ret = btrfs_zoned_activate_one_bg(info, true);
++			if (activate_ret < 0) {
++				ret = activate_ret;
++			} else {
++				/*
++				 * If we fail to add the chunk item here, we end
++				 * up trying again at phase 2 of chunk allocation,
++				 * at btrfs_create_pending_block_groups(). So
++				 * ignore any error here. An ENOSPC here could
++				 * happen, due to the cases described at
++				 * do_chunk_alloc() - the system block group we
++				 * just created was just turned into RO mode by a
++				 * scrub for example, or a running discard
++				 * temporarily removed its free space entries, etc.
++				 */
++				btrfs_chunk_alloc_add_chunk_item(trans, bg);
++			}
+ 		}
+ 	}
  
-diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-index dabbfc3b7d776..8076cd65c0c56 100644
---- a/fs/btrfs/zoned.c
-+++ b/fs/btrfs/zoned.c
-@@ -2453,10 +2453,9 @@ int btrfs_zone_finish_one_bg(struct btrfs_fs_info *fs_info)
- 	return ret < 0 ? ret : 1;
- }
- 
--int btrfs_zoned_activate_one_bg(struct btrfs_fs_info *fs_info,
--				struct btrfs_space_info *space_info,
--				bool do_finish)
-+int btrfs_zoned_activate_one_bg(struct btrfs_space_info *space_info, bool do_finish)
- {
-+	struct btrfs_fs_info *fs_info = space_info->fs_info;
- 	struct btrfs_block_group *bg;
- 	int index;
- 
-diff --git a/fs/btrfs/zoned.h b/fs/btrfs/zoned.h
-index c18f31d3dc25f..2cc73218dcd51 100644
---- a/fs/btrfs/zoned.h
-+++ b/fs/btrfs/zoned.h
-@@ -81,8 +81,7 @@ bool btrfs_zoned_should_reclaim(const struct btrfs_fs_info *fs_info);
- void btrfs_zoned_release_data_reloc_bg(struct btrfs_fs_info *fs_info, u64 logical,
- 				       u64 length);
- int btrfs_zone_finish_one_bg(struct btrfs_fs_info *fs_info);
--int btrfs_zoned_activate_one_bg(struct btrfs_fs_info *fs_info,
--				struct btrfs_space_info *space_info, bool do_finish);
-+int btrfs_zoned_activate_one_bg(struct btrfs_space_info *space_info, bool do_finish);
- void btrfs_check_active_zone_reservation(struct btrfs_fs_info *fs_info);
- #else /* CONFIG_BLK_DEV_ZONED */
- static inline int btrfs_get_dev_zone(struct btrfs_device *device, u64 pos,
-@@ -253,8 +252,7 @@ static inline int btrfs_zone_finish_one_bg(struct btrfs_fs_info *fs_info)
- 	return 1;
- }
- 
--static inline int btrfs_zoned_activate_one_bg(struct btrfs_fs_info *fs_info,
--					      struct btrfs_space_info *space_info,
-+static inline int btrfs_zoned_activate_one_bg(struct btrfs_space_info *space_info,
- 					      bool do_finish)
- {
- 	/* Consider all the block groups are active */
 -- 
 2.53.0
 
