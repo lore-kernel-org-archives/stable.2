@@ -1,125 +1,95 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AABD3290A5;
-	Sun,  9 Aug 2026 08:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F00A3A9615;
+	Sun,  9 Aug 2026 08:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786264089; cv=none; b=K8d/SNPkvVWBI+VwaToBn/OlvEYSdi2ZD6b+zsVvirTwjUIIHMNw5eRzryHZpTXY+AhOsFNHLZOo3g3p9hZLZPoDZehNWmBq+h4vJojLlXOUFKpbHbsCN709B3SL5bt/8OxAaQBtBmHcBgREg6GOlU99ZgQA8syd55CV4tknXPw=
+	t=1786264096; cv=none; b=bo6gjVCOP10jUj2mNRXGJnK5S/pFD3rP+CLTp5gv+72KK3vLPc+dobvtuKtY0X3sy54iaVtXkSiPVq4MyHmLOAmFwee500uecBoSCZyKzDB0MJbSyHEW1oRUP5m5lA1mT+DREIlnqVbibFuAwTEp2pHRnKqa1/MfrVbBFEDIpjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786264089; c=relaxed/simple;
-	bh=5QRgRuns4zmF+gog8Y8zKAsY0zWas35xtUPB392I1/s=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jxgKJsAkYT0WwNOlKgtis68Py04UvdOw8Xk6UyHo5SFAiK95okA5wOJ5YF+obj06ybR+GpNFMDFLU8Rhl7UTFHBQxUqzy/Iw+Utkgf6m9qcuWj4s+JmBseHE9j1YvhhQZ1znv6ohjlcSxl0siumHxHQqdWMA3s3/moFOZs2P2h8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=EZJv+0tc; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1786264096; c=relaxed/simple;
+	bh=n0FUUzR694qXALZ+QNvW5O/2mpuEvBXs4QzXrk3U9FY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IHDnzr9kkDl7DkrtgrB5WfM+TCiVKBd4d+uahjJT3SDq4auJN8R763IJtpnvDWEWEvTBgExnu8RNy0PBxSeujxkvMOmAgXUtzUjHqdMuLUlpPrjkTXdi72hsNqhlM0pyAYPP9/43EM7Tqf1/fa0WZj8C7N3uHgNBXuAw2WZm4hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LK/5iA6p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="EZJv+0tc"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 441624311E;
-	Sun, 09 Aug 2026 10:28:04 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id TKNuF9xN9AOk; Sun,  9 Aug 2026 10:28:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1786264083; bh=5QRgRuns4zmF+gog8Y8zKAsY0zWas35xtUPB392I1/s=;
-	h=From:Subject:Date:To:Cc;
-	b=EZJv+0tcIsLwxPnEi0byDnAaiCG4kdaBfBnLTFiCTg7gAspwh3rDpAGOmOQdNsOde
-	 dhts8OZp+vOJz5wYbcdQCSwvK7B3CDwdCqYLR4z1O3ZwGQy1dm3N/urHP9IVxHWJ3y
-	 LIwbp3P0CRlkDVHcEu4iGohTvF1MBIcumKiKFpZ+xKfovbU0KDlKAFICQNc+hbf0cV
-	 WTnqiC532HQBasDZNNIm3O0/ml/nC8RglSi2IzRY8uLcqdopcJXVFuEwcCHTN6AMrx
-	 kgS+rYA71nQTTjvwh0WT3QML/p3mMjjMP3v8yY+3s/aeiCJ6Yq2prPAfDWEP+T5BKL
-	 r54KD2COOTfEw==
-From: Kaustabh Chakraborty <kauschluss@disroot.org>
-Subject: [PATCH v4 0/3] Fixes and enhancements for Exynos (7870) DSIM
- bridge driver
-Date: Sun, 09 Aug 2026 13:57:40 +0530
-Message-Id: <20260809-exynos-dsim-fixes-v4-0-ca67c51e61b7@disroot.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LK/5iA6p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9FB01F000E9;
+	Sun,  9 Aug 2026 08:28:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786264095;
+	bh=scN0dVtHJLocRH4gfEpiZ+K9AepgESz2N8BuExFDaKE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LK/5iA6pbYYYgfKE+2cgYUmPjlfQxRvdxMGah9atOF0/A2MUQ5cw8NmDKpY0jEx50
+	 WQlWo/htOFjA54RuXmRJVrveRp857knhxg+fEydnHTwp71c+A4WynNX6vjbF07Nxo7
+	 i/8Idz96BpGckZ8hbc/uKYDY7hEwLeWCGpCBSbJjMFVitNVEVDLb1VGG8olaL0/mAy
+	 uYHCJNwdfdqbTKgM4pxI4QWAlF76BiWfjg956wScAFIzHMoYHpunV2D1Wpr0mXyVhX
+	 VvHJ2yeJjm9ffo7dgRlXBtj85eN7UWbu0Ix2dKUzOxt35BgIxOyLv68qJWgbjkHu4+
+	 7UlQsnav+iraw==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	i.maximets@ovn.org,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	pablo@netfilter.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	sashal@kernel.org,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 6.12 000/337] 6.12.103-rc1 review
+Date: Sun,  9 Aug 2026 10:28:04 +0200
+Message-ID: <20260809082804.252555-1-ojeda@kernel.org>
+In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
+References: <20260807143418.516897842@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBAF0KuYrq1pZ4ASV97DuKjtAF1ITUsaC
- OHuFjbESFz+P/lvZhYpOIrseppZoOSi830OxfnETKf7lrizOTMQUAkJBadx6n3kNroXb9xIkZd
- Yo6101QiFLO/egbZDnt0fOXcuDj5M24sk1/afliQXXAJYUSgNaOXNuhi8Hy4+tGz1EuwGiPrIg
- GzoulRUSxQa9K+Bu6EAjwzMhjAoNUn7JGO+jWVZPlndrW48AQAA
-X-Change-ID: 20260124-exynos-dsim-fixes-5383d6a6f073
-To: Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Kaustabh Chakraborty <kauschluss@disroot.org>, stable@vger.kernel.org
+Content-Transfer-Encoding: 8bit
 
-Since v6.17, there is a regression for the Exynos 7870 DSIM driver. The
-display occasionally had random aberration when the panel was turned on.
-The first patch addresses that.
+On Fri, 07 Aug 2026 16:33:24 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 6.12.103 release.
+> There are 337 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 09 Aug 2026 14:33:46 +0000.
+> Anything received after that time might be too late.
 
-The second patch replaces an implicit loop for waiting for PLL
-stabilization with an interrupt-based solution, which should be more
-reliable. This solution was suggested by Inki Dae in a discussion of an
-earlier patch series sent by me. For further details, refer to its
-commit description.
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64:
 
-Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
----
-Changes in v4:
-- Clarify active-hight MFLUSH_VS in code comment (Luca Seresoli)
-- Move aperture_remove_all_conflicting_devices() before
-  component_bind_all() (Sashiko)
-- Change `timeout` type to unsigned long (Inki Dae)
-- Correct typo s/Calcutate/Calculate (Inki Dae)
-- Correct inverted condition waiting for PLL stable completion
-  (Inki Dae)
-- Do not exclusively conclude IRQ routine for PLL_STABLE interrupt
-  (Inki Dae)
-- Explicitly enable PLL_STABLE and SW_RST_RELEASE interrupts during
-  reset action (Inki Dae)
-- Wait for SW_RST_RELEASE interrupt before setting up clock (Inki Dae)
-- Fall back to bit testing for PLL stabilization when timed out
-- Link to v3: https://patch.msgid.link/20260723-exynos-dsim-fixes-v3-0-0c31ae1dbecc@disroot.org
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-Changes in v3:
-- Add patch for removing conflicting devices for DRM (Sam Day)
-- Link to v2: https://lore.kernel.org/r/20260208-exynos-dsim-fixes-v2-0-a857e8130a2a@disroot.org
+I also had the slub `inline` issue, which I see Sasha fixed already:
 
-Changes in v2:
-- drop now-not-required [v1 1/3] (Marek Szyprowski)
-- Link to v1: https://lore.kernel.org/r/20260124-exynos-dsim-fixes-v1-0-122d047a23d1@disroot.org
+    In file included from mm/slub.c:21:
+    mm/slab.h:572:24: warning: duplicate 'inline' declaration specifier [-Wduplicate-decl-specifier]
+      572 | static __always_inline inline bool need_kmalloc_no_objext(void)
+          |                        ^
+    ././include/linux/compiler_types.h:249:16: note: expanded from macro 'inline'
+      249 | #define inline inline __gnu_inline __inline_maybe_unused notrace
+          |                ^
 
----
-Kaustabh Chakraborty (3):
-      drm/bridge: samsung-dsim: enable MFLUSH_VS for Exynos 7870 DSIM
-      drm/bridge: samsung-dsim: use DSIM interrupt to wait for PLL stability
-      drm/exynos: remove simplefb nodes before init
+Thanks!
 
- drivers/gpu/drm/bridge/samsung-dsim.c   | 56 +++++++++++++++++++++++++--------
- drivers/gpu/drm/exynos/exynos_drm_drv.c |  6 ++++
- include/drm/bridge/samsung-dsim.h       |  1 +
- 3 files changed, 50 insertions(+), 13 deletions(-)
----
-base-commit: 290aaf24a551d5a0dce037e3fab30820f9113a10
-change-id: 20260124-exynos-dsim-fixes-5383d6a6f073
-
-Best regards,
---  
-Kaustabh Chakraborty <kauschluss@disroot.org>
-
+Cheers,
+Miguel
