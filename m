@@ -1,123 +1,164 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AFA35CB7B
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 18:11:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD54435CB7B;
+	Sun,  9 Aug 2026 18:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786299120; cv=none; b=CM3KK7bzOYRNcuAu2a9sqQN4mL62PCiQtvBDihULKtOAXQu5TMrj/xHCDwEdcddHFz/UT//nhaSNkkysqliUliyY1l9S9bNkHNMGxbQrvvfyKwpR3sQRgfsFiq4I0NRwe3GaISNBhwog+0c0xtsDAtDksfkuAfC2TQz3oyUtMpY=
+	t=1786299229; cv=none; b=o2975rKJHY4O4StFUITzTA2h+QT3zZ+mOztVOzsOtbE+bwHT26xUFzX3/UKwQrn/user3CCwA54wonpGIxjDR3WVcG8JSZO+V5y0bcBIQxNXdLqdOinfR2NDSvFSKewaxD/VGCeV8v4qTLqDioeL4QnTC/BbQVQ9CBCJ3et71kU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786299120; c=relaxed/simple;
-	bh=UzgFFcq25sDDfKoaHn+VXHNND3WRXeDcn+AQuJuIe+s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=auf1gHI6Qed29St8Cppdu22TPMl2EYpxYORwNHVqfkM6YBp/yhm987nsdKOZYOQOC9YGfIb1/TVp/dfXTtgsPkXefD275psUGCB9iyLxL5/cOWbVF1SzGpsJBIsWQlo5QnWD89k40mK0XZQCSacV8jJGSU+yG+3XwIifLNjpik4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MgawpL/k; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786299229; c=relaxed/simple;
+	bh=8vpyiWQrr4pTBoPnmyhHE+2ooOAchLp1vX1DLtjGMak=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y7XNoWRs5lWJxNhCvwwIY2U+lqCzhIShcKl3NNA3BE4VMPpsL3Ida8/ZsIoKM1h/ZpSZCWvICTiLjAYm+pNXnfu3zBg3yJ9r8wduSp9iZLpqCudo0ghByYoHqsz+OwrV78085niN9fDQlAVwX1NHtALsMWNNHU7twD20lSaHUb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kjNLuZi2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MgawpL/k"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-476a130c138so1110756f8f.0
-        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 11:11:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786299116; x=1786903916; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WoCA45LQ4z+3BUUhv5YOm84o93I32Yjtpc3HcvkQ194=;
-        b=MgawpL/kCf5uzgQZ9wIdyINkMb4i8RmGxXeGUyAovIkCXqKoCEQhLjDqwPbP8RXIx8
-         gPxZahjgfTVta1wfywes6/ypl5DVuWViZ1R3Sk90f0LfG7heGE8mgh4Q/KNB/+s/zarH
-         LKSD+i5K0RbuCRY1wm/3m5toyl+ZUHaeCLGfLRTjDs8WXUIyEQ92F9F9Eyy+yfwxFkCe
-         XH/RBewNJNtiLScBusWQrBy3OdJ2PFQUri2PL33UtiTsLfI2w3gQhb3td99AKekkkeZ4
-         yL1qPLYqvR9EO0tfnKD7+Y0bGx6+zCtsZG9RBAb5f2bpZRNqG7ps+KrBd72moY0qXdxH
-         bYbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786299116; x=1786903916;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WoCA45LQ4z+3BUUhv5YOm84o93I32Yjtpc3HcvkQ194=;
-        b=AsZK9B1roNBykpSgwF3inNwue39YkmDWeceqGEF0liXDh8ig9CZT9/ybL4e4PhgLEY
-         mClDHsPymP4jaRENwxePceG3KcLp57OeblZrw2TR1tK5sRbi1y0SNkRU5pkvS6I7Xl0u
-         uh5HQGo0U4UOj9k2Y2koVGIgMdk6GRxqZsACfELjnIOywKNdXrUlmtqvtwUfX9HkeXyt
-         cUL0zG0BvHmJTpXvZh6BuNVH7LVNH/STWRQKKw1s8mt31O959RaYUd/ivHVJc6WqXpyz
-         Hqu34Py5MSlGjUU5jBi/71z72osi4zp2qs41GSr9ZCULnrUUVzsDNMzSQR/DFB6Lo9ef
-         cQ6g==
-X-Forwarded-Encrypted: i=1; AHgh+RrtbIz7wfaYqxF5yb+y3PPB3wsmwDkOefC4iHIxHiPFfKiRp7qFN1uVep09Hb/HZD8fgfNQrhs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzmXuZvT5vgDmkYAEYa9bdz5v5434193BYqnBfrwub3Ggxbtm0g
-	pFZxYfr0Zj9DE/jj6GHbMH60xto57AQJNSqM9RjHywc7pZi0btFcV9Ku
-X-Gm-Gg: AR+sD10qNkxSleDn/7RxxJXdDRcI3hZSCMiTWBWuSCKcmVs0ufIDh3jU3NsW2I7yaTi
-	taxFrohz9ZEDHYsDwVgKvrdv51Ti52nYq82tOdslGQGJUyUyidrjtcOZHUuJhXHOIErBBpatiRV
-	wO71Sju7aHxRy6U8QMHjwXLj57a0VwnLPeq42l1riItEADTFbJOChyIhnoaY76LZNVtYkCcmXOP
-	sXxviiUBQdTfbV3VFkD9heW134bqsiQdkYIxy7ur5ohrG3NbUjdhZtOsXY/1bU0cBa+vZ3kcxJo
-	lr/L9v1A+24yfFb+pOpwQbrYac862sRYf9EuKgHC3EEuWYe6kw0m9I5khUA6HCZIPN3LKQz3r4T
-	PlEoe8d5Y5v3KLproFVexCSB4TtquMIBdtF9ZghomRJuv1NpLpkuM9QnbG3OV/MkS/3yEHoxV66
-	V6C5XN7WLsQ61W4L0MZoIh1yPMMUCLc+bZ5ZATd5UYIneQKFOpoE5v2KAiL+nnaLizHa1mefkAL
-	df/lkGuZEqefc3r5Y0dPvRA/2nxulBLsXJPt7iKkCRkoDd9TZn805e+keePn+Tsv3HqotASUv77
-	w6YVarJpej0fO0oYQiF8rWoJXSPqiedaZKkhSEDh4mIy2Ak7ZNDFvYDWUQwMIfCaAuEhDqI65Fd
-	eJg==
-X-Received: by 2002:a05:6000:22c9:b0:47f:e7c8:3fe9 with SMTP id ffacd0b85a97d-47ffd15cb0fmr36249046f8f.0.1786299116224;
-        Sun, 09 Aug 2026 11:11:56 -0700 (PDT)
-Received: from MBP-von-Karl.localdomain (dynamic-2a02-3100-ac88-a501-9c5c-9666-3a00-3cdb.310.pool.telefonica.de. [2a02:3100:ac88:a501:9c5c:9666:3a00:3cdb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480020be8f3sm24111242f8f.0.2026.08.09.11.11.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 11:11:55 -0700 (PDT)
-Date: Sun, 9 Aug 2026 20:11:54 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kjNLuZi2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E8D1F000E9;
+	Sun,  9 Aug 2026 18:13:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786299228;
+	bh=biTFnHYssGz2lOpfbiM0gbuJjSJ8jehqLOBv/83u8vw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kjNLuZi2b1RsQVaRFK1bSD6X7nIkB4Dli17pb/LGlSEBvF3T/sDZOGFsretR42kSV
+	 wfMKL5jUnxzLGVbNoVkofQHLAFK10I8QOAc1PA+U4i4Jy55JdB1UncbJsnGcAho9jH
+	 EloTpMI54D3UMfCNpm41l+YYurA97l04T/UPRICR9fQzCqMeR/8QcAVY+plmjFToVA
+	 4cCb4cTe0X5Of+sSkA7cDQmcCZM/aIgmWAhI4E+K8vDBu3xKxU2ZZe6Y7TOtxrGnA6
+	 HaPhet94swK2y7INulQrC9b+P7Q15l5+x6EkiNNz9vxUi9cADr+JPKxA1rwOWLser1
+	 XV5otCA4iUpOQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wt81p-0000000DsoJ-33u9;
+	Sun, 09 Aug 2026 18:13:45 +0000
+Date: Sun, 09 Aug 2026 19:13:45 +0100
+Message-ID: <86wltz9n6u.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Yao Yuan <yaoyuan@linux.alibaba.com>,
+	ljs@kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: nv: Allocate the shadow S2 MMUs
- individually
-Message-ID: <anizGXThM-haqQXU@gmail.com>
-References: <20260803224405.41468-1-kmehltretter@gmail.com>
- <86mrv2arf2.wl-maz@kernel.org>
- <anYNTW2e3HalTqTk@gmail.com>
- <878q6fplpd.wl-maz@kernel.org>
+Subject: Re: [PATCH v2 4/8] KVM: arm64: Correctly handle end of VA space TLBI invalidation
+In-Reply-To: <yifz3wn5gk5sr6mapi32trgk5m5kp33bquctsjmkifebnsnndt@fix6u4rthx4g>
+References: <20260806091026.620700-1-maz@kernel.org>
+	<20260806091026.620700-5-maz@kernel.org>
+	<yifz3wn5gk5sr6mapi32trgk5m5kp33bquctsjmkifebnsnndt@fix6u4rthx4g>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <878q6fplpd.wl-maz@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: weilin.chang@arm.com, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, imv4bel@gmail.com, yaoyuan@linux.alibaba.com, ljs@kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Sun, Aug 09, 2026 at 12:39:10PM +0100, Marc Zyngier wrote:
-> My current patch is as follows, and so far, I haven't seen much that I
-> like better.
+On Sat, 08 Aug 2026 22:41:31 +0100,
+Wei-Lin Chang <weilin.chang@arm.com> wrote:
 > 
+> Hi Marc,
+> 
+> On Thu, Aug 06, 2026 at 10:10:22AM +0100, Marc Zyngier wrote:
+> > Our TLB invalidation by VA code is based on comparing two ranges,
+> > one defined by the TLB, and one defined by the TLBI instruction.
+> > 
+> > Each range is defined by a start and a size. However, the way the
+> > comparison is done doesn't account for address rollover, as it
+> > compares an address with (base + size). This works nicely until
+> > this expression represent the last page/block in the TTBR1 VA space,
+> > as the result is a big fat 0. And a failed TLB invalidation.
+> > 
+> > Rewrite the comparison in a way that is immune to the address
+> > rollover (making the end address inclusive instead of exclusive),
+> > and move this into a common helper that is used by both VA and IPA
+> > invalidations, as suggested by Hyunwoo Kim (although the IPA version
+> > didn't suffer from this particular problem, obviously).
+> > 
+> > Fixes: 4ffa72ad8f37e ("KVM: arm64: nv: Add S1 TLB invalidation primitive for VNCR_EL2")
+> > Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
+> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> > Cc: stable@vger.kernel.org
+> > ---
+> >  arch/arm64/kvm/nested.c | 43 ++++++++++++++++++-----------------------
+> >  1 file changed, 19 insertions(+), 24 deletions(-)
+> > 
+> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > index 27bc7ee4b3382..8a602d074dbb4 100644
+> > --- a/arch/arm64/kvm/nested.c
+> > +++ b/arch/arm64/kvm/nested.c
+> > @@ -999,6 +999,20 @@ static void invalidate_vncr(struct vncr_tlb *vt)
+> >  		clear_fixmap(vncr_fixmap(vt->cpu));
+> >  }
+> >  
+> > +static bool vncr_tlb_intersects(struct vncr_tlb *vt, u64 addr,
+> > +				u64 scope_start, u64 scope_size)
+> > +{
+> > +	u64 tlb_size, tlb_start, tlb_end, scope_end;
+> > +
+> > +	tlb_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift, vt->wr.level));
+> > +
+> > +	tlb_start = addr & ~(tlb_size - 1);
+> > +	tlb_end = tlb_start + tlb_size - 1;
+> > +	scope_end = scope_start + scope_size - 1;
+> 
+> I think if scope_end overflows,
+> 
+> > +
+> > +	return !(tlb_end < scope_start || tlb_start > scope_end);
+> 
+> tlb_start > scope_end can evaluate to true and we return false even when
+> there is overlap near the end of the TTBR1 address space.
 
-Hi Marc,
+I assume that you are implicitly talking about TLB Range Invalidation,
+right? Because we otherwise align base on size, making overflows
+impossible with this patch.
 
-Thanks for your revised patch.
-I think one correctness issue is in there. 
+> Therefore I think we need to saturate scope_end to ULONG_MAX when overflow
+> happens. This is also what the architecture does when looking at the
+> pseudocode J1.2.3.442 TLBIRange (M.c).
 
-> +		for (i = 0; !ret && i < S2_MMU_PER_VCPU; i++)
-> +			ret = init_nested_s2_mmu(kvm, &tmp[i]);
+That's one possible implementation, because the pseudocode is dealing
+with start/end directly, but that's not how our scope works (it deals
+with start and size).
 
-> +		if (ret) {
-> +			while (--i >= 0)
-> +				kvm_free_stage2_pgd(&tmp[i]);
+For that we need to cap the *size*, similarly to what is done in
+handle_ripas2e1is() (see patch #6). Something like the hack below.
 
-The increment expression of the for loop still runs after an error.
+	M.
 
-I reproduced this with failslab. If init_nested_s2_mmu() fails while
-allocating pgt, before mmu->arch is assigned, the for loop still
-increments i. Thus while (--i >= 0) passes the failed entry to
-kvm_free_stage2_pgd(). The resulting log is:
+diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
+index 21d0f4cbe07f1..5b8edb2e8a87d 100644
+--- a/arch/arm64/include/asm/kvm_nested.h
++++ b/arch/arm64/include/asm/kvm_nested.h
+@@ -305,6 +305,12 @@ static inline u64 decode_range_tlbi(u64 val, u64 *range, u16 *asid)
+ 	num	= FIELD_GET(GENMASK(43, 39), val);
+ 	*range	= __TLBI_RANGE_PAGES(num, scale) << shift;
+ 
++	/* Cap the range to the correct half of the address space */
++	if (!(base & BIT(48)))
++		*range = min(*range, (BIT(48) - base));
++	else
++		*range = min(*range, ~base + 1);
++
+ 	return base;
+ }
+ 
 
-Unable to handle kernel paging request at virtual address fffffffffffff650
-Internal error: Oops: 0000000096000046 [#1] SMP
-Call trace:
-  _raw_write_lock
-  kvm_free_stage2_pgd
-  kvm_vcpu_init_nested
-
-Thanks,
-Karl
+-- 
+Without deviation from the norm, progress is not possible.
