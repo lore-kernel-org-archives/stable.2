@@ -1,79 +1,47 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD60D4B0486
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 03:28:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4E1314900E;
+	Sun,  9 Aug 2026 03:35:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786246102; cv=none; b=KlPN7hUAAmbSd0tajgwLGFUnhpy59rwJVWRHom8HsAsrqimhyYUbPzWO+r4e9eByWR94HRG18W8geA8sWYjqIUYPM6kZhvNTeTP+Et/k8Zj0FF5d7VfJg1G0EIt2H0jlBpkcBDlbpS/vo51T3Yu2YN02Dj+BtivMYLpW6H8lAwc=
+	t=1786246566; cv=none; b=Ak0syPjqsUEV6+Nv3Iy7P8iUH+P2wdNsHX1nr+6Bi38AeCN0C3WaRNz/Pb3NO3DBNUCnBpH3TJp1GhbGQ4XSl23zJq0Nkc4QTfQ4p3oV8VHzcwjevoU3IGelrPC5lnlGE6pHdoLDYxVivAois6p52AfpWMXvw3ptBp9mKK4ElqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786246102; c=relaxed/simple;
-	bh=m9jOM3JnwxnOHunHY32HFFU1VBtGt8WDJlIYoxsl8DA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IRXPFnxM3PduiudbvtpwM5luYZDmbbnD7citrJUhiMaI/r3qCEiIQGxH9yKOjLEixkGdovlam8Z9Njo5WVl1q1ucBlQSiIn2s18es7p9JqkK96PR6cLoXkZacSj4uIL6TMu+qmQWB+rN628E1gHPoSfTq+DyqhdqU94jrbP+9WU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=duZPvk7f; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="duZPvk7f"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cacb8416a1so7403375ad.1
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 20:28:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786246099; x=1786850899; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JEHO0Y8VayIiQ9EQdeJUip1ZA/P378h7uR1P3EclUFk=;
-        b=duZPvk7fFeqwS7cV+/NO9f6wfoJaOIz5JOzUS/4wuEPkjEYfQjpNW+lfEt3WFLnlGF
-         L2emRLD+JjozGeg2WkViLcuHtMWDxurd17uYeDTh5eH02V8P/ld2MUvA00CmJROSGk/I
-         EnNPZvhmSCOd8i47mIVIjYVG4Xcn2ozV6/UpxXWeSEKdxp3tbkhkFepoVVWzWMhpOV+x
-         FC2g+sshV5W7O8TKj+AknH+YJiZUotjYWOHAbBDvOyDzcBoKdej/W7+qKU8wDY2tXc0R
-         t320zCoIKrXkr/oTSghA5unej6tO3qyBu6Wx+fT84iCNfQ8GrxxYtS+lYBPHNrH3O+hn
-         UDOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786246099; x=1786850899;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JEHO0Y8VayIiQ9EQdeJUip1ZA/P378h7uR1P3EclUFk=;
-        b=lalYchdXz2aSkknYJC4xFhVUCgcfAbiSB76HbrE+sgftV+P7F2t2yuKUJdoB/EftVr
-         vi2bhAGKvavfXsUrwy9NI6rOUebRuhR7ZK72s6PZcd/HgBPiqAhSCESRT0Gz6/20LKSt
-         bN8lsWY3eenVKD01f8JltQ42oTA9Tzk2BpcV98ZDlAsLCFjoLcmN1oCaVquLPnAYkPj7
-         ooYfZfObRH1eCwVwzh7wz/72yVR5QHazcLWW2v8CFunEKt196havh0oYsHPJI/yulVbU
-         X+lqoQIb6VaPnTBVLT0ywJSOFaSItOCpIsmNw5EhK6diQGeKX5coxr1SEbsBdn4ZIER7
-         6Ebw==
-X-Forwarded-Encrypted: i=1; AHgh+RpMg9FRuQ/9IhIO0LIo5x8iyTl8cOjO20Cvti8Dr2DTc7ZyvKPd/7WaSdTGmZGP88r/+FR0Sbc=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7xAmtqIKETM2HteJjT3ITgS8jufNSgr1tV7CMHWzRk407NafK
-	vB+p5Z3htL5QdEjdv1j197r2/H40Xcs3A74740UP4bwRxnTvFLC34r0DJzY+D38lgXQ=
-X-Gm-Gg: AR+sD12UOfD6QfJp29F+pfCWh4jkdXKHNQ0UuVC1ICtnDrkXjTKvGLSsLjQRjQvC5Mx
-	n/TzRXK2HsT6vYRS89mvLgoCOhVjtVrtokEp3gg0itC8qe5oPzDRVRuF/4dlkBhGPsPq9JfW9ta
-	dtOnoURYzOrMddZjIa+1muzfonwqVLmnspMP2pDr6gprQg00i+SAeDbpdmNHCRuSCuWMQolr2/J
-	oC0gSVAB/K2gUDdIBGdySgn/6LXyLGxla2Fci1vf06NHJF4seYBKiOe1jiHsEug46cmhg9N++p6
-	uvB4q1bhDHUNhUv5zu/viNFVeEA4gcRYFv1+zgH/X5IbGzxOi5FMSRBW/NOM3L25o2gx+kkMsRg
-	J2gb+U1MO04soIf72hq5WE+WMTEZXjX3QFsv/UMKtLstJYulI+S68K0AcavU9sRF2YNojibiRAZ
-	C200L8BHhL0XjMDclhGcmzm6iQcXqJjdtaY4M0KKw2I3K8w9V/nSzESYvptkbld6r2EkT48Omia
-	uyNkwztMGXH1akm6XTHx5eoltthyUtxw408muLOtNpst9ZPXOl74n7Vgo6xkbI=
-X-Received: by 2002:a17:90b:4c45:b0:38f:efed:5448 with SMTP id 98e67ed59e1d1-392822b7b78mr8987373a91.8.1786246098978;
-        Sat, 08 Aug 2026 20:28:18 -0700 (PDT)
-Received: from homelab1-WRX80-Creator.localdomain (p790255fa.sitmnt01.ap.so-net.ne.jp. [121.2.85.250])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3926254ee45sm7587626a91.2.2026.08.08.20.28.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 20:28:18 -0700 (PDT)
-From: Shuhei Takeshita <jyohuku.alterego@gmail.com>
-To: dennis.dalessandro@cornelisnetworks.com,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
+	s=arc-20240116; t=1786246566; c=relaxed/simple;
+	bh=IWPAPGy9vH7MTxWAG9zcneAboQuUaGBJtRUA2MuRx7g=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=L6+96hdVezlFektTgcxCWTrsF0czoZEFV1w7/EyigjMcw6xGAAg+cl54dD8X7ZJvXxvHWwkw3IOJaqx0UY0v/mILD3qCHx1GLyJrBoAori7wh7ZZXCmdEWhWzdmx5vQJc/Yc/GuWkF3AvV33LYbZaDjR7s+ZU9mqkF2etwDRqPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAH4j6L9Xdq1915AA--.27924S3;
+	Sun, 09 Aug 2026 11:35:40 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgDXCjKL9XdqUFEIAw--.44444S2;
+	Sun, 09 Aug 2026 11:35:39 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: netdev@vger.kernel.org
+Cc: Simon Horman <horms@kernel.org>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Dipayaan Roy <dipayanroy@microsoft.com>,
+	Sahil Chandna <sahilchandna@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-hyperv@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	dean.luick@cornelisnetworks.com,
-	Shuhei Takeshita <jyohuku.alterego@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] IB/hfi1: Fix the PIO_CRED credit-return mmap
-Date: Sun,  9 Aug 2026 12:27:43 +0900
-Message-ID: <20260809032743.2671579-3-jyohuku.alterego@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260809032743.2671579-1-jyohuku.alterego@gmail.com>
-References: <20260809032743.2671579-1-jyohuku.alterego@gmail.com>
+Subject: Re: [PATCH net] net: mana: fix reset work race with device removal
+Date: Sun,  9 Aug 2026 03:34:26 +0000
+Message-Id: <20260809033426.104315-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260807124945.713853-1-horms@kernel.org>
+References: <20260807124945.713853-1-horms@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,115 +49,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgDXCjKL9XdqUFEIAw--.44444S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?jWzTmwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZz/GESoQyYY5g5ROxLVgloiSWibBz7tv/ix5d2wiXMFtG7d
+	zgFok0WJcWaj/I/E15vN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoW7tF4fJF4rCFW7Gw45AFy8tFc_yoW8Xw13pr
+	y5Ga1kCr97W3yxG3yqvr1xXFy8Crs5Ja13CwnFg3W8Cwn8Ar15tr42qr4Y9ry7Crs5Gwn0
+	vFWYqw1rZa1jqFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8ructUUUUU==
 
-hfi1_file_mmap()'s PIO_CRED case must hand user space the single
-credit-return page that holds this context's entry.  That page is the
-second or third page of the per-node credit-return allocation once the
-hardware send context index reaches 64 or 128, so the failure below is
-intermittent: when the entry lands on the first page the offset is zero
-and everything works.
+Thanks for the review.
 
-Two things are wrong.
+On the service-gating concern: I will keep GC_IN_SERVICE set on the
+failed-resume rescan exit, so the existing gate is preserved until the
+old device is removed.  A freshly probed device starts with clear flags,
+so the bit naturally resets across the rescan, and no second service or
+tx-timeout work can be admitted while mana_serv_rescan() tears the device
+down.
 
-First, cr_page_offset is a byte offset but .va is a struct
-credit_return *, so adding it is pointer arithmetic and scales the offset
-by sizeof(struct credit_return) == 64.  memvirt then lands 256 KiB or
-512 KiB past a 10240-byte allocation.  With an IOMMU translating, that
-address is inside the vmalloc range but in no vm_area, so
-dma_mmap_coherent() -> iommu_dma_mmap() finds no pages, vmalloc_to_pfn()
-returns page_to_pfn(NULL), and remap_pfn_range() installs a frame above
-MAXPHYADDR.  The first user read then takes:
+On the lock scope: agreed that holding the driver-core device lock across
+mana_gd_suspend() + the msleep() + mana_gd_resume() is far too broad.
+Narrowing it is not as simple as swapping in a driver-private mutex,
+though.  A mutex embedded in struct gdma_context cannot itself protect the
+drvdata lookup, which happens before such a lock can be taken, and
+mana_gd_remove() cannot take-then-free-then-release a lock that lives
+inside the object being freed.  What this race actually needs is a drain
+boundary: close admission of new reset work, wait for the already-admitted
+work to finish, and only then clear drvdata and tear the context down.
 
-  psm2_ep_open_pr: Corrupted page table at address 7a14d007e000
-  PGD 800000013886a067 P4D 800000013886a067 PUD 13886b067 PMD 13886c067
-                                            PTE 800049168e911235
-  Oops: Bad pagetable: 000d [#1] SMP PTI
+I am aligning this with Long Li's in-flight series "[PATCH net v4 0/7]
+net: mana: HW channel reliability and hardening fixes", which is
+establishing the HWC teardown lifecycle model (the setup_active state and
+explicit destroy ordering), so that the reset/remove rework follows the
+same HWC lifecycle and teardown ordering, rather than introducing an
+independent synchronization scheme that could conflict with that work.
 
-Second, and still wrong once the arithmetic is corrected,
-dma_mmap_coherent() describes a whole coherent buffer and selects the
-page within it with vma->vm_pgoff.  Offsetting cpu_addr has no effect:
-for a vmap'd allocation iommu_dma_mmap() uses cpu_addr only to locate the
-vm_area and then maps pages[vm_pgoff], which hfi1_file_mmap() has just
-set to 0.  User space therefore always receives the first credit-return
-page, every credit read is for the wrong context, and send PIO stalls
-forever.
-
-Use the DMA API as intended: pass the base of the allocation with its
-full length and select the page with vm_pgoff.  A separate length is
-needed because memlen must keep describing the VMA for the existing size
-check.  The dma-direct path stays correct as well, since dma_direct_mmap()
-adds the same vm_pgoff to the base pfn.
-
-Tested on a Dell T7610 (Xeon E5-2650 v2, Intel IOMMU in DMA-FQ mode)
-against a Threadripper PRO 3995WX peer, both Omni-Path 100.  Before this
-change psm2_ep_open() Oopses the kernel; with only the arithmetic
-corrected psm2_ep_open() succeeds but any transfer that uses send PIO
-hangs, PSM2_SDMA=2 (send PIO disabled) completing normally while
-PSM2_SDMA=0 (send PIO only) hangs every time.  With this change send PIO,
-send DMA and the default mixed mode all work.
-
-Fixes: 1ec82317a1da ("IB/hfi1: Use dma_mmap_coherent for matching buffers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuhei Takeshita <jyohuku.alterego@gmail.com>
----
- drivers/infiniband/hw/hfi1/file_ops.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
-index e05f3c255..ad2044d1f 100644
---- a/drivers/infiniband/hw/hfi1/file_ops.c
-+++ b/drivers/infiniband/hw/hfi1/file_ops.c
-@@ -326,6 +326,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 	void *memvirt = NULL;
- 	dma_addr_t memdma = 0;
- 	u8 subctxt, mapio = 0, vmf = 0, type;
-+	size_t memdmalen = 0;
- 	ssize_t memlen = 0;
- 	int ret = 0;
- 	u16 ctxt;
-@@ -371,7 +372,9 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		mapio = 1;
- 		break;
- 	case PIO_CRED: {
-+		struct credit_return_base *cr = &dd->cr_base[uctxt->sc->node];
- 		u64 cr_page_offset;
-+
- 		if (flags & VM_WRITE) {
- 			ret = -EPERM;
- 			goto done;
-@@ -381,11 +384,18 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 * second or third page allocated for credit returns (if number
- 		 * of enabled contexts > 64 and 128 respectively).
- 		 */
--		cr_page_offset = ((u64)uctxt->sc->hw_free -
--				  (u64)dd->cr_base[uctxt->sc->node].va) &
-+		cr_page_offset = ((u64)uctxt->sc->hw_free - (u64)cr->va) &
- 				 PAGE_MASK;
--		memvirt = dd->cr_base[uctxt->sc->node].va + cr_page_offset;
--		memdma = dd->cr_base[uctxt->sc->node].dma + cr_page_offset;
-+		/*
-+		 * dma_mmap_coherent() describes the whole coherent buffer and
-+		 * selects the page within it with vma->vm_pgoff, so pass the
-+		 * base of the allocation and its length and let vm_pgoff pick
-+		 * the page.
-+		 */
-+		vma->vm_pgoff = cr_page_offset >> PAGE_SHIFT;
-+		memvirt = cr->va;
-+		memdma = cr->dma;
-+		memdmalen = TXE_NUM_CONTEXTS * sizeof(struct credit_return);
- 		memlen = PAGE_SIZE;
- 		flags &= ~VM_MAYWRITE;
- 		flags |= VM_DONTCOPY | VM_DONTEXPAND;
-@@ -567,7 +577,8 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		ret = 0;
- 	} else if (memdma) {
- 		ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
--					memvirt, memdma, memlen);
-+					memvirt, memdma,
-+					memdmalen ? memdmalen : memlen);
- 	} else if (mapio) {
- 		ret = io_remap_pfn_range(vma, vma->vm_start,
- 					 PFN_DOWN(memaddr),
--- 
-2.43.0
+I will send a reworked version once that direction is settled.
 
