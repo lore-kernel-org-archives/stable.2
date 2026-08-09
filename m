@@ -1,98 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4ABF31328E
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:07:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6C91A6800
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:08:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786248463; cv=none; b=g+KhhbzsVRJX/SLpa1c00aeS6PbDa4V2HPybXhA6svJCHQxx+DclBKvza+a2q2aozcsj5IcU5yhIcL1rIn5YjPL47EtS3RnugijDCmBZJIdgPRaJ7lik1l9mwB/kucNrneSKXum17lYFdIq/nZOIAkn4WDNS1ppBqZn33IpZ2k8=
+	t=1786248488; cv=none; b=hZbx7uHNuiaaJ8ulG2XwigG+qaPukrcyCHJLz6JhYPIU6cDNg84k/Z7HWLtr+tVddhkJNUkga42BvCFZR4Qh9RTfJll2efSQiKOCynXCwfE8dcCQeB7VNioU1ydMZJBeIqHhz0A9N3y02zspeUsKTkSOIf/qo9vUUnSVPzGf2uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786248463; c=relaxed/simple;
-	bh=4E4YvNrn4yDUOCzuehcRYYYu2UMPIlLOvAvw0Hw1J+Y=;
+	s=arc-20240116; t=1786248488; c=relaxed/simple;
+	bh=DVH4IDH2JUFbfAJKtvWhR0yvk9oI7f1Wb+9Vj/W7N4Y=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AUmrc0/2F55lE2ZyeYwJuQGUanEtYAtDE2RcDBEIit3lgygO1l+0tVDTBXDMOazm8FxpjkmWGsPPIZ6XknURSRJsBSy43c+yiuAWk1V1C+AVClhqk/gzed69SJon8rogoOkwgy77I3OjN6+5TRdXJm77zGNdNi+4vxfcgNHipq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UMDhbkUv; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=Lwur3+Ee2LeAgMwbtmv/xxeoHFpu5O6O4p1HxAqSWoDgNW61Dzq8TPvROA8C8no/3q9mgD9rrW+pq3lmjUqeCpBSwjTMnF5cvZe39pU76VlWOEfuUQN341mWDzi9X/I7yyewtDpqeXThHOfczAFfDkiibEsnRUWOFW+XHh40mho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RRe3qLM6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UMDhbkUv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924731F00A3A
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:07:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RRe3qLM6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B424C1F00A3F
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:08:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786248461;
-	bh=L8CSqrRVh74ENGvcKVCmRBoVfhbd7ZDNHVHlxKcRdBo=;
+	s=k20260515; t=1786248486;
+	bh=NDH0BIVJ0y5dH9ibs+UCIn1aXnjt6eR+IBwhFsTvFwA=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UMDhbkUv71ew0A9H0wOkOGtc7OkBhKRxhsp5U5TyHBVfrrvF7vhOb40Z8mVvePlH2
-	 2J9QFiVv4rbd7COGAEid7hgFdo1qmyLkng3dq+2WypcfgLwfKrDSO4g+DtMduQYCBS
-	 6RvP4BKdLHM7KfL/3YdVLgaIGi8vjH+lqeX+xylkKpdvwkZACfRDh5Kl4KzHRls1ow
-	 sPdwU97lLH/dWHBPtkV/d/wju6PElUFsBWIQLsg2DlN16au8k3Jo6y73JickEWGE2F
-	 HTbCPdLeace9pEk91Krzd3EMQAcNbeLbgH/4oALKqIKRqigtLQ4a5nVSX8k64jdmuH
-	 pFAYwhGkT1PqQ==
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a082b3671fso763531a12.3
-        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 21:07:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoR7k2TlGV388nVCAvoSL2yak0Ci97L893LfBqKlmtIgNsPaNrHOqAAYeS5v7Ez/iYQ6Wr3ytU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyg/4JuTYAA3omGAryIpcZaVgpzjMTgxuID7s0pUhK27UGKQRYW
-	F1XHsW8WbijljyMNK3TsFCB5tBNVOHYA5BRAVeR+r54JNPCfA5E5iOyd1eSfJ9XXMDpQkCoCX8k
-	9mQBLZ7Tp9oLxfEMQRW/MKVYy8t0uPfI=
-X-Received: by 2002:a05:6402:2803:b0:6a1:b23d:e962 with SMTP id
- 4fb4d7f45d1cf-6a1b23df9c9mr9912252a12.8.1786248460294; Sat, 08 Aug 2026
- 21:07:40 -0700 (PDT)
+	b=RRe3qLM6pJM0LFqPF+FhY1yGyD7psQIxZDB37j0WF7NNse9hC3hFIwxBIrjyK4nKT
+	 /v81OERaQ1w4LjnSuWozm5KQTSIObaku1RjLq/BoI269frZCtZnoXPJyeSWObfWiSX
+	 5zeHyE5TEgDQ3OVxYt+4GQP35cHTNYY5AB10qPeuz5lzmUIDgupEQjBhfud8Dbb6mr
+	 h2nytOVuH7X5momwGiIYELjS5Hc3n/uDH7d6DAQHLRuaQgsTj9q1Sxjv05E7p8wIm9
+	 OMOFLJ1fgGurncNZxJZwehjZNdyTpavTmHPDLxonPqMXX1SG7KYpf15JihURavjsDy
+	 CAwknTdWdmrjw==
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a063d211ebso869472a12.3
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 21:08:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrD+wn8I9j2qAvPhhJLV9s8/1k69AeCTu4Gts/DH1q/irIMbhd5FvWxfN9iklSjd+fw4NYqhwY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqPOiZ0GGozJhihk4TRPnBqaXJSEOeMUB/s+ZzqhqUyK1hkiJ9
+	y7+4YZW2lUA0rIWdIkGBMq+/hS2+AUnVUdvWAikZNigt7UP8T/fmB1/QTXDMfHzSCuUwucZhKPS
+	mMwJ7jlHHabjyQoBGYjCY4oZTouNGiPw=
+X-Received: by 2002:a05:6402:1f8d:b0:6a0:927e:39e2 with SMTP id
+ 4fb4d7f45d1cf-6a14f0c5762mr16676115a12.5.1786248485411; Sat, 08 Aug 2026
+ 21:08:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260804082153.1220709-1-maobibo@loongson.cn>
-In-Reply-To: <20260804082153.1220709-1-maobibo@loongson.cn>
+References: <20260804075719.1137338-1-maobibo@loongson.cn> <1793132c-dd25-4ee0-bc66-f3636522164a@linux.dev>
+In-Reply-To: <1793132c-dd25-4ee0-bc66-f3636522164a@linux.dev>
 From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 9 Aug 2026 12:07:30 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4PcWnwqYqo3swkowKzUvGENfHhFktHaghsLFSaNkkLqg@mail.gmail.com>
-X-Gm-Features: AUfX_mxW-l2u3yg4EChdCTRWOw6G7RCdKyZltYZs2wXsuNmeBQcOv7feOlDwj_I
-Message-ID: <CAAhV-H4PcWnwqYqo3swkowKzUvGENfHhFktHaghsLFSaNkkLqg@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: KVM: Set cpu before IN_GUEST_MODE is set
-To: Bibo Mao <maobibo@loongson.cn>
-Cc: kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+Date: Sun, 9 Aug 2026 12:07:55 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H7900J7RwUHnJFN7nXb+_SZzoA-xZ1aUGF_6OrjTr1D6w@mail.gmail.com>
+X-Gm-Features: AUfX_mx-xYcnVUraXPcSrpDm5aEi4WRq8y2uR6OZvN7rbDLMbbNmWrUUKydL1iw
+Message-ID: <CAAhV-H7900J7RwUHnJFN7nXb+_SZzoA-xZ1aUGF_6OrjTr1D6w@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: Fix acpi_package_ids array overflow
+To: Tao Cui <cui.tao@linux.dev>
+Cc: Bibo Mao <maobibo@loongson.cn>, WANG Xuerui <kernel@xen0n.name>, 
+	Rong Bao <rong.bao@csmantle.top>, loongarch@lists.linux.dev, 
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+On Tue, Aug 4, 2026 at 4:57=E2=80=AFPM Tao Cui <cui.tao@linux.dev> wrote:
+>
+>
+>
+> =E5=9C=A8 2026/8/4 15:57, Bibo Mao =E5=86=99=E9=81=93:
+> > With LoongArch virt machine, one typical setting is one core per socket=
+,
+> > there will max 256 sockets on one VM. With PPTT acpi table, array
+> > acpi_package_ids will be overflowed.
+> >
+> > Here change array size of acpi_package_ids with max value of
+> > MAX_PACKAGES and KVM_MAX_VCPUS.
+> >
+> > Fixes: 4e8f58620f67 ("LoongArch: Retrieve CPU package ID from PPTT when=
+ available")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+> > ---
+> >  arch/loongarch/kernel/acpi.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/arch/loongarch/kernel/acpi.c b/arch/loongarch/kernel/acpi.=
+c
+> > index 873e90990771..cb454ee92b20 100644
+> > --- a/arch/loongarch/kernel/acpi.c
+> > +++ b/arch/loongarch/kernel/acpi.c
+> > @@ -13,6 +13,7 @@
+> >  #include <linux/export.h>
+> >  #include <linux/irq.h>
+> >  #include <linux/irqdomain.h>
+> > +#include <linux/kvm_host.h>
+> >  #include <linux/memblock.h>
+> >  #include <linux/of_fdt.h>
+> >  #include <linux/serial_core.h>
+> > @@ -202,7 +203,7 @@ static void __init acpi_process_madt(void)
+> >
+> >  int pptt_enabled;
+> >  static int acpi_nr_packages;
+> > -static int acpi_package_ids[MAX_PACKAGES];
+> > +static int acpi_package_ids[MAX(MAX_PACKAGES, KVM_MAX_VCPUS)];
+> >
+> >  int __init parse_acpi_topology(void)
+> >  {
+> >
+> > base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+> Reviewed-by: Tao Cui <cuitao@kylinos.cn>
 Applied, thanks.
 
 Huacai
-
-On Tue, Aug 4, 2026 at 4:29=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> wrote=
-:
->
-> In function kvm_make_vcpu_request(), it will send IPI to physical CPU
-> when vCPU is in IN_GUEST_MODE mode. And physical CPU is set in function
-> kvm_check_vpid(), and it should be called before IN_GUEST_MODE is set.
-> Otherwise IPI will send to wrong old physical CPU where vCPU is running.
->
-> Fixes: 2fc3bd86db4b ("LoongArch: KVM: Implement basic vcpu interfaces")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
-> ---
->  arch/loongarch/kvm/vcpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/loongarch/kvm/vcpu.c b/arch/loongarch/kvm/vcpu.c
-> index 20c207d80e31..fd0dd22a7162 100644
-> --- a/arch/loongarch/kvm/vcpu.c
-> +++ b/arch/loongarch/kvm/vcpu.c
-> @@ -300,10 +300,10 @@ static int kvm_pre_enter_guest(struct kvm_vcpu *vcp=
-u)
->                  */
->                 local_irq_disable();
->                 kvm_deliver_exception(vcpu);
-> +               kvm_check_vpid(vcpu);
->                 /* Make sure the vcpu mode has been written */
->                 smp_store_mb(vcpu->mode, IN_GUEST_MODE);
->                 kvm_deliver_intr(vcpu);
-> -               kvm_check_vpid(vcpu);
->
->                 /*
->                  * Called after function kvm_check_vpid()
->
-> base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-> --
-> 2.39.3
 >
