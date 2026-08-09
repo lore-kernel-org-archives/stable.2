@@ -1,85 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651FB38AC83;
-	Sun,  9 Aug 2026 02:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786242739; cv=none; b=hR8GCKH1BXHTbAArc2QQsXU7mBqpAvlyjyZksW/VeU+ql12EdEDaaV54EZOkYkAy90XxyYrHu4Y5iZQoSRL1HgGVuRpsB7EalFQaqxW2JI2E8KW4Qy8bNmwF2McFBjmCuAiCD8Op9XxkeIiGQUFvfCe0W7or2X2E2S0ja2LJOsI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786242739; c=relaxed/simple;
-	bh=G2JcI7zZny1pDHlT26ifDULaTmvkqZrOzjFrh01/dJY=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=OMNmJqec67Im4jIAP/6Ql4Ue2qLuLzqm+Xm3AeKcCeoQn7kaUBsJ83FyAX/Uj8X9gOKWiDmSxgkVZ749cJ0soPeBOErCVrAcqYYKGSURpQRypyr7mZtOOGRGanE7rkpZEVvmHf5IBjgthu8DOiZBhWtuXCsPdDpyMW6E5T9w5FA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LVRvQqlH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26160187346
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 03:01:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786244485; cv=pass; b=JZeF+4Dl9BykSg+yilB+r7RcgLOSocTVdDBaSXLCc7uWiJiRjMNOfk8500kYG5zZzJbS/2TiXSWTHdh+Jc07ctyZNJoFrqV0sdxxbIjGxemNqihN1tOuws8gN5Gh8j0ps9JSssm5fluH3Urv2aq86o2anX3IRl6b169jLR3W0Fk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786244485; c=relaxed/simple;
+	bh=QssombK2y2bxkLpbfBWs6fhMLQY5cUQH/zTynZfaBI4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aOVktUa0yoTx8pLEi/H+CQxOEuVRsiM+2bJUEa0o0lj83EyMNEY3PA6G/9/StbLttQrjol8KgARI+MM+T5EGZ7VOquCqBIcAbdvykF4ES3Tpez+KI1zcaPn0j/qoHQu0rB1Rm54TeAFKpyRKf4vK+UkYwOLb3/vOyPdtlkTiC2I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XHe1k+A+; arc=pass smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LVRvQqlH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8631F01559;
-	Sun,  9 Aug 2026 02:32:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786242736;
-	bh=UyyWp3NwzGcFwkjSQWDprdH9t2NSEehPe+aAU1OMBpU=;
-	h=Date:From:To:Cc:Subject:References;
-	b=LVRvQqlHg0UjneGi9ZeJIErL3tT3J+heCabWPBa/me0CyFGWQdD6nu9ha8sOwLwBW
-	 tNIIh/Lnz6zJh56p2/yNIEbaQ/wZ/CBHsNqxms05OjZ6FdajJ/7i7Lzd1agX8fHpfI
-	 AKNb8Wqb7TOF//E7XblqjGpsTlSmm6J7tohH6Tg12Pc49ASNE/+9+PfWlnfgEP8aVM
-	 QOxCRMeFF65VikOm4p3/XPgOgushjcejGEtJJGeRlYw2Z8eKAbdHYTAq1B7+LjSNud
-	 9fPWBe3/gDxxmf8dN5+sYFGW8lIXf0F3G/9G9qWaIGWmcwT0JCRpDwFTshSif2qTMA
-	 4wRAxIi0h/WGA==
-Received: from rostedt by gandalf with local (Exim 4.99.4)
-	(envelope-from <rostedt@kernel.org>)
-	id 1wstKp-00000001N7g-0L6P;
-	Sat, 08 Aug 2026 22:32:23 -0400
-Message-ID: <20260809023222.955041844@kernel.org>
-User-Agent: quilt/0.69
-Date: Sat, 08 Aug 2026 22:31:55 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-linus][PATCH 11/12] ring-buffer: Initialise reader page order in rb_allocate_cpu_buffer()
-References: <20260809023144.852271250@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XHe1k+A+"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c9d290216d0so52943a12.3
+        for <stable@vger.kernel.org>; Sat, 08 Aug 2026 20:01:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786244483; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cnjwL77krQ1BZ//roQXFPzSaI80ttyHh/qBa1CSjye3oX8QWXJ1pqCCYde+6chkZnF
+         aWZWVrN2tM62dm8BqfWNRU94OdzLx3f7IMYI1Gols2tBi6rhz0f9+4huL56wBXobJrUE
+         n3G16nHKyK8DKE838znDzjbqgerYNFrowva3XfM0Ud6IwTuZlspI7iIQqW0RI74qX1bD
+         yFuAnU2pRoVr+pz9D8Iehy8Ik+wCxKEfABhXBBduLVO5UGsmuWIIv0phFSzhYFOeVPjn
+         gNKWTSTrj9kdD2DZmKDhe0ifmXkJjFA7JS/HT2N40hePHSIMCMsyQxAqIqtF4Nj+iEDM
+         OAcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QssombK2y2bxkLpbfBWs6fhMLQY5cUQH/zTynZfaBI4=;
+        fh=mMBVRHComN+3pGukwfdtykRlV0fJ9Xxv57e8OtsOPrI=;
+        b=hs5SokhJMOdRSO7tb8z520ljjiUjmygzepLD/ezZjjYItT+TyIHhSjpYN7HvnAUCeA
+         xGaaQktM28UOgEfINFDI1aspjdmUGmpgOA/3Myame9hquXLTz+kwKUa2i24G73+fF8KE
+         ILj/ujp7daDdCI1/7oD0d6SfjZmSUWQGEVLd3uai/ftXx9NE3/yoWE+WdTfM8wSKBs56
+         F6DhDQ+Ki3y5aAoKrL/1jQbDcLbxaOGEPMrxEElDWk0wa91RSGwY7VOKk4ovy20r/6/S
+         f9vbh14E2otKQ8S9g+pRVciXbfrVsJZeJBjOLKLCadPp2SsYw07kLoWsqtIPih2Cxwyh
+         VlMQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786244483; x=1786849283; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QssombK2y2bxkLpbfBWs6fhMLQY5cUQH/zTynZfaBI4=;
+        b=XHe1k+A+ofr/m2xBkHUba1sSOt/SKTDPyye8l0XWCLJwKhfcMjUoaWhc22TZNZQW5F
+         qmroRaJQ5Sjdcp6TaB1xyRtJqhtUEvkD1u18mcseqsCPlL36fosipukEf1n/JoHnZqLN
+         xsIZqpGO1pNqAAN92ET6ybqD8rBAqGivBtEBRe5refWahrYWAZQik0ItgmpqQzMGV6Bc
+         jv8+L2BII6w1NMAjBYEVfs6ZamojnVPgzai76p3cSO415Bm++05fhFjivTITm76qjC/y
+         iyNieZdEE3mwwsvUNX/7O3jEg+5w+rFPCfYsULrbqLOuvsifYTborhMmG/nTU0eOdEhK
+         aZkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786244483; x=1786849283;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QssombK2y2bxkLpbfBWs6fhMLQY5cUQH/zTynZfaBI4=;
+        b=DdZkVu1tFBNqFifaaOJLb3Wf6u623fm+faijwBVkBoWkmpx2xMJlzS8CRKba62578A
+         PHuwVVyNoXHlSiiAAwdIzGJff6t5MnrwnEv6/7ixv0W67m5k1NSD5wR0MI+ddrljKREB
+         WH7KPEJ6c8GywYrectMQ8zTL92oqLT/P7zM/K0BUFSSgBrvFXIZgdG2sNZnqWtMDHjGi
+         E+buY0LCfZigY00NGcMaaMfgd2XrGz/U2gv47/jBIC/Qo+Xfwm3l7jtdSEHOejFmxpLF
+         szyCJq5CxLHPE4VszzNOLm5JOXsHF2NDJm9Bmuz3GyuCqwzHXfanJN33Uz/AfNpTT1Ci
+         5tjQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrZy3VaSAaRFTuihc+QyZQoAR5q6wpeasza94aIE7qFB1splVXzxs11m60GNmKgs2a30Gi6Pb4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzldznttWxK1z0IlgWAejT6C4AcFt6eFff0xN9FiGnXqWtjV8Pf
+	SPpLkKb1Z5D0dqs5xyAccVi9raFTarPkxLEPJ5jyui/wKXivqHmrDDUp8QqdT+6SRnFd+qE/w6Q
+	JSZCJp2ob72MZ2ZC9CkmSuM2pyblHyxo=
+X-Gm-Gg: AR+sD12uGUdb8oAmU4P/U1/AiL5mLLJY9R4yjnrzCI1y+7uTBpNdfwP1pfzCumVOFRf
+	QRTb9eJOKouVTXeyV/5i3sdAKlTDZISNcl5W8bFvf1AH0wRJ12BpAUsQXiqKvBSGRx4Nco3yjLQ
+	YBL4qjoJLAKKxLoMWeUqabfYvmGbvaUGaLBoCH+8Jfnl2iGCVUwz4qcChbfiDho1ZkbqTsDSzFX
+	hDG5H+CCIGR4b5R4eb7i1p7Ap69iIEwz0Q/Pft9PoJ9/yQ1NgOr16VFuQmLSIPFQO6Vn2M/L/9K
+	sIuLbkdfdysZoyOGMdrbsy6gOeKI6ojpCn+cXkYL22jLiPbcTFDzUI6nVRmuz+XdupBOuhTXuPy
+	KgN4QTu+6HuHw6s82fYoq0xZW+kSyek36LGWKkPDa3CQAdfshDbK++l8UK2Qh
+X-Received: by 2002:a17:903:17cd:b0:2cf:ca85:57e2 with SMTP id
+ d9443c01a7336-2d0ca7b0285mr257513645ad.1.1786244483476; Sat, 08 Aug 2026
+ 20:01:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <CANiq72n4=fz=JNKY0Jdm8BnLa=RmHB2B7s0bO47YTJ7hygqBZg@mail.gmail.com>
+ <20260808.143013.1251068388254615351.tomo@flapping.org> <CANiq72m70uWCRFnhs3axdymSTGCirBrYAvKh2BiT0xqW2j_3jg@mail.gmail.com>
+ <20260809.095041.602618436881623934.tomo@flapping.org>
+In-Reply-To: <20260809.095041.602618436881623934.tomo@flapping.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 9 Aug 2026 05:01:09 +0200
+X-Gm-Features: AUfX_mxOkJgVjfpd9Xjn2_lEgaaMyCa2CI5K0zvJDPjtb_T8ut0EX3_Stxulh1A
+Message-ID: <CANiq72nxE05HEyNmxGj2gYHaYL95eQQVF9SAuhDdHX0RDW1i2w@mail.gmail.com>
+Subject: Re: [PATCH] rust: bug: fix `dead_code` warning in `warn_on!`
+To: FUJITA Tomonori <tomo@flapping.org>
+Cc: ojeda@kernel.org, arnd@arndb.de, krzk@kernel.org, 
+	alexandre.belloni@bootlin.com, linusw@kernel.org, chenhuacai@kernel.org, 
+	boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
+	lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com, 
+	tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com, 
+	tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, 
+	rust-for-linux@vger.kernel.org, fustini@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, kernel@xen0n.name, 
+	loongarch@lists.linux.dev, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Vincent Donnefort <vdonnefort@google.com>
+On Sun, Aug 9, 2026 at 2:50=E2=80=AFAM FUJITA Tomonori <tomo@flapping.org> =
+wrote:
+>
+> Then `jump_label.rs` needs the same treatment?
+>
+> `arch_static_branch!` embeds the generated arch asm too. It is not a
+> problem today only because, like `warn_on!` until now, it has no user
+> inside the `kernel` crate itself.
 
-In rb_allocate_cpu_buffer(), bpage->order was omitted, leaving it as 0.
-This is an issue for a ring-buffer with subbufs bigger than PAGE_SIZE if
-when freed: free_buffer_page() relies on this value. Align the value
-with the actual allocation size (buffer::subbuf_order).
+Yeah, I think we should do it to avoid surprises later.
 
-Cc: stable@vger.kernel.org
-Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
-Link: https://patch.msgid.link/20260806211306.3704194-4-vdonnefort@google.com
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- kernel/trace/ring_buffer.c | 1 +
- 1 file changed, 1 insertion(+)
+Good eyes!
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 6cbd80ccef37..760a00e8505c 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -2510,6 +2510,7 @@ rb_allocate_cpu_buffer(struct trace_buffer *buffer, long nr_pages, int cpu)
- 	bpage = alloc_cpu_page(cpu);
- 	if (!bpage)
- 		return NULL;
-+	bpage->order = cpu_buffer->buffer->subbuf_order;
- 
- 	rb_check_bpage(cpu_buffer, bpage);
- 
--- 
-2.53.0
-
-
+Cheers,
+Miguel
