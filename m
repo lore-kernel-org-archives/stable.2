@@ -1,164 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD54435CB7B;
-	Sun,  9 Aug 2026 18:13:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BAA373C1A
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 18:19:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786299229; cv=none; b=o2975rKJHY4O4StFUITzTA2h+QT3zZ+mOztVOzsOtbE+bwHT26xUFzX3/UKwQrn/user3CCwA54wonpGIxjDR3WVcG8JSZO+V5y0bcBIQxNXdLqdOinfR2NDSvFSKewaxD/VGCeV8v4qTLqDioeL4QnTC/BbQVQ9CBCJ3et71kU=
+	t=1786299595; cv=none; b=OGXDpP+nLTVni14vMLA+mGQIjqfzrBrERGnEgdbfDCQb5KqB3ooB/9dharJZqgu/VmkZ2vnRt6MexEM50ttGYH1nWm0hgpRdI5RPfiLx6MA0M3UAnmHy2E9yDtdql27w50HvxX9vq8tThEGO61oFhrtlArn7QRcWZSAu1PSYWF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786299229; c=relaxed/simple;
-	bh=8vpyiWQrr4pTBoPnmyhHE+2ooOAchLp1vX1DLtjGMak=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y7XNoWRs5lWJxNhCvwwIY2U+lqCzhIShcKl3NNA3BE4VMPpsL3Ida8/ZsIoKM1h/ZpSZCWvICTiLjAYm+pNXnfu3zBg3yJ9r8wduSp9iZLpqCudo0ghByYoHqsz+OwrV78085niN9fDQlAVwX1NHtALsMWNNHU7twD20lSaHUb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kjNLuZi2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786299595; c=relaxed/simple;
+	bh=XPYleT6u36zVzN3ziL5qg7OYg/+s77vpVH4YACvi1bI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QInLBuPEsHzYqZUxU6UyWuyODLb2zep5IJ4zprgkWkqsQqTX+4mNWqccb8E0SUNTL0eczHHo+25TN675YgaDGpljreejYFX/Aee4VVNlsumNazIOv3kCEieZu7GoWvZcL4q3GkkvG/kdbhodrIbsoxupMCQBMtTZCjXxk26Rr1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pz7bObrO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kjNLuZi2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E8D1F000E9;
-	Sun,  9 Aug 2026 18:13:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786299228;
-	bh=biTFnHYssGz2lOpfbiM0gbuJjSJ8jehqLOBv/83u8vw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kjNLuZi2b1RsQVaRFK1bSD6X7nIkB4Dli17pb/LGlSEBvF3T/sDZOGFsretR42kSV
-	 wfMKL5jUnxzLGVbNoVkofQHLAFK10I8QOAc1PA+U4i4Jy55JdB1UncbJsnGcAho9jH
-	 EloTpMI54D3UMfCNpm41l+YYurA97l04T/UPRICR9fQzCqMeR/8QcAVY+plmjFToVA
-	 4cCb4cTe0X5Of+sSkA7cDQmcCZM/aIgmWAhI4E+K8vDBu3xKxU2ZZe6Y7TOtxrGnA6
-	 HaPhet94swK2y7INulQrC9b+P7Q15l5+x6EkiNNz9vxUi9cADr+JPKxA1rwOWLser1
-	 XV5otCA4iUpOQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wt81p-0000000DsoJ-33u9;
-	Sun, 09 Aug 2026 18:13:45 +0000
-Date: Sun, 09 Aug 2026 19:13:45 +0100
-Message-ID: <86wltz9n6u.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	Yao Yuan <yaoyuan@linux.alibaba.com>,
-	ljs@kernel.org,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pz7bObrO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 175901F000E9;
+	Sun,  9 Aug 2026 18:19:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786299592;
+	bh=dm5qeFIK6aLD1PpTEC/tXaD2GpgtowSdnXfj8JaXVS0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=pz7bObrOdh7In1lseA29/Jwa7A80eMWAXKXXAQrhN+jVH0raVK4AXmiakTCBWMlK3
+	 khOKdK4nwlJh6aNqkiUXML+trK5ScCq1bBaid7D7s4Sz/6RPMXKwJma7xgisHF7rRU
+	 7xLUXEQlb/zWJJiN0svVo266E+9xCioZjWsmmJFQ=
+Date: Sun, 9 Aug 2026 20:18:20 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Viktor =?iso-8859-1?Q?J=E4gersk=FCpper?= <viktor_jaegerskuepper@freenet.de>
+Cc: Sasha Levin <sashal@kernel.org>, Wayne Lin <wayne.lin@amd.com>,
+	Ray Wu <ray.wu@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
+	daniel.wheeler@amd.com, Alex Deucher <alexander.deucher@amd.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/8] KVM: arm64: Correctly handle end of VA space TLBI invalidation
-In-Reply-To: <yifz3wn5gk5sr6mapi32trgk5m5kp33bquctsjmkifebnsnndt@fix6u4rthx4g>
-References: <20260806091026.620700-1-maz@kernel.org>
-	<20260806091026.620700-5-maz@kernel.org>
-	<yifz3wn5gk5sr6mapi32trgk5m5kp33bquctsjmkifebnsnndt@fix6u4rthx4g>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+Subject: Re: Drop "drm/amd/display: Add AV mute wait frames to
+ dce110_set_avmute" from stable queues
+Message-ID: <2026080937-reason-unlucky-9839@gregkh>
+References: <a464c560-8f7b-4609-8bbe-b7048f603d26@freenet.de>
+ <2026080756-garage-series-d50e@gregkh>
+ <608ed117-5fa2-43df-b10e-738cf3b5c2d2@freenet.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: weilin.chang@arm.com, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, imv4bel@gmail.com, yaoyuan@linux.alibaba.com, ljs@kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <608ed117-5fa2-43df-b10e-738cf3b5c2d2@freenet.de>
 
-On Sat, 08 Aug 2026 22:41:31 +0100,
-Wei-Lin Chang <weilin.chang@arm.com> wrote:
+On Sun, Aug 09, 2026 at 06:33:56PM +0200, Viktor Jägersküpper wrote:
+> On 8/7/26 15:13, Greg Kroah-Hartman wrote:
+> > On Thu, Aug 06, 2026 at 10:10:00PM +0200, Viktor Jägersküpper wrote:
+> >> Hi Greg and Sasha,
+> >>
+> >> I noticed that the following patch is in the queues for the 7.1, 6.18 and 6.12
+> >> stable trees:
+> >>
+> >> >From 443290d70b01e9c35830c300e3247c06581b594c Mon Sep 17 00:00:00 2001
+> >> From: Ray Wu <ray.wu@amd.com>
+> >> Date: Mon, 13 Jul 2026 22:23:34 +0800
+> >> Subject: drm/amd/display: Add AV mute wait frames to dce110_set_avmute
+> >>
+> >> From: Ray Wu <ray.wu@amd.com>
+> >>
+> >> commit 443290d70b01e9c35830c300e3247c06581b594c upstream.
+> >>
+> >> Port the three-frame wait logic from dcn30_set_avmute to
+> >> dce110_set_avmute so that older DCN versions (1.0, 2.0) also
+> >> wait for GCP packets to be sent out before proceeding.
+> >>
+> >> This ensures HDMI sinks properly process the mute state,
+> >> preventing garbled display after link re-establishment.
+> >>
+> >> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5167
+> >> Reviewed-by: Wayne Lin <wayne.lin@amd.com>
+> >> Signed-off-by: Ray Wu <ray.wu@amd.com>
+> >> Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
+> >> Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >> (cherry picked from commit 414da24137ace80d8c59fefd43ba3ec9f5f854ba)
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> >> ---
 > 
-> Hi Marc,
+> (...)
 > 
-> On Thu, Aug 06, 2026 at 10:10:22AM +0100, Marc Zyngier wrote:
-> > Our TLB invalidation by VA code is based on comparing two ranges,
-> > one defined by the TLB, and one defined by the TLBI instruction.
+> >> Please drop this patch because it leads to a regression which I reported for the
+> >> mainline kernel here:
+> >> https://gitlab.freedesktop.org/drm/amd/-/work_items/5557
+> >>
+> >> A fix for the regression is already available, but it hasn't landed in the
+> >> mainline tree yet. Since the patch above fixes an annoying issue, I propose to
+> >> postpone it until the mainline tree has the fix so that both patches can be
+> >> applied to the stable trees in the same release. I will notify you when that
+> >> can be done.
 > > 
-> > Each range is defined by a start and a size. However, the way the
-> > comparison is done doesn't account for address rollover, as it
-> > compares an address with (base + size). This works nicely until
-> > this expression represent the last page/block in the TTBR1 VA space,
-> > as the result is a big fat 0. And a failed TLB invalidation.
+> > Now dropped from all queues, thanks.
 > > 
-> > Rewrite the comparison in a way that is immune to the address
-> > rollover (making the end address inclusive instead of exclusive),
-> > and move this into a common helper that is used by both VA and IPA
-> > invalidations, as suggested by Hyunwoo Kim (although the IPA version
-> > didn't suffer from this particular problem, obviously).
-> > 
-> > Fixes: 4ffa72ad8f37e ("KVM: arm64: nv: Add S1 TLB invalidation primitive for VNCR_EL2")
-> > Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
-> > Signed-off-by: Marc Zyngier <maz@kernel.org>
-> > Cc: stable@vger.kernel.org
-> > ---
-> >  arch/arm64/kvm/nested.c | 43 ++++++++++++++++++-----------------------
-> >  1 file changed, 19 insertions(+), 24 deletions(-)
-> > 
-> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> > index 27bc7ee4b3382..8a602d074dbb4 100644
-> > --- a/arch/arm64/kvm/nested.c
-> > +++ b/arch/arm64/kvm/nested.c
-> > @@ -999,6 +999,20 @@ static void invalidate_vncr(struct vncr_tlb *vt)
-> >  		clear_fixmap(vncr_fixmap(vt->cpu));
-> >  }
-> >  
-> > +static bool vncr_tlb_intersects(struct vncr_tlb *vt, u64 addr,
-> > +				u64 scope_start, u64 scope_size)
-> > +{
-> > +	u64 tlb_size, tlb_start, tlb_end, scope_end;
-> > +
-> > +	tlb_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift, vt->wr.level));
-> > +
-> > +	tlb_start = addr & ~(tlb_size - 1);
-> > +	tlb_end = tlb_start + tlb_size - 1;
-> > +	scope_end = scope_start + scope_size - 1;
+> > greg k-h
 > 
-> I think if scope_end overflows,
+> The fix for the regression has landed in the mainline tree, so you can
+> now backport
 > 
-> > +
-> > +	return !(tlb_end < scope_start || tlb_start > scope_end);
+> 443290d70b01e9c35830c300e3247c06581b594c
+> drm/amd/display: Add AV mute wait frames to dce110_set_avmute
 > 
-> tlb_start > scope_end can evaluate to true and we return false even when
-> there is overlap near the end of the TTBR1 address space.
+> and
+> 
+> 3141e3d61469bba2624a91c5e2407f110b33b29e
+> drm/amd/display: Check for tg ops in dce110_set_avmute
+> 
+> to the stable kernels (7.1, 6.18 and 6.12), both have 'Cc: stable'. Note
+> that the 'Fixes' tag in the second commit refers to a commit on the
+> drm-next branch and not the corresponding commit from the drm-fixes
+> branch, which might be confusing.
 
-I assume that you are implicitly talking about TLB Range Invalidation,
-right? Because we otherwise align base on size, making overflows
-impossible with this patch.
+It's more than "confusing", it's flat out wrong and breaks all of our
+tooling, which guarantees that we miss fixes like this...
 
-> Therefore I think we need to saturate scope_end to ULONG_MAX when overflow
-> happens. This is also what the architecture does when looking at the
-> pseudocode J1.2.3.442 TLBIRange (M.c).
+{sigh}
 
-That's one possible implementation, because the pseudocode is dealing
-with start/end directly, but that's not how our scope works (it deals
-with start and size).
+I'll consider queueing these up in a future release if we get the
+chance.
 
-For that we need to cap the *size*, similarly to what is done in
-handle_ripas2e1is() (see patch #6). Something like the hack below.
+thanks,
 
-	M.
-
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index 21d0f4cbe07f1..5b8edb2e8a87d 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -305,6 +305,12 @@ static inline u64 decode_range_tlbi(u64 val, u64 *range, u16 *asid)
- 	num	= FIELD_GET(GENMASK(43, 39), val);
- 	*range	= __TLBI_RANGE_PAGES(num, scale) << shift;
- 
-+	/* Cap the range to the correct half of the address space */
-+	if (!(base & BIT(48)))
-+		*range = min(*range, (BIT(48) - base));
-+	else
-+		*range = min(*range, ~base + 1);
-+
- 	return base;
- }
- 
-
--- 
-Without deviation from the norm, progress is not possible.
+greg k-h
