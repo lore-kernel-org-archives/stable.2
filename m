@@ -1,142 +1,93 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475D12192FA
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 16:10:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F40287510
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 16:23:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786291825; cv=none; b=g32czfHZrwx3JWXbrb8539KCkTWwKY/ygq34FdQByPXCHsoBuXrZLNiMauVCB/NeupdXy2QKlN69j+TLuVFthW0l/b8CjEttd/eEIAj4RwbFQ40Zg6hCjd11DRq45pySgKiCMwDslPD4He85VyD4bCF2mu77/nHtidkSt2YcaOo=
+	t=1786292594; cv=none; b=lkbyikfzZ9/ulY60KAI/7fPxCEbghFeobHapGGnEbeyh9g6sMsXLC2Y5FxaX2RCJdJUGAI3ANttpwCYJuebTnDYgE7fhL5LpOSzzr8dBTEPKcpNWyRuG1u+rtls7/v9bGJJdLec1vZP2Y5bu84dNL2sfbFNxfEpIYX2DDagPvl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786291825; c=relaxed/simple;
-	bh=l/ZEGNAFzHMfVmvEPvd+GUW3qDLOebeT6rsXYOA/+FI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iur9xZ+OzVCyI5JAGUrZCpXeiND7E8P1s/65kZUBwcB9zjgv5629oWDgRoZC6hA5yaBRdYWjj6w+HUfcX57NjbZBpdQpfP8RHoMOVAmr1OLainlT9jzsWCN0FBAC1DoezlkzMzOxSL/MnKIawM+H3ojDj82wG8RPv25zuxpE4yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QarT4dWv; arc=none smtp.client-ip=209.85.128.54
+	s=arc-20240116; t=1786292594; c=relaxed/simple;
+	bh=rq+bFQgGz/Hi526ZnDjBsv7YI5XI+jsEFX6tzNLMhA4=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=bPmEnW5iiy5IDrlcocrOEhXbWhDgwvIKyDZ5o6wx1cyJYD1Tqf3hwOZ3fT9BZbupOZ7xOPi5prHNhgFS/lG+DnoJSpQ4z17Vknvg7P23thHCx/CN8nhD5L/ZlwSVMjHIiWhYBcW9S7NI3TJskbPKE9FwxNz3zL05MEn2Bl7SNe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G/L0yvBt; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QarT4dWv"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49553515a8bso16976925e9.1
-        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 09:10:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G/L0yvBt"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so13306655e9.2
+        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 09:23:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786291820; x=1786896620; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nbYtX7IeMY65jB+ZUUL86KrBb5orkg6y9aQT1NrIByY=;
-        b=QarT4dWv4O/TCgXP9Y0p7473UjczdHZCcAQv3NRfcddtK/85XSBdqanpv0qqnCztKQ
-         /hvwqfG3+wD8hgqiTAAWD3z2HyDA7B5BrvlmzG2FZE4AVWDL+YndJQgicRdAUvxY3mbW
-         BL8N6iUT3xDDqV4F9J0oGGrFPM8zjmK6MkmyoVk6Ize5XeyAm4iSVzcI4tVkRD2Eh11m
-         acGNzX2heAC0AM2UGQtKcssQ+MGv+FwCwNrGa1Hd9ub2Jg4IyYgYtxhX4tV+NLvxee97
-         6r2GNjx6OrniMNdIIms1DRI2hHncbaAzTaf7u8HMuUi4FE3/cAKiU5YZaRJ0E1FyloPK
-         jCQw==
+        d=gmail.com; s=20251104; t=1786292591; x=1786897391; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:from:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ziwloAUX5tf3TB9W7Xw04jSVTkYmBKOdb+f/tuo2ucE=;
+        b=G/L0yvBtXnQ/sHhWh/vzmASgA2q1V8aQaZ+unVHAo7sME2FRgCbgdUN6oH2YTQg7gH
+         b5xx0scB2MHoDQUb8LQYGft1fnrNw3g1m30erlgJp9WErvQfLdwetIZKd/lPzfCn0TtD
+         YFKYj9Y6V0+DBkV1/PN42BQmbBB/MSt4p75QXhEUZyQ69G4NfearKGnUQlxBiRDD94mi
+         R+/qjXlTwLC+GRoseJXfVB1DsWpOXZM5fsHGo374cVuLFik6zhMtQkaRTp85NvR5dB5G
+         SkXTsC95P30ih2/1npf3FuxBo/Jji1uawCklMs0tePOFmhJ3wwFANRdT179oNwWOJTGm
+         1Piw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786291820; x=1786896620;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nbYtX7IeMY65jB+ZUUL86KrBb5orkg6y9aQT1NrIByY=;
-        b=aXPwdhn/WdktzZhfpwbOIfXjmcuMR7Wj8ksxmgbiOQdQl8KCBqm1QsU2TvNiONelNc
-         6rT2nSBhcWjGVVd4YLfPbDFOZhyW0jKQfJIJ0c6klm/LQIRUGkKZ9qpVTF8iFV3uxsOP
-         NowmNJs8n3En81BnBkVUuupHqN6W0Y5yISArDLeHq7LsTJ3L6g3UVuCxLcrIC/VDBHyK
-         qnDDMCuM6KlvVNRWasKleDk887ISOwa9XfGFEL+N3IoQxVl9M/rQKPu9DB/sxderQdF4
-         hLZ9rzWyjccRPS4kNLjJWIvNFkm9Whlq7NV1ICBXY2l0blBk2uKQC7zP8IbGbpqlU1TO
-         YXBQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoQxxzC+Ry4qfFHkzHXSUJH8ZjLkQrhRCZL1S+L0VbGZxOBWlEX92mB3fQnvc/w0QWILFAhoZQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzviz1gFAPXTqgrxBf3F+ZCswgoZ46ABrrfzdO1KnGm/1eNCSEa
-	Q2KwXpIPjUxvEfm452NkjUo7kG3AHxE5Wz28ExZ8TIia4HQFShOE3bha
-X-Gm-Gg: AR+sD11HyVTuXTpp3HMBNg9g9L6w9c7HX/HAfqCyEDJZt9aQHXwo/g3VlC/ftS363jc
-	bfTHSKuux5KAU/Xvx9NNu7tleLxZN1UND6iY66BgZnWxY+ej+NAbtlY41a71GePHqP7Oy6wbbZs
-	hpeAt2PTOBzaJmcRmQ/qK4bBlh8i5Sdu3/Eod8IiTaPioLaloxjEIIeEt4Lbko02u/IMO+n9CSx
-	uQrn+GoLeGb4HMdKJG88K/Wb/icvzKAQuADOolnXsuIQkMmehYhWeSwJtiRNI/kl0rmh4UIaeef
-	sfw7vyGj5rWX33LsHXsWuIS+VYf4I8YrsN1bS3l2IrA2E3WUuZJ415VUZvZ+vJqwMKD5a8B70oX
-	V2+13mZ67BDwa3xVdgcQHbUa3MeFKni89QD7qE91v4sBv2c34z/uoUq22V88ejXDNsj/XbQ7ILr
-	R3xpCF6kssyCuAu/pPzF8dyi5dUxDWDI+wPGBKscVtZaxCkEKMNORkGfouTIjnFW0NTQ1tsfXNK
-	sLss+AajoM=
-X-Received: by 2002:a05:600c:c4ac:b0:495:48d7:f178 with SMTP id 5b1f17b1804b1-49959e2f17cmr252118915e9.11.1786291820114;
-        Sun, 09 Aug 2026 09:10:20 -0700 (PDT)
-Received: from VivoBook-ASUS-X712UA-M712UA.lan ([2a00:f44:cc3:6030:e52b:e2ed:f4ea:2bfc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995bdc433bsm227957375e9.1.2026.08.09.09.10.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 09:10:19 -0700 (PDT)
-From: Stanislaw Pal <kuncy7@gmail.com>
-To: Mieczyslaw Nalewaj <namiltd@yahoo.com>,
-	Jie Luo <jie.luo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Brian Masney <bmasney@redhat.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks enabled
-Date: Sun,  9 Aug 2026 18:10:12 +0200
-Message-ID: <20260809161012.378743-1-kuncy7@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <fdc4410c-18f3-4f34-8519-deb37862477c@yahoo.com>
-References: <fdc4410c-18f3-4f34-8519-deb37862477c@yahoo.com>
+        d=1e100.net; s=20251104; t=1786292591; x=1786897391;
+        h=content-transfer-encoding:content-type:subject:from:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ziwloAUX5tf3TB9W7Xw04jSVTkYmBKOdb+f/tuo2ucE=;
+        b=iZWutRnOElsVltwwL7EZrv+tWj+TWJ2K0ffC39NktZ7esZLuUKqzHK50ERpZ+XO30t
+         Jxx4TurVCKRJbQ1GcHpz63GDTJGwtWE+ytf9Ar9UIau8w6twF44nIB8bTJRAM1Mq4+ZR
+         LhFxKJo1sJVccZfgdPCcMG/6pE8euhS1Rs1dvH8HuNy8V/OFtbwcE6jFt2iwTIDIKCR9
+         dDD5ic3/Yl3F7+FFkkkNfVQZjsFx1FgjweUV0P/3o1zKjzUUOiZXg3gw0KTR3E7pmeKT
+         GEy2Gg/QS1XFsXjU8Qsi7IZQu7hJtLJlqak3w097DovLWD4mqUIBEjJRWVci8Oo7GR7f
+         Z2tQ==
+X-Gm-Message-State: AOJu0YwYVbqNxYLd1ZxNceJo81nR4TwtyCHoZr7RRy6W+PUJtQK+irjh
+	GgEIfbOqOgIBkdmZVWIAs+X+lnAsGhJcj3HE8ugolzIbQRCZbI4ykdIEJowbiw==
+X-Gm-Gg: AR+sD127iGKyEqDJg6iNBV+2s8FgSKv3d1cnDvJEiXlcmePlvtdqCfV7IKcJrgZvcoD
+	A1bjkilN0ASmyPhESlAi9r8ra7E5KFADpiA6Q7UY3tSUt/wuxFD5L5R8fQRsYdARqmrzdSEEMq0
+	1GFRoErYgK1+6mZxLO6s+LF0xvKI/1bGhGRDXlDP9MzirYqgAuYhWpVhPyMgJUmPkRmUP0cnQJD
+	M5MGUQJ+BInKESDbOomyrvxEmieMPKQU8T8CV6rUXU9O0NMNfVwcQlFTIUfccMWfWKXnDJmtp6/
+	DqUNJc5DXwFlD97m072KXZf4yrGNu/r0Fn5Jr7hXlIGGTD9Aw8dGd5JisDL+LegNNhF208clO+f
+	vs1d1EVzSicMqzDeg8qURRpt79k7NhWUzLBgCfJG2U7NZ7+HC/HchG23z8Pyn/NzqsqeNO3CwLf
+	VYXazWqAuESk+PYSByuaS66K1U2gb3scntiYex4QOC2v4ouPrE4YOkILatwq5GrOLdgwxJM9kT0
+	kk=
+X-Received: by 2002:a7b:c44d:0:b0:499:484a:98e7 with SMTP id 5b1f17b1804b1-4994e7cc5d0mr402552805e9.14.1786292591280;
+        Sun, 09 Aug 2026 09:23:11 -0700 (PDT)
+Received: from [10.86.162.46] ([193.207.119.173])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499542851d6sm362640525e9.12.2026.08.09.09.23.10
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 09 Aug 2026 09:23:10 -0700 (PDT)
+Message-ID: <d614b8e6-7f95-4e0e-a4ee-436fb418d883@gmail.com>
+Date: Sun, 9 Aug 2026 18:23:09 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: it, en-US-large
+To: stable@vger.kernel.org
+From: Sergio Callegari <sergio.callegari@gmail.com>
+Subject: [REGRESSION] incorrect backlight brightness on AMD in 7.1.6
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 8/8/2026 Mieczyslaw Nalewaj wrote:
-> Given the hang is reportedly 100% reproducible pre-userspace, is there
-> a concrete next step to root-cause it, or is v3 the right call for now
-> with a follow-up tracked separately?
+Hi,
 
-There is a concrete step, and I ran it today on a third board - this
-time with no code of mine involved at all.
+Control of backlight brightness regressed with 7.1.6, possibly due to 
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1191285ecb4233e5bf907da7e9394d7999055566 
+that may be incorrect.
 
-Hardware: GL.iNet GL-B3000 (IPQ5018), a supported in-tree OpenWrt
-board, running the current bone-stock OpenWrt snapshot (kernel
-6.18.41, which does not carry this patch). Out of the box it boot
-loops: the last line on earlycon is at ~0.39s (the final initcall
-before the driver probes start), then silence and a watchdog reset,
-100% reproducible.
+On this kernel when you try to rise the brightness, it does so up to 
+~95% then it suddenly falls to the minimum brightness. Conversely 0% 
+gives you one step above the minimum brightness.
 
-Adding exactly one thing to the kernel command line - no rebuild, no
-patch:
+A possibly related discussion is at 
+https://discuss.cachyos.org/t/brightness-lower-at-100-than-98-on-plasma-asus-g14/33957
 
-    initcall_blacklist=ipq_cmn_pll_clk_driver_init
+Best regards,
 
-makes the same image boot: serial, SPI-NAND, SMEM partitions,
-remoteproc all come up.
-
-Combined with what we already know from the other two boards, this
-isolates the trigger fairly tightly:
-
-  - cmn-pll probe runs, last PM reference dropped (vanilla): dies
-  - cmn-pll probe never runs (blacklist, clocks stay as the
-    bootloader left them, i.e. enabled): boots
-  - cmn-pll probe runs, reference held: boots - verified on this same
-    board today with an image carrying v3 of this patch and nothing
-    else changed; it comes up fully (shell over SSH, NAND, remoteproc),
-    and clk_summary shows the CMN block bus clocks held enabled by the
-    provider device.
-
-The only variable separating the dying case from both surviving ones
-is the AHB/SYS gate after probe. What exactly performs the fatal
-access afterwards is the remaining open question - and this board is
-well suited to answer it, since it has full U-Boot control and can run
-experiment kernels from RAM. I intend to bisect that next (my current
-suspicion is that the CMN block AHB clock also feeds the register path
-of neighbouring blocks in the same region - MDIO at 0x88000/0x90000,
-uniphy at 0x98000, CMN at 0x9b000 - which would explain why the CCF's
-own runtime PM handling around the clk ops cannot help here). I am
-happy to run any experiment Jie would like to see on this hardware.
-
-So to answer the question directly: I believe v3 is the right call now
-- three IPQ5018 boards, including a stock-image one, cannot boot
-without it and the cost of keeping two bus clocks of a small block
-enabled is negligible - with the exact-access root-causing tracked as
-a follow-up. If the follow-up ends up pointing at a cleaner fix (e.g.
-describing the real consumers of these bus clocks in DT), I will
-gladly send it as a successor.
-
-Thanks,
-Stanislaw
+Sergio
