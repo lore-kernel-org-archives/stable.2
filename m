@@ -1,109 +1,139 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A04E3B47F7;
-	Sun,  9 Aug 2026 08:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91CE3BADA5
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 09:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786265803; cv=none; b=MtG5nUoHEDSae4KCME2wUnViPWz5ZNI85A20GxRRO0OtHr9xGLjXFGLsKneKMPug+C2E8vIqM5dpqmu1CLt4XGo+bIQlOuojORjj4KefzM67hn2vRkACCgKmyxEcRjyHl97Is1evDEz4Nqjz81OTv65XnsGWxelW0CYIQB2buxA=
+	t=1786266461; cv=none; b=lOFDiMWdz0sysKxePNp/aZMpvwS2DHMDfdmMtxTNL91Lmeb/WfrUxIZMr4o4AgrbIFhBReJ93CjCbN5GlhN/saKtHiA45bAccPQ5IHSxqxUvIy+tGQDh47FsyjPq9hk1vLSopLjjRa0SRPGrQeCb9PLfNlEqUVBQRdqHsttJMj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786265803; c=relaxed/simple;
-	bh=KkCb88jpb3D1kBUtynsLp4Zj81VOJWY1vhwCs7mKWUQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WHulZ9KWVEiejFSxDsPnLi+TbcKCQffV0sHqxGA0xJfMlftg9g3F2DPLOz6DObh4486ebs0QKL2SIaTZ4SEEhAdlua29Uwua18iJrOPFJMxlmhZTm/Uk9dTM20VSEP300J3/+Hv7npAr3AnjJFSSHUiLR+cydMGn1Egs+fbIA+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=jPnHcDws; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1786266461; c=relaxed/simple;
+	bh=5fMhEZBs1Za4/paEsMllPrG/Vj1KhK6BFKcqbNIRgtU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cekmA/6PZewrjMgYSYFO+zYGFI0Yon6LtDEox9EeGkrm+53JEbKvO27XBmyZe7jL/ruyEdFc75F1Ql0AOiTHqPedQ+Q6R/4Y/AAzaWinWAIjYBF5gSSg8QCYXVfKrm6njzYOOCZDQtpTgS/TLjRWXXpuV43knjuEZrzZm2TWnyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=tpG6OSWh; arc=none smtp.client-ip=209.85.219.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="jPnHcDws"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 8351242C2F;
-	Sun, 09 Aug 2026 10:56:40 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 5a2gwA-ajPo8; Sun,  9 Aug 2026 10:56:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1786265799; bh=KkCb88jpb3D1kBUtynsLp4Zj81VOJWY1vhwCs7mKWUQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=jPnHcDwsXkaZQQylVP4a2dD9xTWzBDA24HuB3SXecErTuRnvVHajXSaL6yCJvwXhz
-	 f0F7bnmz+CT5yMRoA/phNg9wCIMgDjznuPzCYRDxpq5w6CyBb2Mj+2HYG0Wf/4OqkG
-	 xDQP7FqnW0UEll1YNyUS1KXH7xWHdH9cmckEuQHd3yfKOOdbuGr+b3NSeNpARTQz86
-	 V3RoFtBakIm+U/cR9d9IJiKu3KApGfytKsiGvIFPxhyto3U8SGLDfB3ZDerXgX9U6U
-	 49ZW04bkX8pW03Fb2H56RxCwjZY/6a+Ddr8zkctBL92z9OWzGaYJQ7ruIdlXnyd/R6
-	 euhzGV3dvRqfw==
-From: Kaustabh Chakraborty <kauschluss@disroot.org>
-Date: Sun, 09 Aug 2026 14:25:59 +0530
-Subject: [PATCH v5 1/3] drm/bridge: samsung-dsim: enable MFLUSH_VS for
- Exynos 7870 DSIM
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="tpG6OSWh"
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-8f29ec73064so4442486d6.1
+        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 02:07:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1786266458; x=1786871258; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7dUTAoZtVqdPM8YZqDodqEpMlJ3A6YyseiZWnN9riiI=;
+        b=tpG6OSWhzTPvSEdv7UT/Wjuq0iJ3NW2sVJtIX4DTPjuQbXOyNDqK+TNo47yMDXRn/L
+         K4f7YiVUPVSYug2eUvnSIJFs1N1Jih14CBXY1rghzIBmURnm4Rd4ayCVZxlHrXqI07mu
+         mpmOh+YMSmqwjNibLPH+k/VR/ewzSEbNO+B58=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786266458; x=1786871258;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7dUTAoZtVqdPM8YZqDodqEpMlJ3A6YyseiZWnN9riiI=;
+        b=hSdpGauWbwWASRWOZslkt2PSzkOwsIdb/M4jG2QSd2nQiVZSJ42FXK6B46T5dyPtSN
+         +BTVYeiBRk3S/jlivYItOU1I+UxQBJDcIVfiGgJrb5ys645SgfjyKa/q9eNFpt7pzqg0
+         s+aIyZt2ivOoJcTD038JKJ3LTX75F/CUQ2X0MBpKt2enNfYkxBXysvXganeMi01AqVkx
+         vbdW0MHWUkRpmfJfKigXhgZ5FGCvcULopbcIxtKiyvL4dxKFML5mVFflUsSU00mJfY5i
+         YZqHNJNfDY1NL+KdwBxjCJ0NMoh2nK1+y88X1ghx/4aRbpA8IoYEN0q0/5ff70LG4hvg
+         XS5w==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1CymWKdFKF21GJEnzFfFxTBdf6BneBKS2HHF6PclnNIhZxLNPGSmemwUw4cSJe99OdvxBjFc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzf+H6cE7QwsWaA3QW23fVlA+XTY4FZ65+zouaPIIs4TNvtp64M
+	/PDP9cMF8S6MfuC+Hp6SQr6K0p8eeVN9O5pWfnLXDJ6B0w661fe9BQFQoINlLaxRYQ==
+X-Gm-Gg: AR+sD106OdeMVeXKM9mZHLHa1b4kJmnKhmzyFb8mGRBlVcq5eVIVAmoNRpwFt0c1q5t
+	H1MqOgzXZBz6emQk2Wv7AKxTnmfY+mYHEEEgHkDVW2t811serNGLY6euhiVIVGDhZLs9uYxB/te
+	G+LhnJFCbFS8J7VKflVoYQcKTSY3sj+KLk9LdYoz/eXPvqMVLb3CxCgiCsXk1NECyPQSVXW2lFG
+	DlwNgzFUEATm2Hi3fE7RTvssd67iOI41ODiYHj+Ky8mkI8TmrTFvbExsf8T2QBNNin+/ND6zn09
+	SgU88eaGrSiJNVdufGzoSSb4AfOyL6DAgQJtu7LdGJXwH6eanOOD67It43PA9xSO8PNoACkx4cX
+	lQsA3rPQ2+U6/5H+bywrVZFoEQwhGr17Yxz3bGWVcClnKLSdqQ86XXSLTG1OfgSBXAFhb9SoyS7
+	EMhjSoupK20sN1aCl9c6A9PGUvpMxI9zaYSVFaZZQi7tJP8Vxv9Q8Y0hoCciOBz9kzJo8MldwCN
+	aJGz+5UDwg27uOzLgYna0mYY5F5h0qCWYTSvq/yeUn4bqkN5Kt0QTdvHg==
+X-Received: by 2002:a05:6214:4a88:b0:8ef:4ed2:316 with SMTP id 6a1803df08f44-90881098e74mr463332616d6.1.1786266458432;
+        Sun, 09 Aug 2026 02:07:38 -0700 (PDT)
+Received: from majuu.waya (bras-base-kntaon1621w-grc-04-184-144-29-222.dsl.bell.ca. [184.144.29.222])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-908a918dc65sm47112476d6.6.2026.08.09.02.07.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 09 Aug 2026 02:07:37 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	stable@vger.kernel.org,
+	vega@nebusec.ai,
+	Victor Nogueira <victor@mojatatu.com>,
+	Davide Caratti <dcaratti@redhat.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Subject: [PATCH net] net/sched: act_api: fix TOCTOU NULL deref on a->goto_chain
+Date: Sun,  9 Aug 2026 05:07:35 -0400
+Message-Id: <20260809090735.865439-1-jhs@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260809-exynos-dsim-fixes-v5-1-6e63dc6c238f@disroot.org>
-References: <20260809-exynos-dsim-fixes-v5-0-6e63dc6c238f@disroot.org>
-In-Reply-To: <20260809-exynos-dsim-fixes-v5-0-6e63dc6c238f@disroot.org>
-To: Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Kaustabh Chakraborty <kauschluss@disroot.org>, stable@vger.kernel.org
+Content-Transfer-Encoding: 8bit
 
-Commit a36c533ad3e1 ("drm/bridge: samsung-dsim: Always flush display
-FIFO on vsync pulse") intends to enable FIFO flushing at v-sync pulse by
-not setting the active-low MFLUSH_VS bit.
+tcf_action_exec() handles TC_ACT_GOTO_CHAIN by first checking
+rcu_access_pointer(a->goto_chain) and then calling
+tcf_action_goto_chain_exec(), which does a second, independent
+rcu_dereference_bh(a->goto_chain) read and immediately dereferences
+chain->filter_chain. A concurrent tcf_action_set_ctrlact() (e.g. the gact
+replace path) can clear a->goto_chain between the two reads, so the second
+read returns NULL and tcf_action_goto_chain_exec() dereferences NULL.
 
-However, in Exynos 7870 DSIM, the MFLUSH_VS bit is active-high. There is
-no publicly available documentation to the best of my knowledge, but
-downstream kernel code [1] supports this claim. Enable the bit for
-Exynos 7870.
+Fix the race by doing a single rcu_dereference_bh() read of a->goto_chain
+in tcf_action_exec(), checking it once for NULL, and passing the resulting
+chain pointer into tcf_action_goto_chain_exec(). This turns the split
+check/use into a single check/use on one value.
 
-Fixes: a36c533ad3e1 ("drm/bridge: samsung-dsim: Always flush display FIFO on vsync pulse")
-Cc: stable@vger.kernel.org # v6.17 and later
-Link: https://github.com/samsungexynos7870/android_kernel_samsung_exynos7870/blob/a3762bb1761ae/drivers/video/fbdev/exynos/decon_7870/dsim_reg_7870.c#L699 [1]
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+Fixes: ee3bbfe806cd ("net/sched: let actions use RCU to access 'goto_chain'")
+Reported-by: vega@nebusec.ai
+Tested-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- drivers/gpu/drm/bridge/samsung-dsim.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ net/sched/act_api.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
-index 25ab475309e8..fc42acc6b9ef 100644
---- a/drivers/gpu/drm/bridge/samsung-dsim.c
-+++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-@@ -1089,6 +1089,13 @@ static int samsung_dsim_init_link(struct samsung_dsim *dsi)
- 			reg |= DSIM_HBP_DISABLE_MODE;
- 		if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_NO_HSA)
- 			reg |= DSIM_HSA_DISABLE_MODE;
-+
-+		/*
-+		 * For some hardware types, DSIM_MFLUSH_VS bit needs to be
-+		 * enabled as its active-high.
-+		 */
-+		if (dsi->plat_data->hw_type == DSIM_TYPE_EXYNOS7870)
-+			reg |= DSIM_MFLUSH_VS;
- 	}
+diff --git a/net/sched/act_api.c b/net/sched/act_api.c
+index f141634df214..600b7804befd 100644
+--- a/net/sched/act_api.c
++++ b/net/sched/act_api.c
+@@ -41,11 +41,9 @@ int tcf_dev_queue_xmit(struct sk_buff *skb, int (*xmit)(struct sk_buff *skb))
+ }
+ EXPORT_SYMBOL_GPL(tcf_dev_queue_xmit);
  
- 	if (dsi->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
-
+-static void tcf_action_goto_chain_exec(const struct tc_action *a,
++static void tcf_action_goto_chain_exec(const struct tcf_chain *chain,
+ 				       struct tcf_result *res)
+ {
+-	const struct tcf_chain *chain = rcu_dereference_bh(a->goto_chain);
+-
+ 	res->goto_tp = rcu_dereference_bh(chain->filter_chain);
+ }
+ 
+@@ -1170,12 +1168,14 @@ int tcf_action_exec(struct sk_buff *skb, struct tc_action **actions,
+ 					return TC_ACT_OK;
+ 			}
+ 		} else if (TC_ACT_EXT_CMP(ret, TC_ACT_GOTO_CHAIN)) {
+-			if (unlikely(!rcu_access_pointer(a->goto_chain))) {
++			struct tcf_chain *chain = rcu_dereference_bh(a->goto_chain);
++
++			if (unlikely(!chain)) {
+ 				tcf_set_drop_reason(skb,
+ 						    SKB_DROP_REASON_TC_CHAIN_NOTFOUND);
+ 				return TC_ACT_SHOT;
+ 			}
+-			tcf_action_goto_chain_exec(a, res);
++			tcf_action_goto_chain_exec(chain, res);
+ 		}
+ 
+ 		if (ret != TC_ACT_PIPE)
 -- 
-2.54.0
+2.34.1
 
