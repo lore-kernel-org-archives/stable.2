@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5A633F595
-	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC7A306741
+	for <stable@vger.kernel.org>; Sun,  9 Aug 2026 04:20:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786249232; cv=none; b=PfjM5jbnVNWJkaYxZX9UFKY4AmJXdd5C07uvW1bMpYaNpTvI8hrl37Fvn0iDsw0KC6vtydpteAGsemYZB4jY2Cpg4j0+05WiSDhmh3KOJpSrwxRfoUsm4DYnwCJaYHGyBP0D7JMI12XfyTtaZRSn9JNhhBpZPnFKpzXHvyP+vTo=
+	t=1786249233; cv=none; b=Cbo7rrMGH8XRJLDQE2irEVVMXE3CZHE7p/HmReG5Jol3GTyz/2xgCBffd6g4o1/wTbPGyaNYnSuMWbvB2ee9+R9/gdMLRgMpVdexP2COAzJPiVTNpuE/UvAuk3GQnEg61Z4Tm2s71Us5gBGTRqKJa6VXDl7dUB6h9vglVb9FE/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786249232; c=relaxed/simple;
-	bh=0YQyqo0cnVr1LnOGbouJoZbHJQj1AroKMCpg1kF0hj8=;
+	s=arc-20240116; t=1786249233; c=relaxed/simple;
+	bh=6du9b7Zw1DpD1MKD6hM+fA2qty5dwna7Oe3aM+zqq1w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jMMueqdpm+VoOoq1Cq1+MnU1JHXH4Ga0EIWmg1R1SANbQCRhEJWubSgkFM20GkRLZ35nKp0xH8J7MVGycW8Zxx6n25empY0Xfjmc/5nDDn64EDzoDxnpOWlCVsE/yz08EI+IkomcvHEYLoC38JUmyPe5RXCfKJsCaujmWbaKrww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z6n5UGpM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=OiPgfzaEVGaK8d8UuSS0BnI9NrUgQcNpQ2YaC7UH3sGihSw4JP+julliLR9udhKJ+Sz951Q/55TGrylnWLkmmcMN6XRyyIWj2CCD2IijiheTms5ClvYksBF5s24PtJ9IPNueck27hVo0PR/eHo0NmJV6PPqv5HsPPq7+8MvcP8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g7XUm8iC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z6n5UGpM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 625D61F00A3A;
-	Sun,  9 Aug 2026 04:20:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g7XUm8iC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55D391F000E9;
+	Sun,  9 Aug 2026 04:20:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786249231;
-	bh=qR35ZJMTzRpmZCxAnEM7aqryOat1uiMIZxFknbdVIYo=;
+	s=k20260515; t=1786249232;
+	bh=zD3yygLD9gO24fsRHP3OuTCgw9SezO2CptBSSNV6Wp4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z6n5UGpMFZWgzEYsPf1WxIocMY3YcZtHVRAU55G3QCQGviL9GzVr7FK5pHlHC/zYd
-	 Pwa1yMOl/UaqS0qPVxNoSbTMM+2vVTIc8p7tj7dPSoxofBPMjnbZfuAjEhbrWUHlna
-	 D10dDSVjz9lPr0uuBKeYKDH0RYv+fnlPrgbHa4uDvAlKEDSgDHqDV2KBey8w4hYGYR
-	 r76l8QyVREGexB1o1MljhKHAeCZBnHF6hXgBQySeC7i5x3glUCSyL/xiMhn3RgzGLE
-	 LMMC6P8TZDvWmXkUtCMwp/ycSjdKps+msyhUeJwW9TJnYR9GVNBGiwS6lsqSk1cghx
-	 bly0qEd7t7nUA==
+	b=g7XUm8iC2Zy44uKdBkNGP3e4cqI0XD7i6wmFBuDTEh+e3yij2vDY/bz5LHjm3jHD4
+	 kRSo+WwV+44N/029Ir2EhDSOjdZbJJc+NfJ+jL6d59R9YQm89uOZ4w9bz8ZL/1fcy8
+	 mf1/Ypb/sn+XJ2wQKyaNZh5+I5+Bc6S9pHQnyDOKynus63oSgDjTm24UMyYp26FVs4
+	 GUyX03Ih9X5Y5O24kbwKUAxONhkM4ZTbfkUogPtVvlU8sd0xGPkW+UPagCbunmK69J
+	 7AV7P0ll9UTNI/XfSUo8IS9Hy3GJBgU3bmN6C2xYhZi4U3iG6k03XZCLsZc7IJ8IiE
+	 3/2+B/oGyyOhA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ij@kernel.org>,
 	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
 	Eric Dumazet <edumazet@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/4] tcp: Pass flags to __tcp_send_ack
-Date: Sun,  9 Aug 2026 00:20:25 -0400
-Message-ID: <20260809042028.1093837-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/4] tcp: fast path functions later
+Date: Sun,  9 Aug 2026 00:20:26 -0400
+Message-ID: <20260809042028.1093837-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072944-maritime-sulfide-d951@gregkh>
+In-Reply-To: <20260809042028.1093837-1-sashal@kernel.org>
 References: <2026072944-maritime-sulfide-d951@gregkh>
+ <20260809042028.1093837-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,94 +51,97 @@ Content-Transfer-Encoding: 8bit
 
 From: Ilpo Järvinen <ij@kernel.org>
 
-[ Upstream commit 9866884ce8ef25338c5b33cbb97c2b5d92088528 ]
+[ Upstream commit 61b2f7baa9779b12a7bf1b9800a3f2a2549a1315 ]
 
-Accurate ECN needs to send custom flags to handle IP-ECN
-field reflection during handshake.
+The following patch will use tcp_ecn_mode_accecn(),
+TCP_ACCECN_CEP_INIT_OFFSET, TCP_ACCECN_CEP_ACE_MASK in
+__tcp_fast_path_on() to make new flag for AccECN.
+
+No functional changes.
 
 Signed-off-by: Ilpo Järvinen <ij@kernel.org>
 Signed-off-by: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
 Reviewed-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
+Link: https://patch.msgid.link/20250911110642.87529-3-chia-yu.chang@nokia-bell-labs.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Stable-dep-of: a28c4fcbf774 ("tcp: challenge ACK for non-exact RST in SYN-RECEIVED")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/tcp.h     | 2 +-
- net/ipv4/bpf_tcp_ca.c | 2 +-
- net/ipv4/tcp_dctcp.h  | 2 +-
- net/ipv4/tcp_output.c | 6 +++---
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ include/net/tcp.h | 54 +++++++++++++++++++++++------------------------
+ 1 file changed, 27 insertions(+), 27 deletions(-)
 
 diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 5d39b0e8dd909..e57b03bc3fa88 100644
+index e57b03bc3fa88..f0ad16496f0f9 100644
 --- a/include/net/tcp.h
 +++ b/include/net/tcp.h
-@@ -668,7 +668,7 @@ void tcp_send_active_reset(struct sock *sk, gfp_t priority,
- 			   enum sk_rst_reason reason);
- int tcp_send_synack(struct sock *);
- void tcp_push_one(struct sock *, unsigned int mss_now);
--void __tcp_send_ack(struct sock *sk, u32 rcv_nxt);
-+void __tcp_send_ack(struct sock *sk, u32 rcv_nxt, u16 flags);
- void tcp_send_ack(struct sock *sk);
- void tcp_send_delayed_ack(struct sock *sk);
- void tcp_send_loss_probe(struct sock *sk);
-diff --git a/net/ipv4/bpf_tcp_ca.c b/net/ipv4/bpf_tcp_ca.c
-index 554804774628e..e01492234b0b3 100644
---- a/net/ipv4/bpf_tcp_ca.c
-+++ b/net/ipv4/bpf_tcp_ca.c
-@@ -121,7 +121,7 @@ static int bpf_tcp_ca_btf_struct_access(struct bpf_verifier_log *log,
- BPF_CALL_2(bpf_tcp_send_ack, struct tcp_sock *, tp, u32, rcv_nxt)
- {
- 	/* bpf_tcp_ca prog cannot have NULL tp */
--	__tcp_send_ack((struct sock *)tp, rcv_nxt);
-+	__tcp_send_ack((struct sock *)tp, rcv_nxt, 0);
- 	return 0;
+@@ -768,33 +768,6 @@ static inline u32 __tcp_set_rto(const struct tcp_sock *tp)
+ 	return usecs_to_jiffies((tp->srtt_us >> 3) + tp->rttvar_us);
  }
  
-diff --git a/net/ipv4/tcp_dctcp.h b/net/ipv4/tcp_dctcp.h
-index d69a77cbd0c75..4b0259111d816 100644
---- a/net/ipv4/tcp_dctcp.h
-+++ b/net/ipv4/tcp_dctcp.h
-@@ -28,7 +28,7 @@ static inline void dctcp_ece_ack_update(struct sock *sk, enum tcp_ca_event evt,
- 		 */
- 		if (inet_csk(sk)->icsk_ack.pending & ICSK_ACK_TIMER) {
- 			dctcp_ece_ack_cwr(sk, *ce_state);
--			__tcp_send_ack(sk, *prior_rcv_nxt);
-+			__tcp_send_ack(sk, *prior_rcv_nxt, 0);
- 		}
- 		inet_csk(sk)->icsk_ack.pending |= ICSK_ACK_NOW;
- 	}
-diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
-index d2d8e989aac7c..296102ed4a96a 100644
---- a/net/ipv4/tcp_output.c
-+++ b/net/ipv4/tcp_output.c
-@@ -4250,7 +4250,7 @@ void tcp_send_delayed_ack(struct sock *sk)
+-static inline void __tcp_fast_path_on(struct tcp_sock *tp, u32 snd_wnd)
+-{
+-	/* mptcp hooks are only on the slow path */
+-	if (sk_is_mptcp((struct sock *)tp))
+-		return;
+-
+-	tp->pred_flags = htonl((tp->tcp_header_len << 26) |
+-			       ntohl(TCP_FLAG_ACK) |
+-			       snd_wnd);
+-}
+-
+-static inline void tcp_fast_path_on(struct tcp_sock *tp)
+-{
+-	__tcp_fast_path_on(tp, tp->snd_wnd >> tp->rx_opt.snd_wscale);
+-}
+-
+-static inline void tcp_fast_path_check(struct sock *sk)
+-{
+-	struct tcp_sock *tp = tcp_sk(sk);
+-
+-	if (RB_EMPTY_ROOT(&tp->out_of_order_queue) &&
+-	    tp->rcv_wnd &&
+-	    atomic_read(&sk->sk_rmem_alloc) < sk->sk_rcvbuf &&
+-	    !tp->urg_data)
+-		tcp_fast_path_on(tp);
+-}
+-
+ u32 tcp_delack_max(const struct sock *sk);
+ 
+ /* Compute the actual rto_min value */
+@@ -1743,6 +1716,33 @@ static inline bool tcp_paws_reject(const struct tcp_options_received *rx_opt,
+ 	return true;
  }
  
- /* This routine sends an ack and also updates the window. */
--void __tcp_send_ack(struct sock *sk, u32 rcv_nxt)
-+void __tcp_send_ack(struct sock *sk, u32 rcv_nxt, u16 flags)
- {
- 	struct sk_buff *buff;
++static inline void __tcp_fast_path_on(struct tcp_sock *tp, u32 snd_wnd)
++{
++	/* mptcp hooks are only on the slow path */
++	if (sk_is_mptcp((struct sock *)tp))
++		return;
++
++	tp->pred_flags = htonl((tp->tcp_header_len << 26) |
++			       ntohl(TCP_FLAG_ACK) |
++			       snd_wnd);
++}
++
++static inline void tcp_fast_path_on(struct tcp_sock *tp)
++{
++	__tcp_fast_path_on(tp, tp->snd_wnd >> tp->rx_opt.snd_wscale);
++}
++
++static inline void tcp_fast_path_check(struct sock *sk)
++{
++	struct tcp_sock *tp = tcp_sk(sk);
++
++	if (RB_EMPTY_ROOT(&tp->out_of_order_queue) &&
++	    tp->rcv_wnd &&
++	    atomic_read(&sk->sk_rmem_alloc) < sk->sk_rcvbuf &&
++	    !tp->urg_data)
++		tcp_fast_path_on(tp);
++}
++
+ bool tcp_oow_rate_limited(struct net *net, const struct sk_buff *skb,
+ 			  int mib_idx, u32 *last_oow_ack_time);
  
-@@ -4279,7 +4279,7 @@ void __tcp_send_ack(struct sock *sk, u32 rcv_nxt)
- 
- 	/* Reserve space for headers and prepare control bits. */
- 	skb_reserve(buff, MAX_TCP_HEADER);
--	tcp_init_nondata_skb(buff, tcp_acceptable_seq(sk), TCPHDR_ACK);
-+	tcp_init_nondata_skb(buff, tcp_acceptable_seq(sk), TCPHDR_ACK | flags);
- 
- 	/* We do not want pure acks influencing TCP Small Queues or fq/pacing
- 	 * too much.
-@@ -4294,7 +4294,7 @@ EXPORT_SYMBOL_GPL(__tcp_send_ack);
- 
- void tcp_send_ack(struct sock *sk)
- {
--	__tcp_send_ack(sk, tcp_sk(sk)->rcv_nxt);
-+	__tcp_send_ack(sk, tcp_sk(sk)->rcv_nxt, 0);
- }
- 
- /* This routine sends a packet with an out of date sequence
 -- 
 2.53.0
 
