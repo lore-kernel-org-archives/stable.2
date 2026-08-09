@@ -1,115 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7532C08D0;
-	Sun,  9 Aug 2026 23:31:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F0228F5
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 00:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786318266; cv=none; b=TUyRMZn09moctiW3nSLFfoc5gtcrt+NJ6sU1J/b838Fof/TpLZu/O6o6hOEifeY0YoL8a8PKlSfY7thCTzA52GZl9WyMxsTWOJN8H+rpvOlkCMkjUYNnq3Xhrx6uFGoMWyKUOty7J3wK84Vkakj7XUhktXXeI9uMNZ+O4qkLivw=
+	t=1786320260; cv=none; b=N63z5EgNXiX+f1WHkcgkdbrSZdWf8Su8jYqiMQDkLl4Dx3T41tz+vwVRWegWutFofrmf2fTJGzg02J4YJoiJqdeVvERt5Ce0n60EKCNLg3IE+DfLl+F/Kzof3VIAPD50Czc6sFxM/aSjiTTbmCTEKo8l2nMP9uguGI4s92wOU7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786318266; c=relaxed/simple;
-	bh=IM7+SYk+rGmWqE1qhkY/SeZ8qpgEV3KwaUHAx+kY1hw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XhahCH/PCYyiG4qyGRY0QxQEss1jmDGFyDhQT9gKcdACKgV34YUIN0ObIhNG/ecMUmzWZ8UyxzPGV90CMwT2jF8bymEGleAsUUCXrGkycoIMuS+lFsE9UgjF11rfjS5DX4ZxAlU1/1hOjF415U8gNR+RjZegWEyMu8/xr+Tnq54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iHbyfhQ8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786320260; c=relaxed/simple;
+	bh=UhCKw7uKKMhjzETFjpRQKul63KSiRHh6x97PEoh0Apk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q05mMlsKyShrMBVVkK3vXQXaOENGPyYd7R+7QARAVgAGN7P3rVz50AH9rDtLvXgqvB4GTLqJa2f79sN1btkgw06OI0Gz13sRfm3F/ZHNBKyvXvAJ7ShVQE1OWCVJocEIgksWYy8wcuV1POas5sc2XuYtcSnpUXUinVoUHgT81PY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=KOMDuYV2; arc=none smtp.client-ip=202.36.163.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iHbyfhQ8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 539771F000E9;
-	Sun,  9 Aug 2026 23:31:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786318265;
-	bh=WFm50zDkKXzJOqAKehKXwJtF9ALEWVpbeQsvmVeNkG4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=iHbyfhQ86X81uoofC5S4207G0TtPYxzuTj4hEEG/QO/OVZji26P1cGx5PPm6/MQmS
-	 K1rdH/HdQuBbm6zdsVMn/XeneJVk9SKWjD6DFDumL0wcBBIuf7fw0IsEp0K3RaixR6
-	 KoNUbCMXfWrW2kN+jIWFFvaJxFLi1DEhmmBy18k0i/Q6qJXNcVCwPdoXbYgPubXcYk
-	 tIxewM9mKqpBvkxYHgzTtxnen+9CIw66a0jzLekQ4MWmrdsyBZuNo2MlxhavMub1iC
-	 0sZUD1xzpaTy8ddyr4qd/yuRD1o2vollhYSaPVCM14XM14dBcQDL0bfnTLnhqCGYIb
-	 0Gdfpfmzuiqyg==
-Date: Mon, 10 Aug 2026 00:31:01 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Shengzhuo Wei" <me@cherr.cc>
-Cc: "David Lechner" <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Sean Nyekjaer"
- <sean@geanix.com>, <linux-iio@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, "Joshua Crofts"
- <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH RESEND v2] iio: accel: fxls8962af: clamp FIFO sample
- count
-Message-ID: <20260810003101.3a2d1967@jic23-huawei>
-In-Reply-To: <20260809-fxls8962af-fifo-v2-1-80ff1be1f1f2@cherr.cc>
-References: <20260809-fxls8962af-fifo-v2-1-80ff1be1f1f2@cherr.cc>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="KOMDuYV2"
+Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 9CD7B2C01F0;
+	Mon, 10 Aug 2026 11:57:11 +1200 (NZST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
+	s=mail181024; t=1786319831;
+	bh=FnVN76IK/ZlMNomEDHZW2lLU775rWGV6CxZvYExkBoA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=KOMDuYV2Wl+H3j0zfXyjSYEuZNBFMPLiVRTLjIkSa0S3SSCmD++zLNsWS8giJVUBz
+	 k8CSqgvACRBenyH6NwNVrQlBpETZU5HuRoFI7yOfeetRCN7Ev6Z1Hg9ht5WxQZD2Ru
+	 CM3joUd1dc9teC8ifNEktRPir3uFe8DXU1lyjL882oMWT5uvXDmQ+zn0YoZ/wHHMOI
+	 /H3IFntZF/Txmh89PB20b6ci5jwlBNer2wT0KXlv/5hB78peUPjD7kouFczAwCMLXd
+	 1ZXC3se714OUUCbGK+YKoZIscPIL5wafNUKi1s8KfNEFV9ayMQaMnQk59uHM8aS8dK
+	 8Yr3IHYdTyqkw==
+Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
+	id <B6a7913d70000>; Mon, 10 Aug 2026 11:57:11 +1200
+Received: from markto-dl.ws.atlnz.lc (markto-dl.ws.atlnz.lc [10.33.23.30])
+	by pat.atlnz.lc (Postfix) with ESMTP id 6D64913EDD7;
+	Mon, 10 Aug 2026 11:57:11 +1200 (NZST)
+Received: by markto-dl.ws.atlnz.lc (Postfix, from userid 1155)
+	id 69CC5406AE; Mon, 10 Aug 2026 11:57:11 +1200 (NZST)
+From: Mark Tomlinson <mark.tomlinson@alliedtelesis.co.nz>
+To: stable@vger.kernel.org
+Cc: Mark Tomlinson <mark.tomlinson@alliedtelesis.co.nz>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH 6.12.y] gpio: pca953x: fix pca953x_irq_bus_sync_unlock regmap lock
+Date: Mon, 10 Aug 2026 11:56:32 +1200
+Message-ID: <20260809235632.1856553-1-mark.tomlinson@alliedtelesis.co.nz>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <2026080530-jailbird-pedicure-255b@gregkh>
+References: <2026080530-jailbird-pedicure-255b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-SEG-SpamProfiler-Analysis: v=2.4 cv=O66avw9W c=1 sm=1 tr=0 ts=6a7913d7 a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=Sv0fKeRqtYgA:10 a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=HDTP818q5T4t6XSuYIMA:9 a=3ZKOabzyN94A:10 a=-FEs8UIgK8oA:10 a=FO4_E8m0qiDe52t0p3_H:22
+X-SEG-SpamProfiler-Score: 0
+x-atlnz-ls: pat
 
-On Sun, 09 Aug 2026 05:04:41 +0800
-"Shengzhuo Wei" <me@cherr.cc> wrote:
+Locking is disabled in the regmap config as this driver uses its own
+lock. This means that all calls to regmap functions (read or write) must
+hold the i2c_lock. The function pca953x_irq_bus_sync_unlock() did not do
+this, and it was therefore possible that multiple threads could cause an
+incorrect register to be read/written.
 
-> fxls8962af_fifo_flush() copies the number of samples the device reports
-> in its FIFO status register into an on-stack buffer
-> 
-> 	u16 buffer[FXLS8962AF_FIFO_LENGTH * 3];
-> 
-> which is sized for at most FXLS8962AF_FIFO_LENGTH (32) samples. The
-> sample count is read from the BUF_STATUS register and only masked to its
-> 6 valid bits (0..63), with no clamp to the buffer size. The watermark
-> path caps the count on the write side (fxls8962af_set_watermark) but
-> the read path does not, so a malfunctioning or malicious device
-> reporting BUF_CNT > 32 overflows the buffer.
-> 
-> Clamp count to FXLS8962AF_FIFO_LENGTH, mirroring the watermark clamp.
-> 
-> Fixes: 79e3a5bdd9ef ("iio: accel: fxls8962af: add hw buffered sampling")
+A previous patch partly fixed this, but only protected the write to the
+interrupt mask register, and not the read from the direction register.
 
-Same comments as similar patches.
-- Not a fix, but rather hardening against buggy hardware.
-- Don't hide the problem by clamping.  If this happens in the wild
-  we want to know about it!
+Fixes: bfc6444b57dc ("gpio: pca953x: fix pca953x_irq_bus_sync_unlock race=
+")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mark Tomlinson <mark.tomlinson@alliedtelesis.co.nz>
+Link: https://patch.msgid.link/20260709045116.2304246-1-mark.tomlinson@al=
+liedtelesis.co.nz
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+(cherry picked from commit 9dc325327babe7f159e84cbe9380a45342da0585)
+---
+ drivers/gpio/gpio-pca953x.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-
-> Cc: stable@vger.kernel.org
-> Assisted-by: GLM:5.2
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-> ---
-> The transfer reads count * 6 bytes through regmap, so a device reporting
-> up to 63 samples writes up to 378 bytes into the 192-byte buffer,
-> clobbering the stack canary, saved registers and the return address.
-> This mirrors the bmc150 fix (ce0e1cae2609). A well-formed flush reports
-> at most FXLS8962AF_FIFO_LENGTH samples, so legitimate devices are
-> unaffected.
-> ---
-> Changes in v2:
-> - Use min() instead of min_t() as suggested by Andy Shevchenko.
-> - Link to v1: https://lore.kernel.org/r/20260806-fxls8962af-fifo-v1-1-bd9d27047fee@cherr.cc
-> ---
->  drivers/iio/accel/fxls8962af-core.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/iio/accel/fxls8962af-core.c b/drivers/iio/accel/fxls8962af-core.c
-> index d0c2a8daef0db964134ad10b25782b9f5752613d..18d7b09bddd2b4f506c3348bf4e8cf94ce1c554a 100644
-> --- a/drivers/iio/accel/fxls8962af-core.c
-> +++ b/drivers/iio/accel/fxls8962af-core.c
-> @@ -969,6 +969,8 @@ static int fxls8962af_fifo_flush(struct iio_dev *indio_dev)
->  	if (!count)
->  		return 0;
->  
-> +	count = min(count, FXLS8962AF_FIFO_LENGTH);
-> +
->  	data->old_timestamp = data->timestamp;
->  	data->timestamp = iio_get_time_ns(indio_dev);
->  
-> 
-> ---
-> base-commit: 848acc8ffe1b7cd5f1bf427b93069becfebc2c9d
-> change-id: 20260806-fxls8962af-fifo-c3812fd02eeb
-> 
-> Best regards,
+diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
+index 489c7ebe87c8..2d8c3da7abad 100644
+--- a/drivers/gpio/gpio-pca953x.c
++++ b/drivers/gpio/gpio-pca953x.c
+@@ -525,15 +525,23 @@ static int pca953x_read_regs(struct pca953x_chip *c=
+hip, int reg, unsigned long *
+ 	return 0;
+ }
+=20
+-static int pca953x_gpio_direction_input(struct gpio_chip *gc, unsigned o=
+ff)
++static int pca953x_gpio_direction_input_unlocked(struct gpio_chip *gc,
++						 unsigned int off)
+ {
+ 	struct pca953x_chip *chip =3D gpiochip_get_data(gc);
+ 	u8 dirreg =3D chip->recalc_addr(chip, chip->regs->direction, off);
+ 	u8 bit =3D BIT(off % BANK_SZ);
+=20
++	return regmap_write_bits(chip->regmap, dirreg, bit, bit);
++}
++
++static int pca953x_gpio_direction_input(struct gpio_chip *gc, unsigned i=
+nt off)
++{
++	struct pca953x_chip *chip =3D gpiochip_get_data(gc);
++
+ 	guard(mutex)(&chip->i2c_lock);
+=20
+-	return regmap_write_bits(chip->regmap, dirreg, bit, bit);
++	return pca953x_gpio_direction_input_unlocked(gc, off);
+ }
+=20
+ static int pca953x_gpio_direction_output(struct gpio_chip *gc,
+@@ -759,8 +767,9 @@ static void pca953x_irq_bus_sync_unlock(struct irq_da=
+ta *d)
+ 	DECLARE_BITMAP(reg_direction, MAX_LINE);
+ 	int level;
+=20
++	guard(mutex)(&chip->i2c_lock);
++
+ 	if (chip->driver_data & PCA_PCAL) {
+-		guard(mutex)(&chip->i2c_lock);
+=20
+ 		/* Enable latch on interrupt-enabled inputs */
+ 		pca953x_write_regs(chip, PCAL953X_IN_LATCH, chip->irq_mask);
+@@ -782,7 +791,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_da=
+ta *d)
+=20
+ 	/* Look for any newly setup interrupt */
+ 	for_each_set_bit(level, irq_mask, gc->ngpio)
+-		pca953x_gpio_direction_input(&chip->gpio_chip, level);
++		pca953x_gpio_direction_input_unlocked(&chip->gpio_chip, level);
+=20
+ 	mutex_unlock(&chip->irq_lock);
+ }
+--=20
+2.54.0
 
