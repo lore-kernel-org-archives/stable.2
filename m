@@ -1,113 +1,125 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8F13BCD33
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 23:00:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB873B47F9
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 23:06:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786402821; cv=none; b=h6DFcstox0P+OxrYEkV6PR9xNm1JfO/fFEDHuPHKs+gCe3BY0RDuVTYvf6vswDbfCGxeVRVVfKLhw9pEG57zO/i3U6eKh8TmsDFmBYk2HUlu4UBAwGqsPvj6le/ybvnQzdkZhO815NACeyBFyBbLG4BM3W090CCafBstCD8JZDM=
+	t=1786403181; cv=none; b=JoeX4iPgC9DlZiSR5Rc/eAUtHjaoXDrjEDUpHhqvuhvAo1edZu/YdskIRqxgHeCJ6Qon4crZwTCn3vD11qH7Vg3Lbdg+s7i1MdjRfusvHagPGeiv6aXi6PYyvUnoq2bMPKBWb+8AHDNHfBzYu9Rc7zOXzZcalBpfAPh8M4gTvQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786402821; c=relaxed/simple;
-	bh=AIffyatO2PMrnjuXzFz/fouBCJubWOhn2zUYeUzYE30=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qYzRZr/BYnQzDSMRM8Hxo4iURRj2g8DYoGIqz6SWOlVRVHNSET5EbcFu8iCCCqyiUet8/rPSzCSZ9lv4gwfqLXxDVwkitRFH+djgnpfUL7W7/Hiwlr03Bfkve0ECjlJV2ysIP/Yl6petGfMG4PGRmDqaZFW/iDl8gCFe5E9cPCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CGCqC7vI; arc=none smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786403181; c=relaxed/simple;
+	bh=O7lAK9Itxu3BtFZebuGm+soxk8EufQFIVRqNLSr9Y0g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IlDl2GDdQ+2FoIvTqWVaYv5GywThtSmAk/SMDlZiCFIeHXNMe456WQkZfjtGDf4b1bhlW4PlEvB+RZI6K7cpIfo7PO4sJwBolT+PAC0yowr/PgdYE8uivGYdxNugG4ie6EVznrqlfle8rRK3RtFxQGJya7yIC4SxbtwEL7LSmVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=peridio.com; spf=pass smtp.mailfrom=peridio.com; dkim=pass (2048-bit key) header.d=peridio.com header.i=@peridio.com header.b=dcfmmgL/; arc=none smtp.client-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=peridio.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=peridio.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CGCqC7vI"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51c2a449c57so1704611cf.1
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 16:00:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=peridio.com header.i=@peridio.com header.b="dcfmmgL/"
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5bfdb047c1eso86470e0c.2
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 16:06:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786402817; x=1787007617; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=blLJ9/tIXxSZMI1TcmSIhA1UYbC8d5RJ38svlmIf2cc=;
-        b=CGCqC7vIV2FBIawNSFT8iyLiYw3eLlevbhqPRlbnJQeB2mAkkFkX7qzzlJraA2D3eg
-         OTABtagvVblhR+hB31HayaxouawWB3+ECLtFPIAmWrrTaEJLYFDZ9sPTl9o/Hs8Dhti7
-         /1mHMeptrP1bA9BxaC8iiAHom+5FLxPBe+4iYiPKxRe+MryWz2pbcjw2EhIh0zKIN36P
-         vBbGJseJBSEgWpXfdOkTACNXh94dbx72IzGai55gpQj6/Ytp1mcNog9hEe3GF4Ebsq29
-         eMjTZksGlQ6oYdYbu/5ydJmBrqzDQ5I+QyFojr55KyHc/POH3BO4EH5e0LIkWhJU9SaM
-         NHcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786402817; x=1787007617;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=peridio.com; s=google; t=1786403178; x=1787007978; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=blLJ9/tIXxSZMI1TcmSIhA1UYbC8d5RJ38svlmIf2cc=;
-        b=q+T5vR1pmNf2/QdSsUpZtVx0PL8tJoeaEEkVU3aZ9/ud0t8FWoO+WwICBiVcVoRpTB
-         4pwkRyVIxoLus+uv1kVFNnYrRPMT1l6GpEG7/qHU4fVnU+OutBwDrJrrB6HvUYxikIjL
-         nB+O2MOwLF+A9LvED/lv8L+klU4QXw+v4b8EorJ6SS698tvdXeBbbzKSY4kKmQLH2w5N
-         uy9ZH+FayXO758jG/xoxrOnul6y/NjfJkQsmdoYvD3Ami9bQvFLOEP4fAJkIZU+UWZVE
-         DgPl4FNC1y7cVEOKmcn3vrGTCv0lyPo211munzXhx7sm8z1ai5+RMB6Gq0JoK9aICAdf
-         KVLQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq0aqbTgjGbsPIxLC6mOX+zaIa3LaZDgwhKr8e3yjjSrlYC2JajH38E9C+d8xHrKvs4twgf0yY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/172kzOJ/eUaYmpSFguAcmYpTF+EoYRXnwilih48pq3piutFK
-	PhVinqbeYuoUadU+hjFidxaauucVhf7FSR0CvOFrZ44KvJ2NicZ3cHNg
-X-Gm-Gg: AR+sD10TA2rHcCb3UfsAagfFY5qwGgaiAqz9Fwg6keFFk6l2gQk/GUPn/jGHpFm0+n2
-	mYRuw6/0JU7MoOurBFvv2UtHQNjR4K3Rv8nk80Latt4wcCA/iuLQcG8dd3Pq4Rwo15Rbr4deB2M
-	s7+ZjaGpyxrWvfeUg+QWe3ciJEHUQ208ejG0l4rQ1JiGklYo1aic8RVhiwQv+xPmNfuMVkAglil
-	Bi1WE+CXdeLtEZrpPVXd0I2zrw15f/36blPhY9e4d3174up3m3qiaQtVeIb5RG80bg4Tq4vsETr
-	cZ1QsC2uEueyT3KScQSBhPXYi8YIDbwnd3TzwYJg/jyyVaH9z82jz0qzXQu0VHyhoH8PpDQU7k3
-	Hfip849P5GF4dZFR2QAK3sYTxaLFO0OYWBdUq9v2u0E8+Yu4sR0ic6XuyO7DWSFsjbP8ilM91qw
-	AV6n5avHwQOswE8V+uO8BCGSNJRXUgFBVcwZqeyuWCmQIS83tw+I93VxhlJA7G2+bci8iZjaKd5
-	IkgEjiF1pLd8bc=
-X-Received: by 2002:a05:622a:593:b0:51c:21d1:3852 with SMTP id d75a77b69052e-52ce5f63740mr483994001cf.5.1786402817492;
-        Mon, 10 Aug 2026 16:00:17 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9366e22695bsm889897985a.25.2026.08.10.16.00.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 16:00:16 -0700 (PDT)
-Message-ID: <90831f40-dc9a-4255-a611-7f59e5685f94@gmail.com>
-Date: Mon, 10 Aug 2026 16:00:11 -0700
+        bh=sND6wzkbiGyKvdiG9Z9kRm+epdaTPvk4GyaXe9tvODk=;
+        b=dcfmmgL/UcF4bmjkp9fEgXkxf7S9WCRAv+4lyIa6RfeGT/7FbY8X9Her51KN1GZS0o
+         PW3c551S6yu9FfxpEzKDf2xEgM8cWHqHXK4wQhl0UGkY9ACczYyTSbAgS+FKYCinRdU6
+         45nfGmo9umsCx9kgDBR3f1PBs1iIJoAxU97kuQggBj75p9mnBSuQ+Jc3TSv2YYoX6yra
+         TK3FO6pVkCwLMMC9PBQmINTmqWPyfwjpRALxx1fHbLKNLTbFiWuMBvy678ZRhPxIxjGP
+         R+MO6fSm8jSkojijm8vo5/yWulLUGpwKVZaPX/VPwRLcCO8RyBSkR5Dm0bsjust0+gWQ
+         1KkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786403178; x=1787007978;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sND6wzkbiGyKvdiG9Z9kRm+epdaTPvk4GyaXe9tvODk=;
+        b=ob/IkmbCEP5PF+wjlEBIv7sxHmv1LS4F9z5PZs77EEBaKFTlmvr7anzQevEVHasiyw
+         nBpxebrInUiSDyzYDVC/gnS+tfbAPVFShQezMImszulRisdQFL86ViDyGmvrK6TmV3jo
+         PfqT3ulPYFHMNENc4Zro2sY3cUwHx0F7JxttKPq6fX1alT6rzg5KitpKzTCFtZ737TdT
+         4/eF12OuFLHT+bJUTiLyYdJLHs92s7j/TUgtgaMfD61ApW2otC5HIrT4n/6oEXnaTl6x
+         TZ8G2Jam0Wzqwphgw1e4TUOvjbo6z3DxNs2gMKHlEGYqHyJYwl4Y++cVFOuz/2ZUprp6
+         sOkw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq0mMtViguumTSsptoTfq1gyj40+Ah+iSyXHZp3yUjhzsIWXJkxkpry+WQxcGI/d25OWyDl4CE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1qUASLbny7wxeEYOas8aZfakqLhSb1YJ2kLeVq79C515q8F14
+	cqiF65YyMMrBITLO49FocYNSH9jLm0j3VxV8dnwF+xT8emICzU1nwn5W/XEMRwU7I8Y=
+X-Gm-Gg: AR+sD12AZjElvD4cMRjD+X3p3ptwTDEf9EIwuy4eUKREwemuox4Ii5a2DkALxYNHPHn
+	pg3r3aolDHtz6JJUQT02SFje888eweLVrxcJMaUKHb/gFLs5FEs84wHbui1K5axgUgg27arXV4v
+	jAhA8ufkH6++BzRNrypytigLy1LIEkFB/Lbi5gZnnuQdB2OZL4qFqLhOVU6aJ9Di24KxFgdBp7w
+	3wcgaYQhyr/f/6duDC0OryJQ5I/CpKX7+UuQimKyG+2v+oqK8mIi9LWV8BPvlpS0TTsnkvS5Etm
+	lCjywPS/KAhWzUPCHeyYyKMQgxsm4fibFMVXahU4DedNGZqGclQngTprieLWLct9PJi/YSPDiIY
+	IyiJThywKU+hE0FTeL0gU//7fnAok2m9zIVTsbkiHX0sq43Fsff7HapXBOl+nNUXpt3lOsqihJX
+	zrp3fp5EZl+TnzBWltmMEHRM8Kgt4RXfFTWlw/iVlPx2QfpsnmWZ3+mIHE31WZlQzygg==
+X-Received: by 2002:a05:6122:6c06:b0:5bd:a3d0:923c with SMTP id 71dfb90a1353d-5c3d8d1a62dmr4758463e0c.0.1786403177877;
+        Mon, 10 Aug 2026 16:06:17 -0700 (PDT)
+Received: from localhost ([190.113.101.40])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c40b1a8f75sm4737386e0c.10.2026.08.10.16.06.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 16:06:17 -0700 (PDT)
+Sender: Javier Tia <j.tia@peridio.com>
+From: Javier Tia <javier@peridio.com>
+X-Google-Original-From: Javier Tia <floss@jetm.me>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: "Darrick J . Wong" <djwong@kernel.org>,
+	Dave Chinner <dchinner@redhat.com>,
+	Allison Henderson <achender@kernel.org>,
+	Andrey Albershteyn <aalbersh@kernel.org>,
+	linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/6] xfs: initialise error in xfs_defer_finish_one()
+Date: Mon, 10 Aug 2026 17:06:13 -0600
+Message-ID: <20260810230611.2859909-9-floss@jetm.me>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260810230611.2859909-8-floss@jetm.me>
+References: <20260810230611.2859909-8-floss@jetm.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 000/438] 7.1.8-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260807143428.008222056@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1468; i=floss@jetm.me; h=from:subject; bh=O7lAK9Itxu3BtFZebuGm+soxk8EufQFIVRqNLSr9Y0g=; b=owEB7QES/pANAwAKAbXuwwuoZ3cfAcsmYgBqelljdkIzN6Vm6qJyjzD8yEylWzJ49lYuL+7hF mhBN6Hvjd+JAbMEAAEKAB0WIQSbE7ILzw7eI0VKk8m17sMLqGd3HwUCanpZYwAKCRC17sMLqGd3 H0h2C/9q1FfvCHZUTjpMqZgcixlBy6ktrW3R+ilbZX6SIJkKPmGNb0tgsfoS482naCCHoSppic0 uTZLgE4fjZZ6d4ScY4ADsthGb/BtRLZddGfZfeKjyV4o0bbcPuJR1OsMI88X4Z8iwOwGT8RSXTc ku9S3RuuqFjXuHk2y6OZCTHgVyYvERsHRr3CXYwBfMs2lWqkrGy3B4R0AFi5gJjwKZDaBDsgp3i ZUacCCJ/plSySYNri0ysQvG/PoeJtipZtQ5j+u2A2bj/99QYh8bjM/4bIjzXxlQ4Wtbna6q+0x9 Gmjne4hson+QfKQfrtNy2unywyTyAl8XZJ4GfyXmj+8HBVD+rbRoS9OZvow8y6ChHSjG265UWgi AIQglW4YZECI6+gc662fccIAmFwtMphfJHb1yehOgXrl8bihT/OfDs0mwIVvJByQQbjjWu7KZUp eRw/RUaqOTMmP82N6K7Z7nLmFGtTubaI4Ak2SNm1aT1df+BWtx5PX1IWC842WD2bwdj8A=
+X-Developer-Key: i=floss@jetm.me; a=openpgp; fpr=9B13B20BCF0EDE23454A93C9B5EEC30BA867771F
+Content-Transfer-Encoding: 8bit
 
-On 8/7/26 07:33, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.8 release.
-> There are 438 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 09 Aug 2026 14:33:46 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.8-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+xfs_defer_finish_one() declares error without an initialiser and only
+assigns it inside the loop over dfp->dfp_work.  When that list is empty
+the loop body never runs, control falls through to the "Done with the
+dfp, free it" path, and the function returns an indeterminate value.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+An item-less pending item reaches this through xfs_defer_add_barrier(),
+which xfs_reap_ag_blocks() uses on any CONFIG_XFS_ONLINE_REPAIR kernel.
+xfs_defer_finish_noroll() treats any non-EAGAIN return as fatal, so a
+non-zero stack value turns a successful barrier into a
+SHUTDOWN_CORRUPT_INCORE in the middle of a repair.  Zero is the correct
+result: reaching the free path means the item loop drained without a
+non-zero error.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Fixes: 3f3cec031099 ("xfs: force small EFIs for reaping btree extents")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Javier Tia <floss@jetm.me>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+---
+ fs/xfs/libxfs/xfs_defer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/xfs/libxfs/xfs_defer.c b/fs/xfs/libxfs/xfs_defer.c
+index 89501e8bd2f8..843c33304441 100644
+--- a/fs/xfs/libxfs/xfs_defer.c
++++ b/fs/xfs/libxfs/xfs_defer.c
+@@ -583,7 +583,7 @@ xfs_defer_finish_one(
+ 	const struct xfs_defer_op_type	*ops = dfp->dfp_ops;
+ 	struct xfs_btree_cur		*state = NULL;
+ 	struct list_head		*li, *n;
+-	int				error;
++	int				error = 0;
+ 
+ 	trace_xfs_defer_pending_finish(tp->t_mountp, dfp);
+ 
 -- 
-Florian
+Javier Tia
+
