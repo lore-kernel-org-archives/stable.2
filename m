@@ -1,144 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp161.vfemail.net (smtp161.vfemail.net [146.59.185.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E143E0096;
-	Mon, 10 Aug 2026 13:35:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BDFB3C4167
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=146.59.185.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786368955; cv=none; b=AAfZqT474HVzkzeTmsFbvbc84VuAPoOq63PMl0+VhTez52whSuEkOT+5OEDCuFJ7EAejKXoeH0uFZ/bjECu5ytNCE/Zz5qgxQm4LmKDUOj1FJhyokM6iIXe767utBJZIKYtpDe12wlsioYHAIuqBPNZbh/403G701xTkGGXAXsg=
+	t=1786369147; cv=none; b=XazGh4IseBUHGnG3WHtijhtOAAx6UCr+w6Nfck+OieyQM+OkgMq94aHcJYwhzyOwoj9yIYYiMxbsiNOEnNQuRDmsNGYdUxFu/GZlqLXK9tJHcrjTTbJNDgyQrlT85GmxkVn+G4YPQYR8UV5vnNxmaz0rWhyH4GTadLd0/FHwhY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786368955; c=relaxed/simple;
-	bh=EgSOJGmrrtDIwoONebb2VWePpMr0xPNQX6dcGwPtH1Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EP/Y44fGs2BptRrZ+EmCDP3+0ff/0YMw6+gIscaeuaceo1P0IfxwappAIKaTd9947y8G9c7OTHU6EVyhHZEZWqrPdBNUeyuFMYFxTqm1zXeVbd4fTUWLo2genzIvv/hY78VgkkhULcFzGoTU04wkkd1K7r7t5ONv7AiR0qEcgjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fA6+rlWx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786369147; c=relaxed/simple;
+	bh=a+J7tdPKyHsKuAkk1mQ20zUKGmoe3x1TvOV647oemxg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=H07NChZM9y0J0hAI2oRobSnje0ameYgrKft6k0uQSe4KECo2AJ2PS7K8GML3aEz+Uf2KK4qaHqcksvoM6v3i3+RsS76oU3d4ktqDw5RGlJq84m2s/E6ZOimRRSAT4uvvAShmkthfRuwQLKCtdterav9pjNDFRaN4AQFuncS6zjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vfemail.net; spf=pass smtp.mailfrom=vfemail.net; dkim=pass (1024-bit key) header.d=vfemail.net header.i=@vfemail.net header.b=ZJsI8j2I; arc=none smtp.client-ip=146.59.185.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vfemail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vfemail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fA6+rlWx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2341F000E9;
-	Mon, 10 Aug 2026 13:35:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786368954;
-	bh=utuvlWj153YehjtmXoJH+cLSsBfPwLyLld+tIz5367I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fA6+rlWx9MznANhijGPEQXzbpI+LfE4qbpQQzwavQcB45kKtouBfKT5U9NOxNwiiv
-	 zU8TntJjpdOWZiPYDOBnphwZgS3LsNYyjIiiFeU7o7kmYZrKgUa0BR0SDgMYiKa8Ik
-	 HBTgYwWgNtUwhBoR5iETKkE3/Bleroy4htu44CaW5JR4yLIlc0Ixwb0Ecgt2pyiKTG
-	 PIoEh7rHabI5Y+BS3Wh77wgGVMRmB1wP222iPgsfAEEaxRckTCq8GE/vb/owHcKSbQ
-	 76biHZgc4hv+CKXusKGQWmL1Fp3yBsD39NI8u5TvECj50IV4aivyfG9QuZudT3CEAi
-	 z813PvehqSf5w==
-From: Puranjay Mohan <puranjay@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Puranjay Mohan <puranjay@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Usama Arif <usama.arif@linux.dev>,
-	Will Deacon <will@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	x86@kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v7 2/3] perf/core: Run sched_task() for PMUs with only CPU-wide events
-Date: Mon, 10 Aug 2026 06:35:35 -0700
-Message-ID: <20260810133540.1947118-3-puranjay@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260810133540.1947118-1-puranjay@kernel.org>
-References: <20260810133540.1947118-1-puranjay@kernel.org>
+	dkim=pass (1024-bit key) header.d=vfemail.net header.i=@vfemail.net header.b="ZJsI8j2I"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple; d=vfemail.net; h=date:from
+	:to:cc:subject:message-id:in-reply-to:references:mime-version
+	:content-type:content-transfer-encoding; s=2018; bh=a+J7tdPKyHsK
+	uAkk1mQ20zUKGmoe3x1TvOV647oemxg=; b=ZJsI8j2IMmQg2w34yRGluRe/wR2t
+	d97Zr8SW5OA5zWocmTXD2UhB2DY5D0OGS4mTH2xBmrjzmeq9M74naPAkdhXa8XR7
+	NPBJwgdyq5L1QAdyv+yjY8f7iRe9e1Cj2SnTl5onEWCu/S9vdoR5lII+BcOISPUX
+	A8svY4Q+w/EQTAs=
+Received: (qmail 21846 invoked by uid 89); 10 Aug 2026 13:32:22 +0000
+Received: from vps-dc174dc1.vps.ovh.net (HELO d3d3MjIxLnZmZW1haWwubmV0) (aGdudGt3aXNAdmZlbWFpbC5uZXQ=@MjE3LjE4Mi4yMDYuNjY=)
+  by smtpout.vfemail.net with ESMTPA; 10 Aug 2026 13:32:22 -0000
+Date: Mon, 10 Aug 2026 09:32:19 -0400
+From: David Niklas <simd@vfemail.net>
+To: Dominique Martinet <asmadeus@codewreck.org>
+Cc: linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
+ stable@vger.kernel.org
+Subject: Re: Linux 6.12.99
+Message-ID: <20260810093219.21c847f2@ZenIII-X12>
+In-Reply-To: <anlKlnYz1on6qET_@codewreck.org>
+References: <2026072931-buddhist-lethargy-769b@gregkh>
+	<anlKlnYz1on6qET_@codewreck.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-perf_pmu_sched_task() returns early when cpuctx->task_ctx is set and
-leaves the work to perf_ctx_sched_task_cb(), which only walks
-ctx->pmu_ctx_list. A PMU whose events are all CPU-wide is not on that
-list, so nothing calls its sched_task(). With
+On Mon, 10 Aug 2026 12:50:46 +0900
+Dominique Martinet <asmadeus@codewreck.org> wrote:
 
-  perf record -b -e cycles -a -- ls
+> Greg Kroah-Hartman wrote on Wed, Jul 29, 2026 at 06:17:30PM +0200:
+> > Lorenzo Stoakes (1):
+> >       mm: refactor mm_access() to not return NULL  
+> 
+> FWIW if anyone else cares and looks for this, this backport was required
+> due to a NULL deref in 6.12.98 (and likely .97 as well if commit
+> 4bfe8c481846 ("proc: protect ptrace_may_access() with exec_update_lock
+> (part 1)") is indeed the culprit, I didn't check):
+> https://lore.kernel.org/all/2026072933-widow-grouped-f9e4@gregkh/T/#u
+> 
+> 
+> Greg & Sasha,
+> this is purely selfish and I'm grateful for all the work you two do
+> backporting patches, but (for next times) it'd be great if the backport
+> commit could also point at why it is backported after all this time
+> (for example add a comment or even just the above link between the
+> original sign-off and your's) -- it doesn't have to be much, but it took
+> me a while to find (I was curious because this was an urgent release
+> without -rc, with a single 2 year old patch branded as refactor not
+> fixing anything obvious...)
+> 
+> Ultimately it doesn't change the fact that "all users must upgrade" as
+> said in the announce, but I need to judge the urgency of the upgrade, so
+> having a rationale is extremely useful.
+> If backported commits fix something obvious then there's nothing to add,
+> but in this case I believe I'm not the only one who'd puzzle over it (if
+> someone is actually looking...)
+> 
+> Thanks!
 
-armv8pmu_sched_task() is skipped on every switch to a task that has a
-perf context but no event on that PMU, and BRBE records leak across the
-task boundary. intel_pmu_lbr_add() calls perf_sched_cb_inc()
-unconditionally too, so LBR records leak the same way on x86.
-
-Drop the early return and skip only the CPCs that
-perf_ctx_sched_task_cb() handles. That one needs a gate of its own to
-make the split exact: it tests cpc->sched_cb_usage, which
-perf_sched_cb_inc() sets per CPU for every branch stack user, so a task
-with an event for that PMU pinned to another CPU would be handled twice.
-On x86 the second __intel_pmu_lbr_restore() finds lbr_stack_state ==
-LBR_NONE and calls intel_pmu_lbr_reset(), throwing away the callstack
-the first one restored.
-
-cpc->task_epc is set only while a task context is scheduled in, and
-there is one epc per PMU on ctx->pmu_ctx_list, so the two gates are
-inverses.
-
-For the CPCs perf_pmu_sched_task() picks up, the callback now runs
-outside the perf_ctx_disable() and perf_ctx_enable() pair in
-perf_event_context_sched_in(). __perf_pmu_sched_task() disables the PMU
-around the call itself.
-
-Fixes: bd2756811766 ("perf: Rewrite core context handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
----
- kernel/events/core.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 05635217696c2..34eb05e9d74d0 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -3757,6 +3757,9 @@ static void perf_ctx_sched_task_cb(struct perf_event_context *ctx,
- 	list_for_each_entry(pmu_ctx, &ctx->pmu_ctx_list, pmu_ctx_entry) {
- 		cpc = this_cpc(pmu_ctx->pmu);
- 
-+		if (cpc->task_epc != pmu_ctx)
-+			continue;
-+
- 		if (cpc->sched_cb_usage && pmu_ctx->pmu->sched_task)
- 			pmu_ctx->pmu->sched_task(pmu_ctx, task, sched_in);
- 	}
-@@ -3917,15 +3920,17 @@ static void perf_pmu_sched_task(struct task_struct *prev,
- 				struct task_struct *next,
- 				bool sched_in)
- {
--	struct perf_cpu_context *cpuctx = this_cpu_ptr(&perf_cpu_context);
- 	struct perf_cpu_pmu_context *cpc;
- 
--	/* cpuctx->task_ctx will be handled in perf_event_context_sched_in/out */
--	if (prev == next || cpuctx->task_ctx)
-+	if (prev == next)
- 		return;
- 
--	list_for_each_entry(cpc, this_cpu_ptr(&sched_cb_list), sched_cb_entry)
-+	list_for_each_entry(cpc, this_cpu_ptr(&sched_cb_list), sched_cb_entry) {
-+		if (cpc->task_epc)
-+			continue;
-+
- 		__perf_pmu_sched_task(cpc, sched_in ? next : prev, sched_in);
-+	}
- }
- 
- static void perf_event_switch(struct task_struct *task,
--- 
-2.53.0-Meta
-
+Thanks for pointing that out, Dominique. I'll second the motion.
