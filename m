@@ -1,38 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B750E3B9D97
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 23:51:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFBB3B52FB
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 23:51:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786405895; cv=none; b=EWAXbuHY0ZqcexuZpA9QplDUrCoSW7Y1dQI8e9f5So9vIrobu+MSV5DpUOr/Lav/bS2zXB6PiajbuD9s8Q7BHE7UzL8XQSKSKJX6PVn9WQTslxlpsVNMJyMNoXgAjmg1qPbsqPjIjdCaZ2NKTz2ks+mJtXj3uxnT+JYeRulb3dM=
+	t=1786405895; cv=none; b=dY/wjNbRD+hdNbekKSWzEZIdOtrIEpk/Rn3Gqdk81bmY3iUJ0awUzdEgD9T8ZJ9TxKEsmsEUtlTeLIy4omhHR8CCgnNxSKP6f/Fk/ZZ1HEBCjlWILEKXN5tdtQsql+oJgt+KhMZSYSMFcsrzjjU1WpukiKjjcqoC56XDWblgNoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786405895; c=relaxed/simple;
-	bh=lWTdhQVE/mCpz6mzi0UY6DxR4TwJLi8TP/pHsYZx/Hc=;
+	bh=vGaIUsGVpELfxLhZ6ARkyXuPHABoIn8e+KLzq0V48wA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FbRYgtC35VGEDm2aWku1OTX/JkkFfIa6Xay02MNUPI9QojtpmqxZskxI8S3YdWzNZInqj2uCDbywQJTBPxKT4N9xQWTSUdYGOb5P/lr8gjmj7DG/GFPfqAZpLroZx7mj2HFopjEgE/5tsSc56wWXAWVI37jjFOujvJ+33KQ4+To=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jOc7zZIS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QapcdOTjZp+QoW0UYbAQIc1uG1oZuPDGnvTZGuq2rFX+NQK5hZ+wYrLj+8RuiE21qmoJZrLdure5sgWsgWDBeoy8ViAZtlQn+EGpbBCNztGsJHAIN4fMFU8V19S7REHrGh7hwlORFD/034TXALsxLZBbH+QlCh3DeWcaAf2J2g4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mU/AxnSf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jOc7zZIS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1841F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mU/AxnSf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29981F000E9;
 	Mon, 10 Aug 2026 23:51:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786405893;
-	bh=/26mNPgKFFvw5UGIgIIpeVHZZpp+FzuLmGnJq8uBkkE=;
+	s=k20260515; t=1786405894;
+	bh=VJjFVcO558EnRxxUOXkzgFzdcAUXKqdfKmM6ZBeO6oE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jOc7zZISuPZiJjNYOxtWJTmQdV7cW4W7vi6djwh2U3MTS8YK7i/R+ij/QccNfDJHi
-	 SDGPGtU7GYaj0IorsqqmQH4HrPAAlNMOHYbsxx/zM7D2d6QVNvkqJQjvjiyBfjYFE1
-	 NpYDbgSgrCdvx78ltViqzKiWpnemLCNg7Bguthxqzisv7PBRsEpNz5CHR83h4XNS50
-	 wbE+/SrflblXotj4fxYLIF2VJ08ryTayYZdaEHCJTpiruncnUi2YxVNBcGUtfiUj2m
-	 t+0E0KR0reDB0IifIQvTaU6HT/Tgl58hyESPxizIjvzn1VOuPKP/7nI776NLNWWHnG
-	 YtmAVu7s0MRmQ==
+	b=mU/AxnSf+RkvXCa7kMSs7rJih5AfqasOMp7bkNeBqi7i2nwog7Ac/6JWkwTxMosYX
+	 TMXH3Rj0ZSH4uMeuQEkplrEkC7u43wa0rGVraKdS0HcUrDNQ2ra1WgmOm1aUChy2UD
+	 jkHVlOW7vHVN6va9h5yvM1owj48Wb3AyoZVsFP/VgVgXvElW21YRQXrIKn4oOEoF6v
+	 6orzufEC1OcjCt6FNkNIRr9k7u2ow+HlP4Jm8zBB217jQxRZ/k1XQmM5sTsNfeM/3y
+	 8VZQ4ptcJZ5lPGMqEO3rkM1NiGb5/LWOtheHji6Vx83Jk5hBVcG5xZJcd38z+MJ+T5
+	 BO82nefvT3zWQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: "Dr. David Alan Gilbert" <linux@treblig.org>,
+	Simon Horman <horms@kernel.org>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/6] Bluetooth: MGMT: Fix not generating command complete for MGMT_OP_DISCONNECT
-Date: Mon, 10 Aug 2026 19:51:26 -0400
-Message-ID: <20260810235129.3217516-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/6] Bluetooth: MGMT: Remove unused mgmt_pending_find_data
+Date: Mon, 10 Aug 2026 19:51:27 -0400
+Message-ID: <20260810235129.3217516-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260810235129.3217516-1-sashal@kernel.org>
 References: <2026080548-angelfish-scored-d506@gregkh>
@@ -45,175 +47,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-[ Upstream commit 227a0cdf4a028a73dc256d0f5144b4808d718893 ]
+[ Upstream commit 276af34d82f13bda0b2a4d9786c90b8bbf1cd064 ]
 
-MGMT_OP_DISCONNECT can be called while mgmt_device_connected has not
-been called yet, which will cause the connection procedure to be
-aborted, so mgmt_device_disconnected shall still respond with command
-complete to MGMT_OP_DISCONNECT and just not emit
-MGMT_EV_DEVICE_DISCONNECTED since MGMT_EV_DEVICE_CONNECTED was never
-sent.
+mgmt_pending_find_data() last use was removed in 2021 by
+commit 5a7501374664 ("Bluetooth: hci_sync: Convert MGMT_OP_GET_CLOCK_INFO")
 
-To fix this MGMT_OP_DISCONNECT is changed to work similarly to other
-command which do use hci_cmd_sync_queue and then use hci_conn_abort to
-disconnect and returns the result, in order for hci_conn_abort to be
-used from hci_cmd_sync context it now uses hci_cmd_sync_run_once.
+Remove it.
 
-Link: https://github.com/bluez/bluez/issues/932
-Fixes: 12d4a3b2ccb3 ("Bluetooth: Move check for MGMT_CONNECTED flag into mgmt.c")
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+Reviewed-by: Simon Horman <horms@kernel.org>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Stable-dep-of: d0a7b48ad092 ("Bluetooth: mgmt: fix UAF in pair command cancellation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/mgmt.c | 84 ++++++++++++++++++++++----------------------
- 1 file changed, 42 insertions(+), 42 deletions(-)
+ net/bluetooth/mgmt_util.c | 17 -----------------
+ net/bluetooth/mgmt_util.h |  4 ----
+ 2 files changed, 21 deletions(-)
 
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 0967b290d7bea..bfbcd0070d65d 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -2956,7 +2956,12 @@ static int unpair_device_sync(struct hci_dev *hdev, void *data)
- 	if (!conn)
- 		return 0;
- 
--	return hci_abort_conn_sync(hdev, conn, HCI_ERROR_REMOTE_USER_TERM);
-+	/* Disregard any possible error since the likes of hci_abort_conn_sync
-+	 * will clean up the connection no matter the error.
-+	 */
-+	hci_abort_conn(conn, HCI_ERROR_REMOTE_USER_TERM);
-+
-+	return 0;
+diff --git a/net/bluetooth/mgmt_util.c b/net/bluetooth/mgmt_util.c
+index 17e32605d9b00..dba6a0d66500f 100644
+--- a/net/bluetooth/mgmt_util.c
++++ b/net/bluetooth/mgmt_util.c
+@@ -229,23 +229,6 @@ struct mgmt_pending_cmd *mgmt_pending_find(unsigned short channel, u16 opcode,
+ 	return NULL;
  }
  
- static int unpair_device(struct sock *sk, struct hci_dev *hdev, void *data,
-@@ -3088,13 +3093,44 @@ static int unpair_device(struct sock *sk, struct hci_dev *hdev, void *data,
- 	return err;
- }
- 
-+static void disconnect_complete(struct hci_dev *hdev, void *data, int err)
-+{
-+	struct mgmt_pending_cmd *cmd = data;
-+
-+	cmd->cmd_complete(cmd, mgmt_status(err));
-+	mgmt_pending_free(cmd);
-+}
-+
-+static int disconnect_sync(struct hci_dev *hdev, void *data)
-+{
-+	struct mgmt_pending_cmd *cmd = data;
-+	struct mgmt_cp_disconnect *cp = cmd->param;
-+	struct hci_conn *conn;
-+
-+	if (cp->addr.type == BDADDR_BREDR)
-+		conn = hci_conn_hash_lookup_ba(hdev, ACL_LINK,
-+					       &cp->addr.bdaddr);
-+	else
-+		conn = hci_conn_hash_lookup_le(hdev, &cp->addr.bdaddr,
-+					       le_addr_type(cp->addr.type));
-+
-+	if (!conn)
-+		return -ENOTCONN;
-+
-+	/* Disregard any possible error since the likes of hci_abort_conn_sync
-+	 * will clean up the connection no matter the error.
-+	 */
-+	hci_abort_conn(conn, HCI_ERROR_REMOTE_USER_TERM);
-+
-+	return 0;
-+}
-+
- static int disconnect(struct sock *sk, struct hci_dev *hdev, void *data,
- 		      u16 len)
- {
- 	struct mgmt_cp_disconnect *cp = data;
- 	struct mgmt_rp_disconnect rp;
- 	struct mgmt_pending_cmd *cmd;
--	struct hci_conn *conn;
- 	int err;
- 
- 	bt_dev_dbg(hdev, "sock %p", sk);
-@@ -3117,27 +3153,7 @@ static int disconnect(struct sock *sk, struct hci_dev *hdev, void *data,
- 		goto failed;
- 	}
- 
--	if (pending_find(MGMT_OP_DISCONNECT, hdev)) {
--		err = mgmt_cmd_complete(sk, hdev->id, MGMT_OP_DISCONNECT,
--					MGMT_STATUS_BUSY, &rp, sizeof(rp));
--		goto failed;
--	}
--
--	if (cp->addr.type == BDADDR_BREDR)
--		conn = hci_conn_hash_lookup_ba(hdev, ACL_LINK,
--					       &cp->addr.bdaddr);
--	else
--		conn = hci_conn_hash_lookup_le(hdev, &cp->addr.bdaddr,
--					       le_addr_type(cp->addr.type));
--
--	if (!conn || conn->state == BT_OPEN || conn->state == BT_CLOSED) {
--		err = mgmt_cmd_complete(sk, hdev->id, MGMT_OP_DISCONNECT,
--					MGMT_STATUS_NOT_CONNECTED, &rp,
--					sizeof(rp));
--		goto failed;
--	}
--
--	cmd = mgmt_pending_add(sk, MGMT_OP_DISCONNECT, hdev, data, len);
-+	cmd = mgmt_pending_new(sk, MGMT_OP_DISCONNECT, hdev, data, len);
- 	if (!cmd) {
- 		err = -ENOMEM;
- 		goto failed;
-@@ -3145,9 +3161,10 @@ static int disconnect(struct sock *sk, struct hci_dev *hdev, void *data,
- 
- 	cmd->cmd_complete = generic_cmd_complete;
- 
--	err = hci_disconnect(conn, HCI_ERROR_REMOTE_USER_TERM);
-+	err = hci_cmd_sync_queue(hdev, disconnect_sync, cmd,
-+				 disconnect_complete);
- 	if (err < 0)
--		mgmt_pending_remove(cmd);
-+		mgmt_pending_free(cmd);
- 
- failed:
- 	hci_dev_unlock(hdev);
-@@ -9695,18 +9712,6 @@ void mgmt_device_connected(struct hci_dev *hdev, struct hci_conn *conn,
- 	mgmt_event_skb(skb, NULL);
- }
- 
--static void disconnect_rsp(struct mgmt_pending_cmd *cmd, void *data)
+-struct mgmt_pending_cmd *mgmt_pending_find_data(unsigned short channel,
+-						u16 opcode,
+-						struct hci_dev *hdev,
+-						const void *data)
 -{
--	struct sock **sk = data;
+-	struct mgmt_pending_cmd *cmd;
 -
--	cmd->cmd_complete(cmd, 0);
+-	list_for_each_entry(cmd, &hdev->mgmt_pending, list) {
+-		if (cmd->user_data != data)
+-			continue;
+-		if (cmd->opcode == opcode)
+-			return cmd;
+-	}
 -
--	*sk = cmd->sk;
--	sock_hold(*sk);
--
--	mgmt_pending_remove(cmd);
+-	return NULL;
 -}
 -
- static void unpair_device_rsp(struct mgmt_pending_cmd *cmd, void *data)
- {
- 	struct hci_dev *hdev = data;
-@@ -9747,8 +9752,6 @@ void mgmt_device_disconnected(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 	if (link_type != ACL_LINK && link_type != LE_LINK)
- 		return;
+ void mgmt_pending_foreach(u16 opcode, struct hci_dev *hdev,
+ 			  void (*cb)(struct mgmt_pending_cmd *cmd, void *data),
+ 			  void *data)
+diff --git a/net/bluetooth/mgmt_util.h b/net/bluetooth/mgmt_util.h
+index bdf978605d5a8..f2ba994ab1d84 100644
+--- a/net/bluetooth/mgmt_util.h
++++ b/net/bluetooth/mgmt_util.h
+@@ -54,10 +54,6 @@ int mgmt_cmd_complete(struct sock *sk, u16 index, u16 cmd, u8 status,
  
--	mgmt_pending_foreach(MGMT_OP_DISCONNECT, hdev, disconnect_rsp, &sk);
--
- 	bacpy(&ev.addr.bdaddr, bdaddr);
- 	ev.addr.type = link_to_bdaddr(link_type, addr_type);
- 	ev.reason = reason;
-@@ -9761,9 +9764,6 @@ void mgmt_device_disconnected(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 
- 	if (sk)
- 		sock_put(sk);
--
--	mgmt_pending_foreach(MGMT_OP_UNPAIR_DEVICE, hdev, unpair_device_rsp,
--			     hdev);
- }
- 
- void mgmt_disconnect_failed(struct hci_dev *hdev, bdaddr_t *bdaddr,
+ struct mgmt_pending_cmd *mgmt_pending_find(unsigned short channel, u16 opcode,
+ 					   struct hci_dev *hdev);
+-struct mgmt_pending_cmd *mgmt_pending_find_data(unsigned short channel,
+-						u16 opcode,
+-						struct hci_dev *hdev,
+-						const void *data);
+ void mgmt_pending_foreach(u16 opcode, struct hci_dev *hdev,
+ 			  void (*cb)(struct mgmt_pending_cmd *cmd, void *data),
+ 			  void *data);
 -- 
 2.53.0
 
