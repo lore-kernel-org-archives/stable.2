@@ -1,43 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935943BAD95
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 10:57:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813313644B3
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 10:58:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786359473; cv=none; b=eAnuvJyK+iwyQti82Gr9DjX2W2CR1nYMfgdoER4sTpRC3+DlCGt6x+mUmsZePBq2MQnNyX1krYVcCpre7hsPfCPqo/csMknoTlF9te9YjmEK+a+Q1TGNmhb4JBi8fg7RZYJpBaKDba6b8EboLVnJsTSxC+jbMo1Fkw1TFJMpPR0=
+	t=1786359486; cv=none; b=bR8bFxb0ya83T1LGVQ6XU5l2xlTZ6ayVb3zPo3QdyWu2w3dApzx1225uu6cUzDetkTWt8o1NUivcfEQKzLP/Vo2PXqWEp1SNpaBA6NYL3tmapLOd3Tnq+x63OiASJJI4kYM6533W3ksp53ceMrTq3TkQ8I2vTV8P0WwYJTDvzjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786359473; c=relaxed/simple;
-	bh=eSuGiEPFHUKkFXWivjVRiJ15G9LAxDzxvbcJj7nPBhE=;
+	s=arc-20240116; t=1786359486; c=relaxed/simple;
+	bh=SDxQ4vtR6Xx17C4B2cAXWBgjWZmOXVjaMXQ0O4j3dDE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R/iOsYnVj2S6xcSXCiJHWa8MWA3yaaZEHfhVvFnHVgYleRltJcxAzpmIzAH3Ioqkz8odfX6Ob0tUqK9onU0Tq4gKW7+ZlQfpR7O3ZSuVo/SGZi1MkTVn/xu1aP1jq3wUY4IqiQ1DKTznqYuY/Ip6uS3j2wqEGX8OVSpLwCpvsuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X2eIK4iM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=llzJi/gOXYau6dyvH90auVwzQ2nh11gZPFlLaNZ6d9A+Mg+IbstLQiOW+ryWKNdqgYCnlKkkQY9fllGrXio0ej+auJajOEEYB9BKtCLBsXkFa1VMQjI0a8nkM/7dx+MhlIguy8RBSVbcawHMoBwy3J1Wwl61YULYzow4NtIaZMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bcIiQvk8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X2eIK4iM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFBD11F00A3E;
-	Mon, 10 Aug 2026 10:57:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bcIiQvk8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31CA61F000E9;
+	Mon, 10 Aug 2026 10:57:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786359472;
-	bh=s9DeTHpU1TM2nIm+T43KM97b8LpLDagHfoz5Q8pr24g=;
+	s=k20260515; t=1786359484;
+	bh=j5TYHYZj1zjYXjxrfLF6cOjgJIgGdNa3E3KjoKVIIC8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X2eIK4iMPqjEBrH5zGEAxTC71WnXqSqU3VnlDgblXtOxsM6dN1k6filfiYdq3/+fa
-	 qaD8zQs9HMZic5+Ufv+jLAmjBK74G/ok5iA1RIN/cGEpNe6teGXGnSm6zHfhbU1sdJ
-	 P0XTnSGOw7Nd4gufrvDfS3vtqD7b9qAJTvMxTcq4QngA6zgr28Y98n0u1cF6jDjT/A
-	 k1+Ul2m90Nk9Zd5IS6JPGlAzSJlHsWKTBXcgeDguh0llHFGyhSjt3SmwOEvCEwGJj9
-	 u5CVG6fpwR2sqNGVHWc0mDY55Km07rfs+u9L90u5YNFbLdy9mF1sDpby/E/GksoSGX
-	 6ggPcQClPmL3g==
+	b=bcIiQvk8PmpmhoswlQ8KucVLw5dgq3RAAXDIup6sp1ZEgAMEPPpAFEYNPE1vj3dMx
+	 H5+EIqAZGIw6zynTN3UrGxUVNUcEmrq1aE3el94pxQSIvYqblrUU01kgNFWpvDa/1O
+	 iVUhdo7EnvAhm+6JLBQnzjZKsRoxvnrljJAEcdLE1mmYTv7EGEpWua09Zx5uScafD4
+	 y7Xvd4qLGlnduP0MrccEqBgAiwgQoiCoYoSNWuw0Zlr0tV5ZL6e19NWvDaWQSjFiRt
+	 +5GrubFkdwyYDzFbLd90oPdAB0ErLLcVv6dcBnBRr9BF8UyJD6DHTAuoI+W32KN3MA
+	 g1Nca2l52eUPA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Gao Xiang <hsiangkao@linux.alibaba.com>,
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Baoquan He <bhe@redhat.com>,
+	Barry Song <baohua@kernel.org>,
+	Byungchul Park <byungchul@sk.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Chris Li <chrisl@kernel.org>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@redhat.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Gregory Price <gourry@gourry.net>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Hugh Dickins <hughd@google.com>,
+	Jan Kara <jack@suse.cz>,
+	Jann Horn <jannh@google.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Leon Romanovsky <leon@kernel.org>,
+	Liam Howlett <liam.howlett@oracle.com>,
+	Mathew Brost <matthew.brost@intel.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Nico Pache <npache@redhat.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Peter Xu <peterx@redhat.com>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Rik van Riel <riel@surriel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	SeongJae Park <sj@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Wei Xu <weixugc@google.com>,
+	xu xin <xu.xin16@zte.com.cn>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] erofs: cap LZMA stream pool size
-Date: Mon, 10 Aug 2026 06:57:47 -0400
-Message-ID: <20260810105747.578969-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] fs/proc/task_mmu: refactor pagemap_pmd_range()
+Date: Mon, 10 Aug 2026 06:57:53 -0400
+Message-ID: <20260810105755.579268-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260810105747.578969-1-sashal@kernel.org>
-References: <2026080538-tartly-varying-5d75@gregkh>
- <20260810105747.578969-1-sashal@kernel.org>
+In-Reply-To: <2026080544-exit-cesarean-7929@gregkh>
+References: <2026080544-exit-cesarean-7929@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,78 +100,256 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-[ Upstream commit c9b47e6b23114e939b17f818471c7a46e59006e7 ]
+[ Upstream commit de4d6c94914f3659f0b51725e23e637d4e9f78cc ]
 
-fs/erofs/decompressor_lzma.c sizes the module-global MicroLZMA stream
-pool from num_possible_cpus() when the lzma_streams module parameter is
-unset, then z_erofs_load_lzma_config() preallocates one image-supplied
-dictionary per stream, accepting dictionaries up to 8 MiB.  On high-CPU
-systems, a small EROFS image can pin hundreds of MiB of vmalloc-backed
-decoder state until the erofs module is unloaded.
+Separate out THP logic so we can drop an indentation level and reduce the
+amount of noise in this function.
 
-Impact: An EROFS image mounted by the system can pin up to 8 MiB of
-vmalloc memory per LZMA stream, either as intended or unexpectedly.
+We add pagemap_pmd_range_thp() for this purpose.
 
-Bound the default stream count by a new
-CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS option, default 16, so the
-worst-case default preallocation is 128 MiB if the number of CPUs is no
-less than 16 while preserving the existing per-image dictionary limit.
-An explicit lzma_streams module parameter is still honoured as-is, so
-administrators who deliberately size the pool are not affected.
+While we're here, convert the VM_BUG_ON() to a VM_WARN_ON_ONCE() at the
+same time.
 
-Fixes: 622ceaddb764 ("erofs: lzma compression support")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
-Signed-off-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+No functional change intended.
+
+Link: https://lkml.kernel.org/r/f9ce7f3bb57e3627288225e23f2498cc5315f5ab.1762812360.git.lorenzo.stoakes@oracle.com
+Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baoquan He <bhe@redhat.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Jann Horn <jannh@google.com>
+Cc: Janosch Frank <frankja@linux.ibm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Mathew Brost <matthew.brost@intel.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: SeongJae Park <sj@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Wei Xu <weixugc@google.com>
+Cc: xu xin <xu.xin16@zte.com.cn>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 4165b7d1c45c ("userfaultfd: wait on source PMD during UFFDIO_MOVE")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/erofs/Kconfig             | 14 ++++++++++++++
- fs/erofs/decompressor_lzma.c |  3 ++-
- 2 files changed, 16 insertions(+), 1 deletion(-)
+ fs/proc/task_mmu.c | 146 ++++++++++++++++++++++++---------------------
+ 1 file changed, 77 insertions(+), 69 deletions(-)
 
-diff --git a/fs/erofs/Kconfig b/fs/erofs/Kconfig
-index 85490370e0cad..a55bc93d47cf6 100644
---- a/fs/erofs/Kconfig
-+++ b/fs/erofs/Kconfig
-@@ -99,6 +99,20 @@ config EROFS_FS_ZIP_LZMA
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 858b11009c269..a4f3158aeb39b 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -1989,90 +1989,98 @@ static pagemap_entry_t pte_to_pagemap_entry(struct pagemapread *pm,
+ 	return make_pme(frame, flags);
+ }
  
- 	  If unsure, say N.
+-static int pagemap_pmd_range(pmd_t *pmdp, unsigned long addr, unsigned long end,
+-			     struct mm_walk *walk)
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
++		unsigned long end, struct vm_area_struct *vma,
++		struct pagemapread *pm)
+ {
+-	struct vm_area_struct *vma = walk->vma;
+-	struct pagemapread *pm = walk->private;
+-	spinlock_t *ptl;
+-	pte_t *pte, *orig_pte;
++	unsigned int idx = (addr & ~PMD_MASK) >> PAGE_SHIFT;
++	u64 flags = 0, frame = 0;
++	pmd_t pmd = *pmdp;
++	struct page *page = NULL;
++	struct folio *folio = NULL;
+ 	int err = 0;
+-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
  
-+config EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS
-+	int "EROFS LZMA default maximum decompression streams"
-+	depends on EROFS_FS_ZIP_LZMA
-+	range 1 NR_CPUS
-+	default 16
-+	help
-+	  By default EROFS allocates one LZMA decompression stream per CPU.
-+	  Each stream can hold a dictionary of up to 8 MiB taken from the
-+	  mounted image, so on systems with many CPUs this can reserve a lot
-+	  of memory.  This caps the default; the lzma_streams module parameter
-+	  still overrides it.
+-	ptl = pmd_trans_huge_lock(pmdp, vma);
+-	if (ptl) {
+-		unsigned int idx = (addr & ~PMD_MASK) >> PAGE_SHIFT;
+-		u64 flags = 0, frame = 0;
+-		pmd_t pmd = *pmdp;
+-		struct page *page = NULL;
+-		struct folio *folio = NULL;
++	if (vma->vm_flags & VM_SOFTDIRTY)
++		flags |= PM_SOFT_DIRTY;
+ 
+-		if (vma->vm_flags & VM_SOFTDIRTY)
+-			flags |= PM_SOFT_DIRTY;
++	if (pmd_present(pmd)) {
++		page = pmd_page(pmd);
+ 
+-		if (pmd_present(pmd)) {
+-			page = pmd_page(pmd);
++		flags |= PM_PRESENT;
++		if (pmd_soft_dirty(pmd))
++			flags |= PM_SOFT_DIRTY;
++		if (pmd_uffd_wp(pmd))
++			flags |= PM_UFFD_WP;
++		if (pm->show_pfn)
++			frame = pmd_pfn(pmd) + idx;
++	} else if (thp_migration_supported() && is_swap_pmd(pmd)) {
++		swp_entry_t entry = pmd_to_swp_entry(pmd);
++		unsigned long offset;
+ 
+-			flags |= PM_PRESENT;
+-			if (pmd_soft_dirty(pmd))
+-				flags |= PM_SOFT_DIRTY;
+-			if (pmd_uffd_wp(pmd))
+-				flags |= PM_UFFD_WP;
+-			if (pm->show_pfn)
+-				frame = pmd_pfn(pmd) + idx;
+-		}
+-#ifdef CONFIG_ARCH_ENABLE_THP_MIGRATION
+-		else if (is_swap_pmd(pmd)) {
+-			swp_entry_t entry = pmd_to_swp_entry(pmd);
+-			unsigned long offset;
+-
+-			if (pm->show_pfn) {
+-				if (is_pfn_swap_entry(entry))
+-					offset = swp_offset_pfn(entry) + idx;
+-				else
+-					offset = swp_offset(entry) + idx;
+-				frame = swp_type(entry) |
+-					(offset << MAX_SWAPFILES_SHIFT);
+-			}
+-			flags |= PM_SWAP;
+-			if (pmd_swp_soft_dirty(pmd))
+-				flags |= PM_SOFT_DIRTY;
+-			if (pmd_swp_uffd_wp(pmd))
+-				flags |= PM_UFFD_WP;
+-			VM_BUG_ON(!is_pmd_migration_entry(pmd));
+-			page = pfn_swap_entry_to_page(entry);
++		if (pm->show_pfn) {
++			if (is_pfn_swap_entry(entry))
++				offset = swp_offset_pfn(entry) + idx;
++			else
++				offset = swp_offset(entry) + idx;
++			frame = swp_type(entry) |
++				(offset << MAX_SWAPFILES_SHIFT);
+ 		}
+-#endif
++		flags |= PM_SWAP;
++		if (pmd_swp_soft_dirty(pmd))
++			flags |= PM_SOFT_DIRTY;
++		if (pmd_swp_uffd_wp(pmd))
++			flags |= PM_UFFD_WP;
++		VM_WARN_ON_ONCE(!is_pmd_migration_entry(pmd));
++		page = pfn_swap_entry_to_page(entry);
++	}
+ 
+-		if (page) {
+-			folio = page_folio(page);
+-			if (!folio_test_anon(folio))
+-				flags |= PM_FILE;
+-		}
++	if (page) {
++		folio = page_folio(page);
++		if (!folio_test_anon(folio))
++			flags |= PM_FILE;
++	}
+ 
+-		for (; addr != end; addr += PAGE_SIZE, idx++) {
+-			u64 cur_flags = flags;
+-			pagemap_entry_t pme;
++	for (; addr != end; addr += PAGE_SIZE, idx++) {
++		u64 cur_flags = flags;
++		pagemap_entry_t pme;
+ 
+-			if (folio && (flags & PM_PRESENT) &&
+-			    __folio_page_mapped_exclusively(folio, page))
+-				cur_flags |= PM_MMAP_EXCLUSIVE;
++		if (folio && (flags & PM_PRESENT) &&
++		    __folio_page_mapped_exclusively(folio, page))
++			cur_flags |= PM_MMAP_EXCLUSIVE;
+ 
+-			pme = make_pme(frame, cur_flags);
+-			err = add_to_pagemap(&pme, pm);
+-			if (err)
+-				break;
+-			if (pm->show_pfn) {
+-				if (flags & PM_PRESENT)
+-					frame++;
+-				else if (flags & PM_SWAP)
+-					frame += (1 << MAX_SWAPFILES_SHIFT);
+-			}
++		pme = make_pme(frame, cur_flags);
++		err = add_to_pagemap(&pme, pm);
++		if (err)
++			break;
++		if (pm->show_pfn) {
++			if (flags & PM_PRESENT)
++				frame++;
++			else if (flags & PM_SWAP)
++				frame += (1 << MAX_SWAPFILES_SHIFT);
+ 		}
++	}
++	return err;
++}
++#endif /* CONFIG_TRANSPARENT_HUGEPAGE */
 +
-+	  If unsure, keep the default of 16.
++static int pagemap_pmd_range(pmd_t *pmdp, unsigned long addr, unsigned long end,
++			     struct mm_walk *walk)
++{
++	struct vm_area_struct *vma = walk->vma;
++	struct pagemapread *pm = walk->private;
++	spinlock_t *ptl;
++	pte_t *pte, *orig_pte;
++	int err = 0;
 +
- config EROFS_FS_ONDEMAND
- 	bool "EROFS fscache-based on-demand read support"
- 	depends on CACHEFILES_ONDEMAND && (EROFS_FS=m && FSCACHE || EROFS_FS=y && FSCACHE=y)
-diff --git a/fs/erofs/decompressor_lzma.c b/fs/erofs/decompressor_lzma.c
-index 44f19f1022521..b1ac88a820f2d 100644
---- a/fs/erofs/decompressor_lzma.c
-+++ b/fs/erofs/decompressor_lzma.c
-@@ -53,7 +53,8 @@ int z_erofs_lzma_init(void)
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++	ptl = pmd_trans_huge_lock(pmdp, vma);
++	if (ptl) {
++		err = pagemap_pmd_range_thp(pmdp, addr, end, vma, pm);
+ 		spin_unlock(ptl);
+ 		return err;
+ 	}
+-#endif /* CONFIG_TRANSPARENT_HUGEPAGE */
++#endif
  
- 	/* by default, use # of possible CPUs instead */
- 	if (!z_erofs_lzma_nstrms)
--		z_erofs_lzma_nstrms = num_possible_cpus();
-+		z_erofs_lzma_nstrms = min_t(unsigned int, num_possible_cpus(),
-+				CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS);
- 
- 	for (i = 0; i < z_erofs_lzma_nstrms; ++i) {
- 		struct z_erofs_lzma *strm = kzalloc(sizeof(*strm), GFP_KERNEL);
+ 	/*
+ 	 * We can assume that @vma always points to a valid one and @end never
 -- 
 2.53.0
 
