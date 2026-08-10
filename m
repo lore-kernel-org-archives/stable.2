@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E183B19B0;
-	Mon, 10 Aug 2026 09:39:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82063B103B;
+	Mon, 10 Aug 2026 09:39:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786354756; cv=none; b=YoQFa/dbiuCrdmwhtkOJlDCEzaABOWAz0P0b9ujKGzW/8KAoS2WcnIeKWjQtn2Rj4uUxz7cKTUWBRBvBVxNi7PTGZsGHX6NW4ztClZoSuKU4LGhr65QSGVy/pBigr+Liltl9CQqc5l48CEiyQUOPss87YrwdPPBMEoYXntwZCr8=
+	t=1786354756; cv=none; b=rANxh/OwAv1L4BFznVCdZNo2yl7MYZ4b0jDpu99Zu2M9Vwj8YXkxNRmGSHS/dza5TNS4ZRoILxKeethsgyLGm6A+lkySjRjC4tFYpPfkOkRzJ1k+fZ23PbquJEZGo205sfQdZZNGKmDvWqqldONaPzGiQcAVk8loopm2NRiQYy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786354756; c=relaxed/simple;
-	bh=mHUVjAfO1VnmNRNtujwxVl5bS9d468K1NjeNPknM0nw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HaWIzHLf99MpzV5r8B7CEp5HfYn2/yqjyjehK2hmT3BOlbgFJ54z7ALRk6EaPtbjEzTgyY7lFHvHwKbMuO+Na7Es6hdHTvSQKh8HHpshG1u19TYzhqgObs7l7lJ/1B0GRTJoOw+jsyWrP9dd0IMxGvIJ4M4HyH8GxvxnMavGqwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0C7NJR5; arc=none smtp.client-ip=10.30.226.201
+	bh=kpIzBYnGhMxnNzCGjzKJGDhLkwD5p5mSCjBmV3EJz/c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gswcoMLKbz0cRKg6VsQEDkUx4bes4rcnU4YRRvHiAv6+tDCINbD7MmiUDzPq9Q1us8tFGwYp7swgjOBT0SWfHbF7Bl4YySa8Crs3SSQVc39uDnZ5RsQ9Ba+0C3PQ6jBbTvzXpkMGQI6vV2hb6blYTkUyHmyxtMoEcPsFJwHMfCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UH6HSPch; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0C7NJR5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5FDADC2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UH6HSPch"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2EDDBC2BCF6;
 	Mon, 10 Aug 2026 09:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786354755;
-	bh=mHUVjAfO1VnmNRNtujwxVl5bS9d468K1NjeNPknM0nw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=G0C7NJR5xU2/vGAPWohia/fBF4WitocZcjvPCqJSxfAIbGTX4jEB9HkEE4fyoRbZw
-	 UwOKHeNhLH7GAAV1d0FcEH2Yo4Q4SLHzd89+mSS6z7C7c3lTj5jKAyq5eS6txXwGCR
-	 CwBXa7Jn8aSbeTFpPlipo/1WHTYTp4I6OIBSc8xI8gIvS+g5ENF3MUraxbXyYcRrSq
-	 L6FEgEeefPl5lp93A03v7jFf5B6xHO3QNxcpc6W/+R0uKlQpgQjgdFBwcaAVu1WToy
-	 qxZu/ja0Btu0fRDct5GU0cdMx6j6nwQ4GG59PzboT+tcudWs2y8X4xJIgZXE8q7FWR
-	 XPuSwv0w04rdQ==
+	bh=kpIzBYnGhMxnNzCGjzKJGDhLkwD5p5mSCjBmV3EJz/c=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=UH6HSPch+vfokCnsMo96SRVM0FAFtg2/IG4cpdBVgwygfLIu7UgUnY4n6ZFsZXN5I
+	 4uH6WjX7qPjTnIS8YIXCRr/exKpoe57zNXoCwrUyO/Dew0S07DYnVNNEOs62VUKXZS
+	 /t4P5OLsLLfRD7e1Rk2+0dBmKU9ETpgxqBNZnbk/r9hkX3APCKnOihyVvUwbGZ0lKO
+	 XQsPUe/Ncmq6GrRwtVU4LQcWcvmxHAeWy7AOo++rXpY9iB0PkiR4KV5Ulvvpw6kP64
+	 LwOyGSVGdbfs6cR9coWED8TNS7Z+bnpJbKFnFlnZi+DkVDE6oNPhrteiT9dYUTLceG
+	 NXA6ftrKV6eHg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42C62C5B560;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BB48C5AD4E;
 	Mon, 10 Aug 2026 09:39:15 +0000 (UTC)
 From: Fan Ye via B4 Relay <devnull+fy15309206903.gmail.com@kernel.org>
-Date: Mon, 10 Aug 2026 09:39:15 +0000
-Subject: [PATCH net v2 2/2] net: thunderbolt: Mark the connection down when
- bringing it up fails
+Subject: [PATCH net v2 0/2] net: thunderbolt: two fixes for the failed
+ bring-up path
+Date: Mon, 10 Aug 2026 09:39:13 +0000
+Message-Id: <20260810-b4-tbnet-hopid-v2-0-0eee557e75df@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,9 +41,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-b4-tbnet-hopid-v2-2-0eee557e75df@gmail.com>
-References: <20260810-b4-tbnet-hopid-v2-0-0eee557e75df@gmail.com>
-In-Reply-To: <20260810-b4-tbnet-hopid-v2-0-0eee557e75df@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEGceWoC/yWMQQ6CMBREr0JmzU+aBhC9imFByyCfRSFtNSaEu
+ 1t1+Sbz3oHEqEy4VQciX5p0CwVsXcEvY3hQdCoMa2xnenMV10h2gVmWbddJOvqZbXOxo2tRpD1
+ y1vcveEe5YfiP6elW+vxN4Tw/5u6bRXcAAAA=
+X-Change-ID: 20260809-b4-tbnet-hopid-6ecfe5472ab5
 To: Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>, 
  "David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, Mika Westerberg <westeri@kernel.org>, 
@@ -53,11 +54,11 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Fan Ye <fy15309206903@gmail.com>, 
  Mika Westerberg <mika.westerberg@linux.intel.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786354753; l=9541;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786354753; l=2343;
  i=fy15309206903@gmail.com; s=tbnet3; h=from:subject:message-id;
- bh=dhyvBFR9X3G+/biTfQy2WpFsnWdPvS1LTFJ2hNrKBig=;
- b=0fiHhAei/jVpxC1BYtni/nH3Tjpwbi7u0aaFon1OdaMl9pPldImatG0XyeZ1ijPYmyUdDM0np
- 6FtdQ9vODv/BoOQ0Ur5VZnCJ0DDLBWZKrSex+xvoF0IA6DufC8rjGiH
+ bh=kpIzBYnGhMxnNzCGjzKJGDhLkwD5p5mSCjBmV3EJz/c=;
+ b=nHq5YooN1UEcpr+92aEe/u8ESxjjG4GECg1jSdyqU5rYf9aCGe5/RETMOgGSeYQpOjYPourRk
+ tWnm6v0sDDrDJUkGmG65pNKcdCrDolJ4SnQA4Ba0/rXmpgfmcSCGMSj
 X-Developer-Key: i=fy15309206903@gmail.com; a=ed25519;
  pk=6QsQIrI/kruYWIJyCH9ntPMXsHCqF5JtK/DCMtOCzdc=
 X-Endpoint-Received: by B4 Relay for fy15309206903@gmail.com/tbnet3 with
@@ -65,199 +66,59 @@ X-Endpoint-Received: by B4 Relay for fy15309206903@gmail.com/tbnet3 with
 X-Original-From: Fan Ye <fy15309206903@gmail.com>
 Reply-To: fy15309206903@gmail.com
 
-From: Fan Ye <fy15309206903@gmail.com>
+Both of these are reached through the same branch in
+tbnet_connected_work(), on an ASMedia ASM4242 host-to-host link, when
+the peer drops out while a connection is being brought up. Cycling the
+interface down and up 200 times over 80 minutes hits that branch 23
+times across the two hosts, with no fault injection.
 
-Every failure path in tbnet_connected_work() undoes its own work and
-returns, but none of them clears login_sent/login_received. The
-connection therefore still looks established, and the next
-tbnet_tear_down() takes its main branch and runs the whole teardown a
-second time over work that was already undone:
+They fix two separate defects and neither depends on the other for
+correctness - each leaves the other's defect in place. Patch 2 does edit
+the lines patch 1 adds, so it will not apply on its own and has to come
+second.
 
-  thunderbolt-net 0-1.0 thunderbolt0: failed to allocate Rx HopID
-  thunderbolt 0000:78:00.0: RX ring 1 already stopped
-  WARNING: CPU: 0 PID: 235 at drivers/thunderbolt/nhi.c:773 tb_ring_stop
-   tbnet_tear_down -> tbnet_stop -> __dev_close_many
-  thunderbolt 0000:78:00.0: TX ring 1 already stopped
-  WARNING: CPU: 0 PID: 235 at drivers/thunderbolt/nhi.c:773 tb_ring_stop
+  1 releases the HopID the allocator actually handed out when it is not
+    the one that was asked for. Today that id is simply left allocated
+    for the rest of the XDomain connection.
 
-(line 773 is the dev_WARN in tb_ring_stop() as of v6.17, which is what
-this was captured on; it is line 760 in current mainline)
+  2 marks the connection as no longer established on the failure paths,
+    so the next tbnet_tear_down() does not run a second teardown over
+    work that was already undone. That second teardown stops rings that
+    were never started, which is a WARNING splat and is fatal under
+    panic_on_warn, and it hands back a HopID this connection never owned.
 
-It stops rings that were never started, which is what the two warnings
-above are, and on a kernel booted with panic_on_warn those are fatal.
-
-It also releases net->remote_transmit_path. On the HopID mismatch path
-that one was never successfully allocated by this connection - the
-allocator handed out a different id precisely because the wanted one was
-already taken by somebody else - so this hands back an id the connection
-does not own, and it does so silently. The id is then free to be handed
-out again while its owner is still using it.
-
-Mark the connection as no longer established on those paths. Only
-login_sent is cleared, which is enough for tbnet_tear_down() to leave the
-already unwound state alone; login_received records that the peer has
-logged in with us and carries the transmit path it gave us, and nothing
-on this side can make the peer send that again.
-
-Skipping that block skips two things that are not just a repeat of the
-unwind. One is the logout request it would have sent to the peer. The
-other is net->remote_transmit_path = 0 at the end of it; that field is
-only read under the same login_sent && login_received guard and the
-peer's next login request overwrites it, so leaving it stale is
-harmless, but it is a clear that no longer happens. The rest of the
-block is either already undone by the unwind that just ran or was never
-done in the first place - the rings are not started and no buffers are
-allocated when the HopID mismatch is hit, and the paths are not enabled
-on any path that reaches err_stop_rings. The parts outside the block -
-carrier off, queue stopped, login stopped, and the state reset at the
-end - keep running as before.
-
-Clearing login_sent also changes what the peer's next login request
-does: tbnet_handle_packet() re-queues our login work when it sees
-!login_sent, where before it would only have queued connected_work. That
-is the direction I want - it gives the connection a fresh login instead
-of retrying the bring-up on stale state - but it is a behaviour change
-beyond keeping tbnet_tear_down() out of the way.
-
-Measured on a link between two ASMedia ASM4242 hosts by cycling the
-interface down and up 200 times from one of them over 80 minutes, and
-counting what the kernel logs on both.
-The mismatch is reached on its own during that, no fault injection, and
-both runs were started from a cold boot with no module reloads in
-between. Only the thunderbolt-net module differs between the two:
+Measured on two ASM4242 hosts from a cold boot, no module reloads, only
+the thunderbolt-net module differing between the runs:
 
                                         without      with
     failed to allocate Rx HopID          11 / 12     9 / 13
     ring already stopped + WARNING       22 / 24     0 / 0
                                      (host A / host B)
 
-The race still happens as often as before - it is not what this patch
-addresses - but it no longer leaves a warning splat behind, and no longer
-releases a HopID that belongs to someone else.
+Two further patches from the same investigation touch
+drivers/thunderbolt/ and go to the thunderbolt tree separately.
 
-Fixes: e69b6c02b4c3 ("net: Add support for networking over Thunderbolt cable")
-Cc: <stable@vger.kernel.org> # 5.13+
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Fan Ye <fy15309206903@gmail.com>
-Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Per-patch notes, including what I am not claiming, are below the cut in
+each patch.
 
----
-These four came out of one investigation on a pair of ASMedia ASM4242
-hosts wired to each other. Apply them in this order: the second one
-touches lines the first one adds, so it needs that one underneath to
-apply at all, and the last two want the first two under them for the
-reason below.
-
-  1 net: thunderbolt: Release the Rx HopID that was handed out on mismatch
-  2 net: thunderbolt: Mark the connection down when bringing it up fails
-  3 thunderbolt: Report DMA path teardown failures to the caller
-  4 thunderbolt: Stop waiting on a path pending bit that never clears
-
-This one is number 2 on that list.
-
-1 and 2 fix two separate things that happen to be reached through the
-same branch. Neither depends on the other for correctness - each leaves
-the other's defect in place - but 2 edits the lines 1 adds, so it will
-not apply on its own.
-
-3 and 4 do want 1 and 2 underneath: the warning splat that 2 removes
-fires throughout any prolonged run of link cycling, which is what 3 and 4
-have to be measured across. 3 makes teardown failures visible to the
-caller at all; 4 stops the teardown paying for one that cannot succeed.
-Note what that pair does on this particular router - 4 leaves the first
-failure to be reported and silences the rest, so 3's new signal fires
-once per adapter here rather than on every teardown. 4 is the one I am
-least sure of, for the reasons in its own notes.
-
-Sits on top of "net: thunderbolt: Release the Rx HopID that was handed
-out on mismatch". The two fix different things - that one releases the id
-the allocator actually handed out, this one stops the teardown that
-follows from running a second time - but this one edits the lines that
-one adds, so it will not apply without it.
-
-An earlier version of this also rearmed the login from the failure paths,
-on the assumption that the connection would otherwise stay down. It does
-not: every one of those failures was followed by the XDomain connection
-being torn down and rebuilt, and the interface came back on its own. Of
-the 60 occurrences across three runs, 59 had a tunnel set up again
-afterwards that I could time - 42 of them 19 seconds later, 14 at 20, one
-at 21 and two at 43 - with and without the patch alike. That is the
-re-enumeration, not a login retry; a retry would have shown up as a
-multiple of TBNET_LOGIN_DELAY. The rearm bought nothing and needed a
-retry bound of its own, so it is gone.
-
-What I am not claiming: that this makes the link survive longer. I have
-run the 200 cycles four times, on four different combinations. Two of
-them stopped coming up after 65 and 69 minutes and two ran to the end.
-Both of the ones that finished had this patch, and neither of the ones
-that died had this version of it - one had no part of it at all, the
-other an earlier version. On the face of it that reads the way I would
-like it to, which is exactly why I am not reading it that way: four runs,
-four different combinations, one run each. What I can say is that the
-race this patch is about is not what ends a run - it fired 22 times in
-the run in the table above and the link came back from all 22.
-
-One question I cannot answer from here. Skipping the block also skips the
-logout request that would have gone to the peer. Everything else in it is
-either already undone or was never done, but the logout is a real thing
-the peer no longer hears about. I could not measure a difference - the
-XDomain connection is torn down and rebuilt right afterwards in every
-case I logged - but whether that is good enough, or whether the failure
-paths should send one explicitly before returning, is a call I would
-rather leave to you.
-
-v2:
+Changes in v2:
 - Add the Assisted-by tag Mika asked for.  No code change from v1.
-- Pick up Mika's Acked-by.
+- Pick up Mika's Acked-by on both patches.
+- Link to v1: https://lore.kernel.org/netdev/20260809-b4-tbnet-hopid-v1-0-9a8c7f5f0ba9@gmail.com/
 
-v1: https://lore.kernel.org/netdev/20260809-b4-tbnet-hopid-v1-0-9a8c7f5f0ba9@gmail.com/
 ---
- drivers/net/thunderbolt/main.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Fan Ye (2):
+      net: thunderbolt: Release the Rx HopID that was handed out on mismatch
+      net: thunderbolt: Mark the connection down when bringing it up fails
 
-diff --git a/drivers/net/thunderbolt/main.c b/drivers/net/thunderbolt/main.c
-index e5199a87ea7a..b6aec215a8e9 100644
---- a/drivers/net/thunderbolt/main.c
-+++ b/drivers/net/thunderbolt/main.c
-@@ -626,6 +626,20 @@ static int tbnet_alloc_tx_buffers(struct tbnet *net)
- 	return 0;
- }
- 
-+static void tbnet_connect_failed(struct tbnet *net)
-+{
-+	/*
-+	 * Mark the connection as no longer established so that
-+	 * tbnet_tear_down() does not run over the unwind we just did.
-+	 * Only login_sent is cleared: login_received records that the peer
-+	 * has logged in with us and carries the transmit path it gave us,
-+	 * and nothing on this side can make the peer send that again.
-+	 */
-+	mutex_lock(&net->connection_lock);
-+	net->login_sent = false;
-+	mutex_unlock(&net->connection_lock);
-+}
-+
- static void tbnet_connected_work(struct work_struct *work)
- {
- 	struct tbnet *net = container_of(work, typeof(*net), connected_work);
-@@ -649,6 +663,7 @@ static void tbnet_connected_work(struct work_struct *work)
- 		netdev_err(net->dev, "failed to allocate Rx HopID\n");
- 		if (ret >= 0)
- 			tb_xdomain_release_in_hopid(net->xd, ret);
-+		tbnet_connect_failed(net);
- 		return;
- 	}
- 
-@@ -693,6 +708,7 @@ static void tbnet_connected_work(struct work_struct *work)
- 	tb_ring_stop(net->rx_ring.ring);
- 	tb_ring_stop(net->tx_ring.ring);
- 	tb_xdomain_release_in_hopid(net->xd, net->remote_transmit_path);
-+	tbnet_connect_failed(net);
- }
- 
- static void tbnet_login_work(struct work_struct *work)
+ drivers/net/thunderbolt/main.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+---
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+change-id: 20260809-b4-tbnet-hopid-6ecfe5472ab5
 
--- 
-2.43.0
+Best regards,
+--  
+Fan Ye <fy15309206903@gmail.com>
 
 
