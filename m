@@ -1,113 +1,164 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85F333D50F
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE683E16AE
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:41:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786372809; cv=none; b=IzmrYtFuQ4d5wGHQYvZfq9HnmxtHfnbm3HvUIpL+uw8+bK8qqyJVU09jgKCBC1kSVyesn9Km0eXnZa0eMU4/YztL21SXtM3Yw2n6cur61Uw6h59wcfcz1LVQ9SZXoUjA9jpGcTRZ4YU0XJtrQGY2s8u907d/JFn+ZQMzQ2a6bCo=
+	t=1786372880; cv=none; b=RBBHVem8jsjru1+tZC/UZsrqARUEQ49E90Mna1w0xds5v0lVSZxfITSHI/03C+00Zx6KsOvHpZOui6BxXCF7fjEBfnv5JtGCqsDlLalIu/+fZoGqTV1M5GniREy8yUmRFwnMKaJiJIbEabbZ8mRq/u+owFDzZhcDDQkmmo32epY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786372809; c=relaxed/simple;
-	bh=dfZiwVY2qnjtHARQDLFCt1K9e0b6RXXJ/mUadhoogoM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VpanpX2B7BNO5kuN1XHcq7s86QSUBuKwnsyYpZy1OdviNlOL6YtYezXHy0xKvRpA+OHoJFB13XEJZzbW/+MsWvOvMtKjs27yUJy4iML/fhAdaIxHLlpQ3rpTR8z2Gg3e8sXQE2+POCUcFJeGNSL/uN67RZDy+SxhbnnyphW2KXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=co7aDJ63; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1786372880; c=relaxed/simple;
+	bh=NT4hmTQV7asOzfynA9Axntikhqqvbc1Sr29Lb2gduPQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=amhHvcVYiLsB+EAHJ5/nbhxoyPQJuAMiNKb/eYJYmOz+Dgep1rQjraN55MO9pg3q8Sc6MD4Cxl9POEIC/HgEZzbzdQ2q2Zpf2TwoCdfQnGzxnJf1FF+O8ygGlHcBHT5bMlx51Kr/ya/XtikOhtg79n9dZBhetVHhHoZo53j9EU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=XxsoWo6I; arc=none smtp.client-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="co7aDJ63"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c9e30214d8fso1104043a12.3
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:40:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="XxsoWo6I"
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-8efb708b1a0so11252006d6.3
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:41:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1786372807; x=1786977607; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jJtKsWT4sx3y58QYdxZvJ/PHE2uBcHo6QmKYUPmhmYc=;
-        b=co7aDJ63EzOJAQOcLXLRT32LUUvOz7QQINEiTE/QWGF75gvn193u5V6a7tn7jLUj1Z
-         I8tGdLyiOPnLgP3lDHQx2EcHeLJW3OF22xuOPL6NLmaicfOYRuXNws8X0JE85rq5JZMi
-         rXdvM3Ek/3sYr3DYW799/iTp+SMIuqYJi+ckU=
+        d=trailofbits.com; s=google; t=1786372877; x=1786977677; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zF8J7vucF9ejv5mC84LVI8cP3TWHPkQougefaqK2FnM=;
+        b=XxsoWo6IbNXsRnCzr/jOsexPMUwAcGetoB/V+HOE6Dtq0CkPgMKlmQd9TLVBCDWLVV
+         ixPKvsKftjC1vaF0Pm8s1HebN3Dl6eDoGJL2qkd8CR1ehQFVrH3GAh0bZfHOUGbkFkie
+         2YKPYLOloTD8+BaGR9Vzd0bL9Kug8U23iIm6DmKhxGmq4618QWUCMqSNZG3GJa/WYZsm
+         VaTbS0MVaKtIQYastOD/QxvlwXbEuMU8pJz3g0Iy+q8pdNV/ndJn6UFN68QplrEBUeXB
+         9QV4b0xVNeKmT6i/s9+oVDtp6jevW3o0dt1kl+w/oyeC4hFEGb9Em0dAbqKHFoKEj8XE
+         m75g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786372807; x=1786977607;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jJtKsWT4sx3y58QYdxZvJ/PHE2uBcHo6QmKYUPmhmYc=;
-        b=Ml7OTN4f8u+Q+S1YcpL0sQ0Bb5+lCawuwmreD6ogPp+By0uQ0Le0UhtFjvWinh+J/2
-         TUdOuioNtsgdkWapBJT0FdAlTsRwS5ZtbfcJHg7AxcMM7EvslcGI2RtgsYDjHO06qxfE
-         2nKBO1u+OfIuBKLhTJCdDEUSnMyQrKk+mcRAxyxK/XXf26nrde4vbFqhpmbpJvVk96OU
-         nNxVW7qfOmw+phZiFdzX4qPseJhEeQVzcAzVrihTX/B4KNTgEStfXWiJLfRy2X+7mBUh
-         OEdSlJ04p5lGhDvpdoEUt4PhnkxiGGcHYWMUTV7g6Py+4HHuCoAeMMvmfQhdenosCCik
-         D7Wg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpt8vOdAfr/kN6975P9PHrzV0Ua7bPB3OLGTCsrajcE6K0g5gaaMOkLDfY6YyTPje2RPr1D52o=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8CDzH8/NGIANarj3OkWDJSEMuuhOpltHZAMIJyI8BPAWHOxJL
-	U3r+mo4mo75WWj9NRRyFuuzNN7DXSAStIzA21Bw/sEowxDt+iD4E/MAhqXg25sHXtw==
-X-Gm-Gg: AR+sD133KVG7J7X6SQzWDywAS09Us4Z6sTZlDlq5fmQ7GNxTi+anlMrZzvWf1HzjQG3
-	0P/dQtPeWHqhjkTH9Q4IFxVHItswIKHbGU+hV2U//a0EWC1PlO+A85fjfVzd50sTRzeX7pfaAht
-	4ZaWjIYpJLF+qQsD6f9Dm+MChJEJMPKKDWXUupJ3nG18SlyO/zdtY8dC2czX6IIgsgqeG45m665
-	FQm27XAHxlbpq0QyQ9pjwp1SUjDeTXh6Pts2lDBCqJZJeBuIz6+WOm0oogRUHHhTEaiOTZqpmiu
-	Nb4XmdwHj65jcAIunDMdNFaRpf5lJ/iv/EP8NbXrscNXNZvE7BjpH5iUKuhfFYvOKw70sUFHLC1
-	ryPLWgojg1QohFf8NZcR2d05Mj7pSdEkUdvu3ZLwMf8+dXJt4tROHTCdFIs/l2vWdyJCESZadqj
-	mxi7H211bkS/CMArsny3UDlAoTti6/WP7UlryMt0FSbiwtX4IDM3iN3JxJbklk3UawCpogp1U+b
-	I2TNtr6onKrHSXQE0h/G5uyu9Zy
-X-Received: by 2002:a05:6a20:1602:b0:3c3:a3f4:5485 with SMTP id adf61e73a8af0-3cbce6cb2dbmr23968790637.6.1786372807013;
-        Mon, 10 Aug 2026 07:40:07 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:ddfb:e755:8f7f:81af])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe8f35b16bsm4231740a12.20.2026.08.10.07.40.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 07:40:06 -0700 (PDT)
-Date: Mon, 10 Aug 2026 23:40:02 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, stable@vger.kernel.org, 
-	Hyunwoo Kim <imv4bel@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH] KVM: x86: Check for invalid/obsolete root *after* making
- MMU pages available
-Message-ID: <annil73rmj0536I8@google.com>
-References: <20260808062208.522577-1-senozhatsky@chromium.org>
- <anbL4h3ahwzG8iYa@google.com>
- <annbVU1ig24ZES-p@google.com>
+        d=1e100.net; s=20251104; t=1786372877; x=1786977677;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zF8J7vucF9ejv5mC84LVI8cP3TWHPkQougefaqK2FnM=;
+        b=IM5Ev69gCwE9YZldEnHNEJgLo2Nnj7fHywiCo51+yYfjGvj4B2HA3GoRnkR5bRZVYM
+         3hQgLGR5z99os753aSKDPV+m4R45REhiU4N8x8ESYqwmxExNcaT1WUKC0FnSP4pzePs8
+         qN9EwXQ/vm4iSv0zAbYXc2pOst0FRJopHgG5H6cxAEkJG9s8lZgSbaAskDfAkGXV/t38
+         yrd3MDqsTlVAFtXXBEuml3Uhet1hIFy5ME6ywgp5XgP3+N8mb+cgbw+jroiAbXt8QDLP
+         H11Avvmbyj1coBdMh1Q7y6DthMz0ZVkOjkFmTFaqfzm5D0g0zZb6vkLk4RlNtcLT3nFV
+         pU0Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrBqjJU8hpHG8hbnDRTRLgcDmpsjLUtQQ0ow2HEwNXe5gdDA82CtbebvW0paI1njpb3wEgT8L0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFPsPuYvcSAQVKMXC+2mxnnwKDhb3JTMaPsKUINdZHtKoS9LAs
+	X3kZ0VHDTE3/Gzk931sUNG4GnMtvgcnSoyYgrj+V8gf0DyApfpdq8q5pr7MJdmm9mtQ=
+X-Gm-Gg: AR+sD11inmREC5lWT/h86ojhUdDGUjp6M2F8NrR0JJSzZcRPYQBjrUXAwjKyVSG8j+V
+	9c+dhfiKehqWGmHGsyBjqta6jRpx3wqkzuH6SvRAe7UIAk/a0nViMCEGtl0ol3OBZNlV2KVONbp
+	ZS+hWiLVxgfafCPzMp3y3CGhjBUza8RmeRQP9oWwUIf4m4V9Tq4tl5VdCWNKKvM9eb4jTSwfQS+
+	cZ77TWv7wFla6whbVDfhs+foDrmf7juAb5+oSdQMpuSW6C8Dzh9MSC7CN480tw0NEVw+LQt5qhK
+	/hR+mllpM8Z3X9uAoHFYfmdesg3BtYq/VWRQJ4uzjvIJ8M50KIOUacI7m/LOzL6VDP87TKhJoUZ
+	glRTJwuI3+B2ZHw+l4m9xmlYWYQdTFn+SWmAP3PYw9ku51Cc8PmIcDj7rZPGdrbzS8ph4uImB1L
+	Jil0kh+hVHX6XSO0712GrAjh2puF5EtizJD6B1fYBCOCO5rAotwZ3GJhcYWr17Oombww==
+X-Received: by 2002:a05:6214:4709:b0:908:949c:43a6 with SMTP id 6a1803df08f44-908949c4882mr384537146d6.6.1786372877154;
+        Mon, 10 Aug 2026 07:41:17 -0700 (PDT)
+Received: from localhost ([146.190.222.192])
+        by smtp.gmail.com with UTF8SMTPSA id 6a1803df08f44-908a932a417sm73682786d6.37.2026.08.10.07.41.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 07:41:16 -0700 (PDT)
+From: David Lee <david.lee@trailofbits.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: Kyle Zeng <kylebot@openai.com>,
+	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
+	Sven Eckelmann <sven@narfation.org>,
+	Petr Machata <petrm@nvidia.com>,
+	Amit Cohen <amcohen@nvidia.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	David Lee <david.lee@trailofbits.com>
+Subject: [PATCH net v3] vxlan: keep the last remote linked during FDB flush
+Date: Mon, 10 Aug 2026 14:41:14 +0000
+Message-ID: <20260810144115.821654-1-david.lee@trailofbits.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <annbVU1ig24ZES-p@google.com>
+Content-Transfer-Encoding: 8bit
 
-On (26/08/10 07:08), Sean Christopherson wrote:
-> On Sat, Aug 08, 2026, Sergey Senozhatsky wrote:
-> > On (26/08/08 15:22), Sergey Senozhatsky wrote:
-> > > From: Sean Christopherson <seanjc@google.com>
-> > > 
-> > > Check for a "stale" page fault, i.e. for an invalid and/or obsolete root,
-> > > after making MMU pages available for the shadow MMU.  If reclaiming shadow
-> > > pages zaps an in-use root, i.e. marks it invalid, then KVM will attempt to
-> > > map memory into an invalid root.  On its own, populating an invalid root is
-> > > "fine", but because child shadow pages inherit their parent's role, any
-> > > children created during the map/fetch will be created as invalid pages,
-> > > thus violating KVM's invariant that invalid pages are never on the list of
-> > > active MMU pages.
-> > > 
-> > > Note, the underlying flaw has existed since KVM first started tracking
-> > > invalid roots in 2008 (commit 2e53d63acba7, "KVM: MMU: ignore zapped root
-> > > pagetables"), but the true badness only came along in 2020 (Linux 5.9)
-> > > with the invariant that invalid shadow pages can't be on the list of
-> > > active pages.
-> > > 
-> > > Note #2, inheriting role.invalid when creating child shadow pages is also
-> > > far from ideal; that flaw will be addressed separately.
-> > > 
-> > > Conflicts:
-> > > 	arch/x86/kvm/mmu/mmu.c
-> > > 	arch/x86/kvm/mmu/paging_tmpl.h
-> > 
-> > Sean, can you please take a look if conflict resolution was done
-> > correctly?
-> 
-> What kernel is this for?
+From: Kyle Zeng <kylebot@openai.com>
 
-Oh... good point.  I forgot to specify [PATCH 6.1.y]
+A non-nexthop FDB entry is expected to have at least one remote while it
+remains reachable through the FDB hash table. A filtered bulk flush
+violates this invariant when every remote matches: It unlinks the last
+remote in vxlan_fdb_dst_destroy() and only afterwards tells vxlan_flush()
+to destroy the parent FDB entry.
+
+An RCU reader can find the parent during this interval.
+first_remote_rcu() then applies list_entry_rcu() to the empty list head,
+producing an invalid remote pointer that the receive learning path can
+read from and write to.
+
+When a matching remote is the sole remaining remote, leave it linked and
+ask the caller to destroy the entire FDB entry. vxlan_fdb_destroy() keeps
+the remote attached while sending the deletion notification and removing
+the parent from the lookup structures.
+
+Fixes: c499fccb71cb ("vxlan: vxlan_core: Support FDB flushing by destination VNI")
+Cc: stable@vger.kernel.org
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Co-developed-by: David Lee <david.lee@trailofbits.com>
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+---
+Changes in v3:
+- Remove remotes_flushed and the redundant final p_destroy_fdb assignment,
+  as suggested by Ido Schimmel; the caller initializes the flag to false.
+
+Changes in v2:
+- Add the net tree prefix to the subject.
+- Restore Kyle Zeng as the patch author and correct the sign-off chain.
+- Move the research credit below the commit-message separator.
+- Add the recipients reported by netdev CI.
+
+v1: https://lore.kernel.org/all/20260731141311.570187-1-david.lee@trailofbits.com/
+
+Bug found and triaged by OpenAI Security Research and
+validated by Trail of Bits.
+
+Trail of Bits has a reproducer for this bug that triggers a
+KASAN slab-out-of-bounds read in vxlan_snoop() and can share if needed.
+
+ drivers/net/vxlan/vxlan_core.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index d834a4865..0c42cfd96 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -3051,18 +3051,19 @@ vxlan_fdb_flush_match_remotes(struct vxlan_fdb *f, struct vxlan_dev *vxlan,
+ 			      const struct vxlan_fdb_flush_desc *desc,
+ 			      bool *p_destroy_fdb)
+ {
+-	bool remotes_flushed = false;
+ 	struct vxlan_rdst *rd, *tmp;
+ 
+ 	list_for_each_entry_safe(rd, tmp, &f->remotes, list) {
+ 		if (!vxlan_fdb_flush_remote_matches(desc, rd))
+ 			continue;
+ 
++		if (list_is_singular(&f->remotes)) {
++			*p_destroy_fdb = true;
++			return;
++		}
++
+ 		vxlan_fdb_dst_destroy(vxlan, f, rd, true);
+-		remotes_flushed = true;
+ 	}
+-
+-	*p_destroy_fdb = remotes_flushed && list_empty(&f->remotes);
+ }
+ 
+ /* Purge the forwarding table */
+-- 
+2.53.0
