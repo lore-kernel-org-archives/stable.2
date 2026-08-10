@@ -1,53 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B1A3B841D
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 10:57:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C922FFF90
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 10:57:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786359458; cv=none; b=CKdmIgq4HyzbleL1xUcNxcD8gqWDDGguRKhVUiXiXrt7F3CQi3m+qylKIo46nbwCqWsdjgLgq97u1xCVHm4uwYjmUa4qNt2ZU4F5VoHI25owmJMCeJ6VCV9qlbyyE7rZRzYaITQ4H/k57CY206egNI72AvDY/FqmUmxSDS4JEY8=
+	t=1786359472; cv=none; b=pWGBywoAvZWsmFHA0Py3S/7uP2sY2/YbRhnEjPy3BHPI+hXO2GdedQ1ySOFFB6++ItbyjnUypyab9940KveTsJUZxQZtXbm98tWTDXxNBD0gGrviaXxdZs/0bQNaSEcCgOjM2zqZzFAXocm1wQhmSIjOLCvQ2lW6YfTP/bvbYeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786359458; c=relaxed/simple;
-	bh=i4KRn2+XlaDHI45c4JJXWBK6/G0g3A8mIBQUJFCD020=;
+	s=arc-20240116; t=1786359472; c=relaxed/simple;
+	bh=WEG7uI8QyLtOjz4gtESUmc5rweQVfVxAgcZkRC6LVT0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HAlgAofWqlqfa3SjuZmcAtIDChE+kIyzz9PvyPiyM3QmTSGwwQ7qkAwY9TL40LKtX0ixXVeOJcMkuwgNIFJX74i3QDygFhkrbJR9cBMnBQ2wmEqNjkxtz16OrhxhJX8P18/uOnxUbDp7F4GrfWoyzU8w4NYfz7tJRBomdKuRGok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaR0pqjf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XaBdlR2dRRniUDQFZS0+W48I/fmpAkwzYj6L7PyRzBa94MUVF1ejGIaW3NiNZFRnYzcPLHISOOikJ0Ul4jcPDdq8m9IEr7lhFHn8DfG41ntMuKImO18Xu2dH1fPBl36DqxsOUTfyWaI2WQPqYhnwhswN9HroOmXqJB/q4oYbMtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hTpIUEwB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaR0pqjf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26C51F00A3A;
-	Mon, 10 Aug 2026 10:57:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hTpIUEwB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED17D1F000E9;
+	Mon, 10 Aug 2026 10:57:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786359456;
-	bh=LUy8EmCsqlozXgVjSiRGUpmrIjCGXKDgsZKMgC6pSL4=;
+	s=k20260515; t=1786359470;
+	bh=sJ/lAhivL79w8Nqrs1uUSUYvfHc2NLc0nUpSNer72C8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZaR0pqjfoTm1R9I5GKN5r1VanIEpGb1eCbeUmFh4iuF8gDUrWZd2o+vyC8qOxboIf
-	 aFhApIdZxSZNkkjILao1K4Zy+ABHemV+hwLMHRwtSgfnmRflZBGHRLfhOSOu6xriI4
-	 b8CZ55alVX3hrazqmTwFgPPvvR3R+g4h6xS/EKzt1OuipJx+ZOlP1Ql6tkTi6yTjR/
-	 HRyPJnwGphxNXRa36In4L/d85BzO4zUoDmhpw5eJFl3fsl0bIQXimMKZyTs2SPBU9K
-	 N5u56p4J9JMU7lYGVPtnWkzlfn4TT+2XZ+Dja+Xpz9HPfgs6aeuMwAr5YIg9nXNyqe
-	 QGNz1pWh2hrPg==
+	b=hTpIUEwB3B7nN3ciaev+RxkFjSArk6aUbo4/KgTd2bMePPc2MctRa3WWLLtcDdbQb
+	 08LohZumZRbwdzbWP/0P4B5XveoacdYxsy3E16ZnyKwK8cw91sy/l8Mw5aRj5h/Omp
+	 DG94eVFBtrSq1oQ7vvM5dlIRYWEZlDNNEexlIvg/HXpUCzp8aXelQme+TMDQ25n2oU
+	 4UKJnQk+xe67j6mk43ovZ6/klVvzQ/8YPl98k4vQl/8+Qyei12I4Gk7ULwYvLSLXid
+	 lffDWDUv5Kxo0hKTC05wZuYj7eLQsPZnoavEJg2zXV/aA690dY1HlxWdTolBF/jak1
+	 YeQbZ/k0e+f7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Balbir Singh <balbirs@nvidia.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Byungchul Park <byungchul@sk.com>,
-	David Hildenbrand <david@kernel.org>,
-	Gregory Price <gourry@gourry.net>,
-	"Huang, Ying" <ying.huang@linux.alibaba.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Gao Xiang <hsiangkao@linux.alibaba.com>,
+	Yue Hu <huyue2@coolpad.com>,
+	Jingbo Xu <jefflexu@linux.alibaba.com>,
+	Chao Yu <chao@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] mm: migrate_device: fix pte_pfn/pte_dirty called on non-present PTE
-Date: Mon, 10 Aug 2026 06:57:30 -0400
-Message-ID: <20260810105730.578433-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] erofs: tidy up internal.h
+Date: Mon, 10 Aug 2026 06:57:45 -0400
+Message-ID: <20260810105747.578969-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260810105730.578433-1-sashal@kernel.org>
-References: <2026080539-snowsuit-kept-385b@gregkh>
- <20260810105730.578433-1-sashal@kernel.org>
+In-Reply-To: <2026080538-tartly-varying-5d75@gregkh>
+References: <2026080538-tartly-varying-5d75@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,62 +47,215 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kefeng Wang <wangkefeng.wang@huawei.com>
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
 
-[ Upstream commit 63867c82d0c0c2d182016a32b1cc0103116b0ea5 ]
+[ Upstream commit 557afdd94cf853885ac3b5c218bdf49c021f7323 ]
 
-pte_pfn() and pte_dirty() have undefined behaviour when called on a
-non-present PTE. In migrate_vma_collect_pmd(), these functions may be
-invoked on non-present entries (e.g., device-private entries), leading
-to potential crashes from pte_pfn() or incorrect dirty folio accounting
-from pte_dirty(). Fix both by guarding with pte_present() checks.
+Reorder internal.h code so that removing unneeded macros and more.
+No logic changes.
 
-Link: https://lore.kernel.org/20260708003955.4024340-1-wangkefeng.wang@huawei.com
-Link: https://lore.kernel.org/20260706111958.3649651-1-wangkefeng.wang@huawei.com
-Fixes: fd35ca3d12cc ("mm/migrate_device.c: copy pte dirty bit to page")
-Fixes: 6c287605fd56 ("mm: remember exclusively mapped anonymous pages with PG_anon_exclusive")
-Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
-Reviewed-by: Balbir Singh <balbirs@nvidia.com>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Yue Hu <huyue2@coolpad.com>
+Reviewed-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+Link: https://lore.kernel.org/r/20230204093040.97967-6-hsiangkao@linux.alibaba.com
+Stable-dep-of: c9b47e6b2311 ("erofs: cap LZMA stream pool size")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/migrate_device.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/erofs/internal.h | 83 +++++++++++++++------------------------------
+ 1 file changed, 28 insertions(+), 55 deletions(-)
 
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index e198569bb3324..cd7248a2c8c23 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -203,7 +203,8 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
- 			bool anon_exclusive;
- 			pte_t swp_pte;
+diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+index 1269709328056..4709c869a7431 100644
+--- a/fs/erofs/internal.h
++++ b/fs/erofs/internal.h
+@@ -364,12 +364,6 @@ struct page *erofs_grab_cache_page_nowait(struct address_space *mapping,
+ 			readahead_gfp_mask(mapping) & ~__GFP_RECLAIM);
+ }
  
--			flush_cache_page(vma, addr, pte_pfn(pte));
-+			if (pte_present(pte))
-+				flush_cache_page(vma, addr, pte_pfn(pte));
- 			anon_exclusive = folio_test_anon(folio) &&
- 					  PageAnonExclusive(page);
- 			if (anon_exclusive) {
-@@ -223,7 +224,7 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
- 			migrate->cpages++;
+-extern const struct super_operations erofs_sops;
+-extern struct file_system_type erofs_fs_type;
+-
+-extern const struct address_space_operations erofs_raw_access_aops;
+-extern const struct address_space_operations z_erofs_aops;
+-
+ enum {
+ 	BH_Encoded = BH_PrivateStart,
+ 	BH_FullMapped,
+@@ -401,7 +395,6 @@ struct erofs_map_blocks {
+ 	unsigned int m_flags;
+ };
  
- 			/* Set the dirty flag on the folio now the pte is gone. */
--			if (pte_dirty(pte))
-+			if (pte_present(pte) && pte_dirty(pte))
- 				folio_mark_dirty(folio);
+-/* Flags used by erofs_map_blocks_flatmode() */
+ #define EROFS_GET_BLOCKS_RAW    0x0001
+ /*
+  * Used to get the exact decompressed length, e.g. fiemap (consider lookback
+@@ -419,24 +412,6 @@ enum {
+ 	Z_EROFS_COMPRESSION_RUNTIME_MAX
+ };
  
- 			/* Setup special migration page table entry */
+-/* zmap.c */
+-extern const struct iomap_ops z_erofs_iomap_report_ops;
+-
+-#ifdef CONFIG_EROFS_FS_ZIP
+-int z_erofs_fill_inode(struct inode *inode);
+-int z_erofs_map_blocks_iter(struct inode *inode,
+-			    struct erofs_map_blocks *map,
+-			    int flags);
+-#else
+-static inline int z_erofs_fill_inode(struct inode *inode) { return -EOPNOTSUPP; }
+-static inline int z_erofs_map_blocks_iter(struct inode *inode,
+-					  struct erofs_map_blocks *map,
+-					  int flags)
+-{
+-	return -EOPNOTSUPP;
+-}
+-#endif	/* !CONFIG_EROFS_FS_ZIP */
+-
+ struct erofs_map_dev {
+ 	struct erofs_fscache *m_fscache;
+ 	struct block_device *m_bdev;
+@@ -447,8 +422,27 @@ struct erofs_map_dev {
+ 	unsigned int m_deviceid;
+ };
+ 
+-/* data.c */
++extern struct file_system_type erofs_fs_type;
++extern const struct super_operations erofs_sops;
++
++extern const struct address_space_operations erofs_raw_access_aops;
++extern const struct address_space_operations z_erofs_aops;
++extern const struct address_space_operations erofs_fscache_access_aops;
++
++extern const struct inode_operations erofs_generic_iops;
++extern const struct inode_operations erofs_symlink_iops;
++extern const struct inode_operations erofs_fast_symlink_iops;
++extern const struct inode_operations erofs_dir_iops;
++
+ extern const struct file_operations erofs_file_fops;
++extern const struct file_operations erofs_dir_fops;
++
++extern const struct iomap_ops z_erofs_iomap_report_ops;
++
++/* flags for erofs_fscache_register_cookie() */
++#define EROFS_REG_COOKIE_NEED_INODE	1
++#define EROFS_REG_COOKIE_NEED_NOEXIST	2
++
+ void *erofs_read_metadata(struct super_block *sb, struct erofs_buf *buf,
+ 			  erofs_off_t *offset, int *lengthp);
+ void erofs_unmap_metabuf(struct erofs_buf *buf);
+@@ -463,7 +457,6 @@ int erofs_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
+ int erofs_map_blocks(struct inode *inode,
+ 		     struct erofs_map_blocks *map, int flags);
+ 
+-/* inode.c */
+ static inline unsigned long erofs_inode_hash(erofs_nid_t nid)
+ {
+ #if BITS_PER_LONG == 32
+@@ -473,24 +466,13 @@ static inline unsigned long erofs_inode_hash(erofs_nid_t nid)
+ #endif
+ }
+ 
+-extern const struct inode_operations erofs_generic_iops;
+-extern const struct inode_operations erofs_symlink_iops;
+-extern const struct inode_operations erofs_fast_symlink_iops;
+-
+ struct inode *erofs_iget(struct super_block *sb, erofs_nid_t nid);
+ int erofs_getattr(struct user_namespace *mnt_userns, const struct path *path,
+ 		  struct kstat *stat, u32 request_mask,
+ 		  unsigned int query_flags);
+-
+-/* namei.c */
+-extern const struct inode_operations erofs_dir_iops;
+-
+ int erofs_namei(struct inode *dir, const struct qstr *name,
+ 		erofs_nid_t *nid, unsigned int *d_type);
+ 
+-/* dir.c */
+-extern const struct file_operations erofs_dir_fops;
+-
+ static inline void *erofs_vm_map_ram(struct page **pages, unsigned int count)
+ {
+ 	int retried = 0;
+@@ -506,23 +488,19 @@ static inline void *erofs_vm_map_ram(struct page **pages, unsigned int count)
+ 	return NULL;
+ }
+ 
+-/* pcpubuf.c */
+ void *erofs_get_pcpubuf(unsigned int requiredpages);
+ void erofs_put_pcpubuf(void *ptr);
+ int erofs_pcpubuf_growsize(unsigned int nrpages);
+ void erofs_pcpubuf_init(void);
+ void erofs_pcpubuf_exit(void);
+ 
+-/* sysfs.c */
+ int erofs_register_sysfs(struct super_block *sb);
+ void erofs_unregister_sysfs(struct super_block *sb);
+ int __init erofs_init_sysfs(void);
+ void erofs_exit_sysfs(void);
+ 
+-/* utils.c / zdata.c */
+ struct page *erofs_allocpage(struct page **pagepool, gfp_t gfp);
+-static inline void erofs_pagepool_add(struct page **pagepool,
+-		struct page *page)
++static inline void erofs_pagepool_add(struct page **pagepool, struct page *page)
+ {
+ 	set_page_private(page, (unsigned long)*pagepool);
+ 	*pagepool = page;
+@@ -546,6 +524,9 @@ int erofs_try_to_free_all_cached_pages(struct erofs_sb_info *sbi,
+ 				       struct erofs_workgroup *egrp);
+ int erofs_try_to_free_cached_page(struct page *page);
+ int z_erofs_parse_cfgs(struct super_block *sb, struct erofs_super_block *dsb);
++int z_erofs_fill_inode(struct inode *inode);
++int z_erofs_map_blocks_iter(struct inode *inode, struct erofs_map_blocks *map,
++			    int flags);
+ #else
+ static inline void erofs_shrinker_register(struct super_block *sb) {}
+ static inline void erofs_shrinker_unregister(struct super_block *sb) {}
+@@ -553,6 +534,7 @@ static inline int erofs_init_shrinker(void) { return 0; }
+ static inline void erofs_exit_shrinker(void) {}
+ static inline int z_erofs_init_zip_subsystem(void) { return 0; }
+ static inline void z_erofs_exit_zip_subsystem(void) {}
++static inline int z_erofs_fill_inode(struct inode *inode) { return -EOPNOTSUPP; }
+ #endif	/* !CONFIG_EROFS_FS_ZIP */
+ 
+ #ifdef CONFIG_EROFS_FS_ZIP_LZMA
+@@ -561,23 +543,15 @@ void z_erofs_lzma_exit(void);
+ #else
+ static inline int z_erofs_lzma_init(void) { return 0; }
+ static inline int z_erofs_lzma_exit(void) { return 0; }
+-#endif	/* !CONFIG_EROFS_FS_ZIP */
++#endif	/* !CONFIG_EROFS_FS_ZIP_LZMA */
+ 
+-/* flags for erofs_fscache_register_cookie() */
+-#define EROFS_REG_COOKIE_NEED_INODE	1
+-#define EROFS_REG_COOKIE_NEED_NOEXIST	2
+-
+-/* fscache.c */
+ #ifdef CONFIG_EROFS_FS_ONDEMAND
+ int erofs_fscache_register_fs(struct super_block *sb);
+ void erofs_fscache_unregister_fs(struct super_block *sb);
+ 
+ struct erofs_fscache *erofs_fscache_register_cookie(struct super_block *sb,
+-						    char *name,
+-						    unsigned int flags);
++					char *name, unsigned int flags);
+ void erofs_fscache_unregister_cookie(struct erofs_fscache *fscache);
+-
+-extern const struct address_space_operations erofs_fscache_access_aops;
+ #else
+ static inline int erofs_fscache_register_fs(struct super_block *sb)
+ {
+@@ -587,8 +561,7 @@ static inline void erofs_fscache_unregister_fs(struct super_block *sb) {}
+ 
+ static inline
+ struct erofs_fscache *erofs_fscache_register_cookie(struct super_block *sb,
+-						     char *name,
+-						     unsigned int flags)
++					char *name, unsigned int flags)
+ {
+ 	return ERR_PTR(-EOPNOTSUPP);
+ }
 -- 
 2.53.0
 
