@@ -1,159 +1,148 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84AA344DB9
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 11:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30083C3C00
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 11:52:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786362065; cv=none; b=aX2k/G4c/dctcrXdK1zzQ7+DAH5QnBJspJVqs8cM4hyDNVgnaQQI6q4V26i/khckL20KUSE0N8gVDJvyRwz0p0iCBGMRd7awRaeaStVHXpxVZcSAdg9/EHLDjwATgnc0ygZy3wbtqywkH9yHerLiuBIXWAZkFm9PxeihuT5ZvQo=
+	t=1786362734; cv=none; b=bK+XzQRq4/VP8gnEeGAdYT8KwyE3FNCmCCX94OYj0k5Rc8381tNO8158q8Tm8FFXCqJkkhfPLXQd3/WYWy2/WIlym7iZ30vxMV/oU7Lgi4En3yJzukKkW5Xls/9p4Cb63qqjkOF8Un442/KiAHx5Ax6H4d9+ywrhqzJ8/SQ3lHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786362065; c=relaxed/simple;
-	bh=mVqI6Pz1vVJ0I3QfoFXE/NLq9/aeaM8MmzJjg80mk9w=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JSFkTZdAn5/OYQAsv7Qqx0IKgCRM7qvlzygBrLRzGK/ijCau1rabpDIOSRX3zBbytzkBakecY9YhtCLF7peAQhEHugcJt4ATLe70PCYQC245SxhhavD4Gl89fnxf9tmX2HSW8FeTwBhEMSHygvcF8E1imWT2Lni2mn7knrrTTDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Cdo0sgkS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=nnwKj0BE; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=xXrxDVu/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=LkxxNh5a; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1786362734; c=relaxed/simple;
+	bh=cUCOvrwZNYJ93TzzjPduqckoiYdf5scoI91GjA688Tk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Evzt+PakPqDUSqm1FLtA+cj1mYTEzm4AtE/twOj2phbzMD12NsFqn/0Pq6YAQGrWJFcJyLAPXRB4uNxUdIXLK86WG+S+2wBujBPTublMnAz/M0plXz7Ty8qYC+wGU67vrRcPwWlLFIMDMGhF2sq7yvtMNFSLGSIvhhTLaEvEM2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=HA9EzXKf; arc=none smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Cdo0sgkS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="nnwKj0BE";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xXrxDVu/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LkxxNh5a"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 44EAC3DF6;
-	Mon, 10 Aug 2026 11:40:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786362047; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4mqieHPBKf8hwXfEzJENbzQSqAwbDI0I8thE5CGBTzY=;
-	b=Cdo0sgkSirGruPXmn/1uNv4zKS5AmjUNwsgL2UXzb9RckicjPvOKIx+rzE8u0uBkr6TITA
-	z6Isd1vxYMpbPh/gk3QcwFk5aLkilZwm5fYfT7vOh7WkzI8NkCAVjlANn2WojfEKGYfeLO
-	cv8nVnyb3Aqx18cYMCoxdH0tJ8NVJXg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786362047;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4mqieHPBKf8hwXfEzJENbzQSqAwbDI0I8thE5CGBTzY=;
-	b=nnwKj0BEHFO8u44MkO++wjOlX7RZ8al0Uh74987AiTwnI1r3+4foyQyx2aRRODimuGuglU
-	HGt6QM41HU9779Ag==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="xXrxDVu/";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=LkxxNh5a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786362043; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4mqieHPBKf8hwXfEzJENbzQSqAwbDI0I8thE5CGBTzY=;
-	b=xXrxDVu/ZHMnLohLvu25G21pWHqPDIuPn/wYh7Gop5ObJ0ZIPxm6ZkDyO6PcFG6SkecndG
-	/MAv3xKtmPzGHjGoBGlgIlt9wsK6gwNkd+YLBYsf4gNJYccBUpYsFrv1txJG8Gv4D+gyXL
-	uUlZFSR5WXTnoKn7XzAVbuosm/5kdqM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786362043;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4mqieHPBKf8hwXfEzJENbzQSqAwbDI0I8thE5CGBTzY=;
-	b=LkxxNh5a3hK3FRsqXF1/rEkMFqkXSUTMTcFXIKjpvYIaSPAOXcvD4DcbCKmtE/UCyLLaXL
-	jav2rHWZi3mYjMBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 145C7779B2;
-	Mon, 10 Aug 2026 11:40:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1f+UA7u4eWrHKwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 10 Aug 2026 11:40:43 +0000
-Date: Mon, 10 Aug 2026 13:40:42 +0200
-Message-ID: <87v79i8apx.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Denis Batishchev <ii343hbka@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable micmute LED on HP EliteBook 6 G1a p/n: AD3Q9ET#UUG
-In-Reply-To: <20260810061154.1575447-1-ii343hbka@gmail.com>
-References: <20260810061154.1575447-1-ii343hbka@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="HA9EzXKf"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a1f7f42510so1545173a12.0
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 04:52:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1786362731; x=1786967531; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vt26899TwVMjSklpB6JL+ciaOvdGQnhVp8YZLTm+78U=;
+        b=HA9EzXKfvxj8aYHwxPH0crUrGZa3BK4l/m5djair5Xq6x6m0+D0LMtWcV7tEwgxbU+
+         4TM0eWo4w8eem2i3fz8YWsyqlqRcPE2ec6IVfATeZyOcisDNqU7EjM7bZggc1hfLZPvI
+         OwdSyjSxndSWVBaGaDZ38tJPzZA39d/FfBZFU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786362731; x=1786967531;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Vt26899TwVMjSklpB6JL+ciaOvdGQnhVp8YZLTm+78U=;
+        b=rBN/2XhaxvdH/sE3f5XzyElFAAQjxEagsvwBGty8pvuZXt6d+1Cnk46xqe0WOBJvfI
+         KwcSGeFrl3jRPYVeMcKkn6p0Y6CdQTmRTrBzMije9nrHkcussd0g831AHNrTZg1iWZdV
+         HhJfu2xL5cg6l5qscB7n1ffxc1GxctAqthdh2dsF1CvHBBLS5/8H72H6gfYDbllIaU0a
+         JI1a9KueNB1EnS5xmYiFWmtG2ey/3Fh+9xQroZODYci8b2T7BVy678NwU+fI+6HL8IoM
+         gM9Y6Z3Ki4iVe0386UbKXwWoyK7B6APCBP5o4D6DM2Crjj20mauzk2XtIQurFEdDqwWL
+         d1Fg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro/it4JINIJ1x6GlyqHb3VgM0KMPMZ6HZ5Sbn7J9URAcuNUL65hF4JFHUg236vGscgNEwbwSRQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyeIll3se8x6K0Yr3l6Yj2iP7JHqap2slDx8XN2OZ2FiVn9ALF7
+	Ay9tjArlGaXtrl8iSGxs2cs2ldaKwFisoOK9FYKdl9tYMKlS8V/W6ZgWvCu2qc4Wb3x5hgMwnFn
+	Srql+Mw==
+X-Gm-Gg: AR+sD11OJ7LIr84EGZoPOf8tDCuMbgI1OmGYdbiRHh5LudGh/57vmQm2ecg6DpqOnQk
+	mgZSeEF5pUvCcFiUBZit7K1cNsOVpjbLNbB8XlhN7HGhOH0qNkZRjTzmqDrA4+UXk1n9M1ONUF1
+	OcJ+zzkTnO05mze5GQik7d7ftZUL4jgAlJiVb7QCbH3iC73IdfjjDBuVBVIIuTHoqxtMOuVivLy
+	q6GCpBPPC/T0iNf0psk2ShfFsobxkBszobu+/eIPtcGrP5t8VEP+ZH1RT1qXUGSzjKXleFTsRv8
+	S+lk2mWpMcaQjNfrbPjcy4hy1WKnoEYNiIW/3Lp7I3lIN7aSRbx90nq/uWtrOiAEUljbzoZu3kZ
+	+hA0tnYBWWSG/K2rpbt3VepGzZnq18+F/j/dVd1uruTzAkRJFQkh6zgsjJhxCT1mTZHEShc1iby
+	9cgqZIf5kDlGvWT2D+DH8yzPNrSIZ45uVd24dE6QqxR3dBWL+EwdVHzlASNJdIyhd5EXCENi0+T
+	x+qDEc5YAAl7xjoza0BRPqeP+jW6Sm+kkADxA==
+X-Received: by 2002:a17:907:db15:b0:c16:71:d9ce with SMTP id a640c23a62f3a-c2039b6ecb3mr1793411566b.8.1786362730967;
+        Mon, 10 Aug 2026 04:52:10 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2080c90494sm376066066b.36.2026.08.10.04.52.08
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 04:52:08 -0700 (PDT)
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c160420289bso178276566b.0
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 04:52:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RodQZ1jjI0C9Do5mEH5ZPOOD8usmY82nyYAkgLb85zbLqbceB/b1XRFCLolberxpxlYWdLP2Bk=@vger.kernel.org
+X-Received: by 2002:a17:907:1b04:b0:c15:d4f8:dade with SMTP id
+ a640c23a62f3a-c2039b394abmr1947856466b.2.1786362726960; Mon, 10 Aug 2026
+ 04:52:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -4.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 44EAC3DF6
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+MIME-Version: 1.0
+References: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
+In-Reply-To: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 10 Aug 2026 13:51:54 +0200
+X-Gmail-Original-Message-ID: <CANiDSCvUBV-r7a7d7AbU7aXJ_kJYg80_y_7+8Rk+Wt7FkwaJAQ@mail.gmail.com>
+X-Gm-Features: AUfX_mwC-JQgjX08GvfbcVU9ul_-OLbokBaXSXTZzsWHxoVjvht1T8b4uZt44Dw
+Message-ID: <CANiDSCvUBV-r7a7d7AbU7aXJ_kJYg80_y_7+8Rk+Wt7FkwaJAQ@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: fix output terminal type check for ID namespace
+To: raoxu <raoxu@uniontech.com>
+Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 10 Aug 2026 08:11:54 +0200,
-Denis Batishchev wrote:
-> 
-> The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
-> Without a quirk no fixup is selected and the mic-mute LED stays off.
-> It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
-> already-supported 14" variant (SSID 103c:8dfb), so add it.
-> 
-> Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
-> Cc: <stable@vger.kernel.org>
+Hi Xu
+
+Good catch :)
+
+On Mon, 10 Aug 2026 at 11:21, raoxu <raoxu@uniontech.com> wrote:
+>
+> From: Xu Rao <raoxu@uniontech.com>
+>
+> Commit 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for
+> streaming output terminals") added a separate internal ID namespace for
+> streaming output terminals.  The namespace is only valid for those
+> terminals because their descriptor IDs are used by streaming interface
+> bTerminalLink fields, and uvc_stream_for_terminal() intentionally masks
+> the internal namespace bit when matching that link.
+>
+> The parser currently decides whether to use the namespace with
+> `type & UVC_TT_STREAMING`.  Terminal types are values, not bitmasks.
+> Since UVC_TT_STREAMING is 0x0101, standard non-streaming output terminal
+> types such as UVC_OTT_VENDOR_SPECIFIC, UVC_OTT_DISPLAY and
+> UVC_OTT_MEDIA_TRANSPORT_OUTPUT also make the test true through their
+> 0x0100 bits.
+>
+> Those terminals can then receive an internal ID that differs from their
+> descriptor ID even though normal UVC descriptor references still use the
+> 8-bit descriptor ID.  This can make later entity lookups fail or hide an
+> entity ID collision that should be handled as a regular UVC descriptor
+> collision.
+>
+> Use an equality check so that only UVC_TT_STREAMING output terminals
+> enter the separate namespace.  The issue was easy to miss because real
+> streaming output terminals make both the bitwise and equality tests true,
+> so the devices targeted by the original change keep working.
+>
+> Fixes: 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for streaming output terminals")
+> Cc: stable@vger.kernel.org
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
 > ---
->  sound/hda/codecs/realtek/alc269.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-> index 6b36c730c..ef8beb928 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -7542,6 +7542,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x103c, 0x8df1, "HP EliteBook 630 G12", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x8df7, "HP Z66 G6", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
-> +        SND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14 (AD3Q9ET#UUG)", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
->  	SND_PCI_QUIRK(0x103c, 0x8dfc, "HP EliteBook 645 G12", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x8dfd, "HP EliteBook 6 G1a 16", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
->  	SND_PCI_QUIRK(0x103c, 0x8dfe, "HP EliteBook 665 G12", ALC236_FIXUP_HP_GPIO_LED),
+>  drivers/media/usb/uvc/uvc_driver.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index e289cc71ba98..acfc5797a1c2 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -1130,7 +1130,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+>                  * so limit usage of this separate namespace to streaming output
+>                  * terminals.
+>                  */
+> -               if (type & UVC_TT_STREAMING)
+> +               if (type == UVC_TT_STREAMING)
+>                         id |= UVC_TERM_OUTPUT;
+>
+>                 term = uvc_alloc_new_entity(dev, type | UVC_TERM_OUTPUT,
+> --
+> 2.50.1
+>
+>
 
-The indent looks wrong; it needs to use hard-tabs.
-Please resubmit the corrected patch.
 
-
-thanks,
-
-Takashi
+-- 
+Ricardo Ribalda
