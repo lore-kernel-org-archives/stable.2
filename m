@@ -1,29 +1,29 @@
 Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C3E1B1531E8;
-	Mon, 10 Aug 2026 05:17:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65C7237F75D;
+	Mon, 10 Aug 2026 05:17:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786339032; cv=none; b=aT/sb6ggV1J8hAz1Tdt+IzBZXS68j0QnBUnj5kkOTd0a8PLwq97oEv1PtwkTe7vY2hl1Q6LQHRH7a8EUl/KkliBbOND8STyi3EUN1/zStTfEmeqyXwxubx0u79+ImGX47vOqzkI6SV7vRyVDPGoMU0xavndK0ndcdOmU2QbIrTA=
+	t=1786339038; cv=none; b=DkN4h3TbaU88cByRO7uq+8k3Cd8EG/mbxrz2bU5kY1JOhYzn8kZXFgNjaa3IRJjXEsmEgrL7tgpbJ1FpwPwgAVw84jIQE2ayptM+vyYsyg68sjuwKSj5NoFYZ27BPfmI99tQ1Ho3cA35qfpA7o+vk1b10SZxnHWkrNTVWxtqKXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786339032; c=relaxed/simple;
-	bh=k5+v00fUr0NPVrCIQQtj6nKIyu8q3qd+Td88O6L0xx4=;
+	s=arc-20240116; t=1786339038; c=relaxed/simple;
+	bh=9rEu8ZD4Qfh+m1uNRbrZ/7V6nv/rMfdIAWSkGKhEBXU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OUlj68sgPEgMWVXoBg/JQQNS+jTla4SRDVTOAY3yG3vCCxgCj777ekuULyR3GLsQh87AEDLM+EqzEczzBiEZ96o3xg13+sFjSlqcRJB8cjZ+aaryA3BOtdMaS4dCIAT0lx0UjAYTXc4Mk2p6UNpACuTwJdUzLoEpojDjc/oUhcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=n56YuxBX; arc=none smtp.client-ip=218.76.62.146
+	 MIME-Version; b=uMRgdRGCpvWHwpzH14w2SNJA0KHZ/Yzyz0pPSIxM0uDeesASWs2EWnB7x3cFUk1+aMI+RlmEDOVcLBY/s4uKrJC2/UeE9f5AXpJlZj9f342jx1qrBOdmH9SgMOGCVyk1QxWjP5byEXhiDOoc2rla+6Q8bCDIjOsV43/nReILyL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=ZUyjzbZs; arc=none smtp.client-ip=218.76.62.146
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="n56YuxBX"
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="ZUyjzbZs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=hFX9Zm9qAMWPdih3CERXtHLvTmlcchQZ9j
-	xsR7LXPE4=; b=n56YuxBXGtMCOtd3MyDtEgK80d6kbuKQk0cyStl3KuRiFHs8Yr
-	+OsDkz/VcmEwdY744jwQUoqm5hnPrmh62oihHi24uCPGpuUVRV3RH5+79zh2NWWS
-	qWOV0jLZAoR625gM4/dgwjN4jgCJi9+07URkWnHRtU31vhc8fTxMbTj84=
+	Content-Transfer-Encoding; bh=g95oLQ7SjtKtG4RhAvYdPm09Nh5QYF1WOB
+	P8Wpo/53k=; b=ZUyjzbZs9TcsgeyNyOg41AbkvXkCbKveLm1pTtKb8lR/PPsvgb
+	OWd5jpLvAL4t4VW7effhrJD3kqcFvt8lwjgIjqpvB8kgcJHPyAlrGMpJUhKGQwOk
+	p4ZYkqKFpXZIa3Ld3pq53BbGFdnZ9RoRbJ/HoMszXbytWJC6DNBd6cou8=
 Received: from ultrarisc.com (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkOZXnlq2JYWAA--.18693S3;
-	Mon, 10 Aug 2026 13:16:19 +0800 (CST)
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkOZXnlq2JYWAA--.18693S4;
+	Mon, 10 Aug 2026 13:16:23 +0800 (CST)
 From: Xie Bo <xb@ultrarisc.com>
 To: Anup Patel <anup@brainfault.org>,
 	kvm-riscv@lists.infradead.org
@@ -38,9 +38,9 @@ Cc: Atish Patra <atish.patra@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Xie Bo <xb@ultrarisc.com>,
 	stable@vger.kernel.org
-Subject: [RESEND PATCH 1/2] RISC-V: KVM: Release unused page after MMU invalidation
-Date: Mon, 10 Aug 2026 13:15:43 +0800
-Message-Id: <20260810051544.3953925-2-xb@ultrarisc.com>
+Subject: [RESEND PATCH 2/2] RISC-V: KVM: Propagate interrupted G-stage faults
+Date: Mon, 10 Aug 2026 13:15:44 +0800
+Message-Id: <20260810051544.3953925-3-xb@ultrarisc.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260810051544.3953925-1-xb@ultrarisc.com>
 References: <20260810051544.3953925-1-xb@ultrarisc.com>
@@ -51,15 +51,15 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAfwAnEkOZXnlq2JYWAA--.18693S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7WFWrtr45Zry5Xw4UArWkZwb_yoW8AF15pF
-	ZFka90vrWrtF4UZ347Aan29ry09ws2gw1fCryYq3sYvrsrtr1qqws5W3yxWF13Jr1kXayS
-	vF4jqFW5CrWkK3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:AQAAfwAnEkOZXnlq2JYWAA--.18693S4
+X-Coremail-Antispam: 1UD129KBjvJXoW7CFyDZFWUAF15GFyDur47XFb_yoW8XFyfpF
+	W7Cwn5Z3yFgr17K347tw4kur4Y9an0grnxurs8Zay5Xr45tFyj9wn5W347ZF15Gr1rXayS
+	gryruFy5uwn5A3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUmm14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
-	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
 	Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
-	ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AI
+	ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AI
 	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
 	vE14v26r126r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
 	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04
@@ -68,57 +68,49 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7WFWrtr45Zry5Xw4UArWkZwb_yoW8AF15pF
 	1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWU
 	JVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r
 	1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1U
-	YxBIdaVFxhVjvjDU0xZFpf9x0JUYg4DUUUUU=
-X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQAMB2p1VlUAFAAOsM
+	YxBIdaVFxhVjvjDU0xZFpf9x0JUqYL9UUUUU=
+X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQAMB2p1VlUAFAAQsS
 
-If an MMU invalidation races with a G-stage fault, the fault handler skips
-installing the page but leaves ret set to zero. As a result,
-kvm_release_faultin_page() treats the page as used and can unnecessarily
-mark it dirty.
+__kvm_faultin_pfn() reports an interrupted host page fault with
+KVM_PFN_ERR_SIGPENDING. RISC-V currently handles it as a generic error PFN
+and returns -EFAULT.
 
-Track the invalidation retry separately and release the page as unused,
-while preserving the existing return value so that the vCPU retries the
-fault.
+Return -EINTR for the signal-pending sentinel so callers can distinguish
+an interrupted fault from an invalid userspace mapping. Do not log the
+expected interruption as a vCPU exit error.
 
-Fixes: 2ed90cb0938a ("KVM: RISC-V: Retry fault if vma_lookup() results become invalid")
+Fixes: 9d05c1fee837 ("RISC-V: KVM: Implement stage2 page table programming")
 Cc: stable@vger.kernel.org
 Signed-off-by: Xie Bo <xb@ultrarisc.com>
 ---
- arch/riscv/kvm/mmu.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ arch/riscv/kvm/mmu.c       | 2 ++
+ arch/riscv/kvm/vcpu_exit.c | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-index 6035b5e..d189fd5 100644
+index d189fd5..3e955d8 100644
 --- a/arch/riscv/kvm/mmu.c
 +++ b/arch/riscv/kvm/mmu.c
-@@ -627,6 +627,7 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
- 	int ret;
- 	kvm_pfn_t hfn;
- 	bool is_hugetlb;
-+	bool unused = false;
- 	bool writable;
- 	unsigned int vma_pageshift;
- 	gfn_t gfn = gpa >> PAGE_SHIFT;
-@@ -719,8 +720,10 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+@@ -708,6 +708,8 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+ 				vma_pageshift, current);
+ 		return 0;
+ 	}
++	if (is_sigpending_pfn(hfn))
++		return -EINTR;
+ 	if (is_error_noslot_pfn(hfn))
+ 		return -EFAULT;
  
- 	write_lock(&kvm->mmu_lock);
+diff --git a/arch/riscv/kvm/vcpu_exit.c b/arch/riscv/kvm/vcpu_exit.c
+index 88e0c36..8d36eb8 100644
+--- a/arch/riscv/kvm/vcpu_exit.c
++++ b/arch/riscv/kvm/vcpu_exit.c
+@@ -283,7 +283,7 @@ int kvm_riscv_vcpu_exit(struct kvm_vcpu *vcpu, struct kvm_run *run,
+ 	}
  
--	if (mmu_invalidate_retry(kvm, mmu_seq))
-+	if (mmu_invalidate_retry(kvm, mmu_seq)) {
-+		unused = true;
- 		goto out_unlock;
-+	}
- 
- 	/*
- 	 * Check if we are backed by a THP and thus use block mapping if
-@@ -743,7 +746,8 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
- 		kvm_err("Failed to map in G-stage\n");
- 
- out_unlock:
--	kvm_release_faultin_page(kvm, page, ret && ret != -EEXIST, writable);
-+	kvm_release_faultin_page(kvm, page,
-+				 unused || (ret && ret != -EEXIST), writable);
- 	write_unlock(&kvm->mmu_lock);
- 	return ret;
- }
+ 	/* Print details in-case of error */
+-	if (ret < 0) {
++	if (ret < 0 && ret != -EINTR) {
+ 		kvm_err("VCPU exit error %d\n", ret);
+ 		kvm_err("SEPC=0x%lx SSTATUS=0x%lx HSTATUS=0x%lx\n",
+ 			vcpu->arch.guest_context.sepc,
 
