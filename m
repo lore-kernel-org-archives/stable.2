@@ -1,122 +1,189 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857F03C2796
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C22D3DB645
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786369621; cv=none; b=ODiSIoUL3DBHtdpyoMXrOyYmm+71iWpoxORYjkdLEnIAocBOkxCsllfj3SWDmfaD1gUsqlV8lXqLcG9G4SFyeXwXO43fHdm67RwjpkJhsB6MGZFi06V2fCgQ7RtG4mfuZ5W7S0Wulwyf/re12qya1FIMp5vB2Gb7bjNYvJOmac4=
+	t=1786369682; cv=none; b=eHrYjpcukkZv2enK45ap1mhE/v3WiS2VMtH3HSqVT3hfKD2mXB5tnPpgxUE0Sn97MlWH3U1aZNTvKPPA3RFWb4DL66N7peqivcfyaZRW3qQBCj0QhlfyLesro3fGXTp0fwh3rVBokHDbMX3irqE6T3c4L6t/g5nDgV3/H4KM3NM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786369621; c=relaxed/simple;
-	bh=nGvLBkBDKOaRJg4kSHLzaeM3hbIwICruJFemXkd3omU=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=C5IwfOdMD/mflaa0rzKOO59FBr0CHTnBIIsydfAp/Cq9daCdcq4fXU+NbercBp0Xz19pE6WTQt2WogiFmY3Vlo2y+ZziM0XSc6b9QxTkMQ1AjCJtt8FGimEVydYlJUpgwzHtYcrCH/wtq0AEoYsrFaYhEwBIeIYiRwLvsUezN+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MU3Ykl4g; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786369682; c=relaxed/simple;
+	bh=3T05IBmOeKaCJnNraYH/j1ima368bvxG+vKBBAnikBQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B4WDoK2JeYzwwtEOMhD4untEZlnO090Py/bR4LNkWj1Qph8ui50WFB+6jz7+0g0eYnixy9SOp0Bnvi20dn/0dQ/LDQ4WSBUiamu9Vfs5XJIvqP4Sw20YbhKtS+2dHCOx5nOYyjWiRpn3eMOHEwUU+O8LaGGVbFT27F6ITSa5tk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bayw5SnG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MU3Ykl4g"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c16794450aeso238810966b.2
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 06:46:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786369618; x=1786974418; darn=vger.kernel.org;
-        h=user-agent:mime-version:date:content-transfer-encoding:content-type
-         :references:in-reply-to:cc:to:from:subject:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VkmuAyNmOKZH0mWQNQTduJMEBCH2vZax1Arre+veBLc=;
-        b=MU3Ykl4gy1SpdHXXV/w910+ztPPb7zDY9Nc4HV+fJes77Yo2H/wTlVmLA1uLX7SZ8s
-         Z80iuPtP08Ksgtfeyb+1PbgaEOlw3gB7mK5XZnzxxQFVqYVipCiFpc3qJc1FOmvF41E7
-         Uqq8DAeFikyUkXnXQcoWiSb1PswlCC3leATmvwiSfFF0SEt5CtyHctLPHLJeFMr6KjKG
-         +jhsUz+twOs1CGpqYC6Lmtmw5Abx93/arioKY2TOByEk7nMlNGGK0MdcZiux71T1TG+9
-         2m6teyijcu23CGyahoVeDzN98ie3sgO+pgfDFEua1u+M2D+76g/mtRS2I2k8bRrmzhrr
-         lAiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786369618; x=1786974418;
-        h=user-agent:mime-version:date:content-transfer-encoding:content-type
-         :references:in-reply-to:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VkmuAyNmOKZH0mWQNQTduJMEBCH2vZax1Arre+veBLc=;
-        b=jkR4641Va/8bbKBaKXLUot7hlIlfBiXlLq5cbw3JMaGqYyKLJuSpJ50ezB/GanlWIy
-         YH9f38Y3MXe/VWNT/z2LW5Yh5MZ1Rr/pAqR0eUJnPOTxK1QSuM/JLlxsGNZZ2LTptBZ/
-         AcWvt7AI6j+YDGpqnLrFlGGsGzQ9eRTy81v/DLbp9WZVCMg2eeLQRLBndYUEdFQal+Hc
-         Ae5se20ZMflkeczxRFeubrzQl/xV29QL/i/hHaw1GjBefr72FcbjOEUVvuBIBnjriNcr
-         Cv5bnvhvo+YEmTqg7sYD5NslZ5u4DqkO68mXWVcIQdGzeTQSrKwsouelPf4YS6/+2bJi
-         RERQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpuTy2Jzs3IhMWI02xk8jUJBoCT9I7Buq2FqlL0DyyqgYn81ObeYdeDLGXCbCxOumQU6H6WD48=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwV8syApARkES0TyxpCAGFPJoy1K/zVV6ssPPMi/T1gQxJfXJa9
-	CKZY5mllQaOhUm36Fo7AsrLQZsb8DsTr2IB4yQDKjXy1nHDT4PVJ1Mpw
-X-Gm-Gg: AR+sD12owWVYi9ajquyydnG1d7B5ry+eQlcLo8Rzkzvn1YqZUg/akd4yStUqGkDMNh9
-	XiGSpSWE3y6t89V6kjsCUmYYYp8dS6z5x9ohCbY1SXWa+oYvycb6dV7Zqwxx7WbgRpQGTunC6oh
-	rKqjVIengyiEj8iUUTuX/HNtttKZK7alBxZvWTnachag7MXPHUW6d46GuCacnr/TGSHtkuJXPsP
-	PGu3Lrl32VZkhFgboPnAe+x1LtEAPbnGVmQBA274NYegqlNuMTUka+SSQDG+OwwcMCH5579DLBG
-	kw9lK4Yax+KYN7rNQOmb0yeGRoGmnGPVrULrpjTjHBtm1CmOqEVjUglFDdh/X1bEXKzDhfaVNNr
-	Fpjj4O3siHiYL7NT3f+R9pqsgd0K4sKsLLCJr73hPYnLzV8g1LoTBZ27wF7FQvJCfmGg3I2QUWA
-	dMSPx852WyJhx/98tlyPluaK5VsFi6UQzIzE6UXxMi33shNL7XF23n5kec+liTnYwJvEdkFwe47
-	Km2ARktDvEuQtB677K426K2/gzYVOt1SXGDGJOv659m
-X-Received: by 2002:a17:906:4795:b0:c15:d0b6:495c with SMTP id a640c23a62f3a-c2039e6acefmr2013592466b.29.1786369617351;
-        Mon, 10 Aug 2026 06:46:57 -0700 (PDT)
-Received: from [10.198.255.130] (polaris.rmrf.org. [70.34.242.93])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2080a29a28sm387425366b.7.2026.08.10.06.46.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 06:46:57 -0700 (PDT)
-Message-ID: <1ae066f5cc91a5e6e043177774cf6ee699a7b2f5.camel@gmail.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Enable micmute LED on HP
- EliteBook 6 G1a p/n: AD3Q9ET#UUG
-From: Denis Batishchev <ii343hbka@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: tiwai@suse.com, perex@perex.cz, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <877blyccxq.wl-tiwai@suse.de>
-References: <20260810125209.2014042-1-ii343hbka@gmail.com>
-	 <877blyccxq.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 15:41:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bayw5SnG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 454691F00A3D
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:47:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786369679;
+	bh=Hzi2DppdJujLLI2cEYOf0nPmIJfadXAirGJPaExHRXg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Bayw5SnGMra5jWEwZkNChbx/VhqN+bXdlBoADGe1mHL29+vQPqnqclyiA3Db7wPPj
+	 9f2L33zytiWbSVHqtlc6KjaBXZaUIgFVH3BeR+cM7B3PPCcQbtai037rWgiWfVCtYm
+	 DSoiRm6BBVJSjbJGgXWvOcvD/vXc7wbCPUIRu2tBQA6tp/QZ9ONf4LYtaQqM/Sm3Vi
+	 3phUptan/nrN9CA60AmE1ZO1hLAcCTzU4/0vbKAKmES36TYxfmwhZtmWwSBr2pni+/
+	 hi+KrbpsoDg1Wi2lbFQqu/O36gu1XE6vQMjMiwYxJ+WN8xJyjr1gGMcoEXWb6UTYHS
+	 GX4yIxMq0YQqw==
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c167aa9500dso233990066b.3
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 06:47:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrpygoHPE/e8JwocFVz65rZR9/eTZsgmZzctfDHEg6lDYqp+wWMDlCZNvAWynZ3ZF70l5yLuOY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYL+i0g3JVHu/B0RF5LWKWFBFej0cOIuCGb4fN8ajuiJyDdsI9
+	ER5LErSbJqHrk75F++UdAVF5WAZOoWVWjY957FIV9xn+boZF9t6/rJeABU4ha6Mk7H+lE06WXGB
+	ZJwSCPr1qEXWdV4frt3aEg6oDJCn7kg==
+X-Received: by 2002:a17:906:fe4b:b0:c16:6c84:4b8e with SMTP id
+ a640c23a62f3a-c2039cc42bamr2080432866b.14.1786369677159; Mon, 10 Aug 2026
+ 06:47:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-9 
+References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+ <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
+ <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
+ <20260807162405.GA896590-robh@kernel.org> <c3hVumMy_QnRbUmbFTSWGjkfG7lPjGFEcZfPsZeGQ57nWKkhlBL3wgmcDcAgT9cNb8Ju3qZ_sSKgHk8vmow0xQ==@protonmail.internalid>
+ <6ee7f32e-eb6c-e264-6f0d-541555f8fd62@oss.qualcomm.com> <56b3dfcf-b1ad-4192-8199-06c80cc5d124@kernel.org>
+In-Reply-To: <56b3dfcf-b1ad-4192-8199-06c80cc5d124@kernel.org>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 10 Aug 2026 08:47:45 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
+X-Gm-Features: AUfX_mwrEFk7k3OtcIlR-TAKRB83Tjc8XP94YyTpBVZLF41OPIzQfo4IdSVjMnw
+Message-ID: <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
+Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for Iris
+To: "Bryan O'Donoghue" <bod@kernel.org>
+Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Stephan Gerhold <stephan.gerhold@linaro.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Stanimir Varbanov <stanimir.varbanov@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Johan Hovold <johan+linaro@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
+	Mansur Alisha Shaik <mansur@codeaurora.org>, Andy Gross <andy.gross@linaro.org>, 
+	Rob Clark <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>, 
+	Yassine Oudjana <y.oudjana@protonmail.com>, Pierre-Hugues Husson <phhusson@freebox.fr>, 
+	Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org, 
+	Matthias Kaehlcke <mka@chromium.org>, Douglas Anderson <dianders@chromium.org>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Aniket Masule <amasule@codeaurora.org>, Malathi Gottam <quic_mgottam@quicinc.com>, 
+	Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek <jonathan@marek.ca>, 
+	Dikshita Agarwal <dikshita@qti.qualcomm.com>, Renjiang Han <quic_renjiang@quicinc.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Daniel J Blueman <daniel@quora.org>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Sorry. I'll double check what I'm doing wrong.
-At first I used spaces that's true.
+On Sat, Aug 8, 2026 at 4:55=E2=80=AFAM Bryan O'Donoghue <bod@kernel.org> wr=
+ote:
+>
+> On 08/08/2026 05:37, Vishnu Reddy wrote:
+> >
+> > On 8/7/2026 9:54 PM, Rob Herring wrote:
+> >> On Fri, Aug 07, 2026 at 12:03:50PM +0300, Dmitry Baryshkov wrote:
+> >>> On Fri, Aug 07, 2026 at 01:54:48PM +0530, Vikash Garodia wrote:
+> >>>> From: Daniel J Blueman <daniel@quora.org>
+> >>>>
+> >>>> On X1-family hamoa platforms, the Iris VPU reserves IOVA addresses
+> >>>> below 0x25800000 (600MB), primarily for secure non-pixel buffers. DM=
+A
+> >>>> into that range, from any other stream id would triggers unhandled S=
+MMU
+> >>>> page faults that cause spontaneous device reboots. This is readily
+> >>>> reproduced with one or more browser tabs driving multiple concurrent
+> >>>> video decode streams.
+> >>>>
+> >>>> Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
+> >>>> and reference it from the Iris node so the IOMMU layer keeps DMA
+> >>>> allocations above that boundary.
+> >>>>
+> >>>> Link: https://github.com/qualcomm-linux/kernel-topics/issues/1157#is=
+suecomment-4458933574
+> >>>> Fixes: 9065340ac04d ("arm64: dts: qcom: x1e80100: Add IRIS video cod=
+ec")
+> >>>> Cc: stable@vger.kernel.org
+> >>>> Signed-off-by: Daniel J Blueman <daniel@quora.org>
+> >>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> >>>> ---
+> >>>>   arch/arm64/boot/dts/qcom/hamoa.dtsi | 13 ++++++++++++-
+> >>>>   1 file changed, 12 insertions(+), 1 deletion(-)
+> >>>>
+> >>>> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/d=
+ts/qcom/hamoa.dtsi
+> >>>> index 8a96ea1bdb9c4c409b2af997680d8c13fed0643e..87f424765d513c97b063=
+03bceb75ca9f176d2ace 100644
+> >>>> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> >>>> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> >>>> @@ -666,6 +666,17 @@ smem_mem: smem@ffe00000 {
+> >>>>                    hwlocks =3D <&tcsr_mutex 3>;
+> >>>>                    no-map;
+> >>>>            };
+> >>>> +
+> >>>> +          /*
+> >>>> +           * The Iris VPU reserves IOVA below 0x25800000 (600MB),
+> >>>> +           * primarily for non-pixel buffers using different Stream=
+ IDs.
+> >>>> +           * DMA into that range triggers unhandled SMMU faults and
+> >>>> +           * spontaneous reboots, so reserve it to keep IOMMU
+> >>>> +           * allocations above this boundary.
+> >>>> +           */
+> >>>> +          iris_iova: iris-iova {
+> >>>> +                  iommu-addresses =3D <&iris 0x0 0x0 0x0 0x25800000=
+>;
+> >>>> +          };
+> >>>>    };
+> >>>>
+> >>>>    qup_opp_table_100mhz: opp-table-qup100mhz {
+> >>>> @@ -5439,7 +5450,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIV=
+E_ONLY>,
+> >>>>                    interconnect-names =3D "cpu-cfg",
+> >>>>                                         "video-mem";
+> >>>>
+> >>>> -                  memory-region =3D <&video_mem>;
+> >>>> +                  memory-region =3D <&video_mem>, <&iris_iova>;
+> >>> I don't like the idea of this series, because it _again_ doesn't tell=
+ us
+> >>> the truth about the hardware. This typicall ends up with bigger probl=
+ems
+> >>> later on, when it starts to affect other bits and pieces.
+> >>>
+> >>> I don't want to NAK it, but I'd strongly ask to reconsider it.
+> >> I think this is an abuse of /reserved-memory. reserved-memory is
+> >> reserved *physical* memory. Reserved IOVA is a property on top of that=
+.
+> >> I'm surprised this passes validation. If it does, I may go fix that.
+> >
+> > As per the reserved-memory.yaml schema document, the iommu-addresses
+> > property for IOVA reservation into /reserved-memory is allowed =E2=80=
+=94 it's
+> > documented for IOVA carveout reservations:
+> > https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/=
+reserved-memory/reserved-memory.yaml#L56
+> I think that is an entirely reasonable reading of the text
+>
+> Quote:
+>
+> "If no "reg" property is specified, the "iommu-addresses" property
+>   defines carveout regions in the IOVA space for the given device. This
+>   can be useful if a certain memory region should not be mapped through
+>   the IOMMU."
+>
+> Which is exactly what this series does. Excludes a specific IOVA range
+> from being allocated for this device.
 
-On Mon, 2026-08-10 at 15:39 +0200, Takashi Iwai wrote:
-> On Mon, 10 Aug 2026 14:52:09 +0200,
-> Denis Batishchev wrote:
-> >=20
-> > The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
-> > Without a quirk no fixup is selected and the mic-mute LED stays off.
-> > It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
-> > already-supported 14" variant (SSID 103c:8dfb), so add it.
-> >=20
-> > Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
-> > Cc: <stable@vger.kernel.org>
-> > ---
-> > v2: fix indentation (per Takashi Iwai <tiwai@suse.de>)
-> > ---
-> >  sound/hda/codecs/realtek/alc269.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >=20
-> > diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realt=
-ek/alc269.c
-> > index 6b36c730c..ef8beb928 100644
-> > --- a/sound/hda/codecs/realtek/alc269.c
-> > +++ b/sound/hda/codecs/realtek/alc269.c
-> > @@ -7542,6 +7542,7 @@ static const struct hda_quirk alc269_fixup_tbl[] =
-=3D {
-> >  	SND_PCI_QUIRK(0x103c, 0x8df1, "HP EliteBook 630 G12", ALC236_FIXUP_HP=
-_GPIO_LED),
-> >  	SND_PCI_QUIRK(0x103c, 0x8df7, "HP Z66 G6", ALC236_FIXUP_HP_GPIO_LED),
-> >  	SND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14", ALC236_FIXUP_H=
-P_MUTE_LED_MICMUTE_VREF),
-> > +        SND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14 (AD3Q9ET#=
-UUG)", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
->=20
-> Hmm, it's still with spaces instead of tabs?
->=20
->=20
-> Takashi
+But if "iommu-addresses" is the only property of the reserved memory,
+why put this property in reserved-memory rather than directly in the
+device's node? I'm only questioning where is the right place to
+describe a reserved IOVA.
+
+Rob
