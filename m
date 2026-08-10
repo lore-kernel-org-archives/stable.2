@@ -1,109 +1,126 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5934C3630A0
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 16:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771EF361972
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 16:43:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786379183; cv=none; b=bbnwgZSLu9g7BDxy5jkhPtViErA5v4hkDaxkzLGzuEccVyXiygBbbG6upT5AvA0ohnKETd/cqfptsTwlhbD3oraLgeMbpDaM81NO8cfiCenhOGiZ+6BHUFAfh2ykQyawrxdgGbNrM2uaw49lNwhy+d4sIUx1sTV0OKHU7r+Id74=
+	t=1786380200; cv=none; b=SYJD+bFCs1PW4t5eoH2HDfwXtdu2maMBTJkTcwud8WUis3uYihONbHpPWdCKn9/7jlmaIw9iPG0d8KBzZanxF0BDyu9cKPS/BbGGQtbAMb5Py3TtgIhJ5isIMlae45+ej7c61CnDjfYIh0vYkzw0I1NG6w/eCpjiBe/EWWobo/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786379183; c=relaxed/simple;
-	bh=t8E5gQQ01457+bCBT4QBHsxttb1UN0ky60dtyBwh3nw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MXaAl+E7anSO7M9YvcexFJT5QioXhtdHj+SqIGVOwg3WydLy3s05+EJTQILZj3kzDmyXG6PnGbcTHKTlYV2Ojb+XbGvDdz+VksRNYr51S97hpgHsYYFuduqFvXxK3CSTBzoY4RqKLbO6jzvCBdx4UPlb5WmDZ5aa3T1Tc+i0DsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CeFVEd7X; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786380200; c=relaxed/simple;
+	bh=O7lAK9Itxu3BtFZebuGm+soxk8EufQFIVRqNLSr9Y0g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qvv5JWDkOPNkOJP9l3jmMHec8If9ew5381MNHatEpKTkC1CIadfbpJZOUKElonOeGsGDZcbJAfMYfg0ccjesN7bn3LaZhKogt4stjyP9l4LN+wRPS/42ranBm94u70uGcMY/B/Nf+U4ov0kTMg8FVilgEJ4QTuvJATxWjutqyz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=peridio.com; spf=pass smtp.mailfrom=peridio.com; dkim=pass (2048-bit key) header.d=peridio.com header.i=@peridio.com header.b=fb+BNbyU; arc=none smtp.client-ip=209.85.217.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=peridio.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=peridio.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CeFVEd7X"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38101f85591so68356a91.1
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 09:26:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=peridio.com header.i=@peridio.com header.b="fb+BNbyU"
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7395b602bb9so53012137.2
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 09:43:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786379174; x=1786983974; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Np/evzwwro5HL67wM3SgJ7mXafU0epyrD8Tg6dJk+p4=;
-        b=CeFVEd7XKvJY8JK5zZymtmDVUg5myYxB5onv6prgwSLDpNF/CHYAERplZA4s5RZO4J
-         jKlEEdKXQ/NZJhbScBvdA+AYZlfIZ5Ov2vniAS5DPnR7NpZ8c74VJuBPlRkY25YMJU+A
-         tP/Ys2/UzCOtD7hcrFfKoTSs7fqkPjGEe+8SU5aGSZtQEU7l9iisB94+I6vJpue9rpqg
-         2O0eidmVXvaamAm/Pas3QghuOZ/MRroyvi96my4X12aqi+85NMfWK9DVK3foYMxfGKwC
-         rUIOpEatIsG6tmOjaCdo7bXSwcQXLDDV84ubMK3Ez46aDSv1+JAyphbYjd5ZcG2frXN8
-         BVkg==
+        d=peridio.com; s=google; t=1786380197; x=1786984997; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sND6wzkbiGyKvdiG9Z9kRm+epdaTPvk4GyaXe9tvODk=;
+        b=fb+BNbyUh2xzUMRrkM5L8mmq9DQt52hI1WG0gzjNooFrJOW6FOjZiJZdVeNrw9wEZR
+         1TgUCjmW1BT1XJWFAHanNwxOmDiNR2KmA7D8nP5h5ADNgZbMZNmlqvHy+dyLHJXi0pEn
+         +mUE9Dn9TkDNBjE4CTZQ8r7N1FJt3n37KMcDvXEjLlrEAuC4+7TLpemHZdEgqQPQUYXN
+         oNq0joWB21J+kU1R1FB/OOcuLad+5bY2vEPJ1cWTF0ys0A2vZsJxxM/sQAQCSBOQ93g2
+         8Ots0z6igtFuBRpWDHrpMK4RgnmBUVqGOrC09MAPHltHZh/BdSSqz86uA3/V3NH3TrVA
+         xy6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786379174; x=1786983974;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+        d=1e100.net; s=20251104; t=1786380197; x=1786984997;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Np/evzwwro5HL67wM3SgJ7mXafU0epyrD8Tg6dJk+p4=;
-        b=RurpHBKGlq/TWcBgcRc1XUKFzdqWRpp8zu6kquyH+h3BtDtMc7iYnvJvkxdSvGBW1q
-         S5Zm8nKf9PkBnHPDSueGXtAF09y8yMzJC1UKanCnEg7H4qGl1L3em8l4ChFHXRHXUMtM
-         KxJtEVcpFilmTSnzIcwvTaMcVYNiyha3JN3Q+wLrYGd57iwebekWpn+w9L5bpPhNkzWh
-         Ot0oRKgirV4jfzWjdW8iOQMr3Az6UM2oKu5bpQS7WSnZmkwalNMTex9MevkwpeR5seSU
-         4H06K543iFsz0Usj0bDJL+5fow1+F/Fw3wS7zsvMZYPskZCGkL4P7w5op0NVPi0Akn2q
-         6IRQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqfjQmhnMXM/OFlelF7IO/Y++NALE2q9Ia820sRlZaeXTabFyToDlflpi3Bub/Ox46Ttr9cesk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwP0iV8ATu/aK1CDB9AiOJVq2+P18rAbBqmEAGX9Bg2Uk/ThCBk
-	Ct1IDpGVPJah/o/+26N5n+mlnN2rJeTbsYx28LTAhbDh+IW3RMJcxaR1
-X-Gm-Gg: AR+sD11obPvd7/fjvrvSwIRPDPpiI66wVzyS57kSaIgQQeKYY/wds1ySKs0z0GsIiAa
-	gmOhrZtopKDkhwT668A7KqFp8odWQpBne0i8kHhwC8MiH9tbSS0/ofw2xbcGoaPqcQmduKEJv7a
-	t12mL84udzAAgTNab/vuw49GGrfdxAVk/35XceglmmkOiZBl+2PKMWpWu0nzo+lV621KMI1m1a9
-	manTCIcFMZDCNsqVPkGAbx5c2JIwIcIxJi/i0/G+9Q2J5q0ebe6m8kddUdQSpp3oaHqyqNwK8g8
-	yhDghGPMopiJlv1a5PXiPpXSdWjt9SOoNO+n6WacBjWt08nHmPmPdEyQpHgluEWWSI7XQ4pbcEZ
-	QONHwZNhsIplZfaPr4kCTknlUZtMYEEmNBGt1WCRZOgrmQn3RdWhcFps0386WYpNJEN9JJS4s50
-	I3YAksKpLsCM/Tuq1RpVa7YdQs7/XyH8K/BwmB6JiaJl+HGAFbuDtmCWcvmBNudNw+8YOPtf0OP
-	5JfiF/QEk/K
-X-Received: by 2002:a17:90b:55c8:b0:387:d5bd:6231 with SMTP id 98e67ed59e1d1-3928479c13bmr8512895a91.20.1786379173993;
-        Mon, 10 Aug 2026 09:26:13 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392d5195a4dsm206563a91.4.2026.08.10.09.26.13
+        bh=sND6wzkbiGyKvdiG9Z9kRm+epdaTPvk4GyaXe9tvODk=;
+        b=s7qANOrmVO8ZXdy/vemmyHHC88ojIIlBQE+kPjmZLZ0i3vF2cSEjJTfCeBmTaaUfZK
+         /UnAeA3Sfae3tJkiXgfwwjl2HQy1QaGw1GMALumUtWLWkPsAta/xesnG+g2MmfrU2CQE
+         5EqbyW5gjB8GVVJ6SU0K7R4u+fdz5zOUm+/iwVAd61IOTinRz6XWI97UjdltVu27PgJj
+         WdTwUmV8ow1YsliZ8bI2yxcViZvupwAet2VFEKzgqe+pcHYxEv88/SfTzejaDxYmsIOO
+         /xwXcpTDh7+1d3hQJpmY4qIfmPT4o+m06M+6MQKcmoaut6iS8roPWhiFCUl2rQZHDxCW
+         liwQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqv4ILLXCpHUZjQZ3OegDd9XAzW1MyXiD7vZH0ZnVc7A6nZp4wlVUnxaoQ6ZgZgy3XdLvZlgfE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTmClgJ7uS5An+bZzpn06F0LhsH+m61L6+E4PdILzWjwXN7qi+
+	BxGi7Lydy4kijxGdO9mwxhg1FpqM5UFDVLbliDBrBpfV4z397dAeluoZIySpUmLWpsk=
+X-Gm-Gg: AR+sD125IoC3ts1rcUGYxmYzi7HRdUgzbdJMHuxlaPZ4YSsc8blU8tNVPRnlbxF3bKh
+	uMYUcPweOtCM5zYfKvq2qYN8HAAV+/IIYR+lY6jRhbp5XejNnHOPXCAU0ujw3gWV6zw7244gYVY
+	aYl8+br01wZNE/YKFKph6rMW7HVrqtUtP7xR5unoYKeOXkFRLiKP/x4ddYk98RKd1M/nzBBNe8r
+	Ds3qbkyHFEducNTtcg/TBy2MsHi7uf8fc3UwLDGJ0M32T5iUdphukf2W0bDYrPQX3gy0RkVD1Gq
+	k+jSk5sASvt5E6w9nc12IoMYaMjXD6c9sEz8B6WTE0AbOUOTiCV+HSoVqn5eRisec77vV5iuIzD
+	+7990EdBEKDyH2bKwgFusOU4c1Aqqluj4lr5wTscRWhNYhpYSm8vlZPUruLYcQprpp9d2At9EEW
+	C/IGThj7C752HFxqpGNuobdzjKrDbNUAhoTPxDS36qL1prQdtgRjftaZXUFp3rLrb7dg==
+X-Received: by 2002:a05:6102:5689:b0:738:8d0f:72a3 with SMTP id ada2fe7eead31-760edc7e42fmr5605791137.4.1786380197362;
+        Mon, 10 Aug 2026 09:43:17 -0700 (PDT)
+Received: from localhost ([190.113.101.40])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-76400dfe036sm4853650137.8.2026.08.10.09.43.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 09:26:13 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 10 Aug 2026 09:26:12 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Cong Nguyen <congnt264@gmail.com>
-Cc: Vadim Pasternak <vadimp@mellanox.com>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] hwmon: (max6621) fix negative temperature offset
- and crit readings
-Message-ID: <fd46ef36-9e91-4e26-bd65-a75c7e4036f6@roeck-us.net>
-References: <9d3a4f1895a47794bb359a2a32fb1ccd6a15812c.1786334038.git.congnt264@gmail.com>
- <ad0baddbd6163cf73545c8e9273258136718585c.1786334038.git.congnt264@gmail.com>
+        Mon, 10 Aug 2026 09:43:16 -0700 (PDT)
+Sender: Javier Tia <j.tia@peridio.com>
+From: Javier Tia <javier@peridio.com>
+X-Google-Original-From: Javier Tia <floss@jetm.me>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: "Darrick J . Wong" <djwong@kernel.org>,
+	Dave Chinner <dchinner@redhat.com>,
+	Allison Henderson <allison.henderson@oracle.com>,
+	Andrey Albershteyn <aalbersh@kernel.org>,
+	linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/6] xfs: initialise error in xfs_defer_finish_one()
+Date: Mon, 10 Aug 2026 10:43:14 -0600
+Message-ID: <20260810164312.960721-9-floss@jetm.me>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260810164312.960721-8-floss@jetm.me>
+References: <20260808234016.246054-7-floss@jetm.me>
+ <20260810164312.960721-8-floss@jetm.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ad0baddbd6163cf73545c8e9273258136718585c.1786334038.git.congnt264@gmail.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1468; i=floss@jetm.me; h=from:subject; bh=O7lAK9Itxu3BtFZebuGm+soxk8EufQFIVRqNLSr9Y0g=; b=owEB7QES/pANAwAKAbXuwwuoZ3cfAcsmYgBqef+hdkIzN6Vm6qJyjzD8yEylWzJ49lYuL+7hF mhBN6Hvjd+JAbMEAAEKAB0WIQSbE7ILzw7eI0VKk8m17sMLqGd3HwUCann/oQAKCRC17sMLqGd3 H+1yDACf56wZHP4m1Y5Uv+vxhSX72AcZO0A9l+l/pCUvABZ7e8DJfMfAjVVgcP6MKXNRxUvq/eG wnOcudsw7GhWD3fa88++G0srE3xuALcSYhbEVtSa/ZrONxsuKAV0+UVZFPwBVidfEWxWMaVfI8N zsAYzC41KkH7Kl0ssLLbhdKUNAyUHfAvyUU2iTiB3PFhpsntX6uQ2KQuj7+JngtMXBMhhEneLsv eQ2uy6J8cvXs2rmQm7AxqY8xbe+EOzKSXHpMBTC861NSxQugYgGHWKa07vAkaMdw3nhqsLHyvJJ OXPsbfdK6G12aSHqvJL9em7/LJA7z/eDYiEIyheG+j/0z/0MjbemMRRpf/A4/8sy0JJffFx24Ma opQXba+zcp+e9mXciUzc6iDhNGu3UynCtuO0wzIcaKhdT7xJ8/SpGQNbo9uH7X8IqM7cRxfDJxd m/OOYLfBJ7/ix/fTPTqKx2g6ztofRFrXs2OdvQQ32VGoPz8J6oDACVD5KxmPIC0CiGzP4=
+X-Developer-Key: i=floss@jetm.me; a=openpgp; fpr=9B13B20BCF0EDE23454A93C9B5EEC30BA867771F
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 10, 2026 at 11:28:39AM +0700, Cong Nguyen wrote:
-> max6621_read() reads the CONFIG2 offset and the critical alert threshold
-> registers into a u32 and scales them without sign extension:
-> 
-> 	/* offset */ *val = (regval >> MAX6621_REG_TEMP_SHIFT) * 1000L;
-> 	/* crit   */ *val = regval * 1000L;
-> 
-> Both attributes are writable and their write paths clamp to a negative
-> minimum and encode negative values, so a value written as negative is read
-> back as a large positive number. For example, writing a -10 degrees C
-> offset stores max6621_temp_mc2reg(-10000) = (-10 << 6) = 0xfd80; the read
-> then computes 0xfd80 >> 6 = 1014 -> 1014000 instead of -10000.
-> 
-> Cast the register value to s16 before scaling so the read preserves the
-> sign the write path encodes. The temperature input path already uses an s8
-> intermediate and is left unchanged.
-> 
-> Fixes: 92b64580f14b ("hwmon: (max6621) Add support for Maxim MAX6621 temperature sensor")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4
-> Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+xfs_defer_finish_one() declares error without an initialiser and only
+assigns it inside the loop over dfp->dfp_work.  When that list is empty
+the loop body never runs, control falls through to the "Done with the
+dfp, free it" path, and the function returns an indeterminate value.
 
-Applied.
+An item-less pending item reaches this through xfs_defer_add_barrier(),
+which xfs_reap_ag_blocks() uses on any CONFIG_XFS_ONLINE_REPAIR kernel.
+xfs_defer_finish_noroll() treats any non-EAGAIN return as fatal, so a
+non-zero stack value turns a successful barrier into a
+SHUTDOWN_CORRUPT_INCORE in the middle of a repair.  Zero is the correct
+result: reaching the free path means the item loop drained without a
+non-zero error.
 
-Thanks,
-Guenter
+Fixes: 3f3cec031099 ("xfs: force small EFIs for reaping btree extents")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Javier Tia <floss@jetm.me>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+---
+ fs/xfs/libxfs/xfs_defer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/xfs/libxfs/xfs_defer.c b/fs/xfs/libxfs/xfs_defer.c
+index 89501e8bd2f8..843c33304441 100644
+--- a/fs/xfs/libxfs/xfs_defer.c
++++ b/fs/xfs/libxfs/xfs_defer.c
+@@ -583,7 +583,7 @@ xfs_defer_finish_one(
+ 	const struct xfs_defer_op_type	*ops = dfp->dfp_ops;
+ 	struct xfs_btree_cur		*state = NULL;
+ 	struct list_head		*li, *n;
+-	int				error;
++	int				error = 0;
+ 
+ 	trace_xfs_defer_pending_finish(tp->t_mountp, dfp);
+ 
+-- 
+Javier Tia
+
