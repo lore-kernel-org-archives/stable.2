@@ -1,245 +1,618 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011047.outbound.protection.outlook.com [40.107.130.47])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C8D3D9DB0;
-	Mon, 10 Aug 2026 12:59:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786366776; cv=fail; b=kOj7q3kunfFk9EcsL6Gb2T1Xo2w+RmgyaZ+1v3LoDDsfO0Fc09gsPmii2es5vM1q4aIZe8AskfcNkPw6Tov/1BMFEh/i6JA/r3zAy/cA1zU5qI6tqJL9K1Z7YvkkqoUTD+5FOrHGJaOSdS50z7SXlf/OdDtVAtjzZaT55vbbHFk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786366776; c=relaxed/simple;
-	bh=ZXT1PWgSc4cXUogtsap4Ne3XpqQKDpEj0zBd+l/2LZI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=BM9ujjz9mLcz/IdxUZ45fV9G1hvmLbC4HRzXooOfODP1YO0CJKECBCmpz89EcQvYwfAVkKjfzl+Qted/xZDKnwzwfNKO0+fwcSjzX2Z6IcZq+ZqUoPDNVqPIUaPhuTbUDalc+9bjyqVNm5Pv064OQ9T1rmBI6zjB+GBvGp7vP2o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ohB41OwK; arc=fail smtp.client-ip=40.107.130.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ohB41OwK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v5PpnjVlh8NFgOXR+vVhLkkPnjhzDRdXiF1p7G92+xl7Sk/Fm2eya/zMjPdaVf/OU2XG9TRr98kp8q8ynuZxt6n2gZcEd9wju+rADyWXoqyY2uxNndphOTINuxGEAjdRyBEv3pjJ5ECWM2i6pE2U1t4AjNjda8sUusApIBuMsjfqMJNXksvILUldhoyIXstnRfVvLsG/HSLkac0Pm3Q1ahz83ogfhB7O3LhfYY1g1JV2Ml90BBjHy20QTL5Uv1CsrJEy/1NKL1wostX3FnIeKIZ1F5uN3j4FQVEb+4HY04x+Ppkwszrm6DFHN2QjVnsX3J24E4ByifsjWnlfe5vNFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rZTjlriJNovbGFgS9HkWbfhtaAG34L0csh/r7kxJL48=;
- b=HZRdR/gNXL6lJeSP5L93F0NQx6m8I4Lme9BXSw+axwZh+AOtBcUh18gK7QZoTOSQL7qar/8V1WKmZJKNGbb0yG/olEaycQL6lwmztGwfhFRrD2/ZWbWqyjA9SOcfn8NK2bMkOFmc+ZU1ICov+Tsi0QXoD5MNQJQfKyF8N/QfoYlGo/U94KZErSEqinsaNT8S85eic/mOmcu2pvU8/DpJWu7gJ8/xEJyKhbzGVDRJGll82OHLNclvi6/nL0vtBb9mth4aY//Ds34bqJvId5Rc505RqkDET2dBw2ubrhUQ5WYVS+1O4MaqWT34Gt56Ud+mO5f9D3Z7LsiJLSdLTamlxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rZTjlriJNovbGFgS9HkWbfhtaAG34L0csh/r7kxJL48=;
- b=ohB41OwK9bvBJNLRJoFm/cHwP5FdIPO9QtrPE+WmKSNeQlg3tCMUSK1BAwN5+/HE+RR9JTyrnr7oz5z+N6NMyD/J92a7TcKK455LKiXWjQpTj4493U5b6amLXr1zwtruwN7XzEAV91D6SPutS7ykDmPBIiD0kpf957KJl00brwxGYBZ2ZiMOVd/BNet2Pkdh/m6GeBpqzuQp8mSm77/0vhbBkRLi5oLHhBtKZ2d/Z+uYfF4Mh2iw1LvwY8QFdiYpKQ3Ou38K+NXHV2CIDUH3nnCRPSdUqqFbHqZSlO8DU4aJnglRWb54RFBT8/Ax378XDBuahTgghEP5J9QWg6cSvg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AM9PR04MB8841.eurprd04.prod.outlook.com (2603:10a6:20b:408::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 12:59:31 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 12:59:31 +0000
-Date: Mon, 10 Aug 2026 21:03:24 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Dong Aisheng <aisheng.dong@nxp.com>,
-	Shawn Guo <shawnguo@kernel.org>, linux-clk@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] clk: imx: scu: fix autosuspend cleanup on probe failure
-Message-ID: <annMHHQGlxTgzRkp@shlinux89>
-References: <20260808082933.2692878-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260808082933.2692878-1-lgs201920130244@gmail.com>
-X-ClientProxiedBy: SI2PR01CA0008.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::10) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0484E2FFF90;
+	Mon, 10 Aug 2026 13:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786366921; cv=none; b=Vf1MPcnts/BXIvokypvwDGAAO42TqOvotYcTbPmagcToeC2lytRDPI3ZpwWQulMhiU58DVZR/ummUNy7bofQi+vIxGo8g4NKgzyoriD1j88sCQF4/aQGo+pX6OEzyTrRuA9xThycaZU28zvb7VdbO5BF+TH7CBJezzupoX35gSU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786366921; c=relaxed/simple;
+	bh=97ylk+FHPw7tzzEr4qTTHP3yihEuOv3hkmYbAgv4Mk8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M3wE8BSw6YllMdOt8bDQTSRfAuAs4xRMSzuRgG4aexTKKPtekusbbLztZV3ewx3TgDVcyHn3ZRlTUO1PCGtRlH0R0Lpt39LvUwgIUwz2MsacRWw2ZkVFB7x6X7HkhWWTgaju12ApjZXc4cY1JbPDup7okPKCsq9hbUhQ/V7SBxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3701F1F000E9;
+	Mon, 10 Aug 2026 13:01:55 +0000 (UTC)
+Message-ID: <5f3babe3-e96a-4e5f-9073-004379bddd6d@tuxon.dev>
+Date: Mon, 10 Aug 2026 16:01:53 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM9PR04MB8841:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8624262-e484-405c-ec2f-08def6df3843
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|7416014|23010399003|22082099003|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	MUQI7IjHJQrfegaPT/UxXHHcaA28JJjmlHzG/LSzoS4tGeg0GorW97vzP6DKQI2aKIIAySD8n/lER1299MCIxyyDGq42hJXHTCypW/nboXW4E0h+I3InxDS0eSe3nr7q0HzzhkE9oSuZoAGSme9wwPXSiOZhqc5mVtmJPXPUlBMXpXi3PD5lZUgkWrGTvp4Ol2CYhIUuPkoMigLlv+smntZ0itO8l6u4kwuWSZsixG1jBCf3dwLPBWYov2lmaXYCMwb2JkztgZTrIljn6c9cqylPDrBOdLjqteWw93owVp22GPyd9+Ro9O+FYU1Pxqe9YJAQIv0JBIVmEoeksc95TdqsU2lWigTdpsfPcf3OpKk5oYsm/9YCvf+WJgoiF3Sh2btpZqBrM5FV3piaAfGCb/RxjsM8jCIETyoVD7WPEsULkPhY6cREbMpGDrut6Yy4NP+0CW14WD6AmzOSM15YIruCCASkc/xbto/Qckvtu9YS/bm0AKNFOgplZ16W29ovPJRnlGjX5cw9zu+HM4TqtD7Ap0GHdpEbzW9vqvV2yGHqjXj8WUq8yVEaCWTyrcppX7swxdUk0ovo/o+UmTQRPynySIfX0zaTfLl6HPS2FyW9VeA5QZ9/a1+ox7PNHPVzO3ekgCfLk5II6P7Ls7upaoaLVCGNgHmO7BRgr2O8AsA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(7416014)(23010399003)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QmFySEtueS9PYUsxUW5tUHc5eVFiWXI4azI1c0VzQ2tDMU55WE1PNHZRYTNQ?=
- =?utf-8?B?c3NmRzd2S01XWFRZai9wbGNTclNCczdwRG9HMUdpNkNlQWJjb3o5bWFuN2No?=
- =?utf-8?B?TGFZRDM1b0tGL1p6N3pVbktHbXRiZmkwRVNhajVlSUhFdkIwL3VUZ1Y2ZU8z?=
- =?utf-8?B?dXRMZ2JNNXVCY0h0MkZJU1Z4VEdrQ0VQUDBtUHlrcXoySDRTdHlIL01hTGdu?=
- =?utf-8?B?VzcyYUhSMWhmZHV2UG1qcGNwZFRtL3UxaHM1dXlHSUxwVjZZUTR5SlZNZkZq?=
- =?utf-8?B?ZHFudWtiVC9Pb1pEOG10ZWZCM0w0UW84ZVdtMHU2eEhJaElHZmMrY1FoV09i?=
- =?utf-8?B?NHpwZXU5Q0NCRDI1Nnd4MGRaYlRJQktIY05mMzJmTkc1M2U5N2JweDFnTzd6?=
- =?utf-8?B?L1NGT01VMnp0SitUS3pMdjNRRmw0RmM4MDd2L2dkRXVrbmhVb0VwbFA1OGpk?=
- =?utf-8?B?RHhHaDFaamRnOUN5Vm41ejFpVkxNS2d6Rlk5VGt5dXVHOFk5YkN4dkVKYWYr?=
- =?utf-8?B?V2g0V29mY0dlSG15VmVsTUc0YjA5dXVPS0tnQWRObFZpTTF1bGhQblM3Tyt5?=
- =?utf-8?B?NnpBTmVMdmRITkVpaHgwOU9aaDJDdHNUZitCcHc3UFZ0M1lhTU8xWktqV0Vr?=
- =?utf-8?B?L2FybnNwc0dVVTNYamxYQUM2ZTRRMjl2VUdSWmtaTHozWVg3dmoxd1lnZ21y?=
- =?utf-8?B?RkdDcmhvcy9zek1GRVBSTkp1dE1KYkUzUTdxT0RqRUw1eEtNY2lhQmU1MUtk?=
- =?utf-8?B?cGlCNWdsdFh5TGxFbXhPYS9GSTVVa2c5WDNZVml4Yk51eWdHL29KT1M4MGlk?=
- =?utf-8?B?RVJTVFZtQ3p6d1FEL28rYjBXR1BObkdLTDYzZUkzeGhYOER4MEFiMi9aSHgw?=
- =?utf-8?B?MTJqV0J3MFE0SkIvOGFVRklXTXdzenl1c2pvRFdxeTBNQk1mRDMzakVSbUlI?=
- =?utf-8?B?bmhxUDNXbk5jQUdLREdxZG9PYlR1K3BiOWpsa2dPSWJCVm1PZE5CQVZ1TjBY?=
- =?utf-8?B?ZWVQNDFWS3dQcHoyTzRZT21CNFQ1Z2tueHRiSk9hSXphQ2p1WWE5WWZoL1gw?=
- =?utf-8?B?TVY3dDQ3YTRRekxzaUZobm40dTJONUsyMlpwMGZnVklvTEFxZHZGSmd5S0F2?=
- =?utf-8?B?SHdHNzE4K0dTTHprMHVibWdWUEc2djd3bCsxNklTYnZkU1k4cTZDUkM3Vk9Y?=
- =?utf-8?B?NWFHeFFHNGpMdkdmZ2g5OHVQeG9aeXJtTGdLVnhBNTJ3UklDbXdXY0ZjU2My?=
- =?utf-8?B?Y21Dejlrei9pRitNZ0ZYdDB3LzNnNyswRTlVOFBXbDVYV3VlR2h3bkRRK0pt?=
- =?utf-8?B?bkRtcHNMZnhlT3l1K3ZNZnRZUngxZ0haaXFDRjlrR3V5ek1UQjAwZ2pRREsx?=
- =?utf-8?B?S0paU0l0SEwrb2FRZFBvUWVWVXBjWnViMHlMcFJ1d0luZFF2VkVNM1Z0NFZM?=
- =?utf-8?B?a3JTekExMDROQTY2cGp3N0J2eEppK2RtU0U1QVZmem5ZcFc5ZzhCZitRWHlT?=
- =?utf-8?B?RFFuYVZhRXdPYUs5QUNQWGljRStBak1BaTQxSFhJUElVT1kxR2ZpOHp0Rkcw?=
- =?utf-8?B?S0czUDBFNTk5U2tFWmZ5TVJRdU81bWlETU8vL2NiUUVsRXRsbElmY2Vra2Mx?=
- =?utf-8?B?K1FrWldKWG5Id2Jab3pLb205MVBYeFZlYnVtcjdjb0E2d0lNNWl1TWVnM2NW?=
- =?utf-8?B?aUJNekhrMGhEbC8yc2NWcG1Ec0lzQ3JUby91dkVpc3BkbC9LVWp1RFV3Qm11?=
- =?utf-8?B?bmwySE01MldxT3loWWdkbDhlYkVYTzFmUzV3RjJUY2M4ZzB1bnZKMWFVL3k3?=
- =?utf-8?B?K1hJOWd5YXlwODcxOVg2NlZ2eFBLdi9wQjVTQ2FuWWZjRzRVUmM0b1JkYUdy?=
- =?utf-8?B?UkFoSU8xZHArK3ZaMmRrcnFTS0VneDllK1V6TTlXeWttbUFKL1FCRVl6bUF0?=
- =?utf-8?B?L0g1MVpjMGVCUFUxK2NSVDFtVjYzTVkwQ1NIUnB3V0M0S3U0dkJzcUY1OVdT?=
- =?utf-8?B?RGMvUEI1VW1BVmxuVnpSbEV6R1BheTN1c0MvV0FRMW1HN0RUMHVBR2JmeDgx?=
- =?utf-8?B?Z3BZcjB3OHJMZk5taWl2YWNXeUZCcWVqT1llbzBtNk5YL3ZmVGw5ZFZ0ME9Q?=
- =?utf-8?B?MjFKaTNHRUlyUkpKc2pLNmVpdlB5aE4zdFdTRXNqNkhISnlpeGo5VHlmQUZr?=
- =?utf-8?B?V2x5SWwvby8rK3RWaTQ0VnBqRXE1eW5HTDg3di9QbjJNNUVZUnREdHhWUmJz?=
- =?utf-8?B?dDRXQWJJR2hnZ3ZFazJ2cTlnS2s3bXNtR2orYm9Lc3QvWERBNTZHckh2MlZt?=
- =?utf-8?B?enUwaDd2cEN4b1NQZ2dhQjZUbjZIQkRuNkN4blRsUm51RXJYZ04xeldsbG53?=
- =?utf-8?Q?bn9RVcgOKRA/HsXLgFlqEluEKhJetgLnz7FSR?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8624262-e484-405c-ec2f-08def6df3843
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 12:59:31.8342
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 70gbiBnPX5XlbNd8V9c3elEbfW8rRGrfMTI6Q1+HRYHgv5Rpqz5cSghbr2NoyxUEwQ3qOWvxogXTE0shE2haigxqGu80lMx3ygTr49QWRiMLxODe8wNyWHEk9LPXDJQV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8841
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] phy: renesas: rcar-gen3-usb2: Avoid long delay in
+ atomic context
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>,
+ yoshihiro.shimoda.uh@renesas.com, vkoul@kernel.org,
+ neil.armstrong@linaro.org, geert+renesas@glider.be, magnus.damm@gmail.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com
+Cc: linux-renesas-soc@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org,
+ Pavel Machek <pavel@nabladev.com>, Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+References: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On Sat, Aug 08, 2026 at 04:29:33PM +0800, Guangshuo Li wrote:
->imx_clk_scu_probe() calls pm_runtime_use_autosuspend() for non-CPU
->clocks, but its probe failure paths do not call the matching
->pm_runtime_dont_use_autosuspend() before disabling runtime PM.
->
->If the autosuspend delay is set to a negative value while autosuspend
->is enabled, the runtime PM core increments usage_count to prevent
->runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
->during cleanup, this reference is not dropped and usage_count remains
->unbalanced.
->
->Add the missing pm_runtime_dont_use_autosuspend() calls to the probe
->failure paths before disabling runtime PM.
->
->This issue was found by manual code inspection.
->
->Fixes: 78edeb080330 ("clk: imx: scu: add runtime pm support")
->Cc: stable@vger.kernel.org
->Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
->---
-> drivers/clk/imx/clk-scu.c | 4 ++++
-> 1 file changed, 4 insertions(+)
->
->diff --git a/drivers/clk/imx/clk-scu.c b/drivers/clk/imx/clk-scu.c
->index 9b33df9967ec..6d29fcc2306d 100644
->--- a/drivers/clk/imx/clk-scu.c
->+++ b/drivers/clk/imx/clk-scu.c
->@@ -542,6 +542,7 @@ static int imx_clk_scu_probe(struct platform_device *pdev)
-> 		ret = pm_runtime_resume_and_get(dev);
-> 		if (ret) {
-> 			pm_genpd_remove_device(dev);
->+			pm_runtime_dont_use_autosuspend(dev);
-> 			pm_runtime_disable(dev);
-> 			return ret;
-> 		}
->@@ -550,6 +551,9 @@ static int imx_clk_scu_probe(struct platform_device *pdev)
-> 	hw = __imx_clk_scu(dev, clk->name, clk->parents, clk->num_parents,
-> 			   clk->rsrc, clk->clk_type);
-> 	if (IS_ERR(hw)) {
->+		if (!(clk->rsrc == IMX_SC_R_A35 || clk->rsrc == IMX_SC_R_A53 ||
->+		      clk->rsrc == IMX_SC_R_A72))
->+			pm_runtime_dont_use_autosuspend(dev);
-> 		pm_runtime_disable(dev);
-> 		return PTR_ERR(hw);
+Gentle ping.
 
-This is not complete fix. I just write one, see below:
+Thank you,
+Claudiu
 
-imx_clk_scu_probe() sets up runtime PM for non-CPU clocks by calling
-pm_runtime_use_autosuspend(), pm_runtime_enable(), and
-pm_runtime_resume_and_get(). The probe failure paths do not properly
-undo these operations:
+On 7/16/26 21:32, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> 
+> The OTG PHY initialization sequence needs to wait for 20 ms at a specific
+> step, as described in commit 72c0339c115b ("phy: renesas:
+> rcar-gen3-usb2: follow the hardware manual procedure").
+> 
+> Commit 55a387ebb921 ("phy: renesas: rcar-gen3-usb2: Lock around hardware
+> registers and driver data") tried to address various problems in the
+> rcar-gen3-usb2 driver and converted the mutex protecting HW register
+> accesses to a spin lock, leaving, however, a long delay in the critical
+> section protected by the spin lock. This may become a problem,
+> especially on RT kernels.
+> 
+> To address this, release the spin lock before sleeping for 20 ms as
+> required by the HW manual and reacquire it afterwards. To avoid other
+> threads entering the critical section and configuring the HW while the
+> software is waiting for the OTG initialization to complete, introduce the
+> otg_initializing variable alongside the otg_init_done wait queue. Any
+> other thread trying to configure the HW while the OTG PHY initialization
+> is in progress waits for the wait queue instead of immediately returning
+> errors to PHY users. The IRQs were also disabled while waiting for the OTG
+> PHY initialization to complete, as the interrupt handler may also apply HW
+> settings.
+> 
+> The OTG can only be initialized once. It is initialized by the first PHY
+> that calls struct phy_ops::rcar_gen3_phy_usb2_init().
+> 
+> To avoid failures when multiple PHYs call struct
+> phy_ops::rcar_gen3_phy_usb2_init() simultaneously, and the PHY responsible
+> for initializing the OTG either fails or deinit quiqly and another PHY
+> takes over the PHY init role), the code waiting for the
+> channel->otg_init_done wait queue retries up to NUM_OF_PHYS times.
+> 
+> Fixes: 55a387ebb921 ("phy: renesas: rcar-gen3-usb2: Lock around hardware registers and driver data")
+> Cc: stable@vger.kernel.org
+> Reported-by: Pavel Machek <pavel@nabladev.com>
+> Closes: https://lore.kernel.org/all/afhkX2Ys2BG1gnqy@duo.ucw.cz
+> Reported-by: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+> Closes: https://lore.kernel.org/all/afhkX2Ys2BG1gnqy@duo.ucw.cz
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> ---
+> 
+> Changes in v5:
+> - replaced completion with wait_queue
+> - on the threads waiting for OTG initialization, checked again the
+>    channel->otg_initializing and return with -EBUSY if it's true; atherwise
+>    reinitialize the ret variable and continue
+> - used proper register to set obint_enable_bits in
+>    rcar_gen3_phy_usb2_irqs_mask_all()
+> 
+> Changes in v4:
+> - increase the timeout to 120 ms and added a macro for it USB2_OTG_INIT_TIMEOUT
+> - add retry mechanism when waiting for otg_init_done completion
+> - read the status registers in rcar_gen3_phy_usb2_irq() before returning,
+>    in case an unexpected IRQ is received while waiting for OTG init
+> - mask channel->phy_data->obint_enable_bits in rcar_gen3_phy_usb2_irqs_mask_all()
+> - updated the patch description
+> 
+> Changes in v3:
+> - initialize ret value in role_store()
+> - jump to exit label in role_store() to have the same exit path
+> - dropped scoped_guard() in rcar_gen3_phy_usb2_irq() to avoid mixing
+>    goto statements with scoped_guard()
+> - take into account USB2_INT_ENABLE_UCOM_INTEN when masking/unmasking IRQs
+> - increase the completion timeout to 40ms
+> - in rcar_gen3_phy_usb2_power_on() disable regulator on failure path
+> 
+> Changes in v2:
+> - dropped the rcar_gen3_phy_wait_otg_init() and used inline the code; with it
+>    the comment that was previously in rcar_gen3_phy_wait_otg_init() was added
+>    in struct rcar_gen3_chan for above the org_initializing variable
+> - dropped READ_ONCE()/WRITE_ONCE() arround struct rcar_gen3_chan::otg_initializing
+> - checked for struct rcar_gen3_chan::otg_initializing before checking for
+>    rcar_gen3_is_any_otg_rphy_initialized() in all code places
+> - added rcar_gen3_phy_usb2_irqs_mask_all() and rcar_gen3_phy_usb2_irqs_unmask()
+>    to mask/unmask only the interrupts at the controller level since the line is
+>    shared
+> - along with it dropped disable_irq_nosync()/enable_irq() from v1 along with
+>    struct rcar_gen3_chan::irq
+> - increased the completion timeout to 30 ms
+> 
+> 
+>   drivers/phy/renesas/phy-rcar-gen3-usb2.c | 310 +++++++++++++++++++----
+>   1 file changed, 265 insertions(+), 45 deletions(-)
+> 
+> diff --git a/drivers/phy/renesas/phy-rcar-gen3-usb2.c b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
+> index 9a45d840efeb..ceaac691ec89 100644
+> --- a/drivers/phy/renesas/phy-rcar-gen3-usb2.c
+> +++ b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
+> @@ -27,6 +27,7 @@
+>   #include <linux/reset.h>
+>   #include <linux/string.h>
+>   #include <linux/usb/of.h>
+> +#include <linux/wait.h>
+>   #include <linux/workqueue.h>
+>   
+>   /******* USB2.0 Host registers (original offset is +0x200) *******/
+> @@ -106,6 +107,13 @@
+>   /*  RZ/G2L specific */
+>   #define USB2_LINECTRL1_USB2_IDMON	BIT(0)
+>   
+> +/*
+> + * The OTG initialization is expected to finish in 20ms. Choose a large enough
+> + * timeout to avoid waiters exit prematurely the waiting section under heavy
+> + * CPU load.
+> + */
+> +#define USB2_OTG_INIT_TIMEOUT		msecs_to_jiffies(120)
+> +
+>   #define NUM_OF_PHYS			4
+>   enum rcar_gen3_phy_index {
+>   	PHY_INDEX_BOTH_HC,
+> @@ -138,12 +146,20 @@ struct rcar_gen3_chan {
+>   	struct rcar_gen3_phy rphys[NUM_OF_PHYS];
+>   	struct regulator *vbus;
+>   	struct work_struct work;
+> +	wait_queue_head_t otg_init_done;
+>   	spinlock_t lock;	/* protects access to hardware and driver data structure. */
+>   	enum usb_dr_mode dr_mode;
+>   	bool extcon_host;
+>   	bool is_otg_channel;
+>   	bool uses_otg_pins;
+>   	bool otg_internal_reg;
+> +	/*
+> +	 * The OTG can be initialized only once and needs to release the spinlock
+> +	 * and wait for 20 ms due to hardware constraints. If a thread executes
+> +	 * PHY configuration code while the OTG PHY is waiting for the 20 ms, the
+> +	 * thread will have to wait for the OTG PHY initialization to complete.
+> +	 */
+> +	bool otg_initializing;
+>   };
+>   
+>   struct rcar_gen3_phy_drv_data {
+> @@ -392,26 +408,58 @@ static ssize_t role_store(struct device *dev, struct device_attribute *attr,
+>   	struct rcar_gen3_chan *ch = dev_get_drvdata(dev);
+>   	bool is_b_device;
+>   	enum phy_mode cur_mode, new_mode;
+> +	int retries = NUM_OF_PHYS;
+> +	unsigned long flags;
+> +	int ret = -EIO;
+>   
+> -	guard(spinlock_irqsave)(&ch->lock);
+> +	spin_lock_irqsave(&ch->lock, flags);
+>   
+> -	if (!ch->is_otg_channel || !rcar_gen3_is_any_otg_rphy_initialized(ch))
+> -		return -EIO;
+> +	if (!ch->is_otg_channel)
+> +		goto unlock;
+> +
+> +	while (retries-- && ch->otg_initializing) {
+> +		spin_unlock_irqrestore(&ch->lock, flags);
+> +
+> +		ret = wait_event_timeout(ch->otg_init_done, !ch->otg_initializing,
+> +					 USB2_OTG_INIT_TIMEOUT);
+> +		ret = ret ? 0 : -ETIMEDOUT;
+> +		if (ret && !retries)
+> +			goto exit;
+> +
+> +		spin_lock_irqsave(&ch->lock, flags);
+> +	}
+> +
+> +	/* If another thread started a new initialization just return -EBUSY. */
+> +	if (ch->otg_initializing) {
+> +		ret = -EBUSY;
+> +		goto unlock;
+> +	} else {
+> +		ret = 0;
+> +	}
+> +
+> +	if (!rcar_gen3_is_any_otg_rphy_initialized(ch)) {
+> +		ret = -EIO;
+> +		goto unlock;
+> +	}
+>   
+> -	if (sysfs_streq(buf, "host"))
+> +	if (sysfs_streq(buf, "host")) {
+>   		new_mode = PHY_MODE_USB_HOST;
+> -	else if (sysfs_streq(buf, "peripheral"))
+> +	} else if (sysfs_streq(buf, "peripheral")) {
+>   		new_mode = PHY_MODE_USB_DEVICE;
+> -	else
+> -		return -EINVAL;
+> +	} else {
+> +		ret = -EINVAL;
+> +		goto unlock;
+> +	}
+>   
+>   	/* is_b_device: true is B-Device. false is A-Device. */
+>   	is_b_device = rcar_gen3_check_id(ch);
+>   	cur_mode = rcar_gen3_get_phy_mode(ch);
+>   
+>   	/* If current and new mode is the same, this returns the error */
+> -	if (cur_mode == new_mode)
+> -		return -EINVAL;
+> +	if (cur_mode == new_mode) {
+> +		ret = -EINVAL;
+> +		goto unlock;
+> +	}
+>   
+>   	if (new_mode == PHY_MODE_USB_HOST) { /* And is_host must be false */
+>   		if (!is_b_device)	/* A-Peripheral */
+> @@ -425,7 +473,10 @@ static ssize_t role_store(struct device *dev, struct device_attribute *attr,
+>   			rcar_gen3_init_for_peri(ch);
+>   	}
+>   
+> -	return count;
+> +unlock:
+> +	spin_unlock_irqrestore(&ch->lock, flags);
+> +exit:
+> +	return ret ?: count;
+>   }
+>   
+>   static ssize_t role_show(struct device *dev, struct device_attribute *attr,
+> @@ -441,14 +492,11 @@ static ssize_t role_show(struct device *dev, struct device_attribute *attr,
+>   }
+>   static DEVICE_ATTR_RW(role);
+>   
+> -static void rcar_gen3_init_otg(struct rcar_gen3_chan *ch)
+> +static void rcar_gen3_init_otg_phase0(struct rcar_gen3_chan *ch)
+>   {
+>   	void __iomem *usb2_base = ch->base;
+>   	u32 val;
+>   
+> -	if (!ch->is_otg_channel || rcar_gen3_is_any_otg_rphy_initialized(ch))
+> -		return;
+> -
+>   	/* Should not use functions of read-modify-write a register */
+>   	val = readl(usb2_base + USB2_LINECTRL1);
+>   	val = (val & ~USB2_LINECTRL1_DP_RPD) | USB2_LINECTRL1_DPRPD_EN |
+> @@ -471,7 +519,11 @@ static void rcar_gen3_init_otg(struct rcar_gen3_chan *ch)
+>   			writel(val | USB2_ADPCTRL_IDPULLUP, usb2_base + USB2_ADPCTRL);
+>   		}
+>   	}
+> -	mdelay(20);
+> +}
+> +
+> +static void rcar_gen3_init_otg_phase1(struct rcar_gen3_chan *ch)
+> +{
+> +	void __iomem *usb2_base = ch->base;
+>   
+>   	writel(0xffffffff, usb2_base + USB2_OBINTSTA);
+>   	writel(ch->phy_data->obint_enable_bits, usb2_base + USB2_OBINTEN);
+> @@ -502,6 +554,7 @@ static irqreturn_t rcar_gen3_phy_usb2_irq(int irq, void *_ch)
+>   	void __iomem *usb2_base = ch->base;
+>   	struct device *dev = ch->dev;
+>   	irqreturn_t ret = IRQ_NONE;
+> +	unsigned long flags;
+>   	u32 status;
+>   
+>   	pm_runtime_get_noresume(dev);
+> @@ -509,33 +562,102 @@ static irqreturn_t rcar_gen3_phy_usb2_irq(int irq, void *_ch)
+>   	if (pm_runtime_suspended(dev))
+>   		goto rpm_put;
+>   
+> -	scoped_guard(spinlock, &ch->lock) {
+> -		status = readl(usb2_base + USB2_OBINTSTA);
+> -		if (status & ch->phy_data->obint_enable_bits) {
+> -			dev_vdbg(dev, "%s: %08x\n", __func__, status);
+> -			if (ch->phy_data->vblvl_ctrl)
+> -				writel(USB2_OBINTSTA_CLEAR, usb2_base + USB2_OBINTSTA);
+> -			else
+> -				writel(ch->phy_data->obint_enable_bits, usb2_base + USB2_OBINTSTA);
+> -			rcar_gen3_device_recognition(ch);
+> -			rcar_gen3_configure_vblvl_ctrl(ch);
+> -			ret = IRQ_HANDLED;
+> -		}
+> +	spin_lock_irqsave(&ch->lock, flags);
+> +
+> +	status = readl(usb2_base + USB2_OBINTSTA);
+> +	if (status & ch->phy_data->obint_enable_bits) {
+> +		dev_vdbg(dev, "%s: %08x\n", __func__, status);
+> +		if (ch->phy_data->vblvl_ctrl)
+> +			writel(USB2_OBINTSTA_CLEAR, usb2_base + USB2_OBINTSTA);
+> +		else
+> +			writel(ch->phy_data->obint_enable_bits, usb2_base + USB2_OBINTSTA);
+> +
+> +		ret = IRQ_HANDLED;
+> +
+> +		/* This should not happen! */
+> +		if (ch->otg_initializing)
+> +			goto unlock;
+> +
+> +		rcar_gen3_device_recognition(ch);
+> +		rcar_gen3_configure_vblvl_ctrl(ch);
+>   	}
+>   
+> +unlock:
+> +	spin_unlock_irqrestore(&ch->lock, flags);
+>   rpm_put:
+>   	pm_runtime_put_noidle(dev);
+>   	return ret;
+>   }
+>   
+> +static void rcar_gen3_phy_usb2_irqs_mask_all(struct rcar_gen3_chan *channel,
+> +					     u32 *masked_irqs_bits)
+> +{
+> +	u32 val, bitmask = USB2_INT_ENABLE_UCOM_INTEN;
+> +	void __iomem *usb2_base = channel->base;
+> +
+> +	for (unsigned int i = 0; i < NUM_OF_PHYS; i++)
+> +		bitmask |= channel->rphys[i].int_enable_bits;
+> +
+> +	val = readl(usb2_base + USB2_INT_ENABLE);
+> +	*masked_irqs_bits = val & bitmask;
+> +	val &= ~bitmask;
+> +	writel(val, usb2_base + USB2_INT_ENABLE);
+> +
+> +	/*
+> +	 * Don't report channel->phy_data->obint_enable_bits IRQs. These are
+> +	 * unmasked anyway in rcar_gen3_init_otg_phase1().
+> +	 */
+> +	val = readl(usb2_base + USB2_OBINTEN);
+> +	val &= ~channel->phy_data->obint_enable_bits;
+> +	writel(val, usb2_base + USB2_OBINTEN);
+> +}
+> +
+> +static void rcar_gen3_phy_usb2_irqs_unmask(struct rcar_gen3_chan *channel,
+> +					   u32 irqs_bits)
+> +{
+> +	u32 val, bitmask = USB2_INT_ENABLE_UCOM_INTEN;
+> +	void __iomem *usb2_base = channel->base;
+> +
+> +	for (unsigned int i = 0; i < NUM_OF_PHYS; i++)
+> +		bitmask |= channel->rphys[i].int_enable_bits;
+> +
+> +	val = readl(usb2_base + USB2_INT_ENABLE);
+> +	val &= ~bitmask;
+> +	val |= irqs_bits;
+> +	writel(val, usb2_base + USB2_INT_ENABLE);
+> +}
+> +
+>   static int rcar_gen3_phy_usb2_init(struct phy *p)
+>   {
+>   	struct rcar_gen3_phy *rphy = phy_get_drvdata(p);
+>   	struct rcar_gen3_chan *channel = rphy->ch;
+>   	void __iomem *usb2_base = channel->base;
+> +	int retries = NUM_OF_PHYS;
+> +	unsigned long flags;
+>   	u32 val;
+> +	int ret;
+> +
+> +	spin_lock_irqsave(&channel->lock, flags);
+>   
+> -	guard(spinlock_irqsave)(&channel->lock);
+> +	while (retries-- && channel->otg_initializing) {
+> +		spin_unlock_irqrestore(&channel->lock, flags);
+> +
+> +		ret = wait_event_timeout(channel->otg_init_done, !channel->otg_initializing,
+> +					 USB2_OTG_INIT_TIMEOUT);
+> +		ret = ret ? 0 : -ETIMEDOUT;
+> +		if (ret && !retries)
+> +			return ret;
+> +
+> +		spin_lock_irqsave(&channel->lock, flags);
+> +	}
+> +
+> +	/* If another thread started a new initialization just return -EBUSY. */
+> +	if (channel->otg_initializing) {
+> +		ret = -EBUSY;
+> +		goto unlock;
+> +	} else {
+> +		ret = 0;
+> +	}
+>   
+>   	/* Initialize USB2 part */
+>   	val = readl(usb2_base + USB2_INT_ENABLE);
+> @@ -548,8 +670,23 @@ static int rcar_gen3_phy_usb2_init(struct phy *p)
+>   	}
+>   
+>   	/* Initialize otg part (only if we initialize a PHY with IRQs). */
+> -	if (rphy->int_enable_bits)
+> -		rcar_gen3_init_otg(channel);
+> +	if (rphy->int_enable_bits && channel->is_otg_channel &&
+> +	    !rcar_gen3_is_any_otg_rphy_initialized(channel)) {
+> +		u32 masked_irq_bits = 0;
+> +
+> +		rcar_gen3_init_otg_phase0(channel);
+> +		rcar_gen3_phy_usb2_irqs_mask_all(channel, &masked_irq_bits);
+> +		channel->otg_initializing = true;
+> +		spin_unlock_irqrestore(&channel->lock, flags);
+> +
+> +		fsleep(20000);
+> +
+> +		spin_lock_irqsave(&channel->lock, flags);
+> +		rcar_gen3_phy_usb2_irqs_unmask(channel, masked_irq_bits);
+> +		rcar_gen3_init_otg_phase1(channel);
+> +		channel->otg_initializing = false;
+> +		wake_up_all(&channel->otg_init_done);
+> +	}
+>   
+>   	if (channel->phy_data->vblvl_ctrl) {
+>   		/* SIDDQ mode release */
+> @@ -568,7 +705,10 @@ static int rcar_gen3_phy_usb2_init(struct phy *p)
+>   
+>   	rphy->initialized = true;
+>   
+> -	return 0;
+> +unlock:
+> +	spin_unlock_irqrestore(&channel->lock, flags);
+> +
+> +	return ret;
+>   }
+>   
+>   static int rcar_gen3_phy_usb2_exit(struct phy *p)
+> @@ -576,9 +716,32 @@ static int rcar_gen3_phy_usb2_exit(struct phy *p)
+>   	struct rcar_gen3_phy *rphy = phy_get_drvdata(p);
+>   	struct rcar_gen3_chan *channel = rphy->ch;
+>   	void __iomem *usb2_base = channel->base;
+> +	int retries = NUM_OF_PHYS;
+> +	unsigned long flags;
+>   	u32 val;
+> +	int ret;
+> +
+> +	spin_lock_irqsave(&channel->lock, flags);
+> +
+> +	while (retries-- && channel->otg_initializing) {
+> +		spin_unlock_irqrestore(&channel->lock, flags);
+> +
+> +		ret = wait_event_timeout(channel->otg_init_done, !channel->otg_initializing,
+> +					 USB2_OTG_INIT_TIMEOUT);
+> +		ret = ret ? 0 : -ETIMEDOUT;
+> +		if (ret && !retries)
+> +			return ret;
+> +
+> +		spin_lock_irqsave(&channel->lock, flags);
+> +	}
+>   
+> -	guard(spinlock_irqsave)(&channel->lock);
+> +	/* If another thread started a new initialization just return -EBUSY. */
+> +	if (channel->otg_initializing) {
+> +		ret = -EBUSY;
+> +		goto unlock;
+> +	} else {
+> +		ret = 0;
+> +	}
+>   
+>   	rphy->initialized = false;
+>   
+> @@ -588,7 +751,9 @@ static int rcar_gen3_phy_usb2_exit(struct phy *p)
+>   		val &= ~USB2_INT_ENABLE_UCOM_INTEN;
+>   	writel(val, usb2_base + USB2_INT_ENABLE);
+>   
+> -	return 0;
+> +unlock:
+> +	spin_unlock_irqrestore(&channel->lock, flags);
+> +	return ret;
+>   }
+>   
+>   static int rcar_gen3_phy_usb2_power_on(struct phy *p)
+> @@ -596,8 +761,10 @@ static int rcar_gen3_phy_usb2_power_on(struct phy *p)
+>   	struct rcar_gen3_phy *rphy = phy_get_drvdata(p);
+>   	struct rcar_gen3_chan *channel = rphy->ch;
+>   	void __iomem *usb2_base = channel->base;
+> +	int retries = NUM_OF_PHYS;
+> +	unsigned long flags;
+>   	u32 val;
+> -	int ret = 0;
+> +	int ret;
+>   
+>   	if (channel->vbus && !channel->otg_internal_reg) {
+>   		ret = regulator_enable(channel->vbus);
+> @@ -605,7 +772,27 @@ static int rcar_gen3_phy_usb2_power_on(struct phy *p)
+>   			return ret;
+>   	}
+>   
+> -	guard(spinlock_irqsave)(&channel->lock);
+> +	spin_lock_irqsave(&channel->lock, flags);
+> +
+> +	while (retries-- && channel->otg_initializing) {
+> +		spin_unlock_irqrestore(&channel->lock, flags);
+> +
+> +		ret = wait_event_timeout(channel->otg_init_done, !channel->otg_initializing,
+> +					 USB2_OTG_INIT_TIMEOUT);
+> +		ret = ret ? 0 : -ETIMEDOUT;
+> +		if (ret && !retries)
+> +			goto disable_regulator;
+> +
+> +		spin_lock_irqsave(&channel->lock, flags);
+> +	}
+> +
+> +	/* If another thread started a new initialization just return -EBUSY. */
+> +	if (channel->otg_initializing) {
+> +		ret = -EBUSY;
+> +		goto unlock;
+> +	} else {
+> +		ret = 0;
+> +	}
+>   
+>   	if (!rcar_gen3_are_all_rphys_power_off(channel))
+>   		goto out;
+> @@ -620,27 +807,59 @@ static int rcar_gen3_phy_usb2_power_on(struct phy *p)
+>   	/* The powered flag should be set for any other phys anyway */
+>   	rphy->powered = true;
+>   
+> -	return 0;
+> +unlock:
+> +	spin_unlock_irqrestore(&channel->lock, flags);
+> +
+> +disable_regulator:
+> +	if (ret && channel->vbus && !channel->otg_internal_reg)
+> +		regulator_disable(channel->vbus);
+> +
+> +	return ret;
+>   }
+>   
+>   static int rcar_gen3_phy_usb2_power_off(struct phy *p)
+>   {
+>   	struct rcar_gen3_phy *rphy = phy_get_drvdata(p);
+>   	struct rcar_gen3_chan *channel = rphy->ch;
+> -	int ret = 0;
+> +	int retries = NUM_OF_PHYS;
+> +	unsigned long flags;
+> +	int ret;
+>   
+> -	scoped_guard(spinlock_irqsave, &channel->lock) {
+> -		rphy->powered = false;
+> +	spin_lock_irqsave(&channel->lock, flags);
+>   
+> -		if (rcar_gen3_are_all_rphys_power_off(channel)) {
+> -			u32 val = readl(channel->base + USB2_USBCTR);
+> +	while (retries-- && channel->otg_initializing) {
+> +		spin_unlock_irqrestore(&channel->lock, flags);
+>   
+> -			val |= USB2_USBCTR_PLL_RST;
+> -			writel(val, channel->base + USB2_USBCTR);
+> -		}
+> +		ret = wait_event_timeout(channel->otg_init_done, !channel->otg_initializing,
+> +					 USB2_OTG_INIT_TIMEOUT);
+> +		ret = ret ? 0 : -ETIMEDOUT;
+> +		if (ret && !retries)
+> +			return ret;
+> +
+> +		spin_lock_irqsave(&channel->lock, flags);
+> +	}
+> +
+> +	/* If another thread started a new initialization just return -EBUSY. */
+> +	if (channel->otg_initializing) {
+> +		ret = -EBUSY;
+> +		goto unlock;
+> +	} else {
+> +		ret = 0;
+> +	}
+> +
+> +	rphy->powered = false;
+> +
+> +	if (rcar_gen3_are_all_rphys_power_off(channel)) {
+> +		u32 val = readl(channel->base + USB2_USBCTR);
+> +
+> +		val |= USB2_USBCTR_PLL_RST;
+> +		writel(val, channel->base + USB2_USBCTR);
+>   	}
+>   
+> -	if (channel->vbus && !channel->otg_internal_reg)
+> +unlock:
+> +	spin_unlock_irqrestore(&channel->lock, flags);
+> +
+> +	if (!ret && channel->vbus && !channel->otg_internal_reg)
+>   		ret = regulator_disable(channel->vbus);
+>   
+>   	return ret;
+> @@ -1007,6 +1226,7 @@ static int rcar_gen3_phy_usb2_probe(struct platform_device *pdev)
+>   		return ret;
+>   
+>   	spin_lock_init(&channel->lock);
+> +	init_waitqueue_head(&channel->otg_init_done);
+>   	for (i = 0; i < NUM_OF_PHYS; i++) {
+>   		channel->rphys[i].phy = devm_phy_create(dev, NULL,
+>   							channel->phy_data->phy_usb2_ops);
 
-1. When pm_runtime_resume_and_get() fails, pm_runtime_dont_use_autosuspend()
-   is not called before pm_runtime_disable(), leaving the autosuspend
-   setting unbalanced.
-
-2. When __imx_clk_scu() fails, pm_runtime_disable() is called
-   unconditionally even for CPU clocks, which never had pm_runtime_enable()
-   called, causing an unbalanced disable depth. For non-CPU clocks,
-   neither pm_runtime_put_noidle() nor pm_runtime_dont_use_autosuspend()
-   are called, leaving both the usage count and autosuspend setting
-   unbalanced.
-
-Fix the first path by adding pm_runtime_dont_use_autosuspend() before
-pm_runtime_disable(). Fix the second path by guarding all three cleanup
-calls — pm_runtime_put_noidle(), pm_runtime_dont_use_autosuspend(), and
-pm_runtime_disable() — with the non-CPU clock check.
-
-Fixes: 78edeb080330 ("clk: imx: scu: add runtime pm support")
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
-
-diff --git a/drivers/clk/imx/clk-scu.c b/drivers/clk/imx/clk-scu.c
-index 9b33df9967ece..63ab4801ddaa7 100644
---- a/drivers/clk/imx/clk-scu.c
-+++ b/drivers/clk/imx/clk-scu.c
-@@ -542,6 +542,7 @@ static int imx_clk_scu_probe(struct platform_device *pdev)
-                ret = pm_runtime_resume_and_get(dev);
-                if (ret) {
-                        pm_genpd_remove_device(dev);
-+                       pm_runtime_dont_use_autosuspend(dev);
-                        pm_runtime_disable(dev);
-                        return ret;
-                }
-@@ -550,7 +551,12 @@ static int imx_clk_scu_probe(struct platform_device *pdev)
-        hw = __imx_clk_scu(dev, clk->name, clk->parents, clk->num_parents,
-                           clk->rsrc, clk->clk_type);
-        if (IS_ERR(hw)) {
--               pm_runtime_disable(dev);
-+               if (!((clk->rsrc == IMX_SC_R_A35) || (clk->rsrc == IMX_SC_R_A53) ||
-+                   (clk->rsrc == IMX_SC_R_A72))) {
-+                       pm_runtime_put_noidle(dev);
-+                       pm_runtime_dont_use_autosuspend(dev);
-+                       pm_runtime_disable(dev);
-+               }
-                return PTR_ERR(hw);
-        }
-
-
-Regards,
-Peng
-
-> 	}
->-- 
->2.43.0
->
