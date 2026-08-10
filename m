@@ -1,191 +1,188 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADE928C037;
-	Mon, 10 Aug 2026 14:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786373239; cv=fail; b=uInJu6Z8rtUgJg1GTvb40jtqOXxWTJmFTWK3xHlbiSpGL0UkAEv+7Di+vs2xqz4J2ZKTkDP7gcyhZnXmBuc5G2x7dyKGU2rgsVjSr5sv+3lmyc8+tzyPSSkWOt5lHs9VI0OdU48HnHZRmSKpCM73iexg1X1kyl3dM5PP+H3F00c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786373239; c=relaxed/simple;
-	bh=mNmdUVJ/W6o0YKHE7sF8XeS3YQEmx73Jsl3z2b3c4cw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=FZQacVSL7WMho2NDQdr39JPI5TCxpgKhkjv6tzYBPJ36g2hwlJ9hq5BmzWTFHQllZgQr6euxO8gLAw+Okl8b/6fEmQEuGNCgEbV5IlEV7pIt85yEzihIObzRO8iP5kSz0x8zEg5wzUkYBj3umQxymGm6DEktbH5m1u5IqHr0qF0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=PnGas5J1; arc=fail smtp.client-ip=52.101.43.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E5240A952
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786373880; cv=none; b=DNsvz2EeH0AeUpWma2eGJidhV8xH5KbfYLVv2E5+1FOP7UUB/Qze2/qhW6AcnUgc9R8+e5rq1W489D+OgdXvvfxxyeOWxA3/+vo8dZfwqRL4JalNtXzkmGPJ2LftbAnH69ECdL4x1qnGwemlP68s73E+KdCay9SQPgGV2i+cL+M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786373880; c=relaxed/simple;
+	bh=hnhgbnBFVXGlRf8QMp2yxUOZygghKd++lPr/wVO57Pk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jmcTcoCDlgJygOxXnAvJvGE/nar7Ch+U7ctfYQ9Y6+a49oRM9ycKYiUTUehKmNTC5wAXk406lzT36Y565mJSzlcX310T2RHX5nBTgawKvA0y4fBbymaa9zULOKjrBSpCZupwM5k9girGutxQB714w9oVzEHDXcEjWvHfSYb2tNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=S4wsdsMG; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="PnGas5J1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vwTraW4thNg8c9ymeFv/a1peYoGydnLmVwCaIHazPlMVtzNwlS9V+hFNVUYh1LUJ+DE8YuNHeE39egoN9yqPJPPKFJBuS7Zrg1/6t4nBkflqfRNiMOWL+JiKhv1Z+s6M8LrDJqrDyn6EOWWbKviM5B2ChQ60P5aKuozb4hkoReCYPfIZBAqtWd8z5lGHs27RZnS3745tyjapCoSfhsr57eOH088H7B53/mWQhOxCU5zRHDeFCtI160p7UYPv/oV7DTnZPrCPe82bghVCKveP0gGi9r8Oqm0GSeIv//4rL9g5TfFpHbtHgf/W0rkDU2XBxux+ZPOOcKvcmPgh1mQxTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uKbgW6w5ysJfiiWqj7al+Ey/abUKMSrPs0OlzFOe7Zo=;
- b=ddoRf9z8LS6QjiaYS6rBP1Rl8EPaBw7vn2GWc93B5lcIE2102adkXUhb7tl7MbtsiGixV/k/ATxYx6ZhnLJN5kBcF6mjpOKD/nS+0/IfWkEwvU/73WcJALadrjQp0BDAoqG97wIVMoEp0M+PCzce8h3MVs175fJdXWOzBwes99Jr1CJyG/sAcP9lYvnad+YTvvZ4qgPCxvTXeJN1UfCQXYb7OJVKiIlqOB2wmTJqHFrIdhomH6FErJbSCTpfD/ecRkVgVpA6SSCCTI5t2AtXffmYxmmtxTWwFq9IrSZk6bb1CaVu8PAdu12e6zKeIaywX2Y4FZ6fkCGRLRmdBqX9KA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uKbgW6w5ysJfiiWqj7al+Ey/abUKMSrPs0OlzFOe7Zo=;
- b=PnGas5J1kuBiIIl4orySzEdh4sAYLLPuTRB7A8DiJou4PtNIWQnMijy3qs7o9FoxRTk5qFz9UBvFMvCrtpgf/UzyVnxMO9buB211/pxKGKmP8ralBjoRUJGXvylg2K52HIeyI80I2sQCVTp4CrzwEQYSGrNm8HR4I7/xCTTb7fo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- PH7PR12MB8828.namprd12.prod.outlook.com (2603:10b6:510:26b::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 14:47:15 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 14:47:15 +0000
-Date: Mon, 10 Aug 2026 10:47:06 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
-	linux-kernel@vger.kernel.org, Penny Zheng <penny.zheng@amd.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] x86/amd_node: Avoid divide by zero on virtualized
- systems
-Message-ID: <20260810144706.GC57095@yaz-khff2.amd.com>
-References: <20260806160159.230453-1-jason.andryuk@amd.com>
- <20260806160159.230453-3-jason.andryuk@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806160159.230453-3-jason.andryuk@amd.com>
-X-ClientProxiedBy: CH2PR14CA0053.namprd14.prod.outlook.com
- (2603:10b6:610:56::33) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="S4wsdsMG"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-92e6c4a867cso110233885a.0
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:57:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1786373876; x=1786978676; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j0rB9Jjig8cN4sfHOy8svv9C8RxGQPDOIghXLCybeaw=;
+        b=S4wsdsMGG3xUg3nVZ9caWjQzZe0VFSjo7SEAlanZEcO0b2Npfj2eas/L+WIz/soz9b
+         DTmVDQlujclnbubu9GhF7399UIYfOgbrbUxdBG41LBAXVHXALGILfqYA3n7SHmhSzcGg
+         rfvZjcLq3I17mGQpvOUDxl72qHAMAsDurfOy9fKiivGtnU48TNHXKLNMjvmLzfC5IKT9
+         Zct3ImOecGv3cdZJDjkEfsglNP3bTlBQkwDK2IZp3hYiBA/azzVol+ooRcCp9lR8F1C3
+         16zPsQLlHqlpjNxhNJJEFxv8a22OEBRaVP0sW4RX7BOc/qkEZpc2ufM2xU8eqeiYkUgu
+         xEXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786373876; x=1786978676;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j0rB9Jjig8cN4sfHOy8svv9C8RxGQPDOIghXLCybeaw=;
+        b=paTt/gIJSGe6TwbfJMSjh054PHdSTWIPGUoRJEqVJu63N9vgbHWeDeYomS5MWzgx7k
+         8NmQrGtnTSYSaGFk1mitcNr6EcuWNtgSRArDaHr8LXyZz1R1rsRQvrnh76ej/qUUCOPd
+         VfBZs0JY3AOxbsJqFgx4a5dTTFhjKLuoknPSvLGujvEn7C3U0SGU80rGNInLWwfIeN1W
+         KqCz88mO1nDP4dRrE6b9oCvAYKuw2qHxBnyAb8O0IOGGcu7NjVcmlTnHTOcdrP2ifUkz
+         pZ2+pvHmDXo389jRD922z7EVkMvD9glrbEXcTaXW13osUkGG1aDEdTD0rW/GO4AroNsu
+         nbrw==
+X-Forwarded-Encrypted: i=1; AHgh+RopwH4UXUmxL0w9rB1JwqbKVtsMAzSziTk2PJsvyD90lrMlTswVHJCuswm3l3/tTa5txo2T8gM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzAO2VGPKCxw4JLfLn4dmcgejfr4Sn98ADfIMUIopOTgJqdxBtB
+	gpwPq/om0yxKJ5zNlU+VqaRPWAwuNMo4de+9YJZNlfC56gHXNwGI4lxDXcg7ce9SsJQ=
+X-Gm-Gg: AR+sD13ivHMtjYcdZJgfHTlObdxPwF+9ESMrOHJu8YRvMrrpA+3CrZUK+hdj7VsTX1D
+	3ImEzI4M0E8V4WevoEB2vGalz3Dqp4Yd4U4tqEEPj82DTcnsaba+ad3PLbVTTwaGJDhcmvwIOpn
+	FAooZPFeCD9SE36DlnHFHyagbipbUOeS3gkNI7bBM3PKPbsodbQFBuy4f1v339P8keUX35llqqH
+	jRVqJLhucRpWqWf39BPFsuBY218b9TYAVysuJsAc99GjcySS0/3RYuB0gMc9ACIB/xw/dSXSuNy
+	csYffsMCa3myo9vbOFFlBlLVTwJDaE8XcOAlQbugQrh67sfh2yLFhyDeyrfwB8SHnhEPsR78knL
+	rVDSXB6kSEp+ppFtOND745prsSXzcJf83A/IsDV4UcZye4fU/QlCsXDJG/hVJUiNvm/iKmUOk29
+	Aq3nCq3LKD4OyNMvAR0cpFOY8DkM3kIct3k+uJ3OLGD1nt1XCSHv3olwJ9TW61DameAw==
+X-Received: by 2002:a05:620a:40ca:b0:936:4955:e5ef with SMTP id af79cd13be357-93671eae246mr2247821285a.22.1786373876052;
+        Mon, 10 Aug 2026 07:57:56 -0700 (PDT)
+Received: from localhost ([146.190.222.192])
+        by smtp.gmail.com with UTF8SMTPSA id af79cd13be357-9366e2294a0sm809249685a.27.2026.08.10.07.57.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 07:57:55 -0700 (PDT)
+From: David Lee <david.lee@trailofbits.com>
+To: marek.lindner@mailbox.org,
+	sw@simonwunderlich.de,
+	antonio@mandelbit.com,
+	sven@narfation.org
+Cc: Kyle Zeng <kylebot@openai.com>,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
+	netdev@vger.kernel.org,
+	b.a.t.m.a.n@lists.open-mesh.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	David Lee <david.lee@trailofbits.com>
+Subject: [PATCH net v2] batman-adv: reject unrepresentable multicast TVLV offsets
+Date: Mon, 10 Aug 2026 14:57:51 +0000
+Message-ID: <20260810145754.828936-1-david.lee@trailofbits.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|PH7PR12MB8828:EE_
-X-MS-Office365-Filtering-Correlation-Id: c56bf41b-8611-425f-2643-08def6ee44fe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|6133799003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	y3oUxh77mtIHizmNOY+sis0NcxFqKPoYmkZUjXtGiPmpzy69RDx7XziVSXQkgOm3lRFngAGiIdpSDOHTtY5njrNRQ8p5whOOxxFgYbbma5UWuai1CsS4wTIWQwO6Xiyly4+7X2p1Xnt8U84R3nV3azH70Jn3+HBZPPX8tOiJRZHwggb5KeEw8H4uwrUzDN/acP/GJL+kmTUD9FKEcTEtpkoGF/sCf26A97WnMqahumBIylnSsxkG5Tv79JabkCN7EDNyVPPYawt0JBvtAEONX2WqfFCa60BmWWuX8lpxUmE4rkVuGRuDAz7Mo54+edl3iwVrqZvhenHkvPE2pOmGei39qYYkYmVVtKWF3F0peYMb1n3h2ZkMAIoskGaDiUdvQN5zkjufh3pDR6Kmv/KqGmr33wfkb+NA/WEw4zvJGoJrBi1BM/TOSqPhb9QN3cN4vBneE8zi9BNmpNmQZTeiuxEJTr8Gl6qqG2giCwxwmiFJU7UKQYEaItBzO6Nv3dcBy51WYu9uKtbF+q4ugZA1PvCOt8wJJTO26vxBpL/JRVgDRlTrlc4E74niyaro9AwSJvcgmEQEP4dVTS3B183w5CTBZUF5+UQx8JSzoABR/TgrA4XinABXG60PLuorSCpJ8zsduPhOiMWupvKc+xYuLQ8vI/VfsBL5+8VeGMJXKtk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?o6MlTw5wOp7cycd/r3gtMggVBAjgRpy8Lx9+JuhoUjb1xtCKWlbxSZ9ykOFP?=
- =?us-ascii?Q?unb5rQPdMMHAc9j8BPE/vBw2qNr7IONfgQlZwwtxkW0ahoDuNT1fwj0zreiv?=
- =?us-ascii?Q?Gpe9Upe5oO6oBhogfjmj3s1H0K7fxC+EgzcL7h0+Ep/TVAuzh7b6AU0/G9HH?=
- =?us-ascii?Q?cTNDb+/NS5wtG4KX52NBYZP4BKm/QvunLaJLxaccG4zTmogFk2LKLjPnSEBU?=
- =?us-ascii?Q?bnqt2cOmdh5LTZT5LbQ1odXeu54zPLvhlFV02XiwA/QjjxzPLUgg0MJtoz7s?=
- =?us-ascii?Q?ylEIEvl7SWryWwsgCR02QEcecw2qReK/a7I+NYwwMXTpeY7ndlB4rLIlWuBo?=
- =?us-ascii?Q?FE3pVTS3aslJxwS2Pyy1kj3i51/3kDaVSoDo/fzEME+JHCKEVh8ktZRU3WHT?=
- =?us-ascii?Q?wOgbgtfQsnKvY094Kq9QWB1GXFjWbOBU1LO32UceAIP91SIl4A12YDYujGRV?=
- =?us-ascii?Q?YzEHtQc/9UMijNQQYojzDzprG3ICg0EZr1Lr3OwrMTgelsmZqBTem1+tI71w?=
- =?us-ascii?Q?BWclNPSB0oeT/XxfBJRWaYAtsrK9KJAGez2GV6Ic/Z/suFRK2EJNa4d+FUzn?=
- =?us-ascii?Q?jHI096m7qnnlbkvcXgJNlNigVENwVIZOpVadY4+pWcpH2dZMv0Krw3nK3WMY?=
- =?us-ascii?Q?id4GtSDw+HmEAX/9pDErOeGG0mxB0NLjSpmYNr0oltxkIFNeq3yH4ASth26z?=
- =?us-ascii?Q?1nweFbmeQLbbnfFlRRKs7WlTyg6wYquA0IJFMd/4spw7Um9jW17HV124d7a1?=
- =?us-ascii?Q?ldKlI2o4mAMaNm3cNJlu5IPsio7kqNH8rnSUCLJ2Xzw2udqiyFoKnGVkso0h?=
- =?us-ascii?Q?/2p5EcJUlooeeyq9OW4BQs2irAzOgb1Yit5O0gbv81Ig5Rtjb6ONf67mT5eq?=
- =?us-ascii?Q?mPYu1pTaUomv+oPrQUzVEAgs/xXAW07AE3/OOlJXDVIa2dv3JTmEdl1TWVZN?=
- =?us-ascii?Q?DL6BAP0ONFFRToToUQP2TNzQvxuEYQ2URg+QzRThEqNyp4sxBMRi46Fee3eX?=
- =?us-ascii?Q?79+EjL239SbchQyaei9YacUAxRqSBmCUPPjurJxprjcD/1eaQZZJ/kQRgquZ?=
- =?us-ascii?Q?4/Zm80Dis1IcYDg4xN5y+ECg8zHYAbsskP8eBTr2+pTLTJ29AtIZ6VZaPkNS?=
- =?us-ascii?Q?dEhGlilbbGbpdyF0YtaulbnzhC6UihB37YqNQpgJ0kexYdpqs+tU2adijii5?=
- =?us-ascii?Q?r0ZTZl5M9uYQDpUazTphwbu9HC1pBZY4vu6Gu+MLC6dS3o3Mjo4G58MQp1AI?=
- =?us-ascii?Q?pejo5ekr+zCklT5aY9JnWfQ6C45q6z2Vb8oY1xrMqFkNeKG2k+fjtAysl3eM?=
- =?us-ascii?Q?OfhxNF808FrA3dFnjS1APLavcZ6j8B+y0WFJPposOokozO9scWrajq1CBPvO?=
- =?us-ascii?Q?u6Si/TH8AHgR+7Byq6aMJlaXa65vhV6kpivkeTky9zC90E6aQKHGdOH0zJLY?=
- =?us-ascii?Q?0LJPHtwEKlEMm5GGmCSzYFDQIyhlDEGXt9bfFRdg2KW+vR+tL6/fRrabXJtg?=
- =?us-ascii?Q?A60Y0fqnHmSay/Ah9gb8h+uyUj9KwMUAMXxTn8cZvvA1SSdu+Hmz+utRaXqI?=
- =?us-ascii?Q?eCnlOYwsnXU+Bg4vETCGgh6W0D2ITQbTiyVer6O6aS7ktIMzcnIRzXpnFn2f?=
- =?us-ascii?Q?CjzatVJUlWvjdF4an2vwpG1+TUJc/JIMeqQ67NMw3IsuZty0fQMje2l3niz9?=
- =?us-ascii?Q?S2sLdqRIGztp3rPRfpnlHZe1TERolbQorVh3xOSDDT5Qe2/T?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c56bf41b-8611-425f-2643-08def6ee44fe
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 14:47:15.5797
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PkIlQAGKYyKjHIWlHoxDz66230KiT6A8MIbM/uq1/i8KLP9mZXsj0RhQgd3dwGZziDFJnLMnR8IDoTTR/ARpWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8828
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 06, 2026 at 12:01:57PM -0400, Jason Andryuk wrote:
-> On a virtualized system, the number of nodes does not have a
-> relationship to the number of roots.  A Xen PVH dom0 can calculate
-> roots_per_node as 0, which crashes with a divide by zero in:
-> 
->     if (count++ % roots_per_node)
-> 
-> On a virtualized system, default the value to 1.  The issue is seen with
-> Xen, but it could affect other systems.
-> 
-> Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+From: Kyle Zeng <kylebot@openai.com>
 
-I agree with the idea with some minor feedback below.
+The network and transport header fields in struct sk_buff are 16-bit
+offsets from skb->head, and U16_MAX is reserved as the unset transport
+header value. batadv_tvlv_call_handler() sets both fields from a received
+multicast TVLV without checking whether the TVLV end is representable.
 
-> ---
-> X86_FEATURE_XENPV is only for PV, but this is observed with a PVH dom0.
-> ---
->  arch/x86/kernel/amd_node.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-> index ea553267e5fa..c5025e5291b6 100644
-> --- a/arch/x86/kernel/amd_node.c
-> +++ b/arch/x86/kernel/amd_node.c
-> @@ -286,6 +286,11 @@ static int __init amd_smn_init(void)
->  		return -ENOMEM;
->  
->  	roots_per_node = num_roots / num_nodes;
-> +	if (roots_per_node == 0) {
+If the end offset exceeds the field's range, skb_set_transport_header()
+truncates it so that the transport header precedes the network header.
+The negative difference is then returned by skb_network_header_len() as
+a large u32. batadv_mcast_forw_packet() consequently accepts an oversized
+multicast tracker and accesses memory beyond the skb data.
 
-Can be '!roots_per_node'.
+Add skb_set_transport_header_careful(), an offset-aware counterpart to
+skb_reset_transport_header_careful(), which validates the final
+head-relative offset before assigning it. Use the new helper in
+batadv_tvlv_call_handler() and reject unrepresentable TVLVs before
+setting the network header.
 
-> +		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
-> +			pr_err(FW_BUG "Error detecting roots per node.\n");
-> +		roots_per_node = 1;
-> +	}
+Fixes: 07afe1ba288c ("batman-adv: mcast: implement multicast packet reception and forwarding")
+Cc: stable@vger.kernel.org
+Suggested-by: Sven Eckelmann <sven@narfation.org>
+Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Co-developed-by: David Lee <david.lee@trailofbits.com>
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+---
+Changes in v2:
+- Add an offset-aware careful transport-header setter and make batman-adv
+  handle its failure, as suggested by Sven Eckelmann.
+- Restore Kyle Zeng as the patch author and correct the sign-off chain.
+- Move the research credit below the commit-message separator.
 
-I don't think this is necessarily a Firmware bug.
+v1: https://lore.kernel.org/all/20260731135222.566367-1-david.lee@trailofbits.com/
 
-Likewise, it can be a 'warning' rather than 'error'. I interpret 'error'
-as something known to be incorrect. This was my position before on this
-topic. But the various contrary reports changed my mind (even if they
-come from virtualization).
+Bug found and triaged by OpenAI Security Research and
+validated by Trail of Bits.
 
-Furthermore, I think 'warning' is more appropriate. It says "We found
-something unexpected. We're letting you (the user) know about it. And
-we'll mitigate it to avoid an error."
+Trail of Bits has a reproducer for this bug that triggers a
+KASAN use-after-free and can share if needed.
 
-Anyways, I just wanted to write out some thoughts since this topic has
-come up a few times.
+ include/linux/skbuff.h | 26 ++++++++++++++++++++++++++
+ net/batman-adv/tvlv.c  |  5 ++++-
+ 2 files changed, 30 insertions(+), 1 deletion(-)
 
-Possible rework for the above change:
-
-	if (!roots_per_node && !cpu_feature_enabled(X86_FEATURE_HYPERVISOR)
-		pr_warn("Expected at least 1 root per AMD node.\n");
-
-	roots_per_node = max(roots_per_node, 1);
-
-In any case, we should just go with a simple fix for the virt cases.
-
-I think we could even do away with caching the 'root' devices. But
-that'll be another rework/cleanup.
-
-Thanks,
-Yazen
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index 22eda1d54a0e..dbeceaf5c3b3 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -3126,6 +3126,32 @@ static inline void skb_set_transport_header(struct sk_buff *skb,
+ 	skb->transport_header += offset;
+ }
+ 
++/**
++ * skb_set_transport_header_careful - conditionally set transport header
++ * @skb: buffer to alter
++ * @offset: offset to add to skb->data
++ *
++ * Hardened version of skb_set_transport_header().
++ *
++ * Returns: true if the operation was a success.
++ */
++static inline bool __must_check
++skb_set_transport_header_careful(struct sk_buff *skb, const int offset)
++{
++	long transport_offset = skb->data - skb->head + offset;
++
++	if (unlikely(transport_offset !=
++		     (typeof(skb->transport_header))transport_offset))
++		return false;
++
++	if (unlikely(transport_offset ==
++		     (typeof(skb->transport_header))~0U))
++		return false;
++
++	skb->transport_header = transport_offset;
++	return true;
++}
++
+ static inline unsigned char *skb_network_header(const struct sk_buff *skb)
+ {
+ 	return skb->head + skb->network_header;
+diff --git a/net/batman-adv/tvlv.c b/net/batman-adv/tvlv.c
+index 1c9fb21985f6..c384db16bcac 100644
+--- a/net/batman-adv/tvlv.c
++++ b/net/batman-adv/tvlv.c
+@@ -433,8 +433,11 @@ static int batadv_tvlv_call_handler(struct batadv_priv *bat_priv,
+ 			return NET_RX_SUCCESS;
+ 
+ 		tvlv_offset = (unsigned char *)tvlv_value - skb->data;
++		if (!skb_set_transport_header_careful(skb,
++						      tvlv_offset + tvlv_value_len))
++			return -EINVAL;
++
+ 		skb_set_network_header(skb, tvlv_offset);
+-		skb_set_transport_header(skb, tvlv_offset + tvlv_value_len);
+ 
+ 		return tvlv_handler->mcast_handler(bat_priv, skb);
+ 	}
+-- 
+2.53.0
