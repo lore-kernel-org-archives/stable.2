@@ -1,103 +1,126 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A793D669B;
-	Mon, 10 Aug 2026 12:48:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86BA3DAABB;
+	Mon, 10 Aug 2026 12:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786366082; cv=none; b=d4QgCvQR274SGciseXmyW3e+Dw/upcyadLbtzGgwTiXnH5kqEJbdKay6KoOEOCl9uIMTjVQBoaKeApBV4isb7pnMIgF2VArXHrGDMSYQyZNYWbH8hkGp+Cnnmt0A+4elNUMOOYf+SkWusGPr3HU69xwmN9M9TBRuE42mYstVI8s=
+	t=1786366150; cv=none; b=QtedG+G0aYZiHm3facM+s7yW2sypWl2qbY9ASrtZ/EKBupm0oHtq9GO/6oNfdADMXq1CGY+GsWiaQ8eS3k8jKUpAvOHIgWtzT1CklskTTVwARyb4tw5NgBNPvLBmkJk0HIUJOCp0VIBBKWlnq1NuVcbFG/fmJumrsHVS19oJB4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786366082; c=relaxed/simple;
-	bh=udAMHzRtyQaOkwLerVor+ncwwjh/ZWCrpPKCMkWf7fE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=i857L5mw6npHpbjfhexI63/JweSOFUCfXrcSGhMpBYIrReUCUn24y+6wexrvjesbCtZXclqgwX1DxBYErb7keKoAQlVWYlIxatHk/NCMs084zM0YvbEeIKrT8npibcbNm+TaQWSIaF7eaXoRzHDP0PlrHv+Yj/AVtHgYQL9nmYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=aJhc4sly; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1786366150; c=relaxed/simple;
+	bh=CIDEHp8pZ8V4yvdoIPqxN4OATMI4JpS4FDXSzD6SSiw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t0cYP9G5wJCfVGWCwv1nHJP3At2ct0Kl0E9L+BYluHw6Bo2eS23ZJDitYLleVhHsq1XsX9EH7IKKhQQB1LPrZ8W7mz8CvDUzYW1QtLeK0kgM6P+mGdCWmiXqoHosB1i/mgsANwq4grWzUF64W8uwRIjLPw8lKG+UgoLDS8mK9Ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=kD14nDfU; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="aJhc4sly"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C39584E411A2;
-	Mon, 10 Aug 2026 12:47:58 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 960916033B;
-	Mon, 10 Aug 2026 12:47:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0B6A411C4A56B;
-	Mon, 10 Aug 2026 14:47:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786366078; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=udAMHzRtyQaOkwLerVor+ncwwjh/ZWCrpPKCMkWf7fE=;
-	b=aJhc4slyOKzqCwyPlKrJ5bTf2deEFDIXqXSEDmcv+8Wf3qyU9mq5u5IE6fLV/3Fxbcz79g
-	3BhpgUiuKfpD/LICkrGYC4pZGvStD469hF+JbSp0A++QFuFsTV2oDJJcSBG2z7XxBkmH2P
-	fH7kk43gkWIL0LsHR4uGTTjVymeJB/lvfd/feGtAGYRatoEYnE2fzjaGtn3Xi1ODTNhQII
-	KWxn0SRwY78mW8ayZ7R7lMEJe8Y3yy+kGThWcE43L5PkN6cVrlvnTqXD5p0Oh8A8j32uK3
-	rV5e9KTiwJ2629AYQQ7FItj3nc4D7sGmoQde/+B74f9Fi3nK9rQc7qsDtJc9eA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: "Michael Walle" <mwalle@kernel.org>
-Cc: "Runyu Xiao" <runyu.xiao@seu.edu.cn>,  <tudor.ambarus@linaro.org>,
-  <pratyush@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
-  <linux-mtd@lists.infradead.org>,  <linux-kernel@vger.kernel.org>,
-  <jianhao.xu@seu.edu.cn>,  <stable@vger.kernel.org>
-Subject: Re: [PATCH] mtd: spi-nor: scope the exclusive RWW lock
-In-Reply-To: <DKL4CBQNKCO2.3NAZ6S25Q60XN@kernel.org> (Michael Walle's message
-	of "Mon, 10 Aug 2026 10:25:28 +0200")
-References: <20260809084223.3596259-1-runyu.xiao@seu.edu.cn>
-	<DKL4CBQNKCO2.3NAZ6S25Q60XN@kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 10 Aug 2026 14:47:50 +0200
-Message-ID: <87h5l2qgzt.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="kD14nDfU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=kPqgsopBsOGoIwjvTqVnsk5MAA/fpSIVwqcFNthrXfg=; b=kD14nDfUTypLiKPVAwSCNo7BNW
+	dwSzLJEhGZMPP0mmECCfDMHtqcxk/WDwBOCybC1nqU8uPT372v0NUWxcv3PyKWCAIkKjBx4PRAvnC
+	sxevWjGfsVpHhNwFk4C17/mO7grKJzDNMDh2hGVk+OH91VnSZ/HpgfX6FMXeuOcJYpItY4PhX4wcf
+	zjD4+xWBNRdnlR0eK0EtIudmVUBIQzDaIbU+HGt2EsvAsEsOitDEJxNXVM3nG9a/S3uG2srNQCf8b
+	zstnzAk7a/cE65jF+uDnLKInLNHDSy51mdVR2yiFLdNBzPOilbHpxwj3jKgOE21UPu5pZiP4yYCxc
+	8UiUbUtw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wtPR4-002lDD-0l;
+	Mon, 10 Aug 2026 12:48:58 +0000
+Date: Mon, 10 Aug 2026 05:48:53 -0700
+From: Breno Leitao <leitao@debian.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 1/2] ipv4: mcast: getsockopt: do not overwrite past
+ optlen
+Message-ID: <anm9gImFEz6EkUZ9@gmail.com>
+References: <20260806-mcast_fix-v1-0-bed0a5518e57@debian.org>
+ <20260806-mcast_fix-v1-1-bed0a5518e57@debian.org>
+ <20260807174402.2dfc12d6@pumpkin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260807174402.2dfc12d6@pumpkin>
+X-Debian-User: leitao
 
-Hello,
+Hello David,
 
-On 10/08/2026 at 10:25:28 +02, "Michael Walle" <mwalle@kernel.org> wrote:
+On Fri, Aug 07, 2026 at 05:44:02PM +0100, David Laight wrote:
+> On Thu, 06 Aug 2026 02:42:00 -0700
+> Breno Leitao <leitao@debian.org> wrote:
+> 
+> > getsockopt(MCAST_MSFILTER) can write past the end of the buffer the caller
+> > declared.
+> > 
+> > This is because the copy_to_user() does not respect the optlen, and can
+> > write over the allocated buffer, overwriting userspace undesired
+> > memory
+> 
+> Nak. This is just the way it is defined.
+> The application provides a length that is just the header.
+> As you noted the header contains details of the real buffer.
+> 
+> There are quite a few sockopt like it, you have to support them.
+> There may be some where the length isn't checked and is just assumed
+> to be the right size - they have to continue to work as well.
 
-> On Sun Aug 9, 2026 at 10:42 AM CEST, Runyu Xiao wrote:
->> spi_nor_rww_start_exclusive() is used as a wait_event_killable()
->> condition. The raw mutex_lock() leaves nor->lock held when the busy
->> condition returns false, so the waiter can block the active operation th=
-at
->> must clear the RWW state.
->>
->> Use the same scoped mutex guard as the other RWW start helpers so the
->> mutex is released on both the busy and successful condition paths. The
->> state flags remain the handoff to the caller, while
->> spi_nor_rww_end_exclusive() continues
->> to acquire the mutex when clearing them.
->>
->> The change was checked by comparing the original and patched source.
->
-> What do you mean? Was this AI assisted?
->
->> A source-level check of the original wait condition found that it takes
->> `nor->lock` and returns false while an RWW operation is still active. The
->> patched source was checked for a scoped mutex guard that releases
->> `nor->lock` before the wait condition returns. A user-space pthread model
->> held `nor->lock` on the false-condition path and showed that the
->> operation-ending path then blocks when it needs the same mutex. No live
->> SPI-NOR test was run.
->
-> What do you mean by "user-space pthread model"? Ported this into
-> user-space and tried it there? Please keep the commit message
-> precise and don't use any AI gibberish. Please, explain what's going
-> on with your own sentences. That way, it shows at least some
-> understanding what you are trying to change here.
->
-> That being said, there is something odd about that commit. Tudor, do
-> you know why you've omitted the guard() in
-> spi_nor_rww_start_exclusive()?
+Thanks for the review.
 
-I agree with Michael, the fix looks legitimate, however the commit log
-is unreadable and should be a 3-line straightforward paragraph.
+The generic getsockopt(2) contract says otherwise.
+
+      For getsockopt(), optlen is a value-result argument, initially
+      containing the size of the buffer pointed to by optval, and modified
+      on return to indicate the actual size of the value returned.
+
+You are saying that we have userspace program in the wild that doesn't honour
+the contract above, right?
+
+On the set side (setsockopt) of the same option takes the opposite view.
+It rejects calls if optlen is not properly set.
+
+	err = -EINVAL;
+	if (GROUP_FILTER_SIZE(gsf->gf_numsrc) > optlen)
+		goto out_free_gsf;
+
+Back to getsockopt(2), I was trying to look for users it, and glibc
+passes the full length for both options, with optlen and numsrc coming
+from the same variable:
+
+      /* sysdeps/unix/sysv/linux/getsourcefilter.c */
+      socklen_t needed = GROUP_FILTER_SIZE(*numsrc);
+      gf->gf_numsrc = *numsrc;
+      result = __getsockopt (s, sol, MCAST_MSFILTER, gf, &needed);
+
+and
+
+      /* sysdeps/unix/sysv/linux/getipv4sourcefilter.c */
+      socklen_t needed = IP_MSFILTER_SIZE (*numsrc);
+      imsf->imsf_numsrc = *numsrc;
+      int result = __getsockopt (s, SOL_IP, IP_MSFILTER, imsf, &needed);
+
+So the clamp is a no-op for every caller that goes through libc. 
+
+So my conclusion is that this is a bug: setsockopt and glibc both treat optlen
+as the buffer size, and I could not find anything relying on the get side not
+doing so.
+
+If you know of a caller that does, I will drop the series - I would rather
+look at it than assume it exists and assume that it will break someone that is
+leveraging a buggy behavior.
 
 Thanks,
-Miqu=C3=A8l
+--breno
