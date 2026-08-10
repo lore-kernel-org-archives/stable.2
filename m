@@ -1,110 +1,124 @@
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD02413CA92
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 05:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C3E1B1531E8;
+	Mon, 10 Aug 2026 05:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786338378; cv=none; b=MzPUuwliV2stj7GuQK0x6VIZAvyZdX35KPl+0kE1TwofCfn/qJS/DX282K6OcvOVFxu0+l0/oIhMEw5a031upswvnXWWjx1hCZkRMNKia/GiE4FztgQA4SxosuLDD6aGrNHeYBQa1AXoZ7/sCXFGLycLCCMyQdWsbWM1Fmu7mrg=
+	t=1786339032; cv=none; b=aT/sb6ggV1J8hAz1Tdt+IzBZXS68j0QnBUnj5kkOTd0a8PLwq97oEv1PtwkTe7vY2hl1Q6LQHRH7a8EUl/KkliBbOND8STyi3EUN1/zStTfEmeqyXwxubx0u79+ImGX47vOqzkI6SV7vRyVDPGoMU0xavndK0ndcdOmU2QbIrTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786338378; c=relaxed/simple;
-	bh=UwtoF8WCtXk9zFXDkcpLrNH/XAXzLP3ASIL5gUziyrM=;
-	h=Content-Type:From:Subject:References:In-Reply-To:Message-Id:
-	 Mime-Version:Content-Disposition:Cc:To:Date; b=TINAeSYgQ5ChY0ve6Kli2CoxHo7O2LBLijAUrxR1MfDA/mwNyYxFaWA2B4kfbf6YlrXYRf0W6qGKt08bYKd7T0ierPXFZsYkbG6c0dpc6xd7Kd2tGmHr7xTsMw8vG5cDcBQmPREE8YoTtuthQogWYBzss3RY6a/r4UACVDd9XTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=ZxwagLtB; arc=none smtp.client-ip=71.18.227.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1786339032; c=relaxed/simple;
+	bh=k5+v00fUr0NPVrCIQQtj6nKIyu8q3qd+Td88O6L0xx4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=OUlj68sgPEgMWVXoBg/JQQNS+jTla4SRDVTOAY3yG3vCCxgCj777ekuULyR3GLsQh87AEDLM+EqzEczzBiEZ96o3xg13+sFjSlqcRJB8cjZ+aaryA3BOtdMaS4dCIAT0lx0UjAYTXc4Mk2p6UNpACuTwJdUzLoEpojDjc/oUhcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=n56YuxBX; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="ZxwagLtB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1786338369; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=pGLKIkrykXTegAbf95GWZLKiQkazLl3chVfsyo2cLj0=;
- b=ZxwagLtBjVwbUVMMp6WgQmuMIZgsDRTm6f1uiemqW6oEN+VoFWlgFloihD083M2c1KgWxk
- 0FXaG4k26p0wtj4AasK3tTkEDs8o02TLioJi7IPehJ83yyZD3eyP1xvldLMTXi/jjlV6ou
- u2VUuRnKkBV9En6z4AQEIeKlRHg7khxNShJ5LXt5l4KmXr4pGOMBVe4wrL3nhoWin8r9hM
- f+uO6OWErwOg0fZ5gWC2YD5DUXF1hp8rt7hyBByNqTEwPfvkcy/zsTo5vnxUYTWHe7codo
- QR0AsQ1cgbUIS8ES35fulbfI8uC/Bf3qc9YETn10KpAKwYojM7bDXCZRDYmldw==
-Content-Type: text/plain; charset=UTF-8
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: Re: [PATCH] iio: accel: adxl380: clamp FIFO sample count
-References: <20260809-adxl380-fifo-clamp-v1-1-780d86ef25eb@cherr.cc> <20260810002808.76ffd95a@jic23-huawei>
-X-Lms-Return-Path: <lba+26a795c3f+1c6dba+vger.kernel.org+me@cherr.cc>
-In-Reply-To: <20260810002808.76ffd95a@jic23-huawei>
-Message-Id: <anlcOa5tkTUN9EQr@nobug>
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="n56YuxBX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=hFX9Zm9qAMWPdih3CERXtHLvTmlcchQZ9j
+	xsR7LXPE4=; b=n56YuxBXGtMCOtd3MyDtEgK80d6kbuKQk0cyStl3KuRiFHs8Yr
+	+OsDkz/VcmEwdY744jwQUoqm5hnPrmh62oihHi24uCPGpuUVRV3RH5+79zh2NWWS
+	qWOV0jLZAoR625gM4/dgwjN4jgCJi9+07URkWnHRtU31vhc8fTxMbTj84=
+Received: from ultrarisc.com (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkOZXnlq2JYWAA--.18693S3;
+	Mon, 10 Aug 2026 13:16:19 +0800 (CST)
+From: Xie Bo <xb@ultrarisc.com>
+To: Anup Patel <anup@brainfault.org>,
+	kvm-riscv@lists.infradead.org
+Cc: Atish Patra <atish.patra@linux.dev>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	kvm@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Xie Bo <xb@ultrarisc.com>,
+	stable@vger.kernel.org
+Subject: [RESEND PATCH 1/2] RISC-V: KVM: Release unused page after MMU invalidation
+Date: Mon, 10 Aug 2026 13:15:43 +0800
+Message-Id: <20260810051544.3953925-2-xb@ultrarisc.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260810051544.3953925-1-xb@ultrarisc.com>
+References: <20260810051544.3953925-1-xb@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Content-Disposition: inline
-Cc: "Shengzhuo Wei" <me@cherr.cc>, 
-	=?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
-	"Michael Hennerich" <Michael.Hennerich@analog.com>, 
-	"Ramona Gradinariu" <ramona.gradinariu@analog.com>, 
-	"Antoniu Miclaus" <antoniu.miclaus@analog.com>, 
-	"David Lechner" <dlechner@baylibre.com>, 
-	"Andy Shevchenko" <andy@kernel.org>, <linux@analog.com>, 
-	<linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-Received: from nobug ([202.112.51.208]) by smtp.feishu.cn with ESMTPS; Mon, 10 Aug 2026 13:06:06 +0800
-Content-Transfer-Encoding: quoted-printable
-To: "Jonathan Cameron" <jic23@kernel.org>
-Date: Mon, 10 Aug 2026 13:06:01 +0800
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:AQAAfwAnEkOZXnlq2JYWAA--.18693S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7WFWrtr45Zry5Xw4UArWkZwb_yoW8AF15pF
+	ZFka90vrWrtF4UZ347Aan29ry09ws2gw1fCryYq3sYvrsrtr1qqws5W3yxWF13Jr1kXayS
+	vF4jqFW5CrWkK3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmm14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
+	ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AI
+	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
+	vE14v26r126r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
+	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04
+	v7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCF
+	s4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r
+	1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWU
+	JVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r
+	1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1U
+	YxBIdaVFxhVjvjDU0xZFpf9x0JUYg4DUUUUU=
+X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQAMB2p1VlUAFAAOsM
 
-=E5=9C=A8 2026-08-10 00:28=EF=BC=8CJonathan Cameron =E5=86=99=E9=81=93=EF=
-=BC=9A
-> > Fixes: df36de13677a ("iio: accel: add ADXL380 driver")
->=20
-> In my opinion at least, these are not fixes. In general we don't expect
-> drivers to be hardened against broken hardware returning out of spec
-> values.  I don't mind taking simple cases though that don't complicate
-> the code much and if anything make it a little easier to follow,
-> but I don't currently see any reason to mark them as a fix.
->=20
-> So drop that tag for v2.
->=20
+If an MMU invalidation races with a G-stage fault, the fault handler skips
+installing the page but leaves ret set to zero. As a result,
+kvm_release_faultin_page() treats the page as used and can unnecessarily
+mark it dirty.
 
-Hi Jonathan,
+Track the invalidation retry separately and release the page as unused,
+while preserving the existing return value so that the vCPU retries the
+fault.
 
-Thanks. Understood =E2=80=94 I'll drop the Fixes tag and stop clamping.=20
+Fixes: 2ed90cb0938a ("KVM: RISC-V: Retry fault if vma_lookup() results become invalid")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xie Bo <xb@ultrarisc.com>
+---
+ arch/riscv/kvm/mmu.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-> This is papering over what we think is a hardware failure. Unless I am
-> missing something the device is returning garbage, otherwise we are in
-> range and this has no affect. We have no idea how much data there is
-> if we get a value outside the expected range.=20
->=20
-> As such I'd expect an error print and probably no attempt to carry
-> on reading as we have no idea what happened.
+diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
+index 6035b5e..d189fd5 100644
+--- a/arch/riscv/kvm/mmu.c
++++ b/arch/riscv/kvm/mmu.c
+@@ -627,6 +627,7 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+ 	int ret;
+ 	kvm_pfn_t hfn;
+ 	bool is_hugetlb;
++	bool unused = false;
+ 	bool writable;
+ 	unsigned int vma_pageshift;
+ 	gfn_t gfn = gpa >> PAGE_SHIFT;
+@@ -719,8 +720,10 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+ 
+ 	write_lock(&kvm->mmu_lock);
+ 
+-	if (mmu_invalidate_retry(kvm, mmu_seq))
++	if (mmu_invalidate_retry(kvm, mmu_seq)) {
++		unused = true;
+ 		goto out_unlock;
++	}
+ 
+ 	/*
+ 	 * Check if we are backed by a THP and thus use block mapping if
+@@ -743,7 +746,8 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+ 		kvm_err("Failed to map in G-stage\n");
+ 
+ out_unlock:
+-	kvm_release_faultin_page(kvm, page, ret && ret != -EEXIST, writable);
++	kvm_release_faultin_page(kvm, page,
++				 unused || (ret && ret != -EEXIST), writable);
+ 	write_unlock(&kvm->mmu_lock);
+ 	return ret;
+ }
 
-For v2 I'll treat an out-of-range count as a hardware error,=20
-log it, and skip the read rather than carrying on:
-
-    ret =3D adxl380_get_fifo_entries(st, &fifo_entries);
-    if (ret)
-            return IRQ_HANDLED;
-
-    if (fifo_entries > ADXL380_FIFO_SAMPLES) {
-            dev_err_ratelimited(st->dev,
-                                "invalid FIFO entry count %u (max %lu)\n",
-                                fifo_entries, ADXL380_FIFO_SAMPLES);
-            return IRQ_HANDLED;
-    }
-
-    fifo_entries =3D rounddown(fifo_entries, st->fifo_set_size);
-    ret =3D regmap_noinc_read(st->regmap, ADXL380_FIFO_DATA, &st->fifo_buf,
-                            sizeof(*st->fifo_buf) * fifo_entries);
-
-Same for adxl367 (push_fifo_data: dev_err_ratelimited and return true
-without reading the FIFO).
-
-I'll send the two as a single series with a cover letter, no Fixes tags.
-
-Let me know if this looks OK to you, or if you'd change anything, and
-I'll send the v2 series.
-
-Best regards,
-Shengzhuo Wei
