@@ -1,145 +1,141 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1EE3033E1
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0FE309EEC
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:39:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786369189; cv=none; b=P9GrHWtDvvSJlKo0UEzGcxQDl9x70a6WvD60mFVMhOXWwR/xxS1uCFuahzSR/vYisu3EmMBzQeRLJCqIeyemrxpJpeUAtKWfzpS8kIPG9Oa+1CL0sSC9qDXhqoSmn/S4cpNjbHqn+53BLObumLXP+extE+naTFZhPYP8NfHI2Ik=
+	t=1786369193; cv=none; b=mzF5x1edSlUMfjIFwYLcHwzEdBfU4M8vABG/XHYibxt9B6mjowZHVa6jadZJ9GyYwZcUwKQvA3D7oqyEOCgQRjZZYF33ZScs847PXVyqLq+6lvcm+MEObg440w6PzmW6rR4JYDHDFuKRE5f+OUiuEIeTcXz3zg9xj1pH8sJnoLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786369189; c=relaxed/simple;
-	bh=rJr3G0XswjMFjgKhPXxeOIVg34Xt23MrpkConhugBkY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pC+5YyRRpKp9BTpI7E2DGA8gDe/CisnD6v2JTpOlsNt5u22X2BVN3Qh7WbE6vhHOvku14I6jR7R4TQ8qIOkNSiQBtaIrDjdVZ/yCKcQBCCN4d2xSCGI5nmnK/TcbajyNdelqa3BEdsNk1I0w4PKw7qW1YzU6xJy5oPNyzOsvQLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=e4lR+ENk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=V4f02wnM; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=dJc/gDjJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DU3wncMo; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1786369193; c=relaxed/simple;
+	bh=IC25fdk8YKDP+U8bM8UZ6EriBwYpYrh4HbS/Q2Rm+hU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qaSRLiHZ30tWtBMX3hgRKGV+qD/9uzOTLtnzc9/PHd53dhaWRRp/pHVpArvBLBEp0XT0LfS0cVC4x8cJOncjWSSbUChOfbOnlfyaG1mEwpSqv4KANOMt0a8yeNgzkY0odGf7EokdkE65mf7oUpdu7NtCGldKnT/gnSjGk9l9dcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXehzWWh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="e4lR+ENk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V4f02wnM";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dJc/gDjJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DU3wncMo"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id CADE13E11;
-	Mon, 10 Aug 2026 13:39:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786369170; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CisBn1B6kkigmvzWeDZSGLTZq31XjYHc6dh/+tbquP8=;
-	b=e4lR+ENkh2rTPLqPZzuL11tQco669cGIaLnrBz+mxlpgNDqSm7meHn+VZ3/Bk+UkvTBtkF
-	thP5wFmsoet11Pu6R0mnNKTFy0ymbHq//1Exm6gSelnsk1G0JNArNdujwp5ZXzy5iB/Lyp
-	PL1/gGGCwMsFxxZZmcJV4TSAyCfS/JM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786369170;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CisBn1B6kkigmvzWeDZSGLTZq31XjYHc6dh/+tbquP8=;
-	b=V4f02wnM69usU06cf0ymx3WVKV5MDi6uBs+X7iWox1DMNgsbDlAphs8GS5rzVSPu5S83e0
-	CgE4mlmO+MN2zSBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786369166; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CisBn1B6kkigmvzWeDZSGLTZq31XjYHc6dh/+tbquP8=;
-	b=dJc/gDjJCWrTbA/kx2thFVusrKkVNyHjHvcu7UCTxHck+uF7Bm3tSZQJ20KXIIxpMyQItU
-	tItvQPYLRNab5td1jL9eJOQ+iFAugTLRCPrdSlp9K+b/YnLKo6vnHP4MEEITltXJosPwEi
-	zGMNGLIgtZzJQ3vppVOVPbFa8YHpZVQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786369166;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CisBn1B6kkigmvzWeDZSGLTZq31XjYHc6dh/+tbquP8=;
-	b=DU3wncMoDHzSKxCWfIHXOW6YAshly/ItvioZrHkmUYY90YpJ6laopfF6rxWFtHEAiyLhY4
-	vwPnPYXECHj0dVAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D1702779B6;
-	Mon, 10 Aug 2026 13:39:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YBkFMoHUeWoXIgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 10 Aug 2026 13:39:13 +0000
-Date: Mon, 10 Aug 2026 15:39:13 +0200
-Message-ID: <877blyccxq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Denis Batishchev <ii343hbka@gmail.com>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Enable micmute LED on HP EliteBook 6 G1a p/n: AD3Q9ET#UUG
-In-Reply-To: <20260810125209.2014042-1-ii343hbka@gmail.com>
-References: <20260810125209.2014042-1-ii343hbka@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXehzWWh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7907E1F000E9;
+	Mon, 10 Aug 2026 13:39:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786369191;
+	bh=itavIIlwN6K8iWADYO2z3JMRcoMUFVoze9Ay/PZhdL0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kXehzWWhqWWYJxyYT96mbiQLjGXYvwEwoHadqw6Kl3qsGshhMMDn4gWe7mWkRvrsj
+	 aZob0Zq5LLhLNd102c9WKqFLSU5kWcuF8K4QCf5hNIQ27bhwrZqYb2AdKV573N1nKA
+	 awegmhSsWJY48evf1QCMiJXvYdtC6Llmbj+ippbLAHN+vsZ+dUAnX3IeVbtK9PnmIA
+	 Ma/qGVfXA0zlgTovR6kVrPZUGlatabeDNjwsQuAaRmVRZCl5Gvr05PKhZ6Zs6gM6Zp
+	 azmOLnqSWlDUays99wr6uNdmiGH35kai7BShCr9WmID+B+zqSxUyhC3aq2aRy4UN2a
+	 /rNDfN1DTAKfg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Weiming Shi <bestswngs@gmail.com>,
+	zdi-disclosures@trendmicro.com,
+	Zhong Wang <wangzhong.c0ss4ck@bytedance.com>,
+	Xuanqing Shi <shixuanqing.11@bytedance.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] KVM: x86: Cancel delayed I/O APIC EOI handling before destroying vCPUs
+Date: Mon, 10 Aug 2026 09:39:47 -0400
+Message-ID: <20260810133947.1272166-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080506-generous-stimulant-c2e9@gregkh>
+References: <2026080506-generous-stimulant-c2e9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 10 Aug 2026 14:52:09 +0200,
-Denis Batishchev wrote:
-> 
-> The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
-> Without a quirk no fixup is selected and the mic-mute LED stays off.
-> It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
-> already-supported 14" variant (SSID 103c:8dfb), so add it.
-> 
-> Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
-> Cc: <stable@vger.kernel.org>
-> ---
-> v2: fix indentation (per Takashi Iwai <tiwai@suse.de>)
-> ---
->  sound/hda/codecs/realtek/alc269.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-> index 6b36c730c..ef8beb928 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -7542,6 +7542,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x103c, 0x8df1, "HP EliteBook 630 G12", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x8df7, "HP Z66 G6", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
-> +        SND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14 (AD3Q9ET#UUG)", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+From: Weiming Shi <bestswngs@gmail.com>
 
-Hmm, it's still with spaces instead of tabs?
+[ Upstream commit 9910e835580fef3bef53b70241dd00c4bffad693 ]
 
+Cancel (and flush) the I/O APIC's delayed EOI handling work during the
+"pre VM destroy" phase, before vCPUs are destroyed, as processing the EOI
+broadcast will inject another IRQ if the line is asserted, i.e. will try
+to deliver an IRQ to the target vCPU(s).  Canceling the work after vCPUs
+are destroyed leads to UAF if the delayed work is processed after vCPUs are
+destroyed.
 
-Takashi
+  BUG: KASAN: slab-use-after-free in __kvm_irq_delivery_to_apic_fast+0x9bf/0xa20 arch/x86/kvm/lapic.c:1250
+  Read of size 8 at addr ffff8880499abea0 by task kworker/1:2/1218
+
+  CPU: 1 UID: 0 PID: 1218 Comm: kworker/1:2 Not tainted 7.1.0-rc7 #5 PREEMPT(lazy)
+  Hardware name: QEMU Ubuntu 25.10 PC v2 (i440FX + PIIX, + 10.1 machine, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  Workqueue: events kvm_ioapic_eoi_inject_work
+  Call Trace:
+   <TASK>
+   __dump_stack lib/dump_stack.c:94
+   dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+   print_address_description mm/kasan/report.c:378
+   print_report+0x139/0x4ad mm/kasan/report.c:482
+   kasan_report+0xe4/0x1d0 mm/kasan/report.c:595
+   __kvm_irq_delivery_to_apic_fast+0x9bf/0xa20 arch/x86/kvm/lapic.c:1250
+   __kvm_irq_delivery_to_apic+0xd8/0xbf0 arch/x86/kvm/lapic.c:1345
+   kvm_irq_delivery_to_apic arch/x86/kvm/lapic.h:129
+   ioapic_service+0x308/0x590 arch/x86/kvm/ioapic.c:492
+   kvm_ioapic_eoi_inject_work+0x13c/0x190 arch/x86/kvm/ioapic.c:532
+   process_one_work+0xa59/0x19a0 kernel/workqueue.c:3314
+   process_scheduled_works kernel/workqueue.c:3397
+   worker_thread+0x5eb/0xe50 kernel/workqueue.c:3478
+   kthread+0x370/0x450 kernel/kthread.c:436
+   ret_from_fork+0x72b/0xd30 arch/x86/kernel/process.c:158
+   ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+   </TASK>
+
+Note, the VM is unreachable once kvm_destroy_vm() starts, and scheduling
+new work via kvm_ioapic_send_eoi() can only be done via KVM_RUN, i.e.
+requires a live vCPU.
+
+Alternatively, KVM could simply destroy the I/O APIC during the "pre" phase
+of VM destruction, but that gets more than a bit sketchy as KVM expects the
+I/O APIC to exist if ioapic_in_kernel() is true, and nested virtualization
+in particular has a bad habit of touching VM-scope state during vCPU
+destruction.  E.g. attempting to free the PIC during the pre phase would
+lead to a NULL pointer dereference in kvm_cpu_has_extint(), and it's not
+hard to imagine the I/O APIC having a similar flaw.
+
+Fixes: 17bcd7144263 ("KVM: x86: Free vCPUs before freeing VM state")
+Reported-by: <zdi-disclosures@trendmicro.com>
+Reported-by: Zhong Wang <wangzhong.c0ss4ck@bytedance.com>
+Reported-by: Xuanqing Shi <shixuanqing.11@bytedance.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Co-developed-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260727171718.543491-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/kvm/x86.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index f2708419f7870..f0707f0e1ec00 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -13320,12 +13320,18 @@ void kvm_arch_pre_destroy_vm(struct kvm *kvm)
+ 	 * iterating over vCPUs in a different task while vCPUs are being freed
+ 	 * is unsafe, i.e. will lead to use-after-free.  The PIT also needs to
+ 	 * be stopped before IRQ routing is freed.
++	 *
++	 * Do NOT free the in-kernel PIC or I/O APIC here (but as above, make
++	 * sure to flush any background work), as KVM expects interrupt routing
++	 * structures to be valid until vCPUs are destroyed.
+ 	 */
+ 	cancel_delayed_work_sync(&kvm->arch.kvmclock_sync_work);
+ 	cancel_delayed_work_sync(&kvm->arch.kvmclock_update_work);
+ 
+ #ifdef CONFIG_KVM_IOAPIC
+ 	kvm_free_pit(kvm);
++	if (kvm->arch.vioapic)
++		cancel_delayed_work_sync(&kvm->arch.vioapic->eoi_inject);
+ #endif
+ 
+ 	kvm_mmu_pre_destroy_vm(kvm);
+-- 
+2.53.0
+
