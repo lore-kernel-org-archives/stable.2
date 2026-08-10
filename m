@@ -1,159 +1,156 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011017.outbound.protection.outlook.com [52.101.62.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0A4299920
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 15:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786376856; cv=none; b=hi4vO03flPt9+o993j5lCasjO2ciOSB/YYGSbj/h+Brk/XugZrRnVwTZWfPtQfdBJR4bFwL++/dPH6RH1yVR8t7aBv1gEfnPD3kEtLwFPQ0vhhNZO2+hyIUrT1JlSaRtAk/P9HK89tQe6xJf5Iov9oNejNUWU2pQrRrQ6JNzoHY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786376856; c=relaxed/simple;
-	bh=wOmW7m7NE03gMf7iUofQ0pKee8XEwyElqjWYwIQXPWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fi+DudUGf9TRxSesCjKhx1QNwoigKPQSKJTKHGAfCv9kEL8icFEViQkY4/7SQTMhTMNTH/B6tAOOcnjK7GkjZZh6Awje1X36bOAXDs73c31mrRtvrOuNYlmjeTIZNcGO4M0CqR9IJd/bLxyGAbf54woZZsXPpt5onwxvvZS1rGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=KIQi8RyJ; arc=none smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49CB82C08BB;
+	Mon, 10 Aug 2026 15:48:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786376900; cv=fail; b=VviiWM/eBL17n+A23dsqeKP32l5VL/s7q1/jq2sn7+oxAeUFQ12korZml6NGH7JICFMsU9v1qMfdUln3ELRQMH8RcSvssAHacMUpT5dGO3mbGwRJ7YeqmISr4qbRw/KHrFKoF9sizZoKz89iEQVpl8IssmRfj5ZWTccLpPAPDP4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786376900; c=relaxed/simple;
+	bh=pCcMWJN4yZGFfQLa3CDkbV20uoInam5M3YsGpATU7Ao=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=E1AfGWNxHDHcEA5JUvIcoRkVF9fDJd2QjFqiB70HBh6PZpuKdPdzHDdE3pjSRIS1986+tyZg2vimbQOlIpnL9CIRUmn6PfWmkeJsiA8NUUxMuQ2seFg2Nka9uYAfnrHHmax+kLyWRyUhKJQEQIN9OogaqlrGwMoRoiE3bq5zAv8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WIhkMkWK; arc=fail smtp.client-ip=52.101.62.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="KIQi8RyJ"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-51c2b2c9eccso12659601cf.2
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 08:47:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1786376853; x=1786981653; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cz2j7Ub+YNraWKHWXqt2U9IfnVOCLgD0ZKsDhgeBKYo=;
-        b=KIQi8RyJZxiiVqMbzgtZzFkUc8jPDiwIasq+ZTX3ZLxiC9qhjZqifarfla7u+Nk66W
-         pcVkHOnO6fUPtXHEuFdcA2mkW+NtQfVnI+IuANhS5XEKqVxIP3iacugjNeZejOAtvT96
-         J5MwH6cMUCCOcmo6r930pJgSsf8T2bYuqGdYL0jfiRjK7LigWj002AAqUxhKHIEPboqa
-         Ihf+Ak3RKDcqovtqeZuuyzH+4P8EseWWWMv5Q5mofGXq4QsfwHPr4d4L3Y4Uld3Cl2Lr
-         jyWWLfJQVumkDCSsvXfMYhixwipIsZqm21S4ZpO4k0Pdk+koei2/eua+OXaL5HRhImGz
-         GY+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786376853; x=1786981653;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cz2j7Ub+YNraWKHWXqt2U9IfnVOCLgD0ZKsDhgeBKYo=;
-        b=ni2FJhhk8AQVjCXciq1yKSbs56hqh3KMhelSRshve4vPeTUBbbolSfY3J8OqSTGW1b
-         WkKcxkzGTNq0+8Yd22s+NBa+ap4OlZhTWtRnXvC9ihUlC/nHefFfiK+DD0LPF3Pwmpaa
-         xtgPlm6iWZOtTFu+9nx/7sBpuYI7lMgZhvytUWz1zPF8WOBWDYtbivqavRocSZkcOldy
-         a5yZndb0g0PWWQGSNv1+qz8FkxZhBK9gWhcWGfiS4DGQ9P2wzWoGTaP5aTUX13ChI265
-         SLXMq9yiRS8f2KPlufZVv0udl10DIVPAUIbbHkrgV0bPWlOH24TNBc/LU14ZbfeXBgui
-         qEbA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpg2x6qlphL6AFr6NEEoepQzT3RcUwH8arJQoU2FWTEmVCezShe/EVKkfRrPaRCk+1ejrgttv0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7X6lIlVAPMK9qOf+70zuS9x1KUWc8wBWW42w/3YIHvBOOsG1B
-	nPV3/GPVpbKLUYCgaZNtkcmjzgWNLlDfklS+jmrpat7Oqmaf/eMD4tcaddSsm3x2+lk=
-X-Gm-Gg: AR+sD106XbbL3TjeU89yYKYc9K3irCAP2zvZcd7CATAvEEUoXqVKrZ3KmjjGXSFgPWK
-	qgXR5iHoxxfS59GsTJo9VGqe7pLReQkUmQin3kcvOVkB7BymdBhhgp7TJTIos7+M8JhVCwPkOX5
-	9bYKDJh2IlhqY0asLpvkrOmsWaz3hlqPiMc57EcmfzqBfG5DaPYBYR5i+wo0EXnbT7Ni/gjcuJ4
-	rWyExqx65x63KlXyvnqLAQouj9Xm3Z+kIPc6o5YQSjwqe7hXDT5s3IR2LjS4Borhm5fszioHfZF
-	O+/7kqxQfdaS6OMmAiv8NJsYe+emBGYYaEFFD05hjisNp4EJCa81tGPp3eajj5J0EdGA88uC2Ti
-	1O3pMV4NZQP9ODART4dwQVTkdm3jXQ76SCWizm0WOvPYM2nFw9lHHSEW0Z3YcjoOpebQrwbp7Ti
-	nuOoZsxsesSqTUC+EtTT6gWK4Cex4ppr/Y03rC9mxxu3lGLpDa2KKQOHwSFhK/PFr5eg==
-X-Received: by 2002:ac8:5ad3:0:b0:51b:fb4f:afdf with SMTP id d75a77b69052e-52ce5f612dbmr458618171cf.9.1786376853398;
-        Mon, 10 Aug 2026 08:47:33 -0700 (PDT)
-Received: from localhost ([146.190.222.192])
-        by smtp.gmail.com with UTF8SMTPSA id d75a77b69052e-52d1637f4a1sm74972291cf.9.2026.08.10.08.47.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 08:47:33 -0700 (PDT)
-From: David Lee <david.lee@trailofbits.com>
-To: andrea.mayer@uniroma2.it,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: Kyle Zeng <kylebot@openai.com>,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WIhkMkWK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZVudfNg5BJVPubqKvARVhl/OeN5WoJZsPTFylk0PgAVA9c1GRJ7ojcHvIdJsQKRkdu35u/z/Uw5vDQCvarIcUmtH+NB2fdVIvYnaZx1LMlmR7kJQM4w27Ao88XTD6p1qgwxoP3mAUDq0DR4xEmrSujkRgLllmzsVUMHe2SBNUfmagMtYRiqQLdEJ+QEk7J/fkiSRChTAznzxwgkCI4g/S99K9vo2pjiWq7k/gLluHP95by+5dtUYMcHlUA/Su+KoEDBeIJHHEqvb4FM9JGRKF3Gfb5Kuw6+zpLE+2/GpSELCUCiQ3tFe8GzWqMtMg4jKXqtibvrZuSi8mkW7PLUhHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V8IwWYu6QbRfRz20CeeyXJl+OBKrEVp9Hxd5BJ+SFS4=;
+ b=HAZ2+cgGJKtIkapsSuTVf5sR2QezxEZWiie1jOv4HSiH/ZHbVptVz6OnSAUlnNnigtqz9MgKHQ5VS/18evd/f7/GZ26gWUQbmi3ftYCY3Ce9L+pzw+r40Ilb9WeNS0qz2eIwRrPmLX6g29UwK7ICNy7iqtG0UDy7Pctt59h/1ds/nLFs7rVJ//RRkLFXLCDk9T0OVM0Xj2zBBXJqn5eMjY/t+qsfBAngvVlhe02l/nSZRraPsZCXvegkMgyFNgk+nyDGUryAlWH5OpG76MBEolOU8wbOB9o9jxjY5I4OVdUqsTk2VT9YEllIW5RMN/ZBv7bSvPytO5OdP0chiUiSHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V8IwWYu6QbRfRz20CeeyXJl+OBKrEVp9Hxd5BJ+SFS4=;
+ b=WIhkMkWKktvfgI+kCiDgNmMpbKZD7gWocN/kjrOohbYf4JeqpIF8dtWxvDnDv4PdXfMgnwyEK1nGYr4I/rp3VWzf6rwq10Vz3dntA129O71lLAojHcwS/K36uFtD36IX7inSz/RNC19j4a75eIYuS8dX+7rGUHhARKq28vEI6YbGCY9ekYX8wxIm7YkICcttXEuqmt49sxhYdSD13+PrH9sopDzF6ZpRnOStwpMR5/KHo0CtzQPA6JumxwERv+IGjKPcA74qI73lWeuxmP0HNVOJY4BjoDz74gholEjAwYcZJTPHDwb8y1gdTj0GJ3fDH/J2uTDq7acaJJyyCUQscw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12)
+ by DS4PR12MB9793.namprd12.prod.outlook.com (2603:10b6:8:2a3::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 15:48:11 +0000
+Received: from SA3PR12MB7901.namprd12.prod.outlook.com
+ ([fe80::6f7f:5844:f0f7:acc2]) by SA3PR12MB7901.namprd12.prod.outlook.com
+ ([fe80::6f7f:5844:f0f7:acc2%5]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 15:48:11 +0000
+Date: Mon, 10 Aug 2026 18:48:02 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: David Lee <david.lee@trailofbits.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, Kyle Zeng <kylebot@openai.com>,
 	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	horms@kernel.org,
-	stefano.salsano@uniroma2.it,
-	dsahern@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	David Lee <david.lee@trailofbits.com>
-Subject: [PATCH net v3] ipv6: seg6: clear IPv4 control block on IPIP decapsulation
-Date: Mon, 10 Aug 2026 15:47:31 +0000
-Message-ID: <20260810154732.850472-1-david.lee@trailofbits.com>
-X-Mailer: git-send-email 2.43.0
+	Sven Eckelmann <sven@narfation.org>,
+	Petr Machata <petrm@nvidia.com>, Amit Cohen <amcohen@nvidia.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v3] vxlan: keep the last remote linked during FDB
+ flush
+Message-ID: <20260810154802.GA2803521@shredder>
+References: <20260810144115.821654-1-david.lee@trailofbits.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810144115.821654-1-david.lee@trailofbits.com>
+X-ClientProxiedBy: FR5P281CA0038.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f3::8) To SA3PR12MB7901.namprd12.prod.outlook.com
+ (2603:10b6:806:306::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB7901:EE_|DS4PR12MB9793:EE_
+X-MS-Office365-Filtering-Correlation-Id: fbd9079a-0b7d-4920-8f6c-08def6f6c823
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|22082099003|18002099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	b+n4zc0w9hlxSuXAWyztZ7WpfC9HBWgQ0dVjXFK1X6tT5+Xhq9Uja8R7eVHvPcrS6sufZT56yyG9OBuhJggfP2rUupNajpZ4INn3nteu+BRKMQH3m1VJkD1THVknkPz427iUhQXlexpYQ/RmXDwc67ii32AYkfrNd5Fc0VgmSljSlRRS18dlM3Vy9Pck3Z1bDA8UFq9+JT2uY8XHdduOk9qs2O2QvGvygvvReuJN5eyZxu3yif6YAEcNcZIEZNs6v2h7FOr1ErN9LbxEZsXa8a4FQV21AM3NBVLGmOrARdH4WI6CzhmlrwPmo9dk+2bmAUQFVOabQYcfXc/u5fxauv11Taccdj83kCiuz+PtaDxP05BqQF04Qn18CJGz32k+kWOYmhtjxmK8D02DtTOen+QjJwvrUWj9i0Ml8LXXHnWRGC4aZNH3sLxHlH6chNVO23CcZ2vnW6sTYflE4dA4CMJJD8BsflYLDiuLKZ7XmP6lZmwbTDmlby5XZtl6QSlrjM/2p0wurgJxazoC1GYfQ43rRA2jq38H9BItuWdpfGU4cbXeCusWIjm7YOGIHiDOgxmzP9q47EVf6XBCj80n1Ez8hjO5j0H/c6+H5LjHqUA3JCkbswZP5x0XTXua34p1F1SB3aonyPfDuh8Zf1mXJbyEZDIK5KpohNR17KQX+GY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB7901.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?BLwwjNYahlg4Bw4iJDl/Icap6V8DAJ2HtPOdCA04+ll9kW4q7PWBUNTbSpRd?=
+ =?us-ascii?Q?LDaJHILPgx65mh7dSpX7Vd8YVbYuhqzMMNr7/SqLyfls6kLKuRUhrLUvkoc9?=
+ =?us-ascii?Q?CWuttk1MfJj+oybkKQ4wVixJ03OgICsRLkMTgxlphGtoMSu8LLY//9ySI5P/?=
+ =?us-ascii?Q?fCowyKZEAd/np7Hm3yCDXv5u98RC3GtXAyV41U488s7+Vrmpk9mQ7iq5FUCF?=
+ =?us-ascii?Q?Z0QFNzuQEY9FhYfP8EpRzcZ6hGGp07BrsP9DKF1GXXATIge0AL0EvGjJ1lCy?=
+ =?us-ascii?Q?Q94iorAfidLY3P1dIV6R5LdRS9DfPbR/yDMiwT1H0YmqOarIkCOko7Q/eIgq?=
+ =?us-ascii?Q?H1FOM7Rx1skL6ra6weRQT2EQ7fqFUCHHlF9wW4anzRwLJIoh8HHO7lwQ60ef?=
+ =?us-ascii?Q?F85S7K/Vwc2R6nLbjoQsQhFYpBz0aWRJ8XaTosMg7N4TcTI03UQZVlPe1ec2?=
+ =?us-ascii?Q?BW/ZGKPDYBviJhANHB45hC2Jp7MBjKWDeUJC3ZVfyNHjSB13a4jASx83+Oz5?=
+ =?us-ascii?Q?lf5GBiuY93LC5elbKn5yzrtOdmtt8GlS7Dfh4UNGCARdr6TpP8sWToXZRjM+?=
+ =?us-ascii?Q?0IkFD8Ql9yIGq+hBQcei/1pfNzyvXBot+8/AlhUpMrTv1KDDq/WgFI6OG0VM?=
+ =?us-ascii?Q?MAW9sP39zWDAWcvK1XtapZN+FHzQsGRTuVKnKs9/l46hYvgIgjaPynBIq71C?=
+ =?us-ascii?Q?bJDczc1eDXvxCCz48yEtezMWZw810W/lsS5NwEzU6kowlSpozJK+tZlljIV/?=
+ =?us-ascii?Q?I0Svw5JciIGro+NqCMF3iC2tc+DUiGlrNDeY/myWuOgVGvgVFIR55auFCJGZ?=
+ =?us-ascii?Q?WuUrDV9y4dSwiEx0afOKqUIF0nWxsaH96gE3MQC3iBKlPxadAOWNB4csb51e?=
+ =?us-ascii?Q?Q2QtfEzQiRb19oSkdA9AnIH2svd8VyYxE3TzSq3FKboGLZFQMcHOEYqtG0nH?=
+ =?us-ascii?Q?t2999kbm90eh0gYE9B1KZvvjdF7Lsgzrs66H2x2RslMOMP4h+IB8O57mehhJ?=
+ =?us-ascii?Q?Q25KYXAfFyNfYjnEapxSSZVnVynMGumk7sjg7ywmev5X4doqJmIT+WgzBcRw?=
+ =?us-ascii?Q?QzujeCtiNGyA2qRGdAthh01Y6y/IFS34mkt9xZkLZEsYzW7a6ZPfuynmc2YG?=
+ =?us-ascii?Q?UUB8O3NTvxTcdBzIca9HYEATLBjPDtJc5mxpNNKvJ+mbWb0ifjzCxKUj1VJX?=
+ =?us-ascii?Q?wUWgyMUhJNiHoQG3IBQUGDET/pPWjhEsxh4GTh/JNoeEZBaAaIGxos7uFS2j?=
+ =?us-ascii?Q?lef3JWfcWvIZeVTSHBjQk5OwxoCve3JI6aXuXzHBnxKcAyVuVDR/hmbQfzKZ?=
+ =?us-ascii?Q?SVNHEb6wYM8NxrRyN/G/2ULtDLlPedflw6jBiFA8yxo9T6pcAfyeMM/tlLlK?=
+ =?us-ascii?Q?10bVZ0cgxjckee7QKCuSAABeCOl8Gl/vy+5HPqYEeAOoxl2LvVnl87WljqJk?=
+ =?us-ascii?Q?tMY3J7ZAafvg7+y6nAk6HIcnFXV+tJ1S567LkJKxMLINwPIxwq58oSXMdUXS?=
+ =?us-ascii?Q?x9StEgCUfeSakXwK9omoyo9cB/tbnYw+IF7TCxdScn+Xw4V0tqYdM1vgun7Y?=
+ =?us-ascii?Q?ErerAgCZF89SVxRkvdftkzhvmfum5q/MYDdCtLYmbPMW+HyIHO4aKyqGiMHv?=
+ =?us-ascii?Q?t85UqqS+65LcfpStl0VrHIZUG9gT2a1gg98gMSmzbWQDrEOTmZbXYvdqwvNY?=
+ =?us-ascii?Q?KH8s+7zY4ChcssXesSZWUAxk/fmh5q1Pn4I86XyaiRWKAfWt?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbd9079a-0b7d-4920-8f6c-08def6f6c823
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7901.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 15:48:11.4576
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qGg65mQmWkexZIJy3xtERrv1zSt9ByDsAauRvEBsBEXjYqB9kulmr/ZbgtIW7L2JluIujLcotYxO9WxUOp4t/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9793
 
-From: Kyle Zeng <kylebot@openai.com>
+On Mon, Aug 10, 2026 at 02:41:14PM +0000, David Lee wrote:
+> From: Kyle Zeng <kylebot@openai.com>
+> 
+> A non-nexthop FDB entry is expected to have at least one remote while it
+> remains reachable through the FDB hash table. A filtered bulk flush
+> violates this invariant when every remote matches: It unlinks the last
+> remote in vxlan_fdb_dst_destroy() and only afterwards tells vxlan_flush()
+> to destroy the parent FDB entry.
+> 
+> An RCU reader can find the parent during this interval.
+> first_remote_rcu() then applies list_entry_rcu() to the empty list head,
+> producing an invalid remote pointer that the receive learning path can
+> read from and write to.
+> 
+> When a matching remote is the sole remaining remote, leave it linked and
+> ask the caller to destroy the entire FDB entry. vxlan_fdb_destroy() keeps
+> the remote attached while sending the deletion notification and removing
+> the parent from the lookup structures.
+> 
+> Fixes: c499fccb71cb ("vxlan: vxlan_core: Support FDB flushing by destination VNI")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Ido Schimmel <idosch@nvidia.com>
 
-End.DX4 and End.DT4 decapsulate an IPv4 packet through
-decap_and_validate() and send it directly to IPv4 routing. The inner
-packet therefore bypasses ip_rcv_core(), which normally clears IPCB
-before IPv4 interprets skb->cb.
+This tag is not really appropriate here since I didn't suggest the fix,
+but only a small cleanup. Anyway, not a big deal.
 
-The skb instead retains IP6CB data from the outer packet. IPv6
-extension-header offsets overlap IPv4 option fields, so IPv4 can treat
-those offsets as saved option metadata. __ip_options_echo() can then
-copy beyond the allocation for saved options.
+> Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> Co-developed-by: David Lee <david.lee@trailofbits.com>
+> Signed-off-by: David Lee <david.lee@trailofbits.com>
 
-Separate End.DX4 and End.DT4 reproducers on the unpatched v7.2-rc5
-kernel both produced:
-
-  BUG: KASAN: slab-out-of-bounds in __ip_options_echo()
-  Write of size 255
-
-The End.DX4 trace passes through input_action_end_dx4_finish() and
-input_action_end_dx4(), while the End.DT4 trace passes through
-input_action_end_dt4().
-
-When decap_and_validate() handles IPPROTO_IPIP, save the ingress
-interface from IP6CB, clear IPCB, and restore the saved value. Doing
-this in the common decapsulation path covers End.DX4, End.DT4, and
-End.DT46's IPv4 arm.
-
-Use IP6CB(skb)->iif rather than skb->skb_iif. These actions run after
-l3mdev processing, which can replace skb_iif with the L3 master;
-IP6CB iif still records the receiving interface set at IPv6 ingress.
-
-Fixes: 891ef8dd2a8d ("ipv6: sr: implement additional seg6local actions")
-Cc: stable@vger.kernel.org
-Suggested-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Co-developed-by: David Lee <david.lee@trailofbits.com>
-Signed-off-by: David Lee <david.lee@trailofbits.com>
----
-Changes in v3:
-- Clear IPCB in the common IPPROTO_IPIP decapsulation path so End.DX4,
-  End.DT4, and End.DT46's IPv4 arm are covered.
-- Preserve the ingress interface from IP6CB instead of skb->skb_iif,
-  which can identify the VRF master after l3mdev processing.
-- Update the Fixes tag to the commit that introduced End.DX4.
-- Include the End.DX4 and End.DT4 KASAN evidence.
-
-v2: https://lore.kernel.org/netdev/20260804094625.715305-1-david.lee@trailofbits.com/
-v1: https://lore.kernel.org/all/20260731140832.567669-1-david.lee@trailofbits.com/
-
- net/ipv6/seg6_local.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-index 2b41e4c0dddd..95ea0b62729a 100644
---- a/net/ipv6/seg6_local.c
-+++ b/net/ipv6/seg6_local.c
-@@ -256,6 +256,13 @@ static bool decap_and_validate(struct sk_buff *skb, int proto)
- 	if (iptunnel_pull_offloads(skb))
- 		return false;
- 
-+	if (proto == IPPROTO_IPIP) {
-+		int iif = IP6CB(skb)->iif;
-+
-+		memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
-+		IPCB(skb)->iif = iif;
-+	}
-+
- 	return true;
- }
- 
--- 
-2.53.0
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
