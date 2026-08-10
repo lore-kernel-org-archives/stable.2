@@ -1,48 +1,67 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E8D2EB5A6;
-	Mon, 10 Aug 2026 20:37:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786394242; cv=pass; b=LT0VY5hbqzZ6gMC5qig8F/LDK4Eg843f9Xp0J9Jm5KRVbxeIGro/2D29NfZ/w9jmEas9K6HIb+/phKXUZ2J+N4aV3yaPlDWlb2W2fDEoMJxsA8sEzzc+WkLeeIgo3IN5ZZF4D5BFW5e7oMEwhvCWWFrregvahbPkmsilj0YoZ7M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786394242; c=relaxed/simple;
-	bh=gDCcjjQPSPrfCITkBdnkAf2KAhC+cg9NRTdkJClMC7k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RM9zW0kn45UTpCdgaxvwdDYjvNES8t0Axnm735H6DJiLYwPAKD2FKpLNE+aHiCPRD4eQFDfLtBg8srFWqAeQ2F3SCpwqLY4+7P0klGd4QiYphqaI+Fpgb6JxcG5ENXVIi5wR0RGhAaMcKUqZhwHOLA9/Agz6shRyeeD5id6spp8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=cdtU8R1a; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A591442FA0
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 20:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786394328; cv=none; b=DEV8EAHwT2utwtIgFzYLHGL+L1P/5kQNgqWJCUYP0Mb1rY+uDIVO7N+UmZjfMd0WBhujUtnSP0XeYT0dOOyjydEuB1Ig1Tzm244Gk9ppq0VOh4IdgZBO1iJt2nkbPIBu5h3e9bZR6SqkzB1Y87/6h3FotmVuPvBgKBOC7w48Pw8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786394328; c=relaxed/simple;
+	bh=jqjdQ4ytk0+wTeBw8PTbYYR3zs6526Vfg9ko20PQNAY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MSpkAgCkfpvpDrXhHp0h4V7EDUec5R7gqka1K2902skhPIngPBEN57/K8S6nlHddYAjoceKhRe0Zt9WrTBuRiQtDxTXyv92r5GL76ckBASITi+qnYWqwp1mhLESLZn2ab4gu8+GTqzqA1sDJ8qLC5kUg3PNcxAX4YivbjqapeVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JUOVxrAE; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="cdtU8R1a"
-ARC-Seal: i=1; a=rsa-sha256; t=1786394212; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Cdyzt8j1+tGa26yNDpomQwbJz/7Sz2O2xrBFUR7K+lUsTxP7h9kUFqwjFNJbptc7Z8cQB3xofUP/88GR7F+U9y43ta0PECYOKu2mqSE+NJjBEKEC8Vc/2Ufc6e6XL3j+zWodTJ1BJRJBGzKCugulYjJ+tDnViMjPn7Jd2H4LXTg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1786394212; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=JQI4sci6C5ySjBtkfm23T++3K82h9G4druSy5050Bkk=; 
-	b=nPUtQrNiM5IzOYNEz5IzsXysJfQKvJC6OGg7yciR98Ps3fG8NlZUaxgfVdE8VXGrqte6jDXs5PnxkaGTwEj9fyShNGQLoImwW/sfo3D47HrAkZRFVUFYHK2TA1dpMY+0x8GhkHXaYLk57AYfsobDEr0ds/zx6qQPgzngbOK9PmI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786394212;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=JQI4sci6C5ySjBtkfm23T++3K82h9G4druSy5050Bkk=;
-	b=cdtU8R1a+cJzJ2HD58ToHt4ABAjElfBs18dspaXxxwY8hnnGsv1bJbovVx67Y0Qz
-	LyKmpQ5Q8ccGRVpQR1HNuzYUv/VjrYQfHI+p3ujf/fX4np8qjX5LSm3Q5/BZzGi+DKP
-	dRVf2cSiUNw3aKN3Eu4JIpmoy5P49hagJCDHvhsiFnGwBt3YLJYnXZAyDHdOanR9khl
-	4bFYff2JKF6Tx68z1ubcwvfpeG5v779ZfCVl57f0RSIVbQd/VBh/6NOVoMwqP9tCONQ
-	VqkfAQrJM4/Zy73Of1+1kNjK56GykQb9BYi+oUoKWQ4nur+ptjh1JwJ+kj+IZyLy836
-	vT2bcc1PTg==
-Received: by mx.zohomail.com with SMTPS id 1786394210060129.50410084147654;
-	Mon, 10 Aug 2026 13:36:50 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Tue, 11 Aug 2026 04:36:18 +0800
-Subject: [PATCH 1/2] iommu/amd: Do not request ACS when IOMMU is not going
- to be initialized
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JUOVxrAE"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8453427d3f4so2356595b3a.3
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:38:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786394325; x=1786999125; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=V4aYm6FYSeErtwvuAXuGnJHyrhkVQge6WQL6UnOG+zg=;
+        b=JUOVxrAEDDUarQwaD1ICu0uriU0SP5hkR3+rfOi5MAUDXYh2raT3QJFr/6z14KAj3L
+         mT3DcrOduzYKndphpRIV1kBiRxZBpdRlgtvDQUux0my4mAzgtJdPryrLbURUH21ExYW9
+         bsev3Jg3rrdl8S8ELe+zBLxxiAuwUcE89LGMqa3SCFAg3sFnlsFtiQPi7ANOenS+IUgl
+         e3JHMlf9DOuv9P1VwPyM680ZYwG3X9tADIWeksT6ZR+xnI9agZ1WCUpCFJF4zDMpEKu4
+         X6SmhqKi8Er5gBdNr3R2C4DkEFuSZjfwZt9VdxrfSatm3qDmCX8GSCZ6E3KTuLuHA9IS
+         dg6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786394325; x=1786999125;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V4aYm6FYSeErtwvuAXuGnJHyrhkVQge6WQL6UnOG+zg=;
+        b=VbXOM2FdF13e4acul99BI2eA6FwfJiX50MXffTeZiPAkZ1PixHyHpjAs0+PfJtlspS
+         qjzqj0g7piiLsEFHkzzaHJahCvJStDGxWdjODj7bQR9kwxStljK0dCA+HLafrnj7a5Ob
+         MLbFVVEjwi4W0jQPXvvp612h+56q4+Hmxa5VwvCDJwQG6kGDEgZvetgVW91HBmn6TuXO
+         adjvB/rTOjE7P3uTmMJ5RmBN30Tz83+QWGXHMrgVYUA1MTyifQ+60DLbBnTwfN9I4/TA
+         3ZSkP/JBBP9mdnmJeg9NDUteMS3tjEQyJEn+jfESBysbZYAh8f72QYliUU2u0QAq+3Uf
+         9E0g==
+X-Forwarded-Encrypted: i=1; AHgh+RpL9T+L5KUiIIZJBvewLvAOx1huzZf1kkkuPkAnfknjFMTo26aEq4FI6NCDWj4stIoTV5DUysw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0VfVzAGIbYl1fmcLhpDLg8W+BzTzIWaaHMHrCXvp5Y+5hI4aZ
+	ojO/pu5OCed+pyeeF+IeSLKApcHO+fwYHvaeCIWPIfuJEwNXTqVUbSv2
+X-Gm-Gg: AR+sD11w1x/CNWve+qT7y0If7daEY4ULtEkJr1dmEJ7jVGs6Jpkk31xssQyYreu4mzx
+	LJ+fqd3s8Y+0AIyqyqHKSNsVR6pH0/GCGPKc8f8O42QToKLUoaXQTClIqknkMjLO1fUDq5Ghaxz
+	EMjphOOOryeroYXa2fVXXc3FNg+ofZwMOhxriNejoC1Cyrttmw7EaTDuX/MVtwHsqX3WzDfb59+
+	vCO4lmiX30nJWMBZLVLw8LWGaO2R0cNnyRQNCmN5mQD0EAk8S05XJN7umZM/k2pBecsVWW8m8Qz
+	sy/bediwaWqd3BUqRrP027Tg4wY/CWb+Sb8jyJ0A4lnuR1hkMDzOvTswxBwKXvMMTWhxQo0LdaX
+	AosDBD+KVsbQl+IxE4rc/bagAm9/55AJeNpR8oIMPYXlSZZS9Q8pAXuC8UDAE0Wcw4ugb2VusDj
+	bVBb1YT4abHlFP5pefqzlxqOrwDEWldxH+EErU/TPx85z049bducI6KvWEFaM=
+X-Received: by 2002:a05:6a00:1883:b0:84e:b7ed:7d50 with SMTP id d2e1a72fcca58-84f9c8bf09fmr4538374b3a.16.1786394324672;
+        Mon, 10 Aug 2026 13:38:44 -0700 (PDT)
+Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a553071sm4324001b3a.43.2026.08.10.13.38.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 13:38:43 -0700 (PDT)
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+Subject: [PATCH 0/3] drm/nouveau/uvmm: fix VM_BIND submit/unwind error-path
+ bugs
+Date: Tue, 11 Aug 2026 04:38:18 +0800
+Message-Id: <20260811-nouveau-uvmm-vmbind-fixes-v1-0-40df1c046b49@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,171 +70,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-amd-iommu-fix-acs-v1-1-d64e2172408d@rong.moe>
-References: <20260811-amd-iommu-fix-acs-v1-0-d64e2172408d@rong.moe>
-In-Reply-To: <20260811-amd-iommu-fix-acs-v1-0-d64e2172408d@rong.moe>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, 
- Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <jroedel@suse.de>, 
- Huang Rui <ray.huang@amd.com>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>, stable@vger.kernel.org
-X-Mailer: b4 0.16-dev-2f6f2
-X-ZohoMailClient: External
+X-B4-Tracking: v=1; b=H4sIALo2emoC/yXMywrCMBCF4Vcps3agiVisryIucpnUKSSVTBOE0
+ nc3tsuPw382EMpMAo9ug0yVhZfUoC4duLdJEyH7ZtC9Hvq7UpiWUskULDVGrNFy8hj4S4JO+2D
+ s9Tb6oKH1n0zH0PLn67QUO5Nb/4ew7z+EJKiefQAAAA==
+X-Change-ID: 20260811-nouveau-uvmm-vmbind-fixes-c2dfab359df2
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dave Airlie <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786394315; l=1170;
+ i=whi4ed0g@gmail.com; h=from:subject:message-id;
+ bh=jqjdQ4ytk0+wTeBw8PTbYYR3zs6526Vfg9ko20PQNAY=;
+ b=Gm20mEIHRxSyNqIwseVbLPncJya+jfBeFQW1zRIDALtssFI5jN1ElKIgYE7rkA2kCvoqn4Kde
+ ehO8EMs8rL4A5Em4KpyLCtT019GMGdAlef3kWJE23++u3iVAGXDWvTI
+X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
+ pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-The AMD IOMMU Initialization State Machine has the following state
-transition diagram (only the very first states are showed, and the
-`IOMMU_' prefix is omitted):
+Three bugs on the nouveau VM_BIND submit/unwind/cleanup error path, all
+introduced by the original VM_BIND uAPI (Fixes: b88baab82871) and all
+reachable by an unprivileged render-node client:
 
-   START_STATE
-        |
-        v
-[0] detect_ivrs() --> NOT_FOUND
-        | ok
-        v
-  IVRS_DETECTED
-        |
-        v
-[1] amd_iommu_disabled? (amd_iommu=off) --> IOMMU_CMDLINE_DISABLED
-        | no
-        v
-[2] early_amd_iommu_init()
-        |
-        +-- [3] amd_iommu_detected? (!iommu=off && ...) -+
-        | yes                                            |
-        +-- ... --> IOMMU_INIT_ERROR <-------------------+
-        | ok
-        v
-IOMMU_ACPI_FINISHED
-        |
-        v
-       ...
+  1/3 NULL deref when the unwind loop frees a never-populated
+      OP_MAP_SPARSE op's ops list.
+  2/3 premature free of a region on a failed OP_UNMAP_SPARSE, because
+      op->reg is left set on the failure paths.
+  3/3 a sparse region left permanently marked dirty after unwind,
+      wedging later binds over that range.
 
-[0] always calls pci_request_acs() as long as there's a valid IVRS table
-and no Stoney Ridge graphics. This is not optimal as ACS is not required
-in an [amd_]iommu=off boot.
+Each fix is minimal and self-contained; all are Cc: stable.
 
-In a normal boot, ACS is requested due to amd_iommu_detect() requesting
-IVRS_DETECTED.
-
-    pci_request_acs+0x9/0x18
-    iommu_go_to_state+0x106/0x1a20
-    amd_iommu_detect+0x1c/0x50
-    pci_iommu_alloc+0x26/0x40
-    mm_core_init+0xa/0x120
-    start_kernel+0x527/0x7a0
-    x86_64_start_reservations+0x24/0x30
-    x86_64_start_kernel+0xd1/0xe0
-    common_startup_64+0x13e/0x158
-
-This is intended to ensure ACS is requested before the PCI core
-initialization, or else a !CONFIG_IRQ_REMAP, nointremap or intremap=off
-boot would be broken.
-
-However, in an amd_iommu=off boot, the state machine still requests ACS
-at the exact same time, as amd_iommu_detect() has nothing to do with
-amd_iommu_disabled.
-
-Even worse, in an iommu=off boot, though amd_iommu_detect() bails out
-early, ACS is still requested due to amd_iommu_prepare() requesting
-IOMMU_ACPI_FINISHED, which is called by irq_remapping_prepare() thanks
-to CONFIG_X86_LOCAL_APIC (always set on X86_64) and CONFIG_IRQ_REMAP
-(enabled by defconfig), unless nointremap or intremap=off is also passed
-to cmdline.
-
-    pci_request_acs+0x9/0x18
-    iommu_go_to_state+0x106/0x1a20
-    amd_iommu_prepare+0x15/0x40
-    irq_remapping_prepare+0x43/0x60
-    enable_IR_x2apic+0x22/0x190
-    x86_64_probe_apic+0xa/0x50
-    apic_intr_mode_init+0x70/0xd0
-    x86_late_time_init+0x28/0x40
-    start_kernel+0x6f9/0x7a0
-    ...
-
-In both cases, [2] is still gated due to the [1] or [3] check, so that
-IOMMU can be disabled per cmdline.
-
-Technically, it makes no sense to detect IVRS at all in an
-[amd_]iommu=off boot or if IOMMU is not supported due to platform
-settings. This is probably why amd_iommu_detect() bails out before
-requesting IVRS_DETECTED. Apparently only bailing out there is not
-sufficient, and the bailing-out paths should really have been parts of
-the state machine.
-
-Fix it by moving the bailing-out paths and [1] to the right place in the
-state machine (i.e., before [0]), and always requesting IVRS_DETECTED in
-amd_iommu_detect() to initialize the state machine early and properly.
-This doesn't change the IOMMU initialization/failure sequence since the
-Fixes: commit.
-
-Fixes: 9f81ca8d1fd6 ("iommu/amd: Don't call early_amd_iommu_init() when AMD IOMMU is disabled")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rong Zhang <i@rong.moe>
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 ---
- drivers/iommu/amd/init.c | 25 +++++++++++--------------
- 1 file changed, 11 insertions(+), 14 deletions(-)
+Zhenhao Wan (3):
+      drm/nouveau/uvmm: fix NULL deref unwinding an OP_MAP_SPARSE op
+      drm/nouveau/uvmm: fix premature region free on failed OP_UNMAP_SPARSE
+      drm/nouveau/uvmm: clear the dirty flag when unwinding an OP_UNMAP_SPARSE
 
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index e7d7b4cb9337..31fce7c8f530 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -3428,6 +3428,8 @@ static void amd_iommu_apply_erratum_snp(void)
- #endif
- }
- 
-+static bool amd_iommu_sme_check(void);
-+
- /****************************************************************************
-  *
-  * AMD IOMMU Initialization State Machine
-@@ -3440,7 +3442,13 @@ static int __init state_next(void)
- 
- 	switch (init_state) {
- 	case IOMMU_START_STATE:
--		if (!detect_ivrs()) {
-+		if (no_iommu || amd_iommu_disabled) {
-+			init_state	= IOMMU_CMDLINE_DISABLED;
-+			ret		= -EINVAL;
-+		} else if ((iommu_detected && !gart_iommu_aperture) || !amd_iommu_sme_check()) {
-+			init_state	= IOMMU_INIT_ERROR;
-+			ret		= -EINVAL;
-+		} else if (!detect_ivrs()) {
- 			init_state	= IOMMU_NOT_FOUND;
- 			ret		= -ENODEV;
- 		} else {
-@@ -3448,13 +3456,8 @@ static int __init state_next(void)
- 		}
- 		break;
- 	case IOMMU_IVRS_DETECTED:
--		if (amd_iommu_disabled) {
--			init_state = IOMMU_CMDLINE_DISABLED;
--			ret = -EINVAL;
--		} else {
--			ret = early_amd_iommu_init();
--			init_state = ret ? IOMMU_INIT_ERROR : IOMMU_ACPI_FINISHED;
--		}
-+		ret = early_amd_iommu_init();
-+		init_state = ret ? IOMMU_INIT_ERROR : IOMMU_ACPI_FINISHED;
- 		break;
- 	case IOMMU_ACPI_FINISHED:
- 		early_enable_iommus();
-@@ -3653,12 +3656,6 @@ void __init amd_iommu_detect(void)
- {
- 	int ret;
- 
--	if (no_iommu || (iommu_detected && !gart_iommu_aperture))
--		goto disable_snp;
--
--	if (!amd_iommu_sme_check())
--		goto disable_snp;
--
- 	ret = iommu_go_to_state(IOMMU_IVRS_DETECTED);
- 	if (ret)
- 		goto disable_snp;
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+---
+base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
+change-id: 20260811-nouveau-uvmm-vmbind-fixes-c2dfab359df2
 
--- 
-2.55.0
+Best regards,
+--  
+Zhenhao Wan <whi4ed0g@gmail.com>
 
