@@ -1,74 +1,74 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2267381B10
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 05:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72732BE65B
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 05:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786339207; cv=none; b=qbm5uInLD6SjD4/w5oIzBtPGGSnSbNS9bopaxptyupBEjEcMnjyyc+ccI1mU+yl+t+Onigw06pGLvd/edcLsnuQ+TGPZh2R3Uiqar48/QguQZ9H4YmpR7pEbYB7NGmt0KG/DtWQRsM7kvfPcARt4BFJ6i8+hhePCZvPTeSaCr7U=
+	t=1786339210; cv=none; b=K0Y3U7EHqoS2bYuFwVmCOr0f/6W17BP93D1cHLcI/z5tzqPsu0pNyGm2givWwXL5dSKrnY4oL8YwYo9ALXIzklrUFRGvGpIuIvMAUGe3Qmu7NRJRgXH0iAUOJsCjgsxED9J+aveLoXbjzNPU1Pc3F6nzQeeGzTfLlmDz1O64aR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786339207; c=relaxed/simple;
-	bh=YSz+l+UkNez2fVDggZCcuMfVSBdgLFQnKOdosPXaTDQ=;
+	s=arc-20240116; t=1786339210; c=relaxed/simple;
+	bh=1KP0j+Z9Xjfz9CCe8x/jnSsr1HjJjCfNwayy4ADOdqY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oVZlMVz48RSVWNX0NFUIievUdnpJoULzpTpyTMsxzW5nhx4Mb9CB5S1d+mH1VNE5TjsgN3XKfj1Bm2wTxZSUowtLaK5Yt4/y/LmneSGuGMwYGikSEOQsR94hTR1d3JSPKVKvZYC0expgoDdXkqLSj9o6ynAJaXtVfSByH3irpFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JDK9KCKU; arc=none smtp.client-ip=209.85.214.176
+	 MIME-Version:Content-Type; b=hssIma5dr92Ngsq4SvY8zeRcm+VFnQIrVm3TABL1UHjE4uFyfq16eyVNlZztpdFrkLJmXaU06FYRBphsKadij8owWCHamC1kN74xrLyyH966JXEmAxVo4apJCmdgBBUdsF0pdbxZr8FAXTOTXFnSJK/FKDPnJ1HkhZP02pXeunQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JwcDqLZ3; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JDK9KCKU"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d0407aedd6so15590525ad.0
-        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 22:20:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JwcDqLZ3"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d032846c95so18269865ad.1
+        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 22:20:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786339205; x=1786944005; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786339208; x=1786944008; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Mp3qDJzNF5z8s/pXETwTP0WmVZfpFwIh+/McpzDDlz0=;
-        b=JDK9KCKUQSj66cALGlHTFR9r/uG6O+W2EKkUAdCqww3G59QHBCvWSKY62LY9S8LJeL
-         djtidujxlasItt8z34gRVDgMDBWgLy8F19u4ybSvcb4mV7gcTS8M2m21WuNGKRA1pMGw
-         8tyJW4yniM0XjXCCadV7VysHxPl2/ehw9PvvfbgUEyXqjeLrv8jAjfNrHvsQEpEG3LA8
-         ttgpAetsM+rY1S8c0KVz2jxtgU40Yt1mwLbpY5vCzIgmjpyr6SOIVeI2XgefNSkPsYP9
-         f3YUlscscGVqfYa+wh6D9lzvi/DmdfFNJFK+Zfcl+PNqFdOq88vKN3R3SaK5s2GOfBCb
-         lAsA==
+        bh=GWXz/e0n5lm+MT92XILqIlrqg25Ed4hmuECxqi4QCyA=;
+        b=JwcDqLZ3LvRoNyEOQgo+tF3VHRhdN1MtS1Cpbp7+mtidLBhgLkp3JWfKJuO894zfKo
+         OfV2vLNGTiIfgxgBQ27kjpbmGaNnwjODPFsyvC99nOILuZ0RWkM0fDXjAJhRF8jvgjn/
+         Vz+TcWeKsvwtyGYQAQHIMezmTfWi8U6Z0PesdX5K1SOMGMU+Eqq5R3Gg5qnQJKNKvN45
+         rw07kVMKi9wP9+eK+QOP8dMkc+48rvY/odABDGQBSmCselPnLde+zkopS/1qOTTWPuUx
+         aDh8lR6cK7+vdmY2rbM/B2Vg6gQSI+TI1hk+5m3zrbuYAsSp7Vn339tCcWlyGWBzRtve
+         FXhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786339205; x=1786944005;
+        d=1e100.net; s=20251104; t=1786339208; x=1786944008;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Mp3qDJzNF5z8s/pXETwTP0WmVZfpFwIh+/McpzDDlz0=;
-        b=BXRYBqNruSxtFT/rpttvDyEW7Qe8Fg5UZlTqRL1+oPUd/NhKtJ3hDxFX9+/OX//69f
-         vVtp2WttSP6XPBboa7NGy8u3jhNpIwcD5xGWVftQdupI04wzRIZFTGrI3UUnK+nMbjGd
-         y5SbxCkouh0qVpJBTxaVaov/ylawwQ95OobC2KNV5FC7wjG4h9UeOFBU00YR5bGMY05K
-         i7fgNaxG8VdK0TJvboy3ampUB6YH7sU/pYCKskWediZ5xXAPQNcHvi7hSlcA+mvaUza8
-         FpeqtGjrpWuB+HNRMan2PHHW2qxfyh0GDejWwkPCq/MTFm5oMFSKPBK0QIJFVQ/R+4xQ
-         maqg==
-X-Forwarded-Encrypted: i=1; AHgh+RqcR0mqcEvQc4dtBq8VZq92KSdDoDPMkoseYbTLr0rais/vrDMP0VROkBoMRkQErZs7tVD/gJM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxolithU9WXeiXfn0WcTh4VnXN+y1+m0jDahwvoA2zMWDhHvncT
-	qZzBaFJ7mJ8bHL4he1OFl5nsLPSE5y8YAytEKHFHc6OvHGTBKlJJLUkG
-X-Gm-Gg: AR+sD12jGFpk+qEo8BHAWJ2JBPmYXqRDvBDNsgvxtvk0WlYReJ2lxZ6rnQOg/4fvoJV
-	8WVYbKrcpV9Ape/VNRc9jw44cie0pvqBKYpRBmq9GeTprdS3utci+Sq7P2fcADTv5ljQ55JvXvR
-	dhkmqY0SRY5xVsr9r/vOX302JNd4clFSIRTeXbu0AdFKMGIxwiqw6KUCZs06znt+QxF+wv1TvZ7
-	o1HjDAs+rN85P0mdwuQhNKjjC1dw8Q3KHhTFukfocFfQQ6M+uPb91mQ8XfXA6ng5WC14sFSiy9y
-	dvusulmYgUJqwJNjij1zDVfm7qlGx/BKMpNf3CeNSI+BanD4DrHNNnG+uZjKoYK4E3+gFAoXs+w
-	JpY71Yeps8aNt0hjLovsXiVtp6FWsNoABABe5tKsybvpdTJycoDajLmR97wUZNBs8NZiE1yM4B6
-	cYUGnN5aSKLenCMGwqxE2bH1P6UDvq6wbwYQIx8ALSdJPo4dIlaLq/qpNKLzwgNbK4NHmM5Fl7u
-	8CxPA==
-X-Received: by 2002:a17:903:2c06:b0:2c9:fa31:84f9 with SMTP id d9443c01a7336-2d0ca70e870mr494018565ad.5.1786339205206;
-        Sun, 09 Aug 2026 22:20:05 -0700 (PDT)
+        bh=GWXz/e0n5lm+MT92XILqIlrqg25Ed4hmuECxqi4QCyA=;
+        b=eib4Okba1dexaZRcVTMqRkXdtxClU7yy1zOm2StuFi49XVc9eqlICjScV0tfmnsO2H
+         6LovCYU47g5XTMamo/2LsKsPeJUW/hY7/Nmu6KxqfN5H66ighH4XZFaUI8neVnAEvz8R
+         SN1yc0yFe7wommIVsaRQKTuz+sDhRtjuvSfKCNO6BOdNtuSBLG0PSZakm/VQKald9m+3
+         jTBicLcYfX2HCLNYMaXzKV4380dzHIziHki6yzP5hcZ2XnZ2nPLHY/90g9aFHz6x4gsX
+         1IUj/NM6oBi8egr3pAo4NouMmTtib59AjZDwjZ9CapLitMl+LeDriPYcDSB5R8Osrbo/
+         GILg==
+X-Forwarded-Encrypted: i=1; AHgh+RpKnFyi92bPd+Mkal6le8gNU5x1Cb5NdQnBBNNq9pJ3/NBP/XJS705pezyeUz1Ou3UTl/PQv2c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKUzzX/26e8GPC/Qpx+uYVuUz4U/E0VsoGAoSLkWDUN1hOxQky
+	3+bzwrMctJk1gcciQjjaa5wD2YoYbFerXP9yq2WsSICzXna1oKNotbGo
+X-Gm-Gg: AR+sD13TZqCiZd7jnGIexk5xRrYZ/49vJB9PKk67AyuljZImW+JFMasSDUyVIpScpQE
+	xp+me7KX/Mg7qhCyUme+/0cGGmZgJgkoRlMfVumGve6jZPo9qCvqZ50ipXSdYLtqLnxNT+INwJ6
+	im0PzfJpQpHNAWRrCjU4a4ua0SGxksy0yd36U/MRR4E1DeY00Dm2Kdus6+brXcq148TaZsAC+6W
+	VisTzDgh/mzkr+e63HIeaVZxJpteFGLXuSITs3DMFIJ9Vmwssy5yvQLPfaSFG1+nQN9pdf+8lSz
+	xK9OXmt85xZCNe0o5gfZbDm58bD0JWJlfLF8OlUK2Ms3/h0tMuGa1mxdrv/RzfQuS8x4YxDK1bu
+	WlwVgZ06GTcCzFhxA953IBOdNoh0xJf8EG34wMLweoNXjmMFeOOOkV/OfS4usKD2SSZquS7yOk3
+	qT3vhvWzF6hMNU8WfDPkmy9Op7+XwSvBkjNCdmIQq/lRdhQDCUBd2Yr8S/pjgwuD1ylhOnUIQ1j
+	237tkM=
+X-Received: by 2002:a17:903:17c3:b0:2c9:e86e:aa0a with SMTP id d9443c01a7336-2d0ca165189mr476837175ad.0.1786339207834;
+        Sun, 09 Aug 2026 22:20:07 -0700 (PDT)
 Received: from hyunchul-PC02.lge.net ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14ccac191sm28749235ad.15.2026.08.09.22.20.02
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14ccac191sm28749235ad.15.2026.08.09.22.20.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 22:20:04 -0700 (PDT)
+        Sun, 09 Aug 2026 22:20:07 -0700 (PDT)
 From: Hyunchul Lee <hyc.lee@gmail.com>
 To: Namjae Jeon <linkinjeon@kernel.org>
 Cc: Hyunchul Lee <hyc.lee@gmail.com>,
 	ntfs@lists.linux.dev,
 	Cen Zhang <zzzccc427@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v6 2/4] ntfs: protect attribute-list buffer replacement with attr_list_persist_lock
-Date: Mon, 10 Aug 2026 14:19:39 +0900
-Message-ID: <20260810-topic-attr-list-lock-v6-v6-2-e3fb8c4494d3@gmail.com>
+Subject: [PATCH v6 3/4] ntfs: protect attribute-list creation/teardown with attr_list_persist_lock
+Date: Mon, 10 Aug 2026 14:19:40 +0900
+Message-ID: <20260810-topic-attr-list-lock-v6-v6-3-e3fb8c4494d3@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260810-topic-attr-list-lock-v6-v6-0-e3fb8c4494d3@gmail.com>
 References: <20260810-topic-attr-list-lock-v6-v6-0-e3fb8c4494d3@gmail.com>
@@ -80,29 +80,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14064; i=hyc.lee@gmail.com;
- h=from:subject:message-id; bh=YSz+l+UkNez2fVDggZCcuMfVSBdgLFQnKOdosPXaTDQ=;
- b=owEBbQKS/ZANAwAKATTyMPr3jkjTAcsmYgBqeV3dQWPpPEt6D5Zbw2tXwIviWAuAUExmOAUfE
- iRvEVgfr3aJAjMEAAEKAB0WIQTVhSnMU3bjbW4eb2I08jD6945I0wUCanld3QAKCRA08jD6945I
- 0zfvEACJ6H/e0OGNpjijhytCAb+iG41NwXBYyIIQLOG0IUEv2kSRTLZhs10Q2AX4f8cpLhg17fp
- MwYx8mGLhhQC90WNci5v7HlF0wKeO86tQJftPzxE/z4AzhR0F9t7cZYa9/uRHUyVfUkloWaJX67
- vZ3Jr/EVnd9XBizSquV4laQYQEgAYqnwUbBNWf9TjfcSgzQZzVAPCD0JbjGalcx6ASjMLLty9br
- GxIwY0fw1z5So0D9d8rJNvAOIA/N/ZjKQVtkGlv+GxY/8Ctzq1ObiPqVaBqd5agWU+Ie8Ky2JjA
- c8LtKZz/sK7zb8CFPW4TwJLXykcXNIB0BMBFLNEv+7HinaaUlyYpQ47JFUYUsUvSP1wVAWOPoyK
- oKdYv16FdQfP1da1Lh3YfojBaCkT9W4uKcKqIZUGI7oQiuxq2IzTAFrt/1U/iHEJpfnoIRnH7FS
- g0D/Ij59d33UlczvxAeTZDeqMcqzNZ2FckKkixWHvFJeuRmFYcuFvYGJ1ugZP+j8FSoFj93u3Iv
- TYq7NZ/u0vumWbrbJZx43sDH+pf4/SqmiX0KUI42nxb77UZmmLLAkhj9zXuSF0Zz9WdkS2HmYxo
- 9dzLCMS88gc0SXzlytpsfYgM+mg5Ma0Yfgv5uNZPaMa3i+0/dYN5Shbm+sfxePQifphkU6i+TzV Y+o2VcOHf22kpgg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=20987; i=hyc.lee@gmail.com;
+ h=from:subject:message-id; bh=1KP0j+Z9Xjfz9CCe8x/jnSsr1HjJjCfNwayy4ADOdqY=;
+ b=owEBbQKS/ZANAwAKATTyMPr3jkjTAcsmYgBqeV3dONvdYCteqVsYmcBa86mjEm1HBLy4amN1P
+ l7gHNs15BGJAjMEAAEKAB0WIQTVhSnMU3bjbW4eb2I08jD6945I0wUCanld3QAKCRA08jD6945I
+ 08EcEACXwSAiDNS84nyLHOHZBo4VwRzwhdkaWXy4iAKMu0AAU/Q/6MW0CbaMG8OWSL9ZCw/rGaF
+ QhOLGM4S4xkmu1rChnGmrEG5McNGWtj5FLTuvDK5ZLEVgZbcFlRZjBxCBRYRzywTGF0z5T+Fegp
+ Fb0NCqEfmrxye1IFNKOXvS9Jd6if5dxmpgKR9GQGxxHOmAgM5lHdFHltd9+N2CwXxUOsJbp2xdP
+ 2nbAE7/nUrlp7qHLc3QvCi3tkCBt23Cg1onkHlxIET0e88wKcWlz3BNN/E9MG2Pzhvwio2oV/lp
+ CJ7f75N0nPdwoYcnckndTYIMrLvuTRyUlEw2AKLQC/Uy4w3tJT/Q3UwmkxC0CiSyyH8wo3rjUjo
+ oQ+LDpfZFF6UU/IU0lqlqCuIqhUkTYFaKnXOmvNvvfsjDRxkISCa1lZQA+zZpcfHKF0NoiUNLg7
+ rqM2CnQu1FG6uAbHEVKtvPaJSWKpNJ++GhIa1n345bl3YwhZi3O6XyviwSKLMStG6oABOK+EslQ
+ nNlJSyLw6gIfPfLY7UvSTzY11tyXfS+Rib1iTEfdEIizOFsmHk1/R+6b+/nGLSSlIcesig9X4DP
+ UhuGPeoNSAZycn2kjR6tJH6hRSRxyiRHSD4k130rNZkKkkpyU/EygqyuieXYAaziopVA8FEsDWt G1PO+Wf2IeDCXzA==
 X-Developer-Key: i=hyc.lee@gmail.com; a=openpgp; fpr=D58529CC5376E36D6E1E6F6234F230FAF78E48D3
 Content-Transfer-Encoding: 8bit
 
-ntfs_attrlist_entry_add() and ntfs_attrlist_entry_rm() replace the
-in-memory attribute-list buffer and then persist it to disk. The swap
-is protected by attr_list_lock, but persisting can sleep and recurse,
-so that lock cannot be held across it.
+ntfs_attr_record_rm() and ntfs_inode_add_attrlist() update the
+in-memory attribute list without any lock, so a concurrent reader can
+observe an inconsistent trio. Teardown can also free a buffer that a
+concurrent ntfs_attrlist_entry_add()/rm() transaction still owns while
+it sleeps in ntfs_attrlist_update().
 
-Add attr_list_persist_lock, a mutex that covers the entire
-publish/swap/persist/rollback transaction for each caller.
+Protect both functions with attr_list_persist_lock for their whole
+publish/persist or teardown sequence, and with attr_list_lock (write)
+around the actual buffer pointer/size/gen updates.
 
 Reported-by: Cen Zhang <zzzccc427@gmail.com>
 Link: https://lore.kernel.org/all/20260702161710.2606853-1-zzzccc427@gmail.com/
@@ -111,411 +113,573 @@ Cc: stable@vger.kernel.org
 Tested-by: Cen Zhang <zzzccc427@gmail.com>
 Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
 ---
- fs/ntfs/attrib.c   |  18 ++++--
- fs/ntfs/attrib.h   |   2 +
- fs/ntfs/attrlist.c | 172 ++++++++++++++++++++++++++++++++++++++++++++---------
- fs/ntfs/attrlist.h |   1 +
- fs/ntfs/inode.c    |   3 +-
- fs/ntfs/inode.h    |   3 +
- 6 files changed, 165 insertions(+), 34 deletions(-)
+ fs/ntfs/attrib.c   | 140 ++++++++++++++++++++++++++++++++++++++++++-----------
+ fs/ntfs/attrib.h   |   2 +-
+ fs/ntfs/attrlist.c |  34 ++++++-------
+ fs/ntfs/attrlist.h |   2 +-
+ fs/ntfs/index.c    |  23 +++++++--
+ fs/ntfs/inode.c    |  27 ++++++++++-
+ fs/ntfs/namei.c    |   2 +-
+ fs/ntfs/super.c    |   2 +-
+ 8 files changed, 177 insertions(+), 55 deletions(-)
 
 diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index 0f48dd923b72..ef918a73fb0c 100644
+index ef918a73fb0c..f45f0289e3d3 100644
 --- a/fs/ntfs/attrib.c
 +++ b/fs/ntfs/attrib.c
-@@ -83,8 +83,8 @@ bool ntfs_attrlist_exact_key_eq(const struct attr_list_entry *ale,
- 	return ale->name_length == key->name_len;
+@@ -2801,16 +2801,20 @@ static int ntfs_non_resident_attr_record_add(struct ntfs_inode *ni, __le32 type,
+ 
+ /*
+  * ntfs_attr_record_rm - remove attribute extent
+- * @ctx:	search context describing the attribute which should be removed
++ * @ctx:		search context describing the attribute which should be removed
++ * @persist_locked:	true if the caller already holds
++ *			base_ni->attr_list_persist_lock for the in-flight
++ *			transaction this removal is part of
+  *
+  * If this function succeed, user should reinit search context if he/she wants
+  * use it anymore.
+  */
+-int ntfs_attr_record_rm(struct ntfs_attr_search_ctx *ctx)
++int ntfs_attr_record_rm(struct ntfs_attr_search_ctx *ctx, bool persist_locked)
+ {
+ 	struct ntfs_inode *base_ni, *ni;
+ 	__le32 type;
+ 	int err;
++	bool attrlist_locked = persist_locked;
+ 
+ 	if (!ctx || !ctx->ntfs_ino || !ctx->mrec || !ctx->attr)
+ 		return -EINVAL;
+@@ -2825,10 +2829,18 @@ int ntfs_attr_record_rm(struct ntfs_attr_search_ctx *ctx)
+ 	else
+ 		base_ni = ctx->ntfs_ino;
+ 
++	/* Keep ALE removal and the follow-up need check in one transaction. */
++	if (!attrlist_locked && type != AT_ATTRIBUTE_LIST &&
++	    NInoAttrList(base_ni)) {
++		mutex_lock(&base_ni->attr_list_persist_lock);
++		attrlist_locked = true;
++	}
++
+ 	/* Remove attribute itself. */
+ 	if (ntfs_attr_record_resize(ctx->mrec, ctx->attr, 0)) {
+ 		ntfs_debug("Couldn't remove attribute record. Bug or damaged MFT record.\n");
+-		return -EIO;
++		err = -EIO;
++		goto out_unlock;
+ 	}
+ 	mark_mft_record_dirty(ni);
+ 
+@@ -2837,19 +2849,42 @@ int ntfs_attr_record_rm(struct ntfs_attr_search_ctx *ctx)
+ 	 * delete $ATTRIBUTE_LIST itself.
+ 	 */
+ 	if (NInoAttrList(base_ni) && type != AT_ATTRIBUTE_LIST) {
+-		err = ntfs_attrlist_entry_rm(ctx);
++		err = ntfs_attrlist_entry_rm_locked(ctx);
+ 		if (err) {
+ 			ntfs_debug("Couldn't delete record from $ATTRIBUTE_LIST.\n");
+-			return err;
++			goto out_unlock;
+ 		}
+ 	}
+ 
+ 	/* Post $ATTRIBUTE_LIST delete setup. */
+ 	if (type == AT_ATTRIBUTE_LIST) {
++		/*
++		 * attr_list_persist_lock serializes this in-memory attr_list
++		 * teardown against a concurrent ntfs_attrlist_entry_add()/rm()
++		 * transaction on the same inode.
++		 *
++		 * @persist_locked is true when we got here from
++		 * ntfs_attr_update_mapping_pairs() rebuilding the mapping
++		 * pairs of the $ATTRIBUTE_LIST attribute itself: that call
++		 * only happens underneath ntfs_attrlist_update_locked(), which
++		 * is always invoked while already holding this same mutex for
++		 * the in-flight transaction. Taking it again here would
++		 * deadlock the caller against itself, so skip the
++		 * (re-)acquisition in that case and rely on the lock already
++		 * held further up the stack.
++		 */
++		if (!persist_locked)
++			mutex_lock(&base_ni->attr_list_persist_lock);
++		down_write(&base_ni->attr_list_lock);
+ 		if (NInoAttrList(base_ni) && base_ni->attr_list)
+ 			kvfree(base_ni->attr_list);
+ 		base_ni->attr_list = NULL;
++		base_ni->attr_list_size = 0;
++		base_ni->attr_list_gen++;
+ 		NInoClearAttrList(base_ni);
++		up_write(&base_ni->attr_list_lock);
++		if (!persist_locked)
++			mutex_unlock(&base_ni->attr_list_persist_lock);
+ 	}
+ 
+ 	/* Free MFT record, if it doesn't contain attributes. */
+@@ -2857,17 +2892,18 @@ int ntfs_attr_record_rm(struct ntfs_attr_search_ctx *ctx)
+ 			le16_to_cpu(ctx->mrec->attrs_offset) == 8) {
+ 		if (ntfs_mft_record_free(ni->vol, ni)) {
+ 			ntfs_debug("Couldn't free MFT record.\n");
+-			return -EIO;
++			err = -EIO;
++			goto out_unlock;
+ 		}
+ 		/* Remove done if we freed base inode. */
+ 		if (ni == base_ni)
+-			return 0;
++			goto out_unlock;
+ 		ntfs_inode_close(ni);
+ 		ctx->ntfs_ino = ni = NULL;
+ 	}
+ 
+ 	if (type == AT_ATTRIBUTE_LIST || !NInoAttrList(base_ni))
+-		return 0;
++		goto out_unlock;
+ 
+ 	/* Remove attribute list if we don't need it any more. */
+ 	if (!ntfs_attrlist_need(base_ni)) {
+@@ -2878,7 +2914,7 @@ int ntfs_attr_record_rm(struct ntfs_attr_search_ctx *ctx)
+ 		if (ntfs_attr_lookup(AT_ATTRIBUTE_LIST, NULL, 0, CASE_SENSITIVE,
+ 					0, NULL, 0, ctx)) {
+ 			ntfs_debug("Couldn't find attribute list. Succeed anyway.\n");
+-			return 0;
++			goto out_unlock;
+ 		}
+ 		/* Deallocate clusters. */
+ 		if (ctx->attr->non_resident) {
+@@ -2889,16 +2925,16 @@ int ntfs_attr_record_rm(struct ntfs_attr_search_ctx *ctx)
+ 					ctx->attr, NULL, &new_rl_count);
+ 			if (IS_ERR(al_rl)) {
+ 				ntfs_debug("Couldn't decompress attribute list runlist. Succeed anyway.\n");
+-				return 0;
++				goto out_unlock;
+ 			}
+ 			if (ntfs_cluster_free_from_rl(base_ni->vol, al_rl))
+ 				ntfs_debug("Leaking clusters! Run chkdsk. Couldn't free clusters from attribute list runlist.\n");
+ 			kvfree(al_rl);
+ 		}
+ 		/* Remove attribute record itself. */
+-		if (ntfs_attr_record_rm(ctx)) {
++		if (ntfs_attr_record_rm(ctx, true)) {
+ 			ntfs_debug("Couldn't remove attribute list. Succeed anyway.\n");
+-			return 0;
++			goto out_unlock;
+ 		}
+ 
+ 		na.mft_no = VFS_I(base_ni)->i_ino;
+@@ -2914,7 +2950,10 @@ int ntfs_attr_record_rm(struct ntfs_attr_search_ctx *ctx)
+ 		}
+ 
+ 	}
+-	return 0;
++out_unlock:
++	if (attrlist_locked && !persist_locked)
++		mutex_unlock(&base_ni->attr_list_persist_lock);
++	return err;
  }
  
--static struct attr_list_entry *ntfs_attrlist_find_exact_locked(struct ntfs_inode *base_ni,
--							       struct ntfs_attrlist_exact *exact)
-+struct attr_list_entry *ntfs_attrlist_find_exact_locked(struct ntfs_inode *base_ni,
-+							struct ntfs_attrlist_exact *exact)
+ /*
+@@ -3545,6 +3584,12 @@ int ntfs_attr_map_whole_runlist(struct ntfs_inode *ni)
+  * ntfs_attr_record_move_to - move attribute record to target inode
+  * @ctx:	attribute search context describing the attribute record
+  * @ni:		opened ntfs inode to which move attribute record
++ *
++ * Caller must hold the base inode's attr_list_persist_lock: this rewrites
++ * the moved attribute's ALE in place, and that mutation has to be part of
++ * the same transaction as the persist that follows it.  Otherwise a
++ * concurrent ntfs_attrlist_update_locked() can copy the attribute list to
++ * disk while only one of @mft_reference/@instance has been updated.
+  */
+ int ntfs_attr_record_move_to(struct ntfs_attr_search_ctx *ctx, struct ntfs_inode *ni)
  {
- 	struct attr_list_entry *ale;
- 	u8 *al_end;
-@@ -3792,7 +3792,7 @@ static int ntfs_attr_update_meta(struct attr_record *a, struct ntfs_inode *ni,
- 				goto out;
+@@ -3627,6 +3672,8 @@ int ntfs_attr_record_move_to(struct ntfs_attr_search_ctx *ctx, struct ntfs_inode
+ 	a = (struct attr_record *)nctx->attr;
+ 	base_ni = ntfs_attr_ctx_base_ni(ctx);
+ 
++	lockdep_assert_held(&base_ni->attr_list_persist_lock);
++
+ 	down_write(&base_ni->attr_list_lock);
+ 	ale = ntfs_attrlist_find_exact_locked(base_ni, &ctx->al_exact);
+ 	if (!ale) {
+@@ -4049,7 +4096,14 @@ int ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni, s64 from_vcn)
+ 					ntfs_debug("Attribute list is too big. Defragment the volume\n");
+ 					return -ENOSPC;
+ 				}
+-				if (ntfs_attrlist_update(base_ni))
++				/*
++				 * This call is only ever reached while
++				 * rebuilding the $ATTRIBUTE_LIST attribute's
++				 * own mapping pairs, which happens underneath
++				 * ntfs_attrlist_update_locked() while holding
++				 * persist lock.
++				 */
++				if (ntfs_attrlist_update_locked(base_ni))
+ 					return -EIO;
+ 				goto retry;
  			}
- 
--			err = ntfs_attrlist_update(base_ni);
-+			err = ntfs_attrlist_update_locked(base_ni);
- 			if (err)
- 				goto out;
- 			err = -EAGAIN;
-@@ -4168,7 +4168,7 @@ int ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni, s64 from_vcn)
- 	}
- 
- 	if (attrlist_changed) {
--		err = ntfs_attrlist_update(base_ni);
-+		err = ntfs_attrlist_update_locked(base_ni);
- 		if (err)
- 			goto put_err_out;
- 	}
-@@ -5029,7 +5029,15 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
- 				"Couldn't free space in the MFT record to make attribute list non resident");
- 			return err;
- 		}
--		err = ntfs_attrlist_update(base_ni);
+@@ -4185,8 +4239,16 @@ int ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni, s64 from_vcn)
+ 			if (le64_to_cpu(ctx->attr->data.non_resident.highest_vcn) !=
+ 					NTFS_VCN_DELETE_MARK)
+ 				continue;
+-			/* Remove unused attribute record. */
+-			err = ntfs_attr_record_rm(ctx);
++			/*
++			 * Remove unused attribute record. When @ni is the
++			 * $ATTRIBUTE_LIST attribute itself, we only get here
++			 * underneath ntfs_attrlist_update_locked(), whose
++			 * caller already holds
++			 * base_ni->attr_list_persist_lock for this
++			 * transaction, so tell ntfs_attr_record_rm() not to
++			 * recurse into it.
++			 */
++			err = ntfs_attr_record_rm(ctx, ni->type == AT_ATTRIBUTE_LIST);
+ 			if (err) {
+ 				ntfs_error(sb, "Could not remove unused attr");
+ 				goto put_err_out;
+@@ -5014,30 +5076,42 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 	 */
+ 	if (attr_ni->type == AT_STANDARD_INFORMATION ||
+ 	    attr_ni->type == AT_ATTRIBUTE_LIST) {
 +		/*
 +		 * Resizing the $ATTRIBUTE_LIST attribute itself only happens
 +		 * underneath ntfs_attrlist_update_locked() while already holding
 +		 * attr_list_persist_lock.
 +		 */
-+		if (attr_ni->type == AT_ATTRIBUTE_LIST)
-+			err = ntfs_attrlist_update_locked(base_ni);
-+		else
-+			err = ntfs_attrlist_update(base_ni);
++		bool persist_locked = attr_ni->type == AT_ATTRIBUTE_LIST;
++
+ 		ntfs_attr_put_search_ctx(ctx);
+ 
+ 		if (!NInoAttrList(base_ni)) {
++			/* This takes attr_list_persist_lock on its own. */
+ 			err = ntfs_inode_add_attrlist(base_ni);
+ 			if (err)
+ 				return err;
+ 		}
+ 
++		/*
++		 * ntfs_inode_free_space() moves attributes out of the base MFT
++		 * record, rewriting their ALEs in place.  Keep those mutations
++		 * and the persist below inside one transaction.
++		 */
++		if (!persist_locked)
++			mutex_lock(&base_ni->attr_list_persist_lock);
++
+ 		err = ntfs_inode_free_space(base_ni, sizeof(struct attr_record));
+ 		if (err) {
++			if (!persist_locked)
++				mutex_unlock(&base_ni->attr_list_persist_lock);
+ 			err = -ENOSPC;
+ 			ntfs_error(sb,
+ 				"Couldn't free space in the MFT record to make attribute list non resident");
+ 			return err;
+ 		}
+-		/*
+-		 * Resizing the $ATTRIBUTE_LIST attribute itself only happens
+-		 * underneath ntfs_attrlist_update_locked() while already holding
+-		 * attr_list_persist_lock.
+-		 */
+-		if (attr_ni->type == AT_ATTRIBUTE_LIST)
+-			err = ntfs_attrlist_update_locked(base_ni);
+-		else
+-			err = ntfs_attrlist_update(base_ni);
++		err = ntfs_attrlist_update_locked(base_ni);
++		if (!persist_locked)
++			mutex_unlock(&base_ni->attr_list_persist_lock);
  		if (err)
  			return err;
  		goto attr_resize_again;
-diff --git a/fs/ntfs/attrib.h b/fs/ntfs/attrib.h
-index a39719f75d06..2e5f87abd852 100644
---- a/fs/ntfs/attrib.h
-+++ b/fs/ntfs/attrib.h
-@@ -129,6 +129,8 @@ void ntfs_attrlist_exact_key_from_ale(struct ntfs_attrlist_exact_key *key,
- 				      const struct attr_list_entry *ale);
- bool ntfs_attrlist_exact_key_eq(const struct attr_list_entry *ale,
- 				const struct ntfs_attrlist_exact_key *key);
-+struct attr_list_entry *ntfs_attrlist_find_exact_locked(struct ntfs_inode *base_ni,
-+							struct ntfs_attrlist_exact *exact);
- int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol,
- 		const __le32 type, const s64 size);
- int ntfs_attr_can_be_resident(const struct ntfs_volume *vol,
-diff --git a/fs/ntfs/attrlist.c b/fs/ntfs/attrlist.c
-index b8594037df40..aa6d5f10bf96 100644
---- a/fs/ntfs/attrlist.c
-+++ b/fs/ntfs/attrlist.c
-@@ -51,7 +51,13 @@ int ntfs_attrlist_need(struct ntfs_inode *ni)
- 	return 0;
- }
+@@ -5085,15 +5159,27 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 	}
+ 	unmap_mft_record(ext_ni);
  
--int ntfs_attrlist_update(struct ntfs_inode *base_ni)
-+/*
-+ * ntfs_attrlist_update_locked - persist the in-memory attribute list to disk
-+ * @base_ni:	base ntfs inode containing the attribute list
-+ *
-+ * Caller must hold @base_ni->attr_list_persist_lock.
-+ */
-+int ntfs_attrlist_update_locked(struct ntfs_inode *base_ni)
- {
- 	struct inode *attr_vi;
- 	struct ntfs_inode *attr_ni;
-@@ -111,6 +117,23 @@ int ntfs_attrlist_update(struct ntfs_inode *base_ni)
- 	return 0;
- }
- 
-+/*
-+ * ntfs_attrlist_update - persist the in-memory attribute list to disk
-+ * @base_ni:	base ntfs inode containing the attribute list
-+ *
-+ * Serialize the persist against concurrent attribute-list replacement
-+ * transactions.
-+ */
-+int ntfs_attrlist_update(struct ntfs_inode *base_ni)
-+{
-+	int err;
-+
++	/*
++	 * Move the attribute and persist the resulting attribute list as one
++	 * transaction, so the ALE rewritten by ntfs_attr_record_move_to()
++	 * cannot be copied to disk half-updated.  attr_ni->type is neither
++	 * $STANDARD_INFORMATION nor $ATTRIBUTE_LIST here (both are handled
++	 * above), so we cannot already hold the lock via
++	 * ntfs_attrlist_update_locked().
++	 */
 +	mutex_lock(&base_ni->attr_list_persist_lock);
++
+ 	/* Move attribute to it. */
+ 	err = ntfs_attr_record_move_to(ctx, ext_ni);
+ 	if (err) {
++		mutex_unlock(&base_ni->attr_list_persist_lock);
+ 		ntfs_error(sb, "Couldn't move attribute to new MFT record");
+ 		err = -ENOMEM;
+ 		goto put_err_out;
+ 	}
+ 
+-	err = ntfs_attrlist_update(base_ni);
 +	err = ntfs_attrlist_update_locked(base_ni);
 +	mutex_unlock(&base_ni->attr_list_persist_lock);
-+	return err;
-+}
-+
+ 	if (err < 0)
+ 		goto put_err_out;
+ 
+@@ -5454,7 +5540,7 @@ int ntfs_attr_rm(struct ntfs_inode *ni)
+ 	}
+ 	while (!(err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
+ 				CASE_SENSITIVE, 0, NULL, 0, ctx))) {
+-		err = ntfs_attr_record_rm(ctx);
++		err = ntfs_attr_record_rm(ctx, false);
+ 		if (err) {
+ 			ntfs_error(sb,
+ 				"Failed to remove attribute extent. Leaving inconstant metadata.\n");
+diff --git a/fs/ntfs/attrib.h b/fs/ntfs/attrib.h
+index 2e5f87abd852..ec0c846febf1 100644
+--- a/fs/ntfs/attrib.h
++++ b/fs/ntfs/attrib.h
+@@ -161,7 +161,7 @@ int ntfs_attr_exist(struct ntfs_inode *ni, const __le32 type, __le16 *name,
+ 		u32 name_len);
+ int ntfs_attr_remove(struct ntfs_inode *ni, const __le32 type, __le16 *name,
+ 		u32 name_len);
+-int ntfs_attr_record_rm(struct ntfs_attr_search_ctx *ctx);
++int ntfs_attr_record_rm(struct ntfs_attr_search_ctx *ctx, bool persist_locked);
+ int ntfs_attr_record_move_to(struct ntfs_attr_search_ctx *ctx, struct ntfs_inode *ni);
+ int ntfs_attr_add(struct ntfs_inode *ni, __le32 type,
+ 		__le16 *name, u8 name_len, u8 *val, s64 size);
+diff --git a/fs/ntfs/attrlist.c b/fs/ntfs/attrlist.c
+index aa6d5f10bf96..bdea09efe284 100644
+--- a/fs/ntfs/attrlist.c
++++ b/fs/ntfs/attrlist.c
+@@ -117,23 +117,6 @@ int ntfs_attrlist_update_locked(struct ntfs_inode *base_ni)
+ 	return 0;
+ }
+ 
+-/*
+- * ntfs_attrlist_update - persist the in-memory attribute list to disk
+- * @base_ni:	base ntfs inode containing the attribute list
+- *
+- * Serialize the persist against concurrent attribute-list replacement
+- * transactions.
+- */
+-int ntfs_attrlist_update(struct ntfs_inode *base_ni)
+-{
+-	int err;
+-
+-	mutex_lock(&base_ni->attr_list_persist_lock);
+-	err = ntfs_attrlist_update_locked(base_ni);
+-	mutex_unlock(&base_ni->attr_list_persist_lock);
+-	return err;
+-}
+-
  /*
   * ntfs_attrlist_entry_add - add an attribute list attribute entry
   * @ni:	opened ntfs inode, which contains that attribute
-@@ -122,12 +145,13 @@ int ntfs_attrlist_entry_add(struct ntfs_inode *ni, struct attr_record *attr)
- {
- 	struct attr_list_entry *ale;
- 	__le64 mref;
--	struct ntfs_attr_search_ctx *ctx;
--	u8 *new_al;
-+	struct ntfs_attr_search_ctx *ctx = NULL;
-+	u8 *new_al = NULL;
- 	int entry_len, entry_offset, err;
- 	struct mft_record *ni_mrec;
- 	u8 *old_al;
- 	__le64 lowest_vcn;
-+	bool found, rollback;
- 
- 	if (!ni || !attr) {
- 		ntfs_debug("Invalid arguments.\n");
-@@ -154,12 +178,21 @@ int ntfs_attrlist_entry_add(struct ntfs_inode *ni, struct attr_record *attr)
- 		return -ENOENT;
- 	}
- 
--	/* Determine size and allocate memory for new attribute list. */
-+	mutex_lock(&ni->attr_list_persist_lock);
-+
-+	if (!NInoAttrList(ni) || !ni->attr_list) {
-+		err = -ENOENT;
-+		goto err_out;
-+	}
-+
-+	/* Determine size of new attribute list entry. */
- 	entry_len = (sizeof(struct attr_list_entry) + sizeof(__le16) *
- 			attr->name_length + 7) & ~7;
--	new_al = kvzalloc(ni->attr_list_size + entry_len, GFP_NOFS);
--	if (!new_al)
--		return -ENOMEM;
-+
-+retry_lookup:
-+	new_al = NULL;
-+	found = false;
-+	rollback = false;
- 
- 	/* Find place for the new entry. */
- 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
-@@ -181,29 +214,54 @@ int ntfs_attrlist_entry_add(struct ntfs_inode *ni, struct attr_record *attr)
- 			le16_to_cpu(attr->data.resident.value_offset)), (attr->non_resident) ?
- 			0 : le32_to_cpu(attr->data.resident.value_length), ctx);
- 	if (!err) {
-+		found = true;
- 		/* Found some extent, check it to be before new extent. */
- 		if (ctx->al_exact.key.lowest_vcn == lowest_vcn) {
- 			err = -EEXIST;
- 			ntfs_debug("Such attribute already present in the attribute list.\n");
--			ntfs_attr_put_search_ctx(ctx);
- 			goto err_out;
- 		}
--		/* Add new entry after this extent. */
--		entry_offset = ctx->al_exact.off +
--			le16_to_cpu(((struct attr_list_entry *)(ni->attr_list +
--								ctx->al_exact.off))->length);
- 	} else {
- 		/* Check for real errors. */
- 		if (err != -ENOENT) {
- 			ntfs_debug("Attribute lookup failed.\n");
--			ntfs_attr_put_search_ctx(ctx);
- 			goto err_out;
- 		}
- 		/* No previous extents found. */
-+	}
-+
-+	down_write(&ni->attr_list_lock);
-+	if (found) {
-+		if (ctx->al_exact.gen != ni->attr_list_gen) {
-+			up_write(&ni->attr_list_lock);
-+			ntfs_attr_put_search_ctx(ctx);
-+			ctx = NULL;
-+			goto retry_lookup;
-+		}
-+		ale = ntfs_attrlist_find_exact_locked(ni, &ctx->al_exact);
-+		if (!ale) {
-+			up_write(&ni->attr_list_lock);
-+			err = -EIO;
-+			goto err_out;
-+		}
-+		entry_offset = (u8 *)ale - ni->attr_list + le16_to_cpu(ale->length);
-+	} else {
-+		if (!ctx->al_insert.valid ||
-+		    ctx->al_insert.gen != ni->attr_list_gen) {
-+			up_write(&ni->attr_list_lock);
-+			ntfs_attr_put_search_ctx(ctx);
-+			ctx = NULL;
-+			goto retry_lookup;
-+		}
- 		entry_offset = ctx->al_insert.off;
- 	}
--	/* Don't need it anymore, @ctx->al_entry points to @ni->attr_list. */
--	ntfs_attr_put_search_ctx(ctx);
-+
-+	new_al = kvzalloc(ni->attr_list_size + entry_len, GFP_NOFS);
-+	if (!new_al) {
-+		up_write(&ni->attr_list_lock);
-+		err = -ENOMEM;
-+		goto err_out;
-+	}
- 
- 	/* Set pointer to new entry. */
- 	ale = (struct attr_list_entry *)(new_al + entry_offset);
-@@ -231,17 +289,34 @@ int ntfs_attrlist_entry_add(struct ntfs_inode *ni, struct attr_record *attr)
- 	old_al = ni->attr_list;
- 	ni->attr_list = new_al;
- 	ni->attr_list_size = ni->attr_list_size + entry_len;
-+	ni->attr_list_gen++;
-+	up_write(&ni->attr_list_lock);
-+	ntfs_attr_put_search_ctx(ctx);
-+	ctx = NULL;
- 
--	err = ntfs_attrlist_update(ni);
-+	err = ntfs_attrlist_update_locked(ni);
- 	if (err) {
--		ni->attr_list = old_al;
--		ni->attr_list_size -= entry_len;
-+		down_write(&ni->attr_list_lock);
-+		if (ni->attr_list == new_al) {
-+			ni->attr_list = old_al;
-+			ni->attr_list_size -= entry_len;
-+			ni->attr_list_gen++;
-+			rollback = true;
-+		}
-+		up_write(&ni->attr_list_lock);
-+		if (!rollback)
-+			new_al = NULL;
- 		goto err_out;
- 	}
- 	kvfree(old_al);
-+	mutex_unlock(&ni->attr_list_persist_lock);
- 	return 0;
- err_out:
--	kvfree(new_al);
-+	if (ctx)
-+		ntfs_attr_put_search_ctx(ctx);
-+	if (new_al)
-+		kvfree(new_al);
-+	mutex_unlock(&ni->attr_list_persist_lock);
- 	return err;
- }
- 
-@@ -255,10 +330,12 @@ int ntfs_attrlist_entry_add(struct ntfs_inode *ni, struct attr_record *attr)
+@@ -328,7 +311,7 @@ int ntfs_attrlist_entry_add(struct ntfs_inode *ni, struct attr_record *attr)
+  *
+  * Return 0 on success and -errno on error.
   */
- int ntfs_attrlist_entry_rm(struct ntfs_attr_search_ctx *ctx)
+-int ntfs_attrlist_entry_rm(struct ntfs_attr_search_ctx *ctx)
++int ntfs_attrlist_entry_rm_locked(struct ntfs_attr_search_ctx *ctx)
  {
--	u8 *new_al;
--	int new_al_len;
-+	u8 *new_al = NULL;
-+	int err, new_al_len;
-+	bool rollback;
- 	struct ntfs_inode *base_ni;
- 	struct attr_list_entry *ale;
-+	u8 *old_al;
- 
- 	if (!ctx || !ctx->ntfs_ino || !ctx->al_exact.valid) {
- 		ntfs_debug("Invalid arguments.\n");
-@@ -269,9 +346,6 @@ int ntfs_attrlist_entry_rm(struct ntfs_attr_search_ctx *ctx)
- 		base_ni = ctx->base_ntfs_ino;
- 	else
- 		base_ni = ctx->ntfs_ino;
--	if (ctx->al_exact.off >= base_ni->attr_list_size)
--		return -EIO;
--	ale = (struct attr_list_entry *)(base_ni->attr_list + ctx->al_exact.off);
- 
- 	ntfs_debug("Entering for inode 0x%llx, attr 0x%x, lowest_vcn %lld.\n",
- 		   (long long)ctx->ntfs_ino->mft_no,
-@@ -282,12 +356,33 @@ int ntfs_attrlist_entry_rm(struct ntfs_attr_search_ctx *ctx)
+ 	u8 *new_al = NULL;
+ 	int err, new_al_len;
+@@ -356,7 +339,7 @@ int ntfs_attrlist_entry_rm(struct ntfs_attr_search_ctx *ctx)
  		ntfs_debug("Attribute list isn't present.\n");
  		return -ENOENT;
  	}
-+	mutex_lock(&base_ni->attr_list_persist_lock);
-+
-+	/*
-+	 * Another thread may have removed the attribute list while we were
-+	 * waiting for the mutex.
-+	 */
-+	if (!NInoAttrList(base_ni) || !base_ni->attr_list) {
-+		err = -ENOENT;
-+		goto out_unlock;
-+	}
-+
-+	down_write(&base_ni->attr_list_lock);
-+	ale = ntfs_attrlist_find_exact_locked(base_ni, &ctx->al_exact);
-+	if (!ale) {
-+		up_write(&base_ni->attr_list_lock);
-+		err = -EIO;
-+		goto out_unlock;
-+	}
+-	mutex_lock(&base_ni->attr_list_persist_lock);
++	lockdep_assert_held(&base_ni->attr_list_persist_lock);
  
- 	/* Allocate memory for new attribute list. */
- 	new_al_len = base_ni->attr_list_size - le16_to_cpu(ale->length);
- 	new_al = kvzalloc(new_al_len, GFP_NOFS);
--	if (!new_al)
--		return -ENOMEM;
-+	if (!new_al) {
-+		up_write(&base_ni->attr_list_lock);
-+		err = -ENOMEM;
-+		goto out_unlock;
-+	}
- 
- 	/* Copy entries from old attribute list to new. */
- 	memcpy(new_al, base_ni->attr_list, (u8 *)ale - base_ni->attr_list);
-@@ -295,9 +390,30 @@ int ntfs_attrlist_entry_rm(struct ntfs_attr_search_ctx *ctx)
- 				ale->length), new_al_len - ((u8 *)ale - base_ni->attr_list));
- 
- 	/* Set new runlist. */
--	kvfree(base_ni->attr_list);
-+	old_al = base_ni->attr_list;
- 	base_ni->attr_list = new_al;
- 	base_ni->attr_list_size = new_al_len;
-+	base_ni->attr_list_gen++;
-+	up_write(&base_ni->attr_list_lock);
- 
--	return ntfs_attrlist_update(base_ni);
-+	err = ntfs_attrlist_update_locked(base_ni);
-+	if (err) {
-+		rollback = false;
-+		down_write(&base_ni->attr_list_lock);
-+		if (base_ni->attr_list == new_al) {
-+			base_ni->attr_list = old_al;
-+			base_ni->attr_list_size += le16_to_cpu(ale->length);
-+			base_ni->attr_list_gen++;
-+			rollback = true;
-+		}
-+		up_write(&base_ni->attr_list_lock);
-+		if (rollback)
-+			kvfree(new_al);
-+		goto out_unlock;
-+	}
-+	kvfree(old_al);
-+	err = 0;
-+out_unlock:
-+	mutex_unlock(&base_ni->attr_list_persist_lock);
+ 	/*
+ 	 * Another thread may have removed the attribute list while we were
+@@ -414,6 +397,19 @@ int ntfs_attrlist_entry_rm(struct ntfs_attr_search_ctx *ctx)
+ 	kvfree(old_al);
+ 	err = 0;
+ out_unlock:
 +	return err;
++}
++
++int ntfs_attrlist_entry_rm(struct ntfs_attr_search_ctx *ctx)
++{
++	struct ntfs_inode *base_ni;
++	int err;
++
++	if (!ctx || !ctx->ntfs_ino)
++		return -EINVAL;
++	base_ni = ctx->base_ntfs_ino ? ctx->base_ntfs_ino : ctx->ntfs_ino;
++	mutex_lock(&base_ni->attr_list_persist_lock);
++	err = ntfs_attrlist_entry_rm_locked(ctx);
+ 	mutex_unlock(&base_ni->attr_list_persist_lock);
+ 	return err;
  }
 diff --git a/fs/ntfs/attrlist.h b/fs/ntfs/attrlist.h
-index 1892a3934d3a..ecb8a8c957fa 100644
+index ecb8a8c957fa..ccf61971c01e 100644
 --- a/fs/ntfs/attrlist.h
 +++ b/fs/ntfs/attrlist.h
-@@ -16,5 +16,6 @@ int ntfs_attrlist_need(struct ntfs_inode *ni);
+@@ -15,7 +15,7 @@
+ int ntfs_attrlist_need(struct ntfs_inode *ni);
  int ntfs_attrlist_entry_add(struct ntfs_inode *ni, struct attr_record *attr);
  int ntfs_attrlist_entry_rm(struct ntfs_attr_search_ctx *ctx);
- int ntfs_attrlist_update(struct ntfs_inode *base_ni);
-+int ntfs_attrlist_update_locked(struct ntfs_inode *base_ni);
+-int ntfs_attrlist_update(struct ntfs_inode *base_ni);
++int ntfs_attrlist_entry_rm_locked(struct ntfs_attr_search_ctx *ctx);
+ int ntfs_attrlist_update_locked(struct ntfs_inode *base_ni);
  
  #endif /* defined _NTFS_ATTRLIST_H */
+diff --git a/fs/ntfs/index.c b/fs/ntfs/index.c
+index 082fe9226c72..8c44ec25c2a2 100644
+--- a/fs/ntfs/index.c
++++ b/fs/ntfs/index.c
+@@ -1348,18 +1348,35 @@ static int ntfs_ir_reparent(struct ntfs_index_context *icx)
+ 	 */
+ 	if ((ret == -ENOSPC) &&
+ 	    (ctx->al_cursor.valid || !ntfs_inode_add_attrlist(icx->idx_ni))) {
++		struct ntfs_inode *base_ni;
++
+ 		ntfs_attr_put_search_ctx(ctx);
+ 		ctx = NULL;
+ 		ir = ntfs_ir_lookup(icx->idx_ni, icx->name, icx->name_len, &ctx);
+-		if (ir && !ntfs_attr_record_move_away(ctx, ix_root_size -
++		if (!ir)
++			goto clear_bmp;
++
++		base_ni = ctx->base_ntfs_ino ? ctx->base_ntfs_ino : ctx->ntfs_ino;
++		/*
++		 * ntfs_attr_record_move_away() rewrites the moved attribute's
++		 * ALE in place, so it and the persist below have to form one
++		 * transaction.  Nothing up this call chain holds the lock:
++		 * ntfs_inode_add_attrlist() above takes it on its own, and
++		 * ntfs_attrlist_update_locked() never reaches index code.
++		 */
++		mutex_lock(&base_ni->attr_list_persist_lock);
++		if (!ntfs_attr_record_move_away(ctx, ix_root_size -
+ 				le32_to_cpu(ctx->attr->data.resident.value_length))) {
+-			if (ntfs_attrlist_update(ctx->base_ntfs_ino ?
+-						 ctx->base_ntfs_ino : ctx->ntfs_ino))
++			if (ntfs_attrlist_update_locked(base_ni)) {
++				mutex_unlock(&base_ni->attr_list_persist_lock);
+ 				goto clear_bmp;
++			}
++			mutex_unlock(&base_ni->attr_list_persist_lock);
+ 			ntfs_attr_put_search_ctx(ctx);
+ 			ctx = NULL;
+ 			goto retry;
+ 		}
++		mutex_unlock(&base_ni->attr_list_persist_lock);
+ 	}
+ clear_bmp:
+ 	ntfs_ibm_clear(icx, new_ib_vcn);
 diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 38206e2009e2..ede16196ed0c 100644
+index ede16196ed0c..f62d72857558 100644
 --- a/fs/ntfs/inode.c
 +++ b/fs/ntfs/inode.c
-@@ -476,6 +476,7 @@ void __ntfs_init_inode(struct super_block *sb, struct ntfs_inode *ni)
- 	ni->folio_ofs = 0;
- 	ni->mrec = NULL;
- 	init_rwsem(&ni->attr_list_lock);
-+	mutex_init(&ni->attr_list_persist_lock);
- 	ni->attr_list_gen = 0;
- 	ni->attr_list_size = 0;
- 	ni->attr_list = NULL;
-@@ -3147,7 +3148,7 @@ int ntfs_inode_add_attrlist(struct ntfs_inode *ni)
- 		goto rollback;
+@@ -3048,14 +3048,20 @@ int ntfs_inode_add_attrlist(struct ntfs_inode *ni)
+ 	struct attr_list_entry *ale = NULL;
+ 	struct mft_record *ni_mrec;
+ 	u32 attr_al_len;
++	bool attrlist_locked = false;
+ 
+ 	if (!ni)
+ 		return -EINVAL;
+ 
+ 	ntfs_debug("inode %llu\n", ni->mft_no);
+ 
++	/* Serialize the initial state check and attribute-list publication. */
++	mutex_lock(&ni->attr_list_persist_lock);
++	attrlist_locked = true;
++
+ 	if (NInoAttrList(ni) || ni->nr_extents) {
+ 		ntfs_error(ni->vol->sb, "Inode already has attribute list");
++		mutex_unlock(&ni->attr_list_persist_lock);
+ 		return -EEXIST;
  	}
  
--	err = ntfs_attrlist_update(ni);
-+	err = ntfs_attrlist_update_locked(ni);
+@@ -3123,9 +3129,12 @@ int ntfs_inode_add_attrlist(struct ntfs_inode *ni)
+ 	}
+ 
+ 	/* Set in-memory attribute list. */
++	down_write(&ni->attr_list_lock);
+ 	ni->attr_list = al;
+ 	ni->attr_list_size = al_len;
++	ni->attr_list_gen++;
+ 	NInoSetAttrList(ni);
++	up_write(&ni->attr_list_lock);
+ 
+ 	attr_al_len = offsetof(struct attr_record, data.resident.reserved) + 1 +
+ 		((al_len + 7) & ~7);
+@@ -3152,28 +3161,36 @@ int ntfs_inode_add_attrlist(struct ntfs_inode *ni)
  	if (err < 0)
  		goto remove_attrlist_record;
  
-diff --git a/fs/ntfs/inode.h b/fs/ntfs/inode.h
-index ed00e06c5d14..a6c5b15d648d 100644
---- a/fs/ntfs/inode.h
-+++ b/fs/ntfs/inode.h
-@@ -69,6 +69,7 @@ enum ntfs_inode_mutex_lock_class {
-  * functions). Setup during read_inode for all inodes with attribute
-  * lists. Only valid if NI_AttrList is set in state.
-  * @attr_list_lock: Protects in-memory attribute list state.
-+ * @attr_list_persist_lock: Serializes attribute list replacement and persist.
-  * @attr_list_gen: Generation of the in-memory attribute list state.
-  * @attr_list_size: Length of attribute list value in bytes.
-  * @attr_list: Attribute list value itself.
-@@ -123,6 +124,8 @@ struct ntfs_inode {
- 	s64 mft_lcn[2];
- 	unsigned int mft_lcn_count;
- 	struct rw_semaphore attr_list_lock;
-+	/* Serializes attribute list replacement and persist. */
-+	struct mutex attr_list_persist_lock;
- 	u64 attr_list_gen;
- 	u32 attr_list_size;
- 	u8 *attr_list;
++	mutex_unlock(&ni->attr_list_persist_lock);
++	attrlist_locked = false;
+ 	ntfs_attr_put_search_ctx(ctx);
+ 	unmap_mft_record(ni);
+ 	return 0;
+ 
+ remove_attrlist_record:
+-	/* Prevent ntfs_attr_recorm_rm from freeing attribute list. */
++	down_write(&ni->attr_list_lock);
+ 	ni->attr_list = NULL;
++	ni->attr_list_gen++;
+ 	NInoClearAttrList(ni);
++	up_write(&ni->attr_list_lock);
++
+ 	/* Remove $ATTRIBUTE_LIST record. */
+ 	ntfs_attr_reinit_search_ctx(ctx);
+ 	if (!ntfs_attr_lookup(AT_ATTRIBUTE_LIST, NULL, 0,
+ 				CASE_SENSITIVE, 0, NULL, 0, ctx)) {
+-		if (ntfs_attr_record_rm(ctx))
++		if (ntfs_attr_record_rm(ctx, true))
+ 			ntfs_error(ni->vol->sb, "Rollback failed to remove attrlist");
+ 	} else {
+ 		ntfs_error(ni->vol->sb, "Rollback failed to find attrlist");
+ 	}
+ 
+ 	/* Setup back in-memory runlist. */
++	down_write(&ni->attr_list_lock);
+ 	ni->attr_list = al;
+ 	ni->attr_list_size = al_len;
++	ni->attr_list_gen++;
+ 	NInoSetAttrList(ni);
++	up_write(&ni->attr_list_lock);
+ rollback:
+ 	/*
+ 	 * Scan attribute list for attributes that placed not in the base MFT
+@@ -3200,10 +3217,16 @@ int ntfs_inode_add_attrlist(struct ntfs_inode *ni)
+ 	}
+ 
+ 	/* Remove in-memory attribute list. */
++	down_write(&ni->attr_list_lock);
+ 	ni->attr_list = NULL;
+ 	ni->attr_list_size = 0;
++	ni->attr_list_gen++;
+ 	NInoClearAttrList(ni);
+ 	NInoClearAttrListDirty(ni);
++	up_write(&ni->attr_list_lock);
++
++	if (attrlist_locked)
++		mutex_unlock(&ni->attr_list_persist_lock);
+ put_err_out:
+ 	ntfs_attr_put_search_ctx(ctx);
+ err_out:
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index 96045face63f..09deb96533d1 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -938,7 +938,7 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
+ 	if (err)
+ 		goto err_out;
+ 
+-	err = ntfs_attr_record_rm(actx);
++	err = ntfs_attr_record_rm(actx, false);
+ 	if (err)
+ 		goto err_out;
+ 
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 8abe7bee4c0d..6d28c4c25a05 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -485,7 +485,7 @@ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+ 	ret = ntfs_attr_lookup(AT_VOLUME_NAME, NULL, 0, 0, 0, NULL, 0,
+ 			       ctx);
+ 	if (!ret)
+-		ret = ntfs_attr_record_rm(ctx);
++		ret = ntfs_attr_record_rm(ctx, false);
+ 	else if (ret == -ENOENT)
+ 		ret = 0;
+ 	ntfs_attr_put_search_ctx(ctx);
 
 -- 
 2.43.0
