@@ -1,153 +1,108 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3CA3F23BF
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 15:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C4D35AC16;
+	Mon, 10 Aug 2026 15:39:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786376319; cv=none; b=hX9Vsk88ycz/zE6OHx3GwzC4B14w7QxNIneyHbIazTGO6XWtDxm70k7Yon8l7RmHNgqCks4o+Bp7vkaLPggMXfeuiWWIhMaLUGhF8FbcoCAbYZrNfgXlrxVtZ93b+i5nZBXJ/S1GtAGp3+Mfui6ZEN3vZ/JZYWUZlE8dEfpdqus=
+	t=1786376351; cv=none; b=sah23gYVJAfqSCIXwLjQer2cEtOmzfYalQbH/lLBLPDEUNMDc2rXRATgNT1tJ5tpOfTArmCf/FzgJJbxebesUjET5+qsLRkq7mJXNMwjZc3D6mONzZZXu5+aiA6JwUmx59CEU6+lAofhWijr+YIkFxZ0BKfOA6a3LMyyrydxbuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786376319; c=relaxed/simple;
-	bh=mDszcMsWC0B6Nkf3PYyOxCVREEHShMdcB6sP5kCLmy4=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A20pCfQh2dZp/uZFQCEwK94LKHMBSW6lgHpc63U5fJvnBx0M7Wlq08IgF/ceEEp3ViZUaKvpHFap0II0Jcit/9Dbj0fZHbjL6ihfVijujkoH2ahnVaK56HnY9daugjvywGLRyL0Vgi/ztZOiEEuBg2Uku7rAo7FUf9x7xwimXio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=oGZlBRLV; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bcv3F5Kj; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mVbCvnID; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=vIwft7uj; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1786376351; c=relaxed/simple;
+	bh=+LqkHQep1KHiZLNJ6qsz5sLE9mi0YmmLXDoNmHu4/20=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ClX+uM8NoxuYT6eMAi2YiOGxKal7ThzENUGH+f6zZPMLYHFTuqlQCUks6ZYb2hz9s2J1CDsQvvlfKzGFUH1JycQmZWONpwfqC17de/hNp2CUXvFiW6L0iJdE++8r+5cLULBM1A3lFDr03smF4w5TiebonKywDMp2ela2YS5FT5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c62h8VDd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oGZlBRLV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bcv3F5Kj";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mVbCvnID";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vIwft7uj"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9FDFF3E05;
-	Mon, 10 Aug 2026 15:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786376300; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=072trYjiCwvTLREEYLn/y7Q28nhRp8AIFJ1WXCcOtmA=;
-	b=oGZlBRLVZwQMLgqUizxI1Y8032/jy1tGAkYJ99ZsPyCeqiLtjly1Ks7EeGw5VUdm24kdVG
-	P/g/IpCsFE8Eg4cZCLNWSkKmKFdsnDTQr9zqqaclPhXHMJwuK9D6VemH2aSzY4E3rfzwfJ
-	/SR0w2A1yycAm/SBIHMCslwWkbT7NwM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786376300;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=072trYjiCwvTLREEYLn/y7Q28nhRp8AIFJ1WXCcOtmA=;
-	b=bcv3F5Kji+EMhTuhgSTjZTprGBunfgMmLIUf5pQdpKuaM8By9XbIkqcvMJC/9Y/sp01y3D
-	os7kOKLLDphU/rDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786376296; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=072trYjiCwvTLREEYLn/y7Q28nhRp8AIFJ1WXCcOtmA=;
-	b=mVbCvnIDvxdDnT7NvwsPt7/GIb1xfFUTorCr30LKsso92yg2dt5xM9eMhdKMqllFOePxdi
-	wxLkP+NYHVatMVKtcYy6JkHugZ9mQga5ADD/ZbuA9cGDlnrJz07I4Yt4NL19ZHwe5MIxxD
-	ipGjZ7vWjR7aURBy1wh/chp4dqgVuaw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786376296;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=072trYjiCwvTLREEYLn/y7Q28nhRp8AIFJ1WXCcOtmA=;
-	b=vIwft7uj9cO9MDK9JrapnP81M0KcoPYXxAcXNJHkc+ywvZXbF7E3+kDyjC0ktd5woC7RUW
-	7z8rYAvdlAKTiBDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6FDB5779B2;
-	Mon, 10 Aug 2026 15:38:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id T2KjGWjweWqoFgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 10 Aug 2026 15:38:16 +0000
-Date: Mon, 10 Aug 2026 17:38:16 +0200
-Message-ID: <87tsp2asuv.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Denis Batishchev <ii343hbka@gmail.com>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3] ALSA: hda/realtek: Enable micmute LED on HP EliteBook 6 G1a p/n: AD3Q9ET#UUG
-In-Reply-To: <20260810151440.2306217-2-ii343hbka@gmail.com>
-References: <20260810151440.2306217-2-ii343hbka@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c62h8VDd"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 44DB91F000E9;
+	Mon, 10 Aug 2026 15:39:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786376350;
+	bh=Y5IlW+UoYImc9M9babjCZDjXvbHxEaG1fWYIG9Orny8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c62h8VDdrRzfvvrT85q/7tdAS3nwv1ncHT3ck5Cg/SoVlTjjeo8CFDHJLsDg16Pw9
+	 xwpAKBE6BL5ar+7BQF/GX6CF4tNT2p5W7+wbsqI6h48O4lCoLHqZK+6Me9TtNgZrsx
+	 rBpMhc3KVHz2GGR8YUsoAG4vWouZw2JFkKlBYyLX+autyvNN5bhQkfLFowl6auccEK
+	 9qTjOQO69TXqIY8oMoC50H5eVx6/P3ZoU6WzIGkG1ttdot5kVTJ4R0kyeNvYyGGSeo
+	 SE7YawgVCVfSo6gyJvpUYzkTfRi28CaGSbF7gQnEwGFHhqIs6mSDzXZ3GvEnoVUIOp
+	 Nz9UUP1YlgaTQ==
+Date: Mon, 10 Aug 2026 18:39:07 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: stable@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Jerry Snitselaar <jsnitsel@redhat.com>,
+	"open list:TPM DEVICE DRIVER" <linux-integrity@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] tpm: Fix barriers to prevent hwrng from activating
+ during resume
+Message-ID: <annwm6hZLiTE0hM9@kernel.org>
+References: <20260803092240.18348-2-fourier.thomas@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid]
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803092240.18348-2-fourier.thomas@gmail.com>
 
-On Mon, 10 Aug 2026 17:14:41 +0200,
-Denis Batishchev wrote:
+On Mon, Aug 03, 2026 at 11:13:24AM +0200, Thomas Fourier wrote:
+> The memory barrier is placed after clearing the suspened flag so
+> memory reordering between the wake up and clearing the flag is allowed.
+> The reader of the flag is missing the corresponding barrier.
 > 
-> The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
-> Without a quirk no fixup is selected and the mic-mute LED stays off.
-> It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
-> already-supported 14" variant (SSID 103c:8dfb), so add it.
+> Clear the flag after the memory barrier and add a memory barrier in
+> the reader.
 > 
-> Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
+> Fixes: 99d464506255 ("tpm: Prevent hwrng from activating during resume")
 > Cc: <stable@vger.kernel.org>
+> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
 > ---
-> v2: fix indentation (per Takashi Iwai <tiwai@suse.de>)
-> v3: fix indentation, 2nd trial (per Takashi Iwai <tiwai@suse.de>)
-> ---
->  sound/hda/codecs/realtek/alc269.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/char/tpm/tpm-chip.c      | 3 +++
+>  drivers/char/tpm/tpm-interface.c | 3 +--
+>  2 files changed, 4 insertions(+), 2 deletions(-)
 > 
-> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-> index 6b36c730c..bcbdafb42 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -7544,6 +7544,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
->  	SND_PCI_QUIRK(0x103c, 0x8dfc, "HP EliteBook 645 G12", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x8dfd, "HP EliteBook 6 G1a 16", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
-> +	SND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14 (AD3Q9ET#UUG)", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
->  	SND_PCI_QUIRK(0x103c, 0x8dfe, "HP EliteBook 665 G12", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x8e11, "HP Trekker", ALC287_FIXUP_CS35L41_I2C_2),
->  	SND_PCI_QUIRK(0x103c, 0x8e12, "HP Trekker", ALC287_FIXUP_CS35L41_I2C_2),
+> diff --git a/drivers/char/tpm/tpm-chip.c b/drivers/char/tpm/tpm-chip.c
+> index 12b7394b34bd..7f500797b7a7 100644
+> --- a/drivers/char/tpm/tpm-chip.c
+> +++ b/drivers/char/tpm/tpm-chip.c
+> @@ -173,6 +173,9 @@ int tpm_try_get_ops(struct tpm_chip *chip)
+>  	if (chip->flags & TPM_CHIP_FLAG_SUSPENDED)
+>  		goto out_lock;
+>  
+> +	/* Ensure that device is fully resumed */
+> +	rmb();
+> +
+>  	rc = tpm_chip_start(chip);
+>  	if (rc)
+>  		goto out_lock;
+> diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
+> index f745a098908b..2de12b02f62b 100644
+> --- a/drivers/char/tpm/tpm-interface.c
+> +++ b/drivers/char/tpm/tpm-interface.c
+> @@ -474,13 +474,12 @@ int tpm_pm_resume(struct device *dev)
+>  	if (chip == NULL)
+>  		return -ENODEV;
+>  
+> -	chip->flags &= ~TPM_CHIP_FLAG_SUSPENDED;
+> -
+>  	/*
+>  	 * Guarantee that SUSPENDED is written last, so that hwrng does not
+>  	 * activate before the chip has been fully resumed.
+>  	 */
+>  	wmb();
+> +	chip->flags &= ~TPM_CHIP_FLAG_SUSPENDED;
+>  
+>  	return 0;
+>  }
+> -- 
+> 2.43.0
 
-The table is sorted in PCI SSID order, so it should have been put at
-the one entry below; for saving the internet bandwidth, I corrected
-locally at applying now :)
 
-Applied to for-next branch.  Thanks.
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
+Applied.
 
-Takashi
+BR, Jarkko
