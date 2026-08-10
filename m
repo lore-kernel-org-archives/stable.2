@@ -1,44 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690601AAE28;
-	Mon, 10 Aug 2026 08:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE4D35C69B;
+	Mon, 10 Aug 2026 08:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786350247; cv=none; b=qjHyM4L7rdpvOq/9WwOMC6f4ZuhGDNhLp+Gda8CKZJXusl6NIRAkm32bwcntmZx7H654rQTeeeuDK562/MDsK32YEQoe7tUZpS/EPQ/XoD37JMGLqp3HvoHyzQig0L0B3aLZLa5xf4eDr8NrTZT6NBCPdn9YWZT6TWLKgZP2yps=
+	t=1786350249; cv=none; b=QZcXJb8mE2bUT9v5ckT1nLNU2h/kixESVDI2ayehabdPzj9W0YP4dhZYm7n/kQJiu4kW8tOk2LLyd+YutNwvEbwqrSVSvIRpbXxdxRRwWviwi2M1Scoc+8jnHW8H5BN2kb9pQ+ne1kB9xVW047MrJVf8V//aAscM7OcfDRq2Jzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786350247; c=relaxed/simple;
-	bh=udpzQOnp2NHd3xagHK7GnNYaIbSRI46MyJU+yjjkzVE=;
+	s=arc-20240116; t=1786350249; c=relaxed/simple;
+	bh=yecm5Pn/SYUDaqs0J181mIZ9F3jtvO0zLQgM2AejaWU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DMmkpyC8bCECfRVp3hEPYOHqVs5LRRh7EyBpx5jfCJbqQUMIJ2kJXpfevDX5ej0U81pGDyLE5x4TqRrQ9Rq913u4+d+o7TxlMd9NUZmfMaJLdJ7vqKcEA43jjBxV+0Oahuxl9WDjeWAt7Oza4UG83gVe4wQ00Dhwh8lyu89QQuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDf0pMZ6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=e35dFGhtdQXEf+QgH8k6+4nG8Lbv8afQLKC0AX2EmMD31QVXYec7U4vRLxgrq1xxqa4sGi9bTPSa+BCiwTLksF6Ih93y0TdCrj9czx8pBmyJpIGq/cr+O6C/Ls6mQ9bWiqEHWnqsdBr/Z0jKe6UWjLhMcM+2PnH4EemZO4hPbgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PeYgPsqi; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDf0pMZ6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3ABA1F000E9;
-	Mon, 10 Aug 2026 08:24:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786350246;
-	bh=za/dgLTVAKpnAfno98BQIXcUPCYXTejUD5HWiea1RH4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kDf0pMZ6OrhTueAr8AycS7nuhFdWoL9WvStErXhNm3cYqWa7kU6wjtfmC+OyLrVpv
-	 4vcetwy4RP5rGzvLxz/ApRu7FEj2/8mu0Fh6OkbeAkVHL0lYg/YY1rtEXL3U34Y0TE
-	 h/SotQuCdSuIzeWasbGnrYi5yUA8CXqyCUUIcb96YUOQV1vHmzJa8E/I7DIdaXfJVH
-	 knYSokPq7zwOwZF+tta9poedyBEfuUZEQezEhdexuDZ9331hbNSKqpN/by80TRaAK7
-	 2Br7Dnjo0gE0pQovl+l+bj5eaQqyd33PsRgF+ysKBRRemFMcwTWr4U33sHePjaQ7Mf
-	 j/Fiqqabfzcmw==
-Date: Mon, 10 Aug 2026 11:23:58 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Maxi Saparov <maxi.saparov@gmail.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Alexander Graf <graf@amazon.com>,
-	Evangelos Petrongonas <epetron@amazon.de>,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, sdimitropoulos@coreweave.com,
-	Maxi Saparov <masaparov@coreweave.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] kho: do not reserve scratch memory in the kdump kernel
-Message-ID: <anmKnlBmOssfqdbL@kernel.org>
-References: <20260803193938.8778-1-maxi.saparov@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PeYgPsqi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786350248; x=1817886248;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yecm5Pn/SYUDaqs0J181mIZ9F3jtvO0zLQgM2AejaWU=;
+  b=PeYgPsqiTt8kqcnZO8SQ/iiFp/nZp13XQ9ciW8gXJzN6jKGJ41rQOIG2
+   gRHCTL2JOOIXszkwYV5y4oJqM9Aep1jofUl8WRwfLfP6SUslQiOf1zI4C
+   ZiXrQomE9TSaSqUEvG47TWkS1TJvdV+zXjaqP6nLPYhZqziG+aW1Mswgf
+   8btjzxnkboGRlezab6smaz+QepKH75t/z2LbDDE7CHGLbdyjW3+3lxEdd
+   7QtYWo4O8jCgXMBtohN1OSsuk08j1QDNWSSbXoXKUX9egMpFT99fs5Q2E
+   fWsej4BPAju4ScL7jHyQEd8/zj85LQSAqcgJXYILqNaRcYRp9ebRsSA+4
+   A==;
+X-CSE-ConnectionGUID: 1i+RiCG9See/Xo419AcYoA==
+X-CSE-MsgGUID: htO4aqKXQh+ClyCSe7XQ8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="97206175"
+X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; 
+   d="scan'208";a="97206175"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 01:24:07 -0700
+X-CSE-ConnectionGUID: 26I+uWa8QZ+UPiIbg+5hpA==
+X-CSE-MsgGUID: s9+3uc2QSDSamFvDin4+lw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; 
+   d="scan'208";a="256762990"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa009.fm.intel.com with ESMTP; 10 Aug 2026 01:24:05 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id D77F399; Mon, 10 Aug 2026 10:24:03 +0200 (CEST)
+Date: Mon, 10 Aug 2026 10:24:03 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Ramesh Babu B <ramesh.babu.b@intel.com>,
+	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
+	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v6 2/3] drm/xe/i2c: Fix the interrupt handling
+Message-ID: <anmKoxMONVxf5FoK@black.igk.intel.com>
+References: <20260722133554.2079612-1-heikki.krogerus@linux.intel.com>
+ <20260722133554.2079612-3-heikki.krogerus@linux.intel.com>
+ <anlbyVOUkafs0UHE@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,81 +71,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260803193938.8778-1-maxi.saparov@gmail.com>
+In-Reply-To: <anlbyVOUkafs0UHE@black.igk.intel.com>
 
-Hi,
+On Mon, Aug 10, 2026 at 07:04:09AM +0200, Raag Jadav wrote:
+> On Wed, Jul 22, 2026 at 03:35:53PM +0200, Heikki Krogerus wrote:
+> > The platforms that support the interrupt from the I2C
+> > adapter can not handle the amount of interrupts the adapter
+> > generates because of the way the IRQ is routed in the
+> > hardware. The I2C controller driver has to be kept in
+> > polling mode because of that.
+> > 
+> > The AMC MCU can still generate critical alerts that have to
+> > be handled. The interrupt from SMBus Alert is left enabled
+> > and handled separately in the Xe. The alerts from the AMC
+> > will cause the device to be declared wedged for now.
+> 
+> ...
+> 
+> > +	alert_reason = response.value;
+> > +	dev_dbg(&client->dev, "Alert reason: %d\n", alert_reason);
+> 
+> This came up in one of the internal reports. We have quite a few call
+> sites for wedging and it can happen due to various reasons from driver
+> POV. We really need to identify the source from logs when it happens,
+> so can we atleast have this one as dev_info()?
+> 
+> All the reasons are rare enough to not spam the logs and it shouldn't be
+> a problem IMO.
 
-On Mon, Aug 03, 2026 at 03:39:38PM -0400, Maxi Saparov wrote:
-> From: Maxi Saparov <masaparov@coreweave.com>
-> 
-> If a kernel with CONFIG_KEXEC_HANDOVER_ENABLE_DEFAULT=y (or kho=on)
-> does not receive a handover FDT, it reserves KHO scratch memory in
-> kho_reserve_scratch(). The function computes the sizes from the early
-> memblock reservations of the kernel. The default scratch_scale is
-> 200%. The lowmem and global scratch areas each get twice the size of
-> the early reservations. Each NUMA node gets one more scratch area at
-> the same scale.
-> 
-> The kdump kernel always takes this path. Since commit a6715d7ec472
-> ("kho: skip KHO for crash kernel"), the kernel does not add KHO
-> metadata to the crash kimage. As a result, the kdump kernel never
-> receives a handover FDT and always reserves scratch memory.
-> 
-> The kdump kernel boots in the small crashkernel= memory reservation.
-> On our x86 hosts, the kernel and initramfs make approximately 176 MB
-> of early reservations. The scratch areas then use approximately
-> 650 MB more of the crashkernel memory. When a large early allocation
-> fails, the kdump kernel panics:
-> 
->   bio: can't create integrity buf pool
-> 
-> A kdump kernel has nothing to hand over: its only task is to dump the
-> memory of the old kernel and reboot. Disable KHO in the kdump kernel
-> so that it does not reserve scratch memory.
-> 
-> Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Maxi Saparov <masaparov@coreweave.com>
-> ---
->  kernel/liveupdate/kexec_handover.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-> index 6fad9152387a..53b59edb5b36 100644
-> --- a/kernel/liveupdate/kexec_handover.c
-> +++ b/kernel/liveupdate/kexec_handover.c
-> @@ -12,6 +12,7 @@
->  
->  #include <linux/cleanup.h>
->  #include <linux/cma.h>
-> +#include <linux/crash_dump.h>
->  #include <linux/kmemleak.h>
->  #include <linux/count_zeros.h>
->  #include <linux/kasan.h>
-> @@ -1636,6 +1637,9 @@ void __init kho_memory_init(void)
->  
->  		if (kho_mem_retrieve(kho_get_fdt()))
->  			kho_in.fdt_phys = 0;
-> +	} else if (is_kdump_kernel()) {
-> +		kho_enable = false;
-> +		pr_info("disabled in the kdump kernel\n");
+Okay by me.
 
-Can we put this on top as a separate if, like
+> I'm okay with doing it as a follow up if the series is already merged.
 
-	if (is_kdump_kernel()) {
-		/* disable KHO */
-		return;
-	}
-
->  	} else {
->  		kho_reserve_scratch();
->  	}
-> 
-> base-commit: 3a0b8fa2eb36afc88b62a95f33f0c77c71fa5ded
-> -- 
-> 2.55.0
-> 
+I don't think this has been taken anywhere yet. I'll send v7.
 
 -- 
-Sincerely yours,
-Mike.
+heikki
