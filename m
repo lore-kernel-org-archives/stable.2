@@ -1,228 +1,371 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF721C84A0
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 02:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0753049620;
+	Mon, 10 Aug 2026 02:27:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786328630; cv=none; b=rTmYUKPo2rpqrQhhYCo2pdDqoD+ySDeA7svt4YJf+YbUjKaFoXbzmKoJitJj7iLy/jJTx+PB5x5px7+szKd6/4FYdIb53zqFdEgJfnNiq1vQ9W3bq4trZmSwFkZrHcCcLY0l+JlAsH/cJZJEoahPca/LA1QPGz2BfabZPrk+ecQ=
+	t=1786328828; cv=none; b=pQfI9DbFOereaqgmp5C5EVOq4w755rTJtqqMS9shUolWjSjakxDmulq8AcHHlS+Q5JEQ7WbLfSeb2zscnNHVp4z3MjWUSZzeS1HE+qhN7DaSKII8HHOjEyeUcvuCTl99UgxCKkNlTlvU3KXRLJob5YSFCaWr5s0OidjO8kCz3kM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786328630; c=relaxed/simple;
-	bh=brIXrSHMNh+w2+wqvBdY6ZLq52aicUd2kThuQ+xFW+o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e91bFPiZCs5HUv2oo/TUa0hMgF+fLGynYG2MfF6TYu9UaEwUMqkn1kO/YhrRxpkzVNeJc59EBN3mdwFceDseVgZNpmL6q0mG1YrNe9e2NWS1K7Fv8DXnnuRFHvdwvIABQ+X0QbcRJpjaenMJfOm//G9B/+iyPK+H5JSYXfa3SN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ukle3woU; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786328828; c=relaxed/simple;
+	bh=qc9OHGNL4m7QmDnxfMYnWQfreBe6O+VXh7RWtTw3iQk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=KB/ORnmCpfhUpv/ZZQzCRFkKJoHo8kRezohHZj548EXMAXbltLETxetEn7mP1B7UCYlbWzwmNz/oDYt872VTeSCvId0XME8HnJl8xY0JQUZgkIFeWaDgHW3AazFhqTNdyTLMHF80KtRaCY6aDepKMJGML5r1q6gSo8eeTEhH+I0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=QD4245WG; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ukle3woU"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso727450a12.0
-        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 19:23:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786328628; x=1786933428; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L8/Xu6Bl9nz3vhT2oV8jvDAfGpBWDs2/HnpOEeUYYe8=;
-        b=Ukle3woUorjutusatcUOV+w/so4QfCzhHs1JAVMuDNrk/XsRMDs1glmFRHrONcXSQ/
-         K1E4iT65wsrW/ErPgFxHim02hn9FN2u1JTwBxGBnjUzy4stsbgZvg3MIoUnK6bWmUcIX
-         cmU8BJzWEaOA8Z7PZsKXU53M4MYCstFV4ztc1z/pmUX59KOU8AI0MQjrcxWuop2z0qkM
-         4wtUcDmQePfEokOmb7cr4QSx7TxXwKKD4eQEMLBdxuagCHRD0pdysbeszR/EeiRlxC/a
-         RJTy6wZ1huV6fWy7bTUAjSwB9Vv4Ke12ObvApLXUq52+EIFXZvf9PNit+CHdxmd++/p2
-         MLtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786328628; x=1786933428;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L8/Xu6Bl9nz3vhT2oV8jvDAfGpBWDs2/HnpOEeUYYe8=;
-        b=nFgF8jNHuKuTiAnB2TR7Jzviwi7MJP313eFDtBsIBRHf2QFVFF69x3RAskKD8rHhgW
-         dWL99t6gWZw+BTfniz+qnLVtqkR4RI+ALfm37d2qFMYAho92zIURhcOzOxBrQLk2WWdp
-         QbICbDOKKiPx1jniejOY/KpHzdpvB9Y60IU2syqBKkQpOxOxW/fJZh/ycFXjD4qpR1Gv
-         tiO/BvEimA6P62Ei5kLx3HqRqzxHiTto7Cv5K2836tipHiHZ2TaRKGQFk5KRtadJM6lZ
-         2//fwEop6ylDSUNif5BOxyXXfVu25uFUYdDxKWbYzlsuUIq6cKCvg2k1KRjkI7l31s6q
-         VcvQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrdEGPOACsMCYQUeFpmXzCq1zexUJYqykt4VhYw/xiAgtmM0vl5LsDkFhrrORFTlJPgXF70LBA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwbAi61NJap/NYlQ044UYXE7TmIHi3UneJO7l0Grl2gM9vXaXVD
-	lL425NyZVgnxdoitf44tW5OrivGRcD+injB8VP+cjjtoziYjFT6qil+c
-X-Gm-Gg: AR+sD13NHz/xGf+U0iaSEhb5qSsFfdzJdqgNZNTai1H1ewWyJFnhV+iyZ186eS7R56P
-	IH+IVetRx4Sntik7jFsNw0d00Y2StB3rK2lCbPTup6HJ6RAVfsT6UEj6l6Mz06aHEBcANbz2cnu
-	j8iDtAR2qowZC6/i4POZRp3FVAkMapT+5mVxoZ0oVBeEuDN83TH6YEWUn+q0aQw0YccA1RN1jfC
-	PofJsW2RVYhk+nlV2ZZ7bKBWM/8A46fu+mg0NU2u8mbv5DiKaQWsbXS7+MSLrwbD1h1IjKKDjwX
-	p/nxr2JEnCAXasSuCGiK4kmpvCbgyfdNJDZEIkyKUuytha/oft9JF3uhSeoCPvmceQQf5ZJvZbn
-	/5TjpVNAvRrsJALPXy6yjrfyvThvoIsKoQ4cPrqkyK/TrJDYZ7p6BLLmlrLh3cz9CfS8eRccafh
-	EQlAcrz0K+ZTsv32iVMPFyAdg0SQHF8XUiH3mUhLNAKDostAnL12ma0DQ=
-X-Received: by 2002:a05:6a00:ad5:b0:846:de21:3da4 with SMTP id d2e1a72fcca58-84f2e021ff5mr41007248b3a.3.1786328627675;
-        Sun, 09 Aug 2026 19:23:47 -0700 (PDT)
-Received: from fedora ([203.175.12.242])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a58bd4bsm3074067b3a.56.2026.08.09.19.23.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 19:23:46 -0700 (PDT)
-Date: Mon, 10 Aug 2026 10:23:35 +0800
-From: Hangbin Liu <liuhangbin@gmail.com>
-To: Xin Xie <xiexinet@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
-	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
-	fmaurer@redhat.com, luka.gejak@linux.dev, bigeasy@linutronix.de,
-	xiaoliang.yang_1@nxp.com, skhawaja@google.com,
-	stable@vger.kernel.org, sdf.kernel@gmail.com,
-	syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
-Subject: Re: [PATCH 2/4] net: hsr: shrink seqnr_lock to sequence counter
- updates
-Message-ID: <ank2JxDbOpX_wr5f@fedora>
-References: <20260809121455.1745-1-xiexinet@gmail.com>
- <20260809121455.1745-3-xiexinet@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="QD4245WG"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1786328821; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=Z66FNj1Gk/lVU2/TFM20u7dHoZyCIxI/2tZTiSwFfZA=;
+	b=QD4245WGhwc7B8O5NcUAGR3DPFkgntAaSPH6DnNx7hZ8I6UpVtKZexBZaIhqChzg9F3WE5nhLKlIRTEiD7KsKNx0Kg9iXvT//F16u0/Bqdhedy4oR8/YGTGpTE0OEZdpF/VZ7bCmLoZ/VXMwhlVLzNIy6IBdfpwEjapNZPPHFmo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=31;SR=0;TI=SMTPD_---0X8c5z5d_1786328789;
+Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0X8c5z5d_1786328789 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 10 Aug 2026 10:26:58 +0800
+From: "Huang, Ying" <ying.huang@linux.alibaba.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: intel-xe@lists.freedesktop.org,  dri-devel@lists.freedesktop.org,
+  linux-mm@kvack.org,  linux-kernel@vger.kernel.org,  Andrew Morton
+ <akpm@linux-foundation.org>,  David Hildenbrand <david@kernel.org>,
+  Lorenzo Stoakes <ljs@kernel.org>,  Zi Yan <ziy@nvidia.com>,  Baolin Wang
+ <baolin.wang@linux.alibaba.com>,  "Liam R . Howlett" <liam@infradead.org>,
+  Nico Pache <nico.pache@linux.dev>,  Ryan Roberts <ryan.roberts@arm.com>,
+  Dev Jain <dev.jain@arm.com>,  Barry Song <baohua@kernel.org>,  Lance Yang
+ <lance.yang@linux.dev>,  Usama Arif <usama.arif@linux.dev>,  Joshua Hahn
+ <joshua.hahnjy@gmail.com>,  Rakie Kim <rakie.kim@sk.com>,  Byungchul Park
+ <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,  Alistair Popple
+ <apopple@nvidia.com>,  Balbir Singh <balbirs@nvidia.com>,  Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>,  David
+ Airlie <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,  Thomas
+ =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,  Francois
+ Dugast
+ <francois.dugast@intel.com>,  stable@vger.kernel.org
+Subject: Re: [PATCH v3 3/6] mm/migrate_device: Fix THP splitting of a CPU
+ faulted device private folio
+In-Reply-To: <20260805231041.3791771-4-matthew.brost@intel.com> (Matthew
+	Brost's message of "Wed, 5 Aug 2026 16:10:38 -0700")
+References: <20260805231041.3791771-1-matthew.brost@intel.com>
+	<20260805231041.3791771-4-matthew.brost@intel.com>
+Date: Mon, 10 Aug 2026 10:26:27 +0800
+Message-ID: <87ik5in224.fsf@DESKTOP-5N7EMDA>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260809121455.1745-3-xiexinet@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Aug 09, 2026 at 02:14:52PM +0200, Xin Xie wrote:
-> Commit 06afd2c31d33 ("hsr: Synchronize sending frames to have always
-> incremented outgoing seq nr.") and commit 430d67bdcb04 ("net: hsr: Use
-> the seqnr lock for frames received via interlink port.") hold
-> seqnr_lock across the whole forwarding path. Transmitting while
-> holding the lock can create lock-dependency issues when HSR devices
-> are stacked with other net devices, up to a real deadlock (see
-> Reported-by/Closes).
-> 
-> Since commit aae9d6b616b5 ("hsr: Implement more robust duplicate
-> discard for HSR"), duplicate discard is order-independent (sparse
-> bitmaps), so only the sequence counter updates need serialization.
-> Limit seqnr_lock to the counter updates in handle_std_frame(); the
-> master TX path (hsr_dev_xmit()) and the interlink RX path
-> (hsr_handle_frame()) drop their outer lock, and the supervision frame
-> builders release it right after their counter update.
-> 
-> Concurrent forwarding may emit frames out of allocation order, which
-> sparse-bitmap discard tolerates. The master/interlink tx statistics are
-> no longer serialized; consistent per-cpu/per-queue statistics for all
-> HSR paths are handled in a separate series.
-> 
-> Fixes: 06afd2c31d33 ("hsr: Synchronize sending frames to have always incremented outgoing seq nr.")
-> Fixes: 430d67bdcb04 ("net: hsr: Use the seqnr lock for frames received via interlink port.")
-> Reported-by: syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=fbf74291c3b7e753b481
-> Cc: <stable@vger.kernel.org> # aae9d6b616b5: hsr: Implement more robust duplicate discard for HSR
-> Signed-off-by: Xin Xie <xiexinet@gmail.com>
+Hi, Matthew,
+
+Matthew Brost <matthew.brost@intel.com> writes:
+
+> When a CPU faults on a device private PMD and the device driver can only
+> allocate order-0 destination folios, __migrate_device_pages() has to
+> split the source THP via migrate_vma_split_unmapped_folio(). That path
+> is broken in two independent ways when the fault is what triggered the
+> migration.
+>
+> First, the split never succeeds. At the point folio_split_unmapped() is
+> called the folio carries two references beyond the ones it is
+> entitled to:
+>
+>   1 - taken by do_huge_pmd_device_private() for the duration of the
+>       ->migrate_to_ram() callback
+>   2 - taken by migrate_vma_collect_huge_pmd() when the folio was
+>       collected
+>
+> (the mapping reference having been dropped by set_pmd_migration_entry()).
+>
+> folio_split_unmapped() requires folio_expected_ref_count(folio) =3D=3D
+> folio_ref_count(folio) - 1, i.e. it tolerates exactly one caller
+> reference. With both of the above held the check sees 2 against an
+> expected 0 and returns -EAGAIN, so the migration is abandoned and the
+> CPU fault makes no progress.
+>
+> The PTE-based split path does not have this problem:
+> migrate_vma_split_folio() is called before any collect reference is
+> taken and explicitly skips folio_get() for the fault folio, so the fault
+> reference is the single caller reference the split expects.
+>
+> Fix it by dropping the fault reference across the split and re-taking it
+> afterwards. do_huge_pmd_device_private() derives the fault page from the
+> PMD entry, so it is always the head page of the folio and always ends up
+> in the head folio of an uniform split to order 0; re-taking the
+> reference on the folio therefore puts it back exactly where
+> do_huge_pmd_device_private() will release it. The folio cannot be freed
+> while the reference is dropped because the collect reference is still
+> held.
+>
+> Second, the folio is split globally but the page tables were demoted
+> only locally:
+>
+> 	split_huge_pmd_address(migrate->vma, addr, true);
+> 	ret =3D folio_split_unmapped(folio, 0);
+>
+> migrate_device_unmap() unmaps via try_to_migrate(folio, 0), deliberately
+> without TTU_SPLIT_HUGE_PMD, so every VMA that PMD maps the folio is left
+> holding a PMD sized migration entry. A folio that was PMD mapped in more
+> than one VMA -- after fork(), for example -- therefore keeps huge
+> migration entries in all the other VMAs while only migrate->vma is
+> demoted.
+>
+> folio_split_unmapped() does not notice: the folio is fully unmapped, so
+> it only looks at the refcount and happily splits to order 0. The other
+> VMAs are then left pointing a huge PMD at an order-0 folio, and
+> migrate_vma_finalize() -> remove_migration_ptes() walks into it:
+>
+>   page dumped because: VM_BUG_ON_FOLIO(folio_test_hugetlb(folio) ||
+>                                        !folio_test_pmd_mappable(folio))
+>   kernel BUG at mm/migrate.c:368!
+>   RIP: 0010:remove_migration_pte+0x56a/0x9b0
+>   Call Trace:
+>    rmap_walk_anon+0xfc/0x260
+>    remove_migration_ptes+0x79/0xb0
+>    __migrate_device_finalize+0x113/0x290
+>    __drm_pagemap_migrate_to_ram+0x278/0x360 [drm_gpusvm_helper]
+>    drm_pagemap_migrate_to_ram+0x5c/0x80 [drm_gpusvm_helper]
+>    do_huge_pmd_device_private+0x160/0x280
+
+Which is the branch your patchset based on?  I found that
+drm_pagemap_migrate_populate_ram_pfn() in mm-everything-2026-08-08-07-08
+still don't support fallback to single pages if THP allocation fails as
+in the following comments,
+
+	/* TODO: Support fallback to single pages if THP allocation fails */
+
+
+> Without CONFIG_DEBUG_VM the VM_BUG_ON_FOLIO() is compiled out and
+> remove_migration_pmd() installs a huge PMD pointing at an order-0 page
+> instead, along with add_mm_counter(mm, MM_ANONPAGES, HPAGE_PMD_NR). The
+> victim mm then maps 2MB of address space onto a single 4K page, which
+> shows up later as bad rss-counter state, leaked page tables and page
+> allocator freelist corruption in unrelated processes.
+>
+> Note this second problem was latent before the refcount fix above: the
+> split always failed, and the failed attempt left migrate->vma demoted,
+> so the retried fault took the PTE path, where __folio_split() unmaps
+> with TTU_SPLIT_HUGE_PMD and demotes every VMA.
+>
+> Fix it by walking the rmap and demoting every PMD sized migration entry
+> mapping the folio before splitting it. Demote with freeze =3D false: entry
+> creation in __split_huge_pmd_locked() is dispatched on
+> pmd_is_migration_entry(), not on freeze, so a migration PMD becomes PTE
+> sized migration entries either way, and freeze only controls a trailing
+> put_page(). With freeze =3D false there is no refcount change at all,
+> which makes the demotion idempotent across N VMAs.
+>
+> rmap_walk_control.anon_lock is deliberately left unset:
+> folio_lock_anon_vma_read() depends on folio_mapped(), and the folio is
+> already fully unmapped here. This mirrors remove_migration_ptes().
+>
+> Finally, refuse the split for a folio that is not anonymous. The rmap
+> walk would otherwise reach a file backed VMA, where
+> split_huge_pmd_address() zaps the PMD instead of demoting it.
+>
+> Fixes: 4265d67e405a ("mm/migrate_device: add THP splitting during migrati=
+on")
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: Zi Yan <ziy@nvidia.com>
+> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Cc: Liam R. Howlett <liam@infradead.org>
+> Cc: Nico Pache <nico.pache@linux.dev>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Dev Jain <dev.jain@arm.com>
+> Cc: Barry Song <baohua@kernel.org>
+> Cc: Lance Yang <lance.yang@linux.dev>
+> Cc: Usama Arif <usama.arif@linux.dev>
+> Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Cc: Rakie Kim <rakie.kim@sk.com>
+> Cc: Byungchul Park <byungchul@sk.com>
+> Cc: Gregory Price <gourry@gourry.net>
+> Cc: Ying Huang <ying.huang@linux.alibaba.com>
+> Cc: Alistair Popple <apopple@nvidia.com>
+> Cc: Balbir Singh <balbirs@nvidia.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> Cc: Francois Dugast <francois.dugast@intel.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-mm@kvack.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> Assisted-by: GitHub_Copilot:claude-opus-5
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 > ---
->  net/hsr/hsr_device.c  | 15 ++++-----------
->  net/hsr/hsr_forward.c |  3 ++-
->  net/hsr/hsr_slave.c   | 11 +----------
->  3 files changed, 7 insertions(+), 22 deletions(-)
-> 
-> diff --git a/net/hsr/hsr_device.c b/net/hsr/hsr_device.c
-> index 5555b71ab19b..3fd1762d8916 100644
-> --- a/net/hsr/hsr_device.c
-> +++ b/net/hsr/hsr_device.c
-> @@ -232,9 +232,7 @@ static netdev_tx_t hsr_dev_xmit(struct sk_buff *skb, struct net_device *dev)
->  		skb->dev = master->dev;
->  		skb_reset_mac_header(skb);
->  		skb_reset_mac_len(skb);
-> -		spin_lock_bh(&hsr->seqnr_lock);
->  		hsr_forward_skb(skb, master);
-> -		spin_unlock_bh(&hsr->seqnr_lock);
->  	} else {
->  		dev_core_stats_tx_dropped_inc(dev);
->  		dev_kfree_skb_any(skb);
-> @@ -335,6 +333,7 @@ static void send_hsr_supervision_frame(struct hsr_port *port,
->  		hsr_stag->sequence_nr = htons(hsr->sequence_nr);
->  		hsr->sequence_nr++;
->  	}
-> +	spin_unlock_bh(&hsr->seqnr_lock);
->  
->  	hsr_stag->tlv.HSR_TLV_type = type;
->  	/* HSRv0 has 6 unused bytes after the MAC */
-> @@ -356,14 +355,10 @@ static void send_hsr_supervision_frame(struct hsr_port *port,
->  		ether_addr_copy(hsr_sp->macaddress_A, hsr->macaddress_redbox);
->  	}
->  
-> -	if (skb_put_padto(skb, ETH_ZLEN)) {
-> -		spin_unlock_bh(&hsr->seqnr_lock);
-> +	if (skb_put_padto(skb, ETH_ZLEN))
->  		return;
-> -	}
->  
->  	hsr_forward_skb(skb, port);
-> -	spin_unlock_bh(&hsr->seqnr_lock);
-> -	return;
+>  mm/migrate_device.c | 98 ++++++++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 89 insertions(+), 9 deletions(-)
+>
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index ae9027421b80..ae17bd516d24 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -899,22 +899,104 @@ static int migrate_vma_insert_huge_pmd_page(struct=
+ migrate_vma *migrate,
+>  	return 0;
 >  }
->  
->  static void send_prp_supervision_frame(struct hsr_port *master,
-> @@ -390,6 +385,7 @@ static void send_prp_supervision_frame(struct hsr_port *master,
->  	spin_lock_bh(&hsr->seqnr_lock);
->  	hsr_stag->sequence_nr = htons(hsr->sup_sequence_nr);
->  	hsr->sup_sequence_nr++;
-> +	spin_unlock_bh(&hsr->seqnr_lock);
->  	hsr_stag->tlv.HSR_TLV_type = PRP_TLV_LIFE_CHECK_DD;
->  	hsr_stag->tlv.HSR_TLV_length = sizeof(struct hsr_sup_payload);
->  
-> @@ -397,13 +393,10 @@ static void send_prp_supervision_frame(struct hsr_port *master,
->  	hsr_sp = skb_put(skb, sizeof(struct hsr_sup_payload));
->  	ether_addr_copy(hsr_sp->macaddress_A, master->dev->dev_addr);
->  
-> -	if (skb_put_padto(skb, ETH_ZLEN)) {
-> -		spin_unlock_bh(&hsr->seqnr_lock);
-> +	if (skb_put_padto(skb, ETH_ZLEN))
->  		return;
-> -	}
->  
->  	hsr_forward_skb(skb, master);
-> -	spin_unlock_bh(&hsr->seqnr_lock);
->  }
->  
->  /* Announce (supervision frame) timer function
-> diff --git a/net/hsr/hsr_forward.c b/net/hsr/hsr_forward.c
-> index 0774981a65c1..8e4158a9b57c 100644
-> --- a/net/hsr/hsr_forward.c
-> +++ b/net/hsr/hsr_forward.c
-> @@ -621,9 +621,10 @@ static void handle_std_frame(struct sk_buff *skb,
->  	if (port->type == HSR_PT_MASTER ||
->  	    port->type == HSR_PT_INTERLINK) {
->  		/* Sequence nr for the master/interlink node */
-> -		lockdep_assert_held(&hsr->seqnr_lock);
-> +		spin_lock_bh(&hsr->seqnr_lock);
->  		frame->sequence_nr = hsr->sequence_nr;
->  		hsr->sequence_nr++;
-> +		spin_unlock_bh(&hsr->seqnr_lock);
->  	}
->  }
->  
-> diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
-> index bb2182a169a3..8b96eafe15b3 100644
-> --- a/net/hsr/hsr_slave.c
-> +++ b/net/hsr/hsr_slave.c
-> @@ -73,16 +73,7 @@ static rx_handler_result_t hsr_handle_frame(struct sk_buff **pskb)
->  	}
->  	skb_reset_mac_len(skb);
->  
-> -	/* Only the frames received over the interlink port will assign a
-> -	 * sequence number and require synchronisation vs other sender.
-> -	 */
-> -	if (port->type == HSR_PT_INTERLINK) {
-> -		spin_lock_bh(&hsr->seqnr_lock);
-> -		hsr_forward_skb(skb, port);
-> -		spin_unlock_bh(&hsr->seqnr_lock);
-> -	} else {
-> -		hsr_forward_skb(skb, port);
-> -	}
-> +	hsr_forward_skb(skb, port);
->  
->  finish_consume:
->  	return RX_HANDLER_CONSUMED;
-> -- 
-> 2.43.0
-> 
+>=20=20
+> +static bool migrate_vma_split_pmd_one(struct folio *folio,
+> +				      struct vm_area_struct *vma,
+> +				      unsigned long addr, void *arg)
+> +{
+> +	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, addr, PVMW_SYNC | PVMW_MIGRATIO=
+N);
+> +
+> +	while (page_vma_mapped_walk(&pvmw)) {
+> +		if (pvmw.pte)
+> +			continue;
+> +
+> +		addr =3D pvmw.address;
+> +		page_vma_mapped_walk_done(&pvmw);
+> +
+> +		/*
+> +		 * Demote with freeze =3D false: the PMD already holds a
+> +		 * migration entry, so __split_huge_pmd_locked() creates PTE
+> +		 * sized migration entries from it and leaves the refcount
+> +		 * alone. There is at most one PMD mapping @folio per VMA, so
+> +		 * stop the walk here.
+> +		 */
+> +		split_huge_pmd_address(vma, addr, false);
+> +		break;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+> +/*
+> + * Demote every PMD sized migration entry that maps @folio to PTE sized =
+ones.
+> + *
+> + * migrate_device_unmap() unmaps with try_to_migrate(folio, 0), i.e. wit=
+hout
+> + * TTU_SPLIT_HUGE_PMD, so a folio that was PMD mapped in several VMAs --=
+ after
+> + * fork(), for instance -- ends up with a PMD sized migration entry in e=
+very one
+> + * of them. folio_split_unmapped() below does not care, it only looks at=
+ the
+> + * refcount, so splitting the folio without demoting all of those first =
+would
+> + * leave the other VMAs pointing a huge PMD at what is now an order-0 fo=
+lio.
+> + * remove_migration_ptes() trips over that in migrate_vma_finalize().
+> + */
+> +static void migrate_vma_split_pmd_mappings(struct folio *folio)
+> +{
+> +	struct rmap_walk_control rwc =3D {
+> +		.rmap_one =3D migrate_vma_split_pmd_one,
+> +	};
+> +
+> +	/*
+> +	 * Do not pass .anon_lock: folio_lock_anon_vma_read() requires
+> +	 * folio_mapped(), and @folio is already fully unmapped here.
+> +	 */
+> +	rmap_walk(folio, &rwc);
+> +}
+> +
+>  static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+> -					    unsigned long idx, unsigned long addr,
+> +					    unsigned long idx,
+>  					    struct folio *folio)
+>  {
+>  	unsigned long i;
+>  	unsigned long pfn;
+>  	unsigned long flags;
+> +	bool fault_folio;
+>  	int ret =3D 0;
+>=20=20
+>  	/*
+> -	 * take a reference, since split_huge_pmd_address() with freeze =3D true
+> -	 * drops a reference at the end.
+> +	 * migrate_vma_split_pmd_mappings() walks the rmap, and
+> +	 * split_huge_pmd_address() zaps rather than demotes a PMD in a VMA that
+> +	 * is not anonymous. migrate_vma_collect_huge_pmd() does not check the
+> +	 * VMA type, so a file THP can reach here; the rest of the migrate_vma()
+> +	 * machinery only supports anonymous memory anyway.
+>  	 */
+> -	folio_get(folio);
+> -	split_huge_pmd_address(migrate->vma, addr, true);
+> +	if (!folio_test_anon(folio))
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * A CPU fault on a device private PMD holds an extra reference on the
+> +	 * folio, taken by do_huge_pmd_device_private(). folio_split_unmapped()
+> +	 * only tolerates a single caller reference, so the split would always
+> +	 * fail with -EAGAIN while this fault reference is held.
+> +	 *
+> +	 * do_huge_pmd_device_private() derives the fault page from the PMD
+> +	 * entry, so it is always the head page of @folio, and therefore always
+> +	 * ends up in the head folio after an uniform split to order 0. Drop
+> +	 * the reference across the split and re-take it on the head folio
+> +	 * afterwards, leaving the reference exactly where it is expected to be
+> +	 * released.
+> +	 *
+> +	 * The folio cannot go away while the reference is dropped: the
+> +	 * reference taken by migrate_vma_collect_huge_pmd() is still held.
+> +	 */
+> +	fault_folio =3D migrate->fault_page &&
+> +		page_folio(migrate->fault_page) =3D=3D folio;
+> +
+> +	migrate_vma_split_pmd_mappings(folio);
+> +
+> +	if (fault_folio)
+> +		folio_put(folio);
+>  	ret =3D folio_split_unmapped(folio, 0);
+> +	if (fault_folio)
+> +		folio_get(folio);
+> +
 
-Thanks for the fix.
+Is it better to pass "extra_cnt" to folio_split_unmapped()?  This
+follows the coding style of the other migrate functions better, like
+that in __migrate_device_pages().
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+>  	if (ret)
+>  		return ret;
+>  	migrate->src[idx] &=3D ~MIGRATE_PFN_COMPOUND;
+> @@ -935,7 +1017,7 @@ static int migrate_vma_insert_huge_pmd_page(struct m=
+igrate_vma *migrate,
+>  }
+>=20=20
+>  static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+> -					    unsigned long idx, unsigned long addr,
+> +					    unsigned long idx,
+>  					    struct folio *folio)
+>  {
+>  	return 0;
+> @@ -1103,7 +1185,6 @@ static void __migrate_device_pages(unsigned long *s=
+rc_pfns,
+>  	struct mmu_notifier_range range;
+>  	unsigned long i, j;
+>  	bool notified =3D false;
+> -	unsigned long addr;
+>=20=20
+>  	for (i =3D 0; i < npages; ) {
+>  		struct page *newpage =3D migrate_pfn_to_page(dst_pfns[i]);
+> @@ -1177,8 +1258,7 @@ static void __migrate_device_pages(unsigned long *s=
+rc_pfns,
+>  					goto next;
+>  				}
+>  				nr =3D 1 << folio_order(folio);
+> -				addr =3D migrate->start + i * PAGE_SIZE;
+> -				if (migrate_vma_split_unmapped_folio(migrate, i, addr, folio)) {
+> +				if (migrate_vma_split_unmapped_folio(migrate, i, folio)) {
+>  					src_pfns[i] &=3D ~(MIGRATE_PFN_MIGRATE |
+>  							 MIGRATE_PFN_COMPOUND);
+>  					goto next;
+
+---
+Best Regards,
+Huang, Ying
