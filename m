@@ -1,157 +1,292 @@
-Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB39C35F163
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8E13783C7;
+	Mon, 10 Aug 2026 08:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786348711; cv=none; b=b9oUEtbkdx9gJCcauRjLwxGTloCLSNHrjws2LdLS/aOZ7k8JAbWmgpHFRURl8y/SPtmIahyhwHIkR+noI9io84aVI+JBgYvIGXdrjZWdSDsK94z1ilKdhEnLH5YTZK9AXa4p1foie/kACoV9zi889G0KYbYKaE2r+mJC2opwdZ0=
+	t=1786349348; cv=none; b=fVS81J/yERXebsquroH/rjwSoSQoNSrstgEPNDFpjzCbXZbxeVNgya030HdncPXQ120Pp4E2KqFUoB7tr4mjVWoTlIpIvCxdVi+KvymArp4EZPiJvdtA7N+UVJM1y8Rmr4UTGN+bYM0i9eMIqRnZ9mCGXPaZu1uMnIkbTUocKpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786348711; c=relaxed/simple;
-	bh=doEjhmeMrC6/DILFWnsSqq/o66HeFkwDyN5nBfnoTck=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=eTVMcuvBk3m+w8/i408usZW0c4gJhWXYlfQTAQqDZ5lo4GyvKFdSs5Ck5Asu+63o5zLGAxIBe9AcXp+nK2/83GRm/F81welCOgTRglxRiVEzTZPUgm+N/TqZBgwztI4Bfx6BMPjDUSjjoBHbJi73s+W9obHNi7GjGJfBDoipAkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c4t+qkeF; arc=none smtp.client-ip=91.218.175.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786349348; c=relaxed/simple;
+	bh=zXpHWh5uVz+zYA9bNS0yF4uAx3+BxShCgxCQxM9bPqo=;
+	h=Date:From:To:Subject:Cc:MIME-Version:Message-ID:Content-Type; b=sNAcA4vJeUKrovpXH9ln2iaLJHzxc3NRSlrPvaLxteG6/pbDngw/y3Mj7+FAHekvxmD4kRxOwBTV3thH6itDYcO3TO0PT12BHkj+SOVwY3Du2ugywUFPvxvjwCnHC6A9WSYBftr9VxHHHpwl2uWU3sEdyvGDolGYhkUJhkNM3GM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NyT6H4yz; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NMgXQ1wA; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c4t+qkeF"
-Content-Type: text/plain;
-	charset=us-ascii
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786348707;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eXqpPmFg3NAwqefW6Q/q19TF5DPxz3Lme5BVQFRJrFQ=;
-	b=c4t+qkeFJKO/1yXLiMbdEWCssRIOIcrOPElW099+wv7sX6aO4srSJ3FbT9mjc+joDKS+Ab
-	G49Gpx2XnYxtUrTjqEQEZG82xw5N2mjeA25QjGxPiYdgD7HBJnSKEpmlWfVkkjyGvg8KBM
-	5mvMDdShimSb30wXJ2s2BWtHv6dicYg=
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NyT6H4yz";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NMgXQ1wA"
+Date: Mon, 10 Aug 2026 08:09:03 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1786349344;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=QK1CbXSOIk5b2+vCYzIuZMPIPOg8fsO/6kWbxA6I0UA=;
+	b=NyT6H4yzYwQILOXgQiBy5BjAiSgRUiYz5kqgKbogSBAXBYhdnmBup1wK/gTl6ydVKJPt2i
+	NhfmsXSXEtap6GwKAPydGvkUf+Y9KYzeeM7wgttbsm+dqVs5fOOOgFNLwFzVaZf19+OBF1
+	tDKcYI21qOOinCnDe2EvDvXvfpRNnLh+9azISmSHtdiGxVmPXfJBMr3sQXOZDBzN2e31Dz
+	STt88iVvwA0uLCcvK28XJ826CWLTiiUPmGSb1wfvMVuQqRDi6Ukz+ROcDRLPwxdIVI8prl
+	2cV6dEkOsdHfLSjfmTnidEslWiH4vAQvc+Um0YqDhVTKnf6QKNHtBgNunRGu6Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1786349344;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=QK1CbXSOIk5b2+vCYzIuZMPIPOg8fsO/6kWbxA6I0UA=;
+	b=NMgXQ1wAqeR3jP3tFYVZe8LIVCxSsM+yLmhXJYgF0H6uCenAmsxS33FdaoQwPK5/HuFWeI
+	LGHN6qKmTC59rOBQ==
+From: "tip-bot2 for Thomas Gleixner" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: locking/urgent] futex/pi: Plug private futex exec() race
+Cc: Thomas Gleixner <tglx@kernel.org>, Kyle Zeng <kylebot@openai.com>,
+ Peter Zijlstra <peterz@infradead.org>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH] mm/memcg: fix NULL nodeinfo[] dereference on late-onlined
- nodes
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260810-memcg-nodeinfo-null-guard-v1-1-77a73204d63a@oss.qualcomm.com>
-Date: Mon, 10 Aug 2026 15:58:09 +0800
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Kefeng Wang <wangkefeng.wang@huawei.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- linux-arm-msm@vger.kernel.org,
- cgroups@vger.kernel.org,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+MIME-Version: 1.0
+Message-ID: <178634934317.442315.5795235544789414422.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <5059A780-9C10-4171-A254-38944464F1AC@linux.dev>
-References: <20260810-memcg-nodeinfo-null-guard-v1-1-77a73204d63a@oss.qualcomm.com>
-To: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
-X-Migadu-Flow: FLOW_OUT
 
+The following commit has been merged into the locking/urgent branch of tip:
 
+Commit-ID:     6963d5470dda3279d32272a2cb50f09b38818d90
+Gitweb:        https://git.kernel.org/tip/6963d5470dda3279d32272a2cb50f09b388=
+18d90
+Author:        Thomas Gleixner <tglx@kernel.org>
+AuthorDate:    Fri, 07 Aug 2026 17:07:13 +02:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Mon, 10 Aug 2026 10:07:53 +02:00
 
-> On Aug 10, 2026, at 13:46, Prakash Gupta =
-<prakash.gupta@oss.qualcomm.com> wrote:
->=20
-> memcg->nodeinfo[] entries are allocated only for nodes present at
-> css_alloc time. When a node is onlined after a memcg is created its
-> nodeinfo[] slot remains NULL. Two call sites dereference these slots
-> unconditionally:
+futex/pi: Plug private futex exec() race
 
-I don't think the premise of this patch is correct.
+The check for private futexes whether the waiter's mm, which is stored in
+the futex_key and copied into the pi_state, is the same as the owner's mm
+is not sufficient for exec(). exec() has a gap where the mm check fails to
+give the correct answer:
 
-memcg->nodeinfo[] is not allocated only for nodes that are present or
-online at css_alloc time. mem_cgroup_alloc() allocates per-node info =
-with
-for_each_node(), and for_each_node() iterates N_POSSIBLE nodes:
+  exec()
+  ...
+    exec_release_mm()
+      futex_exec_release()
+        tsk::futex::exit_state =3D EXITING;
+        cleanup_robust_list();
+1)      tsk::futex::exit_state =3D OK;
+    ...
+    old_mm =3D tsk::mm;
+2)  tsk::mm =3D ->mm;
 
-        for_each_node(node)
-                alloc_mem_cgroup_per_node_info(memcg, node);
+Between #1 and #2 the check for the mm is wrong as that mm is about to be
+swapped out and eventually freed.
 
-Memory hotplug also rejects memory being added to a node that is not in
-node_possible_map. So a node that can be onlined later should already
-have a nodeinfo[] entry for all existing memcgs.
+Plug this gap by:
 
-If memcg->nodeinfo[nid] is NULL on your system, that looks like a
-violation of this invariant, or possibly a downstream-specific change,
-bad nid, allocation/lifetime issue, or memory corruption. I don't think
-the generic explanation that "the node was onlined after the memcg was
-created" is sufficient.
+  1) Setting tsk::futex::exit_state to FUTEX_STATE_DEAD in
+     futex_exec_release()
 
->=20
-> lruvec_stat_mod_folio() calls mem_cgroup_lruvec() which reads
-> memcg->nodeinfo[pgdat->node_id] without a NULL check. On a system
-> where a node is onlined after the memcg is created, any folio stat
-> update for that node crashes with a NULL pointer dereference:
->=20
->  Unable to handle kernel paging request at virtual address =
-ffffffbebf7e1908
->  pc : lruvec_stat_mod_folio+0xf0/0x444   [6.18.21-android17-5]
->  lr : lruvec_stat_mod_folio+0x88/0x444
->  Call trace:
->   lruvec_stat_mod_folio+0xf0/0x444
->   folio_add_new_anon_rmap+0xac/0x2b8
->   do_wp_page+0x768/0xc80
->   handle_mm_fault+0x37c/0x8c4
->   do_page_fault+0x140/0xa1c
->   do_mem_abort+0x54/0x74
->   el0_da+0x48/0x8c
->   el0t_64_sync_handler+0x20/0x130
->   el0t_64_sync+0x1c4/0x1c8
->=20
-> __invalidate_reclaim_iterators() iterates for_each_node() and reads
-> from->nodeinfo[nid]->iter without checking for NULL. for_each_node()
-> visits all possible nodes, so this is reachable whenever a node is
-> onlined after the memcg was created.
->=20
-> Fix lruvec_stat_mod_folio() by checking nodeinfo[pgdat->node_id]
-> directly and falling back to mod_node_page_state() when NULL, =
-mirroring
-> the existing !memcg early-return path. The fallback must not go =
-through
-> mod_lruvec_state() since that calls mod_memcg_lruvec_state() which =
-uses
-> container_of() to recover the mem_cgroup_per_node from the lruvec
-> pointer; passing &pgdat->__lruvec there produces a garbage pointer.
-> When nodeinfo[nid] is NULL the memcg has no per-node accounting
-> structure for that node, so node-level accounting is correct.
->=20
-> Fix __invalidate_reclaim_iterators() by skipping NULL nodeinfo[] =
-slots.
->=20
-> Also switch lruvec_stat_mod_folio() to folio_memcg_check() which uses
-> READ_ONCE() to safely read folio->memcg_data in an unlocked context.
->=20
-> Fixes: 6c77b607ee26 ("mm: kill lock|unlock_page_memcg()")
+  2) Setting tsk::futex::exit_state to FUTEX_STATE_OK after
+     the mm has been switched.
 
-The Fixes tag also seems odd. 6c77b607ee26 ("mm: kill
-lock|unlock_page_memcg()") only removed/renamed the lock_page_memcg()
-wrappers and does not appear to change nodeinfo[] allocation or memory
-hotplug handling. Could you explain how that commit introduced the NULL
-nodeinfo condition?
+>From a futex point of view the task is dead after it finished the robust
+list cleanup up to the point where it sets the state to OK again.
 
-> Cc: stable@vger.kernel.org
-> Assisted-by: pi:claude-sonnet-4-5
+Fixes: 80367ad01d93 ("futex: Add basic infrastructure for local task local ha=
+sh")
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Kyle Zeng <kylebot@openai.com>
+Acked-by: Peter Zijlstra <peterz@infradead.org>
+Cc: stable@vger.kernel.org
+---
+ fs/exec.c             |  3 ++-
+ include/linux/futex.h |  2 ++-
+ kernel/futex/core.c   | 54 ++++++++++++++++++++++++++++--------------
+ kernel/futex/pi.c     | 22 ++++++++++++-----
+ 4 files changed, 58 insertions(+), 23 deletions(-)
 
-Given the Assisted-by tag, I assume some of the analysis may have been
-tool-assisted. That's fine, but the author still needs to validate the
-reasoning against the actual code before submission.
-
-Did you confirm that the relevant allocation and hotplug paths were
-manually checked against the affected tree? In particular, I wonder
-whether this behavior depends on downstream changes around
-mem_cgroup_alloc(), for_each_node(), node_possible_map setup, or memory
-hotplug nid validation.
-
-Muchun,
-Thanks.=
+diff --git a/fs/exec.c b/fs/exec.c
+index c7b8f2d..8a91c58 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -30,6 +30,7 @@
+ #include <linux/mm.h>
+ #include <linux/stat.h>
+ #include <linux/fcntl.h>
++#include <linux/futex.h>
+ #include <linux/swap.h>
+ #include <linux/string.h>
+ #include <linux/init.h>
+@@ -854,6 +855,7 @@ static int exec_mmap(struct linux_binprm *bprm)
+ 	/* Notify parent that we're no longer interested in the old VM */
+ 	tsk =3D current;
+ 	old_mm =3D current->mm;
++	/* Clean up futexes and release the mm */
+ 	exec_mm_release(tsk, old_mm);
+=20
+ 	ret =3D down_write_killable(&tsk->signal->exec_update_lock);
+@@ -905,6 +907,7 @@ static int exec_mmap(struct linux_binprm *bprm)
+ 		return 0;
+ 	}
+ 	mmdrop_lazy_tlb(active_mm);
++	futex_exec_done(tsk);
+ 	return 0;
+ }
+=20
+diff --git a/include/linux/futex.h b/include/linux/futex.h
+index 51f4ccd..51d5faa 100644
+--- a/include/linux/futex.h
++++ b/include/linux/futex.h
+@@ -73,6 +73,7 @@ static inline void futex_init_task(struct task_struct *tsk)
+ void futex_exit_recursive(struct task_struct *tsk);
+ void futex_exit_release(struct task_struct *tsk);
+ void futex_exec_release(struct task_struct *tsk);
++void futex_exec_done(struct task_struct *tsk);
+=20
+ long do_futex(u32 __user *uaddr, int op, u32 val, ktime_t *timeout,
+ 	      u32 __user *uaddr2, u32 val2, u32 val3);
+@@ -91,6 +92,7 @@ static inline void futex_init_task(struct task_struct *tsk)=
+ { }
+ static inline void futex_exit_recursive(struct task_struct *tsk) { }
+ static inline void futex_exit_release(struct task_struct *tsk) { }
+ static inline void futex_exec_release(struct task_struct *tsk) { }
++static inline void futex_exec_done(struct task_struct *tsk) { }
+ static inline long do_futex(u32 __user *uaddr, int op, u32 val, ktime_t *tim=
+eout,
+ 			    u32 __user *uaddr2, u32 val2, u32 val3)
+ {
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 0ea2c1a..3c1562d 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -1524,11 +1524,11 @@ static void futex_cleanup_begin(struct task_struct *t=
+sk)
+ 	raw_spin_unlock_irq(&tsk->pi_lock);
+ }
+=20
+-static void futex_cleanup_end(struct task_struct *tsk, int state)
++static void futex_cleanup_end(struct task_struct *tsk)
+ 	__releases(&tsk->futex.exit_mutex)
+ {
+ 	scoped_guard(raw_spinlock_irq, &tsk->pi_lock)
+-		tsk->futex.state =3D state;
++		tsk->futex.state =3D FUTEX_STATE_DEAD;
+=20
+ 	/*
+ 	 * Drop the exit protection. This unblocks waiters which observed
+@@ -1537,29 +1537,49 @@ static void futex_cleanup_end(struct task_struct *tsk=
+, int state)
+ 	mutex_unlock(&tsk->futex.exit_mutex);
+ }
+=20
+-void futex_exec_release(struct task_struct *tsk)
++void futex_exit_release(struct task_struct *tsk)
+ {
+-	/*
+-	 * The state handling is done for consistency, but in the case of
+-	 * exec() there is no way to prevent further damage as the PID stays
+-	 * the same. But for the unlikely and arguably buggy case that a
+-	 * futex is held on exec(), this provides at least as much state
+-	 * consistency protection which is possible.
+-	 */
+ 	futex_cleanup_begin(tsk);
+ 	futex_cleanup(tsk);
++	futex_cleanup_end(tsk);
++}
++
++void futex_exec_release(struct task_struct *tsk)
++{
+ 	/*
+-	 * Reset the state to FUTEX_STATE_OK. The task is alive and about
+-	 * exec a new binary.
++	 * exec() makes it interesting for futexes because the TID of the task
++	 * stays the same, but from a futex perspective the task has to be
++	 * treated like an exiting task. This is especially important for the
++	 * sanity check for private futexes in attach_to_pi_owner() which
++	 * compares the owner's mm with the waiter's mm.
++	 *
++	 * That check would give the wrong answer if futex_cleanup_end() would
++	 * set the state to FUTEX_STATE_OK as long as the task still has the old
++	 * mm.
++	 *
++	 * After the task has switched to the new mm it sets it to
++	 * FUTEX_STATE_OK again in futex_exec_done().
+ 	 */
+-	futex_cleanup_end(tsk, FUTEX_STATE_OK);
++	futex_exit_release(tsk);
+ }
+=20
+-void futex_exit_release(struct task_struct *tsk)
++/*
++ * exec() has switched to the new mm. Futex operations are safe again.
++ */
++void futex_exec_done(struct task_struct *tsk)
+ {
+-	futex_cleanup_begin(tsk);
+-	futex_cleanup(tsk);
+-	futex_cleanup_end(tsk, FUTEX_STATE_DEAD);
++	/*
++	 * This store does not have to take tsk::futex::exit_mutex because the
++	 * phase where waiters block on it during state FUTEX_STATE_EXITING has
++	 * been finished when futex_cleanup_end() set the state to
++	 * FUTEX_STATE_DEAD.
++	 *
++	 * This transitions back from FUTEX_STATE_DEAD to FUTEX_STATE_OK. The
++	 * ordering guarantee required here is that the previous store to
++	 * tsk::mm in the calling code cannot be reordered against this store.
++	 */
++	guard(raw_spinlock_irq)(&tsk->pi_lock);
++	tsk->futex.state =3D FUTEX_STATE_OK;
+ }
+=20
+ static void futex_hash_bucket_init(struct futex_hash_bucket *fhb)
+diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
+index 2731e55..88788e5 100644
+--- a/kernel/futex/pi.c
++++ b/kernel/futex/pi.c
+@@ -200,15 +200,25 @@ void put_pi_state(struct futex_pi_state *pi_state)
+  *
+  * - FUTEX_STATE_OK when the task is alive and waiters can be attached
+  *
+- * - FUTEX_STATE_EXITING when the task cleans up the robust list and pi
++ * - FUTEX_STATE_EXITING when the task cleans up the robust list and PI
+  *   state. Concurrent waiters cannot attach anymore and have to wait until =
+the
+- *   cleanup is finished to re-evaluate the potential changes of robust list=
+ and
+- *   pi state cleanups.
++ *   cleanup is finished to re-evaluate the potential changes caused by the
++ *   robust list and PI state cleanups.
+  *
+- * - FUTEX_STATE_DEAD when the task has cleaned up the robust list and
+- *   is about to fully exit.
++ * - FUTEX_STATE_DEAD when the task has cleaned up the robust list. This sta=
+te
++ *   is set independent of exit() or exec(). In the exit() case the task is
++ *   gone. In the exec() case this ensures that nothing can attach to the ta=
+sk
++ *   after cleaning up the robust list and PI state before it has switched to
++ *   the new mm. From a futex point of view the task is dead until it sets t=
+he
++ *   state to FUTEX_STATE_OK again after switching to the new mm.
+  *
+- * exec() switches back to FUTEX_STATE_OK after the cleanup.
++ * The valid state transitions for exit():
++ *
++ *   FUTEX_STATE_OK -> FUTEX_STATE_EXITING -> FUTEX_STATE_DEAD
++ *
++ * The valid state transitions for exec():
++ *
++ *   FUTEX_STATE_OK -> FUTEX_STATE_EXITING -> FUTEX_STATE_DEAD -> FUTEX_STAT=
+E_OK
+  *
+  * The state has two related locks:
+  *
