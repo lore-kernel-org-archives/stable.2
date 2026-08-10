@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47DB73F9263;
-	Mon, 10 Aug 2026 16:17:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BCB3F86F0;
+	Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786378668; cv=none; b=s9VXzUjzKDnXYJqSuSo1zG6KQ4x3FbFOcHBuGpb1MTEkqc8k/u57oK2GkIGpEy01eTcTK6n47h4oRTwPj1aW6eYiZCCKGH9ky8165Ox0VTaB5oaA4enraSzF9WZG5d4vmcha8dL0Lwyo2/XZBb3fwzsHDt2+ydGymiO5uFc2/VM=
+	t=1786378668; cv=none; b=esvyE6XUTgFDirRehbfPx2rwusNeS9UvEJ9lNpSHDhrIlgdi3cHp8TMvG7b9SzPMjua6PiZBsGxzIIHxapCaVqMGrZ7oxxz0HPKGo68iq8031zt5GSYSG7IB/8gy8mj/gw1pbH0NddgFPFAiTKMXWaQvAvj9wPmhtap8uowaeVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786378668; c=relaxed/simple;
-	bh=JLiEjUV2M/GXqGn0sCPZe30rDApH2W8yKBOjkSz2S8E=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dFyGnXgVZMJPSLl9KaMbsjFsXRJERm68cpW9lAT7YvSXgyeV8pfeCCAT6UQjqwzC8MGZ6inmKxk0P5CB2DYljmSzVCm82PUWeMtcY2/6iIhTn72p2SmFNLh5xKl90L0Qo+XfWtPyGThxBOJfUlYYhYhOfL+Ey3hmz/JY7XeWpTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W2u55l+l; arc=none smtp.client-ip=10.30.226.201
+	bh=TtwXuOo7f/6QzG98rp5LXPITn3SYcjaZqv2NU1Zo/2M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=boYCPxNkPSEi532xKlbfeTOq8d1yVrCD9w15VfG1ggGGRXlrfi9JoSUu/SDH9jf0YNZcOxuIr9UjOckLABt6wZrfG720sq5+dZGk0BBR48Oq0/bub9dsHPVb75jNYp6Gt8AKZtJAgsFveO0SGyTc7HMHkZBtORATehahJ5UBqaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cASpjYhd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W2u55l+l"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BEFFBC2BCF5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cASpjYhd"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DB0C6C2BCF7;
 	Mon, 10 Aug 2026 16:17:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786378667;
-	bh=JLiEjUV2M/GXqGn0sCPZe30rDApH2W8yKBOjkSz2S8E=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=W2u55l+lju3FBknQz9IHY6d46EnAiCmMu4WwCdL4bVHNA2oJ1WZq/k8iRV0anzJ+C
-	 ZUJB/sc/IbMoAuqSFWfx34YaWvuzocYvfHHYVsie9Sx0ILIMNGwHojT3pT+s0WOLwH
-	 HxUpJAxr1piW0NBsUyq7oQvfQbnIvMK/GrDBXAbsHWEIToVftE9vO67BTd7yNpoSUq
-	 v9AiyVyq4byhk/RJOBEWyla4uI5sUBpz14lCkj+gddHM4mOTIx2IIIxwnFSsi0c5F1
-	 PfuEG/CvP13Zl4qBd9yFWUlKljuvCjNUSRJPmKrZUN0brQuv+d+EkVTa+mVRKUYKwB
-	 v7jqRUqMR1XwQ==
+	bh=TtwXuOo7f/6QzG98rp5LXPITn3SYcjaZqv2NU1Zo/2M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=cASpjYhdIVf0owsIGF8yCYwZQ3IeDnTbp0qffmKhq+RzZRsJ8gwg9MMdMibzLnlJV
+	 uGpq8UcU7DTtT6CZyY8tOHHQEVQwLel8jWb1CT1tZwF2x9FsOxuwCm6VmAO04fdxFR
+	 09hUZEUWe9FpOArXNKFPX4gvyoMuvJArv17DmWFvf87OaTOY7i/TnkaHX95vLyNg94
+	 sQWXxmb0ly5a5xFoVEoVNiq8CCLZHfmoXm+xYOAgZNf+2kdcPAf7TuwN3Nmk+BI8Ke
+	 3dRzdzYgSkxW77ceUN9jHx3xirPu8egARiWeBs5hTxwyPc2Wjva9wPkqm4RbuUxIEy
+	 T/baJexq4Wh+w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96BD5C5B56A;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCCEAC5B56D;
 	Mon, 10 Aug 2026 16:17:47 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Subject: [PATCH 0/5] drm/amdgpu: five independent fixes in the KMS, userq,
- UVD and CS paths
-Date: Tue, 11 Aug 2026 00:13:09 +0800
-Message-Id: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
+Date: Tue, 11 Aug 2026 00:13:11 +0800
+Subject: [PATCH 2/5] drm/amdgpu: reject PRT mappings as user queue buffer
+ VAs
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,10 +41,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJX4eWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDC0MD3cTclPSCUt20zIrUYt0ks8QkQwNTy0QDYxMloJaColSwBFBHdGx
- tLQCXaaHtXgAAAA==
-X-Change-ID: 20260810-amdgpu-fixes-b6ab1059a034
+Message-Id: <20260811-amdgpu-fixes-v1-2-4954a417b8ff@outlook.com>
+References: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
+In-Reply-To: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
 To: Alex Deucher <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -58,13 +57,13 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, Junrui Luo <moonafterrain@outlook.com>, 
  Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3006;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2330;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=JLiEjUV2M/GXqGn0sCPZe30rDApH2W8yKBOjkSz2S8E=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMqfS45nTpH4cCXLbNGHq64yixJZ+uY62L/y3L8oV
- FVl7dwL8ec6SlkYxLgYZMUUWY4XXPpm4btFd4vPlmSYOaxMIEMYuDgFYCLMBxj+p/c9attUlxr1
- eOpJLwv1w5u+C66bFhVuxLLgSPZcD85pKQz/q90nLO+eI/jptb/gvPvVR5j6SsPuex5dNOtahYr
- zmvUTmADHzk6K
+ bh=lfRKX90eM1yWKlq0c1LdgUl6q5HeCXaJonPRnO3TU20=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMqfS8MzkkW8LcUEFkwJaFi1V09slfqyG/p2N5wes
+ iw49vLaimkdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMBFRB4b/SdMkBBe5RRtO
+ Kl8g8cNstk7TrfXJ4Q4LbT0f2EaHsxRdYGS4rlpeoZampVt1JDRg451N3yeHZ+1T8PzAf9bk7c5
+ PjdbcAPu3SQM=
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -72,65 +71,59 @@ X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
 X-Original-From: Junrui Luo <moonafterrain@outlook.com>
 Reply-To: moonafterrain@outlook.com
 
-Five independent fixes; no dependency between them, they can be applied
-or dropped individually.
+From: Junrui Luo <moonafterrain@outlook.com>
 
-Patch 1 frees fpriv->prt_va on the amdgpu_driver_open_kms() error path.
-amdgpu_vm_fini() releases mappings but never a struct amdgpu_bo_va, so a
-failure to map the CSA or the seq64 buffer leaks the bo_va and the
-dma_fence stub reference it holds.  postclose_kms() already gets this
-right; only the open() unwind was missing it.
+amdgpu_userq_input_va_validate() resolves a user-supplied queue_va,
+rptr_va or wptr_va to a VM mapping and latches userq_va_mapped on
+the owning bo_va. It only checks that a mapping exists and that
+the requested span is contained in it, never that the mapping has
+a backing BO. PRT mappings do not: amdgpu_gem_va_ioctl() routes
+every AMDGPU_VM_PAGE_PRT map through fpriv->prt_va, created via
+amdgpu_vm_bo_add(adev, vm, NULL), so base.bo stays NULL while
+amdgpu_vm_bo_insert_map() still sets mapping->bo_va.
 
-Patch 2 rejects a mapping without a backing BO in
-amdgpu_userq_input_va_validate().  A PRT mapping is routed through
-fpriv->prt_va, whose base.bo is NULL, yet a queue_va/rptr_va/wptr_va
-inside it passes validation and latches userq_va_mapped.  The next unmap
-of any PRT mapping in that VM then dereferences bo_va->base.bo in
-amdgpu_userq_gem_va_unmap_validate().
+A VA inside such a mapping therefore passes validation and marks
+fpriv->prt_va as userq mapped. The flag is never cleared. On the
+next unmap of any PRT mapping in that VM, amdgpu_vm_bo_unmap() sees
+userq_va_mapped and calls amdgpu_userq_gem_va_unmap_validate(), which
+reads bo_va->base.bo->tbo.base.resv before its ip_mask guard, leading
+to a NULL pointer dereference.
 
-Patch 3 bounds the retry loop in amdgpu_userq_ensure_ev_fence().  Every
-failure ahead of amdgpu_evf_mgr_rearm() leaves the restore worker giving
-up with only a drm_file_err(), so the waiting thread reschedules and
-flushes forever in TASK_UNINTERRUPTIBLE - unkillable and out of reach of
-the OOM killer.  The eviction fence sequence number is used as the loop's
-progress condition instead.
+Fix by rejecting a mapping without a backing BO in the validation
+helper, so the invariant amdgpu_userq_gem_va_unmap_validate() relies
+on holds by construction. A sparse mapping has no memory behind it and
+cannot serve as a ring, rptr or wptr buffer.
 
-Patch 4 applies the decode arm's handle ownership test to the UVD destroy
-arm.  handles[] and filp[] are per-device, and destroy clears every slot
-matching the handle from the command stream without checking the owner,
-so one render node client can tear down another's UVD session and leave a
-stale filp behind.
-
-Patch 5 releases the userptr HMM ranges in amdgpu_cs_parser_fini().
-amdgpu_cs_parser_bos() returns with them live and only two sites free
-them; every error edge in between leaks a struct amdgpu_hmm_range plus a
-kvmalloc_array() of one hmm_pfn per page of the userptr mapping,
-allocated GFP_KERNEL and not charged to the caller's memcg.  An IB
-address with no VM mapping is enough to reach one of those edges, so it
-is repeatable at will from an unprivileged fd.
-
+Fixes: 2e7ceac0ea41 ("drm/amdgpu: validate userq va for GEM unmap")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
-Junrui Luo (5):
-      drm/amdgpu: free prt_va on the open_kms error path
-      drm/amdgpu: reject PRT mappings as user queue buffer VAs
-      drm/amdgpu/userq: bound the eviction fence rearm retry loop
-      drm/amdgpu: enforce UVD handle ownership on destroy
-      drm/amdgpu: free userptr HMM ranges on the CS error path
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c          | 10 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c         |  5 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c       | 29 +++++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h       |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 10 ++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c         | 14 ++++++++++--
- 6 files changed, 65 insertions(+), 7 deletions(-)
----
-base-commit: c4f76bf5e107bcda6e496f1c4060c55af091fa79
-change-id: 20260810-amdgpu-fixes-b6ab1059a034
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 6d3ed55e9ab4..bec107216811 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -259,6 +259,14 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+ 	if (!va_map)
+ 		return -EINVAL;
+ 
++	/*
++	 * A PRT mapping has no backing BO and so can't carry the eviction
++	 * fence which amdgpu_userq_gem_va_unmap_validate() waits on. Reject it
++	 * here, otherwise that helper dereferences a NULL bo on GEM unmap.
++	 */
++	if (!va_map->bo_va->base.bo)
++		return -EINVAL;
++
+ 	/* Lookup guarantees start_page is mapped; ensure full span is covered. */
+ 	if ((end_addr >> AMDGPU_GPU_PAGE_SHIFT) <= va_map->last) {
+ 		va_map->bo_va->userq_va_mapped = true;
 
-Best regards,
 -- 
-Junrui Luo <moonafterrain@outlook.com>
+2.51.2
 
 
