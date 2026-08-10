@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF6F258EFF
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:34:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A672BE656
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:34:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786368876; cv=none; b=g7GAEsoRzHTeOo3O40okoRq5njauyJI/1R3Z2SLAe9KWecCtEy85EhQgNkF7nYseI7f1nGz5K4GAnnJVMCGuXeoAQObdSl4BVo3g9HTZjXCQvadF/LR5b5ZWR7trSBcVucoAq+TV/mjFmvpjvt4m+k+sgbLQYCdEmmo2wOXvpkw=
+	t=1786368877; cv=none; b=Yk2N9cXQx9s5aqKhlqnVzynQ8OX6Z520nHBMrsgqofmGEyPv1Ep0+FLXAXy/r/rnGJ1ilycBZT259bEmAtXuULfsTantSl2+qR1tbFY5O1z00Q1QdFqBm5vFlFQxeCM76flAcIaavuOyUIYI3ZY2v+Zvr1xNlUoaBl8cHHgyNKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786368876; c=relaxed/simple;
-	bh=3mJtVOxUFYJyp28+b+p58jSvR+yV2RexVAv8BRADCoI=;
+	s=arc-20240116; t=1786368877; c=relaxed/simple;
+	bh=kZ3IJ7C1etC2oWIqfP3jJRx7kab26f0r7hZMrS1ozKE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S45WwXw+J/A0A2lYzuxzU6OcIuXQM1tfDmwPN5rprynxRNOZPGMBxYmBbOmZcQXZgv2JqDhMM2hrvEKlFiBkddA2IFVxUi8XIxT3CRBe7a1IOCJXZ0nAgOKeqAS1M2+JjnXJfZ6f+6YR3VREOWkilytFS8RVWQRUN16g93dDMcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQczTc7r; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=S0ZCvdYLAcF3GK2huhijGxfkFNG/RHM9LpAR7b+WLsVsPM8mZLoFEATFe3qptUXV151aa+T5KKX299TWyE7c9fnv/TXIjP1QtUycWqkOVIQwGgLvbWhzDg6oVWGtw1cOsl7MiWqFOshyWRHxk5n0uZSn9J4uhbBDRM4nLEcMHLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHDkNZEu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQczTc7r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 961881F000E9;
-	Mon, 10 Aug 2026 13:34:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHDkNZEu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AECC81F00A3E;
+	Mon, 10 Aug 2026 13:34:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786368875;
-	bh=O0UdfHNzHucsd346RGhANG1DTKJQpdHtMSJnCvOcHt8=;
+	s=k20260515; t=1786368876;
+	bh=crShtVWwfLtnAfn50c3XQJInpEB6POo97dIjIWhh/2U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RQczTc7rDQZrEiaShbzX9x4in8EEwmEl1ckltT3XvZNIbMJjIMFmugmn+kw8z/sCQ
-	 7ZI+zukIDPvfzymg850BXSyHq9H6emASrrShuZkZs/8r8Uzhl16GwkoeHkmU2u4dy6
-	 n1gySToQGVEl2AxPFaTAx+38OZifkQzariPlv00fMX65mYgrOp+tFGAysAU5CfMlAC
-	 f8DNR+Yh5JW9sP+PkuMn/d4VFs9hV5BRCmoX5GicN2zbjdqy5GOt0Fyy8umbdmpnd6
-	 2+PKqWgTrsdpSiJogxy2AnW8wYTrayvbI20M6qc7KMGxcbN+S1njrHIkVOkE9cnaOx
-	 mocoExD7CI1RA==
+	b=nHDkNZEuYjiRAAjAE5eiM1cP8FfoW8EisfMQRli0PBZMrYEom9FsBhrsirb+uJsBu
+	 UK9vapWiSHcZEGHircJai1ohck8+JXBaU/ngavBWGSUuQNVucTi9IxVGa/JWNgI+30
+	 t/kMcSIBmzVrJawSqhhTBk5lyQJEYaNx5HsD32YtrpL6x2UUjO+bBOeib9xeZK2RMD
+	 Ka35kbpxjX21nKWU54L5ssZuixxKe0SOG5RPGjDahPwxFZ2WvX7wt6WovKmiJ0myqI
+	 i7MLJlN7mJbHVJFefIgdV9kpECU7XwqggafISdpcezBkf5+1Kb+9HC4wa6Z6rnALTO
+	 zA8Pa5zawYgIA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
+Cc: Sangho Lee <kudo3228@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] skbuff: introduce skb_pull_data
-Date: Mon, 10 Aug 2026 09:34:31 -0400
-Message-ID: <20260810133432.1246348-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] Bluetooth: HIDP: reject frames without a transaction header
+Date: Mon, 10 Aug 2026 09:34:32 -0400
+Message-ID: <20260810133432.1246348-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080515-broadness-backlash-dde1@gregkh>
+In-Reply-To: <20260810133432.1246348-1-sashal@kernel.org>
 References: <2026080515-broadness-backlash-dde1@gregkh>
+ <20260810133432.1246348-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,81 +46,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+From: Sangho Lee <kudo3228@gmail.com>
 
-[ Upstream commit 13244cccc2b61ec715f0ac583d3037497004d4a5 ]
+[ Upstream commit 47778d2c2087b5d192398f6fddf692d16a5431cf ]
 
-Like skb_pull but returns the original data pointer before pulling the
-data after performing a check against sbk->len.
+hidp_recv_ctrl_frame() and hidp_recv_intr_frame() read skb->data[0]
+before checking that the L2CAP SDU contains a transaction header. A
+connected HIDP peer can send an empty basic-mode SDU and make both paths
+use an uninitialized byte from skb tailroom.
 
-This allows to change code that does "struct foo *p = (void *)skb->data;"
-which is hard to audit and error prone, to:
+KMSAN reports the use in hidp_session_run(), with the uninitialized value
+originating in __alloc_skb() through vhci_write(). The control path
+produces two reports and the interrupt path produces one.
 
-        p = skb_pull_data(skb, sizeof(*p));
-        if (!p)
-                return;
+The byte can also be controlled by a malformed lower-layer packet. If an
+HCI ACL packet contains an L2CAP PDU with a declared zero-length payload
+followed by an extra 0x15 byte, l2cap_recv_acldata() reduces skb->len to
+the declared PDU length before dispatch. The current HIDP path nevertheless
+consumes the extra byte as HIDP_TRANS_HID_CONTROL |
+HIDP_CTRL_VIRTUAL_CABLE_UNPLUG and terminates the HIDP session. With this
+change, the same packet is discarded and a subsequent feature report
+request succeeds.
 
-Which is both safer and cleaner.
+Pull the transaction header with skb_pull_data() and discard frames that
+do not contain it.
 
-Acked-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sangho Lee <kudo3228@gmail.com>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-Signed-off-by: Marcel Holtmann <marcel@holtmann.org>
-Stable-dep-of: 47778d2c2087 ("Bluetooth: HIDP: reject frames without a transaction header")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/skbuff.h |  2 ++
- net/core/skbuff.c      | 24 ++++++++++++++++++++++++
- 2 files changed, 26 insertions(+)
+ net/bluetooth/hidp/core.c | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 667de403b2ebb..01eb7bc4e84b0 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -2317,6 +2317,8 @@ static inline void *skb_pull_inline(struct sk_buff *skb, unsigned int len)
- 	return unlikely(len > skb->len) ? NULL : __skb_pull(skb, len);
+diff --git a/net/bluetooth/hidp/core.c b/net/bluetooth/hidp/core.c
+index 068c3c2505170..8e9e07684ff78 100644
+--- a/net/bluetooth/hidp/core.c
++++ b/net/bluetooth/hidp/core.c
+@@ -550,16 +550,18 @@ static int hidp_process_data(struct hidp_session *session, struct sk_buff *skb,
+ static void hidp_recv_ctrl_frame(struct hidp_session *session,
+ 					struct sk_buff *skb)
+ {
+-	unsigned char hdr, type, param;
++	unsigned char type, param;
++	u8 *hdr;
+ 	int free_skb = 1;
+ 
+ 	BT_DBG("session %p skb %p len %d", session, skb, skb->len);
+ 
+-	hdr = skb->data[0];
+-	skb_pull(skb, 1);
++	hdr = skb_pull_data(skb, 1);
++	if (!hdr)
++		goto free;
+ 
+-	type = hdr & HIDP_HEADER_TRANS_MASK;
+-	param = hdr & HIDP_HEADER_PARAM_MASK;
++	type = *hdr & HIDP_HEADER_TRANS_MASK;
++	param = *hdr & HIDP_HEADER_PARAM_MASK;
+ 
+ 	switch (type) {
+ 	case HIDP_TRANS_HANDSHAKE:
+@@ -580,6 +582,7 @@ static void hidp_recv_ctrl_frame(struct hidp_session *session,
+ 		break;
+ 	}
+ 
++free:
+ 	if (free_skb)
+ 		kfree_skb(skb);
+ }
+@@ -587,14 +590,15 @@ static void hidp_recv_ctrl_frame(struct hidp_session *session,
+ static void hidp_recv_intr_frame(struct hidp_session *session,
+ 				struct sk_buff *skb)
+ {
+-	unsigned char hdr;
++	u8 *hdr;
+ 
+ 	BT_DBG("session %p skb %p len %d", session, skb, skb->len);
+ 
+-	hdr = skb->data[0];
+-	skb_pull(skb, 1);
++	hdr = skb_pull_data(skb, 1);
++	if (!hdr)
++		goto free;
+ 
+-	if (hdr == (HIDP_TRANS_DATA | HIDP_DATA_RTYPE_INPUT)) {
++	if (*hdr == (HIDP_TRANS_DATA | HIDP_DATA_RTYPE_INPUT)) {
+ 		hidp_set_timer(session);
+ 
+ 		if (session->input)
+@@ -606,9 +610,10 @@ static void hidp_recv_intr_frame(struct hidp_session *session,
+ 			BT_DBG("report len %d", skb->len);
+ 		}
+ 	} else {
+-		BT_DBG("Unsupported protocol header 0x%02x", hdr);
++		BT_DBG("Unsupported protocol header 0x%02x", *hdr);
+ 	}
+ 
++free:
+ 	kfree_skb(skb);
  }
  
-+void *skb_pull_data(struct sk_buff *skb, size_t len);
-+
- void *__pskb_pull_tail(struct sk_buff *skb, int delta);
- 
- static inline void *__pskb_pull(struct sk_buff *skb, unsigned int len)
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 90a63c356affb..83bf2e5bed2b2 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -1976,6 +1976,30 @@ void *skb_pull(struct sk_buff *skb, unsigned int len)
- }
- EXPORT_SYMBOL(skb_pull);
- 
-+/**
-+ *	skb_pull_data - remove data from the start of a buffer returning its
-+ *	original position.
-+ *	@skb: buffer to use
-+ *	@len: amount of data to remove
-+ *
-+ *	This function removes data from the start of a buffer, returning
-+ *	the memory to the headroom. A pointer to the original data in the buffer
-+ *	is returned after checking if there is enough data to pull. Once the
-+ *	data has been pulled future pushes will overwrite the old data.
-+ */
-+void *skb_pull_data(struct sk_buff *skb, size_t len)
-+{
-+	void *data = skb->data;
-+
-+	if (skb->len < len)
-+		return NULL;
-+
-+	skb_pull(skb, len);
-+
-+	return data;
-+}
-+EXPORT_SYMBOL(skb_pull_data);
-+
- /**
-  *	skb_trim - remove end from a buffer
-  *	@skb: buffer to alter
 -- 
 2.53.0
 
