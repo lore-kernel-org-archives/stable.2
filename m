@@ -1,161 +1,145 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010016.outbound.protection.outlook.com [52.101.46.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706A326ED3E;
-	Mon, 10 Aug 2026 13:39:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786369187; cv=fail; b=ZHilnfrByuO3hza3aW1/v0dRbmmnIAR5sQBIaT4XTaRyBRcXQXklD+C/meTVxAmRxgWbIcxBbGPrT660nSv1bQ/upO+krCoK5yNKWTRvbVheDwf1mOOyJmyAxQMY8SVfO4Gfk4YPO9BxtDNrrpEQGqo9twe9Ysj+mdXxCr5lRIs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786369187; c=relaxed/simple;
-	bh=miPfhBD6fCzVyx0t7W+fsCvjY9SYCE1oBzoe+COn+ys=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=UCa5ben2Z83cKCpTVWvQ9c8QOS6hHqekWOIXtJ159wkY3OgViQVPs0bakZOZycV4BFfIoBTWq1b46x/NALCIDVM1HMH7Jr3nBDrLCourXz5vJIIDCLfgtvtmAIDxjfgXdazRzSRKWV3F6rBlzZNKAi8z/OhDksFR+Wx2EHv71j4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=pyI7RiVi; arc=fail smtp.client-ip=52.101.46.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1EE3033E1
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786369189; cv=none; b=P9GrHWtDvvSJlKo0UEzGcxQDl9x70a6WvD60mFVMhOXWwR/xxS1uCFuahzSR/vYisu3EmMBzQeRLJCqIeyemrxpJpeUAtKWfzpS8kIPG9Oa+1CL0sSC9qDXhqoSmn/S4cpNjbHqn+53BLObumLXP+extE+naTFZhPYP8NfHI2Ik=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786369189; c=relaxed/simple;
+	bh=rJr3G0XswjMFjgKhPXxeOIVg34Xt23MrpkConhugBkY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pC+5YyRRpKp9BTpI7E2DGA8gDe/CisnD6v2JTpOlsNt5u22X2BVN3Qh7WbE6vhHOvku14I6jR7R4TQ8qIOkNSiQBtaIrDjdVZ/yCKcQBCCN4d2xSCGI5nmnK/TcbajyNdelqa3BEdsNk1I0w4PKw7qW1YzU6xJy5oPNyzOsvQLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=e4lR+ENk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=V4f02wnM; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=dJc/gDjJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DU3wncMo; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="pyI7RiVi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hY+a5Bv1UsXdzLCVyBZ5u5iyzcD7rchIukJrBSDYAdNJ/V1yhcnL103aDJGQED/EIx1IDbjhaYnSQijJIdMvahCPycfrLEzmPMOJLJzzec2Vh8ilc08WIkQa584ryaO+KYvZ4NEgDcngz5oEIA2SgOKOjOLXQm+vxqJR6GP1JJPpd0N97GOl/2q/wASDA4vfTvd4TdTVINnsVrS9PYdHa3snbYwMvbg2Z1j1oAQNDL9bG3wrkniXhe0EIerlXUvABBZ9OcEfwilD0wbzY38RAP3oYBFyEiixpT75gwttwXZs6VNtqOUZhcNyMhx84u9l3T85roXCjpcQmq/h5PAgDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ryxt0d1TzGCWaHlS+HQF3FUNp8XG4VqmOKqKigIVQ0I=;
- b=tncXtpEJrFmplfPRv+NC16kjsPGAgp/stCCakmkcwQYVoudKlhb1V81uawvEhKzDxgm0jurePZll5PTkdFIAGDHO1dyTvgBQrU5qPcj0ldJ5b+WUZV9yzH3jetj7vre/ysKlRgLq9nFfiQQT4QIHkoRza1jCV20Zd/Q7R2be3oEWtiZzCQUuNfxtxuhs+9XCE+n5ll9LC+8HAmTO956Pjv/N+02uCZjqV8n/wbABYH/PDr8bAAYRRfPsvohi5GCNjuSCe2FWu2MUmFNKjQJVx3I108N3M9+UNnWLZmR8tIZgzGCs2wNenpIvSwIOcyz3TI/ET5PopMMGI0t8uSvizA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ryxt0d1TzGCWaHlS+HQF3FUNp8XG4VqmOKqKigIVQ0I=;
- b=pyI7RiVisULhQhF+ozvC+Xz8F02kvq9ODPFPB1cCyQNtVY3H/10nMhkAYUZ962AXDmLWzK8r2m1jUeh5vjlwl1Wd+X5mI2aLzKcWMeU6pwvHyV1PZavy7ZhBfg9Tw6FY5998n2wmlKzJznkewHPBvab3+vss+zIbbuE9OvJOULA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- DS7PR12MB6166.namprd12.prod.outlook.com (2603:10b6:8:99::13) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.25; Mon, 10 Aug 2026 13:39:43 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 13:39:43 +0000
-Date: Mon, 10 Aug 2026 09:39:33 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Jasjeet Rangi <jrangi@purestorage.com>, x86@kernel.org,
-	tony.luck@intel.com, tglx@kernel.org, mingo@redhat.com,
-	dave.hansen@linux.intel.com, hpa@zytor.com,
-	linux-edac@vger.kernel.org, stable@vger.kernel.org,
-	Smita.KoralahalliChannabasappa@amd.com, avadhut.naik@amd.com,
-	msaggi@purestorage.com, rjethwani@purestorage.com,
-	rhan@purestorage.com
-Subject: Re: [PATCH] x86/mce/amd: Fix inverted interrupt enablement during
- storm handling
-Message-ID: <20260810133933.GA57095@yaz-khff2.amd.com>
-References: <20260807222721.2795123-1-jrangi@purestorage.com>
- <20260807225241.GAanZhufwGMzonqHUZ@fat_crate.local>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807225241.GAanZhufwGMzonqHUZ@fat_crate.local>
-X-ClientProxiedBy: CH2PR08CA0026.namprd08.prod.outlook.com
- (2603:10b6:610:5a::36) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="e4lR+ENk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V4f02wnM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dJc/gDjJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DU3wncMo"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id CADE13E11;
+	Mon, 10 Aug 2026 13:39:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1786369170; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CisBn1B6kkigmvzWeDZSGLTZq31XjYHc6dh/+tbquP8=;
+	b=e4lR+ENkh2rTPLqPZzuL11tQco669cGIaLnrBz+mxlpgNDqSm7meHn+VZ3/Bk+UkvTBtkF
+	thP5wFmsoet11Pu6R0mnNKTFy0ymbHq//1Exm6gSelnsk1G0JNArNdujwp5ZXzy5iB/Lyp
+	PL1/gGGCwMsFxxZZmcJV4TSAyCfS/JM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1786369170;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CisBn1B6kkigmvzWeDZSGLTZq31XjYHc6dh/+tbquP8=;
+	b=V4f02wnM69usU06cf0ymx3WVKV5MDi6uBs+X7iWox1DMNgsbDlAphs8GS5rzVSPu5S83e0
+	CgE4mlmO+MN2zSBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1786369166; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CisBn1B6kkigmvzWeDZSGLTZq31XjYHc6dh/+tbquP8=;
+	b=dJc/gDjJCWrTbA/kx2thFVusrKkVNyHjHvcu7UCTxHck+uF7Bm3tSZQJ20KXIIxpMyQItU
+	tItvQPYLRNab5td1jL9eJOQ+iFAugTLRCPrdSlp9K+b/YnLKo6vnHP4MEEITltXJosPwEi
+	zGMNGLIgtZzJQ3vppVOVPbFa8YHpZVQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1786369166;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CisBn1B6kkigmvzWeDZSGLTZq31XjYHc6dh/+tbquP8=;
+	b=DU3wncMoDHzSKxCWfIHXOW6YAshly/ItvioZrHkmUYY90YpJ6laopfF6rxWFtHEAiyLhY4
+	vwPnPYXECHj0dVAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D1702779B6;
+	Mon, 10 Aug 2026 13:39:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id YBkFMoHUeWoXIgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 10 Aug 2026 13:39:13 +0000
+Date: Mon, 10 Aug 2026 15:39:13 +0200
+Message-ID: <877blyccxq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Denis Batishchev <ii343hbka@gmail.com>
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] ALSA: hda/realtek: Enable micmute LED on HP EliteBook 6 G1a p/n: AD3Q9ET#UUG
+In-Reply-To: <20260810125209.2014042-1-ii343hbka@gmail.com>
+References: <20260810125209.2014042-1-ii343hbka@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|DS7PR12MB6166:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34eef6b7-697f-4afd-9907-08def6e4d588
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	iIMEk1QfNp6wa70an0O21QR1c3qiVIEQlZL8U3IqDWZam7Ir63TIDcaH9YS1lXk4Mnu58UwBcQ833/w73OkyRJNghASmnbF76oxSbKfYa8Rmg29H4tzvYrkgUZLrsENieh0Ufk/t8/lOzpEJWBm+PDGFjwDtcbVk3utnSN8pDjpXB0FsmsBYibeAxIxDrBk7RdyYbr2Y5cZp7nOiTbHsBbbehMNWMEmpWy0+UwE8gzW3m+NOgethcKna9+fnZO5Dgr8Q3IJnqokKcf8YIUobIX+Gv+4XraYFOHbY5Dv57INZr0fR5bizO7gHxwTCKvBICjcyC+mNDiczx9EOU2vOdxDUBzIdjtuxP+/x+JRE9x8n7qqvJuwbO0WXy8adlXwxe9ImcJ6y9gTt1jdcZfxiFKsmrPPfdYcR+UMcjenyU9S3pv2rtVGGpj1hrPn8hPVEn3/mQynn5vkZ8cTZUTOImw4waKaf0Dv1ed/o7AeSrxFUdiOFpkMzrOWZRa00RG66K6ZWkC97GeLIulDIbaHXTze3dE8bQC37DYehEmkqUfCk3y+0QhQnDVXlW0gX0u6wXhTaqBPZ9WiTYTtZb9GDaXCePYdz8MPRNw0HRKKqM4NiQl/JU4ycexZnwg51H5AVRnP1Cs97QwH4DlfnTxSl5LIkf6A1JnHRxop3slw+yxE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?OKrM1MbpThv+wcLFYyLIJehFqJtk83m/Pp7he9S3ljjXEg9kcWNgSVMMXw6s?=
- =?us-ascii?Q?ilTX6C7UrZuNb8I7FbEIXlGFO30aes3hAgW0DqVE1aZDBqvvOfJi7ek+msur?=
- =?us-ascii?Q?/7gv+VED+aXT81FTu+ahoX+1dImTSuIPVfVDaQIpFtJpYeiV0NIcLi29JodW?=
- =?us-ascii?Q?UCjQKDoZYXnF9SaYzngKuPI+gBgU+ly727zdgzCkiDjjzgDdEdTrzoOl65FK?=
- =?us-ascii?Q?HGBTwqq1vCkktaaq7ZYQtigxade0o4L20hIge2ECBi/sqbTcwsII7lmY4IXq?=
- =?us-ascii?Q?XBs3DBGm7/6Dyy9EztIeirxtko2bNFH6HJeKUy2Fsl+wydeH1+/3+SQDq9j3?=
- =?us-ascii?Q?qM22eX0GeJvOkYlssgSfRVAROLe1LQLBfzoV/quZeaR/vJE2jxriyQVQw1DH?=
- =?us-ascii?Q?vADzFBJUj5qXuyYldhR8EBdXPniLD2a4kCjZZNJ8GrLqJE6/Sw09QpjJlWA4?=
- =?us-ascii?Q?VrIcoRI6yU2sk9njYWytHVuxA3KM9IdFstoO/3YN8KWKx2O4TtVdg1DqcbiB?=
- =?us-ascii?Q?sEC35MZeAZr4mj5UFqfEVCrbM0OcSLaZqvrCcDpccmsnYx7BRAksS1eBHT2y?=
- =?us-ascii?Q?m+/lDgHo/7/jB0IRphdBioiLuRpY6p67WkF3xEJhgQPoBipLdxxONkJtn7CK?=
- =?us-ascii?Q?KC+95JDxknnleJTNunhotCmhd4agKF/d+e9T2ZGn5Sj+chW6SrsJg5OV4XPd?=
- =?us-ascii?Q?4vfZTBPnFNv7mirZZ7Iyp5sokmHiw2l52B0ve5E8h8b7DKaYI1duMKnu/DOT?=
- =?us-ascii?Q?YNgFY/jtq1BUjqDdovi95NiDWaWwFZokaw5e+b8n26iC6UqxRFx6n3AkKfy2?=
- =?us-ascii?Q?seiASbRhT8j8RTKCTI94yw4HWmp8fjPbWHtjETdo3cWRBEyu1GwSekP11Pp2?=
- =?us-ascii?Q?70ZKIsqR7QIZi1C0an9AgkLx17t9pKnrMtXq9iFCAepS22TDF7TLPkMVxpHC?=
- =?us-ascii?Q?pNzVB9sFwZUbyekz2N9UcwvvrkxDiQ+HFTe8Jv25GVQcsdwuPMPUSE/Pc5g1?=
- =?us-ascii?Q?R0PqBMuMVIBloT/fdPpZDIa96m8sl//fmfkchYkEnkK8+/ScOqu3F/Kgabtb?=
- =?us-ascii?Q?w0mrbon9V8kPzg8tGl9R5BfpVOewcMMOjmFghoUaZBYRT0WTVxNQmuLnkYRl?=
- =?us-ascii?Q?wqgZwW38e1M1ICsHCChJDJoqwM0PR4HAn/vwo30FvVK8x7c5gu3hbcJcO2YB?=
- =?us-ascii?Q?mxleV2f9UGfL7tTRiLst+5N11qScBBY5HADni1QIyKhkZDmpgq1dOAgwoPow?=
- =?us-ascii?Q?yGM6v0WmZYxIgLB+l77IRKiYKdh1EU8d6PIvMC1RJu9powbn9DKwBJl+mEvV?=
- =?us-ascii?Q?m1KXzSLUMNjOPzo2YuqlyOGBMxA2Xvt7GhfzwCx0Q0mEfjhoGn2wEY2CDMgv?=
- =?us-ascii?Q?+0R3uZY3Fvwty+dpfbT6JcQtAdv0p+ueXaKj/h51OzP9LH5YT3EbY1KOb5db?=
- =?us-ascii?Q?aYDDOBrvnXjbPw2GNsFurscJZoh506nuaDtXfiXeAjKIWTJvT9W/CRtYmyMF?=
- =?us-ascii?Q?bcJanbCKscf5NPo7MgYiwXqsxFZ0BqjzLo85DCVJdcB+yCVunf7dGwwZlNSy?=
- =?us-ascii?Q?W/9RV6T3K0VH5smfM3AxBnNqVVAd1RbC7XHpk3QOWU57fiOAvQcKpflosaC/?=
- =?us-ascii?Q?VQeWqeyaa2DLvKPP8en4thOFPcfD7C4/OnkYLjYEjjGmfJydYNr3Gw5yTx+A?=
- =?us-ascii?Q?7epfwlW76GZJJIdkjco74M8iLGa2ozvnEtAm81YbHRNTY2/0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34eef6b7-697f-4afd-9907-08def6e4d588
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 13:39:43.0910
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mwnZkJ7xknn0KlzgT1yPeXuKcBV3meimtjX6ou0RMg/z3PGCx3YkdvjW5lnv3ncf5wLYJEW3XLoANqmP3rnhbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6166
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
 
-On Fri, Aug 07, 2026 at 03:52:41PM -0700, Borislav Petkov wrote:
-> On Fri, Aug 07, 2026 at 04:26:59PM -0600, Jasjeet Rangi wrote:
-> > mce_amd_handle_storm() currently does the opposite of what storm
-> > handling needs: it enables threshold interrupts when a storm is detected
-> > and disables them when the storm subsides.
+On Mon, 10 Aug 2026 14:52:09 +0200,
+Denis Batishchev wrote:
 > 
-> the subside path:
+> The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
+> Without a quirk no fixup is selected and the mic-mute LED stays off.
+> It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
+> already-supported 14" variant (SSID 103c:8dfb), so add it.
 > 
-> printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm subsided\n", smp_processor_id(), mce->bank);
-> mce_handle_storm(mce->bank, false);
-> |->mce_amd_handle_storm(bank, on)
-> |-> threshold_restart_bank(bank, on);
-> |-> tr.b->interrupt_enable = false;
+> Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
+> Cc: <stable@vger.kernel.org>
+> ---
+> v2: fix indentation (per Takashi Iwai <tiwai@suse.de>)
+> ---
+>  sound/hda/codecs/realtek/alc269.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> while that commit Fixes: 5c4663ed1eac ("x86/mce: Handle AMD threshold
-> interrupt storms") says:
-> 
->     Rather, disable the interrupt on the corresponding CPU and bank.
->     Re-enable back the interrupts if enough consecutive polls of the bank show no
->     corrected errors (30, as programmed by Intel).
-> 
-> Yap, I see it.
-> 
-> I'm not sure about your approach to change the bool meaning - "on" is fine at
-> a first glance and this fix should be minimal so that it is more easily
-> backportable to stable - but yap, looks like we're doing it wrong.
-> 
+> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+> index 6b36c730c..ef8beb928 100644
+> --- a/sound/hda/codecs/realtek/alc269.c
+> +++ b/sound/hda/codecs/realtek/alc269.c
+> @@ -7542,6 +7542,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x103c, 0x8df1, "HP EliteBook 630 G12", ALC236_FIXUP_HP_GPIO_LED),
+>  	SND_PCI_QUIRK(0x103c, 0x8df7, "HP Z66 G6", ALC236_FIXUP_HP_GPIO_LED),
+>  	SND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+> +        SND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14 (AD3Q9ET#UUG)", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
 
-I agree the fix should be minimal, but I like having more explicit
-variable names for clarity. Maybe split this patch in two? First is the
-minimal fix to backport, and second is the variable renaming.
+Hmm, it's still with spaces instead of tabs?
 
-In any case, this looks good to me.
 
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-
-Thanks,
-Yazen
+Takashi
