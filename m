@@ -1,64 +1,67 @@
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEF2442B0E
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 19:51:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D54381B05
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 19:51:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786391502; cv=none; b=bSvaa8stCDz7cstfA+t8mhEKsVVJwSVaAr0/1ncfEkbaNYya20AZABV3t5wT5mKMA0mL0/eHLVP8y2FbtouoslyKBVHvEuG3KWCEwZyX4xkAbxVz/TTvjbt5/0Q5RtPyhNuKHhcCUPFyzmCcxmM6CL3oP3+mJeNsDhXkt0pqd0o=
+	t=1786391502; cv=none; b=CkiSU1iysoMN/qmzSXOHe1zevjESyigj70amGvayswcE6pBhS4AZYjpIJ40xixy8JqhB1xV0PIp9PpAv0gqXNtViJTJR37RQm5QHIeIcTDy6dTriVbne9dRrC9HB7f0r5og6GgUkwPT+PP6Uf7uZ45xHX/mi2/CZy22F9g2+n4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786391502; c=relaxed/simple;
-	bh=SR7FYPbfPxRbiYfrmy0t7UkIl4ca0gR2JBQc8CFfym0=;
+	bh=Xp7zhySrpJYsPCZb0uc5V9Kp2tOX8jCIPjtGpo5wmUY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YtzHFZFN9j1WZRxKhNSqTl+M6CNgmHOIg61VENczAqxIpuYn4EwSfe3iWrqKV1tUHzMluScbhkF+0IDmAmi+dHkg6lTA6vqdSs1b7gYsQWhDLs2lDkw/d4ctyTtPD/aS/ejXRrUHebz12z8o54qfrv03NyeW8Z95z+DnvaLPYCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=dQFcZsDx; arc=none smtp.client-ip=148.163.158.5
+	 MIME-Version; b=Mc38XChrYVhocX+CmmLnkfgmzl1D3YyILyPId/pnS8RGjFWV20gYyD1KZog7RYTPrM/xhp3pQ/fek+zo8wKtAWnB3+cM2LQHJlmLoj08JMfBZfmv7g8daYizHTFai04pBzWlwROWoX+PRoBqPEWq1iuof+OrfrBamtTzB95G3n0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=MCLcJ9d5; arc=none smtp.client-ip=148.163.158.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="dQFcZsDx"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AJ2FvP1382256;
-	Mon, 10 Aug 2026 19:51:38 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="MCLcJ9d5"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AJ2UoV2513925;
+	Mon, 10 Aug 2026 19:51:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=naoB1o1sKAHq82S5f
-	O43eSgWAOMgW7/IILO8GIgie9o=; b=dQFcZsDxpYUPFHAgIeb4EVwSAqes+kVRB
-	n7UoJYx4WNhI7jxgsbMDKzBrmK2VjbFXcCqB+e6dFb1+S/OBcl/bX9jY3e0KbsiX
-	K4yttRMSgAjB1jGtAT8IYm3/gX3LqMwHd2gL0+a8FPrSYwORBfS0Vx2M7KucPNmo
-	y1ea1Q1wmgNw89A8uzJZSbfLlJjuTr339IhDRhmW6A4pxPdYUO4ypMycpE27w+Eb
-	Shpp3zi6lUwCt51MpmPq3AX8SJpQg0dHvZdiPVdAeFcBsdMkK1AzX3GmXfahE4n1
-	fASouUC3sN89SP+scie7L+i+iWuHsC1/2TzRMeCTpsUjFHADIb4LA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fyb23jq0d-1
+	:mime-version:references:subject:to; s=pp1; bh=vbI9WZpgKxAof83H5
+	wv7GUkc5GwGamhkMTn9NeqgdG8=; b=MCLcJ9d5x5tX+s3yqIkmG0eDhAHCmFgRO
+	hoZSbJyST/jKMIRxBET3o9jVfJWpvPlWX180PRcjGdx6PlHFg+sKQLCzy7vKHPTl
+	62WRE7qnC05utW9p4VwZDgwNELZGDI60bfUR1ATp9BMFZ6cjna0fcxRQRWO1fUTQ
+	d6B/FGenRkSxWXUok1SbpTl9X+9Yjj7qs/5/wNsZhkmWLj9fB4yJTyK9aCKtPB2D
+	A9GgsQieKsT+v+HYccYWKPa5aa+wcRC0lH6szaLcfIgJwRkw/94B6wESo6xHOTTV
+	ww7X+RPgcxvRbyx9p/0TolOXIrDSk64LR/2+HD7j+3AFmOZ3ZKPpg==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvnw1b7j-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 10 Aug 2026 19:51:37 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67AJfISF006243;
-	Mon, 10 Aug 2026 19:51:37 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxg9gx52h-1
+	Mon, 10 Aug 2026 19:51:33 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67AJfJ4F007133;
+	Mon, 10 Aug 2026 19:51:32 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxf5vxarv-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 10 Aug 2026 19:51:37 +0000 (GMT)
+	Mon, 10 Aug 2026 19:51:32 +0000 (GMT)
 Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67AJpa0f31458032
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67AJpVV327722482
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 10 Aug 2026 19:51:36 GMT
+	Mon, 10 Aug 2026 19:51:31 GMT
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DCE2C58045;
-	Mon, 10 Aug 2026 19:51:35 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id F362158052;
+	Mon, 10 Aug 2026 19:51:30 +0000 (GMT)
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F24C158050;
-	Mon, 10 Aug 2026 19:51:34 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 9AD5D58045;
+	Mon, 10 Aug 2026 19:51:29 +0000 (GMT)
 Received: from IBM-D32RQW3.ibm.com (unknown [9.61.246.243])
 	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 10 Aug 2026 19:51:34 +0000 (GMT)
+	Mon, 10 Aug 2026 19:51:29 +0000 (GMT)
 From: Farhan Ali <alifm@linux.ibm.com>
 To: stable@vger.kernel.org, gregkh@linuxfoundation.org, sashal@kernel.org
-Cc: alifm@linux.ibm.com, Matthew Rosato <mjrosato@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: [PATCH v1 6/7] KVM: s390: pci: Fix resource leak on IRQ registration failure
-Date: Mon, 10 Aug 2026 12:51:27 -0700
-Message-ID: <20260810195128.7861-7-alifm@linux.ibm.com>
+Cc: alifm@linux.ibm.com, Jason Gunthorpe <jgg@nvidia.com>,
+        Kevin Tian <kevin.tian@intel.com>, Eric Auger <eric.auger@redhat.com>,
+        Nicolin Chen <nicolinc@nvidia.com>, Yi Liu <yi.l.liu@intel.com>,
+        Lixiao Yang <lixiao.yang@intel.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>
+Subject: [PATCH v1 1/7] kernel/user: Allow user_struct::locked_vm to be usable for iommufd
+Date: Mon, 10 Aug 2026 12:51:22 -0700
+Message-ID: <20260810195128.7861-2-alifm@linux.ibm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260810195128.7861-1-alifm@linux.ibm.com>
 References: <20260810195128.7861-1-alifm@linux.ibm.com>
@@ -70,103 +73,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=XqfK/1F9 c=1 sm=1 tr=0 ts=6a7a2bc9 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+X-Authority-Analysis: v=2.4 cv=RsP16imK c=1 sm=1 tr=0 ts=6a7a2bc5 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
  a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=TYCmRUurIKQ9kozAUfwA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDE2NiBTYWx0ZWRfX1XPf0rhtlPZ9
- xKUhrMn4bBBei6+QqV44lK5pGvPo03ya96HGUr8u9bp1Pz3K6pSRCjAar9C7y7j8v5McGkZfpcJ
- UPiEk5j/ksekytL1UUdSND/y+zyGfyYPlD1QFaxPCZr4RmqU3EPYfKyKftW6N4AZ7+YnVCt+mzh
- je4ZHasje5W+dK4p+O8wbaDFWjfe497IVe7LpsLTKa0lBXOkXqYXl5OUNHMbbXSJb8hVeNwWSf/
- 3zxlj9P4+gKe+2BGXkY5Ors3XsEWIhd3CyWCIEZ3rRLWPpZsVRcfgA80Z/vdbWk+QJUg2YV4v2s
- AusYE0VgAMJWBujDGb31Vu3fiUeSDEkLz+A9EQjrJt5VCEc7m9H/Z22xBOoV+ziRorJiDQGZzw3
- 5e+NTFyK/1n+wWqIqyNDSBMrUZsizdArV2713sRFsIC0AuuHrnndmkeODR+WHYClSt4wZwaptz7
- AGB12Hx+7vowGpBSsCg==
-X-Proofpoint-ORIG-GUID: DCqDNYkjPu4jCAzlzovT_jHTf5tbQfU2
-X-Proofpoint-GUID: DCqDNYkjPu4jCAzlzovT_jHTf5tbQfU2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDE2NiBTYWx0ZWRfX/bVbJzi2JDS6
- f4JH8SMbLS9zYYzkSTdHGhlXZocH+HKuMKw81BVTGAd7tzcRmRwd8M6ixRJ2tyXOdEzggY1pLGg
- KCP+9ICr42hLMCu/l3IYTuwqK9hQW30=
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=Ikd4Dj_1AAAA:8 a=QyXUC8HyAAAA:8
+ a=20KFwNOVAAAA:8 a=VnNF1IyMAAAA:8 a=-gLlHuE2PaxnPGtbEqgA:9
+X-Proofpoint-GUID: XwgB2dlzu60OWqp3uf0eG2Ecl_nOiSQ9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDE2NiBTYWx0ZWRfXzgk8atEfQ3uN
+ kOHiMyCqMDk/FqWUddNKIBMPSepuE3zmLYa/uV8TPFvoDpl7HKIIcHdmN3+bGvesH9m6yqxPdvh
+ 8BaVo7bxhd4NZy1jN5lPZaFlyghx037TJ6u0udwFaNIyBcsXDw5FdMiFfYNrakIwiftIoKnDQCE
+ Hq0lCLK+pvYl/9ylLEu9k7apsu3T3oI7zR3s9XIeyUJGJw5bdauvDvXNbqC8A3zXBmZQdQdvQLL
+ vMZ6EbDbQPyMyze6gt9JkWSnBHh3XqJu+06U/YwESkEj4r4ibKpLPfLmHIyELhCC6slDZIx4JY2
+ nba9jHnh4aEFS6oRIXzpL2suUBMj7/SvLulhgNZwMqkhjteW2rFklAXV86wyiA4VaaGEOsFJY0g
+ sBvJmOo4osUrRcquHwkZYtdXLfQFPo66oueLz5m9Vg4VO0G7l9HAWASl8iDyG+knKpAZSmxBYjA
+ HJ2VIA2nCSqAkXr0/Qw==
+X-Proofpoint-ORIG-GUID: XwgB2dlzu60OWqp3uf0eG2Ecl_nOiSQ9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDE2NiBTYWx0ZWRfX1J65ynZ6usjG
+ ZoAhvxW8yCr92Q63/rQ1XWptPHQ9uLABN1cUyiHWn/3KPsMTWrZDi8JqMxkxPZFN+JIXAOi/MhR
+ k/Cq8asIA73mHHx2BAjz2go04ENL+bE=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-10_05,2026-08-10_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0 clxscore=1015
- suspectscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
+ spamscore=0 impostorscore=0 suspectscore=0 clxscore=1011 malwarescore=0
+ phishscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100166
 
-Currently if kvm_zpci_set_airq() fails, kvm_s390_pci_aif_enable() returns
-the error code but doesn't do any resource cleanup thus leaking resources.
-Fix this by cleaning up all the resources such as the GAITE, AIBV, AISB and
-unpinning any pinned pages. While at it, remove dead code that stored FIB
-values that were never referenced.
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-As part of the cleanup, we are also holding the aift_lock a bit longer, as
-we hold the lock while executing the MPCIFC instruction. Though this is not
-strictly necessary, it means we don't have to drop and re-acquire in the
-error case.
+Following the pattern of io_uring, perf, skb, and bpf, iommfd will use
+user->locked_vm for accounting pinned pages. Ensure the value is included
+in the struct and export free_uid() as iommufd is modular.
 
-Fixes: 3c5a1b6f0a18 ("KVM: s390: pci: provide routines for enabling/disabling interrupt forwarding")
-Cc: stable@vger.kernel.org
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
+user->locked_vm is the good accounting to use for ulimit because it is
+per-user, and the security sandboxing of locked pages is not supposed to
+be per-process. Other places (vfio, vdpa and infiniband) have used
+mm->pinned_vm and/or mm->locked_vm for accounting pinned pages, but this
+is only per-process and inconsistent with the new FOLL_LONGTERM users in
+the kernel.
+
+Concurrent work is underway to try to put this in a cgroup, so everything
+can be consistent and the kernel can provide a FOLL_LONGTERM limit that
+actually provides security.
+
+Link: https://lore.kernel.org/r/7-v6-a196d26f289e+11787-iommufd_jgg@nvidia.com
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Reviewed-by: Eric Auger <eric.auger@redhat.com>
+Tested-by: Nicolin Chen <nicolinc@nvidia.com>
+Tested-by: Yi Liu <yi.l.liu@intel.com>
+Tested-by: Lixiao Yang <lixiao.yang@intel.com>
 Tested-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-(cherry picked from commit 5580c9858f1e00f60191eb09c3add359836d60b6)
-[alifm@linux.ibm.com: Resolved merge conflict]
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+(cherry picked from commit ce5a23c835aa0f0a931b5bcde1e7811f951b0146)
 Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
 ---
- arch/s390/kvm/pci.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+ include/linux/sched/user.h | 2 +-
+ kernel/user.c              | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/s390/kvm/pci.c b/arch/s390/kvm/pci.c
-index 2a94c4d9f050..d7a2822ee4a0 100644
---- a/arch/s390/kvm/pci.c
-+++ b/arch/s390/kvm/pci.c
-@@ -345,19 +345,32 @@ static int kvm_s390_pci_aif_enable(struct zpci_dev *zdev, struct zpci_fib *fib,
- 	aift->kzdev[zdev->aisb] = zdev->kzdev;
- 	spin_unlock_irq(&aift->gait_lock);
+diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
+index f054d0360a75..4cc52698e214 100644
+--- a/include/linux/sched/user.h
++++ b/include/linux/sched/user.h
+@@ -25,7 +25,7 @@ struct user_struct {
  
--	/* Update guest FIB for re-issue */
--	fib->fmt0.aisbo = zdev->aisb & 63;
--	fib->fmt0.aisb = virt_to_phys(aift->sbv->vector + (zdev->aisb / 64) * 8);
--	fib->fmt0.isc = gisc;
--
- 	/* Save some guest fib values in the host for later use */
--	zdev->kzdev->fib.fmt0.isc = fib->fmt0.isc;
-+	zdev->kzdev->fib.fmt0.isc = gisc;
- 	zdev->kzdev->fib.fmt0.aibv = fib->fmt0.aibv;
--	mutex_unlock(&aift->aift_lock);
+ #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
+ 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
+-	defined(CONFIG_VFIO_PCI_ZDEV_KVM)
++	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
+ 	atomic_long_t locked_vm;
+ #endif
+ #ifdef CONFIG_WATCH_QUEUE
+diff --git a/kernel/user.c b/kernel/user.c
+index e2cf8c22b539..d667debeafd6 100644
+--- a/kernel/user.c
++++ b/kernel/user.c
+@@ -185,6 +185,7 @@ void free_uid(struct user_struct *up)
+ 	if (refcount_dec_and_lock_irqsave(&up->__count, &uidhash_lock, &flags))
+ 		free_user(up, flags);
+ }
++EXPORT_SYMBOL_GPL(free_uid);
  
- 	/* Issue the clp to setup the irq now */
- 	rc = kvm_zpci_set_airq(zdev);
--	return rc;
-+	if (!rc) {
-+		mutex_unlock(&aift->aift_lock);
-+		return rc;
-+	}
-+
-+	/* Start cleanup */
-+	zdev->kzdev->fib.fmt0.isc = 0;
-+	zdev->kzdev->fib.fmt0.aibv = 0;
-+
-+	spin_lock_irq(&aift->gait_lock);
-+	gaite->count--;
-+	gaite->aisb = 0;
-+	gaite->gisc = 0;
-+	gaite->aisbo = 0;
-+	gaite->gisa = 0;
-+	aift->kzdev[zdev->aisb] = NULL;
-+	spin_unlock_irq(&aift->gait_lock);
-+
-+	airq_iv_release(zdev->aibv);
-+	zdev->aibv = NULL;
- 
- free_aisb:
- 	airq_iv_free_bit(aift->sbv, zdev->aisb);
+ struct user_struct *alloc_uid(kuid_t uid)
+ {
 -- 
 2.43.0
 
