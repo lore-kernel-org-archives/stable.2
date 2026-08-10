@@ -1,118 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852AF3932F0;
-	Mon, 10 Aug 2026 07:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB39C35F163
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:58:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786348696; cv=none; b=dCptdKq6ZmEhO1hSdZEYYaJlbGPnu65BL/92MySkOlj8g2rOntXqTSv0QOo2hdOMjniC2T+tDixTgSWkwD/QH7W/5iFxzFW6rz1dAzi672lm1UE4uXwIJkk7Gqr2+qistlWsSUpTI5kY5HNcxPJ9wjYsrrjK84QIbiytSB6/Qk4=
+	t=1786348711; cv=none; b=b9oUEtbkdx9gJCcauRjLwxGTloCLSNHrjws2LdLS/aOZ7k8JAbWmgpHFRURl8y/SPtmIahyhwHIkR+noI9io84aVI+JBgYvIGXdrjZWdSDsK94z1ilKdhEnLH5YTZK9AXa4p1foie/kACoV9zi889G0KYbYKaE2r+mJC2opwdZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786348696; c=relaxed/simple;
-	bh=+SeTgwlSWQG3kjrVtFNUnUOtvD5m8CZ2IDZ3hBZWDTM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ftaBxwlNh1chk2jUwxlLc9T45/gU4U4gyjCBeoLngin7q9tkZuRpKOc7zcKQKaLyCObpYUjsCRQ/tKwrhllEL3HAQFOCMAzu7lMDqYr8YQpbtiDEEciREGh4D5EG+IfBGrY4v/SHy7EW2riNWAV77HLeuhC4tU0ghf+BEUVfIGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=COBlg/Sl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786348711; c=relaxed/simple;
+	bh=doEjhmeMrC6/DILFWnsSqq/o66HeFkwDyN5nBfnoTck=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=eTVMcuvBk3m+w8/i408usZW0c4gJhWXYlfQTAQqDZ5lo4GyvKFdSs5Ck5Asu+63o5zLGAxIBe9AcXp+nK2/83GRm/F81welCOgTRglxRiVEzTZPUgm+N/TqZBgwztI4Bfx6BMPjDUSjjoBHbJi73s+W9obHNi7GjGJfBDoipAkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c4t+qkeF; arc=none smtp.client-ip=91.218.175.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="COBlg/Sl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263501F000E9;
-	Mon, 10 Aug 2026 07:58:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786348695;
-	bh=BsrZgEPc2Pn2495B+7qWiG1MH6NX6fq3RoIYaYJSwbo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=COBlg/SlREcQLyiZEww21V0aG2nsJRNCphK3pPIw4lxaNV0jwHv1h6dCaPqSWec28
-	 aa2HT25jSnBZP1poQSM/Zo9tpzDMm2V+vtu88mUHd3R4yFtAuwRyU+k2s+A8E3rx6T
-	 sZXRdiIRCleStXCHC3T9jsshvzccOiKEBsAa4mAomrrl7d0V5spx/q/I8VLOJ1P27R
-	 3L9sseSY8oximJKpD4RWfAYz+W601Ze3KXZdJEhZaGGes5GKPHPSKoLPJ8AT5QSPrQ
-	 Yl3xnby4/i95etkw98sq04e4/xuKzxcyEaW9oD/fdsf+DfdXTqkoNpBkLdrj0eZ7By
-	 25NefGNG4JCbw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wtKtg-0000000E0C5-3kju;
-	Mon, 10 Aug 2026 07:58:12 +0000
-Date: Mon, 10 Aug 2026 08:58:12 +0100
-Message-ID: <86v79i9zl7.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: nv: Allocate the shadow S2 MMUs individually
-In-Reply-To: <anizGXThM-haqQXU@gmail.com>
-References: <20260803224405.41468-1-kmehltretter@gmail.com>
-	<86mrv2arf2.wl-maz@kernel.org>
-	<anYNTW2e3HalTqTk@gmail.com>
-	<878q6fplpd.wl-maz@kernel.org>
-	<anizGXThM-haqQXU@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c4t+qkeF"
+Content-Type: text/plain;
+	charset=us-ascii
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786348707;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eXqpPmFg3NAwqefW6Q/q19TF5DPxz3Lme5BVQFRJrFQ=;
+	b=c4t+qkeFJKO/1yXLiMbdEWCssRIOIcrOPElW099+wv7sX6aO4srSJ3FbT9mjc+joDKS+Ab
+	G49Gpx2XnYxtUrTjqEQEZG82xw5N2mjeA25QjGxPiYdgD7HBJnSKEpmlWfVkkjyGvg8KBM
+	5mvMDdShimSb30wXJ2s2BWtHv6dicYg=
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: kmehltretter@gmail.com, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH] mm/memcg: fix NULL nodeinfo[] dereference on late-onlined
+ nodes
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260810-memcg-nodeinfo-null-guard-v1-1-77a73204d63a@oss.qualcomm.com>
+Date: Mon, 10 Aug 2026 15:58:09 +0800
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Kefeng Wang <wangkefeng.wang@huawei.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ linux-arm-msm@vger.kernel.org,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <5059A780-9C10-4171-A254-38944464F1AC@linux.dev>
+References: <20260810-memcg-nodeinfo-null-guard-v1-1-77a73204d63a@oss.qualcomm.com>
+To: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+X-Migadu-Flow: FLOW_OUT
 
-On Sun, 09 Aug 2026 19:11:54 +0100,
-Karl Mehltretter <kmehltretter@gmail.com> wrote:
-> 
-> On Sun, Aug 09, 2026 at 12:39:10PM +0100, Marc Zyngier wrote:
-> > My current patch is as follows, and so far, I haven't seen much that I
-> > like better.
-> > 
-> 
-> Hi Marc,
-> 
-> Thanks for your revised patch.
-> I think one correctness issue is in there. 
-> 
-> > +		for (i = 0; !ret && i < S2_MMU_PER_VCPU; i++)
-> > +			ret = init_nested_s2_mmu(kvm, &tmp[i]);
-> 
-> > +		if (ret) {
-> > +			while (--i >= 0)
-> > +				kvm_free_stage2_pgd(&tmp[i]);
-> 
-> The increment expression of the for loop still runs after an error.
 
-Yup. Should be fixed with
 
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 5b69a0f382320..50d6dcc75582c 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -96,8 +96,11 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- 		if (!tmp)
- 			ret = -ENOMEM;
- 
--		for (i = 0; !ret && i < S2_MMU_PER_VCPU; i++)
-+		for (i = 0; !ret && i < S2_MMU_PER_VCPU; i++) {
- 			ret = init_nested_s2_mmu(kvm, &tmp[i]);
-+			if (ret)
-+				break;
-+		}
- 
- 		if (ret) {
- 			while (--i >= 0)
+> On Aug 10, 2026, at 13:46, Prakash Gupta =
+<prakash.gupta@oss.qualcomm.com> wrote:
+>=20
+> memcg->nodeinfo[] entries are allocated only for nodes present at
+> css_alloc time. When a node is onlined after a memcg is created its
+> nodeinfo[] slot remains NULL. Two call sites dereference these slots
+> unconditionally:
 
-	M.
+I don't think the premise of this patch is correct.
 
--- 
-Without deviation from the norm, progress is not possible.
+memcg->nodeinfo[] is not allocated only for nodes that are present or
+online at css_alloc time. mem_cgroup_alloc() allocates per-node info =
+with
+for_each_node(), and for_each_node() iterates N_POSSIBLE nodes:
+
+        for_each_node(node)
+                alloc_mem_cgroup_per_node_info(memcg, node);
+
+Memory hotplug also rejects memory being added to a node that is not in
+node_possible_map. So a node that can be onlined later should already
+have a nodeinfo[] entry for all existing memcgs.
+
+If memcg->nodeinfo[nid] is NULL on your system, that looks like a
+violation of this invariant, or possibly a downstream-specific change,
+bad nid, allocation/lifetime issue, or memory corruption. I don't think
+the generic explanation that "the node was onlined after the memcg was
+created" is sufficient.
+
+>=20
+> lruvec_stat_mod_folio() calls mem_cgroup_lruvec() which reads
+> memcg->nodeinfo[pgdat->node_id] without a NULL check. On a system
+> where a node is onlined after the memcg is created, any folio stat
+> update for that node crashes with a NULL pointer dereference:
+>=20
+>  Unable to handle kernel paging request at virtual address =
+ffffffbebf7e1908
+>  pc : lruvec_stat_mod_folio+0xf0/0x444   [6.18.21-android17-5]
+>  lr : lruvec_stat_mod_folio+0x88/0x444
+>  Call trace:
+>   lruvec_stat_mod_folio+0xf0/0x444
+>   folio_add_new_anon_rmap+0xac/0x2b8
+>   do_wp_page+0x768/0xc80
+>   handle_mm_fault+0x37c/0x8c4
+>   do_page_fault+0x140/0xa1c
+>   do_mem_abort+0x54/0x74
+>   el0_da+0x48/0x8c
+>   el0t_64_sync_handler+0x20/0x130
+>   el0t_64_sync+0x1c4/0x1c8
+>=20
+> __invalidate_reclaim_iterators() iterates for_each_node() and reads
+> from->nodeinfo[nid]->iter without checking for NULL. for_each_node()
+> visits all possible nodes, so this is reachable whenever a node is
+> onlined after the memcg was created.
+>=20
+> Fix lruvec_stat_mod_folio() by checking nodeinfo[pgdat->node_id]
+> directly and falling back to mod_node_page_state() when NULL, =
+mirroring
+> the existing !memcg early-return path. The fallback must not go =
+through
+> mod_lruvec_state() since that calls mod_memcg_lruvec_state() which =
+uses
+> container_of() to recover the mem_cgroup_per_node from the lruvec
+> pointer; passing &pgdat->__lruvec there produces a garbage pointer.
+> When nodeinfo[nid] is NULL the memcg has no per-node accounting
+> structure for that node, so node-level accounting is correct.
+>=20
+> Fix __invalidate_reclaim_iterators() by skipping NULL nodeinfo[] =
+slots.
+>=20
+> Also switch lruvec_stat_mod_folio() to folio_memcg_check() which uses
+> READ_ONCE() to safely read folio->memcg_data in an unlocked context.
+>=20
+> Fixes: 6c77b607ee26 ("mm: kill lock|unlock_page_memcg()")
+
+The Fixes tag also seems odd. 6c77b607ee26 ("mm: kill
+lock|unlock_page_memcg()") only removed/renamed the lock_page_memcg()
+wrappers and does not appear to change nodeinfo[] allocation or memory
+hotplug handling. Could you explain how that commit introduced the NULL
+nodeinfo condition?
+
+> Cc: stable@vger.kernel.org
+> Assisted-by: pi:claude-sonnet-4-5
+
+Given the Assisted-by tag, I assume some of the analysis may have been
+tool-assisted. That's fine, but the author still needs to validate the
+reasoning against the actual code before submission.
+
+Did you confirm that the relevant allocation and hotplug paths were
+manually checked against the affected tree? In particular, I wonder
+whether this behavior depends on downstream changes around
+mem_cgroup_alloc(), for_each_node(), node_possible_map setup, or memory
+hotplug nid validation.
+
+Muchun,
+Thanks.=
