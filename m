@@ -1,133 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4CD4052B6;
-	Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6C136167E
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 16:25:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786378668; cv=none; b=DPleSHhn3HMeT8z31JXuZfsVjHdYUzhV/eLDh8TPfCbPxO7yKJQm0iumGceHMLHbFjZLAq77yGiedFJfKU/eJ6HjP3wJh6DhVTNjGlbJy5ezSlTaDIJ9JZRmgVy/7FFpOobX4UyEhyGveUKyHX3REdcippB35fcepZtZN6VDdKk=
+	t=1786379110; cv=none; b=UZI4tkymqnWaHsuVAMJONB68GjBBv8RepxxpzACz6S3o3rCkw6RnaV2EZbdR5px0exMr5NwGuBkKCqF9WyfJmc5Rns1n2qtgTBoOW2nCytM862CjWx3fOX88Nb9OWVbfK0mVZx7dY0RNoxhssCOylqUVPTlUs2xWlm5N39YD6FU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786378668; c=relaxed/simple;
-	bh=e7qU4DwQRhkwQZ7bRxaFZbYgsVTpDVtdRWvEtA7dFMA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FSgPN5o2edp+P2MtkrG28kHJ6/WrHRy6Y1DkNcqYh2gGvZO/c6JmgTRsE4tw7QhHOG8v+vRdAAHBbUGqfbFJu5BkkEn4jCEoZ30ho7ze7vV2js34nI5eBE8OnEL/6rn9w9nzAGSd5vjJuKfgWZH9RtdTGhnP95RcWF8MCKSiHl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2yDUZHU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786379110; c=relaxed/simple;
+	bh=eueGAj8oGaM4kLErdKA/dG4Vvkc38iQ6SdZdskMAKH4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l60PsOgEwT27R3Wr4WJQl6mcvqz9qcGRgFPd1xEVSr6vQ+iag2CVuNJshcoekMJ/r+lpGyVmQTebLJ8NHdkUvQAlQa++A0LzSYfgZ6JLwpa45oUUsp06lAqlhW/2oAB31DCqQ3ieGUiccitkSZqsQxEqNUhd1p0LzzbP1hECGP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LRYEdOJo; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2yDUZHU"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0D024C2BCFB;
-	Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786378668;
-	bh=e7qU4DwQRhkwQZ7bRxaFZbYgsVTpDVtdRWvEtA7dFMA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=N2yDUZHUC+IiL1ijHjfMJnnBZdHY8+FrZXfujPqROiUzMIRwWzXXQaV0pg+4b71R+
-	 iLgvFXIoU9QJrpVoLy39ERqqLbjpwDV7w9vRyR7wmaCmjOrVoTVv27X0IgqzqfGGuQ
-	 tVztO48l8TE0ACnyKtMlo2J8zOolDMwREwqXaQSxmZ50QOF7DeB1yy8bE19qRyy0xN
-	 9Z1wKjyXwfKZn3yXy5imLzmeRwaKSr5OysXS3NV7zG5u8OjY6gfbp6qp3TvNuV4k6E
-	 qmzIFa4OWQj3tUwc6QcvIXj+oYjrCaXeFigq31AsfE/DHtTiceqomoqw0V4pn8EAWJ
-	 kWCkQOvlzruJA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EDE7DC5B56A;
-	Mon, 10 Aug 2026 16:17:47 +0000 (UTC)
-From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Tue, 11 Aug 2026 00:13:14 +0800
-Subject: [PATCH 5/5] drm/amdgpu: free userptr HMM ranges on the CS error
- path
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LRYEdOJo"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-384930ca5e2so2256726a91.3
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 09:25:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786379109; x=1786983909; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fwrUhGiqFfBO/bQRRK3RvNMgcT0RQUx4H8uPR9x4Qp4=;
+        b=LRYEdOJo7+loBOEy70i9mAg37sr0YDRtLyytMLL82/24H1hGL8BGoWfc3OMsujMKpO
+         Wy6g3WjpcY/PmcYfXQRI/4vdq6v1/xVqWnRnoJ2rLU7EzuCNX5MNYqkEi/FsYiD2PEKb
+         V+GRgZm2ukabYEwCqCUrZ7KitVIYJ9xBOsr9fepxy2uOSoC33dsIgu9baj1oVm5G4pAS
+         3CvQ80UDQTPDuU8WxXu7c44EXMLOaFyTNYHn1njYYz2ZwduInyeXDZeeDxREwa7X8tJd
+         Be4waaK4wt7pmMCkJZZJoFcR0oY9H6P0rtdC48vmC6+yS6RusiQ96A13zFTrVwj7Nh/P
+         w6oA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786379109; x=1786983909;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fwrUhGiqFfBO/bQRRK3RvNMgcT0RQUx4H8uPR9x4Qp4=;
+        b=ZOjhnfyTkrfRfH2mSl22kSTiBWwPKkJGF80BkcTm1CKxN++1hAT+5VuTCcUyKJjRLk
+         TwIzU0Z7djrH0n8MZGzIcnTEEbZVJRbnvdNOwD2g4/XrpJmjnIw0TQ6pSArP/Fxq7vGE
+         rZ4WJGMj48NKlxNIbskV6Wf3WQuiFP/Tj6wrUzAn9VgvLktn13EPkBcOSRJGXhn/q434
+         Hb8ZyPVbJeOHFnrk0D4cKk44nke6260QOnyxd8uV6Vi4pX3gFQ5ChZ/Ex8qMb2VuJA7E
+         Pp0RqdOkOHIRIOf/q+8fNKHHGYcz224hnvuMEms4sfgLuYQHAdVyWpgxdRrvJ3Cd3sbi
+         Zi7A==
+X-Forwarded-Encrypted: i=1; AHgh+RoIMJdeSGyi6kMfRYtx3HNmLQt3+Zjx08foUv0pDvWjflGfASueXwKfsYakQDEc0k+F1K7kook=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzuT0wPdiln7Ow85AOrgxQtFKcz26sAuV1C3QbhjmFys7RljpOv
+	0ENbfCDWo0LNvpXvHiou5mxgZ279vThO0uYFuG+QQ1Zkt2L6kliqQ9L8
+X-Gm-Gg: AR+sD12xk1TcJLtwMBHILz35FyjnfJy8Wpch9/CFEqyk9bJ2rVZHGXc8xCQ7NI0f7bL
+	DTaN/SSYdFj4Mx39HOxeG8foK/vd7j/IsKS9Wuy1CAiWQCXw0Sw/DBz/3l6S8BOOReNmnrEEHb5
+	M5eFT3aDNumQ38MgiMOZV7T+6spkSlxiHwf1CJCxoWNfZhEE8JrVhBglBfTrnXKPDr+V0IyFBuC
+	BNsT6xYblK2oG/0y003iDLHTMQoiOLtiHtq/am6yNu2zfx7ClsbC3P3LCiUpoZEYm7BHoCCSQ8n
+	k6lzOBIQJk9f5tJgl3GaUIZTXkNyBfPHjjEP1N5BUjZu0+Ay/cvUtC1SO/bcf6JY2l6QAsl07Fv
+	y/Pr2cb+mgmEUF5Hmpo9YIBDQoPldBzc+LSWjwc3ri/63Xfzd7Mz1/mp9ViCAWE5If/3na4r2n1
+	2TB2PeANHS9wCS3jAdtpGAIse9BsvyCMB4hnVSQF7FXGR3fhqGKCTLjI7xmRAsgK8J8DD1ETNZh
+	A==
+X-Received: by 2002:a17:90b:554d:b0:38f:23d6:b4a9 with SMTP id 98e67ed59e1d1-392cca737c4mr2724462a91.21.1786379108861;
+        Mon, 10 Aug 2026 09:25:08 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-390b330f89dsm6192516a91.2.2026.08.10.09.25.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 09:25:08 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 10 Aug 2026 09:25:07 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Cong Nguyen <congnt264@gmail.com>
+Cc: Vadim Pasternak <vadimp@mellanox.com>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] hwmon: (max6621) fix temperature clamp range
+Message-ID: <374f630a-b4a2-4599-8435-4a5951b6a6fc@roeck-us.net>
+References: <9d3a4f1895a47794bb359a2a32fb1ccd6a15812c.1786334038.git.congnt264@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-amdgpu-fixes-v1-5-4954a417b8ff@outlook.com>
-References: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
-In-Reply-To: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Junwei Zhang <Jerry.Zhang@amd.com>, 
- =?utf-8?q?Nicolai_H=C3=A4hnle?= <nicolai.haehnle@amd.com>, 
- Prike Liang <Prike.Liang@amd.com>, Arvind Yadav <arvind.yadav@amd.com>, 
- Shashank Sharma <shashank.sharma@amd.com>, Leo Liu <leo.liu@amd.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, Junrui Luo <moonafterrain@outlook.com>, 
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2404;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=L6QMfmjG08GEYgq6Lvgjn+rT+rJCq+Q7xLdhBvY9+GU=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMqfy6RfzJuy89+X84usVeOvsxZ2dRd+fvO2Y3GL7
- G0m597euRkdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMJHHnxkZvjsd3j4/vThq
- p2rz6jjX/GVveLbFf9zL6NGSKFRhWnulg5Fh2dX9fdNlpNndDOxbPjf+kJn0MMVvVnP40Zi8st8
- xCrz8AHwXTaI=
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
- auth_id=909
-X-Original-From: Junrui Luo <moonafterrain@outlook.com>
-Reply-To: moonafterrain@outlook.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9d3a4f1895a47794bb359a2a32fb1ccd6a15812c.1786334038.git.congnt264@gmail.com>
 
-From: Junrui Luo <moonafterrain@outlook.com>
+On Mon, Aug 10, 2026 at 11:27:54AM +0700, Cong Nguyen wrote:
+> MAX6621_TEMP_INPUT_MIN and MAX6621_TEMP_INPUT_MAX are used to clamp the
+> writable offset and critical thresholds. They are defined as -127000 and
+> 128000.
+> 
+> The driver decodes the temperature through an s8 and its own comment in
+> max6621_read() documents an 8-bit two's complement value, whose range is
+> -128 to +127 degrees C. The current limits therefore reject the valid
+> -128 degrees C and accept +128 degrees C, which does not fit the 8-bit
+> range.
+> 
+> Correct the limits to -128000 and 127000.
+> 
+> Fixes: 92b64580f14b ("hwmon: (max6621) Add support for Maxim MAX6621 temperature sensor")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4
+> Signed-off-by: Cong Nguyen <congnt264@gmail.com>
 
-amdgpu_cs_parser_bos() allocates a struct amdgpu_hmm_range for every
-userptr entry of the BO list and returns with them live. They are only
-released in two places: the out_free_user_pages label in
-amdgpu_cs_parser_bos() itself, and the invalidation check loop in
-amdgpu_cs_submit().
+Applied.
 
-Every error edge between those two points leaks. A failure in
-amdgpu_cs_patch_jobs(), amdgpu_cs_vm_handling() or amdgpu_cs_sync_rings(),
-or an early return from amdgpu_cs_submit() before its release loop, jumps
-to error_fini and falls into amdgpu_cs_parser_fini(), which never walks
-the BO list for userptr ranges. An IB address with no VM mapping is enough
-to get there: amdgpu_cs_patch_ibs() returns the -EINVAL that
-amdgpu_cs_find_mapping() hands back, so the leak is repeatable at will
-from an unprivileged render node fd. Each leaked entry costs a struct
-amdgpu_hmm_range plus its hmm_pfns array, a kvmalloc_array() of one entry
-per page of the userptr mapping, allocated with plain GFP_KERNEL and so
-not charged to the caller's memory cgroup.
-
-Release the ranges in amdgpu_cs_parser_fini(), which every path out of
-amdgpu_cs_ioctl() passes through. amdgpu_hmm_range_free() ignores a NULL
-range, so the success path, where amdgpu_cs_submit() has already freed and
-cleared them, is unaffected.
-
-Fixes: fec8fdb54e8f ("drm/amdgpu: fix userptr HMM range handling v2")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 617f53f135f3..17c4fec21402 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1416,6 +1416,16 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
- 				amdgpu_vm_bo_invalidate(bo, false);
- 			}
- 		}
-+
-+		/*
-+		 * Release the ranges still live on the error paths;
-+		 * amdgpu_cs_submit() already freed and cleared them when it
-+		 * got far enough to check them for invalidation.
-+		 */
-+		amdgpu_bo_list_for_each_userptr_entry(e, parser->bo_list) {
-+			amdgpu_hmm_range_free(e->range);
-+			e->range = NULL;
-+		}
- 		amdgpu_bo_list_put(parser->bo_list);
- 	}
- 
-
--- 
-2.51.2
-
-
+Thanks,
+Guenter
