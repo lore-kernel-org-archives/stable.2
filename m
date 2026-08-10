@@ -1,88 +1,113 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8463C09E3;
-	Mon, 10 Aug 2026 11:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB713BB13D;
+	Mon, 10 Aug 2026 11:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786360585; cv=none; b=J3WlpqRZeNhvqBYpy44D/hloDTzy2dRKXCoeAU06jTvFPnyq6zqIPGQzh0L9JRarqZsXDDM7HuhrnSD+exnVMFAgUmXdj+j/ehPXx/gBHIsNTePl9UL+ePWOhZ7Wz+SR/fopDqf2KeJ6gLpCUk0EKgO28MJsAvgiBjvcu9sQNWM=
+	t=1786361578; cv=none; b=YuP9saBljzzek81IQb51iMV6qrNG5DmcHOucj2LbEPMBLzxrS+07BqSLBh+9S2B5VGYYVElRxVYyBRblXUULNAlwRyt7J9SgVhRFWCgjGfBIaMoy9xMYChLhzYNPtwc1UNFzajZ7FZpp0Dv5vVc/Lqv4tGk0euPtrf0iRW9mOtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786360585; c=relaxed/simple;
-	bh=7IlfizHy/gI9pj/9ns5l7qQecDIYjZuggRG7wrLnYJc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DJarHBeNySHzJctJGLWxxnPenmhCjteOZipbi8deM4cS9jnVjMnlvvjL6uNm/rwSpIUiVSV+H1YJEVR0XkMA93T9d+6zPt8QCuvC23pGTMyL7VCw7x/DU8Cef5OxzCV5lNKEwRJQoTYTeG3TUcgY4hZ+8lRIXXEgux1vpbgyJ+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=giS0XyNu; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1786361578; c=relaxed/simple;
+	bh=ICZJwBQyIMFmTYvQXLPBygQoTomr5w7GG1oxhfcWvRg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=frY379mHGwUTANod8Iq8T7snhMK7lGkOLZBhmiSVdg2MMWYjnK7V34YYQQhvL/LWgRANzEbsir1wONOOfYVr/oH/hFA0694bwJjuPFHqiOL8+tNQdHXQqDtKY1wq4mJBIt02TofkbHHl/OSOjegg3nfOxfXHqkYUVuBdqG6WEzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bCpzli4p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="giS0XyNu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=3a52RpI8RZonRX/awqL1lqXeJZb2RmdUEdBEm0PbsTw=; b=giS0XyNux3jjhM/0VHYgHIllKn
-	gdPt1HfN8YHm/nGkSA02DpXEnXY2gyFhC4rEJ16wHV6N4Aq+s5n/3ifv5Viigxr5wfmiyzBXIUmu0
-	+3S9vTJfj4gzmOSoZG7B+My1lzYncWw134uDnrHyZgVhg1Osn0jXwKuhTbb25yxY6PmPtkdqGrfMZ
-	sSF/vwDRMz/8NKX6+GX01luRRXIWS6gHARFfEnHH5Cp/+e9DbMXaXhm5ZQi0cgNsjZVBbHPfaSUvp
-	pQE3irb6rwLBvnLMSqsx76rHI/HC+uQm2H79b8PaOXE3LW4ACZ5taTj8t+7j5UUColvUOBO5whwxp
-	RBEHUgsg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1wtNzN-0000000DjQp-0Uch;
-	Mon, 10 Aug 2026 11:16:18 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 3067330019A; Mon, 10 Aug 2026 13:15:46 +0200 (CEST)
-Date: Mon, 10 Aug 2026 13:15:46 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Tejun Heo <tj@kernel.org>
-Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
-	Emil Tsalapatis <emil@etsalapatis.com>, ElXreno <elxreno@gmail.com>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/6] sched/core: Make core-sched flips wait for in-flight
- selections
-Message-ID: <20260810111546.GV687043@noisy.programming.kicks-ass.net>
-References: <20260807210221.232543-1-tj@kernel.org>
- <20260807210221.232543-3-tj@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bCpzli4p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 058671F000E9;
+	Mon, 10 Aug 2026 11:32:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786361577;
+	bh=+WUQmunuAHmUFO6LakZVc7vewqsfFce18N0HbJ03AJY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bCpzli4pKk0jcdIZyFhrTY2Le3Y/aU/b80NAjqMtcwwd/BpCO2tm0p8Xrsn1A2RB4
+	 xaZyNywK+uaDui0S+FKo62Ztx+3KsyS7PvQPSO8cyNy9zGDrm3+/kAvECy6whPae9f
+	 rEd6BXmrDAlmWzpTRyAd2R1fTFblPP+lwl8ytMUJABA5FQ2FEigj/418cFuhZa1sJy
+	 XMktKWwJKPYA6LJjD3T4iwDUwRSADszelTWkrpDiRmVtohNM7EZkfSS7KQXBYMq+8p
+	 Js+GqpTP9OG0kx9T0/VIcu7oMWlO2w4Yi+N7JBox1RJBPBnclm3WtncEyfWMlGDSUE
+	 PykIIzsEz+5SA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wtOFT-0000000E4kX-0fxH;
+	Mon, 10 Aug 2026 11:32:55 +0000
+Date: Mon, 10 Aug 2026 12:32:54 +0100
+Message-ID: <86v79i1a8p.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Kajetan Puchalski <kajetan.puchalski@arm.com>
+Cc: oupton@kernel.org,
+	fuad.tabba@linux.dev,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	jic23@kernel.org,
+	Sascha.Bischoff@arm.com,
+	zenghui.yu@linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: vgic: Fix detection of MI on no pending LR
+In-Reply-To: <20260810102923.2426475-2-kajetan.puchalski@arm.com>
+References: <20260810102923.2426475-2-kajetan.puchalski@arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807210221.232543-3-tj@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: kajetan.puchalski@arm.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, jic23@kernel.org, Sascha.Bischoff@arm.com, zenghui.yu@linux.dev, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Fri, Aug 07, 2026 at 11:02:17AM -1000, Tejun Heo wrote:
-> Core scheduling's pick_next_task() operates on all sibling rqs under one
-> acquisition of the shared core-wide lock. A ->pick_task() that releases the
-> rq lock leaves every sibling __lock momentarily free, letting
-> __sched_core_flip(false) complete mid-selection and rebind rq_lockp() under
-> it. The selection resumes on the split locks, touching sibling state it no
-> longer protects, and __schedule() finally releases a lock that was never
-> taken while leaking the one that was.
+[Fixing up the initial recipient list...]
+
+On Mon, 10 Aug 2026 11:29:24 +0100,
+Kajetan Puchalski <kajetan.puchalski@arm.com> wrote:
 > 
-> Count in-flight core-wide selections in the leader's rq->core_pick_in_flight
-> and make __sched_core_flip() wait for the count to drain. The count only
-> changes under the shared lock, which the flip holds while sampling, so no
-> other ordering is needed. The wait can repeat while selections overlap, but
-> the flip backs off between samples and flips are rare cookie-lifetime
-> events.
+> As per the ARM GICv3 spec, the maintenance interrupt identified by
+> ICH_MISR_EL2.NP is asserted when it is enabled and no List register is
+> in pending state. This is further described in the document as "no List
+> registers with the State field set to 0b01 (pending)". By checking only
+> the pending bit of the LR (bit 62), KVM currently asserts the MI when
+> there are no LRs in "pending" or "pending and active" states.
+> Fix the detection logic to consider only the "pending" state.
 > 
-> sched_core_cpu_deactivate() moves the count to the new leader - a stale copy
-> left behind would bias it forever if that CPU later returns as its own
-> leader.
+> Cc: stable@vger.kernel.org
+> Fixes: 96c2f03311de ("KVM: arm64: nv: Plumb handling of GICv3 EL2 accesses")
+> Signed-off-by: Kajetan Puchalski <kajetan.puchalski@arm.com>
+> ---
+>  arch/arm64/kvm/vgic/vgic-v3-nested.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Fixes: 4c95380701f5 ("sched/ext: Fold balance_scx() into pick_task_scx()")
+> diff --git a/arch/arm64/kvm/vgic/vgic-v3-nested.c b/arch/arm64/kvm/vgic/vgic-v3-nested.c
+> index 5c69fa615823..e3e84d7f5ad5 100644
+> --- a/arch/arm64/kvm/vgic/vgic-v3-nested.c
+> +++ b/arch/arm64/kvm/vgic/vgic-v3-nested.c
+> @@ -152,7 +152,7 @@ static void vgic_compute_mi_state(struct kvm_vcpu *vcpu, struct mi_state *mi_sta
+>  			eisr |= BIT(i);
+>  		if (!(lr & ICH_LR_STATE))
+>  			elrsr |= BIT(i);
+> -		pend |= (lr & ICH_LR_PENDING_BIT);
+> +		pend |= (lr & ICH_LR_STATE) == ICH_LR_PENDING_BIT;
+>  	}
+>  
+>  	mi_state->eisr	= eisr;
 
-I'm not entirely sure this is the right commit. I suspect this was a
-problem right from the beginning. This pick_next_task() always had a
-prev_balance() call that could drop the locks IIRC.
+Thanks for catching this.
 
-Also yuck :/ this is rather prone to starvation, and it will leave the
-flip spinning ad-infinitum. But yes, this is the simplest fix I suppose.
-It is not like anybody is going to be toggling this on and off very
-often.  And if they are, they can bloody well keep the pieces.
+Reviewed-by: Marc Zyngier <maz@kernel.org>
 
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
