@@ -1,101 +1,206 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8AB3769E9;
-	Mon, 10 Aug 2026 07:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8512F37C0F6;
+	Mon, 10 Aug 2026 07:51:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786347537; cv=none; b=BXciAJtRZGBkZJswTtaESbJVifyeAro/LOg5Vb+3avP+WSuStSW5gM3a+BGu/5D5oeaj/uSps3IqHAckTqh5zBXHHuNOerqBgZN73ki6ljIR2slOvSJKNQ0eD9UrqeO+Z9M1TYY2zfJwAlQBPNt6SPcGLEgmlkVnImnT8xfauoM=
+	t=1786348313; cv=none; b=Tam1LzMEtx1WupeuAw9Jh+a00hCd+D44hCx7kNdcMQXwz0qCSTHdyJzLoQXjdjyu/znbkBP3VKWOfWpom9rr0fxnBkcslZOvAm0Ej8geYsj7L4ydYPgR6HY2POBsnPof/wSD3xLIGwhrI1xl4c4+i5NI4J/RYJaLp/9l3SHDBKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786347537; c=relaxed/simple;
-	bh=Tz0ZCRWFixHAIs7oZ5wtKehSDPy2ZEjcQK/B9l4XAfU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RLnoISF7R0LZVjR76uUGXknio+xxnH9PRO/DqndUUdp3WiKnRjAogtVUt7ta78Ynk+g3/BBu4LQNmw5/FUgOLwwQUPVbiDqSq6qhotso3+hbq/XLd8ehg7M6kpJCfSiFQc9YK5RoLoiqvH44MgI2wwXRkrHFhafpssSH+GFBZyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=dzA5GGQQ; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="dzA5GGQQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=pZhZEbnFi3CBwXPlZfbRBsBUWJjVwpj8fu0LSjowEHI=; b=dzA5GGQQxlhvt0A3xsvHTclJoZ
-	hE6NWGkHTXRl+7riYaY09G2gxc9E+g58Hck7Lwkki2fjfezYjL4VGNTHvTC/ob32U3Ui/kkozynEK
-	rKOcXkZBLN/up5wKpsfmgbcSneX/0zkSx5c50SPX/DIhu+GwNCHKrfGaHWMovGrNS3HmxvupQqbQE
-	CBXOrrJqId96TW57+0GtsxBjPTNHSPfIzH00nwFXYEDcC2WqJ+fElFpLf+NsNSyiYraRWies7CxJs
-	PAu3eczVhQZ1ZHS2sHmu+Qfab8bAEooypK8YFRZlm6vKCztwzn3VYXFNAHlmMYlndovg4HpFmjuj5
-	dKYGoiyw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1wtKaf-0000000Db7n-2oex;
-	Mon, 10 Aug 2026 07:38:34 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 9A55A3030A6; Mon, 10 Aug 2026 09:38:30 +0200 (CEST)
-Date: Mon, 10 Aug 2026 09:38:30 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Jose Fernandez <jose.fernandez@linux.dev>
-Cc: John Stultz <jstultz@google.com>, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
-	Janne Huttunen <janne.huttunen@nokia.com>,
-	Zicheng Qu <quzicheng@huawei.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Shubhang Kaushik <shubhang@os.amperecomputing.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Xuewen Yan <xuewen.yan@unisoc.com>,
-	William Montaz <willymontaz@gmail.com>
-Subject: Re: [PATCH 6.18] sched/fair: Revert 6d71a9c61604 ("sched/fair: Fix
- EEVDF entity placement bug causing scheduling lag")
-Message-ID: <20260810073830.GC1642880@noisy.programming.kicks-ass.net>
-References: <20260324100126.3502-1-willymontaz@gmail.com>
- <20260415211149.2658910-1-jstultz@google.com>
- <anksxhdkYBfcpJmN@linux.dev>
+	s=arc-20240116; t=1786348313; c=relaxed/simple;
+	bh=XSLrKphZ25XQBeF/hd668S5zFHH9i3qB+moh98LA//A=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=GZbc6OqhM4OlawgBVier5FnG/XmX28M6pl0BL3raIYwXPlg8hNmQiFCZf9Ejttg5YnYkM2z8bEWWT2th+lNEhuanbG2yUILdjG2CBKT0Q91X+w0umiLaZwrLflzS816N+aazIBAkECPTVp1jnx5PgBe24wpoagKtb5GJDI+a0TU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8BxNqAVg3lqwtsLAA--.14217S3;
+	Mon, 10 Aug 2026 15:51:49 +0800 (CST)
+Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJDxesQOg3lqooAqAA--.20187S4;
+	Mon, 10 Aug 2026 15:51:48 +0800 (CST)
+From: Hongliang Wang <wanghongliang@loongson.cn>
+To: Hongliang Wang <wanghongliang@loongson.cn>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	Xi Ruoyao <xry111@xry111.site>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v9 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed
+Date: Mon, 10 Aug 2026 15:49:27 +0800
+Message-Id: <20260810074927.25284-3-wanghongliang@loongson.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260810074927.25284-1-wanghongliang@loongson.cn>
+References: <20260810074927.25284-1-wanghongliang@loongson.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <anksxhdkYBfcpJmN@linux.dev>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxesQOg3lqooAqAA--.20187S4
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxXryrXFWktr1kGr4kWFy8JFc_yoWrKry8pa
+	yDC34rGr4qgr12grs3Jw1UZFyayws5GayxCF17K3ZxW3Z3Arn8Xa4ftFnIvF4ruFyxWayD
+	ZayDWFsrCFWjvrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+	6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0epB3UUUUU==
 
-On Mon, Aug 10, 2026 at 01:44:25AM +0000, Jose Fernandez wrote:
-> On Wed, Apr 15, 2026 at 09:10:53PM +0000, John Stultz wrote:
-> > From: Peter Zijlstra <peterz@infradead.org>
-> >
-> > [ Upstream commit 101f3498b4bdfef97152a444847948de1543f692 ]
-> >
-> [...]
-> > (cherry picked from commit 101f3498b4bdfef97152a444847948de1543f692)
-> > [jstultz: Resolved minor collision in the revert against 6.18-stable]
-> > Signed-off-by: John Stultz <jstultz@google.com>
-> 
-> We have been hitting this on 6.18.y in production. The setup is a
-> thread spinning on one CPU inside a cgroup that holds nearly all the
-> weight on that CPU. That cgroup's weight gets recalculated on almost
-> every tick, and the per-cpu kworker on the same CPU ends up runnable
-> but never picked for minutes to hours. We see it as workqueue lockup
-> reports and hung tasks stuck behind lru_add_drain_all().
-> 
-> I tested this patch on 6.18.44 in a 4 vCPU KVM guest with a reproducer
-> along the lines of William's script. Three spinners are pinned to three
-> CPUs inside a nested cgroup with a high cpu.weight, and some extra load
-> in the group keeps its weight changing. On plain 6.18.44 the kworkers
-> on those CPUs get stuck runnable but never picked, and their vruntime
-> stops moving. With this patch they run normally. Running the same load
-> with no cgroup does not starve anything on either kernel.
-> 
-> Peter said in April that this could go to 6.18 [1]. Janne Huttunen
-> posted the same backport last month [2] and Sasha is holding it for
-> Peter's ack on taking the revert without 4823725d9d1d [3]. This patch
-> and [2] differ only in div64_long() against div_s64().
-> 
-> Tested-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
-> 
-> [1] https://lore.kernel.org/all/20260407134519.GH3738010@noisy.programming.kicks-ass.net/
-> [2] https://lore.kernel.org/stable/PAWPR07MB100712177EB29A65F4385E4C29ACF2@PAWPR07MB10071.eurprd07.prod.outlook.com/
-> [3] https://lore.kernel.org/stable/20260725192000.stable-0001@kernel.org/
+The original driver uses a fixed PCLK frequency(LS2X_I2C_PCLK_FREQ) and
+fixed div(5) for I2C bus speed calculation. As PCLK frequency and div
+vary on different SoCs and ACPI platforms, this leads to inaccurate I2C
+bus speed calculation and poor adaptability across platforms.
 
-Yeah, this should be fine without 4823725d9d1d.
+Improve the accuracy of I2C bus speed calculation across different
+platforms by parsing the real I2C bus reference clock (PCLK) and div.
+Support both DTS and ACPI.
+
+For DTS:
+- Retrieve I2C bus reference clock via the common clock framework
+- Fetch div from match data for LS2K/LS7A series
+- Fallback to default values if clock lookup fails or the obtained
+  pclk or div is zero
+
+For ACPI:
+- Parse "clocks" property to get I2C bus reference clock
+- Parse "clock-div" property to get div
+- Fallback to the default values if property parsing fails or the
+  obtained pclk or div is zero
+
+Calculate the I2C clock prescaler based on reference clock, div and
+target bus frequency with the formula:
+
+prescale = (pclk * 10) / (div * bus_freq_hz) - 1
+
+Dynamically acquiring PCLK and div per platform ensures accurate I2C bus
+speed calculation and reliable operation across different platforms.
+
+Tested-by: Xi Ruoyao <xry111@xry111.site>
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+---
+ drivers/i2c/busses/i2c-ls2x.c | 43 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 40 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
+index b475dd27b7af..65451fc9145b 100644
+--- a/drivers/i2c/busses/i2c-ls2x.c
++++ b/drivers/i2c/busses/i2c-ls2x.c
+@@ -12,6 +12,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/clk.h>
+ #include <linux/completion.h>
+ #include <linux/device.h>
+ #include <linux/iopoll.h>
+@@ -63,11 +64,19 @@
+ /* The default bus frequency, which is an empirical value */
+ #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
+ 
++/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
++#define LS2X_I2C_2K_CLOCK_DIV	40
++
++/* The div of i2c reference clock on LS7A1000/7A2000 */
++#define LS2X_I2C_7A_CLOCK_DIV	50
++
+ struct ls2x_i2c_priv {
+ 	struct i2c_adapter	adapter;
+ 	void __iomem		*base;
+ 	struct i2c_timings	i2c_t;
+ 	struct completion	cmd_complete;
++	unsigned int		div;
++	unsigned int		pclk;
+ };
+ 
+ /*
+@@ -107,12 +116,13 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+ 	else
+ 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
+ 
++	val = ((u64)priv->pclk * 10) / ((u64)priv->div * t->bus_freq_hz) - 1;
++
+ 	/*
+ 	 * According to the chip manual, we can only access the registers as bytes,
+ 	 * otherwise the high bits will be truncated.
+ 	 * So set the I2C frequency with a sequential writeb() instead of writew().
+ 	 */
+-	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
+ 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
+ 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
+ }
+@@ -287,6 +297,7 @@ static const struct i2c_algorithm ls2x_i2c_algo = {
+ static int ls2x_i2c_probe(struct platform_device *pdev)
+ {
+ 	int ret, irq;
++	struct clk *clk;
+ 	struct i2c_adapter *adap;
+ 	struct ls2x_i2c_priv *priv;
+ 	struct device *dev = &pdev->dev;
+@@ -304,6 +315,32 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	if (dev_of_node(dev)) {
++		clk = devm_clk_get_optional_enabled(dev, NULL);
++		if (IS_ERR(clk))
++			return PTR_ERR(clk);
++		if (clk) {
++			priv->pclk = clk_get_rate(clk);
++			if (!priv->pclk)
++				priv->pclk = LS2X_I2C_PCLK_FREQ;
++		} else {
++			priv->pclk = LS2X_I2C_PCLK_FREQ;
++		}
++
++		priv->div = (unsigned long)device_get_match_data(dev);
++		if (!priv->div)
++			priv->div = LS2X_I2C_2K_CLOCK_DIV;
++	} else {
++		/* clocks and clock-div properties are used only in ACPI path. */
++		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
++		if (ret || !priv->pclk)
++			priv->pclk = LS2X_I2C_PCLK_FREQ;
++
++		ret = device_property_read_u32(dev, "clock-div", &priv->div);
++		if (ret || !priv->div)
++			priv->div = LS2X_I2C_7A_CLOCK_DIV;
++	}
++
+ 	/* Add the i2c adapter */
+ 	adap = &priv->adapter;
+ 	adap->retries = 5;
+@@ -349,8 +386,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
+ 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
+ 
+ static const struct of_device_id ls2x_i2c_id_table[] = {
+-	{ .compatible = "loongson,ls2k-i2c" },
+-	{ .compatible = "loongson,ls7a-i2c" },
++	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
++	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
+-- 
+2.47.2
+
