@@ -1,99 +1,103 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70E93D891C
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7FB3DB311
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786370904; cv=none; b=Vs4rw4WBOqdHzW9N+WvCdNW9y+hWu+T7u7tpkhQcGGFEUet9fkWMLSTw9kOkD260SRrBD29KkPJ58yVgrkYJ4AwrhNCHpyEIyvj9CQTDZgNt6EhcYXxPVYHZj7N2lHj9IIob+TsppSOv7Hpx00fwh/IVAT7w5caqRuX2R/2/QZM=
+	t=1786371282; cv=none; b=ggJBzy8JzQIvatlDX6rOIonOhVV/ZuEwbsWDc+CZ0D5FWyF7P/X5CAptvyGwqJ8cN6Ei8c+tf4hxyxD2FhfkJj7owGnx0E1/8AWd5yc2reb+YjaFbsje0NultJ4etMqFjVx/eRxbdSPeNuDmDadL3TZRcox7NOLfhPAafV0jWRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786370904; c=relaxed/simple;
-	bh=4Fi81i3jK9fp9iQDYM1s+kCEYLp4mWY1a6Jm1VDemYI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=gGR7cEkke2daRfZq1YfCNx6sbIBocWCSpZ46tktWCQjE4hiifTTQM34Ic+ZKR5ofgC61QsZjg8CVpvaR1QyfAHc3sJc7gGElwnQ6hnXyo8H/MQvcbb1zgNISnVys0sQkZxpbI7sP2zIbY6jD/wQ4v2si+o3/NQBeccOCra14gQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GvzJtiQw; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1786371282; c=relaxed/simple;
+	bh=9C+hFacNwZLvnISMeK73Fc5lVhuaZky39s3GFGDIx7Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iSWPYuYXb+dVx3Ci6AT0H2TVcrStWui0wGmpvoLnxpXF/b2qzGS2qNuu8j1i/jfCz/v4j8O4G2erK3X7DBDDDrvJJiq5r49ZgDcc+JONdHD5YJOBrdPCKxWxutL2a0u9qabh2uCe0OSU3oCsBDfEN/4mVM3dY6kz7ArV5MJ+PF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kvS0ok9z; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GvzJtiQw"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-ca8aee88725so3398871a12.3
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:08:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kvS0ok9z"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47fecbb7000so949791f8f.2
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:14:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786370902; x=1786975702; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SazfxBrdBfOprIxCwznIAlYlzM43wuwerTN4/FVvJgg=;
-        b=GvzJtiQwY4Uu12M6Rw+IBbCaYjz8skMoPdtHKek5EzIF3Uw+ZHhMRnr4pJGiUsqr0t
-         xzP4PBhg5HDbHEz++QRLiAFGBWxIY7/BAgzsXBb7HNis+W2kdGaVxgLoMCWrkvJt00UF
-         O+ZiB3YDJnegImX7pJTZ46KNH6DnAJ583Pq889ngXM38wmzldmGcTBG3CB7y3iMAMDu+
-         GWNRQGB4H2DFyRipUHY3qotgFBu9Ur27IqCIS3GhyKvPPLXI+gX/Q83ZVBRudhZBFuqv
-         psREPrWfLlFVvo1hYemR+JB9VpZ4KG6VK5BJDNNjnYFl/1rd71KKuOI9NGzq/DOKcEvI
-         y/uw==
+        d=gmail.com; s=20251104; t=1786371279; x=1786976079; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=za0i0XUEXRkUjzBa8+DfiNoHd/qp+XXAbyHUlY7SpcA=;
+        b=kvS0ok9zTtvZPoOxXFRQVhBF3j9DvKIBZYW78fHh721En+QqUtOQEaIaxW7z6MmDKT
+         UVvMbVrRMTFBZv6cNNeLmi8kppHuaZ1rY111/d4vkFGbm1kfMjCA+98tK4bLyNeEcq06
+         SHMeBoRLDWceT4bxVgk0nZ4hGq2+NbSRkbI0q3x/GzXN77YAfpsWAJLJwWK9hZn1b52C
+         hK+YEDAnci1KWUGAxJ2mVZOPGIpTChihw3n5QSpVNGZTlLEUd17a2EvILxEPdURmRrwh
+         n3fn2AEDnADWDmN5j7xjGhgxlTkq0aGp0Y5wXqvVoAzpDwNXsnyReEnMsYbZAlWZ1LSt
+         6fWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786370902; x=1786975702;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1786371279; x=1786976079;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SazfxBrdBfOprIxCwznIAlYlzM43wuwerTN4/FVvJgg=;
-        b=E52+u3275R2IF4+3tQdrx+jwdtjjE1hweIIJ/ECX7kCat7N0C2vg4qx5HRXiuCH5S6
-         fbW1bCo/f8spf79a5vVAfRNcmMKvYPCsWaZ8pxrnhJcvRxQ/CbUeCdp5xIgqx7Ul5QvS
-         /qOEs0uRYc3C4KKmew7qGDu8IrsFLCAXz8Ad0qcTMfQk8M8HPxMSY7F/G03Po8INcDri
-         a6v1URszxBw+H7PQ7K5RdPQ0OSOzJA2SJsbAUpCexkFk9KlLGMi9klfpG5VFM16puCMP
-         zMfBGTsSE1ITV7xq5gCDddtbdtbjB8+dYu2V96DR29dBVTdEmpnNdrfDD5PHalcQ0K+t
-         zJYQ==
-X-Gm-Message-State: AOJu0YxIbxXDUyp0H0czTZkH7DmbouD8woesxnzzb7yfEBV/nMyIDHjM
-	NnGHRaBdp1ySSEWTGVI2Oc/eSZv/FgcAzu+iYBZphzVugZJUGHNDzw1BVMU2WSLRN2lxeRhJ669
-	8Lee8Zw==
-X-Received: from pga9.prod.google.com ([2002:a05:6a02:4f89:b0:c8b:2f5f:81a4])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:b598:b0:3c3:a024:1360
- with SMTP id adf61e73a8af0-3cb85eaad12mr52607388637.28.1786370901911; Mon, 10
- Aug 2026 07:08:21 -0700 (PDT)
-Date: Mon, 10 Aug 2026 07:08:21 -0700
-In-Reply-To: <anbL4h3ahwzG8iYa@google.com>
+        bh=za0i0XUEXRkUjzBa8+DfiNoHd/qp+XXAbyHUlY7SpcA=;
+        b=qByZAheAcohDsBQTWy10etihzs2AuniVjtrYk8irXT1Q3jBDg9j9WzUJWto+n8gU+g
+         jgv1O2tz/LtGCSt+9CXdMwDbrOg2E1/yQPBFr9LIlamYyZPQmjQJM7FevQ0RJ64BzFlB
+         pv2hj4eCN++8gVa32Hl1IeUbjqBP6D8TDxNw23uw1zv7jB5J52ULcD4VsUQ32um/HBR9
+         nUMRqCKUSh538RVZNRv3HJRodmi0jaz50IETaK/ShCAdRCrbW78hcdiOfFAJ/lrU6xyW
+         A3uM+kasKQLepJDr3uSJSpnILi1Eg2BY771NJpcOOtPqEm7Sqr2sXxwLU3YObOqgNozZ
+         lfLQ==
+X-Gm-Message-State: AOJu0YzNS/Gx9DAf0PySLXrq65Off7DEs0oifQDNS4/dCw2oyJKVz3x0
+	XKP2xhvh9tVgdBuQgJpPWCjqn5b/zbuAwVN0S+nDjIvnQDJT9f2WLo0Jqdhx00ne
+X-Gm-Gg: AR+sD13+12HqMkiDcFT6eWu/OtMxYh7PGmm0kllerk5vaezpY9bVnFDijctjVkixDPx
+	soc7GgfuMXEdncbp6MqIf+t6Vv2OrdGsd/IWH0NCri+kLOzeUtxHTBuOv6vvz25GDwHNovVITKS
+	uTmkfBIyfN9j9JYt0DKZM7cvVPB8rbiqPdIqsT2P0/zYU8rIUQNcv8Y5XVkatpK9jyCnUw9NWRl
+	WBwKbvGrYyosLSNk6a+ofxPg85ZzcVTg7rAw/1eTh/SS58IwDck0gV/vSE7TV7OKzynx1zL6tsY
+	df9ucJMzC9XPewDiomy6F5MoqCF/4ErmPvzzvp3BfQOQ2C3Rx7deRtdN2FGCx+yXsdp9ujGUlO5
+	HjEiakvhOktYmaFAsc1zgnIgJiNnDtT90yd7SXcp2COd5GUFBocJVGPiDJVjhSW5hvL+Gs+9I2D
+	QMdwxQjdrHDCuscyNFoeQVmg0SvvyIfsTRivveHOCLgICxCeX3S+0UoizRMun8kTnG3APw
+X-Received: by 2002:a05:6000:41ed:b0:47f:8d71:210a with SMTP id ffacd0b85a97d-48130ed871emr30408214f8f.15.1786371279186;
+        Mon, 10 Aug 2026 07:14:39 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021509a5sm32680580f8f.16.2026.08.10.07.14.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 07:14:38 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Larisa Grigore <larisa.grigore@nxp.com>,
+	James Clark <james.clark@linaro.org>,
+	Mark Brown <broonie@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.12.y] spi: spi-fsl-dspi: Avoid setup_accel logic for DMA transfers
+Date: Mon, 10 Aug 2026 16:14:37 +0200
+Message-ID: <20260810141437.2805389-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260808062208.522577-1-senozhatsky@chromium.org> <anbL4h3ahwzG8iYa@google.com>
-Message-ID: <annbVU1ig24ZES-p@google.com>
-Subject: Re: [PATCH] KVM: x86: Check for invalid/obsolete root *after* making
- MMU pages available
-From: Sean Christopherson <seanjc@google.com>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: stable@vger.kernel.org, Hyunwoo Kim <imv4bel@gmail.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 08, 2026, Sergey Senozhatsky wrote:
-> On (26/08/08 15:22), Sergey Senozhatsky wrote:
-> > From: Sean Christopherson <seanjc@google.com>
-> > 
-> > Check for a "stale" page fault, i.e. for an invalid and/or obsolete root,
-> > after making MMU pages available for the shadow MMU.  If reclaiming shadow
-> > pages zaps an in-use root, i.e. marks it invalid, then KVM will attempt to
-> > map memory into an invalid root.  On its own, populating an invalid root is
-> > "fine", but because child shadow pages inherit their parent's role, any
-> > children created during the map/fetch will be created as invalid pages,
-> > thus violating KVM's invariant that invalid pages are never on the list of
-> > active MMU pages.
-> > 
-> > Note, the underlying flaw has existed since KVM first started tracking
-> > invalid roots in 2008 (commit 2e53d63acba7, "KVM: MMU: ignore zapped root
-> > pagetables"), but the true badness only came along in 2020 (Linux 5.9)
-> > with the invariant that invalid shadow pages can't be on the list of
-> > active pages.
-> > 
-> > Note #2, inheriting role.invalid when creating child shadow pages is also
-> > far from ideal; that flaw will be addressed separately.
-> > 
-> > Conflicts:
-> > 	arch/x86/kvm/mmu/mmu.c
-> > 	arch/x86/kvm/mmu/paging_tmpl.h
-> 
-> Sean, can you please take a look if conflict resolution was done
-> correctly?
+Please consider commit cac7e5054115 ("spi: spi-fsl-dspi: Avoid setup_accel
+logic for DMA transfers") for 6.12.y. It is in mainline since v6.17 and
+applies cleanly to 6.12.y.
 
-What kernel is this for?
+It went in as a cleanup, so it carries neither a Fixes: tag nor a stable
+tag, but on vf610 the logic it removes corrupts data in DMA mode, in two
+ways:
+
+1. For an odd number of bytes the accel logic packs into 16 bit frames and
+   computes the word count as len / 2, so a 5 byte transfer puts 4 bytes in
+   the first DMA transfer and leaves the last byte to a second one with
+   different timing.
+
+2. With SPI_LSB_FIRST the accel helpers byte swap through cpu_to_be16(),
+   which combines with the hardware LSBFE bit and puts multi byte transfers
+   on the wire in the wrong byte order.
+
+Both are visible on a Colibri VF50 (vf610, DSPI in DMA mode), and both go
+away with this commit, which is what we have been carrying locally against
+6.12 to get correct transfers. Every stable tree older than 6.17 is
+affected in the same way.
+
+Thanks,
+Mehmet
