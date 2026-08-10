@@ -1,113 +1,222 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F180D39769B
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 22:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6283397937
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 22:47:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786401651; cv=none; b=EKs+MefkhvKVdgEcD+hI8iceymxZWaFEkElrDOCIgZivb6BLPu+zT7SJpHMQo3iFwDiSro8embWJ2P+G+CsRFbLyIEEqZLkANSgNtf3aAMyhUCf2uSRKyRi3jBCDlLVHXHJvM52jnp9XMmuY5FVg/XkAKP4VphFP2SSTgFrbYOw=
+	t=1786402053; cv=none; b=h+PgvHeKyMun3ghpJI85pBbfp8ycf6WfIxqSazzowzRlI2g6NniawGxvI3jX7I3XpyB95e9J2uHEjkJOZnX7QmlMjNdCPrg+70oyLKtsSu+kxPD/PJHrk1Wk1q4CprfF9+MANtux77RcalYv84sEt6X6DXmdgq/FGWNYHa4/DE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786401651; c=relaxed/simple;
-	bh=RqZ00Lwt59eQqtrWfELjRgeFke/UR6w09M3T3ynK/9A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ae/wvNEJkmh2ysGVKSyUw5aj83NfMVQAQ9B3QkA2Z/m5cU8tX+L8ikhyLwJizYm/MoyvMRZUvhf/lPsgGAm2ljh09yU2bx/nS+b1/DbaS4wUvpnvln0UI3IYaQSFIDVYVskiQmLObPty4KxXUGtsUIXt+TFnEiDAeYOT+gNxA34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HJ1ZNWVM; arc=none smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786402053; c=relaxed/simple;
+	bh=Zvc3OyNFbFxd+L1WQUIk56P4XO3D+Yy7+jgjnvCcOyA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=UTDIXfsqWlPt8R8KA7GMIRm2BHo6ekJqaysthGJFPpYE0zuDtGttWBhQfq/siQP230ppcB1t1x/lUONO1Dsfr3mPe8B2LF1YQu2jFtoP7WGqHCz0V55jLNCB1M0Z0oZBL80l88RJKhYErvFwh5H2MuV3Jei5ZS7PtFuCIuUUGOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oVS1Hyjf; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HJ1ZNWVM"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-52d37b65926so1163181cf.2
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 15:40:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oVS1Hyjf"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c85798977dcso3651326a12.0
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 15:47:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786401649; x=1787006449; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1786402051; x=1787006851; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WsE2s3pfDs2VrzXHHCACS8hxsvv+gu3KAaZUVts9x8M=;
-        b=HJ1ZNWVMQGKQBlyrKgsCMMhRblmLheF1EJEVRvrBVtzcEdf3lB6ri24frOlv0PfqYR
-         8Q5tGEcAlLVW/a9gkDarQLhCVjxoISnqjPiHKinGwwfevwFXRa/GnqDpX7sNpqQpjpJN
-         Gvfuk45OSnmehJWdCTIcyrd2Gvc6XYHgVkIDmnU5qwhNyfsNm8Td3YdXk5qSjrnsqBrR
-         JYL8+w6JqE2/39mUxpWDOyQ78xmaSy4ee3gtOw2J3FEappcVn/34GWbYnF1/CbCaex98
-         hMOvL9ZevGc65dJq9zybfzYSoTJBbDTHJ8aGqksCMrOJEIT9wB0mzGMXNIv8MC5A+4/S
-         sLbg==
+        bh=8B8SlHhlD7eK2Nerw5QgDEiMfw4ZcEyEQcNiyaxSgck=;
+        b=oVS1HyjfagOSnNOGEX2+wexlCJNKKxZxohhaGQeFgI1jQAH7SbAZ5ly72tVl+zJVWe
+         eHKCpSG9kLyiU7Sqgb1zb8sV61K6Tiu8I/U1xEaoTNhVcIdrnGLdsLNlKtQSxS5iPeSJ
+         UhGBKOom2wPUGiO3oNQHyPVOg9vmZuEcNtkVSVoSl/p/tfI7Yr9TmshqHR/id6ktbyL2
+         qy4nkMUtwHPkuus7dA/jPQv7NhWZGJDPXrhTjHpVujACMJiehAlp8lBlkftoIQ4st1j4
+         0lRbyW/Iv5guftoiLNwxxBBUl2lWWN1mnJ877iBJlfttHPAYkpztKks9EMBMiYuX0O6s
+         E/RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786401649; x=1787006449;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1786402051; x=1787006851;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WsE2s3pfDs2VrzXHHCACS8hxsvv+gu3KAaZUVts9x8M=;
-        b=B43rPYVhk3/7LFOs+El8S/dIwtVwwk5SzRz2Hr5uAWQ+0PRRVPmeN4FOurtZ171OrP
-         K/RBekZkeTutKU7ndSl1rsyytXmtiChroGuOi1RNujFnYt1z8fwMfY+KGra3Ho1vwcIE
-         u9pmyRwOmI3+vmQxPB+9cYwN3+I83xUq1su8crLFjyagPTQQPRnzMmA4b8e5yBLcs59i
-         93MYXSOQ6LeC1mhIfBknf4Ma/OB5NFDULP4Mo8ODUQGigzJELeb22olDCVdfIIlweO8s
-         sx/LHVaMP/vM7Ed04zoko/18cyYmJ9hzACLlV0voGt6LmEXS4fwbzGm4oXP0XVtvzUY8
-         ZPEA==
-X-Forwarded-Encrypted: i=1; AHgh+RpSHLmVWUQZuJQFHPz97xBCjUaaoMCmSca0kiDBAb7fWFPsqXXLmFhsYGLcrPgQr2P8DWF8toE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzF1dcsrHYGNVwOMM+Zy75zj94En4jK0lZ7lnjmtwA8xWJOUWTk
-	3Sp9bzgv/zD2VgVH8llZ/hPTxlXCJf7hx06aSOZbA60Nk5P5DgXTvr5n
-X-Gm-Gg: AR+sD12BS/GP3xTxEoyqaHoruG5bIZiOze0KeKnxRm7j1jx4AMbvOBp9KPbYe6iKhEk
-	fqIc9RuM+p2aCIVSsAAPqwESm0mFhrVawAaQnh4fXZlihQZdCqOuQp6i+Qr5DOyfjbsmNUVJIai
-	3pf31cf2/D+ifUVDRMvh9yVmFQjVhD/pAxElOWx9xAh93Qf2nW6s7cysuovRw7huQ4NRJo/WCi0
-	fm7KrO6iXETxqRQerZlg43TbfHPwwxDwqLvh5ZWzm2rjsseGfiqKqOnXPzPigw7rhYyqi3lWimu
-	T5G/Tqh7NYZ1ftNGyvI2Q3/Apf3p4a6pV03xWRJCkVN9edlxDDW68/oIAvUvCOdu1t4Esmv83Hc
-	LJifhoTRoiGKo5+ONPd7jkGx1Jwv20+XTwGqeZMPUZOO9QXZbzzRDGbYV4toY50paP7vk7N+1WR
-	E9ua/Dyl/L9vwNSfU/DHKaR41Z4VXrE1RP0bvb4o5dt+jZoSw4RsJZaa6KlGilBsux5B3Bzs16l
-	HwJ31dIrb4fSys=
-X-Received: by 2002:a05:622a:509:b0:517:78c7:d93a with SMTP id d75a77b69052e-52ce602ce1fmr476338761cf.16.1786401648817;
-        Mon, 10 Aug 2026 15:40:48 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d1659c1d8sm82836961cf.16.2026.08.10.15.40.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 15:40:47 -0700 (PDT)
-Message-ID: <e59a44a1-1724-41e4-b766-bcb03ad98e04@gmail.com>
-Date: Mon, 10 Aug 2026 15:40:43 -0700
+        bh=8B8SlHhlD7eK2Nerw5QgDEiMfw4ZcEyEQcNiyaxSgck=;
+        b=q1Re9BRyioq36Tf0Pl4MJackI7e48lvyjpdwZI1YvEyDMm5qnr/0aNS9HlejwoUl+q
+         3pJ2nFz+jWFSaqkVjMoBKD5X8JE3UCVKkQ/585UBEjAl5UMXmak7lrp8iW4dVfdY7xGP
+         U1chZAgb3XmVj8zQWAR4xTHOwtPUvs1maGrcdLL0as6VLc8nWroZxK11ob2cjl6pAvBy
+         IDfTv542z7dK16uuKxIt1touVT/jqitgqqWCpW4OwhM1DWkmHHpL6azemOwj6MSAoNNR
+         s/1RgtwiUjgqP2qOSmKgp+P398YkCsSdYrohdXtKLeh2dH/KCaWiBvJrxdkdRMHsr7fc
+         fbCQ==
+X-Gm-Message-State: AOJu0YwxRGPaXQ/5WB7Ma7WWWWQxdD5OgmKajpFzY7JYhmlEQ67M14bX
+	xxEppWA+zAGOewW9nvnLsXuyIGz2L01SfeS1W3VicFakpUUQTPUnu62fO4/EyMgbgDwO8f28xhz
+	xizlBuQ==
+X-Received: from pgn38.prod.google.com ([2002:a63:d66:0:b0:c96:8ff3:53b0])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:420c:b0:848:2f2c:b2c8
+ with SMTP id d2e1a72fcca58-84f9c95f809mr5744526b3a.24.1786402050785; Mon, 10
+ Aug 2026 15:47:30 -0700 (PDT)
+Date: Mon, 10 Aug 2026 15:47:30 -0700
+In-Reply-To: <20260808062208.522577-1-senozhatsky@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/396] 6.18.44-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260807143424.272339768@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260807143424.272339768@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260808062208.522577-1-senozhatsky@chromium.org>
+Message-ID: <anpVAhjqvBvIuoa0@google.com>
+Subject: Re: [PATCH] KVM: x86: Check for invalid/obsolete root *after* making
+ MMU pages available
+From: Sean Christopherson <seanjc@google.com>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: stable@vger.kernel.org, Hyunwoo Kim <imv4bel@gmail.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On 8/7/26 07:32, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.44 release.
-> There are 396 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Sat, Aug 08, 2026, Sergey Senozhatsky wrote:
+> From: Sean Christopherson <seanjc@google.com>
 > 
-> Responses should be made by Sun, 09 Aug 2026 14:33:46 +0000.
-> Anything received after that time might be too late.
+> Check for a "stale" page fault, i.e. for an invalid and/or obsolete root,
+> after making MMU pages available for the shadow MMU.  If reclaiming shadow
+> pages zaps an in-use root, i.e. marks it invalid, then KVM will attempt to
+> map memory into an invalid root.  On its own, populating an invalid root is
+> "fine", but because child shadow pages inherit their parent's role, any
+> children created during the map/fetch will be created as invalid pages,
+> thus violating KVM's invariant that invalid pages are never on the list of
+> active MMU pages.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.44-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
+> Note, the underlying flaw has existed since KVM first started tracking
+> invalid roots in 2008 (commit 2e53d63acba7, "KVM: MMU: ignore zapped root
+> pagetables"), but the true badness only came along in 2020 (Linux 5.9)
+> with the invariant that invalid shadow pages can't be on the list of
+> active pages.
 > 
-> thanks,
+> Note #2, inheriting role.invalid when creating child shadow pages is also
+> far from ideal; that flaw will be addressed separately.
 > 
-> greg k-h
+> Conflicts:
+> 	arch/x86/kvm/mmu/mmu.c
+> 	arch/x86/kvm/mmu/paging_tmpl.h
+> 
+> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+> Fixes: f95eec9bed76 ("KVM: x86/mmu: Don't put invalid SPs back on the list of active pages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> (cherry picked from commit 2abd5287f08319fa35764566b15c6e22cb1068db)
+> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+> ---
+>  arch/x86/kvm/mmu/mmu.c         | 11 ++++++-----
+>  arch/x86/kvm/mmu/paging_tmpl.h | 10 ++++++----
+>  2 files changed, 12 insertions(+), 9 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> index 7785da8f0ad3..1f4d306e5c81 100644
+> --- a/arch/x86/kvm/mmu/mmu.c
+> +++ b/arch/x86/kvm/mmu/mmu.c
+> @@ -4272,22 +4272,23 @@ static int direct_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
+>  
+>  	orig_pfn = fault->pfn;
+>  
+> -	r = RET_PF_RETRY;
+> -
+>  	if (is_tdp_mmu_fault)
+>  		read_lock(&vcpu->kvm->mmu_lock);
+>  	else
+>  		write_lock(&vcpu->kvm->mmu_lock);
+>  
+> -	if (is_page_fault_stale(vcpu, fault, mmu_seq))
+> -		goto out_unlock;
+> -
+>  	if (is_tdp_mmu_fault) {
+>  		r = kvm_tdp_mmu_map(vcpu, fault);
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+is_page_fault_stale() needs be checked for the TDP MMU as well.  I had the
+pleasure of doing this cherry-pick for an internal kernel, this is what I thought
+yielded the easiest-to-read sequence:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+        if (is_tdp_mmu_fault) {
+                read_lock(&vcpu->kvm->mmu_lock);
+        } else {
+                write_lock(&vcpu->kvm->mmu_lock);
+
+                r = make_mmu_pages_available(vcpu);
+                if (r)
+                        goto out_unlock;
+        }
+
+        if (is_page_fault_stale(vcpu, fault, mmu_seq)) {
+                r = RET_PF_RETRY;
+                goto out_unlock;
+        }
+
+        if (is_tdp_mmu_fault)
+                r = kvm_tdp_mmu_map(vcpu, fault);
+        else
+                r = __direct_map(vcpu, fault);
+
+As a diff...
+
+diff --git arch/x86/kvm/mmu/mmu.c arch/x86/kvm/mmu/mmu.c
+index 7785da8f0ad3..d05bd467dc5d 100644
+--- arch/x86/kvm/mmu/mmu.c
++++ arch/x86/kvm/mmu/mmu.c
+@@ -4272,24 +4272,25 @@ static int direct_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
+ 
+        orig_pfn = fault->pfn;
+ 
+-       r = RET_PF_RETRY;
+-
+-       if (is_tdp_mmu_fault)
+-               read_lock(&vcpu->kvm->mmu_lock);
+-       else
+-               write_lock(&vcpu->kvm->mmu_lock);
+-
+-       if (is_page_fault_stale(vcpu, fault, mmu_seq))
+-               goto out_unlock;
+-
+        if (is_tdp_mmu_fault) {
+-               r = kvm_tdp_mmu_map(vcpu, fault);
++               read_lock(&vcpu->kvm->mmu_lock);
+        } else {
++               write_lock(&vcpu->kvm->mmu_lock);
++
+                r = make_mmu_pages_available(vcpu);
+                if (r)
+                        goto out_unlock;
++       }
++
++       if (is_page_fault_stale(vcpu, fault, mmu_seq)) {
++               r = RET_PF_RETRY;
++               goto out_unlock;
++       }
++
++       if (is_tdp_mmu_fault)
++               r = kvm_tdp_mmu_map(vcpu, fault);
++       else
+                r = __direct_map(vcpu, fault);
+-       }
+ 
+ out_unlock:
+        if (is_tdp_mmu_fault)
+diff --git arch/x86/kvm/mmu/paging_tmpl.h arch/x86/kvm/mmu/paging_tmpl.h
+index 1c7d73b8081c..75fd2b7dc0e5 100644
+--- arch/x86/kvm/mmu/paging_tmpl.h
++++ arch/x86/kvm/mmu/paging_tmpl.h
+@@ -869,15 +869,17 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
+ 
+        orig_pfn = fault->pfn;
+ 
+-       r = RET_PF_RETRY;
+        write_lock(&vcpu->kvm->mmu_lock);
+ 
+-       if (is_page_fault_stale(vcpu, fault, mmu_seq))
+-               goto out_unlock;
+-
+        r = make_mmu_pages_available(vcpu);
+        if (r)
+                goto out_unlock;
++
++       if (is_page_fault_stale(vcpu, fault, mmu_seq)) {
++               r = RET_PF_RETRY;
++               goto out_unlock;
++       }
++
+        r = FNAME(fetch)(vcpu, fault, &walker);
+ 
+ out_unlock:
+
