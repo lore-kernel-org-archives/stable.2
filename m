@@ -1,168 +1,88 @@
-Received: from mta1.migadu.com (out-66.mta1.migadu.com [95.215.58.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1624F3B0AE3
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 09:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2253AFD0C
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 09:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786354809; cv=none; b=N/orVVdijIA3yoMUEl237YRDtHvB428tkc6DwpV3m1LRhKK2XQ2wDj6Hlrqm1ABZZxNMZ0Eku5LyhiAvVp/jsdHnokWgR3N3MX9l82ngN+/7oLmL132WK00ls8IdUnL+xNoKcsydA7tF6y81KXiAGslHSmzoinRTgVx70nrc+SA=
+	t=1786355003; cv=none; b=L0iwJE7BSP8/+t6MvWRvB6+d8gwtPyvydYcgt4lJKfbAfQ/n/yt8GFUPqv12l733DCXfF1+7kxi4707kvGOyL3yXAe/qzK7Af8nSjdzzu5DL14swob2QBFXpFlEJ8y7VUiLJY4a6gBNlKxqpZAx37z6A5MyIyLXGYlhooBroVVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786354809; c=relaxed/simple;
-	bh=+7z3AP/ISNgtjS8Lqlp+ZNKMBFC0XbB0Gkd40yGE6eg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jDQU3Gh6mlQpI/spKUWbRJb4rUXl/g1mp5RlIeS+FpvsyVgqGbpN7tSeTRTzfl6JrLmqL985L1TaAF9uuTqmCOkynRa/lhBYue9/f71H1TC0SjzIJR32Crq1qEEQJgrw5A+KxEwoJUqaBgOO9nk+PeEwz85Ia9bZHw6pLzBLytY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=X6JETdJL; arc=none smtp.client-ip=95.215.58.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786355003; c=relaxed/simple;
+	bh=GU3cyX8C2ifr6yqKgZoZDnHQeYRKrmG0+ikoVMl1HGo=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LAiYY1QSkbpT7oFCIvZcQE9t9GSQsup+WBI9OkmR5PPfsp9Llls7a4bCwfEBcw1eKfJckHdh7QnRPy2P1WRxq/abmvjXBeiQ5UIK4eHFf9ika6IXAJcL0kQ8Loc8Dgt8NJq3jFkBaWIAXaTTMp3EeCze+5l0wbTdBbLGIqO1Hz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFbirveO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="X6JETdJL"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+7z3AP/ISNgtjS8Lqlp+ZNKMBFC0XbB0Gkd40yGE6eg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1786354805; v=1; x=1786959605;
- b=X6JETdJLrNicIKajmnhxVTliKWjVG6cxTJow4sXQbILvCLiOXKsj1tEzo26qKwfiQ6S8BA+p
- XBBnPYe9+SwRw28+z938Zw4v/cTGcAmm7fp0KqIWYer0e0+XqfAbf4a71KvR+ElfK9ehdVX+6xJ
- F49syguUdUm0vLDLSDXRS+OY=
-X-Envelope-To: stable@vger.kernel.org
-Received: from localhost.localdomain (116.128.244.169)
-	by mta10.migadu.com with ESMTPS id 52b4c21b50599e27;
-	Mon, 10 Aug 2026 09:40:05 +0000
-X-Migadu-Scanner: mta10.migadu.com
-Authentication-Results: mta10.migadu.com;
-	none
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>
-Cc: linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Hao Ge <hao.ge@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 2/2] alloc_tag: fix undetected compressed tag overflow when profiling is disabled
-Date: Mon, 10 Aug 2026 17:39:55 +0800
-Message-Id: <20260810093955.153015-3-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260810093955.153015-1-hao.ge@linux.dev>
-References: <20260810093955.153015-1-hao.ge@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFbirveO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C81511F00ADE
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 09:43:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786355001;
+	bh=GU3cyX8C2ifr6yqKgZoZDnHQeYRKrmG0+ikoVMl1HGo=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=MFbirveORxuGsdhASo6iu1j0J9YtR1zCHeB145Semvr4yhW9ND7IRT2+0ddIWGD0U
+	 mZ2VCG5GxpJ9cSdQkELvLW5LHS2rx53UdKC2wpMUCsSfa8dBVVEHYm1Z3U50oTKSxY
+	 vdGu+wWonYH6ETHV+XfElnwa5r5yl/DraqcdwOrKSzVrXbDr6/Kt6+RahJK9vnzMJq
+	 83/exrMK4dbgnr628h9qzsgqIREPzxbquIcjRSAxD+DdjW9d7aqEEmcW6nugVpDuSl
+	 COUSntVxoOcp/57lO6AXW+IQnoOvrltqzFEELXtlymEQol1vIjeB7kIfihvTHI9Q+h
+	 JT6WK4QVRhl0A==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b0231a3e86so1558888e87.0
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 02:43:21 -0700 (PDT)
+X-Gm-Message-State: AOJu0YwtewsMqPQ0yIfNNVaauAT93hT4e29/ZT/hjEH4ntPp91Y5bumV
+	/aetfuL5cWsrwVZ+aoo1jaSgEeLPiEoHRSVV5Ksjix8H0x85S5ICNz5BSN2CRR7x7JBMfj92p0N
+	6KdQYNS7vCqKsTe+eJrxboHcAtMDkwcYfIimVOrqKTg==
+X-Received: by 2002:a05:6512:1599:b0:5b3:e52:9ff7 with SMTP id
+ 2adb3069b0e04-5b30e52a216mr1879705e87.51.1786355000515; Mon, 10 Aug 2026
+ 02:43:20 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 10 Aug 2026 09:43:19 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 10 Aug 2026 09:43:19 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260808110642.2770355-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260808110642.2770355-1-lgs201920130244@gmail.com>
+Date: Mon, 10 Aug 2026 09:43:19 +0000
+X-Gmail-Original-Message-ID: <CAMRc=McvRCX9jogG-qAuVnqb3=SukzTc54+iRRsojWOL_k1P3g@mail.gmail.com>
+X-Gm-Features: AUfX_mxfC18jKqTRVYMFhmThw-mQt0wiGItMAY86S1ADQObHNXGQ5nFShXyCT4Q
+Message-ID: <CAMRc=McvRCX9jogG-qAuVnqb3=SukzTc54+iRRsojWOL_k1P3g@mail.gmail.com>
+Subject: Re: [PATCH] dmaengine: qcom-bam-dma: fix autosuspend cleanup during removal
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: stable@vger.kernel.org, Vinod Koul <vkoul@kernel.org>, 
+	Frank Li <Frank.Li@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Stephan Gerhold <stephan.gerhold@linaro.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, Pramod Gurav <pramod.gurav@linaro.org>, 
+	linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-In reserve_module_tags(), the tag overflow check is gated on
-mem_alloc_profiling_enabled():
+On Sat, 8 Aug 2026 13:06:42 +0200, Guangshuo Li
+<lgs201920130244@gmail.com> said:
+> bam_dma_probe() calls pm_runtime_use_autosuspend(), but
+> bam_dma_remove() does not call the matching
+> pm_runtime_dont_use_autosuspend() when removing the device.
+>
+> If the autosuspend delay is set to a negative value while autosuspend
+> is enabled, the runtime PM core increments usage_count to prevent
+> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> during teardown, this reference is not dropped and usage_count remains
+> unbalanced.
+>
+> Add the missing pm_runtime_dont_use_autosuspend() call before forcing
+> the device into runtime suspend during removal.
+>
+> This issue was found by manual code inspection.
+>
+> Fixes: 7d2545599f5b ("dmaengine: qcom-bam-dma: Add pm_runtime support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
 
-    if (mem_alloc_profiling_enabled() && !tags_addressable())
-
-If profiling is toggled off at runtime and a module is loaded whose
-tags exceed the compressed-mode limit, shutdown_mem_profiling() is
-skipped. vm_module_tags_populate() still maps memory for the tags and
-the module loads successfully, but the total tag count now exceeds what
-NR_UNUSED_PAGEFLAG_BITS can address.
-
-Once profiling is re-enabled, ref_to_idx() computes each tag's index
-as its position in the alloc_tag array. update_page_tag_ref() masks
-it to alloc_tag_ref_mask before storing in page->flags. Indices
-beyond the mask are truncated and idx_to_ref() resolves them to wrong
-tags.
-
-This silently corrupts /proc/allocinfo: allocated pages get attributed
-to the wrong call sites, so the statistics it reports are wrong.
-
-mem_alloc_profiling_enabled() and mem_profiling_compressed are
-independent. Once compressed mode is established at boot, it stays
-active regardless of runtime toggles of mem_profiling.
-
-Remove the mem_alloc_profiling_enabled() guard. On overflow, shut down
-profiling, release the reservation, and return -EAGAIN so that
-layout_and_allocate() retries with profiling disabled: codetag sections
-are then placed as regular module data and the module loads without
-profiling rather than being rejected entirely.
-
-Skip percpu counter allocation in load_module() when profiling is
-disabled, as those counters would never be freed on unload.
-
-Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-Cc: stable@vger.kernel.org
-Suggested-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
----
- kernel/module/main.c | 17 +++++++++++++++--
- mm/alloc_tag.c       | 11 ++++++++---
- 2 files changed, 23 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index 46dd8d25a605..c32bb47a573a 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2971,13 +2971,26 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
- 	 * this is done generically; there doesn't appear to be any
- 	 * special cases for the architectures.
- 	 */
-+retry:
- 	layout_sections(info->mod, info);
- 	layout_symtab(info->mod, info);
- 
- 	/* Allocate and move to the final place */
- 	err = move_module(info->mod, info);
--	if (err)
--		return ERR_PTR(err);
-+	if (err) {
-+		if (err != -EAGAIN)
-+			return ERR_PTR(err);
-+		/*
-+		 * -EAGAIN means profiling was disabled but the module
-+		 * can still load without it. Reset state and retry.
-+		 */
-+		rewrite_section_headers(info, flags);
-+		for_each_mod_mem_type(type)
-+			info->mod->mem[type].size = 0;
-+		info->sechdrs[info->index.sym].sh_flags &= ~(unsigned long)SHF_ALLOC;
-+		info->sechdrs[info->index.str].sh_flags &= ~(unsigned long)SHF_ALLOC;
-+		goto retry;
-+	}
- 
- 	/* Module has been copied to its final place now: return it. */
- 	mod = (void *)info->sechdrs[info->index.mod].sh_addr;
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index af44f90379f2..3eba6331174d 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -950,10 +950,12 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
- 		int grow_res;
- 
- 		module_tags.size = offset + size;
--		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
-+		if (!tags_addressable()) {
- 			shutdown_mem_profiling(true);
--			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
--				mod->name, NR_UNUSED_PAGEFLAG_BITS);
-+			pr_warn_once("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
-+				     mod->name, NR_UNUSED_PAGEFLAG_BITS);
-+			release_module_tags(mod, false);
-+			return ERR_PTR(-EAGAIN);
- 		}
- 
- 		grow_res = vm_module_tags_populate();
-@@ -975,6 +977,9 @@ static int load_module(struct module *mod, struct codetag *start, struct codetag
- 	struct alloc_tag *stop_tag;
- 	struct alloc_tag *tag;
- 
-+	if (!mem_profiling_support)
-+		return 0;
-+
- 	/* percpu counters for core allocations are already statically allocated */
- 	if (!mod)
- 		return 0;
--- 
-2.25.1
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
