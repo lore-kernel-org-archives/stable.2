@@ -1,110 +1,135 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0663B2FD4;
-	Mon, 10 Aug 2026 09:54:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3203B42E3;
+	Mon, 10 Aug 2026 09:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786355708; cv=none; b=jYJ9Wvkv3/T3rHCfeQOM0hMduYkfEJvE+n85qVO69O0ZhBkdfG+8yfV4rJWgM5H+JxnHAXJH1bCold70xkccJ24zrH4xUK44XntfiXkKFZnWN1C91jvo9v5PsCzMxnOlFPt7kcjHHcA2Js/wrzLGOnH636ad4aS6j6kTkSSBSRg=
+	t=1786355879; cv=none; b=IO6zJ/57kvjLd3ayQDoR7iBxE7iwvcZj8M0wkJY/VDws50d8bLPd8osVTw3YGO4QLG8jyNE2U8C3/7Zq1kWnzxpinMIdzlyaGOmrkkR1z5UXySpsnp5EJMXy73uAYMGmLeKvaf4Bgg7KQPGzb2/qPaBAMLmZeOV3lCzxQMEYLno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786355708; c=relaxed/simple;
-	bh=f3caQ2UCUMk5my+imjAfiCG6fjdRCHqq6UR3F8QpURc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OFr/IM2IoCarr04Tz/TCDY3XAiPYv+al2VMnWr9OhZTJE2Ekdx7W7hgT2xdIDRQ5XwWnMqJQCZCkgkqr2Xc3NY5jf9iiVF9zwczWn56DN7EhfXtlc6W61E58U5bFR7IRHUCOL2twGdwDnec82K9AMph1+iz64q+nGj5xTTh8o5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Fy31fysw; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1786355879; c=relaxed/simple;
+	bh=fmI8xADi6KWlR3J6/Hbvd2ecHxpAV7Iqo9WVc8nZUVM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aYj/XjNj5objn34RvJKgwd4j4taWDbRwGqmcVIbPbyqWRdt15uaiT5p4tWVpkRHHtwEooaeG/XylzrsrE6eLKNTuJ89r1Db9GjP3/FWzQw4PmPdIebXXwUV/pUJl52bvFWOaeDs4jYEgIV226PdO2aBrF/w0bX4ofu8txY+Z80I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=KUfI1DZj; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Fy31fysw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1786355674;
-	bh=6wE0xvjj3+AnsYJVrqK2gGz/Q4kGKjKA2hUYKFIzW4A=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=Fy31fyswBSCDNMrdFv3Vm1fJ3njgRqjOwE0wWRvHgUs+IXAI9t9ivMsUluzQCL30i
-	 ry2lUO74OBQ9YWHdJKAobLZhQpaivKFQx78K/hwkDaQRXEhnEd7mgKfwJLhTjwxf0C
-	 pGJKeaEZHYRd9dHxGsgqPjoWrU94D9NTwbVTL7rU=
-X-QQ-mid: esmtpgz10t1786355656t7e9814bc
-X-QQ-Originating-IP: tI+UWEGuDjn0Cnqyl9unKI9UELnJQoNCbetKoAfq3Ko=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 10 Aug 2026 17:54:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16993563754584466698
-EX-QQ-RecipientCnt: 6
-From: raoxu <raoxu@uniontech.com>
-To: sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: v4l2-async: avoid deleting unlinked ASC entry on link error
-Date: Mon, 10 Aug 2026 17:50:12 +0800
-Message-ID: <660DEFF8A732CF1A+20260810095012.2213444-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="KUfI1DZj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=aL4Y3k21PGVS3UmK0vSrCZe8gNNQ0oA2E/XU6jNiXg0=; b=KUfI1DZjXqL/Vruue4o5aBZ2p3
+	OoixOh3ygSwcf0yEhumKG5uDDA11d84lWixiNYDVdNpqnMtMmA/9qSu/H7JTMIvA6ozviX92N8qU4
+	HoHiHB3qxa7Gp3nwRXUJB6/gn3w208eQA0PYeaWo7rqZcEftdPkRsMRjvqRp8eaowh7qFEvNLrgY2
+	Rd6UJClXQsR3owlDWTF7Y385ZrQtc/nz2mkWLuOygLA+5nHt8C6KRz+Twaiq/Zv8PtgClqTJ5+gbl
+	zGyA4UbMItmYiObBMQKKIP4Mzq2qUSU+2xK68Fi2D6dV4aNds31V7wmI0lAl6gne0niurOL3Uq5K1
+	Tt1RHXlA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wtMlL-002fPE-2v;
+	Mon, 10 Aug 2026 09:57:44 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Mon, 10 Aug 2026 02:57:36 -0700
+Subject: [PATCH] mm/vmscan: report RCU-tasks quiescent states in
+ shrink_lruvec()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MhIE0ZejpDV/nb1PmXIzcBo5OHWRs3l8CsJgpAqdIgtN/drpoYz0b8I5
-	36l3vGocQMhV19Wq9doOvjLs6uKhzw0txHzIOZYfQLiTulX2KMXaNU/i/xwWFjkoDgAsft/
-	WrxN8iTnBy6QMnsVPPvP0zcDtjdBfGY0kCGslEpKJRWHuyBk8Yihcw29svn1fXKLPd/6Unk
-	W0pSsRNriYDYmVkVRc5IxQ0z6X9QDV0dompFhrMRvr9+3FXCvqkC493S3KNLiVr913Oxjfq
-	anvGIZ3BjqUp/6F2mKe/YVhY+FFu4Wmd9lahicbn3vuOrgZa6jCU2wg81s27CmObG24x+ch
-	E74j8uimJ5ta9RMWxCyPM3f1majsTRwd71AqF6qBXuC2YPQTsOiWDxXBP4zgI9w49r7+6/F
-	AVdojZM7BEJMNdG6Qw5HPEnu8fyEapBCKVopVNhQKMLhEK8hrT2vphVULdsidT7e/6SCSgT
-	m3vHvpmmVRhx2M+zQXt4AQ/EfNJjZBpBSOBNY143EUI0Rv9gXxnH3YxYM/2QUpMvZldDUQK
-	OwHqLnq2Cwo+twhcnQa+eCntabFu1GIixax9rQs+NnQUBUaukoPpMgPQAvmMbfd8VqhOee2
-	svBCwLY4fmvwlJtOTp/4eRvdahEK9LPLjnMOFxyju6k+STjQMOM3VKwRSnjRFqwbMe7Um/L
-	U99st+6toiZ3fRhirUP7Hdi+bffFSnBlqAfQ0eYE+Vhfhb9tIH/mpFll4IBE5pJ7OId/N+v
-	3hqRBAj8u+wyMvGNBfvtkm4KjTj0xI7eR0onN/eppQqpdQW3y8miB32C+w8y8o+gM7TvhNc
-	pKTU3fU+wa9HByP54mOmeWc0jKv2aUzKxFb9k9EtLmdly8y6bBXcE7/3pcVQ33ItsO03Q2h
-	HxObmmvl1oqyE8jtSqU6KdcDwVYIqTgkkjGkBNtW/sbCpN3hbqX6I9Na01y9ithNTJi74VN
-	9Q7NzW15MGKgturQkcFIdMGgLExVAYEYT+k4oiybAZJDSl6wf05axAgpIua1c9Jjh5yv+fh
-	Bv1a9i5WtT6ngw8dib7CFwQHKpRQ6yBw8dF/Z01cyQkfcINN1BIkQf9wtAtJnYYB9PMgBFM
-	wU+Plnn4Yzj
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260810-rcu_task_shrink_lruvec-v1-1-4d9f7d5251cb@debian.org>
+X-B4-Tracking: v=1; b=H4sIAJCgeWoC/x3MUQqDMAwG4KuE/9lC04cpvYqMIjWbQelGMmUg3
+ n2w7wDfCRdTcWQ6YXKo66shE3eEukztKUFnZEKK6RYHjsHqXj6Tr8UX07aWzfZDauiZmZMM/Sw
+ RHeFt8tDvPx7v1/UDSyqAyGgAAAA=
+X-Change-ID: 20260810-rcu_task_shrink_lruvec-711112e87de0
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, 
+ Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, paulmck@kernel.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ stable@vger.kernel.org, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.16-dev-f8e9d
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1691; i=leitao@debian.org;
+ h=from:subject:message-id; bh=fmI8xADi6KWlR3J6/Hbvd2ecHxpAV7Iqo9WVc8nZUVM=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqeaCToqI2nT8QJTT84s4jrQ7GMvHwM36xgVmyh
+ 5GeZm4IMW2JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCanmgkwAKCRA1o5Of/Hh3
+ bXz0D/9wIlKhOvTMTno87Pfk5Lc4xEpnhJ5xET8HtTcF1K3Ho1A0Hx/Id26g9EBF112EyxBkIiF
+ 5+DLmbUKFj3geNY6shSQZUgyH/jIe7AYj/Dfnmj0gGgno6sQ2TxGOadkpv2gZRTcWJKFwM15moG
+ ySksHCa2U6y7rHfkn1QPGr9hXM9dz8KI55VUbTa8h4ZT2+V2ajxqMUckYlistFjA43J6eFa+bh7
+ ncsWzyxcQzp+kDiEkeVYIVTrBuP6rzgqcBK898ZoSqsqMQ6WQ8fTI0OdRAovmiK82rwbvSJPgX1
+ BXkFAffch4gPDytj/K4pMbZrHCTp/mfVCcpaX7v4EG2ISzN2El8BpRSFISafFXmTKtCKqH8QVdC
+ DIFZhMk8Zrkaa7H6o7DZIwcPnbAJDxzuLdzRrCSTJC2obsn/TNtVmymRdUnZHXYgkgRjk/7HctI
+ L22Z9mrWFukw1n5gYajo1z6oBYBLohHhNIyEFr3ncHO06B2otAGW+J/KbKFtwHF1cYdgZQeZFCD
+ bTTjjNmpwMIVIltTt9PLrvomJaHLfMin5R6R96nIOnALSun7XAqR/A8VBCauE/8+Rg052j/Xu6k
+ rxsqqPlNIw6TTdgXP3BbKZvR/m3gtmgoCOcg2CfsyOsM5Y34AI3jjYhPzPd9eazsWDuFiXeOMHx
+ hilvBDWbfGwTYtw==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-From: Xu Rao <raoxu@uniontech.com>
+I am seeing some rcu_tasks stalls in the Meta fleet during reclaim.
 
-v4l2_async_match_notify() creates ancillary media links before adding
-asc->asc_subdev_entry to sd->asc_list.
+  INFO: rcu_tasks detected stalls on tasks:
+	0000000088620d09: .. nvcsw: 6735/6735 holdout: 1 idle_cpu: -1/8
+	task:GlobalCPUThread state:R  running task  pid:2552016 tgid:2524552
+  Call Trace:
+   shrink_lruvec
+   mem_cgroup_iter
+   shrink_node
+   do_try_to_free_pages
+   try_to_free_pages
+   __alloc_frozen_pages_noprof
+   alloc_pages_noprof
+   pte_alloc_one
+   __pte_alloc
+   handle_mm_fault
 
-If ancillary link creation fails, the function jumps to
-err_call_unbind while asc_subdev_entry has not been linked yet. Async
-connections are zero-allocated, so the list entry still has NULL next
-and prev pointers on this path. Calling list_del() on it can therefore
-dereference NULL instead of returning the original link creation error.
+Nothing promises direct reclaim returns in bounded time, and the scan
+loop in shrink_lruvec() only calls cond_resched(), which is a no-op on
+PREEMPTION kernels.  Involuntary preemption is not a Tasks-RCU
+quiescent state, so the reclaiming task never reports one and becomes a
+holdout.
 
-Do not delete asc_subdev_entry from err_call_unbind. There is no list
-insertion to undo on this path; the bound callback and sub-device
-registration are the operations that need to be rolled back.
+Upgrade it to cond_resched_tasks_rcu_qs(), which reports a quiescent
+state even when cond_resched() does nothing.
 
-Fixes: 28a1295795d8 ("media: v4l: async: Allow multiple connections between entities")
+PS: This has been discussed in [1]
+
+Link: https://lore.kernel.org/all/amdWVTs0WKOxguxP@gmail.com/ [1]
 Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- drivers/media/v4l2-core/v4l2-async.c | 1 -
- 1 file changed, 1 deletion(-)
+ mm/vmscan.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
-index 888a2e213b08..0aa4265a6782 100644
---- a/drivers/media/v4l2-core/v4l2-async.c
-+++ b/drivers/media/v4l2-core/v4l2-async.c
-@@ -392,7 +392,6 @@ static int v4l2_async_match_notify(struct v4l2_async_notifier *notifier,
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 26436059ea394..6ac2fde137b89 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -6023,7 +6023,7 @@ static void shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
+ 			}
+ 		}
+ 
+-		cond_resched();
++		cond_resched_tasks_rcu_qs();
+ 
+ 		if (nr_reclaimed < nr_to_reclaim || proportional_reclaim)
+ 			continue;
 
- err_call_unbind:
- 	v4l2_async_nf_call_unbind(notifier, sd, asc);
--	list_del(&asc->asc_subdev_entry);
+---
+base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
+change-id: 20260810-rcu_task_shrink_lruvec-711112e87de0
 
- err_unregister_subdev:
- 	if (registered)
---
-2.50.1
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
