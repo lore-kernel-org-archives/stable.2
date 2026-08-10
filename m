@@ -1,55 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174A9442FD7;
-	Mon, 10 Aug 2026 23:58:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A12C43F08C
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 23:58:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786406283; cv=none; b=Cpz9xuzj95maGaBtWY9uajhQM86lq6O3yk6cidWK/bvSamyBtPKVfdwX7O9VpUoH0kSBQQA4XBlaMsOg5sk/1Jqg4umFMehF4kk1pR+VSAhgluC6Ug/frziA/kD5BYAlduZQeqyFK9akDCYzlTLn1+9O/nuwjkvt/PjA8ZSfcSY=
+	t=1786406284; cv=none; b=Q7bLzhlTsR2796jo32TaE3cmhjEjzKjCP+g6sXPDYqheh3GoQcUWisyxXVE1EluENS8RIkj807qNEZ+/FP+JdRcKIedH2gslAtOaqkY9xpGxr0fpn+YfsBGm/YQyYGAVhPJS/5/em80zPe7TpBD0jP2t1tez3ZJI+13U4YRrqm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786406283; c=relaxed/simple;
-	bh=VDtHbmeKqh6oRnyVwsPt6yN29w5NWtQXcuRhzcrZVbc=;
+	s=arc-20240116; t=1786406284; c=relaxed/simple;
+	bh=Q5pXdEF7OCon4a/uNW+NoddQahCqEMMp0u2sn7pjE/k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n25r75zW3lnDN/5wTPEs3+KjqhA+Va+cIm8lMh6hu5NjDirt+T1StwojUl5satW894CRbekLERd58TfAKl9Sa7Z3TYw0CsptLjJgdH4bnudaLVt/S5ve8/pe8TDpuceRofO1nBHijttYQLNT41SxCNSLbve9z9byeHQuO0zUNYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HbI9PdyK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TTz0EDhZTu7VpgKFP3VlcvB1/expedEKsQoiKwQJLjSMg1DqZAwmCSr4hLOAWCrUoDfF2c3fod5XDit1VygYP1U6ZABBI+6PFwMFuyaxXSjqs0YvR7khrrca2LDM/eHzuh66Yq4MF6EzYCz0EWNFnnFZFW5qi787oGL//2FK+DE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wl9NSII2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HbI9PdyK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 292ED1F000E9;
-	Mon, 10 Aug 2026 23:57:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wl9NSII2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 022CB1F00A3A;
+	Mon, 10 Aug 2026 23:58:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786406281;
-	bh=Qb5Px/WCo590F+EXyft+FRFZ7I6ikGxdKrhx1/Zd1XA=;
+	s=k20260515; t=1786406283;
+	bh=VuP/NcEklXdZRLxY2cKCgFw4P6GnpUU5/mg+KBr1EYg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HbI9PdyK4QzFQZaK50mRdWEwBOARjR0B7m8pLd5+AeUZiar7WIBhbrizOc/xM0JMZ
-	 K8gQ7bmXNxM3DYLl9pK5Qjvl/OBw1KW0RiT3/K7BRPFqjeAG7zqEknwuKqilEAFU4P
-	 Xy/k9+QR6osdJnujLfkiTo/ZFub+rVfwxtmzc02cB2r8s6mj7IpoeNucZoUEu8C4Q+
-	 ein6ZgJtnI2tnRpr9LT2EUR/z6XkUUITK7mAPwEgV55sRpSc3g7ihSZDDfAjCl4uik
-	 R9hlPvU3i1Ul3J1r27/QzXFS5y034w2DJuypBkjroHLu1LSwu1lcZq8u5NNFWadtVT
-	 U5DawK0m2ucUQ==
+	b=Wl9NSII28uwDN+wVbqExImH903LbksWuCZ8Y+sGpFuF07z8yHznCXcZ2q/DotTPgU
+	 0fEwlPj6kFa2ZnPN5b34o5yBcrgaMROKildY4uZyl4qZFJJM6cy0uo+MjkMTzZeG9x
+	 XDDHhRURKPqra2QHygjXKYmvtD+pGq5XjJC7tGOqLHsitLFMbEg7XZe6stqM8rmcUK
+	 VTseb8U1dLktElq27ki96G7yaQvb6MmI5B40KkoW3gT1NURuN/66CXQNHPM/G07URl
+	 B2+SqRyjdUFM0tBCwuT628YA2vdKCmB43Hay+2LR/S0vZ/EUx5GWG1zN3pVPDhgY2V
+	 fkQlulUBf3VGg==
 From: Sasha Levin <sashal@kernel.org>
-To: Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	gregkh@linuxfoundation.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Wayne Lin <wayne.lin@amd.com>,
+	Ray Wu <ray.wu@amd.com>,
+	Fangzhi Zuo <jerry.zuo@amd.com>,
+	daniel.wheeler@amd.com,
+	Alex Deucher <alexander.deucher@amd.com>,
 	stable@vger.kernel.org,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	=?UTF-8?q?Ricardo=20B=2E=20Marli=C3=A8re=20=28SUSE=29?= <ricardo@marliere.net>
-Subject: Re: [PATCH 7.1.y v3] selftests/bpf: Add tests for sleepable tracepoint programs
-Date: Mon, 10 Aug 2026 19:57:44 -0400
-Message-ID: <20260810234738.0006-1-sashal@kernel.org>
+	=?UTF-8?q?Viktor=20J=C3=A4gersk=C3=BCpper?= <viktor_jaegerskuepper@freenet.de>
+Subject: Re: Drop "drm/amd/display: Add AV mute wait frames to dce110_set_avmute" from stable queues
+Date: Mon, 10 Aug 2026 19:57:45 -0400
+Message-ID: <20260810234738.0007-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260808-selftests-bpf-sleepable-v3-1-45ace406061a@marliere.net>
-References: <20260808-selftests-bpf-sleepable-v3-1-45ace406061a@marliere.net>
+In-Reply-To: <608ed117-5fa2-43df-b10e-738cf3b5c2d2@freenet.de>
+References: <608ed117-5fa2-43df-b10e-738cf3b5c2d2@freenet.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,12 +50,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ rbm: Removed hunks from (new) files:
->         tools/testing/selftests/bpf/prog_tests/sleepable_tracepoints.c
->         tools/testing/selftests/bpf/progs/test_sleepable_tracepoints.c
->         tools/testing/selftests/bpf/progs/test_sleepable_tracepoints_fail.c
+> The fix for the regression has landed in the mainline tree, so you can
+> now backport
+>
+> 443290d70b01e9c35830c300e3247c06581b594c
+> drm/amd/display: Add AV mute wait frames to dce110_set_avmute
+>
+> and
+>
+> 3141e3d61469bba2624a91c5e2407f110b33b29e
+> drm/amd/display: Check for tg ops in dce110_set_avmute
+>
+> to the stable kernels (7.1, 6.18 and 6.12), both have 'Cc: stable'.
 
-Queued for 7.1, thanks.
+Queued both, in that order, for 7.1, 6.18 and 6.12, thanks.
+
+> Note
+> that the 'Fixes' tag in the second commit refers to a commit on the
+> drm-next branch and not the corresponding commit from the drm-fixes
+> branch, which might be confusing.
+
+Right - that Fixes: SHA isn't in mainline at all, which is why the tooling
+never paired the fix with its parent. The mainline commit is 443290d70b01
+("drm/amd/display: Add AV mute wait frames to dce110_set_avmute").
 
 -- 
 Thanks,
