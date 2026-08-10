@@ -1,55 +1,48 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BC53A4F30;
-	Mon, 10 Aug 2026 09:12:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F9C372062;
+	Mon, 10 Aug 2026 09:20:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786353161; cv=none; b=K0WH8TTPVk6sh/YRJ/9JJHUdoZOauJhiYDegONqPT4rW9VTzSe4fRLVFeav0iocUExWTJ1Wy4Y1zs5Aj8hSMLxs0+SfetC7dFJgolj098E5JzyGFTq2fvRNEwRUl5i1xnCo8wrLx1ZvA1cJHhhlQpNkZr5/rnHhyC1evcXLvtgk=
+	t=1786353663; cv=none; b=gSFai2iOmDorPjcG//qv6wqvuRGT5Jjgq9UIDMLmL43M509o/zm7TZ0aZdbS9Ei8Zr99NQcvpO8E4pb1cgaJwL1PBn6FY1W1D77yV8FHLyDA2Y5ueuCin9Mjfsnz2L0B6AvrSFXgNc0FZ66PXqge+QeMKg2m3bpLSDcqpxuVAQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786353161; c=relaxed/simple;
-	bh=C/xPd2dxpI0fdu/nl5F8LSye1mV8xhTI8uzOKNXcfdg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=irrhfgPLN1P5gmxIGpWjRR4R43RVrhVV07qw1qAtT/0XDf9rXGZuqw4/pdDktGVwKyqpUj2VJUtHJBGR13skNJAjtIYFldVwOtWCNwCOOY0sAhAt+ujg/AxjRwAf/yJsU3Qggo4Wd3E1cZwEwXyNeGlpuvI5Z7CQ9mIQXJqM0us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 9eb917ae949b11f1aa26b74ffac11d73-20260810
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:fdec0016-1b4a-408c-91e5-bf8670a58b8c,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:1cb3b056e9383900a3bc2b8a6664f4ec,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|850|865|898,TC:nil,Content
-	:0|15|50,EDM:5|-100,IP:nil,URL:1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,C
-	OL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 9eb917ae949b11f1aa26b74ffac11d73-20260810
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1347937998; Mon, 10 Aug 2026 17:12:32 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com
-Cc: joern@lazybastard.org,
+	s=arc-20240116; t=1786353663; c=relaxed/simple;
+	bh=QdkTzbtCkDJxlS7CTj1PwUNqIInKL45U5ZUtV1lh49I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RbVoM1gOgMjBdRhCypgJm8I1RJAL7Bmw/DIwxpZUOfWPNPYWnxdGWYLSGbvDWQ617zZfFTGAnxFUfgNhc0NxaM5ekPKwnuBb+BW9lFM2zPVXV6MdGai9u+cdcLqbTuxLT7I3nIYSGSaTKNiaFyZLhddtgM/sOZ8HekFVKPYKWso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=a3s61FHe; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="a3s61FHe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1786353645;
+	bh=8tLGbIp0Ta1vTWMv6dNkzKIVnot+g5opsJmhP+J5sCI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=a3s61FHeQ5uuErXvlvVP7dfdc7lQZu0R3FfcTbfQPrLF/9/m2nw/oTv4HP7lrJY86
+	 ljLIt9h782JmijvnxHLkpPkNaKTIx1AmcL4+Kw0OJey/C4Rtie+Ru5DagP3iJaYKDM
+	 ZN/6nTxkm4N+tYLxdB/4+gBS4rwM4Nm5C5jBn7mo=
+X-QQ-mid: esmtpsz10t1786353627t9a19c8f8
+X-QQ-Originating-IP: xbGbFhxW2SyckUwBsp53UOPcQ0aUNYZcEgMpZMTtYmg=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 10 Aug 2026 17:20:25 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2117933671536180727
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: laurent.pinchart@ideasonboard.com
+Cc: hansg@kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mtd@lists.infradead.org,
-	miquel.raynal@bootlin.com,
-	richard@nod.at,
-	syzkaller-bugs@googlegroups.com,
-	vigneshr@ti.com,
-	Pei Xiao <xiaopei01@kylinos.cn>,
+	raoxu@uniontech.com,
 	stable@vger.kernel.org
-Subject: [PATCH] mtd: block2mtd: Fix divide error when erase_size is zero
-Date: Mon, 10 Aug 2026 17:12:29 +0800
-Message-Id: <c0148dd9482275f3bab75b7263408fca89ef311b.1786353116.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <6a791c94.01d0871a.3a0d52.009b.GAE@google.com>
-References: <6a791c94.01d0871a.3a0d52.009b.GAE@google.com>
+Subject: [PATCH] media: uvcvideo: fix output terminal type check for ID namespace
+Date: Mon, 10 Aug 2026 17:16:24 +0800
+Message-ID: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,50 +50,74 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: McJfg7Aee/FZ1Lz1Kz0sHqAM9YNqZGzKAEgRnCdHW5rPEcCxbBvGPZna
+	eQzLC9Lm9mzcxjzyfUdDPlHc2OLKqqVZvClZ9NdO/xPkHtQ+vpMepp5CA9OBBTTKKsfPdno
+	Fy5qI8PhsqDfv20cCwiL6kSJQuf8JEiYd/LmsTasbTatGQ/efG7KV5hwT9dZ/Ai3SjBX3KZ
+	56ril+0AHCRkW1TZOl11RgD5IVipra6kJ0cKpvVrUZ5TPl9Er3UKDGh+eAj1kBJlWP6/hlj
+	bIT5mBPFKHSOOpjZ1t5D62XBSS2NUldtYmE5H0Axy/mw11cxfFrpETQknW7qMIJ040BkoVC
+	9S79UaZTz4Efs77AyfXsXDFNUfs0KSAkExBIWXZ3iojzIJ06eYQUuOaJ4ZuIWkD0wVRuhJ4
+	O6PQ6guJ1S3H6bqZ6Wz3nsODtjXkIVawOjgwNsdAO1jvLHDR5c4EDggKp+r3ju7uQTdsn6o
+	KPaLuFSjcC45/WZ9TJqDwqFSyytvvrLyeNVtoeir+7KeeSSsPU5cB5Y8fxStrVHGgopShrs
+	WMmnBf+kiUhCWCEJPGnAgJPI/HFkucBDVm1bZ5A4VSrSmI4Gd3MVlh4gOgzIErFRkJBr9OQ
+	tnAKr8yOePudasqbCkRyb7LPMhwWT/qZDgdd7EpkanqtM5h0xyRKwd2+FchmBsKMVkK5ffe
+	w7TJaigUCp6xpMQty51e4grFQ6RIfLpUtKPVs6vRAPikZLo6mm/Nvwk9uvTXgB/hWt0R+lm
+	cweUsr8+4m0/yaHT/iNzNDF73i0jrwWpT6CNWKpTFV86mDi+zZMnhrduFvE+06y/kw8hVvX
+	75d+c1+0HeRFJuD61aepfayLKBGAA4YWV8TaGqoA0EpJ0yqrw415+C5IxP/NoQIGJIvmmm6
+	6ES9FMgqxNH4qCHgN0SN1I6dViLpCBL/BLWow9oKMCJdTBdlmxtrp3GKqv9TX/cOORHpi+Y
+	4v4U8LHxf4yDqVNTyDh2vJ0NajOaCGSQvwjnRluZl7z4Lw8Foeahg2/Fbdw/8vUEoF/ox6z
+	BhkcZn3/JlNjYOgylpXpQ1FWRyanozXXk1T+v5WH8hHT4GntN0hyd9Gmn4isk=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-The erase size is parsed from the "block2mtd" module parameter and can
-be set to zero. add_device() then evaluates
+From: Xu Rao <raoxu@uniontech.com>
 
-	if ((long)size % erase_size)
+Commit 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for
+streaming output terminals") added a separate internal ID namespace for
+streaming output terminals.  The namespace is only valid for those
+terminals because their descriptor IDs are used by streaming interface
+bTerminalLink fields, and uvc_stream_for_terminal() intentionally masks
+the internal namespace bit when matching that link.
 
-with a zero divisor, which triggers a divide error:
+The parser currently decides whether to use the namespace with
+`type & UVC_TT_STREAMING`.  Terminal types are values, not bitmasks.
+Since UVC_TT_STREAMING is 0x0101, standard non-streaming output terminal
+types such as UVC_OTT_VENDOR_SPECIFIC, UVC_OTT_DISPLAY and
+UVC_OTT_MEDIA_TRANSPORT_OUTPUT also make the test true through their
+0x0100 bits.
 
-	divide error: 0000 [#1] PREEMPT SMP PTI
-	RIP: 0010:add_device drivers/mtd/devices/block2mtd.c:296 [inline]
-	RIP: 0010:block2mtd_setup2+0x592/0xda0 drivers/mtd/devices/block2mtd.c:459
-	Call Trace:
-	 block2mtd_setup+0x27/0xe0 drivers/mtd/devices/block2mtd.c:476
-	 param_attr_store+0x214/0x310 kernel/params.c:589
-	 module_attr_store+0x65/0x90 kernel/params.c:904
-	 kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
-	 ...
+Those terminals can then receive an internal ID that differs from their
+descriptor ID even though normal UVC descriptor references still use the
+8-bit descriptor ID.  This can make later entity lookups fail or hide an
+entity ID collision that should be handled as a regular UVC descriptor
+collision.
 
-Reject a zero erase size before performing the modulo operation so the
-existing "erasesize must be a divisor of device size" error path
-reports the invalid argument and frees the device.
+Use an equality check so that only UVC_TT_STREAMING output terminals
+enter the separate namespace.  The issue was easy to miss because real
+streaming output terminals make both the bitwise and equality tests true,
+so the devices targeted by the original change keep working.
 
-Fixes: ea6d833a3fdd ("mtd: block2mtd: check device size")
-Reported-by: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a791c94.01d0871a.3a0d52.009b.GAE@google.com/T/#m5d4961a95b273da06457d603ddcc4170bf82a9fd
+Fixes: 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for streaming output terminals")
 Cc: stable@vger.kernel.org
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
 ---
- drivers/mtd/devices/block2mtd.c | 2 +-
+ drivers/media/usb/uvc/uvc_driver.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/devices/block2mtd.c b/drivers/mtd/devices/block2mtd.c
-index 03e80b2c4f5a..349fa07be314 100644
---- a/drivers/mtd/devices/block2mtd.c
-+++ b/drivers/mtd/devices/block2mtd.c
-@@ -293,7 +293,7 @@ static struct block2mtd_dev *add_device(char *devname, int erase_size,
- 	}
- 
- 	size = bdev_nr_bytes(bdev);
--	if ((long)size % erase_size) {
-+	if (!erase_size || (long)size % erase_size) {
- 		pr_err("erasesize must be a divisor of device size\n");
- 		goto err_free_block2mtd;
- 	}
--- 
-2.25.1
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..acfc5797a1c2 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -1130,7 +1130,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+ 		 * so limit usage of this separate namespace to streaming output
+ 		 * terminals.
+ 		 */
+-		if (type & UVC_TT_STREAMING)
++		if (type == UVC_TT_STREAMING)
+ 			id |= UVC_TERM_OUTPUT;
+
+ 		term = uvc_alloc_new_entity(dev, type | UVC_TERM_OUTPUT,
+--
+2.50.1
 
