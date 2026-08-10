@@ -1,106 +1,131 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914103195FD
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 22:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C35D346AE8;
+	Mon, 10 Aug 2026 22:37:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786401170; cv=none; b=S65a107oTylrcylOPQLeBilebCpb9Px3k9FNueVRzxjlgDjj4ARRSkrMQny/jC5fMESgdT6pPfCuaAQN/bQuT6pcsSp3jZib/prsmj07atwhQEzdm/nTbjeeZxBIkS6+xaibOhPmGO9I31BsUEeN6NGTdYweqm+/ym4eXVB0ea0=
+	t=1786401471; cv=none; b=CUPKoro/WDpl/d0U8Sbt/m6foO54kPJ8ZtcFxZZ/k9tcevSyY2walowxpuQ/eWTzrna0OigmojN0TLDq3NgFVzOGhxObFvSo5bUmPwVGsz91y3IloDZAaOb+FQL2GJJ+Hc//+4sJ+OxTxAZt/iUI2ezYLIZ0CT0QMh3+STlTkCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786401170; c=relaxed/simple;
-	bh=Ut4xeXPIHkP/ZTuqOULeqn9lHhqonacl55jKH6OZGjI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hRE7GsPnpBTFdrPSKFR2OB/0TOBS/xDi5rwd+cNueiuV4hdXdffxj/Vupx3f2jGJoGCJ+quZ2mAbRl4e5ACPcKGzQnYMkKM0nR6HyFRQvVj8lr1teA3yM0zcfycJ1h1bSyegEl5a7iChPBOxu3sFDlKftqm7eDYcrP+jPmaD+Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RuT7T2Zw; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786401471; c=relaxed/simple;
+	bh=A+s2iLx81WzsdXsT4rm1vrlEL8ObAD72I6gMQ8gxNUs=;
+	h=Date:To:From:Subject:Message-Id; b=J/ycWo3YQSHcFQchJkADA9ZxdIOJhzHHpaZTDzwRavaBwmKWAMLChMpUhIDkN6j+nYapuT09bJr8YFJ2+KXy8reqjku6ymoPjgrtYgA+nJuwe/4uIFkJLSowy+bjosVr5X/0m9pH/2QZrcbtOBDKRKfPCeMf93aReZAuNtFPwZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Qvu2MzkY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RuT7T2Zw"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4980dc26022so24446785e9.1
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 15:32:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Qvu2MzkY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D851A1F000E9;
+	Mon, 10 Aug 2026 22:37:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786401167; x=1787005967; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KujuDXjufsH4fQ0xRNZyj2JY4LmTzir+J1KJ4jS+lJA=;
-        b=RuT7T2ZwLNQPenYetKWr8rJ5pQT5JJ0eOBf+HAjTBB8PasKUtZwme6mfvNs5PRbnLe
-         QL/QjD8RTohL7azkidFVUJ2Ds8lqO+DGVz62nijJ93NeeCidk28noUwIwGfVVdT4ToNf
-         pyO+XOrRzWNvRLOAQoOAh27rrLIGdLnUqtS9gJUb3nrGCLJovozhoeONz4S8kZqDA3dB
-         y7rUXIg1YfybEK3kNLlJ1b1GNCWrvNol36ZbgYJbLX3Q32ZqjUkkeKijy4zcseejj34T
-         HeLSMaWSRUtfaLzc9BOAR88gr6ReERxkONDIUT5n04vVBfbU5vIV9a2EUeG0eMFdzyul
-         W6gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786401167; x=1787005967;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KujuDXjufsH4fQ0xRNZyj2JY4LmTzir+J1KJ4jS+lJA=;
-        b=I/6pzSnFEOAXcjclgqtEqC1HdLYPvRk4UcrrdeoykZqfkzYYICT9jBAFkmAF9p8XrS
-         O83TR5THH5+wwE9ZNJLc09ScWUROt7sdOS03IDugg8rIo78ooSUURQ/AVUuBWPe6cyQT
-         QtlOHjDcVlAImn4TFAn8h/06M/TYbvK9ZAVCipdqs7cX4cV/avdYHvnj2O+qRv2nXXYr
-         it6xJ8uL43bDn6LXCxNxJANpKVfKTjweuiJfiVfFLT8Uh0hSYnAv7fnxqWIps3OlHkz0
-         jwZCpAYNzoPmqQAlrkiwDuF3XnTckVjyq0qrn8+zvDCC3RaI+Z+Vl9azNMEiYbB6Zhyn
-         r1fg==
-X-Forwarded-Encrypted: i=1; AHgh+RoZYpDSsXBDk35OEOep6K/3QHHEyuIfpHivZzcU2ebDLiNvnXZ+tySoc23dOi7fDB5WQ6H4n6g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzkiWnK+BqeZfDxzRADPCmZl8NKMYVQ6QM0MFd8W5FsL0/sDRb
-	oKEwOdjXPwmoF2S/5PLesZEhNww1F0gID5pPC2dnBb3ac45rvU3HJkaH
-X-Gm-Gg: AR+sD11BO0bXedUYiChqS1IiUlU4gdrwnvNMNieJy90ggVN8uGMJqG3gw6tZKqUpXx/
-	8fhpD0Iqp7LCOgQDTd+OPBdFg7JRsdrcXUxaK9SCJOkYvdxVKCQyAeR9Z0WVX36uF0UT+nh7ix3
-	9PYyeKGq8PPHURsbbmfSwROwB0lUBZEW12ifzJxcsmmSMEVJWQm7ho1qf5uAvbKzlGU1ZTI3jmT
-	oxDi5F5Gvnb418J1kkTrMFo7XoSJqKvkergPNBQqlzb7LnAXpX34JPV0sAqI5xa5lNbnvPbueGA
-	brfkwQwQYhDeXMqvI21dna4xSB2a9dxIZ7QwET4V6IRtN74/55tvHZ7cbvCgxyQsbeEJ+/K5xlE
-	3D25EKnV2Xxz21NHdxJuttZuVA6KXPPyYwAIPEdRW+ffWrBp8HiYdSGT8MBBlvw3aIoNNigzE1f
-	m0jGTh/RZ1Xfd3yDwRrypGzHK8d/6w3ii+JGlfRFmAt5MT2TfRjYsj2tV16IvU2v5Tnk8BG7xV+
-	9qs8hFV8hhMrMpmSanbkJ6RpglhJW1TFuLXbqRVPefLSGCSfLS+Wuwl4SV5B/FWYq6dlYNOeL37
-	J0ffoAPJ3F3EDzRkar7d7hmIx+GDLSDiU3ZQ3Km168BNfGq8MRuJNWVlOcz/oUY8vimcjLk=
-X-Received: by 2002:a05:600c:8b17:b0:499:726c:50e with SMTP id 5b1f17b1804b1-499727b1011mr49652125e9.14.1786401166552;
-        Mon, 10 Aug 2026 15:32:46 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a1e8-7401-316d-6c00-7a9a-8fac.310.pool.telefonica.de. [2a02:3100:a1e8:7401:316d:6c00:7a9a:8fac])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995d85254asm153382245e9.1.2026.08.10.15.32.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 15:32:45 -0700 (PDT)
-Date: Tue, 11 Aug 2026 00:32:44 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: nv: Allocate the shadow S2 MMUs
- individually
-Message-ID: <anpRMrGG_54yO6CL@gmail.com>
-References: <20260803224405.41468-1-kmehltretter@gmail.com>
- <86mrv2arf2.wl-maz@kernel.org>
- <anYNTW2e3HalTqTk@gmail.com>
- <878q6fplpd.wl-maz@kernel.org>
- <anizGXThM-haqQXU@gmail.com>
- <86v79i9zl7.wl-maz@kernel.org>
+	d=linux-foundation.org; s=korg; t=1786401470;
+	bh=+tF+MgWT3SEa8TMaVAxXkcKdpPvkE5rjXcIBxD2GGC0=;
+	h=Date:To:From:Subject;
+	b=Qvu2MzkYj/ceEkAJJQRyYSV/fXhqC5ioLu9XQ2tqufVbfa+rC3xFlGsvdgXOtn8+V
+	 LZo9vOBlSTpIzk3AokP9hXbKFBMJc66bk1SOYe92l1kPj3wIHVqJW7Q0bIZNuxb44r
+	 YDOeoVALOsxvwXy20okKGxuQpiI0eDQMnV9CxfDY=
+Date: Mon, 10 Aug 2026 15:37:49 -0700
+To: mm-commits@vger.kernel.org,wangkefeng.wang@huawei.com,usamaarif642@gmail.com,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,osalvador@suse.de,muchun.song@linux.dev,gthelen@google.com,fvdl@google.com,david@kernel.org,anshuman.khandual@arm.com,souravpanda@google.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio-v5.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260810223749.D851A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86v79i9zl7.wl-maz@kernel.org>
 
-On Mon, Aug 10, 2026 at 08:58:12AM +0100, Marc Zyngier wrote:
-> > The increment expression of the for loop still runs after an error.
-> 
-> Yup. Should be fixed with
 
-> +		for (i = 0; !ret && i < S2_MMU_PER_VCPU; i++) {
->  			ret = init_nested_s2_mmu(kvm, &tmp[i]);
-> +			if (ret)
-> +				break;
-> +		}
+The patch titled
+     Subject: mm/hugetlb_cma: Fix null nodemask dereference in hugetlb_cma_alloc_frozen_folio
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio-v5.patch
 
-Yes, that fixes the cleanup issue. I have no other concerns with the patch.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio-v5.patch
 
-Thanks,
-Karl
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Sourav Panda <souravpanda@google.com>
+Subject: mm/hugetlb_cma: Fix null nodemask dereference in hugetlb_cma_alloc_frozen_folio
+Date: Sun, 9 Aug 2026 04:32:50 +0000
+
+Changes in v5:
+- Replaced defaulting nodemask to &node_states[N_MEMORY] with safely reading
+  cpuset_current_mems_allowed using a seqcount retry loop, ensuring fallback
+  allocations comply with task hardwall cpusets as suggested by Usama Arif.
+
+Link: https://lore.kernel.org/20260809043250.2917406-1-souravpanda@google.com
+Fixes: eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic hugepages")
+Signed-off-by: Sourav Panda <souravpanda@google.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Frank van der Linden <fvdl@google.com>
+Cc: Greg Thelen <gthelen@google.com>
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Usama Arif <usamaarif642@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/hugetlb_cma.c |   14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+--- a/mm/hugetlb_cma.c~mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio-v5
++++ a/mm/hugetlb_cma.c
+@@ -3,6 +3,7 @@
+ #include <linux/mm.h>
+ #include <linux/cma.h>
+ #include <linux/compiler.h>
++#include <linux/cpuset.h>
+ #include <linux/mm_inline.h>
+ 
+ #include <asm/page.h>
+@@ -30,12 +31,21 @@ struct folio *hugetlb_cma_alloc_frozen_f
+ 	int node;
+ 	struct folio *folio;
+ 	struct page *page = NULL;
++	nodemask_t local_node_mask;
+ 
+ 	if (!hugetlb_cma_size)
+ 		return NULL;
+ 
+-	if (!nodemask)
+-		nodemask = &node_states[N_MEMORY];
++	if (!nodemask) {
++		unsigned int cpuset_mems_cookie;
++
++		do {
++			cpuset_mems_cookie = read_mems_allowed_begin();
++			local_node_mask = cpuset_current_mems_allowed;
++		} while (read_mems_allowed_retry(cpuset_mems_cookie));
++
++		nodemask = &local_node_mask;
++	}
+ 
+ 	if (hugetlb_cma[nid] && node_isset(nid, *nodemask))
+ 		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order);
+_
+
+Patches currently in -mm which might be from souravpanda@google.com are
+
+mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio.patch
+mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio-v5.patch
+mm-hugetlb_cma-support-percentage-based-hugetlb_cma-reservation.patch
+
