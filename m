@@ -1,123 +1,104 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4402394780
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 19:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19979442FB2;
+	Mon, 10 Aug 2026 19:35:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786390278; cv=none; b=c7sSi9x09Plr/pSvC+JHZ46Afhw/HJE5t07S0GRIUeZcJcSyQ4xJK8eJtDoMFFkDpbyo8yadtM464rA8SVscNhYJSW1jBE/VsdAZpjbV1Kkhh7rFWiMeNZ2UYcCOmWwILCqjuWXIUQW2samkXcMBDHol379mm4ZLW9UM1kcyXQI=
+	t=1786390540; cv=none; b=H6apg3VtXgH7Ms0hZncdpip2ms+vVOXFUFTLl+pfOomBiz9Egs/2R2zdbT06n3gT/0Zw1uxFE3EROv4ijbb3z9WHKczlm7wQAZ9VrC0Hi/iYJbuaFsSD6166NX0r8Tgh1N5S1KRxJjkgjIbXpyCkyw8C89hwudvPYqrfIAQ1f3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786390278; c=relaxed/simple;
-	bh=J4R5rmhjWUaPceWThwvhl99inysUNFmvFJzEGwsihBg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ITW8WoU/nZsW9IO0f3jBpUrGKMbzbH3DaYzHW35eFQoDsKCe9OgSZx0Wf00S1zxwfi5nuw2mei3MEZv7FRJ7TPNniP4q071qT8UIa6rMsDW5yYXBGq7daVue3pBdNh1T2gGpENV9Z8o+3ggTqrjlSNKnwgNc2ZZAYjzYZuBGPyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r4Uyfkmk; arc=none smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786390540; c=relaxed/simple;
+	bh=1rln9h0th9UT2H7asbAR35WQMctyOCvsCuzZ/4SDAWI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CL4j4LjUHGOQDEtC5mjYhLOBngLgk+TAlK/xMBJMZrmzEVhF9z/cr6HM/crwFldOlPkAQUaD6UFUup0CK729MHzjfLv60e1ihwJuCNV0Q/BMK4U2LNYhqCgUoiioLAhNkhu+YyZ1yem1q8G3gCxfaRAd9/Ajqjc7l8/gkmd1WNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e4vSDKX/; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r4Uyfkmk"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a0a4a17f91so3574843a12.1
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 12:31:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786390275; x=1786995075; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UZlUEzCrTPRBX1FvFK7zfpZyojdDsTGC8+EAFkSxizE=;
-        b=r4UyfkmkpeviHfgEFHUfNTWhetVu+v/sKMmFmz3KAV3z64ouQ2II9KUZALKMVcK4zL
-         WEbz9ecdkRMDrbhbKIqdzF9cUKFu/iZuztTkMfwx0fogzJ8t0ln8yUYAr8dzcpqfAok1
-         ZU7I8U1XXM3nNPN/PmCg8I9VTgm/dj0JiLVrI4DtMM4P8avyiEn8uwUJ2m9G5MaIBEB6
-         OhiqdsKrqXUJvz7XjYydzL9YeUgTnKaEPLLPKbadloK/GXDc4mn/PGgEJYsMxyrJQ7AE
-         9ylFBv0uG7bqC6DyO1cU+UoDO9Yy5jHkZoLUO2qlfIhtOj0ddIMnaAX1KUEQNhrCpmuK
-         a9Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786390275; x=1786995075;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UZlUEzCrTPRBX1FvFK7zfpZyojdDsTGC8+EAFkSxizE=;
-        b=rngGfQdwZD4VA6TFvNPBXuqTWwKKd6bKDN0rN3V3RynmOFZ6yxYr/mp0E4+UeuTDeJ
-         erYwN9bW4Mb0FoGfoxjv1+nDhG0bc+2ApaVaIP1oXWD5A4D50cri5pEe9POH0m5h7Vfg
-         NQJsbMwbYLTZYG1/epWYD9wmJag4PI2innsT0mi8kGkGLpK5zXvo3b6WKvoJIqjYC/sA
-         vQnfKA7jiAUgoj7Qp6E/xNs67gNDEz+Wx12MGAoPgT6uyUr9mhFQHxHIlyul3uui0bfC
-         XlmkmcYL6HMXkzxtpZHiQ5nHOMa7vspvTEjJ8J3NbXHN2j7k+xaKXI1mqrG6+1sMMb1O
-         2a/w==
-X-Gm-Message-State: AOJu0Yyx5lHjXWCbelMlEQhLiqWkZViTz9F6GOHlhBGIkxUPzHHg54dA
-	EcUrcwvuBCev0v0RJFLsireKfBcd8LcNnE8NfoFkWbYskX86Qj9DssTu
-X-Gm-Gg: AR+sD12SBs5lZ/Z3LGGHN9YuVwN9m5K5b5GHcE0O6nkecjr+bjxjIiMnR+lhFutDBVv
-	MU9+2TxxyLnln8HtLzeZt7t0oWl5sAwaInc4lCIk1XWwkiuqNBRhvIAdh6SRMTpglZMg9foPFQY
-	SVAaS59ijm4i6pqgiDtbFJmfYwUlFjkL22jRqA8B7P49sDgmwCq7M/wCizlKJn5POVSpWk3hQ1S
-	jgiR3gPRuVt326L4aszJ5erZsbXORv36mTuX2dmbTpct3WRgcyeOT5c1nFRSMoMd7LkdTF7JPJu
-	1RcUu283vDqUQTGmFcyqmdqFkJvXD+R1WMwM456ChU0JfbuelKyx2Snu+VlPSOOh5ZOnyp4r47R
-	21IcG4cY1Ok5MjPsP8K1F4qIMlwI6xZzPmXVJTBt3X3DVTSuOby6SW+wZhwgK2lcT1gNeKcaUph
-	SvzFXv0SjM+PMhnbfNvPIzhiQLkn5X9HhR1JzT4pCf+1wk9eaOqSefQqAprXzgml3RGQNIj4Vj7
-	F6WaFXPUlVNuyjd0hFSr0Z1/1DkTK0=
-X-Received: by 2002:a05:6402:44c3:b0:6a1:f95b:8cef with SMTP id 4fb4d7f45d1cf-6a355d641a0mr2010591a12.4.1786390274815;
-        Mon, 10 Aug 2026 12:31:14 -0700 (PDT)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a1f4df3165sm3665532a12.10.2026.08.10.12.31.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 12:31:14 -0700 (PDT)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: linmag7@gmail.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH 7/7] alpha: invalidate the local context in flush_icache_user_page()
-Date: Mon, 10 Aug 2026 21:24:51 +0200
-Message-ID: <20260810193055.3286239-8-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260810193055.3286239-1-linmag7@gmail.com>
-References: <20260810193055.3286239-1-linmag7@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e4vSDKX/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786390538; x=1817926538;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1rln9h0th9UT2H7asbAR35WQMctyOCvsCuzZ/4SDAWI=;
+  b=e4vSDKX/sn/0kFY1VTfF3JGZaRjDh9KfzFv2jrDj9BzOKXd3zFfYo0H2
+   xr6/K1zlbfqzeUKeT06ULkm690hWBPvS8TKqKkKiyjq88g1X7wXvnVFrZ
+   2HsHoK2/gXBYeUDJZfQQENakYJGQ8bTsw/gFdltoSVV1vopt9sgQFmPX9
+   p2bh3E3rOCsWi5X93tr0Apxa047o+XPU30NwN4mCURR/tToR7L9LZhrDc
+   H/I90+NQZlHwLnik5DVCvonM29oI2tK+9h+ZG9B140aKOItglJq1MLRo9
+   p7tbv//Yk+k6xNLRtgfkM+cJGF66+aqOsL6IYy4AP2zeifYAaLW3My/Pk
+   Q==;
+X-CSE-ConnectionGUID: 3hPSZcIZQkCPDQU1LuLsNw==
+X-CSE-MsgGUID: PHPv2vnuRnaPh6jaWVLAyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="98275564"
+X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; 
+   d="scan'208";a="98275564"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 12:35:37 -0700
+X-CSE-ConnectionGUID: s2lD62tCSK2AhYshBMXk/Q==
+X-CSE-MsgGUID: jwBTRbH0T6yvGJWhW1OPqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; 
+   d="scan'208";a="259280283"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.99])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 12:35:35 -0700
+Date: Mon, 10 Aug 2026 22:35:33 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Hui Su <sh_def@163.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: pressure: bmp280: fix out-of-bounds access in
+ sampling frequency lookup
+Message-ID: <anooBVyIlGojG06D@ashevche-desk.local>
+References: <20260805074127.473731-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260805074127.473731-1-sh_def@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-flush_icache_user_page() has the same caller-CPU omission that the
-previous patch fixed in flush_tlb_mm(): when the target mm is not the
-calling CPU's active_mm nothing happens locally, and smp_call_function()
-handles only the other CPUs, so this CPU may later reuse the old ASN
-together with the translations it still holds.
+On Wed, Aug 05, 2026 at 03:41:27PM +0800, Hui Su wrote:
+> The sampling frequency tables store each frequency as an integer part
+> and a fractional part in micro units. num_sampling_freq_avail is
+> initialized to the number of flattened integer elements because
+> read_avail() returns the table as a flat array.
+> 
+> bmp280_write_sampling_frequency(), however, indexes the same table as a
+> two-dimensional array and uses num_sampling_freq_avail as the number of
+> rows. This makes the lookup walk past the end of the table when an
+> unsupported sampling frequency is written.
+> 
+> Convert the flattened element count back to the number of rows before
+> iterating over the table.
 
-This matters here in particular because the function exists for
-operating on another process's mappings: the comment above it describes
-setting breakpoints through ptrace, and access_remote_vm() reaches it
-through copy_to_user_page(). The calling CPU is therefore often running
-something other than the target mm.
+...
 
-As in flush_tlb_mm(), the uniprocessor implementation in
-asm/cacheflush.h already has the missing case.
+> static int bmp280_write_sampling_frequency(struct bmp280_data *data,
+>  					   int val, int val2)
+>  {
+>  	const int (*avail)[2] = data->chip_info->sampling_freq_avail;
+> -	const int n = data->chip_info->num_sampling_freq_avail;
+> +	const int n = data->chip_info->num_sampling_freq_avail /
+> +		      ARRAY_SIZE(*avail);
 
-No imb() is needed, here or in ipi_flush_icache_page().  Alpha's
-user-space I-cache flush works by allocating a new ASN rather than by
-invalidating the I-cache: the entries stay, but they are tagged with the
-old ASN and can no longer match. An imb() is only required when the ASN
-space wraps and numbers are reused, and __get_new_mm_context() already
-does one in that case.
+For the consistency's sake use just plain 2 as initialisators do.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
----
- arch/alpha/kernel/smp.c | 3 +++
- 1 file changed, 3 insertions(+)
+...
 
-diff --git a/arch/alpha/kernel/smp.c b/arch/alpha/kernel/smp.c
-index 988e397b0b8a..e21bc3920bec 100644
---- a/arch/alpha/kernel/smp.c
-+++ b/arch/alpha/kernel/smp.c
-@@ -758,6 +758,9 @@ flush_icache_user_page(struct vm_area_struct *vma, struct page *page,
- 			preempt_enable();
- 			return;
- 		}
-+	} else {
-+		/* smp_call_function() does not call back into this CPU.  */
-+		flush_tlb_other(mm);
- 	}
- 
- 	smp_call_function(ipi_flush_icache_page, mm, 1);
+Nice catch! This seems to work because the page is present, but after this
+array it contains some garbage that doesn't induce page fault, otherwise this
+must have led to oops very easily (and no one reported it before).
+
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
