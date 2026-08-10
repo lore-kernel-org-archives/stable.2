@@ -1,41 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C01F3BB689
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 23:51:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B750E3B9D97
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 23:51:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786405894; cv=none; b=F0qO6RSWhhEzlC6WFy8C6ChOZv0afWnaatabcR5pObq34UQ6iYYWKFCnQZdVoG+Bqwbq9CALlNVQmEPubx3d7STIp8i9BEq51n0q8UUrYKswEyifOl1g1jcqwfjJLFrB/r20IL7PeUKrU399L4/TlsQGC1sdNrjjN5jqrSLeuJI=
+	t=1786405895; cv=none; b=EWAXbuHY0ZqcexuZpA9QplDUrCoSW7Y1dQI8e9f5So9vIrobu+MSV5DpUOr/Lav/bS2zXB6PiajbuD9s8Q7BHE7UzL8XQSKSKJX6PVn9WQTslxlpsVNMJyMNoXgAjmg1qPbsqPjIjdCaZ2NKTz2ks+mJtXj3uxnT+JYeRulb3dM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786405894; c=relaxed/simple;
-	bh=24SgVQrbwm6/gEve57uqzbG4ELIgBpr5kaknDVpmbpc=;
+	s=arc-20240116; t=1786405895; c=relaxed/simple;
+	bh=lWTdhQVE/mCpz6mzi0UY6DxR4TwJLi8TP/pHsYZx/Hc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z3VVl1VT+tNgLKuZFdaL5Tnrw6bgjg+M/gyaIL/XK7zu6oYOhHMrmnSt5cjQWlpwKL3FXmIkx9smyeUo5Ky4pNNRBA5Tj/iNHHzn9/Yk57KXbRYx4p5vo1oFz/GESfvkFGugwNSfyRlxDlP1itJRy6DR7k7L4U9XfG2/ln7I0BQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AyaTflci; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FbRYgtC35VGEDm2aWku1OTX/JkkFfIa6Xay02MNUPI9QojtpmqxZskxI8S3YdWzNZInqj2uCDbywQJTBPxKT4N9xQWTSUdYGOb5P/lr8gjmj7DG/GFPfqAZpLroZx7mj2HFopjEgE/5tsSc56wWXAWVI37jjFOujvJ+33KQ4+To=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jOc7zZIS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AyaTflci"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6D51F00AC4;
-	Mon, 10 Aug 2026 23:51:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jOc7zZIS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1841F00A3E;
+	Mon, 10 Aug 2026 23:51:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786405892;
-	bh=o6etUmq+S95gxGt2NW9sxfYwah3g6Huypb0dYMq0Anw=;
+	s=k20260515; t=1786405893;
+	bh=/26mNPgKFFvw5UGIgIIpeVHZZpp+FzuLmGnJq8uBkkE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AyaTflcisZ0dXEbzfRuKx9Da9CqkZJDZR/qStaXtMvRotDE3Xj/FOzWduAMPXZnXq
-	 gKYoP5kwpLu4Wu7he6vPEZeyYYqn9nAclErbmVH6Vmo9cPJibNU8NI+dSNn+AaMwq1
-	 cafbSfQe8HELmAXPl5ZleRuTq0w1PBpQh+xifKjf6ic64MX5QHPXPtVuf1xnzY47bG
-	 GrITIvi0WSlp4lGvBklXfGjirO9vgLNeXHKJDmu9u5JeK7ChXTOnR4v3ktSjVSi4VM
-	 apWnVYCyHCJysj31rIRNEq2eEdliGgTI9IKXT3hzWCmsNbOqWSzUnnhSOptZ/9u3zb
-	 W0FE+IdzGm6NQ==
+	b=jOc7zZISuPZiJjNYOxtWJTmQdV7cW4W7vi6djwh2U3MTS8YK7i/R+ij/QccNfDJHi
+	 SDGPGtU7GYaj0IorsqqmQH4HrPAAlNMOHYbsxx/zM7D2d6QVNvkqJQjvjiyBfjYFE1
+	 NpYDbgSgrCdvx78ltViqzKiWpnemLCNg7Bguthxqzisv7PBRsEpNz5CHR83h4XNS50
+	 wbE+/SrflblXotj4fxYLIF2VJ08ryTayYZdaEHCJTpiruncnUi2YxVNBcGUtfiUj2m
+	 t+0E0KR0reDB0IifIQvTaU6HT/Tgl58hyESPxizIjvzn1VOuPKP/7nI776NLNWWHnG
+	 YtmAVu7s0MRmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/6] Bluetooth: HCI: Remove HCI_AMP support
-Date: Mon, 10 Aug 2026 19:51:24 -0400
-Message-ID: <20260810235129.3217516-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/6] Bluetooth: MGMT: Fix not generating command complete for MGMT_OP_DISCONNECT
+Date: Mon, 10 Aug 2026 19:51:26 -0400
+Message-ID: <20260810235129.3217516-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080548-angelfish-scored-d506@gregkh>
+In-Reply-To: <20260810235129.3217516-1-sashal@kernel.org>
 References: <2026080548-angelfish-scored-d506@gregkh>
+ <20260810235129.3217516-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,1414 +47,173 @@ Content-Transfer-Encoding: 8bit
 
 From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-[ Upstream commit 84a4bb6548a29326564f0e659fb8064503ecc1c7 ]
+[ Upstream commit 227a0cdf4a028a73dc256d0f5144b4808d718893 ]
 
-Since BT_HS has been remove HCI_AMP controllers no longer has any use so
-remove it along with the capability of creating AMP controllers.
+MGMT_OP_DISCONNECT can be called while mgmt_device_connected has not
+been called yet, which will cause the connection procedure to be
+aborted, so mgmt_device_disconnected shall still respond with command
+complete to MGMT_OP_DISCONNECT and just not emit
+MGMT_EV_DEVICE_DISCONNECTED since MGMT_EV_DEVICE_CONNECTED was never
+sent.
 
-Since we no longer need to differentiate between AMP and Primary
-controllers, as only HCI_PRIMARY is left, this also remove
-hdev->dev_type altogether.
+To fix this MGMT_OP_DISCONNECT is changed to work similarly to other
+command which do use hci_cmd_sync_queue and then use hci_conn_abort to
+disconnect and returns the result, in order for hci_conn_abort to be
+used from hci_cmd_sync context it now uses hci_cmd_sync_run_once.
 
-Fixes: e7b02296fb40 ("Bluetooth: Remove BT_HS")
+Link: https://github.com/bluez/bluez/issues/932
+Fixes: 12d4a3b2ccb3 ("Bluetooth: Move check for MGMT_CONNECTED flag into mgmt.c")
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Stable-dep-of: d0a7b48ad092 ("Bluetooth: mgmt: fix UAF in pair command cancellation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/bluetooth/btmrvl_main.c  |   9 --
- drivers/bluetooth/btrsi.c        |   1 -
- drivers/bluetooth/btsdio.c       |   8 --
- drivers/bluetooth/btusb.c        |   5 --
- drivers/bluetooth/hci_ldisc.c    |   6 --
- drivers/bluetooth/hci_serdev.c   |   5 --
- drivers/bluetooth/hci_uart.h     |   1 -
- drivers/bluetooth/hci_vhci.c     |  10 +--
- drivers/bluetooth/virtio_bt.c    |   2 -
- include/net/bluetooth/hci.h      | 114 ------------------------
- include/net/bluetooth/hci_core.h |  46 +---------
- include/uapi/linux/virtio_bt.h   |   1 -
- net/bluetooth/hci_conn.c         |  24 ++---
- net/bluetooth/hci_core.c         | 131 +++------------------------
- net/bluetooth/hci_event.c        | 147 -------------------------------
- net/bluetooth/hci_sock.c         |   5 +-
- net/bluetooth/hci_sync.c         | 112 +----------------------
- net/bluetooth/l2cap_core.c       |  21 +----
- net/bluetooth/mgmt.c             |  84 ++++++------------
- 19 files changed, 55 insertions(+), 677 deletions(-)
+ net/bluetooth/mgmt.c | 84 ++++++++++++++++++++++----------------------
+ 1 file changed, 42 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/bluetooth/btmrvl_main.c b/drivers/bluetooth/btmrvl_main.c
-index 9658b33c824a7..18f34998a1204 100644
---- a/drivers/bluetooth/btmrvl_main.c
-+++ b/drivers/bluetooth/btmrvl_main.c
-@@ -121,13 +121,6 @@ int btmrvl_process_event(struct btmrvl_private *priv, struct sk_buff *skb)
- 				((event->data[2] == MODULE_BROUGHT_UP) ||
- 				(event->data[2] == MODULE_ALREADY_UP)) ?
- 				"Bring-up succeed" : "Bring-up failed");
--
--			if (event->length > 3 && event->data[3])
--				priv->btmrvl_dev.dev_type = HCI_AMP;
--			else
--				priv->btmrvl_dev.dev_type = HCI_PRIMARY;
--
--			BT_DBG("dev_type: %d", priv->btmrvl_dev.dev_type);
- 		} else if (priv->btmrvl_dev.sendcmdflag &&
- 				event->data[1] == MODULE_SHUTDOWN_REQ) {
- 			BT_DBG("EVENT:%s", (event->data[2]) ?
-@@ -686,8 +679,6 @@ int btmrvl_register_hdev(struct btmrvl_private *priv)
- 	hdev->wakeup = btmrvl_wakeup;
- 	SET_HCIDEV_DEV(hdev, &card->func->dev);
- 
--	hdev->dev_type = priv->btmrvl_dev.dev_type;
--
- 	ret = hci_register_dev(hdev);
- 	if (ret < 0) {
- 		BT_ERR("Can not register HCI device");
-diff --git a/drivers/bluetooth/btrsi.c b/drivers/bluetooth/btrsi.c
-index 634cf8f5ed2db..0c91d7635ac39 100644
---- a/drivers/bluetooth/btrsi.c
-+++ b/drivers/bluetooth/btrsi.c
-@@ -134,7 +134,6 @@ static int rsi_hci_attach(void *priv, struct rsi_proto_ops *ops)
- 		hdev->bus = HCI_USB;
- 
- 	hci_set_drvdata(hdev, h_adapter);
--	hdev->dev_type = HCI_PRIMARY;
- 	hdev->open = rsi_hci_open;
- 	hdev->close = rsi_hci_close;
- 	hdev->flush = rsi_hci_flush;
-diff --git a/drivers/bluetooth/btsdio.c b/drivers/bluetooth/btsdio.c
-index f19d31ee37ea8..fdcfe9c50313e 100644
---- a/drivers/bluetooth/btsdio.c
-+++ b/drivers/bluetooth/btsdio.c
-@@ -32,9 +32,6 @@ static const struct sdio_device_id btsdio_table[] = {
- 	/* Generic Bluetooth Type-B SDIO device */
- 	{ SDIO_DEVICE_CLASS(SDIO_CLASS_BT_B) },
- 
--	/* Generic Bluetooth AMP controller */
--	{ SDIO_DEVICE_CLASS(SDIO_CLASS_BT_AMP) },
--
- 	{ }	/* Terminating entry */
- };
- 
-@@ -319,11 +316,6 @@ static int btsdio_probe(struct sdio_func *func,
- 	hdev->bus = HCI_SDIO;
- 	hci_set_drvdata(hdev, data);
- 
--	if (id->class == SDIO_CLASS_BT_AMP)
--		hdev->dev_type = HCI_AMP;
--	else
--		hdev->dev_type = HCI_PRIMARY;
--
- 	data->hdev = hdev;
- 
- 	SET_HCIDEV_DEV(hdev, &func->dev);
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index 0077f2ad9fe61..972bf187d9b4e 100644
---- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -3952,11 +3952,6 @@ static int btusb_probe(struct usb_interface *intf,
- 	hdev->bus = HCI_USB;
- 	hci_set_drvdata(hdev, data);
- 
--	if (id->driver_info & BTUSB_AMP)
--		hdev->dev_type = HCI_AMP;
--	else
--		hdev->dev_type = HCI_PRIMARY;
--
- 	data->hdev = hdev;
- 
- 	SET_HCIDEV_DEV(hdev, &intf->dev);
-diff --git a/drivers/bluetooth/hci_ldisc.c b/drivers/bluetooth/hci_ldisc.c
-index 00e03f77ae9a0..fa58a3219e6af 100644
---- a/drivers/bluetooth/hci_ldisc.c
-+++ b/drivers/bluetooth/hci_ldisc.c
-@@ -700,11 +700,6 @@ static int hci_uart_register_dev(struct hci_uart *hu)
- 	if (!test_bit(HCI_UART_RESET_ON_INIT, &hu->hdev_flags))
- 		set_bit(HCI_QUIRK_RESET_ON_CLOSE, &hdev->quirks);
- 
--	if (test_bit(HCI_UART_CREATE_AMP, &hu->hdev_flags))
--		hdev->dev_type = HCI_AMP;
--	else
--		hdev->dev_type = HCI_PRIMARY;
--
- 	/* Only call open() for the protocol after hdev is fully initialized as
- 	 * open() (or a timer/workqueue it starts) may attempt to reference it.
- 	 */
-@@ -766,7 +761,6 @@ static int hci_uart_set_flags(struct hci_uart *hu, unsigned long flags)
- {
- 	unsigned long valid_flags = BIT(HCI_UART_RAW_DEVICE) |
- 				    BIT(HCI_UART_RESET_ON_INIT) |
--				    BIT(HCI_UART_CREATE_AMP) |
- 				    BIT(HCI_UART_INIT_PENDING) |
- 				    BIT(HCI_UART_EXT_CONFIG) |
- 				    BIT(HCI_UART_VND_DETECT);
-diff --git a/drivers/bluetooth/hci_serdev.c b/drivers/bluetooth/hci_serdev.c
-index f16fd79bc02b8..3a7220dffa0fb 100644
---- a/drivers/bluetooth/hci_serdev.c
-+++ b/drivers/bluetooth/hci_serdev.c
-@@ -365,11 +365,6 @@ int hci_uart_register_device(struct hci_uart *hu,
- 	if (test_bit(HCI_UART_EXT_CONFIG, &hu->hdev_flags))
- 		set_bit(HCI_QUIRK_EXTERNAL_CONFIG, &hdev->quirks);
- 
--	if (test_bit(HCI_UART_CREATE_AMP, &hu->hdev_flags))
--		hdev->dev_type = HCI_AMP;
--	else
--		hdev->dev_type = HCI_PRIMARY;
--
- 	if (test_bit(HCI_UART_INIT_PENDING, &hu->hdev_flags))
- 		return 0;
- 
-diff --git a/drivers/bluetooth/hci_uart.h b/drivers/bluetooth/hci_uart.h
-index c6f13d7c22a23..70449949d5276 100644
---- a/drivers/bluetooth/hci_uart.h
-+++ b/drivers/bluetooth/hci_uart.h
-@@ -37,7 +37,6 @@
- 
- #define HCI_UART_RAW_DEVICE	0
- #define HCI_UART_RESET_ON_INIT	1
--#define HCI_UART_CREATE_AMP	2
- #define HCI_UART_INIT_PENDING	3
- #define HCI_UART_EXT_CONFIG	4
- #define HCI_UART_VND_DETECT	5
-diff --git a/drivers/bluetooth/hci_vhci.c b/drivers/bluetooth/hci_vhci.c
-index 44dc91555aa00..defa499595eac 100644
---- a/drivers/bluetooth/hci_vhci.c
-+++ b/drivers/bluetooth/hci_vhci.c
-@@ -286,17 +286,10 @@ static int __vhci_create_device(struct vhci_data *data, __u8 opcode)
- {
- 	struct hci_dev *hdev;
- 	struct sk_buff *skb;
--	__u8 dev_type;
- 
- 	if (data->hdev)
- 		return -EBADFD;
- 
--	/* bits 0-1 are dev_type (Primary or AMP) */
--	dev_type = opcode & 0x03;
--
--	if (dev_type != HCI_PRIMARY && dev_type != HCI_AMP)
--		return -EINVAL;
--
- 	/* bits 2-5 are reserved (must be zero) */
- 	if (opcode & 0x3c)
- 		return -EINVAL;
-@@ -314,7 +307,6 @@ static int __vhci_create_device(struct vhci_data *data, __u8 opcode)
- 	data->hdev = hdev;
- 
- 	hdev->bus = HCI_VIRTUAL;
--	hdev->dev_type = dev_type;
- 	hci_set_drvdata(hdev, data);
- 
- 	hdev->open  = vhci_open_dev;
-@@ -533,7 +525,7 @@ static void vhci_open_timeout(struct work_struct *work)
- 	struct vhci_data *data = container_of(work, struct vhci_data,
- 					      open_timeout.work);
- 
--	vhci_create_device(data, amp ? HCI_AMP : HCI_PRIMARY);
-+	vhci_create_device(data, 0x00);
- }
- 
- static int vhci_open(struct inode *inode, struct file *file)
-diff --git a/drivers/bluetooth/virtio_bt.c b/drivers/bluetooth/virtio_bt.c
-index de5dd8d3a1a75..e543196a91518 100644
---- a/drivers/bluetooth/virtio_bt.c
-+++ b/drivers/bluetooth/virtio_bt.c
-@@ -291,7 +291,6 @@ static int virtbt_probe(struct virtio_device *vdev)
- 
- 	switch (type) {
- 	case VIRTIO_BT_CONFIG_TYPE_PRIMARY:
--	case VIRTIO_BT_CONFIG_TYPE_AMP:
- 		break;
- 	default:
- 		return -EINVAL;
-@@ -320,7 +319,6 @@ static int virtbt_probe(struct virtio_device *vdev)
- 	vbt->hdev = hdev;
- 
- 	hdev->bus = HCI_VIRTIO;
--	hdev->dev_type = type;
- 	hci_set_drvdata(hdev, vbt);
- 
- 	hdev->open  = virtbt_open;
-diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-index 0e188f3287194..22b9c031986a2 100644
---- a/include/net/bluetooth/hci.h
-+++ b/include/net/bluetooth/hci.h
-@@ -32,9 +32,6 @@
- #define HCI_MAX_FRAME_SIZE	(HCI_MAX_ACL_SIZE + 4)
- 
- #define HCI_LINK_KEY_SIZE	16
--#define HCI_AMP_LINK_KEY_SIZE	(2 * HCI_LINK_KEY_SIZE)
--
--#define HCI_MAX_AMP_ASSOC_SIZE	672
- 
- #define HCI_MAX_CPB_DATA_SIZE	252
- 
-@@ -70,26 +67,6 @@
- #define HCI_SMD		9
- #define HCI_VIRTIO	10
- 
--/* HCI controller types */
--#define HCI_PRIMARY	0x00
--#define HCI_AMP		0x01
--
--/* First BR/EDR Controller shall have ID = 0 */
--#define AMP_ID_BREDR	0x00
--
--/* AMP controller types */
--#define AMP_TYPE_BREDR	0x00
--#define AMP_TYPE_80211	0x01
--
--/* AMP controller status */
--#define AMP_STATUS_POWERED_DOWN			0x00
--#define AMP_STATUS_BLUETOOTH_ONLY		0x01
--#define AMP_STATUS_NO_CAPACITY			0x02
--#define AMP_STATUS_LOW_CAPACITY			0x03
--#define AMP_STATUS_MEDIUM_CAPACITY		0x04
--#define AMP_STATUS_HIGH_CAPACITY		0x05
--#define AMP_STATUS_FULL_CAPACITY		0x06
--
- /* HCI device quirks */
- enum {
- 	/* When this quirk is set, the HCI Reset command is send when
-@@ -506,7 +483,6 @@ enum {
- #define ESCO_LINK	0x02
- /* Low Energy links do not have defined link type. Use invented one */
- #define LE_LINK		0x80
--#define AMP_LINK	0x81
- #define ISO_LINK	0x82
- #define INVALID_LINK	0xff
- 
-@@ -917,56 +893,6 @@ struct hci_cp_io_capability_neg_reply {
- 	__u8     reason;
- } __packed;
- 
--#define HCI_OP_CREATE_PHY_LINK		0x0435
--struct hci_cp_create_phy_link {
--	__u8     phy_handle;
--	__u8     key_len;
--	__u8     key_type;
--	__u8     key[HCI_AMP_LINK_KEY_SIZE];
--} __packed;
--
--#define HCI_OP_ACCEPT_PHY_LINK		0x0436
--struct hci_cp_accept_phy_link {
--	__u8     phy_handle;
--	__u8     key_len;
--	__u8     key_type;
--	__u8     key[HCI_AMP_LINK_KEY_SIZE];
--} __packed;
--
--#define HCI_OP_DISCONN_PHY_LINK		0x0437
--struct hci_cp_disconn_phy_link {
--	__u8     phy_handle;
--	__u8     reason;
--} __packed;
--
--struct ext_flow_spec {
--	__u8       id;
--	__u8       stype;
--	__le16     msdu;
--	__le32     sdu_itime;
--	__le32     acc_lat;
--	__le32     flush_to;
--} __packed;
--
--#define HCI_OP_CREATE_LOGICAL_LINK	0x0438
--#define HCI_OP_ACCEPT_LOGICAL_LINK	0x0439
--struct hci_cp_create_accept_logical_link {
--	__u8                  phy_handle;
--	struct ext_flow_spec  tx_flow_spec;
--	struct ext_flow_spec  rx_flow_spec;
--} __packed;
--
--#define HCI_OP_DISCONN_LOGICAL_LINK	0x043a
--struct hci_cp_disconn_logical_link {
--	__le16   log_handle;
--} __packed;
--
--#define HCI_OP_LOGICAL_LINK_CANCEL	0x043b
--struct hci_cp_logical_link_cancel {
--	__u8     phy_handle;
--	__u8     flow_spec_id;
--} __packed;
--
- #define HCI_OP_ENHANCED_SETUP_SYNC_CONN		0x043d
- struct hci_coding_format {
- 	__u8	id;
-@@ -1593,46 +1519,6 @@ struct hci_rp_read_enc_key_size {
- 	__u8     key_size;
- } __packed;
- 
--#define HCI_OP_READ_LOCAL_AMP_INFO	0x1409
--struct hci_rp_read_local_amp_info {
--	__u8     status;
--	__u8     amp_status;
--	__le32   total_bw;
--	__le32   max_bw;
--	__le32   min_latency;
--	__le32   max_pdu;
--	__u8     amp_type;
--	__le16   pal_cap;
--	__le16   max_assoc_size;
--	__le32   max_flush_to;
--	__le32   be_flush_to;
--} __packed;
--
--#define HCI_OP_READ_LOCAL_AMP_ASSOC	0x140a
--struct hci_cp_read_local_amp_assoc {
--	__u8     phy_handle;
--	__le16   len_so_far;
--	__le16   max_len;
--} __packed;
--struct hci_rp_read_local_amp_assoc {
--	__u8     status;
--	__u8     phy_handle;
--	__le16   rem_len;
--	__u8     frag[];
--} __packed;
--
--#define HCI_OP_WRITE_REMOTE_AMP_ASSOC	0x140b
--struct hci_cp_write_remote_amp_assoc {
--	__u8     phy_handle;
--	__le16   len_so_far;
--	__le16   rem_len;
--	__u8     frag[];
--} __packed;
--struct hci_rp_write_remote_amp_assoc {
--	__u8     status;
--	__u8     phy_handle;
--} __packed;
--
- #define HCI_OP_GET_MWS_TRANSPORT_CONFIG	0x140c
- 
- #define HCI_OP_ENABLE_DUT_MODE		0x1803
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index e67b1e5e0d2c8..08f72bef14b54 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -127,7 +127,6 @@ enum suspended_state {
- struct hci_conn_hash {
- 	struct list_head list;
- 	unsigned int     acl_num;
--	unsigned int     amp_num;
- 	unsigned int     sco_num;
- 	unsigned int     iso_num;
- 	unsigned int     le_num;
-@@ -337,14 +336,6 @@ struct adv_monitor {
- /* Default authenticated payload timeout 30s */
- #define DEFAULT_AUTH_PAYLOAD_TIMEOUT   0x0bb8
- 
--struct amp_assoc {
--	__u16	len;
--	__u16	offset;
--	__u16	rem_len;
--	__u16	len_so_far;
--	__u8	data[HCI_MAX_AMP_ASSOC_SIZE];
--};
--
- #define HCI_MAX_PAGES	3
- 
- struct hci_dev {
-@@ -358,7 +349,6 @@ struct hci_dev {
- 	unsigned long	flags;
- 	__u16		id;
- 	__u8		bus;
--	__u8		dev_type;
- 	bdaddr_t	bdaddr;
- 	bdaddr_t	setup_addr;
- 	bdaddr_t	public_addr;
-@@ -464,21 +454,6 @@ struct hci_dev {
- 	__u16		sniff_min_interval;
- 	__u16		sniff_max_interval;
- 
--	__u8		amp_status;
--	__u32		amp_total_bw;
--	__u32		amp_max_bw;
--	__u32		amp_min_latency;
--	__u32		amp_max_pdu;
--	__u8		amp_type;
--	__u16		amp_pal_cap;
--	__u16		amp_assoc_size;
--	__u32		amp_max_flush_to;
--	__u32		amp_be_flush_to;
--
--	struct amp_assoc	loc_assoc;
--
--	__u8		flow_ctl_mode;
--
- 	unsigned int	auto_accept_delay;
- 
- 	unsigned long	quirks;
-@@ -498,11 +473,6 @@ struct hci_dev {
- 	unsigned int	le_pkts;
- 	unsigned int	iso_pkts;
- 
--	__u16		block_len;
--	__u16		block_mtu;
--	__u16		num_blocks;
--	__u16		block_cnt;
--
- 	unsigned long	acl_last_tx;
- 	unsigned long	sco_last_tx;
- 	unsigned long	le_last_tx;
-@@ -768,7 +738,6 @@ struct hci_conn {
- 	void		*l2cap_data;
- 	void		*sco_data;
- 	void		*iso_data;
--	struct amp_mgr	*amp_mgr;
- 
- 	struct hci_conn	*link;
- 	struct bt_codec codec;
-@@ -787,7 +756,6 @@ struct hci_chan {
- 	struct sk_buff_head data_q;
- 	unsigned int	sent;
- 	__u8		state;
--	bool		amp;
- };
- 
- struct hci_conn_params {
-@@ -995,9 +963,6 @@ static inline void hci_conn_hash_add(struct hci_dev *hdev, struct hci_conn *c)
- 	case ACL_LINK:
- 		h->acl_num++;
- 		break;
--	case AMP_LINK:
--		h->amp_num++;
--		break;
- 	case LE_LINK:
- 		h->le_num++;
- 		if (c->role == HCI_ROLE_SLAVE)
-@@ -1024,9 +989,6 @@ static inline void hci_conn_hash_del(struct hci_dev *hdev, struct hci_conn *c)
- 	case ACL_LINK:
- 		h->acl_num--;
- 		break;
--	case AMP_LINK:
--		h->amp_num--;
--		break;
- 	case LE_LINK:
- 		h->le_num--;
- 		if (c->role == HCI_ROLE_SLAVE)
-@@ -1048,8 +1010,6 @@ static inline unsigned int hci_conn_num(struct hci_dev *hdev, __u8 type)
- 	switch (type) {
- 	case ACL_LINK:
- 		return h->acl_num;
--	case AMP_LINK:
--		return h->amp_num;
- 	case LE_LINK:
- 		return h->le_num;
- 	case SCO_LINK:
-@@ -1066,7 +1026,7 @@ static inline unsigned int hci_conn_count(struct hci_dev *hdev)
- {
- 	struct hci_conn_hash *c = &hdev->conn_hash;
- 
--	return c->acl_num + c->amp_num + c->sco_num + c->le_num + c->iso_num;
-+	return c->acl_num + c->sco_num + c->le_num + c->iso_num;
- }
- 
- static inline __u8 hci_conn_lookup_type(struct hci_dev *hdev, __u16 handle)
-@@ -1439,10 +1399,6 @@ static inline void hci_conn_drop(struct hci_conn *conn)
- 			}
- 			break;
- 
--		case AMP_LINK:
--			timeo = conn->disc_timeout;
--			break;
--
- 		default:
- 			timeo = 0;
- 			break;
-diff --git a/include/uapi/linux/virtio_bt.h b/include/uapi/linux/virtio_bt.h
-index a7bd48daa9a92..7495d23acd3ac 100644
---- a/include/uapi/linux/virtio_bt.h
-+++ b/include/uapi/linux/virtio_bt.h
-@@ -12,7 +12,6 @@
- 
- enum virtio_bt_config_type {
- 	VIRTIO_BT_CONFIG_TYPE_PRIMARY	= 0,
--	VIRTIO_BT_CONFIG_TYPE_AMP	= 1,
- };
- 
- enum virtio_bt_config_vendor {
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index 54cfcab763638..4c30f8f0774e5 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -1193,8 +1193,7 @@ struct hci_dev *hci_get_route(bdaddr_t *dst, bdaddr_t *src, uint8_t src_type)
- 
- 	list_for_each_entry(d, &hci_dev_list, list) {
- 		if (!test_bit(HCI_UP, &d->flags) ||
--		    hci_dev_test_flag(d, HCI_USER_CHANNEL) ||
--		    d->dev_type != HCI_PRIMARY)
-+		    hci_dev_test_flag(d, HCI_USER_CHANNEL))
- 			continue;
- 
- 		/* Simple routing:
-@@ -2878,26 +2877,17 @@ int hci_abort_conn(struct hci_conn *conn, u8 reason)
- 
- 	switch (conn->state) {
- 	case BT_CONNECTED:
--	case BT_CONFIG:
--		if (conn->type == AMP_LINK) {
--			struct hci_cp_disconn_phy_link cp;
--
--			cp.phy_handle = HCI_PHY_HANDLE(conn->handle);
--			cp.reason = reason;
--			r = hci_send_cmd(conn->hdev, HCI_OP_DISCONN_PHY_LINK,
--					 sizeof(cp), &cp);
--		} else {
--			struct hci_cp_disconnect dc;
-+	case BT_CONFIG: {
-+		struct hci_cp_disconnect dc;
- 
--			dc.handle = cpu_to_le16(conn->handle);
--			dc.reason = reason;
--			r = hci_send_cmd(conn->hdev, HCI_OP_DISCONNECT,
--					 sizeof(dc), &dc);
--		}
-+		dc.handle = cpu_to_le16(conn->handle);
-+		dc.reason = reason;
-+		r = hci_send_cmd(conn->hdev, HCI_OP_DISCONNECT, sizeof(dc), &dc);
- 
- 		conn->state = BT_DISCONN;
- 
- 		break;
-+	}
- 	case BT_CONNECT:
- 		if (conn->type == LE_LINK) {
- 			if (test_bit(HCI_CONN_SCANNING, &conn->flags))
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 6a69b85c1c7fc..aae2ad4cce968 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -369,11 +369,6 @@ int hci_inquiry(void __user *arg)
- 		goto done;
- 	}
- 
--	if (hdev->dev_type != HCI_PRIMARY) {
--		err = -EOPNOTSUPP;
--		goto done;
--	}
--
- 	if (!hci_dev_test_flag(hdev, HCI_BREDR_ENABLED)) {
- 		err = -EOPNOTSUPP;
- 		goto done;
-@@ -727,11 +722,6 @@ int hci_dev_cmd(unsigned int cmd, void __user *arg)
- 		goto done;
- 	}
- 
--	if (hdev->dev_type != HCI_PRIMARY) {
--		err = -EOPNOTSUPP;
--		goto done;
--	}
--
- 	if (!hci_dev_test_flag(hdev, HCI_BREDR_ENABLED)) {
- 		err = -EOPNOTSUPP;
- 		goto done;
-@@ -889,7 +879,7 @@ int hci_get_dev_info(void __user *arg)
- 
- 	strcpy(di.name, hdev->name);
- 	di.bdaddr   = hdev->bdaddr;
--	di.type     = (hdev->bus & 0x0f) | ((hdev->dev_type & 0x03) << 4);
-+	di.type     = (hdev->bus & 0x0f);
- 	di.flags    = flags;
- 	di.pkt_type = hdev->pkt_type;
- 	if (lmp_bredr_capable(hdev)) {
-@@ -974,8 +964,7 @@ static void hci_power_on(struct work_struct *work)
- 	 */
- 	if (hci_dev_test_flag(hdev, HCI_RFKILLED) ||
- 	    hci_dev_test_flag(hdev, HCI_UNCONFIGURED) ||
--	    (hdev->dev_type == HCI_PRIMARY &&
--	     !bacmp(&hdev->bdaddr, BDADDR_ANY) &&
-+	    (!bacmp(&hdev->bdaddr, BDADDR_ANY) &&
- 	     !bacmp(&hdev->static_addr, BDADDR_ANY))) {
- 		hci_dev_clear_flag(hdev, HCI_AUTO_OFF);
- 		hci_dev_do_close(hdev);
-@@ -2591,20 +2580,7 @@ int hci_register_dev(struct hci_dev *hdev)
- 	if (!hdev->open || !hdev->close || !hdev->send)
- 		return -EINVAL;
- 
--	/* Do not allow HCI_AMP devices to register at index 0,
--	 * so the index can be used as the AMP controller ID.
--	 */
--	switch (hdev->dev_type) {
--	case HCI_PRIMARY:
--		id = ida_simple_get(&hci_index_ida, 0, HCI_MAX_ID, GFP_KERNEL);
--		break;
--	case HCI_AMP:
--		id = ida_simple_get(&hci_index_ida, 1, HCI_MAX_ID, GFP_KERNEL);
--		break;
--	default:
--		return -EINVAL;
--	}
--
-+	id = ida_simple_get(&hci_index_ida, 0, HCI_MAX_ID, GFP_KERNEL);
- 	if (id < 0)
- 		return id;
- 
-@@ -2656,12 +2632,10 @@ int hci_register_dev(struct hci_dev *hdev)
- 	hci_dev_set_flag(hdev, HCI_SETUP);
- 	hci_dev_set_flag(hdev, HCI_AUTO_OFF);
- 
--	if (hdev->dev_type == HCI_PRIMARY) {
--		/* Assume BR/EDR support until proven otherwise (such as
--		 * through reading supported features during init.
--		 */
--		hci_dev_set_flag(hdev, HCI_BREDR_ENABLED);
--	}
-+	/* Assume BR/EDR support until proven otherwise (such as
-+	 * through reading supported features during init.
-+	 */
-+	hci_dev_set_flag(hdev, HCI_BREDR_ENABLED);
- 
- 	write_lock(&hci_dev_list_lock);
- 	list_add(&hdev->list, &hci_dev_list);
-@@ -3191,17 +3165,7 @@ static void hci_queue_acl(struct hci_chan *chan, struct sk_buff_head *queue,
- 
- 	hci_skb_pkt_type(skb) = HCI_ACLDATA_PKT;
- 
--	switch (hdev->dev_type) {
--	case HCI_PRIMARY:
--		hci_add_acl_hdr(skb, conn->handle, flags);
--		break;
--	case HCI_AMP:
--		hci_add_acl_hdr(skb, chan->handle, flags);
--		break;
--	default:
--		bt_dev_err(hdev, "unknown dev_type %d", hdev->dev_type);
--		return;
--	}
-+	hci_add_acl_hdr(skb, conn->handle, flags);
- 
- 	list = skb_shinfo(skb)->frag_list;
- 	if (!list) {
-@@ -3361,9 +3325,6 @@ static inline void hci_quote_sent(struct hci_conn *conn, int num, int *quote)
- 	case ACL_LINK:
- 		cnt = hdev->acl_cnt;
- 		break;
--	case AMP_LINK:
--		cnt = hdev->block_cnt;
--		break;
- 	case SCO_LINK:
- 	case ESCO_LINK:
- 		cnt = hdev->sco_cnt;
-@@ -3556,12 +3517,6 @@ static void hci_prio_recalculate(struct hci_dev *hdev, __u8 type)
- 
- }
- 
--static inline int __get_blocks(struct hci_dev *hdev, struct sk_buff *skb)
--{
--	/* Calculate count of blocks used by this packet */
--	return DIV_ROUND_UP(skb->len - HCI_ACL_HDR_SIZE, hdev->block_len);
--}
--
- static void __check_timeout(struct hci_dev *hdev, unsigned int cnt, u8 type)
- {
- 	unsigned long last_tx;
-@@ -3669,81 +3624,15 @@ static void hci_sched_acl_pkt(struct hci_dev *hdev)
- 		hci_prio_recalculate(hdev, ACL_LINK);
- }
- 
--static void hci_sched_acl_blk(struct hci_dev *hdev)
--{
--	unsigned int cnt = hdev->block_cnt;
--	struct hci_chan *chan;
--	struct sk_buff *skb;
--	int quote;
--	u8 type;
--
--	BT_DBG("%s", hdev->name);
--
--	if (hdev->dev_type == HCI_AMP)
--		type = AMP_LINK;
--	else
--		type = ACL_LINK;
--
--	__check_timeout(hdev, cnt, type);
--
--	while (hdev->block_cnt > 0 &&
--	       (chan = hci_chan_sent(hdev, type, &quote))) {
--		u32 priority = (skb_peek(&chan->data_q))->priority;
--		while (quote > 0 && (skb = skb_peek(&chan->data_q))) {
--			int blocks;
--
--			BT_DBG("chan %p skb %p len %d priority %u", chan, skb,
--			       skb->len, skb->priority);
--
--			/* Stop if priority has changed */
--			if (skb->priority < priority)
--				break;
--
--			skb = skb_dequeue(&chan->data_q);
--
--			blocks = __get_blocks(hdev, skb);
--			if (blocks > hdev->block_cnt)
--				return;
--
--			hci_conn_enter_active_mode(chan->conn,
--						   bt_cb(skb)->force_active);
--
--			hci_send_frame(hdev, skb);
--			hdev->acl_last_tx = jiffies;
--
--			hdev->block_cnt -= blocks;
--			quote -= blocks;
--
--			chan->sent += blocks;
--			chan->conn->sent += blocks;
--		}
--	}
--
--	if (cnt != hdev->block_cnt)
--		hci_prio_recalculate(hdev, type);
--}
--
- static void hci_sched_acl(struct hci_dev *hdev)
- {
- 	BT_DBG("%s", hdev->name);
- 
- 	/* No ACL link over BR/EDR controller */
--	if (!hci_conn_num(hdev, ACL_LINK) && hdev->dev_type == HCI_PRIMARY)
--		return;
--
--	/* No AMP link over AMP controller */
--	if (!hci_conn_num(hdev, AMP_LINK) && hdev->dev_type == HCI_AMP)
-+	if (!hci_conn_num(hdev, ACL_LINK))
- 		return;
- 
--	switch (hdev->flow_ctl_mode) {
--	case HCI_FLOW_CTL_MODE_PACKET_BASED:
--		hci_sched_acl_pkt(hdev);
--		break;
--
--	case HCI_FLOW_CTL_MODE_BLOCK_BASED:
--		hci_sched_acl_blk(hdev);
--		break;
--	}
-+	hci_sched_acl_pkt(hdev);
- }
- 
- static void hci_sched_le(struct hci_dev *hdev)
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index f5e3709816c9f..820296057d4f2 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -911,21 +911,6 @@ static u8 hci_cc_read_local_ext_features(struct hci_dev *hdev, void *data,
- 	return rp->status;
- }
- 
--static u8 hci_cc_read_flow_control_mode(struct hci_dev *hdev, void *data,
--					struct sk_buff *skb)
--{
--	struct hci_rp_read_flow_control_mode *rp = data;
--
--	bt_dev_dbg(hdev, "status 0x%2.2x", rp->status);
--
--	if (rp->status)
--		return rp->status;
--
--	hdev->flow_ctl_mode = rp->mode;
--
--	return rp->status;
--}
--
- static u8 hci_cc_read_buffer_size(struct hci_dev *hdev, void *data,
- 				  struct sk_buff *skb)
- {
-@@ -1066,28 +1051,6 @@ static u8 hci_cc_write_page_scan_type(struct hci_dev *hdev, void *data,
- 	return rp->status;
- }
- 
--static u8 hci_cc_read_data_block_size(struct hci_dev *hdev, void *data,
--				      struct sk_buff *skb)
--{
--	struct hci_rp_read_data_block_size *rp = data;
--
--	bt_dev_dbg(hdev, "status 0x%2.2x", rp->status);
--
--	if (rp->status)
--		return rp->status;
--
--	hdev->block_mtu = __le16_to_cpu(rp->max_acl_len);
--	hdev->block_len = __le16_to_cpu(rp->block_len);
--	hdev->num_blocks = __le16_to_cpu(rp->num_blocks);
--
--	hdev->block_cnt = hdev->num_blocks;
--
--	BT_DBG("%s blk mtu %d cnt %d len %d", hdev->name, hdev->block_mtu,
--	       hdev->block_cnt, hdev->block_len);
--
--	return rp->status;
--}
--
- static u8 hci_cc_read_clock(struct hci_dev *hdev, void *data,
- 			    struct sk_buff *skb)
- {
-@@ -1122,30 +1085,6 @@ static u8 hci_cc_read_clock(struct hci_dev *hdev, void *data,
- 	return rp->status;
- }
- 
--static u8 hci_cc_read_local_amp_info(struct hci_dev *hdev, void *data,
--				     struct sk_buff *skb)
--{
--	struct hci_rp_read_local_amp_info *rp = data;
--
--	bt_dev_dbg(hdev, "status 0x%2.2x", rp->status);
--
--	if (rp->status)
--		return rp->status;
--
--	hdev->amp_status = rp->amp_status;
--	hdev->amp_total_bw = __le32_to_cpu(rp->total_bw);
--	hdev->amp_max_bw = __le32_to_cpu(rp->max_bw);
--	hdev->amp_min_latency = __le32_to_cpu(rp->min_latency);
--	hdev->amp_max_pdu = __le32_to_cpu(rp->max_pdu);
--	hdev->amp_type = rp->amp_type;
--	hdev->amp_pal_cap = __le16_to_cpu(rp->pal_cap);
--	hdev->amp_assoc_size = __le16_to_cpu(rp->max_assoc_size);
--	hdev->amp_be_flush_to = __le32_to_cpu(rp->be_flush_to);
--	hdev->amp_max_flush_to = __le32_to_cpu(rp->max_flush_to);
--
--	return rp->status;
--}
--
- static u8 hci_cc_read_inq_rsp_tx_power(struct hci_dev *hdev, void *data,
- 				       struct sk_buff *skb)
- {
-@@ -4072,12 +4011,6 @@ static const struct hci_cc {
- 	HCI_CC(HCI_OP_READ_PAGE_SCAN_TYPE, hci_cc_read_page_scan_type,
- 	       sizeof(struct hci_rp_read_page_scan_type)),
- 	HCI_CC_STATUS(HCI_OP_WRITE_PAGE_SCAN_TYPE, hci_cc_write_page_scan_type),
--	HCI_CC(HCI_OP_READ_DATA_BLOCK_SIZE, hci_cc_read_data_block_size,
--	       sizeof(struct hci_rp_read_data_block_size)),
--	HCI_CC(HCI_OP_READ_FLOW_CONTROL_MODE, hci_cc_read_flow_control_mode,
--	       sizeof(struct hci_rp_read_flow_control_mode)),
--	HCI_CC(HCI_OP_READ_LOCAL_AMP_INFO, hci_cc_read_local_amp_info,
--	       sizeof(struct hci_rp_read_local_amp_info)),
- 	HCI_CC(HCI_OP_READ_CLOCK, hci_cc_read_clock,
- 	       sizeof(struct hci_rp_read_clock)),
- 	HCI_CC(HCI_OP_READ_ENC_KEY_SIZE, hci_cc_read_enc_key_size,
-@@ -4410,11 +4343,6 @@ static void hci_num_comp_pkts_evt(struct hci_dev *hdev, void *data,
- 			     flex_array_size(ev, handles, ev->num)))
- 		return;
- 
--	if (hdev->flow_ctl_mode != HCI_FLOW_CTL_MODE_PACKET_BASED) {
--		bt_dev_err(hdev, "wrong event for mode %d", hdev->flow_ctl_mode);
--		return;
--	}
--
- 	bt_dev_dbg(hdev, "num %d", ev->num);
- 
- 	for (i = 0; i < ev->num; i++) {
-@@ -4494,78 +4422,6 @@ static void hci_num_comp_pkts_evt(struct hci_dev *hdev, void *data,
- 	queue_work(hdev->workqueue, &hdev->tx_work);
- }
- 
--static struct hci_conn *__hci_conn_lookup_handle(struct hci_dev *hdev,
--						 __u16 handle)
--{
--	struct hci_chan *chan;
--
--	switch (hdev->dev_type) {
--	case HCI_PRIMARY:
--		return hci_conn_hash_lookup_handle(hdev, handle);
--	case HCI_AMP:
--		chan = hci_chan_lookup_handle(hdev, handle);
--		if (chan)
--			return chan->conn;
--		break;
--	default:
--		bt_dev_err(hdev, "unknown dev_type %d", hdev->dev_type);
--		break;
--	}
--
--	return NULL;
--}
--
--static void hci_num_comp_blocks_evt(struct hci_dev *hdev, void *data,
--				    struct sk_buff *skb)
--{
--	struct hci_ev_num_comp_blocks *ev = data;
--	int i;
--
--	if (!hci_ev_skb_pull(hdev, skb, HCI_EV_NUM_COMP_BLOCKS,
--			     flex_array_size(ev, handles, ev->num_hndl)))
--		return;
--
--	if (hdev->flow_ctl_mode != HCI_FLOW_CTL_MODE_BLOCK_BASED) {
--		bt_dev_err(hdev, "wrong event for mode %d",
--			   hdev->flow_ctl_mode);
--		return;
--	}
--
--	bt_dev_dbg(hdev, "num_blocks %d num_hndl %d", ev->num_blocks,
--		   ev->num_hndl);
--
--	for (i = 0; i < ev->num_hndl; i++) {
--		struct hci_comp_blocks_info *info = &ev->handles[i];
--		struct hci_conn *conn = NULL;
--		__u16  handle, block_count;
--
--		handle = __le16_to_cpu(info->handle);
--		block_count = __le16_to_cpu(info->blocks);
--
--		conn = __hci_conn_lookup_handle(hdev, handle);
--		if (!conn)
--			continue;
--
--		conn->sent -= block_count;
--
--		switch (conn->type) {
--		case ACL_LINK:
--		case AMP_LINK:
--			hdev->block_cnt += block_count;
--			if (hdev->block_cnt > hdev->num_blocks)
--				hdev->block_cnt = hdev->num_blocks;
--			break;
--
--		default:
--			bt_dev_err(hdev, "unknown type %d conn %p",
--				   conn->type, conn);
--			break;
--		}
--	}
--
--	queue_work(hdev->workqueue, &hdev->tx_work);
--}
--
- static void hci_mode_change_evt(struct hci_dev *hdev, void *data,
- 				struct sk_buff *skb)
- {
-@@ -7401,9 +7257,6 @@ static const struct hci_ev {
- 	/* [0x3e = HCI_EV_LE_META] */
- 	HCI_EV_REQ_VL(HCI_EV_LE_META, hci_le_meta_evt,
- 		      sizeof(struct hci_ev_le_meta), HCI_MAX_EVENT_SIZE),
--	/* [0x48 = HCI_EV_NUM_COMP_BLOCKS] */
--	HCI_EV(HCI_EV_NUM_COMP_BLOCKS, hci_num_comp_blocks_evt,
--	       sizeof(struct hci_ev_num_comp_blocks)),
- 	/* [0xff = HCI_EV_VENDOR] */
- 	HCI_EV_VL(HCI_EV_VENDOR, msft_vendor_evt, 0, HCI_MAX_EVENT_SIZE),
- };
-diff --git a/net/bluetooth/hci_sock.c b/net/bluetooth/hci_sock.c
-index e7ec68fa3ad3c..886812f7261c5 100644
---- a/net/bluetooth/hci_sock.c
-+++ b/net/bluetooth/hci_sock.c
-@@ -436,7 +436,7 @@ static struct sk_buff *create_monitor_event(struct hci_dev *hdev, int event)
- 			return NULL;
- 
- 		ni = skb_put(skb, HCI_MON_NEW_INDEX_SIZE);
--		ni->type = hdev->dev_type;
-+		ni->type = 0x00; /* Old hdev->dev_type */
- 		ni->bus = hdev->bus;
- 		bacpy(&ni->bdaddr, &hdev->bdaddr);
- 		memcpy_and_pad(ni->name, sizeof(ni->name), hdev->name,
-@@ -950,9 +950,6 @@ static int hci_sock_bound_ioctl(struct sock *sk, unsigned int cmd,
- 	if (hci_dev_test_flag(hdev, HCI_UNCONFIGURED))
- 		return -EOPNOTSUPP;
- 
--	if (hdev->dev_type != HCI_PRIMARY)
--		return -EOPNOTSUPP;
--
- 	switch (cmd) {
- 	case HCISETRAW:
- 		if (!capable(CAP_NET_ADMIN))
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 81c0589554a82..ed20541347b6c 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -3642,10 +3642,6 @@ static int hci_unconf_init_sync(struct hci_dev *hdev)
- /* Read Local Supported Features. */
- static int hci_read_local_features_sync(struct hci_dev *hdev)
- {
--	 /* Not all AMP controllers support this command */
--	if (hdev->dev_type == HCI_AMP && !(hdev->commands[14] & 0x20))
--		return 0;
--
- 	return __hci_cmd_sync_status(hdev, HCI_OP_READ_LOCAL_FEATURES,
- 				     0, NULL, HCI_CMD_TIMEOUT);
- }
-@@ -3680,51 +3676,6 @@ static int hci_read_local_cmds_sync(struct hci_dev *hdev)
- 	return 0;
- }
- 
--/* Read Local AMP Info */
--static int hci_read_local_amp_info_sync(struct hci_dev *hdev)
--{
--	return __hci_cmd_sync_status(hdev, HCI_OP_READ_LOCAL_AMP_INFO,
--				     0, NULL, HCI_CMD_TIMEOUT);
--}
--
--/* Read Data Blk size */
--static int hci_read_data_block_size_sync(struct hci_dev *hdev)
--{
--	return __hci_cmd_sync_status(hdev, HCI_OP_READ_DATA_BLOCK_SIZE,
--				     0, NULL, HCI_CMD_TIMEOUT);
--}
--
--/* Read Flow Control Mode */
--static int hci_read_flow_control_mode_sync(struct hci_dev *hdev)
--{
--	return __hci_cmd_sync_status(hdev, HCI_OP_READ_FLOW_CONTROL_MODE,
--				     0, NULL, HCI_CMD_TIMEOUT);
--}
--
--/* Read Location Data */
--static int hci_read_location_data_sync(struct hci_dev *hdev)
--{
--	return __hci_cmd_sync_status(hdev, HCI_OP_READ_LOCATION_DATA,
--				     0, NULL, HCI_CMD_TIMEOUT);
--}
--
--/* AMP Controller init stage 1 command sequence */
--static const struct hci_init_stage amp_init1[] = {
--	/* HCI_OP_READ_LOCAL_VERSION */
--	HCI_INIT(hci_read_local_version_sync),
--	/* HCI_OP_READ_LOCAL_COMMANDS */
--	HCI_INIT(hci_read_local_cmds_sync),
--	/* HCI_OP_READ_LOCAL_AMP_INFO */
--	HCI_INIT(hci_read_local_amp_info_sync),
--	/* HCI_OP_READ_DATA_BLOCK_SIZE */
--	HCI_INIT(hci_read_data_block_size_sync),
--	/* HCI_OP_READ_FLOW_CONTROL_MODE */
--	HCI_INIT(hci_read_flow_control_mode_sync),
--	/* HCI_OP_READ_LOCATION_DATA */
--	HCI_INIT(hci_read_location_data_sync),
--	{}
--};
--
- static int hci_init1_sync(struct hci_dev *hdev)
- {
- 	int err;
-@@ -3738,28 +3689,9 @@ static int hci_init1_sync(struct hci_dev *hdev)
- 			return err;
- 	}
- 
--	switch (hdev->dev_type) {
--	case HCI_PRIMARY:
--		hdev->flow_ctl_mode = HCI_FLOW_CTL_MODE_PACKET_BASED;
--		return hci_init_stage_sync(hdev, br_init1);
--	case HCI_AMP:
--		hdev->flow_ctl_mode = HCI_FLOW_CTL_MODE_BLOCK_BASED;
--		return hci_init_stage_sync(hdev, amp_init1);
--	default:
--		bt_dev_err(hdev, "Unknown device type %d", hdev->dev_type);
--		break;
--	}
--
--	return 0;
-+	return hci_init_stage_sync(hdev, br_init1);
- }
- 
--/* AMP Controller init stage 2 command sequence */
--static const struct hci_init_stage amp_init2[] = {
--	/* HCI_OP_READ_LOCAL_FEATURES */
--	HCI_INIT(hci_read_local_features_sync),
--	{}
--};
--
- /* Read Buffer Size (ACL mtu, max pkt, etc.) */
- static int hci_read_buffer_size_sync(struct hci_dev *hdev)
- {
-@@ -4041,9 +3973,6 @@ static int hci_init2_sync(struct hci_dev *hdev)
- 
- 	bt_dev_dbg(hdev, "");
- 
--	if (hdev->dev_type == HCI_AMP)
--		return hci_init_stage_sync(hdev, amp_init2);
--
- 	err = hci_init_stage_sync(hdev, hci_init2);
- 	if (err)
- 		return err;
-@@ -4858,13 +4787,6 @@ static int hci_init_sync(struct hci_dev *hdev)
- 	if (err < 0)
- 		return err;
- 
--	/* HCI_PRIMARY covers both single-mode LE, BR/EDR and dual-mode
--	 * BR/EDR/LE type controllers. AMP controllers only need the
--	 * first two stages of init.
--	 */
--	if (hdev->dev_type != HCI_PRIMARY)
--		return 0;
--
- 	err = hci_init3_sync(hdev);
- 	if (err < 0)
- 		return err;
-@@ -5092,12 +5014,8 @@ int hci_dev_open_sync(struct hci_dev *hdev)
- 		 * In case of user channel usage, it is not important
- 		 * if a public address or static random address is
- 		 * available.
--		 *
--		 * This check is only valid for BR/EDR controllers
--		 * since AMP controllers do not have an address.
- 		 */
- 		if (!hci_dev_test_flag(hdev, HCI_USER_CHANNEL) &&
--		    hdev->dev_type == HCI_PRIMARY &&
- 		    !bacmp(&hdev->bdaddr, BDADDR_ANY) &&
- 		    !bacmp(&hdev->static_addr, BDADDR_ANY)) {
- 			ret = -EADDRNOTAVAIL;
-@@ -5130,8 +5048,7 @@ int hci_dev_open_sync(struct hci_dev *hdev)
- 		    !hci_dev_test_flag(hdev, HCI_CONFIG) &&
- 		    !hci_dev_test_flag(hdev, HCI_UNCONFIGURED) &&
- 		    !hci_dev_test_flag(hdev, HCI_USER_CHANNEL) &&
--		    hci_dev_test_flag(hdev, HCI_MGMT) &&
--		    hdev->dev_type == HCI_PRIMARY) {
-+		    hci_dev_test_flag(hdev, HCI_MGMT)) {
- 			ret = hci_powered_update_sync(hdev);
- 			mgmt_power_on(hdev, ret);
- 		}
-@@ -5274,8 +5191,7 @@ int hci_dev_close_sync(struct hci_dev *hdev)
- 
- 	auto_off = hci_dev_test_and_clear_flag(hdev, HCI_AUTO_OFF);
- 
--	if (!auto_off && hdev->dev_type == HCI_PRIMARY &&
--	    !hci_dev_test_flag(hdev, HCI_USER_CHANNEL) &&
-+	if (!auto_off && !hci_dev_test_flag(hdev, HCI_USER_CHANNEL) &&
- 	    hci_dev_test_flag(hdev, HCI_MGMT))
- 		__mgmt_power_off(hdev);
- 
-@@ -5331,9 +5247,6 @@ int hci_dev_close_sync(struct hci_dev *hdev)
- 	hdev->flags &= BIT(HCI_RAW);
- 	hci_dev_clear_volatile_flags(hdev);
- 
--	/* Controller radio is available but is currently powered down */
--	hdev->amp_status = AMP_STATUS_POWERED_DOWN;
--
- 	memset(hdev->eir, 0, sizeof(hdev->eir));
- 	memset(hdev->dev_class, 0, sizeof(hdev->dev_class));
- 	bacpy(&hdev->random_addr, BDADDR_ANY);
-@@ -5370,8 +5283,7 @@ static int hci_power_on_sync(struct hci_dev *hdev)
- 	 */
- 	if (hci_dev_test_flag(hdev, HCI_RFKILLED) ||
- 	    hci_dev_test_flag(hdev, HCI_UNCONFIGURED) ||
--	    (hdev->dev_type == HCI_PRIMARY &&
--	     !bacmp(&hdev->bdaddr, BDADDR_ANY) &&
-+	    (!bacmp(&hdev->bdaddr, BDADDR_ANY) &&
- 	     !bacmp(&hdev->static_addr, BDADDR_ANY))) {
- 		hci_dev_clear_flag(hdev, HCI_AUTO_OFF);
- 		hci_dev_close_sync(hdev);
-@@ -5477,27 +5389,11 @@ int hci_stop_discovery_sync(struct hci_dev *hdev)
- 	return 0;
- }
- 
--static int hci_disconnect_phy_link_sync(struct hci_dev *hdev, u16 handle,
--					u8 reason)
--{
--	struct hci_cp_disconn_phy_link cp;
--
--	memset(&cp, 0, sizeof(cp));
--	cp.phy_handle = HCI_PHY_HANDLE(handle);
--	cp.reason = reason;
--
--	return __hci_cmd_sync_status(hdev, HCI_OP_DISCONN_PHY_LINK,
--				     sizeof(cp), &cp, HCI_CMD_TIMEOUT);
--}
--
- static int hci_disconnect_sync(struct hci_dev *hdev, struct hci_conn *conn,
- 			       u8 reason)
- {
- 	struct hci_cp_disconnect cp;
- 
--	if (conn->type == AMP_LINK)
--		return hci_disconnect_phy_link_sync(hdev, conn->handle, reason);
--
- 	memset(&cp, 0, sizeof(cp));
- 	cp.handle = cpu_to_le16(conn->handle);
- 	cp.reason = reason;
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 1da637f81db34..18d931c3c3460 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -4054,7 +4054,7 @@ static struct l2cap_chan *l2cap_new_connection(struct l2cap_conn *conn,
- }
- 
- static void l2cap_connect(struct l2cap_conn *conn, struct l2cap_cmd_hdr *cmd,
--			  u8 *data, u8 rsp_code, u8 amp_id)
-+			  u8 *data, u8 rsp_code)
- {
- 	struct l2cap_conn_req *req = (struct l2cap_conn_req *) data;
- 	struct l2cap_conn_rsp rsp;
-@@ -4132,17 +4132,8 @@ static void l2cap_connect(struct l2cap_conn *conn, struct l2cap_cmd_hdr *cmd,
- 				status = L2CAP_CS_AUTHOR_PEND;
- 				chan->ops->defer(chan);
- 			} else {
--				/* Force pending result for AMP controllers.
--				 * The connection will succeed after the
--				 * physical link is up.
--				 */
--				if (amp_id == AMP_ID_BREDR) {
--					l2cap_state_change(chan, BT_CONFIG);
--					result = L2CAP_CR_SUCCESS;
--				} else {
--					l2cap_state_change(chan, BT_CONNECT2);
--					result = L2CAP_CR_PEND;
--				}
-+				l2cap_state_change(chan, BT_CONFIG);
-+				result = L2CAP_CR_SUCCESS;
- 				status = L2CAP_CS_NO_INFO;
- 			}
- 		} else {
-@@ -4199,7 +4190,7 @@ static int l2cap_connect_req(struct l2cap_conn *conn,
- 	if (cmd_len < sizeof(struct l2cap_conn_req))
- 		return -EPROTO;
- 
--	l2cap_connect(conn, cmd, data, L2CAP_CONN_RSP, 0);
-+	l2cap_connect(conn, cmd, data, L2CAP_CONN_RSP);
- 	return 0;
- }
- 
-@@ -7802,10 +7793,6 @@ void l2cap_recv_acldata(struct hci_conn *hcon, struct sk_buff *skb, u16 flags)
- 	struct l2cap_conn *conn = hcon->l2cap_data;
- 	int len;
- 
--	/* For AMP controller do not create l2cap conn */
--	if (!conn && hcon->hdev->dev_type != HCI_PRIMARY)
--		goto drop;
--
- 	if (!conn)
- 		conn = l2cap_conn_add(hcon);
- 
 diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 307d5a390f765..0967b290d7bea 100644
+index 0967b290d7bea..bfbcd0070d65d 100644
 --- a/net/bluetooth/mgmt.c
 +++ b/net/bluetooth/mgmt.c
-@@ -443,8 +443,7 @@ static int read_index_list(struct sock *sk, struct hci_dev *hdev, void *data,
+@@ -2956,7 +2956,12 @@ static int unpair_device_sync(struct hci_dev *hdev, void *data)
+ 	if (!conn)
+ 		return 0;
  
- 	count = 0;
- 	list_for_each_entry(d, &hci_dev_list, list) {
--		if (d->dev_type == HCI_PRIMARY &&
--		    !hci_dev_test_flag(d, HCI_UNCONFIGURED))
-+		if (!hci_dev_test_flag(d, HCI_UNCONFIGURED))
- 			count++;
+-	return hci_abort_conn_sync(hdev, conn, HCI_ERROR_REMOTE_USER_TERM);
++	/* Disregard any possible error since the likes of hci_abort_conn_sync
++	 * will clean up the connection no matter the error.
++	 */
++	hci_abort_conn(conn, HCI_ERROR_REMOTE_USER_TERM);
++
++	return 0;
+ }
+ 
+ static int unpair_device(struct sock *sk, struct hci_dev *hdev, void *data,
+@@ -3088,13 +3093,44 @@ static int unpair_device(struct sock *sk, struct hci_dev *hdev, void *data,
+ 	return err;
+ }
+ 
++static void disconnect_complete(struct hci_dev *hdev, void *data, int err)
++{
++	struct mgmt_pending_cmd *cmd = data;
++
++	cmd->cmd_complete(cmd, mgmt_status(err));
++	mgmt_pending_free(cmd);
++}
++
++static int disconnect_sync(struct hci_dev *hdev, void *data)
++{
++	struct mgmt_pending_cmd *cmd = data;
++	struct mgmt_cp_disconnect *cp = cmd->param;
++	struct hci_conn *conn;
++
++	if (cp->addr.type == BDADDR_BREDR)
++		conn = hci_conn_hash_lookup_ba(hdev, ACL_LINK,
++					       &cp->addr.bdaddr);
++	else
++		conn = hci_conn_hash_lookup_le(hdev, &cp->addr.bdaddr,
++					       le_addr_type(cp->addr.type));
++
++	if (!conn)
++		return -ENOTCONN;
++
++	/* Disregard any possible error since the likes of hci_abort_conn_sync
++	 * will clean up the connection no matter the error.
++	 */
++	hci_abort_conn(conn, HCI_ERROR_REMOTE_USER_TERM);
++
++	return 0;
++}
++
+ static int disconnect(struct sock *sk, struct hci_dev *hdev, void *data,
+ 		      u16 len)
+ {
+ 	struct mgmt_cp_disconnect *cp = data;
+ 	struct mgmt_rp_disconnect rp;
+ 	struct mgmt_pending_cmd *cmd;
+-	struct hci_conn *conn;
+ 	int err;
+ 
+ 	bt_dev_dbg(hdev, "sock %p", sk);
+@@ -3117,27 +3153,7 @@ static int disconnect(struct sock *sk, struct hci_dev *hdev, void *data,
+ 		goto failed;
  	}
  
-@@ -468,8 +467,7 @@ static int read_index_list(struct sock *sk, struct hci_dev *hdev, void *data,
- 		if (test_bit(HCI_QUIRK_RAW_DEVICE, &d->quirks))
- 			continue;
- 
--		if (d->dev_type == HCI_PRIMARY &&
--		    !hci_dev_test_flag(d, HCI_UNCONFIGURED)) {
-+		if (!hci_dev_test_flag(d, HCI_UNCONFIGURED)) {
- 			rp->index[count++] = cpu_to_le16(d->id);
- 			bt_dev_dbg(hdev, "Added hci%u", d->id);
- 		}
-@@ -503,8 +501,7 @@ static int read_unconf_index_list(struct sock *sk, struct hci_dev *hdev,
- 
- 	count = 0;
- 	list_for_each_entry(d, &hci_dev_list, list) {
--		if (d->dev_type == HCI_PRIMARY &&
--		    hci_dev_test_flag(d, HCI_UNCONFIGURED))
-+		if (hci_dev_test_flag(d, HCI_UNCONFIGURED))
- 			count++;
- 	}
- 
-@@ -528,8 +525,7 @@ static int read_unconf_index_list(struct sock *sk, struct hci_dev *hdev,
- 		if (test_bit(HCI_QUIRK_RAW_DEVICE, &d->quirks))
- 			continue;
- 
--		if (d->dev_type == HCI_PRIMARY &&
--		    hci_dev_test_flag(d, HCI_UNCONFIGURED)) {
-+		if (hci_dev_test_flag(d, HCI_UNCONFIGURED)) {
- 			rp->index[count++] = cpu_to_le16(d->id);
- 			bt_dev_dbg(hdev, "Added hci%u", d->id);
- 		}
-@@ -561,10 +557,8 @@ static int read_ext_index_list(struct sock *sk, struct hci_dev *hdev,
- 	read_lock(&hci_dev_list_lock);
- 
- 	count = 0;
--	list_for_each_entry(d, &hci_dev_list, list) {
--		if (d->dev_type == HCI_PRIMARY || d->dev_type == HCI_AMP)
--			count++;
+-	if (pending_find(MGMT_OP_DISCONNECT, hdev)) {
+-		err = mgmt_cmd_complete(sk, hdev->id, MGMT_OP_DISCONNECT,
+-					MGMT_STATUS_BUSY, &rp, sizeof(rp));
+-		goto failed;
 -	}
-+	list_for_each_entry(d, &hci_dev_list, list)
-+		count++;
+-
+-	if (cp->addr.type == BDADDR_BREDR)
+-		conn = hci_conn_hash_lookup_ba(hdev, ACL_LINK,
+-					       &cp->addr.bdaddr);
+-	else
+-		conn = hci_conn_hash_lookup_le(hdev, &cp->addr.bdaddr,
+-					       le_addr_type(cp->addr.type));
+-
+-	if (!conn || conn->state == BT_OPEN || conn->state == BT_CLOSED) {
+-		err = mgmt_cmd_complete(sk, hdev->id, MGMT_OP_DISCONNECT,
+-					MGMT_STATUS_NOT_CONNECTED, &rp,
+-					sizeof(rp));
+-		goto failed;
+-	}
+-
+-	cmd = mgmt_pending_add(sk, MGMT_OP_DISCONNECT, hdev, data, len);
++	cmd = mgmt_pending_new(sk, MGMT_OP_DISCONNECT, hdev, data, len);
+ 	if (!cmd) {
+ 		err = -ENOMEM;
+ 		goto failed;
+@@ -3145,9 +3161,10 @@ static int disconnect(struct sock *sk, struct hci_dev *hdev, void *data,
  
- 	rp = kmalloc(struct_size(rp, entry, count), GFP_ATOMIC);
- 	if (!rp) {
-@@ -585,16 +579,10 @@ static int read_ext_index_list(struct sock *sk, struct hci_dev *hdev,
- 		if (test_bit(HCI_QUIRK_RAW_DEVICE, &d->quirks))
- 			continue;
+ 	cmd->cmd_complete = generic_cmd_complete;
  
--		if (d->dev_type == HCI_PRIMARY) {
--			if (hci_dev_test_flag(d, HCI_UNCONFIGURED))
--				rp->entry[count].type = 0x01;
--			else
--				rp->entry[count].type = 0x00;
--		} else if (d->dev_type == HCI_AMP) {
--			rp->entry[count].type = 0x02;
--		} else {
--			continue;
--		}
-+		if (hci_dev_test_flag(d, HCI_UNCONFIGURED))
-+			rp->entry[count].type = 0x01;
-+		else
-+			rp->entry[count].type = 0x00;
+-	err = hci_disconnect(conn, HCI_ERROR_REMOTE_USER_TERM);
++	err = hci_cmd_sync_queue(hdev, disconnect_sync, cmd,
++				 disconnect_complete);
+ 	if (err < 0)
+-		mgmt_pending_remove(cmd);
++		mgmt_pending_free(cmd);
  
- 		rp->entry[count].bus = d->bus;
- 		rp->entry[count++].index = cpu_to_le16(d->id);
-@@ -9385,23 +9373,14 @@ void mgmt_index_added(struct hci_dev *hdev)
- 	if (test_bit(HCI_QUIRK_RAW_DEVICE, &hdev->quirks))
+ failed:
+ 	hci_dev_unlock(hdev);
+@@ -9695,18 +9712,6 @@ void mgmt_device_connected(struct hci_dev *hdev, struct hci_conn *conn,
+ 	mgmt_event_skb(skb, NULL);
+ }
+ 
+-static void disconnect_rsp(struct mgmt_pending_cmd *cmd, void *data)
+-{
+-	struct sock **sk = data;
+-
+-	cmd->cmd_complete(cmd, 0);
+-
+-	*sk = cmd->sk;
+-	sock_hold(*sk);
+-
+-	mgmt_pending_remove(cmd);
+-}
+-
+ static void unpair_device_rsp(struct mgmt_pending_cmd *cmd, void *data)
+ {
+ 	struct hci_dev *hdev = data;
+@@ -9747,8 +9752,6 @@ void mgmt_device_disconnected(struct hci_dev *hdev, bdaddr_t *bdaddr,
+ 	if (link_type != ACL_LINK && link_type != LE_LINK)
  		return;
  
--	switch (hdev->dev_type) {
--	case HCI_PRIMARY:
--		if (hci_dev_test_flag(hdev, HCI_UNCONFIGURED)) {
--			mgmt_index_event(MGMT_EV_UNCONF_INDEX_ADDED, hdev,
--					 NULL, 0, HCI_MGMT_UNCONF_INDEX_EVENTS);
--			ev.type = 0x01;
--		} else {
--			mgmt_index_event(MGMT_EV_INDEX_ADDED, hdev, NULL, 0,
--					 HCI_MGMT_INDEX_EVENTS);
--			ev.type = 0x00;
--		}
--		break;
--	case HCI_AMP:
--		ev.type = 0x02;
--		break;
--	default:
--		return;
-+	if (hci_dev_test_flag(hdev, HCI_UNCONFIGURED)) {
-+		mgmt_index_event(MGMT_EV_UNCONF_INDEX_ADDED, hdev, NULL, 0,
-+				 HCI_MGMT_UNCONF_INDEX_EVENTS);
-+		ev.type = 0x01;
-+	} else {
-+		mgmt_index_event(MGMT_EV_INDEX_ADDED, hdev, NULL, 0,
-+				 HCI_MGMT_INDEX_EVENTS);
-+		ev.type = 0x00;
- 	}
+-	mgmt_pending_foreach(MGMT_OP_DISCONNECT, hdev, disconnect_rsp, &sk);
+-
+ 	bacpy(&ev.addr.bdaddr, bdaddr);
+ 	ev.addr.type = link_to_bdaddr(link_type, addr_type);
+ 	ev.reason = reason;
+@@ -9761,9 +9764,6 @@ void mgmt_device_disconnected(struct hci_dev *hdev, bdaddr_t *bdaddr,
  
- 	ev.bus = hdev->bus;
-@@ -9418,25 +9397,16 @@ void mgmt_index_removed(struct hci_dev *hdev)
- 	if (test_bit(HCI_QUIRK_RAW_DEVICE, &hdev->quirks))
- 		return;
+ 	if (sk)
+ 		sock_put(sk);
+-
+-	mgmt_pending_foreach(MGMT_OP_UNPAIR_DEVICE, hdev, unpair_device_rsp,
+-			     hdev);
+ }
  
--	switch (hdev->dev_type) {
--	case HCI_PRIMARY:
--		mgmt_pending_foreach(0, hdev, cmd_complete_rsp, &match);
-+	mgmt_pending_foreach(0, hdev, cmd_complete_rsp, &match);
- 
--		if (hci_dev_test_flag(hdev, HCI_UNCONFIGURED)) {
--			mgmt_index_event(MGMT_EV_UNCONF_INDEX_REMOVED, hdev,
--					 NULL, 0, HCI_MGMT_UNCONF_INDEX_EVENTS);
--			ev.type = 0x01;
--		} else {
--			mgmt_index_event(MGMT_EV_INDEX_REMOVED, hdev, NULL, 0,
--					 HCI_MGMT_INDEX_EVENTS);
--			ev.type = 0x00;
--		}
--		break;
--	case HCI_AMP:
--		ev.type = 0x02;
--		break;
--	default:
--		return;
-+	if (hci_dev_test_flag(hdev, HCI_UNCONFIGURED)) {
-+		mgmt_index_event(MGMT_EV_UNCONF_INDEX_REMOVED, hdev, NULL, 0,
-+				 HCI_MGMT_UNCONF_INDEX_EVENTS);
-+		ev.type = 0x01;
-+	} else {
-+		mgmt_index_event(MGMT_EV_INDEX_REMOVED, hdev, NULL, 0,
-+				 HCI_MGMT_INDEX_EVENTS);
-+		ev.type = 0x00;
- 	}
- 
- 	ev.bus = hdev->bus;
+ void mgmt_disconnect_failed(struct hci_dev *hdev, bdaddr_t *bdaddr,
 -- 
 2.53.0
 
