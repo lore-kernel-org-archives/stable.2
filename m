@@ -1,99 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC953876C4;
-	Mon, 10 Aug 2026 17:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4A2409620
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 17:23:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786381582; cv=none; b=L7JnzuHr3eXp6bXO8HrOl7mx0KiZPvRPTp4Vsohm0+lzyIh+CodtvEpYqRnu9nDs2vv3pPrShFALnGN/qx6UndEblpXuRvypHPKqydU2fYvkN9krYByiXrDX6Q7+y6SlXo3onL+gMzwRXpYaA6nrk8VrupGTpNfrXABuLj5OoQo=
+	t=1786382587; cv=none; b=eNMtAcESD6Hl01XV+NFCvONEdClS3+bm4w483m0sisnfohNmU+wNW2qt6GnkfvyDLFkPR3LhD/hHjEy907qOzebJATiEk0vnA/mAfzeNxopUN24RhdOnLzxrdufn6InfkDVxc1D+iQOAWvOY/A+VvI8QlAG8V56lafbxn/KUEOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786381582; c=relaxed/simple;
-	bh=1ORMP8gd/6VKAjjhv+JmIQhO7i6YW8HRoG3EcfyadgE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dB1NiB1rUWJa6ZnMpxyVcb8jvEqE6B3ACnRWybd04h5WUFhuLDZx3LtP3ow/y6sADIec8nhl7KIsiLV1CU/A7DRTgrdp6jDiYe+2rirJMtVKAa4jGAy4BX/fBnj4yjz62YRf8obxGsAD50lpA3l8fDseCs3V7hRrs29evhc+XOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=asMIQGAu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786382587; c=relaxed/simple;
+	bh=8gWEwUfsO3F33rc5Vr/t2TJpJxPQT4ef+ZgW5fdDpk4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o6qnBduue/WkdQVh+3dUEOFWyft1yKhUVk8M1ZpAWf1+Hark0fc1JiTTzESS/AmMXyG+9pMFu2eptJqe8rvFAsHUK0yx4m0wmIGxV4McEgp+3BokSaqHnt0lK9WUjs9ZVh4ow+wyB73X6VQEJN/XgTXiaBPvsxtqdGJDF70aNng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ADONGWES; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MDXTH48a; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="asMIQGAu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C131F000E9;
-	Mon, 10 Aug 2026 17:06:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786381581;
-	bh=5CEKvdjZ+GqV7pqn1nM6jfrimrYnL16pPlu4q1fQ5xU=;
-	h=From:To:Cc:Subject:Date;
-	b=asMIQGAuH+bY8/eRhEhYan4Y0Q39sbZsdOmdZOsJGyiJkB+8pAomI0kPRIvLctkt9
-	 Aeo7Rm1/d9U5PTwpKUq39ZJaIJM1TrHLv4dBqlb3RR7mk4M/5gA7dS2EjeUXct50vP
-	 BLZ/NnXIUnr3T10Mi1LWk56560/5E0LW2QjAqeIpAxo1uVPCyCzPmhXvkir0tV4612
-	 74RdYxxo2oqErcv1lG9KVIIb3PUe6nVSE+J4o8DCCGyO+srzmVijT/SUWCP+cU/KLN
-	 BBwvaQuQ3OvyU5ln5qNPlDpZcoSKRixMjV9C7VQ3yXqI7FDfCnpPE3xLCru8xdJ3it
-	 HYS7PcslXtAcw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wtTS7-0000000ECcp-0cSL;
-	Mon, 10 Aug 2026 17:06:19 +0000
-From: Marc Zyngier <maz@kernel.org>
-To: kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: Steffen Eiden <seiden@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] KVM: arm64: Correctly cap TLBI Range to the architural limit
-Date: Mon, 10 Aug 2026 18:06:16 +0100
-Message-ID: <20260810170616.746100-1-maz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ADONGWES";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MDXTH48a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786382585;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=scdHE3f1gT3tI1szOZtkMdShahjFVVqLG8G2E2kb/84=;
+	b=ADONGWESx0JBwlwenRzW8TL30467+KfWrD7JZJ7eYJYDlwXlUJIx0m11Es9+/g34QP92Z+
+	C0bmcascUUnHdb0BFzPtDDAJBlmZtEScVmgF093jaMhsXF9GUI8Mkf8KCguSXzRqyMv7Q+
+	zD6g14PPx5bdj7QBxZMoP19UtkyNL9c=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-554-eE-_ubloPeiRHor1Y84mbw-1; Mon, 10 Aug 2026 13:22:54 -0400
+X-MC-Unique: eE-_ubloPeiRHor1Y84mbw-1
+X-Mimecast-MFC-AGG-ID: eE-_ubloPeiRHor1Y84mbw_1786382574
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-82014436716so68151227b3.1
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 10:22:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1786382574; x=1786987374; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=scdHE3f1gT3tI1szOZtkMdShahjFVVqLG8G2E2kb/84=;
+        b=MDXTH48aQ6UhqSgqDegVF+Oiwy/odGrUx4dk5PpilLiRC9HIVCg4Yv3460G5qZQEO9
+         Dv0WbDtqg2x5P54QuykjdCKMGtENfEsNQoi8iXUjExfUpMr41mw4VdnND6EECNNUarAh
+         sNVqSxO8IPfdbZNuMDnNVdBM3GVjDGVnKdv2GTDO22vQmhnN6+OdCif6WeTjC7vdyqB5
+         bAjZkT+AtqMkl2r+4Jk5/XoN3TZjQOSd0fZqBkaaOaHEQcp6hJhOXEosFtw3om4n+DwI
+         oMNUU6B5h/N/ZCWVz3MUpAuDMjSxxZHxX2Keo14ZPtruHhwTK7F2vEffRu1ogmR531el
+         sOOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786382574; x=1786987374;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=scdHE3f1gT3tI1szOZtkMdShahjFVVqLG8G2E2kb/84=;
+        b=iUm5INgTuTo1xQ6PGKpxyWFA4bEOUVSOaNW0lChE5u3xh/iJqNZr/q6YIpqBiu1rjo
+         zWK3LduM/LaPo2lbHrZxfhmkjrPTIihJhdWnSVNpp3B67OKL6bcwHTnvCB4DLV8sFB5n
+         HkAELHd6dCzK+NgaA86mf1WLGS+fB31nwLDB+QDcm1ITW9IGR8eoKCAYGwnCs+W53M4b
+         wqB2mRt/vR8NQ63SGB2hzQ8r3xX2Zjhjib66fXWy9iPOgetYoScfthIT8KPBUdRbjPeA
+         SfVOKdXzPO1pCjeI9pxGXKKiA38oVazClasrace0mWRsD37Djcvwv6P/hJ3qhVPp4rQK
+         aT5A==
+X-Forwarded-Encrypted: i=1; AHgh+RrkSoX8hvjFbFo/u4lxAlTTiq/SHuW1p9sV7GsGcSzfLa9exFpqWmNOsb9oJu2T3bnca6VnOd8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCCyxO/5mI05olyGDkGDzOEBPCo7SOr99meQny6R3KN4b+hG7b
+	Hs/mpws4zbn3Bt06r3LQe8N0HQ2E0SjlsCmq8XKA/YlFd/Sf7b+DgYlmIJcGWgbDPreEgM8Wu2/
+	pjPBTd3Cuyw53qMMebzZcjm70Y3Zicu0YAfu9KV5q9R6S8RqKpXunN2iqbQ==
+X-Gm-Gg: AR+sD12DqxyXRxgzu91XpICYRCPuU2gEqBLn/9ik1oloTs2H6oGdJihg08jMD549cWq
+	WSWocdzAhbhuhXsj5zqM1Omnnc9B655yP140mXAwbp+n+1uQdH/UJTvirgcN8IIn62ySHGqeV5z
+	f9LQ9hsw5PNg3PAQxUciGQQr3s8YGFM6RkF6ckp+kwsIJ+Md2LLrNDBmfHZbJGO3emuzLbDmp1k
+	StWp+FVzBjnRwxUghdz6ACFcBKG8UhSwPwZ0E0VXKRvsqbcczET+CL3DmYo60aTY7mnAnYg0bCI
+	7sMTZxSs4BOS/58xdnQXevnaA/S4HIr2gunOI705pt0LbdRg2TaFE3/2rB2CduAjCTgf3u3tSzR
+	94vOui0mwwNPKSiwOF2IV0ogPpnRPL9mhDjs=
+X-Received: by 2002:a05:690c:f06:b0:80d:c2cc:f673 with SMTP id 00721157ae682-82d2a8c4531mr20804047b3.20.1786382573966;
+        Mon, 10 Aug 2026 10:22:53 -0700 (PDT)
+X-Received: by 2002:a05:690c:f06:b0:80d:c2cc:f673 with SMTP id 00721157ae682-82d2a8c4531mr20803727b3.20.1786382573576;
+        Mon, 10 Aug 2026 10:22:53 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-823f577c580sm60710857b3.27.2026.08.10.10.22.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 10:22:52 -0700 (PDT)
+Date: Mon, 10 Aug 2026 13:22:49 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	Shawn Guo <shawnguo@kernel.org>, linux-clk@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] clk: imx: imx8qxp-lpcg: fix runtime PM cleanup on error
+ path
+Message-ID: <anoI6eX9OzI0bsFy@redhat.com>
+References: <20260808080215.2669452-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, weilin.chang@arm.com, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260808080215.2669452-1-lgs201920130244@gmail.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-TLB Invalidation by Range has a fairly powerful way of encoding pretty
-large ranges in a small number of bits. This range can be based on an
-arbitrary VA, which means it is pretty easy for a guest to generate an
-overflow should the hypervisor be naive enough to add the range to the
-base...
+On Sat, Aug 08, 2026 at 04:02:15PM +0800, Guangshuo Li wrote:
+> imx_lpcg_parse_clks_from_dt() takes a runtime PM usage reference with
+> pm_runtime_get_noresume() and enables autosuspend with
+> pm_runtime_use_autosuspend(). The success path drops the usage
+> reference with pm_runtime_put_autosuspend(), but the error path only
+> disables runtime PM.
+> 
+> As a result, the reference taken by pm_runtime_get_noresume() remains
+> unbalanced on registration failure. The autosuspend setting is also
+> left enabled instead of being undone with
+> pm_runtime_dont_use_autosuspend().
+> 
+> Add pm_runtime_dont_use_autosuspend() to undo the autosuspend setting
+> and pm_runtime_put_noidle() to drop the usage reference on the error
+> path.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 18cdbad40c6c ("clk: imx: clk-imx8qxp-lpcg: add runtime pm support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/clk/imx/clk-imx8qxp-lpcg.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/clk/imx/clk-imx8qxp-lpcg.c b/drivers/clk/imx/clk-imx8qxp-lpcg.c
+> index 1dae3410ee99..262645bef62d 100644
+> --- a/drivers/clk/imx/clk-imx8qxp-lpcg.c
+> +++ b/drivers/clk/imx/clk-imx8qxp-lpcg.c
+> @@ -277,8 +277,9 @@ static int imx_lpcg_parse_clks_from_dt(struct platform_device *pdev,
+>  		if (clk_hws[idx])
+>  			imx_clk_lpcg_scu_unregister(clk_hws[idx]);
+>  	}
+> -
 
-Make sure the range is capped to the limit dictated by the address bit
-that determines the VA range. For an IPA invalidation, this is further
-corrected down the line to ignore the upper range.
+Don't remove the newline. With that fixed:
 
-Fixes: 4ffa72ad8f37e ("KVM: arm64: nv: Add S1 TLB invalidation primitive for VNCR_EL2")
-Reported-by: Wei-Lin Chang <weilin.chang@arm.com>
-Link: https://lore.kernel.org/r/yifz3wn5gk5sr6mapi32trgk5m5kp33bquctsjmkifebnsnndt@fix6u4rthx4g
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-Cc: stable@vger.kernel.org
----
- arch/arm64/include/asm/kvm_nested.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index c83be6d0e79ac..1ed7083358096 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -305,6 +305,12 @@ static inline u64 decode_range_tlbi(u64 val, u64 *range, u16 *asid)
- 	num	= FIELD_GET(GENMASK(43, 39), val);
- 	*range	= __TLBI_RANGE_PAGES(num, scale) << shift;
- 
-+	/* Cap the range to the correct half of the address space */
-+	if (!(base & BIT(48)))
-+		*range = min(*range, (BIT(48) - base));
-+	else
-+		*range = min(*range, ~base + 1);
-+
- 	return base;
- }
- 
--- 
-2.47.3
+
+> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+> +	pm_runtime_put_noidle(&pdev->dev);
+>  
+>  	return ret;
+>  }
+> -- 
+> 2.43.0
+> 
 
