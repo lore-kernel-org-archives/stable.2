@@ -1,173 +1,228 @@
-Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257F71F91F6
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 01:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF721C84A0
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 02:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786327175; cv=none; b=VuWnG0bb6k1jLff/pHCpk90nfWUQc6bSVf2Rn2Xk+jXZMT6SF3vqBIjenLYhP92HdCPyue5hl7YFv2G51uat+6MgxbMgpaS/nhCNkW//lUkZDFvxj13nSCVqTqK+BGoWPA28Lrf3vboEB+yU9Rno/Whi8GCivC5YQwpCRkMNOGc=
+	t=1786328630; cv=none; b=rTmYUKPo2rpqrQhhYCo2pdDqoD+ySDeA7svt4YJf+YbUjKaFoXbzmKoJitJj7iLy/jJTx+PB5x5px7+szKd6/4FYdIb53zqFdEgJfnNiq1vQ9W3bq4trZmSwFkZrHcCcLY0l+JlAsH/cJZJEoahPca/LA1QPGz2BfabZPrk+ecQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786327175; c=relaxed/simple;
-	bh=/OvbaL8KTP3ySpTWRBsx162Pho9Kv/QSjRAlqlRYHdU=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=ejr1Q9jkdx32FugTXmXZYMBOvJfP+jWm3qnVQ3cetKLNfdKyRGHFdy5i9wUaVA8HgeuHyJqkdp6+fNo0I90k+98W+ZG4kjr2zOvOcJtKwpDf6PvoqAir+a3f5q2UZuv+Dwsi9z2KYPc5q3TIa1sheM2s4pCkKF51o0i2HzOouSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LU5JD8n9; arc=none smtp.client-ip=91.218.175.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786328630; c=relaxed/simple;
+	bh=brIXrSHMNh+w2+wqvBdY6ZLq52aicUd2kThuQ+xFW+o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e91bFPiZCs5HUv2oo/TUa0hMgF+fLGynYG2MfF6TYu9UaEwUMqkn1kO/YhrRxpkzVNeJc59EBN3mdwFceDseVgZNpmL6q0mG1YrNe9e2NWS1K7Fv8DXnnuRFHvdwvIABQ+X0QbcRJpjaenMJfOm//G9B/+iyPK+H5JSYXfa3SN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ukle3woU; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LU5JD8n9"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ukle3woU"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso727450a12.0
+        for <stable@vger.kernel.org>; Sun, 09 Aug 2026 19:23:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786328628; x=1786933428; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L8/Xu6Bl9nz3vhT2oV8jvDAfGpBWDs2/HnpOEeUYYe8=;
+        b=Ukle3woUorjutusatcUOV+w/so4QfCzhHs1JAVMuDNrk/XsRMDs1glmFRHrONcXSQ/
+         K1E4iT65wsrW/ErPgFxHim02hn9FN2u1JTwBxGBnjUzy4stsbgZvg3MIoUnK6bWmUcIX
+         cmU8BJzWEaOA8Z7PZsKXU53M4MYCstFV4ztc1z/pmUX59KOU8AI0MQjrcxWuop2z0qkM
+         4wtUcDmQePfEokOmb7cr4QSx7TxXwKKD4eQEMLBdxuagCHRD0pdysbeszR/EeiRlxC/a
+         RJTy6wZ1huV6fWy7bTUAjSwB9Vv4Ke12ObvApLXUq52+EIFXZvf9PNit+CHdxmd++/p2
+         MLtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786328628; x=1786933428;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L8/Xu6Bl9nz3vhT2oV8jvDAfGpBWDs2/HnpOEeUYYe8=;
+        b=nFgF8jNHuKuTiAnB2TR7Jzviwi7MJP313eFDtBsIBRHf2QFVFF69x3RAskKD8rHhgW
+         dWL99t6gWZw+BTfniz+qnLVtqkR4RI+ALfm37d2qFMYAho92zIURhcOzOxBrQLk2WWdp
+         QbICbDOKKiPx1jniejOY/KpHzdpvB9Y60IU2syqBKkQpOxOxW/fJZh/ycFXjD4qpR1Gv
+         tiO/BvEimA6P62Ei5kLx3HqRqzxHiTto7Cv5K2836tipHiHZ2TaRKGQFk5KRtadJM6lZ
+         2//fwEop6ylDSUNif5BOxyXXfVu25uFUYdDxKWbYzlsuUIq6cKCvg2k1KRjkI7l31s6q
+         VcvQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrdEGPOACsMCYQUeFpmXzCq1zexUJYqykt4VhYw/xiAgtmM0vl5LsDkFhrrORFTlJPgXF70LBA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwbAi61NJap/NYlQ044UYXE7TmIHi3UneJO7l0Grl2gM9vXaXVD
+	lL425NyZVgnxdoitf44tW5OrivGRcD+injB8VP+cjjtoziYjFT6qil+c
+X-Gm-Gg: AR+sD13NHz/xGf+U0iaSEhb5qSsFfdzJdqgNZNTai1H1ewWyJFnhV+iyZ186eS7R56P
+	IH+IVetRx4Sntik7jFsNw0d00Y2StB3rK2lCbPTup6HJ6RAVfsT6UEj6l6Mz06aHEBcANbz2cnu
+	j8iDtAR2qowZC6/i4POZRp3FVAkMapT+5mVxoZ0oVBeEuDN83TH6YEWUn+q0aQw0YccA1RN1jfC
+	PofJsW2RVYhk+nlV2ZZ7bKBWM/8A46fu+mg0NU2u8mbv5DiKaQWsbXS7+MSLrwbD1h1IjKKDjwX
+	p/nxr2JEnCAXasSuCGiK4kmpvCbgyfdNJDZEIkyKUuytha/oft9JF3uhSeoCPvmceQQf5ZJvZbn
+	/5TjpVNAvRrsJALPXy6yjrfyvThvoIsKoQ4cPrqkyK/TrJDYZ7p6BLLmlrLh3cz9CfS8eRccafh
+	EQlAcrz0K+ZTsv32iVMPFyAdg0SQHF8XUiH3mUhLNAKDostAnL12ma0DQ=
+X-Received: by 2002:a05:6a00:ad5:b0:846:de21:3da4 with SMTP id d2e1a72fcca58-84f2e021ff5mr41007248b3a.3.1786328627675;
+        Sun, 09 Aug 2026 19:23:47 -0700 (PDT)
+Received: from fedora ([203.175.12.242])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a58bd4bsm3074067b3a.56.2026.08.09.19.23.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 09 Aug 2026 19:23:46 -0700 (PDT)
+Date: Mon, 10 Aug 2026 10:23:35 +0800
+From: Hangbin Liu <liuhangbin@gmail.com>
+To: Xin Xie <xiexinet@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
+	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+	fmaurer@redhat.com, luka.gejak@linux.dev, bigeasy@linutronix.de,
+	xiaoliang.yang_1@nxp.com, skhawaja@google.com,
+	stable@vger.kernel.org, sdf.kernel@gmail.com,
+	syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
+Subject: Re: [PATCH 2/4] net: hsr: shrink seqnr_lock to sequence counter
+ updates
+Message-ID: <ank2JxDbOpX_wr5f@fedora>
+References: <20260809121455.1745-1-xiexinet@gmail.com>
+ <20260809121455.1745-3-xiexinet@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786327171;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yhKBG07NgjbV88z5PyXBU/EsEEP+BqBeiN00w24gQvQ=;
-	b=LU5JD8n994QqhU8jAs0wc13L36UNwvy80gs6mWrOrmD3h/ZwPh6UICoSJXn0dqF/7vq2u0
-	C38yml6cmr74UMU0QWTDyhYs0Vh0Vo5N0y3v+jxXjmBf1ffNDZ+i1XwJVd10b9LEkt4lIp
-	BUhpnzwrlv1Y0Krtd1etQ5OAlNLtO0k=
-Date: Mon, 10 Aug 2026 01:59:28 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: gang.yan@linux.dev
-Message-ID: <4e57509daf45aa8968140e7a7279ad0699249bf6@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH net] mptcp: upgrade network refcount before socket lock
-To: "Runyu Xiao" <runyu.xiao@seu.edu.cn>, "Matthieu Baerts"
- <matttbe@kernel.org>, "Mat Martineau" <martineau@kernel.org>
-Cc: "Geliang Tang" <geliang@kernel.org>, "David S . Miller"
- <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Simon
- Horman" <horms@kernel.org>, mptcp@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- runyu.xiao@seu.edu.cn, jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-In-Reply-To: <20260809091949.3618191-1-runyu.xiao@seu.edu.cn>
-References: <20260809091949.3618191-1-runyu.xiao@seu.edu.cn>
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260809121455.1745-3-xiexinet@gmail.com>
 
-August 9, 2026 at 5:19 PM, "Runyu Xiao" <runyu.xiao@seu.edu.cn mailto:run=
-yu.xiao@seu.edu.cn?to=3D%22Runyu%20Xiao%22%20%3Crunyu.xiao%40seu.edu.cn%3=
-E > wrote:
-
-Hi,
-
-Thanks for your patch.
-
->=20
->=20sk_net_refcnt_upgrade() calls get_net_track() with GFP_KERNEL and can=
- enter
-> direct reclaim. Calling it while holding the newly created subflow sock=
-et
-> lock can create a reclaim-to-socket-lock dependency cycle.
->=20
->=20Upgrade the network reference before taking the socket lock. The sock=
-et is
-> newly created and has not been exposed to other code at this point, so =
-the
-> fields changed by sk_net_refcnt_upgrade() are not accessed concurrently=
-.
-> The error path still releases the socket normally after the upgrade.
->=20
->=20The PatchProof static-analysis tool detected a GFP_KERNEL allocation =
-while
-> the socket lock is held. Manual source review of v7.1.5 and current
-> mainline confirmed the lock and allocation ordering.
->=20
->=20A source-level check found `sk_net_refcnt_upgrade()` after
-> `lock_sock_nested()` in the original function and before it after this
-> change. A POSIX-thread lock-order model made the reclaim lock unavailab=
-le
-> while the socket lock was held, observed `EBUSY` for the reclaim lock, =
-and
-> then completed with the reclaim-first order. The model checks the order=
-ing
-> invariant only; it does not execute the kernel MPTCP path. No live lock=
-dep
-> MPTCP test or reclaim fault injection was run.
->=20
-
-Maybe=20the commit message seems too long. Could you please send a v2 wit=
-h a more
-concise commit message? For your reference, here is a suggested simplifie=
-d version:
-
-'''
-sk_net_refcnt_upgrade() performs a GFP_KERNEL allocation (via get_net_tra=
-ck()
-=E2=86=92 ref_tracker_alloc()), which can enter direct reclaim and establ=
-ish a
-socket_lock =E2=86=92 fs_reclaim dependency. Move it before lock_sock_nes=
-ted(), mirroring
-the convention documented in net/rds/tcp.c:rds_tcp_tune().=20
-
-The=20socket is freshly created and unpublished at this point, so sk_net_=
-refcnt/
-ns_tracker are not touched by any concurrent path; the error path still r=
-eleases
-via sock_release() which handles both refcounted and non-refcounted track=
-ers.
-'''
-
-Please note that this suggested text is generated by AI, so please review=
- it
-carefully before adopting it. Also, the next patch can only be sent to mp=
-tcp@lists.linux.dev,
-no need to cc to others.
-
-
-> Fixes: 1d2f3d3c6268 ("mptcp: adjust to use netns refcount tracker")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+On Sun, Aug 09, 2026 at 02:14:52PM +0200, Xin Xie wrote:
+> Commit 06afd2c31d33 ("hsr: Synchronize sending frames to have always
+> incremented outgoing seq nr.") and commit 430d67bdcb04 ("net: hsr: Use
+> the seqnr lock for frames received via interlink port.") hold
+> seqnr_lock across the whole forwarding path. Transmitting while
+> holding the lock can create lock-dependency issues when HSR devices
+> are stacked with other net devices, up to a real deadlock (see
+> Reported-by/Closes).
+> 
+> Since commit aae9d6b616b5 ("hsr: Implement more robust duplicate
+> discard for HSR"), duplicate discard is order-independent (sparse
+> bitmaps), so only the sequence counter updates need serialization.
+> Limit seqnr_lock to the counter updates in handle_std_frame(); the
+> master TX path (hsr_dev_xmit()) and the interlink RX path
+> (hsr_handle_frame()) drop their outer lock, and the supervision frame
+> builders release it right after their counter update.
+> 
+> Concurrent forwarding may emit frames out of allocation order, which
+> sparse-bitmap discard tolerates. The master/interlink tx statistics are
+> no longer serialized; consistent per-cpu/per-queue statistics for all
+> HSR paths are handled in a separate series.
+> 
+> Fixes: 06afd2c31d33 ("hsr: Synchronize sending frames to have always incremented outgoing seq nr.")
+> Fixes: 430d67bdcb04 ("net: hsr: Use the seqnr lock for frames received via interlink port.")
+> Reported-by: syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=fbf74291c3b7e753b481
+> Cc: <stable@vger.kernel.org> # aae9d6b616b5: hsr: Implement more robust duplicate discard for HSR
+> Signed-off-by: Xin Xie <xiexinet@gmail.com>
 > ---
->  net/mptcp/subflow.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->=20
->=20diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-> index e1f20ff8fdb4..a9f951cc6a0e 100644
-> --- a/net/mptcp/subflow.c
-> +++ b/net/mptcp/subflow.c
-> @@ -1786,6 +1786,12 @@ int mptcp_subflow_create_socket(struct sock *sk,=
- unsigned short family,
->  if (err)
->  return err;
->=20=20
->=20+ /* kernel sockets do not by default acquire net ref, but TCP timer
-> + * needs it.
-> + * Update ns_tracker to current stack trace and refcounted tracker.
-> + */
-> + sk_net_refcnt_upgrade(sf->sk);
-> +
->  lock_sock_nested(sf->sk, SINGLE_DEPTH_NESTING);
->=20
->=20 err =3D security_mptcp_add_subflow(sk, sf->sk);
-> @@ -1795,11 +1801,6 @@ int mptcp_subflow_create_socket(struct sock *sk,=
- unsigned short family,
->  /* the newly created socket has to be in the same cgroup as its parent=
- */
->  mptcp_attach_cgroup(sk, sf->sk);
->=20=20
->=20- /* kernel sockets do not by default acquire net ref, but TCP timer
-> - * needs it.
-> - * Update ns_tracker to current stack trace and refcounted tracker.
-> - */
-> - sk_net_refcnt_upgrade(sf->sk);
->  err =3D tcp_set_ulp(sf->sk, "mptcp");
->  if (err)
->  goto err_free;
+>  net/hsr/hsr_device.c  | 15 ++++-----------
+>  net/hsr/hsr_forward.c |  3 ++-
+>  net/hsr/hsr_slave.c   | 11 +----------
+>  3 files changed, 7 insertions(+), 22 deletions(-)
+> 
+> diff --git a/net/hsr/hsr_device.c b/net/hsr/hsr_device.c
+> index 5555b71ab19b..3fd1762d8916 100644
+> --- a/net/hsr/hsr_device.c
+> +++ b/net/hsr/hsr_device.c
+> @@ -232,9 +232,7 @@ static netdev_tx_t hsr_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+>  		skb->dev = master->dev;
+>  		skb_reset_mac_header(skb);
+>  		skb_reset_mac_len(skb);
+> -		spin_lock_bh(&hsr->seqnr_lock);
+>  		hsr_forward_skb(skb, master);
+> -		spin_unlock_bh(&hsr->seqnr_lock);
+>  	} else {
+>  		dev_core_stats_tx_dropped_inc(dev);
+>  		dev_kfree_skb_any(skb);
+> @@ -335,6 +333,7 @@ static void send_hsr_supervision_frame(struct hsr_port *port,
+>  		hsr_stag->sequence_nr = htons(hsr->sequence_nr);
+>  		hsr->sequence_nr++;
+>  	}
+> +	spin_unlock_bh(&hsr->seqnr_lock);
+>  
+>  	hsr_stag->tlv.HSR_TLV_type = type;
+>  	/* HSRv0 has 6 unused bytes after the MAC */
+> @@ -356,14 +355,10 @@ static void send_hsr_supervision_frame(struct hsr_port *port,
+>  		ether_addr_copy(hsr_sp->macaddress_A, hsr->macaddress_redbox);
+>  	}
+>  
+> -	if (skb_put_padto(skb, ETH_ZLEN)) {
+> -		spin_unlock_bh(&hsr->seqnr_lock);
+> +	if (skb_put_padto(skb, ETH_ZLEN))
+>  		return;
+> -	}
+>  
+>  	hsr_forward_skb(skb, port);
+> -	spin_unlock_bh(&hsr->seqnr_lock);
+> -	return;
+>  }
+>  
+>  static void send_prp_supervision_frame(struct hsr_port *master,
+> @@ -390,6 +385,7 @@ static void send_prp_supervision_frame(struct hsr_port *master,
+>  	spin_lock_bh(&hsr->seqnr_lock);
+>  	hsr_stag->sequence_nr = htons(hsr->sup_sequence_nr);
+>  	hsr->sup_sequence_nr++;
+> +	spin_unlock_bh(&hsr->seqnr_lock);
+>  	hsr_stag->tlv.HSR_TLV_type = PRP_TLV_LIFE_CHECK_DD;
+>  	hsr_stag->tlv.HSR_TLV_length = sizeof(struct hsr_sup_payload);
+>  
+> @@ -397,13 +393,10 @@ static void send_prp_supervision_frame(struct hsr_port *master,
+>  	hsr_sp = skb_put(skb, sizeof(struct hsr_sup_payload));
+>  	ether_addr_copy(hsr_sp->macaddress_A, master->dev->dev_addr);
+>  
+> -	if (skb_put_padto(skb, ETH_ZLEN)) {
+> -		spin_unlock_bh(&hsr->seqnr_lock);
+> +	if (skb_put_padto(skb, ETH_ZLEN))
+>  		return;
+> -	}
+>  
+>  	hsr_forward_skb(skb, master);
+> -	spin_unlock_bh(&hsr->seqnr_lock);
+>  }
+>  
+>  /* Announce (supervision frame) timer function
+> diff --git a/net/hsr/hsr_forward.c b/net/hsr/hsr_forward.c
+> index 0774981a65c1..8e4158a9b57c 100644
+> --- a/net/hsr/hsr_forward.c
+> +++ b/net/hsr/hsr_forward.c
+> @@ -621,9 +621,10 @@ static void handle_std_frame(struct sk_buff *skb,
+>  	if (port->type == HSR_PT_MASTER ||
+>  	    port->type == HSR_PT_INTERLINK) {
+>  		/* Sequence nr for the master/interlink node */
+> -		lockdep_assert_held(&hsr->seqnr_lock);
+> +		spin_lock_bh(&hsr->seqnr_lock);
+>  		frame->sequence_nr = hsr->sequence_nr;
+>  		hsr->sequence_nr++;
+> +		spin_unlock_bh(&hsr->seqnr_lock);
+>  	}
+>  }
+>  
+> diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
+> index bb2182a169a3..8b96eafe15b3 100644
+> --- a/net/hsr/hsr_slave.c
+> +++ b/net/hsr/hsr_slave.c
+> @@ -73,16 +73,7 @@ static rx_handler_result_t hsr_handle_frame(struct sk_buff **pskb)
+>  	}
+>  	skb_reset_mac_len(skb);
+>  
+> -	/* Only the frames received over the interlink port will assign a
+> -	 * sequence number and require synchronisation vs other sender.
+> -	 */
+> -	if (port->type == HSR_PT_INTERLINK) {
+> -		spin_lock_bh(&hsr->seqnr_lock);
+> -		hsr_forward_skb(skb, port);
+> -		spin_unlock_bh(&hsr->seqnr_lock);
+> -	} else {
+> -		hsr_forward_skb(skb, port);
+> -	}
+> +	hsr_forward_skb(skb, port);
+>  
+>  finish_consume:
+>  	return RX_HANDLER_CONSUMED;
+> -- 
+> 2.43.0
+> 
 
-LKGM!
-You can add 'Acked-by: Gang Yan <gang.yan@linux.dev>' in your next patch.
+Thanks for the fix.
 
-Thanks
-Gang
-
-> --=20
->=202.34.1
->
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
