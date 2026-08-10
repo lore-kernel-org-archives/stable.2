@@ -1,87 +1,69 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 317BB3BADA9;
-	Mon, 10 Aug 2026 10:31:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD843A4F47;
+	Mon, 10 Aug 2026 10:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786357866; cv=none; b=FgjdXPDFjp++hblDkDr/XZOkebSF19M/GLipb/ye5/Vs+ZuVthNxgNP+aXgyM8d0luU9TRih7NlvL2wHjARc+cVUIj+1Z18ucuSN0ZuMVCJrKHmRPIKoJL7G1a/7QWOaYK1362R2nankNAr8poJ72cXBECAxe+QIc0+y6dofvuU=
+	t=1786357973; cv=none; b=mGBWjSTwISs1Y5Ue2Jsxt1ZXD5heedAJXlWnjJDJ66mB1CxLoIAsaYR3mwo4hcVjbngw9GMCChu6PM+YGAkyk/VyHV9VrbSBhr6hgrWO839RkUPpEubGZFWmwGzzFKtuwym/+/TyTYwRKHDqcK13O1dpKtKAjO6TGdpnxl3pjRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786357866; c=relaxed/simple;
-	bh=3hXKKeklNdpltdfsQs+YsPkHnJJ+W0maf0thog6BFQ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y+N91aXR4ax77j02VopOGjN4Cc2/YhmzRrfRVBTUKt71kn5ru8eq4UpnIHzzZXKE8wmu8A3dAVAjck5zh89IbcjvsHoyRtRWMqLcuuBGUXM9FQf6WfbK3oC4Sy01IxMdzN97YOxL0GOmpkvr1ZaLv3/WtcCvESYgd2D7/jR8UDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=njzlT9FM; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1786357973; c=relaxed/simple;
+	bh=cC7gqPvLUlkLwbGKdwL24vXRm9gmd31IDrCvA4drtl0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u90RQ1Op0o4PC/iFK/WYqS0bgK75+qosC80F/YUGXK1pUM3UfqHAZbwDIihHsJnTssl/Gxhs2dToFxVsLvAh4+QTMdcOcN0kgTGDfbmFXNWcA+tzPRjDJtlD64HdF6UcMP0ULiqmw8bvV2uawJ6siCrG9r2Mj8NHTvY2GnJUdOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ABA2w8pi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="njzlT9FM"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 61EF314BF;
-	Mon, 10 Aug 2026 03:31:00 -0700 (PDT)
-Received: from gentoo-vm (kajpuc01-mac-mini.manchester.arm.com [10.33.9.66])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CB2F43F86F;
-	Mon, 10 Aug 2026 03:31:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1786357864; bh=3hXKKeklNdpltdfsQs+YsPkHnJJ+W0maf0thog6BFQ4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=njzlT9FMwAxw1HqCriBdVfiHc59llRi17BuSWTiw+ENxz1C9nHWHuzoKtBtaNKj1J
-	 i5zdUMXfgfJV1bUYNbUzK517LWCfvQSy7W9wKeJUq48Bk+rcU8lQVLQjGolKeHMidY
-	 lhc8jj7k1wZhmiAYnVVsURLaqyAyE2/cyRFFutTA=
-From: Kajetan Puchalski <kajetan.puchalski@arm.com>
-To: maz@kernel.org,
-	oupton@kernel.org,
-	fuad.tabba@linux.dev,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	jic23@kernel.org,
-	Sascha.Bischoff@arm.comzenghui.yu@linux.dev,
-	kajetan.puchalski@arm.com
-Cc: linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] KVM: arm64: vgic: Fix detection of MI on no pending LR
-Date: Mon, 10 Aug 2026 11:29:24 +0100
-Message-ID: <20260810102923.2426475-2-kajetan.puchalski@arm.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ABA2w8pi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2126D1F000E9;
+	Mon, 10 Aug 2026 10:32:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786357971;
+	bh=cC7gqPvLUlkLwbGKdwL24vXRm9gmd31IDrCvA4drtl0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ABA2w8pip6RKbD4CUQt2E1r0p6YZ5V2YFzSD010Mb/ThhGSVDmLCI/MasIcolqLRZ
+	 T1vSAIiBF64Lj6iQxVosa3lg4lb2IgNM38N0gO17nHbDPCABaG2LR/nI01vpjbDxWO
+	 FM3OjQVEbo84TQ8leWSywNiEu0Pge6lV7y1sAMJZ2ZMwCVBCbMrGpEaDtOu+tAD82Z
+	 /lAtRBn09bVHnk2jZGvXmdjcBTiv2QqqyAYvt+FTxF9G+k6yxf56m43lEV537XMAJ6
+	 OO9ga3afrkurhf2P7QBp5x/U8K9SNIkORgZd+2GHVME/e+0soZdzf7JpFJQr+vOfTb
+	 vNKOWaiXS9Qxw==
+Date: Mon, 10 Aug 2026 11:32:47 +0100
+From: Daniel Thompson <danielt@kernel.org>
+To: Junjie Cao <junjie.cao@intel.com>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Pengyu Luo <mitltlatltl@gmail.com>,
+	stable@vger.kernel.org, Junjie Cao <junjie.cao@linux.dev>
+Subject: Re: [PATCH v3 3/3] backlight: aw99706: Honor the core blank state in
+ update_status()
+Message-ID: <anmoz-Of5W-pjz-6@aspen.lan>
+References: <20260804030255.1934470-1-junjie.cao@intel.com>
+ <20260804030255.1934470-4-junjie.cao@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260804030255.1934470-4-junjie.cao@intel.com>
 
-As per the ARM GICv3 spec, the maintenance interrupt identified by
-ICH_MISR_EL2.NP is asserted when it is enabled and no List register is
-in pending state. This is further described in the document as "no List
-registers with the State field set to 0b01 (pending)". By checking only
-the pending bit of the LR (bit 62), KVM currently asserts the MI when
-there are no LRs in "pending" or "pending and active" states.
-Fix the detection logic to consider only the "pending" state.
+On Tue, Aug 04, 2026 at 11:02:55AM +0800, Junjie Cao wrote:
+> From: Junjie Cao <junjie.cao@linux.dev>
+>
+> update_status() passes props.brightness straight to the hardware and
+> ignores the power/blank state tracked by the core. Writing 4 to the
+> bl_power sysfs attribute or blanking the framebuffer therefore leaves
+> the backlight lit.
+>
+> Use backlight_get_brightness(), which returns 0 while the device is
+> blanked.
+>
+> Fixes: 147b38a5ad06 ("backlight: aw99706: Add support for Awinic AW99706 backlight")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junjie Cao <junjie.cao@linux.dev>
 
-Cc: stable@vger.kernel.org
-Fixes: 96c2f03311de ("KVM: arm64: nv: Plumb handling of GICv3 EL2 accesses")
-Signed-off-by: Kajetan Puchalski <kajetan.puchalski@arm.com>
----
- arch/arm64/kvm/vgic/vgic-v3-nested.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
 
-diff --git a/arch/arm64/kvm/vgic/vgic-v3-nested.c b/arch/arm64/kvm/vgic/vgic-v3-nested.c
-index 5c69fa615823..e3e84d7f5ad5 100644
---- a/arch/arm64/kvm/vgic/vgic-v3-nested.c
-+++ b/arch/arm64/kvm/vgic/vgic-v3-nested.c
-@@ -152,7 +152,7 @@ static void vgic_compute_mi_state(struct kvm_vcpu *vcpu, struct mi_state *mi_sta
- 			eisr |= BIT(i);
- 		if (!(lr & ICH_LR_STATE))
- 			elrsr |= BIT(i);
--		pend |= (lr & ICH_LR_PENDING_BIT);
-+		pend |= (lr & ICH_LR_STATE) == ICH_LR_PENDING_BIT;
- 	}
- 
- 	mi_state->eisr	= eisr;
--- 
-2.51.0
 
+Daniel.
