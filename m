@@ -1,120 +1,87 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 87A833AE6E5;
-	Mon, 10 Aug 2026 12:35:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FDD3AE6E5;
+	Mon, 10 Aug 2026 12:36:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786365354; cv=none; b=E9cJXA9BVuYDDLEFJiFCM4o71g+lPH0OVMUOCMwQwu7feTN1llEsNUvArUFeSyAfGj/H870b9pYU563YycvIPVFCRI8kzctsBf1IEjnljfPPcCyrkuz701yB+B7ZnNVQk3cDErvpxOS61TQvTtISdgDFudC1TehPASHFFHiMQ6A=
+	t=1786365416; cv=none; b=EeZqvzE5koEOu+CLBqXtMKD7fqXy1Po/BqUNi1cKGLfJQCvk7T6oWHFZeE/iIgY+JVQLOuKiyg8b+lVJTmStk98xr3DqSm5om/YkddSIOvpTJf+FKykUnJzfQggGxzok4mymYDlC+L7Vf8fBLSkYuDIIvwG9npJMW82+cTApjc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786365354; c=relaxed/simple;
-	bh=4EGy8XxImze5kg5V93EPfWIg5qCGq+tSC5lMLbZ+JDs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=l2rLd2QSxcL/BCd94Q7id4UTgOEa9JuWjnXOKviUdWzh0WQ9f+8/T15Rz6nOC68Hw19SykIXwerSLD36bpLziHu/BXv1j8O4V1ZzxGgmpoVxWHA319JA4rSBf3zU+/b3n8Xyr6j39KJAc87Bbh0ufZjDZarumQv79na34uADcCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wB3hjSbxXlqbwCAAA--.36399S3;
-	Mon, 10 Aug 2026 20:35:40 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgD3D3KbxXlqDWIwBA--.28189S2;
-	Mon, 10 Aug 2026 20:35:39 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-scsi@vger.kernel.org
-Cc: Ram Vegesna <ram.vegesna@broadcom.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Don Brace <don.brace@microchip.com>,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] scsi: elx: efct: Use timer_shutdown_sync() for the stats timer
-Date: Mon, 10 Aug 2026 12:34:43 +0000
-Message-Id: <20260810123443.122397-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1786365416; c=relaxed/simple;
+	bh=j4F3tgNrpv0XFiriZBcZk2urtDkPZeiy2AJEH+WvzM4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=evnkD+SAmr6BQYFVxNRDdTMhBhyf1hl/XJ51kY6vc974zBPhvux1UTKhmtQfm/fVx458kjoiKbB8odJH5FW1bDOmvsoY46AFra31pT22SQqFx69qUxwZw12ANiOfEfUclAkcPXcV9ZYm4KnCfY1yYEVvGDaeHwVIlX50aq7hOzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=u55cUtK+; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="u55cUtK+"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BD2CF1A152A;
+	Mon, 10 Aug 2026 12:36:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8072D6033B;
+	Mon, 10 Aug 2026 12:36:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C041311C4A500;
+	Mon, 10 Aug 2026 14:36:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1786365401; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=f7VR1hd95VoqCyFMdN0c7NIB9QevljWPF/Tlu8MmGBY=;
+	b=u55cUtK+OUd9hipscxjuaRgMXOqYdx258FCgQ8IbMheYj77mC0GegPbs1MyijjdMcdCb7U
+	e/utZFaQHj72F364cjtCbbyNPUo2chh1fwu5FGC6siUKW03oI2uifaiBirXRJS9M4IvrZW
+	VhM7VPeFxgtmRO4VQOdyGmQbLxekGu4xYSiUbVDrRwfLt7hvkdoDqzIZ5C1FzD0Up2hdwh
+	0Zue4LKRvqwWsLPSjXEeVUno5spIpKNakLPiEBTHlxVCrlmwjVKFMw2u7GtFif0GeKuKDo
+	riZtmJSKW2QJhG84Q5Z21q4VM/0p1yQEUjmeixj2esoCCJm2n9Hw7NuUNvCU8A==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-wpan@vger.kernel.org,  Stefan Schmidt <stefan@datenfreihafen.org>,
+  Alexander Aring <alex.aring@gmail.com>,  Varka Bhadram <varkab@cdac.in>,
+  Andrew Lunn <andrew+netdev@lunn.ch>,  "David S . Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,  Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,
+  netdev@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH v2] ieee802154: cc2520: fix FIFOP work use-after-free
+In-Reply-To: <20260809021917.102947-1-fanwu01@zju.edu.cn> (Fan Wu's message of
+	"Sun, 9 Aug 2026 02:19:17 +0000")
+References: <20260809021917.102947-1-fanwu01@zju.edu.cn>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 10 Aug 2026 14:36:31 +0200
+Message-ID: <871pc6rw34.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgD3D3KbxXlqDWIwBA--.28189S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?cvA2bQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WO4v8p1q5Ynd8nc+Mqb2Chrg9WE6Tau6FeIlHX0sa0QwWe7
-	wOvWht09dxf3+9JmBgWp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7uF4kKF1fCw17tF43JF4fWFX_yoW8Kw18pF
-	4kW39ruryUWF4jkr17Jr4UZFy5ZanaqFWDGF48W3y3uayfXryrCF15tFWDCFW3JrWvq3sI
-	gw1DJrn3XFs5AFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-The statistics timer re-arms itself on every expiry through
-efct_xport_config_stats_timer().  timer_delete() only detaches a pending
-timer: it does not wait for a callback that is already running and does
-not stop that callback from re-arming the timer.  In efct_xport_detach()
-the timer is stopped before efct_xport_free() frees the xport,
-so a callback that re-armed it can fire after the free and dereference the
-freed object.  efct_fw_reset() stops the same timer before a hardware
-reset, where a callback left running can race the reset and re-arm the
-timer.
+Hi,
 
-timer_shutdown_sync() waits for a running callback to finish and
-guarantees that the timer cannot be rearmed once it returns, so use it at
-both points.  The now-pointless timer_pending() checks are dropped.
+On 09/08/2026 at 02:19:17 GMT, Fan Wu <fanwu01@zju.edu.cn> wrote:
 
-This issue was found by an in-house static analysis tool.
+> The FIFOP interrupt handler queues cc2520_fifop_irqwork.  On removal,
+> cc2520_remove() only flushes the work.  The devm-managed FIFOP IRQ
+> remains active until after ->remove() returns and can queue the work
+> again after that flush, allowing it to run after the private data is
+> released.
+>
+> Disable the work with disable_work_sync() instead of flushing it, so
+> the handler can no longer queue it once removal begins.  Destroy
+> buffer_mutex last, since unregistering can invoke the driver's stop
+> callback, which uses it.
+>
+> Install the SFD IRQ before cc2520_register(), so it is available when
+> the netdev becomes visible.  Install the FIFOP IRQ afterwards, so a
+> registration failure cannot schedule RX work while its hardware is
+> being released; cc2520_register() no longer frees the hardware on its
+> own failure, leaving that to the probe cleanup.
 
-Fixes: ab332fcbcd81 ("scsi: elx: efct: Transport and hardware teardown routines")
-Cc: stable@vger.kernel.org # v6.2+
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/scsi/elx/efct/efct_driver.c | 3 +--
- drivers/scsi/elx/efct/efct_xport.c  | 3 +--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+This is a cleanup mixed with a fix. These must be two different patches,
+because I don't think you need the cleanup for the fix to make sense.
 
-diff --git a/drivers/scsi/elx/efct/efct_driver.c b/drivers/scsi/elx/efct/efct_driver.c
-index 07c2f4534..3556c6d8a 100644
---- a/drivers/scsi/elx/efct/efct_driver.c
-+++ b/drivers/scsi/elx/efct/efct_driver.c
-@@ -309,8 +309,7 @@ efct_fw_reset(struct efct *efct)
- 	 * Function 0 will update and load the new firmware
- 	 * during attach.
- 	 */
--	if (timer_pending(&efct->xport->stats_timer))
--		timer_delete(&efct->xport->stats_timer);
-+	timer_shutdown_sync(&efct->xport->stats_timer);
- 
- 	if (efct_hw_reset(&efct->hw, EFCT_HW_RESET_FIRMWARE)) {
- 		efc_log_info(efct, "failed to reset firmware\n");
-diff --git a/drivers/scsi/elx/efct/efct_xport.c b/drivers/scsi/elx/efct/efct_xport.c
-index 9dcaef6fc..84fa5589e 100644
---- a/drivers/scsi/elx/efct/efct_xport.c
-+++ b/drivers/scsi/elx/efct/efct_xport.c
-@@ -507,8 +507,7 @@ efct_xport_detach(struct efct_xport *xport)
- 	efct_scsi_del_device(efct);
- 
- 	/*Shutdown FC Statistics timer*/
--	if (timer_pending(&xport->stats_timer))
--		timer_delete(&xport->stats_timer);
-+	timer_shutdown_sync(&xport->stats_timer);
- 
- 	efct_hw_teardown(&efct->hw);
- 
--- 
-2.34.1
-
+Thanks,
+Miqu=C3=A8l
