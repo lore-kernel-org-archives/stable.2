@@ -1,122 +1,136 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A29239E6C
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 08:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676592236EE;
+	Mon, 10 Aug 2026 09:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786352348; cv=none; b=pN2L9iXyopqUn5/GkhHL1NfgB+Tkg8jb7nrQi523F7iMG/SxniEFYjc2Kk1ksoj3oMWiEC7OqrdwPcH6qXp9TBhrRcw7Wz/bQX05DTo2SQm1gMz3Z00mw9fSCtsAUnl0RhamcpiBb9T+rtTAiBZ0T2m1DAgsvL6LIdc3LaZSCdg=
+	t=1786352610; cv=none; b=DPqgnjifrFKuP9cEOH3n73RMsLIPy1lN7JEPDliKpkFEoxbCXlixbTgDFbxeflAbPNEw9CQJKtTdcLwy6kEarJksXk22yOu3uREAl2A+PjKJ87zRbQ0x2bVsEJciX6pOz08E2Bl7CHuJRmHHXrbhj4aPVKEEQlOQz8oZDb1wdCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786352348; c=relaxed/simple;
-	bh=Hk8cW0uaXVz4JBFUEpMkdv9QkfYRYlB6IN/xfMy2uUc=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=NndculkBVjn7UxPWRddyKoaUtuZqKUbd8yuk2SiBhMYUmQAVyn52GW+Uo01cpraH+EpBJvxlDJeknpxVr+E/6ZnFrVjTWWf4sgYfT79yq+ywtWUQQOvYYrY6qy2LvlOMRJCZ6jqOWt+hqKoBNmmN7dy6jdNe+NcwdCitDwFQacw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=QZYKj/f2; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1786352610; c=relaxed/simple;
+	bh=2RcTcItp7WWqou36LPBqb29IjWcZ+9YoVFyjkdN2d/4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WRUhtD6eC/RbUcfiA/zRwgiZyLIm7+M11Byo/6Df/CQnPcSsmJWW+fpx/37GN6kj9OjtWsEJSQP8p048Cn0Z77fE1/wn3yFi44rOMPKydzPoUFCLsgeM0n7I1mYsDscs9gX+n+8fd7iI8oYTkwYiFfTcF5uhtQLf9iS3CFoRlZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=BMHCsflk; arc=none smtp.client-ip=213.133.104.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="QZYKj/f2"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38dc69c74b8so1524243a91.0
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 01:59:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1786352346; x=1786957146; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=95QXzKPRYkepnQr8mp5Bt6sgxyPnPvfomNa0tdG5d/k=;
-        b=QZYKj/f2zr4A2wYOuI+qz1l2b/Gm2dG06yJRmZp/ZaAqMsKABhdmQNDG/uj9f+9O02
-         bFHzEKBkg8vKWJ+y7Go4r70yo3VnvkzVtJeeIPCZCZHEm49OpJLx3/YSKj2oBPW2GeGQ
-         T/3LQM+/xr2b4gppd805+ohTzzZHKC+KUWnH/PXC+DdD8UvaTBu9jaoa6qPiv5cW5uB9
-         iIfWv97w1Z94ls6+hJ7KFXvGBIpciNgdwEP2TvrsikFABBbh7u/TfEsKduUgDofSJ6Zf
-         VkCvDF2DZKv5K3vUd0Xncui8My3TsyMtNi+swDBwh4Pb0HTex8B+wCi0HmJTL6PFwnoc
-         ZOHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786352346; x=1786957146;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=95QXzKPRYkepnQr8mp5Bt6sgxyPnPvfomNa0tdG5d/k=;
-        b=rNqV1TWrSKBUItQ1mOuOp0Lm/sALQpm8VYkcXqP0oI5eVHk8BDrOYhpNzqWWrwFQXi
-         N/rysRSxHgVfUgIvJjYMuaVRTQRt8YsaX4JS+HxP7eQG6ze41gzzRfv2rZh04TiF/0io
-         9AkAlehrk+US4pFoYOpsmSlm4gqHEjGXohrS3e9G7vawXEy/WPXiuvzLU6TKnSq4whAc
-         c+cl1hZUSV78a/WNB95+buFimNgadeoJJDGAIMPGj64RoL1wXOC/4ZyNQW8b5iGcvZjS
-         F6yF9QrYkJG/qSmYCmWLa0oMxR0IG1500xkBtNbyXeTei5WTINdnskeMiqWr3MuwjLbW
-         /7Nw==
-X-Gm-Message-State: AOJu0YzMVm3CQBoeNDPkec3uMU5PhtEiSkDBF68L0ikrME1YjGEf1g4B
-	fL2GZELi4M17Mwn7PEVD29CTtUWAQgxgcaCOXOMr6Ozd8iY94Xqt8q1ur/4Ikte4h0BbQ4lounq
-	32CFn
-X-Gm-Gg: AR+sD12W4D9EavhhJfnqI9zmtJVIzgFKhb/l1GbDLQTs+FcvIxiAV2FDz2RR6eRSZRH
-	rIlHGENLW7iEIrkR7DetJugR0ac/6d5UErh/pBvDhk+2zsgMItoDD5fc7+j4C9BA/bFYVS5hslS
-	SGPxwSxx86YfFKHPtmVi93qgjJNDeX6S+RgPv2D7/G5lrMAxQ2K543Ah3NrQhSllRHgeYnRAHY6
-	d856p8Q688ulvSA84zCr/reY9/nvibQ8aw0RgazvREfe163oZmFh325XuclqmhaqJtTo13dCjWV
-	2mdu/HtUdTK9/tcqZVgFhWhCawaxnJBxOdJCRnqmVKWKYldbTesQQIkChDeYkn4kwm2jlIBsaP8
-	9xBqEuLn8pmUA7HdksjDPAxkrNU1uOT2mtpf7MccpGddG+bJiyDmYIWKhmFH6B+4xOJlYm7G55e
-	rmyacSgnHpwx6vzl2JOdnuosI+sOo4ua6NXUcZKQV+NYQFdzvPOz0Ahg==
-X-Received: by 2002:a17:90b:2d84:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-3903c538263mr41435592a91.8.1786352345703;
-        Mon, 10 Aug 2026 01:59:05 -0700 (PDT)
-Received: from 9a65d8f5b626 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14101b7a772sm33608752c88.12.2026.08.10.01.59.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 01:59:04 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="BMHCsflk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=m0+2s40EDB6UcWo9cNFQJhbb3YqJmwPUCVqo5ht8xIY=; b=BMHCsflkjcoVfmOY4N1xSBDH0L
+	AKVglVVkU7E2pIcAitISrMOQRlEsNwU778x6Xcrn7LVsfdORhWQGQByPbbC+xXkY6IJiA4GX2Cgv3
+	2/IQEisxrccJVMdfTt/zqC40ZT6Ab5s7u4GEGSxMcoezbByrdDhfLV8+Ww6kq1jl5GcwF59zMBgx+
+	pj4f5b1yF2imTDlFuSmPe0CdpdA44RvL3uvmdd9uTa0S20xd/3pAmRiVZdaGSApjgM9pC4RsfdaRu
+	9hT9tOZhqtzAxLEj3YN+J78P/YrXqVS49AIyLdkuAEsmO+yw7KmIT2VCt0lNKDxBrv8PVy348xehl
+	B+yPYUVg==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1wtLul-0000Tr-0k;
+	Mon, 10 Aug 2026 11:03:23 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1wtLuj-0002et-1x;
+	Mon, 10 Aug 2026 11:03:21 +0200
+Message-ID: <38568196-4dd0-481b-99b7-153e2209b1ca@iogearbox.net>
+Date: Mon, 10 Aug 2026 11:03:21 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/sched: cls_bpf: reject dev-bound programs bound
+ to a different device
+To: Jamal Hadi Salim <jhs@mojatatu.com>, netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, vega@nebusec.ai,
+ Victor Nogueira <victor@mojatatu.com>, Jakub Kicinski <kuba@kernel.org>,
+ Quentin Monnet <qmo@kernel.org>, Simon Horman <horms@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Jiri Pirko <jiri@resnulli.us>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, bpf@vger.kernel.org
+References: <20260809094418.901607-1-jhs@mojatatu.com>
+Content-Language: en-US
+From: Daniel Borkmann <daniel@iogearbox.net>
+Autocrypt: addr=daniel@iogearbox.net; keydata=
+ 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
+In-Reply-To: <20260809094418.901607-1-jhs@mojatatu.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.12.y: (build) mm/slab.h:572:24: error:
- duplicate 'inline' declaration specifier ...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Mon, 10 Aug 2026 08:59:04 -0000
-Message-ID: <178635234375.1348.6486004617778303035@kernelci.org>
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28088/Mon Aug 10 08:24:15 2026)
 
-New build issue found on stable-rc/linux-6.12.y:
+On 8/9/26 11:44 AM, Jamal Hadi Salim wrote:
+> cls_bpf_prog_from_efd() obtained a SCHED_CLS program via
+> bpf_prog_get_type_dev() but never verified that a device-bound (offloaded)
+> program's bound netdev matches the TC netdev the classifier is being
+> attached to. This let a program loaded with prog_ifindex for device A be
+> attached via cls_bpf + skip_sw to device B; deleting device A then
+> destroyed the program's offload state while it was still attached to
+> device B, triggering a netdevsim WARN (panic with panic_on_warn=1).
+> 
+> Mirror the XDP attach path (net/core/dev.c) and reject the attach with
+> -EINVAL when a dev-bound program's bound device does not match the
+> target device.
+> 
+> Fixes: 6c8dfe21c435 ("cls_bpf: allow attaching programs loaded for specific device")
+> Reported-by: vega@nebusec.ai
+> Tested-by: Victor Nogueira <victor@mojatatu.com>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 
----
- mm/slab.h:572:24: error: duplicate 'inline' declaration specifier [-Werror,-Wduplicate-decl-specifier] in mm/mempool.o (mm/mempool.c) [logspec:kbuild,kbuild.compiler.error]
----
-
-Log excerpt:
-=====================================================
-In file included from mm/mempool.c:21:
-mm/slab.h:572:24: error: duplicate 'inline' declaration specifier [-Werror,-Wduplicate-decl-specifier]
-  572 | static __always_inline inline bool need_kmalloc_no_objext(void)
-      |                        ^
-././include/linux/compiler_types.h:249:16: note: expanded from macro 'inline'
-  249 | #define inline inline __gnu_inline __inline_maybe_unused notrace
-      |                ^
-1 error generated.
-
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:7c5e63727edb7ab8fe66c182c096b19973dc4c24
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  993a046a044df0f29fc81dc45039a2a90dd4ae67
-
-# Builds where the incident occurred:
-
-## i386_defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (i386):
-- compiler: clang-21
-- config: https://files.kernelci.org/kbuild-clang-21-i386-allmodconfig-6a75eadc62f33761c0901384/.config
-- dashboard: https://d.kernelci.org/build/maestro:6a75eadc62f33761c0901384
-
-#kernelci issue maestro:7c5e63727edb7ab8fe66c182c096b19973dc4c24
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
+Acked-by: Daniel Borkmann <daniel@iogearbox.net>
