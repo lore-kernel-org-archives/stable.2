@@ -1,133 +1,76 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FCE441635
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 20:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652A34418EC
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 20:41:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786394350; cv=none; b=WvosjozVSwwgGPebovKEaaFpxrVh9V6/fXz7ujRdOpkHZcLUToTP8RPpjWKBOZottcpyKG4BkKmjSDxmIxBXEr4HB94OfNodHztzisgMuqhiv4WaArSagYxuy1+PhmBpuEUm/chN0hlbOBGTRobR7USov8qhZBLHEZRmP81eUa4=
+	t=1786394513; cv=none; b=AudQZI6YYvyqQjwwm0vrNDsJ4Ye6ZHFkVIE4UKTgXUShowwyp0OJ9mipHZL8wZ/O6IT0zOIpxJxq2y9NdzLkhshvg6gj0A+GXC0i4ZJJCSJXJ7BkiFNK+fpiwBkDyvyERnVFIFiYWn3wzccB/OdXsMKT6LYgntNg3rvya9u4DlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786394350; c=relaxed/simple;
-	bh=EkPEKXF+/UaDvmD1DSJT1a9iDr68rR/Sq93UlMmDacU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=p7ztbES1Sx84ZF3R81x78szdw8rAgbP0OIh3sqJT9ZsGw2ZTa7bHbHf2IYtjRF9aNY7nmp2o7elln0bxVQoOpErwkzKgfLrQWuZaxPP5fybdT57SP5oA3Hp4+yktBhDC5cHN9yoXTUjjWrjxhu9znC4yBfD2OY2ofRcdUmt6EPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oUzCrlYJ; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786394513; c=relaxed/simple;
+	bh=XtWzZTT4AnJfPX1deXxIUrgprZjuOygWZDcmLRXB3mY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=STxR7EwGFW0Qxu8yewMZ4D9IozPbYobK/q9GgTCyE2wn5IINqim735ao4eAudDKwa+EfYR9liDtybrO85Epyu2R9wQI2Icpsjt+ux7d+xuLeKnJ6tTdQ/EFaTu4TxofzQwUO06TNStBgjzb6uvGwfn49Y065V/X+l26CvaMctQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eGsxl4+q; arc=none smtp.client-ip=91.218.175.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oUzCrlYJ"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84862b0d5f8so1849521b3a.3
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 13:39:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786394347; x=1786999147; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eYLBNqXF1zNAZBvL6Z7VZZKJwlYWKUq5oR45TMWjugk=;
-        b=oUzCrlYJtOHTQ885ks3y9kYZicKST2Ilsg27nTZBMCtDUYUHCb1ZK/87sMvNeWxWi9
-         h9ikkM7rR5CbLpoD0ZrJ/SNSSFtnA5q8pokGYwIui4vYOrxuH3btBoD505RiAetFl96I
-         aRcPYFKDqN5NtlitJROdRbWxiq7znbjsUc0yf8jwjvydtolZ/D5ZXtcuF6shIwKEAalG
-         tgBLPjXjs1pgvXv9OKmm6Ikcf9PPpxRE4qMHGuP0q7D6n0DO2JovrrkFkqLBjrpiGvtu
-         kXsqyYWP9ddgBtnBbPjrwFACveNfnhXXjMwrSv/RZZ/TrIaFB2wodPVP4/EDYA78Oz1L
-         V4xA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786394347; x=1786999147;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eYLBNqXF1zNAZBvL6Z7VZZKJwlYWKUq5oR45TMWjugk=;
-        b=FM7ksBaDkWjM8O8YDEkS8VPi9bfeaoreveHK/zfxmHRdaKWrdq1HxJpmL6oliD4A0o
-         Kc9932CVCeHRqX+SjJ9Y/ozizsR9EsOWt3XhcLIBcIu4Lo7xB9tGQLAqhYUPRbm+vMZt
-         7mPXu/l74pjeDyLCTifNxYyVRn6ggjKEmvQe4XyZJvvP2JyiDsq6HsVWX/8O+DLblsdn
-         T8DRJMKZEa/9MzohPTH6jiXrLETd4RZJloTdwksUPXWoWgIcIcKpMdS5jXS1015huvm7
-         //skKQlS8MGTFW4Qf07tRY91UmxwFHvlWF8p3x/rtJUm0E5M+nqQFeD+DhGevTuSbRWd
-         SH8A==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+FwiejpXqDd/Z2WILfyxfYRfXqX3upoBltj62o1YW72R08M6JBIAkh/JjR1SNSU4wjz6sk3U=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHQ4K+Em2EztWwg4ryyut69ulgodavs+6Mwz5A/eyzaijyXseV
-	i2x1ZwzSYL1Mumsehhy+WbPwgD3RXyq2DGZpstHnlCEmkCl51MCHPMmm
-X-Gm-Gg: AR+sD13YnvetzDnj624E/ODO45R3aQct7hyWT6qA3dYNpoLdZgK3L1Jo9NXPmlJnA+v
-	uZwm15dE5b/1aduXLwjBpSUAXZ6qdRaSqF0P8WPka0l4vtbg2eofeGF3rpI+Jf0gIHIY15qvxv9
-	69kO6u+utXzW4FjadNq00/m6g76QWoTytF3Ud1A6GSN8LGnb5sbVSz8iC+iE+nmg8cGesb8Fjiq
-	RIZGF+0b1V3h0MooD1NXzA+ftOKdgGXHYbEUCs4hKQNOZeapu0jUcH5CqIty82kOaQnpln94usI
-	HS8FuoXvH/pSPJT7AzehQTjLPD0RcQtU8QVaPE5feDz6VKzex6PpX5zX3bMMo7f9+CGrgStcXV9
-	P5R/sZFkRunzDsqEEwhddy+SV+HqsWRtxVUf2o1sIDv2HPV3LMrLus5QTU+XEnxzAMqVghyFmFV
-	bxB1y5DW8Yo6HSlBeMjQcCQprBPgkZDgB4urSBymxkrTXnAEpcF8Oer+64UHk=
-X-Received: by 2002:a05:6a00:399f:b0:848:42a7:1854 with SMTP id d2e1a72fcca58-84f4fee21bemr33610373b3a.39.1786394347422;
-        Mon, 10 Aug 2026 13:39:07 -0700 (PDT)
-Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a553071sm4324001b3a.43.2026.08.10.13.39.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 13:39:07 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Tue, 11 Aug 2026 04:38:21 +0800
-Subject: [PATCH 3/3] drm/nouveau/uvmm: clear the dirty flag when unwinding
- an OP_UNMAP_SPARSE
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eGsxl4+q"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786394507;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=JPIIn/AseeGgXI6+lYaSU1ZzHmCj62UnEe5Y0V80ywA=;
+	b=eGsxl4+qF/FKWpUkVHucIkp70pK7RTZJhC9FWpbc8SKQlZWqjYiuBN7Yxj6PY3PBbetyxo
+	FaEtEAfQ1SP29sGNglwnSfTA3Gp3AxFep4A+PQCuSZJgkC6PBylmEm/ieAbPMy9YiFG45g
+	l2Aexf2XYhzahZkPAnxQSKCtBfDksXc=
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	stable@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] platform/x86: think-lmi: Free system certificate signatures
+Date: Mon, 10 Aug 2026 22:41:07 +0200
+Message-ID: <20260810204106.165895-2-thorsten.blum@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-nouveau-uvmm-vmbind-fixes-v1-3-40df1c046b49@gmail.com>
-References: <20260811-nouveau-uvmm-vmbind-fixes-v1-0-40df1c046b49@gmail.com>
-In-Reply-To: <20260811-nouveau-uvmm-vmbind-fixes-v1-0-40df1c046b49@gmail.com>
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dave Airlie <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>, 
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786394315; l=1588;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=EkPEKXF+/UaDvmD1DSJT1a9iDr68rR/Sq93UlMmDacU=;
- b=xvwCAsSALBfo+gvo3ZaHDs3yC6zp/pyKzQwwXyN0p3W5AseCOv1a26TdDXBFUuDwtF8D64GKY
- ptfwp0aTPmpDgfsO50bna4ltQAqDVyxcUVxtlWFJ9TQe4/CGG/JkW1W
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1121; i=thorsten.blum@linux.dev; h=from:subject; bh=XtWzZTT4AnJfPX1deXxIUrgprZjuOygWZDcmLRXB3mY=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlV5kn/tpTFcBydEjyTSVx//xyrL12B/CVhj/Ju/v06W 95SSD+so5SFQYyLQVZMkeXBrB8zfEtrKjeZROyEmcPKBDKEgYtTACaiYM3wT+9kRZnKx2Xny/eZ avB+MzqUlq++s3zC1nbupFu6DInrGBkZ9mxN1dt7//OCif9fTlFW7X55//Xapr1nTVMKSw9XLUp x5wMA
+X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-A successful OP_UNMAP_SPARSE marks its region dirty with
-nouveau_uvma_region_dirty() and defers the teardown to
-nouveau_uvmm_bind_job_cleanup(); it does not remove the region from
-uvmm->region_mt.
+Multi-certificate support also allows the system authentication object
+to store ->signature and ->save_signature, which leak when the driver is
+removed. Free the signatures to avoid leaking memory.
 
-If a later op in the job fails, the unwind path never clears reg->dirty
-(set in one place, cleared nowhere) and sets op->reg = NULL, so cleanup
-skips the teardown. The region is left in the tree with dirty set and its
-completion never signalled. Later binds over that range then fail
-permanently -- -ENOENT or -EINVAL from the dirty checks, or an unkillable
-wait_for_completion() in bind_validate_region() -- for the lifetime of
-the uvmm.
-
-Clear reg->dirty when the unwind reverts the sparse unmap, restoring the
-region to the state it was found in.
-
-Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Fixes: 5dcb5ef12590 ("platform/x86: think-lmi: Multi-certificate support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 ---
- drivers/gpu/drm/nouveau/nouveau_uvmm.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/platform/x86/lenovo/think-lmi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-index 3412200b21fd..76ab377f0e2c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-@@ -1475,6 +1475,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
- 						    op->va.range);
- 			break;
- 		case OP_UNMAP_SPARSE:
-+			op->reg->dirty = false;
- 			__nouveau_uvma_region_insert(uvmm, op->reg);
- 			nouveau_uvmm_sm_unmap_prepare_unwind(uvmm, &op->new,
- 							     op->ops);
-
--- 
-2.34.1
-
+diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platform/x86/lenovo/think-lmi.c
+index e215e86e3db7..e3e683bf3469 100644
+--- a/drivers/platform/x86/lenovo/think-lmi.c
++++ b/drivers/platform/x86/lenovo/think-lmi.c
+@@ -1456,6 +1456,10 @@ static void tlmi_release_attr(void)
+ 	/* Free up any saved signatures */
+ 	kfree(tlmi_priv.pwd_admin->signature);
+ 	kfree(tlmi_priv.pwd_admin->save_signature);
++	if (tlmi_priv.pwd_system) {
++		kfree(tlmi_priv.pwd_system->signature);
++		kfree(tlmi_priv.pwd_system->save_signature);
++	}
+ 
+ 	/* Authentication structures */
+ 	list_for_each_entry_safe(pos, n, &tlmi_priv.authentication_kset->list, entry)
