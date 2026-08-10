@@ -1,84 +1,107 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8D5403B0C;
-	Mon, 10 Aug 2026 15:02:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E3240860D
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 15:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786374152; cv=none; b=HiZjRnlyGZOiVTGYbQOo7wZNURqqZbr2tszkXl1xH1wtqWV+5CC20wibvc49wKCmPENZSGge2iIwp90zyqNOTdlRYbstAG36feDAOhz407woUiwyvxNcx9AHRN3SuqSWJrUAVZ6BDw2OzCZ4E4XL8pz4xEvJJSp9jRIspcMTGWU=
+	t=1786374907; cv=none; b=uMZLdiKXy+RJ9EpLYXj0MQ/rKH1YiVFYEZTjQ8Ppmc8uNomDwpUa+pCQL5ITIL+qvv7SH+Ipe508iPUwH+q7qcjwt4i1yFZ2LXVGV8BpFPC6GHAnfk94cQTETTizFlOcRxC8x2pQw9mWiavJTR1VTGlpp6Ae9Fj269XPfFPOgB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786374152; c=relaxed/simple;
-	bh=Xo+MtyrhDJeUQ+osx92Xu0boszlkKFQZOj6gEpl3I/k=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=R2AM42qx01F3Q64dSVJe3OqQ74OGTB2CyJZAjFQeBj36tTPHkQmMwfS6HcLNhyZjcsPWDO5TdqOXxEdYnS1UK2l2YgwKvJ03ZP+qKjd6CUdmcNXXevJpLARcdQvBTONaUL0djz9FPAjrm5DXBDI28zoVo+93B81N6ziFzRDkrug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=09VnhXm9; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1786374907; c=relaxed/simple;
+	bh=dYwpDRDFH4n8uZjOFwtMCROsjSYUm1YwtTQJtnYVbBY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JVE0xvnv4CN+3kyzJYK9m9a/LMrBVg5cX8w+n5aNtUY2BnIDLEGcAuracdoQZ5Gqsh4KVXZvEKnwf07N0Q9bEHJ8wbqeDPMKcadG88P/tU2bqtJY7f/wU3hwPLoCQ8UC4jOjNRh67B0s67g3IdeQpyZSJYRnLT1wON42kb/99Fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lDdcWzhz; arc=none smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="09VnhXm9"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id A807B1A1533;
-	Mon, 10 Aug 2026 15:02:27 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 78E7F6033B;
-	Mon, 10 Aug 2026 15:02:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EBDCC11C4A2BB;
-	Mon, 10 Aug 2026 17:02:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786374142; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=vPx/CSmFWLjnP30xYUbjzFg3pWTp1Fm1YlnbTUiE0Ow=;
-	b=09VnhXm9SFU9Dh7H28A1coyWfChNFyUYIxoslpUv30ADfVw3t64c4O0N1D/P+JzNeGSi0U
-	ovcHQhks3Sqi8yYck/IlAOjrn1ZQf4m8fXbuKPh96UFOUH3P/DQEmanu1b66jlyMi9LlQx
-	w2I5ro4U3M38v3xn8Rzs0AIIhWXCi/pLyjJYkderNbkP6r3sQc9JPtTSaoE2TXHmX7k3zu
-	ZxxVqCUyLTRq/hgsA+vrZ4MQ/ZpmPxs5PflfO1WtY5wkuj1/qUMuSfG93kXWs+Rds9HbBr
-	GRqrknwCLXiWXHd6ro8qP1MxvjmfzZ5ZF/gTUybD3n2nC/QTf8QAV4gokgzM9w==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lDdcWzhz"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a157f90752so2668354a12.3
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 08:15:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786374903; x=1786979703; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fPBANNW5+RwZZdfYhz17gZuHdbRy4Yr63PkNIMIILa4=;
+        b=lDdcWzhzIuF3hW22hr3pVTUjuq2TvyzU88H92Ydf/PMmChqXHg0QzRlPxJfgo0ipSh
+         qQCn3KRb4lMSDveQ4Ls8aFR9TTzeazPs+aCPAnM7JY18mWF7l6kyxFSjEKf9I9uzpOb4
+         8HeNbUp1sAFm4/d1syQYAwJPtue9J787IaX/Jq+gCy8hFLszxR07Z1Nxto5lkGkoL4t2
+         Ymqj5tFD6ReSm4wruux7U1DsmpqIYC+5MXvVrt7m/GK9TglBUOThJNXIQr3nic7NWN0o
+         XRpiD3e3VfsGnrH0KgHwiU+umihpU07VlCa6Gq12HlyuS/QJAHzJQ9IPafMnuZqLDE9G
+         ZLEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786374903; x=1786979703;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fPBANNW5+RwZZdfYhz17gZuHdbRy4Yr63PkNIMIILa4=;
+        b=ko/mhQ09NT5VOwoQJY7UYBcECkIfcXSHdCtEjRMaTNd+zZR9Iq3HSDflh8XBy85Fsf
+         xaDcJnOePKUInW0PxXwtB70zMAlhDDJVXfjb9X+Z4hWE11vKxi/fVVS4BfbuBtvAvIqb
+         6UTuRsrg7YZ0lPMvRPfUEr5mvCM8wl55CgSWT2UshVv47S5VBeUxiVtsFpbGiIiuk1/4
+         96450lbFIjZNhuLFqsDA+pKn02eJxNbQFmDJfdoalrm3wDs0UGMjOn7UcX6042Pnkf6x
+         Y3NInhtpxytBZroknAWUy4OCaCEKe70S7dI6sX/CAYFXgezvC8JpGWVgxRtuzmxqYlkb
+         KNVw==
+X-Forwarded-Encrypted: i=1; AHgh+RrwbauP/l0vl264A2+MCfyvuj9To8Zd8H2jEqGzyHoeYT6raMNS1q9KirnF/qtkjuApEvEd+x8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzz/puCDfnt/askkUrCNe4kZiwwTh5Rlulf5bJJs/wqfCLfKzhT
+	J3azzerfYNNxvgJE8JG7zAGVYFKWEnSJqbewNQ/C2HxZVO8Zdp15rQpG
+X-Gm-Gg: AR+sD117Hhogk85LGz2GMuCeTVWK9V5xfKvR9ntCsTtMW7KoldCc+TsbaDN9Iqx0BZW
+	iVExWY3MBMicwPMEfEFnGXdhjbuE4VCib/DaUhOScffCUbFYy+bS0X2Ke1Ak1jD1XGTdEc6/oAZ
+	PWSQR9sMM0QARdfZnr9hmYy7t57ur5ODtDXTfsU2aJ8+O7DfZk/GWu0Nzd1q8URdvslsWehujQr
+	tEg5d96+iv9NYoV+11SIJhLi9uE1g5XTUftGQiNMe4P+j7EUsVKLCH2x/FqX0WD14nmn441ZLGm
+	+DUGhC4uhrVLzemvDowB0etSNqBK5dv0vDDS8gjaTjeClZr3UmwQmFuOYpGayNTHjSZXNeVPTeE
+	+GTHfe9skgIeYv7lchgifk0v/PZFIAo1EgbWoAoaR8RuFPRrRNolzR/xKZKKHm7oCpl8r8fXq6B
+	jv0XlnfUOGrzCSrBTQKoi+4+nTJCTPc+lhkyx1ru5Az7SDeoBpUMbF92qtCBzdP7SYS3QYUlxGB
+	1/KjU+HyBelUDy+Zu2Ay8ni2HCV6lnNm8M=
+X-Received: by 2002:a17:907:7b86:b0:c20:1c9d:8d4b with SMTP id a640c23a62f3a-c20871a8ccfmr1162646566b.2.1786374902694;
+        Mon, 10 Aug 2026 08:15:02 -0700 (PDT)
+Received: from localhost (polaris.rmrf.org. [70.34.242.93])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2080cf75c2sm398078466b.59.2026.08.10.08.15.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 08:15:02 -0700 (PDT)
+From: Denis Batishchev <ii343hbka@gmail.com>
+To: tiwai@suse.com
+Cc: perex@perex.cz,
+	ii343hbka@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ALSA: hda/realtek: Enable micmute LED on HP EliteBook 6 G1a p/n: AD3Q9ET#UUG
+Date: Mon, 10 Aug 2026 17:14:41 +0200
+Message-ID: <20260810151440.2306217-2-ii343hbka@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 1/5] drm/bridge: nwl-dsi: Cleanup endpoint mux
- control selection
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260810-nwl-dsi-fixes-v3-1-256da9d672e1@geanix.com>
-References: <20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com>
- <20260810-nwl-dsi-fixes-v3-1-256da9d672e1@geanix.com>
-Date: Mon, 10 Aug 2026 17:02:04 +0200
-Message-Id: <178637412471.64950.2732024404338956267.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On Mon, 10 Aug 2026 09:14:37 +0200, Esben Haabendal <esben@geanix.com> wrote:
-> Using the endpoint define values makes it more clear that the argument to
-> mux_control_try_select() must be valid state integers, and not something
-> that looks like a boolean.
-> 
-> The endpoint value is kept, as it will be used in a following patch that
-> changes behavior slightly based on which endpoint is selected.
-> 
-> [...]
+The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
+Without a quirk no fixup is selected and the mic-mute LED stays off.
+It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
+already-supported 14" variant (SSID 103c:8dfb), so add it.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+v2: fix indentation (per Takashi Iwai <tiwai@suse.de>)
+v3: fix indentation, 2nd trial (per Takashi Iwai <tiwai@suse.de>)
+---
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 6b36c730c..bcbdafb42 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -7544,6 +7544,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8dfc, "HP EliteBook 645 G12", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8dfd, "HP EliteBook 6 G1a 16", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
++	SND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14 (AD3Q9ET#UUG)", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8dfe, "HP EliteBook 665 G12", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8e11, "HP Trekker", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8e12, "HP Trekker", ALC287_FIXUP_CS35L41_I2C_2),
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.53.0
 
