@@ -1,206 +1,113 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707B43DC4DE
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85F333D50F
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786372649; cv=none; b=fojcnm5HSp/ruBaGFIpYd1ZKr82E9Ve70+v6ntpEbNvcoST17YTnnE7rCOR7EGsU9AhsX6jspkwCO4QTT8+r1s9L4HQLYTM3oDlIWFzoRfsRXbY2GhslBpzft0vaaeYANDiJd5rcAaqPGePJvM8y1K4BrR4Bw1+1OmP/TXN8zPk=
+	t=1786372809; cv=none; b=IzmrYtFuQ4d5wGHQYvZfq9HnmxtHfnbm3HvUIpL+uw8+bK8qqyJVU09jgKCBC1kSVyesn9Km0eXnZa0eMU4/YztL21SXtM3Yw2n6cur61Uw6h59wcfcz1LVQ9SZXoUjA9jpGcTRZ4YU0XJtrQGY2s8u907d/JFn+ZQMzQ2a6bCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786372649; c=relaxed/simple;
-	bh=t3ctwqgS9ou0XiwfcT3bs4QaJCUfvbP/xU6MeLUUu3k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AWaafRDuACP6PPn+CMJucpZRR3p04DFHNF1ZmyjQ6WZZNhx4oAn5+yj2bVLV2iTQiAdiOYozf1X47XtNknp/QZ80ZKtXBf+Hhj68L03ldbWJCUMgD1oiQuvbNsnO4hdqF3gxnn0XuEmQ6/Z++13hiqkftllwftAiGG4xU67N+uE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=B596JomD; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786372809; c=relaxed/simple;
+	bh=dfZiwVY2qnjtHARQDLFCt1K9e0b6RXXJ/mUadhoogoM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VpanpX2B7BNO5kuN1XHcq7s86QSUBuKwnsyYpZy1OdviNlOL6YtYezXHy0xKvRpA+OHoJFB13XEJZzbW/+MsWvOvMtKjs27yUJy4iML/fhAdaIxHLlpQ3rpTR8z2Gg3e8sXQE2+POCUcFJeGNSL/uN67RZDy+SxhbnnyphW2KXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=co7aDJ63; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="B596JomD"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AD1kJf1611897
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:37:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=9ww6lOAXfTRg02jq8
-	dAowOZzWKBKpyG06hIFNkLZQJM=; b=B596JomDoVnFoAOIVF4EsB0yCegxqdDI6
-	MJzeHvO6SNrpfBOUE1KwYaExLZg79yQTnC2exD3exdU9SOpTbtlBa1vHV58ugHHC
-	cLUEQP7babeAksZYlNPqWNj6agCuW9qCw3L7O9ODDgeaSPc2ezAJsRlMO/geqVq8
-	iplyW2fD3bYfZPF5dOqv3SGHmqmqyiehKEUph/zTT54/XoagFVUJlBDFnY2v51sU
-	U11HvMldQ/enI+/wDLMjL6FpYkTDNdCXVf97Vz11mjVhfn83JhLhvRpTIbkUT5Ac
-	NK4W5vjQcUPvav2nIbuF0ozhltUxnNw7PCPbC3N8Hbzjt0/SR/2/w==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvp2r36s-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:37:27 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67AEQFGv023746
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:37:26 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxg9gw3y4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:37:26 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67AEbMqo38601180
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 10 Aug 2026 14:37:22 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8EFE320043;
-	Mon, 10 Aug 2026 14:37:22 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5817B20040;
-	Mon, 10 Aug 2026 14:37:22 +0000 (GMT)
-Received: from ibm.com (unknown [9.111.40.237])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 10 Aug 2026 14:37:22 +0000 (GMT)
-From: Holger Dengler <dengler@linux.ibm.com>
-To: stable@vger.kernel.org
-Cc: Harald Freudenberger <freude@linux.ibm.com>,
-        Holger Dengler <dengler@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>
-Subject: [PATCH 6.12.y] s390/zcrypt: Fix missing mem scrub at clear key import in cca_clr2cipherkey()
-Date: Mon, 10 Aug 2026 16:37:19 +0200
-Message-ID: <20260810143719.653754-1-dengler@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026080532-footage-footer-3d54@gregkh>
-References: <2026080532-footage-footer-3d54@gregkh>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="co7aDJ63"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c9e30214d8fso1104043a12.3
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:40:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1786372807; x=1786977607; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jJtKsWT4sx3y58QYdxZvJ/PHE2uBcHo6QmKYUPmhmYc=;
+        b=co7aDJ63EzOJAQOcLXLRT32LUUvOz7QQINEiTE/QWGF75gvn193u5V6a7tn7jLUj1Z
+         I8tGdLyiOPnLgP3lDHQx2EcHeLJW3OF22xuOPL6NLmaicfOYRuXNws8X0JE85rq5JZMi
+         rXdvM3Ek/3sYr3DYW799/iTp+SMIuqYJi+ckU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786372807; x=1786977607;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jJtKsWT4sx3y58QYdxZvJ/PHE2uBcHo6QmKYUPmhmYc=;
+        b=Ml7OTN4f8u+Q+S1YcpL0sQ0Bb5+lCawuwmreD6ogPp+By0uQ0Le0UhtFjvWinh+J/2
+         TUdOuioNtsgdkWapBJT0FdAlTsRwS5ZtbfcJHg7AxcMM7EvslcGI2RtgsYDjHO06qxfE
+         2nKBO1u+OfIuBKLhTJCdDEUSnMyQrKk+mcRAxyxK/XXf26nrde4vbFqhpmbpJvVk96OU
+         nNxVW7qfOmw+phZiFdzX4qPseJhEeQVzcAzVrihTX/B4KNTgEStfXWiJLfRy2X+7mBUh
+         OEdSlJ04p5lGhDvpdoEUt4PhnkxiGGcHYWMUTV7g6Py+4HHuCoAeMMvmfQhdenosCCik
+         D7Wg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpt8vOdAfr/kN6975P9PHrzV0Ua7bPB3OLGTCsrajcE6K0g5gaaMOkLDfY6YyTPje2RPr1D52o=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8CDzH8/NGIANarj3OkWDJSEMuuhOpltHZAMIJyI8BPAWHOxJL
+	U3r+mo4mo75WWj9NRRyFuuzNN7DXSAStIzA21Bw/sEowxDt+iD4E/MAhqXg25sHXtw==
+X-Gm-Gg: AR+sD133KVG7J7X6SQzWDywAS09Us4Z6sTZlDlq5fmQ7GNxTi+anlMrZzvWf1HzjQG3
+	0P/dQtPeWHqhjkTH9Q4IFxVHItswIKHbGU+hV2U//a0EWC1PlO+A85fjfVzd50sTRzeX7pfaAht
+	4ZaWjIYpJLF+qQsD6f9Dm+MChJEJMPKKDWXUupJ3nG18SlyO/zdtY8dC2czX6IIgsgqeG45m665
+	FQm27XAHxlbpq0QyQ9pjwp1SUjDeTXh6Pts2lDBCqJZJeBuIz6+WOm0oogRUHHhTEaiOTZqpmiu
+	Nb4XmdwHj65jcAIunDMdNFaRpf5lJ/iv/EP8NbXrscNXNZvE7BjpH5iUKuhfFYvOKw70sUFHLC1
+	ryPLWgojg1QohFf8NZcR2d05Mj7pSdEkUdvu3ZLwMf8+dXJt4tROHTCdFIs/l2vWdyJCESZadqj
+	mxi7H211bkS/CMArsny3UDlAoTti6/WP7UlryMt0FSbiwtX4IDM3iN3JxJbklk3UawCpogp1U+b
+	I2TNtr6onKrHSXQE0h/G5uyu9Zy
+X-Received: by 2002:a05:6a20:1602:b0:3c3:a3f4:5485 with SMTP id adf61e73a8af0-3cbce6cb2dbmr23968790637.6.1786372807013;
+        Mon, 10 Aug 2026 07:40:07 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:ddfb:e755:8f7f:81af])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe8f35b16bsm4231740a12.20.2026.08.10.07.40.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 07:40:06 -0700 (PDT)
+Date: Mon, 10 Aug 2026 23:40:02 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, stable@vger.kernel.org, 
+	Hyunwoo Kim <imv4bel@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [PATCH] KVM: x86: Check for invalid/obsolete root *after* making
+ MMU pages available
+Message-ID: <annil73rmj0536I8@google.com>
+References: <20260808062208.522577-1-senozhatsky@chromium.org>
+ <anbL4h3ahwzG8iYa@google.com>
+ <annbVU1ig24ZES-p@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=AMtp2X5w c=1 sm=1 tr=0 ts=6a79e227 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8
- a=l_XADsiG0JAIV5gd_FcA:9
-X-Proofpoint-GUID: WnsguF3nH4LNPrDcV7Oy2r9hOgEViDkU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDEyNSBTYWx0ZWRfX2sEPA7kdscEm
- Y/7xz52W7KrQHR6l0X0x1+AE9fslOp0Y0U2ft/I/GAg5pIInPncUgcP6fZpg3i9ULe61pkKyQi5
- 4WUUkNf2gRnmpV6IsNdeAb4Pa1OzclQEFeYaapiGghhEFycgEyy7m4TIK2tHGLuA4GFOdotQuic
- rMx9tY0k/qGFfpudKL+wyoyVNcQ3+fERVxOa9LQMR+j8dJpB842Clwh1hM3Vhw/Nx0a2gn4SbDW
- DgeWXpujPXKjrxhVK7ZizlaoJyZ4oOVrR9ICq3ittoUwMCXg0cFaLC2nGAyYvp27wZxPAbC4Qda
- v01kQzYe0QfDnH9cHa2mBMeXt9SQ8FBzlLQo/5BGChNa43ewcxPzLRAgJmWdA8yUsMPDfoKabJk
- /1b9yaCj+omSPQRgrbkjn8nWoeZtIKXhqwp8YvhRsPspfG4H3RkS7ZrfqpK9eTIN8coirvfuifz
- HuZwKUzmhLNBLPzyDuA==
-X-Proofpoint-ORIG-GUID: WnsguF3nH4LNPrDcV7Oy2r9hOgEViDkU
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDEyNSBTYWx0ZWRfX8256PQ74pOxF
- 9CSdUf1mgmuuuzKp/TuXtLMz6yA+EfBcIBVjFOE97FZrktAFUvtHGmesxDS2lN1m7wRfN5XHPUm
- +WtWtTlb0/6yHjxc8KijNuyj5bfA/vU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-10_03,2026-08-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608100125
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <annbVU1ig24ZES-p@google.com>
 
-From: Harald Freudenberger <freude@linux.ibm.com>
+On (26/08/10 07:08), Sean Christopherson wrote:
+> On Sat, Aug 08, 2026, Sergey Senozhatsky wrote:
+> > On (26/08/08 15:22), Sergey Senozhatsky wrote:
+> > > From: Sean Christopherson <seanjc@google.com>
+> > > 
+> > > Check for a "stale" page fault, i.e. for an invalid and/or obsolete root,
+> > > after making MMU pages available for the shadow MMU.  If reclaiming shadow
+> > > pages zaps an in-use root, i.e. marks it invalid, then KVM will attempt to
+> > > map memory into an invalid root.  On its own, populating an invalid root is
+> > > "fine", but because child shadow pages inherit their parent's role, any
+> > > children created during the map/fetch will be created as invalid pages,
+> > > thus violating KVM's invariant that invalid pages are never on the list of
+> > > active MMU pages.
+> > > 
+> > > Note, the underlying flaw has existed since KVM first started tracking
+> > > invalid roots in 2008 (commit 2e53d63acba7, "KVM: MMU: ignore zapped root
+> > > pagetables"), but the true badness only came along in 2020 (Linux 5.9)
+> > > with the invariant that invalid shadow pages can't be on the list of
+> > > active pages.
+> > > 
+> > > Note #2, inheriting role.invalid when creating child shadow pages is also
+> > > far from ideal; that flaw will be addressed separately.
+> > > 
+> > > Conflicts:
+> > > 	arch/x86/kvm/mmu/mmu.c
+> > > 	arch/x86/kvm/mmu/paging_tmpl.h
+> > 
+> > Sean, can you please take a look if conflict resolution was done
+> > correctly?
+> 
+> What kernel is this for?
 
-The helper function _ip_cprb_helper() uses internal buffer memory for
-building and processing CPRBs. After use this buffer was never
-scrubbed which could lead to leaving for example clear key material in
-memory which could be exposed via tricky reuse of this same memory.
-
-Extend the _ip_cprb_helper() function with another parameter 'scrub'
-used to steer scrubbing of this buffer. So now the caller has the
-opportunity to decide if scrubbing is needed or not.
-
-Extend the clear key to secure key token import process in function
-cca_clr2cipherkey() to tell the helper function from above to scrub
-the cprb buffer when the clear key value is part of the request data.
-
-Add explicit scrubbing on return from function cca_clr2cipherkey() for
-the random EXOR buffer and the cprb buffer.
-
-Overall this cleans the internal used buffer in case of clear key
-import to prevent sensitive data to get exposed.
-
-Fixes: 4bc123b18ce6 ("s390/zcrypt: Add low level functions for CCA AES cipher keys")
-Cc: stable@vger.kernel.org
-Reviewed-by: Holger Dengler <dengler@linux.ibm.com>
-Signed-off-by: Harald Freudenberger <freude@linux.ibm.com>
-Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
-(cherry picked from commit 01476391aecef36a3b789ee844357b22fbc90665)
-Signed-off-by: Holger Dengler <dengler@linux.ibm.com>
----
- drivers/s390/crypto/zcrypt_ccamisc.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/s390/crypto/zcrypt_ccamisc.c b/drivers/s390/crypto/zcrypt_ccamisc.c
-index 6790afd517ec6..48d36d5a87118 100644
---- a/drivers/s390/crypto/zcrypt_ccamisc.c
-+++ b/drivers/s390/crypto/zcrypt_ccamisc.c
-@@ -938,7 +938,8 @@ static int _ip_cprb_helper(u16 cardnr, u16 domain,
- 			   const u8 *clr_key_value,
- 			   int clr_key_bit_size,
- 			   u8 *key_token,
--			   int *key_token_size)
-+			   int *key_token_size,
-+			   bool scrub)
- {
- 	int rc, n;
- 	u8 *mem, *ptr;
-@@ -1077,7 +1078,7 @@ static int _ip_cprb_helper(u16 cardnr, u16 domain,
- 	*key_token_size = t->len;
- 
- out:
--	free_cprbmem(mem, PARMBSIZE, 0);
-+	free_cprbmem(mem, PARMBSIZE, scrub);
- 	return rc;
- }
- 
-@@ -1120,28 +1121,32 @@ int cca_clr2cipherkey(u16 card, u16 dom, u32 keybitsize, u32 keygenflags,
- 	 * 4/4 COMPLETE the secure cipher key import
- 	 */
- 	rc = _ip_cprb_helper(card, dom, "AES     ", "FIRST   ", "MIN3PART",
--			     exorbuf, keybitsize, token, &tokensize);
-+			     exorbuf, keybitsize, token, &tokensize,
-+			     true);
- 	if (rc) {
- 		ZCRYPT_DBF_ERR("%s clear key import 1/4 with CSNBKPI2 failed, rc=%d\n",
- 			       __func__, rc);
- 		goto out;
- 	}
- 	rc = _ip_cprb_helper(card, dom, "AES     ", "ADD-PART", NULL,
--			     clrkey, keybitsize, token, &tokensize);
-+			     clrkey, keybitsize, token, &tokensize,
-+			     true);
- 	if (rc) {
- 		ZCRYPT_DBF_ERR("%s clear key import 2/4 with CSNBKPI2 failed, rc=%d\n",
- 			       __func__, rc);
- 		goto out;
- 	}
- 	rc = _ip_cprb_helper(card, dom, "AES     ", "ADD-PART", NULL,
--			     exorbuf, keybitsize, token, &tokensize);
-+			     exorbuf, keybitsize, token, &tokensize,
-+			     true);
- 	if (rc) {
- 		ZCRYPT_DBF_ERR("%s clear key import 3/4 with CSNBKPI2 failed, rc=%d\n",
- 			       __func__, rc);
- 		goto out;
- 	}
- 	rc = _ip_cprb_helper(card, dom, "AES     ", "COMPLETE", NULL,
--			     NULL, keybitsize, token, &tokensize);
-+			     NULL, keybitsize, token, &tokensize,
-+			     true);
- 	if (rc) {
- 		ZCRYPT_DBF_ERR("%s clear key import 4/4 with CSNBKPI2 failed, rc=%d\n",
- 			       __func__, rc);
-@@ -1158,7 +1163,8 @@ int cca_clr2cipherkey(u16 card, u16 dom, u32 keybitsize, u32 keygenflags,
- 	*keybufsize = tokensize;
- 
- out:
--	kfree(token);
-+	memzero_explicit(exorbuf, sizeof(exorbuf));
-+	kfree_sensitive(token);
- 	return rc;
- }
- EXPORT_SYMBOL(cca_clr2cipherkey);
--- 
-2.55.0
-
+Oh... good point.  I forgot to specify [PATCH 6.1.y]
