@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813313644B3
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 10:58:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2533E3BAD95
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 10:58:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786359486; cv=none; b=bR8bFxb0ya83T1LGVQ6XU5l2xlTZ6ayVb3zPo3QdyWu2w3dApzx1225uu6cUzDetkTWt8o1NUivcfEQKzLP/Vo2PXqWEp1SNpaBA6NYL3tmapLOd3Tnq+x63OiASJJI4kYM6533W3ksp53ceMrTq3TkQ8I2vTV8P0WwYJTDvzjI=
+	t=1786359492; cv=none; b=MAGWcfy0ojslcmgJYQ3l3mbSZl9IvhVjH0n5F+p3UkSAILCd1JGP9MhpB2a38GyxlS/VUKbf7erlHVahWwfxgL6ZjlwEgMuv/l+SJOeIKOOGCGuwHclaAqTh++ci56bfqOn2iYkBVAwhbIsbt8Nb8Wy8z86qtPE/1O8nHXBuGtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786359486; c=relaxed/simple;
-	bh=SDxQ4vtR6Xx17C4B2cAXWBgjWZmOXVjaMXQ0O4j3dDE=;
+	s=arc-20240116; t=1786359492; c=relaxed/simple;
+	bh=q+xiP3TTrjsNUf4m1iva4UVUcppDXizyfv21dDGy9rc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=llzJi/gOXYau6dyvH90auVwzQ2nh11gZPFlLaNZ6d9A+Mg+IbstLQiOW+ryWKNdqgYCnlKkkQY9fllGrXio0ej+auJajOEEYB9BKtCLBsXkFa1VMQjI0a8nkM/7dx+MhlIguy8RBSVbcawHMoBwy3J1Wwl61YULYzow4NtIaZMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bcIiQvk8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=H1NDL7rrBcJAIFA48QdPQ1REOrmdBW6lgNMMDJ1MOj4MRVKe3grxawfWdjnWh6ZVdF+l8eYqTdENzktJu8+e0TodDu9DgYR+P/ewuc2ChuY4v9kFFAXN9Z0bjWgDrxCI72ncMjdyHrzsdkonnJU0jlaQ54ct9nAq6jMjor22UWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/xP5mDf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bcIiQvk8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31CA61F000E9;
-	Mon, 10 Aug 2026 10:57:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/xP5mDf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B42621F00A3A;
+	Mon, 10 Aug 2026 10:58:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786359484;
-	bh=j5TYHYZj1zjYXjxrfLF6cOjgJIgGdNa3E3KjoKVIIC8=;
+	s=k20260515; t=1786359490;
+	bh=ZbjXd/N8OOyHsdBdjnWWFIqDYnRB9ppWFSTbcWH4IE8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bcIiQvk8PmpmhoswlQ8KucVLw5dgq3RAAXDIup6sp1ZEgAMEPPpAFEYNPE1vj3dMx
-	 H5+EIqAZGIw6zynTN3UrGxUVNUcEmrq1aE3el94pxQSIvYqblrUU01kgNFWpvDa/1O
-	 iVUhdo7EnvAhm+6JLBQnzjZKsRoxvnrljJAEcdLE1mmYTv7EGEpWua09Zx5uScafD4
-	 y7Xvd4qLGlnduP0MrccEqBgAiwgQoiCoYoSNWuw0Zlr0tV5ZL6e19NWvDaWQSjFiRt
-	 +5GrubFkdwyYDzFbLd90oPdAB0ErLLcVv6dcBnBRr9BF8UyJD6DHTAuoI+W32KN3MA
-	 g1Nca2l52eUPA==
+	b=R/xP5mDf8kqYaKO5tAzpIRP+VkzFk/BCUuem9eqRiYjGKooIh3+DUfpftdhw0rdi0
+	 Z4l8oMQ8RQBeRNlPDgDkfej5zoYQctZgTPDcwHJXYrQgT11jelOwXkjdHK0Udnr29y
+	 LJmRX52DuHrglUy0NuBtzw+7PkHlVdklIIHgAD4U3CRG/sqFDS1xh1ZdipKvRz8kAW
+	 Elz8/zjcnB0p2otfnsGzZ9JxloroNARlEeAjsLJ2ya7pw8e0afdTLZe4+dTyAiCloA
+	 YRc4u+OYRTnXnWzjzq+OX2KcW4CSQXmwYACJvD6b7itRb3bi/0wiyaXS+mxlf80zd3
+	 Vhvsx/bnhyHfg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	SeongJae Park <sj@kernel.org>,
 	Vlastimil Babka <vbabka@suse.cz>,
 	Alexander Gordeev <agordeev@linux.ibm.com>,
 	Alistair Popple <apopple@nvidia.com>,
@@ -76,7 +77,6 @@ Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
 	Rakie Kim <rakie.kim@sk.com>,
 	Rik van Riel <riel@surriel.com>,
 	Ryan Roberts <ryan.roberts@arm.com>,
-	SeongJae Park <sj@kernel.org>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Sven Schnelle <svens@linux.ibm.com>,
 	Vasily Gorbik <gor@linux.ibm.com>,
@@ -86,12 +86,13 @@ Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
 	Zi Yan <ziy@nvidia.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] fs/proc/task_mmu: refactor pagemap_pmd_range()
-Date: Mon, 10 Aug 2026 06:57:53 -0400
-Message-ID: <20260810105755.579268-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] mm: replace pmd_to_swp_entry() with softleaf_from_pmd()
+Date: Mon, 10 Aug 2026 06:57:54 -0400
+Message-ID: <20260810105755.579268-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080544-exit-cesarean-7929@gregkh>
+In-Reply-To: <20260810105755.579268-1-sashal@kernel.org>
 References: <2026080544-exit-cesarean-7929@gregkh>
+ <20260810105755.579268-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -102,20 +103,27 @@ Content-Transfer-Encoding: 8bit
 
 From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-[ Upstream commit de4d6c94914f3659f0b51725e23e637d4e9f78cc ]
+[ Upstream commit 0ac881efe16468503e8c1e7d8a7210b75f027ce3 ]
 
-Separate out THP logic so we can drop an indentation level and reduce the
-amount of noise in this function.
+Introduce softleaf_from_pmd() to do the equivalent operation for PMDs that
+softleaf_from_pte() fulfils, and cascade changes through code base
+accordingly, introducing helpers as necessary.
 
-We add pagemap_pmd_range_thp() for this purpose.
+We are then able to eliminate pmd_to_swp_entry(),
+is_pmd_migration_entry(), is_pmd_device_private_entry() and
+is_pmd_non_present_folio_entry().
 
-While we're here, convert the VM_BUG_ON() to a VM_WARN_ON_ONCE() at the
-same time.
+This further establishes the use of leaf operations throughout the code
+base and further establishes the foundations for eliminating
+is_swap_pmd().
 
 No functional change intended.
 
-Link: https://lkml.kernel.org/r/f9ce7f3bb57e3627288225e23f2498cc5315f5ab.1762812360.git.lorenzo.stoakes@oracle.com
+[lorenzo.stoakes@oracle.com: check writable, not readable/writable, per Vlastimil]
+  Link: https://lkml.kernel.org/r/cd97b6ec-00f9-45a4-9ae0-8f009c212a94@lucifer.local
+Link: https://lkml.kernel.org/r/3fb431699639ded8fdc63d2210aa77a38c8891f1.1762812360.git.lorenzo.stoakes@oracle.com
 Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Reviewed-by: SeongJae Park <sj@kernel.org>\
 Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
 Cc: Alexander Gordeev <agordeev@linux.ibm.com>
 Cc: Alistair Popple <apopple@nvidia.com>
@@ -163,7 +171,6 @@ Cc: Peter Xu <peterx@redhat.com>
 Cc: Rakie Kim <rakie.kim@sk.com>
 Cc: Rik van Riel <riel@surriel.com>
 Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: SeongJae Park <sj@kernel.org>
 Cc: Suren Baghdasaryan <surenb@google.com>
 Cc: Sven Schnelle <svens@linux.ibm.com>
 Cc: Vasily Gorbik <gor@linux.ibm.com>
@@ -175,181 +182,268 @@ Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: 4165b7d1c45c ("userfaultfd: wait on source PMD during UFFDIO_MOVE")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/proc/task_mmu.c | 146 ++++++++++++++++++++++++---------------------
- 1 file changed, 77 insertions(+), 69 deletions(-)
+ fs/proc/task_mmu.c      |  2 +-
+ include/linux/swapops.h |  4 ++--
+ mm/hmm.c                |  2 +-
+ mm/huge_memory.c        | 20 ++++++++++----------
+ mm/khugepaged.c         |  2 +-
+ mm/madvise.c            |  2 +-
+ mm/memory.c             |  4 ++--
+ mm/mempolicy.c          |  2 +-
+ mm/migrate.c            |  2 +-
+ mm/page_vma_mapped.c    |  2 +-
+ mm/pagewalk.c           |  2 +-
+ mm/pgtable-generic.c    |  2 +-
+ 12 files changed, 23 insertions(+), 23 deletions(-)
 
 diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 858b11009c269..a4f3158aeb39b 100644
+index a4f3158aeb39b..57b5db1397999 100644
 --- a/fs/proc/task_mmu.c
 +++ b/fs/proc/task_mmu.c
-@@ -1989,90 +1989,98 @@ static pagemap_entry_t pte_to_pagemap_entry(struct pagemapread *pm,
- 	return make_pme(frame, flags);
+@@ -2031,7 +2031,7 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
+ 			flags |= PM_SOFT_DIRTY;
+ 		if (pmd_swp_uffd_wp(pmd))
+ 			flags |= PM_UFFD_WP;
+-		VM_WARN_ON_ONCE(!is_pmd_migration_entry(pmd));
++		VM_WARN_ON_ONCE(!pmd_is_migration_entry(pmd));
+ 		page = pfn_swap_entry_to_page(entry);
+ 	}
+ 
+diff --git a/include/linux/swapops.h b/include/linux/swapops.h
+index a73c5f14b5912..57aad87e46a65 100644
+--- a/include/linux/swapops.h
++++ b/include/linux/swapops.h
+@@ -570,7 +570,7 @@ static inline pmd_t swp_entry_to_pmd(swp_entry_t entry)
+ 	return __swp_entry_to_pmd(arch_entry);
  }
  
--static int pagemap_pmd_range(pmd_t *pmdp, unsigned long addr, unsigned long end,
--			     struct mm_walk *walk)
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
-+		unsigned long end, struct vm_area_struct *vma,
-+		struct pagemapread *pm)
+-static inline int is_pmd_migration_entry(pmd_t pmd)
++static inline int pmd_is_migration_entry(pmd_t pmd)
  {
--	struct vm_area_struct *vma = walk->vma;
--	struct pagemapread *pm = walk->private;
--	spinlock_t *ptl;
--	pte_t *pte, *orig_pte;
-+	unsigned int idx = (addr & ~PMD_MASK) >> PAGE_SHIFT;
-+	u64 flags = 0, frame = 0;
-+	pmd_t pmd = *pmdp;
-+	struct page *page = NULL;
-+	struct folio *folio = NULL;
- 	int err = 0;
--#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+ 	return is_swap_pmd(pmd) && is_migration_entry(pmd_to_swp_entry(pmd));
+ }
+@@ -599,7 +599,7 @@ static inline pmd_t swp_entry_to_pmd(swp_entry_t entry)
+ 	return __pmd(0);
+ }
  
--	ptl = pmd_trans_huge_lock(pmdp, vma);
--	if (ptl) {
--		unsigned int idx = (addr & ~PMD_MASK) >> PAGE_SHIFT;
--		u64 flags = 0, frame = 0;
--		pmd_t pmd = *pmdp;
--		struct page *page = NULL;
--		struct folio *folio = NULL;
-+	if (vma->vm_flags & VM_SOFTDIRTY)
-+		flags |= PM_SOFT_DIRTY;
+-static inline int is_pmd_migration_entry(pmd_t pmd)
++static inline int pmd_is_migration_entry(pmd_t pmd)
+ {
+ 	return 0;
+ }
+diff --git a/mm/hmm.c b/mm/hmm.c
+index a56081d67ad69..df9b11e1d8ed0 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -407,7 +407,7 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+ 	if (pmd_none(pmd))
+ 		return hmm_vma_walk_hole(start, end, -1, walk);
  
--		if (vma->vm_flags & VM_SOFTDIRTY)
--			flags |= PM_SOFT_DIRTY;
-+	if (pmd_present(pmd)) {
-+		page = pmd_page(pmd);
+-	if (thp_migration_supported() && is_pmd_migration_entry(pmd)) {
++	if (thp_migration_supported() && pmd_is_migration_entry(pmd)) {
+ 		if (hmm_range_need_fault(hmm_vma_walk, hmm_pfns, npages, 0)) {
+ 			hmm_vma_walk->last = addr;
+ 			pmd_migration_entry_wait(walk->mm, pmdp);
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index c08aa3db96431..3e72672b19c69 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1707,7 +1707,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 	if (unlikely(is_swap_pmd(pmd))) {
+ 		swp_entry_t entry = pmd_to_swp_entry(pmd);
  
--		if (pmd_present(pmd)) {
--			page = pmd_page(pmd);
-+		flags |= PM_PRESENT;
-+		if (pmd_soft_dirty(pmd))
-+			flags |= PM_SOFT_DIRTY;
-+		if (pmd_uffd_wp(pmd))
-+			flags |= PM_UFFD_WP;
-+		if (pm->show_pfn)
-+			frame = pmd_pfn(pmd) + idx;
-+	} else if (thp_migration_supported() && is_swap_pmd(pmd)) {
-+		swp_entry_t entry = pmd_to_swp_entry(pmd);
-+		unsigned long offset;
+-		VM_BUG_ON(!is_pmd_migration_entry(pmd));
++		VM_BUG_ON(!pmd_is_migration_entry(pmd));
+ 		if (!is_readable_migration_entry(entry)) {
+ 			entry = make_readable_migration_entry(
+ 							swp_offset(entry));
+@@ -2117,7 +2117,7 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
  
--			flags |= PM_PRESENT;
--			if (pmd_soft_dirty(pmd))
--				flags |= PM_SOFT_DIRTY;
--			if (pmd_uffd_wp(pmd))
--				flags |= PM_UFFD_WP;
--			if (pm->show_pfn)
--				frame = pmd_pfn(pmd) + idx;
--		}
--#ifdef CONFIG_ARCH_ENABLE_THP_MIGRATION
--		else if (is_swap_pmd(pmd)) {
--			swp_entry_t entry = pmd_to_swp_entry(pmd);
--			unsigned long offset;
--
--			if (pm->show_pfn) {
--				if (is_pfn_swap_entry(entry))
--					offset = swp_offset_pfn(entry) + idx;
--				else
--					offset = swp_offset(entry) + idx;
--				frame = swp_type(entry) |
--					(offset << MAX_SWAPFILES_SHIFT);
--			}
--			flags |= PM_SWAP;
--			if (pmd_swp_soft_dirty(pmd))
--				flags |= PM_SOFT_DIRTY;
--			if (pmd_swp_uffd_wp(pmd))
--				flags |= PM_UFFD_WP;
--			VM_BUG_ON(!is_pmd_migration_entry(pmd));
--			page = pfn_swap_entry_to_page(entry);
-+		if (pm->show_pfn) {
-+			if (is_pfn_swap_entry(entry))
-+				offset = swp_offset_pfn(entry) + idx;
-+			else
-+				offset = swp_offset(entry) + idx;
-+			frame = swp_type(entry) |
-+				(offset << MAX_SWAPFILES_SHIFT);
- 		}
--#endif
-+		flags |= PM_SWAP;
-+		if (pmd_swp_soft_dirty(pmd))
-+			flags |= PM_SOFT_DIRTY;
-+		if (pmd_swp_uffd_wp(pmd))
-+			flags |= PM_UFFD_WP;
-+		VM_WARN_ON_ONCE(!is_pmd_migration_entry(pmd));
-+		page = pfn_swap_entry_to_page(entry);
-+	}
- 
--		if (page) {
--			folio = page_folio(page);
--			if (!folio_test_anon(folio))
--				flags |= PM_FILE;
--		}
-+	if (page) {
-+		folio = page_folio(page);
-+		if (!folio_test_anon(folio))
-+			flags |= PM_FILE;
-+	}
- 
--		for (; addr != end; addr += PAGE_SIZE, idx++) {
--			u64 cur_flags = flags;
--			pagemap_entry_t pme;
-+	for (; addr != end; addr += PAGE_SIZE, idx++) {
-+		u64 cur_flags = flags;
-+		pagemap_entry_t pme;
- 
--			if (folio && (flags & PM_PRESENT) &&
--			    __folio_page_mapped_exclusively(folio, page))
--				cur_flags |= PM_MMAP_EXCLUSIVE;
-+		if (folio && (flags & PM_PRESENT) &&
-+		    __folio_page_mapped_exclusively(folio, page))
-+			cur_flags |= PM_MMAP_EXCLUSIVE;
- 
--			pme = make_pme(frame, cur_flags);
--			err = add_to_pagemap(&pme, pm);
--			if (err)
--				break;
--			if (pm->show_pfn) {
--				if (flags & PM_PRESENT)
--					frame++;
--				else if (flags & PM_SWAP)
--					frame += (1 << MAX_SWAPFILES_SHIFT);
--			}
-+		pme = make_pme(frame, cur_flags);
-+		err = add_to_pagemap(&pme, pm);
-+		if (err)
-+			break;
-+		if (pm->show_pfn) {
-+			if (flags & PM_PRESENT)
-+				frame++;
-+			else if (flags & PM_SWAP)
-+				frame += (1 << MAX_SWAPFILES_SHIFT);
- 		}
-+	}
-+	return err;
-+}
-+#endif /* CONFIG_TRANSPARENT_HUGEPAGE */
-+
-+static int pagemap_pmd_range(pmd_t *pmdp, unsigned long addr, unsigned long end,
-+			     struct mm_walk *walk)
-+{
-+	struct vm_area_struct *vma = walk->vma;
-+	struct pagemapread *pm = walk->private;
-+	spinlock_t *ptl;
-+	pte_t *pte, *orig_pte;
-+	int err = 0;
-+
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+	ptl = pmd_trans_huge_lock(pmdp, vma);
-+	if (ptl) {
-+		err = pagemap_pmd_range_thp(pmdp, addr, end, vma, pm);
- 		spin_unlock(ptl);
- 		return err;
+ 	if (unlikely(!pmd_present(orig_pmd))) {
+ 		VM_BUG_ON(thp_migration_supported() &&
+-				  !is_pmd_migration_entry(orig_pmd));
++				  !pmd_is_migration_entry(orig_pmd));
+ 		goto out;
  	}
--#endif /* CONFIG_TRANSPARENT_HUGEPAGE */
-+#endif
  
- 	/*
- 	 * We can assume that @vma always points to a valid one and @end never
+@@ -2218,7 +2218,7 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		} else if (thp_migration_supported()) {
+ 			swp_entry_t entry;
+ 
+-			VM_BUG_ON(!is_pmd_migration_entry(orig_pmd));
++			VM_BUG_ON(!pmd_is_migration_entry(orig_pmd));
+ 			entry = pmd_to_swp_entry(orig_pmd);
+ 			folio = pfn_swap_entry_folio(entry);
+ 			flush_needed = 0;
+@@ -2268,7 +2268,7 @@ static inline int pmd_move_must_withdraw(spinlock_t *new_pmd_ptl,
+ static pmd_t move_soft_dirty_pmd(pmd_t pmd)
+ {
+ #ifdef CONFIG_MEM_SOFT_DIRTY
+-	if (unlikely(is_pmd_migration_entry(pmd)))
++	if (unlikely(pmd_is_migration_entry(pmd)))
+ 		pmd = pmd_swp_mksoft_dirty(pmd);
+ 	else if (pmd_present(pmd))
+ 		pmd = pmd_mksoft_dirty(pmd);
+@@ -2371,7 +2371,7 @@ int change_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		struct folio *folio = pfn_swap_entry_folio(entry);
+ 		pmd_t newpmd;
+ 
+-		VM_BUG_ON(!is_pmd_migration_entry(*pmd));
++		VM_BUG_ON(!pmd_is_migration_entry(*pmd));
+ 		if (is_writable_migration_entry(entry)) {
+ 			/*
+ 			 * A protection check is difficult so
+@@ -2559,7 +2559,7 @@ int move_pages_huge_pmd(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd, pm
+ 
+ 	if (!pmd_trans_huge(src_pmdval)) {
+ 		spin_unlock(src_ptl);
+-		if (is_pmd_migration_entry(src_pmdval)) {
++		if (pmd_is_migration_entry(src_pmdval)) {
+ 			pmd_migration_entry_wait(mm, &src_pmdval);
+ 			return -EAGAIN;
+ 		}
+@@ -2848,7 +2848,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 	VM_BUG_ON(haddr & ~HPAGE_PMD_MASK);
+ 	VM_BUG_ON_VMA(vma->vm_start > haddr, vma);
+ 	VM_BUG_ON_VMA(vma->vm_end < haddr + HPAGE_PMD_SIZE, vma);
+-	VM_BUG_ON(!is_pmd_migration_entry(*pmd) && !pmd_trans_huge(*pmd));
++	VM_BUG_ON(!pmd_is_migration_entry(*pmd) && !pmd_trans_huge(*pmd));
+ 
+ 	count_vm_event(THP_SPLIT_PMD);
+ 
+@@ -2862,7 +2862,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 			zap_deposited_table(mm, pmd);
+ 		if (!vma_is_dax(vma) && vma_is_special_huge(vma))
+ 			return;
+-		if (unlikely(is_pmd_migration_entry(old_pmd))) {
++		if (unlikely(pmd_is_migration_entry(old_pmd))) {
+ 			swp_entry_t entry;
+ 
+ 			entry = pmd_to_swp_entry(old_pmd);
+@@ -2898,7 +2898,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		return __split_huge_zero_page_pmd(vma, haddr, pmd);
+ 	}
+ 
+-	pmd_migration = is_pmd_migration_entry(*pmd);
++	pmd_migration = pmd_is_migration_entry(*pmd);
+ 	if (unlikely(pmd_migration)) {
+ 		swp_entry_t entry;
+ 
+@@ -3058,7 +3058,7 @@ void split_huge_pmd_locked(struct vm_area_struct *vma, unsigned long address,
+ 			   pmd_t *pmd, bool freeze)
+ {
+ 	VM_WARN_ON_ONCE(!IS_ALIGNED(address, HPAGE_PMD_SIZE));
+-	if (pmd_trans_huge(*pmd) || is_pmd_migration_entry(*pmd))
++	if (pmd_trans_huge(*pmd) || pmd_is_migration_entry(*pmd))
+ 		__split_huge_pmd_locked(vma, pmd, address, freeze);
+ }
+ 
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 01a5d443ffc58..6b3ba903ba390 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -939,7 +939,7 @@ static inline int check_pmd_state(pmd_t *pmd)
+ 	 * collapse it. Migration success or failure will eventually end
+ 	 * up with a present PMD mapping a folio again.
+ 	 */
+-	if (is_pmd_migration_entry(pmde))
++	if (pmd_is_migration_entry(pmde))
+ 		return SCAN_PMD_MAPPED;
+ 	if (!pmd_present(pmde))
+ 		return SCAN_PMD_NULL;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 588a809dac11d..73f56b18c337d 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -391,7 +391,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 
+ 		if (unlikely(!pmd_present(orig_pmd))) {
+ 			VM_BUG_ON(thp_migration_supported() &&
+-					!is_pmd_migration_entry(orig_pmd));
++					!pmd_is_migration_entry(orig_pmd));
+ 			goto huge_unlock;
+ 		}
+ 
+diff --git a/mm/memory.c b/mm/memory.c
+index 9b071e269d1ec..6b4cdb8bd8dbb 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -6327,8 +6327,8 @@ static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
+ 
+ 		if (unlikely(is_swap_pmd(vmf.orig_pmd))) {
+ 			VM_BUG_ON(thp_migration_supported() &&
+-					  !is_pmd_migration_entry(vmf.orig_pmd));
+-			if (is_pmd_migration_entry(vmf.orig_pmd))
++					  !pmd_is_migration_entry(vmf.orig_pmd));
++			if (pmd_is_migration_entry(vmf.orig_pmd))
+ 				pmd_migration_entry_wait(mm, vmf.pmd);
+ 			return 0;
+ 		}
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 779a8cc17a832..b4aa4f2cb8ecd 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -651,7 +651,7 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
+ 	struct folio *folio;
+ 	struct queue_pages *qp = walk->private;
+ 
+-	if (unlikely(is_pmd_migration_entry(*pmd))) {
++	if (unlikely(pmd_is_migration_entry(*pmd))) {
+ 		qp->nr_failed++;
+ 		return;
+ 	}
+diff --git a/mm/migrate.c b/mm/migrate.c
+index ad7af66a4450a..e66d9cc67dda3 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -542,7 +542,7 @@ void pmd_migration_entry_wait(struct mm_struct *mm, pmd_t *pmd)
+ 	spinlock_t *ptl;
+ 
+ 	ptl = pmd_lock(mm, pmd);
+-	if (!is_pmd_migration_entry(*pmd))
++	if (!pmd_is_migration_entry(*pmd))
+ 		goto unlock;
+ 	migration_entry_wait_on_locked(pmd_to_swp_entry(*pmd), ptl);
+ 	return;
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index c498a91b6706f..2fdd31a5a48ff 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -246,7 +246,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 		 */
+ 		pmde = pmdp_get_lockless(pvmw->pmd);
+ 
+-		if (pmd_trans_huge(pmde) || is_pmd_migration_entry(pmde)) {
++		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
+ 			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+ 			pmde = *pvmw->pmd;
+ 			if (!pmd_present(pmde)) {
+diff --git a/mm/pagewalk.c b/mm/pagewalk.c
+index 2d19d6a9b034d..ec6123f805f20 100644
+--- a/mm/pagewalk.c
++++ b/mm/pagewalk.c
+@@ -985,7 +985,7 @@ struct folio *folio_walk_start(struct folio_walk *fw,
+ 				goto found;
+ 			}
+ 		} else if ((flags & FW_MIGRATION) &&
+-			   is_pmd_migration_entry(pmd)) {
++			   pmd_is_migration_entry(pmd)) {
+ 			swp_entry_t entry = pmd_to_swp_entry(pmd);
+ 
+ 			page = pfn_swap_entry_to_page(entry);
+diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
+index 8c22be79b7343..b7f347ed786e2 100644
+--- a/mm/pgtable-generic.c
++++ b/mm/pgtable-generic.c
+@@ -291,7 +291,7 @@ pte_t *___pte_offset_map(pmd_t *pmd, unsigned long addr, pmd_t *pmdvalp)
+ 
+ 	if (pmdvalp)
+ 		*pmdvalp = pmdval;
+-	if (unlikely(pmd_none(pmdval) || is_pmd_migration_entry(pmdval)))
++	if (unlikely(pmd_none(pmdval) || pmd_is_migration_entry(pmdval)))
+ 		goto nomap;
+ 	if (unlikely(pmd_trans_huge(pmdval)))
+ 		goto nomap;
 -- 
 2.53.0
 
