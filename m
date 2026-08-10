@@ -1,63 +1,37 @@
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1597938D;
-	Mon, 10 Aug 2026 12:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 87A833AE6E5;
+	Mon, 10 Aug 2026 12:35:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786364282; cv=none; b=h3VvrOfIdKSJivr/zRYGK4v/FMie+e5drwBLbSP40i3KCkkiez91pmgbHcZ9PWcbN906Dvhkrjt6cdV5it3Mp+UlbZmBIzVzyLaqrK1/iaVVtZhRsG0Si+tFyo5cp/UgcG4playB0VUS22dzArcfRxiuJuu/cSMlQcLCvbnyEd0=
+	t=1786365354; cv=none; b=E9cJXA9BVuYDDLEFJiFCM4o71g+lPH0OVMUOCMwQwu7feTN1llEsNUvArUFeSyAfGj/H870b9pYU563YycvIPVFCRI8kzctsBf1IEjnljfPPcCyrkuz701yB+B7ZnNVQk3cDErvpxOS61TQvTtISdgDFudC1TehPASHFFHiMQ6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786364282; c=relaxed/simple;
-	bh=jq8IG/kX/0qiMRmU3pXV6T9osKpeL2QWQ8PhkyyT3ZU=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=XHhzrd6Ar7wxMygAk9UJYB3DBpwlvFszGPim9J335NnDP+v6Fkt8qIyppKm6g5Wddg+rXUozspBhJ8D2+qRBILRCjREAjz0GCxwLRMHNTIVEPBpwYHdhP4hT+pZ3FqO9ovcA93Ds32pLJGh0k0tY/VPVG0zbK8f+P7zxDK2g0nU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=az3ihARm; arc=none smtp.client-ip=162.62.57.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="az3ihARm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1786364269; bh=H1f8WzOZadw6epSITVVA3XcQ1v3joYwcYQuF11rR/nA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=az3ihARmMIco/I+skHouV1Imd34JD32hoG/UeDh4DWz5dFiv4xgD+1t6LVaoMGBXT
-	 XzXYlnkqQ/+7FvrascM6k5oy53+W4QZTb51pDxauEJkAvZWuQGP1MEQHGKCjPU+UDI
-	 Bb8cw1vrw+C5xvonAmgMnFNC3hi61bCu1+XPgspQ=
-Received: from ikun-VMware-Virtual-Platform.localdomain ([2409:8a20:b30:4fb4:bdd2:8b42:d496:7e16])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 41134061; Mon, 10 Aug 2026 20:16:17 +0800
-X-QQ-mid: xmsmtpt1786364193tolvez68p
-Message-ID: <tencent_27152D4F8FE2B1274FC8BADB1B84644C0506@qq.com>
-X-QQ-XMAILINFO: NGZp1yYNf7Y+70bg0OMg3rnSgqRmBFbeJobteN+9Y+s5sPWu4rRlCnOFbExJHk
-	 62ntm03Z2pP6rwXpwY/T1S7wwDYKpOYh2Dinjq4Vmm74EeUEtrWkbhUK8ZvFRDkVnGfj6l+AH6Dj
-	 FRiZ0r4h2w4gkyUHGMiue9ScoB0Ip9pkGnEPR9xgDWH8tysCTRiVdmUgBTNMPoXC1JH98sG9XJOX
-	 SnXQN7du2XxUbfST6r+yWIa6ydo0UcS1OGB3gWn2QJprwoNEHiF3xG3Top991q5l8OuB66csv5lP
-	 Is2Ee+TX+fc9juTvdSkzGCFkBFW3i8mwl1CY8kZ+EaZJdWM5aDl9SI0vTityXlyvXAT4Z+Yp9+eM
-	 4y2VYBeDKL9Bbp+wsx9zbKvmTU8YiDC+ztfGGPsdd8YuIWC+Xmvby7LZxulE8Nsd2ZVrw1Maa6+i
-	 OHHiK3T6clPynpGds4Ybao/MK6yrKDxWlFsyQ+qcKhaMD5hioAc+CzFCtcKEFPNA+WcbS0zWHaXe
-	 yP6VcRXP1iAflDIe4DtDEMbREtkLxnvSAUFu1UYwnnReI17ulyPgEmQiFLF6cWeqmyyEpvpMGvs8
-	 tLakC88gnvazgjhhXsqxbBSXRlzg6y7NQ2SA2ctaa2N50MJnz4KYbFf+7zvTfDFqVhw0UbDoDWp8
-	 Zs6HDjxHsbKGcHRir9K53rQt6aKaoGW+taEsAUkmCsfRpVIR0O32pR9/cDUtTG/tDH0aYmJhzgaV
-	 jZAmq6/TLYAqtzZlBTVRakL8a6rYd0gSyycJSmaXotGo3vlBRlVJD+/jMPOSlu6cGdCFGlPdWrKs
-	 NdCynr4ku+je65rIcIhPGMYlor5tZ6EWC5OxUZLUxw/2+59JfLbKe1t3jkJxOYSdQz5KK8evAakq
-	 p0M/z4IExew0TKrQd/j+jQTubMCHV1oKG4PozLz6ww0Vg8J+atAQQcxIqcVuMqBXAlz7BPiGofZx
-	 0MAq28xUtq9qIdZPUJJq+fBreG6FL7G4zoBONbXMgP0sAGRdiRkbD3rPAHlRvpdqX9WQiYCRbayv
-	 S49Jg4FZ0m3SEbqUcWR/iW6A98g3mNwubjgDwWunhGfg3TAJvvhPFtRe+LRHahAXNiOGVomuEa46
-	 CdZ0l57oekFbCvIossCmECObu/xCCktsQC0H4uHLS4wXGZmo0qFRePXFLb4cDepqj6jTq9idnQ/a
-	 xwgTZOWm4DWMvedA==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Guanghui Yang <3497809730@qq.com>
-To: linux-btrfs@vger.kernel.org
-Cc: clm@fb.com,
-	dsterba@suse.com,
+	s=arc-20240116; t=1786365354; c=relaxed/simple;
+	bh=4EGy8XxImze5kg5V93EPfWIg5qCGq+tSC5lMLbZ+JDs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=l2rLd2QSxcL/BCd94Q7id4UTgOEa9JuWjnXOKviUdWzh0WQ9f+8/T15Rz6nOC68Hw19SykIXwerSLD36bpLziHu/BXv1j8O4V1ZzxGgmpoVxWHA319JA4rSBf3zU+/b3n8Xyr6j39KJAc87Bbh0ufZjDZarumQv79na34uADcCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wB3hjSbxXlqbwCAAA--.36399S3;
+	Mon, 10 Aug 2026 20:35:40 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgD3D3KbxXlqDWIwBA--.28189S2;
+	Mon, 10 Aug 2026 20:35:39 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-scsi@vger.kernel.org
+Cc: Ram Vegesna <ram.vegesna@broadcom.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Don Brace <don.brace@microchip.com>,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Guanghui Yang <3497809730@qq.com>
-Subject: [PATCH v3 2/3] btrfs: restore active device pointers after failed sprout
-Date: Mon, 10 Aug 2026 20:16:05 +0800
-X-OQ-MSGID: <62f930b3a904a7ca4be2c87cea3727f226f5e6cb.1786363229.git.3497809730@qq.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1786363229.git.3497809730@qq.com>
-References: <cover.1786363229.git.3497809730@qq.com>
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] scsi: elx: efct: Use timer_shutdown_sync() for the stats timer
+Date: Mon, 10 Aug 2026 12:34:43 +0000
+Message-Id: <20260810123443.122397-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,35 +39,82 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgD3D3KbxXlqDWIwBA--.28189S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?cvA2bQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WO4v8p1q5Ynd8nc+Mqb2Chrg9WE6Tau6FeIlHX0sa0QwWe7
+	wOvWht09dxf3+9JmBgWp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7uF4kKF1fCw17tF43JF4fWFX_yoW8Kw18pF
+	4kW39ruryUWF4jkr17Jr4UZFy5ZanaqFWDGF48W3y3uayfXryrCF15tFWDCFW3JrWvq3sI
+	gw1DJrn3XFs5AFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-btrfs_init_new_device() switches latest_dev and possibly s_bdev from the seed device to the new sprout device before creating the first writable chunks.
+The statistics timer re-arms itself on every expiry through
+efct_xport_config_stats_timer().  timer_delete() only detaches a pending
+timer: it does not wait for a callback that is already running and does
+not stop that callback from re-arming the timer.  In efct_xport_detach()
+the timer is stopped before efct_xport_free() frees the xport,
+so a callback that re-armed it can fire after the free and dereference the
+freed object.  efct_fw_reset() stops the same timer before a hardware
+reset, where a callback left running can race the reset and re-arm the
+timer.
 
-If chunk creation or the subsequent sprout setup fails, the error path releases the new device without switching those pointers back. btrfs_show_devname() can then dereference the freed latest_dev and crash.
+timer_shutdown_sync() waits for a running callback to finish and
+guarantees that the timer cannot be rearmed once it returns, so use it at
+both points.  The now-pointless timer_pending() checks are dropped.
 
-Restore the active device pointers to the latest seed device before removing and releasing the failed sprout device.
+This issue was found by an in-house static analysis tool.
 
-Fixes: b7cb29e666fe ("btrfs: update latest_dev when we create a sprout device")
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Guanghui Yang <3497809730@qq.com>
+Fixes: ab332fcbcd81 ("scsi: elx: efct: Transport and hardware teardown routines")
+Cc: stable@vger.kernel.org # v6.2+
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- fs/btrfs/volumes.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/scsi/elx/efct/efct_driver.c | 3 +--
+ drivers/scsi/elx/efct/efct_xport.c  | 3 +--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-index ffd076e87..f3f77c89c 100644
---- a/fs/btrfs/volumes.c
-+++ b/fs/btrfs/volumes.c
-@@ -2987,6 +2987,9 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
- error_sysfs:
- 	btrfs_sysfs_remove_device(device);
- 	mutex_lock(&fs_info->fs_devices->device_list_mutex);
-+	if (seeding_dev)
-+		btrfs_assign_next_active_device(device,
-+						seed_devices->latest_dev);
- 	mutex_lock(&fs_info->chunk_mutex);
- 	if (!list_empty(&device->post_commit_list))
- 		list_del_init(&device->post_commit_list);
+diff --git a/drivers/scsi/elx/efct/efct_driver.c b/drivers/scsi/elx/efct/efct_driver.c
+index 07c2f4534..3556c6d8a 100644
+--- a/drivers/scsi/elx/efct/efct_driver.c
++++ b/drivers/scsi/elx/efct/efct_driver.c
+@@ -309,8 +309,7 @@ efct_fw_reset(struct efct *efct)
+ 	 * Function 0 will update and load the new firmware
+ 	 * during attach.
+ 	 */
+-	if (timer_pending(&efct->xport->stats_timer))
+-		timer_delete(&efct->xport->stats_timer);
++	timer_shutdown_sync(&efct->xport->stats_timer);
+ 
+ 	if (efct_hw_reset(&efct->hw, EFCT_HW_RESET_FIRMWARE)) {
+ 		efc_log_info(efct, "failed to reset firmware\n");
+diff --git a/drivers/scsi/elx/efct/efct_xport.c b/drivers/scsi/elx/efct/efct_xport.c
+index 9dcaef6fc..84fa5589e 100644
+--- a/drivers/scsi/elx/efct/efct_xport.c
++++ b/drivers/scsi/elx/efct/efct_xport.c
+@@ -507,8 +507,7 @@ efct_xport_detach(struct efct_xport *xport)
+ 	efct_scsi_del_device(efct);
+ 
+ 	/*Shutdown FC Statistics timer*/
+-	if (timer_pending(&xport->stats_timer))
+-		timer_delete(&xport->stats_timer);
++	timer_shutdown_sync(&xport->stats_timer);
+ 
+ 	efct_hw_teardown(&efct->hw);
+ 
 -- 
-2.53.0
+2.34.1
 
