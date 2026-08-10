@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B043F660F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4CD4052B6;
 	Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786378668; cv=none; b=Glj9dOvewQYxBAqu4b0gU6KRC5doM2AL6/QyGd7jwO/gOaEiwh9h2xGled5RwyFL0lq+f7SqTmj9HrQrX802Htid4VwZwsUZoFaoDFk+qd+EtX7cmRz6hUf1qoUV+35S6j88pQyx+OueKXuGCSrUJufd1ckN+mZ5/D2kTUz1P3c=
+	t=1786378668; cv=none; b=DPleSHhn3HMeT8z31JXuZfsVjHdYUzhV/eLDh8TPfCbPxO7yKJQm0iumGceHMLHbFjZLAq77yGiedFJfKU/eJ6HjP3wJh6DhVTNjGlbJy5ezSlTaDIJ9JZRmgVy/7FFpOobX4UyEhyGveUKyHX3REdcippB35fcepZtZN6VDdKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786378668; c=relaxed/simple;
-	bh=qrWihAGCrqFkMcNdLvUZTQMgUT+Pgkggyran7rTHm9M=;
+	bh=e7qU4DwQRhkwQZ7bRxaFZbYgsVTpDVtdRWvEtA7dFMA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SvOTmGJX3LRNufdTuavcsRLtJnMyqrxEu8VbkQyggZ2l7LMJM4WNPx/ynUIZkmNePAU8keZts7+ScQ6pUbp1YRarjeHlDxaM4r3ONZetfxDyd9jtMLWyJpnv9ExJv/M063reivDVWz2cLU2+HqxK2u++FHlLJ9GjYy2n5923Jz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rxn/c43A; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=FSgPN5o2edp+P2MtkrG28kHJ6/WrHRy6Y1DkNcqYh2gGvZO/c6JmgTRsE4tw7QhHOG8v+vRdAAHBbUGqfbFJu5BkkEn4jCEoZ30ho7ze7vV2js34nI5eBE8OnEL/6rn9w9nzAGSd5vjJuKfgWZH9RtdTGhnP95RcWF8MCKSiHl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2yDUZHU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rxn/c43A"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0459BC2BCFC;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2yDUZHU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0D024C2BCFB;
 	Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786378668;
-	bh=qrWihAGCrqFkMcNdLvUZTQMgUT+Pgkggyran7rTHm9M=;
+	bh=e7qU4DwQRhkwQZ7bRxaFZbYgsVTpDVtdRWvEtA7dFMA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Rxn/c43A0RClcJ3wW3eopMFE4AD5cbJ1MV+B6K+ukP/gjaBjPM+V/EkXOHI1/E3K/
-	 +u3t0cMH1k2fU1kg8s79UhC4mm0udFDIb5Y+X6iJZIO/8PwaznQAgfIi3Udu9WNzw0
-	 mHXCWhgk2PIKxozXWm79EcCRb9QOMj6YphU3aMRi0socbjfFGRLywBgbTIOYpt+xz/
-	 Km7O88SSXCQqY1APsRbO1/1WrePt2P2hlwLfK8TZEOfAdpCdaO9FrcJNyEkEWg8W6L
-	 KOMhjUAEN69wqLxvmogNjSdUOAGMBXFv2VSKOi6OAQggkAVP1YGwXltHWVDlTQaj/p
-	 vvoR3vl3h1m7g==
+	b=N2yDUZHUC+IiL1ijHjfMJnnBZdHY8+FrZXfujPqROiUzMIRwWzXXQaV0pg+4b71R+
+	 iLgvFXIoU9QJrpVoLy39ERqqLbjpwDV7w9vRyR7wmaCmjOrVoTVv27X0IgqzqfGGuQ
+	 tVztO48l8TE0ACnyKtMlo2J8zOolDMwREwqXaQSxmZ50QOF7DeB1yy8bE19qRyy0xN
+	 9Z1wKjyXwfKZn3yXy5imLzmeRwaKSr5OysXS3NV7zG5u8OjY6gfbp6qp3TvNuV4k6E
+	 qmzIFa4OWQj3tUwc6QcvIXj+oYjrCaXeFigq31AsfE/DHtTiceqomoqw0V4pn8EAWJ
+	 kWCkQOvlzruJA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DDD8AC5B572;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDE7DC5B56A;
 	Mon, 10 Aug 2026 16:17:47 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Tue, 11 Aug 2026 00:13:13 +0800
-Subject: [PATCH 4/5] drm/amdgpu: enforce UVD handle ownership on destroy
+Date: Tue, 11 Aug 2026 00:13:14 +0800
+Subject: [PATCH 5/5] drm/amdgpu: free userptr HMM ranges on the CS error
+ path
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-amdgpu-fixes-v1-4-4954a417b8ff@outlook.com>
+Message-Id: <20260811-amdgpu-fixes-v1-5-4954a417b8ff@outlook.com>
 References: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
 In-Reply-To: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
 To: Alex Deucher <alexander.deucher@amd.com>, 
@@ -56,13 +57,13 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, Junrui Luo <moonafterrain@outlook.com>, 
  Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2299;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2404;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=UtGNeM13NSreEA2vgkQPwwzgGSG/EJ+HK2TwqY3ru6I=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMqfS40VjhmWnd2/6hD3na7ZrbHHfV8FbmefWj17e
- lyFd6J4TWdHKQuDGBeDrJgiy/GCS98sfLfobvHZkgwzh5UJZAgDF6cATMQrieGffnHOVano9rq9
- HMXn1TZyyjWGrQ8Ji//dz/WvaKP8bcHdjAynyuLigxq3Zwcmm+R/+VGSxGH59HiN/utz+bN4Pwe
- s+MQEAO2LS68=
+ bh=L6QMfmjG08GEYgq6Lvgjn+rT+rJCq+Q7xLdhBvY9+GU=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMqfy6RfzJuy89+X84usVeOvsxZ2dRd+fvO2Y3GL7
+ G0m597euRkdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMJHHnxkZvjsd3j4/vThq
+ p2rz6jjX/GVveLbFf9zL6NGSKFRhWnulg5Fh2dX9fdNlpNndDOxbPjf+kJn0MMVvVnP40Zi8st8
+ xCrz8AHwXTaI=
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -72,60 +73,59 @@ Reply-To: moonafterrain@outlook.com
 
 From: Junrui Luo <moonafterrain@outlook.com>
 
-amdgpu_uvd_cs_msg() validates that a decode message references a handle
-owned by the submitting client, rejecting a mismatch between
-adev->uvd.filp[i] and ctx->parser->filp. The handles[] and filp[] tables
-are per-device and shared by every drm_file that opens the render node.
+amdgpu_cs_parser_bos() allocates a struct amdgpu_hmm_range for every
+userptr entry of the BO list and returns with them live. They are only
+released in two places: the out_free_user_pages label in
+amdgpu_cs_parser_bos() itself, and the invalidation check loop in
+amdgpu_cs_submit().
 
-The destroy message performs no such check: it walks the whole table and
-clears every slot matching the handle taken from the command stream
-buffer. A client can therefore destroy a handle owned by another client,
-clearing the victim's slot and tearing down its session in UVD firmware,
-so subsequent decode submissions fail with -ENOENT. Since
-amdgpu_uvd_free_handles() only reaps slots whose handle is non-zero, the
-cleared slot also retains a stale filp pointer until reused.
+Every error edge between those two points leaks. A failure in
+amdgpu_cs_patch_jobs(), amdgpu_cs_vm_handling() or amdgpu_cs_sync_rings(),
+or an early return from amdgpu_cs_submit() before its release loop, jumps
+to error_fini and falls into amdgpu_cs_parser_fini(), which never walks
+the BO list for userptr ranges. An IB address with no VM mapping is enough
+to get there: amdgpu_cs_patch_ibs() returns the -EINVAL that
+amdgpu_cs_find_mapping() hands back, so the leak is repeatable at will
+from an unprivileged render node fd. Each leaked entry costs a struct
+amdgpu_hmm_range plus its hmm_pfns array, a kvmalloc_array() of one entry
+per page of the userptr mapping, allocated with plain GFP_KERNEL and so
+not charged to the caller's memory cgroup.
 
-Apply the decode arm's ownership test to the destroy arm. The kunmap
-is hoisted above the loop, matching the create and decode arms, so
-the new error return cannot leak the amdgpu_bo_kmap() reference.
-Kernel-initiated teardown goes through amdgpu_uvd_send_msg() and never
-runs the parser.
+Release the ranges in amdgpu_cs_parser_fini(), which every path out of
+amdgpu_cs_ioctl() passes through. amdgpu_hmm_range_free() ignores a NULL
+range, so the success path, where amdgpu_cs_submit() has already freed and
+cleared them, is unaffected.
 
-Fixes: 5146419e6feb ("drm/amdgpu: make UVD handle checking more strict")
+Fixes: fec8fdb54e8f ("drm/amdgpu: fix userptr HMM range handling v2")
 Reported-by: Yuhao Jiang <danisjiang@gmail.com>
 Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-index e8b0c62f72be..8d3e5435cf52 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -918,9 +918,19 @@ static int amdgpu_uvd_cs_msg(struct amdgpu_uvd_cs_ctx *ctx,
- 
- 	case 2:
- 		/* it's a destroy msg, free the handle */
--		for (i = 0; i < adev->uvd.max_handles; ++i)
--			atomic_cmpxchg(&adev->uvd.handles[i], handle, 0);
- 		amdgpu_bo_kunmap(bo);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 617f53f135f3..17c4fec21402 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1416,6 +1416,16 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
+ 				amdgpu_vm_bo_invalidate(bo, false);
+ 			}
+ 		}
 +
-+		for (i = 0; i < adev->uvd.max_handles; ++i) {
-+			if (atomic_read(&adev->uvd.handles[i]) != handle)
-+				continue;
-+
-+			if (adev->uvd.filp[i] != ctx->parser->filp) {
-+				DRM_ERROR("UVD handle collision detected!\n");
-+				return -EINVAL;
-+			}
-+
-+			atomic_cmpxchg(&adev->uvd.handles[i], handle, 0);
++		/*
++		 * Release the ranges still live on the error paths;
++		 * amdgpu_cs_submit() already freed and cleared them when it
++		 * got far enough to check them for invalidation.
++		 */
++		amdgpu_bo_list_for_each_userptr_entry(e, parser->bo_list) {
++			amdgpu_hmm_range_free(e->range);
++			e->range = NULL;
 +		}
- 		return 0;
+ 		amdgpu_bo_list_put(parser->bo_list);
+ 	}
  
- 	default:
 
 -- 
 2.51.2
