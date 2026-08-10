@@ -1,110 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AB23BB685;
-	Mon, 10 Aug 2026 11:02:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E863B0AE6;
+	Mon, 10 Aug 2026 11:04:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786359741; cv=none; b=AaZppwlRxk8iCLRynz9Zfz5EpsArz4SFOV5VFj+JdIf8t79SFDg7DhTHTYQ/8R0VUvZ+NXqJ+SkAHBVGXVYcb+Oy/dj9PGkiZpFuYZYBauYS1iyDQ5whC01sIP5SRkYb7fyt2mLXexszG1+mZTuPdbvcVAzesoYZnP5mgMVTCvw=
+	t=1786359890; cv=none; b=CJqA4omCVsyGqeD13gAopmADfx74HA/CIyazaGi+53cUscC+GPyS+X1C6kbkRSJYD4rbKe/kgaa7/P/Qj96d9L45FWKZ0bWXyud/cAzuo8soSa2PnEw1Nx/5IjAIlVwg0tfXV7/5iC9I6sR9YG2doI6ElfmExx03en59Vh+phKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786359741; c=relaxed/simple;
-	bh=Uq+QenMkEctx/hWYh8sVWDVYNA36+lPsjP0biepNGnc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JJ5TOe08GGW72WaXgUJDJ6FCFA3Waqg1QSksdwK4YVn1XOSDMQTC+HGkyp317BuSuM7qNaaNFjuW9gpVfOgRBvrPWnwvBt8l2Q2iMnaXeeqv8YnERblD1mSX1hpx4m9U6ECpmaPUcHh/spKBlr96U1zqm5m9VYOR/veZLJxcH1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDkgUDMY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786359890; c=relaxed/simple;
+	bh=5UUelv2h0RnA9w6W180NpfBAwIdxpaiWU9xTaqF7veM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hzxr9fZ71YjprWIvCM8S6lVr2H7RxcJiqG6ggJ2z6n6ou73CyPPsuLW6sg99oAwgjwwpySleax7tn+QGoTzlmycm+FAxG2ygIHZ2dvHwjvS0K5M/j7ocwaDYwlZu3yWftC4pKgDJBDYLtGVA/IHj6YuG8hxI/JAkNez4h2PJpU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agFE+wD2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDkgUDMY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9EF1F000E9;
-	Mon, 10 Aug 2026 11:02:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agFE+wD2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61451F000E9;
+	Mon, 10 Aug 2026 11:04:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786359739;
-	bh=PerAcd8Ftc1dQcAuCFDMRae4j4jHB+ZR5/FdRu7pFvI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hDkgUDMYoE3DxcdkflC+LZwzV4mkd4MXLS5Hco5MJNvkwjOZ6I71k9L8kMlhWZJ7C
-	 GSd6rBexBjv3p5tQ0Fi3BLboP9r3pW9iS9rq/zwrh5tJ2CzQJaRXtbmaM3rPz7rb+T
-	 1y/5xYC/FH1el2yeFmIMkLSx0MNZfQ2CNwEqs4YdgXVHCFKXub8vnRn4Y28S0lGTok
-	 gsVmqpOsk2bAaUKdM/ZMwxJLkV1+4avy6qBdWN+OWzlgU2EaX6floux7kspA7xGpXo
-	 jzGMvauPjqjX9At99tX+Z7fmRnV1G1iEY7s0tef7CIRiy1VCx5zG+q7qhRSjXRvCRD
-	 gDNJ94SkyuFow==
-Message-ID: <4d09f658-cd0f-4817-b970-5cbb77dc2655@kernel.org>
-Date: Mon, 10 Aug 2026 13:02:15 +0200
+	s=k20260515; t=1786359889;
+	bh=gI5k/9cl/ieyg839FRaHqV6Z6OMpnh4gRsszIL3A9lg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=agFE+wD2ubNxyH2+bC30Mu/nvDhuGf1lGI3fxZ/VlwVou3BrvUsWA7v4mCYflP98/
+	 kPVS4JMrHfPPPmEX+4ZYWdGl6/7jYRoOzQl7CpCbMw+Ko/cjrW18eK4AfiaTfuYmNL
+	 65R4p7p/Y+hIA09oKr0+sPh7RFa1OVE0RSj7jJkMWPHqr8lwZsFrAQGfYtbdBtZvfU
+	 gqYDKcPsYDSQDYwsGhMaesZH+JL6sfSehZ5GqLGzxnsJjWltMPL0ab8Q10pn8NHHQX
+	 /8oEijyKs2b1HC0gt1WHvozn3osKhAYEHhjTrLDv/RaIuBXyscRynMFasSMqQ/Flhs
+	 OGmn1HDOvO3Vw==
+Date: Mon, 10 Aug 2026 12:04:44 +0100
+From: Will Deacon <will@kernel.org>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: gus bourg <gus@bourg.net>, Catalin Marinas <catalin.marinas@arm.com>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	linux-efi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] arm64/efi: Do not call EFI runtime services preemptibly
+ under SW PAN
+Message-ID: <anmwTDnFR2cgxkqR@willie-the-truck>
+References: <20260806000144.3388823-1-gus@bourg.net>
+ <anXMug2_-vZl_pZ7@willie-the-truck>
+ <30c5499e-8041-4e39-933b-c5220d53be77@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [External] Re: [PATCH] mm/gup_test: fix race with
- PIN_LONGTERM_TEST ioctls
-To: yunhui cui <cuiyunhui@bytedance.com>
-Cc: akpm@linux-foundation.org, jgg@ziepe.ca, jhubbard@nvidia.com,
- peterx@redhat.com, yang.lee@linux.alibaba.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260608025043.88087-1-cuiyunhui@bytedance.com>
- <09ee2ea0-c93f-406c-b5af-1fe3a50c8989@kernel.org>
- <CAEEQ3wm8kyDSScYsAMTf6jdEqnQzQSi1xykqH2Z7vvJzQNc8Jg@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CAEEQ3wm8kyDSScYsAMTf6jdEqnQzQSi1xykqH2Z7vvJzQNc8Jg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <30c5499e-8041-4e39-933b-c5220d53be77@app.fastmail.com>
 
-
->>
->> Can you review+test that change? Thanks!
+On Fri, Aug 07, 2026 at 04:56:00PM +0300, Ard Biesheuvel wrote:
 > 
-> Sorry for the late reply.
-> I tested your patch and it works fine for me.
-> Tested-by: Yunhui Cui <cuiyunhui@bytedance.com>
+> 
+> On Fri, 7 Aug 2026, at 15:16, Will Deacon wrote:
+> > On Wed, Aug 05, 2026 at 05:01:44PM -0700, gus bourg wrote:
+> >> From: Gus Bourg <gus@bourg.net>
+> >> 
+> >> When PAN is emulated by switching TTBR0_EL1, arch_efi_call_virt_setup()
+> >> installs the EFI mm into TTBR0_EL1 via uaccess_ttbr0_enable(), and only a
+> >> return from exception ever puts it back: check_and_switch_context() skips
+> >> the register write by design ("Defer TTBR0_EL1 setting for user threads to
+> >> uaccess_enable() when emulating PAN"), and __switch_to() does not touch it
+> >> either. switch_mm() updates only thread_info->ttbr0.
+> >> 
+> >> Since commit a5baf582f4c0 ("arm64/efi: Call EFI runtime services without
+> >> disabling preemption") the runtime call is preemptible, so the EFI worker
+> >> can now be scheduled out inside that window. An involuntary preemption is
+> >> harmless, because __swpan_entry_el1()/__swpan_exit_el1() save and restore
+> >> the state around the exception. A voluntary reschedule is not: it performs
+> >> no return from exception, so the worker resumes with another task's
+> >> TTBR0_EL1 - or reserved_pg_dir - and the next efi_mm access takes a level 0
+> >> translation fault.
+> >> 
+> >> There is such a preemption point in arch_efi_call_virt_setup() itself,
+> >> immediately after the TTBR0 install: __efi_fpsimd_begin() ->
+> >> kernel_neon_begin() -> put_cpu_fpsimd_context() -> local_bh_enable() ->
+> >> preempt_check_resched().
+> >
+> > Hmm, can we move the ttbr0 toggling until after __efi_fpsimd_begin() so
+> > that this preemption point doesn't interfere?
+> >
+> 
+> Either that, or tweak the logic so that the switch is done eagerly in
+> this particular case (untested):
+> 
+> --- a/arch/arm64/mm/context.c
+> +++ b/arch/arm64/mm/context.c
+> @@ -266,7 +266,7 @@
+>          * Defer TTBR0_EL1 setting for user threads to uaccess_enable() when
+>          * emulating PAN.
+>          */
+> -       if (!system_uses_ttbr0_pan())
+> +       if (!system_uses_ttbr0_pan() || mm_is_efi(mm))
+>                 cpu_switch_mm(mm->pgd, mm);
+>  }
 
-Thanks, let me send it out as a proper patch.
+I think I'd prefer to avoid special-casing this, if we can. I was just
+thinking of the diff below.
 
--- 
-Cheers,
+Will
 
-David
+--->8
+
+diff --git a/arch/arm64/kernel/efi.c b/arch/arm64/kernel/efi.c
+index 30cd7f804398..0ec90fd1754e 100644
+--- a/arch/arm64/kernel/efi.c
++++ b/arch/arm64/kernel/efi.c
+@@ -184,6 +184,8 @@ void arch_efi_call_virt_setup(void)
+                efi_virtmap_load();
+        }
+ 
++       __efi_fpsimd_begin();
++
+        /*
+         * Enable access to the valid TTBR0_EL1 and invoke the errata
+         * workaround directly since there is no return from exception when
+@@ -191,8 +193,6 @@ void arch_efi_call_virt_setup(void)
+         */
+        uaccess_ttbr0_enable();
+        post_ttbr_update_workaround();
+-
+-       __efi_fpsimd_begin();
+ }
+ 
+ void arch_efi_call_virt_teardown(void)
+
