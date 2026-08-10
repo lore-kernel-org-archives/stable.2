@@ -1,98 +1,151 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B33039E9CF;
-	Mon, 10 Aug 2026 07:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E7439CD09
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:12:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786345904; cv=none; b=rwJhiCw1EpaxBokzQx4ap+Pi5HyWvFzfyhM6Jxm7cbOuNRb4OTT4+IdlIbpp6SUycjpTgsJgE7x3AajBjiFQ0cmLEPGHCracNt5022WUHYEt28fm9D0bIxedEU+jEUN4bs4gEpAiF0dJy6vESJnC+faJfJasWAQu/AeNMaz2A5M=
+	t=1786345974; cv=none; b=a8reC5YWRaQ4CVqBJd2vx1/lEytibCy33jNXCoxdacgrrq9ec348n3P4Qdy36DyWVPbkvOXp26gc+9R7I0CAl+tnR20cO0FEoe6CpkI9sil/xVJpUmB9RESEWOjlbrdgvGxhb/yseGvFMbFflyunsoa84MlgMvNwDPXPkm4HFzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786345904; c=relaxed/simple;
-	bh=MHC5aV5SMMBfeFSCNY6iiEEcKVKPNClqISFwzfmtIyQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=f7Ol/OzuY35y57FkgDP9XMsETMO6kVY1LYATTZW25/IkO/loE6WAILTnoPjSCJPHR2pnPNCxhBOty4/O46fLSjBGNsUpZoE6pEDYzZ4ft3uXnG74WbtsBqdfxQMH3xx5b02r2c8GdqfK2rb89EQMI2mWeo3ThDoCWrOQ+alI9sE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=uQGya3i3; arc=none smtp.client-ip=79.135.106.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1786345974; c=relaxed/simple;
+	bh=xQQ324yJppjYXSfwfG7HdtFxsh6X7PGSrguVedWo/tg=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=M8B9gMjaO8EDexiON+DiRBeBjczVvqgta2J3/anLyTh1Iff/cgdzctjdcYnmX45tY5iwq4iehdEnEa8uQ1iwA9D96WhPZ+brGXlnt+XxJGMjFnZSrwotQqJWUDnOLxwaYLhXTYJF7hAZm2Bjrw5KVeqU0DRWpsmJ0xFNuVTHvNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nYP9oQqW; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="uQGya3i3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1786345896; x=1786605096;
-	bh=9YVDtdcEd5Nd048NuhxRqCbC6EfupvQuMHS0NxuWB6Y=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=uQGya3i3wDhiBlWR3AIEr9Q69OxtBJxVkiHKCNIPsIGcYHr29xrpc6un98kRA8Cib
-	 9aZUVGL/QNRdGpBsxnRx/qYrqzEAERYWHkxSlCwUuzjUAhUo8RuO3ehx4ySdR8pLb8
-	 ju1oQvadlFHfk2oP5a+y7W2Lm5/InQd88vDnX4iF2YZNF49Ak2L8Wwbyd1/JJ42Ak7
-	 G7CcpOTLFhqB+GpIVOpKg/CLnnY7dwpeRXmJQWn6BrvfAGMlbSal29egKUXIPBn2Lq
-	 pTmxLljNXreDp0Maasb/PCMjxM5C7wXGF/qsxQbei+LRWUv6GluxwE+nVeCylPCrNG
-	 VGAiESpg+S1qw==
-X-Pm-Submission-Id: 4hJQsf5w8qz1DDs7
-From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 10 Aug 2026 09:11:15 +0200
-Subject: [PATCH v4 5/7] iio: light: ltr501: Fix duplicated error message
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nYP9oQqW"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8488ac68185so4450381b3a.2
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 00:12:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1786345972; x=1786950772; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y+mjXAOsh87MLiqe7Al+hJ0jHWJBBARtP7EOkjQ8zvc=;
+        b=nYP9oQqWq0xkWvi0DzvgIgX3JIsQ1eWQjBQV7qHtT6iMDaVEZYJRK3hA/5wHFQNcsS
+         qBia91wH6/MVFdHocH4v0jX6Ywx6ZfeWLwx35JSUEKP5JypmzUOrnlbLEUa+uJDUYk8G
+         dtaw9SKRstcJQOMFHHBElcHopdUDy5bnR5o2h154dAwrsDLzVNeZNzRMfvK/0paPH6Mu
+         nYyMPdoiHXLgKfLspgn6NgFnuMtDKX8Em0pU3lJszF0NQ9ozrG1vIBXhi3ooxUDznodB
+         Ermlin+dGVK8haee4V/UN00aQ/iA4C3KQxCOfwrIaethG3lqTsNX0l271ElG3vbeEIIg
+         udUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786345972; x=1786950772;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y+mjXAOsh87MLiqe7Al+hJ0jHWJBBARtP7EOkjQ8zvc=;
+        b=bGrK4EfdOWX5156B74yeZO3V/Yw972VAR2SjgaIAvTp6XIHx/qhChKlI4+kPs2AyBx
+         m5fXphb7dXEbKkVi2cKmYe+ddKVml3wTTnej5JuXVw+p/Do2L+eafkV4l8evCs0iWGdC
+         HqNIKmGcMEG4CfDM/orG8p13ddepHgptRhxQNs+91Wsuk8CjR6GF1wzjwGqwYkKe72CU
+         3uNurWNKFPk86pDqutrquftTKsMF+8c8C9O9yart6cDvvy63NHOH2X3y+y7B7M2+XVBK
+         9cpFT5ccgdRxou7eQtfWCQWxTKLulqLuMw6u8Deg6+nmYpceZCG3rqF53GJRdyomyUPp
+         tuXw==
+X-Forwarded-Encrypted: i=1; AHgh+RoBki4U6j3IPdrw50JCsWPsuLOq0PRv8l4u/9XWpQcwsMEc+KsZwhw2jLGYOQ7cg4zPy16PEdQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YykIrPaSX2f3CZKIbXOrCbyzuzy/6U0ABMvbl9XUMM4RMpEdc07
+	v8ZcbE20QKR8TK8Yj6uvNgD+If64YfVw62rk5/xPwPu5Jpuj9diVCAf0FO6puRNvZ18GI9TVCqv
+	Qmn0k2bi+rHFurMUhU/FXzuh4GMm4C65yXQ==
+X-Received: from pfbeb25.prod.google.com ([2002:a05:6a00:4c99:b0:848:49f6:6f5c])
+ (user=sonalipradhan job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:848:b0:84c:3900:95d4 with SMTP id d2e1a72fcca58-84f694915ccmr17354002b3a.11.1786345971760;
+ Mon, 10 Aug 2026 00:12:51 -0700 (PDT)
+Date: Mon, 10 Aug 2026 07:12:37 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-liteon-ltr329-v4-5-8bd3dfd15280@geanix.com>
-References: <20260810-liteon-ltr329-v4-0-8bd3dfd15280@geanix.com>
-In-Reply-To: <20260810-liteon-ltr329-v4-0-8bd3dfd15280@geanix.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikita@trvn.ru>, 
- Maslov Dmitry <maslovdmitry@seeed.cc>, 
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
- Thomas Gleixner <tglx@kernel.org>, Pan Chuang <panchuang@vivo.com>, 
- Yangtao Li <frank.li@vivo.com>
-Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786345884; l=1021;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=MHC5aV5SMMBfeFSCNY6iiEEcKVKPNClqISFwzfmtIyQ=;
- b=WNNjGWfh0CIiryM+iBqFLNNYQfiMBvixQ0Aofhj3EAVP/N5VwhQxs8wmcmzUVhCVXLZ6fggkq
- +UzFfwr/32ECOHfJP9d2mjgpGy2t4whJLkOoGEbgu5kcDw2RDNceirP
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.654.g21b8a5bc05-goog
+Message-ID: <20260810071237.2207680-1-sonalipradhan@google.com>
+Subject: [PATCH] usb: gadget: u_audio: Fix use-after-free on sound card disconnect
+From: Sonali Pradhan <sonalipradhan@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Kees Cook <kees@kernel.org>, Xu Rao <raoxu@uniontech.com>, 
+	"=?UTF-8?q?Alvin=20=C5=A0ipraga?=" <alsi@bang-olufsen.dk>, John Keeping <john@keeping.me.uk>, 
+	Ruslan Bilovol <ruslan.bilovol@gmail.com>, stable@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sonali Pradhan <sonalipradhan@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The dev_err() message was causing duplicated error messages, as
-devm_request_threaded_irq() calls dev_err_probe() on failure.
+g_audio_cleanup() invokes snd_card_free_when_closed() to initiate sound
+card teardown and immediately frees the underlying struct snd_uac_chip
+context. However, snd_card_free_when_closed() returns asynchronously
+while ALSA control elements (kctls) remain open in userspace.
 
-Fixes: 55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()")
+When userspace control applications access or close these open file
+descriptors, kctl callbacks attempt to dereference kctl->private_data
+pointing to &uac->c_prm or &uac->p_prm within the freed uac structure,
+resulting in a use-after-free (UAF) memory corruption.
+
+Fix this issue by deferring the destruction of struct snd_uac_chip until
+all references to the ALSA sound card are released. Register a custom
+card->private_free callback (u_audio_card_free) during g_audio_setup()
+that frees uac and its associated playback/capture request and ring
+buffers only when the sound card reference count drops to zero.
+
+Fixes: 6c67ed9ad9b8 ("usb: gadget: u_audio: don't let userspace block driver unbind")
 Cc: stable@vger.kernel.org
-Acked-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Signed-off-by: Esben Haabendal <esben@geanix.com>
+Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
 ---
- drivers/iio/light/ltr501.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/usb/gadget/function/u_audio.c | 24 ++++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-index 7746d374688f..b36bd10a0262 100644
---- a/drivers/iio/light/ltr501.c
-+++ b/drivers/iio/light/ltr501.c
-@@ -1537,11 +1537,8 @@ static int ltr501_probe(struct i2c_client *client)
- 						IRQF_ONESHOT,
- 						"ltr501_thresh_event",
- 						indio_dev);
--		if (ret) {
--			dev_err(&client->dev, "request irq (%d) failed\n",
--				client->irq);
-+		if (ret)
- 			goto powerdown_on_error;
--		}
- 	} else {
- 		indio_dev->info = data->chip_info->info_no_irq;
- 	}
-
+diff --git a/drivers/usb/gadget/function/u_audio.c b/drivers/usb/gadget/function/u_audio.c
+index ca26bf9c8040..f0ee83abcebc 100644
+--- a/drivers/usb/gadget/function/u_audio.c
++++ b/drivers/usb/gadget/function/u_audio.c
+@@ -1183,6 +1183,20 @@ static struct snd_kcontrol_new u_audio_controls[]  = {
+ 	},
+ };
+ 
++static void u_audio_card_free(struct snd_card *card)
++{
++	struct snd_uac_chip *uac = card->private_data;
++
++	if (!uac)
++		return;
++
++	kfree(uac->p_prm.reqs);
++	kfree(uac->c_prm.reqs);
++	kfree(uac->p_prm.rbuf);
++	kfree(uac->c_prm.rbuf);
++	kfree(uac);
++}
++
+ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
+ 					const char *card_name)
+ {
+@@ -1262,6 +1276,8 @@ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
+ 		goto fail;
+ 
+ 	uac->card = card;
++	card->private_data = uac;
++	card->private_free = u_audio_card_free;
+ 
+ 	/*
+ 	 * Create first PCM device
+@@ -1430,6 +1446,8 @@ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
+ 
+ snd_fail:
+ 	snd_card_free(card);
++	return err;
++
+ fail:
+ 	kfree(uac->p_prm.reqs);
+ 	kfree(uac->c_prm.reqs);
+@@ -1455,12 +1473,6 @@ void g_audio_cleanup(struct g_audio *g_audio)
+ 	card = uac->card;
+ 	if (card)
+ 		snd_card_free_when_closed(card);
+-
+-	kfree(uac->p_prm.reqs);
+-	kfree(uac->c_prm.reqs);
+-	kfree(uac->p_prm.rbuf);
+-	kfree(uac->c_prm.rbuf);
+-	kfree(uac);
+ }
+ EXPORT_SYMBOL_GPL(g_audio_cleanup);
+ 
 -- 
-2.55.0
+2.55.0.654.g21b8a5bc05-goog
 
