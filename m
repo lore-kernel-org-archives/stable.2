@@ -1,208 +1,184 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011033.outbound.protection.outlook.com [52.101.52.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0ED3128D7
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:00:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786370443; cv=none; b=Ntykf8QFPtrs21HcDm+MsoevO78q0n36mOhDrQA/rYp0UmjSoATdHwV28ZJudAPgSKixQpOf1I5/IHuo5X58NBphR8YVRieCXCNVNkEYKr/CLT32bsOJwqLu9Gq5NwAdOjCpSbF54UjFr+iTNNj4EHx9WIHD1qj/WX7pIKxx1JE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786370443; c=relaxed/simple;
-	bh=qsR4E4rRliRWrtc9y5r9s9jnMgjtwOJlkIjefJevDVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oNbMVggKBMfvOIrVm8ulZ8O8nOaVzfPZz9BkrTz4J6Z8lxEsl0eUUXD1vMFQmqp7Dd/ec0b9vgW1dQgPNNleNRA8MUYXHMSaM9jXBJUk8yA+xDWNj7GHEHhHWIAQA3AbqomJ3UgTaoPq8fASmTw89YZG9dFp0W/05jlvtlGPimQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JW7oWzVd; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239E03128D7;
+	Mon, 10 Aug 2026 14:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786370884; cv=fail; b=D33m3tzpBnUz8iRZph3bAP9SmTDpRh8KBnhFj7ZxnJ6dFO0Z0Vc4ul9y2egJ9IHHi+zVqG9x233duBrhGQXznAzPU3+4uZpIScGupXH0bonlS7RvqHf5YxGL4COiZCXfSP7SnH4zOIky7Jo/WAUUA5gjqRjd406bsWoT3jWZ7eE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786370884; c=relaxed/simple;
+	bh=OTYohZvjvEb1j9L+YidpPZgmbmmqcepjPGLyqE4J7lY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ugnTjz829EUzWoOwsfNCdjz7c/kYQPJJAT64XVh25MtsPzTeX15O1SnZkX1aveZaouzJ6Gzam3c4FGPaFlr0Z2yQNjRSqiQn01NnZAlLLlTgCg/jpAlcW1kIZ9S8IJH4LvgFtmzcdppPKWyYqHJuylfh2mq9coK3s3r7RnD4fdk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DlzP5ZsM; arc=fail smtp.client-ip=52.101.52.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JW7oWzVd"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AD1QRH1694153
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:00:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=RuotT3PGDF3CPhlfZ
-	xLPYzdPpPUcuvorKe1bZZNwWkE=; b=JW7oWzVdQ/iR89NYNnkZK/ijRD8lsDXp8
-	3/RtbnA9s3C7Lp5K9wUvJWi4wTZIwpqw4/UNJjzVI+ZsAI+h0/5tmkCZbWjJsG2t
-	Nex1/T1mVi84CzXCvCQ7aNoofM1ehRGrnS61MuiIsUvEHZXPCXwCLwdXqNhkupJb
-	RAnK0ELRgQlw9QYyf0f5TaZuFquRqhcBW6Mx4zvx3c4xZEL5im6biBetR+jU9uhW
-	/VdYng3SYcIAxrp+m1mgE/j3mZZtJK9g9g9udByjGvQVl0+eaTYPKqJAOvFuiXK4
-	AipZ34fy9dUvtN696bTeMGDQolYPCSFrNW2fyUz+wnR9H2FgR21yQ==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvm9g9ye-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:00:38 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67ADuI0h029539
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:00:37 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fxh0g4vf5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:00:37 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67AE0X8w30605638
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 10 Aug 2026 14:00:33 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CC23320043;
-	Mon, 10 Aug 2026 14:00:33 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 92FC320040;
-	Mon, 10 Aug 2026 14:00:33 +0000 (GMT)
-Received: from ibm.com (unknown [9.111.40.237])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 10 Aug 2026 14:00:33 +0000 (GMT)
-From: Holger Dengler <dengler@linux.ibm.com>
-To: stable@vger.kernel.org
-Cc: Harald Freudenberger <freude@linux.ibm.com>,
-        Holger Dengler <dengler@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>
-Subject: [PATCH 6.1.y] s390/zcrypt: Fix missing mem scrub at clear key import in cca_clr2cipherkey()
-Date: Mon, 10 Aug 2026 16:00:30 +0200
-Message-ID: <20260810140030.485804-1-dengler@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026080533-underfoot-yelling-55c0@gregkh>
-References: <2026080533-underfoot-yelling-55c0@gregkh>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DlzP5ZsM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=smuvB41ij0aaK2M4CY4hIDDG2eX4+jBuuQoDeTMZQkBpjghRHZm08AlPtip7gS6noFDrL40VxO0gjml2PKBw7xix28pi6Bvq9fZugt6ncmbhaFTIyu3XzV60vieoEeiuQwTGm28Bu80Al5JUmOPJ/aekFpaL75cFtMf5Gcfoq0vTamB3dA3EOQJhTwnQ3LWE5Q+L2eb2hmRFNzGIFpASbezW6URE1ZAcxgrpwesV2zaU32ehJHDVaAHcu3w7Yry46LaFEYewQBlR939QZTTsLZaXdm0GrSQWT0n9thskjG0VZh/TeX5g/IaADZOSsCdGL+AWND9cgeLAjr2lOWOBQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q3II1+/ymymNi4ZByfvonm7hfyvTQT1GBD50uXKCBoM=;
+ b=b8bWOHNXvO1icdqrmOHOenTG84GiIJN/rQ/d4y2XqlpVMFbOgHW3O9dpUe9eaX5GZ0Gkas2V7uv330lwW9hQ4K1+tFI7zRtcGx6NzFDd/qHfMwMoTPB6na5PzRSPBGweudRI9zlUf352qisEaHC25HKO2Ax7hVOJpCB+QMzQvMBVNob4ODFn169S2NK40cXZYMzc7gANKCXV0Ry8Is286zhQZsK5zVI0J03DlU7sh8i1fziZ839faNKbOIowS3l+VzbwD1BE495wzqc57rfiOlxKVYXuD3N6FhCUjGnmOe6hzQCueBXPav+izkrnVGWCcahxbjCT5HfPm1iJx/CStg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q3II1+/ymymNi4ZByfvonm7hfyvTQT1GBD50uXKCBoM=;
+ b=DlzP5ZsMQXTNVKQh5RcgL1Fg5PiZVE5zLJ9CrHlbNZtromwi9VYvYVQilaEoWaBLwOS7vFIgDmj91ReccCR8F8jFdmnHbOzwYFFZjZdR3nQhKqKOEzI/Scm+QsJaIc3o/bgj+tBrrLBa9Il/WJhEbt9Ayi8RnOUEUuMQu+3LkVI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ DS7PR12MB8202.namprd12.prod.outlook.com (2603:10b6:8:e1::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.25; Mon, 10 Aug 2026 14:07:55 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 14:07:55 +0000
+Date: Mon, 10 Aug 2026 10:07:47 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+	linux-kernel@vger.kernel.org, Penny Zheng <penny.zheng@amd.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] x86/amd_node: Remove smn_exclusive
+Message-ID: <20260810140747.GB57095@yaz-khff2.amd.com>
+References: <20260806160159.230453-1-jason.andryuk@amd.com>
+ <20260806160159.230453-2-jason.andryuk@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806160159.230453-2-jason.andryuk@amd.com>
+X-ClientProxiedBy: SA0PR13CA0020.namprd13.prod.outlook.com
+ (2603:10b6:806:130::25) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDExNiBTYWx0ZWRfXy5RCHb6j0vcr
- iDJdAzWd5XNL0fqjLxhSy9AZyTqsS3SBhYdlQXgdagyQg2+kBb9aiCxWSh4MSFfO2Iw/V9uXRmB
- 0IPTaXGbqR7IDvSB2dIb/YI1AktGuk0qMyXrHTLwOgLKnCtmuckvk4Ak1cwhHO5hdWGI2/mqY4r
- pQcpy5tR3Gje8DAxkWR6CvVPjRdOSbvTToNOrjMIGpxI/8APebtJVbHhWscbmSXXNJDAEAceWtw
- 465QmyXfoyT9QozdECiH2LXn+cLo+YACGVbrrW/Z5ADBcLVoiY/NdEytCy4auUZiTs/7ourYuZX
- 9btleVxywNXmyjndnTIgwEAEmG2z9BxY9+FTXs6mPM4SAzk/LRgQCxQG3XjnJrFZQ7lOiMRQkDY
- WkDPs5wWT+4dSgv3QpKzXaEH7xYRp0NKmKKxM7CMFVDiKDjsapXBQTTaovFHoYsSzJyiCtLyPdA
- ezL6cxD/thN4HmcydCA==
-X-Proofpoint-ORIG-GUID: A6SudIXF0vk6y45xFefvsvfD8Okvyaeo
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDExNiBTYWx0ZWRfX9a81O/1mwy28
- rJz4OyztiodqZ4A4ugslGAd/VZuMPW/dU4GzEpwV7peuTHbBp45AOPt3K/4ZZ+5mbULM5lr5QBU
- fpD78W34hxo798LawphrvT7cbFHSskA=
-X-Authority-Analysis: v=2.4 cv=IfK3n2qa c=1 sm=1 tr=0 ts=6a79d986 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8
- a=l_XADsiG0JAIV5gd_FcA:9
-X-Proofpoint-GUID: A6SudIXF0vk6y45xFefvsvfD8Okvyaeo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-10_03,2026-08-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 adultscore=0 malwarescore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100116
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|DS7PR12MB8202:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2b7d4b5-7850-4112-e6bd-08def6e8c5f3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|6133799003|11063799006|4143699003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	qtVVmKD08uYyGAhtb4cdKq2n03+MQk3JU6VBVnzc9h7V6OdkYiQUgpBPK2+LJHMh8rl2wLkn6qZPMU4hql6N84yTd5PWsRqZEBCMnbE21WS+tMsPJi8zpJe3o3D3hP10/cTlZlxaboK2pHMg2hkwXE/E/kSBe5JcLBUZZd1vRP0ZCvJbKOXPXBX7fR6bEfnnMMcA98KjWvPU6VhoRgIXRfiDBoUEYb87BXCafAZRAiwoaXoc8TDAt/bBW+WbvcCCRJN67qX4q8V/CSTkvnfP9Uinb8LnmWxHFGyfvfGkGqpn2m3pmV1CnR+E1VhzqRTmYZnc8r4kCx1e0/dNUXtmpHHKG8J1Elr7Peckq5n/ysQltS2ohlCDwU/UQfavm24eVbheAT/HHTL/KUsvb1u4FGMTBtfh6/y0G7DtTyt7UCl1kqIJp2nh955GQGQA5oN1Y/u0yWBoVy5kajGgYZzfXgcVDTcT0UgHUwkLpcJYfMZDwsDZV/XXq0tCny83+aQpx04PxN0CKLnUy2A+jmAmPGMhDuJ3lU4zOHIbCzFkLn4+Pifmgx3dJOKUKRNEYuZepzrAIGppdA2dQRLD3hIUGuBiyuXCd+/G2z6EfQgheaRvkkc+qL4/qHxE6tM4kGHIaDZmnGZm4QeCZWsyE1cM/DTyj+hY/TWh5Ri55QImt/U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(6133799003)(11063799006)(4143699003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OtZ40MC15wrs6hOBNLBBt+tVTRoG7zrGINJCb3a8PLXk7KNsVTj9DeaoklwX?=
+ =?us-ascii?Q?gXrvb3Y0vwuqGKLdpr9Fg6wSxWGae+WeBAX7AXrgrDA/pitflyjz9UWS8/HE?=
+ =?us-ascii?Q?axAc2CyGMvBgFjuoNySqhbZnkJT51VslDI6om2jwoYRIKWG917UNGwLUoouU?=
+ =?us-ascii?Q?FObmqA6LXM4yeyMsKOaMurmyxzFrmKZVN7e6w6/XFe0wY6Vc8Oar93LbsQZC?=
+ =?us-ascii?Q?Vvy5Xy8GU489hn6GvHtwjRVjitMCl9xIFXAyGlmGGTka1X7u1nwAE20gH9sT?=
+ =?us-ascii?Q?GNnGP43J8SRU8ZP2IixNpuJuo/VR8DXrNu/buKrlVJenvUIpLd8F2BDIolTq?=
+ =?us-ascii?Q?+WwfQzGAWjMaoNnLLXgU7sTvpdvZ1eWEBUwXyw4eWdcDsngORqNOupsUsA6W?=
+ =?us-ascii?Q?QCfNX/RV2vIh6ntXaHE1UIPGpSetKcYEBT3P5TdO9bfjaUDVg2/oOorvtqAX?=
+ =?us-ascii?Q?bKQFn7M/pWdji29cIlodZHKaqfNZMO/fzr9i2eid6IoANTFM4Ua0roPSujhQ?=
+ =?us-ascii?Q?5rS0N4IM1YsDLDsJ+dBpQFdMib1kS5wVxN4d/tp+Y0LQlUwBybdrm46XWAsD?=
+ =?us-ascii?Q?fy3ut7Uzs/B7Q5rmFyQhdgEcF4XvghZws//AmEoL0huKaFOcHYUbGk5s3XrH?=
+ =?us-ascii?Q?YIJhz3LET7rZFcL3FJOdxZexIJP42btB1pKyXNVgGk6x2tGZowUnX0ro9E/p?=
+ =?us-ascii?Q?0KlJwL7P/hnj3hiWMPVQs0XLdiuQep5C67dJgSpB49Pts4ha63vh3+5BB9Vu?=
+ =?us-ascii?Q?Hik/V7TV333zDbGlaupPA0H0JLDVZbe942ERzmNgtZagBN6pKgmJFS2wrZd8?=
+ =?us-ascii?Q?Gb+F542QVSXuzOB/NJ5HhHK4QBGb+pBo0HHLXDr8/vmLTQw56dC41JkhTgTS?=
+ =?us-ascii?Q?FQCFu97vRMur4Y587us3OsCDPQsYjYnnvRzEVrMc8lEi/sdG8mEuM5S9B6SA?=
+ =?us-ascii?Q?5fb70u4Xbobqv4tikamdSUx7IgB9FwfTG/NfB6+J8bz8NaF3AbvlbVUyvAfv?=
+ =?us-ascii?Q?UYkWocID8+3p7IryedRBEqb6N15sAE8gCYRWgFZHppfHnejHbHYsO8pAU6Wf?=
+ =?us-ascii?Q?GWl/E0qYccHLzWww01OVSmAdHIuqx33pzZq3r1C0IjEIa54DZtx6E5OTrlJN?=
+ =?us-ascii?Q?Xq3OE3ueHr82DdywTSwQ+P/i0Su5q1rCzl0XY3IIpGmw1HEbuWahzT9TshQU?=
+ =?us-ascii?Q?cEEAITbiT1LxCfSRuIGl+F0SKcDmbTaaF/ZRI+HdDmOuqCJcAB5fVd8fB49C?=
+ =?us-ascii?Q?sPca4HSVixbgprVxb2oeTb9px/+hNhTQXDYuibk/IhSbs8ua15f7gi7IVI2x?=
+ =?us-ascii?Q?UKx+ySC2xHAJextpzS49wVqTyaMOHD5TmLZfNQopfUjQj7dmEcJGiWD8g2Mv?=
+ =?us-ascii?Q?7uQYk7DYuSiq+h2tK6HxiB/8jmZqrOja2zE+gOw/VaQKK7M1z7IJxum+xnOH?=
+ =?us-ascii?Q?aeUOPYuVBfFgf13MvT5Jf3tiRm0BxpNVGR6V7JDHk34WI0Rktyc0dJU7yOi9?=
+ =?us-ascii?Q?/4Gv86qvbAwDR05n+KsHkAIPzVuBZhG0/YtWCsdj1k9GmfKS+zT0ZutesZlL?=
+ =?us-ascii?Q?hwSApxfhWy2QinxghCbveTw2DkdQ0T2mx1L4xBhLenljD+PjUTvYF3DZJqh8?=
+ =?us-ascii?Q?pybbpONdMWPGrIj3yTDKrRO+lsACGfN7ScXj45PsUtOkoid/Bm9ni8eaaz6H?=
+ =?us-ascii?Q?2dX5123P3mXTpcycvJBMAnVnXMSEDTm0eSH44+zY6eqSYulQ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2b7d4b5-7850-4112-e6bd-08def6e8c5f3
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 14:07:54.9425
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hw+FCS623ozMU6342pgVNqgKodNbh0iDmXvnplnA2lv0gHqGAV6eFSVBzQWZDXxYpuYqf/k+cj4n+6t6QXAyQw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8202
 
-From: Harald Freudenberger <freude@linux.ibm.com>
+On Thu, Aug 06, 2026 at 12:01:56PM -0400, Jason Andryuk wrote:
+> amd_smn_read/write() are exported functions around __amd_smn_rw(), so
+> they are always available even if amd_smn_init() fails.  smn_exclusive
+> would prevent access __amd_smn_rw(), but it is placed too late.  If
+> amd_smn_init() failed, amd_roots is NULL and __amd_smn_rw() will fault
+> over it.  Replace smn_exclusive with directly checking amd_roots to
+> avoid the NULL pointer dereference.
+> 
+> Fixes: 77466b798d59 ("x86/amd_node: Remove dependency on AMD_NB")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+> Fixes is the introduction of amd_roots
+> ---
+>  arch/x86/kernel/amd_node.c | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+> index 0be01725a2a4..ea553267e5fa 100644
+> --- a/arch/x86/kernel/amd_node.c
+> +++ b/arch/x86/kernel/amd_node.c
+> @@ -38,7 +38,6 @@ static struct pci_dev **amd_roots;
+>  
+>  /* Protect the PCI config register pairs used for SMN. */
+>  static DEFINE_MUTEX(smn_mutex);
+> -static bool smn_exclusive;
+>  
+>  #define SMN_INDEX_OFFSET	0x60
+>  #define SMN_DATA_OFFSET		0x64
+> @@ -91,11 +90,11 @@ static int __amd_smn_rw(u8 i_off, u8 d_off, u16 node, u32 address, u32 *value, b
+>  	if (node >= amd_num_nodes())
+>  		return err;
+>  
+> -	root = amd_roots[node];
+> -	if (!root)
+> +	if (!amd_roots)
+>  		return err;
+>  
+> -	if (!smn_exclusive)
+> +	root = amd_roots[node];
+> +	if (!root)
+>  		return err;
+>  
+>  	guard(mutex)(&smn_mutex);
+> @@ -308,8 +307,6 @@ static int __init amd_smn_init(void)
+>  		debugfs_create_file("value",	0600, debugfs_dir, NULL, &smn_value_fops);
+>  	}
+>  
+> -	smn_exclusive = true;
+> -
+>  	return 0;
+>  }
+>  
 
-The helper function _ip_cprb_helper() uses internal buffer memory for
-building and processing CPRBs. After use this buffer was never
-scrubbed which could lead to leaving for example clear key material in
-memory which could be exposed via tricky reuse of this same memory.
+'smn_exclusive' wasn't originally intended to be used for bounds
+checking the array. But the original use is no longer needed, so it can
+be removed.
 
-Extend the _ip_cprb_helper() function with another parameter 'scrub'
-used to steer scrubbing of this buffer. So now the caller has the
-opportunity to decide if scrubbing is needed or not.
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
 
-Extend the clear key to secure key token import process in function
-cca_clr2cipherkey() to tell the helper function from above to scrub
-the cprb buffer when the clear key value is part of the request data.
-
-Add explicit scrubbing on return from function cca_clr2cipherkey() for
-the random EXOR buffer and the cprb buffer.
-
-Overall this cleans the internal used buffer in case of clear key
-import to prevent sensitive data to get exposed.
-
-Fixes: 4bc123b18ce6 ("s390/zcrypt: Add low level functions for CCA AES cipher keys")
-Cc: stable@vger.kernel.org
-Reviewed-by: Holger Dengler <dengler@linux.ibm.com>
-Signed-off-by: Harald Freudenberger <freude@linux.ibm.com>
-Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
-(cherry picked from commit 01476391aecef36a3b789ee844357b22fbc90665)
-Signed-off-by: Holger Dengler <dengler@linux.ibm.com>
----
- drivers/s390/crypto/zcrypt_ccamisc.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/s390/crypto/zcrypt_ccamisc.c b/drivers/s390/crypto/zcrypt_ccamisc.c
-index a2cea4f4a6b85..a4230d73b7b99 100644
---- a/drivers/s390/crypto/zcrypt_ccamisc.c
-+++ b/drivers/s390/crypto/zcrypt_ccamisc.c
-@@ -946,7 +946,8 @@ static int _ip_cprb_helper(u16 cardnr, u16 domain,
- 			   const u8 *clr_key_value,
- 			   int clr_key_bit_size,
- 			   u8 *key_token,
--			   int *key_token_size)
-+			   int *key_token_size,
-+			   bool scrub)
- {
- 	int rc, n;
- 	u8 *mem, *ptr;
-@@ -1087,7 +1088,7 @@ static int _ip_cprb_helper(u16 cardnr, u16 domain,
- 	*key_token_size = t->len;
- 
- out:
--	free_cprbmem(mem, PARMBSIZE, 0);
-+	free_cprbmem(mem, PARMBSIZE, scrub);
- 	return rc;
- }
- 
-@@ -1130,7 +1131,8 @@ int cca_clr2cipherkey(u16 card, u16 dom, u32 keybitsize, u32 keygenflags,
- 	 * 4/4 COMPLETE the secure cipher key import
- 	 */
- 	rc = _ip_cprb_helper(card, dom, "AES     ", "FIRST   ", "MIN3PART",
--			     exorbuf, keybitsize, token, &tokensize);
-+			     exorbuf, keybitsize, token, &tokensize,
-+			     true);
- 	if (rc) {
- 		DEBUG_ERR(
- 			"%s clear key import 1/4 with CSNBKPI2 failed, rc=%d\n",
-@@ -1138,7 +1140,8 @@ int cca_clr2cipherkey(u16 card, u16 dom, u32 keybitsize, u32 keygenflags,
- 		goto out;
- 	}
- 	rc = _ip_cprb_helper(card, dom, "AES     ", "ADD-PART", NULL,
--			     clrkey, keybitsize, token, &tokensize);
-+			     clrkey, keybitsize, token, &tokensize,
-+			     true);
- 	if (rc) {
- 		DEBUG_ERR(
- 			"%s clear key import 2/4 with CSNBKPI2 failed, rc=%d\n",
-@@ -1146,7 +1149,8 @@ int cca_clr2cipherkey(u16 card, u16 dom, u32 keybitsize, u32 keygenflags,
- 		goto out;
- 	}
- 	rc = _ip_cprb_helper(card, dom, "AES     ", "ADD-PART", NULL,
--			     exorbuf, keybitsize, token, &tokensize);
-+			     exorbuf, keybitsize, token, &tokensize,
-+			     true);
- 	if (rc) {
- 		DEBUG_ERR(
- 			"%s clear key import 3/4 with CSNBKPI2 failed, rc=%d\n",
-@@ -1154,7 +1158,8 @@ int cca_clr2cipherkey(u16 card, u16 dom, u32 keybitsize, u32 keygenflags,
- 		goto out;
- 	}
- 	rc = _ip_cprb_helper(card, dom, "AES     ", "COMPLETE", NULL,
--			     NULL, keybitsize, token, &tokensize);
-+			     NULL, keybitsize, token, &tokensize,
-+			     true);
- 	if (rc) {
- 		DEBUG_ERR(
- 			"%s clear key import 4/4 with CSNBKPI2 failed, rc=%d\n",
-@@ -1172,7 +1177,8 @@ int cca_clr2cipherkey(u16 card, u16 dom, u32 keybitsize, u32 keygenflags,
- 	*keybufsize = tokensize;
- 
- out:
--	kfree(token);
-+	memzero_explicit(exorbuf, sizeof(exorbuf));
-+	kfree_sensitive(token);
- 	return rc;
- }
- EXPORT_SYMBOL(cca_clr2cipherkey);
--- 
-2.55.0
-
+Thanks,
+Yazen
