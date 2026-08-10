@@ -1,64 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2D1431A42;
-	Mon, 10 Aug 2026 17:43:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A932432E80
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 17:44:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786383838; cv=none; b=OcX9rRySnaHDy6PijmAXkRYk9dzHwwbgaUNZeqxaN2lzHutXm7VTALTdyxWXNyt+gEhaR01r2k3CDmgQrRA1BPGbG2S4ERSoEE+6J0hTWntgm0zjuEWv+wuIBpGwJzreNxZdhsHec7mpeDQP0lGBvr32A8TIMvd7OINrQZc9iKI=
+	t=1786383842; cv=none; b=R9cebiRTdziCWs8+e6IiGXKj6n4RtyNM4jHCyg4tNEdgg8vn+BtskjGFBJOnVM5i/xEUEOz/9BMhOtjBQmT/bJhHMY+sb9Kw+LfUmRVaBJkOqhQab225KT4EEnU9fND8hRRIKstk4cJUSruGtX6+e+geVu9qoWt1s18uJhqF89M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786383838; c=relaxed/simple;
-	bh=oX+hz6JPCSPWafRrsPbgV0IU2kXMTNJdcF/d+UPcdOY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CmG9cSNIoruWH8OBxwfJgWSnJ7V2Wm9ELHIxcsCvzA5q350KGF3i3n6jFLMDUCtGWeFaZyiwemLS6cb3tOlIrTa2IbosGu/xPjmTrc0vFBCqAJrqjOthrdcc26C5cEnwhXRAFeAGcLW0Xgv27ZSbPgz+7Wow0iDKKUYgsNpl1bM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hEN66RmK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786383842; c=relaxed/simple;
+	bh=eMo2YeMTqfcMBrObUIYLIqrD9yqaiRNrfywm7LWgOiY=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ofDGlb+PR91EvhqCOm4okaDQ3PmWPoI8eiKJLNz1EONIwLSxmnj08e7Z+rRyNm6EO2U8GMHpskCL71BA6b17ShfMtk3zfEfH5WiYhTDbAhf/0EPtvd+ar8u17fd0Z7Qh9oPYANUaPmbd4qormdmLTJ+90fIFQEKWtt5aHFu2uxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SCGyXw07; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hEN66RmK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6C31F000E9;
-	Mon, 10 Aug 2026 17:43:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SCGyXw07"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84A9F1F00A3D
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 17:44:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786383837;
-	bh=8GewiwB3cD2S9Pj1CPghjzYqUEx5Va4tcS488slPahE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hEN66RmKw3F66RKHCksMqdMDSst5iEy4V+6tvzBfdkJkxWVjO5OaC4y7bypU1IUk9
-	 pSW5bYeDtg6teSWpmbCUOJ9ZalptlbI3oZIVhIF3yVq73jAsUvV6qzrX6jhft3YwrS
-	 KA9KxuwL8TdLHTbzAnWpE+9gmhacJQgQUqV93YuEajiKwbJmkMv4Bk+EaaAZRdq5vo
-	 Ntjp7+8FQHg10+318e00WtZkP33DkPF7EEUMi2k2f1NVP1048XQ9ICixsCqa6Jmf9F
-	 cUen0PjOOv9NqRmdBOS5WowSv8JBOtRn/E4eqSl/4S3L+X9J6rxq/+KiT6StAeEGj/
-	 3NywW7E62BVyw==
-Date: Mon, 10 Aug 2026 11:43:55 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Yifei Gao <gyf161023@gmail.com>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
-	Damien Le Moal <dlemoal@kernel.org>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] nvmet: pci-epf: put CQ ref on create_cq mapping failure
-Message-ID: <anoN25Z3HHIpijuL@kbusch-mbp>
-References: <20260804213626.3410403-1-gyf161023@gmail.com>
+	s=k20260515; t=1786383840;
+	bh=eMo2YeMTqfcMBrObUIYLIqrD9yqaiRNrfywm7LWgOiY=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=SCGyXw07yP6jwniBmBe3QNWPKnpBZajXG3RMnAc74PAnr21WyUJq23nBMOw8JbA4I
+	 6aiEQ0xxyJScJ3EvDFfY89RWKz4QwlfoOR9hqaj7QmQU7tgLbpa+xDxYTASCueD3Ht
+	 pJalaJGddHVW80OB1vdvXUpiG9mEqIbzZ/q+w+Ls0aoBotIBDqOVk9t6FHCfR+34/D
+	 kwQ/mB9jFqIrTUR88/A6dERyDXZWd1g98C9X9X99gdl1rfJUM31AFi8wZgFuK0+9V5
+	 GPAN8fEEGwomOvSjuNlB9nthkpu4B9DmMVf26QdXWD3gkUaNaLrl0Pnk0CsCuCU/X+
+	 pW+clT3I/uojQ==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 7E849F40069;
+	Mon, 10 Aug 2026 13:43:59 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Mon, 10 Aug 2026 13:43:59 -0400
+X-ME-Sender: <xms:3w16asE4YSliV5mGwzmiAdyAM4xy7igdTLAjSScnvRc2Wu9xneiSFw>
+    <xme:3w16agJk3YL5Z4Q5kGbKPJEzKBzYzN_pqwcs83WErBYFB--Wc5_v0Z_2ROnqOEinR
+    28n45p-1GY1v3oEAwY1PAYCqSoBz31T7YV__nh17VRlevEH8ga-W1k>
+X-ME-Proxy-Cause: dmFkZTGkNQVNHl9OHa6MFe3mc55cBWA7CnLmC7KrftZtbYJbt0RP7wbiJXxNH0U7yjLYRP
+    wRrCf6U4/YEtKnczrZ/sVgP1vlIPXEvcgbsmodyHFPtlGO8Vt/Fna/llUmpfRa0A+/tE9o
+    FjRJbvfpJVcfwrTSZ8hR7aLLKNrxNZ547sA5xXwNDLyOUBc2+oLGz7zhpJqYYGsdFBorGu
+    w8w/gY6vOdx31EYiiEJiYHB0/j5E+gK6PTXsv46+25g1XoVMcx3FNSvlVHWvg8UVFtkCMB
+    C9unhJfELx5Lp5GdGmaa1xgffzpG95KzpnNH34kLZBykGU1IWXjBXPFotD5moa6Bk0J/dj
+    3Sw2rO+jULu64i5uexrDLBwEaC5iVRYt1e2fKeHk1/v0Y3/CrWJJi4CMHAmVxfDeWY9lfr
+    6L1GzfGnkob4BmAwjGiq2eOMI+5f+yH/fOwmAqdaW0GrM4Y9fAiMGkRVc3CBHoeN024TP2
+    lA/jKm+phJAe7EexOBTKZzI9horU6eex7owDfp/gj0SHpdpxrP0sT4Z8r7k3OB9uoUqylV
+    LKsMVcS5IAEHAYUKoQvtvD9zx7bvGVGA0iVAzWjZGaCCFRpr+TIp673aCXx540Px3QrmsU
+    htLXdKnh7fsOHDlSAhwE29r3+OsSUXPSOKFhDsuvtyCwaGeUR//4YyECwzAg
+X-ME-Proxy: <xmx:3w16aueTr1vB83LIaAxKCvxRXWxyPkUiZMVdKNiI5AVhxX4Y4Fqv_A>
+    <xmx:3w16ao7xRgJ2kOdCxgnWvpL3geP-JOSxBeg3FMEU22CH-y18GGwlmA>
+    <xmx:3w16attB18-biJIx6scXzNwQ4iEGYmvh39hWA9PKsietgZgA0L67qA>
+    <xmx:3w16aggsA9ZwSGF6AMmWVg5cvmzGMU3o6W6qPPggpzA92sKahZVl0A>
+    <xmx:3w16agpLI_T-vyKrXZU5DEBtMf4trLpFY3osPsyuxi8vRYs2Qk9ZK1r8>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 62708780070; Mon, 10 Aug 2026 13:43:59 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260804213626.3410403-1-gyf161023@gmail.com>
+X-ThreadId: Af7HRwfiMKVk
+Date: Mon, 10 Aug 2026 13:43:42 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+ linux-nfs@vger.kernel.org
+Cc: "Jeff Layton" <jlayton@kernel.org>,
+ "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
+ stable@vger.kernel.org
+Message-Id: <ee2b8840-736a-4f6f-be51-4e57859da6cc@app.fastmail.com>
+In-Reply-To: <20260809170748.1223617-1-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260809170748.1223617-1-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: Re: [PATCH] SUNRPC: wait for in-flight client TLS handshake callback
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 04, 2026 at 09:36:25PM +0000, Yifei Gao wrote:
-> nvmet_pci_epf_create_cq() calls nvmet_cq_create(), which takes a
-> reference on the controller and installs the completion queue. If the
-> subsequent PCI address-space mapping fails or returns a too-small partial
-> mapping, the function jumps to err_internal / err_unmap_queue without
-> calling nvmet_cq_put(). The matching put in nvmet_pci_epf_delete_cq() is
-> gated on NVMET_PCI_EPF_Q_LIVE, which is only set after the mapping
-> succeeds, so teardown never releases these references. A remote PCI host
-> that drives Create IO CQ commands with a failing PRP1/pci_addr therefore
-> leaks the CQ and a controller reference on each attempt.
-> 
-> Drop the CQ reference on the mapping-failure paths. The err_internal and
-> err_unmap_queue labels are only reachable after nvmet_cq_create() has
-> succeeded, so this pairs the create/put correctly.
 
-Thanks, applied to nvme-7.3.
+
+On Sun, Aug 9, 2026, at 1:07 PM, J=C3=A9r=C3=A9my Jean wrote:
+> xs_tls_handshake_sync() gives xs_tls_handshake_done() a reference to t=
+he
+> lower transport before submitting the handshake request. On timeout or
+> signal, the synchronous waiter drops that reference after calling
+> tls_handshake_cancel().
+>
+> handshake_req_cancel() returns false when handshake_complete() has
+> already marked the request complete. In that case the completion callb=
+ack
+> can still be running, so dropping the callback-owned reference in the
+> waiter can free the lower transport before xs_tls_handshake_done() sto=
+res
+> xprt_err or drops its own reference.
+>
+> If cancellation loses to completion, wait until xs_tls_handshake_done()
+> signals handshake_done and let the callback release its reference. This
+> mirrors the server-side handshake lifetime handling and keeps the time=
+out
+> or signal return value unchanged.
+>
+> Fixes: 75eb6af7acdf ("SUNRPC: Add a TCP-with-TLS RPC transport class")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+
+Reviewed-by: Chuck Lever <cel@kernel.org>
+
+
+--=20
+Chuck Lever
