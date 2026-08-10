@@ -1,96 +1,156 @@
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
+Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E32345CAB;
-	Mon, 10 Aug 2026 07:14:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2BD3A4F30
+	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786346098; cv=none; b=pW2C9YEWUHIYayDL4O1gF5CMWzfaeToYmqYVJNmDnmFKAUUTw1fWtdEfsaGyYlK22dDuCJrEYI28utgF82GX/AQegybpvWRDgBPD7hDpUxx6fxaXH6Ql7ZdqFIAiGVYwiQxJdL5SV1fdPTtTdQNl4S5hKxbWZtnumyWR4ZQYkRk=
+	t=1786346101; cv=none; b=EVVHQj09zE+KXvvbO0GiF4od4UqyCafl8uvHHBbN2b0AwcNHwgsx+vi/SOggsrKjgfL6UQIO2/RZrHv9M1goy8hZsEbVmPB468h5ci2kgbof2X/r6tRIuJPYjQ/z4LMShIwuFoRKUqJRhvRlM6AlGP4y8YRgo3tgI45RMcAw4WE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786346098; c=relaxed/simple;
-	bh=JlqiY9bLAwlxULQ8mA0Pe0idjTV17gCgcQqBrj8zmx4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ntb9U1DDyxuapHjkf1mo5D26zIUrv6XMjK+hKgLsBsxe6LZTjz+yPvBMGl/GCZGaysnnp7/PfZ570/sg9UWEPWBG0AUEcwboaRltsrPwqCvcuquBeFJUVANGSr4dsVxrrwKr15cYMUQ0TSj8ud0nXsxXPWzQaWN77TqpqVXkACI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=4LYKjDt8; arc=none smtp.client-ip=109.224.244.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1786346101; c=relaxed/simple;
+	bh=+7z3AP/ISNgtjS8Lqlp+ZNKMBFC0XbB0Gkd40yGE6eg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UCpzQ6hnmBwfmbVt6DkF3bVqNp7De49Y8i7aD5fvZIZZKN87MujT0oo+Otb2roitW083IxY+7eFoOQmfTb6wIqis6en5u2M3tiXgkw94BCi+3iQOGKi3/0MHzPdtyjUVPrLik80ONhLrio+G0D8dtG3XS5WDUE4hmFiFp2+BYUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WTzjCl4L; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="4LYKjDt8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1786346093; x=1786605293;
-	bh=Ye4JFkY68c/ascoLMrZmHLG3qIWVYXCz02SBdw1hOZM=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=4LYKjDt8XsZCK80E51j1CVfVxMWMQtlyELporHB/XwTp/8biic1lIAN0fWCfRXGPk
-	 5sAn3X+4Y6JjcOT/5t33DiMImX6dtFzItRwKp7j9McOSrAq4BvkGIgQ25/fs+OyF+j
-	 Ua+8Fl7YajU4nhdo+8GnxHBJoeRaDzc9qRcXRCQ4jI2pExWRhODMyXS3ZvpyeFdcDD
-	 nAmAlwKYle7n58fSLg6jRCmL16UQKogQkXbG8MQPQuGCzcWDa3qtVQsEIG8WTsWGCy
-	 +84x4SDuQcHY+wymROnN6K2mqnO0Mn9vAPfFWFtdJ/XlsDuJx6jWAYuU8anXOMt6sW
-	 66FUwLivoXSBQ==
-X-Pm-Submission-Id: 4hJQxQ517Gz2SchD
-From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 10 Aug 2026 09:14:40 +0200
-Subject: [PATCH v3 4/5] drm/bridge: nwl-dsi: Add error handling of
- nwl_dsi_mode_set()
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WTzjCl4L"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786346095;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S15GzqqeJfm+V4QQMSDG2XpUw61+RqiF3E72EGNCgjg=;
+	b=WTzjCl4LqiQP5pdOMsKpqbXIZjS0MMSTzbIbKG/uOcL8SB/XCdu8qWfu3ZAVSSLMdsRnCx
+	w0lcjxR7WXNbxeuZH99n4F55IIxv80hWR5dZ1yVvLhiZvjQnWRHbWqpGB+Z22L/fv8m70M
+	G88BQJIk4aCgRSC3ut2PgnBz07l0Ex0=
+From: Hao Ge <hao.ge@linux.dev>
+To: gehao@kylinos.cn
+Cc: Hao Ge <hao.ge@linux.dev>,
+	stable@vger.kernel.org,
+	Suren Baghdasaryan <surenb@google.com>
+Subject: [PATCH v4 2/2] alloc_tag: fix undetected compressed tag overflow when profiling is disabled
+Date: Mon, 10 Aug 2026 15:15:18 +0800
+Message-Id: <20260810071518.115381-3-hao.ge@linux.dev>
+In-Reply-To: <20260810071518.115381-1-hao.ge@linux.dev>
+References: <20260810071518.115381-1-hao.ge@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-nwl-dsi-fixes-v3-4-256da9d672e1@geanix.com>
-References: <20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com>
-In-Reply-To: <20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
- Sam Ravnborg <sam@ravnborg.org>
-Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786346082; l=910;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=JlqiY9bLAwlxULQ8mA0Pe0idjTV17gCgcQqBrj8zmx4=;
- b=Q246UBAXSJvY3Qxmk3u50Ea5XA0sNg6j4Pj3B+ANS5lJ3W0oKb87jQvYOJaU7qrVSx6cF/fcG
- p+lMGd5PR+fAu/Ptnn48gslddZr4u7y5Cb3SbVgXs0j5qwYCWmit/sv
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-There does not seem to be any good reasons for ignoring the return value of
-the nwl_dsi_mode_set() function.
+In reserve_module_tags(), the tag overflow check is gated on
+mem_alloc_profiling_enabled():
 
-Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
+    if (mem_alloc_profiling_enabled() && !tags_addressable())
+
+If profiling is toggled off at runtime and a module is loaded whose
+tags exceed the compressed-mode limit, shutdown_mem_profiling() is
+skipped. vm_module_tags_populate() still maps memory for the tags and
+the module loads successfully, but the total tag count now exceeds what
+NR_UNUSED_PAGEFLAG_BITS can address.
+
+Once profiling is re-enabled, ref_to_idx() computes each tag's index
+as its position in the alloc_tag array. update_page_tag_ref() masks
+it to alloc_tag_ref_mask before storing in page->flags. Indices
+beyond the mask are truncated and idx_to_ref() resolves them to wrong
+tags.
+
+This silently corrupts /proc/allocinfo: allocated pages get attributed
+to the wrong call sites, so the statistics it reports are wrong.
+
+mem_alloc_profiling_enabled() and mem_profiling_compressed are
+independent. Once compressed mode is established at boot, it stays
+active regardless of runtime toggles of mem_profiling.
+
+Remove the mem_alloc_profiling_enabled() guard. On overflow, shut down
+profiling, release the reservation, and return -EAGAIN so that
+layout_and_allocate() retries with profiling disabled: codetag sections
+are then placed as regular module data and the module loads without
+profiling rather than being rejected entirely.
+
+Skip percpu counter allocation in load_module() when profiling is
+disabled, as those counters would never be freed on unload.
+
+Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
 Cc: stable@vger.kernel.org
-Signed-off-by: Esben Haabendal <esben@geanix.com>
+Suggested-by: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- drivers/gpu/drm/bridge/nwl-dsi.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/module/main.c | 17 +++++++++++++++--
+ mm/alloc_tag.c       | 11 ++++++++---
+ 2 files changed, 23 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 3fd41212933c..e90588299c5e 100644
---- a/drivers/gpu/drm/bridge/nwl-dsi.c
-+++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -884,7 +884,9 @@ nwl_dsi_bridge_mode_set(struct drm_bridge *bridge,
- 	}
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index 46dd8d25a605..c32bb47a573a 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -2971,13 +2971,26 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
+ 	 * this is done generically; there doesn't appear to be any
+ 	 * special cases for the architectures.
+ 	 */
++retry:
+ 	layout_sections(info->mod, info);
+ 	layout_symtab(info->mod, info);
  
- 	/* Step 2 from DSI reset-out instructions */
--	nwl_dsi_mode_set(dsi);
-+	ret = nwl_dsi_mode_set(dsi);
-+	if (ret < 0)
-+		goto runtime_put;
+ 	/* Allocate and move to the final place */
+ 	err = move_module(info->mod, info);
+-	if (err)
+-		return ERR_PTR(err);
++	if (err) {
++		if (err != -EAGAIN)
++			return ERR_PTR(err);
++		/*
++		 * -EAGAIN means profiling was disabled but the module
++		 * can still load without it. Reset state and retry.
++		 */
++		rewrite_section_headers(info, flags);
++		for_each_mod_mem_type(type)
++			info->mod->mem[type].size = 0;
++		info->sechdrs[info->index.sym].sh_flags &= ~(unsigned long)SHF_ALLOC;
++		info->sechdrs[info->index.str].sh_flags &= ~(unsigned long)SHF_ALLOC;
++		goto retry;
++	}
  
- 	/* Step 3 from DSI reset-out instructions */
- 	ret = reset_control_deassert(dsi->rst_esc);
-
+ 	/* Module has been copied to its final place now: return it. */
+ 	mod = (void *)info->sechdrs[info->index.mod].sh_addr;
+diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+index af44f90379f2..3eba6331174d 100644
+--- a/mm/alloc_tag.c
++++ b/mm/alloc_tag.c
+@@ -950,10 +950,12 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+ 		int grow_res;
+ 
+ 		module_tags.size = offset + size;
+-		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
++		if (!tags_addressable()) {
+ 			shutdown_mem_profiling(true);
+-			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+-				mod->name, NR_UNUSED_PAGEFLAG_BITS);
++			pr_warn_once("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
++				     mod->name, NR_UNUSED_PAGEFLAG_BITS);
++			release_module_tags(mod, false);
++			return ERR_PTR(-EAGAIN);
+ 		}
+ 
+ 		grow_res = vm_module_tags_populate();
+@@ -975,6 +977,9 @@ static int load_module(struct module *mod, struct codetag *start, struct codetag
+ 	struct alloc_tag *stop_tag;
+ 	struct alloc_tag *tag;
+ 
++	if (!mem_profiling_support)
++		return 0;
++
+ 	/* percpu counters for core allocations are already statically allocated */
+ 	if (!mod)
+ 		return 0;
 -- 
-2.55.0
+2.25.1
 
