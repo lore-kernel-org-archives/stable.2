@@ -1,37 +1,37 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD443A0B3B;
-	Mon, 10 Aug 2026 07:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFB337A840;
+	Mon, 10 Aug 2026 07:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786346390; cv=none; b=ParX/mFBAkFyfBz/L6qV76BuKfym5mMSm1ZvKHdoMOBXqj8ZB+/DHCikpmviEBqh2bYiZ/0Dd3f6rpindVVgg1o5TOYJ7ghpmecGJ2XMxxxiv8tWnlJ956LlETOQ8r0DxzfY/os1ozwMugzElXQ9BsZ7Cv3HHK58zsRM3DZOQss=
+	t=1786346393; cv=none; b=FvRSggRSlJyUOwY/dgRYuuw2g64KI+kTe+yRrmV88rImEtmsUnNbYXPO2cLugoAKmwrNBN3lLhDTnSu+TB5Fq+TybBg+awsPE5ZHxcfiZnjM3LkklDD8mhvwEZOz/CGzjkDUozwj+EjHn/VDid7piJPoxv757LWniNm30nfyfaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786346390; c=relaxed/simple;
-	bh=fMP2hOoQfOnTvMLbjGHxqKSru2U0lvUotPn+hSMBBk0=;
+	s=arc-20240116; t=1786346393; c=relaxed/simple;
+	bh=ADbcip/7+ws/P910Sgn2HvCEM8tB4gXcTCDY2lBAYnQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ayOpCCnl1cGxsUMnXdztTx2ulzS91qvrTZi2zHmzi/cg8scBt8TzboZ5mTinBPu1z5hHlK2ZxzwrpCKNPo656xlgPqomF75oCxOpAYaL9ROoQ0Sr6DLuVB/86fmKXj72J2K6laPYK97nbp8n/zKkn3FP0f5N0z/cSDJKSBl/fw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=3FhkKFNY; arc=none smtp.client-ip=79.135.106.111
+	 In-Reply-To:To:Cc; b=jtjgnP+ET6SdwxxqfoxFxxKt16FSA+/dmpDRmuRFzNTSke+U+aBv69EryjKRSY1UTxtkEK2s5x6ie+CC2EhSkZbMQ104RY/LJEewffgWVi7UrZZNBoj0z5p3kbe7A8jvcp4z1n+KCNZSO25YAaQUil6kp9pblyx9nG5bz4hcx5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=U3N7n9l5; arc=none smtp.client-ip=109.224.244.108
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="3FhkKFNY"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="U3N7n9l5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1786346387; x=1786605587;
-	bh=CVuR4JN4qvYTWrwAiybLluZngZdrcxB+j6GjB1GhM18=;
+	s=protonmail; t=1786346389; x=1786605589;
+	bh=ZJSCfXp3hcwIl+jbWgDlNmbsCfx+Kvs7P3NKbUEI0gg=;
 	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=3FhkKFNY66b3AD3bEaQ6EOUmy2RE9gEoaRKPWg64k20azjbf3Os/7+/47Bvx5pzUI
-	 O4FHJppaXwY+1UVQDl6/868TLIVDHef7ibClKzbnqNhkSYU77fVKCoiz+3WdtrVzhf
-	 UIPQZFjzFc3qwQMdipvAZz83LpbxSI0uB9mUdwyhXXMrEGdP24fR06Y8tIgOLgaNGy
-	 PaCw+clFj8wtR2wD99n447u77mGd+CUCsbyzkOb3Wrfm7U11jIbJf1qTeglTRSM2GJ
-	 uIQ437w9TaVZJ+FKaNFNjJ2czAbFUuLbDapCqrjQqDe5E52KZFNuCzSI5+f00rnvEL
-	 4YS5Qs1HY2/sQ==
-X-Pm-Submission-Id: 4hJR351Qdbz1DFFF
+	b=U3N7n9l591S9trMRfqQ8/wyBQ+NDJpCKZFLrUn/+dBiRFlhpia5LeC3YhlE6N7skq
+	 A1zyhG+GnxLFTaZBpdtAftAblnLFEwQY8RzcN6RiNVsh11HOlqkywj47e+MPqZt3Ck
+	 HyhAmN+iTOQREYdQ1sKAcqnCOQVQM5fIG1zvL+RRsXRV3bxXLhOhwjAgsWZ4o05apk
+	 TDwFAvLD9K4S3QRiyp0dBkVw9LgOqwVyQdLTotjcCkMfU+MD2sjdAbxD8YyVOsxgGA
+	 iaiDETAvAuO7jgFRWYCHi5141zEXmCp2z8vLGazoYWSK1DUP5U+dPIjaoL+WvDIAje
+	 7ZBC9na40S54Q==
+X-Pm-Submission-Id: 4hJR365Wxrz2ScNb
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 10 Aug 2026 09:19:40 +0200
-Subject: [PATCH v4 1/3] drm/bridge: ti-sn65dsi83: Fix error handling in
- sn65dsi83_reset_work()
+Date: Mon, 10 Aug 2026 09:19:41 +0200
+Subject: [PATCH v4 2/3] drm/bridge: ti-sn65dsi83: Propagate error in
+ sn65dsi83_reset_pipe()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-ti-sn65dsi83-fixes-v4-1-ae9c95c8d162@geanix.com>
+Message-Id: <20260810-ti-sn65dsi83-fixes-v4-2-ae9c95c8d162@geanix.com>
 References: <20260810-ti-sn65dsi83-fixes-v4-0-ae9c95c8d162@geanix.com>
 In-Reply-To: <20260810-ti-sn65dsi83-fixes-v4-0-ae9c95c8d162@geanix.com>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
@@ -57,47 +57,39 @@ To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786346382; l=1222;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786346382; l=975;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=fMP2hOoQfOnTvMLbjGHxqKSru2U0lvUotPn+hSMBBk0=;
- b=nRoQC5DfBHj6lQFvnFD8ahuFzZnMz9W1pXbjcH9tHHqDRG+fTyAPB0ogNE6BdYUuXeRzf7VUj
- QPuWtldw21WCDPyYD5c753AWuE7YM9luxoiyBuPcR9fOAR1ZWoOao/1
+ bh=ADbcip/7+ws/P910Sgn2HvCEM8tB4gXcTCDY2lBAYnQ=;
+ b=t9VdwYSBeo0Zyjs1jvJ28ES768Rf5d4vyTyfpV1720IcKxNymqvXUUNzCBBTCwPVDaufHUtUI
+ dIR1PsMOxDHDmeZAWkjlb7wmhPhD/jDb+UQVWN8PPiol0CBaryS//AX
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-The error handling of sn65dsi83_reset_pipe() failure in
-sn65dsi83_reset_work() has been a bit strange all the time, missing both
-enable_irq() and drm_bridge_exit() in case of failure. But since
-sn65dsi83_reset_pipe() have never been failing (always returning 0), it has
-not caused any problems.
-
-As we are going to change sn65dsi83_reset_pipe() to return error values in
-case of failure, we need to fix this.
+Propagate the error code from drm_bridge_helper_reset_crtc(), so that
+callers has a chance to handle the failure.
 
 Fixes: ad5c6ecef27e ("drm: bridge: ti-sn65dsi83: Add error recovery mechanism")
 Cc: stable@vger.kernel.org
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 42b451432bbb..0ccfff401b2a 100644
+index 0ccfff401b2a..475224c5a5d8 100644
 --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
 +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -417,10 +417,9 @@ static void sn65dsi83_reset_work(struct work_struct *ws)
+@@ -403,7 +403,7 @@ static int sn65dsi83_reset_pipe(struct sn65dsi83 *sn65dsi83)
+ 	drm_modeset_drop_locks(&ctx);
+ 	drm_modeset_acquire_fini(&ctx);
  
- 	/* Reset the pipe */
- 	ret = sn65dsi83_reset_pipe(ctx);
--	if (ret) {
-+	if (ret)
- 		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
--		return;
--	}
-+
- 	if (ctx->irq)
- 		enable_irq(ctx->irq);
+-	return 0;
++	return err;
+ }
  
+ static void sn65dsi83_reset_work(struct work_struct *ws)
 
 -- 
 2.55.0
