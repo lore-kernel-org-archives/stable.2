@@ -1,164 +1,191 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE683E16AE
-	for <stable@vger.kernel.org>; Mon, 10 Aug 2026 14:41:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786372880; cv=none; b=RBBHVem8jsjru1+tZC/UZsrqARUEQ49E90Mna1w0xds5v0lVSZxfITSHI/03C+00Zx6KsOvHpZOui6BxXCF7fjEBfnv5JtGCqsDlLalIu/+fZoGqTV1M5GniREy8yUmRFwnMKaJiJIbEabbZ8mRq/u+owFDzZhcDDQkmmo32epY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786372880; c=relaxed/simple;
-	bh=NT4hmTQV7asOzfynA9Axntikhqqvbc1Sr29Lb2gduPQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=amhHvcVYiLsB+EAHJ5/nbhxoyPQJuAMiNKb/eYJYmOz+Dgep1rQjraN55MO9pg3q8Sc6MD4Cxl9POEIC/HgEZzbzdQ2q2Zpf2TwoCdfQnGzxnJf1FF+O8ygGlHcBHT5bMlx51Kr/ya/XtikOhtg79n9dZBhetVHhHoZo53j9EU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=XxsoWo6I; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADE928C037;
+	Mon, 10 Aug 2026 14:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786373239; cv=fail; b=uInJu6Z8rtUgJg1GTvb40jtqOXxWTJmFTWK3xHlbiSpGL0UkAEv+7Di+vs2xqz4J2ZKTkDP7gcyhZnXmBuc5G2x7dyKGU2rgsVjSr5sv+3lmyc8+tzyPSSkWOt5lHs9VI0OdU48HnHZRmSKpCM73iexg1X1kyl3dM5PP+H3F00c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786373239; c=relaxed/simple;
+	bh=mNmdUVJ/W6o0YKHE7sF8XeS3YQEmx73Jsl3z2b3c4cw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=FZQacVSL7WMho2NDQdr39JPI5TCxpgKhkjv6tzYBPJ36g2hwlJ9hq5BmzWTFHQllZgQr6euxO8gLAw+Okl8b/6fEmQEuGNCgEbV5IlEV7pIt85yEzihIObzRO8iP5kSz0x8zEg5wzUkYBj3umQxymGm6DEktbH5m1u5IqHr0qF0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=PnGas5J1; arc=fail smtp.client-ip=52.101.43.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="XxsoWo6I"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-8efb708b1a0so11252006d6.3
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 07:41:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1786372877; x=1786977677; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zF8J7vucF9ejv5mC84LVI8cP3TWHPkQougefaqK2FnM=;
-        b=XxsoWo6IbNXsRnCzr/jOsexPMUwAcGetoB/V+HOE6Dtq0CkPgMKlmQd9TLVBCDWLVV
-         ixPKvsKftjC1vaF0Pm8s1HebN3Dl6eDoGJL2qkd8CR1ehQFVrH3GAh0bZfHOUGbkFkie
-         2YKPYLOloTD8+BaGR9Vzd0bL9Kug8U23iIm6DmKhxGmq4618QWUCMqSNZG3GJa/WYZsm
-         VaTbS0MVaKtIQYastOD/QxvlwXbEuMU8pJz3g0Iy+q8pdNV/ndJn6UFN68QplrEBUeXB
-         9QV4b0xVNeKmT6i/s9+oVDtp6jevW3o0dt1kl+w/oyeC4hFEGb9Em0dAbqKHFoKEj8XE
-         m75g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786372877; x=1786977677;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zF8J7vucF9ejv5mC84LVI8cP3TWHPkQougefaqK2FnM=;
-        b=IM5Ev69gCwE9YZldEnHNEJgLo2Nnj7fHywiCo51+yYfjGvj4B2HA3GoRnkR5bRZVYM
-         3hQgLGR5z99os753aSKDPV+m4R45REhiU4N8x8ESYqwmxExNcaT1WUKC0FnSP4pzePs8
-         qN9EwXQ/vm4iSv0zAbYXc2pOst0FRJopHgG5H6cxAEkJG9s8lZgSbaAskDfAkGXV/t38
-         yrd3MDqsTlVAFtXXBEuml3Uhet1hIFy5ME6ywgp5XgP3+N8mb+cgbw+jroiAbXt8QDLP
-         H11Avvmbyj1coBdMh1Q7y6DthMz0ZVkOjkFmTFaqfzm5D0g0zZb6vkLk4RlNtcLT3nFV
-         pU0Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrBqjJU8hpHG8hbnDRTRLgcDmpsjLUtQQ0ow2HEwNXe5gdDA82CtbebvW0paI1njpb3wEgT8L0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyFPsPuYvcSAQVKMXC+2mxnnwKDhb3JTMaPsKUINdZHtKoS9LAs
-	X3kZ0VHDTE3/Gzk931sUNG4GnMtvgcnSoyYgrj+V8gf0DyApfpdq8q5pr7MJdmm9mtQ=
-X-Gm-Gg: AR+sD11inmREC5lWT/h86ojhUdDGUjp6M2F8NrR0JJSzZcRPYQBjrUXAwjKyVSG8j+V
-	9c+dhfiKehqWGmHGsyBjqta6jRpx3wqkzuH6SvRAe7UIAk/a0nViMCEGtl0ol3OBZNlV2KVONbp
-	ZS+hWiLVxgfafCPzMp3y3CGhjBUza8RmeRQP9oWwUIf4m4V9Tq4tl5VdCWNKKvM9eb4jTSwfQS+
-	cZ77TWv7wFla6whbVDfhs+foDrmf7juAb5+oSdQMpuSW6C8Dzh9MSC7CN480tw0NEVw+LQt5qhK
-	/hR+mllpM8Z3X9uAoHFYfmdesg3BtYq/VWRQJ4uzjvIJ8M50KIOUacI7m/LOzL6VDP87TKhJoUZ
-	glRTJwuI3+B2ZHw+l4m9xmlYWYQdTFn+SWmAP3PYw9ku51Cc8PmIcDj7rZPGdrbzS8ph4uImB1L
-	Jil0kh+hVHX6XSO0712GrAjh2puF5EtizJD6B1fYBCOCO5rAotwZ3GJhcYWr17Oombww==
-X-Received: by 2002:a05:6214:4709:b0:908:949c:43a6 with SMTP id 6a1803df08f44-908949c4882mr384537146d6.6.1786372877154;
-        Mon, 10 Aug 2026 07:41:17 -0700 (PDT)
-Received: from localhost ([146.190.222.192])
-        by smtp.gmail.com with UTF8SMTPSA id 6a1803df08f44-908a932a417sm73682786d6.37.2026.08.10.07.41.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 07:41:16 -0700 (PDT)
-From: David Lee <david.lee@trailofbits.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: Kyle Zeng <kylebot@openai.com>,
-	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
-	Sven Eckelmann <sven@narfation.org>,
-	Petr Machata <petrm@nvidia.com>,
-	Amit Cohen <amcohen@nvidia.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	David Lee <david.lee@trailofbits.com>
-Subject: [PATCH net v3] vxlan: keep the last remote linked during FDB flush
-Date: Mon, 10 Aug 2026 14:41:14 +0000
-Message-ID: <20260810144115.821654-1-david.lee@trailofbits.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="PnGas5J1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vwTraW4thNg8c9ymeFv/a1peYoGydnLmVwCaIHazPlMVtzNwlS9V+hFNVUYh1LUJ+DE8YuNHeE39egoN9yqPJPPKFJBuS7Zrg1/6t4nBkflqfRNiMOWL+JiKhv1Z+s6M8LrDJqrDyn6EOWWbKviM5B2ChQ60P5aKuozb4hkoReCYPfIZBAqtWd8z5lGHs27RZnS3745tyjapCoSfhsr57eOH088H7B53/mWQhOxCU5zRHDeFCtI160p7UYPv/oV7DTnZPrCPe82bghVCKveP0gGi9r8Oqm0GSeIv//4rL9g5TfFpHbtHgf/W0rkDU2XBxux+ZPOOcKvcmPgh1mQxTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uKbgW6w5ysJfiiWqj7al+Ey/abUKMSrPs0OlzFOe7Zo=;
+ b=ddoRf9z8LS6QjiaYS6rBP1Rl8EPaBw7vn2GWc93B5lcIE2102adkXUhb7tl7MbtsiGixV/k/ATxYx6ZhnLJN5kBcF6mjpOKD/nS+0/IfWkEwvU/73WcJALadrjQp0BDAoqG97wIVMoEp0M+PCzce8h3MVs175fJdXWOzBwes99Jr1CJyG/sAcP9lYvnad+YTvvZ4qgPCxvTXeJN1UfCQXYb7OJVKiIlqOB2wmTJqHFrIdhomH6FErJbSCTpfD/ecRkVgVpA6SSCCTI5t2AtXffmYxmmtxTWwFq9IrSZk6bb1CaVu8PAdu12e6zKeIaywX2Y4FZ6fkCGRLRmdBqX9KA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uKbgW6w5ysJfiiWqj7al+Ey/abUKMSrPs0OlzFOe7Zo=;
+ b=PnGas5J1kuBiIIl4orySzEdh4sAYLLPuTRB7A8DiJou4PtNIWQnMijy3qs7o9FoxRTk5qFz9UBvFMvCrtpgf/UzyVnxMO9buB211/pxKGKmP8ralBjoRUJGXvylg2K52HIeyI80I2sQCVTp4CrzwEQYSGrNm8HR4I7/xCTTb7fo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ PH7PR12MB8828.namprd12.prod.outlook.com (2603:10b6:510:26b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 14:47:15 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 14:47:15 +0000
+Date: Mon, 10 Aug 2026 10:47:06 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+	linux-kernel@vger.kernel.org, Penny Zheng <penny.zheng@amd.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] x86/amd_node: Avoid divide by zero on virtualized
+ systems
+Message-ID: <20260810144706.GC57095@yaz-khff2.amd.com>
+References: <20260806160159.230453-1-jason.andryuk@amd.com>
+ <20260806160159.230453-3-jason.andryuk@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806160159.230453-3-jason.andryuk@amd.com>
+X-ClientProxiedBy: CH2PR14CA0053.namprd14.prod.outlook.com
+ (2603:10b6:610:56::33) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|PH7PR12MB8828:EE_
+X-MS-Office365-Filtering-Correlation-Id: c56bf41b-8611-425f-2643-08def6ee44fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|6133799003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	y3oUxh77mtIHizmNOY+sis0NcxFqKPoYmkZUjXtGiPmpzy69RDx7XziVSXQkgOm3lRFngAGiIdpSDOHTtY5njrNRQ8p5whOOxxFgYbbma5UWuai1CsS4wTIWQwO6Xiyly4+7X2p1Xnt8U84R3nV3azH70Jn3+HBZPPX8tOiJRZHwggb5KeEw8H4uwrUzDN/acP/GJL+kmTUD9FKEcTEtpkoGF/sCf26A97WnMqahumBIylnSsxkG5Tv79JabkCN7EDNyVPPYawt0JBvtAEONX2WqfFCa60BmWWuX8lpxUmE4rkVuGRuDAz7Mo54+edl3iwVrqZvhenHkvPE2pOmGei39qYYkYmVVtKWF3F0peYMb1n3h2ZkMAIoskGaDiUdvQN5zkjufh3pDR6Kmv/KqGmr33wfkb+NA/WEw4zvJGoJrBi1BM/TOSqPhb9QN3cN4vBneE8zi9BNmpNmQZTeiuxEJTr8Gl6qqG2giCwxwmiFJU7UKQYEaItBzO6Nv3dcBy51WYu9uKtbF+q4ugZA1PvCOt8wJJTO26vxBpL/JRVgDRlTrlc4E74niyaro9AwSJvcgmEQEP4dVTS3B183w5CTBZUF5+UQx8JSzoABR/TgrA4XinABXG60PLuorSCpJ8zsduPhOiMWupvKc+xYuLQ8vI/VfsBL5+8VeGMJXKtk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?o6MlTw5wOp7cycd/r3gtMggVBAjgRpy8Lx9+JuhoUjb1xtCKWlbxSZ9ykOFP?=
+ =?us-ascii?Q?unb5rQPdMMHAc9j8BPE/vBw2qNr7IONfgQlZwwtxkW0ahoDuNT1fwj0zreiv?=
+ =?us-ascii?Q?Gpe9Upe5oO6oBhogfjmj3s1H0K7fxC+EgzcL7h0+Ep/TVAuzh7b6AU0/G9HH?=
+ =?us-ascii?Q?cTNDb+/NS5wtG4KX52NBYZP4BKm/QvunLaJLxaccG4zTmogFk2LKLjPnSEBU?=
+ =?us-ascii?Q?bnqt2cOmdh5LTZT5LbQ1odXeu54zPLvhlFV02XiwA/QjjxzPLUgg0MJtoz7s?=
+ =?us-ascii?Q?ylEIEvl7SWryWwsgCR02QEcecw2qReK/a7I+NYwwMXTpeY7ndlB4rLIlWuBo?=
+ =?us-ascii?Q?FE3pVTS3aslJxwS2Pyy1kj3i51/3kDaVSoDo/fzEME+JHCKEVh8ktZRU3WHT?=
+ =?us-ascii?Q?wOgbgtfQsnKvY094Kq9QWB1GXFjWbOBU1LO32UceAIP91SIl4A12YDYujGRV?=
+ =?us-ascii?Q?YzEHtQc/9UMijNQQYojzDzprG3ICg0EZr1Lr3OwrMTgelsmZqBTem1+tI71w?=
+ =?us-ascii?Q?BWclNPSB0oeT/XxfBJRWaYAtsrK9KJAGez2GV6Ic/Z/suFRK2EJNa4d+FUzn?=
+ =?us-ascii?Q?jHI096m7qnnlbkvcXgJNlNigVENwVIZOpVadY4+pWcpH2dZMv0Krw3nK3WMY?=
+ =?us-ascii?Q?id4GtSDw+HmEAX/9pDErOeGG0mxB0NLjSpmYNr0oltxkIFNeq3yH4ASth26z?=
+ =?us-ascii?Q?1nweFbmeQLbbnfFlRRKs7WlTyg6wYquA0IJFMd/4spw7Um9jW17HV124d7a1?=
+ =?us-ascii?Q?ldKlI2o4mAMaNm3cNJlu5IPsio7kqNH8rnSUCLJ2Xzw2udqiyFoKnGVkso0h?=
+ =?us-ascii?Q?/2p5EcJUlooeeyq9OW4BQs2irAzOgb1Yit5O0gbv81Ig5Rtjb6ONf67mT5eq?=
+ =?us-ascii?Q?mPYu1pTaUomv+oPrQUzVEAgs/xXAW07AE3/OOlJXDVIa2dv3JTmEdl1TWVZN?=
+ =?us-ascii?Q?DL6BAP0ONFFRToToUQP2TNzQvxuEYQ2URg+QzRThEqNyp4sxBMRi46Fee3eX?=
+ =?us-ascii?Q?79+EjL239SbchQyaei9YacUAxRqSBmCUPPjurJxprjcD/1eaQZZJ/kQRgquZ?=
+ =?us-ascii?Q?4/Zm80Dis1IcYDg4xN5y+ECg8zHYAbsskP8eBTr2+pTLTJ29AtIZ6VZaPkNS?=
+ =?us-ascii?Q?dEhGlilbbGbpdyF0YtaulbnzhC6UihB37YqNQpgJ0kexYdpqs+tU2adijii5?=
+ =?us-ascii?Q?r0ZTZl5M9uYQDpUazTphwbu9HC1pBZY4vu6Gu+MLC6dS3o3Mjo4G58MQp1AI?=
+ =?us-ascii?Q?pejo5ekr+zCklT5aY9JnWfQ6C45q6z2Vb8oY1xrMqFkNeKG2k+fjtAysl3eM?=
+ =?us-ascii?Q?OfhxNF808FrA3dFnjS1APLavcZ6j8B+y0WFJPposOokozO9scWrajq1CBPvO?=
+ =?us-ascii?Q?u6Si/TH8AHgR+7Byq6aMJlaXa65vhV6kpivkeTky9zC90E6aQKHGdOH0zJLY?=
+ =?us-ascii?Q?0LJPHtwEKlEMm5GGmCSzYFDQIyhlDEGXt9bfFRdg2KW+vR+tL6/fRrabXJtg?=
+ =?us-ascii?Q?A60Y0fqnHmSay/Ah9gb8h+uyUj9KwMUAMXxTn8cZvvA1SSdu+Hmz+utRaXqI?=
+ =?us-ascii?Q?eCnlOYwsnXU+Bg4vETCGgh6W0D2ITQbTiyVer6O6aS7ktIMzcnIRzXpnFn2f?=
+ =?us-ascii?Q?CjzatVJUlWvjdF4an2vwpG1+TUJc/JIMeqQ67NMw3IsuZty0fQMje2l3niz9?=
+ =?us-ascii?Q?S2sLdqRIGztp3rPRfpnlHZe1TERolbQorVh3xOSDDT5Qe2/T?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c56bf41b-8611-425f-2643-08def6ee44fe
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 14:47:15.5797
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PkIlQAGKYyKjHIWlHoxDz66230KiT6A8MIbM/uq1/i8KLP9mZXsj0RhQgd3dwGZziDFJnLMnR8IDoTTR/ARpWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8828
 
-From: Kyle Zeng <kylebot@openai.com>
+On Thu, Aug 06, 2026 at 12:01:57PM -0400, Jason Andryuk wrote:
+> On a virtualized system, the number of nodes does not have a
+> relationship to the number of roots.  A Xen PVH dom0 can calculate
+> roots_per_node as 0, which crashes with a divide by zero in:
+> 
+>     if (count++ % roots_per_node)
+> 
+> On a virtualized system, default the value to 1.  The issue is seen with
+> Xen, but it could affect other systems.
+> 
+> Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
-A non-nexthop FDB entry is expected to have at least one remote while it
-remains reachable through the FDB hash table. A filtered bulk flush
-violates this invariant when every remote matches: It unlinks the last
-remote in vxlan_fdb_dst_destroy() and only afterwards tells vxlan_flush()
-to destroy the parent FDB entry.
+I agree with the idea with some minor feedback below.
 
-An RCU reader can find the parent during this interval.
-first_remote_rcu() then applies list_entry_rcu() to the empty list head,
-producing an invalid remote pointer that the receive learning path can
-read from and write to.
+> ---
+> X86_FEATURE_XENPV is only for PV, but this is observed with a PVH dom0.
+> ---
+>  arch/x86/kernel/amd_node.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+> index ea553267e5fa..c5025e5291b6 100644
+> --- a/arch/x86/kernel/amd_node.c
+> +++ b/arch/x86/kernel/amd_node.c
+> @@ -286,6 +286,11 @@ static int __init amd_smn_init(void)
+>  		return -ENOMEM;
+>  
+>  	roots_per_node = num_roots / num_nodes;
+> +	if (roots_per_node == 0) {
 
-When a matching remote is the sole remaining remote, leave it linked and
-ask the caller to destroy the entire FDB entry. vxlan_fdb_destroy() keeps
-the remote attached while sending the deletion notification and removing
-the parent from the lookup structures.
+Can be '!roots_per_node'.
 
-Fixes: c499fccb71cb ("vxlan: vxlan_core: Support FDB flushing by destination VNI")
-Cc: stable@vger.kernel.org
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Co-developed-by: David Lee <david.lee@trailofbits.com>
-Signed-off-by: David Lee <david.lee@trailofbits.com>
----
-Changes in v3:
-- Remove remotes_flushed and the redundant final p_destroy_fdb assignment,
-  as suggested by Ido Schimmel; the caller initializes the flag to false.
+> +		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
+> +			pr_err(FW_BUG "Error detecting roots per node.\n");
+> +		roots_per_node = 1;
+> +	}
 
-Changes in v2:
-- Add the net tree prefix to the subject.
-- Restore Kyle Zeng as the patch author and correct the sign-off chain.
-- Move the research credit below the commit-message separator.
-- Add the recipients reported by netdev CI.
+I don't think this is necessarily a Firmware bug.
 
-v1: https://lore.kernel.org/all/20260731141311.570187-1-david.lee@trailofbits.com/
+Likewise, it can be a 'warning' rather than 'error'. I interpret 'error'
+as something known to be incorrect. This was my position before on this
+topic. But the various contrary reports changed my mind (even if they
+come from virtualization).
 
-Bug found and triaged by OpenAI Security Research and
-validated by Trail of Bits.
+Furthermore, I think 'warning' is more appropriate. It says "We found
+something unexpected. We're letting you (the user) know about it. And
+we'll mitigate it to avoid an error."
 
-Trail of Bits has a reproducer for this bug that triggers a
-KASAN slab-out-of-bounds read in vxlan_snoop() and can share if needed.
+Anyways, I just wanted to write out some thoughts since this topic has
+come up a few times.
 
- drivers/net/vxlan/vxlan_core.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Possible rework for the above change:
 
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index d834a4865..0c42cfd96 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -3051,18 +3051,19 @@ vxlan_fdb_flush_match_remotes(struct vxlan_fdb *f, struct vxlan_dev *vxlan,
- 			      const struct vxlan_fdb_flush_desc *desc,
- 			      bool *p_destroy_fdb)
- {
--	bool remotes_flushed = false;
- 	struct vxlan_rdst *rd, *tmp;
- 
- 	list_for_each_entry_safe(rd, tmp, &f->remotes, list) {
- 		if (!vxlan_fdb_flush_remote_matches(desc, rd))
- 			continue;
- 
-+		if (list_is_singular(&f->remotes)) {
-+			*p_destroy_fdb = true;
-+			return;
-+		}
-+
- 		vxlan_fdb_dst_destroy(vxlan, f, rd, true);
--		remotes_flushed = true;
- 	}
--
--	*p_destroy_fdb = remotes_flushed && list_empty(&f->remotes);
- }
- 
- /* Purge the forwarding table */
--- 
-2.53.0
+	if (!roots_per_node && !cpu_feature_enabled(X86_FEATURE_HYPERVISOR)
+		pr_warn("Expected at least 1 root per AMD node.\n");
+
+	roots_per_node = max(roots_per_node, 1);
+
+In any case, we should just go with a simple fix for the virt cases.
+
+I think we could even do away with caching the 'root' devices. But
+that'll be another rework/cleanup.
+
+Thanks,
+Yazen
