@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9FB3D9025
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 18:56:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7233DF01C
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 18:56:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786474584; cv=none; b=B7MrCUT5TwaPa+RLKBp3cdiB6kRtUomfv+GuM11DkvVQFPzz+fYz5MYG23AsTFANOUJ+oq3wTjKPZe66Bcktc6/Ic2DMuuL2M/u1X5emtka1qKWGUKfERodYoBNQhOKhMy5+Yo0KcJFT90saFR6zKi/WbR/QBGymxFLAns31NjA=
+	t=1786474586; cv=none; b=ZD71vIQ/8u/o1NoTL3a1VU0kDM65rzKNkxWBcoaKNEFSbbP0IXUSztxZPXwkN12moOsJ6ighkKWwmgH4PEJZPDx9oWMt4H2hR9aSIzCLZDcMrpmDIgwVNM3QTPgFFmh6Yq5uQGAWhuNzQ9dYtEQldSxMoeWNyhE0wZcMTLg1Fzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786474584; c=relaxed/simple;
-	bh=4DcyXIrdz5MJ9cmSmjF/QhuZH3S7w9U5jlCxLxK0kVA=;
+	s=arc-20240116; t=1786474586; c=relaxed/simple;
+	bh=Zcn6oKeOW/fFzkZ0r3IV3ic3pGZ9EVcVpdJxF1FhrQw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qtzTnjPFGnk04tlzFTNSrxVgVb9ot06ZGkQSXxHER+2CfM/O6crEEu6wl3NJbpiTgPr4fUkrjQqzwv/N3b4MoWN0c6zr/hH0GXxyI+r5jcfdC5TlZJGS0vf+3C+FsCNs4wxMQTeVsxWPdgZJL9FdWaXjdkzf8fa8r5HuRR5wRoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PWQ/K7ok; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qArkqsX+ZaDHkHjGWmXb6f21vs74Y0Q3k83hULMWQvXUVwTUz31q2ZfMmCKghy/vYQ2ROM3JZme+SfsjVgwO0HDHKty5rbpP/KMSj5l8Ed76e1Jw4PA9FIojPv2nAvPfRBruiab25mPrgvKpmMtzZDktvCxm4dRjONJXhm+k3s8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajKBEKLI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PWQ/K7ok"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9A81F000E9;
-	Tue, 11 Aug 2026 18:56:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajKBEKLI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 809B31F00A3A;
+	Tue, 11 Aug 2026 18:56:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786474583;
-	bh=XXV7Rza6TGqTvwpYnSMf6b2RYb+0PPJPuEEBOf+LNZM=;
+	s=k20260515; t=1786474584;
+	bh=4k64NTLv6t48jyePZxrrq2sewwidHc07SigzM6svhfY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PWQ/K7okhmw8MLaA2Ny4MVk8z+pAwO39iJ+sZ3HKKXsfwT3WpZbJHJVpGKP0aDBnD
-	 JQhnwB9NO4EGhy2mdzY2x6If0ZzyS1VUISZfIuXYdpYG9BUv08PItoBpu+KbkP88fi
-	 S6kTy3xi+Y3SVK6O2VUQ/Egepit2blsQXfnvjdQPjGwM8YeO2EBuYFBjThPdU91+W9
-	 476QUPH+DRnyJnXUf5ebtlLiwXNZJfAPrpW+qwU2TdwONtSobU1p9Ux3sb4kwZYtyE
-	 RQQ3FB1yZhLS1vA448zzAJLysi2GDPeuvDjD0ioXO6RrqXk3LJwF5Ao4+tnoGWJPdr
-	 WF52ITr0D3nYg==
+	b=ajKBEKLI2Adzibg5w17zBjIOmQN6bREr3JSwgsno4u0dzc/KUIRZUe7xUMXJyiq/0
+	 nSYGuev5Vdzp8ogHLznmopqzR7PLZFGSofBs4sxSZoFmC7eyttnAJOs+UUHnl93ryA
+	 jcc9e8aRjUXKslGh4awM8rtDdJYSJQQ9Sdpv/KIE4MywyyrfgSqlMEVBw2ir/7NbG0
+	 NlLnAYo4ifWaZOhImBh34DYh+avSCJo0x+ghssIEDEK1h8JQSkp1bajh8F/X9WLblP
+	 EtP4Xo0tpmGrrjaK1zpL2Do8PCtu/sMfiO1g+5kO8q3XsXMTjPMsU4oC7x8gHlvpHb
+	 mRRch6iJ4YrVA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Song Liu <song@kernel.org>,
-	Paul Moore <paul@paul-moore.com>,
+Cc: Amir Goldstein <amir73il@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
 	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/4] fsnotify, lsm: Decouple fsnotify from lsm
-Date: Tue, 11 Aug 2026 14:56:16 -0400
-Message-ID: <20260811185619.3386946-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/4] fsnotify: opt-in for permission events at file open time
+Date: Tue, 11 Aug 2026 14:56:17 -0400
+Message-ID: <20260811185619.3386946-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080511-putdown-richly-6ef6@gregkh>
+In-Reply-To: <20260811185619.3386946-1-sashal@kernel.org>
 References: <2026080511-putdown-richly-6ef6@gregkh>
+ <20260811185619.3386946-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,81 +47,276 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Song Liu <song@kernel.org>
+From: Amir Goldstein <amir73il@gmail.com>
 
-[ Upstream commit 1cda52f1b4611f4daa9d89e69d9428fb4137dc3f ]
+[ Upstream commit a94204f4d48e28a711b7ed10399f749286c433e3 ]
 
-Currently, fsnotify_open_perm() is called from security_file_open().
-This is a a bit unexpected and creates otherwise unnecessary dependency
-of CONFIG_FANOTIFY_ACCESS_PERMISSIONS on CONFIG_SECURITY. Fix this by
-calling fsnotify_open_perm() directly.
+Legacy inotify/fanotify listeners can add watches for events on inode,
+parent or mount and expect to get events (e.g. FS_MODIFY) on files that
+were already open at the time of setting up the watches.
 
-Signed-off-by: Song Liu <song@kernel.org>
-Acked-by: Paul Moore <paul@paul-moore.com>
+fanotify permission events are typically used by Anti-malware sofware,
+that is watching the entire mount and it is not common to have more that
+one Anti-malware engine installed on a system.
+
+To reduce the overhead of the fsnotify_file_perm() hooks on every file
+access, relax the semantics of the legacy FAN_ACCESS_PERM event to generate
+events only if there were *any* permission event listeners on the
+filesystem at the time that the file was opened.
+
+The new semantic is implemented by extending the FMODE_NONOTIFY bit into
+two FMODE_NONOTIFY_* bits, that are used to store a mode for which of the
+events types to report.
+
+This is going to apply to the new fanotify pre-content events in order
+to reduce the cost of the new pre-content event vfs hooks.
+
+[Thanks to Bert Karwatzki <spasswolf@web.de> for reporting a bug in this
+code with CONFIG_FANOTIFY_ACCESS_PERMISSIONS disabled]
+
+Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
+Link: https://lore.kernel.org/linux-fsdevel/CAHk-=wj8L=mtcRTi=NECHMGfZQgXOp_uix1YVh04fEmrKaMnXA@mail.gmail.com/
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 Signed-off-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20241013002248.3984442-1-song@kernel.org
+Link: https://patch.msgid.link/5ea5f8e283d1edb55aa79c35187bfe344056af14.1731684329.git.josef@toxicpanda.com
 Stable-dep-of: db1856ea9196 ("binfmt_misc: restore write access when removing an entry")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/notify/fanotify/Kconfig | 1 -
- fs/open.c                  | 4 ++++
- security/security.c        | 9 +--------
- 3 files changed, 5 insertions(+), 9 deletions(-)
+ fs/notify/fsnotify.c     | 38 +++++++++++++++++++++++++++++++++++
+ fs/open.c                |  8 +++++++-
+ include/linux/fs.h       | 43 +++++++++++++++++++++++++++++++++++-----
+ include/linux/fsnotify.h | 39 +++++++++++++++++++++---------------
+ 4 files changed, 106 insertions(+), 22 deletions(-)
 
-diff --git a/fs/notify/fanotify/Kconfig b/fs/notify/fanotify/Kconfig
-index a511f9d8677ba..0e36aaf379b73 100644
---- a/fs/notify/fanotify/Kconfig
-+++ b/fs/notify/fanotify/Kconfig
-@@ -15,7 +15,6 @@ config FANOTIFY
- config FANOTIFY_ACCESS_PERMISSIONS
- 	bool "fanotify permissions checking"
- 	depends on FANOTIFY
--	depends on SECURITY
- 	default n
- 	help
- 	   Say Y here is you want fanotify listeners to be able to make permissions
+diff --git a/fs/notify/fsnotify.c b/fs/notify/fsnotify.c
+index f9b58a201fa3b..528249a3a5c17 100644
+--- a/fs/notify/fsnotify.c
++++ b/fs/notify/fsnotify.c
+@@ -630,6 +630,44 @@ int fsnotify(__u32 mask, const void *data, int data_type, struct inode *dir,
+ }
+ EXPORT_SYMBOL_GPL(fsnotify);
+ 
++#ifdef CONFIG_FANOTIFY_ACCESS_PERMISSIONS
++/*
++ * At open time we check fsnotify_sb_has_priority_watchers() and set the
++ * FMODE_NONOTIFY_ mode bits accordignly.
++ * Later, fsnotify permission hooks do not check if there are permission event
++ * watches, but that there were permission event watches at open time.
++ */
++void file_set_fsnotify_mode(struct file *file)
++{
++	struct super_block *sb = file->f_path.dentry->d_sb;
++
++	/* Is it a file opened by fanotify? */
++	if (FMODE_FSNOTIFY_NONE(file->f_mode))
++		return;
++
++	/*
++	 * Permission events is a super set of pre-content events, so if there
++	 * are no permission event watchers, there are also no pre-content event
++	 * watchers and this is implied from the single FMODE_NONOTIFY_PERM bit.
++	 */
++	if (likely(!fsnotify_sb_has_priority_watchers(sb,
++						FSNOTIFY_PRIO_CONTENT))) {
++		file->f_mode |= FMODE_NONOTIFY_PERM;
++		return;
++	}
++
++	/*
++	 * If there are permission event watchers but no pre-content event
++	 * watchers, set FMODE_NONOTIFY | FMODE_NONOTIFY_PERM to indicate that.
++	 */
++	if (likely(!fsnotify_sb_has_priority_watchers(sb,
++						FSNOTIFY_PRIO_PRE_CONTENT))) {
++		file->f_mode |= FMODE_NONOTIFY | FMODE_NONOTIFY_PERM;
++		return;
++	}
++}
++#endif
++
+ static __init int fsnotify_init(void)
+ {
+ 	int ret;
 diff --git a/fs/open.c b/fs/open.c
-index be7b55260a755..031a78d138ecb 100644
+index 031a78d138ecb..c591da3cb922f 100644
 --- a/fs/open.c
 +++ b/fs/open.c
-@@ -940,6 +940,10 @@ static int do_dentry_open(struct file *f,
+@@ -912,7 +912,7 @@ static int do_dentry_open(struct file *f,
+ 	f->f_sb_err = file_sample_sb_err(f);
+ 
+ 	if (unlikely(f->f_flags & O_PATH)) {
+-		f->f_mode = FMODE_PATH | FMODE_OPENED;
++		f->f_mode = FMODE_PATH | FMODE_OPENED | FMODE_NONOTIFY;
+ 		f->f_op = &empty_fops;
+ 		return 0;
+ 	}
+@@ -940,6 +940,12 @@ static int do_dentry_open(struct file *f,
  	if (error)
  		goto cleanup_all;
  
-+	error = fsnotify_open_perm(f);
-+	if (error)
-+		goto cleanup_all;
-+
- 	error = break_lease(file_inode(f), f->f_flags);
++	/*
++	 * Set FMODE_NONOTIFY_* bits according to existing permission watches.
++	 * If FMODE_NONOTIFY was already set for an fanotify fd, this doesn't
++	 * change anything.
++	 */
++	file_set_fsnotify_mode(f);
+ 	error = fsnotify_open_perm(f);
  	if (error)
  		goto cleanup_all;
-diff --git a/security/security.c b/security/security.c
-index dd6b922c12de0..de57d6e2b3a49 100644
---- a/security/security.c
-+++ b/security/security.c
-@@ -19,7 +19,6 @@
- #include <linux/kernel.h>
- #include <linux/kernel_read_file.h>
- #include <linux/lsm_hooks.h>
--#include <linux/fsnotify.h>
- #include <linux/mman.h>
- #include <linux/mount.h>
- #include <linux/personality.h>
-@@ -3214,13 +3213,7 @@ int security_file_receive(struct file *file)
-  */
- int security_file_open(struct file *file)
- {
--	int ret;
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 466a76771b0a1..faa55abdef0a5 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -171,13 +171,20 @@ typedef int (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
+ 
+ #define	FMODE_NOREUSE		((__force fmode_t)(1 << 23))
+ 
+-/* FMODE_* bit 24 */
 -
--	ret = call_int_hook(file_open, file);
--	if (ret)
--		return ret;
--
--	return fsnotify_open_perm(file);
-+	return call_int_hook(file_open, file);
+ /* File is embedded in backing_file object */
+-#define FMODE_BACKING		((__force fmode_t)(1 << 25))
++#define FMODE_BACKING		((__force fmode_t)(1 << 24))
++
++/*
++ * Together with FMODE_NONOTIFY_PERM defines which fsnotify events shouldn't be
++ * generated (see below)
++ */
++#define FMODE_NONOTIFY		((__force fmode_t)(1 << 25))
+ 
+-/* File was opened by fanotify and shouldn't generate fanotify events */
+-#define FMODE_NONOTIFY		((__force fmode_t)(1 << 26))
++/*
++ * Together with FMODE_NONOTIFY defines which fsnotify events shouldn't be
++ * generated (see below)
++ */
++#define FMODE_NONOTIFY_PERM	((__force fmode_t)(1 << 26))
+ 
+ /* File is capable of returning -EAGAIN if I/O will block */
+ #define FMODE_NOWAIT		((__force fmode_t)(1 << 27))
+@@ -188,6 +195,32 @@ typedef int (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
+ /* File does not contribute to nr_files count */
+ #define FMODE_NOACCOUNT		((__force fmode_t)(1 << 29))
+ 
++/*
++ * The two FMODE_NONOTIFY* define which fsnotify events should not be generated
++ * for a file. These are the possible values of (f->f_mode &
++ * FMODE_FSNOTIFY_MASK) and their meaning:
++ *
++ * FMODE_NONOTIFY - suppress all (incl. non-permission) events.
++ * FMODE_NONOTIFY_PERM - suppress permission (incl. pre-content) events.
++ * FMODE_NONOTIFY | FMODE_NONOTIFY_PERM - suppress only pre-content events.
++ */
++#define FMODE_FSNOTIFY_MASK \
++	(FMODE_NONOTIFY | FMODE_NONOTIFY_PERM)
++
++#define FMODE_FSNOTIFY_NONE(mode) \
++	((mode & FMODE_FSNOTIFY_MASK) == FMODE_NONOTIFY)
++#ifdef CONFIG_FANOTIFY_ACCESS_PERMISSIONS
++#define FMODE_FSNOTIFY_PERM(mode) \
++	((mode & FMODE_FSNOTIFY_MASK) == 0 || \
++	 (mode & FMODE_FSNOTIFY_MASK) == (FMODE_NONOTIFY | FMODE_NONOTIFY_PERM))
++#define FMODE_FSNOTIFY_HSM(mode) \
++	((mode & FMODE_FSNOTIFY_MASK) == 0)
++#else
++#define FMODE_FSNOTIFY_PERM(mode)	0
++#define FMODE_FSNOTIFY_HSM(mode)	0
++#endif
++
++
+ /*
+  * Attribute flags.  These should be or-ed together to figure out what
+  * has been changed!
+diff --git a/include/linux/fsnotify.h b/include/linux/fsnotify.h
+index 278620e063ab2..8d1849137a96d 100644
+--- a/include/linux/fsnotify.h
++++ b/include/linux/fsnotify.h
+@@ -108,38 +108,35 @@ static inline void fsnotify_dentry(struct dentry *dentry, __u32 mask)
+ 	fsnotify_parent(dentry, mask, dentry, FSNOTIFY_EVENT_DENTRY);
  }
  
- /**
+-static inline int fsnotify_file(struct file *file, __u32 mask)
++static inline int fsnotify_path(const struct path *path, __u32 mask)
+ {
+-	const struct path *path;
++	return fsnotify_parent(path->dentry, mask, path, FSNOTIFY_EVENT_PATH);
++}
+ 
++static inline int fsnotify_file(struct file *file, __u32 mask)
++{
+ 	/*
+ 	 * FMODE_NONOTIFY are fds generated by fanotify itself which should not
+ 	 * generate new events. We also don't want to generate events for
+ 	 * FMODE_PATH fds (involves open & close events) as they are just
+ 	 * handle creation / destruction events and not "real" file events.
+ 	 */
+-	if (file->f_mode & (FMODE_NONOTIFY | FMODE_PATH))
++	if (FMODE_FSNOTIFY_NONE(file->f_mode))
+ 		return 0;
+ 
+-	path = &file->f_path;
+-	/* Permission events require group prio >= FSNOTIFY_PRIO_CONTENT */
+-	if (mask & ALL_FSNOTIFY_PERM_EVENTS &&
+-	    !fsnotify_sb_has_priority_watchers(path->dentry->d_sb,
+-					       FSNOTIFY_PRIO_CONTENT))
+-		return 0;
+-
+-	return fsnotify_parent(path->dentry, mask, path, FSNOTIFY_EVENT_PATH);
++	return fsnotify_path(&file->f_path, mask);
+ }
+ 
+ #ifdef CONFIG_FANOTIFY_ACCESS_PERMISSIONS
++
++void file_set_fsnotify_mode(struct file *file);
++
+ /*
+  * fsnotify_file_area_perm - permission hook before access to file range
+  */
+ static inline int fsnotify_file_area_perm(struct file *file, int perm_mask,
+ 					  const loff_t *ppos, size_t count)
+ {
+-	__u32 fsnotify_mask = FS_ACCESS_PERM;
+-
+ 	/*
+ 	 * filesystem may be modified in the context of permission events
+ 	 * (e.g. by HSM filling a file on access), so sb freeze protection
+@@ -150,7 +147,10 @@ static inline int fsnotify_file_area_perm(struct file *file, int perm_mask,
+ 	if (!(perm_mask & MAY_READ))
+ 		return 0;
+ 
+-	return fsnotify_file(file, fsnotify_mask);
++	if (likely(!FMODE_FSNOTIFY_PERM(file->f_mode)))
++		return 0;
++
++	return fsnotify_path(&file->f_path, FS_ACCESS_PERM);
+ }
+ 
+ /*
+@@ -168,16 +168,23 @@ static inline int fsnotify_open_perm(struct file *file)
+ {
+ 	int ret;
+ 
++	if (likely(!FMODE_FSNOTIFY_PERM(file->f_mode)))
++		return 0;
++
+ 	if (file->f_flags & __FMODE_EXEC) {
+-		ret = fsnotify_file(file, FS_OPEN_EXEC_PERM);
++		ret = fsnotify_path(&file->f_path, FS_OPEN_EXEC_PERM);
+ 		if (ret)
+ 			return ret;
+ 	}
+ 
+-	return fsnotify_file(file, FS_OPEN_PERM);
++	return fsnotify_path(&file->f_path, FS_OPEN_PERM);
+ }
+ 
+ #else
++static inline void file_set_fsnotify_mode(struct file *file)
++{
++}
++
+ static inline int fsnotify_file_area_perm(struct file *file, int perm_mask,
+ 					  const loff_t *ppos, size_t count)
+ {
 -- 
 2.53.0
 
