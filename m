@@ -1,77 +1,120 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6805537C90A;
-	Tue, 11 Aug 2026 13:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8ADF2E1F06;
+	Tue, 11 Aug 2026 13:20:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786454086; cv=none; b=Kqjo52Tljx6ktXT093Nn4fsBixLdbcbJg97Rrv9jCxUW3/d9WMl+KI4vdvNW+VpwB7n7Gd04aGEhd66qPULxYdRjznf2x4MD9q2SsbOZgncVoLXDnKpE+Z483DvF+U71qRqFL5pONhPo1VQsG2teF4fB/4N6lRHMPgU3FB6ibDI=
+	t=1786454450; cv=none; b=Ouw8vvauHApanUZBjygRyhmEg6e+nFSOkY7+np/Sd/bf5gZqrU8HEbIdiavjgo4DR4Nrpoo+psAJ1niK23dHGKYEgd0GXjOZr+lrsvRRnf8Y9POMmMvbHruuOU2DijJ/FJrB+oabkb9LJxXT2HK+m62IonnWzQYKX0rU4QGZ+cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786454086; c=relaxed/simple;
-	bh=x0M2ebb4YGCTw57vP6EAz1gS4hevjwIbdS/kTKIzesU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=sYsE28AbtCibs+EfehIjrA+q+Ut/e/QDKyYEjONG2Voju7SVU2K1Huzibx14TIiDh+i+em7Js6s8ZQveOvuYOls4j+TY0r8qdGsb9I3wH2uSK7b+5ztC5mK3/9duxd1YwTfIxumzmpc7GEIOVwOjmvOYr+ZALFE1MRjlit7QTSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TxsyJp6v; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1786454450; c=relaxed/simple;
+	bh=X7wTZaxrYAAokBPf4nHKY5fuDPypAvFbB1h3EDD04FY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gp/QI+b7VN5aySpl7wTy5uS0ZiwtyDieix8UFbQxYhlwIFVV58E146nheojIw8sDKJOf/FnDSxheYoD4mLs5JOS8I7osV9Hqu/3wUi0kWf7TKXTKhY/VK2UT8XbkGdLfn0CjWujE2TNAxXNwLb/h4WMDHUH/rXZDyloLqUTM6C8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aBmoc1hb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TxsyJp6v"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 7A3A71A1570;
-	Tue, 11 Aug 2026 13:14:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4B0EF6033C;
-	Tue, 11 Aug 2026 13:14:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5489911C48B99;
-	Tue, 11 Aug 2026 15:14:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786454075; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=x0M2ebb4YGCTw57vP6EAz1gS4hevjwIbdS/kTKIzesU=;
-	b=TxsyJp6vpip6ZK2Pwk+FYoiRoecSZpKedunO4WsL9GFo+87sJE32da2w779sqlYoYr0bjS
-	6lxfY2bzYXm79nN8QqlCtRYzffUmGCtf4sVXbVxykg2ljgL8pN4OPGdXqVwXBhdNvWkosM
-	J0UcXIaHvLFEqe8I91e/dIPreK0F6HdlaevWZS/fkMMC5k7cPiBpKEoklcOAPr1VmZutKJ
-	awvnFL0l150nFR6mDgmEI/qE+Rz42tfR3IfwIjLyEpz0MmPiP0SV8/prdU9vRz/ssBHo33
-	s0Awr6+rYqNQY8ZexMNjIxKKrP2JR0CZ5XZY5Ch2DBLq+lh94QH4VeVKFanVJw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Fan Wu <12321260@zju.edu.cn>
-Cc: Fan Wu <fanwu01@zju.edu.cn>,  linux-wpan@vger.kernel.org,  Stefan
- Schmidt <stefan@datenfreihafen.org>,  Alexander Aring
- <alex.aring@gmail.com>,  Varka Bhadram <varkab@cdac.in>,  Andrew Lunn
- <andrew+netdev@lunn.ch>,  "David S . Miller" <davem@davemloft.net>,  Eric
- Dumazet <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>,  Paolo
- Abeni <pabeni@redhat.com>,  netdev@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] ieee802154: cc2520: fix RX tasklet use-after-free
-In-Reply-To: <491F951B-3C7A-45AF-8842-C581A2BA6ED4@zju.edu.cn> (Fan Wu's
-	message of "Tue, 11 Aug 2026 17:48:26 +0800")
-References: <20260811010359.131381-1-fanwu01@zju.edu.cn>
-	<20260811010359.131381-3-fanwu01@zju.edu.cn>
-	<87ik5hoycq.fsf@bootlin.com>
-	<491F951B-3C7A-45AF-8842-C581A2BA6ED4@zju.edu.cn>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 11 Aug 2026 15:14:27 +0200
-Message-ID: <87v79gol3g.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aBmoc1hb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A44D6C2BCF7;
+	Tue, 11 Aug 2026 13:20:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786454449;
+	bh=X7wTZaxrYAAokBPf4nHKY5fuDPypAvFbB1h3EDD04FY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=aBmoc1hbqWnwc59NRd2lbTnPlBZcODucyEDr/B5Q5WhVFKk/ndQLGpahJOErN3cMn
+	 o0GospP2OhzcGni04FsxgLXYsf1B6sL/kk6SW2WawkMNGLfIvw9I/ssgMJf1hH5ugd
+	 /zsaBx1Pnh6eZPG/0139PNvk3NfOHEBzYrAyK0UPczqAJamyfFZLGl2PUijLIKlK3J
+	 lBjXrKox3aU8xidmFXtshst4Ju7+IzvXFqtOANFk41DgIimYFhngHV0qu209ZFIyjH
+	 9+RS0Bxjd8Dt8aAA0RvXNshhI8CA/uDu/at8HlOnQicjY+WeSZ6Ipcx6Hqym8tdy5Q
+	 m/5iIyUl0k4Xw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8168CC5AC67;
+	Tue, 11 Aug 2026 13:20:49 +0000 (UTC)
+From: Fan Ye via B4 Relay <devnull+fy15309206903.gmail.com@kernel.org>
+Date: Tue, 11 Aug 2026 13:20:49 +0000
+Subject: [PATCH net v3 1/2] net: thunderbolt: Release the Rx HopID that was
+ handed out on mismatch
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260811-b4-tbnet-hopid-v3-1-9e75d1b51331@gmail.com>
+References: <20260811-b4-tbnet-hopid-v3-0-9e75d1b51331@gmail.com>
+In-Reply-To: <20260811-b4-tbnet-hopid-v3-0-9e75d1b51331@gmail.com>
+To: Mika Westerberg <westeri@kernel.org>, 
+ Yehezkel Bernat <YehezkelShB@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Fan Ye <fy15309206903@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786454448; l=2078;
+ i=fy15309206903@gmail.com; s=tbnet3; h=from:subject:message-id;
+ bh=lESY9+I3jf4v1krnmOpqlJtStY5pn7YDNxvIAIgBURM=;
+ b=l+k7+Gl4blEYewjBjyTKIRvXUm48/QslNgv9EF7v35WCJDO56STd65s/Go5ugXdYV5puJ/en5
+ qn0F4sPV6vvDEAMEf/OgijEX/otAR7oGAuI1NaXr5C+9f6OOW/VHQk1
+X-Developer-Key: i=fy15309206903@gmail.com; a=ed25519;
+ pk=6QsQIrI/kruYWIJyCH9ntPMXsHCqF5JtK/DCMtOCzdc=
+X-Endpoint-Received: by B4 Relay for fy15309206903@gmail.com/tbnet3 with
+ auth_id=929
+X-Original-From: Fan Ye <fy15309206903@gmail.com>
+Reply-To: fy15309206903@gmail.com
 
-Hi,
+From: Fan Ye <fy15309206903@gmail.com>
 
-On 11/08/2026 at 17:48:26 +08, Fan Wu <12321260@zju.edu.cn> wrote:
+tb_xdomain_alloc_in_hopid() passes the wanted HopID to ida_alloc_range()
+as the lower bound, so a taken id is not an error there: the allocator
+returns the next free one above it. tbnet_connected_work() asks for the
+peer's transmit path, treats any other id as a failure and returns
+without releasing what it got, so that allocation stays live for the rest
+of the XDomain connection with nothing left holding a reference to it.
 
-> You're right. I failed to trace the receive-enable path, please drop patch
-> 2/2. Patch 1/2 is unchanged.
->
-> Sorry for the noise, and thanks for catching this.
+Release the id when it is not the one we asked for, the same way the
+error unwind at the end of the function releases the expected one.
 
-Please send a v4 with a single patch.
+Fixes: 180b0689425c ("thunderbolt: Allow multiple DMA tunnels over a single XDomain connection")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Fan Ye <fy15309206903@gmail.com>
+Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+---
+Reached without fault injection on an ASMedia ASM4242 host-to-host link
+when the peer drops out mid bring-up: 23 times across two hosts in one
+run of interface down/up cycling. Each one ended in the XDomain
+connection being rebuilt, which recreates the ida and disposes of the
+leaked id, so what I am claiming here is the leak, not a symptom.
 
-Thanks,
-Miqu=C3=A8l
+Patch 2/2 edits the lines this one adds and will not apply without it.
+
+v3:
+- Rewrote the commit message; dropped the quoted source and probe output.
+
+v2: https://lore.kernel.org/netdev/20260810-b4-tbnet-hopid-v2-0-0eee557e75df@gmail.com/
+---
+ drivers/net/thunderbolt/main.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/thunderbolt/main.c b/drivers/net/thunderbolt/main.c
+index 98893732bc6e..e5199a87ea7a 100644
+--- a/drivers/net/thunderbolt/main.c
++++ b/drivers/net/thunderbolt/main.c
+@@ -647,6 +647,8 @@ static void tbnet_connected_work(struct work_struct *work)
+ 	ret = tb_xdomain_alloc_in_hopid(net->xd, net->remote_transmit_path);
+ 	if (ret != net->remote_transmit_path) {
+ 		netdev_err(net->dev, "failed to allocate Rx HopID\n");
++		if (ret >= 0)
++			tb_xdomain_release_in_hopid(net->xd, ret);
+ 		return;
+ 	}
+ 
+
+-- 
+2.43.0
+
+
