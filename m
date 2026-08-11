@@ -1,41 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3768030DEBA
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD03445ACE
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786454705; cv=none; b=bNY3rIj+XQIkxZIucwIY3QzbhN9dDJlm6s903ga0UNIkYjypVeSF+5Q1UrMKNlpet3WBvbX+eW5R3+gPfo4FfKldTQiiDhJAQOnXSXE0Kq0NTqGEju1DhJqIKACGeRRiI9nfyPDWXudbdpem32Cph9um3bVFDTbEzKtoRLKNjP4=
+	t=1786455448; cv=none; b=qNPdTx4GDXiYcYNtCsM8GC37hy/FioR84nC4FSrctz8SmlA2TTxslrfyKFdc0wNL8hI9nW3y3Fv/Ab07hs8W2huXPEwcBtDuLQM/UEzUyeP7bWnhuMB6PXs2a0z116SDbFdPtF3AOJuysOiahWkz6K+fWm8gmBtxpHRPKQuB944=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786454705; c=relaxed/simple;
-	bh=0PsAe3zXNkpGRytx3fN50js3GjA9NXfOGzNwvwichVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cu9IgsAy1W0vkQI4HbrjMJTjLVWXnRMbhdNR6lMv7ea8VFOxUUVkiQowyzKpRWz4GpyEARWOKq9ozM8eprVUARcX9WHW9w7GSfYmf3EmSekRKJCuOm9GsH90bGp3aU8tEzoAPsHvhDK9fiyZK0KLwm5vdIzD9aVfcSEtvtCl86g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJnCN+Ii; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786455448; c=relaxed/simple;
+	bh=IAOvDtGnQNoiVyuA9NXEv1/6YstVUHQq1mMWJ7zVRho=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qv4HIPIEIZdZy54pY0TUYEfxITSf7mBNE/HZeChZ3goiMzZa8u1LzklUuCYYmi+dvijoJVgoB0Awu6nRpZ1sonF1DzRl0XRk6vrtxWJD/7jmV2ni2aYiYq6SGMXjeqpFAcJ7VO78ezOfCtUFaOEaSFCZbmo9q9L6iRfOPHdrlqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YJt6DZ+2; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJnCN+Ii"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1760F1F000E9;
-	Tue, 11 Aug 2026 13:25:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786454703;
-	bh=FOzrysghneOEwOZdZE8aNsFh+m88DY+5/U7ydBZMHCQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nJnCN+IiosQ2F7GKdrHbum2shHIXP/ZYO8Tv306xoEqbT+QiBRjSLBDyX23AmeVj7
-	 /mjXqaPZdhtYuZeyltTANp1ILiIfVgi/cOsF8R3maa41pLxru2/GGk1PikJKVps9Vl
-	 cNSp58UnsPvQNXih9CpyP4yQaF1Qjct8AsmoG88RicHVdsNEsbe4mTWr+DIFp/BPEh
-	 5q8oxq9+J1bp0WhVwMt2/inqxcZ3s9ShOeV884y6y1dArXMatH7qxO8iqwb+0BpB+W
-	 wa+R//EJuulvvkXCYdzu9/MO1vbsvbN/F9A7ORBnPDM8fwmJYPeFP8JaYoMhllmirT
-	 I2Zy9rj2wSvBA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] binfmt_misc: don't leak the user namespace when the mount fails
-Date: Tue, 11 Aug 2026 09:25:01 -0400
-Message-ID: <20260811132501.2570009-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YJt6DZ+2"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cf52d15d88so27783675ad.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 06:37:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786455428; x=1787060228; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kF2VF2U/hL6reW1X2jhuzR2siNy4Ft7Ohusar6d2kSg=;
+        b=YJt6DZ+2rFEIfuUxwMJN4bcziWX/WgdDcZyRAqxfxhb4LKjj4Uer1wBUdcoZyVUfVe
+         MeE+iktBR7IV1X34LnoPUXSnldu5B6H0My87TngxuBCEoqAGiLUneU3urgKP8SmsuySX
+         eTPIngMCXo31sDQD6D3MWLBFphFWXJOMUVWTeoeWYCoVzLcc2fSyxaXY814cuH/wM0hQ
+         3h9/KO/IwMAo78hNJiH7QEhrcpWS+MaDYRKu5vPKIr9u+ENLoV547Z0ve8YCHO5dfhxj
+         6wIyuwpglUo9xQ889GQKed84+Q63lr4btOxoOW3Vkt9MK3NrfbAS4rar4MHkMRVd64he
+         VTng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786455428; x=1787060228;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kF2VF2U/hL6reW1X2jhuzR2siNy4Ft7Ohusar6d2kSg=;
+        b=c3l7/fdQ/mjkSU+SDAQqs8js7KLHmH7+P4g5Yt0ucFwucFB7ssgGXbHNtFqXeVoIaN
+         8lqZz4T1HWoIOVM4dGKqlY3QB8NueqJSfkb4TM9k2vHIu1E+jPlZMUsySR4OauF8BN6q
+         6+0l0GxpUV1G8qVCswHIV0wBUTnmIonYPWZM/Bsm4o8X151LWs6n1Y52nIRnxIr4Ao6R
+         gZsf7C7ixibWvftFJj+lysYLIqvlSSF0sYKrWu9yLLHlrgHaNGXKlv8RFZtYvd3dJduc
+         Hg5y0aJGISwEN/upi13TO0Oerr2l31DxSWkKU/VXMOi21xJ2sthzLRLs7UuMlroyDbXI
+         vk+A==
+X-Forwarded-Encrypted: i=1; AHgh+RpRN9jgWCYrMkrM+rIIE7eIU+wrlAXVr0SG0/ororaG51i0T3U5a98fdAWr711Rpq22WQWQ6ME=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgtwXGaFdhwKZ3xuGUxQm1oCZBop2k2QUtcneq2Wi/56Lhi7Zp
+	uX6xCD45yXKSUEg6Dj5H7xrlZIq3mBXzDLfgewKW/lYERgVbKI1bjHCg
+X-Gm-Gg: AR+sD11NPJVIXJXVHdJsM9xk+UGJr3YbJldlxqUuxLIYLsEcV8bxpQd3Cv4kMLpUvEX
+	5n+I/BRELG0lS9edxGaLyercxDJkIirANj6Ong30Ke9bzfWE0U035XO5JUuLxufuCDsMl7JGIXo
+	Fq06ogy+sPjCFyQjwOspFpcRjOCDGXEkJnAhNwsdHzhzXZ7psvCZNcobWJOHGiGu8UrfAjQmaH6
+	+w3QdPW27+Cw57Sop+WNQUgRvH6m5jkCBiD6GyWpm4kwLJccnL75sjt2ppomIx2YvAeVEyaATy+
+	yE/KF6Vi6OyBkMwtRPbPdf6LgG4Tt9PRsJlszzjhj13vtB3A4Md2+VKoFU+oDn1AooIk9cYlASs
+	xV6UY0RNqQc7G461pfWqyXAQZkBrWtrlv3Q7YR3G014qlQ0zKeqaFfL56LkLyk3xjFkHemmNFug
+	mTxjOuR5Fhtos9ARJZpxLQg9abCGkNOj1ZbpDsF4+q1SrIcz66mau7r14aweFdr/ZjILonOScc
+X-Received: by 2002:a17:902:ea0d:b0:2cc:aa36:c04c with SMTP id d9443c01a7336-2d317785a86mr39329385ad.1.1786455427722;
+        Tue, 11 Aug 2026 06:37:07 -0700 (PDT)
+Received: from localhost.localdomain ([49.79.111.198])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3160ce732sm8179385ad.38.2026.08.11.06.37.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 06:37:06 -0700 (PDT)
+From: Vernon Yang <vernon2gm@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org
+Cc: nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	zokeefe@google.com,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Vernon Yang <yanglincheng@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm: khugepaged: don't pass swap entry value to trace_mm_khugepaged_scan_file()
+Date: Tue, 11 Aug 2026 21:36:55 +0800
+Message-ID: <20260811133655.267739-1-vernon2gm@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080521-kissing-decree-6a90@gregkh>
-References: <2026080521-kissing-decree-6a90@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,121 +83,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-[ Upstream commit b8206f516fe7cbe785cf44bf09c17c438d7c3cad ]
+When the swap entries found exceed max_ptes_swap, the loop is left via
+break with folio still holding the xarray value that encodes the swap
+entry, not valid folio pointer.
 
-bm_get_tree() takes a reference to the user namespace and hands it to
-get_tree_keyed() as the sget key. sget_fc() moves that reference into
-sb->s_fs_info and clears fc->s_fs_info, so from that point on the
-superblock owns it and bm_free() doesn't see it anymore.
+That value is passed to trace_mm_khugepaged_scan_file(), which feeds it
+to folio_pfn(). On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is
+plain pointer arithmetic, so the trace event merely prints bogus
+scan_pfn. On classic SPARSEMEM, the page_to_pfn() reads page->flags,
+dereferencing the tiny encoded integer and oopsing khugepaged whenever
+the trace event is enabled.
 
-The superblock drops it in ->put_super(). But generic_shutdown_super()
-only calls ->put_super() from inside the if (sb->s_root) branch, so
-nothing releases it when bm_fill_super() fails:
+So set folio to NULL before breaking out, the tracepoint maps NULL to
+scan_pfn of -1, just like exhausted scan naturally.
 
-- The kzalloc_obj() failure leaves s_root NULL and the whole branch is
-  skipped.
-
-- A simple_fill_super() failure in the file loop leaves s_root set, but
-  s_op still points at simple_super_operations, which has no
-  ->put_super(). bm_fill_super() installs s_ops only once
-  simple_fill_super() returned success, and installing it earlier
-  wouldn't help either because simple_fill_super() overwrites s_op.
-
-Either way vfs_get_super() calls deactivate_locked_super() and the
-reference is gone for good. binfmt_misc mounts are available in a user
-namespace and both the inode and the dentry cache are SLAB_ACCOUNT, so
-an unprivileged caller under a tight memory cgroup can fail
-simple_fill_super() on demand and leak one user namespace per attempt.
-
-Drop the reference in ->kill_sb() instead, which runs unconditionally,
-the same way nfsd and rpc_pipefs release their keyed s_fs_info.
-
-That also stops ->put_super() from clearing s_fs_info while the
-superblock is still on @fs_supers. generic_shutdown_super() leaves it
-there on purpose so that sget_fc() keeps finding it until kill_sb() has
-run, but a NULL s_fs_info makes test_keyed_super() miss it, so a
-concurrent mount for the same user namespace skips the grab_super()
-wait and creates a second superblock for a namespace that is still
-being torn down.
-
-Link: https://patch.msgid.link/20260728-work-binfmt_misc-usernsleak-v1-1-dbd8d5e626e7@kernel.org
-Fixes: 21ca59b365c0 ("binfmt_misc: enable sandboxed mounts")
+Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
 ---
- fs/binfmt_misc.c | 32 +++++++++++++++-----------------
- 1 file changed, 15 insertions(+), 17 deletions(-)
+ mm/khugepaged.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
-index f85ee577c34d6..9ef7311d1c110 100644
---- a/fs/binfmt_misc.c
-+++ b/fs/binfmt_misc.c
-@@ -958,18 +958,9 @@ static const struct file_operations bm_status_operations = {
- 
- /* Superblock handling */
- 
--static void bm_put_super(struct super_block *sb)
--{
--	struct user_namespace *user_ns = sb->s_fs_info;
--
--	sb->s_fs_info = NULL;
--	put_user_ns(user_ns);
--}
--
- static const struct super_operations s_ops = {
- 	.statfs		= simple_statfs,
- 	.evict_inode	= bm_evict_inode,
--	.put_super	= bm_put_super,
- };
- 
- static int bm_fill_super(struct super_block *sb, struct fs_context *fc)
-@@ -1027,13 +1018,12 @@ static int bm_fill_super(struct super_block *sb, struct fs_context *fc)
- 	/*
- 	 * When the binfmt_misc superblock for this userns is shutdown
- 	 * ->enabled might have been set to false and we don't reinitialize
--	 * ->enabled again in put_super() as someone might already be mounting
--	 * binfmt_misc again. It also would be pointless since by the time
--	 * ->put_super() is called we know that the binary type list for this
--	 * bintfmt_misc mount is empty making load_misc_binary() return
--	 * -ENOEXEC independent of whether ->enabled is true. Instead, if
--	 * someone mounts binfmt_misc for the first time or again we simply
--	 * reset ->enabled to true.
-+	 * ->enabled again during shutdown as someone might already be mounting
-+	 * binfmt_misc again. It also would be pointless since by then we know
-+	 * that the binary type list for this binfmt_misc mount is empty making
-+	 * load_misc_binary() return -ENOEXEC independent of whether ->enabled
-+	 * is true. Instead, if someone mounts binfmt_misc for the first time or
-+	 * again we simply reset ->enabled to true.
- 	 */
- 	misc->enabled = true;
- 
-@@ -1059,6 +1049,14 @@ static const struct fs_context_operations bm_context_ops = {
- 	.get_tree	= bm_get_tree,
- };
- 
-+static void bm_kill_sb(struct super_block *sb)
-+{
-+	struct user_namespace *user_ns = sb->s_fs_info;
-+
-+	kill_litter_super(sb);
-+	put_user_ns(user_ns);
-+}
-+
- static int bm_init_fs_context(struct fs_context *fc)
- {
- 	fc->ops = &bm_context_ops;
-@@ -1075,7 +1073,7 @@ static struct file_system_type bm_fs_type = {
- 	.name		= "binfmt_misc",
- 	.init_fs_context = bm_init_fs_context,
- 	.fs_flags	= FS_USERNS_MOUNT,
--	.kill_sb	= kill_litter_super,
-+	.kill_sb	= bm_kill_sb,
- };
- MODULE_ALIAS_FS("binfmt_misc");
- 
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 617bca76db49..bc0d04c9162d 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2696,6 +2696,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 		if (xa_is_value(folio)) {
+ 			swap += 1 << xas_get_order(&xas);
+ 			if (swap > max_ptes_swap) {
++				folio = NULL;
+ 				result = SCAN_EXCEED_SWAP_PTE;
+ 				count_vm_event(THP_SCAN_EXCEED_SWAP_PTE);
+ 				break;
+
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
 -- 
 2.53.0
 
