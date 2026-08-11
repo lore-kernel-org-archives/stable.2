@@ -1,104 +1,78 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D83041A565
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 08:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C8941CB26;
+	Tue, 11 Aug 2026 08:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786437624; cv=none; b=G6q6bQhjwZQHclXwmU9GYcJH9ZE9ksied+fW7T3YlUjFMqdBdss8Js8aUljJMtB2uun6LwNZChokie7/mc0l551ax9P/HXcDkLYQTLYzUYSbYrdLIeei35Ld9yyXaLxM3OZWVn3ZnxOvt7CfkN9XYcG++i6hf87qyHEd3cYT9es=
+	t=1786437688; cv=none; b=aclhP1qZHHknGuhHh4v47hIAWZnZgrau4CWKh4RP4uGgjsGkC2NVIu3qiMdGVbT/FJ9fT1Z+8cCNrQCZXZR5e7/D5XdB8KCR2lueRALvV5Oy9ATbjoGiDWJIPDPnH+lM5ZwMAvwszqdOJqDKdEZXUABK6x51BTfgUZ4Nr2aU4vM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786437624; c=relaxed/simple;
-	bh=0v+cbzWnRAjA6ojEnzjct5jVn+xaEqlkAJcHpwhAehU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cIkvBlpXKXuuAnvxDIhyUoGjAbDVT5hTb7Bql2/ySTZRyLBE4ZkilYqJnw74nqU4Uokcfjy0Z3S+JOCQ9PPSh+C/6z96Y2bbmQOAikqVRJQCT0xkobY5JLhwFSfvrbu9iJSpJSQjV1ZlD2yruc2fbhGMZjvdhrbTd4gz7s6wKOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NrydZMMu; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786437688; c=relaxed/simple;
+	bh=K8CQXiaoy6hLSyxUxpOtM0c7wWb31hYP1OPqlVQpamc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=OEiiI7so7AcZTEd36L9Mo9vdJBGp14X8K8RqqoOXU+DH72M5SgpbmzGpKcTe8EUp2EtF7r3kDmaWmaNqayRB5nlzsuYEnu/d0vIeGst67akTy21A3zwFULc16vV+PSPoIj9WiLpj6rV2nclMQo/nJEPKesrnPaDkbK7NHFptQig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=XMQ2e7Hg; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NrydZMMu"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4798bea72f9so1618534f8f.1
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 01:40:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786437621; x=1787042421; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JQrvHx8cRmWpupSwg8UgPnESCrLlQxGAZWKrSs5aESA=;
-        b=NrydZMMuUcq8SXYadr3Fo6AvZ3W5btAmD475fvywDWXWcVuFwXfNAYev5ayivV7gth
-         lz2uGUJpTSJZvvj8n2KFSA19mBHdlFXbZh1PGFiWnFSbnB7P0xksYPzWsy1eU0ZbZ90u
-         ROOnaZlmQ2LrGenwJ9dfUCnA1miOVR2Q4lbPxtUBsYzS4FzRvCBlczZnvau0TwMjnYgh
-         Bpo9gjkdkXZYiIRCq8giJIpOk+XWEZ9LQtBnxf/UUPeLG/gEE6kbTxtoGM9jsvA6pear
-         KPebkQAD76YdNt0jhXyPlmNokkFl+Mv7OCnJc/Q8SLyJywl9nf2M3HowMZCPLjzndWJE
-         5YcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786437621; x=1787042421;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JQrvHx8cRmWpupSwg8UgPnESCrLlQxGAZWKrSs5aESA=;
-        b=TC54W7/5aof5/4ssBF2Afd3dArfWFqO8vO3pywZqnv8kgKYweYGX5MIcE0oNawWY9G
-         1DTDeDQi2jvGxTa1mYzwLA+DO6+aIhVUhet/0NOdB3+ehvYyqS91Fqu9zYh4vpKBJP0k
-         wrpY8Hz2jS4YguQTIRzz+KkLLV7m61rSbKFqyYMYOBr9rC1UR/P+IAEASHiHoBVtqRyY
-         1wap/2KC8BJv9V7Sy04G8DWc4Czu2CzFVmUkk9a6w8/X06/RXW++K/9kS51t2fy5Dt0H
-         mwSzrKvKxWXJGM28N0Iy1nmPJl/5u84j0fOFw8Gjp6tChf21KTsQzdqmLYB5QfOw528x
-         D5ig==
-X-Gm-Message-State: AOJu0YwvpzXRBzPdeEBtM81RKBCZPEBWh/GtAPgg+b3I7VOcWX34PW/W
-	CLmlP0r2SU7MFEl6vWPONiPgUPiPH4CnlvnvTLpjqwutLfp1I6Z2s9dPSsb6y5HQ
-X-Gm-Gg: AR+sD12qg1nToNWL6Xtw9WjBvKDrHRqN6Y2bsB/xsmG7o1TC+uD8QTTg+gMovYMBBHv
-	eYdb/6pEJGqeS/muTwXnTI5GKes5rUTfYlaurqFISSK4fc5PQ+l+E/j/cLcBUvP5N0U+/1fqpKQ
-	0SWEzG5bWAXvDzS+3r4Ssq2ZdZYwKYdAafyC3fJOF7fF6A2gb/7r5gAHefrk6r8gql/CetIvuKH
-	XdS3kFwk4gAbecPCdRTcOJgXdpk/kEIPGnZ/88hDKvHDCdaHgsz95uYvu0Cw/LQmmtO8WqheIRy
-	M/+D2rj+SSBK8iZGAvIpGactw4/uMM+KmnYLKnWSzu0Z8VpVUVZQTsWyVuoC+0rxzH6J4Diybp+
-	GdxBSN+H0vS4mRvmtQTkZ1YTq0zlxfLu4UEN31coJto1pKY9JV07sgU04T38L1dlN5WbDNnV7Ih
-	HQDrVYgG3wsCm29kK4fSl+uW2Ss2Fa3d+SFkIERr1mkmLWYnUO1AnCvjJu5+k+0HcjVW9l
-X-Received: by 2002:a05:6000:29cf:b0:47f:f908:ba7b with SMTP id ffacd0b85a97d-4814addb4b7mr1946548f8f.23.1786437620646;
-        Tue, 11 Aug 2026 01:40:20 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4814a5ac70dsm3233679f8f.5.2026.08.11.01.40.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 01:40:19 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Larisa Grigore <larisa.grigore@nxp.com>,
-	James Clark <james.clark@linaro.org>,
-	Mark Brown <broonie@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.12.y] spi: spi-fsl-dspi: Avoid setup_accel logic for DMA transfers
-Date: Tue, 11 Aug 2026 10:40:18 +0200
-Message-ID: <20260811084018.3566861-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260810141437.2805389-1-mehmet.fide@gmail.com>
-References: <20260810141437.2805389-1-mehmet.fide@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="XMQ2e7Hg"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 7D4EC1A1566;
+	Tue, 11 Aug 2026 08:41:24 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 50ABF6033C;
+	Tue, 11 Aug 2026 08:41:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 491A911C4BC20;
+	Tue, 11 Aug 2026 10:41:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1786437679; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=K8CQXiaoy6hLSyxUxpOtM0c7wWb31hYP1OPqlVQpamc=;
+	b=XMQ2e7Hg8w9fjjP5cPcO8OW5pB2Fa3m32YWueklimYSxQkKLr5+d7+dXolHRzb1X1qAlO6
+	oSi7drTvzBzwFqA9ps7BEpkFw49sB0HIIhgncUdhNg0SLITlJ26kyqH33r9hm8e9pIta3M
+	apm7XdR4Plp/7rCxvpYLNxZpkyN7k9RMAWV30V0e2iIK/DHfaLSMHT8FazbUw5YDD7+q2X
+	KqFPlC20Y6VSWGILZmQyJrQpAnGrPOmIfUkydgiJXxn8ipDBdNMcg2PLhxesAL2RQ9a8Eu
+	GoDc62gCuY1yJEGuIuI4eKkqpeD+aZ7dda9BEqFUwKdC3SYNKJ5cHaHLyoptjw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,  Pratyush Yadav
+ <pratyush@kernel.org>,  Michael Walle <mwalle@kernel.org>,  Richard
+ Weinberger <richard@nod.at>,  Vignesh Raghavendra <vigneshr@ti.com>,
+  linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org,  jianhao.xu@seu.edu.cn
+Subject: Re: [PATCH v3] mtd: spi-nor: use guard() in
+ spi_nor_rww_start_exclusive
+In-Reply-To: <20260811083111.403453-1-runyu.xiao@seu.edu.cn> (Runyu Xiao's
+	message of "Tue, 11 Aug 2026 16:31:11 +0800")
+References: <20260811041349.333176-1-runyu.xiao@seu.edu.cn>
+	<20260811083111.403453-1-runyu.xiao@seu.edu.cn>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 11 Aug 2026 10:41:15 +0200
+Message-ID: <877blxoxqs.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-Some measurements on the hardware, in case they help decide this one.
+On 11/08/2026 at 16:31:11 +08, Runyu Xiao <runyu.xiao@seu.edu.cn> wrote:
 
-I ran the transfers that fail on 6.12 against 6.18.44, which carries
-cac7e5054115, on the same board (Colibri VF50, vf610, DSPI in DMA mode) with
-MOSI and MISO shorted at the connector, using spidev_test:
+> Commit 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup
+> helpers") converted the RWW start helpers to scoped mutex cleanup, but
+> left spi_nor_rww_start_exclusive() using a plain mutex_lock().
+>
+> spi_nor_rww_start_exclusive() is used as a wait_event_killable()
+> condition. When it returns false on the busy path, the raw mutex_lock()
+> leaves nor->lock held and blocks the operation that must clear the RWW
+> state in spi_nor_rww_end_exclusive().
+>
+> Use guard(mutex) here as well so this helper matches the other RWW
+> start helpers and releases nor->lock on the false return path.
+>
+> Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-  3, 5, 7, 9, 11 and 13 byte transfers: every byte comes back, in order.
-  Even lengths and a single byte: fine as well.
-  SPI_LSB_FIRST at 2, 3, 5, 8 and 13 bytes: bytes come back unchanged.
-
-Without the commit, the same odd length transfers lose the tail of the buffer,
-because the accel path packs into 16 bit frames and computes the word count as
-len / 2, and SPI_LSB_FIRST comes back byte swapped, because the accel helpers
-byte swap through cpu_to_be16() on top of the hardware LSBFE bit. That is what
-we have been carrying a local equivalent for.
-
-So the commit is what makes those transfers correct on this hardware, not just
-a saving of pointless repacking.
-
-Thanks,
-Mehmet
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
