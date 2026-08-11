@@ -1,111 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19D91E9919;
-	Tue, 11 Aug 2026 00:03:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EF71DA57;
+	Tue, 11 Aug 2026 00:05:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786406628; cv=none; b=eMohvY0kVtVwHARlL3vvGjNfEK3ga7Mt2lW1KA+MzJ8tsKmgeZZWOzwKrDkRKUyi0gizHnzNxPwxKHx8KnWtJ0RrYllonyIqVCcrALTu0YPTv6fksBObF+VJu/DgzaiCpEPdJ8CiXI38EM70P1ZMjjMrS8v4YMUuqlb5raDD8w4=
+	t=1786406737; cv=none; b=poGqNpY6T0vVcUMapp8POx02Bk3gfKpvD42en22iDzRZ064otx664g/WXvaUMBV0vsBfKZhQMSM/iAzQBaqRSCcJgjXAihxQ/1i/WOrT5XeqP9415EAiO5PkgmUdyxGIPoCZxWvR7tikkrbIpVoZRpu9q+YHnMJopdnS9aO20ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786406628; c=relaxed/simple;
-	bh=/P9QHm2zHqotMSSe2iZuuUACd1GyWWvR5GnC/hFwLpU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b2zDbwBX7GEf2SXKqrecoWcqMoutoqLW9NTrh3Sduc5kBtJq5QeUvUeCeZ7YjSxKjLCDNGT/kOzf5Pfmrn4ULR9IAU8GXZw+dhO+p5DLVZjmvDj9sxN1+8CiuXOtwWr/LZyYDCg9oJiUeOU9/qvkBrZRJttK3vyLckXqeUMNAOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AdpWzzYs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786406737; c=relaxed/simple;
+	bh=mtlFkZXOgvlFgU20ul9QcWd0YromSwc9Rwo65qNo7QU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TdtJgW7FoxhrDbw0jF3ZIHEvZSIqacU89ycwkovdrNek9PU3EYYeH+gxie75jeDzI4w3udu3hZMvrTk4gKWeAZ8Yk5CrEO8yatBn9vybxlG6SwhSlgvHLi/0NlW+YEJ/eGu19kNrDa7KZfF8iJMU8adoUNtGZw1Z4GLUK43dhRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7IyNJol; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AdpWzzYs"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2EF3A1F000E9;
-	Tue, 11 Aug 2026 00:03:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7IyNJol"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D4E1F000E9;
+	Tue, 11 Aug 2026 00:05:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786406621;
-	bh=mtkm9rvDeXZtH8T6a3Zip6v46uf5BfM9kAQfKxkAkfA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AdpWzzYszYIHkD4M/HyZOvoFXbjQw2VKhMGjZezswGolK23+xVO8IAPvJ7orsaLrR
-	 eGiIgv2FDAUuHW9pfZ4qMmGQmuYA5aqE3vOhGg8CthItizILNBG/OyReAz2LPRqdmj
-	 z52EA0TlqZ3pckqwpphzOEdG40sZ/vinSn3kTcIAmcMGTYHPqQ6dZsGUh9AN3iiG/E
-	 8bM8cAIHE1W1qA/FwdT/9P/Zg04d4CANyU9SFV8Uwe6Fy+1dYKefGRbZ24c+wd2S8/
-	 N8NsCmeYuWBeBOe95Tovle5Y5pArn+SPWmkpFhFm6EignfYy/QO+JcDSX3RQmkAsvM
-	 YUoH5iEkMTzTA==
-Date: Tue, 11 Aug 2026 03:03:37 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Thomas Fourier <fourier.thomas@gmail.com>
-Cc: stable@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jerry Snitselaar <jsnitsel@redhat.com>,
-	"open list:TPM DEVICE DRIVER" <linux-integrity@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] tpm: Fix barriers to prevent hwrng from activating
- during resume
-Message-ID: <anpm2fdZEwOlnMwv@kernel.org>
-References: <20260803092240.18348-2-fourier.thomas@gmail.com>
+	s=k20260515; t=1786406735;
+	bh=g1yQ1SxpkFUbcmiW/9+YKu69AfUhUSLNoY+6tBIS1VM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=R7IyNJolQYBpL7XteNnjOz+ze5AXWRu9cXq6E9ZbVgl02SAJWd0RhGzwEDIgq/9MY
+	 soRGWNDm5stgRN6YD9hgK9iTcRBhT9LjJg7hO5UvQ3B5g0mmT9U9BPxyiccc0fn/zQ
+	 MdFNOXppxEfDNQQxOIrKmdCnkxGJrrznelFZ1ivzSyhuiawlbVj58y+QbICJTHADM+
+	 7Oyy03XOEPSPnk+aUZ4oiKlklB8SsuLJZxhH5QNV4qqzSoIle82SK9x/gsQAJ7ZczU
+	 aRy/fc/fg30JvrgZbDeJvgtckHCMbx0ZWcXu7lif0mACi0mvYjAFD8g9Sg00WIVAkT
+	 GK5WVTeWLyOzA==
+Date: Mon, 10 Aug 2026 17:05:33 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, vega@nebusec.ai, Victor
+ Nogueira <victor@mojatatu.com>, Quentin Monnet <qmo@kernel.org>, Simon
+ Horman <horms@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Alexei
+ Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, Eduard
+ Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, John Fastabend
+ <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Song Liu
+ <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
+ <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Jiri Pirko
+ <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, bpf@vger.kernel.org
+Subject: Re: [PATCH net] net/sched: cls_bpf: reject dev-bound programs bound
+ to a different device
+Message-ID: <20260810170533.5bdc7f80@kernel.org>
+In-Reply-To: <20260809094418.901607-1-jhs@mojatatu.com>
+References: <20260809094418.901607-1-jhs@mojatatu.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260803092240.18348-2-fourier.thomas@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 03, 2026 at 11:13:24AM +0200, Thomas Fourier wrote:
-> The memory barrier is placed after clearing the suspened flag so
-> memory reordering between the wake up and clearing the flag is allowed.
-> The reader of the flag is missing the corresponding barrier.
+On Sun,  9 Aug 2026 05:44:18 -0400 Jamal Hadi Salim wrote:
+> cls_bpf_prog_from_efd() obtained a SCHED_CLS program via
+> bpf_prog_get_type_dev() but never verified that a device-bound (offloaded)
+> program's bound netdev matches the TC netdev the classifier is being
+> attached to. This let a program loaded with prog_ifindex for device A be
+> attached via cls_bpf + skip_sw to device B; deleting device A then
+> destroyed the program's offload state while it was still attached to
+> device B, triggering a netdevsim WARN (panic with panic_on_warn=1).
+
+maybe netdevsim has a bug then. 
+
+> Mirror the XDP attach path (net/core/dev.c) and reject the attach with
+> -EINVAL when a dev-bound program's bound device does not match the
+> target device.
 > 
-> Clear the flag after the memory barrier and add a memory barrier in
-> the reader.
-> 
-> Fixes: 99d464506255 ("tpm: Prevent hwrng from activating during resume")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
-> ---
+> Fixes: 6c8dfe21c435 ("cls_bpf: allow attaching programs loaded for specific device")
 
-I tagged this too quickly, sorry, let's revisit the patch a bit
-just to make sure that we do right things right.
+This commit in itself is fine, nfp checks that the offload matches:
+https://elixir.bootlin.com/linux/v7.2-rc5/source/drivers/net/ethernet/netronome/nfp/bpf/offload.c#L579
 
->  drivers/char/tpm/tpm-chip.c      | 3 +++
->  drivers/char/tpm/tpm-interface.c | 3 +--
->  2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/char/tpm/tpm-chip.c b/drivers/char/tpm/tpm-chip.c
-> index 12b7394b34bd..7f500797b7a7 100644
-> --- a/drivers/char/tpm/tpm-chip.c
-> +++ b/drivers/char/tpm/tpm-chip.c
-> @@ -173,6 +173,9 @@ int tpm_try_get_ops(struct tpm_chip *chip)
->  	if (chip->flags & TPM_CHIP_FLAG_SUSPENDED)
->  		goto out_lock;
->  
-> +	/* Ensure that device is fully resumed */
-> +	rmb();
-> +
->  	rc = tpm_chip_start(chip);
->  	if (rc)
->  		goto out_lock;
-> diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
-> index f745a098908b..2de12b02f62b 100644
-> --- a/drivers/char/tpm/tpm-interface.c
-> +++ b/drivers/char/tpm/tpm-interface.c
-> @@ -474,13 +474,12 @@ int tpm_pm_resume(struct device *dev)
->  	if (chip == NULL)
->  		return -ENODEV;
->  
-> -	chip->flags &= ~TPM_CHIP_FLAG_SUSPENDED;
-> -
->  	/*
->  	 * Guarantee that SUSPENDED is written last, so that hwrng does not
->  	 * activate before the chip has been fully resumed.
->  	 */
->  	wmb();
-> +	chip->flags &= ~TPM_CHIP_FLAG_SUSPENDED;
-
-Can you rationalize this change?
-
->  
->  	return 0;
->  }
-> -- 
-> 2.43.0
-> 
-
-BR, Jarkko
+Maybe the bound-devs got extended for JIT / descriptor access, and
+that added some extra risk here. So either this is netdevsim-only
+(and not worth the Fixes tag), or the Fixes tag is wrong..
