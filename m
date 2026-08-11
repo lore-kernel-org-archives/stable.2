@@ -1,224 +1,184 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A0E3403E1
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 20:17:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0ED43403E1;
+	Tue, 11 Aug 2026 20:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786479462; cv=none; b=Vt2JlltCGp0TKgzMKBHezhzmOaUCSRjtLabuKZKQG6jP+HHLCp17nSG8bFpkU3H/sbGZVBLvxAaPf+H84+dJ4Vp/SMQAHNlL8DOkTnjMezA/KhdZHnRt1yWJFvh2jVgzCsdLytGRQUlYh7AmNo+kyz0bzdDSYRar8QlS4qdJXaI=
+	t=1786479586; cv=none; b=KRg9DptRkVOR6QKl8UbIYkl0oiSNURUM3mGVrSCIe2Fc+nT/AnZkUIJS9YYaVs3/yDovlnK7Ey9Uju89+6xT3tXvHCwX6F7hbiDIYNdNK+Woph8NwUnBGciBGO5GiltTLyqUL/DOC1qHMwtukKm1/5F9eqy7/nk2o9EROGQDaiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786479462; c=relaxed/simple;
-	bh=CxuJvJ01gHjMm2lULljvuFNSSg/5K+gI13xz4M0L/yA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lJpll5yoNrByLoL+c8dQ49pJujQ3Fn6AT4/kG+Wcs1mzTkG44V0goSro8UWTcAhrJZutOvtF1JauA690o2OiqjQ51ps6K+JQllt2MYqEjTsF6WkaZgSMgIIXYD8wC2JUmQkNKAEy/CkRE6nkMBOwajOlxncpT7wA/qo/tceLpV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aG8k1U1f; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786479586; c=relaxed/simple;
+	bh=OlrLX0jxwpvycrWXtEwq1aiJUOF2m0izVrhEh5b7YbA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MXr8iPcjqTi3MXNIsa3l698lGUxZvN+bDBcBnIqBgOjxtKDhUBFRkn8ei2YkCc64WdwHPLfU2kVWPZ0FuC2rPYByVuk+LNj8qyiBnIiajrhBuJQQbB50g3BbTwULJXONXAeVGbmhw+aRFE8P+GR0yIqjr/WhkVm1rYmKnG5yf/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=C6xQnCLg; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aG8k1U1f"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so167673a91.0
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:17:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786479461; x=1787084261; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BKM2tGwtzp4e6RueqUAs7VBHsTzEw1WbCk0gGA1/KvM=;
-        b=aG8k1U1f3cNz2pYSfW+Q4NAYf2gamxBz0hyD3AYJ8QwlilZy3bGn7eUjyb9eq83s6O
-         TNohIGGeS7ezqYoa31j/4u5/fZlZUF7yo5Kt+8gZaXtKzPFSw4O2REuFEiMg5K7eLu1F
-         35XxmLh2pvJmTYuQNKV6GUR5YLJCylQTHiSsu2vMS8W44NuhJgp315+5S8d9xuiFx8Gi
-         xaJq63jvATZW9Ud11igPqO60VDBmag6VvyH+V4XDKXZYB/SoySoQ4PK4n76k/CzDgFTn
-         /CUsEFWSRfHkxss4Dej0kmvMQEFW0I1Ei980yoZ2eWUmv59nJkzRlOc+QvTsuET7EgN6
-         LCGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786479461; x=1787084261;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BKM2tGwtzp4e6RueqUAs7VBHsTzEw1WbCk0gGA1/KvM=;
-        b=GgtEruS0xbbqHvr420Gu+68hoqJl7Ri3Kg13jLFkCrYqFFxv7wuXAzU068Vt70uO7C
-         FgcjiNcjV775Wq0tppeRA2677aNyeOp8BxPBDdrRzTwn6ZEhYcLWmzVTXqORNptpNYnc
-         ivbvypu+ETK5L1ttRH8HdkwfBk3SqyzSAgB0mP4crnbtUbeaePZtb8uzvCaL11pUCMNy
-         SqdjFq1S4fI7qD0wcycGl+qzTuZfEa+vYm0thfNiy1uX1x8XgayeSWPbVUKrFLOuvZm6
-         eT9czSFgVmAUpSqnTqNxo7kDRaHD/6ztgpaDNbLsHRG8X2OMSg3jAbq1mHvrbF4r2LAD
-         z23A==
-X-Forwarded-Encrypted: i=1; AHgh+Rqvu0weDxHkFa1rJjkLWEvVnoyOBrkY904kZmXzyzByGkjwq3sigdiDH1Zrp2tizWuSnPVYa44=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+TbD/mUSVFBB0dsXzYaoqN9M8bL0u68RQsrMQPrL+MvwEevBE
-	QYxnTCjedQGBUtQvAgi2Lz37xpd3bKMP2wbulI/SWc2ONjX+1uW84Vtb
-X-Gm-Gg: AR+sD138FhiejeTWDFB0azoLh6tijFIMQ8Q6+1bqjgLrt5aRRlIqnWGMrqCXGgp5U+P
-	TLCmfvupqs8ud9s4qibJCc5wtTdMX50vCIcJiTgMNd9IgqcyWiZRUzLATB84otEQddtoH7xFDEI
-	tdllnTTuLLOet9COauXsDjbd1Ot6W2k9xU1aw1xckOnXVoD0k2Fo+1qmp8Vviz6i5R7QpKl0Ma8
-	8CWr/kSQvDpXX+2mq2KYFsmyJFgnCNtuly4YW4EFnJ2RC0Wii6DU41UJG75AzkZv3e441rrpy6v
-	3CBJJoI5mXqvfSm/OXpJWg9lA5+RufRhgtrjIHNd/K6R2o22I6OEsQNTkAJucPMsrhHblGkjJgy
-	KEtl88T7wzyk4qW/uI0JJr8pwyYI9modcQeyyFHke0tKQ2CIWU6B333TsS6YQvsAEu8hE+Lvin4
-	30x0w1MBR8upwrD89nTAAtBg1z1N3XzPQoNWzWg1cQekvRADkPH8MOpR/X2D3Ac31PEg2ZkMtcD
-	nmk2Xh8
-X-Received: by 2002:a17:90b:2541:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-392ec2fc235mr7508953a91.4.1786479460554;
-        Tue, 11 Aug 2026 13:17:40 -0700 (PDT)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392f94d5cb7sm789672a91.15.2026.08.11.13.17.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 13:17:40 -0700 (PDT)
-Date: Wed, 12 Aug 2026 05:17:36 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Max Boone <mboone@akamai.com>,
-	imv4bel@gmail.com
-Subject: Re: [PATCH v2 1/2] mm/pagewalk: fix stale walk->action escaping
- walk_pmd_range()
-Message-ID: <anuDYOPa0kTD9bul@v4bel>
-References: <20260811161949.3879321-1-imv4bel@gmail.com>
- <20260811161949.3879321-2-imv4bel@gmail.com>
- <20260811123702.f3c60a3573e148c53ad35b97@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="C6xQnCLg"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BJVlf41328319;
+	Tue, 11 Aug 2026 20:19:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=WEa3Wu
+	z158taaoH96APSfUKY7SLj2FnHmekc3Zx8Fy4=; b=C6xQnCLgFGQjRpUnvoigS+
+	CJbrIO9DyqjfSZ7UNmVUi+5RZYmX9LehfEbgSS88Ep9oHU7T3zBVzR4I7h6xQe4t
+	1yfErFZ0gPc7+/R0Nnh2OMFYrsjGNsZoMdr8dv5Q9Lyvp++9vWuKzAjs31Fkld65
+	lHTOoXQKdr6TMKDcBfUGYW6uhL3ePHyeMZ8AIZLIh1rvuCcZ2CJ/GL5C29b8KNB1
+	GGOykGt3776E0MEWME2rcQof6UaBGxPvbvU2ceutV/AEfIbY9bKSri1bcLJSEYNj
+	7kowUEKy50FD5my43pMriX5Tmi5c9H8EMaxGbZKO2AVZi6iTeeEeJ4z3WtjnuWsQ
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvm9q1nf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 20:19:30 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67BKBBhj029896;
+	Tue, 11 Aug 2026 20:19:29 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxfsjtr9j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 20:19:29 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67BKJRAg65208728
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 11 Aug 2026 20:19:28 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C00D458056;
+	Tue, 11 Aug 2026 20:19:27 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C250158052;
+	Tue, 11 Aug 2026 20:19:26 +0000 (GMT)
+Received: from [9.61.58.252] (unknown [9.61.58.252])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 11 Aug 2026 20:19:26 +0000 (GMT)
+Message-ID: <e7ec1795-27f4-431b-8e92-54a58e46a3db@linux.ibm.com>
+Date: Tue, 11 Aug 2026 16:19:26 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811123702.f3c60a3573e148c53ad35b97@linux-foundation.org>
-
-On Tue, Aug 11, 2026 at 12:37:02PM -0700, Andrew Morton wrote:
-> On Wed, 12 Aug 2026 01:18:57 +0900 Hyunwoo Kim <imv4bel@gmail.com> wrote:
-> 
-> > If ->pmd_entry() sets walk->action = ACTION_AGAIN, the pmd_none()
-> > check is retried. The PMD entry may be cleared at the point of retry.
-> > 
-> > In this case, if walk->ops->install_pte is not specified, the code
-> > continues to the next PMD entry in the range without resetting
-> > walk->action to ACTION_SUBTREE.
-> > 
-> > This leaves walk->action erroneously set to ACTION_AGAIN, which is
-> > incorrect.
-> > 
-> > This was incorrect but not problematic up until commit 3b89863c3fa4
-> > ("mm/pagewalk: fix race between concurrent split and refault")
-> > which updated walk_pud_range() to check for walk->action ==
-> > ACTION_AGAIN upon walk_pmd_range()'s return, causing the PUD walk
-> > to be retried.
-> > 
-> > In this case this results in duplicate walk callbacks being
-> > invoked, which is erroneous and will break any caller that is not
-> > idempotent with respect to this (and waste time for those which
-> > are).
-> 
-> "break".  Please describe the breakage completely.  It's really the
-> most important information in the whole effort.
-> 
-> IOW, when fixing a bug please describe the userspace-visible runtime
-> effects of that bug.
-> 
-> eg, what were the results of the fuzzer?  
-
-To be precise, this is an out-of-bounds write.
-
-> Is there a Link:?  
-
-This came from a local fuzzer, so there is no Link:
-
-> A stack trace?
-
-[    2.272695] ==================================================================
-[    2.273471] BUG: KASAN: slab-out-of-bounds in __mincore_unmapped_range+0x14f/0x190
-[    2.274302] Write of size 1 at addr ffff888008d9b000 by task poc/106
-[    2.274966]
-[    2.275154] CPU: 0 UID: 1000 PID: 106 Comm: poc Not tainted 7.2.0-rc6-00429-ga7c7074b58d2 #55 PREEMPT(lazy)
-[    2.275159] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    2.275164] Call Trace:
-[    2.275170]  <TASK>
-[    2.275172]  dump_stack_lvl+0x53/0x70
-[    2.275200]  print_report+0xd0/0x630
-[    2.275210]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[    2.275219]  ? irqentry_exit+0xd2/0x670
-[    2.275224]  ? irqentry_exit+0xd2/0x670
-[    2.275226]  ? __virt_addr_valid+0xef/0x1a0
-[    2.275239]  ? __mincore_unmapped_range+0x14f/0x190
-[    2.275242]  kasan_report+0xce/0x100
-[    2.275245]  ? __mincore_unmapped_range+0x14f/0x190
-[    2.275248]  __mincore_unmapped_range+0x14f/0x190
-[    2.275252]  mincore_unmapped_range+0x45/0x70
-[    2.275254]  walk_pgd_range+0xafc/0xfc0
-[    2.275261]  ? __pfx_walk_pgd_range+0x10/0x10
-[    2.275264]  ? __update_load_avg_se+0x3d1/0x670
-[    2.275275]  __walk_page_range+0xc0/0x310
-[    2.275278]  ? __pfx_find_vma+0x10/0x10
-[    2.275281]  ? finish_task_switch.isra.0+0x16d/0x4f0
-[    2.275290]  walk_page_range_mm_unsafe+0x26f/0x3a0
-[    2.275293]  ? __pfx_mtree_load+0x10/0x10
-[    2.275298]  ? __pfx_walk_page_range_mm_unsafe+0x10/0x10
-[    2.275302]  ? __free_frozen_pages+0x54d/0x7e0
-[    2.275308]  __do_sys_mincore+0x132/0x380
-[    2.275311]  do_syscall_64+0xf9/0x540
-[    2.275316]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[    2.275322] RIP: 0033:0x422ccd
-[    2.275326] Code: b3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
-[    2.275329] RSP: 002b:00007fffffffec18 EFLAGS: 00000287 ORIG_RAX: 000000000000001b
-[    2.275337] RAX: ffffffffffffffda RBX: 0000000000000066 RCX: 0000000000422ccd
-[    2.275339] RDX: 00000000004d0940 RSI: 0000000001000000 RDI: 00007ffff4000000
-[    2.275340] RBP: 00000000004d0940 R08: 0000000000000100 R09: 0000000000000100
-[    2.275342] R10: 0000000000000100 R11: 0000000000000287 R12: 20c49ba5e353f7cf
-[    2.275343] R13: 00000000004990d3 R14: 0000000000000000 R15: 0000000000000001
-[    2.275346]  </TASK>
-[    2.275347]
-[    2.296904] The buggy address belongs to the object at ffff888008d9b000
-[    2.296904]  which belongs to the cache sigqueue of size 80
-[    2.298151] The buggy address is located 0 bytes inside of
-[    2.298151]  allocated 80-byte region [ffff888008d9b000, ffff888008d9b050)
-[    2.299408]
-[    2.299601] The buggy address belongs to the physical page:
-[    2.300191] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x8d9b
-[    2.301001] flags: 0x100000000000000(node=0|zone=1)
-[    2.301535] page_type: f5(slab)
-[    2.301884] raw: 0100000000000000 ffff888107e46780 dead000000000122 0000000000000000
-[    2.302687] raw: 0000000000000000 0000000800240024 00000000f5000000 0000000000000000
-[    2.303489] page dumped because: kasan: bad access detected
-[    2.304092]
-[    2.304276] Memory state around the buggy address:
-[    2.304801]  ffff888008d9af00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[    2.305567]  ffff888008d9af80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[    2.306340] >ffff888008d9b000: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[    2.307115]                    ^
-[    2.307474]  ffff888008d9b080: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[    2.308237]  ffff888008d9b100: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[    2.308997] ==================================================================
-
-> 
-> > A specific example of this breaking things is mincore which walks
-> > an internal cursor data structure a byte at a time on assumption
-> > that page table entry callbacks are called only once for each
-> > entry.
-> > 
-> > Fix the problem by resetting walk->action to ACTION_SUBTREE prior
-> > to the none check.
-> > 
-> > The pattern also exists in walk_pud_range() so fix it there too.
-> > 
-> > This issue was found through AI-based fuzzing.
-> > 
-> > Fixes: 3b89863c3fa4 ("mm/pagewalk: fix race between concurrent split and refault")
-> 
-> It's good to cc the relevant Author(s).
-> 
-> > Cc: stable@vger.kernel.org
-> 
-> We really should tell -stable maintainers (and all other users of
-> earlier kernels) all about the above things.
-> 
-> >  mm/pagewalk.c | 6 ++----
-> >  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> This depends on the above info, but I'd prefer to process the bugfix
-> promptly and defer consideration of the selftest until the next -rc
-> cycle.
-
-Should I send a v3 with the changelog fixed? (in 24 hours, I guess?)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/8] s390/vfio-ap: Fix required lock not held during
+ display of sysfs status attribute
+To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+        stable@vger.kernel.org
+References: <20260810192257.1208410-1-akrowiak@linux.ibm.com>
+ <20260810192257.1208410-8-akrowiak@linux.ibm.com>
+ <5d755e25-be9d-4227-b06c-63563fcce0b5@linux.ibm.com>
+ <c3b21393-d01f-4816-90b6-4c868d4a0f9d@linux.ibm.com>
+ <48f2d952-3116-4e0c-b0e6-bc6460446c08@linux.ibm.com>
+ <404259da-2b79-42ff-b663-fc0237cd753f@linux.ibm.com>
+Content-Language: en-US
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <404259da-2b79-42ff-b663-fc0237cd753f@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDE2OCBTYWx0ZWRfXwbM5R1wj6fc4
+ Ae2BKkzCfCjCah//+uDM+XCi1kC5lVWuoopEUXPQyNtZJipSKd8ywA9Xx89l2r+R4vv8EV2uoK6
+ /hFoH2hZvB5hl9n2cBh+nq2Zo+fJBcLTdK1yTOZBx3THYRtHpPe2k9Uk977FFinXxgEf3UFTZru
+ iP96JDLm5XQw4swuC3fD7QwM/JKdWseMQiT73AvyPfRH7/JbvwxYHjSBDwx/GWTy2uAKYlMwzTY
+ bKpnhH9CY5+kUay6PIplD+k64mSzPJ5HomXPwHnNr4jfLZscgc6Dp+aoo2o20YBtsi5UG3/81jM
+ lzoT5Vi4JuRjzz8J2LGcys2/zRzbVjl7Yb+g65M5+cQsVLHXrQB2QknwdyG8TgPkHamLrfKFNqs
+ hOX+DOXYkg6Y7MbKMe4x2TSLDkbxZWcilgC26EHMHHGF/D0WOtk4552E2xEbJjOndrl8TOby9d4
+ 3TU+sq0Bod8Tzq3rrTQ==
+X-Proofpoint-ORIG-GUID: Jev4aOFX6ZxvY327wIHMqL0NisDPKPbT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDE2OCBTYWx0ZWRfX8jIr5cAV9epY
+ IZ0Ny+LwTHLoQHG1YAE+uz4MEvaDVPbqCSRuVLj6uLfty8niljiE/ZRj1yzNLF/jM1sP8ci+oWG
+ 6aDep0jQ9b6uFcXtzLVikEJR7Og1CVM=
+X-Authority-Analysis: v=2.4 cv=IfK3n2qa c=1 sm=1 tr=0 ts=6a7b83d2 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=MiFXiCKfpTDM_XYcmggA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: Jev4aOFX6ZxvY327wIHMqL0NisDPKPbT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-11_05,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 adultscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110168
 
 
-Best regards,
-Hyunwoo Kim
+
+On 8/11/26 2:55 PM, Matthew Rosato wrote:
+> On 8/11/26 2:51 PM, Anthony Krowiak wrote:
+>>
+>> On 8/11/26 2:20 PM, Matthew Rosato wrote:
+>>> On 8/11/26 2:03 PM, Matthew Rosato wrote:
+>>>> On 8/10/26 3:22 PM, Anthony Krowiak wrote:
+>>>>> The status_show function that supports display of the status
+>>>>> attribute of
+>>>>> the devices in /sys/bus/ap/devices calls the vfio_ap_mdev_for_queue
+>>>>> function which iterates the matrix_dev->mdev_list to find the object
+>>>>> representing the queue device whose status is to be displayed. In
+>>>>> order to
+>>>>> traverse this list, the matrix_dev->guests_lock mutex must be held
+>>>>> which is
+>>>>> not the case.
+>>>>>
+>>>>> To fix this, the guests_lock mutex is taken prior to taking the
+>>>>> matrix_dev->mdevs_lock mutex in the status_show function. It is taken
+>>>>> there rather than the vfio_ap_mdev_for_queue function - where it is
+>>>>> needed - because it must be taken prior to the mdevs_lock mutex in
+>>>>> order to
+>>>>> adhere to the proper locking order and prevent a lockdep splat; also
+>>>>> because the mdevs_lock is needed there to access fields within
+>>>>> the matrix_mdev object in that function.
+>>>>>
+>>>>> Fixes: f139862b92cf ("s390/vfio-ap: add status attribute to AP queue
+>>>>> device's sysfs dir")
+>>>>> Cc: stable@vger.kernel.org
+>>>>> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+>>>> Please see my comment on patch 3.
+>>> Also same idea here, I don't believe the pre-existing finding from
+>>> Sashiko against this patch is resolved by this series, so have a look
+>>> and consider a follow-on patch if it's a valid report.
+>> Can you be more specific as to which Sashiko finding you are talking about?
+>>
+>>
+> It only found 1 against this patch.  Quoting:
+>
+> This is a pre-existing issue, but can this sequence lead to a NULL pointer
+> dereference if status_show() is called during device probing?
+> If a userspace process reads the status sysfs attribute before
+> vfio_ap_mdev_probe_queue() has finished setting the device driver data:
+> vfio_ap_mdev_probe_queue() {
+>      ...
+>      ret = sysfs_create_group(&apdev->device.kobj, &vfio_queue_attr_group);
+>      if (ret)
+>          return ret;
+>      q = kzalloc(...);
+>      ...
+>      dev_set_drvdata(&apdev->device, q);
+> }
+> Userspace could trigger status_show() while the driver data is still NULL.
+> The dev_get_drvdata() call above would return NULL for q, which is then
+> passed to vfio_ap_mdev_for_queue() without any checks.
+> Inside vfio_ap_mdev_for_queue(), the uninitialized q is unconditionally
+> dereferenced:
+> vfio_ap_mdev_for_queue() {
+>      struct ap_matrix_mdev *matrix_mdev;
+>      unsigned long apid = AP_QID_CARD(q->apqn);
+>      ...
+> }
+> Does the sysfs group creation need to be delayed until after the driver
+> data is fully initialized and set, or should status_show() check if q is NULL?
+
+I have a fix for this, shall I include it in this series or send it as 
+an individual
+patch?
+
+>
+
