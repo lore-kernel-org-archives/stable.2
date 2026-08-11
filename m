@@ -1,102 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABC33B0AD6;
-	Tue, 11 Aug 2026 15:32:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBCA3B6BFA;
+	Tue, 11 Aug 2026 15:33:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786462329; cv=none; b=MDoTFkJQktOPmPn4FsHzGdbQJwur3uVOedMRmOnK5ohpIrL5b8DviLl7HnQCm9KqWgiVgSuwnKZ0Le5V2zfcmKkPukYc4i+OS6j5MtdCxeIEA5jcrR5Ln3JKszV5SHxnHt2fKymrqHM7HVWAKxUU9pbhq4L4avX7afgX4VT3nhU=
+	t=1786462406; cv=none; b=BBj97nS3lZ91ES2zTbPnATTGQoC1quH8MoEFJOZiiJZMUx26k7OU5P53EgbiCDeKrF+dhI2LLOKUBsSmLDN3Kgc/bn1/zoqcMj7gzCueB7v4jbjg0e3whIsGoznl1NmRkX3lP0lueBrAw9qmcHVxKOetYlU6Nn2g4XP3QGKjgcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786462329; c=relaxed/simple;
-	bh=W6fSy8G8L1U2PQct4KEFXdz9bO6foOzFsDSTa+e8acw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M2167620uzW/wysPPTblJRbrWquUY4TZpvQQ5qKtT7VPUpc2i+rR6mWIPwbFEauf87lGwmYvzbxrdbgxjNXfRd68etPADua+rbffO37TythfTowRzhJGKm60qUIkHszjDeJU3n2W/vFRoWSwKbxfn0V8PT6Ihp0//i/N2adP/tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V6bD/caR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786462406; c=relaxed/simple;
+	bh=Ani0hyGmCJGaqxrPmXmnyKjxsRejVuS2hFDgorsnmfU=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=T/DKgfVrP3NlwGS4T0zLfSIKhffgX/jNsGUwsO+z/Hj4Jfq8jFGFVXTUSFms57Kch+tHcSTT5i1ag36YsD/nglPLv+J+vN8tDAVPfLZrBFl3NbYTuFMQE4zN4I1TSJbpXiqn6lYeEdctlo80SQngNc7FL2xgGRlBfaJVw3yGZss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=DaOzcA4d; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V6bD/caR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8E91F00A3F;
-	Tue, 11 Aug 2026 15:32:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786462327;
-	bh=0MO+BBQBTeCb/kSe47kBTKP0O/6cq9xKFbyVoptjN/4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=V6bD/caRF+sfLzpNgVbAnzatbhL5uzD2eTsm5wN/4X62NyxJw5QsozT5bIUilgBVt
-	 8PXVnIy7XO/3UUXBabeKtbq9rHzD1jjA2tF2SQu0OFi4F4sJlRgjrhllcXXuPA6wKT
-	 kIh1P/Pi06I8EVNxRBoHN6MNJR6g602yAUipn8xUm4UUdrDtFQaUyKIdbGo6Xr0G72
-	 5rIIgSlfO0Fuv3IrGZaKOJiNHxnl9gz90LkJF4VVynWHfYSi96eudCq6lC+/W9+KA0
-	 xsogAHerm//suHFh4RuxZnceMbwH+A45KsBVCYvdQJyzOzpYsLyNiEiY1r0ZuBjuUD
-	 ON6ChPHqjL/7A==
-Date: Tue, 11 Aug 2026 08:32:06 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, vega@nebusec.ai, Victor
- Nogueira <victor@mojatatu.com>, Davide Caratti <dcaratti@redhat.com>, Jiri
- Pirko <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>
-Subject: Re: [PATCH net] net/sched: act_api: fix TOCTOU NULL deref on
- a->goto_chain
-Message-ID: <20260811083206.1511f344@kernel.org>
-In-Reply-To: <CAM0EoMmQi03B+t8MyUsXp6-QOcOWRJvbji2etp9jjV1gU5V=XQ@mail.gmail.com>
-References: <20260809090928.868186-1-jhs@mojatatu.com>
-	<20260810164536.6ecf043d@kernel.org>
-	<CAM0EoMmQi03B+t8MyUsXp6-QOcOWRJvbji2etp9jjV1gU5V=XQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="DaOzcA4d"
+Received: by dvalin.narfation.org (Postfix) id E374F20241;
+	Tue, 11 Aug 2026 15:33:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1786462393;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8EaiKlbpCQVAvrexAqV7FKKO4XBVCQ96a5UJP4GhPLE=;
+	b=DaOzcA4dN4lDtT6zpv1yBE6l+QU0pn+X46m8vZMg1bbbn8U63A4UvBodaEIv/lVPaIgBj3
+	jFrnngabblkcfyt/qSGJTqetkpvIFhzINeocZ/EnOBezAtjNdQWrJ60Ut3hmNG6nUgydmT
+	FAi7fwPUG5cTOXYTFKDp1bdQ85b1GHY=
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH net v2] batman-adv: reject unrepresentable multicast
+ TVLV offsets
+From: Sven Eckelmann <sven@narfation.org>
+To: David Lee <david.lee@trailofbits.com>
+Cc: marek.lindner@mailbox.org, sw@simonwunderlich.de, antonio@mandelbit.com, 
+ sven@narfation.org, Kyle Zeng <kylebot@openai.com>, davem@davemloft.net, 
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+ Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>, 
+ netdev@vger.kernel.org, b.a.t.m.a.n@lists.open-mesh.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260810145754.828936-1-david.lee@trailofbits.com>
+References: <20260810145754.828936-1-david.lee@trailofbits.com>
+Date: Tue, 11 Aug 2026 17:32:59 +0200
+Message-Id: <178646237968.2022359.8997893163921377425.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2745; i=sven@narfation.org;
+ h=from:subject:message-id; bh=Ani0hyGmCJGaqxrPmXmnyKjxsRejVuS2hFDgorsnmfU=;
+ b=owGbwMvMwCXmy1+ufVnk62nG02pJDFnVDlubdYv021hWftyTbfPI+Fgax42ix4ZzptXpd3i2J
+ P63mjG9o5SFQYyLQVZMkWXPlfzzm9nfyn+e9vEozBxWJpAhDFycAjCR1WaMDLvvvX61bWtO0Y4N
+ cYeVpvKu+B10dkHz5vfR2iuNOo5ZJiky/Hd5senGz9y7vYcW9FmKPM2Mmad17sIsr80n99m8vMV
+ hNZ8ZAA==
+X-Developer-Key: i=sven@narfation.org; a=openpgp;
+ fpr=522D7163831C73A635D12FE5EC371482956781AF
 
-On Tue, 11 Aug 2026 06:43:32 -0400 Jamal Hadi Salim wrote:
-> On Mon, Aug 10, 2026 at 7:45=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> =
-wrote:
-> >
-> > On Sun,  9 Aug 2026 05:09:28 -0400 Jamal Hadi Salim wrote: =20
-> > > tcf_action_exec() handles TC_ACT_GOTO_CHAIN by first checking
-> > > rcu_access_pointer(a->goto_chain) and then calling
-> > > tcf_action_goto_chain_exec(), which does a second, independent
-> > > rcu_dereference_bh(a->goto_chain) read and immediately dereferences
-> > > chain->filter_chain. A concurrent tcf_action_set_ctrlact() (e.g. the =
-gact
-> > > replace path) can clear a->goto_chain between the two reads, so the s=
-econd
-> > > read returns NULL and tcf_action_goto_chain_exec() dereferences NULL.=
- =20
-> >
-> > FWIW *shiko suggests another tweak but looks orthogonal, LMK if you
-> > disagree:
-> >
-> > https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260809090928.8681=
-86-1-jhs@mojatatu.com
-> >
-> > (the patch is "too fresh" for me to apply right now anyway) =20
->=20
-> The concern is valid but pre-existing and orthogonal to this patch
-> (and a lot less severe than the posted fix)
-> I had this discussion with Paolo: When the sashikos raise a concern on
-> "pre-existing" issues, what should be the reaction?
-> In general the conclusion was to follow up later if worth it; however,
-> sometimes we need to make a judgement call - if the pointed to issue
-> is serious (and yes, the AI bots are now reading what Sashikos are
-> saying  and constructing bug reports) then a v2 is needed.
-> In this case, I was planning to follow up. I will start more actively
-> looking at sashiko reports and analyzing if worth a followup or a v2.
-> I dont know how to do these pw signals, but in case i see it as "needs
-> v2" it won't be worth waiting for one of you guys to comment.
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h                                                                                                                                                                
+> index 22eda1d54a0e8..dbeceaf5c3b39 100644                                                                                                                                                                                   
+> --- a/include/linux/skbuff.h                                                                                                                                                                                                
+> +++ b/include/linux/skbuff.h                                                                                                                                                                                                
+> @@ -3126,6 +3126,32 @@ static inline void skb_set_transport_header(struct sk_buff *skb
+> [...]
+> +static inline bool __must_check
+> +skb_set_transport_header_careful(struct sk_buff *skb, const int offset)
+> +{
+> +	long transport_offset = skb->data - skb->head + offset;
+> +
+> +	if (unlikely(transport_offset !=
+> +		     (typeof(skb->transport_header))transport_offset))
+> +		return false;
+> +
+> +	if (unlikely(transport_offset ==
+> +		     (typeof(skb->transport_header))~0U))
+> +		return false;
+> +
+> +	skb->transport_header = transport_offset;
+> +	return true;
+> +}
+> +
 
-Right, I was hoping my question was clear enough. I don't think v2 was
-needed here either. But we had time to confirm...
+I personally don't like the way the lines are broken down. The 80 character
+limit was replaced by a 100 character limit since commit bdc48fa11e46
+("checkpatch/coding-style: deprecate 80-column warning"). And it seems like
+there are already multiple lines in this file which are longer than 80
+characters. So it should be possible not to add a line break right after a
+comparison operator.
 
-> Do we need a written policy somewhere?
+But I leave the judgement about this part to the netdev maintainers.
 
-The only written policy should be that everyone who asks for a written
-policy in this rapidly changing environment owes maintainers a beer :)
+> diff --git a/net/batman-adv/tvlv.c b/net/batman-adv/tvlv.c
+> index de907c07fa154..93492d393c347 100644
+> --- a/net/batman-adv/tvlv.c
+> +++ b/net/batman-adv/tvlv.c
+> @@ -438,8 +438,11 @@ static int batadv_tvlv_call_handler(struct batadv_priv *bat_priv,
+>  			return NET_RX_SUCCESS;
+>  
+>  		tvlv_offset = (unsigned char *)tvlv_value - skb->data;
+> +		if (!skb_set_transport_header_careful(skb,
+> +						      tvlv_offset + tvlv_value_len))
+> +			return -EINVAL;
+> +
+>  		skb_set_network_header(skb, tvlv_offset);
+> -		skb_set_transport_header(skb, tvlv_offset + tvlv_value_len);
+>  
+>  		return tvlv_handler->mcast_handler(bat_priv, skb);
+>  	}
 
-More seriously I tried to float two written policies recently - for net
-vs net-next and requirements for information in fixes. And each time
-there was a long discussion and questions. So y'all need to either
-stop making written policies so painful, or stop asking for the
-policies. *%$#.
+For the batman-adv part:
+
+Acked-by: Sven Eckelmann <sven@narfation.org>
+
+-- 
+Sven Eckelmann <sven@narfation.org>
