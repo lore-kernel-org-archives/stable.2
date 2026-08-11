@@ -1,77 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA4A41F5D8;
-	Tue, 11 Aug 2026 09:30:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCAE34EF03
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 09:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.126.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786440652; cv=none; b=nYXJaziqlAI/GDJFi9vm6nXhYWDieVmIptztSbR5Edis4/Ksvko/oBqyfjSCYQRSp6mytaWjH/mmif6HExLS35/9bIDXceP3RoG9dobu00g9ATAqBeNN010UJgt1m9JvQkMnWhwbS8yKOotCy/yQUrVNtRllieXEqJThFF20CeM=
+	t=1786441015; cv=none; b=Iab5l7ZDMQOZ5SsW7A7dt3vCecBm+o4SWgSlrWvDhJS5OHn5AoVHNq7xSXsK9i3lrrN/zCV1qPEv9aq2cH41chPeFgFVJHx4Djxy+hSLoY9vaGYDCL1ELZsN0eUpoUhGXfyS7nHQFrZX3SRIhHFIWMV/yG+M9Pmf8Qwxwy28oT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786440652; c=relaxed/simple;
-	bh=x6F2fIM/izl7jnzM0T6FO60z368V2ehOA23zJZM3CAg=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=GQ8ZnbYtsDbGvddKUQrQGj/wOqiwpt7szhZZU+VFB1Gv8nvXQic9m2KObJYK0XYr92wQ5/81CiygVcdSu4tFZMhYFbxFKyXPev/GYNSbT8eDcTKZT19UtbREOlmGdm03DVj6lYD3UHxJ5sdydYlA9l8EWfRxhBdU+ukchLkDZEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUVgZnCY; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUVgZnCY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8C471F000E9;
-	Tue, 11 Aug 2026 09:30:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786440650;
-	bh=QXgw16eI2nQUWbkq9XxFuTT0NlEMucmCFRNM50iTRRQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=TUVgZnCYY9aR1aWKifOx4G9L/DpSTW2ba42aC1c0M8IpfxZ6c05KNXnN7Keu9SAlD
-	 wY5MyIwxtIk7RDquPdDcu3cLyKHdn8KFzoTr9MeQguwGTtasJ2wjyZF9CIoDt25SjB
-	 35bbYoxZwwto/AjeR5zb3vBUFr37nK3MKrDLu4v8Ff31WSzf3wvfpvdljz3HUwOJO0
-	 tF/lp0EbscGSshPjA2Ta9pH6wTMkZoe8pDs0sP6DD+5QdIaUSLznkm7N/Y3xsAqg+M
-	 NkUdOnC13gskwv9Sc/ZjRYn9vBM44t5z58Fb9RueJH7m5Uk9xj+jLIlaDLBdWcbQTC
-	 qhoBuuAU69VbQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5690D39263AD;
-	Tue, 11 Aug 2026 09:30:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1786441015; c=relaxed/simple;
+	bh=OE0nooUYwmumkrSLABt4lMUeWyUs9/rU3ZT8ApUycB0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CV6S+yxLRDUPaX6FuApKJ7G3x9u6RNlgUjxPfqBbMZU43RvOf9Bl+UuAnUMf8QgEwsbEQcMkTwITYL+I1rCY6MRRrYjXuXw57jl4Ukmz5rm1/tttJqxryQ9liwQklCOBTASsqUv2XhM9ugJ66EHzW/fLyomdLHSO69UOXneOGgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=green-communications.fr; spf=pass smtp.mailfrom=green-communications.fr; arc=none smtp.client-ip=212.227.126.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=green-communications.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=green-communications.fr
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue009
+ [213.165.67.103]) with ESMTPSA (Nemesis) id 1MuUvS-1xAZL305yc-00ykdI; Tue, 11
+ Aug 2026 11:36:39 +0200
+Message-ID: <ed1f051c-b2d2-4e37-90fa-b9ad71d33688@green-communications.fr>
+Date: Tue, 11 Aug 2026 11:36:37 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Patch "wifi: mt76: Disable napi when removing device" has been
+ added to the 6.18-stable tree
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Ryder Lee <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+References: <87c8fb9a-30c4-4800-8aa3-d22f3081f6f9@green-communications.fr>
+ <20260729223316.stable-0007@kernel.org>
+Content-Language: fr
+From: Nicolas Cavallari <nicolas.cavallari@green-communications.fr>
+In-Reply-To: <20260729223316.stable-0007@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3] ipv4: fix use-after-free in fib_nhc_update_mtu()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178644060690.437668.7502162978674316301.git-patchwork-notify@kernel.org>
-Date: Tue, 11 Aug 2026 09:30:06 +0000
-References: <20260807181710.1178747-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20260807181710.1178747-1-nicoyip.dev@gmail.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- sbrivio@redhat.com, sd@queasysnail.net, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Provags-ID: V03:K1:TiEQdsb5jb4UOBcGntpb5MZbG8faThIhOWYn2zH57KZ9/z55h1K
+ va2IDmG1Wsio0fecQj6VTLA4MVUC77en260bZdeTynsUIfkyMlzmMwaBmbVOpxFZ0jqiJ+O
+ I+90Cm4vWCtfnZT1LLlwHBmFtdotO4IDs63R5y/qjT0lcumjE1ILY/0AYQxrHBhP6RFmYgN
+ 4pW8EWDDJHkU6E/Hb5kCQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:AUaP/lbaAas=;PTFpKZmL69i2n9ZvQ/suBs3eZQi
+ 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
+ =
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Sat,  8 Aug 2026 02:17:10 +0800 you wrote:
-> fib_nhc_update_mtu() walks the nexthop exception table under RTNL, but
-> RTNL does not serialize this walk with PMTU exception updates. The walk
-> uses rcu_dereference_protected() with a constant true condition without
-> holding fnhe_lock.
+Le 30/07/2026 à 04:40, Sasha Levin a écrit :
+>> This patch alone causes regressions on mt792x, please wait for this fix
+>> to reach mainline before applying both:
+>>
+>> https://lore.kernel.org/linux-wireless/20260728002048.19351-1-mikhail.v.gavrilov@gmail.com/T/#u
 > 
-> The following interleaving can therefore occur:
+> Thanks for the heads up. I've dropped the backport of 13b7e6a96a00 ("wifi:
+> mt76: Disable napi when removing device") from the queue - it was only
+> queued for 7.1 and 6.18 and it is gone from both, so nothing shipped to
+> users.
 > 
-> [...]
+> I'll pick it up again together with the mt792x follow-up fix once that one
+> lands in mainline.
 
-Here is the summary with links:
-  - [net,v3] ipv4: fix use-after-free in fib_nhc_update_mtu()
-    https://git.kernel.org/netdev/net/c/bc5bde9ce3cc
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+The followup patch has been dropped and the former patch is being 
+reverted, so you may stop waiting for it.
