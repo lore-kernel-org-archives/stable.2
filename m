@@ -1,354 +1,290 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC493101A6
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 05:15:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA8E331EDE
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 05:16:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786425311; cv=none; b=Efyt/xnwP6DjVTFfPxGZlBfxuTIAdyk0mvrnnkGm/nsMaSrZ2kYyy6YeKK/+rx8oJq5WHb4psjtDmsPqZyl8mmSP4l2em0vhH3FIWbwl1xwKfPal2EaiyFw69fz0zwlOiWmn0gjHgvmj6VFrekCgHZcAG7jQOmZmvZlmPv4Q0UM=
+	t=1786425382; cv=none; b=D3WpPRUwZqjHz92LnO4EJJw5k7HECJAIhDjkk2E45aP8mLbhURLrNJI4UdwrjnHvcreLTeQf0WjuFRqpxvLU2ZJh+g6a0CcpQXhOOZvesjwiNm9l4qM7ymVWSp+FyRyoCoWZXM/AR4N9nvbCJ5jzt4YcSE3qyF9xh5iR6BLL574=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786425311; c=relaxed/simple;
-	bh=Q7KhjF49LTu9wNT5xoXxV74r0sORxNqSlv9ZFRpDClc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tWSFGsQwIL+/Ggm3uCLz81bblA/2rsV8QQl1A4mkrbCBqZc8/CodXm6MNdKRMPz9XrBd5sEhaZqGFQJeIqvpkIlbbM5FTHVNXGeIPSgYSPNbREyl6NnEEbzgm+i0IzjmUY3TkqmgpnA7+FoOyZUGTihUNswTHeTXzNVkdk/0ZJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=IqiAB2DN; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	s=arc-20240116; t=1786425382; c=relaxed/simple;
+	bh=rq7Jo7vNhFyWoaNsGX0c1Ifh3WxEEF9ECeI2CR7jGsI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bZneuEgpyay9jsMhswOnC4s6IZ0YCAPpYa9pkhYJWYfZWlH5XVenhGJMbbnGK+p8XhjBTz+YsbVL9ROL8/6pNCnGm3gMbNb5ja5mEocVnE2/sXjp7wwxSAXM1sGi01e1UOc4KXeRngJBklcBIR3w29XV+1xofP4HdYO8SBvC7qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gFSt92Km; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X8XfqAlN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="IqiAB2DN"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38f620399a0so393485a91.2
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 22:15:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gFSt92Km";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X8XfqAlN"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AMpnAH3552848
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 05:16:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Z22u4Y6qlTT7YZHZuEf9UIZJTy0sb+lujCBIrKH+O7E=; b=gFSt92Km6Te2K31E
+	lwlexjI58oi6BIF8WTfEF8LYpWSOt5Qj+1mM4OMgeTtMHPByJ53fV5yk32g8e84A
+	rbkAbah+k0XMZwiXhgKqMzQ+DaLdLZalQ4p8GxJGJ3VRhkiwLZoYIAsT+diOoxlN
+	+9wYaZFsUBqs6teiQKMghj4gv7FsrE7jCzI8CbdL7qU3QA1vqbOu8rIdQ+zMD5zr
+	LPwTTpUl3MUMQij0xpj2MDpJkXTsOhrYofZa0nzpRlCTx9AOG3OheTRauguT/SZ1
+	xG9Vj51TivUw6MWhIRo3QrTad7mJJdi+lG90rpQiZdREGplTzwrGsucZbpkZvZkC
+	7kFYOw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyqmk13f6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 05:16:20 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso6018425ad.0
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 22:16:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1786425308; x=1787030108; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Nar3QBFMYGSVoBNp9egqiLjtAELBZbK1vM45Zqgvhzc=;
-        b=IqiAB2DNm++6mqp1aRw2c6bbLkYG3FfJ/77tUcOTA666sV5Wrp3hLnBwN/iQgWkBJL
-         29E1yuC3qHYC91wLxdJEcuHMnGMCBFQBGUyTMK64EIHkWazw2ORyZTfAkioBz7UNGbVd
-         Avqf6cNcbfcb3e980UFLbBIEL3OK/qBZ2WyZzfFqr58DIh5QBL9SCM1toKP1/yb3H4CS
-         UGg2D9np2o0riCl1h/CT3P0IzV43LLkZzD263EP9mL6tfY1KqQsEflDb5XDLSYlRCtux
-         krz4K4DPOK/qJMFi7uFNWynh+8bniJ0RNkSgY4F9n9SzciRyt+HLnOih3XVaEWT8kwzM
-         ikBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786425308; x=1787030108;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1786425380; x=1787030180; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Nar3QBFMYGSVoBNp9egqiLjtAELBZbK1vM45Zqgvhzc=;
-        b=B6YRNNAXwt32IC0yaxZ/vA2mohxBIZ5nS8l9EcTa1tYUlIqWFEBGEqievetjO78oJt
-         2Z4VRdRosljk0un504kxfo+aj/6zH6ZdWH/IN7aLoHN/TVoylC+X7+gNSkACRfVfGl0I
-         yCAFtX29sI9gLyWse8fjDBW2RD0RsWpfr8fNiYBGhjfFqsqtAKA/QvA101X/UuNw98ny
-         TA1G3zH2or4q09rgWLqV+Mo1JWf2XFa3Pevpu3Z93pIKEvakdfBoVnt1m5CWRbCRShqb
-         2ZATysXvcRgxonKGet8HQTlaKUtyq9L5ZyVN2il5fs9/gPxB+QipELkXaNWbf7qOK+xa
-         dPtw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2WwEdmhMRHEZjjrIlxS7ldP2ZOeyROfVuvLETdNz7NujBmKZfCyH1rzyhbyiEX7bnkt+klKg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6Cnxg6TO+dP7pjYomxgifV2zdU8UiWaa7hWBq/+KWez9Gy/WL
-	9st58CxJ3sxCrie0ou+xBoCYGifoRxHFHzHl6S8a+9zt/0r1/Ns/9A5R2QoXaI3XMKk=
-X-Gm-Gg: AR+sD12329CsOc6GkvuRVqOPHO/cJyctjO9wZpkCn6kcRR14e3+P4TXP191wvEFGIYT
-	fIZX5u/kqRzTHY//bCh7MfrivVedOpGjPDaUrGjIJ3Zb+ZNgZSrRLbzrU7ZwYza3Gkv6ezwfHdl
-	RrGE0u13NcC9KmJhDBsk8KHPG3BA5w51po5i/jFle2awaxC7xDjO/bNFaG5aZ1z8B0qH+6xpuMo
-	4PlpAn3SxfRDGKS313o30dP61crKbOpCFL7L/iGR1yFJJTSsxVtv+LengK5SBMdyu9cS5H2IyTw
-	aF5qQY9MuJzVWDnat7jx5fwSqNkQ5z5wNZ/QzXPQoxwzW47kwfG+Y+HU+YqIs9AFIXPX4hvyCVJ
-	x7kgPS89cIsPANZWT8DGJbWSuORBzsqGtCTt9zHdXJr4MIH18vU7AGmMXHQrzD9AIqX2po7fDy4
-	eqTwZhZb+n8qSa4Ds5Wd4LDmMjAqYmlPwAUb7vwOCmrUBkLs4+IS/pCgm/DxvAXrOYFzQYc4C2V
-	UOs/3gJrnxV3KWNuSQlyHp/qJJAgDkMayJ5oFE=
-X-Received: by 2002:a17:90b:274b:b0:380:83fc:4315 with SMTP id 98e67ed59e1d1-392ec71cae0mr737686a91.21.1786425308534;
-        Mon, 10 Aug 2026 22:15:08 -0700 (PDT)
-Received: from localhost (61-222-153-199.hinet-ip.hinet.net. [61.222.153.199])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392d537d905sm1950413a91.14.2026.08.10.22.15.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 22:15:07 -0700 (PDT)
-Date: Tue, 11 Aug 2026 13:15:05 +0800
-From: Andy Chiu <tchiu@tenstorrent.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yong-Xuan Wang <yongxuan.wang@sifive.com>,
-	Greentime Hu <greentime.hu@sifive.com>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] riscv: vector: preserve state when scheduling at nonzero
- depth
-Message-ID: <anqv2bWIvgIyhGxe@Tao-Chiu's-Mac>
-References: <20260806193241.10552-1-kmehltretter@gmail.com>
+        bh=Z22u4Y6qlTT7YZHZuEf9UIZJTy0sb+lujCBIrKH+O7E=;
+        b=X8XfqAlNLOkBFT0v+S7++Ag/LVma9p5UNGM/1tWw7T7j+do4Ci7GNQAI3NtOUlXzDP
+         WyEiQCnym1Vsb2husllv72RElnXvU+mwEXMSqidcGR6x+/x1ZLZCRYE82J6vghlWOX+k
+         JiXQ4ku067pD7yuow1RT/yUL1Q2LT/IArTBr5mq1Z6tQxeasviNpmY6sZ6Vz4z4mrH2E
+         FAYYxHRMPF3Jsq4vhpKjFQMyWoP8zxCRgvBt0WbhSr+TVkfblDGTKVrK3IFrRxkYy2MC
+         i8taqW1v0v9rvBWsAlBxMOB9lmoj+aA292wyNG5lLU0/7O4/8i7JNXeidKvw7nlM2WsL
+         zrSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786425380; x=1787030180;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z22u4Y6qlTT7YZHZuEf9UIZJTy0sb+lujCBIrKH+O7E=;
+        b=MdnJGXKfx2025kdc0rCnDH1ZQ15Adc8q7yTNoRCs3Q6eAOLYiMUjVXVZNjtXv3xOAQ
+         ht9HnwIM7zLw7WjXqQBlJxbLw+Dlog6XP9sKrglR7YIwV+zHYnfMlHHehQ1yBiDI2C6w
+         qLGbP22nz1X1f9miwjY3xSb2BAKhNUi5TxWXrW8Zhw6oYX3vSLMdikCty3hiflBJZUgF
+         RPbm+cAQ/PTx0Ey+qAU7Ud8WDvORViA9U6tAa8pFfAQrqAQbG4vHehfFHKbHh4QpgIsh
+         7GHLAr/OgsAySG+Gzo7FyPC7pRAT/37nsf3I4vBjW1A30VxzSTbisMxPtzolwR6ZE56R
+         e7eA==
+X-Forwarded-Encrypted: i=1; AHgh+RqnlgbxLQnmPP5Pq24G7bvee39YcAoFCYJjbXUlIh9kC/OZd1s8gpORXqRHEfy5tOtEs4O7064=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxC19A6JUhOGqcmwNcYN5g1ZPcgqm6TTIGSR0aJRJop7dZ3YAF+
+	o89FKRwrjz7AnrLv04I/CoMVdbH1XT2RuLol4kJqlKhAP9gEvk1doIuPw/OTGrfsTgYzYm/dkPO
+	riN8JeKIOBiWePhRYzKZ8rKlgHf6i/KIsWtpGD9YhuC4pMkyo+vON+MTIWZw=
+X-Gm-Gg: AR+sD11hqrai4DIZOUEXXo8ICyHkWlRhcHj4dBwfc5/9cznKbAZF61j9VaaLI2ejOOx
+	5C6rrJFDK308lJBTxXhimQJD78uCTStye6t5dDEP/hQBa3zzIFujW/6YSfd8tCfxTVBzEQjUJ6f
+	hS4eBqKgbrYomaa8C7clKFgn7uArLIdjxyZkuSbA3dj0L/xU7TI36Og8lvmNc6FZvxmZl8WBFSb
+	0Arf9i3BAFOXdYHym3bLEOSLfEUv7tFLsoWf+8EDqk+VSwu0UQzhIveX4P/FYlag9iFtQDjhY1S
+	m1vf5C+pdhJuWxNPiIv1TWCzFU/byhPkPjF5XBVoc7u/nE/WhzMizZN4svaVKgEwh8l5jWKRRdR
+	TWksPjJ17F04+g1YdnwO/vEnpLi3km/Es
+X-Received: by 2002:a17:903:3c4f:b0:2b7:975c:dacc with SMTP id d9443c01a7336-2d3177d6f58mr11611915ad.1.1786425379972;
+        Mon, 10 Aug 2026 22:16:19 -0700 (PDT)
+X-Received: by 2002:a17:903:3c4f:b0:2b7:975c:dacc with SMTP id d9443c01a7336-2d3177d6f58mr11611395ad.1.1786425379454;
+        Mon, 10 Aug 2026 22:16:19 -0700 (PDT)
+Received: from [192.168.1.3] ([122.177.240.172])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d31623091dsm1505835ad.77.2026.08.10.22.16.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 22:16:18 -0700 (PDT)
+Message-ID: <53e05300-b84c-4a04-a7b4-5022285bcbdc@oss.qualcomm.com>
+Date: Tue, 11 Aug 2026 10:46:14 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806193241.10552-1-kmehltretter@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/memcg: fix NULL nodeinfo[] dereference on late-onlined
+ nodes
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+        Roman Gushchin <roman.gushchin@linux.dev>,
+        Shakeel Butt <shakeel.butt@linux.dev>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Kefeng Wang <wangkefeng.wang@huawei.com>,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        linux-arm-msm@vger.kernel.org, cgroups@vger.kernel.org,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260810-memcg-nodeinfo-null-guard-v1-1-77a73204d63a@oss.qualcomm.com>
+ <5059A780-9C10-4171-A254-38944464F1AC@linux.dev>
+Content-Language: en-US
+From: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+In-Reply-To: <5059A780-9C10-4171-A254-38944464F1AC@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA0MiBTYWx0ZWRfX5fIj6XKhuUtA
+ jtmPOfLFKv3tqk5w8+agJbeP5Yg9t/ITrK6kjpFm5wSJloH5N8y55wktHbaKXm/xowT0wCOLnOT
+ fIK32IjOHb6UuiI9cCGqGJrOJ+qQFF3T9F0MG4tQOkqzbAFbai3vqdFJ+ZmfLGjP/STVkj4BxVN
+ WKFDrLDmcMUsZMbXTPdsHafV8KnkCqRbs5Rm/NHnNgw6ukyhcSqlSDvjNqBsXzElzT4kT1eH9Z0
+ 9LrjgEbXD1pczB4UxEYkerzzdAszmOqKdaPDvGmnO5pw53CniE3BHCTwktq0PvlSpjNJewT/Ceb
+ QUhwUczpo8GaLXdmiNotEjHkNPXhKXZGWGWPvyiaz2IkYgqB4vr3rA/JBasBOO7wrnNGp5dE6+l
+ x9vuc75IbQIBTWpUAPQjALzw5LVfFPQZg0aqUg1N86s/gQsGYe/a/P8pSO34E5WPj4OHahnyTC8
+ 3Q0X4Op9xHI2rKL3Xbw==
+X-Authority-Analysis: v=2.4 cv=O4YJeh9W c=1 sm=1 tr=0 ts=6a7ab024 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=/KRT0UA7ihr0Zk0c0WlnJw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=CXD26xkfXwuzw2POT1oA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA0MiBTYWx0ZWRfXxZmb58OuEQnq
+ /6XM8jPShsZmF6+2FhOjH9G5aQQa3itVowjxsuLQt+rn2F/Fz9iltHSsLsI0xThMRWEVCNpqDSx
+ JaVARZl9yROx8Sfpb4/7q2RFBE6AxPI=
+X-Proofpoint-GUID: 8JU2jbwgRCUhnz8HEwKl_4yDTpQAUMTe
+X-Proofpoint-ORIG-GUID: 8JU2jbwgRCUhnz8HEwKl_4yDTpQAUMTe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_06,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 spamscore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110042
 
-Hi Karl,
 
-On Thu, Aug 06, 2026 at 09:32:41PM +0200, Karl Mehltretter wrote:
-> The IN_SCHEDULE shortcut lets __switch_to_vector() discard Vector state at
-> a voluntary schedule point, where Vector registers are caller-saved.
-> Switch-in can then enable Vector without restoring state.
-> 
-> An interrupt or fault can also schedule at nonzero Vector nesting depth.
-> This triggers:
-> 
->   WARNING: arch/riscv/include/asm/vector.h:376 at __schedule+0xfbc/0x10b4
-> 
-> The shortcut is then also taken on switch-in, so it skips NEED_RESTORE and
-> riscv_v_context_nesting_end() resumes with stale Vector registers. In the
-> vector usercopy loop, an interrupt between vsetvli and vle8.v/vse8.v can
-> therefore resume with another task's vl, vtype and vector registers. The
-> scalar loop state survives, so the copy can use the wrong vector length and
-> silently corrupt user data. A sleeping page fault in vectorized usercopy
-> can reach the same switch without CONFIG_PREEMPTION.
-> 
-> Use the shortcut only at depth zero. Nonzero-depth switches retain the
-> existing save and NEED_RESTORE protocol.
-> 
-> Fixes: d1049fc0de81 ("riscv: vector: Support calling schedule() for preemptible Vector")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6-luna
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> Reproducer:
-> 
-> Originally caught by syzkaller fuzzing:
-> 
->   [   75.067010] ------------[ cut here ]------------
->   [   75.069361] WARNING: arch/riscv/include/asm/vector.h:376 at __schedule+0xfbc/0x10b4, CPU#1: syz.4.788/3533
->   [   75.072830] CPU: 1 UID: 0 PID: 3533 Comm: syz.4.788 Not tainted 7.2.0-rc5-g11f985de3fef #3 PREEMPTLAZY
->   [   75.075177] [<ffffffff810cb124>] __schedule+0xfbc/0x10b4
->   [   75.075572] [<ffffffff810cb41c>] preempt_schedule_irq+0x2a/0x76
->   [   75.075753] [<ffffffff810c6a06>] irqentry_exit+0x260/0xd48
->   [   75.075911] [<ffffffff810c666a>] do_irq+0x34/0x48
->   [   75.076076] [<ffffffff810d4f82>] handle_exception+0x146/0x174
->   [   75.076380] [<ffffffff810c5654>] loop+0x4/0x26
->   [   75.076505] [<ffffffff80749838>] copy_folio_from_iter_atomic+0x2d4/0xd64
->   [   75.078599] ---[ end trace 0000000000000000 ]---
-> 
-> The following standalone workload exercises the same vectorized usercopy
-> path. Build vector-stress.c into the initramfs and mount debugfs before
-> running it. The kernel used CONFIG_PREEMPT_LAZY=y,
-> CONFIG_RISCV_ISA_V_PREEMPTIVE=y and CONFIG_KCOV=y. Run it under QEMU TCG
-> with:
-> 
->   qemu-system-riscv64 -machine virt -cpu max -smp 1 -nographic \
->     -kernel arch/riscv/boot/Image -initrd vector-diag-small-memcheck.cpio.gz \
->     -append 'console=ttyS0 earlycon=sbi rdinit=/init'
-> 
-> The stress program checks every byte read back from the pipe. With this
-> patch, the workload completed with failures=0 and no Vector warning.
-> 
-> Testing:
->   checkpatch.pl --strict, git diff --check, Image builds with
->   CONFIG_RISCV_ISA_V_PREEMPTIVE=y and CONFIG_RISCV_ISA_V_PREEMPTIVE=n, and
->   QEMU TCG one-vCPU stress runs. The patched workload completed with
->   failures=0 and no warning.
-> 
-> No conflict with Andy Chiu's pending "riscv: optimize Vector context restore
-> on syscall" series; both apply independently.
-> 
-> vector-stress.c:
-> 
-> #define _GNU_SOURCE
-> 
-> #include <errno.h>
-> #include <fcntl.h>
-> #include <linux/kcov.h>
-> #include <pthread.h>
-> #include <sched.h>
-> #include <stdatomic.h>
-> #include <stdint.h>
-> #include <stdio.h>
-> #include <stdlib.h>
-> #include <string.h>
-> #include <sys/ioctl.h>
-> #include <sys/mman.h>
-> #include <sys/types.h>
-> #include <unistd.h>
-> 
-> #define WORKERS 4
-> #define ITERATIONS 2000
-> #define CHUNK (16 * 1024)
-> #define KCOV_ENTRIES (1 << 16)
-> #define KCOV_BYTES (KCOV_ENTRIES * sizeof(unsigned long))
-> 
-> static pthread_barrier_t start_barrier;
-> static atomic_int failures;
-> 
-> static int kcov_start(unsigned long **area, int *fd, int id)
-> {
-> 	unsigned long *map;
-> 	int kfd, saved_errno;
-> 
-> 	kfd = open("/sys/kernel/debug/kcov", O_RDWR);
-> 	if (kfd < 0) {
-> 		dprintf(STDERR_FILENO, "worker %d: KCOV open: %s\n", id,
-> 			strerror(errno));
-> 		return -1;
-> 	}
-> 	if (ioctl(kfd, KCOV_INIT_TRACE, KCOV_ENTRIES) < 0) {
-> 		dprintf(STDERR_FILENO, "worker %d: KCOV init: %s\n", id,
-> 			strerror(errno));
-> 		goto fail_close;
-> 	}
-> 	map = mmap(NULL, KCOV_BYTES,
-> 			PROT_READ | PROT_WRITE, MAP_SHARED, kfd, 0);
-> 	if (map == MAP_FAILED) {
-> 		dprintf(STDERR_FILENO, "worker %d: KCOV mmap: %s\n", id,
-> 			strerror(errno));
-> 		goto fail_close;
-> 	}
-> 	if (ioctl(kfd, KCOV_ENABLE, KCOV_TRACE_PC) < 0) {
-> 		dprintf(STDERR_FILENO, "worker %d: KCOV enable: %s\n", id,
-> 			strerror(errno));
-> 		saved_errno = errno;
-> 		munmap(map, KCOV_BYTES);
-> 		errno = saved_errno;
-> 		goto fail_close;
-> 	}
-> 	*area = map;
-> 	*fd = kfd;
-> 	return 0;
-> 
-> fail_close:
-> 	saved_errno = errno;
-> 	close(kfd);
-> 	errno = saved_errno;
-> 	return -1;
-> }
-> 
-> static void *worker(void *arg)
-> {
-> 	unsigned long *area;
-> 	unsigned char *buffer;
-> 	int pipefd[2], kfd, id = (int)(uintptr_t)arg;
-> 
-> 	if (kcov_start(&area, &kfd, id) < 0) {
-> 		atomic_fetch_add(&failures, 1);
-> 		return NULL;
-> 	}
-> 	if (pipe2(pipefd, O_CLOEXEC) < 0) {
-> 		dprintf(STDERR_FILENO, "worker %d: pipe failed: %s\n", id,
-> 			strerror(errno));
-> 		atomic_fetch_add(&failures, 1);
-> 		goto out_kcov;
-> 	}
-> 	buffer = aligned_alloc(64, CHUNK);
-> 	if (!buffer) {
-> 		dprintf(STDERR_FILENO, "worker %d: allocation failed: %s\n", id,
-> 			strerror(errno));
-> 		atomic_fetch_add(&failures, 1);
-> 		goto out_pipe;
-> 	}
-> 	memset(buffer, 0x30 + id, CHUNK);
-> 	pthread_barrier_wait(&start_barrier);
-> 
-> 	for (int i = 0; i < ITERATIONS; i++) {
-> 		size_t done = 0;
-> 
-> 		while (done < CHUNK) {
-> 			ssize_t n = write(pipefd[1], buffer + done, CHUNK - done);
-> 			if (n < 0 && errno == EINTR)
-> 				continue;
-> 			if (n <= 0) {
-> 				atomic_fetch_add(&failures, 1);
-> 				goto out_buffer;
-> 			}
-> 			done += n;
-> 		}
-> 		done = 0;
-> 		while (done < CHUNK) {
-> 			ssize_t n = read(pipefd[0], buffer + done, CHUNK - done);
-> 			if (n < 0 && errno == EINTR)
-> 				continue;
-> 			if (n <= 0) {
-> 				atomic_fetch_add(&failures, 1);
-> 				goto out_buffer;
-> 			}
-> 			done += n;
-> 		}
-> 		for (size_t j = 0; j < CHUNK; j++) {
-> 			if (buffer[j] != (unsigned char)(0x30 + id)) {
-> 				dprintf(STDERR_FILENO,
-> 					"worker %d: data mismatch at %zu\n", id, j);
-> 				atomic_fetch_add(&failures, 1);
-> 				goto out_buffer;
-> 			}
-> 		}
-> 		if ((i & 7) == 0)
-> 			sched_yield();
-> 	}
-> 
-> out_buffer:
-> 	free(buffer);
-> out_pipe:
-> 	close(pipefd[0]);
-> 	close(pipefd[1]);
-> out_kcov:
-> 	ioctl(kfd, KCOV_DISABLE, 0);
-> 	munmap(area, KCOV_BYTES);
-> 	close(kfd);
-> 	return NULL;
-> }
-> 
-> int main(void)
-> {
-> 	pthread_t threads[WORKERS];
-> 
-> 	pthread_barrier_init(&start_barrier, NULL, WORKERS);
-> 	for (int i = 0; i < WORKERS; i++)
-> 		if (pthread_create(&threads[i], NULL, worker, (void *)(uintptr_t)i))
-> 			atomic_fetch_add(&failures, 1);
-> 	for (int i = 0; i < WORKERS; i++)
-> 		pthread_join(threads[i], NULL);
-> 	pthread_barrier_destroy(&start_barrier);
-> 
-> 	printf("vector-stress complete failures=%d\n", atomic_load(&failures));
-> 	return atomic_load(&failures) ? 1 : 0;
-> }
 
-I cannot reproduce the WARN fail using the program here on a clean
-7.2-rc1. Could you provide the following information to help us track
-down the exact failure?
- - The original reproducer that syzkaller gives.
- - The upstream commit hash including applied series on your test branch,
-   preferably a link to your git tree.
-
+On 8/10/2026 1:28 PM, Muchun Song wrote:
 > 
->  arch/riscv/include/asm/vector.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/arch/riscv/include/asm/vector.h b/arch/riscv/include/asm/vector.h
-> index 00cb9c0982b1a..1766bb7494d3b 100644
-> --- a/arch/riscv/include/asm/vector.h
-> +++ b/arch/riscv/include/asm/vector.h
-> @@ -372,8 +372,8 @@ static inline void __switch_to_vector(struct task_struct *prev,
->  	struct pt_regs *regs;
->  
->  	if (riscv_preempt_v_started(prev)) {
-> -		if (riscv_v_is_on()) {
-> -			WARN_ON(prev->thread.riscv_v_flags & RISCV_V_CTX_DEPTH_MASK);
-> +		if (riscv_v_is_on() &&
-> +		    !(prev->thread.riscv_v_flags & RISCV_V_CTX_DEPTH_MASK)) {
->  			riscv_v_disable();
->  			prev->thread.riscv_v_flags |= RISCV_PREEMPT_V_IN_SCHEDULE;
->  		}
+>> On Aug 10, 2026, at 13:46, Prakash Gupta <prakash.gupta@oss.qualcomm.com> wrote:
+>>
+>> memcg->nodeinfo[] entries are allocated only for nodes present at
+>> css_alloc time. When a node is onlined after a memcg is created its
+>> nodeinfo[] slot remains NULL. Two call sites dereference these slots
+>> unconditionally:
+> 
+> I don't think the premise of this patch is correct.
+> 
+> memcg->nodeinfo[] is not allocated only for nodes that are present or
+> online at css_alloc time. mem_cgroup_alloc() allocates per-node info with
+> for_each_node(), and for_each_node() iterates N_POSSIBLE nodes:
+> 
+>         for_each_node(node)
+>                 alloc_mem_cgroup_per_node_info(memcg, node);
+> 
 
-In fact we don't need to check riscv_v_is_on() here, voluntary switch
-always happens at level 0. This change is included in the v5 series of
-optimizing vector syscall latency[1], which closes the usercopy
-corruption on v4 of a kvm fix from the other end. The v5 series
-provides a direct fix and have the behavior documented here [2].
+You are right. I rechecked and nodeinfo[] is allocated for all possible
+nodes at mem_cgroup_alloc() time, not just currently online ones.
 
-Since the problem only appears in the v4 series of the kvm fix,
-triggering this bug on the current upstream may indicate that there are
-some unclosed path that leads to the error. So it would be valuable if
-you could provide the exact reproducer and base for us to investagate.
+> If memcg->nodeinfo[nid] is NULL on your system, that looks like a
+> violation of this invariant, or possibly a downstream-specific change,
+> bad nid, allocation/lifetime issue, or memory corruption. I don't think
+> the generic explanation that "the node was onlined after the memcg was
+> created" is sufficient.
+> 
+Agreed. I will investigate further before resubmitting that part.
 
-[1]: https://lore.kernel.org/all/20260810172255.1532787-2-tchiu@tenstorrent.com/
-[2]: https://lore.kernel.org/all/20260803215250.824417-4-tchiu@tenstorrent.com/
+>>
+>> lruvec_stat_mod_folio() calls mem_cgroup_lruvec() which reads
+>> memcg->nodeinfo[pgdat->node_id] without a NULL check. On a system
+>> where a node is onlined after the memcg is created, any folio stat
+>> update for that node crashes with a NULL pointer dereference:
+>>
+>>  Unable to handle kernel paging request at virtual address ffffffbebf7e1908
+>>  pc : lruvec_stat_mod_folio+0xf0/0x444   [6.18.21-android17-5]
+>>  lr : lruvec_stat_mod_folio+0x88/0x444
+>>  Call trace:
+>>   lruvec_stat_mod_folio+0xf0/0x444
+>>   folio_add_new_anon_rmap+0xac/0x2b8
+>>   do_wp_page+0x768/0xc80
+>>   handle_mm_fault+0x37c/0x8c4
+>>   do_page_fault+0x140/0xa1c
+>>   do_mem_abort+0x54/0x74
+>>   el0_da+0x48/0x8c
+>>   el0t_64_sync_handler+0x20/0x130
+>>   el0t_64_sync+0x1c4/0x1c8
+>>
+>> __invalidate_reclaim_iterators() iterates for_each_node() and reads
+>> from->nodeinfo[nid]->iter without checking for NULL. for_each_node()
+>> visits all possible nodes, so this is reachable whenever a node is
+>> onlined after the memcg was created.
+>>
+>> Fix lruvec_stat_mod_folio() by checking nodeinfo[pgdat->node_id]
+>> directly and falling back to mod_node_page_state() when NULL, mirroring
+>> the existing !memcg early-return path. The fallback must not go through
+>> mod_lruvec_state() since that calls mod_memcg_lruvec_state() which uses
+>> container_of() to recover the mem_cgroup_per_node from the lruvec
+>> pointer; passing &pgdat->__lruvec there produces a garbage pointer.
+>> When nodeinfo[nid] is NULL the memcg has no per-node accounting
+>> structure for that node, so node-level accounting is correct.
+>>
+>> Fix __invalidate_reclaim_iterators() by skipping NULL nodeinfo[] slots.
+>>
+>> Also switch lruvec_stat_mod_folio() to folio_memcg_check() which uses
+>> READ_ONCE() to safely read folio->memcg_data in an unlocked context.
+>>
+>> Fixes: 6c77b607ee26 ("mm: kill lock|unlock_page_memcg()")
+> 
+> The Fixes tag also seems odd. 6c77b607ee26 ("mm: kill
+> lock|unlock_page_memcg()") only removed/renamed the lock_page_memcg()
+> wrappers and does not appear to change nodeinfo[] allocation or memory
+> hotplug handling. Could you explain how that commit introduced the NULL
+> nodeinfo condition?
+> 
+
+It did not. It seems I picked up the commit based on git blame on
+function as there were two related bugs reports that I was conflating
+into one patch as listed below, will fix that in v2.
+
+Variant A (missed to mentioned in commit msg) — NULL dereference:
+
+    Unable to handle kernel NULL pointer dereference
+      at virtual address 0000000000000528
+    ESR = 0x0000000096000005 (read fault)
+    Workqueue: events delayed_fput
+    pc : lruvec_stat_mod_folio+0x5c/0x444  [6.18.21-android17-5]
+    lr : lruvec_stat_mod_folio+0x2c/0x444
+
+As you suggested this may need more investigation.
+
+Variant B (the crash included in the patch) — stale pointer:
+
+    Unable to handle kernel paging request
+      at virtual address ffffffbebf7e1908
+    ESR = 0x0000000096000045 (write fault)
+    pc : __lruvec_stat_mod_folio+0xf0/0x444  [6.18.21-android17-5]
+    lr : __lruvec_stat_mod_folio+0x88/0x444
+    Call trace:
+      __lruvec_stat_mod_folio+0xf0/0x444
+      folio_add_new_anon_rmap+0xac/0x2b8
+      do_wp_page+0x768/0xc80
+      handle_mm_fault+0x37c/0x8c4
+      do_page_fault+0x140/0xa1c
+
+__lruvec_stat_mod_folio+0xf0 places it after the !memcg NULL check.This
+is consistent with folio_memcg() returning a stale memcg pointer that
+passes the NULL check.
+
+folio_memcg_check() uses READ_ONCE(folio->memcg_data) which seems the
+correct API for unlocked contexts. folio_memcg_check() has been
+available since becacb04fdd4 ("mm: memcg: add folio_memcg_check()")
+but lruvec_stat_mod_folio() was never updated to use it.
+
+I should also note that this crash is difficult to reproduce in a
+controlled environment — the analysis is based on crashdump inspection.
+I have not been able to construct a reliable reproducer so far.
+
+let me know your thoughts on this, accordingly I can send a v2 to cover
+only Variant B fix as explained above.
+
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: pi:claude-sonnet-4-5
+> 
+> Given the Assisted-by tag, I assume some of the analysis may have been
+> tool-assisted. That's fine, but the author still needs to validate the
+> reasoning against the actual code before submission.
+> 
+Agree, I will be more careful in next submission.
+
+> Did you confirm that the relevant allocation and hotplug paths were
+> manually checked against the affected tree? In particular, I wonder
+> whether this behavior depends on downstream changes around
+> mem_cgroup_alloc(), for_each_node(), node_possible_map setup, or memory
+> hotplug nid validation.
+> 
+I checked all four paths against the affected tree
+(6.18.21-android17-5). Only difference in
+mem_cgroup_alloc() are cosmetic and do not touch the nodeinfo[]
+allocation path. The NULL nodeinfo[nid] in Variant A is not explained
+by any downstream change — the root cause remain unknown.
+
+Thank you for the review.
 
 Thanks,
-Andy
+Prakash
+
