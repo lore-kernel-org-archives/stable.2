@@ -1,108 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787773DB311
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 18:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5173E2770
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 18:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786474591; cv=none; b=LCadocSDLwHPsuiEwuVD7xrm3+NL+PsJZX9Ccmh1pPIELrfZcPC6fVC9OLvMtiSxGB7TIbI5pLCLkn/tH+3EQV2KMVDr5kS2PtIAW113iO58D3tnTfO/Qegrd3FvOlcwbIdwsV4I9EoqgRNtN95S/JovJr0X4QnYs0honnmAP4A=
+	t=1786474793; cv=none; b=KtMmIOW9rCsYOSpoBcrtidZaiw6AOxmRUPMxpAnzcJj+fLHlmioJDnpbgAjOnPY8BPvuxrlXb2r908px9pO+KPUygPsZygaxloDYYC8o2ot6zeUBX1klp9n+G2w66yMlNYsT9ZH7H58BEdFprGPTT90q3/WAI9uWnECUOBHZlgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786474591; c=relaxed/simple;
-	bh=j/lEWhoCS2GQEF0hRb8wVELL8MVd99pWEpg4Qe/P1GQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XzRBmij0QxUA+lCVeEY2Bw9OxWfDAErRFg8KEJoa9CrdLQ4hmwKFYvIcckK/+phqgejuP0XEyQu/ldbw24IyPD7R+a4LlVewFOX76cy1/G3ii2HfzsUpmYdZ23Lpw9aXbKUYLL9OEFimTIZE7xzU0gdkb8tB9XZSo8+k3AxKtus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WcbzHUDH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786474793; c=relaxed/simple;
+	bh=T+gHEV00Gllmj5JnGI7Qi7oVyBbhUnj9hg7HeoQ9mck=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YpFrzGzamvB9xwsCBsPRCZe8A6tG/Rk2Kv6CphUGz5rbnHfHr8eDDCtt/YAy2tjdE7BjlCN1SdbvN8ir8xWA6EUCDCgZTCFQk3h2RJZogckoWTBVJP8APg5E+hzoiMWtvygnBuhGkieHTuur4NmGpPfUXZqgfFmDKmkIghbu9X8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=meWHuiT/; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WcbzHUDH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A01011F000E9;
-	Tue, 11 Aug 2026 18:56:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786474589;
-	bh=4qHKdJAWhulgmP6Zv1Ja2x8xOFo8qYo10xwpfsq+IV0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WcbzHUDHZ81pu4D4UefOjkfGZi+Qlvx3PuLt91oaDDLgLoydtRlsQ9ASVZe5UqgCX
-	 Q26zCOwKCBF3T4edX1oAHEjA0ccnfebM/X1c/VSnRzE/cSasv82B++8UWUR8MO6XTI
-	 Yiv2oLwcpgAystq6828lmzc6s8Xbl45k9u53gpI8HOf61lSjYGBmbb7a1/wVESjviL
-	 17J1z8qJuDnHw1n3F+siQ7B7kJMbyXiNDZLRlngZlROoPpv1GLib9eEuv+o6VORWW0
-	 glNffhTKB7QwzzaZfalCXxhgWWDpxv09hV6rxhd156H0VF6018mkf1e5EAVTTR6M+L
-	 yZqRy2Dwqj/XA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Matt Fleming <mfleming@cloudflare.com>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] veth: convert frag_list skbs before running XDP
-Date: Tue, 11 Aug 2026 14:56:26 -0400
-Message-ID: <20260811185626.3387187-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080507-delighted-scouring-7597@gregkh>
-References: <2026080507-delighted-scouring-7597@gregkh>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="meWHuiT/"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BGVa903260708;
+	Tue, 11 Aug 2026 18:59:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Jg+s4w
+	wL9Z/fE/XigULxmCKSwMA0I0c9ncBWmOlZuys=; b=meWHuiT/j3J9hX922pqfM7
+	reklj3mbl0l7ECuAGVGMx1HISQEW9PNzDURXJL+T42W4kLfK3V2LgxHuAzNX0Lq/
+	XTTLEQtzMwPN/jUdPoOAxFcF0+AcqVpmwfONu96oeqIrRkJiSmwqXc6nlou14Vdn
+	UpGUGZcx4qMgb8RMV3EBiQShR2x7AzObpG6sLjMK7hJstc86r8GP4JnwL+D6Zzp2
+	V4z/Mhpi9Ny6kT+PUJUWNMeTbVv47v9PZr8r2Fd/UBw4REd5b/0aiBXkv+n+Njt2
+	Iz5vSL+VFteAbDzVzi1AgfOE8oP6CiSs0KMW12h6yggdlSQOef+nqpX5XzRChxcg
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvjyxk3h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 18:59:47 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67BIuKZZ011682;
+	Tue, 11 Aug 2026 18:59:46 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxf5w2f9a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 18:59:46 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67BIxkso14025256
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 11 Aug 2026 18:59:46 GMT
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F166C58052;
+	Tue, 11 Aug 2026 18:59:45 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9F33D5805A;
+	Tue, 11 Aug 2026 18:59:45 +0000 (GMT)
+Received: from [9.61.240.229] (unknown [9.61.240.229])
+	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 11 Aug 2026 18:59:45 +0000 (GMT)
+Message-ID: <dd24992f-c226-487a-8587-bc824c1a4707@linux.ibm.com>
+Date: Tue, 11 Aug 2026 11:59:44 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 stable 6.12 0/3] s390 KVM PCI backports for 6.12
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
+        gregkh@linuxfoundation.org
+Cc: Matthew Rosato <mjrosato@linux.ibm.com>
+References: <20260810182128.5458-1-alifm@linux.ibm.com>
+ <20260811184500.stable-0008-sashal@kernel.org>
+Content-Language: en-US
+From: Farhan Ali <alifm@linux.ibm.com>
+In-Reply-To: <20260811184500.stable-0008-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDE1NSBTYWx0ZWRfX6WDcaRJm9OIg
+ e/2O4cX+zC6TNDQuXjsuVicjK+8nFvbBn8XOHlPxGdkd3K/00PkkAJVFJPWkLEOKOHf44JroPBf
+ eIi04P6xl8yg2V85mbAiQstGqrqXGPnBTCe2IbXqdO6/LpTJRGUaKyNEPuZ1XBZzhr0nYI3UmQ8
+ K2Iq5lKeOYwLGnpa02tj9KyQo8IKNwLy5V8jgXHNOHzxyCWS4Ls94TJvhYxEHgv6heZTi51JFKu
+ P7OzP3Wyovedb/c/09ZstehN6zGTjSeCixPgul4urrC9d+/Ve+Mzsq9EWqB/dYShAuI341GDvtf
+ gnBswjC9yyyRZs4IG3tE8iAkEuBa0kH/wmo0foT0CVvD70mzKB13cC1s4oVV2Z04OhG6Z04hr6i
+ tnTl4Oj5LUjF5HMBZXIqQAmpfXZ9mpje/er8PfxPpFcythYFKdoVzeRpTRYeHiufTT6cvo2PIjF
+ mOV4MspeVJsPEsOZUlQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDE1NSBTYWx0ZWRfXxmY6DmWp2/cx
+ luan/hYKXpmgHhJ3oyAVo01yURrgc9SIP7YHlpLBu0+ZiEvumVnPdNppY1Ab5ZiNTg4Iunvapll
+ EK5r5LjfEkNKyLDt+sfNqQ0oFf4iAXY=
+X-Authority-Analysis: v=2.4 cv=RqD16imK c=1 sm=1 tr=0 ts=6a7b7123 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=CzoABr1io2YOvvHH3BMA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: iMzUUmpkRyU1jqKbK6DUDuTDhOtcruLY
+X-Proofpoint-ORIG-GUID: iMzUUmpkRyU1jqKbK6DUDuTDhOtcruLY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-11_04,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 adultscore=0 bulkscore=0 malwarescore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608110155
 
-From: Matt Fleming <mfleming@cloudflare.com>
 
-[ Upstream commit d0d6415963040c401e7a7e4e482a698ba52448cb ]
+On 8/11/2026 11:55 AM, Sasha Levin wrote:
+>> This patchset backports the failed commits to stable-6.12. I have resolved
+>> the merge conflicts and tested them on s390.
+> Thanks for the respin - this one does apply, and 3/3 now falls through
+> into free_aisb: the way mainline does, so both of my objections to v1
+> are addressed.
+>
+> One thing left in 1/3: the conflict resolution keeps 6.12's existing
+> in-loop
+>
+> 	cur_pages = atomic_long_read(&user->locked_vm);
+>
+> in account_mem() as well as adding the pre-loop read. It is harmless,
+> but it is the only line where 6.12 would then differ from mainline and
+> from 6.18/7.1. Could you drop the in-loop read and resend? The same
+> artifact is in the 6.6 and 6.1 submissions.
+>
+> While you are respinning: 0cfe660559e8 ("KVM: s390: pci: Fix aisb
+> calculation") is missing from 6.18, 6.12, 6.6 and 6.1 - only 7.1 has it.
+> kvm_zpci_set_airq() on these trees still computes the AISB address as
+> aift->sbv->vector + (zdev->aisb / 64) * 8, which goes out of bounds past
+> 64 forwarded devices. Could you or Matthew include it in the resend?
 
-A frag_list skb can reach veth with data_len set but nr_frags zero.
-veth_convert_skb_to_xdp_buff() only converts skbs that are shared,
-locked, have frags[], or do not have enough headroom. It later uses
-skb_is_nonlinear() to decide whether to set XDP_FLAGS_HAS_FRAGS and
-xdp_frags_size.
+Yeah, I can send that as part of the re-spin. Will send out updates for 
+all the relevant backports.
 
-That exposes frag_list data to XDP as if it were stored in frags[], but
-frags[] is empty. AF_XDP copy mode can then trust the bogus XDP fragment
-metadata, walk an empty fragment entry, and crash in memcpy() from
-__xsk_rcv().
+Thanks
 
-Route non-linear skbs through skb_pp_cow_data() before exposing them to
-XDP, and only advertise XDP frags when the resulting skb has frags[].
-skb_copy_bits() already handles frag_list input, and skb_pp_cow_data()
-builds frags[] output with skb_add_rx_frag(), which is the
-representation XDP multi-buffer expects.
+Farhan
 
-Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept non-linear skb")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
-Reviewed-by: Toke Høiland-Jørgensen <toke@toke.dk>
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
-Link: https://patch.msgid.link/20260722191925.2192070-1-matt@readmodwrite.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/veth.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index d85a11e9477f0..27fa5a0cfd9d2 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -731,7 +731,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	u32 frame_sz;
- 
- 	if (skb_shared(skb) || skb_head_is_locked(skb) ||
--	    skb_shinfo(skb)->nr_frags ||
-+	    skb_is_nonlinear(skb) ||
- 	    skb_headroom(skb) < XDP_PACKET_HEADROOM) {
- 		u32 size, len, max_head_size, off;
- 		struct sk_buff *nskb;
-@@ -808,7 +808,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	xdp_prepare_buff(xdp, skb->head, skb_headroom(skb),
- 			 skb_headlen(skb), true);
- 
--	if (skb_is_nonlinear(skb)) {
-+	if (skb_shinfo(skb)->nr_frags) {
- 		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
- 		xdp_buff_set_frags_flag(xdp);
- 	} else {
--- 
-2.53.0
 
