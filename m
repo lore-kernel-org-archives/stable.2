@@ -1,44 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B3E43079F
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 11:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CB5397695;
+	Tue, 11 Aug 2026 11:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786449308; cv=none; b=SNz40d8WJSir4qOpsnX9PHZYzA1E84hdhvjKpMxLuz1dMaFNW/w4Hf/o8PRiRRcFdoH8i0hjvKiOqGl2eSTPKvRR1yB6kh9V8T4QvJKvdP4MEImS8fPZNLRf4Fr8IyibZS/rlZd09AU0b8OYNh+HzfB4ad9pZxnDeKDdYhNRJfo=
+	t=1786449542; cv=none; b=vFVKTc+QoIly9Hm1iow6BjD2yzsmDFOv93hoGe1N08YMwqKEgqaxeQG8FJB61CWMcEKYhitsf+uKF0AyBZbuaq7kIqvWuDoj7cqYf9TptroaooORq0Ng6b+I8wEh1bw1QK8t/tMTtrteeobjjj72snKyRlS3TDdFiJvcbJu4mo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786449308; c=relaxed/simple;
-	bh=gYFfdjiMhlYQPHnKaM0c818WpskuLo0ZZ0w95JsPt60=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TXuIi+j6q1P+xjJqcNM5k2EaWKBUFz3U6d26dRcS0TDm1KR7DNzRvonzspnGdLthXK4E8W5XINo5JoIzvQAyEk8hVRxbhgclomnSnqfvqgkrluwww5Z2xjwk1G0+hu1i9/Rx8esrehMvvrIvMhakLQhJB0Tka5EXa1Sw15JohSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kItTa7UV; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kItTa7UV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3341F00A3E;
-	Tue, 11 Aug 2026 11:55:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786449307;
-	bh=2zL5Da/Kzs3a1l5+yUMDjRcNvCB8GiuryZy9b/+7Ehs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kItTa7UVnhZv6l9ZLC8li90LYwNGUHm4OfrBLjht+wOhkuW5dgaNbFDXYmzSaVATT
-	 3psnaW5cgoiyt6Q2fjRLkppwYOc659DXchbPwwVEyYr3jUZltUHsGcXycIOg3fPVlF
-	 n9Qd7fNA/Ube3pj77xKzShSFv3Ax/j5xQOtAZyWgNk10M4+mzPlOgWCZckO6s1vCbM
-	 VBXCxxcjJVWVXlfxeunk04JdqXnYmQY8Ivi8A1JALAleozYp/OyhAEVHebzAyT3E4x
-	 9DMgbyFgvjr64adNDaEUCKFmoKjMzFtayUL9sgcQ5Ou0jS/NlVInDykRho/6ACuqdg
-	 kJPgQixHrZMeA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] net: pktgen: fix proc entry use-after-free
-Date: Tue, 11 Aug 2026 07:55:04 -0400
-Message-ID: <20260811115504.2333010-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260811115504.2333010-1-sashal@kernel.org>
-References: <2026080501-backup-vest-eab3@gregkh>
- <20260811115504.2333010-1-sashal@kernel.org>
+	s=arc-20240116; t=1786449542; c=relaxed/simple;
+	bh=E+gZyeMlFEGdRRI2qzpFR6KyUhjBcjLzSzXgQm9btp0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MrnZbzDQEeQEnDQ1qwRon4cOPXLtzdv+mIAMd7q0XGYs41rKwqt/MRO8Bo4VSmpB/SwupSnR+XC443htjaA67kgpr07a0QXZYVR5VOzntRh4uY3Rgz1xJ4O0zHN81wMr6Oe+uP6qsPg7VoYy6Zpk5dncYTwMb3f4vs/oe9/OiyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [223.166.93.127])
+	by APP-03 (Coremail) with SMTP id rQCowAAXHz1XDntqZQatBA--.2222S2;
+	Tue, 11 Aug 2026 19:58:32 +0800 (CST)
+From: Han Gao <gaohan@iscas.ac.cn>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Tianyang Zhang <zhangtianyang@loongson.cn>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Han Gao <gaohan@iscas.ac.cn>,
+	Hongchen Zhang <zhanghongchen@loongson.cn>,
+	WangYuli <wangyuli@aosc.io>,
+	"Mingcong Bai" <jeffbai@aosc.io>,
+	"Zhang Yuhao" <xinmu@xinmu.moe>,
+	"Kexy Biscuit" <kexybiscuit@aosc.io>
+Cc: loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Han Gao <rabenda.cn@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] LoongArch: mm: Define DIRECT_MAP_PHYSMEM_END
+Date: Tue, 11 Aug 2026 19:57:49 +0800
+Message-ID: <20260811115749.3465579-1-gaohan@iscas.ac.cn>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,83 +50,82 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAXHz1XDntqZQatBA--.2222S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGrW8Jr1UXFy5JrykAr18Zrb_yoW5GFyrpr
+	9YyanxGr47KrZ2krWxZ3WUXFy8Wa1vkr42g3WUCry7AanxAF18Zr1vqFWaqFyvq397ua4F
+	gFnIqrW5Kw4UAw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7sRidbbtUUUUU==
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBwUQDGp6vVv3bQAAsy
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+get_free_mem_region() and mhp_get_pluggable_range() bound their
+search to DIRECT_MAP_PHYSMEM_END.  LoongArch does not define it, so
+the fallback in include/linux/mm.h applies: under
+CONFIG_SPARSEMEM_VMEMMAP it is (1ULL << MAX_PHYSMEM_BITS) - 1, a
+compile-time constant that does not adapt to the physical address
+bits of the CPU (cpu_pabits, probed from CPUCFG1: 48 on
+3A5000/3A6000, 47 on 3C6000, 40 on the 2K series).
 
-[ Upstream commit 817ff6efdb7f484ea547218e11e17d8e43daa3b4 ]
+The vmemmap window only covers physical space below 2^(cpu_pabits+1)
+(VMEMMAP_SIZE), so on CPUs with fewer than 48 physical address bits
+get_free_mem_region() may hand ZONE_DEVICE a region with no struct
+page backing:
 
-pktgen_change_name() replaces pkt_dev->entry while holding t->if_lock.
-pktgen_remove_device() removes the same entry before
-_rem_dev_from_if_list() takes that lock.
+- On the 2K series the region returned at the top of the 48-bit
+  physical space is outside the vmemmap window; vmemmap_populate()
+  wraps the range around and maps it into low memory, silently
+  corrupting the page tables.
+- On 3C6000 the vmemmap range of the region's last section used to
+  end exactly at 2^64 and wrap to 0, leaving vmemmap_populate() with
+  nothing to map, so memmap_init_zone_device() faulted while writing
+  struct page (reported with amdkfd on 6.16 [1]).  Commit 2969b42c8f99
+  ("LoongArch/mm: align vmemmap to maximal folio size") moved the
+  vmemmap base down by one PMD, which keeps that section in bounds on
+  current 3C6000 configs, but the 2K series is still affected and the
+  3C6000 case only holds for the current vmemmap layout.
 
-This allows the following interleaving:
+Define DIRECT_MAP_PHYSMEM_END as (1ULL << cpu_pabits) - 1 so that
+both searches stay within the vmemmap-covered physical space,
+mirroring commit f3336b48cf9d ("riscv: mm: Define
+DIRECT_MAP_PHYSMEM_END").
 
-  CPU 0 (NETDEV_CHANGENAME)       CPU 1 (kpktgend)
-  if_lock(t)
-  proc_remove(pkt_dev->entry)
-                                  proc_remove(pkt_dev->entry)
-  pkt_dev->entry = proc_create_data(...)
-  if_unlock(t)
+[1] https://lore.kernel.org/amd-gfx/20250814032153.227285-1-jeffbai@aosc.io/
 
-The kthread can pass the stale proc_dir_entry to proc_remove() after the
-rename path has freed it. A reproducer with a widened race window reports:
-
-  BUG: KASAN: slab-use-after-free in proc_remove+0x78/0x80
-  Read of size 8 at addr ffff8881478fea70 by task kpktgend_0/67
-  Call Trace:
-   proc_remove+0x78/0x80
-   pktgen_remove_device.isra.0+0x11c/0x4c0
-   pktgen_thread_worker+0x1214/0x6bc0
-   kthread+0x2c6/0x3b0
-  Allocated by task 95:
-   __proc_create+0x204/0x790
-   proc_create_data+0x72/0xe0
-   pktgen_thread_write+0xd61/0x1510
-  Freed by task 28:
-   kmem_cache_free+0xcb/0x3d0
-   proc_free_inode+0x5b/0x80
-   rcu_core+0x50a/0x1850
-  The buggy address belongs to the object at ffff8881478fea00
-   which belongs to the cache proc_dir_entry of size 192
-
-Move proc_remove() into the if_lock-protected list removal helper. Keep it
-before list_del_rcu() to preserve the ordering required by add_device().
-The rename path must then finish replacing the entry before removal, or
-it observes that the device is no longer on the list.
-
-Fixes: 39df232f1a9b ("[PKTGEN]: fix device name handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260719145740.2888967-1-nicoyip.dev@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org # v6.13+
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- net/core/pktgen.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ arch/loongarch/include/asm/pgtable.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/net/core/pktgen.c b/net/core/pktgen.c
-index 6c576d11af29f..118036dc16fa5 100644
---- a/net/core/pktgen.c
-+++ b/net/core/pktgen.c
-@@ -3934,6 +3934,7 @@ static void _rem_dev_from_if_list(struct pktgen_thread *t,
- 	struct pktgen_dev *p;
+diff --git a/arch/loongarch/include/asm/pgtable.h b/arch/loongarch/include/asm/pgtable.h
+index 223528c04d73..244931e4bc58 100644
+--- a/arch/loongarch/include/asm/pgtable.h
++++ b/arch/loongarch/include/asm/pgtable.h
+@@ -125,6 +125,13 @@ struct vm_area_struct;
  
- 	if_lock(t);
-+	proc_remove(pkt_dev->entry);
- 	list_for_each_safe(q, n, &t->if_list) {
- 		p = list_entry(q, struct pktgen_dev, list);
- 		if (p == pkt_dev)
-@@ -3963,9 +3964,6 @@ static int pktgen_remove_device(struct pktgen_thread *t,
- 	 * list to determine if interface already exist, avoid race
- 	 * with proc_create_data()
- 	 */
--	proc_remove(pkt_dev->entry);
--
--	/* And update the thread if_list */
- 	_rem_dev_from_if_list(t, pkt_dev);
+ #endif
  
- #ifdef CONFIG_XFRM
++/* Needed to limit get_free_mem_region() */
++#if defined(CONFIG_FLATMEM) || defined(CONFIG_SPARSEMEM_VMEMMAP)
++#define DIRECT_MAP_PHYSMEM_END ((1ULL << cpu_pabits) - 1)
++#elif defined(CONFIG_SPARSEMEM)
++/* DIRECT_MAP_PHYSMEM_END is not limited by VA space assignment in this case */
++#endif
++
+ #define ptep_get(ptep) READ_ONCE(*(ptep))
+ #define pmdp_get(pmdp) READ_ONCE(*(pmdp))
+ 
 -- 
-2.53.0
+2.47.3
 
