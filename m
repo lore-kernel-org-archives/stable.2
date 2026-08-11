@@ -1,99 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0356C411661;
-	Tue, 11 Aug 2026 08:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E346412BEB;
+	Tue, 11 Aug 2026 08:10:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786435825; cv=none; b=prctf4AgwWFpUtrcQIJTHMrJE26RSF2pVqSswhnfg+2Z7zY/5iWaNFEAQ1gTo8dbRwzCVnid7F4uWbc3ggxPHfsmr6lvZ+Ozr1wnOWw9RspwXoXJ4nxIjn3xTZo+Z0M2kQGIe0BJkd++MLPhoyAseMtpmbOVnjOITy9NejNHQjw=
+	t=1786435830; cv=none; b=BLECWkoWVbDoy3LDQBrcLROTTo4il8bq2JoY+s4pF+qfmvG53XO6MXyb8sSmLHT1xblPIKUEYZriCtT/uOnmV9r4KDchz2gyeE2p4uvFtR9pN+UkSuPDeOpNSsTbDNGl9okCplxA+KYpOBUfwhGqO3T2z8f2F6L8dzpKR8BtdO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786435825; c=relaxed/simple;
-	bh=5f0/Ny667ZzYZJ47DRAO1p+MRHOT6lkQS+0YRaORdLA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MA2F3Udm4SdHWt1RGVTTY+MJJWQqaYwFFqBrZnmWiaQrEHSSZAaSQ6tN1bl57RPC4XgZw88d+hhXzhUDt7AEcgP8ugbi3XXmW4GXhyL5sjc+2ky4xBeRC8GMy/WzrC4TQOsWJjv8MJlMDwvVxePg2oOeq2ZWo2tY/LwHj/4dznI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2UU/DQpj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786435830; c=relaxed/simple;
+	bh=tSdXxSArn7IbenIVBMGRTaWfj6BMz2f9MqrXBEtHgwc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dkQj1MKI0RD0E/0u0o9ymhVm+OCrb+2ybXcWpy9wZkeU3kN9epljAEmLUiXN03lZgMfcA5a5aoBG9Z7aoIisNl34B4tmELW7Vk1KEZtIUirBdBkMuqk2eJ05JR/AHotkKiXe6fnmfLSe+WOe9Hfd/y+lOY+5m3irF2aJeGw+rBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kp0JwN/N; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2UU/DQpj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B544C1F00A3A;
-	Tue, 11 Aug 2026 08:10:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786435823;
-	bh=Qia2GBLa3uGfOENajCCh3ErjQV0Nz7IBPzM4Q9K25uU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=2UU/DQpjA9BD4KjeO3nbAmvwmTDS3PNec+0I0gKwYZ5aTXFT/s/4h5FmCLXz2Mlm6
-	 g346zWPl2Y8TnuNFGH4TebaylOsUmN3aXVKKH/0VRbDjCSiYpCZV2iyvIm4urFkG66
-	 4EmUvS0jq29JGY3qXu7xX7u5N2V+iSZQcQXG7b94=
-Date: Tue, 11 Aug 2026 17:08:49 +0900
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Sergio Callegari <sergio.callegari@gmail.com>
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Linux kernel regressions list <regressions@lists.linux.dev>,
-	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	George Zhang <george.zhang@amd.com>
-Subject: Re: [REGRESSION] Please revert 1191285ecb42 from 7.1.y
-Message-ID: <2026081151-reabsorb-calamari-7442@gregkh>
-References: <9c6acb62-4080-48e6-9ba2-d1c457c4ec88@gmail.com>
- <2026081106-pebbly-cahoots-37a7@gregkh>
- <23db5f95-c2d6-4712-856e-28f647e184f7@leemhuis.info>
- <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kp0JwN/N"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0548FC2BCC7;
+	Tue, 11 Aug 2026 08:10:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786435830;
+	bh=tSdXxSArn7IbenIVBMGRTaWfj6BMz2f9MqrXBEtHgwc=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Kp0JwN/Nuv6smsdkaJCH9aXnuSIrMwT/7GG2g1/a6WKH/IvoW9qxSdgvPiHizTHkr
+	 ngQgfbmdvGiuaZaRdgG3yP4347PA+L9aHafqOKSokhUgBOoeiMiCq/q5YoxoNYwTKW
+	 t21NPZ6HlbQjmLJPw8P+k3rrm3mX6Y/rhBh2Q0X85azN3TiWCwbtA5miLIKDEH9pmh
+	 o7i2B0MXj6j7t4EVCZKdXwgvSDsxqPcTzbHbCnLMlId59JNKpVjEkMqQ+1IJrQQEP7
+	 Y8/8AT+Rttl3o/ehF/BzEbBR9w3gJYnWCmWdAxdfFifDx3djBI/R6RToAXiUO3ret8
+	 WJlvuT53WZq5A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2C81C5CFC1;
+	Tue, 11 Aug 2026 08:10:29 +0000 (UTC)
+From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
+Date: Tue, 11 Aug 2026 16:10:22 +0800
+Subject: [PATCH] phy: rockchip-samsung-dcphy: fix out-of-range max_register
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260811-dcphy-maxreg-v1-v1-1-aa63f6a63a64@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAO3YemoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC0ND3ZTkgoxK3dzEiqLUdN0yQ11zk0RLS0sTk+Q0UyMloK6CotS0zAq
+ widGxtbUAuNUpvmEAAAA=
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Jason Yang <jason98166@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786435829; l=2208;
+ i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
+ bh=qv+04pxhwLXk8iXSSS/x/7Q7kow98bcT2dkV1hHRCgE=;
+ b=qPMHHnolquLwGtQkH83g6tkOLMluIQXScxSMyabXwKUys0ySRfFH3x7IazxR8A1svJxuiZgRQ
+ 8Yf65P8a2Y0B0W9UXGpqIzVRgnxJ04M/eQKnfOOB5KihTSXT4RDQNIp
+X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
+ pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
+X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
+ auth_id=887
+X-Original-From: Jason Yang <jason98166@gmail.com>
+Reply-To: jason98166@gmail.com
 
-On Tue, Aug 11, 2026 at 09:28:52AM +0200, Sergio Callegari wrote:
-> On 11/08/2026 07:24, Thorsten Leemhuis wrote:
-> >
-> > And yes, 6.18.y seems affected, too, according to a comment in the
-> > ticket linked below.
-> >
-> 
-> Yes, my bad I only mentioned 7.1.6 to be quick. My actual concern is that
-> the troublesome commit got to the LTS kernels, which I think is the biggest
-> issue right now. People may find their display completely black or almost
-> black as soon as their DE starts. Getting to the conclusion that they need
-> to /reduce/ the brightness to recover is not totally obvious and is not
-> applicable at all if you have a system that is touchscreen only (since you
-> won't be able to see where to press).
-> 
-> >> It needs to be reverted in Linus's tree first, otherwise the regression
-> >> will be hit when you update to 7.2.
-> 
-> Indeed, but I think the biggest issue is with the LTS kernels right now.
-> 
-> > Normally I'd agree, but according to one reporter that problem does not
-> > happen with 7.2-rc:
-> > https://gitlab.freedesktop.org/drm/amd/-/work_items/5562#note_3603131
-> 
-> I'll see if I can try myself the 7.2 RCn series. From my superficial
-> analysis of the commits that brought us to the current situation, the
-> troublesome commit actually tried to patch on a true issue, namely that the
-> user facing brightness data is not mapped symmetrically to the hardware
-> data, but that the correct solution involves some more thorough rework of
-> the brightness coordinate system. So there may well be some larger activity
-> on it on upstream.
-> >
-> > Given all that I wonder if dropping that commit for now might be the
-> > best move.
-> 
-> Personally, I think that dropping on the stable series would be beneficial,
-> unless upstream can now offer a correct solution to pick. Behavior you get
-> by dropping is not 100% ideal but certainly not as bad as what you get with
-> the problematic commit.
+From: Jason Yang <jason98166@gmail.com>
 
-We aim to be "bug compatible" with Linus's branch, otherwise the
-"pressure" to fix those bugs goes down.  But I defer to the maintainers
-of the code involved if it is being worked on, and they want it
-reverted, great, we can do that.  Otherwise we prefer to leave it as-is.
+The PHY register block is 64KB, so with a register stride of 4 the
+last accessible register sits at offset 0xfffc. max_register names
+0x10000, one register past the end of the mapping: dumping the
+registers through the regmap debugfs interface reads beyond the
+ioremapped region and oopses on the unmapped page. The oops fires
+with the regmap lock held, so later PHY operations deadlock.
 
-thanks,
+Fixes: b2a1a2ae7818 ("phy: rockchip: Add Samsung MIPI D-/C-PHY driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jason Yang <jason98166@gmail.com>
+Assisted-by: Claude:claude-opus-5
+---
+Observed on an RK3588 board (v7.2-rc4): reading the debugfs
+registers file for this PHY faults deterministically at offset
+0x10000 (translation fault in regmap_mmio_read32le), and every
+later PHY operation then blocks on the leaked lock. With
+max_register corrected the dump walks 0x0000-0xfffc and completes,
+and the PHY keeps working afterwards.
 
-greg k-h
+Growing the mapping is not an option: the TRM address map lists
+each MIPI CD PHY as a 64KB block and the second PHY starts at the
+next 64KB boundary, so offset 0x10000 of one PHY is register zero
+of the other.
+
+The same mistake was fixed the same way in c7d436a6c1a2
+("dmaengine: xilinx: xdma: Fix regmap max_register").
+
+This is independent of the D-PHY receiver series for the same
+driver and applies in either order.
+---
+ drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+index cbd780556da8..18f5f582d1d7 100644
+--- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
++++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+@@ -1526,7 +1526,7 @@ static const struct regmap_config samsung_mipi_dcphy_regmap_config = {
+ 	.reg_bits = 32,
+ 	.val_bits = 32,
+ 	.reg_stride = 4,
+-	.max_register = 0x10000,
++	.max_register = 0xfffc,
+ };
+ 
+ static struct phy *samsung_mipi_dcphy_xlate(struct device *dev,
+
+---
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+change-id: 20260811-dcphy-maxreg-v1-74a99944cf52
+
+Best regards,
+-- 
+Jason Yang <jason98166@gmail.com>
+
+
