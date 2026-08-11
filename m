@@ -1,76 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81AF28033B;
-	Tue, 11 Aug 2026 06:22:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5687C3C1D57
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 06:26:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786429332; cv=none; b=hjTmKpIoUv9FHRHDnU3SOoqokLtE/M2vXlSaLR/BnhRI/pTcQJhFD8EgP1zOks86TRob6G+AVMX6IfImA1Okxi5k6z7gqCqFdESqmMW3Im2Pen8C4Qfwiop1jW3aQOb/f9S0XnyMF3DpzGlQIxJ5sCpQNJEpOhGnT/QfPvkgLD4=
+	t=1786429594; cv=none; b=au4nOrIxFBzsvlG+vqTvZnfNbEOwBJKYSbi9utOOehGtLUTe12zKLevSwDR9NAuvPxhnvnHouAx87s1qaa4Q3dwkSXeScq05b6+nAHromkp5MwTq09XUHDM5QWWSjtt408lo5TgpUHWsQDMy+RwHm3ZT5BCuYPhq6KPNk8EB9Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786429332; c=relaxed/simple;
-	bh=GMObyUPwCjPPQhWIN6HvrJoo3caoDJYLaj2BlbP2DKA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bwbutoo/vURrPd152TZjNOOZpWgvDR3o+VmzSHbCBt9s48merMYFoYJMLbblXbXROzGJVuLp9KZxNEaBpnN6nHyDibJsKbw+3J03BZTNXw2GDJ/uhFf1awPsBYjjShmHh8xOhl5xoQkoLbR96HVtL+aSbjXMSxRfO7+JkSKxWrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BJYDy1Qk; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786429594; c=relaxed/simple;
+	bh=R+WW+TRJ0w8DNpdT7WLuo3OznUsOKynfOD/erVqa/0o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iDEsfmNatlcpXGM5z6tHtyUrI/z9mL3w2ARaU/Svb3NnceX7bMyoC4CFl/Pg/9AIlkrnUp5+WhWnepyF/+cbQXe1eCAN6oMX9s38Wpw+bhtZ++RvEkbseOL6tt9OkppsTe65T+iyES9jJGq+oUoGZMO5Xu8+MHhSoA+rEqKFvvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZMSFg7rO; arc=none smtp.client-ip=91.218.175.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BJYDy1Qk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786429331; x=1817965331;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GMObyUPwCjPPQhWIN6HvrJoo3caoDJYLaj2BlbP2DKA=;
-  b=BJYDy1QkihfsTtsQg+4vGOtxGtP12GxBczZ0ty0a4pfafSGxZ1CgqJdW
-   XSSXzJ0rfynswVlV4k1mETJxl5WYBMS/g7b6ty6iXEIRAg/qziYqyWJev
-   3FQ78IiUS6nTzLQaAX248YQ8pSy9aGeGb/gcGY/v+lHIVJslZ1V3hHD0k
-   uFOhaRjt2gu6vJcPaBx/iVdGjW19bz2I/r45T8+R7E8cptyHQYsDoloSF
-   f15bIzsBujKL2HObZEyp0VNgaQooROq79qk76SCCK6BTWqPCJ3ZmL5bPD
-   t9+00jODQelmhV0HU0jVi4vqOR+sMWzc795qlbzEIMUyV7UvQ8p+Kwedc
-   g==;
-X-CSE-ConnectionGUID: 0wr9YMZ+Qv2SRKUn02YGLA==
-X-CSE-MsgGUID: UBd21uSgSPO49dKnHZd4jA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="98312128"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
-   d="scan'208";a="98312128"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 23:22:10 -0700
-X-CSE-ConnectionGUID: jQqtwGpyQFqs9hEqY8UoeQ==
-X-CSE-MsgGUID: HOapSJczRcyjl1EAc7KRCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
-   d="scan'208";a="267096086"
-Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.215])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 23:22:09 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 2168811FC6D;
-	Tue, 11 Aug 2026 09:22:07 +0300 (EEST)
-Date: Tue, 11 Aug 2026 09:22:07 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: v4l2-async: avoid deleting unlinked ASC entry on
- link error
-Message-ID: <anq_jydB3EGDBqaO@kekkonen.localdomain>
-References: <660DEFF8A732CF1A+20260810095012.2213444-1-raoxu@uniontech.com>
- <anq_U0kj6EfTN_cj@kekkonen.localdomain>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZMSFg7rO"
+Message-ID: <c2e8b6d5-e444-4fdc-909a-a928e0e8f45a@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786429579;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XrvIDI4l3ibJO+y9A4q6yHaI4leghzx/mVJIb4ZQWF0=;
+	b=ZMSFg7rODBkJTKpJce/kKymt/vvKd4Si1DCFMJdlSBmYZBWa5h2iXhozUCctMzolwmOoHZ
+	Yy8BPbkRSTT04rnxaf/kAAoWWUk7aqPtScK21NWYnDADO6FijO9fVdDoyRjbu4OpauPfUj
+	i0zD/9SLnH+8r7/xeyzinBz4Mbf5PP0=
+Date: Tue, 11 Aug 2026 14:25:59 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <anq_U0kj6EfTN_cj@kekkonen.localdomain>
+Subject: Re: [PATCH v3] memcg: keep folio's objcg same as its node
+To: Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Meta kernel team
+ <kernel-team@meta.com>, linux-mm@kvack.org, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Karl Erik Hofseth <karl.e.hofseth@opoint.com>,
+ stable@vger.kernel.org
+References: <20260807142406.443516-1-shakeel.butt@linux.dev>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20260807142406.443516-1-shakeel.butt@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On Tue, Aug 11, 2026 at 09:21:07AM +0300, Sakari Ailus wrote:
-> Can you resend this, please? Somehow Patchwork didn't pick it up.
 
-Please ignore. There was an issue with Message-Id coding I suppose.
 
--- 
-Sakari Ailus
+On 8/7/26 10:24 PM, Shakeel Butt wrote:
+> memcg_reparent_objcgs() has an inherent assumption that a folio's objcg
+> is the objcg of the folio's node.  Folio migration across nodes breaks
+> that assumption: the new folio simply inherits the old folio's objcg
+> while living on a different node.
+> 
+> Once the assumption is broken, the reparenting of the folio's objcg and
+> the reparenting of the folio's LRU list are no longer atomic.
+> memcg_reparent_objcgs() handles one node per iteration and drops all the
+> locks in between, so the objcg gets reparented in the iteration for the
+> objcg's node while the LRU list gets spliced in the iteration for the
+> folio's node.  Any LRU operation on that folio in between resolves its
+> lruvec through the objcg, and thus takes the lru_lock of the wrong
+> memcg, not the lru_lock of the list the folio is actually on.
+> 
+> Fix this by selecting the objcg by folio_nid() at charge time, and by
+> re-deriving it for the destination node in mem_cgroup_migrate() and
+> mem_cgroup_replace_folio().
+> 
+> Reported-by: Karl Erik Hofseth <karl.e.hofseth@opoint.com>
+> Closes: https://lore.kernel.org/all/anMmd1ADrDVwMO6v@work/
+> Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying memory cgroup for LRU folios")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Johannes Weiner <hannes@cmpxchg.org>
+> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> ---
+> 
+> Changes since v2:
+> http://lore.kernel.org/20260806165813.2526415-1-shakeel.butt@linux.dev
+> 
+> - Refactor common code between mem_cgroup_replace_folio and mem_cgroup_migrate
+>    (Johannes)
+> - Always commit the destination node's objcg. (Johannes)
+> - In mem_cgroup_replace_folio, force charge based on committed objcg (Johannes)
+> - In mem_cgroup_migrate, if destination node's objcg is root, uncharge the
+>    source node's objcg. (Johannes)
+> 
+> 
+> Changes since v1:
+> http://lore.kernel.org/20260806061830.3294679-1-shakeel.butt@linux.dev
+> 
+> - In mem_cgroup_migrate, do obj_cgroup_put at the end (Sashiko)
+> - Handle scenario where destination node has been reparented to the root but the
+>    source node's objcg has not yet (Sashiko)
+> - Add comment explaining the race between migration and reparenting (Johannes)
+> 
+>   mm/memcontrol.c | 100 ++++++++++++++++++++++++++++++++++++++++--------
+>   1 file changed, 83 insertions(+), 17 deletions(-)
+> 
+
+Thanks for the fix!
+
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
+
