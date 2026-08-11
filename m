@@ -1,138 +1,252 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-171.mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A201E3F23D0
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 06:16:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786428991; cv=pass; b=mjQ+ejvnuQ+ic5JuqtfNuTepyYux1FKMKv3g9OyZU+WUvdTDmwzFBhC3biNrDHlL5DQA7Y2Hk6lI11nVStNuxks4v5TbiMluXtPf9T2K1CLpqUUdBZsYVLZ5FTcXzBY+9mAz/4tTklWmRIBGOEHFMiLmS8K7nqz2T8MqkR1ntT8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786428991; c=relaxed/simple;
-	bh=cfgBeWsuQ4lR9xWJ1ew13FUpmpSq+gQ4RYVq3UXp+Eg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VrtZZLRVuiauC+WpwERSYoYoRGl+1k9gJSo29VJpAZfquX+Q79CTiBd9I6TPnph0IUkBkXOAxnNtm+x9kbPiK/sE2XXG6PmBvhy43kzJnLLBrdnStqJK5fK4/+uqWbpKdPps1fTsL7H5VfvOIG65ZmaW3JPF/LwPtrwYU4SfsPU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rpvVn8/d; arc=pass smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45B02C0294
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 06:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786429215; cv=none; b=FYcaLTiNllk3G06PK1jdNuVGIKGPiCiOyHdjziywdsjXAT2zasUWNoC3t2R2TYD+S0zyhG7YMc3fQvLlUHpv2F4IGKIN3Me4yyYnE9LLDonL5E8KQUuWfpeGjHCR+pA+RnlTMAsXnbg9NWWN8JzbGzDYPRso5Cq9SLsoDQyQ2IE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786429215; c=relaxed/simple;
+	bh=nBMYU3qU7s9tQXgvGQEswOG/tx1hWyFpUROlikBh4A4=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=h3S4SoFC522rJ0TD/1srM6zBJoAotyP3iPTXEp0SKvyADFutZ2Onv0yjPekbwvQxGZ2AptZ3bxmi+WKWnvJV3P9fPnceTDG/f3OjBo3PcCWr/3bULWAWYRNLITjwcUHlfCj2ncw8fEwFVKG9cm7KqeTR0jQbx4sQMTiUzkT4GF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Tdi5Xi3w; arc=none smtp.client-ip=91.218.175.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rpvVn8/d"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-80c5cb9a888so29766237b3.3
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 23:16:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786428988; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FNrTa9iO5NDOtcagzDjm0QI2c9LH0CAJ4r/fsMDes2zVV3/aVKmkGWvwlavW/KntP1
-         mPD8ak2V7d6D2+edof9TJ72jYmnUqkokk8ephYXxUe8AuPWwYsruJn3OMI1Ap8i9Fqx0
-         ZaB9yYBg8jLV/PTIDsoxaaBxzaOOSJEkEh1iHb2J1uUSebyVf7iPYOS9pni1V82AXNhn
-         sJQXi6ISUp61eythYZ45HAohMbOMSRzKAVlFvs+k0vcR486z14d5xTnb7n3TPeKAYOvb
-         6cUD9eNFVokxj8gVwvEx5FvGmqodgXKrLjza5XXxY8qIbow+6lETXgB3+8pLVdV2522c
-         rSiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=cfgBeWsuQ4lR9xWJ1ew13FUpmpSq+gQ4RYVq3UXp+Eg=;
-        fh=phCaW+tbs9y9aW8DAEwp5EjWzEgN7DMsqhx5nO0HJog=;
-        b=QYmlvc/zg5oE0jv+rImve8TXctLYNMGzU8kuUeLBWnoB8t+xb3JU0ARqO8LRnFrN5y
-         8+hypVXG751qGDHt0XkUMeC+9Q1SvPqnIjGDjSz4X0wCI0M1col6gEaqbMUddd2pq7YC
-         S7Cgu5jADCnnhIp9JxaMjJhrqPJhRh/NQw9nkKe6ErFX3cMbxexaWVga8TTSVDTdtbBD
-         MemDPqy5FklvmL52k6V9S/6PhkiZ77VEkBb5D+xnRPNtSyiiFmnKTsZzIaN73miNze9f
-         wRc4sHpFGdRvdlBJedVbYL11VT2/jVi1Xn11aixGbmSOIgoj1G5eMvx9yb0Gtkrl+K7S
-         PknQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786428988; x=1787033788; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cfgBeWsuQ4lR9xWJ1ew13FUpmpSq+gQ4RYVq3UXp+Eg=;
-        b=rpvVn8/d1WD2uOAJqbXPhHC872/KZzca2C4EyhM/6e4Sez26fmCivKRkroIZo7gH9D
-         gLEE1jTuUKakqX/Y+GL0nGufvN1rdCeszCxCfcdD2SM1dm0az9jIvTRQHpPA8AFj2ym/
-         dvR3rndXWzV5xNw7cbuiBnV2HU0HF4z8EuEND0xBiLef5Z2Tlvwyy0Q+tct5C0FE+q+u
-         SU4ml0tYRpAzx9ULUlOQeukAZSqBdAKI1P7wFBegKjfZsEdGMc22yRm5YIIIDsHgxXVr
-         VEQ3EzGiJ07Et8qQyTLbKYb2MjVgbq68yDo6P9BNqLSMLb6T5mJbKE5SY6Gv1PdC7Ilf
-         Ajbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786428988; x=1787033788;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cfgBeWsuQ4lR9xWJ1ew13FUpmpSq+gQ4RYVq3UXp+Eg=;
-        b=C0N1KCZQ4r7l8wfqThkbbflR8iZJlKztsjdqh3YorBfhwBZABKFTr+DKg6IGPF8rQv
-         R1NZpI7V/odcrn6b1z4MN9Biqre9mkzlbI08SltZa58WEH14pA4gqCqyD4gFdMkS4Jtb
-         ZvTAEVMA6qNs9Bnwg1+fy3/0h0y0x5+WFSC+4zA1K0RQ8Nb+risJ4vyrPsl/eu/bE9AL
-         vyRAFCA9YkJFLyy4DyJ1XLYpoqyFLCUaTCO0ZS1NcUBGHaIxnDewaT98uelt3764Ma2I
-         TlL3e78L/3YRYRrz1MUFpUCJpwCxsBeMcAOz6Lr4DUVlO+/O7j1Xf0cwb+Y3x8jWYInB
-         0qKg==
-X-Forwarded-Encrypted: i=1; AHgh+RplGabDV26L0zgaEGkU4pkvClbW12AMudMkWHX2E21kbxs4Kp2Dq6V0THVqsWr/golcTJ0vCUY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yymz6Cy4lGQoSr9Uz6aUWmveXuQnv1ttHYZzghKuK53FT7OcMPC
-	f6Mzynt7E3fp2mwm5vdp07S9thxiZapiL38eLoE9zLT9E7mc+Oug05bpiT3e5Q8EY6fCKFAufla
-	nhZsYj3ncBfCVcp5RK++0CzwwpHJnxW8=
-X-Gm-Gg: AR+sD13SuyXoXz0I1HSe7oQRdxh8y2MvTIFzMdHxQvmw/VTw49XEwaXrZp3Z/meTCt0
-	Hirpd0zUYVm3DjMNcsCTGBSV4NOf35Nwzh95RqNd0ujgzt3AAnXTkpXc+Rdx/9n4Ff6t+xo0aLH
-	YAmBCWXP1hj2Ingc2Yja1aIvLbkiYI85wsI981EYZEprkrNTDikBesKtKwPzhQksXmP4dXxULTS
-	5CmJZsGXzW2MfOScQosBjuKCE6v4IQ0emkCAB7Elo2bbjECaeBO000TwWs9kyWCG0OYvTzTb9nn
-	tQvFwLv9B/1zh1BtwNzpLzMvjx+RlQ3tUHuW5iTlEJCqqjk=
-X-Received: by 2002:a05:690c:c9e:b0:80c:d342:955c with SMTP id
- 00721157ae682-82f289e94b7mr5606407b3.3.1786428988556; Mon, 10 Aug 2026
- 23:16:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Tdi5Xi3w"
+Content-Type: text/plain;
+	charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786429211;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E2wRspdNGSNKevSyuudT8LxlyUn0RkignJpxE+V+MVc=;
+	b=Tdi5Xi3wHJT+V8HosnAAazhpMW2oOpKLS9qWebcUVt8MlEdcpnZD4QfgQdKq+Lj6/zpeVF
+	go6LwEA4zHOG4Amdv/2H1SZF8QM2gKv+o2UU+S/96v1PitVeRUE/CCuwj1N9T4vGw1SctW
+	SnmLJW1Bwtg8/iM4ZzEVJELqqeEmlZM=
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260808074510.2655473-1-lgs201920130244@gmail.com> <anmm6X4MLpyIH8K1@aspen.lan>
-In-Reply-To: <anmm6X4MLpyIH8K1@aspen.lan>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 11 Aug 2026 14:16:16 +0800
-X-Gm-Features: AUfX_mxUBmem10ffZDic2Ejp1QbKpijUB1N8Df5NJafaJYvbJY0owxLwLT1ooBs
-Message-ID: <CANUHTR9QBUtKJ8f5JAhRGPWw4ca2QpuzMB=F9ZC3Q38RoGMqkQ@mail.gmail.com>
-Subject: Re: [PATCH] hwrng: stm32: fix usage_count leak when autosuspend_delay
- is negative
-To: Daniel Thompson <danielt@kernel.org>
-Cc: Olivia Mackall <olivia@selenic.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Linus Walleij <linusw@kernel.org>, linux-crypto@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH] mm/memcg: fix NULL nodeinfo[] dereference on late-onlined
+ nodes
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <53e05300-b84c-4a04-a7b4-5022285bcbdc@oss.qualcomm.com>
+Date: Tue, 11 Aug 2026 14:19:49 +0800
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Kefeng Wang <wangkefeng.wang@huawei.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ linux-arm-msm@vger.kernel.org,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <C2088EE7-69E5-4BCF-B753-47A85B317E01@linux.dev>
+References: <20260810-memcg-nodeinfo-null-guard-v1-1-77a73204d63a@oss.qualcomm.com>
+ <5059A780-9C10-4171-A254-38944464F1AC@linux.dev>
+ <53e05300-b84c-4a04-a7b4-5022285bcbdc@oss.qualcomm.com>
+To: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+X-Migadu-Flow: FLOW_OUT
 
-Hi Daniel,
 
-Thanks for the suggestion.
 
-On Mon, 10 Aug 2026 at 18:24, Daniel Thompson <danielt@kernel.org> wrote:
->
-> On Sat, Aug 08, 2026 at 03:45:10PM +0800, Guangshuo Li wrote:
-> > stm32_rng_probe() calls pm_runtime_use_autosuspend(), but neither the
-> > probe failure path nor stm32_rng_remove() calls the matching
-> > pm_runtime_dont_use_autosuspend() before disabling runtime PM.
-> >
-> > If the autosuspend delay is set to a negative value while autosuspend
-> > is enabled, the runtime PM core increments usage_count to prevent
-> > runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> > during teardown, this reference is not dropped and usage_count remains
-> > unbalanced.
->
-> If calls to pm_runtime_use_autosuspend() must be paired with
-> pm_runtime_dont_use_autosuspend() then I wonder if having a
-> devm_pm_runtime_use_autosuspend() would be worthwhile?
->
-> That way stm32_rng_remove() could be entirely replaced with devres
-> cleanup.
->
->
-> Daniel.
+> On Aug 11, 2026, at 13:16, Prakash Gupta =
+<prakash.gupta@oss.qualcomm.com> wrote:
+>=20
+>=20
+>=20
+> On 8/10/2026 1:28 PM, Muchun Song wrote:
+>>=20
+>>=20
+>>> On Aug 10, 2026, at 13:46, Prakash Gupta =
+<prakash.gupta@oss.qualcomm.com> wrote:
+>>>=20
+>>> memcg->nodeinfo[] entries are allocated only for nodes present at
+>>> css_alloc time. When a node is onlined after a memcg is created its
+>>> nodeinfo[] slot remains NULL. Two call sites dereference these slots
+>>> unconditionally:
+>>=20
+>> I don't think the premise of this patch is correct.
+>>=20
+>> memcg->nodeinfo[] is not allocated only for nodes that are present or
+>> online at css_alloc time. mem_cgroup_alloc() allocates per-node info =
+with
+>> for_each_node(), and for_each_node() iterates N_POSSIBLE nodes:
+>>=20
+>>        for_each_node(node)
+>>                alloc_mem_cgroup_per_node_info(memcg, node);
+>>=20
+>=20
+> You are right. I rechecked and nodeinfo[] is allocated for all =
+possible
+> nodes at mem_cgroup_alloc() time, not just currently online ones.
+>=20
+>> If memcg->nodeinfo[nid] is NULL on your system, that looks like a
+>> violation of this invariant, or possibly a downstream-specific =
+change,
+>> bad nid, allocation/lifetime issue, or memory corruption. I don't =
+think
+>> the generic explanation that "the node was onlined after the memcg =
+was
+>> created" is sufficient.
+>>=20
+> Agreed. I will investigate further before resubmitting that part.
+>=20
+>>>=20
+>>> lruvec_stat_mod_folio() calls mem_cgroup_lruvec() which reads
+>>> memcg->nodeinfo[pgdat->node_id] without a NULL check. On a system
+>>> where a node is onlined after the memcg is created, any folio stat
+>>> update for that node crashes with a NULL pointer dereference:
+>>>=20
+>>> Unable to handle kernel paging request at virtual address =
+ffffffbebf7e1908
+>>> pc : lruvec_stat_mod_folio+0xf0/0x444   [6.18.21-android17-5]
+>>> lr : lruvec_stat_mod_folio+0x88/0x444
+>>> Call trace:
+>>>  lruvec_stat_mod_folio+0xf0/0x444
+>>>  folio_add_new_anon_rmap+0xac/0x2b8
+>>>  do_wp_page+0x768/0xc80
+>>>  handle_mm_fault+0x37c/0x8c4
+>>>  do_page_fault+0x140/0xa1c
+>>>  do_mem_abort+0x54/0x74
+>>>  el0_da+0x48/0x8c
+>>>  el0t_64_sync_handler+0x20/0x130
+>>>  el0t_64_sync+0x1c4/0x1c8
+>>>=20
+>>> __invalidate_reclaim_iterators() iterates for_each_node() and reads
+>>> from->nodeinfo[nid]->iter without checking for NULL. for_each_node()
+>>> visits all possible nodes, so this is reachable whenever a node is
+>>> onlined after the memcg was created.
+>>>=20
+>>> Fix lruvec_stat_mod_folio() by checking nodeinfo[pgdat->node_id]
+>>> directly and falling back to mod_node_page_state() when NULL, =
+mirroring
+>>> the existing !memcg early-return path. The fallback must not go =
+through
+>>> mod_lruvec_state() since that calls mod_memcg_lruvec_state() which =
+uses
+>>> container_of() to recover the mem_cgroup_per_node from the lruvec
+>>> pointer; passing &pgdat->__lruvec there produces a garbage pointer.
+>>> When nodeinfo[nid] is NULL the memcg has no per-node accounting
+>>> structure for that node, so node-level accounting is correct.
+>>>=20
+>>> Fix __invalidate_reclaim_iterators() by skipping NULL nodeinfo[] =
+slots.
+>>>=20
+>>> Also switch lruvec_stat_mod_folio() to folio_memcg_check() which =
+uses
+>>> READ_ONCE() to safely read folio->memcg_data in an unlocked context.
+>>>=20
+>>> Fixes: 6c77b607ee26 ("mm: kill lock|unlock_page_memcg()")
+>>=20
+>> The Fixes tag also seems odd. 6c77b607ee26 ("mm: kill
+>> lock|unlock_page_memcg()") only removed/renamed the lock_page_memcg()
+>> wrappers and does not appear to change nodeinfo[] allocation or =
+memory
+>> hotplug handling. Could you explain how that commit introduced the =
+NULL
+>> nodeinfo condition?
+>>=20
+>=20
+> It did not. It seems I picked up the commit based on git blame on
+> function as there were two related bugs reports that I was conflating
+> into one patch as listed below, will fix that in v2.
+>=20
+> Variant A (missed to mentioned in commit msg) =E2=80=94 NULL =
+dereference:
+>=20
+>    Unable to handle kernel NULL pointer dereference
+>      at virtual address 0000000000000528
+>    ESR =3D 0x0000000096000005 (read fault)
+>    Workqueue: events delayed_fput
+>    pc : lruvec_stat_mod_folio+0x5c/0x444  [6.18.21-android17-5]
+>    lr : lruvec_stat_mod_folio+0x2c/0x444
+>=20
+> As you suggested this may need more investigation.
+>=20
+> Variant B (the crash included in the patch) =E2=80=94 stale pointer:
+>=20
+>    Unable to handle kernel paging request
+>      at virtual address ffffffbebf7e1908
+>    ESR =3D 0x0000000096000045 (write fault)
+>    pc : __lruvec_stat_mod_folio+0xf0/0x444  [6.18.21-android17-5]
+>    lr : __lruvec_stat_mod_folio+0x88/0x444
+>    Call trace:
+>      __lruvec_stat_mod_folio+0xf0/0x444
+>      folio_add_new_anon_rmap+0xac/0x2b8
+>      do_wp_page+0x768/0xc80
+>      handle_mm_fault+0x37c/0x8c4
+>      do_page_fault+0x140/0xa1c
+>=20
+> __lruvec_stat_mod_folio+0xf0 places it after the !memcg NULL =
+check.This
+> is consistent with folio_memcg() returning a stale memcg pointer that
+> passes the NULL check.
+>=20
+> folio_memcg_check() uses READ_ONCE(folio->memcg_data) which seems the
+> correct API for unlocked contexts. folio_memcg_check() has been
+> available since becacb04fdd4 ("mm: memcg: add folio_memcg_check()")
+> but lruvec_stat_mod_folio() was never updated to use it.
+>=20
+> I should also note that this crash is difficult to reproduce in a
+> controlled environment =E2=80=94 the analysis is based on crashdump =
+inspection.
+> I have not been able to construct a reliable reproducer so far.
+>=20
+> let me know your thoughts on this, accordingly I can send a v2 to =
+cover
+> only Variant B fix as explained above.
 
-There is already devm_pm_runtime_enable(), whose devres cleanup calls
-pm_runtime_dont_use_autosuspend() followed by pm_runtime_disable().
+I just want to point out that the Fixes tag you listed here, regardless
+of whether this patch is correct, shouldn't be a commit that introduces
+a bug. Because that commit is purely a code cleanup and the removal of
+redundant interfaces, theoretically it shouldn't have any impact at all,
+yet you cited it anyway, which doesn't make sense. It feels to me like
+you didn't carefully check this.
 
-So I think this driver can simply switch from pm_runtime_enable() to
-devm_pm_runtime_enable(), and stm32_rng_remove() can then be removed
-entirely.
+Muchun,
+Thanks.
 
-I'll rework the patch accordingly.
+>=20
+>>> Cc: stable@vger.kernel.org
+>>> Assisted-by: pi:claude-sonnet-4-5
+>>=20
+>> Given the Assisted-by tag, I assume some of the analysis may have =
+been
+>> tool-assisted. That's fine, but the author still needs to validate =
+the
+>> reasoning against the actual code before submission.
+>>=20
+> Agree, I will be more careful in next submission.
+>=20
+>> Did you confirm that the relevant allocation and hotplug paths were
+>> manually checked against the affected tree? In particular, I wonder
+>> whether this behavior depends on downstream changes around
+>> mem_cgroup_alloc(), for_each_node(), node_possible_map setup, or =
+memory
+>> hotplug nid validation.
+>>=20
+> I checked all four paths against the affected tree
+> (6.18.21-android17-5). Only difference in
+> mem_cgroup_alloc() are cosmetic and do not touch the nodeinfo[]
+> allocation path. The NULL nodeinfo[nid] in Variant A is not explained
+> by any downstream change =E2=80=94 the root cause remain unknown.
+>=20
+> Thank you for the review.
+>=20
+> Thanks,
+> Prakash
 
-Thanks,
-Guangshuo
+
