@@ -1,150 +1,85 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E781630DEB2
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 06:34:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E043FA5FD
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 06:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786430100; cv=none; b=IGyBMvZ4nNl3PAwLYrMRA6VWFliDRkX4mWQPSoiUQ37/gr4liejn5oCQOHCMFXhA/Vq4POy4eEjpcGUcLo7UHbvqR1wjX2zYwMUcBeN5k6IEuS4+GgruijKpsMRvg+lxC6PUchdwknhYS8WWypr3MhY95P/o4HVCEqY1fgCs6Mw=
+	t=1786430200; cv=none; b=SVpQmc1mudaLc6Wbisg6XhCvpgZsAXtgr2XOvWbRcSZUytDLnz4N8waL91IWVKhL90l69tsydeiFwB1PBoIxLUAFky0SJowrRM6lXK9rDhTpaQoNIjrLi0sNrXrFMd0MsOb6R0wqOWpWN9FJ78JKLdOkvlLO4+VnWhyXaIV0ihA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786430100; c=relaxed/simple;
-	bh=/IPDx1Pz5QgHGpnA1FZ7e9RvOdTXuUppSFRWbC86Gk0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f2oFRRg7J/fx30e5+pctMyWEX46Ja+Fwb/1IdQtXt0SXDeTYdS0jmPIrrFMWyyuY6drc47r1HJlBooFeqTzCrynQRto5hdnt1TRhwVE6mihqjlgOyaKmc0uTF7/l/ahPkf5rTmoDQQ6frSTgFYZrQ0VErUP/D8SmEvR7+qXdNoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hZnsqbAf; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786430200; c=relaxed/simple;
+	bh=WiWe6EeRf4CKyTN5zOVqt0QukfitrwYMX2wbt9T8FVA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=i4/v6PP7Z85dhSnqmWJsWVvZHrc3j2AHoWj60XXtJkgYFoWiGDHCcK06H0nySbRQpXa3S+CEjfVg0Yb1jsIuJYTbdboPnclkNIBvXVSSNwh3804ur6iBadX7nUuZEQ4CWgi0B1Erennu5Dr4HwKvn1FfG8+nRWdeNDmYTLU+C0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=dgsTNnbx; arc=none smtp.client-ip=188.68.63.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hZnsqbAf"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cad8076b01so5368145ad.2
-        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 23:34:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786430098; x=1787034898; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rs1yPzUnIco2rjC6CFhLVWVyr0WMS18/eTcbCTT31s8=;
-        b=hZnsqbAfdlKEFqEWO34CFnk2uOv752mXcLPq/0L63f9zp2Gsh+dN6pRQrORlTzWSZh
-         IsB4INsw3R7wTz/YW7dtZf84YUPTGCBnaWczlxxFk0elDQhAyoqPBK5LURIGXuLdlGUN
-         7FbvUBSmzN7FRYR1m4wdP1GFqWffJkrazGO6CvBJEnpDY/BmjAnpa1vebRop2W2RBdnP
-         BIs8gi5yuIBCBS1NFqFEVvtx4pQag1VeRGjZnP5mcswEDge6OHu1wR/VIKyi88q3Yr7j
-         3MDnuO7rYFeacg2TSo7A2VLuKt06rV5eqJZRuiKARRf/PXafCg5bjy6SC9sFUoZEab2D
-         dCTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786430098; x=1787034898;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Rs1yPzUnIco2rjC6CFhLVWVyr0WMS18/eTcbCTT31s8=;
-        b=jM6T0rTLxzBUomBuRdyX6FDtnbmB6xJVQyZNHmL41jlraKdTeTv3NDk9dMNNQSTNAM
-         yVBpfulnDLyCcDUeNn6JEdk5l13jyB9pn4AqIpxnhlmLVlqFWZ8lRrKGyeiYAXSuBe7O
-         LSgF6DjwRy5shQLhfCbt7pG/1Qfwcw5xB8T4W6x31fAfwpsPzh+W5k4DGwmrp/qSBoIB
-         UqsgaVYGkOh1F4TIFA6lTKsBUynb+znp1ayOmZs/d19GEvWvqjJvfT6p3oFYeJ0H+/HQ
-         0v2QUIipMyRtGbXZ7deQ64ePaBRHrAv5CT5DveErB91aS13gNOp5ikFj0QGR1mJ1Jlim
-         rV7w==
-X-Gm-Message-State: AOJu0Yye6I+55hSfcTqslf9rixFUWd4jkVcoIGg1sCPxs0Ng1l59kPsR
-	r50x2COmoWVX8+rRfjJTJdRYELrD+ckqMZizKF47T5pMSF0Zcm7NAheL
-X-Gm-Gg: AR+sD11eRki50xyDGf7sViDyZkDWv7Jdz5TYIZiMqzc5gI0L9AvrWk+YpkYqKbMZ1er
-	c3URnC4xyI7jfcqdCaC78y71g68HBY8TP0op6z1bcFoeA2Pef1/frEeDJ5a4iqHCCYqqpuWBTEh
-	3YYq5+3s1Qm/cIvXnZfux46GJKlRNm5WVyfVhyv5X9HQ8b52ZZOuu6rAZjjTcX9GLH/ElqdJE+6
-	aRVb4U8zjAHYE2xF0TFYFQAHO0k4tlxK+1p8f/T4TfNQZ85Hit5Mdh/WCT7rVP5k6HWY6DJ0UOh
-	QJ1G0ERNfcD0Ei8J3RNZZDStpaYvfz9uxdgJssoecgaYdU6UR3Mnd0iJ3xwpQD6g7ADVQE8MHmI
-	lmuFEVUY5oqc9/w20NNKs/P7oGSwpaC18H1X9m9z2n7bBKIWqner+VMoA7mLE0RhO7qvuqOeb2w
-	Yf7zW78T11zlRwhgZP0jDclQERNzUZEbEJIDt2aQIO3GqpATjitEg=
-X-Received: by 2002:a17:902:da87:b0:2c6:a772:7e43 with SMTP id d9443c01a7336-2d31798510cmr11974795ad.18.1786430097998;
-        Mon, 10 Aug 2026 23:34:57 -0700 (PDT)
-Received: from lgs.. ([101.36.106.88])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d315ef11e8sm2383365ad.1.2026.08.10.23.34.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 23:34:57 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Daniel Thompson <danielt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] hwrng: stm32: fix usage_count leak when autosuspend_delay is negative
-Date: Tue, 11 Aug 2026 14:34:42 +0800
-Message-ID: <20260811063442.3058074-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="dgsTNnbx"
+Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4hK22B3Ls5z49x4;
+	Tue, 11 Aug 2026 08:36:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1786430162;
+	bh=WiWe6EeRf4CKyTN5zOVqt0QukfitrwYMX2wbt9T8FVA=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=dgsTNnbxIn2ku/rx3/jXiMXMMORZ8F/Rk7lNiVS9GP++h7gtbwdkXySv19HsDas4Q
+	 BWCz3qoeeOOMRAJ3qd5cRNVJxcXAhw9923kFbyE2WzUIgbXSResC87c2sawNjLRWXX
+	 UQ8JrEROYa3Z29n/Udbbgmw0umjkh4DUqF2IyMJwKuzq9y+jn35ZolVGsa2behSnw1
+	 7+NGI7TuvHNGK3E/BIpKguwxgbkJ0zCc6DmIQA+i+S1PaavugOCNwtVsBjAFZXCBGt
+	 qMDC/KgWTgmv2/uzSWczVvy5nCYFYhrkYq7DAzS3Yoh0PzjhFL+FQ9qZRlf6umqHpn
+	 myRIYvhzPrEVQ==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4hK22B2cWkz49Zw;
+	Tue, 11 Aug 2026 08:36:02 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.898
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hK2290Mt8z8tcG;
+	Tue, 11 Aug 2026 08:36:01 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 633C35F960;
+	Tue, 11 Aug 2026 08:36:00 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <dd683c23-5a4a-48a8-a61b-83a2a6b26f01@leemhuis.info>
+Date: Tue, 11 Aug 2026 08:35:59 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] incorrect backlight brightness on AMD in 7.1.6
+To: Sergio Callegari <sergio.callegari@gmail.com>, stable@vger.kernel.org
+References: <d614b8e6-7f95-4e0e-a4ee-436fb418d883@gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <d614b8e6-7f95-4e0e-a4ee-436fb418d883@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178643016063.1427935.9646677141877688634@mxe9fb.netcup.net>
+X-NC-CID: WFIovUcBLV3IsQiQQAdtchNoTzM4+RMk8vY1uREqoJYv98Ze6iw=
 
-stm32_rng_probe() calls pm_runtime_use_autosuspend(), but runtime PM is
-enabled with pm_runtime_enable() and the matching
-pm_runtime_dont_use_autosuspend() is not called on driver teardown.
+On 8/9/26 18:23, Sergio Callegari wrote:
+> Control of backlight brightness regressed with 7.1.6, possibly due to
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/
+> commit/?id=1191285ecb4233e5bf907da7e9394d7999055566 that may be incorrect.
+> 
+> On this kernel when you try to rise the brightness, it does so up to
+> ~95% then it suddenly falls to the minimum brightness. Conversely 0%
+> gives you one step above the minimum brightness.
+FWIW, the upstream report is here:
+https://gitlab.freedesktop.org/drm/amd/-/work_items/5562
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped and usage_count remains
-unbalanced.
+A stable specifc revert is discussed here:
+https://lore.kernel.org/all/9c6acb62-4080-48e6-9ba2-d1c457c4ec88@gmail.com/
 
-Use devm_pm_runtime_enable() so that pm_runtime_dont_use_autosuspend()
-and pm_runtime_disable() are automatically called on probe failure and
-driver teardown. With runtime PM cleanup handled by devres,
-stm32_rng_remove() is no longer needed.
-
-This issue was found by manual code inspection.
-
-Fixes: c6a97c42e399 ("hwrng: stm32 - add support for STM32 HW RNG")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v2:
-  - Replace pm_runtime_enable() with devm_pm_runtime_enable() to handle
-    runtime PM cleanup through devres.
-  - Remove stm32_rng_remove() and the manual cleanup on the probe failure
-    path.
-
- drivers/char/hw_random/stm32-rng.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
-index 9a8c00586ab0..f5bfe54c01dc 100644
---- a/drivers/char/hw_random/stm32-rng.c
-+++ b/drivers/char/hw_random/stm32-rng.c
-@@ -368,11 +368,6 @@ static int stm32_rng_init(struct hwrng *rng)
- 	return 0;
- }
- 
--static void stm32_rng_remove(struct platform_device *ofdev)
--{
--	pm_runtime_disable(&ofdev->dev);
--}
--
- static int __maybe_unused stm32_rng_runtime_suspend(struct device *dev)
- {
- 	struct stm32_rng_private *priv = dev_get_drvdata(dev);
-@@ -590,7 +585,9 @@ static int stm32_rng_probe(struct platform_device *ofdev)
- 
- 	pm_runtime_set_autosuspend_delay(dev, 100);
- 	pm_runtime_use_autosuspend(dev);
--	pm_runtime_enable(dev);
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
- 
- 	return devm_hwrng_register(dev, &priv->rng);
- }
-@@ -602,7 +599,6 @@ static struct platform_driver stm32_rng_driver = {
- 		.of_match_table = stm32_rng_match,
- 	},
- 	.probe = stm32_rng_probe,
--	.remove = stm32_rng_remove,
- };
- 
- module_platform_driver(stm32_rng_driver);
--- 
-2.43.0
-
+Ciao, Throsten
