@@ -1,72 +1,72 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D793382CB;
-	Tue, 11 Aug 2026 19:29:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6BA3382CB;
+	Tue, 11 Aug 2026 19:29:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786476571; cv=none; b=KiU/C1bNr4Rd9eeTh6dBLJ4ZMr1unq9OApsvYXndcAIHvzTOcjT2QNlTOHAOnbI9HsMxJPpUtxHE4vnePvvyg1aPLG+T+czsl89950/O/qNia82hASF4bRcGWuQR8TUJrzHRgixgMnwKCiV6+/EXXqqL44DX70/22LWIL9Abb3g=
+	t=1786476580; cv=none; b=SqGe+arRR7/ytgJmxzFRWc9HQt1DlfsTerlrzTR54fyPpTgQ+QdySCRLj1ytvmRyRWAzEJe7k1N5E09vUJJedMtLa3PvbLlCbBFju1ctyADISXnz/4hjLCD6lr2Euu5QR2q6jpFczaZDq0pln+c8FzV/EbfgBeVPRDVp1he7DYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786476571; c=relaxed/simple;
-	bh=cPDAhT0Qagei4vQIDOXKHzRYx66XDdgXWkxENJy2ksU=;
+	s=arc-20240116; t=1786476580; c=relaxed/simple;
+	bh=/TVTsv/JDA5GDpCVwGK8jBtBJMbNQvua97bmqQb+vvM=;
 	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=mmCeUKRBCUoyQSd119pALFE7FIL93TOeQadwUYWf6+DSTsupq/RLf819eNxDc7S1t7z7otfhLy2zmhFOzTTIE2qnqbyrc/MfYenCJygOBUEzmaBxWPCf/+wtQyR+QLfhwJUQwqRlrj9NOllLbghOS9SLpwH16uTIVanSmJn5oCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=MEZI5GAi; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Q6yoq3Iq; arc=none smtp.client-ip=103.168.172.150
+	 Subject:Content-Type; b=JDTKRQlct4rxyEuI1uEzTfq1Ms9KLWFNC9dpaUzsrt6YzRo9CDxHpdhpLtsl7HAWS9/DINtNd0CsSXaBJagBY7J1qEmZzMry/iKp0reNTPDaDc2s9IyiSsxfvr5LW5JgjV54WZgzcgtkGBp1A+VLpLi0A1SZ0xaPB+cX+NwYkM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=ivgHvNQA; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=h1SNYEXi; arc=none smtp.client-ip=103.168.172.157
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="MEZI5GAi";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Q6yoq3Iq"
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="ivgHvNQA";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="h1SNYEXi"
 Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id D2451EC017A;
-	Tue, 11 Aug 2026 15:29:28 -0400 (EDT)
+	by mailfhigh.phl.internal (Postfix) with ESMTP id DFF7C14000E3;
+	Tue, 11 Aug 2026 15:29:37 -0400 (EDT)
 Received: from phl-imap-08 ([10.202.2.84])
-  by phl-compute-02.internal (MEProxy); Tue, 11 Aug 2026 15:29:28 -0400
+  by phl-compute-02.internal (MEProxy); Tue, 11 Aug 2026 15:29:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1786476568;
-	 x=1786562968; bh=W0kYAgqlA0wFcX3jimEcDwC3Juwj5zioDaW48VzmNuc=; b=
-	MEZI5GAiEW0v+azSae7w7UR420ocoD2oiIuj5TKM39UPvHaK5NaIAOYFfC0Lzvyj
-	0YOOpZy2FiI1tN4gJWH4HEQ+keFXvf3REGi7cv3ebNkbs5Lrv8jG532hsZBsB65I
-	IY/CslR82aY3z1IfF4uC55M1gr0ky37jBdVB02LsfQUtevQ2l4byaS6mEEG7tvj8
-	IURYY5A09aqEO8vU6ovJVaQXbj1YROC035ns0LMmzjF6vJcgeoKSyMCSznoy5Nlk
-	aEHbe7N08+wHQKcTSEDgCw3V3qQsQle9ejaaGoFvPsPythySmnS4w2NYY4fTTMYV
-	u3Cz90otpfFhYVOcW9AQfw==
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1786476577;
+	 x=1786562977; bh=RoZKUScy/bTRw/ISa9+60nA/jsMxL7OAANP1TmdBSqw=; b=
+	ivgHvNQARnx3KS3AIgKlBjxjFnTTOR4IJ2TODKVcSEKjfRU+nw0Z00FbsklSEhT8
+	CJM9i6IT1xMH7AjaGgze3jY7IwvMdTTyNTDMuhMUkghJYWkmoytESJ6aw3NLaXBa
+	UQwzVmVMlNRC9gzb56WiGvVF8iSLVtbwIQY4tVJvt7oKTU0KAAyR7c9PjBUmnFm6
+	6eEu7XilwQUFduQAQDBeCrU4yqOfTVDOx5o8mlBcz3xMjCcUpvlGgmA/5Nu+B0cx
+	l1FZw8BISIhkomzaI94aQWRCAdf9eCY+aLhbyuIreT1RdzF8i2GXxb/oYJgxYHn1
+	hrnSEIKEpJjIwFvqkVhU3g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786476568; x=
-	1786562968; bh=W0kYAgqlA0wFcX3jimEcDwC3Juwj5zioDaW48VzmNuc=; b=Q
-	6yoq3Iq0KZgqB7eg/kY+zTqTEKsvvn5EqFfwTylaMeYuFv1gVpejKsDdLFK1rLXy
-	F6mQsqKOqlhX4KkmaesEHS9qczMUWUcArvMFQBJ+pLhj5n12duW60Ih25FAVTO7r
-	VlaUM6c1HOfADrOrhz8awt23qRNcHm7dyS5LZTvd4HP0A0nuJrJRQL/fvx/+Ubnp
-	HDpoG3icS/a10NuidC1eaTre/I0BFnl3zVOPKl9wO0OcNEWsgRv2YqZNHA75wcoY
-	EqDBtak2VnmOI9yod7LSr814rW9P48seYkQNlbWaJplhRpb5q7IrKz1pZhvEc4eG
-	tdtjhKIVcj/XW7RsR+XDQ==
-X-ME-Sender: <xms:F3h7aks1XsjGus3GtYdrPRvtnvyHkJZmTNmLvWCwOhTxfkxSgxTONQ>
-    <xme:F3h7asTmsPrB1VT_wQyt_OiOitXDUili2lP2KD1pV2qdk9LY1Jcd__ReHlp9Z-ahg
-    ssUCxq4B-DTo8UgGs8x33_63B89sEH0G8UfIi9mWqspzJ5oFUWYjIE>
-X-ME-Proxy-Cause: dmFkZTGjpPG+ohPDuue/ZsKnin9jXoENRu7hTX9Ft1XaCuZizubmG9ignzgktUogMp/Cdx
-    o+MXfgBU6uen+M6UD8kqT0J0FYu/Ha19LzqPLJm3zlWssLloE7gDLhVQv7ccqW8DuYWZq8
-    4jGMrEiemaraoqC+PjnjEuoSMFRhYonvCCS33OTDcaFMSFhkjCo3nrhCbzaXSOIyBZ/2XS
-    OF1BaUTiMAZK2RGRrAewdcrJtMQbj3BCyUkDFiVR7D6MeI6zEd5oRNt4AI66vFfsfwAKN/
-    5JbFakgQu7gWVV3HQrdjEQddUg2W7p0TtbK7jsxQzSeUhystj++BxkwWN9nFg1yQXRo0Mt
-    UwGKc0TiXjw6CjZSHuGMks4bdUy1BzndUxZU4JDc/4SXl+4pimU/InYqAgp2lfW/CafKph
-    74mR1LNWy/0xkjXqhbS+rfGN0I7Vt1nw2IO5DzxK75xt6rjeulGayTJK0Ff2AQEaq57O6/
-    BY/atQqfK2HL7RvE3S0/uWd3L+ACdLyaMlS3Ts1FRSz6ZsmIEA9K2rRk4aRu0j1NjwboUq
-    QoU1EaP37yScbtFMuswqB+bbWQvFKNZKyGcqTt/nt2br6Qc74nyJuRsaSr+BJMG8P7M8z8
-    rhpXqoBvAIa0IFT1mVVouekFrSykTqCWgIi0o4r6jZ8vEpQUJetfAA5tOFZg
-X-ME-Proxy: <xmx:F3h7amLPTGi5MKhjQ5KrILDKUfCl4DOPHI1bg2OM2v-Yb4VhjpxrIg>
-    <xmx:F3h7ajEO66I811kVAtWWaxkuD-z8X6NrKIRSPBLxG-pdidcsmy7-Eg>
-    <xmx:F3h7aq9AgaF44xTQJfdxQJ3qch5QF7-AdIQaci5dsb6Wz0UejNiSRw>
-    <xmx:F3h7arJ6G1mjwLeEH5DNqqFP7E8Lu7ggn7jtHHYwSNPuG-bIJN0oSg>
-    <xmx:GHh7ah41xLqEz07npF-LAZ3Ri1KbQ766jy-PpkMgM52Cuo4k7edhvrl3>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786476577; x=
+	1786562977; bh=RoZKUScy/bTRw/ISa9+60nA/jsMxL7OAANP1TmdBSqw=; b=h
+	1SNYEXi7F/2XM5cVz8ZeTTAp7mju3cUnzes5ekD2f8CPVueKBhUpMPRxUmr0NaHU
+	i6FbWXik6yJByZYirZD5Gj2OZiDyXHvYN7dg/Z0RstPfddZ/2E+qowP69Pu2MzxE
+	owQLZVBR4XIJCmaMpkU04iVJOekQNTeKLW7o3/+j0Bte3lT/xaKpWVrcogxkDJ+d
+	wPPxqGrbaAH2CEKJD+SotSvW+dW+DY1FmZ/i31J+cxF9ELIIajaLgM9Dj9u5LzBj
+	r/C0MWZ8R2bT4B7RctM4FCmh2vpY4brrBu7I/QbUpRktxB5Mas8KBkkJnTOiT0iW
+	4jPLuhoTlI6IzbcG30LqQ==
+X-ME-Sender: <xms:IXh7agmo2FawyDZHOpEJyUG1Gopn0Ed5_rwNro8VK5oPz8zIocspSQ>
+    <xme:IXh7aqp1EjPSVtCBLQz90PYO7rFoYB6xRbS9Z1aV8dw7i8YKtbJInrh6S2g2AwDwz
+    SjJmAGLgZHg6EzU5h458LFaVhAnDbZl6cpxS-IYd-P-bi0DCmQ8xX4>
+X-ME-Proxy-Cause: dmFkZTFUvjaeGVStv4f7WFbB7cB5PYNg8NvgudaEG3f/rq7N+ESnj8BdmKobzcZ8+yvUle
+    /O/CZ2pbyVS+uCSJ5rFfY1/XqNAkS6vom6JtIAWdJoCYN5e/XS21fWE5uGEg/xw3wcFmPu
+    EUK6QzDX9HX21o2faVboLSo/Q9hkxZcBUxoVkl2jpawZqE6qwWLMLBeKaVIZ1ABL7fW4WS
+    0FbQ2gYYqdEnuly9E3L9hq7ZByorgKcCpVTKVd1rC3iiEI0nDhjUNJsCyb7V80ckLVLHRN
+    o1f95331OZ8IxMQXgTnAVdFZG3pCzxGJ5tByCI2C0ef4lpjv5M8vvRqL1t3Xhq5Ala5KQ8
+    6kf4YA1sT2UVSZ4NPd0PDTXtVONhR/mQbanZ7O1T7oqmNkCMOHLPPyZs9U6zuaZTZJEbS2
+    cdKW//NB7OUixvrY90Sp81QJ667R88FzCUhKiWbpXtOMONvJmuQSjkWoKHVBZ2iqECV9w/
+    lNMXk5hDaY7CLZywktUiebJa+IrlsHReoWgQtYtvBKX/HyPJxJLJcg6EHf9eQj2dij4NuA
+    m/95ecYFaogXI8ymDNtp8JlsBRMrCvEk6WL408AuBeM8g81n2LBt15YONDyHZYQiBHqR+u
+    dhahFRn50CzWn5ipXq1nqqogR8HoqZp1fqpWCS9JkDMYfOdOE1ts/Ajk/3Hw
+X-ME-Proxy: <xmx:IXh7an5qz8vo3v-09rOubI0ZnvuwUSw86H2m7A4vteM4OiEH8Dtf7A>
+    <xmx:IXh7am6pDgaolPKVxVogzDE57iPI5Ah_HteNbsn-yyB9J6972P6C7g>
+    <xmx:IXh7alGGHX4pL-tMUGFvHP8XY4yZoYJOZay1sF2ROtb6b7PTdkRitA>
+    <xmx:IXh7amX0oiod5LwFnPuJ4_u8FFkbFdAp246KkZ9aU-AFh7u8qtrzCQ>
+    <xmx:IXh7audQ3y9VrfdGgWyTcEeadQU_1P5_Rk8FFbEU3uluKyxOqF14Mvrv>
 Feedback-ID: ibe194615:Fastmail
 Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 83E922CE0072; Tue, 11 Aug 2026 15:29:27 -0400 (EDT)
+	id B989F2CE0072; Tue, 11 Aug 2026 15:29:37 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -74,73 +74,71 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: Azv27X2kd0kg
-Date: Tue, 11 Aug 2026 15:28:57 -0400
+X-ThreadId: ApPKnL0XRmUw
+Date: Tue, 11 Aug 2026 15:29:16 -0400
 From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
 To: "Thorsten Blum" <thorsten.blum@linux.dev>,
  "Derek J . Clark" <derekjohn.clark@gmail.com>,
  "Hans de Goede" <hansg@kernel.org>,
  =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: stable@vger.kernel.org, "Mark Pearson" <markpearson@lenovo.com>,
+Cc: stable@vger.kernel.org,
  "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
  linux-kernel@vger.kernel.org
-Message-Id: <5f44090c-5b08-49da-a2a7-2ce8f0ede740@app.fastmail.com>
-In-Reply-To: <20260810120556.149416-2-thorsten.blum@linux.dev>
-References: <20260810120556.149416-2-thorsten.blum@linux.dev>
-Subject: Re: [PATCH] platform/x86: think-lmi: Fix certificate thumbprint sysfs output
+Message-Id: <a4d9ab1a-683d-49d3-93c0-d533fb96bf27@app.fastmail.com>
+In-Reply-To: <20260810120830.149804-3-thorsten.blum@linux.dev>
+References: <20260810120830.149804-3-thorsten.blum@linux.dev>
+Subject: Re: [PATCH] platform/x86: think-lmi: Keep pending save state on failure
 Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-Thanks Thorsten,
+Hi Thorsten,
 
-On Mon, Aug 10, 2026, at 8:05 AM, Thorsten Blum wrote:
-> cert_thumbprint() already returns the accumulated output length, but
-> certificate_thumbprint_show() adds that value to count again, making the
-> next line use the wrong offset. Errors returned by cert_thumbprint() are
-> also ignored and their negative values added to count.
+On Mon, Aug 10, 2026, at 8:08 AM, Thorsten Blum wrote:
+> In save_settings_store(), the opcode and legacy password paths do not
+> check if saving BIOS settings failed, but instead unconditionally clear
+> save_required and set reboot_required, losing the pending save state.
 >
-> Assign the total length to count instead and propagate errors correctly.
+> Check the save result in those paths too.
 >
-> Fixes: b49f72e7f96d ("platform/x86: think-lmi: Certificate 
-> authentication support")
+> Fixes: 318d97849fc2 ("platform/x86: think-lmi: Add bulk save feature")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 > ---
->  drivers/platform/x86/lenovo/think-lmi.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
+>  drivers/platform/x86/lenovo/think-lmi.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 >
 > diff --git a/drivers/platform/x86/lenovo/think-lmi.c 
 > b/drivers/platform/x86/lenovo/think-lmi.c
-> index e215e86e3db7..441fca37b523 100644
+> index e215e86e3db7..cc0a85d1b832 100644
 > --- a/drivers/platform/x86/lenovo/think-lmi.c
 > +++ b/drivers/platform/x86/lenovo/think-lmi.c
-> @@ -745,6 +745,8 @@ static ssize_t certificate_thumbprint_show(struct 
-> kobject *kobj, struct kobj_att
->  		return -EOPNOTSUPP;
-> 
->  	for (i = 0; i < ARRAY_SIZE(thumbtypes); i++) {
-> +		ssize_t ret;
-> +
->  		if (tlmi_priv.pwdcfg.core.password_mode >= 
-> TLMI_PWDCFG_MODE_MULTICERT) {
->  			/* Format: 'SVC | SMC, Thumbtype' */
->  			wmistr = kasprintf(GFP_KERNEL, "%s,%s",
-> @@ -756,8 +758,12 @@ static ssize_t certificate_thumbprint_show(struct 
-> kobject *kobj, struct kobj_att
+> @@ -1347,6 +1347,8 @@ static ssize_t save_settings_store(struct kobject 
+> *kobj, struct kobj_attribute *
+>  					goto out;
+>  			}
+>  			ret = tlmi_save_bios_settings("");
+> +			if (ret)
+> +				goto out;
+>  		} else { /* old non-opcode based authentication method (deprecated) 
+> */
+>  			if (tlmi_priv.pwd_admin->pwd_enabled && 
+> tlmi_priv.pwd_admin->password[0]) {
+>  				auth_str = kasprintf(GFP_KERNEL, "%s,%s,%s;",
+> @@ -1363,6 +1365,8 @@ static ssize_t save_settings_store(struct kobject 
+> *kobj, struct kobj_attribute *
+>  				ret = tlmi_save_bios_settings(auth_str);
+>  			else
+>  				ret = tlmi_save_bios_settings("");
+> +			if (ret)
+> +				goto out;
 >  		}
->  		if (!wmistr)
->  			return -ENOMEM;
-> -		count += cert_thumbprint(buf, wmistr, count);
-> +
-> +		ret = cert_thumbprint(buf, wmistr, count);
->  		kfree(wmistr);
-> +		if (ret < 0)
-> +			return ret;
-> +		count = ret;
->  	}
-> 
->  	return count;
-Looks good to me. Thanks for the fix.
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+>  		tlmi_priv.save_required = false;
+>  		tlmi_priv.reboot_required = true;
+
+Curious - have you actually hit this condition?
+
+My main thought is that if the save fails - chances are that something is pretty messed up and doing another save isn't going to fix it. Most likely you're going to have to reboot.
+
+I'll see if I can get an answer from the FW team on expectations - but getting straight answers for error paths without a repro mechanism can be tricky.
 
 Mark
