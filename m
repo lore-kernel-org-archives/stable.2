@@ -1,94 +1,102 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B2E3BCD15;
-	Tue, 11 Aug 2026 16:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E6C44D01C
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 16:16:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786464933; cv=none; b=mobyNMelTv8bLp6OsyUqocehbWAUBWgfNQtbGsaKA3FnqAzQ8L2mg5VVDQjkt3Q/c9x/V24AD9KBaPN9UkoVAxHYztcffDVw/5zZtxh9gCDKoigJxHwGaK1uLhs4SqXtHcYclmGkNOy/79KiETvifWmMboarCQgnnc8QAe3mUXo=
+	t=1786464962; cv=none; b=KcsWD1qOe+tioGwsE7ZSqukWCEmQ5f/wRDJdCbQtaoJWBGfcb2zeCO69gONW+Sa7gfpgbP6slsL4Vwy4OxOHQuLX71zRq2ahn/aEy+Rxfu0n+2UB7QLaumqQF/wFqKjA7SWBPNRxOw/+rfXAqrbSM6cN6jzTmxrvrjTt5CgR9Jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786464933; c=relaxed/simple;
-	bh=gb+fwROmnOkLdeNycb9l18F0EWuU7KY89ynmb/WqDF4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iQL+VEenNq7wnRI+QO4HgvlNl/8g0jRJCwHqt/pOcVcvJTWv2uO7WUJfJKYuyNg7iWgGkB7l8cMkD8tXUbaUnw7QxKcgJgmsJJseYIeupTn+gQ/FEfmhsJg6dqpNUgq2CAPO8PiaoOH5/1JTyNupAsI8PTEekUSX/O8qYA3iUfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pCNlLA79; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1786464962; c=relaxed/simple;
+	bh=JS7D+SgbO2rWylaJpeRBSa2yY/t94LjRjYNzDF0WYsQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p7lCSwRNwENlZycjllu1pDMA4AADHW2HZiaCPIFEC2SWrCaTJafOhQYrQdqyI8ltTM1tKUCPWysCN+YpXFngHDLcJPVMKC9/lvHsaeF0KeCg3VC1UIjVK3XKyGleKokzbTTtohSHlSvRNIAD5gs+tiqcA0mWycpUDrufilZT3iI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ekim1aHR; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pCNlLA79"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9A5AD1A1570;
-	Tue, 11 Aug 2026 16:15:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 68C206033C;
-	Tue, 11 Aug 2026 16:15:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6D2CA11C48FA8;
-	Tue, 11 Aug 2026 18:15:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786464925; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=HAyABBQS0V8BnfnIm9rFYNSgw2zlmJq/eAOs916odWA=;
-	b=pCNlLA798FKrWL8fUi9p3sK5BlMSIFQF3uUQSugJ1Sm+wCSUnrAMCKU2K6MYYPecOlaQ40
-	jxYcF0DvNX+1F+vmWxzaWfVCytG0Bw9n4tjGvNbLV4xx2wX2/+EGj/fZo9n+qwFxZC4VQX
-	LFUoIyCwyAGDtJ+z991Z6LwxzzPIi6yGs9U7fbwKe+dBftWGMxO0RYoGfghohOyJ+m4n/u
-	KC7uofdDLrbKQNrHg2B7NwjDc4LsaZx7QEu/AGMrTH5FrRir98Jhx8uV3z9K716vIrXNBn
-	ByBsxgMCpY7rFMm5xW0OOgXuWb9tVXIpU9SRAaLfRxOAGscIfKuuUcdv82hDPA==
-From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Date: Tue, 11 Aug 2026 18:15:02 +0200
-Subject: [PATCH v2 1/5] mfd: cgbc: Fix use of negative error code as valid
- session handle
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ekim1aHR"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-90a60a3ee0cso20576d6.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 09:16:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786464960; x=1787069760; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yqTXzLSqi2PHpBqXcfI0CNlUPAV+a1jDZqtX7tQ4YaA=;
+        b=ekim1aHR0t22v+zAL89e6QEnzmHeK0V7iMwoHogEbIUGFblaDROVsce4xyiCbAySHy
+         5ToCs/w0j0ytsWcOmuxAgS6GIoSZa1r/8enOV1PAmmeNxURFzGJpqPOE5vGhj2lTPuu5
+         uRpz3m8F/xlauke4tmS+OuXp5wJqutEdfjJ7dRHZbrHs/VbUHRGq6kuuOF9h0beWhni6
+         s6+HTmGPQmQJnAUzClTJ2dpnWxp59l2bV2HR08/2MpM6v/Q/krSn+IH5UuqfYsCk5Pio
+         O/433LZm4xvvK0xRGU72Mgm8i+hMwVkV6BBNR/717PG9vKqoAFnE+Pp8uSl6ABl4nmah
+         STng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786464960; x=1787069760;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yqTXzLSqi2PHpBqXcfI0CNlUPAV+a1jDZqtX7tQ4YaA=;
+        b=B69AMaAOM/JcqoalW9PR51wsLbbtSZmjSRQjgcSf5Jvf71p1XBFhGVQzDQFixuEeU/
+         fAdVYJ6eX60QULhFDVFEWquQUiqKdrs4E0pJTf4Sz4mglcJsV1TLA9scKt6zjkzqf/DH
+         34Jzj/VQtThuJoCENfxnkJgh2dHIwUfpVwHWFLCI+pHXgGwFywnvkKeE3QoWRHNJcbAJ
+         yrjKATYH30BzsS9YelIQvMWF7LQkmIRTFblAVUlk0k/PnL+R/QDt7hy4vXSLUeWFIUmE
+         u5Tor0OXpeMUOaoFCd3pJBa1Zq8U21NMJwfF22UR4MUTMdXj9Cn7BBDsCvWn5w8foJu9
+         vypQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro9U9X9M67BiTZbN5eCyUzg7RJ66S2+4FCBCk191F10/JSpU8k84CmgaDUs46cu667bJ8uJkjA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIKvX5BusoI0abQH2yVUm//IUeZTjgTVYEHXYKptvEJJwFjObb
+	E8wg+RNq87tgpCXvaIV7jY9rBopVPk5wGQVFizrScVggVV95GOEiz/YK
+X-Gm-Gg: AR+sD11PXZ6hm470rxzHSIxKntHJ1SvTYF4Z1el9pfAh4DkpaBBl/htd0m9iiONw+It
+	oTZCQdIcrxE2kxVpMHHcDuFJgrBpKvJwLj8rUa9P4wGHJk3x04nIi2v/047qpVeNGlEKcrwKon2
+	bCYbfuNWNtFFhbpSzK8kNG8/nrarRBOV4B7gNGjccjubpuS6e4ZoOja5cf4z5lQlWDmeLn3DfMa
+	qqYbDEk6CTqsiRa/nychdMwo67V6lbPqocAmfCWmqRD9XbCB2XqVGZLDy3nu2kLpucsrmocoVNq
+	oaGxM0A6+1Me7ThKP50TEjDFbYkqX8ALENN3Rbk1I4X1Y4UClXRs/Wn318Gq1onx1a+IL9t+s9/
+	0TVOXPczvTgK4AsLeozu3Gix5us/8QciOtu16dgvDSLoYJTfCyLRj0whqCx/MrAsedCg+v5GoNG
+	YXXEE8RWuJWSoeUqV8O09ozfYnFoteCftsTauhCMI1rao0tl2CHcsDC8zgX2G3VC5I9uYaTJfvo
+	83qlLvdtqNTY/m/zPZgrBHH9xwlBfDTmec=
+X-Received: by 2002:a05:6214:5b85:b0:907:c025:e4 with SMTP id 6a1803df08f44-90a667db293mr50971636d6.13.1786464959922;
+        Tue, 11 Aug 2026 09:15:59 -0700 (PDT)
+Received: from CW-D0XG2Q16P7-L ([2600:4041:5d54:8900:9c8d:ddb9:b1a2:735f])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90a6c29a1f3sm2428656d6.17.2026.08.11.09.15.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 09:15:59 -0700 (PDT)
+Date: Tue, 11 Aug 2026 12:10:49 -0400
+From: Maxi Saparov <maxi.saparov@gmail.com>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Alexander Graf <graf@amazon.com>,
+	Evangelos Petrongonas <epetron@amazon.de>,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, sdimitropoulos@coreweave.com,
+	Maxi Saparov <masaparov@coreweave.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] kho: do not reserve scratch memory in the kdump kernel
+Message-ID: <antJiVOAmzR5LNPe@CW-D0XG2Q16P7-L>
+References: <20260803193938.8778-1-maxi.saparov@gmail.com>
+ <anmKnlBmOssfqdbL@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-cgbc-i2c-storage-devices-support-v2-1-3efa998e0ef5@bootlin.com>
-References: <20260811-cgbc-i2c-storage-devices-support-v2-0-3efa998e0ef5@bootlin.com>
-In-Reply-To: <20260811-cgbc-i2c-storage-devices-support-v2-0-3efa998e0ef5@bootlin.com>
-To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anmKnlBmOssfqdbL@kernel.org>
 
-The cgbc_session_command() return value was directly cast to u8 and used
-as session handle without error checking. Casting a negative error to u8
-produces a valid-looking session handle. So check if return value is
-positive before to cast and use it.
+Hi,
 
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260713-cgbc-core-fix-cgbc-remove-v1-1-79274ad62b3a%40bootlin.com?part=1
-Fixes: 6f1067cfbee7 ("mfd: Add Congatec Board Controller driver")
-Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
----
- drivers/mfd/cgbc-core.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+On Mon, Aug 10, 2026 at 11:23:58AM +0300, Mike Rapoport wrote:
+> 
+> Can we put this on top as a separate if, like
+> 
+> 	if (is_kdump_kernel()) {
+> 		/* disable KHO */
+> 		return;
+> 	}
+> 
 
-diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
-index 2becaf797646..4a409234e66c 100644
---- a/drivers/mfd/cgbc-core.c
-+++ b/drivers/mfd/cgbc-core.c
-@@ -103,7 +103,11 @@ static int cgbc_session_request(struct cgbc_device_data *cgbc)
- 	if (ret)
- 		return dev_err_probe(cgbc->dev, ret, "device not found or not ready\n");
- 
--	cgbc->session = cgbc_session_command(cgbc, CGBC_SESSION_CMD_REQUEST);
-+	ret = cgbc_session_command(cgbc, CGBC_SESSION_CMD_REQUEST);
-+	if (ret < 0)
-+		return dev_err_probe(cgbc->dev, ret, "session handle request timed out\n");
-+
-+	cgbc->session = ret;
- 
- 	/* The Board Controller sent us a wrong session handle, we cannot communicate with it */
- 	if (cgbc->session < CGBC_SESSION_VALID_MIN || cgbc->session > CGBC_SESSION_VALID_MAX)
+Sure, I agree early return is nicer here. Sending V2.
 
--- 
-2.53.0
-
+Thanks,
+Maxi
