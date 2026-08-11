@@ -1,49 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8923B2FE4;
-	Tue, 11 Aug 2026 18:51:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D0F3DCD8D;
+	Tue, 11 Aug 2026 18:52:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786474302; cv=none; b=P5rlIY3SW+BFGS9uyssjNRFmSZgtj7j2dj6flVB4cylYUKh37h6C5+d3gWv6xeWfKnXocYWUd4QHNMb8UihGaYh5ElhhC+eB0Jal4blgCsXlYyWXPZFPeez+f5MFj6ucqFccxzLx2PVHDhIpCS+PsrH3d2CRa+uY/AMbnDdFKQY=
+	t=1786474335; cv=none; b=n5ND9A01aC9sj9EFLqaArkl+PKnae2tHLEv0wlFgl8U9l4mhVv1Oi96bLrSfoaZOrySqT7tjOMdhF6o9CDTuaEZSHp0cweaG1RTRjcMy6TJBkxUssg2ky+BNZkU2Rg9G6DSrdKhMv+hIhvpaPivkLcDyXELg7lyDZYdpw19WWrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786474302; c=relaxed/simple;
-	bh=1N+UX6ZLIsR5I+aEW1CKXPQUwRveNc5tnvONG6fr/g0=;
+	s=arc-20240116; t=1786474335; c=relaxed/simple;
+	bh=G+NaQLTyYY2pNl5bZ3e7NQR+2GBXpxrOqz0IObpJa7A=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=l2fyWAwGNhPGcGi12PMGR5ltl0BgSPitPEH3sn+uaVVFoTbjFF1JPSOO26oX25X0f6WTkwfLJOayP831Wwrh7yLCd5PWWzLRnfLwOtxTz5yL6ng07W1g5vn7/yJKIq39OW5sSsgXgk00+eWGhDVuq5moDYjTrck2kXwEnHJuRk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gehtUgDc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ll53F5nbyZpsHvgvvF+Cjcecg8lsawXEyP0rSsIbOHyNpjhBJZLwSHcgxGK7QTOdijpzM02Bswh5j16f2YdYvBRAQfG5Z3h4lbxB8H0Cq2VfTT+CO3RUdXLIReT5fAnK8GsfIAqgYh9a6/RelF0pJ81MJ70isIEd6Zuvw0EjbY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQ3H7m0s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gehtUgDc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA671F000E9;
-	Tue, 11 Aug 2026 18:51:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQ3H7m0s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FFD1F000E9;
+	Tue, 11 Aug 2026 18:52:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786474300;
-	bh=A4D9KJ02fzxGZMPApeHbP2Gw4eDu7VlXUhUGqHROaiQ=;
+	s=k20260515; t=1786474334;
+	bh=fllhlD9JR2X+lJWzx3BXk7XfctiewMpFvgqVu9s0Nak=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=gehtUgDcK3IRjuIq1zNFj1j+afNf99sTQOgpAFOS0nCIoF3mVhVXYikyVz5PJ8VkO
-	 +GHoAdK/pzgk0gKSP8NrF7Oha4B9dGvgS+JYA11ZqJq030klX7YM5671CqFxEkbfbg
-	 J8SBgHxl4OELqmz0eoC+piNC0XwhY7EbgHKKv3tIDtlC0pzbfITF2QRwXbHVAwHQnF
-	 ezfMVt/Gn4z9YE6J1bQl6H/ox7aSd7OUwZsA4Y+t5fQG+JM74XZ7lIJXECXd6zJ/H/
-	 641wYKq7dGq/THfKllkg0a0NYpUDDNHOYjM37HKR9e+j/7fzQxpfl362JdmLYQg3R7
-	 erFHm4wniyEzA==
+	b=eQ3H7m0s1Btx6N3972GqIG5N1Jo2aaKW5dgge+IjqH92jcMIPRCgRtRjeRk/Pgk58
+	 t54u1v0uGQ2EShjLdvuIdagNBL8IjF3ce4eiNelIuL45XY7vfVavNEgPj4czPAG4lB
+	 oGBg2FS2CsP/FxSfSBdqoU5NhXLRDzig+Hyzuu3ESLPNvoxskiEUtNbfDo4gBt89jp
+	 OZnwymrrCzuCO9TAKYKifmb37c6F0a2/Wk1bIUAUlwQp9VTvrRCS3Sz+ol+V1F76Su
+	 7+eYcYtc00kYCFI2j+vY9SfWkNVnCNbL5Sxmtw5LX9edZ9omiTMNNGk7SMfxLLD0Fg
+	 9n7G9RKWwhc/Q==
 From: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
- Pramod Gurav <pramod.gurav@linaro.org>, linux-arm-msm@vger.kernel.org, 
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Guangshuo Li <lgs201920130244@gmail.com>
-Cc: stable@vger.kernel.org
-In-Reply-To: <20260808110642.2770355-1-lgs201920130244@gmail.com>
-References: <20260808110642.2770355-1-lgs201920130244@gmail.com>
-Subject: Re: [PATCH] dmaengine: qcom-bam-dma: fix autosuspend cleanup
- during removal
-Message-Id: <178647429579.1113716.13825283915355462784.b4-ty@kernel.org>
-Date: Wed, 12 Aug 2026 00:21:35 +0530
+To: Dave Jiang <dave.jiang@intel.com>, Frank Li <Frank.Li@kernel.org>, 
+ Kristen Accardi <kristen.c.accardi@intel.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andrew Morton <akpm@linux-foundation.org>, Yosry Ahmed <yosry@kernel.org>, 
+ Nhat Pham <nphamcs@gmail.com>, 
+ Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-crypto@vger.kernel.org, Giovanni Cabiddu <giovanni.cabiddu@intel.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20260805-iaa-crypto-fixes-zswap-v2-0-55c02694f499@intel.com>
+References: <20260805-iaa-crypto-fixes-zswap-v2-0-55c02694f499@intel.com>
+Subject: Re: (subset) [PATCH v2 0/5] crypto: iaa - Fixes for multi entry SG
+ lists
+Message-Id: <178647432965.1113716.8156058778454772233.b4-ty@kernel.org>
+Date: Wed, 12 Aug 2026 00:22:09 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,23 +54,23 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13.0
 
 
-On Sat, 08 Aug 2026 19:06:42 +0800, Guangshuo Li wrote:
-> bam_dma_probe() calls pm_runtime_use_autosuspend(), but
-> bam_dma_remove() does not call the matching
-> pm_runtime_dont_use_autosuspend() when removing the device.
+On Wed, 05 Aug 2026 14:19:21 -0700, Vinicius Costa Gomes wrote:
+> Since commit e2c3b6b21c77 ("mm: zswap: use SG list decompression APIs
+> from zsmalloc"), iaa_crypto started seeing some failures with
+> multi-entry scatter lists.
 > 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during teardown, this reference is not dropped and usage_count remains
-> unbalanced.
+> For that we introduce software fallback, in patch 2/5, to iaa-crypto
+> when SG lists have more than one entry, for both input and output.
+> Patch 4/5 adds a bounce buffer so small/simple requests can be
+> linearized and sent to the hardware. This recovers most of the
+> performance.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] dmaengine: qcom-bam-dma: fix autosuspend cleanup during removal
-      commit: a50184171235045d96104811414b25cf5338cf86
+[1/5] dmaengine: idxd: assign all engines to group 0 in IAA defaults
+      commit: 4a8b7929550eb94d60b32c2c06479444672da381
 
 Best regards,
 -- 
