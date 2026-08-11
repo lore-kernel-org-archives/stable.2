@@ -1,207 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64AE427A0A;
-	Tue, 11 Aug 2026 09:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EE3411A08;
+	Tue, 11 Aug 2026 09:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786439759; cv=none; b=Io4MxO0sPBUvQI4yk4bqun8V9hNcUwB+vJTeKTPxgzxT0egozktbL+jaYjv6HZFLs16hWJ4TxRx/2/BZEpX/ukTS4ha3vnm/Pwez5ayMZiTO7c2sGg97+qqswWbRRiHPZTMRQp2PyblkifCNEiA5DxhtXKrSbT874Uuxy8LgNPE=
+	t=1786439834; cv=none; b=aOb7OnDkHGRXTJ+6bzq2gXD2SvS9GBd/fPbtCr/+Jn2aA0lA2kVd3GU/h8Lg+sxLwxysr5Fc7nf6At07F4VpjP6ePGihQrM53DDddC1FgLcCFDUZTQDwj+rBAskSkJFR2BZQpcaJJSXIPp8JOx5bdva+2S0Wzokd7t6XPsIfalI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786439759; c=relaxed/simple;
-	bh=4U7ngFBu5NsM481oid+uETkGR5AVE9VJzURPBfGDsH8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ecJ4Ytm5P4O0hDI0mNNx3WgEROUpckl5l/MckyaQNEGEV3MENAzVSW7bMcMs14mCuIVsyCcG6TsN6SrUtAEc49ucEDjH6HCJK9TatUnXOXN7uRYIPmK+n7xZZ1UON8zSDus0IiJDd1lCXyX6HTs/FC+V1IlTMDgUKuf+z5fkHDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W08dAEDU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786439834; c=relaxed/simple;
+	bh=DWJSKzFD6cakpJcZ646iHbt5JA/PgGMBrolZ4fqvzIg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=X6nNTjuUZ2dpgKIJHoGCe+li+1yH5LhKd+67GcioHJNpARPzFRIRNbrG8/xn4C70eT9x8w2cZICwsum1G1jVLXyqWxMvF26c9DNyQcRQABa96gq256u7gbTQFwA08BtY0I9eIB1fFJPezOOGgiL4qhbf98Q/d7XI/xB1qpocb0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nXD7k50P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W08dAEDU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F211F00A3A;
-	Tue, 11 Aug 2026 09:15:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786439757;
-	bh=kec89GY4d6bVnwtGkZlqCDVtcDGTNRDATy+E2YuM6e8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W08dAEDUh1Tb4XuKnYJJi5ET1hoRro7J1kmpmN1yObp1vONSfW+GOUMt6uOKiosss
-	 5LWLe9QDTEYCvNV/j4nZTVx+quIaW13RfE95nw6yXSaT0S5ST/dth0+/gH3qaLRcbO
-	 QLSwTusiqf8bH4IQa46nz5S+idHu9GKu7UERSgjQFJRo6yYcdJfCQ5F5SS4RcSwYVH
-	 lAywF7HWoPBpFzI76UP8r0mx/OsE4qk0ZrEJ8iIz2FO4auGpXJ08E7fKy4TE4W9LVB
-	 U0e/+CiUtVZkhbzJu3TGhQ7pbeynLzmJ3UDExhMGPhqq+T3Z1n9reB9eYur3MfwZyS
-	 L43TtsM4wYRVA==
-From: Simon Horman <horms@kernel.org>
-To: runyu.xiao@seu.edu.cn
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	sashal@kernel.org,
-	zilin@seu.edu.cn,
-	kory.maincent@bootlin.com,
-	marco.crivellari@suse.com,
-	felix.manlunas@cavium.com,
-	ricardo.farrington@cavium.com,
-	linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: liquidio: lock upstream bridge for function reset
-Date: Tue, 11 Aug 2026 10:15:39 +0100
-Message-ID: <20260811091539.815827-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260809105715.3669436-1-runyu.xiao@seu.edu.cn>
-References: <20260809105715.3669436-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nXD7k50P"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5C00CC2BCF4;
+	Tue, 11 Aug 2026 09:17:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786439834;
+	bh=DWJSKzFD6cakpJcZ646iHbt5JA/PgGMBrolZ4fqvzIg=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=nXD7k50PLScODjY6lMjbfASFHhsxr/d8ksu1HCUzP0etYjD56BJ6T1shqcZ3eC6u6
+	 zsM77uHQHkzK3F9lBr/lGWPGaxYn9Pw8UJTie9Bu1okEmTIh4mcWqUEjNAVsX7ZxC+
+	 /JtXiY/S17on0+lwaQQmRoUzgPcH/Tvuk1dBjRDabVmlSHtdolCsvK7QlpNx0Emw0s
+	 9XC9aGt70lixTbMmjtzpqoviWVNoFCCTqycDlin8RCAoFyUzFcMFWmlULpLcT90W5Z
+	 1qLvUuCLsn3kglg8tGPOhsE7efY6HbQ2PngChaHVHk4A7pRtVJ07a3ewPXTLvcE+F2
+	 tGn8YHLvErlIQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48AB1C5CFC1;
+	Tue, 11 Aug 2026 09:17:14 +0000 (UTC)
+From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
+Date: Tue, 11 Aug 2026 17:17:13 +0800
+Subject: [PATCH v4] media: ov5640: select the MIPI lane mode from the
+ endpoint lane count
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260811-ov5640-1lane-v1-v4-1-c4a05d4c1b32@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAJjoemoC/4XNTQqDMBAF4KtI1k3Jf7Sr3qN0EeNEA2pKUkKLe
+ PdGV6VQhNm8B9+bBSWIHhK6VAuKkH3yYS5BnCpkBzP3gH1XMmKEKVJTikOWShBMRzMDzhS3xAH
+ XYFrR1aioRwTnX/vi7V7y4NMzxPf+INOt/b9VjmLdqKYRUlug/NpPxo9nGya0bWV24FnxSjIiD
+ dTKQfvr+YHnxRsQWoFxkjDx7dd1/QCz0QtHLgEAAA==
+To: Steve Longerbeam <slongerbeam@gmail.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Jason Yang <jason98166@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786439833; l=4169;
+ i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
+ bh=PfLhiPr2yUVO8SISKIeOPSSSLsQZ2XmMhRZ2vtARP8M=;
+ b=EblIwyv8nL4KOhfFsYbHzg/6PSpCqoDi2yJ2ZuJsKCDSXmCcpuzLKOwuNW3JrWaleLzU12cF0
+ T4+xnHGgwPLC+8U2cO+ZSshx+0PmBNxL+qNksLw+ceRUF0R9E/nWS0c
+X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
+ pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
+X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
+ auth_id=887
+X-Original-From: Jason Yang <jason98166@gmail.com>
+Reply-To: jason98166@gmail.com
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260809105715.3669436-1-runyu.xiao@seu.edu.cn?part=1
+From: Jason Yang <jason98166@gmail.com>
+
+ov5640_set_stream_mipi() always programs IO_MIPI_CTRL00 with 0x45,
+which selects the two data lane mode: the number of data lanes
+described in the devicetree endpoint only feeds the sensor's clock
+tree computations, so a module wired with one data lane starts
+streaming in two lane mode and the receiver never assembles a
+frame.
+
+Take the lane mode from the endpoint instead. The field encodes
+the lane count directly - 001 for one lane, 010 for two - per the
+current sensor manual (version 2.33). The 2.03 manual documented
+000/001 for one/two lanes; OmniVision corrected the table in
+version 2.1, which is why the long-standing comment here found 001
+unusable for two lanes and validated 010 instead.
+
+The power-up path also programs a two data lane mode, but that
+value is overwritten when streaming starts, so it is left alone.
+
+Tested with a single data lane module on an i.MX8MP board
+(imx-mipi-csis receiver), where the unpatched value produces no
+frames at all, and on an RK3588 board.
+
+Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jason Yang <jason98166@gmail.com>
+Assisted-by: Claude:claude-opus-5
 ---
---- Patch [1]: [PATCH net] net: liquidio: lock upstream bridge for function reset ---
-commit 2860fd8a604e5a859143abde28004c138ba9f2fa
-Author: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Changes in v4:
+- Keep the lane count programmed also while the interface is
+  disabled, toggling only the enable bits (Hans Verkuil); with one
+  data lane the disable value becomes 0x20 instead of 0x40.
+- Link to v3: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v3-1-ae476eaf5024@gmail.com
 
-net: liquidio: lock upstream bridge for function reset
+Changes in v3:
+- Inline the lane count in the write instead of going through a
+  local variable (Sakari Ailus).
+- Link to v2: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v2-1-65205ae86feb@gmail.com
 
-This adds a pci_cfg_access_lock() on the upstream bridge around the
-__pci_reset_function_locked() call in octeon_pci_flr(), and moves
-pci_save_state()/pci_restore_state() inside the locked region so both
-locks are held across the reset and the state restore.
+Changes in v2:
+- Compute the register value from the lane count in the single
+  write instead of branching on it (Sakari Ailus), with the count
+  in a local variable to stay within 80 columns; the programmed
+  values are unchanged, 0x25 for one lane and 0x45 for two.
+- Request a normal stable backport rather than opting out of
+  AUTOSEL (Sakari Ailus).
+- Drop the quotes around the function name in the reference from
+  ov5640_set_power_mipi() (Sakari Ailus).
+- Link to v1: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v1-1-79699457ce13@gmail.com
+---
+ drivers/media/i2c/ov5640.c | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
 
-> diff --git a/drivers/net/ethernet/cavium/liquidio/lio_main.c b/drivers/net/ethernet/cavium/liquidio/lio_main.c
-> index e303956b4bf1..9aab310ba229 100644
-> --- a/drivers/net/ethernet/cavium/liquidio/lio_main.c
-> +++ b/drivers/net/ethernet/cavium/liquidio/lio_main.c
-> @@ -914,12 +914,15 @@ static bool fw_type_is_auto(void)
->   */
->  static void octeon_pci_flr(struct octeon_device *oct)
->  {
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index 8deb5f5501fa..a99e4edb6a75 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -1831,22 +1831,16 @@ static int ov5640_set_stream_mipi(struct ov5640_dev *sensor, bool on)
+ 	/*
+ 	 * Enable/disable the MIPI interface
+ 	 *
+-	 * 0x300e = on ? 0x45 : 0x40
+-	 *
+-	 * FIXME: the sensor manual (version 2.03) reports
+-	 * [7:5] = 000  : 1 data lane mode
+-	 * [7:5] = 001  : 2 data lanes mode
+-	 * But this settings do not work, while the following ones
+-	 * have been validated for 2 data lanes mode.
+-	 *
+-	 * [7:5] = 010	: 2 data lanes mode
++	 * [7:5]	: data lane count, 001 for one lane and 010 for two,
++	 *		  per version 2.33 of the sensor manual
+ 	 * [4] = 0	: Power up MIPI HS Tx
+ 	 * [3] = 0	: Power up MIPI LS Rx
+ 	 * [2] = 1/0	: MIPI interface enable/disable
+ 	 * [1:0] = 01/00: FIXME: 'debug'
+ 	 */
+ 	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
+-			       on ? 0x45 : 0x40);
++			       sensor->ep.bus.mipi_csi2.num_data_lanes << 5 |
++			       (on ? 0x05 : 0x0));
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2535,8 +2529,8 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
+ 	 * Power up MIPI HS Tx and LS Rx; 2 data lanes mode
+ 	 *
+ 	 * 0x300e = 0x40
+-	 * [7:5] = 010	: 2 data lanes mode (see FIXME note in
+-	 *		  "ov5640_set_stream_mipi()")
++	 * [7:5] = 010	: 2 data lanes mode (see the note in
++	 *		  ov5640_set_stream_mipi())
+ 	 * [4] = 0	: Power up MIPI HS Tx
+ 	 * [3] = 0	: Power up MIPI LS Rx
+ 	 * [2] = 1	: MIPI interface enabled
 
-[Severity: Low]
-[Finding: gpt-5-6-sol-2-3]
-[Sources: gpt-5-6-sol, opus-5]
-This isn't a bug introduced by this patch, but the kernel-doc directly
-above octeon_pci_flr() still says "PCI FLR for each Octeon device" while
-the body calls the generic helper, which can pick any of the methods in
-dev->reset_methods:
+---
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+change-id: 20260811-ov5640-1lane-v1-b0fe37eab4d8
 
-drivers/pci/pci.c:__pci_reset_function_locked() {
-	for (i = 0; i < PCI_NUM_RESET_METHODS; i++) {
-		m = dev->reset_methods[i];
-		...
-		rc = method->reset_fn(dev, PCI_RESET_DO_RESET);
+Best regards,
+-- 
+Jason Yang <jason98166@gmail.com>
 
-and one of those methods ends in a secondary bus reset:
 
-drivers/pci/pci.c:pci_reset_bus_function() {
-	rc = pci_dev_reset_slot_function(dev, probe);
-	if (rc != -ENOTTY)
-		goto done;
-
-	rc = pci_parent_bus_reset(dev, probe);
-
-Since the changelog's premise is exactly that the bus-reset method may be
-selected, would it make sense to update the doc string in the same patch?
-
-> +	struct pci_dev *bridge = pci_upstream_bridge(oct->pci_dev);
->  	int rc;
->  
-> -	pci_save_state(oct->pci_dev);
-> -
-> +	if (bridge)
-> +		pci_cfg_access_lock(bridge);
->  	pci_cfg_access_lock(oct->pci_dev);
-
-[Severity: High]
-[Finding: gpt-5-6-sol-5-8]
-[Sources: gpt-5-6-sol, opus-5]
-Can this acquisition order deadlock against the PCI core?
-
-octeon_pci_flr() is only reached from octeon_destroy_resources():
-
-	if (atomic_read(oct->adapter_fw_state) == FW_IS_PRELOADED)
-		octeon_pci_flr(oct);
-
-which runs from liquidio_remove() and from the liquidio_remove(pdev)
-calls on the probe-failure paths in liquidio_probe(). Both of those run
-with device_lock(&pdev->dev) already held by the driver core, which is
-why __pci_reset_function_locked() can be used at all:
-
-drivers/pci/pci.c:__pci_reset_function_locked() {
-	might_sleep();
-	device_lock_assert(&dev->dev);
-
-So after this change the driver holds device_lock(endpoint) and then takes
-the bridge config-access lock. The core takes those two objects in the
-opposite order:
-
-drivers/pci/pci.c:pci_reset_function() {
-	bridge = pci_upstream_bridge(dev);
-	if (bridge)
-		pci_dev_lock(bridge);
-
-	pci_dev_lock(dev);
-
-drivers/pci/pci.c:pci_dev_lock() {
-	/* block PM suspend, driver probe, etc. */
-	device_lock(&dev->dev);
-	pci_cfg_access_lock(dev);
-
-__pci_bus_lock() does the same bridge-first walk before locking each
-child.
-
-That gives an AB-BA pattern:
-
-CPU0 (liquidio remove or probe failure)
-  device_lock(endpoint)             [held by driver core]
-  octeon_pci_flr()
-    pci_cfg_access_lock(bridge)     -> blocks in pci_wait_cfg()
-
-CPU1 (echo 1 > /sys/bus/pci/devices/.../reset, or AER/DPC recovery via
-      pci_bus_error_reset() -> pci_bus_reset() -> pci_bus_lock())
-  pci_dev_lock(bridge)              [sets bridge->block_cfg_access]
-  pci_dev_lock(endpoint)
-    device_lock(endpoint)           -> blocks, held by CPU0
-
-Both waits look uninterruptible and untimed:
-
-drivers/pci/access.c:pci_cfg_access_lock() {
-	might_sleep();
-
-	raw_spin_lock_irq(&pci_lock);
-	if (dev->block_cfg_access)
-		pci_wait_cfg(dev);
-
-Since block_cfg_access is not lockdep-tracked, would this show up only as
-a hung task, with the bridge's config-access flag left blocked?
-
-Before this change the driver took only the endpoint's own config-access
-lock, which the core also acquires after device_lock(endpoint), so there
-was no inversion. Would deferring the bridge lock to a path that does not
-already hold the endpoint device lock, or using the core's
-pci_reset_function() style bridge-first sequence, avoid the cycle?
-
->  
-> +	pci_save_state(oct->pci_dev);
-> +
->  	/* Quiesce the device completely */
->  	pci_write_config_word(oct->pci_dev, PCI_COMMAND,
->  			      PCI_COMMAND_INTX_DISABLE);
-> @@ -930,9 +933,10 @@ static void octeon_pci_flr(struct octeon_device *oct)
->  		dev_err(&oct->pci_dev->dev, "Error %d resetting PCI function %d\n",
->  			rc, oct->pf_num);
->  
-> -	pci_cfg_access_unlock(oct->pci_dev);
-> -
->  	pci_restore_state(oct->pci_dev);
-> +	pci_cfg_access_unlock(oct->pci_dev);
-> +	if (bridge)
-> +		pci_cfg_access_unlock(bridge);
->  }
-
-[ ... ]
