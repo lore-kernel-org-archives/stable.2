@@ -1,123 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E346412BEB;
-	Tue, 11 Aug 2026 08:10:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CA7415F31
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 08:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786435830; cv=none; b=BLECWkoWVbDoy3LDQBrcLROTTo4il8bq2JoY+s4pF+qfmvG53XO6MXyb8sSmLHT1xblPIKUEYZriCtT/uOnmV9r4KDchz2gyeE2p4uvFtR9pN+UkSuPDeOpNSsTbDNGl9okCplxA+KYpOBUfwhGqO3T2z8f2F6L8dzpKR8BtdO8=
+	t=1786436474; cv=none; b=jBswZ/b0/05bFSgiSmh3Wk1WhwQneFcHvNRAXAcmwwJKV8HIN8ojqlJMokhmR1CAxq/gdxn3fbKdBTieAyGJ1PzU1QRXRTyxNUh+Dxdt5dEYRQNTpIZrMADhaSMJomv9EGUma76dhZFLs90jPNUztx/akqjtbifyiGWuZqh2Ka0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786435830; c=relaxed/simple;
-	bh=tSdXxSArn7IbenIVBMGRTaWfj6BMz2f9MqrXBEtHgwc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dkQj1MKI0RD0E/0u0o9ymhVm+OCrb+2ybXcWpy9wZkeU3kN9epljAEmLUiXN03lZgMfcA5a5aoBG9Z7aoIisNl34B4tmELW7Vk1KEZtIUirBdBkMuqk2eJ05JR/AHotkKiXe6fnmfLSe+WOe9Hfd/y+lOY+5m3irF2aJeGw+rBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kp0JwN/N; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786436474; c=relaxed/simple;
+	bh=Dkmbdh2ognbJLDvpaxMc8rYRxPmKmy9BFi7VABC3oPI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SHDb0enQNABK20m4sAApEYdBjkrJWii6ezjJJcyMIs8vBS2qQAb7kfdPpdRal7Ia2/ppMkmRAh0+nhEMedgfymRn2Oy2kYeO8B7UXsmcDAr5RCpIjckAeznrI19SuC0Sl/TCGBfyPSzaNzPnk7figfmqfdx51m6xanmgl0/Y7OY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vo7S6ALI; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kp0JwN/N"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0548FC2BCC7;
-	Tue, 11 Aug 2026 08:10:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786435830;
-	bh=tSdXxSArn7IbenIVBMGRTaWfj6BMz2f9MqrXBEtHgwc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Kp0JwN/Nuv6smsdkaJCH9aXnuSIrMwT/7GG2g1/a6WKH/IvoW9qxSdgvPiHizTHkr
-	 ngQgfbmdvGiuaZaRdgG3yP4347PA+L9aHafqOKSokhUgBOoeiMiCq/q5YoxoNYwTKW
-	 t21NPZ6HlbQjmLJPw8P+k3rrm3mX6Y/rhBh2Q0X85azN3TiWCwbtA5miLIKDEH9pmh
-	 o7i2B0MXj6j7t4EVCZKdXwgvSDsxqPcTzbHbCnLMlId59JNKpVjEkMqQ+1IJrQQEP7
-	 Y8/8AT+Rttl3o/ehF/BzEbBR9w3gJYnWCmWdAxdfFifDx3djBI/R6RToAXiUO3ret8
-	 WJlvuT53WZq5A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2C81C5CFC1;
-	Tue, 11 Aug 2026 08:10:29 +0000 (UTC)
-From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
-Date: Tue, 11 Aug 2026 16:10:22 +0800
-Subject: [PATCH] phy: rockchip-samsung-dcphy: fix out-of-range max_register
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vo7S6ALI"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so30781005e9.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 01:21:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786436469; x=1787041269; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PsVqbXfj6KXdZCKzed0xiDF5HlCoWH45JjgsepkCfGY=;
+        b=Vo7S6ALIG5hH4bquBI/cbDA0HCUS6Wnb7Txkoj9IVFG4t1VcRkLWGeAozSDvkLM2L0
+         HZ5IHXWgEBF293CXH9HQeStYd4vcLnUUYN7iN1Z9eK/hjx5CUUIWxwnpZy7aRM+L32O6
+         pAqSqPV+TlJt2gOXN6qy6geV5yALvIc2RTxYg7rTEaBhb04jqp1Wln5HtQmW6pxwSVaA
+         vugHhY9M+HzU90u5398FEWeH2lIILCFx2w8LUNWEY/ebi4iAfuaj3TPMO+MnZHas+AV+
+         W7Z4rjLNImEeCDhdsoj33+yS61BVpCo5c6CgO6cpd+XsKB9iZ4igkVjj9UeyJqeN8puE
+         VGpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786436469; x=1787041269;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PsVqbXfj6KXdZCKzed0xiDF5HlCoWH45JjgsepkCfGY=;
+        b=VUyvUGHVQ/0cBoBfpbJjMA/9f8JIcDxmDLlsY64+W5yfxZOhJcXkK53KuqHOWbvwX+
+         CdDMWzew/TPjZXHBCEBphriRnAXpjV94dAuTzYht16gUWKUfpFpahZ2HlnAuIzASKrmw
+         aauFFjJlLANoyVed6dPflqHA1KlAxZ1Ivrn2kY8bb4B3CaKgyrlQUub8GNHfk5LNJk+f
+         Y9oAvonJTsL6NKxcc9pe7H0DgKsxSnFvlaIAOYh1PvFCHO+3BlUgFyT/ItnVuEImpTP0
+         k5Urqs2nze7fZ/iMUK6LGQwFGsqwrWL/iQJfAkXJACt4JjhadWDI8TtajSqKXw7SBrIJ
+         BjXw==
+X-Forwarded-Encrypted: i=1; AHgh+RqsktrNYg9jIucRjFf2H5cOSwf+aDRCzLmhEvQu4FUyXTgDuEkl0ujFXBUxCaYA3CKFPsNwUKg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlmwBg831xs/cXxtqiRENGMxk/Xt6lxYF1CMtcLLl1sAa7mRkK
+	kKbao8AR9qZNl7vNn5s97qPZt4Szo3B0yY67XgmGZ+eA8kU9eP++OhsT
+X-Gm-Gg: AR+sD13LlN3xlfSWB1aZJC+p5Y6J3Ts2khNhu94FtCVUK6QHp2XcoZ/+wMYZ+PIdfka
+	Fs8LAjmcf86Wl1X3GcEtgfZKp0WDTew+WvclHOwBDwx9/c2sTzkhrYS8I3dUF3sebmsKeOq7JVR
+	0eOihLE/kVBcsEVomJBNzNY7JQlqXA48uOyeivBiA/LQfTOI4V7TwVlL6VppUwIdCwwcF7Kb0FB
+	n3E/30PymCCzov60QaaGLzPZM0BS913rQgWXac8qdtHTCOmhwp59Yrty74ZLmdloltfRI/CI95o
+	VBI1zRH71j1xg5l7Ugk8xSFAr68Z7Lpj6WjB9dj77szH2qy9rqondjY5dFfmTVQ/Pg+8spXaMi6
+	gWmqiE3DXP27EEbILW8r5xq/Syi9j43eUWTjgvKhQHrPz+/vW/Vb5UJWHWJBrxrZWfr5BMUd65X
+	TXzDlbzHvuwUVkL9SRqg/12pto9wV9xkGBasIEfNivHzST+5LF1+0aiDzwVXwZjmTUuax0ikGC8
+	Jf/CVvW8Ze3BbKDAklx3BCkPg==
+X-Received: by 2002:a05:600c:3b9e:b0:499:795a:c60b with SMTP id 5b1f17b1804b1-499795ac6e4mr7851195e9.19.1786436468951;
+        Tue, 11 Aug 2026 01:21:08 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499740dbb03sm50158035e9.8.2026.08.11.01.21.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 01:21:08 -0700 (PDT)
+Date: Tue, 11 Aug 2026 09:21:07 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: Jason Andryuk <jason.andryuk@amd.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin"
+ <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Thomas Gleixner <tglx@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org, Penny Zheng
+ <penny.zheng@amd.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] x86/amd_node: Avoid divide by zero on virtualized
+ systems
+Message-ID: <20260811092107.37ef648b@pumpkin>
+In-Reply-To: <20260810144706.GC57095@yaz-khff2.amd.com>
+References: <20260806160159.230453-1-jason.andryuk@amd.com>
+	<20260806160159.230453-3-jason.andryuk@amd.com>
+	<20260810144706.GC57095@yaz-khff2.amd.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-dcphy-maxreg-v1-v1-1-aa63f6a63a64@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAO3YemoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDC0ND3ZTkgoxK3dzEiqLUdN0yQ11zk0RLS0sTk+Q0UyMloK6CotS0zAq
- widGxtbUAuNUpvmEAAAA=
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Heiko Stuebner <heiko@sntech.de>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Jason Yang <jason98166@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786435829; l=2208;
- i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=qv+04pxhwLXk8iXSSS/x/7Q7kow98bcT2dkV1hHRCgE=;
- b=qPMHHnolquLwGtQkH83g6tkOLMluIQXScxSMyabXwKUys0ySRfFH3x7IazxR8A1svJxuiZgRQ
- 8Yf65P8a2Y0B0W9UXGpqIzVRgnxJ04M/eQKnfOOB5KihTSXT4RDQNIp
-X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
- pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
-X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
- auth_id=887
-X-Original-From: Jason Yang <jason98166@gmail.com>
-Reply-To: jason98166@gmail.com
 
-From: Jason Yang <jason98166@gmail.com>
+On Mon, 10 Aug 2026 10:47:06 -0400
+Yazen Ghannam <yazen.ghannam@amd.com> wrote:
 
-The PHY register block is 64KB, so with a register stride of 4 the
-last accessible register sits at offset 0xfffc. max_register names
-0x10000, one register past the end of the mapping: dumping the
-registers through the regmap debugfs interface reads beyond the
-ioremapped region and oopses on the unmapped page. The oops fires
-with the regmap lock held, so later PHY operations deadlock.
+> On Thu, Aug 06, 2026 at 12:01:57PM -0400, Jason Andryuk wrote:
+> > On a virtualized system, the number of nodes does not have a
+> > relationship to the number of roots.  A Xen PVH dom0 can calculate
+> > roots_per_node as 0, which crashes with a divide by zero in:
+> > 
+> >     if (count++ % roots_per_node)
+> > 
+> > On a virtualized system, default the value to 1.  The issue is seen with
+> > Xen, but it could affect other systems.
+> > 
+> > Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>  
+> 
+> I agree with the idea with some minor feedback below.
+> 
+> > ---
+> > X86_FEATURE_XENPV is only for PV, but this is observed with a PVH dom0.
+> > ---
+> >  arch/x86/kernel/amd_node.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+> > index ea553267e5fa..c5025e5291b6 100644
+> > --- a/arch/x86/kernel/amd_node.c
+> > +++ b/arch/x86/kernel/amd_node.c
+> > @@ -286,6 +286,11 @@ static int __init amd_smn_init(void)
+> >  		return -ENOMEM;
+> >  
+> >  	roots_per_node = num_roots / num_nodes;
+> > +	if (roots_per_node == 0) {  
+> 
+> Can be '!roots_per_node'.
+> 
+> > +		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
+> > +			pr_err(FW_BUG "Error detecting roots per node.\n");
+> > +		roots_per_node = 1;
+> > +	}  
+> 
+> I don't think this is necessarily a Firmware bug.
+> 
+> Likewise, it can be a 'warning' rather than 'error'. I interpret 'error'
+> as something known to be incorrect. This was my position before on this
+> topic. But the various contrary reports changed my mind (even if they
+> come from virtualization).
+> 
+> Furthermore, I think 'warning' is more appropriate. It says "We found
+> something unexpected. We're letting you (the user) know about it. And
+> we'll mitigate it to avoid an error."
+> 
+> Anyways, I just wanted to write out some thoughts since this topic has
+> come up a few times.
+> 
+> Possible rework for the above change:
+> 
+> 	if (!roots_per_node && !cpu_feature_enabled(X86_FEATURE_HYPERVISOR)
+> 		pr_warn("Expected at least 1 root per AMD node.\n");
+> 
+> 	roots_per_node = max(roots_per_node, 1);
 
-Fixes: b2a1a2ae7818 ("phy: rockchip: Add Samsung MIPI D-/C-PHY driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jason Yang <jason98166@gmail.com>
-Assisted-by: Claude:claude-opus-5
----
-Observed on an RK3588 board (v7.2-rc4): reading the debugfs
-registers file for this PHY faults deterministically at offset
-0x10000 (translation fault in regmap_mmio_read32le), and every
-later PHY operation then blocks on the leaked lock. With
-max_register corrected the dump walks 0x0000-0xfffc and completes,
-and the PHY keeps working afterwards.
+I'd not add the max(), just;
+	if (!roots_per_node) {
+		roots_per_node = 1;
+		if (cpu_feature_enabled(X86_FEATURE_HYPERVISOR)
+			pr_warn("Expected at least 1 root per AMD node.\n");
+	}
 
-Growing the mapping is not an option: the TRM address map lists
-each MIPI CD PHY as a 64KB block and the second PHY starts at the
-next 64KB boundary, so offset 0x10000 of one PHY is register zero
-of the other.
+David
 
-The same mistake was fixed the same way in c7d436a6c1a2
-("dmaengine: xilinx: xdma: Fix regmap max_register").
-
-This is independent of the D-PHY receiver series for the same
-driver and applies in either order.
----
- drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-index cbd780556da8..18f5f582d1d7 100644
---- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-+++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-@@ -1526,7 +1526,7 @@ static const struct regmap_config samsung_mipi_dcphy_regmap_config = {
- 	.reg_bits = 32,
- 	.val_bits = 32,
- 	.reg_stride = 4,
--	.max_register = 0x10000,
-+	.max_register = 0xfffc,
- };
- 
- static struct phy *samsung_mipi_dcphy_xlate(struct device *dev,
-
----
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-change-id: 20260811-dcphy-maxreg-v1-74a99944cf52
-
-Best regards,
--- 
-Jason Yang <jason98166@gmail.com>
-
+> 
+> In any case, we should just go with a simple fix for the virt cases.
+> 
+> I think we could even do away with caching the 'root' devices. But
+> that'll be another rework/cleanup.
+> 
+> Thanks,
+> Yazen
+> 
 
