@@ -1,101 +1,216 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C15353A7D;
-	Tue, 11 Aug 2026 21:57:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C8147799B;
+	Tue, 11 Aug 2026 22:07:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786485478; cv=none; b=GIdRH58cxhaaKDjMukLzd/Jzw+yLRs2XEotntpuxdCG4C/H+eR/C5gKazxVkt9v7UQyUzuUn79NF/Qiq5XwxVeR05dhDZt5rUG4A//9Z5i/TWku5Cd38fxzUSlpkyAJRpbnNMzsq/LBcbDuUDBb/VGzYXOzQL0WRJDQKtx5r3d8=
+	t=1786486031; cv=none; b=XcNS4n5CXJ2e4MsjIph649+7nRAFvmd6fEP2gCJBaRsly7bdu2YE5V0/5wAaOIealf9HIkbIzNwImetPIsAU0wmol/1moUiCeEmFM1lm3OTscaLpvhQhLCg9R4MSAQ7ExGrRy3hykn2srhXC13r6fgFKi2YbrUXfiOCzNFMmQ8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786485478; c=relaxed/simple;
-	bh=R0HkksI0/LRQrwnV8zLMDyFVrCoKbBkzOxiWyx/R/ZI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=oTY7vJclb0HwHJE8mrNJau78WFjMyyRfF/bG9uICzphGnI5fJh08mybDtJ/S/E1PetzVK/czjXiH056S3GOMMqxB35M43G/WLyF1h5/A+vrK1GHoia8LqPACaxEp6/y+GpB09Xe3lSCu0SVgATsI4BUSZQii4X2SLmHSUmS9MMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=VmpzmsHA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786486031; c=relaxed/simple;
+	bh=mnr11I4cFLxTfeqwYU7dSru96fzytYLvc2ztp9nv9RA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TTUDum6IYJ7wh3+qNZ0QpYvqGT/52F7e/k2n6fMKDSFl1OiRntBwOct/gQL3hmg2yD5WY7BsttaRVNS0hOVnhGHzt5wlgwhzNe9i4N+XoXGKBOBRtwdequddD8HeyQAnTPS3KraE7thDQSmzphnUXtlW6W+ipJUlLeK5TzFzhsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e7lRVh2H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="VmpzmsHA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A721F000E9;
-	Tue, 11 Aug 2026 21:57:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786485477;
-	bh=GyqevDNjsJZverOYk+emEjJn1/V3eS41pms2qKDvjNg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VmpzmsHAmQHSyoV0C7c4aOxavkL7BoFzwFL9KJhsqUwI9BCiNZdC7FQeiW765pIET
-	 0UK0pAQ489an6CfMgI7dR9Rs0C0dU6NMYudt/7FYTFPFh+gojk0B+DJv+WwLwiV7de
-	 PteOqFh8Jp2Rh3YRv+dFEKPMRhMRaJc94dUa1u6Y=
-Date: Tue, 11 Aug 2026 14:57:56 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Hyunwoo Kim <imv4bel@gmail.com>
-Cc: david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Max Boone
- <mboone@akamai.com>
-Subject: Re: [PATCH v2 1/2] mm/pagewalk: fix stale walk->action escaping
- walk_pmd_range()
-Message-Id: <20260811145756.6a9af6f7d3d04c8b00a0f3ee@linux-foundation.org>
-In-Reply-To: <anuDYOPa0kTD9bul@v4bel>
-References: <20260811161949.3879321-1-imv4bel@gmail.com>
-	<20260811161949.3879321-2-imv4bel@gmail.com>
-	<20260811123702.f3c60a3573e148c53ad35b97@linux-foundation.org>
-	<anuDYOPa0kTD9bul@v4bel>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e7lRVh2H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80161F000E9;
+	Tue, 11 Aug 2026 22:07:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786486030;
+	bh=pZc3lJcuznYHnJe1pVV119vmLSoLWOLL0tob4dAdTfk=;
+	h=From:To:Cc:Subject:Date;
+	b=e7lRVh2HAlqDwn2J4QJRyW8NRkKE3pfQW/40I53spD9lQQDbecMTtljyPtSczmiKD
+	 +xpGfh+EepW3ssIFuJdMIHnr0TMSw/gZfR08/yGkiKUqktNSIRriQZVMuV2V6gubWj
+	 GF/16ArJiAzD0IqRycBG8qCtI5lSjbW24Mo+34yinWppczssCj73CpEAe0KUh3kgUQ
+	 TiAc5pcBhqjZ0BHsq4wkf4eZvSEIwaZai9LgEkDCz2+dVMvZal8vnF+VsV6LvLhZob
+	 2XQkczxgibRN+gVxT4HdkAAxqwb1swuuaO6aQiL48dFjYoGGkt+VUSA6ibhJCzrLcb
+	 THt2I+wV8fQBw==
+From: Eric Biggers <ebiggers@kernel.org>
+To: linux-block@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@infradead.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] blk-crypto-fallback: Fix deadlock when encrypting large bio in dm layer
+Date: Tue, 11 Aug 2026 15:03:18 -0700
+Message-ID: <20260811220318.58331-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 12 Aug 2026 05:17:36 +0900 Hyunwoo Kim <imv4bel@gmail.com> wrote:
+Encrypting a large bio with more than BIO_MAX_VECS pages can still
+deadlock, even after it was attempted to be fixed by
+commit b37fbce460ad ("blk-crypto: optimize bio splitting in
+blk_crypto_fallback_encrypt_bio") and commit 3d939695e682 ("blk-crypto:
+use mempool_alloc_bulk for encrypted bio page allocation").
 
-> On Tue, Aug 11, 2026 at 12:37:02PM -0700, Andrew Morton wrote:
-> > On Wed, 12 Aug 2026 01:18:57 +0900 Hyunwoo Kim <imv4bel@gmail.com> wrote:
-> > 
-> > > If ->pmd_entry() sets walk->action = ACTION_AGAIN, the pmd_none()
-> > > check is retried. The PMD entry may be cleared at the point of retry.
-> > > 
-> > > In this case, if walk->ops->install_pte is not specified, the code
-> > > continues to the next PMD entry in the range without resetting
-> > > walk->action to ACTION_SUBTREE.
-> > > 
-> > > This leaves walk->action erroneously set to ACTION_AGAIN, which is
-> > > incorrect.
-> > > 
-> > > This was incorrect but not problematic up until commit 3b89863c3fa4
-> > > ("mm/pagewalk: fix race between concurrent split and refault")
-> > > which updated walk_pud_range() to check for walk->action ==
-> > > ACTION_AGAIN upon walk_pmd_range()'s return, causing the PUD walk
-> > > to be retried.
-> > > 
-> > > In this case this results in duplicate walk callbacks being
-> > > invoked, which is erroneous and will break any caller that is not
-> > > idempotent with respect to this (and waste time for those which
-> > > are).
-> > 
-> > "break".  Please describe the breakage completely.  It's really the
-> > most important information in the whole effort.
-> > 
-> > IOW, when fixing a bug please describe the userspace-visible runtime
-> > effects of that bug.
-> > 
-> > eg, what were the results of the fuzzer?  
-> 
-> To be precise, this is an out-of-bounds write.
-> 
-> > Is there a Link:?  
-> 
-> This came from a local fuzzer, so there is no Link:
+This is because __blk_crypto_fallback_encrypt_bio() assumes that the
+bounce bios that it submits will eventually complete, unblocking it from
+allocating additional bounce bios and pages.  However, dm-inlinecrypt.c
+calls __blk_crypto_submit_bio() from within submit_bio() itself.  In
+this case, the recursive submit_bio() simply adds the bounce bio to
+current->bio_list without actually submitting it yet.  That breaks the
+guarantee that forward progress is being made.
 
-OK, thanks.
+To fix this, allocate the bio and bounce pages with GFP_NOWAIT if
+current->bio_list is set.  If it fails, punt the encryption of the
+remaining part of the bio to a kworker.
 
-> 
-> > A stack trace?
-> 
-> ...
-> 
-> Should I send a v3 with the changelog fixed? (in 24 hours, I guess?)
-> 
+Fixes: 488f6682c832 ("block: blk-crypto-fallback for Inline Encryption")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
 
-That's OK, I pasted it in there.
+Changed in v2:
+- Switched to the less efficient approach preferred by Christoph
+- Use BIO_EMPTY_LIST
+
+ block/blk-crypto-fallback.c | 80 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 75 insertions(+), 5 deletions(-)
+
+diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
+index 2a5c52ab74b4..ad4b5ca291c5 100644
+--- a/block/blk-crypto-fallback.c
++++ b/block/blk-crypto-fallback.c
+@@ -83,6 +83,10 @@ static struct workqueue_struct *blk_crypto_wq;
+ static mempool_t *blk_crypto_bounce_page_pool;
+ static struct bio_set enc_bio_set;
+ 
++static DEFINE_SPINLOCK(enc_rescue_list_lock);
++static struct bio_list enc_rescue_list = BIO_EMPTY_LIST;
++static struct work_struct enc_rescue_work;
++
+ /*
+  * This is the key we set when evicting a keyslot. This *should* be the all 0's
+  * key, but AES-XTS rejects that key, so we use some random bytes instead.
+@@ -172,13 +176,26 @@ static void blk_crypto_fallback_encrypt_endio(struct bio *enc_bio)
+ static struct bio *blk_crypto_alloc_enc_bio(struct bio *bio_src,
+ 		unsigned int nr_segs, struct page ***pages_ret)
+ {
+-	unsigned int memflags = memalloc_noio_save();
+ 	unsigned int nr_allocated;
+ 	struct page **pages;
+ 	struct bio *bio;
++	gfp_t gfp_mask;
++
++	/*
++	 * During recursive bio submission (current->bio_list != NULL) any
++	 * submitted bounce bios just get added to current->bio_list; they
++	 * cannot complete and release resources yet.  Therefore, to avoid
++	 * deadlocks, don't wait indefinitely for additional resources.
++	 */
++	if (current->bio_list)
++		gfp_mask = GFP_NOWAIT;
++	else
++		gfp_mask = GFP_NOIO;
+ 
+ 	bio = bio_alloc_bioset(bio_src->bi_bdev, nr_segs, bio_src->bi_opf,
+-			GFP_NOIO, &enc_bio_set);
++			gfp_mask, &enc_bio_set);
++	if (unlikely(!bio))
++		return NULL; /* GFP_NOWAIT failure.  Fall back to kworker. */
+ 	if (bio_flagged(bio_src, BIO_REMAPPED))
+ 		bio_set_flag(bio, BIO_REMAPPED);
+ 	bio->bi_private		= bio_src;
+@@ -206,12 +223,27 @@ static struct bio *blk_crypto_alloc_enc_bio(struct bio *bio_src,
+ 	 * any non-zero slot already contains a valid allocation.
+ 	 */
+ 	memset(pages, 0, sizeof(struct page *) * nr_segs);
+-	nr_allocated = alloc_pages_bulk(GFP_KERNEL, nr_segs, pages);
+-	if (nr_allocated < nr_segs)
++	nr_allocated = alloc_pages_bulk(gfp_mask, nr_segs, pages);
++	if (unlikely(nr_allocated < nr_segs)) {
++		unsigned int memflags;
++
++		if (!(gfp_mask & __GFP_DIRECT_RECLAIM)) {
++			/*
++			 * GFP_NOWAIT failure.  Fall back to kworker, even if
++			 * enough pages are already free in the mempool (since
++			 * mempool_alloc_bulk() doesn't have a no-wait mode).
++			 */
++			free_pages_bulk(pages, nr_allocated);
++			bio_put(bio);
++			return NULL;
++		}
++
++		memflags = memalloc_noio_save();
+ 		mempool_alloc_bulk(blk_crypto_bounce_page_pool,
+ 				(void **)pages + nr_allocated,
+ 				nr_segs - nr_allocated);
+-	memalloc_noio_restore(memflags);
++		memalloc_noio_restore(memflags);
++	}
+ 	*pages_ret = pages;
+ 	return bio;
+ }
+@@ -239,6 +271,25 @@ static void blk_crypto_dun_to_iv(const u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
+ 		iv->dun[i] = cpu_to_le64(dun[i]);
+ }
+ 
++static void blk_crypto_fallback_encrypt_bio(struct bio *src_bio);
++
++/* Encrypt a list of bios whose encryption was punted to a kworker. */
++static void blk_crypto_fallback_encrypt_work_fn(struct work_struct *work)
++{
++	struct bio_list list;
++	struct bio *src_bio;
++
++	WARN_ON_ONCE(current->bio_list);
++
++	spin_lock(&enc_rescue_list_lock);
++	list = enc_rescue_list;
++	bio_list_init(&enc_rescue_list);
++	spin_unlock(&enc_rescue_list_lock);
++
++	while ((src_bio = bio_list_pop(&list)))
++		blk_crypto_fallback_encrypt_bio(src_bio);
++}
++
+ static void __blk_crypto_fallback_encrypt_bio(struct bio *src_bio,
+ 		struct crypto_sync_skcipher *tfm)
+ {
+@@ -273,6 +324,23 @@ static void __blk_crypto_fallback_encrypt_bio(struct bio *src_bio,
+ new_bio:
+ 	nr_enc_pages = min(bio_segments(src_bio), BIO_MAX_VECS);
+ 	enc_bio = blk_crypto_alloc_enc_bio(src_bio, nr_enc_pages, &enc_pages);
++	if (unlikely(!enc_bio)) {
++		/*
++		 * Failed to allocate a bounce bio during recursive bio
++		 * submission.  We might be blocked on bios in current->bio_list
++		 * holding mempool elements.  To enable forward progress, punt
++		 * the remaining encryption work for src_bio to a kworker.
++		 *
++		 * The DUN may have been advanced, so make sure to update it.
++		 */
++		WARN_ON_ONCE(!current->bio_list);
++		memcpy(bc->bc_dun, curr_dun, sizeof(curr_dun));
++		spin_lock(&enc_rescue_list_lock);
++		bio_list_add(&enc_rescue_list, src_bio);
++		spin_unlock(&enc_rescue_list_lock);
++		queue_work(blk_crypto_wq, &enc_rescue_work);
++		return;
++	}
+ 	enc_idx = 0;
+ 	for (;;) {
+ 		struct bio_vec src_bv =
+@@ -591,6 +659,8 @@ static int blk_crypto_fallback_init(void)
+ 	if (!bio_fallback_crypt_ctx_pool)
+ 		goto fail_free_crypt_ctx_cache;
+ 
++	INIT_WORK(&enc_rescue_work, blk_crypto_fallback_encrypt_work_fn);
++
+ 	blk_crypto_fallback_inited = true;
+ 
+ 	return 0;
+
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+-- 
+2.55.0
+
