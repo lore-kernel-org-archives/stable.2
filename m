@@ -1,68 +1,68 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F90448CF1
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:29:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03EE43BDB0
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:29:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786458556; cv=none; b=O58SKtwZLud6N+I024WuXafBpUhKujpl/CoNL4tIOc1r3BzgG9xpSnvh/uFh/s6GWkXQHrXx4VFGSNAjIR75vijxKXab6nGvGGDwR9O+jrbauEHS0tXwUm6pensytFF9KE65bdFf/COhbT7O1+ZGHW+JOSThlP+/KCPtjEnBFhA=
+	t=1786458561; cv=none; b=kjnV+JMJ4xp0umWn54T/9utprLAdRNXpgtu05an3PwSDWbUcDNfdLque8aG/I2H+FTLRGE4lWTw8bPmmFBoSqgRmge8kdWKEb2PtBT2Fd1dx+d/1icVwBWMUEcgqcPpCkTenRlNHoJqGBkB1yQw4aqxCNqzFlbDJFKPQXZO8e1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786458556; c=relaxed/simple;
-	bh=Ms56ytpwHSeFHdp6KwntU4e11PGxIQxSST+kpBvVKeU=;
+	s=arc-20240116; t=1786458561; c=relaxed/simple;
+	bh=25RfUnYCCAn500NPErkFHuNL6+Q3MhhwJRPB178c5V4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cgdc+d60j/Brpc4wfcvhBb2ehnj43IhdbgpqWdB1S+bh3otQyE5VdxTDUrfxM4jKc7YyGA5RaO8dObcRMijjnjJJT4jrQ9qC0oiuVxOuNQ6WReTE74d/aGkvb7OkMdWdw9mLSOJywYrzJsd//a3yR400tiE4cFpWu+bO+JVu/qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJ9Q/Mez; arc=none smtp.client-ip=209.85.215.180
+	 In-Reply-To:To:Cc; b=lFTE0J8JeDsog0p73EqTI60VCvoQFgUEuGVgnwzjqUw6/OU/46q/CcjKd1fi1Wz12UkvikHwC/8S5XbtUQj/ZYKKHgIyw4DoGkdUaF0b89lr157ner4HkSu2mg026XcHOhdHPfy8SbgJO+upVNR4QNEboo1vCNtNETZzEb0acg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GdWHcIH1; arc=none smtp.client-ip=209.85.210.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJ9Q/Mez"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c966b9ee9cbso2077566a12.1
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 07:29:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GdWHcIH1"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-84830c774a0so3250635b3a.1
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 07:29:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786458554; x=1787063354; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786458559; x=1787063359; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aAc0xtFPkF9VlmAdoL5DiXZFcBGbk3oumqjK2pi8Bpw=;
-        b=DJ9Q/MezLnCkApGg7vVhsfClUAQQoGr+UjMnOcP997gBJcXphuejaI+/1l5Vqrww9I
-         3YsS3ozpT0WSY9quf4gaCzsnJJx23QXGasrKdcod6P0W92VoJzPqnkCwgV5FFNb/S/NE
-         7lcH02eVfSiB++SfWIlm4IlSk5NPD46oKw7rRVYCqqp/HFXGJBN0DK6lZ7b27Qo1zRz6
-         HdpP6JAZejV6//ISQmu3WqEJqLsJOZYwqezVvajriNIt84BnPs23D2tL0RktHhmV5XLI
-         KETkr9HCblemiaNxEWAkdeKhUTDyIQa9YJU+gVJvlZwgSrao7PsJrsoyYdaO8NwpYpSp
-         pEbw==
+        bh=mwCkWoypVWX0DUrD2GWalLqHhPmC5gYTzx+dm4HNg9s=;
+        b=GdWHcIH1txRQ0aCzC5Tu2tdg9NnSH3H4KapoV+2/77OSA9mkSZTMm+h5GXxLqfZZvo
+         mEz3Ot6gw58HPf2/p3jqfDu8cMwhwYcXa2MRhRMf/fGRlwKsmGNPQI2hMUahzqw7Lt8A
+         gGGREnTI+mfXMOpii52fEHOfl+2LZ8yLtI4xSnOOvtuw6G5FyW6Q8VcI+OgqMADPeK5U
+         xee5dTAQIYx5SWyCsJoNxy4QvqKmJloiPOE6omP20zlZmMuLO4VuIaAPGKj1sxLRs/on
+         xgqEPgwEMO6w5r3qBQHWT8FSfNYkTrbgH94YvtCH8J81XBCVCWtnNOJ/d4/sktmUj2mu
+         sqag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786458554; x=1787063354;
+        d=1e100.net; s=20251104; t=1786458559; x=1787063359;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aAc0xtFPkF9VlmAdoL5DiXZFcBGbk3oumqjK2pi8Bpw=;
-        b=DgieK9G7hQKgh/K+VSR3LBZfs2bVLAuk9Io2YZ2VK0t4D2ikcl1VF8M6qWykSspqN4
-         AKxirFMZKTSbi6+ezz1egzlwMOTAh8xMZVVBYF8jTDAyGNQEajG0Yaq/ed4zlaxx0TUr
-         /7PckwauV5MeXiQH5drkjQRQrVqO6Xj+VdWrBsghMFS8L1Mqyu4CPjNzfOs7FQgI2K1H
-         lfsai0dYG/tb8cYhlI1g3Gpg3R5v/n+Vy7N2WH7tkDBFlHPfwRoGKkWL1+5MXHNdQQHF
-         rzIwljM0zHIDEMppH5pYrdcGZe/CBjJeYAN9dc0fgXGsW7nkbPrQGWdUveTe3lrOdMLG
-         GXWg==
-X-Forwarded-Encrypted: i=1; AHgh+RouPLwrB/mLrpaiytJKyMZyYlINQnxIz1sI1cU+vI/MjOh3iWxoBtRvlnHM2IzCRyeeDsl75Cs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzO6i8R9+9fMqH1HWbpjM09EYD4ZYMw4DSRQrQXuh85fl1wPpVx
-	7g6EzVGhE2csWfVohufBLzDrGeh0zQnLbQPVahqBjHCTcrViUrIs/pEL
-X-Gm-Gg: AR+sD12FOBuUHx2lB9sguwgyXQs24VaADrMpNni+Dm6FqcyQsKiXafG7VO2I9XAwifC
-	hiPb8E5e2bHInXeRUWnChke/rGYnj1Al8aV7EzCia8Y33qMYUdZK8wbaWPQ8MuO6YgXn739ng/9
-	yqpkRNTnMoj3kBbCHZO1xgPb0VcMFPgGWzMox5lAf2E2W8qcnhZpvyJnWC4ytEkIiq7KmJcDJ1w
-	zfsSlibZFY0V2bcopwk8r1C4SXKusbA2zHgmGpPMVxx+p0J0gxYLQoruXKbY/+AuTijTW3vmXE+
-	q8ebIa/SHkq5UKWbrGh165i9y5FwXS3AdEPGMdcQT73N+nJLRhlMi+yEDeYiGIlXg5IT4GcchO9
-	hT1dlrrExEIno7h76Zwaf+VW+JT0ghXnJKtw2NH12KktDUfyH1Xg0TkP8RdB9cytfEvXAM8cEEP
-	yh0qsOK3xy3uFNmlSwfUf74tRtbvIuuB/nAYppnm/tZSVAcbW3pLwfhQgS0gw=
-X-Received: by 2002:a05:6a00:3d52:b0:848:6b76:592f with SMTP id d2e1a72fcca58-84fa8686d9emr3316247b3a.5.1786458553736;
-        Tue, 11 Aug 2026 07:29:13 -0700 (PDT)
+        bh=mwCkWoypVWX0DUrD2GWalLqHhPmC5gYTzx+dm4HNg9s=;
+        b=B20BjRpBceea12pXbzr7Sgc1E+HezZTazF/654rLWrZYJjQOV88X6IhIyReHiz/ZJK
+         pwlujOb/bw1esJICg4/sXr6jugQWakl/ip9tjUsWJhKjNPlJTnk8G7qBbsAtASKbWwS0
+         /KU3rcSlvxbIfnwyzVC9tom3HZbhlSTYZd+Eap+Q1LhsBUrOffzCMjRCAdviNgjS8ym0
+         y5wTJ8/ef6kchE9vH2PNB/8/f6MtKqZ/y6z1KFBnr+EbFJzwF/neUR/PeAPxEGVEh3xR
+         5u5T1SIBa+Dmxq5C0fshG/YLZnc8ay5fN9gcTxVXDVpzS5Iv2/NQsvdxG/p3pAEi3Hy2
+         pL0Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rq6RSEHsOuRDV1Ny4jLXa2bF1llNKnDnEnvTiJT5fr8W0TMKXvGAgMqp5w4Po9gCACAjEaZX5Q=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzUxTjh1JoWCHbzcdhEbzkfZw08omH1GdKFe2A1mx8zE+1kGBlu
+	jAZz+gpYkfLoK388MJFISQqKidWOuF/+LrKFASyTe7ah0pYSr4O0ZHRK
+X-Gm-Gg: AR+sD122ldwUXqodRpi2vQSjwisJ7u3GlcGzo5bxqrIAxEd8aCaS5/wez2ksWZeZu8E
+	+55BE0lygycm9Ylkbc9gLSLbIF2wlt8wgWQ9g+O75+BSkpPUkl4izkCuR7cf2rV6d4xoC8Ci1fK
+	NObvSIMa0OQ+M61QgsL44cB1fOzhJvQveXk7rPUYBIBwl5nui7VrtLQiOJIo1ELJYl2HfyxWwmj
+	O4ZpKTcFjKjeWtGGzKAu+dqRe2Uk/+bzywMA1Gq3QiKgpDHS2DbI1x2bOJsWEk0Q9RD4KcFCgGS
+	iRTFlPdelEMeIo/DGFapWOn3T/nlUS9KE0qgyrQudSFqNEH6jFRfacW5iiuCYrUZfHIb2FLQ7yP
+	ryHFKJqhoQRG75RNAp7Ebo+6GbLFTHLWxQ9C6C7AIjtOuaSI3mvD7rgxwjoVA57q8MoMgZK1PP/
+	YS5b201DI7tPudjhciTYOknM5op61sX0+jjGVPdrSAOzfqTmus3W8tkstHSzU=
+X-Received: by 2002:a05:6a00:848:b0:845:e8b5:8c49 with SMTP id d2e1a72fcca58-84fa86aa6f8mr3656519b3a.10.1786458558584;
+        Tue, 11 Aug 2026 07:29:18 -0700 (PDT)
 Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa954fc8asm890209b3a.50.2026.08.11.07.29.09
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa954fc8asm890209b3a.50.2026.08.11.07.29.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 07:29:13 -0700 (PDT)
+        Tue, 11 Aug 2026 07:29:18 -0700 (PDT)
 From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Tue, 11 Aug 2026 22:28:50 +0800
-Subject: [PATCH 1/2] drm/nouveau/dmem: fix mismatched DMA unmap size for
- large folios
+Date: Tue, 11 Aug 2026 22:28:51 +0800
+Subject: [PATCH 2/2] drm/nouveau/dmem: fix callocated underflow on large
+ folio split
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-b4-nouveau-dmem-thp-fixes-v1-1-2cdf9860af2a@gmail.com>
+Message-Id: <20260811-b4-nouveau-dmem-thp-fixes-v1-2-2cdf9860af2a@gmail.com>
 References: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
 In-Reply-To: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -84,26 +84,30 @@ Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>, 
  Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786458544; l=1970;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786458544; l=2343;
  i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=Ms56ytpwHSeFHdp6KwntU4e11PGxIQxSST+kpBvVKeU=;
- b=J5mecMWmZ3choz70xb/rBRDm8mbs+xBBy0WtROvpD9chGghI1Y9qX2K3DiSCMBIRSYRdUvbwn
- J4w19x36HDnAC44CAx0r8knwMUTbJhDgWQGJ/Qk8KO7+ukM2tsSaLMa
+ bh=25RfUnYCCAn500NPErkFHuNL6+Q3MhhwJRPB178c5V4=;
+ b=KuT7Vz44ftGEbyMSNmyMs8gTFuhkVAnAk7FcqfCULSkaKx7+Tre0AqjyKJ+yRD05IFx+yF++P
+ mhFHY/fO+knCTMRcui6xM+5LBLSBox31ZOFlheXXru87VbNIRBncJX0
 X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
  pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-Device-private THP migration maps migration buffers with page_size()
-and records that length in dma_info->size.  For a compound folio
-page_size() is PAGE_SIZE << order, but two teardown sites still pass a
-literal PAGE_SIZE to dma_unmap_page():
+nouveau_dmem_folio_free() drops chunk->callocated once per freed folio,
+while a large (compound) device-private folio is only counted once when
+it is allocated.  When such a folio is split, the mm core invokes
+->folio_split() (nouveau_dmem_folio_split()) once for each new
+sub-folio, but the hook only fixes up the sub-folio metadata and leaves
+chunk->callocated unchanged.
 
-  - nouveau_dmem_migrate_to_ram() on the success path, and
-  - nouveau_dmem_migrate_copy_one() on the copy-error path.
+Each resulting sub-folio is later freed separately, so after a split
+the single allocation (+1) is met by N frees (-N), leaving
+chunk->callocated short by N-1.  On the first split/free cycle it
+underflows: WARN_ON(!chunk->callocated) fires, the unsigned counter
+wraps and never returns to zero, so the chunk can no longer be
+reclaimed (nouveau_dmem_fini() also warns on the leaked count).
 
-For an order > 0 folio this unmaps less than was mapped, leaking the
-remainder of the IOMMU/IOVA mapping.  The other unmap sites, in
-nouveau_dmem_migrate_chunk() and nouveau_dmem_evict_chunk(), already
-use the saved size; use it here too.
+Account for the new sub-folio in the split hook, under the same lock as
+nouveau_dmem_folio_free(), so the count stays balanced.
 
 Fixes: c32287471077 ("gpu/drm/nouveau: enable THP support for GPU memory migration")
 Reported-by: Yuhao Jiang <danisjiang@gmail.com>
@@ -111,31 +115,39 @@ Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
 Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_dmem.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_dmem.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-index 9442ec6e1f6c..d2abee3efb9a 100644
+index d2abee3efb9a..ad4570c50be7 100644
 --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
 +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-@@ -267,7 +267,7 @@ static vm_fault_t nouveau_dmem_migrate_to_ram(struct vm_fault *vmf)
- 	nouveau_fence_new(&fence, dmem->migrate.chan);
- 	migrate_vma_pages(&args);
- 	nouveau_dmem_fence_done(&fence);
--	dma_unmap_page(drm->dev->dev, dma_info.dma_addr, PAGE_SIZE,
-+	dma_unmap_page(drm->dev->dev, dma_info.dma_addr, dma_info.size,
- 				DMA_BIDIRECTIONAL);
- done:
- 	migrate_vma_finalize(&args);
-@@ -772,7 +772,7 @@ static unsigned long nouveau_dmem_migrate_copy_one(struct nouveau_drm *drm,
- 	return mpfn;
+@@ -279,11 +279,25 @@ static vm_fault_t nouveau_dmem_migrate_to_ram(struct vm_fault *vmf)
  
- out_dma_unmap:
--	dma_unmap_page(dev, dma_info->dma_addr, PAGE_SIZE, DMA_BIDIRECTIONAL);
-+	dma_unmap_page(dev, dma_info->dma_addr, dma_info->size, DMA_BIDIRECTIONAL);
- out_free_page:
- 	nouveau_dmem_page_free_locked(drm, dpage);
- out:
+ static void nouveau_dmem_folio_split(struct folio *head, struct folio *tail)
+ {
++	struct nouveau_dmem_chunk *chunk;
++	struct nouveau_dmem *dmem;
++
+ 	if (tail == NULL)
+ 		return;
+ 	tail->pgmap = head->pgmap;
+ 	tail->mapping = head->mapping;
+ 	folio_set_zone_device_data(tail, folio_zone_device_data(head));
++
++	/*
++	 * The split hands out a new independently-freeable folio that will
++	 * later be released via nouveau_dmem_folio_free(); account for it so
++	 * chunk->callocated stays balanced.
++	 */
++	chunk = nouveau_page_to_chunk(&head->page);
++	dmem = chunk->drm->dmem;
++	spin_lock(&dmem->lock);
++	chunk->callocated++;
++	spin_unlock(&dmem->lock);
+ }
+ 
+ static const struct dev_pagemap_ops nouveau_dmem_pagemap_ops = {
 
 -- 
 2.34.1
