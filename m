@@ -1,221 +1,144 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAC2427A03
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 09:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786439842; cv=pass; b=Cka5JPjzChql1QaWw2b/BAIz3/mU25e5wqMAppUdIu6BGDCOS7mClCuYgtFX/48vlQn1UZAMB4kuPmpNciUv+66v+XghZ83jbMsOIagdB1Qh2BIspOGAgBHeGtblmyAumlMBmDsI8VNIWfYfgwJK9Zu2T/ASELBs3pbgmVyor3Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786439842; c=relaxed/simple;
-	bh=KpcqzEH1ePmPvfI72lRYO2R89XBPggH7Y6FsYa5Szgw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NprGgm3RZh19GjoGIQA36/3UcGXkRl1y5lYS9CMihz1zXNc2Z4xZRHpel7leEIrW7KrBdit+d/W8H5qwm4l+WWs0TEdy2z+K2k5FH8PRTE+KlUdzr63hxIn8TuPkpFkuN/0L9leNYF85TXqyzh8SZnJBuN/J/H3gr65MCCo/2fQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VoMqf0I9; arc=pass smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CAB40F744;
+	Tue, 11 Aug 2026 09:21:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786440062; cv=none; b=r8vXZZX96FrahXrohT6DcSMpUIjjw81kPejk5vftjfvNkCt8JzI8qkFq/NHJ53ebgyl/yTBrTirl+pNBRQCgTgfdcOmjfeY9CS7+Is1xjq2Ewd88d/W/8/1jZCukUFCMLMULtrCAyIDZWIBYKXf774eBPzfJs1vLcl7qlBkGZXI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786440062; c=relaxed/simple;
+	bh=dc1BLD2dg7yrpEhvGtxRkENFk+pHc1HBcM6inJPP+kA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=DXWCIayxbwhTirCidwAnpheAMtF7msC3kDnBRDmeGS6zdZv9zrPalRCG6HwBYAjxDVsfMAVvWLIdgsE5Kxm100zwrvtTJtVSxl0F7tL0X3W+S8ApT5k4q7xDUlweT/nw1mg3PaCRDXJmWvpf44CHxiOA9WsRunmkvKD/YG39NQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=aB7ad8QE; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VoMqf0I9"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-69a1c7ce59dso506908a12.3
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 02:17:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786439839; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HzmHwAZj5yOKdlFKgmaVfCJjIR21jJmuGoudQ/AUqtEFZUBoEouTe+/gKdIAnTwT3E
-         o/QXvTzsB7pgvFc7/bEZWvw23axo7BLLzkk9AmeOrxlSoQpnDoo0n3EAquzn3BjkkhxG
-         xTQdq7sAKP9X1nwILiE7ALNTVJnawA5O4+jBBClt4CvGd8UBegX/sH/l+cs8xqqeZVcE
-         9HjdtCnS7Ijih4ROcKHcDD32h/IrBxvdRCoAFZA1b42HaYYWWS/8eKjv5U6MUna6Qtmx
-         0yhEHa9zCP+hzAtrtpXwsdoALygFafHsSLv5LgfVzl3gDgrLQJLWgYWkGALh3its0Kj+
-         MTLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hZSuQ7916Bf9+Y+2gxJN3rLoU22x89w0ikU47PZS+4I=;
-        fh=N0d0Fx3gR1y+a46dOgwHf+9gt9CLviIaJEutLUjMpRw=;
-        b=V43JnDeNDd5L9YOZ0ut1rHjdV3CB1H2UHtcgLaye0mgzH4zva9ljcst4tjMo9Qv9NB
-         tYcXl02do/9/GPkFgxpOqkkXkTm7Wd4MJZz4SWk8N7Dsjn8UFuakibZu0F+FkDclNfJK
-         94gCMvwUDZRlGkKWcyyRjODuiOHHAUmjMHMjz0Yh+JQydgpqLAcieY5pQqDXkct797OE
-         JqyyHb28QnccwEL35Iv8h+OlJUdbONzw+EJtZuGxrf27aR817IVSyJXkBF8ibjCDmnex
-         Lutx2jyfvglRy53zTusy5Apw+udK3oIn5yxWIDRLo5kkqzCzn6rHy47gVWiYB30oATcV
-         5/fA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786439839; x=1787044639; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hZSuQ7916Bf9+Y+2gxJN3rLoU22x89w0ikU47PZS+4I=;
-        b=VoMqf0I9Xd3T/MAol2jU17ncYvWKokfKYadQotnUa16IV2UV9vKpPpjfIndl8WOpWZ
-         9WCvF9bG8wSGx7/5WbUzOD0I/cQy1Uq4Zl5ykzQGzecgavEGlRMS1ckyCFtwjENofGsK
-         kRBhHnXAt906oho/fjrfknnDb065GmvG+1dCnYR6BY3jbTG54BkJL/aVhfr0j8+K5uwB
-         W0Q8PSZiC945GuKE3nPwzRYN6fY6athktyMlpvNPXP3WLeaJTwLC3ujK/yDz/dnnJzpv
-         sFSPSgfWjVx4YSv9Bx5y3wgVxfYIh/lqZDjIJp6m9z7ieTcfHB4XZ+kKnPLoR1THGrhG
-         Yiew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786439839; x=1787044639;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hZSuQ7916Bf9+Y+2gxJN3rLoU22x89w0ikU47PZS+4I=;
-        b=AVDW3RCag0BVFJ4fT4Xtot+nHUFNY2yvA8eCJVdWl/uar9sZKsFXBzaKhj3F7P3TKM
-         07E+DHdRmCRtoE3u2/X761QjmKH6Zf5OBI1KZqakRr+9K+fyzpiuGQfIL8ieiFRQG4sL
-         RCGN0czwiTZ8678L/Z2gW8Oiy+5g4Zq2We+a7XNKEO5YMISfYFTxld5DwG+KK7hiQ8fy
-         vN+uRL7Yq1pJIJ/WKDp20BniwCeEdHLRTk0BFqOWqQgbxjzHjLQbV1CSEoylg2NxnF8f
-         WtUe+fFzwO/tw9KZ6azIufmuwPbNv3XE+NybnRSpPL+Lz38fN1fWRslM10xbyvfyQwT2
-         qwaA==
-X-Forwarded-Encrypted: i=1; AHgh+RqMN3CoxvxwHHTa8gDTyMTmAbkaNl3PteScuvXqUBkqI7t+dp1rScF6F2tBWOoHQ4Pdb8L/hAY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCSLn050prqSC3qwPKp/8NiY2X12LiGBhmbZKDwheruFfL0d1f
-	g9kDGoXTGhlZx6CIR6jlEw9xRdZKd5CbrAZh5YwUQf4Z2egC8H2AxDWP/jx9E+jN44PKw+yigXD
-	vWPtNA9YHqk0uULROCNhGJ6CkJnzlZLQ=
-X-Gm-Gg: AR+sD11I3IGuWjoZ8U317QHDLHCa3QE3P1o6BtoSZSRIf3OKbH5oVtJ3wDteVyJILWq
-	JBiODe3qSNFBmUdgCDtOEZ0lEFE2IboJI7F6KATDj8QAIztRh3xfI4DLxPYtsHUaPDngyOh4WXm
-	3HtDjV+r4/nphzhwuCHYonpEFatBGDwsxS/fj7iLOcKnb2b7pk/MdjQBydUDHDnn529C+yjmdkD
-	WMcl62EssdfKbFvoU5RApuZNbbCuvwAHVKtyhtEsvQTlW8aKRjqPFkBd1ysffn4Y33zKZybRcsJ
-	NAXfbi6KIA1DKdAZv9hCOW9LZ26XwH6ri3KlfhDB0UI=
-X-Received: by 2002:a05:6402:3507:b0:69c:794d:4866 with SMTP id
- 4fb4d7f45d1cf-6a36451210amr549230a12.4.1786439838260; Tue, 11 Aug 2026
- 02:17:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="aB7ad8QE"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AN1mIQ1102214;
+	Tue, 11 Aug 2026 09:20:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=BmHm/1
+	S3e7v3/qC1G38UKuzdKFJvdQaf18Bs7TWcNJo=; b=aB7ad8QExXWxO0Gj5tSXXX
+	49mv/3+Ra4gzyvHdvZed4h8wBGRe8ROzPmV6wzjd7HivhkKAbgMs7wcurcXKavWz
+	v7IERiKyeaijJwKXchmjLHce2R+LSXkc4zqFRfFHoMpdrexRnLCa7UgYqCmqXkRI
+	CnbVubJlZLH5mgJi9AfMvhH0R6pT5UDQ4TNOnDbvdPl6mmg7UOIX+Vu1OKx6r0N4
+	YvJ4aJxIRehjCOME1oTP0hoSFxktXj6biOKIAVlL/QhZ/cWEBcCxihi81uQG9O6v
+	buMUDdKO0n/XBe3OKnrWPMjQrFLPnGzoJhD70XUf0FvHycjz8ILO8ji88uU86nRg
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvjyv6kn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 09:20:46 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67B9BGoI022335;
+	Tue, 11 Aug 2026 09:20:45 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxf5w0eet-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 09:20:45 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67B9Keg639715290
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 11 Aug 2026 09:20:41 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DC6882004B;
+	Tue, 11 Aug 2026 09:20:40 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9B8F320043;
+	Tue, 11 Aug 2026 09:20:40 +0000 (GMT)
+Received: from [9.224.90.36] (unknown [9.224.90.36])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 11 Aug 2026 09:20:40 +0000 (GMT)
+Message-ID: <0e7d2695-3473-46c7-badc-ebf862a022dd@linux.ibm.com>
+Date: Tue, 11 Aug 2026 11:20:40 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811-ov5640-1lane-v1-v3-1-ae476eaf5024@gmail.com> <cff4de4b-3a94-4a5d-acb9-726939a75791@oss.qualcomm.com>
-In-Reply-To: <cff4de4b-3a94-4a5d-acb9-726939a75791@oss.qualcomm.com>
-From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
-Date: Tue, 11 Aug 2026 17:17:06 +0800
-X-Gm-Features: AUfX_mwvAcly8I6-88t7WFFW5unFKbTgdsOtp3Ivfbg8asrINcSNy_rjnatdgIY
-Message-ID: <CAPwA33KyHsKm2U40n-i=tnoYBcJJHBmSufBxNUKO8tDEP8VfUg@mail.gmail.com>
-Subject: Re: [PATCH v3] media: ov5640: select the MIPI lane mode from the
- endpoint lane count
-To: johannes.goede@oss.qualcomm.com
-Cc: Steve Longerbeam <slongerbeam@gmail.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/dibs: Correct freeing of dmb_clientid_arr
+From: Alexandra Winter <wintera@linux.ibm.com>
+To: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Hidayath Khan <hidayath@linux.ibm.com>,
+        Dust Li <dust.li@linux.alibaba.com>, stable@vger.kernel.org,
+        netdev@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev
+ <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>
+References: <20260810111432.2334900-1-wintera@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <20260810111432.2334900-1-wintera@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA3NCBTYWx0ZWRfX7aeKau+y+p0y
+ sSXm8XcPAHwWlclxRECd1i4PT9tqDob/i7sCccAdbZLnNBrcJ0ZBFLupIExFLkFGsZcl/A64Vyd
+ 9jbYea8+gJGqVG2lWas/4VaN8hiKKkZPQCtUxQdlZQ7rYkQpa2P1dud83vfeEXHpaFx5CWwYR+5
+ hcUQxcgODjVQh7zeQIQ79MgnSl2ILU/yn6QGNwZDL3NhsCgumpOe96llzxiF1L1r7cZ2AtcWcx7
+ TyjH3RkmxSi/ATu3jJBJq6dVGThEb/QhHQqzN0Nvrk3qXcf3bKTCCaY8SrJiqI0nh+gmzgxZd4f
+ TzMUGJeLRC4S8po4Bfof05ffTBCFs3Hz4GactSd9Q7S3R/kRbAHAI1dkRCdyMyW538oqtUoqpKL
+ ry2+BuolPD/vt96d0H67ekQEfEV6ECb8G27bfejReac0p090DAA7VuWw+ZvIUPL3O4yuZFxehxj
+ ZGVJrT5Fbc/3teFQqsA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA3NCBTYWx0ZWRfX0lfXr0AC0Osq
+ Ejas9Q1jrmXWGOZcTMdIjmWRA+m/tDsVVdvzRtnel9vKcn1VR/yPzSZp7L0dS8rAyY/kjnErOIG
+ m8SmXEdSgid2PliWImZAKr+OjW1Uz5Y=
+X-Authority-Analysis: v=2.4 cv=RqD16imK c=1 sm=1 tr=0 ts=6a7ae96e cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=AxoDFHF54RuZZfRr5JsA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: keszK41sogrJRWcc6HBChVjtKg3kAPIL
+X-Proofpoint-ORIG-GUID: Bi3Ia__sULsuMmIybTpB8qzcyM2uAcQw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_06,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 adultscore=0 bulkscore=0 malwarescore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608110074
 
-Hi Hans,
 
-Thanks for the review.
 
-> Only changing the low nibble for on / off and always setting the correct
-> lane count.
+On 10.08.26 13:14, Alexandra Winter wrote:
+> A dibs device interrupt handler can be active after dibs_dev_del() and
+> may still access dmb_clientid_arr. (UAF)
+> 
+> In case of a failure in dibs_dev_add() being called by dibs_lo_dev_probe()
+> dmb_clientid_arr is freed twice (double free).
+> 
+> Free dmb_clientid_arr in dibs_dev_release() after last reference is gone.
+> Note that allocating in dibs_dev_add() instead of dibs_dev_alloc() is ok
+> for now, because no dmbs can be registered before dibs_dev_add().
+> 
+> Fixes: cc21191b584c ("dibs: Move data path to dibs layer")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Hidayath Khan <hidayath@linux.ibm.com>
+> Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
+> Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
+> ---
+> This is a squash of [1] and [2] as requested by Jakub.
+> 
+> Simon and Dust Li, I'd appreciate, if you could double-check whether
+> you can give R-b again.
+> 
+> Link: https://lore.kernel.org/netdev/20260806120447.596164-1-hidayath@linux.ibm.com/ [1]
+> Link: https://lore.kernel.org/netdev/20260804085848.3579518-1-wintera@linux.ibm.com/ [2]
 
-You're right, that is more consistent - applied exactly as you
-wrote it in v4.
 
-Regards,
-Jason
+Title should be 'dibs:' instead of  'net/dibs:' for commonality
+dibs: Correct freeing of dmb_clientid_arr
 
-<johannes.goede@oss.qualcomm.com> =E6=96=BC 2026=E5=B9=B48=E6=9C=8811=E6=97=
-=A5=E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=884:57=E5=AF=AB=E9=81=93=EF=BC=9A
-
->
-> Hi,
->
-> On 11-Aug-26 09:30, Jason Yang via B4 Relay wrote:
-> > From: Jason Yang <jason98166@gmail.com>
-> >
-> > ov5640_set_stream_mipi() always programs IO_MIPI_CTRL00 with 0x45,
-> > which selects the two data lane mode: the number of data lanes
-> > described in the devicetree endpoint only feeds the sensor's clock
-> > tree computations, so a module wired with one data lane starts
-> > streaming in two lane mode and the receiver never assembles a
-> > frame.
-> >
-> > Take the lane mode from the endpoint instead. The field encodes
-> > the lane count directly - 001 for one lane, 010 for two - per the
-> > current sensor manual (version 2.33). The 2.03 manual documented
-> > 000/001 for one/two lanes; OmniVision corrected the table in
-> > version 2.1, which is why the long-standing comment here found 001
-> > unusable for two lanes and validated 010 instead.
-> >
-> > The power-up path also programs a two data lane mode, but that
-> > value is overwritten when streaming starts, so it is left alone.
-> >
-> > Tested with a single data lane module on an i.MX8MP board
-> > (imx-mipi-csis receiver), where the unpatched value produces no
-> > frames at all, and on an RK3588 board.
-> >
-> > Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jason Yang <jason98166@gmail.com>
-> > Assisted-by: Claude:claude-opus-5
-> > ---
-> > Changes in v3:
-> > - Inline the lane count in the write instead of going through a
-> >   local variable (Sakari Ailus).
-> > - Link to v2: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v2-1-6=
-5205ae86feb@gmail.com
-> >
-> > Changes in v2:
-> > - Compute the register value from the lane count in the single
-> >   write instead of branching on it (Sakari Ailus), with the count
-> >   in a local variable to stay within 80 columns; the programmed
-> >   values are unchanged, 0x25 for one lane and 0x45 for two.
-> > - Request a normal stable backport rather than opting out of
-> >   AUTOSEL (Sakari Ailus).
-> > - Drop the quotes around the function name in the reference from
-> >   ov5640_set_power_mipi() (Sakari Ailus).
-> > - Link to v1: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v1-1-7=
-9699457ce13@gmail.com
-> > ---
-> >  drivers/media/i2c/ov5640.c | 18 ++++++------------
-> >  1 file changed, 6 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> > index 8deb5f5501fa..18c3bb5498f8 100644
-> > --- a/drivers/media/i2c/ov5640.c
-> > +++ b/drivers/media/i2c/ov5640.c
-> > @@ -1831,22 +1831,16 @@ static int ov5640_set_stream_mipi(struct ov5640=
-_dev *sensor, bool on)
-> >       /*
-> >        * Enable/disable the MIPI interface
-> >        *
-> > -      * 0x300e =3D on ? 0x45 : 0x40
-> > -      *
-> > -      * FIXME: the sensor manual (version 2.03) reports
-> > -      * [7:5] =3D 000  : 1 data lane mode
-> > -      * [7:5] =3D 001  : 2 data lanes mode
-> > -      * But this settings do not work, while the following ones
-> > -      * have been validated for 2 data lanes mode.
-> > -      *
-> > -      * [7:5] =3D 010  : 2 data lanes mode
-> > +      * [7:5]        : data lane count, 001 for one lane and 010 for t=
-wo,
-> > +      *                per version 2.33 of the sensor manual
-> >        * [4] =3D 0      : Power up MIPI HS Tx
-> >        * [3] =3D 0      : Power up MIPI LS Rx
-> >        * [2] =3D 1/0    : MIPI interface enable/disable
-> >        * [1:0] =3D 01/00: FIXME: 'debug'
-> >        */
-> >       ret =3D ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
-> > -                            on ? 0x45 : 0x40);
-> > +                            on ? 0x5 | sensor->ep.bus.mipi_csi2.num_da=
-ta_lanes << 5 :
-> > +                            0x40);
->
-> You're writing 0x40 aka 2 lines now when turning the sensor off in 1 line=
- mode.
->
-> I believe this should be:
->
->         ret =3D ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
->                                sensor->ep.bus.mipi_csi2.num_data_lanes <<=
- 5 |
->                                (on ? 0x05 : 0x0));
->
-> Only changing the low nibble for on / off and always setting the correct
-> lane count.
->
-> Regards,
->
-> Hans
->
->
->
