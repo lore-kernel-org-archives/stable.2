@@ -1,125 +1,143 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F5334040D;
-	Tue, 11 Aug 2026 14:57:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C6044A405
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786460240; cv=none; b=boPbhEAW+DpvGUJ6LJRRgD+U3ciyBI/PUt23V0T9DitsWatMo6oleTiZCWai4lG4r5/9f52TraHtNpaqotKe2MZ0NyFCn4h+DIOxvSBMwzfSH+fd0fuN9CpdTu+Am2aBjmqqTl6SUido2WtFXW4SQzpGWkR7Ti35xT9v1SbrgBw=
+	t=1786460360; cv=none; b=iKhOGAFXmYvvMsaalYGu+CkRpQ+2aVUv+O9skniHbhsM5CpN6IWqSCq6rVSczuznZIJwsfYxZHVixRhtXgMZE3vYa791yJKfLdO6Baaww9G1IvgSfHbBVRsO+Rs/XsVa0deWGPgOKoarRxxLOHt0lfkoPzQdOhbO90zB5t6pHz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786460240; c=relaxed/simple;
-	bh=hh6cRLVkiaqtaspBX2a3cT0FetnM2CxpAvk7PkByJ48=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pUTWMyk7nPXDR5/Lv0nQ8m9a5d1RquW8Z7UTOOaVDzbZhgFGb3VGDJydxeWMbFh3xKz2sKtwf2fy711z7r0H+sB7bUwzNj8yftnZqJwrx9K6MorgZUzr/k0Hx1+FFqknx09+kY1VWzReLhKd7NVY8JZlpvtODUrbQOYYir7UoyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YDLBS+Jm; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786460360; c=relaxed/simple;
+	bh=vW0VoaKpYR6UuvZ2TYveGRQwkldVdkjVpuSMwCTKTgs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BqJzy3+2UIxHKqyt1D80d6X6f2Nvb0fYcdTT9trdjVILciyThfvw+gx/AOpjbaH0QI8m9+hWa1P+Tb0VkAwAZNXh0EMbavVrVyK8EqWsMK2cxj7r9D4J2oougDEljbjSF3rUfSEiIo7vgdMFU+0SkTutT6cFExWvGC89Vte7cWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gCiNZqbV; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YDLBS+Jm"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BDWsVE3633567;
-	Tue, 11 Aug 2026 14:57:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=CzY665
-	t3NBDowK8EC1TP+RAj/yz5qOwYALKEW6bGZQc=; b=YDLBS+Jmnu6x/nNTIqlhTy
-	fsR9tu5+CvyoJAKwmK4dZLrMN/cuy+yNj7yGtzHl/zkmd5dLgVEl273ViopXNrXk
-	wBptsKsu2Ll09AP5MrdLJEAFTFNn2wS4AJGTB7hAQ44vvhnAOvuN7s4DAapT8YuT
-	cbeD1YmeXrpn2lqVGLRHQLMFZNxU9cqOO63C+tGHou36ra0ngzU0iR3qDFhnUQTE
-	3r8Gpokv5+4eEbXOYW5vHCmskhgS8Rqrb9GOtykfGNpvc3FLToo4Oda3Be/0atpK
-	b+3vlWqANlzhA7CH/cOe7Kr5SRSYxpQBa8+Fn7PRO+BslAPhlLuXCirDQjhfhJcw
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fyb23p7mu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 11 Aug 2026 14:57:14 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67BEuIn2009280;
-	Tue, 11 Aug 2026 14:57:13 GMT
-Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxg9h1akn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 11 Aug 2026 14:57:13 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67BEvCBm32178878
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 11 Aug 2026 14:57:12 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 75C2F58059;
-	Tue, 11 Aug 2026 14:57:12 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CF9ED58043;
-	Tue, 11 Aug 2026 14:57:10 +0000 (GMT)
-Received: from [9.61.146.44] (unknown [9.61.146.44])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 11 Aug 2026 14:57:10 +0000 (GMT)
-Message-ID: <5e0c6818-b96d-4c16-85ec-856d880e7ce8@linux.ibm.com>
-Date: Tue, 11 Aug 2026 10:57:10 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gCiNZqbV"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso1223147b3a.1
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 07:59:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786460358; x=1787065158; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XFGUKXgNypg9pKlEsqRB8qQHzSOuDwN6U9MUHY9yTYI=;
+        b=gCiNZqbVqWJAcjlC4XMjuZYBeBoilNg5zJEBshSrvFBM0/20ISCsECGzFhcRwzddAw
+         +ujE6Q7Ml+vaBvfqgYaMLmo5Lap1FdIZvzOI2qC1cdidLFM4xsaQGzEVWNy3XmP660tq
+         Q3XoPt3u+SIn74yXWgrOA12dGpAFrq6ep6skf+/INuYuj0Wg5daVtWdSiWuob1ogrqSQ
+         19uQq0BeJR/DO0l1tVqsQAqWeIgTAPeLIytv+9HNuPxkOML8sBIoY+BFdF6EP8PqO9Fo
+         IhYNY1GWv9CCotmg8SlFu16FVqPtBXoTjA1gn8aY6liO3lM0uglDgS2KxloOqbR8/BJT
+         C9fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786460358; x=1787065158;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XFGUKXgNypg9pKlEsqRB8qQHzSOuDwN6U9MUHY9yTYI=;
+        b=lVAANENPf7+i2HhcZvstR9i0ZKRtz70UDu+aLEzRNuVBhvNOwvNfGZ0eAzfP0hCpiB
+         vfr5F6FR7nt8neZj/baqsKFP8dBr8qMNaTrvsB4a/gDtYOFQisDas45zO5UO6P7wPheP
+         zjE+09fXf2Pj62uT/HxwBriM59/Om1P8erg3lkiyrrb6GmaecwHhkdIgp1M/siZF7SS6
+         MEZ5GiTMnR5mCRfKuXe2h5FykPTlzH+I9EAGmdw1Za7CDSnK6IY1638+Q9eRVhB2lrRU
+         FWJ6/7DhCWcQPcpPOh/bVdWJUB7P/15TD5tAqkkAkq8e1YMUYMsOeRgXBOvRZ8a0ImW9
+         mK/g==
+X-Gm-Message-State: AOJu0YyF/Jj2n07Xqx3e1bdCZzWtlHopnJZ1Djt2egVoPBqNO4Unk3Ck
+	VYmOddTHAYcmjeQWBobQn/aW0uPjnIkN8zLANa/etq35Iujoytk7UdcyJ+2xGwq93JmXRg==
+X-Gm-Gg: AR+sD127+RAXu/uyeAPs1a3xKYMLDJOJO7IBoQMUig9cswoFKgjzcuqjQPzQ5LrFh1C
+	R+DKtqSI/XPr5c1FgS7I74YAWtSlnHgnAcMvyOtnO11m9gKocs/ZqeZJ2ryypT7FdgIwyACZqme
+	EUxgHLMuxqpvu3p3VJqu7fIVZY/vzzndPsfm+wAXwKHKCMDSEP/UbjJa0Y1n9aRe0Wcc44tdx3s
+	4g8eFos5QbxqN/w+ABAsRRCZajViNBfjh91HEk5pGaXoF7o+wJCnZDaa+1ZeLrWHKXkuRJajLhS
+	FdaE9/CWDBtx597IM8SKQZpR8GUbuWk2MKEUTYO+iQmm2xi3OlY3S8uUfH1PljxqHweWV1XhzoG
+	dAfgQJckZmpWa8bMmcAHk4GjmqTxR1Vvp+GeDbqO6mI6tN6kU3C6/RvcZNfPzlURqzKeAISwEl3
+	F0jAMz1gqSu9uFhkRUWb/eJuIyNsGigLoYu574eJI2Ym4hgxPfZ2xycsv+ldLOEbyeN0QmZmbgz
+	HHMFxzvww==
+X-Received: by 2002:a05:6a00:4095:b0:84e:46d:23a6 with SMTP id d2e1a72fcca58-84faff3da20mr616615b3a.18.1786460357810;
+        Tue, 11 Aug 2026 07:59:17 -0700 (PDT)
+Received: from LAPTOP-7K7V6NC8.localdomain ([120.212.170.8])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa91b63b7sm947484b3a.22.2026.08.11.07.59.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 07:59:17 -0700 (PDT)
+From: pzqqt88198@gmail.com
+To: stable@vger.kernel.org
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	pzqqt88198@gmail.com,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 5.10.y v2] ALSA: usb-audio: Evaluate packsize caps at the right place
+Date: Tue, 11 Aug 2026 22:57:40 +0800
+Message-ID: <20260811145740.306-1-pzqqt88198@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/8] s390/vfio-ap: Fix stale do_remove flag across
- iterations in vfio_ap_mdev_cfg_remove
-To: Anthony Krowiak <akrowiak@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
-        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
-        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
-        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
-        stable@vger.kernel.org
-References: <20260810192257.1208410-1-akrowiak@linux.ibm.com>
- <20260810192257.1208410-2-akrowiak@linux.ibm.com>
-Content-Language: en-US
-From: Matthew Rosato <mjrosato@linux.ibm.com>
-In-Reply-To: <20260810192257.1208410-2-akrowiak@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=XqfK/1F9 c=1 sm=1 tr=0 ts=6a7b384a cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=jlkX0w0HnUhOnOpiu7cA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDEyMSBTYWx0ZWRfXyQde4QCeNF+w
- vKoqBRpBScC3KkKSNcgAK/6fK89VJpMMbZnbIJiLuKTdq1JzXU+1Y/G7BCqfAPQka3A+PF1CRN8
- S8QxmNoT1vLdoZ4D2JCke5svfMYiZopIDGHLhVG1TGteg9ZsciZ1PR0GkQ1F0k8jkfCcnEoaPjj
- zaCJ8LTHMsouF1oiq1YDHAt3KR4AsYapI61QJfbmKBGgskjrK3rXjIXnXkTgGpRyPfhbR0bJOLW
- 8OeUdheZN1DJgxzNJsfkSoH4paw18nHjWfr2otk2B9NFvila19WWcpUzp+DmCS3oFpygohlbG92
- OoLWKPmqCC8iB4bDdFASoSFVgrQCYyZ1xKdQXQvhivAb5DaU2JNJbdSt5P0Az0ywzo9gPHo7YfS
- 5jFh19OaQz0EzRLzyYrhJjfUj3TkI00fpglS6OSOqSC2jkjyqQM3UlYWqgYLLV5woMKH8zgzEHy
- IOfUxOyRbeLEZuPeA6w==
-X-Proofpoint-ORIG-GUID: y0jkhEWdjeCL9NtTUKU1OEa7gdrzciwH
-X-Proofpoint-GUID: y0jkhEWdjeCL9NtTUKU1OEa7gdrzciwH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDEyMSBTYWx0ZWRfX1Y99OdRPOWfc
- AJMXE3sl7LyzYrly+tzJnJCdNRGlinwaCQtmlqXtY4xB2TAzlQvRCnWmRLgLgSz8RT4gkg2YBCH
- Z5H15Q/mQlvGrxemZaNrNb4wu46NVE8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-11_03,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0 clxscore=1015
- suspectscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110121
+Content-Transfer-Encoding: 8bit
 
-On 8/10/26 3:22 PM, Anthony Krowiak wrote:
-> The do_remove flag in vfio_ap_mdev_cfg_remove() is initialised to zero
-> before the loop that iterates over the list of matrix mdevs, but is
-> never reset at the start of each iteration. Since do_remove is
-> OR-accumulated across iterations, a positive result from one mdev
-> carries over to subsequent mdevs.
-> 
-> The fix is to set the do_remove flag with the first call to bitmap_and;
-> for example: do_remove = bitmap_an rather than do_remove |= bitmap_and.
-> 
-> Fixes: eeb386aeb5b7 ("s390/vfio-ap: handle config changed and scan complete notification")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+[ Upstream commit 52521e8398839105ef8eb22b3f0993f9b0d11a57 ]
 
+We introduced the upper bound checks of the packet sizes by the
+ep->maxframesize for avoiding the URB submission errors.  However, the
+check was applied at an incorrect place in the function
+snd_usb_endpoint_set_params() where ep->maxframesize isn't defined
+yet; the value is defined at a bit later position.  So this ended up
+with a failure at the first run while the second run works.
+
+For fixing it, move the check at the correct place, right after the
+calculation of ep->maxframesize in the same function.
+
+Fixes: 7fe8dec3f628 ("ALSA: usb-audio: Cap the packet size pre-calculations")
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221292
+Cc: <stable@vger.kernel.org>
+Link: https://patch.msgid.link/20260410143220.1676344-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[王YP: Move the check to `snd_usb_pcm_prepare()`. For linux-5.10.y,
+       ep->maxframesize is calculated in `snd_usb_pcm_prepare()`.]
+Signed-off-by: 王YP <pzqqt88198@gmail.com>
+---
+ sound/usb/endpoint.c | 3 ---
+ sound/usb/pcm.c      | 7 +++++++
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 8e2b90cb5b95..21bcdc811a81 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -1099,9 +1099,6 @@ int snd_usb_endpoint_set_params(struct snd_usb_endpoint *ep,
+ 		return -EINVAL;
+ 	}
+ 
+-	ep->packsize[0] = min(ep->packsize[0], ep->maxframesize);
+-	ep->packsize[1] = min(ep->packsize[1], ep->maxframesize);
+-
+ 	/* calculate the frequency in 16.16 format */
+ 	ep->freqm = ep->freqn;
+ 	ep->freqshift = INT_MIN;
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index f4494d054917..802ed1dbd23b 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -953,6 +953,13 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
+ 	subs->data_endpoint->curframesize =
+ 		bytes_to_frames(runtime, subs->data_endpoint->curpacksize);
+ 
++	subs->data_endpoint->packsize[0] = min(
++		subs->data_endpoint->packsize[0],
++		subs->data_endpoint->maxframesize);
++	subs->data_endpoint->packsize[1] = min(
++		subs->data_endpoint->packsize[1],
++		subs->data_endpoint->maxframesize);
++
+ 	/* reset the pointer */
+ 	subs->hwptr_done = 0;
+ 	subs->transfer_done = 0;
+-- 
+2.43.0
 
