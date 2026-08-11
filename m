@@ -1,99 +1,110 @@
-Received: from lgeamrelo03.lge.com (lgeamrelo03.lge.com [156.147.51.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970AD2F9C37
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:22:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.147.51.102
+Received: from smtpfb1-g21.free.fr (smtpfb1-g21.free.fr [212.27.42.9])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 805BF2F8EA3
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786454544; cv=none; b=gY+JNmHyqy0eO7EFBtLa3ETNZDFgfABKYXSikKrYDueEisO9UFORfFayg1swC2Ex8DeRuDfHOie7FXkinBPipo8xGgFNCqv4NZoV+ugOEAbMuypHenfeFTghccJ300FnBnUB2uWEvmyZxBPzrI3k8IpujXE3IHVgnBRCWMI+WHQ=
+	t=1786454624; cv=none; b=kChwbWWNyQz+hO44NeCmmx4j/5gTOop9mx66R3/45eny3a3/4UZJEfhzl1zcfeBH0IvLXQS2tg8IWBskAqqrGxcjRG70D7S1blXXDHvOYEbknPeKhjB3Nxvv3+QkhTB678iL/pVmVr2txsV2atgcjuLRR+MeEeoTfH6fn5r7el4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786454544; c=relaxed/simple;
-	bh=xhGuLRvLj8smcgZAjpNxl2k9r7i+qqyKJat52jZHjcM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jO4R4bwDVoZ1sSuFS2P0hKB0+w3J7Yjod/TYzynPJtnZLZ8XLFtZV9Por9pa+QcOTGnceI/Gp7jTKLc3NfnZeQ+vrsGRpqJoB7dO0J20YkRjhKKhl42/f0i79tJ4/Khd9nJ6x2XUBK+6d7Gx8VF+JwpBDK62kJLgjUOh5mkAYZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com; spf=pass smtp.mailfrom=lge.com; arc=none smtp.client-ip=156.147.51.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
-Received: from unknown (HELO yjaykim-PowerEdge-T330.lge.net) (10.177.112.156)
-	by 156.147.51.102 with ESMTP; 11 Aug 2026 22:22:12 +0900
-X-Original-SENDERIP: 10.177.112.156
-X-Original-MAILFROM: youngjun.park@lge.com
-From: Youngjun Park <youngjun.park@lge.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Jianyue Wu <wujianyue000@gmail.com>,
-	her0gyugyu@gmail.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Youngjun Park <youngjun.park@lge.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/4] mm, swap: don't free a hibernation slot that is in the swap cache
-Date: Tue, 11 Aug 2026 22:22:06 +0900
-Message-Id: <20260811132209.2862708-2-youngjun.park@lge.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260811132209.2862708-1-youngjun.park@lge.com>
-References: <20260811132209.2862708-1-youngjun.park@lge.com>
+	s=arc-20240116; t=1786454624; c=relaxed/simple;
+	bh=ktjNH9FAZ14JcPyFtZGaSAGiIE98+R7IeYWVv+5rmlM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=BuJFC3tYCZD0tegiWY8VnmPHmvHv+67+lCv5rPvf3codhLTvlk47SlAfZkVUFmR/V28erUrtSHR5zJc0qOpBIjrKddmd/Hb3Jzl+FQVbyAqdPfeCCTP0cnfiqOWoPCnbOfy6yJTD0tAQ3F0IF2erI+zNOZwm+xPRk9lUUtrz7Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=morinfr.org; spf=pass smtp.mailfrom=morinfr.org; dkim=pass (1024-bit key) header.d=morinfr.org header.i=@morinfr.org header.b=zxSPubJX; arc=none smtp.client-ip=212.27.42.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=morinfr.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=morinfr.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=morinfr.org header.i=@morinfr.org header.b="zxSPubJX"
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
+	by smtpfb1-g21.free.fr (Postfix) with ESMTP id 216B7DF9A2B
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 15:14:33 +0200 (CEST)
+Received: from bender.morinfr.org (unknown [82.66.66.112])
+	by smtp4-g21.free.fr (Postfix) with ESMTPS id B0A5D19F733;
+	Tue, 11 Aug 2026 15:14:16 +0200 (CEST)
+Authentication-Results: smtp4-g21.free.fr;
+	dkim=pass (1024-bit key; unprotected) header.d=morinfr.org header.i=@morinfr.org header.a=rsa-sha256 header.s=20170427 header.b=zxSPubJX;
+	dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=morinfr.org
+	; s=20170427; h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=q6ZbQvZiQaUnf6LKHUNix61p0ktbp6vC2ZVjEvj8POI=; b=zxSPubJXWKAIk03B5D6U8Sz9hx
+	O3hV76FlDiUY7NaLyxYovLfCIT6+lFa5At0rEHyWxBMhBnQAeqqiBQJt8EPgis9gJKrpOiJcnLjus
+	yV47EkImadPHnyiiT69OvPUXCphzMgY8rX4tN9meW0QwuMx0p6YmmPZni8uroGm02wyI=;
+Received: from guillaum by bender.morinfr.org with local (Exim 4.98.2)
+	(envelope-from <guillaume@morinfr.org>)
+	id 1wtmJ6-00000002L6w-0wQe;
+	Tue, 11 Aug 2026 15:14:16 +0200
+Date: Tue, 11 Aug 2026 15:14:16 +0200
+From: Guillaume Morin <guillaume@morinfr.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, sashal@kernel.org,
+	Zijiang Huang <huangzjsmile@gmail.com>,
+	Kairui Song <kasong@tencent.com>, Hao Peng <flyingpeng@tencent.com>,
+	albinwyang <albinwyang@tencent.com>,
+	Baoquan He <baoquan.he@linux.dev>
+Subject: [Regression] 6.12 port of CVE-2026-64415
+Message-ID: <ansgKOOXi6KE3oKf@bender.morinfr.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-A slot with a folio in the swap cache is freed when the folio leaves the
-cache, not when its count drops.  swap_put_entries_cluster() follows that
-rule.  swap_free_hibernation_slot() does not, it calls
-__swap_cluster_free_entries() whether or not a folio sits on the slot.
+Hi, 
 
-Cluster readahead can put one there.  It walks a raw page_cluster sized
-window of offsets around the faulting entry, and a hibernation slot passes
-__swap_cache_add_check() because it is not a folio and its count is not
-zero.  Freeing the slot then clears the entry under that folio.
+The backport to 6.12 (commit 60cbe67d1342f34b66df1c2ee328e3cd333767d7)
+of 66366d291f666ddeda5f8c84f253e308de3e6b55 "mm/swap: add cond_resched()
+in swap_reclaim_full_clusters to prevent softlockup" seems to introduce
+a regression.
 
-The folio is now unreachable from the swap table, and the offset goes back
-to the allocator.  The folio is still on the LRU though, so reclaim can
-pick it up later.  It then takes the old offset out of folio->swap and
-overwrites the table entry there, which by then may belong to someone else.
-
-Check for a cached folio before freeing.  The slot is then left in the
-ordinary state where only the swap cache holds it, and it is freed when the
-folio leaves the cache, either through the reclaim below or through normal
-reclaim later.
-
-Fixes: 0d6af9bcf383 ("mm, swap: use the swap table to track the swap count")
-Cc: <stable@vger.kernel.org>
-Acked-by: Kairui Song <kasong@tencent.com>
-Signed-off-by: Youngjun Park <youngjun.park@lge.com>
----
- mm/swapfile.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+The cond_resched() is called while holding a spinlock:
 
 diff --git a/mm/swapfile.c b/mm/swapfile.c
-index dea2d3b36e06..f5dfc7e59191 100644
+index 883333a87a45..552df432c37f 100644
 --- a/mm/swapfile.c
 +++ b/mm/swapfile.c
-@@ -2202,7 +2202,14 @@ void swap_free_hibernation_slot(swp_entry_t entry)
+@@ -767,20 +767,21 @@ static void swap_reclaim_full_clusters(struct swap_info_struct *si, bool force)
+                                        offset += abs(nr_reclaim);
+                                        continue;
+                                }
+                        }
+                        offset++;
+                }
+                spin_lock(&si->lock);
  
- 	ci = swap_cluster_lock(si, offset);
- 	__swap_cluster_put_entry(ci, offset % SWAPFILE_CLUSTER);
--	__swap_cluster_free_entries(si, ci, offset % SWAPFILE_CLUSTER, 1);
-+	/*
-+	 * A slot with a folio in the swap cache is freed when the folio
-+	 * leaves the cache, the same rule swap_put_entries_cluster() follows.
-+	 * Readahead can put a folio here, and freeing the slot now would
-+	 * leave that folio with no entry behind it.
-+	 */
-+	if (!swp_tb_is_folio(__swap_table_get(ci, offset % SWAPFILE_CLUSTER)))
-+		__swap_cluster_free_entries(si, ci, offset % SWAPFILE_CLUSTER, 1);
- 	swap_cluster_unlock(ci);
- 
- 	/* In theory readahead might add it to the swap cache by accident */
--- 
-2.48.1
+                if (to_scan <= 0)
+                        break;
++               cond_resched();
+        }
+ }
 
+The 7.1 and 6.18 backports do properly call cond_resched() after
+releasing the equivalent lock.
+
+Simply moving the cond_resched() will fix the issue:
+
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -770,11 +770,11 @@ static void swap_reclaim_full_clusters(struct swap_info_struct *si, bool force)
+                        }
+                        offset++;
+                }
++               cond_resched();
+                spin_lock(&si->lock);
+ 
+                if (to_scan <= 0)
+                        break;
+-               cond_resched();
+        }
+ }
+
+
+HTH
+
+-- 
+Guillaume Morin <guillaume@morinfr.org>
