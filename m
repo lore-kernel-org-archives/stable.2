@@ -1,224 +1,135 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C255039AD3B
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 15:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786463388; cv=pass; b=qgbFK2OuiNX7+2pqn5zuWUjKecyrfk2Fv3/AZRa7/A2elZzN3ATyBQfGu6/HT4xvn7EEuyDDKxFnoyqjuq1nia97LLX0FF4kTWfL4OaTsaqujfFCUOSMvUkN3jbCxbNTkLuFytJadUMQVGcWC9DD6p2nPxm1rhK8Ca35jJXXrBg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786463388; c=relaxed/simple;
-	bh=/GNCjh2VClNPbopBZqXjrtavlnfuHerSez0P0Aw/4n0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uHagpGDouXHiP0IcJuvfeesucXZg5QfPBCxS9xTSoz7DziLWqcXTXAfqYofZslAamNiMqyKy7zMYm+V6NqbfaQMWgKESj9dEBjCMkz17Y4AFbQpYd1C2+RbchVEHjv8ImHoHCVO0FlOjDgAhjVmf/EV35j3cQo6WbEguCsQbGNE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g/IIMMi+; arc=pass smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g/IIMMi+"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c01c79467so283001cf.0
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 08:49:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786463386; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XYFYmIQ8IFi7gQBxQxwxDEds6A6+XBoXqg3wXJ0nkq3l/RA0Bdks5AIpn1xCGU9kF7
-         jpXZtUfBLGo4gAqxZbmEtyTlS07CZqr08mqGP4KBr6SUI2ig+66/w1+QOoCwp5ASO6Zy
-         JvqhfHxroOPhtzkOFNZKOJJeLcvJ7M04ZtR+XWdSkXZ0I6jWLJl4yHoUDXhntpxkPcNe
-         qINbpjs2tRMAxz2rKCYz/xkRsUCcMhbTYVNQ3MR/1/nATPYsDZrk9Z0N63Q1aTdS70ug
-         m1yYssQsg8yUqSiF8tIXXK27biODuooycluolG+atSIjgmqMu8oZMQwnPpfJO71beATc
-         us1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i1QueQhDv1Ra4n5xMfAFK9oxmv0TskKSul/4mHoLow4=;
-        fh=THx0fa9uhhDb6TUTOk9Qe49Eo3WkVrhHsDH2u3EWh60=;
-        b=Altm0IVQZU0h3WXiqJCSZH1KYHrqfFzLQDeZcK8vifLPaX16BlJryxmzTh8otokOLi
-         XyG6rHJc+zjELeE+5ZU7R8Hh9k406t73IsNlj4MOl/tyIrdJ4hBx2fuSKbaWS9uQDO9a
-         7pNa1qR5Uknkj4+Epim88r2fJMLbIZFNOyJaL0wsYC94xCXwaWlfR341J+gp15lgpzLo
-         w3qo5TGH76YEivO4bVD3AhTkOTs/ZlD6uhMAyWyi+UFpKiJl9kH6DP3IHFLrP/iZg7u7
-         KH9MTq0HzeQQ/I57cL9YOb9YnjuaU4F+1n6O+qMvNzcAIRMsW4Igp/rnfLT+88tUw1Rw
-         zhtg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786463386; x=1787068186; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i1QueQhDv1Ra4n5xMfAFK9oxmv0TskKSul/4mHoLow4=;
-        b=g/IIMMi+FycdugdRYBhBiPI0MU3PKPWo3zsVh6Nc1y7WjTN+XAVh2mP/vOxQKd/JqW
-         h0tkt0lpx0TNYrcZBmpSIsZkeG6RaCd8lLvVd1cBYlCOJ67igGqhAaT6vbuEXZjpTYot
-         6cAgsflzs4vt1TylbvfJQbfJhOSE5nUKt1a24FkNzR9fKNTxehLvzary8y5a8v2vObuy
-         ZCi7fHHo4hBPxuAvELbrPLhut5aEH9BMaotNYcjYAks7l6yfC+BkaHCPsgmxSBjf64rg
-         1S7CqKg84uzaGCcw+1aZTAaCUkwnTrFrDx0qdicNYFYTOmNMHDtgq/PVjRGhJd2w44V2
-         UBUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786463386; x=1787068186;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i1QueQhDv1Ra4n5xMfAFK9oxmv0TskKSul/4mHoLow4=;
-        b=jI/4RRkM4oqHaOKDbxFNL4BekgMR+kefiho2BjBwP2HAtXvKkg+MgcHLu9+EWu9RB8
-         gg9wjbHh2L1uX5SlHZK0DcqKgL9mS3qTU1Roxh8v/uiNmu2TWi2djCH/xQOee/R9+pcA
-         2OEPuP9QXW0hcdePmLN8HlbLyAPpaIY3e9WA+0YG75Mv623ybQfnZldWgTfbK6Fc5bYZ
-         gkUxgXOFY129CZlKpTPrIfTWTSB3YekCMCZfDjI/slMvf61eq1ElZyTihfZOn5wOa3JL
-         Cp/iNGYcPQPXSpiMLuRb+40JR1Jnf7AcEK+8TvJvmae/1I+jcnLdCfDx7/KSvMxdh0sG
-         Isvw==
-X-Forwarded-Encrypted: i=1; AHgh+RpHSBlMSmT8WFbufQrLb9UndrxryFuSUAczTYJDd5wx16I/LodqKG49BPOkZoJ8GFcAVW9TW7U=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8sT1m+mjrU+7j+BUw63vQM8LOYLBNfTZikt/86CmE8MAeAOhr
-	KW1oiPpzidrj95nh8e/sQe4mYbRWG3L9ZIah5X8YpGZLNMpqeLzzwAQ8HeOe55G52XJ1k+YvW+U
-	RSk4FgbmyyWuW9uIjCgOvEEFOutpbT6sKZuJJ39k/
-X-Gm-Gg: AR+sD12Zo2/op+QJEd6RubkZfEK71KI1BUqPCOukTH54JV+yNZ1koQKUECFWiLVKDZq
-	DjQCuhKFIiFSM6k24+Efjy0gPLXpgY1IuPP+bYLEInX1RLv8/QGHgQ0zQ5y5JhJ9EFH8CZHfM4u
-	LXm6LCwcKH+KtnZdbYghpUDWiJVz5cuGOPTTW1wVq+3XdGzY1ukXkRK28BibAQHlmYNGgkN0tee
-	TR4LO300Ak8/88GtZ3cx/a2B7esuwKxlvagZbZbUNOBeirNnHHBuY3Dbq8+4/OEYnBXQkXaEHZw
-	qfcCWU4K+LeOo7O9Kwmm7LLaLmLrQIcFOSccxaPcTjGuwTPisRug5G70ufi97++kZYjyCHiBZw=
-	=
-X-Received: by 2002:a05:622a:17cd:b0:517:6dc0:698d with SMTP id
- d75a77b69052e-52d57d2efa7mr15038101cf.0.1786463384814; Tue, 11 Aug 2026
- 08:49:44 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A790C3B14D2;
+	Tue, 11 Aug 2026 15:50:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786463408; cv=none; b=gQsLWxJwxEMD4MOcCoR0Fx1SKx7pFMpFJm3iYfjtHx4QWh1+Yex6YjRXf7DL6JyMna+vvYqJ98K7eJfee8qzlzYXj2MuAz0Pbtlw1SjQ2l2CsIKTNlyzBEfvKp/T0FDFO6m8DWnPsxC9B9ZIE9BFxXTXyiiYUw2ruFo2f/us5yQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786463408; c=relaxed/simple;
+	bh=o0A9jbfM9RUZcLpGp6Fj/ikWM8B6lTsDdepHmHG0R+o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V4GZRbw3lflidz82R2tIYd+DaGBzQ1sp5JIqdI32nz5l10g54JV2n4gAXx7b3GPBQldqwG2Anf97Dm5GeJ7j1Er8cIjK3nnBICNzlaFmYTTB447n8xUpzMqkiQbNCzK2jWEPJLyFT412HXN6L+wZZQRlLRubsBDevu7F23gQx7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [223.166.93.127])
+	by APP-05 (Coremail) with SMTP id zQCowAB3qEIMQ3tqSXcKBQ--.29050S2;
+	Tue, 11 Aug 2026 23:43:09 +0800 (CST)
+From: Han Gao <gaohan@iscas.ac.cn>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Tianyang Zhang <zhangtianyang@loongson.cn>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Han Gao <gaohan@iscas.ac.cn>,
+	Hongchen Zhang <zhanghongchen@loongson.cn>,
+	WangYuli <wangyuli@aosc.io>,
+	"Mingcong Bai" <jeffbai@aosc.io>,
+	"Zhang Yuhao" <xinmu@xinmu.moe>,
+	"Kexy Biscuit" <kexybiscuit@aosc.io>
+Cc: loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Han Gao <rabenda.cn@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] LoongArch: mm: Define DIRECT_MAP_PHYSMEM_END
+Date: Tue, 11 Aug 2026 23:43:06 +0800
+Message-ID: <20260811154306.3764527-1-gaohan@iscas.ac.cn>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810071518.115381-1-hao.ge@linux.dev> <20260810071518.115381-3-hao.ge@linux.dev>
-In-Reply-To: <20260810071518.115381-3-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Tue, 11 Aug 2026 08:49:33 -0700
-X-Gm-Features: AUfX_mwT4hAPkBMj2FjRuitd35bQlWvhWAW5BMq-HUekUvt1QEpfys1Rj8CfahY
-Message-ID: <CAJuCfpFO1=HaN-DVqqpQPHKC9utAMKSCNUNRE3cwi5JvrL-e=w@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] alloc_tag: fix undetected compressed tag overflow
- when profiling is disabled
-To: Hao Ge <hao.ge@linux.dev>
-Cc: gehao@kylinos.cn, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB3qEIMQ3tqSXcKBQ--.29050S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGrW8Jr1UXF4kAw1fJF1xGrg_yoW5Xw1xpr
+	Z8ZwsxKr43trs2k397A3W5ZryUG3ZYkr4jg3W7C343ZwsrCa48Zw4kC3yaqFykX393Z3y0
+	grnIgrWkKw4jvw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7sRidbbtUUUUU==
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBwcQDGp7L1Ap5wAAs8
 
-On Mon, Aug 10, 2026 at 12:14=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> In reserve_module_tags(), the tag overflow check is gated on
-> mem_alloc_profiling_enabled():
->
->     if (mem_alloc_profiling_enabled() && !tags_addressable())
->
-> If profiling is toggled off at runtime and a module is loaded whose
-> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
-> skipped. vm_module_tags_populate() still maps memory for the tags and
-> the module loads successfully, but the total tag count now exceeds what
-> NR_UNUSED_PAGEFLAG_BITS can address.
->
-> Once profiling is re-enabled, ref_to_idx() computes each tag's index
-> as its position in the alloc_tag array. update_page_tag_ref() masks
-> it to alloc_tag_ref_mask before storing in page->flags. Indices
-> beyond the mask are truncated and idx_to_ref() resolves them to wrong
-> tags.
->
-> This silently corrupts /proc/allocinfo: allocated pages get attributed
-> to the wrong call sites, so the statistics it reports are wrong.
->
-> mem_alloc_profiling_enabled() and mem_profiling_compressed are
-> independent. Once compressed mode is established at boot, it stays
-> active regardless of runtime toggles of mem_profiling.
->
-> Remove the mem_alloc_profiling_enabled() guard. On overflow, shut down
-> profiling, release the reservation, and return -EAGAIN so that
-> layout_and_allocate() retries with profiling disabled: codetag sections
-> are then placed as regular module data and the module loads without
-> profiling rather than being rejected entirely.
->
-> Skip percpu counter allocation in load_module() when profiling is
-> disabled, as those counters would never be freed on unload.
+get_free_mem_region() and mhp_get_pluggable_range() bound their
+search to DIRECT_MAP_PHYSMEM_END.  LoongArch does not define it, so
+the fallback in include/linux/mm.h applies: under
+CONFIG_SPARSEMEM_VMEMMAP it is (1ULL << MAX_PHYSMEM_BITS) - 1, a
+compile-time constant that does not adapt to the CPU's physical
+address bits (cpu_pabits, probed from CPUCFG1).
 
-The approach looks correct but we need to address Sashiko's findings.
-I'll focus on the pre-existing issues and will post fixes later today
-or tomorrow.
+The vmemmap window only covers physical space below 2^(cpu_pabits+1)
+(VMEMMAP_SIZE), so on CPUs with fewer physical address bits than
+MAX_PHYSMEM_BITS the fallback allows get_free_mem_region() to return
+a ZONE_DEVICE region outside the vmemmap window;
+vmemmap_populate() then wraps the memmap range around and maps it
+into low memory, silently corrupting the page tables.  The same
+search also picked the top-of-address-space region that crashed
+memmap_init_zone_device() with amdkfd on 3C6000 in 6.16 [1];
+commit 2969b42c8f99 ("LoongArch/mm: align vmemmap to maximal folio
+size") keeps that region in bounds on current 3C6000 configs, but
+CPUs with smaller cpu_pabits (e.g. the 2K series) are still
+affected.
 
->
-> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
-ion")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Suren Baghdasaryan <surenb@google.com>
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  kernel/module/main.c | 17 +++++++++++++++--
->  mm/alloc_tag.c       | 11 ++++++++---
->  2 files changed, 23 insertions(+), 5 deletions(-)
->
-> diff --git a/kernel/module/main.c b/kernel/module/main.c
-> index 46dd8d25a605..c32bb47a573a 100644
-> --- a/kernel/module/main.c
-> +++ b/kernel/module/main.c
-> @@ -2971,13 +2971,26 @@ static struct module *layout_and_allocate(struct =
-load_info *info, int flags)
->          * this is done generically; there doesn't appear to be any
->          * special cases for the architectures.
->          */
-> +retry:
->         layout_sections(info->mod, info);
->         layout_symtab(info->mod, info);
->
->         /* Allocate and move to the final place */
->         err =3D move_module(info->mod, info);
-> -       if (err)
-> -               return ERR_PTR(err);
-> +       if (err) {
-> +               if (err !=3D -EAGAIN)
-> +                       return ERR_PTR(err);
-> +               /*
-> +                * -EAGAIN means profiling was disabled but the module
-> +                * can still load without it. Reset state and retry.
-> +                */
-> +               rewrite_section_headers(info, flags);
-> +               for_each_mod_mem_type(type)
-> +                       info->mod->mem[type].size =3D 0;
-> +               info->sechdrs[info->index.sym].sh_flags &=3D ~(unsigned l=
-ong)SHF_ALLOC;
-> +               info->sechdrs[info->index.str].sh_flags &=3D ~(unsigned l=
-ong)SHF_ALLOC;
-> +               goto retry;
-> +       }
->
->         /* Module has been copied to its final place now: return it. */
->         mod =3D (void *)info->sechdrs[info->index.mod].sh_addr;
-> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> index af44f90379f2..3eba6331174d 100644
-> --- a/mm/alloc_tag.c
-> +++ b/mm/alloc_tag.c
-> @@ -950,10 +950,12 @@ static void *reserve_module_tags(struct module *mod=
-, unsigned long size,
->                 int grow_res;
->
->                 module_tags.size =3D offset + size;
-> -               if (mem_alloc_profiling_enabled() && !tags_addressable())=
- {
-> +               if (!tags_addressable()) {
->                         shutdown_mem_profiling(true);
-> -                       pr_warn("With module %s there are too many tags t=
-o fit in %d page flag bits. Memory allocation profiling is disabled!\n",
-> -                               mod->name, NR_UNUSED_PAGEFLAG_BITS);
-> +                       pr_warn_once("With module %s there are too many t=
-ags to fit in %d page flag bits. Memory allocation profiling is disabled!\n=
-",
-> +                                    mod->name, NR_UNUSED_PAGEFLAG_BITS);
-> +                       release_module_tags(mod, false);
-> +                       return ERR_PTR(-EAGAIN);
->                 }
->
->                 grow_res =3D vm_module_tags_populate();
-> @@ -975,6 +977,9 @@ static int load_module(struct module *mod, struct cod=
-etag *start, struct codetag
->         struct alloc_tag *stop_tag;
->         struct alloc_tag *tag;
->
-> +       if (!mem_profiling_support)
-> +               return 0;
-> +
->         /* percpu counters for core allocations are already statically al=
-located */
->         if (!mod)
->                 return 0;
-> --
-> 2.25.1
->
+Define DIRECT_MAP_PHYSMEM_END as the vmemmap-covered physical
+range, (1ULL << (cpu_pabits + 1)) - 1, capped at
+(1ULL << MAX_PHYSMEM_BITS) - 1 under CONFIG_SPARSEMEM, mirroring
+commit f3336b48cf9d ("riscv: mm: Define DIRECT_MAP_PHYSMEM_END").
+
+[1] https://lore.kernel.org/amd-gfx/20250814032153.227285-1-jeffbai@aosc.io/
+
+Cc: stable@vger.kernel.org # v6.13+
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+---
+Changes in v2:
+- Redefine DIRECT_MAP_PHYSMEM_END as the vmemmap-covered range
+  (1ULL << (cpu_pabits + 1)) - 1, capped at
+  (1ULL << MAX_PHYSMEM_BITS) - 1 under CONFIG_SPARSEMEM, per Huacai
+  Chen's review (the previous (1ULL << cpu_pabits) - 1 wrongly
+  limits CPUs with 48-bit physical addresses).
+- Note that 3C6000 has 48-bit physical addresses as well.
+- v1: https://lore.kernel.org/all/20260811115749.3465579-1-gaohan@iscas.ac.cn/
+
+ arch/loongarch/include/asm/pgtable.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/loongarch/include/asm/pgtable.h b/arch/loongarch/include/asm/pgtable.h
+index 223528c04d73..8395aea209b5 100644
+--- a/arch/loongarch/include/asm/pgtable.h
++++ b/arch/loongarch/include/asm/pgtable.h
+@@ -125,6 +125,14 @@ struct vm_area_struct;
+ 
+ #endif
+ 
++/* Needed to limit get_free_mem_region() */
++#ifndef CONFIG_SPARSEMEM
++#define DIRECT_MAP_PHYSMEM_END ((1ULL << (cpu_pabits + 1)) - 1)
++#else
++#define DIRECT_MAP_PHYSMEM_END \
++	min((1ULL << (cpu_pabits + 1)) - 1, (1ULL << MAX_PHYSMEM_BITS) - 1)
++#endif
++
+ #define ptep_get(ptep) READ_ONCE(*(ptep))
+ #define pmdp_get(pmdp) READ_ONCE(*(pmdp))
+ 
+-- 
+2.47.3
+
