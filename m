@@ -1,114 +1,98 @@
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB78235AC07;
-	Tue, 11 Aug 2026 01:00:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4231D2765D7;
+	Tue, 11 Aug 2026 01:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786410049; cv=none; b=M0NRFIf1LwY0O590lZD7jS7GDes7GxAnUEtbN1LTZ7Uako0ZUnMZPwzLPCFnU1uxpW8OQRTjV4aWbbwcR2kPYWniF5GEuLqX6DPTFBXyNV72T0AXOVM8x1s8Ujy8ES7bPXIp7SvhZJWpX6Qw23DZLscI4yVeESPIdi6cdTcMb/8=
+	t=1786410331; cv=none; b=nXw8PADGsDmVbMgOA+n22I1MAveJG0cFSf2FyYwtlatQPUTO2uCHCzB00CLSKHtjEsM8kyQmG8rbfZtZu4ajoaRECA7InsyMsmQdWfzn3+WyVWfzR5wfDCrfEpKp+3iRryo53oXBO4upF+GGJyI8iahJ9mjqWBa/YWpmpXxI57I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786410049; c=relaxed/simple;
-	bh=WJ26OSaxHu81+Ut+YwEQ+ihjohMQJxEnhLIQ9lQ13Sw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YuqJ+3T3qNBC5b6rP0HMmQ5iSY+tKRUV98MmKFDz3HG1RoKOVfuKvNSGpWmGEO9xz1bf6paM8HFRluWtSZSQuloNqEcXXFEp6BsSQ2OklU1CsUjYo/thN1sd3S6WiOYbuPNg6Sg4mG5bsgL75rRzVuKqDi/H9VuoZTIRStUPoSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=OTZN3vS6; arc=none smtp.client-ip=115.124.30.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="OTZN3vS6"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1786410039; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=dwtQcvm1kh6sD91quCycZFtphcFKjDvEK+jso18AATc=;
-	b=OTZN3vS68+M36SAYM5GkB8zaLZDQrZqA8TE66k8NZ4ZA5tLZ0abO81bJfRsChw+OtTwG/9FjJUINGjCOtj4XHdRI2rVIR/xPulHJ06SqGEn1RZhDmjhfDadFBiM54eIn/4klJ9wyYi3S5e2GmICtrkNZqYC/cFYbUVQnykSQYfs=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0X8mP3mb_1786410038;
-Received: from 30.221.129.51(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X8mP3mb_1786410038 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 11 Aug 2026 09:00:38 +0800
-Message-ID: <7dba713d-fb15-4f9d-a369-690e77afb18d@linux.alibaba.com>
-Date: Tue, 11 Aug 2026 09:00:37 +0800
+	s=arc-20240116; t=1786410331; c=relaxed/simple;
+	bh=YBA7pU94gXSKyfdm2+G4u9URC43yXvMVZ/Yw5dsFT0k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BE8QAvh7O9iaaidQiBtMFgsv4djQouASBPSu2qHbp9kfCPSopYMozS9DA9Ky7fosvGz2DDhQS4zFYe0X3aYIEdc2nGKNXzxOaOeXUf9Yn7ANZ6hxpM+zPl5SgcVyQ9oJgAXvjoA7rrPHdnblXGKLWS/icaborrSJUfxBCytkQ80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCnci4_dXpqoFKCAA--.34568S3;
+	Tue, 11 Aug 2026 09:05:04 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgBn2c4_dXpqGPDCAw--.32215S2;
+	Tue, 11 Aug 2026 09:05:03 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-wpan@vger.kernel.org
+Cc: Stefan Schmidt <stefan@datenfreihafen.org>,
+	Alexander Aring <alex.aring@gmail.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Varka Bhadram <varkab@cdac.in>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 0/2] cc2520: fix FIFOP work and RX tasklet use-after-free
+Date: Tue, 11 Aug 2026 01:03:57 +0000
+Message-Id: <20260811010359.131381-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: bound-check dir entries in the readdir
- re-validation scan
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, zhanxusheng@xiaomi.com
-References: <20260806122133.956847-1-zhanxusheng@xiaomi.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20260806122133.956847-1-zhanxusheng@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgBn2c4_dXpqGPDCAw--.32215S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?/k+I2AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI07LG6wnUIcpg45FTZq4xM59rMe/2+9ZL9dpEOuyDwloeLa
+	PL6CJhvW84OykK4wLW6p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj9xXoWrZw1DWF1UAF1xAF4fCw4rWFX_yoWkuFX_ua
+	4rtan7Ww18tFnIkFy7JF4UZ34kCFW2gr4ftrW8Gw4jg34fJrsxCFs7A3y5ury8uF42kF43
+	Jwn8KFyftw17uosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbDxYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	WxJr0_GcWl84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
+	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
+	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
+This series incorporates Miquel Raynal's disable_work_sync()
+suggestion and separately fixes the registration-failure path.
 
+Patch 1 fixes the removal path: the FIFOP IRQ can re-queue RX work after
+cc2520_remove() flushes it, so the work may run after the private data is
+freed.  Disable the work with disable_work_sync() and destroy the buffer
+mutex last.
 
-On 8/6/26 8:21 PM, Zhan Xusheng wrote:
-> When the inode version changed since the last readdir(),
-> ocfs2_dir_foreach_blk_el() re-scans the directory block from its start to
-> relocate the current position:
-> 
-> 	for (i = 0; i < sb->s_blocksize && i < offset; ) {
-> 		de = (struct ocfs2_dir_entry *)(bh->b_data + i);
-> 		if (le16_to_cpu(de->rec_len) < OCFS2_DIR_REC_LEN(1))
-> 			break;
-> 		i += le16_to_cpu(de->rec_len);
-> 	}
-> 
-> The loop dereferences de->rec_len (at byte offset 8 within the entry)
-> guarded only by i < sb->s_blocksize.  `offset` is derived from ctx->pos,
-> which userspace controls via lseek() on the directory fd, so i can reach
-> the last bytes of the block; reading de->rec_len then reads a few bytes
-> past the s_blocksize-sized block buffer (an out-of-bounds read).
-> 
-> The main emit loop below already guards this via ocfs2_check_dir_entry(),
-> which rejects entries too close to the buffer end before touching de.
-> Apply the same lower bound to the re-validation scan so that a full
-> minimal directory entry is known to fit before de is dereferenced.  For a
-> consistent directory this changes nothing: entries are at least
-> OCFS2_DIR_REC_LEN(1) bytes, so no valid entry starts in the excluded tail.
-> 
-> Found by the sashiko review tool; fix approach suggested by Joseph Qi.
-> 
-> Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Cc: stable@vger.kernel.org
-> Link: https://sashiko.dev/#/patchset/20260806022044.167962-1-zhanxusheng@xiaomi.com
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> ---
->  fs/ocfs2/dir.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-> index d7fc3cccf2f4..3b606b4c04dd 100644
-> --- a/fs/ocfs2/dir.c
-> +++ b/fs/ocfs2/dir.c
-> @@ -1903,7 +1903,8 @@ static int ocfs2_dir_foreach_blk_el(struct inode *inode,
->  		 * dirent right now.  Scan from the start of the block
->  		 * to make sure. */
->  		if (!inode_eq_iversion(inode, *f_version)) {
-> -			for (i = 0; i < sb->s_blocksize && i < offset; ) {
-> +			for (i = 0; i + OCFS2_DIR_REC_LEN(1) <= sb->s_blocksize &&
-> +			     i < offset;) {
->  				de = (struct ocfs2_dir_entry *) (bh->b_data + i);
->  				/* It's too expensive to do a full
->  				 * dirent test each time round this
+Patch 2 fixes a registration failure: with the FIFOP interrupt requested
+before cc2520_register(), a failed registration could leave the mac802154
+RX tasklet scheduled across ieee802154_free_hw().  Request the FIFOP
+interrupt after registration (and the SFD interrupt before it).
 
-It seems we have to guard two things according to sashiko review comments.
-1st is to safely read this record's length, and 2nd is make sure the record's
-length stay inside the block.
+Changes in v3:
+- Split into two fixes (removal path, registration failure), per Miquel
+  Raynal's review of v2.
 
-The above targets the 1st, so the 2nd is still missing. e.g.
+Changes in v2:
+- Use disable_work_sync() for the FIFOP work instead of explicitly
+  freeing the interrupts, as suggested by Miquel Raynal.
 
-if (le16_to_cpu(de->rec_len) < OCFS2_DIR_REC_LEN(1)) ||
-    i + le16_to_cpu(de->rec_len) > sb->s_blocksize)
-	break;
+Fan Wu (2):
+  ieee802154: cc2520: fix FIFOP work use-after-free
+  ieee802154: cc2520: fix RX tasklet use-after-free
 
-Thanks,
-Joseph
+ drivers/net/ieee802154/cc2520.c | 43 +++++++++++++++++----------------
+ 1 file changed, 22 insertions(+), 21 deletions(-)
+
+-- 
+2.34.1
+
