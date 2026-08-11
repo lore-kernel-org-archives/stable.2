@@ -1,72 +1,72 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26C7376A19;
-	Tue, 11 Aug 2026 19:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A919E4756B8;
+	Tue, 11 Aug 2026 19:30:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786476592; cv=none; b=PnjU/LcMR0Zk6OE4T4FPjqrzyh3+PdhsO84E7+N1FCVHsZHAPPChhtFOEA4A/AnUk4C8hAw7cvp+pVnO3Cm4Jby7T6L4XWmp+WNIep6n1zBXDUa8BVWkSOKWqrSKb2ynZCWBfVQA5ObsUJRPjInxs0Ai+yOb5kSUoB6wCEDFJXU=
+	t=1786476605; cv=none; b=WVHlmQEEd2Ms2u/bVTjXALBwtFUjgY/vDPz3M1DrGPNBg7TSSXv7nqUpRjHme3my+y1QA2/XGxTRBSJMhdZ+jr1Jp+0c4f6jpA0FDGlZ92vlvTxEHOZnGsLdgMlOn/5v1ulitzX/kHHPdzu0cErIp7kag2AfnrWzm08YjEnzxVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786476592; c=relaxed/simple;
-	bh=j9Gm8DDKjKyzBZozRxJ0PNn/0Ody/E4Nx8EqNyyC+Ko=;
+	s=arc-20240116; t=1786476605; c=relaxed/simple;
+	bh=YNZL2ufSlEy0CLqIsAH1zp5xzwLejlN89SPjnzWXfi4=;
 	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=duAQ3PSsfhllnwzUY+TAJpvU7VmvVnL7y/ffE3FaaC/m/SEedwH+z4WvdMmeggz7Uj2nnk1sAaNzaAjrx+LbYvYthVDY7GnTXK1kkCB9uPnJYSzGzHH6cMGSkFDCHrRpL7SFagQBbd/YH52sY5xRYAnR//99E16HTxrVkZvMe5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=pPITMA9S; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UQTuUeM0; arc=none smtp.client-ip=103.168.172.150
+	 Subject:Content-Type; b=tjlH3IAWNPcx6dB0Wn+Dn1yLQl/sqa2Qkc+2j5GOcGSWKJChiG/vCpz9XEt81e+SnqyPsbTHEnUVqMj3UBddH9Z6u1XSyP3A0h3SsYtDhKMvU8konNQuiNR4I1Vq5XxtpsX267W6fujEFcNBJ2qqo6RPk/nfRWI5uX7YR9KkP04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=SFhpzzD0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=edV2Zf/U; arc=none smtp.client-ip=103.168.172.157
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="pPITMA9S";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UQTuUeM0"
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="SFhpzzD0";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="edV2Zf/U"
 Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 2B34EEC0031;
-	Tue, 11 Aug 2026 15:29:50 -0400 (EDT)
+	by mailfhigh.phl.internal (Postfix) with ESMTP id B19B814000E1;
+	Tue, 11 Aug 2026 15:30:02 -0400 (EDT)
 Received: from phl-imap-08 ([10.202.2.84])
-  by phl-compute-02.internal (MEProxy); Tue, 11 Aug 2026 15:29:50 -0400
+  by phl-compute-02.internal (MEProxy); Tue, 11 Aug 2026 15:30:02 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1786476590;
-	 x=1786562990; bh=wluX0IZszQoJFssrGt6NKxeLMe1Ht1JHlPzv6z66lHc=; b=
-	pPITMA9SGKEApJ4r94Mctez4gcl96u3adJlSoHqsKm1eW5l90YjyBYwpoJQLayVa
-	vJpuney53nQGEW84Sa+LRKzLmtK1Y+AisFJMyKMzt/mXdFa7+VSEukN0vWD4fmMu
-	UYVKoi/24S2CUvKzKu+jdxPBOuhsrH4gCTO4CqDPSJmvcwjMu65u38NuuE7C1DP7
-	N0stk2NyD0ofcgy4WYthDPpLQxPwl4oNtYxk3mqUqUAy5i15FkhZVKWhNiaWMlv5
-	wqdPCpS/hmAa9raDnNT1vo7huYOSV2Oplz31EA/6RK1Kn1AYU7wtmDPrbojIeUZ4
-	GB05NaWsnfyVWsZqDhu/aw==
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1786476602;
+	 x=1786563002; bh=e0xF6madJv9uPFYJr46rMqOvvTrgBfAm3UejIvfWZCs=; b=
+	SFhpzzD005vlrprtxsb4iCKgOouM1PXv4a5ViLiaT6nS7v4VmVbaEG021Gx2Tcuv
+	78I37f5dm/i9s09bavIoXO7GERGWPDxHQz6DJautpwaxGxdWqHI97iNhapSl1ghA
+	c/8Z9rvxDjfLsUvVKMnS/TlE7xJ5Sb2S8NM2htt47AVAuOSCc28RtEqXcoLFoP8q
+	ocr4KcaxeLqngEo4XD0XlQllLA4gi99E7nGi1WUcdcZujU+IzJv8cV+C1bQ0Ufqd
+	U4ObTHrvgCyPGSjQa7NkZzR6q8uesaqLTVd94/51+JwAIDplDg9Hpcm8CcQCgEc8
+	iexaQkJENGTeQsSB30QKkg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786476590; x=
-	1786562990; bh=wluX0IZszQoJFssrGt6NKxeLMe1Ht1JHlPzv6z66lHc=; b=U
-	QTuUeM0BEzr/vNlYF7VkXKx+aTBMZoarkI3b3+BNX5mqRjXnIKDw/whTrErCcDts
-	Ts6gFwbi/iLzmKOTj2IHBWXZmUJt4TrcDZZqq9KXUNXHe6RIkADd6FNtE54FImzO
-	GxRc67d/Ncg20iobDoPlEMs/VXBMD7fKL9C+3kb6bzEuxI52+xujgW6WZWlqTB6i
-	HkInNeBF02oXcVJ7bhUvjyjk5EHYzRq4RWXLCkvNQrUvUmvCz/Cix/fOTAmCmJ+q
-	AqDFRLjQjDx22uJWy397jci2S2v0O8qS8KwNkNMIdNK/5Pvs1EOK1lqqKctOK9K/
-	1Im1Sz3MhXmS7IWZvLzfQ==
-X-ME-Sender: <xms:Lnh7asxlU1NzHE7s7nj0NRkjeT74aixLYoB6fIO7dC0uOGcm4pjH_g>
-    <xme:Lnh7arFzlgMSbEaWrhAiCKkNDm-cVvq0b0mUnD4ALJH0criUB_sQgGMfVmyEZYyUp
-    qYqm7kWo3SBoCkdlMfsP3YfmH9WL-nDRytIInVYDGnwuOHzqNVFbgQ>
-X-ME-Proxy-Cause: dmFkZTG1V8LEMOPPwfcmXoJnOJmvTz9Sny6C2YseRbZIbHQqYDfXnZz84BlOSKwnyfAiel
-    B/2fIcckO+L8dfSxIcIjGptFleWsoDro0ZHJ3NQVl24zChkAu+jNwyCQmhYoq7/ZnGGcND
-    vUqjMxst/yts8VnlZdADgaa6sSXGxJmuDp8e5VizLzzy07nNTdwiBII3HNblsRd60PS0V8
-    4sJkZoh3jtcACM2MsfyqUxkCXdv0IH/68CBtx+33wqhNE9XZH2itwLiUfM/QtyEB74qSss
-    LplmW0G8MeN1ZgJqoMogDVWLPHg8FogHBvbCgfYhcCZroh7ldDBVNQjB2ITulluEQc5rXm
-    DtczuKJXasqkDJArPV8QcUUhfthfdpPlN7Z8Pd7ohejLs9q5HrqcMiR/OGiWcPgYz8+96H
-    14mr9NaYlcYD/M4EleIg1RZmHd5LseghHqRIg5qMc0shdR4Qug76eAJVKfx5OwQyjvYDum
-    S345W80jpxsL8cmkYjpmXaI8ggSSd2Z0w5wsz7KSDV0Z0uidW0FHKYuBiheB8ruJq/rnNh
-    SuohHE68YUP1MFyFOf4FKs6lLqhESsAZZz/m+mzEIAJp3Zb004Fsy8e9wgV9T+1XcwsqMo
-    y2+GJjVfgVldp02rm4p3OE1BP21zwy40ASzPjZZriSYzi3zr25Wj17qQg5Rw
-X-ME-Proxy: <xmx:Lnh7ait_fV5ydyDykRLZGx9jdAQMkyfhLOh9RyJnIVqy7n_ZVRtr_Q>
-    <xmx:Lnh7asZ84I44WamldVbGFkPiLM5_VcOm_QwRwDPIkroHpr4-c1tszA>
-    <xmx:Lnh7aiA0t8Hb1ouE573uVVxcT_khyNDEmazWjgkE7MWgaDCx21Wgzw>
-    <xmx:Lnh7as-n9_KWYgGxJMBBmnJbrl3_8N1yWi4L943Gecs5FeAOnqgpEQ>
-    <xmx:Lnh7ahFVAcJpqYKlgtaCfg1jBtNCNI5h3kSttPoo73reKqAVn51DC4Ij>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786476602; x=
+	1786563002; bh=e0xF6madJv9uPFYJr46rMqOvvTrgBfAm3UejIvfWZCs=; b=e
+	dV2Zf/US7DAsUJs0uLcvc3bKdfZmYgq10eONjb9nmv/Or42QgnOfJ0oetjC2OdQZ
+	Hzp3oJWHXdVtH7ZC4JBVCYZjXaK031fjQ+IpvK7ZRDKeGcQ6tzlO/Wq1w2JOHRSE
+	AjfHvYGKx7mZHwqcadyiDLByDM2e7ew3HT3Ir7ptYx8QxMF9JeYEzOrxGy0d6k+h
+	pyLxXr+319zlqUj9mjC9UgJy8L3JP9RX8OQ6Hu9vLEcq9sb1EVf3StrRAlmNo9QA
+	M7ucE3C1LYxpWjv2xdmXU+hDfWNF1xElcLA5L6WsxiZLPScLhZR6i1pWORrbw3De
+	0BA4VP2TZE4LXuBc+2Igg==
+X-ME-Sender: <xms:Onh7agdQbsTPewEFE7GqYzM8SuWg781LERjD9FlVLqQWzpwj7OKS1Q>
+    <xme:Onh7atAw4XKvBjzR1v8lkFILL3Djlfqngd8SI2DZWmWOq1EcLIWG3TFFZPUBGpPjX
+    u94Rpj4ur1HGCjkX3FRhFVJ2vuNhQ2x4NiDvnHN9r8Vk3JU2Ameoww>
+X-ME-Proxy-Cause: dmFkZTEBCmee97f3uzfuWd2xPwnnjUYb/SDKXnLe+rohXuyDJnHYw5Tiiz6rISdqUMwCrM
+    jSm0CB7qY2gVoFaxoiKz1fE3YQBsf72azdaXGB9hy8qTJ6zE3qwOp8GiP0/g9hdQ+Y8a+7
+    mLpjOWGOztJ7wHyfCvhq/+2SBeV2joBsFm1TlzvMXPyuQbxoSlOc+Soys7xpORnWsGpH3w
+    SsIeSL2b+m4lqZuW0Q7PqMpr9DrIcJjEgCqFR4mLIylOFLqY9n1aC6V9o5GpWZziSZlKru
+    4lgfQ6OcSfyoLvfp+WfmkQyBefFGEFj2Z+JdxFK8dHKlrycZ/obRE18s5CSYqKm0VrrVLD
+    pAWNKYd6un3RyYyeK3hfYXmeBKbhKe8X9oLpBGy9xnkPQT4m6nzusoLMFwuTReNq96c7JO
+    jeSp2dg3TURrVyCXYpg1A0r74lzWR1XUFE2JMcDEVHZwDtYe1nHE394WOrODvxm8/Xr9Pk
+    nhaUii8iuIvWWTpMMFMLbG7RVQfgP/+gQyywNYzZdkLJhjSCvTII3GcMsBjgmRofgpmcGe
+    r6ozEvzK/1iioLBv/ifHuJM4H47lwb1E0gxWMLw55Efsx+1E+EVdAwkuBupVReJZmAcyBa
+    tJIHGK7bjFTWsCI1eeXW42yZogsd5Pa3NvO9oqmE8SjblxjSVcZK9aZvxi7A
+X-ME-Proxy: <xmx:Onh7atwOJchdyCSy-Uu8JzsdWcMEPj_kBKnSNFjIqZzMC0BwtVHL_g>
+    <xmx:Onh7anQZ2nJlj60Y3MMMONE02tVIUFuaDC5U0QT3BX14zE_ku-jxrA>
+    <xmx:Onh7at-c6RAJGXo59CSWXAzdQ4NOcX5frasFU6j_W3j83llylS0GnQ>
+    <xmx:Onh7atsitPbVFAC5LgnYWOWif8KASz-S1YUfE_SXVrM9g8etAlYm3g>
+    <xmx:Onh7ajWojBviWBksCrNMH-ScZu5LaM5y2nHbC-GqooRdh6Dt7jpsSGxr>
 Feedback-ID: ibe194615:Fastmail
 Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 01FC32CE0072; Tue, 11 Aug 2026 15:29:49 -0400 (EDT)
+	id 8FDC32CE0072; Tue, 11 Aug 2026 15:30:02 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -74,70 +74,55 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ASsTb3f6X8qB
-Date: Tue, 11 Aug 2026 15:29:28 -0400
+X-ThreadId: AFLpGHKBV9SR
+Date: Tue, 11 Aug 2026 15:28:46 -0400
 From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
 To: "Thorsten Blum" <thorsten.blum@linux.dev>,
  "Derek J . Clark" <derekjohn.clark@gmail.com>,
  "Hans de Goede" <hansg@kernel.org>,
  =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: stable@vger.kernel.org, "Mark Pearson" <markpearson@lenovo.com>,
+Cc: stable@vger.kernel.org,
  "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
  linux-kernel@vger.kernel.org
-Message-Id: <15a1d7e9-f882-44ce-a24f-89b266e80efa@app.fastmail.com>
-In-Reply-To: <20260810132018.156868-3-thorsten.blum@linux.dev>
-References: <20260810132018.156868-3-thorsten.blum@linux.dev>
-Subject: Re: [PATCH] platform/x86: think-lmi: Fix current password length check
+Message-Id: <9068b9d7-09bd-40c5-b288-76d4d4e25c31@app.fastmail.com>
+In-Reply-To: <20260810204106.165895-2-thorsten.blum@linux.dev>
+References: <20260810204106.165895-2-thorsten.blum@linux.dev>
+Subject: Re: [PATCH] platform/x86: think-lmi: Free system certificate signatures
 Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 10, 2026, at 9:20 AM, Thorsten Blum wrote:
-> current_password_store() checks the password length before removing the
-> trailing newline, which can reject valid passwords that are exactly
-> ->maxlen bytes long.
+
+
+On Mon, Aug 10, 2026, at 4:41 PM, Thorsten Blum wrote:
+> Multi-certificate support also allows the system authentication object
+> to store ->signature and ->save_signature, which leak when the driver is
+> removed. Free the signatures to avoid leaking memory.
 >
-> It also passes ->maxlen to strscpy(), which truncates passwords without
-> a newline.
->
-> Use strchrnul() to measure the password length up to the newline, then
-> copy that many bytes and add a trailing NUL terminator.
->
-> Fixes: a40cd7ef22fb ("platform/x86: think-lmi: Add WMI interface 
-> support on Lenovo platforms")
+> Fixes: 5dcb5ef12590 ("platform/x86: think-lmi: Multi-certificate support")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 > ---
->  drivers/platform/x86/lenovo/think-lmi.c | 8 +++-----
->  1 file changed, 3 insertions(+), 5 deletions(-)
+>  drivers/platform/x86/lenovo/think-lmi.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 >
 > diff --git a/drivers/platform/x86/lenovo/think-lmi.c 
 > b/drivers/platform/x86/lenovo/think-lmi.c
-> index e215e86e3db7..860224dc8c21 100644
+> index e215e86e3db7..e3e683bf3469 100644
 > --- a/drivers/platform/x86/lenovo/think-lmi.c
 > +++ b/drivers/platform/x86/lenovo/think-lmi.c
-> @@ -436,16 +436,14 @@ static ssize_t current_password_store(struct 
-> kobject *kobj,
->  				      const char *buf, size_t count)
->  {
->  	struct tlmi_pwd_setting *setting = to_tlmi_pwd_setting(kobj);
-> -	size_t pwdlen;
-> +	size_t pwdlen = strchrnul(buf, '\n') - buf;
+> @@ -1456,6 +1456,10 @@ static void tlmi_release_attr(void)
+>  	/* Free up any saved signatures */
+>  	kfree(tlmi_priv.pwd_admin->signature);
+>  	kfree(tlmi_priv.pwd_admin->save_signature);
+> +	if (tlmi_priv.pwd_system) {
+> +		kfree(tlmi_priv.pwd_system->signature);
+> +		kfree(tlmi_priv.pwd_system->save_signature);
+> +	}
 > 
-> -	pwdlen = strlen(buf);
->  	/* pwdlen == 0 is allowed to clear the password */
->  	if (pwdlen && ((pwdlen < setting->minlen) || (pwdlen > setting->maxlen)))
->  		return -EINVAL;
-> 
-> -	strscpy(setting->password, buf, setting->maxlen);
-> -	/* Strip out CR if one is present, setting password won't work if it 
-> is present */
-> -	strreplace(setting->password, '\n', '\0');
-> +	memcpy(setting->password, buf, pwdlen);
-> +	setting->password[pwdlen] = '\0';
->  	return count;
->  }
+>  	/* Authentication structures */
+>  	list_for_each_entry_safe(pos, n, &tlmi_priv.authentication_kset->list, entry)
 
-Change is good.
-Only minor note is that I hate to lose the comment explaining why we're losing the CR. Can we put that back in above the strchrnul operation?
+Ouch, this one is an embarassing miss for me. Thanks for fixing.
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
 
 Mark
