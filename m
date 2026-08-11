@@ -1,81 +1,99 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C8A1F3BA4;
-	Tue, 11 Aug 2026 08:01:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0356C411661;
+	Tue, 11 Aug 2026 08:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786435263; cv=none; b=uWWTEaH9dbiue4WFeRMnXM3hMAY1jxsXYgqsaI6hLBvXeW7dWLq9JO9nHsujIbWciaIOFy1Z8m1runMqnyN8w5RLhNQ0Hv+5EOlLH4sm5kLFbTFEJTeQxvPcJ6F1QitdLbU4cGBHYlP1U1/3FQo01ntsq7HlbsLLD5hG5X2z8x4=
+	t=1786435825; cv=none; b=prctf4AgwWFpUtrcQIJTHMrJE26RSF2pVqSswhnfg+2Z7zY/5iWaNFEAQ1gTo8dbRwzCVnid7F4uWbc3ggxPHfsmr6lvZ+Ozr1wnOWw9RspwXoXJ4nxIjn3xTZo+Z0M2kQGIe0BJkd++MLPhoyAseMtpmbOVnjOITy9NejNHQjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786435263; c=relaxed/simple;
-	bh=H+Vk2xfo+B0+N8bIbj6BdstT/ByQMh1o5WlBDlRhmC8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ZOrAxZ48Fv1tvI874UrQymBWiJxLbcBmqsuso8ooNF8pc4A+rgwFg2WUc+3Tv6y16X17+j6Qt7UehwcHMUClPiH/+GlKoW44eEdKMA83w+2mjpQXKddT7n40VKim5+ad8cAeDNaZrwPXeSJPLhgZ7EEO4x1TVO2gAwdR3F211Oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B8epk+UH; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1786435825; c=relaxed/simple;
+	bh=5f0/Ny667ZzYZJ47DRAO1p+MRHOT6lkQS+0YRaORdLA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MA2F3Udm4SdHWt1RGVTTY+MJJWQqaYwFFqBrZnmWiaQrEHSSZAaSQ6tN1bl57RPC4XgZw88d+hhXzhUDt7AEcgP8ugbi3XXmW4GXhyL5sjc+2ky4xBeRC8GMy/WzrC4TQOsWJjv8MJlMDwvVxePg2oOeq2ZWo2tY/LwHj/4dznI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2UU/DQpj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B8epk+UH"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id D18164E411B0;
-	Tue, 11 Aug 2026 08:00:53 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A488E6033C;
-	Tue, 11 Aug 2026 08:00:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8603E11C4AC8A;
-	Tue, 11 Aug 2026 10:00:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786435252; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=DK/f7XA+PNdm3nlpd0KdTqNH4jmg+PuecPVyS45ASeE=;
-	b=B8epk+UHdC2aNpPUpx9FPPuveb0bF6G5+0E76OmELomEoDP+8KK9+TRoKMbPWrpG3cxccK
-	dBnb2y3zlKlZE6J7eR2geVbY0oFBlii35Tj95+gmYmLyWFVVZf5cRobongalKrfWdWeoaU
-	dpkLFsVIgCfdNXbKS66m7Yq3/M9VZk7QCyC89pneyWEd+wfaolWjs/BpTsBqLHvFgpSOmg
-	DOqbkjr7+rNMJzugOEHPkdANvl+at9kmuuaMy7xSMdZBCh8NKFqJSS2Z4+zKwdUwoJb/xK
-	N5obgM9P3ohGXJom162SQAeuj7Ygh/Zjs+s7u0k22SZ5cTzO2aewORHFZrvi2Q==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: linux-wpan@vger.kernel.org,  Stefan Schmidt <stefan@datenfreihafen.org>,
-  Alexander Aring <alex.aring@gmail.com>,  Varka Bhadram <varkab@cdac.in>,
-  Andrew Lunn <andrew+netdev@lunn.ch>,  "David S . Miller"
- <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,  Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,
-  netdev@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] ieee802154: cc2520: fix FIFOP work use-after-free
-In-Reply-To: <20260811010359.131381-2-fanwu01@zju.edu.cn> (Fan Wu's message of
-	"Tue, 11 Aug 2026 01:03:58 +0000")
-References: <20260811010359.131381-1-fanwu01@zju.edu.cn>
-	<20260811010359.131381-2-fanwu01@zju.edu.cn>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 11 Aug 2026 10:00:45 +0200
-Message-ID: <87o6f9ozma.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2UU/DQpj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B544C1F00A3A;
+	Tue, 11 Aug 2026 08:10:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786435823;
+	bh=Qia2GBLa3uGfOENajCCh3ErjQV0Nz7IBPzM4Q9K25uU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=2UU/DQpjA9BD4KjeO3nbAmvwmTDS3PNec+0I0gKwYZ5aTXFT/s/4h5FmCLXz2Mlm6
+	 g346zWPl2Y8TnuNFGH4TebaylOsUmN3aXVKKH/0VRbDjCSiYpCZV2iyvIm4urFkG66
+	 4EmUvS0jq29JGY3qXu7xX7u5N2V+iSZQcQXG7b94=
+Date: Tue, 11 Aug 2026 17:08:49 +0900
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Sergio Callegari <sergio.callegari@gmail.com>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Linux kernel regressions list <regressions@lists.linux.dev>,
+	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	George Zhang <george.zhang@amd.com>
+Subject: Re: [REGRESSION] Please revert 1191285ecb42 from 7.1.y
+Message-ID: <2026081151-reabsorb-calamari-7442@gregkh>
+References: <9c6acb62-4080-48e6-9ba2-d1c457c4ec88@gmail.com>
+ <2026081106-pebbly-cahoots-37a7@gregkh>
+ <23db5f95-c2d6-4712-856e-28f647e184f7@leemhuis.info>
+ <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
 
+On Tue, Aug 11, 2026 at 09:28:52AM +0200, Sergio Callegari wrote:
+> On 11/08/2026 07:24, Thorsten Leemhuis wrote:
+> >
+> > And yes, 6.18.y seems affected, too, according to a comment in the
+> > ticket linked below.
+> >
+> 
+> Yes, my bad I only mentioned 7.1.6 to be quick. My actual concern is that
+> the troublesome commit got to the LTS kernels, which I think is the biggest
+> issue right now. People may find their display completely black or almost
+> black as soon as their DE starts. Getting to the conclusion that they need
+> to /reduce/ the brightness to recover is not totally obvious and is not
+> applicable at all if you have a system that is touchscreen only (since you
+> won't be able to see where to press).
+> 
+> >> It needs to be reverted in Linus's tree first, otherwise the regression
+> >> will be hit when you update to 7.2.
+> 
+> Indeed, but I think the biggest issue is with the LTS kernels right now.
+> 
+> > Normally I'd agree, but according to one reporter that problem does not
+> > happen with 7.2-rc:
+> > https://gitlab.freedesktop.org/drm/amd/-/work_items/5562#note_3603131
+> 
+> I'll see if I can try myself the 7.2 RCn series. From my superficial
+> analysis of the commits that brought us to the current situation, the
+> troublesome commit actually tried to patch on a true issue, namely that the
+> user facing brightness data is not mapped symmetrically to the hardware
+> data, but that the correct solution involves some more thorough rework of
+> the brightness coordinate system. So there may well be some larger activity
+> on it on upstream.
+> >
+> > Given all that I wonder if dropping that commit for now might be the
+> > best move.
+> 
+> Personally, I think that dropping on the stable series would be beneficial,
+> unless upstream can now offer a correct solution to pick. Behavior you get
+> by dropping is not 100% ideal but certainly not as bad as what you get with
+> the problematic commit.
 
-> The FIFOP interrupt handler queues cc2520_fifop_irqwork.  On removal,
-> cc2520_remove() only flushes the work.  The devm-managed FIFOP IRQ
-> remains active until after ->remove() returns and can queue the work
-> again after that flush, allowing it to run after the private data is
-> released.
->
-> Disable the work with disable_work_sync() instead of flushing it, so
-> the handler can no longer queue it once removal begins.  Destroy the
-> buffer mutex last, since the worker and the stop callback invoked
-> through ieee802154_unregister_hw() both take it.
->
-> Found by an in-house static analysis tool.
->
-> Fixes: 0da6bc8cc341 ("ieee802154: cc2520: adds driver for TI CC2520 radio")
-> Cc: stable@vger.kernel.org # v6.10+
-> Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+We aim to be "bug compatible" with Linus's branch, otherwise the
+"pressure" to fix those bugs goes down.  But I defer to the maintainers
+of the code involved if it is being worked on, and they want it
+reverted, great, we can do that.  Otherwise we prefer to leave it as-is.
 
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+thanks,
+
+greg k-h
