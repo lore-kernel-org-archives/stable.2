@@ -1,67 +1,45 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4A2442FB9;
-	Tue, 11 Aug 2026 12:10:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0827443AA3
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 12:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786450224; cv=none; b=kS6j5NzKH1fwjQIjWWHv3sfRfTHHIC49+aJwIiUxbsoDQJVtcEnoSkJ4HoQXKaNeZBxh+Q6KBbpIdNPXbJEu+d/MemSZAUGAKDrFMpHjmYLPm9N4/OFtrzxDExxqOqHEQu98Pyst/d72Zya51gQy9DZ5sffYA0rmWaubMqDe1dM=
+	t=1786450525; cv=none; b=mqxlrqUEgqKDveM0yTN0ji9j+BdDrif29VDZk7/73BK7dGkZXvptwgmc4MH0a+dUfJPL/+EobO3SmCdAwqcmUC0rULwtrvx6ey/Dxd2dWRJlVoGXOAWKIx7tcZrInn57JFby8UE4dqbaJCF6fswztZ8Afi0OplLt3eU7aSbQ13c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786450224; c=relaxed/simple;
-	bh=HmypVKWkFsF3o7Q+7+8qsfuScnWCCt8wnjT8gIKHiU4=;
+	s=arc-20240116; t=1786450525; c=relaxed/simple;
+	bh=sExZ8cJu+BTg9WZxZkyHh1+vAMN1L+gz7ohdR1KFW2E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jVD+ajdR8CPgbg3pC/qUwAHrjzi2/k3/8NlEAWJ3gYY72BkM7zbtIipniz3Eo0LAU/3c53Iv8vkorCa1Dq70A2rVMkScG5WUhekkafV09W3jUneE/GbeZoo9rl37dxUBevMRwNONubo8R/x7RgY3ZjwCGURKi7UEvXvFnkKpyx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E/UU47uE; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 MIME-Version; b=ec92hMPZUpJSp/LlvXhbdAg7PBV+RKwGh0In9yEyr0+jEHm75XLISXMTRrsmXACBYFRvGfHsM+mn3BFUMEbrRTgaKZ87D2ETboGvgYBvdjoHmxYCxhL6dpf1NjvOr5GDc6VmlPKFwaH7HfuXI7EPw4nFn9mqpP8f+ypaHZGmIeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PRldR3W6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E/UU47uE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786450224; x=1817986224;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=HmypVKWkFsF3o7Q+7+8qsfuScnWCCt8wnjT8gIKHiU4=;
-  b=E/UU47uEvDh6wkikrkP/x8RAiuta9mYiZuB+QOpxFxbOH5q6xG+YMZf+
-   mYhwsHHrnif1txGECCB0ghv99TSgU8ikBUeMok2IVKBv6Izl9apHXhHbS
-   aJ2KJRXiF4ibIHEr1Kk0YI1SaZxTjYHBDoRYt2dkt3fWWU81mxhlsgmdv
-   IOB5yW7oDjHTcf/jP112iyLq0H0mh2IjYkXjS5MM3sKLfYYafRK+O8xx0
-   h/ElVRjSfEarSk5ggDginx+gOPRzurZuzTh2gJjAgLqCfmuLP/vpqYHQC
-   4lA5VwKRa7g2v0ikCsOwfW/BRxPbsyWB0KD4o8IgNgb60m5i8uefLwKIQ
-   Q==;
-X-CSE-ConnectionGUID: /cF5aibIQxWexQSWryznLw==
-X-CSE-MsgGUID: pd6kUlZ8RqOrneqliOENlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="85941399"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
-   d="scan'208";a="85941399"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 05:10:23 -0700
-X-CSE-ConnectionGUID: Cl2SjOpaRteQcUBKGqCwmA==
-X-CSE-MsgGUID: D78l0KupQaaHYxKyee2xXA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
-   d="scan'208";a="261560063"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa006.jf.intel.com with ESMTP; 11 Aug 2026 05:10:19 -0700
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Raag Jadav <raag.jadav@intel.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
-	Ramesh Babu B <ramesh.babu.b@intel.com>,
-	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
-	linux-kernel@vger.kernel.org,
-	intel-xe@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: [PATCH v7 3/3] drm/xe/i2c: Keep the i2c controller always enabled
-Date: Tue, 11 Aug 2026 14:10:08 +0200
-Message-ID: <20260811121008.1493015-4-heikki.krogerus@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260811121008.1493015-1-heikki.krogerus@linux.intel.com>
-References: <20260811121008.1493015-1-heikki.krogerus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PRldR3W6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8CB51F000E9;
+	Tue, 11 Aug 2026 12:15:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786450523;
+	bh=rqI/dH7UAwTG6a0uDTRvbMJ6VzaWsEXzJwuxLwvZ+zE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PRldR3W65xKqIVyyRQqKCDVOyNyhSGL67hrS7fyqSgRwtDIXsz+qpKNJ3nmt0gBPu
+	 wSOX2d0jPJ0G9YUwpVhb3toIVFFFMIo5Kxdx71GFCTlFEnWLEYuGQ3ZW6tBWco1uww
+	 /PrDckFzx+Q0JUCKnwJQ1P8XMNz01SMDJEYO8vCEds7BlfkFw6wdpMARIzv4G0Op9J
+	 WzTRdAykwG6WRTQH456GT8zR78kKRdPVbjL2yV4hA8IFCwMWCkRiS/E1ZPvPcKbDbI
+	 Wo8rhFGLS5zQwVWuL0i+KYLirRoc99EDrNczyx/RMslwOoqK0YduuHZgKntXJaGe6f
+	 wz6bLgXCuzbbg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Carlier <devnexen@gmail.com>,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	Dima Ruinskiy <dima.ruinskiy@intel.com>,
+	Moriya Kadosh <moriyax.kadosh@intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] igc: remove napi_synchronize() in igc_down()
+Date: Tue, 11 Aug 2026 08:15:19 -0400
+Message-ID: <20260811121519.2373544-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080521-detention-unleaded-97b7@gregkh>
+References: <2026080521-detention-unleaded-97b7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,117 +48,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some platforms make an assumption that the i2c controller's
-enabled state indicates also the power state of the
-controller. This can create a problem when the controller is
-in disabled state, because the hardware may assume
-incorrectly that it is then also in low-power state.
+From: David Carlier <devnexen@gmail.com>
 
-To fix this, the controller is kept enabled by taking over
-the IC_ENABLE register. The controller has to be disabled
-when the configuration is updated and when the target
-address or the slave address are assigned, so disabling it
-when IC_CON, IC_TAR or IC_SAR registers are programmed, and
-then re-enabling it again.
+[ Upstream commit 5ffab5b9589c50e4cfc0cf36ffd76c89422d4019 ]
 
-Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
+When an AF_XDP zero-copy application is killed abruptly, the XSK pool is
+torn down but NAPI keeps polling. igc_clean_rx_irq_zc() then returns the
+full budget on every poll, so napi_complete_done() never clears
+NAPI_STATE_SCHED.
+
+igc_down() calls napi_synchronize() before napi_disable(), so it spins
+forever waiting for that bit and the interface never goes down. Drop the
+napi_synchronize() and let napi_disable() do the job -- it sets
+NAPI_STATE_DISABLE, which forces the stuck poll to complete. Reorder it
+ahead of igc_set_queue_napi() so the NAPI mapping is cleared only after
+polling has stopped, matching the recent igb fix b1e067240379.
+
+Fixes: fc9df2a0b520 ("igc: Enable RX via AF_XDP zero-copy")
+Suggested-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Reviewed-by: Dima Ruinskiy <dima.ruinskiy@intel.com>
+Tested-by: Moriya Kadosh <moriyax.kadosh@intel.com>
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_i2c.c | 49 ++++++++++++++++++++++++++++++++++++-
- drivers/gpu/drm/xe/xe_i2c.h |  1 +
- 2 files changed, 49 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/intel/igc/igc_main.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index 32767570e43d4..d8fa68206f418 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -8,6 +8,7 @@
- #include <drm/drm_print.h>
- #include <linux/array_size.h>
- #include <linux/container_of.h>
-+#include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/err.h>
- #include <linux/i2c.h>
-@@ -215,11 +216,40 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
- 	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
- }
+diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
+index 13c41facfc976..6fdf009df836d 100644
+--- a/drivers/net/ethernet/intel/igc/igc_main.c
++++ b/drivers/net/ethernet/intel/igc/igc_main.c
+@@ -5085,7 +5085,6 @@ void igc_down(struct igc_adapter *adapter)
  
-+/* See "Disabling DW_apb_i2c" in the DesignWare DW_abp_i2c databook. */
-+static void xe_i2c_disable(struct xe_i2c *i2c)
-+{
-+	int timeout = 100;
-+	u32 status;
-+
-+	xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), DW_IC_ENABLE_ENABLE, 0);
-+
-+	do {
-+		status = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_ENABLE_STATUS));
-+		if (!(status & DW_IC_ENABLE_ENABLE))
-+			return;
-+		/* Can't sleep here. */
-+		udelay(25);
-+	} while (timeout--);
-+
-+	dev_warn(i2c->drm_dev, "timeout in disabling i2c adapter\n");
-+}
-+
- static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
- {
- 	struct xe_i2c *i2c = context;
- 
--	*val = xe_mmio_read32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET));
-+	*val = xe_mmio_read32(i2c->mmio, I2C_REG(reg));
-+
-+	switch (reg) {
-+	case DW_IC_ENABLE:
-+	case DW_IC_ENABLE_STATUS:
-+		FIELD_MODIFY(DW_IC_ENABLE_ENABLE, val,
-+			     i2c->ic_enable & DW_IC_ENABLE_ENABLE);
-+		break;
-+	default:
-+		break;
-+	}
- 
- 	return 0;
- }
-@@ -229,6 +259,23 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
- 	struct xe_i2c *i2c = context;
- 
- 	switch (reg) {
-+	case DW_IC_CON:
-+	case DW_IC_TAR:
-+	case DW_IC_SAR:
-+		/* Disable the controller. */
-+		xe_i2c_disable(i2c);
-+
-+		/* Write the register. */
-+		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
-+
-+		/* Enable the controller. */
-+		xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 0, DW_IC_ENABLE_ENABLE);
-+		return 0;
-+	case DW_IC_ENABLE:
-+		i2c->ic_enable = val;
-+		/* Other fields can be updated except the enable bit. */
-+		val |= DW_IC_ENABLE_ENABLE;
-+		break;
- 	case DW_IC_SMBUS_INTR_MASK:
- 		/* Make sure the Alert is never masked. */
- 		val |= DW_IC_SMBUS_INTR_ALERT;
-diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
-index b200966b00484..d63adacfefe71 100644
---- a/drivers/gpu/drm/xe/xe_i2c.h
-+++ b/drivers/gpu/drm/xe/xe_i2c.h
-@@ -37,6 +37,7 @@ struct xe_i2c {
- 	struct platform_device *pdev;
- 	struct i2c_adapter *adapter;
- 	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
-+	unsigned int ic_enable;
- 
- 	struct notifier_block bus_notifier;
- 	struct work_struct work;
+ 	for (i = 0; i < adapter->num_q_vectors; i++) {
+ 		if (adapter->q_vector[i]) {
+-			napi_synchronize(&adapter->q_vector[i]->napi);
+ 			napi_disable(&adapter->q_vector[i]->napi);
+ 		}
+ 	}
 -- 
-2.50.1
+2.53.0
 
