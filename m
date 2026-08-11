@@ -1,135 +1,108 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9157F36B07E;
-	Tue, 11 Aug 2026 18:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F46A309EF4;
+	Tue, 11 Aug 2026 18:39:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786472467; cv=none; b=f7XZx993FK4IVUlDMG7a0Iv6BcLhq0ulcjyIFCbqpELn6YgRwGhVy7jAQOhZWz8HCp5DqX8brjK26/Eoz4LwiTGOk5iDT98NNEpFlsbtwTMq7ofi5WeMl3h+j2kmFArhT6zCn31o+qYCEDxIw+B34v5aZY6ecytChcjp7yFnwnY=
+	t=1786473542; cv=none; b=fZm2+KwTgawhh3YWUVh3RFMW+k5eBdZq7nR928fM/cxvAFKjJKciK5ja4/Bk/D+btpUP0HnV0XnrLNehTRzqktlbfkw6jw3M5v1YukLUGspTeYRDLY38jsmFjgBBJGYXkoUEJlIUY7ilTJQH6qQKyNFMAI8nhG8BwbJzYCD4pg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786472467; c=relaxed/simple;
-	bh=xnfRfHSr64vd14rZbtHnCxj6Ysn3YXPPV+LEai+DJNI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=bwItf9HTrjOb4AeQI3MiXKCsZN3vO5eNVna28qGfYNyocdkYhImcWLlET5T2aeLBmZiaJxVgoBh6pNLEl9dRMSCvHakBT1zLHxLtFB4tpaT2cYAOY6ShBP9wghuEW3CKB5txv1JZg4jzRf8WlLqkyu/1R4y2g+2v+Q5gDGKZ96Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=WjKuqR/c; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786473542; c=relaxed/simple;
+	bh=2IcxlWhkJXmiisVgN76xwntCvgvmPVpeDxv/wcGIiTk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QJYmYr5FwUp2I0Yks2cRHXPS79v13IC5P/+g5kmM5vKoWxmA7+mzlCzo4SMJSvdH88yBmjtG4DEYbi/tM2frt8bEgQoickip/jRajQAoOuWwH6Fg3L3LL6vpWdCOJCn81zC8rN+eKDAXFu8bdoi+j0VwqF5sfF99xZFFEkx6nAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bsq30oIX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="WjKuqR/c"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BGVekt846678;
-	Tue, 11 Aug 2026 18:20:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=xnfRfH
-	Sr64vd14rZbtHnCxj6Ysn3YXPPV+LEai+DJNI=; b=WjKuqR/czqD588R+aQSf6F
-	eAnGP97U7X8+CppQ3HSfWcIxvcW6r8ouaoHvgtfF9shDzNUyBDMpA6ji3kYgTcKC
-	u/Q65ib4+uZC25o/4UwZXQusC7gUKXvVx5m0Ih8C7pTdvF9CMd/+NP2tJRF0vaQV
-	f4LKwiWhsOqlacsHYIaGMebFaU0ZX+YRUUm/oapu48E7rv5UG8qAMQcVgAYsEWvm
-	cb/e3fpghZiNKod6AKFwLAQsqYyO5M+CU7Oinwqu74DDHq7hztVK0R+whKoSPN6G
-	12eM7o+QjFyLvZt9ncvCDvaeaKx12P3g84pOkyEeOhKJjJCgmA+DoJcVPTWQbH8g
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvp2wrqn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 11 Aug 2026 18:20:56 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67BIBGrA006264;
-	Tue, 11 Aug 2026 18:20:55 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fxh0ga24f-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 11 Aug 2026 18:20:55 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67BIKFbR29360640
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 11 Aug 2026 18:20:15 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AE00358056;
-	Tue, 11 Aug 2026 18:20:53 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A1ECD5805A;
-	Tue, 11 Aug 2026 18:20:52 +0000 (GMT)
-Received: from [9.61.146.44] (unknown [9.61.146.44])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 11 Aug 2026 18:20:52 +0000 (GMT)
-Message-ID: <c3b21393-d01f-4816-90b6-4c868d4a0f9d@linux.ibm.com>
-Date: Tue, 11 Aug 2026 14:20:52 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bsq30oIX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287E01F00A3A;
+	Tue, 11 Aug 2026 18:39:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786473541;
+	bh=do2XKhDCxgRyux4sbGO+SL+POHJmP39DxWYxzqtT9Lw=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=Bsq30oIXhtCGipX2jCZP84ZNtzuM8tFQ3L5GV2brb1g9D4/D81M+YkOXerdUs0ZDm
+	 03iIxqptAvt9OJMyT8dZrRnesKqppvP1bCc3klOPzFXQdw3Tj+8Cex21Y9F41fiQP6
+	 fkax0rNyxxHPz3frRXLXT/7pY2ode3Afw4Ju+GaNbkiERm9XFiEN6kUkxRjLeY/rTm
+	 I3oa0HAkc8mNvuu6emrgVl6qZdVYQY9ILjQheCjVUhdgnzsTX0E59Oxe4DfWBNBoj9
+	 qp91mZuE0H1hsstPext0uX1OffjetvnRJxGjzkKY4h9BeE9V2+2SgtGsbDRz/HUkkQ
+	 vQn3lekeyLeZw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id EC26CCE17BC; Tue, 11 Aug 2026 11:39:00 -0700 (PDT)
+Date: Tue, 11 Aug 2026 11:39:00 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Breno Leitao <leitao@debian.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vmscan: report RCU-tasks quiescent states in
+ shrink_lruvec()
+Message-ID: <2a402225-57e2-4d5c-ab2d-7d8724b86246@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260810-rcu_task_shrink_lruvec-v1-1-4d9f7d5251cb@debian.org>
+ <anqnkZceNHyvbR5S@linux.dev>
+ <e019296d-43f5-47bd-ab49-6dfd1d8da0cb@paulmck-laptop>
+ <anthYiiYPuUYbj1Q@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] s390/vfio-ap: Fix required lock not held during
- display of sysfs status attribute
-From: Matthew Rosato <mjrosato@linux.ibm.com>
-To: Anthony Krowiak <akrowiak@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
-        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
-        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
-        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
-        stable@vger.kernel.org
-References: <20260810192257.1208410-1-akrowiak@linux.ibm.com>
- <20260810192257.1208410-8-akrowiak@linux.ibm.com>
- <5d755e25-be9d-4227-b06c-63563fcce0b5@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <5d755e25-be9d-4227-b06c-63563fcce0b5@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=AMtp2X5w c=1 sm=1 tr=0 ts=6a7b6808 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=8gt7DvUvnbPXcpqzDXYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: QXkwCKTxdmHT9EodZW_CLTOpkyMSeqES
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDE1MSBTYWx0ZWRfXzkphd+Oi70b8
- iHk+3rbzpGMcmzIUqXHzHRnX3m0Lx6wKlOyHY80b6Ymy3eRl6qgazeE/WtZWFahGeqq7PKDz/34
- r+RuC68cfQWgC/RSYt3WSbeS1qFl3eW3aP1/iHrDs0DYb9Xq4UUZ/n4Qcj8q++zrOQe5g7D4Uwe
- 2SP6L3ihhPaQ+tkEzZqmq+yA5V9EoZTAyWz4zUpJ3DDm5QmI1cxrzAL2PI2GDrCQiylAe/dAhJe
- bGqqJxfRbyWLBxYxc4tsL3HshBqAwopOFxy9FVca2xVStTt0F4RkCKifnuXckZIotxd+WPfNqLK
- ibRdfIL5W8FVg8BFeRE/ecSbtwWGJhnAnBm5FYa41RorAb20h/IGaAMZwFFPYsRJ3fzgrk/g2rh
- 203LxYB9IyClu3YyWbn7eEr0Da9diQdOON3M5p6LXMwF1agWwr+uK6LwISC3Kvd1e+OR5AVfIsz
- +cZrulK8Yl3hfOvxNEw==
-X-Proofpoint-ORIG-GUID: QXkwCKTxdmHT9EodZW_CLTOpkyMSeqES
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDE1MSBTYWx0ZWRfX/1xuGVnaCNcZ
- eiqV9Hx2Y0twcYr0VeaY0QB+C3QqNYBklia7pchhjM4SCBIhxvwuyjDdg+wc7uuOdKzdlfcM7A6
- 0Z8M3pvacAoWM9NmEgczgLsnwmWnZXw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-11_04,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608110151
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anthYiiYPuUYbj1Q@linux.dev>
 
-On 8/11/26 2:03 PM, Matthew Rosato wrote:
-> On 8/10/26 3:22 PM, Anthony Krowiak wrote:
->> The status_show function that supports display of the status attribute of
->> the devices in /sys/bus/ap/devices calls the vfio_ap_mdev_for_queue
->> function which iterates the matrix_dev->mdev_list to find the object
->> representing the queue device whose status is to be displayed. In order to
->> traverse this list, the matrix_dev->guests_lock mutex must be held which is
->> not the case.
->>
->> To fix this, the guests_lock mutex is taken prior to taking the
->> matrix_dev->mdevs_lock mutex in the status_show function. It is taken
->> there rather than the vfio_ap_mdev_for_queue function - where it is
->> needed - because it must be taken prior to the mdevs_lock mutex in order to
->> adhere to the proper locking order and prevent a lockdep splat; also
->> because the mdevs_lock is needed there to access fields within
->> the matrix_mdev object in that function.
->>
->> Fixes: f139862b92cf ("s390/vfio-ap: add status attribute to AP queue device's sysfs dir")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
-> Please see my comment on patch 3.
+On Tue, Aug 11, 2026 at 10:54:23AM -0700, Shakeel Butt wrote:
+> On Tue, Aug 11, 2026 at 10:38:40AM -0700, Paul E. McKenney wrote:
+> > On Mon, Aug 10, 2026 at 09:43:03PM -0700, Shakeel Butt wrote:
+> > > On Mon, Aug 10, 2026 at 02:57:36AM -0700, Breno Leitao wrote:
+> > > > I am seeing some rcu_tasks stalls in the Meta fleet during reclaim.
+> > > > 
+> > > >   INFO: rcu_tasks detected stalls on tasks:
+> > > > 	0000000088620d09: .. nvcsw: 6735/6735 holdout: 1 idle_cpu: -1/8
+> > > > 	task:GlobalCPUThread state:R  running task  pid:2552016 tgid:2524552
+> > > >   Call Trace:
+> > > >    shrink_lruvec
+> > > >    mem_cgroup_iter
+> > > >    shrink_node
+> > > >    do_try_to_free_pages
+> > > >    try_to_free_pages
+> > > >    __alloc_frozen_pages_noprof
+> > > >    alloc_pages_noprof
+> > > >    pte_alloc_one
+> > > >    __pte_alloc
+> > > >    handle_mm_fault
+> > > > 
+> > > > Nothing promises direct reclaim returns in bounded time, and the scan
+> > > > loop in shrink_lruvec() only calls cond_resched(), which is a no-op on
+> > > > PREEMPTION kernels.  Involuntary preemption is not a Tasks-RCU
+> > > > quiescent state, so the reclaiming task never reports one and becomes a
+> > > > holdout.
+> > > 
+> > > I still don't understand why cond_resched() is being treated as involuntary
+> > > preemption but that is orthogonal to this patch.
+> > 
+> > The history is that cond_resched() was originally intended to be a
+> > preemption point in any otherwise non-preemptible kernel.  Therefore,
+> > because it is a preemption point, it counts as an involuntary context
+> > switch.
+> 
+> Thanks for the explanation. Is cond_resched_tasks_rcu_qs() voluntary or
+> involuntary context switch?
 
-Also same idea here, I don't believe the pre-existing finding from
-Sashiko against this patch is resolved by this series, so have a look
-and consider a follow-on patch if it's a valid report.
+That one is voluntary in order to take care of Tasks RCU's need for a
+voluntary context switch.
+
+Except that it doesn't bother involving the scheduler at all, but
+instead just updates the current task's state with respect to Tasks RCU.
+Much faster that way.  ;-)
+
+							Thanx, Paul
