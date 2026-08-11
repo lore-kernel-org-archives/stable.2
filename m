@@ -1,116 +1,153 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922F540BCAD
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 21:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D37353A7D
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 21:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786485109; cv=none; b=bihztR2pl/UBk9Iu5rf/7crj0RCywFWhyUJ8LzpOyaIGOCtQNe+In9ZUhjTok3WJNthaF2CPibC7zEPH+QAGW9HB5QpPWiN3LG+xFEjhHBORwWvmpVIVgxbSXgXR4ghw3fbSsceWfEAjM6p8Ac+jlxDVRPuuueOtXYpZrrqem28=
+	t=1786485392; cv=none; b=o29qKU0rpsKYbgsajJ/EzmwzBHwOHhXPCDtCCOvlDhBDd/qBpwReCnsHKsS2tEzHag6QmrK2/2DC/4/V76evZIjw4ohAwATwd7+lz6hguH/qOg1kX0oV9/qqEC5uas32BCNDmDeR8OIgnlHQ7KSehZC+3i6+mIqY50+C26Me4nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786485109; c=relaxed/simple;
-	bh=Azo2sCiZllD4H75gWaBzm5I3JqLlnW6xlX7nRXQnSss=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RXW7uax1u/Yymr8HWwwOpf4ucs/Dg9hbMPgSN8+a2+HxBpp3eNHXpS7EDRjK74oPQ2oW7INnvDj2Kw2pyrNikvw9BsEejCFCn3qiDimK3OzhqD7mVBhN8J6KU4SCz7wigU1X6vQVLrGf1KuinBY/UhhU74DFIu1mr2eWjhHeP54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ARAlwyWV; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786485392; c=relaxed/simple;
+	bh=UfO5GTjXHvoFpUxirelLBunZxdJGiurIwuNIlIkF25U=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FFbPUwnx9G2NPeIJLbDu8dxtuqLJVxmdsMD/vf3lDMzDiSHSsaRyTHYNCU7+g/Oi6s/b2UXKujPuOaFU9FtJbLy0kdoHLBfGNBqK0/5aR7t2vG2I66fbwmzIFzao7T7RtRgj3Sj5B69lgyP2DvZ2aifZDD5Ae69zMkfjNMk0pvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SxMSZEMQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=KIygu+4g; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ARAlwyWV"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cc61541f8cso20344885ad.0
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:51:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SxMSZEMQ";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="KIygu+4g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786485390;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UfO5GTjXHvoFpUxirelLBunZxdJGiurIwuNIlIkF25U=;
+	b=SxMSZEMQAaeEHAiU58GdJ2VMYi7v+PzvBQQ6CPfh5Uid+oSX1wOZYMfpzaHYQk81KG+37+
+	GMUuEXPTHL5b1pnIev7/q39yplfgJcIQdPwXK4w0J7YK69GcbdeEG9nStLr/gpMxzLHDas
+	ug5M3f9GW+58eobUiTrXofDQNh1lV70=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-324-G6eNTODYNg66jAP_QEW_Ww-1; Tue, 11 Aug 2026 17:56:28 -0400
+X-MC-Unique: G6eNTODYNg66jAP_QEW_Ww-1
+X-Mimecast-MFC-AGG-ID: G6eNTODYNg66jAP_QEW_Ww_1786485388
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90a60102d6eso2191116d6.3
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:56:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786485108; x=1787089908; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DKboDhjvAevX2LxnuClRbMjZPu76/sbW2vcejkifeck=;
-        b=ARAlwyWVjZdIFHSvnn/x+IxioldlQu+BtSBh2YfKlzS0y/UnVgGgJ0qk2JK1UOIU9H
-         H09haNFx2h+xVQivMsq/tA4iMdru9CfA8AHaqZgCvIFundwiezTam+o1+e9ipYMvEcht
-         IT7VSYujcvPENfuuARPSUaE/T9Vv2p18MO4hOBgymn9Fg8uTPq9VZHiqPS9L4UQGTu/t
-         NvZ3qaBkJ6RewDtejfk3ZWI2PwTeGwYev3x107go8HYT15pDz076+bXXzeRbsKlonlIH
-         Bsps89syqT2YD7myxEwrvHa4IHoCg6dMnE5P6vo6MK9hPv6YnBOkRAbJZlbOT8zc6UJ7
-         zMFw==
+        d=redhat.com; s=google; t=1786485388; x=1787090188; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=UfO5GTjXHvoFpUxirelLBunZxdJGiurIwuNIlIkF25U=;
+        b=KIygu+4gfbHJnGx/e1z8qA1GG4DwpOJA16Zo9Pdm8ePcnU292zz9duMX2bM/LHhJ8Q
+         bW/xWUxt5e5yCsMUdgepBmGh0GKW31y5Wm0B2upHVXK9Ovb9jNZ6ZaSHVZmT0Jljlr2N
+         Yi6xd/QSIKQiLH+EJa3CJt7d+B0A44G3lCwjL2VlYb66LaMa4VfktN9DsowOqnhmf0VV
+         mii7D0wXMoRaDOCFPtjvgrcZGjHYUSoIvofWPnpWUyGxc/elcRT7mm35tGbA8GhfKLAg
+         TwAY7ccPJ07WyInKCkT5dZWnxpCerKgFQYD6UU4TF203XCr70fztg3BvRFMoe3jh/wz3
+         K94w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786485108; x=1787089908;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DKboDhjvAevX2LxnuClRbMjZPu76/sbW2vcejkifeck=;
-        b=a0IkobRSxvNFjbUsFDnlVVroq54UMUW5nibNDDxw87/0BJ6gt8hf4Dgq4C+se5DZ9K
-         XFUIdnCXV0OPHUqg2PzljGWyPKKKcJPA/K/lE1NbDeJw/v7oiWa5axPQC8ynCFPSzVZo
-         ZudVKs9J7DcimhMtwLUV1G7cPsHUNHbOFI2dPBgepmGC3zcMD6MNI0bTiJy3Q7+ie/ja
-         FKuea0GX2UwAcNmNL6d/B05Q8jUXBGb2UTUVHK/ixMl7woJlWxXBdHg6B+dN8DrjOFqZ
-         RTDS82vz6xLgg2fIikjMqLH7gv2OjyJYtWU1cU2MC1YKG731qVPtFPDv86Nz1WhwBw1d
-         BRhQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpcwupj67qa7UinZkoBzCVKpSWpfTwFY0Va/Ts7lOt4l8kgCLznezUAk9mv4Th0OBd4c9deulU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDlq0xztvz9RtIuGJns/IOdXtm67XajsSRivo1M+rUQArUnLsO
-	WW3g7WdeIj/bMu7dGFIpl7W/tIxgZVh4VjKxE2BUe5hAzRd3jZSoPNfe
-X-Gm-Gg: AR+sD10f01xrFyNHYEsMt9MPAv3nD7v+j6RAMThgv3R7CqRT0ZAZAg0X6aOPQIsbOgb
-	M7Pf8mNuzp6Bw4JbUgNfj2MbxOkWk+rn7w1GCf+V0928NBpfJhxyvV0h8tzsaIkOO+lWGxC1hS6
-	5LkVhfYhm8rOZsdJAJcC/lSSevhmRjF/NmrkVOfjpEuGNwBVEpzgcNOwwu8cN35YN3YbznAxcs7
-	P4iYqu8s5UJmxbe4d/QuZalzw83rw598PKKIIWdIxMbY6HdAJ23mb1QBj0xhNBWGNFb4VcZhAIe
-	AoTl4QHllDBGxQ11TF/ANfbn6vuUlkeqTsdSotaafEKA66pk9P/WwEsCQ6OcenQDY3ZkiIeYMrO
-	cpQ7xPqaTbpzbdld1Nmx2as4JhIQOq6378ENpsHasHmEo0eSUzojFcArQbHQo1B7kip8/Tdkz1W
-	saoFPfLToKhdmnCcD+i8517S40RTK2IhkxiNsDM+b9W/Jc/ZVAHtRf7S+1OnANrapemP7KPEivA
-	EhsGLzfGW6J+xZ5pmFcDlVhyN4U5herPAE5L7rGN3+VZmI=
-X-Received: by 2002:a17:90b:3810:b0:380:ce69:2669 with SMTP id 98e67ed59e1d1-392f3f7b5e3mr1932237a91.9.1786485107720;
-        Tue, 11 Aug 2026 14:51:47 -0700 (PDT)
-Received: from LAPTOP-N5EO9J2L.localdomain ([106.202.115.11])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141245a9f70sm3672334c88.15.2026.08.11.14.51.43
+        d=1e100.net; s=20251104; t=1786485388; x=1787090188;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UfO5GTjXHvoFpUxirelLBunZxdJGiurIwuNIlIkF25U=;
+        b=NjYI3LIwhGuj5SIUIiMrBR4ZTODhtCcb9A70b03AaWsRJrYyRPlFW61YlrFkGG+uvO
+         JgLAHgqMNDg3ll5Mg/lEoAwJKr+VSju9fQV5KHyS5YuoLcPQQu/2THh6CJRAkQja2jkM
+         Vcc/KzyiyiOvvmrWNyl47o8j5gkYLcCZ6VNGtS+6upCtMKFv2WJZ8RKYJKhP5zq9j/gz
+         7bbYUZr5tS1DTSc+UrVFLN8VnNkEhrLHuOI1DcLCuRVLEAtc9q95ACyCYgUvooRjO9wN
+         gtpJj34GRLTWJLJxH+37vUSjjm7Cl4iFq2w/xB3cmdCoFPYP5MgTEeij/GGZvRk2uikK
+         89CQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpk4+rRS1RH/o1FOe2nao5C3RKOt4yiJOPE+sepink2swPajN0wFElRYjrABuLtIIv7kmKIqqE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzAQ48mrLRrKwt9szdMrC0XUMRJK3Xni3IlbmQcAUX7NwjKEasT
+	8J1K+Erha7LoLvyUsrPcA2xJGGshHCd7ZDVthHB5m19LwunH0nmjLyqZCBODRS+NgnPqGmGyRci
+	1hwBh1fSkb3gW1p6MIJaW+nJpIHjqKxTzPoxqcsSG0rpzJd7dTjkI5NiLpw==
+X-Gm-Gg: AR+sD13b9Ax9d+eE3o5kO+w+eiIwNlLR+stbBFmE2DlqDRO8H6mhWiEeKUMgm5IcJOv
+	e9lU0P34iQkksUrjSq236FueYVZLWA39j7uXZxo6i9gBbw85V5+prLZElY/21kZCfpS8tgk7338
+	PkAcDkBIiD+dnEOsVEqfrErCP0Z0xZkRnhk4vh+5+hYlNm3ewj1aaueI+ZRmGY5nm/fbB1YbWS0
+	m2WFJZQDfJcdS3dNWskybNvbSPoyGS8gUMGZGIwrkhmCGK79ZxARNiuXfEZDukRoZO4b0GIOUGG
+	RI/LdyG3soH8EJpF9mQ+TEJcrQIqMtXHb4d345KTKCOEICKHsXg9J+fVPXjBFQ5WiQ5ux89p
+X-Received: by 2002:a05:6214:44a1:b0:907:5150:a2dd with SMTP id 6a1803df08f44-90a6ff95966mr2475466d6.14.1786485388248;
+        Tue, 11 Aug 2026 14:56:28 -0700 (PDT)
+X-Received: by 2002:a05:6214:44a1:b0:907:5150:a2dd with SMTP id 6a1803df08f44-90a6ff95966mr2475246d6.14.1786485387868;
+        Tue, 11 Aug 2026 14:56:27 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90a6c26d83fsm8495466d6.4.2026.08.11.14.56.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 14:51:47 -0700 (PDT)
-From: Harshit Varu <harshitvaru666@gmail.com>
-To: netdev@vger.kernel.org
-Cc: mptcp@lists.linux.dev,
-	matttbe@kernel.org,
-	martineau@kernel.org,
-	security@kernel.org,
-	Harshit Varu <harshitvaru666@gmail.com>,
+        Tue, 11 Aug 2026 14:56:27 -0700 (PDT)
+Message-ID: <1fb27dc24b3d01c9a6318b0dabc0e7571adb7cda.camel@redhat.com>
+Subject: Re: [PATCH v2 0/3] drm/nouveau/uvmm: fix VM_BIND submit/unwind
+ error-path bugs
+From: lyude@redhat.com
+To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Dave Airlie
+ <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
 	stable@vger.kernel.org
-Subject: [PATCH mptcp] mptcp: fix uninitialized local_id in syncookie MP_JOIN reconstruction
-Date: Wed, 12 Aug 2026 03:21:35 +0530
-Message-ID: <20260811215135.87756-1-harshitvaru666@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Date: Tue, 11 Aug 2026 17:56:26 -0400
+In-Reply-To: <20260811-nouveau-uvmm-vmbind-fixes-v2-0-aaee4b395d04@gmail.com>
+References: <20260811-nouveau-uvmm-vmbind-fixes-v2-0-aaee4b395d04@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-mptcp_token_join_cookie_init_state() restores remote_nonce, local_nonce,
-backup, join_id, token and msk from the saved cookie entry when rebuilding
-the request socket for a MP_JOIN 4th-ACK handled under SYN cookies, but it
-does not restore local_id, even though the SYN path saved it.
-subflow_ulp_clone() then reads that uninitialized field and stores it as
-the joined subflow's address-ID. Because the request-sock slab is
-SLAB_TYPESAFE_BY_RCU and not zeroed on allocation, the value is the stale
-byte of a previously freed request socket, which an off-path peer can
-influence by sending concurrent MP_JOIN SYNs. This corrupts the path
-manager's id-based subflow bookkeeping for the connection.
+This patch series is:
 
-Restore subflow_req->local_id from the cookie entry, as done for the other
-fields.
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Fixes: 9466a1ccebbe ("mptcp: enable JOIN requests even if cookies are in use")
-Cc: stable@vger.kernel.org
-Assisted-by: opencode:deepseek-v4-flash
-Signed-off-by: Harshit Varu <harshitvaru666@gmail.com>
----
- net/mptcp/syncookies.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/net/mptcp/syncookies.c b/net/mptcp/syncookies.c
-index 7f2252634..b5cac5701 100644
---- a/net/mptcp/syncookies.c
-+++ b/net/mptcp/syncookies.c
-@@ -118,6 +118,7 @@ bool mptcp_token_join_cookie_init_state(struct mptcp_subflow_request_sock *subfl
- 	subflow_req->local_nonce = e->local_nonce;
- 	subflow_req->backup = e->backup;
- 	subflow_req->remote_id = e->join_id;
-+	subflow_req->local_id = e->local_id;
- 	subflow_req->token = e->token;
- 	subflow_req->msk = msk;
- 	spin_unlock_bh(&join_entry_locks[i]);
--- 
-2.53.0
+On Tue, 2026-08-11 at 16:46 +0800, Zhenhao Wan wrote:
+> Three bugs on the nouveau VM_BIND submit/unwind/cleanup error path,
+> all
+> introduced by the original VM_BIND uAPI (Fixes: b88baab82871) and all
+> reachable by an unprivileged render-node client:
+>=20
+> =C2=A0 1/3 NULL deref when the unwind loop frees a never-populated
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 OP_MAP_SPARSE op's ops list.
+> =C2=A0 2/3 premature free of a region on a failed OP_UNMAP_SPARSE, becaus=
+e
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 op->reg is left set on the failure paths.
+> =C2=A0 3/3 a sparse region left permanently marked dirty after unwind,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wedging later binds over that range.
+>=20
+> Each fix is minimal and self-contained; all are Cc: stable.
+>=20
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+> ---
+> Changes in v2:
+> - Add an Assisted-by: trailer to each patch; no code changes.
+> - Link to v1:
+> https://patch.msgid.link/20260811-nouveau-uvmm-vmbind-fixes-v1-0-40df1c04=
+6b49@gmail.com
+>=20
+> ---
+> Zhenhao Wan (3):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau/uvmm: fix NULL deref unwinding=
+ an OP_MAP_SPARSE op
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau/uvmm: fix premature region fre=
+e on failed
+> OP_UNMAP_SPARSE
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau/uvmm: clear the dirty flag whe=
+n unwinding an
+> OP_UNMAP_SPARSE
+>=20
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_uvmm.c | 6 +++++-
+> =C2=A01 file changed, 5 insertions(+), 1 deletion(-)
+> ---
+> base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
+> change-id: 20260811-nouveau-uvmm-vmbind-fixes-c2dfab359df2
+>=20
+> Best regards,
+> --=C2=A0=20
+> Zhenhao Wan <whi4ed0g@gmail.com>
 
