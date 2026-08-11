@@ -1,128 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D08443AA1
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 12:15:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6202442C4FD;
+	Tue, 11 Aug 2026 12:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786450531; cv=none; b=bEVDLpQi7KKK4b3JU+KWgCKhgJQyUO8bLkxXuMYO18IsDz4A7wszDbNSmCvaN/+/n1ocBX3UQvl3wlf0K9XY25fdZRWdxtEE1glyDlUmi88iXOKo2haa+HJ+V/TXmHxplIQo0WhWWAY04qxu9RqujXsiT+Bl1MDQTWyGSzNW7E4=
+	t=1786450776; cv=none; b=s7VInrAmNeF2SEjPZKc3D4JvPQDLOUNdaozQ4/B3PoD0LNXoeWjraXYPOUwuNjXQkMkV/A36wwNkCoiXqSfaLp1o+SjpOAD2mTA1d4kzAdU+hY1OcxL0o5WNklLqvRkNsEwmCNJ1k5CuBcY82ZkjCyKUsEhztGbsz609QbLVC04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786450531; c=relaxed/simple;
-	bh=ByCe5taaeGNPiH9issc0xKg2I/0aXpQoaSE/4bc8FCM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ShckGxyOWrOPryP4gomrSCj31ncC14T05xqvIem1AmlPVwewl7iOgVv4rcpp81R1MxjpI9jgHCPwomwxyFI/3HqoksRFGWjNTCMOF39pzSkf7L9Ws0HJzI+0tzvAc5YsT6UM/5Mr10HaDG6tdKfUM/H9chWj/3GjNvkzb3pBdNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SrIhw5io; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786450776; c=relaxed/simple;
+	bh=Voo+xHiqStdf7jWqXarHAA5e6PJ0l+BkgVLL81UVa74=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wmf+/Q2bP05ps1q15oEfBTANRSibMuyPWKnzw02AtUEseoMhaEEr2XVmnlLU3m19VWFLCqDUqVqcMU+Nc8mdp/8fuOQfy7fMb/oUrI5GCxkth0i0jNr7QcaZI3ZDnhlfVF08kbt1Jq5YrZK+sD32cw2XMY0BB9U9MyWHi1XFyF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=n+Ha9kuK; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SrIhw5io"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EF631F000E9;
-	Tue, 11 Aug 2026 12:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786450530;
-	bh=h8L7iMHNm2GpV+3UFeQae6IiYjmyEH/BSBnKEls9vh0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SrIhw5ioYYKl9wedKuZvjMaByOv+Oa4fy7sW1CEM+d/9tKq2LFhMjZ7YpHz4fz84r
-	 U+hkN1XqnV0TDf4khR6FF63oNLuQjRxaJ71M3pH1Ru/nT09FBuu1j3XR7GRVOkZI7u
-	 lKlq2+VOVmj4e8hCBDH5EE4oEcSiSQQcJZ2p0Gx0I1supwhzNe52EmgtfScw9V4uOx
-	 PnGmoGVaycFCpIpep4yT67WZCnnH5lPgcL5aJfo0MQcIB2CjquQVT0rUWTniJEoUwT
-	 pWdAk/0NdxCykyK6zHkSyHtOWGIWXbddLEbHIz84VbROi8FKzQKyxKDhn6+emyZgZT
-	 g0cxGT+Mr7OVQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] net: pktgen: fix proc entry use-after-free
-Date: Tue, 11 Aug 2026 08:15:26 -0400
-Message-ID: <20260811121526.2373725-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260811121526.2373725-1-sashal@kernel.org>
-References: <2026080501-smudge-pork-db82@gregkh>
- <20260811121526.2373725-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="n+Ha9kuK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=+8W/d4LLQlVbQzfhZQzzBkGEKOaKtd2XQFHx2OVMtQQ=; b=n+Ha9kuK2XrU/ZaBNtrQPiha6n
+	WTa6+7qzIoVWZTK5MVlDFNjylEB/MQO/Jo2CenNwNRlrFrBBh0yQKwtHivbqECEHD9lV8VZnr0KAO
+	kgGkwOpbqalZRDoDIVGPchyoVAItq79GPMkyoWH3+v7RtR9l4WYpBbrv3W7/sCLOeO8TBCM2CK3Xn
+	476/IfkQhdMHZ/aub6vV7JNU+W+3f3G6TkSCo9TaKwM9adYmdn9Xf8yDl27Y4qbtpjBsSwS/aw8lD
+	xyghtSo4BpynLA3aVf9LWZkukmpR7ZKOLLixAwqVoZuQ/3vhrv3Q24OqFsw3V2TM2Hek7nQgH/hyG
+	5AuPDkYA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wtlRz-003Yd3-0Y;
+	Tue, 11 Aug 2026 12:19:23 +0000
+Date: Tue, 11 Aug 2026 05:19:17 -0700
+From: Breno Leitao <leitao@debian.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 1/2] ipv4: mcast: getsockopt: do not overwrite past
+ optlen
+Message-ID: <ansQ8gHcKdS_Q_ji@gmail.com>
+References: <20260806-mcast_fix-v1-0-bed0a5518e57@debian.org>
+ <20260806-mcast_fix-v1-1-bed0a5518e57@debian.org>
+ <20260807174402.2dfc12d6@pumpkin>
+ <anm9gImFEz6EkUZ9@gmail.com>
+ <20260810222159.409357fa@pumpkin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810222159.409357fa@pumpkin>
+X-Debian-User: leitao
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+On Mon, Aug 10, 2026 at 10:21:59PM +0100, David Laight wrote:
+> > You are saying that we have userspace program in the wild that doesn't honour
+> > the contract above, right?
+>
+> I've just looked at the old history, since the code was added in 2.4.22 'optlen'
+> has only needed to be the size of the fixed structure on entry and has been
+> been updated to be the total size on exit.
+> The maximum size of the buffer comes from its sl_count field.
+> Code that doesn't use the glibc wrapper could be relying on it.
+>
+> There were definitely places where the driver code has traditionally not
+> checked the length at all - and userspace wouldn't have set it.
+> The last might have been in the decnet code.
+> I'm pretty sure there are other places where the length provided to getsockopt()
+> is only that of the fixed header, variable data then follows the header.
+>
+> IIRC there is a recently added one for async io.
+> Can't remember where.
+> It checks the 'header' size and takes the full length from within the header.
+> That one definitely requires (and checks) for the short length.
 
-[ Upstream commit 817ff6efdb7f484ea547218e11e17d8e43daa3b4 ]
+Right, but I want to back up and figure out whether this is a bug that
+should be fixed, or a bug that would break userpsace if we fix it.
 
-pktgen_change_name() replaces pkt_dev->entry while holding t->if_lock.
-pktgen_remove_device() removes the same entry before
-_rem_dev_from_if_list() takes that lock.
+I'm saying the kernel shouldn't write past optlen. If userspace
+doesn't provide a big enough buffer, it shouldn't assume there is one
+behind it to write into.
 
-This allows the following interleaving:
+Looking at the existing users, I haven't found any that pass a smaller
+optlen than needed, so I don't see anyone being impacted.
 
-  CPU 0 (NETDEV_CHANGENAME)       CPU 1 (kpktgend)
-  if_lock(t)
-  proc_remove(pkt_dev->entry)
-                                  proc_remove(pkt_dev->entry)
-  pkt_dev->entry = proc_create_data(...)
-  if_unlock(t)
+On the other hand, you're saying this is how it has always behaved
+and there is userspace out there relying on it, so changing it now
+would break things, right?
 
-The kthread can pass the stale proc_dir_entry to proc_remove() after the
-rename path has freed it. A reproducer with a widened race window reports:
+Depending on the answer, we have two paths ahead:
 
-  BUG: KASAN: slab-use-after-free in proc_remove+0x78/0x80
-  Read of size 8 at addr ffff8881478fea70 by task kpktgend_0/67
-  Call Trace:
-   proc_remove+0x78/0x80
-   pktgen_remove_device.isra.0+0x11c/0x4c0
-   pktgen_thread_worker+0x1214/0x6bc0
-   kthread+0x2c6/0x3b0
-  Allocated by task 95:
-   __proc_create+0x204/0x790
-   proc_create_data+0x72/0xe0
-   pktgen_thread_write+0xd61/0x1510
-  Freed by task 28:
-   kmem_cache_free+0xcb/0x3d0
-   proc_free_inode+0x5b/0x80
-   rcu_core+0x50a/0x1850
-  The buggy address belongs to the object at ffff8881478fea00
-   which belongs to the cache proc_dir_entry of size 192
+1) We declare these bugs and fix them, and proceed with sanity
+2) We need to implement quirks in the getsockopt, which will resize
+   "optlen" mid-air by looking at headers fields
 
-Move proc_remove() into the if_lock-protected list removal helper. Keep it
-before list_del_rcu() to preserve the ordering required by add_device().
-The rename path must then finish replacing the entry before removal, or
-it observes that the device is no longer on the list.
+So my question to you: can you point me to actual software that
+passes a "small" optlen and expects the kernel to write past it? That
+would help to decide about the two options above.
 
-Fixes: 39df232f1a9b ("[PKTGEN]: fix device name handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260719145740.2888967-1-nicoyip.dev@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/core/pktgen.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/net/core/pktgen.c b/net/core/pktgen.c
-index f558e5d407821..cbb916f9edcac 100644
---- a/net/core/pktgen.c
-+++ b/net/core/pktgen.c
-@@ -3886,6 +3886,7 @@ static void _rem_dev_from_if_list(struct pktgen_thread *t,
- 	struct pktgen_dev *p;
- 
- 	if_lock(t);
-+	proc_remove(pkt_dev->entry);
- 	list_for_each_safe(q, n, &t->if_list) {
- 		p = list_entry(q, struct pktgen_dev, list);
- 		if (p == pkt_dev)
-@@ -3915,9 +3916,6 @@ static int pktgen_remove_device(struct pktgen_thread *t,
- 	 * list to determine if interface already exist, avoid race
- 	 * with proc_create_data()
- 	 */
--	proc_remove(pkt_dev->entry);
--
--	/* And update the thread if_list */
- 	_rem_dev_from_if_list(t, pkt_dev);
- 
- #ifdef CONFIG_XFRM
--- 
-2.53.0
+Thanks,
+--breno
 
