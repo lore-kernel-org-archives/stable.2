@@ -1,68 +1,68 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814C541DEC8
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 08:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8FF420E8F
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 08:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786438036; cv=none; b=aeCen2awXspfUOp8vOLOmuPDih0TjCW6XjbG0nCAT3jJ++yVI1bNQAS2xKj484uW4Lr1sTIuY+BSEaZfOiBoLcsl+X/P3cCF9XuVDIbtL/W1A4dl1GxBK0xnFBfvmN+L/CKYfmZLRygCaYWADqdnVIvhLNRXW5LrbrahDlUQU88=
+	t=1786438040; cv=none; b=KCzPerYyEewZJGACE9glwLlivBK1qoIFeqKVFsjstHdvb18DslnJ8pFSSFiQYfQRZfkwoisek3S+EhyIcpGC6+8+jCWtBmthgxs9fl4bPxjpl19UV2MjmJ9tK+LXo83Nv8JiRVsRRvv6BWmZWUv5M1YEZ/ITtOCmbA2YblioYiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786438036; c=relaxed/simple;
-	bh=aTMGC8jjrMAmwoT5PX4XMFYEw8rXZ5oYEJn7jPDkksQ=;
+	s=arc-20240116; t=1786438040; c=relaxed/simple;
+	bh=fKwS8hLuASUBBkfhmQft0t9owMYTP3CSXRQ1mDs9JW0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M9qVSGq9yVLMVI97MHTxVgkLjEP0I66EZVyOja7LcUqBSEmw1RnEYOcCJ8RIPNerDfyB07L53JyFHNc1ZwCf0mDRwahllnOPP6ZUBdh3mw3prjRg2AOTM1cbhoQPpa5ewZfLmIbKQOg5FsBraXvAZaQbtAP5Z9w+lp5KPeA07zI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kJ48Y5Ze; arc=none smtp.client-ip=209.85.216.44
+	 In-Reply-To:To:Cc; b=Y9kzlvohlfEnfvaRI/GINVfsD9d0sbMl24AxSb6TAm68NKqpoRtjo8Q3j4sVENRLJCXtX/BQTP/j1pomNWeB8M81GdF4kzNuk5TyeSbOGrrZjKzjp0fJhP33a8eydec7XhQmZZ65sXIbZwFAOLAOtnlQgJCcNiedPHQcb5qq1rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M0xluFKs; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kJ48Y5Ze"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-381c51fde6bso3366533a91.2
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 01:47:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M0xluFKs"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e08baf860so2793620a91.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 01:47:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786438035; x=1787042835; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786438038; x=1787042838; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KkN28cbnuxaTZnJUJR8D84k2R0Wy2RMXuquI0epiuqE=;
-        b=kJ48Y5ZeKLxE/Xg+Uj5krTq+eLkh0rkhwoeAjOZLrBanIQHUVYuPKAZ1ec7Msua+wE
-         wA4wqLT69QZN93SyVRfb8lQTB8A9G+Rr06f+jlm0LoL0Nr+NaIqr+5HW06u2rn/ovcqT
-         yyhbvouby5A2TYfhOTHvtUXMpE/HYdgBEhwArA9JjM7r/kyJTB9U4keyJ8mcwA8D2AAz
-         mfuxGsBEzCCf4iZe5O+2PQ/3PfMAFxRcYgiHnlPUohJUOO572G6JyVYGb+qXsfVyGMmx
-         b1keMQHUpKVHh7j+sfNym22evJZcNuyKCBPXaTh4zlM8NnbDcH/hLGweTcwVxUZBLMrg
-         EOAw==
+        bh=ly/Mo1nbCV/oSok4ztJy2PbfdvW3bZVZXW3Etcdsh1I=;
+        b=M0xluFKsxP2h9vvHw2eUj7aVjO89T6gdwlX2rX9oEbBye0KrrO5/NMXK7b9a39AQeI
+         /vfwqnTNcys2Hl+/kxUY+z83JR+CHnTynee+v9BfEJoh1KOs2deQogo2GaNrQXU5FL1A
+         sR30CjIQU1HzNlXXnMIgCHcZWINhvrArab3VWH6kyM9QQ3lcGLLoCtKRgJPSJ08mLXsX
+         G6lh4yC2wvapyYo4rMTfvT3nCq8PT2003YhdJCcoSYWK0z3P7PJMfxhcNLx+nF3oTX3A
+         fBRHxSH+iu3pNHLXBQiMQkcq2385kV4rit0U6B6V4vIlvG4tnIR/8OCjbJq1KNyxE+YP
+         ekFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786438035; x=1787042835;
+        d=1e100.net; s=20251104; t=1786438038; x=1787042838;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KkN28cbnuxaTZnJUJR8D84k2R0Wy2RMXuquI0epiuqE=;
-        b=RoDoehsSLtb07xRM9z5w5A8+XHiqDLfLFOYZcr74DtbmrbN9aZEpTbqXEdN9/VHpPl
-         SAoxeJ2SEjrHTeBBbvVB1sFhmvIMq3R811b7H7nPoee85IOPrismBECQolMIOodx9qRX
-         PFs/m1SebUSZ+YroPmR2MYfbUnQi5kv1XBxAbhAnL7KnLvafc1aU1tb7MWneH04WzS4r
-         mO5FMFjOIigkN9ruz3MPZ8fB7PCLuvSPckwrOInwYXW4QLnlvBz5o/anNkOFccjfwla9
-         9685p5bkXqOWc6kY0XhrBg1xfZMz9zMl7zjM71vl6wvTxuDg9orgq/OEcbTSX4vVYWAd
-         /PbA==
-X-Forwarded-Encrypted: i=1; AHgh+RpQRkx5TxICElOMzW60IVCqWvGHbQIjcShmyYkaJ8uGtqDiOHUxcmbrVnMGn8BuXUL5PcnWgVk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2jR+e64NR7sSWnI8uyzGxo1wZTyy+Cg8L/bNcG8GJe/P9x2j+
-	uo/m2lkP4r3cDYELzh1y8ThAZCqeEI+RXBg6xfubKikx4ZYGlvv+VKK7
-X-Gm-Gg: AR+sD13lQ+xhd6zAHCXOkfywROmhNrHQshpxd5TLFhWMAgHfo2mCzkzUOPswjM32paH
-	iwcxcAQqJOFZiItYKUC784LtqJvXK8I8dMg/5YWGjZCB/5EfXDikSYNslq56pEXfaaDK01DQWFk
-	6d+ctTn3Bd+bXKPE9dm/TJGgThPphq6uBIMCK5Nab3SLhJU26icFe4TR+wy0i6D7ZADyst0vTOq
-	ROkjD0zAhRYJu0ZFfrwQd4+0m9hSZ46rYIqq/rj7z/tUByw0INdTHRz5rv7k81rbHXMFwLFYKk2
-	tDgO9iRH7goss6dKP6ewNnL4kuFupomC0IKsD91+6SGar1y/ViUb6HojN3ct8o+3EAUsaJi16P9
-	SCTbIrpKgDzWY4DV5Q9cIGbY9LtBSWK9X0EvjD+j0XstPvZvrt1IZkfo5/MnJUosS1qediJgvZW
-	VHRR4omDr4S8GON0BqpGQ8DK2rLYvCeljyDMSMidgqCfqSS8lzuJSQ697NqwEG1CfFr+Eqsw==
-X-Received: by 2002:a17:90b:4c85:b0:381:c500:b0d1 with SMTP id 98e67ed59e1d1-392ec721e34mr1597056a91.20.1786438034735;
-        Tue, 11 Aug 2026 01:47:14 -0700 (PDT)
+        bh=ly/Mo1nbCV/oSok4ztJy2PbfdvW3bZVZXW3Etcdsh1I=;
+        b=rdUQxJKMjnfBRgA/KHzKcy2DJhzBKMwP+YHVWlypJzZh7lkKO2lZwlXk/BhPBulXfL
+         hyATlyVgs+P+2NMR1Zet9BEqBM9zKPB0KyXV7+SIdGH3J4a//xRt2HZE873e2fJ8P/u+
+         JiMXczwvw8NZyw2LXJ6TiUS73jbnvfK2TfU0ardEuC45ClVtWaf8l7UmZcBBOwzIA7xd
+         FsT4iboWSRWLlprmX99wurxSwv/9Hm/rNW/xqsPrtbEISAvV5dL+J5TgaPnETMraiUVM
+         hMpKeYTJnhH283jUWqXERKl8ZAQFWagypM3NlgnUqBiyf2pD4bgy9XK2+BoMewc2wiBs
+         6VuA==
+X-Forwarded-Encrypted: i=1; AHgh+RqWnkoZtDOMomEC4AsmrP4m2sot1Q2bwffzauGkyHuuZErp49zkENr0NuMHSum52dccovdi/Vg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwibkmRguMmgayaa8rIdYy3wQK3xDBVBYJAYNmNOLesL3ziAXzg
+	TBZKTmBe+4nrQDTXlNyy7gwemx39DBYyNyvNcLFreYr7fiWVCQlokbPy
+X-Gm-Gg: AR+sD12zEBfYq5VfWZOsiLYqZVq9QiFSlln+LyN4gh7E32llRsd15v/SUZglHAL465a
+	9JoA0S9bzKG45+Qj0j7UxrLFmr9F1yTfPstEvsAq1p6CxJACg1oGlLocb1u8/qQxQjk8eLIAnWb
+	irxgFUZIwYJhUEOoF+ajejHfKNZ7WK0cB2PVX6igiHNEIe5VMsHbyE6YpCS69lwSd8iElCHHlIs
+	Fn5ZGlUK7xDjKl+wYZYNKUodbXzLMxg0ajpkJcDots9R+egcd2YNx+A6VCwAVyslJA5xA9TrlYu
+	8H6PEQ4gY9lZpW8rcc+zj3uSvzyud08UNfYYWzeo1GPj5tOWNGmyUUq2Iaa7/yK4AGZmJS5bNfA
+	RmqMttNyiRYafVWOxbsgV7Sw9peQ8PDFae0c7y8fb19UvaMbtCIfRzscZaZEqpKR45F5eSVvq2J
+	aDppSXoLhHDxsRCfh1AHNJNn3RhmP0QbITIV8Ufk2hV/SuM4KnA5EUGsrezGw=
+X-Received: by 2002:a17:90a:ec90:b0:38e:2860:253f with SMTP id 98e67ed59e1d1-392ec53e6c1mr1809410a91.12.1786438038162;
+        Tue, 11 Aug 2026 01:47:18 -0700 (PDT)
 Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392e58a94aasm633058a91.4.2026.08.11.01.46.51
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392e58a94aasm633058a91.4.2026.08.11.01.47.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 01:47:14 -0700 (PDT)
+        Tue, 11 Aug 2026 01:47:17 -0700 (PDT)
 From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Tue, 11 Aug 2026 16:46:28 +0800
-Subject: [PATCH v2 1/3] drm/nouveau/uvmm: fix NULL deref unwinding an
- OP_MAP_SPARSE op
+Date: Tue, 11 Aug 2026 16:46:29 +0800
+Subject: [PATCH v2 2/3] drm/nouveau/uvmm: fix premature region free on
+ failed OP_UNMAP_SPARSE
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-nouveau-uvmm-vmbind-fixes-v2-1-aaee4b395d04@gmail.com>
+Message-Id: <20260811-nouveau-uvmm-vmbind-fixes-v2-2-aaee4b395d04@gmail.com>
 References: <20260811-nouveau-uvmm-vmbind-fixes-v2-0-aaee4b395d04@gmail.com>
 In-Reply-To: <20260811-nouveau-uvmm-vmbind-fixes-v2-0-aaee4b395d04@gmail.com>
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -83,27 +83,34 @@ Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>, 
  Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786438000; l=1555;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786438000; l=2185;
  i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=aTMGC8jjrMAmwoT5PX4XMFYEw8rXZ5oYEJn7jPDkksQ=;
- b=09+Yjqqdood4dmBPaNI3zbuyE6yGr25iSeGlJ5xSWwhUElspOvJ/vCMx+lzUAZY2pEewE1dB5
- vJ9nHlmaFQyCawnfpg4WkYn3EBEqRGtDwKFngsk5epJfxu5IZAgYp4B
+ bh=fKwS8hLuASUBBkfhmQft0t9owMYTP3CSXRQ1mDs9JW0=;
+ b=yrXi/GfTrG95r3RXD9fwP33siW9x0kLUCR1OkBk7w2hfnn9/lRMc+wLYmEKPbf+pCazGFbf1e
+ HvXu2K4qPhFBTyDVzpUhsUqHjP6hqOL8DT8dLd6LvcoE6Kq50n4Egw2
 X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
  pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-Each bind_job_op is zeroed by kzalloc_obj() in bind_job_op_from_uop(),
-and the OP_MAP_SPARSE case in nouveau_uvmm_bind_job_submit() only creates
-a region, so op->ops stays NULL for a successfully processed sparse map.
+In nouveau_uvmm_bind_job_submit()'s OP_UNMAP_SPARSE arm, op->reg is set
+from nouveau_uvma_region_find(), which only looks the region up and takes
+no reference; a region's sole reference is its membership in
+uvmm->region_mt. Two failure paths leave op->reg set: the -ENOENT check
+when the region is busy, and the drm_gpuvm_sm_unmap_ops_create() failure.
+The sibling nouveau_uvmm_sm_unmap_prepare() failure just below clears
+op->reg; these two do not.
 
-If a later op in the same job fails, the reverse unwind loop revisits that
-op and calls drm_gpuva_ops_free(&uvmm->base, op->ops) unconditionally.
-drm_gpuva_ops_free() dereferences its argument right away
-(list_for_each_entry_safe on &ops->list), so a NULL op->ops oopses. The
-path is reachable by any render-node fd holder, since NOUVEAU_VM_BIND is
-DRM_RENDER_ALLOW.
+unwind_continue steps back one op, so the failing op is skipped by the
+unwind loop and its op->reg stays set. nouveau_uvmm_bind_job_cleanup()
+then enters its if (op->reg) branch and calls nouveau_uvma_region_remove()
+and nouveau_uvma_region_put() on it, dropping the tree's sole reference
+and freeing a region this job never created. The comment above the
+cleanup loop documents the broken invariant: op->reg must be NULL on
+submit failure.
 
-Guard the free with IS_ERR_OR_NULL(), as nouveau_uvmm_bind_job_cleanup()
-already does for the identical free.
+This frees a live region on an unrelated failure, reachable single-job
+when drm_gpuvm_sm_unmap_ops_create() returns -ENOMEM; if another job owns
+the same region, its cleanup then removes and puts the freed region, a
+use-after-free. Clear op->reg on both failure paths.
 
 Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
 Reported-by: Yuhao Jiang <danisjiang@gmail.com>
@@ -111,23 +118,29 @@ Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
 Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_uvmm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-index 36445915aa58..849bf42c124e 100644
+index 849bf42c124e..3412200b21fd 100644
 --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
 +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-@@ -1489,7 +1489,8 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
- 			break;
- 		}
+@@ -1319,6 +1319,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
+ 							   op->va.range);
+ 			if (!op->reg || op->reg->dirty) {
+ 				ret = -ENOENT;
++				op->reg = NULL;
+ 				goto unwind_continue;
+ 			}
  
--		drm_gpuva_ops_free(&uvmm->base, op->ops);
-+		if (!IS_ERR_OR_NULL(op->ops))
-+			drm_gpuva_ops_free(&uvmm->base, op->ops);
- 		op->ops = NULL;
- 		op->reg = NULL;
- 	}
+@@ -1327,6 +1328,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
+ 								op->va.range);
+ 			if (IS_ERR(op->ops)) {
+ 				ret = PTR_ERR(op->ops);
++				op->reg = NULL;
+ 				goto unwind_continue;
+ 			}
+ 
 
 -- 
 2.34.1
