@@ -1,119 +1,74 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBCA3B6BFA;
-	Tue, 11 Aug 2026 15:33:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B03D3B14AC;
+	Tue, 11 Aug 2026 15:36:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786462406; cv=none; b=BBj97nS3lZ91ES2zTbPnATTGQoC1quH8MoEFJOZiiJZMUx26k7OU5P53EgbiCDeKrF+dhI2LLOKUBsSmLDN3Kgc/bn1/zoqcMj7gzCueB7v4jbjg0e3whIsGoznl1NmRkX3lP0lueBrAw9qmcHVxKOetYlU6Nn2g4XP3QGKjgcc=
+	t=1786462584; cv=none; b=uecJQsOhBD53LpsYulVcPu/KXzSpfAIjMt8yByBN/CLqTG9YZnuMQPeaaRz5mqVl11zwil5rYtubGE18eAp0ClXufWJ8M3Q/BsR4l4q8MPgZzArtgfhRph8R4rH0zNVLm/Na/+hRAV+lC/1nWQWzRlKERLA8LPEWzysjVf7HQdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786462406; c=relaxed/simple;
-	bh=Ani0hyGmCJGaqxrPmXmnyKjxsRejVuS2hFDgorsnmfU=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=T/DKgfVrP3NlwGS4T0zLfSIKhffgX/jNsGUwsO+z/Hj4Jfq8jFGFVXTUSFms57Kch+tHcSTT5i1ag36YsD/nglPLv+J+vN8tDAVPfLZrBFl3NbYTuFMQE4zN4I1TSJbpXiqn6lYeEdctlo80SQngNc7FL2xgGRlBfaJVw3yGZss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=DaOzcA4d; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	s=arc-20240116; t=1786462584; c=relaxed/simple;
+	bh=Q59GzEDpoUHHGUe3D8E87c2jAss8RA5B+SzBokELg6c=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bqQmorCBUtOZ7X8i1RgdXeAlgQSD29wVI5JFcs2Qp5Bh/8wmndlpQG1LE42+a6xN3MySBmxgVKXAtYwM0NmofAKsTFpXrOdzyDCGZScSyafRDIf33vpwXZmQoj1+km+WoIJgoEBTTle9FKjV1cM4AnuYtolkdb5J/1KLRftAXe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=idEyY47k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="DaOzcA4d"
-Received: by dvalin.narfation.org (Postfix) id E374F20241;
-	Tue, 11 Aug 2026 15:33:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1786462393;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8EaiKlbpCQVAvrexAqV7FKKO4XBVCQ96a5UJP4GhPLE=;
-	b=DaOzcA4dN4lDtT6zpv1yBE6l+QU0pn+X46m8vZMg1bbbn8U63A4UvBodaEIv/lVPaIgBj3
-	jFrnngabblkcfyt/qSGJTqetkpvIFhzINeocZ/EnOBezAtjNdQWrJ60Ut3hmNG6nUgydmT
-	FAi7fwPUG5cTOXYTFKDp1bdQ85b1GHY=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="idEyY47k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550121F000E9;
+	Tue, 11 Aug 2026 15:36:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786462583;
+	bh=ZaD5mcjYTOEV7Pf7GM1rrgaqlhDXUgVppAS/u+xge5M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=idEyY47kbB8+5NOdh6T2DOCmE4GOLcAVFSkhDQxhaPKyqL5q5lsRMVIuA7hO1MOfj
+	 7SM1TnvGU8chEzIFOrbZw95DLcaAERHJKcAL3VnHguUVwpe1z+3btj+99pNJQjUSZe
+	 Rpr6GLfwyUSihRkfc7srA8JIt368ai9emZI1pFj5X6rKBeUepv5Hgad70+KCjWRDeB
+	 cfwV2vGb3dZ6BzXNhlE+w6bMmJ/ERetEdwg/tOUj8vNML0Vxq2OM1Lz+WPdg6teCsG
+	 W0q4ndh5uduZ6VHGJkbxf4v8PgdBsl5GGoDpitiICDUR/hxlFNtmTK5mQiLcSvfz4h
+	 XxQX+PR/N+bfQ==
+Date: Tue, 11 Aug 2026 08:36:21 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, vega@nebusec.ai, Victor
+ Nogueira <victor@mojatatu.com>, Quentin Monnet <qmo@kernel.org>, Simon
+ Horman <horms@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Alexei
+ Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, Eduard
+ Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, John Fastabend
+ <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Song Liu
+ <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
+ <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Jiri Pirko
+ <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, bpf@vger.kernel.org
+Subject: Re: [PATCH net] net/sched: cls_bpf: reject dev-bound programs bound
+ to a different device
+Message-ID: <20260811083621.085021c9@kernel.org>
+In-Reply-To: <CAM0EoMke_qk2jJdWW0rHvZcwMNd7RCG4xGkpNYZpPtrSKg2Q3A@mail.gmail.com>
+References: <20260809094418.901607-1-jhs@mojatatu.com>
+	<20260810170533.5bdc7f80@kernel.org>
+	<CAM0EoMke_qk2jJdWW0rHvZcwMNd7RCG4xGkpNYZpPtrSKg2Q3A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH net v2] batman-adv: reject unrepresentable multicast
- TVLV offsets
-From: Sven Eckelmann <sven@narfation.org>
-To: David Lee <david.lee@trailofbits.com>
-Cc: marek.lindner@mailbox.org, sw@simonwunderlich.de, antonio@mandelbit.com, 
- sven@narfation.org, Kyle Zeng <kylebot@openai.com>, davem@davemloft.net, 
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
- Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>, 
- netdev@vger.kernel.org, b.a.t.m.a.n@lists.open-mesh.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260810145754.828936-1-david.lee@trailofbits.com>
-References: <20260810145754.828936-1-david.lee@trailofbits.com>
-Date: Tue, 11 Aug 2026 17:32:59 +0200
-Message-Id: <178646237968.2022359.8997893163921377425.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2745; i=sven@narfation.org;
- h=from:subject:message-id; bh=Ani0hyGmCJGaqxrPmXmnyKjxsRejVuS2hFDgorsnmfU=;
- b=owGbwMvMwCXmy1+ufVnk62nG02pJDFnVDlubdYv021hWftyTbfPI+Fgax42ix4ZzptXpd3i2J
- P63mjG9o5SFQYyLQVZMkWXPlfzzm9nfyn+e9vEozBxWJpAhDFycAjCR1WaMDLvvvX61bWtO0Y4N
- cYeVpvKu+B10dkHz5vfR2iuNOo5ZJiky/Hd5senGz9y7vYcW9FmKPM2Mmad17sIsr80n99m8vMV
- hNZ8ZAA==
-X-Developer-Key: i=sven@narfation.org; a=openpgp;
- fpr=522D7163831C73A635D12FE5EC371482956781AF
 
-> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h                                                                                                                                                                
-> index 22eda1d54a0e8..dbeceaf5c3b39 100644                                                                                                                                                                                   
-> --- a/include/linux/skbuff.h                                                                                                                                                                                                
-> +++ b/include/linux/skbuff.h                                                                                                                                                                                                
-> @@ -3126,6 +3126,32 @@ static inline void skb_set_transport_header(struct sk_buff *skb
-> [...]
-> +static inline bool __must_check
-> +skb_set_transport_header_careful(struct sk_buff *skb, const int offset)
-> +{
-> +	long transport_offset = skb->data - skb->head + offset;
-> +
-> +	if (unlikely(transport_offset !=
-> +		     (typeof(skb->transport_header))transport_offset))
-> +		return false;
-> +
-> +	if (unlikely(transport_offset ==
-> +		     (typeof(skb->transport_header))~0U))
-> +		return false;
-> +
-> +	skb->transport_header = transport_offset;
-> +	return true;
-> +}
-> +
+On Tue, 11 Aug 2026 07:35:41 -0400 Jamal Hadi Salim wrote:
+> It seems a v2 may be worth it:
+> fix netdevsim's cls_bpf path (Fixes: 2b3486bc2d23), keep the core
+> check as defense-in-depth without the bogus Fixes:, and walk
+> block->ports for shared blocks (block->q is NULL there). Or drop the
+> core change and fix only netdevsim. What says you?
 
-I personally don't like the way the lines are broken down. The 80 character
-limit was replaced by a 100 character limit since commit bdc48fa11e46
-("checkpatch/coding-style: deprecate 80-column warning"). And it seems like
-there are already multiple lines in this file which are longer than 80
-characters. So it should be possible not to add a line break right after a
-comparison operator.
+Pls post the right Fixes tag in this thread (without wrapping etc)
+my scripts will pick that up when applying.
 
-But I leave the judgement about this part to the netdev maintainers.
-
-> diff --git a/net/batman-adv/tvlv.c b/net/batman-adv/tvlv.c
-> index de907c07fa154..93492d393c347 100644
-> --- a/net/batman-adv/tvlv.c
-> +++ b/net/batman-adv/tvlv.c
-> @@ -438,8 +438,11 @@ static int batadv_tvlv_call_handler(struct batadv_priv *bat_priv,
->  			return NET_RX_SUCCESS;
->  
->  		tvlv_offset = (unsigned char *)tvlv_value - skb->data;
-> +		if (!skb_set_transport_header_careful(skb,
-> +						      tvlv_offset + tvlv_value_len))
-> +			return -EINVAL;
-> +
->  		skb_set_network_header(skb, tvlv_offset);
-> -		skb_set_transport_header(skb, tvlv_offset + tvlv_value_len);
->  
->  		return tvlv_handler->mcast_handler(bat_priv, skb);
->  	}
-
-For the batman-adv part:
-
-Acked-by: Sven Eckelmann <sven@narfation.org>
-
--- 
-Sven Eckelmann <sven@narfation.org>
+re: blocks - don't care, those are a switch ACL feature to me.
+for BPF offload - the offload mechanism itself already works
+at the device level, so the program can be loaded once and then
+bound to multiple ports. Or at least that's what I _think_ I did 
+cause NFP wouldn't have enough program storage for all the ports 
+it had :)
