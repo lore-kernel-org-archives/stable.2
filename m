@@ -1,43 +1,44 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97B6E2765D7;
-	Tue, 11 Aug 2026 01:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7712E738A
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 01:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786410339; cv=none; b=WdrFWVD6yRobDAaXT+e2B76uuUg9iJo0ZKJE8IyqUZzK66OMQc1C2Z4JDgA4hLpWdCEYHlIOit30jwLiUTtxgE00J2Es+MfgvMYZhPo17K8S0bUoCI8lg5wAZHiemnGfNew81FnxSN+EADyAzeKEccKVIj+7fCWry7a27FjGsK4=
+	t=1786410622; cv=none; b=t+Ch1Uv8NtbZmSnPOeDupL0oyTzBY90m5QL0Yc5e59FLht7NiHkf5FXXTINnKo+KlbExLNdZkrPpeGMO49w5STyZF5qkHaab1SFX5DzmdA26iPxdEcGNymnZZ/8RyRoJOYvHNQAd+n8DAVmWmPY3zRuWmqC3ul6Nm8+DUn5wioo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786410339; c=relaxed/simple;
-	bh=MeOVnt1pfpLAuJ3pd7znGcTUQxTwr3IXeKifitSeQ7A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=obEQHXowpBISn8heQFLddMSzvggGWwMRYFNQSI7Um/N/Sb0rL8LnuuCt0ZmXgb72btg7hYIvl91Eqv4tiA0y5dSuniaZdhMbntMXrOoMryILyoYUgTwovjvL+apz4/gynr/L/8rkfjJA9VJcXpoym9kOPoN24vuWs/v2AEatSHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCXrnxDdXpqsFKCAA--.43717S3;
-	Tue, 11 Aug 2026 09:05:07 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgBn2c4_dXpqGPDCAw--.32215S4;
-	Tue, 11 Aug 2026 09:05:07 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-wpan@vger.kernel.org
-Cc: Stefan Schmidt <stefan@datenfreihafen.org>,
-	Alexander Aring <alex.aring@gmail.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Varka Bhadram <varkab@cdac.in>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] ieee802154: cc2520: fix RX tasklet use-after-free
-Date: Tue, 11 Aug 2026 01:03:59 +0000
-Message-Id: <20260811010359.131381-3-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260811010359.131381-1-fanwu01@zju.edu.cn>
-References: <20260811010359.131381-1-fanwu01@zju.edu.cn>
+	s=arc-20240116; t=1786410622; c=relaxed/simple;
+	bh=VD1JX9RP8K/DQBlHQ5iRfqJMHTY7ZCDVjXFAKAwhmh0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OXWJvo9uNghoziaZ/PRzNQLXdNg2OZpPAnvgExNi6GUTU3Ft1xOMdyPQcQ5Z9yWERAq/+H0o8loii2OlK595PfSS740Mt8CKz+PdfFrk+GixqCOyfRVtuAXspbC6V8pWHuCRjc1n7aQAhF3Eh9InkkbSEPek1FxuIkpcC+NR6JY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YaiUHAyx; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YaiUHAyx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8D61F000E9;
+	Tue, 11 Aug 2026 01:10:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786410620;
+	bh=/jgO+Uma+lb3OzfjPEpDuuXKQHB1Mz6ZB9mK8NhQK6A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YaiUHAyxeZQ+J5dvOt03kYPGce6s5e2UpWxSSbPArN/1MSZZsddYCd/KJFukLQdfK
+	 8Ca3QO8ierLcnvpxfFEbzex92+hCeWEUPF4aKEkED6Q6RizBeoaR00ieOmXsdXjr2W
+	 hiU3urVt6RR6gXIIuIhNuNWu0hbxboSMGEL1c6lopv9v0JmPJTC4vB6sNYMkRut+vj
+	 3dtDXWcm3WowmGYGFG7dPPSwNX54xgTIgMfr9bHlG/owoJzMD17Z5M9aVLilWRTaZ4
+	 3lpnn4xymF76GrfYW9++Ahcdwv9fBWi/t3wPMTXDs5GgKgwdJUMv1vDFxswO62MQAO
+	 nOLRkxCMPf32A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Damien Le Moal <dlemoal@kernel.org>,
+	Igor Pylypiv <ipylypiv@google.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] ata: libata-scsi: terminate deferred commands on time out
+Date: Mon, 10 Aug 2026 21:10:16 -0400
+Message-ID: <20260811011016.3737101-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080539-jiffy-impotent-fb0b@gregkh>
+References: <2026080539-jiffy-impotent-fb0b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,123 +46,312 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgBn2c4_dXpqGPDCAw--.32215S4
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?24W27gXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI0/3bNnH6IBHUXrR+z64Goh9rMe/2+9ZL9dpEOuyDwloWQ8
-	J5wDK7E/7D2LJ3LwSiCp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxArW8Zw1xGw47Zr47Kw47KFX_yoW5Ww18pw
-	sxWas3Kr10qw40y3y3JF18XF98Ca1xtay8uay8G39rAwnIvrnYqr4IvFySvrW8JFWkZayS
-	vFn8Jr45uws8CagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8-6pPUUUUU==
 
-The FIFOP interrupt was requested before cc2520_register(), so a failed
-registration could still have let the FIFOP handler queue RX work.  That
-work calls ieee802154_rx_irqsafe(), scheduling the mac802154 RX tasklet,
-which is killed only by ieee802154_unregister_hw(); on a failed
-registration that does not run, so ieee802154_free_hw() could free it
-while still pending.
+From: Damien Le Moal <dlemoal@kernel.org>
 
-Request the FIFOP interrupt after cc2520_register() so a registration
-failure cannot schedule RX work, and the SFD interrupt before it, so
-synchronous TX has its completion available once the netdev is visible.
-cc2520_register() no longer frees the hardware on its own failure; the
-probe cleanup does.
+[ Upstream commit 2e1d2e65e773d67dab163127f11a47dab0fbca9f ]
 
-Found by an in-house static analysis tool.
+If a command times out while we have deferred non-NCQ commands waiting to
+be issued, the SCSI EH task is not immediately woken up as the waiting
+deferred commands are never issued nor completed, thus leaving the SCSI
+host in a busy state (shost->host_failed != scsi_host_busy(shost)) which
+prevents the SCSI EH task from being woken up. Eventually, when the
+deferred commands also time out, the SCSI EH task is woken up and the
+timeout processing occurs.
 
-Fixes: 0da6bc8cc341 ("ieee802154: cc2520: adds driver for TI CC2520 radio")
+Avoid this unnecessary SCSI EH task wake-up additional time by scheduling
+a retry of all waiting deferred QCs, using the eh_timed_out SCSI host
+template operation. The function ata_scsi_eh_timed_out() is introduced to
+implement this operation.
+
+However, terminating deferred commands with DID_REQUEUE to force a retry
+by calling the function ata_scsi_requeue_deferred_qc() may still keep the
+SCSI host in a busy state because the block layer may immediately re-issue
+these commands. The solution to this is to schedule libata EH for the
+port which suffered the command timeout to prevent accepting any new
+command. ata_scsi_requeue_deferred_qc() is modified to add a call to
+ata_port_schedule_eh() for this purpose.
+
+In addition to this change, ata_scsi_requeue_deferred_qc() is also
+modified to take a new timedout_scmd scsi command argument which indicates
+the SCSI command that timed out. With this additional argument,
+ata_scsi_requeue_deferred_qc() can now also terminate with DID_TIME_OUT
+any timed out deferred qc, which simplifies ata_scsi_cmd_error_handler().
+In this case, ata_scsi_requeue_deferred_qc() returns SCSI_EH_DONE, with
+this return value propagated back to the ata_scsi_eh_timed_out() operation
+to indicate to scsi_timeout() that the timed out command was handled and
+no further processing is needed.
+
+For non-timed out deferred qc that need to be retried,
+ata_scsi_requeue_deferred_qc() returns SCSI_EH_NOT_HANDLED, thus
+indicating to scsi_timeout() that the timed out command needs to go
+through the SCSI EH (and libata EH) processing by adding it to the EH work
+queue with scsi_eh_scmd_add().
+
+One side effect of these changes is that the function atapi_qc_complete()
+needs to be modified to ensure that a deferred ATAPI command that needs
+to be retried is completed with DID_REQUEUE instead of the default
+SAM_STAT_GOOD status, and a command that timed out is completed with
+DID_TIME_OUT instead of SAM_STAT_CHECK_CONDITION.
+
+Fixes: 0ea84089dbf6 ("ata: libata-scsi: avoid Non-NCQ command starvation")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
+Reviewed-by: Igor Pylypiv <ipylypiv@google.com>
+Tested-by: Igor Pylypiv <ipylypiv@google.com>
+Reviewed-by: Niklas Cassel <cassel@kernel.org>
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ieee802154/cc2520.c | 38 +++++++++++++++++----------------
- 1 file changed, 20 insertions(+), 18 deletions(-)
+ drivers/ata/libata-eh.c   |  29 ++--------
+ drivers/ata/libata-scsi.c | 117 ++++++++++++++++++++++++++++++++------
+ drivers/ata/libata.h      |   3 +-
+ include/linux/libata.h    |   2 +
+ 4 files changed, 111 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/net/ieee802154/cc2520.c b/drivers/net/ieee802154/cc2520.c
-index abfcfe072..1b588f8d3 100644
---- a/drivers/net/ieee802154/cc2520.c
-+++ b/drivers/net/ieee802154/cc2520.c
-@@ -857,12 +857,10 @@ static int cc2520_register(struct cc2520_private *priv)
- 	dev_vdbg(&priv->spi->dev, "registered cc2520\n");
- 	ret = ieee802154_register_hw(priv->hw);
- 	if (ret)
--		goto err_free_device;
-+		goto err_ret;
+diff --git a/drivers/ata/libata-eh.c b/drivers/ata/libata-eh.c
+index 44daae8f378a8..f21efb0f6419f 100644
+--- a/drivers/ata/libata-eh.c
++++ b/drivers/ata/libata-eh.c
+@@ -648,29 +648,12 @@ void ata_scsi_cmd_error_handler(struct Scsi_Host *host, struct ata_port *ap,
+ 		set_host_byte(scmd, DID_OK);
  
- 	return 0;
+ 		ata_qc_for_each_raw(ap, qc, i) {
+-			if (qc->scsicmd != scmd)
+-				continue;
+-			if ((qc->flags & ATA_QCFLAG_ACTIVE) ||
+-			    qc == qc->dev->link->deferred_qc)
++			if (qc->scsicmd == scmd &&
++			    qc->flags & ATA_QCFLAG_ACTIVE)
+ 				break;
+ 		}
  
--err_free_device:
--	ieee802154_free_hw(priv->hw);
- err_ret:
- 	return ret;
+-		if (i < ATA_MAX_QUEUE && qc == qc->dev->link->deferred_qc) {
+-			/*
+-			 * This is a deferred command that timed out while
+-			 * waiting for the command queue to drain. Since the qc
+-			 * is not active yet (deferred_qc is still set, so the
+-			 * deferred qc work has not issued the command yet),
+-			 * simply signal the timeout by finishing the SCSI
+-			 * command and clear the deferred qc to prevent the
+-			 * deferred qc work from issuing this qc.
+-			 */
+-			WARN_ON_ONCE(qc->flags & ATA_QCFLAG_ACTIVE);
+-			qc->dev->link->deferred_qc = NULL;
+-			cancel_work(&qc->dev->link->deferred_qc_work);
+-			set_host_byte(scmd, DID_TIME_OUT);
+-			scsi_eh_finish_cmd(scmd, &ap->eh_done_q);
+-		} else if (i < ATA_MAX_QUEUE) {
++		if (i < ATA_MAX_QUEUE) {
+ 			/* the scmd has an associated qc */
+ 			if (!(qc->flags & ATA_QCFLAG_EH)) {
+ 				/* which hasn't failed yet, timeout */
+@@ -944,10 +927,10 @@ static void ata_eh_set_pending(struct ata_port *ap, bool fastdrain)
+ 	ap->pflags |= ATA_PFLAG_EH_PENDING;
+ 
+ 	/*
+-	 * If we have a deferred qc, requeue it so that it is retried once EH
+-	 * completes.
++	 * If we have deferred QCs, requeue them so that the SCSI EH task can
++	 * run.
+ 	 */
+-	ata_scsi_requeue_deferred_qc(ap);
++	ata_scsi_requeue_deferred_qc(ap, NULL);
+ 
+ 	if (!fastdrain)
+ 		return;
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index a7916b50cbfca..55299f28b1233 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -1680,30 +1680,81 @@ void ata_scsi_deferred_qc_work(struct work_struct *work)
+ 	spin_unlock_irqrestore(ap->lock, flags);
  }
-@@ -1116,19 +1114,7 @@ static int cc2520_probe(struct spi_device *spi)
- 	if (ret)
- 		goto err_hw_init;
  
--	/* Set up fifop interrupt */
--	ret = devm_request_irq(&spi->dev,
--			       gpiod_to_irq(fifop),
--			       cc2520_fifop_isr,
--			       IRQF_TRIGGER_RISING,
--			       dev_name(&spi->dev),
--			       priv);
--	if (ret) {
--		dev_err(&spi->dev, "could not get fifop irq\n");
--		goto err_hw_init;
--	}
+-void ata_scsi_requeue_deferred_qc(struct ata_port *ap)
++enum scsi_timeout_action ata_scsi_requeue_deferred_qc(struct ata_port *ap,
++					struct scsi_cmnd *timedout_scmd)
+ {
++	enum scsi_timeout_action action = SCSI_EH_NOT_HANDLED;
++	struct ata_queued_cmd *qc;
+ 	struct ata_link *link;
++	u32 host_byte;
+ 
+ 	lockdep_assert_held(ap->lock);
+ 
+ 	/*
+-	 * If we have a deferred qc when a reset occurs or NCQ commands fail,
+-	 * do not try to be smart about what to do with this deferred command
+-	 * and simply requeue it by completing it with DID_REQUEUE.
++	 * If we have deferred QCs when a reset, a timeout or an NCQ command
++	 * fails, do not try to be smart about what to do with the deferred
++	 * commands and simply terminate them and let the SCSI layer decide
++	 * what to do.
+ 	 */
+ 	ata_for_each_link(link, ap, PMP_FIRST) {
+-		struct ata_queued_cmd *qc = link->deferred_qc;
+-		struct scsi_cmnd *scmd;
 -
--	/* Set up sfd interrupt */
-+	/* SFD completes synchronous TX; install before cc2520_register(). */
- 	ret = devm_request_irq(&spi->dev,
- 			       gpiod_to_irq(sfd),
- 			       cc2520_sfd_isr,
-@@ -1142,13 +1128,29 @@ static int cc2520_probe(struct spi_device *spi)
- 
- 	ret = cc2520_register(priv);
- 	if (ret)
--		goto err_hw_init;
-+		goto err_free_hw;
+-		if (qc) {
+-			scmd = qc->scsicmd;
+-			link->deferred_qc = NULL;
+-			cancel_work(&link->deferred_qc_work);
+-			ata_qc_free(qc);
+-			scmd->result = (DID_REQUEUE << 16);
+-			scsi_done(scmd);
++		qc = link->deferred_qc;
++		if (!qc)
++			continue;
 +
-+	/* FIFOP arms the RX work; install after cc2520_register(). */
-+	ret = devm_request_irq(&spi->dev,
-+			       gpiod_to_irq(fifop),
-+			       cc2520_fifop_isr,
-+			       IRQF_TRIGGER_RISING,
-+			       dev_name(&spi->dev),
-+			       priv);
-+	if (ret) {
-+		dev_err(&spi->dev, "could not get fifop irq\n");
-+		goto err_unregister;
-+	}
- 
- 	return 0;
- 
-+err_unregister:
-+	ieee802154_unregister_hw(priv->hw);
-+err_free_hw:
-+	if (priv->hw)
-+		ieee802154_free_hw(priv->hw);
- err_hw_init:
- 	mutex_destroy(&priv->buffer_mutex);
--	flush_work(&priv->fifop_irqwork);
- 	return ret;
++		/*
++		 * Clear the deferred QC so that the deferred work does not try
++		 * to issue it.
++		 */
++		link->deferred_qc = NULL;
++		cancel_work(&link->deferred_qc_work);
++
++		/*
++		 * We are going to complete some scsi command, either with
++		 * DID_TIME_OUT if the command timed out while waiting for being
++		 * issued, or with DID_REQUEUE if another command timed out or
++		 * we had a failed command. However, the block layer may re-issue
++		 * these commands immediately, keeping the scsi host busy and
++		 * thus preventing the SCSI EH task from running.
++		 * So schedule EH on the port to prevent accepting new commands
++		 * until everything is sorted out with the error or timeout that
++		 * got us here in the first place. Note that we set EH pending
++		 * on the port before calling ata_port_schedule_eh() so that we
++		 * do not reenter this function from ata_eh_set_pending() with
++		 * timedout_scmd being NULL and erroneously retry deferred QCs
++		 * that have timed out on other links.
++		 */
++		if (!ata_port_eh_scheduled(ap)) {
++			ap->pflags |= ATA_PFLAG_EH_PENDING;
++			ata_port_schedule_eh(ap);
+ 		}
++
++		/*
++		 * If we are being called from scsi_timeout(), then we have a
++		 * non-NULL timedout_scmd. If the timed out command is for a
++		 * deferred QC, terminate that deferred QC with DID_TIME_OUT and
++		 * requeue all other deferred QCs. In this case we need to
++		 * return SCSI_EH_DONE, because the timed out command was
++		 * handled.
++		 * If the timed out command is not for a deferred QC, we need to
++		 * requeue all deferred QCs, and return SCSI_EH_NOT_HANDLED so
++		 * that the timed out command gets added to the EH work queue
++		 * with scsi_eh_scmd_add(), for later handling with libata EH
++		 * ata_scsi_cmd_error_handler().
++		 * If timedout_scmd is NULL, we simply need to requeue all
++		 * deferred QCs and the return value does not matter as we were
++		 * not called from scsi_timeout().
++		 */
++		if (timedout_scmd && qc->scsicmd == timedout_scmd) {
++			host_byte = DID_TIME_OUT;
++			action = SCSI_EH_DONE;
++		} else {
++			host_byte = DID_REQUEUE;
++		}
++		qc->scsicmd->result = host_byte << 16;
++		ata_qc_done(qc);
+ 	}
++
++	return action;
  }
  
+ static void ata_scsi_schedule_deferred_qc(struct ata_link *link)
+@@ -1722,13 +1773,41 @@ static void ata_scsi_schedule_deferred_qc(struct ata_link *link)
+ 		return;
+ 
+ 	if (ata_port_eh_scheduled(ap)) {
+-		ata_scsi_requeue_deferred_qc(ap);
++		ata_scsi_requeue_deferred_qc(ap, NULL);
+ 		return;
+ 	}
+ 	if (!ap->ops->qc_defer(qc))
+ 		queue_work(system_highpri_wq, &link->deferred_qc_work);
+ }
+ 
++static enum scsi_timeout_action
++ata_scsi_retry_deferred_qc(struct ata_port *ap, struct scsi_cmnd *scmd)
++{
++	enum scsi_timeout_action action;
++	unsigned long flags;
++
++	spin_lock_irqsave(ap->lock, flags);
++	action = ata_scsi_requeue_deferred_qc(ap, scmd);
++	spin_unlock_irqrestore(ap->lock, flags);
++
++	return action;
++}
++
++enum scsi_timeout_action ata_scsi_eh_timed_out(struct scsi_cmnd *scmd)
++{
++	struct ata_port *ap = ata_shost_to_port(scmd->device->host);
++
++	/*
++	 * ata_scsi_cmd_error_handler() takes care of commands that timed out
++	 * while executing. However, if we have deferred QCs while a timeout
++	 * triggers, we must requeue these commands for retry so that we do not
++	 * unnecessarily delay starting the SCSI EH task until these deferred
++	 * commands also time out.
++	 */
++	return ata_scsi_retry_deferred_qc(ap, scmd);
++}
++EXPORT_SYMBOL_GPL(ata_scsi_eh_timed_out);
++
+ static void ata_scsi_qc_complete(struct ata_queued_cmd *qc)
+ {
+ 	struct ata_link *link = qc->dev->link;
+@@ -2933,7 +3012,13 @@ static void atapi_qc_complete(struct ata_queued_cmd *qc)
+ 		if (qc->cdb[0] == ALLOW_MEDIUM_REMOVAL && qc->dev->sdev)
+ 			qc->dev->sdev->locked = 0;
+ 
+-		qc->scsicmd->result = SAM_STAT_CHECK_CONDITION;
++		if (!cmd->result)
++			cmd->result = SAM_STAT_CHECK_CONDITION;
++		ata_qc_done(qc);
++		return;
++	}
++
++	if (cmd->result) {
+ 		ata_qc_done(qc);
+ 		return;
+ 	}
+diff --git a/drivers/ata/libata.h b/drivers/ata/libata.h
+index 56c4136b74179..9f96ca2acfd90 100644
+--- a/drivers/ata/libata.h
++++ b/drivers/ata/libata.h
+@@ -172,7 +172,8 @@ int ata_scsi_dev_config(struct scsi_device *sdev, struct queue_limits *lim,
+ 		struct ata_device *dev);
+ int __ata_scsi_queuecmd(struct scsi_cmnd *scmd, struct ata_device *dev);
+ void ata_scsi_deferred_qc_work(struct work_struct *work);
+-void ata_scsi_requeue_deferred_qc(struct ata_port *ap);
++enum scsi_timeout_action ata_scsi_requeue_deferred_qc(struct ata_port *ap,
++						      struct scsi_cmnd *scmd);
+ 
+ /* libata-eh.c */
+ extern unsigned int ata_internal_cmd_timeout(struct ata_device *dev, u8 cmd);
+diff --git a/include/linux/libata.h b/include/linux/libata.h
+index 7244d8e155364..868af0a08f527 100644
+--- a/include/linux/libata.h
++++ b/include/linux/libata.h
+@@ -1151,6 +1151,7 @@ extern int ata_scsi_ioctl(struct scsi_device *dev, unsigned int cmd,
+ #define ATA_SCSI_COMPAT_IOCTL /* empty */
+ #endif
+ extern int ata_scsi_queuecmd(struct Scsi_Host *h, struct scsi_cmnd *cmd);
++enum scsi_timeout_action ata_scsi_eh_timed_out(struct scsi_cmnd *cmd);
+ #if IS_REACHABLE(CONFIG_ATA)
+ bool ata_scsi_dma_need_drain(struct request *rq);
+ #else
+@@ -1460,6 +1461,7 @@ extern const struct attribute_group *ata_common_sdev_groups[];
+ 	.ioctl			= ata_scsi_ioctl,		\
+ 	ATA_SCSI_COMPAT_IOCTL					\
+ 	.queuecommand		= ata_scsi_queuecmd,		\
++	.eh_timed_out		= ata_scsi_eh_timed_out,	\
+ 	.dma_need_drain		= ata_scsi_dma_need_drain,	\
+ 	.this_id		= ATA_SHT_THIS_ID,		\
+ 	.emulated		= ATA_SHT_EMULATED,		\
 -- 
-2.34.1
+2.53.0
 
