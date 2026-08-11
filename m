@@ -1,43 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8D03DD852
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 18:56:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A01283E16AE;
+	Tue, 11 Aug 2026 18:56:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786474566; cv=none; b=OhiiTsKWVLCrmo0Vs3rhzlZDCKlqSnzl3Ke2QdNuRI3FUBtF4H7k4KF5ZXrNckbN8qUqSCVTsADzXwiCuq/TMPjrrUeajmCGOgt9EWVRMvUDZoHNWxfkbhgg5QikmM/+8lleXV8qnNxTV3cxmx1DBzjxKWyjkajbDO8nKLpVpYU=
+	t=1786474568; cv=none; b=B7n/hcQwfD3HFQZ/yGhiktqmse6+AQu02Hx3yygI6hbEdXiydQWCtpLRkk+hfnZy2DAzsEH5gHq3A3h3dRQEhAJBX9J704zFiET/tqyssxn8QIhnZwqshLTmrJ0fO7yBB8+U3ToVlJ9qQEb8H22tV719kbtRGL8aVp2025ebtJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786474566; c=relaxed/simple;
-	bh=mZrVY3h+Qp94YF3FhfO0/KaL7vomZ5i07t0RV5Z3hFE=;
+	s=arc-20240116; t=1786474568; c=relaxed/simple;
+	bh=JQJcuS0inougcGk2EFyU95PedYiZ6t6/NmybBEus6lQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ev3eDXGZUlqiDu+UrSEoSusBiDgGrpJColcZOYcEinkPmxDKzKT+4DJ6HAKRNU7s70PADs4W5yrFeUDOimMCM9Swua9H3rrkvmvNh77jgNWNgRGK0fN7kMe33//FYCqw7LmabDPcI6ZqlTHHI2P6nPyfaH/LlcpsW8AhUmc6b4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X46MpPDS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HVw2yW4AMQ5Ru12/FbTjwMN7TTih4PJivT2w8mD6J9UpxcSS/4rcS5E3wVzOCKBUYxfwBrdenzY2Eea/nwr4cYcJ4hKwREQ7C7qdzj8sVPObWOkxXQ2Bhq3ovc44Q7C0M4wGCAvnzAVG6znb6SHIboC6Qj903HQ/FDaK5Qyj6uE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JO5xusKn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X46MpPDS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67AB91F000E9;
-	Tue, 11 Aug 2026 18:56:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JO5xusKn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB2271F00A3A;
+	Tue, 11 Aug 2026 18:56:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786474565;
-	bh=K48jktuOMKSx8NWndR/16lLrl9CKZa+xhUIl0liG2Mk=;
+	s=k20260515; t=1786474567;
+	bh=WguRyZrowNxfU7BRQOeMCu12e4drDxmzeT1j5M286YM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X46MpPDS+cdK2K0XO46Rt2g/SVJNcqI/ghMjqy7x1SpEaR4fpniFc1xdYQKuw7aqc
-	 ETxtLzlVKXmiJ4Ye9IuazybxAR9IZY/fE9VNENfM3KmGXBQnjbzUmrne6ngtp4zcaF
-	 5w+RtRPgmeTLgIUt4kzuS92a9Pql5tqnQDGxIglubCGcXSnbeUu0GfrKiTfTlwlLtj
-	 1wmnj6yfUTRC1tZQrFSaQTpNfbe/1Cc5RQHjFFWj6JJtGacAGzVk2t16PXI+fCrLHf
-	 zq8NBqyfpUukC70ZsGNCgLp/T51tN7yZf5XwJ9pgcjlLL8yFuSx3i3X5im2/DVDR3W
-	 qmnylMXTo6jIw==
+	b=JO5xusKnQqOyZaz1HAoXOLZ1hyswxYyURwj9yhx43GG9cVJM8iLKHW/VrdMd5c0p6
+	 EAbKM636Z7cBaneWVngxSJtXbNsBmlb1FkXwHOT1wF3nmNMTf03cTuFEgmi931t6T0
+	 GeoMiqJeoaXaQ7eJZ2d7em78yr+ABV27t0wCq35jKZgQ21YNQOnTdYjmJCFEEjqxdu
+	 bYy0Dt8SGdJ8tQizLihC9vu+GncPOzCJhegNQYv8nwSoU42mU2RpQWoU+qxNJRKQ+/
+	 Qg0lgx3alJdSYuKo/8uY17t1Sk3aueFEYBXTaW6aLfGtMxmrNe+v6REsKO1aj9hFOT
+	 Wp4eSoKtm9dSw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: John Stultz <jstultz@google.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Harald Freudenberger <freude@linux.ibm.com>,
-	Holger Dengler <dengler@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>
-Subject: Re: [PATCH 5.10.y] s390/zcrypt: Fix missing mem scrub at clear key import in cca_clr2cipherkey()
-Date: Tue, 11 Aug 2026 14:55:50 -0400
-Message-ID: <20260811184500.stable-0005-sashal@kernel.org>
+	Jose Fernandez <jose.fernandez@linux.dev>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Janne Huttunen <janne.huttunen@nokia.com>,
+	Zicheng Qu <quzicheng@huawei.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Shubhang Kaushik <shubhang@os.amperecomputing.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Xuewen Yan <xuewen.yan@unisoc.com>,
+	William Montaz <willymontaz@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [PATCH 6.18] sched/fair: Revert 6d71a9c61604 ("sched/fair: Fix EEVDF entity placement bug causing scheduling lag")
+Date: Tue, 11 Aug 2026 14:55:51 -0400
+Message-ID: <20260811184500.stable-0006-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260810131217.238074-1-dengler@linux.ibm.com>
-References: <20260810131217.238074-1-dengler@linux.ibm.com>
+In-Reply-To: <CANDhNCq7sFij0uCT75B5aT3voABaK8-=KMbKMNdO1Yi6QWRhng@mail.gmail.com>
+References: <CANDhNCq7sFij0uCT75B5aT3voABaK8-=KMbKMNdO1Yi6QWRhng@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,11 +55,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Extend the _ip_cprb_helper() function with another parameter 'scrub'
-> used to steer scrubbing of this buffer. So now the caller has the
-> opportunity to decide if scrubbing is needed or not.
+> Do note, as Jose pointed out you should probably take: 80390ead2080
+> ("UPSTREAM: sched/fair: Separate se->vlag from se->vprot") as well
+> then (ideally prior to).
 
-Queued for 5.10, thanks.
+Queued for 6.18, thanks - and thanks to Jose for catching it.
 
 -- 
 Thanks,
