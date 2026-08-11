@@ -1,105 +1,164 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11788430309
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 10:21:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F352E7F20;
+	Tue, 11 Aug 2026 10:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786443725; cv=none; b=K7TyED6yCPlm4+aSuY2+80aWXtYJW/xDRJYc9jJyzDJlBnnGYAJ81t5YstHMHOMT9s2v+ClaUUkqTdX8gmKvE8XrI7yz9+Evdf8DtjJfiNbz9pvt3YcXv6BMVcBRSNJBiboVGjA/0m8ZJAI9iT5e9Fxxri3fPhGxIQ7xDrZh8GU=
+	t=1786443989; cv=none; b=ZOGXqIh8vimNqaIVHBetsOpsGc99Yu6S+WDvK+D9/qlgK7meXb2AvA+D7ajXoXDxpyYK2Sj/V5qfRPccuQ2K1TxCzK3oESiQNy3K+GDO7rjP7xy3G3okfeOlnML2zRiV9NcJFzp9NZyhLnHX+Uk581n/QTJ/xo1HaSj+Nf0TgQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786443725; c=relaxed/simple;
-	bh=3w7qdREcKF013xDNyNPF3fGwxZf1uoEpkhlXnxCwLgY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o0+PNWbuRa+gmjxaACTVAPeY/oNTWdcg/dfIaSe8920u+QNIggLo6GWQKOAQ2B7BnNFyqTNV+q6nO65foeNmy1G5MUT8+VucngjNwJsgaAh6Wr9vl1QjVWf0z8aihLAQmbosl20ylKefqKn2yO2YKvAD/eEY0cWAboav4A70YBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2d313798bf8so3450105ad.0
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 03:21:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786443719; x=1787048519;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jTYjZBZGMPVvD7fTKHpg8PYeoZCfwS/aHmI9q8GSv60=;
-        b=KOklME2TRYvNEzq6LUyfi5N7uTnqUpNf15PeoUc3OPqoNa/zSUJmDN8dLaT34eF85n
-         r9BAGcSDR+O1jzVtEeo8zgmGy1DsGiqTbMQtHaW7cK+xr6VSEiVV2iOcW/Ws28mwpz0l
-         Uv614XhdDryXLE4zhVBd2lgxBxv+DdMzSc+leguXjHgc94XEoj4vHPyB20fQSKPmEBMb
-         HQUUanfaflfgJrRt/9gOyAeLwaBdiUWZvxLewn6UeSObtvTuVEU8XYQY0nl3U5rchBRW
-         FXhEbr0wnhRsO5Cs00CWaZ80uzmOeZOBbf/DxHZHulzFlxE5c/BpPZaF41i2IxDKlnTJ
-         7dJg==
-X-Forwarded-Encrypted: i=1; AHgh+RrU7nY+Jsjq20QYJaBNuyNaN7MebVwJ6Fpf8hLqrxiT7Ovx0+k5q6jUfdd92nt1qe+Sij5QuO0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxEiZbvu9GdmJPm0ihcwD0Ek5kQ9Mm27g+YT1zkhX12pyF24prC
-	/IqCJkORhTtrjoIOmz3vUKWzhh0kFAzbsLYrnIi0QmC2SnZu7wD72zfA+KS3eeZt
-X-Gm-Gg: AR+sD11UoNIvC/2140GJSuVIilfHNMafmFbGKRwGZWwgXM9uEniDnVtUEQGwY0eOu1y
-	cgHDbipN/34KX3L618kkskj5Wtk86mXRLFQ/zeWuOETxC2yl53WOwmmNJpUBD0RvQaOSp/P4a9b
-	OxyoV7f0vf5lX71Xy6b0PekwAffvN27qydLSwBnzFCkkWkdYt8kEg8o6/rwEOdEKjiwnzRgIjN6
-	TX+q2GoskcrLWMVfbMOCIlregMQMTfHcHP7Cr556JkhFYNpvijxTP3RHC0np4qkYL6qbVcBSb7O
-	bIQbwvaAHKx9yibKjzjSEwqs4qivf0UA4HYq/skFOUTjy6LwXvtMS437CXG2sU+PKXOLF3EiZ14
-	mbuAjbgyMewB986HAxo765OT78q/OkaXKb67IeQ8E2/45axXSsia79eQj6oWZrKJaBXLID1/2Gm
-	r+Vng/CGIqYipSK/8QwNU7Io0LYvjEbzVxdQ4KcZZ6ZtrC8NAI/OOgsXV0dqApnZ6lgwn4cHaPp
-	UuG3/KcGA==
-X-Received: by 2002:a17:902:d488:b0:2d1:1a18:4d0a with SMTP id d9443c01a7336-2d3177a2163mr23058195ad.9.1786443718684;
-        Tue, 11 Aug 2026 03:21:58 -0700 (PDT)
-Received: from kylin-XiaoXinPro-16-AHP9.. ([116.128.244.171])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d315ef0a79sm5221975ad.9.2026.08.11.03.21.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 03:21:58 -0700 (PDT)
-From: Xueqin Luo <luoxueqin@kylinos.cn>
-To: W_Armin@gmx.de
-Cc: ilpo.jarvinen@linux.intel.com,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xueqin Luo <luoxueqin@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] platform/x86: wmi: Add ACPI_COMPANION() NULL check in parse_wdg
-Date: Tue, 11 Aug 2026 18:21:28 +0800
-Message-ID: <20260811102128.1027805-1-luoxueqin@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1786443989; c=relaxed/simple;
+	bh=yoWJQqEoxTWlYX9SkYQiGZwUs6hYzmyYDjLMS3Ts5eo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ts66KDX8pS1pU6LXRTkYrnxIkdcSOlegvFMOrErB/5J1PGoxXvhnPKqh+OHOnnAHA0pn1Y15d0hD7IwocNy4hgTc2fVGZtRprvjhMgUBCbKkj8alK+4r3xC9fWYlRR9LhDrG7DKbdCE1PSd0Jfdi1zOjq+BvG5WNhvAMsV1Wf84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Qi6UOHYT; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ZM3s688t; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rxPf3uk/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XuR/PkOM; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Qi6UOHYT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZM3s688t";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rxPf3uk/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XuR/PkOM"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C1C4C3F23;
+	Tue, 11 Aug 2026 10:26:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1786443978; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l3Kt4KbGsXSbdjf21qYSSa4UkM2/oPWR1wlV6B9wTYI=;
+	b=Qi6UOHYTPR7MDZhGvD5Wm99+1HmVlb5V2c/Omi2vui0bKzU1K5khMOALbXP5dqqvmNcocP
+	ddrSxz23diAAf0/yDDPRvLdnaxc+b9Nzdp7AAKV/hiRcfmLbxgbsxXeG8+6xWG/S3Ko7nU
+	IBr8EFO98o+KQ3pi/OswofRUIFi9E/E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1786443978;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l3Kt4KbGsXSbdjf21qYSSa4UkM2/oPWR1wlV6B9wTYI=;
+	b=ZM3s688tvLSR8UO6F/guHL7dKcAO7Gv1QCgwHRrxBfgxaLIG5ZfxUEFHg3sR5JIUnUt8Ut
+	AgKZonW7/ZOa5yAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1786443974; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l3Kt4KbGsXSbdjf21qYSSa4UkM2/oPWR1wlV6B9wTYI=;
+	b=rxPf3uk/QEkEO9Kj3NAx1intd6U7XY4JpKSA7Doj/e6/obgXfGFdAX2x5lm7VX+vOpKX/g
+	fRmfDwLXYMnIUfzSi/UIWgReUSsejaTNZTfx1K19sRXuBJ4X6ZtHnueIeT985bEq993jcr
+	mxPVWxY17o1Y0MUmaeRl2KuMkL2VFSA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1786443974;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l3Kt4KbGsXSbdjf21qYSSa4UkM2/oPWR1wlV6B9wTYI=;
+	b=XuR/PkOMWl41WDBK/81zEIGbkHVanXrpxd+6UFSZTMM+8wmv68q+TK8r2IlTxM2xtBNPgy
+	zdCfrg7dtnUKpsDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AD485779B2;
+	Tue, 11 Aug 2026 10:26:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id yTTiKcb4emp2NAAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 11 Aug 2026 10:26:14 +0000
+Message-ID: <a0ff0901-8f9e-4309-a5c3-18317b7af442@suse.de>
+Date: Tue, 11 Aug 2026 12:26:14 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvmet-auth: reject overlong negotiate identifier lists
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260810155615.3269409-1-Jeremy.Jean@oss.cyber.gouv.fr>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260810155615.3269409-1-Jeremy.Jean@oss.cyber.gouv.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,cyber.gouv.fr:email,suse.de:mid,suse.de:email]
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spam-Level: 
 
-Add NULL check for ACPI_COMPANION() in parse_wdg() to prevent NULL
-pointer dereference when driver_override matches a device without
-ACPI companion.
+On 8/10/26 5:56 PM, Jérémy Jean wrote:
+> The DH-HMAC-CHAP NEGOTIATE descriptor carries separate lengths for the
+> hash and DH identifier lists, but each list occupies a fixed 30-byte half
+> of idlist[]. nvmet_auth_negotiate() uses halen and dhlen from the wire as
+> loop bounds without validating them, so a remote initiator can make the
+> target read past the 72-byte request buffer. KASAN reports a
+> slab-out-of-bounds read in nvmet_execute_auth_send().
+> 
+> Reject list lengths above the protocol maxima before either loop
+> indexes idlist[].
+> 
+> Fixes: db1312dd9548 ("nvmet: implement basic In-Band Authentication")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>   drivers/nvme/target/fabrics-cmd-auth.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
+> index 45820a12750d..8679d5db4f86 100644
+> --- a/drivers/nvme/target/fabrics-cmd-auth.c
+> +++ b/drivers/nvme/target/fabrics-cmd-auth.c
+> @@ -71,6 +71,12 @@ static u8 nvmet_auth_negotiate(struct nvmet_req *req, void *d)
+>   	    NVME_AUTH_DHCHAP_AUTH_ID)
+>   		return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
+>   
+> +	if (data->auth_protocol[0].dhchap.halen >
+> +	    NVME_AUTH_DHCHAP_MAX_HASH_IDS ||
+> +	    data->auth_protocol[0].dhchap.dhlen >
+> +	    NVME_AUTH_DHCHAP_MAX_DH_IDS)
+> +		return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
+> +
+>   	for (i = 0; i < data->auth_protocol[0].dhchap.halen; i++) {
+>   		u8 host_hmac_id = data->auth_protocol[0].dhchap.idlist[i];
+>   
 
-Same issue as CVE-2026-64227.
+Reviewed-by: Hannes Reinecke <hare@suse.de>
 
-Fixes: 4186a47dbfbc ("platform/x86: wmi: Decouple probe deferring from wmi_block_list")
-Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
-Cc: stable@vger.kernel.org
----
- drivers/platform/wmi/core.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Cheers,
 
-diff --git a/drivers/platform/wmi/core.c b/drivers/platform/wmi/core.c
-index 529825dcfbfe..151b712d08b5 100644
---- a/drivers/platform/wmi/core.c
-+++ b/drivers/platform/wmi/core.c
-@@ -1290,7 +1290,7 @@ static int wmi_add_device(struct platform_device *pdev, struct wmi_device *wdev)
-  */
- static int parse_wdg(struct device *wmi_bus_dev, struct platform_device *pdev)
- {
--	struct acpi_device *device = ACPI_COMPANION(&pdev->dev);
-+	struct acpi_device *device;
- 	struct acpi_buffer out = {ACPI_ALLOCATE_BUFFER, NULL};
- 	const struct guid_block *gblock;
- 	bool event_data_available;
-@@ -1300,6 +1300,10 @@ static int parse_wdg(struct device *wmi_bus_dev, struct platform_device *pdev)
- 	u32 i, total;
- 	int retval;
- 
-+	device = ACPI_COMPANION(&pdev->dev);
-+	if (!device)
-+		return -ENODEV;
-+
- 	status = acpi_evaluate_object(device->handle, "_WDG", NULL, &out);
- 	if (ACPI_FAILURE(status))
- 		return -ENXIO;
+Hannes
 -- 
-2.43.0
-
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
