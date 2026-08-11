@@ -1,119 +1,86 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F971443ABA
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 12:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35425442FDF
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 12:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786451195; cv=none; b=MpKXjZfmCJUUPVCz4KVnbWj1uuwTfY8CXk9fd3Ys/URa5a0RdP3eHtnkWdSPgVibw5slqVOjsas9xQ23gLCSCwD1MKx666XwQJumpuL9bTFFE9bPPHLhWuh/VmH+ifgH+r2x1FqMShgv577zmz3t7dgvjjLWBaQubu1U2pKzHck=
+	t=1786451294; cv=none; b=fFltzxgmYkaQhN9UtZl7k2Kxc3UQ2Xd3RlgRca0plA8kcKSU84GsjQBp4WmBr8j0G90ZtyTwa3wFsLZZYpmv5JT2CkDbgrS+5np4mqMdpYrHwXrAJegNH1bRsKGO+Cpl5U7tpU/A+u0Br/Gz4gLtKd7x7HRZmc8sZSznSkP6dXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786451195; c=relaxed/simple;
-	bh=FhK+PPdEUEsR/M3kiMix3JnW50mQEytqxeqxwx9Vaw4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZTFt2pbF7x3dVAD9mjQ18pbKEjh7Ybb+P3sRgsIGUQ4zCV3rhHa5eVm74Hiz2WaDb6Sz0t+i+24/x88/Ow9yTlC8dQxUauvOHbUUDLhWYB3B2smdBHoJQo3jwn6jJk+Nr/+o6m/tZdrFV+nYop9TA49BuKuLoKfG+rXgPyI3bQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iC4a7bCl; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786451294; c=relaxed/simple;
+	bh=+D6S2YDW9rQuqBnoRrnLBMfTOLa1VXOEeMTK1x2z25I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=C5AfgxAeMimMTnbH/NsO23nerZcfb/Uiqfx+pJ1iTwfXtnl5uFPMtZ4ahMplle5BW9BiNLhzKYxnpp9hIRvFUltuXLR3tj9hSFdpKE7bOTCETAJv5F10xBqzfk2PdxsNZXIKaECbUbBhaioyyFEBHbgIXk9UxJr3F3Y3zLWK9pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BKs4AzZe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iC4a7bCl"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f7027ca11so1958175f8f.3
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 05:26:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786451190; x=1787055990; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dcp9Xyy2hoh4eNF+HTy2sWu8AKCbGo8+F9Skb8g8ERE=;
-        b=iC4a7bClGMC2GUIkDGUFZ3wpOEIi8GG6xPKUTJMWZ7X85Q5lmm4P7sIJTmQQWMi0Dt
-         aEZTr6mTPTCK4BRfoPnQmCTYP54l/UCbWJ+2G6ZM6Y4OekPqMFS5UCItBoFBwlJaKvMc
-         bEAlRWBzrvBvx8Z5eQTBDZu3d6yHUjFRrSCG9I8XlcOmZxgbfRLJ/PdhiwSkKwQa6it8
-         06XTvqX7EEjIecerctF0k4twWAZP4S8YDQ5wCW/WiSVz9yNO1A/0gmjSbX6xstcrNDI2
-         7fFhJhMQUncu9wAh2IuaRZFBuTzJQ4vVp3C4hJUkmxSbtqSWRTDkt/k56ChwaLnX6vJE
-         MFgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786451190; x=1787055990;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dcp9Xyy2hoh4eNF+HTy2sWu8AKCbGo8+F9Skb8g8ERE=;
-        b=WEoPiQOEmcgGx+SBn2zxJmGpwkMp8LA7JPRcqo82t6ZT/NyH6pXdNxFdM/LcSiHcbA
-         l6l206crBwltKTkgj/MtWqeSKTnJfS9AIQHPBRuX+lX5I9GA735Mdra3LLiCeBp944gM
-         Vjdu8pKLxdhMavRkn1xrM8xPknollKFVec/mIuFhgfweLEAsLfNL/aW44j7rW4piDqrK
-         QDt3v30uEdydffnUT5L6il2ESv1goArfr3MxFLne12ghRk8c/n57GV5AzdVvMPd/Cc5Z
-         dcJnHzDWelHx3aEHZBtux7RsM3Qm+hSmqnjgYOpfNy3ChKoT/hu4+MCHydstHKo/9Ulr
-         Zaww==
-X-Forwarded-Encrypted: i=1; AHgh+RqFhMoAUyWenj5R8F2JNkZq5yecokJ1RWqyxlbKPDItdTuZXjqIihT/1SvRbS1u00ghvzahgec=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwwVoP4DHwq3OZUnDUn2RnQF3JoBBz0DbWtUqWgHwglF3myqU4X
-	Y/0VIDVBeyVNS3oYgWgFl0bAkJjdkpfMzavu8CaXcxtbcJqOfpi5qemp
-X-Gm-Gg: AR+sD11LywBH8f4K4mD1yLruk+Uno7R818rigj0o/Lm7LGm4YSC2K846PPWfA0PZiUY
-	U5EMCWHCvhROPdcWz36ioQHON4NqZSKv2FVv7OIjupPq4UNCZoPVHI9t4mEyWdAy06cUsO5nTWL
-	aUjVkuh0LnVICs51ha8z91fi3nQtDLuzUxguyjmud241YsGhH5trofU7J74LU4ECLYE/TmyuKoI
-	5hupl9AQAYlE3QHEauP0XQfV2AOuVVa94b6Kyes8EUk1nZUOFzo3hzUjA3eWok1I9x6yrJkLDcb
-	Y47q39ne1gHqCG++JbVuTR6ZFLn6Fq54kIU1dI+YzZ5cjIzWYuRs8lkK1LY806OP94xLMb/pZ5n
-	YW9zUxI6Kxmc93L4JU04Qk8rWaQJxO1ee5DaQJtyW8AbyfVc8RxWSbEtCG4HmP0OEXiv6KyHj51
-	3BR+1SrHclABqIMdHXmIWw2ZrDs371hX+BrLuRvEXLKsSCddEvxtx9dHr+ZUU4LNNZ4qqxNkELM
-	W2b
-X-Received: by 2002:a05:6000:22c9:b0:481:4810:d701 with SMTP id ffacd0b85a97d-4814adbb1d1mr4452767f8f.19.1786451190140;
-        Tue, 11 Aug 2026 05:26:30 -0700 (PDT)
-Received: from [192.168.10.195] ([188.216.175.96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4814a7096c5sm4247773f8f.24.2026.08.11.05.26.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 05:26:29 -0700 (PDT)
-Message-ID: <8a0fad2d-788a-403f-a880-2f97c6708275@gmail.com>
-Date: Tue, 11 Aug 2026 14:26:28 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BKs4AzZe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45CA31F000E9;
+	Tue, 11 Aug 2026 12:28:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786451292;
+	bh=RWJIOgkWf+2j1VIrUriZj487YUsm2MAov6Ps+Ukn24s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BKs4AzZeSOQV4KEZdJk8sHfdR/6FKD8Q9Ra7R/iCg03cHAdSxQqnaogpU0dFeHyCL
+	 BCshQfBLo2CTruzz3PS5L+LTe2e9JQwG1hWcofBofkHtLgccPI3FYfBrIBVttASXvD
+	 e+yD9VOdLy+Gnh8tovx5NdSDH+XA4YT9Uj7EraoWrMYbv4h4fQSu+9h+LYTQschOWZ
+	 jQQmZadGze/qM7+3hQvaLr3TS9vjf/CmX1KbE73vDoKe7heI8dygVfgFakTNVqMhiG
+	 miSxs5OBoTGjfQrcfe9hZ5DNKlpnAPEwxuIQyib7OD+ftWCRN2+elABTVNRi4NnEWG
+	 bW0i2w1oQtJaA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] ksmbd: conn lock to serialize smb2 negotiate
+Date: Tue, 11 Aug 2026 08:28:08 -0400
+Message-ID: <20260811122809.2388863-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080543-chunk-untitled-292b@gregkh>
+References: <2026080543-chunk-untitled-292b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Please revert 1191285ecb42 from 7.1.y
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- George Zhang <george.zhang@amd.com>
-References: <9c6acb62-4080-48e6-9ba2-d1c457c4ec88@gmail.com>
- <2026081106-pebbly-cahoots-37a7@gregkh>
- <23db5f95-c2d6-4712-856e-28f647e184f7@leemhuis.info>
- <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
- <2026081151-reabsorb-calamari-7442@gregkh>
-Content-Language: en-US, it-IT
-From: Sergio Callegari <sergio.callegari@gmail.com>
-In-Reply-To: <2026081151-reabsorb-calamari-7442@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/08/2026 10:08, Greg KH wrote:
-> We aim to be "bug compatible" with Linus's branch, otherwise the
-> "pressure" to fix those bugs goes down.  But I defer to the maintainers
-> of the code involved if it is being worked on, and they want it
-> reverted, great, we can do that.  Otherwise we prefer to leave it as-is.
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-I understand. Sorry for asking about things that might be obvious to 
-most people here. My expectation was that only a selected subset of the 
-patches on the Linus' tree were to enter in stable, so do we really need 
-to have stable "bug compatible" wrt this bug? The original behavior was 
-not free of issues, but they were rather minor (a reporting issue). Now 
-we have this very bad behavior where the display remains dark.
+[ Upstream commit fe4ed2f09b492e3507615a053814daa8fafdecb1 ]
 
-To make the matter worse, on systems that have encrypted root the screen 
-remains dark also on that password prompt (observed with plymouth).
+If client send parallel smb2 negotiate request on same connection,
+ksmbd_conn can be racy. smb2 negotiate handling that are not
+performance-related can be serialized with conn lock.
 
-In any case, I managed testing 7.2.0RC7 and it is fine again.
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: cb469993b3a6 ("ksmbd: reject repeated SMB2 NEGOTIATE requests")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/server/smb2pdu.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Looks like the Linus' tree has more changes wrt backlight, and the 
-interesting ones are probably those in the cumulative fix 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=973fd9493ec21f12e760fbbedeb7b0b2317c02f4.
-
-Best,
-
-Sergio
-
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 8ea6d4ce3a1f1..d54a24255fa7c 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -1126,6 +1126,7 @@ int smb2_handle_negotiate(struct ksmbd_work *work)
+ 		return rc;
+ 	}
+ 
++	ksmbd_conn_lock(conn);
+ 	smb2_buf_len = get_rfc1002_len(work->request_buf);
+ 	smb2_neg_size = offsetof(struct smb2_negotiate_req, Dialects);
+ 	if (smb2_neg_size > smb2_buf_len) {
+@@ -1275,6 +1276,7 @@ int smb2_handle_negotiate(struct ksmbd_work *work)
+ 	ksmbd_conn_set_need_negotiate(conn);
+ 
+ err_out:
++	ksmbd_conn_unlock(conn);
+ 	if (rc)
+ 		rsp->hdr.Status = STATUS_INSUFFICIENT_RESOURCES;
+ 
+-- 
+2.53.0
 
