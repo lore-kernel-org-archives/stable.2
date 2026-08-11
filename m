@@ -1,163 +1,135 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F8A34A3BF
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 10:42:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786444944; cv=none; b=VUQO9QX+oOEoI5yBtALM1eEpHS6G6+5FS8tlY3g6s9lGufzHkTRPdCEB7xAUA7T1HqClTk9btoBAgip7UcFoERhr2kUXU3e/1sqRLoF+GO2gtN5IuOL5/rjkTowoS/RLIHOKAveFQwj4O1/Ul7Y+Zy7mO2yhIk9R5cypS+4mNPA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786444944; c=relaxed/simple;
-	bh=9DWwyp1KRArEjU+uq1Qkw7+RtV8sKm9Jirs8RjgfOuM=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=o2W88NnkoZ48VVrWyMMXDIqqKOaHTRbLo+zNd6vmBXyFGTHXe9t9PaF96inSG7e8/0wT2ZeVIpTxt21hi8zFIbj4AgkZ9ajkdXiq+ER3M5ATkb15eCI8KAwOySTArjhKzcFWLX1sz23eZz+H93Cyolag/aqY+gITOL+UVUfIsOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=JbYAdc17; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4B534A3BF
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 10:43:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786445026; cv=pass; b=o/e2+NbVEyDSqM/weI76siZWfMdTQj+geluWhYcVpkEMX8n8JIArYCmy5wl2M8KQ3k7rzHE9569h4Xlm9c0scG081Kqmoc37R27DkqhMT+i0qXCSAyjT+8NFwbUf92fnRxnB3IeOzkcJn1fC7zDLqz1ZVLnfFIGMwJvDSjBLfuw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786445026; c=relaxed/simple;
+	bh=1Oc64gMDjytZEdqM1LZNVQuclN2jmmuxKaJUiRRW3Io=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ON5Vaescg0LxrqxtUn5CN8hJz8gEwWBd3J05nGgnof6M11GpzaTSZsTkanscHtmJjwekzAd1ozcHb9Av/QO3ak5lbu+GdLeMgib3q+MlycXzrxV08mK6Nm9OavIb58ZecI16y8TcipncV2EfhLfQPvcT5XVrm+O6Dp7Xr+8nSQo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=mz8bpy7S; arc=pass smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="JbYAdc17"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4954a2e73a9so17644565e9.3
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 03:42:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="mz8bpy7S"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84a2dcede83so3764353b3a.3
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 03:43:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786445025; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jkFBEZZkK/hdwjZfSO/nJ+hv6+oK9qpupCt1wguoCETNZNQQd9cpKCRJay2ZmrIDYv
+         uot8qnnQnEiVdPO0Ppd58/b6ymgwzWpwGeDLqMrYLplSbcbDHUxoJA8fR1Mzn36oE6M6
+         13oRSod5L49ZAnoUDXBrWZT2A0+nKWR3bN5J/upyiFAFhCm9Dt5Q/r2/f9l9W/rpCj49
+         ibwQ4lIPWISMY2AHjTyAFgCUMVa15u4gvXkNZLxxAg497ZZ8Wjy3A3FlMeEIDTZQRF5u
+         CSTqrSsP4gPx5FEYADVxmEWN5neXv2u5/oJyBcsYug9VfuD0fWCpuoqY4ZyRZwV8ld7R
+         THog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jtu1Ubp/zj233v+Jp8kdhsOBzGvcYsZCYr6r+QiZAfE=;
+        fh=ZC7nyE6lrVAUsuVXvFHY5y+MchwjUT0IGLn4qCvtOdk=;
+        b=Zax6jW4uN5PmdLRY8Ec5dEEpB24pullCKJZes3kJz0U62DBAXDZ+cd6BwSdY3H3pJQ
+         Wko2RE8slv4H/N2QXPkcIZ1gPjdI/Oq4TDtE3szqwfJ1Cxn3IYvjxE4F575HrEJ4poCf
+         7Wqq6SrRcvsb2NaKoGOtteHB+E3GkE/YCS4HqkYYutbAjJ8Sr4QQmbiRDCn9nuElxE9t
+         Dn3WI5ooNdYr5NDmoB234qjJHT51eM+GdGtXjplqNkebcvbwOc4WpgYEpZmA6nctDYvz
+         ND8EhnCNyEo3DDwGUnL44svu7XjRDDIKhSAToduF3gGukTLAZoCYnR2HVG9smzejUybA
+         FGFA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786444941; x=1787049741; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FOccx3o7YzspIOPN4VOMh1mmGB1X25Vq6yEwYlGFjto=;
-        b=JbYAdc1725Squ0YBQLUBaIlhUtifEtQYD3uRDi7rnwo6zGZg1hT4zJ4Fecc+T0C6tO
-         kn4A+JgbMPNQ4I5hGD8j8b2WYLLulmom8B+u2biH3E4ntg8vCVXRQt1MKk30cUb/Z3SW
-         YIl9OcpBnA6JNqekiW1dnI7gvBDxKvwi35Pp4V5g/T2EL2GYzWJv9QeRoCvibEuPIVjs
-         gKAuOcUKUJOzThG4F4ls0gr5q8VcjCiuZEtXlJblkt1nfz1xt1LG4deghg94KcI24zSF
-         o7DYqEenGeA8J3NBDLYzR4kKMyU/FXpa+yi6/VJevXhYqm6PPRvfZ8Mpz87WL90/d8KS
-         7JlA==
+        d=mojatatu.com; s=google; t=1786445025; x=1787049825; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jtu1Ubp/zj233v+Jp8kdhsOBzGvcYsZCYr6r+QiZAfE=;
+        b=mz8bpy7SQ/BawkPlsDftz+2e1doFV35K+D+Vc2MiDjWCSLqR2dfIT/IWlbvozBxblb
+         Q/MSMkKZcmGpYOWCTG8kYilRNXYfKRYhGf8k2/2rlnbly+reXVERdR1fNwPxKduiVjJg
+         XsiIayyn4lBlmiG0hXSxmdaXtJERTVZLI1H9g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786444941; x=1787049741;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FOccx3o7YzspIOPN4VOMh1mmGB1X25Vq6yEwYlGFjto=;
-        b=Cc9hJvEK1WMcrYkAtwOV4kxf437YrCWK0dsNIvVebKIVeB1+2Qdwi7IC4Ky83Ny5ua
-         CPlL2ytA8CKFza7kncADBhGRnYvpqRMZQ0+0CsmvDy4Y59RuFjbJFD6Jk7uHLVkVbxPb
-         mJYPBmItlan/cz7RPQj8FdTLZIoS0FzgGdqJPTkBmM7jsfRDHibtzDLrOz13/XuWVjfd
-         T14GwPcygpeVJuI+gwr58RuTWjsitzGrm5N2A4Gc4tTMMEFGN/+OEYxpali6mTOBtW4g
-         xkVqcS2sKf9LnS2CsHrqp50WpXlDTb6wUYSPaGE/NNIrPvrSW+FW7IjHH+gLzC+fOzSd
-         xx+w==
-X-Forwarded-Encrypted: i=1; AHgh+RpBc24r+jo/bzAePYsRUJQb23YyLEIx+FntyPp3rE16JwNsIfof8ufuYvqc6nuDCDdfvPE2r+o=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy6sG6spTndvZ9R+84McIHDR1Amvac9NPVwC2dlggYxKd8PTPGj
-	R6iT2dJeMngsRD3629bzrgp3Q++eRlsG1jonpYgs/6SFWqpBT3mRCLfGXb16UcO0tzI=
-X-Gm-Gg: AR+sD13RlBMDOj1Tlpf3qi0+oUSLXSKzBQYt8fDKaNQRQEIis2+R6M5MdOQoSKeWxvL
-	0tjDJI4/wfL6kandIamCx9YvtKnQe7j/gC5qo+CB4n6K+jr1nCQ1MIMYOHIQ5RfEc0GwcES72Ug
-	s/LN3o5l4DfA8sfLl7Hz9xrpzVQ4QNXdBhsF07a0JDLPf291HcOo0FzC0+f0YFro2HWt6WS3J2V
-	7a52MQGVjsaZEkogWdkivhGsrv8cU6T8gZ0U3E8LmBsFhqISs2NeKjQSUOFGVLI5WXpRzRcLAsE
-	3E1C1tDisTwUehq5wBw3CTz3fAB7mmpH9wXm8N9XmfXvMllcIuJCl+YuxrPC02NUGUVGAjR2qhQ
-	CW31C/AeSqxy4stH8h5PNfximVh5ZBVm10lTVVD0EECFFbeYAl4QiJZdatJArVM63c0ze+r9po4
-	NhVe9mszNqzpm5Hk0HFh2K+TSP6jxKmgVW0rWy/4kj6cg3btpyJ4bJcg38fU8qQq0WwyNcvxc=
-X-Received: by 2002:a05:600c:4753:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49978437740mr26481275e9.6.1786444940360;
-        Tue, 11 Aug 2026 03:42:20 -0700 (PDT)
-Received: from [192.168.0.252] ([79.115.156.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49977e57785sm37389935e9.2.2026.08.11.03.42.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 03:42:19 -0700 (PDT)
-Message-ID: <56991b48-cbe9-45bf-a24c-d7aa771c55d2@linaro.org>
-Date: Tue, 11 Aug 2026 13:42:17 +0300
+        d=1e100.net; s=20251104; t=1786445025; x=1787049825;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jtu1Ubp/zj233v+Jp8kdhsOBzGvcYsZCYr6r+QiZAfE=;
+        b=pWKzVJ0kMvnqrjYKDiAcdkQqJhWkwNMrinjVKtHXvXwyeZVG+90HjAtNucl3d/OcK/
+         Kv7xzwPlSvqTcsybp6fr9BnxoxhYPriaU+T2sUaEEuouyJ3upRnKBX++IP8KCvDvr/5g
+         WJ+e5aVkFQXqaOmL1jc5qSs4jAh+M9rjPtwxNnBwFTYQapIrr4/tDhFSDxRqAd6M3ayy
+         9bYyL2WHHJ/EwFMgpqrCxcsHpdWtd/hziywcJAYE39et/v1uMETfJBKWrtWufdIyq0LY
+         QPfA5kvnmKhnDxKwmsAY6a7TpYiJde7gI1MMouKGFTyC94NEpavbjkCSEWhyHnctIXdO
+         y0gg==
+X-Forwarded-Encrypted: i=1; AHgh+Rqv/9QH003SNeWRo9h7KcfEYElGh8SvAjouqPq2wmPd+ajU1uPRKg3EnsMc3U1IsOXmpbwcwtU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYvrA6L3RTy0SPlcalGctV17lG7ju4UAChZDbXvLLURv8mvUas
+	aVqcQ7v1iNa1HupW0A8fTcm7GRIpPY49eHU4bsNvCtslECvjKWTVVLiLDpt/E4EFoIZEMTpxf4D
+	jaF2lWgcKYnu4NsoEh0EVk01XG8LihGE4+xoE8Kk0
+X-Gm-Gg: AR+sD13f2mFvAzZpO4Lldr09KxrHIQbcTe4QRaeCYEWZ576E+UIwBqKbFIWrFz+kvCZ
+	vGo9aIOZmv0YcTb24o/m5ZAMnD6tw2d4E7rak3Spz5XRO2rRIK3XfbJE9i865Q4//HUNIrrHnBN
+	VDzjRpsHiRDTlI4HZROlmJ2Ch6o2zQAOyr4UDy2s/a3N5rT/j5gmvQ/VZTt0HZ2F3Utg4JrqKiE
+	yNNHIwNkj5HzAPgYmxx7G6ch8KA1wjqg/OxySa0fxDcpgKIZdsRNuwHnaM79PyRPNuUT/KCCOXp
+	j6vrSSArI851/6Sk/3hD7vbfJf76dEyPPLTJnq49ReVAbQ4YGMLtlN3A
+X-Received: by 2002:a05:6a00:6ca7:b0:848:50a5:a70b with SMTP id
+ d2e1a72fcca58-84fa8835fa0mr2386611b3a.21.1786445024406; Tue, 11 Aug 2026
+ 03:43:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mtd: spi-nor: use guard() in
- spi_nor_rww_start_exclusive
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>,
- Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, jianhao.xu@seu.edu.cn
-References: <20260811041349.333176-1-runyu.xiao@seu.edu.cn>
- <20260811083111.403453-1-runyu.xiao@seu.edu.cn>
- <0ff8afdc-7a11-4a6c-9f62-6f8ba712c4ac@linaro.org>
-Content-Language: en-US
-In-Reply-To: <0ff8afdc-7a11-4a6c-9f62-6f8ba712c4ac@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260809090928.868186-1-jhs@mojatatu.com> <20260810164536.6ecf043d@kernel.org>
+In-Reply-To: <20260810164536.6ecf043d@kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Tue, 11 Aug 2026 06:43:32 -0400
+X-Gm-Features: AUfX_mxBhfFT9uL0lPa7nUNDw1KGFEjh2WkLkpdbKzuwbsC0f1NhAk7n4JjYmS4
+Message-ID: <CAM0EoMmQi03B+t8MyUsXp6-QOcOWRJvbji2etp9jjV1gU5V=XQ@mail.gmail.com>
+Subject: Re: [PATCH net] net/sched: act_api: fix TOCTOU NULL deref on a->goto_chain
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, vega@nebusec.ai, 
+	Victor Nogueira <victor@mojatatu.com>, Davide Caratti <dcaratti@redhat.com>, Jiri Pirko <jiri@resnulli.us>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi, Runyu, Miquel,
+On Mon, Aug 10, 2026 at 7:45=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
+ote:
+>
+> On Sun,  9 Aug 2026 05:09:28 -0400 Jamal Hadi Salim wrote:
+> > tcf_action_exec() handles TC_ACT_GOTO_CHAIN by first checking
+> > rcu_access_pointer(a->goto_chain) and then calling
+> > tcf_action_goto_chain_exec(), which does a second, independent
+> > rcu_dereference_bh(a->goto_chain) read and immediately dereferences
+> > chain->filter_chain. A concurrent tcf_action_set_ctrlact() (e.g. the ga=
+ct
+> > replace path) can clear a->goto_chain between the two reads, so the sec=
+ond
+> > read returns NULL and tcf_action_goto_chain_exec() dereferences NULL.
+>
+> FWIW *shiko suggests another tweak but looks orthogonal, LMK if you
+> disagree:
+>
+> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260809090928.868186=
+-1-jhs@mojatatu.com
+>
+> (the patch is "too fresh" for me to apply right now anyway)
 
-On 8/11/26 1:11 PM, Tudor Ambarus wrote:
-> 
-> 
-> On 8/11/26 11:31 AM, Runyu Xiao wrote:
->> Commit 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup
->> helpers") converted the RWW start helpers to scoped mutex cleanup, but
->> left spi_nor_rww_start_exclusive() using a plain mutex_lock().
->>
->> spi_nor_rww_start_exclusive() is used as a wait_event_killable()
->> condition. When it returns false on the busy path, the raw mutex_lock()
->> leaves nor->lock held and blocks the operation that must clear the RWW
->> state in spi_nor_rww_end_exclusive().
->>
->> Use guard(mutex) here as well so this helper matches the other RWW
->> start helpers and releases nor->lock on the false return path.
->>
->> Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers")
-> 
-> The fixes tag is wrong. The blamed commit did not change the functionality
-> of the code, while yours does.
-> 
-> You shall instead blame the commit that failed to release the lock in the
-> first place. But then if you want to have this backported to stable kernels
-> you may want to add 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex
-> cleanup helpers") as a prerequisite patch, as it includes <linux/cleanup.h>.
-> 
+The concern is valid but pre-existing and orthogonal to this patch
+(and a lot less severe than the posted fix)
+I had this discussion with Paolo: When the sashikos raise a concern on
+"pre-existing" issues, what should be the reaction?
+In general the conclusion was to follow up later if worth it; however,
+sometimes we need to make a judgement call - if the pointed to issue
+is serious (and yes, the AI bots are now reading what Sashikos are
+saying  and constructing bug reports) then a v2 is needed.
+In this case, I was planning to follow up. I will start more actively
+looking at sashiko reports and analyzing if worth a followup or a v2.
+I dont know how to do these pw signals, but in case i see it as "needs
+v2" it won't be worth waiting for one of you guys to comment.
 
-Runyu, please also update the commit subject, the point of the patch is
-that it fixes a mutex leak, thus I suggest to reword it with something like
-"mtd: spi-nor: core: Fix mutex leak in spi_nor_rww_start_exclusive()"
+Do we need a written policy somewhere?
 
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
->> ---
->> Changes in v3:
->> - Reframe the changelog around the scoped-helper conversion that missed
->>   spi_nor_rww_start_exclusive().
->>
->> Changes in v2:
->> - Replace the analysis-style explanation with a short maintainer-facing
->>   description of the busy-path lock hold.
->> - Keep the fix focused on using guard(mutex) so the mutex is released on
->>   both paths.
->>
->> drivers/mtd/spi-nor/core.c | 2 +-
->> 1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
->> index ccf4396cdcd0..8bc117b46e02 100644
->> --- a/drivers/mtd/spi-nor/core.c
->> +++ b/drivers/mtd/spi-nor/core.c
->> @@ -1310,7 +1310,7 @@ static bool spi_nor_rww_start_exclusive(struct spi_nor *nor)
->>  {
->>  	struct spi_nor_rww *rww = &nor->rww;
->>  
->> -	mutex_lock(&nor->lock);
->> +	guard(mutex)(&nor->lock);
->>  
-
-Miquel,
-
-Have you seen sashiko's review at 
-https://sashiko.dev/#/patchset/20260811083111.403453-1-runyu.xiao%40seu.edu.cn?
-
-Both concerns look valid to me. Do you think you can allocate time to fix them?
-
-Cheers,
-ta
-
->>  	if (rww->ongoing_io || rww->ongoing_rd || rww->ongoing_pe)
->>  		return false;
-> 
-
+cheers,
+jamal
