@@ -1,82 +1,83 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44C83A5E87
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 16:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C9C453A49
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 16:20:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786465150; cv=none; b=l5MDor7YFn3r6L23znLPD2be8Spzz1HbqDQ73wTrhFwhpoQCIrptQF4n7iC5izPNtiuvB/5AEQV5zFm0bR7FkPc825ci+Fr3hiwPiRsKDp/9mROFhgPSzsURznnlcnl0CBMr5Fliwp0PatH41b/VyloicDfnBndcptclDcYLt7Y=
+	t=1786465237; cv=none; b=Lq5r9CmZi/CJ2G5bQljjIIoRrVPhZd2c9rh8vibpRgqES9AJFGxf6gn3OcQ30s2CcTzd437mE7Ej9ht7HesWg5URiX9HXGOil2rAsyATxF5x7Y9Qr1R4jFiVOyk30If3eqkMIecwj4aunCZLQs5j7JMAVG4fjwK4hY8jaqr1nIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786465150; c=relaxed/simple;
-	bh=Y4qG5HxjZHzWrdJQmg28DxVUuPj3jUZ5so1obewClHA=;
+	s=arc-20240116; t=1786465237; c=relaxed/simple;
+	bh=gdhgj696Ii25cJJLKG5o8JqobHX6eU3cCyv0hJr0QKg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EpPj1/S0ZMQqN1KCFqLbe5cCUlozsiGcMC8R5ed4xXkNciLTT6T9JyAfH1PqCq250kZbn5kjvqFks7O4GYLFlTqemjXp70sJ8tXDXd0va0iObUCibcImCqT2IIcx5P1vYxMY5DKVglPemk+ZOYdChU3xq3LsVLx5EUuIOW/gQE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JNH0nHeC; arc=none smtp.client-ip=209.85.219.50
+	 MIME-Version; b=j53GLU+YW+1p7DlePm0rOHfUsLkWC+YvyFTwgozkzqfoMPOb70rggLeWusMXwKxREObwK6XLmgNkOLI66jXduGPi+e0XSIKcVku7QLZTVdupdOUaNdvhQrZfpWji0aF4lcZNjQ2af9kPaZk1ld10olzFv35AsKTHH0xtt2D0bdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L2DoTsON; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JNH0nHeC"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-8f0e5e36912so6070836d6.2
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 09:19:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L2DoTsON"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cc891373e0so1563805ad.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 09:20:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786465147; x=1787069947; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786465236; x=1787070036; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xrrHTlApXY4U6JlaL8nMvnN7qO+xyOd6Xm+nS8KTJxI=;
-        b=JNH0nHeCBQ05pBZj3arOAeFQGQAYPoOO08OkdXruwby65NKoixSfSSm4gggzlstPOe
-         68YV/Hr8XCJh+chTcu5CenWCJMhOSJnPPOrY28LCRXcGAPCDFKQpCQ60IP2nRbTQHyZI
-         JHX5nlTBBJG/m/UBHekyZ2xGdBCaLS3cGLBwBg3f1TNfREiJN9CHqLxfTLu6GVqfcNIQ
-         hYIRzO81QIGGiYieoku6AB6izBCpTfqgcItjH7OymBo7IeOVgcknRumk5JaIhmFkL0VE
-         i+w5vo2DxJXCrzzRJwWNYpLKDc3sMYjj+bwJwYXyQyqoKTCRDfkLK38yem8nEhUMsozD
-         tmVA==
+        bh=9JhsBT4JbHu8Y1LpjWeHwh/rrcED1LfRchkAqH5o+sQ=;
+        b=L2DoTsONAnaQ0DaBAF8zxk+acShxn+RcIn67a/qKd3NQQlVPjy5MbIvu7YCPeag3Ie
+         AquqreQEiBzdhRHOGdY5Mw8zVbUX7x0btfHoiVyYJBxtZqTbB2qlafODGLIojlBiaaxl
+         4SINX2q5QB+Qy7keXxi5MWjjUh0plYp47dTbdUL7aGdVXgO7B0DZakuUI9nVebmtYyTQ
+         gKu6/spUUg7hb8ZUDEPkScRqI/ypFLqWYEDkiGZXRNopNhQ7IUpE9bThM6zbIB3pCJzs
+         PFvDfWoUrUQ58vtVGSf+NYFQvgwYR3hwPmwBUP6KuN3Bl1RPDit+m/dYKt0SrYiyKlDZ
+         dCmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786465147; x=1787069947;
+        d=1e100.net; s=20251104; t=1786465236; x=1787070036;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xrrHTlApXY4U6JlaL8nMvnN7qO+xyOd6Xm+nS8KTJxI=;
-        b=HtAs2oWaucK1Rp2Pf9PSE5e09gvTnr6N7ZAL7GF176zys4xedhTd9m6mP7zDCLa9J2
-         h6FURxtn4EzbJH3hUr1UV7c5wcby7JwPDfss+pm2VKJQeeSOujSXy7nzyEPdDxOBtFkF
-         teBT+qENYXUJnaG04TQ8gqZwoCAb5bqID5NAYsJ0e0TkrlLqciETs56Su8+IG3p8g1Cq
-         0dzPnbu9sPvy/BU5MP0lul4avwhx3RtI1878Dm2ib5Ha2ITgSt2xCxv+H5FhrAAn0G9M
-         Uehtyb/arMDBs4+g+cdzJSELPcTFN0ND2K5dNFltcopJxYaOy4OzP7rYsaUk1qCRDgpe
-         hGiw==
-X-Forwarded-Encrypted: i=1; AHgh+RpR9d3nPLzuVmIZNJKm23Y9fztxOPacnK+k0ltOIV4xi6ZZg8pOat7+If1KN0vN2owRIoPj+7U=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy5DbITF18fYIWMLzRmyFhUv9DhmrnTMcYQUU42R1YB3FSRmgR1
-	FROcv0iToIJmPpG3YVZkfhtstXkiiH56YsKFzRmdFOLA6DUfFGX+VkXV
-X-Gm-Gg: AR+sD11QN9Rq6TIicRsYMrLvqIK5TpnsyxcKyGpQoxAaOcyl41VDH4E8h5sYmnl8Y6m
-	vm5Nc2MF+zUmdMORkqGsvxuuaJ/cMRrCUl1AKSPZ2uv6/CkzyV8hU8+vu/eMquB1c0SE+x7ze6t
-	wUIJo8usacWZ3hRJwIegVCsS7K0bFtjqLMXXB/Y3BuqoyRHWYBZXNr6Gui3ZG5/x8hLAqWxhEKd
-	9OplKCgxwUAP3mk7xwNc8DFTParPny5ir67xDvmzi+RCv9WAQlvTpVdi+Eq+oD/II/ZE3dba2VR
-	VViM+SZPgVX1lyf0LyNMNKqTYLqCtdsiBLpJJ7u+8hcjQeu8vRe2Iy+KpteCydz9PV1uzG/Gy4S
-	XhPY8Bxmz88A3yihjKH7NJGoZKKYCBP7aSPrpqjVEBiRSVzQU4+EvR4nXrF7udOfiWe9c4sfuQY
-	gQLJ/nnOObB5drGp3xWYBfvcW+vdWu/WgurhBSTYOyZLRZ2enOIjniekJFGpT9kVZNozEwtl9fR
-	llrF0LsIb9uwspoT9rTKbnzin6StiVbHJnRrfIHZNCRyhka037c
-X-Received: by 2002:a05:622a:4185:b0:527:9603:8123 with SMTP id d75a77b69052e-52d600ad28emr17978671cf.2.1786465147363;
-        Tue, 11 Aug 2026 09:19:07 -0700 (PDT)
-Received: from CW-D0XG2Q16P7-L.mynetworksettings.com ([2600:4041:5d54:8900:9c8d:ddb9:b1a2:735f])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90a6c3bf12fsm2323716d6.38.2026.08.11.09.19.06
+        bh=9JhsBT4JbHu8Y1LpjWeHwh/rrcED1LfRchkAqH5o+sQ=;
+        b=XOIzuw1+pfx6qqyjx+BeoDH4I7TpgtUcLzDXCBk4XH8kDXBKYJCA6wPcOuiumF6XAd
+         q8aLGKpqOUQddkSfucuW/7L4TYGsKGLukWCAzuAfAEeIjwZ19jFJA1MRaEmLfy7Cow5u
+         FGwMJyY2BSaC4+5O1N9mUIsQfRSAuC6HsbcwL68PftLYLM0NKX7fen7lPhcOXQL4nkQg
+         mZRE1aBpCt5vW8NKOrX8HdxVZvZXfnsd8ZI7MVjM+udwiXhkx4cCPAHr8Jp7RJNt5Qwf
+         +IjVk5mDAF330DIVCJiq4mXbE+kewxs2W/CZxO+rF4iIe9EP7xHs5fqLeqknTIfBcEfw
+         MQRw==
+X-Forwarded-Encrypted: i=1; AHgh+RpIUfzB2oXFyac1ytMYq0hyrT8P+E0y6XjzM3zj0tkt6DVIVzUbPyBA9n/khm+5HznLKvk65lg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzx9zeZKWC+hy3LT7euf70luha2E/1kThbQYD5zaQSFYKLVFwl0
+	e7uOb62Uyv8aRKyZWjz97kyCej+8SLpXxcopFllCsjs1n/HhYO1jDhps
+X-Gm-Gg: AR+sD12Jgxitf3IgTrua8BJ+Vs8eo+GY9gqX1u+5kHXQ3V0tsVHyeN8lVjJtzx/EcPx
+	my59IWgs3cq81Vr5GwceDwmDkWi55dB2kxaXZkFAdyNh/SVb4THoYzGN7X8QwBcYh7lPxfUQxGD
+	i5prkKxpm6NlckLqcnlTBkEJDXsI3JnAwcs184FjHZ4DLYL1pqX6xMTrlVzMin+ixvsSlKfz1VL
+	YZPbVJW5jvoB82nnqB7Uji0nlw2ykhXaEDoU1o/sJcmB2/IWcAP88VTdIWVCQBf8XP/eBadXcBB
+	GMXFuozLKwmBtafiYZS6aEOeujZNqyyLzXuc0mH6FaprzvsdWeaxqmFnyK2FSphkF9RnoMuMslc
+	73bUWe2X6bd4QE4hh2p4K0xrdDjQuO5m+aeqsoETSbUps+6otBTHqfz7EN+HGrdz10zsdDvHqoD
+	fRKVlH12M1jnRo3FXy/iWK+j+1DDqT0Y2NHvfDMCFO7h+cq4/7uUD8SO7c0CCnHMOYt025IfrcK
+	wxRe2+Dc04=
+X-Received: by 2002:a17:903:1ac3:b0:2c9:b8b7:5d27 with SMTP id d9443c01a7336-2d317776218mr62738265ad.1.1786465235483;
+        Tue, 11 Aug 2026 09:20:35 -0700 (PDT)
+Received: from v4bel.. ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d315f30027sm10547465ad.25.2026.08.11.09.20.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 09:19:07 -0700 (PDT)
-From: Maxi Saparov <maxi.saparov@gmail.com>
-To: Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>
-Cc: Alexander Graf <graf@amazon.com>,
-	Evangelos Petrongonas <epetron@amazon.de>,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
+        Tue, 11 Aug 2026 09:20:35 -0700 (PDT)
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com
+Cc: linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	sdimitropoulos@coreweave.com,
-	Maxi Saparov <masaparov@coreweave.com>,
+	imv4bel@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v2] kho: do not reserve scratch memory in the kdump kernel
-Date: Tue, 11 Aug 2026 12:18:57 -0400
-Message-ID: <20260811161857.3096-1-maxi.saparov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260803193938.8778-1-maxi.saparov@gmail.com>
-References: <20260803193938.8778-1-maxi.saparov@gmail.com>
+Subject: [PATCH v2 1/2] mm/pagewalk: fix stale walk->action escaping walk_pmd_range()
+Date: Wed, 12 Aug 2026 01:18:57 +0900
+Message-ID: <20260811161949.3879321-2-imv4bel@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260811161949.3879321-1-imv4bel@gmail.com>
+References: <20260811161949.3879321-1-imv4bel@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,67 +86,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Maxi Saparov <masaparov@coreweave.com>
+If ->pmd_entry() sets walk->action = ACTION_AGAIN, the pmd_none()
+check is retried. The PMD entry may be cleared at the point of retry.
 
-If a kernel with CONFIG_KEXEC_HANDOVER_ENABLE_DEFAULT=y (or kho=on)
-does not receive a handover FDT, it reserves KHO scratch memory in
-kho_reserve_scratch().
+In this case, if walk->ops->install_pte is not specified, the code
+continues to the next PMD entry in the range without resetting
+walk->action to ACTION_SUBTREE.
 
-The kdump kernel always takes this path. Since commit a6715d7ec472
-("kho: skip KHO for crash kernel"), the kernel does not add KHO
-metadata to the crash kimage. As a result, the kdump kernel never
-receives a handover FDT and always reserves scratch memory.
+This leaves walk->action erroneously set to ACTION_AGAIN, which is
+incorrect.
 
-The kdump kernel boots in the small crashkernel= memory reservation.
-On our x86 hosts, the kernel and initramfs make approximately 176 MB
-of early reservations. The scratch areas then use approximately
-650 MB more of the crashkernel memory. When a large early allocation
-fails, the kdump kernel panics:
+This was incorrect but not problematic up until commit 3b89863c3fa4
+("mm/pagewalk: fix race between concurrent split and refault")
+which updated walk_pud_range() to check for walk->action ==
+ACTION_AGAIN upon walk_pmd_range()'s return, causing the PUD walk
+to be retried.
 
-  bio: can't create integrity buf pool
+In this case this results in duplicate walk callbacks being
+invoked, which is erroneous and will break any caller that is not
+idempotent with respect to this (and waste time for those which
+are).
 
-A kdump kernel has nothing to hand over: its only task is to dump the
-memory of the old kernel and reboot. Fix is to disable KHO at the top of
-kho_memory_init() so that the kdump kernel does not reserve scratch
-memory.
+A specific example of this breaking things is mincore which walks
+an internal cursor data structure a byte at a time on assumption
+that page table entry callbacks are called only once for each
+entry.
 
-Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
+Fix the problem by resetting walk->action to ACTION_SUBTREE prior
+to the none check.
+
+The pattern also exists in walk_pud_range() so fix it there too.
+
+This issue was found through AI-based fuzzing.
+
+Fixes: 3b89863c3fa4 ("mm/pagewalk: fix race between concurrent split and refault")
 Cc: stable@vger.kernel.org
-Signed-off-by: Maxi Saparov <masaparov@coreweave.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
 ---
-v2: Move the kdump check to the top of kho_memory_init() as an early return.
-v1: https://lore.kernel.org/all/20260803193938.8778-1-maxi.saparov@gmail.com/
+ mm/pagewalk.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
- kernel/liveupdate/kexec_handover.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index 6fad9152387a..97729dec6359 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -12,6 +12,7 @@
+diff --git a/mm/pagewalk.c b/mm/pagewalk.c
+index 5d87c632a25507..d3bfece3193366 100644
+--- a/mm/pagewalk.c
++++ b/mm/pagewalk.c
+@@ -126,6 +126,7 @@ static int walk_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
+ 	pmd = pmd_offset(pud, addr);
+ 	do {
+ again:
++		walk->action = ACTION_SUBTREE;
+ 		next = pmd_addr_end(addr, end);
+ 		if (pmd_none(*pmd)) {
+ 			if (has_install)
+@@ -138,8 +139,6 @@ static int walk_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
+ 				continue;
+ 		}
  
- #include <linux/cleanup.h>
- #include <linux/cma.h>
-+#include <linux/crash_dump.h>
- #include <linux/kmemleak.h>
- #include <linux/count_zeros.h>
- #include <linux/kasan.h>
-@@ -1631,6 +1632,12 @@ fs_initcall(kho_init);
+-		walk->action = ACTION_SUBTREE;
+-
+ 		/*
+ 		 * This implies that each ->pmd_entry() handler
+ 		 * needs to know about pmd_trans_huge() pmds
+@@ -196,6 +195,7 @@ static int walk_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
+ 	pud = pud_offset(p4d, addr);
+ 	do {
+  again:
++		walk->action = ACTION_SUBTREE;
+ 		next = pud_addr_end(addr, end);
+ 		if (pud_none(*pud)) {
+ 			if (has_install)
+@@ -208,8 +208,6 @@ static int walk_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
+ 				continue;
+ 		}
  
- void __init kho_memory_init(void)
- {
-+	if (is_kdump_kernel()) {
-+		kho_enable = false;
-+		pr_info("disabled in the kdump kernel\n");
-+		return;
-+	}
-+
- 	if (kho_in.scratch_phys) {
- 		kho_scratch = phys_to_virt(kho_in.scratch_phys);
- 
-
-base-commit: 3a0b8fa2eb36afc88b62a95f33f0c77c71fa5ded
+-		walk->action = ACTION_SUBTREE;
+-
+ 		if (ops->pud_entry)
+ 			err = ops->pud_entry(pud, addr, next, walk);
+ 		if (err)
 -- 
-2.55.0
+2.43.0
 
