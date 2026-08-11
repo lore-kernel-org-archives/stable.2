@@ -1,102 +1,73 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5033C41A4E3
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 16:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0019B456DE8;
+	Tue, 11 Aug 2026 17:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786467356; cv=none; b=r57NmLY3gb1KcNHAY0qL9yK/fzaDhJaIh7PfWWZ5j7RuBVHGl8ytfMCRVrdCC32RezHlU6crtp1J1sso7oRh/V4pdptZ145K2rAFV5PdUY5gFhHji5JBg/PnxfUV5StAlSpZayuI7bBOTtKbFKkjBMKoe1OTNnb5yuY2ymv65tE=
+	t=1786467831; cv=none; b=FUwQF3gMq01Sf5n33g2Wq1yKv168NTvM4oYVzILAlrL6iXo+wHe3evWQNW+Nz8vQIsUrgSlMzsezd8YhjqT2X82frIMwiHjM7NwRzQHkaa7S8y3xzFv+69EBmhk4lUVqiErABxJcYDALSuTWr8XvzVfVckmIAZLc7Z7ET3+ZuiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786467356; c=relaxed/simple;
-	bh=lslLlEBPWTt+hnhyY1v9kgBlyQXXbYeNrQmRqy6D8KU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Tree2+ApstmamU1JNwAhz85LpahIETyaxdIVtmCqjAERN5iRMGwthTpDinMYyrsKg/NW4tDUkraczoO9yNOZdwDZiK5ETYczAslQ2iUhisgWTy18EpgqbiFFQ4owJKAuUJhyCYuCGXJxe8y5KeJjl45hJ9HK62Do5Gq3nXCrD5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oQiV85BR; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1786467831; c=relaxed/simple;
+	bh=WMAFVGNo5GDI1FyvLwMra1OZdedJVdf+v9znczCOPR8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=aOAE8f+b+JdFN5DY4cpJCx+di5geCBfAbKI11RnonPlzr+0AhnAW8TfXi1VbQErcr0wpwCL2+I3gBZ47rdsDTi4t5mLGGBxY4KDzy1JXEOYw2MoPkkZDNHTZDj6q9UEf2Eno2mL+1zlwnW784YutK/IsKg6aJm1yBe/i3l1750c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/JpIADs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oQiV85BR"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-385d2703b64so1218818a91.1
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 09:55:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786467355; x=1787072155; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jYIycIdW05WlllhYT2j9zqXtFyXlxqQx1KcGUcMKCeI=;
-        b=oQiV85BRj+gM/SYiXFMzM4ABkVbrgl4SYl88taK6ZVwGGWtLGy3+2wIEpEKR/u9m3n
-         H22qCkNCYKdiOPvrNbd5cQnSRsLYK4FQfX/BIUdVDUYNWwMhIpC5w52KTfeO9KaHsI4a
-         uiZymW7Hi5tuE097cUW5GyrhojdwkiBMloU97/U4EUj7Siozj9Emfy3+Ab4TFfDJj22F
-         mMZJd6V75Kjg+rc1NinN/AFmuNI/D0yhNPwP3pSXm6lLqSrWhEvcqK4Dc29PIkRnqaXB
-         JSnb9jauj9jEO7uoKDjtwqAGb4kifNsr7d5mp2WlPV2/8N65tm84ZtyQxhtFI5GcKLBK
-         wJ0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786467355; x=1787072155;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jYIycIdW05WlllhYT2j9zqXtFyXlxqQx1KcGUcMKCeI=;
-        b=G47FFK3BECtIgzaePYRHgum1V12iXnLzXI8aVE+9GiWb5Dh+lpRdgLShCOdxwJolll
-         9AlCGA0VnpnlCMZIyxSg8qBYglAYnC9VbMLOegTaOstgOOj6SXnks5zpchs7hZ4hJdXY
-         OvDPxsZJSdwKbQWg7sOhgKBOIINx1D3b8dTt+pP7PBVp7L7LlRTvfdSS8T5T6jOM0s5l
-         6NsfaJV1vdj+1uyWGYcfXsS3u9aQoQGquUP777P0q7biW6j6G0AdmUjFMcSuusv3+mXU
-         4d9IcmqIWntr5178Q8jSvt99NFy3Nvhc4sZEv6xKHbqIXcfL4vdJxPb+Z+1/Sfw83saj
-         AJ6A==
-X-Gm-Message-State: AOJu0YzYOMV2A2mMqwxao0eWk6p3lvm39AH82jcFXFrmz8xIeZsyYH1m
-	k1crmvXoMHhnxlscsOmzzpb+9RhnThcBbTpoNqVDpEJLztTnD5k4lzaRmJTRVA9ZsSZO6lXOxdX
-	HJAi+SQ==
-X-Received: from pjbji24.prod.google.com ([2002:a17:90b:2058:b0:384:7daf:f48a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2249:b0:390:84db:888e
- with SMTP id 98e67ed59e1d1-392f457e050mr637170a91.7.1786467354416; Tue, 11
- Aug 2026 09:55:54 -0700 (PDT)
-Date: Tue, 11 Aug 2026 09:55:53 -0700
-In-Reply-To: <20260730121535.2208491-2-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/JpIADs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1144F1F000E9;
+	Tue, 11 Aug 2026 17:03:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786467827;
+	bh=cMyTTa5KAjyZtVZZYKXgPBl0VYfKOHY5hZtIr8dRpwY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=j/JpIADsBUI1Do9UvT+M2IL3RJVAsIYBy++rjBQHQQHLLM+d5+h9eruafLfp8U1+3
+	 avw4Ti5i5yCFSJXep9tH9anl4xuTsc3VrqEcrfCzu+cIFOCCRtyB9D2UoiywJhksjA
+	 WLRgrAfHQFpN2OP5Rt815NVXPUHyXuJ2orgkDHkYLboUDOj8eP6BpRe/H998SWMsit
+	 gmTBu5RqqbtIjMgDe/tsslGoo/i0bkiPJcwPWUFAcV5bwWVF3gGKdmvbkO6W3w+je5
+	 Zq+vYrHT+hufTg8FbMjqkDkQ7OC5L6BfgPs4XXTE7kyC/PKLyaTfBZhGvd7WxTxMaK
+	 2h7MBXrF55fsg==
+From: Vinod Koul <vkoul@kernel.org>
+To: Jason Yang <jason98166@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260811-dcphy-maxreg-v1-v1-1-aa63f6a63a64@gmail.com>
+References: <20260811-dcphy-maxreg-v1-v1-1-aa63f6a63a64@gmail.com>
+Subject: Re: [PATCH] phy: rockchip-samsung-dcphy: fix out-of-range
+ max_register
+Message-Id: <178646782464.1081354.15306186863821576156.b4-ty@kernel.org>
+Date: Tue, 11 Aug 2026 22:33:44 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <2026072556-gem-immunize-5c2f@gregkh> <20260730121535.2208491-1-sashal@kernel.org>
- <20260730121535.2208491-2-sashal@kernel.org>
-Message-ID: <antUGRzSP5OUiN1y@google.com>
-Subject: Re: [PATCH 6.1.y 2/2] KVM: x86: Check for invalid/obsolete root
- *after* making MMU pages available
-From: Sean Christopherson <seanjc@google.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Hyunwoo Kim <imv4bel@gmail.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
 
-On Thu, Jul 30, 2026, Sasha Levin wrote:
-> From: Sean Christopherson <seanjc@google.com>
-> 
-> [ Upstream commit 2abd5287f08319fa35764566b15c6e22cb1068db ]
-> 
-> Check for a "stale" page fault, i.e. for an invalid and/or obsolete root,
-> after making MMU pages available for the shadow MMU.  If reclaiming shadow
-> pages zaps an in-use root, i.e. marks it invalid, then KVM will attempt to
-> map memory into an invalid root.  On its own, populating an invalid root is
-> "fine", but because child shadow pages inherit their parent's role, any
-> children created during the map/fetch will be created as invalid pages,
-> thus violating KVM's invariant that invalid pages are never on the list of
-> active MMU pages.
-> 
-> Note, the underlying flaw has existed since KVM first started tracking
-> invalid roots in 2008 (commit 2e53d63acba7, "KVM: MMU: ignore zapped root
-> pagetables"), but the true badness only came along in 2020 (Linux 5.9)
-> with the invariant that invalid shadow pages can't be on the list of
-> active pages.
-> 
-> Note #2, inheriting role.invalid when creating child shadow pages is also
-> far from ideal; that flaw will be addressed separately.
-> 
-> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Fixes: f95eec9bed76 ("KVM: x86/mmu: Don't put invalid SPs back on the list of active pages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
 
-Acked-by: Sean Christopherson <seanjc@google.com>
+On Tue, 11 Aug 2026 16:10:22 +0800, Jason Yang wrote:
+> The PHY register block is 64KB, so with a register stride of 4 the
+> last accessible register sits at offset 0xfffc. max_register names
+> 0x10000, one register past the end of the mapping: dumping the
+> registers through the regmap debugfs interface reads beyond the
+> ioremapped region and oopses on the unmapped page. The oops fires
+> with the regmap lock held, so later PHY operations deadlock.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] phy: rockchip-samsung-dcphy: fix out-of-range max_register
+      commit: 4486e75ba647bd8b98fc1f053101b40caceeed4b
+
+Best regards,
+-- 
+~Vinod
+
+
