@@ -1,188 +1,188 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1F239CD11
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 15:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786462882; cv=none; b=sFWkVr6gqu1q7GEDdmfQXFOtviDOB9eKQaBHzlkqsCYTMWqEHENPqk7mRIDubtTGOJivSOuXOB8mEEORLh5OpTr+dmXrBwNG6LPL+K6uEcyxsVHpsQ/OJqa1+sRWtSmKa+FlhGV/x28+PaCEnSE293JTPBJtWRX5fH6C23M+GJU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786462882; c=relaxed/simple;
-	bh=eO3ubqF9WjY1lOszkR7WEa4Z7HcZYoQx1zCu5yIsYfg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XRCIVc0PGef3cLG1X2NRaXGsZMqT8nbuS9MqNCe3AgChafCGS/shrBj6qFl4flYx4J2FbwCos3jdeQ4Ilf5/3hBMBOdBLgJh+arus3HgmZAGY+/9Nin47nXw0ek8nrodxqXIPxqj6yizTD8G/PVZPpIO6LghHx+YMRNhnnBQZho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=hB+zl23U; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574973B2FC2
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 15:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786463103; cv=pass; b=aFplon29CuUBk8jU8WkSJzOx442dBAOOEMzu34EFq0RwgG3/jb70t7ky4Ai2cony6lXyQ5K3avc64ufZQsrNlKGVTIALEM8RC01+V7rPg0XAP2yfMT0TrpsvCKuU9Y1LI1VMny4orqpM2hennLrR4KHi0XeHSNQZv9x1UiQ22TE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786463103; c=relaxed/simple;
+	bh=kiBeJRw3F0UCXM6tUWHubLSiJlh1qedjzGoqp1q+qD8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KVpoYhnfoi8sctsK4REz607nqXLTxGSjCzZ7o3VLVoK2pinl58fvEmNMlTTu0qv4pd4y12CjhOkb9f+PkuyErM1m8NmVsw/9LbKPRFN8du70AFqe3zw6MBVSReTiGtAMVEeAZLT/u3ALrikf3xUS8yFCv6tlhLcV3C+5ty/nCe0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nYHCYE+K; arc=pass smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="hB+zl23U"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15c42a45adso167889066b.0
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 08:41:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nYHCYE+K"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8485bd28dd0so503b3a.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 08:45:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786463101; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r8m4HU5/k0eX4yVvqTmayN+JPetiV/J3tC0v2RRh3bLMsTdszFGmVnTzE0VYYLED+g
+         5VOaoYmRkwXWtIMnsEbRAYfsa+oltlcQnpMJw9rOMQbkEmzboPOGQ1n+E4XTSqHAnMor
+         rh8NJPRNbpYNFe0V9BdLuQUuDS/XgVer833NBi/jTjQ+v3YpTy0wZQT8uLvYzqFhw9LC
+         7xCNqvi/3QIyTrI2OGpHfUtVqXoys1la8NS4xemI4pEu4GKy1vO7ipwy5jWpqwAhCHPN
+         Du4r4C06Vn/Fa0CGc9clYIGmXS3Gc3SIx836x7W2QczkemN2L8qpL5ZyZSRYbRZgCUri
+         JokQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4gtUlPd4QXnv5aJSE6TKQZzjopWrXWWTIrsnHYKRiVU=;
+        fh=NlewnwqLsNEoGvW5/1xjmNH8/eR89lmtpzmkIdXFptE=;
+        b=TqTXyB7hUB3zxhN4xvARFGigkfcNhJvYfG8lyzuqKdjJ/MQKMKax2Z/bQuKIkjSdO3
+         v3s6VRFW28gB6VKPlg7uguk6A2QUkIKKq7RGjRFoHshO90zXRDiFqnu5msFCp5CaAfd+
+         wxxgTmwYvDxiQgx3Rscxx7gYijCXNMNcP1dF9RelxEKWXucBbP/Hj//ZEitdU28y/gpM
+         8CMkbC82jDOI5NZSyFNLRzbbF4tYGD49PouphGja8h+wPz6nzsq5ls3nFmWrEG68Ansf
+         FEgld7SM+/6np+dTSDgfCU36ZToC7HGjtjKJq/jIWJR43p0arAi0oIncD9+vHs2SrcPu
+         Oxjg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1786462879; x=1787067679; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1786463101; x=1787067901; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=eO3ubqF9WjY1lOszkR7WEa4Z7HcZYoQx1zCu5yIsYfg=;
-        b=hB+zl23UlWulmi8TzW/cn7+sZEN/syPRQ1FsJOtx1blAcP4qk2+0tQxLvNqlLgwVPu
-         OpxoE6CQJ0GYLJLJsXD3HYFemesBCw8WbyB80t9jxmUDOF8FtXxrkCcOItP7txuJc8Gi
-         ebS2rLBi9aG3/Tmb69JZcM5aXMnkB7Bk2G27dBrDhzk2KHiFkJ0Aev2Ut6AqtxGKjiGg
-         Cz9HYr+ImKRFj26qe+9FgqlfrYMwQyjK81k4BmYt8CV/cpmNVIVPS6/x9yKTXBbpVmur
-         uB32b0nqLLOUOvbPzGbntBxgfrP5E0Lb3ffrOWCj9mzTGqQUGOGBkMTWnCpDxbiVRtdE
-         pHjA==
+        bh=4gtUlPd4QXnv5aJSE6TKQZzjopWrXWWTIrsnHYKRiVU=;
+        b=nYHCYE+K93wg5yhBFxoAnHVK2YzFGdIbZ3sqpsHErwga52haBlJBzdIe/0Jgn9Oj0e
+         zTDxuXz6XvM76hSsDd/t9RM4zlF4Fb6UCZwed98yo1rZikQc/OaBSbeTVF3S8+jnUnAP
+         Q267m4mHNKZ2EQgPjjmJ/OZIH691TUbLQ0q46JqCfE1IWlgSKcDsQ2Dovtz18Pe2IXzV
+         MBqtV43rxFtSIujgqo1+8S6jOrQD7qY6hJ+eN7rfGL49LdVDziiHDzZ4VegU5ZtvoNjK
+         sQcDrVoxtCB3YAQR+UnVHUToJYs7YjlsRA7Qu5ldJU09QizTtPybuaUyezz8EERfHwpp
+         oVcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786462879; x=1787067679;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20251104; t=1786463101; x=1787067901;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eO3ubqF9WjY1lOszkR7WEa4Z7HcZYoQx1zCu5yIsYfg=;
-        b=DW4Lt8P9ESffXoVxDTUd9O/EWvSiXYjChEKkU6xMJURmyBdjgTNvuegO9fo4jgoHUu
-         Jg0QYVePKOkN1d9a809gMgR++an1+y/aosoZtflDSQZ7fLZL6hd0vCv4No4HWNWCm4nW
-         Qd4gCi1fbQzXVGnlAqWSLJ6XcxposDgTifyWuFB/af38jXWIB6/M+oNmnIFowln9RT6W
-         YbFp4KzAENmCMLHF4kRTk9mmG7dbKPxBlL2KLClCR4q4/pb8QxMDC9WEFclv506GAjhi
-         ShEiHmJl1SkFkHJfQL/Id5hIL9wOnyPp5z2WLOn3wmmlPnMw3AdLAG1zNVMyLeTL4gcm
-         8a+A==
-X-Forwarded-Encrypted: i=1; AHgh+RrfTP0NdBHgl7OXXFyZdd/tNZ6wKY2WMMXRUzaqxAM1gqsDLgzCrwaFJQZWF4vjZugtpldlKUY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMgKl0NIPDo5C0l4juaMRCTMaSPwFMyyS04jzEdadPreKhqNRp
-	NXAOvozeRTZ6ER0+hZJfjs7lLXXGW7X4RVhAgevaSl585KNj1wUveo4hz95oUFr21xc=
-X-Gm-Gg: AR+sD10Zzz0t0surAfWfeJ9XJXhzFN/H6aufl53w42TLIlX9i+ycNSIa7odgu6fAc4l
-	kk1qf+fyxzNogqhlK/v0eS5VvEyGBrkc2tYmQttAhCbggEzhkhUU2Mv/3vECpvC0XXTaLx/3vNK
-	6M81o1Z5xGqWA86Aq43HDRwlDqGfnnOJC9zL4w/0e66sbrMzNxxceu3gkVh+a2je8h7m5oeFVQe
-	npIXQZhgVLhHVKrx9DvKf1pCtTEXA3TjJkgxy9UER42Wz/bfbDAiOZw8yRc+sRajl2nAReteWV+
-	MG+rwLh62QlVeT50vBYyyobd4JWdb6vJhalSHvB62HOzUIDVneA9bbPAuJQEgl5FhS9Wmagz7U1
-	Qvd+nEjt3tp1eDRPr8FE9IyVejOpjbYbeVHLQk0Rg+OCdXIwRtXwhjlDjCnvAR/aDluP7X4BnTX
-	gAeyZWDC6vRMNRR9Ohu27o0NZ7VP9RFVn8OlaSVnPi1an8Za9LOfc8RkbM/0zpMgUSh1CTl9bq8
-	FtW
-X-Received: by 2002:a17:907:9487:b0:c15:f55d:f0d8 with SMTP id a640c23a62f3a-c20ed8b0ff9mr32940466b.4.1786462878752;
-        Tue, 11 Aug 2026 08:41:18 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e221::5ac? ([2606:6d00:15:e221::5ac])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c20e40cc68fsm70270266b.11.2026.08.11.08.41.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 08:41:17 -0700 (PDT)
-Message-ID: <969712afa101bd2f11fcaf14cf8f101f805c0037.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: vicodec: fix out-of-bounds write on capture
- buffer
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Junrui Luo <moonafterrain@outlook.com>
-Cc: Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Dafna Hirschfeld <dafna3@gmail.com>, Mauro Carvalho
- Chehab <mchehab+samsung@kernel.org>, "linux-media@vger.kernel.org"
- <linux-media@vger.kernel.org>,  "linux-kernel@vger.kernel.org"	
- <linux-kernel@vger.kernel.org>, Yuhao Jiang <danisjiang@gmail.com>, 
- "stable@vger.kernel.org"	 <stable@vger.kernel.org>
-Date: Tue, 11 Aug 2026 11:41:14 -0400
-In-Reply-To: <5DCE028E-E3A6-46DA-9CF2-DEACBBAD5B2F@outlook.com>
-References: 
-	<SYBPR01MB7881A4E2AC434488ABFA775CAF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
-	 <79f19fa34a875dc4b6944ec8df498d9862b5d3f6.camel@ndufresne.ca>
-	 <5DCE028E-E3A6-46DA-9CF2-DEACBBAD5B2F@outlook.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-PmJCtLb8GlF1aUcqj/3J"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        bh=4gtUlPd4QXnv5aJSE6TKQZzjopWrXWWTIrsnHYKRiVU=;
+        b=pBEKF7ElYBNVO4BH4V9/6cV+Gntk92OrxKUPUZaT4AkCxlylXhANq55YvFq8yA6j0T
+         9JN052H9JjxZ8kekXDMjigbScLaJe6mENloO2LQxqN28y8jAmKilm114trxKboZAqSo9
+         W+H9jqYtSfvE6ub3MuyNZd/e9SEtk2QNOdCoDF7sNcVFqhopuRBTNp76WaPh/lpGb/32
+         oG8z9Ic7rAuiFQ3aX4+oEM4GRrf+Utd4vF7zKwDtkXPl5WOx4tw3DspS6xDtMEQkRVab
+         EnthoJ7QwswJXUlVMnPupqXT8O/Wn7YBGhtvQcxfCcg1RSNYw3iMSKEMENknCNlJPdPy
+         w+4Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpfmqCgeVPKSVas4vmqTA7hy6/rQZ1i6XC/BzrwPRQnu7eaevD3WFBdak3AEiFolJZDeRSbGpA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+L6pn/ov0J6wbTApxVvlOpUUGdF5/TMsehRFO1G4xiClZg3Lc
+	nR1M4YLyN/q0YY3L5ccNFUeu1pj9PwGqpRWdoQanl/euRb7Pg8GdY6xoptACESmL+ZYSersOvgd
+	F5WmTap3t1undtC5ovtsffwt7GHyhgUM=
+X-Gm-Gg: AR+sD10eSqXhtHhYJzPU+LHzG2oq6kiAWiTbLv8t9IQYVvbC3vOxWkaa/JQXEknEhL/
+	y5fhHbwIiKm5Px+3lozCw0I53+XBF10txOjCDb81qIoVaCP9EH1T104RReGot55viP5RPT/w69F
+	eaQrD05UiV8Cii4m2uE2maAFvQHhcpms8as/X+2RQFhMbmkNORdnA12q+03rVBlrAxJoFy6wBYI
+	2pnUhNhs+4oFVgmFSbeFudCdG16NSTwzDSeXlh77lCGGH/64krq0HvQLhLcW4VwBcza1f4xvQUa
+	y4JLnpWH7dM+mRE608v7JCCPS00zYuEn+CHnOYV0mb7KlhZO1fUw4QQDeeapJLCBuQkt/Bt/kKM
+	lbnJ44n1Twy/S8SSsxwFRt1TyUWsNnWlu8kEjsM93dfd6
+X-Received: by 2002:a05:6a00:3686:b0:84e:1a9d:d879 with SMTP id
+ d2e1a72fcca58-84fafa00b17mr1347220b3a.28.1786463101312; Tue, 11 Aug 2026
+ 08:45:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-PmJCtLb8GlF1aUcqj/3J
+References: <20260811152803.5629-1-a0yami@mailbox.org>
+In-Reply-To: <20260811152803.5629-1-a0yami@mailbox.org>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Tue, 11 Aug 2026 11:44:49 -0400
+X-Gm-Features: AUfX_mxJP8h_5PE3kHQzF7Hk7Dth_b-NuFIjAwOMUfCbiQUPxt95mvRzMhw8ci0
+Message-ID: <CADvbK_d8r56n6FHFEeyz0cpmdoFJ5HXJ4m0XipQqYXTiL-YLjw@mail.gmail.com>
+Subject: Re: [PATCH net] sctp: clear new_transport when removing a peer
+To: Qing Ming <a0yami@mailbox.org>
+Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Michio Honda <micchie@sfc.wide.ad.jp>, linux-sctp@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le lundi 03 ao=C3=BBt 2026 =C3=A0 12:44 +0000, Junrui Luo a =C3=A9crit=C2=
-=A0:
-> On Wed, Jul 15, 2026 at 08:21:50PM -0400, Nicolas Dufresne wrote:
-> > The analyses is just incorrect. At this point, the driver is entering D=
-RC,
-> > meaning the queue will be drain and will stop until streamoff/on cycle =
-happen.=C2=A0=20
-> > If there is a out-of-bound bug, it would be that that q_data->sizeimage=
- is not
-> > match to be smaller or equal to the vb2 buffer size at streamon time, n=
-ot during
-> > processing.
-> >=20
-> > NAK
-> >=20
-> > Nicolas
->=20
-> Thanks for looking. Right, `source_changed` gates the draining during the
-> streamoff/on cycle.
->=20
-> However, `source_changed` is only set in job_ready(). The first source ch=
-ange
-> goes through vicodec_buf_queue(), which sets `first_source_change_sent` b=
-ut not
-> `source_changed`, so it does not drain. A non-conforming application coul=
-d
-> commit CAPTURE resources before calling STREAMON(OUTPUT).
->=20
-> On v7.0-rc3, KASAN:
-> [=C2=A0=C2=A0=C2=A0 3.777164] BUG: KASAN: slab-out-of-bounds in device_ru=
-n+0x969/0x1850
-> [=C2=A0=C2=A0=C2=A0 3.779180] Write of size 2560 at addr ffff888008de1000=
- by task trigger/69
->=20
-> It can be triggered by S_FMT(CAPTURE, GREY 1280x720), CREATE_BUFS(CAPTURE=
-) [plane
-> over-allocated], STREAMON(CAPTURE). Then QBUF(OUTPUT) with an FWHT
-> header for the same 1280x720 but NV24 (3 components, full chroma). That
-> grows q_dst->sizeimage to 2764800 without changing coded_width/height, so
-> STREAMON(OUTPUT) runs device_run() and copy_cap_to_ref() memcpy()s the
-> NV24 chroma plane past the GREY-sized ref_frame.buf.
->=20
-> As for the fix, where would you prefer the guard? I'll send a v2 accordin=
-gly.
+On Tue, Aug 11, 2026 at 11:28=E2=80=AFAM Qing Ming <a0yami@mailbox.org> wro=
+te:
+>
+> sctp_process_asconf_param() stores a newly added peer transport in
+> asoc->new_transport. After all parameters in the ASCONF chunk have been
+> processed, sctp_sf_do_asconf() uses this pointer to send a HEARTBEAT to t=
+he
+> new transport.
+>
+> An authenticated ASCONF from a remote SCTP peer can add a transport and
+> remove it again with a wildcard DEL-IP parameter in the same chunk. The
+> wildcard deletion preserves the transport on which the ASCONF arrived, bu=
+t
+> removes the newly added transport through
+> sctp_assoc_del_nonprimary_peers(). The removal does not clear
+> asoc->new_transport, leaving it pointing to the removed transport.
+>
+> sctp_sf_do_asconf() then creates a HEARTBEAT whose chunk->transport point=
+s
+> to the removed transport without holding a transport reference. During
+> local address replacement, src_out_of_asoc_ok keeps this HEARTBEAT on
+> control_chunk_list. After the transport is freed by RCU, a successful
+> ASCONF_ACK for the replacement address releases the queued HEARTBEAT and
+> sctp_outq_select_transport() reads the freed transport's state.
+>
+> The issue was found during a static audit of SCTP objects. With an
+> authenticated peer, the reproducer triggered the same KASAN report in 2
+> of 2 unpatched runs on a KASAN-enabled netdev/main kernel:
+>
+>   BUG: KASAN: slab-use-after-free in sctp_outq_select_transport
+>   Read of size 4 at addr ffff88800b9bd95c by task python3/197
+>
+>   Call Trace:
+>    sctp_outq_select_transport+0x549/0x8b0 [sctp]
+>    sctp_outq_flush+0x306/0x2c60 [sctp]
+>    sctp_transport_immediate_rtx+0xaf/0x260 [sctp]
+>    sctp_process_asconf_ack+0xa48/0xf70 [sctp]
+>
+>   Allocated by task 197:
+>    sctp_transport_new+0x68/0x650 [sctp]
+>    sctp_assoc_add_peer+0x258/0x12a0 [sctp]
+>    sctp_process_asconf+0x5e9/0x1090 [sctp]
+>
+>   Last potentially related work creation:
+>    __call_rcu_common.constprop.0+0x77/0xb70
+>    sctp_assoc_del_nonprimary_peers+0x7c/0xd0 [sctp]
+>    sctp_process_asconf+0xd9c/0x1090 [sctp]
+>
+> The first invalid access was a four-byte read of transport->state at
+> net/sctp/outqueue.c:833. The same reproducer completed the full
+> authenticated ASCONF and local-address replacement sequence with this
+> change without a KASAN report or oops.
+>
+Could you also post the reproducer, at least to the maintainers?
 
-The sizeimage, if used by device_run() should only be updated once the drai=
-n has
-completed. In DRC, there should be no fault caused by the above. Once drive=
-r
-process the NV24 header, it should emit the SRC_CH event and start the drai=
-ning
-process (while draining, the capture format should not change). Application
-should keep DQ(capture) until it sees the LAST flag. And then its the right=
- time
-to G_FMT(capture) (optionally enumerate) and reallocate the capture queue. =
-That
-imply cycling the capture through streamoff/on, which should validate the s=
-ize
-image against the frame header format.
+Thanks.
 
-Nicolas
-
--=20
-
->=20
-> Thanks,
-> Junrui Luo
-
---=-PmJCtLb8GlF1aUcqj/3J
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCantCmgAKCRDZQZRRKWBy
-9FEgAP4l9Dx88FHLTWdHbwBWWmUof6T4JAlAIy/D340xdOa3BwEAkKGKXvJ4kK9X
-MK14VPtEbjLsGDFLQTSE6+0rsoPIBAY=
-=IGjc
------END PGP SIGNATURE-----
-
---=-PmJCtLb8GlF1aUcqj/3J--
+> Clear new_transport when its peer is removed, before it can be used to
+> create the HEARTBEAT.
+>
+> Fixes: 6af29ccc223b ("sctp: Bundle HEAERTBEAT into ASCONF_ACK")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Qing Ming <a0yami@mailbox.org>
+> ---
+>  net/sctp/associola.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/net/sctp/associola.c b/net/sctp/associola.c
+> index 5b0ae616e1ff..c65c83638cce 100644
+> --- a/net/sctp/associola.c
+> +++ b/net/sctp/associola.c
+> @@ -543,6 +543,9 @@ void sctp_assoc_rm_peer(struct sctp_association *asoc=
+,
+>             asoc->addip_last_asconf->transport =3D=3D peer)
+>                 asoc->addip_last_asconf->transport =3D NULL;
+>
+> +       if (asoc->new_transport =3D=3D peer)
+> +               asoc->new_transport =3D NULL;
+> +
+>         /* If we have something on the transmitted list, we have to
+>          * save it off.  The best place is the active path.
+>          */
+>
+> base-commit: cba9ccb47e9fa4cc77692fb896cc5ab57a667882
+> --
+> 2.53.0
+>
