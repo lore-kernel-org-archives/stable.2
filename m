@@ -1,67 +1,68 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC98F2931C3
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:29:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F90448CF1
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:29:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786458551; cv=none; b=CFVvBRwFb6OI6e0SDNYIKfEMCVQj94F089+Datmg9bpwu35rgzI8JGwPsMSXd4jUyURlWV5LS/krr4VVJy82ezZPu4gXpNofQIg14DbOoWnD5w88OQENXbGaByOfHfNg9gHO2CQCSU+f0Lan6Wsix1zfOCRRDavylbOd9sVysek=
+	t=1786458556; cv=none; b=O58SKtwZLud6N+I024WuXafBpUhKujpl/CoNL4tIOc1r3BzgG9xpSnvh/uFh/s6GWkXQHrXx4VFGSNAjIR75vijxKXab6nGvGGDwR9O+jrbauEHS0tXwUm6pensytFF9KE65bdFf/COhbT7O1+ZGHW+JOSThlP+/KCPtjEnBFhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786458551; c=relaxed/simple;
-	bh=ZMKglCqVFXjvtgIXuZifnh47ei+nnVi+BRmkcnYy+sQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Pz0BTpL7w53Ndnu1OTBPlVqE+sbBsvk4nYY4132V69yeZO/VCYeZ7QAJ8z78yGmefGi0HT+FYBRZQeYkOQVuyGnRCf6rWk2d3ljDpsC0IRC6osvNw/ZI+vVdUaZGVGnvyzxHHMBYj1vvGOHmOJAZM4aUHzJkAR8P70pSg/8QJVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XlHaDTGn; arc=none smtp.client-ip=209.85.210.176
+	s=arc-20240116; t=1786458556; c=relaxed/simple;
+	bh=Ms56ytpwHSeFHdp6KwntU4e11PGxIQxSST+kpBvVKeU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=cgdc+d60j/Brpc4wfcvhBb2ehnj43IhdbgpqWdB1S+bh3otQyE5VdxTDUrfxM4jKc7YyGA5RaO8dObcRMijjnjJJT4jrQ9qC0oiuVxOuNQ6WReTE74d/aGkvb7OkMdWdw9mLSOJywYrzJsd//a3yR400tiE4cFpWu+bO+JVu/qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJ9Q/Mez; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XlHaDTGn"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8485bd28dd0so946222b3a.2
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 07:29:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJ9Q/Mez"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c966b9ee9cbso2077566a12.1
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 07:29:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786458549; x=1787063349; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QkL6quPpYZOmrSZlgR7q8t7HlM3bpCXuTHsi56o560Y=;
-        b=XlHaDTGnwtcAeIrTA9Tb4LPZQ6BPgYu3YtJ4yawxOIeldm93ZV30tRjKsn0EmfKow7
-         xD0F3crhDmfHILmgbl+RIaxaFNqhfBJC9zOzG1h8HcSOwXEtTm9gIawOeA+BPxST5Eup
-         tKIBJN93xfBKwPimvbBsyNVWRybBiKoaKLCb0g+KzNAuhP5FWV/pq6zoPdxMWPynD0W/
-         z7TFKCcNClldB5Ip//SIYymf75GNj8jpkpnf3/FGGP7c/Rz4ty/mtql4OL++Ra4xjaJ2
-         8H9Im+wrOaGJE13puZuVQnJG0V2IOT2b/qFCbml1Wt4BRE0bYHu7E2Mi/Da1Gk1CaakZ
-         UrRw==
+        d=gmail.com; s=20251104; t=1786458554; x=1787063354; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aAc0xtFPkF9VlmAdoL5DiXZFcBGbk3oumqjK2pi8Bpw=;
+        b=DJ9Q/MezLnCkApGg7vVhsfClUAQQoGr+UjMnOcP997gBJcXphuejaI+/1l5Vqrww9I
+         3YsS3ozpT0WSY9quf4gaCzsnJJx23QXGasrKdcod6P0W92VoJzPqnkCwgV5FFNb/S/NE
+         7lcH02eVfSiB++SfWIlm4IlSk5NPD46oKw7rRVYCqqp/HFXGJBN0DK6lZ7b27Qo1zRz6
+         HdpP6JAZejV6//ISQmu3WqEJqLsJOZYwqezVvajriNIt84BnPs23D2tL0RktHhmV5XLI
+         KETkr9HCblemiaNxEWAkdeKhUTDyIQa9YJU+gVJvlZwgSrao7PsJrsoyYdaO8NwpYpSp
+         pEbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786458549; x=1787063349;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QkL6quPpYZOmrSZlgR7q8t7HlM3bpCXuTHsi56o560Y=;
-        b=sVAFfgR+80MOmNUd77xKK0bKWo6zYNDUMqTqMu4u+stV6oAfm+5SwUkWvU9fMvd7XE
-         xHYPbUhp4updw6zGvSVyY2xqxBsXxNtu9o0aM2VhX/BFZ9XmlrVMfarGD22NK0GSWTzA
-         tX6cW6+vflzIgKKzwsG4JSniDrdnu0zy1P6NHJmyg+P5kFQpzi0EAHfU9icblLfGSk54
-         KhSN2/e+8GBUCvoOROHLfRTEPaBygYzy8+80bDXc3JpY0qwCeYg7lyfuerJjEx1C64TB
-         jOgEwDekeqZzD0pdO6VI5L5yFF9TUOI7pXoiVP+XE7MBBgG59/OD4AKKO1hLYu9sFqjd
-         9XqQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqrz/fJ39GCFecOGdik7+14a6JnmlusmZgUK1psgyVkf1ugC2DkcGGmP2Mrug8s5/YDjmTlwPE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YysSJQUb8d3Rf4HlLRSa6FSY8hoK7vxVUjPw3T9QfWzk8hPY5E2
-	J2urdK1Czadw68SnjGjBfFQcH7QhCv9Zvrq+uvdYxKI3waNksw0f3JWF
-X-Gm-Gg: AR+sD11bgiz9grKzfmcDtUcumLx72kknbQNJlZeaeVNLys2xLOQs5KqHudZuc3NdXCU
-	WaktXhPodpFKzmHtX6IW2dLU0xKX+ZsjSgaqSer8+QF47+aBry8LW0ANx9ZlgluxXHeu2kmS9aU
-	bPWsQ3g87cODNTJLAlnn7PyAcWykow078+yg5yvE1GKBkav5Wq+40a9uUFYntj2lDmSdOk6qQ4m
-	f1YptURJMPK4O40zv8v+6eAGG9tsNFfBxGxkb4QmyXze0Trkqw9fJ2YlKqINPP2P+/1go8xVtJn
-	oUQqjA0h2+ttpJhPDWtP1B2yfnWqfpkcKV91wRa2KFrmzOW1DFcyDc/wfELPGdCClBo1XSgTtj2
-	zfBqyKKPmWulW71Xo/uH2z+YKXZPTSqPxfQnzyWTVJB5DqS09bJWomT5WQu92baJo2NePW+MzOc
-	eo/8eve9MNEeenaCy/p14CbSGtvykeygEBmP4YknYq5MP0sdPpbEChJlTIIAg=
-X-Received: by 2002:a05:6a00:138e:b0:848:8619:c149 with SMTP id d2e1a72fcca58-84faf42c2efmr824043b3a.2.1786458549054;
-        Tue, 11 Aug 2026 07:29:09 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786458554; x=1787063354;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aAc0xtFPkF9VlmAdoL5DiXZFcBGbk3oumqjK2pi8Bpw=;
+        b=DgieK9G7hQKgh/K+VSR3LBZfs2bVLAuk9Io2YZ2VK0t4D2ikcl1VF8M6qWykSspqN4
+         AKxirFMZKTSbi6+ezz1egzlwMOTAh8xMZVVBYF8jTDAyGNQEajG0Yaq/ed4zlaxx0TUr
+         /7PckwauV5MeXiQH5drkjQRQrVqO6Xj+VdWrBsghMFS8L1Mqyu4CPjNzfOs7FQgI2K1H
+         lfsai0dYG/tb8cYhlI1g3Gpg3R5v/n+Vy7N2WH7tkDBFlHPfwRoGKkWL1+5MXHNdQQHF
+         rzIwljM0zHIDEMppH5pYrdcGZe/CBjJeYAN9dc0fgXGsW7nkbPrQGWdUveTe3lrOdMLG
+         GXWg==
+X-Forwarded-Encrypted: i=1; AHgh+RouPLwrB/mLrpaiytJKyMZyYlINQnxIz1sI1cU+vI/MjOh3iWxoBtRvlnHM2IzCRyeeDsl75Cs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzO6i8R9+9fMqH1HWbpjM09EYD4ZYMw4DSRQrQXuh85fl1wPpVx
+	7g6EzVGhE2csWfVohufBLzDrGeh0zQnLbQPVahqBjHCTcrViUrIs/pEL
+X-Gm-Gg: AR+sD12FOBuUHx2lB9sguwgyXQs24VaADrMpNni+Dm6FqcyQsKiXafG7VO2I9XAwifC
+	hiPb8E5e2bHInXeRUWnChke/rGYnj1Al8aV7EzCia8Y33qMYUdZK8wbaWPQ8MuO6YgXn739ng/9
+	yqpkRNTnMoj3kBbCHZO1xgPb0VcMFPgGWzMox5lAf2E2W8qcnhZpvyJnWC4ytEkIiq7KmJcDJ1w
+	zfsSlibZFY0V2bcopwk8r1C4SXKusbA2zHgmGpPMVxx+p0J0gxYLQoruXKbY/+AuTijTW3vmXE+
+	q8ebIa/SHkq5UKWbrGh165i9y5FwXS3AdEPGMdcQT73N+nJLRhlMi+yEDeYiGIlXg5IT4GcchO9
+	hT1dlrrExEIno7h76Zwaf+VW+JT0ghXnJKtw2NH12KktDUfyH1Xg0TkP8RdB9cytfEvXAM8cEEP
+	yh0qsOK3xy3uFNmlSwfUf74tRtbvIuuB/nAYppnm/tZSVAcbW3pLwfhQgS0gw=
+X-Received: by 2002:a05:6a00:3d52:b0:848:6b76:592f with SMTP id d2e1a72fcca58-84fa8686d9emr3316247b3a.5.1786458553736;
+        Tue, 11 Aug 2026 07:29:13 -0700 (PDT)
 Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa954fc8asm890209b3a.50.2026.08.11.07.29.04
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa954fc8asm890209b3a.50.2026.08.11.07.29.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 07:29:08 -0700 (PDT)
+        Tue, 11 Aug 2026 07:29:13 -0700 (PDT)
 From: Zhenhao Wan <whi4ed0g@gmail.com>
-Subject: [PATCH 0/2] drm/nouveau/dmem: fix DMA unmap size and callocated
- accounting for THP
-Date: Tue, 11 Aug 2026 22:28:49 +0800
-Message-Id: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
+Date: Tue, 11 Aug 2026 22:28:50 +0800
+Subject: [PATCH 1/2] drm/nouveau/dmem: fix mismatched DMA unmap size for
+ large folios
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,10 +71,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKExe2oC/yXMUQqDMBCE4avIPnfBhFJCr1L6EHW2bsEoWSOCe
- Pem7ePH8M9BhqwwujcHZWxqOqcKd2moH2N6gXWoJt/6Wxuc4+7KaS4bYuFhwsTruLDoDmMEiIs
- i4oOn2i8Zv6Hmj+ffVro3+vV7SOf5AWu1zIh9AAAA
-X-Change-ID: 20260811-b4-nouveau-dmem-thp-fixes-e8ef1afff282
+Message-Id: <20260811-b4-nouveau-dmem-thp-fixes-v1-1-2cdf9860af2a@gmail.com>
+References: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
+In-Reply-To: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -84,47 +84,59 @@ Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>, 
  Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786458544; l=1559;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786458544; l=1970;
  i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=ZMKglCqVFXjvtgIXuZifnh47ei+nnVi+BRmkcnYy+sQ=;
- b=BoaoApiS8sm/+sfuksuoGEKYu0rzRHDSGrA0yNMo6P0a/eAtz2lAgOnDDCgBuQuP0XlJFp1Dp
- j8eAjUVMULPBHmIZgK5qC2TH5H0uqNmEN6oKiq7Z6bRRZADtjalkaaJ
+ bh=Ms56ytpwHSeFHdp6KwntU4e11PGxIQxSST+kpBvVKeU=;
+ b=J5mecMWmZ3choz70xb/rBRDm8mbs+xBBy0WtROvpD9chGghI1Y9qX2K3DiSCMBIRSYRdUvbwn
+ J4w19x36HDnAC44CAx0r8knwMUTbJhDgWQGJ/Qk8KO7+ukM2tsSaLMa
 X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
  pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-Two independent, stable-worthy fixes to the device-private THP migration
-path in nouveau, both introduced by commit c32287471077 ("gpu/drm/nouveau:
-enable THP support for GPU memory migration") and still present in
-mainline.
+Device-private THP migration maps migration buffers with page_size()
+and records that length in dma_info->size.  For a compound folio
+page_size() is PAGE_SIZE << order, but two teardown sites still pass a
+literal PAGE_SIZE to dma_unmap_page():
 
-Patch 1 fixes two dma_unmap_page() sites that pass a literal PAGE_SIZE
-instead of the mapped page_size(). For an order > 0 folio this unmaps
-less than was mapped and leaks the remainder of the IOMMU/IOVA mapping.
+  - nouveau_dmem_migrate_to_ram() on the success path, and
+  - nouveau_dmem_migrate_copy_one() on the copy-error path.
 
-Patch 2 accounts for large-folio splits in the ->folio_split() hook,
-which previously left chunk->callocated unchanged. A folio counted once
-at allocation (+1) is later freed as N sub-folios (-N), so the unsigned
-counter underflows on the first split/free cycle and the chunk leaks.
+For an order > 0 folio this unmaps less than was mapped, leaking the
+remainder of the IOMMU/IOVA mapping.  The other unmap sites, in
+nouveau_dmem_migrate_chunk() and nouveau_dmem_evict_chunk(), already
+use the saved size; use it here too.
 
-Both are confined to nouveau and orthogonal to the in-flight "Remove
-device private pages from the physical address space" rework, which
-touches nouveau_dmem_page_addr()/nouveau_dmem_chunk_alloc()/
-nouveau_dmem_fini() rather than these teardown/accounting sites; they
-apply and are needed independently.
-
+Fixes: c32287471077 ("gpu/drm/nouveau: enable THP support for GPU memory migration")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
 Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 ---
-Zhenhao Wan (2):
-      drm/nouveau/dmem: fix mismatched DMA unmap size for large folios
-      drm/nouveau/dmem: fix callocated underflow on large folio split
+ drivers/gpu/drm/nouveau/nouveau_dmem.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/nouveau/nouveau_dmem.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260811-b4-nouveau-dmem-thp-fixes-e8ef1afff282
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+index 9442ec6e1f6c..d2abee3efb9a 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+@@ -267,7 +267,7 @@ static vm_fault_t nouveau_dmem_migrate_to_ram(struct vm_fault *vmf)
+ 	nouveau_fence_new(&fence, dmem->migrate.chan);
+ 	migrate_vma_pages(&args);
+ 	nouveau_dmem_fence_done(&fence);
+-	dma_unmap_page(drm->dev->dev, dma_info.dma_addr, PAGE_SIZE,
++	dma_unmap_page(drm->dev->dev, dma_info.dma_addr, dma_info.size,
+ 				DMA_BIDIRECTIONAL);
+ done:
+ 	migrate_vma_finalize(&args);
+@@ -772,7 +772,7 @@ static unsigned long nouveau_dmem_migrate_copy_one(struct nouveau_drm *drm,
+ 	return mpfn;
+ 
+ out_dma_unmap:
+-	dma_unmap_page(dev, dma_info->dma_addr, PAGE_SIZE, DMA_BIDIRECTIONAL);
++	dma_unmap_page(dev, dma_info->dma_addr, dma_info->size, DMA_BIDIRECTIONAL);
+ out_free_page:
+ 	nouveau_dmem_page_free_locked(drm, dpage);
+ out:
 
-Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
+-- 
+2.34.1
 
