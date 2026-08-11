@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A2E3D7A18
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 18:56:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737333DD51C
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 18:56:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786474570; cv=none; b=eUjUYRnTd7IjARhsuB6JQr7r0cmyNkzmzr36iMyNLBPKTM/VdiCf3m126/dJaZkml3Ila1+KeUUEd72UbY8Bp2SV7v7LyvC8Xw2vk/t2DRmQmPEQVrui0hmFDMzgvib+obdX5GS63Z8DsQF0uiiEqlqKrQ0XmVXjj7IqoVSlFSk=
+	t=1786474570; cv=none; b=Ey4QP4g+B2aqCu6Kvy9G7H8elVQfWI2uBoAEDGkRfZPjxJxO6KaePaZ+p31bQy8PKT7cwPwg7vS8OOVj56r8ryYvaOBJI6ljLxRdBEqLE6DrwaeHoW1TCkE9SxSaY3slT2+4MucwDMXlBj2sFPr5nqRJ8uNeGYi1AKZjtQhRnRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786474570; c=relaxed/simple;
-	bh=qZSEQ7IIGLHu2nSuukLqXV/watvEaJOV2mTOwaDbFi0=;
+	bh=QW7Zv/9tAbhuYT8PCf5K44jphJ48RTXSlPDnMmu7cBw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M1O/lHDQ1iBxdQokefDh2Wax+QqFyGsKvLZnKZawTkTvkpdJecHMCl61u3shi/4n9YzIHzctsGOGseHJD6eNWp4GNfpx+BiGmNusSZBUSJpttO0vZHA//rTFRl/2WZ+0irdTLbOkyo1dxjeNxDdav3lLwjFcJKWLEjC8wDDJTZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PsLGN41C; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UkAJtAoK81cMDJNvsMP2HSJtQoLk7FEMW1moRdqSpLLzOsSneUmWtUPr/zC5IIMALmfyutckXj2nCIezittzRMyqoGU9D+6xREGzaKmgO/k/EsiV0gDGomsMWlnJ7dY5xn8qoPzqTS6JUUu6iIwhjfSVyVgjFY7sxwibyRsQWEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wql8TP3g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PsLGN41C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A0551F000E9;
-	Tue, 11 Aug 2026 18:56:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wql8TP3g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8787C1F00A3E;
+	Tue, 11 Aug 2026 18:56:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786474568;
-	bh=9LrUP2yIpPh6B0nZYnxGWVtixACTXySFlvYvKGyBQKw=;
+	s=k20260515; t=1786474569;
+	bh=h+KVDCk8F+gQx8WV7VGgIXazqEc3b0l0j6NmWH8uGnY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PsLGN41CUEQdBcXnkKByf4R/9YJ8xjgXj0N6YSPtEA8b2JVqoBnodKzR0saZbrPCg
-	 UfJqbqvhBouFODQdjGCVW2LffX0sDu4yn1g/BtiNW0ZDZGqOmwn1XcTqPSQj/lrurm
-	 PuAQVOLzQXhovG52jdXi9FyzOQR1YwFLpgzkc/hOjn0gLViZMnOQGbv0CF6FYh1Wri
-	 bw2tsLXStmU3rsg3uQKEHOySxXetoHzuXFeOxfZcBScCk59YPInl+rD2mA/ytn8qc2
-	 ww2j0ZZgDhR0Z/8PGOUzE1sc6+n822GOe5pQME38jgICUiM+QldWrLWmGfNpW4S4u9
-	 E/NhSMH3RTVHw==
+	b=Wql8TP3g1OpZJkmsUfyg+AIYpGsL1CfFSiWmWIjRKzh3Jw5wehWc5JyouPR5XWKGe
+	 kfqNsO5wrU42zBBH/XMvYTNgl7Pl1lWhXYCC0kXfAapyWjZkAdSkItJ3VK3x/y/LGH
+	 ePXKg3i614I2ezcMqgWMk4AFx+KCtAohLSU7K6AddpL5TexgRwYPw3GghscOSr1n/b
+	 ao9Xa8160ysnG7w4QmOjqDFqqew5Vx+aSrRtxSQJVvukkZO4mTKrUSiPFCgItXgCFe
+	 g56f7fALY5+n56H57KpmgSR31GPwy+jiDKx57y1k77Frs/FJQmNwuVkJSJdJm6lbRA
+	 TtRUAwDzE+mrw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Martin Petricek <mp@petricek.net>,
-	John Johansen <john.johansen@canonical.com>,
-	Ryan Lee <ryan.lee@canonical.com>,
-	apparmor@lists.ubuntu.com
-Subject: Re: [BUG] apparmor: deadlock in complain-mode change_hat
-Date: Tue, 11 Aug 2026 14:55:52 -0400
-Message-ID: <20260811184500.stable-0007-sashal@kernel.org>
+	alifm@linux.ibm.com,
+	Matthew Rosato <mjrosato@linux.ibm.com>
+Subject: Re: [PATCH v2 stable 6.12 0/3] s390 KVM PCI backports for 6.12
+Date: Tue, 11 Aug 2026 14:55:53 -0400
+Message-ID: <20260811184500.stable-0008-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <552f7777b10a92ef675cb12a07ba8b7b@petricek.net>
-References: <552f7777b10a92ef675cb12a07ba8b7b@petricek.net>
+In-Reply-To: <20260810182128.5458-1-alifm@linux.ibm.com>
+References: <20260810182128.5458-1-alifm@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,31 +46,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> kernel:  __mutex_lock.constprop.0+0x569/0xa10
-> kernel:  aa_new_learning_profile+0x15f/0x210
-> kernel:  build_change_hat+0x19f/0x3b0
-> kernel:  change_hat.isra.0+0x5dd/0xd60
+> This patchset backports the failed commits to stable-6.12. I have resolved
+> the merge conflicts and tested them on s390.
 
-Thanks for the very complete report - the reproducer and the stack made
-this straightforward to pin down.
+Thanks for the respin - this one does apply, and 3/3 now falls through
+into free_aisb: the way mainline does, so both of my objections to v1
+are addressed.
 
-The commit is 32e92764d6f8 ("apparmor: grab ns lock and refresh when
-looking up changehat child profiles"). It makes change_hat() take
-ns->lock and hold it across the build: label. In complain mode with no
-matching hat, build_change_hat() calls aa_new_learning_profile()
-(aa_new_null_profile() on the older trees), which takes the same
-ns->lock again - a recursive acquire of a non-recursive mutex, so the
-task wedges in D state and never drops the namespace lock. That also
-explains why every later change_hat in that namespace hangs behind it.
+One thing left in 1/3: the conflict resolution keeps 6.12's existing
+in-loop
 
-John, Ryan - this needs an upstream fix; the deadlock is in mainline
-too. There is nothing in v7.2-rc7 or in linux-next that addresses it,
-and I could not find a posted fix on the list. Two smaller things in the
-same commit that look wrong while you are in there: it swapped
-aa_get_profile_rcu(&profile->parent) for aa_get_profile(profile->parent)
-on an __rcu pointer (the kernel test robot flagged the sparse warning
-twice in June), and it adds a label = aa_get_label(label) on entry with
-no matching put on either exit path.
+	cur_pages = atomic_long_read(&user->locked_vm);
+
+in account_mem() as well as adding the pre-loop read. It is harmless,
+but it is the only line where 6.12 would then differ from mainline and
+from 6.18/7.1. Could you drop the in-loop read and resend? The same
+artifact is in the 6.6 and 6.1 submissions.
+
+While you are respinning: 0cfe660559e8 ("KVM: s390: pci: Fix aisb
+calculation") is missing from 6.18, 6.12, 6.6 and 6.1 - only 7.1 has it.
+kvm_zpci_set_airq() on these trees still computes the AISB address as
+aift->sbv->vector + (zdev->aisb / 64) * 8, which goes out of bounds past
+64 forwarded devices. Could you or Matthew include it in the resend?
 
 -- 
 Thanks,
