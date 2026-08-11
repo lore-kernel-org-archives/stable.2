@@ -1,94 +1,204 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217D92AD00
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 12:35:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BD02AD00
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 12:35:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786451711; cv=none; b=H38tDAbmoTSZ0URxQ2EO6ZgkjY6d1HDeEQYC88ihkSYubV1Cq3gi2Cnrx395r62s4S5LC7d0yBsa/h0E4kPsEJLEEIalUUMBfisYDrLUze/EynZrXG1Qca8wm4jnch0FKha2P5B7nW3+h6j/PWysomWBIN7zXKfIkRdIZoCIRFU=
+	t=1786451713; cv=none; b=P2cYpjnq/5aihfzd6Lwc9cXr1qBgF5RF9Zo23KepN104I9/65WKeX67qn81LZE7gGHmwsNZA3V2KBF9idyr8EYOQyWrZoPgUwOMEMQi2+tn2yNDS7TXlgLFZnvFzpk0P/gksbJmfxsZsUfFwVtFCsVG6Iz7hbuN7r7ErfxRiANs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786451711; c=relaxed/simple;
-	bh=4KQmN9dh3XZ6NrqbQ2mvbbJmOHIXsLSvuwv/Gw0gmd8=;
+	s=arc-20240116; t=1786451713; c=relaxed/simple;
+	bh=W39N/+E8XWc03AYCf6sYaD4u5iXwYIA2s81YTladMn4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nvgkhSN7oCYDhxivOYUOQ3PVJdNiVQ1XDRGkslUFFX9JmC8Yk/kYRpQ4mMw7rtjYFGjL6N4BKEuAb4jcfwhXr5UscjIHbtQRGpCYhvzmeHJNzOvd/UDAitIcJlwf19OgPE8Sr/TdW7la/waOVYGBJxMRd8Qf4U2T0sQ2U3sDDgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YibjupYI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Mq0YXp62A94mCt2QoD0nQVL/5NBNhpoUdeE30bmX25g2VJuzqROb8vUTLcoEjiKFNwyriiVr7sM3wgK+1hxPdTQId89vG1DN8Km7X5g0ktms6kz3G7N+ZaVzJdUxkZvQime00UbPYjM2DUGGsaSO8PUGwB46NVb3XLFdT/ygsRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XS0Kr4uS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YibjupYI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01CE91F000E9;
-	Tue, 11 Aug 2026 12:35:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XS0Kr4uS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46611F000E9;
+	Tue, 11 Aug 2026 12:35:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786451709;
-	bh=CHhr+2ZiQ7qbgv3E2LKNN/KoToznF4hGRe+rAWWu358=;
+	s=k20260515; t=1786451712;
+	bh=EuuaYaTGvE+HdatzN8Q7dKB7uc9mfUB6faL8DwR3OKA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YibjupYInIm8plANIulcUm3ALxP6OHKP9PO1JUnO4YvjIhBVbfcCSO+qDESMCo+Mi
-	 FZhDgWAwtjjduHe8pOewnUvwDSfElJGO5C6DCOEJ/9HraFZG512GAyz9yTd4/ULeqb
-	 R8/dYOdhpxIl2eOkhwtYILLm+/S/cBx/POJ9HOZ3ufSv2/Vo7hd3ZHMZ3KoXOyohZ1
-	 NiVlqFRjdZOOQ7wjBsWEOIV8kV7R68DGFxn7maVH3c3fJGLaslk0e8ynT0Ah7DS07G
-	 EGzBVXANSLqogWn+l3tSvWL5wXeDxuU7zCWb0za1XbQXyln0Hgy4+Y9GMIjh6u9q9q
-	 Kmr2b8qweFxMg==
+	b=XS0Kr4uSO5zEVvqSZek34ySKFx9lCQZtzlph0+9rmydxxBlwunJNW5iWzVkeAEcD9
+	 b4xDF/kFbNSiCEZaDLY0r4HsqaXCXOjpMgbdvCW0G/BvfHMiEFXmfC/3M8iV+28Yqr
+	 Cjd/oGfN2szaiuqVGzfakkKkfuGRi+KtMMxjjNsDrlcQZN2K6jV9GSTfwDZMOtBjqo
+	 rb+kDU7LQO9A50Tz+OhiSyh5/zpj9ReDyIsG71NmxqjCUdkO6gwYbWLVqN+6jFwPCy
+	 qc8KvtYWEdp39UdP4K/cJB1CJ7gwyRZj2AOWYqt11k6LzsXc1ysufqH2f3fENOqqYT
+	 /y08IYURAmvaw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Carlier <devnexen@gmail.com>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	Dima Ruinskiy <dima.ruinskiy@intel.com>,
-	Moriya Kadosh <moriyax.kadosh@intel.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
+Cc: Peter Seiderer <ps.report@gmx.net>,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] igc: remove napi_synchronize() in igc_down()
-Date: Tue, 11 Aug 2026 08:35:07 -0400
-Message-ID: <20260811123507.2400685-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] net: pktgen: fix code style (WARNING: Block comments)
+Date: Tue, 11 Aug 2026 08:35:09 -0400
+Message-ID: <20260811123510.2400724-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080521-trapping-implosion-5850@gregkh>
-References: <2026080521-trapping-implosion-5850@gregkh>
+In-Reply-To: <2026080502-matron-stroller-b104@gregkh>
+References: <2026080502-matron-stroller-b104@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: David Carlier <devnexen@gmail.com>
+From: Peter Seiderer <ps.report@gmx.net>
 
-[ Upstream commit 5ffab5b9589c50e4cfc0cf36ffd76c89422d4019 ]
+[ Upstream commit 870b856cb478bc02fffe4d89897e62c692efb09a ]
 
-When an AF_XDP zero-copy application is killed abruptly, the XSK pool is
-torn down but NAPI keeps polling. igc_clean_rx_irq_zc() then returns the
-full budget on every poll, so napi_complete_done() never clears
-NAPI_STATE_SCHED.
+Fix checkpatch code style warnings:
 
-igc_down() calls napi_synchronize() before napi_disable(), so it spins
-forever waiting for that bit and the interface never goes down. Drop the
-napi_synchronize() and let napi_disable() do the job -- it sets
-NAPI_STATE_DISABLE, which forces the stuck poll to complete. Reorder it
-ahead of igc_set_queue_napi() so the NAPI mapping is cleared only after
-polling has stopped, matching the recent igb fix b1e067240379.
+  WARNING: Block comments use a trailing */ on a separate line
+  +                                * removal by worker thread */
 
-Fixes: fc9df2a0b520 ("igc: Enable RX via AF_XDP zero-copy")
-Suggested-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Reviewed-by: Dima Ruinskiy <dima.ruinskiy@intel.com>
-Tested-by: Moriya Kadosh <moriyax.kadosh@intel.com>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+  WARNING: Block comments use * on subsequent lines
+  +       __u8 tos;            /* six MSB of (former) IPv4 TOS
+  +                               are for dscp codepoint */
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +                               are for dscp codepoint */
+
+  WARNING: Block comments use * on subsequent lines
+  +       __u8 traffic_class;  /* ditto for the (former) Traffic Class in IPv6
+  +                               (see RFC 3260, sec. 4) */
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +                               (see RFC 3260, sec. 4) */
+
+  WARNING: Block comments use * on subsequent lines
+  +       /* = {
+  +          0x00, 0x80, 0xC8, 0x79, 0xB3, 0xCB,
+
+  WARNING: Block comments use * on subsequent lines
+  +       /* Field for thread to receive "posted" events terminate,
+  +          stop ifs etc. */
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +          stop ifs etc. */
+
+  WARNING: Block comments should align the * on each line
+  + * we go look for it ...
+  +*/
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +        * we resolve the dst issue */
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +        * with proc_create_data() */
+
+Signed-off-by: Peter Seiderer <ps.report@gmx.net>
+Reviewed-by: Toke Høiland-Jørgensen <toke@redhat.com>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 817ff6efdb7f ("net: pktgen: fix proc entry use-after-free")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/intel/igc/igc_main.c | 1 -
- 1 file changed, 1 deletion(-)
+ net/core/pktgen.c | 39 +++++++++++++++++++++++----------------
+ 1 file changed, 23 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
-index 8f8312a250c83..f2700c3e60992 100644
---- a/drivers/net/ethernet/intel/igc/igc_main.c
-+++ b/drivers/net/ethernet/intel/igc/igc_main.c
-@@ -5034,7 +5034,6 @@ void igc_down(struct igc_adapter *adapter)
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index a2838c15aa9da..c2a9cd06b766a 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -284,7 +284,8 @@ struct pktgen_dev {
+ 	int pkt_overhead;	/* overhead for MPLS, VLANs, IPSEC etc */
+ 	int nfrags;
+ 	int removal_mark;	/* non-zero => the device is marked for
+-				 * removal by worker thread */
++				 * removal by worker thread
++				 */
  
- 	for (i = 0; i < adapter->num_q_vectors; i++) {
- 		if (adapter->q_vector[i]) {
--			napi_synchronize(&adapter->q_vector[i]->napi);
- 			napi_disable(&adapter->q_vector[i]->napi);
- 		}
- 	}
+ 	struct page *page;
+ 	u64 delay;		/* nano-seconds */
+@@ -347,10 +348,12 @@ struct pktgen_dev {
+ 	__u16 udp_dst_max;	/* exclusive, dest UDP port */
+ 
+ 	/* DSCP + ECN */
+-	__u8 tos;            /* six MSB of (former) IPv4 TOS
+-				are for dscp codepoint */
+-	__u8 traffic_class;  /* ditto for the (former) Traffic Class in IPv6
+-				(see RFC 3260, sec. 4) */
++	__u8 tos;		/* six MSB of (former) IPv4 TOS
++				 * are for dscp codepoint
++				 */
++	__u8 traffic_class;	/* ditto for the (former) Traffic Class in IPv6
++				 * (see RFC 3260, sec. 4)
++				 */
+ 
+ 	/* IMIX */
+ 	unsigned int n_imix_entries;
+@@ -390,12 +393,12 @@ struct pktgen_dev {
+ 
+ 	__u8 hh[14];
+ 	/* = {
+-	   0x00, 0x80, 0xC8, 0x79, 0xB3, 0xCB,
+-
+-	   We fill in SRC address later
+-	   0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	   0x08, 0x00
+-	   };
++	 * 0x00, 0x80, 0xC8, 0x79, 0xB3, 0xCB,
++	 *
++	 * We fill in SRC address later
++	 * 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	 * 0x08, 0x00
++	 * };
+ 	 */
+ 	__u16 pad;		/* pad out the hh struct to an even 16 bytes */
+ 
+@@ -459,7 +462,8 @@ struct pktgen_thread {
+ 	char result[512];
+ 
+ 	/* Field for thread to receive "posted" events terminate,
+-	   stop ifs etc. */
++	 * stop ifs etc.
++	 */
+ 
+ 	u32 control;
+ 	int cpu;
+@@ -2343,7 +2347,7 @@ static inline int f_pick(struct pktgen_dev *pkt_dev)
+ #ifdef CONFIG_XFRM
+ /* If there was already an IPSEC SA, we keep it as is, else
+  * we go look for it ...
+-*/
++ */
+ #define DUMMY_MARK 0
+ static void get_ipsec_sa(struct pktgen_dev *pkt_dev, int flow)
+ {
+@@ -2647,7 +2651,8 @@ static int pktgen_output_ipsec(struct sk_buff *skb, struct pktgen_dev *pkt_dev)
+ 	if (!x)
+ 		return 0;
+ 	/* XXX: we dont support tunnel mode for now until
+-	 * we resolve the dst issue */
++	 * we resolve the dst issue
++	 */
+ 	if ((x->props.mode != XFRM_MODE_TRANSPORT) && (pkt_dev->spi == 0))
+ 		return 0;
+ 
+@@ -3712,7 +3717,8 @@ static int add_dev_to_thread(struct pktgen_thread *t,
+ 	 * userspace on another CPU than the kthread.  The if_lock()
+ 	 * is used here to sync with concurrent instances of
+ 	 * _rem_dev_from_if_list() invoked via kthread, which is also
+-	 * updating the if_list */
++	 * updating the if_list
++	 */
+ 	if_lock(t);
+ 
+ 	if (pkt_dev->pg_thread) {
+@@ -3909,7 +3915,8 @@ static int pktgen_remove_device(struct pktgen_thread *t,
+ 
+ 	/* Remove proc before if_list entry, because add_device uses
+ 	 * list to determine if interface already exist, avoid race
+-	 * with proc_create_data() */
++	 * with proc_create_data()
++	 */
+ 	proc_remove(pkt_dev->entry);
+ 
+ 	/* And update the thread if_list */
 -- 
 2.53.0
 
