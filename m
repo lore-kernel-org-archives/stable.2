@@ -1,103 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA64267B89;
-	Tue, 11 Aug 2026 04:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03A430C157;
+	Tue, 11 Aug 2026 04:14:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786421281; cv=none; b=VQKgdTERSVO2/mCkOMTeJUI8WvhOt8Mya11bj/NlldJqgY0Isn0wdLK22zWX3p6vGVSLgOGLZyCIuqqnzLZNLohGGiscgk9xqRB/my7jcaLLglGEMfO0Qle1xv+JFjrXFqr1V2N3pbqZ5BXZuv+OQJxfH7QQ5U5ENFMHo9vmdwU=
+	t=1786421648; cv=none; b=BGXj0dApR0/XjgDGVeu7khErfZN73d53LU8sGf6Oz5sSPvQnMGJRSmMgDFzpKHboOir191Y8AvahRJFZYPbKSb6i1N0VhR5VtKDTx5E5NP1vk1ae3sBHjmJYOku1/NCBsYZUv+sQ2Y+APiytC6uaqgYy0Polord4Qg35YCkOqEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786421281; c=relaxed/simple;
-	bh=GH5m6+Ldts+SGo6QuZO4Ij8ymzr3iZQxTQjWfoWF/KE=;
-	h=Date:To:From:Subject:Message-Id; b=o1H8epQ/MIuP/KLLZ5DD/SMXNXLZFogQ2f+RhJMGuysNqiMP2q8e34z5pTo8yq1ZE0+lVQrkP/OuU3JGLYRn5Tuc8+iSN9mblM2ITd8lNMXlc8Oc83zggmFXdIRRUrccIYH/UgAzz9rxE5+dsBlPzeaFXQjFVsmtnx3EHiZSCWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=h+uJPtI7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786421648; c=relaxed/simple;
+	bh=6rC5Foagke1uj+9g5Kec+wduoePWQKqkT6nwPFmFH2U=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=LBk8CAgpaGdjpZGg2hRJ271KBWQSe+dRimRqGeVSX7uRuUF4Ki1ImDKlA2BMHrBIS3BLDZ4zSjj1c/spMo6y7WEl3HhQbTP3Whr+eakca4fvqtBZ8UTtw6AoVIXj1z/zL47LBlVBhQPLZ9N5dpThqFkQAu+Hk9u7FRyIeshW+p8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=JFLZ96Sd; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="h+uJPtI7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F7FC1F000E9;
-	Tue, 11 Aug 2026 04:07:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786421279;
-	bh=zF64x0wmm+8aHcV8TP9oXcETL4UoaYCDC1GtVOnzhzo=;
-	h=Date:To:From:Subject;
-	b=h+uJPtI7yB34/gLAmi6IUGaZra+HuJFl8Pkp1fl6re7UvxqUXAGKZwSrFasv6wJw3
-	 0RHgIaar24KTZxpb72dbCuIQCcc1gVAkZ4JjWRZt37TGmbLugoJNxux/WxGOrkD3U5
-	 lisI4vfHI9oPDtiyGzgcfzq4ESXnjpuQHy3JGJUI=
-Date: Mon, 10 Aug 2026 21:07:58 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@suse.com,hannes@cmpxchg.org,zhangguopeng@kylinos.cn,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [to-be-updated] mm-memcg-v1-fix-memorymemswfailcnt-accounting.patch removed from -mm tree
-Message-Id: <20260811040759.2F7FC1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="JFLZ96Sd"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 49839a3dd;
+	Tue, 11 Aug 2026 12:14:01 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	jianhao.xu@seu.edu.cn
+Subject: [PATCH v2] mtd: spi-nor: scope the exclusive RWW lock
+Date: Tue, 11 Aug 2026 12:13:49 +0800
+Message-Id: <20260811041349.333176-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <DKL4CBQNKCO2.3NAZ6S25Q60XN@kernel.org>
+References: <DKL4CBQNKCO2.3NAZ6S25Q60XN@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fef07002203a1kunm3038573ccf371
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHUsaVkNPS0IeHx0fHxhNSFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	hOQ0NVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=JFLZ96SdvX1KS98OSuUfXksu69enBfi9qs1wYdw3DXKqzr9kkoVdmKlKev29rnBK9sBv86s5RxYSbpbWcBjMhx3FFUg1JoMTBNLQ8Z7rpaLPq/1AYDsrURxqR+QOeH2PYqi5jpmHDXZ5jCwAINdV+/3YSE83Q2ETIQd22/b3Uh8=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=YBfIz6+uNJCCf9NNN7opXSjgJhc46dkV8CxB1hCFr7Y=;
+	h=date:mime-version:subject:message-id:from;
 
+spi_nor_rww_start_exclusive() is used as the wait_event_killable()
+condition for RWW access. When RWW is busy, it can return false while
+still holding nor->lock, which blocks spi_nor_rww_end_exclusive() from
+clearing the RWW state.
 
-The quilt patch titled
-     Subject: mm: memcg-v1: fix memory.memsw.failcnt accounting
-has been removed from the -mm tree.  Its filename was
-     mm-memcg-v1-fix-memorymemswfailcnt-accounting.patch
+Use guard(mutex) here so nor->lock is released before the condition
+returns, while the state flags still hand off ownership to the caller.
+This keeps the mutex scope aligned with the other RWW start helpers.
 
-This patch was dropped because an updated version will be issued
-
-------------------------------------------------------
-From: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: mm: memcg-v1: fix memory.memsw.failcnt accounting
-Date: Mon, 10 Aug 2026 15:42:47 +0800
-
-Commit 0e2759afcaf9 ("page_counter: track failcnt only for legacy
-cgroups") made failcnt accounting conditional on track_failcnt.  It
-enabled the flag for memcg->memory, but not for memcg->memsw.
-
-Consequently, memory.memsw.failcnt remains zero when the memory+swap limit
-is hit.  Enable failcnt accounting for the v1 memsw counter.
-
-Reproducer:
-
-    CG=/sys/fs/cgroup/memory/memsw-test
-    LIMIT=33554432
-    mkdir "$CG"
-    echo "$LIMIT" > "$CG/memory.limit_in_bytes"
-    echo "$LIMIT" > "$CG/memory.memsw.limit_in_bytes"
-
-Start a child process in the cgroup and make it allocate and touch 96 MiB
-of memory, causing a memcg OOM.
-
-    cat "$CG/memory.memsw.failcnt"
-
-Without the patch, memory.memsw.failcnt is 0.  With the patch,
-memory.memsw.failcnt is greater than 0.
-
-Link: https://lore.kernel.org/20260810074247.52747-1-guopeng.zhang@linux.dev
-Fixes: 0e2759afcaf9 ("page_counter: track failcnt only for legacy cgroups")
-Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Acked-by: Michal Hocko <mhocko@suse.com>
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
+Changes in v2:
+- Replace the analysis-style explanation with a short maintainer-facing
+  description of the busy-path lock hold.
+- Keep the fix focused on using guard(mutex) so the mutex is released on
+  both paths.
 
- mm/memcontrol.c |    1 +
- 1 file changed, 1 insertion(+)
+drivers/mtd/spi-nor/core.c | 2 +-
+1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/mm/memcontrol.c~mm-memcg-v1-fix-memorymemswfailcnt-accounting
-+++ a/mm/memcontrol.c
-@@ -4180,6 +4180,7 @@ mem_cgroup_css_alloc(struct cgroup_subsy
- 		page_counter_init(&memcg->swap, &parent->swap, false);
- #ifdef CONFIG_MEMCG_V1
- 		memcg->memory.track_failcnt = !memcg_on_dfl;
-+		memcg->memsw.track_failcnt = !memcg_on_dfl;
- 		WRITE_ONCE(memcg->oom_kill_disable, READ_ONCE(parent->oom_kill_disable));
- 		page_counter_init(&memcg->kmem, &parent->kmem, false);
- 		page_counter_init(&memcg->tcpmem, &parent->tcpmem, false);
-_
-
-Patches currently in -mm which might be from zhangguopeng@kylinos.cn are
-
-mm-memcg-v1-fix-memsw-and-tcp-failcnt-accounting.patch
-mm-memcg-stop-reclaim-when-a-limit-update-is-superseded.patch
-
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index ccf4396cdcd0..8bc117b46e02 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -1310,7 +1310,7 @@ static bool spi_nor_rww_start_exclusive(struct spi_nor *nor)
+ {
+ 	struct spi_nor_rww *rww = &nor->rww;
+ 
+-	mutex_lock(&nor->lock);
++	guard(mutex)(&nor->lock);
+ 
+ 	if (rww->ongoing_io || rww->ongoing_rd || rww->ongoing_pe)
+ 		return false;
+-- 
+2.34.1
