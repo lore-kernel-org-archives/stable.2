@@ -1,164 +1,152 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F352E7F20;
-	Tue, 11 Aug 2026 10:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FD9339391
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 10:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786443989; cv=none; b=ZOGXqIh8vimNqaIVHBetsOpsGc99Yu6S+WDvK+D9/qlgK7meXb2AvA+D7ajXoXDxpyYK2Sj/V5qfRPccuQ2K1TxCzK3oESiQNy3K+GDO7rjP7xy3G3okfeOlnML2zRiV9NcJFzp9NZyhLnHX+Uk581n/QTJ/xo1HaSj+Nf0TgQs=
+	t=1786444713; cv=none; b=J9tDY937KvfBRVy2oOOwOuokMDsmmw2kihluKJeQzNYOFX7lZIlkQxo/jzMLUw6/qlpVsnAtw2ZY3ag9A7wm2/At1gXlzyTT8WY432AA2nhU6SQfp1kzY8QNRecrSHoFbLJSdHznlzqiXsFPlS/pdlpmWgOQrF6aH/v58Pk3X2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786443989; c=relaxed/simple;
-	bh=yoWJQqEoxTWlYX9SkYQiGZwUs6hYzmyYDjLMS3Ts5eo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ts66KDX8pS1pU6LXRTkYrnxIkdcSOlegvFMOrErB/5J1PGoxXvhnPKqh+OHOnnAHA0pn1Y15d0hD7IwocNy4hgTc2fVGZtRprvjhMgUBCbKkj8alK+4r3xC9fWYlRR9LhDrG7DKbdCE1PSd0Jfdi1zOjq+BvG5WNhvAMsV1Wf84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Qi6UOHYT; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ZM3s688t; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rxPf3uk/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XuR/PkOM; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1786444713; c=relaxed/simple;
+	bh=rYPdO/uorbeWDDLlHWLK3KcfyyUVKkDYDTmJMfZiT0Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ssbBdt5BRvQ0NlWEQ6OT4nFqFSLO3ueGMU0bmwh0YBxEY94+C62DIAa1f5H86RWrKj9hFFRZyWxTClk+zmhDl34hwLoZQY2wZBBKHQwvK6pG9Ew+KBDPz12446aI1fDh1Q77pVt4K2tVSuWwzOVnEM2ojsMrDv8Bo5sHsioZwhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=w8Dvyzux; arc=none smtp.client-ip=91.218.175.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Qi6UOHYT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZM3s688t";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rxPf3uk/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XuR/PkOM"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C1C4C3F23;
-	Tue, 11 Aug 2026 10:26:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786443978; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="w8Dvyzux"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786444710;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=l3Kt4KbGsXSbdjf21qYSSa4UkM2/oPWR1wlV6B9wTYI=;
-	b=Qi6UOHYTPR7MDZhGvD5Wm99+1HmVlb5V2c/Omi2vui0bKzU1K5khMOALbXP5dqqvmNcocP
-	ddrSxz23diAAf0/yDDPRvLdnaxc+b9Nzdp7AAKV/hiRcfmLbxgbsxXeG8+6xWG/S3Ko7nU
-	IBr8EFO98o+KQ3pi/OswofRUIFi9E/E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786443978;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l3Kt4KbGsXSbdjf21qYSSa4UkM2/oPWR1wlV6B9wTYI=;
-	b=ZM3s688tvLSR8UO6F/guHL7dKcAO7Gv1QCgwHRrxBfgxaLIG5ZfxUEFHg3sR5JIUnUt8Ut
-	AgKZonW7/ZOa5yAA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786443974; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l3Kt4KbGsXSbdjf21qYSSa4UkM2/oPWR1wlV6B9wTYI=;
-	b=rxPf3uk/QEkEO9Kj3NAx1intd6U7XY4JpKSA7Doj/e6/obgXfGFdAX2x5lm7VX+vOpKX/g
-	fRmfDwLXYMnIUfzSi/UIWgReUSsejaTNZTfx1K19sRXuBJ4X6ZtHnueIeT985bEq993jcr
-	mxPVWxY17o1Y0MUmaeRl2KuMkL2VFSA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786443974;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l3Kt4KbGsXSbdjf21qYSSa4UkM2/oPWR1wlV6B9wTYI=;
-	b=XuR/PkOMWl41WDBK/81zEIGbkHVanXrpxd+6UFSZTMM+8wmv68q+TK8r2IlTxM2xtBNPgy
-	zdCfrg7dtnUKpsDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AD485779B2;
-	Tue, 11 Aug 2026 10:26:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id yTTiKcb4emp2NAAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 11 Aug 2026 10:26:14 +0000
-Message-ID: <a0ff0901-8f9e-4309-a5c3-18317b7af442@suse.de>
-Date: Tue, 11 Aug 2026 12:26:14 +0200
+	bh=3CMWQUutu+gMx2FwWWDdqi75E85hm8JL5dK++dM6XxY=;
+	b=w8Dvyzux1/36PFKQDqjr/tB6rhCnxNxO2/RIRa4DusNUNEH8TRrGjjLNHt3U0lMCjBfR/e
+	uMAvDLZ5cIALjWqBnx2zc023LbuZW1pOUItDbXaFvfA65htjamzSWRvQ2d5T+Ri2pOPqBY
+	yf7+77360yDlmHq6FBBSnsHSz0vWx9Q=
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+To: linux-renesas-soc@vger.kernel.org,
+	netdev@vger.kernel.org,
+	niklas.soderlund@ragnatech.se,
+	kuba@kernel.org,
+	vadim.fedorenko@linux.dev
+Cc: paul@pbarker.dev,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	richardcochran@gmail.com,
+	masaru.nagai.vx@renesas.com,
+	luoxuanqiang@kylinos.cn,
+	stable@vger.kernel.org
+Subject: [PATCH net v4 1/2] net: ravb: avoid dereferencing an invalid PTP clock
+Date: Tue, 11 Aug 2026 18:37:32 +0800
+Message-ID: <20260811103733.62599-2-xuanqiang.luo@linux.dev>
+In-Reply-To: <20260811103733.62599-1-xuanqiang.luo@linux.dev>
+References: <20260811103733.62599-1-xuanqiang.luo@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmet-auth: reject overlong negotiate identifier lists
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260810155615.3269409-1-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260810155615.3269409-1-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,cyber.gouv.fr:email,suse.de:mid,suse.de:email]
-X-Spam-Flag: NO
-X-Spam-Score: -4.30
-X-Spam-Level: 
+X-Migadu-Flow: FLOW_OUT
 
-On 8/10/26 5:56 PM, Jérémy Jean wrote:
-> The DH-HMAC-CHAP NEGOTIATE descriptor carries separate lengths for the
-> hash and DH identifier lists, but each list occupies a fixed 30-byte half
-> of idlist[]. nvmet_auth_negotiate() uses halen and dhlen from the wire as
-> loop bounds without validating them, so a remote initiator can make the
-> target read past the 72-byte request buffer. KASAN reports a
-> slab-out-of-bounds read in nvmet_execute_auth_send().
-> 
-> Reject list lengths above the protocol maxima before either loop
-> indexes idlist[].
-> 
-> Fixes: db1312dd9548 ("nvmet: implement basic In-Band Authentication")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->   drivers/nvme/target/fabrics-cmd-auth.c | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-> index 45820a12750d..8679d5db4f86 100644
-> --- a/drivers/nvme/target/fabrics-cmd-auth.c
-> +++ b/drivers/nvme/target/fabrics-cmd-auth.c
-> @@ -71,6 +71,12 @@ static u8 nvmet_auth_negotiate(struct nvmet_req *req, void *d)
->   	    NVME_AUTH_DHCHAP_AUTH_ID)
->   		return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
->   
-> +	if (data->auth_protocol[0].dhchap.halen >
-> +	    NVME_AUTH_DHCHAP_MAX_HASH_IDS ||
-> +	    data->auth_protocol[0].dhchap.dhlen >
-> +	    NVME_AUTH_DHCHAP_MAX_DH_IDS)
-> +		return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
-> +
->   	for (i = 0; i < data->auth_protocol[0].dhchap.halen; i++) {
->   		u8 host_hmac_id = data->auth_protocol[0].dhchap.idlist[i];
->   
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-Reviewed-by: Hannes Reinecke <hare@suse.de>
+The PTP clock is unavailable before the first open, so querying its
+index can dereference a NULL pointer. Registration failures can also
+leave an error pointer in priv->ptp.clock.
 
-Cheers,
+Cache the PHC index separately and report -1 while no clock is
+registered. Normalize registration errors to NULL and preserve the
+static timestamping capabilities.
 
-Hannes
+Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+---
+ drivers/net/ethernet/renesas/ravb.h      |  1 +
+ drivers/net/ethernet/renesas/ravb_main.c |  3 ++-
+ drivers/net/ethernet/renesas/ravb_ptp.c  | 15 +++++++++++++--
+ 3 files changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
+index 5e56ec9b1013a..2a4fcb12a63cb 100644
+--- a/drivers/net/ethernet/renesas/ravb.h
++++ b/drivers/net/ethernet/renesas/ravb.h
+@@ -1028,6 +1028,7 @@ struct ravb_ptp_perout {
+ struct ravb_ptp {
+ 	struct ptp_clock *clock;
+ 	struct ptp_clock_info info;
++	int phc_index;
+ 	u32 default_addend;
+ 	u32 current_addend;
+ 	int extts[N_EXT_TS];
+diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+index 5f88733094d0f..db0229e008494 100644
+--- a/drivers/net/ethernet/renesas/ravb_main.c
++++ b/drivers/net/ethernet/renesas/ravb_main.c
+@@ -1779,7 +1779,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
+ 			(1 << HWTSTAMP_FILTER_NONE) |
+ 			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
+ 			(1 << HWTSTAMP_FILTER_ALL);
+-		info->phc_index = ptp_clock_index(priv->ptp.clock);
++		info->phc_index = READ_ONCE(priv->ptp.phc_index);
+ 	}
+ 
+ 	return 0;
+@@ -2953,6 +2953,7 @@ static int ravb_probe(struct platform_device *pdev)
+ 	priv->rstc = rstc;
+ 	priv->ndev = ndev;
+ 	priv->pdev = pdev;
++	priv->ptp.phc_index = -1;
+ 	priv->num_tx_ring[RAVB_BE] = BE_TX_RING_SIZE;
+ 	priv->num_rx_ring[RAVB_BE] = BE_RX_RING_SIZE;
+ 	if (info->nc_queues) {
+diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
+index 226c6c0ab945b..cbec7c057d715 100644
+--- a/drivers/net/ethernet/renesas/ravb_ptp.c
++++ b/drivers/net/ethernet/renesas/ravb_ptp.c
+@@ -315,6 +315,7 @@ void ravb_ptp_interrupt(struct net_device *ndev)
+ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+ {
+ 	struct ravb_private *priv = netdev_priv(ndev);
++	struct ptp_clock *clock;
+ 	unsigned long flags;
+ 
+ 	priv->ptp.info = ravb_ptp_info;
+@@ -327,7 +328,15 @@ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+ 	ravb_modify(ndev, GCCR, GCCR_TCSS, GCCR_TCSS_ADJGPTP);
+ 	spin_unlock_irqrestore(&priv->lock, flags);
+ 
+-	priv->ptp.clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
++	clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
++	if (IS_ERR(clock)) {
++		netdev_err(ndev, "failed to register PTP clock: %pe\n", clock);
++		clock = NULL;
++	}
++
++	priv->ptp.clock = clock;
++	if (clock)
++		WRITE_ONCE(priv->ptp.phc_index, ptp_clock_index(clock));
+ }
+ 
+ void ravb_ptp_stop(struct net_device *ndev)
+@@ -337,5 +346,7 @@ void ravb_ptp_stop(struct net_device *ndev)
+ 	ravb_write(ndev, 0, GIC);
+ 	ravb_write(ndev, 0, GIS);
+ 
+-	ptp_clock_unregister(priv->ptp.clock);
++	WRITE_ONCE(priv->ptp.phc_index, -1);
++	if (priv->ptp.clock)
++		ptp_clock_unregister(priv->ptp.clock);
+ }
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+2.43.0
+
