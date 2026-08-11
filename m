@@ -1,187 +1,163 @@
-Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4016F430307
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 10:39:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F8A34A3BF
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 10:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786444754; cv=none; b=OTI6V9xDagF+wn2Legzs7pOkBONAUdBl/EHe887G7JDUKaCaJhNN75UiBmX9xMjbo6ThraKcOrfaWq+9TKigJbEgJ4wG0TPbjhraZJsnUpewZosYAtGjm3PshPhpPe4zpUPdZK68uD3saZGN4izG8DtUvDXwt1qc5GhYDf2usyU=
+	t=1786444944; cv=none; b=VUQO9QX+oOEoI5yBtALM1eEpHS6G6+5FS8tlY3g6s9lGufzHkTRPdCEB7xAUA7T1HqClTk9btoBAgip7UcFoERhr2kUXU3e/1sqRLoF+GO2gtN5IuOL5/rjkTowoS/RLIHOKAveFQwj4O1/Ul7Y+Zy7mO2yhIk9R5cypS+4mNPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786444754; c=relaxed/simple;
-	bh=2ZHwp6+DisNJlZr/Ej+2cYjgEhwlm8PU0xfq5F2VDjM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OKc8PAhBt6M1ZpvYM8tvp29z4UeYKqqcZ2QXse1kliRFIqRLa5BY1Xq/vFYvzl2YaeJcyTFu94JAyrjQSG6U85t0F8DDRvJP3/MOvg2MZ01pLl/+0A/YvtqJNjGOVlhT1rcXQbGXaLzGbky5cqmovZw3zGS+kgmCeN0umrOnbnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rkeAkIcp; arc=none smtp.client-ip=91.218.175.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786444944; c=relaxed/simple;
+	bh=9DWwyp1KRArEjU+uq1Qkw7+RtV8sKm9Jirs8RjgfOuM=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=o2W88NnkoZ48VVrWyMMXDIqqKOaHTRbLo+zNd6vmBXyFGTHXe9t9PaF96inSG7e8/0wT2ZeVIpTxt21hi8zFIbj4AgkZ9ajkdXiq+ER3M5ATkb15eCI8KAwOySTArjhKzcFWLX1sz23eZz+H93Cyolag/aqY+gITOL+UVUfIsOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=JbYAdc17; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rkeAkIcp"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786444749;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iZf/htlsFgNcS+35IOEXNe4Ql4XRBRXaDRHFFsmjgFk=;
-	b=rkeAkIcpG7i6F6Da1VVGpMnMNEA1FMzDR5zLIJdOeYNrbe9x7Si6Fe+VZj9Ci2r9FLNRL4
-	rgFxtJsuz2M65j898+hhxlWamS+i4MVySM5+orZ2YNxezU2rw41XWLHLRGW3rTgGbChcbc
-	OaqxjqkWMkKPqb7AMc0AjxAKi00XMgo=
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-To: linux-renesas-soc@vger.kernel.org,
-	netdev@vger.kernel.org,
-	niklas.soderlund@ragnatech.se,
-	kuba@kernel.org,
-	vadim.fedorenko@linux.dev
-Cc: paul@pbarker.dev,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	richardcochran@gmail.com,
-	masaru.nagai.vx@renesas.com,
-	luoxuanqiang@kylinos.cn,
-	stable@vger.kernel.org
-Subject: [PATCH net v4 2/2] net: ravb: serialize PTP clock teardown
-Date: Tue, 11 Aug 2026 18:37:33 +0800
-Message-ID: <20260811103733.62599-3-xuanqiang.luo@linux.dev>
-In-Reply-To: <20260811103733.62599-1-xuanqiang.luo@linux.dev>
-References: <20260811103733.62599-1-xuanqiang.luo@linux.dev>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="JbYAdc17"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4954a2e73a9so17644565e9.3
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 03:42:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1786444941; x=1787049741; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FOccx3o7YzspIOPN4VOMh1mmGB1X25Vq6yEwYlGFjto=;
+        b=JbYAdc1725Squ0YBQLUBaIlhUtifEtQYD3uRDi7rnwo6zGZg1hT4zJ4Fecc+T0C6tO
+         kn4A+JgbMPNQ4I5hGD8j8b2WYLLulmom8B+u2biH3E4ntg8vCVXRQt1MKk30cUb/Z3SW
+         YIl9OcpBnA6JNqekiW1dnI7gvBDxKvwi35Pp4V5g/T2EL2GYzWJv9QeRoCvibEuPIVjs
+         gKAuOcUKUJOzThG4F4ls0gr5q8VcjCiuZEtXlJblkt1nfz1xt1LG4deghg94KcI24zSF
+         o7DYqEenGeA8J3NBDLYzR4kKMyU/FXpa+yi6/VJevXhYqm6PPRvfZ8Mpz87WL90/d8KS
+         7JlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786444941; x=1787049741;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FOccx3o7YzspIOPN4VOMh1mmGB1X25Vq6yEwYlGFjto=;
+        b=Cc9hJvEK1WMcrYkAtwOV4kxf437YrCWK0dsNIvVebKIVeB1+2Qdwi7IC4Ky83Ny5ua
+         CPlL2ytA8CKFza7kncADBhGRnYvpqRMZQ0+0CsmvDy4Y59RuFjbJFD6Jk7uHLVkVbxPb
+         mJYPBmItlan/cz7RPQj8FdTLZIoS0FzgGdqJPTkBmM7jsfRDHibtzDLrOz13/XuWVjfd
+         T14GwPcygpeVJuI+gwr58RuTWjsitzGrm5N2A4Gc4tTMMEFGN/+OEYxpali6mTOBtW4g
+         xkVqcS2sKf9LnS2CsHrqp50WpXlDTb6wUYSPaGE/NNIrPvrSW+FW7IjHH+gLzC+fOzSd
+         xx+w==
+X-Forwarded-Encrypted: i=1; AHgh+RpBc24r+jo/bzAePYsRUJQb23YyLEIx+FntyPp3rE16JwNsIfof8ufuYvqc6nuDCDdfvPE2r+o=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6sG6spTndvZ9R+84McIHDR1Amvac9NPVwC2dlggYxKd8PTPGj
+	R6iT2dJeMngsRD3629bzrgp3Q++eRlsG1jonpYgs/6SFWqpBT3mRCLfGXb16UcO0tzI=
+X-Gm-Gg: AR+sD13RlBMDOj1Tlpf3qi0+oUSLXSKzBQYt8fDKaNQRQEIis2+R6M5MdOQoSKeWxvL
+	0tjDJI4/wfL6kandIamCx9YvtKnQe7j/gC5qo+CB4n6K+jr1nCQ1MIMYOHIQ5RfEc0GwcES72Ug
+	s/LN3o5l4DfA8sfLl7Hz9xrpzVQ4QNXdBhsF07a0JDLPf291HcOo0FzC0+f0YFro2HWt6WS3J2V
+	7a52MQGVjsaZEkogWdkivhGsrv8cU6T8gZ0U3E8LmBsFhqISs2NeKjQSUOFGVLI5WXpRzRcLAsE
+	3E1C1tDisTwUehq5wBw3CTz3fAB7mmpH9wXm8N9XmfXvMllcIuJCl+YuxrPC02NUGUVGAjR2qhQ
+	CW31C/AeSqxy4stH8h5PNfximVh5ZBVm10lTVVD0EECFFbeYAl4QiJZdatJArVM63c0ze+r9po4
+	NhVe9mszNqzpm5Hk0HFh2K+TSP6jxKmgVW0rWy/4kj6cg3btpyJ4bJcg38fU8qQq0WwyNcvxc=
+X-Received: by 2002:a05:600c:4753:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49978437740mr26481275e9.6.1786444940360;
+        Tue, 11 Aug 2026 03:42:20 -0700 (PDT)
+Received: from [192.168.0.252] ([79.115.156.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49977e57785sm37389935e9.2.2026.08.11.03.42.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Aug 2026 03:42:19 -0700 (PDT)
+Message-ID: <56991b48-cbe9-45bf-a24c-d7aa771c55d2@linaro.org>
+Date: Tue, 11 Aug 2026 13:42:17 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mtd: spi-nor: use guard() in
+ spi_nor_rww_start_exclusive
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+ Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, jianhao.xu@seu.edu.cn
+References: <20260811041349.333176-1-runyu.xiao@seu.edu.cn>
+ <20260811083111.403453-1-runyu.xiao@seu.edu.cn>
+ <0ff8afdc-7a11-4a6c-9f62-6f8ba712c4ac@linaro.org>
+Content-Language: en-US
+In-Reply-To: <0ff8afdc-7a11-4a6c-9f62-6f8ba712c4ac@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Hi, Runyu, Miquel,
 
-ravb_ptp_interrupt() can race with ravb_ptp_stop() and pass the clock to
-ptp_clock_event() while ptp_clock_unregister() is freeing it. This can
-lead to a use-after-free.
+On 8/11/26 1:11 PM, Tudor Ambarus wrote:
+> 
+> 
+> On 8/11/26 11:31 AM, Runyu Xiao wrote:
+>> Commit 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup
+>> helpers") converted the RWW start helpers to scoped mutex cleanup, but
+>> left spi_nor_rww_start_exclusive() using a plain mutex_lock().
+>>
+>> spi_nor_rww_start_exclusive() is used as a wait_event_killable()
+>> condition. When it returns false on the busy path, the raw mutex_lock()
+>> leaves nor->lock held and blocks the operation that must clear the RWW
+>> state in spi_nor_rww_end_exclusive().
+>>
+>> Use guard(mutex) here as well so this helper matches the other RWW
+>> start helpers and releases nor->lock on the false return path.
+>>
+>> Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers")
+> 
+> The fixes tag is wrong. The blamed commit did not change the functionality
+> of the code, while yours does.
+> 
+> You shall instead blame the commit that failed to release the lock in the
+> first place. But then if you want to have this backported to stable kernels
+> you may want to add 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex
+> cleanup helpers") as a prerequisite patch, as it includes <linux/cleanup.h>.
+> 
 
-Use READ_ONCE() and WRITE_ONCE() for lockless access to the clock pointer.
-Atomically detach it with xchg() before disabling PTP interrupts, then
-synchronize all IRQs which can invoke ravb_ptp_interrupt() before
-unregistering the detached clock.
+Runyu, please also update the commit subject, the point of the patch is
+that it fixes a mutex leak, thus I suggest to reword it with something like
+"mtd: spi-nor: core: Fix mutex leak in spi_nor_rww_start_exclusive()"
 
-A handler which read the old pointer completes before the clock is
-unregistered, while later handlers read NULL and skip the event.
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+>> ---
+>> Changes in v3:
+>> - Reframe the changelog around the scoped-helper conversion that missed
+>>   spi_nor_rww_start_exclusive().
+>>
+>> Changes in v2:
+>> - Replace the analysis-style explanation with a short maintainer-facing
+>>   description of the busy-path lock hold.
+>> - Keep the fix focused on using guard(mutex) so the mutex is released on
+>>   both paths.
+>>
+>> drivers/mtd/spi-nor/core.c | 2 +-
+>> 1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+>> index ccf4396cdcd0..8bc117b46e02 100644
+>> --- a/drivers/mtd/spi-nor/core.c
+>> +++ b/drivers/mtd/spi-nor/core.c
+>> @@ -1310,7 +1310,7 @@ static bool spi_nor_rww_start_exclusive(struct spi_nor *nor)
+>>  {
+>>  	struct spi_nor_rww *rww = &nor->rww;
+>>  
+>> -	mutex_lock(&nor->lock);
+>> +	guard(mutex)(&nor->lock);
+>>  
 
-Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
----
- drivers/net/ethernet/renesas/ravb.h      |  2 ++
- drivers/net/ethernet/renesas/ravb_main.c |  6 ++--
- drivers/net/ethernet/renesas/ravb_ptp.c  | 37 +++++++++++++++++++-----
- 3 files changed, 35 insertions(+), 10 deletions(-)
+Miquel,
 
-diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
-index 2a4fcb12a63cb..3ee4c61081890 100644
---- a/drivers/net/ethernet/renesas/ravb.h
-+++ b/drivers/net/ethernet/renesas/ravb.h
-@@ -1124,6 +1124,8 @@ struct ravb_private {
- 	int msg_enable;
- 	int speed;
- 	int emac_irq;
-+	int err_irq;
-+	int mgmt_irq;
- 
- 	unsigned no_avb_link:1;
- 	unsigned avb_link_active_low:1;
-diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-index db0229e008494..ea1c7e536791e 100644
---- a/drivers/net/ethernet/renesas/ravb_main.c
-+++ b/drivers/net/ethernet/renesas/ravb_main.c
-@@ -2885,11 +2885,13 @@ static int ravb_setup_irqs(struct ravb_private *priv)
- 		return error;
- 
- 	if (info->err_mgmt_irqs) {
--		error = ravb_setup_irq(priv, "err_a", "err_a", NULL, ravb_multi_interrupt);
-+		error = ravb_setup_irq(priv, "err_a", "err_a", &priv->err_irq,
-+				       ravb_multi_interrupt);
- 		if (error)
- 			return error;
- 
--		error = ravb_setup_irq(priv, "mgmt_a", "mgmt_a", NULL, ravb_multi_interrupt);
-+		error = ravb_setup_irq(priv, "mgmt_a", "mgmt_a", &priv->mgmt_irq,
-+				       ravb_multi_interrupt);
- 		if (error)
- 			return error;
- 	}
-diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
-index cbec7c057d715..43218bc15b151 100644
---- a/drivers/net/ethernet/renesas/ravb_ptp.c
-+++ b/drivers/net/ethernet/renesas/ravb_ptp.c
-@@ -289,16 +289,17 @@ static const struct ptp_clock_info ravb_ptp_info = {
- void ravb_ptp_interrupt(struct net_device *ndev)
- {
- 	struct ravb_private *priv = netdev_priv(ndev);
-+	struct ptp_clock *clock = READ_ONCE(priv->ptp.clock);
- 	u32 gis = ravb_read(ndev, GIS);
- 
- 	gis &= ravb_read(ndev, GIC);
--	if (gis & GIS_PTCF) {
-+	if ((gis & GIS_PTCF) && clock) {
- 		struct ptp_clock_event event;
- 
- 		event.type = PTP_CLOCK_EXTTS;
- 		event.index = 0;
- 		event.timestamp = ravb_read(ndev, GCPT);
--		ptp_clock_event(priv->ptp.clock, &event);
-+		ptp_clock_event(clock, &event);
- 	}
- 	if (gis & GIS_PTMF) {
- 		struct ravb_ptp_perout *perout = priv->ptp.perout;
-@@ -334,19 +335,39 @@ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
- 		clock = NULL;
- 	}
- 
--	priv->ptp.clock = clock;
-+	WRITE_ONCE(priv->ptp.clock, clock);
- 	if (clock)
- 		WRITE_ONCE(priv->ptp.phc_index, ptp_clock_index(clock));
- }
- 
--void ravb_ptp_stop(struct net_device *ndev)
-+static void ravb_ptp_disable(struct net_device *ndev)
- {
--	struct ravb_private *priv = netdev_priv(ndev);
--
- 	ravb_write(ndev, 0, GIC);
- 	ravb_write(ndev, 0, GIS);
-+}
-+
-+static void ravb_ptp_sync_irqs(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+
-+	synchronize_irq(ndev->irq);
-+	if (priv->info->err_mgmt_irqs) {
-+		synchronize_irq(priv->err_irq);
-+		synchronize_irq(priv->mgmt_irq);
-+	}
-+}
-+
-+void ravb_ptp_stop(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+	struct ptp_clock *clock;
- 
- 	WRITE_ONCE(priv->ptp.phc_index, -1);
--	if (priv->ptp.clock)
--		ptp_clock_unregister(priv->ptp.clock);
-+	clock = xchg(&priv->ptp.clock, NULL);
-+
-+	ravb_ptp_disable(ndev);
-+	ravb_ptp_sync_irqs(ndev);
-+
-+	if (clock)
-+		ptp_clock_unregister(clock);
- }
--- 
-2.43.0
+Have you seen sashiko's review at 
+https://sashiko.dev/#/patchset/20260811083111.403453-1-runyu.xiao%40seu.edu.cn?
+
+Both concerns look valid to me. Do you think you can allocate time to fix them?
+
+Cheers,
+ta
+
+>>  	if (rww->ongoing_io || rww->ongoing_rd || rww->ongoing_pe)
+>>  		return false;
+> 
 
