@@ -1,78 +1,101 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD403417377
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 08:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D67537EFE5;
+	Tue, 11 Aug 2026 08:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786436904; cv=none; b=eNdmDqJ8MnD9m9iWThg1FIWgqKaOChTKwo9gNAVqzFLorx7IkOGI5OAk1FrtwJTf0LfFlOE9Sviv3dwqC6SkPor/EX+YE5qG/uQr4Xh6UfbHFS+GncCapQiq0HoNVW1fhzgSjI4Xuzi6Fh8tgHwoOMF83wqOS9iNTBUh2teDSBY=
+	t=1786437087; cv=none; b=HX4bRrPdC3Rqv7PRKJ06OEkbsoUXc8srPA4vIR+OS2NjzbZoG13C9kaeXjjwDrS9gDuphKm+A7/WdfUSStzU3qfUYmOb/mOF7PTlGPevJVG67OfTEm4XhaDwbI+7Bpfp4k8z41RD/QYpeGdJFTs+P/Cwzu0OMrp5AhI4m775xkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786436904; c=relaxed/simple;
-	bh=VbRSEXzw2tVb9Xu73pH713PpnbMIkgqrV5EAylcnHJM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=louMASaKyjkrwmc+eNKi3Xydzthclob6cULaMr22t17+/SMA6MNXyxkLR156r92bec5kJ4I22XZzs2Y+ycOW2ykoxCBI0ZTtC8S7nVo+1aG6se3pcpFCGiaxqw33UlknCMkg99Yh3Kv1CQMq+IW0mRkazL8+wksIuQ8gDvIwxXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gKJGhV2Y; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1786437087; c=relaxed/simple;
+	bh=hw2QCBUe8Xm1hz7KEqVZS+4RXFzrm9MTa2Kk7rnrTfo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=cfEFjnJqTZfW0uAL0QJyTi93ToLFVwQqKzusf9vw/c8GwUha2qE8nrKyd/gTFvJ1PtVpgOgA7I3iQmFqBBqPUPNTSnvmZ6W2C+AhbWtiX1sb4OTOU+78ko/hIdyRSoQeM+xWIfcCG8EdoXfb60k2hSYkteX9+047uFm9gfZscdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=PF1Rb1sA; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gKJGhV2Y"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B3A2B4E411AF;
-	Tue, 11 Aug 2026 08:28:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7FD036033C;
-	Tue, 11 Aug 2026 08:28:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0385C11C4BBD5;
-	Tue, 11 Aug 2026 10:28:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786436895; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=VbRSEXzw2tVb9Xu73pH713PpnbMIkgqrV5EAylcnHJM=;
-	b=gKJGhV2YVNtDg5Bioywqp0l0yywXqGcv0V0Qdjb4r7sMKcayAYrYNT+DWN4M2UtUz5JrRD
-	UOWSenvX4BG4DPFSM5NfXZ9kA74WYpPiW0mqdMEle2m6UVLoOh+x23vc4UOhBiEfDm623l
-	UmSysActHYGR4Oc2dE2xEBAvdA3qLueHy7b7F6oCfPOdGzczfH8j2qoXNEoPXjewO4IdTu
-	/+GS1OW0DOJOHIWFrUOJRDgFbYjAsPCACYFa4mfKVJY0+rR73ADSmPKf2a2nutfWInON/g
-	A1DyB1amL0YKnWKYl4D+u77t53psq9RiDG9E94jpr9B2e122lV2w1BSG4C37Og==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: linux-wpan@vger.kernel.org,  Stefan Schmidt <stefan@datenfreihafen.org>,
-  Alexander Aring <alex.aring@gmail.com>,  Varka Bhadram <varkab@cdac.in>,
-  Andrew Lunn <andrew+netdev@lunn.ch>,  "David S . Miller"
- <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,  Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,
-  netdev@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] ieee802154: cc2520: fix RX tasklet use-after-free
-In-Reply-To: <20260811010359.131381-3-fanwu01@zju.edu.cn> (Fan Wu's message of
-	"Tue, 11 Aug 2026 01:03:59 +0000")
-References: <20260811010359.131381-1-fanwu01@zju.edu.cn>
-	<20260811010359.131381-3-fanwu01@zju.edu.cn>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 11 Aug 2026 10:28:05 +0200
-Message-ID: <87ik5hoycq.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="PF1Rb1sA"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 498cc46c1;
+	Tue, 11 Aug 2026 16:31:17 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Tudor Ambarus <tudor.ambarus@linaro.org>
+Cc: Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn
+Subject: [PATCH v3] mtd: spi-nor: use guard() in spi_nor_rww_start_exclusive
+Date: Tue, 11 Aug 2026 16:31:11 +0800
+Message-Id: <20260811083111.403453-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260811041349.333176-1-runyu.xiao@seu.edu.cn>
+References: <20260811041349.333176-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9feff2880903a1kunmefe39414d7ca4
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSBkdVhhCGE9KT0tIHR1ITVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=PF1Rb1sA3ShyJ+G10WSaZ3RLTvm7dIzLN2f+XE1+92ZQMohgm/yHrbtR+lV6rfYta9lleRPHQZn60p8Vlo04iQPXDT0ufxDViLwiJE9SSJ4Nrkqxo7g9aFm12zuMHF2cZzOjQAtBw4A21VXsKqyOcwKdEAOTA/6u/nxEz6fMGmg=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=1B3HkixR4JIMuhN8lZdHL+sI1WrlOm70bK7D3bmLLq4=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi,
+Commit 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup
+helpers") converted the RWW start helpers to scoped mutex cleanup, but
+left spi_nor_rww_start_exclusive() using a plain mutex_lock().
 
-On 11/08/2026 at 01:03:59 GMT, Fan Wu <fanwu01@zju.edu.cn> wrote:
+spi_nor_rww_start_exclusive() is used as a wait_event_killable()
+condition. When it returns false on the busy path, the raw mutex_lock()
+leaves nor->lock held and blocks the operation that must clear the RWW
+state in spi_nor_rww_end_exclusive().
 
-> The FIFOP interrupt was requested before cc2520_register(), so a failed
-> registration could still have let the FIFOP handler queue RX work.
+Use guard(mutex) here as well so this helper matches the other RWW
+start helpers and releases nor->lock on the false return path.
 
-Really? How? SRXON is only set in ->start(), which means radio is off
-until the user asks for it, which can only happen after proper netdev
-registration.
+Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+Changes in v3:
+- Reframe the changelog around the scoped-helper conversion that missed
+  spi_nor_rww_start_exclusive().
 
-It feels like the rest of this commit is pure AI hallucination, so I'll
-stop there.
+Changes in v2:
+- Replace the analysis-style explanation with a short maintainer-facing
+  description of the busy-path lock hold.
+- Keep the fix focused on using guard(mutex) so the mutex is released on
+  both paths.
 
-Thanks,
-Miqu=C3=A8l
+drivers/mtd/spi-nor/core.c | 2 +-
+1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index ccf4396cdcd0..8bc117b46e02 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -1310,7 +1310,7 @@ static bool spi_nor_rww_start_exclusive(struct spi_nor *nor)
+ {
+ 	struct spi_nor_rww *rww = &nor->rww;
+ 
+-	mutex_lock(&nor->lock);
++	guard(mutex)(&nor->lock);
+ 
+ 	if (rww->ongoing_io || rww->ongoing_rd || rww->ongoing_pe)
+ 		return false;
+-- 
+2.34.1
