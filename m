@@ -1,78 +1,82 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939964508F8
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 16:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44C83A5E87
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 16:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786465053; cv=none; b=TahYQDfIF6kbY2qTLlMxkkdb+TuypvuYlrW6PnYgmReHJDIcSl7Y+JWiEg0ou/vxqvmegYI04bWy5MbF7Nr56hN5cc6kpbLjd/hYpKSJ04ChcCsWLR3UjhfEA58RXIq+Nxr0TI5g8Ezw7FTHDlB0P8KxSLtILvWsB/HIg/T98Vo=
+	t=1786465150; cv=none; b=l5MDor7YFn3r6L23znLPD2be8Spzz1HbqDQ73wTrhFwhpoQCIrptQF4n7iC5izPNtiuvB/5AEQV5zFm0bR7FkPc825ci+Fr3hiwPiRsKDp/9mROFhgPSzsURznnlcnl0CBMr5Fliwp0PatH41b/VyloicDfnBndcptclDcYLt7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786465053; c=relaxed/simple;
-	bh=l7X01W75BXIMq/p9WF0sa2ISd+eXzcuOI9vcK+JjQzI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sNgJAXRe+/GFtPa+XGGfmN04bb83eKgVyVYKnMN4QxkFx4PRNc3fCg+yjxq3ym3UDUmi3v+3sJJa/yA//KoAYl//MifSYlC1IOA5uoDPB4VPkc1wdMXtezSvXLFc1S2oB670dcRZ6Rd9FKYN5/pfoZ/4EfBF3PSWjziep4oPzA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DG5jTsFh; arc=none smtp.client-ip=209.85.208.181
+	s=arc-20240116; t=1786465150; c=relaxed/simple;
+	bh=Y4qG5HxjZHzWrdJQmg28DxVUuPj3jUZ5so1obewClHA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EpPj1/S0ZMQqN1KCFqLbe5cCUlozsiGcMC8R5ed4xXkNciLTT6T9JyAfH1PqCq250kZbn5kjvqFks7O4GYLFlTqemjXp70sJ8tXDXd0va0iObUCibcImCqT2IIcx5P1vYxMY5DKVglPemk+ZOYdChU3xq3LsVLx5EUuIOW/gQE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JNH0nHeC; arc=none smtp.client-ip=209.85.219.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DG5jTsFh"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39c8ee87f7eso768331fa.3
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 09:17:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JNH0nHeC"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-8f0e5e36912so6070836d6.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 09:19:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786465050; x=1787069850; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RR2VgYwZjBupSt8VlBAmyBBmTAH9MTVFGE/w24WyCi4=;
-        b=DG5jTsFhn5gCnsjqmWWQPDj0toDaspqSzdeKoqTegTsSKgK8ay73Z0gpFghI3fDICC
-         n3YCrFMD8O9sVIXfqMow5QYCjsFQwblGqo7YsnzsKqSkjSR5HGFH4/hShAjcrEWFjhKd
-         5ZfWts+flqB2o2oZD93UW2ATObLyGUAj8bkuA+F+k0D30cVPYFG5nfRCkQ1naRFOXFhw
-         aq/neU7mTG2gh7jr+nUblMCiVUS/zPaF8DAEhYu2gEsNwRQgLbkYtkz3a4+GyGqZyY0g
-         t9rQr5KN4X9asOmx97jBCOWgH0YL3XrlGjgCYIIDA5XNyt+Wpiq7qMxsJMzcfeYAX1vN
-         mlVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786465050; x=1787069850;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1786465147; x=1787069947; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RR2VgYwZjBupSt8VlBAmyBBmTAH9MTVFGE/w24WyCi4=;
-        b=f6UvRNwZXCisJil7lBGvw3K/5F9Yqc5UkGl/T9u1w+Mp3+lJVYC/lGXPnXO/tP1wPj
-         yLwEO7l6by9f76iqf2WKTl4vIrHo3dcQ9fM4sqqF/cMaN/ptskWVQbHaOCuc56JB8YbU
-         Q0bXPcrSo2oDwGCKXbxHrnal1i0B0f76NdFTNPAoUqflBP6XU49h4np1NCAr4lMVGeq9
-         HLqgym0sR1dHdBW/cuS9E9bdi3p6EjVKa2gwEc5yib3iE4UgflaMt0NIJCJNlCjW8C19
-         qREM6ierGkewKrLf9EZPKoG7YxJr/otc/JA49PkW78SkBmvItQpcXcd36zEJQLOFyqKB
-         kjVg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr0fQ4r1k8MI5lFA52M1cp2y/OmTX1tktJAAKC4xXy3zTsb0Cx69gd8Ns3YuOgtc3C0r8vNVGI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtTiSUANlbGdIFiB+H6FM/6VXg6OVqZRIC3xtaRFmgRistCKWX
-	gGCEdayysWpzswcTll60XiqUE9psTG3RAHCbmxFKKuWb/HNoOzH4IlnTd3VbxX4=
-X-Gm-Gg: AR+sD11exjGviEYk40EQ7xKT3nBBsc+vLmG+1lxQoPHcuKrvPm89QsLpyEMncke7pif
-	bVPU9a2LJSblE0McXAwKT0+N//ooAEJIVv/T75sWiwEIW8I79boMJJ3X0YUxo1+Qv9vETVF+YR1
-	CkaGpo5dfpTCVqYVHXWEeBMFWpR1qiu1Om2fJ9uTaBZI5MQQ4uADE3qG52Zd3kzuRFmTuahU//6
-	Wyb5IdPTt/pg0n8vyUjqnFqVTf2Vs/MtVqQ/9ga5N1LlycuyQ3Slih7hAEsCjhZygCt2sLTBX/I
-	y1z4ud+u7+xv1PSHDksgYJWrSRSHDP/qRPXemu2PDbwfB9ER5nWVQohkJCMHykG1gcIgsgrK5+J
-	WoQ18fw51ie3T85al7OhTGFQ4Apyv+BWiDNTD+sawz/71qt7Yy01HedhNedFOQbtc2Cp2qKTY0r
-	xWqcZvTcnpLhFwJ8064jsAA9tw2J5TW2Kpff8oHxC0OHCfiij/gH0=
-X-Received: by 2002:a2e:b8d6:0:b0:39e:fff5:7cdc with SMTP id 38308e7fff4ca-3a0f8d24244mr5889591fa.18.1786465049259;
-        Tue, 11 Aug 2026 09:17:29 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a0fa5bc458sm3575781fa.27.2026.08.11.09.17.27
+        bh=xrrHTlApXY4U6JlaL8nMvnN7qO+xyOd6Xm+nS8KTJxI=;
+        b=JNH0nHeCBQ05pBZj3arOAeFQGQAYPoOO08OkdXruwby65NKoixSfSSm4gggzlstPOe
+         68YV/Hr8XCJh+chTcu5CenWCJMhOSJnPPOrY28LCRXcGAPCDFKQpCQ60IP2nRbTQHyZI
+         JHX5nlTBBJG/m/UBHekyZ2xGdBCaLS3cGLBwBg3f1TNfREiJN9CHqLxfTLu6GVqfcNIQ
+         hYIRzO81QIGGiYieoku6AB6izBCpTfqgcItjH7OymBo7IeOVgcknRumk5JaIhmFkL0VE
+         i+w5vo2DxJXCrzzRJwWNYpLKDc3sMYjj+bwJwYXyQyqoKTCRDfkLK38yem8nEhUMsozD
+         tmVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786465147; x=1787069947;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xrrHTlApXY4U6JlaL8nMvnN7qO+xyOd6Xm+nS8KTJxI=;
+        b=HtAs2oWaucK1Rp2Pf9PSE5e09gvTnr6N7ZAL7GF176zys4xedhTd9m6mP7zDCLa9J2
+         h6FURxtn4EzbJH3hUr1UV7c5wcby7JwPDfss+pm2VKJQeeSOujSXy7nzyEPdDxOBtFkF
+         teBT+qENYXUJnaG04TQ8gqZwoCAb5bqID5NAYsJ0e0TkrlLqciETs56Su8+IG3p8g1Cq
+         0dzPnbu9sPvy/BU5MP0lul4avwhx3RtI1878Dm2ib5Ha2ITgSt2xCxv+H5FhrAAn0G9M
+         Uehtyb/arMDBs4+g+cdzJSELPcTFN0ND2K5dNFltcopJxYaOy4OzP7rYsaUk1qCRDgpe
+         hGiw==
+X-Forwarded-Encrypted: i=1; AHgh+RpR9d3nPLzuVmIZNJKm23Y9fztxOPacnK+k0ltOIV4xi6ZZg8pOat7+If1KN0vN2owRIoPj+7U=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5DbITF18fYIWMLzRmyFhUv9DhmrnTMcYQUU42R1YB3FSRmgR1
+	FROcv0iToIJmPpG3YVZkfhtstXkiiH56YsKFzRmdFOLA6DUfFGX+VkXV
+X-Gm-Gg: AR+sD11QN9Rq6TIicRsYMrLvqIK5TpnsyxcKyGpQoxAaOcyl41VDH4E8h5sYmnl8Y6m
+	vm5Nc2MF+zUmdMORkqGsvxuuaJ/cMRrCUl1AKSPZ2uv6/CkzyV8hU8+vu/eMquB1c0SE+x7ze6t
+	wUIJo8usacWZ3hRJwIegVCsS7K0bFtjqLMXXB/Y3BuqoyRHWYBZXNr6Gui3ZG5/x8hLAqWxhEKd
+	9OplKCgxwUAP3mk7xwNc8DFTParPny5ir67xDvmzi+RCv9WAQlvTpVdi+Eq+oD/II/ZE3dba2VR
+	VViM+SZPgVX1lyf0LyNMNKqTYLqCtdsiBLpJJ7u+8hcjQeu8vRe2Iy+KpteCydz9PV1uzG/Gy4S
+	XhPY8Bxmz88A3yihjKH7NJGoZKKYCBP7aSPrpqjVEBiRSVzQU4+EvR4nXrF7udOfiWe9c4sfuQY
+	gQLJ/nnOObB5drGp3xWYBfvcW+vdWu/WgurhBSTYOyZLRZ2enOIjniekJFGpT9kVZNozEwtl9fR
+	llrF0LsIb9uwspoT9rTKbnzin6StiVbHJnRrfIHZNCRyhka037c
+X-Received: by 2002:a05:622a:4185:b0:527:9603:8123 with SMTP id d75a77b69052e-52d600ad28emr17978671cf.2.1786465147363;
+        Tue, 11 Aug 2026 09:19:07 -0700 (PDT)
+Received: from CW-D0XG2Q16P7-L.mynetworksettings.com ([2600:4041:5d54:8900:9c8d:ddb9:b1a2:735f])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90a6c3bf12fsm2323716d6.38.2026.08.11.09.19.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 09:17:28 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: Lorenzo Bianconi <lorenzo@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Vitaliy Sochnev <sochnev.v.74@gmail.com>,
-	stable@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org (moderated list:AIROHA ETHERNET DRIVER),
-	linux-mediatek@lists.infradead.org (moderated list:AIROHA ETHERNET DRIVER),
-	netdev@vger.kernel.org (open list:AIROHA ETHERNET DRIVER),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v2] net: airoha: npu: load the firmware without the sysfs fallback
-Date: Tue, 11 Aug 2026 19:16:59 +0100
-Message-ID: <20260811181717.19339-1-sochnev.v.74@gmail.com>
+        Tue, 11 Aug 2026 09:19:07 -0700 (PDT)
+From: Maxi Saparov <maxi.saparov@gmail.com>
+To: Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>,
+	Evangelos Petrongonas <epetron@amazon.de>,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	sdimitropoulos@coreweave.com,
+	Maxi Saparov <masaparov@coreweave.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] kho: do not reserve scratch memory in the kdump kernel
+Date: Tue, 11 Aug 2026 12:18:57 -0400
+Message-ID: <20260811161857.3096-1-maxi.saparov@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260803193938.8778-1-maxi.saparov@gmail.com>
+References: <20260803193938.8778-1-maxi.saparov@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,118 +85,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-airoha_npu_load_firmware() maps a missing firmware file to -EPROBE_DEFER
-so that the NPU can be brought up once the rootfs carrying /lib/firmware
-has been mounted. That mapping holds only as long as request_firmware()
-reports -ENOENT.
+From: Maxi Saparov <masaparov@coreweave.com>
 
-It does not when the sysfs fallback is in play. With
-CONFIG_FW_LOADER_USER_HELPER_FALLBACK set, or with the fallback armed at
-runtime through /proc/sys/kernel/firmware_config/force_sysfs_fallback,
-request_firmware() hands the request to a userspace helper, waits out the
-full loading_timeout and returns -ETIMEDOUT. The -ENOENT test no longer
-matches, dev_err_probe() turns the result into a hard failure, and the
-NPU is left unbound after stalling the boot for 60 seconds:
+If a kernel with CONFIG_KEXEC_HANDOVER_ENABLE_DEFAULT=y (or kho=on)
+does not receive a handover FDT, it reserves KHO scratch memory in
+kho_reserve_scratch().
 
-  airoha-npu 1e900000.npu: Direct firmware load for airoha/en7581_npu_rv32.bin failed with error -2
-  airoha-npu 1e900000.npu: Falling back to sysfs fallback for: airoha/en7581_npu_rv32.bin
-  airoha-npu 1e900000.npu: error -ETIMEDOUT: failed to run npu firmware
-  airoha-npu 1e900000.npu: probe with driver airoha-npu failed with error -110
+The kdump kernel always takes this path. Since commit a6715d7ec472
+("kho: skip KHO for crash kernel"), the kernel does not add KHO
+metadata to the crash kimage. As a result, the kdump kernel never
+receives a handover FDT and always reserves scratch memory.
 
-Clearing FW_LOADER_USER_HELPER in the configuration is not a dependable
-guard against this, because unrelated drivers select it. On the affected
-build the symbol was turned back on by LEDS_LP55XX_COMMON, even though
-the platform had explicitly disabled it.
+The kdump kernel boots in the small crashkernel= memory reservation.
+On our x86 hosts, the kernel and initramfs make approximately 176 MB
+of early reservations. The scratch areas then use approximately
+650 MB more of the crashkernel memory. When a large early allocation
+fails, the kdump kernel panics:
 
-Use request_firmware_direct() instead. It sets FW_OPT_NOFALLBACK_SYSFS,
-so a missing file is reported as -ENOENT whatever the firmware loader is
-configured to do, and the deferred probe path works as intended.
+  bio: can't create integrity buf pool
 
-Two consequences are worth stating plainly.
+A kdump kernel has nothing to hand over: its only task is to dump the
+memory of the old kernel and reboot. Fix is to disable KHO at the top of
+kho_memory_init() so that the kdump kernel does not reserve scratch
+memory.
 
-The helper is not merely bypassed for the boot-before-rootfs case.
-fw_run_sysfs_fallback() returns early on FW_OPT_NOFALLBACK_SYSFS, so this
-driver's firmware requests can no longer be served by a usermode helper
-at all, including on a system where that is the only delivery route;
-having no second firmware source, the driver would defer forever there.
-That is a deliberate trade-off: the -ENOENT to -EPROBE_DEFER mapping was
-written to wait for a filesystem, and the sysfs helper interface has had
-no in-tree consumer since udev dropped firmware loading.
-
-request_firmware_direct() also sets FW_OPT_NO_WARN, which drops the only
-message naming the file that failed to load. Report it from the driver
-instead, so the name lands in the deferred probe reason and shows up in
-the "deferred probe pending" line emitted at
-driver_deferred_probe_timeout. The generic report in airoha_npu_probe()
-goes away with it, since it would otherwise overwrite that reason with a
-message naming nothing; of the paths it covered, devm_ioremap_resource()
-reports itself and the malformed firmware-name property now does too.
-
-Measured on a Nokia XG-040G-MD with FW_LOADER_USER_HELPER=y and
-FW_LOADER_USER_HELPER_FALLBACK=y forced on, two images from the same
-tree differing only by this patch:
-
-  without:  fallback at 2.477s -> -ETIMEDOUT at 64.555s -> probe failed
-            with -110, preinit at 69.6s, NPU unbound
-  with:     no fallback, NPU fw version 1456.62 at 3.665s, preinit at
-            7.6s
-
-Fixes: 23290c7bc190 ("net: airoha: Introduce Airoha NPU support")
+Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Signed-off-by: Maxi Saparov <masaparov@coreweave.com>
 ---
-v2:
- - Keep the file name in the diagnostics. request_firmware_direct() also
-   sets FW_OPT_NO_WARN, which dropped the only message naming the file;
-   report it from airoha_npu_load_firmware() through dev_err_probe() so
-   the name lands in the deferred probe reason. Drop the generic report
-   in airoha_npu_probe(), which would overwrite that reason, and give
-   the malformed firmware-name path a message of its own.
- - Say in the changelog that the usermode helper path is disabled for
-   this driver's requests rather than merely bypassed, and why that
-   trade-off is acceptable.
- - Both points raised in review of v1:
-   https://lore.kernel.org/netdev/20260807024125.434055-1-sochnev.v.74@gmail.com/
+v2: Move the kdump check to the top of kho_memory_init() as an early return.
+v1: https://lore.kernel.org/all/20260803193938.8778-1-maxi.saparov@gmail.com/
 
- drivers/net/ethernet/airoha/airoha_npu.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ kernel/liveupdate/kexec_handover.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/net/ethernet/airoha/airoha_npu.c b/drivers/net/ethernet/airoha/airoha_npu.c
-index b679bed95..de75376db 100644
---- a/drivers/net/ethernet/airoha/airoha_npu.c
-+++ b/drivers/net/ethernet/airoha/airoha_npu.c
-@@ -202,9 +202,10 @@ static int airoha_npu_load_firmware(struct device *dev, void __iomem *addr,
- 	const struct firmware *fw;
- 	int ret;
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index 6fad9152387a..97729dec6359 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -12,6 +12,7 @@
  
--	ret = request_firmware(&fw, fw_name, dev);
-+	ret = request_firmware_direct(&fw, fw_name, dev);
- 	if (ret)
--		return ret == -ENOENT ? -EPROBE_DEFER : ret;
-+		return dev_err_probe(dev, ret == -ENOENT ? -EPROBE_DEFER : ret,
-+				     "failed to load %s\n", fw_name);
+ #include <linux/cleanup.h>
+ #include <linux/cma.h>
++#include <linux/crash_dump.h>
+ #include <linux/kmemleak.h>
+ #include <linux/count_zeros.h>
+ #include <linux/kasan.h>
+@@ -1631,6 +1632,12 @@ fs_initcall(kho_init);
  
- 	if (fw->size > fw_max_size) {
- 		dev_err(dev, "%s: fw size too overlimit (%zu)\n",
-@@ -230,7 +231,8 @@ airoha_npu_load_firmware_from_dts(struct device *dev, void __iomem *addr,
- 	ret = of_property_read_string_array(dev->of_node, "firmware-name",
- 					    fw_names, ARRAY_SIZE(fw_names));
- 	if (ret != ARRAY_SIZE(fw_names))
--		return -EINVAL;
-+		return dev_err_probe(dev, -EINVAL,
-+				     "invalid firmware-name property\n");
+ void __init kho_memory_init(void)
+ {
++	if (is_kdump_kernel()) {
++		kho_enable = false;
++		pr_info("disabled in the kdump kernel\n");
++		return;
++	}
++
+ 	if (kho_in.scratch_phys) {
+ 		kho_scratch = phys_to_virt(kho_in.scratch_phys);
  
- 	ret = airoha_npu_load_firmware(dev, addr, fw_names[0],
- 				       NPU_EN7581_FIRMWARE_RV32_MAX_SIZE);
-@@ -772,7 +774,7 @@ static int airoha_npu_probe(struct platform_device *pdev)
- 
- 	err = airoha_npu_run_firmware(dev, base, &res);
- 	if (err)
--		return dev_err_probe(dev, err, "failed to run npu firmware\n");
-+		return err;
- 
- 	regmap_write(npu->regmap, REG_CR_NPU_MIB(10),
- 		     res.start + NPU_EN7581_FIRMWARE_RV32_MAX_SIZE);
+
+base-commit: 3a0b8fa2eb36afc88b62a95f33f0c77c71fa5ded
 -- 
 2.55.0
 
