@@ -1,131 +1,110 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7390739479C;
-	Tue, 11 Aug 2026 02:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F96239E9B;
+	Tue, 11 Aug 2026 03:23:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786416873; cv=none; b=ZNRQdmUBX/j3zfs7/DVh3nSSheZFZAmxTqve2MHE/r+QN5pPIBdObKarP5uVxZDdzolHzPrp5SaknQ+A09K5O1VXR8gDr5QRnHIMRkSTSxKT5tivEazW02wAKS4kNI8OQ3n7WT6n1fd2Od1ygeGoeCBEsCkLfvlKUTkNZvHPi5M=
+	t=1786418582; cv=none; b=dq61xdUr2jsw274uC0W+edKwglV0pUakw3Qqun7qjhWuU2eZncvw23bQQSzCuhLr/QNVpyke6UCMHHagXhFi3Fg0DD7ZwKqiNrDuDwTZyyNbT8qR+3qQ2k1IVindh/7aKHTF5zAA85KL552FOa0cZtTHxQRBy6HnDAVgrNd/PTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786416873; c=relaxed/simple;
-	bh=ET1OJw7WESzCPoYn4USG0tMq037PFmMMhLU31lwuiq0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gJdNEfQ66zdAQnaeNff4qVwOMioKC3FZbh3nB5JiULlpOu0wCMAfhJHohqyleBzCE0B1a//VjWp0R1fpUKdyx/qPa+rhIbbukQk+rdOJQL30TAiNFM4gVTuuKv66/q9ttnSJSbgOx0IEp7yzmd/1ncQVFiGWSfFrVOC3DzdSkXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wBHIX7SjnpqOeiCAA--.156S3;
-	Tue, 11 Aug 2026 10:54:10 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgB3CtHSjnpqsZ7DAw--.40592S2;
-	Tue, 11 Aug 2026 10:54:10 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: shawn.lin@rock-chips.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	heiko@sntech.de,
-	dlemoal@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] PCI: rockchip-ep: disable link training work on remove
-Date: Tue, 11 Aug 2026 02:53:15 +0000
-Message-Id: <20260811025315.136998-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1786418582; c=relaxed/simple;
+	bh=ydNMzMe0rkRm74rJSalYUHdFn4AElTELTytdpO1THs4=;
+	h=Date:To:From:Subject:Message-Id; b=A4zhIeOvpXGE1sZwfk5FN8YyjPaNV95cdylCgGmBPEIE42O/WYBN2l/nZEq0kZklT1V4iU0AfUApWoiiSGB0cMBYppXJtgZMdfs54Ylvc9PC+mHQO4gXGC9A9s0Bc6DWPcXvCESvfyXkhvl+BfGk4q2ohfbLCeOX3FQb6zkOdlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ufaab2B+; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ufaab2B+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98D4B1F000E9;
+	Tue, 11 Aug 2026 03:23:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1786418580;
+	bh=HuftU/q0Vx+A3VZbaApGCs0UmgQ3xilNRE+Y0UGOs6A=;
+	h=Date:To:From:Subject;
+	b=ufaab2B+x+YcZnjU2QJVgQo9Ymh0MqeZ9T6NNpV8kbppOfgoa2FGMIr18sbuxgTfc
+	 uOowaJFaoB1vqBl4tHQ0G58UFqHpp+N6Gkk9eXuQqygetW0FNI5GEajO2DtvLq+UaE
+	 FVl1FeLFlNJ0k0gQ13IYuc7YRjnWh/Hga6LQLX7o=
+Date: Mon, 10 Aug 2026 20:23:00 -0700
+To: mm-commits@vger.kernel.org,surenb@google.com,stable@vger.kernel.org,hao.ge@linux.dev,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] alloc_tag-fix-undetected-compressed-tag-overflow-when-profiling-is-disabled.patch removed from -mm tree
+Message-Id: <20260811032300.98D4B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgB3CtHSjnpqsZ7DAw--.40592S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?MEjT9gXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI0qI+tQE2w8INGKFcJ8d4DzpU4NXfzY/1BP2O6TETYvPXes
-	MwOqRdL0lUKjDUkPxayp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7AF4fXw48tF1DXF48CryDurX_yoW8ZF4Upa
-	4DXry3ArykWF42vwnxA3ZxZayYq3Zavay7Wwn7G3WfZ3WavF1UG34jgFnrArZxJrW8ZF17
-	Crs8tayUuF43WFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU818BUUUUUU==
 
-The endpoint driver has no .remove callback, so on unbind the
-link_training work can keep running after the devm-allocated ep is freed,
-causing a use-after-free.  Add a .remove() callback that disables the
-worker.
 
-This issue was found by an in-house static analysis tool.
+The quilt patch titled
+     Subject: alloc_tag: fix undetected compressed tag overflow when profiling is disabled
+has been removed from the -mm tree.  Its filename was
+     alloc_tag-fix-undetected-compressed-tag-overflow-when-profiling-is-disabled.patch
 
-Fixes: bd6e61df4b2e ("PCI: rockchip-ep: Improve link training")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+This patch was dropped because an updated version will be issued
+
+------------------------------------------------------
+From: Hao Ge <hao.ge@linux.dev>
+Subject: alloc_tag: fix undetected compressed tag overflow when profiling is disabled
+Date: Wed, 5 Aug 2026 17:06:33 +0800
+
+In reserve_module_tags(), the tag overflow check is gated on
+mem_alloc_profiling_enabled():
+
+    if (mem_alloc_profiling_enabled() && !tags_addressable())
+
+If profiling is toggled off at runtime and a module is loaded whose tags
+exceed the compressed-mode limit, shutdown_mem_profiling() is skipped. 
+vm_module_tags_populate() still maps memory for the tags and the module
+loads successfully, but the total tag count now exceeds what
+NR_UNUSED_PAGEFLAG_BITS can address.
+
+Once profiling is re-enabled, ref_to_idx() computes each tag's index as
+its position in the alloc_tag array.  update_page_tag_ref() masks it to
+alloc_tag_ref_mask before storing in page->flags.  Indices beyond the mask
+are truncated and idx_to_ref() resolves them to wrong tags.
+
+This silently corrupts /proc/allocinfo: allocated pages get attributed to
+the wrong call sites, so the statistics it reports are wrong.
+
+mem_alloc_profiling_enabled() and mem_profiling_compressed are
+independent.  Once compressed mode is established at boot, it stays active
+regardless of runtime toggles of mem_profiling.
+
+Remove the mem_alloc_profiling_enabled() guard.  Also return an error
+after shutdown_mem_profiling() to skip vm_module_tags_populate(), as the
+mapped pages would never be reused - shutdown_mem_profiling() sets
+mem_profiling_support to false, so no future module load enters the
+codetag path.
+
+Link: https://lore.kernel.org/20260805090633.141001-1-hao.ge@linux.dev
+Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Acked-by: Suren Baghdasaryan <surenb@google.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/pci/controller/pcie-rockchip-ep.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/pci/controller/pcie-rockchip-ep.c b/drivers/pci/controller/pcie-rockchip-ep.c
-index 7994613..fbc2470 100644
---- a/drivers/pci/controller/pcie-rockchip-ep.c
-+++ b/drivers/pci/controller/pcie-rockchip-ep.c
-@@ -860,6 +860,7 @@ static int rockchip_pcie_ep_probe(struct platform_device *pdev)
- 	}
+ mm/alloc_tag.c |    7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+--- a/mm/alloc_tag.c~alloc_tag-fix-undetected-compressed-tag-overflow-when-profiling-is-disabled
++++ a/mm/alloc_tag.c
+@@ -904,10 +904,11 @@ unlock:
+ 		int grow_res;
  
- 	ep->epc = epc;
-+	platform_set_drvdata(pdev, ep);
- 	epc_set_drvdata(epc, ep);
+ 		module_tags.size = offset + size;
+-		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
++		if (!tags_addressable()) {
+ 			shutdown_mem_profiling(true);
+-			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+-				mod->name, NR_UNUSED_PAGEFLAG_BITS);
++			pr_warn_once("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
++				     mod->name, NR_UNUSED_PAGEFLAG_BITS);
++			return ERR_PTR(-ENOMEM);
+ 		}
  
- 	err = rockchip_pcie_ep_get_resources(rockchip, ep);
-@@ -899,12 +900,32 @@ err_exit_ob_mem:
- 	return err;
- }
- 
-+static void rockchip_pcie_ep_remove(struct platform_device *pdev)
-+{
-+	struct rockchip_pcie_ep *ep = platform_get_drvdata(pdev);
-+	struct rockchip_pcie *rockchip = &ep->rockchip;
-+
-+	if (rockchip->perst_gpio) {
-+		ep->perst_asserted = true;
-+		disable_irq(ep->perst_irq);
-+	}
-+
-+	/* Disable, not cancel like .stop(): a racing .start() cannot re-arm it. */
-+	disable_delayed_work_sync(&ep->link_training);
-+
-+	rockchip_pcie_write(rockchip,
-+			    PCIE_CLIENT_CONF_DISABLE |
-+			    PCIE_CLIENT_LINK_TRAIN_DISABLE,
-+			    PCIE_CLIENT_CONFIG);
-+}
-+
- static struct platform_driver rockchip_pcie_ep_driver = {
- 	.driver = {
- 		.name = "rockchip-pcie-ep",
- 		.of_match_table = rockchip_pcie_ep_of_match,
- 	},
- 	.probe = rockchip_pcie_ep_probe,
-+	.remove = rockchip_pcie_ep_remove,
- };
- 
- builtin_platform_driver(rockchip_pcie_ep_driver);
--- 
-2.34.1
+ 		grow_res = vm_module_tags_populate();
+_
+
+Patches currently in -mm which might be from hao.ge@linux.dev are
+
 
