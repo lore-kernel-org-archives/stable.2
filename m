@@ -1,179 +1,130 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62E2429CDC
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC98F2931C3
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:29:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786458331; cv=none; b=N3kmyj3+gT/CGZB3N8k5+WRyjYEnK8wGlXWcfe9Px6lby+z3ayoXIVZOv7ib0MzBSnjW8886STWukyOwCwM+bztj8ydJx/2yn2Qbs2WdnrpI9vRyPFlJj7e+A69yBrfH8UnU+ytpjpN6H/UtEOwVWDp3v2x3X1+2EmuH0gX9t3o=
+	t=1786458551; cv=none; b=CFVvBRwFb6OI6e0SDNYIKfEMCVQj94F089+Datmg9bpwu35rgzI8JGwPsMSXd4jUyURlWV5LS/krr4VVJy82ezZPu4gXpNofQIg14DbOoWnD5w88OQENXbGaByOfHfNg9gHO2CQCSU+f0Lan6Wsix1zfOCRRDavylbOd9sVysek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786458331; c=relaxed/simple;
-	bh=vjUgIOzxtLUEqRGd12Zao0T1Qj0iZfGeHnedhIqz3MU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J7peB7/UbP51MD3tP6CB5T/B3qmgZqfogRiobQ3JlDnbkbqg12pPttpy9ILQu03/rzJEjndQd/AU7cfIgeNlteU45QlX7InN79ULv5MYmOHwCJ23TEqzB4HFyMcBoEuPiWWpgE+3DhfT0COaEJxk2ykUvPosMrA2rvQOuB976Qc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FaUTjjyQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JvqK7W/l; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1786458551; c=relaxed/simple;
+	bh=ZMKglCqVFXjvtgIXuZifnh47ei+nnVi+BRmkcnYy+sQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Pz0BTpL7w53Ndnu1OTBPlVqE+sbBsvk4nYY4132V69yeZO/VCYeZ7QAJ8z78yGmefGi0HT+FYBRZQeYkOQVuyGnRCf6rWk2d3ljDpsC0IRC6osvNw/ZI+vVdUaZGVGnvyzxHHMBYj1vvGOHmOJAZM4aUHzJkAR8P70pSg/8QJVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XlHaDTGn; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FaUTjjyQ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JvqK7W/l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786458328;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mk55lgP+KqMZ/4ByZFmMGZVtOJZLa760GMLOIBHMErM=;
-	b=FaUTjjyQZ8xV0UDef643yhDHeZjE8eNCIUXB0uCiHW2SaMczCyhuojLDYAmOZNCIOFrQod
-	os4eyItSl7uvAvsEaJW2k196/Pl9hRDdy5q5nr89knDCKAwPHqcmMiAiQjbfuDpDp1wTUY
-	g/o6oNEnDWkHNdVIqrNUOGAT9LP/w6c=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-126-BPti-pTkPEyMr46IoSV9pA-1; Tue, 11 Aug 2026 10:25:22 -0400
-X-MC-Unique: BPti-pTkPEyMr46IoSV9pA-1
-X-Mimecast-MFC-AGG-ID: BPti-pTkPEyMr46IoSV9pA_1786458321
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4955ce558d8so29607335e9.3
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 07:25:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XlHaDTGn"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8485bd28dd0so946222b3a.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 07:29:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1786458321; x=1787063121; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mk55lgP+KqMZ/4ByZFmMGZVtOJZLa760GMLOIBHMErM=;
-        b=JvqK7W/l/6SUx6l9RmDCSeI9hgU4jVBF6NAa40J3NGhNvIV8hJGPmzey+T39mClvZa
-         ihMa40ZjqfmMPwlFanQmjmbbvXxTVbrHNGm3aqMplNHMedR30MY2aIVWr+vIAwe8c/a0
-         KuIbKv3MQ+9mSRHHBSeq0sL+QG9ZKJosaycbHPZ3eTEU0LmBSwDy+StUHSz7tyQ7ZSIv
-         9JvUUCgh1N0WuoQPc7b1k1tCKZ3ltfOFNOuTgdgof96cvyJLj1gMCEkFn/vp1D1bhJvJ
-         JnPwgMCqmj0qKlK1zzexCq9KjY17pNthui6ePf29sKuUhs1H3Wj5pA9zWs/gu2mFDqie
-         Esnw==
+        d=gmail.com; s=20251104; t=1786458549; x=1787063349; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QkL6quPpYZOmrSZlgR7q8t7HlM3bpCXuTHsi56o560Y=;
+        b=XlHaDTGnwtcAeIrTA9Tb4LPZQ6BPgYu3YtJ4yawxOIeldm93ZV30tRjKsn0EmfKow7
+         xD0F3crhDmfHILmgbl+RIaxaFNqhfBJC9zOzG1h8HcSOwXEtTm9gIawOeA+BPxST5Eup
+         tKIBJN93xfBKwPimvbBsyNVWRybBiKoaKLCb0g+KzNAuhP5FWV/pq6zoPdxMWPynD0W/
+         z7TFKCcNClldB5Ip//SIYymf75GNj8jpkpnf3/FGGP7c/Rz4ty/mtql4OL++Ra4xjaJ2
+         8H9Im+wrOaGJE13puZuVQnJG0V2IOT2b/qFCbml1Wt4BRE0bYHu7E2Mi/Da1Gk1CaakZ
+         UrRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786458321; x=1787063121;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mk55lgP+KqMZ/4ByZFmMGZVtOJZLa760GMLOIBHMErM=;
-        b=pjSnE7itDLLWxFWVYlb4/MdcQ/QYBysFZaK+0SwYegyHyrlrfLDmVL+mEz1OEjnp++
-         yg9po8+IuaXCVL6zR4D3HndMvly+CX5vvW2FuFl7eY74HYwO7BLzRxZP2wYxWyOOhVr+
-         eawHGzseYTkT1OaFr2b60MmkIKsUefbYbhtvVGo/ft9fCPmyfkstgNXmJ+ClMhQb/6jW
-         dHY56alh2Cip+hJPYu0/f3Detr26tRHGdvlho/1MUZz+lT8T/IgnRqn6AUEtCCPpejo9
-         VTjKs7z2b3BV6YcOR0MoAjrEK4NWe4RjY/a9dn12m8QHResc35giQYgLGGpWdqNZcdTO
-         E8yA==
-X-Forwarded-Encrypted: i=1; AHgh+RqhcFV04OyrsEIIyyDJocOYW01szaqe9zbwoCLd5Crx9mcj8UxCFXDAXzVBE25VAnkH4rGdu9I=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLY2AcHZnfk/UlPJBYcckMk5r4oUqW9BOA8XduJWxltFGD0JoO
-	2xLcIAFy12/KRPoW4dya2s5Yw5CSwvwXSPm68kZvlD03xT1Z3heBb5znOxoaobwsn7uFmpQzGqe
-	SmGaWfqfTtoZ2+uWAKJQbI8y6s6Wo6G7pjVYQYqu5L/hYmkoZA7068ExCQQ==
-X-Gm-Gg: AR+sD124xIcPISc39A6AbKfeJwcPNhKQVfYpDtKTVLlbKlovIobjGLn1zClY+ZLp20f
-	35oW3H+PQOAtzJioFzJGRA6mm/GYhr7QFXD86VqWEArrTM36Y8/C3vlXHjaggfES9OV0Iy2ZBwL
-	cSAtpiZgbfw/2+PFrPoB0hvzXvsd6sBng4WxfiweX1+duO6mj1hVakiQvHofsvsYar3mc/pxP7H
-	CmotqZICXHQAJIp83kob1MNSGBGiAUUi1bqIw+sUmqhpBFxKiu/TTOuvRvb9pF4lVUn71AgeiZy
-	TUS1FoDM9mdVUm3O5oLEAu397H1OUHiExgyKe+zsQYjMnFZOXcYm5BbdMySD++F2bL3L+vAO
-X-Received: by 2002:a05:600c:3b26:b0:495:4749:16a7 with SMTP id 5b1f17b1804b1-49978463aa0mr57108235e9.14.1786458320665;
-        Tue, 11 Aug 2026 07:25:20 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b26:b0:495:4749:16a7 with SMTP id 5b1f17b1804b1-49978463aa0mr57107045e9.14.1786458320084;
-        Tue, 11 Aug 2026 07:25:20 -0700 (PDT)
-Received: from [192.168.0.9] ([47.64.114.24])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997889c3adsm37937915e9.2.2026.08.11.07.25.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 07:25:19 -0700 (PDT)
-Message-ID: <72e016b0-d7bd-41f7-b17e-dbcd911c5a80@redhat.com>
-Date: Tue, 11 Aug 2026 16:25:16 +0200
+        d=1e100.net; s=20251104; t=1786458549; x=1787063349;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QkL6quPpYZOmrSZlgR7q8t7HlM3bpCXuTHsi56o560Y=;
+        b=sVAFfgR+80MOmNUd77xKK0bKWo6zYNDUMqTqMu4u+stV6oAfm+5SwUkWvU9fMvd7XE
+         xHYPbUhp4updw6zGvSVyY2xqxBsXxNtu9o0aM2VhX/BFZ9XmlrVMfarGD22NK0GSWTzA
+         tX6cW6+vflzIgKKzwsG4JSniDrdnu0zy1P6NHJmyg+P5kFQpzi0EAHfU9icblLfGSk54
+         KhSN2/e+8GBUCvoOROHLfRTEPaBygYzy8+80bDXc3JpY0qwCeYg7lyfuerJjEx1C64TB
+         jOgEwDekeqZzD0pdO6VI5L5yFF9TUOI7pXoiVP+XE7MBBgG59/OD4AKKO1hLYu9sFqjd
+         9XqQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqrz/fJ39GCFecOGdik7+14a6JnmlusmZgUK1psgyVkf1ugC2DkcGGmP2Mrug8s5/YDjmTlwPE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YysSJQUb8d3Rf4HlLRSa6FSY8hoK7vxVUjPw3T9QfWzk8hPY5E2
+	J2urdK1Czadw68SnjGjBfFQcH7QhCv9Zvrq+uvdYxKI3waNksw0f3JWF
+X-Gm-Gg: AR+sD11bgiz9grKzfmcDtUcumLx72kknbQNJlZeaeVNLys2xLOQs5KqHudZuc3NdXCU
+	WaktXhPodpFKzmHtX6IW2dLU0xKX+ZsjSgaqSer8+QF47+aBry8LW0ANx9ZlgluxXHeu2kmS9aU
+	bPWsQ3g87cODNTJLAlnn7PyAcWykow078+yg5yvE1GKBkav5Wq+40a9uUFYntj2lDmSdOk6qQ4m
+	f1YptURJMPK4O40zv8v+6eAGG9tsNFfBxGxkb4QmyXze0Trkqw9fJ2YlKqINPP2P+/1go8xVtJn
+	oUQqjA0h2+ttpJhPDWtP1B2yfnWqfpkcKV91wRa2KFrmzOW1DFcyDc/wfELPGdCClBo1XSgTtj2
+	zfBqyKKPmWulW71Xo/uH2z+YKXZPTSqPxfQnzyWTVJB5DqS09bJWomT5WQu92baJo2NePW+MzOc
+	eo/8eve9MNEeenaCy/p14CbSGtvykeygEBmP4YknYq5MP0sdPpbEChJlTIIAg=
+X-Received: by 2002:a05:6a00:138e:b0:848:8619:c149 with SMTP id d2e1a72fcca58-84faf42c2efmr824043b3a.2.1786458549054;
+        Tue, 11 Aug 2026 07:29:09 -0700 (PDT)
+Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa954fc8asm890209b3a.50.2026.08.11.07.29.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 07:29:08 -0700 (PDT)
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+Subject: [PATCH 0/2] drm/nouveau/dmem: fix DMA unmap size and callocated
+ accounting for THP
+Date: Tue, 11 Aug 2026 22:28:49 +0800
+Message-Id: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] smb/server: fix memory leak in ksmbd_login_user()
-To: ZhangGuoDong <zhang.guodong@linux.dev>, smfrench@gmail.com,
- linkinjeon@kernel.org, pc@manguebit.org, ronniesahlberg@gmail.com,
- sprasad@microsoft.com, tom@talpey.com, bharathsm@microsoft.com,
- senozhatsky@chromium.org, dhowells@redhat.com, metze@samba.org
-Cc: linux-cifs@vger.kernel.org, ZhangGuoDong <zhangguodong@kylinos.cn>,
- ChenXiaoSong <chenxiaosong@kylinos.cn>, stable@vger.kernel.org
-References: <20260731024253.148107-1-zhang.guodong@linux.dev>
- <20260731024253.148107-3-zhang.guodong@linux.dev>
-Content-Language: en-US
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <20260731024253.148107-3-zhang.guodong@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKExe2oC/yXMUQqDMBCE4avIPnfBhFJCr1L6EHW2bsEoWSOCe
+ Pem7ePH8M9BhqwwujcHZWxqOqcKd2moH2N6gXWoJt/6Wxuc4+7KaS4bYuFhwsTruLDoDmMEiIs
+ i4oOn2i8Zv6Hmj+ffVro3+vV7SOf5AWu1zIh9AAAA
+X-Change-ID: 20260811-b4-nouveau-dmem-thp-fixes-e8ef1afff282
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Balbir Singh <balbirs@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786458544; l=1559;
+ i=whi4ed0g@gmail.com; h=from:subject:message-id;
+ bh=ZMKglCqVFXjvtgIXuZifnh47ei+nnVi+BRmkcnYy+sQ=;
+ b=BoaoApiS8sm/+sfuksuoGEKYu0rzRHDSGrA0yNMo6P0a/eAtz2lAgOnDDCgBuQuP0XlJFp1Dp
+ j8eAjUVMULPBHmIZgK5qC2TH5H0uqNmEN6oKiq7Z6bRRZADtjalkaaJ
+X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
+ pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-On 31/07/2026 04.42, ZhangGuoDong wrote:
-> From: ZhangGuoDong <zhangguodong@kylinos.cn>
-> 
-> ksmbd_ipc_login_request_ext() returns an independently allocated
-> response. ksmbd_alloc_user() copies the supplementary group IDs from
-> the response, but ksmbd_login_user() does not release it.
-> 
-> Free the extended response after ksmbd_alloc_user() has finished with
-> it.
-> 
-> Signed-off-by: ZhangGuoDong <zhangguodong@kylinos.cn>
-> Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-> ---
->   fs/smb/server/mgmt/user_config.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/fs/smb/server/mgmt/user_config.c b/fs/smb/server/mgmt/user_config.c
-> index cf45841d9d1b..21b1d51d918b 100644
-> --- a/fs/smb/server/mgmt/user_config.c
-> +++ b/fs/smb/server/mgmt/user_config.c
-> @@ -27,6 +27,7 @@ struct ksmbd_user *ksmbd_login_user(const char *account)
->   
->   	user = ksmbd_alloc_user(resp, resp_ext);
->   out:
-> +	kvfree(resp_ext);
->   	kvfree(resp);
->   	return user;
->   }
+Two independent, stable-worthy fixes to the device-private THP migration
+path in nouveau, both introduced by commit c32287471077 ("gpu/drm/nouveau:
+enable THP support for GPU memory migration") and still present in
+mainline.
 
-Fixes: a77e0e02af1c2 ("ksmbd: add support for supplementary groups")
-Cc: stable@vger.kernel.org
-Reviewed-by: Thomas Huth <thuth@redhat.com>
+Patch 1 fixes two dma_unmap_page() sites that pass a literal PAGE_SIZE
+instead of the mapped page_size(). For an order > 0 folio this unmaps
+less than was mapped and leaks the remainder of the IOMMU/IOVA mapping.
+
+Patch 2 accounts for large-folio splits in the ->folio_split() hook,
+which previously left chunk->callocated unchanged. A folio counted once
+at allocation (+1) is later freed as N sub-folios (-N), so the unsigned
+counter underflows on the first split/free cycle and the chunk leaks.
+
+Both are confined to nouveau and orthogonal to the in-flight "Remove
+device private pages from the physical address space" rework, which
+touches nouveau_dmem_page_addr()/nouveau_dmem_chunk_alloc()/
+nouveau_dmem_fini() rather than these teardown/accounting sites; they
+apply and are needed independently.
+
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+---
+Zhenhao Wan (2):
+      drm/nouveau/dmem: fix mismatched DMA unmap size for large folios
+      drm/nouveau/dmem: fix callocated underflow on large folio split
+
+ drivers/gpu/drm/nouveau/nouveau_dmem.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+---
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+change-id: 20260811-b4-nouveau-dmem-thp-fixes-e8ef1afff282
+
+Best regards,
+--  
+Zhenhao Wan <whi4ed0g@gmail.com>
 
