@@ -1,209 +1,224 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B863403E1
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 20:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786479331; cv=fail; b=N6oRrQC0K6ZbzOt9FYCj37W/W2DLKyuKrtN4iBXk7khgG6yheS61utF+LKljqe96xEB2eeufMloV/yFxZFHdZe/al0dEE7F1RvUiCk3+Mq/YcLMFcvrtGQzHE1dyJT3CZtZASdcrarvivjhqYoYT0IxQZ9gIVgsxyhsRK25C98w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786479331; c=relaxed/simple;
-	bh=hSL3EwReMdoCH/4X7x3sj3rGM1nTyle6Y4bPZ9xsVgM=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=jst0DijuI5Dg8qM6SKS06FrWQaWE6wZtHK+uJa4uHBjsTfx+mHhxdUqXhGdcPQLu5G959CSbuNxregym8pN+Mcen7mktBDgCH9BZ5IqjfjL5dBBtJLcuaJ8HsAqzS7EGYPZNwsVIMhv2pA9jFBXfrKg6ogiJDhuWuK9ovF0MtSk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mbNrXlgP; arc=fail smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A0E3403E1
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 20:17:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786479462; cv=none; b=Vt2JlltCGp0TKgzMKBHezhzmOaUCSRjtLabuKZKQG6jP+HHLCp17nSG8bFpkU3H/sbGZVBLvxAaPf+H84+dJ4Vp/SMQAHNlL8DOkTnjMezA/KhdZHnRt1yWJFvh2jVgzCsdLytGRQUlYh7AmNo+kyz0bzdDSYRar8QlS4qdJXaI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786479462; c=relaxed/simple;
+	bh=CxuJvJ01gHjMm2lULljvuFNSSg/5K+gI13xz4M0L/yA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lJpll5yoNrByLoL+c8dQ49pJujQ3Fn6AT4/kG+Wcs1mzTkG44V0goSro8UWTcAhrJZutOvtF1JauA690o2OiqjQ51ps6K+JQllt2MYqEjTsF6WkaZgSMgIIXYD8wC2JUmQkNKAEy/CkRE6nkMBOwajOlxncpT7wA/qo/tceLpV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aG8k1U1f; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mbNrXlgP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786479330; x=1818015330;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=hSL3EwReMdoCH/4X7x3sj3rGM1nTyle6Y4bPZ9xsVgM=;
-  b=mbNrXlgPIWmrJuLU/5XXNy3o03aWf9cCeGLIhJFVF27gQrteNyi7KiHH
-   Up3yh5fjlL6QC8f/55OzkpIRdClMl2jnOipZ1a2Aa+XLFkt+f4joRBJGG
-   L+Zq+3ZYRANy8/ga+drlci5sHSzIeYUpDt+1I5TEqZwKxCCRU8HwCpihS
-   RSQD44h4V1XFnNWXF/WpRDcueWWmpBiZtW86TD9RfqYv37g3ywFyTqaI+
-   HGQvdyAz3LvvVj0pgwqpWjp7cX1tzE7+KdVwy23LQz9ej1M2H97iykCd9
-   J2ut7pv0WonhIsBgdDKgxKnXXo7RsSPcY+CA+dUTiVU9Z+3wPAJylu1Q2
-   A==;
-X-CSE-ConnectionGUID: Ovsx3PyhSKeKJ2AeTDGLqQ==
-X-CSE-MsgGUID: kM21cymiRH6m3oVH3oiyBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="86782170"
-X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; 
-   d="scan'208";a="86782170"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 13:15:29 -0700
-X-CSE-ConnectionGUID: BvsW1/yfRaKmM1j6N/E+lQ==
-X-CSE-MsgGUID: 2IHQjZRuSUu9QHWfb/RI2A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; 
-   d="scan'208";a="267694245"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 13:15:29 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 13:15:28 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Tue, 11 Aug 2026 13:15:28 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.64) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 13:15:28 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mam3OucLQ+tpcPrdHZCNz1j+zx6tfGMnyDEbmnpuyLOXGsSKRFm0qzwDSVQea8+Yy/bwws4H+vgXvj9ExLhVmT8nr2awrpP4QvArVTFkZvKgGgU5TCMVplffbmBqbKpqDexT8/ouzJsbVeLnLeXaI1auM2wiA2qPvL/B8FERVJ/UQfeMm2dASdelGzDQVqQiRl/zvkwVM/QoAz/yV8+vBW7x1fZt6YFeEQjKUQ4r88lax3xeUwj2qbRPSHP/v9nUCdTE5jNFMlmevgHkUHlcwMoTdPggmJkLZyfpGKw8GVsF00b1q+HZYbioGm4+d66zaEazYtHyQj2rVKrFQ6TGdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cC6Cq2hsy5z5dJDnQx3rpCs3w0S80LwukxiK0ieJQZA=;
- b=eBrANwoaOSmXeQdh/qDL5d87FZJ5F+QC3YhdHtl818ea3p865Rag7itO6PWgDLw9hvtcoylptr+0+12WNEYlPoDXEs0MYtCE449XAZcLV9ex4s8vHQe9RPt2bBxmg+u5DMw1Q+H23uFzNkhDi/LNrVdhAQdjB/SWixeDcsp1JB5iHQ3LBCpovgrJo3vG9cT7PRYiklg62jGRL6iOWBG+aK8Cd91I50axCljWk9B6uS7GVex7y8qb8bbMrPpDwRbNNTToyUtAYApV14qHIF9LM11GIIpNg7iGM2Fds4UiyzJOSX7GuH5P/jx9nVSWllZlh8EGucTd/1XYHSqrjc38ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
- by CY5PR11MB6509.namprd11.prod.outlook.com (2603:10b6:930:43::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Tue, 11 Aug
- 2026 20:15:26 +0000
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe%7]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
- 20:15:25 +0000
-Date: Tue, 11 Aug 2026 16:15:21 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Raag Jadav <raag.jadav@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <matthew.brost@intel.com>,
-	<michal.wajdeczko@intel.com>, <matthew.d.roper@intel.com>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH v1] drm/xe: Fix xe_device_probe() failure
-Message-ID: <anuC2fuCE4WvXy-8@intel.com>
-References: <20260810123821.105605-1-raag.jadav@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260810123821.105605-1-raag.jadav@intel.com>
-X-ClientProxiedBy: SJ0PR03CA0021.namprd03.prod.outlook.com
- (2603:10b6:a03:33a::26) To CO1PR11MB5073.namprd11.prod.outlook.com
- (2603:10b6:303:92::23)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aG8k1U1f"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so167673a91.0
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:17:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786479461; x=1787084261; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BKM2tGwtzp4e6RueqUAs7VBHsTzEw1WbCk0gGA1/KvM=;
+        b=aG8k1U1f3cNz2pYSfW+Q4NAYf2gamxBz0hyD3AYJ8QwlilZy3bGn7eUjyb9eq83s6O
+         TNohIGGeS7ezqYoa31j/4u5/fZlZUF7yo5Kt+8gZaXtKzPFSw4O2REuFEiMg5K7eLu1F
+         35XxmLh2pvJmTYuQNKV6GUR5YLJCylQTHiSsu2vMS8W44NuhJgp315+5S8d9xuiFx8Gi
+         xaJq63jvATZW9Ud11igPqO60VDBmag6VvyH+V4XDKXZYB/SoySoQ4PK4n76k/CzDgFTn
+         /CUsEFWSRfHkxss4Dej0kmvMQEFW0I1Ei980yoZ2eWUmv59nJkzRlOc+QvTsuET7EgN6
+         LCGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786479461; x=1787084261;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BKM2tGwtzp4e6RueqUAs7VBHsTzEw1WbCk0gGA1/KvM=;
+        b=GgtEruS0xbbqHvr420Gu+68hoqJl7Ri3Kg13jLFkCrYqFFxv7wuXAzU068Vt70uO7C
+         FgcjiNcjV775Wq0tppeRA2677aNyeOp8BxPBDdrRzTwn6ZEhYcLWmzVTXqORNptpNYnc
+         ivbvypu+ETK5L1ttRH8HdkwfBk3SqyzSAgB0mP4crnbtUbeaePZtb8uzvCaL11pUCMNy
+         SqdjFq1S4fI7qD0wcycGl+qzTuZfEa+vYm0thfNiy1uX1x8XgayeSWPbVUKrFLOuvZm6
+         eT9czSFgVmAUpSqnTqNxo7kDRaHD/6ztgpaDNbLsHRG8X2OMSg3jAbq1mHvrbF4r2LAD
+         z23A==
+X-Forwarded-Encrypted: i=1; AHgh+Rqvu0weDxHkFa1rJjkLWEvVnoyOBrkY904kZmXzyzByGkjwq3sigdiDH1Zrp2tizWuSnPVYa44=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+TbD/mUSVFBB0dsXzYaoqN9M8bL0u68RQsrMQPrL+MvwEevBE
+	QYxnTCjedQGBUtQvAgi2Lz37xpd3bKMP2wbulI/SWc2ONjX+1uW84Vtb
+X-Gm-Gg: AR+sD138FhiejeTWDFB0azoLh6tijFIMQ8Q6+1bqjgLrt5aRRlIqnWGMrqCXGgp5U+P
+	TLCmfvupqs8ud9s4qibJCc5wtTdMX50vCIcJiTgMNd9IgqcyWiZRUzLATB84otEQddtoH7xFDEI
+	tdllnTTuLLOet9COauXsDjbd1Ot6W2k9xU1aw1xckOnXVoD0k2Fo+1qmp8Vviz6i5R7QpKl0Ma8
+	8CWr/kSQvDpXX+2mq2KYFsmyJFgnCNtuly4YW4EFnJ2RC0Wii6DU41UJG75AzkZv3e441rrpy6v
+	3CBJJoI5mXqvfSm/OXpJWg9lA5+RufRhgtrjIHNd/K6R2o22I6OEsQNTkAJucPMsrhHblGkjJgy
+	KEtl88T7wzyk4qW/uI0JJr8pwyYI9modcQeyyFHke0tKQ2CIWU6B333TsS6YQvsAEu8hE+Lvin4
+	30x0w1MBR8upwrD89nTAAtBg1z1N3XzPQoNWzWg1cQekvRADkPH8MOpR/X2D3Ac31PEg2ZkMtcD
+	nmk2Xh8
+X-Received: by 2002:a17:90b:2541:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-392ec2fc235mr7508953a91.4.1786479460554;
+        Tue, 11 Aug 2026 13:17:40 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392f94d5cb7sm789672a91.15.2026.08.11.13.17.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 13:17:40 -0700 (PDT)
+Date: Wed, 12 Aug 2026 05:17:36 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Max Boone <mboone@akamai.com>,
+	imv4bel@gmail.com
+Subject: Re: [PATCH v2 1/2] mm/pagewalk: fix stale walk->action escaping
+ walk_pmd_range()
+Message-ID: <anuDYOPa0kTD9bul@v4bel>
+References: <20260811161949.3879321-1-imv4bel@gmail.com>
+ <20260811161949.3879321-2-imv4bel@gmail.com>
+ <20260811123702.f3c60a3573e148c53ad35b97@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|CY5PR11MB6509:EE_
-X-MS-Office365-Filtering-Correlation-Id: e4e19b70-234e-43f9-bd76-08def7e54767
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|22082099003|18002099003|56012099006|11063799006|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info: cMZG1RnmTCcWze2gbOlnCAtkFt3pTHmg1ZSv13Oq6WQiNx95ksqNTu0vahU0gJ+J3Eu/Q3WvfQricEAPblhD7ujx4sv7tGsbLOdcTQ+bQX6fOXaARgj1j1WBXXgEOpQvGVllttN4LcBQ+mA5IYMhOMPTOuJyir5oYpoLMmdqqz2YdW0CDWmndae4IdoxgsAh+l4gZUIEqMeIdk1sAfJlojuDp/oSXFXApmMcyJv3hgQdH9dO7xeD/xG90x2sg3eG3kzeB6BMD5wUD9UqkOV9KkNL3VW1FNzQNJRGJP6tgIPVvwbtuPyEOtSKTMQoQL/5v5ApYhykC0CLa69afGu8LmqKzI9QG8KxkhLAJwH3RD/WCZqsa7ytl41V4zJK6RYPheExSFmZOui+sLOgdH9sSBEKNYk/yO2S9sv+LFdDxmUXz8d2ANXCLcd57f76gYM4+gRJbpjWjdpfHp4zZAQmzRm53kqDixeAFiIEbvxi3hds9kvEtLbVTrfIqEY7BPrxu21MItvfFNQEBgTxlV5ijSuZo0D0klxaF4v8zsngStznXIipxzVrruUgoj8FRK1GKfhtECtmC5d9xB6VR2CenFWuSHTroekkRrWpTA9MFpjg1wH3qFJddUtwC5bwChWij7RqcJFmsufQC5ITqLQ6f96Yb5CTJoauBZvAULtUCaQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB5073.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(22082099003)(18002099003)(56012099006)(11063799006)(6133799003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?DWXBRXc5wyq3ncufpAAzXjDOsazZu0AfmkkUOMGiiB/4Zq94iIZbCEjZX3z1?=
- =?us-ascii?Q?LdkLL6ZZIgsxE20jPO+DxXjTzOYMuZfFwrUKc1Y7llMgyTOFcyvAzyYy0YXV?=
- =?us-ascii?Q?i8CZGFiQfUYO8FFpb1e+jcD+L9SmU5LRIxPO37jCMqhzEl+xGZjfBDiwOVMK?=
- =?us-ascii?Q?9mZDUetclQnKEDm2Uck35Ibtr0jnAK5g+wCZheHjfdbeQtH3MHJBY5qKSFlM?=
- =?us-ascii?Q?LvfQ+05h6RsXU4cehwgEZDKu+An1H8zIBE3kzwmVh4yG0+71YvD/3VG2ySuh?=
- =?us-ascii?Q?JTpb461p5kyjZ7Op5wqv+j1WUzNJHTDlM1WXfZyg9U1jLI8sTZiR3fXN8D4t?=
- =?us-ascii?Q?39x3KhSv61rtmmJRAIpjIc/JxwNF/W/6/uZoG2wwPG8QGxcgmmlgsuJ95aQU?=
- =?us-ascii?Q?yzC0fprzM/Gja/KMGNxbSY+07SeS8I/+aSYlqndM/KfbEn7xCtVkG+SkhZ7w?=
- =?us-ascii?Q?YQLyzbTlsQWUby6trdotKuJ9zvfRRZedCJH04/Nt/j/BrbsAig5ReIggS/fU?=
- =?us-ascii?Q?OutfmFDEhs5iriGmJRz/U6YoXrqJ9XtFm/u1sG6xq+opzi8wq/pizXlzV88l?=
- =?us-ascii?Q?nDNTPqBlOEg/WD/f5TUYKuRa1N2iZezHKyGLM4juRGgFz8d6xLsVx50Qg4FB?=
- =?us-ascii?Q?fY3kbd9nnMSfUAkkhUbSbg0DdnoeAeWEGG92mgmC0Ws5Uw5BKnfF4RvrQNni?=
- =?us-ascii?Q?vT1TzdNopPpKUkGPC9kK+y6XQh8w5o4Otdbk9asXC9pUDRVfY2HITZBmEZAk?=
- =?us-ascii?Q?tO2CwO8IFXHRrf9D+CgUChBD90EQu8xyZoFcDbvVJ8kOrRk8Qjqkxzi8w0Jo?=
- =?us-ascii?Q?CiNhDZPnTGuSdv/XoEdqfOl3n4JCC2zY+ai1QSRICeQljKr3ZVk9EKaB+P8p?=
- =?us-ascii?Q?5rcPR6P6gQU08o+B1hHi77u+I3gK1C9pMW27eZGwnlvZ5pgF/0cIqZpvYKhf?=
- =?us-ascii?Q?Eggx7GMddt9DobTLoUDIuu0KYdlNo+aJP7BlNDXTYxNDwO0HbzUDMfLweQ0d?=
- =?us-ascii?Q?uVb6hHf3aZicDU6I4llJuU3f29XUkX41kx/Gbqlh9B+xpJQkBPyI25d3Hxzh?=
- =?us-ascii?Q?JMBX34zXntOd1YzquIhjJxgDubheI8oznsBedg3N2WxZArelmx7p8qskE2lW?=
- =?us-ascii?Q?y8ftnVBRD/SuPBHxE73thVibSPoOxA7zMBly1MxrCHgvtvp9TuDmmShqs57i?=
- =?us-ascii?Q?jSo2O1BspGbh2XQuee30xDCbmllbBqiBDcXwS6a8fbPcBiYw5KAIkD5k/4aa?=
- =?us-ascii?Q?M97Nfj8GgwdpivGYpBPcLSuu2EnNZLURQZT3LM+bs5NXoT7GunTT2cdbmIDh?=
- =?us-ascii?Q?LEKEohmvakMpJX9UsOxsOp4N4S+jt+kDGBuwG/yAA/i17eGAmadSP5NmxhQR?=
- =?us-ascii?Q?wwp8wv6/8d+igQOHNHuC1ll8omkmKXZGs56kTEZVzLoVkM7quGg7MiSuwKtq?=
- =?us-ascii?Q?toBACjfTqPmn14dNGBYT6pa5X2mmidrL/vzrSsXtICZy/6+BdI3xqY4xzbd/?=
- =?us-ascii?Q?ckGUb0PimWW/+9UDabaPUHCwaJM0gNQMH86fBZedLOfgd73GZpZXKkYXgi6b?=
- =?us-ascii?Q?DATzPQSWpXJfRl1DGBARUKkyVrZ0m4sWn4J4SEj++4ldngbn068dlSsc6+Ky?=
- =?us-ascii?Q?hXuPRn1MzTXQ1yKdnXLef3IMTCwaSTzrDYkWmJawX3ks819inP9tc0OeNX6u?=
- =?us-ascii?Q?VKYbY9TSdekEzCAslaKvzZ8KPD2HNyKsKGoVku9ZWdZdMWx0IlqAKi1HmMxm?=
- =?us-ascii?Q?6OOp4J/H3w=3D=3D?=
-X-Exchange-RoutingPolicyChecked: gibbD4QCYhoJ0VYui0GbefXsablj/wXCuk7fSk58LWYH8MrOCVnC6PWdWE85K1OJmoZvgmy8lYorcx7KQwpUKEo3DIIlLP9yvFueMLTJd0r/5qG9xFQDVos5y+Pbi7Pwa9oBwHkHJH/kMIT9nQWEFhNJVVzAdnGLRteC7G4XM2J56ZUAnFDINOxvaKHE606oecsz2A6jvbCIhM9gVOt+HuRsj/Q0QkCoph/4aLK7/FyqcKs2wX04ClTmNblH9kb/UmLssHBilt2/4+Ries7k6lYcRVi2KvUZMVbAA8vf1b8vGOvEMo2zfVjo11CxHOsRVjRrfyOc0bezWx3a2N8J/Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4e19b70-234e-43f9-bd76-08def7e54767
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 20:15:25.3819
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0LFkBg4hMbtTaMnlUPJUP58AlhOYPt18eD8WOuOZLrhsuZU6Xfwq0OZ01GGLV7XhFfW1kTTNw2WV+6ghz17P/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6509
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260811123702.f3c60a3573e148c53ad35b97@linux-foundation.org>
 
-On Mon, Aug 10, 2026 at 06:08:20PM +0530, Raag Jadav wrote:
-> Currently, xe_device_probe() jumps to err_unregister_display label in case
-> of failure except for its last call, which directly returns the error
-> without required cleanup handling. This results in stale drm device that
-> isn't cleaned up on unwind. Fix it.
+On Tue, Aug 11, 2026 at 12:37:02PM -0700, Andrew Morton wrote:
+> On Wed, 12 Aug 2026 01:18:57 +0900 Hyunwoo Kim <imv4bel@gmail.com> wrote:
 > 
-> [  810.194180] sysfs: cannot create duplicate filename '/devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/renderD128'
-> [  810.194183] CPU: 9 UID: 0 PID: 5616 Comm: modprobe Kdump: loaded Tainted: G S   U      E       7.2.0-rc2-xe #382 PREEMPT(full)
-> [  810.194185] Tainted: [S]=CPU_OUT_OF_SPEC, [U]=USER, [E]=UNSIGNED_MODULE
-> [  810.194186] Hardware name: ASUS System Product Name/PRIME Z790-P WIFI, BIOS 1805 10/30/2024
-> [  810.194186] Call Trace:
-> [  810.194187]  <TASK>
-> [  810.194188]  dump_stack_lvl+0xe0/0x100
-> [  810.194195]  dump_stack+0x14/0x20
-> [  810.194197]  sysfs_warn_dup+0x5f/0x80
-> [  810.194204]  sysfs_create_dir_ns+0xbe/0xd0
-> [  810.194210]  kobject_add_internal+0xbc/0x2b0
-> [  810.194215]  kobject_add+0x7c/0xe0
-> [  810.194220]  ? get_device_parent+0xcf/0x1e0
-> [  810.194227]  device_add+0xe3/0x870
-> [  810.194231]  ? __pfx_drm_gem_name_info+0x10/0x10 [drm]
-> [  810.194280]  drm_minor_register+0x73/0x130 [drm]
-> [  810.194322]  drm_dev_register+0x76/0x2a0 [drm]
+> > If ->pmd_entry() sets walk->action = ACTION_AGAIN, the pmd_none()
+> > check is retried. The PMD entry may be cleared at the point of retry.
+> > 
+> > In this case, if walk->ops->install_pte is not specified, the code
+> > continues to the next PMD entry in the range without resetting
+> > walk->action to ACTION_SUBTREE.
+> > 
+> > This leaves walk->action erroneously set to ACTION_AGAIN, which is
+> > incorrect.
+> > 
+> > This was incorrect but not problematic up until commit 3b89863c3fa4
+> > ("mm/pagewalk: fix race between concurrent split and refault")
+> > which updated walk_pud_range() to check for walk->action ==
+> > ACTION_AGAIN upon walk_pmd_range()'s return, causing the PUD walk
+> > to be retried.
+> > 
+> > In this case this results in duplicate walk callbacks being
+> > invoked, which is erroneous and will break any caller that is not
+> > idempotent with respect to this (and waste time for those which
+> > are).
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: da3799c97572 ("drm/xe: Use GuC to do GGTT invalidations for the GuC firmware")
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-> ---
->  drivers/gpu/drm/xe/xe_device.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+> "break".  Please describe the breakage completely.  It's really the
+> most important information in the whole effort.
 > 
-> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-> index e327c7d35ca3..cad531009721 100644
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
-> @@ -1165,7 +1165,12 @@ int xe_device_probe(struct xe_device *xe)
->  	 * xe_device_wedged_fini() is registered.
->  	 */
->  	xe_ras_process_errors(xe);
-> -	return devm_add_action_or_reset(xe->drm.dev, xe_device_sanitize, xe);
-> +
-> +	err = devm_add_action_or_reset(xe->drm.dev, xe_device_sanitize, xe);
-> +	if (err)
-> +		goto err_unregister_display;
-> +
-> +	return 0;
+> IOW, when fixing a bug please describe the userspace-visible runtime
+> effects of that bug.
+> 
+> eg, what were the results of the fuzzer?  
 
-I believe Sashiko might have a point on pre-existing issue.
-But anyway, this patch is right and we need it
+To be precise, this is an out-of-bounds write.
 
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Is there a Link:?  
 
->  
->  err_unregister_display:
->  	xe_display_unregister(xe);
-> -- 
-> 2.43.0
+This came from a local fuzzer, so there is no Link:
+
+> A stack trace?
+
+[    2.272695] ==================================================================
+[    2.273471] BUG: KASAN: slab-out-of-bounds in __mincore_unmapped_range+0x14f/0x190
+[    2.274302] Write of size 1 at addr ffff888008d9b000 by task poc/106
+[    2.274966]
+[    2.275154] CPU: 0 UID: 1000 PID: 106 Comm: poc Not tainted 7.2.0-rc6-00429-ga7c7074b58d2 #55 PREEMPT(lazy)
+[    2.275159] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    2.275164] Call Trace:
+[    2.275170]  <TASK>
+[    2.275172]  dump_stack_lvl+0x53/0x70
+[    2.275200]  print_report+0xd0/0x630
+[    2.275210]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[    2.275219]  ? irqentry_exit+0xd2/0x670
+[    2.275224]  ? irqentry_exit+0xd2/0x670
+[    2.275226]  ? __virt_addr_valid+0xef/0x1a0
+[    2.275239]  ? __mincore_unmapped_range+0x14f/0x190
+[    2.275242]  kasan_report+0xce/0x100
+[    2.275245]  ? __mincore_unmapped_range+0x14f/0x190
+[    2.275248]  __mincore_unmapped_range+0x14f/0x190
+[    2.275252]  mincore_unmapped_range+0x45/0x70
+[    2.275254]  walk_pgd_range+0xafc/0xfc0
+[    2.275261]  ? __pfx_walk_pgd_range+0x10/0x10
+[    2.275264]  ? __update_load_avg_se+0x3d1/0x670
+[    2.275275]  __walk_page_range+0xc0/0x310
+[    2.275278]  ? __pfx_find_vma+0x10/0x10
+[    2.275281]  ? finish_task_switch.isra.0+0x16d/0x4f0
+[    2.275290]  walk_page_range_mm_unsafe+0x26f/0x3a0
+[    2.275293]  ? __pfx_mtree_load+0x10/0x10
+[    2.275298]  ? __pfx_walk_page_range_mm_unsafe+0x10/0x10
+[    2.275302]  ? __free_frozen_pages+0x54d/0x7e0
+[    2.275308]  __do_sys_mincore+0x132/0x380
+[    2.275311]  do_syscall_64+0xf9/0x540
+[    2.275316]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[    2.275322] RIP: 0033:0x422ccd
+[    2.275326] Code: b3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+[    2.275329] RSP: 002b:00007fffffffec18 EFLAGS: 00000287 ORIG_RAX: 000000000000001b
+[    2.275337] RAX: ffffffffffffffda RBX: 0000000000000066 RCX: 0000000000422ccd
+[    2.275339] RDX: 00000000004d0940 RSI: 0000000001000000 RDI: 00007ffff4000000
+[    2.275340] RBP: 00000000004d0940 R08: 0000000000000100 R09: 0000000000000100
+[    2.275342] R10: 0000000000000100 R11: 0000000000000287 R12: 20c49ba5e353f7cf
+[    2.275343] R13: 00000000004990d3 R14: 0000000000000000 R15: 0000000000000001
+[    2.275346]  </TASK>
+[    2.275347]
+[    2.296904] The buggy address belongs to the object at ffff888008d9b000
+[    2.296904]  which belongs to the cache sigqueue of size 80
+[    2.298151] The buggy address is located 0 bytes inside of
+[    2.298151]  allocated 80-byte region [ffff888008d9b000, ffff888008d9b050)
+[    2.299408]
+[    2.299601] The buggy address belongs to the physical page:
+[    2.300191] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x8d9b
+[    2.301001] flags: 0x100000000000000(node=0|zone=1)
+[    2.301535] page_type: f5(slab)
+[    2.301884] raw: 0100000000000000 ffff888107e46780 dead000000000122 0000000000000000
+[    2.302687] raw: 0000000000000000 0000000800240024 00000000f5000000 0000000000000000
+[    2.303489] page dumped because: kasan: bad access detected
+[    2.304092]
+[    2.304276] Memory state around the buggy address:
+[    2.304801]  ffff888008d9af00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[    2.305567]  ffff888008d9af80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[    2.306340] >ffff888008d9b000: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[    2.307115]                    ^
+[    2.307474]  ffff888008d9b080: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[    2.308237]  ffff888008d9b100: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[    2.308997] ==================================================================
+
 > 
+> > A specific example of this breaking things is mincore which walks
+> > an internal cursor data structure a byte at a time on assumption
+> > that page table entry callbacks are called only once for each
+> > entry.
+> > 
+> > Fix the problem by resetting walk->action to ACTION_SUBTREE prior
+> > to the none check.
+> > 
+> > The pattern also exists in walk_pud_range() so fix it there too.
+> > 
+> > This issue was found through AI-based fuzzing.
+> > 
+> > Fixes: 3b89863c3fa4 ("mm/pagewalk: fix race between concurrent split and refault")
+> 
+> It's good to cc the relevant Author(s).
+> 
+> > Cc: stable@vger.kernel.org
+> 
+> We really should tell -stable maintainers (and all other users of
+> earlier kernels) all about the above things.
+> 
+> >  mm/pagewalk.c | 6 ++----
+> >  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> This depends on the above info, but I'd prefer to process the bugfix
+> promptly and defer consideration of the selftest until the next -rc
+> cycle.
+
+Should I send a v3 with the changelog fixed? (in 24 hours, I guess?)
+
+
+Best regards,
+Hyunwoo Kim
