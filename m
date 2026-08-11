@@ -1,131 +1,147 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128093F327D
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF27543CE69
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786459210; cv=none; b=HuEO2hONNL87pSJf3SX9qzubUO5QSbSBQzXpzSRj6tJ3Qb4HILNHLzFFJkSagrO5pvMQtbrRVHpz85YjjmTD5nIrwgXDu/K7Jzy0fiWXnxInJN9xq/kQ1ndKNq6eS1ATpx1baJr7OvNnmifiGZnGl7Ol2HEDXTwErLT47oAvqmE=
+	t=1786459297; cv=none; b=T474AmvJ0kJDRBQxDUQizDJgTztTETiKivlglbDi0sNr/WYYK+7RKBXhkqcXgfIemY48AF4JTGc+5cdpcQoyIcqNBhQ1XSk/AAwsqZVL2dWh8j/WRiRZfrv3DB7b6JGrccIVstoAybwZPki3WGQ3Im1Oqre4aTLhxSMTEpmvC1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786459210; c=relaxed/simple;
-	bh=UFX6Tqeb6IePKdToSptpGmrdLCj2iNkNV3bvfdpJ3Qs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=L/2S0Vho5pqYaAzZUCGI7GGwDuX8JpeZxZU/EgLGkJsv2ZgCZ31pul/I8skiCjwQXIqHhKZQ8TMps+ZguYRWR1KfQtFTIDedmDxkBXPPvvsYWvO5c8C0VpS284gFFy9qjSGROmT5tDYDety3L/5kNfk2AK7ose48HmffYvJthGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Nusgcz/M; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1786459297; c=relaxed/simple;
+	bh=Mqam+9yetwgnihtDcPkksRshcXlcKbGA5O84/n+y/Po=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PTidbcKOeyS1SPI2t/8iLgnw8XRLJNXU7e3q5KI0vAwRZFr0knFR14AUxyJ2MS9H2izcqi8Ztr6VIp0N+wW5Cu33uIJUSzLDTJkn9Bz6rbjq+lrCuTSQjOpSpMT2PGKfpZP9NsbfYaA+Uf85tK8n4x1Wbe0LhB++x/E3prqHH3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BfqeRKnT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Nusgcz/M"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbbb9c9bfc3so1910809a12.1
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 07:40:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786459208; x=1787064008; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zmcZw7eQs6vTJnb1q/TfEti4GMDcO2FFXTD8wseJb6M=;
-        b=Nusgcz/MABz224RhumoVsNiUERLzHl1qcC9Nh7HnA/kCkwwcEaRApK7evAMZijGg4u
-         WQyGrKAxWFO7caNd7IGPJONb3+o8hLmoUVZZWg0/S53d3ma0Ttu5kpbSdSb8exWVBbRm
-         wNSQ9k5XMgYdCLboClBKnVw2/B8+6k7PxyFE47UpdCt6Gy5v/AnvGydRs4VMqSjj6+n2
-         2TSv3uyK1cPtJlkqYeAWe5o2Fs/GI+mKShZRzTwNhXxNWm3Jbcu4Ht13BPlLwaKgcTwF
-         coPPx9UKi9WrEZspoiMFwobiT3vwVHVT9hgYjzx9AD9BiJmaI828pKOgsA2Ryq66jrlu
-         cUmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786459208; x=1787064008;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zmcZw7eQs6vTJnb1q/TfEti4GMDcO2FFXTD8wseJb6M=;
-        b=hP/PdxmhBwe5ZLq26SrDUcdD/C5vh9ZHp1wA3oiCpmyh9lWFE1s3CGZ+jPA1YARaEW
-         cqsiChom3dekvurBi3ZfjcBMqL+ROqgbKfW/p85nDQP+FpRWNPyQXXbATYHCOQ/lYq8D
-         Js0VKtpdipWm/KhnB5cfoqstigAX3PLUnbNIX678JZNzrvjP9zvHuB9WWU0EqHtTReda
-         w2YT+rOSXtRV4uyMA8AWn9kvGQKkM1PNcVBOR0cJfhAblHRSlyyE+u7iYsnNNv5A+bAt
-         DF5BjsrCVDqoHW9XEbP9Kq5pyYT0p4x4jLnxQeHpfyu/NFtOQPYnR4nuYJXOVOLuEvxw
-         FKHQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpaCKrA75fXmcRbJxGrJRfD55VV7YhvD7hFhLtgLpo0ITfJoWLM3wehK9/MCvxqIVCzmSA0j2E=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwqOWO9ezYeAkLDOt1an+3GZp9DwRLemCDCX0EIpxSePzPwmH2z
-	CwijxSIBEbHSAjCsBpSuWFzjeO9YiEM4oLesZXMFLoIWarDb1igTs7iD1P/2xe+XWBrb771+MaE
-	vgZCX7Q==
-X-Received: from pgaq65.prod.google.com ([2002:a63:4344:0:b0:c8d:1b0:ab70])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:ce4d:b0:3c0:eeb7:28b
- with SMTP id adf61e73a8af0-3cc2b8df2afmr5644517637.8.1786459207891; Tue, 11
- Aug 2026 07:40:07 -0700 (PDT)
-Date: Tue, 11 Aug 2026 07:40:07 -0700
-In-Reply-To: <20260810152730.841260-1-david.lee@trailofbits.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BfqeRKnT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BDED1F0155B
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 14:41:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786459295;
+	bh=xdXgRqs7Nr1fLxjk//ew78HlNUVWPILwUi7Fxa2du00=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=BfqeRKnTSHza2m4ZbgzufxURoNhXHn/55WSk1QDBxuYMPAlUP55GZ5aCBeY9y9cHw
+	 oxCU4RxDQ9yVad0X8z5QTG1f0sOkjtu7lBwpyu+GxSSTy88fXdyCiRa4o+Tnpw9H0V
+	 Bnoi6gjzXafo9uM/Be+6kEVqGon7dEQan6scVIslihTxSpZWJ9Gw9BE84VPpkOQqQF
+	 FMWqWZESRdIym/Z4R8ZO/yh/SAD/L17Ja60Xo5gjT/9q8ZTPDMEqcGITzRpKHkJaQr
+	 XHBZ9cHC4DjiEcZpG/Tm7WHh+gnNhf2e3Qzz4fd0XOmBxU6LDgFgAXlRKuoCJx0nIx
+	 SSriCOLFTecTA==
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so3532317a12.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 07:41:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrtiuTfhM5y/S5rgqevBYIeqd1jdvkNNnWeNE1w/cUiKOH/KqWMde34bQmqDmRtVt7RgSI3T+0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwKbvo+M9Ym8qIBmP2ZJ22I5aNJoRNhc+gRwlvoPwm0UF6RBEKK
+	zy2yi72PkrHV9movK2hIYg0Z3ah9Njds2jyl0AtGZIm38bqNfSIojuFloByACC8kS4u++pfjY9V
+	A36LWIjSrPGkHso7pkOvm5klYRhXcj/A=
+X-Received: by 2002:a05:6402:a6c5:20b0:6a0:9cb5:4f33 with SMTP id
+ 4fb4d7f45d1cf-6a3644f660cmr1538034a12.13.1786459294109; Tue, 11 Aug 2026
+ 07:41:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260810152730.841260-1-david.lee@trailofbits.com>
-Message-ID: <ans0RzGmObCkAb6e@google.com>
-Subject: Re: [PATCH] KVM: pfncache: track all MMU notifier invalidations
-From: Sean Christopherson <seanjc@google.com>
-To: David Lee <david.lee@trailofbits.com>
-Cc: pbonzini@redhat.com, Kyle Zeng <kylebot@openai.com>, 
-	"Dominik 'Disconnect3d' Czarnota" <dominik.czarnota@trailofbits.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	David Woodhouse <dwmw2@infradead.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20260811115749.3465579-1-gaohan@iscas.ac.cn>
+In-Reply-To: <20260811115749.3465579-1-gaohan@iscas.ac.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Tue, 11 Aug 2026 22:41:23 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H7FcV73VB58=zyscfCvP1L5sJ0CZTZ2EZNZkYB=X5dhAg@mail.gmail.com>
+X-Gm-Features: AUfX_mwNj_BrvlUMS1ChJZwUqksdFIOQl2gtTOLntxho3QInMnkLV4UGOsmxN9E
+Message-ID: <CAAhV-H7FcV73VB58=zyscfCvP1L5sJ0CZTZ2EZNZkYB=X5dhAg@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: mm: Define DIRECT_MAP_PHYSMEM_END
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: WANG Xuerui <kernel@xen0n.name>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Tianyang Zhang <zhangtianyang@loongson.cn>, 
+	Magnus Lindholm <linmag7@gmail.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Hongchen Zhang <zhanghongchen@loongson.cn>, WangYuli <wangyuli@aosc.io>, 
+	Mingcong Bai <jeffbai@aosc.io>, Zhang Yuhao <xinmu@xinmu.moe>, Kexy Biscuit <kexybiscuit@aosc.io>, 
+	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, Han Gao <rabenda.cn@gmail.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-+David W
+Hi, Han,
 
-On Mon, Aug 10, 2026, David Lee wrote:
-> From: Kyle Zeng <kylebot@openai.com>
-> 
-> There is a race condition in KVM's gfn-to-pfn cache refresh and MMU
-> notifier handling. An HVA-backed cache can publish a stale PFN and
-> kernel virtual address after the corresponding userspace mapping has
-> been invalidated. The Xen shared-info HVA interface immediately reads
-> and writes through that stale address, resulting in a host-kernel
-> use-after-free.
-> 
-> The cache refresh path in virt/kvm/pfncache.c drops gpc->lock while
-> resolving and mapping an HVA. It uses mn_active_invalidate_count and
-> mmu_invalidate_seq to detect an MMU notifier interval that overlaps
-> this unlocked window. However, mmu_invalidate_seq is advanced only
-> when the invalidated HVA overlaps a KVM memslot. HVA-backed caches are
-> explicitly allowed to refer to memory outside all memslots. If such an
-> invalidation starts and finishes while gpc->valid is false, the active
-> count returns to zero without a sequence change and the refresh accepts
-> a stale PFN.
-> 
-> An unprivileged process with access to /dev/kvm can reach this path with
-> KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA. KASAN-detected use-after-free in
-> kvm_xen_shared_info_init(). The affected function reads and writes Xen
-> wall-clock fields through the stale mapping, so the issue can cause a
-> host-kernel crash and memory corruption.
-> 
-> The attached KASAN output confirms:
-> 
->   BUG: KASAN: use-after-free in kvm_xen_shared_info_init+0x344/0x3d0 [kvm]
->   Read of size 4 at addr ffff888046000900 by task poc/1266
-> 
-> Add a notifier-specific sequence that advances for every completed
-> invalidate interval before mn_active_invalidate_count is decremented,
-> and use that sequence for pfncache retry. The existing barrier pairing
-> then guarantees refresh observes either an active invalidation or a
-> sequence change.
-> 
-> Fixes: 721f5b0dda78 ("KVM: pfncache: allow a cache to be activated with a fixed (userspace) HVA")
-> Cc: stable@vger.kernel.org # 6.9+
-> Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> Co-developed-by: David Lee <david.lee@trailofbits.com>
-> Signed-off-by: David Lee <david.lee@trailofbits.com>
+On Tue, Aug 11, 2026 at 7:58=E2=80=AFPM Han Gao <gaohan@iscas.ac.cn> wrote:
+>
+> get_free_mem_region() and mhp_get_pluggable_range() bound their
+> search to DIRECT_MAP_PHYSMEM_END.  LoongArch does not define it, so
+> the fallback in include/linux/mm.h applies: under
+> CONFIG_SPARSEMEM_VMEMMAP it is (1ULL << MAX_PHYSMEM_BITS) - 1, a
+> compile-time constant that does not adapt to the physical address
+> bits of the CPU (cpu_pabits, probed from CPUCFG1: 48 on
+> 3A5000/3A6000, 47 on 3C6000, 40 on the 2K series).
+As far as I know, Loongson-3C6000 is also PA48.
+
+>
+> The vmemmap window only covers physical space below 2^(cpu_pabits+1)
+> (VMEMMAP_SIZE), so on CPUs with fewer than 48 physical address bits
+> get_free_mem_region() may hand ZONE_DEVICE a region with no struct
+> page backing:
+>
+> - On the 2K series the region returned at the top of the 48-bit
+>   physical space is outside the vmemmap window; vmemmap_populate()
+>   wraps the range around and maps it into low memory, silently
+>   corrupting the page tables.
+> - On 3C6000 the vmemmap range of the region's last section used to
+>   end exactly at 2^64 and wrap to 0, leaving vmemmap_populate() with
+>   nothing to map, so memmap_init_zone_device() faulted while writing
+>   struct page (reported with amdkfd on 6.16 [1]).  Commit 2969b42c8f99
+>   ("LoongArch/mm: align vmemmap to maximal folio size") moved the
+>   vmemmap base down by one PMD, which keeps that section in bounds on
+>   current 3C6000 configs, but the 2K series is still affected and the
+>   3C6000 case only holds for the current vmemmap layout.
+>
+> Define DIRECT_MAP_PHYSMEM_END as (1ULL << cpu_pabits) - 1 so that
+> both searches stay within the vmemmap-covered physical space,
+> mirroring commit f3336b48cf9d ("riscv: mm: Define
+> DIRECT_MAP_PHYSMEM_END").
+>
+> [1] https://lore.kernel.org/amd-gfx/20250814032153.227285-1-jeffbai@aosc.=
+io/
+>
+> Cc: stable@vger.kernel.org # v6.13+
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 > ---
-> Bug found and triaged by OpenAI Security Research and
-> validated by Trail of Bits.
-> 
-> Trail of Bits has a reproducer for this bug that triggers a
-> KASAN use-after-free and can share if needed.
+>  arch/loongarch/include/asm/pgtable.h | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/arch/loongarch/include/asm/pgtable.h b/arch/loongarch/includ=
+e/asm/pgtable.h
+> index 223528c04d73..244931e4bc58 100644
+> --- a/arch/loongarch/include/asm/pgtable.h
+> +++ b/arch/loongarch/include/asm/pgtable.h
+> @@ -125,6 +125,13 @@ struct vm_area_struct;
+>
+>  #endif
+>
+> +/* Needed to limit get_free_mem_region() */
+> +#if defined(CONFIG_FLATMEM) || defined(CONFIG_SPARSEMEM_VMEMMAP)
+> +#define DIRECT_MAP_PHYSMEM_END ((1ULL << cpu_pabits) - 1)
+> +#elif defined(CONFIG_SPARSEMEM)
+> +/* DIRECT_MAP_PHYSMEM_END is not limited by VA space assignment in this =
+case */
+> +#endif
+ ((1ULL << cpu_pabits) - 1) is not always smaller than  (1ULL <<
+MAX_PHYSMEM_BITS) - 1.
 
-Go ahead and share, syzbot has been reporting this race for some time, i.e. how
-to repro this isn't exactly a secret, and the more testcases the better.  This is
-also like the fourth or fifth proposed fix for the bug (bugs?).  I think the most
-recent version of the fix we are pursuing is here:
+So I think a better way is:
++#ifndef CONFIG_SPARSEMEM
++#define DIRECT_MAP_PHYSMEM_END (((1ULL << (cpu_pabits + 1)) - 1)
++#else
++#define DIRECT_MAP_PHYSMEM_END MIN(((1ULL << (cpu_pabits + 1) - 1,
+(1ULL << MAX_PHYSMEM_BITS) - 1)
++#endif
 
-https://lore.kernel.org/all/20260811094829.98794-12-dwmw2@infradead.org
+Huacai
 
-Thanks!
+> +
+>  #define ptep_get(ptep) READ_ONCE(*(ptep))
+>  #define pmdp_get(pmdp) READ_ONCE(*(pmdp))
+>
+> --
+> 2.47.3
+>
