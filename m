@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386D8CA6B
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 02:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DCF26ED3E
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 02:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786414554; cv=none; b=YlNtvaoM3f0dpcyz/1aFwFvILDXkkk7X22IowY5e8PKd+3amLcXAUqwXgknedQIo8RZkmDTVpLwsrWO7URmb6fFfHV2JxfvSn+qyn6IY4boyNRj3iQi2wNqFNyuJfj6bgHBxSKpaFXpUJe+Nn1IP0ypRarSlmSyeFb5/RDQQkcs=
+	t=1786414556; cv=none; b=RptQilUmn5Ve1UevtqB/wieDz0RaBCCydg7nIPSydZmiXKxxiJuQTXoYyh2aK1nFhvVpYJut+uYZ/8s8nCwTeTiFnAQ/hv11rDQWUhRAndUmQycyqGpEUqeW2ILzNWgjj196frbumyEzVp3c0sH+XBqiYnL737Hvqa1A9Num9QI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786414554; c=relaxed/simple;
-	bh=fG6Yg2koq2cVdS6X2PcYRCtBSBOnkS4hGAi2X/qNy0E=;
+	s=arc-20240116; t=1786414556; c=relaxed/simple;
+	bh=qeUU9BCX0c4AvMDxHR0yCyaQB6n9DPWtwPkdA6ynkcI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fRSVTwuccBxG9FPot1qsn5EaUI6RqhypwoUINrVURHWFC4Z/DcZLAnqqTBnnTOKCtifFCmGuRhUerkKUFhDYjpxwFyn3OsryR1ReNcXpeyGKcqqTi7VL4ZQnTjhfFpzf9uQKF7ZxSGmbP2Wvc/00iDe/3qXvcQej1pUdDqoeU+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b53BtXaX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AdCeQm7Rf67f6G5dkpC9fMXT3b5rviXuBEeZ5PNIGY8EnSz1Vu/dlV+0t5nyD1ZmcimPmI8MeEOBibldKxjntIHlGlTg8dDm03GVUACMCaCVEBjx6Tj/m3kvhSObuRkAsGTAI3RTcNtFIAfU2X0Yk85a8O21s8AodgcNFH0Z8Cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ozOee88i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b53BtXaX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 522F11F000E9;
-	Tue, 11 Aug 2026 02:15:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ozOee88i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A17D1F00A3A;
+	Tue, 11 Aug 2026 02:15:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786414553;
-	bh=/IXtJYihKHzAPsFpmuyu9Aqnk8373aFJwFGKUosu0B8=;
+	s=k20260515; t=1786414554;
+	bh=vOSDH1R1A2dPI2sGKKN14UJ3LBDpfxWJsZXciyFrKf4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b53BtXaXTrEPNms34m20aEhdIKKc3itpDKOXQ/dDBa2TU48Ed9D2EHIJ4QXyFPdtd
-	 ntD9SbgFWduQKD2Le4OnMGEAOe1yhCgdDUE30ZcidSd5He8Ya+pdY0QYji2TIfKb2e
-	 eD0ogoPRbG5OiyVgKnjU5y9EhQEE0vtHpo5v93yuZMd+zKqothcZkjMTWNS1FZom0Q
-	 W4VpVU3Am99k0ruLj819zMIj8uGq601qmCF/iGr11vtLltfSlL3Rg0aGn15OF2sJWh
-	 EFUqSFJVN+E+vXDPseY1bEFhAL1KFhfNyJ9+pzK4O09b5WaoxnA8glI6lbchxWjKFE
-	 6GLqDWs0K6+fw==
+	b=ozOee88imsAivm30k2RfRmhB92DX4xw7jff+/10KDaftFmk2jys1h7bX19nG/MuhA
+	 bUig8TD3eABQ3C/XZVWfHd/IW2jAZ4dnT4e0gHzMwElGeZHouclnuaMup61VB9XunM
+	 VwcknyGCIM7QgekzWKp/t40YtrfgDW+7wHJrmqH1PsO3I87xfcsEhk1IbGyJ96Sfz0
+	 BvI55pxnYu5TCC1zoc12uvY3bqVL6ugPXbC58yCvdTRRes8snPJ5o/VOmOQOcZa5tJ
+	 8q8ynCfeD4fCyZYViNG5qO94LRPeRRs5l44hB1UfVT6XV5vwEmQcusfjf+wPMDa5GJ
+	 ISBtaTccv8N2g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Damien Le Moal <dlemoal@kernel.org>,
@@ -33,12 +33,12 @@ Cc: Damien Le Moal <dlemoal@kernel.org>,
 	Niklas Cassel <cassel@kernel.org>,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ata: libata-scsi: terminate deferred commands on time out
-Date: Mon, 10 Aug 2026 22:15:48 -0400
-Message-ID: <20260811021548.113603-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] ata: libata-scsi: terminate deferred commands on time out
+Date: Mon, 10 Aug 2026 22:15:50 -0400
+Message-ID: <20260811021551.113715-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080540-repayment-thorn-7c68@gregkh>
-References: <2026080540-repayment-thorn-7c68@gregkh>
+In-Reply-To: <2026080550-emerald-confidant-d0ad@gregkh>
+References: <2026080550-emerald-confidant-d0ad@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -101,13 +101,14 @@ Reviewed-by: Igor Pylypiv <ipylypiv@google.com>
 Tested-by: Igor Pylypiv <ipylypiv@google.com>
 Reviewed-by: Niklas Cassel <cassel@kernel.org>
 Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+Stable-dep-of: e7468b3f9b40 ("ata: libata-scsi: schedule deferred atapi command")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/libata-eh.c   |  29 ++--------
- drivers/ata/libata-scsi.c | 117 ++++++++++++++++++++++++++++++++------
+ drivers/ata/libata-eh.c   |  29 ++-------
+ drivers/ata/libata-scsi.c | 130 ++++++++++++++++++++++++++++++++------
  drivers/ata/libata.h      |   3 +-
  include/linux/libata.h    |   2 +
- 4 files changed, 111 insertions(+), 40 deletions(-)
+ 4 files changed, 119 insertions(+), 45 deletions(-)
 
 diff --git a/drivers/ata/libata-eh.c b/drivers/ata/libata-eh.c
 index a1331274ffcb1..32ec1cfd648e3 100644
@@ -161,10 +162,28 @@ index a1331274ffcb1..32ec1cfd648e3 100644
  	if (!fastdrain)
  		return;
 diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 710d1d66afb12..13c65b031bc0e 100644
+index 710d1d66afb12..4caa8bb75560c 100644
 --- a/drivers/ata/libata-scsi.c
 +++ b/drivers/ata/libata-scsi.c
-@@ -1694,30 +1694,81 @@ void ata_scsi_deferred_qc_work(struct work_struct *work)
+@@ -1660,12 +1660,16 @@ static unsigned int ata_scsi_rw_xlat(struct ata_queued_cmd *qc)
+ 	return 1;
+ }
+ 
+-static void ata_qc_done(struct ata_queued_cmd *qc)
++static void ata_scsi_qc_done(struct ata_queued_cmd *qc, bool set_result,
++			     u32 scmd_result)
+ {
+ 	struct scsi_cmnd *cmd = qc->scsicmd;
+ 	void (*done)(struct scsi_cmnd *) = qc->scsidone;
+ 
+ 	ata_qc_free(qc);
++
++	if (set_result)
++		cmd->result = scmd_result;
+ 	done(cmd);
+ }
+ 
+@@ -1694,30 +1698,80 @@ void ata_scsi_deferred_qc_work(struct work_struct *work)
  	spin_unlock_irqrestore(ap->lock, flags);
  }
  
@@ -228,7 +247,7 @@ index 710d1d66afb12..13c65b031bc0e 100644
 +		if (!ata_port_eh_scheduled(ap)) {
 +			ap->pflags |= ATA_PFLAG_EH_PENDING;
 +			ata_port_schedule_eh(ap);
- 		}
++		}
 +
 +		/*
 +		 * If we are being called from scsi_timeout(), then we have a
@@ -251,16 +270,15 @@ index 710d1d66afb12..13c65b031bc0e 100644
 +			action = SCSI_EH_DONE;
 +		} else {
 +			host_byte = DID_REQUEUE;
-+		}
-+		qc->scsicmd->result = host_byte << 16;
-+		ata_qc_done(qc);
+ 		}
++		ata_scsi_qc_done(qc, true, host_byte << 16);
  	}
 +
 +	return action;
  }
  
  static void ata_scsi_schedule_deferred_qc(struct ata_link *link)
-@@ -1736,13 +1787,41 @@ static void ata_scsi_schedule_deferred_qc(struct ata_link *link)
+@@ -1736,13 +1790,41 @@ static void ata_scsi_schedule_deferred_qc(struct ata_link *link)
  		return;
  
  	if (ata_port_eh_scheduled(ap)) {
@@ -303,21 +321,43 @@ index 710d1d66afb12..13c65b031bc0e 100644
  static void ata_scsi_qc_complete(struct ata_queued_cmd *qc)
  {
  	struct ata_link *link = qc->dev->link;
-@@ -2945,7 +3024,13 @@ static void atapi_qc_complete(struct ata_queued_cmd *qc)
+@@ -1772,7 +1854,7 @@ static void ata_scsi_qc_complete(struct ata_queued_cmd *qc)
+ 		ata_gen_ata_sense(qc);
+ 	}
+ 
+-	ata_qc_done(qc);
++	ata_scsi_qc_done(qc, false, 0);
+ 
+ 	ata_scsi_schedule_deferred_qc(link);
+ }
+@@ -2945,17 +3027,23 @@ static void atapi_qc_complete(struct ata_queued_cmd *qc)
  		if (qc->cdb[0] == ALLOW_MEDIUM_REMOVAL && qc->dev->sdev)
  			qc->dev->sdev->locked = 0;
  
 -		qc->scsicmd->result = SAM_STAT_CHECK_CONDITION;
-+		if (!cmd->result)
-+			cmd->result = SAM_STAT_CHECK_CONDITION;
-+		ata_qc_done(qc);
+-		ata_qc_done(qc);
++		if (cmd->result)
++			ata_scsi_qc_done(qc, false, 0);
++		else
++			ata_scsi_qc_done(qc, true, SAM_STAT_CHECK_CONDITION);
 +		return;
 +	}
 +
 +	if (cmd->result) {
- 		ata_qc_done(qc);
++		ata_scsi_qc_done(qc, false, 0);
  		return;
  	}
+ 
+ 	/* successful completion path */
+ 	if (cmd->cmnd[0] == INQUIRY && (cmd->cmnd[1] & 0x03) == 0)
+ 		atapi_fixup_inquiry(cmd);
+-	cmd->result = SAM_STAT_GOOD;
+ 
+-	ata_qc_done(qc);
++	ata_scsi_qc_done(qc, true, SAM_STAT_GOOD);
+ }
+ /**
+  *	atapi_xlat - Initialize PACKET taskfile
 diff --git a/drivers/ata/libata.h b/drivers/ata/libata.h
 index 1415190c18544..4b3e246227e68 100644
 --- a/drivers/ata/libata.h
