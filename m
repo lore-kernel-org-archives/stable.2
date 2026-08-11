@@ -1,44 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBEC429003
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:14:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C39445AC6
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:14:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786454066; cv=none; b=QuR7G66D7724sTICP24OkkyU/dG33ug7o3IBE6YjkBJ7UZIWDpN7u933x3hbB7LEIVwDKTxdmQ5Uc8o8sgd3jKyybNDkl9C+GFEAhH701NZEetWajLQftnzsb3k40Hg2XkCqXZhzJIuGDkP0Iz7fiK2gzXaw5wZDILQAlabgcpg=
+	t=1786454075; cv=none; b=qgs3g0NxutBefQMmmS4M4+nSs1XzF0HibnXIICy0sNt0cyk/i5nrIS0+ugh8osIDcMJOQeFlVonj2vJyuUp2Ud/k4O7SOkZDJtPL8Ei0XHtlXI1AKQPmWPnGNvLZbi6nYX5u8oq13P9TbMYOJrRyPmiPc+uXVdkrs2rwnQGorrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786454066; c=relaxed/simple;
-	bh=hHOBOYMTgIy39zfAOwzjIN6VKUECLgqlH4UB9VCuzUw=;
+	s=arc-20240116; t=1786454075; c=relaxed/simple;
+	bh=or0BLZci4f9yMtR+DB1r5QFBM9QtBw2XMiyBWbDukA8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F285pgipzV+KNAgdb4xxOgVVAIv1ZGiNm7jXLHjSP5RxqijX4uTjj7H9NYLMPsbss8AL+CyNb0rJf2sEwTvSxpMTGhulPsFNnEeX6k+zGeUOvo8sfsc4uzZ2XiK07Qjcf6fmqnG6NOApIT5e67xqDLA3u5B5MAv2pYkUgC5Onm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O1lfWz5f; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hGl3oCbkGc4wUXuHtwTnZ2lbLuq19L+TKDsuibjFRM/sx1MT5Z0tcD/OWZvl4s1X9aeZzuBjWzURKga7upGCm7Lq26zkmvwDxK41jLN7mtQY9kgmW7rJYnWTLzkkXVyzpN8cTKg4IyBDhemoP1EESMLX7b+m7o2Jt8lBlWGVvB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=evkJDAyk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O1lfWz5f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72AE21F00A3A;
-	Tue, 11 Aug 2026 13:14:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="evkJDAyk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 673461F000E9;
+	Tue, 11 Aug 2026 13:14:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786454065;
-	bh=yX45WUFGw57Lf1FKQPDcyNWc322iPdWr0l/UMxUssM8=;
+	s=k20260515; t=1786454072;
+	bh=Y6Dh5E6hMW07czWScdWvGVDR7rkV6dwOZWkLX9d7qec=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O1lfWz5fAJnDOULwaWnaToBJivYiYw5HjE/sBw/WPn80FJS63swuL8zw6+pZLu0i3
-	 Y6gYlaA7KhKN4a6X7LdOZaDCijKFIVTdcrFkFGRJe/lJr1eNGaDd8UYKiIvekjbe/R
-	 e+L+z8dW2zFL0NHI8XcGQEm/8F+eTW6sCrkwuZKmCH8rNkexRVErAXdKgwNMK5XfAl
-	 yicQ2Pn7RENMDnTdUrXEmtoXguHI8YTIq8klcHxoXbh8Y7lgMRG0vFBEopWHfknafe
-	 Z4MViJSI/dZ51rf9X/WTPEtiK3SFvowic3mWEHeBSzlfHGB5IbRDnP8mcO7hkU9ZcF
-	 wDrilfbbNxwTA==
+	b=evkJDAykmoCE5OUbnxjv7n9wJFGzv3pSkSr1JfSLQTVBCg7DivvMcxvq0dIURv9S6
+	 rQyhrMdQuHR4x94feI3QOep7J280QACDkcKTVKEFtpws+eOEhgrslO4lPEEvzxR+4j
+	 VVLt0oMhvSO8EjKMN3QNh9UrqkvsQ/I9fekQkPCF/bKR1MopSqLlfguh7aQl0yEzVU
+	 6zcYRYJShPuztF0OKS9YIa1/N6Oi0Lo3Y3VEE68SbQh1X1ZZl1lOivwq6KtzPEcKi0
+	 C/oE9rnrXByDKsdxSJnUy9pQXnHLcQigS4ArQ0A0sq4ZNOJxvfLdHEDOhOhu9ME6Yn
+	 i3Q7NeuAxuBEQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] net: pktgen: fix proc entry use-after-free
-Date: Tue, 11 Aug 2026 09:14:21 -0400
-Message-ID: <20260811131421.2547482-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] binfmt_misc: don't leak the user namespace when the mount fails
+Date: Tue, 11 Aug 2026 09:14:28 -0400
+Message-ID: <20260811131428.2547654-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260811131421.2547482-1-sashal@kernel.org>
-References: <2026080503-number-pectin-b335@gregkh>
- <20260811131421.2547482-1-sashal@kernel.org>
+In-Reply-To: <2026080520-echo-amplifier-ef92@gregkh>
+References: <2026080520-echo-amplifier-ef92@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,82 +44,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 817ff6efdb7f484ea547218e11e17d8e43daa3b4 ]
+[ Upstream commit b8206f516fe7cbe785cf44bf09c17c438d7c3cad ]
 
-pktgen_change_name() replaces pkt_dev->entry while holding t->if_lock.
-pktgen_remove_device() removes the same entry before
-_rem_dev_from_if_list() takes that lock.
+bm_get_tree() takes a reference to the user namespace and hands it to
+get_tree_keyed() as the sget key. sget_fc() moves that reference into
+sb->s_fs_info and clears fc->s_fs_info, so from that point on the
+superblock owns it and bm_free() doesn't see it anymore.
 
-This allows the following interleaving:
+The superblock drops it in ->put_super(). But generic_shutdown_super()
+only calls ->put_super() from inside the if (sb->s_root) branch, so
+nothing releases it when bm_fill_super() fails:
 
-  CPU 0 (NETDEV_CHANGENAME)       CPU 1 (kpktgend)
-  if_lock(t)
-  proc_remove(pkt_dev->entry)
-                                  proc_remove(pkt_dev->entry)
-  pkt_dev->entry = proc_create_data(...)
-  if_unlock(t)
+- The kzalloc_obj() failure leaves s_root NULL and the whole branch is
+  skipped.
 
-The kthread can pass the stale proc_dir_entry to proc_remove() after the
-rename path has freed it. A reproducer with a widened race window reports:
+- A simple_fill_super() failure in the file loop leaves s_root set, but
+  s_op still points at simple_super_operations, which has no
+  ->put_super(). bm_fill_super() installs s_ops only once
+  simple_fill_super() returned success, and installing it earlier
+  wouldn't help either because simple_fill_super() overwrites s_op.
 
-  BUG: KASAN: slab-use-after-free in proc_remove+0x78/0x80
-  Read of size 8 at addr ffff8881478fea70 by task kpktgend_0/67
-  Call Trace:
-   proc_remove+0x78/0x80
-   pktgen_remove_device.isra.0+0x11c/0x4c0
-   pktgen_thread_worker+0x1214/0x6bc0
-   kthread+0x2c6/0x3b0
-  Allocated by task 95:
-   __proc_create+0x204/0x790
-   proc_create_data+0x72/0xe0
-   pktgen_thread_write+0xd61/0x1510
-  Freed by task 28:
-   kmem_cache_free+0xcb/0x3d0
-   proc_free_inode+0x5b/0x80
-   rcu_core+0x50a/0x1850
-  The buggy address belongs to the object at ffff8881478fea00
-   which belongs to the cache proc_dir_entry of size 192
+Either way vfs_get_super() calls deactivate_locked_super() and the
+reference is gone for good. binfmt_misc mounts are available in a user
+namespace and both the inode and the dentry cache are SLAB_ACCOUNT, so
+an unprivileged caller under a tight memory cgroup can fail
+simple_fill_super() on demand and leak one user namespace per attempt.
 
-Move proc_remove() into the if_lock-protected list removal helper. Keep it
-before list_del_rcu() to preserve the ordering required by add_device().
-The rename path must then finish replacing the entry before removal, or
-it observes that the device is no longer on the list.
+Drop the reference in ->kill_sb() instead, which runs unconditionally,
+the same way nfsd and rpc_pipefs release their keyed s_fs_info.
 
-Fixes: 39df232f1a9b ("[PKTGEN]: fix device name handling")
+That also stops ->put_super() from clearing s_fs_info while the
+superblock is still on @fs_supers. generic_shutdown_super() leaves it
+there on purpose so that sget_fc() keeps finding it until kill_sb() has
+run, but a NULL s_fs_info makes test_keyed_super() miss it, so a
+concurrent mount for the same user namespace skips the grab_super()
+wait and creates a second superblock for a namespace that is still
+being torn down.
+
+Link: https://patch.msgid.link/20260728-work-binfmt_misc-usernsleak-v1-1-dbd8d5e626e7@kernel.org
+Fixes: 21ca59b365c0 ("binfmt_misc: enable sandboxed mounts")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260719145740.2888967-1-nicoyip.dev@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/pktgen.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ fs/binfmt_misc.c | 32 +++++++++++++++-----------------
+ 1 file changed, 15 insertions(+), 17 deletions(-)
 
-diff --git a/net/core/pktgen.c b/net/core/pktgen.c
-index 1434f6f2143f2..571b657ff2665 100644
---- a/net/core/pktgen.c
-+++ b/net/core/pktgen.c
-@@ -3745,6 +3745,7 @@ static void _rem_dev_from_if_list(struct pktgen_thread *t,
- 	struct pktgen_dev *p;
+diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
+index 5edc41bb100ec..8239a831ece8d 100644
+--- a/fs/binfmt_misc.c
++++ b/fs/binfmt_misc.c
+@@ -928,18 +928,9 @@ static const struct file_operations bm_status_operations = {
  
- 	if_lock(t);
-+	proc_remove(pkt_dev->entry);
- 	list_for_each_safe(q, n, &t->if_list) {
- 		p = list_entry(q, struct pktgen_dev, list);
- 		if (p == pkt_dev)
-@@ -3774,9 +3775,6 @@ static int pktgen_remove_device(struct pktgen_thread *t,
- 	 * list to determine if interface already exist, avoid race
- 	 * with proc_create_data()
- 	 */
--	proc_remove(pkt_dev->entry);
+ /* Superblock handling */
+ 
+-static void bm_put_super(struct super_block *sb)
+-{
+-	struct user_namespace *user_ns = sb->s_fs_info;
 -
--	/* And update the thread if_list */
- 	_rem_dev_from_if_list(t, pkt_dev);
+-	sb->s_fs_info = NULL;
+-	put_user_ns(user_ns);
+-}
+-
+ static const struct super_operations s_ops = {
+ 	.statfs		= simple_statfs,
+ 	.evict_inode	= bm_evict_inode,
+-	.put_super	= bm_put_super,
+ };
  
- #ifdef CONFIG_XFRM
+ static int bm_fill_super(struct super_block *sb, struct fs_context *fc)
+@@ -997,13 +988,12 @@ static int bm_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	/*
+ 	 * When the binfmt_misc superblock for this userns is shutdown
+ 	 * ->enabled might have been set to false and we don't reinitialize
+-	 * ->enabled again in put_super() as someone might already be mounting
+-	 * binfmt_misc again. It also would be pointless since by the time
+-	 * ->put_super() is called we know that the binary type list for this
+-	 * bintfmt_misc mount is empty making load_misc_binary() return
+-	 * -ENOEXEC independent of whether ->enabled is true. Instead, if
+-	 * someone mounts binfmt_misc for the first time or again we simply
+-	 * reset ->enabled to true.
++	 * ->enabled again during shutdown as someone might already be mounting
++	 * binfmt_misc again. It also would be pointless since by then we know
++	 * that the binary type list for this binfmt_misc mount is empty making
++	 * load_misc_binary() return -ENOEXEC independent of whether ->enabled
++	 * is true. Instead, if someone mounts binfmt_misc for the first time or
++	 * again we simply reset ->enabled to true.
+ 	 */
+ 	misc->enabled = true;
+ 
+@@ -1029,6 +1019,14 @@ static const struct fs_context_operations bm_context_ops = {
+ 	.get_tree	= bm_get_tree,
+ };
+ 
++static void bm_kill_sb(struct super_block *sb)
++{
++	struct user_namespace *user_ns = sb->s_fs_info;
++
++	kill_litter_super(sb);
++	put_user_ns(user_ns);
++}
++
+ static int bm_init_fs_context(struct fs_context *fc)
+ {
+ 	fc->ops = &bm_context_ops;
+@@ -1045,7 +1043,7 @@ static struct file_system_type bm_fs_type = {
+ 	.name		= "binfmt_misc",
+ 	.init_fs_context = bm_init_fs_context,
+ 	.fs_flags	= FS_USERNS_MOUNT,
+-	.kill_sb	= kill_litter_super,
++	.kill_sb	= bm_kill_sb,
+ };
+ MODULE_ALIAS_FS("binfmt_misc");
+ 
 -- 
 2.53.0
 
