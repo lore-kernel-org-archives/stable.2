@@ -1,195 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18CBF36729C;
-	Tue, 11 Aug 2026 14:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54555446BF8;
+	Tue, 11 Aug 2026 14:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786457194; cv=none; b=hjBiK5qY8Axgsrsl01dYAWKb+bBpLVrIhi5E1JJezSC+FuGI/85kRhxq8KVJEncLaA34x7rsuWo21iz8Ztkj0p2D/bATSFBZ5WWmAH8NRPwk4JNEOn7Oz48puCofUcjY5XDx8lVVuzrsmsxHHo7VIWjylCTrpHKKnna+qLDvQCc=
+	t=1786457948; cv=none; b=YL+MUvoHgUI3v/hn6z4K1y25nB5GG7lVBQt36l9cWqBE+LNpnSGnAFyWIuaZFNERIh65bwxSY8xH8rDb1G5qmuRpMAvbZwGtYoWThTX1X5afT0BAgoFbHB3ljMnnYFZe2rUV25jYsSfT578gDd8fV8XjMzlfkzhy/n61LHBLdTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786457194; c=relaxed/simple;
-	bh=JD9S9E7qbRV19UEDzg93FHSCM8x7c6AJ5aIe9ovHFos=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aJ9aH8zHTRznkoIndF16knjFYpI6UxNC+rfnzpS7a96wuPitkpmP+w6T8mDgdKTXVkYcmSdYBdHs+zf9CTRuxxfWWP9WufhM7ZAN+jqi2LAEtAUrZ7G8wBPeYjbmuMkgYahvRDCxYeXtYurAT6ZkEFxnW/UKDNV+kkFR2v2BFA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIgYFqHn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786457948; c=relaxed/simple;
+	bh=xJKETKNqMpSUttHHjrqgWyFLQVUsNdqR+BDgWzvC6CE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qgw2Siq1X6Ue/Z7WoQ59mpYTNGEyuXRpeizdew6zPx6jFGh2XxZVy0XtwQw6UnX+MLUwqH5ZE/51f0VbN0z5oP5QvL89/elWR1gJmPtF1Q71BtnF6od/fhvOy3sUdk3JUZaEoqfYVH9QYCQ1C2O7XBTRYTTvKrsNG3E3n7KOS7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZpW0vvU4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIgYFqHn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 89D70C2BCC7;
-	Tue, 11 Aug 2026 14:06:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786457193;
-	bh=JD9S9E7qbRV19UEDzg93FHSCM8x7c6AJ5aIe9ovHFos=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=MIgYFqHnR7gDB/wFWkVA7T7SvPneMCBKKHADBqhtFGTJ/cnOosLDlDRGOCnM2lfPp
-	 jCMThTDe9p85+5PmcxiNHLUtvwKcuWy99d5uE6VgOxYxwNxhvvM8PrQCu6dw4dKPMW
-	 vufaX6oWXkZc+Zbcc7/YOSC18iFuRHjnczcePy3CYU8AUk/zf5OO4JAuCtlFl29JXI
-	 3W67eGjf+NndF8lgJ0upKOUzm4TokUbZsIzhkzRsmHPKXNivQLINYD6VIvd6a/CwwM
-	 ykcZspsIz40Tv7tbl1zx3WuwRwHgavHfxE+fdtIm+sf4AX0pOL69YVLDvJaCA74Gju
-	 nBpMsOFuHgWPA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 651FCC5B56A;
-	Tue, 11 Aug 2026 14:06:33 +0000 (UTC)
-From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
-Date: Tue, 11 Aug 2026 22:06:24 +0800
-Subject: [PATCH v5] media: ov5640: select the MIPI lane mode from the
- endpoint lane count
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZpW0vvU4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395D21F000E9;
+	Tue, 11 Aug 2026 14:19:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786457947;
+	bh=VQrgKP+AHdNa6o4dxOWobZCNZyfClv4mco8oJTpUOac=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZpW0vvU4/b805wK9v0IRP1UAp7D7UAo4vkNAvTnK6eFpzrj5xV4rwva60fQg2JqKV
+	 j86JtusU5/qfh89Ui0O9mzgq3ccpB1s9r5D9x3Y0PT16YxaFhjrru7S0AstaqXj8K6
+	 kL7GvWhPsx5wZ1Fz5jBl+Ru0lAhzpbp/IJic9uPqij/1sQw9QwHJMVYGwTkQeFQeVP
+	 0YZ7DS9MLbutcrPXiyFAN1Sr9tNyAQcP86I+Z5+vrNtZjnPyHclAXNayuVpytJ+6Rc
+	 /3Rq5pYHiA7wN+G6OelfB7HSxhn4Jcb9MbwXxxfbDyV68XyYzOUUmX2+ZvzO4RocGs
+	 7xmMkrhyib2nw==
+Message-ID: <2022e782-099f-4b93-9968-30931a46101d@kernel.org>
+Date: Tue, 11 Aug 2026 09:19:05 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] x86/amd_node: Remove smn_exclusive
+Content-Language: en-US
+To: Yazen Ghannam <yazen.ghannam@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+Cc: Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org,
+ Penny Zheng <penny.zheng@amd.com>, stable@vger.kernel.org
+References: <20260806160159.230453-1-jason.andryuk@amd.com>
+ <20260806160159.230453-2-jason.andryuk@amd.com>
+ <20260810140747.GB57095@yaz-khff2.amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260810140747.GB57095@yaz-khff2.amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-ov5640-1lane-v1-v5-1-14849a3d3a71@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAF8se2oC/4XNTQqDMBAF4KtI1k3JzyRqV71H6SKJEw1YU7SEF
- vHuja6KUITZvAffm5lMOAacyKWYyYgpTCEOOahTQVxnhhZpaHImggnNKs5pTEoDo7w3A9LEqWU
- eZYnGQlORrJ4j+vDeFm/3nLswveL42R4kvrb/t/JxWta6rkGVDrm8tg8T+rOLD7JuJXHgRfZaC
- aYMVtqj3Xt54GX2BqHUaLxiAvYeDjxk78Aw1YDjVopfvyzLF/AcNl1uAQAA
-To: Steve Longerbeam <slongerbeam@gmail.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Jason Yang <jason98166@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786457192; l=4903;
- i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=uAAC7TSafNkUxaGVKrMNqcaGlxdJ/qh/FP1j05iJCXk=;
- b=t8E2nqcm3luy3WHm6UwJumed0JU8Aou0OZwWXfLpenfguEYaciyCq1VlEiYGc97lxBGQEaR8R
- SOh5VtLSo46AdHeALmqXLTXu7RT4H7kWvAygV4XMjzajak9JE+mn93q
-X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
- pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
-X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
- auth_id=887
-X-Original-From: Jason Yang <jason98166@gmail.com>
-Reply-To: jason98166@gmail.com
-
-From: Jason Yang <jason98166@gmail.com>
-
-ov5640_set_stream_mipi() always programs IO_MIPI_CTRL00 with 0x45,
-which selects the two data lane mode: the number of data lanes
-described in the devicetree endpoint only feeds the sensor's clock
-tree computations, so a module wired with one data lane starts
-streaming in two lane mode and the receiver never assembles a
-frame.
-
-Take the lane mode from the endpoint instead, both when streaming
-starts and in the power-up path. The field encodes the lane count
-directly - 001 for one lane, 010 for two - per the current sensor
-manual (version 2.33). The 2.03 manual documented 000/001 for
-one/two lanes; OmniVision corrected the table in version 2.1,
-which is why the long-standing comment here found 001 unusable for
-two lanes and validated 010 instead.
-
-The power-down path still resets the register to 0x58, which is
-the chip's reset default.
-
-Tested with a single data lane module on an i.MX8MP board
-(imx-mipi-csis receiver), where the unpatched value produces no
-frames at all, and on an RK3588 board.
-
-Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jason Yang <jason98166@gmail.com>
-Assisted-by: Claude:claude-opus-5
----
-Changes in v5:
-- Program the endpoint lane count in the power-up path as well,
-  instead of leaving the hardcoded two-lane value there until
-  streaming starts (Hans de Goede); the power-down reset value
-  0x58 is the chip default and stays.
-- Credit the v4 changes to Hans de Goede - v4 wrongly named
-  Hans Verkuil.
-- Link to v4: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v4-1-c4a05d4c1b32@gmail.com
-
-Changes in v4:
-- Keep the lane count programmed also while the interface is
-  disabled, toggling only the enable bits (Hans Verkuil); with one
-  data lane the disable value becomes 0x20 instead of 0x40.
-- Link to v3: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v3-1-ae476eaf5024@gmail.com
-
-Changes in v3:
-- Inline the lane count in the write instead of going through a
-  local variable (Sakari Ailus).
-- Link to v2: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v2-1-65205ae86feb@gmail.com
-
-Changes in v2:
-- Compute the register value from the lane count in the single
-  write instead of branching on it (Sakari Ailus), with the count
-  in a local variable to stay within 80 columns; the programmed
-  values are unchanged, 0x25 for one lane and 0x45 for two.
-- Request a normal stable backport rather than opting out of
-  AUTOSEL (Sakari Ailus).
-- Drop the quotes around the function name in the reference from
-  ov5640_set_power_mipi() (Sakari Ailus).
-- Link to v1: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v1-1-79699457ce13@gmail.com
----
- drivers/media/i2c/ov5640.c | 25 ++++++++++---------------
- 1 file changed, 10 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 8deb5f5501fa..526939041ad0 100644
---- a/drivers/media/i2c/ov5640.c
-+++ b/drivers/media/i2c/ov5640.c
-@@ -1831,22 +1831,16 @@ static int ov5640_set_stream_mipi(struct ov5640_dev *sensor, bool on)
- 	/*
- 	 * Enable/disable the MIPI interface
- 	 *
--	 * 0x300e = on ? 0x45 : 0x40
--	 *
--	 * FIXME: the sensor manual (version 2.03) reports
--	 * [7:5] = 000  : 1 data lane mode
--	 * [7:5] = 001  : 2 data lanes mode
--	 * But this settings do not work, while the following ones
--	 * have been validated for 2 data lanes mode.
--	 *
--	 * [7:5] = 010	: 2 data lanes mode
-+	 * [7:5]	: data lane count, 001 for one lane and 010 for two,
-+	 *		  per version 2.33 of the sensor manual
- 	 * [4] = 0	: Power up MIPI HS Tx
- 	 * [3] = 0	: Power up MIPI LS Rx
- 	 * [2] = 1/0	: MIPI interface enable/disable
- 	 * [1:0] = 01/00: FIXME: 'debug'
- 	 */
- 	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
--			       on ? 0x45 : 0x40);
-+			       sensor->ep.bus.mipi_csi2.num_data_lanes << 5 |
-+			       (on ? 0x05 : 0x0));
- 	if (ret)
- 		return ret;
- 
-@@ -2532,16 +2526,17 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
- 	}
- 
- 	/*
--	 * Power up MIPI HS Tx and LS Rx; 2 data lanes mode
-+	 * Power up MIPI HS Tx and LS Rx
- 	 *
--	 * 0x300e = 0x40
--	 * [7:5] = 010	: 2 data lanes mode (see FIXME note in
--	 *		  "ov5640_set_stream_mipi()")
-+	 * [7:5]	: data lane count (see the note in
-+	 *		  ov5640_set_stream_mipi())
- 	 * [4] = 0	: Power up MIPI HS Tx
- 	 * [3] = 0	: Power up MIPI LS Rx
- 	 * [2] = 1	: MIPI interface enabled
- 	 */
--	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x44);
-+	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
-+			       sensor->ep.bus.mipi_csi2.num_data_lanes << 5 |
-+			       0x04);
- 	if (ret)
- 		return ret;
- 
-
----
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-change-id: 20260811-ov5640-1lane-v1-b0fe37eab4d8
-
-Best regards,
--- 
-Jason Yang <jason98166@gmail.com>
 
 
+
+On 8/10/26 09:07, Yazen Ghannam wrote:
+> On Thu, Aug 06, 2026 at 12:01:56PM -0400, Jason Andryuk wrote:
+>> amd_smn_read/write() are exported functions around __amd_smn_rw(), so
+>> they are always available even if amd_smn_init() fails.  smn_exclusive
+>> would prevent access __amd_smn_rw(), but it is placed too late.  If
+>> amd_smn_init() failed, amd_roots is NULL and __amd_smn_rw() will fault
+>> over it.  Replace smn_exclusive with directly checking amd_roots to
+>> avoid the NULL pointer dereference.
+>>
+>> Fixes: 77466b798d59 ("x86/amd_node: Remove dependency on AMD_NB")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>> ---
+>> Fixes is the introduction of amd_roots
+>> ---
+>>   arch/x86/kernel/amd_node.c | 9 +++------
+>>   1 file changed, 3 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+>> index 0be01725a2a4..ea553267e5fa 100644
+>> --- a/arch/x86/kernel/amd_node.c
+>> +++ b/arch/x86/kernel/amd_node.c
+>> @@ -38,7 +38,6 @@ static struct pci_dev **amd_roots;
+>>   
+>>   /* Protect the PCI config register pairs used for SMN. */
+>>   static DEFINE_MUTEX(smn_mutex);
+>> -static bool smn_exclusive;
+>>   
+>>   #define SMN_INDEX_OFFSET	0x60
+>>   #define SMN_DATA_OFFSET		0x64
+>> @@ -91,11 +90,11 @@ static int __amd_smn_rw(u8 i_off, u8 d_off, u16 node, u32 address, u32 *value, b
+>>   	if (node >= amd_num_nodes())
+>>   		return err;
+>>   
+>> -	root = amd_roots[node];
+>> -	if (!root)
+>> +	if (!amd_roots)
+>>   		return err;
+>>   
+>> -	if (!smn_exclusive)
+>> +	root = amd_roots[node];
+>> +	if (!root)
+>>   		return err;
+>>   
+>>   	guard(mutex)(&smn_mutex);
+>> @@ -308,8 +307,6 @@ static int __init amd_smn_init(void)
+>>   		debugfs_create_file("value",	0600, debugfs_dir, NULL, &smn_value_fops);
+>>   	}
+>>   
+>> -	smn_exclusive = true;
+>> -
+>>   	return 0;
+>>   }
+>>   
+> 
+> 'smn_exclusive' wasn't originally intended to be used for bounds
+> checking the array. But the original use is no longer needed, so it can
+> be removed.
+> 
+> Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+> 
+> Thanks,
+> Yazen
+
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
