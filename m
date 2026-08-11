@@ -1,81 +1,76 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B28936194A
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 19:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9EB3A1A54
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 19:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786478005; cv=none; b=phCA7554w/S/vuavBwD3dizHqurAJq4MrspBGMtkI9FNvm/Czn80oC+K8UmiLQyCcsXnTr6/CmiqCdDoa8egPWWWxWnaOn+Vyob2hs+LFpQaZEgXDB4puotE0PKh1XVLLWlKElgXujyWesSKfIRnuVr89d+0DBAbAElzCJAG+EI=
+	t=1786478265; cv=none; b=gmivaor/v2E2tKHLanV0y+b7+sW32l1W9+OHFOxMmLxxr62UBSWiAUCW9yWXKTOEnQAzY2C6qd0HGSImfn15cjJ4YUirLsY1B0WBn9qRbSDWEbnvG7Wq/pNAGHwqPwh3TkN1UsBHmxeYpFyM12qzjwELIggX3xIMqa03mLcedYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786478005; c=relaxed/simple;
-	bh=nASdhlnQj6W0dV29+7od0oNAJnTGdxlDy+BNJaTPeLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YzeegXO9XtXMlKaqNkyND5FM+rmRRe2NVKoD7w7lTGQOadUddlf6LjrragelGZoVOrsW9G7njeoMUk11QX+KnYmipYbjfrPxywBWtJY/0SCTUQ3rYmHQzWZ4BNLIvCn8f5zeQCD3DXanHwJle4CH9knV8L/Q3qZDLqXhPzQXjFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=az3elION; arc=none smtp.client-ip=209.85.128.41
+	s=arc-20240116; t=1786478265; c=relaxed/simple;
+	bh=lw/qBV6EAcsMqQGzBzbBCpBRsAqCuH0e7ZukyutHFVY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=U0drXCF+ywuehct7g3IWpT8nHLu74gJ6Fs6/W5a3098e5J0OrQkBuYwTCBk95Rgw/mtrFcTA0yqaQ7L3F3Vr+cIXIo8yJyGf7BP0HtD8OI/GdjfbBLuUMIVyirArdpo5uDiPlIbxrB6s/ElE3Ay0YSo8gdjwdFJ59b6/QVWI/bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EO59GN25; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="az3elION"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso581975e9.1
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 12:53:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EO59GN25"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so1162645e9.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 12:57:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786478002; x=1787082802; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cV+CdfERh/o0eu5vkzQXpmPtNLbsSOir10XB4s2+AHo=;
-        b=az3elIONsfI3tIfDGp3fYNZOug9E9X2Q36kW5e8A6bC1coKZRq2wggjlXD+y6TObdS
-         jrJOvZ66E8UolemXji5R3dOz1vqRENlcnPTd4sAsQVFjKqVxC7Pmx5Y9vZy0GB0nQB/C
-         aR/a5yK6GW3WeSkFU8KL8OK8HXldRSDvTmZgDHz1/AV/HhMRCQllZ2KYX38Zymj1hJ6w
-         BiZJhwPKeCx/z14bDoYsQgYgrqiVSD/8H4DkjCVVI1NfujjtYHmPplizkPtkc0WtXu7v
-         lxgujBqL+2QfKIhPNuA4XlYpy+z8kmpqZFuUGlx7aYnFSYYG7asJGA5QzJnq0c3uUBsR
-         5ttQ==
+        d=gmail.com; s=20251104; t=1786478262; x=1787083062; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P5I1h7k9sgU/X0BDonPRWDnDR4tKZyrHhT5a1azB5BE=;
+        b=EO59GN25Jg/VxP5556P2MG2zkypYuO7Dgm6lc0m/y16EjoxoYLB0djTDaniwuO9rSB
+         ZV4jcob2L+biSV2ju8MRFrq3nb2lFy6usJ5KfIKjMK4CQQIernaTyTY4INWYyrbMRXS+
+         1BLkIEQwW67LkqX1GCNqX9vtU+QAaSTav+UlPoe5mjyiKXZjPV1bMtb7tiCWPh+K7cvL
+         D85Mh0rXcG6SkRug8IInD+NKBYO9XN+ngBxCDVXCaGs0IGf7J2t14kdpFtRyEKeI2yqs
+         JBc5pluq/7eT+NVrm59DL3tW4DUmtmRFvD7C1Ze5u8K11N0CIpApBrci9XpwBBgyI5jV
+         9ePQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786478002; x=1787082802;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cV+CdfERh/o0eu5vkzQXpmPtNLbsSOir10XB4s2+AHo=;
-        b=EvFIEq8lXRq40agBXJ924v7rdKCh/VCXuWKVEYsvZHr8aWVbvrPOYRX4plsOkxEpj4
-         3+uXSPYyHNJcwb7ItcaGt2FnWllrUnkhu36/Aswo+3zqwhJf1JNuSOhb1cmaswxTX8xU
-         XjS3Buk53Jbsh53tZpcyYHgWUogukGKytLW2FJwa3Zior37eYFmMnYnTObVMLfUe/2/g
-         YqDlGv3CWlv/8UQ06nqzfmtxel/piWHAuWcUfKzxTIkI78OXv+SKq1HhfBixpY9yCsuD
-         BWzK/eYq6X5j1ZmUjBF0n0JVxqxcIx1pnZGrTL7kOTlxdRRcUEGAKJMxrON1vZouDQ/7
-         cTFQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpffSq5Kd5WY2jvDVQHaS3axaMXgu47DuYgoOn6BwuWNrwKcBOL8Zg/oSa+yY+0S/b2bliLfR8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxP1KPkIhdmSQJlpj1UEOvcu032a7eDskqeTe8A1wc94woGvfi
-	j4gMREKirgsMWXOX8SrkUJEYayyly6u0uGbj2Dr7xnmuO8YGrGqfqTN76xUIyAz8
-X-Gm-Gg: AR+sD12LrTENo8+UBmWJFYrnETbCz5D6h2e5hicZZ8EN09SRikhDYEbzii8qbl3c+lZ
-	/fpXP8pks+wPJv4ccTJSquAI9FHzWuBJ44O6YpYhl5iSpdwXl1w5vaKPqPEkf0OM9b9gHE3JhKo
-	3bN+IvNSTKvmLpN2XAvt41Je/WwYMUnEX2ODGl6eWW41iOFjv5XFwsHuZ7fzGXo8XnNwFHz7KE7
-	qsQiTJEf9wEgXGvAcrH9aeTyMEQSsAKYRP3DDTq/WYdt+BG2DWNofVRhzTCU7ApyJWFHPmPO/H3
-	N8K0+WELmgZW6DRxhZd4kp8Bb2NL2dbfogasUWn1JEljEcwzy3kVMaNpDNQLmJun1mNSh7pJr8b
-	YGQ2SNNR9u+FgmaygbeB//6luLBZep8OZYKbtNUJJxhOXYLyULEKrEp0OICbIeNT+eTmBaHHbTZ
-	gOSrl6mE8WPnpADTWd0zmQtQEN4I5uu3bFBOTU90FLVnAbcusaQEsuqTOI7bpkUBs6OAY9/RUwp
-	I/n5Ny49A==
-X-Received: by 2002:a05:600c:1c11:b0:495:4b42:8677 with SMTP id 5b1f17b1804b1-499784658eemr81929555e9.18.1786478002355;
-        Tue, 11 Aug 2026 12:53:22 -0700 (PDT)
-Received: from VivoBook-ASUS-X712UA-M712UA.lan ([2a00:f44:cc3:6030:4761:992:27d8:3423])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997b15b807sm11666785e9.7.2026.08.11.12.53.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 12:53:21 -0700 (PDT)
-From: Stanislaw Pal <kuncy7@gmail.com>
-To: Jie Luo <jie.luo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Brian Masney <bmasney@redhat.com>,
-	Mieczyslaw Nalewaj <namiltd@yahoo.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+        d=1e100.net; s=20251104; t=1786478262; x=1787083062;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P5I1h7k9sgU/X0BDonPRWDnDR4tKZyrHhT5a1azB5BE=;
+        b=n+v3aznvnpuXFgg9OfdKmN7MC57QNIFSUpKbMB6+Xh3CJ9n2eKtDPyEjqchlMEocue
+         cVQChI/BLjHakTVu4Z5FjG7e+xvLP5WXkudQW7oKhlnTSKTbh7DaOnUopbCYTsGSpHvi
+         pHpYJ0tvafeThhqZSrW7u1OH/42YDjBzCertW7FzQuyviTcc6IeDPrXV7QuTx85XchxZ
+         YXT4gOwMscgWfdSx29FHO7C3KEtdQRWVTPzpxNb5/24pOnwvqtFRjhJz7vxvZNEyy3yo
+         nq7w3yFyIpryUO31b0HwRGmD/eQdmEU8gT1gxS3EmoocaBFOCFmEBqdu/6PAd2dEbcjo
+         8L4g==
+X-Forwarded-Encrypted: i=1; AHgh+RqUpO91WwEjrkfQtiSF1+40Vjxkwjp8yhpc/XV0Lfjxsf8pVUrWgCCsHRlbeg+BM+0qi8GuL+w=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwvG30AXoSrZXVMz4zjkRQ7knZh5PpM10BxiKEpKbnsVo4YGVJC
+	le1Q8GBDAopfEm++jktF7BbpxrJEYs48ZsA/wuGSKnggKnEXgm7QvdHB
+X-Gm-Gg: AR+sD13NB8p9hw4zEp/XHrSGANAbG5/LV7pSs870gnZjIcGJcN3l/DfrlTDR8XNK2ea
+	l6tZXlFsh8qIFm2MngKEu3biOIxZF0jLy0PBiK4KcTuMHs5lMLXHB7XtbtTWZiIkOf3K3hT+2Ws
+	JKTgxQKp3/+plA2Zr7DNyQKlmPuS96YdYU+S6RrPA4hHHHx2JFjV1ZcC4vvi5T/UUZoCl+jliyf
+	qaWkU+DiGChOBilGPhx3egiC5n+KuG2QwgqY4AVdu4ym4bAm5i0zcD7+lbetiY1sSaO8ws27VEm
+	gTWDCUdrlDGsKBA5eadCg0lHWKwTA3dSIIKPKdsSmdUQMfULNESl0Cf9DC2slZblpP+ebkBapmt
+	uVv9HtwOesVS9CN0OID0Qw5yDpYX2+/jArjDoWTW6Ytm8z5JOfE7/7tdkzK5iwfUFTWbKLWZVZa
+	VTGykW84q1CAYFJxEiEx2eN7FZCrAP5V12LCGIcLLjuAjggYQ6uVoziOXnz1UiDouak+wr4KEHk
+	U5LeWEoj5ZSvktUsVXmOZHbjgxYN9r3OAK2di7e1m7c+bYqUPFTmf0C9coR75hbFc6R4L6MYXJW
+	1a8P1RTkJ3vWewR2hoVdfJEbc3Ei7gWJIxRDwhhad777glYrZt39Y/KnrnB9V4uurxfw
+X-Received: by 2002:a05:600c:1c21:b0:495:6396:8b67 with SMTP id 5b1f17b1804b1-4997a5f22a1mr38583495e9.4.1786478262211;
+        Tue, 11 Aug 2026 12:57:42 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a133-e401-bc8e-d36c-2d08-c5e0.310.pool.telefonica.de. [2a02:3100:a133:e401:bc8e:d36c:2d08:c5e0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48150c08dd7sm789136f8f.16.2026.08.11.12.57.41
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 11 Aug 2026 12:57:41 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Miklos Szeredi <miklos@szeredi.hu>,
+	fuse-devel@lists.linux.dev
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Jingbo Xu <jefflexu@linux.alibaba.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks enabled
-Date: Tue, 11 Aug 2026 21:53:17 +0200
-Message-ID: <20260811195317.128954-1-kuncy7@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <8248f034-d5a6-4f9c-b6e6-77eeb8ca3ad4@oss.qualcomm.com>
-References: <8248f034-d5a6-4f9c-b6e6-77eeb8ca3ad4@oss.qualcomm.com>
+Subject: [PATCH] fuse: fix GCC 8 build with CONFIG_PROFILE_ALL_BRANCHES
+Date: Tue, 11 Aug 2026 21:57:33 +0200
+Message-Id: <20260811195733.38489-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,79 +79,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 8/11/2026 Jie Luo wrote:
-> The board booted successfully on the IPQ5018 RDP platform.
->
-> # insmod ipq-cmn-pll.ko
-> # devmem 0x1856308
-> 0x80000000
-> # insmod mdio-ipq4019.ko
-> # ls -l /sys/bus/mdio_bus/devices/
-> 88000.mdio-1:07/  90000.mdio-1:1c/
+Commit 25307ca50b815 ("fuse: simplify logic in fuse_notify_store() and
+fuse_retrieve()") introduced a loff_t cursor and used it in place of
+outarg's offset field. In the min() expression this changed the second
+operand from unsigned to signed.
 
-Thank you for running this. Your result is correct, and I can now
-reproduce the equivalent on the failing board - together the experiments
-finally bound the problem tightly. I spent the evening on a GL-B3000
-running three variants of the same tree, all with the fix reverted
-(i.e. vanilla put in probe). Full data below.
+With CONFIG_PROFILE_ALL_BRANCHES, GCC 8 does not propagate the range
+established by the preceding MAX_LFS_FILESIZE check through the branch
+profiling code. Consequently, min() cannot prove that the signed operand
+is nonnegative and rejects the mixed-signedness comparison:
 
-Variant 1: gate delayed to idle. Vanilla behaviour, but the last
-reference is dropped via pm_runtime_put_autosuspend() with a 60 s
-autosuspend delay, and uniphy (the only in-tree consumer of the PLL
-outputs in the OpenWrt tree; mainline has none) disabled in DT so the
-gate actually lands. Result: the gate lands at ~75 s on an idle system
-and the board does not care. runtime_status reads "suspended", both
-WiFi radios keep serving clients, the console works, nothing in dmesg.
-This is your RDP result reproduced on the board that dies: with the
-system quiet, gating these clocks is harmless, and nothing in steady
-state needs them - your efficiency argument is confirmed.
+  min(outarg.size, ((loff_t)((long long)(~0ULL >> 1))) - pos)
+  signedness error
 
-Variant 2: same DT (uniphy disabled), unmodified vanilla driver, so the
-same gate lands right after probe, during early boot. Result over seven
-boots of the identical image: one survived, six died with the familiar
-signature - silence before the serial console comes up, then a watchdog
-reset. So the crash does not need the ethernet path at all: it happens
-with every PLL consumer disabled in DT, and it is probabilistic.
+This happens with GCC 8.1 on x86-64 and GCC 8.5 on arm and s390.
+GCC 8.1 remains the minimum supported compiler.
 
-Variant 3 is the stock configuration (uniphy enabled): 100% boot loop
-on this board, and the same on three boards from three vendors.
+Use umin(), which is intended for comparing an unsigned value with a
+signed value that is known to be nonnegative. The preceding bounds check
+guarantees that MAX_LFS_FILESIZE - pos is nonnegative, and outarg.size
+bounds the result to unsigned int.
 
-One methodological note for fairness: variants 1 and 2 are initramfs
-images booted from RAM over tftp, so their early-boot activity profile
-differs from a normal flash boot (no UBI attach in the fatal window,
-for one). The 6-of-7 ratio is specific to that path and I would not
-generalize the number. The stock 100% failure, however, *is* the
-normal NAND boot path, so both paths are represented in the data and
-both die - only the probability differs with the timing profile, which
-is itself consistent with the collision picture.
+Fixes: 25307ca50b815 ("fuse: simplify logic in fuse_notify_store() and fuse_retrieve()")
+Cc: stable@vger.kernel.org # v7.1
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Testing:
+- Fails without the patch and builds with it: GCC 8.1.0 on x86-64 and
+  GCC 8.5.0 on arm and s390, each with CONFIG_PROFILE_ALL_BRANCHES set
+- Builds either way on GCC 14 and GCC 15 on x86-64, GCC 15 on s390 and
+  Clang 21 on x86-64
+- With the preceding bounds check, umin() changes the signed comparison
+  to an equivalent unsigned comparison. Instruction counts are unchanged
+  on all tested targets
+- Reproducer: defconfig plus FUSE_FS, FTRACE, TRACING and
+  PROFILE_ALL_BRANCHES, then build fs/fuse/notify.o
 
-Putting it together:
+Stable backport note: in v7.1 the affected code is in fs/fuse/dev.c
 
-  gate at idle          -> safe, deterministically (your RDP, my V1)
-  gate during boot      -> dies, probabilistically (V2: 6 of 7)
-  never gate (this fix) -> boots, deterministically (3 boards)
+ fs/fuse/notify.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The only variable separating V1 from V2 is *when* the gate lands. That
-also retires my earlier "shared CSR bridge" theory - with the whole
-ethernet path disabled the board still dies - and explains every odd
-observation from the last month: the victim being whichever device
-probes next, and the failure probability swinging wildly with binary
-layout (both are just micro-timing of an asynchronous pm_clk_suspend
-landing somewhere in early-boot bus activity; which transaction it
-collides with is still not pinned down).
-
-It also shows why a consumer-based model cannot close this hole: the
-fatal window lies *between* the cmn-pll probe and the moment any
-consumer could possibly take its first reference. On boards where
-Linux is entered with these clocks running (every bootloader does), the
-put in probe is what creates that window.
-
-I am open on the shape of the fix - if you would rather see the
-reference dropped once boot has settled, or a synchronous gate, I will
-gladly test that on this board. But the boards are unbootable today,
-and holding the reference is the smallest change that deterministically
-removes the window, so I would still ask for v3 (or an equivalent) now,
-with refinements as follow-ups.
-
-Thanks,
-Stanislaw
+diff --git a/fs/fuse/notify.c b/fs/fuse/notify.c
+index 29578104ae6cd..3370ae344f751 100644
+--- a/fs/fuse/notify.c
++++ b/fs/fuse/notify.c
+@@ -153,7 +153,7 @@ static int fuse_notify_store(struct fuse_conn *fc, unsigned int size,
+ 
+ 	nodeid = outarg.nodeid;
+ 	pos = outarg.offset;
+-	num = min(outarg.size, MAX_LFS_FILESIZE - pos);
++	num = umin(outarg.size, MAX_LFS_FILESIZE - pos);
+ 
+ 	down_read(&fc->killsb);
+ 
+-- 
+2.53.0
