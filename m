@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA6C304976
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 02:15:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696AC37A85D
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 02:15:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786414556; cv=none; b=E+8mnQK7mgbadnCYa5Ul1MZYs4Fvu2MZMbnJe8TvO5Io3DgiQ5aJeOywFW1Rtec/BszqqalQUqysHYYycBldfZZzB0r5jZaH2DN/Lq6fh+TO95f45npyz57hJpAw+Go5sNXblCTFeiABtJkCXGkVarkScMnCyH+/oydOZNXewng=
+	t=1786414558; cv=none; b=VTeiADUBy5s0rs0C4MVuDvgcLGVZsFVWAFtf8CgqrRUAleVRUVoievPN8nW1Jv8+f3XTL/wQKpw+4+gpD3KSBCc/ezRvh1/tKWVeqxvgPL9QEmgUQRoMUb7RdvVaXR6iqjM5AWcLhZP1pT2A+kaOJbJiNnvfzcFO+JTFxLMVNcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786414556; c=relaxed/simple;
-	bh=UNyXLF5Jc0fa7OF9SVwgn/YQhiAg7QDOIv4uA7ZLmBI=;
+	s=arc-20240116; t=1786414558; c=relaxed/simple;
+	bh=bnu66Rh3u7VIcRCkScvtELIeFMLbizoVtVKOKG8h3Xc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gxjg0pwWhOb7fENNidCUSS5lHBnfAR0YzpeqeBEIDXCTH7HAfNJvxlEeoVelfSvAfLkP+b7rY8XOAB/IhBtFX73ZrSkEjBeXj4S6Ls0J9UQY/qGeRZWQdPlga7hmvzU3mjdTT+Fa1oW2Ulau68DyzZV4yIpI1qd5cXG8y0u/5mI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gLdGPkQI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bU1pSHKkOzheUSkCzzMEO9bBRssVwP0ZyrorOA0djX/bGSE2uCrUHVtQQ6NJP81j5fpyJG4Q7OOWWWIdublnOL1YbHfagrJDd9iL4h4g4YRdqy6HERl46FM7J/nBITMFL6SDkyTsagJeKTDuGlR1O/PDvr9lvpVPcgo67nMHhxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FfZ7Tv7h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gLdGPkQI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F021F00A3F;
-	Tue, 11 Aug 2026 02:15:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FfZ7Tv7h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18061F000E9;
+	Tue, 11 Aug 2026 02:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786414554;
-	bh=sWHmHOoyj3KTc9P4LKk/uvwdr8zoIzDLNDxvu9L5KsQ=;
+	s=k20260515; t=1786414557;
+	bh=ij33ehK4UUa+uJcGEYIH2vL5+vTGVm0jqr2CBb6F9tE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gLdGPkQI4JL/wgMMcSpcU0ujxRTlvp6iRaGEZ/3Eo5NGdqrEQ1yfg5iE4MMpgA/z5
-	 b7yoYg4W/PwXsfTLzuYi+ZizgJZYHH3PUi75IA9dluIP7Y3MkaBW5WlnyOOydf7F5l
-	 545oCWRFcDY0fyp+bmmTMGGf37Qq9Ct67fDu0/D3m3FQuEM+kNNZWwrUyOhzG5ZA1b
-	 sNGeIdgunXERRngAyNbdQ1DmiXCYmA6Srxr1FE9j3I9hLU22fZZXJsCtc9tmRnr3n5
-	 xpJ6w3Ex3RBnhMcWgTrM0cC3yPzhTYVderj5sUiJ2EUNq8oE9YLZZMwfx/9o9Nx4eJ
-	 5qUkEZE9Tvdkg==
+	b=FfZ7Tv7hpGK1NVhAqvPsqJFIvjrrGDVR+S07Q0N+d8V/ekZtzpF2qXBuycV2FX7iN
+	 NN+1M2FRGpJnPVEXTBdg3ZoLD9WQ1XLlDXUL4TrN+sOHDnh/6vqyH3ghZ28IS8jJXj
+	 q8dqbFNo6zdJgLNmqC8BRzR24WyPe1yWwBXlt5Z/BJqy4340ldW/oXU42ia+zrseoS
+	 kwoGZ4bdxlbFgD7p870c4VqfeDkBHLzeWGptu0xz1Okvc9U/D+1X3rwrg7QPpTusD4
+	 eqPsghiKVHO8sm2Riq3LPFZIA9o5amn/pYUJ8AYVcualwxK6ND+aL/1ihJaE5Nq7Dz
+	 dL08SOfyY47AA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Damien Le Moal <dlemoal@kernel.org>,
+Cc: Mark Brown <broonie@kernel.org>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ata: libata-scsi: schedule deferred atapi command
-Date: Mon, 10 Aug 2026 22:15:51 -0400
-Message-ID: <20260811021551.113715-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ASoC: tas2562: Validate values for volume writes
+Date: Mon, 10 Aug 2026 22:15:54 -0400
+Message-ID: <20260811021554.113809-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260811021551.113715-1-sashal@kernel.org>
-References: <2026080550-emerald-confidant-d0ad@gregkh>
- <20260811021551.113715-1-sashal@kernel.org>
+In-Reply-To: <2026080559-motto-posture-14cd@gregkh>
+References: <2026080559-motto-posture-14cd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,59 +45,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Damien Le Moal <dlemoal@kernel.org>
+From: Mark Brown <broonie@kernel.org>
 
-[ Upstream commit e7468b3f9b404ac7c1329ef07c146c3356dfbd01 ]
+[ Upstream commit 8fb41964f7e4e4207c8999af2056894caa7a252a ]
 
-Modify atapi_qc_complete() to call ata_scsi_schedule_deferred_qc() to
-ensure that any deferred queued command can execute. This is similar to
-ata_scsi_qc_complete() function for regular ATA devices.
+tas2562_volume_control_put() does not do any validation of the control
+value written by userspace, it uses it to look up a value in a fixed
+size array which can easily be overflowed and then writes whatever value
+it gets back to the device.  Add validation that we are loading a value
+we have in the array.
 
-Fixes: 0ea84089dbf6 ("ata: libata-scsi: avoid Non-NCQ command starvation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Link: https://patch.msgid.link/20260715-asoc-tas2562-put-retval-v1-1-97bf467c924e@kernel.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/libata-scsi.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/soc/codecs/tas2562.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 4caa8bb75560c..aa456c11ea054 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3002,6 +3002,7 @@ static void atapi_fixup_inquiry(struct scsi_cmnd *cmd)
- 
- static void atapi_qc_complete(struct ata_queued_cmd *qc)
+diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
+index a1cb2d723ea57..ae351bb3c66f8 100644
+--- a/sound/soc/codecs/tas2562.c
++++ b/sound/soc/codecs/tas2562.c
+@@ -473,10 +473,15 @@ static int tas2562_volume_control_put(struct snd_kcontrol *kcontrol,
  {
-+	struct ata_link *link = qc->dev->link;
- 	struct scsi_cmnd *cmd = qc->scsicmd;
- 	unsigned int err_mask = qc->err_mask;
+ 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+ 	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
+-	int ret;
++	int ret, index;
+ 	u32 reg_val;
  
-@@ -3031,12 +3032,12 @@ static void atapi_qc_complete(struct ata_queued_cmd *qc)
- 			ata_scsi_qc_done(qc, false, 0);
- 		else
- 			ata_scsi_qc_done(qc, true, SAM_STAT_CHECK_CONDITION);
--		return;
-+		goto schedule_deferred;
- 	}
- 
- 	if (cmd->result) {
- 		ata_scsi_qc_done(qc, false, 0);
--		return;
-+		goto schedule_deferred;
- 	}
- 
- 	/* successful completion path */
-@@ -3044,6 +3045,9 @@ static void atapi_qc_complete(struct ata_queued_cmd *qc)
- 		atapi_fixup_inquiry(cmd);
- 
- 	ata_scsi_qc_done(qc, true, SAM_STAT_GOOD);
+-	reg_val = float_vol_db_lookup[ucontrol->value.integer.value[0]/2];
++	index = ucontrol->value.integer.value[0] / 2;
++	if (index < 0 || index >= ARRAY_SIZE(float_vol_db_lookup))
++		return -EINVAL;
 +
-+schedule_deferred:
-+	ata_scsi_schedule_deferred_qc(link);
- }
- /**
-  *	atapi_xlat - Initialize PACKET taskfile
++	reg_val = float_vol_db_lookup[index];
++
+ 	/*
+ 	 * The device applies the 32-bit coefficient to the playback path on
+ 	 * the write to DVC_CFG4 (the LSB, book 0 page 2 reg 0x0F), so the
 -- 
 2.53.0
 
