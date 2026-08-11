@@ -1,166 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B1D248893;
-	Tue, 11 Aug 2026 07:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4950D3AE1BC
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 07:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786432692; cv=none; b=VGhMG3eICUd4QMtfksjXdcvmibXJYuzXJl2BPsMIph5tzaj2UmilhF55QHbJEJfUvSBYRL8eSxCFGGRgbnzqmjLpbPn3eoGKp6AvmLdYcFWa0sm3b7bdqy4uts6Vtnc/1FqQQ6FsAccxtklAb6zOuEFoScDeqadq6jiaNuvTy/c=
+	t=1786433336; cv=none; b=YOnU8hWO475eEA0aKKkEotHhNVPCcpvg++cOL8L54OY2KnCnmUtJJX3Qysm/vPxB1KY4utER2khL1+WOImNvZS4uOG4lTKTLSdsalFBfr1rWokXvEHQaKjpDcT8ivNoJWN7ETvTYsNquJIkj30XSEfesyMsvVK21gaCO7nmdBb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786432692; c=relaxed/simple;
-	bh=tXxPLWwxxFS7j1oTmM33mOvpgDFuVpNB/02X0ELQhiY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=CCRrBmZHcx7yDzn6CUgtGEyxRAiDOFcDuuonhoNP2+iQMQ3uCr7yv302HyF4rbR0Yar0FQTrP7T0eqYHk9Em2Z/RqoXlW9D48y8Bc4E4aEvAv1IFwNDaGLRhzB4JahDhPSxLP0HnhZFsLZYkJK+LbrXLM9bkk0dqsWwdYFHXiQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofIUml4r; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786433336; c=relaxed/simple;
+	bh=8EXUz96E7wG5U1YoUA9ESlWFgT1FDI24Ni/grIsQTP4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WDMN594zcD58d7CY9hU3uuOojLxKgS1ChTmD124WabdA5NjG37cpKKn9TIYi5IBdzG/jTw0ePYNLjSqqxvSs5lCwoTMa+PUTiRO6r3wBgdmjloh+OcQEfOQeeE5ay9j4Y/IbcbG9NBkIo9Z+G67Un8va++PKKLrwR0ERWw/sTGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R2QqVsKD; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofIUml4r"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6C270C2BCC7;
-	Tue, 11 Aug 2026 07:18:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786432692;
-	bh=tXxPLWwxxFS7j1oTmM33mOvpgDFuVpNB/02X0ELQhiY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ofIUml4rbLbyDLSBg/QRZUzEIay2e0Krj4djZbastlCujaBXBRt/C9W/M9t+0rDQj
-	 7LuMlffq/TK19H4P4wcNDuAIl84guunZL+MTDv9jVpSG34Pw/SSrXTaYBbl5wn7/t2
-	 WMiksgeU5XI5xAMsRW/z6my057EGc4G8YwrFNp8kTvCrY4Cje7CVOtbjooyorVdI0F
-	 /5T8avtOv5km5uW3ocC+uyrZ/xVwjXF9ZPc+Odf0JuLBNZfgiuYYAN/HMGfJAmsXFB
-	 jOWnxshiSYaBwU9Fsy5rLaTlpZiLd/yfB8bV5MJy9pAKIIV+Jo0EQX+f+/NxC5CP4G
-	 F7WJkG2B/+Ccg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 481C0C5B56D;
-	Tue, 11 Aug 2026 07:18:12 +0000 (UTC)
-From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
-Date: Tue, 11 Aug 2026 15:18:12 +0800
-Subject: [PATCH v2] media: ov5640: select the MIPI lane mode from the
- endpoint lane count
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R2QqVsKD"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4957eefd361so20323155e9.1
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 00:28:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786433333; x=1787038133; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yDP8FL9MuQ0PXH9ggGxLVTnQzIMzeA/Agxw+EtHBOZU=;
+        b=R2QqVsKDGWsIAMzJGwdzO7QNPxbKvRdLr5jwPHJGY8Acoms4jBz2XwCN9VQuAU7BR5
+         cvUljH+YksFNonerLwIN/FeTjNLna8Uv/UuoNDO8+B/N2EYfiWUzWvV8SssQN98qX7Xd
+         2btASV+x7XJH9rQty9JGnhgsr/EKIy+yGfx0vkAx18Sn2vUhjOaZBRdTJ5PU0mG54JKP
+         JXYhStO909iJcebRIWzFN7yiWPnJslFPPjoVNStit0jyu7pdUJuopA67z3aEDr6WPzSO
+         uyPcwrvKzdXUqCz1waRqdzJ37821KH6ffF8dkYpqHl/FjcNIqmrUn3g60XSoJIUDILSC
+         DYbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786433333; x=1787038133;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yDP8FL9MuQ0PXH9ggGxLVTnQzIMzeA/Agxw+EtHBOZU=;
+        b=JC2nf/v8+vwfkZQdOd4LQ+YXzuo1oVi5BMOGhGaTcOpt5P/d5vftDMFUFfl+yopoKN
+         9X9lz3NLgjBmL61yLQqoG4Wh4UOAC87TEE0vc2W97NIREOdD5IVfUPfigPiDxRZDXSya
+         lkgs1uNQisKZMGbQi+TQtJwLG6+uMzKl5opP+ZKKrLd6MkS6NKfs40FlVzVmqJQV52BY
+         fARN85wgTItoPr7kCvepXLXlwqt1mZk6SDGiKP6giWCNCTfcrz5x5vUYbkChNNQBqkmp
+         1nNw/KB8382PvWnNIlJaL3aY4paRhCXAKb2eQqICCgT9dosDJyWib4eGZ5m4rB1KJH11
+         2EkQ==
+X-Gm-Message-State: AOJu0YxuAdv57DuQa0o78LSQFTAulgtA1hW+lxbR5uSVHzlx3ZkOJPgJ
+	fpADDMTXcvgvvyJ4DTB3tOctkgjaJ0CDa5zdUAteCL/+nlJZhQrE7VzY
+X-Gm-Gg: AR+sD10ddsgSP0ItwNqiJ4pDIA4Emfvt6H07x5alhtPU5hS0GEC/GfOn3hXF5+G5T7G
+	Is9fdJsGTexcXRBWMxDjj1yTjA2BOkzsKiQEU2siVXVweHlHsEzqHOIqZaOVgMUGAB8g8xshz/F
+	sT1/ksQA5Xck2jb7dQLmmAih0IY+gZcsJUUSYMAw0BZAf374I6+ZVS0oqA9uu/Bp8XBPV/1yxDJ
+	liVO9RxGulzjH4R93qyQrqeD+CDhwmqRBkKqAKa+o+e2hL1IFM1XlLrUUy69jBTfJji7sgpioYS
+	+qp6gQOU26JWPvaQPmuiRT9daKeni7oWEsX/9Uak9LbPAJFWmzxAHwmtKSmNqNbBO/DCjK0CmYK
+	dfB3rkuXyKjQt0RlEWzWUWxTuTWRTS/F0udZyv/fCYolVpM7Y6cGdmz8xeyyXXUgoIxjaCNyd4E
+	hHflJ9/9j1lvuewU31GYnEimmFqROnIaEJfkunm5pwDduFJo8AZ5YMkrKXwq96q5izXme6eeqOO
+	pVP
+X-Received: by 2002:a05:600c:1381:b0:495:5fdf:2075 with SMTP id 5b1f17b1804b1-499783a9ef4mr21293835e9.0.1786433333391;
+        Tue, 11 Aug 2026 00:28:53 -0700 (PDT)
+Received: from [192.168.10.195] ([188.216.175.96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997415df9asm41374625e9.13.2026.08.11.00.28.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Aug 2026 00:28:52 -0700 (PDT)
+Message-ID: <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
+Date: Tue, 11 Aug 2026 09:28:52 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] Please revert 1191285ecb42 from 7.1.y
+To: Thorsten Leemhuis <regressions@leemhuis.info>,
+ Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ George Zhang <george.zhang@amd.com>
+References: <9c6acb62-4080-48e6-9ba2-d1c457c4ec88@gmail.com>
+ <2026081106-pebbly-cahoots-37a7@gregkh>
+ <23db5f95-c2d6-4712-856e-28f647e184f7@leemhuis.info>
+Content-Language: en-US, it-IT
+From: Sergio Callegari <sergio.callegari@gmail.com>
+In-Reply-To: <23db5f95-c2d6-4712-856e-28f647e184f7@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-ov5640-1lane-v1-v2-1-65205ae86feb@gmail.com>
-X-B4-Tracking: v=1; b=H4sIALPMemoC/3WNzQqDMBCEX0X23JSsP4npqe9RPERddUGTkpTQI
- r57U++FuXwD880OkQJThFuxQ6DEkb3LUF4KGBbrZhI8ZoZSlkq2iMKnRtVS4GodiYSilxNVmmx
- fjy3k1TPQxO/T+OgyLxxfPnzOg4S/9r8rB4U2ypi60QNhdZ83y+t18Bt0x3F8AWjCDCOuAAAA
-To: Steve Longerbeam <slongerbeam@gmail.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Jason Yang <jason98166@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786432691; l=3765;
- i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=pSPMWEyRSJt0POuL6M01PgsQ18cplbbeS6z+IFWiviA=;
- b=XqSudxIf42JvhucWbRVvcpjfnBOHaGx+EKPPtp2skWVGq5T1P8j7mmG4k2YEtBnYSRtOidM6L
- RJBzBm+MFs0CyFWIE0C1bNokzYxGzQPHdaETTdQ+octeB7qForU7vC5
-X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
- pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
-X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
- auth_id=887
-X-Original-From: Jason Yang <jason98166@gmail.com>
-Reply-To: jason98166@gmail.com
 
-From: Jason Yang <jason98166@gmail.com>
+On 11/08/2026 07:24, Thorsten Leemhuis wrote:
+ >
+ > And yes, 6.18.y seems affected, too, according to a comment in the
+ > ticket linked below.
+ >
 
-ov5640_set_stream_mipi() always programs IO_MIPI_CTRL00 with 0x45,
-which selects the two data lane mode: the number of data lanes
-described in the devicetree endpoint only feeds the sensor's clock
-tree computations, so a module wired with one data lane starts
-streaming in two lane mode and the receiver never assembles a
-frame.
+Yes, my bad I only mentioned 7.1.6 to be quick. My actual concern is 
+that the troublesome commit got to the LTS kernels, which I think is the 
+biggest issue right now. People may find their display completely black 
+or almost black as soon as their DE starts. Getting to the conclusion 
+that they need to /reduce/ the brightness to recover is not totally 
+obvious and is not applicable at all if you have a system that is 
+touchscreen only (since you won't be able to see where to press).
 
-Take the lane mode from the endpoint instead. The field encodes
-the lane count directly - 001 for one lane, 010 for two - per the
-current sensor manual (version 2.33). The 2.03 manual documented
-000/001 for one/two lanes; OmniVision corrected the table in
-version 2.1, which is why the long-standing comment here found 001
-unusable for two lanes and validated 010 instead.
+ >> It needs to be reverted in Linus's tree first, otherwise the regression
+ >> will be hit when you update to 7.2.
 
-The power-up path also programs a two data lane mode, but that
-value is overwritten when streaming starts, so it is left alone.
+Indeed, but I think the biggest issue is with the LTS kernels right now.
 
-Tested with a single data lane module on an i.MX8MP board
-(imx-mipi-csis receiver), where the unpatched value produces no
-frames at all, and on an RK3588 board.
+ > Normally I'd agree, but according to one reporter that problem does not
+ > happen with 7.2-rc:
+ > https://gitlab.freedesktop.org/drm/amd/-/work_items/5562#note_3603131
 
-Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jason Yang <jason98166@gmail.com>
-Assisted-by: Claude:claude-opus-5
----
-Changes in v2:
-- Compute the register value from the lane count in the single
-  write instead of branching on it (Sakari Ailus), with the count
-  in a local variable to stay within 80 columns; the programmed
-  values are unchanged, 0x25 for one lane and 0x45 for two.
-- Request a normal stable backport rather than opting out of
-  AUTOSEL (Sakari Ailus).
-- Drop the quotes around the function name in the reference from
-  ov5640_set_power_mipi() (Sakari Ailus).
-- Link to v1: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v1-1-79699457ce13@gmail.com
----
- drivers/media/i2c/ov5640.c | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+I'll see if I can try myself the 7.2 RCn series. From my superficial 
+analysis of the commits that brought us to the current situation, the 
+troublesome commit actually tried to patch on a true issue, namely that 
+the user facing brightness data is not mapped symmetrically to the 
+hardware data, but that the correct solution involves some more thorough 
+rework of the brightness coordinate system. So there may well be some 
+larger activity on it on upstream.
+ >
+ > Given all that I wonder if dropping that commit for now might be the
+ > best move.
 
-diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 8deb5f5501fa..e261461cc2f2 100644
---- a/drivers/media/i2c/ov5640.c
-+++ b/drivers/media/i2c/ov5640.c
-@@ -1826,27 +1826,21 @@ static int ov5640_set_stream_dvp(struct ov5640_dev *sensor, bool on)
- 
- static int ov5640_set_stream_mipi(struct ov5640_dev *sensor, bool on)
- {
-+	u32 num_lanes = sensor->ep.bus.mipi_csi2.num_data_lanes;
- 	int ret;
- 
- 	/*
- 	 * Enable/disable the MIPI interface
- 	 *
--	 * 0x300e = on ? 0x45 : 0x40
--	 *
--	 * FIXME: the sensor manual (version 2.03) reports
--	 * [7:5] = 000  : 1 data lane mode
--	 * [7:5] = 001  : 2 data lanes mode
--	 * But this settings do not work, while the following ones
--	 * have been validated for 2 data lanes mode.
--	 *
--	 * [7:5] = 010	: 2 data lanes mode
-+	 * [7:5]	: data lane count, 001 for one lane and 010 for two,
-+	 *		  per version 2.33 of the sensor manual
- 	 * [4] = 0	: Power up MIPI HS Tx
- 	 * [3] = 0	: Power up MIPI LS Rx
- 	 * [2] = 1/0	: MIPI interface enable/disable
- 	 * [1:0] = 01/00: FIXME: 'debug'
- 	 */
- 	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
--			       on ? 0x45 : 0x40);
-+			       on ? 0x05 | num_lanes << 5 : 0x40);
- 	if (ret)
- 		return ret;
- 
-@@ -2535,8 +2529,8 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
- 	 * Power up MIPI HS Tx and LS Rx; 2 data lanes mode
- 	 *
- 	 * 0x300e = 0x40
--	 * [7:5] = 010	: 2 data lanes mode (see FIXME note in
--	 *		  "ov5640_set_stream_mipi()")
-+	 * [7:5] = 010	: 2 data lanes mode (see the note in
-+	 *		  ov5640_set_stream_mipi())
- 	 * [4] = 0	: Power up MIPI HS Tx
- 	 * [3] = 0	: Power up MIPI LS Rx
- 	 * [2] = 1	: MIPI interface enabled
+Personally, I think that dropping on the stable series would be 
+beneficial, unless upstream can now offer a correct solution to pick. 
+Behavior you get by dropping is not 100% ideal but certainly not as bad 
+as what you get with the problematic commit.
 
----
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-change-id: 20260811-ov5640-1lane-v1-b0fe37eab4d8
-
-Best regards,
--- 
-Jason Yang <jason98166@gmail.com>
-
-
+Best,
+Sergio
