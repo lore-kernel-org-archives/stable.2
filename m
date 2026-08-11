@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7233DF01C
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 18:56:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892363D9025
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 18:56:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786474586; cv=none; b=ZD71vIQ/8u/o1NoTL3a1VU0kDM65rzKNkxWBcoaKNEFSbbP0IXUSztxZPXwkN12moOsJ6ighkKWwmgH4PEJZPDx9oWMt4H2hR9aSIzCLZDcMrpmDIgwVNM3QTPgFFmh6Yq5uQGAWhuNzQ9dYtEQldSxMoeWNyhE0wZcMTLg1Fzw=
+	t=1786474587; cv=none; b=E+bqzD7Go1aBWgwcRua/DteGn9D0/lPALsnDhvwuwJ6keoTuszYH8g4RgnUjMo4UVYrWONCgrZA/+yf//He3BYmaiN77h2uK3YwlFRmT2ZMjSUjBCiAnG/L7LEquoVuuSM9oXwPw6UFOv9Bf5rRLBRUKXk/svWuwnlpFS7z2Gqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786474586; c=relaxed/simple;
-	bh=Zcn6oKeOW/fFzkZ0r3IV3ic3pGZ9EVcVpdJxF1FhrQw=;
+	s=arc-20240116; t=1786474587; c=relaxed/simple;
+	bh=ZI2l81BDYXAEYeaPRyov3FyY87aPSy3JIg+v+lAn2XY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qArkqsX+ZaDHkHjGWmXb6f21vs74Y0Q3k83hULMWQvXUVwTUz31q2ZfMmCKghy/vYQ2ROM3JZme+SfsjVgwO0HDHKty5rbpP/KMSj5l8Ed76e1Jw4PA9FIojPv2nAvPfRBruiab25mPrgvKpmMtzZDktvCxm4dRjONJXhm+k3s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajKBEKLI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=goEHz/PiwU4dM0ZE7g5P2/H8LKos41XbbiDTiO2pw/zSJlBbDp6bYPeZLOVZIjGPuMmTqYeSlbQUH+5ejIK7fbOA3WlK/3QpId6g72FVkf6XBcjBFeNtPlwMqO1gUKXphFEiRpiDvdRUcMpmyKLx4e9bqrD/AThdMIPydeieAPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnsWGkY5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajKBEKLI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 809B31F00A3A;
-	Tue, 11 Aug 2026 18:56:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnsWGkY5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6960C1F00A3E;
+	Tue, 11 Aug 2026 18:56:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786474584;
-	bh=4k64NTLv6t48jyePZxrrq2sewwidHc07SigzM6svhfY=;
+	s=k20260515; t=1786474585;
+	bh=lG95m8BOfxLPIko0tsrX+vGiecapphH+RM9ucfa04f8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ajKBEKLI2Adzibg5w17zBjIOmQN6bREr3JSwgsno4u0dzc/KUIRZUe7xUMXJyiq/0
-	 nSYGuev5Vdzp8ogHLznmopqzR7PLZFGSofBs4sxSZoFmC7eyttnAJOs+UUHnl93ryA
-	 jcc9e8aRjUXKslGh4awM8rtDdJYSJQQ9Sdpv/KIE4MywyyrfgSqlMEVBw2ir/7NbG0
-	 NlLnAYo4ifWaZOhImBh34DYh+avSCJo0x+ghssIEDEK1h8JQSkp1bajh8F/X9WLblP
-	 EtP4Xo0tpmGrrjaK1zpL2Do8PCtu/sMfiO1g+5kO8q3XsXMTjPMsU4oC7x8gHlvpHb
-	 mRRch6iJ4YrVA==
+	b=AnsWGkY5hWyFBGFhNUSf9PBQPfKwWLsTtbOlqgeZPR0RMdDg76Apg7/zw/Xk3CVbb
+	 r6ovR33QGQQBPc67pSh3zct+48JYni1ynYest+w5hcwiE6x0bA/6sS+gNU8aubi9uU
+	 56Gg/imUFMsCh5YqetzTJL5j7JpN9Fa9f+j8LJdvyHT/w3eaE1FClzOdDeBQhhyuJ1
+	 8EdtAKdv9VtOk53f6nRq/pcVLWF9HkxaZReyfQf41zcXqHDBdfv+pBihNdk4xTCmIH
+	 8pTupqvGbBR5H5BBW8Buqp82Ba8ZRVqpFYShdy5Km3DOTJa5HE/NZxlyc8lfWYOdI0
+	 hLpNPLLs5Tyyg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Amir Goldstein <amir73il@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
+	Christian Brauner <brauner@kernel.org>,
 	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] fsnotify: opt-in for permission events at file open time
-Date: Tue, 11 Aug 2026 14:56:17 -0400
-Message-ID: <20260811185619.3386946-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] fs: don't block write during exec on pre-content watched files
+Date: Tue, 11 Aug 2026 14:56:18 -0400
+Message-ID: <20260811185619.3386946-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260811185619.3386946-1-sashal@kernel.org>
 References: <2026080511-putdown-richly-6ef6@gregkh>
@@ -49,274 +49,204 @@ Content-Transfer-Encoding: 8bit
 
 From: Amir Goldstein <amir73il@gmail.com>
 
-[ Upstream commit a94204f4d48e28a711b7ed10399f749286c433e3 ]
+[ Upstream commit 0357ef03c94ef835bd44a0658b8edb672a9dbf51 ]
 
-Legacy inotify/fanotify listeners can add watches for events on inode,
-parent or mount and expect to get events (e.g. FS_MODIFY) on files that
-were already open at the time of setting up the watches.
+Commit 2a010c412853 ("fs: don't block i_writecount during exec") removed
+the legacy behavior of getting ETXTBSY on attempt to open and executable
+file for write while it is being executed.
 
-fanotify permission events are typically used by Anti-malware sofware,
-that is watching the entire mount and it is not common to have more that
-one Anti-malware engine installed on a system.
+This commit was reverted because an application that depends on this
+legacy behavior was broken by the change.
 
-To reduce the overhead of the fsnotify_file_perm() hooks on every file
-access, relax the semantics of the legacy FAN_ACCESS_PERM event to generate
-events only if there were *any* permission event listeners on the
-filesystem at the time that the file was opened.
+We need to allow HSM writing into executable files while executed to
+fill their content on-the-fly.
 
-The new semantic is implemented by extending the FMODE_NONOTIFY bit into
-two FMODE_NONOTIFY_* bits, that are used to store a mode for which of the
-events types to report.
+To that end, disable the ETXTBSY legacy behavior for files that are
+watched by pre-content events.
 
-This is going to apply to the new fanotify pre-content events in order
-to reduce the cost of the new pre-content event vfs hooks.
+This change is not expected to cause regressions with existing systems
+which do not have any pre-content event listeners.
 
-[Thanks to Bert Karwatzki <spasswolf@web.de> for reporting a bug in this
-code with CONFIG_FANOTIFY_ACCESS_PERMISSIONS disabled]
-
-Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-Link: https://lore.kernel.org/linux-fsdevel/CAHk-=wj8L=mtcRTi=NECHMGfZQgXOp_uix1YVh04fEmrKaMnXA@mail.gmail.com/
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Acked-by: Christian Brauner <brauner@kernel.org>
 Signed-off-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/5ea5f8e283d1edb55aa79c35187bfe344056af14.1731684329.git.josef@toxicpanda.com
+Link: https://patch.msgid.link/20241128142532.465176-1-amir73il@gmail.com
 Stable-dep-of: db1856ea9196 ("binfmt_misc: restore write access when removing an entry")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/notify/fsnotify.c     | 38 +++++++++++++++++++++++++++++++++++
- fs/open.c                |  8 +++++++-
- include/linux/fs.h       | 43 +++++++++++++++++++++++++++++++++++-----
- include/linux/fsnotify.h | 39 +++++++++++++++++++++---------------
- 4 files changed, 106 insertions(+), 22 deletions(-)
+ fs/binfmt_elf.c       |  4 ++--
+ fs/binfmt_elf_fdpic.c |  4 ++--
+ fs/exec.c             |  8 ++++----
+ include/linux/fs.h    | 22 ++++++++++++++++++++++
+ kernel/fork.c         | 12 ++++++------
+ 5 files changed, 36 insertions(+), 14 deletions(-)
 
-diff --git a/fs/notify/fsnotify.c b/fs/notify/fsnotify.c
-index f9b58a201fa3b..528249a3a5c17 100644
---- a/fs/notify/fsnotify.c
-+++ b/fs/notify/fsnotify.c
-@@ -630,6 +630,44 @@ int fsnotify(__u32 mask, const void *data, int data_type, struct inode *dir,
- }
- EXPORT_SYMBOL_GPL(fsnotify);
+diff --git a/fs/binfmt_elf.c b/fs/binfmt_elf.c
+index 47335a0f4a618..0984ec63f6d78 100644
+--- a/fs/binfmt_elf.c
++++ b/fs/binfmt_elf.c
+@@ -1257,7 +1257,7 @@ static int load_elf_binary(struct linux_binprm *bprm)
+ 		}
+ 		reloc_func_desc = interp_load_addr;
  
-+#ifdef CONFIG_FANOTIFY_ACCESS_PERMISSIONS
-+/*
-+ * At open time we check fsnotify_sb_has_priority_watchers() and set the
-+ * FMODE_NONOTIFY_ mode bits accordignly.
-+ * Later, fsnotify permission hooks do not check if there are permission event
-+ * watches, but that there were permission event watches at open time.
-+ */
-+void file_set_fsnotify_mode(struct file *file)
-+{
-+	struct super_block *sb = file->f_path.dentry->d_sb;
-+
-+	/* Is it a file opened by fanotify? */
-+	if (FMODE_FSNOTIFY_NONE(file->f_mode))
-+		return;
-+
-+	/*
-+	 * Permission events is a super set of pre-content events, so if there
-+	 * are no permission event watchers, there are also no pre-content event
-+	 * watchers and this is implied from the single FMODE_NONOTIFY_PERM bit.
-+	 */
-+	if (likely(!fsnotify_sb_has_priority_watchers(sb,
-+						FSNOTIFY_PRIO_CONTENT))) {
-+		file->f_mode |= FMODE_NONOTIFY_PERM;
-+		return;
-+	}
-+
-+	/*
-+	 * If there are permission event watchers but no pre-content event
-+	 * watchers, set FMODE_NONOTIFY | FMODE_NONOTIFY_PERM to indicate that.
-+	 */
-+	if (likely(!fsnotify_sb_has_priority_watchers(sb,
-+						FSNOTIFY_PRIO_PRE_CONTENT))) {
-+		file->f_mode |= FMODE_NONOTIFY | FMODE_NONOTIFY_PERM;
-+		return;
-+	}
-+}
-+#endif
-+
- static __init int fsnotify_init(void)
- {
- 	int ret;
-diff --git a/fs/open.c b/fs/open.c
-index 031a78d138ecb..c591da3cb922f 100644
---- a/fs/open.c
-+++ b/fs/open.c
-@@ -912,7 +912,7 @@ static int do_dentry_open(struct file *f,
- 	f->f_sb_err = file_sample_sb_err(f);
+-		allow_write_access(interpreter);
++		exe_file_allow_write_access(interpreter);
+ 		fput(interpreter);
  
- 	if (unlikely(f->f_flags & O_PATH)) {
--		f->f_mode = FMODE_PATH | FMODE_OPENED;
-+		f->f_mode = FMODE_PATH | FMODE_OPENED | FMODE_NONOTIFY;
- 		f->f_op = &empty_fops;
- 		return 0;
+ 		kfree(interp_elf_ex);
+@@ -1371,7 +1371,7 @@ static int load_elf_binary(struct linux_binprm *bprm)
+ 	kfree(interp_elf_ex);
+ 	kfree(interp_elf_phdata);
+ out_free_file:
+-	allow_write_access(interpreter);
++	exe_file_allow_write_access(interpreter);
+ 	if (interpreter)
+ 		fput(interpreter);
+ out_free_ph:
+diff --git a/fs/binfmt_elf_fdpic.c b/fs/binfmt_elf_fdpic.c
+index 0a18471adcb20..32b6ddb327dbc 100644
+--- a/fs/binfmt_elf_fdpic.c
++++ b/fs/binfmt_elf_fdpic.c
+@@ -398,7 +398,7 @@ static int load_elf_fdpic_binary(struct linux_binprm *bprm)
+ 			goto error;
+ 		}
+ 
+-		allow_write_access(interpreter);
++		exe_file_allow_write_access(interpreter);
+ 		fput(interpreter);
+ 		interpreter = NULL;
  	}
-@@ -940,6 +940,12 @@ static int do_dentry_open(struct file *f,
- 	if (error)
- 		goto cleanup_all;
+@@ -471,7 +471,7 @@ static int load_elf_fdpic_binary(struct linux_binprm *bprm)
  
-+	/*
-+	 * Set FMODE_NONOTIFY_* bits according to existing permission watches.
-+	 * If FMODE_NONOTIFY was already set for an fanotify fd, this doesn't
-+	 * change anything.
-+	 */
-+	file_set_fsnotify_mode(f);
- 	error = fsnotify_open_perm(f);
- 	if (error)
- 		goto cleanup_all;
+ error:
+ 	if (interpreter) {
+-		allow_write_access(interpreter);
++		exe_file_allow_write_access(interpreter);
+ 		fput(interpreter);
+ 	}
+ 	kfree(interpreter_name);
+diff --git a/fs/exec.c b/fs/exec.c
+index 20e165d48d3bf..8d9775e15cd2c 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -912,7 +912,7 @@ static struct file *do_open_execat(int fd, struct filename *name, int flags)
+ 	    path_noexec(&file->f_path))
+ 		return ERR_PTR(-EACCES);
+ 
+-	err = deny_write_access(file);
++	err = exe_file_deny_write_access(file);
+ 	if (err)
+ 		return ERR_PTR(err);
+ 
+@@ -927,7 +927,7 @@ static struct file *do_open_execat(int fd, struct filename *name, int flags)
+  * Returns ERR_PTR on failure or allocated struct file on success.
+  *
+  * As this is a wrapper for the internal do_open_execat(), callers
+- * must call allow_write_access() before fput() on release. Also see
++ * must call exe_file_allow_write_access() before fput() on release. Also see
+  * do_close_execat().
+  */
+ struct file *open_exec(const char *name)
+@@ -1501,7 +1501,7 @@ static void do_close_execat(struct file *file)
+ {
+ 	if (!file)
+ 		return;
+-	allow_write_access(file);
++	exe_file_allow_write_access(file);
+ 	fput(file);
+ }
+ 
+@@ -1835,7 +1835,7 @@ static int exec_binprm(struct linux_binprm *bprm)
+ 		bprm->file = bprm->interpreter;
+ 		bprm->interpreter = NULL;
+ 
+-		allow_write_access(exec);
++		exe_file_allow_write_access(exec);
+ 		if (unlikely(bprm->have_execfd)) {
+ 			if (bprm->executable) {
+ 				fput(exec);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 466a76771b0a1..faa55abdef0a5 100644
+index faa55abdef0a5..d6eb2281a065c 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -171,13 +171,20 @@ typedef int (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
- 
- #define	FMODE_NOREUSE		((__force fmode_t)(1 << 23))
- 
--/* FMODE_* bit 24 */
--
- /* File is embedded in backing_file object */
--#define FMODE_BACKING		((__force fmode_t)(1 << 25))
-+#define FMODE_BACKING		((__force fmode_t)(1 << 24))
+@@ -3085,6 +3085,28 @@ static inline void allow_write_access(struct file *file)
+ 	if (file)
+ 		atomic_inc(&file_inode(file)->i_writecount);
+ }
 +
 +/*
-+ * Together with FMODE_NONOTIFY_PERM defines which fsnotify events shouldn't be
-+ * generated (see below)
-+ */
-+#define FMODE_NONOTIFY		((__force fmode_t)(1 << 25))
- 
--/* File was opened by fanotify and shouldn't generate fanotify events */
--#define FMODE_NONOTIFY		((__force fmode_t)(1 << 26))
-+/*
-+ * Together with FMODE_NONOTIFY defines which fsnotify events shouldn't be
-+ * generated (see below)
-+ */
-+#define FMODE_NONOTIFY_PERM	((__force fmode_t)(1 << 26))
- 
- /* File is capable of returning -EAGAIN if I/O will block */
- #define FMODE_NOWAIT		((__force fmode_t)(1 << 27))
-@@ -188,6 +195,32 @@ typedef int (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
- /* File does not contribute to nr_files count */
- #define FMODE_NOACCOUNT		((__force fmode_t)(1 << 29))
- 
-+/*
-+ * The two FMODE_NONOTIFY* define which fsnotify events should not be generated
-+ * for a file. These are the possible values of (f->f_mode &
-+ * FMODE_FSNOTIFY_MASK) and their meaning:
++ * Do not prevent write to executable file when watched by pre-content events.
 + *
-+ * FMODE_NONOTIFY - suppress all (incl. non-permission) events.
-+ * FMODE_NONOTIFY_PERM - suppress permission (incl. pre-content) events.
-+ * FMODE_NONOTIFY | FMODE_NONOTIFY_PERM - suppress only pre-content events.
++ * Note that FMODE_FSNOTIFY_HSM mode is set depending on pre-content watches at
++ * the time of file open and remains constant for entire lifetime of the file,
++ * so if pre-content watches are added post execution or removed before the end
++ * of the execution, it will not cause i_writecount reference leak.
 + */
-+#define FMODE_FSNOTIFY_MASK \
-+	(FMODE_NONOTIFY | FMODE_NONOTIFY_PERM)
-+
-+#define FMODE_FSNOTIFY_NONE(mode) \
-+	((mode & FMODE_FSNOTIFY_MASK) == FMODE_NONOTIFY)
-+#ifdef CONFIG_FANOTIFY_ACCESS_PERMISSIONS
-+#define FMODE_FSNOTIFY_PERM(mode) \
-+	((mode & FMODE_FSNOTIFY_MASK) == 0 || \
-+	 (mode & FMODE_FSNOTIFY_MASK) == (FMODE_NONOTIFY | FMODE_NONOTIFY_PERM))
-+#define FMODE_FSNOTIFY_HSM(mode) \
-+	((mode & FMODE_FSNOTIFY_MASK) == 0)
-+#else
-+#define FMODE_FSNOTIFY_PERM(mode)	0
-+#define FMODE_FSNOTIFY_HSM(mode)	0
-+#endif
-+
-+
- /*
-  * Attribute flags.  These should be or-ed together to figure out what
-  * has been changed!
-diff --git a/include/linux/fsnotify.h b/include/linux/fsnotify.h
-index 278620e063ab2..8d1849137a96d 100644
---- a/include/linux/fsnotify.h
-+++ b/include/linux/fsnotify.h
-@@ -108,38 +108,35 @@ static inline void fsnotify_dentry(struct dentry *dentry, __u32 mask)
- 	fsnotify_parent(dentry, mask, dentry, FSNOTIFY_EVENT_DENTRY);
- }
- 
--static inline int fsnotify_file(struct file *file, __u32 mask)
-+static inline int fsnotify_path(const struct path *path, __u32 mask)
- {
--	const struct path *path;
-+	return fsnotify_parent(path->dentry, mask, path, FSNOTIFY_EVENT_PATH);
-+}
- 
-+static inline int fsnotify_file(struct file *file, __u32 mask)
++static inline int exe_file_deny_write_access(struct file *exe_file)
 +{
- 	/*
- 	 * FMODE_NONOTIFY are fds generated by fanotify itself which should not
- 	 * generate new events. We also don't want to generate events for
- 	 * FMODE_PATH fds (involves open & close events) as they are just
- 	 * handle creation / destruction events and not "real" file events.
++	if (unlikely(FMODE_FSNOTIFY_HSM(exe_file->f_mode)))
++		return 0;
++	return deny_write_access(exe_file);
++}
++static inline void exe_file_allow_write_access(struct file *exe_file)
++{
++	if (unlikely(!exe_file || FMODE_FSNOTIFY_HSM(exe_file->f_mode)))
++		return;
++	allow_write_access(exe_file);
++}
++
+ static inline bool inode_is_open_for_write(const struct inode *inode)
+ {
+ 	return atomic_read(&inode->i_writecount) > 0;
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 2b7577edffa2d..c0ecb097aa1d2 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -627,8 +627,8 @@ static void dup_mm_exe_file(struct mm_struct *mm, struct mm_struct *oldmm)
+ 	 * We depend on the oldmm having properly denied write access to the
+ 	 * exe_file already.
  	 */
--	if (file->f_mode & (FMODE_NONOTIFY | FMODE_PATH))
-+	if (FMODE_FSNOTIFY_NONE(file->f_mode))
- 		return 0;
- 
--	path = &file->f_path;
--	/* Permission events require group prio >= FSNOTIFY_PRIO_CONTENT */
--	if (mask & ALL_FSNOTIFY_PERM_EVENTS &&
--	    !fsnotify_sb_has_priority_watchers(path->dentry->d_sb,
--					       FSNOTIFY_PRIO_CONTENT))
--		return 0;
--
--	return fsnotify_parent(path->dentry, mask, path, FSNOTIFY_EVENT_PATH);
-+	return fsnotify_path(&file->f_path, mask);
+-	if (exe_file && deny_write_access(exe_file))
+-		pr_warn_once("deny_write_access() failed in %s\n", __func__);
++	if (exe_file && exe_file_deny_write_access(exe_file))
++		pr_warn_once("exe_file_deny_write_access() failed in %s\n", __func__);
  }
  
- #ifdef CONFIG_FANOTIFY_ACCESS_PERMISSIONS
-+
-+void file_set_fsnotify_mode(struct file *file);
-+
- /*
-  * fsnotify_file_area_perm - permission hook before access to file range
-  */
- static inline int fsnotify_file_area_perm(struct file *file, int perm_mask,
- 					  const loff_t *ppos, size_t count)
- {
--	__u32 fsnotify_mask = FS_ACCESS_PERM;
--
- 	/*
- 	 * filesystem may be modified in the context of permission events
- 	 * (e.g. by HSM filling a file on access), so sb freeze protection
-@@ -150,7 +147,10 @@ static inline int fsnotify_file_area_perm(struct file *file, int perm_mask,
- 	if (!(perm_mask & MAY_READ))
- 		return 0;
- 
--	return fsnotify_file(file, fsnotify_mask);
-+	if (likely(!FMODE_FSNOTIFY_PERM(file->f_mode)))
-+		return 0;
-+
-+	return fsnotify_path(&file->f_path, FS_ACCESS_PERM);
- }
- 
- /*
-@@ -168,16 +168,23 @@ static inline int fsnotify_open_perm(struct file *file)
- {
- 	int ret;
- 
-+	if (likely(!FMODE_FSNOTIFY_PERM(file->f_mode)))
-+		return 0;
-+
- 	if (file->f_flags & __FMODE_EXEC) {
--		ret = fsnotify_file(file, FS_OPEN_EXEC_PERM);
-+		ret = fsnotify_path(&file->f_path, FS_OPEN_EXEC_PERM);
- 		if (ret)
+ #ifdef CONFIG_MMU
+@@ -1439,13 +1439,13 @@ int set_mm_exe_file(struct mm_struct *mm, struct file *new_exe_file)
+ 		 * We expect the caller (i.e., sys_execve) to already denied
+ 		 * write access, so this is unlikely to fail.
+ 		 */
+-		if (unlikely(deny_write_access(new_exe_file)))
++		if (unlikely(exe_file_deny_write_access(new_exe_file)))
+ 			return -EACCES;
+ 		get_file(new_exe_file);
+ 	}
+ 	rcu_assign_pointer(mm->exe_file, new_exe_file);
+ 	if (old_exe_file) {
+-		allow_write_access(old_exe_file);
++		exe_file_allow_write_access(old_exe_file);
+ 		fput(old_exe_file);
+ 	}
+ 	return 0;
+@@ -1486,7 +1486,7 @@ int replace_mm_exe_file(struct mm_struct *mm, struct file *new_exe_file)
  			return ret;
  	}
  
--	return fsnotify_file(file, FS_OPEN_PERM);
-+	return fsnotify_path(&file->f_path, FS_OPEN_PERM);
- }
+-	ret = deny_write_access(new_exe_file);
++	ret = exe_file_deny_write_access(new_exe_file);
+ 	if (ret)
+ 		return -EACCES;
+ 	get_file(new_exe_file);
+@@ -1498,7 +1498,7 @@ int replace_mm_exe_file(struct mm_struct *mm, struct file *new_exe_file)
+ 	mmap_write_unlock(mm);
  
- #else
-+static inline void file_set_fsnotify_mode(struct file *file)
-+{
-+}
-+
- static inline int fsnotify_file_area_perm(struct file *file, int perm_mask,
- 					  const loff_t *ppos, size_t count)
- {
+ 	if (old_exe_file) {
+-		allow_write_access(old_exe_file);
++		exe_file_allow_write_access(old_exe_file);
+ 		fput(old_exe_file);
+ 	}
+ 	return 0;
 -- 
 2.53.0
 
