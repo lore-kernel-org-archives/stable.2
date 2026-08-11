@@ -1,118 +1,117 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74E125392A;
-	Tue, 11 Aug 2026 15:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20153AAF54;
+	Tue, 11 Aug 2026 15:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786463630; cv=none; b=UVXAMvweyqDGRJ4ed1p35YOxCu2wL53mk2zih+s02mEdeeza9VRJ1SuXcVB7B8YQdJMVMoOS1lvwbKd6AYMgBOC+6dSeL0LN50oMncndmZyMj46YV93ufxEGvzbGSVTDZ4ajE0dmDfwJOeWyMsI/SZBTtb2Lh/NvhPbob2dlsR8=
+	t=1786463803; cv=none; b=gIf34Pu5YW3vbR+7e2y37oGFN37A97hCYP3fmPOXXZGXeRIWiDf8y21zc2XPmJWoj51uoCQHntwbGYiGVWUbFzRINDdjX5smzQgzYPh4WJhwlaCfcJ1GG8COkeUVUqo64krfudwvxWG8sy0Xyyfmcge2OljDOBbkEunuJVC9jO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786463630; c=relaxed/simple;
-	bh=grQ2k+Z7764O6Zh+3TYZ3mXF7+2RAMOFPi6sTQuhZOk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QC0TbEdEUnPvN6rl8g2T41HwZqOcY/OfWDzD615xelwYjL6NvmeMKUlSqjvUWa366FeAnc7TJd6v7iNYwr0NT53qfIAcS+NITWzT+iQWW0baNk8q8JGGAUmDw6C/RICMmGlNSkfQiQiW3gHyQKdFaViUGoAACJ0VBKgvUmpxin8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=MR2HUg8J; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786463803; c=relaxed/simple;
+	bh=WrrRLj75rY4yiM2BByxRB0PLnCPuLb2NaC62bEEr33U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ea5fNb+w4lSqV+uZ4PV7C4Yi0GMjzKM73zq+sSGB5c5Lg5NtWtf+ICoGR9ckcKR25RVjmFsS/nQqd2B0EN1O63pNSjpzhTT1exVDtD1RHWZ4L3J7Q+Nd2oYenk7K+50hraw7EhaE82+SSNm7/DKjVcrdnRsow6P46jHYvxgglIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oxMhnriF; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="MR2HUg8J"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BDWVY6537676;
-	Tue, 11 Aug 2026 15:53:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=grQ2k+
-	Z7764O6Zh+3TYZ3mXF7+2RAMOFPi6sTQuhZOk=; b=MR2HUg8JHTsls+L33UYwYH
-	MeBgbotE4Acmv5fPZW8PTMbDN3D83GzK1oFsoscx0gp7vcuSwquSi+mn1eH64ZtW
-	5LEpS0DE/6XEncRZIQvD55C9dNF24pS0/xlq6doRrk1vYfiDUIYnQx2KEqJz+pvW
-	fLrJM8O4E1odBJi2mi4661n0o/39prRuBnLHLE43RyIyWJ1Um2OKneBjFyPXLM10
-	RDGWS2Greq8CJi6MU0Iy8Q0GpFle52vVJH+iN31bJ3r98SrS1eA4a7ziqJ/6OzYw
-	VTl+zHKmGx1OryOIII/MpnJayadVh6gQIqJp1T7K12JgFMJ57QlUbs9UvaFgCJlA
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvm9nter-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 11 Aug 2026 15:53:38 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67BFfcL4029658;
-	Tue, 11 Aug 2026 15:53:37 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fxhfy1cun-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 11 Aug 2026 15:53:37 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67BFraje16122542
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 11 Aug 2026 15:53:36 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8A4C058054;
-	Tue, 11 Aug 2026 15:53:36 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E5B0A58050;
-	Tue, 11 Aug 2026 15:53:34 +0000 (GMT)
-Received: from [9.61.146.44] (unknown [9.61.146.44])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 11 Aug 2026 15:53:34 +0000 (GMT)
-Message-ID: <33613f31-5e5e-4f5f-b1d6-5491459112c0@linux.ibm.com>
-Date: Tue, 11 Aug 2026 11:53:34 -0400
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oxMhnriF"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BD86B1A1568;
+	Tue, 11 Aug 2026 15:56:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 886F46033C;
+	Tue, 11 Aug 2026 15:56:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D713F11C48F35;
+	Tue, 11 Aug 2026 17:56:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1786463792; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=sUAApDZy3TlhNssmNMcIyrNULeU6ZVOdmp1OkjzAjKo=;
+	b=oxMhnriFxidKy7FBTEfY3kg0UBi9PtHQY6bNLRlOisFm6gPyq0htsBUXu25gLORpFEEsGS
+	UUezthrqAQtAkI9mGsEwqeykCp1l5G8Gy9jnzRUQrdKZEtvbbFQS3tziAYDFt/4yH/zwT+
+	EOKfSeGCvAck19dB9/rjCdB8aKhIh9nfhQP/QHb0/EPdhQTLsM/C0xtUq33uxkPY7c2E9J
+	i3HhHL7p25hLZC5/AZAWDGEcQypQ+h942TFKQCV/8dUsflb6Jjuuz7lQUXtGFOWU6FXDKW
+	LieqxAM3uTQiCdSFFZ1EIo5ywRuGVuHF8AuZJ1GXAgVY2cQT8YLnaNcQdFQ7Jg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Tue, 11 Aug 2026 17:56:23 +0200
+Subject: [PATCH] mtd: spi-nor: Unprepare legacy controllers upon RWW wait
+ interruption
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] s390/vfio-ap: Fix dereference matrix_mdev->kvm
- without checking for NULL
-To: Anthony Krowiak <akrowiak@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
-        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
-        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
-        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
-        stable@vger.kernel.org
-References: <20260810192257.1208410-1-akrowiak@linux.ibm.com>
- <20260810192257.1208410-3-akrowiak@linux.ibm.com>
-Content-Language: en-US
-From: Matthew Rosato <mjrosato@linux.ibm.com>
-In-Reply-To: <20260810192257.1208410-3-akrowiak@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDEzMCBTYWx0ZWRfX+pnRg91h1ukL
- 5YkDaZ0CiHlInWm+KLBAZOo5FZANYvjhQyCSloeCK6psUqUbGNphLlK2oyCYbmsoumwWtTppPiO
- tvjnWFw8lHofcvdDStNsw0egjSJ4PSVodD2+Oh5WCnRSZ3T2HWaPS+7hPQsWV+dwxlWNEWVEyAP
- 51OsRQWtSv8wur1CDAaUqMbuaFqfbOOX4CBebIWwGbvQpsE3L8PProji3EGgf/fpuRbI7dpQrT8
- nE+qAOFmEvh+w42qDbzMZXhNL251QGmXgRLJgtW/EjK5KJUpyYrdlrwl9K274PeHUL4Q6n93Gtj
- BY4NAtwJDzG7KE3TR+1uu/22I0wnGhdRcBlpSUDjdSc0kQpMa2I7ZeEEzHIMZjvJXPt8sTLE/+l
- m3Iia8VKHSd1Km6+SWo9bMG834gatYpgKwZfcL6F/1fZIcKBBfk/4GVwxj+ZncsRWAMahULN0K8
- 8UKDtLJkOm9eHyBomCg==
-X-Proofpoint-ORIG-GUID: ppDUa8o7ET9MF19tF0t0vUUAIgkLWnsm
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDEzMCBTYWx0ZWRfXxPdrUvApL1Va
- M3pX6qGX2iOKRtRReA6l88AuhtOQiBaNOw+pGE1suIw9PwNgtjM7CoPz8U+PFOrcysOnxRj3Gwh
- 4eeD56Ml8Kf7KgZrYVr8C25NpO9mvQU=
-X-Authority-Analysis: v=2.4 cv=IfK3n2qa c=1 sm=1 tr=0 ts=6a7b4582 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=sEJQHw-XGmbjtyPYZvMA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: ppDUa8o7ET9MF19tF0t0vUUAIgkLWnsm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-11_03,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 adultscore=0 malwarescore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110130
+Message-Id: <20260811-perso-rww-fixes-v1-1-5866a70e5d1c@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3LSwqAMAwA0atI1gbaIvVzFXEhbdRs2pKACuLdL
+ S4fwzygJEwKU/OA0MnKOVXYtoFwrGkn5FgNzjhvBmuxkGhGuS7c+CZFY32I0bnRdz3Uqwj9oU7
+ z8r4fI5qHn2EAAAA=
+X-Change-ID: 20260811-perso-rww-fixes-016cdd229647
+To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 8/10/26 3:22 PM, Anthony Krowiak wrote:
-> The ap_driver structure has two fields which are function pointers to
-> callbacks:
+All the parallel locking helpers (spi_nor_prep_and_lock(),
+spi_nor_prep_and_lock_pe() and spi_nor_prep_and_lock_rd()) call
+spi_nor_prep() then wait with a killable sleep. If the sleep gets
+killed, we leave the controller in its prepared state.
 
-...
+Call ->unprepare() in these cases.
 
-> Fixes: eeb386aeb5b7c ("s390/vfio-ap: handle config changed and scan complete notification")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Fixes: 74df43b3f626 ("mtd: spi-nor: Enhance locking to support reads while writes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+ drivers/mtd/spi-nor/core.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index 8bc117b46e02..250e996284f9 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -1346,6 +1346,9 @@ int spi_nor_prep_and_lock(struct spi_nor *nor)
+ 		ret = wait_event_killable(nor->rww.wait,
+ 					  spi_nor_rww_start_exclusive(nor));
+ 
++	if (ret)
++		spi_nor_unprep(nor);
++
+ 	return ret;
+ }
+ 
+@@ -1417,6 +1420,9 @@ static int spi_nor_prep_and_lock_pe(struct spi_nor *nor, loff_t start, size_t le
+ 		ret = wait_event_killable(nor->rww.wait,
+ 					  spi_nor_rww_start_pe(nor, start, len));
+ 
++	if (ret)
++		spi_nor_unprep(nor);
++
+ 	return ret;
+ }
+ 
+@@ -1490,6 +1496,9 @@ static int spi_nor_prep_and_lock_rd(struct spi_nor *nor, loff_t start, size_t le
+ 		ret = wait_event_killable(nor->rww.wait,
+ 					  spi_nor_rww_start_rd(nor, start, len));
+ 
++	if (ret)
++		spi_nor_unprep(nor);
++
+ 	return ret;
+ }
+ 
+
+---
+base-commit: db5f6418501f9795a96026b764d747179a231b2b
+change-id: 20260811-perso-rww-fixes-016cdd229647
+
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
+
