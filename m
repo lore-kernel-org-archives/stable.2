@@ -1,109 +1,204 @@
-Received: from mail-m32112.qiye.163.com (mail-m32112.qiye.163.com [220.197.32.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7027C4457AE
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8916737C90A
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:14:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786453705; cv=none; b=C1TmnAhEgozZlRbrPBihWWgmHKSLT1OaT2uJGwVSsSm2iGTDXKNAoLKku6Jy0MEi0C2FHP9EWwCuX4uNAT1JVk68XSgAAU+UCoyCWoLRrWSZuEoAdcBms+YlRrU8Hu1yDLW6YOfWPxJvd4ryuxCd+EDdKj6T2EzyttWBcwuWo8Y=
+	t=1786454065; cv=none; b=L/R1c+/7e90SYB/JP1aHzEox28LUgDPFfp8rj2ljh2hztyT/TmBdQRnUulTkS9Tafq/2yny4RkWB8wIsByPq4Z7kUnck4MveH65qeSrUF5pLaTzIBtVGnX4+C0drhGdG9J2LYuEYcRSRkor13OJWPBuF3GIzaZ8gEaF9fLm8Yw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786453705; c=relaxed/simple;
-	bh=uCv4WWV/SkS+1Kc7tJxMQYIfaDXgev6XfbRRCNwjgDw=;
-	h=Content-Type:Message-ID:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:From:Date; b=pVgf5EzbDKNuNhCfHaQZGX+YxhUnHMasOXNP4Q2rdk53FswtXhRJluPMxy6eqTju08sftXLd83bGRg+g0Zjiu45xFxcu/2vi+KDRcCxRnFDOd/2khoq5wDxW87F74YiU/B3Q7+c6Y5P9Cxvdwj8yXi7VZgkaGQ94zuvY91M5XFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=iFdUXQLr; arc=none smtp.client-ip=220.197.32.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1786454065; c=relaxed/simple;
+	bh=lyBOjUkF2Q73xcVQLMdtNN1OvzicMee0Jx3fivdgHho=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VP6BjUim7uiAkxFWv+gg0pAuNm5syIIZWYc7gN941eWDvzGoyjEk3gwhXIy+ld8NfBNhJ2nHIxoI3Re+aLKRmC9kjCv8HdypC7b8+eaKokNI2KgK0LeiDTT5FwCOg5moFmDbJX+JV1cbspnWkJCYQmXJC2kQGm1witL//oUyupc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hjqAGCeZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="iFdUXQLr"
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <AJkAWQAnKi56swdGxAYI84oA.3.1786451567411.Hmail.220255722@seu.edu.cn>
-To: Simon Horman  <horms@kernel.org>
-Cc: Simon Horman <horms@kernel.org>, netdev <netdev@vger.kernel.org>, 
-	andrew+netdev <andrew+netdev@lunn.ch>, davem <davem@davemloft.net>, 
-	edumazet <edumazet@google.com>, kuba <kuba@kernel.org>, 
-	pabeni <pabeni@redhat.com>, sashal <sashal@kernel.org>, 
-	zilin <zilin@seu.edu.cn>, 
-	"kory.maincent" <kory.maincent@bootlin.com>, 
-	"marco.crivellari" <marco.crivellari@suse.com>, 
-	"felix.manlunas" <felix.manlunas@cavium.com>, 
-	"ricardo.farrington" <ricardo.farrington@cavium.com>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, 
-	"jianhao.xu" <jianhao.xu@seu.edu.cn>, 
-	stable <stable@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCBuZXRdIG5ldDogbGlxdWlkaW86IGxvY2sgdXBzdHJlYW0gYnJpZGdlIGZvciBmdW5jdGlvbiByZXNldA==?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com Sirius_WEB_WIN_1.65.3
-In-Reply-To: <20260811091539.815827-1-horms@kernel.org>
-References: <20260809105715.3669436-1-runyu.xiao@seu.edu.cn> <20260811091539.815827-1-horms@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hjqAGCeZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A861F000E9;
+	Tue, 11 Aug 2026 13:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786454064;
+	bh=bylDNSV8lujL8GiP+Ha2m0CZWo3OZOnDer1Q6O7S7XI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hjqAGCeZDY90y3PSFLJ5jWs0eB6gAW4TxAsIIG5eMpK2xskg4j3QMZlmyEKUsptKT
+	 xZ7j/FOmpslNliyK64iARfwbu2olwJpZOIuTYcd2RakqW6sZ7/IvN7U8yLHCtxqXdV
+	 J+OWBE56tfiq+C6ANvDQOLE9CBdTKEEw6DNEfJ7c4/yJr5Cd7JE6Y5V8B3jhLQHXa4
+	 ZmmVsHCBJumh4u7RB61jIqSHufUyQQkavYpTYGEwn9qKxMyKttAwdWA02tR7XHf7wT
+	 /D77S/aAumXgd9RLWFro9/EtoD+xpt1Cvwv+EDzKpY0AVy6L2u3nZchQ7slGXthuOE
+	 Ylh1rv3D9JuWQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Peter Seiderer <ps.report@gmx.net>,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] net: pktgen: fix code style (WARNING: Block comments)
+Date: Tue, 11 Aug 2026 09:14:20 -0400
+Message-ID: <20260811131421.2547482-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080503-number-pectin-b335@gregkh>
+References: <2026080503-number-pectin-b335@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Received: from 220255722@seu.edu.cn( [222.191.246.242] ) by ajax-webmail ( [127.0.0.1] ) ; Tue, 11 Aug 2026 20:32:47 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Tue, 11 Aug 2026 20:32:47 +0800 (GMT+08:00)
-X-HM-Tid: 0a9ff0cd34e302f2kunmf3b7ffc1dae8
-X-HM-MType: 1
-X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMTUS6Y2fHkyPT6dc03QDwVaZPGiA09TnwhbhTj
-	hLfuFZO94YXwX6xgvkjGVFFRKj5FTlUp4ibMu3LjbJqkzUirKIkshCL4DwobCwmqEl+iToklIC+5
-	oJ5WddS7xBApRMVj/KXqF9KFKHuMUpDM645Zo=
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHkhLVh9MQh5NGUNLGk9DT1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVU
-	JCSU5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=iFdUXQLr4cIT6ta+EMX5Kjplo/jSRrJKxdve8sEqKRcT/KbogKoq/KLKhKS6lsL1oYlk0Z+7sQhtHcLTyV5LcMXTxfBa7BKxFQI7gcUPPicL4sshfO65I2vMsMBrwWNMgvyqYKbBvvyGU1xn6zvkXm4cNX76NhAcWqmBz3+yEE0=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=uCv4WWV/SkS+1Kc7tJxMQYIfaDXgev6XfbRRCNwjgDw=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-SGksCgpUaGFua3MgZm9yIHRoZSBkZXRhaWxlZCByZXZpZXcuCgomZ3Q7IFRoaXMgaXNuJ3QgYSBi
-dWcgaW50cm9kdWNlZCBieSB0aGlzIHBhdGNoLCBidXQgdGhlIGtlcm5lbC1kb2MgZGlyZWN0bHkK
-Jmd0OyBhYm92ZSBvY3Rlb25fcGNpX2ZscigpIHN0aWxsIHNheXMgIlBDSSBGTFIiIHdoaWxlIHRo
-ZSBib2R5IGNhbGxzIHRoZQomZ3Q7IGdlbmVyaWMgcmVzZXQgaGVscGVyLiBXb3VsZCBpdCBtYWtl
-IHNlbnNlIHRvIHVwZGF0ZSB0aGUgZG9jIHN0cmluZz8KClRoZSBkb2N1bWVudGF0aW9uIGlzc3Vl
-IGlzIHZhbGlkIGFuZCBwcmVkYXRlcyB0aGlzIHBhdGNoLiBIb3dldmVyLCBpdCBpcwpzZWNvbmRh
-cnkgdG8gdGhlIGxvY2tpbmcgcHJvYmxlbS4gU2luY2UgdGhlIGN1cnJlbnQgbG9ja2luZyBhcHBy
-b2FjaCBpcwp1bnNhZmUsIEkgd2lsbCBub3QgdXBkYXRlIHRoZSBjb21tZW50IGluIHRoaXMgcGF0
-Y2guCgomZ3Q7IENhbiB0aGlzIGFjcXVpc2l0aW9uIG9yZGVyIGRlYWRsb2NrIGFnYWluc3QgdGhl
-IFBDSSBjb3JlPwoKWWVzLCB0aGlzIGNvbmNlcm4gaXMgdmFsaWQuIG9jdGVvbl9wY2lfZmxyKCkg
-aXMgY2FsbGVkIGZyb20gdGhlIHJlbW92ZQphbmQgcHJvYmUtZmFpbHVyZSBwYXRocyB3aGlsZSB0
-aGUgZW5kcG9pbnQgZGV2aWNlIGxvY2sgaXMgYWxyZWFkeSBoZWxkLgpUYWtpbmcgdGhlIHVwc3Ry
-ZWFtIGJyaWRnZSBjb25maWd1cmF0aW9uIGxvY2sgZnJvbSB0aGVyZSBjYW4gY29uZmxpY3QKd2l0
-aCB0aGUgYnJpZGdlLWZpcnN0IGxvY2tpbmcgb3JkZXIgdXNlZCBieSB0aGUgUENJIGNvcmUuCgom
-Z3Q7IFNpbmNlIGJsb2NrX2NmZ19hY2Nlc3MgaXMgbm90IGxvY2tkZXAtdHJhY2tlZCwgd291bGQg
-dGhpcyBzaG93IHVwIG9ubHkKJmd0OyBhcyBhIGh1bmcgdGFzaywgd2l0aCB0aGUgYnJpZGdlJ3Mg
-Y29uZmlndXJhdGlvbiBhY2Nlc3MgZmxhZyBsZWZ0CiZndDsgYmxvY2tlZD8KClRoYXQgaXMgcG9z
-c2libGUuIFRoZSB3YWl0IGluIHBjaV9jZmdfYWNjZXNzX2xvY2soKSBpcyBub3QgcmVwcmVzZW50
-ZWQKYXMgYSBub3JtYWwgbG9ja2RlcCBkZXBlbmRlbmN5LCBzbyB0aGlzIG9yZGVyaW5nIHByb2Js
-ZW0gbWF5IGFwcGVhciBhcyBhCmh1bmcgdGFzayByYXRoZXIgdGhhbiBhIGxvY2tkZXAgcmVwb3J0
-LgoKJmd0OyBCZWZvcmUgdGhpcyBjaGFuZ2UgdGhlIGRyaXZlciB0b29rIG9ubHkgdGhlIGVuZHBv
-aW50J3Mgb3duCiZndDsgY29uZmlndXJhdGlvbiBsb2NrLCB3aGljaCB0aGUgY29yZSBhbHNvIGFj
-cXVpcmVzIGFmdGVyCiZndDsgZGV2aWNlX2xvY2soZW5kcG9pbnQpLCBzbyB0aGVyZSB3YXMgbm8g
-aW52ZXJzaW9uLgoKSSBhZ3JlZSB0aGF0IHRoZSBuZXcgYnJpZGdlLWxvY2sgYWNxdWlzaXRpb24g
-aW50cm9kdWNlcyB0aGlzIGFkZGl0aW9uYWwKaW52ZXJzaW9uLiBUaGUgb3JpZ2luYWwgbWlzc2lu
-ZyBicmlkZ2Ugc2VyaWFsaXphdGlvbiBpcyBhIHNlcGFyYXRlCnByb2JsZW0sIGJ1dCBhZGRpbmcg
-dGhlIGJyaWRnZSBsb2NrIGF0IHRoaXMgcG9pbnQgaXMgbm90IGEgc2FmZSBmaXggZm9yCml0LgoK
-Jmd0OyBXb3VsZCBkZWZlcnJpbmcgdGhlIGJyaWRnZSBsb2NrIHRvIGEgcGF0aCB0aGF0IGRvZXMg
-bm90IGFscmVhZHkgaG9sZAomZ3Q7IHRoZSBlbmRwb2ludCBkZXZpY2UgbG9jaywgb3IgdXNpbmcg
-dGhlIGNvcmUncyBwY2lfcmVzZXRfZnVuY3Rpb24oKQomZ3Q7IHN0eWxlIGJyaWRnZS1maXJzdCBz
-ZXF1ZW5jZSwgYXZvaWQgdGhlIGN5Y2xlPwoKWWVzLCB0aGUgcmVzZXQgbXVzdCBiZSByZWRlc2ln
-bmVkIGFyb3VuZCB0aGUgUENJIGNvcmUgbG9ja2luZyBvcmRlci4KVGFraW5nIHRoZSBicmlkZ2Ug
-bG9jayBmcm9tIHRoZSBjdXJyZW50IGNhbGxiYWNrIGlzIHVuc2FmZSBiZWNhdXNlIHRoZQplbmRw
-b2ludCBkZXZpY2UgbG9jayBpcyBhbHJlYWR5IGhlbGQuIFNpbXBseSBzd2l0Y2hpbmcgdG8KcGNp
-X3Jlc2V0X2Z1bmN0aW9uKCkgd291bGQgbm90IHNvbHZlIHRoZSBwcm9ibGVtIGJlY2F1c2UgdGhh
-dCBoZWxwZXIKYWxzbyB0cmllcyB0byBhY3F1aXJlIHRoZSBlbmRwb2ludCBkZXZpY2UgbG9jay4K
-ClRoZXJlIGlzIGFsc28gYSBtb3JlIGRpcmVjdCBpc3N1ZSB3aXRoIHRoZSBjdXJyZW50IGFwcHJv
-YWNoLiBJZgpfX3BjaV9yZXNldF9mdW5jdGlvbl9sb2NrZWQoKSBzZWxlY3RzIHRoZSBidXMtcmVz
-ZXQgbWV0aG9kLApwY2lfYnVzX2xvY2soKSBsb2NrcyB0aGUgdXBzdHJlYW0gYnJpZGdlIGFuZCB0
-aGVuIHRyaWVzIHRvIGxvY2sgdGhlCmVuZHBvaW50IGFnYWluLiBUaGUgZW5kcG9pbnQgbG9jayBp
-cyBhbHJlYWR5IGhlbGQgYnkgdGhlIGNhbGxlciBpbiB0aGlzCnBhdGguCgpUaGUgZXhpc3Rpbmcg
-dXNlci1zcGFjZSBtb2RlbCBkaWQgbm90IG1vZGVsIHRoZSBlbmRwb2ludCBkZXZpY2UgbG9jawpi
-ZWluZyBoZWxkIGJlZm9yZSB0aGUgcmVzZXQuIEl0IHRoZXJlZm9yZSBkb2VzIG5vdCB2YWxpZGF0
-ZSB0aGUKc3VibWl0dGVkIHBhdGNoIGFuZCBzaG91bGQgYmUgZGlzY2FyZGVkLgoKSSB3aWxsIHdp
-dGhkcmF3IHRoaXMgZHJpdmVyLW9ubHkgYXBwcm9hY2ggYW5kIHdpbGwgbm90IHNlbmQgYSByZXZp
-c2VkCnZlcnNpb24gdXNpbmcgdGhlIHNhbWUgbG9ja2luZyBzZXF1ZW5jZS4KClJlZ2FyZHMsClJ1
-bnl1IFhpYW8=
+From: Peter Seiderer <ps.report@gmx.net>
+
+[ Upstream commit 870b856cb478bc02fffe4d89897e62c692efb09a ]
+
+Fix checkpatch code style warnings:
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +                                * removal by worker thread */
+
+  WARNING: Block comments use * on subsequent lines
+  +       __u8 tos;            /* six MSB of (former) IPv4 TOS
+  +                               are for dscp codepoint */
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +                               are for dscp codepoint */
+
+  WARNING: Block comments use * on subsequent lines
+  +       __u8 traffic_class;  /* ditto for the (former) Traffic Class in IPv6
+  +                               (see RFC 3260, sec. 4) */
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +                               (see RFC 3260, sec. 4) */
+
+  WARNING: Block comments use * on subsequent lines
+  +       /* = {
+  +          0x00, 0x80, 0xC8, 0x79, 0xB3, 0xCB,
+
+  WARNING: Block comments use * on subsequent lines
+  +       /* Field for thread to receive "posted" events terminate,
+  +          stop ifs etc. */
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +          stop ifs etc. */
+
+  WARNING: Block comments should align the * on each line
+  + * we go look for it ...
+  +*/
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +        * we resolve the dst issue */
+
+  WARNING: Block comments use a trailing */ on a separate line
+  +        * with proc_create_data() */
+
+Signed-off-by: Peter Seiderer <ps.report@gmx.net>
+Reviewed-by: Toke Høiland-Jørgensen <toke@redhat.com>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 817ff6efdb7f ("net: pktgen: fix proc entry use-after-free")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/core/pktgen.c | 39 +++++++++++++++++++++++----------------
+ 1 file changed, 23 insertions(+), 16 deletions(-)
+
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index 57502e8628462..1434f6f2143f2 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -275,7 +275,8 @@ struct pktgen_dev {
+ 	int pkt_overhead;	/* overhead for MPLS, VLANs, IPSEC etc */
+ 	int nfrags;
+ 	int removal_mark;	/* non-zero => the device is marked for
+-				 * removal by worker thread */
++				 * removal by worker thread
++				 */
+ 
+ 	struct page *page;
+ 	u64 delay;		/* nano-seconds */
+@@ -338,10 +339,12 @@ struct pktgen_dev {
+ 	__u16 udp_dst_max;	/* exclusive, dest UDP port */
+ 
+ 	/* DSCP + ECN */
+-	__u8 tos;            /* six MSB of (former) IPv4 TOS
+-				are for dscp codepoint */
+-	__u8 traffic_class;  /* ditto for the (former) Traffic Class in IPv6
+-				(see RFC 3260, sec. 4) */
++	__u8 tos;		/* six MSB of (former) IPv4 TOS
++				 * are for dscp codepoint
++				 */
++	__u8 traffic_class;	/* ditto for the (former) Traffic Class in IPv6
++				 * (see RFC 3260, sec. 4)
++				 */
+ 
+ 	/* MPLS */
+ 	unsigned int nr_labels;	/* Depth of stack, 0 = no MPLS */
+@@ -375,12 +378,12 @@ struct pktgen_dev {
+ 
+ 	__u8 hh[14];
+ 	/* = {
+-	   0x00, 0x80, 0xC8, 0x79, 0xB3, 0xCB,
+-
+-	   We fill in SRC address later
+-	   0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	   0x08, 0x00
+-	   };
++	 * 0x00, 0x80, 0xC8, 0x79, 0xB3, 0xCB,
++	 *
++	 * We fill in SRC address later
++	 * 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	 * 0x08, 0x00
++	 * };
+ 	 */
+ 	__u16 pad;		/* pad out the hh struct to an even 16 bytes */
+ 
+@@ -443,7 +446,8 @@ struct pktgen_thread {
+ 	char result[512];
+ 
+ 	/* Field for thread to receive "posted" events terminate,
+-	   stop ifs etc. */
++	 * stop ifs etc.
++	 */
+ 
+ 	u32 control;
+ 	int cpu;
+@@ -2235,7 +2239,7 @@ static inline int f_pick(struct pktgen_dev *pkt_dev)
+ #ifdef CONFIG_XFRM
+ /* If there was already an IPSEC SA, we keep it as is, else
+  * we go look for it ...
+-*/
++ */
+ #define DUMMY_MARK 0
+ static void get_ipsec_sa(struct pktgen_dev *pkt_dev, int flow)
+ {
+@@ -2506,7 +2510,8 @@ static int pktgen_output_ipsec(struct sk_buff *skb, struct pktgen_dev *pkt_dev)
+ 	if (!x)
+ 		return 0;
+ 	/* XXX: we dont support tunnel mode for now until
+-	 * we resolve the dst issue */
++	 * we resolve the dst issue
++	 */
+ 	if ((x->props.mode != XFRM_MODE_TRANSPORT) && (pkt_dev->spi == 0))
+ 		return 0;
+ 
+@@ -3569,7 +3574,8 @@ static int add_dev_to_thread(struct pktgen_thread *t,
+ 	 * userspace on another CPU than the kthread.  The if_lock()
+ 	 * is used here to sync with concurrent instances of
+ 	 * _rem_dev_from_if_list() invoked via kthread, which is also
+-	 * updating the if_list */
++	 * updating the if_list
++	 */
+ 	if_lock(t);
+ 
+ 	if (pkt_dev->pg_thread) {
+@@ -3766,7 +3772,8 @@ static int pktgen_remove_device(struct pktgen_thread *t,
+ 
+ 	/* Remove proc before if_list entry, because add_device uses
+ 	 * list to determine if interface already exist, avoid race
+-	 * with proc_create_data() */
++	 * with proc_create_data()
++	 */
+ 	proc_remove(pkt_dev->entry);
+ 
+ 	/* And update the thread if_list */
+-- 
+2.53.0
+
