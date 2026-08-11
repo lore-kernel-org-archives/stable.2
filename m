@@ -1,84 +1,69 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B1037E5E5
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 08:42:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7B041A90B;
+	Tue, 11 Aug 2026 08:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786437766; cv=none; b=ONHGKWSMXzeJPFWl1tpp3SEhdV0W9AhT15rmk0aFzzCRsOkhshRVDVPaqGXQjU6jXvPQUKeqCvN+l6cFnpWfpa9TNiYu+hsbYPATdsURLdCKPiwnnd7dwYNmrSO32zE+Urtm5tq0g+juHgFnvGlXIbBLuPD7Khp2YFenk6KfQRs=
+	t=1786437786; cv=none; b=I2M3nlfFTpNAEItZyvzf4pwcZIFEvQwH1g7f6PdBx3pD8/96irESQ4W6FR7Nr5q485sFp1lhFLMzO+prkseU4XO2km+9zoku9CvxQ52elQQeGHDawYk2OPQ5uDAqEfAw4/Xy2oFfUo7mtE1Py3QN2grSchO1zQPsu24jCwNUDL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786437766; c=relaxed/simple;
-	bh=jsxYnbURX4siW2J3lGt08/5sC8j1PoEqPT27NNOP8y8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rxLaMIeWVSWlM1R8DfOuvdmtZ3TwVu7jbuNz5u+hUylw/WBSsvqb7UT5Tzref0Y9WL6JA1K+G9B/M9BsBHBUgcRzm8qo61vC/ve6YdpJZA9OmHPkjhwWRvAiiQGRVHK0z9Nb1srZrRpbaM8yQauxvOf/8KPltBNdkiOKxfgWUpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UvgiYRrD; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786437786; c=relaxed/simple;
+	bh=fvGpAqoPKNWeTB6K1VOh61RfLFR+Rn98mScWypWgwG4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N3hoDUOozZgpZTuBhT+HF0Ezl0PDd+eX4pFGuF74KpkCUMPRK/Zbzey+DLPG8+XijkWhk3mjDPlkpazxiaGI0Zhw47q8MZiW1rP+X86LqTsVkFEJ5z6veBZxAWaM6phEMfIxtIvyZ7T7vT63fY7h8oPlG2gtXSdhOaYCMLy51+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kH3n2AsQ; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UvgiYRrD"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so20663605e9.1
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 01:42:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786437763; x=1787042563; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Vb1CPJySP31EqeRDTO2rfZUYp+PAUBXKUFfyVqbzeFU=;
-        b=UvgiYRrDCAWBbTS93bDrWJVvwfFh4CL/alhisCNPdbWZkRzcZ2ReMK32SwYBBh7X73
-         em9liWnApTrPdzhMxXS6U9l63mYdCsi6V0PaJPm2blO6xGGklf+m3oQy8lToWdMk5uiV
-         gwYM7K3BPnOOXWeY2KnPDC32/5UvfLciogljtnVsIFrLgDGgXxeTr6ldlaNVun9ZyAe6
-         kIaob31cqEuNKGnyvJBGinS9UshsK05brfHl4d1yQbMG287KfRr4+R9ix0eGCYS/UiJc
-         QGlbHRFG+H/cJCtI29r+V9UsSyRo0S/moD33ik+E10tU52aMH0YeFkJww9AZ4coo33Uk
-         zDug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786437763; x=1787042563;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vb1CPJySP31EqeRDTO2rfZUYp+PAUBXKUFfyVqbzeFU=;
-        b=hnG2LrYIB2nBcZVrd1nS3PjhoidKr6wzJ1RfzkCYBqJrpD9JuYdchMNOSEvHLzjWlU
-         3CzJRDFPDtUXETNo/L47QxIdSdBDgtMfQqydEQ0NjrH1lt61QowcnqMAaFncTqgG16oa
-         Y7GUe2KQiaLRMXUn/56gsCpZ6EMxccwZ+8zuvs46BlpJ8+DfcCuCmDeBElQYzgGTrmBy
-         XtvTdzdmS/BHB6Cw5NdHNimE3RpN4Hy5bjdIo25o3fz0Z2lFsOhkAEV58ZhrIM+vrhuj
-         9hFxsiOCqu6/NPdDo+MTinIyNkT5BXr2NcSPAQQfirdSrRR3l/E6miP5Nqr/YV5bm6sJ
-         Dp9A==
-X-Forwarded-Encrypted: i=1; AHgh+RrBTK/J7nYV0p3OKKrgrx6ycc85KiEIfj6LrXo/WWkg7xGvb+v7ytZIgMWp5GheucHX5IPaBSo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1fr+6dRJVYkb+YqtlwwzcVF6ZaxI+3QXqDJWzp52LU0W9IbS3
-	sp2gxUSwoMOZuTboBlS+N/MF1xo91+wppqdTkxibgmyMxy5c2C3PkaG+ZbNcxQ==
-X-Gm-Gg: AR+sD1005WQtQdZWHyzEqsGGMvMgV2pSbnMlrgM3nZJEImvqOp6VfqN4RvjcR0o7TsV
-	LTMY5oQKqwbjxoJ6pKKrKSmtdsjp/cEtlUqI8Ch+8yG9UoYcqH+WsrL5mNLFMz7Kj23a83EN1V5
-	yFCJThH/UUXR1nDDXaoCXD060Lojn8fv1bV32gPO6H4eJ8uGvITqeq8DuQ/rIKMosy78Zsf9o14
-	BonD+7n+WsrebrOYszrKKF8qzaUn6cf6Wo08/1g4AHFhTXkILI3VNt9J1XCw84XqVVKwd3VYD+1
-	k0dCeJKFSyHT7kv0lzoxdge+7yHE6tSIG9hMOaY7JDEtFIbTB0ysqOORtjzDOkcDrvjLlWXC3TV
-	qY5UhEgihBuIsqYjRvlUox1V4bvVNEfdCDQyylSkvvYv2Ezoml1wmIDMJw8j7YQyvtInobxI/0v
-	oNdi5x7YLUKbjzbMIg1saT+NImb+bpZwHiIMhZaL8Kf+MHGQhYgTRpg+K5qFMPpMQ9O3qN1J7o
-X-Received: by 2002:a05:600c:6085:b0:499:728c:4704 with SMTP id 5b1f17b1804b1-499784649b5mr26865925e9.12.1786437762420;
-        Tue, 11 Aug 2026 01:42:42 -0700 (PDT)
-Received: from foxbook (bgt135.neoplus.adsl.tpnet.pl. [83.28.83.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499788a5be9sm38950295e9.4.2026.08.11.01.42.41
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 11 Aug 2026 01:42:42 -0700 (PDT)
-Date: Tue, 11 Aug 2026 10:42:37 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Arthur Gautier <baloo@superbaloo.net>
-Cc: linux-usb@vger.kernel.org, Mathias Nyman
- <mathias.nyman@linux.intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] xhci: fix lost bounce buffers on TDs spanning several
- ring segments
-Message-ID: <20260811104237.4500b578.michal.pecio@gmail.com>
-In-Reply-To: <20260811033508.1050148-1-baloo@superbaloo.net>
-References: <20260811033508.1050148-1-baloo@superbaloo.net>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kH3n2AsQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786437784; x=1817973784;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=fvGpAqoPKNWeTB6K1VOh61RfLFR+Rn98mScWypWgwG4=;
+  b=kH3n2AsQS4g27B9ksZh/R1bk1rH8D0kFqTeyBjWkugsr9taD2aIdb1oz
+   ZvzXmGeGO+4oIItfN2c8eNilgb9scxLeDx/4Hi+0XQnSfhFeG67TlAeJx
+   rXGvci7ZHGce6RI7r1B2deQ3tpQaQ0y0//19hQMeoxJwyuuh5LYNg+eEU
+   yTcSN3mVuIR0YptB8rHw9BpJeVAChl6CVvotwSf0YeY2Q9XWIDGSiGf4e
+   iEnDAfgijK78KE7RMEBTeL5+cgT+d03S2qHZBDYQE5TF5GntR1KRypuop
+   0rmKuGDBvni7Xd41uFYdGNVDb/L31y0F6sJWv3EezB7uETqDDi+9SErWR
+   w==;
+X-CSE-ConnectionGUID: oRHbI3/hQ4OuebzGZX01Qw==
+X-CSE-MsgGUID: y0bMy3ddTQiqBmhh/KBT8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86724517"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
+   d="scan'208";a="86724517"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 01:43:04 -0700
+X-CSE-ConnectionGUID: Hn3muphfQPCiOlpPf8a16A==
+X-CSE-MsgGUID: TY5XEkFrQoSqHEIEkU0E4w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
+   d="scan'208";a="266765886"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.8]) ([10.245.245.8])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 01:43:04 -0700
+Message-ID: <d6148428-af5b-47f8-996a-6be4ff216b1e@linux.intel.com>
+Date: Tue, 11 Aug 2026 11:42:52 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xhci: fix lost bounce buffers on TDs spanning several
+ ring segments
+To: Arthur Gautier <baloo@superbaloo.net>, linux-usb@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260811033508.1050148-1-baloo@superbaloo.net>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <20260811033508.1050148-1-baloo@superbaloo.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 11 Aug 2026 03:35:08 +0000, Arthur Gautier wrote:
+On 8/11/26 06:35, Arthur Gautier wrote:
 > When a TD reaches a link TRB with data that is not aligned to the
 > endpoint's wMaxPacketSize, xhci_align_td() stages the unalignable tail
 > through the bounce buffer of the ring segment holding that link TRB.
@@ -107,11 +92,8 @@ On Tue, 11 Aug 2026 03:35:08 +0000, Arthur Gautier wrote:
 > i.e. unaligned to wMaxPacketSize. dm-bufio then caches a hash block
 > holding stale data and dm-verity declares the metadata block corrupted:
 > 
->   device-mapper: verity: 8:2: metadata block 10850 is corrupted
-
-Quite nasty, and not everybody uses dm-verify in particular. It seems
-corruption could also affect rare FAT filesystems with tiny clusters. 
-
+>    device-mapper: verity: 8:2: metadata block 10850 is corrupted
+> 
 > A reproducer running this under qemu is available at
 > https://github.com/baloo/xhci-verity
 > 
@@ -121,57 +103,57 @@ corruption could also affect rare FAT filesystems with tiny clusters.
 > walk the segments the TD covers from there up to td->end_seg, handling
 > every segment that still has a pending bounce.
 > 
+
+Thanks, nice catch.
+I didn't expect bulk TDs spanning three segments.
+
 > Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
 > Cc: Mathias Nyman <mathias.nyman@linux.intel.com>
 > Cc: stable@vger.kernel.org
-
-Note: you don't need to list here the driver maintainer you are sending
-this email to. And no need to *actually* send email to the stable list.
-
 > Signed-off-by: Arthur Gautier <baloo@superbaloo.net>
 > ---
->  drivers/usb/host/xhci-ring.c | 49 +++++++++++++++++++++++++++++-------
->  1 file changed, 40 insertions(+), 9 deletions(-)
+>   drivers/usb/host/xhci-ring.c | 49 +++++++++++++++++++++++++++++-------
+>   1 file changed, 40 insertions(+), 9 deletions(-)
 > 
 > diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
 > index 4f98d8269625..4154e84420ac 100644
 > --- a/drivers/usb/host/xhci-ring.c
 > +++ b/drivers/usb/host/xhci-ring.c
 > @@ -842,21 +842,18 @@ static void xhci_giveback_urb_in_irq(struct xhci_hcd *xhci,
->  	usb_hcd_giveback_urb(hcd, urb, status);
->  }
->  
+>   	usb_hcd_giveback_urb(hcd, urb, status);
+>   }
+>   
 > -static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
 > -		struct xhci_ring *ring, struct xhci_td *td)
 > +static void xhci_unmap_one_bounce_buffer(struct xhci_hcd *xhci,
 > +		struct xhci_ring *ring, struct xhci_td *td,
 > +		struct xhci_segment *seg)
->  {
->  	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
+>   {
+>   	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
 > -	struct xhci_segment *seg = td->bounce_seg;
->  	struct urb *urb = td->urb;
->  	size_t len;
->  
+>   	struct urb *urb = td->urb;
+>   	size_t len;
+>   
 > -	if (!ring || !seg || !urb)
 > -		return;
 > -
->  	if (usb_urb_dir_out(urb)) {
->  		dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
->  				 DMA_TO_DEVICE);
+>   	if (usb_urb_dir_out(urb)) {
+>   		dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
+>   				 DMA_TO_DEVICE);
 > -		return;
 > +		goto done;
->  	}
->  
->  	dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
+>   	}
+>   
+>   	dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
 > @@ -872,10 +869,37 @@ static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
->  		memcpy(urb->transfer_buffer + seg->bounce_offs, seg->bounce_buf,
->  		       seg->bounce_len);
->  	}
+>   		memcpy(urb->transfer_buffer + seg->bounce_offs, seg->bounce_buf,
+>   		       seg->bounce_len);
+>   	}
 > +done:
->  	seg->bounce_len = 0;
->  	seg->bounce_offs = 0;
->  }
->  
+>   	seg->bounce_len = 0;
+>   	seg->bounce_offs = 0;
+>   }
+>   
 > +static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
 > +		struct xhci_ring *ring, struct xhci_td *td)
 > +{
@@ -180,10 +162,6 @@ this email to. And no need to *actually* send email to the stable list.
 > +
 > +	if (!ring || !td->bounce_seg || !td->urb)
 > +		return;
-
-Tiny optimization nit: !td->bounce_seg is by far the most likely case,
-so it could be first. The others guard against bugs and "never happen".
-
 > +
 > +	/*
 > +	 * A TD that spans more than two ring segments crosses several link
@@ -192,23 +170,6 @@ so it could be first. The others guard against bugs and "never happen".
 > +	 * was needed for, so walk all segments the TD covers, starting at
 > +	 * the first one that was bounced.
 > +	 */
-
-Hmm, AI patch? I think most people would write it like below :)
-
-/* we have the first bounced seg, find and unmap all of them */
-
-The code looks correct, though I would do it differently: store the
-last bounce_seg and run the loop from td->start_seg to td->bounce_seg.
-This avoids adding the 'if' during enqueue, and still works correctly
-if the TD wraps around the whole ring so that end_seg == start_seg.
-
-The driver is never supposed to create such TDs (they break the ring
-expansion procedure) but I prefer more robust code if it costs nothing.
-Bugs happen, or expansion could theoretically become more flexible.
-
-Regards,
-Michal
-
 > +	seg = td->bounce_seg;
 > +	for (i = 0; i < ring->num_segs; i++) {
 > +		if (seg->bounce_len)
@@ -216,30 +177,14 @@ Michal
 > +		if (seg == td->end_seg)
 > +			break;
 > +		seg = seg->next;
-> +	}
-> +}
-> +
->  static void xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
->  			    struct xhci_ring *ep_ring, int status)
->  {
-> @@ -3674,8 +3698,15 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
->  						  &trb_buff_len,
->  						  ring->enq_seg)) {
->  					send_addr = ring->enq_seg->bounce_dma;
-> -					/* assuming TD won't span 2 segs */
-> -					td->bounce_seg = ring->enq_seg;
-> +					/*
-> +					 * A TD spanning several segments can be
-> +					 * bounced once per segment boundary it
-> +					 * crosses. Remember the first bounced
-> +					 * segment, the rest are found by walking
-> +					 * the TD's segments on completion.
-> +					 */
-> +					if (!td->bounce_seg)
-> +						td->bounce_seg = ring->enq_seg;
->  				}
->  			}
->  		}
-> -- 
-> 2.55.0
-> 
+
+The ordering above needs tuning.
+
+This could call xhci_unmap_one_bounce_buffer() for a segment bounce buffer that
+belongs to a later TD, not the one we are currently handling
+  
+The solution idea looks good otherwise
+
+Thanks
+Mathias
+
