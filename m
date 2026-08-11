@@ -1,79 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EF71DA57;
-	Tue, 11 Aug 2026 00:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786406737; cv=none; b=poGqNpY6T0vVcUMapp8POx02Bk3gfKpvD42en22iDzRZ064otx664g/WXvaUMBV0vsBfKZhQMSM/iAzQBaqRSCcJgjXAihxQ/1i/WOrT5XeqP9415EAiO5PkgmUdyxGIPoCZxWvR7tikkrbIpVoZRpu9q+YHnMJopdnS9aO20ps=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786406737; c=relaxed/simple;
-	bh=mtlFkZXOgvlFgU20ul9QcWd0YromSwc9Rwo65qNo7QU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TdtJgW7FoxhrDbw0jF3ZIHEvZSIqacU89ycwkovdrNek9PU3EYYeH+gxie75jeDzI4w3udu3hZMvrTk4gKWeAZ8Yk5CrEO8yatBn9vybxlG6SwhSlgvHLi/0NlW+YEJ/eGu19kNrDa7KZfF8iJMU8adoUNtGZw1Z4GLUK43dhRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7IyNJol; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DF91D89EF
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 00:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786407095; cv=pass; b=G0i7qMHiUisxdWXJBl7C0rEiumaxfZMgE7CWSv3Cbt5S0cZB7MA1ZDKczuJXEIe6LNagZPc79IYrY0P2bKwbahinN7tIQ6IDc/Nt0R8lH25BBYiitak3lESQlvRgWExDPSiDtpB4DDduSUKtGH6ZNF+9dh/9vFHADIF5xkhf6SE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786407095; c=relaxed/simple;
+	bh=Mq+1KSle2zOd9Gyjj4bdLdpe8xmZpzSivqd1nkt9t/Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qc/JAvw1HYJ7ZCv+hdza48QsCF8/T55RED+u3MLcu8qYiaDS1hp9tFdLiiUg94ak5Ga1WzFgh06Q6/f6DLw0OgQC9MEEZZ6YTOpGGaotW6eqfDgbrAEovo+W9fCu3YHQrZCDaMfAmF4idLnIiSMdB+i2nRoxU63e9oXlLRYjxPg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XG8MJ5y+; arc=pass smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7IyNJol"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D4E1F000E9;
-	Tue, 11 Aug 2026 00:05:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786406735;
-	bh=g1yQ1SxpkFUbcmiW/9+YKu69AfUhUSLNoY+6tBIS1VM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=R7IyNJolQYBpL7XteNnjOz+ze5AXWRu9cXq6E9ZbVgl02SAJWd0RhGzwEDIgq/9MY
-	 soRGWNDm5stgRN6YD9hgK9iTcRBhT9LjJg7hO5UvQ3B5g0mmT9U9BPxyiccc0fn/zQ
-	 MdFNOXppxEfDNQQxOIrKmdCnkxGJrrznelFZ1ivzSyhuiawlbVj58y+QbICJTHADM+
-	 7Oyy03XOEPSPnk+aUZ4oiKlklB8SsuLJZxhH5QNV4qqzSoIle82SK9x/gsQAJ7ZczU
-	 aRy/fc/fg30JvrgZbDeJvgtckHCMbx0ZWcXu7lif0mACi0mvYjAFD8g9Sg00WIVAkT
-	 GK5WVTeWLyOzA==
-Date: Mon, 10 Aug 2026 17:05:33 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, vega@nebusec.ai, Victor
- Nogueira <victor@mojatatu.com>, Quentin Monnet <qmo@kernel.org>, Simon
- Horman <horms@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Alexei
- Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, Eduard
- Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, John Fastabend
- <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Song Liu
- <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
- <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Jiri Pirko
- <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, bpf@vger.kernel.org
-Subject: Re: [PATCH net] net/sched: cls_bpf: reject dev-bound programs bound
- to a different device
-Message-ID: <20260810170533.5bdc7f80@kernel.org>
-In-Reply-To: <20260809094418.901607-1-jhs@mojatatu.com>
-References: <20260809094418.901607-1-jhs@mojatatu.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XG8MJ5y+"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38e08baf860so2437369a91.2
+        for <stable@vger.kernel.org>; Mon, 10 Aug 2026 17:11:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786407093; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pPAjtZfnzfgxqduTqBJQeRkbRRxGu9cMqMPScQwxyS/Z7sWTMd4i7r/9HlXS9l+n+K
+         WwZUyLj9XNzi6lz/TEa3njwsT/eqYd7sSaBzxpdRFZXPlIUbxtncihBsy5W52z35bTeS
+         ozMPKgLUgsFHi+yoXCszFtM3SfFBcDk94evGqPf72tAZeOExmZBurXj8mZvbKYHVn2tS
+         eho64QrlyeOfDPtrgTaMZTBjV1F4s+CBBsLcBiaLnYKvgKgX+2YlK2FAISmpUv0UThyH
+         rDEkeJNj9tAANIHbq/KGQVy1jLPneZimTgq3zSfjp+W+P1ylYKl0mUdK9wKIMjOlMrWW
+         PcQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Mq+1KSle2zOd9Gyjj4bdLdpe8xmZpzSivqd1nkt9t/Y=;
+        fh=nXR/QCwRcZXeoZTH8SbkdviyeQmcfXkZqQDvSeFVG5o=;
+        b=RioBgysGQrta4UrjI3Zjn+v9u+JkMWafoutaNrl4hBxPK9OLMcKJgM2hCiQGkMnzTl
+         1ybjeY4IYSlVFDbEPfQALgCccJHmfW26669eeXa7CKnaIYMMq/n/qTC3EK0A1HU8J4wS
+         m268CMx2bCFVaUdH25j3YOXu++6+Rx6NhA/beGjrkIJcb2Nk06jNR8cBBha4A0TwPgl4
+         OsR8W3a9a+BjQBCVaV2lqQeLrAQY71M3A4oZ+sSygcEgc/aU/VW8QxLkN4ykilPyfft1
+         RU+8Q5inqjdIJNkgNb1mdFA864R+9k1NUc0ksecSBXw6q+jGrvVKj1imcSQKZ7DkoI2/
+         phWg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1786407093; x=1787011893; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Mq+1KSle2zOd9Gyjj4bdLdpe8xmZpzSivqd1nkt9t/Y=;
+        b=XG8MJ5y+TKfl17vDsqWor2SFzkvBDVF6C+TTN09vSZTVep7dhr+RxmosoI3tSYLY4K
+         l3o4iDGki+s+v02a0KnaRkdI4Pwa4QGy0TNmn6FdMq/9UnlBf/RlyBn8y0qWV539axLM
+         w9q48u6h0WPzF2SSU8y8ulmPcEIx34f5ZeHfVBbXZxA4Fj6tqeYMZXyXG1VJ0T+r/Xgz
+         tMZUfQcONzYTTjLzeRwAvEWsUPQXfQgR1EFKF8aevln0O9hk+JXDhVQpVwq90I+heESf
+         Ct5IYiZZxE4weBWetmZVY9rrx+hqQJ+ZeP4AyliWNQr5aRTjo43vWhkejSrobB0U7XBE
+         q47Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786407093; x=1787011893;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mq+1KSle2zOd9Gyjj4bdLdpe8xmZpzSivqd1nkt9t/Y=;
+        b=s1zU0tPuztdQdt5mYYRi4rFveZ/2L2gf7r3WvGD9afeMRA4+D4UVeFo7VrCgiluNT1
+         5oxARjb7a2EZcdkVZlJVz5pjKxCeXKcsNCXACi6l8e2reRjt8sf5NR5/tqAxRbWTn95B
+         MEHTnZPgHV7B4gTzrHMSVzFdIpCKxLmME6Gjx5wjQh/d6m+oVBIlkODVYUloY/men9wQ
+         KVlZ7Ty3mkgVPa+ySKPvIhgFR7Jitil686Ehv2FdGl+mkgpQkxQPjS9hpQJokvDJc+VJ
+         Yn8Gb5/lx4O6W1MX0BQdBCtOzM8EJ/IpsnrStAXZXSn4o7ZX1ei5jarFmcuWToS2g6Rn
+         cfew==
+X-Forwarded-Encrypted: i=1; AHgh+RoooSAyZv7fdBCLdAFsfQr14uVI3uuDCuxyGu7FXKlqvWZP3trgMMxBQpIHtAmMmGzWgiJGBlU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6i3O18hKqBITUbN0fCJtP/ru2yKQvH/Vb60Dxh8MZYNq57W5Q
+	GKm9Qtg+Vd3ZisBaY642g37SFi1ehGU2K0qeINnDFUiQUG7+Jxxn5jvWJr5K4IT/uazlQO2SX65
+	46XMRkXzTTyhAH+EMm49iUKMxhPc0mboJttF/Dgg=
+X-Gm-Gg: AR+sD13z9atQgYHMssAI3HwwjdEdRnhBH2V4oX9t0KPnUXF8QajmVGESgcLadkcjYdK
+	GfAyQNp1JUpHj1AM0NQKWk7rPbr4oFPXuVDXGFpPErqemb1LWcnEA3d2r+iZOvsRTuLtT/ZxLZP
+	sgOj7MZ5Ly5RZ03rAYZQq/lv7ypoXNPExL4D6oZwcy1AIRDi20eoTwM8bKlxfd00S5XHCK2W3uD
+	KEg0fSa7jKCSwMaU4CvD721VL3Ske4DQ0MJ7CWnVzzJz/Id5Db8CM5W4VqQGZpnNFLjciYaA9My
+	mefE8e1P4qgb5c88VkU/2oGsezQWlWOV8eT21NdR97n26YLtJjNW0n9XGw/rVa63FxAQE7ltzmW
+	eHYpoZFhJvYnbxghNQ55x0tYfF2ejTIu9U3KpLZPcFKn1IofbhG8+uj1mStTadw5ymjEiajN96R
+	8J+Hf1k24=
+X-Received: by 2002:a17:90b:4fd2:b0:36a:5d1f:7b6 with SMTP id
+ 98e67ed59e1d1-392cc8d081dmr5541201a91.2.1786407092626; Mon, 10 Aug 2026
+ 17:11:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260810073830.GC1642880@noisy.programming.kicks-ass.net> <20260810234738.0004-1-sashal@kernel.org>
+In-Reply-To: <20260810234738.0004-1-sashal@kernel.org>
+From: John Stultz <jstultz@google.com>
+Date: Mon, 10 Aug 2026 17:11:20 -0700
+X-Gm-Features: AUfX_mwVsMJGguaU9UvzOR5lJs3kgwrZBERYuQwJWyztldT9g7AVPwq5T5lfaes
+Message-ID: <CANDhNCq7sFij0uCT75B5aT3voABaK8-=KMbKMNdO1Yi6QWRhng@mail.gmail.com>
+Subject: Re: [PATCH 6.18] sched/fair: Revert 6d71a9c61604 ("sched/fair: Fix
+ EEVDF entity placement bug causing scheduling lag")
+To: Sasha Levin <sashal@kernel.org>
+Cc: Jose Fernandez <jose.fernandez@linux.dev>, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Janne Huttunen <janne.huttunen@nokia.com>, 
+	Zicheng Qu <quzicheng@huawei.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	K Prateek Nayak <kprateek.nayak@amd.com>, Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Xuewen Yan <xuewen.yan@unisoc.com>, 
+	William Montaz <willymontaz@gmail.com>, Peter Zijlstra <peterz@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun,  9 Aug 2026 05:44:18 -0400 Jamal Hadi Salim wrote:
-> cls_bpf_prog_from_efd() obtained a SCHED_CLS program via
-> bpf_prog_get_type_dev() but never verified that a device-bound (offloaded)
-> program's bound netdev matches the TC netdev the classifier is being
-> attached to. This let a program loaded with prog_ifindex for device A be
-> attached via cls_bpf + skip_sw to device B; deleting device A then
-> destroyed the program's offload state while it was still attached to
-> device B, triggering a netdevsim WARN (panic with panic_on_warn=1).
+On Mon, Aug 10, 2026 at 4:57=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> > > Peter said in April that this could go to 6.18 [1]. Janne Huttunen
+> > > posted the same backport last month [2] and Sasha is holding it for
+> > > Peter's ack on taking the revert without 4823725d9d1d [3].
+> >
+> > Yeah, this should be fine without 4823725d9d1d.
+>
+> Thanks, that was what I was waiting on. Queued John's version for 6.18.
 
-maybe netdevsim has a bug then. 
+Do note, as Jose pointed out you should probably take: 80390ead2080
+("UPSTREAM: sched/fair: Separate se->vlag from se->vprot") as well
+then (ideally prior to).
 
-> Mirror the XDP attach path (net/core/dev.c) and reject the attach with
-> -EINVAL when a dev-bound program's bound device does not match the
-> target device.
-> 
-> Fixes: 6c8dfe21c435 ("cls_bpf: allow attaching programs loaded for specific device")
-
-This commit in itself is fine, nfp checks that the offload matches:
-https://elixir.bootlin.com/linux/v7.2-rc5/source/drivers/net/ethernet/netronome/nfp/bpf/offload.c#L579
-
-Maybe the bound-devs got extended for JIT / descriptor access, and
-that added some extra risk here. So either this is netdevsim-only
-(and not worth the Fixes tag), or the Fixes tag is wrong..
+thanks
+-john
