@@ -1,65 +1,65 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE0E37E5DE
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 20:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627D537AA91
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 20:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786478497; cv=none; b=aoiHAA0eERhYtz5EDmu/gSrGtrpNYifhMy98j8Ua9egkFImxzp/zIK0PCNN4e891GDEHaLm3Em02/bqH/u0RkFm3V0PcPrqTUOsfivnUUexvfecaDbeUe7DhKEmy/uIr4/L/Qxlh6C4Wn+Qq83VUw92d3G13HNywao+FiXuteTI=
+	t=1786478503; cv=none; b=ZAwtIM8qF55ZefoLnFvH2JmiP4ovOdGbW+E6ps1bYbhtj4HNy8oUaLQjKeAfZXcu1rxuh7Qn6A3G6V+ZPywhnMp5RWvbpzbJTLsFAPqi74baAoCugrPOHEeN6xSlWNj97H91qH2ZuY/3SvnN4JeWpODaxrSiBv72z1W3ZfM6SLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786478497; c=relaxed/simple;
-	bh=9WDwPklQZULEU0ftN77u8KResH+rXClRsq15ydImbN8=;
+	s=arc-20240116; t=1786478503; c=relaxed/simple;
+	bh=hrmzmVrvGWTP1LsYT+VaNgqVj1es0y60dQVMTGpF/os=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kGTIeWhU75aQ8KWMw7zjI0Oh/h/M55OV2u+sEOGuA3CU143vXJZ+Cbxnpc1OTqTDony2wcOCu6lPfxDlb3TJBI5mwuR7/GF+n94lAFMt0XRj9y/TKysVZGaKTr76iyguaPA7tiY5Bx3sIF4L2e5OMF1csoW9hCgpuPLhwe59TIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DU+qYhde; arc=none smtp.client-ip=209.85.215.178
+	 MIME-Version; b=qhDc1uW0f7pIOZ+NHAuB4ZpUtgQoUfS72gs/XeetaFKyJSL7mKeJF/HQcW47uFOZOsT4qUO2b5/1EPzJ4sf2fQEoW0UM6/8zR7b0IJmw4+Rpf0E8gFIEse5Gst2+LQKuS/laGu8Tnm3T2kopwB1Fm76nlTyKmMYYlPgdSZnSybA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=btYJmYUX; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DU+qYhde"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c96b08cdd1cso161968a12.0
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:01:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="btYJmYUX"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e07ebd263so237539a91.1
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 13:01:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786478496; x=1787083296; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786478502; x=1787083302; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u0QYx2H3oKVA1pDedVfiJ5Y7LwMtbGVZPi7N/1ddFrc=;
-        b=DU+qYhdeRhI9pfoMi3XgKFBpOhKW3ApP1vHzRB19HpSft3ReIzvt/md4XlY5JI5Vwr
-         ZZKcu1SSlo1QAT2jcsBZtJ1rhu8lajH2fkh/PztZnYf6P4xDGJ1JVO3uRRofSdqLLDyD
-         InNzb5g1uicYhRMjDCjMY1afndc1v3f6H8AWRNv21rVCLb6plNZ2FLSVCnIaM8Kl6ERc
-         EpPOaS4aAVtdvm/BKlzuaBlEZW5uBCPuWHMgxQtlWA/KuFY4ZDx8nHdS8ZUilUhgjKgd
-         KDnxyeRV1AUOGISikhorImPjLFeVXeePNKSokPUei8UIUr17wNoM/qP+u2jel3wrNKee
-         IYfQ==
+        bh=Lduyi+JxRXbKGNM1YQ1o6cUDvymR9U7AMupOhybXW/k=;
+        b=btYJmYUXlpREXv9W0k6m90altQpe8tT5hxMwqseejOyH/T1BTDK5sLWh/2VjerfhSx
+         Ca9LPABZeG3nXa46/HA6DYYP+R2nKv3LQl+drsIokbwyQckIoABGoY9BteBaEDFWu6nI
+         DOiJDTfimXqaSJnHlqKl1wMD92PbvEH0P4itAAm6jJys8lIDajDl5LcjozvC4fhzxte9
+         sXg2YIsRn4Hb/8DlEk8mzk/3MzpUvfGJg6lLWKvCgGrynzHPhIvWhfdDfX+7ey319Dgx
+         pehP4/R6QC0EmTQN7lgZQPWj7fBmv+BQPY41IXfIdBxrb66sqLQPqjf3pssd1kjqeQIY
+         LhFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786478496; x=1787083296;
+        d=1e100.net; s=20251104; t=1786478502; x=1787083302;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u0QYx2H3oKVA1pDedVfiJ5Y7LwMtbGVZPi7N/1ddFrc=;
-        b=b0J1rnU8LG+kASCScuf5nca96YPWFduTxAQmWPwHCE9oOFq6IbuGYGC+/PTM1qhYD4
-         TYxa+7AULWjPUjJ3lspsJ52xF2Kwb8MaQphL+CviMhW5OKH312c0Vz1cPKQdhysDfnBs
-         nVie2pq0yAvuusFBiV63BjychUvvI6u/n7HL/MvmyTi7qBRepa+V05XUmb8oo1eUHzVp
-         xeYodWEVcNmEr9fOHfAmbon0YCyxAO6r1akQW9c8HifzrQ44ZbqYMChntUbwo9jnxKmx
-         Axf8Y/F560SKJw8A5Gt1cu1twsbKcof9MhZaflTLOrBgBG5LQ2v8LSUoFWHKDJtYqvcz
-         1ZxA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpb+vmqWNi+tVn53LbP+5Pd+sNSW7a7E28uMZQ6y2VHuQaOiqPC0oNY9SvHrfOvV5DpRZ3PxBo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1AOtQfEUKEyW4MsODxZ5ejuXR7jKTTnO2koWdAJoRGwf3XdJ6
-	WciyXln9g1PcnFenllS4qkz3iRoRXVB8cBaH4IhUf8J2/OOq9BBMwE8k
-X-Gm-Gg: AR+sD11nzSpGb4IplhzHKVeihmi1uuNj33JpB6TiwRQnNDgd4GT1+Z0XeZyFmJ2rE1Y
-	PstfWqBM8+heC9r9efjAy1PiICiV4hVrKnbzeXSTaLT0zWMNqs0SExKCMb/aB5LkT8QqPAJqZGa
-	iSn9t3pEiLsbj9/AyW07sB/B/zh4YKnV4oBX0qVddPbpxPHHWfpASVsqOMWG8lHpScvGl4Yz/A6
-	PCk9ImWbyMoMzKboRhLIj8xIvj7d11Y129k+PhqS0Hu31WwcuB7THZXgsoz46h4vPF78gA1boT4
-	nokCZo++INCPprC7Lz7jk73opy7mJO/sRu+6n5wgOP29m2KA7/W6bYWY/mUp4qHsQbAsHreirWP
-	nxk2At9oZsKCA7Pk1gp13rbC3ypHvUkwJIBckinvJw3BlR05PU+DkWN8NB4qMZtleGzrmaVCx9a
-	dycWqGSKzUS+xWztm8cmCZm85OlqAYvgzBxc5W2ZpjhYEZI4LevoiaGmvXPHs5l6l+caCjP6XEJ
-	1oi37FBuhleNPipPgcFawiRCryd0J8xSIalq7aV3TSYm26aOeaX+TEif7cANsz9hIKkSJLAEKWG
-	9ifw4QLIAw==
-X-Received: by 2002:a05:6a20:2d13:b0:3c4:1916:9d46 with SMTP id adf61e73a8af0-3cc2bac42a9mr7716637637.27.1786478495582;
-        Tue, 11 Aug 2026 13:01:35 -0700 (PDT)
+        bh=Lduyi+JxRXbKGNM1YQ1o6cUDvymR9U7AMupOhybXW/k=;
+        b=EEOXOYDqONHXi4sqye+WRNgkHBHoWvKC6g9ONZUMNYodYCBamVTclEx+YxeaPk3CMG
+         1VkU3ATBWf75E6NL9fC8HGShiKBxrPTdAzPiGgCVsq7jR4/tiCN7d1PM+P5d50aDd3li
+         FV61ABw+zAR82vwNSrtrsUpPf1TnMfQu9lTflvAQsp6eUoO+NLtY1C0rBiId3UIJcMA4
+         BM1/hLF43OqnmLaN1dy/zIs0XVK8a4SPWVuInArMLILior9SDhELAvEwm93D4lDJjUBS
+         Yb4CMWJZJeVQ0fQAi+KHeNxQpTO7x4tvR64tSpdQlt2+njXK4X+EyFUCRKzdYhrtQC3G
+         etfw==
+X-Forwarded-Encrypted: i=1; AHgh+RokFCOf/xX4Z0DlGeav98Z0u12f8QtRFo1PFziZrd62I6JbkCsnqvCjMIp6nBXJw6o+QvgHmGI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDESn4aCXtUeqzZuOepTasJ273eDnofF1DmLb91fBLirBSkZGJ
+	cREbs2LDjQqmFLu21jQb1LMZOX2zLUGgIy5ya7ktGGD0t1adiJn8A7cg
+X-Gm-Gg: AR+sD10FtcQbGtuE6G/dqARkxfew9wYYbRDTPW/EO5mtcvgOAfYfCM9T1tDvhwR31hu
+	ztukQvtbJPCJHlVHno0Gz9H+jZYfF2X/1vljYz4iIqpVMPqhVvesKYR2kFFGJ+lwS1sTsOEekPA
+	pTG+2mj6j30Pt0Dn+bKIAUvL0fH5kTcEaD+Gp3dfpkxDOGWuMvsjdgV+YPoLes/2vIqk2FbGGv/
+	cxsKr1pZkCTsUvvb0NTACIfPrWVwkrA1f4Q45bPXuHUWvgzNmakP9g3EMg+xAjPXXPjTMaBmTU0
+	+K9RuOUOFnCNAnFLDUK1Xg2u6WpKbvKdqGa55UE5KW1MsI1iefQgd31sOu4Eu/IxdlsMVniPhkS
+	ppydMz5Jsg3W2ejeqYqhW562OodCJSSakorbB0TAceP/xWdHY14iaY57/HpqovUxXVXZ5kMmeBl
+	j2VBN4KN4kfaZWMi2lSlth7GJrW5s1MJtR4QRr2sIakVPNjjdTDQc924ezXsYws3841Bv3MaO8+
+	ptQWu9HDHmXNXAHX1VyUq/3Y8JtbrvzgRYEEggGa/DnSFu1leS5U+nW3bEWVfgsOg4LMuQJjjGd
+	9mL4q6FB+A==
+X-Received: by 2002:a17:90b:4c89:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-392ec396095mr5951201a91.3.1786478501719;
+        Tue, 11 Aug 2026 13:01:41 -0700 (PDT)
 Received: from iku.example.org ([2401:4900:1c07:ceae:5da9:e5f2:ea74:b6c3])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31cf6791351sm2216447eec.23.2026.08.11.13.01.30
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31cf6791351sm2216447eec.23.2026.08.11.13.01.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 13:01:35 -0700 (PDT)
+        Tue, 11 Aug 2026 13:01:40 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
@@ -76,9 +76,9 @@ Cc: linux-pci@vger.kernel.org,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/3] PCI: rzg3s: Propagate platform_get_irq_byname() errors
-Date: Tue, 11 Aug 2026 21:00:12 +0100
-Message-ID: <20260811200013.185956-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v3 3/3] PCI: rzg3s: Fix IRQ domain initialization error handling
+Date: Tue, 11 Aug 2026 21:00:13 +0100
+Message-ID: <20260811200013.185956-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260811200013.185956-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260811200013.185956-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -92,42 +92,129 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-platform_get_irq_byname() may return specific error codes such as
--EPROBE_DEFER, but rzg3s_pcie_init_irqdomain() replaces all failures
-with -EINVAL.
+rzg3s_pcie_init_irqdomain() installs chained handlers for the INTx
+parent interrupts before creating the INTx irqdomain and initializing
+MSI support.
 
-This breaks probe deferral by preventing the driver core from retrying
-probe once the interrupt provider becomes available.
+If any subsequent step fails, such as obtaining an INTx IRQ,
+creating the irqdomain, or initializing MSI, the error path returns
+without removing any chained handlers that were already installed.
+This leaves stale handler and data pointers attached to the parent
+interrupts.
 
-Propagate the original error code instead.
+Add a helper to tear down the INTx IRQ setup, including removing the IRQ
+domain and clearing the chained handlers. Use it to unwind partially
+completed initialization and from the normal IRQ domain teardown path.
 
 Fixes: 7ef502fb35b28 ("PCI: Add Renesas RZ/G3S host controller driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 ---
 v2->v3:
-- No change
+- Added rzg3s_pcie_teardown_intx() helper to remove the irqdomain
+  and clear chained handlers.
+- Updated commit message.
 
 v1->v2:
-- Added RB tag
+- Restricted the code to max 80 columns.
+- Moved calling irq_domain_remove() under err_cleanup_intx label.
 ---
- drivers/pci/controller/pcie-rzg3s-host.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pci/controller/pcie-rzg3s-host.c | 50 +++++++++++++++++-------
+ 1 file changed, 36 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
-index 01488660ab08..f51b5d7c1998 100644
+index f51b5d7c1998..3f7393c49a08 100644
 --- a/drivers/pci/controller/pcie-rzg3s-host.c
 +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-@@ -1019,7 +1019,7 @@ static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
+@@ -1006,22 +1006,38 @@ static const struct irq_domain_ops rzg3s_pcie_intx_domain_ops = {
+ 	.xlate = irq_domain_xlate_onetwocell,
+ };
+ 
++static void rzg3s_pcie_teardown_intx(struct rzg3s_pcie_host *host,
++				     int count)
++{
++	while (--count >= 0) {
++		irq_set_chained_handler_and_data(host->intx_irqs[count], NULL,
++						 NULL);
++	}
++
++	if (host->intx_domain)
++		irq_domain_remove(host->intx_domain);
++}
++
+ static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
+ {
+ 	struct device *dev = host->dev;
+ 	struct platform_device *pdev = to_platform_device(dev);
++	int i, ret;
+ 
+-	for (int i = 0; i < PCI_NUM_INTX; i++) {
++	for (i = 0; i < PCI_NUM_INTX; i++) {
+ 		char irq_name[5] = {0};
+ 		int irq;
+ 
+ 		scnprintf(irq_name, ARRAY_SIZE(irq_name), "int%c", 'a' + i);
  
  		irq = platform_get_irq_byname(pdev, irq_name);
- 		if (irq < 0)
--			return dev_err_probe(dev, -EINVAL,
-+			return dev_err_probe(dev, irq,
- 					     "Failed to parse and map INT%c IRQ\n",
- 					     'A' + i);
+-		if (irq < 0)
+-			return dev_err_probe(dev, irq,
+-					     "Failed to parse and map INT%c IRQ\n",
+-					     'A' + i);
++		if (irq < 0) {
++			ret = irq;
++			dev_err_probe(dev, ret,
++				      "Failed to parse and map INT%c IRQ\n",
++				      'A' + i);
++			goto teardown_intx;
++		}
  
+ 		host->intx_irqs[i] = irq;
+ 		irq_set_chained_handler_and_data(irq,
+@@ -1033,21 +1049,27 @@ static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
+ 						     PCI_NUM_INTX,
+ 						     &rzg3s_pcie_intx_domain_ops,
+ 						     host);
+-	if (!host->intx_domain)
+-		return dev_err_probe(dev, -EINVAL,
+-				     "Failed to add irq domain for INTx IRQs\n");
++	if (!host->intx_domain) {
++		ret = -EINVAL;
++		dev_err_probe(dev, ret,
++			      "Failed to add irq domain for INTx IRQs\n");
++		goto teardown_intx;
++	}
+ 	irq_domain_update_bus_token(host->intx_domain, DOMAIN_BUS_WIRED);
+ 
+ 	if (IS_ENABLED(CONFIG_PCI_MSI)) {
+-		int ret = rzg3s_pcie_init_msi(host);
++		ret = rzg3s_pcie_init_msi(host);
+ 
+-		if (ret) {
+-			irq_domain_remove(host->intx_domain);
+-			return ret;
+-		}
++		if (ret)
++			goto teardown_intx;
+ 	}
+ 
+ 	return 0;
++
++teardown_intx:
++	rzg3s_pcie_teardown_intx(host, i);
++
++	return ret;
+ }
+ 
+ static void rzg3s_pcie_teardown_irqdomain(struct rzg3s_pcie_host *host)
+@@ -1055,7 +1077,7 @@ static void rzg3s_pcie_teardown_irqdomain(struct rzg3s_pcie_host *host)
+ 	if (IS_ENABLED(CONFIG_PCI_MSI))
+ 		rzg3s_pcie_teardown_msi(host);
+ 
+-	irq_domain_remove(host->intx_domain);
++	rzg3s_pcie_teardown_intx(host, PCI_NUM_INTX);
+ }
+ 
+ static int rzg3s_pcie_set_max_link_speed(struct rzg3s_pcie_host *host)
 -- 
 2.43.0
 
