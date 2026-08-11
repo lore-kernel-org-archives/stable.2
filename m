@@ -1,33 +1,46 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9CCBA3C37AF;
-	Tue, 11 Aug 2026 02:53:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00C430DEB0;
+	Tue, 11 Aug 2026 02:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786416806; cv=none; b=PnzFBxDYaY5vOE07c3tf6qJ3N1pm4VHk1pkJFkFMJ8xTenWCOKxXANuivboPM3yAvpsLMBQ7gOp9JFbkPEiv19j63cJQbpvGGv15StMVVzICZuYYlFXyXa1j9e2KUyjd9bodcix0/vq3f/31i3c14CK1andgwEadwWzGim6NZgI=
+	t=1786416842; cv=none; b=L+/ECqxPN1eJsqTlzsJYLcZVfDFl1rw+PmVcf9SnCJwAzizK3oSjDq9acDHihKdMgpJSDAs3/p6oC+tWXUawS4q/q5WQLg449VdANL3CSJ47XJz8vi7GNmbVO4A1VJqiG2czMgZp+VWH6YQxwZnbA4XGjeTE5pEA/vsjy7tJZaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786416806; c=relaxed/simple;
-	bh=IhChvpFv9UABV+fFZzbhWEEGFrkVLPzcFML395lWAe8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=t+J6rc1SyUTuCKVp3Ev62D7LPn8hwzA3zbarh3CSayQj1lM5vorn9dC2hwQRP0A5XJGohiny9Y/XzrHeoK+/yjwhaxHaxvHXId0azbsag/lURRd+4N4nN3PvmexJuD8JixarVKSsDjIhWeVDCXqebLCzXg9TyJXUQtaBSp1fY3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDH4HyUjnpqe+eCAA--.130S3;
-	Tue, 11 Aug 2026 10:53:09 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgDHEcaUjnpqKp3DAw--.65430S2;
-	Tue, 11 Aug 2026 10:53:08 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	s=arc-20240116; t=1786416842; c=relaxed/simple;
+	bh=hJ44q0vZWvA19BzpbGNRhablWhjKkhsmI326dingyEg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=H6JGqn0ALiv2V+XP3tw6ZuPd45C661fzQhrMrD/ga8Ynghk71kllUwZVzSsII1/Oc39WDgpHP0eQmglI2DeVdVFL8omZKQ+r9hYSM1dDyoC3ElQnEMjIOTjhW9duqfYJZYWhjKe/lXayLMBUgrpzAlTPcdTUozf4AEgj83lM3s4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dqdbgNIH; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dqdbgNIH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=06
+	THnmpNNrOJ+53E1j8ULKWSVKIqa8vKQb/BIHPSbys=; b=dqdbgNIH94wdqtq19O
+	sX5S9PXoObIFjmFUXkDDdgAqFkLliLK3KUsbqrrHF16h2IklTuGrF3dQA43TOqrc
+	J0XbwWmW10XxWrTsq8YLSqhM2ncS9DzUxjH1JeV96bvEWIWHbCJDYXXg0lRfTvz6
+	j90X9KiI5g86+8fwRiv2ZmSrU=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wBHmSqfjnpqAmfvAw--.36476S2;
+	Tue, 11 Aug 2026 10:53:19 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: jic23@kernel.org,
+	andy@kernel.org,
+	joshua.crofts1@gmail.com
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] scsi: mvsas: fix tasklet use-after-free in mvs_pci_remove
-Date: Tue, 11 Aug 2026 02:52:12 +0000
-Message-Id: <20260811025212.136883-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Hui Su <sh_def@163.com>
+Subject: [PATCH v2] iio: pressure: bmp280: fix out-of-bounds access in sampling frequency lookup
+Date: Tue, 11 Aug 2026 10:52:53 +0800
+Message-ID: <20260811025252.1187644-2-sh_def@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260805074127.473731-1-sh_def@163.com>
+References: <20260805074127.473731-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,69 +48,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgDHEcaUjnpqKp3DAw--.65430S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?aap9IQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI3LA576NNjHV4wsL5n4+GcpL/ZK1QhJj+Z4zKh3/7XlRa6l
-	7YIGVhHP30yT5/laYCOp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7tr1DAr4ftw1UGr48XF1UurX_yoW8Ww17p3
-	yfG3yjkrW8XF1j9w17C3yUZa45Jws7Cry2kFWqg34aqr1Y9Fy0qr1xGFW7ZFZ0yry8Ja12
-	vFnYq3s5Wr95JabCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
+X-CM-TRANSID:_____wBHmSqfjnpqAmfvAw--.36476S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZrWkWryrAFy8AF1xCw1DAwb_yoW8WF18pr
+	WkKF1akrW8Gw1ku3WkAanrWFWruwn3Jr4fWFW7C3y8uw43ZFyjqryj9rWFyrWYyrs8CFsI
+	yrsF9ryDKrn8XFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piH7KxUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQEFZGp6jqE78QAA3U
 
-The tasklet is killed before the device IRQ is freed. The IRQ handler
-schedules the tasklet, so an interrupt after tasklet_kill() can
-reschedule it to run after its backing data has been freed, and the
-tasklet re-enables the interrupt on exit. Move tasklet_kill() below
-free_irq() and disable the interrupt again once it has drained.
+The sampling frequency tables store each frequency as an integer part and
+a fractional part in micro units. num_sampling_freq_avail is initialized
+to the number of flattened integer elements because read_avail() returns
+the table as a flat array.
 
-This issue was found by an in-house static analysis tool.
+bmp280_write_sampling_frequency(), however, indexes the same table as a
+two-dimensional array and uses num_sampling_freq_avail as the number of
+rows. Convert the flattened element count back to the number of rows
+before iterating over the table.
 
-Fixes: 6f8ac161b8b3 ("[SCSI] mvsas: Add support for interrupt tasklet")
+Fixes: 10b40ffba2f9 ("iio: pressure: bmp280: Add more tunable config parameters for BMP380")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Hui Su <sh_def@163.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 ---
- drivers/scsi/mvsas/mv_init.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Changes in v2:
+- Use plain 2 as the divisor, as suggested by Andy Shevchenko.
+- Add Joshua Crofts' Reviewed-by tag.
+Link: https://lore.kernel.org/lkml/20260805074127.473731-1-sh_def@163.com/
 
-diff --git a/drivers/scsi/mvsas/mv_init.c b/drivers/scsi/mvsas/mv_init.c
---- a/drivers/scsi/mvsas/mv_init.c
-+++ b/drivers/scsi/mvsas/mv_init.c
-@@ -588,13 +588,14 @@ static void mvs_pci_remove(struct pci_dev *pdev)
- 	core_nr = ((struct mvs_prv_info *)sha->lldd_ha)->n_host;
- 	mvi = ((struct mvs_prv_info *)sha->lldd_ha)->mvi[0];
+ drivers/iio/pressure/bmp280-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
--#ifdef CONFIG_SCSI_MVSAS_TASKLET
--	tasklet_kill(&((struct mvs_prv_info *)sha->lldd_ha)->mv_tasklet);
--#endif
--
- 	sas_unregister_ha(sha);
- 	sas_remove_host(mvi->shost);
-
- 	MVS_CHIP_DISP->interrupt_disable(mvi);
- 	free_irq(mvi->pdev->irq, sha);
-+#ifdef CONFIG_SCSI_MVSAS_TASKLET
-+	/* drain after free_irq(): the tasklet re-enables the IRQ on exit */
-+	tasklet_kill(&((struct mvs_prv_info *)sha->lldd_ha)->mv_tasklet);
-+	MVS_CHIP_DISP->interrupt_disable(mvi);
-+#endif
- 	for (i = 0; i < core_nr; i++) {
- 		mvi = ((struct mvs_prv_info *)sha->lldd_ha)->mvi[i];
- 		mvs_free(mvi);
---
-2.39.5
+diff --git a/drivers/iio/pressure/bmp280-core.c b/drivers/iio/pressure/bmp280-core.c
+index 990340a9b10c..dbe42233c81d 100644
+--- a/drivers/iio/pressure/bmp280-core.c
++++ b/drivers/iio/pressure/bmp280-core.c
+@@ -836,7 +836,7 @@ static int bmp280_write_sampling_frequency(struct bmp280_data *data,
+ 					   int val, int val2)
+ {
+ 	const int (*avail)[2] = data->chip_info->sampling_freq_avail;
+-	const int n = data->chip_info->num_sampling_freq_avail;
++	const int n = data->chip_info->num_sampling_freq_avail / 2;
+ 	int ret, prev;
+ 	int i;
+ 
+-- 
+2.43.0
 
