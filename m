@@ -1,43 +1,39 @@
-Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
+Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EFE394496
-	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 03:28:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202173242BA
+	for <stable@vger.kernel.org>; Tue, 11 Aug 2026 03:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786418886; cv=none; b=Vuq9CnPmL/ulNc5HC2BT1tvReJo6n9x1DDrG8YEoz/qRXjpy5ADUFne9XiidZ/k5CZ/+lZIoRSY5dxLXGiuneNWg4LYiXaJZwipZ50ZIFlis8g4fKtLS7IhDifCX2k4gDkmsjSC9zmdiNIfxJ/j5L76qc7CI6hT75O1ioe7BfD8=
+	t=1786418892; cv=none; b=IznAcwIkknw9siQBuPoAkCSUZZiZcLJoHcFawNr0kQYM9r6zaZBEMF4RfHkFsEgT/ON0m1hWi1acVVqc16XrAzdP81ZznzmBw2XSEcjEXp2XSMreGuqwFbuQMjFzjxZ9c8F/Hm0myaMDqmEKIbsNrEsNdpid03IltasmCf2oduE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786418886; c=relaxed/simple;
-	bh=WS2dw+ZWEothzANVTXzaxmh15W8sg85qzLaOkuEnpVA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LzpP30BgXIGMlHZrRplnDrd6P2mM9UAjc367Rvp6/i3YagvkZgNpDPjA/4APemUMstDPViB7fITF0zxKy56MY6qAYgvkc2Q5DqGzvcFkrdg1jt2DM0LBT2sZLpSqHOnA7Dc5sXKsL8N0dMLR0kp7+uyVnuWv7CEcfZmbsEdxpFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sgXO6yfW; arc=none smtp.client-ip=91.218.175.183
+	s=arc-20240116; t=1786418892; c=relaxed/simple;
+	bh=Z1UMnQkQ7RHnbzSQtXUxBC+spluPC7yPs/hg1k9MK/k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=L6azLO9vbjgG1YNfAS1lHnBcxt5kZ3Z0dLbp4Hcqe9Yk5k43T6JPZTbknEXyNIDloEAmkUxj8TlhXKFlnPM08Tn0Q7JfAFEPWPoprcNC3Z0o5Ib2ZFburp1uN0YYp1rGvH5UDPvSmxKIkfQ7gabP7ICUdGvQleeZbNQOyxYTxg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RdWMXj2Y; arc=none smtp.client-ip=91.218.175.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sgXO6yfW"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RdWMXj2Y"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786418883;
+	t=1786418879;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=poryoDFQ2WWBKKBg7BQ/rEalIYvo5T7K8jWvYKaI9Mw=;
-	b=sgXO6yfWjATjRb32kxcLJsmVboKb/tche86YxeKcq6HYRitzSlOI4wcyiKyWj+IpEtRkvl
-	PMANkZurP206QUGdOH6gR++TeVYIZroZ8tK5hiMX7SAt2XXCXznKkpjz7GymJThseN5v/R
-	NLzG/DnOLEIXEY5gsdaahl1ahICFJTM=
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=IZ63MsPGPL9yGX0NSI+upDbrCQu3p5KU0q6reB3Ro8w=;
+	b=RdWMXj2Yxakg8Mxj+b3v3CIvjVUZ76PWmjIC5fMG4crMK/ePeoRVMTcd3NDFpvUn5sxd3q
+	oQ9qYP1UIbRjxlI16WKz0eJnD3SxYC/oOgDVF5fPTeHGouufGbbsVtajBGQyTNy+lwPl6m
+	b9m4WscOJdQKr3YwcAOWYvmHMoByEys=
 From: Yi Cong <cong.yi@linux.dev>
 To: marcel@holtmann.org,
 	luiz.dentz@gmail.com
 Cc: linux-bluetooth@vger.kernel.org,
 	stable@vger.kernel.org,
 	Yi Cong <yicong@kylinos.cn>
-Subject: [PATCH 2/2] Bluetooth: virtio_bt: unregister hdev before freeing on open failure
-Date: Tue, 11 Aug 2026 11:27:02 +0800
-Message-Id: <20260811032702.67908-3-cong.yi@linux.dev>
-In-Reply-To: <20260811032702.67908-1-cong.yi@linux.dev>
-References: <20260811032702.67908-1-cong.yi@linux.dev>
+Subject: [PATCH 0/2] Bluetooth: virtio_bt: harden probe error paths
+Date: Tue, 11 Aug 2026 11:27:00 +0800
+Message-Id: <20260811032702.67908-1-cong.yi@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,29 +45,24 @@ X-Migadu-Flow: FLOW_OUT
 
 From: Yi Cong <yicong@kylinos.cn>
 
-When virtbt_open_vdev() fails after hci_register_dev() has succeeded,
-the 'open_failed' path frees the hdev without unregistering it first,
-leaving a dangling entry in the global HCI device list.
+This small series hardens the two error paths in virtbt_probe() that
+currently leak or leave dangling state behind:
 
-Fixes: afd2daa26c7a ("Bluetooth: Add support for virtio transport driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yi Cong <yicong@kylinos.cn>
----
- drivers/bluetooth/virtio_bt.c | 1 +
- 1 file changed, 1 insertion(+)
+  1/2 - if virtio_find_vqs() fails, the allocated 'vbt' and the
+        'vdev->priv' pointer that already references it are leaked.
+  2/2 - if virtbt_open_vdev() fails after hci_register_dev() has
+        succeeded, the hdev is freed without unregistering, leaving a
+        dangling entry in the global HCI device list (UAF).
 
-diff --git a/drivers/bluetooth/virtio_bt.c b/drivers/bluetooth/virtio_bt.c
-index b674fe0c2779e..7c9c3f0085dc0 100644
---- a/drivers/bluetooth/virtio_bt.c
-+++ b/drivers/bluetooth/virtio_bt.c
-@@ -401,6 +401,7 @@ static int virtbt_probe(struct virtio_device *vdev)
- 	return 0;
- 
- open_failed:
-+	hci_unregister_dev(hdev);
- 	hci_free_dev(hdev);
- failed:
- 	vdev->config->del_vqs(vdev);
+  Fixes: afd2daa26c7a ("Bluetooth: Add support for virtio transport driver")
+
+Yi Cong (2):
+  Bluetooth: virtio_bt: fix leak of vbt on virtio_find_vqs failure
+  Bluetooth: virtio_bt: unregister hdev before freeing on open failure
+
+ drivers/bluetooth/virtio_bt.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
 -- 
 2.25.1
 
