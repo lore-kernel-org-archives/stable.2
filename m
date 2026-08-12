@@ -1,71 +1,74 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61A3390CAE;
-	Wed, 12 Aug 2026 20:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8621D349CC6
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 20:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786564988; cv=none; b=h7o6dYRMDwD7mrkEJsyeMolEyODNvdvb9H/nYd0yRakygYAFomxZmMGSalBJoUHSKvQpYwUPa9IEUIvLK83CjeUjj2ikpqMbZ3M3T+HEPEvGLOzZBYJs/WE1/32rC+RdfRbtLprqXixnB6PlBxVvPlQGQgchBNuwsrQgdSJnuq8=
+	t=1786565978; cv=none; b=ldpEWplHKLjWMVKfDDY0Bydr9HZQHzPDj5mFKH5dLsRkp5L30c83An/7zF5nAWb5Nntv7n9n2VUNREn+t5GmthuyBOWH7SiJlPq4CuDj5POxlrlhIVIZg39LBX+5qWwQL51DGMPh+boEM/vvbKxiSHwJKoGHF1xwjC5jIkdZj30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786564988; c=relaxed/simple;
-	bh=X//UKBUUpUskOIAgBTfpfSW+M6VENerl0FCCuO1HkbE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KT9fuQSVWP3znSZT1YjKD9jlEc+Mui9RvKbb+P8my65iFj/LEk3vseKW6vvqR+8QX9zYWDGjICOKehSlabo0pw5QaEFSX0U1uRyYHsjUqnnSjAKooP0KyO4XpLWadCr6rtDpMZWJfX74tqzWEXknniFAoB6eDke6u1pBZTM+H/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pGWb9cpo; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786565978; c=relaxed/simple;
+	bh=nmSMDrqTZ8h/iwCzyTsRyyD43KuC7bQC+O7Vt+e0pBA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o3V0qsYFXCl5MgMYWkBHsmbByKAwaOFBHTtmU9Idk41AucdlS5odKCxQibqTu/5B6W+PWvhvaeDbrzr79+lRaW0OqKFszLfYG7rI3BsgM459Vz15/apWHxIJt5gieBCztsMtKFY/hWYAlTahyjVu8lUg/w+BvbHQTB1d0sQ2ehU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=J/WD9yNj; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pGWb9cpo"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CK2oEJ197050;
-	Wed, 12 Aug 2026 20:03:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=PnxY9uMnf06L5hMnn
-	ymhC8gDi9LXvoWYazDhqSh9U3o=; b=pGWb9cpoPfzMXeFZlptZs16+WRwOywVGJ
-	L+PgUGrDYiBMjacud66sUMPDALJ2/iDxUJ6aOQ6TVRLOwRyCDyqVtIYeoBwaCJcq
-	mpsrBjqEOOx6tPHh9USyS8gNW8nFByXCTfXdErr1Uv2A4QHbTvX4t18+ZvxD4zNJ
-	hIJEw9kcqEWXpqfSGKI4MM8/RVy4uJqx7PCE5/tq4vIa1snHdX9XXmSWR5CEOivt
-	yXPdDyrzUraILLYjOmAc2loPvzsfbEo1UNmJhRH/Zx7YNDKmi3aDjD2ivxXuUmoh
-	tTT8CiYzb1fO63tBIQD9Tl6HsVpsZGFUbu0nrmo1jInMUVJQfJyIw==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvp33kjp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 12 Aug 2026 20:03:01 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67CJuHqY030878;
-	Wed, 12 Aug 2026 20:03:00 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fxesq7y6d-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 12 Aug 2026 20:03:00 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67CK2xO858589524
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 12 Aug 2026 20:02:59 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F20CE58052;
-	Wed, 12 Aug 2026 20:02:58 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6514858056;
-	Wed, 12 Aug 2026 20:02:57 +0000 (GMT)
-Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.9.29])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 12 Aug 2026 20:02:57 +0000 (GMT)
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
-        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
-        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
-        gor@linux.ibm.com, stable@vger.kernel.org
-Subject: [PATCH v5 9/9] s390/vfio-ap: Fix memory leak when queue removed from host AP config
-Date: Wed, 12 Aug 2026 16:02:40 -0400
-Message-ID: <20260812200240.818004-10-akrowiak@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812200240.818004-1-akrowiak@linux.ibm.com>
-References: <20260812200240.818004-1-akrowiak@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="J/WD9yNj"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso8497555e9.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 13:19:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1786565974; x=1787170774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b/Y8gQ06TpeNkeikg3ga6WNbQ4HRSdTBd5g53ymy4CA=;
+        b=J/WD9yNjN+nli/FKEtcKxASxmgZD/htIdx/hDl9uMh8A3EKH6srp4IRkvnu85SBo0n
+         aGwsPF66ShlkehVOF5fuhwW+JIgthyKAdJbdPiA60PC+0mE6+6GuhjhYpgHcEPYSM5j9
+         pXBbFMMtyXy9hDCSljHQQs1GKCbzeGxiLEZKo7Sw5yFdq8sNQxviWW7rGIT/hmNrCSNP
+         dL5++mUeEX9qSvleABL5O7WdGhfozxabzlLWdvC0bd+iQ8aPJyL5ufQfWA6POyhfCdCs
+         KngQRdNaEW+vK7MxH0jqksDPKAbEoR5hVj+YWkNz0o0I/zE5IV+lOKlml/qOjy020QFO
+         1U7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786565974; x=1787170774;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b/Y8gQ06TpeNkeikg3ga6WNbQ4HRSdTBd5g53ymy4CA=;
+        b=p/IUdKsRHWNHexXZpzNQjpjPtjR3SWEM6Z8dfYwTrR+qxxOnIU9XpJT5NTSZYez2wb
+         WVjx7pmKyXRkFhfhOgnVNcx20Vc32Xy238xDigmrksmrfyYeUMY81aTauPrAwmdcTuIx
+         v7Vnh1BZcVOFMUZ92IH05etY3q4pRBxF1r4aZt91nWtwg+7aKm87/H9e0+hGEK/oi0aW
+         6d4CYj29x6dTshggV+xAtR8vw4YsULRxTc7xAHRRciILxerOWY446fbxIGYdmVSBXQlX
+         Sbfgx6ZdUW9jv7lfjt6AudepE6v86ykLbB/LIMcmD1SqpXM339LFBbN72qXQRLq+5nI1
+         QsoA==
+X-Forwarded-Encrypted: i=1; AHgh+RrY0XvIgY5CbsAx3G9FhFiREdB8Y+tgq57joYdD6u8eTEjpMYOHsX9veSm7AqIea0vjFtvru+I=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEJRKzpUnjPlxijQcFkCPVztUq6/BRGWDkhVCjB5opukp/AK7Z
+	yg9rI3V4IXu7eOx+axj7fTuIjvTQxrbQSnjyFE/ww/jU/EDVPI+rqZ9pnTPyaQKGrP0=
+X-Gm-Gg: AR+sD13Hbt9MKmotWdlaVh3B42G3dmXNBJAhDmJURP1jDkxWziJPfd6Vfq2IAalKn1R
+	6/wugeTS9EEJSFWO3K3Ah2GBUTiAji6zkmb6A8P1mdi2SYRO29ROjFVx9wEZusmaK78oX/IBm85
+	TsXALSWLnMyrVWwJxvr0OZzqn/bUV1bzLB81F923Teey4mWH4Xgr+uUqcZxkDS9wCuCjZ4bMvxd
+	ub80E1ft0p+Y/HLpRf2mnHswLkenxjyVCUJmAkmmoUd9epNpcSmiQLX2+6fWtNzBoDjj1C+Fe1m
+	5eq36A1+WsaYl+JtpD+mWHKD8th/xmFqyhN5JGl6Tq43bUDbas99b4vblRbRK+/6S7r8QHYYl4E
+	8M6hVjQEGyiiEzlHi4intuJcdsj5PA56Z1wC692p81t9Dlxu3BfJ9GvTEG/q+B/tTrs3kAb0JE/
+	GahVwf1+n47YRYLR/KhU/4wgbRX8JkUas+kyc2nzLfq86lUct6nOqlgqKaQ3ZrTJD1GNVKjQbiP
+	CFzR7ryg5WYFvfBkyGZFNB/sN8Pm5Lmsbztr6ekwwooRIixTdo1Z0fnkR502Ccq
+X-Received: by 2002:a05:600c:37cc:b0:490:e5c1:b8bf with SMTP id 5b1f17b1804b1-499821f9047mr2328825e9.13.1786565973814;
+        Wed, 12 Aug 2026 13:19:33 -0700 (PDT)
+Received: from raven.intern.cm-ag (p200300dc6f02b200023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f02:b200:230:64ff:fe74:809])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815a5c2308sm190856f8f.33.2026.08.12.13.19.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 13:19:33 -0700 (PDT)
+From: Max Kellermann <max.kellermann@ionos.com>
+To: idryomov@gmail.com,
+	amarkuze@redhat.com,
+	xiubo.li@clyso.com,
+	ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ceph: force a cap message when a deferred revoke can't be acked immediately
+Date: Wed, 12 Aug 2026 22:19:15 +0200
+Message-ID: <20260812201915.1783578-1-max.kellermann@ionos.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,89 +76,154 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=AMtp2X5w c=1 sm=1 tr=0 ts=6a7cd175 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=VrB3zfVs-A4ss5GmTxoA:9
-X-Proofpoint-GUID: GNSZ5PH5L9wWryeOC0YZU0f1iHgiRjS1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE2MSBTYWx0ZWRfX4Gq5/oA5g4qD
- wccyI6cCng8MIHbF11yZ+JNp/F6gvsGCKT/mA/8UI9etibM031Q+cc4KrzUn/nJ1G+KNDOPdGdV
- rbIZ49+Cb15B838iATU+W9goj7gd8oic/EI4T0bpG/hg+LU/cSQzGiygokSnNdKvNSOFp2ysMGL
- aLdS1vn1WTAMxneQpOxxf6qG2v4GnsS5adHxLug9Ap++A3e/PAoUZ4uc6fhhUNayjZYtjvzOCAG
- kmnThbpYyfzlvQ9KZguUwbX6Lm1Q4Ekce9+SOiDFp3dX+Da+3mx2znMBViWpw716r+mafPw8t/h
- 7ISRnSTZ1R4qfQwuxxmJsPH46baZJhsyLjUazfyL3eahzXWP6N4zoVLOlB2dlHHsXameNLMa89W
- uywB2f6VRE1Dkrst9iQA/b+zEKGn1Mg4IzFj2TDAYex2RNW026bvH1PXlRbu2OkaYWRKHk7FiE0
- FyzeBuHJuPgao5wWAtA==
-X-Proofpoint-ORIG-GUID: GNSZ5PH5L9wWryeOC0YZU0f1iHgiRjS1
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE2MSBTYWx0ZWRfX1dUTnYbXAXld
- PwwgNL9GXzo6DH4G9dQXAMv9/1Uz8aAdgwilv/TBNDZhhFT/eIQsoxB0w2V/S8+m0mRhcrRhfGy
- zOKj3vh3gVn8Bv/q0gToOgHQc5tM3QY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-12_06,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608120161
 
-When an adapter or domain is removed from the host's AP configuration, the
-AP bus invokes vfio_ap_on_cfg_changed() to notify the vfio_ap device
-driver. For each ap_matrix_mdev object to which the adapter or domain
-is assigned, vfio_ap_mdev_hot_unplug_cfg() is called and removes the
-adapter or domain from the matrix_mdev->shadow_apcb (i.e., the guest's AP
-configuration) and hot unplugs it if a guest is using it. The new host
-AP configuration (sans adapter or domain) is then stored in
-matrix_dev->info.
+When the MDS revokes capabilities, handle_cap_grant() normally
+guarantees a response by setting `CHECK_CAPS_FLUSH_FORCE` (see
+commit 31634d7597d8 ("ceph: force sending a cap update msg back to MDS
+for revoke op")), so ceph_check_caps() sends a cap message even if the
+client would otherwise decide it has nothing to do.  That guarantee is
+skipped whenever the revoke has to be deferred (via revoke_wait):
+revoking Fb while dirty data is still buffered (writeback is queued
+first) or revoking Fc while pages are cached (async invalidation is
+queued first).
 
-When the AP bus subsequently unbinds the physical queue devices associated
-with the adapter or domain that has been removed, it invokes
-vfio_ap_mdev_remove_queue() for each queue removed. At this point, the
-adapter or domain will no longer be assigned to the
-matrix_mdev->shadow_apcb or the matrix_dev->info object because they would
-have been removed by vfio_ap_on_cfg_changed(). Consequently,
-vfio_ap_mdev_reset_queue(q) is bypassed and kfree(q) is called
-without executing vfio_ap_free_aqic_resources(). This indefinitely pins
-guest memory (q->saved_iova) and leaks KVM GISC resources (q->saved_isc).
+In those cases, the ack is left to the deferred completion
+(ceph_put_wrbuffer_cap_refs() after writeback, or the invalidate
+worker after invalidation); both of which call ceph_check_caps(ci,0)
+i.e.  without `CHECK_CAPS_FLUSH_FORCE`.  Nothing gets sent under one
+of the following conditions:
 
-Note that resetting the queue would fail with an invalid APQN error due to
-the fact the queue is not longer in the host's AP configuration; however,
-it is still necessary to free the AQIC resources. The fix here is to call
-vfio_ap_free_aqic_resources if the adapter or domain is neither in
-matrix_mdev->shadow_apcb or matrix_dev->info.
+- the inode is retaining caps because the file was used recently
+  (file_wanted != 0; retain |= CEPH_CAP_ANY)
 
-Fixes: b9bd10c43456d ("s390/vfio-ap: do not reset queue removed from host config")
+- the revoked cap is still used because the page was re-cached (e.g. a
+  file being re-read)
+
+- the MDS has meanwhile re-granted, so `issued==implemented` and the
+  client sees nothing being revoked
+
+The client then never emits the cap message which the MDS is waiting
+for.  The MDS blocks on the revoke indefinitely and logs, for minutes
+or hours:
+
+  client.NNN isn't responding to mclientcaps(revoke), ino 0x... pending
+  pAsxLsXsxFsxcrwb issued pAsxLsXsxFsxcrwb, sent 964.899182 seconds ago
+
+The client-side state at that point shows the full cap set still
+issued, nothing in the revoking/flushing sets.  Thus nothing gets
+sent.
+
+This patch fixes it by remembering that a forced response is expected.
+When a revoke is deferred, set `CEPH_I_FLUSH_FORCE` on the inode.
+ceph_check_caps() replays it as `CHECK_CAPS_FLUSH_FORCE`, so whichever
+path re-checks the inode next (the writeback/invalidate completion,
+the delayed worker, or any other caller) is guaranteed to send a cap
+message to the MDS.  __prep_cap() clears the flag once a message is
+actually built.
+
+This is the deferred-path counterpart of the existing
+`CHECK_CAPS_FLUSH_FORCE` handling; a normal (non-deferred) revoke
+still forces the response inline as before.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Fixes: 31634d7597d8 ("ceph: force sending a cap update msg back to MDS for revoke op")
+Fixes: 257e6172ab36 ("ceph: don't let check_caps skip sending responses for revoke msgs")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 ---
- drivers/s390/crypto/vfio_ap_ops.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+v1->v2: fix CEPH_I_FLUSH_FORCE/CEPH_I_FLUSH_FORCE_BIT mixup
+---
+ fs/ceph/caps.c  | 40 +++++++++++++++++++++++++++++++++-------
+ fs/ceph/super.h |  5 +++++
+ 2 files changed, 38 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index 1edd0b7a3cce..bd9d239caeba 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -2533,12 +2533,15 @@ void vfio_ap_mdev_remove_queue(struct ap_device *apdev)
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index d7283fb54cec..8ad17787b172 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -1410,6 +1410,7 @@ static void __prep_cap(struct cap_msg_args *arg, struct ceph_cap *cap,
+ 	BUG_ON((retain & CEPH_CAP_PIN) == 0);
+ 
+ 	clear_bit(CEPH_I_FLUSH_BIT, &ci->i_ceph_flags);
++	clear_bit(CEPH_I_FLUSH_FORCE_BIT, &ci->i_ceph_flags);
+ 
+ 	cap->issued &= retain;  /* drop bits we don't want */
  	/*
- 	 * If the queue is not in the host's AP configuration, then resetting
- 	 * it will fail with response code 01, (APQN not valid); so, let's make
--	 * sure it is in the host's config.
-+	 * sure it is in the host's config. If it is not, then free the KVM GISC
-+	 * resources.
- 	 */
- 	if (test_bit_inv(apid, (unsigned long *)matrix_dev->info.apm) &&
- 	    test_bit_inv(apqi, (unsigned long *)matrix_dev->info.aqm)) {
- 		vfio_ap_mdev_reset_queue(q);
- 		flush_work(&q->reset_work);
-+	} else {
-+		vfio_ap_free_aqic_resources(q);
+@@ -2038,6 +2039,14 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
+ 
+ 	if (ci->i_ceph_flags & CEPH_I_FLUSH)
+ 		flags |= CHECK_CAPS_FLUSH;
++	/*
++	 * A revoke whose response was deferred (see handle_cap_grant()) must
++	 * still be acknowledged.  Replay the forced flush here so that even a
++	 * check triggered by writeback/invalidation completion sends a cap
++	 * message to the MDS.
++	 */
++	if (ci->i_ceph_flags & CEPH_I_FLUSH_FORCE)
++		flags |= CHECK_CAPS_FLUSH_FORCE;
+ retry:
+ 	/* Caps wanted by virtue of active open files. */
+ 	file_wanted = __ceph_caps_file_wanted(ci);
+@@ -3757,13 +3766,30 @@ static void handle_cap_grant(struct inode *inode,
+ 	BUG_ON(cap->issued & ~cap->implemented);
+ 
+ 	/* don't let check_caps skip sending a response to MDS for revoke msgs */
+-	if (!revoke_wait && le32_to_cpu(grant->op) == CEPH_CAP_OP_REVOKE) {
+-		cap->mds_wanted = 0;
+-		flags |= CHECK_CAPS_FLUSH_FORCE;
+-		if (cap == ci->i_auth_cap)
+-			check_caps = 1; /* check auth cap only */
+-		else
+-			check_caps = 2; /* check all caps */
++	if (le32_to_cpu(grant->op) == CEPH_CAP_OP_REVOKE) {
++		if (revoke_wait) {
++			/*
++			 * We can't ack the revoke yet: the response is deferred
++			 * until the writeback or cache invalidation queued above
++			 * completes.  Set the CEPH_I_FLUSH_FORCE flag to remember
++			 * that a forced cap message is owed so that deferred
++			 * completion (ceph_put_wrbuffer_cap_refs() or the
++			 * invalidate worker, both of which call ceph_check_caps())
++			 * actually sends one, even if by then the revoked caps look
++			 * unused, the inode is retaining caps, or the MDS has
++			 * re-granted them.  Without this, the cap message is never
++			 * sent and the MDS hangs ("isn't responding to
++			 * mclientcaps(revoke)").
++			 */
++			ci->i_ceph_flags |= CEPH_I_FLUSH_FORCE;
++		} else {
++			cap->mds_wanted = 0;
++			flags |= CHECK_CAPS_FLUSH_FORCE;
++			if (cap == ci->i_auth_cap)
++				check_caps = 1; /* check auth cap only */
++			else
++				check_caps = 2; /* check all caps */
++		}
  	}
  
- done:
+ 	if (extra_info->inline_version > 0 &&
+diff --git a/fs/ceph/super.h b/fs/ceph/super.h
+index 1d6aab060780..878440a2eb3b 100644
+--- a/fs/ceph/super.h
++++ b/fs/ceph/super.h
+@@ -687,6 +687,10 @@ static inline struct inode *ceph_find_inode(struct super_block *sb,
+ #define CEPH_I_ASYNC_CREATE_BIT		(12) /* async create in flight for this */
+ #define CEPH_I_SHUTDOWN_BIT		(13) /* inode is no longer usable */
+ #define CEPH_I_ASYNC_CHECK_CAPS_BIT	(14) /* check caps after async creating finishes */
++#define CEPH_I_FLUSH_FORCE_BIT		(15) /* a revoke's response was deferred;
++					      * force a cap message to the MDS once
++					      * the deferred work completes
++					      */
+ 
+ #define CEPH_I_DIR_ORDERED		(1 << CEPH_I_DIR_ORDERED_BIT)
+ #define CEPH_I_FLUSH			(1 << CEPH_I_FLUSH_BIT)
+@@ -699,6 +703,7 @@ static inline struct inode *ceph_find_inode(struct super_block *sb,
+ #define CEPH_I_ODIRECT			(1 << CEPH_I_ODIRECT_BIT)
+ #define CEPH_I_ASYNC_CREATE		(1 << CEPH_I_ASYNC_CREATE_BIT)
+ #define CEPH_I_SHUTDOWN			(1 << CEPH_I_SHUTDOWN_BIT)
++#define CEPH_I_FLUSH_FORCE		(1 << CEPH_I_FLUSH_FORCE_BIT)
+ 
+ /*
+  * Masks of ceph inode work.
 -- 
-2.53.0
+2.47.3
 
