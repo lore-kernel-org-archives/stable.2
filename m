@@ -1,114 +1,153 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6A13FE658
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A374028FA;
+	Wed, 12 Aug 2026 09:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786526871; cv=none; b=XyydtpfKBiTd8MjotvZGjtBHijbqsOAO9CSHuBTJaIjDePL9oh2b1OJqSLrILM6zgT3jiEtiZfbtJeBl3utSVa8jdN2wuMNJITEep+dtUwQaCTFTCo4fBxQoSQr438d7hifn57cEInEHDU5bXuPD8h2APRJXNhI0zqm7ixraDNM=
+	t=1786526917; cv=none; b=GPqX/WmKeiN+kUTwNP/Eo4MCpa962JhSlLiNn4RQ3bL+TSLxcGyOoThJOHPhDoZhJlqd59X7S7h64Bap8Xpv2U89S+uMs6b0Hac59DZCfP1lbiGCGJziMUbtVT8jlPegeSVNKtX5aDSHS/0J8KoKcEwiL82yJMyRxYNW70MNeYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786526871; c=relaxed/simple;
-	bh=+Q0nVSzTRmqvmkg+g0HdWQYxEGok9QT2sLIAdcqKVkw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sIH3dJMHmblD0hJRLaSZVC3EAd6ALjEb3sQMzERJiNzP1ZnKa1EB3h9oejMqj+oPohxiVl9Xn+hH3kbsxqGgyIEuRlipAqqoC7kILX9UsI1Z3YSnWmjE7EzM6LRu2Em1knBI5e8m4ORZIyvxZL2g55Skl27cnYeV4CkVZpbPCzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NTMYeyGX; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786526917; c=relaxed/simple;
+	bh=CJ0PipWjSbNv5x6/551tvLBU3zJZmV4ZgP0tjP1NKhI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eao9ogQO0d0UGrRw7SqhahMOMVXD7SOl2iYrrTqQEMzVWLH4UzLcQfCStxrSfVkg2n9QvAhbQ+7fWkZc7euGZ1ujwXSCyUcFz19S+3tcHyZlJSvRD9n5wj3gC9UnDPg6bgWKopGZaLRh3ON1M9+E61wnaoe9vD5IQUZJq8KrPMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LKm1opZS; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NTMYeyGX"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84a4d8fd6ecso915143b3a.1
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 02:27:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786526869; x=1787131669; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1TfD87JSttf0FoHcv7x41fHEYgAqJLQiQ0nL4xBOEkE=;
-        b=NTMYeyGX4J1C8MUCjODyC0XjSDhw81szdFDQP6yssDZDG16XM4W+lMGObP7/jUDz0u
-         sojHABqWaBWrNF5mXvq/b/pFr8ruLQzIB9cF2cYlLwL3d6x2vgkjeHD5EsWPKXFuTHwo
-         9goxt0PKyCRrTwn7UUTPwIzfZoza4CFfUqO+2xtDobJH6uen/joG1I9RtH1B1YUOfxlT
-         gSBR0DwUq+8ah3f8Q1jZ2qJ6V+u55OBYLpx8iL4s6o3qUvYO67i3Df/wL5WaUpdYcr+0
-         Ds/flKSh7K17mNTlvChrKbXoF7LDhNI3my+lPPjLbmKqYQvsuIKmgxFTYDMhu9TY/Chm
-         MXLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786526869; x=1787131669;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1TfD87JSttf0FoHcv7x41fHEYgAqJLQiQ0nL4xBOEkE=;
-        b=gdY8Q/wZvJ32VZmkus/wiy/pd95bQz0uu88DThjM87Xz/Xc526etAuq+7c6P049PXw
-         AM3GcjzpuWfREFk9IE/IBP1/GxwTYa6WOQOH4Teuxlii4mz6AZUIpcrg3olwUdmeM1lK
-         jcrmMqn3uKViOYIWdiREkoy/jtisDNKLiOiJqV3UtmImSmOZ8dZg+IZT+E9cAlFpgH5M
-         idEitQchRovp2/GMRxrysvRlVrH34/sc7eh96WUXmfIDv9M5v4C1+wTdsrFSRRttBPAp
-         RDvtEgtu6fcg9MCO8b+QLwKjYGynB9NHRg2AFUsI0AsIVjGYGTcasmkhwDVIJ5Qvhppm
-         YQ1A==
-X-Forwarded-Encrypted: i=1; AHgh+RrtCTtLwIpYtYDWNcbVl4ndeY+4uQznyDA2dD495qKhSvZjr+h9hrKRK9nOCGCjcdE5Bv+Tg2s=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyd7ELFTf0FWkPOZzvMI63SorXNXAIAzt3kucJvO2qaOcDhQfgy
-	Iqt7F6Gn2iij163VPiU/oF/6K6vxeKcNcSLuWVZKkUpWoxU25Prj3rF9
-X-Gm-Gg: AR+sD12t2qKvinMvZmvSDgKkAJZU/CnsTC9ql5W2y7ells36boPACULhAqLbNEBp2IT
-	RnybAMox2tMnKKslSVrPyNkzYg7/7nKsthijI5JAQD1X8fY6pP5778E5783X7TZd9OlUtDVH69b
-	NG572TtjCzT6h9BdH2BX+WqTTGWWOYuwXP7NucX61sfQbY4hUhc2l/RB4cpsp6tIK/WZp2RlaVZ
-	imvNcpXlrCxBRTEKaIjU/dV26sUJyOWaoSOoVWy9AJMt5e7Q6AUMhUXEcDjPrkJeANUPEmrsctp
-	EAcYkXdE9szrQE7WD9BCdEF4xNlc7sMMgvfU5qC20OGvCA98XFo4FVYslTMXsSSdiEokyCLVQF1
-	uaKDmgZwOGX+0B/TbM4YHae37FJyyKBPmWkd8vH6Uq5BblfhF2Dsg19hlpLA5a39y65Tey6Vz9D
-	HCoSdwqHFsawmeCbNVvBzHOgqB+snGo7FfrCZez+ACO8s=
-X-Received: by 2002:a05:6a00:8d1:b0:842:5da3:9b89 with SMTP id d2e1a72fcca58-84fb55aaf96mr3658976b3a.38.1786526869174;
-        Wed, 12 Aug 2026 02:27:49 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fb1ee6646sm727306b3a.38.2026.08.12.02.27.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 02:27:48 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Ajay Gupta <ajayg@nvidia.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Wolfram Sang <wsa@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] i2c: nvidia-gpu: fix autosuspend cleanup
-Date: Wed, 12 Aug 2026 17:23:22 +0800
-Message-ID: <20260812092322.3423217-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LKm1opZS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786526915; x=1818062915;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CJ0PipWjSbNv5x6/551tvLBU3zJZmV4ZgP0tjP1NKhI=;
+  b=LKm1opZSEhA1vap8XG+cO1aaJ8/y4+4Pwf5VxDac66Y9pmWP00DxSCjq
+   roOGF8s7VnJbYu3JK/aYUKgx2ocoMOzVV9N/WR8ZNv8t0romNNDX+t+Va
+   K7gdNcQRFhm+EpkGA2shRguw24QsygFyIogBW+hX1TBmdy/aaP9+G8r7A
+   8cqDxG0gjkb57DnP8/2YW6VBi8tl3dyuPJ5qgoXTT9i6CgK1MUa1dx3WA
+   e4Kbrv54GycSoDaPbgOv1hRhy6w7LSPBpIWYZLP3PsxaFuR0vKyBf+tJv
+   0MdiWjmez56SjcM5aJvaGlNHgIR/jZClyu468AKbcG51ZX1MbHAxiVJBI
+   g==;
+X-CSE-ConnectionGUID: 5Q8TwOSbQQC6s70hSNVbGg==
+X-CSE-MsgGUID: COqDbYSPQmuuvadqjAuYtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="74612106"
+X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
+   d="scan'208";a="74612106"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 02:28:35 -0700
+X-CSE-ConnectionGUID: GbDzB1ftTMiitiW3ES2JIA==
+X-CSE-MsgGUID: MwbkIWVQSDCwu9uT6U87mw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
+   d="scan'208";a="260274587"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa007.fm.intel.com with ESMTP; 12 Aug 2026 02:28:33 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 3874299; Wed, 12 Aug 2026 11:28:32 +0200 (CEST)
+Date: Wed, 12 Aug 2026 11:28:32 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, git@amd.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] usb: typec: tipd: fix uninitialized
+ typec_partner_desc on stack
+Message-ID: <anw8wDlUq4Vf4JN6@black.igk.intel.com>
+References: <20260807174659.3720863-1-radhey.shyam.pandey@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260807174659.3720863-1-radhey.shyam.pandey@amd.com>
 
-gpu_i2c_probe() calls pm_runtime_use_autosuspend(), but the remove
-path does not call the matching pm_runtime_dont_use_autosuspend().
+On Fri, Aug 07, 2026 at 11:16:58PM +0530, Radhey Shyam Pandey wrote:
+> tps6598x_connect() and cd321x_update_work() pass a stack-allocated
+> typec_partner_desc to typec_register_partner() after initializing only
+> usb_pd, accessory and identity.
+> 
+> typec_register_partner() copies attach and deattach from the descriptor
+> into the partner. With those fields left unset, garbage function pointers
+> may be stored and later invoked from typec_partner_link_device() when a USB
+> device is linked to the port. Uninitialized pd_revision and usb_capability
+> similarly leak stack data through partner sysfs.
+> 
+> Zero-initialize the descriptor so optional callbacks remain NULL and the
+> remaining fields are zero.
+> 
+> Assisted-by: claude-mythos-preview-high
+> Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
+> Fixes: 0a4c005bd171 ("usb: typec: driver for TI TPS6598x USB Power Delivery controllers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without undoing the autosuspend setting during
-teardown, this reference is not dropped and usage_count remains
-unbalanced.
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-Call pm_runtime_dont_use_autosuspend() during driver removal to
-properly undo the autosuspend setting.
+> ---
+> Changes for v2:
+> - Add  Assisted-by tag.
+> - Remove explicit indentity=NULL
+> 
+> AI code scanning identified this issue; the possible call graph is shown below.
+> 
+>   USB-C plug event (IRQ)
+>     tps6598x_interrupt()
+>       tps6598x_handle_plug_event()
+>         tps6598x_connect()
+>           struct typec_partner_desc desc;     /* bug: attach/deattach unset */
+>           desc.usb_pd / .accessory / .identity = ...
+>           typec_register_partner(port, &desc)   /* class.c */
+>             partner->attach   = desc->attach;   /* copy stack garbage */
+>             partner->deattach = desc->deattach;
+>             [if port->usb2_dev || port->usb3_dev already set]
+>               typec_partner_link_device(partner, dev)
+>                 if (partner->attach)
+>                   partner->attach(partner, dev)  /* indirect call via bad ptr */
+> ---
+>  drivers/usb/typec/tipd/core.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+> index 522f56742aa9..d99a55063e34 100644
+> --- a/drivers/usb/typec/tipd/core.c
+> +++ b/drivers/usb/typec/tipd/core.c
+> @@ -344,7 +344,7 @@ static void tps6598x_set_data_role(struct tps6598x *tps,
+>  
+>  static int tps6598x_connect(struct tps6598x *tps, u32 status)
+>  {
+> -	struct typec_partner_desc desc;
+> +	struct typec_partner_desc desc = { };
+>  	enum typec_pwr_opmode mode;
+>  	int ret;
+>  
+> @@ -355,7 +355,6 @@ static int tps6598x_connect(struct tps6598x *tps, u32 status)
+>  
+>  	desc.usb_pd = mode == TYPEC_PWR_MODE_PD;
+>  	desc.accessory = TYPEC_ACCESSORY_NONE; /* XXX: handle accessories */
+> -	desc.identity = NULL;
+>  
+>  	if (desc.usb_pd) {
+>  		ret = tps6598x_read_partner_identity(tps);
+> @@ -841,11 +840,10 @@ static void cd321x_update_work(struct work_struct *work)
+>  
+>  	/* Set up partner if we were previously disconnected (or changed). */
+>  	if (!tps->partner) {
+> -		struct typec_partner_desc desc;
+> +		struct typec_partner_desc desc = { };
+>  
+>  		desc.usb_pd = is_pd;
+>  		desc.accessory = TYPEC_ACCESSORY_NONE; /* XXX: handle accessories */
+> -		desc.identity = NULL;
+>  
+>  		if (desc.usb_pd)
+>  			desc.identity = &st.partner_identity;
+> 
+> base-commit: ea2bff00da89d7767d677bb68470130ba96f4928
+> -- 
+> 2.44.4
 
-This issue was found by manual code inspection.
-
-Fixes: d4a4f927e4dd ("i2c: nvidia-gpu: add runtime pm support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/i2c/busses/i2c-nvidia-gpu.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/i2c/busses/i2c-nvidia-gpu.c b/drivers/i2c/busses/i2c-nvidia-gpu.c
-index 14c059b03945..9dbe1fe22412 100644
---- a/drivers/i2c/busses/i2c-nvidia-gpu.c
-+++ b/drivers/i2c/busses/i2c-nvidia-gpu.c
-@@ -334,6 +334,7 @@ static void gpu_i2c_remove(struct pci_dev *pdev)
- 	struct gpu_i2c_dev *i2cd = pci_get_drvdata(pdev);
- 
- 	pm_runtime_get_noresume(i2cd->dev);
-+	pm_runtime_dont_use_autosuspend(i2cd->dev);
- 	i2c_del_adapter(&i2cd->adapter);
- 	pci_free_irq_vectors(pdev);
- }
 -- 
-2.43.0
-
+heikki
