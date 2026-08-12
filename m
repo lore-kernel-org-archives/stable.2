@@ -1,115 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA76283142;
-	Wed, 12 Aug 2026 05:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF860283142
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 05:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786511967; cv=none; b=VtoFcVUfKdIWmAcmgwdBg94O81Ye35Yru+tnGrwwJFai2sYoB4EZLOpW9KvNHjISdxk+jINthV7yXkUDSkScRmWs+cj+GQJjyebyMPOBEnjRz03UinUHQsgva8v2Tp1OSBL4JvuyjVZr8OOWuxnPFlHjFa9ZdHip0nUVJZNuVa4=
+	t=1786512139; cv=none; b=PxFGEmL1aU3375nhnjzS0hxZHBqJhaWle+QBd3LWMie+kCDsdeuN60hWjg7saAzdwTaM42V0mE2wsEPFhd41hFI7DJVm9q+gcaxS1dTcLHQ8iO4QhKvnxiwX9jmh523+rSLriERn0LXV70/x+5IbRGLKYJCkjU75pvYUs3+cu00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786511967; c=relaxed/simple;
-	bh=2xpjH+g9pbptV7fo74bLGyfjoP1ZcLE4XjR8OhCZ0jo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ntaP9fDoF+TTczHwKHvhai4Ey05NEqmJdvk249rX3Fwqkbqo+wAR1J+wJmYsxeRAj2XYx5Cg3+Vez8MA7H0iqNtPBn4ScQRRSmQ6soGcmma+PRCPGbSizBlkS0qq+rRfPlOv6+pqvWh2Z/tmx77XL0H9itLlHyi7kxnn3+d5ieU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTUUTDyg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786512139; c=relaxed/simple;
+	bh=ibwpRO9tdzRnB9hwRdiCbyvha37TSoCPH2xljG79eqg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WURkPEZ7YUg9i+IqazwUxBAhx1rXlcuEqN7j1EEdugP0EuSKvg0Y+39tiJPDnogsWocvPr9UbYVDEhz3vGyxsbdULRuDUhnNSBeHGDPnrI7PhX/jP5zNwgYnbsOvHGQGc0whzBFcn31QVNAqwUfkeQgojgQfugiWS6sSxMwnM/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C6yiS7e4; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTUUTDyg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121FD1F000E9;
-	Wed, 12 Aug 2026 05:19:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786511965;
-	bh=mJ7HuryH5UMG3CrE/Icr7MoaIsMbA2vjbdUAFHazUK4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FTUUTDygov0Yy/2vXLVnYwr6eJ7nzIemTlJZdVn3BLv9k8MhkijQAO5V63t0RZ/72
-	 +ETWGLUeG27zpk9yYRF0hrH0eIJndQ4jjhxdrbJm+kVwQOggqbO3zR3Mw1cG5et8Tz
-	 lbF35a9PKqwnWDsxa89CiwNzFyv3t9IFFXn+Zm+yY80LPr0fod77848Omad7SceU5m
-	 H1BSecaUHjnN91FnpybUm5zOBF8pqnE7M81RV8l/hzBuzPv7krEbeV/y5OlDK80qKG
-	 SpFMwLWERVYIxWlU445u3c72mFsOyFxI6lA79MloJJboVsSHXIaQKdk4KzvQ1jOssH
-	 6jS7gAJ5cYSOg==
-Message-ID: <f2814e0c-15a9-4b7b-bd13-edca6c007e1f@kernel.org>
-Date: Wed, 12 Aug 2026 06:19:15 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C6yiS7e4"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso407277a12.1
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 22:22:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786512136; x=1787116936; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=diIcC2mYMoxigl9uIM8y5rRAYyfw1dzo8pm6pfntNRk=;
+        b=C6yiS7e4PB8oRktQoMCAxAAJabO2rmAayk6dsKGP62eRfqZYQqqKplfM3kRVHHXf+m
+         GYkN8pCMwWYBaqt5q5O5xOWa5pEpfD5CE9IMSMxfhGUjqXzVrqEbOZA8mUghJcML9SoH
+         HZO2oDmPdavfvqg2u1fLenRlFoYpASYx90Ue4lDe35Q6gsim2j3NXxk+f3aohlrz1eGd
+         TBqClMezJOgNJ2SSqOxnY7FYTon1t3n6/VJp/cO7ExNuVKWgxVBCKRcxNNf3H41bxDJz
+         uuWpEa0QxQFb34qQ44AmqZM+Ann2IwNxJvEdoeZHxDf5tUkTGsxWqKpEjreSOGiIeJ/d
+         67sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786512136; x=1787116936;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=diIcC2mYMoxigl9uIM8y5rRAYyfw1dzo8pm6pfntNRk=;
+        b=BSo8Wo2bKjL3GSXiK77JDZlPHbxlSdcYkJSPEzwt+oNSuP6dca26KMrvyBaIlDb7C7
+         yfJxw2Vujze7JHkIcjWGbO9UmkWonJntaLDPzb9+MLX3PRZii7jlpGaeF0EFbAJza4aF
+         HrpSA8Ltd+AEwwYbrKAMWIn1yri0c/jAKvLvkMHugJZG11OLqBATTFh/xYkSrNdIAw8f
+         nQ+hJHJ64azOls6I5uLCaHrFJjBvUjLMJbJdpLzkfksCmFzhZYAykQGfP2J+it9qx72E
+         2oZTGMHebEvs+obeWMg4hb8yGnP1dthKFkfZmbdOIq39K3Unf/hTGjhiI6D0u8PPtY5r
+         DLOA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/sLSiQBMbtxfGkMqVMMTiFuoKkmEVG2svbUFWnwuBQmSq4ykmxf+meJtkfDzdVC8o7bFDOOY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzUE8lU/28AU0A5oPtPmJ3xVuZUxTpVZbjp8Tsix1qUaBP5dg/h
+	XR7RaRLmYmwVXu2b84QBiiImCMDe/TZE8pDBliV5gHb5lyGYyTj543j5
+X-Gm-Gg: AR+sD13k1OZNTUpOkgowjUhJTmCLh6dS7kXA1M/kRX1M0vSVzSHSoHNgQf/BFo9fmsT
+	jcQNoju06OnuEa19yzK30X2vmgjktlrzmwZ+8a+SV/FED82kTynbws0vImSGt4WlLNrAfXdvsc8
+	WH0zMuL4aqBYrIK0wfUsp8o3KriKNbRe456tMNQw0Y8Vp8FezPeUnP/s5BtRQMCb8lXt9B7dTo4
+	jaFmfz7n+XE/fJ3ELcHxt0k/QtPpFMvbMaebIeGl+VMekQkE6nwc5qvM+MC2kJPyz80Wj0kXzFp
+	+V4unigb1vfWhIH7GwNLa0s/vZhCuonu9Ryc5VX5WhVi7ORKLk6XqSHTtu3E3v7/GSPCNtRmTPX
+	jV/mly+mcfXOLl5hxTCCkZX5G9R7uuD2WMajSi7p2VwsFUANe0d2DMNE/y/GzkGUc7DEH/Lwvl7
+	7iceIiFe8KZ/1m+qZqqR1IJ0ZLvrafzgYm2TRjRROYOi5GDjojBMQx7soeR46WRfALm7441q705
+	5Y0KlWKqecp
+X-Received: by 2002:a05:6a21:1509:b0:3c3:7cfe:b32a with SMTP id adf61e73a8af0-3cc3f735f3fmr2725770637.27.1786512135917;
+        Tue, 11 Aug 2026 22:22:15 -0700 (PDT)
+Received: from Vinkys-MacBook-Air-39.local ([45.135.228.72])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141244511afsm6026783c88.3.2026.08.11.22.22.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 22:22:15 -0700 (PDT)
+From: Qi Zhang <marsy12010123@gmail.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	nicoyip.dev@gmail.com,
+	Qi Zhang <marsy12010123@gmail.com>
+Subject: [PATCH net v2] net: pktgen: use a consistent flow count
+Date: Wed, 12 Aug 2026 13:21:30 +0800
+Message-ID: <20260812052130.32823-1-marsy12010123@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Stephan Gerhold <stephan.gerhold@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Johan Hovold <johan+linaro@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
- Mansur Alisha Shaik <mansur@codeaurora.org>,
- Andy Gross <andy.gross@linaro.org>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>,
- Yassine Oudjana <y.oudjana@protonmail.com>,
- Pierre-Hugues Husson <phhusson@freebox.fr>,
- Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org,
- Matthias Kaehlcke <mka@chromium.org>,
- Douglas Anderson <dianders@chromium.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Aniket Masule <amasule@codeaurora.org>,
- Malathi Gottam <quic_mgottam@quicinc.com>,
- Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek
- <jonathan@marek.ca>, Dikshita Agarwal <dikshita@qti.qualcomm.com>,
- Renjiang Han <quic_renjiang@quicinc.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
-References: <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
- <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
- <27f0b033-e940-4369-aaa0-f08426aac73f@oss.qualcomm.com>
- <tdgbfewnlj3xypfnyckivnd2b6667laapkcfs2vpnk74bh22aa@obasatns3jfr>
- <MHRdGybtgutWtIo4EOZisrGdCVgOj7AdOArjfuxCXTTNcc1o1v40eltpkDUqZl5sOY9tjRFaY6tc_OKvzrYJ4w==@protonmail.internalid>
- <429d5d1d-92d5-4949-9991-b092cc7e9937@oss.qualcomm.com>
- <181b02e3-831e-4461-9327-ab5646380a10@kernel.org>
- <73b26356-8ccb-4a81-b626-a96de5b13173@oss.qualcomm.com>
- <v7vlh2lgvluvacmxora6l7u5r3cbhr4xaqqlzqdli5jympfwxl@5qsqc354n4u3>
- <7caa7fd4-6732-4c80-8b8e-a0ed99631ba2@oss.qualcomm.com>
- <002ZtQRsWlMbVXarg5v4s8YbLGtxjWZJYhk47a6t1t-uTUXwA5ifUqzAaL1f4zKuffk9ig9c4v2vymXcQAj6AQ==@protonmail.internalid>
- <bkghekyhpporov7whqjd4s2oxaqd4dsjsgxn76vb7ezz67sbso@hrjpt2v4ejxz>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-In-Reply-To: <bkghekyhpporov7whqjd4s2oxaqd4dsjsgxn76vb7ezz67sbso@hrjpt2v4ejxz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/08/2026 01:17, Dmitry Baryshkov wrote:
->> You are well aware of them, but still asking the same. Reasons,
->> 1. We have been attempting the subnodes for almost a year with multiple
->> pushbacks from multiple maintainers. We are closer and working on it to post
->> for iris, followed by venus, once review is acceptable for iris.
-> I think that we should have concentrated on it.  From my point of view,
-> the subnodes solution is ready and the last obstacle was the
-> under-informing commit message. As you can see, Rob has (had?) questions
-> about this solution too.
+pktgen_if_write() can update cflows while the packet generator thread is
+inside mod_cur_headers(). The latter first tests cflows, but f_pick() then
+reloads it when selecting a random flow.
 
-Its taking too long.
+This allows the following interleaving:
 
-I just suggested restricting concurrency but, that can't be right. The 
-issue is IOVA - concurrency merely makes the bug more _likely_ to show 
-up so in fact that won't work.
+  CPU 0 (kpktgend)                 CPU 1 (proc write)
+  if (pkt_dev->cflows) // 10
+                                   pkt_dev->cflows = 0
+  get_random_u32_below(pkt_dev->cflows)
 
--rc1 hits soon, if sub-nodes isn't ready to go by that point there is no 
-choice but to implement BROKEN or minItems, 100% up to qcom to decide which.
+get_random_u32_below(0) returns a full-width random value. Using that
+value as an index into the fixed-size flows array causes an out-of-bounds
+access. The kernel reported:
 
+  BUG: unable to handle page fault for address: ffffc8fe2d2674bc
+  #PF: supervisor read access in kernel mode
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  CPU: 0 UID: 0 PID: 65 Comm: kpktgend_0
+  RIP: 0010:mod_cur_headers+0x16f8/0x2840
+  Call Trace:
+   <TASK>
+   pktgen_thread_worker+0x305a/0x6bc0
+   kthread+0x2c6/0x3b0
+   ret_from_fork+0x36e/0x5a0
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+
+Read cflows once at the start of mod_cur_headers(), pass the snapshot to
+f_pick(), and use it for later flow-state decisions in the same packet.
+Publish proc updates with WRITE_ONCE(). Flow selection then always uses a
+nonzero count bounded by MAX_CFLOWS, while a concurrent update takes
+effect on a later packet.
+
+Fixes: 007a531b0a0c ("[PKTGEN]: Introduce sequential flows")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Qi Zhang <marsy12010123@gmail.com>
 ---
-bod
+v2:
+  - Use the written value when reporting the new flow count.
+  - Add READ_ONCE() to the remaining lockless cflows reads, including
+    pktgen_if_show(), as suggested by Paolo Abeni.
+v1: https://lore.kernel.org/r/20260802152309.821584-1-marsy12010123@gmail.com
+
+ net/core/pktgen.c | 25 ++++++++++++++-----------
+ 1 file changed, 14 insertions(+), 11 deletions(-)
+
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index ee64f3012..e14bb9a48 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -566,6 +566,7 @@ static const struct proc_ops pktgen_proc_ops = {
+ static int pktgen_if_show(struct seq_file *seq, void *v)
+ {
+ 	const struct pktgen_dev *pkt_dev = seq->private;
++	unsigned int cflows = READ_ONCE(pkt_dev->cflows);
+ 	ktime_t stopped;
+ 	unsigned int i;
+ 	u64 idle;
+@@ -590,7 +591,7 @@ static int pktgen_if_show(struct seq_file *seq, void *v)
+ 		   pkt_dev->nfrags, (unsigned long long) pkt_dev->delay,
+ 		   pkt_dev->clone_skb, pkt_dev->odevname);
+ 
+-	seq_printf(seq, "     flows: %u flowlen: %u\n", pkt_dev->cflows,
++	seq_printf(seq, "     flows: %u flowlen: %u\n", cflows,
+ 		   pkt_dev->lflow);
+ 
+ 	seq_printf(seq,
+@@ -675,7 +676,7 @@ static int pktgen_if_show(struct seq_file *seq, void *v)
+ 
+ 	for (i = 0; i < NR_PKT_FLAGS; i++) {
+ 		if (i == FLOW_SEQ_SHIFT)
+-			if (!pkt_dev->cflows)
++			if (!cflows)
+ 				continue;
+ 
+ 		if (pkt_dev->flags & (1 << i)) {
+@@ -1632,8 +1633,8 @@ static ssize_t pktgen_if_write(struct file *file,
+ 		if (value > MAX_CFLOWS)
+ 			value = MAX_CFLOWS;
+ 
+-		pkt_dev->cflows = value;
+-		sprintf(pg_result, "OK: flows=%u", pkt_dev->cflows);
++		WRITE_ONCE(pkt_dev->cflows, value);
++		sprintf(pg_result, "OK: flows=%u", (unsigned int)value);
+ 		return count;
+ 	}
+ #ifdef CONFIG_XFRM
+@@ -2373,7 +2374,7 @@ static inline int f_seen(const struct pktgen_dev *pkt_dev, int flow)
+ 	return !!(pkt_dev->flows[flow].flags & F_INIT);
+ }
+ 
+-static inline int f_pick(struct pktgen_dev *pkt_dev)
++static inline int f_pick(struct pktgen_dev *pkt_dev, unsigned int cflows)
+ {
+ 	int flow = pkt_dev->curfl;
+ 
+@@ -2383,11 +2384,11 @@ static inline int f_pick(struct pktgen_dev *pkt_dev)
+ 			pkt_dev->flows[flow].count = 0;
+ 			pkt_dev->flows[flow].flags = 0;
+ 			pkt_dev->curfl += 1;
+-			if (pkt_dev->curfl >= pkt_dev->cflows)
++			if (pkt_dev->curfl >= cflows)
+ 				pkt_dev->curfl = 0; /*reset */
+ 		}
+ 	} else {
+-		flow = get_random_u32_below(pkt_dev->cflows);
++		flow = get_random_u32_below(cflows);
+ 		pkt_dev->curfl = flow;
+ 
+ 		if (pkt_dev->flows[flow].count > pkt_dev->lflow) {
+@@ -2461,12 +2462,14 @@ static void set_cur_queue_map(struct pktgen_dev *pkt_dev)
+  */
+ static void mod_cur_headers(struct pktgen_dev *pkt_dev)
+ {
++	unsigned int cflows;
+ 	__u32 imn;
+ 	__u32 imx;
+ 	int flow = 0;
+ 
+-	if (pkt_dev->cflows)
+-		flow = f_pick(pkt_dev);
++	cflows = READ_ONCE(pkt_dev->cflows);
++	if (cflows)
++		flow = f_pick(pkt_dev, cflows);
+ 
+ 	/*  Deal with source MAC */
+ 	if (pkt_dev->src_mac_count > 1) {
+@@ -2582,7 +2585,7 @@ static void mod_cur_headers(struct pktgen_dev *pkt_dev)
+ 			pkt_dev->cur_saddr = htonl(t);
+ 		}
+ 
+-		if (pkt_dev->cflows && f_seen(pkt_dev, flow)) {
++		if (cflows && f_seen(pkt_dev, flow)) {
+ 			pkt_dev->cur_daddr = pkt_dev->flows[flow].cur_daddr;
+ 		} else {
+ 			imn = ntohl(pkt_dev->daddr_min);
+@@ -2611,7 +2614,7 @@ static void mod_cur_headers(struct pktgen_dev *pkt_dev)
+ 					pkt_dev->cur_daddr = htonl(t);
+ 				}
+ 			}
+-			if (pkt_dev->cflows) {
++			if (cflows) {
+ 				pkt_dev->flows[flow].flags |= F_INIT;
+ 				pkt_dev->flows[flow].cur_daddr =
+ 				    pkt_dev->cur_daddr;
+-- 
+2.25.1
+
