@@ -1,87 +1,60 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FA5377A9E
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 17:46:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A76438014;
+	Wed, 12 Aug 2026 17:58:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786556765; cv=none; b=pD8TVsA1/VHhkKKGDS4a3LMAC6f4mSH7wsjFvGNVDFXH3PpiaSi0nEy3kjuKU0vRHRXdvs7B8orQ05+vxPF5+Ln0FNLJC+IKeZYa0OtIOcR8tafreNrBW4KVzMbjDzq/JsoQiCePW+o1hZbzkaOqpyl9mjonEwFAWCRqOP8Ov28=
+	t=1786557503; cv=none; b=CHDYu+lvRwWd8e3gorX7A4+AGJEbIb5+KIwLoVqZjXFezYJi0o3riR1PxQggACv1he1gzZGeoU00s3rmfTusEAIDNXwi3Hbj/r4q5UHTy7C4iUSOfGRBFNtCXxDv/8KFWL19dEmJ812oFohH8fW8wCZcmRGz/8kTduh+jcQocMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786556765; c=relaxed/simple;
-	bh=nk1Fl85AwLsyujcFprh5cdau31/9RiURmNkcfy4b2Ec=;
+	s=arc-20240116; t=1786557503; c=relaxed/simple;
+	bh=CS8f456XcTsEc8HiAc0cl4WvdVJh99a6wY9zSBLtLRs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bXohkviEs+vEh5eAF9u9A2DP7YzwWGpPZjLgDPKZ8XrSau4zqG92OayiQE5qsUaVlAHSqopFPONKX0nV4UOfu4Ese+uYlxXjdG7DROlsGgLt/3lJifMvyddrKlgGFmzv1CODHAImPhWObyVLYSuu4dM2BGF9dYPpG6nyGJVKWFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fICjw5Fq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JY7dH+vt; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=txKpPwkmqgfoPwdi3A1qUAVFoIPX9fkEe3J0EuDYCGzegjYnm2trORM/RnZZz8cJZmJ9WloeEFehZhp7zceSnLsPWejXt6Cy/vOuXvhEKG8P0YxqyVGHopAndcjkBAOdMbV70ghEd2vGtKe2sFxd0s24IAiSVEu7tck66RlLerQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gp7SpOzu; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fICjw5Fq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JY7dH+vt"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CGprlW4028692
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 17:46:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ahKXfZ2L770e/Q//+DHZRZ33E/ISorZ8vk4O7I/xg/4=; b=fICjw5Fq00vBYH4W
-	JrS/qUZTzH/X32ppo5i4WDq2vS6JekO+X/ppz4ABtdKnKVfPTEc4wuolfRxSZJt+
-	CGBJelw6oJ5/ws8qDI8k/KJV8j/EBq6F0z7JYpTGxpIV+sShx7IStRDf9kg+dryo
-	Nx1eqCu6KPZpk0/JhIdDcLXQX+T5Jo1NuVJ0WpbBLMBQdKqXGvdcnYpBidpdKCLW
-	kDAy/jVnrtcAJ2NU78D+GR0qUEd7PzGVq0DZtjUkDklsHJm0adepZat4Cooqr7rO
-	sCJPSmGSREt5lBqGVEFQ83GIDMV54AllJW5Ut1ZjIY6LPPKhpxkBZ+uABJr1DNHy
-	uSNDTQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0uts0jhe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 17:46:03 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cc86a9ef97so24821755ad.3
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:46:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786556763; x=1787161563; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ahKXfZ2L770e/Q//+DHZRZ33E/ISorZ8vk4O7I/xg/4=;
-        b=JY7dH+vtge7IyvRIo10iGDLuaEusEgXeXfq30CHJsSrUSXeq/8AnZ9yGMuRtg5OE0k
-         Z2I0Q4TVteAZbLQ3REFRuCPH3Nkz7yFIt83aL+RC2k8KsrGUb8ZFPRTwGkcEO+miFYqE
-         +Jx3F2P855uy4L8olChFdotLGBP7gsp3nxX95EQBlUYk5Ltr76Au/Q0sTnb/CngcXSuA
-         mISLuOuBhAgOC0A7+xKQlmWovsafYdBrGrn6OA7HzKgQyE3LgkPtQnhY5/3Wy7FZ6ccg
-         3oz+hthDTfxzOinZ4EbUlDgmByy1NwpTluHb/1n3kH8QYGVdBZs4Mfs/nLLIHrUt4GOH
-         N8Sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786556763; x=1787161563;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ahKXfZ2L770e/Q//+DHZRZ33E/ISorZ8vk4O7I/xg/4=;
-        b=nFoHXrgS+YRbMH/3OJFA3MZxdbIjwhoz2wuo6LuXH+Ct/u99s46Tn2pLEN6ArxWYDP
-         OSWlySeqxVMrtXWYR2UpIxVPk9WOoqTOPQ4dxP9noYqdB9/L22Eo6iJ4Ztri9PmRHrM+
-         d61KZJUtsED3SlA+5jj/YXg67r/cwY9upCn0P0w5j2NOtIEbTXTeJ8IoPVV69Azly5M/
-         PIXKIwuRhAeugKg2C/V75Nv+Z1NJnpH9X5p9WTcR0W21a8Adizf4VyPOUk1n+u748cB9
-         jFzVTekQqz/3UzEPofXLKvlsQMQG1TdzMa10MZvRl7wcY93tuUMRE5NQbJ/HDNzNjijk
-         kU7Q==
-X-Forwarded-Encrypted: i=1; AHgh+Ro+4bNkQuOTf3VONToc/XUNo1U1cm+TgTmEW4oBOjrZ79vyWlmEoUmFdjXuWxpI4lhht+e9Vm0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8e3i3qoqa4Be24MPjTJlpBygkvpZXs1aviqdYznZfJJbXCKkH
-	MfIHDLitZdY/5adPK5CDlFuN4TT3jnJaVPMSbo3VdUUYOvwKgpdxKDRt8rjQUK813TsGQsdTA9g
-	vY+6Jo6z3wtzQykLtFLeOFDfj9dj5fMv2A4ocynGkWpgL7/9SYNMd+GJ5gubzPSffIeM=
-X-Gm-Gg: AR+sD10Oq0WFwFBhTbKDxBBSPpNcQzZ3EPkvYOxbjHN4qha9gBpi5lGpC5IxwY2HH1a
-	CuVDVh1LmKjsXxd6kWaWdTTv0DdoUFzljN4Mn6Q8x/v0uhb++5d6hmk2FLPx8nyqLnU2FSPc6dt
-	6msHzByFhuIzOd95+PznJ+fHqJHhZ0J/lFMIB7Ofscl/UizsQmDhVrMiOYQrhKell+DV1D92+zY
-	zD/xWFfT3rXRWaUG+M8L5oc343WPSkeekvwshYvDhjcALBplhqJ9MbieqllljWjLucHpWnGPvk4
-	w0ojOGeIhswM6gsKCLIPhsEg3UlrqQvzTaB4NtGSu9qtaUdGNnRaDBGNxNoj0ueUz05V3lUGiHS
-	CQdgsgC0XFAEq1OkvMiI+2wHOpswXHnX/BG8=
-X-Received: by 2002:a17:903:292:b0:2ca:ecfa:1308 with SMTP id d9443c01a7336-2d3456637e3mr88725165ad.20.1786556763181;
-        Wed, 12 Aug 2026 10:46:03 -0700 (PDT)
-X-Received: by 2002:a17:903:292:b0:2ca:ecfa:1308 with SMTP id d9443c01a7336-2d3456637e3mr88724295ad.20.1786556762588;
-        Wed, 12 Aug 2026 10:46:02 -0700 (PDT)
-Received: from [192.168.1.8] ([106.222.230.104])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d37c49ce11sm79005ad.67.2026.08.12.10.45.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 Aug 2026 10:46:02 -0700 (PDT)
-Message-ID: <eef12701-e916-4c4a-9dc2-2b6836e7cf59@oss.qualcomm.com>
-Date: Wed, 12 Aug 2026 23:15:54 +0530
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gp7SpOzu"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CH1nFW2985647;
+	Wed, 12 Aug 2026 17:58:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=3JVjrH
+	jY8YwZhfTaDPuid+4Nv88JlEt8UQuiRwWih8g=; b=gp7SpOzuJizbJPuIxCiiF+
+	4mpXdEbmr6lye/dEIXb15WJ9zPiZQB1kIEeRkyupDWxjSQBoCUA/0ECmDyqMBXwg
+	q3hbMRsvzVC7SBwBD39P/EJAGK6pDutG4JiQe4GFAWne2h26UOijK9ntnY+oS6Jl
+	iZIAPVpwCm3DpB6q095lCQigzD/vwPPMnn0N7DkVpdQNnHB8zftfZRyyzM+AKXs1
+	mHfiLyujD1MtJ68KP/URCOguEelnu7WIl/Ja9NPwWIRxa+zLfVDoe0MXlncyJpPj
+	22BbcLitdtgJkxem0Mh8LNaNKni/xAjrQQmliEW+52mOgdwQOxneySRwuVN6MiOQ
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fyb23vd5e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 12 Aug 2026 17:58:09 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67CHuMM8015720;
+	Wed, 12 Aug 2026 17:58:08 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fxhfy735f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 12 Aug 2026 17:58:08 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67CHw7k924248944
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 12 Aug 2026 17:58:07 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A6A0E58061;
+	Wed, 12 Aug 2026 17:58:07 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 93AB158056;
+	Wed, 12 Aug 2026 17:58:06 +0000 (GMT)
+Received: from [9.61.74.89] (unknown [9.61.74.89])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 12 Aug 2026 17:58:06 +0000 (GMT)
+Message-ID: <ee819372-edee-445a-8373-138040c51a28@linux.ibm.com>
+Date: Wed, 12 Aug 2026 13:58:06 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,64 +62,125 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] i2c: qcom-geni: update frequency table to fix
- timing parameters
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Manikanta Mylavarapu <quic_mmanikan@quicinc.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>,
-        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260812-ipq5424_i2c_scl_updates-v2-0-e09cd39d01d7@oss.qualcomm.com>
- <20260812-ipq5424_i2c_scl_updates-v2-1-e09cd39d01d7@oss.qualcomm.com>
+Subject: Re: [PATCH v4 8/9] s390/vfio-ap: Fix NULL deref in status_show()
+ during queue probe
+To: Anthony Krowiak <akrowiak@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+        stable@vger.kernel.org
+References: <20260812170945.738351-1-akrowiak@linux.ibm.com>
+ <20260812170945.738351-9-akrowiak@linux.ibm.com>
+From: Matthew Rosato <mjrosato@linux.ibm.com>
 Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <20260812-ipq5424_i2c_scl_updates-v2-1-e09cd39d01d7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: bLrZ3MdIqwEcWg3XtDyvULi6ixOsSi3-
-X-Authority-Analysis: v=2.4 cv=aPDAb79m c=1 sm=1 tr=0 ts=6a7cb15b cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=hsRoOqe6K9Dtf6G3Ghy1+w==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=EdN727LykUWWqtJ7AlwA:9 a=QEXdDO2ut3YA:10
- a=ZXulRonScM0A:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: bLrZ3MdIqwEcWg3XtDyvULi6ixOsSi3-
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE0MiBTYWx0ZWRfX6v+WQ9xUkB8d
- 5yGXArnHD9SdszphfL4Ooz5uVZFu/l9w3pyOLglSb1Ket+wnl8PRMTsFE4NIgjxqDrtISpg/nVe
- 6i5kGugYHq0+7fVme4xXiuIGtTmHa+E=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE0MiBTYWx0ZWRfXwXYAm8YJ/M7T
- RuwyXASbGhV6TPAxbgSR6ESAHGdCBotYFaprvMGr7ANGQjZP3qWduFnlERa75Wvn5bXzMZDooQC
- lnVeptwMm9y9j0AMzVsNEkf6dbZIDoPfTP1oCA2cCEzWdckilygHjhFfgC/S/NhHNRQbgvT5T3R
- jIUtlndKN5OR2zCqVI7mh73QN9iHpFQK9+GS6EydjGp4rYCWmYTobR4edA27aleS2VVpLEr5UU4
- 58+wL9IzjuCheqe3FxkwzxzxG6AejTpcJLgN/iByOPSfu1kSLp8i7onDK7fGXCb/JCQaeu568YG
- w+UZxI3clJDIFSmbh+lk2LWnjUKQOls0tUkxIag3YoTzRVxAugEFvBF3UwcQfNmiNecHJ9FILUj
- o7jVBEQiaMTt9s278X9qlQLPk2KLhpjRlbItiPV9NoLXV9u+kR6jJNRePr/FvMCUAdAM6N9w8kU
- 4d0HV7GiaZf20nw37dA==
+In-Reply-To: <20260812170945.738351-9-akrowiak@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=XqfK/1F9 c=1 sm=1 tr=0 ts=6a7cb431 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=bFAEpDOKK8sSTV94CGcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE0MiBTYWx0ZWRfX5QMcnOopf4Gb
+ SIpoNzdhEMy0nUdnFXLfjESnoQKThS1VxzyVCyFPXygaVc4GxvPgnLYY9dA5694yUWW2OLYIhzN
+ tNC6wbyibPlAi0uncWdIsihugWVKNb8+YkjEQDCajbs8CXxmUx9pJV2HSKZfbUBo8+Rzf54PLZU
+ qoqKX8ORALF0pERytPZPTUqI/IHxor95D1oOQBGNfSo6lZ30c702SOuiK+qNKYONKpwXVcUaWV/
+ poZHGWs/IjyNRA6wY0YYtVoLoPEz8mLYEg0eelWUkqL5XQc0SeaVx+J/171IaY9a47T24M4gf5c
+ nu+B2Xw3/R0L7enNhO9ZLntZcRbiK42hxOWzqizea580MTD1IMBAjiF/+g0tD7FgHGV5oJGub7a
+ Dkd7ufT9wsTiViN2Ib6x3sPU6bSJO+v7l/IqwIlYeLJMomIo/urNyiK84UPZk2EmNr0gWy4w7JG
+ 7VVeUHRHEQbrBNEicSw==
+X-Proofpoint-ORIG-GUID: M-G0qlt-YSFuzhp-Ue06Z62Vg3rVhhhW
+X-Proofpoint-GUID: M-G0qlt-YSFuzhp-Ue06Z62Vg3rVhhhW
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE0MiBTYWx0ZWRfX0wSCFs4IVWyN
+ VUNxMk1lz68c3uIiQfEI8nZlBkkVqCphyjt+n3aDKfTnBMWGL9xw9B8yWpmUSps4NwAjTnhXrcI
+ x0BsWbQv4xrPgYLsJEFw3Ic7Xi67H0Q=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-12_05,2026-08-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 bulkscore=0 suspectscore=0 malwarescore=0
- adultscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0 clxscore=1015
+ suspectscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120142
 
-
-
-On 8/12/2026 2:00 PM, Kathiravan Thirumoorthy wrote:
-> In IPQ5424, to meet the setup and hold timing requirements in the
-> standard mode, update the frequency table with the values recommended by
-> HW design team.
+On 8/12/26 1:09 PM, Anthony Krowiak wrote:
+> When vfio_ap_mdev_probe_queue() creates the sysfs attribute group,
+> the queue's driver data has not yet been set. A concurrent read of
+> the 'status' attribute can therefore call dev_get_drvdata() and
+> get NULL, which is then passed directly to
+> vfio_ap_mdev_for_queue() where q->apqn is unconditionally
+> dereferenced, causing a NULL pointer dereference.
 > 
-> Also remove the stray space in the I2C_MAX_FAST_MODE_FREQ entry.
+> Fix this by acquiring the update locks before calling
+> sysfs_create_group(). The status_show() function acquires
+> guests_lock before reading the driver data, so any concurrent
+> read will block until after dev_set_drvdata() has been called
+> and the update locks are released.
 > 
-> Cc: <stable@vger.kernel.org>
-> Fixes: 85c34532849d ("i2c: qcom-geni: fix I2C frequency table to achieve accurate bus rates")
-> Fixes: 506bb2ab0075 ("i2c: qcom-geni: Support systems with 32MHz serial engine clock")
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> As a bonus, the APQN no longer needs to be read from the queue
+> struct after allocation — it can be read directly from apdev
+> before allocation and stored in a local variable, which is then
+> assigned to q->apqn once the allocation succeeds.
+> 
+> Fixes: 260f3ea141382 ("s390/vfio-ap: move probe and remove callbacks to vfio_ap_ops.c")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
 > ---
-Reviewed-by: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+>  drivers/s390/crypto/vfio_ap_ops.c | 15 +++++++++++----
+>  1 file changed, 11 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+> index 16779cfc64e8..b0454a296c67 100644
+> --- a/drivers/s390/crypto/vfio_ap_ops.c
+> +++ b/drivers/s390/crypto/vfio_ap_ops.c
+> @@ -2424,14 +2424,17 @@ void vfio_ap_mdev_unregister(void)
+>  
+>  int vfio_ap_mdev_probe_queue(struct ap_device *apdev)
+>  {
+> -	int ret;
+> +	int ret, apqn;
+>  	struct vfio_ap_queue *q;
+>  	DECLARE_BITMAP(apm_filtered, AP_DEVICES);
+>  	struct ap_matrix_mdev *matrix_mdev;
+>  
+> +	apqn = to_ap_queue(&apdev->device)->qid;
+> +	matrix_mdev = get_update_locks_by_apqn(apqn);
+> +
+>  	ret = sysfs_create_group(&apdev->device.kobj, &vfio_queue_attr_group);
+>  	if (ret)
+> -		return ret;
+> +		goto err_release_locks;
+>  
+>  	q = kzalloc_obj(*q);
+>  	if (!q) {
+> @@ -2439,11 +2442,10 @@ int vfio_ap_mdev_probe_queue(struct ap_device *apdev)
+>  		goto err_remove_group;
+>  	}
+>  
+> -	q->apqn = to_ap_queue(&apdev->device)->qid;
+> +	q->apqn = apqn;
+>  	q->saved_isc = VFIO_AP_ISC_INVALID;
+>  	memset(&q->reset_status, 0, sizeof(q->reset_status));
+>  	INIT_WORK(&q->reset_work, apq_reset_check);
+> -	matrix_mdev = get_update_locks_by_apqn(q->apqn);
+>  
+>  	if (matrix_mdev) {
+>  		vfio_ap_mdev_link_queue(matrix_mdev, q);
+> @@ -2472,8 +2474,13 @@ int vfio_ap_mdev_probe_queue(struct ap_device *apdev)
+>  	return ret;
+>  
+>  err_remove_group:
+> +	release_update_locks_for_mdev(matrix_mdev);
+
+I think now you've just shrunk the window instead of totally closed it?
+
+Can't sysfs still be accessed between this release and the remove_group?
+
+Do you think adding an additional NULL check against dev_get_drvdata()
+in status_show() and treating the NULL case like the other error
+conditions would be enough to cover that window? 
+
+
