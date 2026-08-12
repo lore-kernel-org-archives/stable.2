@@ -1,111 +1,143 @@
-Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AC7432E79;
-	Wed, 12 Aug 2026 11:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=50.112.246.219
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786533972; cv=none; b=hHy2P29GsoQ4w+sZ0ySrdLmv6E1y7Y0nI6GEk+XHe0KBfL+eMvANUKyx5fAexXoLUJ6sHEYN3CW5+zRuFtFhXkyrCiQs2/+gub59b4AwLiqC3TKzg9UUsITKEgnPLx+WVAB1jKg6FOxM54UpESOrSHEB+jCbml07xT0UyRMbP1U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786533972; c=relaxed/simple;
-	bh=uv53WcbsKOrF8iJgaBGwXGm83/Vu6iXz+wFFg4B7/LY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Yy0e1HZE/6nFw3v9+W0aBuf4LukH6cj6qaiZEGzEeixZtO61S8LNx9D2ZrQPmcS7Jn0j/RQGl1ZEpgc7hvB6jolQLGl7M17caLX/Ve0OyWcVJkJECnsQVa8TjR8Ae8D+TeaZizLpjPmyFTPeJkh0mBAICgJWlpKIlAjiFMzTSGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=TQvFICDp; arc=none smtp.client-ip=50.112.246.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3996543552D
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 11:32:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786534341; cv=pass; b=HfUCkV/E8on/pMlRGkna01Qo2XWsX88nEQ9BJciAyt7hfB2fH/BXkrJYFhcr1WFRj3nmAWXogdTt8qmt6cBJlFxOLCK2674L/d0/WGU1wHBYNvmBzbPT4HkW3JcmyyDTqKk/+KEhvNaJPsOSAL8rs+aAAw2HM+9jRROUpxYvGC0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786534341; c=relaxed/simple;
+	bh=i3fasR6deTxIk0Zf3pmhJBq+WV2nwYJeBvt7+ya3+JI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DOQal3Wou6xk0+hfZHJ+D/sl1/gq7dYV2X81KZ8BuAtS/i4JTuvTDvWgbW53vks8eredMpd/3mzDmlhE4lS2knUpoi8Zrz33Vo1SR8X6Ssd/ugSp9rgG0dz8weiz2cI5sRT5ndRnZuYZme2MvMcqQdjb3tMNVIKNqpHG8XeI/yI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=YLJS4dul; arc=pass smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="TQvFICDp"
+	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="YLJS4dul"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c1c52d920b8so112612666b.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 04:32:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786534336; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BKv1EQlPbWTI0KCcQ8NTQxzEgKcjp5FGuEyjAuOhPdNEUAMtHlgIDzCtMxYCumJNyz
+         e1tAEznIxsGttdLE174sqKv+sfFHsF16JSblBx4o9g5yqdXmlQb0rEZkaM0suAeKR6kk
+         IghnlJL3peRUpUuUKSjY6/yLCkGPh281kthWm2quAdMvTBn++FjMxkXATbP2k0TkQTb/
+         Ibk41nDNWR705e0dHV01pK2AH99VDnojER0MoQmwFL2zuhm5mnirybTnlWPqBCrpvMfC
+         LOt3jyqAwWeBajz9Z+lBrMtIiWCUTzL/YYKCO2blELZEEE3kLamMHz+fNk3f/w1OkHDe
+         DPbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BVXAUVrsaloJXqEm9a0tpYBwBB/k0h2yk4WhWvUDEBU=;
+        fh=1vuVp2D/XFyvfclJdQth+R0AR3F3HjJo5SNA2b3Iof4=;
+        b=Omu7xAcPS9gM+Q3IP9I+V+45R0FdRc3Qb/IftPVH4cViTONGC5xbH8Mb8sljKGTuu3
+         hmwq3IyKsGDi8GCzKBf3yFwGEjkHYsDh6kfmdgyZRRAMrtQQtdMjyAIslWqYYqP+vKpk
+         WWmKM/UTxAfXAfzweRm+ti8xL8L3pBpD4e6aqqPiuUlZh6z6NXczePd4v3pliThe9wPy
+         n1oPHZXBrJv0Bv9ZvgIHXDsgZBoVfDNw1eNe1T9J0AZ78wD+PAtlApD8xdK5t2OkdybT
+         oLzA4Awt22zH/DrQwGwy5gStBXQe9eOQnc5GeFOY85tHOO1R0vBacCaxlRnU6tpVXVi5
+         mM8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1786533969; x=1818069969;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=X8teenXvLCG/sKD2r+AHFcPrM5x4zCwPCSlktQfeX2w=;
-  b=TQvFICDpVJwEjXtNm1AAWAVhrZ8gihUwLTGqiNhte/9HVxAiMunJ8w31
-   nWCzHx7MvOH7cF2Cp8Krjez/i9cuZrig74D+/geVn+3ST4nm/9kYJgv3t
-   b0INel199plVRapYNqz1pJpxGaKpNGMiDYsT6Zx0f+D6sgF8bKAPczppB
-   Tk6zUkZ59r9u95UFWKdxOFrflZ2UzNV+Naez6zQYSqn9jks/fpE0gShdP
-   Lj5YfmjwW9o2yUpMCP+RNXyBIUcP4cyFg8Jio1yoc3Em+1G6fVNKPdyWb
-   6bF/Ol1/mIuckbhL7h5C8JeTZZqHjSNPGMcvtALYnas/gyX2psjn37cS3
-   w==;
-X-CSE-ConnectionGUID: h3xScEA6QDKGk8RHoafJOQ==
-X-CSE-MsgGUID: FrICRSFMQsWr0sKg1kGgdQ==
-X-IronPort-AV: E=Sophos;i="6.25,219,1779148800"; 
-   d="scan'208";a="25566010"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 11:26:08 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:17434]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.43.40:2525] with esmtp (Farcaster)
- id 689117cb-055d-4586-9de3-8ed0ce470974; Wed, 12 Aug 2026 11:26:07 +0000 (UTC)
-X-Farcaster-Flow-ID: 689117cb-055d-4586-9de3-8ed0ce470974
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Wed, 12 Aug 2026 11:26:07 +0000
-Received: from dev-dsk-simonlie-1b-ad174abf.eu-west-1.amazon.com
- (172.19.78.185) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45; Wed, 12 Aug 2026
- 11:26:06 +0000
-From: Simon Liebold <simonlie@amazon.de>
-To: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-CC: Keith Busch <kbusch@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
-	Christoph Hellwig <hch@lst.de>, Chaitanya Kulkarni <kch@nvidia.com>, "Jens
- Axboe" <axboe@kernel.dk>, Simon Liebold <simonlie@amazon.de>
-Subject: [PATCH 6.18.y 2/2] blk-mq: reinsert cached request to the list
-Date: Wed, 12 Aug 2026 11:25:45 +0000
-Message-ID: <20260812112545.2630000-2-simonlie@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260812112545.2630000-1-simonlie@amazon.de>
-References: <20260812112545.2630000-1-simonlie@amazon.de>
+        d=clyso.com; s=google; t=1786534336; x=1787139136; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BVXAUVrsaloJXqEm9a0tpYBwBB/k0h2yk4WhWvUDEBU=;
+        b=YLJS4dulordBSF0gf9/fNwTd3c4K2YmqfqWXCkXc4FD5+NEkWffnfVg+iphTngBV/3
+         AqHQmG0g5gPLQ5ZPtqazBa3ipPCuGUkwqUD7fiqSAwG4aVeQrq5Y9hABF2W10d2MsH3a
+         Q7VnmaV2WkjUwLQilJ9PomsBYWgY8QBcrxMbB1xmwNMC9SuTaCXGXftwvsPmsd0M5jym
+         C1tfJFwxKh0is3ic6LWvVBEIYYYrCrbP6XuOL2llO9znREytd1MX7xugqDKhO45fu0rD
+         j9xVVeUJxQqmNMghZUmDq6nKf/CWFAe+D2qT08H9xgUTO/xRi1PKTTmCU7Z9SIUWe3Su
+         VofA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786534336; x=1787139136;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BVXAUVrsaloJXqEm9a0tpYBwBB/k0h2yk4WhWvUDEBU=;
+        b=GVOYdI8H/nT5GVqzW62icofZpEHF3EfJ/tkh/mnnK1CjTzvf1BUDki7Cuhi0jADlWc
+         jO7b60wab1HIhNouTxtO/0fZl5T3KFc6pDk1F9r9O1HOzpDO4MNgOPh+H8RkoeY7BRWW
+         MOL4PtST4DCQMg8XCkWnx1G/PHytvKAhshKpVUPlQv6RNDP6WouAhyVDpbJ393sdNQxQ
+         rTUlGKYWKRfBtkXRalcY8qPG0ngXVRm33k19wq3i1C2P6dotMBr9oOzIxB7EHsk5Ek9m
+         BLU3TyZYasv2pfNLF7raMtRuZZ+5yLtywlMdoX9tmKU5W5w/p8pvGY46+HkOnt0Y71vZ
+         Zqlw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr8xyfItmCMHJW6laeDxaCxlrj+WS7Qj/1sokvIEUMG7qyMPzKIcekANDPp2TQCFJ1zVNIn+6M=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6tgGis6Mkc+P64ZEtA3PKwXWshUcOtrfrVtr4PixupZ7N+fgg
+	A8j4O4iyEdQ4N6/BWatg/2QDw6lLq7oUpBgOT+MgzDx+PYEfYg3omiiKOAZ3qn8SZ1LAa5iRh04
+	21AK54VNaFxxajJdn/m4LF13o52QEYZ/W4b0wxl94cg==
+X-Gm-Gg: AR+sD11LUL5oOjdOBrL5YjLO39tAPM3tPuHlpotPd64KrUXgIIZ7V7UtcAF7RcQ5Lh7
+	lYxJJ+N/NxWqT7KavzvJDH1IrNxEeb+2f+/WiDOlbg5U4hptxNGwoeHSzUzq7Yx5yaYFLvlzk5f
+	U79KMLClo4x1vaJESU5zOGMHKBxJgCS1k7md2/I6w3xf2obo2XsmiF2TpX8rwId9WDxPmVHRTWr
+	jrFgwipUMIdEjO+2Uv7ZulkoXU+jGmZGxIbaWOTLI6k6iAqKVkjDDXRq8yD+zy/La+Q5z/QW0tV
+	9lPv1UyENpIzDsGEs6SEiYFrS7zByq4SOyr+UeNKpjpuaw==
+X-Received: by 2002:a17:907:1b21:b0:c15:deea:a178 with SMTP id
+ a640c23a62f3a-c20f300fd34mr193811466b.25.1786534336286; Wed, 12 Aug 2026
+ 04:32:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D033UWC003.ant.amazon.com (10.13.139.217) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+References: <20260727014745.1304657-1-zhanxusheng1024@gmail.com>
+ <CAOi1vP-Ba2=Gd3_wtH0g9yfqB6xJVstjarsmUhXj7WGXedqGBQ@mail.gmail.com>
+ <CAKPOu+8Y35cfhz5gqus18-HPLoVMiSWF7cVXVbyn6GmdJA3Z6g@mail.gmail.com> <CAOi1vP_oJC73d48w_qJaxtxrX-mVMYip3-rg-iYoHwHn6Tz-FQ@mail.gmail.com>
+In-Reply-To: <CAOi1vP_oJC73d48w_qJaxtxrX-mVMYip3-rg-iYoHwHn6Tz-FQ@mail.gmail.com>
+From: Xiubo Li <xiubo.li@clyso.com>
+Date: Wed, 12 Aug 2026 19:32:04 +0800
+X-Gm-Features: AUfX_mxsl7ht9RvBRitjRFRj3rwaJuBRtFsXu0-en7gJ-F1HP6iU4Xprt3t2AE4
+Message-ID: <CAOJNxRK7F5vij-tw32+UjPztbzLX3zdhhD+Br9voD5wwQSANdQ@mail.gmail.com>
+Subject: Re: [PATCH] ceph: use the mount idmap for the owner checks in the
+ SET_LAYOUT ioctls
+To: Ilya Dryomov <idryomov@gmail.com>
+Cc: Max Kellermann <max.kellermann@ionos.com>, Zhan Xusheng <zhanxusheng1024@gmail.com>, 
+	Alex Markuze <amarkuze@redhat.com>, Viacheslav Dubeyko <slava@dubeyko.com>, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Keith Busch <kbusch@kernel.org>
+Hi Ilya,
 
-[ Upstream commit b051bb6bf0a231117036aa607cadf55be8e63910 ]
+I'm not sure why I couldn't find the original email of this. I checked
+the changes on lore.kernel.org.
 
-A previous commit removed an optimization out of caution for a scenario
-that turns out not to be real: all the "queue_exit" goto's are safe to
-reinsert the request into the cached_rq's plug list as they are either
-from a non-blocking path, or a successful merge that already holds the
-queue reference. This optimization is most needed for small sequential
-workloads that successfully merge into larger requests.
+The fix looks correct to me.
 
-Fixes: dc278e9bf2b9 ("blk-mq: pop cached request if it is usable")
-Suggested-by: Ming Lei <tom.leiming@gmail.com>
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
-Link: https://patch.msgid.link/20260526153531.2365935-1-kbusch@meta.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Simon Liebold <simonlie@amazon.de>
----
- block/blk-mq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On an idmapped mount, using &nop_mnt_idmap compares the caller's fsuid
+against the unmapped on-disk uid directly, which would wrongly deny
+the actual mapped owner and potentially allow an unrelated caller.
+Both functions already have the struct file, so switching to
+file_mnt_idmap(file) is the right thing to do.
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 711d295d36db9..56158b70d0c72 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3224,7 +3224,7 @@ void blk_mq_submit_bio(struct bio *bio)
- 	if (!rq)
- 		blk_queue_exit(q);
- 	else
--		blk_mq_free_request(rq);
-+		rq_list_add_head(&plug->cached_rqs, rq);
- }
- 
- #ifdef CONFIG_BLK_MQ_STACKING
--- 
-2.50.1
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
 
+Thanks
+Xiubo Li
+
+On Sun, 9 Aug 2026 at 10:33, Ilya Dryomov <idryomov@gmail.com> wrote:
+>
+> On Sat, Aug 8, 2026 at 8:31=E2=80=AFAM Max Kellermann <max.kellermann@ion=
+os.com> wrote:
+> >
+> > On Tue, Jul 28, 2026 at 1:31=E2=80=AFPM Ilya Dryomov <idryomov@gmail.co=
+m> wrote:
+> > > Was there any specific reason you used nop_mnt_idmap for these checks=
+?
+> >
+> > No, I copied that check from another filesystem, probably ext2. I had
+> > no idea what this parameter means (and I have never used idmappings).
+> > I guess the amended parameter in this patch is correct.
+>
+> Hi Xiubo,
+>
+> You reviewed Max's "ceph: add owner/capability checks for
+> CEPH_IOC_SET_LAYOUT*" patch.  Would you be able to review this fixup as
+> well?
+>
+> Thanks,
+>
+>                 Ilya
