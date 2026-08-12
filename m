@@ -1,78 +1,61 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD623264E7
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:05:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2A341D207
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:06:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786529146; cv=none; b=IoZHPHWuOvByPUKlzJw3N76oO0eO3pc6imMsBNQ+efcZEBRrdqpuU2ffbPHUTyLzXL9ReFswXXe4hVZGG8j6cBVVvwMBNy3OdbwX7iSG8drgd0y/VglZx6jwFeKgeyV83yvEBdyV7jZM+4+puG4kNXyZKyWL5+4JAjcjVEB0V4c=
+	t=1786529169; cv=none; b=sDxxFd4G5KyTGYh3leVAoPMruQY0MXfBKhvwR97LWdNYdztOovrz4olMfc5iydAAHr7uxDwrLHIZpuhfF/Tz/piefdEY9pYh934/oiCApbSyiicX0FJDkvSOT34+jsRDVbQKUv/0BsVNfy9jogwi12dlbyy756YPEVWO1OvUTao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786529146; c=relaxed/simple;
-	bh=dRZPxqI25TZjHZ/6T+U90CPEsTAToTykZqHxtC4cUEA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kmhshzFr4ypUDd2bil1MSVRmGcZOYCHXX3ODFBfCnkp6IX1GjfI2CrOVExE0kiZ5R76R+RRPB/VG55bP0AGHrBvHB4FErjqlnmM+zt896lMHuKisg9nSx680cYyhfs0ZuTNtu7k8oN+Xj+UhWAWIxCyQA6gs3bqSW8QfeRjFjXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=c6peWfQL; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1786529169; c=relaxed/simple;
+	bh=fWhe13h1N84QKKD3dBk88QzLXvLL//weOVDz9pKczZY=;
+	h=Message-Id:Content-Type:In-Reply-To:From:Subject:Date:References:
+	 To:Mime-Version:Cc; b=K9VNDBH7cFBn3Dgzdu4JitWTl7CpPe6o8uIuheBLQtMjHIlq16NZkT6G1+HavagJiY1KiS9JG7Oz66Q35ot4AKf0Tl/MyZcMxJEK/ua8zSadMf8K+E8uQZmw27tI+HZ2Q0Pty3EopTWJ0uSrN24vlAhW4nncU8g3zEAXP4R0dTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jRzEUloY; arc=none smtp.client-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="c6peWfQL"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 2AAF81A15B7;
-	Wed, 12 Aug 2026 10:05:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EB0376045E;
-	Wed, 12 Aug 2026 10:05:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E0CA011C4CBCC;
-	Wed, 12 Aug 2026 12:05:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786529142; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=dRZPxqI25TZjHZ/6T+U90CPEsTAToTykZqHxtC4cUEA=;
-	b=c6peWfQLhcuGX9MbHL2ryhnJ03qbt8r7VtdTC7lv2jGxyp4/4FjitIiByE+9rrb8x61fKN
-	k52O0qL9EGWvzOPTembinRYork0DXKOLsuIa9j8CC5cSEy2OxjxWfLARKb+KbK503jqYEz
-	21/+FNgp29N6wf8yy7/2KA8MyyOPXGV0y9Rb7etcTtJr9lLreIdAuNdp5nLz6GLXnE2C8n
-	DY8eZQSsuHWHidcymAC/fkb8xGsTA+hQckAOQTpSkn/qv2J3u+XDG+y68VkZrHtZ37thIa
-	xFJMp41436aNf0QCjFeaLMOcxiAMlVJYXTjsN8/o+e7uCWA21nn20vlDgFDonQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: "Michael Walle" <mwalle@kernel.org>
-Cc: "Pratyush Yadav" <pratyush@kernel.org>,  "Takahiro Kuwano"
- <takahiro.kuwano@infineon.com>,  "Richard Weinberger" <richard@nod.at>,
-  "Vignesh Raghavendra" <vigneshr@ti.com>,  "Tudor Ambarus"
- <tudor.ambarus@linaro.org>,  "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>,  <linux-mtd@lists.infradead.org>,
-  <linux-kernel@vger.kernel.org>,  <stable@vger.kernel.org>
-Subject: Re: [PATCH] mtd: spi-nor: Unprepare legacy controllers upon RWW
- wait interruption
-In-Reply-To: <DKMVA2HIPB2Z.J0W6OM4H3ARL@kernel.org> (Michael Walle's message
-	of "Wed, 12 Aug 2026 11:44:41 +0200")
-References: <20260811-perso-rww-fixes-v1-1-5866a70e5d1c@bootlin.com>
-	<DKMVA2HIPB2Z.J0W6OM4H3ARL@kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 12 Aug 2026 12:05:39 +0200
-Message-ID: <87ik5fmz64.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jRzEUloY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1786529160; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=ptFirgCdL2MtjZiFJ/pQGe9Rj3+JjTLuHn52ce60vNc=;
+ b=jRzEUloYXfttWtd3vZgLX6QRHpp/WQpRFLvpyJZfWhuqnrcBms58TsHZsXWHQR/NsToxeY
+ 1jASWGjTzKUT7QL2tag5xJc2XZiNc9hR+XaG7Wg+JqcMeqyBzbiitQMsZRzpa5Dh+wtFMF
+ 3qQrpYfIYIjLeotsCorYhu/k1xzTffY+tiXbUWBattGET8HrbjOOGOvTXAL0w9EE77oQ3y
+ Ovgu+xCkgRxJ4+6Uzunwbvk5DMfiAR8WswSonK6ZniE+DXT0K8OFjaLFYMkMYtyl2A4bNK
+ 0dN/oi25Kss4HjK2zhvzUf0cOyNjTmsyKqAx3wfMKEhIsaeaEBL7c2D5NEjI4g==
+Message-Id: <20260812100553.17029-1-zhujia.zj@bytedance.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260626100740.52455-1-zhujia.zj@bytedance.com>
+X-Lms-Return-Path: <lba+26a7c4586+a974c5+vger.kernel.org+zhujia.zj@bytedance.com>
+Content-Transfer-Encoding: 7bit
+X-Original-From: Zhu Jia <zhujia.zj@bytedance.com>
+From: "Zhu Jia" <zhujia.zj@bytedance.com>
+Subject: Re: [PATCH v2] ext4: cancel dirty accounting for folios without buffers
+Date: Wed, 12 Aug 2026 18:05:53 +0800
+References: <20260626100740.52455-1-zhujia.zj@bytedance.com>
+To: "Theodore Ts'o" <tytso@mit.edu>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Cc: "Zhu Jia" <zhujia.zj@bytedance.com>, 
+	"Andreas Dilger" <adilger.kernel@dilger.ca>, "Jan Kara" <jack@suse.cz>, 
+	"Zhang Yi" <yizhang089@gmail.com>, <linux-ext4@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
 
-Hello,
+Hi Ted,
 
-> On Tue Aug 11, 2026 at 5:56 PM CEST, Miquel Raynal wrote:
->> All the parallel locking helpers (spi_nor_prep_and_lock(),
->> spi_nor_prep_and_lock_pe() and spi_nor_prep_and_lock_rd()) call
->> spi_nor_prep() then wait with a killable sleep. If the sleep gets
->> killed, we leave the controller in its prepared state.
->>
->
-> Why does this only affect legacy controllers?
+Gentle ping on this ext4 fix:
 
-Aren't ->prepare()/->unprepare() callbacks only implemented by legacy
-spi-nor controllers?
+  https://lore.kernel.org/all/20260626100740.52455-1-zhujia.zj@bytedance.com/
+
+Could you please consider picking it up for the ext4 tree?
 
 Thanks,
-Miqu=C3=A8l
+Jia
