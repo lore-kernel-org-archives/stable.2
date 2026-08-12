@@ -1,135 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B370E412C04;
-	Wed, 12 Aug 2026 22:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E06B403AE0;
+	Wed, 12 Aug 2026 22:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786573227; cv=none; b=RcfqMi2s3cM6jqnkK/gBNYUJLSLnEuk6hQTRkejL1lE7qNE8qfGCfVFRR78oZkaoijX+B+WWUEaSeFRTNYfDVbaNY5N1YCdoGaAksE+fvaU9FImFW31WjRtxCfnUfNAMNQ6JUOcNy/DTEtJzrNEkEUQZVQT243sB7OI2gGb8UHs=
+	t=1786573309; cv=none; b=AY2WZavSvM+BOcv2HvYdAmHhpmEe5/ijoKt+LmuNRq4K0zf7P510zfNtuOWrfWmiJz4MXCq/NB/CiNPHZ5eU62XP+WYEp8FIo5LGpWQ1jLDMbvadhhEWKSnKW3THIuMUBOacFsW+74hsWEHibWGtlZMknkB+Gd4vOmg9DQeE9IQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786573227; c=relaxed/simple;
-	bh=YxLZ64E1GdPvRZ5LGKEPY82I3i1UumiSn75DwWCccUE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=agwB4PJKWzcrU3cyiLT76F70ANeoOZJ4kSSgPKiWI5t9i44SUvFO3p3hz2wl0qEEKN7/m5CPHDvvds7JMEtrCyKEu4ik8IjAWfHgewlEsntl/xB1nBH6LnTPcekthZ+QuUB0rDbEgQAjUXnjqJF8eq9Xn1dVpAgxC3d3K28ZvjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G9DvdeZe; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786573309; c=relaxed/simple;
+	bh=EsfG38HkJbkAV/VN4qU3q9SxTzbrIxMHdzU8kvW0EpE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ldvX9dva8XyoAgXuCB1ymI32LoOS47mTrR/xDHe527VxZbbTZo1Z9SJHnzMb6fujdMQNfmMghub1+lPX35NAGFpEUlND8P5pfMAVqZHDyqFLGZc55XyloDIA4nILmVrSPSSe8Sxy/nNrE8SHp7uPqOSUoJf5d69wTH7zp66I8Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WyzytDJL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G9DvdeZe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786573226; x=1818109226;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=YxLZ64E1GdPvRZ5LGKEPY82I3i1UumiSn75DwWCccUE=;
-  b=G9DvdeZe7OfRYwt9GMdj1+jdG9l3KOHtXW1NEZG+KjCd7713eUOUdFih
-   pj5nswa/zzCgeErDTT+e+MieskAHs3qxIblE/S6IMfvGK1nxdgfE/Ql6A
-   a3BKCkWulfSWp5YveDLgZzyRO8muLlggXLVdom+69ilKrcW4TBVMDUB1Y
-   i0W3bAv8811snJkbj+Ki0Y5wsIie/07stRVdpPuGa4aGVC/r6y1vVz8mT
-   7fQYOIIbAyGsyYxhXxSA0gVr47+ifkTM+Q48e562S2m5zpm+hUCVAfN9c
-   LSwqx0vaUpttmXBf5qBNlVEPHi4OaEfRFSz445pSn4oGepvm6W92sSCRL
-   g==;
-X-CSE-ConnectionGUID: lwLYsYAbSf6ASXSUOPJuJw==
-X-CSE-MsgGUID: yHPDhQBLS2eyNexX369Liw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="87021706"
-X-IronPort-AV: E=Sophos;i="6.25,220,1779174000"; 
-   d="scan'208";a="87021706"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 15:20:25 -0700
-X-CSE-ConnectionGUID: xCREYhKvSy+NW7YeZdCQJA==
-X-CSE-MsgGUID: fIo+W2OsS7C3mtlsNHZK4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,220,1779174000"; 
-   d="scan'208";a="262456670"
-Received: from rfrazer-mobl3.amr.corp.intel.com (HELO [10.125.110.206]) ([10.125.110.206])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 15:20:24 -0700
-Message-ID: <90c2be6e-fe03-4da9-88d2-fe4d4f745cf2@intel.com>
-Date: Wed, 12 Aug 2026 15:20:23 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WyzytDJL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 772CB1F000E9;
+	Wed, 12 Aug 2026 22:21:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786573307;
+	bh=lSjfsT9lz56s5Gpwb7v0lw3+r8UguBFDrjycJYrRh50=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WyzytDJLW4uygTB8IkrNv+M6l8KIdEXdWj0ar5ta618faApIAlLlo6conCSs2Vnf8
+	 /RmPyIQchw5ZRaEgcfwzoN/asl/qrvGpDYC/EmT6+MHkCHruoug94FEa/9ERu3Tgjf
+	 UMARMLQSCJAPLr8J7MLgeiQLTOt2EDgshkBHbbERI6funv0ohrjMmthWR2NUqikhoo
+	 7m4S7acpeOBGRgcHuOKdlx03xQoh6bAiZbpXi/7YThGLbExImYG6uoIVY+Ym57rzmL
+	 zCxtonGW2KVyLbyH3TxflcIV4spiCqk96HrQTfYz0p1zPjZgH/WWjAriS6804MHqgx
+	 PwklUDbDxCZrg==
+Date: Wed, 12 Aug 2026 18:21:46 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Sergio Callegari <sergio.callegari@gmail.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	stable@vger.kernel.org,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Linux kernel regressions list <regressions@lists.linux.dev>,
+	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	George Zhang <george.zhang@amd.com>
+Subject: Re: [REGRESSION] Please revert 1191285ecb42 from 7.1.y
+Message-ID: <anzx-jMt6_6OTdTI@laps>
+References: <9c6acb62-4080-48e6-9ba2-d1c457c4ec88@gmail.com>
+ <2026081106-pebbly-cahoots-37a7@gregkh>
+ <23db5f95-c2d6-4712-856e-28f647e184f7@leemhuis.info>
+ <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
+ <2026081151-reabsorb-calamari-7442@gregkh>
+ <8a0fad2d-788a-403f-a880-2f97c6708275@gmail.com>
+ <CADnq5_Pb=ox3nWfdpb3Qeo_eSQayuc7UqUOnm0x+WS+EQTVWjA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] x86/mm/pat: CPA fixes
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, Andy Lutomirski
- <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
- David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
- Kiryl Shutsemau <kas@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Lu Baolu <baolu.lu@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Shakeel Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan
- <surenb@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Toshi Kani <toshi.kani@hpe.com>, Vishal Moola <vishal.moola@gmail.com>,
- Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- stable@vger.kernel.org, x86@kernel.org, syzbot@syzkaller.appspotmail.com
-References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
- <anCwUb9lV18v6mfN@kernel.org> <anXp--mLLEE2Qo0g@lucifer>
-Content-Language: en-US
-From: Dave Hansen <dave.hansen@intel.com>
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <anXp--mLLEE2Qo0g@lucifer>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_Pb=ox3nWfdpb3Qeo_eSQayuc7UqUOnm0x+WS+EQTVWjA@mail.gmail.com>
 
-On 8/7/26 07:34, Lorenzo Stoakes (ARM) wrote:
-> In any case - Mike - I think you probably need to respin this on tip
-> x86/mm anyway?
-> 
-> Maybe worth doing that and seeing if that makes life a little easier for
-> the x86 folks.
+On Tue, Aug 11, 2026 at 01:25:14PM -0400, Alex Deucher wrote:
+>On Tue, Aug 11, 2026 at 11:25 AM Sergio Callegari
+><sergio.callegari@gmail.com> wrote:
+>>
+>> On 11/08/2026 10:08, Greg KH wrote:
+>> > We aim to be "bug compatible" with Linus's branch, otherwise the
+>> > "pressure" to fix those bugs goes down.  But I defer to the maintainers
+>> > of the code involved if it is being worked on, and they want it
+>> > reverted, great, we can do that.  Otherwise we prefer to leave it as-is.
+>>
+>> I understand. Sorry for asking about things that might be obvious to
+>> most people here. My expectation was that only a selected subset of the
+>> patches on the Linus' tree were to enter in stable, so do we really need
+>> to have stable "bug compatible" wrt this bug? The original behavior was
+>> not free of issues, but they were rather minor (a reporting issue). Now
+>> we have this very bad behavior where the display remains dark.
+>>
+>> To make the matter worse, on systems that have encrypted root the screen
+>> remains dark also on that password prompt (observed with plymouth).
+>>
+>> In any case, I managed testing 7.2.0RC7 and it is fine again.
+>>
+>> Looks like the Linus' tree has more changes wrt backlight, and the
+>> interesting ones are probably those in the cumulative fix
+>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=973fd9493ec21f12e760fbbedeb7b0b2317c02f4.
+>>
+>
+>Thanks for testing.  It sounds like we should revert the change from
+>stable.  There must be some dependency we are missing in stable.
 
-Yes, please. If it interacts with things in there, a rebase would be
-much appreciated.
+Hmm...
 
-Also, please do send things separately if they are fixing active
-regressions or bugs that folks are hitting in the real world. We'll send
-those urgently and not through the normal tip/x86/mm process.
+In stable kernels, convert_custom_brightness() still scales the user value by
+(max - min), but f1b5d8f9cc54 ("drm/amd/display: Fix backlight max_brightness
+to match exported range") widened the exported range to max. Past ~(max - min),
+scale_input_to_fw() exceeds AMDGPU_MAX_BL_LEVEL and
+convert_brightness_from_user() returns >0xFFFF, which wraps in
+dce_driver_set_backlight(). With the defaults the cliff lands on 64533, which
+is what Sergio sees.
+
+Upstream only hides it: mod_power_set_backlight_percent() clamps at 100%.
+
+Does this make sense?
+
+-- 
+Thanks,
+Sasha
