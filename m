@@ -1,82 +1,197 @@
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6931035E1AD;
-	Wed, 12 Aug 2026 01:08:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.210
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0AF321D5B0
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 01:18:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786496931; cv=none; b=Bbtm8TrLdbYnmU7JEZjCXDx8rVZN+99/Fj/uJuQeHLeJIMpPQVJFMkL8DstqkorAYjRp0D4T5iaIPmd4cpwr8TenvSrD+FPxbYe22jcSxIwTq0NT3ZrQD1kTSQKS/Bxh/aOXP3AepN2CCBObRdF3cCZVK0uKXKDXpoo2wk7A4TA=
+	t=1786497508; cv=none; b=XA9SEgGOGO2P4RTjw5s4MOAUGgsl/J64MOG4qP58RLucJwMeFWkm7Lsk/sX2AilxbSxopQs7eU/GVb6zBsNdx7bZ38zv6zeh9yYjbIbthyh4KEYmBj/I97Eolz9j8/QAHoLnq+M5gD9Hem2qgVEbvfRlJMnyNg0cOf57q/bS1po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786496931; c=relaxed/simple;
-	bh=LdOBEKTdkgqDbNLJDbYskHxFAOqVJOonk0Qk8y3J0rw=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:Mime-Version:
-	 Content-Type; b=S3AWz5+0rRHcQ21nCOndUtbtGEMd5Rk2wkvgb4s7SvCWPQ14hoQHcN2OzIDozEf4e8+MIfUKlABgiFWImJ3BU9rjJayoLcuarkugjNa4uarbARgppfnNneggp17jEXTz9jA+jkUTfP8gJURA5UbZ5Rw/IS3RRF04EV6m8k3UONA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=OMgtMqgU; arc=none smtp.client-ip=162.62.57.210
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	s=arc-20240116; t=1786497508; c=relaxed/simple;
+	bh=Wdhw1zwE9l/bQZd/vhd9EYGVpya6VNWz+Q4H1ySiSzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IFpBsg0EQTAhVhdcgEffbqaD8gyn+LBhmIH10UVxiFIns4vQr9Pmm0VEGNSPPs2ozCoMNrANM/oeKL50z0nZNYvEsx53q9VU8/ab7/3Yi6q+CNSeicROi1a7nSlZMhsq9fsOKi0MUs8xAnQYySwPnV/+xHbBs/Do1qHVMKYJv30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sBk9VPyn; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="OMgtMqgU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1786496915;
-	bh=LdOBEKTdkgqDbNLJDbYskHxFAOqVJOonk0Qk8y3J0rw=;
-	h=Date:From:To:Cc:Subject:References;
-	b=OMgtMqgUas6H6Cc3vG2PWYMqsAQvlJMfDYIX3gD7x3tGpgMl9bzdK7iYNyCKkJ6Do
-	 mB6IE+d4ZGOHezreIbjpgS9bdFFYDT7Yn/PifCLlXENUsQskxVIF0aMSvssHNt/AfW
-	 SFvIP0QiaRjQqcBCR6/8QDCjEj7w98xOPACnIiZ4=
-Received: from PC-20201120SBOH ([183.205.156.133])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 2213C648; Wed, 12 Aug 2026 09:08:33 +0800
-X-QQ-mid: xmsmtpt1786496913t6x9emz2d
-Message-ID: <tencent_7C0E8F3CBC25E603FDA0289583DC9BD16B07@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3Ju1p/+CdclI+OjHNtendqfr7yPSN0vQl03Qz1ImrEEt7dUoFV23M
-	 9MoG4uBdLL1mILGx5vqHRKplNuS4mempxVGcdgCXMBCppTQWgLqpKit54x9oRQG487G+ai3oozw0
-	 r1AYFXFz1aWP8Ol0dgIrTh8yezIwheUelbm8623A+Vml6RqAQi+qHxlUpAIlaPrAFvtV4vh56yPP
-	 1s+vNybxuFQqa349yJ0FwzsDo+MRLn80Pukqwi/xG4ETl2L+Ow3mNPTJobj3riDiIdwaUzA2MFIP
-	 QS38gVu/UR5ZCECCkQEJcyxbprIjAk5aB3xOM30miUZVe85z7n/MQqe62/oQOr45DXs/xeMb8eDd
-	 UPHTPdlII8vQjwjje8DEGaSW3Mi/aRCD0MSZPLH0WdrkvFK4GiIJAeMUWfud6dBKyY+8XlFaEup0
-	 SiXx+Ydvn1VdMnmnqtBSb0vzUX+b7mqd9fB92rAJBi27JEyq4KBrOKdMER+BdWvBydqVuwVznC7j
-	 P4dY8lCPdDCvjhCjH2yL+sOSh8kkQr2iKf2/Zeud6VW3wQ/X2voEaLkBj3L+4lYoBivHSbKG9+08
-	 TW5wY8ubRv5pf9JjcGlQ8Nn/+AuaMg8hQoTvimY1otiJygEiZBUNBEZY1l+hZZo85RVrJB137cLh
-	 2sfeRvp13/nIm81WWSgXPyJFwUcoZfa7SE2vZnHgTwQLF2/XrJzBUiJp2R0OmpUJbsy2OqIuxctf
-	 yzNhm97XuTN/NNChGC5DYBVYgoShpdSpmEtmjpLHDdCvkm6Q47a0UE4MwCYeFp7zJe9wLFQYCuFm
-	 lw1ZAu924sS9DGyqJ/9bM0ajdBHOdFalAmKKNdrYoOswKxRd4YJHp90nIY/MVs+WOGMqoVeAWPN0
-	 GevFhXHmT9oPzcYCJ0cO6wE/ezeW9g8wvkIN1EeNbiogyBgr0469Rrl4SsT+Ibqd4Lg79fJBybVp
-	 PbCm7SXIkkLXfQZeMXhr/p1BYJn+tIV4sAsnVJVcFIFXoM8iNtKUlAfrM/67Gc75LCYSh25cMZBY
-	 Y4jDvCyuI7PxVbJ8di+DgnWgMu6AaEIAYBg/9zEup0QtLVN4k5WpYMYvVTHoc=
-X-QQ-XMRINFO: NHo+0iP/cI22ZgYdVAreg7B8/AHmI4Bv8g==
-Date: Wed, 12 Aug 2026 09:08:33 +0800
-From: "grayhat@foxmail.com" <grayhat@foxmail.com>
-To: "Frank Sorenson" <sorenson@redhat.com>, 
-	linux-cifs <linux-cifs@vger.kernel.org>
-Cc: stable <stable@vger.kernel.org>, 
-	smfrench <smfrench@gmail.com>, 
-	pc <pc@manguebit.org>
-Subject: Re: [PATCH] smb: client: fix OOB read/write from unvalidated DataOffset in coalesce_t2()
-References: <20260811191846.1263281-1-sorenson@redhat.com>
-X-Priority: 3
-X-GUID: 7DC42953-4FDF-4DA0-B60B-CC79BE11F035
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.25.542[cn]
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sBk9VPyn"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso423818a91.1
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 18:18:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786497506; x=1787102306; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8oVlkLHR9DmFApbbVRsS9p6t+mJPU1ldTTCcNPVFXM0=;
+        b=sBk9VPyns392BAoX5qQfAXVG9h2em9cSfOwhmYD59yiUxf/aFCNTqimUpKKL0dv78K
+         /6KwZnByZ/iC7mXIgHKqNGihfwsYig7VTQjmfETrH1BW5nC3Jf2U4eA/EWqGRS2VD2+T
+         LtxWakCSiuIYVL04y0MzsTiJm6v9MnY4PWAnnm50l9h2TnKARernweIE3Ep9mnTxDYaJ
+         CvjpBwk/LnNQKILvfL+BPQPFgH2c97VGfZRHqp1SUJ0nMW1XMeaklBIgdpj7qdaPd8r1
+         NGLnW8TDKwQPNK07VgKukRvB9Zsm5i8L4d2gI7LRWShGUbvuO85RQ8CijrXjKUW+fvj1
+         w1HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786497506; x=1787102306;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8oVlkLHR9DmFApbbVRsS9p6t+mJPU1ldTTCcNPVFXM0=;
+        b=gmCBAlo6Hxb8w4RzSjV6gUj8CxxCU4jt7N84imp4Q0FGYuHvGDOU7qwpM8z1pjqVjt
+         OFnK32sbx2tqyZHt/menUmIkL+WSrvzI9q4v9AXnlwIZlL4Vbvm8NCHhqC1esABYa7Fj
+         v8/mUPJOgCyaSQjQ5U6HHO9XHwzJ7KuQuCo0LPAC6JlxXLzcBnsmuNwdxnMSrOTKA4U+
+         zdCFUcSahbgBybXkz5rBSM+xh/BSpFNP7bq5foWSZ7DD8wIzoVSKUjFLTD8Sht/JYP6N
+         vogGFKJD9tUTdenSIcN3y6h3qr6hlQGBh8SOmX5+Y6dBIbQCz+5p4iJ6+o+4S/K+UlS7
+         s9fQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqbgUr31GsSiEXG84SXATCmV80eCEKFTgSaT31Z1XdNheRzmRwVA9v+2o+r8atkM0a4bXmoN58=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZsiiIir5VIf9Uh/kkDzKf69XL27+GEafa+0yQQI8ZwwcPPQQ3
+	Xi9Lsvg6dR5vWFryw18AFkvHOAWODmPLDMUnMQL2Vd6XKI9cqXFMNhf/
+X-Gm-Gg: AR+sD10WxDaQv31SooEySIIgQOJMr9mbrt+7jOlh8BpAgFdKEufzP/aUiSwV1pVNV3p
+	hivcogqXMTkvOGZRU9n45pUb/ORYRM5nPDtIG1V13Rmbrp3ndcYESO27ZDxueGx5a9XukOnFlVx
+	0tjDfdRpzQdfnAM2b0vZCvLRWfHRKFVJ8P/jKswf93Ep9Aa3HdObeY4UpXjdIcfBLUApn/NCuGX
+	RF+OY/4lRVFF9U4YtJNwmAkqX0HF6o7vTsnhV++sfsifoT7Uoohbo6Y2V23hRPbPMh1mQcy5c7u
+	/eapMA84g5MWR2sr4Qdvq5U9AUGdtdP9nbR/TCtf2jL62LN3hR2EqGEFLTvoGd7Rd8gLPmAf+ST
+	q02tLeRTwnA2RwFUuk/bIqERfz0EkPdzDA4YRKAZ4Bkkvfrs1TvLlJM0fD/pHnd8OsK6EJv5L19
+	tkqcO6HsR3ztyIevA/dfosVTkCN5j9drBOC75G63PL7svObvjictImqyBxpIrxV2cDMYU=
+X-Received: by 2002:a17:90b:3cc5:b0:38f:efed:5448 with SMTP id 98e67ed59e1d1-3930128b3a4mr1454692a91.8.1786497505954;
+        Tue, 11 Aug 2026 18:18:25 -0700 (PDT)
+Received: from hyunchul-PC02.lge.net ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392f8901c1bsm1549721a91.8.2026.08.11.18.18.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 18:18:25 -0700 (PDT)
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>,
+	ntfs@lists.linux.dev,
+	Cen Zhang <zzzccc427@gmail.com>,
+	Copilot <223556219+Copilot@users.noreply.github.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v7 0/4] ntfs: serialize attribute-list access
+Date: Wed, 12 Aug 2026 10:18:08 +0900
+Message-ID: <20260812-topic-attr-list-lock-v6-v7-0-2f35e0a38bfb@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-OQ-MSGID: <202608120908328785132@foxmail.com>
-Content-Type: text/plain;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-T24gVHVlLCAxMSBBdWcgMjAyNiAxNDoxODo0NiAtMDUwMCwgRnJhbmsgU29yZW5zb24gd3JvdGU6
-Cj4gW1BBVENIXSBzbWI6IGNsaWVudDogZml4IE9PQiByZWFkL3dyaXRlIGZyb20gdW52YWxpZGF0
-ZWQgRGF0YU9mZnNldCBpbiBjb2FsZXNjZV90MigpCgpUaGFua3MsIEZyYW5rIC0gdGhpcyBsb29r
-cyBnb29kIHRvIG1lLiBUaGUgbG93ZXItYm91bmQgY2hlY2tzIG9uCmJvdGggcG9pbnRlcnMgYW5k
-IHRoZSBzb3VyY2UgcmFuZ2UgdmFsaWRhdGlvbiBjb3ZlciB0aGUgY2FzZXMgbXkKc2ltcGxlciB1
-cHBlci1ib3VuZC1vbmx5IHBhdGNoIG1pc3NlZCwgYW5kIHRoZSBGaXhlczogdGFnIHRvCmU0ZWIy
-OTVkMzhiNSBjb25maXJtcyB0aGUgcHJlLTIwMTIgb3JpZ2luIHdlIHN1c3BlY3RlZC4KCk9uZSBy
-ZXF1ZXN0OiB0aGUgY3JlZGl0IGN1cnJlbnRseSBzaXRzIGJlbG93IHRoZSAtLS0gbGluZSwgc28g
-aXQKd291bGQgYmUgZHJvcHBlZCB3aGVuIHRoZSBwYXRjaCBpcyBhcHBsaWVkLiBDb3VsZCB5b3Ug
-YWRkIGEKClJlcG9ydGVkLWJ5OiBTaGVuIFlvbmdjaGFvIDxncmF5aGF0QGZveG1haWwuY29tPgoK
-dHJhaWxlciB0byB0aGUgY29tbWl0IG1lc3NhZ2UgcHJvcGVyPwoKU2hlbiBZb25nY2hhbwo=
+ntfs_external_attr_find() walks base_ni->attr_list using raw
+attr_list_entry pointers stored in ctx->al_entry. Because other paths
+can replace base_ni->attr_list and free the old buffer while a lookup
+still holds one of those cursors, a concurrent attribute-list mutation
+can turn a saved cursor into a stale or freed pointer.
+
+Reported in:
+  https://lore.kernel.org/all/20260702161710.2606853-1-zzzccc427@gmail.com/
+
+This series fixes that hazard by replacing the raw ctx->al_entry
+pointer with restartable, generation-checked locators, and by adding
+locks that serialize attribute-list buffer replacement and on-disk
+persistence so concurrent mutations cannot corrupt state or double-free
+memory.
+
+The four patches are:
+
+  1. ntfs: replace raw ctx->al_entry with restartable attr-list locators
+  2. ntfs: protect attribute-list buffer replacement with
+     attr_list_persist_lock
+  3. ntfs: protect attribute-list creation/teardown with
+     attr_list_persist_lock
+  4. ntfs: protect mapping-pairs attr-list updates with
+     attr_list_persist_lock
+
+What changes
+------------
+
+Instead of a raw struct attr_list_entry *, the search context now
+carries three value-only locators:
+
+  - al_cursor  -- where ntfs_external_attr_find() resumes enumeration;
+                  invalidated on generation mismatch.
+  - al_insert  -- insertion point captured on -ENOENT lookups.
+  - al_exact   -- immutable identity snapshot (type, lowest_vcn,
+                  mft_reference, instance, name length) used by writers
+                  to re-locate the same ALE after a buffer replacement.
+
+The inode gains attr_list_lock, an rwsem that protects the live buffer,
+its size and generation, and in-place ALE changes. Readers hold it
+only while dereferencing the buffer; writers hold it while replacing the
+buffer or changing an ALE, then increment the generation. Pointers into
+the buffer never survive an unlock, and the rwsem is dropped before
+persistence or an operation that can take runlist.lock or extent_lock.
+
+attr_list_persist_lock is a non-recursive mutex that serializes a
+mutation through persistence and rollback, including list creation and
+teardown. ntfs_attrlist_update_locked() writes the live buffer without
+attr_list_lock, so the caller holds this mutex from mutation through the
+write. It also stabilizes the buffer while attaching extents. When both
+locks are needed, take attr_list_persist_lock first. Creation owns the
+mutex itself, so callers must create first and then restart; re-entrant
+teardown uses persist_locked instead of recursively acquiring it.
+
+---
+* Changes in v7:
+  * Patch 3: serialize non-$ATTRIBUTE_LIST removal with concurrent
+    attribute-list creation.
+  * Patch 3: initialize successful removal results and release
+    attr_list_persist_lock on every early creation error.
+* Changes in v6:
+  * Patch 2: initialize new_al before an early error path can reach its
+    cleanup, fixing an x86_64 allmodconfig Clang build warning.
+* Changes in v5:
+  * Patch 3: keep each in-place ALE update and its persist in one
+    transaction. This fixes the Patch 2 review: a record move could
+    update an ALE while persistence copied the same buffer.
+  * Patch 3: serialize attribute-list creation, teardown, and extent
+    attachment.
+  * Patch 4: acquire the mutex unconditionally for mapping-pairs updates to
+    close the attribute-list creation TOCTOU; drop it before creating a
+    missing list and restart afterward to avoid self-deadlock.
+* Changes in v4:
+  * Patch 1: fix attr-list lock/unlock and uninitialized locator on
+    the AT_END path
+  * Patch 2: hold attr_list_persist_lock around all
+    ntfs_attrlist_update() callers and recheck the attribute-list
+    state after locking
+  * Patch 4: avoid self-deadlock rebuilding $ATTRIBUTE_LIST's own
+    mapping pairs
+* Changes in v3:
+  * Patch 1: fix $ATTRIBUTE_LIST extent double-delivery during
+    mapping-pairs rebuild (xfstests generic/040)
+  * Patch 3: fix self-deadlock on attr_list_persist_lock during
+    attr-list rebuild (xfstests generic/040)
+* Changes in v2:
+  * add Fixes tags
+  * add Reported-by and Tested-by tags
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+---
+Hyunchul Lee (4):
+      ntfs: replace raw ctx->al_entry with restartable attr-list locators
+      ntfs: protect attribute-list buffer replacement with attr_list_persist_lock
+      ntfs: protect attribute-list creation/teardown with attr_list_persist_lock
+      ntfs: protect mapping-pairs attr-list updates with attr_list_persist_lock
+
+ fs/ntfs/attrib.c   | 568 ++++++++++++++++++++++++++++++++++++++++++++---------
+ fs/ntfs/attrib.h   |  48 ++++-
+ fs/ntfs/attrlist.c | 181 +++++++++++++----
+ fs/ntfs/attrlist.h |   3 +-
+ fs/ntfs/index.c    |  26 ++-
+ fs/ntfs/inode.c    | 116 ++++++++---
+ fs/ntfs/inode.h    |  10 +
+ fs/ntfs/namei.c    |   2 +-
+ fs/ntfs/super.c    |   2 +-
+ 9 files changed, 795 insertions(+), 161 deletions(-)
+---
+base-commit: 5c244a0e9ca95468f4c2087b2c9269825429a13f
+change-id: 20260727-topic-attr-list-lock-v6-f1a909e3c859
+
+Best regards,
+-- 
+Thanks,
+Hyunchul
 
