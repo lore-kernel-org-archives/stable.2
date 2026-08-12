@@ -1,204 +1,392 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F594349CCD
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 08:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199CB34C134;
+	Wed, 12 Aug 2026 08:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786522816; cv=none; b=ZwuRTrDtFBMSbrY4t2oYaQrai1DtSWOeTFCEUnaI+eSIZKCbqmFGE4RtFFimose90mkkLhJzQnBvcHJ3Vk0LxVkXVycv95OH8+RjNC1RTbZkqy0cNS5XKIOYAYVURH5cnIHvnzedNOURiJ2XFbYbbHJK7tTZ1l60YptgLYq8nuw=
+	t=1786522839; cv=none; b=L2ZpJD0KIGLIQNgoreqUHGhforDEWyKVkb4UMwUM6OAVZ4rF+DxYTozrzRbnzGfKI9+x9dTnyWkyXdmI4vMrqo8H5QPP4H2ecc0GHME+MZ7oeIZuQwtY72Hiqab0KR/Xcv8SuFX7tnL1w24y632nU2imSz2SCmA+KyFpFuiBwlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786522816; c=relaxed/simple;
-	bh=19QElKc8Z4AqLbONO1diyd00Et4pA8DxWHmwjN27wXw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fwy0i0TWc+UfQlEuHZ1peF5nvubMdw6lR506Ez1hx4fcRDFIPkekqqgsUUvZR7MloHS/zpjD3iTNFYviv8kD35mAB1Vd7Pl5SvEAmCGiYvGSygbRRfsz+cPb7nlbBrx6U/QjfFg/I1B41krMtIYgeKSZYWUmGrdEAfxAhhpIolw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RZPc4Eur; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1786522839; c=relaxed/simple;
+	bh=1X7xTg8k/P4hYrpCKF8pCr9VurNyzqcU4QcZTomA6Mg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=KXjBtXLjw7hCqsHWx7UXcUYlaV6dc7pIgSLO6KTF0wpXcxnVshd3L26+bjnVM8nEACOVImgjAgJlBzhiXIKnhghxM9oaHN8sUQpgF3W+46SbZp/poqAr8djNUNBggVdTImklV1uW46uvVKBqZVLBiwS+xGt6hWUFwKy40RTeldw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=bUgn30XR; arc=none smtp.client-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RZPc4Eur"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49553515a8bso9733395e9.1
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 01:20:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786522813; x=1787127613; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Yr1Y7iy9IPSmNqTQd+CZP9OkFr9hJGR5T9MqLlZLr88=;
-        b=RZPc4EurzQYkphc1z9Ibp0bBjvw/ffS2U/t5rZdrOehS9CqMzbaQ5zwvKIq5XEQ4DZ
-         W5KNGXDWP0Q8igT1RdGN4Kc8RzqFxzdw//9aSNFNgdfw9uGQdEZjgapFRLcnKWECoFvV
-         rq1mW+jlCFNmVtNkKtjWGdJ7vG3LZ6BEgsz9L1DJzxSNrsd6qGCzSncSOC05XiIIqGx/
-         duKTjdYWm35dvVnjF1cPlu3g0NrMfUP7Vs8H78b4oGWJxu7Zm3LHRXdLRHIcP7+U7uV/
-         pujjsj0yCzoRydqITzUzGHBG3H6pMtIvpN1FIKZ6uumZQ46JhY4bNqDO7t50oQdUzMzB
-         Jz8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786522813; x=1787127613;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Yr1Y7iy9IPSmNqTQd+CZP9OkFr9hJGR5T9MqLlZLr88=;
-        b=UWTddMNiBiqfjlEvMVWc11k/NNaO0sjt5qlSjKDZSMunmVL2yp8oaajnLSBaesOIwJ
-         ETiUunJpHAqB+udn75T4hewLNzyI/7fSPyJ4vPmOTX4fM4/GQ8DJFoWPv9S4xmJ3Hyxq
-         eTIADq5E3vsDX5WA4iomV/fQ7HB3JjOcQnkJ/irZHRfrO5AwUCakom6sRl5pFmpWonZU
-         ZkjtizTMMhLMxtMNhsWj0NCETWNwIA5H5T9ST4DIr+L/BjObAhFWRYWxMMrMx/RvC+d4
-         FLcfwvmdzKVFId3Krh5chx3ou1oAmvpghex1tHJCBJSA2e24Lily0QKCuxnXrvalBTKw
-         COQQ==
-X-Gm-Message-State: AOJu0YwCgPBk3sk4BmBTxIYqqX61qxJW1de3zXC23W/KXGp8r/kryL6I
-	7VojOvOI7oqXLmKrGD/0SNrrOKHPkxcna04yQ5T2YNwGwYzvZNT5UgE5DQy87ojZD6Y=
-X-Gm-Gg: AR+sD13U2HcCL6B7qPs+4R2IYuPH4ckWoRl0dyqolU8PnD1dG19131tVoxjZQIJuqJV
-	Q0khjVbllYiZ1GUxDO/4eFTWOHcLCYMmTCNXTAFMvftR+1HibrMrqCmAiH6zeVmMX5A6HDhyUil
-	KiVSjGE5hXFl0eFLQvAHJH9a1lq0N7/BeELIj9z5U5dgj47DdmGuaVxXDk7WCm3Rppk0p7+jQgD
-	+TTA0ACClh8D8iOaoRu7gzJjAQeEf9qYM8kslfLn1Rtjn/PXOo4XPB6iKmYQRRMPqWVwuDxcYM7
-	zeA5MwE9Rgb2YF9/pAufPsnrdUnlAs0j3KjKtQ8Xbjo39r+1FYPi3SkSLPVcRX1BTWT+4w9UgyA
-	8dzUYtUCYlXSbJzSlz18xtA+O9vjQOIrYJ4T1mlc6zq6t3+RkwFe+jyviz73lTCS/nW7Y4qvudJ
-	O2IuJQ3HW+VSYUIxlGcaoUVvf24ZQRJ9TJnNNPwAQ11GnvgK8Bm6KhMVehQB/fRwJzqw==
-X-Received: by 2002:a05:600d:6446:10b0:499:593c:3384 with SMTP id 5b1f17b1804b1-4997c1070f3mr28058535e9.6.1786522812683;
-        Wed, 12 Aug 2026 01:20:12 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997aaa5d04sm51386525e9.2.2026.08.12.01.20.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 Aug 2026 01:20:12 -0700 (PDT)
-Message-ID: <ff3580ae-1b04-49b7-b438-e8ee5a0c04a9@linaro.org>
-Date: Wed, 12 Aug 2026 09:20:11 +0100
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="bUgn30XR"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1786522826; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=dZwyBpP0jzX3a5Q2lOIvsQUOtf394j7jNdT0AZlAj7A=;
+	b=bUgn30XRPoE1SyXlP8flX1owUpf5itBmqksn6wX1hsD8vJ4O/lQhpplxL8PspRSukx92qSmos31XHi+8HzOD+RyTXu5JQ6pF43pDvQfGLSGv0Qml7e9hMOIHvj3zzKO2luPO0WaJ66qHoy/JBCIokIjwqHir6Vb1lm7Z4i/wZCw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=31;SR=0;TI=SMTPD_---0X8r2pwU_1786522823;
+Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0X8r2pwU_1786522823 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 12 Aug 2026 16:20:24 +0800
+From: "Huang, Ying" <ying.huang@linux.alibaba.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: <intel-xe@lists.freedesktop.org>,  <dri-devel@lists.freedesktop.org>,
+  <linux-mm@kvack.org>,  <linux-kernel@vger.kernel.org>,  Andrew Morton
+ <akpm@linux-foundation.org>,  David Hildenbrand <david@kernel.org>,
+  "Lorenzo Stoakes" <ljs@kernel.org>,  Zi Yan <ziy@nvidia.com>,  Baolin
+ Wang <baolin.wang@linux.alibaba.com>,  "Liam R . Howlett"
+ <liam@infradead.org>,  Nico Pache <nico.pache@linux.dev>,  Ryan Roberts
+ <ryan.roberts@arm.com>,  "Dev Jain" <dev.jain@arm.com>,  Barry Song
+ <baohua@kernel.org>,  Lance Yang <lance.yang@linux.dev>,  Usama Arif
+ <usama.arif@linux.dev>,  Joshua Hahn <joshua.hahnjy@gmail.com>,  Rakie Kim
+ <rakie.kim@sk.com>,  Byungchul Park <byungchul@sk.com>,  Gregory Price
+ <gourry@gourry.net>,  Alistair Popple <apopple@nvidia.com>,  Balbir Singh
+ <balbirs@nvidia.com>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+  Thomas Zimmermann <tzimmermann@suse.de>,  David Airlie
+ <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,  Thomas Hellstrm
+ <thomas.hellstrom@linux.intel.com>,  Francois Dugast
+ <francois.dugast@intel.com>,  <stable@vger.kernel.org>
+Subject: Re: [PATCH v3 3/6] mm/migrate_device: Fix THP splitting of a CPU
+ faulted device private folio
+In-Reply-To: <anopzF3Hk/RRh8kC@gsse-cloud1.jf.intel.com> (Matthew Brost's
+	message of "Mon, 10 Aug 2026 12:43:08 -0700")
+References: <20260805231041.3791771-1-matthew.brost@intel.com>
+	<20260805231041.3791771-4-matthew.brost@intel.com>
+	<87ik5in224.fsf@DESKTOP-5N7EMDA>
+	<anopzF3Hk/RRh8kC@gsse-cloud1.jf.intel.com>
+Date: Wed, 12 Aug 2026 16:20:22 +0800
+Message-ID: <87cxvnn41l.fsf@DESKTOP-5N7EMDA>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12.y] spi: spi-fsl-dspi: Avoid setup_accel logic for DMA
- transfers
-To: Vladimir Oltean <olteanv@gmail.com>, Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Larisa Grigore <larisa.grigore@nxp.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mehmet Fide <mehmet.fide@gmail.com>
-References: <20260811091322.3592403-1-mehmet.fide@gmail.com>
- <20260811184500.stable-0013-sashal@kernel.org>
- <20260811212856.4wp56ryqgtgzahhc@skbuf>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260811212856.4wp56ryqgtgzahhc@skbuf>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ascii
 
+Matthew Brost <matthew.brost@intel.com> writes:
 
+> On Mon, Aug 10, 2026 at 10:26:27AM +0800, Huang, Ying wrote:
+>> Hi, Matthew,
+>> 
+>> Matthew Brost <matthew.brost@intel.com> writes:
+>> 
+>> > When a CPU faults on a device private PMD and the device driver can only
+>> > allocate order-0 destination folios, __migrate_device_pages() has to
+>> > split the source THP via migrate_vma_split_unmapped_folio(). That path
+>> > is broken in two independent ways when the fault is what triggered the
+>> > migration.
+>> >
+>> > First, the split never succeeds. At the point folio_split_unmapped() is
+>> > called the folio carries two references beyond the ones it is
+>> > entitled to:
+>> >
+>> >   1 - taken by do_huge_pmd_device_private() for the duration of the
+>> >       ->migrate_to_ram() callback
+>> >   2 - taken by migrate_vma_collect_huge_pmd() when the folio was
+>> >       collected
+>> >
+>> > (the mapping reference having been dropped by set_pmd_migration_entry()).
+>> >
+>> > folio_split_unmapped() requires folio_expected_ref_count(folio) ==
+>> > folio_ref_count(folio) - 1, i.e. it tolerates exactly one caller
+>> > reference. With both of the above held the check sees 2 against an
+>> > expected 0 and returns -EAGAIN, so the migration is abandoned and the
+>> > CPU fault makes no progress.
+>> >
+>> > The PTE-based split path does not have this problem:
+>> > migrate_vma_split_folio() is called before any collect reference is
+>> > taken and explicitly skips folio_get() for the fault folio, so the fault
+>> > reference is the single caller reference the split expects.
+>> >
+>> > Fix it by dropping the fault reference across the split and re-taking it
+>> > afterwards. do_huge_pmd_device_private() derives the fault page from the
+>> > PMD entry, so it is always the head page of the folio and always ends up
+>> > in the head folio of an uniform split to order 0; re-taking the
+>> > reference on the folio therefore puts it back exactly where
+>> > do_huge_pmd_device_private() will release it. The folio cannot be freed
+>> > while the reference is dropped because the collect reference is still
+>> > held.
+>> >
+>> > Second, the folio is split globally but the page tables were demoted
+>> > only locally:
+>> >
+>> > 	split_huge_pmd_address(migrate->vma, addr, true);
+>> > 	ret = folio_split_unmapped(folio, 0);
+>> >
+>> > migrate_device_unmap() unmaps via try_to_migrate(folio, 0), deliberately
+>> > without TTU_SPLIT_HUGE_PMD, so every VMA that PMD maps the folio is left
+>> > holding a PMD sized migration entry. A folio that was PMD mapped in more
+>> > than one VMA -- after fork(), for example -- therefore keeps huge
+>> > migration entries in all the other VMAs while only migrate->vma is
+>> > demoted.
+>> >
+>> > folio_split_unmapped() does not notice: the folio is fully unmapped, so
+>> > it only looks at the refcount and happily splits to order 0. The other
+>> > VMAs are then left pointing a huge PMD at an order-0 folio, and
+>> > migrate_vma_finalize() -> remove_migration_ptes() walks into it:
+>> >
+>> >   page dumped because: VM_BUG_ON_FOLIO(folio_test_hugetlb(folio) ||
+>> >                                        !folio_test_pmd_mappable(folio))
+>> >   kernel BUG at mm/migrate.c:368!
+>> >   RIP: 0010:remove_migration_pte+0x56a/0x9b0
+>> >   Call Trace:
+>> >    rmap_walk_anon+0xfc/0x260
+>> >    remove_migration_ptes+0x79/0xb0
+>> >    __migrate_device_finalize+0x113/0x290
+>> >    __drm_pagemap_migrate_to_ram+0x278/0x360 [drm_gpusvm_helper]
+>> >    drm_pagemap_migrate_to_ram+0x5c/0x80 [drm_gpusvm_helper]
+>> >    do_huge_pmd_device_private+0x160/0x280
+>> 
+>> Which is the branch your patchset based on?  I found that
+>> drm_pagemap_migrate_populate_ram_pfn() in mm-everything-2026-08-08-07-08
+>> still don't support fallback to single pages if THP allocation fails as
+>> in the following comments,
+>> 
+>
+> This entire series, on drm-tip (i.e., the 6 patches posted here [1]).
+>
+> [1] https://patchwork.freedesktop.org/series/171651/
 
-On 11/08/2026 22:28, Vladimir Oltean wrote:
-> On Tue, Aug 11, 2026 at 02:55:56PM -0400, Sasha Levin wrote:
->>> Either way the behaviour is the same. On vf610 in DMA mode the accel path drops
->>> the tail of odd length transfers and byte swaps under SPI_LSB_FIRST, and this
->>> commit removes both. That is what makes it worth having in 6.12.y, whatever the
->>> original intent was.
->>
->> cac7e5054115 ("spi: spi-fsl-dspi: Avoid setup_accel logic for DMA transfers")
->> applies cleanly to 6.12 with no dependencies, so this is not a mechanical
->> question - it is whether it qualifies. It has no Fixes: tag and no stable tag,
->> and James reads it as a refactor.
->>
->> Larisa, Mark, Vladimir - was this a fix? If so, a Fixes: tag would let me take
->> it here and on the older trees, where it applies just as cleanly.
->>
->> -- 
->> Thanks,
->> Sasha
-> 
-> It wasn't understood as a correctness change until now, but yes, it is a fix.
-> 
-> Fixes: a957499bd437 ("spi: spi-fsl-dspi: Fix bits-per-word acceleration in DMA mode")
-> Acked-by: Vladimir Oltean <olteanv@gmail.com>
-> 
-> Explanation:
-> As part of the original introduction of dspi_setup_accel() in commit
-> 6c1c26ecd9a3 ("spi: spi-fsl-dspi: Accelerate transfers using larger word
-> size if possible"), it was well understood that this is not applicable
-> to DMA transfers.
-> 
-> The reason is that the correct clustering of 8 bit frames into 16 bit PUSHR
-> transfers ultimately depends on the ability to modify the SPI_CTAR_FMSZ
-> (frame size) on the go. In the case of a 3 byte SPI transfer using
-> 8-on-16 acceleration, the logic of this clustering is to first transfer
-> the first 2 bytes using a 16-bit PUSHR transfer (with SPI_CTAR_FMSZ=15),
-> then to update SPI_CTAR_FMSZ=7 in order to be able to push the last byte
-> using a single 8-bit PUSHR write.
-> 
-> The difference between FIFO mode and DMA mode is that in DMA mode, there
-> is no software hook to update SPI_CTAR_FMSZ in between PUSHR FIFO
-> updates. The DMA engine handles them.
-> 
-> This was well understood and was the basis of this code path, which
-> explicitly excluded DMA from dspi_setup_accel() with its dynamic frame
-> size updating:
-> 
-> 		/*
-> 		 * Static CTAR setup for modes that don't dynamically adjust it
-> 		 * via dspi_setup_accel (aka for DMA)
-> 		 */
-> 		regmap_write(dspi->regmap, SPI_CTAR(0),
-> 			     dspi->cur_chip->ctar_val |
-> 			     SPI_FRAME_BITS(transfer->bits_per_word));
-> 
-> However, this truth was forgotten soon after, because as soon as a bug
-> report came in - the trigger behind commit a957499bd437 ("spi:
-> spi-fsl-dspi: Fix bits-per-word acceleration in DMA mode") - it became
-> broken.
-> 
-> Namely, the separate code path for static SPI_CTAR_FMSZ settings for DMA
-> mode got deleted, and dspi_dma_xfer() started calling dspi_setup_accel().
-> This had two effects:
-> - dspi_setup_accel() correctly updates dspi->oper_word_size, necessary
->    in common code: intended, fixes the bug reported by Michael Walle
-> - dspi_setup_accel() enables 8-on-16 acceleration for DMA mode now,
->    which will transfer 1 byte too few if the buffer size is odd (it
->    incorrectly assumes that the caller can dynamically alter
->    SPI_CTAR_FMSZ and then send the trailing word separately):
->    unintended, causes the bug reported by Mehmet Fide
-> 
-> The breakage probably went largely unnoticed because Michael Walle's
-> peripheral only used even-sized buffers (a flash, IIRC), and the silicon
-> on which I regularly test the DSPI driver doesn't use DMA.
-> 
-> The commit under question here - cac7e5054115 ("spi: spi-fsl-dspi: Avoid
-> setup_accel logic for DMA transfers") - fixes the unintended side effect
-> while maintaining the intention of previous bug fix a957499bd437 ("spi:
-> spi-fsl-dspi: Fix bits-per-word acceleration in DMA mode"). By having
-> the "goto no_accel", we bypass the 8-on-16 acceleration on DMA, while
-> still assigning dspi->oper_word_size - which was the reason for calling
-> dspi_setup_accel() in the first place.
-> 
-> Note that 8-on-16 acceleration is not intrinsically broken for DMA mode
-> (it can yield a DMA buffer more densely packed with PUSHR data), it just
+Thanks!
 
-My commit message on cac7e5054115 was probably a bit misleading then, 
-because there is some benefit. I was only thinking from the point of the 
-FIFO, not the memory backing a DMA transfer.
+>> 	/* TODO: Support fallback to single pages if THP allocation fails */
+>> 
+>> 
+>> > Without CONFIG_DEBUG_VM the VM_BUG_ON_FOLIO() is compiled out and
+>> > remove_migration_pmd() installs a huge PMD pointing at an order-0 page
+>> > instead, along with add_mm_counter(mm, MM_ANONPAGES, HPAGE_PMD_NR). The
+>> > victim mm then maps 2MB of address space onto a single 4K page, which
+>> > shows up later as bad rss-counter state, leaked page tables and page
+>> > allocator freelist corruption in unrelated processes.
+>> >
+>> > Note this second problem was latent before the refcount fix above: the
+>> > split always failed, and the failed attempt left migrate->vma demoted,
+>> > so the retried fault took the PTE path, where __folio_split() unmaps
+>> > with TTU_SPLIT_HUGE_PMD and demotes every VMA.
+>> >
+>> > Fix it by walking the rmap and demoting every PMD sized migration entry
+>> > mapping the folio before splitting it. Demote with freeze = false: entry
+>> > creation in __split_huge_pmd_locked() is dispatched on
+>> > pmd_is_migration_entry(), not on freeze, so a migration PMD becomes PTE
+>> > sized migration entries either way, and freeze only controls a trailing
+>> > put_page(). With freeze = false there is no refcount change at all,
+>> > which makes the demotion idempotent across N VMAs.
+>> >
+>> > rmap_walk_control.anon_lock is deliberately left unset:
+>> > folio_lock_anon_vma_read() depends on folio_mapped(), and the folio is
+>> > already fully unmapped here. This mirrors remove_migration_ptes().
+>> >
+>> > Finally, refuse the split for a folio that is not anonymous. The rmap
+>> > walk would otherwise reach a file backed VMA, where
+>> > split_huge_pmd_address() zaps the PMD instead of demoting it.
+>> >
+>> > Fixes: 4265d67e405a ("mm/migrate_device: add THP splitting during migration")
+>> > Cc: Andrew Morton <akpm@linux-foundation.org>
+>> > Cc: David Hildenbrand <david@kernel.org>
+>> > Cc: Lorenzo Stoakes <ljs@kernel.org>
+>> > Cc: Zi Yan <ziy@nvidia.com>
+>> > Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+>> > Cc: Liam R. Howlett <liam@infradead.org>
+>> > Cc: Nico Pache <nico.pache@linux.dev>
+>> > Cc: Ryan Roberts <ryan.roberts@arm.com>
+>> > Cc: Dev Jain <dev.jain@arm.com>
+>> > Cc: Barry Song <baohua@kernel.org>
+>> > Cc: Lance Yang <lance.yang@linux.dev>
+>> > Cc: Usama Arif <usama.arif@linux.dev>
+>> > Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+>> > Cc: Rakie Kim <rakie.kim@sk.com>
+>> > Cc: Byungchul Park <byungchul@sk.com>
+>> > Cc: Gregory Price <gourry@gourry.net>
+>> > Cc: Ying Huang <ying.huang@linux.alibaba.com>
+>> > Cc: Alistair Popple <apopple@nvidia.com>
+>> > Cc: Balbir Singh <balbirs@nvidia.com>
+>> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> > Cc: Maxime Ripard <mripard@kernel.org>
+>> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> > Cc: David Airlie <airlied@gmail.com>
+>> > Cc: Simona Vetter <simona@ffwll.ch>
+>> > Cc: Thomas Hellstrm <thomas.hellstrom@linux.intel.com>
+>> > Cc: Francois Dugast <francois.dugast@intel.com>
+>> > Cc: dri-devel@lists.freedesktop.org
+>> > Cc: linux-mm@kvack.org
+>> > Cc: linux-kernel@vger.kernel.org
+>> > Cc: stable@vger.kernel.org
+>> > Assisted-by: GitHub_Copilot:claude-opus-5
+>> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>> > ---
+>> >  mm/migrate_device.c | 98 ++++++++++++++++++++++++++++++++++++++++-----
+>> >  1 file changed, 89 insertions(+), 9 deletions(-)
+>> >
+>> > diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+>> > index ae9027421b80..ae17bd516d24 100644
+>> > --- a/mm/migrate_device.c
+>> > +++ b/mm/migrate_device.c
+>> > @@ -899,22 +899,104 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
+>> >  	return 0;
+>> >  }
+>> >  
+>> > +static bool migrate_vma_split_pmd_one(struct folio *folio,
+>> > +				      struct vm_area_struct *vma,
+>> > +				      unsigned long addr, void *arg)
+>> > +{
+>> > +	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, addr, PVMW_SYNC | PVMW_MIGRATION);
+>> > +
+>> > +	while (page_vma_mapped_walk(&pvmw)) {
+>> > +		if (pvmw.pte)
+>> > +			continue;
+>> > +
+>> > +		addr = pvmw.address;
+>> > +		page_vma_mapped_walk_done(&pvmw);
+>> > +
+>> > +		/*
+>> > +		 * Demote with freeze = false: the PMD already holds a
+>> > +		 * migration entry, so __split_huge_pmd_locked() creates PTE
+>> > +		 * sized migration entries from it and leaves the refcount
+>> > +		 * alone. There is at most one PMD mapping @folio per VMA, so
+>> > +		 * stop the walk here.
+>> > +		 */
+>> > +		split_huge_pmd_address(vma, addr, false);
+>> > +		break;
+>> > +	}
+>> > +
+>> > +	return true;
+>> > +}
+>> > +
+>> > +/*
+>> > + * Demote every PMD sized migration entry that maps @folio to PTE sized ones.
+>> > + *
+>> > + * migrate_device_unmap() unmaps with try_to_migrate(folio, 0), i.e. without
+>> > + * TTU_SPLIT_HUGE_PMD, so a folio that was PMD mapped in several VMAs -- after
+>> > + * fork(), for instance -- ends up with a PMD sized migration entry in every one
+>> > + * of them. folio_split_unmapped() below does not care, it only looks at the
+>> > + * refcount, so splitting the folio without demoting all of those first would
+>> > + * leave the other VMAs pointing a huge PMD at what is now an order-0 folio.
+>> > + * remove_migration_ptes() trips over that in migrate_vma_finalize().
+>> > + */
+>> > +static void migrate_vma_split_pmd_mappings(struct folio *folio)
+>> > +{
+>> > +	struct rmap_walk_control rwc = {
+>> > +		.rmap_one = migrate_vma_split_pmd_one,
+>> > +	};
+>> > +
+>> > +	/*
+>> > +	 * Do not pass .anon_lock: folio_lock_anon_vma_read() requires
+>> > +	 * folio_mapped(), and @folio is already fully unmapped here.
+>> > +	 */
+>> > +	rmap_walk(folio, &rwc);
+>> > +}
+>> > +
+>> >  static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+>> > -					    unsigned long idx, unsigned long addr,
+>> > +					    unsigned long idx,
+>> >  					    struct folio *folio)
+>> >  {
+>> >  	unsigned long i;
+>> >  	unsigned long pfn;
+>> >  	unsigned long flags;
+>> > +	bool fault_folio;
+>> >  	int ret = 0;
+>> >  
+>> >  	/*
+>> > -	 * take a reference, since split_huge_pmd_address() with freeze = true
+>> > -	 * drops a reference at the end.
+>> > +	 * migrate_vma_split_pmd_mappings() walks the rmap, and
+>> > +	 * split_huge_pmd_address() zaps rather than demotes a PMD in a VMA that
+>> > +	 * is not anonymous. migrate_vma_collect_huge_pmd() does not check the
+>> > +	 * VMA type, so a file THP can reach here; the rest of the migrate_vma()
+>> > +	 * machinery only supports anonymous memory anyway.
+>> >  	 */
+>> > -	folio_get(folio);
+>> > -	split_huge_pmd_address(migrate->vma, addr, true);
+>> > +	if (!folio_test_anon(folio))
+>> > +		return -EINVAL;
+>> > +
+>> > +	/*
+>> > +	 * A CPU fault on a device private PMD holds an extra reference on the
+>> > +	 * folio, taken by do_huge_pmd_device_private(). folio_split_unmapped()
+>> > +	 * only tolerates a single caller reference, so the split would always
+>> > +	 * fail with -EAGAIN while this fault reference is held.
+>> > +	 *
+>> > +	 * do_huge_pmd_device_private() derives the fault page from the PMD
+>> > +	 * entry, so it is always the head page of @folio, and therefore always
+>> > +	 * ends up in the head folio after an uniform split to order 0. Drop
+>> > +	 * the reference across the split and re-take it on the head folio
+>> > +	 * afterwards, leaving the reference exactly where it is expected to be
+>> > +	 * released.
+>> > +	 *
+>> > +	 * The folio cannot go away while the reference is dropped: the
+>> > +	 * reference taken by migrate_vma_collect_huge_pmd() is still held.
+>> > +	 */
+>> > +	fault_folio = migrate->fault_page &&
+>> > +		page_folio(migrate->fault_page) == folio;
+>> > +
+>> > +	migrate_vma_split_pmd_mappings(folio);
+>> > +
+>> > +	if (fault_folio)
+>> > +		folio_put(folio);
+>> >  	ret = folio_split_unmapped(folio, 0);
+>> > +	if (fault_folio)
+>> > +		folio_get(folio);
+>> > +
+>> 
+>> Is it better to pass "extra_cnt" to folio_split_unmapped()?  This
+>> follows the coding style of the other migrate functions better, like
+>> that in __migrate_device_pages().
+>> 
+>
+> That is an option. To be minimally invasive, I went this route. I also
+> didn't know offhand what would happen if our head page had an extra
+> reference and we then called folio_split_unmapped() with "extra_cnt", or
+> how that would affect the reference counts of the newly split pages
+> (i.e., whether we would need to adjust the reference counts of all split
+> pages after folio_split_unmapped() returns). However, I could quickly
+> reason that dropping the reference and then reacquiring it was
+> functionally correct and safe.
 
-> needs more work to skip it for odd-sized transfers. However, that work
-> may or may not be justified from a performance standpoint, so the
-> approach taken here is reasonable.
-> 
+This makes sense for me.  Thanks!
 
-The commit could have mentioned that it wastes 1 byte per entry in favor 
-of simplicity and correctness. But DMA isn't limited in size like the 
-FIFO, so waste isn't an issue.
+I have another question.  If we have to split the large folio when
+migrating from device to ram, should we still migrate all pages of the
+original large folio, or should we migrate only the faulting
+normal-sized page of the original large folio instead?
 
-> 
-> Regarding the SPI_LSB_FIRST issue - from the description it seems to be
-> a completely distinct problem not intrinsically limited to DMA mode
-> (should also be visible in XSPI mode), so disabling dspi_setup_accel()
-> on Vyber and Coldfire only partially addresses it.
-> 
-> I don't have a use case for SPI_LSB_FIRST peripherals, so I don't
-> personally mind another "goto no_accel" follow-up patch rather than
-> fixing the underlying byte packing mechanism, BUT this should be done
-> by the issue reporter with a proper explanation in the commit message
-> now that the issue is more clearly understood, rather than just be
-> happy that backporting commit cac7e5054115 sidesteps the problem on his
-> platform.
-> 
-> I am currently on vacation, and I am unable to do much testing on actual
-> hardware. I also haven't completely evaluated the SPI_LSB_FIRST behaviour
-> with 8-on-16 acceleration, it just *seems* plausible that there is an issue.
+---
+Best Regards,
+Huang, Ying
 
+> Matt
+>
+>> >  	if (ret)
+>> >  		return ret;
+>> >  	migrate->src[idx] &= ~MIGRATE_PFN_COMPOUND;
+>> > @@ -935,7 +1017,7 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
+>> >  }
+>> >  
+>> >  static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+>> > -					    unsigned long idx, unsigned long addr,
+>> > +					    unsigned long idx,
+>> >  					    struct folio *folio)
+>> >  {
+>> >  	return 0;
+>> > @@ -1103,7 +1185,6 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+>> >  	struct mmu_notifier_range range;
+>> >  	unsigned long i, j;
+>> >  	bool notified = false;
+>> > -	unsigned long addr;
+>> >  
+>> >  	for (i = 0; i < npages; ) {
+>> >  		struct page *newpage = migrate_pfn_to_page(dst_pfns[i]);
+>> > @@ -1177,8 +1258,7 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+>> >  					goto next;
+>> >  				}
+>> >  				nr = 1 << folio_order(folio);
+>> > -				addr = migrate->start + i * PAGE_SIZE;
+>> > -				if (migrate_vma_split_unmapped_folio(migrate, i, addr, folio)) {
+>> > +				if (migrate_vma_split_unmapped_folio(migrate, i, folio)) {
+>> >  					src_pfns[i] &= ~(MIGRATE_PFN_MIGRATE |
+>> >  							 MIGRATE_PFN_COMPOUND);
+>> >  					goto next;
+>> 
+>> ---
+>> Best Regards,
+>> Huang, Ying
