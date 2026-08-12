@@ -1,392 +1,281 @@
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199CB34C134;
-	Wed, 12 Aug 2026 08:20:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7BB330B0E
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 08:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786522839; cv=none; b=L2ZpJD0KIGLIQNgoreqUHGhforDEWyKVkb4UMwUM6OAVZ4rF+DxYTozrzRbnzGfKI9+x9dTnyWkyXdmI4vMrqo8H5QPP4H2ecc0GHME+MZ7oeIZuQwtY72Hiqab0KR/Xcv8SuFX7tnL1w24y632nU2imSz2SCmA+KyFpFuiBwlI=
+	t=1786522912; cv=none; b=V7rHCpeFGzRkkAXH9PmzwlJIkgV9KB9X24OEt1YHGveen/lAPcl/aoTPjPabH4unKW4iy7s69bV9jziUkcb7f3Jq2mT/c2GizVSa/XtYon1ux1y5b7Y9dPB+R56Nd15OPNIYU7QevVXGxp/9XG9prxNdlvqwg+ProPXw0g4didU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786522839; c=relaxed/simple;
-	bh=1X7xTg8k/P4hYrpCKF8pCr9VurNyzqcU4QcZTomA6Mg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KXjBtXLjw7hCqsHWx7UXcUYlaV6dc7pIgSLO6KTF0wpXcxnVshd3L26+bjnVM8nEACOVImgjAgJlBzhiXIKnhghxM9oaHN8sUQpgF3W+46SbZp/poqAr8djNUNBggVdTImklV1uW46uvVKBqZVLBiwS+xGt6hWUFwKy40RTeldw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=bUgn30XR; arc=none smtp.client-ip=115.124.30.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1786522912; c=relaxed/simple;
+	bh=FBYMXzm/9qgd59ANdaZgQARfVOQfiv5uHwv1ToHWrak=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J68WTJYw8B7Dbt8JFXyn90C/mgSG55f0K6o8EGF7XD80Pgw+lDtZ5YrzMKE/vTyZYffeBuHelZuycJwJDmTSpxkRE4KWJADhNhQyc8MA0/sJUlO5Fzeb9Gbx8ax6D9/7cao2uHQMy6YEF/y2l07XgRuFbShcscr4Pmtk/OGdgHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VVupkjcC; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="bUgn30XR"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1786522826; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=dZwyBpP0jzX3a5Q2lOIvsQUOtf394j7jNdT0AZlAj7A=;
-	b=bUgn30XRPoE1SyXlP8flX1owUpf5itBmqksn6wX1hsD8vJ4O/lQhpplxL8PspRSukx92qSmos31XHi+8HzOD+RyTXu5JQ6pF43pDvQfGLSGv0Qml7e9hMOIHvj3zzKO2luPO0WaJ66qHoy/JBCIokIjwqHir6Vb1lm7Z4i/wZCw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=31;SR=0;TI=SMTPD_---0X8r2pwU_1786522823;
-Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0X8r2pwU_1786522823 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 12 Aug 2026 16:20:24 +0800
-From: "Huang, Ying" <ying.huang@linux.alibaba.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: <intel-xe@lists.freedesktop.org>,  <dri-devel@lists.freedesktop.org>,
-  <linux-mm@kvack.org>,  <linux-kernel@vger.kernel.org>,  Andrew Morton
- <akpm@linux-foundation.org>,  David Hildenbrand <david@kernel.org>,
-  "Lorenzo Stoakes" <ljs@kernel.org>,  Zi Yan <ziy@nvidia.com>,  Baolin
- Wang <baolin.wang@linux.alibaba.com>,  "Liam R . Howlett"
- <liam@infradead.org>,  Nico Pache <nico.pache@linux.dev>,  Ryan Roberts
- <ryan.roberts@arm.com>,  "Dev Jain" <dev.jain@arm.com>,  Barry Song
- <baohua@kernel.org>,  Lance Yang <lance.yang@linux.dev>,  Usama Arif
- <usama.arif@linux.dev>,  Joshua Hahn <joshua.hahnjy@gmail.com>,  Rakie Kim
- <rakie.kim@sk.com>,  Byungchul Park <byungchul@sk.com>,  Gregory Price
- <gourry@gourry.net>,  Alistair Popple <apopple@nvidia.com>,  Balbir Singh
- <balbirs@nvidia.com>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
-  Thomas Zimmermann <tzimmermann@suse.de>,  David Airlie
- <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,  Thomas Hellstrm
- <thomas.hellstrom@linux.intel.com>,  Francois Dugast
- <francois.dugast@intel.com>,  <stable@vger.kernel.org>
-Subject: Re: [PATCH v3 3/6] mm/migrate_device: Fix THP splitting of a CPU
- faulted device private folio
-In-Reply-To: <anopzF3Hk/RRh8kC@gsse-cloud1.jf.intel.com> (Matthew Brost's
-	message of "Mon, 10 Aug 2026 12:43:08 -0700")
-References: <20260805231041.3791771-1-matthew.brost@intel.com>
-	<20260805231041.3791771-4-matthew.brost@intel.com>
-	<87ik5in224.fsf@DESKTOP-5N7EMDA>
-	<anopzF3Hk/RRh8kC@gsse-cloud1.jf.intel.com>
-Date: Wed, 12 Aug 2026 16:20:22 +0800
-Message-ID: <87cxvnn41l.fsf@DESKTOP-5N7EMDA>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VVupkjcC"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38dcbade417so836732a91.1
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 01:21:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786522910; x=1787127710; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nflQk1ynJ2NMOg/4B1vzQ7rLRCrtvqb920yEH95lTXY=;
+        b=VVupkjcC9D7lOzIxyJzO63zKuAuP6w9e3jX/wDHfG/Z82F/R7pM6ZlJRNZJML7PpmF
+         be6GxEE5ySRDndGTI50PAT6ed4F4yKy9ldAK8BsUy8qjZIxdxb6M4b5W5H8gKKmbIkg2
+         Ez0wFhR4TnxeD1+62QJuSE8JsexMkcTFU75L18NFS8NmpKu/lyE2FXDAszP9RZKR0v0y
+         CEOxBXW1rus5N/7RZJaplI+3tp82P9uww/dUt4FUWQ1YIjwb4nWgLCiUFbmRyOn/1n8b
+         JJQamoxGiHyqRljuj4EVeTQ7pukquYU0IuSuSlz1YC0rQllmh3slYLJlCFMa7Z0/kXyk
+         Rs1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786522910; x=1787127710;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nflQk1ynJ2NMOg/4B1vzQ7rLRCrtvqb920yEH95lTXY=;
+        b=NlEfPH0ZT0CmrdLB8XsQvxaVFrJcjh098B53X07+vr00WMMFgJC6WvS4g7EK+oHlN0
+         v/DAYFH2129hHFgude9HrFBjGG1kSKKnJKJicz0sHkzVazQaFQ+6UCaKUU+xVhaB7evL
+         nwvaNVdCN1Z8WrmCexdc7e31SQMY9fz/lJ1v4DmLmmx6ruzNdrfPR/QEke3+/64VrPIp
+         t1ZESCmGEoAE9qwCRGFOJ1WeABCswaSKtGyJoxL8mBIsqBYAM9k2BN1W5Ur6Ik68ly26
+         sQK0sKrECi6/i3vpMf4MhxR8fIxakX0vBCaTXKp4ifrZU5ZeuNcum8NInkSgajMxz7iu
+         RkUg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp9mg2jaajcF9VHiveO6QFzT/sdljkAQXqZFV6LHVk7fFfzCjd0ZBhe9/eUwEpKw9Ac/ir7Nmg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwV+6YcHZtXISYHKBfjMD4RbX8fMoQTH57KHsvDd7oPsSr/Rixz
+	PhCRDn3uPeEQ3tb16kH5ShO/Nwgxz34YYunaBf0Wrh5YCuhCmNAxLzs0
+X-Gm-Gg: AR+sD12G/d6awQiX0nPEk8v5P8Pv9/TaFZIHCsGDdKgrvWuyrUtjpMHRmXFExOWjR3D
+	94RE/SwWhdlaIBjEDNa/GxOEhmiWpsl/IpDPQ0TXVKotiFv2bHiOj6TwhFq54zIrl5TZdvt6uXT
+	ZZXY7S0qVFN7q+ASnpm+G75rdGJGbOVe3tYVSmqDB12KqWuv4k9IMgwNhWG0dWtn0fTpXYbN6f7
+	uq4a0jMj9vR4v2+YQtNOayNppcsLREoYTuzj16+Sr8fkgFqzCGuwE7l2IOYL4F+LF4eGWnORnhT
+	J+0az5XTt4NNEOufEiut9zUsOMoTQHjjhBBCBRjVmpPOiGlQqWQ0Ir8WHCEOJXQZoTOZQk+XNPu
+	0cPzkWIf4xN/WWGtAHyWDZNTclE7dn2XhJySHDwY9yRHfvim4esXn75Osd64zPCx+FmuO3H3eda
+	vFphtvAYMNuOOeGiXzW26KVFTe69a1e5WTrnfCb/Ztw8X8aGX2GtMK3oYkvB7ggOUn4HI4aN6F+
+	A4z9EU6GZosE0yz7xAXgRPklL00xDzZFGfiKAAMWcNcA0hNMMTeN4QOY+zfXCvn2UC2Bij5TOm8
+	F9Y=
+X-Received: by 2002:a17:90b:390c:b0:37c:6910:5758 with SMTP id 98e67ed59e1d1-3930119eff3mr3400014a91.1.1786522910251;
+        Wed, 12 Aug 2026 01:21:50 -0700 (PDT)
+Received: from 7cf34ddc0813.ant.amazon.com ([54.222.46.39])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392f94d5cb7sm2614417a91.15.2026.08.12.01.21.45
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 12 Aug 2026 01:21:49 -0700 (PDT)
+From: Jiazi Liu <jiazi.liu1984@gmail.com>
+X-Google-Original-From: Jiazi Liu <liujiazi@amazon.com>
+To: Thinh.Nguyen@synopsys.com,
+	gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	lkp@intel.com,
+	oe-kbuild-all@lists.linux.dev,
+	Jiazi Liu <jiazi.liu1984@gmail.com>,
+	Jiazi Liu <liujiazi@amazon.com>
+Subject: [PATCH v2 1/1] usb: dwc3: gadget: fix IRQ storm on invalid event buffer count
+Date: Wed, 12 Aug 2026 16:21:27 +0800
+Message-ID: <20260812082127.79610-1-liujiazi@amazon.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260727092258.1121-1-liujiazi@amazon.com>
+References: <20260727092258.1121-1-liujiazi@amazon.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ascii
+Content-Transfer-Encoding: 8bit
 
-Matthew Brost <matthew.brost@intel.com> writes:
+From: Jiazi Liu <jiazi.liu1984@gmail.com>
 
-> On Mon, Aug 10, 2026 at 10:26:27AM +0800, Huang, Ying wrote:
->> Hi, Matthew,
->> 
->> Matthew Brost <matthew.brost@intel.com> writes:
->> 
->> > When a CPU faults on a device private PMD and the device driver can only
->> > allocate order-0 destination folios, __migrate_device_pages() has to
->> > split the source THP via migrate_vma_split_unmapped_folio(). That path
->> > is broken in two independent ways when the fault is what triggered the
->> > migration.
->> >
->> > First, the split never succeeds. At the point folio_split_unmapped() is
->> > called the folio carries two references beyond the ones it is
->> > entitled to:
->> >
->> >   1 - taken by do_huge_pmd_device_private() for the duration of the
->> >       ->migrate_to_ram() callback
->> >   2 - taken by migrate_vma_collect_huge_pmd() when the folio was
->> >       collected
->> >
->> > (the mapping reference having been dropped by set_pmd_migration_entry()).
->> >
->> > folio_split_unmapped() requires folio_expected_ref_count(folio) ==
->> > folio_ref_count(folio) - 1, i.e. it tolerates exactly one caller
->> > reference. With both of the above held the check sees 2 against an
->> > expected 0 and returns -EAGAIN, so the migration is abandoned and the
->> > CPU fault makes no progress.
->> >
->> > The PTE-based split path does not have this problem:
->> > migrate_vma_split_folio() is called before any collect reference is
->> > taken and explicitly skips folio_get() for the fault folio, so the fault
->> > reference is the single caller reference the split expects.
->> >
->> > Fix it by dropping the fault reference across the split and re-taking it
->> > afterwards. do_huge_pmd_device_private() derives the fault page from the
->> > PMD entry, so it is always the head page of the folio and always ends up
->> > in the head folio of an uniform split to order 0; re-taking the
->> > reference on the folio therefore puts it back exactly where
->> > do_huge_pmd_device_private() will release it. The folio cannot be freed
->> > while the reference is dropped because the collect reference is still
->> > held.
->> >
->> > Second, the folio is split globally but the page tables were demoted
->> > only locally:
->> >
->> > 	split_huge_pmd_address(migrate->vma, addr, true);
->> > 	ret = folio_split_unmapped(folio, 0);
->> >
->> > migrate_device_unmap() unmaps via try_to_migrate(folio, 0), deliberately
->> > without TTU_SPLIT_HUGE_PMD, so every VMA that PMD maps the folio is left
->> > holding a PMD sized migration entry. A folio that was PMD mapped in more
->> > than one VMA -- after fork(), for example -- therefore keeps huge
->> > migration entries in all the other VMAs while only migrate->vma is
->> > demoted.
->> >
->> > folio_split_unmapped() does not notice: the folio is fully unmapped, so
->> > it only looks at the refcount and happily splits to order 0. The other
->> > VMAs are then left pointing a huge PMD at an order-0 folio, and
->> > migrate_vma_finalize() -> remove_migration_ptes() walks into it:
->> >
->> >   page dumped because: VM_BUG_ON_FOLIO(folio_test_hugetlb(folio) ||
->> >                                        !folio_test_pmd_mappable(folio))
->> >   kernel BUG at mm/migrate.c:368!
->> >   RIP: 0010:remove_migration_pte+0x56a/0x9b0
->> >   Call Trace:
->> >    rmap_walk_anon+0xfc/0x260
->> >    remove_migration_ptes+0x79/0xb0
->> >    __migrate_device_finalize+0x113/0x290
->> >    __drm_pagemap_migrate_to_ram+0x278/0x360 [drm_gpusvm_helper]
->> >    drm_pagemap_migrate_to_ram+0x5c/0x80 [drm_gpusvm_helper]
->> >    do_huge_pmd_device_private+0x160/0x280
->> 
->> Which is the branch your patchset based on?  I found that
->> drm_pagemap_migrate_populate_ram_pfn() in mm-everything-2026-08-08-07-08
->> still don't support fallback to single pages if THP allocation fails as
->> in the following comments,
->> 
->
-> This entire series, on drm-tip (i.e., the 6 patches posted here [1]).
->
-> [1] https://patchwork.freedesktop.org/series/171651/
+When dwc3_check_event_buf() reads a GEVNTCOUNT value exceeding the
+event buffer length, commit 63ccd26cd1f6 ("usb: dwc3: gadget: check
+that event count does not exceed event buffer length") returns IRQ_NONE
+without writing back GEVNTCOUNT. Since the DWC3 interrupt is
+level-triggered, the uncleared IRQ source keeps the line asserted,
+causing a tight IRQ storm that accumulates 99,900 unhandled interrupts
+and triggers spurious.c:184 BUG -> kernel panic.
 
-Thanks!
+The resulting call stack:
+  __report_bad_irq+0xac/0xc8
+  note_interrupt+0x340/0x468
+  handle_irq_event+0xac/0xc0
+  handle_fasteoi_irq+0x120/0x228
+  gic_handle_irq+0x68/0x108
+  ...
+  kernel BUG at kernel/irq/spurious.c:184
 
->> 	/* TODO: Support fallback to single pages if THP allocation fails */
->> 
->> 
->> > Without CONFIG_DEBUG_VM the VM_BUG_ON_FOLIO() is compiled out and
->> > remove_migration_pmd() installs a huge PMD pointing at an order-0 page
->> > instead, along with add_mm_counter(mm, MM_ANONPAGES, HPAGE_PMD_NR). The
->> > victim mm then maps 2MB of address space onto a single 4K page, which
->> > shows up later as bad rss-counter state, leaked page tables and page
->> > allocator freelist corruption in unrelated processes.
->> >
->> > Note this second problem was latent before the refcount fix above: the
->> > split always failed, and the failed attempt left migrate->vma demoted,
->> > so the retried fault took the PTE path, where __folio_split() unmaps
->> > with TTU_SPLIT_HUGE_PMD and demotes every VMA.
->> >
->> > Fix it by walking the rmap and demoting every PMD sized migration entry
->> > mapping the folio before splitting it. Demote with freeze = false: entry
->> > creation in __split_huge_pmd_locked() is dispatched on
->> > pmd_is_migration_entry(), not on freeze, so a migration PMD becomes PTE
->> > sized migration entries either way, and freeze only controls a trailing
->> > put_page(). With freeze = false there is no refcount change at all,
->> > which makes the demotion idempotent across N VMAs.
->> >
->> > rmap_walk_control.anon_lock is deliberately left unset:
->> > folio_lock_anon_vma_read() depends on folio_mapped(), and the folio is
->> > already fully unmapped here. This mirrors remove_migration_ptes().
->> >
->> > Finally, refuse the split for a folio that is not anonymous. The rmap
->> > walk would otherwise reach a file backed VMA, where
->> > split_huge_pmd_address() zaps the PMD instead of demoting it.
->> >
->> > Fixes: 4265d67e405a ("mm/migrate_device: add THP splitting during migration")
->> > Cc: Andrew Morton <akpm@linux-foundation.org>
->> > Cc: David Hildenbrand <david@kernel.org>
->> > Cc: Lorenzo Stoakes <ljs@kernel.org>
->> > Cc: Zi Yan <ziy@nvidia.com>
->> > Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
->> > Cc: Liam R. Howlett <liam@infradead.org>
->> > Cc: Nico Pache <nico.pache@linux.dev>
->> > Cc: Ryan Roberts <ryan.roberts@arm.com>
->> > Cc: Dev Jain <dev.jain@arm.com>
->> > Cc: Barry Song <baohua@kernel.org>
->> > Cc: Lance Yang <lance.yang@linux.dev>
->> > Cc: Usama Arif <usama.arif@linux.dev>
->> > Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
->> > Cc: Rakie Kim <rakie.kim@sk.com>
->> > Cc: Byungchul Park <byungchul@sk.com>
->> > Cc: Gregory Price <gourry@gourry.net>
->> > Cc: Ying Huang <ying.huang@linux.alibaba.com>
->> > Cc: Alistair Popple <apopple@nvidia.com>
->> > Cc: Balbir Singh <balbirs@nvidia.com>
->> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> > Cc: Maxime Ripard <mripard@kernel.org>
->> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> > Cc: David Airlie <airlied@gmail.com>
->> > Cc: Simona Vetter <simona@ffwll.ch>
->> > Cc: Thomas Hellstrm <thomas.hellstrom@linux.intel.com>
->> > Cc: Francois Dugast <francois.dugast@intel.com>
->> > Cc: dri-devel@lists.freedesktop.org
->> > Cc: linux-mm@kvack.org
->> > Cc: linux-kernel@vger.kernel.org
->> > Cc: stable@vger.kernel.org
->> > Assisted-by: GitHub_Copilot:claude-opus-5
->> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->> > ---
->> >  mm/migrate_device.c | 98 ++++++++++++++++++++++++++++++++++++++++-----
->> >  1 file changed, 89 insertions(+), 9 deletions(-)
->> >
->> > diff --git a/mm/migrate_device.c b/mm/migrate_device.c
->> > index ae9027421b80..ae17bd516d24 100644
->> > --- a/mm/migrate_device.c
->> > +++ b/mm/migrate_device.c
->> > @@ -899,22 +899,104 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
->> >  	return 0;
->> >  }
->> >  
->> > +static bool migrate_vma_split_pmd_one(struct folio *folio,
->> > +				      struct vm_area_struct *vma,
->> > +				      unsigned long addr, void *arg)
->> > +{
->> > +	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, addr, PVMW_SYNC | PVMW_MIGRATION);
->> > +
->> > +	while (page_vma_mapped_walk(&pvmw)) {
->> > +		if (pvmw.pte)
->> > +			continue;
->> > +
->> > +		addr = pvmw.address;
->> > +		page_vma_mapped_walk_done(&pvmw);
->> > +
->> > +		/*
->> > +		 * Demote with freeze = false: the PMD already holds a
->> > +		 * migration entry, so __split_huge_pmd_locked() creates PTE
->> > +		 * sized migration entries from it and leaves the refcount
->> > +		 * alone. There is at most one PMD mapping @folio per VMA, so
->> > +		 * stop the walk here.
->> > +		 */
->> > +		split_huge_pmd_address(vma, addr, false);
->> > +		break;
->> > +	}
->> > +
->> > +	return true;
->> > +}
->> > +
->> > +/*
->> > + * Demote every PMD sized migration entry that maps @folio to PTE sized ones.
->> > + *
->> > + * migrate_device_unmap() unmaps with try_to_migrate(folio, 0), i.e. without
->> > + * TTU_SPLIT_HUGE_PMD, so a folio that was PMD mapped in several VMAs -- after
->> > + * fork(), for instance -- ends up with a PMD sized migration entry in every one
->> > + * of them. folio_split_unmapped() below does not care, it only looks at the
->> > + * refcount, so splitting the folio without demoting all of those first would
->> > + * leave the other VMAs pointing a huge PMD at what is now an order-0 folio.
->> > + * remove_migration_ptes() trips over that in migrate_vma_finalize().
->> > + */
->> > +static void migrate_vma_split_pmd_mappings(struct folio *folio)
->> > +{
->> > +	struct rmap_walk_control rwc = {
->> > +		.rmap_one = migrate_vma_split_pmd_one,
->> > +	};
->> > +
->> > +	/*
->> > +	 * Do not pass .anon_lock: folio_lock_anon_vma_read() requires
->> > +	 * folio_mapped(), and @folio is already fully unmapped here.
->> > +	 */
->> > +	rmap_walk(folio, &rwc);
->> > +}
->> > +
->> >  static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
->> > -					    unsigned long idx, unsigned long addr,
->> > +					    unsigned long idx,
->> >  					    struct folio *folio)
->> >  {
->> >  	unsigned long i;
->> >  	unsigned long pfn;
->> >  	unsigned long flags;
->> > +	bool fault_folio;
->> >  	int ret = 0;
->> >  
->> >  	/*
->> > -	 * take a reference, since split_huge_pmd_address() with freeze = true
->> > -	 * drops a reference at the end.
->> > +	 * migrate_vma_split_pmd_mappings() walks the rmap, and
->> > +	 * split_huge_pmd_address() zaps rather than demotes a PMD in a VMA that
->> > +	 * is not anonymous. migrate_vma_collect_huge_pmd() does not check the
->> > +	 * VMA type, so a file THP can reach here; the rest of the migrate_vma()
->> > +	 * machinery only supports anonymous memory anyway.
->> >  	 */
->> > -	folio_get(folio);
->> > -	split_huge_pmd_address(migrate->vma, addr, true);
->> > +	if (!folio_test_anon(folio))
->> > +		return -EINVAL;
->> > +
->> > +	/*
->> > +	 * A CPU fault on a device private PMD holds an extra reference on the
->> > +	 * folio, taken by do_huge_pmd_device_private(). folio_split_unmapped()
->> > +	 * only tolerates a single caller reference, so the split would always
->> > +	 * fail with -EAGAIN while this fault reference is held.
->> > +	 *
->> > +	 * do_huge_pmd_device_private() derives the fault page from the PMD
->> > +	 * entry, so it is always the head page of @folio, and therefore always
->> > +	 * ends up in the head folio after an uniform split to order 0. Drop
->> > +	 * the reference across the split and re-take it on the head folio
->> > +	 * afterwards, leaving the reference exactly where it is expected to be
->> > +	 * released.
->> > +	 *
->> > +	 * The folio cannot go away while the reference is dropped: the
->> > +	 * reference taken by migrate_vma_collect_huge_pmd() is still held.
->> > +	 */
->> > +	fault_folio = migrate->fault_page &&
->> > +		page_folio(migrate->fault_page) == folio;
->> > +
->> > +	migrate_vma_split_pmd_mappings(folio);
->> > +
->> > +	if (fault_folio)
->> > +		folio_put(folio);
->> >  	ret = folio_split_unmapped(folio, 0);
->> > +	if (fault_folio)
->> > +		folio_get(folio);
->> > +
->> 
->> Is it better to pass "extra_cnt" to folio_split_unmapped()?  This
->> follows the coding style of the other migrate functions better, like
->> that in __migrate_device_pages().
->> 
->
-> That is an option. To be minimally invasive, I went this route. I also
-> didn't know offhand what would happen if our head page had an extra
-> reference and we then called folio_split_unmapped() with "extra_cnt", or
-> how that would affect the reference counts of the newly split pages
-> (i.e., whether we would need to adjust the reference counts of all split
-> pages after folio_split_unmapped() returns). However, I could quickly
-> reason that dropping the reference and then reacquiring it was
-> functionally correct and safe.
+To reproduce, write a bogus value exceeding the event buffer length
+directly to the GEVNTCOUNT register:
 
-This makes sense for me.  Thanks!
+  devmem <DWC3_BASE + 0xc40c> 4 0x1004
 
-I have another question.  If we have to split the large folio when
-migrating from device to ram, should we still migrate all pages of the
-original large folio, or should we migrate only the faulting
-normal-sized page of the original large folio instead?
+Write the bogus count back to GEVNTCOUNT to clear the IRQ source,
+consistent with the stale event clearing pattern in
+dwc3_event_buffers_setup(), and schedule error recovery to
+reinitialize the controller.
 
+Fixes: 63ccd26cd1f6 ("usb: dwc3: gadget: check that event count does not
+exceed event buffer length")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiazi Liu <liujiazi@amazon.com>
 ---
-Best Regards,
-Huang, Ying
+Changes in v2:
+  - Rename softcon_work to err_recovery_work
+  - Use dev_err instead of dev_err_ratelimited
+  - Update comment to document driver/controller out-of-sync fatal error
+    condition rather than describing IRQ storm behavior
+  - Remove dev_err from work handler; error message belongs at the call
+    site where the specific failure is known
+  - Follow dwc3_gadget_suspend/resume logic in recovery work handler
+  - Add err_dying state to reject gadget driver requests during recovery
+  - Add err_recovery_count counter and stop scheduling recovery after
+    DWC3_ERR_RECOVERY_MAX attempts to prevent infinite retry loops
+  - Add synchronize_irq() before soft_disconnect to ensure IRQ handler
+    has completed before reinitializing the controller
+  - Define DWC3_ERR_RECOVERY_MAX in core.h alongside other global constants
+  - Fix sparse warning: use dwc as first argument to dwc3_writel, not dwc->regs
+---
+ drivers/usb/dwc3/core.h   |  7 +++++++
+ drivers/usb/dwc3/gadget.c | 41 +++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 46 insertions(+), 2 deletions(-)
 
-> Matt
->
->> >  	if (ret)
->> >  		return ret;
->> >  	migrate->src[idx] &= ~MIGRATE_PFN_COMPOUND;
->> > @@ -935,7 +1017,7 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
->> >  }
->> >  
->> >  static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
->> > -					    unsigned long idx, unsigned long addr,
->> > +					    unsigned long idx,
->> >  					    struct folio *folio)
->> >  {
->> >  	return 0;
->> > @@ -1103,7 +1185,6 @@ static void __migrate_device_pages(unsigned long *src_pfns,
->> >  	struct mmu_notifier_range range;
->> >  	unsigned long i, j;
->> >  	bool notified = false;
->> > -	unsigned long addr;
->> >  
->> >  	for (i = 0; i < npages; ) {
->> >  		struct page *newpage = migrate_pfn_to_page(dst_pfns[i]);
->> > @@ -1177,8 +1258,7 @@ static void __migrate_device_pages(unsigned long *src_pfns,
->> >  					goto next;
->> >  				}
->> >  				nr = 1 << folio_order(folio);
->> > -				addr = migrate->start + i * PAGE_SIZE;
->> > -				if (migrate_vma_split_unmapped_folio(migrate, i, addr, folio)) {
->> > +				if (migrate_vma_split_unmapped_folio(migrate, i, folio)) {
->> >  					src_pfns[i] &= ~(MIGRATE_PFN_MIGRATE |
->> >  							 MIGRATE_PFN_COMPOUND);
->> >  					goto next;
->> 
->> ---
->> Best Regards,
->> Huang, Ying
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index 608daeb7ef10..b1cd888eca77 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -49,6 +49,7 @@
+ #define DWC3_ENDPOINTS_NUM	32
+ #define DWC3_XHCI_RESOURCES_NUM	2
+ #define DWC3_ISOC_MAX_RETRIES	5
++#define DWC3_ERR_RECOVERY_MAX	3
+ 
+ #define DWC3_SCRATCHBUF_SIZE	4096	/* each buffer is assumed to be 4KiB */
+ #define DWC3_EVENT_BUFFERS_SIZE	4096
+@@ -1004,6 +1005,7 @@ struct dwc3_glue_ops {
+ /**
+  * struct dwc3 - representation of our controller
+  * @drd_work: workqueue used for role swapping
++ * @err_recovery_work: workqueue used for controller error recovery
+  * @ep0_trb: trb which is used for the ctrl_req
+  * @bounce: address of bounce buffer
+  * @setup_buf: used while precessing STD USB requests
+@@ -1171,6 +1173,7 @@ struct dwc3_glue_ops {
+  * @wakeup_configured: set if the device is configured for remote wakeup.
+  * @suspended: set to track suspend event due to U3/L2.
+  * @susphy_state: state of DWC3_GUSB2PHYCFG_SUSPHY + DWC3_GUSB3PIPECTL_SUSPHY
++ * @err_dying: true when controller is in error recovery, reject all requests
+  *		  before PM suspend.
+  * @imod_interval: set the interrupt moderation interval in 250ns
+  *			increments or 0 to disable.
+@@ -1186,9 +1189,11 @@ struct dwc3_glue_ops {
+  * @wakeup_pending_funcs: Indicates whether any interface has requested for
+  *			 function wakeup in bitmap format where bit position
+  *			 represents interface_id.
++ * @err_recovery_count: number of consecutive error recovery attempts
+  */
+ struct dwc3 {
+ 	struct work_struct	drd_work;
++	struct work_struct	err_recovery_work;
+ 	struct dwc3_trb		*ep0_trb;
+ 	void			*bounce;
+ 	u8			*setup_buf;
+@@ -1420,6 +1425,7 @@ struct dwc3 {
+ 	unsigned		wakeup_configured:1;
+ 	unsigned		suspended:1;
+ 	unsigned		susphy_state:1;
++	unsigned		err_dying:1;
+ 
+ 	u16			imod_interval;
+ 
+@@ -1429,6 +1435,7 @@ struct dwc3 {
+ 	struct dentry		*debug_root;
+ 	u32			gsbuscfg0_reqinfo;
+ 	u32			wakeup_pending_funcs;
++	u32			err_recovery_count;
+ };
+ 
+ #define INCRX_BURST_MODE 0
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index fa0f16ffafef..05f3ffab6e47 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -2054,6 +2054,9 @@ static int dwc3_gadget_ep_queue(struct usb_ep *ep, struct usb_request *request,
+ 
+ 	int				ret;
+ 
++	if (dwc->err_dying)
++		return -ESHUTDOWN;
++
+ 	spin_lock_irqsave(&dwc->lock, flags);
+ 	ret = __dwc3_gadget_ep_queue(dep, req);
+ 	spin_unlock_irqrestore(&dwc->lock, flags);
+@@ -4667,9 +4670,22 @@ static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
+ 		return IRQ_NONE;
+ 
+ 	if (count > evt->length) {
+-		dev_err_ratelimited(dwc->dev, "invalid count(%u) > evt->length(%u)\n",
++		dev_err(dwc->dev, "invalid count(%u) > evt->length(%u)\n",
+ 			count, evt->length);
+-		return IRQ_NONE;
++		/*
++		 * This is a fatal error - the driver and controller are out of
++		 * sync on which event has been consumed. Reinitializing the
++		 * controller is required to recover. Write the bogus count back
++		 * to GEVNTCOUNT to clear the IRQ source, consistent with the
++		 * stale event clearing in dwc3_event_buffers_setup(), then
++		 * schedule error recovery.
++		 */
++		dwc3_writel(dwc, DWC3_GEVNTCOUNT(0), count);
++		dwc->err_dying = true;
++		dwc->err_recovery_count++;
++		if (dwc->err_recovery_count <= DWC3_ERR_RECOVERY_MAX)
++			schedule_work(&dwc->err_recovery_work);
++		return IRQ_HANDLED;
+ 	}
+ 
+ 	evt->count = count;
+@@ -4729,6 +4745,25 @@ static void dwc_gadget_release(struct device *dev)
+ 	kfree(gadget);
+ }
+ 
++static void dwc3_err_recovery_work(struct work_struct *work)
++{
++	struct dwc3 *dwc = container_of(work, struct dwc3, err_recovery_work);
++	int ret;
++
++	synchronize_irq(dwc->irq_gadget);
++
++	ret = dwc3_gadget_soft_disconnect(dwc);
++	if (ret)
++		return;
++
++	dwc3_disconnect_gadget_sleepable(dwc);
++
++	dwc->err_dying = false;
++
++	if (dwc->softconnect)
++		dwc3_gadget_soft_connect(dwc);
++}
++
+ /**
+  * dwc3_gadget_init - initializes gadget related registers
+  * @dwc: pointer to our controller context structure
+@@ -4772,6 +4807,7 @@ int dwc3_gadget_init(struct dwc3 *dwc)
+ 	}
+ 
+ 	init_completion(&dwc->ep0_in_setup);
++	INIT_WORK(&dwc->err_recovery_work, dwc3_err_recovery_work);
+ 	dwc->gadget = kzalloc_obj(struct usb_gadget);
+ 	if (!dwc->gadget) {
+ 		ret = -ENOMEM;
+@@ -4868,6 +4904,7 @@ void dwc3_gadget_exit(struct dwc3 *dwc)
+ 	if (!dwc->gadget)
+ 		return;
+ 
++	cancel_work_sync(&dwc->err_recovery_work);
+ 	dwc3_enable_susphy(dwc, true);
+ 	usb_del_gadget(dwc->gadget);
+ 	dwc3_gadget_free_endpoints(dwc);
+-- 
+2.50.1 (Apple Git-155)
+
