@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5A822ACFA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C19234973
 	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 00:09:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786493391; cv=none; b=Xjw5JiMAwnXW4dXEtVeik3szjMdPaVYCCR6ZQDb1OMAKafVx1G/LSxAcOW2C2VyD8icUv/FhcZmTd8Q8BYOApQGqivc9gBMZlQZfjmOlUK0WCSxZlbb3zY5UQmAsg0CW/iydVzmvV/RZlE7vsW7ag5RGSfC5j5Hsui7BxCfVVOk=
+	t=1786493391; cv=none; b=tAn4flkhgE9jvTPyeejVWdf74BhtNOu54iL7W7v50VxNqWTNvsIXqrgDvfpXwzKSWdwHn7Jt15HwypQwMfP6/SNCZosqTSnt7BcmBthDZKR3NgR8uklLKJ4Bu3zy4bxjNtipoiEchG5YsSzX+KolvyDmgvbOjRkXkPYPeLqxXTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786493391; c=relaxed/simple;
-	bh=RXodXjOuvPxRPPb09XiMQsIDW6NVOB/4eG0I1da/6H4=;
+	bh=QyhlVUC/LXcj6K2yrAFP0IR9zbh+0K4XGH8lOr0k+dc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oPqYMlOeSuak9YtVSEB3QZSGyi/q8J6+7Gsxl+UORmNMfR5AR5cL9um+Npa8A1mg8ewXwC/JIyo2Jkc6GKTkqo5v1VEkBHOwJHLA8//rUbrYFTWjgugzNxLlsj+oAuCGOS+rfDzN5lqgNCI7Q4vnxPh5vsn+fQPHGQNXyB7ATMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXbUzOCf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=B5kv6NLLlFpqpzIDRYDy6dErIfCRnn3NVBk8ATp2spGRRqlcL1mvyFDgg8AVN9zcKKnaEdx24RV3xdUWE0bZ/pnO7smfJ1o7Go7l5pN/FxSbf0QpX9pZ25KvjyfBMkeehCSJq3pjRtcpxinu2SCSvhhbV4nG0sRAW84MAbPiF58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QiEdct4b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXbUzOCf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE5A1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QiEdct4b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0481F00AC4;
 	Wed, 12 Aug 2026 00:09:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786493390;
-	bh=S6mXTXJlMrew1U4xBIHt2NKPxe6X+B0kioQ0mIpsjFo=;
+	bh=p9MQKG7lfh7G01KYL36gtq1Bf5LMdtwbE4rISPXAV/k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZXbUzOCfAFsaleUSoCkbkotqhLshhWfTfgZfmAPmo5JgmIQSFAuoThHK7QJmwzODw
-	 +C//aJk3OeQyCzjlXOSBEHtQpk5SsJLFuvpIHBmPFYBZQ6JMcXkl+KVaJ48scoIFqE
-	 NpdsVJ+mXs/LkbQ74kk5Qhu3XEGlwPrjvq+2oESwN1r3gdOQG0ctz2XszlP1qKGXY4
-	 nhojro+EFvgvc78+GVa53KzL4k/NnunpFR0GJ+flP7ozvPzBmccu0JU1kauVSoYP7t
-	 ncroUOu5eThHZTyiiHVnQNqdCynrKou1gkKdDbPiRHHqFjJa3uw3PQrn4MG1/+iGTj
-	 4fTHS6MhQv6Hg==
+	b=QiEdct4b0kVUGvh6P1LJtLGMBkKGvuH0tnih25zgd/y1eWrbgvX4fC98ClQKiCjfH
+	 SpvwhlAEemq1+jOeh4cAmL7LEwHycozKwbqqtS2YugbnLving+9UrByQm0R4TZwJ7w
+	 BKDVMQMIeQ0mvUhcYPc/zafq4B85oEymhbWnHiBWTFIadIsuoNaDlLMkYXL1L2eyQK
+	 8vRtujdLnvD/6ETiT36o5ARm0HHmCmVgyotl/PbT03KjcNbuhvs8Oq3OAa8wlK7sgQ
+	 uBQ6oI8DEeX3B6YMmaI93cBBkuzc/2u/UiRxHXBX2IBUrXWSRb5SRXRZeQ1XTk9+vr
+	 e9hHqAwEawqWg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
+Cc: Ibrahim Hashimov <security@auditcode.ai>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Bart Van Assche <bvanassche@acm.org>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] fs: don't block write during exec on pre-content watched files
-Date: Tue, 11 Aug 2026 20:09:46 -0400
-Message-ID: <20260812000947.4159385-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 6/6] scsi: scsi_debug: Fix REPORT ZONES alloc_len underflow OOB write
+Date: Tue, 11 Aug 2026 20:09:41 -0400
+Message-ID: <20260812000941.4158732-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080511-errant-musky-ca70@gregkh>
-References: <2026080511-errant-musky-ca70@gregkh>
+In-Reply-To: <20260812000941.4158732-1-sashal@kernel.org>
+References: <2026080556-pancake-criteria-119e@gregkh>
+ <20260812000941.4158732-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,187 +48,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Amir Goldstein <amir73il@gmail.com>
+From: Ibrahim Hashimov <security@auditcode.ai>
 
-[ Upstream commit 0357ef03c94ef835bd44a0658b8edb672a9dbf51 ]
+[ Upstream commit 93dde0bf2f39a0f9f57fd610aa3201ce5b753433 ]
 
-Commit 2a010c412853 ("fs: don't block i_writecount during exec") removed
-the legacy behavior of getting ETXTBSY on attempt to open and executable
-file for write while it is being executed.
+resp_report_zones() sizes the reply buffer from the CDB allocation
+length. The v3 fix rounds alloc_len up with ALIGN() before deriving the
+descriptor count:
 
-This commit was reverted because an application that depends on this
-legacy behavior was broken by the change.
+	rep_max_zones = (ALIGN((u64)alloc_len, RZONES_DESC_HD) -
+			 RZONES_DESC_HD) >> ilog2(RZONES_DESC_HD);
+	arr_len = (u64)RZONES_DESC_HD * (rep_max_zones + 1);
 
-We need to allow HSM writing into executable files while executed to
-fill their content on-the-fly.
+For alloc_len in 0xFFFFFFC1..0xFFFFFFFF, ALIGN() rounds up to
+0x100000000, so arr_len is 4 GB. On 32-bit, kzalloc()'s size_t is 32-bit
+and truncates 0x100000000 to 0; kzalloc(0) returns ZERO_SIZE_PTR, which
+passes the !arr check, and desc = arr + 64 is then dereferenced in the
+loop -> out-of-bounds write / panic.
 
-To that end, disable the ETXTBSY legacy behavior for files that are
-watched by pre-content events.
+Clamp rep_max_zones to devip->nr_zones. The loop already stops at
+sdebug_capacity (after nr_zones zones), so a report can never hold more
+than nr_zones descriptors; the clamp does not change the report, it only
+bounds arr_len to (nr_zones + 1) * RZONES_DESC_HD, a real device
+property that can never reach 0x100000000.
 
-This change is not expected to cause regressions with existing systems
-which do not have any pre-content event listeners.
-
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Acked-by: Christian Brauner <brauner@kernel.org>
-Signed-off-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20241128142532.465176-1-amir73il@gmail.com
-Stable-dep-of: db1856ea9196 ("binfmt_misc: restore write access when removing an entry")
+Fixes: 7db0e0c8190a ("scsi: scsi_debug: Fix buffer size of REPORT ZONES command")
+Suggested-by: Damien Le Moal <dlemoal@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20260712183739.83915-1-security@auditcode.ai
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/binfmt_elf.c       |  4 ++--
- fs/binfmt_elf_fdpic.c |  4 ++--
- fs/exec.c             |  6 +++---
- include/linux/fs.h    | 12 ++++++++++++
- kernel/fork.c         | 12 ++++++------
- 5 files changed, 25 insertions(+), 13 deletions(-)
+ drivers/scsi/scsi_debug.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/fs/binfmt_elf.c b/fs/binfmt_elf.c
-index e4348dd76658e..0fbf5474b8fe1 100644
---- a/fs/binfmt_elf.c
-+++ b/fs/binfmt_elf.c
-@@ -1287,7 +1287,7 @@ static int load_elf_binary(struct linux_binprm *bprm)
- 		}
- 		reloc_func_desc = interp_load_addr;
- 
--		allow_write_access(interpreter);
-+		exe_file_allow_write_access(interpreter);
- 		fput(interpreter);
- 
- 		kfree(interp_elf_ex);
-@@ -1396,7 +1396,7 @@ static int load_elf_binary(struct linux_binprm *bprm)
- 	kfree(interp_elf_ex);
- 	kfree(interp_elf_phdata);
- out_free_file:
--	allow_write_access(interpreter);
-+	exe_file_allow_write_access(interpreter);
- 	if (interpreter)
- 		fput(interpreter);
- out_free_ph:
-diff --git a/fs/binfmt_elf_fdpic.c b/fs/binfmt_elf_fdpic.c
-index d872ccb5f4b2d..70b8a987de223 100644
---- a/fs/binfmt_elf_fdpic.c
-+++ b/fs/binfmt_elf_fdpic.c
-@@ -398,7 +398,7 @@ static int load_elf_fdpic_binary(struct linux_binprm *bprm)
- 			goto error;
- 		}
- 
--		allow_write_access(interpreter);
-+		exe_file_allow_write_access(interpreter);
- 		fput(interpreter);
- 		interpreter = NULL;
- 	}
-@@ -471,7 +471,7 @@ static int load_elf_fdpic_binary(struct linux_binprm *bprm)
- 
- error:
- 	if (interpreter) {
--		allow_write_access(interpreter);
-+		exe_file_allow_write_access(interpreter);
- 		fput(interpreter);
- 	}
- 	kfree(interpreter_name);
-diff --git a/fs/exec.c b/fs/exec.c
-index 9d3e2eda9d55e..359158943746b 100644
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -935,7 +935,7 @@ static struct file *do_open_execat(int fd, struct filename *name, int flags)
- 	    path_noexec(&file->f_path))
- 		goto exit;
- 
--	err = deny_write_access(file);
-+	err = exe_file_deny_write_access(file);
- 	if (err)
- 		goto exit;
- 
-@@ -1521,7 +1521,7 @@ static void free_bprm(struct linux_binprm *bprm)
- 		abort_creds(bprm->cred);
- 	}
- 	if (bprm->file) {
--		allow_write_access(bprm->file);
-+		exe_file_allow_write_access(bprm->file);
- 		fput(bprm->file);
- 	}
- 	if (bprm->executable)
-@@ -1824,7 +1824,7 @@ static int exec_binprm(struct linux_binprm *bprm)
- 		bprm->file = bprm->interpreter;
- 		bprm->interpreter = NULL;
- 
--		allow_write_access(exec);
-+		exe_file_allow_write_access(exec);
- 		if (unlikely(bprm->have_execfd)) {
- 			if (bprm->executable) {
- 				fput(exec);
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index e6b2e2749e379..12ea9af49a89a 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -2824,6 +2824,18 @@ static inline void allow_write_access(struct file *file)
- 	if (file)
- 		atomic_inc(&file_inode(file)->i_writecount);
- }
-+
-+static inline int exe_file_deny_write_access(struct file *exe_file)
-+{
-+	return deny_write_access(exe_file);
-+}
-+static inline void exe_file_allow_write_access(struct file *exe_file)
-+{
-+	if (unlikely(!exe_file))
-+		return;
-+	allow_write_access(exe_file);
-+}
-+
- static inline bool inode_is_open_for_write(const struct inode *inode)
- {
- 	return atomic_read(&inode->i_writecount) > 0;
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 36854aaec482d..73e8a6b430a05 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -640,8 +640,8 @@ static void dup_mm_exe_file(struct mm_struct *mm, struct mm_struct *oldmm)
- 	 * We depend on the oldmm having properly denied write access to the
- 	 * exe_file already.
- 	 */
--	if (exe_file && deny_write_access(exe_file))
--		pr_warn_once("deny_write_access() failed in %s\n", __func__);
-+	if (exe_file && exe_file_deny_write_access(exe_file))
-+		pr_warn_once("exe_file_deny_write_access() failed in %s\n", __func__);
- }
- 
- #ifdef CONFIG_MMU
-@@ -1431,13 +1431,13 @@ int set_mm_exe_file(struct mm_struct *mm, struct file *new_exe_file)
- 		 * We expect the caller (i.e., sys_execve) to already denied
- 		 * write access, so this is unlikely to fail.
- 		 */
--		if (unlikely(deny_write_access(new_exe_file)))
-+		if (unlikely(exe_file_deny_write_access(new_exe_file)))
- 			return -EACCES;
- 		get_file(new_exe_file);
- 	}
- 	rcu_assign_pointer(mm->exe_file, new_exe_file);
- 	if (old_exe_file) {
--		allow_write_access(old_exe_file);
-+		exe_file_allow_write_access(old_exe_file);
- 		fput(old_exe_file);
- 	}
- 	return 0;
-@@ -1476,7 +1476,7 @@ int replace_mm_exe_file(struct mm_struct *mm, struct file *new_exe_file)
- 			return ret;
+diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
+index e39675649bae6..c4749ab443d2d 100644
+--- a/drivers/scsi/scsi_debug.c
++++ b/drivers/scsi/scsi_debug.c
+@@ -4341,6 +4341,7 @@ static int resp_report_zones(struct scsi_cmnd *scp,
+ 	u32 alloc_len, rep_opts, rep_len;
+ 	bool partial;
+ 	u64 lba, zs_lba;
++	u64 arr_len;
+ 	u8 *arr = NULL, *desc;
+ 	u8 *cmd = scp->cmnd;
+ 	struct sdeb_zone_state *zsp;
+@@ -4364,10 +4365,12 @@ static int resp_report_zones(struct scsi_cmnd *scp,
  	}
  
--	ret = deny_write_access(new_exe_file);
-+	ret = exe_file_deny_write_access(new_exe_file);
- 	if (ret)
- 		return -EACCES;
- 	get_file(new_exe_file);
-@@ -1488,7 +1488,7 @@ int replace_mm_exe_file(struct mm_struct *mm, struct file *new_exe_file)
- 	mmap_write_unlock(mm);
+ 	max_zones = devip->nr_zones - (zs_lba >> devip->zsize_shift);
+-	rep_max_zones = min((alloc_len - 64) >> ilog2(RZONES_DESC_HD),
+-			    max_zones);
++	rep_max_zones = (ALIGN((u64)alloc_len, RZONES_DESC_HD) - RZONES_DESC_HD) >>
++			ilog2(RZONES_DESC_HD);
++	rep_max_zones = min_t(unsigned int, rep_max_zones, max_zones);
++	arr_len = (u64)RZONES_DESC_HD * (rep_max_zones + 1);
  
- 	if (old_exe_file) {
--		allow_write_access(old_exe_file);
-+		exe_file_allow_write_access(old_exe_file);
- 		fput(old_exe_file);
- 	}
- 	return 0;
+-	arr = kzalloc(alloc_len, GFP_ATOMIC | __GFP_NOWARN);
++	arr = kzalloc(arr_len, GFP_ATOMIC | __GFP_NOWARN);
+ 	if (!arr) {
+ 		mk_sense_buffer(scp, ILLEGAL_REQUEST, INSUFF_RES_ASC,
+ 				INSUFF_RES_ASCQ);
 -- 
 2.53.0
 
