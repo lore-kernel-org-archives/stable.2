@@ -1,132 +1,87 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360A33546C8;
-	Wed, 12 Aug 2026 14:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786545313; cv=pass; b=XFyDLjZA09e3eo2VNY7i4W6ckTzIsNWI0tGDDKQ6MsfRLmlKGm8hKrFfdfLw94Z8QttxxdoJuS1BP37z4xPijzbxzk5wgDoIff4F+OCZXm5BN7orZn5B2QnEZhEI/qGMh5mR5ZZUmjYSf4V08inuMznYgZ/eI5xq5/hqJheRsos=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786545313; c=relaxed/simple;
-	bh=DIOcZJOgzM5yThLu1YZo99KFZ6sKtY33xAupeLz0M60=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PcXkNIEmKvawAgiXhDP9m8Q9kZhORM84bzWEoo+fSLN+IYprLJvalvUdl3KknaCR35NgUMCpJyoZLFH0uf/IIyLt8bpRs1rNJQ64Z40+l05yMI0OwsQe3WNfA7LIyJvN/NI/DozCVZyRC2InFhm/WKn5UVKtMuV/7qtXh1+mB5I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=WLow+KMu; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8581B46C82B
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 14:46:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786545975; cv=none; b=BrZ7zJZpQ0rpWaEAhhXC2b+OPj5lLNYytX7n4b/KtH3uCSp4SbZtT5/NR6P8DHpOW75A4om9kXpk4izsVQKt2KGFL+31BoJWqzE+r3SI0vNBeXVa5VgUlNHduTESvqCGDrE2KFv0RBZ6lNCQyJCXcRATIalkEQtuCLtfv3fqPKU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786545975; c=relaxed/simple;
+	bh=VE6/4+wtxNi0ZPDi4uacK+Q/OM0pxFhuOwyVobM559M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HHQm5hLGVyyA932/in2dMKM7XbYI40KyglBT5k27YDkFaCwIep1C3KszepU6lh7Vrl4olncxoen561FntG1lmNLSrpCD5kP6mEoBSXJwuM2RJb4LQum+zq345tBCxP2bgqPeFZDyKqnkGt9jCulynXS2OLBOlKJh0UEvA6tbAAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NnVRYNaE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="WLow+KMu"
-ARC-Seal: i=1; a=rsa-sha256; t=1786545274; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=hdI4bYMT/Ik6gCgebBjy+ri2r5uGLlyjO9/CocuQkQDqrvu+UnLFSs42hX9ZctaG+ROt+7MPlPs82ypOtqPcoziQGRbUTBUXO/8VUKYIMyCvYpXWKx3ugmosnFiEfGucSy74+Sr+2KLnFxMLtY3ljZmBPJoinAXvdZK/L/CWC1Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1786545274; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=YlPk0YXBIuAA9ISkq7nnSy0pzHLepqRdT5ikLjbY1Zw=; 
-	b=W2LhJWA/F99X0BNa7gnQa5Ae/J7yhFSuvWJg23Mwd6FoeCtLW8MzqKr0VBbNPlzwzIkiVF7IOWcQRPL751fVT/QfUTB5J1Rs5jJNjFqTBIZcR1EktmXglOcNVQvDAhzIQXItP0iOsx9Gn8ii+AICjQBl3PXpniuSsDrfPW/RPiE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786545274;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=YlPk0YXBIuAA9ISkq7nnSy0pzHLepqRdT5ikLjbY1Zw=;
-	b=WLow+KMuGMz9YhmwR0d3Qu+t6PzvTsrcRsh5U2QWNKCXYcmcDkgpa0B37Vz8fbBl
-	Q/CDXx9W9DB6OFdigzmUiE5eaAMxiRl8/kqsk82hnRx8s17IJgx6NudBfByYCNPIJgG
-	nnUk01M9VcGB0S8qwfv28U2Q0mlPyoYyRYULbBxA=
-Received: by mx.zohomail.com with SMTPS id 1786545271854845.2952027577405;
-	Wed, 12 Aug 2026 07:34:31 -0700 (PDT)
-Date: Wed, 12 Aug 2026 15:34:26 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
-	Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
-	Eric Anholt <eric@anholt.net>, "Marty E. Plummer" <hanetzer@startmail.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panfrost: fix autosuspend cleanup during teardown
-Message-ID: <anx91vwww0TMjLn8@sobremesa>
-References: <20260808135025.2872956-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NnVRYNaE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC55C1F000E9;
+	Wed, 12 Aug 2026 14:46:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786545974;
+	bh=+o0SZvBsZ5E8WyaX5/T5lAd8Afx9FKi1nxoIVtukCio=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NnVRYNaEVbUTNQu+WuPEWG8DCTEDnK238sDzp1WMy0EgD0nDF0JVD+r3T0+COu6bc
+	 uXduKnsN6yK+qcxlH8WkhkzPjpLoA4pw11QEtn95uc+EVq247sAkrzd5iXslM9of0s
+	 xT4O34Wz4vXmi8/jyBG2aal583AfWfgHZ1teP89aSQZGwr0Sx2cU+YoB6iRC7k6Jnh
+	 x9oFc8FFZHbrwcw+um3qvnxZl9CykXr9R9O3R05xWveA4eXm1d3bVBF5nKfNgSyWlt
+	 eGethBImhCKyFAq7gXdiE1e2Xzi7WZBZ1lxGiMU4OIJtTBf814jTDUU0sR6GzdMlgN
+	 rzhtddXlCyRLA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>,
+	stable@kernel.org,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] can: gs_usb: gs_usb_receive_bulk_callback(): resubmit URB on skb allocation failure
+Date: Wed, 12 Aug 2026 10:46:11 -0400
+Message-ID: <20260812144611.2226489-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080559-remold-hacking-bd71@gregkh>
+References: <2026080559-remold-hacking-bd71@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260808135025.2872956-1-lgs201920130244@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.535.77
+Content-Transfer-Encoding: 8bit
 
-Hi Guangshuo,
+From: Marc Kleine-Budde <mkl@pengutronix.de>
 
-Recently I've been working on a patch series that addresses PM refcnt imbalances in Panfrost.
-One of the fixes introduces devm_pm_runtime_enable(), so manually calling pm_runtime_dont_use_autosuspend()
-is no longer necessary like you mentioned in the commit message.
+[ Upstream commit 68c5724ecd159992f76edb7b57dc508a44c8b7da ]
 
-However, there might be a point in using it during device teardown and probe error just like Panthor does,
-becasue it doesn't make sense to postpone suspension when the device is going away.
+If the allocation of the SKB in gs_usb_receive_bulk_callback() fails, the
+driver returns from the callback without resubmitting the URB in order to
+receive further USB in URBs.
 
-Anyway, you can have a look at it here:
-https://lore.kernel.org/r/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
+This results in a silent performance degradation which, if it occurs
+repeatedly, results in starvation of USB in traffic.
 
-I was thinking, I'll let you know when I've v6 ready and then you could rebase this patch onto it
-before I submit the series to the ML so that I can send them all together?
+Instead of returning immediately, try to resend the URB. If this also
+fails, this is logged as an info message.
 
-Kind Regards,
-Adrian
+Fixes: d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices")
+Fixes: 26949ac935e3 ("can: gs_usb: add CAN-FD support")
+Link: https://patch.msgid.link/20260709-gs_usb-resubmit-urb-v1-1-4dd40030cc84@pengutronix.de
+Cc: stable@kernel.org
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/can/usb/gs_usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On 08.08.2026 21:50, Guangshuo Li wrote:
-> panfrost_probe() calls pm_runtime_use_autosuspend(), but neither the
-> probe error path nor panfrost_remove() calls the matching
-> pm_runtime_dont_use_autosuspend() during teardown.
-> 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during teardown, this reference is not dropped.
-> 
-> The documentation for pm_runtime_use_autosuspend() also notes that it
-> is important to undo it with pm_runtime_dont_use_autosuspend() at
-> driver exit time, unless runtime PM was initially enabled with
-> devm_pm_runtime_enable().
-> 
-> Add the missing pm_runtime_dont_use_autosuspend() calls to both the
-> probe failure and device removal paths.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: f3ba91228e8e ("drm/panfrost: Add initial panfrost driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_drv.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 784e36d72c2b..007dcba62e62 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -1011,6 +1011,7 @@ static int panfrost_probe(struct platform_device *pdev)
->  err_out2:
->  	drm_dev_unregister(&pfdev->base);
->  err_out1:
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
->  	pm_runtime_set_suspended(pfdev->base.dev);
-> @@ -1025,6 +1026,7 @@ static void panfrost_remove(struct platform_device *pdev)
->  	drm_dev_unregister(&pfdev->base);
->  	panfrost_gem_shrinker_cleanup(&pfdev->base);
->  
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_get_sync(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
-> -- 
-> 2.43.0
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index ce5676845f284..87322bbd13253 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -332,7 +332,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 	if (hf->echo_id == -1) { /* normal rx */
+ 		skb = alloc_can_skb(dev->netdev, &cf);
+ 		if (!skb)
+-			return;
++			goto resubmit_urb;
+ 
+ 		cf->can_id = le32_to_cpu(hf->can_id);
+ 
+-- 
+2.53.0
 
-Adrian Larumbe
