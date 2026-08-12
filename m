@@ -1,113 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E053C1D67;
-	Wed, 12 Aug 2026 22:07:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0A240861E
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 22:12:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786572442; cv=none; b=juVuGj9bRaIODSAisv1c0ieqprrHOqjEyyOBzhNFTVI0sz/5r24MjpDiqGdIFn4Caqb5/TjRmtn9AA7F0snhE/Xehk7rwDXXhA89GxXgIrgfDw7SZT1Ea0C+mdlBY41kvawsbKzsXNV0lp3A1CnhHBBWZ4D5oe04Flg/NDgfRsU=
+	t=1786572755; cv=none; b=PKNv6Yn8l9uO0q2l/CJoY5GtT+ebF9OjeoIpWa1HguZyOp7RTcn8/LBVNx0K5iqNSWhULZ5Uts+dGVMLVEs924CA5ZqapJePaQeRNGj0M6qhlExPvYpmyNFXB6TtfmHwgClQOIFpwXiGNuFGDPu95RQpGD2TmzSWiiS+ggvEHMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786572442; c=relaxed/simple;
-	bh=l95Clo9hj4mcMnhqd2g2Nsw0dU9m4xoF9S/M9G0cVGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=ll4JH+d+s0hSRd/BtULnyMvo77blEo3Z3G51cJFG/Ua/dyzGMCnLxhT5di+u+ucYKOp9HJqSqx0VuGj7PI8+sRcJFFoSCKuDdjiLJWPXdz9HoSFzQKdouWgnslftD/LoyRlm2Dc3EbQKsNBmWeEzY4x83jfs//x480WrsGYnGUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRaMc12P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786572755; c=relaxed/simple;
+	bh=91SDyzLVpLsiMWrBUKw6clIoVeYSDIOtakztA70lBJE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Gtnlf2NgsRAVrW6n04N4xs5AFYyRueMtDRTUZMSov7Jq5JjXlq84sdaVwgAkfqpn9JYnJB5QZfVEX1Hqe/7Ih0zs2tKSeybCH4doeABc19epPzi5NOfzXLmUDLNyK/hZnWCL4M8iPZpJSoplhcbieqGUfmbexL5hcU41qNKiTDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZPKOKqb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRaMc12P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 626201F000E9;
-	Wed, 12 Aug 2026 22:07:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZPKOKqb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304791F000E9;
+	Wed, 12 Aug 2026 22:12:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786572440;
-	bh=ZLrKVoqQnfL9meWolsnQROS2DkboL75b56U6Y67katw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=aRaMc12Ps5Nd0XmGoUu0PiLzPVCg5LgVTyv3CfxgtoD9LmzARFkRHBR5RRX0XPHDy
-	 fyYDZXo/zHMU0GUKhruuDUifYF+jStw/bXbuRpDTZbEAOVYqhzs70RNs6tO+f1U0H1
-	 eaNmTy7krNsYB6ztD78M0cnZqTogJu1Baas71dJQJuUYhmoUdxRPMqgRpzKzmzJ7qu
-	 kf0djZP4TiMLVJcf5Uk5HcABL8UHewR1oi9v7Yhko5n4/zOpwtAaRtaIppkMYZREf7
-	 iWbXnTUQM8lBAYsGqgnCaPR4PhmZ/eqg73SnmOUb1E99Iz5uHnpYmWELgceKnV71lN
-	 +AqXIo7FIu1kA==
-Date: Wed, 12 Aug 2026 17:07:19 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Farhan Ali <alifm@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org, alex@shazbot.org, schnelle@linux.ibm.com,
-	mjrosato@linux.ibm.com, stable@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH v23 5/5] PCI/MSI: Enable memory decoding before restoring
- MSI-X messages
-Message-ID: <20260812220719.GA1079019@bhelgaas>
+	s=k20260515; t=1786572753;
+	bh=LNdT1mcUfWE1PDwkYgv8lfMaKDS4lM5erLzH8GkfQZs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gZPKOKqbmRX3SapFm4yENiyBKrH1usDvtXaxL+2XArnuOHuJ8w2MVhE7oUvQUSade
+	 98OKfUKVtX323n4g09gWIb7AZGpxRBjUueWyeFgTZSSD9adQ1uZXNZk2hOWGISpRkP
+	 8GKtvb3Ux+Nuz14QfQIZL00ZTrxkhjaALchvp7tZFhCYyf93beFqxVZDwTN9RCgLFc
+	 l7AJ2UhUzn0OAReXsWcEWioX88ZiH/taD8us5Hd59B1PJQ0WFejfs4kRYPT8RYawAo
+	 StbLVGDqB2Uo75BRBY0HkdSYd7/id+Uiso0TAXGSiUwubPRqB/Upsl0km7Is/6H1++
+	 OWuYT0YMCLjFg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yang Wang <kevinyang.wang@amd.com>,
+	Kenneth Feng <kenneth.feng@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/amd/pm: fix pptable use-after-free
+Date: Wed, 12 Aug 2026 18:12:31 -0400
+Message-ID: <20260812221231.2429158-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080537-safehouse-registrar-bd15@gregkh>
+References: <2026080537-safehouse-registrar-bd15@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805165518.794-6-alifm@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 05, 2026 at 09:55:18AM -0700, Farhan Ali wrote:
-> The current MSI-X restoration path assumes the Command register Memory bit
-> is enabled when writing MSI-X messages. But it's possible the last saved
-> and restored state of a device may not have the Memory bit enabled, even if
-> a device driver later enables Memory bit and MSI-X. Attempting to access
-> Memory space without Memory bit enabled can lead to Unsupported Request
-> (UR) from the device. Fix this by enabling Memory bit and restore it
-> afterwards.
-> 
-> Fixes: 41017f0cac92 ("[PATCH] PCI: MSI(X) save/restore for suspend/resume")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Thomas Gleixner <tglx@kernel.org>
-> Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-> Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
-> ---
->  drivers/pci/msi/msi.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-> index 209373c92e9e..79c7e84d314b 100644
-> --- a/drivers/pci/msi/msi.c
-> +++ b/drivers/pci/msi/msi.c
-> @@ -870,6 +870,7 @@ void __pci_restore_msix_state(struct pci_dev *dev)
->  {
->  	struct msi_desc *entry;
->  	bool write_msg;
-> +	u16 cmd;
->  
->  	if (!dev->msix_enabled)
->  		return;
-> @@ -879,6 +880,14 @@ void __pci_restore_msix_state(struct pci_dev *dev)
->  	pci_msix_clear_and_set_ctrl(dev, 0,
->  				PCI_MSIX_FLAGS_ENABLE | PCI_MSIX_FLAGS_MASKALL);
->  
-> +	/*
-> +	 * The restored device state may not have Memory decoding enabled
-> +	 * in the Command register. Since the MSI-X was enabled for the
-> +	 * device, enable Memory decoding before restoring MSI-X.
+From: Yang Wang <kevinyang.wang@amd.com>
 
-PCI_COMMAND_MEMORY must be set because the MSI-X Table and PBA are in
-Memory space (in a BAR), right?  I think a more direct way of saying
-this would be:
+[ Upstream commit bb493058c35c8676e48269ab6732688ea733d23c ]
 
-  * The restored device state may not have Memory Space enabled.
-  * Since the MSI-X Table and PBA are in Memory Space, enable it
-  * while restoring them.
+amdgpu_dpm_get_pp_table() returns a pointer to a driver-owned power table
+after dropping adev->pm.mutex. The sysfs path then copies from that pointer.
+A concurrent pp_table write can replace and free the allocation during the
+copy, causing a use-after-free.
 
-> +	 */
-> +	pci_read_config_word(dev, PCI_COMMAND, &cmd);
-> +	pci_write_config_word(dev, PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
-> +
->  	write_msg = arch_restore_msi_irqs(dev);
->  
->  	scoped_guard (msi_descs_lock, &dev->dev) {
-> @@ -889,6 +898,7 @@ void __pci_restore_msix_state(struct pci_dev *dev)
->  		}
->  	}
->  
-> +	pci_write_config_word(dev, PCI_COMMAND, cmd);
->  	pci_msix_clear_and_set_ctrl(dev, PCI_MSIX_FLAGS_MASKALL, 0);
->  }
->  
-> -- 
-> 2.43.0
-> 
+Change the DPM interface to copy into caller-provided storage while the mutex
+is held. Keep the size-only query for attribute discovery without exposing
+the driver-owned pointer.
+
+Fixes: 1684d3ba4885 ("drm/amd/amdgpu: change pptable output format from ASCII to binary")
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit f6eed7acfd30099ef7baeb6ba45bb59daad80631)
+Cc: stable@vger.kernel.org
+[ kept 6.18's existing `if (!pp_funcs->get_pp_table) return 0;` guard instead of upstream's SR-IOV/SCPM `-EOPNOTSUPP` guard and dropped the `default_attr_update()` hunk whose `pp_table` branch doesn't exist yet ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c     | 15 +++++++++++++--
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c      |  8 +-------
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h |  3 ++-
+ 3 files changed, 16 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index 9dc82f4d7c937..e99a9fe295e6b 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -1059,17 +1059,28 @@ int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
+ 	return ret;
+ }
+ 
+-int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table)
++int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char *table,
++			    size_t size)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
++	char *pptable = NULL;
+ 	int ret = 0;
+ 
++	if ((!table && size) || (table && !size))
++		return -EINVAL;
++
+ 	if (!pp_funcs->get_pp_table)
+ 		return 0;
+ 
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_pp_table(adev->powerplay.pp_handle,
+-				     table);
++				     &pptable);
++	if (ret > 0 && !pptable) {
++		ret = -EINVAL;
++	} else if (ret > 0 && table) {
++		ret = min_t(size_t, ret, size);
++		memcpy(table, pptable, ret);
++	}
+ 	mutex_unlock(&adev->pm.mutex);
+ 
+ 	return ret;
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 2252c054c7ddd..1f68fe85e801c 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -538,7 +538,6 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+-	char *table = NULL;
+ 	int size, ret;
+ 
+ 	if (amdgpu_in_reset(adev))
+@@ -552,7 +551,7 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+ 		return ret;
+ 	}
+ 
+-	size = amdgpu_dpm_get_pp_table(adev, &table);
++	size = amdgpu_dpm_get_pp_table(adev, buf, PAGE_SIZE - 1);
+ 
+ 	pm_runtime_mark_last_busy(ddev->dev);
+ 	pm_runtime_put_autosuspend(ddev->dev);
+@@ -560,11 +559,6 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+ 	if (size <= 0)
+ 		return size;
+ 
+-	if (size >= PAGE_SIZE)
+-		size = PAGE_SIZE - 1;
+-
+-	memcpy(buf, table, size);
+-
+ 	return size;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index f5bf41f21c412..b30f34a574b39 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -483,7 +483,8 @@ int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
+ int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
+ 			      enum amd_pp_task task_id,
+ 			      enum amd_pm_state_type *user_state);
+-int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table);
++int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char *table,
++			    size_t size);
+ int amdgpu_dpm_set_fine_grain_clk_vol(struct amdgpu_device *adev,
+ 				      uint32_t type,
+ 				      long *input,
+-- 
+2.53.0
+
