@@ -1,62 +1,64 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866E538655A
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 19:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F335738DC59
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 19:53:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786564402; cv=none; b=q4Ibv21s3YGLLYCs0yvCsZNbO9xtzby6oE96T2FslQ169E2lzq/NvacpAG0FEWbx53Ydc64py2WAKZ9qMg/trBXBtN+d6HscXD1x1fvvjm/UYDHftWXFI75U9blT0VCuRgclPiF7kwxJBCj7rTInDktdTF9qU1LQLW3c+73YLC4=
+	t=1786564403; cv=none; b=NW51qxI0d5JXGAHQ3zsGnKifODfZFieZ/wERBMpuM0x6g05QBm0d3NNnrZJwUMJg89yDPISl3DBJDXkVC72Y+ZvbNv1QOaaXfISmJn36fF3s85g4VWYMsNJR85QPHDdrotLT8K4neAg0P6RKATlPZzNVAxZ0gS/yfCcR2Fe1OW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786564402; c=relaxed/simple;
-	bh=gpPLws1+h9xHPMVtLM8Mj1+gP9xwwHEe1Vdib5Sfixg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Y+j0LBTlbDBVCi1SKG5dWQPtgax2A+J7q/DN4++w55uKPK7+b+oe7y0Lbj257w5LBGbBGh90a0vtVBZP5U+IN0h4JRxWTQVdOWJDHDdmi62CaqLtSxlA/8Rx40W6kWP3UfmX9hPwIcB/k0P7KlLD8wYVALt4/kK0LIscloI49AU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yu+MunGk; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1786564403; c=relaxed/simple;
+	bh=ZaZ4wC0gUMSxoDfAoffb9xTcxt5C/x/3HPNvtmy+xz4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kqFe71JgaC+RuScXLtCos+Yz6WKmq12REfFE/h9JBYYM2Ev7/giwUdm1H1y0j62zCv3m4usvUH1Zf7bHlvAdDjvw6jrer2soSeWcPS54D6VLdHM890oeRarDSm1m0flj8I4tmbFNHo9yu9VoBUeK7d4mlRiXUCymP4pXOysA8aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FEz9tttu; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yu+MunGk"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so16400585e9.2
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 12:53:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FEz9tttu"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so12656265e9.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 12:53:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786564399; x=1787169199; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q4GDf4yjh9uyISnUKMYp4de1+6HkxuZ50urGemRxIzI=;
-        b=Yu+MunGk/BlWOCXVzRC85/+SBs06mJsZD6PGyRSa93htFTIHzBC6LCE1+2DCmrsOus
-         OyfwUvPRjbcP1VSEj751n19ExxKCF5D6AXLwHz07oarzDJgB9Ow53KVzgxwnd3LbnN6N
-         q4Z+Ny47h3e+hTk8+MdqCTdzmEaMiA4L9Zq/1xZ+JzrN7gSChOJIJtButvc+SZu6Anw9
-         9j+RyXfAZb3qPxLzU1uNDDF/P01rot6OEbHBcEalTs0c4gqgIb97sPX0PfGQqRiNUUo+
-         X9EPR56F1Qg2ClQdsbNsGP+8zB2hTdbWgDcyJpl4iIJxSDM329AJrdbT32MW1SC2z9mY
-         iEkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786564399; x=1787169199;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1786564400; x=1787169200; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Q4GDf4yjh9uyISnUKMYp4de1+6HkxuZ50urGemRxIzI=;
-        b=nEqX3Q9VB/jaKYLR7YaNXZ5nq2JMqlHbpmDB51mOO2gPDgYCNFoY7ll1j9lyW3gAkG
-         GkTg1EhS0EHcDhPCNCd4HFviuEmJWuf/jx1PU/SRJkIgTYNq5Af0U7Ss1NcgK322YCGk
-         xiWao78ZSU9WAyLuIv7Dkrz9vTp8K31xPzzoaz5ujllQLDV2co7hO3bws3zFWzVxwdbZ
-         hOz+tC688JIZaWRkUckOhdTl0S+BXcFd62iOVL/YrWI0ttzpNscpXuO/za6Sr2mjJyg7
-         pNfW90vWFKTePZOrnoaFrxCFdx2BZnp6E2iXPxHKmPwaGB5/157S2XbYOBCAOv366O/i
-         oDKA==
-X-Forwarded-Encrypted: i=1; AHgh+RpLNw50oGgFnADkXyP0/s5n7xeqntvassHuooCTU/X6/T8Xk3jC2Ri/bwSaeA/zHbfLVktFRUw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxvre/iQyESO21ZXcSOCS1uCRw2mMAMJq0z/YBeHUtqXOC3RcfB
-	9VJoDaYyDNPEJ7rvZodDYtxFGv7EPD7JzQopr4Td0fhl/u3ZpxqOVUHH9TiC84QN
-X-Gm-Gg: AR+sD10x9I6hXEWj1UM2lYWykPCbRX7ZDlpHU/tau9MsGAcwrtODxViKqYHzyMaBBjG
-	oPR0ix0f3hwF/R4QR/AA6NIgqPncRrdUzbhKYEZbOFhuO4hz2z+j1J8pI352hs6OWCKlFL5TS8R
-	LcQX+N7W+sb9cADxeNJAgtDgWF7fFLhmGv7oVbNxMQbWDYOM6lGD262Ygmg0lcp8wswRiRz4fRe
-	MWixciS7y8xdOoCnKaqlA/Yf3po5zcDRr2Bj8hRU+u+sl0oYyl3iBxN12rOsd6qiBPXiSR3rRBA
-	p5eeiM6sYjgn6vZiJK1zXbEGT1gm8vJV7AV0wXYI4XG8SwJw1Xydg1Lm+VWJADJRuHtRJAHRz6r
-	68Or2tuPmhQ+RMK9aKkJVn9EhN58b6f2tL+8ynOAWJ4xKpFmPCbUUUoxv947p4xrAYaEDvolSlA
-	cGWbYzoVwNKyouNu64AyqkRhx68AsZxDM0WlSO4w/UztyCYwofNet+lxvluQ9txfyFiumxOUSle
-	yWWl0FmifQVuvq8iqhgVlbY4E1IXxBYip8xcW+RsFXyp8vecA==
-X-Received: by 2002:a05:600c:c054:b0:499:7aa7:eaa7 with SMTP id 5b1f17b1804b1-499821fa293mr503345e9.15.1786564398538;
-        Wed, 12 Aug 2026 12:53:18 -0700 (PDT)
+        bh=vMy4p/Vz5vITJwBEwWHcB2Ir0vh7CqPPuQAXsltndFo=;
+        b=FEz9tttu0rbo8aV8mHj4CzSDtWmAMrV5iqu5FHwf/yEWfzCa/nxRUQag0SlhGv8BRL
+         1NfG1Im5tnCpS9/eepI8OTrFT1yBmGK4FWsoI4BB5whUUYZAcgKf7r3zMxqeUCVm8Awv
+         LSlKC5vpN6vk1bfTe2IqBXFNKRsW7M4NiwRICEcZ9uSA0SFBj6yZNa76KRSOTJpbzZOo
+         k6t3dGB42H/ADhfzKO9pswZch+93TISQrwVqhHelDXIDsB0xn0/Pni2whE5tppHHB7yy
+         0Xq67pR7XhtWB10IukS9vaR/ZA6DEpmGQMtcXfxylFox0OgCA8DsYMXjOOHNMtuMp3LA
+         S89A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786564400; x=1787169200;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vMy4p/Vz5vITJwBEwWHcB2Ir0vh7CqPPuQAXsltndFo=;
+        b=MoQjI5AAqcHS5s8+Xo4L65aztaSI3k5DGvFDos6eo+pCQetTwC6jbyyWpRWwtCnwvP
+         p23UysiN/PQqOG8xjYmhXFpKAWf0LJImeInF8igQ6eUjMbolMFMnmX63qXvDkquzxIY0
+         EXW0Ga9Hp9xj+OGtBFHSRs92Tg/ncFp81tJhfMsJSm4WKAQCSLdXACkTLwGe6LeAdS+K
+         MSj4xpE/ve/HbAyQ5h92yUSxvSJe20ZRE2T/92a73PHoo08BaG0aAK5JCh6ROguZI/9P
+         NRTlKFoEmEutdvn/dJrTdcBXF0xfyAeq+XoOPmlV6RIuE8xhbDV4yBTumulEQUKVPG0C
+         /djw==
+X-Forwarded-Encrypted: i=1; AHgh+RoAY7l8H4gkwB9Lq6Dbilb++2SaOBBTeHKQLRLCLQsh0OaV6zb/aGNgE560IqJenjeuZkGYPdU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx3O90KsV8wuvOixdRFj6YFtovypqQUQGXYrirw+HCmCfXyTxi5
+	3sPrqZbjJL0iQYo9pE/HAzTvVZeoB6Mznu8SCduhA6+i+h1Q/k6A7iXX
+X-Gm-Gg: AR+sD13Zv7yMaQ4opVXUSNUX2/zk8A2+2Xa6OzBNBylWw1M5WHQDhCQf7QgZG6Z059Q
+	uP3PuUZVpEABtt4rNPN5WJcsTobboCoM4rnztStbzGHEPQtaFhwPSRL2t/Zeya2btxZHW3kc/to
+	eUMPXSFVBd/2/dyY9xNE+VmpYc+0Xf9pteOBaiVZFh97LM9juN3s4GfrgGng7lb6yTn1vHKmLec
+	rDlWINq7nyCiF1L18jB0znsXgNLDe42Zo/zy6MC1Mhwwnyc4AtDc6IIK/jzvl2kIEGqPOMYm4Yv
+	X5NSGjLQppj5SJAVq8ZmEXe7D6Jh9vbgD7Bi3ggz+aV9XvEO7hW1uxuFAo2EEVueD5cUxFoio/G
+	Gl4E0Shc4sYZfuacQ9N8FINI47l+XopRo7Rz0h03RModOMfUMQgnNc/RqgrGw8RqimNExMXVkIP
+	dLtOI/ZuiEVD37AlabnEzQdjkrPHn35VizPuQfG2XLVUh0UUG3XzoYBRQIEvOUaxGSvlYByedLm
+	hIGNmxS7f8C8YNeXXnaPcWw3CVBfNDJi4B2XsZ46TGoGiX7gw==
+X-Received: by 2002:a05:600c:358b:b0:499:60bf:c6f7 with SMTP id 5b1f17b1804b1-499821c2ffdmr1196545e9.13.1786564399984;
+        Wed, 12 Aug 2026 12:53:19 -0700 (PDT)
 Received: from karin-metis-desk.tailaea490.ts.net ([2a06:c701:c1f7:3500:4c98:e58c:bdb:6080])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49981abd6desm13145665e9.0.2026.08.12.12.53.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49981abd6desm13145665e9.0.2026.08.12.12.53.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 12:53:18 -0700 (PDT)
+        Wed, 12 Aug 2026 12:53:19 -0700 (PDT)
 From: Tomer Pomeranc <tomerpo@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
@@ -67,10 +69,12 @@ Cc: gregkh@linuxfoundation.org,
 	aliceryhl@google.com,
 	stable@vger.kernel.org,
 	Tomer Pomeranc <tomerpo@gmail.com>
-Subject: [PATCH 0/2] binder: fix TF_UPDATE_TXN supersede cleanup bugs
-Date: Wed, 12 Aug 2026 22:53:14 +0300
-Message-Id: <20260812195316.259136-1-tomerpo@gmail.com>
+Subject: [PATCH 1/2] binder: fix leaked fd fixups on TF_UPDATE_TXN supersede
+Date: Wed, 12 Aug 2026 22:53:15 +0300
+Message-Id: <20260812195316.259136-2-tomerpo@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260812195316.259136-1-tomerpo@gmail.com>
+References: <20260812195316.259136-1-tomerpo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,30 +83,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two bugs in the t_outdated cleanup path of binder_proc_transaction(),
-both introduced by commit 9864bb480133 ("binder: add TF_UPDATE_TXN to
-replace outdated txn"):
+When a TF_UPDATE_TXN transaction supersedes a pending async transaction
+in a frozen process, the outdated transaction is freed with kfree()
+directly. This skips binder_free_txn_fixups(), leaking all
+binder_txn_fd_fixup entries and their fget()'d struct file references.
 
-1. kfree(t_outdated) is called without binder_free_txn_fixups(),
-   permanently leaking binder_txn_fd_fixup entries and their fget()'d
-   struct file references. The refcount never reaches zero; the leak
-   survives process exit and accumulates until file-max exhaustion.
+The leaked file refcounts never reach zero, so the struct file objects
+are permanently pinned in memory. They survive process exit and
+accumulate across invocations until file-max exhaustion.
 
-2. binder_release_entire_buffer() is called with is_failure=false for
-   a transaction that was never delivered. Since binder_apply_fd_fixups()
-   was never called, the BINDER_TYPE_FDA handler reads stale buffer data
-   as fd numbers and closes unrelated fds via binder_deferred_fd_close().
+Every other transaction cleanup path (binder_free_transaction(),
+binder_transaction() error paths, binder_release_work()) correctly
+calls binder_free_txn_fixups(). Add the missing call before kfree()
+in the t_outdated cleanup block.
 
-Confirmed on mainline Linux (6.8.0-124-generic, binder_linux module)
-and Android (Pixel 8, kernel 6.1.124, /dev/hwbinder).
+Fixes: 9864bb480133 ("binder: add TF_UPDATE_TXN to replace outdated txn")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tomer Pomeranc <tomerpo@gmail.com>
+---
+ drivers/android/binder.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Tomer Pomeranc (2):
-  binder: fix leaked fd fixups on TF_UPDATE_TXN supersede
-  binder: fix is_failure flag for superseded transaction cleanup
-
- drivers/android/binder.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
+diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+index 8f2ef1bd5..f70aeb63a 100644
+--- a/drivers/android/binder.c
++++ b/drivers/android/binder.c
+@@ -2932,6 +2932,7 @@ static int binder_proc_transaction(struct binder_transaction *t,
+ 		trace_binder_transaction_update_buffer_release(buffer);
+ 		binder_release_entire_buffer(proc, NULL, buffer, false);
+ 		binder_alloc_free_buf(&proc->alloc, buffer);
++		binder_free_txn_fixups(t_outdated);
+ 		kfree(t_outdated);
+ 		binder_stats_deleted(BINDER_STAT_TRANSACTION);
+ 	}
 -- 
 2.34.1
 
