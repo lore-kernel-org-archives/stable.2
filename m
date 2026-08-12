@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DA946AA79
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 14:46:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E286A46AA7B
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 14:46:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786545982; cv=none; b=beuJfFs98Lzta7jxdLfdI9qgPRZr84NitTrQOe8CQoD7MVkP9WGP/wf1sqMtHWxtjJGmjF6dzLoJX+1o1sY1P3Cno7eZMZtupYkROTJQ5DbYkXna5ib1Be0ET1b9e6jgEJAPvAe48fii4NCcOxRjidFm6VAerdCe5P/BTBluWAQ=
+	t=1786545983; cv=none; b=Z7EV1EgYVbxa8ynw6EmUHB/FlftXq+grxEq4jpzukcEUZppWGsCzzP0WkFXte58fcMt3240pE3ynqAZqYvd6sxJQMFlhCpXUIs6jlC3vNYLkr6aIehOLKsh0Ix4jeeG/9NfSjxNqXenQYfw4aUetqqxtxYxh1tIIvCKei0cKW40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786545982; c=relaxed/simple;
-	bh=TyH4rF7rmZte069DH1ktjK1Aj6CoIIOo3Lk0ZK3ltmI=;
+	s=arc-20240116; t=1786545983; c=relaxed/simple;
+	bh=ZujZ+/p7L2pTgEMMIFzRJ7dtxwotqUb4fQrhR9F+sV4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OHQ0GsMGmFzMOWVZfTgLiZnZcYf794GzmZanMQ1azUhl1zX9gV5pLJs9aNyWCjsfVeiGNHyMWQQCcoeEeaCe1BQgJbnmx3uQeyDBhzMjc6+zLs9mOf9pyxgDn7cIJUajezCm/d1N1cI2nAAJMzBvYD8BBuVJXf2kA1rKpID8nUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arPamfa8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=L1hgwZG24Eu6kre0rGJfW/yzMIGM4Z1onrTmkWxtAqYfuRVOT8k8Zj13hq/h44yxLpXIQwL+ycspERGlm6qAHKqjcOyORGw4nJbmXuQmGxSIl+6mZQwad4Gn2Kn89xxTpOkAdahFQT/nglb++RIYhgFDUWVxia6NuWvuHO9Ki7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IqdwD0cU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arPamfa8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0211F000E9;
-	Wed, 12 Aug 2026 14:46:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IqdwD0cU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF2A1F00A3A;
+	Wed, 12 Aug 2026 14:46:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786545980;
-	bh=AVsn8zNKhIw/2Gc898AOt1gQvBiFZrLxL3gLbTWcOYw=;
+	s=k20260515; t=1786545981;
+	bh=veUH14MxHutrx06D1IMONgRBe0Qx3eyaC++hJei1Ujg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=arPamfa8QVhV6q6szokmWkffpkwn1tmEF/xKX6S8ARqT8sRXT3rU7UBl2+ptSYUkl
-	 JhfMpnGE5Lurh5CjCUQhFMDYhscFp/BrQtV0R4CJ+Snwo6wf2ReXLAvG/KpoOqYQ3D
-	 shJztESEF0igwCDkFYzfpsS4TFFt5UkoUUy1HUro53Yh77+OrJ/8hpPJWZRUKP3rFJ
-	 I2XAxHyOUJ6USVjKNTFwl+FODCQSeZRMR0SOtLNCa7P/lBp5nzsBR0VeNwmIwR1aP3
-	 8ZFrixUhzMSk+hwVXthGRAmx2KiWNHicwu7L0TbiyX1RZxfxiz840FtppuFMr0RBsk
-	 U9vx69QDjQYPA==
+	b=IqdwD0cUCBYFFFDp1WljwNIXQ8lQiYUBZA0iaRA5/p1SAAJhBKFSBxp9LYmnYq1jX
+	 dMpTNptetS0FsAZr5I1XU6YspDW6wb7G3DZZuu5Wn6KoTWqC88epGVb4mASTulHCW7
+	 Xn6NTaX3/SH6lDyrBm3cMS5i54QJWb/x7ik5B3qi2ume6oSW1hCEEBr/MSseznoLXf
+	 XgRcLCr01omRs5I7Pas+Oqfzvm+QgqJ4KrNyVho370SkT/+S3zcM4Nqj7D7Jd4Vnyy
+	 d5UO0XitI1oTbsfz15HnZdf7+TO+T/ai5ZGa1a6+IdYQgmjPfKUyWVqHG40s5xhe9R
+	 1+6LA+l4TSAnA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Easwar Hariharan <eahariha@linux.microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Aaron Ma <aaron.ma@canonical.com>,
+	Kohei Enju <kohei@enjuk.jp>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Alexander Nowlin <alexander.nowlin@intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] jiffies: Define secs_to_jiffies()
-Date: Wed, 12 Aug 2026 10:46:17 -0400
-Message-ID: <20260812144618.2226698-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] ice: wait for reset completion in ice_resume()
+Date: Wed, 12 Aug 2026 10:46:18 -0400
+Message-ID: <20260812144618.2226698-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080526-docile-reply-8f04@gregkh>
+In-Reply-To: <20260812144618.2226698-1-sashal@kernel.org>
 References: <2026080526-docile-reply-8f04@gregkh>
+ <20260812144618.2226698-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,71 +50,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
+From: Aaron Ma <aaron.ma@canonical.com>
 
-[ Upstream commit b35108a51cf7bab58d7eace1267d7965978bcdb8 ]
+[ Upstream commit c2816d613f388814d27bc9fd6dbd931a88056e19 ]
 
-secs_to_jiffies() is defined in hci_event.c and cannot be reused by
-other call sites. Hoist it into the core code to allow conversion of the
-~1150 usages of msecs_to_jiffies() that either:
+ice_resume() schedules an asynchronous PF reset and returns
+immediately. The reset runs later in ice_service_task(). If
+userspace tries to bring up the net device before the reset
+finishes, ice_open() fails with -EBUSY:
 
- - use a multiplier value of 1000 or equivalently MSEC_PER_SEC, or
- - have timeouts that are denominated in seconds (i.e. end in 000)
+  ice_resume()
+    ice_schedule_reset()          # sets ICE_PFR_REQ, returns
+  ...
+  ice_open()
+    ice_is_reset_in_progress()    # ICE_PFR_REQ still set, -EBUSY
+  ...
+  ice_service_task()
+    ice_do_reset()
+      ice_rebuild()               # clears ICE_PFR_REQ, too late
 
-It's implemented as a macro to allow usage in static initializers.
+Reproduced on E800 series NICs during suspend/resume with irdma
+enabled, where the aux device probe widens the race window.
 
-This will also allow conversion of yet more sites that use (sec * HZ)
-directly, and improve their readability.
+  ice 0000:81:00.0: can't open net device while reset is in progress
 
-Suggested-by: Michael Kelley <mhklinux@outlook.com>
-Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Reviewed-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Link: https://lore.kernel.org/all/20241030-open-coded-timeouts-v3-1-9ba123facf88@linux.microsoft.com
-Stable-dep-of: c2816d613f38 ("ice: wait for reset completion in ice_resume()")
+Add a best-effort wait (10s timeout, matching ice_devlink_info_get())
+for the reset to complete before returning from ice_resume(). In
+practice the reset completes in ~300ms.
+
+Fixes: 769c500dcc1e ("ice: Add advanced power mgmt for WoL")
+Cc: stable@vger.kernel.org
+Reviewed-by: Kohei Enju <kohei@enjuk.jp>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/jiffies.h   | 13 +++++++++++++
- net/bluetooth/hci_event.c |  2 --
- 2 files changed, 13 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/intel/ice/ice_main.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/include/linux/jiffies.h b/include/linux/jiffies.h
-index 3778e26f7b14c..5bc2aa7eb5a15 100644
---- a/include/linux/jiffies.h
-+++ b/include/linux/jiffies.h
-@@ -371,6 +371,19 @@ static __always_inline unsigned long msecs_to_jiffies(const unsigned int m)
- 	}
- }
+diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
+index 0403391b3680e..ebead7f44bc56 100644
+--- a/drivers/net/ethernet/intel/ice/ice_main.c
++++ b/drivers/net/ethernet/intel/ice/ice_main.c
+@@ -4948,6 +4948,16 @@ static int __maybe_unused ice_resume(struct device *dev)
+ 	/* Restart the service task */
+ 	mod_timer(&pf->serv_tmr, round_jiffies(jiffies + pf->serv_tmr_period));
  
-+/**
-+ * secs_to_jiffies: - convert seconds to jiffies
-+ * @_secs: time in seconds
-+ *
-+ * Conversion is done by simple multiplication with HZ
-+ *
-+ * secs_to_jiffies() is defined as a macro rather than a static inline
-+ * function so it can be used in static initializers.
-+ *
-+ * Return: jiffies value
-+ */
-+#define secs_to_jiffies(_secs) ((_secs) * HZ)
++	/* Best-effort wait for the scheduled reset to finish so that the
++	 * device is operational before returning. Without this, userspace
++	 * (e.g. NetworkManager) may try to open the net device while the
++	 * asynchronous reset is still in progress, hitting -EBUSY.
++	 */
++	ret = ice_wait_for_reset(pf, secs_to_jiffies(10));
++	if (ret)
++		dev_err(dev, "Wait for reset timed out (10s) during resume: %d\n",
++			ret);
 +
- extern unsigned long __usecs_to_jiffies(const unsigned int u);
- #if !(USEC_PER_SEC % HZ)
- static inline unsigned long _usecs_to_jiffies(const unsigned int u)
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index 7ce4ae5a6ba12..c92d780a77a61 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -42,8 +42,6 @@
- #define ZERO_KEY "\x00\x00\x00\x00\x00\x00\x00\x00" \
- 		 "\x00\x00\x00\x00\x00\x00\x00\x00"
- 
--#define secs_to_jiffies(_secs) msecs_to_jiffies((_secs) * 1000)
--
- /* Handle HCI Event packets */
- 
- static void hci_cc_inquiry_cancel(struct hci_dev *hdev, struct sk_buff *skb,
+ 	return 0;
+ }
+ #endif /* CONFIG_PM */
 -- 
 2.53.0
 
