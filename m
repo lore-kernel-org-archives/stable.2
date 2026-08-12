@@ -1,125 +1,196 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CED33ACA79
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90018391517;
+	Wed, 12 Aug 2026 09:04:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786525356; cv=none; b=kIPHOD2X1cLKjjIazCqq7O+eB3J/RkzHKs46ZVyZu5M+tD7ayGdeJk1zlgbbP0rpEcULwkQ5SIrbcT3H6mhcsaNcwe0oCCHWbVj+2JmTjEnfh78B9QpcaZNOLcRPV4pBl/uZfDxIcSC9lmLM7JiVnK4KP+uVjh5ZJs4aIzTBUQA=
+	t=1786525466; cv=none; b=bCkKOP7HlXmLWvNDimxV2+emZjALlRVt2AoCCPOOQ2f6v3ibAdaI8+o96qJ+YHT10oba/71ENmqqNQbQeKrTvWiUQvc4+uLIzOz6n/9LBV99xcWUFGDd5A3t2aeNPcWlwoDuhII+48KF9ym4N/PfySAOVYum1CXpCdVi+mH8vx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786525356; c=relaxed/simple;
-	bh=sz7fS+0nqTxp8zreu7IIQFPHWLcP6Vu/M3gDox9nLAI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PwMmPt5UVuVGwRmBSZGY30zlroUBDmZUwwEBYjEedt/JESJmkSX7p3bw/wUtaNfx2v0lFbEp/C3lE7MggS3F/ILghjszuI60j0PavvNPNEPLYZbNAEifZB6M+OwxdmnXdd4WlpaKMECGQ3F4gn68LB6J/TsdXD3ddG+nv4alFlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gLNpQRjF; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786525466; c=relaxed/simple;
+	bh=UdGB9+7e08qQfUZnrt6cY//dIOdB3U7twBuXZeLn08c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XhWRWWvghdXm9Sii/iO7hBNPbS9WqTzeCE1Geg15XjGBWU4fsQaQbW+eSP8TaDomuXCbHNOJiJDG7Ifxcron5M93jRNoHzWKgd0yK0d0MxVNZdBiG1SbBS76wNSKBfyzf/T9yiv/luQ+nQL2C9PLBo3vw5On/NC4P5you8lrQHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QIzUOxAK; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gLNpQRjF"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38e07ebd263so580535a91.1
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 02:02:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786525355; x=1787130155; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MMJ/zKXjUuezQHEWC5K8ovWuvaNdAhVwEtkYF+SzJVU=;
-        b=gLNpQRjFqpZ9rKnNC1cJHYd5f4BXT6ffIIRuMzhP3GyTJD/7ndFfFKDNZ59DeC5l7r
-         9INza+Q/y2wTzpW+k4/n5EpgBOJQ5fdD1oeAAhnmjdYLb55VaVckljezkmyn1fD4Vi00
-         bFxvRa5Zz/8BFvPRs58IBaU4FKhRHBvb6u6mc5RQ9/jNp/ap+ZREl2AyuQcJDZInffjD
-         4f1EwQHO0UnGk2IwEOBsqk4jAniNhQHTXegtjrMelikAMt4I0/w3A/qf8lJaRTbjB+Wj
-         7IGWDXIC0mlzoeOgczo1jWPLxAytEPlKZ0wfS4SCy6Az7oBMCLc6xwTHXSZv/EhhvqQP
-         z64Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786525355; x=1787130155;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MMJ/zKXjUuezQHEWC5K8ovWuvaNdAhVwEtkYF+SzJVU=;
-        b=nnkQ23koGBH7IsIOw0YudFfHHBtQSV4Vc3cy2ZOWb93VcWFKW2Morlm8AXJq5576i9
-         bQ5mQc+zx+BU3Kd4d+GUl6B7HkHxFhWkuNrZlv05nYn8gA+PTZyuBh/OM4c1BKVteH77
-         t/+ZlJt1OphM6cU2vOjqb6crqb+sey7DkerTOtABV6pCQiV5+38h0UIGSQ3yArsvfvmC
-         J9DajgNVnYT+x2ScMcsAXIDkMBNbKrKKDu2tsywKtRx+x9gZFNp38DZVRAHKJTHEs8AN
-         ceTnK/0xBj+DMz5LEz7LDuKvwg1IsKGXMNMa0XXEdocRpx+StD0pVe4M5B27ViN8kQuN
-         /6IQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqIejdoOCrgxX203TWCMTt9r+HKLmViXyc60XRfedSM1KufDvaWdq4CQCHAoZOYCXLIiqsXm1Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/9WirCbkPWZRaDs8nnTcqM64zaGQeWSaWnNXlCEDUfA5GevSJ
-	uqjYaNwkfJ4Pyjo8ELd3iEjsALXZyo8vQg28iXds4uTJqaKyvmVtgGAmoi/21FvHOmE=
-X-Gm-Gg: AR+sD11y0rnls99z4yKhmVeosHvzgolEP2rjwK2cEUXE1/NlTfCmDp0GleM0bFfdx2L
-	61HQ+U+8uXCEujMiLUCW0Ds9yYqSzwPRFNdSwy1be9L3zHqpop6p5QlzzXObxmjUsoVOmukVL9K
-	rUOOVYOtxdBOLF1s8vaKCZvOLOK1AWvEkaJyrZ0UfdBuq5v6eTcH8omnFioQPvc/C7t1Zzv9kNU
-	Uj9CtRAwMIDycB4zUV8BppPfttvz0dLc3o1iVCA4qKUb4VqjB+C3qDLgZJTkJZJPID7T3yC4vZi
-	OPJUcROjv/VBm7rTxxMUoyI2k7MJv1X0/Zrsvhd+jrtSX23Ogek2BcJd7m/WJF0GBlKombv68PM
-	401vKFhLjvTS8rJkYE4peqsxOpsiw0wfikmwpFOFhEtxRpb08U5LPZ+FIIID0bOJXXqC/9wYUr/
-	mgkuuYPTaKMA1kN22a7mO6jzOksKFnrhquxcpjJPoZb9mUHhPvNLFGDw==
-X-Received: by 2002:a17:90b:3948:b0:383:f52b:d616 with SMTP id 98e67ed59e1d1-393014fa36emr3633374a91.10.1786525354776;
-        Wed, 12 Aug 2026 02:02:34 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392f8893709sm2808609a91.4.2026.08.12.02.02.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 02:02:34 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Gregory CLEMENT <gregory.clement@bootlin.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Wolfram Sang <wsa@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] i2c: mv64xxx: fix autosuspend cleanup
-Date: Wed, 12 Aug 2026 16:58:08 +0800
-Message-ID: <20260812085808.3313948-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QIzUOxAK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786525464; x=1818061464;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UdGB9+7e08qQfUZnrt6cY//dIOdB3U7twBuXZeLn08c=;
+  b=QIzUOxAKCiFf14OlolDkg3Af3m7kFNiLzpc2bCqlMx66LL4rbkeiLxFu
+   1mtLtVqs8VG3/nE0zeMoB66Ss3EEgDSgQkF07WAlZLxInVvEaN/yljaJ3
+   X9DnTs4hyieVh1EkgZKiXw5uoa9GpfLgDNWj0JMQF4tEh4DY9M9QtZzDe
+   k2Se9xVor5NjG/vvL/RDFv2hl8At2F47BuvjmqgdEUzdhYpi24FjipxaR
+   Sd3JddqzID9Qk7RPBy7Vqpd+bbbMlbubMRpE3oxKk+Kd1aD9Ccm2EqhE0
+   BcmMjfhFFXxRaL2yz5LVMTiJQNBkTjS+PrcA+pNCsdyBHdor+Se4ZUhGG
+   w==;
+X-CSE-ConnectionGUID: s7xh0d9SQXWar0Y87YcC5g==
+X-CSE-MsgGUID: 92XXs+R7SaSJ0A9F8MCbyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="97660872"
+X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
+   d="scan'208";a="97660872"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 02:04:23 -0700
+X-CSE-ConnectionGUID: S71a7UhDTxi0ed9Jw7tdmw==
+X-CSE-MsgGUID: BXJuIXGgQY2PU8bGeeNyQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
+   d="scan'208";a="257387293"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 12 Aug 2026 02:04:21 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wu4sk-00000000QBy-3BXI;
+	Wed, 12 Aug 2026 09:04:18 +0000
+Date: Wed, 12 Aug 2026 17:03:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Pavitra Jha <jhapavitra98@gmail.com>, alexander.deucher@amd.com,
+	christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Pavitra Jha <jhapavitra98@gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP
+ discovery header cast
+Message-ID: <202608121611.JGbGRW2o-lkp@intel.com>
+References: <20260708061835.111986-1-jhapavitra98@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708061835.111986-1-jhapavitra98@gmail.com>
 
-mv64xxx_i2c_probe() calls pm_runtime_use_autosuspend(), but the probe
-failure and remove paths do not call the matching
-pm_runtime_dont_use_autosuspend() before disabling runtime PM.
+Hi Pavitra,
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without undoing the autosuspend setting during
-teardown, this reference is not dropped and usage_count remains
-unbalanced.
+kernel test robot noticed the following build errors:
 
-Call pm_runtime_dont_use_autosuspend() in both the probe failure and
-remove paths before disabling runtime PM to properly undo the
-autosuspend setting.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v7.2-rc7 next-20260810]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-This issue was found by manual code inspection.
+url:    https://github.com/intel-lab-lkp/linux/commits/Pavitra-Jha/drm-amdgpu-discovery-validate-table-offset-before-IP-discovery-header-cast/20260812-100224
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260708061835.111986-1-jhapavitra98%40gmail.com
+patch subject: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP discovery header cast
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20260812/202608121611.JGbGRW2o-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260812/202608121611.JGbGRW2o-lkp@intel.com/reproduce)
 
-Fixes: e5c02cf54154 ("i2c: mv64xxx: Add runtime PM support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/i2c/busses/i2c-mv64xxx.c | 2 ++
- 1 file changed, 2 insertions(+)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608121611.JGbGRW2o-lkp@intel.com/
 
-diff --git a/drivers/i2c/busses/i2c-mv64xxx.c b/drivers/i2c/busses/i2c-mv64xxx.c
-index 1acba628e16c..995b0e9b7f53 100644
---- a/drivers/i2c/busses/i2c-mv64xxx.c
-+++ b/drivers/i2c/busses/i2c-mv64xxx.c
-@@ -1069,6 +1069,7 @@ mv64xxx_i2c_probe(struct platform_device *pd)
- exit_free_irq:
- 	free_irq(drv_data->irq, drv_data);
- exit_disable_pm:
-+	pm_runtime_dont_use_autosuspend(&pd->dev);
- 	pm_runtime_disable(&pd->dev);
- 	if (!pm_runtime_status_suspended(&pd->dev))
- 		mv64xxx_i2c_runtime_suspend(&pd->dev);
-@@ -1083,6 +1084,7 @@ mv64xxx_i2c_remove(struct platform_device *pd)
- 
- 	i2c_del_adapter(&drv_data->adapter);
- 	free_irq(drv_data->irq, drv_data);
-+	pm_runtime_dont_use_autosuspend(&pd->dev);
- 	pm_runtime_disable(&pd->dev);
- 	if (!pm_runtime_status_suspended(&pd->dev))
- 		mv64xxx_i2c_runtime_suspend(&pd->dev);
--- 
-2.43.0
+All errors (new ones prefixed by >>):
 
+   In file included from include/linux/byteorder/little_endian.h:5,
+                    from arch/alpha/include/uapi/asm/byteorder.h:5,
+                    from include/asm-generic/bitops/le.h:6,
+                    from arch/alpha/include/asm/bitops.h:472,
+                    from include/linux/bitops.h:67,
+                    from include/linux/thread_info.h:27,
+                    from include/asm-generic/preempt.h:5,
+                    from ./arch/alpha/include/generated/asm/preempt.h:1,
+                    from include/linux/preempt.h:79,
+                    from include/linux/spinlock.h:56,
+                    from include/linux/mmzone.h:8,
+                    from include/linux/gfp.h:7,
+                    from include/linux/firmware.h:8,
+                    from drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:24:
+   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c: In function 'amdgpu_discovery_verify_npsinfo':
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:534:32: error: invalid type argument of '->' (have 'struct table_info')
+     534 |         if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
+         |                                ^~
+   include/uapi/linux/byteorder/little_endian.h:37:51: note: in definition of macro '__le16_to_cpu'
+      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
+         |                                                   ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:534:13: note: in expansion of macro 'le16_to_cpu'
+     534 |         if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
+         |             ^~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:536:44: error: invalid type argument of '->' (have 'struct table_info')
+     536 |                         le16_to_cpu((*info)->offset), table_id);
+         |                                            ^~
+   include/uapi/linux/byteorder/little_endian.h:37:51: note: in definition of macro '__le16_to_cpu'
+      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
+         |                                                   ^
+   include/linux/dev_printk.h:154:9: note: in expansion of macro 'dev_printk_index_wrap'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:535:17: note: in expansion of macro 'dev_err'
+     535 |                 dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
+         |                 ^~~~~~~
+   In file included from include/linux/device.h:15,
+                    from include/drm/drm_print.h:31,
+                    from drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h:29,
+                    from drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h:30,
+                    from drivers/gpu/drm/amd/amdgpu/amdgpu.h:37,
+                    from drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:27:
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:536:55: error: 'table_id' undeclared (first use in this function); did you mean 'table_info'?
+     536 |                         le16_to_cpu((*info)->offset), table_id);
+         |                                                       ^~~~~~~~
+   include/linux/dev_printk.h:110:37: note: in definition of macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                                     ^~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:535:17: note: in expansion of macro 'dev_err'
+     535 |                 dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
+         |                 ^~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:536:55: note: each undeclared identifier is reported only once for each function it appears in
+   include/linux/dev_printk.h:110:37: note: in definition of macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                                     ^~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:535:17: note: in expansion of macro 'dev_err'
+     535 |                 dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
+         |                 ^~~~~~~
+
+
+vim +534 drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+
+   508	
+   509	static int amdgpu_discovery_verify_npsinfo(struct amdgpu_device *adev,
+   510						   struct table_info *info)
+   511	{
+   512		uint8_t *discovery_bin = adev->discovery.bin;
+   513		uint16_t checksum;
+   514		uint16_t offset;
+   515	
+   516		offset = le16_to_cpu(info->offset);
+   517		checksum = le16_to_cpu(info->checksum);
+   518	
+   519		struct nps_info_header *nhdr =
+   520			(struct nps_info_header *)(discovery_bin + offset);
+   521	
+   522		if (le32_to_cpu(nhdr->table_id) != NPS_INFO_TABLE_ID) {
+   523			dev_dbg(adev->dev, "invalid ip discovery nps info table id\n");
+   524			return -EINVAL;
+   525		}
+   526	
+   527		if (!amdgpu_discovery_verify_checksum(adev, discovery_bin + offset,
+   528						      le32_to_cpu(nhdr->size_bytes),
+   529						      checksum)) {
+   530			dev_dbg(adev->dev, "invalid nps info data table checksum\n");
+   531			return -EINVAL;
+   532		}
+   533	
+ > 534		if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
+   535			dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
+ > 536				le16_to_cpu((*info)->offset), table_id);
+   537			return -EINVAL;
+   538		}
+   539	
+   540		return 0;
+   541	}
+   542	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
