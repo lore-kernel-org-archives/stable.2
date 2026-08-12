@@ -1,171 +1,144 @@
-Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AD43921DD;
-	Wed, 12 Aug 2026 05:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F27A3191BA;
+	Wed, 12 Aug 2026 05:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786513271; cv=none; b=KJUVtLwqZ6qwuF+aX3gteKVJzfzOuGto6mIsrSBil+dz8H2gyTdTo6zq8iTu9lIi0+I97m8d7wk5l/L7+So/V7+RAlxqZhmdoo+mS79E0VsgRfwscMAR7mdS2ZIjEyVJqCZfY8vmQR+1SKsEWveyvJlefZ2EIm8lQq70AH3adqA=
+	t=1786513669; cv=none; b=coC6ctXkKlxJKT0ZoGJ03aKReOw9WLIcDdDGZ1m6qwikCO4OkmY0WhSwv4zcrswieqtGG6K6eQMdC4eFrerHAtdDx1BkrRkVj+WWxMX93ob/L+fkoLXeH97+Zk0R5HAQ0NyJ+s8d6ZKUnmAPCbCddnwq11M//A/T2aUElR5l1aE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786513271; c=relaxed/simple;
-	bh=E6uGsbGqqzCkRoxACNAXopQ2UoUWKRxtKe6zwPPJj0w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=K1Ivu3bRjuY+RB+ZXeIcZx1i3Yw2t1MzgKkz+pWova9y1wk4fXSM6UbD+6BQ4rs7HbSIHP0lYHPoezveprVADRbWLcJqNmZqLefHtdQgsC/6JOsfXatMNtzVsO3ySj+XVFAlXEPLehmK61RD0oEcJYuERrJaczU8wwmlrf2Ze/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Whpnxh9p; arc=none smtp.client-ip=95.215.58.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786513669; c=relaxed/simple;
+	bh=iABc9K8brbwAjp+6VtrT+VhIgqUXCpidx3XmFiTLDlY=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=RSKsnS3hU5nUmgG73lI1QRezQikPhWyf0CLi8O3JCoHRFN0kTyfAXl85+FDAgLdaWc2pvO37PvhGrCthjzVjOHpMEN32O5Kt+zILXRfdvPJVnUXhp8e+nKAKAeN/EAo78aUHX/ruzejSaq/azSe2eLdEwMf/GAsq/sQsVyU1T5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ruEA3kvk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Whpnxh9p"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786513266;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TJw8Kb7KYo62APlX8MEZxvAZlhH4o0ziACenqfJhSwk=;
-	b=Whpnxh9pXp2+bTxNYX9GyGV2YNWyFmEhiFLBxTHM1emfN+vJjElCcTotxQwVy3X1umLo6t
-	yiTOJm0OqPnobb7aV185QEy//Yh3hnbhvUFaABU9uMRD6FwBkggx2YIhowltCfc/AyM1lq
-	HTTnFTnQdY/3c7KPSiV2czkyKaweldU=
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>
-Cc: linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Hao Ge <hao.ge@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 2/2] alloc_tag: fix undetected compressed tag overflow when profiling is disabled
-Date: Wed, 12 Aug 2026 13:41:05 +0800
-Message-Id: <20260812054105.102637-3-hao.ge@linux.dev>
-In-Reply-To: <20260812054105.102637-1-hao.ge@linux.dev>
-References: <20260812054105.102637-1-hao.ge@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ruEA3kvk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3DEB1F000E9;
+	Wed, 12 Aug 2026 05:47:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1786513667;
+	bh=IWjDjgp43HDOKAAvhXf6tJ9XRcep7H8R/FphtBkyvCY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ruEA3kvkxtFK7eWbkAqQPen2AEMf+hlBpUgBhnXOPr9FJ/KiPmgD7eVNKyF39gyr8
+	 bK22sipkB+8gno+UM3kQXsWneAHxc/0If9eU5cgeb7WifH7vwo+7A5aL/KR/qVmOg4
+	 Bp/vobOrCFOQRgVZhubk/5vbkMdDLmoMGBelxhi8=
+Date: Tue, 11 Aug 2026 22:47:46 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>, Nick Desaulniers
+ <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt
+ <justinstitt@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, stable@vger.kernel.org, Kees Cook <kees@kernel.org>
+Subject: Re: [PATCH] arch_numa: Avoid false positive fortify warning in
+ setup_node_to_cpumask_map()
+Message-Id: <20260811224746.fdb85bcf47533e12d365b182@linux-foundation.org>
+In-Reply-To: <20260811-arch_numa-avoid-fortify-warning-v1-1-59ce3e689f3a@kernel.org>
+References: <20260811-arch_numa-avoid-fortify-warning-v1-1-59ce3e689f3a@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-In reserve_module_tags(), the tag overflow check is gated on
-mem_alloc_profiling_enabled():
+On Tue, 11 Aug 2026 22:22:42 -0700 Nathan Chancellor <nathan@kernel.org> wrote:
 
-    if (mem_alloc_profiling_enabled() && !tags_addressable())
+> When building ARCH=riscv using clang with CONFIG_FORTIFY_SOURCE and
+> CONFIG_UBSAN_BOUNDS enabled, CONFIG_NR_CPUS > 64, and the default value
+> of 2 for CONFIG_NODES_SHIFT, there is a compiletime warning from the
+> fortify routines.
 
-If profiling is toggled off at runtime and a module is loaded whose
-tags exceed the compressed-mode limit, shutdown_mem_profiling() is
-skipped. vm_module_tags_populate() still maps memory for the tags and
-the module loads successfully, but the total tag count now exceeds what
-NR_UNUSED_PAGEFLAG_BITS can address.
+(cc Kees)
 
-Once profiling is re-enabled, ref_to_idx() computes each tag's index
-as its position in the alloc_tag array. update_page_tag_ref() masks
-it to alloc_tag_ref_mask before storing in page->flags. Indices
-beyond the mask are truncated and idx_to_ref() resolves them to wrong
-tags.
+>   In file included from mm/arch_numa.c:11:
+>   In file included from include/linux/acpi.h:14:
+>   In file included from include/linux/resource_ext.h:11:
+>   In file included from include/linux/slab.h:17:
+>   In file included from include/linux/gfp.h:7:
+>   In file included from include/linux/mmzone.h:8:
+>   In file included from include/linux/spinlock.h:60:
+>   In file included from include/linux/interrupt_rc.h:17:
+>   In file included from include/linux/smp.h:13:
+>   In file included from include/linux/cpumask.h:11:
+>   In file included from include/linux/bitmap.h:13:
+>   In file included from include/linux/string.h:383:
+>   include/linux/fortify-string.h:430:4: warning: call to '__write_overflow_field' declared with 'warning' attribute: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Wattribue-warning]
+>     430 |                         __write_overflow_field(p_size_field, size);
+>         |                         ^
+>   include/linux/fortify-string.h:430:4: note: called by function 'fortify_memset_chk(unsigned long, unsigned long, unsigned long)'
+>   include/linux/bitmap.h:248:3: note: inlined by function 'setup_node_to_cpumask_map'
+>     248 |                 memset(dst, 0, len);
+>         |                 ^
+>   include/linux/fortify-string.h:462:25: note: expanded from macro 'memset'
+>     462 | #define memset(p, c, s) __fortify_memset_chk(p, c, s,                   \
+>         |                         ^
+>   include/linux/fortify-string.h:453:2: note: expanded from macro '__fortify_memset_chk'
+>     453 |         fortify_memset_chk(__fortify_size, p_size, p_size_field),       \
+>         |         ^
+>   include/linux/fortify-string.h:430:4: note: use '-gline-directives-only' (implied by '-g1') or higher for more accurate inlining chain locations
+>     430 |                         __write_overflow_field(p_size_field, size);
+>         |                         ^
+>   1 warning generated.
+> 
+> In this configuration, MAX_NUMNODES is 4. clang unrolls the for loop in
+> setup_node_to_cpumask_map() past this, which triggers the fortify check
+> when accessing node_to_cpumask_map on the theoretical fifth loop
+> iteration because it would be an out of bounds write.
+> 
+> Make it clear to clang that nr_node_ids is bounded by MAX_NUMNODES due
+> to the logic in setup_nr_node_ids() by early returning in
+> setup_node_to_cpumask_map() should that condition be violated.
+> 
+> Cc: stable@vger.kernel.org # all applicable
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2174
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+> This is based on mm-unstable due to the move of arch_numa.c from mm/ to
+> drivers/base/ living there. I have CC'd stable because this warning
+> appears in my testing back to at least 6.1 but I see no reason why it
+> should not apply to all trees. No fixes tag since this is a layered
+> problem that just happens to appear under certain conditions.
+> 
+> Another alternative would be using the __assume macro to say something
+> like
+> 
+>   __assume(nr_node_ids <= MAX_NUMNODES);
+> 
+> but that seems a little more fragile.
+> ---
+>  mm/arch_numa.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/mm/arch_numa.c b/mm/arch_numa.c
+> index 442ea239bba7..bd7772b05bcf 100644
+> --- a/mm/arch_numa.c
+> +++ b/mm/arch_numa.c
+> @@ -105,6 +105,18 @@ static void __init setup_node_to_cpumask_map(void)
+>  	if (nr_node_ids == MAX_NUMNODES)
+>  		setup_nr_node_ids();
+>  
+> +	/*
+> +	 * This check should never be true but it makes it clear to compilers
+> +	 * that node_to_cpumask_map is bound by nr_node_ids, avoiding false
+> +	 * positive fortify warnings when accessing node_to_cpumask_map in the
+> +	 * for loop below.
+> +	 */
+> +	if (unlikely(nr_node_ids > MAX_NUMNODES)) {
+> +		pr_err("nr_node_ids (%u) is larger than MAX_NUMNODES (%d)",
 
-This silently corrupts /proc/allocinfo: allocated pages get attributed
-to the wrong call sites, so the statistics it reports are wrong.
+Sashiko wants a \n there.
 
-mem_alloc_profiling_enabled() and mem_profiling_compressed are
-independent. Once compressed mode is established at boot, it stays
-active regardless of runtime toggles of mem_profiling.
+> +		       nr_node_ids, MAX_NUMNODES);
 
-Remove the mem_alloc_profiling_enabled() guard. On overflow, shut down
-profiling, release the reservation, and return -EAGAIN so that
-layout_and_allocate() retries with profiling disabled: codetag sections
-are then placed as regular module data and the module loads without
-profiling rather than being rejected entirely.
+Lord only knows why nr_node_ids is unsigned but MAX_NUMNODES is signed.
 
-Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-Cc: stable@vger.kernel.org
-Suggested-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
----
- kernel/module/main.c | 25 +++++++++++++++++++++++--
- mm/alloc_tag.c       |  8 +++++---
- 2 files changed, 28 insertions(+), 5 deletions(-)
+lgtm otherwise.
 
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index 46dd8d25a605..ed26f167be84 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2944,6 +2944,7 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
- {
- 	struct module *mod;
- 	int err;
-+	unsigned long frob_size[MOD_MEM_NUM_TYPES];
- 
- 	/* Allow arches to frob section contents and sizes.  */
- 	err = module_frob_arch_sections(info->hdr, info->sechdrs,
-@@ -2966,18 +2967,38 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
- 	 */
- 	module_mark_ro_after_init(info->hdr, info->sechdrs, info->secstrings);
- 
-+	/*
-+	 * Save the sizes reserved by module_frob_arch_sections() so they can
-+	 * be restored if we retry below.
-+	 */
-+	for_each_mod_mem_type(type)
-+		frob_size[type] = info->mod->mem[type].size;
-+
- 	/*
- 	 * Determine total sizes, and put offsets in sh_entsize.  For now
- 	 * this is done generically; there doesn't appear to be any
- 	 * special cases for the architectures.
- 	 */
-+retry:
- 	layout_sections(info->mod, info);
- 	layout_symtab(info->mod, info);
- 
- 	/* Allocate and move to the final place */
- 	err = move_module(info->mod, info);
--	if (err)
--		return ERR_PTR(err);
-+	if (err) {
-+		if (err != -EAGAIN)
-+			return ERR_PTR(err);
-+		/*
-+		 * -EAGAIN means profiling was disabled but the module
-+		 * can still load without it. Reset state and retry.
-+		 */
-+		rewrite_section_headers(info, flags);
-+		for_each_mod_mem_type(type)
-+			info->mod->mem[type].size = frob_size[type];
-+		info->sechdrs[info->index.sym].sh_flags &= ~(unsigned long)SHF_ALLOC;
-+		info->sechdrs[info->index.str].sh_flags &= ~(unsigned long)SHF_ALLOC;
-+		goto retry;
-+	}
- 
- 	/* Module has been copied to its final place now: return it. */
- 	mod = (void *)info->sechdrs[info->index.mod].sh_addr;
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index af44f90379f2..0a7b657fe2de 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -950,10 +950,12 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
- 		int grow_res;
- 
- 		module_tags.size = offset + size;
--		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
-+		if (!tags_addressable()) {
- 			shutdown_mem_profiling(true);
--			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
--				mod->name, NR_UNUSED_PAGEFLAG_BITS);
-+			pr_warn_once("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
-+				     mod->name, NR_UNUSED_PAGEFLAG_BITS);
-+			release_module_tags(mod, false);
-+			return ERR_PTR(-EAGAIN);
- 		}
- 
- 		grow_res = vm_module_tags_populate();
--- 
-2.25.1
+> +		return;
+> +	}
+> +
 
