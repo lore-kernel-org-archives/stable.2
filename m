@@ -1,78 +1,47 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EDAB419FCB
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:46:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9605418A5D;
+	Wed, 12 Aug 2026 09:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786528006; cv=none; b=saUYcqO+6iHtfkj9iOKX2gNIsGIoCdc6yTA8zTRmgWk6I57Po0aRc//qFvWyrLRV8gTR+kwD/kSp16bSq955KbJNnucw5XPcDdp9o8TnwF5DDmikg3haAZV/ZonagIxmXC1R7WOa9R5UU5X9AQ1q4V6AHptI5dSF/FJnb8tJvCE=
+	t=1786528032; cv=none; b=QCbPARzJ7dNAI5Rrj44ka2etpFMh+SAv2AaCparQUyEjzLVbYyczSDoLI8Gpdpa/nbMCFGmFuu9yEmuzdeEWziPyq/d03UU+CUCJukt6e23xogniMQbiNPM5FE9ro8ktqCRaTTYm0v+D4ByWme0AlOyranV+qMdWB6cUyEnU49s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786528006; c=relaxed/simple;
-	bh=fmRq3OUJCI0HOwd9Tp5He8EsVLoZ/GIvCjkdw7TRQcE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PS8ia0apySwrdCX63pcCrebfVVrK1vn6g9YWzIGsD+KhFOhIYRmr0xKyJtLX0RadcguOj2V3CcsJaG8Pt8PvGUcdIRmy4hrOQ5/y5ZT1H7wbSbzdibUe8GABJ7b1ADlVhUmgOfJSX3uMKLfzAeWY9ZWLRgMvYrVCMvFuO1h6Vq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gE9NLlsI; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786528032; c=relaxed/simple;
+	bh=B0xcHHKe27nBRZEA1Wx6aRYhLvhQNqvldh6mm5506rk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L0dgDa8suUUof0ej2V60hI5lVZWvRi9gMdPrNpGavExp3GcUe+T4I6z8c6BP93nxXXSV7SY7wUEj+Slu18XLC6xQrNFv0UW6m2tpYeca1MfyuzwleEzouRLyS2EU2yY7GcQ5Hfsledp3iuy8q4kqyQt8dLKke+W66RjA9Ppdubc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=hWLU9zAU; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gE9NLlsI"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-ca00f126b7eso535084a12.2
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 02:46:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786528002; x=1787132802; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lzbbraV1K3+6Tojc98ovuLlmriNG0/xql/GJKFiqTC8=;
-        b=gE9NLlsITE48tTR1mnGp+xuYiOhAy8Gdl2rRcgKUVPh3CK6ANOpOr4Mc/mM80iSfyo
-         FQzK98bZBGKQrn6kaMAao0n9m7LnNJigr+hbuNm/m0oYcvy3GkbBeF4YvBQgSriUpMQM
-         OVbVIckkqNeO+K02lqF54AdqC3LHOYtig0r8h7WzyJedpPXbkZP8A/e7ezHEmIwe51qi
-         yOSNSMxJ3ILPqYkhsLbNbDIxQ3za9O7WJecoonMzjiByP1QBiJcmRawtk+Fxu+JZ9fGr
-         dgOPt+K1aYIKZCDrzB1jFp8aST7lXKT9qYeHHs8UsXKOzB714tvt2f6r9yeA+n2qU6Iu
-         Mqyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786528002; x=1787132802;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lzbbraV1K3+6Tojc98ovuLlmriNG0/xql/GJKFiqTC8=;
-        b=VrUQTuIRkBUro9iGXPRg1IotgnqqxgOqYLUXqAr646bzeK2l8L3/9B61YT4f4QwHWI
-         gC7T+9IzoaqxTcUXsuCSyinFYZR5I+yqTnsiv8AYveZIJCLeY9SRAGOPXQlUu0UlVoZo
-         LvqIhKcQiGsdRG6+OV3ZrEY0BO+LocPtTpJvSre9qQihXe+IG/oNEPAQZHK6auKjtWW8
-         qdqNmYGWJQsMa90X2C63YorOfoQ95CUXtGBhHzMNJVB2V8QVX+IF82InbuwteaF1toom
-         mLZU+YXnr+WdVBt+wt/EouuVW4krLKTdYDgbB3AXOK8ftoJHWrGDcO0f0Furh4NpDV3t
-         eLjQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrmaKXAC9xLZh/HOA+1oKp7NVUirjXwZzciAE5D18Zy5XxKtwkdinvISK+Oe65nxau3ezXCAAw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw17AQX72abVyzvcF2S6CdYJXo+418E6XECkgyrLUXC9ykEu3RU
-	pYtAGqQ6KGdKb5EqddmE+iea2q6cVI2Cc/NzT3wwKUXj69yZj4rzssJ35ccfa/OlX4I=
-X-Gm-Gg: AR+sD11spyRRQ6oSkhv2MDd2xM2CZ9WXPiscD8CPo2pEZ41San7mscs5KDP8xpgt3kK
-	hCaQxRsLdLHU1J2O0bVKKcMb5y5FV93DnVtUOt6QfzZ752UaUcenLYyBgyDZJ0ieci4VFobYGjz
-	fwRra55x4uAg7/WXocDONihaeLiviRrZNutxcF7kDS9s7HsDoVE4DPP45V5AyZZ28H6hgEiF2aL
-	iLm1nwJ56PwobNRWNmWPbt+qR8EA7OneEDnnm3OH1kPERJuBNDCxi7RFZyoRdZdhTIOkISeXb98
-	9qjIwFOIJxa38FOMluQIgvrETlO3Appo9q6jd2Rr8vmsOydO28Ki7UqVMrzfprvO28oSpziokI4
-	x9YGllBXh7PnQW6d63mWg7Iwui3m7q3LePE3b2PUovnFEB1ktWL8UyWaRV/PiNQXRrJSS1LwlbK
-	UJBcEUT8Mrp7dFCYv4Tq7GGSw+c8TMn3DEIqtgmqEFbhE=
-X-Received: by 2002:a05:6a00:4089:b0:848:2ae4:d2ba with SMTP id d2e1a72fcca58-84fb555d354mr4174309b3a.28.1786528002311;
-        Wed, 12 Aug 2026 02:46:42 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbee797c4b0sm424557a12.1.2026.08.12.02.46.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 02:46:41 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Robert Foss <rfoss@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Wolfram Sang <wsa@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="hWLU9zAU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1786528013;
+	bh=8MVPi0XBjoc5Tc+HMC+mk03uFoGDImFmSLFyLytxGtw=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=hWLU9zAU1EgiWBSpRiMshaLMr1x3ReVQhtoM5Z1JUIryHLDxSNa+LryivBIu2V1tr
+	 Wo83JtS7H1n4HVR/izOzNd/gCdT6nKd41ppdRxNqOObpQ05I2ywpT/SK+DKj1I/LVt
+	 OQmipm3kgaazs9pYV8FcgaqyhoewL1h7rHxFKO50=
+X-QQ-mid: esmtpgz12t1786527995t2e6be267
+X-QQ-Originating-IP: gAH8PLOuktySRyqaoaUXnTt5xqfYt8BF3s1uagy+0uc=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 12 Aug 2026 17:46:34 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 10804165861698727362
+EX-QQ-RecipientCnt: 6
+From: raoxu <raoxu@uniontech.com>
+To: heikki.krogerus@linux.intel.com
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
 	stable@vger.kernel.org
-Subject: [PATCH] i2c: qcom-cci: fix autosuspend cleanup
-Date: Wed, 12 Aug 2026 17:44:25 +0800
-Message-ID: <20260812094425.3515179-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v2] usb: typec: hd3ss3220: fix VBUS regulator error message
+Date: Wed, 12 Aug 2026 17:46:32 +0800
+Message-ID: <7A42A287B2B588D0+20260812094632.348581-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,68 +49,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NVu/uN2EcufQu0W7q8DxzJPc/A60aSUoXUnLq7GOSBssoeeaTNOCt10z
+	RZSaVuRIrmTroG13ktuYCIh43tklmXGGtEN94W+pdGIiv8k2IMca2Rcd1tLg45pAyQJ3TPh
+	s5Q+Lo7h9f+l/+G7Sn9sPjC+dr601HbksCGxPm1lRjQFNlyuM2u4OVSlrOeTLCrLhQN/nSr
+	w+iiEH7LOa2sJKmS+cVIC8wwUlSiJJrfCPQUkv2fPQnr9bneuLXhdaIKv/MwCljed7FD27u
+	i/FOStLaN8sUSWUfA8y3nT/nFPMyYUzhYzZq6PMYuqml5yi8+XjaeljRSe9iYk/OfmSBRGK
+	bMPsFjVWeQUO40Jw79YdjaaajWNkP5HYvKSWebjongaV36ZEml45rZLoDR+UhjbCOgvSfcc
+	Or3nVQyCQqazYmGDDg61GdDrU+SZXheG/q08VQ9Ubm4+WsTfukBVI1WwE52bLUecUMf2OXB
+	l+TIvbn79UwvJxcCBlDchEL3Qf+glK+jhuNucfXBB7sR0fApQSK00YtrhtghNi6AkqTHema
+	gAdU4pNelkvn2o17n09E+ZrHSDXU2ywyv0sycBGZ2+ep31ppAgpjbrdw2OVtHLFiZVdRgwH
+	M/eJeeXn1tIZk0B87/SEh3H0yZLyZV6glOVMgaeVJSlF/W0suQ7ZQpZDmgKctBtEX1+5BFM
+	io10K50FILObc4fbrFnzn/T2IAREbijd5iuLPCHSWZpt5n55kYSO3aGGGJqWCq7v9HCY03C
+	7O9HTdMC782SjpZCJ43G7Ep1qkRUV2n0b50WuooYLsn3VHFLXaU+BGAFueN3e+VEenPfIZV
+	7BO9BH+bpD7y24TMN4Ei/eC7xwS1rxKxOkhg7HnJji/vu7bAcRNimh/XdxYHoRJwE7D0BB8
+	nOg7rTneqcBK4flGcN5974P96F5xfSXjTOIrrLbPTBzctjcuR2C+GdlR9hQpad/u1RfWq8W
+	dD9jsxjY+f+2Tlu96NHhgGoEO1SSDBKSm15EUKU3UikgqlXg+T6H5l47xQbON+3Rgwvp9yJ
+	PoCJlDirF6EF6vJ6dWaXvdB6RXwVuh/IP1e256q1aQWvnHY5E/feQi7TM4gZDAlKW9NXLwA
+	gpIDro6266UrI57M6GJrER8WJORRnui06efd/Diz7er
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-cci_probe() calls pm_runtime_use_autosuspend(), but the remove path
-does not call the matching pm_runtime_dont_use_autosuspend() before
-disabling runtime PM.
+From: Xu Rao <raoxu@uniontech.com>
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without undoing the autosuspend setting during
-teardown, this reference is not dropped and usage_count remains
-unbalanced.
+hd3ss3220_regulator_control() enables the VBUS regulator when @on is
+true and disables it when @on is false.  However, its error message uses
+the opposite operation name, so an enable failure is reported as a
+disable failure and vice versa.
 
-Use devm_pm_runtime_set_active_enabled() to manage the runtime PM
-state. Its managed cleanup disables autosuspend and runtime PM and
-restores the suspended state on probe failure and driver removal.
-Remove the now redundant manual runtime PM cleanup.
+Print the operation that was actually attempted.  Reporting the opposite
+regulator operation on failures can mislead debugging of VBUS problems.
 
-This issue was found by manual code inspection.
-
-Fixes: e517526195de ("i2c: Add Qualcomm CCI I2C driver")
+Fixes: 27fbc19e52b9 ("usb: typec: hd3ss3220: Enable VBUS based on role state")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
 ---
- drivers/i2c/busses/i2c-qcom-cci.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+Changes in v2:
+- Add Cc: stable@vger.kernel.org as requested by Heikki.
+- Add Reviewed-by Heikki Krogerus.
 
-diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index bdeda3979c48..25b6e4e9e3fa 100644
---- a/drivers/i2c/busses/i2c-qcom-cci.c
-+++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -595,9 +595,11 @@ static int cci_probe(struct platform_device *pdev)
- 		goto disable_clocks;
- 
- 	pm_runtime_set_autosuspend_delay(dev, MSEC_PER_SEC);
-+	ret = devm_pm_runtime_set_active_enabled(dev);
-+	if (ret)
-+		goto disable_clocks;
-+
- 	pm_runtime_use_autosuspend(dev);
--	pm_runtime_set_active(dev);
--	pm_runtime_enable(dev);
- 
- 	for (i = 0; i < cci->data->num_masters; i++) {
- 		if (!cci->master[i].cci)
-@@ -613,8 +615,6 @@ static int cci_probe(struct platform_device *pdev)
- 	return 0;
- 
- error_i2c:
--	pm_runtime_disable(dev);
--	pm_runtime_dont_use_autosuspend(dev);
- 
- 	for (--i ; i >= 0; i--) {
- 		if (cci->master[i].cci) {
-@@ -640,9 +640,6 @@ static void cci_remove(struct platform_device *pdev)
- 			cci_halt(cci, i);
- 		}
- 	}
--
--	pm_runtime_disable(&pdev->dev);
--	pm_runtime_set_suspended(&pdev->dev);
+ drivers/usb/typec/hd3ss3220.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss3220.c
+index 3e39b800e6b5..d0de5a2488f9 100644
+--- a/drivers/usb/typec/hd3ss3220.c
++++ b/drivers/usb/typec/hd3ss3220.c
+@@ -218,7 +218,7 @@ static void hd3ss3220_regulator_control(struct hd3ss3220 *hd3ss3220, bool on)
+
+ 	if (ret)
+ 		dev_err(hd3ss3220->dev,
+-			"vbus regulator %s failed: %d\n", on ? "disable" : "enable", ret);
++			"vbus regulator %s failed: %d\n", on ? "enable" : "disable", ret);
  }
- 
- static const struct cci_data cci_v1_data = {
--- 
-2.43.0
 
+ static void hd3ss3220_set_role(struct hd3ss3220 *hd3ss3220)
+--
+2.50.1
