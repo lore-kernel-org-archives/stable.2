@@ -1,155 +1,148 @@
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF8838CFE8
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 19:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786564653; cv=pass; b=f8cKj4L6GdXtKnfjGnL6RInM+No2UXHl1B6tvHlip1bCBCg//eiFTYtfyp53vFG3/CRgyAyLCUMCi8P46h7tqZi8UknPsjpH0qPwBI3IhKJMac3INmufdu73TUwdewzixrx9/1KmUn7xQo+GoevtgVbrGepCfC67IoZHNFgElQs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786564653; c=relaxed/simple;
-	bh=InB0UYCM2KDM4g4PRBtwGR91Ve9yekZrRHjDpPJaqF0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VjplFJa6yhz8JeOjtnHVXdjKvceAT79M3U6QIf6yWaciQ1IZdGp69SXRqnApNKvQwXuwwxfpBcWv98yRjJxCoKOSLtvX+AQs3t9QABK8DRJAhFFk1RaX/ky5ZmOwpilVrvENgxDAGJQdrIofI/Px3zizC7hzxF10cYseYB7VGJY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EXP6a69T; arc=pass smtp.client-ip=209.85.217.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FD03793B3;
+	Wed, 12 Aug 2026 20:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786564977; cv=none; b=KuxZk0QORVtOy5lRFKgICvbCoOsV4NsGotDrP5mRwbXHTYMLZ9f5QrtYMds9qJyQk1+oigqkonUuklOHLX/frad59H/IE2e2tyC/GjWdS8j9TerFNCZ5RYWlzHiHGXXazAl+IIzyVoyjBy1/YEQX3AK4HPDOCbZAXKZwTp1kgec=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786564977; c=relaxed/simple;
+	bh=hAk5VFZTgMbDNPLe+AA+zMf0YOhx4PJoLsGEtIiKUxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P2zObodfdrz/R+wVRbbnAnGg5vOkbPqVoqaucv1MeesaiWcxq6/qE5KRp+giec3V7u1eqQr2sh8OtdRdScg6ryhY3bkhz5mPxm8E1wggZcEIlJyyKKCpVroeX4KhdU0ghrG283keW+RzUKaDxyQtCzMm7WliJ2LIfyADyVGcJi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=HW/fE1EZ; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EXP6a69T"
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-76b3036d2d4so657730137.2
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 12:57:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786564650; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bo74RnmC+YP6q4ica64tD64GPrJpOJ6a8+XYrfBM4aUGV/uAt0Gx8w4VfgDTBf5QvO
-         3yVujgGqGiKZZZ9n8sKOgWGRbQ6jy+ZaqnlGl+ETymK7fIs8LC0iBCRv1LLmAUBP/DZr
-         mcfl1164xiyxkB1U11TUSQiIUCCtdmLTT1bE4ddOyit9IxKbvRo91ms7usLcva+Qe9Cc
-         GOyvgXsdRQBLkrL2NGCRMREAr+82fdAGTyTCdXVw+mhi6u9iy2DmdMA1Y1GFDo9N8K45
-         nBr20BF2eoqQNLVwpCGMq0d2/Kz2mfQ/cZjMNwa6YxYECo800TDOJ0yGFytkcSvr9ef+
-         2F4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Qd1nK7r6I3PGybOeP4cxvy0VcaUriRACVPreKIcrr7g=;
-        fh=jy9sTlX/aV0viqkk+55NjP3pxiEiQ3sIzzJUbNtkfhw=;
-        b=pmUtUp3ESjGWcfzzukE7olclYCVvc0HU3mwWf53Hd/5VHfteoQVSAF0rRNqoBxkG8+
-         kJTAT7Z/KbzypwjKeGHnMjFGqa37CGC4ulr35A5rAeVGVovdzYZJtadwxiS4umpb9Xbl
-         vHYtTcZeY9USzcQpRYsRNjye6T54WvGnzjFMQTTYZwcdp3JzuKSzR6h/MriI+S7LTis4
-         xNzNkiBK5sqU3YBfirVHejyfyVOZCJ31QYcRyDo4h15+2encxgvSbaos9pVNC+eS88az
-         y53OWOWk5uUHbgXL4ZI0I8nXzoq2TgUqDTEpwF7MgY7H5WBNOAho/DYiZE1QJ9tEUEhZ
-         jnWQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786564650; x=1787169450; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Qd1nK7r6I3PGybOeP4cxvy0VcaUriRACVPreKIcrr7g=;
-        b=EXP6a69TtJDolOgiRrubUDGucwFHO/nu7qttvGCXhPYwLBs9vk4ssI0ByedQosfbGp
-         UvROVEyFr9MxiRTTTz24EFVXAPQMqzAmNbkbBcsUpEQNjLa6bfcJaMLmnIIZPUA2qvz/
-         0EpOKp5x6TJXkyekDATqpslFtbZYV0uJRVBV8xzoct6UfT68ZjtwGv4UXXcp6Mcw6s3n
-         OL2pnTBgMlw0w/t2WCh3Irb1p8Q18ZsAx1ROXH6irVR+1CX0x5wbOxKG5EAw9AYlzlzP
-         PJYbNd1TvxKLg6TV+Mw1OTCSWoMv9JUat5PBqPTSZepeB1GeO/E7XeG6QQFR+8ntBnto
-         UD8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786564650; x=1787169450;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qd1nK7r6I3PGybOeP4cxvy0VcaUriRACVPreKIcrr7g=;
-        b=l+N9vyiLEOqiCLM2iKbJGN9qO9Edy2mVmag9TRKgbntyfFD/H+tuBiSp4DVeianvVy
-         MsdUaVZyjadjcUX+LUC4dfFmjMxDWr5VOzwQRXgbwA9l+dN90y1IysHSDOQGoPdWrmhM
-         Dyrl6fVz9Ut0mW2LpLoSv/kc4JoZgjSrL7d7IHDswGnoX1ENHDsELvF2amRte3iXN9+q
-         RF6TIqGQjKYGZq/M8gIKSxS8n6IzZMZAak9LXmwlzLMN6syzDfLGZWPx3W9DdVYfjTnT
-         IFytZ1G/P14U9QszsnCf0xsmgm5MZRzndhHe4VZXsfGJ3Tvb1dgUCaXgf3lLZjUms9oR
-         s4rw==
-X-Forwarded-Encrypted: i=1; AHgh+RoiZGJ0B0Ayk60L3dpNw8tztEP2wmGZkQY1e49nwXrFFG9DKIWa5JCTEthHJJXKF/4YyyIlWQU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwVxEnsUL7WKq8fj9ljzAPVNg9BCLQPZzdtEPFBKVf3wxoLVxWO
-	hTE0rUBqjx/YPOYwkLuEVB8oV+KLrNlFdW6XhxQfaUI9iIjn9fkwnXFpJbfYIi18F9xJ8KCRo0O
-	JbeWKMJk2+vj+ItTEB4Xsyg0H5vEGMM4=
-X-Gm-Gg: AR+sD11n7Fa8gsBbjjXYmljrK19S1pk5G5U0q4seUwSobtUM4S+75WLWgf95ULZ8Ccl
-	JVLf8s7vZkOJYhZhclRzC8mXoOpDDBEZzfz9oXw3EP9hFCnBLNL+BFuPWSVhZInv5Ke02I7VuxH
-	MY6OMKPu8Pr/sr3LvG3R4OQrENxD9Pi0YTfR8EqmJYQbLeeBVN8lJSPBCkv3RmPV8JYFTI+4GLT
-	fhHvo9wK1UD0tzUR+nz651nIbFoCQdpeuktS8lP8IftjoeM5gpGKno5XhBpOJC/KubaAegFmAAn
-	jav/dzcn1jM3hmXdymQeTCVfxkj1DhZJgf2N17p5cFflOpQo+XH8OqPQjhA1tUOY+guvzCGmx0P
-	nXA==
-X-Received: by 2002:a05:6102:2b89:b0:745:1c72:cf72 with SMTP id
- ada2fe7eead31-76db7e94346mr273467137.13.1786564650214; Wed, 12 Aug 2026
- 12:57:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="HW/fE1EZ"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CK2mdE196976;
+	Wed, 12 Aug 2026 20:02:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=+1ReYvhFvHs/C9ZAt
+	kBPmRv/N1oXc4R/xDf8I9N/tjo=; b=HW/fE1EZbnS0QK3JVGwUfzxaVwnYpqtpW
+	9oCdFQtCTjpRA8no0N0ty1ffg9/XATqoqEMN1pxT3CEe9gIwp7kubQttNbF80Hgs
+	w+VlseTjD9GFttRoSWUUubcqEVFlmNJOev/1Prkwsi/9JAwNlnPTt8DAvYTaSbxS
+	o0MYsC5TiCStQi0wnJP9Z6X+Y/N+i2YQyrnKobgnzjLZ5QBITFp5sxVOCf6x3405
+	DAbAgUX40qq7xLutcknVPAWdgv+cGcSH+Kxf8B8YIXgXJhrqp8r0DLXta9yzq2eN
+	lZUQMbLYPV3aZ8VTUpsw2yF5rMMte2JKntwFhdWTWeXmQxTanHVLw==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvp33kga-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 12 Aug 2026 20:02:48 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67CJuJF3029536;
+	Wed, 12 Aug 2026 20:02:46 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxg9h7r3n-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 12 Aug 2026 20:02:46 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67CK2ioF23986724
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 12 Aug 2026 20:02:45 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BFA9C58045;
+	Wed, 12 Aug 2026 20:02:44 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1AE8958052;
+	Wed, 12 Aug 2026 20:02:43 +0000 (GMT)
+Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.9.29])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 12 Aug 2026 20:02:42 +0000 (GMT)
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
+        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
+        gor@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH v5 1/9] s390/vfio-ap: Fix stale do_remove flag across iterations in vfio_ap_mdev_cfg_remove
+Date: Wed, 12 Aug 2026 16:02:32 -0400
+Message-ID: <20260812200240.818004-2-akrowiak@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260812200240.818004-1-akrowiak@linux.ibm.com>
+References: <20260812200240.818004-1-akrowiak@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727014745.1304657-1-zhanxusheng1024@gmail.com>
- <CAOi1vP-Ba2=Gd3_wtH0g9yfqB6xJVstjarsmUhXj7WGXedqGBQ@mail.gmail.com>
- <CAKPOu+8Y35cfhz5gqus18-HPLoVMiSWF7cVXVbyn6GmdJA3Z6g@mail.gmail.com>
- <CAOi1vP_oJC73d48w_qJaxtxrX-mVMYip3-rg-iYoHwHn6Tz-FQ@mail.gmail.com> <CAOJNxRK7F5vij-tw32+UjPztbzLX3zdhhD+Br9voD5wwQSANdQ@mail.gmail.com>
-In-Reply-To: <CAOJNxRK7F5vij-tw32+UjPztbzLX3zdhhD+Br9voD5wwQSANdQ@mail.gmail.com>
-From: Ilya Dryomov <idryomov@gmail.com>
-Date: Wed, 12 Aug 2026 21:57:17 +0200
-X-Gm-Features: AUfX_mz78KT2Pxu-FZVbg-W3PDMj5g_4TwUllzYisPa0Uv1biboX1e1ncUZkZx8
-Message-ID: <CAOi1vP-xdpg8KFiW93bhwtP6+8f5DB961afu42bebii5SQ3cNQ@mail.gmail.com>
-Subject: Re: [PATCH] ceph: use the mount idmap for the owner checks in the
- SET_LAYOUT ioctls
-To: Xiubo Li <xiubo.li@clyso.com>
-Cc: Max Kellermann <max.kellermann@ionos.com>, Zhan Xusheng <zhanxusheng1024@gmail.com>, 
-	Alex Markuze <amarkuze@redhat.com>, Viacheslav Dubeyko <slava@dubeyko.com>, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=AMtp2X5w c=1 sm=1 tr=0 ts=6a7cd168 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=dlTjfeu_wqJGreSUTgMA:9
+X-Proofpoint-GUID: mLcM70LTmGXiMsyNF6rt1AQUTj3QJ_HF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE2MSBTYWx0ZWRfXyUpsr5whaLPB
+ W7MLN8JOr9lPcVL06NC5hAkvRTaJSj6moBTm9OWN9jQc18trnMgw9kZnGN80vrfew1pcMvdkjBK
+ kNARC2fRQtRgwVv+HDK3ME/v/SknEQ8s6R2Sr1CItmymT85ZX5L1QeXjOxylsv0z0yNtDHhNgkx
+ T9zmQh7xmSWmHSLLm8FY4eIM8IGyC3ugpG27+L2ggd5TAvKB6JARG2GWvr/dJlHs0pY3VkyK2Sf
+ 0MXqy7MWYDb00lGFAdjbyP34rLu6D8vsqZ221zxxUv7xvf+553xjkPpl054lCbSQNDtdON/tqCG
+ gDSUBid5eBC438SUGEVggpvcsERiaHmKwzi+EhkPY9yY9/2XV9qcuaki+R8cu9DsxykV7h8KxPl
+ F9/7Mi39V6ikp37LVax305UVRUUcgldzAgLnmK4TporMvDCweBBw3u1LI+X+scoClnWaPjudXof
+ BiRw9NVjsZmmU08Yp1g==
+X-Proofpoint-ORIG-GUID: mLcM70LTmGXiMsyNF6rt1AQUTj3QJ_HF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE2MSBTYWx0ZWRfX/2GDlNa7lT1M
+ 3vkWPA/kdLzarsD5kLZzmJgyid1ESGZPReB+3hvyLB9tgH+NIU6M7E4Qs0Ddkj6nij+WSfeVxon
+ OnuX9JhFpYz9vDXZrZroIwTA2ziQ4A0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_06,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 bulkscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608120161
 
-On Wed, Aug 12, 2026 at 1:32=E2=80=AFPM Xiubo Li <xiubo.li@clyso.com> wrote=
-:
->
-> Hi Ilya,
->
-> I'm not sure why I couldn't find the original email of this. I checked
-> the changes on lore.kernel.org.
->
-> The fix looks correct to me.
->
-> On an idmapped mount, using &nop_mnt_idmap compares the caller's fsuid
-> against the unmapped on-disk uid directly, which would wrongly deny
-> the actual mapped owner and potentially allow an unrelated caller.
-> Both functions already have the struct file, so switching to
-> file_mnt_idmap(file) is the right thing to do.
->
-> Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+The do_remove flag in vfio_ap_mdev_cfg_remove() is initialised to zero
+before the loop that iterates over the list of matrix mdevs, but is
+never reset at the start of each iteration. Since do_remove is
+OR-accumulated across iterations, a positive result from one mdev
+carries over to subsequent mdevs.
 
-Applied.
+The fix is to set the do_remove flag with the first call to bitmap_and;
+for example: do_remove = bitmap_an rather than do_remove |= bitmap_and.
 
-Thanks,
+Fixes: eeb386aeb5b7 ("s390/vfio-ap: handle config changed and scan complete notification")
+Cc: stable@vger.kernel.org
+Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+---
+ drivers/s390/crypto/vfio_ap_ops.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-                Ilya
+diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+index 44b3a1dcc1b3..845c86ba8bc3 100644
+--- a/drivers/s390/crypto/vfio_ap_ops.c
++++ b/drivers/s390/crypto/vfio_ap_ops.c
+@@ -2603,15 +2603,15 @@ static void vfio_ap_mdev_cfg_remove(unsigned long *ap_remove,
+ 	DECLARE_BITMAP(aprem, AP_DEVICES);
+ 	DECLARE_BITMAP(aqrem, AP_DOMAINS);
+ 	DECLARE_BITMAP(cdrem, AP_DOMAINS);
+-	int do_remove = 0;
++	int do_remove;
+ 
+ 	list_for_each_entry(matrix_mdev, &matrix_dev->mdev_list, node) {
+ 		mutex_lock(&matrix_mdev->kvm->lock);
+ 		mutex_lock(&matrix_dev->mdevs_lock);
+ 
+-		do_remove |= bitmap_and(aprem, ap_remove,
+-					  matrix_mdev->matrix.apm,
+-					  AP_DEVICES);
++		do_remove = bitmap_and(aprem, ap_remove,
++				       matrix_mdev->matrix.apm,
++				       AP_DEVICES);
+ 		do_remove |= bitmap_and(aqrem, aq_remove,
+ 					  matrix_mdev->matrix.aqm,
+ 					  AP_DOMAINS);
+-- 
+2.53.0
 
->
-> Thanks
-> Xiubo Li
->
-> On Sun, 9 Aug 2026 at 10:33, Ilya Dryomov <idryomov@gmail.com> wrote:
-> >
-> > On Sat, Aug 8, 2026 at 8:31=E2=80=AFAM Max Kellermann <max.kellermann@i=
-onos.com> wrote:
-> > >
-> > > On Tue, Jul 28, 2026 at 1:31=E2=80=AFPM Ilya Dryomov <idryomov@gmail.=
-com> wrote:
-> > > > Was there any specific reason you used nop_mnt_idmap for these chec=
-ks?
-> > >
-> > > No, I copied that check from another filesystem, probably ext2. I had
-> > > no idea what this parameter means (and I have never used idmappings).
-> > > I guess the amended parameter in this patch is correct.
-> >
-> > Hi Xiubo,
-> >
-> > You reviewed Max's "ceph: add owner/capability checks for
-> > CEPH_IOC_SET_LAYOUT*" patch.  Would you be able to review this fixup as
-> > well?
-> >
-> > Thanks,
-> >
-> >                 Ilya
