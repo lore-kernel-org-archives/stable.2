@@ -1,160 +1,238 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A2F4854E1;
-	Wed, 12 Aug 2026 17:10:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637A9364940;
+	Wed, 12 Aug 2026 17:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786554608; cv=none; b=IXl+mwllR/ZNzkU7ZycphtFTwb9W5lx2T4gIv3eNPjthZerWH3JpR2Eq7WVIglDVl5cABhIuqgAwivLk/gHeqNCmQ+H/x5E3Z+adfXG3Xj1WSbtxLsemGJtnPRIY4XBiaEg1Qor80EX0GcpDJdIDJdvoFKXcTuGj8iV1v4EeDrY=
+	t=1786555155; cv=none; b=dkNpIjjrXmeM3LKoxR7E3v2Gs9D9ZXpbn07Ou3r46rUhkjaX8rTxGj/PNjMn5E6Y+J2wLOQeKcmS0tekJK62ZJOCilYl6jh+DGXAOX1/h1T/6UIKxCA+WR1KFpjz5cVtrazWXR8c6VZy51df/G7cGMabs0BZ6J3Qigg0+1KB7Rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786554608; c=relaxed/simple;
-	bh=LvcESi7r4phfMktiGhYDeMseRSCC8mk9Ng5I7F8w3PU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p1H+aNBXTrEo5YawyK2fUro4c9iHwxlZzeugMbiksxV/QRdBuff8/DGOBMpHcHYbdoKyADl5kSyvmSrudZWDQ2PVJtrs4PUdC13QvLG6HdyG+YwtzwlxbEzHRjv4W78yAj2/OQ+F1HkuNH8PoEpUw2FUtMo5AETSvRZvvx0b2mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=QaH8XDSE; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786555155; c=relaxed/simple;
+	bh=3YS1ZusdevBjmCTpSmFn4Qq/Zn5sapQpJOUo4zcMDVc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RkmCLTuu5SDcDaf08lh777TgqCX9BkVcqDw6B7/hm19yL1eiknjK+oR0gvxVbb2VCJbYzdGH9UcEBdGQ6Df4j8qRkkDV6atdAkoq+ysr58vR+sIOumAmSNB6tlxbRJu3+B19amX6HIHdM49jYUbYKvNiliEj15BHfAg5kLEK0W8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bvBtKAEA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="QaH8XDSE"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CH1hws4088626;
-	Wed, 12 Aug 2026 17:10:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=sazpVixfHdXirHhEV
-	VGeSXrc+jqW3qBXKYpISBO9BHM=; b=QaH8XDSENVrjCBILKxWvVCXbfnLdi6LKn
-	pwllABaSkupiogpoS42XB6dAwr6vkTeOLl6RBssAj5tUbSRnxFByybdT5PvtRAgi
-	+ua8G+LgJj3NNZ2zTVhD2fHUe801RFnDRveym8SwNRSF9sPljDdS15UDdisMz0RT
-	iavg8wp7NB1yelwa2PoT92ffwTNR8vLGnww1ketZXsPInylOCHuflcTMReFwDk66
-	/2jDP3A0BEp8GTZtgQAUcqCnPQY9NV0Xo1qaFVSxsKNHrL6N2HFJqNu/Ss3YaGMf
-	aEPNerbo0Ad+jHFKbCKDH4+rZj/WKvFkQbb4V0KAODIkqnH6XAoPg==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvm9uqu7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 12 Aug 2026 17:10:00 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67CGulhr009531;
-	Wed, 12 Aug 2026 17:09:59 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxfsjy3k4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 12 Aug 2026 17:09:59 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67CH9vtv25035312
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 12 Aug 2026 17:09:58 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D09A25805D;
-	Wed, 12 Aug 2026 17:09:57 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C336E58043;
-	Wed, 12 Aug 2026 17:09:56 +0000 (GMT)
-Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.9.29])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 12 Aug 2026 17:09:56 +0000 (GMT)
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
-        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
-        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
-        gor@linux.ibm.com, stable@vger.kernel.org
-Subject: [PATCH v4 9/9] s390/vfio-ap: Fix memory leak when queue removed from host AP config
-Date: Wed, 12 Aug 2026 13:09:45 -0400
-Message-ID: <20260812170945.738351-10-akrowiak@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812170945.738351-1-akrowiak@linux.ibm.com>
-References: <20260812170945.738351-1-akrowiak@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bvBtKAEA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E0B1F00AC4;
+	Wed, 12 Aug 2026 17:19:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786555153;
+	bh=SYkgTe9U7PCuLNS4PkwHrQsA4Z2XjuKKYm5CMTD3rm4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bvBtKAEAR3yWpHNNLIBankIqN4lTkT2uVfTLmTQ73vTioXDqDexjXsycG03smGzTD
+	 f6TnU7lzt4+0LI+FkLDe3CUqRUzBpRUOG8ysWqlji9J0oav+CWNe8Bt76gwz/esqsg
+	 niNeY9jBTO/SsEy/lXLKfpsuTG3DgfLPNcsSaEWG6BWU5w4AxzDUJ7BTUF7kPVOkls
+	 BG8/9q1ST5phMZQFaQ9+CTpLJksL+yHXVNA+F8X6L+fkvVqsdlpHKpe12RCzf2gBkJ
+	 3elTbKsBLolYPnsR5VmGUI9YjCU8U7qeq2uu4zQPjYpu4bCdKvI7L2bTReKAZG9QZ+
+	 LBsr+LmQr+ctg==
+Message-ID: <1a936439-55e2-498d-96bb-d9c1a1083630@kernel.org>
+Date: Wed, 12 Aug 2026 20:19:09 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDEzOCBTYWx0ZWRfX9FeJsAV30krf
- niOadG5VXbNgm1usQC/zpu2A2c/YMCy09GyHiM2myA3nKk8YKpaBXX+HgKFsKZmBa6szMzWJnx/
- ++5KdO+jBczk+5nPZulGBvTlyvZuuLIAwQeiafKVNuLj5/WV95ueQElJ/UBe8sTios2PXTaS6g+
- fV6PBNNnQIvFJlisEaZT24yIF8sPWEMH6XD3cst5uCDL+GKxWr0lKjgQRWAmsmNJwR/TLEbuNF8
- oGkV/VnxI7RfGF3fq++tFsUAD+AJDWjD7fpXkc0oY35ybMQlvGYqR8zi4qt6N5/UMAOAs4S9U0r
- 0OraKmZVOZ2gTucdnMg9ReC2KWQavdmW/3bvbD7ROkwMyghP4Pp0z7yHOofi4wbHG8P+OqWTCEX
- p3AbaxgAET7imuK20kb7tyPhfqBI+/YbsGO++boAsUks7JFxK5lNv1BIwMdpE3GndF+bdn9CD/t
- LO8Fr9f+aCAPv79b/Aw==
-X-Proofpoint-ORIG-GUID: 4emw-hh6isvJIsIpsjEBDMcTLd_8ls_p
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDEzOCBTYWx0ZWRfX/FI385+EEL3f
- IeTe+rD8SZhNXfkpSYxWua75Xs+zryJxAoOLmzuoV0muqQzdd2DaBmo+8LEtgVL/YSfPbCT/pGi
- iamm4RXMQYqTMSO0DOIUXQgTcDcRUfo=
-X-Authority-Analysis: v=2.4 cv=IfK3n2qa c=1 sm=1 tr=0 ts=6a7ca8e8 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=VrB3zfVs-A4ss5GmTxoA:9
-X-Proofpoint-GUID: 4emw-hh6isvJIsIpsjEBDMcTLd_8ls_p
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-12_05,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 adultscore=0 malwarescore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120138
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/10] media: microchip-isc: take a reference on the
+ parsed endpoints
+To: Balakrishnan.S@microchip.com, mchehab@kernel.org
+Cc: hverkuil@kernel.org, sakari.ailus@linux.intel.com,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260803-balki-isc-prefix-fixes-v1-v4-0-f625d6aa0ae1@microchip.com>
+ <20260803-balki-isc-prefix-fixes-v1-v4-2-f625d6aa0ae1@microchip.com>
+ <2b1b9e00-a65f-436f-8ee1-b48c69d24104@kernel.org>
+ <9d873c6d-f556-4f1b-81f6-5034ff087c98@microchip.com>
+From: Eugen Hristev <ehristev@kernel.org>
+Content-Language: en-US
+In-Reply-To: <9d873c6d-f556-4f1b-81f6-5034ff087c98@microchip.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When an adapter or domain is removed from the host's AP configuration, the
-AP bus invokes vfio_ap_on_cfg_changed() to notify the vfio_ap device
-driver. For each ap_matrix_mdev object to which the adapter or domain
-is assigned, vfio_ap_mdev_hot_unplug_cfg() is called and removes the
-adapter or domain from the matrix_mdev->shadow_apcb (i.e., the guest's AP
-configuration) and hot unplugs it if a guest is using it. The new host
-AP configuration (sans adapter or domain) is then stored in
-matrix_dev->info.
+On 8/11/26 14:03, Balakrishnan.S@microchip.com wrote:
+> Hi Eugen,
+> 
+> On 07/08/26 4:07 pm, Eugen Hristev wrote:
+>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+>>
+>> On 8/3/26 13:20, Balakrishnan Sambath wrote:
+>>> for_each_endpoint_of_node() drops the reference on the current node as
+>>> it advances. xisc_parse_dt() and isc_parse_dt() store the node in
+>>> subdev_entity->epn and release it later with of_node_put(), but never
+>>> took their own reference, so the stored pointer refers to an
+>>> already-released node. This underflows the refcount and can
+>>> use-after-free, reachable through the camera device tree overlay.
+>>>
+>>> Take a reference with of_node_get() when storing the node, and drop it
+>>> in microchip_isc_subdev_cleanup() so the entities the bind loop never
+>>> reaches on an early exit do not leak it.
+>>>
+>>> Fixes: c9aa973884a1 ("media: atmel: atmel-isc: add microchip-xisc driver")
+>>> Fixes: d6701f13bd07 ("media: atmel: Use v4l2_async_notifier_add_fwnode_remote_subdev")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+>>> ---
+>>>   drivers/media/platform/microchip/microchip-isc-base.c  |  6 ++++++
+>>>   .../media/platform/microchip/microchip-sama5d2-isc.c   | 18 ++++++++++++------
+>>>   .../media/platform/microchip/microchip-sama7g5-isc.c   | 18 ++++++++++++------
+>>>   3 files changed, 30 insertions(+), 12 deletions(-)
+>>>
+>>> diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
+>>> index eebbcb28a7ee..ca4f3b5f58aa 100644
+>>> --- a/drivers/media/platform/microchip/microchip-isc-base.c
+>>> +++ b/drivers/media/platform/microchip/microchip-isc-base.c
+>>> @@ -1853,6 +1853,12 @@ void microchip_isc_subdev_cleanup(struct isc_device *isc)
+>>>        list_for_each_entry(subdev_entity, &isc->subdev_entities, list) {
+>>>                v4l2_async_nf_unregister(&subdev_entity->notifier);
+>>>                v4l2_async_nf_cleanup(&subdev_entity->notifier);
+>>> +             /*
+>>> +              * Release the endpoint reference taken while parsing. It is
+>>> +              * NULL for entities the bind loop already consumed, so this
+>>> +              * only drops the ones left over on an early exit.
+>>> +              */
+>>> +             of_node_put(subdev_entity->epn);
+>>>        }
+>>>
+>>>        INIT_LIST_HEAD(&isc->subdev_entities);
+>>> diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+>>> index 25d241b4c66a..532f2b50e2ea 100644
+>>> --- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+>>> +++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+>>> @@ -357,28 +357,28 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
+>>>        struct device_node *epn;
+>>>        struct isc_subdev_entity *subdev_entity;
+>>>        unsigned int flags;
+>>> +     int ret;
+>>>
+>>>        INIT_LIST_HEAD(&isc->subdev_entities);
+>>>
+>>>        for_each_endpoint_of_node(np, epn) {
+>>>                struct v4l2_fwnode_endpoint v4l2_epn = { .bus_type = 0 };
+>>> -             int ret;
+>>>
+>>>                ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(epn),
+>>>                                                 &v4l2_epn);
+>>>                if (ret) {
+>>> -                     of_node_put(epn);
+>>>                        dev_err(dev, "Could not parse the endpoint\n");
+>>> -                     return -EINVAL;
+>>> +                     ret = -EINVAL;
+>>> +                     goto err_put;
+>>>                }
+>>>
+>>>                subdev_entity = devm_kzalloc(dev, sizeof(*subdev_entity),
+>>>                                             GFP_KERNEL);
+>>>                if (!subdev_entity) {
+>>> -                     of_node_put(epn);
+>>> -                     return -ENOMEM;
+>>> +                     ret = -ENOMEM;
+>>> +                     goto err_put;
+>>>                }
+>>> -             subdev_entity->epn = epn;
+>>> +             subdev_entity->epn = of_node_get(epn);
+>>>
+>>>                flags = v4l2_epn.bus.parallel.flags;
+>>>
+>>> @@ -399,6 +399,12 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
+>>>        }
+>>>
+>>>        return 0;
+>>> +
+>>> +err_put:
+>>> +     of_node_put(epn);
+>>> +     list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
+>>> +             of_node_put(subdev_entity->epn);
+>>> +     return ret;
+>>>   }
+>>>
+>>>   static int microchip_isc_probe(struct platform_device *pdev)
+>>> diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+>>> index 998146adabd8..0b72a61b51ee 100644
+>>> --- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+>>> +++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+>>> @@ -341,6 +341,7 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
+>>>        struct isc_subdev_entity *subdev_entity;
+>>>        unsigned int flags;
+>>>        bool mipi_mode;
+>>> +     int ret;
+>>>
+>>>        INIT_LIST_HEAD(&isc->subdev_entities);
+>>>
+>>> @@ -348,23 +349,22 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
+>>>
+>>>        for_each_endpoint_of_node(np, epn) {
+>>>                struct v4l2_fwnode_endpoint v4l2_epn = { .bus_type = 0 };
+>>> -             int ret;
+>>>
+>>>                ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(epn),
+>>>                                                 &v4l2_epn);
+>>>                if (ret) {
+>>> -                     of_node_put(epn);
+>>>                        dev_err(dev, "Could not parse the endpoint\n");
+>>> -                     return -EINVAL;
+>>> +                     ret = -EINVAL;
+>>> +                     goto err_put;
+>>>                }
+>>>
+>>>                subdev_entity = devm_kzalloc(dev, sizeof(*subdev_entity),
+>>>                                             GFP_KERNEL);
+>>>                if (!subdev_entity) {
+>>> -                     of_node_put(epn);
+>>> -                     return -ENOMEM;
+>>> +                     ret = -ENOMEM;
+>>> +                     goto err_put;
+>>>                }
+>>> -             subdev_entity->epn = epn;
+>>> +             subdev_entity->epn = of_node_get(epn);
+>>>
+>>>                flags = v4l2_epn.bus.parallel.flags;
+>>>
+>>> @@ -388,6 +388,12 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
+>>>        }
+>>>
+>>>        return 0;
+>>> +
+>>> +err_put:
+>>> +     of_node_put(epn);
+>>
+>> epn is used for the iterator right ? Why calling put here outside of the
+>> iterator ?
+>> Even if the code is duplicated it makes more sense for me to cleanup
+>> inside the iterator.
+>> Outside the iterator the epn should be unused, at least my take on it.
+> 
+> Sure, let me move the put inside the loop at each failure site so epn is 
+> not touched after it. My intention with the err_put label was only to 
+> avoid repeating it.
+>>
+>>> +     list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
+>>> +             of_node_put(subdev_entity->epn);
+>>
+>> Does it make sense to remove the entities from the list as well , aka
+>> cleanup the list ?
+> 
+> subdev_entity is devm_kzalloc'd and the list head lives in isc, so both 
+> are freed when probe fails so I felt a list_del is not really needed 
+> here. Happy to add it though if you prefer having it makes the unwind clean.
+> 
+> Please let me know your thoughts ?
 
-When the AP bus subsequently unbinds the physical queue devices associated
-with the adapter or domain that has been removed, it invokes
-vfio_ap_mdev_remove_queue() for each queue removed. At this point, the
-adapter or domain will no longer be assigned to the
-matrix_mdev->shadow_apcb or the matrix_dev->info object because they would
-have been removed by vfio_ap_on_cfg_changed(). Consequently,
-vfio_ap_mdev_reset_queue(q) is bypassed and kfree(q) is called
-without executing vfio_ap_free_aqic_resources(). This indefinitely pins
-guest memory (q->saved_iova) and leaks KVM GISC resources (q->saved_isc).
+I guess it's fine if you leave it like that. If others have any other
+opinion, please shout.
 
-Note that resetting the queue would fail with an invalid APQN error due to
-the fact the queue is not longer in the host's AP configuration; however,
-it is still necessary to free the AQIC resources. The fix here is to call
-vfio_ap_free_aqic_resources if the adapter or domain is neither in
-matrix_mdev->shadow_apcb or matrix_dev->info.
+Eugen
 
-Fixes: b9bd10c43456d ("s390/vfio-ap: do not reset queue removed from host config")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
----
- drivers/s390/crypto/vfio_ap_ops.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index b0454a296c67..a8de98d5e71e 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -2515,12 +2515,15 @@ void vfio_ap_mdev_remove_queue(struct ap_device *apdev)
- 	/*
- 	 * If the queue is not in the host's AP configuration, then resetting
- 	 * it will fail with response code 01, (APQN not valid); so, let's make
--	 * sure it is in the host's config.
-+	 * sure it is in the host's config. If it is not, then free the KVM GISC
-+	 * resources.
- 	 */
- 	if (test_bit_inv(apid, (unsigned long *)matrix_dev->info.apm) &&
- 	    test_bit_inv(apqi, (unsigned long *)matrix_dev->info.aqm)) {
- 		vfio_ap_mdev_reset_queue(q);
- 		flush_work(&q->reset_work);
-+	} else {
-+		vfio_ap_free_aqic_resources(q);
- 	}
- 
- done:
--- 
-2.53.0
+> 
+> Thanks,
+> Balakrishnan
+>>
+>>> +     return ret;
+>>>   }
+>>>
+>>>   static int microchip_xisc_probe(struct platform_device *pdev)
+>>>
+>>
+> 
 
