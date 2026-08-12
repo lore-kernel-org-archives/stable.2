@@ -1,188 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00F9288C81;
-	Wed, 12 Aug 2026 05:03:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA4E265623
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 05:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786511001; cv=none; b=C4hOmcW0hpQ37oPuzxpszEVNDmd7Zpw6JbcMe2D9c+hQf9w3aO3PEyI2ypmauBjn2mpaGCathLcLgJepQBTHZU4MjUZyaT5QalNOnLgVEd4vFituaUNM6vD9LI8/CVbjaiWnU52jIrpj8mhupFPRuMW4hOcBVsAXCcrWWDazTWQ=
+	t=1786511246; cv=none; b=XUjD6xzrAybjWc/e1+suSc3D1N9As+3h1D9SP1i7zaCGLlSVNRVQ555bAUkCWRzrviP74u9g18GQkIPQtOq8/G1Q2sD/rO2fcen2Q6CHs4hgurz0nuXcLoGFFX2BZlFZlwY0F/NphDj4Bk0+EV4m6ThkDgAd167WpqDFTxJT0T0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786511001; c=relaxed/simple;
-	bh=45c9Mw+RtUpfsCt03yp7BPZDMVxg9SOCXgQtlflD+eg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I2nUgLztiI8V0PHPeT8qqhR4Ds/kg/xBCek6iOfwF0+Hbfc5mt3iv1nwP5EqxJd66Dr+Zqj2YdP1O+U7arwiizEtiyN+fSTSJUxkUww37xHEyjatn1Pxl+y3O4iI/RT4IQEW9k6PKJ5poo8OUsZ2KpPPxp/pKJ93l2j8AiG/ZQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSFJzf+q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786511246; c=relaxed/simple;
+	bh=xdr/FFYfWnJUmcdox5w6aHTt/Z+k6tz/pLsaEkE6Fvo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZTP76aNLk7/FwDPzy+j4GKl5OWzSqcFVGgT+lXhD6D4HB8cL74oPD7Iu5FupX43Y1O8zcbwO/j8rlMKNacoGTN/hYbUWRvI71XTIjK6ozEzX/0sYgUc6YUkSCaJevI32qM7GI0zqJuRI4HkiPWhoaqJ7NMGW1+ZdUNa1+FgQpGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=J4hnmaKa; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSFJzf+q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3C81F000E9;
-	Wed, 12 Aug 2026 05:03:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786511000;
-	bh=AG9V5QM/LQXyVzTFmXGwnlr2XmuiKwvic52wSwqRFzQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lSFJzf+q9hmSN5emquAz9I3IscJsmGq5T3KpusvnyFpGD4/i/WjIpPuCtjvTsHC2l
-	 pCvfKHl8O/ubf46hB7lvrncAx5enJIzKUPk/tRW6uzf3jOtrDMSqHFzpwZPtIvaFRA
-	 d1P9Hcx4AI3iNHwGW/UHpGB4tMZEK7mhUJN5BQG1UrITNQTRfUNg6NbxYGS3zkKfCR
-	 GaI9EJvJcgzDPNJso37s3yhasCE0zf9jHzRMEvO/PoWp39v6Vxb1gfozUSMc/vI3BL
-	 MxDMYr9lKRVO0GzfmqeAFgqGnCdXHRtbPQFiyD0Ddv+oNDug2n6T9ywj+KEjfKYqxf
-	 ajIVyQVqCeJIA==
-Message-ID: <6906ca3c-03b2-4d9a-a3b6-2d38345d8534@kernel.org>
-Date: Wed, 12 Aug 2026 06:02:58 +0100
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="J4hnmaKa"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso854890a91.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 22:07:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1786511244; x=1787116044; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=76eyEhFrkTubm0JcS7WMtMOkfl9mDynN+RSxghBPkWM=;
+        b=J4hnmaKaV3zMO8BM5RNEZ5E35F8nr3oTv780esz3n2vX2ohMeDOhbP13mex5NGqonk
+         v+Axadm1LM/zxPYqMC844Umnqx9VznsFz8ksebX/4aeWkGLi2oQKioHGpZ4xvOYdlHAd
+         +n9wZf/odPRoAOJuDgjFDiVPvCFZxLsVoqlPk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786511244; x=1787116044;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=76eyEhFrkTubm0JcS7WMtMOkfl9mDynN+RSxghBPkWM=;
+        b=oe02u/1vw6wDm/m/Xv9VIoI3RiFc5AkuqjJ/SIHlc2lulWBs+RFvukS0R7Vqtu/CGa
+         Gsh86zF6XGpxOnk+sxBo6TEZNvcW57QZFCfnONA1bHgwHm0huM6ALZT+CcBRS6RYSukV
+         GBx6Kb7pbcmihVSHuh5pFxn3cGHrcyu1v91z0spk0YFAdoJI7kiJJtkNOPho1aIeUjfB
+         1eKqyqLAXBjaOFWINRkykMdtaAuKvT6zmieZ5b1b9Lz8tt/6WyrKjWVWJi9DCLMQtWQ9
+         Euve0X1G4NrRcxhGityV7fFun5fESyHETIB8zCE+Dw5rRjy+33PRr6+qwizkXhc4UzUP
+         W+Xw==
+X-Forwarded-Encrypted: i=1; AHgh+RpRX32I2+xPLnAiEfVAJKBzh5HoJwST9y+SZzb3O2P3YfxGXdBq5wORi3VC7xm4McyIr7vQwgc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3DSB3pbgBkgUehHkTI0I4fnBAG9gI2Rt/3SLA2mlRD5pIkQsX
+	SYpOLOC3Nkhy3RNlIxFxG4MrRIx8P5/0WsBmEeGIFjjM4Cga4rFILFXrGlD0BpIc8g==
+X-Gm-Gg: AR+sD11Th63jgV3m5GyOJHdGoFvg5/+HiQdtRkwlBkwtiZvAnba3Ex41AdgXVU8hNPg
+	QIbwIDyb9p3sL4eBBk1MlxePvElVvZugD4P467lAJNe9YUp8v6kVULHkNk6tDHeIYJ0E9VRCCCj
+	j7xbSEB1tadej78K1CGluuMBNMfeQm2B9rjNmy6ATPhwBR3bD4LGASfFBdXZJ/IHtqOIg7Oyb7/
+	jmBx9e+Lir1NK3EMcce8NWnaUf+ZrTftjXYnz/y//dfozT5QuLIQVZdeIEO83P2plcyPg4WpHZh
+	NQVlEoK1uU6vI0ZEM0dEaWo/5glKe+WcMtfhsQB56A0ir3KPNSWdZQcIB4G9YzrjqD+Mre3GlwC
+	/XqzGfhqFk32z/EQ5C2+2iDG1N8yVZ8gecR5bl8kJafUPGZUdRmCfUGk3rrSPpeCF+tOScmGF8Z
+	GkDnOd6V9Q6ef+Rae+qUlNEWOTLgGPp/opIm2Rpm/mKCFr/iSGbqbAuchLUbhh8oyRcWuSW8bD9
+	UPsXrnEr0NFf3GDLuH4aRqgvDSL
+X-Received: by 2002:a17:90b:2f08:b0:38e:2f21:3bb5 with SMTP id 98e67ed59e1d1-39301513ef9mr2913619a91.21.1786511244086;
+        Tue, 11 Aug 2026 22:07:24 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:6d46:aa38:60df:e1e])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392f908a82bsm2052641a91.0.2026.08.11.22.07.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 22:07:23 -0700 (PDT)
+Date: Wed, 12 Aug 2026 14:07:19 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: "IP over Parrots (with QoS)" <opensource@rfc2549.ca>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>, 
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: 6.1.y status: 2abd5287f083 ("KVM: x86: Check for
+ invalid/obsolete root *after* making MMU pages available") / CVE-2026-64561
+Message-ID: <anv_QkW6fLzPy1_z@google.com>
+References: <K5X5A-vk0kKy96pbo6vsCIfvu4CDhenGoKAy3bdpFLx_5sdQ4ovBeDLABVHxrI08ouImtdBr2cYTqriDJgeTZLZhMIA-Hphgz4jMe7W6M6Q=@rfc2549.ca>
+ <ans1SMXHmdB3uEoe@google.com>
+ <antH6ysN2SPR2gyV@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Stephan Gerhold <stephan.gerhold@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Johan Hovold <johan+linaro@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
- Mansur Alisha Shaik <mansur@codeaurora.org>,
- Andy Gross <andy.gross@linaro.org>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>,
- Yassine Oudjana <y.oudjana@protonmail.com>,
- Pierre-Hugues Husson <phhusson@freebox.fr>,
- Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org,
- Matthias Kaehlcke <mka@chromium.org>,
- Douglas Anderson <dianders@chromium.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Aniket Masule <amasule@codeaurora.org>,
- Malathi Gottam <quic_mgottam@quicinc.com>,
- Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek
- <jonathan@marek.ca>, Dikshita Agarwal <dikshita@qti.qualcomm.com>,
- Renjiang Han <quic_renjiang@quicinc.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
- <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
- <27f0b033-e940-4369-aaa0-f08426aac73f@oss.qualcomm.com>
- <tdgbfewnlj3xypfnyckivnd2b6667laapkcfs2vpnk74bh22aa@obasatns3jfr>
- <MHRdGybtgutWtIo4EOZisrGdCVgOj7AdOArjfuxCXTTNcc1o1v40eltpkDUqZl5sOY9tjRFaY6tc_OKvzrYJ4w==@protonmail.internalid>
- <429d5d1d-92d5-4949-9991-b092cc7e9937@oss.qualcomm.com>
- <181b02e3-831e-4461-9327-ab5646380a10@kernel.org>
- <73b26356-8ccb-4a81-b626-a96de5b13173@oss.qualcomm.com>
- <v7vlh2lgvluvacmxora6l7u5r3cbhr4xaqqlzqdli5jympfwxl@5qsqc354n4u3>
- <g_hgO2Ky6WOywvRuvLUE7DXb-e7Kb8S3QoVsLbN3yhHbYzryQwZBT0VLRe3C4iVy8rUA9Tvc1Vu255IjAnbRJQ==@protonmail.internalid>
- <7caa7fd4-6732-4c80-8b8e-a0ed99631ba2@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-In-Reply-To: <7caa7fd4-6732-4c80-8b8e-a0ed99631ba2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <antH6ysN2SPR2gyV@google.com>
 
-On 10/08/2026 17:57, Vikash Garodia wrote:
+On (26/08/11 09:03), Sean Christopherson wrote:
+> +Sergey
+>
+[..]
+> > Now planned.  The fix doesn't apply cleanly to 6.1, and the resolving the conflict
+> > isn't super straightforward (though it's not thaaaat bad either).
+> > 
+> > https://lore.kernel.org/all/anpVAhjqvBvIuoa0@google.com
+> > 
+> > > The security tracker [1] for the Debian 12 stable kernel (6.1.y)
+> > > shows a vulnerable status.
+> > > 
+> > > I do not have a backport to offer, so this is just an inquiry.
+> > > I am happy to build and test a candidate on 6.1 if that would
+> > > be useful.
+> > 
+> > I'll post a patch today and Cc you (unless I get goldfish brain, in which case
+> > I apologize in advance).
 > 
+> Actually, duh, Sasha already posted backports[*], and his approach is much better
+> than manually resolving the conflicts.  Testing that now, I'll ACK those assuming
+> all goes well.
 > 
-> On 8/10/2026 5:40 PM, Dmitry Baryshkov wrote:
->> On Sat, Aug 08, 2026 at 09:18:42PM +0530, Vikash Garodia wrote:
->>>
->>>
->>> On 8/7/2026 6:48 PM, Bryan O'Donoghue wrote:
->>>> On 07/08/2026 11:22, Vikash Garodia wrote:
->>>>>>>> I don't like the idea of this series, because it_again_
->>>>>>>> doesn't tell us
->>>>>>>> the truth about the hardware. This typicall ends up with
->>>>>>>> bigger problems
->>>>>>> honestly...thats all the info i have about the vpu hardware that it
->>>>>>> restricts non pixel to DMA from the 0-600MB range. The same i have been
->>>>>>> trying for a year now
->>>>>> You are not honest here. You also know that there are secure streams,
->>>>>> which have to use their own IOMMU SIDs. And some of them, as far as I
->>>>>> remember, also have memory range restrictions.
->>>>> please read the commit description again, the answer is there.
->>>>
->>>> So I don't necessarily get all of the detail out of the commit log myself.
->>>>
->>>> Could you give some detail to address Dmitry's point.
->>>>
->>>> The question as I read it is - are all of the other potential SIDs
->>>> covered by this change ?
->>>>
->>>
->>> I get the query as "secure streams also have their dedicated reserve
->>> regions, so how does this approach helps" - This patch does not reserve any
->>> IOVA for secure streams, only the forward looking subnode can assign
->>> specific reserve for specific streams.
->>> The patch enforces a common IOVA across all streams, and is good enough to
->>> fix the problem we have w.r.t device reset.
->>
->> No, it's not good enough. It defines that both non-secure streams use
->> the provided memory range, it doesn't provide a natural way to later
->> _expand_ it to support secure subnodes, etc.
->>
->> We know that there is a problem. We already have been bitten by not
->> describing the hardware as is and using band-aids. Can we now learn the
->> lesson and write a proper hardware description?
->>
->>>
->>>>>> So, if we land these patches, how do extend it later to account for all
->>>>>> of that?
->>>>>>
->>>>> forward looking design would be subnode, which we can land ontop of this
->>>>> series.
->>>>
->>>> Yes it should be possible to branch to make subnodes work on-top of this
->>>> - accepting that once this lands it becomes ABI and support for this
->>>> method must be sustained, even after sub-nodes land.
->>>>
->>>
->>> Thats the plan. This goes as ABI with subnode to land on top of it.
->>
->> So, do you actually plan to support both ABIs? This would also mean
->> moving reserved regions to the subnode.
-> 
-> How is that different from moving the reserve region when stream IDs
-> would also need to move, so be it for the associated memory regions.
-> 
->> What prevents us from landing subnodes straight away?
->>
-> 
-> You are well aware of them, but still asking the same. Reasons,
-> 1. We have been attempting the subnodes for almost a year with multiple
-> pushbacks from multiple maintainers. We are closer and working on it to
-> post for iris, followed by venus, once review is acceptable for iris.
-> 2. Current solution, in this series, is much easy to apply for all
-> kernels and can land faster so that it can fix the reset issue we have
-> for already enabled devices.
-> 
-> Both from timewise and simplicity wise, this proposal is made to address
-> the reset issue, while subnode can land ontop of this, without breaking ABI.
-> 
-> Regards,
-> Vikash
-> 
+> [*] https://lore.kernel.org/all/20260730121535.2208491-1-sashal@kernel.org
 
-There is another solution.
-
-Restrict multiple concurrent streams in both drivers. The failure mode 
-is as I understand it only triggered by _concurrent_ streams so, 
-restrict that case in the .c code.
-
-Nothing dictates DT as the means of addressing the problem. Clearly not 
-many people run concurrent streams with the upstream stuff so formalise 
-the restriction until sub-nodes permit reintroduction of the feature.
-
----
-bod
+Good news and good job!  Thanks.
