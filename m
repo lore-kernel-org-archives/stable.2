@@ -1,98 +1,80 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2706F3B9DB6
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:22:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C416741A56B
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786530135; cv=none; b=fC04RV4gpangTKUNyo5mjFigU1f0FQiEerBueUoEAFwpLRp+wIUCJHAvSsfXxYmSiR5ZywxuJy5uLeC9qxN4sXaCEQAw7K04DflxXvk+LqcO0IoP/oCSLlFvGi93ar1YRY5CFNWw4EhLh2tjW9Pth4gFUL57Tl/0CF14UTQ9J+U=
+	t=1786530341; cv=none; b=aa6U9RGQklorLTi4YrFRqyE7hPKmDpLY//YIaDBO70mLrqC1e77xRz+frxMpryrdCtnNFNdVUT2/3/MVRp+CDaMWUzXqrG3ckKuUYe0qVmSfT2dMjSGBE38dBc4fYHAnSJ14muEgEraT4ip280aDcOyy3ja5KJdCUu7jCj4Px/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786530135; c=relaxed/simple;
-	bh=FLzwucoqgqoqYD5vWAO5v/nzGauUT6aN0563qNhH6ZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kcDXryjU9/6BFsONHdPPYpJniHU9j8BsKVtuqci0jwd3KaEIRudLvBp3Pe4xpa7sK6ggsJAEk5Ovf5TRpCPnYM4DvzINTBZ+xblcmjMNxOb/t+rNe74daP/iHq7BpHHynaN+Raf0kmaZp+vlIF03ihKH7V5DcuyUtvFVrIFE1C0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QhWlxthU; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786530341; c=relaxed/simple;
+	bh=c2UJx0+mmkJX0i51xzZDFFd5bnM658TN6jJpSv/LsZU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dscy7ewFytt3TMFHjK6jT3U3j8gh2JHdDUkDArkJRqKmoN0Dx5gew+pMBH5AJMDpVFPrzl43FypfM7MKZNJVfKLha7hi7CFnzqAQBcH5tRrN5JphZ2IDY/IdAkl8amWXImlFwE04Q4YCA8R7gcqQp7MmHLxS3dBqHmv9pfKPlHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ARhBbtJv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QhWlxthU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786530131; x=1818066131;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=FLzwucoqgqoqYD5vWAO5v/nzGauUT6aN0563qNhH6ZY=;
-  b=QhWlxthUG5ByZcrBySEALZdzlM8vR+wJ3zs+R713yrlUFwAxOoSyqgJP
-   mJX8Mvdxq0eRL9yZxpFTiaGCnu/UiIkPd8sxOFpJAmv/wZ00YKFh+9ZHQ
-   eXoQw0O80FcBqbbGJRJeldct/zGZnMqn8W1GRB+TvZZ5ag7i5UpiZkIN6
-   2eZH/a7kUdRuHrWS7jj7DK0FgsRFXpzfUNQnTXerbd74t32SOd/kspPbo
-   DMtJpXla3mVnLM/Vyo2DoaZ85rg0uauo35eMklSGGox8PUPZtQZCQFMAf
-   350xLR1gkeCtexBFpR07NWw9MMcO7El7vHQfK4eLrF0TTiJpcpStovmPq
-   g==;
-X-CSE-ConnectionGUID: q8kfqAjyR4SK/9anJ2KUbA==
-X-CSE-MsgGUID: 7yyMhn+DShqFOQAcJKlpWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="87006471"
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
-   d="scan'208";a="87006471"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 03:22:07 -0700
-X-CSE-ConnectionGUID: OjTksvmWRbW4Mzu8BRoorA==
-X-CSE-MsgGUID: f3S60uvGS/2P/lh3hZjmvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
-   d="scan'208";a="287036032"
-Received: from ijarvine-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.154])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 03:22:07 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id E7D04121C22;
-	Wed, 12 Aug 2026 13:22:05 +0300 (EEST)
-Date: Wed, 12 Aug 2026 13:22:05 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Andi Shyti <andi.shyti@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Subject: Re: [PATCH 6.12.y 2/3] i2c: Remove redundant
- pm_runtime_mark_last_busy() calls
-Message-ID: <anxJTS3MkvCEckhz@kekkonen.localdomain>
-References: <2026080542-curse-dispersed-597e@gregkh>
- <20260812101347.1638816-1-sashal@kernel.org>
- <20260812101347.1638816-2-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ARhBbtJv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D16971F000E9;
+	Wed, 12 Aug 2026 10:25:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786530340;
+	bh=R8sDTb+J1/h7OOdMCR16pvNEjaIHmKNKE07ee6YGbw0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ARhBbtJvcy72vqAi1m1YPOTbvBUsYJ+XqZlSeFjPNGdgDgssWf/wW2aO0AWntZdmW
+	 M0MrioYboED2ghBb4ptJHp0uW+lr144hWwoGYUUunF+U3QI5gCR+Tey5gTAd5iOKw1
+	 e83nrydfkkYtYKyyOu2VvWYNKwPZ4btCzt/yvWgD7q6OEOSdIzVWuczT8By1+A/FlH
+	 kSDmnr2guX7Z2LpByedsD0/DkjIVreqVMjmOKjgzhIzP7IRNnCF7X6eJzDBnbS5DX9
+	 OOC8MTclcxBmNwRk2XnbwtSZJXjUu6xE8twOrsRZtqbtgCo4NTOiY+f5LuyiNr6FIh
+	 A28ZT8fS2exiQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] i2c: bcm-iproc: remove printout on handled timeouts
+Date: Wed, 12 Aug 2026 06:25:36 -0400
+Message-ID: <20260812102537.1684998-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080500-deafening-paramedic-2676@gregkh>
+References: <2026080500-deafening-paramedic-2676@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812101347.1638816-2-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-Hi Sasha,
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-On Wed, Aug 12, 2026 at 06:13:46AM -0400, Sasha Levin wrote:
-> From: Sakari Ailus <sakari.ailus@linux.intel.com>
-> 
-> [ Upstream commit ae11e08c3d0c78d08dac4cea30bf39ede2130b03 ]
-> 
-> pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
-> pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
-> to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
-> pm_runtime_mark_last_busy().
-> 
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Acked-by: Andi Shyti <andi.shyti@kernel.org>
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Stable-dep-of: b08c9857aa1f ("i2c: qcom-cci: drop custom suspend/resume and rely on runtime PM helpers")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+[ Upstream commit 796e2c260187e32530cf343546ba1cdf2e2f5491 ]
 
-Please don't.
+I2C and SMBus timeouts are not something the user needs to be informed
+about on controller level. The client driver may know if that really is
+a problem and give more detailed information to the user. The controller
+should just pass this information upwards. Remove the printout.
 
-The patch adding pm_runtime_mark_last_busy() call to
-pm_request_autosuspend() was merged in 6.17 so before this version the
-explicit pm_runtime_mark_last_busy() calls are not redundant.
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Stable-dep-of: 98f2e9e6d6f9 ("i2c: iproc: reset bus after timeout if START_BUSY is stuck")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/i2c/busses/i2c-bcm-iproc.c | 2 --
+ 1 file changed, 2 deletions(-)
 
+diff --git a/drivers/i2c/busses/i2c-bcm-iproc.c b/drivers/i2c/busses/i2c-bcm-iproc.c
+index a524d2cd11421..f74299b897df7 100644
+--- a/drivers/i2c/busses/i2c-bcm-iproc.c
++++ b/drivers/i2c/busses/i2c-bcm-iproc.c
+@@ -789,8 +789,6 @@ static int bcm_iproc_i2c_xfer_wait(struct bcm_iproc_i2c_dev *iproc_i2c,
+ 	}
+ 
+ 	if (!time_left && !iproc_i2c->xfer_is_done) {
+-		dev_err(iproc_i2c->device, "transaction timed out\n");
+-
+ 		/* flush both TX/RX FIFOs */
+ 		val = BIT(M_FIFO_RX_FLUSH_SHIFT) | BIT(M_FIFO_TX_FLUSH_SHIFT);
+ 		iproc_i2c_wr_reg(iproc_i2c, M_FIFO_CTRL_OFFSET, val);
 -- 
-Kind regards,
+2.53.0
 
-Sakari Ailus
