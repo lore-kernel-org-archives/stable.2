@@ -1,61 +1,80 @@
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2A341D207
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D3E21D591
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786529169; cv=none; b=sDxxFd4G5KyTGYh3leVAoPMruQY0MXfBKhvwR97LWdNYdztOovrz4olMfc5iydAAHr7uxDwrLHIZpuhfF/Tz/piefdEY9pYh934/oiCApbSyiicX0FJDkvSOT34+jsRDVbQKUv/0BsVNfy9jogwi12dlbyy756YPEVWO1OvUTao=
+	t=1786529622; cv=none; b=hv5MqJJ1bcskSW6LRD2IpvVGxSB/6vOcyxR8OqOvMCtiRyg2fT3KkCZZjknFVzRZ9g+E+e13F3fh7nE7tRsJXlLEnmU2CHB43xCysw3W585NPKfM/Bwu4CNDDx40F/Rf1Fzp1jNKkG7Vj8nm+pW+fnGJZ0ei4ujRV2MynBEChwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786529169; c=relaxed/simple;
-	bh=fWhe13h1N84QKKD3dBk88QzLXvLL//weOVDz9pKczZY=;
-	h=Message-Id:Content-Type:In-Reply-To:From:Subject:Date:References:
-	 To:Mime-Version:Cc; b=K9VNDBH7cFBn3Dgzdu4JitWTl7CpPe6o8uIuheBLQtMjHIlq16NZkT6G1+HavagJiY1KiS9JG7Oz66Q35ot4AKf0Tl/MyZcMxJEK/ua8zSadMf8K+E8uQZmw27tI+HZ2Q0Pty3EopTWJ0uSrN24vlAhW4nncU8g3zEAXP4R0dTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jRzEUloY; arc=none smtp.client-ip=209.127.230.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1786529622; c=relaxed/simple;
+	bh=afPa1QbCpcBDkY4Mmt473vM/ODGNC3hsmVb5vHAgPAU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P2DGULyv1oLOn62q7kpA9iZ3yVYgCH8kPoGx2t3LrAtksaENp0axNEKRtQdu54WeRW0ExhVOv4JeaPDlzee8BmzwzSqEPzlGxOGZ/nFE+B1prgXURzlvz7ojRsmoRasUo+Q3rDIT4KrgSMGRz/Pu3Kn8lejZ3GflFiKOeVS6AN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKki2MeL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jRzEUloY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1786529160; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=ptFirgCdL2MtjZiFJ/pQGe9Rj3+JjTLuHn52ce60vNc=;
- b=jRzEUloYXfttWtd3vZgLX6QRHpp/WQpRFLvpyJZfWhuqnrcBms58TsHZsXWHQR/NsToxeY
- 1jASWGjTzKUT7QL2tag5xJc2XZiNc9hR+XaG7Wg+JqcMeqyBzbiitQMsZRzpa5Dh+wtFMF
- 3qQrpYfIYIjLeotsCorYhu/k1xzTffY+tiXbUWBattGET8HrbjOOGOvTXAL0w9EE77oQ3y
- Ovgu+xCkgRxJ4+6Uzunwbvk5DMfiAR8WswSonK6ZniE+DXT0K8OFjaLFYMkMYtyl2A4bNK
- 0dN/oi25Kss4HjK2zhvzUf0cOyNjTmsyKqAx3wfMKEhIsaeaEBL7c2D5NEjI4g==
-Message-Id: <20260812100553.17029-1-zhujia.zj@bytedance.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <20260626100740.52455-1-zhujia.zj@bytedance.com>
-X-Lms-Return-Path: <lba+26a7c4586+a974c5+vger.kernel.org+zhujia.zj@bytedance.com>
-Content-Transfer-Encoding: 7bit
-X-Original-From: Zhu Jia <zhujia.zj@bytedance.com>
-From: "Zhu Jia" <zhujia.zj@bytedance.com>
-Subject: Re: [PATCH v2] ext4: cancel dirty accounting for folios without buffers
-Date: Wed, 12 Aug 2026 18:05:53 +0800
-References: <20260626100740.52455-1-zhujia.zj@bytedance.com>
-To: "Theodore Ts'o" <tytso@mit.edu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKki2MeL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28E81F000E9;
+	Wed, 12 Aug 2026 10:13:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786529621;
+	bh=m5Yj0e6+IvgIgmPCG+3NCGWFy9oh53GxZDwoF8Eskhc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AKki2MeLvDHPqZDczsjTh9YpwkCrap6uV6HqAxSyDZkaOR8wRLAw+6E4CeJD75qT1
+	 lUHjp60+RZS4ja2/ajK+Ocos8z1elt9zIfqEOA5h6g+yNXOR36UeVafm+HXj+5NZBJ
+	 rSHZ/o1HyGS7W8s/qgUS1hdXscAmukPV9HDNFxG03yvXumATBNFpVUa9eU7r1maY60
+	 dlCn2pEU2/lRRY/vHu7G/5DhxRHR4JVITN5SyAqiuWQh0aPBvjZpWTkDgaPsSv7Fkd
+	 NTBLDFNA9BUSOcDYCaOgUhl7w0LeK9wKf289oRblhzl4YhBCRP+yBl0J4+8hMe2N11
+	 2IGpkJuyyjHOg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] i2c: bcm-iproc: remove printout on handled timeouts
+Date: Wed, 12 Aug 2026 06:13:38 -0400
+Message-ID: <20260812101339.1638345-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080559-rendition-presoak-a347@gregkh>
+References: <2026080559-rendition-presoak-a347@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Cc: "Zhu Jia" <zhujia.zj@bytedance.com>, 
-	"Andreas Dilger" <adilger.kernel@dilger.ca>, "Jan Kara" <jack@suse.cz>, 
-	"Zhang Yi" <yizhang089@gmail.com>, <linux-ext4@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Ted,
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Gentle ping on this ext4 fix:
+[ Upstream commit 796e2c260187e32530cf343546ba1cdf2e2f5491 ]
 
-  https://lore.kernel.org/all/20260626100740.52455-1-zhujia.zj@bytedance.com/
+I2C and SMBus timeouts are not something the user needs to be informed
+about on controller level. The client driver may know if that really is
+a problem and give more detailed information to the user. The controller
+should just pass this information upwards. Remove the printout.
 
-Could you please consider picking it up for the ext4 tree?
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Stable-dep-of: 98f2e9e6d6f9 ("i2c: iproc: reset bus after timeout if START_BUSY is stuck")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/i2c/busses/i2c-bcm-iproc.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Thanks,
-Jia
+diff --git a/drivers/i2c/busses/i2c-bcm-iproc.c b/drivers/i2c/busses/i2c-bcm-iproc.c
+index 299dbcd4c8292..33a57f362282a 100644
+--- a/drivers/i2c/busses/i2c-bcm-iproc.c
++++ b/drivers/i2c/busses/i2c-bcm-iproc.c
+@@ -821,8 +821,6 @@ static int bcm_iproc_i2c_xfer_wait(struct bcm_iproc_i2c_dev *iproc_i2c,
+ 	}
+ 
+ 	if (!time_left && !iproc_i2c->xfer_is_done) {
+-		dev_err(iproc_i2c->device, "transaction timed out\n");
+-
+ 		/* flush both TX/RX FIFOs */
+ 		val = BIT(M_FIFO_RX_FLUSH_SHIFT) | BIT(M_FIFO_TX_FLUSH_SHIFT);
+ 		iproc_i2c_wr_reg(iproc_i2c, M_FIFO_CTRL_OFFSET, val);
+-- 
+2.53.0
+
