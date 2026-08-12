@@ -1,107 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A9F41F34E
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 12:30:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4948D314D1A;
+	Wed, 12 Aug 2026 12:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786537832; cv=none; b=PC8q0EFZptzNJYsCQKJiqvcWeHwA4G1FTS2WCoagmgLEMPqf/XRNi/3xbjgHqsLZKTNhZadmCKx2y/n6AcWwq+KDZnAWPoVQMTCmL9SwYiYw9dQmOqCcv5zVUJ9cWU4/gIhTL94LfPX/K5CUaYMCMiFIRnxd8poltKkWshxPQRQ=
+	t=1786538053; cv=none; b=hKlyMHLhc+O00JJ8bWGH/IK/ZsizICBH4LEvjy/v0QEZumnx4TAa39IiQppAPwu0di0V5vqOaF8rhqdroHAqYay8ZvefJQY6n+n2ewcsnQMwlV2aNXx8zV2rRBw03PYR4YHTCETKHsqcA0srg4/qQJsBvfwz/1MfCJdfhHCcGRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786537832; c=relaxed/simple;
-	bh=1aZZY/6zCtWwZJZkG/dj0ShaM4xVC717Cz8ipyQUDNo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DXJyVwAE12w6hLN9Ga5AK63IJVgcXesOdS8+BmZWktn9B0RwmQkBILFZViak7krypdSeUxwf+cz046FQNsqoI8nw2ggherIQ023TzVYTQjc1muD2FOZ6yjGjk0FA7Q6PElI54xpC0TjMVBkmf+gF7hn2ljh81nFq9xEmosGozhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZKXvbz/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786538053; c=relaxed/simple;
+	bh=N7fYohwigC5KlmiAySRrMwHm1iWi1Do7/uPuKk7Sw2w=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=kdT57kgtDh2UI8UNwext8vXcoaLyr/EmJGP0RvbgIfbHbim6vJJkUXq47MTMTNHwJxQAuFX6gynQyaUoe/5FSTM4nlLn8BvCQOegIpj9GBDbf+6Fc5TIu7ivjBkuu2dKEZmdaVtd7tWKcP+m8Aas4Gmh7bmSrPPcUctGhiR5Mh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YyhxBNCp; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZKXvbz/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066CE1F00A3A;
-	Wed, 12 Aug 2026 12:30:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786537825;
-	bh=sf5Cn1fRzfE3RRn/NMBEXSmGAG/OfKCjcfIbs3Euk3E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kZKXvbz/6ri9Se6hzDRVXRi1TIEUawJNGqr5RYVKdq/jat2+vtjAvnmVIVZ1EH4r6
-	 wbbmDLoKjJl66l20ZimIYg4pXc5F/A6t4ZKxYTsE8QF5XtF1NlAR5QX+x/p03V/SA9
-	 DfdKha/ZqhcXIkrdwfKI+xStyRRpyUbIAgr0Jq0gebw9UtSIGhmV5lQPNp4uqccJl5
-	 6tPMr3LI2JaNiRwrICbPS/Y443DbSoF3caBTpS4dpuu0D06CcuqPOjJQxyTvm/M2Zn
-	 pAXCq0edQjNCB/3sao7hxi8UDjh4STi0AeKCX6RcxGiIkG0AsCbQS25uPNdloXl5v2
-	 bvkZvPBOKDDEw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Adam Thiede <me@adamthiede.com>,
-	CK Hu <ck.hu@mediatek.com>,
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 2/2] drm/mediatek: mtk_dsi: Enable HS clock only at pre-enable
-Date: Wed, 12 Aug 2026 08:30:22 -0400
-Message-ID: <20260812123022.2084148-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812123022.2084148-1-sashal@kernel.org>
-References: <2026080503-borough-upstroke-2a33@gregkh>
- <20260812123022.2084148-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YyhxBNCp"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 77FE44E411CE;
+	Wed, 12 Aug 2026 12:34:09 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 395236045E;
+	Wed, 12 Aug 2026 12:34:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7DDE511C48FB2;
+	Wed, 12 Aug 2026 14:34:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1786538048; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=xuFjDi+sqwOiT9DOGhyCDzTUfQjl1AKPwxZGlAghHCs=;
+	b=YyhxBNCpAmrz7AsVZImu0Omgf9G2QK4rQCmlcz+11OnuKSb2zuruJNwhBDkxYtbx0f99V4
+	nutTl3TxMuC+RQpOBwMXfLIHVtW6bXNW0YVWxPTWFh6hprgvtnlsvJAi9oWTnE2OjF5UOs
+	AtUpHKS4Kl73uV5sWtJ1OPOBgReV4s83WUm5q7qS+s8rL1rAsJmzSG540NN3eMQP1O9MQY
+	neBGMDtYRAKPeZcMpVyZ46VHh7DI8ypQ9pbVicVcoeMKio6zXsHmokpQD29YSLdgA7xmf6
+	djdU59My1IqW/n0idurHxu0aAbE+UyA7a72NEFm2oKEckvmoaLwEat2QJxOhOg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Pei Xiao <xiaopei01@kylinos.cn>
+Cc: joern@lazybastard.org,  richard@nod.at,  vigneshr@ti.com,
+  linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org,
+  syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com,  =?utf-8?Q?J?=
+ =?utf-8?Q?=C3=B6rn?= Engel
+ <joern@barelysecure.org>,  stable@vger.kernel.org
+Subject: Re: [PATCH v2] mtd: block2mtd: Fix divide error when erase_size is
+ zero
+In-Reply-To: <48230456575d27aa83ce8640de8fc07cc62e8efb.1786499433.git.xiaopei01@kylinos.cn>
+	(Pei Xiao's message of "Wed, 12 Aug 2026 09:52:42 +0800")
+References: <48230456575d27aa83ce8640de8fc07cc62e8efb.1786499433.git.xiaopei01@kylinos.cn>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 12 Aug 2026 14:34:04 +0200
+Message-ID: <871pc3msar.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+On 12/08/2026 at 09:52:42 +08, Pei Xiao <xiaopei01@kylinos.cn> wrote:
 
-[ Upstream commit 3e191eddbdcb8bf7beb1e9b58209073bd5450719 ]
+> The erase size is parsed from the "block2mtd" module parameter and can
+> be set to zero. add_device() then evaluates
+>
+>         if (size % erase_size)
+>
+> with a zero divisor, which triggers a divide error:
+>
+>         divide error: 0000 [#1] PREEMPT SMP PTI
+>         RIP: 0010:add_device drivers/mtd/devices/block2mtd.c:296 [inline]
+>         RIP: 0010:block2mtd_setup2+0x592/0xda0 drivers/mtd/devices/block2=
+mtd.c:459
+>         Call Trace:
+>          block2mtd_setup+0x27/0xe0 drivers/mtd/devices/block2mtd.c:476
+>          param_attr_store+0x214/0x310 kernel/params.c:589
+>          module_attr_store+0x65/0x90 kernel/params.c:904
+>          kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+>          ...
+>
+> Reject a zero erase size before performing the modulo operation so the
+> existing "erasesize must be a divisor of device size" error path
+> reports the invalid argument and frees the device.
+>
+> While at it, drop the unnecessary (long) cast from the size operand of
+> the modulo.
+>
+> Fixes: ea6d833a3fdd ("mtd: block2mtd: check device size")
+> Reported-by: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/lkml/6a7b58ba.ac361c09.22ff0a.0045.GAE@go=
+ogle.com/
+> Suggested-by: J=C3=B6rn Engel <joern@barelysecure.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 
-Commit 76255024cadb ("drm/mediatek: mtk_dsi: enable hs clock
-during pre-enable") rightfully moves the HS clock enablement to
-before atomic_enable(), but it's moving it to mtk_dsi_poweron(),
-which is not only called in the .atomic_pre_enable() callback
-for the DRM bridge, but also in the MediaTek DRM's .ddp_start()
-callback, which happens way before the bridge ones.
+Apparently, removing the cast leads to an unsupported operation with a
+64-bit operand on 32-bit architectures (See Sashiko report).
 
-The HS clock enablement should be done at just the right time,
-otherwise some bridge chips (or some Display Driver ICs) may
-not work correctly: this is seen at least with a Parade DSI to
-eDP bridge (PS8640) on the MT8173 Elm Chromebook.
+I guess it is best to keep that cast in the end.
 
-This resolves a regression that was seen on the aforementioned
-machine, which was happening only after a suspend-resume cycle.
+Sorry for the changes back-and-forth.
 
-Cc: <stable@vger.kernel.org> # 7.1.x
-Fixes: 76255024cadb ("drm/mediatek: mtk_dsi: enable hs clock during pre-enable")
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Tested-by: Adam Thiede <me@adamthiede.com>
-Reviewed-by: CK Hu <ck.hu@mediatek.com>
-Link: https://patchwork.kernel.org/project/linux-mediatek/patch/20260728153145.578404-1-angelogioacchino.delregno@collabora.com/
-Signed-off-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/mediatek/mtk_dsi.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 2934dc2d841cd..36ac8c1322da8 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -743,8 +743,6 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
- 	mtk_dsi_set_vm_cmd(dsi);
- 	mtk_dsi_config_vdo_timing(dsi);
- 	mtk_dsi_set_interrupt_enable(dsi);
--	mtk_dsi_lane_ready(dsi);
--	mtk_dsi_clk_hs_mode(dsi, 1);
- 
- 	return 0;
- err_disable_engine_clk:
-@@ -858,6 +856,9 @@ static void mtk_dsi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 	ret = mtk_dsi_poweron(dsi);
- 	if (ret < 0)
- 		drm_err(drm, "failed to power on dsi\n");
-+
-+	mtk_dsi_lane_ready(dsi);
-+	mtk_dsi_clk_hs_mode(dsi, 1);
- }
- 
- static void mtk_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
--- 
-2.53.0
-
+Miqu=C3=A8l
