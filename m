@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16F9482D4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17722253A1;
 	Wed, 12 Aug 2026 05:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786513697; cv=none; b=PGwo3+bDaPVkQN0W9dyH8dKni7pxr7uBxZjVk5l/K9u5+sCwMh8cq2nnQmTh25LHZt4Vtrb3xRjqahUfylZ0zyW5zYwfeg4JoKHrF21jxPEwpys1cAlM5yTeug1vzbBPrzDFABs4DPv8eaBleiSIfcQwEWKzUGFevA0FshRAU6o=
+	t=1786513697; cv=none; b=gJzTK9wflLoxEliJFH4fhpNfR94qZlvHU1Bf2fXKVDnGIYEgmXf9wtbce0EgvcXSuv7oE7naSWv8TAFgG2EbzYeVduVUl7i08mc7TGACVUxM6vIoGP895vvy7EMHtnkUgaR4NMuvdSkkpxDadRkiNBCGxWcxok5tl4etD5aCT6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786513697; c=relaxed/simple;
-	bh=0Zo7Rbv+zcD+9wkog421wT1HYw9FSZDE+BW1aRtXh1o=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cpGA7bYE+7+zqNZy5ITJGl2V4gG4w1E0BkLwGpWxtn1uBp9qQQL2uVLck4MUeEYT76kkeSKSlmSX+ZBm9tMAcVLD0jN5asMM2eX2QpUo85PzlXx3skakOdgfdD++PFjbnZd1GT2GeauUO9qSFEN2OkSQd6TTYmeQvm0O/3zox5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otpnH+Z2; arc=none smtp.client-ip=10.30.226.201
+	bh=2Ef7G09j67/eoUC8SK2Ltteg4MTYzAdNGnUkoyKYleg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TDcKmDsFslA5kjJDMYNwFHErdhoJyZlgn0ST8Wobe+SIvOCTN9mqeMectceUYg2CSVEZGV8DPVuUhiKmAusapFkw4Q5Yi47W1qPQy4b3d/yEm6JZtiOF8+lHLs5pW7eG3Lmvzit4YUtQQ8+VxyhLs7XN+l6WSffgMBNu0tX794U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hj5LWPR1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otpnH+Z2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9EA43C2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hj5LWPR1"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ACF41C2BCF6;
 	Wed, 12 Aug 2026 05:48:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786513696;
-	bh=0Zo7Rbv+zcD+9wkog421wT1HYw9FSZDE+BW1aRtXh1o=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=otpnH+Z2B4gaP84TTqLX83SaFosEn7R/2P1CEjDwioA9LCYEEb8kRkPkYYF9ZVezK
-	 6AGbsPtkQ/r275HWOwXiOa1WaNZ2l/dPMQ/92YbANBuHLlcJkooaEDKK7O4XGsUu+9
-	 Tg4yge8rCIKi3Ib8/3He7kY/CazH0rzYDtz3fICrXHSNMEbbB2/pmscqk9ezVqOD+C
-	 EWF/NzxNkiSQQu9lXhs2v6AV+xDCsF4YmZL0tfOV2fnXjcBJJ2gNP11knWyrrKFG6l
-	 G2fTu0a4dq7g9CTxfPUFj0CNilw1zV4ubTWLmVQyePlFVya0rIYsvPMXYs4C6IYJuI
-	 AF12IQhpULc0A==
+	bh=2Ef7G09j67/eoUC8SK2Ltteg4MTYzAdNGnUkoyKYleg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=hj5LWPR19q3Xoks4xzKyly0Lmc0JovtQdKa/NFqlIzOTVi/c2D0KMLbCV4PDtCxn8
+	 W7O0n2T2Oi7M/xdv2blOn3m4s0gGfAGkwpZMEcZWHCvJqCkdepVEZb8LMjOR4G58DZ
+	 kdkxiFUNJECmFZ4xZbkwUcjPrqog2kCFUVZl0jg3H/G3bCez2dlNOldAUxts/+pZPG
+	 I2C4OUc3AKBIz9e3sOJtre+k/PejVDuir4ZRmRrtpEkTwnPjBwtGDTjK+D1DkCTMuO
+	 nbgUwfrFnAqSPAvLV4I/xIrwBHuTfPGF8lLLjuZNNoympbo3fw65/npQVFBY7yrEyR
+	 RxCU174uMPL3A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 760F7C5B56A;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CFBFC5B567;
 	Wed, 12 Aug 2026 05:48:16 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Subject: [PATCH 0/5] powerpc/spufs: fix a leak, an OOB read and three
- context lifetime/locking bugs
-Date: Wed, 12 Aug 2026 13:48:06 +0800
-Message-Id: <20260812-spufs-fixes-v1-0-449e201d9f64@outlook.com>
+Date: Wed, 12 Aug 2026 13:48:07 +0800
+Subject: [PATCH 1/5] powerpc/spufs: fix memory leak of spufs_fs_context in
+ spufs_free_fc()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,10 +41,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABYJfGoC/x3LTQqAIBBA4avErBP8AbOuEi3ExpqNiUMRiHdPW
- n48XgXGQsiwDBUKPsR0pQ41DhBOnw4UtHeDltpKp7TgfEcWkV5kEfyEyjhrlJuhH7ngH/qwbq1
- 944gqs10AAAA=
-X-Change-ID: 20260812-spufs-fixes-ca7e13863189
+Message-Id: <20260812-spufs-fixes-v1-1-449e201d9f64@outlook.com>
+References: <20260812-spufs-fixes-v1-0-449e201d9f64@outlook.com>
+In-Reply-To: <20260812-spufs-fixes-v1-0-449e201d9f64@outlook.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
  Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
  "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
@@ -56,13 +55,13 @@ Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Junrui Luo <moonafterrain@outlook.com>, Yuhao Jiang <danisjiang@gmail.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3114;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1455;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=0Zo7Rbv+zcD+9wkog421wT1HYw9FSZDE+BW1aRtXh1o=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBpOWdkFERvEYwJmvRSO3btAjG3R6dgMLstH69ZwK
- qs0fG/R/9ZRysIgxsUgK6bIcrzg0jcL3y26W3y2JMPMYWUCGcLAxSkAEzkpyMjw06uz4DDPme39
- V1dKnnuo3ux4/pNRl0zvpdR/FrlLNlXPYWTY80/ekcMqdvE0VQ4ZgUbDGanupqeu/dtasY3nmnm
- e4H8OAAfuRww=
+ bh=7tJ0E00IsnJBei3nS8CdVd0Qh/gBecZOpc59xKiGh0k=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBpOWbe6PYdDbk6eKcG3yuT2bsbKWTKZM88uLaw66
+ pOXwejldb6jlIVBjItBVkyR5XjBpW8Wvlt0t/hsSYaZw8oEMoSBi1MAJuKrwvDPKIS9wVS0bsm+
+ ufOuxTn1rIqYMKnaalX4pb0aDw6LPTHiYPin0BNay8Rec2FX46YA1YZni+1YFi74u+HmNc+Y6Ig
+ ey9e8AF6eSFU=
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -70,70 +69,45 @@ X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
 X-Original-From: Junrui Luo <moonafterrain@outlook.com>
 Reply-To: moonafterrain@outlook.com
 
-This series fixes five independent bugs in spufs.
+From: Junrui Luo <moonafterrain@outlook.com>
 
-The first two are simple and directly reachable by an unprivileged user:
+spufs_init_fs_context() allocates both a struct spufs_fs_context stored
+in fc->fs_private and a struct spufs_sb_info stored in fc->s_fs_info.
+The ->free callback spufs_free_fc() only releases fc->s_fs_info.
+put_fs_context() never touches fc->fs_private, since releasing it is
+what ->free() exists for, and vfs_clean_context() calls ->free() and
+then clears both pointers itself.
 
- - Patch 1 frees the struct spufs_fs_context allocated by
-   ->init_fs_context(). Nothing ever released it, so every spufs
-   fs_context leaks it, and fsopen() reaches ->init_fs_context() before
-   sget_fc() rejects the mount for the lack of FS_USERNS_MOUNT.
+Every spufs fs_context that is constructed and torn down therefore leaks
+the struct spufs_fs_context allocation. The leak is reachable without
+privileges: fsopen() runs ->init_fs_context() before sget_fc() enforces
+spufs's lack of FS_USERNS_MOUNT.
 
- - Patch 2 removes a double sizeof(u32) scaling in
-   spufs_wbox_info_read(). The value handed to
-   simple_read_from_buffer() as the length of available data reaches 64
-   for a 16-byte on-stack buffer, so a read past offset 16 copies up to
-   48 bytes of adjacent kernel stack to userspace. The mailbox
-   occupancy that gates this is set by writing the context's own wbox
-   file, and wbox_info is mode 0444.
+Free fc->fs_private alongside fc->s_fs_info.
 
-The remaining three are concurrency bugs in the context scheduler and
-the fault path - one object lifetime race, and two around
-ctx->state_mutex:
-
- - Patch 3 takes a reference on contexts returned by
-   grab_runnable_context(). The runqueue holds no reference of its own,
-   and once the context is unlinked the owner's spu_del_from_rq()
-   becomes a no-op, so it can close and free the context while the
-   scheduler still holds the pointer - a use-after-free window spanning
-   a full context save. The BUG_ON(!list_empty(&ctx->rq)) in
-   destroy_spu_context() cannot catch it, because list_del_init() has
-   already emptied ctx->rq.
-
- - Patch 4 retests ctx->state after spu_deactivate() in
-   spu_acquire_saved(). __spu_deactivate() drops state_mutex
-   internally, so the earlier test is stale on return; a second reader
-   can consume the single SPU_SCHED_WAS_ACTIVE bit and rebind the
-   context, leaving the first acquirer reading a save image the SPU is
-   still writing and then hitting the BUG_ON() in spu_release_saved()
-   with state_mutex held.
-
- - Patch 5 releases state_mutex before re-taking mmap_lock in
-   spufs_ps_fault(). Every other spufs fault path takes the two locks
-   in the opposite order, and three threads sharing an mm can close the
-   cycle; because spusched_tick() takes the same state_mutex, one
-   wedged context also stalls SPU scheduling for the whole node.
-
+Fixes: d2e0981c3b9a ("vfs: Convert spufs to use the new mount API")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
-Junrui Luo (5):
-      powerpc/spufs: fix memory leak of spufs_fs_context in spufs_free_fc()
-      powerpc/spufs: fix out-of-bounds read in spufs_wbox_info_read()
-      powerpc/spufs: take a reference on contexts pulled off the runqueue
-      powerpc/spufs: fix context state race in spu_acquire_saved()
-      powerpc/spufs: fix mmap_lock/state_mutex lock inversion
+ arch/powerpc/platforms/cell/spufs/inode.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- arch/powerpc/platforms/cell/spufs/context.c | 4 ++--
- arch/powerpc/platforms/cell/spufs/file.c    | 6 ++++--
- arch/powerpc/platforms/cell/spufs/inode.c   | 1 +
- arch/powerpc/platforms/cell/spufs/sched.c   | 9 ++++++++-
- 4 files changed, 15 insertions(+), 5 deletions(-)
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260812-spufs-fixes-ca7e13863189
+diff --git a/arch/powerpc/platforms/cell/spufs/inode.c b/arch/powerpc/platforms/cell/spufs/inode.c
+index 2b54afb31529..51c432864f02 100644
+--- a/arch/powerpc/platforms/cell/spufs/inode.c
++++ b/arch/powerpc/platforms/cell/spufs/inode.c
+@@ -713,6 +713,7 @@ static int spufs_get_tree(struct fs_context *fc)
+ 
+ static void spufs_free_fc(struct fs_context *fc)
+ {
++	kfree(fc->fs_private);
+ 	kfree(fc->s_fs_info);
+ }
+ 
 
-Best regards,
 -- 
-Junrui Luo <moonafterrain@outlook.com>
+2.51.2
 
 
