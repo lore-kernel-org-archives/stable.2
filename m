@@ -1,164 +1,134 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD70033B970;
-	Wed, 12 Aug 2026 20:47:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0740E3AB29E;
+	Wed, 12 Aug 2026 20:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786567655; cv=none; b=j49oqcFymWKCtseDIPacdja9AkDaGlQjuuoybsgdBTI1BVsI4SHbUzbw8piX9ov/XSVOXrXdK7D1qRMjeQdNbo0TlsoYabQJs9eJrG/njajhnMTXH2TgmiQFojJqL20L3VEXsksQwNVD0fD66hioWH8lRdeSN7SYsmmSdD6JTPI=
+	t=1786568099; cv=none; b=roZv+ptuOu46N5NdV7Mekub8CW5ImLiqCrwxwEGMx+3jiWaFi9tIH83UsEmTo72XkNiDtBojnGvuGSq1oQ/snqoPOK5Qms5OwwDak7GBwSCPnZVoXKHHabY654lFN86wQfZn9h6BCavtwNVf6/rfrdyciXldR+RAVY+r6PsApIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786567655; c=relaxed/simple;
-	bh=w024XBgg1ZjZTH0vd9AYmyiNtdRYrahWGr88BWoZsA0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K/X0sESNgvqaoHHYXgfz6hxfsa3mwqx41ZEpv8VxCXukpQlc5hdT/9x9cj7dlN5e5rQgAKgJF2DhI4px7LmmK0nIDgm/Hy6qrW2k4fFOewYmi9wITMrGonQKR0z/7/NK88YSzV5VMaeopJpnFRQKcgbhiJNGDWFyxwijw/Cawc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mm1cuohF; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786568099; c=relaxed/simple;
+	bh=RBgmZx5W5XTCdjY7SkY1E1McKukoOV/oaHCHgAt8DQY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WMP9zL7sOwlWxEQuuuec8+2fZgI01gx3xKefL9w5VxtjubFDh+GMttJzwaUDzu/N/UUs1VcXDhf+PE4oyAX5ZLOiN56P8Q9Oa9miwOQtbmgu7J0yozwe4cXKjgYokni8lo82WVuBZME9AM1EKAIyTbMtOL0YiGAF1m5dm+SSut8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=V7p9kvcS; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mm1cuohF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786567654; x=1818103654;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=w024XBgg1ZjZTH0vd9AYmyiNtdRYrahWGr88BWoZsA0=;
-  b=mm1cuohFQUH2JFcRTVCUr/hWfNV3lTVoIWn6lXlk8Ar1Z/xZFjrmQ/kD
-   muHkt+Ldpz6UBE7y+NAWm2XL0f8q+5zg8ECSf0UNC28dSZcOgNktMAkDk
-   hYfIxvrRWvLIGtR3VomiC7Y/ifnCLV2hBo45JFkzlAYpe4Zoc20jqYkvT
-   P3VvXYKWOUFQyVfeQjvbsAwYbwZ6ca+6NGFgn/fwmqZO1DXYHIKgVslLh
-   O5XRiZvkqbihKzQpJWFiMkxZtA2zA8MphZ5I0WUafM6jbxLxmCHks3KTG
-   IGF7rRLYuiIhQ7XYi9cnWPCyxu4Cijs4g3ThlOUzND8u1wiVuYu7H7FK8
-   g==;
-X-CSE-ConnectionGUID: cjJ/CFkkS8e/AVBMqv/Q+g==
-X-CSE-MsgGUID: GEz4AuynQxKpb1Wk4x/bUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="87015548"
-X-IronPort-AV: E=Sophos;i="6.25,220,1779174000"; 
-   d="scan'208";a="87015548"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 13:47:33 -0700
-X-CSE-ConnectionGUID: Iiifp7rBQgiDvA2CY6xE8w==
-X-CSE-MsgGUID: BJvATKfzTDe9unPHUxHYcg==
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 12 Aug 2026 13:47:29 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wuFrD-00000000ReQ-0iLw;
-	Wed, 12 Aug 2026 20:47:27 +0000
-Date: Thu, 13 Aug 2026 04:46:49 +0800
-From: kernel test robot <lkp@intel.com>
-To: Pavitra Jha <jhapavitra98@gmail.com>, alexander.deucher@amd.com,
-	christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Pavitra Jha <jhapavitra98@gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP
- discovery header cast
-Message-ID: <202608130435.5Msck82Q-lkp@intel.com>
-References: <20260708061835.111986-1-jhapavitra98@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="V7p9kvcS"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CK2e0r291749;
+	Wed, 12 Aug 2026 20:54:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=REtpvE
+	vIMNJ9hjkK6JevTlaZXvmRDuv01B0CiK1UD+U=; b=V7p9kvcS7qQ72AfX879M2G
+	sQQhTPpV+iYN3lkRABL9S/Iu4REbK4v+NgeK9SPoRayLqZIMdxtqBBEXXFRRYE2y
+	ZskE3RJo63t66b2aUDWLzdlDvyGYAQzb2a2zMF1HjTGKsVCnwJAFxABcfuAssvLe
+	P5XfOiWbG1mVfoF2iGyfKkdsEauBnQxq8exPhGeDo3inK5AL3ROG0kfr1cwuPVM7
+	m/DNKb3AWPLjQIam41+iqQwgfKZTS6nd0ooHtjgYFvRXVqitE9moTjRpxVPANYVh
+	oQZn/KLEEdbf5G5b6Hcy2zz0kylAQah4Fv44LKW/OtZhvEwvCjeLKhuDdFzLgGjg
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvm9vrsk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 12 Aug 2026 20:54:46 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67CKfICH024656;
+	Wed, 12 Aug 2026 20:54:45 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fxesq85y3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 12 Aug 2026 20:54:45 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67CKsiPi25952784
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 12 Aug 2026 20:54:45 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DC0D758060;
+	Wed, 12 Aug 2026 20:54:44 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D6ED758056;
+	Wed, 12 Aug 2026 20:54:43 +0000 (GMT)
+Received: from [9.61.74.89] (unknown [9.61.74.89])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 12 Aug 2026 20:54:43 +0000 (GMT)
+Message-ID: <913258a5-7211-4efc-ab34-72fce38ed17e@linux.ibm.com>
+Date: Wed, 12 Aug 2026 16:54:43 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708061835.111986-1-jhapavitra98@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 8/9] s390/vfio-ap: Fix NULL deref in status_show()
+ during queue probe
+To: Anthony Krowiak <akrowiak@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+        stable@vger.kernel.org
+References: <20260812200240.818004-1-akrowiak@linux.ibm.com>
+ <20260812200240.818004-9-akrowiak@linux.ibm.com>
+From: Matthew Rosato <mjrosato@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <20260812200240.818004-9-akrowiak@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE2NSBTYWx0ZWRfX95sTmbwNKP46
+ 4vvXE8we3I/cbF8wLIDessMCV61bkJhaaFMBYjczMqYTdADzXN05waMqo6ZlxXcUpOD3JsgKobI
+ 1lBFh126mBsCNbAS5hMpY2NzR2Fx06QCC3x5TS1lDJOK6LfLB5fhQoxu5a8oDMzvSlY2GchqqyX
+ a/SmLqgw0xhBhdVTKUjfrGiQqnTMP4Zjbx80agDGdtRNDxMou7nSI3rmwSpMgPSW/IJSIhIbse6
+ jmOse2vdxXAj0gf4TRFHz1XvX/uTsxcMqazJZquqwnXGQpHEe8dR+AEO9lIPrqXBDzPOtXzNUWN
+ ethN+fVlP+670s7ldKlrT3GkDkufGtSlGt0aa8WhgipqQN4mnTrohDECHla8OX9uCiLWqoEJxPg
+ b7nPRhTC77Y2rt/ijLR8yk/cDeOnNB7JeTzGzxMGtp5ntzPK2gkThB0xMVAp8yarnuUrN5aubhR
+ EH8S89RrpbJLrNEh/pg==
+X-Proofpoint-ORIG-GUID: _UpAGCbV2nlfMh-3KC8oqwVJxh4QnV_I
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE2NSBTYWx0ZWRfX2O8w65OffHjI
+ r5yGmDZ8YjK4htl5b4fb6s1AcNv4XcwcMY1SNb5Q+FBv7/kGNzPXsvZRcFQ6XZD2oyNPVdpgXcq
+ vN5a3OAgvN4ZbE0pVtizn1XwQofW8/U=
+X-Authority-Analysis: v=2.4 cv=IfK3n2qa c=1 sm=1 tr=0 ts=6a7cdd96 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=3ogWLBYsyzpkYmsBJL4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: _UpAGCbV2nlfMh-3KC8oqwVJxh4QnV_I
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_06,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 adultscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120165
 
-Hi Pavitra,
+On 8/12/26 4:02 PM, Anthony Krowiak wrote:
+> When vfio_ap_mdev_probe_queue() creates the sysfs attribute group,
+> the queue's driver data has not yet been set. A concurrent read of
+> the 'status' attribute can therefore call dev_get_drvdata() and
+> get NULL, which is then passed directly to
+> vfio_ap_mdev_for_queue() where q->apqn is unconditionally
+> dereferenced, causing a NULL pointer dereference.
+> 
+> Fix this by acquiring the update locks before calling
+> sysfs_create_group(). The status_show() function acquires
+> guests_lock before reading the driver data, so any concurrent
+> read will block until after dev_set_drvdata() has been called
+> and the update locks are released.
+> 
+> As a bonus, the APQN no longer needs to be read from the queue
+> struct after allocation — it can be read directly from apdev
+> before allocation and stored in a local variable, which is then
+> assigned to q->apqn once the allocation succeeds.
+> 
+> Fixes: 260f3ea141382 ("s390/vfio-ap: move probe and remove callbacks to vfio_ap_ops.c")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v7.2-rc7 next-20260811]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Pavitra-Jha/drm-amdgpu-discovery-validate-table-offset-before-IP-discovery-header-cast/20260812-100224
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260708061835.111986-1-jhapavitra98%40gmail.com
-patch subject: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP discovery header cast
-config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20260813/202608130435.5Msck82Q-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 12df34b8469b8095359de8c249cb1b2753fadeea)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260813/202608130435.5Msck82Q-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608130435.5Msck82Q-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:534:25: error: member reference type 'struct table_info' is not a pointer; did you mean to use '.'?
-     534 |         if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
-         |                         ~~~~~~~^~
-         |                                .
-   include/linux/byteorder/generic.h:91:21: note: expanded from macro 'le16_to_cpu'
-      91 | #define le16_to_cpu __le16_to_cpu
-         |                     ^
-   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
-      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
-         |                                                   ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:536:23: error: member reference type 'struct table_info' is not a pointer; did you mean to use '.'?
-     536 |                         le16_to_cpu((*info)->offset), table_id);
-         |                                     ~~~~~~~^~
-         |                                            .
-   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
-     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                                        ^~~~~~~~~~~
-   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                                     ^~~~~~~~~~~
-   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
-      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
-         |                                                   ^
->> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:536:34: error: use of undeclared identifier 'table_id'
-     536 |                         le16_to_cpu((*info)->offset), table_id);
-         |                                                       ^~~~~~~~
-   3 errors generated.
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
 
 
-vim +534 drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-
-   508	
-   509	static int amdgpu_discovery_verify_npsinfo(struct amdgpu_device *adev,
-   510						   struct table_info *info)
-   511	{
-   512		uint8_t *discovery_bin = adev->discovery.bin;
-   513		uint16_t checksum;
-   514		uint16_t offset;
-   515	
-   516		offset = le16_to_cpu(info->offset);
-   517		checksum = le16_to_cpu(info->checksum);
-   518	
-   519		struct nps_info_header *nhdr =
-   520			(struct nps_info_header *)(discovery_bin + offset);
-   521	
-   522		if (le32_to_cpu(nhdr->table_id) != NPS_INFO_TABLE_ID) {
-   523			dev_dbg(adev->dev, "invalid ip discovery nps info table id\n");
-   524			return -EINVAL;
-   525		}
-   526	
-   527		if (!amdgpu_discovery_verify_checksum(adev, discovery_bin + offset,
-   528						      le32_to_cpu(nhdr->size_bytes),
-   529						      checksum)) {
-   530			dev_dbg(adev->dev, "invalid nps info data table checksum\n");
-   531			return -EINVAL;
-   532		}
-   533	
- > 534		if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
-   535			dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
- > 536				le16_to_cpu((*info)->offset), table_id);
-   537			return -EINVAL;
-   538		}
-   539	
-   540		return 0;
-   541	}
-   542	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
