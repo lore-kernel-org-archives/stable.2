@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A19400962
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E59408611
 	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786525922; cv=none; b=hcVLza5HuyUjyxS15+XawdIooUQudsUxenxvSHlQ74U5eMliX5CuvWT5xBi9U8SQlEJT/wlayH5FNdwl92F4f5TeNGQUYJrExB1ZYZcparxwHfXTTpytzARVl7oC51QA7ftd6jLEU88P9aTg4+5guFqlf+HgGHeAO0RC/2X4uR8=
+	t=1786525922; cv=none; b=AXoYZh8f+W7VxzfU34VaB4pRNAKRGObP5YyWHnsY2cx1LLcdbdWzN2xF6FbJ9brg2lhaH2r+3itxllMhPvcdxKj8yGn9mYaXD+OEImV2MVC6AOcIAqqVxFS/S6iMO4EMHgWgqW3TWi0YgaSZ4YjnaduN8+ArCwJDgHf9oMa6jic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786525922; c=relaxed/simple;
-	bh=hcASKUQ5remP/76NP5bh8mPhV3zus8u03yze5NeJDiA=;
+	bh=q/emhaSTF0sE0YMeLnKowoJffg/DUC4+TR4pN/1mryY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GWyk9UNaF1khiW908x4xyJ/+jYx4DEIMWsrctmz/iFAizjsBZWZvxsRodOVu0E6r9L1tzOT6m1x3hYmwdnHAChmejF92De9E5CIN7NggwfQNb7Z7UahehI/P7vvtQBY6hkRDU7uJJRja9hoVVPwLaptQIAM0UVHr/ZTNOAU38xI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ADz5wxmr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lnFvxmvxN4uNMepCDPD1f0yIoGZVugiYDQxcVTzb44/3EkuGcjEaXFfhYhzz6e+3Hdm+t3psTu8kgmLnt82/I+MSn43L6zrJ6r9KtEBtxOC5G9T66GvdDgQ4eeBJ/5fZCxj+CJDvXo4X+FgFBLQorJcLZcWhDgDS9do+8AgZCjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iK3DeiY8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ADz5wxmr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B94B1F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iK3DeiY8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7E691F00A3A;
 	Wed, 12 Aug 2026 09:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786525920;
-	bh=642/aGNTrmqsSfjC6kLC7gnrIiVl2Y2ucaJPkz3/sDE=;
+	bh=29JnB9AwVO/NgsaW653k5/255h6ocbrZRHHswEwzyt4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ADz5wxmrvoWle5mKRFq3/COABB3kds9Z32Zvok+WF6NTpI/xlvAwpOQ46QKcpegLn
-	 vs6Bcaq95UiwbkEyZDw9YDTbCuVmrgkVOkGxgvze7M/rTR1127w6J+EE8ZuIHADhO9
-	 ceC5Gee7+fdorwYKe1isj5+SJmRp1KOVzH2oW2Ye4AvmLd6tosm03N651UTNckOB+U
-	 u4O4HOLo+wiSQZZa4/XEJ/J4Uk68c0HA/ffQqTSZrsbUizUQqcBD6qdO9+weMvd3Gl
-	 vnmiwn66eFSShXF3ZDi6AeRz4woJmyCZa/VuBuQso5Pu0GmqsQGh8UVTTU0TMmg30H
-	 g+gl+UboQo/Bg==
+	b=iK3DeiY8nRCW+k/3/JA2fQlN/+ANiPSbB9narazyERVWO8XdFh+v64yUVsmse2Mgw
+	 JjCclv5W65UuHujL2qKEwkIzAICcWyxLvATi4V+C1I3QhIKm9EEW/12Tr69DWnQNXD
+	 Fws/H15uQZr63aMAyJx4W67UHsEIf5tA8ViB0MR7KGeuqn3bfPqkdo4wj9QRp2ohx5
+	 592KVSgXC68VoGkTLZN6u80fo1zprbcX3jSlCla2zRmblrx5dHCTsqyWWY9wDV7AGG
+	 pRQt26oKXgbIP+gkuqCtAgLM+KmExud/Xthqco+dEA8scP34oo8s1GLRdtVt4fmTn6
+	 ERkSummIQNpPw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ibrahim Hashimov <security@auditcode.ai>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Bart Van Assche <bvanassche@acm.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>
-Subject: [PATCH 5.10.y 5/5] scsi: scsi_debug: Fix REPORT ZONES alloc_len underflow OOB write
-Date: Wed, 12 Aug 2026 05:11:53 -0400
-Message-ID: <20260812091153.1357339-5-sashal@kernel.org>
+Cc: Amir Goldstein <amir73il@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Jan Kara <jack@suse.cz>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] fsnotify: opt-in for permission events at file open time
+Date: Wed, 12 Aug 2026 05:11:56 -0400
+Message-ID: <20260812091158.1359537-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812091153.1357339-1-sashal@kernel.org>
-References: <2026080556-overlap-everybody-5524@gregkh>
- <20260812091153.1357339-1-sashal@kernel.org>
+In-Reply-To: <2026080512-populace-barterer-83d7@gregkh>
+References: <2026080512-populace-barterer-83d7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,88 +46,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ibrahim Hashimov <security@auditcode.ai>
+From: Amir Goldstein <amir73il@gmail.com>
 
-resp_report_zones() sizes the reply buffer from the CDB allocation
-length. The v3 fix rounds alloc_len up with ALIGN() before deriving the
-descriptor count:
+[ Upstream commit a94204f4d48e28a711b7ed10399f749286c433e3 ]
 
-	rep_max_zones = (ALIGN((u64)alloc_len, RZONES_DESC_HD) -
-			 RZONES_DESC_HD) >> ilog2(RZONES_DESC_HD);
-	arr_len = (u64)RZONES_DESC_HD * (rep_max_zones + 1);
+Legacy inotify/fanotify listeners can add watches for events on inode,
+parent or mount and expect to get events (e.g. FS_MODIFY) on files that
+were already open at the time of setting up the watches.
 
-For alloc_len in 0xFFFFFFC1..0xFFFFFFFF, ALIGN() rounds up to
-0x100000000, so arr_len is 4 GB. On 32-bit, kzalloc()'s size_t is 32-bit
-and truncates 0x100000000 to 0; kzalloc(0) returns ZERO_SIZE_PTR, which
-passes the !arr check, and desc = arr + 64 is then dereferenced in the
-loop -> out-of-bounds write / panic.
+fanotify permission events are typically used by Anti-malware sofware,
+that is watching the entire mount and it is not common to have more that
+one Anti-malware engine installed on a system.
 
-Clamp rep_max_zones to devip->nr_zones. The loop already stops at
-sdebug_capacity (after nr_zones zones), so a report can never hold more
-than nr_zones descriptors; the clamp does not change the report, it only
-bounds arr_len to (nr_zones + 1) * RZONES_DESC_HD, a real device
-property that can never reach 0x100000000.
+To reduce the overhead of the fsnotify_file_perm() hooks on every file
+access, relax the semantics of the legacy FAN_ACCESS_PERM event to generate
+events only if there were *any* permission event listeners on the
+filesystem at the time that the file was opened.
 
-Fixes: 7db0e0c8190a ("scsi: scsi_debug: Fix buffer size of REPORT ZONES command")
-Suggested-by: Damien Le Moal <dlemoal@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20260712183739.83915-1-security@auditcode.ai
-Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
-[ Adjusted for 5.10: resp_report_zones() here predates commit 4a5fc1c6d752
-  ("scsi: scsi_debug: Add gap zone support"), so it still computes
+The new semantic is implemented by extending the FMODE_NONOTIFY bit into
+two FMODE_NONOTIFY_* bits, that are used to store a mode for which of the
+events types to report.
 
-	max_zones = devip->nr_zones - (zs_lba >> devip->zsize_shift);
+This is going to apply to the new fanotify pre-content events in order
+to reduce the cost of the new pre-content event vfs hooks.
 
-  and bounds the descriptor loop with it. Keep that existing, tighter
-  clamp instead of introducing a second one against devip->nr_zones:
-  max_zones is by construction <= devip->nr_zones and is the actual
-  number of descriptors the loop can emit, so it satisfies the upstream
-  requirement that arr_len be bounded by a real device property while
-  leaving the reported zone list unchanged.
+[Thanks to Bert Karwatzki <spasswolf@web.de> for reporting a bug in this
+code with CONFIG_FANOTIFY_ACCESS_PERMISSIONS disabled]
 
-  Without the fix 5.10 has the same class of bug from the other end of
-  the range: for alloc_len in 1..63 the unsigned (alloc_len - 64)
-  underflows, kzalloc(alloc_len) returns a sub-64-byte buffer, and both
-  the report header at arr + 0 and desc = arr + 64 are written out of
-  bounds. Sizing the allocation from rep_max_zones rather than from
-  alloc_len fixes that too. ]
-(cherry picked from commit 93dde0bf2f39a0f9f57fd610aa3201ce5b753433)
+Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
+Link: https://lore.kernel.org/linux-fsdevel/CAHk-=wj8L=mtcRTi=NECHMGfZQgXOp_uix1YVh04fEmrKaMnXA@mail.gmail.com/
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/5ea5f8e283d1edb55aa79c35187bfe344056af14.1731684329.git.josef@toxicpanda.com
+Stable-dep-of: db1856ea9196 ("binfmt_misc: restore write access when removing an entry")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/scsi_debug.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ include/linux/fs.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
-index ad4cea4e14848..02d624dd35964 100644
---- a/drivers/scsi/scsi_debug.c
-+++ b/drivers/scsi/scsi_debug.c
-@@ -4320,6 +4320,7 @@ static int resp_report_zones(struct scsi_cmnd *scp,
- 	u32 alloc_len, rep_opts, rep_len;
- 	bool partial;
- 	u64 lba, zs_lba;
-+	u64 arr_len;
- 	u8 *arr = NULL, *desc;
- 	u8 *cmd = scp->cmnd;
- 	struct sdeb_zone_state *zsp;
-@@ -4343,10 +4344,12 @@ static int resp_report_zones(struct scsi_cmnd *scp,
- 	}
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 02c83cd07d4f2..c1bd804b86153 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -184,6 +184,12 @@ typedef int (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
+ /* File supports async nowait buffered writes */
+ #define FMODE_BUF_WASYNC	((__force fmode_t)0x80000000)
  
- 	max_zones = devip->nr_zones - (zs_lba >> devip->zsize_shift);
--	rep_max_zones = min((alloc_len - 64) >> ilog2(RZONES_DESC_HD),
--			    max_zones);
-+	rep_max_zones = (ALIGN((u64)alloc_len, RZONES_DESC_HD) - RZONES_DESC_HD) >>
-+			ilog2(RZONES_DESC_HD);
-+	rep_max_zones = min_t(unsigned int, rep_max_zones, max_zones);
-+	arr_len = (u64)RZONES_DESC_HD * (rep_max_zones + 1);
- 
--	arr = kzalloc(alloc_len, GFP_ATOMIC | __GFP_NOWARN);
-+	arr = kzalloc(arr_len, GFP_ATOMIC | __GFP_NOWARN);
- 	if (!arr) {
- 		mk_sense_buffer(scp, ILLEGAL_REQUEST, INSUFF_RES_ASC,
- 				INSUFF_RES_ASCQ);
++/*
++ * fsnotify pre-content events do not exist in this kernel, so a file is never
++ * watched by a pre-content event listener.
++ */
++#define FMODE_FSNOTIFY_HSM(mode)	0
++
+ /*
+  * Attribute flags.  These should be or-ed together to figure out what
+  * has been changed!
 -- 
 2.53.0
 
