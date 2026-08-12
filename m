@@ -1,64 +1,64 @@
 Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A0F43A7FF
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 11:18:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B9A43BDC1
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 11:18:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786533536; cv=none; b=TAJJmEBVWXb91f1V/TQGQIk/W/E6snFupKLEXMcWoIIGMDAdDP2BVvUaWfk4EXAc2jltlU3Vsv4iaKeULQDkCthxUXcfgSp+pkDt8Ww4g3mqDEqYjuamXRCI2SwQnd99xhZ6pJvk35J3XL/gu4FdDu81F4ON0HvkE5HXJda9SkQ=
+	t=1786533540; cv=none; b=bFeA+zXIfuQws0Qc05xJqOIHHb40qFm10/iwHbnG3hOXuQjotoHoeQvV27SXAlQw1I2y30TZUllrgyWkmllwQtvVx7i7xzlkn1s98dc+1G5w1flISHoQdgygzmXYWlPl8CWwJLF6bsMvTfwvlX6WOOS5M/xviTY9cLjOS1HGF5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786533536; c=relaxed/simple;
-	bh=rhIU1zG+Cz1JEJ/DZCxK23rcEZYVi7vpJbqoVBA+2qQ=;
+	s=arc-20240116; t=1786533540; c=relaxed/simple;
+	bh=ZqVUWs3x1BgozxV3FrsSk7Lzh34dxSnwsmeX8ZrIYuQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oyW69o7BFS7m1p182FoYJiGl78+M9glWLSOcM5Iv0foiMm46poQVM0eYHR0CYgM+0LL8u1Ej/DtZiX9FtQHVHAWh6aqJvgz2YwbGjRpUZFKn6BcEMzB7FnIymIP56oZxuEcZ3L0HDUdCh8jC9718kPSEA4cJdOQTUey9chtpGZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eyDDhKJQ; arc=none smtp.client-ip=209.85.221.50
+	 MIME-Version; b=lFaMqHpKbISiCVvbAp8o4u1XMupOnGengTeJowPkunTFwgOkLVowJ2o4CQMV7N86VgcNLG65e2Z7a2Pjtik6g+HCJa+m/c2Q926e3AIQhEB4P1e5/3bcQnTCrS2yqxh4Wv/UEqj7nqwP0e9U1QRyZnWTOfcgIAKJW42/qQ+eI7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PX2VFpLg; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eyDDhKJQ"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f3b39f2a1so686875f8f.2
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 04:18:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PX2VFpLg"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47de008b020so496589f8f.1
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 04:18:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786533533; x=1787138333; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786533537; x=1787138337; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TzXAlvJrvz8VJKZL5THLFAhA3g1WFYpeVuZ+6qv41B0=;
-        b=eyDDhKJQcUn/6qaVG70x5845SB6g7ihlqCZ1k9C8xA4s08vUsk807yQ2iMtWsio3AR
-         eyWyrgb7t4KDldnvAQbkbVKu9qRmGkn8fyAb4KLpFZFPN3VV4L+kWVJRpgedCGc3rtS1
-         RNwFF3phhL4r1S04kTxp3VeywprfsEVJ4QIOBUGJYt8zZtMsXQYIw+WMa1c8yXcXI/Hk
-         CyWCvNOCnMkPfCeVphomyYmgSylyVP4OV011SyQKlB+nw038Tea1oPI6Zss8wvXxUnCb
-         JCer5DqazN1QUHGUOAyJkS/691E3Q9hpy47cZAuQyykkXhxzJYgH5Z4Kdn23CPmAWgdI
-         hKEQ==
+        bh=aGNNvpeBB2xFe8o+eAG+ITw+sBusoz0y2d8gJ/h4GCc=;
+        b=PX2VFpLgt9rPC4lsIJ82yrS9XEqQVu+xI6CLJaQcPVxf/xvPlghy7hZ2Uk1LN2RlOT
+         1UmyaM0Xb4bH+QEX1LL9yReaqG6UwD9THwbSFqYhB9VV3ecyUM2j7TH24FBM+ZGhtQc+
+         F/Vc1UBZWvM3eAnMKR4/SZAsL9fST5KGYUyJQyaplCODubYJ/q4XiaDiP++KD1BfXqw+
+         mIvneW+OkI5wFnkPSV6KpD4v6aICpyV3fLONVU6apzquqQR1n8UVboqjxfn58oJgLtvH
+         JtVcVNbiKl5hI6RwcZgn4qTBYLj1s8tbFtxgzr43kZQuT+g6c7i0HKBTh3tI+UvkE9am
+         0rmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786533533; x=1787138333;
+        d=1e100.net; s=20251104; t=1786533537; x=1787138337;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TzXAlvJrvz8VJKZL5THLFAhA3g1WFYpeVuZ+6qv41B0=;
-        b=V4ZKb0ICD7kfLoY+8IybPp3OLxHAZDkDRpTaDk6Ez1J9N4qVnlDDYYV9f9nQ0yEpG1
-         nHrcgiqhiKbRGiSI4DoMfhyp3ie/cYI1QXPVUcR1gBmFvywZnR8Ppa94I2/vKXGxLDLk
-         JkCxrftLWzg5HUAh91mOpS5Ld36R/Vnd5QpizmLaGlDv50PsuLwHdSjTXVYkjL2Ad+AQ
-         WQ4hVdl5PU6u7DnmLryqq3X+m58c9gW9uaey1t9opjGARWZnD9N4PdT55e6tzNsEabiW
-         KxW3ApU3o3XZovhcSdzSmPy+WRQAmsfNplUUSmyn0WJi9xfjWtxrvZYw8ptYE6wKirCJ
-         +1mQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqz819IQyMSHC9NurDeAwWJmQ67PJiiTWHVS0CWqrtHcO0ZH22mCAIKqwlynFFMB9cWPlImUPw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/6s9/jgCVqJ7admU5a4904xFMBBdFgnNI68imOjTQNuqWeiET
-	Xk0HVJV2G/RLTJ3pvUhgpH04LvVvTg4JP8XEDRkGD4zv4IiqiNJXpCXr
-X-Gm-Gg: AR+sD1331lyT3BI7e3ERkfvQqm7DWJ5A44TcXn+XcOkES9QBo1iymSV4/fDAmTlGCoW
-	aJufFji0wLd40VefFfuQ8kx2YGoDURS02AuFeHgfAtHGEg9dHgjiv2+eTdiuq2596hJIPU3KHt7
-	101H8tCnVIchJkw8zlG7QLMDZsJ62s8gbF5gPDFJsMl3+nU0t/JmfMUeZzRJV/m9LwJmDue1xCr
-	1Uay2xelWwVirlF926Xph3HbyQiXWYAix+56GTKybCqbGsFJWxHuUFugt6C+v+ixfME5c2p+uyQ
-	V6KTzNX6xXyMWlI8hheyWNJHM16UphC3EixhC0ysB5iqx+OrMxLZuspPud0bIYVbbttG5eoZnXA
-	5zttn2rJNFDICGeK5uyGFA2xRzdjM/RLJdrb0mpDO7v2RAs3s56J4TffhsN3mh9SeGKoMtysnvQ
-	Ftd6zK2Otnbj+I4XRNqYBmgA2ijzLlBMXDEulY9z1noJQLoJkD94nPS9J/pNDnf3xQQCHwOAMV8
-	gSjHvmqjccAWDP6plcZtmJiPzNPq2n0yjvOWfSPPQ==
-X-Received: by 2002:a05:6000:490d:b0:47f:ebe3:ca31 with SMTP id ffacd0b85a97d-48152dfd065mr6373537f8f.28.1786533533075;
-        Wed, 12 Aug 2026 04:18:53 -0700 (PDT)
+        bh=aGNNvpeBB2xFe8o+eAG+ITw+sBusoz0y2d8gJ/h4GCc=;
+        b=ieznkmKws7mSSsY8cYvuHI38gflk+HO7KBL3HCIeoaZ1isLbINju5wGgNu+nKOL/MD
+         aGBoZxlM8VoaWoaX330uEwtvPPeDjXj941/R3S+58RwTWQwjWOxVArnjmiV8URE7fvn6
+         OU4CbXR8ftMcqMEaWEgnVt9wdAzwJ3Yb0zQDUepi4KjWBE/cEpgkTVKCElHJkAd5S9Gd
+         QZXVD3qDzh/qe0N2UVTsLTXH9/2myBRM5yX3Rl0NopafNQ9JT3tJqOz54I8i3iJ56Z5X
+         fDeS6AKKvhc8v2lt1TFbXBpg/8qYzpJ6jCmED70kgl0p58neE41o1W2q107AyKg4Bosz
+         ViAw==
+X-Forwarded-Encrypted: i=1; AHgh+RqlufpjSXMhChMAZSc5nLvPDi5wK784JOlEB5vQrwwvkvweWCiVR/YYXF1kvNHNbIINyX92psA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKTVatmX12HovUA6NYUjuakX1NrKaks7VL51N+NRbVQ1j5nMtz
+	4Wk6mNGUI8yfysEO80jpLZSgxuERJF/KvWBYabeDEu+PovWw+RGSbvjg
+X-Gm-Gg: AR+sD12CqnFm1Pgx+kc+tIXX60rhoFWTtmWROyX83erpIODiIG3BwIklVUq7PHBKbLH
+	tMeiqeG4VYHj7YTtrgOr/cS03TwP0daMRY+cAJ+odK7tBp5L9DY5zjQjAf2IruKoON7Al1/86yU
+	SBaQec7gsfWSlSSiJr/p//j/dTyGcTQBMKIv/NUA9lztorDCQqZ+LwJLKcNUziQ2WGKV3KTYsO5
+	7dfhF6vpHkrtS6OAkW8s9kcv9VfEutj4P9Awj0ACsKqVibcTO0fSA8PKy2P9Wzujpi4AEbbTILG
+	17ANQUpq3WKKEA0jjdMUr1zcFEl929C5JorgNpPM5oBiW6GbGnAkrruDbYMTjnpcNl3d8Df9RCy
+	pYod0Uu0Mnm2QI4EUhpSNnNwcAMgPukPL1qbsryknkFZqV9R7nSOV6YjFQXEQxFetYg09EUTs5Q
+	BZq48EQQl5KMzTOGK+JJYHgQ8z01DorrKBZWkIx0JmFdXJEvRVPgMnFfvzHgdR9wNIl3ge7AHT3
+	mYPUyN0Vb0ajET1BDppAA6Llhw8cucgPnloZkbTnw==
+X-Received: by 2002:a05:6000:461c:b0:47f:71a0:c060 with SMTP id ffacd0b85a97d-4814febaf04mr11662868f8f.2.1786533536719;
+        Wed, 12 Aug 2026 04:18:56 -0700 (PDT)
 Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48150d702c9sm6670072f8f.34.2026.08.12.04.18.50
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48150d702c9sm6670072f8f.34.2026.08.12.04.18.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 04:18:52 -0700 (PDT)
+        Wed, 12 Aug 2026 04:18:56 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: platform-driver-x86@vger.kernel.org
 Cc: jorge.lopez2@hp.com,
@@ -68,9 +68,9 @@ Cc: jorge.lopez2@hp.com,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v2 7/9] platform/x86: hp-bioscfg: fix new_password_store overwriting current_password
-Date: Wed, 12 Aug 2026 16:18:27 +0500
-Message-ID: <20260812111829.172273-8-meatuni001@gmail.com>
+Subject: [PATCH v2 8/9] platform/x86: hp-bioscfg: fix ORD_LIST_ELEMENTS never being parsed
+Date: Wed, 12 Aug 2026 16:18:28 +0500
+Message-ID: <20260812111829.172273-9-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260812111829.172273-1-meatuni001@gmail.com>
 References: <20260812111829.172273-1-meatuni001@gmail.com>
@@ -82,40 +82,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-current_password_store() and new_password_store() both call
-store_password_instance() with is_current = true:
+The ACPI_TYPE_STRING case explicitly skips the string conversion for
+elem == ORD_LIST_ELEMENTS:
 
-	static ssize_t new_password_store(...)
-	{
-		return store_password_instance(kobj, buf, count, true);
+	if (elem != PREREQUISITES && elem != ORD_LIST_ELEMENTS) {
+		ret = hp_convert_hexstr_to_str(..., &str_value, &value_len);
+		if (ret)
+			continue;
 	}
 
-so a write to new_password is routed to current_password instead, and
-the new_password field is never written by either sysfs entry point.
+so by the time the ORD_LIST_ELEMENTS case in the eloc switch runs,
+str_value is NULL (it was freed and reset to NULL at the end of the
+previous iteration). That case then does:
 
-Fix by passing false from new_password_store(), matching what the
-is_current parameter is meant to select.
+	ret = hp_convert_hexstr_to_str(str_value, value_len, &tmpstr, &tmp_len);
 
-Fixes: 8646a3b5ee3a ("platform/x86: hp-bioscfg: passwdobj-attributes")
+hp_convert_hexstr_to_str() rejects a NULL input with -EINVAL, which
+sends this function to exit_list, and exit_list unconditionally
+returns 0. The net effect is that any ordered-list attribute with
+elements present silently ends up with an empty elements list, with no
+error surfaced anywhere.
+
+Fix by converting the current element directly, order_obj[elem], the
+same way the PREREQUISITES case already handles its own array
+elements, instead of reusing the unrelated str_value/value_len left
+over from earlier processing.
+
+Fixes: 4b2672ec71a3 ("platform/x86: hp-bioscfg: order-list-attributes")
 Cc: stable@vger.kernel.org
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-index acb123985ede..6bd56d3f5bd0 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-@@ -123,7 +123,7 @@ static ssize_t new_password_store(struct kobject *kobj,
- 				  struct kobj_attribute *attr,
- 				  const char *buf, size_t count)
- {
--	return store_password_instance(kobj, buf, count, true);
-+	return store_password_instance(kobj, buf, count, false);
- }
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
+index f09489a085c8..704c69c18146 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
+@@ -261,7 +261,9 @@ static int hp_populate_ordered_list_elements_from_package(union acpi_object *ord
+ 			 * Ordered list data is stored in hex and comma separated format
+ 			 * Convert the data and split it to show each element
+ 			 */
+-			ret = hp_convert_hexstr_to_str(str_value, value_len, &tmpstr, &tmp_len);
++			ret = hp_convert_hexstr_to_str(order_obj[elem].string.pointer,
++						       order_obj[elem].string.length,
++						       &tmpstr, &tmp_len);
+ 			if (ret)
+ 				goto exit_list;
  
- static struct kobj_attribute password_new_password = __ATTR_WO(new_password);
 -- 
 2.55.0
 
