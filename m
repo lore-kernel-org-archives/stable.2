@@ -1,46 +1,46 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533902C1586;
-	Wed, 12 Aug 2026 13:33:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E064445628F;
+	Wed, 12 Aug 2026 13:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786541601; cv=none; b=S+bby554vfkzrUTq/eaMTHct62gE8dFfdtce2mvvKdS16Keda3pXfwxCw/wn5C2cKaZYawLQ1CKQDPI9GL8HlxClsi3yNuL9zZZ5L3HOQOjUwmmmshX30YD33dy9xGNTBATYT3052UFjQj4anfkYdg9kS4z8xLE9wXNRDH04OCE=
+	t=1786542392; cv=none; b=XRqjAFk/rq9p3YUqAs9y/VXKubIjOJGgl/54y0LoIqOJQ9qE3n6GTb7Gyj04A7IfMQ5+7gZZfpi4GkMjGlrcz7cnZWMEToHrLvp1Mf8yCOJyiXIt8pRWwHcMZTDwUYhtq7D9Rnu+BknO7v8GfQs3li0Vr5iKrnBm44tmB3PcE/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786541601; c=relaxed/simple;
-	bh=2KhnZvXUWsa5df4X/viuvLHn3Urh7W9Rp7EEPN084fI=;
+	s=arc-20240116; t=1786542392; c=relaxed/simple;
+	bh=d6CFgm9ThDI74C5UpE0AaMmYwSV538IKMaCXrd5hQp4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MFTEKpA538LpJjOk/lsShd/6S2fehdHRigKoElkdTzVn34/M8RSe8UIGU02wI8/umIJJ3HOSIlXd6nTAzYAtSFCmL6utg9VONBv7eJhMLctN1wCdDijU6My65fxfrgDNMVFcUp9cfcXCg7S6o/4icyAQmbIiMkjQPbyMnLNjxbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=CnmHwh5N; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=kGrHHoHoTFlESGCP8uf4kcngVOETbPIzx4F9+RHylJ+oNNr20Pwf/ac0wxHVVMz0AVbxNVUPvQfn5Or0e0oDq3PA0UujTUQLn6VL1S2czRRGRvYskW5F6slszeW+R2sq6Z5zKrooXUVp2Hq+zTXE3K2DefN0yEhLRQDt6U0/w7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/XwHSDD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="CnmHwh5N"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=hNVgISifczc1OreKthTHVApvqfa7CGhqBOdhL2XQMIM=; b=CnmHwh5NkoT0V4A0yeSw6NZ2Kn
-	KPFpYX71n7wTu8LPc/ejiqhuNttd4hqPDWu9H3Cw9+t5gIzOb8L/sJJVD9BaeCTXaLrZiHYFQmyls
-	86wEL3Ks2coo2Po8xmmZD5CACFSH8V14Lsufd1qc1pcjkeUvn6/5ne6jvd+HgxIIuy+iztuD4/7PG
-	Z/bZnK0uT7kO/B2Kr/KV2dP0lcTHGEbUnoNoXiqVEYOsBlxqTJer1gKZgpxNv7RvLlSkcMPKUMuOg
-	r70JESdXasqhUQQnPOnteW9GEKgSg8/2UQnrwEQbrdsKdG3lST+WziqyJzcscocsU+5jwgPu8aN3B
-	1L/S1YNQ==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wu954-0000000GIbO-25n2;
-	Wed, 12 Aug 2026 13:33:18 +0000
-Date: Wed, 12 Aug 2026 06:33:18 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: daan@amutable.com
-Cc: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
-	Daan De Meyer <daan.j.demeyer@gmail.com>,
-	Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nbd@other.debian.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] nbd: drop stale partitions on NBD_CLEAR_SOCK
-Message-ID: <anx2Hqm51MyhH-6-@infradead.org>
-References: <20260806-b4-loop-nbd-stale-partitions-v1-0-67bb75a8d7be@amutable.com>
- <20260806-b4-loop-nbd-stale-partitions-v1-2-67bb75a8d7be@amutable.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/XwHSDD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF67A1F00A3D;
+	Wed, 12 Aug 2026 13:46:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786542390;
+	bh=3sp0BNJKgir4wziOWxyB3nibDSrXXlF/m0GwaxwJDoc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j/XwHSDDlSeIfFJkwG+03RnS1FIDWCvalaj6TTMs9rirdJk8Xj+nPHaGkq+b+fLoh
+	 ygXhpCrNkZdM7uGIQHeW88B1speKaGqBlG01SE8kh8cJb+uDyzgiAVcljlW506ZpiY
+	 nHOxFIaPczrGkmhFBxtISWT9g10oUFpZKiUSQNbXFUQmYOzxw33it0XXiO/0yqrbRB
+	 MDPT3LCZ6X43BmuAF5gmtzyzNAgRpyULCZ1xUPw+xybHn8mZFDkdXa4psyDC9bMwby
+	 eTvlLhpK2k+EBw4SrbaOnUc2AEHeZcY1xVuI9pK+bLo3wv/2XcZi9HG2DCv0V5l0lc
+	 wFGqJ1/M2YreQ==
+Date: Wed, 12 Aug 2026 14:46:25 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Jintack Lim <jintack.lim@linaro.org>, 
+	Christoffer Dall <christoffer.dall@linaro.org>, Christoffer Dall <christoffer.dall@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] KVM: arm64: Fix spurious warning for benign stage 2
+ teardown race
+Message-ID: <anx42VidDlhWKBYt@gremlin>
+References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
+ <20260812-kvm-arm-nested-virt-fix-v1-1-4ad883f1b6a5@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,48 +49,206 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260806-b4-loop-nbd-stale-partitions-v1-2-67bb75a8d7be@amutable.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20260812-kvm-arm-nested-virt-fix-v1-1-4ad883f1b6a5@kernel.org>
 
-On Thu, Aug 06, 2026 at 12:36:58PM +0200, Daan De Meyer via B4 Relay wrote:
-> From: Daan De Meyer <daan@amutable.com>
-> 
-> Commit 267ec4d7223a ("loop: fix partition scan race between udev and
-> loop_reread_partitions()") stopped disk_force_media_change() from
-> setting GD_NEED_PART_SCAN. Besides requesting a rescan, that bit was what
-> removed stale partitions on the next open, as bdev_disk_changed() drops
-> all partitions before it consults disk_has_partscan().
-> 
-> nbd_clear_sock_ioctl() relied on that. It zeroes the capacity through
-> nbd_bdev_reset(), but nothing removes the partitions of the disconnected
-> device anymore. With the default max_part=16 they linger until the next
-> connect sets GD_NEED_PART_SCAN again. With max_part=0 nothing ever sets
-> it, so they are never removed at all, even though nbd does not set
-> GENHD_FL_NO_PART and partitions can therefore still be added with BLKPG.
-> 
-> Set GD_NEED_PART_SCAN in nbd_clear_sock_ioctl() so the partitions are
-> dropped on the next open. Calling bdev_disk_changed() directly is not an
-> option as it needs open_mutex, which nbd_open() acquires under
-> config_lock.
-> 
-> Fixes: 267ec4d7223a ("loop: fix partition scan race between udev and loop_reread_partitions()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daan De Meyer <daan@amutable.com>
-> ---
->  drivers/block/nbd.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-> index 8f10762e90ef..cdafe9d39369 100644
-> --- a/drivers/block/nbd.c
-> +++ b/drivers/block/nbd.c
-> @@ -1612,6 +1612,13 @@ static void nbd_clear_sock_ioctl(struct nbd_device *nbd)
->  	nbd_clear_sock(nbd);
->  	disk_force_media_change(nbd->disk);
->  	nbd_bdev_reset(nbd);
-> +	/*
-> +	 * Drop the partitions of the disconnected device on the next open. They
-> +	 * can exist even with max_part zero as they may have been added manually
+The splats:
 
-Overly long line here.
+------------[ cut here ]------------
+WARNING: arch/arm64/kvm/mmu.c:336 at __unmap_stage2_range+0x64/0x80, CPU#5: kcompactd0/66
+...
+Tainted: [S]=CPU_OUT_OF_SPEC
+Hardware name: Apple Inc. Mac14,7/J493, BIOS 2026.04 04/01/2026
+pstate: 61401009 (nZCv daif +PAN -UAO -TCO +DIT +SSBS BTYPE=--)
+pc : __unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3))
+lr : __unmap_stage2_range (arch/arm64/kvm/mmu.c:336 (discriminator 5))
+sp : ffff8000856e7450
+x29: ffff8000856e7450 x28: ffff0000404b2000 x27: 0000000000000030
+x26: ffffffffffffffe0 x25: 0000000000000001 x24: ffff00000eaa5920
+x23: ffff0000404b2000 x22: 0000000000000000 x21: 0000000000000040
+x20: 0000000000000001 x19: 0000000000000001 x18: 0000000000000006
+x17: 0000000000000000 x16: 0000000000000002 x15: ffff800083adbed0
+x14: ffff800083adbed0 x13: 0000000000000008 x12: 0000b00000000000
+x11: 0000000000000001 x10: 0000006000000000 x9 : ffff8000817334fc
+x8 : 0000000000200000 x7 : ffff0000c59ea000 x6 : 0000000000000800
+x5 : 0000000038000000 x4 : 0000000000000000 x3 : ffff0000404b2000
+x2 : 0000000000000001 x1 : 0000000038000000 x0 : 00000000ffffffea
+Call trace:
+__unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3)) (P)
+kvm_stage2_unmap_range (arch/arm64/kvm/mmu.c:346)
+kvm_nested_s2_unmap (arch/arm64/kvm/nested.c:1168 (discriminator 14))
+kvm_unmap_gfn_range (arch/arm64/kvm/mmu.c:2416)
+kvm_mmu_notifier_invalidate_range_start (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:718 (discriminator 32768) arch/arm64/kvm/../../../virt/kvm/kvm_main.c:633 (discriminator 32768) arch/arm64/kvm/../../../virt/kvm/kvm_main.c:765 (discriminator 32768))
+mn_hlist_invalidate_range_start (mm/mmu_notifier.c:525)
+__mmu_notifier_invalidate_range_start (mm/mmu_notifier.c:580)
+try_to_migrate_one (./include/linux/mmu_notifier.h:478 ./include/linux/mmu_notifier.h:471 mm/rmap.c:2459)
+rmap_walk_anon (mm/rmap.c:3001)
+rmap_walk (mm/rmap.c:3106 mm/rmap.c:3101)
+try_to_migrate (mm/rmap.c:2774)
+migrate_folio_unmap (mm/migrate.c:1330 (discriminator 3))
+migrate_pages_batch (mm/migrate.c:1909)
+migrate_pages_sync (mm/migrate.c:2026)
+migrate_pages (mm/migrate.c:2135)
+compact_zone (mm/compaction.c:2663)
+compact_node (mm/compaction.c:2932)
+kcompactd (mm/compaction.c:3230)
+kthread (kernel/kthread.c:436)
+ret_from_fork (arch/arm64/kernel/entry.S:858)
+---[ end trace 0000000000000000 ]---
 
+------------[ cut here ]------------
+WARNING: arch/arm64/kvm/mmu.c:336 at __unmap_stage2_range+0x64/0x80, CPU#5: kcompactd0/66
+...
+Tainted: [S]=CPU_OUT_OF_SPEC, [W]=WARN
+Hardware name: Apple Inc. Mac14,7/J493, BIOS 2026.04 04/01/2026
+pstate: 61401009 (nZCv daif +PAN -UAO -TCO +DIT +SSBS BTYPE=--)
+pc : __unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3))
+lr : __unmap_stage2_range (arch/arm64/kvm/mmu.c:336 (discriminator 5))
+sp : ffff8000856e7450
+x29: ffff8000856e7450 x28: ffff0000404b2000 x27: 0000000000000030
+x26: ffffffffffffffe0 x25: 0000000000000001 x24: ffff00000eaa5920
+x23: ffff0000404b2000 x22: 0000000000000001 x21: 0000000000000040
+x20: 0000000000000001 x19: 0000000000000001 x18: 0000000000000006
+x17: 0000000000000000 x16: 0000000000000002 x15: ffff800083adbed0
+x14: ffff800083adbed0 x13: 0000000000000008 x12: 0000b00000000000
+x11: 0000000000000001 x10: 0000006000000000 x9 : ffff8000817334fc
+x8 : 0000000000200000 x7 : ffff0000c59ea078 x6 : 0000000000000800
+x5 : 0000000002000000 x4 : 0000000000000000 x3 : ffff0000404b2000
+x2 : 0000000000000001 x1 : 0000000002000000 x0 : 00000000ffffffea
+Call trace:
+__unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3)) (P)
+kvm_stage2_unmap_range (arch/arm64/kvm/mmu.c:346)
+kvm_nested_s2_unmap (arch/arm64/kvm/nested.c:1168 (discriminator 14))
+kvm_unmap_gfn_range (arch/arm64/kvm/mmu.c:2416)
+kvm_mmu_notifier_invalidate_range_start (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:718 (discriminator 32768) arch/arm64/kvm/../../../virt/kvm/kvm_main.c:633 (discriminator 32768) arch/arm64/kvm/../../../virt/kvm/kvm_main.c:765 (discriminator 32768))
+mn_hlist_invalidate_range_start (mm/mmu_notifier.c:525)
+__mmu_notifier_invalidate_range_start (mm/mmu_notifier.c:580)
+try_to_migrate_one (./include/linux/mmu_notifier.h:478 ./include/linux/mmu_notifier.h:471 mm/rmap.c:2459)
+rmap_walk_anon (mm/rmap.c:3001)
+rmap_walk (mm/rmap.c:3106 mm/rmap.c:3101)
+try_to_migrate (mm/rmap.c:2774)
+migrate_folio_unmap (mm/migrate.c:1330 (discriminator 3))
+migrate_pages_batch (mm/migrate.c:1909)
+migrate_pages_sync (mm/migrate.c:2026)
+migrate_pages (mm/migrate.c:2135)
+compact_zone (mm/compaction.c:2663)
+compact_node (mm/compaction.c:2932)
+kcompactd (mm/compaction.c:3230)
+kthread (kernel/kthread.c:436)
+ret_from_fork (arch/arm64/kernel/entry.S:858)
+---[ end trace 0000000000000000 ]---
+
+------------[ cut here ]------------
+WARNING: arch/arm64/kvm/mmu.c:336 at __unmap_stage2_range+0x64/0x80, CPU#5: kcompactd0/66
+...
+Tainted: [S]=CPU_OUT_OF_SPEC, [W]=WARN
+Hardware name: Apple Inc. Mac14,7/J493, BIOS 2026.04 04/01/2026
+pstate: 61401009 (nZCv daif +PAN -UAO -TCO +DIT +SSBS BTYPE=--)
+pc : __unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3))
+lr : __unmap_stage2_range (arch/arm64/kvm/mmu.c:336 (discriminator 5))
+sp : ffff8000856e7450
+x29: ffff8000856e7450 x28: ffff0000404b2000 x27: 0000000000000030
+x26: ffffffffffffffe0 x25: 0000000000000001 x24: ffff00000eaa5920
+x23: ffff0000404b2000 x22: 0000000000000002 x21: 0000000000000040
+x20: 0000000000000001 x19: 0000000000000001 x18: 0000000000000006
+x17: 0000000000000000 x16: 0000000000000002 x15: ffff800083adbed0
+x14: ffff800083adbed0 x13: 0000000000000008 x12: 0000b00000000000
+x11: 0000000000000001 x10: 0000006000000000 x9 : ffff8000817334fc
+x8 : 0000000000200000 x7 : ffff0000c59ea0f0 x6 : 0000000000000800
+x5 : 0000000002000000 x4 : 0000000000000000 x3 : ffff0000404b2000
+x2 : 0000000000000001 x1 : 0000000002000000 x0 : 00000000ffffffea
+Call trace:
+__unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3)) (P)
+kvm_stage2_unmap_range (arch/arm64/kvm/mmu.c:346)
+kvm_nested_s2_unmap (arch/arm64/kvm/nested.c:1168 (discriminator 14))
+kvm_unmap_gfn_range (arch/arm64/kvm/mmu.c:2416)
+kvm_mmu_notifier_invalidate_range_start (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:718 (discriminator 32768) arch/arm64/kvm/../../../virt/kvm/kvm_main.c:633 (discriminator 32768) arch/arm64/kvm/../../../virt/kvm/kvm_main.c:765 (discriminator 32768))
+mn_hlist_invalidate_range_start (mm/mmu_notifier.c:525)
+__mmu_notifier_invalidate_range_start (mm/mmu_notifier.c:580)
+try_to_migrate_one (./include/linux/mmu_notifier.h:478 ./include/linux/mmu_notifier.h:471 mm/rmap.c:2459)
+rmap_walk_anon (mm/rmap.c:3001)
+rmap_walk (mm/rmap.c:3106 mm/rmap.c:3101)
+try_to_migrate (mm/rmap.c:2774)
+migrate_folio_unmap (mm/migrate.c:1330 (discriminator 3))
+migrate_pages_batch (mm/migrate.c:1909)
+migrate_pages_sync (mm/migrate.c:2026)
+migrate_pages (mm/migrate.c:2135)
+compact_zone (mm/compaction.c:2663)
+compact_node (mm/compaction.c:2932)
+kcompactd (mm/compaction.c:3230)
+kthread (kernel/kthread.c:436)
+ret_from_fork (arch/arm64/kernel/entry.S:858)
+---[ end trace 0000000000000000 ]---
+
+--
+
+Also I wrote something extra but dropped from the already-far-too-long commit
+msg but the registers match the diagnosis, basically:
+
+--
+
+The observed assembly from the splats is consistent with this analysis:
+
+Examining the assembly for stage2_apply_range() loop and pgt check,
+conveniently x1 contains the current IPA being examined (addr) and is not
+clobbered on return:
+
+	mov  x1, x19			addr = next
+	ldr  x0, [x26, #16]		struct kvm_pgtable *pgt = mmu->pgt;
+	cbnz x0, ...			if (!pgt)...
+	ldp  x19, x20, [sp, #16]	}
+	mov  w0, #0xffffffea		} return -EINVAL
+	ret				}
+
+Splat 1 has x1 of 0x38000000 which tells us the splat occurred 27 * 32 MiB
+or 864 MiB into the nested guest physical address space (27 iterations).
+
+This is consistent with an an interleaving stage 2 tear down occurring
+part-way through this operation.
+
+There being 2 other splats is consistent with there being a total of 3
+nested mmus, as expected, and that the mmu is invalidated before the
+warning can occur.
+
+The remaining 2 have x1 equal to 0x2000000 or exactly 32 MiB, which is what
+you would expect with the stage2_apply_range() and
+kvm_arch_flush_shadow_all() running in lockstep across mmus:
+
+	     kvm_unmap_gfn_range()       | kvm_arch_flush_shadow_all()
+	---------------------------------|----------------------------
+	< kvm->mmu_lock held >           |
+	stage2_apply_range()             |
+	  .. 26 successful iterations .. | < contend kvm->mmu_lock >
+	  < releases kvm->mmu lock >     | < acquires kvm->mmu_lock >
+	                                 | mmu->pgt = NULL
+	                                 | < releases kvm->mmu_lock >
+
+Then 3 occurrences of:
+
+	  < reacquires kvm->mmu_lock >   |
+	return to __unmap_stage2_range() |
+	  WARN_ON(-EINVAL);              |
+        mmu = &kvm->arch.nested_mmus[1]; |
+	stage2_apply_range()             |
+	  .. 1 successful iteration ..   |
+	  < releases kvm->mmu lock >     | < contend kvm->mmu_lock >
+					 | < acquires kvm->mmu_lock >
+					 | mmu->pgt = NULL
+					 | < releases kvm->mmu_lock >
+
+One single iteration sets addr = next = 0x2000000 which is reflected in the
+splats.
+
+Finally, in kvm_nested_s2_unmap() the disassembly indicates that w22
+maintains the i counter, which happens not to be clobbered over the
+operation either:
+
+	mov  w22, #0x0		for (i = 0;
+	add  w22, w22, #0x1     	                 ; i++)
+	sxtw x2, w22		}
+	cmp  x2, x1		}    i < nested_mmus_size
+
+The splats have w22 equal to 0, 1 and 2 respectively which further
+corroborates this analysis.
+
+--
+Cheers, Lorenzo
