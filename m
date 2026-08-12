@@ -1,157 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B969A3290C7;
-	Wed, 12 Aug 2026 05:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B166031355C;
+	Wed, 12 Aug 2026 05:25:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786512175; cv=none; b=DCgBsjU9B7CYhJbf3KBFGWlSCmhl0aJ82g4GcgydvxdoO4+Pz0rU/NAopHzetoWJ25GCAbaXdaZWa2twOKrUik3dQ9bgDophCBbgu8QVy5xVYmgNVxR0Mwa3DDgTbET8sqsaycWf4wQIJSOkTIhAgCvii40blqTjvkt3/KqiKaU=
+	t=1786512313; cv=none; b=TJCI6M/oc7ZYUsjkU0I/bqjBU0XHzII02JnY8Lw9VbYFYPqaUk4wrVgYT81LlkBsZa8OFOgUIEBXpxGags8ABrhhIru53p16NRULvUt/S5XZCDnYZMtTE0YAHZbhHgV18Go8U7mACDT7eWfdl8Y96/MzgB1BCjPEO7h0HNtuwfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786512175; c=relaxed/simple;
-	bh=SlLaVPw6ZHbuS1BVax13M+yBfy0AfsczeTQZub6iweA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LD+e9QMBB83In6tVytBdIJfwPFjuvM/HVtipgW3F/4/zPKiWX8Y39jqc8KAATtNFrBOFLuaoC9lzRwuxAahoDdQGDJ2VC4vGVwz06UdK98y9FP7qo8xWPKmD+fQs/U0zhb91A4AFTzmb5xuBx1nM235y2CoOLXxUzIBAkvbdcGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kJ0EKCsu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786512313; c=relaxed/simple;
+	bh=KGaBHN4E32+eD1xus4KQt6sFROwBOr9CL7SGEfl1Jik=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FXpMJCHOPFaSxNsnwlfeT6n732TjqBwsIUuifQt9mZi/FbMaUl8YnUVG/6mwEo4sni6AViO9zp7HQQO/9KSLedRTbnOjBdyApZcPGUw89y/nFrW2spLSUVOuIupvJLS3Udn9g08r2bvML41u0M+veLw/0FIEogfa2gBfi1KWgSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=PwMqUyXj; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mUSNQKe/; arc=none smtp.client-ip=202.12.124.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kJ0EKCsu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 772C91F000E9;
-	Wed, 12 Aug 2026 05:22:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786512174;
-	bh=z0N6OJ/27Ug3QgSr1OO1qU2RGmbk3As92oPs3a+1uKQ=;
-	h=From:Date:Subject:To:Cc;
-	b=kJ0EKCsuJEKADrYClfbcjpLpAf3V/ibD36KwUDBtU43CPKhwuvQ3ZBvGriwaKANIW
-	 ssGtdcNnOwI5pzK2vVklAWWstvtQDmRJF50fHlLUU2Xz1Rsz5wtq8er7dUIraoMGlH
-	 ZJZZ9vblQC4ehNNlCQuA5OD1GHd/ViMsIwSzrtkrikeJ8RTavTYfKAry7KuLEavUpp
-	 pJCMGGJztyBn30/qv+dml10LYIIicE3hrIeN02F/fsLuLXvn9/99rAdEuMenVbXLA7
-	 KAIjSKtHn1jyA331za+vhgeKZbZaZfe6IPUCzPP1Pud/Qhd2r8bqGAJxbsiNyrBnpV
-	 odxDRgtYBtjog==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Tue, 11 Aug 2026 22:22:42 -0700
-Subject: [PATCH] arch_numa: Avoid false positive fortify warning in
- setup_node_to_cpumask_map()
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="PwMqUyXj";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mUSNQKe/"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 3CFEE7A00C8;
+	Wed, 12 Aug 2026 01:25:09 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Wed, 12 Aug 2026 01:25:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1786512309; x=1786598709; bh=28nPvFuVpI
+	YU5pV5aG0THofF4Ustxv56B0tybpBYheE=; b=PwMqUyXj1JeJMJwmopqiz0GFse
+	DNN12b2fXK5Ehf87O9Z6ufmFI2jFAzbCYtPCyjA+kvP/CiqD73ENS+48oxGDAoqo
+	RT0vnNgsQ/lv4ToxPy2mVNpEEwlrJS2lEEKnu6NxF3Ut0FjrariBpCQQXF3hOVCL
+	vyj8LJOMkjEE+Ujl6Z5OAH6Ue4cg6j1stkIz5F/6lkhVG7i0zxEWEti8niUrU+XI
+	oZst+sXF0tR8O/TwElRoJ+NmI2jx9+7jFeYFvnZauwo1nZ6/c+UzvOUzBs1dEZOj
+	JNylrwnThQODpYyZwpk/nVhjtr2qbMte6FT1ZxZYv6zO5ruriMSCQj1Sk7hg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1786512309; x=1786598709; bh=28nPvFuVpIYU5pV5aG0THofF4Ustxv56B0t
+	ybpBYheE=; b=mUSNQKe/34Yv6SpKEVAWfyia1Z9ABOKV8XDhvU4lo7B37Gve8lP
+	HjPbX6OOEEzko4PwlO2k/zIAu4bGpCRAULzU1ZF1ew7TdgY5ituQA5sUR/DcPPvI
+	VHX9rY6T6AnGTlZhZKfANQpBpVQBKqcD5Q/PBaCnVnsx6OeIw3mZeH5uNBnLCAm0
+	pIFaYAkejMN2x3JxPRioLs0dVogqgpMMi6jNl1D/r6K1U5FTENqlgJSLMqqKzDpN
+	ZwHwOIwbRtw1CqhZq6ZHRUkwKTYUvgO/kGVvCXwcIlMAYOirEd/J8VNOhGph/xT8
+	PbIcSxabuf+YoP9LTU/MIOh7QhCYuDk8T8A==
+X-ME-Sender: <xms:tAN8av8FlY4_7fawhXNS2sGeiQsxEww-hxWNg0cR4veLBOAk-EtZiQ>
+    <xme:tAN8asolI34Zl7G_Fho9eIru22vHHuqac3aRxc7XRiqbEzEszUflZM8Ft6pqnRmrv
+    p39QgaZQqD5Gc0-t8YeDDgYbGsKdwB-wz9ZrGGXPsp8e0y3wg>
+X-ME-Received: <xmr:tAN8atWYzyklDZc45PnxqUj83hHcBK6gLOThyMAUduZutBGn_6F_UAg>
+X-ME-Proxy-Cause: dmFkZTFr0akD6lmTxJrZbE8su1kplFOautjQj2TvjR3JGl06nJdMnzMO0H6t2V3D0g2T5B
+    GQ/p81FPfKke26FaecXeU2jvao1vycAjE9zrvjPn8FoUxIqEi/NCo6RkbjtTxaDYEFN5Rz
+    Atw5PxK3jDFzJuaMuLh14j51WUQheOVFaE2qQwLB0GvRb3g6tfMH64qw+XLsVFs3fNl4pz
+    3GlnqEV+ZR5ZT2sOUIsOQzZQRRSgek7eQU+AogS+Xdk9qMpx6D68dfuJ6JtjKtmOWZiJe7
+    Lm/l5b56aJtwyiUix90mGmFpfF2KuRb+OfvVVcXaHnZhBEH63a4oBqCS9vltVOJV50ogVN
+    jLAvdpczwVPZUL4f/AjhWYuI2saft1HZrrEV1uj56w92cZxR/1vQncrwoCajWwfe/w9NaK
+    5OXJT+2wDpYUYM24G4D8+lvpTAQ9cPKWzmSUg+X3Vo5XaBkSxQgRP+cirFQ28caXMWREbB
+    QU/EhfppdFRMDusLiXTuZe4upEWt/81SZ/bdp4Vhry9gaKzrbbFpMuW0oKQEFuA57oWKWP
+    p9a3S4QDaiLSPA8LQGfCD4CqasgETzc8tlUlu3cD0nUX+A5RD+PBoBK8WC+JSFeaxtIyRN
+    bmWYIpTXUhFjL60yvoeLHziki/i1RNO3ydIuwkFPNSkEhS2fhsLDsZDOe8eA
+X-ME-Proxy: <xmx:tAN8ap46kZiIX1YvsuWArVFKtJfABSZx0mnUiq3SxaD1JxhAHDSiTw>
+    <xmx:tAN8arCLHTi8aWfiK00g3n3ZtgAjREitCQl8cyjPT6vyVLAotGYW5w>
+    <xmx:tAN8atdYmR8q80iVObRudg1ZVuT9KmZPmD5cBfnbK4sMcECRsf-fxg>
+    <xmx:tAN8asuZMVWhotMoZ6sWhD46aZaN3Ow4uLH9GPlfOXdB5YD1HbuMRw>
+    <xmx:tQN8alBlP1LiNgGqd68mGB0SJi-Hsfs3gpsYk4E5KdYtPjaS79azM5-l>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 12 Aug 2026 01:25:07 -0400 (EDT)
+Date: Wed, 12 Aug 2026 14:23:34 +0900
+From: Greg KH <greg@kroah.com>
+To: Jason Colapietro <jasoncola1@gmail.com>
+Cc: Shuah Khan <shuah@kernel.org>,
+	Valentina Manea <valentina.manea.m@gmail.com>,
+	skhan@linuxfoundation.org, Hongren Zheng <i@zenithal.me>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] usbip: make remote list honor parsable output
+Message-ID: <2026081214-litigator-nutty-83fb@gregkh>
+References: <CA+Z0x2JOUKR6cH41JyFHBmG5L_XoVEa02vrc91-L42RX5oa5OA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-arch_numa-avoid-fortify-warning-v1-1-59ce3e689f3a@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQrCMBBA0auUWTuQxBKLVxGRMZ20I5jIpK1K6
- d2Nunyb/1corMIFjs0KyosUyanC7hoII6WBUfpqcMZ501mLpGG8pPlOSEuWHmPWSeIbn6RJ0oD
- eU+wOrdm31kGtPJSjvH6H0/nvMl9vHKZvFrbtA/ITFe6DAAAA
-X-Change-ID: 20260811-arch_numa-avoid-fortify-warning-66af87403412
-To: Mike Rapoport <rppt@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
- stable@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4393; i=nathan@kernel.org;
- h=from:subject:message-id; bh=SlLaVPw6ZHbuS1BVax13M+yBfy0AfsczeTQZub6iweA=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFk1zJrOP7fuuht76JlD5PGGl59vHxWM9/h2mCXXaf1aQ
- YbvR7cUdJSyMIhxMciKKbJUP1Y9bmg45yzjjVOTYOawMoEMYeDiFICJ7F7C8IeXOzH4cFOKb9cR
- /zrj6XsiH7v37Enfkbrpm7Bh9PxT0dWMDPu7yrs4b747+PD6/TbFmRe2/t+zbKvj9i8rXiae3Bn
- 9bjUnAA==
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+Z0x2JOUKR6cH41JyFHBmG5L_XoVEa02vrc91-L42RX5oa5OA@mail.gmail.com>
 
-When building ARCH=riscv using clang with CONFIG_FORTIFY_SOURCE and
-CONFIG_UBSAN_BOUNDS enabled, CONFIG_NR_CPUS > 64, and the default value
-of 2 for CONFIG_NODES_SHIFT, there is a compiletime warning from the
-fortify routines.
+On Tue, Aug 11, 2026 at 11:26:44PM -0400, Jason Colapietro wrote:
+> The -p option only affects local devices and gadgets. Remote lists still
+> print their human-readable headings and details, so scripts cannot parse
+> them using the documented option.
+> 
+> Pass the parsable flag through the remote listing path. Emit the same busid
+> and usbid record used for local devices while continuing to consume every
+> interface record from the server.
+> 
+> Fixes: e9837bbb3e69 ("staging: usbip: userspace tools v1.0.0")
+> Closes:
+> https://www.google.com/url?q=https://bugzilla.kernel.org/show_bug.cgi?id%3D219502&source=gmail&ust=1786591574713000&sa=E
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Jason Colapietro <jasoncola1@gmail.com>
+> ---
+> Changes in v3:
+> - No functional change; resent as 1/2 of a series.
+> - 2/2 makes -p work regardless of where it appears on the command line.
+> 
+> tools/usb/usbip/src/usbip_list.c | 33 ++++++++++++++++++++------------
+> 1 file changed, 21 insertions(+), 12 deletions(-)
+> 
+> diff --git a/tools/usb/usbip/src/usbip_list.c
+> b/tools/usb/usbip/src/usbip_list.c
+> index 3d810bcca02..b9d60b87e47 100644
+> --- a/tools/usb/usbip/src/usbip_list.c
+> +++ b/tools/usb/usbip/src/usbip_list.c
+> @@ -41,7 +41,7 @@ void usbip_list_usage(void)
+> printf("usage: %s", usbip_list_usage_string);
+> }
+> 
+> -static int get_exported_devices(char *host, int sockfd)
+> +static int get_exported_devices(char *host, int sockfd, bool parsable)
+> {
+> char product_name[100];
+> char class_name[100];
+> @@ -80,9 +80,11 @@ static int get_exported_devices(char *host, int sockfd)
+> return 0;
+> }
+> 
+> - printf("Exportable USB devices\n");
+> - printf("======================\n");
+> - printf(" - %s\n", host);
+> + if (!parsable) {
+> + printf("Exportable USB devices\n");
+> + printf("======================\n");
+> + printf(" - %s\n", host);
+> + }
 
-  In file included from mm/arch_numa.c:11:
-  In file included from include/linux/acpi.h:14:
-  In file included from include/linux/resource_ext.h:11:
-  In file included from include/linux/slab.h:17:
-  In file included from include/linux/gfp.h:7:
-  In file included from include/linux/mmzone.h:8:
-  In file included from include/linux/spinlock.h:60:
-  In file included from include/linux/interrupt_rc.h:17:
-  In file included from include/linux/smp.h:13:
-  In file included from include/linux/cpumask.h:11:
-  In file included from include/linux/bitmap.h:13:
-  In file included from include/linux/string.h:383:
-  include/linux/fortify-string.h:430:4: warning: call to '__write_overflow_field' declared with 'warning' attribute: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Wattribue-warning]
-    430 |                         __write_overflow_field(p_size_field, size);
-        |                         ^
-  include/linux/fortify-string.h:430:4: note: called by function 'fortify_memset_chk(unsigned long, unsigned long, unsigned long)'
-  include/linux/bitmap.h:248:3: note: inlined by function 'setup_node_to_cpumask_map'
-    248 |                 memset(dst, 0, len);
-        |                 ^
-  include/linux/fortify-string.h:462:25: note: expanded from macro 'memset'
-    462 | #define memset(p, c, s) __fortify_memset_chk(p, c, s,                   \
-        |                         ^
-  include/linux/fortify-string.h:453:2: note: expanded from macro '__fortify_memset_chk'
-    453 |         fortify_memset_chk(__fortify_size, p_size, p_size_field),       \
-        |         ^
-  include/linux/fortify-string.h:430:4: note: use '-gline-directives-only' (implied by '-g1') or higher for more accurate inlining chain locations
-    430 |                         __write_overflow_field(p_size_field, size);
-        |                         ^
-  1 warning generated.
-
-In this configuration, MAX_NUMNODES is 4. clang unrolls the for loop in
-setup_node_to_cpumask_map() past this, which triggers the fortify check
-when accessing node_to_cpumask_map on the theoretical fifth loop
-iteration because it would be an out of bounds write.
-
-Make it clear to clang that nr_node_ids is bounded by MAX_NUMNODES due
-to the logic in setup_nr_node_ids() by early returning in
-setup_node_to_cpumask_map() should that condition be violated.
-
-Cc: stable@vger.kernel.org # all applicable
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2174
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
-This is based on mm-unstable due to the move of arch_numa.c from mm/ to
-drivers/base/ living there. I have CC'd stable because this warning
-appears in my testing back to at least 6.1 but I see no reason why it
-should not apply to all trees. No fixes tag since this is a layered
-problem that just happens to appear under certain conditions.
-
-Another alternative would be using the __assume macro to say something
-like
-
-  __assume(nr_node_ids <= MAX_NUMNODES);
-
-but that seems a little more fragile.
----
- mm/arch_numa.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/mm/arch_numa.c b/mm/arch_numa.c
-index 442ea239bba7..bd7772b05bcf 100644
---- a/mm/arch_numa.c
-+++ b/mm/arch_numa.c
-@@ -105,6 +105,18 @@ static void __init setup_node_to_cpumask_map(void)
- 	if (nr_node_ids == MAX_NUMNODES)
- 		setup_nr_node_ids();
- 
-+	/*
-+	 * This check should never be true but it makes it clear to compilers
-+	 * that node_to_cpumask_map is bound by nr_node_ids, avoiding false
-+	 * positive fortify warnings when accessing node_to_cpumask_map in the
-+	 * for loop below.
-+	 */
-+	if (unlikely(nr_node_ids > MAX_NUMNODES)) {
-+		pr_err("nr_node_ids (%u) is larger than MAX_NUMNODES (%d)",
-+		       nr_node_ids, MAX_NUMNODES);
-+		return;
-+	}
-+
- 	/* allocate and clear the mapping */
- 	for (node = 0; node < nr_node_ids; node++) {
- 		alloc_bootmem_cpumask_var(&node_to_cpumask_map[node]);
-
----
-base-commit: 47870fb9b0e3bd20b45e3a069b4c766f3dcb721a
-change-id: 20260811-arch_numa-avoid-fortify-warning-66af87403412
-
-Best regards,
---  
-Cheers,
-Nathan
-
+Something went wrong with your email client and it sent html email with
+a corrupted patch :(
