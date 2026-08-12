@@ -1,36 +1,36 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28AD639020C
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 16:21:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65DE3563E8
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 16:23:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786551665; cv=none; b=QE6UsPaO2TmCZKbwdzHYejqYZ80ejZjJm5D0zy9AOEv/dgYe8jqty4HBxrOyM+rPiUiEu1rft2TVLOc4ga9hUPGcqM67IaJY+nGSGok/ugZWsfeDuN9lsZodqX7riZKYjNT7SzSYdtzMsaKYtflwEfpgdZKEwJi6mUKFRboGaM4=
+	t=1786551824; cv=none; b=ZFTh7LWqQwCPDuVInLd3wERuhgILjmstM9c/GCkPuay9RIbd7l+8OQkgI84pbHpsUSjFdz1uY0AFTKQVH12/0WpEiLABXf7JfN0E0OxkGqe9ABdZFN4CSJoq5Xr5COmUwt9saoIAvAFRv6yK+kRLdwm6eml2iZ02dtpkl6ebong=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786551665; c=relaxed/simple;
-	bh=61Cig/iItHGXB+ps5S2ixP3KbBrMC0sV0qUuwmtcmOQ=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=F9ZQ64IWe0z8QsnD1t5etMFg0chtDJQYWbwlrcsrKL1R9hb5MNAzAvPcbZw0Un2GpMBlFQ6uC/n7ZfLHn5qEJJAW2HZ7m8eq/iH+G79Ow7dwBw6npJLif2OBd9HpZic0oYJstvE6SxhWJ413/7U5H42eJ6FV+q+QAms6pt8z0bU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=AcMed5AY; arc=none smtp.client-ip=213.97.179.56
+	s=arc-20240116; t=1786551824; c=relaxed/simple;
+	bh=dTnj/2VDgStGzVH3QyxyMDij3G7WSzg4I53PPRDbOTo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tQ16wZdLQxvem6SanwJ2YKXyjkNFQaCQ3aqMv6hgGme40VH2HZxuL2cjAiKRYBw3p46UpgvYWGxNqdf5YLg78UfZ9OUCSFop9QdB/9TnOYTgxXJVCaC6aszHQxuNpFFMIinikRF8c0VFOCdji/snYnek/93RKoEf64np0Wgd7qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=B6EF/bCt; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="AcMed5AY"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="B6EF/bCt"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:Cc:To:Subject:From:
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
 	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=RCGHjLq991hzKf9SIxopw6vv85Z4pDkVFoa9AcUOVfY=; b=AcMed5AYL/aiXrVMBP+Ppv1JlK
-	Qx5Lnjhd2LVhsbOY3H1aP/qjQ3ZyHICgMMKw1ukp0gGQb5il4j7PrjjVq32/lkMtmnj0QXvnvtKsX
-	oD32h8WuH5DKx4Z8+LS9JZp2z7rUt0eSIGMAK1DiqxByQeLdoBFyQtawgugpYeDzYo+RpobjMfgX3
-	GmR2fz4lJ8muZ1Hcwlcxt7kiXO1viqfPH5PFzmhdAZsFHjlpJ2ZWerFp3n303Tmr9u0E1I2rv5hEt
-	y1SX701KWP1/ywJBWfTmBNMe+Pv7P6ktWepkQUIdtlJ6OWhiAglk0h0l/7Wgn76X3xx8SxYzgx1hs
-	EGFaAdVA==;
+	bh=x09cVUmbjUsyEQozm05jQQnrP22oqKc98mmcC4suX+0=; b=B6EF/bCtTAnDBLM/0HgeoLpE/U
+	tHoequgwkaEFSNWvs04Wfjr5W8g7n82XJAbxx32I+UahX4UAl7VJ1LZNrzu5cUY3pWoNwHVndFXop
+	qxuU/gDw/56SvyzcWig+3VnUMUuv4XiXgEl40Y9ZUivkbI6USgplZKP89B+gYOWgUft1iUkIAckhE
+	YnzM7AydlwRgAQM2FPD8om7+fF9NBD95hXGFP6sn/pRIgKCjJYDdzl2+IWiT5FQvhYDHvqlbSCpyp
+	rbbx5cWwfhFziMB12YImehEFi2BjTVaTX/DMKHxY/O8UOyavH7kHfhDuDAiY106iZm1jPr4WiFz7V
+	0qz2rlng==;
 Received: from [31.4.134.207] (helo=[192.168.1.126])
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1wuBhK-0009gG-Am; Wed, 12 Aug 2026 18:20:58 +0200
-Message-ID: <8d7306c8-94b8-4e8b-b9e0-5f8d43a67be4@igalia.com>
-Date: Wed, 12 Aug 2026 18:20:57 +0200
+	id 1wuBjt-0009rV-5O; Wed, 12 Aug 2026 18:23:37 +0200
+Message-ID: <217a3dbf-a02c-4dd0-9edf-4a9500206a9f@igalia.com>
+Date: Wed, 12 Aug 2026 18:23:35 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,56 +38,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Melissa Wen <mwen@igalia.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: avoid divide-by-zero in
- __is_lut_linear()
+Subject: Re: [PATCH 2/2] drm/amd/display: validate plane degamma LUT size for
+ private color prop
 To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: stable@vger.kernel.org
 References: <20260804210405.278934-1-harry.wentland@amd.com>
+ <20260804210405.278934-2-harry.wentland@amd.com>
 Content-Language: en-US
-In-Reply-To: <20260804210405.278934-1-harry.wentland@amd.com>
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260804210405.278934-2-harry.wentland@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
 On 04/08/2026 23:04, Harry Wentland wrote:
-> __is_lut_linear() computes the expected value of each entry with
+> Unlike the CRTC degamma path, which is guarded by
+> amdgpu_dm_verify_lut_sizes(), the per-plane degamma LUT size was never
+> validated before use. __set_dm_plane_degamma() passed the user-supplied
+> size straight into __is_lut_linear() and, for a non-linear LUT, into
+> __set_input_tf() -> __drm_lut_to_dc_gamma(), the latter always iterating
+> MAX_COLOR_LUT_ENTRIES entries regardless of the actual LUT size.
 >
-> 	expected = i * MAX_DRM_LUT_VALUE / (size - 1);
+> A malformed AMD_PLANE_DEGAMMA_LUT blob (e.g. a single entry) could thus
+> trigger a divide-by-zero in __is_lut_linear() or an out-of-bounds read in
+> __drm_lut_to_dc_gamma(). Reject any plane degamma LUT whose size does not
+> match MAX_COLOR_LUT_ENTRIES, mirroring the invariant the code already
+> asserts a few lines below (and which the CRTC path enforces).
 >
-> If it is ever called with a single-entry LUT, size - 1 is zero and the
-> kernel takes a divide error (#DE). A LUT with fewer than two entries
-> cannot describe a linear mapping anyway, so return false early instead
-> of dividing by zero.
+> The AMD_PLANE_DEGAMMA_LUT property is only exposed on builds with
+> AMD_PRIVATE_COLOR defined.
 >
-> Fixes: 086247a4b2fb ("drm/amd/display: Use 4096 lut entries")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Harry Wentland<harry.wentland@amd.com>
+> Fixes: 980f8710075a ("drm/amd/display: add plane degamma TF and LUT support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 6 ++++++
->   1 file changed, 6 insertions(+)
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index 7b68c6846039..26e5c89375a5 100644
+> index 26e5c89375a5..d55dc06167a8 100644
 > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -471,6 +471,12 @@ bool __is_lut_linear(const struct drm_color_lut *lut, uint32_t size)
->   	uint32_t expected;
->   	int delta;
+> @@ -1495,6 +1495,13 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
+>   	degamma_lut = __extract_blob_lut(dm_plane_state->degamma_lut,
+>   					 &degamma_size);
 >   
-> +	/* A LUT with fewer than two entries can't be interpolated and would
-> +	 * divide by zero below (size - 1); it can't be treated as linear.
-> +	 */
-> +	if (size < 2)
-> +		return false;
+> +	if (degamma_lut && degamma_size != MAX_COLOR_LUT_ENTRIES) {
+> +		drm_dbg(plane_state->state->dev,
+> +			"Invalid Plane Degamma LUT size. Should be %u but got %u.\n",
+> +			MAX_COLOR_LUT_ENTRIES, degamma_size);
+> +		return -EINVAL;
+> +	}
 > +
 
 LGTM
 
+Thanks!
+
 Reviewed-by: Melissa Wen <mwen@igalia.com>
 
->   	for (i = 0; i < size; i++) {
->   		/* All color values should equal */
->   		if ((lut[i].red != lut[i].green) || (lut[i].green != lut[i].blue))
+>   	has_degamma_lut = degamma_lut &&
+>   			  !__is_lut_linear(degamma_lut, degamma_size);
+>   
 
