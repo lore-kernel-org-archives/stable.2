@@ -1,138 +1,133 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A40F486631
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 21:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD0A402420
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 21:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786569852; cv=none; b=Ezj2PCt0OUKwQVSsZQeFf/LXGas1rlsHkOE3hiaMW2aEIFl+xBFhfOtTLyDr8wBdJLkkJpp7Lyyb/JG5kPv9CAC1TCEbjZoeQxyBpIxQKwVTTf/fA91Ow25z4KXmuzXphoYN758QRiydZ1483T1ZRO1hOot/ADQRKH8ZtMDYauw=
+	t=1786570265; cv=none; b=p3YVcyDGQwGDAmeF0NMFha3G8YroimqoEG9QPB5EXko7rFt4QKJP4htHzdS1MWvnHbQm250RG9kPKOu8EMwl6Ryt5ZNs/qaXJEMBcqet/vwufwXQERtaiJwGTO2pM4dxyhaiym7k1D7w+zE+MrO2u/xmHWsHSrSKPtrF78qTks4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786569852; c=relaxed/simple;
-	bh=QCI6saZnS8XE0yeN3Gd61Gz9oHZB0IlqCbAAUb+4psA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a/6pLFxDmVq+ubf61t6LJKnNdJN6oL9lPUaR5jKv1gwIzumfd4twzP64bOBUl2mtxDia7piNIl9avZOIj/3XK8F+t8Rd1hvflOfGFb885QoLe/jrTRN25Re/dzrUCa/fqiSKFOW7/d3qS7DbwqdhXTG7wAsYuz42tdHmpCaeRtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=br891Ysh; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786570265; c=relaxed/simple;
+	bh=zx6prgcMBq+aEKupMGxkOYncXvrks7n9WE+aPL5/vmA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g9Z4eo5EnTJCtbpvPZOYWMrUmdHns3vkkC2BE4QJI0nN+z3h/3qf9Ncy4TTALNJQ/qYNx6V/6AaNzvpdOpxnHV8ioXJ/X7orY3NjmHPN+2Cn6W4dOmD9GaWjzq6h+WDBxgXN4dYDye7Bsq0vkBMcGqfv+RwdrNQ1pZ3T7Ay+YrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=m6W9AZaF; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="br891Ysh"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CK2nQi3381435;
-	Wed, 12 Aug 2026 21:24:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=LdaElW2fjsYZ4sS7m
-	d+wfVBMiAAFOnLH9/coga1UTUQ=; b=br891Ysh9yA0/OA36C0BQYHNqA2oncvqQ
-	wsBTJcgl0qUIx9RkUoWeTnTAd6GfQqeMy3ytE0WTdgTPBm77V0LB+Trf8qUQGbow
-	eO+YtU8vm9fiP9sNA/5+L8CJaePE0Y2TwQ31cT8byWbquROt5ITOWwfJc3/zAbOG
-	uc3UsFP0bHbUWNDY0rr77jTlYr+5vkAeEq9pRxs8fD4qaWT1TRG9r0npJHiNwikq
-	SxLnvFu99LLDF9K75LTQNG8p1Q0PaBm3kbgBteM4rQDDFLLdFA/bbo2N7wdm5BgI
-	cXKi/tPgy+RIhfTB79Yk7czLApcmQRCsLWbaauQk4j2lKta8KGKAw==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fyb23w9yp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 12 Aug 2026 21:24:08 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67CLBIAK019042;
-	Wed, 12 Aug 2026 21:24:07 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxf5w889y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 12 Aug 2026 21:24:07 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67CLO6lW32637478
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 12 Aug 2026 21:24:06 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8B92758043;
-	Wed, 12 Aug 2026 21:24:06 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0746A58055;
-	Wed, 12 Aug 2026 21:24:06 +0000 (GMT)
-Received: from IBM-D32RQW3.ibm.com (unknown [9.61.244.42])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 12 Aug 2026 21:24:05 +0000 (GMT)
-From: Farhan Ali <alifm@linux.ibm.com>
-To: stable@vger.kernel.org, gregkh@linuxfoundation.org, sashal@kernel.org
-Cc: alifm@linux.ibm.com, Matthew Rosato <mjrosato@linux.ibm.com>,
-        Niklas Schnelle <schnelle@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: [PATCH v3 4/4] KVM: s390: pci: Fix aisb calculation
-Date: Wed, 12 Aug 2026 14:24:03 -0700
-Message-ID: <20260812212403.3143-5-alifm@linux.ibm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260812212403.3143-1-alifm@linux.ibm.com>
-References: <20260812212403.3143-1-alifm@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="m6W9AZaF"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ccdf36f63dso17495ad.0
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 14:31:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1786570263; x=1787175063; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Br/qW24JarGLH405s/rLwe/R9vyAJXaj4x4ugCqjcmg=;
+        b=m6W9AZaF5nrK24gKaJrVJYbNwBv5cN3tAhBMcvNTJb8LC8wKAhWTIOmAmmZ8aKF3Gq
+         EdgxZl0TysK5rrIc2iQ5fxICx5M587q7v10IzCktKfIczXH3LKMydTm8JWrIaRPz9hLo
+         3vNznrG3w3G6CNAZkAQRPxjIzIEicngdDn2TLi8b8Fa3lAGZDMNg+mm52tiaZse8zv2F
+         79GIp2NJtM945XHZuJXW/ur+VUhlIqqcpTSN1Mfd7cEEr9br78T/2O3KsaBrziOhJxFe
+         l/wDGUlRPcUncfMXAo59wF9PYYuXwxdOCuBKGchHrgabJamizBxzEoHiv1QxN1Vy92uq
+         +RWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786570263; x=1787175063;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Br/qW24JarGLH405s/rLwe/R9vyAJXaj4x4ugCqjcmg=;
+        b=FqItBFpLl7DHQhhqInk7lcgYQ6QMam4oKu7HCeeM5NSabJWQROdJ2KE07lkG5u5S7Y
+         O6aU7DYGOBEFalx46cSE0ezGquAg27zHk5kmFb4YP9ozhMd+6EUMJONNmvyyuDYwthJG
+         Z1U6v/nZk+hFkPi3oBEb8O/kQZv15h2/u2xmMw0oYteomPKcBOW9YBxUm82CLGJxrAOC
+         TwvpINyJvyD6TrMWWDZps0wDf2DaoL45l09M3UIyVHH/PtsHiOujINkNgTp80vZfPbyt
+         mQXVeSV1TRN9AtSM7FpYv5YxJ2mi/nA4OHP4GVnTgTXEmMaEeG9LF1y5uSqSt9Cyw/lR
+         RK0g==
+X-Forwarded-Encrypted: i=1; AHgh+RpYl/lWudBBogFxndGjYjBNDUmz3JnMrLWU9JVIlipaCM38DHgnD4Ouk8qwaiXqSSgxdmkDGPI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwGcFqBfPLzO9U+sar35W+WkpHgraHVsNTZp67bSb5YdM3o/yU8
+	9b6/hk6hVqJikTBIyULnAwEJxaRAADu7iYMWExUUYeV6RT3HzFCDNLeQCAg0/g5I8w==
+X-Gm-Gg: AR+sD12BGdAwu6rCbZQbyEMVV6jgkRqh4p4Uqps46k5ZFYixbJhVkGu2XPhHwymDRiY
+	Gb0uhP8sp+Dj0dzI0A/QOd4AH18LrYqladFe7egpoNWZfylM9JDspjykH8pqu0GjdEv2ModKYps
+	v2fIS+DoL1qeSZHcNlSzKxrcOnaKjQYBe8LFT4DkgC65n9vdk8m2C6GMOU7jYC5iHC4IUFtUSUJ
+	nH9yNnJIzOCBDCsygW9WHTpcU5SVQHT1tw5biazyBk+08lbZEgDOZ4kyzp8cHyWqUze+Ic0p9LH
+	9Q0zotzKTr8l5nXGT5BHwGgAzKmFieWxPIIE70di1gADexzbQbt6S6TJwa1ueybg7fp8tx12e0h
+	gq9Q6S6Md5xJocU1s7DhByoHsvbg8Gv+xV3rlnSUHu6teEY4OMOC3ltHm9RwrWULnDZU7A3E4en
+	gvSzxGpBJL4BFT9Jet8+ukcqSEDEQhzmgPT2slnlgrjLJF2xKTgHtrb5/yk5lHSoMTguHhz2iCl
+	e8taXohJ6e8V/zm1j9w1rdJPU/fHNnM1hKi6Thz9oYHnFYXtxPhYSlCX1B0Fn5taNO4oTE2FcWT
+	eTofAghRCdPMSxA26HwN
+X-Received: by 2002:a17:903:2304:b0:2ca:e0ff:eaa0 with SMTP id d9443c01a7336-2d384f689cemr155235ad.2.1786570262470;
+        Wed, 12 Aug 2026 14:31:02 -0700 (PDT)
+Received: from google.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3931f26cd9esm393637a91.3.2026.08.12.14.31.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 14:31:01 -0700 (PDT)
+Date: Wed, 12 Aug 2026 21:30:57 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Tomer Pomeranc <tomerpo@gmail.com>
+Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
+	arve@android.com, tkjos@android.com, brauner@kernel.org,
+	aliceryhl@google.com, stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] binder: fix TF_UPDATE_TXN supersede cleanup bugs
+Message-ID: <anzmEX3hPwiem5ok@google.com>
+References: <20260812195316.259136-1-tomerpo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=XqfK/1F9 c=1 sm=1 tr=0 ts=6a7ce478 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=Kdkv-2UG5BF8DrlVkd8A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE2OSBTYWx0ZWRfX/8PLZgocSeP+
- XTP9hSLPe1O/P9JZ8HsfB/3l0+JJXb1dfvBAgBWvsr1pBImb1eNWnibQy8KWhhMWHZvekHq8I+e
- 7hPDUCNoINP/O+fVbkv3eu7eh1nVxo69FPQqI2FDvCV40PUE8I3eDh4j2ADkHA/hU8CZIFsJjy/
- O+pbsfLD2F/MiZit23gI/a/XDg1R7rzgmiq2n4E6XLhiyMXg6xgGoAJLvDUfzGWK/FkIgfi+G/6
- owzSLFrm8581uRwDePhA5qqm9bQ27hL56L4mlMnSIf7UaMbCD9PB4IAz42032XxS3ZzAgRGOigX
- gGTV3/4X6JPT4hCyiNvsXW/g/r1vDfPiXM1wcbGYS/q4/+1A4vz3Amo2z+s3XbZqZ26vkB0VYO+
- 7mt1kIpG0VMe9sxRwQZ7r5Xjf+CS0pTFLpz8cayRsCOX+692ehC7cmPg9QDX7RpiHS6ZjwI0GuE
- E9dbktzpxWo4SjyXDMQ==
-X-Proofpoint-ORIG-GUID: PpOu978xse6g3gHLLxTY4UlZRJP_Akg8
-X-Proofpoint-GUID: PpOu978xse6g3gHLLxTY4UlZRJP_Akg8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE2OSBTYWx0ZWRfX7cTy/S/0/0Fg
- ChJo2LGlY+ItTRX5h4MD9PkAXSzDrPcswzHikENARU9YVv4JOKZXCJvVgHxSLVSgNgAVHLPK085
- VaAMqm9zMT2seqTVPl9e0O9g7iC5K18=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-12_06,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0 clxscore=1015
- suspectscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120169
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812195316.259136-1-tomerpo@gmail.com>
 
-From: Matthew Rosato <mjrosato@linux.ibm.com>
+On Wed, Aug 12, 2026 at 10:53:14PM +0300, Tomer Pomeranc wrote:
+> Two bugs in the t_outdated cleanup path of binder_proc_transaction(),
+> both introduced by commit 9864bb480133 ("binder: add TF_UPDATE_TXN to
+> replace outdated txn"):
 
-The current implementation of aisb calculation will erroneously index
-via an unsigned long * as well as multiply by 8B for every 64-bits in
-the offset; only one or the other is required.  This throws off aisb
-calculations once the number of devices exceeds 64, and can result
-in out-of-bounds access as well as failure to indicate summary bits
-associated with those devices in guests.
+I was never a fan of this TF_UPDATE_TXN flag. This is a kernel band-aid
+patch for a flow-control problem in userspace.
 
-Fix this by converting to a physical address before applying the
-offset, as is already done in arch/s390/pci/pci_irq.c.
+> 
+> 1. kfree(t_outdated) is called without binder_free_txn_fixups(),
+>    permanently leaking binder_txn_fd_fixup entries and their fget()'d
+>    struct file references. The refcount never reaches zero; the leak
+>    survives process exit and accumulates until file-max exhaustion.
 
-Fixes: 3c5a1b6f0a18 ("KVM: s390: pci: provide routines for enabling/disabling interrupt forwarding")
-Signed-off-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-(cherry picked from commit 0cfe660559e857d7c00ab86c73e4510ce069086f)
-[alifm@linux.ibm.com: Resolved merge conflict]
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
----
- arch/s390/kvm/pci.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes.
 
-diff --git a/arch/s390/kvm/pci.c b/arch/s390/kvm/pci.c
-index 61489016e425..d9fcbf41025e 100644
---- a/arch/s390/kvm/pci.c
-+++ b/arch/s390/kvm/pci.c
-@@ -167,7 +167,7 @@ static int kvm_zpci_set_airq(struct zpci_dev *zdev)
- 	fib.fmt0.noi = airq_iv_end(zdev->aibv);
- 	fib.fmt0.aibv = virt_to_phys(zdev->aibv->vector);
- 	fib.fmt0.aibvo = 0;
--	fib.fmt0.aisb = virt_to_phys(aift->sbv->vector + (zdev->aisb / 64) * 8);
-+	fib.fmt0.aisb = virt_to_phys(aift->sbv->vector) + (zdev->aisb / 64) * 8;
- 	fib.fmt0.aisbo = zdev->aisb & 63;
- 	fib.gd = zdev->gisa;
- 
--- 
-2.43.0
+> 
+> 2. binder_release_entire_buffer() is called with is_failure=false for
+>    a transaction that was never delivered. Since binder_apply_fd_fixups()
+>    was never called, the BINDER_TYPE_FDA handler reads stale buffer data
+>    as fd numbers and closes unrelated fds via binder_deferred_fd_close().
 
+Ha! good catch.
+
+> 
+> Confirmed on mainline Linux (6.8.0-124-generic, binder_linux module)
+> and Android (Pixel 8, kernel 6.1.124, /dev/hwbinder).
+> 
+> Tomer Pomeranc (2):
+>   binder: fix leaked fd fixups on TF_UPDATE_TXN supersede
+>   binder: fix is_failure flag for superseded transaction cleanup
+> 
+>  drivers/android/binder.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> -- 
+> 2.34.1
+> 
+
+So both fixes LGTM, and we should take them.
+
+However, I'm thinking we should drop this code. We now have frozen
+process notifications and that should prevent duplicate transactions to
+frozen processes from happening in the first place. So we remove the
+code and mark TF_UPDATE_TXN as obsolete.
+
+... or maybe we just drop the entire C binder code base. I'm tired of
+all these memory issues.
+
+--
+Carlos Llamas
