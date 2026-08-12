@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507F7403138
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:11:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01190400DE2
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:11:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786525898; cv=none; b=nomh8IPJig7fhUfICEpXts1ISJcJ1rLrRYzmHMSD+MhVqFAvvXgJzD1VQUN1gmPdQjo/urqcauf5beXT/xlbOutLpFGAUi1+whi/012/jqdD0WJEmueajJkjGjaF36JNPaNGDaAmODFeEBD46eE/3oLtARrCiZPYxC1mp/LGRN4=
+	t=1786525898; cv=none; b=NXZ3O3yLbxD4PTMvAbzJhJ4OmqKj5TKJOcIAE/yBDmzJiN3T+rkbjhu4CQBg0GzE+BEL0wlBlUDm05xOjZLZV0facHJRWZU/xLeWgM6GHQwHNP0iiniXkS6utJ4qjKnUjVopsgelxLXMJNoFn1bRxpvfVzJ+On0P/0LVRDM5ins=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786525898; c=relaxed/simple;
-	bh=3D06h8UW9gn72jJzR42kzb24onvpH27DoLIT23jGTwY=;
+	bh=gtYqy+OQ2HvCMpqhoP8ZxcMHHo3+DwpQPIVYkqSDC2Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PjNuHw/70dQRPNPe1J0tt8Q1gJy2omch9hwoPnxHenDDQlXb1h2LnvlrFSqFnzp1yoy9Q3/xAJidNAasmNKDf73QPAfgNKAV4aQy4AhcrognL7QucihQUjaZ7MDLX5LSNCDaJWAAA94ApAZ/TCJQOAQTmv/ngbTqF4F4oJDm68k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSjQKH9x; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kqr2Ng/v9uarH1Bn1ezq33JsPQ2rp6UqjmkiVu5nu1kpxcUuk1vCRs8JTQVxNOyMvTlehc9vNc2G1DihRGObiyFJyf0NudYKsmdvYBINYqTBSEnWOtiL7L1IwbK+BFPIPBxcdCQNrp/IZ0h2rbYbQ2rs5XC+EaV9nc25ynEy2aI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJet8B0h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSjQKH9x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C2B1F00A3A;
-	Wed, 12 Aug 2026 09:11:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJet8B0h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1593B1F00AC4;
+	Wed, 12 Aug 2026 09:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786525895;
-	bh=0YyKOi7tTR6JW230AbrSX0J6nAI32FeKHr6rWu94kp8=;
+	s=k20260515; t=1786525892;
+	bh=gr/LDc5WmntNOLfBZjuBgSI3Zhc2oeFiTNi6C2vkpPQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OSjQKH9xT7OwNbeaLu6MRHgkABcyxbZVDZDMbHyfa4pKwvOQWCcJrztm2iwDj0OSF
-	 XUS1EB96iSnANAGvbxb1kKXoxBEzmnO5OQGX1m8K4hPNada9OVihh5q/fRtuXLlzqR
-	 DFqgjJ3NZXhGnLXlgCpnMR+gVYdbVGyS++a6qu2Sc/txJXhD1uIm4yOyf9t6uNpSIs
-	 0EHV4AAncOdh+QQANn5hjVbzxn9fJZSjMDVnU3/QuU2SLiMlsmK5YWt1novyLRNB4o
-	 uj4fdB9sSsblNIujDvPjrytFIbimbqMhwMd3xW3SzSLTbOpCDtGh+LGc78kEkVgqGm
-	 R4N2tlJw2DMkw==
+	b=fJet8B0hyfSAxBv63CH5mPUEppGb6wgTc85fIh5RZqzNDZOrArxVFKyuNKEdrU9qV
+	 oKjCS2B80wsMIEnZMrr4mCXWuB6FdXRQk6kad5SWtxsIgCj3skfonxTgsEzu26dn2X
+	 C+QGfe2X9gN4hG+LglbGXCsX4Huobc2YGPcewDzNAD81Y23jHhf2umxv3uu8UR9TQM
+	 DfW6skIMeYzMErDCf7RX6pcHq5RNzksSS7YfSnCt2EAX3OG1RVLJtR0CPLgQ88XgWi
+	 OsaEywCA9Ja+mbecngYYSpoaxUOXiY68kHItgYtud/tY28MZVaj+9XcnBQ7WgzgErh
+	 +RDectr3/lM4g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
-	Vladimir Medvedkin <vladimir.medvedkin@intel.com>,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Simon Horman <horms@kernel.org>,
-	Patryk Holda <patryk.holda@intel.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ice: fix VF interrupts cleanup
-Date: Wed, 12 Aug 2026 05:11:33 -0400
-Message-ID: <20260812091133.1349855-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 5/5] vxlan: use pskb_network_may_pull() for transmit path header pulls
+Date: Wed, 12 Aug 2026 05:11:27 -0400
+Message-ID: <20260812091127.1349673-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080514-dexterous-registry-f915@gregkh>
-References: <2026080514-dexterous-registry-f915@gregkh>
+In-Reply-To: <20260812091127.1349673-1-sashal@kernel.org>
+References: <2026080500-gloomily-getup-2a3e@gregkh>
+ <20260812091127.1349673-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,117 +48,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit fb096882095e5a8d6b5159e43793d4a38a0c5b1f ]
+[ Upstream commit b9553558b48db54ac9273e6b98d7263ef5c1a329 ]
 
-When a virtual function sends an IRQ map command, the PF will set up
-interrupts according to that request. However, because these interrupts are
-never reset, the next time Virtual Function initializes, the interrupts are
-still enabled for a given VF, which leads to performance degradation in
-certain cases due to interrupts being unexpectedly enabled and thus causing
-interrupt floods.
+In vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was
+being called to verify the availability of network layer headers (ARP, IPv6/ND,
+IP/IPv6 MDB keys).
 
+However, during transmit skb->data points to the MAC header, so skb_network_offset(skb)
+is ETH_HLEN (14 bytes). Using pskb_may_pull(skb, len) only checks len bytes from skb->data
+rather than skb_network_offset(skb) + len, which can leave part of the network header
+in non-linear frags.
+
+Replace these remaining pskb_may_pull() calls with pskb_network_may_pull() to properly
+account for the MAC header offset.
+
+Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
+Fixes: f564f45c4518 ("vxlan: add ipv6 proxy support")
+Fixes: 0f83e69f44bf ("vxlan: Add MDB data path support")
+Signed-off-by: Eric Dumazet <edumazet@google.com>
 Cc: stable@vger.kernel.org
-Fixes: 1071a8358a28 ("ice: Implement virtchnl commands for AVF support")
-Suggested-by: Vladimir Medvedkin <vladimir.medvedkin@intel.com>
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Tested-by: Patryk Holda <patryk.holda@intel.com>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260723144249.759100-6-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../net/ethernet/intel/ice/ice_virtchnl_pf.c  | 48 +++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ drivers/net/vxlan/vxlan_core.c | 6 +++---
+ drivers/net/vxlan/vxlan_mdb.c  | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_virtchnl_pf.c b/drivers/net/ethernet/intel/ice/ice_virtchnl_pf.c
-index f93551ee3cb4f..da40c8a3b72b4 100644
---- a/drivers/net/ethernet/intel/ice/ice_virtchnl_pf.c
-+++ b/drivers/net/ethernet/intel/ice/ice_virtchnl_pf.c
-@@ -1587,6 +1587,30 @@ static bool ice_is_vf_disabled(struct ice_vf *vf)
- 		test_bit(ICE_VF_STATE_DIS, vf->vf_states));
- }
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index d27f3ef2a0fb2..5718433862af0 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -1857,7 +1857,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
+ 	if (dev->flags & IFF_NOARP)
+ 		goto out;
  
-+/**
-+ * ice_reset_interrupts - clear all queue interrupt configuration for a VSI
-+ * @vsi: the VSI whose interrupt registers should be cleared
-+ *
-+ * Zero the QINT_RQCTL and QINT_TQCTL registers for all allocated queues
-+ * in the VSI. This clears the entire register including MSIX_INDX, ITR_INDX,
-+ * CAUSE_ENA and NEXTQ fields, unlike ice_vf_dis_rxq_interrupt() which only
-+ * clears the CAUSE_ENA bit.
-+ */
-+static void ice_reset_interrupts(struct ice_vsi *vsi)
-+{
-+	struct ice_pf *pf = vsi->back;
-+	struct ice_hw *hw = &pf->hw;
-+	int i;
-+
-+	ice_for_each_alloc_rxq(vsi, i)
-+		wr32(hw, QINT_RQCTL(vsi->rxq_map[i]), 0);
-+
-+	ice_for_each_alloc_txq(vsi, i)
-+		wr32(hw, QINT_TQCTL(vsi->txq_map[i]), 0);
-+
-+	ice_flush(hw);
-+}
-+
- /**
-  * ice_reset_vf - Reset a particular VF
-  * @vf: pointer to the VF structure
-@@ -1630,6 +1654,9 @@ bool ice_reset_vf(struct ice_vf *vf, bool is_vflr)
+-	if (!pskb_may_pull(skb, arp_hdr_len(dev))) {
++	if (!pskb_network_may_pull(skb, arp_hdr_len(dev))) {
+ 		dev_dstats_tx_dropped(dev);
+ 		vxlan_vnifilter_count(vxlan, vni, NULL,
+ 				      VXLAN_VNI_STATS_TX_DROPS, 0);
+@@ -2831,8 +2831,8 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			return arp_reduce(dev, skb, vni);
+ #if IS_ENABLED(CONFIG_IPV6)
+ 		else if (ntohs(eth->h_proto) == ETH_P_IPV6 &&
+-			 pskb_may_pull(skb, sizeof(struct ipv6hdr) +
+-					    sizeof(struct nd_msg)) &&
++			 pskb_network_may_pull(skb, sizeof(struct ipv6hdr) +
++						    sizeof(struct nd_msg)) &&
+ 			 ipv6_hdr(skb)->nexthdr == IPPROTO_ICMPV6) {
+ 			struct nd_msg *m = (struct nd_msg *)(ipv6_hdr(skb) + 1);
  
- 	ice_dis_vf_qs(vf);
+diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
+index 73c128c3d90de..eb919fc05cdf9 100644
+--- a/drivers/net/vxlan/vxlan_mdb.c
++++ b/drivers/net/vxlan/vxlan_mdb.c
+@@ -1326,7 +1326,7 @@ struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
  
-+	/* cleanup interrupt registers */
-+	ice_reset_interrupts(vsi);
-+
- 	/* Call Disable LAN Tx queue AQ whether or not queues are
- 	 * enabled. This is needed for successful completion of VFR.
- 	 */
-@@ -3167,6 +3194,24 @@ static void ice_vf_ena_rxq_interrupt(struct ice_vsi *vsi, u32 q_idx)
- 	wr32(hw, QINT_RQCTL(pfq), reg | QINT_RQCTL_CAUSE_ENA_M);
- }
- 
-+/**
-+ * ice_vf_dis_rxq_interrupt - disable Rx queue interrupt via QINT_RQCTL
-+ * @vsi: VSI of the VF to configure
-+ * @q_idx: VF queue index used to determine the queue in the PF's space
-+ */
-+static void ice_vf_dis_rxq_interrupt(struct ice_vsi *vsi, u32 q_idx)
-+{
-+	struct ice_hw *hw = &vsi->back->hw;
-+	u32 pfq = vsi->rxq_map[q_idx];
-+	u32 reg;
-+
-+	reg = rd32(hw, QINT_RQCTL(pfq));
-+	reg &= ~QINT_RQCTL_CAUSE_ENA_M;
-+	wr32(hw, QINT_RQCTL(pfq), reg);
-+
-+	ice_flush(hw);
-+}
-+
- /**
-  * ice_vc_ena_qs_msg
-  * @vf: pointer to the VF info
-@@ -3336,6 +3381,8 @@ static int ice_vc_dis_qs_msg(struct ice_vf *vf, u8 *msg)
- 			goto error_param;
- 		}
- 
-+		for_each_set_bit(vf_q_id, &q_map, ICE_MAX_RSS_QS_PER_VF)
-+			ice_vf_dis_rxq_interrupt(vsi, vf_q_id);
- 		bitmap_zero(vf->rxq_ena, ICE_MAX_RSS_QS_PER_VF);
- 	} else if (q_map) {
- 		for_each_set_bit(vf_q_id, &q_map, ICE_MAX_RSS_QS_PER_VF) {
-@@ -3356,6 +3403,7 @@ static int ice_vc_dis_qs_msg(struct ice_vf *vf, u8 *msg)
- 				goto error_param;
- 			}
- 
-+			ice_vf_dis_rxq_interrupt(vsi, vf_q_id);
- 			/* Clear enabled queues flag */
- 			clear_bit(vf_q_id, vf->rxq_ena);
- 		}
+ 	switch (skb->protocol) {
+ 	case htons(ETH_P_IP):
+-		if (!pskb_may_pull(skb, sizeof(struct iphdr)))
++		if (!pskb_network_may_pull(skb, sizeof(struct iphdr)))
+ 			return NULL;
+ 		group.dst.sa.sa_family = AF_INET;
+ 		group.dst.sin.sin_addr.s_addr = ip_hdr(skb)->daddr;
+@@ -1335,7 +1335,7 @@ struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
+ 		break;
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	case htons(ETH_P_IPV6):
+-		if (!pskb_may_pull(skb, sizeof(struct ipv6hdr)))
++		if (!pskb_network_may_pull(skb, sizeof(struct ipv6hdr)))
+ 			return NULL;
+ 		group.dst.sa.sa_family = AF_INET6;
+ 		group.dst.sin6.sin6_addr = ipv6_hdr(skb)->daddr;
 -- 
 2.53.0
 
