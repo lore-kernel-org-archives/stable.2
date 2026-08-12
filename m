@@ -1,170 +1,184 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013006.outbound.protection.outlook.com [40.107.162.6])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B133D3B42EB;
-	Wed, 12 Aug 2026 08:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786523123; cv=fail; b=QNQ8xFcv1HekDu2gmni1BIJfIywKpPPcsgO5DWSfFbeWsEngPhJCJ0GeaMf9khA31xmetrU9lXKvzIF9X0LCCGTBN0tAU3t/AVLn7ys/KTcYCvoIvMAgGKZoLLpUuQrtz7WkSk2JCgtGbCEABfrmhiEQU48cFIF4svbguT6hip8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786523123; c=relaxed/simple;
-	bh=KnScxYIFOym4ltAcq8+t49UJ3Dkt+VOTACyTBTk7Vyw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=s+Y+rvhyPojHqM0myHIXQ2XthRRYxuy0MEtKQh0h/178wGzqHHSbP8+k8ayCM6CNs+xCWFXcQz1uzSIXOG3jhgptWMBc/QKX1ADU+Jry1XzRgm6J2LpwFhMt/Y2zOux5Gzen+adN8tYlJf4+OCEta9eeMLEeWL0KReHB7bA2u1A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=NVixfBIv; arc=fail smtp.client-ip=40.107.162.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E1A310779
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 08:31:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786523468; cv=none; b=blQHXgNK8GSO3A45ix3foB6u4ooD64YCc59d6JrGpXrB9RMmWoQrRnycOSUSwpJqtmUqVnfyvetAgFmuDptFMD1dfPgETJv3gXib1Do3szUegb2ex1foBIFjRgDvCVJSY86SZduxiU1sYanjCQam0r5S1QYtSECYMeRoa8ArAsk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786523468; c=relaxed/simple;
+	bh=Au4LybUfTiqkTdTHsaRYZAfGKUJf0+c8s4BPVAExPKA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W82ikSKcn2eIQ9ljE4WJqwTu86Ws/WWu9A2Cd96X6iXP9KnvCQ9czf1hCkpCfYLBhPrCZTgiSt+yy23vxyEjEiLxtShfBCeCm//TpDezRjLGEcubHOgycxHb8KIwuL9aIXRDl4bVFBE85TJXJLIdGnkMNmfM/R1jijCCznLp6/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hLoXbSrT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iRTNpvVx; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="NVixfBIv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yPELtnIvF+t8UtjKvyPMHUsnZVytj1R2sDrhDCEJ0xTtftuopubQ3KNAsstuDRdBOx7jJgxP+aDRLsWAZ41EnR3qGWMv7NbODLhzOwxoFad9hSrdXeUX5HvUwL6z540CEXd8AcJGv7ijX0Thu4zZY/YeO2UAgbBdY9t8r0I6e37z3zyXUz2MHZ9hMEgo20gR/ybWB0cdcx6rBOaPfiOfmmavd902AehHeE1EFYyk6afJ4TBJQTCoX4uA6KyMiggK5yFR4obd60BJkA0NBSYIOguFofZraf6wZg8CikhhKQFNSo0P4voK8eFBFRoIF07Z2kMQMjpzvdYVv01T0AEHOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yGxoy4Qr1CTeJR1yFOyNXpJKawHfSlW2niWWCQ9SVds=;
- b=TVs45NZ/bzL6OtZByDSSIhZrviG9BwlMk3eHrIz/hqY/UOp/8fRIqrgDXRXN4oaCUsQVsuM+G0RBs8//esg+kowwn6wxh6Kx+qvB5cKH7FhyA2mai6vSpHXQXOgn9IvAjuF1kQcst/ukUozMEAqEc3yV4szzlhIcpM/jiZFjKJOlklXMmDbT5DkMuD8y1CxjDZYtErH/CrP74oazXsVcaVWSPzNSOUIUNrj9QEE78g+0UAJbU8CRSBuwe77T9TlYJzV3Vyj/slHM0FfuOc7KubNeMoaBWI85bmGfU1Uu5+MDgJVUGoNnTlqd9IT+28YA91SKR+y5+7H/l6qvovmd2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yGxoy4Qr1CTeJR1yFOyNXpJKawHfSlW2niWWCQ9SVds=;
- b=NVixfBIvapc9OHBL7aYoJxm+WBJoc2f9TlXpDG0JIIc+Q0J4su3fnhsmELKp0CpnVA/XaC400I2LnM6ge+US5CMiGdrLnRrszuZ9p9ujIdd4rCD7+0dwpVlz0VO+pNCpQ8agvhL12kDdQaYIxadr9pMfNvhx+PcwQtgcvedJ+WZ1irPWc+n2NJEcKlSZsdASpwh/yJ9O1kgZZiaLvUPeFCSyjAWnnEni22G7nAgGe1sD+o9RBwmM9U+NiiAoqgEHhs6x8CM3ZzA5QBIMzLVMgCyK6v412nZAb6YtKEELHi8lWMl1Je6Egs5+ox1P19MdEdhHll9ltXwgQfBXFj+4Gw==
-Received: from DU2PR04CA0039.eurprd04.prod.outlook.com (2603:10a6:10:234::14)
- by AS1PR10MB5745.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:47c::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Wed, 12 Aug
- 2026 08:25:17 +0000
-Received: from DU6PEPF00009523.eurprd02.prod.outlook.com
- (2603:10a6:10:234:cafe::28) by DU2PR04CA0039.outlook.office365.com
- (2603:10a6:10:234::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.13 via Frontend Transport; Wed,
- 12 Aug 2026 08:25:17 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DU6PEPF00009523.mail.protection.outlook.com (10.167.8.4) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Wed, 12 Aug 2026 08:25:16 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 12 Aug
- 2026 10:30:46 +0200
-Received: from [10.48.86.103] (10.48.86.103) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 12 Aug
- 2026 10:25:15 +0200
-Message-ID: <6565654b-8516-4878-b617-7cd65992c2a6@foss.st.com>
-Date: Wed, 12 Aug 2026 10:25:15 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hLoXbSrT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iRTNpvVx"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67C7efUd2409286
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 08:31:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=c1Wnzoct6vCWZ6w6VX0TjA
+	CPZO3HCWQAYpOF7tFvREQ=; b=hLoXbSrTXkxzy2L7izWyUJLxdGurvYvUSMRw+t
+	uNYBRtp+gbLJCk2PKED34dlsMVN957TvZGTWc84sZ+y4oihZZh40cWiyr9R6Ak8Q
+	4Za/8PNVIBRfOe9A5Q6n2gSbhHzrbmEDRxLMSxpRSl7dDsGFrRafIUHm/W2nnJwQ
+	RkseKCHpfS/19tJr0cfDqYpgNpvyLML7kfCZByRorqWRqxGImvmPyndoZ7B2//g9
+	0JfpaiPZRRhl1YD2+ETNqRdYjsDbiVC9UGiXtY5IgtudThPI2DRTCZ+thyZUWMaa
+	ouz3yBPfGyPvlVFUJsPAqzN6sbH5ZK+q72p49qEb6h/4DD1w==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0mnd85tg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 08:31:06 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e7621655eso1142738a91.0
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 01:31:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786523465; x=1787128265; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=c1Wnzoct6vCWZ6w6VX0TjACPZO3HCWQAYpOF7tFvREQ=;
+        b=iRTNpvVxGTRN/VgOPZsyAePRuxlemwv903qxQOcOPi/kPZKcoptW6q+6VxkvGtkcwn
+         zCLA3tlha0UkL5EYie/uIYXT8QHsoXBMk2vfdtwpESPpW4fXOS4Tnis1AhzaXER1Iqt3
+         pMwcF1rcy5keOy0egofC/imjy4wo/9D9u79IpwgjIiyIx2xOqecO0NeHoSv0tUr3iAkV
+         ICxI3Lp5auGHIVG1n40B/C0EKFRgSskGUkgjIYBKzK902UkXsba1qpsRnxZFk9DZhLQD
+         hkzzU6guEdM59yLAN2jh6MZCtq8TqESFPr/YDWBnj5rzvjoWpAZlZWMJGuuDnoGNPJAt
+         P2HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786523465; x=1787128265;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=c1Wnzoct6vCWZ6w6VX0TjACPZO3HCWQAYpOF7tFvREQ=;
+        b=W0FUsIdaJS4DUPiLzdPsaiTjmHqgdTfZqRRD18pFnU5UNRjnpLtBRmIicZhVpzMql2
+         Yo/bIE4cAeH0emhWb6ti6rN6HNgZcDlFoa6goFn3iybkJ9l3dddIU7JsCK4ajgPfdj8u
+         U3109U0PsVW8cWAbL+nJXnxINJnB0lSW1XQkrhwKDPLhRKo0beK3dj5WDHJX3MLG5CPr
+         dsDXZMShfyV2b5MxweQHSd8i+lQNgjvaifirZ4VFiO4dgI9wauHjQVHCLBvY6QCAag5u
+         usuuRPdKFG79xA3VuAC/6ocx8/sUTq342TZ0RaNLcCN3UL3a5ERm0fMWRLB1RHsq1nHw
+         4zeg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1aS7aOUM6dcgUYEUO5VxDzOrswLiL5cSwxOqL/hGn/n5tiGugOQR4KxetVLpVlD3OhjJkMpE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzgfvIiNOCXIVbWWkP12MbhNY6jTLdMvoGUo1RBtZKWnbP2/fTc
+	15M6otq/CH+9UQ0RTTFgrri9v7g6mKLZl7DMX7YjrBL2UJmKvGb6VvXHs/Nz4E1NSsnBFRFdJUb
+	uS8ECDMoxXdagOWRkMH4xboRXjVBtJga7M39BvAj0vNOo0EcidK2AFGvc7qI=
+X-Gm-Gg: AR+sD13tO9ZuigLsX2s2Cf+k6DT4dvqa2u4ZznBZgQXNx6nsAfeXdgb7GiGnRNIVtsj
+	lX8VPP/qahF4d24xzGTfJr9IMb4AtQBVtJQUVVpq+Hghkb5OxCiZgdlrzfmDG1FIKB1CDrrGaLA
+	FUdyqOQvWa06/qrSqMvSLed9oWLTODP9FHMWymvM5zwAOL9MeQFGZbyd2WaMri71NeQoS/35XPd
+	ITkyWMBTOOJEmUKzdnijki919Gqm2ooLsptZl3YRDeNmKudMLKztf1hhDrMQ+aMbXyEA9mAd8xM
+	bZ3r69eHx3QvqDFRqWcuYP5uzISYEpykdbEZyATw/KpljoAj6NaUKDzc3gF/05Oun8EPis3WK/M
+	qOnUB2IUcgIk5kE+wukcEmQNkdlTW4hWk0FbACfPWnpn+M36XFAnej5PxcjqY2Y6X6qySaxKaI5
+	PNtpHn10hHtBd5fE5SZlhC4g6FqL1V8jnsTAc=
+X-Received: by 2002:a17:90b:2b45:b0:380:873:49cb with SMTP id 98e67ed59e1d1-39301834f69mr3829730a91.21.1786523465508;
+        Wed, 12 Aug 2026 01:31:05 -0700 (PDT)
+X-Received: by 2002:a17:90b:2b45:b0:380:873:49cb with SMTP id 98e67ed59e1d1-39301834f69mr3829657a91.21.1786523464910;
+        Wed, 12 Aug 2026 01:31:04 -0700 (PDT)
+Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141245a9f70sm9942865c88.15.2026.08.12.01.31.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 01:31:03 -0700 (PDT)
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] I2C SCL counter updates for Qualcomm IPQ5424 SoC
+Date: Wed, 12 Aug 2026 14:00:54 +0530
+Message-Id: <20260812-ipq5424_i2c_scl_updates-v2-0-e09cd39d01d7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] hwrng: stm32: fix usage_count leak when
- autosuspend_delay is negative
-To: Guangshuo Li <lgs201920130244@gmail.com>, Olivia Mackall
-	<olivia@selenic.com>, Herbert Xu <herbert@gondor.apana.org.au>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>, Daniel Thompson <danielt@kernel.org>, "Linus
- Walleij" <linusw@kernel.org>, <linux-crypto@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: <stable@vger.kernel.org>
-References: <20260811063442.3058074-1-lgs201920130244@gmail.com>
-Content-Language: en-US
-From: Maxime MERE <maxime.mere@foss.st.com>
-In-Reply-To: <20260811063442.3058074-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU6PEPF00009523:EE_|AS1PR10MB5745:EE_
-X-MS-Office365-Filtering-Correlation-Id: 55f7c696-db1f-4aae-aab5-08def84b3d6e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|7416014|1800799024|376014|921020|18002099003|22082099003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	f1gNIBfA7CPVw0TEzgTmEmnxHHWV0H0oGRJfh5qnsYEkE/czi/OXteD3ekciCPxOyFuGMRkFPUPz9IbDVGsJd4a4sU3G8jFK86ym4Qk7l9bTO6CH99q0ThB1fetlzfzdVjI6OMs3QybU4/3G5qndNZwQuxcB831fpd25jf8NJXyAQwwQAFLoy3soN7eaV/tQ1hGW1BAph1hr24aHvwU19iy8OzV1x7TgZRk6MJBe7IoY2HnyTyfxBGKSz4W0WPotFhUFfHRpvRjTroQfdOWxqR9Z7u6g2pe3wntdT3fSUydChtkjElTE9X65UvchcuKi31ZV6LYDu/ql6pBCStA6PwxGp41/SfOkADHygNTRyPgcelHHo7JRwkogPVAjBLL9QNwWlcPbw8ies/nO8wG/6TKp8F8Mqx609kNKPbhAoY73M5qjqKFEIkjpMl8cJdrR1XkL9KkB65/FIqKWgMvhZO0fKsLzTRLpzW+FOfSnDtmtCsyXKYhPPa9rSZmvA6BrueaIxeCee3yP/KBr0okhYmytCOIirKcu5myAu5CN4hfgKxRKrU9VR/V63ps6YjqVVQ3ylkZKWn5iENkUOeVzeNI/IHWNCYWhm+2kEFv273ahh65vdAFSfXnkXgqsMvTPUXveYE/xS+IETbfkfkFf+0pQGwQrfJC8P6Sn7038w4UKw9+baJca4GJk3WSJXlCzZ0sQ8yL1Lj5tccxDxWJzoHWcB572vaX/aV1RKHW8WSrDwMkQPVFOMP7AHwSbQ8c/
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(7416014)(1800799024)(376014)(921020)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	rCNtZ3RBfN7v1IRzAvXmpQJ8tO7vlI+/Lbd9Y5PMrGP6zArLF7nSzKZLTNboC7GDlWPRcByyXTHahmfUVcut36ogzOJEGLereOd3FBHV57da+MSXEnQyyuXlv8pToIb7chmwp4sBBVpLiNF5KzPOLejUHQIZjn1TjSTEHHUtYMi1Z6YnDHfu9ZHb1nNqN46VSW3Act55/3qedeas7K3naOds93W2BpMKwXrliMkFZ7zK4ficcQ2j3sOHzNxjnBja05zaujsffcm0QHq6EMZTd7y2plWfaz5ppBuHN/WPKWoye6J6AMj7QTzc9scJemk/+fFMvgz2gAlV/AnkC64kplNZb9/pfko/ziXu6bUyf6eRACvXvOCIs7a/XeQeEF0eJwzB+h8M/wDEL+qppbBS6Wt1WiPVE/+JxRH4DPG+pPZ2sdSNKQ26/t7dk9erq07F
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 08:25:16.8878
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55f7c696-db1f-4aae-aab5-08def84b3d6e
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU6PEPF00009523.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR10MB5745
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD8vfGoC/3WNQQqDMBREryJZN5IEFe2q9ygiyc+3pqjRfJUW8
+ e5V2203Aw9m5q2MMDgkdo1WFnBx5Hy/g7pEDBrdP5A7uzNTQmUiFzl3w5gmKqmcgoqgrebB6gm
+ J1zIrMi3SQtTA9vUQsHav8/lefplm80SYjruj0TiafHif6kUevZ9Fyr+WRXLBjbVgFCAaq2+eK
+ B5n3YLvungPVm7b9gH8J6U/1wAAAA==
+X-Change-ID: 20260808-ipq5424_i2c_scl_updates-f1696a0590fc
+To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        Manikanta Mylavarapu <quic_mmanikan@quicinc.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>,
+        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDA2NyBTYWx0ZWRfXwb84Se0rTgUq
+ Z2anBF32VtaQoOPYmtJkADQgy+xtgSuEaSCNdmi4DwqJFoxGew/zISmzha+PE9yn5pHGQHVukWP
+ fUh/kye1zP/N2RrByCIBqj21Qvaz07c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDA2NyBTYWx0ZWRfX1xmQ/VAFRUxP
+ 5B8KKuCPePUo8eBl2nrpyCZ7TKGogmdy0vjjf3SkYq7WWg5bv0yp0SkaglyLS4X4UhUy1GPPfne
+ sv7zeggkKCNF67CR0AZtjENK9PrB+Mt0meNlm4OKp1C9lnjF0WjqtjnVm8C1wHNWG8pLOLTLCu6
+ 8EzL9EtZsk+B4IbaGVBkBrfOv3s5xwvPbjh1YP7Dcn9TaIT+FHX9TZGBcE+ur3rY+AU2RfIpl36
+ OT3EF6Vb6+ySGf63TPSpeKDmwp/7o42I8Kya+LVrMZRW4aQFZxRM70TI+gTHOS/IwbMq4TR3VeH
+ PnQjkYzBHX5w+wtd9LEO/VueIYV4FbyNk5+BiB084VfFPPswSe4Y+sCaqEdTXo6CpE48I9HfqN2
+ 8M6p0aZfgZMFuB9VAgXW1NkH0fVkF0NyyPJzil7GcyFKaKomZ6hS1TqSy9WQsMlGQJB5fOSYHJe
+ QbsCuamApN5q3lt1glQ==
+X-Proofpoint-GUID: mknw3vRKjxgP-T5iriLdhJAW6xk9DSd4
+X-Authority-Analysis: v=2.4 cv=C87ZDwP+ c=1 sm=1 tr=0 ts=6a7c2f4a cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8
+ a=cGTXhytWI82EO-564y4A:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+ a=FO4_E8m0qiDe52t0p3_H:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: mknw3vRKjxgP-T5iriLdhJAW6xk9DSd4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_02,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120067
 
-On 8/11/26 08:34, Guangshuo Li wrote:
-> stm32_rng_probe() calls pm_runtime_use_autosuspend(), but runtime PM is
-> enabled with pm_runtime_enable() and the matching
-> pm_runtime_dont_use_autosuspend() is not called on driver teardown.
-> 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during teardown, this reference is not dropped and usage_count remains
-> unbalanced.
-> 
-> Use devm_pm_runtime_enable() so that pm_runtime_dont_use_autosuspend()
-> and pm_runtime_disable() are automatically called on probe failure and
-> driver teardown. With runtime PM cleanup handled by devres,
-> stm32_rng_remove() is no longer needed.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: c6a97c42e399 ("hwrng: stm32 - add support for STM32 HW RNG")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+To meet the specification requirement in the standard-mode bus frequency,
+update the SCL counters as recommended by the design team.
 
-Hi Guangshuo,
+IPQ5424 uses 32MHz source clock for the I2C and I2C is supported on both
+RTL-hardened and firmware based SEs. The driver already provides SCL timing
+parameters for a 32 MHz source clock, but the resulting I2C bus frequencies
+do not meet the required specification on firmware-based SEs.
 
-Thanks for your investigation. You've found one problem, but I think 
-you've solved three issues with your patch, and the one you describe is 
-the most minor of them.
+As recommended by the hardware design team, use a separate set of SCL
+timing parameters for firmware-based SEs. Introduce a dedicated
+frequency table and select the appropriate table based on the SE type.
 
-The usage_count imbalance is real, but the driver never sets a negative 
-autosuspend_delay_ms itself, and the count is rebalanced on the next 
-probe anyway.
+Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+---
+Changes in v2:
+- Reworded the commit message to provide more background
+- s/geni_i2c_clk_map_32mhz/geni_i2c_clk_map_32mhz_minicore/
+- Link to v1: https://patch.msgid.link/20260811-ipq5424_i2c_scl_updates-v1-0-bddcb2ceebda@oss.qualcomm.com
 
-For the two others: when stm32_rng_read() arms a 100 ms autosuspend 
-timer, if we unbind within this 100 ms window, stm32_rng_remove() 
-cancels the pending suspend and leaves the device RPM_ACTIVE: 
-stm32_rng_runtime_suspend() never runs, so the RNG is left enabled with 
-its clocks prepared and its power domain held forever. Moreover, the 
-remove operation runs before devres released the hwrng registration, so 
-reads could still land on a device whose runtime PM was already disabled 
-and fail with -EACCES.
+To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+To: Manikanta Mylavarapu <quic_mmanikan@quicinc.com>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>
+Cc: linux-i2c@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-Your patch fixes both, because devm_pm_runtime_enable() registered 
-before devm_hwrng_register() unwinds in the right order and 
-pm_runtime_dont_use_autosuspend() forces a synchronous suspend before 
-the disable.
+---
+Kathiravan Thirumoorthy (2):
+      i2c: qcom-geni: update frequency table to fix timing parameters
+      i2c: qcom-geni: add I2C frequency table for 32 MHz firmware-based SEs
 
-So I recommend adapting your commit message around those points, as I 
-think the Cc: stable is justified by those two.
+ drivers/i2c/busses/i2c-qcom-geni.c | 29 ++++++++++++++++++++---------
+ include/linux/soc/qcom/geni-se.h   |  1 +
+ 2 files changed, 21 insertions(+), 9 deletions(-)
+---
+base-commit: 3d08ff75a47a3e7e2ab45a3bcab6723b4d906422
+change-id: 20260808-ipq5424_i2c_scl_updates-f1696a0590fc
 
-Reviewed-by: Maxime Méré <maxime.mere@foss.st.com>
+Best regards,
+--  
+Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-Cheers,
-
-Maxime
