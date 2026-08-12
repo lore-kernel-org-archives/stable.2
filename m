@@ -1,199 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DA94570DA;
-	Wed, 12 Aug 2026 14:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A776402436
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 14:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786543358; cv=none; b=eap8l6uTO1iLOz5Gpcv+eIqJ3VZ+AhXmFAoNyc0qdukx3YfoFy0t2SudpKCwTk75d1+9KDBFyHrGvE6sUxusz3gmnu2i2/GX06Hbry5ZlBU3w790rZopq4YDD34dWJOmlUQAg2oDB+FJZBVSsGyH5BkIEM/G6KqZzqoEOxNCUOM=
+	t=1786543404; cv=none; b=YpgcTnQe3YZc/xnCqFAvBlnAe4O7f2vT0z3GEoy+LibUariwCo1OGR+w8CAxeIePrhB3kzKVEp0hlp0h9thqCcFkfO15AQFE9WKXJE3QFDTNQJQqiexazM0CHNYyROcvTf0GFlH2elzxYFxc96mT+kV8sb+6NJGEG0l2edW9R24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786543358; c=relaxed/simple;
-	bh=Q6pDLlczI52p6LfslbljdsgOn+w5Bz4tVVZNxclLTXs=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dTqieCjOdTJUpuo1iFbUtW4Xn1Ji7YVAyPzVVA/JPdDG8KNbFDNci1z1nwpXEL87Nf9XXUrQ4TwwQE9+Hlt8jRbkYPiOQ8hZmEBg/Va1apzUqgn5jkIWovWykonnDHTkB5g54tN93cUfZbELtQro2bta2E6TAugjCw+by4kjPrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DvNIQ975; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786543404; c=relaxed/simple;
+	bh=Pn5u5ZIVOieorN1UAEsWAT2SRTtMhlItGdfgXJ1zMDI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rznEIq0NYvVubTt17sfQMk2+9Rb9CmOE076QTm9K0B8+I1AZzVnPsaI2UmR+5xSTBHt1gOnPsyclCZFSHcxZgoV7w/A4+3za44tMukYMsbo+k6pLSF7gitF0BVmrtm+YvqmafEQz16TTJ+mB09i0n8EVdYRinMeuQ2eKEcLOVYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TxL75EYq; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DvNIQ975"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47D21F00A3A;
-	Wed, 12 Aug 2026 14:02:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786543355;
-	bh=fm2lkQQTeatuHGurNh7/1ULP0hoNWqxW+N4geEJMvaQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DvNIQ975LyKKF4Z2fXIGSbRsV/QRYPF1yCnmpNjRpQkAoGLnLRUrPgM9y+wt14GRA
-	 3c0ssLb3l+t9MZksJR1rv2y/IoS06rKmTxvWfKclMdSDyKi8HD6yUxFT/1KBOtF3yn
-	 pEtVXLHxo6eLUgzYWqpTk3eFb+wtCSgbTiCPeBPkd4Aw8K6odvl9xSlSh4MgLofHaO
-	 QKFMeLGfEJdoQ9cCBZyj0o7MQ7sgWyjb9nbzB300GUSopQpIYZL3SIQ6uLPCS24XJn
-	 VkaRd1PdUxzuNBYW9+pDf3mh+a9Y/lL+PzFl6GdznhdFUOqnzW9KeOACVjmYFwsty+
-	 OE8EgYR1h3UUg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wu9XN-0000000ExQm-1KYL;
-	Wed, 12 Aug 2026 14:02:33 +0000
-Date: Wed, 12 Aug 2026 15:02:32 +0100
-Message-ID: <86ik5f1lon.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Joey Gouly <joey.gouly@arm.com>
-Cc: kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Shen Yongchao <grayhat@foxmail.com>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: nv: Fix life cycle of the nested_mmus array
-In-Reply-To: <anxXP_ZTZb_iKu1w@e143914.arm.com>
-References: <20260811122057.754772-1-maz@kernel.org>
-	<anxXP_ZTZb_iKu1w@e143914.arm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TxL75EYq"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ceaf8a1265so12365765ad.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 07:03:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786543401; x=1787148201; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FijbjGvORINBRhLeBoIFty9YdQZ9hefeTZ+Nf9pC9YQ=;
+        b=TxL75EYqd1DGOWhMjrNHFXXrSc1ExpQ4av0dgbYBTbKW8ihI2ujLoJFmvquZWLYNM4
+         zjnPLuIGWjSXjJC3RxsbxuXMfDaBaWyobLE4NXJ0za2doMY6CPiypCeLSsHvBqqx7krZ
+         +CmG/QKXQ/ckFD/gMlxz2ufRbDoV6hZN1VbOwXJLrP4h63rdbGTEZEqLngM37dJLFTmg
+         A9Cp5C/HDWuNlVtwnuVqIs5/Mldq/MYGXfDkiYoD4cIpz2d4jrltlLmb+gBuyFPvqO6d
+         PMThNNRhm7kRvbh2pk9BQdmSb8b7AmYf4XaQVIKkcbtd6DGtsRdpA7r82TsbFsnnpZ3s
+         tGtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786543401; x=1787148201;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FijbjGvORINBRhLeBoIFty9YdQZ9hefeTZ+Nf9pC9YQ=;
+        b=RPrPY4RbXUbGsIqWee8DqIMBpVQCDnKxR284XbQm+NZX3pi8uz3R/ZczXuUyrisECB
+         ReXAClf+lEnU8K9xqzRnVGDZwf49vvP94RczVF87tnt7QNUUinCr1n5MjGeKNVRf7MvF
+         WU7AYHhTepk16XppLwM+HxUfuSW7mBPhPzDB1MphC33nL7spB0teWJuvI6RbWMMkVsaN
+         2vw6OzMCOcvkoAE6BiDrZVW6yvUtGPHid4iBwrljx8/Ozfrcq7j+FsOe+96xiLI7yLRk
+         AWM5P+gvQxVSEyBM5KJ+kaiGG8sXPymFuMOEQZc6kwOIsh/kWoCWRg9hCXo+/AAiY5H9
+         jdUw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqi3ZfocmqhD+rPumwbUCVg4thljovZSuHupNA4YngcDrGivB+z3ukj35Rnxye5U210ETFvdAE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8JGqf8GfBMhXnNt5XQGVVXMqQTWoLtw7Z0di5iI3dd4oyGb/7
+	zmYElK0K+7Ez5EbDL/m+v5Pg2jI7UV4gJYHN58chOvl4dSAR7bnzq6b0
+X-Gm-Gg: AR+sD12edb1ssJsxWiZAmvcPou6DWXLyDD2TqLwEbDZJU3EmoyFo6k+e/F4KtVnJRv4
+	zkxrTjucjJVQcECo47dksvx/wKDmV/GOENFwiAvIz1OQ+iIlXQ5tZVIac8J6uucc+Y1UBxJNBuY
+	wIxvX2I03vPV7Jrh2vHD4VBkr0riGBh5ZdmFwqTTkEW71EIQez+ufKnPcMwqKh2/TAJAVNFK4zb
+	3QcpPoUBq/8j6YqhLAYxOr1lOyXGXQukswqAp4x1B0+nydWjMLWuqE36+s+2aHSxGf4H+Vdp716
+	uWuiRJGuwfc3oWHBbDLEwqWH2noRA9GifucSjHEZJ7k+2bOKWXW7asNLgOTrWC+cwIuuM5aqoyG
+	rm+1Hh8ya2YwETPu+EbqSfz5s6/meQPRN3hUg+vysSmKQ9TinSjSPuhWQye2xLpxvg5I3S6lHEX
+	73Pio1PZvYvC6HzQXlr8DBxqUCqPt94qXccEe0LztdROUonLmvPWzCZZNdizvbd76BGGrLFPsp
+X-Received: by 2002:a17:903:2cb:b0:2ca:d658:d874 with SMTP id d9443c01a7336-2d345713af3mr66438065ad.23.1786543400647;
+        Wed, 12 Aug 2026 07:03:20 -0700 (PDT)
+Received: from localhost.localdomain ([49.79.111.198])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d351147e35sm7165115ad.24.2026.08.12.07.03.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 07:03:19 -0700 (PDT)
+Date: Wed, 12 Aug 2026 22:03:09 +0800
+From: Vernon Yang <vernon2gm@gmail.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, ljs@kernel.org, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, 
+	usama.arif@linux.dev, zokeefe@google.com, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: khugepaged: don't pass swap entry value to
+ trace_mm_khugepaged_scan_file()
+Message-ID: <473fe48f-ecd0-47fa-9aa2-d907b685138b@gmail.com>
+References: <20260811133655.267739-1-vernon2gm@gmail.com>
+ <57248ac2-2d5e-4995-9ecd-b71b233fe5d4@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: joey.gouly@arm.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, grayhat@foxmail.com, kmehltretter@gmail.com, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <57248ac2-2d5e-4995-9ecd-b71b233fe5d4@kernel.org>
 
-Hi Joey,
-
-On Wed, 12 Aug 2026 12:21:35 +0100,
-Joey Gouly <joey.gouly@arm.com> wrote:
-> 
-> Hi,
-> 
-> Small comment / suggestion.
-> 
-> On Tue, Aug 11, 2026 at 01:20:57PM +0100, Marc Zyngier wrote:
-> > The nested_mmus array holds the shadow page tables that are used when
-> > a guest is running a nested context. These structures are allocated on
-> > VCPU_INIT for whole guest, which implies that they may have to be
-> > relocated as the array grows.
-> > 
-> > Should a VCPU_INIT occur whilst a vcpu is actively running an L2 and
-> > that the allocation requires relocation, that vcpu will still be
-> > running with a pointer to the previous structure, which will have been
-> > freed.
-> > 
-> > Fix this by turning the array of structures to an array of pointers,
-> > which is now allocated at VM creation, sized to the absolute maximum
-> > that KVM can handle.
-> > 
-> > In turn, each VCPU_INIT contributes S2_MMU_PER_VCPU to the pool. No
-> > reallocation is ever performed, and the life cycle of each object is
-> > much clearer:
-> > 
-> > - the nested_mmus array is allocated in kvm_init_nested(), and freed
-> >   in kvm_arch_destroy_vm()
-> > 
-> > - s2_mmu structures are allocated in kvm_vcpu_init_nested(), and freed
-> >   on kvm_arch_flush_shadow_all()
-> > 
-> > Finally, the freeing of vcpu->arch.vncr_array is made consistent
-> > rather than being done on some failure paths, but not others.
-> > 
-> > Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
-> > Reported-by: Shen Yongchao <grayhat@foxmail.com>
-> > Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-> > Suggested-by: Karl Mehltretter <kmehltretter@gmail.com>
-> > Link: https://lore.kernel.org/r/20260803224405.41468-1-kmehltretter@gmail.com
-> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+On Tue, Aug 11, 2026 at 05:19:38PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/11/26 15:36, Vernon Yang wrote:
+> > From: Vernon Yang <yanglincheng@kylinos.cn>
+> >
+> > When the swap entries found exceed max_ptes_swap, the loop is left via
+> > break with folio still holding the xarray value that encodes the swap
+> > entry, not valid folio pointer.
+> >
+> > That value is passed to trace_mm_khugepaged_scan_file(), which feeds it
+> > to folio_pfn(). On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is
+> > plain pointer arithmetic, so the trace event merely prints bogus
+> > scan_pfn. On classic SPARSEMEM, the page_to_pfn() reads page->flags,
+> > dereferencing the tiny encoded integer and oopsing khugepaged whenever
+> > the trace event is enabled.
+> >
+> > So set folio to NULL before breaking out, the tracepoint maps NULL to
+> > scan_pfn of -1, just like exhausted scan naturally.
+> >
+> > Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
 > > Cc: stable@vger.kernel.org
+> > Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
 > > ---
-> > 
-> > Notes:
-> >     Sending this as a first class patch, since the other approaches were even
-> >     uglier than this one. I'm still displeased with kvm_arch_flush_shadow_all(),
-> >     but that's a step in the direction of tightening it:
-> > 
-> >  arch/arm64/include/asm/kvm_host.h   |  2 +-
-> >  arch/arm64/include/asm/kvm_nested.h |  2 +-
-> >  arch/arm64/kvm/arm.c                |  8 ++-
-> >  arch/arm64/kvm/nested.c             | 91 +++++++++++++----------------
-> >  4 files changed, 49 insertions(+), 54 deletions(-)
-> > 
-> [..]
-> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> > index 20af94197a8a7..50d6dcc75582c 100644
-> > --- a/arch/arm64/kvm/nested.c
-> > +++ b/arch/arm64/kvm/nested.c
-> > @@ -44,11 +44,15 @@ struct vncr_tlb {
-> >   */
-> >  #define S2_MMU_PER_VCPU		2
-> >  
-> > -void kvm_init_nested(struct kvm *kvm)
-> > +int kvm_init_nested(struct kvm *kvm)
-> >  {
-> > -	kvm->arch.nested_mmus = NULL;
-> > +	kvm->arch.nested_mmus = kvmalloc_array(KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
-> > +					       sizeof(struct s2_mmu *),
-> > +					       GFP_KERNEL_ACCOUNT);
-> >  	kvm->arch.nested_mmus_size = 0;
-> >  	atomic_set(&kvm->arch.vncr_tlb_count, 0);
-> > +
-> > +	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
-> >  }
-> >  
-> >  static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
-> > @@ -69,8 +73,7 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
-> >  int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
-> >  {
-> >  	struct kvm *kvm = vcpu->kvm;
-> > -	struct kvm_s2_mmu *tmp;
-> > -	int num_mmus, ret = 0;
-> > +	int num_mmus;
-> >  
-> >  	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
-> >  	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
-> > @@ -83,51 +86,40 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
-> >  	if (!vcpu->arch.ctxt.vncr_array)
-> >  		return -ENOMEM;
-> >  
-> > -	/*
-> > -	 * Let's treat memory allocation failures as benign: If we fail to
-> > -	 * allocate anything, return an error and keep the allocated array
-> > -	 * alive. Userspace may try to recover by initializing the vcpu
-> > -	 * again, and there is no reason to affect the whole VM for this.
-> > -	 */
-> >  	num_mmus = atomic_read(&kvm->online_vcpus) * S2_MMU_PER_VCPU;
-> >  
-> >  	if (num_mmus > kvm->arch.nested_mmus_size) {
-> 
-> Sashiko.dev complained about a possible race here, but looking at the
-> code, it seems incorrect?
-> 
-> Unsure why it didn't e-mail it.
-> https://sashiko.dev/#/patchset/20260811122057.754772-1-maz%40kernel.org
-> 
-> It seems that this code is serialised / protected by
-> kvm->arch.config_lock in __kvm_vcpu_set_target() (which is the only
-> caller of kvm_vcpu_init_nested() via kvm_setup_vcpu())
+> >  mm/khugepaged.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> > index 617bca76db49..bc0d04c9162d 100644
+> > --- a/mm/khugepaged.c
+> > +++ b/mm/khugepaged.c
+> > @@ -2696,6 +2696,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+> >  		if (xa_is_value(folio)) {
+> >  			swap += 1 << xas_get_order(&xas);
+> >  			if (swap > max_ptes_swap) {
+> > +				folio = NULL;
+> >  				result = SCAN_EXCEED_SWAP_PTE;
+> >  				count_vm_event(THP_SCAN_EXCEED_SWAP_PTE);
+> >  				break;
+>
+> Yes, we'll do a folio_pfn(), and used to do a page_to_pfn().
+>
+> Using the folio after dropping the reference is rather nasty.
+>
+> Instead of passing the folio, should we just pass the pfn directly?
 
-Yeah, this looks like Sashiko went south again. You'd hope it'd be
-able to follow such a simple code path...
+Yes, LGTM.
 
-> 
-> So maybe a
-> 
-> 	lockdep_assert_held(&kvm->arch.config_lock);
-> 
-> makes sense in kvm_vcpu_init_nested()?
+Would similar modifications like the following match the effect you want?
+If so, I'll make these changes in the next version.
 
-Sure, that's never a bad thing to add.
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 617bca76db49..e7830761d3a2 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2683,6 +2683,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 	int present, swap;
+ 	int node = NUMA_NO_NODE;
+ 	enum scan_result result = SCAN_SUCCEED;
++	unsigned long pfn;
 
-Thanks,
+ 	present = 0;
+ 	swap = 0;
+@@ -2720,27 +2721,23 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 			 * PMD-sized THP implies that we can only try
+ 			 * retracting the PTE table.
+ 			 */
+-			folio_put(folio);
+ 			break;
+ 		}
 
-	M.
+ 		node = folio_nid(folio);
+ 		if (collapse_scan_abort(node, cc)) {
+ 			result = SCAN_SCAN_ABORT;
+-			folio_put(folio);
+ 			break;
+ 		}
+ 		cc->node_load[node]++;
 
--- 
-Without deviation from the norm, progress is not possible.
+ 		if (!folio_test_lru(folio)) {
+ 			result = SCAN_PAGE_LRU;
+-			folio_put(folio);
+ 			break;
+ 		}
+
+ 		if (folio_expected_ref_count(folio) + 1 != folio_ref_count(folio)) {
+ 			result = SCAN_PAGE_COUNT;
+-			folio_put(folio);
+ 			break;
+ 		}
+
+@@ -2759,7 +2756,14 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 			cond_resched_rcu();
+ 		}
+ 	}
++	if (!folio || xa_is_value(folio)) {
++		pfn = -1;
++	} else {
++		pfn = folio_pfn(folio);
++		folio_put(folio);
++	}
+ 	rcu_read_unlock();
++
+ 	if (result == SCAN_PTE_MAPPED_HUGEPAGE)
+ 		cc->progress++;
+ 	else
+@@ -2774,7 +2778,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 		}
+ 	}
+
+-	trace_mm_khugepaged_scan_file(mm, folio, file, present, swap, result);
++	trace_mm_khugepaged_scan_file(mm, pfn, file, present, swap, result);
+ 	return result;
+ }
+
+--
+Cheers,
+Vernon
