@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139D82459C5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3742E7397;
 	Wed, 12 Aug 2026 05:48:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786513697; cv=none; b=geyUMdW5FHqsR4WDw6hnGCTr5tkjc1nBXXjIJEh6mS9jiBIc0FKO5akhS3shyu8TPeL7CxEHjYVuc4HBS7nZu7pBw9eH35g75FnUI5G2fKgKBuzD+UXN0jwNeCHIRKI6JCDE+INLEpWUWsfdXWnSxGXxLeoIKYXFsMtOMEH9/D8=
+	t=1786513697; cv=none; b=KeXoRQYEOJo8+h3g/D+K9tXVpGVEyVu0lxQ/ioffv47KiiqxlFTwgUTMD6Ifs4TOpsMnvUo4sjjfRAAV10Ps7c9MnzYD0/SQcGXDzq0wwWsBIwoy9pU0YrGreTr9233GMyxfFReXIiwWXcDVYhbdWEfjJM1IJoi1965dEtB0Ij8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786513697; c=relaxed/simple;
-	bh=aXeZzuaCIuplL0yz2Tn0QcTqCwcq7iG9bnnqD0YlXQw=;
+	bh=FI33eKJuUW2cCOF3A+HkOrbGmEWWRPVJc9faC52wrQM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KGQwyXKsrFBgn0nEEvWDgEG8rUk7+qx4oUPnfAxbNmaAzQU10d1eGSHfueM+CbFvx7y/33XkKUFWOBn+QGJg2B/advTlDHzsSYYIKRqCvp/pv48fqX6N/+SLJW14/wz1rfz3ceI7OA+oxgmtjLX0SQwt7+UGfFAYxkSswW8n73c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sIdkQZ/+; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=cNsYHArf0bIp6XajDJY/zhfqsNhkJp537pqnUhR14t1zPaLtLnzF6S5b8xEBGauj+bsp2bEhZR/3WBYo6Tc2xFM1XxgkQuZ5wKhxclYtG78P1qlgvFNOR0AHxYJiWwqEsNfLh4l0V6RCb+fnAiktrHfQyXjqgv7L4V50wB+hW0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DC+moI7u; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sIdkQZ/+"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C73E0C2BCFA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DC+moI7u"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E539BC2BCFB;
 	Wed, 12 Aug 2026 05:48:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786513696;
-	bh=aXeZzuaCIuplL0yz2Tn0QcTqCwcq7iG9bnnqD0YlXQw=;
+	bh=FI33eKJuUW2cCOF3A+HkOrbGmEWWRPVJc9faC52wrQM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=sIdkQZ/+3XTe7vbW3/3X8gdIyeGiUOkutrxARoDpaSRa5sgQmOSo8vZPeahROEJVn
-	 rAzXi3o8PGD7Pd+7REwuUlEHTde05pHN88VjOtwqx/f+jFhHZDcIdjCRcM5zWhStlW
-	 AAjReX3qUOXVoSZ1e5fhHll5xoFasWll7/9TzCejs98Re+no00AeksC29RAEt9R3wd
-	 8FSlshPdO4Jaacyv+o9eDlM7xXPB2ByHUmTMhLUv/J/RryB19Y4mVpFIM1L3fHwOsm
-	 rS9hoooRzoocf/TXskhOKmqQB0Kwcu5gxwI2Yy6xsWayk0YZdf/By8AMyd1xJTJEJS
-	 /eRYAPtq5Glhg==
+	b=DC+moI7uE1Qes4/Z0vDoanEAhVEiZ7vioNGmW17MLp/MIQy6wCuP2Y6PaGQFabn6m
+	 vG/twMaIKURhWOKFeEsBHzxJ+ASAR6BQcWn/UeY8UkY+r22cEjC5ijjW/u/7OwcF+A
+	 o7zKRv+yG0tSwdhtYaf3ljyAw3stkJWEUvhNX3rIZmN8EAFCvpzbrk3T0dJxQJlNFj
+	 7VUh4okBaeWL9qUJor+awLs4au+7dtIm7tZRZ+3ihpgKk9jxB6My6OC9ytKn5o+Sgn
+	 DcVd14XYgNzSeCVQ25lXy0OrFiP2BsGoOQZNJfkIOijaQnS/jbOjr6tHb8Ylbhzk4n
+	 6Z48ET+9NTMVQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7310C5CFCF;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2349C5B567;
 	Wed, 12 Aug 2026 05:48:16 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Wed, 12 Aug 2026 13:48:08 +0800
-Subject: [PATCH 2/5] powerpc/spufs: fix out-of-bounds read in
- spufs_wbox_info_read()
+Date: Wed, 12 Aug 2026 13:48:10 +0800
+Subject: [PATCH 4/5] powerpc/spufs: fix context state race in
+ spu_acquire_saved()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-spufs-fixes-v1-2-449e201d9f64@outlook.com>
+Message-Id: <20260812-spufs-fixes-v1-4-449e201d9f64@outlook.com>
 References: <20260812-spufs-fixes-v1-0-449e201d9f64@outlook.com>
 In-Reply-To: <20260812-spufs-fixes-v1-0-449e201d9f64@outlook.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
@@ -55,13 +55,13 @@ Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Junrui Luo <moonafterrain@outlook.com>, Yuhao Jiang <danisjiang@gmail.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2501;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2492;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=eFoKpMk5QT/Imns3PMC9qhF1gah2+vf/FhZEbtTKzCg=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBpOua8Pz4VM9wsrv2ue81ysOzMqv2rrbC7fOq8ys
- XtFdRtPHO8oZWEQ42KQFVNkOV5w6ZuF7xbdLT5bkmHmsDKBDGHg4hSAiQROY2R4udnCxq4kNyFT
- i6U65FbbrhC2ucmL2c1n6Zam3PsgpyfCyDC/xnbN9dZ8jae2fx4um1wp9ffiP7P9mkGuzzj5rjw
- 4uZ8JAMIxSLI=
+ bh=LOgiV6k5pQqtCquvEoYhVH8oPI1aXbE98cx2n5Jk4Uw=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBpOOYGw9Usyiu18nAvvC4tk+pYuNA/y3Kxw4tCR0
+ 3fYQsOdZ3eUsjCIcTHIiimyHC+49M3Cd4vuFp8tyTBzWJlAhjBwcQrARD7NYPhnL7HT8n2xe+RW
+ wdSNS6tr+3c/U0qeJrJOymRpoub7Kq7ZjAz/hNmsXp2Jddq/pHbOl3+Prn3cN5+17URqQvtmlsr
+ kuGomAPzFSKY=
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -71,59 +71,62 @@ Reply-To: moonafterrain@outlook.com
 
 From: Junrui Luo <moonafterrain@outlook.com>
 
-Reading a context's wbox_info file can copy up to 48 bytes past the end
-of an on-stack buffer to userspace.
+spu_acquire_saved() returns with ctx->state_mutex held and the context
+in SPU_STATE_SAVED.  It tests ctx->state once and, if the context is
+still running, sets SPU_SCHED_WAS_ACTIVE and calls spu_deactivate().
+That path reaches __spu_deactivate(ctx, 1, MAX_PRIO), which drops
+state_mutex around spu_schedule() once spu_unschedule() has unbound the
+context, so the test result is stale by the time the function returns.
 
-spufs_wbox_info_cnt() already returns a byte count: it multiplies the
-number of queued SPU inbound mailbox entries by sizeof(u32), yielding one
-of 0, 4, 8, 12 or 16. spufs_wbox_info_dump() uses it that way and passes
-the result to spufs_dump_emit() unscaled.
+A second thread reading any saved-state file of the same context can
+take state_mutex in that window, observe SPU_STATE_SAVED and skip its
+own deactivate.  SPU_SCHED_WAS_ACTIVE is a single bit in
+ctx->sched_flags rather than a per-acquirer token, so that thread's
+spu_release_saved() consumes the bit and calls spu_activate(), binding
+the context back onto an SPU.  The first thread then returns from
+spu_acquire_saved() with the context RUNNABLE, reads a save image the
+SPU is concurrently writing, and trips the
+BUG_ON(ctx->state != SPU_STATE_SAVED) in its own spu_release_saved(),
+leaving state_mutex held.
 
-spufs_wbox_info_read() instead multiplies it by sizeof(u32) a second time
-and hands the product to simple_read_from_buffer() as the length of the
-available data. The buffer being described is u32
-data[ARRAY_SIZE(ctx->csa.spu_mailbox_data)], i.e. 16 bytes, but the value
-passed reaches 64. simple_read_from_buffer() clamps the transfer against
-that length rather than against the buffer, so once the mailbox holds two
-or more entries, a read reaching past offset 16 - either by requesting
-more than 16 bytes or by seeking there first - copies adjacent kernel
-stack to userspace.
+Fix by retesting the state after spu_deactivate() returns, which also
+re-sets SPU_SCHED_WAS_ACTIVE so the acquirer keeps its own reactivation
+token.
 
-The mailbox occupancy is under unprivileged control. Writing to the
-context's wbox file drives spu_backing_wbox_write(), which lowers the
-free-slot count in mb_stat_R from four down to zero, and wbox_info is
-mode 0444 in spufs_dir_contents[], so the owner of the context can then
-read it back.
-
-This dates to the introduction of spufs_wbox_info_cnt(). Before that
-commit the local count held an entry count, for which the sizeof(u32)
-scaling at the call site was correct.
-
-Pass the byte count through unscaled, as spufs_wbox_info_dump() does.
-
-Fixes: 88413a6bfbbe ("powerpc/spufs: fix copy_to_user while atomic")
+Fixes: e65c2f6fcebb ("[POWERPC] spufs: decouple spu scheduler from spufs_spu_run (asynchronous scheduling)")
 Reported-by: Yuhao Jiang <danisjiang@gmail.com>
 Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- arch/powerpc/platforms/cell/spufs/file.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Found by inspection; I have no Cell/PS3 hardware, so this is
+compile-tested only.
+---
+ arch/powerpc/platforms/cell/spufs/context.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/powerpc/platforms/cell/spufs/file.c b/arch/powerpc/platforms/cell/spufs/file.c
-index de7494748fec..07b1755ddc3d 100644
---- a/arch/powerpc/platforms/cell/spufs/file.c
-+++ b/arch/powerpc/platforms/cell/spufs/file.c
-@@ -2028,8 +2028,7 @@ static ssize_t spufs_wbox_info_read(struct file *file, char __user *buf,
- 	spin_unlock(&ctx->csa.register_lock);
- 	spu_release_saved(ctx);
+diff --git a/arch/powerpc/platforms/cell/spufs/context.c b/arch/powerpc/platforms/cell/spufs/context.c
+index 44377dfff1f8..2414ad9be0ae 100644
+--- a/arch/powerpc/platforms/cell/spufs/context.c
++++ b/arch/powerpc/platforms/cell/spufs/context.c
+@@ -107,7 +107,7 @@ void spu_forget(struct spu_context *ctx)
+ 	 * want this context to be rescheduled on release.
+ 	 */
+ 	mutex_lock(&ctx->state_mutex);
+-	if (ctx->state != SPU_STATE_SAVED)
++	while (ctx->state != SPU_STATE_SAVED)
+ 		spu_deactivate(ctx);
  
--	return simple_read_from_buffer(buf, len, pos, &data,
--				count * sizeof(u32));
-+	return simple_read_from_buffer(buf, len, pos, &data, count);
- }
+ 	mm = ctx->owner;
+@@ -150,7 +150,7 @@ int spu_acquire_saved(struct spu_context *ctx)
+ 	if (ret)
+ 		return ret;
  
- static const struct file_operations spufs_wbox_info_fops = {
+-	if (ctx->state != SPU_STATE_SAVED) {
++	while (ctx->state != SPU_STATE_SAVED) {
+ 		set_bit(SPU_SCHED_WAS_ACTIVE, &ctx->sched_flags);
+ 		spu_deactivate(ctx);
+ 	}
 
 -- 
 2.51.2
