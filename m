@@ -1,225 +1,139 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0392392822
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 04:13:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CFD3594A;
+	Wed, 12 Aug 2026 04:36:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786507993; cv=none; b=XO7+dobMp90SjoSkpIoMFG4OIfbzcpdjRnNaIyShPCUep8z6LZ/IJgUiNwf8Ju58ZppmuBu71ZXW74gwQlsrVdT6E4Hy9VUSjkOanf4bokXl39CfY0wags5U1XbgWVmdoQVK6cS1urp6kSyoDdqWDyPSdcGLKNzo/jM+zpx/UXk=
+	t=1786509397; cv=none; b=kLArcFHJydxsLl8SY7Zk4qlFypn7eQMcp7daaymAMOWIkmc9g52xVao5kNJd28Bxfy8OBCn0MWj5qg8ix/b+SgF0i8UZk7MKGEShTjnD4xFEwJ3Q6K4d44wHgm19foetiGv0CIV06lGrW+siIukOVGz2Hzu6tOhGbKoUTTyow4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786507993; c=relaxed/simple;
-	bh=Dzfwonr9rKeQnkqeStmW/2Bvbf4Y0mUvyLlk4d31nfA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=RUOQcF9lH1A5NX9qoDaYJOWX4C8PdzB/KJmXUYqbN4CCYdP42YZWWiQNBsLB/wqfa+EoM8/sFdMR9LagGoh071GbS40ROG2uAtWYsYym1ESFvKPMnXEqei6FIF7Jn9UTfteWP3LDC2o6v+zeXv28GHYpW5fK1VJ5eUc9lDZXpFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ebNFBBId; arc=none smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786509397; c=relaxed/simple;
+	bh=D3KP4Zd2wMi/UkT6fc88M4LEJfhBc4djsYNCn/S9/cA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O10fJq6SHXovLfc6uwT4WaDHzuZvOZSQreYe0zUbqpusiH8Ec1GgtulQSEFZ1AMZ0wf1YHbfMxwEd/JcRGZLfS/6BLlZnzsR+Eoi8y7UnT0OQVDBBcYv9A31aTZvoAFCmJDwm1LlN/xb39G171tYIKfwgrfXhSDgy6dE4zfe8XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=h+cZ00si; arc=none smtp.client-ip=18.132.163.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ebNFBBId"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-529a1ee0e62so1712061cf.2
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 21:13:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786507991; x=1787112791; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WoA62XvqBE/bJkGlo+pvls7iLFgdIjTnZ2CNMnT1eiI=;
-        b=ebNFBBId2fv/SUOpopDfigYvG137FWd9dsh6zNOBMCIxpQ9Y1BkzD1wbDdXZB4qoK+
-         hffx1Jex9QWamcN5Vc64ONrR5hbZiQ2R+FAcvyyBH5hnFG4r+Xtldxj9d912uMA7SvWM
-         SNPuntLjHP0ftdkjAzWIi1cVejTP6Btf+29QTTeEAJZvn+ZIT3glhUv0ABU2m0Iy45jg
-         rTGas/2JHMQ4KL9WWISURBLd0jrylJMlTZa9I2oNooSFRgcrZT1VyjDETHoY0dht10it
-         q/Hx6xzmlOIT9HTHm6Jos+skzKuvjF/PMu/H6zUo9/Ubmxk91xT/ODJNvdjNkQ0xWmBT
-         PD1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786507991; x=1787112791;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WoA62XvqBE/bJkGlo+pvls7iLFgdIjTnZ2CNMnT1eiI=;
-        b=CZ+v4OeXa1uM58T39lQD9LhPEdLONTi2M8jxy2mTaSnhu5l1HdV0i/C4Va/kWUdQnz
-         F9wNTWlmzhVwxDAQV68gSRZ5/sWzwNOjirCDs6m4WdrA80QgXkMZ5aAIiAXfLX38QJKI
-         uE3Ya9SBgN7Q51Wxn2KPrW5D0bUXrEHYh3VWbZKwXaQTORqf021NKk3LM0BUZzj+tqlB
-         +qeBRiWxK9FmNbKrrNpPheJocncAcue48dZTCq7TCqsCl0Cn2bS4Ik3/WgNQnCRBty1Q
-         zlVnKXyWQF945wpa0J2FJOEEcQtB3SMXoQ6jhQXJukgWCxx+NHc0qOLSQUeHrnJRojVQ
-         rSmw==
-X-Forwarded-Encrypted: i=1; AHgh+RqfdGaMuNoIIszBCS4cAUGWLeXL4cZ861ze6HCMkeB136DSYvaaKLHgn4JcNefhnCwPXvKLzD8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyveTnT4CHb+Q5q40ro34sbVYqBzISnhSFINuxFu3W0dIrtVFXb
-	gpcVMeQ0S0TqxJpZ2pV55cOKyCpQEup+7EmlNSIZcT0zxCHrkZy2xVps
-X-Gm-Gg: AR+sD10O2QeOI+qGH/4wzb70sYhfmoP3VXm7qP9goYZDfz9aXTuyDEAD2nHii9v+YF0
-	b7Y7JkRv8R+PqeB8XPHPjmIuYLWHqnPIHRx1AeHGv1bIJU7Kt6QPs0TS5nQbsanq+KYhKzlpkff
-	n/wpfBreS7bdx0SPzBzk5onb3z8GTNKUvUUxIyun9kfxDQhPulCLBMIxH0ia70+uaKtoPnu3MrP
-	y5LZEvcklDQykAaYIvqO0+tkXwenCT6h+KVdskUdRmoiGgtoJpnJ7uheydkA2mjpS/X7Dbia1DR
-	MRms7+VwvTrRC+ipaNFzABfsb1gtuKBhjc4ek7bi4wWCG079JT5UJ/0yYvOrQSVfnXOUbc3L689
-	4HgqohWL4Ohu6CriT6e2Quzkd9jV8bjaJsvCOOtFP/3Ug9dwD7FwYEDrrSPybLHhXNVHUilbTWN
-	JcPYcOoIxsvKZG2ZAxzjoeLJJESsr7AzYsX3dpvcg7RGEOWRoBfxENETFiUoxpouHjo0dMoEveA
-	nhCryqqprjQlj9PUh6Eb5fxBgNq/rwb
-X-Received: by 2002:a05:622a:a0a:b0:51c:1c2c:a8bc with SMTP id d75a77b69052e-52d6483fbfbmr18441601cf.37.1786507990610;
-        Tue, 11 Aug 2026 21:13:10 -0700 (PDT)
-Received: from smtpclient.apple ([2600:1016:b10f:b114:6c29:917c:9735:8846])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d61e017bdsm10172371cf.27.2026.08.11.21.13.09
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 11 Aug 2026 21:13:10 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="h+cZ00si"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1786509316;
+	bh=yn+kbEpOm0vOFVeNwn42hOa6/ynk5LnhCIBEUNmvrTM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=h+cZ00sixZ0Blr+4Trt0WL+R0K/ppQdPHaujDx3Ew595nQ/E6dwGGg/PdKI0rQLtn
+	 qnlThF+9/Kp2y69tvJB19qy5qBtFz1WMVHk+RElGiMf+XnFHL2nj3+Z6s+zJBRVfS7
+	 LgEda0Hb5JxwN0jiFLEaqlBsaXwOYMlOj3S4yzlI=
+X-QQ-mid: zesmtpsz4t1786509307tfa430f18
+X-QQ-Originating-IP: 03F0sOU7Up1skoBgjoIOVNyl134LTicvsIYlVgvlN9A=
+Received: from [127.0.0.1] ( [36.152.24.136])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 12 Aug 2026 12:35:05 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5932359927016422449
+Message-ID: <EB366C0363529CC0+1f720b7e-4256-4523-8e43-f14ace92f200@smail.nju.edu.cn>
+Date: Wed, 12 Aug 2026 12:35:04 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH] drm/i915/gem: Fix request use-after-free in
- active_engine()
-From: Shuangpeng <shuangpeng.kernel@gmail.com>
-In-Reply-To: <zmincd7ubpkwasily6fegvx7mz6zkdw5oglbj3ynpgqovpkszh@un7lyxy6dgly>
-Date: Wed, 12 Aug 2026 00:12:38 -0400
-Cc: intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com,
- tursulin@ursulin.net,
- chris@chris-wilson.co.uk,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0602E2B1-4FF4-4496-916D-D4DB1C1B0830@gmail.com>
-References: <20260809173646.3292361-1-shuangpeng.kernel@gmail.com>
- <zmincd7ubpkwasily6fegvx7mz6zkdw5oglbj3ynpgqovpkszh@un7lyxy6dgly>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu/iommufd: Fix NULL pointer deref in
+ iommufd_ioas_change_process when racing with iopt_map_file_pages
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: kevin.tian@intel.com, jgg@ziepe.ca, joro@8bytes.org, will@kernel.org,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, robin.murphy@arm.com,
+ steven.sistare@oracle.com, stable@vger.kernel.org
+References: <7344B7A7B9957A65+20260806045059.1884737-1-peiyang_he@smail.nju.edu.cn>
+ <178639198310.282103.12552740515074532170.b4-review@b4>
+Content-Language: en-US
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+In-Reply-To: <178639198310.282103.12552740515074532170.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: M5aznPMtO1XHq8fdpu50hOMQaQJNRraLg87OhHKc/Amo5FBnRkZRy3IZ
+	zKgKF1ZBdCdRJckHr3pvWf1eMvYUe/LN3FVYqZRFYbZQpK+tAyIzmXGn8nK/MoEIp1mIML4
+	doGo2V3ZhnvHlRrqrVe/n5kJtqyk3PDxp/a6N4r1x3Eqib6MqrKR9Xde8F76bjP07I8z0a1
+	4Y7qXsXi3u/p7sRcj+kn8f1QPTae+jzvS/wkJSP5Pz5zuXMalLHBWCnp1pPBLEQfXjztjWh
+	ScWbRGGhhs+6ner3WKION419sGS7NUx59qTigOY9uP1/N1mLSG+PRZixSX5GX0W7qHCkOEv
+	W8X/ndcF805JY2s+b5vCcJuqqCPwxCk4xtIl/2ftmmB9EvMJ56D7NFvJjxVTIeWsjLPHFLa
+	a3NumNVmCVy9oYE3PksbUGBDrmfTkRAx1h3gkPm8WtesVqyTOzner/1jEG90VKaT5k3NpaR
+	A9nl2UCyTTbP2DtepN/NK4t9KNmagst68YaKnh5FTAMihEzyzbGOfiu3bwVyomABrVl07dH
+	0Pfka2KkX2hRFuAPt27vJ7e2dFKZ4/Gdhry53NS0D1QQxNsr1UEgBqZI/Qnvxb9pI06291/
+	BwVCeERKQXHp2xFfcwMUzFoPaCnxVUrtdv96v+dLLK9/+gOX4ZV16TqfpRj3cuq3Whccjjs
+	B0YFS6t4GFA0hPnVTvSxvljwypCcCkNRr8dTvhK9yne4HXNp3oIzTWcoZN7C7mvuuRXELmk
+	8tmAri/vZEg4sBF4r04Dy3nXbaRceirLTcm12EwwINbLQqwo/GD9gQc+mmBojL47ycwIT8J
+	flfVNRwDSikNqY4cgyjacPghaqmRKMC4GUBRMxehzerfo069ZDpUBctqfwY5F6xHxLGM5m6
+	wQ1litP+zFXrvq271n9fX1jAwudNl+ZDZ4BTjnOGnr6xrDyuJ1Gb/wJYhyQcOqZSENHXcXx
+	BXH29iYmwi0EOWd7kCBfR/Goe5KtLmZ0uhjYr1tQkjI04DTFCxbREQywd6UOAAHbpV9QP3x
+	Hx/27uuwQI+vLow4zyesv2FfBWIU4kfzWOBEx+mQ==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-Hi Krzysztof,
+Thanks for your reply.
 
+On 2026/8/11 03:59, Jason Gunthorpe wrote:
+>> @@ -535,6 +535,10 @@ int iommufd_ioas_change_process(struct iommufd_ucmd *ucmd)
+>>  		return rc;
+>>  
+>>  	for_each_ioas_area(&ioas_list, index, ioas, area)  {
+>> +		if (!area->pages) {
+>> +			rc = -EBUSY;
+>> +			goto out;
+>> +		}
+>>  		if (area->pages->type != IOPT_ADDRESS_FILE) {
+>>  			rc = -EINVAL;
+>>  			goto out;
+> 
+> If we do this then a concurrent map will get corrupted accounting. I think we
 
+From my understanding, if iommufd_ioas_change_process() returns with EBUSY when
+detecting a NULL area->pages, later accounting logic in iommufd_ioas_change_process()
+won't be executed. I may be missing something, feel free to point it out.
 
-> On Aug 11, 2026, at 05:37, Krzysztof Karas <krzysztof.karas@intel.com> =
-wrote:
->=20
-> Hi Shuangpeng,
->=20
-> On 2026-08-09 at 13:36:46 -0400, Shuangpeng Bai wrote:
->> active_engine() walks timeline->requests in reverse under RCU and =
-takes a
->> temporary reference before inspecting each request. However, it drops =
-that
->> reference in the loop body before list_for_each_entry_reverse() =
-advances
->> the cursor.
->>=20
->> Concurrent retirement can unlink the same request and drop its base
->> reference while active_engine() holds the temporary reference. The =
-put in
->> active_engine() may then be final, freeing or recycling the request =
-before
->> the loop step reads rq->link.prev. SLAB_TYPESAFE_BY_RCU does not =
-defer that
->> reuse.
->>=20
->> Open-code the reverse walk and cache the previous request while the =
-current
->> request is still referenced. The next request remains protected by
->> i915_request_get_rcu() and validated against the timeline before use.
->>=20
->> An i915 mock selftest forced retirement between the active check and =
-cursor
->> advance. The vulnerable tree reached the final request release and
->> kmem_cache_free(), while the fixed tree completed the same ordering =
-without
->> accessing rq after the put.
-> What mock selftest are you referring to?
->=20
+> have to prevent map from progressing too. I belive the issue is we don't take
+> enough locks.
+> 
+> Does this fix it?
+> 
+> --- a/drivers/iommu/iommufd/ioas.c
+> +++ b/drivers/iommu/iommufd/ioas.c
+> @@ -383,6 +383,7 @@ static void iommufd_release_all_iova_rwsem(struct iommufd_ctx *ictx,
+>  
+>         xa_for_each(ioas_list, index, ioas) {
+>                 up_write(&ioas->iopt.iova_rwsem);
+> +               up_write(&ioas->iopt.devices);
 
-Thanks for looking.
+Should this be up_write(&ioas->iopt.domains_rwsem); ? It seems there isn't a devices field
+in struct io_pagetable.>                 refcount_dec(&ioas->obj.users);
+>         }
+>         up_write(&ictx->ioas_creation_lock);
+> @@ -422,6 +423,8 @@ static int iommufd_take_all_iova_rwsem(struct iommufd_ctx *ictx,
+>                 xa_unlock(&ictx->objects);
+>  
+>                 ioas = container_of(obj, struct iommufd_ioas, obj);
+> +               down_write_nest_lock(&ioas->iopt.devices_rwsem,
 
-The "i915 mock selftest" I referred to was a local temporary mock
-selftest.
+Should be down_write_nest_lock(&ioas->iopt.domains_rwsem, as well?> +                                    &ictx->ioas_creation_lock);
+>                 down_write_nest_lock(&ioas->iopt.iova_rwsem,
+>                                      &ictx->ioas_creation_lock);
+> 
 
-Because generic QEMU does not expose an Intel i915 PCI device, I
-used the mock engine/request infrastructure to validate only the
-ordering in active_engine(). In short, the test forces
-active_engine() to hold the temporary request reference while a
-worker on the other CPU retires the same request, so the
-subsequent i915_request_put(rq) in active_engine() becomes the
-final put. That was only meant to show that this interleaving is
-feasible.
+Taking domains_rwsem in iommufd_take_all_iova_rwsem() alone may not prevent the NULL pointer deref.
+For example:
+    change_process: take domains_rwsem for write
+    map:            take iova_rwsem for write, insert an area with area->pages == NULL, and release iova_rwsem
+    map:            try to take domains_rwsem for read and block
+    change_process: take iova_rwsem for write and iterate the area
 
-I can clarify that wording in v2.
+At this point area->pages is still NULL. iopt_map_pages() takes domains_rwsem only after iopt_alloc_area_pages()
+has inserted the NULL area->pages.
 
->>=20
->> Fixes: 3cfea8c97c93 ("drm/i915/gem: Hold request reference for =
-canceling an active context")
->> Cc: stable@vger.kernel.org # v5.10+
->> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
->> ---
->> drivers/gpu/drm/i915/gem/i915_gem_context.c | 10 ++++++++--
->> 1 file changed, 8 insertions(+), 2 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c =
-b/drivers/gpu/drm/i915/gem/i915_gem_context.c
->> index c58ffa5a8fa6..ff5c892a0176 100644
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
->> @@ -1361,7 +1361,7 @@ static bool __cancel_engine(struct =
-intel_engine_cs *engine)
->> static struct intel_engine_cs *active_engine(struct intel_context =
-*ce)
->> {
->> struct intel_engine_cs *engine =3D NULL;
->> - struct i915_request *rq;
->> + struct i915_request *rq, *prev;
->>=20
->> if (intel_context_has_inflight(ce))
->> return intel_context_inflight(ce);
->> @@ -1375,7 +1375,8 @@ static struct intel_engine_cs =
-*active_engine(struct intel_context *ce)
->>  * (and onto a new timeline->requests list).
->>  */
->> rcu_read_lock();
->> - list_for_each_entry_reverse(rq, &ce->timeline->requests, link) {
->> + rq =3D list_last_entry(&ce->timeline->requests, typeof(*rq), link);
->> + while (!list_entry_is_head(rq, &ce->timeline->requests, link)) {
->> bool found;
->>=20
->> /* timeline is already completed upto this point? */
->> @@ -1387,9 +1388,14 @@ static struct intel_engine_cs =
-*active_engine(struct intel_context *ce)
->> if (likely(rcu_access_pointer(rq->timeline) =3D=3D ce->timeline))
->> found =3D i915_request_active_engine(rq, &engine);
->>=20
->> + /* Cache the cursor before the put, which may release rq. */
->> + if (!found)
-> You could skip this check here and unconditionally set "prev".
-> Its value is going to be used only once if found =3D=3D false anyway.
->=20
-
-Thanks for your comment. I'll simplify that by assigning prev
-unconditionally before i915_request_put().
-
-Please let me know if this addresses your question. If it does,
-I'll send v2 with the wording clarified and prev assigned
-unconditionally before i915_request_put().
-
-Thanks,
-Shuangpeng
-
->> + prev =3D list_prev_entry(rq, link);
->> i915_request_put(rq);
->> if (found)
->> break;
->> +
->> + rq =3D prev;
->> }
->> rcu_read_unlock();
->>=20
->>=20
->> base-commit: a59f57e2aa127c5354168d2ec4bac920df1be4f4
->> --=20
->> 2.43.0
->>=20
->=20
-> --=20
-> Best Regards,
-> Krzysztof
+Best regards,
+Peiyang
 
 
