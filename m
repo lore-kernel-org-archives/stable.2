@@ -1,130 +1,122 @@
-Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com [203.205.221.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913553B9DB6;
-	Wed, 12 Aug 2026 10:16:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27266336881
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786529818; cv=none; b=FZjyX/x1938ZIANVeyotbXnvy+S0VZCXGppO2u6wSJElxYxhXPQ1T6lFp/1fAgMrXQAmfRw4pHgoIKsh1NXdePAmrbYgroj7ygzOOf1S8MhgJs9L5GksQCj2ZJb05sIvzWuRzwGcTaJR7bNofjiec6EvpLgTgnZtEuKJKf5PWRc=
+	t=1786529972; cv=none; b=d+JvxB4vKJSsfhd6hIE7d9LfILESvFTjxECEMXbDR59NIu/RC+LFifIAW+8Jj5Gh/VepJGsIC7Koe4QoRScp+JYjlrQxAg5crYMAMVOeekMKkq0n13Xz1dRsJThF83FeWMhgmNU9VGzdKoa6cvWIInlSXfxT82XOnezOhML757A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786529818; c=relaxed/simple;
-	bh=N7d/9wuUmihrv9w+zc1GQy2IaZY858kWO5/XD+OGZuw=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=W4ZiwFz7q45wOPQeTYjxwckOEg4R1mAWr9gT6dCoJA7dAC3OCVnmuf793dJIXaNTK3uO6CZeurIYDU0gKXw915CqXmcifzejpTlnIS+KBA/g49O1Rq8NAVEXJgJ9ePe2yXW6V9dL9WAwFnVL0OT9Z5ElbXyIpwoU18DlcptUO+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=Gnv7mf50; arc=none smtp.client-ip=203.205.221.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1786529972; c=relaxed/simple;
+	bh=q7z+i2UWwojfRh22izSaK9uZx5wRQzWUhISBTanReB4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rmKTX0x+T2JuPaFoPcJ+4XEwKyoa15VIge4IhZhz8+dgfoQhT34wWy5C6eBymhMg7gopbwAgoeo3OzpCacXD/FHYMIXBbP6K3wsRD+RxsVl+uP+NE6wOx0XWhI7aurX6Nx9jmncO8zWzpML8QQGF/dIoyHzfrSN3vWRKogRn0l8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=w2HHPcOP; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="Gnv7mf50"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1786529807; bh=/tS10aQxeyxKkgsl3wbV3VyKeGBIt+GKdcSpgGPln7g=;
-	h=From:To:Cc:Subject:Date;
-	b=Gnv7mf50l7ChkTTDHtlADPPno/2ioSCcHLlN+dNkQVS59Zu2CgYad4pQhZJV+82Pm
-	 unZewyQh4cZNb+9MRrqdSqXnQfkKtsUYlvlDe1+cu0xDr+741NP08sNl20s5kgQA4T
-	 tLAhDv/CwVBuFMwfv8LKqtUybpopDr1ddymHTeyI=
-Received: from localhost.localdomain ([240e:452:ddba:7caa:44f2:d3f7:942:3f36])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 3E3B3450; Wed, 12 Aug 2026 18:15:35 +0800
-X-QQ-mid: xmsmtpt1786529735tb97ak7my
-Message-ID: <tencent_C2311DA54CF022D59E9418EF890569EB2B05@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9XUlf7pJ/6gPnrpZ/YnGCI8CNoQdANjxQcMi9QH0PMHziVc8UxFu
-	 MrIb/Gk5ReQZlj85rEn9mMKfAQci6vggX6PINGTkFyE2xsXiPYg3uQW56p+hOdqX0Gju446LlnzJ
-	 G4rgabEK/LLIudYf1tvIrBuBY/ZPxIY6xX88+fA8CULKVygdM9+qTXMJ0iB4/eYSxtyTx+1dBptb
-	 zzpUhESGyg4u0/rCTyPG8sDPU7bgskLU8O4+ZrZ4RVHuyK1Xca4d3dfCQT0q0xIfFooifFg/+fy3
-	 57CgjNFOvdy3lwYEzJ3QTpfcDwFNIeMNkgdj7cyfilALQk7B9/hRSbq6iRHTYs7f+ajyhtG2xpTe
-	 XElxsuyQQ9BRx3i/AXte6Xgprp2XnvjofYwaN520AkviddtQhHdCmGLaT7xBVmIByP4/oCAhF8pm
-	 mBviGJmoCN4HAHUhVWvcIDi1juR4sMUiLo1/y0dFfLhOMBxwhw1ZfvouEfrYDhMCYF+Ymp7Rqnee
-	 SCoIMAgGoTtCJ92ayvJC6bBjhMPdtwVS5VvF+ex4qlqNCFGoqGm4okcOOPMxcyXGY5XCn2Pu0qDx
-	 0cjltKN24dKpcJyGEatMY82/GqQBGPY9aCeOrtoCIY2w4xqjXme7wgM7qNXK7tj0LRZxAFOAZ98+
-	 t0gPoLCUu9we22kVcazBYr4gQttDTfzGgv/LAJcr0CRh8nDd2eh0ejcSvkEurVDmu9fS9CLrRgUT
-	 Jb6Y3CQ3Rw15TXBLkhZpN9mugnXKifVMpUu6QO2sjxDpsNpMJeG9V4k2nCPzCErWFpRQLvjvV6ut
-	 WUA/9BNGsfYsLnU7ezcfrV00E5lY+gqrPeuZu+fnTOQ4enD11C54P1mkMiPRdFbq08/I/D/wpJVj
-	 AqpubRcaW1KCNLgSDHDKkaKQ5/Ko9dXx4RcDXUPznzY9Lc5cW4cR6ScakbLRBhe8NM23G0kzsLFW
-	 eHAS8Qmgi5o/afAXUfqrw6Y00qG09jbUsDisWBwENQaEJbOAwhFBhkb6b8EMkEI0lWpw9GYahKDb
-	 dj2GVNlzScAO60oiU+YOcsvNZH6I3nbpsFGI2XE2ootELALHuGnz+PAxZItooEFyXjLRF5fylT4v
-	 vNdorxhK3s7BPeS2Mib7bBBzrkTY0PrCCn9fU/BAEmggZ832g=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Hang Nan <2122295973@qq.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Hang Nan <2122295973@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: ISO: fix use-after-free of listener socket in iso_conn_ready
-Date: Wed, 12 Aug 2026 18:15:34 +0800
-X-OQ-MSGID: <20260812101534.51637-1-2122295973@qq.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="w2HHPcOP"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4956869750eso4454915e9.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 03:19:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1786529969; x=1787134769; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LPf4HeYAl4NMw83MZeHJ06u2OThCIdlBbBkd+71VTjY=;
+        b=w2HHPcOP4fBlIp9lUcBdYok/PGa8pEzkyKYhNnZcJRT4JaB5sVdyNYEWRG0ufWBXM3
+         nphRFkazymopUPnbYaP2tphK27pdP1A0s4niTP7E+EorKLpsDHBWwL9sWeoyd5hvpAVL
+         2ZWbv39jkpfmeUFN0AX3GXmAhfXvVC//0de+RvzQFpXJUcH9T44KvizjHNUhJE0Kvn5z
+         0gKLDOWHcqk8IqcW9KVhwok01r8hvturLxcI6bhSfzvh7eXwKFGtZNP60rAbv9NOJyxY
+         eMuX8krU3/oweaSGpSYLygVKTvV2IoexcDvkLCs85KgjYPtiGnjOGrmdoSu/DTAbZqXj
+         GEqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786529969; x=1787134769;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LPf4HeYAl4NMw83MZeHJ06u2OThCIdlBbBkd+71VTjY=;
+        b=Qtojqyb0JQHBHQy6AZiP0MOtXVHbb9qt3Av3rGDst7clz2LPhNUsN5cjaJF5Yhr/NS
+         1/k5tVuzy+JQ2/a4VXlLUQKsXxIhnMc9hXYQqf2JbCF0YXBeV7zC4ipqTMJG3LkOchiJ
+         WC0vnte29EsZUQqOkHFQZhRYujSBnW9eWoSqC56UKU1y01nUtzmTtiqVCaJCqE6tEOkg
+         u1prr96iKLGB1jPG++zSB8PyZ6nE0N1wkKCb91rKG56DIv0dqfqEr5a5vHSIlAg9lQAj
+         IAXVKXLfCCX8DpA1/IO56Bzo8F/rDKIAeHmBilPqVR5OjWqnNriSR5+Lk2yXUz2h1mhP
+         VYxg==
+X-Forwarded-Encrypted: i=1; AHgh+RrsTTOLC60pmB9gSOJr5RX1C86jcWV9AQTCK+r8bHq6yrRNbmFGF1TL8J9FmVwqF6yhD/k/JnA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHg0cUugjDIVvpuM09rsRvhmObQ8RuD/fyB4P1pJNVkk00Kk6n
+	BtNb95I9SfgooIukBKHG/8uKrf3ZNWchvWt6Xh1AvTnTXmCGgWQU3kROswA0Dnemw0U=
+X-Gm-Gg: AR+sD11FrlGWtbacNaT1+1vQzAuaxvH5Df0keGGY0KSdNa3+5+zXPcFU8E5zyxAHx2O
+	csyOp7ygMKE2TyeFvMhNMDRbJfWpvoi/e2Wtsw85kDWrh9bmaoGPq26fkPCK6EQW9GtHgE23SAf
+	O2bekiH6p0NuS7ibzeiR99juADqenvnPK74DDCPh5EAdgQm9ckL8/Is2OOT60LXS2G/loE3/4Rd
+	g766NOFiabmIEhqEzmHVZW12Pu7NjTHUTuaPWtNLnJs2vxYqhpQE857/7H7bWLBgIlO/maiElPZ
+	q16O+rOMDMZ72Tb3BcDu3ulRoJYYgBZbeiW2qi0NXQ3+0ctmelHfVHFT05Gh1PxqztoA4W79UyR
+	nyJnyRUkoM7ARZq9E4/kQPbBNOioO5IlZ8t6XH/xWOKBrJIBg/xbPZ5+HIqCOEv89m2X0Spl1or
+	8YrK7jZJ8NJ+mNJtGgy5gOFMwF62c1sRBg71BREHYNjXlfi0vHH65efiqdyiT6imXEBoIjGw==
+X-Received: by 2002:a05:600c:c178:b0:498:1595:be7b with SMTP id 5b1f17b1804b1-4997c0cd08fmr47953295e9.4.1786529969390;
+        Wed, 12 Aug 2026 03:19:29 -0700 (PDT)
+Received: from [192.168.0.252] ([79.115.63.18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997c98d264sm40995005e9.9.2026.08.12.03.19.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 03:19:29 -0700 (PDT)
+Message-ID: <0a15f6e8-f1ca-4945-9bd5-2b64a2802a58@linaro.org>
+Date: Wed, 12 Aug 2026 13:19:25 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mtd: spi-nor: use guard() in
+ spi_nor_rww_start_exclusive
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>, Pratyush Yadav <pratyush@kernel.org>,
+ Michael Walle <mwalle@kernel.org>, Richard Weinberger <richard@nod.at>,
+ Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
+References: <20260811041349.333176-1-runyu.xiao@seu.edu.cn>
+ <20260811083111.403453-1-runyu.xiao@seu.edu.cn>
+ <0ff8afdc-7a11-4a6c-9f62-6f8ba712c4ac@linaro.org>
+ <56991b48-cbe9-45bf-a24c-d7aa771c55d2@linaro.org>
+ <87jypwoha6.fsf@bootlin.com> <878q6coefo.fsf@bootlin.com>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <878q6coefo.fsf@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-iso_conn_ready() looks up the BIS listener socket with iso_get_sock(),
-which takes a reference, and then, without re-checking its state,
-creates a child socket from it:
 
-	parent = iso_get_sock(hdev, ...);
-	if (!parent)
-		return;
 
-	lock_sock(parent);
-	sk = iso_sock_alloc(sock_net(parent), NULL, BTPROTO_ISO, ...);
-	...
-	iso_chan_add(conn, sk, parent);
-	...
-	release_sock(parent);
-	sock_put(parent);
+On 8/11/26 6:38 PM, Miquel Raynal wrote:
+>>> Have you seen sashiko's review at 
+>>> https://sashiko.dev/#/patchset/20260811083111.403453-1-runyu.xiao%40seu.edu.cn?
+>>>
+>>> Both concerns look valid to me. Do you think you can allocate time to
+>>> fix them?
+>> Sashiko is becoming a nightmare. I'll add this to my todo list, but if
+>> someone in lack of technical challenge wants to propose fixes, be my
+>> guest.
+> Actually, the might_sleep() warning seems to be an hallucination. It
+> mixes different concepts in its explanation (might_sleep() is not a
+> problem here, we are in process context) and I believe it got mislead by
+> the current state of the code which lacks a mutex_unlock().
 
-If the listener socket is closed concurrently, between iso_get_sock()
-and lock_sock(), the reference taken by iso_get_sock() may be the last
-one: the close path drops the link-list reference, and once
-iso_conn_ready() drops its own reference at the end of the function the
-socket is freed.  The child socket, however, is already linked to the
-freed parent, and a later disconnect of the child runs iso_chan_del()
--> bt_accept_unlink(), which dereferences the dangling parent pointer
-into the freed accept queue (a use-after-free).  The same dangling
-pointer is also dereferenced through parent->sk_data_ready(parent) in
-iso_chan_del().
+I haven't tested but sashiko seems sane on this.
 
-Fix it the same way the connected (non-BIS) path was fixed in commit
-0d255e63fcf3 ("Bluetooth: ISO: hold sk properly in iso_conn_ready"):
-after taking the socket lock, re-check that the parent is still a
-listening, alive socket, and bail out otherwise.
+wait_event_killable()
+  __wait_event_killable()
+    ___wait_event(wq, condition, TASK_KILLABLE, 0, 0, schedule())  <- TASK_KILLABLE!
 
-Fixes: ccf74f2390d60 ("Bluetooth: Add BTPROTO_ISO socket type")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hang Nan <2122295973@qq.com>
----
- net/bluetooth/iso.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Here there's a for loop where it calls prepare_to_wait_event() which calls
+set_current_state(TASK_KILLABLE), setting current->__state = TASK_KILLABLE and
+storing the callsite in current->task_state_change.
 
-diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-index aa2ce78f56a2..069fc87a4e18 100644
---- a/net/bluetooth/iso.c
-+++ b/net/bluetooth/iso.c
-@@ -2277,6 +2277,21 @@ static void iso_conn_ready(struct iso_conn *conn)
- 
- 		lock_sock(parent);
- 
-+		/* The listener socket may have been closed concurrently
-+		 * between iso_get_sock() and lock_sock(): the reference
-+		 * taken by iso_get_sock() may be the last one, in which
-+		 * case the socket is freed as soon as we drop it at the
-+		 * end of this function.  Recheck that the parent is still
-+		 * a valid, listening socket before creating a child
-+		 * socket from it.
-+		 */
-+		if (parent->sk_state != BT_LISTEN ||
-+		    sock_flag(parent, SOCK_ZAPPED)) {
-+			release_sock(parent);
-+			sock_put(parent);
-+			return;
-+		}
-+
- 		sk = iso_sock_alloc(sock_net(parent), NULL,
- 				    BTPROTO_ISO, GFP_ATOMIC, 0);
- 		if (!sk) {
+After prepare_to_wait_event(), ___wait_event() evaluates condition
+spi_nor_rww_start_exclusive(nor) which calls mutex_lock().
+mutex_lock() calls might_sleep(). You hit the WARN_ONCE in __might_sleep() because
+state == TASK_KILLABLE. You should catch this if you enable CONFIG_DEBUG_ATOMIC_SLEEP.
 
+Cheers,
+ta
