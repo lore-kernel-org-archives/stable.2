@@ -1,280 +1,193 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7F1384CC8
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 15:18:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786547892; cv=none; b=fu3XtF5Jn1Xmgy02phnh7/wJk7p/11pAJCLBo0g7nai5Y7eMVj9AGD2RO3jejKNYVMvDs/eoF/3/U3ElNdaAE5NWcdRFpqhq0Td3wW+4PeqNW/7iZ0NmnXYBdV4BdDhUCavzEgyhOeZc/Z10SB33etC+polw9b0NY815FpllDAo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786547892; c=relaxed/simple;
-	bh=4lponhvcBoEj4isXQY9iYKXNBCg2Z0hXTEzAYNInePI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n4GnkHt3VQzn43wRtjZfC36wNXM+zLY/p9EH2FfRiOL3ZthXezXiV4/5kKAoAQzAoXLkD8M1L+yCMBy2w2mitTUkvrJbAOK9xAor+A4FUJFJsKLtNDmq4GfAHXGggN/CUHhNKRl3wi1lVKXFT4+zlQguyF/+SElMPqqlKaYxutk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oDa0C+Hy; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8184846D57D
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 15:27:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786548447; cv=pass; b=E/2tt3Wvh7VwRFj96abvBTUPdjd7K8Kb6XTD9OxSF14sIP3jxuD0ImcOfYhw+RHIkQpUUe1IZBbxVqzpp9TSeYb1BTU4Hps5ljSZ9AMUUKNMwmYITow3ja64HZKZ2FAa6PYuCrNLkYR6GthSH2EjSWJ7RnmtOnwKmSqtQmtwqYw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786548447; c=relaxed/simple;
+	bh=Ts9PK9aXwLEU/nrIRNxnM9qG/yIOXNQLDe8r+ZcI+pE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=INa7CGETqYDZPiHTyEMF1yOGi0ibYT3j87MJYtTdmX8sbIcQLlaUQQlcZuaUnefVxwva/47wQ+8GUTZn/pI0cBpzOqj9MHmex/+l9DdM55O3IciPisbRLukkpchyZH2uIdhG16JDx+EWC+vVgJNnS073ckSTGt2LzslPk9gCFdM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MuE9lDq4; arc=pass smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oDa0C+Hy"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ceaf8a1265so13853585ad.2
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 08:18:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MuE9lDq4"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a144c8eea2so1869189a12.0
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 08:27:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786548436; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Kt6W48V98kqozYvx435v2iz215A/vjrMWa4ReISLBaXDE5NXNcOdvu3tUoDX+opdU6
+         GRik16fMk8KjAHLtHwloMyEJtoG5Ey/79Wy0lu3rCpe9D7SOnENZJbQYy6OiFU+Yh7fO
+         UVgOibgdo4W5tGEGy/65kxDBaltla3f4Z/A2RJB7C1Eqz+zmbSonwyMlpfoCA0AgdDoH
+         GczJ7SIFa0XDqBhbfErL3mFWFHH5hILwqa2wG58pPWYht7WzGu6PbAD7EAXlFoLZpkFf
+         WY5wRj7luWCrL7x0HKYMWYgPBMEFc4U6WNwYLtZ04PNOo69RnP4IXmRpiP7R+UYED1GU
+         0dcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9HQw24hdIiiBy71zEiY+V8zJ9GZN0hXXJxvtzQE5bgc=;
+        fh=0F4K5681C2FRoazpwvt+Fv2D6qM3ZXQ7ugocdiKMsWY=;
+        b=AOWMYUrW0yjsKEIrry27I2nWkeCrLE2zjuuZrwimC37eQUSo7pyBj3E9+rOyzUjbGM
+         AkI3Ns/K72sGoRS52fCQJq1D5okgf+AB830TxBEQe2hLxFCkmzSSQ45R5eQppne7LI/E
+         eIyraRQtJlsovRKYNYUNY20ycBaH7eLrmgK1a98AvwFyi1NaMgjGgPeMH0DYQepzi46x
+         YHJGnqZdi1CYT0CQW/Y5i+ooJTIl6d/vHSy72RCgUFg3OZpbueN6gi2SpvdRgudQKlX2
+         kC34j3cOt9iu0Jb+2MAKcoLmbxIsO0I5+MHaB02tG+RmAmGeIdLxnRDEJky61guZ5Uo2
+         o/sg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786547890; x=1787152690; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qaa+Sy+sE+8+QMHIV71O2fnlj9rH1hWPcoo3mwjBGow=;
-        b=oDa0C+HyO6Lk22tXbulpHjG0uyvopIbMrS4h2CggvlhASYHIb06C8yEXrCPbODd5fi
-         j2sbQPc6H+py6zAo5+0V5YBG5lgfExNdx5UHIINNTNDsguNE39btqGfYty5QmIswV3IQ
-         CIr03Eavvz01O+UodHEHYt8lIdfyPv4wAFV6Ka7dF7JhFsTxgbOL5Ap5n9ma2YoHtnoz
-         /tq2GuH4N4knLqONOyfoKpwg1fCmv4A9GaVXgdSZSzosUsFskDoKEerDBxY3d7MrMeA7
-         UHRC2eLQTuw05pZjXuEMng911mK/rWz4484+ARJe8VCj11A+DiHnuFSL5WsO26tuONlw
-         lB5A==
+        d=linaro.org; s=google; t=1786548436; x=1787153236; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9HQw24hdIiiBy71zEiY+V8zJ9GZN0hXXJxvtzQE5bgc=;
+        b=MuE9lDq4eU/VmDmnJ0bdER+wcAXpqzUL9FpQFQFw8ysphFxuWvXkt6ouCcNepWpmIi
+         Hwp5S4eOH+U2E34qrxvHwOiYQ/aFVgvmnEOoDOywKLDpbJ1EmBz8HtOwUlq05v07c0EB
+         7yJeTC5vSRJCLulUdZuaQVh8Of8LPr6dwk3Ca0D/fJDrWmvUm/VMgsCWyBVVOS6bZoVc
+         LYvCemx9m7N5vs5dvziRKE3Ctm2pu8dcNnVsVeLiDmqmeFnudiwYpsnKXNnnSFu/th8a
+         7pWmh1GregKJwByIXvrRVsD1iakbnBJxxGMjbIAfVMMGC09cADuF5spUQXinBM/mAaZr
+         +qJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786547890; x=1787152690;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qaa+Sy+sE+8+QMHIV71O2fnlj9rH1hWPcoo3mwjBGow=;
-        b=Fk/BuzZFXWSnvBM2RfMk3itm94pjTgneXOL85pKWqDuaL549/C7eZ7kGyUpD7CXmdB
-         nKwnHzrRjWVJzITNtKz48L19EdgREfD+WxZ74/OCULBPx0R/ijf11xtr9h4ZrtTQq+Mm
-         N4tejvv8InG0zLh+idg3AU2PtJAw+bc/LoeM4LR09TiaOmJcjxn/QpBbZGrtmiiQwicq
-         eHtMVSaUDnNdd/q4g50atqD6mkIIFxsYYREG2kGFZnlWgC6hu7aHcziIteDWhrbb9hsJ
-         o/gX8DKkNz7vJyJt/ncZY+WjISMKh+NCyM3rEo+wo8zd+5BiV1UmSxvSp2NMKMrhJQnB
-         H5oA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq0Odk6hS+bHPzSFoPYs7o5itUSvvyRqb4VuRXatIeRaBs9WBiH4T0/QuKkqvSygHRC2mA89X4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTMAoU/BDsTpV1ME6A6Dr8tge5x2rWk80crrGNxaajQkZHL7o4
-	CEbWrfp4tpTF6yZhO02q9PxEWQNgE4S6y1bmX+Ud+KzXwNGDlMFfu+T2
-X-Gm-Gg: AR+sD11oXRCEzm3MgfJSfUFvH3rge9l61EZ0iksbqx+JNg+7oCVj25v3120WiMxK8Cj
-	S3RtIRAc3fzFki6g3vCBpe36haP2XKUVcFHfW2FAYZvPItDH0IaINPASUJ2Bi7tbsnXpjPVPnzv
-	CdNrIKALT1ZDHRHoryIFClRjkd0eJXE3qqod9qMzfU5dvAD0RNv6WwQIYhyQyt2x0R5rwGI9AqZ
-	N21EotUQY+l3J/HdY/36vCmrOeL98HR8At61EwvAHABLWl/4CO3aEBgyBtAKWI0pzJmGpb3acK/
-	w3hlYQMxPAJ840RPTJIiptw8NSbqgLCL1SOoZgZsTWKG+k6hPHnW7EyKiEFaNCCMQQZQF31pYeB
-	y6ACZpye1r0jNDKq74hqPdl5CWbjDhUfSoVt/CvXSJ5LjQ+fJrsPKvFDl/vbL6fYevNcOS7qSuC
-	SdFHfNcLNYggMaBzcAsKT77Yh8tOTBNhy7/TR0gNEnSWWKSryralDlG/CbuXN7xbQ0SvZ9VrPQK
-	uYskVLta70LVHm6ag==
-X-Received: by 2002:a17:903:4b46:b0:2cc:f5b8:4c2e with SMTP id d9443c01a7336-2d3453848d4mr85562295ad.9.1786547889806;
-        Wed, 12 Aug 2026 08:18:09 -0700 (PDT)
-Received: from acer-nitro-anv15-41.entro.com ([118.34.230.2])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3522019d3sm8426135ad.56.2026.08.12.08.18.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 08:18:09 -0700 (PDT)
-From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Ben Cheatham <benjamin.cheatham@amd.com>,
-	tony.luck@intel.com,
-	bp@alien8.de
-Cc: linux-cxl@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	x86@kernel.org
-Subject: [PATCH v2] cxl/mce: Avoid alias page retirement for corrected errors
-Date: Wed, 12 Aug 2026 20:47:59 +0530
-Message-ID: <20260812151759.14390-1-shaikhkamal2012@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1786548436; x=1787153236;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9HQw24hdIiiBy71zEiY+V8zJ9GZN0hXXJxvtzQE5bgc=;
+        b=dJa5anNcg8h8+akuc3ZfZUijwBDhadlwvH2ztMM8VGFaCfcdayv2lKTo4mb1+3mCXe
+         wM5mM5qh/FHNiVDvx5/C3ZF6LOQU/PA5KVl1NIXo532rblIgcOqDgT5aBei+7ZLqlnYp
+         3wghCwwIhCKypMiTbRnOFwuD2+snYhjoOYbokHmi1B6qEvnJg1JgpcoXf6kFyR1s6Ncd
+         ejgrArzR/AXfjKmez52IoBsVxZPA2oBxhLuwbJqVSjfvKXGv8pGCsst8tCksOq6UIeHx
+         y1+9pkmaHr5+ili5/i7Z8vJ7o8OdD5CqHdCnGcV0vfYaEo8fCmAxZiFIc1S/6AYmnXbr
+         aLFg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3eDU6C9Fqql1sbCDsy1viASxX3ywF3owTjt36eTY7yw0n1mG/eCXtm/GT5sB2mrnA3Z3Hl1s=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy2Hrgsjpqq442PBpWNttXgIHaDSX1R+HBKLLbrO+sGqJL/0E82
+	itxFpQN37RcOahcIi0/jskZ964ufrRPbU/bN3g8OZtxQ6OHZxiTDTuQ06QdZLvVJsbHpE3kwnxe
+	UWA4nUor/lNp/ExZn6432ciK3FqR/Y3fK8Wuyw+JaYw==
+X-Gm-Gg: AR+sD10aoKTvQ0sSlLlulN0teaGzjeMlOqvurUFOnf36SaRAvx5bXHS5vrO3An18vqu
+	GzCne/NgykYTy+fS+3KCqYGzv3M01rWHzmWPTWosa2EFcsLtGaJzTLmDIMgPDdDM/x3Kq857MTu
+	9Rj/z54G2Z11Mvbg1BDpwk5IMrO7WgKKf/WIxy5O0xwT1fVq2ePRV+kPfh6XiJAhRv17Znlf7C3
+	99YPp+Hfk7FMGFPg02KZC2ziyqxWoks8nQCvUvdNyHoUaR2XkGmc454/7JK5vmDMzfVcqbQXPvr
+	k6MDNorpiA1DtTjy7gZdLUOLh1K8CppnUXdfajEpvVj43Khkl9xzczdESwShnTNTNZkPH8Xgbg=
+	=
+X-Received: by 2002:a17:907:f816:b0:c20:2d38:e518 with SMTP id
+ a640c23a62f3a-c20f2e66a3bmr273702966b.2.1786548435676; Wed, 12 Aug 2026
+ 08:27:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
+ <20260807101140.1357218-1-shoubaineng@gmail.com>
+In-Reply-To: <20260807101140.1357218-1-shoubaineng@gmail.com>
+From: Sumit Semwal <sumit.semwal@linaro.org>
+Date: Wed, 12 Aug 2026 20:57:03 +0530
+X-Gm-Features: AUfX_mxKHc0XJq4SFZbCVvYoj4A8ln1CqD7e7dKrGyTLzT3rZmWFByVVhkPNP5I
+Message-ID: <CAO_48GHc2TQJ9baa+EYst5vR0qUYvRVj=r8F9hxMLpySWE5+QA@mail.gmail.com>
+Subject: Re: [PATCH v6 0/4] dma-buf: fix fd leak when copy_to_user() fails
+ after fd_install()
+To: Baineng Shou <shoubaineng@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	"T . J . Mercier" <tjmercier@google.com>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+	Sandeep Patil <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla <srini@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, stable@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-cxl_handle_mce() offlines the aliased page of an Extended Linear Cache
-(ELC) region for any MCE with a usable address in the region. This
-includes corrected errors and non-memory errors, needlessly reducing
-usable memory.
+Hello Baineng,
 
-Restrict ELC MCE handling to uncorrected memory errors. Use
-mce_is_correctable() so that MCE_AR_SEVERITY errors continue to retire
-the alias when the reported page is handled elsewhere.
+On Fri, 7 Aug 2026 at 15:41, Baineng Shou <shoubaineng@gmail.com> wrote:
+>
+> Several drivers call dma_buf_fd() =E2=80=94 which internally calls fd_ins=
+tall()
+> =E2=80=94 before copy_to_user() returns the fd number to userspace.  If
+> copy_to_user() fails, the fd is already published in the caller's fd
+> table but the ioctl returns an error, so userspace never learns the fd
+> number.  Worse, the window between fd_install() and copy_to_user()
+> allows other threads to observe and manipulate the fd (dup, close,
+> SCM_RIGHTS), making any "close it on the failure path" fix unsafe.
+>
+> The fix is to split the allocation into three steps: reserve an fd with
+> get_unused_fd_flags() (not yet visible to other threads), do
+> copy_to_user(), and only then publish the fd with fd_install() via the
+> new dma_buf_fd_install() helper.  On copy_to_user() failure,
+> put_unused_fd() + dma_buf_put() cleanly unwind with no user-visible
+> side effects.
+>
+> Patch 1 introduces dma_buf_fd_install() in dma-buf.c (wrapping
+> fd_install() together with the DMA_BUF_TRACE call to preserve export
+> tracing) and applies the fix to dma-heap.
+>
+> Patch 2 applies the same fix to fastrpc, which even had a comment
+> acknowledging the problem could not be fixed before.
+>
+> Patch 3 replaces the bare fd_install() in drm_gem_prime_handle_to_fd()
+> with dma_buf_fd_install() to restore tracepoint coverage for DRM PRIME
+> exports (suggested by Christian K=C3=B6nig).
+>
+> Patch 4 adds a selftest to tools/testing/selftests/dmabuf-heaps/ that
+> reproduces the fd-leak scenario (mprotect flip before the ioctl) and
+> verifies the fd count is unchanged after a failed ioctl (suggested by
+> Sumit Semwal).
 
-Fixes: 516e5bd0b6bf ("cxl: Add mce notifier to emit aliased address for extended linear cache")
-Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
----
-Changelog:
+Thank you for the series - please feel free to add my
 
-v1 -> v2:
-  - Reworked commit message per review feedback
-  - Dropped redundant comment from the code
- 
-Reproduced under QEMU/vng. QEMU's cxl-type3 does not emulate the HMAT
-extended-linear address_mode bit, so ELC was forced locally for testing
-via a one-line debug hack in cxl_region_probe() (not part of this patch):
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
 
-	if (!p->cache_size && p->res)
-		p->cache_size = resource_size(p->res) / 2;
+>
+> v1: https://lore.kernel.org/dri-devel/20260703080922.1838362-1-shoubainen=
+g@gmail.com/
+> v2: https://lore.kernel.org/dri-devel/20260710105430.3059661-1-shoubainen=
+g@gmail.com/
+> v3: https://lore.kernel.org/dri-devel/20260714114654.3885457-1-shoubainen=
+g@gmail.com/
+>
+> Changes in v6:
+>  - Rework the selftest (patch 4) per review: extract a count_open_fds()
+>    helper, fix the copy_from_user() comment, fail (not skip) when the
+>    ioctl does not return -1, drop the bogus mprotect-race mention, and
+>    reword the result message.
+>
+> Changes in v5:
+>  - Add selftest (patch 4) reproducing the fd-leak scenario (Sumit Semwal)
+>
+> Changes in v4:
+>  - Add patch 3: drm/prime: use dma_buf_fd_install() (Christian K=C3=B6nig=
+)
+>  - Add Acked-by: Christian K=C3=B6nig to patches 1 and 2
+>
+> Changes in v3:
+>  - Split into two patches (dma-heap + fastrpc separately)
+>  - Add dma_buf_fd_install() to preserve trace_dma_buf_fd tracepoint
+>  - Add fastrpc fix using the new helper (T.J. Mercier)
+>
+> Baineng Shou (4):
+>   dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+>   misc: fastrpc: don't publish fd before copy_to_user() succeeds
+>   drm/prime: use dma_buf_fd_install() to preserve export tracing
+>   selftests: dmabuf-heaps: add fd-leak-on-EFAULT regression test
+>
+>  drivers/dma-buf/dma-buf.c                     |  20 ++++
+>  drivers/dma-buf/dma-heap.c                    |  80 ++++++-------
+>  drivers/gpu/drm/drm_prime.c                   |   2 +-
+>  drivers/misc/fastrpc.c                        |  16 +--
+>  include/linux/dma-buf.h                       |   1 +
+>  .../selftests/dmabuf-heaps/dmabuf-heap.c      | 113 +++++++++++++++++-
+>  6 files changed, 180 insertions(+), 52 deletions(-)
+>
+> --
+> 2.34.1
+>
 
-Steps:
-1. Boot with an Intel CPU model under TCG (KVM host-passthrough will
-    otherwise leak the host's real vendor ID, and AMD/SMCA takes a
-    different mce_usable_address() path than the one under test):
-vng -v -r ./arch/x86/boot/bzImage --disable-kvm --qemu-opts='-cpu Skylake-Server-v4,+mce,+mca -m 4G -machine q35,cxl=on -object memory-backend-ram,id=cxl-mem0,size=512M -device pxb-cxl,bus_nr=12,bus=pcie.0,id=cxl.0 -device cxl-rp,port=0,bus=cxl.0,id=root_port0,chassis=0,slot=0 -device cxl-type3,bus=root_port0,volatile-memdev=cxl-mem0,id=cxl-mem-device0 -M cxl-fmw.0.targets.0=cxl.0,cxl-fmw.0.size=512M'
-
-2. modprobe mce-inject
-$cxl list -M
-$cxl list -D
-$cxl create-region -m mem0 -d decoder0.0 -w 1 -g 256 -t ram
-$dmesg | grep "DEBUG: forced cache_size"
-$modprobe device_dax
-$modprobe kmem
-$ls /sys/bus/dax/devices/
-$daxctl reconfigure-device dax0.0 --mode=system-ram
-$lsmem
-it will show as below:
-dax0.0
-[   42.857642] Fallback order for Node 0: 0 
-[   42.857828] Built 1 zonelists, mobility grouping on.  Total pages: 1010805
-[   42.858446] Policy zone: Normal
-[
-  {
-    "chardev":"dax0.0",
-    "size":536870912,
-    "target_node":0,
-    "align":2097152,
-    "mode":"system-ram",
-    "online_memblocks":4,
-    "total_memblocks":4,
-    "movable":true
-  }
-]
-reconfigured 1 device
-RANGE                                  SIZE  STATE REMOVABLE BLOCK
-0x0000000000000000-0x000000007fffffff    2G online       yes  0-15
-0x0000000100000000-0x000000017fffffff    2G online       yes 32-47
-0x0000000190000000-0x00000001afffffff  512M online       yes 50-53
-
-Memory block size:       128M
-Total online memory:     4.5G
-Total offline memory:      0B
-
-3. Load the injector if not loaded earlier and derive the two MCi_STATUS values.
-
-    modprobe mce-inject
-
-    MCi_STATUS bit layout used here (arch/x86/include/asm/mce.h):
-      bit 63  VAL     - record valid
-      bit 61  UC      - uncorrected (0 = corrected error under test)
-      bit 60  EN      - error reporting enabled
-      bit 59  MISCV   - MCi_MISC valid
-      bit 58  ADDRV   - MCi_ADDR valid
-      bits[15:0] MCACOD - bit 7 set = memory-error signature, per
-                          mce_is_memory_error()'s Intel branch
-
-    python3 -c "
-    VAL, UC, EN, MISCV, ADDRV = 1<<63, 1<<61, 1<<60, 1<<59, 1<<58
-    MCACOD_MEM = 1<<7                      # memory error signature
-    ce = VAL | EN | MISCV | ADDRV | MCACOD_MEM
-    uc = ce | UC
-    print(f'CE status = {hex(ce)}')
-    print(f'UC status = {hex(uc)}')"
-    # CE status = 0x9c00000000000080
-    # UC status = 0xbc00000000000080
-
-    MCi_MISC: address-mode field, bits[8:6], must be 2 (physical):
-
-    python3 -c "print(hex(2 << 6))"
-    # misc = 0x80
-
-4.  $ cd /sys/kernel/debug/mce-inject
-$echo sw > flags
-$echo 0x9C00000000000080 > status
-$echo 0x80 > misc
-$echo 0x190010000 > addr
-$echo 9 > bank
-[  221.813395] mce: [Hardware Error]: Machine check events logged
-[  221.814716] cxl_mce_debug: entered status=0x9c00000000000080 addr=0x190010000 cache_size=0x10000000 res=[mem 0x190000000-0x1afffffff flags 0x200] usable=1
-[  221.816200] cxl_mce_debug: spa=0x190010000 contains=1
-[  221.817089] cxl_mce_debug: spa_alias=0x1a0010000 pfn=0x1a0010 pfn_valid=1
-[  221.817655] cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
-[  221.821504] Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
-[  221.823903] mce: [Hardware Error]: CPU 0: Machine Check: 0 Bank 9: 9c00000000000080
-[  221.824617] mce: [Hardware Error]: TSC a605ccda40 ADDR 190010000 MISC 80 
-[  221.824997] mce: [Hardware Error]: PROCESSOR 0:50654 TIME 1786375908 SOCKET 0 APIC 0 microcode 1
-root@virtme-ng:/sys/kernel/debug/mce-inject# 
-root@virtme-ng:/sys/kernel/debug/mce-inject# grep HardwareCorrupted /proc/meminfo
-HardwareCorrupted:     4 kB
-
-CE without this patch:
-  cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
-  Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
-  HardwareCorrupted: 4 kB
-------------------------------------- 
-CE with this patch:
-  (no "Offlining aliased SPA" message logged)
-  HardwareCorrupted: 0 kB
-
-$cd /sys/kernel/debug/mce-inject
-$echo sw > flags
-$echo 0x9C00000000000080 > status
-$echo 0x80 > misc
-$echo 0x190010000 > addr
-$echo 9 > bank
-addr  bank  cpu  flags	ipid  misc  README  status  synd
-[   61.681659] mce: [Hardware Error]: Machine check events logged
-[   61.683442] cxl_mce_debug: entered status=0x9c00000000000080 addr=0x190010000 cache_size=0x10000000 res=[mem 0x190000000-0x1afffffff flags 0x200] usable=1
-[   61.684528] mce: [Hardware Error]: CPU 0: Machine Check: 0 Bank 9: 9c00000000000080
-[   61.684974] mce: [Hardware Error]: TSC 2eeae32fe0 ADDR 190010000 MISC 80 
-[   61.688880] mce: [Hardware Error]: PROCESSOR 0:50654 TIME 1786377156 SOCKET 0 APIC 0 microcode 1
-[   86.504456] clocksource: Watchdog remote CPU 11 read timed out
-
-$grep HardwareCorrupted /proc/meminfo
-HardwareCorrupted:     0 kB
--------------------------
-For UC, same steps only status bit information will change :
-$cd /sys/kernel/debug/mce-inject
-$echo sw > flags
-$echo 0xbc00000000000080 > status
-$echo 0x80 > misc
-$echo 0x190010000 > addr
-$echo 9 > bank
-$dmesg | grep cxl_mce_debug
-$grep HardwareCorrupted /proc/meminfo
-[  313.398747] mce: [Hardware Error]: Machine check events logged
-[  313.400518] cxl_mce_debug: entered status=0xbc00000000000080 addr=0x190010000 cache_size=0x10000000 res=[mem 0x190000000-0x1afffffff flags 0x200] usable=1
-[  313.401727] cxl_mce_debug: spa=0x190010000 contains=1
-[  313.402157] cxl_mce_debug: spa_alias=0x1a0010000 pfn=0x1a0010 pfn_valid=1
-[  313.402663] cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
-[  313.405999] Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
-[  313.408375] mce: [Hardware Error]: CPU 0: Machine Check: 0 Bank 9: bc00000000000080
-[  313.408999] mce: [Hardware Error]: TSC e9dd2869e0 ADDR 190010000 MISC 80 
-[  313.409367] mce: [Hardware Error]: PROCESSOR 0:50654 TIME 1786377750 SOCKET 0 APIC 0 microcode 1
-
-Patched, UC: alias still offlined, confirming uncorrected handling is unchanged by this patch.
-    cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
-    Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
-    HardwareCorrupted: 4 kB
-
- drivers/cxl/core/mce.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/cxl/core/mce.c b/drivers/cxl/core/mce.c
-index 65fed913b221..e3c561489a00 100644
---- a/drivers/cxl/core/mce.c
-+++ b/drivers/cxl/core/mce.c
-@@ -18,7 +18,13 @@ static int cxl_handle_mce(struct notifier_block *nb, unsigned long val,
- 	u64 spa, spa_alias;
- 	unsigned long pfn;
- 
--	if (!mce || !mce_usable_address(mce))
-+	if (!mce)
-+		return NOTIFY_DONE;
-+
-+	if (!mce_is_memory_error(mce) || mce_is_correctable(mce))
-+		return NOTIFY_DONE;
-+
-+	if (!mce_usable_address(mce))
- 		return NOTIFY_DONE;
- 
- 	spa = mce->addr & MCI_ADDR_PHYSADDR;
-
-base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
--- 
-2.43.0
-
+Best,
+Sumit.
