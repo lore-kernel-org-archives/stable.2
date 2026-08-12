@@ -1,46 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904223655CD
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7053655CD
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:16:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786529632; cv=none; b=M9eC9K/S2xCaE9HgEKcsChC3d2Vf9IlpInaaPzzwRCDKGTBztURo57zwybBke7+G/hHRtEjmoSGk5JrQeTysOnZrnhR6PnPQA677ha+bAXd4c6RgtIlZtGBljBNz/6F2CYLIKBBlL/ZuYF242FgS/K6TRdtyZFkhB62vVm9KA4I=
+	t=1786529806; cv=none; b=AI90+BuMUzBRjfSX9srrOOv185pwOZqq7It+wCZQO+TXARyUElG7IurXiTEm7KodDG0UCnRCuYb3ArO2V65E1lq4TYhO3ncJKXeecRNFTR7s32kbVvyXo4Q28F/0d1dKdthrotXq4t9dJgHx9ips45rc60yZlPeadonB9wfg8zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786529632; c=relaxed/simple;
-	bh=Ly9LKwCGsRSjiW5gdTUAG06oYTldfeGyPt2Y7uJpHuM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P0LE/DHolJEw+NM1phcos3mK3WT9ctAuvRg/vqkijp71BPtwXwSIWlArVMtp+Fzf9v/LdRMEraCwNyS8Vmo3ZmqvmvMSJ8nAvzf5Xd3VEHgPC2PKIiQgU7d1TR8fwIZXXbuV4EGySunNHLJj5ufDQsvdsQHyHzsq3PFWy9qrH4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3WB9md7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786529806; c=relaxed/simple;
+	bh=N7d/9wuUmihrv9w+zc1GQy2IaZY858kWO5/XD+OGZuw=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=fxJe2nVZfj2U4XbTuUkDDeFzrtSQcy9tqxn2hXsEVSqU1pArSkHiI+C5Gsly2SBDATT298bg4CnqVIPqkdPDE/0w0rSgpSsoEKf2S+XGmHTe6D9F/Mg4UWcW/qdZoCOspCesCRwgW5PFe2v2hjQIb0TMVT6eGZbUL4qK3LfQJ34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=tp0OvTVQ; arc=none smtp.client-ip=43.163.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3WB9md7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A5E1F00A3F;
-	Wed, 12 Aug 2026 10:13:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786529631;
-	bh=2tm4Y2dyLJqLsjP0DP+FgVv+J7/1M+e1upwrOSgjAZs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b3WB9md7MHgzP/NwmNA403dWg8REt4s+bFIFtF/NL8s0ooKQZwyCFzorv7W+k6l53
-	 KzPIVxJdTS9e83Ckr5hivfqAVHzqCc1u5dnWUad5WO5FKZWYxL6iJ8co+EHwLKGD2W
-	 ry1LXezfdKFdBjZO5X61xHRmpRZRMxzHqEjOqyipQdOU1w18tKirQYDEuCdN/xPPko
-	 WjEg+lDiURgE0Ji9WoeDRlGpUdE5alQUwWMElZLPVbCuG4cJKYC2aMrkDGOPuqtzhG
-	 AXKvPk1tbbUMC3FMHmmxgURSbRdI8tH2RYHEQeePozPuWbsPXhzuYhmCLDO2UD2BlK
-	 lbbnGkCT5lxyw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] i2c: qcom-cci: drop custom suspend/resume and rely on runtime PM helpers
-Date: Wed, 12 Aug 2026 06:13:47 -0400
-Message-ID: <20260812101347.1638816-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812101347.1638816-1-sashal@kernel.org>
-References: <2026080542-curse-dispersed-597e@gregkh>
- <20260812101347.1638816-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="tp0OvTVQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1786529795; bh=/tS10aQxeyxKkgsl3wbV3VyKeGBIt+GKdcSpgGPln7g=;
+	h=From:To:Cc:Subject:Date;
+	b=tp0OvTVQWHuzDcJDWsgVw5XPSHPerLivvSEwT0lww/Mv5vHUM7rn/r7f66O4CzvUq
+	 MMaTur4Zh/H79WrHVB0QpoQHT6nAR0kfQ4z0SnMD9jqE1dW3PLI6mSCHemXQqvqf1f
+	 gPLFNci4WY2GIFJWmyEzCqnGx4RpknGaa6Mc6S/M=
+Received: from localhost.localdomain ([240e:452:ddba:7caa:44f2:d3f7:942:3f36])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 3D8364E3; Wed, 12 Aug 2026 18:15:24 +0800
+X-QQ-mid: xmsmtpt1786529724tji9urc7l
+Message-ID: <tencent_D2D387CAA22E84EDB589ED9E7A901ABE7609@qq.com>
+X-QQ-XMAILINFO: MoX/Tpn4vKqQzi+KgrFuGuvtUlj6/XthmMIaC0/DVEbEF50n2uVRjyNaEVizxX
+	 hgmk65S74gwvOuxrYE/PzNMS9M0235WSQxMFGRV+MAL00vB+da9cSD1ybps2Zka98ady13x3X5ho
+	 UCL7gvH5f+28rAmB+WxgbBkeopFT1RJQCFUuDdElb+eu7gY8QyvMHFoof+Rbk6OvfKkRzcaThkmP
+	 nFaE3DoAkOXEbvQx8Hm73tmbWiAtT8HGjVYYS9lwH5WtvkdknC/P4UcbHvJ8VLbphUhfGw0EDcds
+	 kktEFcDC9fs5FGQ98XiEcyzQ98DPHsEwjSJq7GU06wVJDggYp3ew8vtTlWlhvcWN/oDrVmTt2IkA
+	 hO5XJpZ9JJQtqH+Kfphm2LDiok4jhgItGJpUipg9EsiATcClNgZSp37V3OySsb1HTqakeM/BlXnC
+	 1goeeNBQCe5q7sSFLRFEvo9zwpcntEXw6MZEs0/O05n96NNifA5P5eUEJqIsIptn0WmKC5QXHVGS
+	 B7ZruBmzMpA8fgbYSi8mXl292CHkataCitG+LSGVOX8jlAPZgKpXMEQsks6MrmZKSmC32DtrPWQo
+	 J/bqffoktZsQqqqmMFO5uppQ+BIMeo+8xPGU1jLa/rchWYPRvFy6GR1LGfv1ncAvURIa3bWsx+Pp
+	 4i3PxTKIi1WStOY5fOZ4GsEwWGhehxegq6unfs76ZID+E66UJvdutpxy7ky1RG+DQkJxTrL8IOZd
+	 AUrtqKwxrxlBv4Vhqe1bERDe5VCFlJPPQBKS4UIBYSNw5YSfwNIjyYgrW0rGhY53EglxPTIf9ZOO
+	 1CMDjrSwMy6MPM6dJFTh93F3lXUxh2hyLMSYtOKZ6kXlr2Av0Suu6bbLBADawads8oimjFFRBw+L
+	 73pzgm2naN0r0JEYMhur+R3SaohWI7b9vIeASSSj+Ev66OCQbkFSc5KDolWIx4d+iKL6ntFXJlGq
+	 oWv6PRTWamjw50EwRWlNSvk8h1ylBrzjmQDf1RET8TLqj8oG/1dBbV2+3Nc2vR3vz37R5U5Bq+yp
+	 4ELnwSeeJpX+hX0MhuuKIY2YhLLCzS69MUPfNZ/MN2DUiE4nxOZj4TYrQZXPs=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Hang Nan <2122295973@qq.com>
+To: 2122295973@qq.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: ISO: fix use-after-free of listener socket in iso_conn_ready
+Date: Wed, 12 Aug 2026 18:15:23 +0800
+X-OQ-MSGID: <20260812101523.51423-1-2122295973@qq.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,61 +57,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+iso_conn_ready() looks up the BIS listener socket with iso_get_sock(),
+which takes a reference, and then, without re-checking its state,
+creates a child socket from it:
 
-[ Upstream commit b08c9857aa1f5f3a81d375d6d4bb1d8b92f22ebc ]
+	parent = iso_get_sock(hdev, ...);
+	if (!parent)
+		return;
 
-cci_resume() unconditionally calls cci_resume_runtime() regardless of
-the runtime PM state.
+	lock_sock(parent);
+	sk = iso_sock_alloc(sock_net(parent), NULL, BTPROTO_ISO, ...);
+	...
+	iso_chan_add(conn, sk, parent);
+	...
+	release_sock(parent);
+	sock_put(parent);
 
-If the device is already runtime-suspended before system suspend,
-the clock is re-enabled while runtime_status remains RPM_SUSPENDED.
-As a result, pm_request_autosuspend() does not arm the timer,
-leaving the clock permanently enabled.
+If the listener socket is closed concurrently, between iso_get_sock()
+and lock_sock(), the reference taken by iso_get_sock() may be the last
+one: the close path drops the link-list reference, and once
+iso_conn_ready() drops its own reference at the end of the function the
+socket is freed.  The child socket, however, is already linked to the
+freed parent, and a later disconnect of the child runs iso_chan_del()
+-> bt_accept_unlink(), which dereferences the dangling parent pointer
+into the freed accept queue (a use-after-free).  The same dangling
+pointer is also dereferenced through parent->sk_data_ready(parent) in
+iso_chan_del().
 
-Fixes: e517526195de ("i2c: Add Qualcomm CCI I2C driver")
-Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: <stable@vger.kernel.org> # v5.8+
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260625-cci-v1-1-a100cda673ce@oss.qualcomm.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fix it the same way the connected (non-BIS) path was fixed in commit
+0d255e63fcf3 ("Bluetooth: ISO: hold sk properly in iso_conn_ready"):
+after taking the socket lock, re-check that the parent is still a
+listening, alive socket, and bail out otherwise.
+
+Fixes: ccf74f2390d60 ("Bluetooth: Add BTPROTO_ISO socket type")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hang Nan <2122295973@qq.com>
 ---
- drivers/i2c/busses/i2c-qcom-cci.c | 18 +-----------------
- 1 file changed, 1 insertion(+), 17 deletions(-)
+ net/bluetooth/iso.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index 1afba8b02ad2a..c84c111d1e43f 100644
---- a/drivers/i2c/busses/i2c-qcom-cci.c
-+++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -498,24 +498,8 @@ static int __maybe_unused cci_resume_runtime(struct device *dev)
- 	return 0;
- }
+diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
+index aa2ce78f56a2..069fc87a4e18 100644
+--- a/net/bluetooth/iso.c
++++ b/net/bluetooth/iso.c
+@@ -2277,6 +2277,21 @@ static void iso_conn_ready(struct iso_conn *conn)
  
--static int __maybe_unused cci_suspend(struct device *dev)
--{
--	if (!pm_runtime_suspended(dev))
--		return cci_suspend_runtime(dev);
--
--	return 0;
--}
--
--static int __maybe_unused cci_resume(struct device *dev)
--{
--	cci_resume_runtime(dev);
--	pm_request_autosuspend(dev);
--
--	return 0;
--}
--
- static const struct dev_pm_ops qcom_cci_pm = {
--	SET_SYSTEM_SLEEP_PM_OPS(cci_suspend, cci_resume)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
- 	SET_RUNTIME_PM_OPS(cci_suspend_runtime, cci_resume_runtime, NULL)
- };
+ 		lock_sock(parent);
  
--- 
-2.53.0
++		/* The listener socket may have been closed concurrently
++		 * between iso_get_sock() and lock_sock(): the reference
++		 * taken by iso_get_sock() may be the last one, in which
++		 * case the socket is freed as soon as we drop it at the
++		 * end of this function.  Recheck that the parent is still
++		 * a valid, listening socket before creating a child
++		 * socket from it.
++		 */
++		if (parent->sk_state != BT_LISTEN ||
++		    sock_flag(parent, SOCK_ZAPPED)) {
++			release_sock(parent);
++			sock_put(parent);
++			return;
++		}
++
+ 		sk = iso_sock_alloc(sock_net(parent), NULL,
+ 				    BTPROTO_ISO, GFP_ATOMIC, 0);
+ 		if (!sk) {
 
