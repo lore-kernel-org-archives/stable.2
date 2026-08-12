@@ -1,40 +1,36 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF3623546EC;
-	Wed, 12 Aug 2026 06:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+Received: from out28-98.mail.aliyun.com (out28-98.mail.aliyun.com [115.124.28.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD4736212D;
+	Wed, 12 Aug 2026 06:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786515559; cv=none; b=Pgw88t8UitIhQ+VmfvSQN6mtBl/jMP24LZngbaQkmnyXPI5tR/aPUsajP0YnjvldcG8I7YbdP3MnW2Pz8ymNuFWMxzuhdFcl73H7hQNwwkxitjurUQ+TdtlSSzRAPmlcLeCN2k4jZKLnKMORNLzxaGPEp+skdZAM7idNWusTb/A=
+	t=1786515807; cv=none; b=gOWypJJ83CrCPj63cBJ6Z9T1WTVpZ6DKw2popG98z++AHA9jFp7LeZYqU2gKbwsOi4HuHrChyk1ZHkUoO7w1Ge9dsR9xyAam21Xsd4iG022vmDfHnuRwaf7pFX21nbFEXjAeuSsQuTqQzcs1z3tJOClp/vt2By1cckuZautgWUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786515559; c=relaxed/simple;
-	bh=LCaEUuOJiTj6+hJornfvF+VnclshgN42o9A3eu0zfXU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IgAxnrE7c8F+KkgTOdov5y5kgsT+z2N8LKuA7zdeP4fMA1xUjtsC5FRVyJ/deCMm7bhv73EbOPNgQX2R8oE3Dp5wVLDJqS0J/Y3zvseLn7d0ybt4BnPc9HhhgnZL70ZsKUqnGP6Sf9yy3Em7ebq0WFKdCB9noTIuFmlo14W1cq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDHGLQ6EHxqN2qIAA--.4260S3;
-	Wed, 12 Aug 2026 14:18:35 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgD3idA5EHxqOs3NAw--.22002S2;
-	Wed, 12 Aug 2026 14:18:34 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-wpan@vger.kernel.org
-Cc: Stefan Schmidt <stefan@datenfreihafen.org>,
-	Alexander Aring <alex.aring@gmail.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Varka Bhadram <varkab@cdac.in>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
+	s=arc-20240116; t=1786515807; c=relaxed/simple;
+	bh=qkuq5vZsF5wjDrh2OYpRp5eiPsClWjXvSY81f8/SBTQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tKFGUt8/AoMgGPKMLiuFRk3tUnyGde7fN6enlGCJjauhkQIJAt2VtJnKITZShRYtzK5mK1AcXMzGTo6DBv6m4MIoORky3n4MetMF1KqcGq8FDJIejO1HVDn78TI4CCLD6Qz4j2XGzoViVJsz3Hdmz+9aL4nR4HwNoQ4Bauy2Afc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=redrisc.com; spf=pass smtp.mailfrom=redrisc.com; arc=none smtp.client-ip=115.124.28.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=redrisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redrisc.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07452478|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00740962-0.00245956-0.990131;FP=12855025378607845755|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=shaoqing.qin@redrisc.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.ik.PRue_1786515773;
+Received: from thinkpadx1.localdomain(mailfrom:shaoqing.qin@redrisc.com fp:SMTPD_---.ik.PRue_1786515773 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 12 Aug 2026 14:23:08 +0800
+From: Shaoqing Qin <shaoqing.qin@redrisc.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
+	Shaoqing Qin <shaoqing.qin@redrisc.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v4] ieee802154: cc2520: fix FIFOP work use-after-free
-Date: Wed, 12 Aug 2026 06:17:14 +0000
-Message-Id: <20260812061714.175966-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH] riscv: mm: mark KASAN vmalloc shadow mappings as valid
+Date: Wed, 12 Aug 2026 14:22:50 +0800
+Message-ID: <20260812062250.181-1-shaoqing.qin@redrisc.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,74 +38,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgD3idA5EHxqOs3NAw--.22002S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?azZAqQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI2AgQX3/lbIcyXttSixiVoBhjmswoE08wIHC61l3FrvXk//
-	5s2u2sFZqPjKKbxUREap9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7uFWDJFy3KrWxWw4ruw15trc_yoW8Aw45pF
-	ZxWwn7GrW8W3Wjka17Jr18WF95Jan8GayUu34xG3Z3urnxZFyUWrZ2yF10qFy5JFWv9ayS
-	vFyqvr45Z3Z8AFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-The FIFOP interrupt handler queues cc2520_fifop_irqwork.  On removal,
-cc2520_remove() only flushes the work.  The devm-managed FIFOP IRQ
-remains active until after ->remove() returns and can queue the work
-again after that flush, allowing it to run after the private data is
-released.
+With CONFIG_KASAN_VMALLOC, KASAN allocates shadow memory for vmalloc
+mappings on demand. After installing new shadow PTEs, KASAN calls
+flush_cache_vmap() for the shadow address range.
 
-Disable the work with disable_work_sync() instead of flushing it, so
-the handler can no longer queue it once removal begins.  Destroy the
-buffer mutex last, since the worker and the stop callback invoked
-through ieee802154_unregister_hw() both take it.
+RISC-V uses flush_cache_vmap() to mark newly valid kernel mappings. If
+an access subsequently faults, the early exception handler checks this
+mark, executes sfence.vma when required, and retries the faulting
+instruction.
 
-Found by an in-house static analysis tool.
+However, flush_cache_vmap() currently recognizes only vmalloc, module,
+and vmemmap addresses. KASAN shadow addresses are outside these ranges,
+so creating a KASAN vmalloc shadow mapping does not mark it as newly
+valid.
 
-Fixes: 0da6bc8cc341 ("ieee802154: cc2520: adds driver for TI CC2520 radio")
-Cc: stable@vger.kernel.org # v6.10+
-Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+On implementations without Svvptc, an invalid PTE may remain cached
+after the PTE has been made valid in memory. This caused a store page
+fault in __memset() while KASAN was unpoisoning shadow memory for a DMA
+atomic pool vmap mapping. The page table dump showed that the PTE in
+memory was already valid and writable.
+
+Recognize the KASAN shadow range and mark these mappings as newly valid,
+allowing the existing fault-time sfence.vma and retry mechanism to
+handle the stale invalid PTE.
+
+Tested on a single-core RISC-V FPGA without Svvptc using Sv48 and
+CONFIG_KASAN_VMALLOC=y. The kernel boots successfully through DMA
+atomic pool initialization after this change.
+
+Fixes: 503638e0babf ("riscv: Stop emitting preventive sfence.vma for new vmalloc mappings")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Shaoqing Qin <shaoqing.qin@redrisc.com>
 ---
-Changes in v4:
-- Drop the erroneous registration-failure patch.
-- Keep the unchanged FIFOP removal-path fix.
+ arch/riscv/include/asm/cacheflush.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- drivers/net/ieee802154/cc2520.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ieee802154/cc2520.c b/drivers/net/ieee802154/cc2520.c
-index 2b70341..abfcfe0 100644
---- a/drivers/net/ieee802154/cc2520.c
-+++ b/drivers/net/ieee802154/cc2520.c
-@@ -1156,11 +1156,10 @@ static void cc2520_remove(struct spi_device *spi)
+diff --git a/arch/riscv/include/asm/cacheflush.h b/arch/riscv/include/asm/cacheflush.h
+index c2b0a2928f06..056aaf894644 100644
+--- a/arch/riscv/include/asm/cacheflush.h
++++ b/arch/riscv/include/asm/cacheflush.h
+@@ -7,6 +7,7 @@
+ #define _ASM_RISCV_CACHEFLUSH_H
+ 
+ #include <linux/mm.h>
++#include <asm/kasan.h>
+ 
+ static inline void local_flush_icache_all(void)
  {
- 	struct cc2520_private *priv = spi_get_drvdata(spi);
- 
--	mutex_destroy(&priv->buffer_mutex);
--	flush_work(&priv->fifop_irqwork);
--
-+	disable_work_sync(&priv->fifop_irqwork);
- 	ieee802154_unregister_hw(priv->hw);
- 	ieee802154_free_hw(priv->hw);
-+	mutex_destroy(&priv->buffer_mutex);
+@@ -57,7 +58,9 @@ static inline void mark_new_valid_map(void)
+ static inline void flush_cache_vmap(unsigned long start, unsigned long end)
+ {
+ 	if (is_vmalloc_or_module_addr((void *)start) ||
+-	    (start >= VMEMMAP_START && end <= VMEMMAP_END))
++	    (start >= VMEMMAP_START && end <= VMEMMAP_END) ||
++	    (IS_ENABLED(CONFIG_KASAN_VMALLOC) &&
++	     start >= KASAN_SHADOW_START && end <= KASAN_SHADOW_END))
+ 		mark_new_valid_map();
  }
- 
- static const struct spi_device_id cc2520_ids[] = {
+ #define flush_cache_vmap_early(start, end)	local_flush_tlb_kernel_range(start, end)
 -- 
-2.34.1
+2.53.0
 
