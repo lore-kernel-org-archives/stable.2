@@ -1,195 +1,204 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013001.outbound.protection.outlook.com [52.101.72.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568DB375ABE;
-	Wed, 12 Aug 2026 02:13:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.1
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786500789; cv=fail; b=qzspvCuF7I+HEnWVNHnPr083Nkz4wCJI8108CIgXY2yoiw5q/M9DpnIv/MEU3dTwE8SUH9W7RHHYyPkaQzUatKQo4ClMqb5KG7ZCHEe1mMD9bLXykMx+L0fsvqon80EqiJxwc3VwoCviOEr/NxPRDT//H3b8Ct6yxeO7cQ91L+A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786500789; c=relaxed/simple;
-	bh=TJ+NDfzLoiVcPsSB6cGiLgMv+Q+AuuwDQrVsC+A6fbQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=OtKzV826BPXACDFgC8iZeF7rEfXUrdQAdJvYnnRG38TJYXiaAF81XWvWQESWxmh+HYK6ZxdeWCCcfSt5xZvWVXcRp9miyhwxqyKgoT9Vz1F5IrZz0KPw7WNX4X3ZdYUe5xsecfMRe4rqR99rf9QCmTLiPs3eAb30apTK5S8UeoY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=cP2gYikZ; arc=fail smtp.client-ip=52.101.72.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89672BD587;
+	Wed, 12 Aug 2026 02:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786502444; cv=none; b=MQsBrxBadS0lGQPJ6Cp2Upb5oNu3yfGyKd5Qea12miFymyDdlP0pFGpwOSDQPFvZXQ7kdr7CtvWm6WvNgfJruRpgZVhs69/lurikxs2l9syRn3CINTIzWm/NB7u28LcEwiVpQGzYsLcu1cYfhdhgBi7n/DRHnJYD/iJVMPLPgJA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786502444; c=relaxed/simple;
+	bh=9BIyMNT0dlqXSX98F9Cc+goJK1Rc7gMmtlCkuKSY6jA=;
+	h=Date:To:From:Subject:Message-Id; b=bY1E2IQMfa1Ys8szgjiVHtS+6agD6E45uMyQJ77ljgOHvziVOE/MvGxX73JfzrDzwLpRB+NhTGdinXzFxscBerguJf82jKG7FNFyIGJ24IhqYl1Sw1+AxDh21D805hQ9ABihwHekmxChdN+uk/a7w3CcFwibzen5W0RrIWyYRzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1ZJRhcec; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="cP2gYikZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fVY7NHr5XXEmi3DWSPf6NfKKNKvobNbCuDdp3OMwHqM1k4CtnQPkGq3qHcY9Micjit4BUCl89+orXODKElRQEvf34FWkzSqvpJdrJTxqQ/iUYOJq/GTRmb5CKXQyqF32oVpMiLvn+P4oMzHyP3FxkNbUaBy8xX4Csyz3pwFqt0RjjKqlB1kQC9RYzh4CUiFJZy8NiUSL4Nji+y6TQnRAi2iJNg5qZ1dALR8mWOw7ivbkgkB0Rb8odFt48VCzu1GoQGcI5NJxZurBBfh2G45tMHslaPlR62ouCYQnftFMEXEaSfobuAd5oGUjad1dBJr4ZpYi6XweUNa04++uj0vnzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZU+JCKjNs4tU+i2xY1sm4+eiRWgOowjuURX2fCZEufE=;
- b=NdeWg3O9IvYW9XnyxK+y4xIvSHSIf7nAXn4vzZ7m96TSo6fgbKDQz67Th2Xm64Kp5iL7L8sbscyzprd9i7crb3HUwm0LfAMaA5WT3Ri/DdwVyDIU7uiuHZB6gcY+y/4JuGP2/bvHa3u2/rMCfLxbMqCtWqKfrvY4RgsDIKGzpZKSHipKzwbPneYpY3dtMEweGaTjlSLWJkE6Mmo9xUsvh2tEDGIF3WCBTnQmnoEPSUOycrKKzNUFLWfsxqSzgpUhzcVF1Qdx47Q+XC3F5X5eJDGqiQ7Yeo6mgPWjoEA7syM4T3EcCjoZrxDM79mpoLe/hiwFCL0dk0nz5CGYhDBGgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZU+JCKjNs4tU+i2xY1sm4+eiRWgOowjuURX2fCZEufE=;
- b=cP2gYikZdZq13SigFOra+VCl+Avk9hXLjODo9rWpSFTmh8QQ0jQZGwyWaJskcH11y+tuZekeI+H1B6M6MPAzfoZG7m8RWosfHteiqZDYsGGd0WedZhboHgrNW5pcSVvviOwL/D7UWXrK8ip+37d5ZWpnqbiwVc9fh/jYU+tNzpDUU8Uw1D7mMS0XFyoUhDaNdnHIfEUFgKj7/6/X5w4Saktk/y0trg58YmT09de8cnVR3EcFcquqqlhceNE4FL35c3z7R8GS8IEkimlxGILkh/6IzqzmFe73kHDgFwY4wtBepdFxWTPQ5/FyQZZ0yQ2KkY3m0FQK/jeV80uGmiNz2A==
-Received: from GV2PR04MB11739.eurprd04.prod.outlook.com
- (2603:10a6:150:2fc::18) by VI2PR04MB10114.eurprd04.prod.outlook.com
- (2603:10a6:800:22d::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Wed, 12 Aug
- 2026 02:13:02 +0000
-Received: from GV2PR04MB11739.eurprd04.prod.outlook.com
- ([fe80::71c2:937b:d466:174a]) by GV2PR04MB11739.eurprd04.prod.outlook.com
- ([fe80::71c2:937b:d466:174a%6]) with mapi id 15.21.0315.011; Wed, 12 Aug 2026
- 02:13:02 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: Mehmet Fide <mehmet.fide@gmail.com>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-CC: Shenwei Wang <shenwei.wang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sasha Levin
-	<sashal@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 6.18.y] net: fec: do not release NULL pages when RX buffer
- allocation fails
-Thread-Topic: [PATCH 6.18.y] net: fec: do not release NULL pages when RX
- buffer allocation fails
-Thread-Index: AQHdKMU9bLq6RZsLi0Gmgbb4XYGJdbaZrlqw
-Date: Wed, 12 Aug 2026 02:13:01 +0000
-Message-ID:
- <GV2PR04MB11739411731A5E8ABED22A4C988DC2@GV2PR04MB11739.eurprd04.prod.outlook.com>
-References: <20260810123902.2611897-1-mehmet.fide@gmail.com>
-In-Reply-To: <20260810123902.2611897-1-mehmet.fide@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB11739:EE_|VI2PR04MB10114:EE_
-x-ms-office365-filtering-correlation-id: ff8a5ac6-0333-4801-ed2f-08def8173cb8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|366016|19092799006|23010399003|1800799024|11063799006|38070700021|56012099006|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- 5gg0vxs9Dp3gqz5Mdoe/lZkCHtCpPQ+9Q+eDsitL6dqTnE7MMBldmPmE6EM2nTHfMp2CjwiTn6wyBT+6cBVPCGLpYEnPs9VQEUkTIKdUEh4awfSUrTTTryy3eICRNXPhpQQqjLXGniaVhDHF36eCAjneh56sbYxtCCDwfCliv2sc7nIzHhHfB/C00OX3/fyACA8qeIlt+PspVjMQ8CNZJ8yXqZQGP7meX64JjVYIvmPWv/k/oJZBAm2x2ogEdI3+6fk/PFrQ5cN703X/ubto3mvpxSTe9/1F+0T6Jx7whm9m1WeLIywRYes7kwUdgpXRviJD7DSmqC67WOvoxy2TPXt2+NVr65ziLMpGZYdgPXv94wK7CtLbhG5LVIhFS8xIlxEldu7TthhjQmrgMkCLBKQKZobXH/JS72LCNRsebBZiQOfYu111DAhavK8MWofU/a4S9wkqf4jF0FvZ4ZySWIvzREgTTCiCdD+ZzgYcJTtjj8u7Hg1c8kind4ly8o1O9xJvt+BlX6EsHFNfQplW2YV9r95SXVm/mRsim1N3siR2lQU85gnV1sHA1lFS6gaO6cJSPcNxCm+WRsEvJ0mdnWSxdJyiTjsnpYfRQJ0Ovq4kygNyy92mUsNziCk2mQbcwWDtU0Z+EGZyXVBW6MzfBguwrIeRSirTwv48Y1SdMhk00TaAS8I7NHxHHIvfPELeEJUhatGkxP9c3mZitKeSmWen3IsMojfVjYqyhp19HIo=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11739.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(19092799006)(23010399003)(1800799024)(11063799006)(38070700021)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?4ude5pk489jlke/A3Ff53BoYJ3C3EJLwxhpzwpxuElqyyJMsXLlonfJ/wFPb?=
- =?us-ascii?Q?pP9j1ZnM5gWiawmZ29bB8sut+S/HwbXeaRZ+cmibxpWeZtQ+mP9Ph3iJ5/uO?=
- =?us-ascii?Q?VwjePqznf9XugLZ4RlxHJcwTZ89gD8ZAzr7ZaHsdud7HYyYUzaJxMmoU6/g8?=
- =?us-ascii?Q?uEdeWIO1KNaQPYgu3wfQmUjVrLD2lKqh+hxXK9U6Nx7/ieWf5+BrogrQsTVb?=
- =?us-ascii?Q?7BcDnWzTEGmLpfzOvvtP/oT55+5lv7MsWRGdn7/j5QUdz36MJ/kda0C2udgc?=
- =?us-ascii?Q?FX8goNvDd8AY1sv7MgNs28X/alaBYpzFIFwUM4wHAi0ER1oEtuy9zNsIqVss?=
- =?us-ascii?Q?RHGJ9ZLm3/rXH/SRj9T+WSO0LrcbW+aizwZ1pp/bNsUvwexGU2SqiYu1/3UH?=
- =?us-ascii?Q?tlkntNrZ+/UuxmgOyVbX+posYRA22uGWRaF9cOdluvfJrAXid7IGCAWeBZKl?=
- =?us-ascii?Q?tmlZD2RtEHy0TNsTFyuU3iamoRNKHrLsEgYS78NXDYGp9wXGrf+Ql1KpD+c0?=
- =?us-ascii?Q?5pCrfogSDjeP9wmD9TBOiGEcEVapzHq81TmfdFFsoCg7RX0QpZGAeTlYli+p?=
- =?us-ascii?Q?lNel/jjAkNCEPGtcwsMOGJmp/1mSaaXVObCYeGwZ05TYgP5iXwhIXidMjjoc?=
- =?us-ascii?Q?VqXDCq+bWMoFwpNW1sb+dIilWKMtF6GAn8uFaWh51u0qyyPCowFqKSl9TfZ5?=
- =?us-ascii?Q?CzwR/IXP9urGBUvPzBG6b1c8bgDHnbk1El4Mk8pN0tn17YlPyU4UPxMV+V8q?=
- =?us-ascii?Q?1rN19lIFtSrwiETTODBJMQ+bJ2Gwxs4PRdVK64m/KvBDAppZdQPUNjldX6IQ?=
- =?us-ascii?Q?ViyAu2vV1KG/GUj7R8Dw8u1NcgXqzR3aoFhvJdvbPUWrwC+Ptt2YHUa5f6hT?=
- =?us-ascii?Q?MgZzz20V59nvbKj5UglgOZEuZ23/zJoirCuxai7BL8tUDe3056c4P8I2JMOX?=
- =?us-ascii?Q?AFt2FbLK7i32G0H1MFzrruZr3gmoECpdb1jUQHatbFnhA17WXsj2x0c2BBj2?=
- =?us-ascii?Q?UCKv4h313fbjXj+67bkWs5ITqlwkXKk/2xlB7ZgYs68HPK4sYuaMf+vnKCRU?=
- =?us-ascii?Q?C0QMPLYjEtw87MwVKv5CgFbqm4W6mqHR0mG5Tzpr244AcEAenIfk0oDPJwuQ?=
- =?us-ascii?Q?Ymj2SIT9MmFp0+FBC4ThVtkmvTL0R1vwjkdQM8IpDeo3ckSb9yP87Pvjynto?=
- =?us-ascii?Q?DwIRUprA+/qDHi8GTmOlcKbV46bVAG4GodjM5uqRpGRkEg53otn2+TfD6pYk?=
- =?us-ascii?Q?cijcl4ZgMGjnKVpb+Gt82QbPtmTBF/bExZpFBPEAs4oXLQ8CNN2yNRNjFA3Z?=
- =?us-ascii?Q?GCc5QecePl/8O2Ip4thN9JTLNw4Wa5KKQCdUxNlGdFj3/khNEXMLsIrwFvKm?=
- =?us-ascii?Q?CmxWYJwEKySJDr6sWa0E0OOk47r+rijeNDV0o2+l+lkJxoiJCGk4smneaguh?=
- =?us-ascii?Q?TT4qTY1593g5SNt5jjvVs/QqzS2xgK2kSoENqKVwKq0x9BtevyTxQEmcXfSz?=
- =?us-ascii?Q?EWkj9BU1iIKtNBdMzm0Bq6s529i7B4KnHi3usy63TQUAwx8GCm1FO2V0d5b/?=
- =?us-ascii?Q?MDkmCPnu6zRx2tN2j39SS8YllM1MDH7ibsi+n3jg5jg4rmVHv2EGZUwoCX4t?=
- =?us-ascii?Q?r+O5apDHv+sFPg8etQLhjw5lkx4u2ifpgNjdaSq5XyKDGQW1VfecfsWyGMBA?=
- =?us-ascii?Q?Y3FFPLrjO/3pkTMYWOpOgJJUgDqhOmA4R1tZhnuDuqJzDmcG?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1ZJRhcec"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1043A1F00A3A;
+	Wed, 12 Aug 2026 02:40:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1786502442;
+	bh=07pSwwRODL1e7A74ekI9ZHfVQwJBIEjz9aYMJQ+gUG0=;
+	h=Date:To:From:Subject;
+	b=1ZJRhcecmkVmKH1VxQuVisXEAEdysqLSujeqhABwnwbOKmYbrs+4md4uz4AO22qc0
+	 AE3LUu4Cvfu5iAS4Crz3K+0WmTnm0QmtVMJ7QkHL/PL9mXlZ04G6dzcJxvClm4dywz
+	 PeUqDfgpQO658zT7F5PUDUymDEqduLp4gcbRaxmQ=
+Date: Tue, 11 Aug 2026 19:40:41 -0700
+To: mm-commits@vger.kernel.org,wangkefeng.wang@huawei.com,vbabka@suse.cz,surenb@google.com,stable@vger.kernel.org,sj@kernel.org,shakeel.butt@linux.dev,riel@surriel.com,osalvador@suse.de,muchun.song@linux.dev,mhocko@suse.com,hannes@cmpxchg.org,gthelen@google.com,fvdl@google.com,david@kernel.org,anshuman.khandual@arm.com,souravpanda@google.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260812024042.1043A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11739.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff8a5ac6-0333-4801-ed2f-08def8173cb8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2026 02:13:01.9844
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: enw7fRpS1WhExGjSNYcw7kiftIRjTg5y/YcytQ3EbZL4HlsOqyTEFylwGWClHxQ9YKxhrrq9oKnFN6gqfbhjUA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10114
 
-> fec_enet_alloc_rxq_buffers() leaves the loop as soon as
-> page_pool_dev_alloc_pages() returns NULL and jumps to err_alloc, which
-> calls fec_enet_free_buffers(). That helper walks the whole ring and
-> hands every rx_skb_info[i].page to page_pool_put_full_page(), including
-> the entries the allocation loop never reached. Those are still NULL,
-> because the queue was allocated with kzalloc(), and
-> page_pool_put_full_page() dereferences the page, so an open that runs
-> out of memory oopses instead of returning -ENOMEM:
->=20
->   Unable to handle kernel NULL pointer dereference at virtual address
-> 00000014 when read
->   Internal error: Oops: 5 [#1] SMP ARM
->   CPU: 0 PID: 384 Comm: connmand Not tainted 6.18.43 #1
->   Hardware name: Freescale Vybrid VF5xx/VF6xx (Device Tree)
->   PC is at fec_enet_free_buffers+0xb0/0x2a8
->   Call trace:
->    fec_enet_free_buffers from fec_enet_open+0x1e0/0x504
->    fec_enet_open from __dev_open+0x114/0x238
->    __dev_open from __dev_change_flags+0x190/0x208
->    __dev_change_flags from netif_change_flags+0x1c/0x58
->    netif_change_flags from dev_change_flags+0x44/0x74
->    dev_change_flags from devinet_ioctl+0x3a4/0x768
->=20
-> Seen on a Colibri VF50, 128 MiB of RAM, on the first ifup after boot.
->=20
-> Skip the entries that hold no page, and clear the ones that do after
-> releasing them, so that a later failed open cannot release the same page
-> a second time.
->=20
-> Mainline is not affected. Commit a2ae70c0efe4 ("net: fec: add
-> fec_alloc_rxq_buffers_pp() to allocate buffers from page pool") replaced
-> this loop with fec_free_rxq_buffers(), which skips and clears the empty
-> entries. That commit is part of the XDP zero copy series and is not a
-> stable candidate, so this is the equivalent minimal fix for 6.18.y.
->=20
-> Fixes: 95698ff6177b ("net: fec: using page pool to manage RX buffers")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
-> ---
-> --- a/drivers/net/ethernet/freescale/fec_main.c
-> +++ b/drivers/net/ethernet/freescale/fec_main.c
-> @@ -3341,8 +3341,15 @@
->=20
->         for (q =3D 0; q < fep->num_rx_queues; q++) {
->                 rxq =3D fep->rx_queue[q];
-> -               for (i =3D 0; i < rxq->bd.ring_size; i++)
-> -                       page_pool_put_full_page(rxq->page_pool,
-> rxq->rx_skb_info[i].page, false);
-> +               for (i =3D 0; i < rxq->bd.ring_size; i++) {
-> +                       struct page *page =3D rxq->rx_skb_info[i].page;
-> +
-> +                       if (!page)
-> +                               continue;
-> +
-> +                       page_pool_put_full_page(rxq->page_pool, page,
-> false);
-> +                       rxq->rx_skb_info[i].page =3D NULL;
-> +               }
->=20
->                 for (i =3D 0; i < XDP_STATS_TOTAL; i++)
->                         rxq->stats[i] =3D 0;
-> --
-> 2.43.0
 
-It looks good to me, thanks.
+The patch titled
+     Subject: mm/hugetlb_cma: fix null nodemask dereference in hugetlb_cma_alloc_frozen_folio
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio.patch
 
-Reviewed-by: Wei Fang <wei.fang@nxp.com>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Sourav Panda <souravpanda@google.com>
+Subject: mm/hugetlb_cma: fix null nodemask dereference in hugetlb_cma_alloc_frozen_folio
+Date: Tue, 11 Aug 2026 05:29:09 +0000
+
+alloc_buddy_hugetlb_folio_with_mpol() can pass a NULL nodemask to
+alloc_fresh_hugetlb_folio() as a fallback to allocate from all nodes.  If
+order is gigantic, alloc_fresh_hugetlb_folio() propagates the NULL
+nodemask down to hugetlb_cma_alloc_frozen_folio() via
+alloc_gigantic_frozen_folio().
+
+Additionally, hugetlb_cma_alloc_frozen_folio() previously attempted
+allocation on hugetlb_cma[nid] without verifying if nid is included in the
+caller's nodemask.  Adding a node_isset(nid, *nodemask) check ensures the
+initial preferred node allocation honors the memory policy / nodemask.
+
+However, hugetlb_cma_alloc_frozen_folio() dereferences the nodemask in
+node_isset(nid, *nodemask) and for_each_node_mask(node, *nodemask),
+leading to a null pointer dereference kernel panic when nodemask is NULL.
+
+Fix this by checking if nodemask is NULL in
+hugetlb_cma_alloc_frozen_folio() and defaulting it to
+cpuset_current_mems_allowed.  Enclose the allocation attempts within the
+cpuset seqcount retry loop so that if the cpuset changes concurrently
+during allocation, the attempts are retried using the updated nodemask. 
+This ensures that the initial node check and fallback loop safely honor
+the task's cpuset without violating cpuset constraints or causing NULL
+pointer dereferences or unexpected allocation failures.
+
+From a userspace perspective, this bug allows an unprivileged user to
+crash the kernel (trigger a panic) by requesting a gigantic hugepage
+allocation with MPOL_PREFERRED_MANY on a system where CMA is only
+configured on a subset of NUMA nodes.
+
+This can be reproduced by booting a VM with two NUMA nodes, restricting
+CMA to Node 1 (e.g., hugetlb_cma=1:1G default_hugepagesz=1G hugepagesz=1G
+hugepages=0), and running a program that allocates a 1GB hugepage area
+without reserving, restricts allocation to Node 0 using mbind() with
+MPOL_PREFERRED_MANY, and triggers a page fault:
+
+  void *ptr = mmap(NULL, 1UL << 30, PROT_READ | PROT_WRITE,
+                   MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB |
+                   MAP_HUGE_1GB | MAP_NORESERVE, -1, 0);
+  unsigned long nodemask = 1; /* Node 0 */
+  mbind(ptr, 1UL << 30, MPOL_PREFERRED_MANY, &nodemask,
+        sizeof(nodemask) * 8, 0);
+  memset(ptr, 0, 1UL << 30); /* Trigger fault */
+
+This results in a NULL pointer dereference:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  Oops: Oops: 0000 [#1] SMP NOPTI
+  RIP: 0010:hugetlb_cma_alloc_frozen_folio+0x75/0x120
+  Call Trace:
+   <TASK>
+   only_alloc_fresh_hugetlb_folio.isra.0+0x2c/0x160
+   alloc_surplus_hugetlb_folio+0x6d/0x100
+   alloc_hugetlb_folio+0x3c5/0x660
+   hugetlb_no_page+0x3d9/0x650
+
+Link: https://lore.kernel.org/20260811052909.475635-1-souravpanda@google.com
+Fixes: eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic hugepages")
+Signed-off-by: Sourav Panda <souravpanda@google.com>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Frank van der Linden <fvdl@google.com>
+Cc: Greg Thelen <gthelen@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: SeongJae Park <sj@kernel.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/hugetlb_cma.c |   21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
+
+--- a/mm/hugetlb_cma.c~mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio
++++ a/mm/hugetlb_cma.c
+@@ -3,6 +3,7 @@
+ #include <linux/mm.h>
+ #include <linux/cma.h>
+ #include <linux/compiler.h>
++#include <linux/cpuset.h>
+ #include <linux/mm_inline.h>
+ 
+ #include <asm/page.h>
+@@ -30,15 +31,25 @@ struct folio *hugetlb_cma_alloc_frozen_f
+ 	int node;
+ 	struct folio *folio;
+ 	struct page *page = NULL;
++	const nodemask_t *nmask;
++	unsigned int cpuset_mems_cookie;
+ 
+ 	if (!hugetlb_cma_size)
+ 		return NULL;
+ 
+-	if (hugetlb_cma[nid])
++retry_cpuset:
++	if (!nodemask) {
++		cpuset_mems_cookie = read_mems_allowed_begin();
++		nmask = &cpuset_current_mems_allowed;
++	} else {
++		nmask = nodemask;
++	}
++
++	if (hugetlb_cma[nid] && node_isset(nid, *nmask))
+ 		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order);
+ 
+ 	if (!page && !(gfp_mask & __GFP_THISNODE)) {
+-		for_each_node_mask(node, *nodemask) {
++		for_each_node_mask(node, *nmask) {
+ 			if (node == nid || !hugetlb_cma[node])
+ 				continue;
+ 
+@@ -48,8 +59,12 @@ struct folio *hugetlb_cma_alloc_frozen_f
+ 		}
+ 	}
+ 
+-	if (!page)
++	if (!page) {
++		if (!nodemask &&
++		    unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
++			goto retry_cpuset;
+ 		return NULL;
++	}
+ 
+ 	folio = page_folio(page);
+ 	folio_set_hugetlb_cma(folio);
+_
+
+Patches currently in -mm which might be from souravpanda@google.com are
+
+mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio.patch
+mm-hugetlb_cma-support-percentage-based-hugetlb_cma-reservation.patch
 
