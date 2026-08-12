@@ -1,81 +1,87 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA052BD587
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 02:41:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4BA38399A
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 02:41:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786502469; cv=none; b=uyLkW5enFokKVlwOaxNo/E+IDV8X1grE7Bw7bsdV38FfURoCmbrZ/D3oIKDvSeF/YiodQbWcWMiAV5UH/+vJK0i6uGpAyDZI0qiLt9VipEIowqpuhkwAI5elRMQE6qXmP9YHgVDAK9Yr7wTjzLoFAInBF48RT4SFn4Z3LHZaCIk=
+	t=1786502502; cv=none; b=mD0T74LGtHntDo7uOP0J5EYsYXLn8AGTAqkvG1MIiNxGjRcpUTn6SLqREeEVBz5h6+EQPky10Lzp67zVT2NXxxx8Oco77lbZZgJj5PHyaM2UOmrW75MEBEgLiUgHbECqceJF2FmZT17V9GX6SrhFSH0S317cMEYeB5j5o1R1uv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786502469; c=relaxed/simple;
-	bh=37VMdUxytPiKD/RJADwOCf4HSW0rsdJG6Rkc8HMGe9s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yoo5krHI0Ud4AnigLtR1bs5p5HTvL98oIJUoJAm2Bn/yQi1NwRyjW8uHnpOqvxGQELRTqa/aDVKq6pzVkDMssRL6uXbJjtkeNShU17GDqJ4oP3wtkxDRosvGvCYjLv2J1mZYis/MlBkpOKg5tlj3tIDOYgU9QwYTGOwkn6D6poo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=djNivMvo; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786502502; c=relaxed/simple;
+	bh=184+wo2MmPfVVSEIrO0XZr+LFjQaZHymk+ewrVt8Dxg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f1e3QYgZX41JIcUl/QToCXaQS9aB72Lac2dEs3Ne2rOeS5pcBUPnD9FBuoS7qRvNvhypGTO+/IX93T+g4UPwJz5LwYf2nXLo2TZuR+QnC8ZED5FUYuS4A0F+Mk8sn+PTo1RuW/VNRV0b0/kUgoqUTUVvsIAPN7QgaiP5bigHrcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DFcOJ9fQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fSNfzun5; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="djNivMvo"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso335711a12.1
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 19:41:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DFcOJ9fQ";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fSNfzun5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786502499;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=fkG++BzIFbGGoiUpCqb/8lmKeOjMyVwnECKfoty2BCg=;
+	b=DFcOJ9fQZ0GFoRKMG/mVTASoFBxGRNaVUCP0+qNY/Jr+umlN0C+MxjcaZuyl6UJRhRhEwc
+	UcPrA1hGRUdpTWY7+rHcREuhAoQR/eKMYfKImbtOsddo9xRc2UXaouEokLcIyJHgVMGQnK
+	BYtIC0HSyYv2llrI+BeKfx8q3pHMw4o=
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-452-3mECBF25Mzqo5byQaTdqRQ-1; Tue, 11 Aug 2026 22:41:33 -0400
+X-MC-Unique: 3mECBF25Mzqo5byQaTdqRQ-1
+X-Mimecast-MFC-AGG-ID: 3mECBF25Mzqo5byQaTdqRQ_1786502491
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a485034d01so898051b6e.3
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 19:41:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786502467; x=1787107267; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Lanv+kqXaRyeIzc5S81EnjUM67Ox70p+DZLgF1B6Q9o=;
-        b=djNivMvoIRz1PA3xGL1A3TpN2QJdXpIxnOXUsxOMrvg6M/K08tMndxWxzzqu337p/E
-         oCu78NY5w5nepRdNGbvP2PguLGeOYxb9ng24EpDlSOyPVb7JhFR/FgtMFw+TGqL9ApPL
-         sRmEOCEqNzYE6/ur44Y9RakfbNWVjjEX4kM4tMfQLv+xLfC4gTcvtfOLrxTTYTFGu2Gb
-         Dng8fGBzTlmJFl53JV4s4wex/DAwd9eJ/5ZC6Wj3Oi90QbK/dNIZ1tQL1rJRcQMOH+la
-         yn+z2isdIBDir1NL2uCEhbrco6iyPbyiL0PeA4wm1EWYx703v/nDKRh1fE3CGhmEVs9o
-         emCw==
+        d=redhat.com; s=google; t=1786502491; x=1787107291; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fkG++BzIFbGGoiUpCqb/8lmKeOjMyVwnECKfoty2BCg=;
+        b=fSNfzun5CqInc8O50aFPndPeLMK60i3wzKGe+mZ9q/7Yjr/0+mfjN/i757w7a0CCNa
+         5CBElxvvWt7JIS/UthsQwaNTRU0SYmbmx93WsK/GI7wRQtuqWZEyQchHmqF/UOwp6Fsj
+         ZVeJHRLUfu6e4q/l7PFP12db/Vj5Et9jSfmaOBpwZSiP5hq2Xw4rmmB35xPwC+VX4/Kq
+         gQuZcEEwdyyvg2cqd/x+fmTFyRVMVIH7OMBKmGcbL10UGnv8YTDUJbehtiNoBp9lQZ3a
+         9C6mpK2Oj+ek18RPHqmNzzqqz0fkiCmcvf2ihmpDc5/7U/2bkEPUUuFFBodu5AbohqMl
+         7rMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786502467; x=1787107267;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Lanv+kqXaRyeIzc5S81EnjUM67Ox70p+DZLgF1B6Q9o=;
-        b=QTQb+zVX/xcBTaqu+rrzye+KGrE2N0rP1pJt0edSLmLCWSy9MtNjx9WJ0vAWCpIkRi
-         M23OYoAAnDXfDIoAQUD7c9kUFboFXVlspNKzhtvysoeo7ZpAbOKk0Airc+7dN+iu4e1I
-         I7TNQBIPW/XCoDSWOeQMiS2FicC9xdLzJblVJnBl5yQbEG6TBscdM45J8PIGwWnkLIay
-         Yvs5qAPWyyXfZJ7wIpBQNo4M/VC74BM8ZWkR+QTDWfmh1PVafos3n4YfswTP+uISPpKN
-         f3meJdK0Cf6BdpImyIxX7XajnKzrOfCoP4JNbtGc2Q/dlgnQFvNNn3W6j/X2F2pH7WSs
-         rgag==
-X-Forwarded-Encrypted: i=1; AHgh+RrTLNZGg9IM4MUtOB6gegWaF/9MiNmfw+FaSG+sLoAO4ps2aDyEwoBqUqO4yBc0F1E0yVpdNZc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwNQpLws26RoAR2cBS+f/4IjeQovygFqA8O4TrD2FCA+yEIl0yz
-	ggEu9TEUKbi5jvPb0+M8qvKWN8tQ+sNpSRgeUWU6VjrGNzF6EeywbJO4
-X-Gm-Gg: AR+sD13l3g7YxRDOltUhPqBNMNvaQRGKl7fFmNw+wwnJ0RQb3sDOZw93s8o2kw4Dl+I
-	8xjvi8GF/t3u9yt6ltSEuvlT7C7eiaOjf4fJzqaTsDMm2Il40LpMqkrkOzNk8Beaa0n81N8gIlO
-	nOzQqMqaX/sBJ3w4vxzH15+IhobYtysuPiiIIeFa7tNP1YxxH2NWmQAf0J59sSXzpqITEZgkInl
-	V/QkuJLI5DUcZ/pey+8VHii6kALtEnxH0/2A/gySQKKFPzNFIabcmaKCPva2H+UeSLNMt3pT35X
-	N3aqF5nExOT6rUtucrTPbWaRFTBSEgT8QYoZFeThYmeecz4TwGRDByHmTVpibq0PwJe8beMhkkH
-	7eqgiUqh0dViiR1RLrRFnykiiKanTpNWu5zpaof1aBPUar3pRr/9vbOksYessxxzzoUq8JVjazB
-	pAvDsOX0SJIIu8nEt+bQyuqGSF3znkK583UldyFTvKXRKfj9ewWWB7uprwV51aJRpj2/Rhk0MAy
-	YI=
-X-Received: by 2002:a05:6a21:2982:b0:3c3:a41f:ce7d with SMTP id adf61e73a8af0-3cc3f1f5dd7mr1909572637.0.1786502466733;
-        Tue, 11 Aug 2026 19:41:06 -0700 (PDT)
-Received: from Default ([2409:40f4:100e:be9a:465a:ee31:5561:2b2b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1412448a38esm4632210c88.6.2026.08.11.19.41.00
+        d=1e100.net; s=20251104; t=1786502491; x=1787107291;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fkG++BzIFbGGoiUpCqb/8lmKeOjMyVwnECKfoty2BCg=;
+        b=ECJ1hBSXtaa29FgLCuNhJcRyHbSYYX7wC8XQMYFVGJmW5mSUduGPzgKrKRwQA7+EmO
+         22asLKzTYK/73TKT+VZoXoNo/tECAxJUhwzvq4j0tAlYXY8yWA6sp/NrynESWKtTY7qo
+         s+APwqI1tyg2ELLtuLRFsmmPCf7rCMhctbGi2QSYlt6LUpltl9XGYSk1MMZPpJXX1hyt
+         MO+NII6QXbSkS8s3QYCgDljBVWSeI73wdGyvTW7PNJaIG5Qa1o0/DCpdC37UGRknxwdG
+         dbJQ7+7uGWL/IsuQ9z0c4ZK8ZLAYb9pkG1iWYviFh0L9Q+W3eHrXe00rBOEpDBYunlFW
+         eXzQ==
+X-Gm-Message-State: AOJu0YwyiIRbsfp2reB3YzBu/HQ0A+QFMObdaPCs8VIl0JKWtqtoOG0k
+	gNJc+H0kINepDg0oFR3zh/AD43SFEBgGdkJUajvjBha1y8DmpobGMTlckQLqy1FtxGZGko4a/hy
+	ANRbyAAfwVr1juOdNBOAK5/7/hqYH73lJh/I2oYRGDs5GVMwmau5QULtlvA==
+X-Gm-Gg: AR+sD10t15qZKbKWxv62EGxnch/7RhQkMWkcz7jU11f0Hro009hr9meVKIc8cbyNlLD
+	92xOwKdzQvTFf1KmsTzA035D99BIRp4+UO9807g9i2mGecUftFZMELkt6Z8QOEUJ6bN7HILl2LK
+	NuqU5DHyk83uJTNMPqy4o31m/djp4Q6JvFltlNs1edIqEazoLgY/6qYko1IxrsoMbZPVn880nEb
+	oTsji7H+rj+U9mjsfrNdhN9LriCWVKxDo7GFtHsj/lK15Ofp/YhtLJZUwV0jjSFPQ8e04dvACDh
+	B6Gst83KUB/Dk6oSFd8B0Fcbvy2vjtQfRH00mTFvFATF5Q499ZmT2VjHF1nKnq0CwCcSDLptv1N
+	Cf5BH4ufnRS2Nc5AQ09KWwl4b0cxUwZqp8pJ+yKT6MK2S05sZgNKckbk+qyiqo69EqQ==
+X-Received: by 2002:a05:6808:1a10:b0:4a4:934:b316 with SMTP id 5614622812f47-4b210c77ff6mr1716101b6e.21.1786502490722;
+        Tue, 11 Aug 2026 19:41:30 -0700 (PDT)
+X-Received: by 2002:a05:6808:1a10:b0:4a4:934:b316 with SMTP id 5614622812f47-4b210c77ff6mr1716067b6e.21.1786502490265;
+        Tue, 11 Aug 2026 19:41:30 -0700 (PDT)
+Received: from bearskin.sorenson.redhat.com.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b1fff5e900sm2220088b6e.7.2026.08.11.19.41.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 19:41:06 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: skhan@linuxfoundation.org
-Cc: gregkh@linuxfoundation.org,
-	i@zenithal.me,
-	jeffinphilip14@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	shuah@kernel.org,
-	stable@vger.kernel.org,
-	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com,
-	valentina.manea.m@gmail.com
-Subject: Re: [PATCH v3 0/2] usbip: usbip_host: remove legacy rebind_store in favor of drivers_probe
-Date: Wed, 12 Aug 2026 08:10:50 +0530
-Message-ID: <20260812024050.11267-1-jeffinphilip14@gmail.com>
+        Tue, 11 Aug 2026 19:41:29 -0700 (PDT)
+From: Frank Sorenson <sorenson@redhat.com>
+To: linux-cifs@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	smfrench@gmail.com,
+	Shen Yongchao <grayhat@foxmail.com>
+Subject: [PATCH v2] smb: client: fix OOB read/write from unvalidated DataOffset in coalesce_t2()
+Date: Tue, 11 Aug 2026 21:41:26 -0500
+Message-ID: <20260812024126.1368971-1-sorenson@redhat.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <e3473010-e995-40b6-9040-e38f51d1a6c9@linuxfoundation.org>
-References: <e3473010-e995-40b6-9040-e38f51d1a6c9@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,71 +90,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 11 2026, at 16:53:23 -0600, Shuah Khan wrote:
+coalesce_t2() computes data pointers directly from server-supplied
+DataOffset fields with no validation against buffer bounds:
 
->On 8/11/26 10:05, Jeffin Philip wrote:
->> do_rebind, which sleeps normally gets a mutex lock. However, it does not
->> or should I say, cannot check for null udev between spin lock dropped in
->> rebind_store and entering do_rebind. This is a potential race window
->> already. So, even if we check for null udev under spinlock, we cannot do
->> it outside. Regarding do_rebind, it is called during stub_device_rebind,
->> but that function is called during module exit when all files are removed.
->> So, do_rebind is not designed to work in a concurrent environment in the
->> first place.
->> 
->> We have a safer function that can already do what do_rebind does,
->> drivers_probe. So, we use drivers_probe to rebind the device rather than
->> use rebind_store.
->> 
->> usbip tool references this function immediately after the device is unbound,
->> which is safe for the tool itself but since we opted for drivers_probe, fix
->> it by using drivers_probe rather than rebind_store after unbinding device
->> which is more safer.
->> 
->> Tested and working in both userspace via the tool and manually echoing
->> the busid in the related nodes. rebind node is still left active with a
->> warning to use drivers_probe upon encountering rebind_store.
->> 
->> Thanks,
->> Jeffin.
->> 
->> Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
->> ---
->> Changes in v3:
->>   - Removed rebind_store in favor of drivers_probe to eliminate race
->>     condition
->
->How did you find this problem?
+  data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
+                     get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
+  data_area_of_src = (char *)&pSMBs->hdr.Protocol +
+                     get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
+  data_area_of_tgt += total_in_tgt;
+  ...
+  memcpy(data_area_of_tgt, data_area_of_src, total_in_src);
 
-I found the problem on syzbot and had to reproduce it using the following
-commands:
-link to issue: https://syzkaller.appspot.com/bug?extid=af76b01c9a0f0ab60fb0
-echo 'add 1-1' > /sys/bus/usb/drivers/ubsip-host/match_busid
-echo '1-1' > /sys/bus/usb/drivers/usbip-host/rebind
+A small DataOffset can push a pointer below the actual byte area,
+overwriting header fields; a large one can push it past the buffer
+end, causing out-of-bounds heap reads (source) or writes (target).
+The BCC overflow guard does not prevent this: BCC reflects how much
+data is present, while DataOffset controls where in the buffer it
+starts.
 
->Is this generated code or did you write it?
+The "validate target area" comment present since the function was
+first written in 2005 was a placeholder that was never implemented.
 
-No, I wrote the code myself.
+Add lower- and upper-bound checks for both data pointers before the
+memcpy, and before any target header fields are modified.
 
->Also, the first patch removes code in rebind_store(), replacing it
->with a pr_warn()? The second patch points it driver_probe() - what
->happens with just the first patch?
+Fixes: e4eb295d38b5 ("[PATCH] cifs: Handle multiple response transact2 part 1 of 2")
+Cc: stable@vger.kernel.org
+Reported-by: Shen Yongchao <grayhat@foxmail.com>
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+---
 
-It just prints out a warning. I did get a -Wunused function warning
-while building the kernel for testing and considered removing it. I
-ultimately didn't as scripts running on newer kernels(if this
-was merged) would break as there is no rebind node. Should I remove it?
-and is pr_warn not the right way to deal with this? If so, please advise.
+ fs/smb/client/smb1transport.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
->Did you run tests to see if you can bind and unbind devices - does the
->driver work correctly?
+diff --git a/fs/smb/client/smb1transport.c b/fs/smb/client/smb1transport.c
+index 966f2cf83a51..66daa5a37e4a 100644
+--- a/fs/smb/client/smb1transport.c
++++ b/fs/smb/client/smb1transport.c
+@@ -375,12 +375,31 @@ coalesce_t2(char *second_buf, struct smb_hdr *target_hdr, unsigned int *pdu_len)
+ 	data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
+ 				get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
+ 
+-	/* validate target area */
+ 	data_area_of_src = (char *)&pSMBs->hdr.Protocol +
+ 				get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
+ 
+ 	data_area_of_tgt += total_in_tgt;
+ 
++	/*
++	 * DataOffset fields are server-supplied and not validated against
++	 * buffer bounds; check both data pointers before mutating the
++	 * target header.
++	 */
++	if (data_area_of_tgt < (char *)target_hdr +
++				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
++	    data_area_of_tgt + total_in_src >
++	    (char *)target_hdr + CIFSMaxBufSize + MAX_CIFS_HDR_SIZE) {
++		cifs_dbg(VFS, "%s: target data area out of bounds\n", __func__);
++		return -EPROTO;
++	}
++	if (data_area_of_src < second_buf +
++				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
++	    data_area_of_src + total_in_src >
++	    second_buf + smbCalcSize((struct smb_hdr *)second_buf)) {
++		cifs_dbg(VFS, "%s: secondary data area out of bounds\n", __func__);
++		return -EPROTO;
++	}
++
+ 	total_in_tgt += total_in_src;
+ 	/* is the result too big for the field? */
+ 	if (total_in_tgt > USHRT_MAX) {
+-- 
+2.55.0
 
-Yes the tool works correctly after switching to drivers_probe. Devices are
-bound and unbound correctly.
-
-The function also caused an invalid opcode while testing in an unpatched
-kernel with a different sequence: write to match_busid, then write to bind 
-and rebind, followed by writing to unbind.
-
-Thanks,
-Jeffin.
