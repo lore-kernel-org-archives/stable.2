@@ -1,204 +1,174 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010019.outbound.protection.outlook.com [40.93.198.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FBD390229
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 16:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786551311; cv=none; b=WKFJGMQm/xq5TolRJJ8WtYb6VNbjkHNJaf6X1w4foxPNPSIzFoMHaCVQ/PKoXzvaGHv9G5yt98ds5Hz8/AjcTOhrsTyVwZlxeeU9W4mrB4WZN3Ugig+Ka67xvibRBbsXckhuosY/M69v3WZ8SwmFDYQ1j77OmcYG1XeYSqsaTG0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786551311; c=relaxed/simple;
-	bh=c27w4V6Qe/JgNFovD8llFwPMrhgspYh/CiOlGLfJ5OI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eJ2DVqQDlF+cejoqAvA6y13ukWKFoX53vBstC0lBrnBU3G6Fh00z4Ujd4qw1o8CdPS1Gx+xfshJ/5w4WnNpGmdw50Ly13/nL+mWoHe1xY0A55V6xRmlHbfVjEztm//w0pj/bl79XMdt7luGbCJjvEeAyFxRNo+1zpcPTRKHC/bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C6COBUvr; arc=none smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC1046F486;
+	Wed, 12 Aug 2026 16:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786551322; cv=fail; b=ZpQLmGoGgrnKH666e6lFypZ7iVLI8gNjHU42EfADyxU85rcJ6qBET/K3E0jNB4azIfTikU/WrqQ7hbwPndzInmD2dMgmQ9etsoU/R6GLovX1og+pagGo8szWbfu+I/ZbY0Ft6gbmUIE9QInFDTpRI9p/ZhnkJKihP1RB2FcBwy4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786551322; c=relaxed/simple;
+	bh=tNOwDHnCOFm+OSUCEWNK9iaSp6Q/SPAZag3PZRWsAT4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AlOowTFVTGm+Ejgofwm7j2VDVm/zec4JmOgWZedXzsNIJd//Nt2eRNutGfaXUrGuY0eNCLYCZ7LmzDe9TyD6EDjMR7yr2u7qcT7/9wdtmP9NBoZRDWggJbWjnBbZC8JPCIkxve0Dk4gsORCqP1xD9AdiGV02iwfCB1MIr0fPWKE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QCuDyrvr; arc=fail smtp.client-ip=40.93.198.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C6COBUvr"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8485b358552so398498b3a.2
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:15:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786551309; x=1787156109; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5xXYYKBkIi3QVhUJgfIVwXV/5v46b3QSM+Be9dLHZ8M=;
-        b=C6COBUvrjo/G4BNUZ68Q8f8SZhkjQo24+27KLCPplbkxCsvzzOcFTjvaI2d8J1gLE1
-         Kfh5IDt+XvO0ol3eRfJr5VkaUGDpuX1PdxSTVP5VVX8WXC5LoQCWp27h7PzDLQ1Ecppf
-         UVmX921NahnSHsbQbiey9EPbQHYnIVLrTPGgkhN6RzHQazUKusyj3k6jvMCvsuvlbyLk
-         xvrRKMrRb1W8nbTD17ozeASDZlIb9ugiqHt+kJNi5FYI4h2IH6zlwl0m2trMvM6jss3B
-         YHJ+bNuh1aZpzMEsqLraNWFgCybvi3JiqIAPRI6J8DsB0zD/jSk3JQ4K1dpD5JGAprBE
-         2b2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786551309; x=1787156109;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5xXYYKBkIi3QVhUJgfIVwXV/5v46b3QSM+Be9dLHZ8M=;
-        b=XrW6ncRkKzcWwQmzKMR/h8ZIHsvFjJL6TSIhrngZAKB9dY3gYW8ozmwDDUVV5bw1wo
-         35/axNK7uiVOGbWDxhz4oGQ2lHEzPmKdMXRX5x5w4+4ouyLcOWXlhlS0y6RkP+PG5pDK
-         fe0m8X0eoOrnXRUV0B0q+uGlvLrxaQQsFdMUagNU+HUoSWkamPt3Q7UVfJEvLukcuYNu
-         ZW3obwEtK9B5NxfQaK2FFSAztUsxINfm8wkSkmLw3/4Z8myeyHaVcG+8IBcVzw9uu5c5
-         hltn+t5VZw/Qya/iHMoLx2XczINh3piktWHM133y1VnaAlCozgbNBU9InJERa0MxIvLT
-         qYsQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpoNpTJwsFXnjMxBw85SGAQPAqY8nCfb2pEidspQCufxCXttgfTsYIGxYXbidtEY/1DzBGMwBo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyq5vXqebaVwZYDGZw6pz0nRHf2UzBmd5EgNQYrAnjFxgRR1O4E
-	QWgV5uYhw/lzuTWvU4HK/pvg0LJh50harPWt/7PYPYPEPePG/AAm59Sf
-X-Gm-Gg: AR+sD13Kva34/haN9xY0OlSYN4H+MLHcsEUhESUQatRpwmtpVNRnB6iw1tyhHIdMoGq
-	BTckZDy48InIkDm/D5x4eA+JSlk2HTAOkFLZMy+RBRWQFqXZd9M76MLIo9OdXwFiLUtE410aVi/
-	bIxTha1CY5uh+o1Dt95RSBU+czKxPGXf1AxYsmI9TQxxuC9QRLdcpcwJjXOVh5T6rdFvNx6zis+
-	VoO5f1trHzMhGzUFT7ucuIJQ0YzQ1A5SWHlZidDad3NXzdyPQk7OozsUKqldUaQw5z1bsxQqCZe
-	9YnocKeRqnirX3YXKOFryCsEncc+kuAEwld87wUr04JrbfS77FEAffmcrbZMKRQqDbbMkf1NUM5
-	EtifGSn4ndmrs4M4MGNacsZxEWzuYbLdiQomt6FaQGmvJXLQA4V+MyzcaSZY8BRWxSHr15tC/54
-	suRBOM3doDm8+NnLrU9Q65s4228NhBpN6OktLmXcAULdsyO1E1d+dbrkRhvmnqHHE=
-X-Received: by 2002:a05:6a00:4c8d:b0:84a:2c46:3fdb with SMTP id d2e1a72fcca58-84fb53e7290mr6627264b3a.5.1786551309224;
-        Wed, 12 Aug 2026 09:15:09 -0700 (PDT)
-Received: from localhost ([118.34.230.2])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fb1cf8146sm1322242b3a.10.2026.08.12.09.15.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 09:15:08 -0700 (PDT)
-Date: Wed, 12 Aug 2026 21:45:06 +0530
-From: shaikh kamaluddin <shaikhkamal2012@gmail.com>
-To: Alison Schofield <alison.schofield@intel.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Ben Cheatham <benjamin.cheatham@amd.com>, tony.luck@intel.com,
-	bp@alien8.de, linux-cxl@vger.kernel.org, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH] cxl/mce: Only act on uncorrected memory errors
-Message-ID: <anycCjTgNvCgSVdq@acer-nitro-anv15-41>
-References: <20260810183013.47085-1-shaikhkamal2012@gmail.com>
- <ant2Z1mzHCrzmzXn@aschofie-mobl2.lan>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QCuDyrvr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FKgoIL4e7rLwiffL3rBcCU3HvilSzlTPItooPITFKKvMKgb0R/DpBJqHT68Uhw8BVLTK09Obvo2H+qDocl0DhhG6w8fwt30NcG1MDCW07ZGLZwk6Qo5isRghzMDnBKsIT0x6EHKXqVTd2bngy2l7yJEEM8Y+PzeCWWbPczP+OjqTVCvGbfP3Ou5jIOcsfcRgEZ6fChzLXAT5bmduW4Ae787PRGmuCRKCxzw8u74NZoTqY2c8B/dYHnCuFPVt0uzX9DaVARDpSrlYyk0WWKa/bAW+8iqpTzp/Q13BLncJQsxPvc2quSY6jLBenJos7IUNf59ga0XtKpOvKMW5YT1jBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GTNUQezE40TqpYc3wAdIQ4muLTsQRK4Z2ZrU2wSFUog=;
+ b=cdtbAPX9wITB1JPd5P5Rx2+UXR80jGPklSzR4uQe5+DimrKlb15BbSCQQsxSGGotFXTWHsTagG1G82FiVjdnn50v6PsTwX53OO2AF2obcrd6/QUUojIEypdgEfBIUyR6ogUdk/6Wo6OGlXWIYBIH9m4uVCVF8gJ1zYqx85q9IT8pwjAP3+DxumuM2ZAQj7T+Rnjott8CrzVCQMw5fASpKj06gvl4hbdLckGhd+NHPkT33vxB4ghfylib9lK5NCzwXr3X+xHOt3c5c8IRp+ZUw/nHsOsvLay3JJC2xfnNA+OUwflf8/7B1wm/bYfxVjxUsg8Wrf9ztu0R+gOf7u25Ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GTNUQezE40TqpYc3wAdIQ4muLTsQRK4Z2ZrU2wSFUog=;
+ b=QCuDyrvrvQen5rBjZrLxzhz0DQyeyMf+M6stelkN5uD3TKBeSD+bdvz7ffcFwiqQ9S7vrDcLrL9hcZsZOljGoh2XkQ/ppDjUVGxdyl8T2TyesBNes99uJXyl8j9BBRZF8R7wjCGXQDEzVZiDXNHaa7c2HEMZMLWjQl1wEUquIgo=
+Received: from BN0PR04CA0117.namprd04.prod.outlook.com (2603:10b6:408:ec::32)
+ by PH8PR12MB7448.namprd12.prod.outlook.com (2603:10b6:510:214::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Wed, 12 Aug
+ 2026 16:15:14 +0000
+Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
+ (2603:10b6:408:ec:cafe::34) by BN0PR04CA0117.outlook.office365.com
+ (2603:10b6:408:ec::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.14 via Frontend Transport; Wed,
+ 12 Aug 2026 16:15:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Wed, 12 Aug 2026 16:15:13 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
+ 2026 11:15:12 -0500
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 12 Aug 2026 11:15:10 -0500
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+To: <heikki.krogerus@linux.intel.com>, <gregkh@linuxfoundation.org>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<git@amd.com>, Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH v3 1/2] usb: typec: tipd: fix uninitialized typec_partner_desc in tps6598x_connect()
+Date: Wed, 12 Aug 2026 21:44:53 +0530
+Message-ID: <20260812161454.149606-2-radhey.shyam.pandey@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260812161454.149606-1-radhey.shyam.pandey@amd.com>
+References: <20260812161454.149606-1-radhey.shyam.pandey@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ant2Z1mzHCrzmzXn@aschofie-mobl2.lan>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|PH8PR12MB7448:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e927004-ff22-4565-0ecf-08def88ce3f5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|23010399003|22082099003|18002099003|56012099006|11063799006|5023799004|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	LRjx+0tLKKb6Vm2bG9ERnJVlxP6SBvlmSNl/+t5tHCeRA23RxM4nlwZZpN2BfX5qzhbazE7HzMk3beo6pFbKi2OUv0/CQ7BFnTJHlHtdXy1BhC1Z5MS6Hw0O9WaR3/4NVXIe1GoDX6yhCsf4B0tYDen0uKUQMRVJ8oYzvetNHJhviPGfCLvH7Y6hK1Sa8ekFV9HaJ3sU6L/QqiZllufi8zuZz+FEpNBVdV+63cDLTgofNBCuCPFwqCLt1rtePOzHXp9mRugU3qoIw/Et0i9hSqA8tC3YKj5vQpH+vTgydeWdF7jvfUFZJZ3Kc2gUHKew8Dz4ShaIv6Gb1SQCCzDWZwX13pFcv9D8KUfuBAU2lKrKBkiV8bauBK3/9llU0x8ZwIOomFjObNeyAtUTNP6qAYJj/mqhuhSl0K4ZOI5DG8xNUVaUp31BFatEZ5FXlA7WhXF2xylpxBWCk3Dp3/47a7l3NfgjfCPZcl42ecCZgUhhoLqm+oi6Ci824z7zcsxvN0sMIViVPYpg/uiV1KoqQ55ymOmZNATfcJKPXNqggMGb4vRj9X3jxPFy+uYVaUrJMf5es2iaxizmHKQBW5ZdNbK6t/yHSAQ5CT22eU8ZEHNCQd3qm0m3XKMkfeWweu183dH9R2y0qnwcgFH9YmikvfP4CUyMBBtu58bw67fNUYyu1Su7eBdX5VUM/QbRPmcol+I96hHklyEHuzdShPG4fw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(5023799004)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	MJ5qZYIMv+IpLgEp/h8SaDk1Zjq+3EfUOAD5ghJc7Q2gLLUazvMNU7wcjU9BiMFqLySzBXtgBUmXQn/xyb/WdTf4SdeacYe9wEXhQMNA5uL6r4P5+HL20YHYt/Ude1yCCNMQjlB7IUCYheyUBUIn0nW5lDuuDI+elYjyYAmOLhFpY9dLocjiLkf+M3+G8uY2u3zKXFXJ7SuQyc4rcnldYSG0gK2QRysTeoIWVLUgAGAJuZFd4mw5KSikPFZzNHdlv2SIL22HoLjhVoMCog8qaHKuNC955eFU3REE09H3+bCRT6jd5GTO1ErhXyXfyovppq48KL8B2fGXZuifVdYL5x7GPXqWb1IWGGQKNnoOJDToBZYebCeugLCtEQvwBZ6g7oUB5riZ453J+JcsE3RJ//FS2pfXKPFvGyLC+XX/Oo7qktPigEBm8gxjmWP07ZaH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 16:15:13.6426
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e927004-ff22-4565-0ecf-08def88ce3f5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB75.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7448
 
-On Tue, Aug 11, 2026 at 12:22:15PM -0700, Alison Schofield wrote:
-> On Tue, Aug 11, 2026 at 12:00:13AM +0530, Shaikh Kamaluddin wrote:
-> > cxl_handle_mce() offlines the aliased page of an ELC region on any
-> > record with a usable address; it does not check MCI_STATUS_UC or
-> > filter non-memory errors. uc_decode_notifier(), the equivalent
-> > handler for plain memory on the same chain at the same priority,
-> > filters on mce->severity and leaves corrected errors untouched.
-> > cxl_handle_mce() has no such gate, so a corrected error - which
-> > the generic handler ignores - still causes the alias to be
-> > permanently retired via memory_failure().
-> > 
-> > Corrected errors do reach the chain: machine_check_poll() logs
-> > them via the same mce_gen_pool_process() path that feeds
-> > x86_mce_decoder_chain, and cxl_extended_linear_cache_resize()
-> > extends p->res to cover the DRAM half of the ELC pair, so a
-> > routine DRAM CE carries an address inside the region resource.
-> > 
-> > Filter the record as nfit_handle_mce() does. Commit fc08a4703a41
-> > ("acpi, nfit: Fix the memory error check in nfit_handle_mce()") and
-> > commit 5d96c9342c23 ("acpi/nfit, x86/mce: Handle only uncorrectable
-> > machine checks") established this filter for an equivalent handler
-> > on the same notifier chain; the consequence here is more severe, as
-> > the CXL handler calls memory_failure() rather than recording a bad
-> > block.
-> > 
-> > mce_is_correctable() is used instead of copying
-> > uc_decode_notifier()'s AO/DEFERRED test because the alias must
-> > still be offlined on MCE_AR_SEVERITY, where kill_me_maybe() owns
-> > the reported page but nothing owns the alias.
-> > 
-> > Fixes: 516e5bd0b6bf ("cxl: Add mce notifier to emit aliased address for extended linear cache")
-> > 
-> 
-> Thanks for the patch Shaikh,
-> 
-> The patch looks good to me, and the reproduction details show that this has
-> been thoroughly investigated.
-> 
-> The commit log is harder to follow than the code change itself. It seems
-> that too much of the investigation has leaked into the commit log which
-> makes it very dense and not very clarifying. For what is ultimately a
-> small and straightforward behavioral fix, the log spends a lot of time
-> narrating the code paths that establish the problem, while the important
-> impact, a reduction in usable memory, gets lost.
-> 
-> The commit log should introduce the code change and make it easier to
-> understand. I'd prefer the usual behavioral progression: describe what
-> happens today, why that is wrong and its impact, then state how the patch
-> fixes it. Also, please spell out Extended Linear Cache (ELC) on first use.
-> 
-> The subject can describe the behavior being fixed more directly as well.
-> 
-> For example: (if you use this example, you need to proofread it, to
-> be sure I actually captured this correctly ;))
-> 
-> cxl/mce: Avoid alias page retirement for corrected errors
-> 
-> cxl_handle_mce() offlines the aliased page of an Extended Linear Cache
-> (ELC) region for any MCE with a usable address in the region. This
-> includes corrected errors and non-memory errors, needlessly reducing
-> usable memory.
-> 
-> Restrict ELC MCE handling to uncorrected memory errors. Use
-> mce_is_correctable() so that MCE_AR_SEVERITY errors continue to retire
-> the alias when the reported page is handled elsewhere.
-> 
-> Fixes: 516e5bd0b6bf ("cxl: Add mce notifier to emit aliased address for extended linear cache")
->
-Thanks for the detailed feedback, Alison - that's a much better
-structure for the commit log, and matches what you captured.
-> 
-> more below...
-> 
-> 
-> > Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-> > ---
-> 
-> The detailed investigation and reproduction below the scissors is useful and
-> should stay there.
-> 
-> snip
-> 
-> > 
-> > diff --git a/drivers/cxl/core/mce.c b/drivers/cxl/core/mce.c
-> > index 65fed913b221..ee70c1c9f9b9 100644
-> > --- a/drivers/cxl/core/mce.c
-> > +++ b/drivers/cxl/core/mce.c
-> > @@ -18,7 +18,14 @@ static int cxl_handle_mce(struct notifier_block *nb, unsigned long val,
-> >  	u64 spa, spa_alias;
-> >  	unsigned long pfn;
-> >  
-> > -	if (!mce || !mce_usable_address(mce))
-> > +	if (!mce)
-> > +		return NOTIFY_DONE;
-> > +
-> > +	/* Only uncorrected memory errors warrant taking down the alias page */
-> > +	if (!mce_is_memory_error(mce) || mce_is_correctable(mce))
-> > +		return NOTIFY_DONE;
-> > +
-> 
-> The comment restates what the if condition says. I think the comment can
-> simply be dropped.
->
-Dropped the comment from the code  and sent the v2 
-https://lore.kernel.org/all/20260812151759.14390-1-shaikhkamal2012@gmail.com/
->
-> 
-> > +	if (!mce_usable_address(mce))
-> >  		return NOTIFY_DONE;
-> >  
-> >  	spa = mce->addr & MCI_ADDR_PHYSADDR;
-> > 
-> > base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
-> > -- 
-> > 2.43.0
-> > 
+tps6598x_connect() passes a stack-allocated typec_partner_desc to
+typec_register_partner() after initializing only usb_pd, accessory and
+identity.
+
+typec_register_partner() copies attach and deattach from the descriptor
+into the partner. With those fields left unset, garbage function pointers
+may be stored and later invoked from typec_partner_link_device() when a USB
+device is linked to the port. Uninitialized pd_revision and usb_capability
+similarly leak stack data through partner sysfs.
+
+Zero-initialize the descriptor so optional callbacks remain NULL and the
+remaining fields are zero.
+
+Fixes: 0a4c005bd171 ("usb: typec: driver for TI TPS6598x USB Power Delivery controllers")
+Cc: stable@vger.kernel.org # 5.15+
+Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+---
+Changes for v3:
+- Split v2 into separate patches to simplify LTS backporting.
+- Drop Heikki reviewed-by tag as now patch is split.
+
+Changes for v2:
+- Add  Assisted-by tag.
+- Remove explicit indentity=NULL
+
+AI code scanning identified this issue; the possible call graph is shown below.
+
+  USB-C plug event (IRQ)
+    tps6598x_interrupt()
+      tps6598x_handle_plug_event()
+        tps6598x_connect()
+          struct typec_partner_desc desc;     /* bug: attach/deattach unset */
+          desc.usb_pd / .accessory / .identity = ...
+          typec_register_partner(port, &desc)   /* class.c */
+            partner->attach   = desc->attach;   /* copy stack garbage */
+            partner->deattach = desc->deattach;
+            [if port->usb2_dev || port->usb3_dev already set]
+              typec_partner_link_device(partner, dev)
+                if (partner->attach)
+                  partner->attach(partner, dev)  /* indirect call via bad ptr */
+---
+ drivers/usb/typec/tipd/core.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+index 522f56742aa9..54ca726c3b15 100644
+--- a/drivers/usb/typec/tipd/core.c
++++ b/drivers/usb/typec/tipd/core.c
+@@ -344,7 +344,7 @@ static void tps6598x_set_data_role(struct tps6598x *tps,
+ 
+ static int tps6598x_connect(struct tps6598x *tps, u32 status)
+ {
+-	struct typec_partner_desc desc;
++	struct typec_partner_desc desc = { };
+ 	enum typec_pwr_opmode mode;
+ 	int ret;
+ 
+@@ -355,7 +355,6 @@ static int tps6598x_connect(struct tps6598x *tps, u32 status)
+ 
+ 	desc.usb_pd = mode == TYPEC_PWR_MODE_PD;
+ 	desc.accessory = TYPEC_ACCESSORY_NONE; /* XXX: handle accessories */
+-	desc.identity = NULL;
+ 
+ 	if (desc.usb_pd) {
+ 		ret = tps6598x_read_partner_identity(tps);
+-- 
+2.43.0
+
