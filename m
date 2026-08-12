@@ -1,47 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B7D16A956
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 00:09:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16B522CBD9
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 00:09:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786493358; cv=none; b=W/A7ZU6nKF7VfzuCZeskJ+c2mVkkeuYC/5FLJqeSHT5a8ItXUD4Tbev10gnjIlp8EGuYeGfkWTQOsGRGRUlPNru+ZAdaJ75giHwWlUeFIp7l3M++M8ZaBvYW+69dTzz51ugrOTtN0z4nZK3Yfeg3gEIO0pnn8RMeDYX5WqPlqdE=
+	t=1786493369; cv=none; b=b2uoGXSevsW1xUSp7XZ1XojW9mWWUtIF61+rRzICbpdf7rSDsOcWO9HAK0favRYR+QqIezbqsDULnGCwI1hFpOWCjW2U9QfjOc2Nz2lc/uctBm8Zo4sSOt5lrjKl7eYnaB0WwM0sIwhR4cUabWafnMmkl/M3liQvj5rl8hUANHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786493358; c=relaxed/simple;
-	bh=6OuY+teIKrjsu7Imq6BoBpa2vvLVrBgUDA8vufDo5qQ=;
+	s=arc-20240116; t=1786493369; c=relaxed/simple;
+	bh=fb4ru1W4+mSWVHM5F1zDWfQabk0Wu5ugtSXxWZ1+bNE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cc8sKfrVe2GrGo7nD4jQJyrJ5PgoEYqU55sphdRJVYElSZKkfrE95aOWEk7M3GKDEyl/QGoR3eWSp5ODMwT6/0BhuQBXGXf+IA01gqObMg3siJWrV2YEOqG7ew+/AObo6gAHElTzHVdsVqtJT2/YVM0AcGxYAAQdP1aPGg2xZXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNZ7rcVy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FcixW4GhDevZ2SingNaii5kla7VHm1BcbW/QKC4As+KqkGkE/oLmXzdskyudg6fz2rQP3HL7S/R0prU+SwUrfDKxN5lzsdUS5OOiufXPcsfLYXkjpuv6kUKFKFk+sI301sSwZJdCWYxR1KgL7y/KVgRxhuTk92xVhvrTw7e0EJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aftlAwuw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNZ7rcVy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01DD21F00A3E;
-	Wed, 12 Aug 2026 00:09:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aftlAwuw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076DE1F000E9;
+	Wed, 12 Aug 2026 00:09:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786493356;
-	bh=WxVO/rZLEjbGKDJ+K06EZtgYhThb9tDWncwAYrSqueM=;
+	s=k20260515; t=1786493367;
+	bh=UcIbiFuW5s5nAHyFAZWuJKgcA6aDSQq9j1SFgRKldj8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KNZ7rcVyIBGCoM9TxRmJf6f0Jk4UO4vRYVY5PsQYBLS3bwgnzv1g21OQGpVfxnhFZ
-	 3O2oGDwSoquM7oVqj7puAaAGBBInlb+nr1VjNLZpnBo3APg+bDqJbNTUsHhtUvbuG2
-	 qwF1xHqs9SDle4lVSsoCHMYT5hvzEPAl81fPzXAJzUuAxKLiZ+fKZa30qG1zgZgqVT
-	 8qfRZ5WlLQQkDZLzcCyToVpDayNK1T+rpiqgJtJ24S5bUItYfyRwqfRElbc7kU0adS
-	 Pca5BMOESusFJ8tivpAL8ZwGXsFtfkHwoIjcEqOGsBnNT3aFVuMBnqXlrzea3RAR9Q
-	 ec0eT68BG10lQ==
+	b=aftlAwuwH/Z7vP0L3nXe1m3pRRG4cxmkzLVsXIbWn0N5u2ltsr25ux+5X25I+o0v0
+	 LTPsvaHXQvzJDoDQOQiOYOLd/eaYy5pBua0tNywt+I139UitrKUGWfoB+2BqKt8wYw
+	 Yr6o5m5QrDBqeOuXL3pj+9zVp34xLtXpf5GTNn07OuTwN7gkiWashax18jsr/LYUI+
+	 VHqvZ7MCzE1Lr88+1txy+jVO6tQDybw08k4OsAf7J5AEhjhaM76Xa8SvYyf9CaJvrx
+	 pbS68Futcr5zfL9LovJx7jttGOCBVcGbSFoGTuPdy3sDmuyoJt1W9w1VKwioWzZ0n7
+	 XlKcLUBqDW+Pg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Damien Le Moal <dlemoal@kernel.org>,
-	Igor Pylypiv <ipylypiv@google.com>,
-	John Garry <john.g.garry@oracle.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
+Cc: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
+	Vladimir Medvedkin <vladimir.medvedkin@intel.com>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Simon Horman <horms@kernel.org>,
+	Patryk Holda <patryk.holda@intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] scsi: libsas: terminate deferred commands on time out
-Date: Tue, 11 Aug 2026 20:09:13 -0400
-Message-ID: <20260812000913.4156796-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ice: fix VF interrupts cleanup
+Date: Tue, 11 Aug 2026 20:09:25 -0400
+Message-ID: <20260812000925.4157522-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812000913.4156796-1-sashal@kernel.org>
-References: <2026080541-eskimo-unpeeled-0c6f@gregkh>
- <20260812000913.4156796-1-sashal@kernel.org>
+In-Reply-To: <2026080513-compile-tusk-ff67@gregkh>
+References: <2026080513-compile-tusk-ff67@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,124 +49,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Damien Le Moal <dlemoal@kernel.org>
+From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
 
-[ Upstream commit de202d2251bc181c6019b1ad3c0ba8133e5ec68d ]
+[ Upstream commit fb096882095e5a8d6b5159e43793d4a38a0c5b1f ]
 
-If a command times out while we have deferred non-NCQ commands waiting to
-be issued, the SCSI EH task is not immediately woken up as the waiting
-deferred commands are never issued nor completed, thus leaving the SCSI
-host in a busy state (shost->host_failed != scsi_host_busy(shost)) which
-prevents the SCSI EH task from being woken up. Eventually, when the
-deferred commands also time out, the SCSI EH task is woken up and the
-timeout processing occurs.
+When a virtual function sends an IRQ map command, the PF will set up
+interrupts according to that request. However, because these interrupts are
+never reset, the next time Virtual Function initializes, the interrupts are
+still enabled for a given VF, which leads to performance degradation in
+certain cases due to interrupts being unexpectedly enabled and thus causing
+interrupt floods.
 
-Avoid this unnecessary additional SCSI EH wake up time with the same
-method as implemented in libata-scsi, using the eh_timed_out SCSI host
-template operation. The function sas_eh_timed_out() implements this
-operation and executes the function ata_scsi_retry_deferred_qc()
-for SATA devices.
-
-Co-developed-by: Igor Pylypiv <ipylypiv@google.com>
-Signed-off-by: Igor Pylypiv <ipylypiv@google.com>
-Fixes: 0ea84089dbf6 ("ata: libata-scsi: avoid Non-NCQ command starvation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
-Reviewed-by: John Garry <john.g.garry@oracle.com>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Tested-by: Igor Pylypiv <ipylypiv@google.com>
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
-Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+Fixes: 1071a8358a28 ("ice: Implement virtchnl commands for AVF support")
+Suggested-by: Vladimir Medvedkin <vladimir.medvedkin@intel.com>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Tested-by: Patryk Holda <patryk.holda@intel.com>
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+[ changed the file path for the `ice_vf_ena_rxq_interrupt` hunk from `ice/virt/queues.c` to `ice_virtchnl.c`, which predates the upstream directory split ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/libata-scsi.c           |  5 +++--
- drivers/scsi/libsas/sas_scsi_host.c | 15 +++++++++++++++
- include/linux/libata.h              |  2 ++
- include/scsi/libsas.h               |  2 ++
- 4 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/intel/ice/ice_vf_lib.c   | 27 +++++++++++++++++++
+ .../ethernet/intel/ice/ice_vf_lib_private.h   |  1 +
+ drivers/net/ethernet/intel/ice/ice_virtchnl.c | 21 +++++++++++++++
+ 3 files changed, 49 insertions(+)
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 0445d8e920769..97ffdad4d6071 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -1783,8 +1783,8 @@ static void ata_scsi_schedule_deferred_qc(struct ata_link *link)
- 		queue_work(system_highpri_wq, &link->deferred_qc_work);
+diff --git a/drivers/net/ethernet/intel/ice/ice_vf_lib.c b/drivers/net/ethernet/intel/ice/ice_vf_lib.c
+index 71530ae79a87e..9db720957c12a 100644
+--- a/drivers/net/ethernet/intel/ice/ice_vf_lib.c
++++ b/drivers/net/ethernet/intel/ice/ice_vf_lib.c
+@@ -847,6 +847,30 @@ static void ice_notify_vf_reset(struct ice_vf *vf)
+ 			      NULL);
  }
  
--static enum scsi_timeout_action
--ata_scsi_retry_deferred_qc(struct ata_port *ap, struct scsi_cmnd *scmd)
-+enum scsi_timeout_action ata_scsi_retry_deferred_qc(struct ata_port *ap,
-+						    struct scsi_cmnd *scmd)
- {
- 	enum scsi_timeout_action action;
- 	unsigned long flags;
-@@ -1795,6 +1795,7 @@ ata_scsi_retry_deferred_qc(struct ata_port *ap, struct scsi_cmnd *scmd)
- 
- 	return action;
- }
-+EXPORT_SYMBOL_GPL(ata_scsi_retry_deferred_qc);
- 
- enum scsi_timeout_action ata_scsi_eh_timed_out(struct scsi_cmnd *scmd)
- {
-diff --git a/drivers/scsi/libsas/sas_scsi_host.c b/drivers/scsi/libsas/sas_scsi_host.c
-index ffa5b49aaf087..7e0edf3f41f61 100644
---- a/drivers/scsi/libsas/sas_scsi_host.c
-+++ b/drivers/scsi/libsas/sas_scsi_host.c
-@@ -500,6 +500,21 @@ int sas_eh_target_reset_handler(struct scsi_cmnd *cmd)
- }
- EXPORT_SYMBOL_GPL(sas_eh_target_reset_handler);
- 
-+/*
-+ * Handle deferred QCs in case of a command timeout.
-+ * See ata_scsi_eh_timed_out() for details.
++/**
++ * ice_reset_interrupts - clear all queue interrupt configuration for a VSI
++ * @vsi: the VSI whose interrupt registers should be cleared
++ *
++ * Zero the QINT_RQCTL and QINT_TQCTL registers for all allocated queues
++ * in the VSI. This clears the entire register including MSIX_INDX, ITR_INDX,
++ * CAUSE_ENA and NEXTQ fields, unlike ice_vf_dis_rxq_interrupt() which only
++ * clears the CAUSE_ENA bit.
 + */
-+enum scsi_timeout_action sas_eh_timed_out(struct scsi_cmnd *cmd)
++void ice_reset_interrupts(struct ice_vsi *vsi)
 +{
-+	struct domain_device *dev = cmd_to_domain_dev(cmd);
++	struct ice_pf *pf = vsi->back;
++	struct ice_hw *hw = &pf->hw;
++	int i;
 +
-+	if (dev_is_sata(dev))
-+		return ata_scsi_retry_deferred_qc(dev->sata_dev.ap, cmd);
++	ice_for_each_alloc_rxq(vsi, i)
++		wr32(hw, QINT_RQCTL(vsi->rxq_map[i]), 0);
 +
-+	return SCSI_EH_NOT_HANDLED;
++	ice_for_each_alloc_txq(vsi, i)
++		wr32(hw, QINT_TQCTL(vsi->txq_map[i]), 0);
++
++	ice_flush(hw);
 +}
-+EXPORT_SYMBOL_GPL(sas_eh_timed_out);
 +
- /* Try to reset a device */
- static int try_to_reset_cmd_device(struct scsi_cmnd *cmd)
- {
-diff --git a/include/linux/libata.h b/include/linux/libata.h
-index 5bad29c2cd31f..b5f5482c2cd2b 100644
---- a/include/linux/libata.h
-+++ b/include/linux/libata.h
-@@ -1152,6 +1152,8 @@ extern int ata_scsi_ioctl(struct scsi_device *dev, unsigned int cmd,
- #endif
- extern int ata_scsi_queuecmd(struct Scsi_Host *h,
- 					     struct scsi_cmnd *cmd);
-+enum scsi_timeout_action ata_scsi_retry_deferred_qc(struct ata_port *ap,
-+						    struct scsi_cmnd *scmd);
- enum scsi_timeout_action ata_scsi_eh_timed_out(struct scsi_cmnd *cmd);
- #if IS_REACHABLE(CONFIG_ATA)
- bool ata_scsi_dma_need_drain(struct request *rq);
-diff --git a/include/scsi/libsas.h b/include/scsi/libsas.h
-index cc0a1f320f17d..b90abcf8fb6aa 100644
---- a/include/scsi/libsas.h
-+++ b/include/scsi/libsas.h
-@@ -707,6 +707,7 @@ void sas_task_abort(struct sas_task *);
- int sas_eh_abort_handler(struct scsi_cmnd *cmd);
- int sas_eh_device_reset_handler(struct scsi_cmnd *cmd);
- int sas_eh_target_reset_handler(struct scsi_cmnd *cmd);
-+enum scsi_timeout_action sas_eh_timed_out(struct scsi_cmnd *cmd);
+ /**
+  * ice_reset_vf - Reset a particular VF
+  * @vf: pointer to the VF structure
+@@ -929,6 +953,9 @@ int ice_reset_vf(struct ice_vf *vf, u32 flags)
  
- extern void sas_target_destroy(struct scsi_target *);
- extern int sas_sdev_init(struct scsi_device *);
-@@ -745,6 +746,7 @@ void sas_notify_phy_event(struct asd_sas_phy *phy, enum phy_event event,
- 	.this_id			= -1,				\
- 	.eh_device_reset_handler	= sas_eh_device_reset_handler,	\
- 	.eh_target_reset_handler	= sas_eh_target_reset_handler,	\
-+	.eh_timed_out			= sas_eh_timed_out,		\
- 	.target_destroy			= sas_target_destroy,		\
- 	.ioctl				= sas_ioctl,			\
+ 	ice_dis_vf_qs(vf);
  
++	/* cleanup interrupt registers */
++	ice_reset_interrupts(vsi);
++
+ 	/* Call Disable LAN Tx queue AQ whether or not queues are
+ 	 * enabled. This is needed for successful completion of VFR.
+ 	 */
+diff --git a/drivers/net/ethernet/intel/ice/ice_vf_lib_private.h b/drivers/net/ethernet/intel/ice/ice_vf_lib_private.h
+index 5392b04049862..321d29c25b7c1 100644
+--- a/drivers/net/ethernet/intel/ice/ice_vf_lib_private.h
++++ b/drivers/net/ethernet/intel/ice/ice_vf_lib_private.h
+@@ -26,6 +26,7 @@
+ void ice_initialize_vf_entry(struct ice_vf *vf);
+ void ice_deinitialize_vf_entry(struct ice_vf *vf);
+ void ice_dis_vf_qs(struct ice_vf *vf);
++void ice_reset_interrupts(struct ice_vsi *vsi);
+ int ice_check_vf_init(struct ice_vf *vf);
+ enum virtchnl_status_code ice_err_to_virt_err(int err);
+ struct ice_port_info *ice_vf_get_port_info(struct ice_vf *vf);
+diff --git a/drivers/net/ethernet/intel/ice/ice_virtchnl.c b/drivers/net/ethernet/intel/ice/ice_virtchnl.c
+index e98acbc41a813..9077f2d22dca7 100644
+--- a/drivers/net/ethernet/intel/ice/ice_virtchnl.c
++++ b/drivers/net/ethernet/intel/ice/ice_virtchnl.c
+@@ -1277,6 +1277,24 @@ static void ice_vf_ena_rxq_interrupt(struct ice_vsi *vsi, u32 q_idx)
+ 	wr32(hw, QINT_RQCTL(pfq), reg | QINT_RQCTL_CAUSE_ENA_M);
+ }
+ 
++/**
++ * ice_vf_dis_rxq_interrupt - disable Rx queue interrupt via QINT_RQCTL
++ * @vsi: VSI of the VF to configure
++ * @q_idx: VF queue index used to determine the queue in the PF's space
++ */
++static void ice_vf_dis_rxq_interrupt(struct ice_vsi *vsi, u32 q_idx)
++{
++	struct ice_hw *hw = &vsi->back->hw;
++	u32 pfq = vsi->rxq_map[q_idx];
++	u32 reg;
++
++	reg = rd32(hw, QINT_RQCTL(pfq));
++	reg &= ~QINT_RQCTL_CAUSE_ENA_M;
++	wr32(hw, QINT_RQCTL(pfq), reg);
++
++	ice_flush(hw);
++}
++
+ /**
+  * ice_vc_ena_qs_msg
+  * @vf: pointer to the VF info
+@@ -1470,6 +1488,8 @@ static int ice_vc_dis_qs_msg(struct ice_vf *vf, u8 *msg)
+ 			goto error_param;
+ 		}
+ 
++		for_each_set_bit(vf_q_id, &q_map, ICE_MAX_RSS_QS_PER_VF)
++			ice_vf_dis_rxq_interrupt(vsi, vf_q_id);
+ 		bitmap_zero(vf->rxq_ena, ICE_MAX_RSS_QS_PER_VF);
+ 	} else if (q_map) {
+ 		for_each_set_bit(vf_q_id, &q_map, ICE_MAX_RSS_QS_PER_VF) {
+@@ -1490,6 +1510,7 @@ static int ice_vc_dis_qs_msg(struct ice_vf *vf, u8 *msg)
+ 				goto error_param;
+ 			}
+ 
++			ice_vf_dis_rxq_interrupt(vsi, vf_q_id);
+ 			/* Clear enabled queues flag */
+ 			clear_bit(vf_q_id, vf->rxq_ena);
+ 		}
 -- 
 2.53.0
 
