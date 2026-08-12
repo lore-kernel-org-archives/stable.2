@@ -1,66 +1,67 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F894472F8E
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 14:57:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D0F4756C2
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 15:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786546631; cv=none; b=Pnx9AvNwKvx9E1QtoLUI+988ALrRdGT61xZ1Jxd6hninmtuBBzzN3hrAIIx3GoRQHVGWvBGoK/I+OZOZVJT/wipjsAbEmiVQsBhiydOJTnEqNXfB6PQlQ2u3pO93UshSfOMX7i37DHi4mbIlyIWfUMndLXtxXuVSmyeKmzTm9sg=
+	t=1786546841; cv=none; b=O0d0gI7vnDRtgFu8DtbVT2sdgmWEdVLS8+reKfXfMA/LfABZ0tTP5EJIPlZPyyAqmakQibFIn5rAoK1y38EYmpubsQUgRnUwo36cRCRnu75+FAAE/XqDmzBu22meRK0f7fHGVpk41v3duAjwbQEI14OzLo1rR6m9GFvo67sRzvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786546631; c=relaxed/simple;
-	bh=FdyxRhhBKZiYZz3arqKV848UtUVhcBBrpdMBwG2g/dM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EGx1+nmycKhf6ysHD80RsnGAsy8Vysf8iIAzjvNYb5/f1VLNHUJgYtS+2uwtyVfcYzRpKSVfA513RNg4rRrPrKyxQd5dKaLuIS+TaLtjbO/RasA77Go9+HVD14QEeZahe6rSq/Nb+iBQJmTXi0TLXdSB3pq+o56+3bv/mePtjq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qAImTJA+; arc=none smtp.client-ip=209.85.214.180
+	s=arc-20240116; t=1786546841; c=relaxed/simple;
+	bh=9ZuFZsbGjnuxi4gxJ6gdaTdFRQu5GUSAhJ89zKR0YI4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FOZHR4YMZqWH1llJa5M3a95Ht8+ilccX4+2aAOjX7RJXkFs2nt004wkPI3NOIs2UsWGHZyJOMKiHEowaeFi575t3uGMkYA55TFK173Wr1l6EItedLfZa1g1Qxb2zSLIbpQF4HUShAt4FKhZNHbS+nPSp+2pk8AN/FQSXbC4R6mY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CgzJ8PH/; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qAImTJA+"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ced3386430so13460545ad.1
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 07:57:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CgzJ8PH/"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e7109321dso938466a91.3
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 08:00:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786546623; x=1787151423; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1786546833; x=1787151633; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=YJqzV4FfWSH2549UJL4Hdtad7cbUf0wdUKVbd4knoqE=;
-        b=qAImTJA+Yyu3BTpmbZsZWFWlulxKNHEeisg4eI/sTTi2LwkJdO1O5m86xKZhaijakQ
-         5DvnNLDOG+X7Dj7AANQCYLdOooKI2i0mYyQwWt1FVPacHMURKg7+svf8G09Y3SiJhJdE
-         FP2fyn2savUXxFK0z83oZRW/bHkVdIdWpzEHIW+QfvaJzLNOwcqA+GjjV1fo6tMpd+5n
-         qHFa8Y5d2cMZ0ZOU7QCRU0laLLh3aQBsMBlooMpgGxMcbpOt4An7BF20NqhwJhgwL9rv
-         b6Nl/bQKIkkCnbsWVNplI3s2cy8L+J6THa4LB1Fn3hJFpBr9UNfVSaz1XTCc6Xv6pbMi
-         j2KQ==
+        bh=bsSNRPwXgz4YmhClD9/CFwQgfHi8L4hudE3tc+zdeok=;
+        b=CgzJ8PH/l3cBYyMG5JZN3OE2WN0DaGP+PX3HXygPFcWCxpnbUFbUAJ1elAdib5YF+T
+         BQyo8viJha4KqWXaMmHtGmpVIiN3EwytzIisfuzsgFtLWFyoyxhK3bOwnKg9PX5ivBnJ
+         8mZC6wdypiXVKeiDScNyo5V/TzGJ+Tbfm4sqsuRjDh5tmbkRdtkDrA2JAmhNFMdx2DKN
+         VuZgq+TVJVhcXfKdccjj4gAnY49xgl5Gi5M0l7eSnYus9VK6d0mplcdUiK/4NNawQQk/
+         pOatcXK1GHQsBqJyjheoFXNZooLk74cnClFJ0X3CBbKpxz5QwEaAZGKtQFfGXaG6BD/r
+         6+Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786546623; x=1787151423;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=YJqzV4FfWSH2549UJL4Hdtad7cbUf0wdUKVbd4knoqE=;
-        b=Gd2o3OkFXO3Tzqs2Vu2WOX8tyqi4vds+4akW3MjRircObMdk8IESMCiNdDrOdpzPtj
-         3G3lsmKVuHXl7esteFIn5gvNeaa8fLfruoffgwIepidI0HJbc0NX7j7i9ct7gjMfy3xW
-         kUD0REJkRhrH1ISMftCJPul3f5PIPbcmJ7Xr8raKn0YsDZEQo9xRgV0wx1FywBrcY7iI
-         VoXKoVyp+bREwRWVGGlD47iXUE0NOK1f9b52JF0osGiF/JgAlwGs5imNucaW7BXd0mUH
-         3+Qf49qR/WxPXOaeobJNoPKHFZPe/Xnnvo0dyO6wblZJ1Y8cNrlq1CYpJbEefSUPJsr/
-         rFbA==
-X-Forwarded-Encrypted: i=1; AHgh+RqYPSE21VBSqwzPsJ8xo/n3Pi5hNJVrNkos+IvgpvxnRsPTMRkOwhul8bVMDjIr9tv8k1uNy1E=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZBMO/aQePq20pKDdKTMoAThOKEdqBPZv+aY7Y72J844EIJXeN
-	FTTbRmhnQVqq8ZlGs2uc9XXpyhFTvKX8pR7Pw8lB+C1+wN0uz4CFA2Bj
-X-Gm-Gg: AR+sD131KkU1UU87R2I5An1iTdr4ovaZPG70WuQSIE6GdEcMdqDJCY6OvgtxXTkhild
-	l+ByKDTTwbWtbqzb35LKrTyjsCuoOy+xHrXYKZR7d5lgM4oDyNaIxj7JCrkPYqxGH2xcxPsJEZV
-	Ctn4c6h1Zg70ellmzn1dpLpulVwvvXmVc0NJUet5t1YALcRoJsWsqwADSo//nVt83LYjLKwpprU
-	FvY6xKSmboHgR0bi/c9AT1oO4LCK9kOsRa5xiQMbyDCtFXWUuINBL6GnB7X5S6lEdOREm87fuJn
-	cX7n6lGtNxN+T0Eo28iIth90THsZ9/Z1k9es/rGMRYVmRuJ7NuW9CN+jci3WoONKB/OYZlswPIF
-	qRwY/vMDAOrzLsWGHxMuIKTRwnZor4r15gOLJ3cdqV2M73k1uFAfPI8JoPIHAqCkyyJDFtYrXw8
-	u9RWqMPwcYut43RPBJ7M4joyx8iQA8JN1D5xB7yYUXSevLflUMoiFXMA2o8Qo=
-X-Received: by 2002:a17:903:324d:b0:2ca:4f33:e86f with SMTP id d9443c01a7336-2d3455870eamr75737575ad.12.1786546622846;
-        Wed, 12 Aug 2026 07:57:02 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786546833; x=1787151633;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bsSNRPwXgz4YmhClD9/CFwQgfHi8L4hudE3tc+zdeok=;
+        b=dTt8qPL6hF/sntFzdz/zyJadiEMFU/km+UIn2WXzLOIb4lAXz6iJUqzU5tegIPH3Jb
+         b3yOi1wHTqkBPcQI4ElH4tmjQr5S2T94sfITJMG34DL/bDML/QeJFnqN3f/raHtzxSGv
+         l+RBTBAmNXjzCloFo6tybxhcGzoIH7K2sLMWijZZlVx00fHKiyBJP3/8XsR6gkUhlZZS
+         Qz3LLi9bnHIejMZF1643Rnj9DOjTXqOBd5hnPCG6eF6JVDP4VWp2nWrNbMVxntmFrHJi
+         rYklkgPgfT0HI86lu1vDveU+KXMUbTnSjUL75EdLml5DMpRg6UgtU7JtiCUz9f5wOqh3
+         EQzg==
+X-Forwarded-Encrypted: i=1; AHgh+RoyiQnodNjWkfRE87BPjEZhbS7V0P+zUEoc6zYIzgtl2wCi6SQXN/wuCEJdok5njsmen48CCLI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YydTXt7LuUUnFaBXy/8bPYsQBQS8lWOUmI5VVhMgCJ3qNFxrX6t
+	qZwG5QHjszIuQFMCL6aTKVPw3zTec1a54MdDnsyGyG7hPFcbbRXQoezA
+X-Gm-Gg: AR+sD10/ovSI+2kr4nmaZdrPtkCGIELlgjAs+nX5zGWje3Jl6gN60+oAYCHWryDIxWl
+	dj+2qFmXiq/a8KnwQIW+w5xZta1bFXrCH1Rj83vcisVIgenMX4S2yCCnIuz2H/UkoKJjHAF4gME
+	UvEk0MhfzkUhjVBkeNz1tz9YY4khpIcfvxDIMXqf3lZGn+Bwf8XkxnNP48hfwj6jV+EZMWJ/e2M
+	5cWMuswI/8F+MWskaT30P40k5fNumAIDbZW8XjdEwnZK4tM507OV86D3BOwke/0IwVq45kGBcvF
+	m5GhYh3F1ndkj6fhpmoJubEL09gbEQAiYnwgtSqyNpQF7Vd7r8+8uzFWn2XNUZooTsls7lsozbW
+	Yz8mLuxKgUp8XT2boz99j4eWCS4vJIqd7Cp0og+laHXoemkIgLqXCF0bWyigDA3PSzNystIFHNg
+	k8HuOmmFjweT819m5Zjg==
+X-Received: by 2002:a17:90b:528a:b0:37f:e1b6:4c7d with SMTP id 98e67ed59e1d1-39301287f66mr6968430a91.6.1786546832312;
+        Wed, 12 Aug 2026 08:00:32 -0700 (PDT)
 Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d352208543sm8003165ad.60.2026.08.12.07.56.58
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392f935f73csm3896491a91.6.2026.08.12.08.00.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 07:57:02 -0700 (PDT)
+        Wed, 12 Aug 2026 08:00:31 -0700 (PDT)
 From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Wed, 12 Aug 2026 22:56:46 +0800
-Subject: [PATCH] drm/nouveau/uvmm: reject zero-length range in
- validate_range
+Subject: [PATCH 0/2] drm/nouveau: guard two render-node NULL derefs of
+ absent NVKM subdevices
+Date: Wed, 12 Aug 2026 23:00:03 +0800
+Message-Id: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-0-7e057f6aeba0@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,70 +70,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-nouveau-uvmm-pt-fixes-v1-1-ab3a823f946e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAK2JfGoC/yXMQQqDMBCF4avIrB1IImjrVcRFjGM7BaNkTBDEu
- 5vq8uPxvwOEApNAWxwQKLHw4jN0WYD7Wv8h5DEbjDK1emmDfomJbMSY5hnXDSfeSfDdqHq02qr
- KTZDbNdA95LTrH0scfuS2/xmc5wUrhSUxeQAAAA==
-X-Change-ID: 20260812-nouveau-uvmm-pt-fixes-9706da1a03cf
+X-B4-Tracking: v=1; b=H4sIAHOKfGoC/yWNywrCMBBFf6XM2oE0tFL8FXGRx1RH61SSJgil/
+ +7ULs+Be+4KmRJThkuzQqLKmWdRaE8NhIeTOyFHZbDGns3QWpS5VHIFpb7e6HwmWTAXH6milGn
+ CSIlGHHsbfR9s15kBtPVRyd//z/V2sI6eFJY9Dtv2AyjbMc+JAAAA
+X-Change-ID: 20260812-nouveau-nvkm-absent-subdev-null-deref-f52db5c24408
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dave Airlie <airlied@redhat.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
  stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786546618; l=1968;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786546828; l=1909;
  i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=FdyxRhhBKZiYZz3arqKV848UtUVhcBBrpdMBwG2g/dM=;
- b=ar5RYS5eT7jVtxn2WyhdU/5ZUt+UbSy5eflTkgD7wLRWZEeSTi2xLVN1+tdVDVmKDg8elm2v3
- 1ZlEgthYLiQCWaVIbnBvP5OHkT64+EpC1XNJ887M4atJGbdz4l+31Wx
+ bh=9ZuFZsbGjnuxi4gxJ6gdaTdFRQu5GUSAhJ89zKR0YI4=;
+ b=ElzEuFopoAhqiGv9INlGlqScomht2xFPIi93NufKAn1DNkZgTULNfaJV8/oZt+WbKtSpDl6Sw
+ eDE++5uEgHRAeL36Y9JM6kVgJxmbBIj+FxNbkntO4u8h5M94nPrFYqu
 X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
  pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-nouveau_uvmm_validate_range() rejects misaligned addresses and ranges and
-defers the remaining bounds check to drm_gpuvm_range_valid(), but neither
-rejects a zero range: 0 is page-aligned and addr + 0 does not overflow, so
-a zero-length VM_BIND request from userspace passes validation. It then
-reaches the generic GPUVA interval-tree insertion, where the node last key
-is computed as addr + range - 1. With range == 0 this underflows to
-addr - 1, producing an interval whose end lies below its start. The
-resulting malformed node corrupts the augmented interval tree and misleads
-the overlap checks of later map/unmap operations on the same VM.
+Two NULL-pointer dereferences are reachable by an unprivileged local user
+holding a /dev/dri/renderD* fd when an optional NVKM component is legitimately
+absent after probe.
 
-drm_gpuvm_range_valid() intentionally leaves the zero-range rejection to
-its callers; drm/imagination does exactly this with an explicit "size != 0"
-test next to its drm_gpuvm_range_valid() call. nouveau simply omitted it.
+When a subdevice/engine constructor returns -ENODEV, the NVKM device
+constructor (NVKM_LAYOUT_ONCE) treats it as an optional absent component: it
+deletes the subdevice, leaves the device-> pointer NULL, and continues probing.
+disp can also be NULLed by nvkm_subdev_disable() (strap-driven) on a headless
+card. nouveau still completes init and unconditionally registers a render node,
+so two method sinks that assume the subdevice is present become reachable:
 
-Reject range == 0 alongside the existing alignment test.
+  - the NV50/GF100 sw-class vblank methods load device->disp->vblank.index_nr
+    (disp == NULL on a headless card);
+  - GETPARAM_GRAPH_UNITS calls nvkm_gr_units(gr), which reads gr->func
+    (gr == NULL when GR construction returned -ENODEV).
 
-Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Either yields a NULL read -> kernel oops -> panic-class local DoS.
+
+Both fixes extend tolerance that neighbouring code already proves is expected:
+the sw channel constructors already guard disp, and nvkm_gr_units() already
+returns 0 when the engine exposes no units callback. No new control-flow paths
+are added.
+
+There is no Fixes: tag: these are long-standing bugs predating the nvkm
+reorg, so they are sent to stable without one.
+
 ---
- drivers/gpu/drm/nouveau/nouveau_uvmm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Zhenhao Wan (2):
+      drm/nouveau/sw: prevent NULL deref of disp in vblank methods
+      drm/nouveau: prevent NULL deref of gr in GETPARAM_GRAPH_UNITS
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-index f5e4756b4de4..0efedd9ecc75 100644
---- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-@@ -1008,7 +1008,7 @@ nouveau_uvmm_validate_range(struct nouveau_uvmm *uvmm, u64 addr, u64 range)
- 	if (addr & ~PAGE_MASK)
- 		return -EINVAL;
- 
--	if (range & ~PAGE_MASK)
-+	if (!range || range & ~PAGE_MASK)
- 		return -EINVAL;
- 
- 	if (!drm_gpuvm_range_valid(&uvmm->base, addr, range))
-
+ drivers/gpu/drm/nouveau/nouveau_abi16.c        | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c  | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 ---
 base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260812-nouveau-uvmm-pt-fixes-9706da1a03cf
+change-id: 20260812-nouveau-nvkm-absent-subdev-null-deref-f52db5c24408
 
 Best regards,
 --  
