@@ -1,87 +1,43 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C44A35AC16
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 22:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA379334C39
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 22:16:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786572977; cv=none; b=PoNh3cWRNjhpHYjtqk+TDAorS0QEXdSg17petk8GVJWHT2yUcZBi/8z9llz5sLcjNR8X9Vmk8SbVhDPbjHZNn/+7/yrjizT2Sra4eICAya2I93HQi0XyVehJnMphxMg81rGspSqjvldxHCdNqiphX5CyKC7FqxWkgUhpNnEKras=
+	t=1786572990; cv=none; b=VYYdHB6yOQx69HpS1DQJrH7xNOiYLEMa0tfWfEfIm4rrCJXCCxNgmdJVMOQT0k4s2ypLs6BstrBlTGLCYcNrEsq6U4XVNSiGUsbSepECXet7+1Yazvg9UYuoiz9XL3VOAzBDydJWnZtGFMdZIglLAI5dPtSvWZfav++eyF8wdIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786572977; c=relaxed/simple;
-	bh=JAXOCI1lXaY5SwhKMODmrNeYfP3CEvtE9+0ychwtKWk=;
+	s=arc-20240116; t=1786572990; c=relaxed/simple;
+	bh=rZcaVzkigwe4WFUQ4gb2AhWbiZ8STZkFtIlKgGdohi4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JI+QMxNuwHVUy+3epQCkOzv75xJFxQR+BO/K/nA3WPSZMIdx+rezD7gznxDwLn1AbE++R/xqJZYBp/yCgCORD+oE2KDlcH6GBoAJG+s2DsMBSkKDCTpnkQhJwmd6sxH96LLdnsAeDQuDGkKqIC1pj4Z/t7/9cdiQdVQqlUMeS8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=JOh9WLhj; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	 MIME-Version; b=UzU5Qg6GaGrZuIA+7OtzhqiOXKHRF8taQ1KYdU8Qbqt07bxDIj46BfvvOLMBC6cxDluB0aoR/upFS+JTkOhudQFpiRzsVPHyGo0S9URh6ybY9zUXRoFaIOmRQxBE/q8cYDjs80wEVMNfc4C5s5XrMuAjbTh8LoSVXF3H2y5pLM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMb111ks; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="JOh9WLhj"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47fde295992so251532f8f.0
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 15:16:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1786572974; x=1787177774; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2C1tHxTxuovlXYHmjDKW1q6VCxuSctc0IbqwFMRcNEI=;
-        b=JOh9WLhj5ROMhST7aYGrYdCr3I5554+FqwEjAnpYI+Y1inVR683fwkv2Szk8StqGux
-         SDvhjXL/klQ6a+kPFd9tJPs31ZP5H1O+iWCe+2U37yPCP8i/cc2URUpuPT0EHZJ3/oNE
-         7A4AcZzC4mZts/+LQLuV4vKpbWrO3C1uqmfBGzaNrWStNJPAkVbD02OrZkcHjh5+jrAO
-         hn7zQuVl0UkzyB/LYGiOuKpnVcA/sBy9/E7DdTdPJMWFBjfDOZjks8vCeKDYrU3OjP3+
-         uhch51DQ1ZXz3vphkjo20suD838HqiWyqrivaIxCQQYMWVoAcFMjulwXEv4W+RBYwEVL
-         uW6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786572974; x=1787177774;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2C1tHxTxuovlXYHmjDKW1q6VCxuSctc0IbqwFMRcNEI=;
-        b=OsZmZUzBzoThNCU+f8HjOoY0IIr33qNvncw3kko9UHOtVHEvqayLQcGhq+ou6xEqOw
-         pvv1hLG0VCus9tYtFB6Il4wh94ihFmCgty1BnFvzIH6Nvk80L1WoxMP+LE2EwCrlvJdS
-         j0LT9Da2wovBAD2AmpMWHdYCUof1Iyo0lc5I+BMFKT5ZK7llSPyF8dPz7V/1JL/KfSR6
-         QDkGDpAePfvICrgZMtOStSz9/xrbiAYP6FQ9G0R+4lmKB/vG+MQyqljrlZR5ykryzbol
-         UMZIur5QqM2h2JCTv9YBQBhZlAJBhgnM/sTSj7rzVGHm5j3IVkhJhmIOrjbhqyJVkYzo
-         h/fA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro3va2AMs2AxbvJKSGc0lbFn2ros+FFGbUbyfC2qDdBYS2VlWwEUr80j/D6dKI6w6nhuGPqj3U=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzhyXFRh9cqXomk9P+9EMzn7cxmAfMK7XKxOxixFZew0LSFnneP
-	WKSCgO78sLZ7JTDTVNxcSy8FLDLjUqWcsPpPIHoW/xTrO53RlPFYW/ixzu3oh3FVAG4=
-X-Gm-Gg: AR+sD13FTxdJl4Ox3L2G4ooLkpkhJmUSjTtcaNrzZJ+yJZo4rLHboVdoWdEX6WP6RcV
-	zVxHGzrTJYqSwwSGFvN6FmJnnRKpTJRu4ef/bOz5of4U8ac3xVf7bQB0Jjc/L4O3bJTvlevlr9Y
-	l1huh2AGvAlM5CduXkVRkMyknNWb1w9uErezfhkeeVQssXI9A0QAD5Mt4ADsvPwCd0Pfy4VNLob
-	pPCijSXKJiZtbjXD+SyrH6ZyfOWWo8QvnKS/mtSUc79FKTaWw68HA1+aDNZLe4Go+QI1Vg6AUFr
-	+9K7o5DDhmhwNBsWQshMw38ndhOjphcmCcRqNuRasJLeSX1ZuiHomfIemoKMGzE34LuJtJSuN29
-	ijgAcK/ltm9yMvRLRSbvgDvs0Sev8yAyZ/LdU5d5JkqoSQz3zlmGjtI9lmfbOcBrl3fW8Tp/S3J
-	PrstdMoTfkqmNSCNbE5WTPaDb34D8HS7eEkhvxFJJicKFAxDexVN9aROaJgK0JWwUeoE4E9KvxW
-	Faw86jARmSG4E0my5LXqI/XeV0=
-X-Received: by 2002:a05:6000:2c0e:b0:481:314b:b041 with SMTP id ffacd0b85a97d-4815a5c9325mr982738f8f.7.1786572974446;
-        Wed, 12 Aug 2026 15:16:14 -0700 (PDT)
-Received: from dev-jrangi.dev.purestorage.com ([208.88.159.128])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4815a569ab3sm933792f8f.11.2026.08.12.15.16.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 15:16:13 -0700 (PDT)
-From: Jasjeet Rangi <jrangi@purestorage.com>
-To: x86@kernel.org
-Cc: jrangi@purestorage.com,
-	tony.luck@intel.com,
-	bp@alien8.de,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	linux-edac@vger.kernel.org,
-	stable@vger.kernel.org,
-	Smita.KoralahalliChannabasappa@amd.com,
-	yazen.ghannam@amd.com,
-	msaggi@purestorage.com,
-	rjethwani@purestorage.com,
-	rhan@purestorage.com,
-	dgiani@purestorage.com
-Subject: [PATCH v2 2/2] x86/mce: Rename MCE storm handler parameters for storm mode
-Date: Wed, 12 Aug 2026 16:15:14 -0600
-Message-ID: <20260812221514.598842-3-jrangi@purestorage.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260812221514.598842-1-jrangi@purestorage.com>
-References: <20260812221514.598842-1-jrangi@purestorage.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMb111ks"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAE31F000E9;
+	Wed, 12 Aug 2026 22:16:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786572988;
+	bh=qvqY0SgqoHVYNZz8TRJTTlBDUjA0u/WKAZOruqyv8pQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JMb111ksFPhlzp68IxJlJaWXVIsGBYA8SXRao8+bNJiFNQ8ZLu7LtuDr9qBojU7Du
+	 CniABoJM81QOm7OA5M0SEmtffVsLpBOtf5P98ItRH7shkGiXe3J+CSyHpX5+dk86Ew
+	 MvPTxmBn914qjt7hxWZaMCnKqBnDJM4RCrneYc8V5L9AiBnxEeaNgkhtfF/TBA2DOi
+	 82gnpEagEwhnHFGNcVCBNrwh5BJ7BMqQM/uf4iJONboJaw0IpUaZtQgaJR1ZoW3Uyr
+	 BkYxzvT5Bz7fmiqghv+hO11RnuXGAx67U20GS4rD1ULOetdGXBF4k5qh0OuFT7uxSk
+	 7KmGcIQJ7xgaw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yang Wang <kevinyang.wang@amd.com>,
+	Kenneth Feng <kenneth.feng@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/amd/pm: fix pptable use-after-free
+Date: Wed, 12 Aug 2026 18:16:25 -0400
+Message-ID: <20260812221625.2449999-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080537-trace-quake-d688@gregkh>
+References: <2026080537-trace-quake-d688@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,117 +46,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The function parameter "on" doesn't make it clear what exactly is being
-turned on. This parameter is set to true when storm mode is activated.
-On AMD, storm mode disables the bank's threshold interrupt. A value of
-"on" actually means "interrupts off."
+From: Yang Wang <kevinyang.wang@amd.com>
 
-Rename mce_handle_storm(), mce_intel_handle_storm(), and
-mce_amd_handle_storm() parameter "on" to "in_storm_mode" to disambiguate
-its meaning.
+[ Upstream commit bb493058c35c8676e48269ab6732688ea733d23c ]
 
-Signed-off-by: Jasjeet Rangi <jrangi@purestorage.com>
+amdgpu_dpm_get_pp_table() returns a pointer to a driver-owned power table
+after dropping adev->pm.mutex. The sysfs path then copies from that pointer.
+A concurrent pp_table write can replace and free the allocation during the
+copy, causing a use-after-free.
+
+Change the DPM interface to copy into caller-provided storage while the mutex
+is held. Keep the size-only query for attribute discovery without exposing
+the driver-owned pointer.
+
+Fixes: 1684d3ba4885 ("drm/amd/amdgpu: change pptable output format from ASCII to binary")
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit f6eed7acfd30099ef7baeb6ba45bb59daad80631)
+Cc: stable@vger.kernel.org
+[ kept 6.18's existing `if (!pp_funcs->get_pp_table) return 0;` guard instead of upstream's SR-IOV/SCPM `-EOPNOTSUPP` guard and dropped the `default_attr_update()` hunk whose `pp_table` branch doesn't exist yet ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kernel/cpu/mce/amd.c       | 4 ++--
- arch/x86/kernel/cpu/mce/intel.c     | 4 ++--
- arch/x86/kernel/cpu/mce/internal.h  | 8 ++++----
- arch/x86/kernel/cpu/mce/threshold.c | 6 +++---
- 4 files changed, 11 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c     | 15 +++++++++++++--
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c      |  8 +-------
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h |  3 ++-
+ 3 files changed, 16 insertions(+), 10 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/mce/amd.c b/arch/x86/kernel/cpu/mce/amd.c
-index 04accdee6aab..46880af61fd0 100644
---- a/arch/x86/kernel/cpu/mce/amd.c
-+++ b/arch/x86/kernel/cpu/mce/amd.c
-@@ -862,9 +862,9 @@ static void amd_deferred_error_interrupt(void)
- 	machine_check_poll(MCP_TIMESTAMP, &this_cpu_ptr(&mce_amd_data)->dfr_intr_banks);
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index 078aaaa531628..467fc9f03f8a5 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -996,17 +996,28 @@ int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
+ 	return ret;
  }
  
--void mce_amd_handle_storm(unsigned int bank, bool on)
-+void mce_amd_handle_storm(unsigned int bank, bool in_storm_mode)
+-int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table)
++int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char *table,
++			    size_t size)
  {
--	threshold_restart_bank(bank, !on);
-+	threshold_restart_bank(bank, !in_storm_mode);
- }
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
++	char *pptable = NULL;
+ 	int ret = 0;
  
- static void amd_reset_thr_limit(unsigned int bank)
-diff --git a/arch/x86/kernel/cpu/mce/intel.c b/arch/x86/kernel/cpu/mce/intel.c
-index 4655223ba560..3e3cbdc4fedd 100644
---- a/arch/x86/kernel/cpu/mce/intel.c
-+++ b/arch/x86/kernel/cpu/mce/intel.c
-@@ -147,9 +147,9 @@ static void cmci_set_threshold(int bank, int thresh)
- 	raw_spin_unlock_irqrestore(&cmci_discover_lock, flags);
- }
++	if ((!table && size) || (table && !size))
++		return -EINVAL;
++
+ 	if (!pp_funcs->get_pp_table)
+ 		return 0;
  
--void mce_intel_handle_storm(int bank, bool on)
-+void mce_intel_handle_storm(int bank, bool in_storm_mode)
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_pp_table(adev->powerplay.pp_handle,
+-				     table);
++				     &pptable);
++	if (ret > 0 && !pptable) {
++		ret = -EINVAL;
++	} else if (ret > 0 && table) {
++		ret = min_t(size_t, ret, size);
++		memcpy(table, pptable, ret);
++	}
+ 	mutex_unlock(&adev->pm.mutex);
+ 
+ 	return ret;
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 93fe215986d39..15dd6a32ada16 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -496,7 +496,6 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
  {
--	if (on)
-+	if (in_storm_mode)
- 		cmci_set_threshold(bank, CMCI_STORM_THRESHOLD);
- 	else
- 		cmci_set_threshold(bank, cmci_threshold[bank]);
-diff --git a/arch/x86/kernel/cpu/mce/internal.h b/arch/x86/kernel/cpu/mce/internal.h
-index a31cf984619c..3f709faa7f1c 100644
---- a/arch/x86/kernel/cpu/mce/internal.h
-+++ b/arch/x86/kernel/cpu/mce/internal.h
-@@ -41,7 +41,7 @@ struct dentry *mce_get_debugfs_dir(void);
- extern mce_banks_t mce_banks_ce_disabled;
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+-	char *table = NULL;
+ 	int size, ret;
  
- #ifdef CONFIG_X86_MCE_INTEL
--void mce_intel_handle_storm(int bank, bool on);
-+void mce_intel_handle_storm(int bank, bool in_storm_mode);
- void cmci_disable_bank(int bank);
- void intel_init_cmci(void);
- void intel_init_lmce(void);
-@@ -49,7 +49,7 @@ void intel_clear_lmce(void);
- bool intel_filter_mce(struct mce *m);
- bool intel_mce_usable_address(struct mce *m);
- #else
--static inline void mce_intel_handle_storm(int bank, bool on) { }
-+static inline void mce_intel_handle_storm(int bank, bool in_storm_mode) { }
- static inline void cmci_disable_bank(int bank) { }
- static inline void intel_init_cmci(void) { }
- static inline void intel_init_lmce(void) { }
-@@ -269,7 +269,7 @@ void mce_prep_record_per_cpu(unsigned int cpu, struct mce *m);
- #ifdef CONFIG_X86_MCE_AMD
- void mce_threshold_create_device(unsigned int cpu);
- void mce_threshold_remove_device(unsigned int cpu);
--void mce_amd_handle_storm(unsigned int bank, bool on);
-+void mce_amd_handle_storm(unsigned int bank, bool in_storm_mode);
- extern bool amd_filter_mce(struct mce *m);
- bool amd_mce_usable_address(struct mce *m);
- void amd_clear_bank(struct mce *m);
-@@ -302,7 +302,7 @@ void smca_bsp_init(void);
- #else
- static inline void mce_threshold_create_device(unsigned int cpu)	{ }
- static inline void mce_threshold_remove_device(unsigned int cpu)	{ }
--static inline void mce_amd_handle_storm(unsigned int bank, bool on)	{ }
-+static inline void mce_amd_handle_storm(unsigned int bank, bool in_storm_mode)	{ }
- static inline bool amd_filter_mce(struct mce *m) { return false; }
- static inline bool amd_mce_usable_address(struct mce *m) { return false; }
- static inline void amd_clear_bank(struct mce *m) { }
-diff --git a/arch/x86/kernel/cpu/mce/threshold.c b/arch/x86/kernel/cpu/mce/threshold.c
-index 6c370d5af5bd..ca19b5b7ffce 100644
---- a/arch/x86/kernel/cpu/mce/threshold.c
-+++ b/arch/x86/kernel/cpu/mce/threshold.c
-@@ -70,14 +70,14 @@ void mce_set_storm_mode(bool storm)
- 	__this_cpu_write(storm_desc.poll_mode, storm);
- }
- 
--static void mce_handle_storm(unsigned int bank, bool on)
-+static void mce_handle_storm(unsigned int bank, bool in_storm_mode)
- {
- 	switch (boot_cpu_data.x86_vendor) {
- 	case X86_VENDOR_INTEL:
--		mce_intel_handle_storm(bank, on);
-+		mce_intel_handle_storm(bank, in_storm_mode);
- 		break;
- 	case X86_VENDOR_AMD:
--		mce_amd_handle_storm(bank, on);
-+		mce_amd_handle_storm(bank, in_storm_mode);
- 		break;
+ 	if (amdgpu_in_reset(adev))
+@@ -510,7 +509,7 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+ 		return ret;
  	}
+ 
+-	size = amdgpu_dpm_get_pp_table(adev, &table);
++	size = amdgpu_dpm_get_pp_table(adev, buf, PAGE_SIZE - 1);
+ 
+ 	pm_runtime_mark_last_busy(ddev->dev);
+ 	pm_runtime_put_autosuspend(ddev->dev);
+@@ -518,11 +517,6 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+ 	if (size <= 0)
+ 		return size;
+ 
+-	if (size >= PAGE_SIZE)
+-		size = PAGE_SIZE - 1;
+-
+-	memcpy(buf, table, size);
+-
+ 	return size;
  }
+ 
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index 42172b00be66d..783deac8510eb 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -463,7 +463,8 @@ int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
+ int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
+ 			      enum amd_pp_task task_id,
+ 			      enum amd_pm_state_type *user_state);
+-int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table);
++int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char *table,
++			    size_t size);
+ int amdgpu_dpm_set_fine_grain_clk_vol(struct amdgpu_device *adev,
+ 				      uint32_t type,
+ 				      long *input,
 -- 
-2.50.1
+2.53.0
 
