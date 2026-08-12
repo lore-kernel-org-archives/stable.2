@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0A240861E
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 22:12:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93CF40F721
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 22:12:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786572755; cv=none; b=PKNv6Yn8l9uO0q2l/CJoY5GtT+ebF9OjeoIpWa1HguZyOp7RTcn8/LBVNx0K5iqNSWhULZ5Uts+dGVMLVEs924CA5ZqapJePaQeRNGj0M6qhlExPvYpmyNFXB6TtfmHwgClQOIFpwXiGNuFGDPu95RQpGD2TmzSWiiS+ggvEHMA=
+	t=1786572757; cv=none; b=Ha5IcljgD1rjZ22Ar40ceAyNbVqpJwoQ2djMwdOmHMiau0/rQcds33OAsWiIrslgO16UYxaGso/D38ZsDPAM5+t0DGLm71UveObEy2ZdjkpOA06HkajI1LCDJabDcceYBIz7dQg1a1QX4Lm9F8nwvHcsZgOF4BMg6BNrMg4CHac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786572755; c=relaxed/simple;
-	bh=91SDyzLVpLsiMWrBUKw6clIoVeYSDIOtakztA70lBJE=;
+	s=arc-20240116; t=1786572757; c=relaxed/simple;
+	bh=YCFn6u1QaSZjBbIoOveXyAKzbGYYU4AgAhqw6PJmQoM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gtnlf2NgsRAVrW6n04N4xs5AFYyRueMtDRTUZMSov7Jq5JjXlq84sdaVwgAkfqpn9JYnJB5QZfVEX1Hqe/7Ih0zs2tKSeybCH4doeABc19epPzi5NOfzXLmUDLNyK/hZnWCL4M8iPZpJSoplhcbieqGUfmbexL5hcU41qNKiTDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZPKOKqb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=g5gFn1VHwAAr9sfonzF5/lWdWs3fHriSmR77/L2iUoVBJITanAt2ixkGA4KXr/NWmfX02WUaIrGiYwkTG0Knd+mYh63cOc6V6nyznU3qwD4pwLzNhFZUMImI1rb3qxsqZUct/dqm9qTemr8l4NSDLS/8v45l+028/ke5jiFXmN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BhNOUn/k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZPKOKqb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304791F000E9;
-	Wed, 12 Aug 2026 22:12:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BhNOUn/k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF14E1F00A3A;
+	Wed, 12 Aug 2026 22:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786572753;
-	bh=LNdT1mcUfWE1PDwkYgv8lfMaKDS4lM5erLzH8GkfQZs=;
+	s=k20260515; t=1786572755;
+	bh=nbKKeSUK+kZvMWm1a9dLY4zR3deLE+yuN4a+3CAkl3U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gZPKOKqbmRX3SapFm4yENiyBKrH1usDvtXaxL+2XArnuOHuJ8w2MVhE7oUvQUSade
-	 98OKfUKVtX323n4g09gWIb7AZGpxRBjUueWyeFgTZSSD9adQ1uZXNZk2hOWGISpRkP
-	 8GKtvb3Ux+Nuz14QfQIZL00ZTrxkhjaALchvp7tZFhCYyf93beFqxVZDwTN9RCgLFc
-	 l7AJ2UhUzn0OAReXsWcEWioX88ZiH/taD8us5Hd59B1PJQ0WFejfs4kRYPT8RYawAo
-	 StbLVGDqB2Uo75BRBY0HkdSYd7/id+Uiso0TAXGSiUwubPRqB/Upsl0km7Is/6H1++
-	 OWuYT0YMCLjFg==
+	b=BhNOUn/k00/2qz8UYjmItgA87Jnpo3XO5becsO38D/0ToQvFi000it734HoGFk4pt
+	 58nkkKJvcF8/CFMbVtqa0ZXLPz/7M/cEGIENQZY4ob2sIgL2wyJME4mjZ5Jf73VrfJ
+	 Fx3UqS1aom0NMlO3Sd9RZbU3jjzc8sBUrOkVZN1Z0k5I9hKXpixOfIlgkLGKSIH35X
+	 fhGo27QiuF0en73KLl5pUns8fIxOeKYwSSUaonmqcTcXk8+XlnGbMYjMKMSdtrPm9G
+	 66gjSnhrb/WtWdAILuY/kG9jKjjR0xv/sbD40BrA6oGEDwOlfAR40o0YKHvEMiPrf+
+	 cPrUni9Aeykig==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Yang Wang <kevinyang.wang@amd.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
+	Lijo Lazar <lijo.lazar@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/amd/pm: fix pptable use-after-free
-Date: Wed, 12 Aug 2026 18:12:31 -0400
-Message-ID: <20260812221231.2429158-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] drm/amd/pm: adjust the visibility of pp_table sysfs node
+Date: Wed, 12 Aug 2026 18:12:32 -0400
+Message-ID: <20260812221233.2429285-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <2026080537-safehouse-registrar-bd15@gregkh>
 References: <2026080537-safehouse-registrar-bd15@gregkh>
@@ -48,113 +48,121 @@ Content-Transfer-Encoding: 8bit
 
 From: Yang Wang <kevinyang.wang@amd.com>
 
-[ Upstream commit bb493058c35c8676e48269ab6732688ea733d23c ]
+[ Upstream commit 5de8ce0f3709ad93ca5a579aa45cf1b52d72bc90 ]
 
-amdgpu_dpm_get_pp_table() returns a pointer to a driver-owned power table
-after dropping adev->pm.mutex. The sysfs path then copies from that pointer.
-A concurrent pp_table write can replace and free the allocation during the
-copy, causing a use-after-free.
+v1:
+- make pp_table invisible on VF mode (only valid on BM)
+- make pp_table invisible on Mi* chips (Not supported)
+- make pp_table invisible if scpm feature is enabled.
 
-Change the DPM interface to copy into caller-provided storage while the mutex
-is held. Keep the size-only query for attribute discovery without exposing
-the driver-owned pointer.
+v2:
+move pp_table invisible code logic into amdgpu_dpm_get_pp_table() function.
 
-Fixes: 1684d3ba4885 ("drm/amd/amdgpu: change pptable output format from ASCII to binary")
+v3:
+add table buffer pointer check both on powerplay & swsmu.
+
 Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit f6eed7acfd30099ef7baeb6ba45bb59daad80631)
-Cc: stable@vger.kernel.org
-[ kept 6.18's existing `if (!pp_funcs->get_pp_table) return 0;` guard instead of upstream's SR-IOV/SCPM `-EOPNOTSUPP` guard and dropped the `default_attr_update()` hunk whose `pp_table` branch doesn't exist yet ]
+Stable-dep-of: bb493058c35c ("drm/amd/pm: fix pptable use-after-free")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c     | 15 +++++++++++++--
- drivers/gpu/drm/amd/pm/amdgpu_pm.c      |  8 +-------
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h |  3 ++-
- 3 files changed, 16 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c              | 12 +++++++++---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c               | 11 ++++++++++-
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c |  5 ++++-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c        |  2 +-
+ 4 files changed, 24 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index 9dc82f4d7c937..e99a9fe295e6b 100644
+index 9dc82f4d7c937..4a14358b9b52d 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -1059,17 +1059,28 @@ int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
- 	return ret;
- }
- 
--int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table)
-+int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char *table,
-+			    size_t size)
- {
+@@ -1064,8 +1064,11 @@ int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table)
  	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	char *pptable = NULL;
  	int ret = 0;
  
-+	if ((!table && size) || (table && !size))
+-	if (!pp_funcs->get_pp_table)
+-		return 0;
++	if (!table)
 +		return -EINVAL;
 +
- 	if (!pp_funcs->get_pp_table)
- 		return 0;
++	if (amdgpu_sriov_vf(adev) || !pp_funcs->get_pp_table || adev->scpm_enabled)
++		return -EOPNOTSUPP;
  
  	mutex_lock(&adev->pm.mutex);
  	ret = pp_funcs->get_pp_table(adev->powerplay.pp_handle,
--				     table);
-+				     &pptable);
-+	if (ret > 0 && !pptable) {
-+		ret = -EINVAL;
-+	} else if (ret > 0 && table) {
-+		ret = min_t(size_t, ret, size);
-+		memcpy(table, pptable, ret);
-+	}
- 	mutex_unlock(&adev->pm.mutex);
+@@ -1569,7 +1572,10 @@ int amdgpu_dpm_set_pp_table(struct amdgpu_device *adev,
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	int ret = 0;
  
- 	return ret;
+-	if (!pp_funcs->set_pp_table)
++	if (!buf || !size)
++		return -EINVAL;
++
++	if (amdgpu_sriov_vf(adev) || !pp_funcs->set_pp_table || adev->scpm_enabled)
+ 		return -EOPNOTSUPP;
+ 
+ 	mutex_lock(&adev->pm.mutex);
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 2252c054c7ddd..1f68fe85e801c 100644
+index 2252c054c7ddd..f2feb04598033 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -538,7 +538,6 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	char *table = NULL;
- 	int size, ret;
- 
- 	if (amdgpu_in_reset(adev))
-@@ -552,7 +551,7 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
- 		return ret;
+@@ -2408,7 +2408,7 @@ static struct amdgpu_device_attr amdgpu_device_attrs[] = {
+ 	AMDGPU_DEVICE_ATTR_RO(pp_num_states,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RO(pp_cur_state,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RW(pp_force_state,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+-	AMDGPU_DEVICE_ATTR_RW(pp_table,					ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
++	AMDGPU_DEVICE_ATTR_RW(pp_table,					ATTR_FLAG_BASIC),
+ 	AMDGPU_DEVICE_ATTR_RW(pp_dpm_sclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF,
+ 			      .attr_update = pp_dpm_clk_default_attr_update),
+ 	AMDGPU_DEVICE_ATTR_RW(pp_dpm_mclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF,
+@@ -2535,6 +2535,15 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+ 		if (amdgpu_dpm_get_apu_thermal_limit(adev, &limit) ==
+ 		    -EOPNOTSUPP)
+ 			*states = ATTR_STATE_UNSUPPORTED;
++	} else if (DEVICE_ATTR_IS(pp_table)) {
++		int ret;
++		char *tmp = NULL;
++
++		ret = amdgpu_dpm_get_pp_table(adev, &tmp);
++		if (ret == -EOPNOTSUPP || !tmp)
++			*states = ATTR_STATE_UNSUPPORTED;
++		else
++			*states = ATTR_STATE_SUPPORTED;
  	}
  
--	size = amdgpu_dpm_get_pp_table(adev, &table);
-+	size = amdgpu_dpm_get_pp_table(adev, buf, PAGE_SIZE - 1);
+ 	switch (gc_ver) {
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index 78721bce42fd5..32839355a1845 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -650,9 +650,12 @@ static int pp_dpm_get_pp_table(void *handle, char **table)
+ {
+ 	struct pp_hwmgr *hwmgr = handle;
  
- 	pm_runtime_mark_last_busy(ddev->dev);
- 	pm_runtime_put_autosuspend(ddev->dev);
-@@ -560,11 +559,6 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
- 	if (size <= 0)
- 		return size;
+-	if (!hwmgr || !hwmgr->pm_en || !hwmgr->soft_pp_table)
++	if (!hwmgr || !hwmgr->pm_en || !table)
+ 		return -EINVAL;
  
--	if (size >= PAGE_SIZE)
--		size = PAGE_SIZE - 1;
--
--	memcpy(buf, table, size);
--
- 	return size;
++	if (!hwmgr->soft_pp_table)
++		return -EOPNOTSUPP;
++
+ 	*table = (char *)hwmgr->soft_pp_table;
+ 	return hwmgr->soft_pp_table_size;
  }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index a6683a8cebf2b..bc5d3758fbf67 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -580,7 +580,7 @@ static int smu_sys_get_pp_table(void *handle,
+ 		return -EOPNOTSUPP;
  
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index f5bf41f21c412..b30f34a574b39 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -483,7 +483,8 @@ int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
- int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
- 			      enum amd_pp_task task_id,
- 			      enum amd_pm_state_type *user_state);
--int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table);
-+int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char *table,
-+			    size_t size);
- int amdgpu_dpm_set_fine_grain_clk_vol(struct amdgpu_device *adev,
- 				      uint32_t type,
- 				      long *input,
+ 	if (!smu_table->power_play_table && !smu_table->hardcode_pptable)
+-		return -EINVAL;
++		return -EOPNOTSUPP;
+ 
+ 	if (smu_table->hardcode_pptable)
+ 		*table = smu_table->hardcode_pptable;
 -- 
 2.53.0
 
