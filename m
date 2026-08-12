@@ -1,162 +1,223 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012013.outbound.protection.outlook.com [52.101.43.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CEC43802F;
-	Wed, 12 Aug 2026 12:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786536766; cv=fail; b=DEQAMPVa3dj1qtHgQ5u36PNa6dTZHssn//QXsC42p9Rps7WrekA/43AWPHUvlg0N6t+1Dslpmy9HgC/G1EqUkijYb8PhPzB6UP1N2aQk8yud/h6X267Rstus3p315ySbbawzwQ2Kiu/Ivo5jlAI6koMSeS2H/Uii8jgS9H1GOjA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786536766; c=relaxed/simple;
-	bh=5n0ULwUSYtHKl80WYXMylNsrvxTUbGIaqg++YGb4yBg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Dz4bpe+2AAliurJRXzGIC0IxeXT8pEsKFRXC5W+ePMumI+UTB1F56vNIVDWSCFWuibW+ChHcK5NEehmhiPVnd45MUZ188Bp/hTvi87ybJCeHkvKatVzDQZ4Y9BZgkincOO2ZJJIDgwjxcaO1GUZvFeYIiCZMFUSKMfZEnl0HAnQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=W3zFa3+f; arc=fail smtp.client-ip=52.101.43.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7013E8695
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 12:17:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786537035; cv=none; b=J685XcHwYRsnIG+fVnw7aXxaNPuqg6KDhHy6XbzV+VnDCIYn97Jt4jAoPDlVZAMb4Rxev5xi/qBQ1ITAoxek2LpyLcBJhrm1KhKqqHM6OlXIMIuFfvQ/+hCOVKKmWZWzD5oRlp8cc7TcYiKgTzYMSarqhpEfthOsbCcWwlOMT3E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786537035; c=relaxed/simple;
+	bh=6wiDWXMEJCbp5MAnB3iLeOvQ8Ifz6/TEB24QRvVTxC8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Kq5ERwsXT8Z2+I9syuzlIsDmBVkU8fO5shKxraaQKlAj0H/caKinU81cBF5vp9BxUdguzVfrN+cNcnyzYf7FDN0Q8Ie2rRlk0JsCWU2hEn1LOnsmhp3jIsThJ5S2zK7Sy5AQJD87BxpgHVKeHtkevbRFv5tTeS/FPXzdln9uP2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=goVBlah/; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="W3zFa3+f"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v4aDqgCI9w7fkOMZpeSj/KX2sqr37jZspA0j+KK35YOSJxg0kHppOCPM1G7WNu/WtoZdjy1NBjVZmpH+8ooAwAcUSTTpZI6TBBXn5HHMKedzYPJhBFo7MxGXTW1FG11tYBmEHQ/UNufOrfAmeSeyuRYiiD11q4gfihpFUKBV9ldG0BISEVKJH0A5OGZMONbJ9QgxtLi8mik38WGqOyn1XWeoAoEeqHZUqYoi5XztaGjfSWSSslh4AQ3V9PqYeIgr09kBOFIfGfzoEYXCOAc6XYOiwK61T2AMlMJc3I1sgWtYC5CX6ap9N1FLYWwtCpvXBSMKDcu0dPv4ukmQu7Zg5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uwVaOPU9ewiHSWutdWOkHcYrC7B/uD8vDzdspyHCgcY=;
- b=wzSE3EuQubltfC9VcsV2m3P0AHz0SEg0DhIsGT2e0F/iEkTrN2wvrYSVudzVxbkOLAD9B0MTQc4BkN8sHqIApdcUUnAerxLK8fHLGdXVJWVUMr84Iau4bJiieCt+ApP61u3DUO4K8e8syTIRZ++Csx4o2Bvn3yu9IzoczkPPhg4mj/Mj89nmGbJVSMfdWm+qMoG9xoQOfZmPPz48iSI/8TY8/dHC+1vWrfHq1cCLEdlQS55MZtzvttvrgW5NhZ+3NLBua8t2bfxjiRhPfiPoYleu3bE16EL5BKYVy7iNW5ssMrH4Zlr6euWwxKCO2HuVlvtuR3QHGcHkVNqlnIlLRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uwVaOPU9ewiHSWutdWOkHcYrC7B/uD8vDzdspyHCgcY=;
- b=W3zFa3+f+fDNsHAkKx8A03KHXyQ8BZayU1c20dIb8LuhPqLIlC68lFxTCPLDvSeUQIrgafyZpeVFvhlvJVgFBv3OgiW6oRDm4DB8Q2wsDiTPWDsbR450m+hB18Qz0gL0xPA5/C2VU34eaAERn+dj5WLHcCITEoyi/j5G7+WDW5nezOvEsebbQnYkSfGOOMglLAepvrNJj0CSqBf3OcrFfg8b1+g3zIBGuphdnGBHkrGqzzL/3tJddroJSlyCFC8vBFkLGrXgz6Tx0JPQOoobyZUaUNIIf2lCvZQoo3CbtE6k1hrPBYksMBOzWHJaR1gByKUR0c5ml27XfFmDtX/CBQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by IA1PR12MB6187.namprd12.prod.outlook.com (2603:10b6:208:3e5::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Wed, 12 Aug
- 2026 12:12:40 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0315.011; Wed, 12 Aug 2026
- 12:12:40 +0000
-Date: Wed, 12 Aug 2026 09:12:39 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Cc: kevin.tian@intel.com, joro@8bytes.org, will@kernel.org,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	robin.murphy@arm.com, steven.sistare@oracle.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] iommu/iommufd: Fix NULL pointer deref in
- iommufd_ioas_change_process when racing with iopt_map_file_pages
-Message-ID: <20260812121239.GB638489@nvidia.com>
-References: <7344B7A7B9957A65+20260806045059.1884737-1-peiyang_he@smail.nju.edu.cn>
- <178639198310.282103.12552740515074532170.b4-review@b4>
- <EB366C0363529CC0+1f720b7e-4256-4523-8e43-f14ace92f200@smail.nju.edu.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <EB366C0363529CC0+1f720b7e-4256-4523-8e43-f14ace92f200@smail.nju.edu.cn>
-X-ClientProxiedBy: YT4PR01CA0150.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ac::17) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="goVBlah/"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so8306855e9.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 05:17:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blackwall.org; s=google; t=1786537030; x=1787141830; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QBwafU5xy4gBpXZZ8RpOZbZKdoNHkxpt7OyTBRfCxbA=;
+        b=goVBlah/afUA34qGWWBCpUJKVP2eNpaoQyAFZxI0UufeaKnFI6not4t7GNLa5V/ySn
+         KRNjNE89KE2DLJhbWOI3nQXy5E9W+BOCRL0NIMpy3DGOzOVwTlXUlApQ0HlUnVgr8eos
+         +d7DaKpQQhyV2sTGZE9wakMbURokwwQqoCzozV5Qkh70CLuOaZkl0YWcDoXw/z29qNB6
+         Y/vKGGIo2JmmhncstxcH8GqzxD1qG2WwMa95PLJ0vL9K5xpuB/zAf03FLYdfb/E8zqij
+         fObquBDWlJyrQ9ADJ8qsJqFJVZS1Y199krhc/ZlO7jBOcUoOxESaXc9hmoppT5470+Lh
+         1zoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786537030; x=1787141830;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QBwafU5xy4gBpXZZ8RpOZbZKdoNHkxpt7OyTBRfCxbA=;
+        b=Dv2J+usJIh3plkHgiMuQVNIkzMnF5D2VfTY6ZKbKEbNXAtI0ATW/xy8PTM/0ajRP/Q
+         pRNn+a3PXeJkHayCIndMQLaNI/k9kdzOQId9Fel3xhczddvqvnxJeO542OUNSZmIj83P
+         OEaUP1Eamj0NFjJDAWA3Z9eNHlFE57DWwcMAkLvmZqHaGpBNI1jT9aIz+hr0bWXkXmBG
+         ruETRtCaqG/7Xw0GJTAFg6A6ypIk/MXr2E1ZXFJxmBkFcAbx96amDK9Jb9YfVYnJJL40
+         By87qmYBmYb+W+GRdGerrsbYyipuLhGI/g/Z6CDatvZ4BvWOHL7DnS4UoonwRBat7dW5
+         4P/w==
+X-Gm-Message-State: AOJu0YwMrILwicPLgV4rWYnEqFtyOmlM+Xbv4UsST8FSiqIey5ze4v3n
+	Mup7BuS2KfFmivpqt+Nm2v7oON3k9yvcqbBYaQ8Zoo7j7kDvwiDnTcL/Wp7La4AMQzo=
+X-Gm-Gg: AR+sD13r27cSj1pZ2v+72cnqOqDNgWTjuvlWDQmnCtqvtYyxWkSaNR+9/SpeoAJ+ywZ
+	8iQzRab9OTUXc84KYT8uLRqKiX9T+N5kseGcoEkBsGVBJRsxdmwspGH+j/OeW2olwkr/7BKMwF2
+	ej0FI9JsX0dSTAq5Iyrh2yuLq5tgbSIBITLuxqz7Fk78pxGAU2jnx6+05Vb4b+S9++Wqg5PWE/8
+	E6HbazyDjekczYLlncHUj+U/h8N62h04bnH/VCOA6tsJ8IbW4QCUc22I2qe1BAUGmottDzge4jJ
+	xYHHMLzqXC+bK1OIV2vIfErA5NPRSxo0b7WAhaaJMctSiMrMPfInTsmqMCrgrb4adRajf9MFiQc
+	ssVqYToKE2IneR8aExbYKEl/4yQnL09mRGQper/sp25iajGdpfAc2grn47RfoI4XCfU0Ma/2Kxo
+	jNi3Tv3oedR2W/o/l41Q2DkMgLH0RVmalLoOiaENCIxzY9PGTYW7ygYDE3PyYwyFiA/zVvFI3bs
+	bEAgOaSqbp2Ijk+46Q=
+X-Received: by 2002:a7b:ce0e:0:b0:499:726b:7375 with SMTP id 5b1f17b1804b1-4997c149ba3mr41006275e9.14.1786537029670;
+        Wed, 12 Aug 2026 05:17:09 -0700 (PDT)
+Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997c94f4c0sm40120515e9.8.2026.08.12.05.17.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 05:17:09 -0700 (PDT)
+Message-ID: <5fddb18f-8ead-4680-ad7d-82123966cfa4@blackwall.org>
+Date: Wed, 12 Aug 2026 15:17:07 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|IA1PR12MB6187:EE_
-X-MS-Office365-Filtering-Correlation-Id: 124c3a4b-47f8-4133-abdf-08def86b0146
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|18002099003|56012099006|11063799006|22082099003|6133799003|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	+BltAkNT+f6tIXpgcHBdbYwfB+844d0enFvmnBg2A/bfkl5kfurE1fwdsgGwCyxURI1I+2bNjTABmgzcvY9zMwDxzDxIufrOhBfJaEJy+db42YF0DogdzBCyXK6/idAhXZt9vw8um97n0i1JsfsZ0AgHQigQl4GonPnZXcGlGDv0gMLfMhFIawZmTXmcGZkLJL2Ri/moqJMAbzHpZ8/jBSuTv6k2OiJLFLFkN6zG3TUpycdiHibV9/yGr1sd39A0P2cBoMBigcBhu/PltNh8vM5++PVyjK1AO/cEx5YlF1i+jxiGHC9dF/z089K0I6nZg9ovyxXdZ7sxPCsVrS4iKhfFJZi+SPT0MLykqL3TYjy+UyXy0hk0tYglfTF4PxZJNl0hfSlPPkw8qBSuBWtrkmFTblCV2ok+0uYHhQXz4pQYWWY9TkChylILVLSC7Ue/fZzdWpW6jfct0EiNHWYiHF0uSanqR4gd6pGYjYxo9KyZKaaMCWvb92JCAGF9tyHogbYKTTbCABvZdbjVupiW9us0TC0M/2iyO9WA4T9JPpCGozWuvFRgvWCanCv6XJwiAvn7QG5biXRu7KOdz5vyZRJMVwLFHFWHbWsZ4DhnLWAiAVYv4eSS/hYPYJ9xtxWhDj2md2ZIk3KzmQTJK2DyXr2zL4Rc7CHYyFzYjOetJAc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(56012099006)(11063799006)(22082099003)(6133799003)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wvhV3aZJSeM7B2aDEPDes9V2eXiUE5BVRAVttp2LNZVvjMSC1gTQALnmn8JW?=
- =?us-ascii?Q?jn8gAv+ClJAWOQ1ul1srTFLV2Iu0DUTd7u3BWnBQcQqblTtvW7S8bNF+hT9+?=
- =?us-ascii?Q?oIx3VGZB3xybX+RGo9WwS9IDvuqWWUxnRcuB4RTEWdKZi1rtwq5G6kYK8OnH?=
- =?us-ascii?Q?3rHlSXjKPkoESa9LWGrcBYhDyhKhS9KI5S03xzAS1OcYmRNYNesNeUNCV0je?=
- =?us-ascii?Q?u9vwDpAtpsGxTCo4t5++fRHhf2v1CxFBjEDVDtnD3jqUN1OrYXyTOOfFHtX4?=
- =?us-ascii?Q?1J9+2USRKHV4VnS9+s5lcHyQ/hf3gqvZbQpEes9sD6ZEfpHRc1yKEeavszXO?=
- =?us-ascii?Q?XCEAVQ6rnJ++8b3ZDteENQ8sKB8ZmaZUQkeCe6Zten7IwQhol13TdnR7EjiJ?=
- =?us-ascii?Q?6rNO+z3lhFdKNtHiS1ecNvc+DvYmN3DDpWSlhzU1opiVtWfaxBkv1mxITYVz?=
- =?us-ascii?Q?X8sGELuaUHOWHMNPG9ccYN4VL1DDNBuQ9ccYSwpfmWIa8NSqJL7i2+etXdgs?=
- =?us-ascii?Q?uiD6fbwYl1FtFkGlEi4f0S8uVlg30O5VLuP0t5qmCNXsuf41y6IVFNI4Au5K?=
- =?us-ascii?Q?Tk6fhYTX+EuZDzmVirii/GFZq+hYR97+9sFbpiEnjZT8d07Cr4F0q3XR0imz?=
- =?us-ascii?Q?+iigX96awqel8KoITDD0e4W/ety+1Xpz59N0ADUGRB39BjhK0wr4tV+VE3ul?=
- =?us-ascii?Q?SOlGMbUt/uerxU+LKRjk/NdwX/Wm1Bk6ovqJkD6biL3ENNxOwrHVjDuzNQML?=
- =?us-ascii?Q?vdhSuwVA2KCi86cR9nXr/jRYD4kOqFNbLAQKWaUf+85pTKsEog//JZ4ss9Vq?=
- =?us-ascii?Q?4/UcrtMScxPJBQ2kiFaE4SXPS/GFHYcqnqGzjDUpCMjj/H1BNjoXeggOb0W8?=
- =?us-ascii?Q?4X3v3K4RRYcbcvzGzRbVVy9YNTMQtyJIvwV+B9lL7b8JCwWALhz/qVC/Ubmt?=
- =?us-ascii?Q?sIy2SLPVxrmLUrEjMx//Y8bc5eP48wtfmkyTBz4P/NA5AAlDXZxT+nc+mlko?=
- =?us-ascii?Q?q49rRx7vLFAgz/fUaVnP6cU2rYQQ0ikBdD/7K5w7Q2rFjbMgbL1oxP17ocVQ?=
- =?us-ascii?Q?5HpWu14K16BFmCUtfNcdVl+JYZfOgGhHiqwgZsGO9tVGsr4YsqO4Rl1nSRx6?=
- =?us-ascii?Q?TADyd0Xl+eJ5Zw9t4DleqoXQ+4uILpKAZ5frNa98w4cAExuKwW5hBJNtPnot?=
- =?us-ascii?Q?MZPczblksPX2P2MdeDtrv3QeiuQMKb0VgonxjSWAEcGffdugiKD/ejkaHdJ6?=
- =?us-ascii?Q?tLnZKrA66lhV8cmqp4ikbcr7g1fha3cdURbsEy3ku2ZY/WaJy6PzmTyiOELs?=
- =?us-ascii?Q?0sfrffpPuZ+5VeKRHk1NAEAkYHS+CTdpKYuHf1/xmXXtCo+MXdul3rvCTKZr?=
- =?us-ascii?Q?E3UaH9VP0hUA7iMGX1mx63Ul/YgqUSsFZuysQfSGABznm53b/f0Z075T4VaI?=
- =?us-ascii?Q?iIw0vU8MAeCpwVHqTnvWrRN1KtrQgt7lYP3XPP95p/d7gjerIsJZfVoxiq1g?=
- =?us-ascii?Q?+NaQA1tvz0KG9BW8ZgROQ40lYM6njL0GXPkYi9e4m/NFKkxQHaUkj/xabtJk?=
- =?us-ascii?Q?s7ZUOtUWR5Q+xYwf3/ZmLP6xSUM9KtiH4xaZhOZL5ycWBGKWCfcmcrb2PjrI?=
- =?us-ascii?Q?fRhFMJgCV2/piM4Nw+Ec0VjQBpi+tm4W7UI/uaYjTS+Qo/0KHJFNcO+wUPTG?=
- =?us-ascii?Q?Vt7VrTY0QOG7OmKtkv5Z7wWEhcBGugsHALBccYUqdezFzJfchCFpW6jgjOrg?=
- =?us-ascii?Q?cJYQmlJajA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 124c3a4b-47f8-4133-abdf-08def86b0146
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 12:12:40.4635
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pxNx3GQ/66sftFaVj2Xkk3pxHJ8eFSAHhnOqpo+C8asLh+MSa58gwnef/1bPOwTD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6187
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net: bridge: mcast: don't truncate the port group walk on
+ teardown
+Content-Language: en-US, bg
+To: Jun Yang <littleddfu@gmail.com>, Ido Schimmel <idosch@nvidia.com>
+Cc: stable@vger.kernel.org, Jun Yang <junvyyang@tencent.com>,
+ TencentOS Corvus AI <corvus@tencent.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, bridge@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260812113435.1854275-1-junvyyang@tencent.com>
+From: Nikolay Aleksandrov <razor@blackwall.org>
+In-Reply-To: <20260812113435.1854275-1-junvyyang@tencent.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 12, 2026 at 12:35:04PM +0800, Peiyang He wrote:
-> On 2026/8/11 03:59, Jason Gunthorpe wrote:
-> >> @@ -535,6 +535,10 @@ int iommufd_ioas_change_process(struct iommufd_ucmd *ucmd)
-> >>  		return rc;
-> >>  
-> >>  	for_each_ioas_area(&ioas_list, index, ioas, area)  {
-> >> +		if (!area->pages) {
-> >> +			rc = -EBUSY;
-> >> +			goto out;
-> >> +		}
-> >>  		if (area->pages->type != IOPT_ADDRESS_FILE) {
-> >>  			rc = -EINVAL;
-> >>  			goto out;
-> > 
-> > If we do this then a concurrent map will get corrupted accounting. I think we
+On 12/08/2026 14:34, Jun Yang wrote:
+> __br_multicast_disable_port_ctx() and br_multicast_del_port() walk
+> port->mglist with hlist_for_each_entry_safe(), which only guarantees that
+> the *current* node may be removed by the loop body.
 > 
-> From my understanding, if iommufd_ioas_change_process() returns with EBUSY when
-> detecting a NULL area->pages, later accounting logic in iommufd_ioas_change_process()
-> won't be executed. I may be missing something, feel free to point it
-> out.
+> The body is br_multicast_find_del_pg() -> br_multicast_del_pg(), and that
+> deletes further port groups of the very same port. br_multicast_del_pg()
+> drops the group's sources, and br_multicast_fwd_src_remove()
+> (net/bridge/br_multicast.c:583) deletes the (S,G) port group installed on
+> that same port; br_multicast_star_g_handle_mode() -> __fwd_del_star_excl()
+> (net/bridge/br_multicast.c:330) deletes the automatically installed
+> MDB_PG_FLAGS_STAR_EXCL entries, again on that same port. All of those sit
+> on the same port->mglist.
+> 
+> When one of them happens to be the node the iterator already latched as
+> "next", hlist_del_init() clears its ->next, the walk sees NULL and stops.
+> Every port group after it is silently left on the port. port->mglist is
+> head-inserted, so this needs the cascade victim to be older than the (*,G)
+> entry owning the source - a user-added, non-permanent (S,G) MDB entry added
+> before the (*,G) join produces exactly that ordering.
+> 
+> Hitting it once truncates the disable walk in
+> __br_multicast_disable_port_ctx() and once more truncates the flush in
+> br_multicast_del_port(), so del_nbp() goes on to free the port with port
+> groups still on port->mglist - and still linked in the bridge's mdb, with a
+> dangling ->key.port. Any subsequent mdb dump reads the freed port:
+> 
+>    BUG: KASAN: slab-use-after-free in __mdb_fill_info+0x1191/0x1320
+>    Read of size 8 at addr ffff88803065d008 by task bridge/9527
+>     __mdb_fill_info+0x1191/0x1320
+>     br_mdb_dump+0x594/0xe40
+>     rtnl_mdb_dump+0x1cf/0x5d0
+>    Freed by task 0:
+>     kfree+0x265/0x740
+>     kobject_put+0x212/0x6a0
+>     rcu_core+0x5c6/0x1140
+>    Last potentially related work creation:
+>     __call_rcu_common.constprop.0+0xb7/0x9e0
+>     br_del_if+0xdd/0x260
+> 
+> Don't rely on the pre-latched next pointer. br_multicast_del_port() deletes
+> everything, so just take the current list head each round. The filtered
+> walk in __br_multicast_disable_port_ctx() keeps its iterator but restarts
+> whenever the latched node has left the list; port groups are only freed by
+> the multicast GC work, which takes br->multicast_lock, so the node is still
+> valid memory for that check.
+> 
+> Fixes: b08123684bd5 ("net: bridge: mcast: install S,G entries automatically based on reports")
+> Cc: stable@vger.kernel.org
+> Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+> Assisted-by: tencentos-corvus-ai:kimi-k3
+> Signed-off-by: Jun Yang <junvyyang@tencent.com>
+> ---
+> A KASAN reproducer for this issue is available if requested.
+> 
+>   net/bridge/br_multicast.c | 33 +++++++++++++++++++++++++--------
+>   1 file changed, 25 insertions(+), 8 deletions(-)
+> 
+> diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
+> index 00aa9b2879d6..624dfca4066b 100644
+> --- a/net/bridge/br_multicast.c
+> +++ b/net/bridge/br_multicast.c
+> @@ -2065,12 +2065,17 @@ void br_multicast_del_port(struct net_bridge_port *port)
+>   {
+>   	struct net_bridge *br = port->br;
+>   	struct net_bridge_port_group *pg;
+> -	struct hlist_node *n;
+>   
+> -	/* Take care of the remaining groups, only perm ones should be left */
+> +	/* Take care of the remaining groups, only perm ones should be left.
+> +	 * Deleting one can delete others on this same port->mglist, so
+> +	 * always restart from the head.
+> +	 */
+>   	spin_lock_bh(&br->multicast_lock);
+> -	hlist_for_each_entry_safe(pg, n, &port->mglist, mglist)
+> +	while (!hlist_empty(&port->mglist)) {
+> +		pg = hlist_entry(port->mglist.first,
+> +				 struct net_bridge_port_group, mglist);
+>   		br_multicast_find_del_pg(br, pg);
+> +	}
+>   	spin_unlock_bh(&br->multicast_lock);
+>   	flush_work(&br->mcast_gc_work);
+>   	br_multicast_port_ctx_deinit(&port->multicast_ctx);
+> @@ -2126,11 +2132,23 @@ static void __br_multicast_disable_port_ctx(struct net_bridge_mcast_port *pmctx)
+>   	struct hlist_node *n;
+>   	bool del = false;
+>   
+> -	hlist_for_each_entry_safe(pg, n, &pmctx->port->mglist, mglist)
+> -		if (!(pg->flags & MDB_PG_FLAGS_PERMANENT) &&
+> -		    (!br_multicast_port_ctx_is_vlan(pmctx) ||
+> -		     pg->key.addr.vid == pmctx->vlan->vid))
+> -			br_multicast_find_del_pg(pmctx->port->br, pg);
+> +	/* br_multicast_find_del_pg() can delete further entries of this same
+> +	 * port->mglist, so the node latched in @n may be unlinked by the loop
+> +	 * body. Port groups are only freed by the GC work under multicast_lock,
+> +	 * so @n is still valid here; if it left the list, restart.
+> +	 */
+> +restart:
+> +	hlist_for_each_entry_safe(pg, n, &pmctx->port->mglist, mglist) {
+> +		if ((pg->flags & MDB_PG_FLAGS_PERMANENT) ||
+> +		    (br_multicast_port_ctx_is_vlan(pmctx) &&
+> +		     pg->key.addr.vid != pmctx->vlan->vid))
+> +			continue;
+> +
+> +		br_multicast_find_del_pg(pmctx->port->br, pg);
+> +
+> +		if (n && hlist_unhashed(n))
+> +			goto restart;
+> +	}
+>   
+>   	del |= br_ip4_multicast_rport_del(pmctx);
+>   	timer_delete(&pmctx->ip4_mc_router_timer);
 
-The map side will be racing and it has already partially setup some of
-its accounting, but I guess you are saying since the change process
-aborts that is OK?
+Thanks for the report, but instead of all these restarts and checks,
+can't we just do:
+diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
+index 75e1e2a8fc83..62c4008c5bb8 100644
+--- a/net/bridge/br_multicast.c
++++ b/net/bridge/br_multicast.c
+@@ -808,7 +808,8 @@ void br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
+         struct hlist_node *tmp;
+  
+         rcu_assign_pointer(*pp, pg->next);
+-       hlist_del_init(&pg->mglist);
++       /* use _rcu to preserve the next pointer because it might be in use */
++       hlist_del_init_rcu(&pg->mglist);
+         br_multicast_eht_clean_sets(pg);
+         hlist_for_each_entry_safe(ent, tmp, &pg->src_list, node)
+                 br_multicast_del_group_src(ent, false);
 
-> Taking domains_rwsem in iommufd_take_all_iova_rwsem() alone may not prevent the NULL pointer deref.
-> For example:
->     change_process: take domains_rwsem for write
->     map:            take iova_rwsem for write, insert an area with area->pages == NULL, and release iova_rwsem
->     map:            try to take domains_rwsem for read and block
->     change_process: take iova_rwsem for write and iterate the area
 
+I have old patches that remove the mcast open-coded list implementations, I must
+revive them and clean all of this up finally. :)
 
-Yes, I guess it does unlock as it runs too bad
+Cheers,
+  Nik
 
-So this patch is probably the best option
-
-Jason
