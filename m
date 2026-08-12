@@ -1,68 +1,82 @@
-Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
+Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E13244667
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 01:08:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6931035E1AD;
+	Wed, 12 Aug 2026 01:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786496920; cv=none; b=BmAMnF93AgIp7QHH9R5kaNmqXJ6eVKdqmgWkjnQZTOaQFBmj1/XVRHb4cEoaWRB27584HDTVGC3RU86jmYHLkDrWIFAMgnr/vjDD9ip+diq4SFzrzkjWXVidBuY2scN3CzZZr5pfzX+PesYz645kIhzf7AJSzTzSJBzZfQJFPXM=
+	t=1786496931; cv=none; b=Bbtm8TrLdbYnmU7JEZjCXDx8rVZN+99/Fj/uJuQeHLeJIMpPQVJFMkL8DstqkorAYjRp0D4T5iaIPmd4cpwr8TenvSrD+FPxbYe22jcSxIwTq0NT3ZrQD1kTSQKS/Bxh/aOXP3AepN2CCBObRdF3cCZVK0uKXKDXpoo2wk7A4TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786496920; c=relaxed/simple;
-	bh=I6aJvhQDaPoz98wrJV1pnrAzrMqAYl22vSt5271RRdA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A6F9p3PSIRBAqf84fJIzsrz8KkMaeyo9jk6zyxqnL0ZNu7Y7IwpTL2ZdEc0c/eDn/+QPfMuFGuvlfKawxaa64DI5Jd9ofaEgD2wAZhrWt8t0AxI5GVhGeuyipTB13pyQkjBTs4KNoszEA4hj6lCZWYnbYW2y/21z4StAZRO0TaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rfc2549.ca; spf=pass smtp.mailfrom=rfc2549.ca; arc=none smtp.client-ip=109.224.244.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rfc2549.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rfc2549.ca
-Date: Wed, 12 Aug 2026 01:08:28 +0000
-To: Paolo Bonzini <pbonzini@redhat.com>
-From: "IP over Parrots (with QoS)" <opensource@rfc2549.ca>
-Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>, "seanjc@google.com" <seanjc@google.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>
-Subject: Re: 6.1.y status: 2abd5287f083 ("KVM: x86: Check for invalid/obsolete root *after* making MMU pages available") / CVE-2026-64561
-Message-ID: <6T0kMG3on8gqQNlDZpl6PONhbz3R4vadrMJ2QzJu-UPYXvT1OfqbLyc0CNuW3_Cj7YojbCpo-dn9MU_Etj4npJkWbhZhPDbEvJsHUk3Zm6o=@rfc2549.ca>
-In-Reply-To: <CABgObfbRQt1H5nEDzL5zCLPKdWDGX348+RcrZpmLSd9QqSJTbA@mail.gmail.com>
-References: <K5X5A-vk0kKy96pbo6vsCIfvu4CDhenGoKAy3bdpFLx_5sdQ4ovBeDLABVHxrI08ouImtdBr2cYTqriDJgeTZLZhMIA-Hphgz4jMe7W6M6Q=@rfc2549.ca> <CABgObfbRQt1H5nEDzL5zCLPKdWDGX348+RcrZpmLSd9QqSJTbA@mail.gmail.com>
-Feedback-ID: 126047231:user:proton
-X-Pm-Message-ID: 85f8dc52bd32e5c7272a267abac6be27c54c5c1d
+	s=arc-20240116; t=1786496931; c=relaxed/simple;
+	bh=LdOBEKTdkgqDbNLJDbYskHxFAOqVJOonk0Qk8y3J0rw=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:Mime-Version:
+	 Content-Type; b=S3AWz5+0rRHcQ21nCOndUtbtGEMd5Rk2wkvgb4s7SvCWPQ14hoQHcN2OzIDozEf4e8+MIfUKlABgiFWImJ3BU9rjJayoLcuarkugjNa4uarbARgppfnNneggp17jEXTz9jA+jkUTfP8gJURA5UbZ5Rw/IS3RRF04EV6m8k3UONA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=OMgtMqgU; arc=none smtp.client-ip=162.62.57.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="OMgtMqgU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1786496915;
+	bh=LdOBEKTdkgqDbNLJDbYskHxFAOqVJOonk0Qk8y3J0rw=;
+	h=Date:From:To:Cc:Subject:References;
+	b=OMgtMqgUas6H6Cc3vG2PWYMqsAQvlJMfDYIX3gD7x3tGpgMl9bzdK7iYNyCKkJ6Do
+	 mB6IE+d4ZGOHezreIbjpgS9bdFFYDT7Yn/PifCLlXENUsQskxVIF0aMSvssHNt/AfW
+	 SFvIP0QiaRjQqcBCR6/8QDCjEj7w98xOPACnIiZ4=
+Received: from PC-20201120SBOH ([183.205.156.133])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 2213C648; Wed, 12 Aug 2026 09:08:33 +0800
+X-QQ-mid: xmsmtpt1786496913t6x9emz2d
+Message-ID: <tencent_7C0E8F3CBC25E603FDA0289583DC9BD16B07@qq.com>
+X-QQ-XMAILINFO: NbgegmlEc3Ju1p/+CdclI+OjHNtendqfr7yPSN0vQl03Qz1ImrEEt7dUoFV23M
+	 9MoG4uBdLL1mILGx5vqHRKplNuS4mempxVGcdgCXMBCppTQWgLqpKit54x9oRQG487G+ai3oozw0
+	 r1AYFXFz1aWP8Ol0dgIrTh8yezIwheUelbm8623A+Vml6RqAQi+qHxlUpAIlaPrAFvtV4vh56yPP
+	 1s+vNybxuFQqa349yJ0FwzsDo+MRLn80Pukqwi/xG4ETl2L+Ow3mNPTJobj3riDiIdwaUzA2MFIP
+	 QS38gVu/UR5ZCECCkQEJcyxbprIjAk5aB3xOM30miUZVe85z7n/MQqe62/oQOr45DXs/xeMb8eDd
+	 UPHTPdlII8vQjwjje8DEGaSW3Mi/aRCD0MSZPLH0WdrkvFK4GiIJAeMUWfud6dBKyY+8XlFaEup0
+	 SiXx+Ydvn1VdMnmnqtBSb0vzUX+b7mqd9fB92rAJBi27JEyq4KBrOKdMER+BdWvBydqVuwVznC7j
+	 P4dY8lCPdDCvjhCjH2yL+sOSh8kkQr2iKf2/Zeud6VW3wQ/X2voEaLkBj3L+4lYoBivHSbKG9+08
+	 TW5wY8ubRv5pf9JjcGlQ8Nn/+AuaMg8hQoTvimY1otiJygEiZBUNBEZY1l+hZZo85RVrJB137cLh
+	 2sfeRvp13/nIm81WWSgXPyJFwUcoZfa7SE2vZnHgTwQLF2/XrJzBUiJp2R0OmpUJbsy2OqIuxctf
+	 yzNhm97XuTN/NNChGC5DYBVYgoShpdSpmEtmjpLHDdCvkm6Q47a0UE4MwCYeFp7zJe9wLFQYCuFm
+	 lw1ZAu924sS9DGyqJ/9bM0ajdBHOdFalAmKKNdrYoOswKxRd4YJHp90nIY/MVs+WOGMqoVeAWPN0
+	 GevFhXHmT9oPzcYCJ0cO6wE/ezeW9g8wvkIN1EeNbiogyBgr0469Rrl4SsT+Ibqd4Lg79fJBybVp
+	 PbCm7SXIkkLXfQZeMXhr/p1BYJn+tIV4sAsnVJVcFIFXoM8iNtKUlAfrM/67Gc75LCYSh25cMZBY
+	 Y4jDvCyuI7PxVbJ8di+DgnWgMu6AaEIAYBg/9zEup0QtLVN4k5WpYMYvVTHoc=
+X-QQ-XMRINFO: NHo+0iP/cI22ZgYdVAreg7B8/AHmI4Bv8g==
+Date: Wed, 12 Aug 2026 09:08:33 +0800
+From: "grayhat@foxmail.com" <grayhat@foxmail.com>
+To: "Frank Sorenson" <sorenson@redhat.com>, 
+	linux-cifs <linux-cifs@vger.kernel.org>
+Cc: stable <stable@vger.kernel.org>, 
+	smfrench <smfrench@gmail.com>, 
+	pc <pc@manguebit.org>
+Subject: Re: [PATCH] smb: client: fix OOB read/write from unvalidated DataOffset in coalesce_t2()
+References: <20260811191846.1263281-1-sorenson@redhat.com>
+X-Priority: 3
+X-GUID: 7DC42953-4FDF-4DA0-B60B-CC79BE11F035
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.25.542[cn]
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+X-OQ-MSGID: <202608120908328785132@foxmail.com>
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-On Tuesday, August 11th, 2026 at 11:24 AM, Paolo Bonzini <pbonzini@redhat.c=
-om> wrote:
-> Sean already answered about the backport; I will add that upstream
-> maintainers, as a general rule, do not have the bandwidth to check
-> which commits are needed in older backports. The older the kernel, the
-> more we need the help from the community. Especially with the
-> increased amount of reports we've gotten over the last few months,
-> *there's no guarantee that LTS kernels get fixes for all
-> vulnerabilities*.
+T24gVHVlLCAxMSBBdWcgMjAyNiAxNDoxODo0NiAtMDUwMCwgRnJhbmsgU29yZW5zb24gd3JvdGU6
+Cj4gW1BBVENIXSBzbWI6IGNsaWVudDogZml4IE9PQiByZWFkL3dyaXRlIGZyb20gdW52YWxpZGF0
+ZWQgRGF0YU9mZnNldCBpbiBjb2FsZXNjZV90MigpCgpUaGFua3MsIEZyYW5rIC0gdGhpcyBsb29r
+cyBnb29kIHRvIG1lLiBUaGUgbG93ZXItYm91bmQgY2hlY2tzIG9uCmJvdGggcG9pbnRlcnMgYW5k
+IHRoZSBzb3VyY2UgcmFuZ2UgdmFsaWRhdGlvbiBjb3ZlciB0aGUgY2FzZXMgbXkKc2ltcGxlciB1
+cHBlci1ib3VuZC1vbmx5IHBhdGNoIG1pc3NlZCwgYW5kIHRoZSBGaXhlczogdGFnIHRvCmU0ZWIy
+OTVkMzhiNSBjb25maXJtcyB0aGUgcHJlLTIwMTIgb3JpZ2luIHdlIHN1c3BlY3RlZC4KCk9uZSBy
+ZXF1ZXN0OiB0aGUgY3JlZGl0IGN1cnJlbnRseSBzaXRzIGJlbG93IHRoZSAtLS0gbGluZSwgc28g
+aXQKd291bGQgYmUgZHJvcHBlZCB3aGVuIHRoZSBwYXRjaCBpcyBhcHBsaWVkLiBDb3VsZCB5b3Ug
+YWRkIGEKClJlcG9ydGVkLWJ5OiBTaGVuIFlvbmdjaGFvIDxncmF5aGF0QGZveG1haWwuY29tPgoK
+dHJhaWxlciB0byB0aGUgY29tbWl0IG1lc3NhZ2UgcHJvcGVyPwoKU2hlbiBZb25nY2hhbwo=
 
-That makes sense and I hope I didn't come across as complaining.
-On the contrary I am willing to help to the extent that I can.
-
-I am familiar with the maintenance burden but I am not intimate with
-the inner workings of the Kernel yet so I figured I would ask the people
-who know.
-
-> If your distro or fridge is running an old kernel
-> and is left vulnerable, complain with them.
-
-To be fair, Debian 12 ships with 6.1.y which is still supported and they
-have 6.1.182 already.
-
-My inquiry was about whether this particular fix should land in 6.1.y.
-Otherwise, if this was still supported by Debian (or RHEL), then I might
-expect the distro to manually patch or backport it as you mention.
-
-I now see that the fix will land and I am glad to have contributed in
-some small way :)
-
-Thanks all,
-
-- dms
