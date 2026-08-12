@@ -1,124 +1,301 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334DC3FF1B5
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 21:31:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8F6401A14
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 21:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786570314; cv=none; b=SBy6ach1HgrQSedSFd3R1QNzQqOjfBfELB9PY6DVhr2/LptvtI8Z7FfyiVlIhpzJuuaEKcJK2XQ3mkLQaJPLFedUxCEBQlvE4izM0XQU294ckF3uenZ3vYKLEZdPUKhNM5kcTJKg/ibQx2GcDbrKE/9NTiGJQt7cbFEVxCkiZdQ=
+	t=1786571086; cv=none; b=JSNtWLXG6s5C/Dzu/cp6Cc+xHOzSIizkbh7yKpqjT/RIBqOrA9O3Whru1QTuN86+1ipjjWfxn9m9Tge/rlCYlia+r7kAJTjUV4UU1bIfvS/wSeKZAgrfGPPGFFuTzkNvcqAIkyCo4QJqDKuY+NePcb5MW7mFcc33D1NKJLj76kk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786570314; c=relaxed/simple;
-	bh=nNIHFubT2cdwMRGC5wo1PMzn8c+9vm4K2D/LERMWOlM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HST39bDWSEuqSPzHEiVTogi090KZW5+RK3rLf0lHyzY6E4YXCxSMAuMJ1nXeqgJTxvOSo4r0V7tgI3w9g81Fg3W0D7Do3cmF25mUzT5TgwExJ0hyvTkTx79neGhjxq+RWI9V5PNnTjMVBoLUGi3PPsXIYFqeNiWE/Qkx4DnO6gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZeCq6ThX; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1786571086; c=relaxed/simple;
+	bh=89EwqujkVX8CqILmqZsH+8E2Zfqbt1N8OrlIniE5+R8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eIz7c04Si8URO8apjvosno2Fi1GW/WSBpXcTFDYmeDgvgaDVBm6XAG6DsfMU9a27hkoH9Raop1cPGA8V7rHdkxbrcaaqNi/QknE1TcsfPNgeArpLyRfbSqI1xfLQcOAxASTHEM3FAmO8qQjMsLqna/K+k/ltge9M194b1jhqBBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iU2ZH82c; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=b5XvULwJ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZeCq6ThX"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ccdf36f63dso17585ad.0
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 14:31:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iU2ZH82c";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="b5XvULwJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786571083;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EpdR7lRgwsOXaHnV+8khs91uYzIEWMJ6GYggqjAM8+M=;
+	b=iU2ZH82cAMOYoVF29oMqYn7Wn09tFvlzQxfS2yD4IuFETz0BO24m3mdqBF76N6TY0zzqty
+	URnPEFK/FP10CPwX44zmuyzC/HWWF/lK5cFuijN1CllDDIlF+QOU9Aw1Ccgjy6BrHK01GX
+	kqs7cCPLxTFQuoHjA630BBr+wCRicXg=
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-516-cGhtzpZ1OJ6BFBzFjbebGQ-1; Wed, 12 Aug 2026 17:44:41 -0400
+X-MC-Unique: cGhtzpZ1OJ6BFBzFjbebGQ-1
+X-Mimecast-MFC-AGG-ID: cGhtzpZ1OJ6BFBzFjbebGQ_1786571081
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7eb6a8c61deso100985a34.3
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 14:44:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786570312; x=1787175112; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wINBx+pfpCyFlfKOWVKljukC1dHM8ILCso1ff2oMmaQ=;
-        b=ZeCq6ThXANmi18Gnlj3wFyqPPVfHiHyxTNbXgzLNceY068UotVuJQcfNkdvKJ7rY+J
-         nCfeCVy/gdMijWw/iUD8jhyDI0t1NwuAgPe6WbixKF+Lk5EsRiVKpE5+NohE+f6FSnYY
-         yCUQofVVzyoZXXR38Bc2MwxD5ScmlGmLTsb0tmjdSlijj9IkWQv9T/zbWUjSGR+J2Dxr
-         hOMAbpxQzs4r9i93JWOjBC7dFeL9BEfh3/5XDEfTqmkkdURVvgzF5F2RuWw/puyIkMLS
-         0OTrF5taxW4XBzDVCzKndkqgnSKPMOw8xsiBpkv0yMNteR0rCdScqGQo+BXaQuDVLnTG
-         fpqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786570312; x=1787175112;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1786571081; x=1787175881; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wINBx+pfpCyFlfKOWVKljukC1dHM8ILCso1ff2oMmaQ=;
-        b=HdhVooE6aFmQbmlaKs0onptkhuHyJlBULSQthg+DB/RGa6CoIckaYDHEZ03ilHswIW
-         lXr3vVfPRDKMaNYOOBs5tdpHueK/7X3kRdy6qVk0sVBMhqxagx9kI0ZNc07Ib6+l8EC9
-         qJMfQL/QlYfcJnqNQHNOa/2NBKtpBolHy1viFxCXWjB/m9XfXUbNAt1VZX+BPrbr5rsg
-         YpO92I83raat2oIQhzEMEvxDvneaGJ4WQewTxhx4ufPNBetbpMJwZ+O7DILar7qqEGEx
-         GdvoHdt+y81J81aEMn0m9j21hpAfAY927EfSzEFbn+SkpkqvkPngdteIRln9EEtaiKGU
-         O71Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rrhr4PrANLKMf39oOoFnnwv0/bnqiU+CqJxJG9Y+qWGxvTZh/+6wd3IwDtoqZHWX8sXgl61BFI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1F0yqfXyP5y7vMYxi1hb7nkX9x8VqWXV1fimgHXDafLq+pMMv
-	ME/2hwW9kT3bsoxTmGXYeRwn/Kj+npdvKbXkKfgfGzsP094ai7WMlH+1t4yrd3xAQA==
-X-Gm-Gg: AR+sD11vwztEDY+21p3dko/T6GHXJX4SdARDqHZQWeM3UF9zRzjefsf0eU03nZYg50u
-	76noTtxwFTImGtYEQ99m+Gj96MU1ldiVVjX+4MFv2g3r02tKX8U1ByDech9MR0iPliQTnEBBW8v
-	WucICNnGMcjm8qC3Xcm569vSq7mYfRxnRenFZoOWf20a2jEvQO1NOzg7nCKx3Uoxx77FHDl7PPG
-	KSDvgPIx4k+cpmN/guP0fa9npnLX0vmOLSxkEn0HeNXC92kXnWkLa70MBATcS5uCBisqyqB8Yrz
-	AIMxhyQN+8p8n170TZFKnBMmxBp9TU1I9ZTqtM6euPBRtVkZza16OCzC6h0R5NwDl2YqI0/O7uU
-	1+EI1iapfMCjD4tS8yfMlA89InHCZyAPr9OoEEVCQbqWZACzbfC6veqegEChGXXgvV9TypTCG+3
-	XGcuN8I2sQ/CxkJaE68FPVggbsL8he2+Yq6qWneBskRIwyo45Lple2r4nhYo9HSI4ajKkN/UeEW
-	IpFq/1m2zvUc1LvPqiqcZWRRZzgdCU02lwBRklGQWj302q+DZD6m+rU4lVjH0fUk43aFhrSdXQD
-	4P62rBKJ
-X-Received: by 2002:a17:903:32d0:b0:2bf:3579:cdaa with SMTP id d9443c01a7336-2d388a6cdb9mr57115ad.10.1786570311823;
-        Wed, 12 Aug 2026 14:31:51 -0700 (PDT)
-Received: from google.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d37c221d24sm1708235ad.20.2026.08.12.14.31.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 14:31:51 -0700 (PDT)
-Date: Wed, 12 Aug 2026 21:31:47 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Tomer Pomeranc <tomerpo@gmail.com>
-Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
-	arve@android.com, tkjos@android.com, brauner@kernel.org,
-	aliceryhl@google.com, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] binder: fix leaked fd fixups on TF_UPDATE_TXN
- supersede
-Message-ID: <anzmQ1QGuRqMA3i5@google.com>
-References: <20260812195316.259136-1-tomerpo@gmail.com>
- <20260812195316.259136-2-tomerpo@gmail.com>
+        bh=EpdR7lRgwsOXaHnV+8khs91uYzIEWMJ6GYggqjAM8+M=;
+        b=b5XvULwJLCbl1BwTTFuzYv3m7WPfR6Sem6f4cpy3vL4T1tp/PPt8ngpSzjjoXjkHAb
+         /vOUDhiqrZ3o20QCT+QUduqXUOfzqcdbCmwxPdg+n/wKlHDWJOqaSre9px95lthSc3Ua
+         WIOdLLNuTd3PpATloKh+C4XWSN1y3s0SRU59YqzqLQte1k1VtSGyGl4dJ6zjJve7sj1Y
+         p/tAH8BNNGrylyHBKWFSlKSIl13kJwwbPUGDOyxcVgu9lxr+8g/mS0Q5jWtePeKM6kfJ
+         aC3ZBUZpRidOOPsJP6U5bjYy9TORUkYdM2YQJfiAlz7KmAApMdk27P7IL0tVWCh55U6I
+         6VYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786571081; x=1787175881;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EpdR7lRgwsOXaHnV+8khs91uYzIEWMJ6GYggqjAM8+M=;
+        b=ZgP6S8hT2WYIourbFB1lOYUYCaMeQqgwLtrgrYAdEDNmhBRi50DEOBFD3PWVgvStfs
+         26lKyaDWI8IyrppJI1CMOkIHDUdCdrYc9JsexuB/Ouvs/OujWqF/R5QDObhrmfjkINwY
+         m5OSvynbLR+XIZQrdIIbeKx6g41uhk68HG4jnvk1eJEf3dOiJN20ZL3brX0w4e5cwtqO
+         w5u9yVRgaHUdUXTYYQ0feQp4Cdu14mSAAi+4h5KXP3SJbUVPW8zE02MW4NA8qUf8Ydj4
+         6Lgd2Z6VvpPgQ9koDyN2h5EUdVXCr8HwZpfM4QrICUSdYTE+b28joopHCpUeEVPbsKIV
+         JTOA==
+X-Gm-Message-State: AOJu0YzM4Dy0nKMV+HPDBX6TuoDJu9lujCcGMr16m/UCN34oAFw8G4z3
+	aDrJHJa9qAUM6seBnWj4UVW9MYlVNwpMh5gmrEfDQ7VjqVTd/EBdSMdDx1UAhGZRJGU3RhsM767
+	p+nnIaKUMnVcE7GoMXiJM2lHmYGVJrSoK5Ig+hZ3mNW2xxa8HfBpBdDexHw==
+X-Gm-Gg: AR+sD12+2onYNOc/eskBJ6ov+UJRGmi+nhEn7LhsDcVnWle1TtmNiu8xShC4Y9EtBMn
+	NIpZDaOHNsB38Xfv8+eTElf4hznhD7jAIwsCm5lMUYp4pJGdFfRSnmSf9rvBZtvJjAM//uciOvp
+	Cgw80Y17ENEgds5/DmW8h1WRmNji+Q5rSfCyq7awBIj5YzQH/KT8C1BFp5Xvzocj/guJAueXodq
+	89Jm+ZFYjScTga7MJL5PB91MZ4yEifEH+kVUJGOwc+Jo2Lr8aY/+JXhj38l4pv8fLad5E1T6d5O
+	Qwvjz9Qyurke2AzPIk54UaEnvdIzNBBg7JmuwVw3yLW3vTlLcOCF/4Z1wbVTBZVBfiftn6u4I3m
+	by29kdHezR69Odt/NgCZLE7aYNUQiKrkWTOZ+5wI3
+X-Received: by 2002:a05:6820:4cc7:b0:6b0:40d9:8ac6 with SMTP id 006d021491bc7-6b0c41ff715mr1536510eaf.9.1786571080832;
+        Wed, 12 Aug 2026 14:44:40 -0700 (PDT)
+X-Received: by 2002:a05:6820:4cc7:b0:6b0:40d9:8ac6 with SMTP id 006d021491bc7-6b0c41ff715mr1536452eaf.9.1786571080219;
+        Wed, 12 Aug 2026 14:44:40 -0700 (PDT)
+Received: from [10.0.0.119] (97-127-68-83.mpls.qwest.net. [97.127.68.83])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f3c9a172cesm438933a34.12.2026.08.12.14.44.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 14:44:39 -0700 (PDT)
+Message-ID: <b1bd3b15-78ea-4487-b6a8-aad0b05dd3bb@redhat.com>
+Date: Wed, 12 Aug 2026 16:44:38 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812195316.259136-2-tomerpo@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH V2] devtmpfs: restore mount option reconfiguration on get_tree
+To: Simon Liebold <simonlie@amazon.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
+ <dakr@kernel.org>, Christian Brauner <brauner@kernel.org>,
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Alexander Viro <aviro@redhat.com>
+Cc: stable@vger.kernel.org
+References: <20260810083438.764684-1-simonlie@amazon.de>
+Content-Language: en-US
+From: Eric Sandeen <sandeen@redhat.com>
+In-Reply-To: <20260810083438.764684-1-simonlie@amazon.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 12, 2026 at 10:53:15PM +0300, Tomer Pomeranc wrote:
-> When a TF_UPDATE_TXN transaction supersedes a pending async transaction
-> in a frozen process, the outdated transaction is freed with kfree()
-> directly. This skips binder_free_txn_fixups(), leaking all
-> binder_txn_fd_fixup entries and their fget()'d struct file references.
-> 
-> The leaked file refcounts never reach zero, so the struct file objects
-> are permanently pinned in memory. They survive process exit and
-> accumulate across invocations until file-max exhaustion.
-> 
-> Every other transaction cleanup path (binder_free_transaction(),
-> binder_transaction() error paths, binder_release_work()) correctly
-> calls binder_free_txn_fixups(). Add the missing call before kfree()
-> in the t_outdated cleanup block.
-> 
-> Fixes: 9864bb480133 ("binder: add TF_UPDATE_TXN to replace outdated txn")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tomer Pomeranc <tomerpo@gmail.com>
-> ---
->  drivers/android/binder.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-> index 8f2ef1bd5..f70aeb63a 100644
-> --- a/drivers/android/binder.c
-> +++ b/drivers/android/binder.c
-> @@ -2932,6 +2932,7 @@ static int binder_proc_transaction(struct binder_transaction *t,
->  		trace_binder_transaction_update_buffer_release(buffer);
->  		binder_release_entire_buffer(proc, NULL, buffer, false);
->  		binder_alloc_free_buf(&proc->alloc, buffer);
-> +		binder_free_txn_fixups(t_outdated);
->  		kfree(t_outdated);
->  		binder_stats_deleted(BINDER_STAT_TRANSACTION);
->  	}
-> -- 
-> 2.34.1
-> 
+commit cb0e0a8bf4e1 ("devtmpfs: replace ->mount with ->get_tree in
+public instance") converted the public devtmpfs instance to the new
+mount API but broke the ability to reconfigure the shared superblock
+options via subsequent mount() calls, as had been fixed once in
+a6097180d884 ("devtmpfs regression fix: reconfigure on each mount")
 
-Thanks,
-Acked-by: Carlos Llamas <cmllamas@google.com>
+This makes boot-time defaults permanent.
+
+Fix this using an approach suggested by Al Viro: at init_fs_context
+time, create a reconfigure-mode context via fs_context_for_reconfigure()
+and save it in fc->fs_private. The devtmpfs parse ops can then use
+this context to parse options appropriately for the underlying filesystem.
+
+This also removes the devtmpfs_configure_context() one-time ops-copying
+approach and the global mutable ops table it required.
+
+Fixes: cb0e0a8bf4e1 ("devtmpfs: replace ->mount with ->get_tree in public instance")
+Reported-by: Simon Liebold <simonlie@amazon.de>
+Cc: stable@vger.kernel.org
+Suggested-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: Eric Sandeen <sandeen@redhat.com>
+---
+
+I think this might be a better approach; more involved, but it uses the
+right type of context for reconfigure and avoids the nasty ops copying
+I wrote the first time. :(
+
+First, sorry for breaking this. Second, Al please yell if I have mis-attributed
+or mis-implemented your suggestion from months back. Third, I have done only
+light testing on this but it seems ok, built and booted with CONFIG_TMPFS=y
+and confirmed that a fresh "mount" with new options takes hold, and confirmed
+it builds without CONFIG_TMPFS configured though I don't have a system
+that wants to boot that config.
+
+Thoughts?
+
+ drivers/base/devtmpfs.c | 108 ++++++++++++++++++++++++----------------
+ 1 file changed, 64 insertions(+), 44 deletions(-)
+
+diff --git a/drivers/base/devtmpfs.c b/drivers/base/devtmpfs.c
+index b1c4ceb65026..c32d3b963f2e 100644
+--- a/drivers/base/devtmpfs.c
++++ b/drivers/base/devtmpfs.c
+@@ -72,39 +72,90 @@ static struct file_system_type internal_fs_type = {
+ 	.kill_sb = kill_anon_super,
+ };
+ 
+-/* Simply take a ref on the existing mount */
++struct devtmpfs_context {
++	struct fs_context *fc;
++};
++
++static void devtmpfs_free(struct fs_context *fc)
++{
++	struct devtmpfs_context *ctx = fc->fs_private;
++
++	if (ctx) {
++		put_fs_context(ctx->fc);
++		kfree(ctx);
++	}
++}
++
++static int devtmpfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
++{
++	struct devtmpfs_context *ctx = fc->fs_private;
++
++	return ctx->fc->ops->parse_param(ctx->fc, param);
++}
++
++static int devtmpfs_parse_monolithic(struct fs_context *fc, void *data)
++{
++	struct devtmpfs_context *ctx = fc->fs_private;
++
++	if (ctx->fc->ops->parse_monolithic)
++		return ctx->fc->ops->parse_monolithic(ctx->fc, data);
++	return generic_parse_monolithic(ctx->fc, data);
++}
++
+ static int devtmpfs_get_tree(struct fs_context *fc)
+ {
++	struct devtmpfs_context *ctx = fc->fs_private;
+ 	struct super_block *sb = mnt->mnt_sb;
++	int err;
+ 
+ 	atomic_inc(&sb->s_active);
+ 	down_write(&sb->s_umount);
++
++	if (ctx->fc->ops->reconfigure) {
++		err = ctx->fc->ops->reconfigure(ctx->fc);
++		if (err) {
++			deactivate_locked_super(sb);
++			return err;
++		}
++	}
++
+ 	fc->root = dget(sb->s_root);
+ 	return 0;
+ }
+ 
+-/* Ops are filled in during init depending on underlying shmem or ramfs type */
+-static struct fs_context_operations devtmpfs_context_ops = {};
++static const struct fs_context_operations devtmpfs_context_ops = {
++	.free		  = devtmpfs_free,
++	.parse_param	  = devtmpfs_parse_param,
++	.parse_monolithic = devtmpfs_parse_monolithic,
++	.get_tree	  = devtmpfs_get_tree,
++};
+ 
+-/* Call the underlying initialization and set to our ops */
+ static int devtmpfs_init_fs_context(struct fs_context *fc)
+ {
+-	int ret;
+-#ifdef CONFIG_TMPFS
+-	ret = shmem_init_fs_context(fc);
+-#else
+-	ret = ramfs_init_fs_context(fc);
+-#endif
+-	if (ret < 0)
+-		return ret;
++	struct devtmpfs_context *ctx;
++	int err;
++
++	ctx = kzalloc_obj(struct devtmpfs_context);
++	if (!ctx)
++		return -ENOMEM;
++
++	/* Each mount will reconfigure the shared superblock w/ new options */
++	ctx->fc = fs_context_for_reconfigure(mnt->mnt_root,
++					     mnt->mnt_sb->s_flags, MS_RMT_MASK);
++	if (IS_ERR(ctx->fc)) {
++		err = PTR_ERR(ctx->fc);
++		kfree(ctx);
++		return err;
++	}
+ 
++	fc->fs_private = ctx;
+ 	fc->ops = &devtmpfs_context_ops;
+ 
+ 	return 0;
+ }
+ 
+ static struct file_system_type dev_fs_type = {
+-	.name = "devtmpfs",
++	.name		 = "devtmpfs",
+ 	.init_fs_context = devtmpfs_init_fs_context,
+ };
+ 
+@@ -442,31 +493,6 @@ static int __ref devtmpfsd(void *p)
+ 	return 0;
+ }
+ 
+-/*
+- * Get the underlying (shmem/ramfs) context ops to build ours
+- */
+-static int devtmpfs_configure_context(void)
+-{
+-	struct fs_context *fc;
+-
+-	fc = fs_context_for_reconfigure(mnt->mnt_root, mnt->mnt_sb->s_flags,
+-					MS_RMT_MASK);
+-	if (IS_ERR(fc))
+-		return PTR_ERR(fc);
+-
+-	/* Set up devtmpfs_context_ops based on underlying type */
+-	devtmpfs_context_ops.free	      = fc->ops->free;
+-	devtmpfs_context_ops.dup	      = fc->ops->dup;
+-	devtmpfs_context_ops.parse_param      = fc->ops->parse_param;
+-	devtmpfs_context_ops.parse_monolithic = fc->ops->parse_monolithic;
+-	devtmpfs_context_ops.get_tree	      = &devtmpfs_get_tree;
+-	devtmpfs_context_ops.reconfigure      = fc->ops->reconfigure;
+-
+-	put_fs_context(fc);
+-
+-	return 0;
+-}
+-
+ /*
+  * Create devtmpfs instance, driver-core devices will add their device
+  * nodes here.
+@@ -482,12 +508,6 @@ int __init devtmpfs_init(void)
+ 		return PTR_ERR(mnt);
+ 	}
+ 
+-	err = devtmpfs_configure_context();
+-	if (err) {
+-		pr_err("unable to configure devtmpfs type %d\n", err);
+-		return err;
+-	}
+-
+ 	err = register_filesystem(&dev_fs_type);
+ 	if (err) {
+ 		pr_err("unable to register devtmpfs type %d\n", err);
+-- 
+2.55.0
+
+
+
