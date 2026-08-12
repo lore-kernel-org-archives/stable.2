@@ -1,39 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB77201113
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 00:09:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7CD204F8B
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 00:09:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786493352; cv=none; b=U+MTBDVhaXFhhiv4JVKNz5SeDK6T4vwkwtVEtohBZbtm5rMiTjDPXwHeLvpmn9x6nFaDjkCMlWpD4L+uZLBAUc42wG6FT/JRlHTsWFLBNVVSy4luk0uHTm3OYitHpDJjihyLbksIL8zARGY1S/iR6GzN3DEO0OPEVN/f0lYskCs=
+	t=1786493353; cv=none; b=p0pJly8za870iW4tpmfDTC2a7bM0VFsLuG/UMJfdiUdAJEXy5nEm8upAeiAXjCK6ZM4wKnK0UmEM5TDWhB5ohYBtMP0CiNDX2qwy4kiZYoRS6GYfQS3s2tcQQJkfrC1UDEWNX5DXCG9V90QnBzEWwBNBU/Xa6KlaNdCpStHuCsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786493352; c=relaxed/simple;
-	bh=RnJxT7VYdvqd6GbN6ixzYixFvzPCkRL9NOiEkbcUOU0=;
+	s=arc-20240116; t=1786493353; c=relaxed/simple;
+	bh=lIrulEVjOSE1as6XagMvc/yRIS0lIkQUjos0Dblbxlo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hFG/q4abET3Wd8PovNFr0j2eVkAz052pUfSP7gjcQUgJuMFwJRp+E0QW+yezjxJlpYhM7Bgb2pHxUWFv+lJNRhspU/6+78tekCMY+rxO5czDRuWioQl236Ui/SeWm0vxlWDSgp5dH6QbFgQHy5RbifbAQPiWKkEDA3kIztzwOLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZyanBVrC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sdkyVzub3+AlC5Q7TrdDkcwGUO3146p0jPs+Ys3ZyHBxY+0rbAnrHEOEB4LjRq3OyySDV59BH2t1w+NxDXm3XqB8gFOf4NXr7i92qTvihSqGY6x5OpwW0qQEzTFxR2eBgH7XO0JCtdCOR5nZdPhaDAsO8DjzE7u72VdYbrdF1gA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DjLJgcMg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZyanBVrC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A381F00A3E;
-	Wed, 12 Aug 2026 00:09:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DjLJgcMg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856911F00A3D;
+	Wed, 12 Aug 2026 00:09:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786493351;
-	bh=MACnYuc/uCC/TcFGKsZnV5PVJ1JidRvqwtHpnbSiq8Y=;
+	s=k20260515; t=1786493352;
+	bh=LcnOuF7X7xJ+TLvRFZ4nyUeaeklU9nJ4RR9XVs/nO4Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZyanBVrCJ8NHDc2YF/hnsdR23crwFL0biGmt3l7azFCQdcOQY1ydNq/ECBvaapHIz
-	 VbzlA9IiKOVRYP+7PQqVkCla2YVIOW1pzNb82O6VDOdUbtwC6MsQSka440YvkZXE3f
-	 8m1ped0n8tuC2OIs8jnz0o3Ps1u0cq6/dPtXfhILquQWoNyovaIQZTFfmCEuP/TkIO
-	 il68ER4v12mHau56bwxGfEz2WA0eJdDImeAHrCRzp2udXUBxGvhr4v7LOi5z3yIUBg
-	 Rm4AnwnFKJGyopXtXg31OilxAHyWJ/qfbgZY0f8cADbuSQABXoG2nG79n/Z4+NVMoj
-	 /79zoYwXWz2Vg==
+	b=DjLJgcMg1LuBFTSrqOaSXLURAYZt+HjzPh3DHOw1WlM8CHMNKKfVkvyAZOATtyq8f
+	 jqx/eB6PpDU3vsgGV8pP/6UoQo0IXpQUNZeziVGpCU727kn7oS6gQ4K7Qe+W9LAukz
+	 7ENFeYbcrQ/gG2YTgOAV/iqZO0pjWLMDZrCCSYhKOBJ2Qa/U10qVNaAaD0Ak1ICHq6
+	 2djce4hWx50CRNM1NbW8a/60cOaJ99ybcS3DsrkGlCPdvwoM/WmBlQltSTenQIHNLJ
+	 WeH5Vw0GUSAb0ubPUKDS3fyuoIH1ciuudJeoAaI8iBEUZSJvoVS1W+Jzhi/p0PzQ0j
+	 Pp6NXLhFiaWJQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guillaume Nault <gnault@redhat.com>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Ido Schimmel <idosch@nvidia.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] vxlan: Handle stats using NETDEV_PCPU_STAT_DSTATS.
-Date: Tue, 11 Aug 2026 20:09:07 -0400
-Message-ID: <20260812000908.4156424-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] vxlan: use pskb_network_may_pull() for transmit path header pulls
+Date: Tue, 11 Aug 2026 20:09:08 -0400
+Message-ID: <20260812000908.4156424-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260812000908.4156424-1-sashal@kernel.org>
 References: <2026080559-twins-crimson-3764@gregkh>
@@ -46,154 +48,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guillaume Nault <gnault@redhat.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit be226352e8dc77d3313c096b2d8e7f69bf6980fc ]
+[ Upstream commit b9553558b48db54ac9273e6b98d7263ef5c1a329 ]
 
-VXLAN uses the TSTATS infrastructure (dev_sw_netstats_*()) for RX and
-TX packet counters. It also uses the device core stats
-(dev_core_stats_*()) for RX and TX drops.
+In vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was
+being called to verify the availability of network layer headers (ARP, IPv6/ND,
+IP/IPv6 MDB keys).
 
-Let's consolidate that using the DSTATS infrastructure, which can
-handle both packet counters and packet drops. Statistics that don't
-fit DSTATS are still updated atomically with DEV_STATS_INC().
+However, during transmit skb->data points to the MAC header, so skb_network_offset(skb)
+is ETH_HLEN (14 bytes). Using pskb_may_pull(skb, len) only checks len bytes from skb->data
+rather than skb_network_offset(skb) + len, which can leave part of the network header
+in non-linear frags.
 
-While there, convert the "len" variable of vxlan_encap_bypass() to
-unsigned int, to respect the types of skb->len and
-dev_dstats_[rt]x_add().
+Replace these remaining pskb_may_pull() calls with pskb_network_may_pull() to properly
+account for the MAC header offset.
 
-Signed-off-by: Guillaume Nault <gnault@redhat.com>
-Link: https://patch.msgid.link/145558b184b3cda77911ca5682b6eb83c3ffed8e.1733313925.git.gnault@redhat.com
+Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
+Fixes: f564f45c4518 ("vxlan: add ipv6 proxy support")
+Fixes: 0f83e69f44bf ("vxlan: Add MDB data path support")
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260723144249.759100-6-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: b9553558b48d ("vxlan: use pskb_network_may_pull() for transmit path header pulls")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/vxlan/vxlan_core.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ drivers/net/vxlan/vxlan_core.c | 6 +++---
+ drivers/net/vxlan/vxlan_mdb.c  | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index fdc46f52c7fc2..add0f56a8f8f7 100644
+index add0f56a8f8f7..7cf7487bf732f 100644
 --- a/drivers/net/vxlan/vxlan_core.c
 +++ b/drivers/net/vxlan/vxlan_core.c
-@@ -1814,14 +1814,14 @@ static int vxlan_rcv(struct sock *sk, struct sk_buff *skb)
- 
- 	if (unlikely(!(vxlan->dev->flags & IFF_UP))) {
- 		rcu_read_unlock();
--		dev_core_stats_rx_dropped_inc(vxlan->dev);
-+		dev_dstats_rx_dropped(vxlan->dev);
- 		vxlan_vnifilter_count(vxlan, vni, vninode,
- 				      VXLAN_VNI_STATS_RX_DROPS, 0);
- 		reason = SKB_DROP_REASON_DEV_READY;
- 		goto drop;
- 	}
- 
--	dev_sw_netstats_rx_add(vxlan->dev, skb->len);
-+	dev_dstats_rx_add(vxlan->dev, skb->len);
- 	vxlan_vnifilter_count(vxlan, vni, vninode, VXLAN_VNI_STATS_RX, skb->len);
- 	gro_cells_receive(&vxlan->gro_cells, skb);
- 
-@@ -1876,7 +1876,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
+@@ -1875,7 +1875,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
+ 	if (dev->flags & IFF_NOARP)
  		goto out;
  
- 	if (!pskb_may_pull(skb, arp_hdr_len(dev))) {
--		dev_core_stats_tx_dropped_inc(dev);
-+		dev_dstats_tx_dropped(dev);
+-	if (!pskb_may_pull(skb, arp_hdr_len(dev))) {
++	if (!pskb_network_may_pull(skb, arp_hdr_len(dev))) {
+ 		dev_dstats_tx_dropped(dev);
  		vxlan_vnifilter_count(vxlan, vni, NULL,
  				      VXLAN_VNI_STATS_TX_DROPS, 0);
- 		goto out;
-@@ -1940,7 +1940,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
- 		reply->pkt_type = PACKET_HOST;
+@@ -2757,8 +2757,8 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			return arp_reduce(dev, skb, vni);
+ #if IS_ENABLED(CONFIG_IPV6)
+ 		else if (ntohs(eth->h_proto) == ETH_P_IPV6 &&
+-			 pskb_may_pull(skb, sizeof(struct ipv6hdr) +
+-					    sizeof(struct nd_msg)) &&
++			 pskb_network_may_pull(skb, sizeof(struct ipv6hdr) +
++						    sizeof(struct nd_msg)) &&
+ 			 ipv6_hdr(skb)->nexthdr == IPPROTO_ICMPV6) {
+ 			struct nd_msg *m = (struct nd_msg *)(ipv6_hdr(skb) + 1);
  
- 		if (netif_rx(reply) == NET_RX_DROP) {
--			dev_core_stats_rx_dropped_inc(dev);
-+			dev_dstats_rx_dropped(dev);
- 			vxlan_vnifilter_count(vxlan, vni, NULL,
- 					      VXLAN_VNI_STATS_RX_DROPS, 0);
- 		}
-@@ -2104,7 +2104,7 @@ static int neigh_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
- 			goto out;
+diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
+index 165b9f4a8eef6..e15a8536dae9b 100644
+--- a/drivers/net/vxlan/vxlan_mdb.c
++++ b/drivers/net/vxlan/vxlan_mdb.c
+@@ -1631,7 +1631,7 @@ struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
  
- 		if (netif_rx(reply) == NET_RX_DROP) {
--			dev_core_stats_rx_dropped_inc(dev);
-+			dev_dstats_rx_dropped(dev);
- 			vxlan_vnifilter_count(vxlan, vni, NULL,
- 					      VXLAN_VNI_STATS_RX_DROPS, 0);
- 		}
-@@ -2289,8 +2289,8 @@ static void vxlan_encap_bypass(struct sk_buff *skb, struct vxlan_dev *src_vxlan,
- {
- 	union vxlan_addr loopback;
- 	union vxlan_addr *remote_ip = &dst_vxlan->default_dst.remote_ip;
-+	unsigned int len = skb->len;
- 	struct net_device *dev;
--	int len = skb->len;
- 
- 	skb->pkt_type = PACKET_HOST;
- 	skb->encapsulation = 0;
-@@ -2317,16 +2317,16 @@ static void vxlan_encap_bypass(struct sk_buff *skb, struct vxlan_dev *src_vxlan,
- 	if ((dst_vxlan->cfg.flags & VXLAN_F_LEARN) && snoop)
- 		vxlan_snoop(dev, &loopback, eth_hdr(skb)->h_source, 0, vni);
- 
--	dev_sw_netstats_tx_add(src_vxlan->dev, 1, len);
-+	dev_dstats_tx_add(src_vxlan->dev, len);
- 	vxlan_vnifilter_count(src_vxlan, vni, NULL, VXLAN_VNI_STATS_TX, len);
- 
- 	if (__netif_rx(skb) == NET_RX_SUCCESS) {
--		dev_sw_netstats_rx_add(dst_vxlan->dev, len);
-+		dev_dstats_rx_add(dst_vxlan->dev, len);
- 		vxlan_vnifilter_count(dst_vxlan, vni, NULL, VXLAN_VNI_STATS_RX,
- 				      len);
- 	} else {
- drop:
--		dev_core_stats_rx_dropped_inc(dev);
-+		dev_dstats_rx_dropped(dev);
- 		vxlan_vnifilter_count(dst_vxlan, vni, NULL,
- 				      VXLAN_VNI_STATS_RX_DROPS, 0);
- 	}
-@@ -2630,7 +2630,7 @@ void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
- 	return;
- 
- drop:
--	dev_core_stats_tx_dropped_inc(dev);
-+	dev_dstats_tx_dropped(dev);
- 	vxlan_vnifilter_count(vxlan, vni, NULL, VXLAN_VNI_STATS_TX_DROPS, 0);
- 	dev_kfree_skb(skb);
- 	return;
-@@ -2671,7 +2671,7 @@ static void vxlan_xmit_nh(struct sk_buff *skb, struct net_device *dev,
- 	return;
- 
- drop:
--	dev_core_stats_tx_dropped_inc(dev);
-+	dev_dstats_tx_dropped(dev);
- 	vxlan_vnifilter_count(netdev_priv(dev), vni, NULL,
- 			      VXLAN_VNI_STATS_TX_DROPS, 0);
- 	dev_kfree_skb(skb);
-@@ -2709,7 +2709,7 @@ static netdev_tx_t vxlan_xmit_nhid(struct sk_buff *skb, struct net_device *dev,
- 	return NETDEV_TX_OK;
- 
- drop:
--	dev_core_stats_tx_dropped_inc(dev);
-+	dev_dstats_tx_dropped(dev);
- 	vxlan_vnifilter_count(netdev_priv(dev), vni, NULL,
- 			      VXLAN_VNI_STATS_TX_DROPS, 0);
- 	dev_kfree_skb(skb);
-@@ -2808,7 +2808,7 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
- 			    !is_multicast_ether_addr(eth->h_dest))
- 				vxlan_fdb_miss(vxlan, eth->h_dest);
- 
--			dev_core_stats_tx_dropped_inc(dev);
-+			dev_dstats_tx_dropped(dev);
- 			vxlan_vnifilter_count(vxlan, vni, NULL,
- 					      VXLAN_VNI_STATS_TX_DROPS, 0);
- 			kfree_skb_reason(skb, SKB_DROP_REASON_NO_TX_TARGET);
-@@ -3383,7 +3383,7 @@ static void vxlan_setup(struct net_device *dev)
- 	dev->min_mtu = ETH_MIN_MTU;
- 	dev->max_mtu = ETH_MAX_MTU;
- 
--	dev->pcpu_stat_type = NETDEV_PCPU_STAT_TSTATS;
-+	dev->pcpu_stat_type = NETDEV_PCPU_STAT_DSTATS;
- 	INIT_LIST_HEAD(&vxlan->next);
- 
- 	timer_setup(&vxlan->age_timer, vxlan_cleanup, TIMER_DEFERRABLE);
+ 	switch (skb->protocol) {
+ 	case htons(ETH_P_IP):
+-		if (!pskb_may_pull(skb, sizeof(struct iphdr)))
++		if (!pskb_network_may_pull(skb, sizeof(struct iphdr)))
+ 			return NULL;
+ 		group.dst.sa.sa_family = AF_INET;
+ 		group.dst.sin.sin_addr.s_addr = ip_hdr(skb)->daddr;
+@@ -1640,7 +1640,7 @@ struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
+ 		break;
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	case htons(ETH_P_IPV6):
+-		if (!pskb_may_pull(skb, sizeof(struct ipv6hdr)))
++		if (!pskb_network_may_pull(skb, sizeof(struct ipv6hdr)))
+ 			return NULL;
+ 		group.dst.sa.sa_family = AF_INET6;
+ 		group.dst.sin6.sin6_addr = ipv6_hdr(skb)->daddr;
 -- 
 2.53.0
 
