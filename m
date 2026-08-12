@@ -1,353 +1,78 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AABD37DEBA
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 03:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786505422; cv=pass; b=ibg53ye80f3G+lOCoV36/mlO+iIdrkpMa+mqiulLfr84Zj4D4anEuNazRV2v2vRuXPBJEF585tvHUh5mW7zoWPtSFqrpaTDKLW01oOqDFFZbVpO95SveH5YsTGSMiC3k/pCJuC+rBy7qDV8mY6H6JMlnZI2h4cIKZmt3XmUuGEw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786505422; c=relaxed/simple;
-	bh=VHMPa1wT0GFriQ4MJC6w3IZRrh/sWmiZKFaqKeQcaaA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qOgWWuH6nGRYmSpN7u1C6nj3QQ0N/9wj8MD6+8mknut6eYRVhoLMwxE9ti///cCB6gtGvE2io3egrsDQPVHIJCKbRZAxkocjxa6Rt8i/ilt5iXhazz4vP8BJb7KMHSyXH66V8Og0VQ1F4S2A0ONZE2iDjsxmajXvf/Tap6jWRmQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ssm4e70K; arc=pass smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF90347BBD;
+	Wed, 12 Aug 2026 03:54:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786506867; cv=none; b=Bi3xFflcsIQ70F0cOpXndxpBUoFwpfaT9GWMriFo/X8kJkK6sPK/YDJdjBaQMwvwugIb4vGid0jSsA6B8d3+MTTNPezvUwEuFbl7Spfv9GM9ByZTXF4K1HwsC6gnUk8/fyi4CAsGuHvQFxwkx6ax2BqYLdC2UIZVV952rNtefUA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786506867; c=relaxed/simple;
+	bh=F4EWO4JIvsqQHphpsZ2MrVDf71DIvss2MYn0Ml431K4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jv32ppkAXfRPm/HIvML5cfVYId8JWBH8DYeXGYyw3rZa+90YB2JI8mSGTcCZ1Fpb6gnjydjHX5AYhNl0rqyUDDvvqjiFOv+xtP27SdE65fEceN3TiwPICi2UiQYOhMvgAyMh0cw90OBTZbcxDNwJfZHF8aSIqdUbsNJNSBU5OjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=EU7rFHFT; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ssm4e70K"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-6689f36ae56so628339d50.3
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 20:30:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786505419; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k/GsNsrCek1+QStDqMrpg4P+pJCR2NY7yOly2bJFquV4b/0XikOkMYSTVW59O3sABY
-         Z6qP9Tq3iomIdsRrgW6tvl+SpRHhnwJQ+/GCPJqRLDA+uA0ZNTjaM4OPVP2Ym5oE+tsE
-         YjDj77Yy8deVFV6BtKv26qQv9K+nA+RbWGS8L2JsWKXwaQkufigT1i3NaN18toSK9pPs
-         GVjVZfnjb5/Or+biUBTpKwNu3x2y2x2kg0G9pIm9c1knvA01bCupAHjlbsalIkuchroE
-         PEj651eYvGoRg1/hTy3db51nJexSJ0wd43EOWUXGrelxEJp6viYSNnglgJFIcAId2NAJ
-         YNbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4T+oO2E2HkJP7ru0wvu2yagPDSTYhm8rgd0jrMyifnQ=;
-        fh=5IFGIAJ7CGYylht6uzl5Znok+dTWveRI0iwf/SEOYzg=;
-        b=DVafHLaVEfglWGUr1sDP9YXUNun8AS6N8wGaFwKwBAQ/N+amm/gdhgtSUyFJryNfRL
-         2N2iXDy5RcdPN6T9dyzc8w5kBQ3nxjtCpqI9Z3nabM+zVoxX3WpLlGhdpVQtXtIwIRve
-         c9Mi2YS+9U/5ODU0RAwEHBTHdUhfHzDCKEQcJ+QtPcuhnr0wwYSbEkOSb32B2sWR4E+i
-         8j308hehX67mnWV8IBQQY8fHJALJj2Ew/TN8L8Eq9P5bxCis4qa1u225DyjxGWZGQYXC
-         GcTm3cLsdlPGLRpVzyOQ7O/H1Ei4trB/u9piJyVguq/BUkOiuaf8cLsF/NQcC6dyl5eD
-         el/A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786505419; x=1787110219; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4T+oO2E2HkJP7ru0wvu2yagPDSTYhm8rgd0jrMyifnQ=;
-        b=Ssm4e70KSkDX3QjQgQ/dT+BxAbPjtiHdFGgVeO8xdYJfTFCvIApXEWQLcxZWUhtG7/
-         axh8HbnLZhsXLOlqDjebtn0/1hX/zy6oC2++cAvpRiXNA5tyfjHnaK6hplGt+91R4QZ0
-         Ct2jBuC4fz/BmsOpmTyq2B0w1MGV+0GW1HZUCG3bd7OMN6Rihc18/Z9EPP1Dw4JrnLuL
-         9Uiqy6ilH8EcQQZ1C4oteFTs0fTC8R433rHBkwl0B6dqCePIZKCN71CIw6iVhp4W+apW
-         4EmwHF1CWktI4HtkPP5fSxkykswoEaFSHq8Kiik/nNWXfbAU2ooBnxs0hOShQLmndi0K
-         vFkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786505419; x=1787110219;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4T+oO2E2HkJP7ru0wvu2yagPDSTYhm8rgd0jrMyifnQ=;
-        b=f9yn41wYVQRJlICPb7DHpZNCCNecTCvVQkuO4YfEynnN77EjaY2ifIPq7ozQQeuXsS
-         0G6exWWKl+b6wfXTrNx5eVvRHRGdlD1nKNuBS/W/5enJYELvJ0qlTsPoZ7Y7L3wB2A5H
-         8872mg/KmhS+KaiqYTfW6DzOR3CBBaPtXe8MIuqxOe2ap55WIp9hpnBabpfL9CH6ymmL
-         OjVVFEk2iTq6skpaxMATbCuCGEkDBD4lcWkZPRPd5J3oyWAxHLGJQ9t82dJzituslD73
-         uQ3hzcJ4wsnVvDoWawSp/StEQElBueJiqcpOvEisU07Iu00Et5F81WJhGXbH2CJGxCQY
-         AUDw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro3dSkNPfcEwGN7lO3pibNmSzWlqLGb3x9guAPxm2PK0BMVrBJlTiaa0deLY2A0jjPakcB/PrY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCYC8cjUhKQ561HChXTz7wCuN6rbkDJy8GVolW//eSWKYmVUo8
-	EvJTKah/aZp3vr7FWQMp+R7+mB/iKB3TauWMbiHEeXOLiCKdT95q/mxE2giRX8eKZYvqgN7sup5
-	VEcHIjpRTVyPVFOQ2Nm5t19EdraAkWso=
-X-Gm-Gg: AR+sD112N8kResa9gHDJE1Erh6JiEsXyNA3//9QOAhXkmFvfXvTivHUNCMAuSpR3ohy
-	hCsOWpHbJqE+Y5NBR+kWhj+ffXp+sFd7R9OzVL/VlIKmcugYfgCIJWvrWvspjdLEjKVI7Xpr18E
-	lZzJVWvGitvJLTZTdWJNfZQrmNL3NGFEH5h/6JOZuZ7YIbR9IzU/rbEVRqeDAJ95u27gWFcd0Z2
-	yXFRVJzIE1c1O7QmH39cKT6mjvAc3yMv3Z7ZTIPZdJoZQqoSqe62T45OYcsW5oUHiZuFbdunzTd
-	WxoBQHRN1rgLOtOFmEysS4V5sN4DevF1LEuhcOenBtBQcISR1X+W7N3jeRWpbSZGxiTnPm1ijnh
-	RXs8pZpr5fqgyb2nVH0b24Pr+IIIfsKrS+TBFSbUDjJhez64Wyx7+dclTTqyhIuJPq4WXg9AmG2
-	ga6KoeHnbMaft5
-X-Received: by 2002:a53:c048:0:20b0:667:911c:54ea with SMTP id
- 956f58d0204a3-66b343a018fmr834165d50.46.1786505419260; Tue, 11 Aug 2026
- 20:30:19 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="EU7rFHFT"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1786506861; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=F4EWO4JIvsqQHphpsZ2MrVDf71DIvss2MYn0Ml431K4=;
+	b=EU7rFHFTrPkdYdaZ4eRNdpGw0Gup6bMiEEoznviiAfUZyFNkmNepd5ZYJJWljU3bc9bwanYlJ7m4svZ6U9rj0yrxS0aGx2SnHwAbQymJ1KJedNmAs9CImIGPu8T/k5K282b1aL6pceod289m1QzSCHzrbDWt8NRd2OpQ/LugTnc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0X8qJ2yl_1786506860;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0X8qJ2yl_1786506860 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 12 Aug 2026 11:54:21 +0800
+Date: Wed, 12 Aug 2026 11:54:20 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: Alexandra Winter <wintera@linux.ibm.com>,
+	David Miller <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Hidayath Khan <hidayath@linux.ibm.com>, stable@vger.kernel.org,
+	netdev@vger.kernel.org, linux-s390@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Simon Horman <horms@kernel.org>
+Subject: Re: [PATCH net] net/dibs: Correct freeing of dmb_clientid_arr
+Message-ID: <anvubJLzPJX2N9-u@linux.alibaba.com>
+Reply-To: dust.li@linux.alibaba.com
+References: <20260810111432.2334900-1-wintera@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CA+Z0x2KotE5hgrFn-vzR+XNF_H_vEbZcE_nXmpVz5F2q1vxE6w@mail.gmail.com>
- <2e6a5558-3bc1-4b5e-a9e1-cc03f0e5663e@linuxfoundation.org>
-In-Reply-To: <2e6a5558-3bc1-4b5e-a9e1-cc03f0e5663e@linuxfoundation.org>
-From: Jason Colapietro <jasoncola1@gmail.com>
-Date: Tue, 11 Aug 2026 23:30:07 -0400
-X-Gm-Features: AUfX_mxcx9SyGYQhVldnd0YRN7rD50rO5YCaAs1VL5vR5FiDLmM65OCoPgglpMM
-Message-ID: <CA+Z0x2+YkSzREfUiU1b9fP_V-k4FK2nEa+-e0eUwRO_MrDLPZg@mail.gmail.com>
-Subject: Re: [PATCH v2 RESEND] usbip: make remote list honor parsable output
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan <shuah@kernel.org>, 
-	Hongren Zheng <i@zenithal.me>, Greg KH <greg@kroah.com>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810111432.2334900-1-wintera@linux.ibm.com>
 
-Jason Colapietro <jasoncola1@gmail.com>
-11:26=E2=80=AFPM (1 minute ago)
-to Shuah, Valentina, skhan, Hongren, Greg, linux-usb, linux-kernel, stable
-
-The -p option only affects local devices and gadgets. Remote lists still
-print their human-readable headings and details, so scripts cannot parse
-them using the documented option.
-
-Pass the parsable flag through the remote listing path. Emit the same busid
-and usbid record used for local devices while continuing to consume every
-interface record from the server.
-
-Fixes: e9837bbb3e69 ("staging: usbip: userspace tools v1.0.0")
-Closes: https://www.google.com/url?q=3Dhttps://bugzilla.kernel.org/show_bug=
-.cgi?id%3D219502&source=3Dgmail&ust=3D1786591574713000&sa=3DE
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Jason Colapietro <jasoncola1@gmail.com>
----
-Changes in v3:
-- No functional change; resent as 1/2 of a series.
-- 2/2 makes -p work regardless of where it appears on the command line.
-
-tools/usb/usbip/src/usbip_list.c | 33 ++++++++++++++++++++------------
-1 file changed, 21 insertions(+), 12 deletions(-)
-
-diff --git a/tools/usb/usbip/src/usbip_list.c b/tools/usb/usbip/src/usbip_l=
-ist.c
-index 3d810bcca02..b9d60b87e47 100644
---- a/tools/usb/usbip/src/usbip_list.c
-+++ b/tools/usb/usbip/src/usbip_list.c
-@@ -41,7 +41,7 @@ void usbip_list_usage(void)
-printf("usage: %s", usbip_list_usage_string);
-}
-
--static int get_exported_devices(char *host, int sockfd)
-+static int get_exported_devices(char *host, int sockfd, bool parsable)
-{
-char product_name[100];
-char class_name[100];
-@@ -80,9 +80,11 @@ static int get_exported_devices(char *host, int sockfd)
-return 0;
-}
-
-- printf("Exportable USB devices\n");
-- printf("=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D\n");
-- printf(" - %s\n", host);
-+ if (!parsable) {
-+ printf("Exportable USB devices\n");
-+ printf("=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D\n");
-+ printf(" - %s\n", host);
-+ }
-
-for (i =3D 0; i < reply.ndev; i++) {
-memset(&udev, 0, sizeof(udev));
-@@ -98,9 +100,14 @@ static int get_exported_devices(char *host, int sockfd)
-usbip_names_get_class(class_name, sizeof(class_name),
-udev.bDeviceClass, udev.bDeviceSubClass,
-udev.bDeviceProtocol);
-- printf("%11s: %s\n", udev.busid, product_name);
-- printf("%11s: %s\n", "", udev.path);
-- printf("%11s: %s\n", "", class_name);
-+ if (parsable) {
-+ printf("busid=3D%s#usbid=3D%04x:%04x#\n", udev.busid,
-+ udev.idVendor, udev.idProduct);
-+ } else {
-+ printf("%11s: %s\n", udev.busid, product_name);
-+ printf("%11s: %s\n", "", udev.path);
-+ printf("%11s: %s\n", "", class_name);
-+ }
-
-for (j =3D 0; j < udev.bNumInterfaces; j++) {
-rc =3D usbip_net_recv(sockfd, &uintf, sizeof(uintf));
-@@ -116,16 +123,18 @@ static int get_exported_devices(char *host, int sockf=
-d)
-uintf.bInterfaceClass,
-uintf.bInterfaceSubClass,
-uintf.bInterfaceProtocol);
-- printf("%11s: %2d - %s\n", "", j, class_name);
-+ if (!parsable)
-+ printf("%11s: %2d - %s\n", "", j, class_name);
-}
-
-- printf("\n");
-+ if (!parsable)
-+ printf("\n");
-}
-
-return 0;
-}
-
--static int list_exported_devices(char *host)
-+static int list_exported_devices(char *host, bool parsable)
-{
-int rc;
-int sockfd;
-@@ -138,7 +147,7 @@ static int list_exported_devices(char *host)
-}
-dbg("connected to %s:%s", host, usbip_port_string);
-
-- rc =3D get_exported_devices(host, sockfd);
-+ rc =3D get_exported_devices(host, sockfd, parsable);
-if (rc < 0) {
-err("failed to get device list from %s", host);
-return -1;
-@@ -351,7 +360,7 @@ int usbip_list(int argc, char *argv[])
-parsable =3D true;
-break;
-case 'r':
-- ret =3D list_exported_devices(optarg);
-+ ret =3D list_exported_devices(optarg, parsable);
-goto out;
-case 'l':
-ret =3D list_devices(parsable);
---
-2.50.1 (Apple Git-155)
--Jason
-
-On Tue, Aug 11, 2026 at 6:48=E2=80=AFPM Shuah Khan <skhan@linuxfoundation.o=
-rg> wrote:
+On 2026-08-10 13:14:32, Alexandra Winter wrote:
+>A dibs device interrupt handler can be active after dibs_dev_del() and
+>may still access dmb_clientid_arr. (UAF)
 >
-> On 8/10/26 21:42, Jason Colapietro wrote:
-> > The -p option only affects local devices and gadgets. Remote lists stil=
-l
-> > print their human-readable headings and details, so scripts cannot pars=
-e
-> > them using the documented option.
-> >
-> > Pass the parsable flag through the remote listing path. Emit the same b=
-usid
-> > and usbid record used for local devices while continuing to consume eve=
-ry
-> > interface record from the server.
+>In case of a failure in dibs_dev_add() being called by dibs_lo_dev_probe()
+>dmb_clientid_arr is freed twice (double free).
 >
-> What happens without this patch? Can you elaborate with some examples?
+>Free dmb_clientid_arr in dibs_dev_release() after last reference is gone.
+>Note that allocating in dibs_dev_add() instead of dibs_dev_alloc() is ok
+>for now, because no dmbs can be registered before dibs_dev_add().
 >
-> >
-> > Fixes: e9837bbb3e69 ("staging: usbip: userspace tools v1.0.0")
-> > Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D219502
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Codex:gpt-5
-> > Signed-off-by: Jason Colapietro <jasoncola1@gmail.com>
-> > ---
-> > Changes in v2:
-> > - Make the email From header match Signed-off-by.
-> > - Add Cc: stable@vger.kernel.org.
-> >
-> >   tools/usb/usbip/src/usbip_list.c | 33 ++++++++++++++++++++-----------=
--
-> >   1 file changed, 21 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/tools/usb/usbip/src/usbip_list.c b/tools/usb/usbip/src/usb=
-ip_list.c
-> > index 3d810bcca02..b9d60b87e47 100644
-> > --- a/tools/usb/usbip/src/usbip_list.c
-> > +++ b/tools/usb/usbip/src/usbip_list.c
-> > @@ -41,7 +41,7 @@ void usbip_list_usage(void)
-> >       printf("usage: %s", usbip_list_usage_string);
-> >   }
-> >
-> > -static int get_exported_devices(char *host, int sockfd)
-> > +static int get_exported_devices(char *host, int sockfd, bool parsable)
-> >   {
-> >       char product_name[100];
-> >       char class_name[100];
-> > @@ -80,9 +80,11 @@ static int get_exported_devices(char *host, int sock=
-fd)
-> >               return 0;
-> >       }
-> >
-> > -     printf("Exportable USB devices\n");
-> > -     printf("=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D\n");
-> > -     printf(" - %s\n", host);
-> > +     if (!parsable) {
-> > +             printf("Exportable USB devices\n");
-> > +             printf("=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D\n");
-> > +             printf(" - %s\n", host);
-> > +     }
-> >
-> >       for (i =3D 0; i < reply.ndev; i++) {
-> >               memset(&udev, 0, sizeof(udev));
-> > @@ -98,9 +100,14 @@ static int get_exported_devices(char *host, int soc=
-kfd)
-> >               usbip_names_get_class(class_name, sizeof(class_name),
-> >                                     udev.bDeviceClass, udev.bDeviceSubC=
-lass,
-> >                                     udev.bDeviceProtocol);
-> > -             printf("%11s: %s\n", udev.busid, product_name);
-> > -             printf("%11s: %s\n", "", udev.path);
-> > -             printf("%11s: %s\n", "", class_name);
-> > +             if (parsable) {
-> > +                     printf("busid=3D%s#usbid=3D%04x:%04x#\n", udev.bu=
-sid,
-> > +                            udev.idVendor, udev.idProduct);
-> > +             } else {
-> > +                     printf("%11s: %s\n", udev.busid, product_name);
-> > +                     printf("%11s: %s\n", "", udev.path);
-> > +                     printf("%11s: %s\n", "", class_name);
-> > +             }
-> >
-> >               for (j =3D 0; j < udev.bNumInterfaces; j++) {
-> >                       rc =3D usbip_net_recv(sockfd, &uintf, sizeof(uint=
-f));
-> > @@ -116,16 +123,18 @@ static int get_exported_devices(char *host, int s=
-ockfd)
-> >                                       uintf.bInterfaceClass,
-> >                                       uintf.bInterfaceSubClass,
-> >                                       uintf.bInterfaceProtocol);
-> > -                     printf("%11s: %2d - %s\n", "", j, class_name);
-> > +                     if (!parsable)
-> > +                             printf("%11s: %2d - %s\n", "", j, class_n=
-ame);
-> >               }
-> >
-> > -             printf("\n");
-> > +             if (!parsable)
-> > +                     printf("\n");
-> >       }
-> >
-> >       return 0;
-> >   }
-> >
-> > -static int list_exported_devices(char *host)
-> > +static int list_exported_devices(char *host, bool parsable)
-> >   {
-> >       int rc;
-> >       int sockfd;
-> > @@ -138,7 +147,7 @@ static int list_exported_devices(char *host)
-> >       }
-> >       dbg("connected to %s:%s", host, usbip_port_string);
-> >
-> > -     rc =3D get_exported_devices(host, sockfd);
-> > +     rc =3D get_exported_devices(host, sockfd, parsable);
-> >       if (rc < 0) {
-> >               err("failed to get device list from %s", host);
-> >               return -1;
-> > @@ -351,7 +360,7 @@ int usbip_list(int argc, char *argv[])
-> >                       parsable =3D true;
-> >                       break;
-> >               case 'r':
-> > -                     ret =3D list_exported_devices(optarg);
-> > +                     ret =3D list_exported_devices(optarg, parsable);
-> >                       goto out;
-> >               case 'l':
-> >                       ret =3D list_devices(parsable);
->
-> thanks,
-> -- Shuah
+>Fixes: cc21191b584c ("dibs: Move data path to dibs layer")
+>Cc: stable@vger.kernel.org
+>Co-developed-by: Hidayath Khan <hidayath@linux.ibm.com>
+>Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
+>Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
+
+Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
+
+Best regards,
+Dust
+
