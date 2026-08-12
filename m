@@ -1,61 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D4937206F;
-	Wed, 12 Aug 2026 08:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B35348C6E
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 08:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786524797; cv=none; b=T+Sl00b9jbKeg/C88ntKvixiFZUyHIuKiPBlQtfF3//8omtlxDEmTYWY7QAoZtSj+JhCCnFqxUHPDn6nge1Ur1L4TFukWdFxy8SKFYds1BNPP14csDtxTg8uN4IsEbdkrLuoRFSzWNw1n8BLf34qd0XgV8yesSc1tX4Mp+sToeY=
+	t=1786524856; cv=none; b=mSFm8ZjPUuhD9BxpfpnrdTRLTuCEBkOcrXIBDjS6Y+YOLC0PbNEBAS3xvu/k4OPhtt9aV6352cwCSjF0N9JlquzmSZJwdr2Eo7boBr+w9ZC4YLVCnWZ5Cz6N9mixvuSCg8+86NpvwqtvAQOjn3eSdTuWWkbc0/3zpG+sQuyUvuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786524797; c=relaxed/simple;
-	bh=xg3SaO0KedoMkyn4P8Q+rYIy9nsoCka+jvsorAqNj0U=;
+	s=arc-20240116; t=1786524856; c=relaxed/simple;
+	bh=+Lfxq2ZjyPvr07gLupgr+oiARgQLW52G6/WXT2W9PkQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MZuCk5STCB8IW6PQ8z1U/G3S4lYg9j4492TmeBmw7tTAGUqlrwfhP6/A1lB9lpRdxHQAqzrtKm1995W82hdjrej6V47W0lveWio6ODVxyjWRw5lBZ4I5kS4BQjZNZeqb4QaRS9aYaB2DxeKdjl3Pm/Pk3sHRIgIaJRODkfhZ6g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F5RUtLPv; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=uth41VLsUsz8O6o8QA4kBYAe1+T8SE69uNAGo3/91W668KKSw+ECMEexvw0tKq2faZNnDSjKzPjefsSgZ78NczUQZpKMrwtwqjz5S3m3hZ+jtaGY5uSNI39JaEdS/srQoL7vqPvJN0gRQfIVeSk5lCG3DeT5h7CwxhFL2HWJ/2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=morinfr.org; spf=pass smtp.mailfrom=morinfr.org; dkim=pass (1024-bit key) header.d=morinfr.org header.i=@morinfr.org header.b=YfLAqLzQ; arc=none smtp.client-ip=212.27.42.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=morinfr.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=morinfr.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F5RUtLPv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786524796; x=1818060796;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xg3SaO0KedoMkyn4P8Q+rYIy9nsoCka+jvsorAqNj0U=;
-  b=F5RUtLPvHAVEaGR35KPPR3VC2m/z25DdTiRPSnNShiU+ZM3eSHWDoX0L
-   k4TFFvnRBWT9fv15CbCj+c0r+Ap+WOqOdjCpa9n1spQaPBF3RIwCzh9m5
-   tlnZUNEtEarbdB7ZlTBWPW3LHV2OQFBqGEdaA6+F6ekDl7H04E6445QJ1
-   t6RjXQuCGRwnEc+Q0IcdEPjtIvWWMMIfobZNEwgLMhJ8mD9wT7UHMbM48
-   njnmamWIq0gm0Hsn21Zc+NwGPzGc3P17816pswV1O4Gw4RZt1CZtRvCz1
-   7D6PqJ2xySXAMnmBrv8+dss4SGtIZbUC47KjMU9kyAXFYQmPtwSJXcT4k
-   Q==;
-X-CSE-ConnectionGUID: PpwwcFKLQvChygFKpp59Kw==
-X-CSE-MsgGUID: /E+JfvRfS5uYn78rwql70w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="87145290"
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
-   d="scan'208";a="87145290"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 01:53:16 -0700
-X-CSE-ConnectionGUID: 5H4NEmmKQZ+8+kLbiBwDlA==
-X-CSE-MsgGUID: /dZj+aZQQOW9dHMkS4J4tQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
-   d="scan'208";a="268739249"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa005.fm.intel.com with ESMTP; 12 Aug 2026 01:53:13 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 8643499; Wed, 12 Aug 2026 10:53:12 +0200 (CEST)
-Date: Wed, 12 Aug 2026 10:53:12 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Hongyan Xu <getshell@seu.edu.cn>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Benson Leung <bleung@chromium.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, jianhao.xu@seu.edu.cn
-Subject: Re: [PATCH] usb: typec: thunderbolt: cancel work on driver removal
-Message-ID: <anw0eIpSau17rCwr@black.igk.intel.com>
-References: <20260806060713.863-1-getshell@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=morinfr.org header.i=@morinfr.org header.b="YfLAqLzQ"
+Received: from bender.morinfr.org (unknown [82.66.66.112])
+	by smtp4-g21.free.fr (Postfix) with ESMTPS id 04CA519F57E;
+	Wed, 12 Aug 2026 10:54:04 +0200 (CEST)
+Authentication-Results: smtp4-g21.free.fr;
+	dkim=pass (1024-bit key; unprotected) header.d=morinfr.org header.i=@morinfr.org header.a=rsa-sha256 header.s=20170427 header.b=YfLAqLzQ;
+	dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=morinfr.org
+	; s=20170427; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+	Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=0hJ82Du2Ry2MVsMHCkdkNdK2n5hEGfzcKMG04oE39+M=; b=YfLAqLzQtt8kT3XO5+oEfUdaIh
+	Nn5j8oI9djLlT7GacyuDqzxnyY2aQd84dPASAeFSluBKzBReetUiYyxMkJKvXEtFFrwBS5vnhbRUB
+	EV4VID+5aMsTuDXNFX6+3SAPzAEpmbrxr8Yk3w7OKNMdbcIWvNZjwwRYt9t4Wc2c+Y1A=;
+Received: from guillaum by bender.morinfr.org with local (Exim 4.98.2)
+	(envelope-from <guillaume@morinfr.org>)
+	id 1wu4iq-00000002k66-1bxH;
+	Wed, 12 Aug 2026 10:54:04 +0200
+Date: Wed, 12 Aug 2026 10:54:04 +0200
+From: Guillaume Morin <guillaume@morinfr.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Guillaume Morin <guillaume@morinfr.org>, stable@vger.kernel.org,
+	sashal@kernel.org, Zijiang Huang <huangzjsmile@gmail.com>,
+	Kairui Song <kasong@tencent.com>, Hao Peng <flyingpeng@tencent.com>,
+	albinwyang <albinwyang@tencent.com>,
+	Baoquan He <baoquan.he@linux.dev>
+Subject: Re: [Regression] 6.12 port of CVE-2026-64415
+Message-ID: <anw0rOlHuRG1tUFa@bender.morinfr.org>
+References: <ansgKOOXi6KE3oKf@bender.morinfr.org>
+ <2026081226-herself-obvious-3955@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,38 +55,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260806060713.863-1-getshell@seu.edu.cn>
+In-Reply-To: <2026081226-herself-obvious-3955@gregkh>
 
-On Thu, Aug 06, 2026 at 02:07:12PM +0800, Hongyan Xu wrote:
-> The probe and alternate mode callbacks can schedule tbt->work. The remove
-> callback drops the cable and plug references without canceling that work,
-> and the devres core then frees tbt. A pending or running work item can
-> therefore dereference both released objects and the freed tbt allocation.
-> 
-> Cancel the work synchronously before dropping the referenced Type-C
-> objects.
-> 
-> Fixes: 100e25738659 ("usb: typec: Add driver for Thunderbolt 3 Alternate Mode")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-> ---
->  drivers/usb/typec/altmodes/thunderbolt.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/altmodes/thunderbolt.c b/drivers/usb/typec/altmodes/thunderbolt.c
-> index 32250b94262a..57c8dff0c51f 100644
-> --- a/drivers/usb/typec/altmodes/thunderbolt.c
-> +++ b/drivers/usb/typec/altmodes/thunderbolt.c
-> @@ -303,6 +303,8 @@ static void tbt_altmode_remove(struct typec_altmode *alt)
->  {
->  	struct tbt_altmode *tbt = typec_altmode_get_drvdata(alt);
->  
-> +	cancel_work_sync(&tbt->work);
+On 12 Aug  9:14, Greg Kroah-Hartman wrote:
+> Can you send a patch to fix this?
 
-There's already a fix for this one:
-https://lore.kernel.org/linux-usb/20260802014959.416687-1-fanwu01@zju.edu.cn/
-
-thanks,
+Done: https://lore.kernel.org/stable/anw0I3HwhISAvVt2@bender.morinfr.org/T/#u
 
 -- 
-heikki
+Guillaume Morin <guillaume@morinfr.org>
