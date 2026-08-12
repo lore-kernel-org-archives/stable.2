@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A4526A1A4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139D82459C5;
 	Wed, 12 Aug 2026 05:48:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786513697; cv=none; b=DTDrViK8aoEh/DfRITebL6N+5VBdRVwvGs7JCMxdyv2LblzJIQL2W3q0pEdPQdXN7hMuS5txIy8hQRaws7pMICZyv49jEQAhNZvey68QjLUup8QaxFLn67BhKNgnpuueZbmlu0UtMBVeVwEPW4k0Ml2n5P2x3RHUDeW4TZs30+o=
+	t=1786513697; cv=none; b=geyUMdW5FHqsR4WDw6hnGCTr5tkjc1nBXXjIJEh6mS9jiBIc0FKO5akhS3shyu8TPeL7CxEHjYVuc4HBS7nZu7pBw9eH35g75FnUI5G2fKgKBuzD+UXN0jwNeCHIRKI6JCDE+INLEpWUWsfdXWnSxGXxLeoIKYXFsMtOMEH9/D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786513697; c=relaxed/simple;
-	bh=9w+nhi98huDt+ztbUJeNG8l8k55prmsDYEDE1dmUPBg=;
+	bh=aXeZzuaCIuplL0yz2Tn0QcTqCwcq7iG9bnnqD0YlXQw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XCHQ4SwAHCHgC1PprjvsgA+x6Tx3h+Qu0x9eQmzy27g9p7Kz2q03/H0g9eDMqj0lbJQzY+7jvE19tbCggmsWxqxwt4duI26Gqgo7rXt7247miMe81nPmbJgsuXaJSBTUBQ7JJmKNef8I5x0WZ6noYop1tVAIL7ut94sd8tzhspI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VSct1ZPu; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=KGQwyXKsrFBgn0nEEvWDgEG8rUk7+qx4oUPnfAxbNmaAzQU10d1eGSHfueM+CbFvx7y/33XkKUFWOBn+QGJg2B/advTlDHzsSYYIKRqCvp/pv48fqX6N/+SLJW14/wz1rfz3ceI7OA+oxgmtjLX0SQwt7+UGfFAYxkSswW8n73c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sIdkQZ/+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VSct1ZPu"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D1A55C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sIdkQZ/+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C73E0C2BCFA;
 	Wed, 12 Aug 2026 05:48:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786513696;
-	bh=9w+nhi98huDt+ztbUJeNG8l8k55prmsDYEDE1dmUPBg=;
+	bh=aXeZzuaCIuplL0yz2Tn0QcTqCwcq7iG9bnnqD0YlXQw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=VSct1ZPuUf1pjo6wxoJBm/Wp6cPJplgMzFxQttIRM0rV9/tyzZ3TcZPTIdKFxmWoQ
-	 k8HvC8lpUKYSNZGMPdyr1mSjACZfMxvR8iVTTL4h5UQ7tDmpkFMZ0ONnrQvwWPnG1j
-	 ZpiGIZScb0ZKiexf8Mv4D5DYUApGJe9amUpxpHn2QqjRwMUPC2h8Qjij9pdfIaFsWZ
-	 n4t3dvNwrXm7MlvKW16Zx6zTptlLWEhu8QEVqEXvjmyHqF5xv/g13cgDLW0mnqU08F
-	 DcDxfaistGkkUa1HODS/sgeXVS3Qic+3rdnK/eZ7AoKuIshR36rs9dBeduxlgFf5RC
-	 q7CeFLPIxNaiA==
+	b=sIdkQZ/+3XTe7vbW3/3X8gdIyeGiUOkutrxARoDpaSRa5sgQmOSo8vZPeahROEJVn
+	 rAzXi3o8PGD7Pd+7REwuUlEHTde05pHN88VjOtwqx/f+jFhHZDcIdjCRcM5zWhStlW
+	 AAjReX3qUOXVoSZ1e5fhHll5xoFasWll7/9TzCejs98Re+no00AeksC29RAEt9R3wd
+	 8FSlshPdO4Jaacyv+o9eDlM7xXPB2ByHUmTMhLUv/J/RryB19Y4mVpFIM1L3fHwOsm
+	 rS9hoooRzoocf/TXskhOKmqQB0Kwcu5gxwI2Yy6xsWayk0YZdf/By8AMyd1xJTJEJS
+	 /eRYAPtq5Glhg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE8C7C5B56A;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7310C5CFCF;
 	Wed, 12 Aug 2026 05:48:16 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Wed, 12 Aug 2026 13:48:09 +0800
-Subject: [PATCH 3/5] powerpc/spufs: take a reference on contexts pulled off
- the runqueue
+Date: Wed, 12 Aug 2026 13:48:08 +0800
+Subject: [PATCH 2/5] powerpc/spufs: fix out-of-bounds read in
+ spufs_wbox_info_read()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,8 +40,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260812-spufs-fixes-v1-3-449e201d9f64@outlook.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260812-spufs-fixes-v1-2-449e201d9f64@outlook.com>
 References: <20260812-spufs-fixes-v1-0-449e201d9f64@outlook.com>
 In-Reply-To: <20260812-spufs-fixes-v1-0-449e201d9f64@outlook.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
@@ -55,13 +55,13 @@ Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Junrui Luo <moonafterrain@outlook.com>, Yuhao Jiang <danisjiang@gmail.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3301;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2501;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=T5RasOG3hMtgArux2E1H2cOe81CngMYYogn8j0wG5LU=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBpOudSN4knvbG/uPLTXREmq+kr6q+N99XrLvJ5fF
- ElPP/1E+XNHKQuDGBeDrJgiy/GCS98sfLfobvHZkgwzh5UJZAgDF6cATCS4jeGvhEJDwv1fagpM
- j5g9w8TqbpzYmOFhyvu1OCayOmfNlagyhr+SF+6f/3pL81LH6ghF1oVpYl+Sar6e3Pxj1yPjH+e
- TFWtZAZhuTLk=
+ bh=eFoKpMk5QT/Imns3PMC9qhF1gah2+vf/FhZEbtTKzCg=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBpOua8Pz4VM9wsrv2ue81ysOzMqv2rrbC7fOq8ys
+ XtFdRtPHO8oZWEQ42KQFVNkOV5w6ZuF7xbdLT5bkmHmsDKBDGHg4hSAiQROY2R4udnCxq4kNyFT
+ i6U65FbbrhC2ucmL2c1n6Zam3PsgpyfCyDC/xnbN9dZ8jae2fx4um1wp9ffiP7P9mkGuzzj5rjw
+ 4uZ8JAMIxSLI=
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -71,84 +71,59 @@ Reply-To: moonafterrain@outlook.com
 
 From: Junrui Luo <moonafterrain@outlook.com>
 
-grab_runnable_context() unlinks the chosen context with
-__spu_del_from_rq() and returns it after dropping spu_prio->runq_lock.
-The runqueue holds no reference of its own — __spu_add_to_rq() only does
-a list_add_tail() and __spu_del_from_rq() only a list_del_init() — so the
-caller is left with a bare pointer. Both callers dereference it after the
-lock is gone: __spu_deactivate() and spusched_tick() call spu_schedule(),
-which starts with mutex_lock(&ctx->state_mutex).
+Reading a context's wbox_info file can copy up to 48 bytes past the end
+of an on-stack buffer to userspace.
 
-The only thing synchronizing the two sides is spu_run_fini() ->
-spu_del_from_rq(), which takes runq_lock. Once grab_runnable_context()
-has unlinked the context, that call finds ctx->rq already empty and
-becomes a no-op, so the owner is free to leave spu_run() and close the
-context directory; the resulting put_spu_context() can reach
-destroy_spu_context() and kfree() while the scheduler still holds the
-pointer. The window spans a full spu_unschedule() -> spu_unbind_context()
-SPU context save, and the BUG_ON(!list_empty(&ctx->rq)) in
-destroy_spu_context() cannot catch it because list_del_init() has already
-emptied ctx->rq.
+spufs_wbox_info_cnt() already returns a byte count: it multiplies the
+number of queued SPU inbound mailbox entries by sizeof(u32), yielding one
+of 0, 4, 8, 12 or 16. spufs_wbox_info_dump() uses it that way and passes
+the result to spufs_dump_emit() unscaled.
 
-Fix by taking a reference in grab_runnable_context() while runq_lock is
-still held, where a queued context is guaranteed to be alive, and
-dropping it in both callers once they are done with it. This matches what
-find_victim() already does around its state_mutex trylock.
+spufs_wbox_info_read() instead multiplies it by sizeof(u32) a second time
+and hands the product to simple_read_from_buffer() as the length of the
+available data. The buffer being described is u32
+data[ARRAY_SIZE(ctx->csa.spu_mailbox_data)], i.e. 16 bytes, but the value
+passed reaches 64. simple_read_from_buffer() clamps the transfer against
+that length rather than against the buffer, so once the mailbox holds two
+or more entries, a read reaching past offset 16 - either by requesting
+more than 16 bytes or by seeking there first - copies adjacent kernel
+stack to userspace.
 
-Fixes: e65c2f6fcebb ("[POWERPC] spufs: decouple spu scheduler from spufs_spu_run (asynchronous scheduling)")
+The mailbox occupancy is under unprivileged control. Writing to the
+context's wbox file drives spu_backing_wbox_write(), which lowers the
+free-slot count in mb_stat_R from four down to zero, and wbox_info is
+mode 0444 in spufs_dir_contents[], so the owner of the context can then
+read it back.
+
+This dates to the introduction of spufs_wbox_info_cnt(). Before that
+commit the local count held an entry count, for which the sizeof(u32)
+scaling at the call site was correct.
+
+Pass the byte count through unscaled, as spufs_wbox_info_dump() does.
+
+Fixes: 88413a6bfbbe ("powerpc/spufs: fix copy_to_user while atomic")
 Reported-by: Yuhao Jiang <danisjiang@gmail.com>
 Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
-Found by inspection; I have no Cell/PS3 hardware, so this is
-compile-tested only.
----
- arch/powerpc/platforms/cell/spufs/sched.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ arch/powerpc/platforms/cell/spufs/file.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/arch/powerpc/platforms/cell/spufs/sched.c b/arch/powerpc/platforms/cell/spufs/sched.c
-index c52af883e01c..1b50b28cab11 100644
---- a/arch/powerpc/platforms/cell/spufs/sched.c
-+++ b/arch/powerpc/platforms/cell/spufs/sched.c
-@@ -815,6 +815,9 @@ int spu_activate(struct spu_context *ctx, unsigned long flags)
-  *
-  * Remove the highest priority context on the runqueue and return it
-  * to the caller.  Returns %NULL if no runnable context was found.
-+ *
-+ * The context is returned with a reference held on behalf of the caller,
-+ * which has to drop it using put_spu_context() once it is done with it.
-  */
- static struct spu_context *grab_runnable_context(int prio, int node)
- {
-@@ -830,6 +833,7 @@ static struct spu_context *grab_runnable_context(int prio, int node)
- 			/* XXX(hch): check for affinity here as well */
- 			if (__node_allowed(ctx, node)) {
- 				__spu_del_from_rq(ctx);
-+				get_spu_context(ctx);
- 				goto found;
- 			}
- 		}
-@@ -860,6 +864,7 @@ static int __spu_deactivate(struct spu_context *ctx, int force, int max_prio)
- 					   interruptible */
- 					mutex_lock(&ctx->state_mutex);
- 				}
-+				put_spu_context(new);
- 			}
- 		}
- 	}
-@@ -933,8 +938,10 @@ static noinline void spusched_tick(struct spu_context *ctx)
- out:
- 	spu_release(ctx);
+diff --git a/arch/powerpc/platforms/cell/spufs/file.c b/arch/powerpc/platforms/cell/spufs/file.c
+index de7494748fec..07b1755ddc3d 100644
+--- a/arch/powerpc/platforms/cell/spufs/file.c
++++ b/arch/powerpc/platforms/cell/spufs/file.c
+@@ -2028,8 +2028,7 @@ static ssize_t spufs_wbox_info_read(struct file *file, char __user *buf,
+ 	spin_unlock(&ctx->csa.register_lock);
+ 	spu_release_saved(ctx);
  
--	if (new)
-+	if (new) {
- 		spu_schedule(spu, new);
-+		put_spu_context(new);
-+	}
+-	return simple_read_from_buffer(buf, len, pos, &data,
+-				count * sizeof(u32));
++	return simple_read_from_buffer(buf, len, pos, &data, count);
  }
  
- /**
+ static const struct file_operations spufs_wbox_info_fops = {
 
 -- 
 2.51.2
