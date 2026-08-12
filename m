@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B28D3FDC18
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:11:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A97E243387
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:11:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786525894; cv=none; b=QRBq98axlK0jXZ8H8AONWmdhwDooaHhO5ijOCSHJr3GSLXrF6JL6gH2FgIKdWJlp6i2zVrHkNnMgh6TbrLKCUba4mCBoN80BPCj+g/bEu0wgBIAuku6f0WDZnhDlxVas2MGg1j67Jdb1qh+MsaQ7OZ5owLK8pIf8D7yizc0OAZU=
+	t=1786525896; cv=none; b=Dtt/HxC3qNhZCP6vpsnlZx946mo2R98eqyFQrGwKr8ZGaLuG6V7Zs8QPeY7Q4Jto1+hBUOXXqMHoWAxTb1xbrMi7lizkhZjmYpVvJL1azB5YUCw81Tmp5dKfSHXWzpY3XdnqefRVxHI8wyrfNsLyyNhwVDVhmrUz6wt9hQJRCT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786525894; c=relaxed/simple;
-	bh=wfYyDQUVLTGy4Z5Gq9H9mStok4P2Hny/TH2mRSNJDnI=;
+	s=arc-20240116; t=1786525896; c=relaxed/simple;
+	bh=djRQWAKmsE7opjkimqomGp8otja1QBj8YkpiFlIjaXo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qcqSwlpKFBmfU3ORXbiBpm6Q22Bfnrvd0LpAxHaKhPSNn7h3PQXIJuA2J3Y1BNDG6iqNNPLZM0m3xq/I8P6OR+ZPp+lH+UNu4EZdfjL6jjquQw6trDAH9h5Ms1GSR70UcfxHXhMRiYzQoL8dvZIdnWLJzSH/2bgOyGdHCdTfKNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bTeg/D+I; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=W8nIAovSMm3HcgRf/DVvFas9kP4WtRaOALG74imFGglYhPxU0uAiiiqUtrndhuykqzILlx4w4SeBWWZCHYz1laIv/g1H6CN/2ROLZtNARBPkfeW5u+bWKs7b5u817NvajTFujnrQcV0sUEcA3Flr2Zc1+Z7JS/g8WF/RWlneUXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZI3Oz6cZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bTeg/D+I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1B7E1F00ACA;
-	Wed, 12 Aug 2026 09:11:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZI3Oz6cZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2234A1F000E9;
+	Wed, 12 Aug 2026 09:11:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786525890;
-	bh=2Bs6oZA5NiBSc4/LKM0sXsOJTJGQ/AIfBq8oA26b8gE=;
+	s=k20260515; t=1786525891;
+	bh=cKE/MSSYmUEufJHhvp/+k+jaqSfpnukUy7TGaPEFiFE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bTeg/D+IN0hi8woxhEF2HFnqgZir2orKBZWrKeF6Yc6bN+kZcm4316QrcFtYr8sI+
-	 Fs9F3FTgtFmJSFjb+BZj2NbvUwXJu1+PeRkevWEdIelmO3lZbHzoJu9HtlVWEVd+GG
-	 r7cS4sp+OrBH2shsh2xkwmd1OHMmW3kpF7zZ96TCx7gglT7NnSWLSqcpa31FN3YY5M
-	 xURJTqOHlWzn1t7Wr1Woec44IG6tBSFLT/FDN3Ct7Rpuxggq5Qxm7pfLd/2LKKKnj2
-	 h8ky74GPyl/P4suoPmOMwJ8oYQym7UOiq8vbAriQVtPao54k2urSBrrb9b8kPt1e3C
-	 /Tf4ad/U5osiA==
+	b=ZI3Oz6cZUzfthKOaSFDsLT1xFGiqcU6tN3r3xRhQhtaod1+B5q8l1ZTxsHLalcNlB
+	 JC5KppGLCZOj9r0+eLWau1iQwkPUVT2usNEKymVuEFzixKMfPGPSPaZF4D5+OXd3ZL
+	 7oTIaOUAXTS65oV0b6s3hu5ICQFmICigDPVJKZMj8UcKJ05tzPg53bCXAqd0ZfQo3/
+	 BeW1xL9goGt5IlW70+SzJVBBjq2rpvp3czNF6RoXsisqYWK7dn1AHry70J3Bas4r3S
+	 vDRvpUFNytq2PsdSY7koaki37K8SMWvz4lzWCQNCa3FjnALWpPueKxoP58pR2f5siH
+	 KPK/o9Y9tqv4g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeremy Kerr <jk@codeconstruct.com.au>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Rinitha S <sx.rinitha@intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/5] net: core,vrf: Change pcpu_dstat fields to u64_stats_t
-Date: Wed, 12 Aug 2026 05:11:24 -0400
-Message-ID: <20260812091127.1349673-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ice: fix memory leak in ice_lbtest_prepare_rings()
+Date: Wed, 12 Aug 2026 05:11:29 -0400
+Message-ID: <20260812091129.1349712-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812091127.1349673-1-sashal@kernel.org>
-References: <2026080500-gloomily-getup-2a3e@gregkh>
- <20260812091127.1349673-1-sashal@kernel.org>
+In-Reply-To: <2026080525-magnolia-rinse-caaa@gregkh>
+References: <2026080525-magnolia-rinse-caaa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,131 +47,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeremy Kerr <jk@codeconstruct.com.au>
+From: Dawei Feng <dawei.feng@seu.edu.cn>
 
-[ Upstream commit fa59dc2f6fc616fde3941f62ccd4adcaa21ccd47 ]
+[ Upstream commit 3a9de5590da4ffd9e9c541c4c4d492aa2b54cf6e ]
 
-The pcpu_sw_netstats and pcpu_lstats structs both contain a set of
-u64_stats_t fields for individual stats, but pcpu_dstats uses u64s
-instead.
+ice_lbtest_prepare_rings() frees Rx rings only when
+ice_vsi_start_all_rx_rings() fails. If ice_vsi_setup_rx_rings() fails
+after allocating some descriptors, or if ice_vsi_cfg_lan() fails after
+the Rx rings were prepared, the function reaches the Tx cleanup path
+without releasing the initialized Rx resources.
 
-Make this consistent by using u64_stats_t across all stats types.
+Fix this by adding separate unwind paths for Rx setup failure and LAN
+configuration failure. The Rx setup failure path releases the partially
+prepared Rx rings before freeing Tx rings, while later failures first
+undo the LAN Tx configuration and then release the Rx rings in reverse
+setup order.
 
-The per-cpu dstats are only used by the vrf driver at present, so update
-that driver as part of this change.
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still
+present in v7.1-rc7.
 
-Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Reviewed-by: David Ahern <dsahern@kernel.org>
-Link: https://lore.kernel.org/r/20240607-dstats-v3-1-cc781fe116f7@codeconstruct.com.au
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: b9553558b48d ("vxlan: use pskb_network_may_pull() for transmit path header pulls")
+An x86_64 allyesconfig build showed no new warnings. As we do not have an
+Intel E800 Series adapter available to run the ethtool offline loopback
+selftest, no runtime testing was able to be performed.
+
+Fixes: 0e674aeb0b77 ("ice: Add handler for ethtool selftest")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+Tested-by: Rinitha S <sx.rinitha@intel.com> (A Contingent worker at Intel)
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/vrf.c         | 38 ++++++++++++++++++++++----------------
- include/linux/netdevice.h | 12 ++++++------
- 2 files changed, 28 insertions(+), 22 deletions(-)
+ drivers/net/ethernet/intel/ice/ice_ethtool.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/vrf.c b/drivers/net/vrf.c
-index bce55ad2bcd99..98140bff0e314 100644
---- a/drivers/net/vrf.c
-+++ b/drivers/net/vrf.c
-@@ -126,8 +126,8 @@ static void vrf_rx_stats(struct net_device *dev, int len)
- 	struct pcpu_dstats *dstats = this_cpu_ptr(dev->dstats);
+diff --git a/drivers/net/ethernet/intel/ice/ice_ethtool.c b/drivers/net/ethernet/intel/ice/ice_ethtool.c
+index 1ef57db5e6562..f0a5bc06864d1 100644
+--- a/drivers/net/ethernet/intel/ice/ice_ethtool.c
++++ b/drivers/net/ethernet/intel/ice/ice_ethtool.c
+@@ -489,18 +489,18 @@ static int ice_lbtest_prepare_rings(struct ice_vsi *vsi)
  
- 	u64_stats_update_begin(&dstats->syncp);
--	dstats->rx_packets++;
--	dstats->rx_bytes += len;
-+	u64_stats_inc(&dstats->rx_packets);
-+	u64_stats_add(&dstats->rx_bytes, len);
- 	u64_stats_update_end(&dstats->syncp);
- }
+ 	status = ice_vsi_cfg(vsi);
+ 	if (status)
+-		goto err_setup_rx_ring;
++		goto err_cfg_lan;
  
-@@ -150,11 +150,11 @@ static void vrf_get_stats64(struct net_device *dev,
- 		dstats = per_cpu_ptr(dev->dstats, i);
- 		do {
- 			start = u64_stats_fetch_begin(&dstats->syncp);
--			tbytes = dstats->tx_bytes;
--			tpkts = dstats->tx_packets;
--			tdrops = dstats->tx_drops;
--			rbytes = dstats->rx_bytes;
--			rpkts = dstats->rx_packets;
-+			tbytes = u64_stats_read(&dstats->tx_bytes);
-+			tpkts = u64_stats_read(&dstats->tx_packets);
-+			tdrops = u64_stats_read(&dstats->tx_drops);
-+			rbytes = u64_stats_read(&dstats->rx_bytes);
-+			rpkts = u64_stats_read(&dstats->rx_packets);
- 		} while (u64_stats_fetch_retry(&dstats->syncp, start));
- 		stats->tx_bytes += tbytes;
- 		stats->tx_packets += tpkts;
-@@ -408,10 +408,15 @@ static int vrf_local_xmit(struct sk_buff *skb, struct net_device *dev,
+ 	status = ice_vsi_start_all_rx_rings(vsi);
+ 	if (status)
+-		goto err_start_rx_ring;
++		goto err_cfg_lan;
  
- 	skb->protocol = eth_type_trans(skb, dev);
+ 	return status;
  
--	if (likely(__netif_rx(skb) == NET_RX_SUCCESS))
-+	if (likely(__netif_rx(skb) == NET_RX_SUCCESS)) {
- 		vrf_rx_stats(dev, len);
--	else
--		this_cpu_inc(dev->dstats->rx_drops);
-+	} else {
-+		struct pcpu_dstats *dstats = this_cpu_ptr(dev->dstats);
-+
-+		u64_stats_update_begin(&dstats->syncp);
-+		u64_stats_inc(&dstats->rx_drops);
-+		u64_stats_update_end(&dstats->syncp);
-+	}
- 
- 	return NETDEV_TX_OK;
- }
-@@ -599,19 +604,20 @@ static netdev_tx_t is_ip_tx_frame(struct sk_buff *skb, struct net_device *dev)
- 
- static netdev_tx_t vrf_xmit(struct sk_buff *skb, struct net_device *dev)
- {
-+	struct pcpu_dstats *dstats = this_cpu_ptr(dev->dstats);
-+
- 	int len = skb->len;
- 	netdev_tx_t ret = is_ip_tx_frame(skb, dev);
- 
-+	u64_stats_update_begin(&dstats->syncp);
- 	if (likely(ret == NET_XMIT_SUCCESS || ret == NET_XMIT_CN)) {
--		struct pcpu_dstats *dstats = this_cpu_ptr(dev->dstats);
- 
--		u64_stats_update_begin(&dstats->syncp);
--		dstats->tx_packets++;
--		dstats->tx_bytes += len;
--		u64_stats_update_end(&dstats->syncp);
-+		u64_stats_inc(&dstats->tx_packets);
-+		u64_stats_add(&dstats->tx_bytes, len);
- 	} else {
--		this_cpu_inc(dev->dstats->tx_drops);
-+		u64_stats_inc(&dstats->tx_drops);
- 	}
-+	u64_stats_update_end(&dstats->syncp);
- 
- 	return ret;
- }
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 74474139fb9ac..dfba3cec76b49 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -2746,12 +2746,12 @@ struct pcpu_sw_netstats {
- } __aligned(4 * sizeof(u64));
- 
- struct pcpu_dstats {
--	u64			rx_packets;
--	u64			rx_bytes;
--	u64			rx_drops;
--	u64			tx_packets;
--	u64			tx_bytes;
--	u64			tx_drops;
-+	u64_stats_t		rx_packets;
-+	u64_stats_t		rx_bytes;
-+	u64_stats_t		rx_drops;
-+	u64_stats_t		tx_packets;
-+	u64_stats_t		tx_bytes;
-+	u64_stats_t		tx_drops;
- 	struct u64_stats_sync	syncp;
- } __aligned(8 * sizeof(u64));
+-err_start_rx_ring:
+-	ice_vsi_free_rx_rings(vsi);
+-err_setup_rx_ring:
++err_cfg_lan:
+ 	ice_vsi_stop_lan_tx_rings(vsi, ICE_NO_RESET, 0);
++err_setup_rx_ring:
++	ice_vsi_free_rx_rings(vsi);
+ err_setup_tx_ring:
+ 	ice_vsi_free_tx_rings(vsi);
  
 -- 
 2.53.0
