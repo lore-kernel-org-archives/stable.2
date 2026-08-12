@@ -1,179 +1,137 @@
-Received: from esa5.hgst.iphmx.com (esa5.hgst.iphmx.com [216.71.153.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8294D3EB81D;
-	Wed, 12 Aug 2026 08:44:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=216.71.153.144
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786524289; cv=fail; b=cICIMw7bsui3/sTQwhffDReyagNVx5E+hq5qpTC/iBNcOxuuIkMx46SfZjJkblfaNWXsTjq7DHwh2p3oR7Xe/fkqjp+icgez5Hu9VuikJdbYeVfXX32iQuPxbCliHlubjsu7wi6Q5LQRovtgitrwmL6UbkkR6LZZLCcU3591aJw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786524289; c=relaxed/simple;
-	bh=aJDHEWEGZV28tQViLwbCE0timTl9DUmpuOlxAg4fd20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=MP1euBqt7ZFqOdmFEHNK8AcBUSfCCKbTwNiKLrD1deHfH6Kafvor9j5+6VWAd940Qm1J2Yh0xk60ZQScSxhal1Vx50UkbG5MPhuu9pkrUh1BNvUXxdCAs8d5aYrRm+hyGOidc9Uw7B0YQIVCNjIuvkMGu0Kchr4ldJrBDSsDtxw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wdc.com; spf=pass smtp.mailfrom=wdc.com; dkim=pass (2048-bit key) header.d=wdc.com header.i=@wdc.com header.b=XhmoKD70; dkim=pass (1024-bit key) header.d=sharedspace.onmicrosoft.com header.i=@sharedspace.onmicrosoft.com header.b=KiIX6lr0; arc=fail smtp.client-ip=216.71.153.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wdc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wdc.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233542C032C
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 08:47:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786524471; cv=none; b=a59VTE5OSorsdojgstUWAfQw0y9MujQEQ44fwi1/eLJkQJjXQuzEYAl6tLyKCS+YZ3w+rR6rG7L9bhlR5CFPklrKKtvwVykPWgl0Bwkb63uoJmU5eSTCesJq89sYwWjZB0b/FAwUBKbVhomvGdMsyPxO67Ugx8x5IgIxp2O5NeM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786524471; c=relaxed/simple;
+	bh=jJQBi+FJvmoui7DId5x53h0UMdloG/hSLE5o6TbVpg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Q6lU8tgR4vEghOyPc7z9DP1/XDHpZxUP/VYL8kMNc6Rmnf+GE2iYkx0/9sjH7qf39V0zkg43g6c4Ph5v29HUmfWjSLG15DhfSmhOoiwkL90o3o1W+QtgOf1JHBgOBMNvTgqPHaEHWNhocNYicCXK5C0uATyr+FLgQvZJZtBPgBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DZoNs2PW; arc=none smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wdc.com header.i=@wdc.com header.b="XhmoKD70";
-	dkim=pass (1024-bit key) header.d=sharedspace.onmicrosoft.com header.i=@sharedspace.onmicrosoft.com header.b="KiIX6lr0"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1786524287; x=1818060287;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=aJDHEWEGZV28tQViLwbCE0timTl9DUmpuOlxAg4fd20=;
-  b=XhmoKD70m+FaepmPgpGAp0j3eYDb27SboIC/Q4qZwZ+bBlNhSXf2G7F/
-   NFd0fN595VoA75cc80KBxYinZ4QYl3hoyOq+fXdRDzzM6mSM5qWlFdDXs
-   YcKeNSk/6n27YR5k3bX7wwiwyjBGwY/gf4T7Xh/1wgAcT5mwao3ZdHnkT
-   B3L49rxvoQ+FrrvZAHcGKnN+LsAA/c/cMomdoEuonZxpUiJK8H9UuIWFm
-   TInirvpq3ykkR1CPl9NBwiIo+MbWr3T19gDDwqJ+FXqN8FXa8ljgh4mWX
-   b62h0gm9/Q7RnL6BjvlK25NPwQVEY4M2wK29fDvfCEQ4KqP+0+v/vd/CZ
-   A==;
-X-CSE-ConnectionGUID: 1tmFeoZCTv+YwtUmg8KnJg==
-X-CSE-MsgGUID: xd2Y9VLbReyXNjQeQ1fr2A==
-X-IronPort-AV: E=Sophos;i="6.25,219,1779120000"; 
-   d="scan'208";a="152034038"
-Received: from mail-eastus2azon11010017.outbound.protection.outlook.com (HELO BN1PR04CU002.outbound.protection.outlook.com) ([52.101.56.17])
-  by ob1.hgst.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 12 Aug 2026 16:44:45 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZQ/ZyiF26GbCqEDtCYpy9Rn/oTbW+SEWpVNv+Q6dYiGUM8GkszHEqKPK/+vjDl7Zq+8MEcLCWnaszHbIZIeaDHXcgdL1/8imHXaaGs3n4vTnttED3fp/sccV/8/vXyILynSjeFzVMEqDsqwKlACUsBhx2yfwm728J8R1rA5DaYxTEvIc+OMSZZTgnQHTMqIaCMrsWGvqjAcVPpn+DQ4O4r6uIH3X6ktrIEtyCdVF88VvduUROvkCrMK77hytdW9jv/0j2I8HbDqlD4dAFExQMysqEcpJPaFfFCo3GgmxEOpXlnOSzqqkfrncjU4qw9eIBDb5+7YA3YS7g9bwpQAj/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UqhP72Gk4Qz/ucqp2CcZcze9HQBDZVtRIdcTRMnR9Yo=;
- b=wMP23jCMBiexbHFsnzgtsuBKjc/bCp6AQChMegWbwV9lT9zFfclGWN3hjnZa5wyhtiIy2T1h6jGijZhGwFlVYJXoYy08ATLDn82eIoL8KQHnH5yDFmMr4BcpnacDbUcgRQrPIeJL0TYF/EW1c/J+4ZTqp64jdbMUiHfKsRxbT+iMHaYiANoHL6Wn9n4zPN7gIAqJa64iCLzfRhmeSb6KP4V208ELnDHGmkWg2SCk7O6P7dWjYnw/3viWpzOI/lmbBj13dQBjoCbFzvko7aP13Ao0i3smSVevYkFX7EaIhPxsG0Utab/8yvRRv2fFBIlCzcGMNKjxQvaTJpOcsvkkIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com; dkim=pass
- header.d=wdc.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DZoNs2PW"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5aea0fff535so787760e87.3
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 01:47:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UqhP72Gk4Qz/ucqp2CcZcze9HQBDZVtRIdcTRMnR9Yo=;
- b=KiIX6lr0R11r0e8h9CtiFyA6f6MIXeC/Ut5NQLuJvRkD8E+uWgJ3jb5XgJB9xadkYMSGeyRixiO2TcfgpUs1SfARhcKEWk3DIxp1r6JmyQ3/gYYYANtGtRSuWpJAcoAqJjjsTb/YBvYlMIU0anDAMvLMjGTmoF0ruJA2Htl+SZQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=wdc.com;
-Received: from SA1PR04MB10065.namprd04.prod.outlook.com
- (2603:10b6:806:4dd::14) by CH1PR04MB9712.namprd04.prod.outlook.com
- (2603:10b6:610:2ad::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Wed, 12 Aug
- 2026 08:44:42 +0000
-Received: from SA1PR04MB10065.namprd04.prod.outlook.com
- ([fe80::9b98:bf8a:b0b1:ef85]) by SA1PR04MB10065.namprd04.prod.outlook.com
- ([fe80::9b98:bf8a:b0b1:ef85%4]) with mapi id 15.21.0315.011; Wed, 12 Aug 2026
- 08:44:42 +0000
-Date: Wed, 12 Aug 2026 17:44:36 +0900
-From: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-To: daan@amutable.com
-Cc: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
-	Daan De Meyer <daan.j.demeyer@gmail.com>, Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, nbd@other.debian.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] nbd: drop stale partitions on NBD_CLEAR_SOCK
-Message-ID: <anwyEbZhRHgSAyqB@shinmob>
-References: <20260806-b4-loop-nbd-stale-partitions-v1-0-67bb75a8d7be@amutable.com>
- <20260806-b4-loop-nbd-stale-partitions-v1-2-67bb75a8d7be@amutable.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806-b4-loop-nbd-stale-partitions-v1-2-67bb75a8d7be@amutable.com>
-X-ClientProxiedBy: TY4PR01CA0070.jpnprd01.prod.outlook.com
- (2603:1096:405:370::18) To SA1PR04MB10065.namprd04.prod.outlook.com
- (2603:10b6:806:4dd::14)
+        d=gmail.com; s=20251104; t=1786524468; x=1787129268; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jJQBi+FJvmoui7DId5x53h0UMdloG/hSLE5o6TbVpg8=;
+        b=DZoNs2PWo8UvG2Q3EdnnJPznz4pFZzbSNYMn02ktoJ9rV327JBJFGDCJE3r6BLXSuH
+         03aGBIsMvU4sHFFNAvpYsGAGJUG7tSTaDff6W5H/hFiw7P1H7Q2EJKt18Nfj1ytcurGt
+         PyMGeKMkCzUduC6sIz3Uv76++IZUPcBOUprtM7TNzVJfZJWWplJkZFRIPuePshCrPNG8
+         ZY8H5LdMhC2qXqE73+dOyJLqCcS+2+feeWmoGTQ9cvm2Q5F6oFFNvtqpwCg3bW3H9XtU
+         x79ebygg8eUEoTMMWUhm70pQ0TD05T8zNuTtbcdk2aQWM6L08vuaGQgll8MIskxMWCVz
+         VYJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786524468; x=1787129268;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jJQBi+FJvmoui7DId5x53h0UMdloG/hSLE5o6TbVpg8=;
+        b=aPmUtBzmwgmmgNcZE3pFpEfWiSi+Wh0e6gbV9ePt6VEduM1WKCDdjymJxnVS4edR9r
+         8UPg997FeTyo0LvQN2Z5Zp9gjKEhzg9Zcawyg+J8RnEY+EAXpvxjuOhs/KQV0I4pHvv8
+         G4E0ERWuJ9dLOTUGz1JZFU9Gac44ujD6HdTrm5hYkhg7WBy0iC6o1K7lQCuK5Z1BL2Qb
+         sfGDAPbeu5p8g7+YNeAel3O9RUDBlqm2N6XIm8hTqw6nKVTYfyr/fjOKbQmsNbgV3Loz
+         UA18irFY5DXMjzidttTf6YcYvBMpYEI4nPVmDmKJ0e2GNyspLTtDtj2UhO0L9FTh6cdS
+         DQZQ==
+X-Gm-Message-State: AOJu0Yyk85s38Hc+0dYeOQRxF0b2smNyF+HJp16zn9T0F1d5xSrWggfI
+	yy5/OlsMefBv2rCoFWj+E40OOGKnayY6N4kZQ8BzbIeNKrYIg1Pvoi1x
+X-Gm-Gg: AR+sD13jb3xERFDONvDkpzjxR5vY1QeuVAfwG+7BRDsubYqmE3Ue3YvrC+gtZZSIJ9Z
+	HWa93o7OF7WTPMpkM1kVdKeebsqSm+symH3s4z3pjqBiF6Fqmeu1DnrsK9uGXTa6zfOwroMZEgG
+	yPOrKsg+WVGFbfeLNdnlF8evLImGnM8yuGe3LicjP9JIz+L8mKqaaOWJfJa7YF/dM2TQIaD6ZFt
+	15WeE0NwoFtLd2YoVRwg2Cg4QPYmBgXow6nWOFmeFNz2JwE3YRqHMjv3xsJk0tEblCMsnEyTDYC
+	y5YaEFLf5obc5p/epG67rW2iyEZRo83lfR9XbKzTQ35n+k5WKbNK/f0hYsEcKOzLiZhH6Iw3o/S
+	YHv0PvwYkPQpG4OOHxB6eEDwOexamSa0dBmYQMJLUymZIq0kl2PZl3JPijETaDli9lUfDUccKPW
+	ANt9lEejyeWSSU1IRr7FouOiapTgS2+Xdb+28=
+X-Received: by 2002:ac2:4add:0:b0:5b0:1685:e369 with SMTP id 2adb3069b0e04-5b44e32a023mr342278e87.42.1786524467770;
+        Wed, 12 Aug 2026 01:47:47 -0700 (PDT)
+Received: from elende (elende.valinor.li. [2a01:4f9:6a:1c47::2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b44d053d4bsm353783e87.80.2026.08.12.01.47.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 01:47:46 -0700 (PDT)
+Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+Date: Wed, 12 Aug 2026 10:47:45 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: stable <stable@vger.kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Cc: Brian Maly <jmaly@digitalocean.com>, 1143545@bugs.debian.org,
+	Zeng Jingxiang <linuszeng@tencent.com>, Wei Xu <weixugc@google.com>,
+	Kairui Song <kasong@tencent.com>, Chris Li <chrisl@kernel.org>,
+	"T.J. Mercier" <tjmercier@google.com>, Yu Zhao <yuzhao@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Please apply commit 1bc542c6a0d1 ("mm/vmscan: wake up flushers
+ conditionally to avoid cgroup OOM") to v6.12.y
+Message-ID: <178652421812.722408.8065577541585442120@eldamar.lan>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR04MB10065:EE_|CH1PR04MB9712:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7ad57d5-7cf1-40b2-9c3e-08def84df3ee
-WDCIPOUTBOUND: EOP-TRUE
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|19092799006|6133799003|22082099003|18002099003|11063799006|5023799004|4143699003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	/YzmnclqtSajSZkdkz0Z4Zm1a6WbBvwOi3AOQ+HZzI8RSbxu0n60CT1d9JVb4Wl1dVF9BOhD8Ita35yrH5qw/jgmnr13aULbSd/cSVUkslVflcMqDvFYSAcEye5C9w7UONScjKPhJykXMjPB53gID2hdQJxND6QQpAy3c7Ds5/o+FVtQ41CDOzRfqrfT+j3482qzgtsEnkCGl+Iepb51m2DNTKfO9oIEdtW1Qglfuv+LzSnlYgcq1zS/D/cnRsL4FYpiAXDqBoBciC5gyhQ5l1LpGzf/V2aRwwsuwllZdvr+8m7gdOH/i8TY48B6e17/HHxzbT9ztPKNAbcQnFa09arTGoG4dsPHo/bRf2OzzIf8g+76zYVUgVjXfnHi6VQH9eD3bIkASPaAo5rOlnxIoEaSwBVYYxY9l3kA71MzMvxTWZJY46nJxZrRou8RIMkdxcbI4hciQoaMR4NXay4qUqJ2HThiFe1C+/IuOQez7d52OrP61zcBMXtIQ1wTX8POrRekg6z+R9YfduYzNOwNeX11/fmyu/ccASUU9QukTxdXUXi8SChicFRr/H4flKQ04CxAqJjFr4qceBXMTejiFETMwj5Bnm9IsXb7VoR7p0NVVDnkJL/nnIhjZjfmRBYJ4DMQE2P4xTGHoGOiMdUEZMsarp0b+lh6svyyjpmB/jA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR04MB10065.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(19092799006)(6133799003)(22082099003)(18002099003)(11063799006)(5023799004)(4143699003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Wq28Gq1fNN931LeJmpAm6n63rWxSa5vwQq+rXEO6af/DDCi0UZJK5iNvNCMf?=
- =?us-ascii?Q?/AyxoveoZgR36ajRbt3LCCSX59898n5tS9+9D9C1JgM5deIPdGx0FERzpV2s?=
- =?us-ascii?Q?ZI07BDXVxuY67OHCoup8cjxAvxftA+nw+X7lseataS8txF5gfiUIkZ0zEMNr?=
- =?us-ascii?Q?NvABaH/2DC3Dlycx/gCme6cHcVfzopzhZZUM8uBqwBIrmXmdfnHz0F0IK3+K?=
- =?us-ascii?Q?zTC4w5K0kkV5tAqhi8H/fverI/O3g+omfbRUoDztog/sq1bEOMrFhpT2kOSE?=
- =?us-ascii?Q?YivBPzUnbIslH3kCPNlxkky5l5L/o8/CBt0L7YB1Duaq/qgOxASgW2irlxRK?=
- =?us-ascii?Q?miACA4ZWfpaOLAKLhuoGYyGUF02d7PtmA7K74vmRHOjhf+vsKcrTq9TSEZY+?=
- =?us-ascii?Q?TOO+71oivfZjSBmWZmSKEUrMbTscXGAOyoBuDllcR1cRoWjW3iuGdhknEDll?=
- =?us-ascii?Q?+5H9QxEYrmch4NRuVZS5V/iRPZBhsMW7IybLVc9TfWx+QR4AJ2xR5lDHoyT7?=
- =?us-ascii?Q?vmmVaoOIXBGS5d0NRITMY4rhkLBeV8Zg2bwqiLwKRG4BPwQOuwoyDxe/myBu?=
- =?us-ascii?Q?PdQklfN1kiqk9k3Wp4sIoIeygnkQ8FAeeTqJsZrY9iWwZQPz/UVLZcuV0Vrl?=
- =?us-ascii?Q?Ku0KKHPGiU71O7tP/gCBJJElSAlnugW5NsmiuufNHwH1Nw7By7bb/CwIS+QV?=
- =?us-ascii?Q?lWGYclIlVWxUHcZxeXbgFPKBybF0wHNaITh8V7KuuCFEnrcLAvPaNntjZ9Br?=
- =?us-ascii?Q?6AJ68NJGrF5vZgOQlihhcQGKlZa3+1tN7vLV/jexjlGpAwWiqxshli8FGuSv?=
- =?us-ascii?Q?g8H9pCR+BumP2o6T0fl0dui+HXpRYN/gP3jhn1tXTAQSPfWMsAhy3SSiC2AK?=
- =?us-ascii?Q?00PHbvZUcdIUCrfhZqpNNH0VIfmXYwrYOUz3MivvNzfVflOr7MQzDO4ohFls?=
- =?us-ascii?Q?r35dJozv+fAGCgfUUAxXDKkKpM2Od2tFzn9C4WLs5GL3SO97KMTTM1uqarsu?=
- =?us-ascii?Q?eAiyACXB1guO2XJlRnwQWG8POjSHdB6fYK0Hx0f3mGcy81XkZzN9Z473eFLc?=
- =?us-ascii?Q?MEbGKaql7AtGCTaVz3G4TkLTx4svDLbrF4NPkBPxGo8LBdryZu15mkOl6H9F?=
- =?us-ascii?Q?YDjKYDPh7Ftfy7MvqGtjTtfxznM+6qIXfhpA5wOvzzQJWW4prSfaeUkeb521?=
- =?us-ascii?Q?2eLn3xo1OXwBOObY8StJQdHPR6y/ZDqrQipbSLFiau9QDOUVMzVTFx9BDYYg?=
- =?us-ascii?Q?cnGJyYlSGQVVuSbxAfSPSwcVXSf7vjRJdqy4BtJM2IotqNc4Fz5kjc5BJ7Bc?=
- =?us-ascii?Q?bzxkQSkEzKqxZ6seqkOt1onQrj7Mx3cr1VKfD9qvvneuDObqkEwqyR4puXwS?=
- =?us-ascii?Q?6JrivWS/Zft4aQ/rstYtafPb8MKNk7DPLI3NxNaOnJzq2tHauF/tZdZqM9hH?=
- =?us-ascii?Q?b3gIwHxGmGk7nkNwkMMTfvzLXnIDAifcgMQADU5o5y0AHceF1UdwFZiIyo5/?=
- =?us-ascii?Q?kqP8BIebkn6Vp8gldQjradCZxjldI7Bk9v2tmE5mf3ztyfK1XUmtjlTUmqTI?=
- =?us-ascii?Q?gmK/unLCQnZUVj/2wsgyEmNHDd0Np7vvC8k6K/pXaZLMDlxX79QWZJ/IbyYD?=
- =?us-ascii?Q?HdP09C2qsH5ffKzEdCLRhPVZF9LJEat8AB617cu2S0amecbVdrGtJDRPlFBp?=
- =?us-ascii?Q?2Ynzm/OlSaAMIHJnDicWfnZ0Us0b3ie49qGZEg4CbFDOqoe15JWRUBQyQtr+?=
- =?us-ascii?Q?qykmTFCqM7C6xdMllgffBOONerSP2WE=3D?=
-X-Exchange-RoutingPolicyChecked:
-	MZcvnx6nYxy38Ofp1KfrliF8a9umiiC/6rBtfm5WZSsfjojKJPm5RE/ouVyOUk2sXakA2HfCiPGD8UImgkdLPuUK2lKOxzftSoDV9dO7wnbejgkP1t+eiFOxRnx7UGWix6/DPJZM68WY9F322hp88ZHqJSL1R0o1vaZJG1c810/bikwhOp4/TavUWjk00B5PI+ywX/mgDA6L0PUdfqbFcBNuHXLq8/cXxYFXV/uUhyB/jOertYSrwSo09Br2MJnYwk3BEU85gsTvxKstItuinjFXYUjezTiXHScyjdeVXRLVoX9UOeB7OehOZ1XWEF/QQ5Zdwrsp1Qcs4fDlxPKCFQ==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	mSrpXeH2baX+UkpSNJAUtesZqGuEZOgLCPRNW8tjbCq41VPW7CjOQHjCP82nUGybxqXiHYNg+W1k45pVaq3YHPhnUhXOAVzPeFQNUdU2PBPDMSjOGnnrco52RlQQQSaJ13JXOP1A8Hzuhb5kjXRvkA2KGP5nWxQeLzGT1+K3M+k0QZF2CLrMmEo0cYg2a3Y0SC59KUKvhPQRytEEvgIimNEVUQryRl7UiGGOxr0+YjMo520ExA2Y+8g8Mfy/U1q+MaEJ6kzInRarvhIt1sXpAoeSkXbr8eX6N7rFUzFFi1Ru8VhLKUU53bRZSC+fcxqYtM63ZRNxrYCuDdcLK+DDut/DpigNKeUBdhT79DM5+HxInobLwAqfiZiBuKeTiXb1F7i2Y5Wl68/35bUch6qgYSJGF9kKyZMr7VmFW80n5Iyp1cI1QjC9bFCfH/Heau2RyJULOM1jGbDwRxsqqHy4p0Zq4YKN+ZfnYQjAGX0PFl38DeohZ4vtzHmUDp/84CHzrwF2xCBRfDcMO9OesiQIUaRdpawIgKLtqvSoVCXXJ2E04Oi8tufFq3HnRkQo9QsUu8+5uONfKMHlbzIAXzQotJ1faelJ4QDiWbTKIY450vQXVgQFx5DniAV8AT0ZsarK
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7ad57d5-7cf1-40b2-9c3e-08def84df3ee
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR04MB10065.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 08:44:42.2779
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZFp6OBghoapgY3Z1t1WtUJYA5tYJniAA0Gh2DYKH4gjYO4mWXutHiM5Sl0DW/46oY6lwHb6s4jGX2arC2VO4FpG4xt6MlN2udU99sWSMHTg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR04MB9712
+Content-Type: text/plain; charset=unknown-8bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Aug 06, 2026 / 12:36, Daan De Meyer via B4 Relay wrote:
-> From: Daan De Meyer <daan@amutable.com>
-> 
-> Commit 267ec4d7223a ("loop: fix partition scan race between udev and
-> loop_reread_partitions()") stopped disk_force_media_change() from
-> setting GD_NEED_PART_SCAN. Besides requesting a rescan, that bit was what
-> removed stale partitions on the next open, as bdev_disk_changed() drops
-> all partitions before it consults disk_has_partscan().
-> 
-> nbd_clear_sock_ioctl() relied on that. It zeroes the capacity through
-> nbd_bdev_reset(), but nothing removes the partitions of the disconnected
-> device anymore. With the default max_part=16 they linger until the next
-> connect sets GD_NEED_PART_SCAN again. With max_part=0 nothing ever sets
-> it, so they are never removed at all, even though nbd does not set
-> GENHD_FL_NO_PART and partitions can therefore still be added with BLKPG.
-> 
-> Set GD_NEED_PART_SCAN in nbd_clear_sock_ioctl() so the partitions are
-> dropped on the next open. Calling bdev_disk_changed() directly is not an
-> option as it needs open_mutex, which nbd_open() acquires under
-> config_lock.
-> 
-> Fixes: 267ec4d7223a ("loop: fix partition scan race between udev and loop_reread_partitions()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daan De Meyer <daan@amutable.com>
+Control: forwarded -1 https://lore.kernel.org/stable/178652421812.722408.8065577541585442120@eldamar.lan
 
-Daan provided another new, blktests test case to recreate the problem describe
-above [*]. I confirmed that the test case failed on v7.2-rc7 kernel, and this
-patch avoids the failure.
+Hi stable maintainers,
 
-Tested-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+Brian Maly reported in Debian (bugreport
+https://bugs.debian.org/1143545) when updating from the 6.1.y series
+to the 6.12.y series and noticed it is caused by 6.12.y missing the
+commit 1bc542c6a0d1 ("mm/vmscan: wake up flushers conditionally to
+avoid cgroup OOM"):
 
-[*] https://github.com/linux-blktests/blktests/pull/260
+On Mon, Aug 03, 2026 at 09:52:09PM -0400, Brian Maly wrote:
+> Package: kernel
+> Version: 6.12.94-1
+>
+>
+> After upgrading from 6.1 series kernel to 6.12.x series kernel, a
+> performance regression was encountered.
+>
+> The customer is experiencing:
+>
+> ~2x slower execution times for write-heavy workloads under tight memory
+> cgroup limits (~256Mi)
+>
+> Significant latency spikes (median 14s vs 7.1s on kernel 6.1; max 23.5s vs
+> 7.6s)
+>
+> Occasional premature OOM conditions
+>
+>
+> Root Cause (Identified by Customer)
+>
+> The issue is an upstream Linux kernel MGLRU regression:
+>
+> Regression commit: 14aa8b2d5c2e ("mm/mglru: don't sync disk for each aging
+> cycle") – removed waking flusher threads during MGLRU reclaim, causing dirty
+> page accumulation and reclaim stalls under cgroup memory pressure.
+>
+> Fix commit: 1bc542c6a0d1 ("mm/vmscan: wake up flushers conditionally to
+> avoid cgroup OOM") – available in mainline ~6.13/6.14 but not backported to
+> the 6.12.x stable series (no Cc: stable tag). Ubuntu had to manually SRU it.
+>
+> Validation: Disabling MGLRU (/sys/kernel/mm/lru_gen/enabled=0) on kernel
+> 6.12 nodes restores near-6.1 performance and eliminates the latency tail,
+> confirming the MGLRU reclaim path as the cause.
+>
+>
+> Please include the fix commit in the 6.12 series kernel.
+
+Can you thus please backport/pick 1bc542c6a0d1 ("mm/vmscan: wake up
+flushers conditionally to avoid cgroup OOM") for 6.12.y?
+
+Regards,
+Salvatore
