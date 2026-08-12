@@ -1,78 +1,78 @@
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34A738655D
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 07:12:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED34386576;
+	Wed, 12 Aug 2026 07:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786518763; cv=none; b=jhAXOKmRvaNZaAOVRQpVVRE+Thv7d3NAU+x5h/uk28PXCy0RpHOKEc63bwdRhzum3o8Nm/i3oqTLnzsBtl+p76yhIWJkPZejQvyyyQmOTWcWRSg+lcNJ+/7LOb6B8CdXPYnwt50sTZRU4E+IC20krjso857JezPH6+1Mx1MBbdM=
+	t=1786519674; cv=none; b=mvwEdYeSjTtyR2udKJvBAyt2QNzVSfp+a4TuSfglPIQn9K7oiPoQHHwFs/6bXYIDMd9qj0mFck0+cxlz+yXGX9AcwHKcAMun8FXjkXnL945rENPxWTukFchWdI8FMyG1LenyOkonMicNW7emoITbLirPez7Eg7iV41hNTCztEcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786518763; c=relaxed/simple;
-	bh=v2mdT8xBZcqIC5YgWQChSYzR/3O4S5EIm0wuZ9GCi+8=;
-	h=From:Date:Subject:In-Reply-To:To:Cc:Message-Id:Mime-Version:
-	 References:Content-Disposition:Content-Type; b=GSALIPVbCEJoaJaYrFLm9cTbWqGUmH69Rf5SsL2TFcLH1vgP647w5ob7fLUzFRw6cOcLRY5KRQ+E7NSJAQk1WNSTv+WlQJPRuwscb8gRn6mlCNADYy/Wq9B5poS/Qt4eeWv9jPQnClgGw6uWIn0HT2pbgMwN7R+Cnfz0Jvm7WIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=AmHnaR4s; arc=none smtp.client-ip=71.18.227.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1786519674; c=relaxed/simple;
+	bh=AA40xgGlrspag9jqHVzMXxRdaRl75ymLBMBcmaeUDn4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Z5lZZZpMIRtrPSWhz0OpD1uKWb6UMxyfTDfESJtCxRo06x3EwLb8GyvT8/t9SmCbTJPk1DEnPMU3g+4Wg2Hc66g2R3ryxEY5HqriWzr5TmfNGdEwf9DxZTaBnnStXwS0iDEvAyRNBIijnaw7pK+kR3reDDKfYA0dip2Q18dTZBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFOZ9YQ5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="AmHnaR4s"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1786518744; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=v2mdT8xBZcqIC5YgWQChSYzR/3O4S5EIm0wuZ9GCi+8=;
- b=AmHnaR4s4DQrN76ZZ/cDFBhcuUEJYY5x1VqFoXRnRHGSEyrv5JdYeBSH//VHp38utBCzak
- Bh+lxTI/d57VBJGeinJBK642ghuZSP1rr+6EPC+zkFOPGYe0LYkKljmKQTzhmwys1KtMLk
- oIFeHEM67XDzBcx1g/hepmOwtX4++PZgyHPzjAYO2bzEqp5la6VBGLv6J5aMxE0GfYKXb+
- h6IS274C3ZZgYdbvruIMp/SPoJeGJfKkDd/lJWI/1a3P+o8gvHtt1PN0Wl4GvbxSexzQTk
- 8FhNH81+qji3wIxbJK62tEakAZf7Vwokh0DnIdrMr7BrQINqecrSRriyiQ+sAA==
-From: "Shengzhuo Wei" <me@cherr.cc>
-Date: Wed, 12 Aug 2026 15:12:18 +0800
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Subject: Re: [PATCH RESEND v2] iio: accel: fxls8962af: clamp FIFO sample count
-In-Reply-To: <20260812055459.4163c1c0@jic23-huawei>
-X-Lms-Return-Path: <lba+26a7c1cd6+eb77f5+vger.kernel.org+me@cherr.cc>
-To: "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Shengzhuo Wei" <me@cherr.cc>, "David Lechner" <dlechner@baylibre.com>, 
-	=?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
-	"Andy Shevchenko" <andy@kernel.org>, "Sean Nyekjaer" <sean@geanix.com>, 
-	<linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Joshua Crofts" <joshua.crofts1@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Received: from nobug ([202.112.51.208]) by smtp.feishu.cn with ESMTPS; Wed, 12 Aug 2026 15:12:20 +0800
-Message-Id: <anwc0sf8pLdZtyEq@nobug>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFOZ9YQ5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 418541F00ACF;
+	Wed, 12 Aug 2026 07:27:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786519669;
+	bh=eWhuCJo4Sc0ofWnzOquBMPtCZHU/TwETIJ0Lz4nmSvs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=TFOZ9YQ5etXFlZ5iW6fKnLRkmj7pdcjDNEciAaVDi9vc3i7mYxgpR/wFBEZshOwHE
+	 tO8RLycCZJMBiKkA5T4g3aj4ZvInk6InXRp21hpovxhbDg5q2v4EBxfHlO49nBaraV
+	 f2rZgelPSuehMa0DiYclFlxu6eWZBiP+YGh8s7TAxFp6hj2ETejbVtg2Uf6NWBpdAM
+	 tQNFG4WCYR8pk7H09DlPxB/FMzmoMODicO7qrmETikvI7UQ1SOujR9T8enyUcPBeTN
+	 9ZgWL8l+CI9q71MQrb9jH4B4SPJ4kdcKvjvkEQTi25PS/eY5t28AJdefGfM+vauXH1
+	 z7nuTrs+V2CsA==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org, Baokun Li <libaokun@linux.alibaba.com>
+Cc: miklos@szeredi.hu, amir73il@gmail.com, viro@zeniv.linux.org.uk, 
+ jack@suse.cz, paul@paul-moore.com, serge@hallyn.com, 
+ linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260804034204.3487077-1-libaokun@linux.alibaba.com>
+References: <20260804034204.3487077-1-libaokun@linux.alibaba.com>
+Subject: Re: [PATCH] fs: fix user path of nested backing files
+Message-Id: <20260812-auszog-rehkitz-wonach-182a7eaad0ca@brauner>
+Date: Wed, 12 Aug 2026 09:27:43 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260809-fxls8962af-fifo-v2-1-80ff1be1f1f2@cherr.cc> <20260810003101.3a2d1967@jic23-huawei> <anlTG3uxHEkyxtQv@pve> <20260812055459.4163c1c0@jic23-huawei>
-Content-Disposition: inline
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-362b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=864; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=AA40xgGlrspag9jqHVzMXxRdaRl75ymLBMBcmaeUDn4=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTVKBTdfMmqKGl4X3jx7MlHdr9ebJz1jJVLU5D/y7RS5
+ vLIHXu3dJSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzkqSUjw/TQIqWlqeL53t0u
+ Be+bDDvnbDeXPP7pz+QHLycX/09t+sbwT3PhM6vNS7+VbquWOVujU2Ua4fLe5XVMa+X9pT7y849
+ O4AAA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-=E5=9C=A8 2026-08-12 05:54=EF=BC=8CJonathan Cameron =E5=86=99=E9=81=93=EF=
-=BC=9A
+On Tue, 04 Aug 2026 11:42:04 +0800, Baokun Li wrote:
+> fs: fix user path of nested backing files
 
-> Oops. That one hit me on a different day and seems didn't think of
-> it in the same way.
->=20
-> At this point I think it's probably not worth more churn for something
-> we don't really expect to see in practice.
->=20
+Applied to the vfs-7.3.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.3.misc branch should appear in linux-next soon.
 
-OK, dropping mine.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-> However let's do things better for any other drivers we apply
-> similar changes to.
->=20
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Will do in the following patches.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-> Thanks,
->=20
-> Jonathan
->=20
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.3.misc
 
-Best reagrds,
-Shengzhuo
+[1/1] fs: fix user path of nested backing files
+      https://git.kernel.org/vfs/vfs/c/ffb5dde2f64a
+
