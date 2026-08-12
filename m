@@ -1,64 +1,64 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0830435AAB
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 11:18:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6C543747E
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 11:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786533529; cv=none; b=RfVP02Oit+/7dCXrJhiOb8FAw1jhj5ZPJ7132jnnl08LcCiXoxtKZL/iHCto7NRgnueiuGPWmWVLN9+oQjUELDm12Y3P4IGq1tuNmD/GhTfE8Oh3/a17Hiol9dJ6h7lpWPvCE1C6cFE5I3s1F7dRMFhgHYxWsJKqZtjO3kiItZk=
+	t=1786533532; cv=none; b=CduQozB840ccHTzg2LfvhCLokHBF1qNETjnsxOfbhToDYYYA+X7quX56JDK5oiuhYQvGGtRnGQHhOpwM3gkv3ATS2rUNoN1+yWRrPiGDF9wL/3ZUuFgIMvJ2CdUDbulFTQIYNO5HpWLorviFBHEeEAKBil2QzKeDYoHcVwnjVBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786533529; c=relaxed/simple;
-	bh=ATKvWl1DnIWOGmblRvXvDZPEp2qoEl7qqfbdLw7wl3E=;
+	s=arc-20240116; t=1786533532; c=relaxed/simple;
+	bh=9EehTMGdJoM/pmPAG9mZtREZbrypCyCVR7Mvq/DwalQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=egzDvCflUzwl3YJoTVd8Q9JjXhSnXKtcm/vzs315e8rVzJDZVplmsEZAzk+HesKBUMQojTX4cyJsBzth71SNOu79xVYB/MkShG+glabr/q6TrV4bYM+7UQVHbXDhBVsJ5Dxr1rR5RpRiUcFoo8ilmZ35XVeexYdmlo1DIwCtAJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UPoC98/8; arc=none smtp.client-ip=209.85.221.43
+	 MIME-Version; b=bpMdKNBd8imTLi92m5gQBtokcFlLzkKLa4FqKxCkkHdS6KBBPWclTHX5pKiXYqT7FBwiX9jRBm6nOqvA9BEciYY2QeZVdqvwJDrPeo2tuWQG6Z8cKHZqSzvOAHao8W36jfPSmm9jo142+K96b8lXv/ILEHey9ztxLBf/X9L+fqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BQxHgS0H; arc=none smtp.client-ip=209.85.221.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UPoC98/8"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-480001972b8so296271f8f.2
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 04:18:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BQxHgS0H"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47fd66a094eso281151f8f.3
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 04:18:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786533525; x=1787138325; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786533528; x=1787138328; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GsPuPtlEtpcGKckM/9mBE7kyPjRyXeXRo57w8zpUvug=;
-        b=UPoC98/8UNWIKkpjNwtvUiOxBBvc4dwZSjOxGo02t+ZvsUrufig+2dJGuYtqljphic
-         LwpkDLlXJIZTnlPwuA7MnKUm/+ZCbZw7XcSwlkqCqEEeVZHp/o2LDXqtqTXAfd2eauYj
-         IZw8UCvL0oF+Qa1rNY9DYvxqnuZXQIjocG2Bz2Rs3tfFKyGHMO4KQjwU7AZOxERacwHn
-         zwB9D16yxn7sfDybvIgNZXPL5UWgafQfBJOJlgW0CiMxK9+8VChVO2sOkiv4AhP4DlUx
-         0JEBThkNVcmkk6OpTawx0RQ/J19ccdm7tw6Sde/gHojH1BAnDTK+3A504aDg2Lmcm1ct
-         D26Q==
+        bh=K+s/eo+/pWpLLFnoufPaOpVfgTjc+a46l3h08Co/MXY=;
+        b=BQxHgS0HfQtyGfRnLr5WsGMWqfVYh/WwUZwcb5pDy+K0MmzYC2/+Q2ohurf+Fg/H1Z
+         5fjaure2dBsBtEc/LhkKSn2ZddCIoLxySDiIMLWhCpIGUJKBIUa11JAeO4rbQzfDHAXx
+         JQ8JxDlVrPGX6AkbILVgLHrOD6M5HNFMfMGz1vVl7Ivk7opbz3C9UC9b8TSBIeJHzUtt
+         SXLJNgiBsHCHJKJEHXlmRCRbd9bQ3Y+i7H5XKGtdnuw018/Kvs6EgOa9VS584/09TcD8
+         ul5527RaeAYj6Sx3L5azq5ZwuAbvRM3cr7hQTjyf/pLmN3B+D/0yptVOmE+1FGvdtYm+
+         tJAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786533525; x=1787138325;
+        d=1e100.net; s=20251104; t=1786533528; x=1787138328;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GsPuPtlEtpcGKckM/9mBE7kyPjRyXeXRo57w8zpUvug=;
-        b=lq4KGCLJbp56M+Mv841U3sK98iWLG27V8ZOB2iOdbl0kS/0DV9UqvNNBYd5oRZ5YgI
-         vCNhddKEp+KB5fVRwtzleMJA2twnkTFsGcW1h1XorgpYzCn9tg3acSjkkVd5lx3qOMLK
-         wkgM1e23RNFwBzIJ4Tn3QpFQu9lw+TqtmiWfSqwBgNiSe2psTKlMKzfdO6lks0TZCl7n
-         naMWs67YgLme0ztcE81zXicjpi0n+BcGY8wbUTHLCk7luNxk8pjl3RlIjElT4zc1A4P1
-         Tu8+ibdhWviu24LPhaU0PJpMiRoUiny/v9q3zf1uhwdbZn6r5gMzST04BZ1ZLbbdcaMg
-         lUgQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoBJfyheCHemHoz3uRGe8rIKOuXjXvVkgZAcaaPv/ThmxszE9oGWOhMOLDc17Y4g2R7RmWh8qo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyxky7MofDRSjgaLYLOg+RJpIePbdVqaBVU/rMsN1wy5DdgBFn1
-	Xg29Re2TCuecV3zwthPcp5F1/U6P7Zqp/rj0LJGBTNb1RJB0Yb4s/LfS
-X-Gm-Gg: AR+sD13fYiTeAgXSUHD3HUY0kuYmn5r32C4YJ31GVcWx1mc6t98/oPqavCmGxkOBI+B
-	CLAivCmO9P4pd+fRcYiXKlV9LNa+fxRcu/6I1sXJMPYsfhmUgTp3/mEfSL+HypEHa2rS5g7zGwr
-	5dPpeOOxMoPr4yp4wJigCnCzff3wearCc3lB6lgCqk8K8aFpVPpFCSGK3/m29RvgD1PByOeAJDc
-	+aH9isrlBIVbpbWFxU78wXjyX8oz9lxWwNoJ46pJE3DGUlS+90/S6SFhiIakQmCzL1lDSIzL2GB
-	7byYGFR6skeDHE3+79WsX8Ippdr/J7VlUdMdmzkuYnKljAuVuLk5Pjdx8pGdNEaSdNkQ7uhFjn+
-	RqXnGtF4CQXEK3mdBYfB9GEcfQUvo/e+u7es3YjPKP7F3iHVJuT84LJvPNbzhscpCik6HpJ7LYO
-	aY/0WYQ5LWzcb0CAwbPThtzalFCMj/gzOkDQD/Kg5tDQMNCp0U3e4Oa+xd8cCstxPxdqfgTPLL/
-	RA4vF13m7uzwCiCHUI4uJeM6lF2thr8Ld6VpodFqQ==
-X-Received: by 2002:a05:6000:2a89:b0:47f:e729:c588 with SMTP id ffacd0b85a97d-481528d77cbmr4832014f8f.14.1786533524857;
-        Wed, 12 Aug 2026 04:18:44 -0700 (PDT)
+        bh=K+s/eo+/pWpLLFnoufPaOpVfgTjc+a46l3h08Co/MXY=;
+        b=TbVoV4VxQA06fraCufjev6Ft5NjJHUY65ys7U0XmAZg2B4Jx91dSqSu8oC/kqTX+8+
+         Ktmf/TLOy09mGzIjlwP3IEp+KeWzb5ag9/hOLdVZ9Cw9RD9imny6Y5ubISgRkMlM/FfD
+         VfEXI9lnNmrjFAM2mrDmEil3bchLUscsZYjpBK9AlVFL9b2IMe9MabH7/XpKSmHTgfyH
+         o0DTTR7sSzAO3Wg3LpbbyhsOtl5miaeX1zPaxLcuWcoBlGBSK6gtrmyLYUjGlXzGa4g2
+         htqkk8wFv3nogqN6n+yYxgSwu9UQFnpfg8WGFiDQTgQcd8gsgQjCxVtMSgsjFOhB/BsO
+         fGQw==
+X-Forwarded-Encrypted: i=1; AHgh+RrhoWCHceMdBQPAUyDdp2E8kRTpMSUXjcN8/0Uz+7v2HRv6sRF6PS7q7UHmfIgFxDpY9/lOZkU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrCU/gOGcZkNi/mce8fHniYT5r4w4kApMgisl3dBt9kMUUVIYS
+	Q+aS23PTMe3dgp+BbJ3oISzt+iuxYtfxVime9IpyyOvjOwk8F+RLxvyl
+X-Gm-Gg: AR+sD10e5krcYLhupvi//SjDNsZ4/RA/m+lA5E5Qn9lWQpe1mn5kUtoYx5bdNXR3ABf
+	/AKSLjlsQxgI6nL5wft98xlE8d/P3anJp+Mc2LyTj8ofimVk+gXvzZFimElme5kO36msT22v7Nn
+	NAjURd7nGpp6uiVILu9csic99QXj+JjnX4+zbc5CEjmyYQvi6rRBLApMtPnUte5jW1p6jtQ3MDr
+	s0DNiBDXYqUsCQZJOiSJYHiKVfuuq+ltnU//3oKo8dfe6i4C4S3NQquFqynGX/lJy8NedeHNVZ8
+	RPYyyUiQgG1H7G8vN48DU6PrNzVHNS53AtTBX3hfoKAAlabczokrYKNhZl0z/3COMXZ10DrvTMl
+	YZ4xnP4ZYe3wsYeH8PgG3cCeQU/IEty0xNcqUxEafFNlkhHRTxc4Bd8c6PwBN13skFUjN69hjA2
+	gINPjayDj/dlE6TT8lkVDDpreqAkOsiqIplIa4520AOscwu1jQG31kr0YAhYp7dfyI/zZ+EOmLB
+	NoxmHcZbo/o0FOAV+grORfZgcZug8Zpm9sA2TdiFg==
+X-Received: by 2002:a05:6000:606:b0:47f:9aef:5515 with SMTP id ffacd0b85a97d-48152b21141mr6004264f8f.13.1786533527613;
+        Wed, 12 Aug 2026 04:18:47 -0700 (PDT)
 Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48150d702c9sm6670072f8f.34.2026.08.12.04.18.42
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48150d702c9sm6670072f8f.34.2026.08.12.04.18.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 04:18:44 -0700 (PDT)
+        Wed, 12 Aug 2026 04:18:47 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: platform-driver-x86@vger.kernel.org
 Cc: jorge.lopez2@hp.com,
@@ -68,9 +68,9 @@ Cc: jorge.lopez2@hp.com,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v2 4/9] platform/x86: hp-bioscfg: fix 16-byte heap overflow for empty auth token
-Date: Wed, 12 Aug 2026 16:18:24 +0500
-Message-ID: <20260812111829.172273-5-meatuni001@gmail.com>
+Subject: [PATCH v2 5/9] platform/x86: hp-bioscfg: fix off-by-one heap OOB write in audit_log_entries_show
+Date: Wed, 12 Aug 2026 16:18:25 +0500
+Message-ID: <20260812111829.172273-6-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260812111829.172273-1-meatuni001@gmail.com>
 References: <20260812111829.172273-1-meatuni001@gmail.com>
@@ -82,52 +82,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hp_calculate_security_buffer() special-cases an empty authentication
-string and returns a fixed 4 bytes (sizeof(u16) * 2). But
-hp_populate_security_buffer() does not special-case that same input:
-for any authentication string that does not start with BEAM_PREFIX,
-including the empty string, it always builds "UTF_PREFIX +
-authentication" and converts the result to UTF-16, writing a 2-byte
-length header plus 2 bytes per character of "<utf-16/>" (9 characters),
-20 bytes total, regardless of how long "authentication" itself is.
+The per-iteration guard in audit_log_entries_show() is:
 
-The caller, hp_set_attribute(), sizes its kmalloc() buffer using
-hp_calculate_security_buffer()'s return value, so for an empty
-authentication token it allocates 4 bytes for the security area but
-hp_populate_security_buffer() then writes 20 bytes into it, a 16-byte
-heap buffer overflow.
+	if (ret < 0 || (LOG_ENTRY_SIZE * i) > PAGE_SIZE)
+		break;
+	...
+	memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
+	buf += LOG_ENTRY_SIZE;
 
-The authentication token used here is the current admin/setup
-password, which is an empty string by default until one is
-configured. Any write to a writable BIOS attribute while no admin
-password has been set reaches this path.
+At i == 256 (PAGE_SIZE / LOG_ENTRY_SIZE), LOG_ENTRY_SIZE * i equals
+PAGE_SIZE exactly, which is not ">" PAGE_SIZE, so the loop does not
+break and instead writes another LOG_ENTRY_SIZE (16) bytes starting at
+offset 4096 of the page-sized sysfs output buffer, one entry past its
+end.
 
-Fix by removing the special-case short return for an empty string in
-hp_calculate_security_buffer() and letting the normal formula run,
-which already accounts for the UTF_PREFIX correctly for the non-empty
-case; for an empty string this naturally yields the same 20 bytes
-that hp_populate_security_buffer() writes.
+This needs the BIOS to report more than 256 audit log entries, which
+already exceeds this driver's own documented LOG_MAX_ENTRIES of 254,
+so it requires a non-compliant or corrupted firmware value rather than
+the roughly 85 million entries an unrelated integer-overflow read of
+this code might suggest.
 
-Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
+Fix by checking the bound against the offset the write is about to
+reach, (i + 1), instead of the offset already written.
+
+Fixes: 63e8f906e94e ("platform/x86: hp-bioscfg: surestart-attributes")
 Cc: stable@vger.kernel.org
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 2 +-
+ drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-index 4d94e48c1a4c..2d4a3720f80c 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-@@ -48,7 +48,7 @@ size_t hp_calculate_security_buffer(const char *authentication)
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
+index b57e42f29282..6b63fdb84606 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
+@@ -90,7 +90,7 @@ static ssize_t audit_log_entries_show(struct kobject *kobj,
+ 					   HPWMI_SURESTART,
+ 					   audit_log_buffer, 1, 128);
  
- 	authlen = strlen(authentication);
- 	if (!authlen)
--		return sizeof(u16) * 2;
-+		return sizeof(u16) + strlen(UTF_PREFIX) * sizeof(u16);
- 
- 	size = sizeof(u16) + authlen * sizeof(u16);
- 	if (!strstarts(authentication, BEAM_PREFIX))
+-		if (ret < 0 || (LOG_ENTRY_SIZE * i) > PAGE_SIZE) {
++		if (ret < 0 || (LOG_ENTRY_SIZE * (i + 1)) > PAGE_SIZE) {
+ 			/*
+ 			 * Encountered a failure while reading
+ 			 * individual logs. Only a partial list of
 -- 
 2.55.0
 
