@@ -1,111 +1,114 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC6736F90D
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 01:41:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B027E342CBA;
+	Wed, 12 Aug 2026 01:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786498891; cv=none; b=XKIv7XAXpGMsJv8OqyqexWkQw3+VjXnnpEvKirqajqJx1t2N7ZwXd+bFfM/iAJ2+z3fiV4O0HSHcVuBWDYJQtCx1HvXL38K8+pHwl+8hpJfuZvUXroJGpOf5Na5J2KSWiOQfQ0JE/87FL6wkap5+IApz9kRsvCbvS7RtStP4MOw=
+	t=1786499051; cv=none; b=JV/wt50zwvT9btLPBU0RzVnPcW9TMbhUZs8eGQ8v6o+C6IFqHmFloa8u8p4sYQEglolmXkUEL5oQXuO6nObdorgWzxXFUdIgqaasUpeOMqDY9ppjXqMYtM53mi4BeE9aqSWJ13oLhZzkdSlHRJMq4gMYW79ANEbchf9l1RJl+L0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786498891; c=relaxed/simple;
-	bh=/VgvzlQv+Dc9JlDbBZp6fELZslgHzfikUmBCqWqfiYo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ss44zWgurW5Lq12OOH5h+C2MNHS2X9n3yj9bsDoY1NCb+6gnWU85IgSJ0wg7GSdBttTQGNE/4gCh8mRxGH47cwmy8a+/TRtdKhn8cFS/3ehyngXvuspNthKo0UUjSgfI8WTEO0VMNmB+oDcyFzbAkoyWuQZ4wV+p7URFm5egn70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e7e8519895ee11f1aa26b74ffac11d73-20260812
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:8417375a-351d-45e7-b1e1-15eb40af40e9,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:2a74e15aecf54d0328745e282302cfcd,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|850|865|898,TC:nil,Content
-	:0|15|50,EDM:-3|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:n
-	il,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e7e8519895ee11f1aa26b74ffac11d73-20260812
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 831734749; Wed, 12 Aug 2026 09:41:15 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com
-Cc: Pei Xiao <xiaopei01@kylinos.cn>,
-	=?UTF-8?q?J=C3=B6rn=20Engel?= <joern@barelysecure.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] mtd: block2mtd: Fix divide error when erase_size is zero
-Date: Wed, 12 Aug 2026 09:41:11 +0800
-Message-Id: <48230456575d27aa83ce8640de8fc07cc62e8efb.1786498693.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <6a7b58ba.ac361c09.22ff0a.0045.GAE@google.com>
-References: <6a7b58ba.ac361c09.22ff0a.0045.GAE@google.com>
+	s=arc-20240116; t=1786499051; c=relaxed/simple;
+	bh=HIyjXJNOvVIi4R4qoI8P4AkbW3htonnpRHeLl1GiNqA=;
+	h=Date:To:From:Subject:Message-Id; b=i6Cp+aGRul7Q0QCmt4RlNpreAM0oGLKf7DCUdLkntTS0RQoNfQBLclIiHM52eVQ5STPplGnVSvBamTa1TcTmkMpizLZ9XsI8cGE91919sC+KWdPklgpezQUjQjhYyNHBauIgP419xGEwF3BwsBXrBidHTFEqzjlKKJyXSR3jY1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=BZwUX5FQ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="BZwUX5FQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB1591F000E9;
+	Wed, 12 Aug 2026 01:44:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1786499049;
+	bh=On/SI4zHyMx/R2LnOa3Ox5lSKFKSYpfluDSBRbEEz9U=;
+	h=Date:To:From:Subject;
+	b=BZwUX5FQ9ej5XyM4hSLaDMdvvKniANSkGGLj8dyJxc8zRdi+c2agJCt0k3airNEJS
+	 1u9bKdwRSIm+ncvI/GyiZ/KrrxAduR2xXA9e3e/X7i9ueHsuA0dR3/GVHb/RZWp25k
+	 bRWbeijgOqeqzwRM+d1Mo53bdvgRFZG/X3V3CrA8=
+Date: Tue, 11 Aug 2026 18:44:09 -0700
+To: mm-commits@vger.kernel.org,wangkefeng.wang@huawei.com,usamaarif642@gmail.com,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,osalvador@suse.de,muchun.song@linux.dev,gthelen@google.com,fvdl@google.com,david@kernel.org,anshuman.khandual@arm.com,souravpanda@google.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [folded-merged] mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio-v5.patch removed from -mm tree
+Message-Id: <20260812014409.AB1591F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-#syz test
 
-The erase size is parsed from the "block2mtd" module parameter and can
-be set to zero. add_device() then evaluates
+The quilt patch titled
+     Subject: mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio-v5
+has been removed from the -mm tree.  Its filename was
+     mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio-v5.patch
 
-        if (size % erase_size)
+This patch was dropped because it was folded into mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio.patch
 
-with a zero divisor, which triggers a divide error:
+------------------------------------------------------
+From: Sourav Panda <souravpanda@google.com>
+Subject: mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio-v5
+Date: Sun, 9 Aug 2026 04:32:50 +0000
 
-        divide error: 0000 [#1] PREEMPT SMP PTI
-        RIP: 0010:add_device drivers/mtd/devices/block2mtd.c:296 [inline]
-        RIP: 0010:block2mtd_setup2+0x592/0xda0 drivers/mtd/devices/block2mtd.c:459
-        Call Trace:
-         block2mtd_setup+0x27/0xe0 drivers/mtd/devices/block2mtd.c:476
-         param_attr_store+0x214/0x310 kernel/params.c:589
-         module_attr_store+0x65/0x90 kernel/params.c:904
-         kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
-         ...
+Changes in v5:
+- Replaced defaulting nodemask to &node_states[N_MEMORY] with safely reading
+  cpuset_current_mems_allowed using a seqcount retry loop, ensuring fallback
+  allocations comply with task hardwall cpusets as suggested by Usama Arif.
 
-Reject a zero erase size before performing the modulo operation so the
-existing "erasesize must be a divisor of device size" error path
-reports the invalid argument and frees the device.
-
-While at it, drop the unnecessary (long) cast from the size operand of
-the modulo.
-
-Fixes: ea6d833a3fdd ("mtd: block2mtd: check device size")
-Reported-by: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/lkml/6a7b58ba.ac361c09.22ff0a.0045.GAE@google.com/
-Suggested-by: Jörn Engel <joern@barelysecure.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Link: https://lore.kernel.org/20260809043250.2917406-1-souravpanda@google.com
+Fixes: eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic hugepages")
+Signed-off-by: Sourav Panda <souravpanda@google.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Frank van der Linden <fvdl@google.com>
+Cc: Greg Thelen <gthelen@google.com>
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Usama Arif <usamaarif642@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
-changlogs in v2:
-1.Add Suggested-by tag
-2.remove unnecessary (long) cast from the size
----
- drivers/mtd/devices/block2mtd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/devices/block2mtd.c b/drivers/mtd/devices/block2mtd.c
-index 03e80b2c4f5a..3e2367dfff88 100644
---- a/drivers/mtd/devices/block2mtd.c
-+++ b/drivers/mtd/devices/block2mtd.c
-@@ -293,7 +293,7 @@ static struct block2mtd_dev *add_device(char *devname, int erase_size,
- 	}
+ mm/hugetlb_cma.c |   14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+--- a/mm/hugetlb_cma.c~mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio-v5
++++ a/mm/hugetlb_cma.c
+@@ -3,6 +3,7 @@
+ #include <linux/mm.h>
+ #include <linux/cma.h>
+ #include <linux/compiler.h>
++#include <linux/cpuset.h>
+ #include <linux/mm_inline.h>
  
- 	size = bdev_nr_bytes(bdev);
--	if ((long)size % erase_size) {
-+	if (!erase_size || size % erase_size) {
- 		pr_err("erasesize must be a divisor of device size\n");
- 		goto err_free_block2mtd;
- 	}
--- 
-2.25.1
+ #include <asm/page.h>
+@@ -30,12 +31,21 @@ struct folio *hugetlb_cma_alloc_frozen_f
+ 	int node;
+ 	struct folio *folio;
+ 	struct page *page = NULL;
++	nodemask_t local_node_mask;
+ 
+ 	if (!hugetlb_cma_size)
+ 		return NULL;
+ 
+-	if (!nodemask)
+-		nodemask = &node_states[N_MEMORY];
++	if (!nodemask) {
++		unsigned int cpuset_mems_cookie;
++
++		do {
++			cpuset_mems_cookie = read_mems_allowed_begin();
++			local_node_mask = cpuset_current_mems_allowed;
++		} while (read_mems_allowed_retry(cpuset_mems_cookie));
++
++		nodemask = &local_node_mask;
++	}
+ 
+ 	if (hugetlb_cma[nid] && node_isset(nid, *nodemask))
+ 		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order);
+_
+
+Patches currently in -mm which might be from souravpanda@google.com are
+
+mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio.patch
+mm-hugetlb_cma-support-percentage-based-hugetlb_cma-reservation.patch
 
