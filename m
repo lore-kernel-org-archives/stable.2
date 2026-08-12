@@ -1,87 +1,61 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4BA38399A
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 02:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5394C2FFF8B;
+	Wed, 12 Aug 2026 03:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786502502; cv=none; b=mD0T74LGtHntDo7uOP0J5EYsYXLn8AGTAqkvG1MIiNxGjRcpUTn6SLqREeEVBz5h6+EQPky10Lzp67zVT2NXxxx8Oco77lbZZgJj5PHyaM2UOmrW75MEBEgLiUgHbECqceJF2FmZT17V9GX6SrhFSH0S317cMEYeB5j5o1R1uv4=
+	t=1786504046; cv=none; b=JxG1NrFuSxl1yChGHgz2TL6P5aIz5CruH6KbTJonNCaVlBd4MGdkVk3qHaW9coTDIaA/r4BXeilE70fBKjqvc2JjH6FbI7Jcm6ahsc+crubtfjpxO9pOC2JohZWbNVBxhP6sD9A3CHR+gqECHrpQTarWTk4Lk6CDy/GwvPgVpCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786502502; c=relaxed/simple;
-	bh=184+wo2MmPfVVSEIrO0XZr+LFjQaZHymk+ewrVt8Dxg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f1e3QYgZX41JIcUl/QToCXaQS9aB72Lac2dEs3Ne2rOeS5pcBUPnD9FBuoS7qRvNvhypGTO+/IX93T+g4UPwJz5LwYf2nXLo2TZuR+QnC8ZED5FUYuS4A0F+Mk8sn+PTo1RuW/VNRV0b0/kUgoqUTUVvsIAPN7QgaiP5bigHrcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DFcOJ9fQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fSNfzun5; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DFcOJ9fQ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fSNfzun5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786502499;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=fkG++BzIFbGGoiUpCqb/8lmKeOjMyVwnECKfoty2BCg=;
-	b=DFcOJ9fQZ0GFoRKMG/mVTASoFBxGRNaVUCP0+qNY/Jr+umlN0C+MxjcaZuyl6UJRhRhEwc
-	UcPrA1hGRUdpTWY7+rHcREuhAoQR/eKMYfKImbtOsddo9xRc2UXaouEokLcIyJHgVMGQnK
-	BYtIC0HSyYv2llrI+BeKfx8q3pHMw4o=
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-452-3mECBF25Mzqo5byQaTdqRQ-1; Tue, 11 Aug 2026 22:41:33 -0400
-X-MC-Unique: 3mECBF25Mzqo5byQaTdqRQ-1
-X-Mimecast-MFC-AGG-ID: 3mECBF25Mzqo5byQaTdqRQ_1786502491
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a485034d01so898051b6e.3
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 19:41:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1786502491; x=1787107291; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fkG++BzIFbGGoiUpCqb/8lmKeOjMyVwnECKfoty2BCg=;
-        b=fSNfzun5CqInc8O50aFPndPeLMK60i3wzKGe+mZ9q/7Yjr/0+mfjN/i757w7a0CCNa
-         5CBElxvvWt7JIS/UthsQwaNTRU0SYmbmx93WsK/GI7wRQtuqWZEyQchHmqF/UOwp6Fsj
-         ZVeJHRLUfu6e4q/l7PFP12db/Vj5Et9jSfmaOBpwZSiP5hq2Xw4rmmB35xPwC+VX4/Kq
-         gQuZcEEwdyyvg2cqd/x+fmTFyRVMVIH7OMBKmGcbL10UGnv8YTDUJbehtiNoBp9lQZ3a
-         9C6mpK2Oj+ek18RPHqmNzzqqz0fkiCmcvf2ihmpDc5/7U/2bkEPUUuFFBodu5AbohqMl
-         7rMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786502491; x=1787107291;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fkG++BzIFbGGoiUpCqb/8lmKeOjMyVwnECKfoty2BCg=;
-        b=ECJ1hBSXtaa29FgLCuNhJcRyHbSYYX7wC8XQMYFVGJmW5mSUduGPzgKrKRwQA7+EmO
-         22asLKzTYK/73TKT+VZoXoNo/tECAxJUhwzvq4j0tAlYXY8yWA6sp/NrynESWKtTY7qo
-         s+APwqI1tyg2ELLtuLRFsmmPCf7rCMhctbGi2QSYlt6LUpltl9XGYSk1MMZPpJXX1hyt
-         MO+NII6QXbSkS8s3QYCgDljBVWSeI73wdGyvTW7PNJaIG5Qa1o0/DCpdC37UGRknxwdG
-         dbJQ7+7uGWL/IsuQ9z0c4ZK8ZLAYb9pkG1iWYviFh0L9Q+W3eHrXe00rBOEpDBYunlFW
-         eXzQ==
-X-Gm-Message-State: AOJu0YwyiIRbsfp2reB3YzBu/HQ0A+QFMObdaPCs8VIl0JKWtqtoOG0k
-	gNJc+H0kINepDg0oFR3zh/AD43SFEBgGdkJUajvjBha1y8DmpobGMTlckQLqy1FtxGZGko4a/hy
-	ANRbyAAfwVr1juOdNBOAK5/7/hqYH73lJh/I2oYRGDs5GVMwmau5QULtlvA==
-X-Gm-Gg: AR+sD10t15qZKbKWxv62EGxnch/7RhQkMWkcz7jU11f0Hro009hr9meVKIc8cbyNlLD
-	92xOwKdzQvTFf1KmsTzA035D99BIRp4+UO9807g9i2mGecUftFZMELkt6Z8QOEUJ6bN7HILl2LK
-	NuqU5DHyk83uJTNMPqy4o31m/djp4Q6JvFltlNs1edIqEazoLgY/6qYko1IxrsoMbZPVn880nEb
-	oTsji7H+rj+U9mjsfrNdhN9LriCWVKxDo7GFtHsj/lK15Ofp/YhtLJZUwV0jjSFPQ8e04dvACDh
-	B6Gst83KUB/Dk6oSFd8B0Fcbvy2vjtQfRH00mTFvFATF5Q499ZmT2VjHF1nKnq0CwCcSDLptv1N
-	Cf5BH4ufnRS2Nc5AQ09KWwl4b0cxUwZqp8pJ+yKT6MK2S05sZgNKckbk+qyiqo69EqQ==
-X-Received: by 2002:a05:6808:1a10:b0:4a4:934:b316 with SMTP id 5614622812f47-4b210c77ff6mr1716101b6e.21.1786502490722;
-        Tue, 11 Aug 2026 19:41:30 -0700 (PDT)
-X-Received: by 2002:a05:6808:1a10:b0:4a4:934:b316 with SMTP id 5614622812f47-4b210c77ff6mr1716067b6e.21.1786502490265;
-        Tue, 11 Aug 2026 19:41:30 -0700 (PDT)
-Received: from bearskin.sorenson.redhat.com.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b1fff5e900sm2220088b6e.7.2026.08.11.19.41.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 19:41:29 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: linux-cifs@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	smfrench@gmail.com,
-	Shen Yongchao <grayhat@foxmail.com>
-Subject: [PATCH v2] smb: client: fix OOB read/write from unvalidated DataOffset in coalesce_t2()
-Date: Tue, 11 Aug 2026 21:41:26 -0500
-Message-ID: <20260812024126.1368971-1-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1786504046; c=relaxed/simple;
+	bh=+1uVDN2u7yEIXLVuOem+mIJPeDld3zKkUx9ZtpUKYsI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q4ycQmnYLswFzvuhQdL2Uh9/1MzuPJ4DhZRj1TmlIBu4rpj2liTsILwHU2IO0i68yWUj204o1kvNI6TAhfgLSwcIkgDVjcHVbfZqlQMj7cP6ntKvDh2cZ1zD+xcyN+to9yZ5i8H39B0P5QyFiQJfdxPK/2g5JbpfQoDNqKU0Roo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: eb7925ec95fa11f1aa26b74ffac11d73-20260812
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:7c8e65db-44e9-447e-a9e7-d16adb0551e7,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:6353e8e742baf08e15818909926fe79a,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|136|850|865|898,TC:nil,Content:0|15|
+	50,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,
+	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: eb7925ec95fa11f1aa26b74ffac11d73-20260812
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1043525765; Wed, 12 Aug 2026 11:07:15 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: yannick.fertre@foss.st.com,
+	raphael.gallais-pou@foss.st.com,
+	philippe.cornu@foss.st.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	benjamin.gaignard@linaro.org,
+	yannick.fertre@st.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/stm/ltdc: Fix clock cleanup error handling
+Date: Wed, 12 Aug 2026 11:07:10 +0800
+Message-Id: <20260812030710.549621-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,76 +64,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-coalesce_t2() computes data pointers directly from server-supplied
-DataOffset fields with no validation against buffer bounds:
+When clk_prepare_enable() fails for bus_clk or lvds_clk, the previously
+prepared clocks are not cleaned up, leading to resource leaks.
 
-  data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
-                     get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
-  data_area_of_src = (char *)&pSMBs->hdr.Protocol +
-                     get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
-  data_area_of_tgt += total_in_tgt;
-  ...
-  memcpy(data_area_of_tgt, data_area_of_src, total_in_src);
+In ltdc_resume():
+- If bus_clk preparation fails, pixel_clk remains prepared
+- If lvds_clk preparation fails, both pixel_clk and bus_clk remain prepared
 
-A small DataOffset can push a pointer below the actual byte area,
-overwriting header fields; a large one can push it past the buffer
-end, causing out-of-bounds heap reads (source) or writes (target).
-The BCC overflow guard does not prevent this: BCC reflects how much
-data is present, while DataOffset controls where in the buffer it
-starts.
+In ltdc_load():
+- If bus_clk preparation fails, pixel_clk remains prepared
 
-The "validate target area" comment present since the function was
-first written in 2005 was a placeholder that was never implemented.
+Fix this by adding proper error handling to ensure all prepared clocks
+are disabled and unprepared when a subsequent clock preparation fails.
 
-Add lower- and upper-bound checks for both data pointers before the
-memcpy, and before any target header fields are modified.
-
-Fixes: e4eb295d38b5 ("[PATCH] cifs: Handle multiple response transact2 part 1 of 2")
+Fixes: df61c776657f ("drm/stm: add sleep power management")
+Fixes: d80667642b0f ("drm/stm: ltdc: support new hardware version for STM32MP25 SoC")
+Fixes: b7243862f82a ("drm/stm: ltdc: handle lvds pixel clock")
 Cc: stable@vger.kernel.org
-Reported-by: Shen Yongchao <grayhat@foxmail.com>
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
+Changes in v2:
+- Use separate error labels in ltdc_load() so a failed bus clock is not
+  passed to clk_disable_unprepare().
+- Keep cleanup limited to clocks that were successfully prepared.
+---
+ drivers/gpu/drm/stm/ltdc.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
- fs/smb/client/smb1transport.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/client/smb1transport.c b/fs/smb/client/smb1transport.c
-index 966f2cf83a51..66daa5a37e4a 100644
---- a/fs/smb/client/smb1transport.c
-+++ b/fs/smb/client/smb1transport.c
-@@ -375,12 +375,31 @@ coalesce_t2(char *second_buf, struct smb_hdr *target_hdr, unsigned int *pdu_len)
- 	data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
- 				get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index 8818dcf98da7..ac1c2f27563e 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -1908,16 +1908,25 @@ int ltdc_resume(struct drm_device *ddev)
+ 		ret = clk_prepare_enable(ldev->bus_clk);
+ 		if (ret) {
+ 			drm_err(ddev, "failed to enable bus clock (%d)\n", ret);
+-			return ret;
++			goto err_pixel;
+ 		}
+ 	}
  
--	/* validate target area */
- 	data_area_of_src = (char *)&pSMBs->hdr.Protocol +
- 				get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
+ 	if (ldev->lvds_clk) {
+ 		ret = clk_prepare_enable(ldev->lvds_clk);
+-		if (ret)
++		if (ret) {
+ 			drm_err(ddev, "failed to prepare lvds clock\n");
++			goto err_bus;
++		}
+ 	}
  
- 	data_area_of_tgt += total_in_tgt;
- 
-+	/*
-+	 * DataOffset fields are server-supplied and not validated against
-+	 * buffer bounds; check both data pointers before mutating the
-+	 * target header.
-+	 */
-+	if (data_area_of_tgt < (char *)target_hdr +
-+				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
-+	    data_area_of_tgt + total_in_src >
-+	    (char *)target_hdr + CIFSMaxBufSize + MAX_CIFS_HDR_SIZE) {
-+		cifs_dbg(VFS, "%s: target data area out of bounds\n", __func__);
-+		return -EPROTO;
-+	}
-+	if (data_area_of_src < second_buf +
-+				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
-+	    data_area_of_src + total_in_src >
-+	    second_buf + smbCalcSize((struct smb_hdr *)second_buf)) {
-+		cifs_dbg(VFS, "%s: secondary data area out of bounds\n", __func__);
-+		return -EPROTO;
-+	}
++	return 0;
 +
- 	total_in_tgt += total_in_src;
- 	/* is the result too big for the field? */
- 	if (total_in_tgt > USHRT_MAX) {
++err_bus:
++	if (ldev->bus_clk)
++		clk_disable_unprepare(ldev->bus_clk);
++err_pixel:
++	clk_disable_unprepare(ldev->pixel_clk);
+ 	return ret;
+ }
+ 
+@@ -1963,7 +1972,7 @@ int ltdc_load(struct drm_device *ddev)
+ 		ret = clk_prepare_enable(ldev->bus_clk);
+ 		if (ret) {
+ 			drm_err(ddev, "Unable to prepare bus clock\n");
+-			return ret;
++			goto err_pixel;
+ 		}
+ 	}
+ 
+@@ -2093,11 +2102,10 @@ int ltdc_load(struct drm_device *ddev)
+ 
+ 	return 0;
+ err:
+-	clk_disable_unprepare(ldev->pixel_clk);
+-
+ 	if (ldev->bus_clk)
+ 		clk_disable_unprepare(ldev->bus_clk);
+-
++err_pixel:
++	clk_disable_unprepare(ldev->pixel_clk);
+ 	return ret;
+ }
+ 
 -- 
-2.55.0
+2.25.1
 
