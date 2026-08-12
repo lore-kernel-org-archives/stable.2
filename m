@@ -1,120 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4F941A90B
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:51:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C657141A4FE;
+	Wed, 12 Aug 2026 09:51:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786528275; cv=none; b=T6cENEsgScoQeCRIGu4h3W5q/gdJJ3oW/d2fIVAoc+bRDNDnAFQr8QPijxvOh4jz2ou1QixJwJmxl0hhyZt/RbYvkc6ZsVjw0eDuBx/QF58A6iXBD0hVWLNbCzdB9y0RWMhcrt5uf3MG3oZAtijWuuDjexGAbhiIQIOOI5XJktE=
+	t=1786528288; cv=none; b=TapEgB2SKFW/NzIPI/y2axEnxFHOVkWbJSvOW7q7Age6MGgTK6bMabykow/61GiRuvUMEN2JUmTaFZ5Cy4gNAfk6eSfPYoiJsLD6aaG6YzOxA+7+ix8nyf6sfa5Vl/tSVZsTBygmk7LM0uRgRPquGY89WgbMpzCO1cxXvYjKx3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786528275; c=relaxed/simple;
-	bh=kZwu99JMi3vAvXICmOJGErusnFNSH4xDuANsWP3b02Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Co/3hTssZhS2Hsu+h6I0HpWAoat7YtU4dQejm7VcmbHWK4BV8ux1YJXKKTQUpjx5Fxi5yqYb6PElIJfFoDQmhY585whHBI2O5ubqqvufKoajDz8p65o3SQp8CFmVhq7RX7LKF70Nhwah3O35jzyNo6GiA/4jlfHGklHdgk19otE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZRS8CYxC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786528288; c=relaxed/simple;
+	bh=6e0PbF6YXiTK0vtHWdzePjNYGqU6fdtZgcPCjDRQqvY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mQqZBWTBQLVI9tokEpgIZSDR5POemiV7+anl3+a7gUoWXy25dONIibs2VboWO7cYPBcZ+vrdE7djVwA7V4iED6Ddc7Te+AydgMtOUXSmDayoO/ZE5rPaDw9p5TlJL0Pxa31YZ/5I9iSsHcRNCpS/+WfY6U9pe025/cpIruYU7qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHrYA48G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZRS8CYxC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2545C1F000E9;
-	Wed, 12 Aug 2026 09:51:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHrYA48G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC9381F000E9;
+	Wed, 12 Aug 2026 09:51:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786528273;
-	bh=pyQln8/8ZOSYdSTN+Fm2Kk12xcK/qj17gRrM0OnQAWM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZRS8CYxCYsAtrv8Q/TXiw0E/HWAA1B3OKnUFPayvB7+3uaW0MnBmjdn5nTRgv7wvE
-	 f9pImfRcLugUpqQeF4a02WIitm2Z9bzqufePt4GO22DjAa7XSjNUz2A/E1jW5+A6yK
-	 lwot1xP187VZfnxGAskbFq8qu2sSZ4SaL5B1ooHwBOOnIF7tqcNSZYEwWbLG/NuWz/
-	 3uYQ8cEuYN6wNSCBgA3xWpVe1DMwlYI9UmfQ8fW3wk9HHy43a5paxBc+QlAEvQsK41
-	 Sfk4Mn0sHxlo/aYnNk6OUAwczw7xNQpxkRcKuwItEoD99TWNQIPG/BqfvEjns0+KCq
-	 8UNfVNm/e5JPQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Liem <liem16213@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Carlos Song <carlos.song@nxp.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] i2c: imx: Fix slave registration race and error handling
-Date: Wed, 12 Aug 2026 05:51:11 -0400
-Message-ID: <20260812095111.1575318-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080514-trimester-ultra-2ca2@gregkh>
-References: <2026080514-trimester-ultra-2ca2@gregkh>
+	s=k20260515; t=1786528287;
+	bh=qQ46ywu3kTNDLFT+jQQ87fTZhvSQH5n+X8XdHSB6bo0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FHrYA48GX/Hq4ZOwuW8IjjDsgZb6B84w3WP4dF8FtEPmTsWrpol7UIyFMUpCGGxe+
+	 xl+DOjdx2TnNM+UwV6JFzhsU/pQxewVXJ+enGwfOg8VA24LqKiLNFOFNnLZ5UzZD6B
+	 uJ3mBB92x7yQ2u9dzvLoIQ6ed4tgNUXGm29jdLN+as7E5qvV54FPRX2bhSlAVvxySq
+	 LQwCfoqyWw7LU6trBM4Whnr5iQF2qgKjUguWX1aCJbTno9f94JzGmAeVY9b+b3s5C5
+	 uPETEwdoSAqlks+T/34DLVux9XUwVKOogjOMq6fuIhDZQAhWfE4/Mf1f8vtOCb0PMX
+	 tRd7lBOAElMDQ==
+Date: Wed, 12 Aug 2026 11:51:22 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: daan@amutable.com
+Cc: Jens Axboe <axboe@kernel.dk>, Daan De Meyer <daan.j.demeyer@gmail.com>, 
+	Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nbd@other.debian.org, stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] loop, nbd: drop partitions left behind by the
+ GD_NEED_PART_SCAN removal
+Message-ID: <20260812-weckt-allesamt-lehrinhalt-b9b85bf7445c@brauner>
+References: <20260806-b4-loop-nbd-stale-partitions-v1-0-67bb75a8d7be@amutable.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260806-b4-loop-nbd-stale-partitions-v1-0-67bb75a8d7be@amutable.com>
 
-From: Liem <liem16213@gmail.com>
+On Thu, Aug 06, 2026 at 12:36:56PM +0200, Daan De Meyer via B4 Relay wrote:
+> Commit 267ec4d7223a ("loop: fix partition scan race between udev and
+> loop_reread_partitions()") stopped disk_force_media_change() from setting
+> GD_NEED_PART_SCAN. The caller audit in that commit only considered the bit
+> as a request to rescan partitions, but it did more than that:
+> bdev_disk_changed() drops every entry in disk->part_tbl before it consults
+> disk_has_partscan(), and only the re-adding half is gated on partition
+> scanning being enabled. The lazy scan on the next open was therefore also
+> the only thing removing partitions from a device that has partitions but
+> no partition scanning.
+> 
+> Loop devices without LO_FLAGS_PARTSCAN are exactly such devices, and they
+> are not unusual. bdev_add_partition() only rejects GENHD_FL_NO_PART disks,
+> so BLKPG_ADD_PARTITION works while GD_SUPPRESS_PART_SCAN is set, and
+> parted, libfdisk and systemd all fall back to BLKPG when BLKRRPART fails
+> with -EINVAL, which is what a loop device without LO_FLAGS_PARTSCAN
+> returns.
+> 
+> Commit c4f4c0fc551c ("loop: remove manually added partitions on detach")
+> fixed the detach path after this was reported as loop devices picking up
+> partition devices from a previously built image:
+> 
+>   https://bugs.debian.org/1141434
+> 
+> These two patches fix the two remaining places that relied on the same
+> lazy cleanup, LOOP_CHANGE_FD and NBD_CLEAR_SOCK.
+> 
+> Both were tested with the blktests loop and nbd groups on 7.2-rc5. New
+> cases covering the two paths fail without these patches and pass with
+> them; they will be submitted to blktests separately.
+> 
+> Signed-off-by: Daan De Meyer <daan@amutable.com>
 
-[ Upstream commit d64ec362c369bbc33833f7936d5f3a706b0d5c45 ]
-
-In i2c_imx_reg_slave(), the slave pointer was assigned before
-pm_runtime_resume_and_get().  If pm_runtime_resume_and_get() failed,
-the error path returned without clearing i2c_imx->slave, leaving it
-non-NULL and causing all subsequent registration attempts to fail
-with -EBUSY.
-
-Additionally, because this driver uses a shared IRQ, the interrupt
-handler i2c_imx_isr() can execute concurrently and, after acquiring
-slave_lock, dereference i2c_imx->slave.  The previous fix attempt
-added a lockless i2c_imx->slave = NULL on the error path, but that
-could race with the ISR under the lock and still cause a NULL pointer
-dereference.
-
-Fix both issues by deferring the assignment of i2c_imx->slave and
-i2c_imx->last_slave_event to after a successful resume, and by
-performing the assignment inside the slave_lock critical section.
-This guarantees that the slave pointer is never left stale on the
-error path and is always valid when observed by the interrupt handler.
-
-Fixes: f7414cd6923f ("i2c: imx: support slave mode for imx I2C driver")
-Signed-off-by: Liem <liem16213@gmail.com>
-Cc: <stable@vger.kernel.org> # v5.11+
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Acked-by: Carlos Song <carlos.song@nxp.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260629023829.152651-2-liem16213@gmail.com
-[ open-coded scoped_guard(spinlock_irqsave) into explicit spin_lock_irqsave/spin_unlock_irqrestore since 5.15 builds with -std=gnu89 ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/i2c/busses/i2c-imx.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index fae674969628b..9badd5b773bd6 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -832,14 +832,12 @@ static void i2c_imx_slave_init(struct imx_i2c_struct *i2c_imx)
- static int i2c_imx_reg_slave(struct i2c_client *client)
- {
- 	struct imx_i2c_struct *i2c_imx = i2c_get_adapdata(client->adapter);
-+	unsigned long flags;
- 	int ret;
- 
- 	if (i2c_imx->slave)
- 		return -EBUSY;
- 
--	i2c_imx->slave = client;
--	i2c_imx->last_slave_event = I2C_SLAVE_STOP;
--
- 	/* Resume */
- 	ret = pm_runtime_resume_and_get(i2c_imx->adapter.dev.parent);
- 	if (ret < 0) {
-@@ -847,6 +845,11 @@ static int i2c_imx_reg_slave(struct i2c_client *client)
- 		return ret;
- 	}
- 
-+	spin_lock_irqsave(&i2c_imx->slave_lock, flags);
-+	i2c_imx->slave = client;
-+	i2c_imx->last_slave_event = I2C_SLAVE_STOP;
-+	spin_unlock_irqrestore(&i2c_imx->slave_lock, flags);
-+
- 	i2c_imx_slave_init(i2c_imx);
- 
- 	return 0;
--- 
-2.53.0
-
+Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
