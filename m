@@ -1,65 +1,65 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA20138DC47
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 03:58:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0392392822
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 04:13:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786507124; cv=none; b=IL+bgh5nAEeGUBbQOEsB387Lz+zTJLSGUzbeU2/307Xsi/Hjeh4bh0s9OiVg+v9wWWn5X62VSzXPdx1fNa5UJIWgBpV7Inq9O3hrlvE0xehVuRW/PhrCD058/+9KEuYS3Panidc4kC4tnF7qci4AKxXk35ajwgOrdeDh/3RPvtU=
+	t=1786507993; cv=none; b=XO7+dobMp90SjoSkpIoMFG4OIfbzcpdjRnNaIyShPCUep8z6LZ/IJgUiNwf8Ju58ZppmuBu71ZXW74gwQlsrVdT6E4Hy9VUSjkOanf4bokXl39CfY0wags5U1XbgWVmdoQVK6cS1urp6kSyoDdqWDyPSdcGLKNzo/jM+zpx/UXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786507124; c=relaxed/simple;
-	bh=39p+/hRGdW2JkBC4Q61Oue/5/kbA0dBnNTH+zRAOmEc=;
+	s=arc-20240116; t=1786507993; c=relaxed/simple;
+	bh=Dzfwonr9rKeQnkqeStmW/2Bvbf4Y0mUvyLlk4d31nfA=;
 	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=jiLq9yhQARevcYcffDFwde6/RLAKXWy9Zu+1SCW9ljTHuV6cCcEOv0Ec3PXujdezm2crh+iXR8CF95ZV8dD27vMp55zpH7mjcD6x0+iPK0PGRLvEqOqnTaicMXkAeeic7vTrt8A0ond+RMQSia23e6565HWMjYuWcWlLZCW/Vtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQcykUne; arc=none smtp.client-ip=209.85.222.172
+	 Message-Id:References:To; b=RUOQcF9lH1A5NX9qoDaYJOWX4C8PdzB/KJmXUYqbN4CCYdP42YZWWiQNBsLB/wqfa+EoM8/sFdMR9LagGoh071GbS40ROG2uAtWYsYym1ESFvKPMnXEqei6FIF7Jn9UTfteWP3LDC2o6v+zeXv28GHYpW5fK1VJ5eUc9lDZXpFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ebNFBBId; arc=none smtp.client-ip=209.85.160.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQcykUne"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-92e512a9a6bso14688285a.2
-        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 20:58:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ebNFBBId"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-529a1ee0e62so1712061cf.2
+        for <stable@vger.kernel.org>; Tue, 11 Aug 2026 21:13:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786507121; x=1787111921; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786507991; x=1787112791; darn=vger.kernel.org;
         h=to:references:message-id:content-transfer-encoding:cc:date
          :in-reply-to:from:subject:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=p1ustWcvblwbfs6YObNVhPj8bLhBv9z4SEr4Hg478cA=;
-        b=sQcykUnetaoQhVjhXn6kDa5dl9T2SfQJxvKQ7hf3pGnIySGuFs4rh0XSSDdxLcLSbC
-         /xyVbapmKCVTXDswu+hZ9aK31eOReSal4r3tvciXYQwQhO5Vqz/+8f8WzktHEyuFAIdJ
-         uSzGUTG5z/Pk+IpCikIvLFPMuL//DFEESDyDOXt8O2z+YMrxkbfTv7iTRkWMzxGvGXfw
-         +Zrx4i/SkaFXGN7vZ9tJZqj/ZYanKow5iBX7SRelE0SkcD74Qr3gPpMhMlA2P8YghmPZ
-         6vB/Esxjex9/h+hbuOKEt5hMfqPfNK0EFdtCU2pZ6wDeZCfxIGp/HUVQ/DMoQZMk/1I3
-         KIPQ==
+        bh=WoA62XvqBE/bJkGlo+pvls7iLFgdIjTnZ2CNMnT1eiI=;
+        b=ebNFBBId2fv/SUOpopDfigYvG137FWd9dsh6zNOBMCIxpQ9Y1BkzD1wbDdXZB4qoK+
+         hffx1Jex9QWamcN5Vc64ONrR5hbZiQ2R+FAcvyyBH5hnFG4r+Xtldxj9d912uMA7SvWM
+         SNPuntLjHP0ftdkjAzWIi1cVejTP6Btf+29QTTeEAJZvn+ZIT3glhUv0ABU2m0Iy45jg
+         rTGas/2JHMQ4KL9WWISURBLd0jrylJMlTZa9I2oNooSFRgcrZT1VyjDETHoY0dht10it
+         q/Hx6xzmlOIT9HTHm6Jos+skzKuvjF/PMu/H6zUo9/Ubmxk91xT/ODJNvdjNkQ0xWmBT
+         PD1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786507121; x=1787111921;
+        d=1e100.net; s=20251104; t=1786507991; x=1787112791;
         h=to:references:message-id:content-transfer-encoding:cc:date
          :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p1ustWcvblwbfs6YObNVhPj8bLhBv9z4SEr4Hg478cA=;
-        b=epDpA/0JqJDQAJC5iIPWcddD0WGtMGBWJtMk+fvZsGOsJJAS4sIOWaBkMoKdA1r9Yv
-         d6MKJqp9OSJJhGGnd86P7KFOHzf42YvW6CLPcSquoEj4mZeyTZYbSQav/+sUZ1B3uue+
-         I+k5IlqeWT+rDttyLXESenVB7ADxOqyO3hjA3Op99RJycKngt9aTbPC8U0zOT3KkAvZy
-         KO2oQQUadIp3chJM2hEZQMAZ7W8cLYbx4uVCGbUzjPFslEeRbrBGdd78McXl9E3vcor8
-         dStQKhsdZ8yobG1pHMjzR9IlO+Y0qq49MlWJZzoAR9hyoPuEBNUb6/lNo02hDK0JjM7x
-         nkoA==
-X-Forwarded-Encrypted: i=1; AHgh+RpL5S97w5wAPpW3pSYsgE/ybPP1bZr1/MWmPxzbAUUqV1hqZ3wGmduVCATc+NJwvTS9AHKYtFQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw10VR7qH5XZ1iNk/fn0HmfcMsXHWU7W34AbA+gtoBf9WtDAt2U
-	wvRazk98RKGIPw+Zw+QXDbse+0duAcsbC8ysj6/jyBNowOGLyY9yyIa0
-X-Gm-Gg: AR+sD11WupbKui/2Ajzxrnl+80R/uX9z42fcf7t6hf++ndhV/jlTAB3aA9AnT/gedUc
-	D+2xZk/QY56dwqa7x/jascvk221JgS8dZdQwjpC35S5pGJDVrDz353sqJlBuAB58eXcYY5LNvjd
-	6+pyYci2udvzFXzr06jZOaMEKQ9A6nrqO6rV8YZmvnIRslmM+CQKGKTjc5+wQRkrHbW98Wqp4/3
-	WEjHWJYoEVGTyvVsKE6JrXPFzu1zsui4dPTDG1S4Kqqxk53UdWiJEVotf72Tt8+ttLV3lHQhxQn
-	F3ewcMz3aNu66OO+Yq2TaJi/LoU7j9vBMZ8KNq1Y6mfoJ9FJe2VBnDLnr8XCfbt3xbOAQG6p/os
-	SJy61S/fOQJxAIzyNX5nXjO5+Emo7wSVFR+fteddtdUV8RUX9mmLiDXEJNs6yqBr/yWhWa+qXp4
-	i3RAUzzjaF3vHPiaAPNdxXsm03KAnnMsjkMa6Q48qY317DC2ToGUSuCMpflm8G73kr5Mkc92dlo
-	pSzyHqs3ZpskuvMufVkYxugN/kSedij
-X-Received: by 2002:a05:620a:6912:b0:92e:e2f4:e652 with SMTP id af79cd13be357-936b3a44f20mr220782485a.16.1786507121508;
-        Tue, 11 Aug 2026 20:58:41 -0700 (PDT)
+        bh=WoA62XvqBE/bJkGlo+pvls7iLFgdIjTnZ2CNMnT1eiI=;
+        b=CZ+v4OeXa1uM58T39lQD9LhPEdLONTi2M8jxy2mTaSnhu5l1HdV0i/C4Va/kWUdQnz
+         F9wNTWlmzhVwxDAQV68gSRZ5/sWzwNOjirCDs6m4WdrA80QgXkMZ5aAIiAXfLX38QJKI
+         uE3Ya9SBgN7Q51Wxn2KPrW5D0bUXrEHYh3VWbZKwXaQTORqf021NKk3LM0BUZzj+tqlB
+         +qeBRiWxK9FmNbKrrNpPheJocncAcue48dZTCq7TCqsCl0Cn2bS4Ik3/WgNQnCRBty1Q
+         zlVnKXyWQF945wpa0J2FJOEEcQtB3SMXoQ6jhQXJukgWCxx+NHc0qOLSQUeHrnJRojVQ
+         rSmw==
+X-Forwarded-Encrypted: i=1; AHgh+RqfdGaMuNoIIszBCS4cAUGWLeXL4cZ861ze6HCMkeB136DSYvaaKLHgn4JcNefhnCwPXvKLzD8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyveTnT4CHb+Q5q40ro34sbVYqBzISnhSFINuxFu3W0dIrtVFXb
+	gpcVMeQ0S0TqxJpZ2pV55cOKyCpQEup+7EmlNSIZcT0zxCHrkZy2xVps
+X-Gm-Gg: AR+sD10O2QeOI+qGH/4wzb70sYhfmoP3VXm7qP9goYZDfz9aXTuyDEAD2nHii9v+YF0
+	b7Y7JkRv8R+PqeB8XPHPjmIuYLWHqnPIHRx1AeHGv1bIJU7Kt6QPs0TS5nQbsanq+KYhKzlpkff
+	n/wpfBreS7bdx0SPzBzk5onb3z8GTNKUvUUxIyun9kfxDQhPulCLBMIxH0ia70+uaKtoPnu3MrP
+	y5LZEvcklDQykAaYIvqO0+tkXwenCT6h+KVdskUdRmoiGgtoJpnJ7uheydkA2mjpS/X7Dbia1DR
+	MRms7+VwvTrRC+ipaNFzABfsb1gtuKBhjc4ek7bi4wWCG079JT5UJ/0yYvOrQSVfnXOUbc3L689
+	4HgqohWL4Ohu6CriT6e2Quzkd9jV8bjaJsvCOOtFP/3Ug9dwD7FwYEDrrSPybLHhXNVHUilbTWN
+	JcPYcOoIxsvKZG2ZAxzjoeLJJESsr7AzYsX3dpvcg7RGEOWRoBfxENETFiUoxpouHjo0dMoEveA
+	nhCryqqprjQlj9PUh6Eb5fxBgNq/rwb
+X-Received: by 2002:a05:622a:a0a:b0:51c:1c2c:a8bc with SMTP id d75a77b69052e-52d6483fbfbmr18441601cf.37.1786507990610;
+        Tue, 11 Aug 2026 21:13:10 -0700 (PDT)
 Received: from smtpclient.apple ([2600:1016:b10f:b114:6c29:917c:9735:8846])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-936b5f64f8esm35682885a.46.2026.08.11.20.58.40
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d61e017bdsm10172371cf.27.2026.08.11.21.13.09
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 11 Aug 2026 20:58:41 -0700 (PDT)
+        Tue, 11 Aug 2026 21:13:10 -0700 (PDT)
 Content-Type: text/plain;
 	charset=us-ascii
 Precedence: bulk
@@ -68,158 +68,155 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH] drm/i915/gt: Fix request use-after-free in heartbeat()
+Subject: Re: [PATCH] drm/i915/gem: Fix request use-after-free in
+ active_engine()
 From: Shuangpeng <shuangpeng.kernel@gmail.com>
-In-Reply-To: <yzfnzbtsqjvk4y6vhn7uvdrzew5hqzfo4khdsx226ppqdjgm4q@xzysjj4fwcwz>
-Date: Tue, 11 Aug 2026 23:58:09 -0400
+In-Reply-To: <zmincd7ubpkwasily6fegvx7mz6zkdw5oglbj3ynpgqovpkszh@un7lyxy6dgly>
+Date: Wed, 12 Aug 2026 00:12:38 -0400
 Cc: intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
  jani.nikula@linux.intel.com,
  joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com,
  tursulin@ursulin.net,
+ chris@chris-wilson.co.uk,
  stable@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <1734D14C-BCE0-4B86-8FD4-C1A989AC629B@gmail.com>
-References: <20260808184302.1509585-1-shuangpeng.kernel@gmail.com>
- <yzfnzbtsqjvk4y6vhn7uvdrzew5hqzfo4khdsx226ppqdjgm4q@xzysjj4fwcwz>
+Message-Id: <0602E2B1-4FF4-4496-916D-D4DB1C1B0830@gmail.com>
+References: <20260809173646.3292361-1-shuangpeng.kernel@gmail.com>
+ <zmincd7ubpkwasily6fegvx7mz6zkdw5oglbj3ynpgqovpkszh@un7lyxy6dgly>
 To: Krzysztof Karas <krzysztof.karas@intel.com>
 X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
-> On Aug 11, 2026, at 06:50, Krzysztof Karas <krzysztof.karas@intel.com> =
+Hi Krzysztof,
+
+
+
+> On Aug 11, 2026, at 05:37, Krzysztof Karas <krzysztof.karas@intel.com> =
 wrote:
 >=20
 > Hi Shuangpeng,
 >=20
-> On 2026-08-08 at 14:43:02 -0400, Shuangpeng Bai wrote:
->> heartbeat() detaches engine->heartbeat.systole with xchg() before
->> checking whether the request has completed. If the request is =
-complete,
->> dropping the detached systole reference may free it. Concurrently,
->> idle_pulse() can observe the empty slot and publish a newer request.
+> On 2026-08-09 at 13:36:46 -0400, Shuangpeng Bai wrote:
+>> active_engine() walks timeline->requests in reverse under RCU and =
+takes a
+>> temporary reference before inspecting each request. However, it drops =
+that
+>> reference in the loop body before list_for_each_entry_reverse() =
+advances
+>> the cursor.
 >>=20
->> The worker then sees a non-NULL engine->heartbeat.systole, but =
-continues
->> to dereference its stale local rq. The newer request can therefore =
-make
->> the shared-slot check succeed after the old request has been freed,
->> causing use-after-free accesses to emitted_jiffies, submit, and =
-sched.
->>=20
->> If the detached request is incomplete, heartbeat() can also overwrite =
-a
->> newer request published by idle_pulse() when it unconditionally =
-restores
->> the old pointer.
->>=20
->> Use cmpxchg() both when idle_pulse() publishes a request and when
->> heartbeat() restores the detached request. Drop the detached =
-reference
->> when restoration loses the race, and reload rq from the shared slot
->> before dereferencing it.
->>=20
->> A KASAN-enabled i915 mock selftest reproduces the use-after-free =
+>> Concurrent retirement can unlink the same request and drop its base
+>> reference while active_engine() holds the temporary reference. The =
+put in
+>> active_engine() may then be final, freeing or recycling the request =
 before
->> this change and completes without a report after the fix.
-> What is this mock selftest? Can I see it somewhere and confirm
-> if it works myself? A link to a public issue would be cool too,
-> something that gives more context as to how this was discovered.
+>> the loop step reads rq->link.prev. SLAB_TYPESAFE_BY_RCU does not =
+defer that
+>> reuse.
+>>=20
+>> Open-code the reverse walk and cache the previous request while the =
+current
+>> request is still referenced. The next request remains protected by
+>> i915_request_get_rcu() and validated against the timeline before use.
+>>=20
+>> An i915 mock selftest forced retirement between the active check and =
+cursor
+>> advance. The vulnerable tree reached the final request release and
+>> kmem_cache_free(), while the fixed tree completed the same ordering =
+without
+>> accessing rq after the put.
+> What mock selftest are you referring to?
 >=20
 
-Hi Krzysztof,
+Thanks for looking.
 
-I've put the reproducer here:
+The "i915 mock selftest" I referred to was a local temporary mock
+selftest.
 
-https://gist.github.com/shuangpengbai/1410664bc909e8c834311576d6242103
+Because generic QEMU does not expose an Intel i915 PCI device, I
+used the mock engine/request infrastructure to validate only the
+ordering in active_engine(). In short, the test forces
+active_engine() to hold the temporary request reference while a
+worker on the other CPU retires the same request, so the
+subsequent i915_request_put(rq) in active_engine() becomes the
+final put. That was only meant to show that this interleaving is
+feasible.
 
-Tested on commit a59f57e2aa127c5354168d2ec4bac920df1be4f4 (2026-08-07).
-
-It uses i915's mock selftest path, so no Intel GPU hardware is required.=20=
-
-Please apply 1_repro.patch, build with 2_config, and boot with:
-i915.mock_selftests=3D1 i915.igt__36__mock_heartbeat_uaf=3D1
-
-Expected result:
-BUG: KASAN: slab-use-after-free in heartbeat
-
-Best,
-Shuangpeng
+I can clarify that wording in v2.
 
 >>=20
->> Fixes: bf9bd6a5128a ("drm/i915/gt: Track the most recent pulse for =
-the heartbeat")
->> Cc: stable@vger.kernel.org # v5.11+
+>> Fixes: 3cfea8c97c93 ("drm/i915/gem: Hold request reference for =
+canceling an active context")
+>> Cc: stable@vger.kernel.org # v5.10+
 >> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 >> ---
->> .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 22 =
-++++++++++++++-----
->> 1 file changed, 16 insertions(+), 6 deletions(-)
+>> drivers/gpu/drm/i915/gem/i915_gem_context.c | 10 ++++++++--
+>> 1 file changed, 8 insertions(+), 2 deletions(-)
 >>=20
->> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c =
-b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
->> index 6424ecce8bcb..fc6c53c93cf5 100644
->> --- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
->> +++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
->> @@ -81,10 +81,18 @@ heartbeat_create(struct intel_context *ce, gfp_t =
-gfp)
->>=20
->> static void idle_pulse(struct intel_engine_cs *engine, struct =
-i915_request *rq)
+>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c =
+b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+>> index c58ffa5a8fa6..ff5c892a0176 100644
+>> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
+>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+>> @@ -1361,7 +1361,7 @@ static bool __cancel_engine(struct =
+intel_engine_cs *engine)
+>> static struct intel_engine_cs *active_engine(struct intel_context =
+*ce)
 >> {
->> + struct i915_request *systole;
->> +
->> engine->wakeref_serial =3D READ_ONCE(engine->serial) + 1;
->> i915_request_add_active_barriers(rq);
->> - if (!engine->heartbeat.systole && =
-intel_engine_has_heartbeat(engine))
->> - engine->heartbeat.systole =3D i915_request_get(rq);
->> + if (READ_ONCE(engine->heartbeat.systole) ||
->> +     !intel_engine_has_heartbeat(engine))
->> + return;
->> +
->> + systole =3D i915_request_get(rq);
->> + /* The worker may have restored its detached systole in the =
-meantime. */
->> + if (cmpxchg(&engine->heartbeat.systole, NULL, systole))
->> + i915_request_put(systole);
->> }
+>> struct intel_engine_cs *engine =3D NULL;
+>> - struct i915_request *rq;
+>> + struct i915_request *rq, *prev;
 >>=20
->> static void heartbeat_commit(struct i915_request *rq,
->> @@ -152,9 +160,11 @@ static void heartbeat(struct work_struct *wrk)
->> if (rq) {
->> if (i915_request_completed(rq))
+>> if (intel_context_has_inflight(ce))
+>> return intel_context_inflight(ce);
+>> @@ -1375,7 +1375,8 @@ static struct intel_engine_cs =
+*active_engine(struct intel_context *ce)
+>>  * (and onto a new timeline->requests list).
+>>  */
+>> rcu_read_lock();
+>> - list_for_each_entry_reverse(rq, &ce->timeline->requests, link) {
+>> + rq =3D list_last_entry(&ce->timeline->requests, typeof(*rq), link);
+>> + while (!list_entry_is_head(rq, &ce->timeline->requests, link)) {
+>> bool found;
+>>=20
+>> /* timeline is already completed upto this point? */
+>> @@ -1387,9 +1388,14 @@ static struct intel_engine_cs =
+*active_engine(struct intel_context *ce)
+>> if (likely(rcu_access_pointer(rq->timeline) =3D=3D ce->timeline))
+>> found =3D i915_request_active_engine(rq, &engine);
+>>=20
+>> + /* Cache the cursor before the put, which may release rq. */
+>> + if (!found)
+> You could skip this check here and unconditionally set "prev".
+> Its value is going to be used only once if found =3D=3D false anyway.
+>=20
+
+Thanks for your comment. I'll simplify that by assigning prev
+unconditionally before i915_request_put().
+
+Please let me know if this addresses your question. If it does,
+I'll send v2 with the wording clarified and prev assigned
+unconditionally before i915_request_put().
+
+Thanks,
+Shuangpeng
+
+>> + prev =3D list_prev_entry(rq, link);
 >> i915_request_put(rq);
->> - else
->> - engine->heartbeat.systole =3D rq;
->> + /* Keep a newer pulse that raced with the detached systole. */
->> + else if (cmpxchg(&engine->heartbeat.systole, NULL, rq))
->> + i915_request_put(rq);
+>> if (found)
+>> break;
+>> +
+>> + rq =3D prev;
 >> }
->> + rq =3D READ_ONCE(engine->heartbeat.systole);
+>> rcu_read_unlock();
 >>=20
->> if (!intel_engine_pm_get_if_awake(engine))
->> return;
->> @@ -163,11 +173,11 @@ static void heartbeat(struct work_struct *wrk)
->> goto out;
->>=20
->> if (i915_sched_engine_disabled(engine->sched_engine)) {
->> - reset_engine(engine, engine->heartbeat.systole);
->> + reset_engine(engine, rq);
->> goto out;
->> }
->>=20
->> - if (engine->heartbeat.systole) {
->> + if (rq) {
->> long delay =3D READ_ONCE(engine->props.heartbeat_interval_ms);
->>=20
->> /* Safeguard against too-fast worker invocations */
 >>=20
 >> base-commit: a59f57e2aa127c5354168d2ec4bac920df1be4f4
 >> --=20
 >> 2.43.0
 >>=20
->=20
-> The fix looks sane at first glance to me, but I'd like to see
-> how it was spotted before diving in further.
 >=20
 > --=20
 > Best Regards,
