@@ -1,83 +1,157 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276212EEE88;
-	Wed, 12 Aug 2026 19:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C6137475C
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 19:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786563107; cv=none; b=fE9vnUudQn9YX6dEtT9W4GMI5rIpTc28xTOOO8IhVIICq+X+ABfJqQQr3KpDiVi8KJVLJ/b1WlQuuWKsjqFWF8PsXEPinl7SEqDzfN4L4x9ffASVo3nM+49/uzxcep9mD2U3hmSShWjxuUStyjlmGNRFwY3YnkBXM9oq6n7yzo4=
+	t=1786563121; cv=none; b=RPBYxbMjOHkDOvGP3+KOh9wuMqlStxulaAerkPi1tJoUGuREXAHgaMOcVTK8gvmJljnU2HjT+2qqabS1pBdN9R0Kyt+SGMeo7wRRihSn9TNTwzB8t0KsZmbHXzNIXomp+qYQX6oZvq6yFqip2nUBHzMyll3vgZsG++7NYVDxxDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786563107; c=relaxed/simple;
-	bh=eSi+aiYmDz+UjspgNSk8VDQ06flT2Y9JhfEVHqOvzbM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tZG/wvwW9b0yBppIt3o7E+fzlE20Hox4k+7hXXnSYIVzJ5E/t3gq15V3y1oR6/Z7NxNTXy5IAx9V1bvYVuCxtLkn4dfYoQKLTF1ogMJ1qClxqnCYNDmq6HkjqDLHIyrw2nzPu8KwFLuSw6kJT8x3SaTCqRqo7SCgcSI7eDnhHvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=BfQ1HqR9; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1786563121; c=relaxed/simple;
+	bh=+qQRiiUCwQCD20Re9tDOWLm8g4UGUDN1XvkW0NPnfeA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OyQ6bVWd5j4Zr2luwbEyAjrxCrq5IgsdDaV38kdslT191tZvnh1SQV7Ih1MTkW0tiwWMVRGZBD4taRCcu2LRwo6uW3eNIgukGESS6JsbCgev4K8Q/a/1l9qqpqSx/1LUBWZiwpz3lTM8+m2EzvjBqrA1I14OrIg1P1+asdGbReM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LymSNHcT; arc=none smtp.client-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="BfQ1HqR9"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 05B1540E01CE;
-	Wed, 12 Aug 2026 19:31:43 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id FQbdv5FFofjY; Wed, 12 Aug 2026 19:31:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1786563093; bh=OEpYRLVLmhaCChhPxdTGB3cs+bNyrg4djk7tuinMr4o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BfQ1HqR9dQZ0YbiLiXJf04VfA8VMZ0bR4Y7L3cnkQNKooOjy0Xz1Muj5FR62x+U13
-	 EH77FwKvUacOIvVEeI1YOV6/nYRZeBYQroJWcGRRVTDPliwaHDyqhKytDXsYEYi99S
-	 +MjcVeN41ut9wk4tBlBNlQbfS8l0TVaS4Wo1CaH7Y6V0eCdy4d9h1G91qU+Vh0q/tZ
-	 ot5kZQ/7fq5Nb1yOWyoIzEet8AMcoF3EEvGzN8Kk2O82fxu69WScsVo66AgS1fUHte
-	 9LlqgoU48Q2MRJW6Cf9f/pYMaqx2sl3kX+jOJiDuaqMPZbXfhQ97d5r93366GI7Nr+
-	 bT47wWjytgCO1tgjbl6NZr9s0t3txL+LYqpn70Xfz8HW/Ayo7aSFumBqenpMCZWjEd
-	 7q70euW8aIepSdV+VYyEYtuHNUGyKOrbYa6VPESvLBlbH+IfyxhJlXiqGs3dBT5Bwd
-	 kt1qNyve8yhAZwmlB41UT2a1tufaX8BkLKwBygn5fytqlt4Vt9zs4hSi5ke/QVQiMJ
-	 s+wSxDG/0exdCTTe202KaCc9KeuqemS2zAeOLydVGUagm2RoUF6Hyd25kQBoSBEhvZ
-	 9DQSEX0ByUBmLIJeNuCLf51jtI0l36RBdHJxhZVdvqxfbiHFVqGuCXgtVKr7xmORNc
-	 TC6dHlA+pRDQp8XlIS1r0FYU=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 73A6040E019C;
-	Wed, 12 Aug 2026 19:31:21 +0000 (UTC)
-Date: Wed, 12 Aug 2026 12:31:17 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
-	linux-kernel@vger.kernel.org, Penny Zheng <penny.zheng@amd.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] x86/amd_node: Avoid divide by zero on virtualized
- systems
-Message-ID: <20260812193117.GBanzKBaDLIdI_1Cfa@fat_crate.local>
-References: <20260806160159.230453-1-jason.andryuk@amd.com>
- <20260806160159.230453-3-jason.andryuk@amd.com>
- <20260810144706.GC57095@yaz-khff2.amd.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LymSNHcT"
+Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-4a451915d8aso802311b6e.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 12:31:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1786563118; x=1787167918; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JO8wtDZ5KajjBoQwQfJOX0LnbQbHRiyuBi4hT4PtKNA=;
+        b=LymSNHcTwB/ZhqtTvjbj+KhWts8iEjrtKOUKgmkd0ouU9JabYt1mGhQ6IJ3A5yG+ml
+         VHBrXy+CN4or1Tehywp9euygxhFWb/nfyKxCmVqywgVPnq3kUgtqKKk+voHk7xEFAKRn
+         iN+kesYagL3hGTeV3vDCDxwGiFTmWFIPZElgM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786563118; x=1787167918;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JO8wtDZ5KajjBoQwQfJOX0LnbQbHRiyuBi4hT4PtKNA=;
+        b=jvsy2Pq4l0c0ezIlrQNg9HY90lmcFo0EukXa0kO+3WFgEfDwZWeMn77ND9ga7Ff4Pv
+         zyFbb2ZBOnQnjL+o1IlIf90g6YuWwmHcroFSAPJbz/wsi+DKzXjccB29A8goia80DH0S
+         24L9KfhGIKANl5o0rFOSU1ujoV58JO80eSqm/emic1Ads6MzGwO3slh6FAY61VScsMEw
+         ELXcVxxk1DccDwW1xnc27IPOWeVlbE/VKhvy2ylXQzX9sWXaZlt1i2e75YVEMy5Nd4W2
+         enReAovx5qd7eUnPCdUlLT1FCmudBpSRrcfhSSqvht06BY7x7PqD7Ez9wLdViJ+FtYll
+         7vBQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrJ3/dsiM07Kbs//mxZ2yQaClItCcgzz2VyEwLjshwGBOrYi70iLXJE+Y8M8+zSKCjY6HWS/9Q=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJxYAxpIGw6rEy7NywNT8QJBiPFAV2oIZLqr5iYwo+YIaUMQbK
+	CalQFcczc+SU4vyLmGLa/Tz2KWneszRFCD3KKuqn+RzZbTzkqqe6t5raYHXQ2mN29tI=
+X-Gm-Gg: AR+sD12yqL+6+g5K8rOfTkS/TqtAR2c64djoK7L+m3JXEmiU6py7K4eMWFYpz8PbAmi
+	kMMSeLk5gl/mYaa2HeWAaM3QcZ+LpJzfJRy6Ipwmql/CRthCt2+qMlAHw3C1UaxDRwnK6QDsr4h
+	dZZLQP+lubLQZ5Hts+XHCYGPGFg8ZELKgOrcXOp9FWroNKqc0s3LbRRie+MVx9QiI4+b1BPNaD7
+	htguylRzDkd/vEkBNXf79J4DVYm0PAmuOTZaqQoYLANnr/GtetgFyD2uWfmomFRqxJtvAMRUp9F
+	dR0LfccR4wcafRNsLlW/a8PTs6v8c0k7rDndEfKxcvCLtnOXVUbOvYiadQcxjceTq62mF4S4ML7
+	ojh9wAvcCobuN+F9PgyRoSYTnoUnbgO/aAr9UxYHgTcyssfYRJJv3pXS06K7w/fGX4h7Nd4csU2
+	03jhOJNg4hY2FbytI9hx0ZoenU7Dav6TYb6+mnPaM1z4SCTM8o6jLpt34QgQBMd976Wnm+8w==
+X-Received: by 2002:a05:6808:640f:b0:4af:5b7e:e5ce with SMTP id 5614622812f47-4b227790286mr185589b6e.3.1786563113727;
+        Wed, 12 Aug 2026 12:31:53 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b22347c0basm631294b6e.6.2026.08.12.12.31.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 12:31:52 -0700 (PDT)
+Message-ID: <647d51b8-bc02-40a7-8cf0-3a76f950c7ad@linuxfoundation.org>
+Date: Wed, 12 Aug 2026 13:31:50 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260810144706.GC57095@yaz-khff2.amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] usbip: usbip_host: remove legacy rebind_store in
+ favor of drivers_probe
+To: Jeffin Philip <jeffinphilip14@gmail.com>
+Cc: gregkh@linuxfoundation.org, i@zenithal.me, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, shuah@kernel.org, stable@vger.kernel.org,
+ syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com,
+ valentina.manea.m@gmail.com, Shuah Khan <skhan@linuxfoundation.org>
+References: <e3473010-e995-40b6-9040-e38f51d1a6c9@linuxfoundation.org>
+ <20260812024050.11267-1-jeffinphilip14@gmail.com>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260812024050.11267-1-jeffinphilip14@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 10, 2026 at 10:47:06AM -0400, Yazen Ghannam wrote:
-> I don't think this is necessarily a Firmware bug.
+On 8/11/26 20:40, Jeffin Philip wrote:
+> On Tue, Aug 11 2026, at 16:53:23 -0600, Shuah Khan wrote:
+> 
+>> On 8/11/26 10:05, Jeffin Philip wrote:
+>>> do_rebind, which sleeps normally gets a mutex lock. However, it does not
+>>> or should I say, cannot check for null udev between spin lock dropped in
+>>> rebind_store and entering do_rebind. This is a potential race window
+>>> already. So, even if we check for null udev under spinlock, we cannot do
+>>> it outside. Regarding do_rebind, it is called during stub_device_rebind,
+>>> but that function is called during module exit when all files are removed.
+>>> So, do_rebind is not designed to work in a concurrent environment in the
+>>> first place.
+>>>
+>>> We have a safer function that can already do what do_rebind does,
+>>> drivers_probe. So, we use drivers_probe to rebind the device rather than
+>>> use rebind_store.
+>>>
+>>> usbip tool references this function immediately after the device is unbound,
+>>> which is safe for the tool itself but since we opted for drivers_probe, fix
+>>> it by using drivers_probe rather than rebind_store after unbinding device
+>>> which is more safer.
+>>>
+>>> Tested and working in both userspace via the tool and manually echoing
+>>> the busid in the related nodes. rebind node is still left active with a
+>>> warning to use drivers_probe upon encountering rebind_store.
+>>>
+>>> Thanks,
+>>> Jeffin.
+>>>
+>>> Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+>>> ---
+>>> Changes in v3:
+>>>    - Removed rebind_store in favor of drivers_probe to eliminate race
+>>>      condition
+>>
+>> How did you find this problem?
+> 
+> I found the problem on syzbot and had to reproduce it using the following
+> commands:
+> link to issue: https://syzkaller.appspot.com/bug?extid=af76b01c9a0f0ab60fb0
+> echo 'add 1-1' > /sys/bus/usb/drivers/ubsip-host/match_busid
+> echo '1-1' > /sys/bus/usb/drivers/usbip-host/rebind
+> 
+>> Is this generated code or did you write it?
+> 
+> No, I wrote the code myself.
+> 
+>> Also, the first patch removes code in rebind_store(), replacing it
+>> with a pr_warn()? The second patch points it driver_probe() - what
+>> happens with just the first patch?
+> 
+> It just prints out a warning. I did get a -Wunused function warning
+> while building the kernel for testing and considered removing it. I
+> ultimately didn't as scripts running on newer kernels(if this
+> was merged) would break as there is no rebind node. Should I remove it?
+> and is pr_warn not the right way to deal with this? If so, please advise.
 
-What else can it be if we're running on baremetal?
+Okay. But why is this change split into two patches? Does just the first patch
+work correctly?
 
--- 
-Regards/Gruss,
-    Boris.
+> 
+>> Did you run tests to see if you can bind and unbind devices - does the
+>> driver work correctly?
+> 
+> Yes the tool works correctly after switching to drivers_probe. Devices are
+> bound and unbound correctly.
+> 
+> The function also caused an invalid opcode while testing in an unpatched
+> kernel with a different sequence: write to match_busid, then write to bind
+> and rebind, followed by writing to unbind.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+
+thanks,
+-- Shuah
