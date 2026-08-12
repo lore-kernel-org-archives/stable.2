@@ -1,118 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDC93C4B93
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D8A418346
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:02:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786528776; cv=none; b=BktOPVyfEX/HCwLD1BuChCnppaY3+h2vh85gC5jHJdUfurFENWDLbKddlkrM8wnFPIX0gdW2OGxoF3mE/jehDMfmSOfEeby6ZDsedpLMh4tD1kz1REeSXvTfPNMRtc9jkP280wEpP736Pk7zaf46a1rOMZP3i/sUGP6OdJH/2kg=
+	t=1786528947; cv=none; b=G4vRqYkSaD7WwQqTR3tDAeVbG8Reh6lPy6oaJvrcyt83ynYDjODNP3kQP1hAoSDjYuz/e5lAJ53+H/5NbaVI9bA4/g5dJzx6zMDOON1QG8sSQwGs03ny9Jhns26H+PgHwwxsacTLyu7PyxtgvT/q7fSt76vJjW/4ccepfAIK93k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786528776; c=relaxed/simple;
-	bh=Q/ILtihT10uoaq462B+W4OJyomLNDNuPYSE7McPb9wg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HixNDUdQUbOvDrlOXoPi4wikDMGbgxG8exjqm8fAOwMlNExsAKtAgg5dh/Dbpsdz6YHgezaEzse+oNlDkoxNH0+27G5LuinumEXc7gVV6l49W/itfxsfmLgWragTmy+fE8a70KFM477eQf9miu1m/WOHIjZYgiZ3yAZVFbJUzQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecA3Xtu3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786528947; c=relaxed/simple;
+	bh=cNiBZHt9kBQLY9Pvle7ghRA8gmUmPsgLNZWvyn6d4Fs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=iEdzbtFTUI98z0uJyVJW+TckTXVk1V9bScM4KoG+E1vbe59tEaqkw7jit+diA+dJpu/g6b8dZhrRTwrvZfYhaQkaS+lzeYQdgEt3XwE1A5PnPsPuDPYC2SAFviJDNFja4xCc32lEAps/Oc7akCvGxj4RN0T1LX6zAuEeO9mfEGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QXeQ/l3r; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecA3Xtu3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530931F00A3E;
-	Wed, 12 Aug 2026 09:59:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786528774;
-	bh=qceXEzHJsCmj8Y02g/VruWx5xqPZ7issqBAWl39tM+M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ecA3Xtu3A14mkR6jOezH9raO+NLL/XyNaJG3tecoyz31y+J56z+tNh7RUKs1M6+1U
-	 gouk8KhOBNsO2g2fnMRrB6K7jsyMhs9zQs1/9EuEsP+99Jec5AujwzTUPLjs1ZrzKb
-	 psodSYvN/eGtVHqE17yU/jLcgPCodeTAfNc6d7NuIEq1oxIy+JMH5Oo9yLf5us8DWy
-	 KLmbM8jZFrAmQzuC8yg/3ZLFOL1FJY1XXjkLqrgdSaFblFkwcIrNYguyjZgOc4nVfb
-	 /REXFBGHPWvFWU4H3m0oPmKRLm0DIOi9OFwNfeMsFlhjb+nFxlmhBYrAM6UcenRLMS
-	 MkKbl3yxMDhfg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jonas Gorski <jonas.gorski@bisdn.de>,
-	Ray Jui <ray.jui@broadcom.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] i2c: iproc: reset bus after timeout if START_BUSY is stuck
-Date: Wed, 12 Aug 2026 05:59:31 -0400
-Message-ID: <20260812095932.1597082-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812095932.1597082-1-sashal@kernel.org>
-References: <2026080559-bonehead-marsupial-c9b2@gregkh>
- <20260812095932.1597082-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QXeQ/l3r"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 29B5F4E411D1;
+	Wed, 12 Aug 2026 10:02:23 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EADC86045E;
+	Wed, 12 Aug 2026 10:02:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7A96911C4CBBE;
+	Wed, 12 Aug 2026 12:02:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1786528941; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=cNiBZHt9kBQLY9Pvle7ghRA8gmUmPsgLNZWvyn6d4Fs=;
+	b=QXeQ/l3rqQbZPi2SFx690Mf7wrlgCIPYcIzVTdm3x3N+LR0BunqRKE5/PkPJn5ah3iZTSz
+	dqOG8NFj3QbWExuVHA2nzkfO7+3lgsePMv+oUldVz6Coj/eeFerkg19VbYVbYvAQNj1MxP
+	f5/jwsokmbtVEgABox4TNTWbVVJfQO7RgI4K7HspEFuC0ZIEh4q9JamTqkpfbWwsg3Q0Lp
+	MnIpt/ypg+eN+otJRt5TgYjcxJvsvMa93PQCH3OFjuqjzKOBBowHoe+u0/MDZWZCPMX95F
+	9A07l+e1mhP3RAKuB385fyN50g/1YvVoiruTKBiCf6RAC61GAxU8i1wLhN2wBA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Tudor Ambarus <tudor.ambarus@linaro.org>
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
+ <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+  linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] mtd: spi-nor: Unprepare legacy controllers upon RWW
+ wait interruption
+In-Reply-To: <e0d2710a-2a67-40e0-aacb-5d18742cea76@linaro.org> (Tudor
+	Ambarus's message of "Wed, 12 Aug 2026 12:52:48 +0300")
+References: <20260811-perso-rww-fixes-v1-1-5866a70e5d1c@bootlin.com>
+	<e0d2710a-2a67-40e0-aacb-5d18742cea76@linaro.org>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 12 Aug 2026 12:02:17 +0200
+Message-ID: <87o6f7mzbq.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Jonas Gorski <jonas.gorski@bisdn.de>
+On 12/08/2026 at 12:52:48 +03, Tudor Ambarus <tudor.ambarus@linaro.org> wro=
+te:
 
-[ Upstream commit 98f2e9e6d6f91a6abb43f166b244b428ba85fa2b ]
+> On 8/11/26 6:56 PM, Miquel Raynal wrote:
+>> All the parallel locking helpers (spi_nor_prep_and_lock(),
+>> spi_nor_prep_and_lock_pe() and spi_nor_prep_and_lock_rd()) call
+>> spi_nor_prep() then wait with a killable sleep. If the sleep gets
+>> killed, we leave the controller in its prepared state.
+>>=20
+>> Call ->unprepare() in these cases.
+>
+>
+> We don't even care about SPI NOR controllers. I stopped adding/accepting
+> new support for them few years ago, so that we encourage people to update
+> the drivers to use SPI MEM.
 
-If a transaction times out, the START_BUSY signal can stay up, and
-subsequent transactaction attempts will fail as the bus is still
-considered busy.
+Yeah, totally agreed.
 
-I can easily trigger this by attempting to read from an address with no
-device, e.g. when running i2cdetect. After the first read times out, all
-subsequent read attempts return busy.
+> The alternative is to drop prep unprep entirely.
 
-To get to a working state again, the controller needs to be reset to
-clear the START_BUSY signal. So check for START_BUSY still asserted on a
-timeout, and do reset in case it is,
+That's indeed what we aim for, but in order to "fix" that report, the
+current solution is to call ->unprepare(). Hopefully we can remove them
+at some point.
 
-This is also done by the original non-upstream iproc-smbus driver
-implementation [1].
+>
+> Anyway, all good, regardless the path chosen:
+>
+> Acked-by: Tudor Ambarus <tudor.ambarus@linaro.org>
 
-Works around situations like:
-
-    bcm-iproc-2c 1803b000.i2c: transaction timed out
-    bcm-iproc-2c 1803b000.i2c: bus is busy
-    bcm-iproc-2c 1803b000.i2c: bus is busy
-    bcm-iproc-2c 1803b000.i2c: bus is busy
-    bcm-iproc-2c 1803b000.i2c: bus is busy
-    bcm-iproc-2c 1803b000.i2c: bus is busy
-    ...
-
-where the bus never recovers after a timeout.
-
-[1] https://github.com/opencomputeproject/onie/blob/master/patches/kernel/3.2.69/driver-iproc-smbus.patch
-
-Fixes: e6e5dd3566e0 ("i2c: iproc: Add Broadcom iProc I2C Driver")
-Signed-off-by: Jonas Gorski <jonas.gorski@bisdn.de>
-Cc: <stable@vger.kernel.org> # v4.0+
-Acked-by: Ray Jui <ray.jui@broadcom.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260717085507.34209-1-jonas.gorski@bisdn.de
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/i2c/busses/i2c-bcm-iproc.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/i2c/busses/i2c-bcm-iproc.c b/drivers/i2c/busses/i2c-bcm-iproc.c
-index 56203eadb319a..36dae5fe28260 100644
---- a/drivers/i2c/busses/i2c-bcm-iproc.c
-+++ b/drivers/i2c/busses/i2c-bcm-iproc.c
-@@ -811,6 +811,17 @@ static int bcm_iproc_i2c_xfer_wait(struct bcm_iproc_i2c_dev *iproc_i2c,
- 	}
- 
- 	if (!time_left && !iproc_i2c->xfer_is_done) {
-+		/*
-+		 * The controller may fail to clear START_BUSY after a timeout,
-+		 * reset the controller to recover in that case.
-+		 */
-+		if (!!(iproc_i2c_rd_reg(iproc_i2c, M_CMD_OFFSET) &
-+		       BIT(M_CMD_START_BUSY_SHIFT))) {
-+			bcm_iproc_i2c_enable_disable(iproc_i2c, false);
-+			bcm_iproc_i2c_init(iproc_i2c);
-+			bcm_iproc_i2c_enable_disable(iproc_i2c, true);
-+		}
-+
- 		/* flush both TX/RX FIFOs */
- 		val = BIT(M_FIFO_RX_FLUSH_SHIFT) | BIT(M_FIFO_TX_FLUSH_SHIFT);
- 		iproc_i2c_wr_reg(iproc_i2c, M_FIFO_CTRL_OFFSET, val);
--- 
-2.53.0
-
+Thanks,
+Miqu=C3=A8l
