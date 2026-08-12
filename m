@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01190400DE2
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:11:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB24C404BE3
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:11:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786525898; cv=none; b=NXZ3O3yLbxD4PTMvAbzJhJ4OmqKj5TKJOcIAE/yBDmzJiN3T+rkbjhu4CQBg0GzE+BEL0wlBlUDm05xOjZLZV0facHJRWZU/xLeWgM6GHQwHNP0iiniXkS6utJ4qjKnUjVopsgelxLXMJNoFn1bRxpvfVzJ+On0P/0LVRDM5ins=
+	t=1786525919; cv=none; b=toGRFSZirYHyHtycu/edJZbFsyOyZv0WVvI+a8AuSxsQxrVAYhy8yNuYfo8grlECB4RmQaq6b8crm9q4r9PMsQ6yj6Uz1sUTh8N6nKOm21V0QqNxRAbiYkL0YCoBnsUrAkbL0hQcn7q2GEsMeoccIQiyyl/6Um9F8MCBvLUujWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786525898; c=relaxed/simple;
-	bh=gtYqy+OQ2HvCMpqhoP8ZxcMHHo3+DwpQPIVYkqSDC2Q=;
+	s=arc-20240116; t=1786525919; c=relaxed/simple;
+	bh=k99AyxeRKYK0ewTGTtEa2ZvsqKtuoQMRmUrlvblrwx8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kqr2Ng/v9uarH1Bn1ezq33JsPQ2rp6UqjmkiVu5nu1kpxcUuk1vCRs8JTQVxNOyMvTlehc9vNc2G1DihRGObiyFJyf0NudYKsmdvYBINYqTBSEnWOtiL7L1IwbK+BFPIPBxcdCQNrp/IZ0h2rbYbQ2rs5XC+EaV9nc25ynEy2aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJet8B0h; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nyK/qwLkKf2ZDqJX5KHdTQb8FhT6EdZ0X/CgyKhGxFFQkYZlEHcC+3DFjsgjjNf3Kf8edKkQ1f4O34LBjVJBg6g1XwAbX+pk73vSG0TkGQ6EG5DvK6ChbJzn7ibxezMl2l6YIwbp0sF9QtPeSR10dbXqn1GLR8P2FalWKoY9kU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QRcLPsj8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJet8B0h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1593B1F00AC4;
-	Wed, 12 Aug 2026 09:11:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QRcLPsj8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C9C1F000E9;
+	Wed, 12 Aug 2026 09:11:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786525892;
-	bh=gr/LDc5WmntNOLfBZjuBgSI3Zhc2oeFiTNi6C2vkpPQ=;
+	s=k20260515; t=1786525916;
+	bh=JV5dChv4xGt9cJGEAhppQIzJ/lTBd9hIvPSi30WGP10=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fJet8B0hyfSAxBv63CH5mPUEppGb6wgTc85fIh5RZqzNDZOrArxVFKyuNKEdrU9qV
-	 oKjCS2B80wsMIEnZMrr4mCXWuB6FdXRQk6kad5SWtxsIgCj3skfonxTgsEzu26dn2X
-	 C+QGfe2X9gN4hG+LglbGXCsX4Huobc2YGPcewDzNAD81Y23jHhf2umxv3uu8UR9TQM
-	 DfW6skIMeYzMErDCf7RX6pcHq5RNzksSS7YfSnCt2EAX3OG1RVLJtR0CPLgQ88XgWi
-	 OsaEywCA9Ja+mbecngYYSpoaxUOXiY68kHItgYtud/tY28MZVaj+9XcnBQ7WgzgErh
-	 +RDectr3/lM4g==
+	b=QRcLPsj8AxmXavFNb7lwHTbgtBwdw09o4TrdI8WnaXrGG45ZSQAcI9zJyuQbl3u40
+	 YWkmTi4LKTdRRZ+nGvYUKwCs9PHIgTlwvg9O1KB7Qfs+DeOyO1qPeoy9lJJy2f0W8O
+	 dOryj1heg4ztzfGzaiEbVmhvydv/dBPFPWwQ4xovZoqPZhcQgYrVizaA7I7m00top1
+	 bAYHphSf4MbpQ4+sAbDh1BWhrb6/uuzsa0KSeVgnmznb0U6OYo1ZYHFTuQrAulo2CB
+	 IAMEK68T2oq7ryyOZCMtkRuUETvEm40TFDfke5NdnGLfmQCsUn4vqIg4ZvNDCnzu9j
+	 cQ0VPmcnj1rzA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Bart Van Assche <bvanassche@acm.org>,
+	Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+	Himanshu Madhani <himanshu.madhani@oracle.com>,
+	Douglas Gilbert <dgilbert@interlog.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 5/5] vxlan: use pskb_network_may_pull() for transmit path header pulls
-Date: Wed, 12 Aug 2026 05:11:27 -0400
-Message-ID: <20260812091127.1349673-5-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/5] scsi: sd: sd_zbc: Improve source code documentation
+Date: Wed, 12 Aug 2026 05:11:49 -0400
+Message-ID: <20260812091153.1357339-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812091127.1349673-1-sashal@kernel.org>
-References: <2026080500-gloomily-getup-2a3e@gregkh>
- <20260812091127.1349673-1-sashal@kernel.org>
+In-Reply-To: <2026080556-overlap-everybody-5524@gregkh>
+References: <2026080556-overlap-everybody-5524@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,83 +48,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Bart Van Assche <bvanassche@acm.org>
 
-[ Upstream commit b9553558b48db54ac9273e6b98d7263ef5c1a329 ]
+[ Upstream commit aa96bfb4caff59c93f0637092efe3a714cab0fe6 ]
 
-In vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was
-being called to verify the availability of network layer headers (ARP, IPv6/ND,
-IP/IPv6 MDB keys).
+Add several kernel-doc headers. Declare input arrays const. Specify the
+array size in function declarations.
 
-However, during transmit skb->data points to the MAC header, so skb_network_offset(skb)
-is ETH_HLEN (14 bytes). Using pskb_may_pull(skb, len) only checks len bytes from skb->data
-rather than skb_network_offset(skb) + len, which can leave part of the network header
-in non-linear frags.
-
-Replace these remaining pskb_may_pull() calls with pskb_network_may_pull() to properly
-account for the MAC header offset.
-
-Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
-Fixes: f564f45c4518 ("vxlan: add ipv6 proxy support")
-Fixes: 0f83e69f44bf ("vxlan: Add MDB data path support")
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20260723144249.759100-6-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://lore.kernel.org/r/20220421183023.3462291-2-bvanassche@acm.org
+Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Reviewed-by: Himanshu Madhani <himanshu.madhani@oracle.com>
+Acked-by: Douglas Gilbert <dgilbert@interlog.com>
+Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+Stable-dep-of: 93dde0bf2f39 ("scsi: scsi_debug: Fix REPORT ZONES alloc_len underflow OOB write")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/vxlan/vxlan_core.c | 6 +++---
- drivers/net/vxlan/vxlan_mdb.c  | 4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/scsi/sd.h     |  5 ++--
+ drivers/scsi/sd_zbc.c | 55 ++++++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 54 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index d27f3ef2a0fb2..5718433862af0 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -1857,7 +1857,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
- 	if (dev->flags & IFF_NOARP)
- 		goto out;
+diff --git a/drivers/scsi/sd.h b/drivers/scsi/sd.h
+index b59136c4125ba..33cc01f98c6a0 100644
+--- a/drivers/scsi/sd.h
++++ b/drivers/scsi/sd.h
+@@ -217,7 +217,7 @@ static inline int sd_is_zoned(struct scsi_disk *sdkp)
+ #ifdef CONFIG_BLK_DEV_ZONED
  
--	if (!pskb_may_pull(skb, arp_hdr_len(dev))) {
-+	if (!pskb_network_may_pull(skb, arp_hdr_len(dev))) {
- 		dev_dstats_tx_dropped(dev);
- 		vxlan_vnifilter_count(vxlan, vni, NULL,
- 				      VXLAN_VNI_STATS_TX_DROPS, 0);
-@@ -2831,8 +2831,8 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
- 			return arp_reduce(dev, skb, vni);
- #if IS_ENABLED(CONFIG_IPV6)
- 		else if (ntohs(eth->h_proto) == ETH_P_IPV6 &&
--			 pskb_may_pull(skb, sizeof(struct ipv6hdr) +
--					    sizeof(struct nd_msg)) &&
-+			 pskb_network_may_pull(skb, sizeof(struct ipv6hdr) +
-+						    sizeof(struct nd_msg)) &&
- 			 ipv6_hdr(skb)->nexthdr == IPPROTO_ICMPV6) {
- 			struct nd_msg *m = (struct nd_msg *)(ipv6_hdr(skb) + 1);
+ void sd_zbc_release_disk(struct scsi_disk *sdkp);
+-int sd_zbc_read_zones(struct scsi_disk *sdkp, unsigned char *buffer);
++int sd_zbc_read_zones(struct scsi_disk *sdkp, u8 buf[SD_BUF_SIZE]);
+ int sd_zbc_revalidate_zones(struct scsi_disk *sdkp);
+ blk_status_t sd_zbc_setup_zone_mgmt_cmnd(struct scsi_cmnd *cmd,
+ 					 unsigned char op, bool all);
+@@ -233,8 +233,7 @@ blk_status_t sd_zbc_prepare_zone_append(struct scsi_cmnd *cmd, sector_t *lba,
  
-diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
-index 73c128c3d90de..eb919fc05cdf9 100644
---- a/drivers/net/vxlan/vxlan_mdb.c
-+++ b/drivers/net/vxlan/vxlan_mdb.c
-@@ -1326,7 +1326,7 @@ struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
+ static inline void sd_zbc_release_disk(struct scsi_disk *sdkp) {}
  
- 	switch (skb->protocol) {
- 	case htons(ETH_P_IP):
--		if (!pskb_may_pull(skb, sizeof(struct iphdr)))
-+		if (!pskb_network_may_pull(skb, sizeof(struct iphdr)))
- 			return NULL;
- 		group.dst.sa.sa_family = AF_INET;
- 		group.dst.sin.sin_addr.s_addr = ip_hdr(skb)->daddr;
-@@ -1335,7 +1335,7 @@ struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
- 		break;
- #if IS_ENABLED(CONFIG_IPV6)
- 	case htons(ETH_P_IPV6):
--		if (!pskb_may_pull(skb, sizeof(struct ipv6hdr)))
-+		if (!pskb_network_may_pull(skb, sizeof(struct ipv6hdr)))
- 			return NULL;
- 		group.dst.sa.sa_family = AF_INET6;
- 		group.dst.sin6.sin6_addr = ipv6_hdr(skb)->daddr;
+-static inline int sd_zbc_read_zones(struct scsi_disk *sdkp,
+-				    unsigned char *buf)
++static inline int sd_zbc_read_zones(struct scsi_disk *sdkp, u8 buf[SD_BUF_SIZE])
+ {
+ 	return 0;
+ }
+diff --git a/drivers/scsi/sd_zbc.c b/drivers/scsi/sd_zbc.c
+index 9b5dca0b6cf9a..012f5dedef171 100644
+--- a/drivers/scsi/sd_zbc.c
++++ b/drivers/scsi/sd_zbc.c
+@@ -20,6 +20,12 @@
+ 
+ #include "sd.h"
+ 
++/**
++ * sd_zbc_get_zone_wp_offset - Get zone write pointer offset.
++ * @zone: Zone for which to return the write pointer offset.
++ *
++ * Return: offset of the write pointer from the start of the zone.
++ */
+ static unsigned int sd_zbc_get_zone_wp_offset(struct blk_zone *zone)
+ {
+ 	if (zone->type == ZBC_ZONE_TYPE_CONV)
+@@ -44,7 +50,21 @@ static unsigned int sd_zbc_get_zone_wp_offset(struct blk_zone *zone)
+ 	}
+ }
+ 
+-static int sd_zbc_parse_report(struct scsi_disk *sdkp, u8 *buf,
++/**
++ * sd_zbc_parse_report - Parse a SCSI zone descriptor
++ * @sdkp: SCSI disk pointer.
++ * @buf: SCSI zone descriptor.
++ * @idx: Index of the zone relative to the first zone reported by the current
++ *	sd_zbc_report_zones() call.
++ * @cb: Callback function pointer.
++ * @data: Second argument passed to @cb.
++ *
++ * Return: Value returned by @cb.
++ *
++ * Convert a SCSI zone descriptor into struct blk_zone format. Additionally,
++ * call @cb(blk_zone, @data).
++ */
++static int sd_zbc_parse_report(struct scsi_disk *sdkp, const u8 buf[64],
+ 			       unsigned int idx, report_zones_cb cb, void *data)
+ {
+ 	struct scsi_device *sdp = sdkp->device;
+@@ -189,6 +209,17 @@ static inline sector_t sd_zbc_zone_sectors(struct scsi_disk *sdkp)
+ 	return logical_to_sectors(sdkp->device, sdkp->zone_blocks);
+ }
+ 
++/**
++ * sd_zbc_report_zones - SCSI .report_zones() callback.
++ * @disk: Disk to report zones for.
++ * @sector: Start sector.
++ * @nr_zones: Maximum number of zones to report.
++ * @cb: Callback function called to report zone information.
++ * @data: Second argument passed to @cb.
++ *
++ * Called by the block layer to iterate over zone information. See also the
++ * disk->fops->report_zones() calls in block/blk-zoned.c.
++ */
+ int sd_zbc_report_zones(struct gendisk *disk, sector_t sector,
+ 			unsigned int nr_zones, report_zones_cb cb, void *data)
+ {
+@@ -276,6 +307,10 @@ static int sd_zbc_update_wp_offset_cb(struct blk_zone *zone, unsigned int idx,
+ 	return 0;
+ }
+ 
++/*
++ * An attempt to append a zone triggered an invalid write pointer error.
++ * Reread the write pointer of the zone(s) in which the append failed.
++ */
+ static void sd_zbc_update_wp_offset_workfn(struct work_struct *work)
+ {
+ 	struct scsi_disk *sdkp;
+@@ -584,7 +619,7 @@ static int sd_zbc_check_zoned_characteristics(struct scsi_disk *sdkp,
+  * sd_zbc_check_capacity - Check the device capacity
+  * @sdkp: Target disk
+  * @buf: command buffer
+- * @zblocks: zone size in number of blocks
++ * @zblocks: zone size in logical blocks
+  *
+  * Get the device zone size and check that the device capacity as reported
+  * by READ CAPACITY matches the max_lba value (plus one) of the report zones
+@@ -679,6 +714,11 @@ static void sd_zbc_revalidate_zones_cb(struct gendisk *disk)
+ 	swap(sdkp->zones_wp_offset, sdkp->rev_wp_offset);
+ }
+ 
++/*
++ * Call blk_revalidate_disk_zones() if any of the zoned disk properties have
++ * changed that make it necessary to call that function. Called by
++ * sd_revalidate_disk() after the gendisk capacity has been set.
++ */
+ int sd_zbc_revalidate_zones(struct scsi_disk *sdkp)
+ {
+ 	struct gendisk *disk = sdkp->disk;
+@@ -757,7 +797,16 @@ int sd_zbc_revalidate_zones(struct scsi_disk *sdkp)
+ 	return ret;
+ }
+ 
+-int sd_zbc_read_zones(struct scsi_disk *sdkp, unsigned char *buf)
++/**
++ * sd_zbc_read_zones - Read zone information and update the request queue
++ * @sdkp: SCSI disk pointer.
++ * @buf: 512 byte buffer used for storing SCSI command output.
++ *
++ * Read zone information and update the request queue zone characteristics and
++ * also the zoned device information in *sdkp. Called by sd_revalidate_disk()
++ * before the gendisk capacity has been set.
++ */
++int sd_zbc_read_zones(struct scsi_disk *sdkp, u8 buf[SD_BUF_SIZE])
+ {
+ 	struct gendisk *disk = sdkp->disk;
+ 	struct request_queue *q = disk->queue;
 -- 
 2.53.0
 
