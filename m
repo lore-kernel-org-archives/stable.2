@@ -1,144 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F27A3191BA;
-	Wed, 12 Aug 2026 05:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16F9482D4;
+	Wed, 12 Aug 2026 05:48:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786513669; cv=none; b=coC6ctXkKlxJKT0ZoGJ03aKReOw9WLIcDdDGZ1m6qwikCO4OkmY0WhSwv4zcrswieqtGG6K6eQMdC4eFrerHAtdDx1BkrRkVj+WWxMX93ob/L+fkoLXeH97+Zk0R5HAQ0NyJ+s8d6ZKUnmAPCbCddnwq11M//A/T2aUElR5l1aE=
+	t=1786513697; cv=none; b=PGwo3+bDaPVkQN0W9dyH8dKni7pxr7uBxZjVk5l/K9u5+sCwMh8cq2nnQmTh25LHZt4Vtrb3xRjqahUfylZ0zyW5zYwfeg4JoKHrF21jxPEwpys1cAlM5yTeug1vzbBPrzDFABs4DPv8eaBleiSIfcQwEWKzUGFevA0FshRAU6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786513669; c=relaxed/simple;
-	bh=iABc9K8brbwAjp+6VtrT+VhIgqUXCpidx3XmFiTLDlY=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=RSKsnS3hU5nUmgG73lI1QRezQikPhWyf0CLi8O3JCoHRFN0kTyfAXl85+FDAgLdaWc2pvO37PvhGrCthjzVjOHpMEN32O5Kt+zILXRfdvPJVnUXhp8e+nKAKAeN/EAo78aUHX/ruzejSaq/azSe2eLdEwMf/GAsq/sQsVyU1T5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ruEA3kvk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786513697; c=relaxed/simple;
+	bh=0Zo7Rbv+zcD+9wkog421wT1HYw9FSZDE+BW1aRtXh1o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cpGA7bYE+7+zqNZy5ITJGl2V4gG4w1E0BkLwGpWxtn1uBp9qQQL2uVLck4MUeEYT76kkeSKSlmSX+ZBm9tMAcVLD0jN5asMM2eX2QpUo85PzlXx3skakOdgfdD++PFjbnZd1GT2GeauUO9qSFEN2OkSQd6TTYmeQvm0O/3zox5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otpnH+Z2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ruEA3kvk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3DEB1F000E9;
-	Wed, 12 Aug 2026 05:47:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786513667;
-	bh=IWjDjgp43HDOKAAvhXf6tJ9XRcep7H8R/FphtBkyvCY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ruEA3kvkxtFK7eWbkAqQPen2AEMf+hlBpUgBhnXOPr9FJ/KiPmgD7eVNKyF39gyr8
-	 bK22sipkB+8gno+UM3kQXsWneAHxc/0If9eU5cgeb7WifH7vwo+7A5aL/KR/qVmOg4
-	 Bp/vobOrCFOQRgVZhubk/5vbkMdDLmoMGBelxhi8=
-Date: Tue, 11 Aug 2026 22:47:46 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, Nick Desaulniers
- <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt
- <justinstitt@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, stable@vger.kernel.org, Kees Cook <kees@kernel.org>
-Subject: Re: [PATCH] arch_numa: Avoid false positive fortify warning in
- setup_node_to_cpumask_map()
-Message-Id: <20260811224746.fdb85bcf47533e12d365b182@linux-foundation.org>
-In-Reply-To: <20260811-arch_numa-avoid-fortify-warning-v1-1-59ce3e689f3a@kernel.org>
-References: <20260811-arch_numa-avoid-fortify-warning-v1-1-59ce3e689f3a@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otpnH+Z2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9EA43C2BCB9;
+	Wed, 12 Aug 2026 05:48:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786513696;
+	bh=0Zo7Rbv+zcD+9wkog421wT1HYw9FSZDE+BW1aRtXh1o=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=otpnH+Z2B4gaP84TTqLX83SaFosEn7R/2P1CEjDwioA9LCYEEb8kRkPkYYF9ZVezK
+	 6AGbsPtkQ/r275HWOwXiOa1WaNZ2l/dPMQ/92YbANBuHLlcJkooaEDKK7O4XGsUu+9
+	 Tg4yge8rCIKi3Ib8/3He7kY/CazH0rzYDtz3fICrXHSNMEbbB2/pmscqk9ezVqOD+C
+	 EWF/NzxNkiSQQu9lXhs2v6AV+xDCsF4YmZL0tfOV2fnXjcBJJ2gNP11knWyrrKFG6l
+	 G2fTu0a4dq7g9CTxfPUFj0CNilw1zV4ubTWLmVQyePlFVya0rIYsvPMXYs4C6IYJuI
+	 AF12IQhpULc0A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 760F7C5B56A;
+	Wed, 12 Aug 2026 05:48:16 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Subject: [PATCH 0/5] powerpc/spufs: fix a leak, an OOB read and three
+ context lifetime/locking bugs
+Date: Wed, 12 Aug 2026 13:48:06 +0800
+Message-Id: <20260812-spufs-fixes-v1-0-449e201d9f64@outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABYJfGoC/x3LTQqAIBBA4avErBP8AbOuEi3ExpqNiUMRiHdPW
+ n48XgXGQsiwDBUKPsR0pQ41DhBOnw4UtHeDltpKp7TgfEcWkV5kEfyEyjhrlJuhH7ngH/qwbq1
+ 944gqs10AAAA=
+X-Change-ID: 20260812-spufs-fixes-ca7e13863189
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ David Howells <dhowells@redhat.com>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jeremy Kerr <jk@ozlabs.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Paul Mackerras <paulus@ozlabs.org>, 
+ Luke Browning <lukebr@linux.vnet.ibm.com>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Junrui Luo <moonafterrain@outlook.com>, Yuhao Jiang <danisjiang@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3114;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=0Zo7Rbv+zcD+9wkog421wT1HYw9FSZDE+BW1aRtXh1o=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBpOWdkFERvEYwJmvRSO3btAjG3R6dgMLstH69ZwK
+ qs0fG/R/9ZRysIgxsUgK6bIcrzg0jcL3y26W3y2JMPMYWUCGcLAxSkAEzkpyMjw06uz4DDPme39
+ V1dKnnuo3ux4/pNRl0zvpdR/FrlLNlXPYWTY80/ekcMqdvE0VQ4ZgUbDGanupqeu/dtasY3nmnm
+ e4H8OAAfuRww=
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+Reply-To: moonafterrain@outlook.com
 
-On Tue, 11 Aug 2026 22:22:42 -0700 Nathan Chancellor <nathan@kernel.org> wrote:
+This series fixes five independent bugs in spufs.
 
-> When building ARCH=riscv using clang with CONFIG_FORTIFY_SOURCE and
-> CONFIG_UBSAN_BOUNDS enabled, CONFIG_NR_CPUS > 64, and the default value
-> of 2 for CONFIG_NODES_SHIFT, there is a compiletime warning from the
-> fortify routines.
+The first two are simple and directly reachable by an unprivileged user:
 
-(cc Kees)
+ - Patch 1 frees the struct spufs_fs_context allocated by
+   ->init_fs_context(). Nothing ever released it, so every spufs
+   fs_context leaks it, and fsopen() reaches ->init_fs_context() before
+   sget_fc() rejects the mount for the lack of FS_USERNS_MOUNT.
 
->   In file included from mm/arch_numa.c:11:
->   In file included from include/linux/acpi.h:14:
->   In file included from include/linux/resource_ext.h:11:
->   In file included from include/linux/slab.h:17:
->   In file included from include/linux/gfp.h:7:
->   In file included from include/linux/mmzone.h:8:
->   In file included from include/linux/spinlock.h:60:
->   In file included from include/linux/interrupt_rc.h:17:
->   In file included from include/linux/smp.h:13:
->   In file included from include/linux/cpumask.h:11:
->   In file included from include/linux/bitmap.h:13:
->   In file included from include/linux/string.h:383:
->   include/linux/fortify-string.h:430:4: warning: call to '__write_overflow_field' declared with 'warning' attribute: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Wattribue-warning]
->     430 |                         __write_overflow_field(p_size_field, size);
->         |                         ^
->   include/linux/fortify-string.h:430:4: note: called by function 'fortify_memset_chk(unsigned long, unsigned long, unsigned long)'
->   include/linux/bitmap.h:248:3: note: inlined by function 'setup_node_to_cpumask_map'
->     248 |                 memset(dst, 0, len);
->         |                 ^
->   include/linux/fortify-string.h:462:25: note: expanded from macro 'memset'
->     462 | #define memset(p, c, s) __fortify_memset_chk(p, c, s,                   \
->         |                         ^
->   include/linux/fortify-string.h:453:2: note: expanded from macro '__fortify_memset_chk'
->     453 |         fortify_memset_chk(__fortify_size, p_size, p_size_field),       \
->         |         ^
->   include/linux/fortify-string.h:430:4: note: use '-gline-directives-only' (implied by '-g1') or higher for more accurate inlining chain locations
->     430 |                         __write_overflow_field(p_size_field, size);
->         |                         ^
->   1 warning generated.
-> 
-> In this configuration, MAX_NUMNODES is 4. clang unrolls the for loop in
-> setup_node_to_cpumask_map() past this, which triggers the fortify check
-> when accessing node_to_cpumask_map on the theoretical fifth loop
-> iteration because it would be an out of bounds write.
-> 
-> Make it clear to clang that nr_node_ids is bounded by MAX_NUMNODES due
-> to the logic in setup_nr_node_ids() by early returning in
-> setup_node_to_cpumask_map() should that condition be violated.
-> 
-> Cc: stable@vger.kernel.org # all applicable
-> Closes: https://github.com/ClangBuiltLinux/linux/issues/2174
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
-> This is based on mm-unstable due to the move of arch_numa.c from mm/ to
-> drivers/base/ living there. I have CC'd stable because this warning
-> appears in my testing back to at least 6.1 but I see no reason why it
-> should not apply to all trees. No fixes tag since this is a layered
-> problem that just happens to appear under certain conditions.
-> 
-> Another alternative would be using the __assume macro to say something
-> like
-> 
->   __assume(nr_node_ids <= MAX_NUMNODES);
-> 
-> but that seems a little more fragile.
-> ---
->  mm/arch_numa.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/mm/arch_numa.c b/mm/arch_numa.c
-> index 442ea239bba7..bd7772b05bcf 100644
-> --- a/mm/arch_numa.c
-> +++ b/mm/arch_numa.c
-> @@ -105,6 +105,18 @@ static void __init setup_node_to_cpumask_map(void)
->  	if (nr_node_ids == MAX_NUMNODES)
->  		setup_nr_node_ids();
->  
-> +	/*
-> +	 * This check should never be true but it makes it clear to compilers
-> +	 * that node_to_cpumask_map is bound by nr_node_ids, avoiding false
-> +	 * positive fortify warnings when accessing node_to_cpumask_map in the
-> +	 * for loop below.
-> +	 */
-> +	if (unlikely(nr_node_ids > MAX_NUMNODES)) {
-> +		pr_err("nr_node_ids (%u) is larger than MAX_NUMNODES (%d)",
+ - Patch 2 removes a double sizeof(u32) scaling in
+   spufs_wbox_info_read(). The value handed to
+   simple_read_from_buffer() as the length of available data reaches 64
+   for a 16-byte on-stack buffer, so a read past offset 16 copies up to
+   48 bytes of adjacent kernel stack to userspace. The mailbox
+   occupancy that gates this is set by writing the context's own wbox
+   file, and wbox_info is mode 0444.
 
-Sashiko wants a \n there.
+The remaining three are concurrency bugs in the context scheduler and
+the fault path - one object lifetime race, and two around
+ctx->state_mutex:
 
-> +		       nr_node_ids, MAX_NUMNODES);
+ - Patch 3 takes a reference on contexts returned by
+   grab_runnable_context(). The runqueue holds no reference of its own,
+   and once the context is unlinked the owner's spu_del_from_rq()
+   becomes a no-op, so it can close and free the context while the
+   scheduler still holds the pointer - a use-after-free window spanning
+   a full context save. The BUG_ON(!list_empty(&ctx->rq)) in
+   destroy_spu_context() cannot catch it, because list_del_init() has
+   already emptied ctx->rq.
 
-Lord only knows why nr_node_ids is unsigned but MAX_NUMNODES is signed.
+ - Patch 4 retests ctx->state after spu_deactivate() in
+   spu_acquire_saved(). __spu_deactivate() drops state_mutex
+   internally, so the earlier test is stale on return; a second reader
+   can consume the single SPU_SCHED_WAS_ACTIVE bit and rebind the
+   context, leaving the first acquirer reading a save image the SPU is
+   still writing and then hitting the BUG_ON() in spu_release_saved()
+   with state_mutex held.
 
-lgtm otherwise.
+ - Patch 5 releases state_mutex before re-taking mmap_lock in
+   spufs_ps_fault(). Every other spufs fault path takes the two locks
+   in the opposite order, and three threads sharing an mm can close the
+   cycle; because spusched_tick() takes the same state_mutex, one
+   wedged context also stalls SPU scheduling for the whole node.
 
-> +		return;
-> +	}
-> +
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+---
+Junrui Luo (5):
+      powerpc/spufs: fix memory leak of spufs_fs_context in spufs_free_fc()
+      powerpc/spufs: fix out-of-bounds read in spufs_wbox_info_read()
+      powerpc/spufs: take a reference on contexts pulled off the runqueue
+      powerpc/spufs: fix context state race in spu_acquire_saved()
+      powerpc/spufs: fix mmap_lock/state_mutex lock inversion
+
+ arch/powerpc/platforms/cell/spufs/context.c | 4 ++--
+ arch/powerpc/platforms/cell/spufs/file.c    | 6 ++++--
+ arch/powerpc/platforms/cell/spufs/inode.c   | 1 +
+ arch/powerpc/platforms/cell/spufs/sched.c   | 9 ++++++++-
+ 4 files changed, 15 insertions(+), 5 deletions(-)
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260812-spufs-fixes-ca7e13863189
+
+Best regards,
+-- 
+Junrui Luo <moonafterrain@outlook.com>
+
 
