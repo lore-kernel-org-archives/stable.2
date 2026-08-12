@@ -1,171 +1,361 @@
-Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 009E833D4F0;
-	Wed, 12 Aug 2026 14:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C4B432BC9;
+	Wed, 12 Aug 2026 14:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786544622; cv=none; b=Kt0AkI+Zh1Ow8qhY8QwuXgifR/ebsxbZysxq8X/58Kc44gNjAz083QiwRPi9Rlg4+doueKJWYQ6WAFwfvzuAyokiga2QmMO2qNWWf+LX/peWYWALEF6+zhCryJOsoJwgxkpKNMgI402q9VOaRbMZ8xAAEt5MPdQnCAjwymDPZVQ=
+	t=1786544730; cv=none; b=OEtQHqekrjhn095c3xbpXa0KcNvmaovoX4F72srLCCUn/JzvsvmoIaMgG469SRhDrMl3JZVEUAfmL+eXqf3Uihpd1oinsDDK2kSHO3qUbLBHECoEpOWZ5GiQ49r+ULjBBXIrxSEaOa0bpXQCnTSna/Sjr50VN8q1O+BSXTAF/HY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786544622; c=relaxed/simple;
-	bh=DaPAjmxog5owAR2BES1Ti0cJEW7rLRp2Yo/7zXarSZI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=QCs0AEwEz+0oRH8oJPVscCCbOREK9+GYTX1mQIZ57QKgJShEWF5JDzkZWOx5Z9rpZ++euShJIlY1dHUVe6HnSnLgShwCTQbtOFYKQuW3BmmI/Wps0OsQmmHsPdiIeEL9SNq8nxpKYCBkO75JPBxuWPc6SP2Uwfbsp3cARuC4Tj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=d9K4BAH0; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=rNxS9Xp2; arc=none smtp.client-ip=160.80.4.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	s=arc-20240116; t=1786544730; c=relaxed/simple;
+	bh=FlegEE6R2dmZVclNdJ0BhhQalmHQrTxc+SxCFky9irI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BSDosh3rWcbecNovSxhRAv98AObNLLCsBWWjNYtzfoY+n3JbjX9odnb6YPiA+X8ArLPLh/KXtS6n9oMJ1Ltu0H5H5qidwmLRJCf/njLNU5fSNsneeTBLj05ozgD2oXL+nPxpFplH5LzfZHvHoPa7eDDqq2Vd/iPANsxq/Gw4ZHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dmmx6ZWn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="d9K4BAH0";
-	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="rNxS9Xp2"
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 67CEMuHM006037;
-	Wed, 12 Aug 2026 16:23:01 +0200
-Received: from lubuntu-18.04 (host-80-183-189-234.business.telecomitalia.it [80.183.189.234])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 72851122967;
-	Wed, 12 Aug 2026 16:22:51 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1786544571; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OuVP8jn+2IQuzgwsSZXa4qlpdqRw4iDgXUxpue/OBpA=;
-	b=d9K4BAH0H1Te43xsUyM+rk0ijrR/AI/imE5QpJyoHxk4MIcbYnD3dwuYRWRAA9eGhqFax6
-	5aZUubZzLza91/Bw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1786544571; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OuVP8jn+2IQuzgwsSZXa4qlpdqRw4iDgXUxpue/OBpA=;
-	b=rNxS9Xp2/9NYCs2VzZteEggRS7h6wl1CEENjzg5ezIKO4eLMLzXqWW4oMQUueemN7eRAXJ
-	BqXrQCjiUobTsT6Xs+wli7fAVYwG31MM+s/7g9q19836BvHLB635hE8vD3oT5SXwCC3OwA
-	keLvz53/K3FjWS/felaHtOxX4RMIMlA62XNY3s5BKduYVhoSHYHsRVh1pg3viDoieFrsyM
-	homntDN6hcHzYXmkfSiQhyCIcNLre+4hRZ/u4DmSu/ureCwb/dAMKMVVZIWUK1GA9LShGW
-	H5fGOrkiJBAruI+Eq9zodg5otcuzQhnQd7Y8sE5VPeHi8nt6Nfgm4/ZEZOTCoQ==
-Date: Wed, 12 Aug 2026 16:22:50 +0200
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: David Lee <david.lee@trailofbits.com>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, Kyle Zeng <kylebot@openai.com>,
-        "Dominik 'Disconnect3d' Czarnota" <dominik.czarnota@trailofbits.com>,
-        Nicolas Dichtel <nicolas.dichtel@6wind.com>, horms@kernel.org,
-        stefano.salsano@uniroma2.it, dsahern@kernel.org,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Andrea Mayer
- <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH net v3] ipv6: seg6: clear IPv4 control block on IPIP
- decapsulation
-Message-Id: <20260812162250.71d6e1df06ee05fdc3fd5fe0@uniroma2.it>
-In-Reply-To: <20260810154732.850472-1-david.lee@trailofbits.com>
-References: <20260810154732.850472-1-david.lee@trailofbits.com>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dmmx6ZWn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1CB1F00A3A;
+	Wed, 12 Aug 2026 14:25:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786544728;
+	bh=JSqQE2i3L0CpveRAmURpu582s2nkWDSB3uYX5ZL+2T8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Dmmx6ZWn/yq9Y7rIljHVtJ0HibDK0DhGwtOSaf7ok9f/Lkx2GTab1x6/Po/WqrsGO
+	 Ra5AYCnvY04w0XqOtX9O3BzOD3iSGL2VBg7X1yPn0tkLT2ZP7a0LigcolCG3GNKKz2
+	 9BD3WrkXkU7J3dRO6g5fxUS7ekzWJbodvB8VY3u3G8cMgSKvDGR9VfprMr2JOUqWvU
+	 esdYoSIMpCWDOMAr3yDR/pqeaOcDxziojDhnLHD40NOeiLc3SIDPlKfVfFcel7Fu6K
+	 USWmFqCgZ+32oVuFAYxob7DH7W8Ag788QJaM/MLWtW+WiV8p5q3E7XPAq2VKnIbsDl
+	 zt5rnw30klA5g==
+Date: Wed, 12 Aug 2026 15:25:24 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Joey Gouly <joey.gouly@arm.com>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Shen Yongchao <grayhat@foxmail.com>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: nv: Fix life cycle of the nested_mmus array
+Message-ID: <anx9wCmr7mW7U58H@gremlin>
+References: <20260811122057.754772-1-maz@kernel.org>
+ <anxXP_ZTZb_iKu1w@e143914.arm.com>
+ <86ik5f1lon.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86ik5f1lon.wl-maz@kernel.org>
 
-On Mon, 10 Aug 2026 15:47:31 +0000
-David Lee <david.lee@trailofbits.com> wrote:
+On Wed, Aug 12, 2026 at 03:02:32PM +0100, Marc Zyngier wrote:
+> Hi Joey,
+>
+> On Wed, 12 Aug 2026 12:21:35 +0100,
+> Joey Gouly <joey.gouly@arm.com> wrote:
+> >
+> > Hi,
+> >
+> > Small comment / suggestion.
+> >
+> > On Tue, Aug 11, 2026 at 01:20:57PM +0100, Marc Zyngier wrote:
+> > > The nested_mmus array holds the shadow page tables that are used when
+> > > a guest is running a nested context. These structures are allocated on
+> > > VCPU_INIT for whole guest, which implies that they may have to be
+> > > relocated as the array grows.
+> > >
+> > > Should a VCPU_INIT occur whilst a vcpu is actively running an L2 and
+> > > that the allocation requires relocation, that vcpu will still be
+> > > running with a pointer to the previous structure, which will have been
+> > > freed.
+> > >
+> > > Fix this by turning the array of structures to an array of pointers,
+> > > which is now allocated at VM creation, sized to the absolute maximum
+> > > that KVM can handle.
+> > >
+> > > In turn, each VCPU_INIT contributes S2_MMU_PER_VCPU to the pool. No
+> > > reallocation is ever performed, and the life cycle of each object is
+> > > much clearer:
+> > >
+> > > - the nested_mmus array is allocated in kvm_init_nested(), and freed
+> > >   in kvm_arch_destroy_vm()
+> > >
+> > > - s2_mmu structures are allocated in kvm_vcpu_init_nested(), and freed
+> > >   on kvm_arch_flush_shadow_all()
+> > >
+> > > Finally, the freeing of vcpu->arch.vncr_array is made consistent
+> > > rather than being done on some failure paths, but not others.
+> > >
+> > > Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
+> > > Reported-by: Shen Yongchao <grayhat@foxmail.com>
+> > > Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
+> > > Suggested-by: Karl Mehltretter <kmehltretter@gmail.com>
+> > > Link: https://lore.kernel.org/r/20260803224405.41468-1-kmehltretter@gmail.com
+> > > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> > > Cc: stable@vger.kernel.org
+> > > ---
+> > >
+> > > Notes:
+> > >     Sending this as a first class patch, since the other approaches were even
+> > >     uglier than this one. I'm still displeased with kvm_arch_flush_shadow_all(),
+> > >     but that's a step in the direction of tightening it:
+> > >
+> > >  arch/arm64/include/asm/kvm_host.h   |  2 +-
+> > >  arch/arm64/include/asm/kvm_nested.h |  2 +-
+> > >  arch/arm64/kvm/arm.c                |  8 ++-
+> > >  arch/arm64/kvm/nested.c             | 91 +++++++++++++----------------
+> > >  4 files changed, 49 insertions(+), 54 deletions(-)
+> > >
+> > [..]
+> > > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > > index 20af94197a8a7..50d6dcc75582c 100644
+> > > --- a/arch/arm64/kvm/nested.c
+> > > +++ b/arch/arm64/kvm/nested.c
+> > > @@ -44,11 +44,15 @@ struct vncr_tlb {
+> > >   */
+> > >  #define S2_MMU_PER_VCPU		2
+> > >
+> > > -void kvm_init_nested(struct kvm *kvm)
+> > > +int kvm_init_nested(struct kvm *kvm)
+> > >  {
+> > > -	kvm->arch.nested_mmus = NULL;
+> > > +	kvm->arch.nested_mmus = kvmalloc_array(KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
+> > > +					       sizeof(struct s2_mmu *),
+> > > +					       GFP_KERNEL_ACCOUNT);
+> > >  	kvm->arch.nested_mmus_size = 0;
+> > >  	atomic_set(&kvm->arch.vncr_tlb_count, 0);
+> > > +
+> > > +	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
+> > >  }
+> > >
+> > >  static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
+> > > @@ -69,8 +73,7 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
+> > >  int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+> > >  {
+> > >  	struct kvm *kvm = vcpu->kvm;
+> > > -	struct kvm_s2_mmu *tmp;
+> > > -	int num_mmus, ret = 0;
+> > > +	int num_mmus;
+> > >
+> > >  	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
+> > >  	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
+> > > @@ -83,51 +86,40 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+> > >  	if (!vcpu->arch.ctxt.vncr_array)
+> > >  		return -ENOMEM;
+> > >
+> > > -	/*
+> > > -	 * Let's treat memory allocation failures as benign: If we fail to
+> > > -	 * allocate anything, return an error and keep the allocated array
+> > > -	 * alive. Userspace may try to recover by initializing the vcpu
+> > > -	 * again, and there is no reason to affect the whole VM for this.
+> > > -	 */
+> > >  	num_mmus = atomic_read(&kvm->online_vcpus) * S2_MMU_PER_VCPU;
+> > >
+> > >  	if (num_mmus > kvm->arch.nested_mmus_size) {
+> >
+> > Sashiko.dev complained about a possible race here, but looking at the
+> > code, it seems incorrect?
+> >
+> > Unsure why it didn't e-mail it.
+> > https://sashiko.dev/#/patchset/20260811122057.754772-1-maz%40kernel.org
+> >
+> > It seems that this code is serialised / protected by
+> > kvm->arch.config_lock in __kvm_vcpu_set_target() (which is the only
+> > caller of kvm_vcpu_init_nested() via kvm_setup_vcpu())
+>
+> Yeah, this looks like Sashiko went south again. You'd hope it'd be
+> able to follow such a simple code path...
 
-Thanks Kyle and David for the v3. The code looks good. What follows is
-about the commit message.
+Well, I wonder if this is onto _something_ though maybe badly expressed.
 
-I think the commit message is missing some information that the review
-needs now, and that anyone reading git log will need later, since this
-patch is Cc: stable.
+The window is probably super small really but a concurrent MMU notifier
+event could possibly get confused because of the nested_mmus growth, and
+presumably that doesn't also take kvm->arch.config_lock I don't think?
 
-> From: Kyle Zeng <kylebot@openai.com>
-> 
-> End.DX4 and End.DT4 decapsulate an IPv4 packet through
-> decap_and_validate() and send it directly to IPv4 routing. The inner
-> packet therefore bypasses ip_rcv_core(), which normally clears IPCB
-> before IPv4 interprets skb->cb.
-> 
-> The skb instead retains IP6CB data from the outer packet. IPv6
-> extension-header offsets overlap IPv4 option fields, so IPv4 can treat
-> those offsets as saved option metadata. __ip_options_echo() can then
-> copy beyond the allocation for saved options.
-> 
+I attach my original patch that Marc's patch supercedes which goes into
+infinite probably-OTT detail (still learning so trying to think through
+things a lot :) but maybe useful there for reference.
 
-This says the offsets overlap, but not which stale field has to be
-non-zero for the copy to be attempted. IPCB->opt.optlen shares a byte
-with IP6CB->lastopt, and __ip_options_echo() returns before any copy
-when the optlen it is given is zero. What the outer packet has to look
-like for that byte to be non-zero, and whether the sender controls it,
-are not stated.
+I think Marc's patch fixes this in any case :)
 
-> Separate End.DX4 and End.DT4 reproducers on the unpatched v7.2-rc5
-> kernel both produced:
-> 
->   BUG: KASAN: slab-out-of-bounds in __ip_options_echo()
->   Write of size 255
-> 
-> The End.DX4 trace passes through input_action_end_dx4_finish() and
-> input_action_end_dx4(), while the End.DT4 trace passes through
-> input_action_end_dt4().
-> 
+>
+> >
+> > So maybe a
+> >
+> > 	lockdep_assert_held(&kvm->arch.config_lock);
+> >
+> > makes sense in kvm_vcpu_init_nested()?
+>
+> Sure, that's never a bad thing to add.
 
-Pasting the call stack would show how __ip_options_echo() is reached.
+This is still valuable though I think!
 
-> When decap_and_validate() handles IPPROTO_IPIP, save the ingress
-> interface from IP6CB, clear IPCB, and restore the saved value. Doing
-> this in the common decapsulation path covers End.DX4, End.DT4, and
-> End.DT46's IPv4 arm.
-> 
-> Use IP6CB(skb)->iif rather than skb->skb_iif. These actions run after
-> l3mdev processing, which can replace skb_iif with the L3 master;
-> IP6CB iif still records the receiving interface set at IPv6 ingress.
-> 
-> Fixes: 891ef8dd2a8d ("ipv6: sr: implement additional seg6local actions")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-> Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> Co-developed-by: David Lee <david.lee@trailofbits.com>
-> Signed-off-by: David Lee <david.lee@trailofbits.com>
-> ---
-> Changes in v3:
-> - Clear IPCB in the common IPPROTO_IPIP decapsulation path so End.DX4,
->   End.DT4, and End.DT46's IPv4 arm are covered.
-> - Preserve the ingress interface from IP6CB instead of skb->skb_iif,
->   which can identify the VRF master after l3mdev processing.
-> - Update the Fixes tag to the commit that introduced End.DX4.
-> - Include the End.DX4 and End.DT4 KASAN evidence.
-> 
-> v2: https://lore.kernel.org/netdev/20260804094625.715305-1-david.lee@trailofbits.com/
-> v1: https://lore.kernel.org/all/20260731140832.567669-1-david.lee@trailofbits.com/ 
-> 
->  net/ipv6/seg6_local.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-> index 2b41e4c0dddd..95ea0b62729a 100644
-> --- a/net/ipv6/seg6_local.c
-> +++ b/net/ipv6/seg6_local.c
-> @@ -256,6 +256,13 @@ static bool decap_and_validate(struct sk_buff *skb, int proto)
->  	if (iptunnel_pull_offloads(skb))
->  		return false;
->  
-> +	if (proto == IPPROTO_IPIP) {
-> +		int iif = IP6CB(skb)->iif;
-> +
-> +		memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
-> +		IPCB(skb)->iif = iif;
-> +	}
-> +
->  	return true;
->  }
->  
+We have a lot of asserts like this in core mm, really helpful practice I think.
 
-IMHO, the commit message is worth a new revision.
+I wonder if it'd be helpful to have helper functons for this, e.g.:
 
-Thanks,
+static inline void kvm_assert_config_locked(const struct kvm *kvm)
+{
+	lockdep_assert_held(&kvm->arch.config_lock);
+}
 
-Ciao,
-Andrea
+static inline void kvm_assert_mmu_read_locked(const struct kvm *kvm)
+{
+	lockdep_assert_held_read(&kvm->mmu_lock);
+}
+
+static inline void kvm_assert_mmu_write_locked(const struct kvm *kvm)
+{
+	lockdep_assert_held_write(&kvm->mmu_lock);
+}
+
+etc.?
+
+>
+> Thanks,
+>
+> 	M.
+>
+> --
+> Without deviation from the norm, progress is not possible.
+>
+
+--
+Cheers, Lorenzo
+
+----8<----
+From c0ca5794fcfc85d5d5db822999496419d4417522 Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 11 Aug 2026 19:34:56 +0100
+Subject: [PATCH] KVM: arm64: nv: avoid race on nested MMU growth
+
+When starting up a new VM, kvm_vcpu_init_nested() sets up each vCPU:
+
+kvm_arch_vcpu_ioctl()
+  -> kvm_arch_vcpu_ioctl_vcpu_init()
+    -> kvm_vcpu_set_target()
+      -> __kvm_vcpu_set_target()
+        -> kvm_setup_vcpu()
+          -> kvm_vcpu_init_nested()
+
+With nested virtualisation this can result in nested_mmu growth in
+kvm->arch.nested_mmus[] and kvm->arch.nested_mmus_size.
+
+When this happens, kvm_vcpu_init_nested() allocates a new array then copies
+existing nested mmu state into it before swapping this array into
+kvm->arch.nested_mmus, all under kvm->mmu_lock.
+
+However it then initialises the entries via init_nested_s2_mmu() and sets
+kvm->arch.nested_mmus_size as well as handling teardown on
+init_nested_s2_mmu() returning an error, outside of the lock.
+
+An unlucky concurrent MMU notifier event could read these values before
+they are in a valid state.
+
+The newly allocated memory obtained from kvcalloc() is zeroed, which is
+especially problematic for a kvm_s2_mmu_valid() check as this checks for
+the absence of VTTBR_CNP_BIT in mmu->tlb_vttbr which is trivially true of
+zeroed memory.
+
+Since everything after the num_mmus > kvm->arch.nested_mmus_size branch is
+a no-op if this condition is not true, simplify things by replacing it with
+a guard clause on the inverse condition.
+
+The tmp variable is allocated to temporarily store data, but then this is
+swapped in to kvm->arch.nested_mmus[] and later operations are performed on
+this instead.
+
+Both the copying of existing data and the assignment of tmp[i].pgt->mmu
+must be done in a critical section as the former might be mutated under
+kvm->mmu_lock and the latter sets the externally visible pgt->mmu field.
+
+However, initialisation of new fields and error handling can be done
+outside the lock which simplifies things, and in any case
+init_nested_s2_mmu() ultimately acquires the kvm->mmu_lock in parts of its
+operation anyway so the lock cannot be held over it in any case.
+
+By limiting the scope over which kvm->mmu_lock is held any potential lock
+contention is also reduced.
+
+Error handling is made easier by the fact that no externally visible state
+has been altered by this stage as only tmp has been updated.
+
+Fix the race by setting kvm->arch.nested_mmus[] and
+kvm->arch.nested_mmus_size in the critical section.
+
+Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ arch/arm64/kvm/nested.c | 41 +++++++++++++++++------------------------
+ 1 file changed, 17 insertions(+), 24 deletions(-)
+
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index f7b1385a5ac6..0c32977463b8 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -92,43 +92,36 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+ 	 */
+ 	num_mmus = atomic_read(&kvm->online_vcpus) * S2_MMU_PER_VCPU;
+
+-	if (num_mmus > kvm->arch.nested_mmus_size) {
+-		tmp = kvcalloc(num_mmus, sizeof(*tmp), GFP_KERNEL_ACCOUNT);
+-		if (!tmp)
+-			return -ENOMEM;
+-
+-		write_lock(&kvm->mmu_lock);
+-
+-		if (kvm->arch.nested_mmus_size) {
+-			memcpy(tmp, kvm->arch.nested_mmus,
+-			       size_mul(sizeof(*tmp), kvm->arch.nested_mmus_size));
+-
+-			for (int i = 0; i < kvm->arch.nested_mmus_size; i++)
+-				tmp[i].pgt->mmu = &tmp[i];
+-		}
+-
+-		swap(kvm->arch.nested_mmus, tmp);
+-
+-		write_unlock(&kvm->mmu_lock);
++	if (num_mmus <= kvm->arch.nested_mmus_size)
++		return 0;
+
+-		kvfree(tmp);
+-	}
++	tmp = kvcalloc(num_mmus, sizeof(*tmp), GFP_KERNEL_ACCOUNT);
++	if (!tmp)
++		return -ENOMEM;
+
+ 	for (int i = kvm->arch.nested_mmus_size; !ret && i < num_mmus; i++)
+-		ret = init_nested_s2_mmu(kvm, &kvm->arch.nested_mmus[i]);
++		ret = init_nested_s2_mmu(kvm, &tmp[i]);
+
+ 	if (ret) {
+ 		for (int i = kvm->arch.nested_mmus_size; i < num_mmus; i++)
+-			kvm_free_stage2_pgd(&kvm->arch.nested_mmus[i]);
+-
++			kvm_free_stage2_pgd(&tmp[i]);
+ 		free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
+ 		vcpu->arch.ctxt.vncr_array = NULL;
+-
++		kvfree(tmp);
+ 		return ret;
+ 	}
+
++	write_lock(&kvm->mmu_lock);
++	if (kvm->arch.nested_mmus_size)
++		memcpy(tmp, kvm->arch.nested_mmus,
++		       size_mul(sizeof(*tmp), kvm->arch.nested_mmus_size));
++	for (int i = 0; i < kvm->arch.nested_mmus_size; i++)
++		tmp[i].pgt->mmu = &tmp[i];
++	swap(kvm->arch.nested_mmus, tmp);
+ 	kvm->arch.nested_mmus_size = num_mmus;
++	write_unlock(&kvm->mmu_lock);
+
++	kvfree(tmp);
+ 	return 0;
+ }
+
+--
+2.55.0
