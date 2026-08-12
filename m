@@ -1,168 +1,184 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CAF244399DC
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 11:21:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C1642FCA1;
+	Wed, 12 Aug 2026 11:26:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=50.112.246.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786533706; cv=none; b=Ycw7du7DmHuK0ps6JhT6iS2omuJoli2VyJX6L/pWouy7L9balOEAA08AMHKIgKiQRjhAYtggsEw5jnEClVRCBIQNE2IAWTv9zXw7CW4FVz0qmFZ15Zht68YOpow/0zmKmGayEItAJfLsGpJH72xQNTRZbHtmk1ugR3EP2OVuT2k=
+	t=1786533972; cv=none; b=blHHFNr1SFDQswDn/GFhwi/qgQhX+hDPqpWUtH80XKRgVKqnyTjz4SB/BcmANJqQYnNvHIOE8lFtVILJPj+14721GX4b8gV2x3kGBLNsFU+MMMc+7PVrbxQmxto5minHXBI0+jsC280RLjd9NChhspk4AqtU+x/7hWW+D2WcMrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786533706; c=relaxed/simple;
-	bh=uc8UMTUcAc8ZS/P+6zbuB/2Y5u+uo+jypF+mtHt96pE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CIOvn8PvCblBBCCT5gGN8WDcFsRNc+Rju4BZVsv7FV5pWbxyp+wyo4Rif+iRKF89vqpM2D39kCDxxsV+PVj2eCqS3+r+aMbxFroB42VazSimEse+5BO+AVD3db+psRpasdSUMxDt0dMc6rBVUPAM7aEtNgDKk94kco50w3RgQmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ekPfEqaV; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1786533972; c=relaxed/simple;
+	bh=x4zVZy/4Gw4Kh0sKDdA5vMvOfAI4KSIhzYdd6uH4VLY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=V0qP6/QDO6la/v5Ao+eas2FhfFhZmidaYqjxn6vBCKx34zm8vJFDy92iRO5mGuWUkpXYYFDrPha8oZ+ft0eNCClZ5hOkKordxIVMFP3lg2bas4LbMYKl26UpdKP91vudnw4vLU7iM+xrGchE6EzUv0/IbblAYPXVFI/FJ3rUIAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=SeO6m2yt; arc=none smtp.client-ip=50.112.246.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ekPfEqaV"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 01F161682;
-	Wed, 12 Aug 2026 04:21:39 -0700 (PDT)
-Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 15DEC3F632;
-	Wed, 12 Aug 2026 04:21:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1786533702; bh=uc8UMTUcAc8ZS/P+6zbuB/2Y5u+uo+jypF+mtHt96pE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ekPfEqaVCpaAXY6MbA6c2uUF2x/vChiTFrl+sZEaEeIKaGHASaoEctkvB7NDS5qAm
-	 PQtiEK3PgUp7SvcMdLGsJokNrbEtsEgWJyeH9k95+KVbCPXDpkPgenhfWhcrPuwA++
-	 8nnibAEVoFlzWR5a9vd/ZTEhMitRodi1fROi8hCY=
-Date: Wed, 12 Aug 2026 12:21:35 +0100
-From: Joey Gouly <joey.gouly@arm.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Oliver Upton <oupton@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Shen Yongchao <grayhat@foxmail.com>,
-	Karl Mehltretter <kmehltretter@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: nv: Fix life cycle of the nested_mmus array
-Message-ID: <anxXP_ZTZb_iKu1w@e143914.arm.com>
-References: <20260811122057.754772-1-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="SeO6m2yt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1786533969; x=1818069969;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=1tg7B1zD1egL+D8CuslrJDXfxIsbHWRwbCXLRjrVcEE=;
+  b=SeO6m2ythmqQ7FRH4UvOMtpZ0DstUP9M74zHqyipe8mDDrvERMMHI4+T
+   2hl7v0ost3nhRlVgzBLlaFkevdwbl5pUgIJOeMpfZniboSO+8ZetQEYQp
+   J4TpcKL7l+r4Ong83t3YDiK3N/eo4DCpZflNx+WTM0tiNncYEk1LHyCdx
+   jNnnX3twSi+VnSmrAvU+K+NsOfCkghyKV2UxdvG9YH8ZqysiRk1yMbei4
+   9vIWpa2QJ2GhukzU72bD18qWc+kCYsJX3Oo2GWlodcxtTSJhD9DtHH1H0
+   aH8qOhsrpJhTAsDpfXv02DtJUVtaMLnLITHj77ejM5QGT5DCd8ckpCa1S
+   g==;
+X-CSE-ConnectionGUID: alRG/RyjQk6JigDKIE2sLA==
+X-CSE-MsgGUID: 4Y/+ASnaTai7qHm34TIfuA==
+X-IronPort-AV: E=Sophos;i="6.25,219,1779148800"; 
+   d="scan'208";a="25566000"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 11:26:05 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:7212]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.41.125:2525] with esmtp (Farcaster)
+ id 24834529-4e62-4935-a83c-df8ec0d7c5d0; Wed, 12 Aug 2026 11:26:04 +0000 (UTC)
+X-Farcaster-Flow-ID: 24834529-4e62-4935-a83c-df8ec0d7c5d0
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Wed, 12 Aug 2026 11:26:04 +0000
+Received: from dev-dsk-simonlie-1b-ad174abf.eu-west-1.amazon.com
+ (172.19.78.185) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45; Wed, 12 Aug 2026
+ 11:26:03 +0000
+From: Simon Liebold <simonlie@amazon.de>
+To: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+CC: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, "Simon
+ Liebold" <simonlie@amazon.de>
+Subject: [PATCH 6.18.y 1/2] blk-mq: pop cached request if it is usable
+Date: Wed, 12 Aug 2026 11:25:44 +0000
+Message-ID: <20260812112545.2630000-1-simonlie@amazon.de>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811122057.754772-1-maz@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D033UWC003.ant.amazon.com (10.13.139.217) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi,
+From: Keith Busch <kbusch@kernel.org>
 
-Small comment / suggestion.
+[ Upstream commit dc278e9bf2b9513a763353e6b9cc21e0f532954e ]
 
-On Tue, Aug 11, 2026 at 01:20:57PM +0100, Marc Zyngier wrote:
-> The nested_mmus array holds the shadow page tables that are used when
-> a guest is running a nested context. These structures are allocated on
-> VCPU_INIT for whole guest, which implies that they may have to be
-> relocated as the array grows.
-> 
-> Should a VCPU_INIT occur whilst a vcpu is actively running an L2 and
-> that the allocation requires relocation, that vcpu will still be
-> running with a pointer to the previous structure, which will have been
-> freed.
-> 
-> Fix this by turning the array of structures to an array of pointers,
-> which is now allocated at VM creation, sized to the absolute maximum
-> that KVM can handle.
-> 
-> In turn, each VCPU_INIT contributes S2_MMU_PER_VCPU to the pool. No
-> reallocation is ever performed, and the life cycle of each object is
-> much clearer:
-> 
-> - the nested_mmus array is allocated in kvm_init_nested(), and freed
->   in kvm_arch_destroy_vm()
-> 
-> - s2_mmu structures are allocated in kvm_vcpu_init_nested(), and freed
->   on kvm_arch_flush_shadow_all()
-> 
-> Finally, the freeing of vcpu->arch.vncr_array is made consistent
-> rather than being done on some failure paths, but not others.
-> 
-> Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
-> Reported-by: Shen Yongchao <grayhat@foxmail.com>
-> Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-> Suggested-by: Karl Mehltretter <kmehltretter@gmail.com>
-> Link: https://lore.kernel.org/r/20260803224405.41468-1-kmehltretter@gmail.com
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> Cc: stable@vger.kernel.org
-> ---
-> 
-> Notes:
->     Sending this as a first class patch, since the other approaches were even
->     uglier than this one. I'm still displeased with kvm_arch_flush_shadow_all(),
->     but that's a step in the direction of tightening it:
-> 
->  arch/arm64/include/asm/kvm_host.h   |  2 +-
->  arch/arm64/include/asm/kvm_nested.h |  2 +-
->  arch/arm64/kvm/arm.c                |  8 ++-
->  arch/arm64/kvm/nested.c             | 91 +++++++++++++----------------
->  4 files changed, 49 insertions(+), 54 deletions(-)
-> 
-[..]
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index 20af94197a8a7..50d6dcc75582c 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -44,11 +44,15 @@ struct vncr_tlb {
->   */
->  #define S2_MMU_PER_VCPU		2
->  
-> -void kvm_init_nested(struct kvm *kvm)
-> +int kvm_init_nested(struct kvm *kvm)
->  {
-> -	kvm->arch.nested_mmus = NULL;
-> +	kvm->arch.nested_mmus = kvmalloc_array(KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
-> +					       sizeof(struct s2_mmu *),
-> +					       GFP_KERNEL_ACCOUNT);
->  	kvm->arch.nested_mmus_size = 0;
->  	atomic_set(&kvm->arch.vncr_tlb_count, 0);
-> +
-> +	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
->  }
->  
->  static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
-> @@ -69,8 +73,7 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
->  int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
->  {
->  	struct kvm *kvm = vcpu->kvm;
-> -	struct kvm_s2_mmu *tmp;
-> -	int num_mmus, ret = 0;
-> +	int num_mmus;
->  
->  	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
->  	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
-> @@ -83,51 +86,40 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
->  	if (!vcpu->arch.ctxt.vncr_array)
->  		return -ENOMEM;
->  
-> -	/*
-> -	 * Let's treat memory allocation failures as benign: If we fail to
-> -	 * allocate anything, return an error and keep the allocated array
-> -	 * alive. Userspace may try to recover by initializing the vcpu
-> -	 * again, and there is no reason to affect the whole VM for this.
-> -	 */
->  	num_mmus = atomic_read(&kvm->online_vcpus) * S2_MMU_PER_VCPU;
->  
->  	if (num_mmus > kvm->arch.nested_mmus_size) {
+When submitting a bio to blk-mq, if the task should sleep after peeking
+a cached request, but before it pops it, the plug flushes and calls
+blk_mq_free_plug_rqs, freeing the cached_rqs. This creates a
+use-after-free bug. Fix this by popping the cached request before any
+possible blocking calls if it is suitable for use.
 
-Sashiko.dev complained about a possible race here, but looking at the
-code, it seems incorrect?
+Popping this request first holds a queue reference, so avoid any
+serialization races with queue freezes and can safely proceed with
+dispatching that request to the driver. This potentially increases a
+timing window from when a driver wants to freeze its queue to when
+requests stop being dispatched. That scenario is off the fast path
+though, and drivers need to appropriately handle requests during a
+freeze request anyway.
 
-Unsure why it didn't e-mail it.
-https://sashiko.dev/#/patchset/20260811122057.754772-1-maz%40kernel.org
+The downside is the popped element needs to be individually freed when
+we performed a bio plug merge. The cached request would have had to be
+freed later anyway, but this patch does it inline with building the plug
+list instead of after flushing it.
 
-It seems that this code is serialised / protected by
-kvm->arch.config_lock in __kvm_vcpu_set_target() (which is the only
-caller of kvm_vcpu_init_nested() via kvm_setup_vcpu())
+Fixes: b0077e269f6c1 ("blk-mq: make sure active queue usage is held for bio_integrity_prep()")
+Fixes: 7b4f36cd22a65 ("block: ensure we hold a queue reference when using queue limits")
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Link: https://patch.msgid.link/20260521190253.242065-1-kbusch@meta.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Simon Liebold <simonlie@amazon.de>
+---
+ block/blk-mq.c | 34 +++++++++-------------------------
+ 1 file changed, 9 insertions(+), 25 deletions(-)
 
-So maybe a
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index ab05c5c9e6ae2..711d295d36db9 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -3057,7 +3057,7 @@ static struct request *blk_mq_get_new_requests(struct request_queue *q,
+ /*
+  * Check if there is a suitable cached request and return it.
+  */
+-static struct request *blk_mq_peek_cached_request(struct blk_plug *plug,
++static struct request *blk_mq_get_cached_request(struct blk_plug *plug,
+ 		struct request_queue *q, blk_opf_t opf)
+ {
+ 	enum hctx_type type = blk_mq_get_hctx_type(opf);
+@@ -3073,27 +3073,10 @@ static struct request *blk_mq_peek_cached_request(struct blk_plug *plug,
+ 		return NULL;
+ 	if (op_is_flush(rq->cmd_flags) != op_is_flush(opf))
+ 		return NULL;
++	rq_list_pop(&plug->cached_rqs);
+ 	return rq;
+ }
+ 
+-static void blk_mq_use_cached_rq(struct request *rq, struct blk_plug *plug,
+-		struct bio *bio)
+-{
+-	if (rq_list_pop(&plug->cached_rqs) != rq)
+-		WARN_ON_ONCE(1);
+-
+-	/*
+-	 * If any qos ->throttle() end up blocking, we will have flushed the
+-	 * plug and hence killed the cached_rq list as well. Pop this entry
+-	 * before we throttle.
+-	 */
+-	rq_qos_throttle(rq->q, bio);
+-
+-	blk_mq_rq_time_init(rq, blk_time_get_ns());
+-	rq->cmd_flags = bio->bi_opf;
+-	INIT_LIST_HEAD(&rq->queuelist);
+-}
+-
+ static bool bio_unaligned(const struct bio *bio, struct request_queue *q)
+ {
+ 	unsigned int bs_mask = queue_logical_block_size(q) - 1;
+@@ -3131,7 +3114,7 @@ void blk_mq_submit_bio(struct bio *bio)
+ 	/*
+ 	 * If the plug has a cached request for this queue, try to use it.
+ 	 */
+-	rq = blk_mq_peek_cached_request(plug, q, bio->bi_opf);
++	rq = blk_mq_get_cached_request(plug, q, bio->bi_opf);
+ 
+ 	/*
+ 	 * A BIO that was released from a zone write plug has already been
+@@ -3189,7 +3172,10 @@ void blk_mq_submit_bio(struct bio *bio)
+ 
+ new_request:
+ 	if (rq) {
+-		blk_mq_use_cached_rq(rq, plug, bio);
++		rq_qos_throttle(rq->q, bio);
++		blk_mq_rq_time_init(rq, blk_time_get_ns());
++		rq->cmd_flags = bio->bi_opf;
++		INIT_LIST_HEAD(&rq->queuelist);
+ 	} else {
+ 		rq = blk_mq_get_new_requests(q, plug, bio);
+ 		if (unlikely(!rq)) {
+@@ -3235,12 +3221,10 @@ void blk_mq_submit_bio(struct bio *bio)
+ 	return;
+ 
+ queue_exit:
+-	/*
+-	 * Don't drop the queue reference if we were trying to use a cached
+-	 * request and thus didn't acquire one.
+-	 */
+ 	if (!rq)
+ 		blk_queue_exit(q);
++	else
++		blk_mq_free_request(rq);
+ }
+ 
+ #ifdef CONFIG_BLK_MQ_STACKING
 
-	lockdep_assert_held(&kvm->arch.config_lock);
+base-commit: 1efe5d048a391de3ead2804b2e7f86376c356cc5
+-- 
+2.50.1
 
-makes sense in kvm_vcpu_init_nested()?
-
-Thanks,
-Joey
