@@ -1,110 +1,109 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9605418A5D;
-	Wed, 12 Aug 2026 09:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAB041A922
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786528032; cv=none; b=QCbPARzJ7dNAI5Rrj44ka2etpFMh+SAv2AaCparQUyEjzLVbYyczSDoLI8Gpdpa/nbMCFGmFuu9yEmuzdeEWziPyq/d03UU+CUCJukt6e23xogniMQbiNPM5FE9ro8ktqCRaTTYm0v+D4ByWme0AlOyranV+qMdWB6cUyEnU49s=
+	t=1786528110; cv=none; b=kLjrbzum4MFil9nWkLuZ9bKYcYdB/tzxqKFFhjevIDbbQTfCFQTaaXPmNyU0wy0x77I06LCZwbbM4BBfuQS2PUYBU//QUzNngh/WPl5/JMlFlEys5q5wzuh2/22Brm1fgwdowYi0LbyQv8Hfke9MqENhbvMa/InFDzL9O2/Yqik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786528032; c=relaxed/simple;
-	bh=B0xcHHKe27nBRZEA1Wx6aRYhLvhQNqvldh6mm5506rk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L0dgDa8suUUof0ej2V60hI5lVZWvRi9gMdPrNpGavExp3GcUe+T4I6z8c6BP93nxXXSV7SY7wUEj+Slu18XLC6xQrNFv0UW6m2tpYeca1MfyuzwleEzouRLyS2EU2yY7GcQ5Hfsledp3iuy8q4kqyQt8dLKke+W66RjA9Ppdubc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=hWLU9zAU; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1786528110; c=relaxed/simple;
+	bh=zfcQ4EG2OtCNn5ocZf9Krc4CphTLDxQS5rKzoGFUnbQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JZTijX0/bx54J24Dk59tfdg467b40RgPu0axYwcjX6QQ/idqbBo2SnfnOvXhEsLwo91yYeS/TrDPWyA84wUW1j5AE59yHzsIAf/52lKeNVfznsqAylgOQ3VNQUjx/1cHwInhD1zk+cxUaEIFBdSYZFPbi/MEpmt18nUM0393USc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wsAFTU+Y; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="hWLU9zAU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1786528013;
-	bh=8MVPi0XBjoc5Tc+HMC+mk03uFoGDImFmSLFyLytxGtw=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=hWLU9zAU1EgiWBSpRiMshaLMr1x3ReVQhtoM5Z1JUIryHLDxSNa+LryivBIu2V1tr
-	 Wo83JtS7H1n4HVR/izOzNd/gCdT6nKd41ppdRxNqOObpQ05I2ywpT/SK+DKj1I/LVt
-	 OQmipm3kgaazs9pYV8FcgaqyhoewL1h7rHxFKO50=
-X-QQ-mid: esmtpgz12t1786527995t2e6be267
-X-QQ-Originating-IP: gAH8PLOuktySRyqaoaUXnTt5xqfYt8BF3s1uagy+0uc=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 12 Aug 2026 17:46:34 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10804165861698727362
-EX-QQ-RecipientCnt: 6
-From: raoxu <raoxu@uniontech.com>
-To: heikki.krogerus@linux.intel.com
-Cc: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] usb: typec: hd3ss3220: fix VBUS regulator error message
-Date: Wed, 12 Aug 2026 17:46:32 +0800
-Message-ID: <7A42A287B2B588D0+20260812094632.348581-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wsAFTU+Y"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so8303755e9.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 02:48:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1786528107; x=1787132907; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cgAavsMPfj374Y2O8g0TeLMK69exN+jOmzYmrQT4dPo=;
+        b=wsAFTU+YCu1BRUS2Johz9KzMzmMUPRt15rEHcN7+aIWDwqJi5gjCSVBWUiWTF4gvvv
+         e5OeNYSBCtV6mtp7CXlCPMLvoDGqzkv8d+ryOnSfytCLlV61nW90JxFCGxFssbc2X3QZ
+         lnrWvE5eNY+uQIE58Xsl5arfgcD1m4Dra+VnQbo6sMUb09J33Oh8VWvjkbGFC0FFaZ5K
+         ZPOPrKT8b9XdRZFShmc9LUHlncwuUfaTZN0w0W5qUzYwp/BkQv169/pKFbV188Dq68dy
+         T/po6fdWQuhDr/HovQ0vBq6aGzPB+rbDqwmFl5IOzNUHei780S2gC7dRRoEQN+He8QXX
+         7BHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786528107; x=1787132907;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cgAavsMPfj374Y2O8g0TeLMK69exN+jOmzYmrQT4dPo=;
+        b=XRTiX6XUp8yumXM5eRKj+sWP1nriGJGRgi4h6oMFY7T1vB4R2ouYCBDkLYeGfTfcwp
+         51scmWE/P7GpnGQVDf4vuNvH/tPsfTu+BPkwE8rebIMeGCVAcJJFPjoJNUIm7l4LT9Zg
+         bx7KtRwVEaVjWGoNSC2tqm8vt3QsR4mIgwuhWkcKAZ/+wUk+LxPFAgi/YZ7umleEukA/
+         8Ha06Nluca7jX6dZBE8yClRH64x6MZQhdWMaq+aJRjz831x5xGrQ/WCnEQs6rPOM7yRu
+         X5R3ibx2pINDY5weGXYdddafES2enE5PyAPNLqrMSaSoeqbZnHOQiNLz+BkgLZrWVZx6
+         +U8A==
+X-Forwarded-Encrypted: i=1; AHgh+RquVvXVHEc0PoXu9CDm01SL1gASef/FCYxBIbqKA4DZQV9Eiah8tg59Ih3p6OnU0g8U5Od83cY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzM/3ZmrKZplesoLkLLWJKDHya3G5A2lRaIs1zfwMa9S7v2Gd4r
+	8ppbRC5z7qtOKaWRyJfyNLXX4V6EjFK/2D+PDSU9OWeyxK7N43L5kik85155j+zqDhU=
+X-Gm-Gg: AR+sD11BaWTEiKenhHY8cjU99gvK7JL1NCLfZBgk349xIZPGyAJ6EVx5lbuGXWkuh5m
+	ffiyKk2HonbopY6LGN1esv2CEf9VmhLbc/1xddf9IQoG1jeO/gBxSG9eb9o29Zwu8T55q6LDAAW
+	TufJky+iZbnnD09H5DcnGtHNg2wcm7rwqQyBCFl+MbjRmjYwPz/9Wm4ko8MofCqXJkUWDi1boux
+	IyUNGhe3JlU1dV4/dYSMEuHw5T/zGTnSXAyMLI+oV8N9GwK1BzqQUAPRKlhMytX8GEujp+bUXGS
+	6KL5fer773+2dbaHNiXyuUdiiUF7MAVIqon9AOmasZ33Mro5uLV/jHx/+28eJJy20J4QtCZqXfj
+	CvILsjKmJOZgTFaQtgLw84h9YB2OsQLZwKIWF70lh4hZ82YGEMxjsSUlqRbtlIp70TYG91+MBZL
+	v5dybRTW052OOaM/vzvnwiiOIBF3PiyDOXJdGyb+d3v55AXAjlaKx3EuRfiG7/8bTmeDZuiLXvx
+	vPF+u/d
+X-Received: by 2002:a05:600c:8b75:b0:495:4fd4:619b with SMTP id 5b1f17b1804b1-4997c0d7775mr54602815e9.1.1786528106684;
+        Wed, 12 Aug 2026 02:48:26 -0700 (PDT)
+Received: from [192.168.0.252] ([79.115.63.18])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48150d4c10asm5835562f8f.20.2026.08.12.02.48.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 02:48:26 -0700 (PDT)
+Message-ID: <754d6dc1-1993-4fe7-ba45-31d02f7e7a0d@linaro.org>
+Date: Wed, 12 Aug 2026 12:48:22 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NVu/uN2EcufQu0W7q8DxzJPc/A60aSUoXUnLq7GOSBssoeeaTNOCt10z
-	RZSaVuRIrmTroG13ktuYCIh43tklmXGGtEN94W+pdGIiv8k2IMca2Rcd1tLg45pAyQJ3TPh
-	s5Q+Lo7h9f+l/+G7Sn9sPjC+dr601HbksCGxPm1lRjQFNlyuM2u4OVSlrOeTLCrLhQN/nSr
-	w+iiEH7LOa2sJKmS+cVIC8wwUlSiJJrfCPQUkv2fPQnr9bneuLXhdaIKv/MwCljed7FD27u
-	i/FOStLaN8sUSWUfA8y3nT/nFPMyYUzhYzZq6PMYuqml5yi8+XjaeljRSe9iYk/OfmSBRGK
-	bMPsFjVWeQUO40Jw79YdjaaajWNkP5HYvKSWebjongaV36ZEml45rZLoDR+UhjbCOgvSfcc
-	Or3nVQyCQqazYmGDDg61GdDrU+SZXheG/q08VQ9Ubm4+WsTfukBVI1WwE52bLUecUMf2OXB
-	l+TIvbn79UwvJxcCBlDchEL3Qf+glK+jhuNucfXBB7sR0fApQSK00YtrhtghNi6AkqTHema
-	gAdU4pNelkvn2o17n09E+ZrHSDXU2ywyv0sycBGZ2+ep31ppAgpjbrdw2OVtHLFiZVdRgwH
-	M/eJeeXn1tIZk0B87/SEh3H0yZLyZV6glOVMgaeVJSlF/W0suQ7ZQpZDmgKctBtEX1+5BFM
-	io10K50FILObc4fbrFnzn/T2IAREbijd5iuLPCHSWZpt5n55kYSO3aGGGJqWCq7v9HCY03C
-	7O9HTdMC782SjpZCJ43G7Ep1qkRUV2n0b50WuooYLsn3VHFLXaU+BGAFueN3e+VEenPfIZV
-	7BO9BH+bpD7y24TMN4Ei/eC7xwS1rxKxOkhg7HnJji/vu7bAcRNimh/XdxYHoRJwE7D0BB8
-	nOg7rTneqcBK4flGcN5974P96F5xfSXjTOIrrLbPTBzctjcuR2C+GdlR9hQpad/u1RfWq8W
-	dD9jsxjY+f+2Tlu96NHhgGoEO1SSDBKSm15EUKU3UikgqlXg+T6H5l47xQbON+3Rgwvp9yJ
-	PoCJlDirF6EF6vJ6dWaXvdB6RXwVuh/IP1e256q1aQWvnHY5E/feQi7TM4gZDAlKW9NXLwA
-	gpIDro6266UrI57M6GJrER8WJORRnui06efd/Diz7er
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mtd: spi-nor: scope the exclusive RWW lock
+To: Michael Walle <mwalle@kernel.org>, Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: pratyush@kernel.org, miquel.raynal@bootlin.com, richard@nod.at,
+ vigneshr@ti.com, linux-mtd@lists.infradead.org,
+ linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+References: <20260809084223.3596259-1-runyu.xiao@seu.edu.cn>
+ <DKL4CBQNKCO2.3NAZ6S25Q60XN@kernel.org>
+ <6e208a8b-da11-4ba1-adfc-f1e80c891310@linaro.org>
+ <DKMQSZRM4QEZ.2EXQD5U58EVTI@kernel.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <DKMQSZRM4QEZ.2EXQD5U58EVTI@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Xu Rao <raoxu@uniontech.com>
 
-hd3ss3220_regulator_control() enables the VBUS regulator when @on is
-true and disables it when @on is false.  However, its error message uses
-the opposite operation name, so an enable failure is reported as a
-disable failure and vice versa.
 
-Print the operation that was actually attempted.  Reporting the opposite
-regulator operation on failures can mislead debugging of VBUS problems.
+On 8/12/26 9:14 AM, Michael Walle wrote:
+> On Tue Aug 11, 2026 at 12:05 PM CEST, Tudor Ambarus wrote:
+>>
+>>
+>> On 8/10/26 11:25 AM, Michael Walle wrote:
+>>> Tudor, do
+>>> you know why you've omitted the guard() in spi_nor_rww_start_exclusive()?
+>>
+>> because using guard changes the behavior of the code.
+> 
+> But that commit removed the mutex_unlock(), thus keeping the lock.
 
-Fixes: 27fbc19e52b9 ("usb: typec: hd3ss3220: Enable VBUS based on role state")
-Cc: stable@vger.kernel.org
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
-Changes in v2:
-- Add Cc: stable@vger.kernel.org as requested by Heikki.
-- Add Reviewed-by Heikki Krogerus.
+oh, the horror, indeed.
 
- drivers/usb/typec/hd3ss3220.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> That wasn't the case before the commit. IMHO the Fixes: tag is
+> correct.
 
-diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss3220.c
-index 3e39b800e6b5..d0de5a2488f9 100644
---- a/drivers/usb/typec/hd3ss3220.c
-+++ b/drivers/usb/typec/hd3ss3220.c
-@@ -218,7 +218,7 @@ static void hd3ss3220_regulator_control(struct hd3ss3220 *hd3ss3220, bool on)
++1
 
- 	if (ret)
- 		dev_err(hd3ss3220->dev,
--			"vbus regulator %s failed: %d\n", on ? "disable" : "enable", ret);
-+			"vbus regulator %s failed: %d\n", on ? "enable" : "disable", ret);
- }
 
- static void hd3ss3220_set_role(struct hd3ss3220 *hd3ss3220)
---
-2.50.1
