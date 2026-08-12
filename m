@@ -1,53 +1,58 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.44])
+Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com [203.205.221.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7053655CD
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 10:16:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913553B9DB6;
+	Wed, 12 Aug 2026 10:16:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786529806; cv=none; b=AI90+BuMUzBRjfSX9srrOOv185pwOZqq7It+wCZQO+TXARyUElG7IurXiTEm7KodDG0UCnRCuYb3ArO2V65E1lq4TYhO3ncJKXeecRNFTR7s32kbVvyXo4Q28F/0d1dKdthrotXq4t9dJgHx9ips45rc60yZlPeadonB9wfg8zk=
+	t=1786529818; cv=none; b=FZjyX/x1938ZIANVeyotbXnvy+S0VZCXGppO2u6wSJElxYxhXPQ1T6lFp/1fAgMrXQAmfRw4pHgoIKsh1NXdePAmrbYgroj7ygzOOf1S8MhgJs9L5GksQCj2ZJb05sIvzWuRzwGcTaJR7bNofjiec6EvpLgTgnZtEuKJKf5PWRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786529806; c=relaxed/simple;
+	s=arc-20240116; t=1786529818; c=relaxed/simple;
 	bh=N7d/9wuUmihrv9w+zc1GQy2IaZY858kWO5/XD+OGZuw=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=fxJe2nVZfj2U4XbTuUkDDeFzrtSQcy9tqxn2hXsEVSqU1pArSkHiI+C5Gsly2SBDATT298bg4CnqVIPqkdPDE/0w0rSgpSsoEKf2S+XGmHTe6D9F/Mg4UWcW/qdZoCOspCesCRwgW5PFe2v2hjQIb0TMVT6eGZbUL4qK3LfQJ34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=tp0OvTVQ; arc=none smtp.client-ip=43.163.128.44
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=W4ZiwFz7q45wOPQeTYjxwckOEg4R1mAWr9gT6dCoJA7dAC3OCVnmuf793dJIXaNTK3uO6CZeurIYDU0gKXw915CqXmcifzejpTlnIS+KBA/g49O1Rq8NAVEXJgJ9ePe2yXW6V9dL9WAwFnVL0OT9Z5ElbXyIpwoU18DlcptUO+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=Gnv7mf50; arc=none smtp.client-ip=203.205.221.149
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="tp0OvTVQ"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="Gnv7mf50"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1786529795; bh=/tS10aQxeyxKkgsl3wbV3VyKeGBIt+GKdcSpgGPln7g=;
+	t=1786529807; bh=/tS10aQxeyxKkgsl3wbV3VyKeGBIt+GKdcSpgGPln7g=;
 	h=From:To:Cc:Subject:Date;
-	b=tp0OvTVQWHuzDcJDWsgVw5XPSHPerLivvSEwT0lww/Mv5vHUM7rn/r7f66O4CzvUq
-	 MMaTur4Zh/H79WrHVB0QpoQHT6nAR0kfQ4z0SnMD9jqE1dW3PLI6mSCHemXQqvqf1f
-	 gPLFNci4WY2GIFJWmyEzCqnGx4RpknGaa6Mc6S/M=
+	b=Gnv7mf50l7ChkTTDHtlADPPno/2ioSCcHLlN+dNkQVS59Zu2CgYad4pQhZJV+82Pm
+	 unZewyQh4cZNb+9MRrqdSqXnQfkKtsUYlvlDe1+cu0xDr+741NP08sNl20s5kgQA4T
+	 tLAhDv/CwVBuFMwfv8LKqtUybpopDr1ddymHTeyI=
 Received: from localhost.localdomain ([240e:452:ddba:7caa:44f2:d3f7:942:3f36])
 	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 3D8364E3; Wed, 12 Aug 2026 18:15:24 +0800
-X-QQ-mid: xmsmtpt1786529724tji9urc7l
-Message-ID: <tencent_D2D387CAA22E84EDB589ED9E7A901ABE7609@qq.com>
-X-QQ-XMAILINFO: MoX/Tpn4vKqQzi+KgrFuGuvtUlj6/XthmMIaC0/DVEbEF50n2uVRjyNaEVizxX
-	 hgmk65S74gwvOuxrYE/PzNMS9M0235WSQxMFGRV+MAL00vB+da9cSD1ybps2Zka98ady13x3X5ho
-	 UCL7gvH5f+28rAmB+WxgbBkeopFT1RJQCFUuDdElb+eu7gY8QyvMHFoof+Rbk6OvfKkRzcaThkmP
-	 nFaE3DoAkOXEbvQx8Hm73tmbWiAtT8HGjVYYS9lwH5WtvkdknC/P4UcbHvJ8VLbphUhfGw0EDcds
-	 kktEFcDC9fs5FGQ98XiEcyzQ98DPHsEwjSJq7GU06wVJDggYp3ew8vtTlWlhvcWN/oDrVmTt2IkA
-	 hO5XJpZ9JJQtqH+Kfphm2LDiok4jhgItGJpUipg9EsiATcClNgZSp37V3OySsb1HTqakeM/BlXnC
-	 1goeeNBQCe5q7sSFLRFEvo9zwpcntEXw6MZEs0/O05n96NNifA5P5eUEJqIsIptn0WmKC5QXHVGS
-	 B7ZruBmzMpA8fgbYSi8mXl292CHkataCitG+LSGVOX8jlAPZgKpXMEQsks6MrmZKSmC32DtrPWQo
-	 J/bqffoktZsQqqqmMFO5uppQ+BIMeo+8xPGU1jLa/rchWYPRvFy6GR1LGfv1ncAvURIa3bWsx+Pp
-	 4i3PxTKIi1WStOY5fOZ4GsEwWGhehxegq6unfs76ZID+E66UJvdutpxy7ky1RG+DQkJxTrL8IOZd
-	 AUrtqKwxrxlBv4Vhqe1bERDe5VCFlJPPQBKS4UIBYSNw5YSfwNIjyYgrW0rGhY53EglxPTIf9ZOO
-	 1CMDjrSwMy6MPM6dJFTh93F3lXUxh2hyLMSYtOKZ6kXlr2Av0Suu6bbLBADawads8oimjFFRBw+L
-	 73pzgm2naN0r0JEYMhur+R3SaohWI7b9vIeASSSj+Ev66OCQbkFSc5KDolWIx4d+iKL6ntFXJlGq
-	 oWv6PRTWamjw50EwRWlNSvk8h1ylBrzjmQDf1RET8TLqj8oG/1dBbV2+3Nc2vR3vz37R5U5Bq+yp
-	 4ELnwSeeJpX+hX0MhuuKIY2YhLLCzS69MUPfNZ/MN2DUiE4nxOZj4TYrQZXPs=
+	id 3E3B3450; Wed, 12 Aug 2026 18:15:35 +0800
+X-QQ-mid: xmsmtpt1786529735tb97ak7my
+Message-ID: <tencent_C2311DA54CF022D59E9418EF890569EB2B05@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9XUlf7pJ/6gPnrpZ/YnGCI8CNoQdANjxQcMi9QH0PMHziVc8UxFu
+	 MrIb/Gk5ReQZlj85rEn9mMKfAQci6vggX6PINGTkFyE2xsXiPYg3uQW56p+hOdqX0Gju446LlnzJ
+	 G4rgabEK/LLIudYf1tvIrBuBY/ZPxIY6xX88+fA8CULKVygdM9+qTXMJ0iB4/eYSxtyTx+1dBptb
+	 zzpUhESGyg4u0/rCTyPG8sDPU7bgskLU8O4+ZrZ4RVHuyK1Xca4d3dfCQT0q0xIfFooifFg/+fy3
+	 57CgjNFOvdy3lwYEzJ3QTpfcDwFNIeMNkgdj7cyfilALQk7B9/hRSbq6iRHTYs7f+ajyhtG2xpTe
+	 XElxsuyQQ9BRx3i/AXte6Xgprp2XnvjofYwaN520AkviddtQhHdCmGLaT7xBVmIByP4/oCAhF8pm
+	 mBviGJmoCN4HAHUhVWvcIDi1juR4sMUiLo1/y0dFfLhOMBxwhw1ZfvouEfrYDhMCYF+Ymp7Rqnee
+	 SCoIMAgGoTtCJ92ayvJC6bBjhMPdtwVS5VvF+ex4qlqNCFGoqGm4okcOOPMxcyXGY5XCn2Pu0qDx
+	 0cjltKN24dKpcJyGEatMY82/GqQBGPY9aCeOrtoCIY2w4xqjXme7wgM7qNXK7tj0LRZxAFOAZ98+
+	 t0gPoLCUu9we22kVcazBYr4gQttDTfzGgv/LAJcr0CRh8nDd2eh0ejcSvkEurVDmu9fS9CLrRgUT
+	 Jb6Y3CQ3Rw15TXBLkhZpN9mugnXKifVMpUu6QO2sjxDpsNpMJeG9V4k2nCPzCErWFpRQLvjvV6ut
+	 WUA/9BNGsfYsLnU7ezcfrV00E5lY+gqrPeuZu+fnTOQ4enD11C54P1mkMiPRdFbq08/I/D/wpJVj
+	 AqpubRcaW1KCNLgSDHDKkaKQ5/Ko9dXx4RcDXUPznzY9Lc5cW4cR6ScakbLRBhe8NM23G0kzsLFW
+	 eHAS8Qmgi5o/afAXUfqrw6Y00qG09jbUsDisWBwENQaEJbOAwhFBhkb6b8EMkEI0lWpw9GYahKDb
+	 dj2GVNlzScAO60oiU+YOcsvNZH6I3nbpsFGI2XE2ootELALHuGnz+PAxZItooEFyXjLRF5fylT4v
+	 vNdorxhK3s7BPeS2Mib7bBBzrkTY0PrCCn9fU/BAEmggZ832g=
 X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 From: Hang Nan <2122295973@qq.com>
-To: 2122295973@qq.com
-Cc: stable@vger.kernel.org
+To: linux-bluetooth@vger.kernel.org
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Hang Nan <2122295973@qq.com>,
+	stable@vger.kernel.org
 Subject: [PATCH] Bluetooth: ISO: fix use-after-free of listener socket in iso_conn_ready
-Date: Wed, 12 Aug 2026 18:15:23 +0800
-X-OQ-MSGID: <20260812101523.51423-1-2122295973@qq.com>
+Date: Wed, 12 Aug 2026 18:15:34 +0800
+X-OQ-MSGID: <20260812101534.51637-1-2122295973@qq.com>
 X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
