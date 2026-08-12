@@ -1,238 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FAC3321A7;
-	Wed, 12 Aug 2026 16:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FBD390229
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 16:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786550975; cv=none; b=tIeDlSCLYke2pBlD7lkXK7naEMWxKeuESrtrtzBkHpOvWIRkNFH9hoffE8BAkoJzV8UsoMo81+fmukmkAJ0yWnFGr/PfV2NZlQN9Tz7466xDOBGrB1G0CtS7PG9ZQsqZkZ384/UZSg7eSYa4bWjk9TSrGkBGintdDSTilE1yaCE=
+	t=1786551311; cv=none; b=WKFJGMQm/xq5TolRJJ8WtYb6VNbjkHNJaf6X1w4foxPNPSIzFoMHaCVQ/PKoXzvaGHv9G5yt98ds5Hz8/AjcTOhrsTyVwZlxeeU9W4mrB4WZN3Ugig+Ka67xvibRBbsXckhuosY/M69v3WZ8SwmFDYQ1j77OmcYG1XeYSqsaTG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786550975; c=relaxed/simple;
-	bh=gE61fvifrYqpGR3X2GYMe+i9ZrniAMwVNwX7pDzGIhw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H6VfVND3BovNMrv6nhf8/g6Bzaxy71ofQeZPJRnTE+PpSVL235Ut52g+tMkWu4ST8Hx5udp4vTJvhFp/pNOUc4Rpi30vBTXV08NcEausPBJY3zVsoe0BBT0LBARGFYpK5FrapqlwfiyGwCOzAoTLQjkEe31HtELSOY6EUBz6ic4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1jeFAOq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786551311; c=relaxed/simple;
+	bh=c27w4V6Qe/JgNFovD8llFwPMrhgspYh/CiOlGLfJ5OI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eJ2DVqQDlF+cejoqAvA6y13ukWKFoX53vBstC0lBrnBU3G6Fh00z4Ujd4qw1o8CdPS1Gx+xfshJ/5w4WnNpGmdw50Ly13/nL+mWoHe1xY0A55V6xRmlHbfVjEztm//w0pj/bl79XMdt7luGbCJjvEeAyFxRNo+1zpcPTRKHC/bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C6COBUvr; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1jeFAOq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C109B1F000E9;
-	Wed, 12 Aug 2026 16:09:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786550973;
-	bh=SUFBrQ1nQLkrBvvgBqMI8JlTiz31F3hZgB1piZ45IDY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P1jeFAOqKyRs12l5w++ExNW2uzyP3pMsxLuK5ozTyW92m6vOwMByjqAaONNogjibZ
-	 qFv71P2EXTWRjj75c4h+rfc2eRjkL1rA8rEdvIvaIQduXoU2zgsoQisETRxGxrThFo
-	 HhMaPDq34DYnte1w6W7rhJUq0IVykDEnmK2zTqVd3zWGlF67382Q2t6+IXyFDXH2bI
-	 IpaTyVXWTJfnsVxGGcHYTS6ZkWaU/pE0WKlHVMlzeFWYzT50LVhn8D3P4CF2Ik3CcP
-	 deNhb0IyTfQGGrYd+v0H97wuP6U5mTlG+x3X9gg4ELqR5i7L0XcnMH6X84GK0ySo3p
-	 7J/t9H4M+RNIg==
-Message-ID: <815c0301-200f-4bc9-bb80-e4920eb4fe27@kernel.org>
-Date: Wed, 12 Aug 2026 18:09:14 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C6COBUvr"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8485b358552so398498b3a.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 09:15:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786551309; x=1787156109; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5xXYYKBkIi3QVhUJgfIVwXV/5v46b3QSM+Be9dLHZ8M=;
+        b=C6COBUvrjo/G4BNUZ68Q8f8SZhkjQo24+27KLCPplbkxCsvzzOcFTjvaI2d8J1gLE1
+         Kfh5IDt+XvO0ol3eRfJr5VkaUGDpuX1PdxSTVP5VVX8WXC5LoQCWp27h7PzDLQ1Ecppf
+         UVmX921NahnSHsbQbiey9EPbQHYnIVLrTPGgkhN6RzHQazUKusyj3k6jvMCvsuvlbyLk
+         xvrRKMrRb1W8nbTD17ozeASDZlIb9ugiqHt+kJNi5FYI4h2IH6zlwl0m2trMvM6jss3B
+         YHJ+bNuh1aZpzMEsqLraNWFgCybvi3JiqIAPRI6J8DsB0zD/jSk3JQ4K1dpD5JGAprBE
+         2b2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786551309; x=1787156109;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5xXYYKBkIi3QVhUJgfIVwXV/5v46b3QSM+Be9dLHZ8M=;
+        b=XrW6ncRkKzcWwQmzKMR/h8ZIHsvFjJL6TSIhrngZAKB9dY3gYW8ozmwDDUVV5bw1wo
+         35/axNK7uiVOGbWDxhz4oGQ2lHEzPmKdMXRX5x5w4+4ouyLcOWXlhlS0y6RkP+PG5pDK
+         fe0m8X0eoOrnXRUV0B0q+uGlvLrxaQQsFdMUagNU+HUoSWkamPt3Q7UVfJEvLukcuYNu
+         ZW3obwEtK9B5NxfQaK2FFSAztUsxINfm8wkSkmLw3/4Z8myeyHaVcG+8IBcVzw9uu5c5
+         hltn+t5VZw/Qya/iHMoLx2XczINh3piktWHM133y1VnaAlCozgbNBU9InJERa0MxIvLT
+         qYsQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpoNpTJwsFXnjMxBw85SGAQPAqY8nCfb2pEidspQCufxCXttgfTsYIGxYXbidtEY/1DzBGMwBo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyq5vXqebaVwZYDGZw6pz0nRHf2UzBmd5EgNQYrAnjFxgRR1O4E
+	QWgV5uYhw/lzuTWvU4HK/pvg0LJh50harPWt/7PYPYPEPePG/AAm59Sf
+X-Gm-Gg: AR+sD13Kva34/haN9xY0OlSYN4H+MLHcsEUhESUQatRpwmtpVNRnB6iw1tyhHIdMoGq
+	BTckZDy48InIkDm/D5x4eA+JSlk2HTAOkFLZMy+RBRWQFqXZd9M76MLIo9OdXwFiLUtE410aVi/
+	bIxTha1CY5uh+o1Dt95RSBU+czKxPGXf1AxYsmI9TQxxuC9QRLdcpcwJjXOVh5T6rdFvNx6zis+
+	VoO5f1trHzMhGzUFT7ucuIJQ0YzQ1A5SWHlZidDad3NXzdyPQk7OozsUKqldUaQw5z1bsxQqCZe
+	9YnocKeRqnirX3YXKOFryCsEncc+kuAEwld87wUr04JrbfS77FEAffmcrbZMKRQqDbbMkf1NUM5
+	EtifGSn4ndmrs4M4MGNacsZxEWzuYbLdiQomt6FaQGmvJXLQA4V+MyzcaSZY8BRWxSHr15tC/54
+	suRBOM3doDm8+NnLrU9Q65s4228NhBpN6OktLmXcAULdsyO1E1d+dbrkRhvmnqHHE=
+X-Received: by 2002:a05:6a00:4c8d:b0:84a:2c46:3fdb with SMTP id d2e1a72fcca58-84fb53e7290mr6627264b3a.5.1786551309224;
+        Wed, 12 Aug 2026 09:15:09 -0700 (PDT)
+Received: from localhost ([118.34.230.2])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fb1cf8146sm1322242b3a.10.2026.08.12.09.15.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 09:15:08 -0700 (PDT)
+Date: Wed, 12 Aug 2026 21:45:06 +0530
+From: shaikh kamaluddin <shaikhkamal2012@gmail.com>
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Ben Cheatham <benjamin.cheatham@amd.com>, tony.luck@intel.com,
+	bp@alien8.de, linux-cxl@vger.kernel.org, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH] cxl/mce: Only act on uncorrected memory errors
+Message-ID: <anycCjTgNvCgSVdq@acer-nitro-anv15-41>
+References: <20260810183013.47085-1-shaikhkamal2012@gmail.com>
+ <ant2Z1mzHCrzmzXn@aschofie-mobl2.lan>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Bryan O'Donoghue <bod@kernel.org>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Stephan Gerhold <stephan.gerhold@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Johan Hovold <johan+linaro@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
- Mansur Alisha Shaik <mansur@codeaurora.org>,
- Andy Gross <andy.gross@linaro.org>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>,
- Yassine Oudjana <y.oudjana@protonmail.com>,
- Pierre-Hugues Husson <phhusson@freebox.fr>,
- Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org,
- Matthias Kaehlcke <mka@chromium.org>,
- Douglas Anderson <dianders@chromium.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Aniket Masule <amasule@codeaurora.org>,
- Malathi Gottam <quic_mgottam@quicinc.com>,
- Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek
- <jonathan@marek.ca>, Dikshita Agarwal <dikshita@qti.qualcomm.com>,
- Renjiang Han <quic_renjiang@quicinc.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
- <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
- <20260807162405.GA896590-robh@kernel.org>
- <c3hVumMy_QnRbUmbFTSWGjkfG7lPjGFEcZfPsZeGQ57nWKkhlBL3wgmcDcAgT9cNb8Ju3qZ_sSKgHk8vmow0xQ==@protonmail.internalid>
- <6ee7f32e-eb6c-e264-6f0d-541555f8fd62@oss.qualcomm.com>
- <56b3dfcf-b1ad-4192-8199-06c80cc5d124@kernel.org>
- <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
- <1a7c222a-617b-4dfd-a551-2c00115747a9@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <1a7c222a-617b-4dfd-a551-2c00115747a9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ant2Z1mzHCrzmzXn@aschofie-mobl2.lan>
 
-On 12/08/2026 17:44, Vikash Garodia wrote:
+On Tue, Aug 11, 2026 at 12:22:15PM -0700, Alison Schofield wrote:
+> On Tue, Aug 11, 2026 at 12:00:13AM +0530, Shaikh Kamaluddin wrote:
+> > cxl_handle_mce() offlines the aliased page of an ELC region on any
+> > record with a usable address; it does not check MCI_STATUS_UC or
+> > filter non-memory errors. uc_decode_notifier(), the equivalent
+> > handler for plain memory on the same chain at the same priority,
+> > filters on mce->severity and leaves corrected errors untouched.
+> > cxl_handle_mce() has no such gate, so a corrected error - which
+> > the generic handler ignores - still causes the alias to be
+> > permanently retired via memory_failure().
+> > 
+> > Corrected errors do reach the chain: machine_check_poll() logs
+> > them via the same mce_gen_pool_process() path that feeds
+> > x86_mce_decoder_chain, and cxl_extended_linear_cache_resize()
+> > extends p->res to cover the DRAM half of the ELC pair, so a
+> > routine DRAM CE carries an address inside the region resource.
+> > 
+> > Filter the record as nfit_handle_mce() does. Commit fc08a4703a41
+> > ("acpi, nfit: Fix the memory error check in nfit_handle_mce()") and
+> > commit 5d96c9342c23 ("acpi/nfit, x86/mce: Handle only uncorrectable
+> > machine checks") established this filter for an equivalent handler
+> > on the same notifier chain; the consequence here is more severe, as
+> > the CXL handler calls memory_failure() rather than recording a bad
+> > block.
+> > 
+> > mce_is_correctable() is used instead of copying
+> > uc_decode_notifier()'s AO/DEFERRED test because the alias must
+> > still be offlined on MCE_AR_SEVERITY, where kill_me_maybe() owns
+> > the reported page but nothing owns the alias.
+> > 
+> > Fixes: 516e5bd0b6bf ("cxl: Add mce notifier to emit aliased address for extended linear cache")
+> > 
 > 
-> On 8/10/2026 7:17 PM, Rob Herring wrote:
->> On Sat, Aug 8, 2026 at 4:55 AM Bryan O'Donoghue <bod@kernel.org> wrote:
->>>
->>> On 08/08/2026 05:37, Vishnu Reddy wrote:
->>>>
->>>> On 8/7/2026 9:54 PM, Rob Herring wrote:
->>>>> On Fri, Aug 07, 2026 at 12:03:50PM +0300, Dmitry Baryshkov wrote:
->>>>>> On Fri, Aug 07, 2026 at 01:54:48PM +0530, Vikash Garodia wrote:
->>>>>>> From: Daniel J Blueman <daniel@quora.org>
->>>>>>>
->>>>>>> On X1-family hamoa platforms, the Iris VPU reserves IOVA addresses
->>>>>>> below 0x25800000 (600MB), primarily for secure non-pixel buffers. DMA
->>>>>>> into that range, from any other stream id would triggers unhandled SMMU
->>>>>>> page faults that cause spontaneous device reboots. This is readily
->>>>>>> reproduced with one or more browser tabs driving multiple concurrent
->>>>>>> video decode streams.
->>>>>>>
->>>>>>> Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
->>>>>>> and reference it from the Iris node so the IOMMU layer keeps DMA
->>>>>>> allocations above that boundary.
->>>>>>>
->>>>>>> Link: https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
->>>>>>> Fixes: 9065340ac04d ("arm64: dts: qcom: x1e80100: Add IRIS video codec")
->>>>>>> Cc: stable@vger.kernel.org
->>>>>>> Signed-off-by: Daniel J Blueman <daniel@quora.org>
->>>>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
->>>>>>> ---
->>>>>>>    arch/arm64/boot/dts/qcom/hamoa.dtsi | 13 ++++++++++++-
->>>>>>>    1 file changed, 12 insertions(+), 1 deletion(-)
->>>>>>>
->>>>>>> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
->>>>>>> index 8a96ea1bdb9c4c409b2af997680d8c13fed0643e..87f424765d513c97b06303bceb75ca9f176d2ace 100644
->>>>>>> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
->>>>>>> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
->>>>>>> @@ -666,6 +666,17 @@ smem_mem: smem@ffe00000 {
->>>>>>>                     hwlocks = <&tcsr_mutex 3>;
->>>>>>>                     no-map;
->>>>>>>             };
->>>>>>> +
->>>>>>> +          /*
->>>>>>> +           * The Iris VPU reserves IOVA below 0x25800000 (600MB),
->>>>>>> +           * primarily for non-pixel buffers using different Stream IDs.
->>>>>>> +           * DMA into that range triggers unhandled SMMU faults and
->>>>>>> +           * spontaneous reboots, so reserve it to keep IOMMU
->>>>>>> +           * allocations above this boundary.
->>>>>>> +           */
->>>>>>> +          iris_iova: iris-iova {
->>>>>>> +                  iommu-addresses = <&iris 0x0 0x0 0x0 0x25800000>;
->>>>>>> +          };
->>>>>>>     };
->>>>>>>
->>>>>>>     qup_opp_table_100mhz: opp-table-qup100mhz {
->>>>>>> @@ -5439,7 +5450,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
->>>>>>>                     interconnect-names = "cpu-cfg",
->>>>>>>                                          "video-mem";
->>>>>>>
->>>>>>> -                  memory-region = <&video_mem>;
->>>>>>> +                  memory-region = <&video_mem>, <&iris_iova>;
->>>>>> I don't like the idea of this series, because it _again_ doesn't tell us
->>>>>> the truth about the hardware. This typicall ends up with bigger problems
->>>>>> later on, when it starts to affect other bits and pieces.
->>>>>>
->>>>>> I don't want to NAK it, but I'd strongly ask to reconsider it.
->>>>> I think this is an abuse of /reserved-memory. reserved-memory is
->>>>> reserved *physical* memory. Reserved IOVA is a property on top of that.
->>>>> I'm surprised this passes validation. If it does, I may go fix that.
->>>>
->>>> As per the reserved-memory.yaml schema document, the iommu-addresses
->>>> property for IOVA reservation into /reserved-memory is allowed — it's
->>>> documented for IOVA carveout reservations:
->>>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/reserved-memory/reserved-memory.yaml#L56
->>> I think that is an entirely reasonable reading of the text
->>>
->>> Quote:
->>>
->>> "If no "reg" property is specified, the "iommu-addresses" property
->>>    defines carveout regions in the IOVA space for the given device. This
->>>    can be useful if a certain memory region should not be mapped through
->>>    the IOMMU."
->>>
->>> Which is exactly what this series does. Excludes a specific IOVA range
->>> from being allocated for this device.
->>
->> But if "iommu-addresses" is the only property of the reserved memory,
->> why put this property in reserved-memory rather than directly in the
->> device's node? I'm only questioning where is the right place to
->> describe a reserved IOVA.
->>
+> Thanks for the patch Shaikh,
 > 
-> a single property node vs multi-property node should not be the reason 
-> to decide the place i believe, rather having them all under 
-> reserve-memory keeps all reservation at one place instead of scattering 
-> it all over.
+> The patch looks good to me, and the reproduction details show that this has
+> been thoroughly investigated.
 > 
-
-It is not about the amount of properties, but the intention of
-reserved-nodes. Their intention is for reserved memory, which you do not
-have here really.
-
-Best regards,
-Krzysztof
+> The commit log is harder to follow than the code change itself. It seems
+> that too much of the investigation has leaked into the commit log which
+> makes it very dense and not very clarifying. For what is ultimately a
+> small and straightforward behavioral fix, the log spends a lot of time
+> narrating the code paths that establish the problem, while the important
+> impact, a reduction in usable memory, gets lost.
+> 
+> The commit log should introduce the code change and make it easier to
+> understand. I'd prefer the usual behavioral progression: describe what
+> happens today, why that is wrong and its impact, then state how the patch
+> fixes it. Also, please spell out Extended Linear Cache (ELC) on first use.
+> 
+> The subject can describe the behavior being fixed more directly as well.
+> 
+> For example: (if you use this example, you need to proofread it, to
+> be sure I actually captured this correctly ;))
+> 
+> cxl/mce: Avoid alias page retirement for corrected errors
+> 
+> cxl_handle_mce() offlines the aliased page of an Extended Linear Cache
+> (ELC) region for any MCE with a usable address in the region. This
+> includes corrected errors and non-memory errors, needlessly reducing
+> usable memory.
+> 
+> Restrict ELC MCE handling to uncorrected memory errors. Use
+> mce_is_correctable() so that MCE_AR_SEVERITY errors continue to retire
+> the alias when the reported page is handled elsewhere.
+> 
+> Fixes: 516e5bd0b6bf ("cxl: Add mce notifier to emit aliased address for extended linear cache")
+>
+Thanks for the detailed feedback, Alison - that's a much better
+structure for the commit log, and matches what you captured.
+> 
+> more below...
+> 
+> 
+> > Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+> > ---
+> 
+> The detailed investigation and reproduction below the scissors is useful and
+> should stay there.
+> 
+> snip
+> 
+> > 
+> > diff --git a/drivers/cxl/core/mce.c b/drivers/cxl/core/mce.c
+> > index 65fed913b221..ee70c1c9f9b9 100644
+> > --- a/drivers/cxl/core/mce.c
+> > +++ b/drivers/cxl/core/mce.c
+> > @@ -18,7 +18,14 @@ static int cxl_handle_mce(struct notifier_block *nb, unsigned long val,
+> >  	u64 spa, spa_alias;
+> >  	unsigned long pfn;
+> >  
+> > -	if (!mce || !mce_usable_address(mce))
+> > +	if (!mce)
+> > +		return NOTIFY_DONE;
+> > +
+> > +	/* Only uncorrected memory errors warrant taking down the alias page */
+> > +	if (!mce_is_memory_error(mce) || mce_is_correctable(mce))
+> > +		return NOTIFY_DONE;
+> > +
+> 
+> The comment restates what the if condition says. I think the comment can
+> simply be dropped.
+>
+Dropped the comment from the code  and sent the v2 
+https://lore.kernel.org/all/20260812151759.14390-1-shaikhkamal2012@gmail.com/
+>
+> 
+> > +	if (!mce_usable_address(mce))
+> >  		return NOTIFY_DONE;
+> >  
+> >  	spa = mce->addr & MCI_ADDR_PHYSADDR;
+> > 
+> > base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
+> > -- 
+> > 2.43.0
+> > 
