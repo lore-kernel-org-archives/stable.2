@@ -1,70 +1,84 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706C740FDAD
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 22:13:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136664119E7
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 22:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786572817; cv=none; b=oqO83lSFUnYeZUhxlW4A79pNXO/JO3hDeODx4Ta7nQzg9WbIlxA7MLDdhOf1BygzXXaXIPYhoNCYcfhCjN/24VQz66Jm1i0l8vBg3mUPE5f/eHpy+aVR+zXpmd49yNseZ3UdNxqA74sYdYHgxjxwFUDXhzO7eHgbVxafd3nURuY=
+	t=1786572960; cv=none; b=BLqBYGcib3ZwYcDKqdZOMMzuJG/A29JPl0v4iBrP82ac8uy1vkAQeYH/C21ka8xayNPOAckyvRQjVlyJEMfU6n59o4+1UysppyuAXxamdfBWI3/P/JHp91ypgbZ7vBZJF0kika+FdZ/Sxjq4OQE2p5xv1/6lSS1j0cMFK27W6rQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786572817; c=relaxed/simple;
-	bh=Xp7zhySrpJYsPCZb0uc5V9Kp2tOX8jCIPjtGpo5wmUY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FS0eUBOXDMRNnMFtptbVO4wn+H7J4Qke7tmWNDlRwiXIhDCRwdNpstZjcuyC5aLGL8S2NIsy63WHWus39aYOHWF9dclRYgM3eM9Ovc5Y7ReAQ0BwkR3JucJs3XkEAnQKoDUUnfffoUv5aF9PuNmsRgDto2NOEEyxpQMYGzDJ2m0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ZXZKb2LD; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786572960; c=relaxed/simple;
+	bh=iIazRueLgCwdpQVvBzVvZ3MoLhiaggQsU7v7PgtD+mk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DoelbG7j1lrby2beoWvsOkzVvSLMBy3cDX/Zg0BnFkYgr/2/ZKQLGYKG/V12335vYVvsKN+kHm1tIjVjyLNAIpHjBdRw1+8BZyi4PUKgeCzt16sRO0ayjSWXGbM1mRVVbwgN6FcxpMYjWhFIrgydUGbPa2BhIGBhoZodgXAT1lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=IAh0RxaC; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ZXZKb2LD"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CK2rMF3381556;
-	Wed, 12 Aug 2026 22:13:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=vbI9WZpgKxAof83H5
-	wv7GUkc5GwGamhkMTn9NeqgdG8=; b=ZXZKb2LDo/D1Zrv7OaH396cCoWXtSvMLL
-	Jc8RakC18e4q1imjJe142gwH8NGftqH143AOZLp5sC6IK+jHRGFSnS0VDzpWC9zs
-	Q8urwrRgCH9wGiXtamoyD06/1q4pwGrXeau9MxOWR6FdFKhqsWhUCGCMyxpW0TUe
-	YlG+7+uEfW4cW/I869qYVXfgEoIHWcshOYTgQQ+C1zlg428IpGbhzUO6jOw3Fk8n
-	2UbWSpBt+tu+0t9UuKKuOl2ynV/GBVOVTXNWvSvMPvYGizxeCfyhZLUM7VkjY7bs
-	uiHuAOQXIoE6DXi1lWb6niN+/DRif8Zjl98LlcD4U5o5crIla3f9Q==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fyb23wfs0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 12 Aug 2026 22:13:26 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67CMBH8X004102;
-	Wed, 12 Aug 2026 22:13:26 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxg9h88k5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 12 Aug 2026 22:13:26 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67CMDOAa23593686
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 12 Aug 2026 22:13:25 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CC7A758056;
-	Wed, 12 Aug 2026 22:13:24 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0B3415803F;
-	Wed, 12 Aug 2026 22:13:24 +0000 (GMT)
-Received: from IBM-D32RQW3.ibm.com (unknown [9.61.244.42])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 12 Aug 2026 22:13:23 +0000 (GMT)
-From: Farhan Ali <alifm@linux.ibm.com>
-To: stable@vger.kernel.org, gregkh@linuxfoundation.org, sashal@kernel.org
-Cc: alifm@linux.ibm.com, Jason Gunthorpe <jgg@nvidia.com>,
-        Kevin Tian <kevin.tian@intel.com>, Eric Auger <eric.auger@redhat.com>,
-        Nicolin Chen <nicolinc@nvidia.com>, Yi Liu <yi.l.liu@intel.com>,
-        Lixiao Yang <lixiao.yang@intel.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>
-Subject: [PATCH v2 1/8] kernel/user: Allow user_struct::locked_vm to be usable for iommufd
-Date: Wed, 12 Aug 2026 15:13:16 -0700
-Message-ID: <20260812221323.3645-2-alifm@linux.ibm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260812221323.3645-1-alifm@linux.ibm.com>
-References: <20260812221323.3645-1-alifm@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="IAh0RxaC"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4954d29264cso7349575e9.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 15:15:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1786572955; x=1787177755; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uo5EFl7Rsrbk3IVJayjNPBdLiBo/0qtTpRx9EcPPCkA=;
+        b=IAh0RxaCxipOh5bIRlDuq+yxpmi9JeToDrbupWf3q76SgC+yU20ya+d6HvJQXh41N8
+         bvlzhFwGA2eqO5JYVS9pBu++nrVplLjQe0DI7hTAjDY55Jw+X0PK7f6MHR6hXbeVFoLO
+         w28fk4BhLuALDAbr1AdWcg/7pHyZDwCBQ+7qUepQNvwC0vUmKHL//7j8CdornRgXKQFr
+         R4IEls1qwMjeev68UYOivcxiGFNnDOvepvxBRM1idyAeuO6nWfBgVC/lmzHBe801n8PN
+         JPAWiR/CpYnSRdagXZEFzjzoGAvB/QhXqSdjV2irwtLV4VTxurBlUijYMmSOi4S9f+gU
+         Xl0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786572955; x=1787177755;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uo5EFl7Rsrbk3IVJayjNPBdLiBo/0qtTpRx9EcPPCkA=;
+        b=PnEaB15kDh54MVkuNs9yrOPXTssL/+UPO8MwpeV5I97uIYyUYmB7y25Dr5ZAv+Prri
+         XZC+CS8tpVzVZJ153oMs4Mzv2GqhECOTmsLdLKCJy0H2ScCpqrFXT5mfSHenuEGxEMcW
+         0SAvUhE1TlruGysJcR2IBV6Ztc5Vb9JNM820bhPEQiE8jtcrWjbwBqP0JAo44vy7d/GQ
+         /V1Hkg1jLnTlYFvRuZbcjxSIQANcOIO0Jb4kmsyWe5Xa2dbAuxTzS+NafkGbesQ00yO/
+         tKwcVqFcXWil79S6nEwbUvpwrEXxMBZKBaHI694/fPsoHWBlm7jybjefUcXHzsLuy9nC
+         qLog==
+X-Forwarded-Encrypted: i=1; AHgh+RpfErt769zghc1KUy3mbRfsx4foZhBwOgHBQUWs7K51hQ3xVP1aWDFzZaP4a/yyZHci1AJ81C0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzamOm9rtmP6NenvRsTjoJEtFCzTjH5zonejTpRs0QD/5ldEIbT
+	o1LjhNIhOG6pw0y62RFE0Pp5P47atfjLwvQddwHctL5/PvgrW57IXYaWpyo3IikUCYIACBWsBSM
+	eA/eznms=
+X-Gm-Gg: AR+sD133azQKNhd0TbQsrmKOdeYTmPtyRKA94owrDGn56YpqDYuT1p3Usmv4mKG0Z7X
+	KkYcUsMhRqklx8pxlZ9hCPC/DDBTthr5P2/chlRwVDBifNrYfoTkNV5U0WxXssnYGMgPOxXhkQk
+	YrkdVAXEav52EOCIPALyA5c+vGGWtY7sx1MEYBLFVd4ZZO5F6FIyp78XLFpEqRtBgjSnpJe1cyS
+	3rq+NsVFEGW1F7fRixCxL21iC17SPGF2WoOMwEleo/qaPravigGEmDg76EkclXKC8+2OZ5aSpgs
+	bz8aQn19oDA7CasbZiVTjixlJdnDr8diFdLQq59egOsuw5k85A1JKLqKQtCEsaFjvfcB7bjGWlF
+	FYVG28uF6nDE92Iyc72vdTA3aHLpcGGOdgnvIp0gkiegYnZQnriwr4UKfj6YMvyOkB4Ardzu3Rr
+	V3Uiz0xd07PvuOXDVzxz12cxShczFQOcUpw0sm4Zuip2jzfXUoYiZUNEDk7+NDDOriOf7+n23hp
+	S/FHk6dHMt0glA=
+X-Received: by 2002:a05:600c:19d0:b0:499:7024:9d4a with SMTP id 5b1f17b1804b1-4998218db78mr9601255e9.8.1786572955377;
+        Wed, 12 Aug 2026 15:15:55 -0700 (PDT)
+Received: from dev-jrangi.dev.purestorage.com ([208.88.159.128])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4815a569ab3sm933792f8f.11.2026.08.12.15.15.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 15:15:54 -0700 (PDT)
+From: Jasjeet Rangi <jrangi@purestorage.com>
+To: x86@kernel.org
+Cc: jrangi@purestorage.com,
+	tony.luck@intel.com,
+	bp@alien8.de,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	linux-edac@vger.kernel.org,
+	stable@vger.kernel.org,
+	Smita.KoralahalliChannabasappa@amd.com,
+	yazen.ghannam@amd.com,
+	msaggi@purestorage.com,
+	rjethwani@purestorage.com,
+	rhan@purestorage.com,
+	dgiani@purestorage.com
+Subject: [PATCH v2 0/2] x86/mce/amd: Fix inverted interrupt enablement during storm handling
+Date: Wed, 12 Aug 2026 16:15:12 -0600
+Message-ID: <20260812221514.598842-1-jrangi@purestorage.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,91 +86,30 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=XqfK/1F9 c=1 sm=1 tr=0 ts=6a7cf006 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=Ikd4Dj_1AAAA:8 a=QyXUC8HyAAAA:8
- a=20KFwNOVAAAA:8 a=VnNF1IyMAAAA:8 a=-gLlHuE2PaxnPGtbEqgA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE3NyBTYWx0ZWRfX/a1RVZz0VWcT
- Mf/oLRt5FL5a6WHdP66hkz68Bq3hZMSn9nhP5wpwT+juoQtFJhbX1ftL7mf5yIfLKk0UNjGSkFk
- /jvl1t2/3WfOABvFpS8XsRH7qWOhdHmhoYYXGAIdKIfzvV0kZBZi3l86T6RIKxWgkV6Rsw18Lf8
- 13QGTZtzCSjyRee4mGaNShT8dO03H3z5NmmIMRd5s610+HyWvTdYyGxfbf6iN6p5WscA6XJ8YL6
- GhENMo7m9c6zNMb42gsN0mEpeYwgj0SbxBq/2iOpVNes/hnduCaII1xLSNVrItdwu1lAvRJBO0Y
- I+L1SsaxJUQSPmbVE0TThmvQybvkoHkPfjl1hihwqws9gBnVJ7jXsntPUq+gcxx02rhJq7YKqZb
- i/d/Kv5UeYisfOSsOrVB3QO+FOiWHe1Jpy1NvEocMDulwJTm1Y/IJjks9IeKTu/upENWJgoAwPa
- N+ITEx8AzwUjWfhcfyg==
-X-Proofpoint-ORIG-GUID: OBeLRT-ebk3SAYRKfjeRCi-nCvSILjIL
-X-Proofpoint-GUID: OBeLRT-ebk3SAYRKfjeRCi-nCvSILjIL
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE3NyBTYWx0ZWRfXxGs+lTavZq8u
- i0wQ407WaYxRbvCbXIaic6I9jfFkY+hiGIVeHiGzTQrgZ2LqlGtanOkf5mpD0lhk7f8Tfg7KqVW
- aPjE/JHtzg5JjF/OI1HZYDT8TkWn+e0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-12_06,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0 clxscore=1015
- suspectscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120177
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+Hi all,
 
-Following the pattern of io_uring, perf, skb, and bpf, iommfd will use
-user->locked_vm for accounting pinned pages. Ensure the value is included
-in the struct and export free_uid() as iommufd is modular.
+This set fixes a bug in AMD MCE storm handling and renames a variable
+that could have led to this bug. The variable rename patch is split from
+the fix to keep the fix minimal and to allow easier backporting.
 
-user->locked_vm is the good accounting to use for ulimit because it is
-per-user, and the security sandboxing of locked pages is not supposed to
-be per-process. Other places (vfio, vdpa and infiniband) have used
-mm->pinned_vm and/or mm->locked_vm for accounting pinned pages, but this
-is only per-process and inconsistent with the new FOLL_LONGTERM users in
-the kernel.
+Patch 1: Fix inverted interrupt enablement during storm handling on AMD
 
-Concurrent work is underway to try to put this in a cgroup, so everything
-can be consistent and the kernel can provide a FOLL_LONGTERM limit that
-actually provides security.
+Patch 2: Rename MCE storm handler parameters for storm mode
 
-Link: https://lore.kernel.org/r/7-v6-a196d26f289e+11787-iommufd_jgg@nvidia.com
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Eric Auger <eric.auger@redhat.com>
-Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-Tested-by: Yi Liu <yi.l.liu@intel.com>
-Tested-by: Lixiao Yang <lixiao.yang@intel.com>
-Tested-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-(cherry picked from commit ce5a23c835aa0f0a931b5bcde1e7811f951b0146)
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
----
- include/linux/sched/user.h | 2 +-
- kernel/user.c              | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+Thanks,
+Jasjeet
 
-diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
-index f054d0360a75..4cc52698e214 100644
---- a/include/linux/sched/user.h
-+++ b/include/linux/sched/user.h
-@@ -25,7 +25,7 @@ struct user_struct {
- 
- #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
- 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
--	defined(CONFIG_VFIO_PCI_ZDEV_KVM)
-+	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
- 	atomic_long_t locked_vm;
- #endif
- #ifdef CONFIG_WATCH_QUEUE
-diff --git a/kernel/user.c b/kernel/user.c
-index e2cf8c22b539..d667debeafd6 100644
---- a/kernel/user.c
-+++ b/kernel/user.c
-@@ -185,6 +185,7 @@ void free_uid(struct user_struct *up)
- 	if (refcount_dec_and_lock_irqsave(&up->__count, &uidhash_lock, &flags))
- 		free_user(up, flags);
- }
-+EXPORT_SYMBOL_GPL(free_uid);
- 
- struct user_struct *alloc_uid(kuid_t uid)
- {
+Jasjeet Rangi (2):
+  x86/mce/amd: Fix inverted interrupt enablement during storm handling
+  x86/mce: Rename MCE storm handler parameters for storm mode
+
+ arch/x86/kernel/cpu/mce/amd.c       | 9 ++++++---
+ arch/x86/kernel/cpu/mce/intel.c     | 4 ++--
+ arch/x86/kernel/cpu/mce/internal.h  | 8 ++++----
+ arch/x86/kernel/cpu/mce/threshold.c | 6 +++---
+ 4 files changed, 15 insertions(+), 12 deletions(-)
+
 -- 
-2.43.0
+2.50.1
 
