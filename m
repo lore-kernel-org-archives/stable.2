@@ -1,130 +1,171 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF00F4499AA
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 14:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 009E833D4F0;
+	Wed, 12 Aug 2026 14:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786544059; cv=none; b=YwOxQ1ViUyiNila4jp5G0MLut9BMew48FzgSw0xRaHJGqxqeQ78r0AjnF4c6l7iB9FqzdDnfhNuWdPC7+1rb5VIUH4h4q7JK27O8Aclx5HVxywXsvG2VsSF2cRTle8L916BIxW3Ri3NLvRyA6DroPDoc7r3b2nC4f5qYN4kAN0w=
+	t=1786544622; cv=none; b=Kt0AkI+Zh1Ow8qhY8QwuXgifR/ebsxbZysxq8X/58Kc44gNjAz083QiwRPi9Rlg4+doueKJWYQ6WAFwfvzuAyokiga2QmMO2qNWWf+LX/peWYWALEF6+zhCryJOsoJwgxkpKNMgI402q9VOaRbMZ8xAAEt5MPdQnCAjwymDPZVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786544059; c=relaxed/simple;
-	bh=/2s11HKj/UkP9vpmnqSeeOzeO4in3KC+LcgVgF6xTqI=;
-	h=From:To:Subject:Cc:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A83S7SZxCM/KF5I4Md7ROxcM/IXXVhn2uj8xikzMVvZKBOuF8Lt77B/Rdgj9GgSyHR6Aictx8/62AeW9OzpsCLSYouP8ef5mgf4e2aeWohhsGIq8UZEUtCp9WB5CraKjL2iVorE2dqBjQOKmz8HkRXBgle5jrbezyYXDEG56u2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MZ+Cg4DR; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786544622; c=relaxed/simple;
+	bh=DaPAjmxog5owAR2BES1Ti0cJEW7rLRp2Yo/7zXarSZI=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=QCs0AEwEz+0oRH8oJPVscCCbOREK9+GYTX1mQIZ57QKgJShEWF5JDzkZWOx5Z9rpZ++euShJIlY1dHUVe6HnSnLgShwCTQbtOFYKQuW3BmmI/Wps0OsQmmHsPdiIeEL9SNq8nxpKYCBkO75JPBxuWPc6SP2Uwfbsp3cARuC4Tj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=d9K4BAH0; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=rNxS9Xp2; arc=none smtp.client-ip=160.80.4.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MZ+Cg4DR"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4957eefd361so7653405e9.1
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 07:14:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786544056; x=1787148856; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:user-agent
-         :reply-to:references:in-reply-to:message-id:date:cc:subject:to:from
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/2s11HKj/UkP9vpmnqSeeOzeO4in3KC+LcgVgF6xTqI=;
-        b=MZ+Cg4DRLS9HUOSqGI7SxLPCwH8lQo90J7eHF5f7nv0kyeTNlKizs9hS6Ra0HOPwVE
-         2buv6N9PIue+Rvf4tE4RvwgZg5holqZ/L5g6SDy2gyoEXx3WRY4Ze9hbmK5+WjAqdAFy
-         YwJL3GJigviIY6o03OVgH1K9arle1OovMfjd3GYDLOsnpynqVvwuNOOTBY8ZQWVlVwDs
-         1Bxo0XRKcArfA9De9yAXDh19uwRxTvs2hZ9986g7mw1FCQNvQKxzKGcpoT9HMP+y54oQ
-         48HWY9Jat1dNJjDT34YttvxDAsMZOAvgrCVY/vjBUgS3NKm8xolMFbzDFiIpzhqzWHmo
-         wUoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786544056; x=1787148856;
-        h=content-transfer-encoding:content-type:mime-version:user-agent
-         :reply-to:references:in-reply-to:message-id:date:cc:subject:to:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/2s11HKj/UkP9vpmnqSeeOzeO4in3KC+LcgVgF6xTqI=;
-        b=py5rSyhDo+iuPdxixuNvozLCjoIxKUyL5iPoDs8ZW1duB6KNOFb0bSWXv+fm9f+IkV
-         1FUxuO1T4DnSyCgJvyd/HmpOMWa2QWt+s+QisX674T6o5dJ6mRbspUHAQ+/33C3jY0Du
-         Kje1lmRoOwU+wt9VDWpovOMODu+OjfKeV0ZbXxAU9Hz5sFAgEv4UVSw/xZ+2Tp43pd+9
-         8mdJUIvGAplU6+jJcD34mtdgRYbWLkHalNgIX9Qk2yLI8qeN3vX78J8epVgsUQgTdTUw
-         f9kHHt0u0Flpv6HF+2WLk5eaucujazx/QqeHxvXESg4+mmHBS+SJ/cyRfSF+O9KzAFli
-         NR+w==
-X-Gm-Message-State: AOJu0YwHlE/8OAJmL6PnG4fMdP3WTIdi88fqkIpYkbKUHHv5wtRZLoQT
-	l2pq9grNHF+9Jsd9XADTYcpV+br5w8sOYn5zm29IgxBeV1qobbApgDfoLqEnlyfQ
-X-Gm-Gg: AR+sD13SC1VEDPT1tfmR9Q+5KfdyZUKZpQqfGMO+D3qigMm132oYlJPUGI39gJwhRfm
-	0tTHWrgun+O+3weIPEl4L1pLjyfw4vHoh4NPZRqQK479UuyprSWTYmUgf80tzlM3q+hBDNv2Nju
-	Np+Y4jKNNMyRoqGgRCVpMJgmRVsjOgw0sbX+ih4PhsmEJhqkkrGO+PUnSBXI+OFp5GzRtXdwJFn
-	sF3VqSXpZf6QqilGajJE3gwo62lM9Zgank4OP5wpY/dpwBM00fFUOcyi91MwuvDLJVywhmT10bg
-	f7Mq9aSuoOlFljIlzSEQSGxcBejIqM9AFHZc7IHIEyks8frwov6jQ5+M5YV+owsiolLco9KlDdM
-	PehugieNNFCBghfh8wTefPkut9onE49CrZth+iAsNY3V9IX0NwQwS8Q4MdoIKgaOIfA+DfNfzAt
-	Zt6wO3U9YC+rKxrq/U7kUO42eg/LZkLT7cp3O7rnFDQLo4omj0zjQw/VGIRsL34a/1TnnyJEw2X
-	N3WUDxc+3zV7YyxIm0NwoA=
-X-Received: by 2002:a05:600c:8b38:b0:495:3de8:33a6 with SMTP id 5b1f17b1804b1-4997c17bc44mr62125405e9.16.1786544055779;
-        Wed, 12 Aug 2026 07:14:15 -0700 (PDT)
-Received: from ?IPv6:::ffff:10.0.1.212? ([5.14.164.31])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48150bf5c5fsm7535044f8f.3.2026.08.12.07.14.14
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 12 Aug 2026 07:14:14 -0700 (PDT)
-From: "Stefan Muraru" <muraru.stefaan@gmail.com>
-To: "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Please backport two btusb/btrtl commits for RTL8761BU to 7.1.y, 6.18.y, 6.12.y
- and 6.6.y
-Cc: "linux-bluetooth@vger.kernel.org" <linux-bluetooth@vger.kernel.org>, "Nils
- Helmig" <nils.helmig@web.de>, "Alexej Sidorenko" <alexej@sidorenko.cz>,
- "Marcel Holtmann" <marcel@holtmann.org>, "luiz.dentz@gmail.com"
- <luiz.dentz@gmail.com>
-Date: Wed, 12 Aug 2026 14:14:13 +0000
-Message-Id: <em37b1be4a-6bda-427f-a913-4d6e6521e457@gmail.com>
-In-Reply-To: <em41fdaeff-f823-4a9c-9130-608653576777@gmail.com>
-References: <em41fdaeff-f823-4a9c-9130-608653576777@gmail.com>
-Reply-To: "Stefan Muraru" <muraru.stefaan@gmail.com>
-User-Agent: eMClient/10.4.0.0
+	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="d9K4BAH0";
+	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="rNxS9Xp2"
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 67CEMuHM006037;
+	Wed, 12 Aug 2026 16:23:01 +0200
+Received: from lubuntu-18.04 (host-80-183-189-234.business.telecomitalia.it [80.183.189.234])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 72851122967;
+	Wed, 12 Aug 2026 16:22:51 +0200 (CEST)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1786544571; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OuVP8jn+2IQuzgwsSZXa4qlpdqRw4iDgXUxpue/OBpA=;
+	b=d9K4BAH0H1Te43xsUyM+rk0ijrR/AI/imE5QpJyoHxk4MIcbYnD3dwuYRWRAA9eGhqFax6
+	5aZUubZzLza91/Bw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1786544571; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OuVP8jn+2IQuzgwsSZXa4qlpdqRw4iDgXUxpue/OBpA=;
+	b=rNxS9Xp2/9NYCs2VzZteEggRS7h6wl1CEENjzg5ezIKO4eLMLzXqWW4oMQUueemN7eRAXJ
+	BqXrQCjiUobTsT6Xs+wli7fAVYwG31MM+s/7g9q19836BvHLB635hE8vD3oT5SXwCC3OwA
+	keLvz53/K3FjWS/felaHtOxX4RMIMlA62XNY3s5BKduYVhoSHYHsRVh1pg3viDoieFrsyM
+	homntDN6hcHzYXmkfSiQhyCIcNLre+4hRZ/u4DmSu/ureCwb/dAMKMVVZIWUK1GA9LShGW
+	H5fGOrkiJBAruI+Eq9zodg5otcuzQhnQd7Y8sE5VPeHi8nt6Nfgm4/ZEZOTCoQ==
+Date: Wed, 12 Aug 2026 16:22:50 +0200
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: David Lee <david.lee@trailofbits.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, Kyle Zeng <kylebot@openai.com>,
+        "Dominik 'Disconnect3d' Czarnota" <dominik.czarnota@trailofbits.com>,
+        Nicolas Dichtel <nicolas.dichtel@6wind.com>, horms@kernel.org,
+        stefano.salsano@uniroma2.it, dsahern@kernel.org,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, Andrea Mayer
+ <andrea.mayer@uniroma2.it>
+Subject: Re: [PATCH net v3] ipv6: seg6: clear IPv4 control block on IPIP
+ decapsulation
+Message-Id: <20260812162250.71d6e1df06ee05fdc3fd5fe0@uniroma2.it>
+In-Reply-To: <20260810154732.850472-1-david.lee@trailofbits.com>
+References: <20260810154732.850472-1-david.lee@trailofbits.com>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-Hello,
+On Mon, 10 Aug 2026 15:47:31 +0000
+David Lee <david.lee@trailofbits.com> wrote:
 
-Could you please pick these two mainline commits into 7.1.y, 6.18.y,=20
-6.12.y and 6.6.y:
+Thanks Kyle and David for the v3. The code looks good. What follows is
+about the commit message.
 
-```
-bc597f0cc44f ("Bluetooth: btusb: Add TP-Link UB600 for Realtek 8761BUV=E2=
-=80=9D)
-5ead2063611a ("Bluetooth: btrtl: fix RTL8761B/BU broken LE extended=20
-scan=E2=80=9D)
-```
+I think the commit message is missing some information that the review
+needs now, and that anyone reading git log will need later, since this
+patch is Cc: stable.
 
-Both landed in v7.2-rc1. They went through bluetooth-next, so neither=20
-carries a Cc: stable and AUTOSEL did not pick them up.
+> From: Kyle Zeng <kylebot@openai.com>
+> 
+> End.DX4 and End.DT4 decapsulate an IPv4 packet through
+> decap_and_validate() and send it directly to IPv4 routing. The inner
+> packet therefore bypasses ip_rcv_core(), which normally clears IPCB
+> before IPv4 interprets skb->cb.
+> 
+> The skb instead retains IP6CB data from the outer packet. IPv6
+> extension-header offsets overlap IPv4 option fields, so IPv4 can treat
+> those offsets as saved option metadata. __ip_options_echo() can then
+> copy beyond the allocation for saved options.
+> 
 
-The first commit is a plain device ID addition. The TP-Link UB600 is an=20
-RTL8761BUV sold under TP-Link's own USB ID 37ad:0600, and without that=20
-entry btusb never sets BTUSB_REALTEK, so btrtl never uploads=20
-rtl_bt/rtl8761bu_fw.bin and the chip stays on ROM firmware.
-hci0 comes up and reports itself powered and discovering, but it never=20
-delivers a single LE advertisement and the interrupt URBs die, so dmesg=20
-fills with
+This says the offsets overlap, but not which stale field has to be
+non-zero for the copy to be attempted. IPCB->opt.optlen shares a byte
+with IP6CB->lastopt, and __ip_options_echo() returns before any copy
+when the optlen it is given is zero. What the outer packet has to look
+like for that byte to be non-zero, and whether the sender controls it,
+are not stated.
 
-```
-Bluetooth: hci0: urb 000000009204cf55 failed to resubmit (2)
-```
+> Separate End.DX4 and End.DT4 reproducers on the unpatched v7.2-rc5
+> kernel both produced:
+> 
+>   BUG: KASAN: slab-out-of-bounds in __ip_options_echo()
+>   Write of size 255
+> 
+> The End.DX4 trace passes through input_action_end_dx4_finish() and
+> input_action_end_dx4(), while the End.DT4 trace passes through
+> input_action_end_dt4().
+> 
 
-Hence, the adapter is unusable in that state. The ID is the only thing=20
-missing, rtl8761bu_fw.bin already ships in linux-firmware, and btrtl=20
-already seems to handle the 8761BU. I checked that the commit applies to=20
-7.1.y, 6.18.y, 6.12.y and 6.6.y unchanged.
+Pasting the call stack would show how __ip_options_echo() is reached.
 
-The second commit matters as soon as the first one works. The 8761B and=20
-8761BU report HCI 5.1 but do not implement the LE extended scan=20
-commands, so extended scanning fails with Opcode 0x2042 returning -EBUSY=20
-whenever a connection is active. Backporting only the device ID would=20
-leave people with a dongle that enumerates and then logs errors=20
-continuously.
+> When decap_and_validate() handles IPPROTO_IPIP, save the ingress
+> interface from IP6CB, clear IPCB, and restore the saved value. Doing
+> this in the common decapsulation path covers End.DX4, End.DT4, and
+> End.DT46's IPv4 arm.
+> 
+> Use IP6CB(skb)->iif rather than skb->skb_iif. These actions run after
+> l3mdev processing, which can replace skb_iif with the L3 master;
+> IP6CB iif still records the receiving interface set at IPv6 ingress.
+> 
+> Fixes: 891ef8dd2a8d ("ipv6: sr: implement additional seg6local actions")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> Co-developed-by: David Lee <david.lee@trailofbits.com>
+> Signed-off-by: David Lee <david.lee@trailofbits.com>
+> ---
+> Changes in v3:
+> - Clear IPCB in the common IPPROTO_IPIP decapsulation path so End.DX4,
+>   End.DT4, and End.DT46's IPv4 arm are covered.
+> - Preserve the ingress interface from IP6CB instead of skb->skb_iif,
+>   which can identify the VRF master after l3mdev processing.
+> - Update the Fixes tag to the commit that introduced End.DX4.
+> - Include the End.DX4 and End.DT4 KASAN evidence.
+> 
+> v2: https://lore.kernel.org/netdev/20260804094625.715305-1-david.lee@trailofbits.com/
+> v1: https://lore.kernel.org/all/20260731140832.567669-1-david.lee@trailofbits.com/ 
+> 
+>  net/ipv6/seg6_local.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+> index 2b41e4c0dddd..95ea0b62729a 100644
+> --- a/net/ipv6/seg6_local.c
+> +++ b/net/ipv6/seg6_local.c
+> @@ -256,6 +256,13 @@ static bool decap_and_validate(struct sk_buff *skb, int proto)
+>  	if (iptunnel_pull_offloads(skb))
+>  		return false;
+>  
+> +	if (proto == IPPROTO_IPIP) {
+> +		int iif = IP6CB(skb)->iif;
+> +
+> +		memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
+> +		IPCB(skb)->iif = iif;
+> +	}
+> +
+>  	return true;
+>  }
+>  
 
-For context, i=E2=80=99ve Home Assistant OS 18.2 running kernel 6.18.39 as=
- an=20
-immutable image with no kernel headers and no dkms, so users like me=20
-cannot patch btusb themselves and have no workaround.
+IMHO, the commit message is worth a new revision.
 
 Thanks,
-=C8=98tefan Muraru
+
+Ciao,
+Andrea
