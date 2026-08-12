@@ -1,95 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C028E231827
-	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 00:09:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B70E28134C
+	for <stable@vger.kernel.org>; Wed, 12 Aug 2026 00:13:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786493391; cv=none; b=YnOOI46BOsxO5kVwyz98jkwhfJFaMZbXi61uy1nnIPqN4tthdfRTQkrBti5/DGMWtxNJj2kqdle5cU0HpLkfJfjEGZqI0/QV8Cbi/OZQv5Y/BqJxyzidW0pVsSKXAl0qIOj0oIqboviluogB7m1y1lY0Qwp3e/CzUILGGBbfxDo=
+	t=1786493603; cv=none; b=get0gyx2R7IBXYZw0SGiCYIKEbpxmPESsyYWPyTMTN/KILhHGHqYNHYGNGMUVoPHbEdEeYtulTbjcpsufh2FGFcW5edHdACAnGEFdQfk5hulBuHQhzH7vFMqy4EnH6qYGUral27vSzRylPOgq38IyS1KC/dDo+MzE0+MRplSS1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786493391; c=relaxed/simple;
-	bh=al+LR5irlil20CuiUNEnzoLt9sfnXyU5LJaFze82YyM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nSwqczTDP6NlrD74sbP/Mw0xZ2tLT0i0FBnJwMyKGWB2M9ebwiS+BGYxhMuV0bQgbxUGAUr+ZX7fN6b5b1GoeO/Vx6qjW0is/Y3TZLllW9nZq1PV61FQ2CHQ86m2zU9LneoBSiK1SnghEHtAQ+1F3GU7exULZ3CsWc9GtFumkqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSQ9yE0F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786493603; c=relaxed/simple;
+	bh=xQapoo5R68iqZSPtwIjQxwsShf6RN0Z6A+z8nvbOnMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UPIsArmon0mhIm+zfIxgWsqdoU4z/37BUOgq9ldHubaScLqEmu2bli4gGa2Akt4ejbTfYlsGft74tqhVBNLjLBmm1sJJA+32W89oO4kLVirw/dhJWoEiCNko3k6R8l+b11E0dh4ZL2zRktTuG2cU7oYefAK7GCocn/AMK16L4Sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QGFuHz3g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSQ9yE0F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AAC21F00A3A;
-	Wed, 12 Aug 2026 00:09:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786493390;
-	bh=/baoxN6dsZeRfjJZTLp9ted5vsSXVZRPYZNcJWnViUU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OSQ9yE0FNFf5ygkbyxTzOBskdvJdAaupznYF+2ycRlp5h+VH/m9anvoPH6FWy2aQt
-	 QrH3N0AAXl2Hgb3I4OodhsZIxnrZjkThXfxiwcjWEwZ09AbiSbOWqHF73RPNMcWd+n
-	 TnZKATA4PW1JiMRLj61QCBgRnley0bsBToIfidTMwTxvSEHU1Hf5ZR2N1dv1lLKAon
-	 J/vDomM4VwXuNpcQwGTZ0DUcZ5V8yTuvjcveFtlMmmdtTzc9RXj7S7tH9qCkO0vXDe
-	 hJ8StjrorqHQ8GL8P/HZRLmeHKVoEthTCSA2CaEaTGHh4U9kSlOlNSWOLkhRn/LTu7
-	 MOPlv9brMYJmg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] binfmt_misc: restore write access when removing an entry
-Date: Tue, 11 Aug 2026 20:09:47 -0400
-Message-ID: <20260812000947.4159385-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812000947.4159385-1-sashal@kernel.org>
-References: <2026080511-errant-musky-ca70@gregkh>
- <20260812000947.4159385-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QGFuHz3g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0241F00A3A;
+	Wed, 12 Aug 2026 00:13:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786493601;
+	bh=spQMgneVP8fEYOfgaKT1GnQKO1+Iouev1im9NBH4dU0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QGFuHz3gjn5NN9NQwb2N9hZZbp7dAdKUZKbzFnrvwmVIj8V65FsZAwtiTurg0DLsF
+	 NMcBRbj9leKXXOHRKkPx5NVoRe42MqazwrwS2z1Mq+iIgXAAk99LkBaOfQsi+Fj0hf
+	 zp+T9OnmsSoHz8STrHwmjnEoAHyWPwwju1S55t7c=
+Date: Wed, 12 Aug 2026 09:11:49 +0900
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alex Lyakas <alex.lyakas@zadara.com>
+Cc: stable@vger.kernel.org
+Subject: Re: linux 6.6.146: NULL pointer dereference in update_curr+0x149
+Message-ID: <2026081227-bounding-commode-9cf9@gregkh>
+References: <CAOcd+r2bxm_T5ZzYGfrYUjsbY8Kj=OgeCcdg1c4Msi01A0imdQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAOcd+r2bxm_T5ZzYGfrYUjsbY8Kj=OgeCcdg1c4Msi01A0imdQ@mail.gmail.com>
 
-From: Christian Brauner <brauner@kernel.org>
+On Tue, Aug 11, 2026 at 08:27:42PM +0300, Alex Lyakas wrote:
+> Greetings,
+> 
+> We hit the following kernel panic in stable kernel 6.6.146 [1].
+> 
+> Any help appreciated.
 
-[ Upstream commit db1856ea9196cf6e015d12199a34c0b9313c7bfa ]
+What about 6.6.151?
 
-Registering an entry with the MISC_FMT_OPEN_FILE flag opens the
-interpreter via open_exec() which denies write access to it for as
-long as the entry exists. Removing the entry closes the interpreter
-file via filp_close() but never restores write access, leaving the
-inode's i_writecount permanently negative. Opening the interpreter
-for writing keeps failing with ETXTBSY long after the entry is gone
-until the inode is evicted from the inode cache.
+And can you bisect to find the issue?
 
-Commit 90f601b497d7 ("binfmt_misc: restore write access before
-closing files opened by open_exec()") fixed the same imbalance in the
-error path of bm_register_write() but the actual removal path has
-been leaking the write denial since the introduction of the flag.
+thanks,
 
-Restore write access in put_binfmt_handler() before closing the
-interpreter file.
-
-Link: https://patch.msgid.link/20260710-work-binfmt_misc-locking-v3-1-a162f7cb58d6@kernel.org
-Fixes: 948b701a607f ("binfmt_misc: add persistent opened binary handler for containers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/binfmt_misc.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
-index 3b96c7ca7cfcd..5f6e354cb565c 100644
---- a/fs/binfmt_misc.c
-+++ b/fs/binfmt_misc.c
-@@ -163,8 +163,10 @@ static Node *get_binfmt_handler(struct linux_binprm *bprm)
- static void put_binfmt_handler(Node *e)
- {
- 	if (refcount_dec_and_test(&e->users)) {
--		if (e->flags & MISC_FMT_OPEN_FILE)
-+		if (e->flags & MISC_FMT_OPEN_FILE) {
-+			exe_file_allow_write_access(e->interp_file);
- 			filp_close(e->interp_file, NULL);
-+		}
- 		kfree(e);
- 	}
- }
--- 
-2.53.0
-
+greg k-h
