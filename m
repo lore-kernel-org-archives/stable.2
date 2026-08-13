@@ -1,213 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91EFF35C6A9;
-	Thu, 13 Aug 2026 23:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094E23A8759;
+	Thu, 13 Aug 2026 23:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786663549; cv=none; b=YZkrGM1uL6ifojXM2SuTG8QVtizHdafDiMDsanRUguDPIen3R7RBM0u3dB2rRHJ/9E8R2r9w5rYzzdkH0a3WpKVioUJ+uUBIIFGvsi2O+rx2ditYhjvwnLxj2d0PaEJfJrjSv1tchqQxNFGY1xkjRjyLcxUOvpJilHnJn6hstKM=
+	t=1786665524; cv=none; b=pgBB5cbRab1vxQwcgP1BgXrhW25J5iRgDOUg+yAsJC0n95E0UEbLLAr23/TR5DOAF+KxJz50r0yza/hCt6oIVA3tr7mAN6kLehtlSw8shrER5mwjUZ6SI4EIkd6fxrH2HtrPhhwApJ5MM9h1Ied24/zaf/Dl5jD3CF/3UlC/RNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786663549; c=relaxed/simple;
-	bh=k3SmUzYEm7L4H9U7UClwqfo+f6uzSy59CupZQeIWF0M=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=mH23mQQz7d3xlbRSOEsYZqQiZHNS8rfdZu3JVRxrX2mIeEsESb9exopowCHlAb+FKppiq6Z8gszM0rMo51gGs9SIKMgkXzpXLgV9UsZztR2Lk9Vd+KbbBPmAW0grHbVJA07qG3OVPfcP2eG1MrqIroSSh0/rLEdoRf3ooE50b1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W/15ibzN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786665524; c=relaxed/simple;
+	bh=PIW4/tNfhuqvpw9bSrnVIUt6VD/pwee7xYih0m7sFUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YcyhPp+p5OuOES15PlgTfRA1lcTbNmEmKVJNhnW4dQVhcwu2v9uNHdp1mrogHTuGsBRkR+oudMrV37gg75FyM2T43EGetiU3hyKTvhVzTtPCXHkL085eFNWX8x+gsNKtmMSrH1SHTyXxo1GOinekcPneRBYNIGoUHpykT3ylAk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=BgqeFhb5; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W/15ibzN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFC31F000E9;
-	Thu, 13 Aug 2026 23:25:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786663548;
-	bh=cxhdLg1CviX6u/QxyGC4JqWI+r3yRZBjgSqU5NJc4og=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=W/15ibzNfKTSgt9L0SGAF0O4ejevNnbvmReY+/xChnRqvkFpCCIhGWRFlf24L1AYu
-	 okysD75oT6Yi+dg1TZWG7DHQTKI4W4QsSYafXWwu3BDdzNxfDaAgmhil6S0kh9NWLE
-	 GVeJtwMI5Wj4W8jXd/DAVMRIVz1uOa8CF9cge46A6OW2LfXzoPgaHNri9BN/wYRs1d
-	 Ps01/8pAXG6wqdlHng2rcZZNdwL1nVD2+CB3JHspsfeJbs9upWuAGR1sPELGWJYB6r
-	 LGBG/rClHb0q7+k7zL+E9z5Fa29VyC0R95Q5LO9RRqxkp1vlPNttSLC50BpyotAri2
-	 /aO5xdLepKbZg==
-Date: Thu, 13 Aug 2026 18:25:46 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Farhan Ali <alifm@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org, alex@shazbot.org, schnelle@linux.ibm.com,
-	mjrosato@linux.ibm.com, stable@vger.kernel.org
-Subject: Re: [PATCH v23 2/5] PCI: Allow per function PCI slots to fix slot
- reset on s390
-Message-ID: <20260813232546.GA1281281@bhelgaas>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="BgqeFhb5"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5583540E019C;
+	Thu, 13 Aug 2026 23:58:31 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id LlO7YcrXw7xK; Thu, 13 Aug 2026 23:58:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1786665501; bh=sh/dyEphPDNyqA2jYsmV9lNQXr+EJFQY91tR1OmnEew=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BgqeFhb5NJ7gfCwBA2Zu+ZczEqtsNU00QDnqeShWwcW3jSMq+y28sGVYcBttJ95JZ
+	 Xd7gFvR/+vGxtDdouSmBI2TQ5QjRVLsF68uqfDV6yQZaPyXGeCKuPrPfANuTWGFYZJ
+	 z26eg0ZKB7IdnmVOT1TUQ1UfeOESafqNCdY1aGBVh6W0/C2KaPeWShyJria8kL3PrP
+	 U5fXvXXxv+tmSHKF/QhquqeR/8d+tDtIr2DW5v0YwOToS2ygi2FVjTWndueYiUdx8C
+	 sqRHlVDdyO19fsrRbp2JMRkuk21q0yGlDftABNVm3GKIjB5hZtM0gr7RQ9xm1UMw/x
+	 maj49CN8ilbY+oMKN1z+t7ALvKr2D7yu8CLldVikcIq98Dtq5kK6NYst/iMF+MTr1k
+	 qa/GQLFqfdzTlSrP93b7REUjEGgKVfVRLJtVNCTDZNZ6KGEaA6IG9S6eRPBu2+SqDE
+	 GYmQ6mxTXsauiz6gsaR/JQit8aHxEaob5D0v7H3b8a4jfffHS104g4DOmXzgTKE9g6
+	 H4RX76Lob5og+yTYexQJd0PLV8uSdP8eQedoJdzZjoZlKxt6HkV3rkRHEw1DRxF1Yl
+	 +9ptZ7QnTm762soozw7+WoCQ7oru72Qm91h8gYZFFn5vNfqa61NSk5hfCyW+MCg6d3
+	 mSU50kM1B/bRg5kwIfIsNTzw=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1b])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id AB4CC40E014A;
+	Thu, 13 Aug 2026 23:58:09 +0000 (UTC)
+Date: Thu, 13 Aug 2026 16:58:00 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+	linux-kernel@vger.kernel.org, Penny Zheng <penny.zheng@amd.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] x86/amd_node: Remove smn_exclusive
+Message-ID: <20260813235800.GAan5aCCfimjHRUV1O@fat_crate.local>
+References: <20260806160159.230453-1-jason.andryuk@amd.com>
+ <20260806160159.230453-2-jason.andryuk@amd.com>
+ <20260810140747.GB57095@yaz-khff2.amd.com>
+ <20260812192805.GBanzJRTgkrti3Bm7F@fat_crate.local>
+ <a57bdf5f-c9a5-4417-9d8b-d84cd29238b4@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260805165518.794-3-alifm@linux.ibm.com>
+In-Reply-To: <a57bdf5f-c9a5-4417-9d8b-d84cd29238b4@amd.com>
 
-On Wed, Aug 05, 2026 at 09:55:15AM -0700, Farhan Ali wrote:
-> On s390 systems, which use a machine level hypervisor, PCI devices are
-> always accessed through a form of PCI pass-through which fundamentally
-> operates on a per PCI function granularity. This is also reflected in the
-> s390 PCI hotplug driver which creates hotplug slots for individual PCI
-> functions. Its reset_slot() function, which is a wrapper for
-> zpci_hot_reset_device(), thus also resets individual functions.
-
-Sorry to come back to this yet again.  I understand the issue with
-the wrong pci_slot being assigned for these s390 functions.
-
-What I don't understand is why we would use slot_reset() in the first
-place.  I would expect FLR instead.
-
-The hotplug slot_reset() path is used by pci_reset_bus_function().
-But given the order in pci_reset_fn_methods[], we would typically try
-pcie_reset_flr() first, and we would only get to
-pci_reset_bus_function() if FLR and the other resets are not
-available.
-
-Since these are actually multi-function devices, I'm surprised that
-they wouldn't advertise FLR support.
-
-> Currently, the pci_create_slot() assigns the same pci_slot object to
-> multifunction devices. This approach worked fine on s390 systems that only
-> exposed virtual functions as individual PCI domains to the operating
-> system.  Since commit 44510d6fa0c0 ("s390/pci: Handling multifunctions")
-> s390 supports exposing the topology of multifunction PCI devices by
-> grouping them in a shared PCI domain. This creates a problem when resetting
-> a function through the hotplug driver's slot_reset() interface.
+On Thu, Aug 13, 2026 at 09:40:33AM -0400, Jason Andryuk wrote:
+> On 2026-08-12 15:28, Borislav Petkov wrote:
+> > On Mon, Aug 10, 2026 at 10:07:47AM -0400, Yazen Ghannam wrote:
+> > > 'smn_exclusive' wasn't originally intended to be used for bounds
+> > > checking the array. But the original use is no longer needed, so it can
+> > > be removed.
+> > 
+> > Why is it no longer needed? Apparently I didn't get that memo yet...
+> > 
+> > 83518453074d ("x86/amd_node: Add SMN offsets to exclusive region access") is
+> > talking about the potential concurrent access. Why is that ok now all of
+> > a sudden?
+> 83518453074d set smn_exclusive after successfully calling
+> pci_request_config_region_exclusive().  smn_exclusive gated access in
+> __amd_smn_rw().
 > 
-> When attempting to reset a function through the hotplug driver, the shared
-> slot assignment causes the wrong function to be reset instead of the
-> intended one. It also leaks memory as we do create a pci_slot object for
-> the function, but don't correctly free it in pci_slot_release().
-> 
-> Add a flag for struct pci_slot to allow per function PCI slots for
-> functions managed through a hypervisor, which exposes individual PCI
-> functions while retaining the topology. Since we can use all 8 bits for
-> slot 'number' (for ARI devices), change slot 'number' u16 to account for
-> special values PCI_SLOT_PLACEHOLDER and PCI_SLOT_ALL_DEVICES.
-> 
-> Fixes: 44510d6fa0c0 ("s390/pci: Handling multifunctions")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Niklas Schnelle <schnelle@linux.ibm.com>
-> Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-> Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
-> ---
->  drivers/pci/pci.c   |  5 +++--
->  drivers/pci/slot.c  | 29 +++++++++++++++++++++++------
->  include/linux/pci.h |  7 ++++---
->  3 files changed, 30 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 77b17b13ee61..350bae907ebf 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -4897,8 +4897,9 @@ static int pci_reset_hotplug_slot(struct hotplug_slot *hotplug, bool probe)
->  
->  static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
->  {
-> -	if (dev->multifunction || dev->subordinate || !dev->slot ||
-> -	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
-> +	if (dev->subordinate || !dev->slot ||
-> +	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
-> +	    (dev->multifunction && !dev->slot->per_func_slot))
->  		return -ENOTTY;
->  
->  	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
-> diff --git a/drivers/pci/slot.c b/drivers/pci/slot.c
-> index 42ff66461f74..897223f01f6a 100644
-> --- a/drivers/pci/slot.c
-> +++ b/drivers/pci/slot.c
-> @@ -72,6 +72,23 @@ static ssize_t cur_speed_read_file(struct pci_slot *slot, char *buf)
->  	return bus_speed_read(slot->bus->cur_bus_speed, buf);
->  }
->  
-> +static bool pci_dev_matches_slot(struct pci_dev *dev, struct pci_slot *slot)
-> +{
-> +	if (slot->per_func_slot)
-> +		return dev->devfn == slot->number;
-> +
-> +	return slot->number == PCI_SLOT_ALL_DEVICES ||
-> +		PCI_SLOT(dev->devfn) == slot->number;
-> +}
-> +
-> +static bool pci_slot_enabled_per_func(void)
-> +{
-> +	if (IS_ENABLED(CONFIG_S390))
-> +		return true;
-> +
-> +	return false;
-> +}
-> +
->  static void pci_slot_release(struct kobject *kobj)
->  {
->  	struct pci_dev *dev;
-> @@ -82,8 +99,7 @@ static void pci_slot_release(struct kobject *kobj)
->  
->  	down_read(&pci_bus_sem);
->  	list_for_each_entry(dev, &slot->bus->devices, bus_list)
-> -		if (slot->number == PCI_SLOT_ALL_DEVICES ||
-> -		    PCI_SLOT(dev->devfn) == slot->number)
-> +		if (pci_dev_matches_slot(dev, slot))
->  			dev->slot = NULL;
->  	up_read(&pci_bus_sem);
->  
-> @@ -187,8 +203,7 @@ void pci_dev_assign_slot(struct pci_dev *dev)
->  
->  	mutex_lock(&pci_slot_mutex);
->  	list_for_each_entry(slot, &dev->bus->slots, list)
-> -		if (slot->number == PCI_SLOT_ALL_DEVICES ||
-> -		    PCI_SLOT(dev->devfn) == slot->number)
-> +		if (pci_dev_matches_slot(dev, slot))
->  			dev->slot = slot;
->  	mutex_unlock(&pci_slot_mutex);
->  }
-> @@ -299,6 +314,9 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
->  	slot->bus = pci_bus_get(parent);
->  	slot->number = slot_nr;
->  
-> +	if (pci_slot_enabled_per_func())
-> +		slot->per_func_slot = 1;
-> +
->  	slot->kobj.kset = pci_slots_kset;
->  
->  	slot_name = make_slot_name(name);
-> @@ -319,8 +337,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
->  
->  	down_read(&pci_bus_sem);
->  	list_for_each_entry(dev, &parent->devices, bus_list)
-> -		if (slot_nr == PCI_SLOT_ALL_DEVICES ||
-> -		    PCI_SLOT(dev->devfn) == slot_nr)
-> +		if (pci_dev_matches_slot(dev, slot))
->  			dev->slot = slot;
->  	up_read(&pci_bus_sem);
->  
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index b628787e9485..43f80d6189a7 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -79,17 +79,18 @@
->   * and, if ARI Forwarding is enabled, functions may appear to be on multiple
->   * devices.
->   */
-> -#define PCI_SLOT_ALL_DEVICES	0xfe
-> +#define PCI_SLOT_ALL_DEVICES	0xfeff
->  
->  /* Used to identify a slot as a placeholder */
-> -#define PCI_SLOT_PLACEHOLDER	0xff
-> +#define PCI_SLOT_PLACEHOLDER	0xffff
->  
->  /* pci_slot represents a physical slot */
->  struct pci_slot {
->  	struct pci_bus		*bus;		/* Bus this slot is on */
->  	struct list_head	list;		/* Node in list of slots */
->  	struct hotplug_slot	*hotplug;	/* Hotplug info (move here) */
-> -	unsigned char		number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
-> +	u16			number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
-> +	unsigned int		per_func_slot:1; /* Allow per function slot */
->  	struct kobject		kobj;
->  };
->  
-> -- 
-> 2.43.0
-> 
+> Things moved around, and now pci_request_config_region_exclusive() is called
+> earlier.  At the end of amd_smn_init(), either amd_roots == NULL and
+> smn_exclusive == false or amd_roots != NULL and smn_exclusive == true.
+> smn_exclusive is redundant, and amd_roots can just be used directly.
+
+So you want to use amd_roots to *also* *denote* whether exclusive SMN access
+is enabled. Then you need to at least put a comment in __amd_smn_rw() where
+you're testing it, what exactly that test means.
+
+Then, your patch has a Fixes: tag and CC:stable which means, it needs to go to
+all kernels but then I don't know what you're fixing.
+
+Looking at it more, you're basically fixing one more aspect of running the
+kernel as a Xen guest and it not having AMD roots exported.
+
+But what you really wanna do, IMNSVHO, you want to make your patch 2 be patch
+1 and it can go to stable.
+
+Your patch 1 then becomes a simplification/cleanup patch which goes as patch
+2 and doesn't need to be Cc:stable but it can be queued later, during the
+normal cycle.
+
+Right?
+
+Anything I'm missing?
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
