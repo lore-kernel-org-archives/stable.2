@@ -1,109 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C541746A5E1;
-	Thu, 13 Aug 2026 15:08:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD6D483BC6;
+	Thu, 13 Aug 2026 15:08:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786633683; cv=none; b=fXLpEcTt76iLkwMybSlYXiaR0lgDrzu1n/cxeR+L1buQY5Jwq4hTegCj1n2GWoFU5zFtxisN2BZYtPMyXdCh0zFP6np9PMA2VKficcLfLRzmz9GsBZ68RRu6tZVUmDerhciGyrdO7DVu8V1agM0byCy+5lxb63D5Tl6ROIIaWrs=
+	t=1786633737; cv=none; b=lhzPU+KbGKs8cppg1TKksBOtpe8ffU6KxY2E8p9IW2XVtEjoTdzsPW4nhNhojvlBr8z/BaZenswc4OXgnVm+S8J/uCi2CL2OUtMqXNa+GfQmnsuhvUCCQRCbSvKbwtVk7fSg++r1J44wZ84knegxe+AkR5H6F52520IlYWJgopU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786633683; c=relaxed/simple;
-	bh=DuvsC0v3gfLMYoatlirK2NMPyK4TJLODE4O6bX/vqiQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UciT6i4GrFK+qRjnL9UK2UeK+WWeI2K82+xPsbiGsTmwwzTo1x1hHCw0ag7RhHRaeqGAKXL1c0iMRw+pVpQtKxtipJvO/LGkHygjFStwR2nrWhNwW2g+16YjWtzVh4Nmt+nl/EuQ7W0Th0QWu7UOCbNkTr0xHVzlhoJdgp0iXvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OvQcKO32; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786633737; c=relaxed/simple;
+	bh=X/hoEMXmHicwjxg83ioroK4qXFBC2KkAYZtWR7Wfpv4=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y8rtcNW2xFxubbCRiUzRJu4cFb87n1OkiNbshW7rOgHdPIJq03XBMZZrxhE74Vosr8s5rbzSYW3esGyg7FgsXsHoTjdy4v0eT+lLqcwY3+3lSxT/kde9WVQ1/FCIxnFDdSrq2ErlUNOz0qJ5ieI4CsHtgQF9qi4PjmGyGz5OBtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iu6zTI+7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OvQcKO32"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F34D1F000E9;
-	Thu, 13 Aug 2026 15:07:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iu6zTI+7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7016D1F00A3A;
+	Thu, 13 Aug 2026 15:08:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786633682;
-	bh=gK6DwwQyRxxtNH/mIa8gsX3rT0/0H+8bKrZeyn+zATw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OvQcKO32Z34EbBDZ7Fmm6iJqwa8JrzLpYamuED4Ikir1Pw7RlZVOSfq5IJkOI5ECk
-	 tKv7ErghU4m6GMZ4UEv5wSWNr1ZNIEbrPMhPR1f1OADutH9q0SJqOvcGQgRKTZzuM8
-	 gsH4RDVb+EQ2ANGYB6x6VTeAshDoGy0D3cwKNcs4hdkILLULAZeao7G6JpR2tVilK5
-	 tYCAWTaaq+91ijjcI4C/aN2jrl56giBrfuRwbfCGxRyiZej+PMPI/elszx5ggQhNzW
-	 J4mMAYl7T2drPQwR0MHquB6X3kMk7e+A+9YxmEtPY4y2ilpSbN03ebo4QT2Q712dES
-	 SYi8olOhLB1Og==
-Date: Thu, 13 Aug 2026 16:07:38 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Nikunj A. Dadhania" <nikunj@amd.com>
-Cc: Mike Rapoport <rppt@kernel.org>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
-	David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
-	Pedro Falcato <pfalcato@suse.de>, "H. Peter Anvin" <hpa@zytor.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Steffen Dirkwinkel <lists@steffen.cc>, Suren Baghdasaryan <surenb@google.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Toshi Kani <toshi.kani@hpe.com>, 
-	Vishal Moola <vishal.moola@gmail.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Will Deacon <will@kernel.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, stable@vger.kernel.org, syzbot@syzkaller.appspotmail.com, 
-	x86@kernel.org
-Subject: Re: [PATCH v2 0/5] x86/mm/pat: CPA fixes
-Message-ID: <an3dkOKWdajK09KN@lucifer>
-References: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
- <9cfaa5d1-83b4-4b88-bf3a-05d2e074cadf@amd.com>
+	s=k20260515; t=1786633736;
+	bh=4s3K07ZR4jTg3+OEzdvHrniz3ZCVHL+rT3dEEJTt4Dg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iu6zTI+7xfJmVT111dFPsjfpICN2Yx9tbNufZUl1BhMSFCkBqI5rri3uah/FSJl+X
+	 YxsIF59K7x1iOW6rdLfpqRAeh1OURGDb7wOL7al409HSTs8MbQUKtb6+kzdoforFeu
+	 QJnnpIpn6ff9gru4+ewMgeDHOq9VyXk/aCmkfRahhht+E8DyBf1ef+eWR2pcy0kQsB
+	 moYAYpayztiVeIY95EOl03CHU7G3WvoCthS2bWWLHipuXp2F2jgZtMJX9VqgO5oyH0
+	 R/yDkzypOndluS+TUj2Gf/NpQL3pisqGPgmbOLaUXJjqYznsDk03RsHbUPPXImQEl+
+	 +Z+SwCu/kjCAA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wuX38-0000000FMuq-20Q4;
+	Thu, 13 Aug 2026 15:08:54 +0000
+Date: Thu, 13 Aug 2026 16:08:54 +0100
+Message-ID: <86zeyqys55.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Shen Yongchao <grayhat@foxmail.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: nv: Fix life cycle of the nested_mmus array
+In-Reply-To: <anx6Wa5i1M2hidVK@gremlin>
+References: <20260811122057.754772-1-maz@kernel.org>
+	<anx6Wa5i1M2hidVK@gremlin>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9cfaa5d1-83b4-4b88-bf3a-05d2e074cadf@amd.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ljs@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, grayhat@foxmail.com, kmehltretter@gmail.com, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, Aug 13, 2026 at 08:35:21PM +0530, Nikunj A. Dadhania wrote:
->
-> Tested v2 on a 512-guest concurrent boot harness across 200 iterations
-> with no splats. Both crash signatures reported in [1] are no longer seen.
->
-> Tested-by: Nikunj A Dadhania <nikunj@amd.com>
-
-Thanks so much for the testing!
-
-And all credit to Pedro for reporting and contributing the key commit that
-resolves this issue :)
-
->
-> Regards,
-> Nikunj
->
-> [1] https://lore.kernel.org/all/20260812063316.21371-1-nikunj@amd.com/
->
-> > v1: https://patch.msgid.link/20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org
+On Wed, 12 Aug 2026 15:05:21 +0100,
+"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> 
+> On Tue, Aug 11, 2026 at 01:20:57PM +0100, Marc Zyngier wrote:
+> > The nested_mmus array holds the shadow page tables that are used when
+> > a guest is running a nested context. These structures are allocated on
+> > VCPU_INIT for whole guest, which implies that they may have to be
+> > relocated as the array grows.
 > >
+> > Should a VCPU_INIT occur whilst a vcpu is actively running an L2 and
+> > that the allocation requires relocation, that vcpu will still be
+> > running with a pointer to the previous structure, which will have been
+> > freed.
+> >
+> > Fix this by turning the array of structures to an array of pointers,
+> > which is now allocated at VM creation, sized to the absolute maximum
+> > that KVM can handle.
+> >
+> > In turn, each VCPU_INIT contributes S2_MMU_PER_VCPU to the pool. No
+> > reallocation is ever performed, and the life cycle of each object is
+> > much clearer:
+> >
+> > - the nested_mmus array is allocated in kvm_init_nested(), and freed
+> >   in kvm_arch_destroy_vm()
+> >
+> > - s2_mmu structures are allocated in kvm_vcpu_init_nested(), and freed
+> >   on kvm_arch_flush_shadow_all()
+> >
+> > Finally, the freeing of vcpu->arch.vncr_array is made consistent
+> > rather than being done on some failure paths, but not others.
+> >
+> > Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
+> > Reported-by: Shen Yongchao <grayhat@foxmail.com>
+> > Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
+> > Suggested-by: Karl Mehltretter <kmehltretter@gmail.com>
+> > Link: https://lore.kernel.org/r/20260803224405.41468-1-kmehltretter@gmail.com
+> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> 
+> This addresses the same kind of stuff I had a couple of patches in my
+> series for :>)
+> 
+> I think there are still some problems with it, see below.
+> 
+> Also I attach my original patch for the UAF below in case it's useful! I
+> had another for the init stuff, will reply with that separately also :)
+> 
+> > Cc: stable@vger.kernel.org
 > > ---
-> > Lorenzo Stoakes (ARM) (3):
-> >       x86/mm/pat: acquire init_mm write lock on collapse to avoid UAF
-> >       x86/mm/pat: acquire init_mm read lock on attribute change to avoid UAF
-> >       x86/mm/pat: allocate split page tables as kernel page tables
 > >
-> > Mike Rapoport (Microsoft) (1):
-> >       x86/mm/pat: fix effective RW computation in lookup_address_in_pgd_attr()
-> >
-> > Pedro Falcato (1):
-> >       x86/alternative: exclude text poking against change_page_attr()
-> >
-> >  arch/x86/kernel/alternative.c | 39 ++++++++++++++++++++++++---
-> >  arch/x86/mm/pat/set_memory.c  | 61 +++++++++++++++++++++++++++++++------------
-> >  include/linux/mmap_lock.h     |  2 ++
-> >  3 files changed, 83 insertions(+), 19 deletions(-)
-> > ---
-> > base-commit: 7da514d819a0afb148634aac92b3d190f34947c3
-> > change-id: 20260727-cpa-fixes-d3c73c075672
-> >
-> > --
-> > Sincerely yours,
-> > Mike.
-> >
+> > Notes:
+> >     Sending this as a first class patch, since the other approaches were even
+> >     uglier than this one. I'm still displeased with kvm_arch_flush_shadow_all(),
+> >     but that's a step in the direction of tightening it:
 >
 
---
-Cheers, Lorenzo
+[...]
+
+> > @@ -1316,16 +1308,15 @@ void kvm_nested_s2_flush(struct kvm *kvm)
+> >
+> >  void kvm_arch_flush_shadow_all(struct kvm *kvm)
+> >  {
+> > -	int i;
+> > -
+> > -	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> > -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
+> > +	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
+> > +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+> >
+> >  		if (!WARN_ON(atomic_read(&mmu->refcnt)))
+> >  			kvm_free_stage2_pgd(mmu);
+> > +
+> > +		if ((i % S2_MMU_PER_VCPU) == 0)
+> > +			kvfree(mmu);
+> 
+> Hmm I think that this can still be referenced if a concurrent e.g. mmu notifier
+> thread doing S2 nested teardown is referencing it?
+
+Yes, but that's a separate fix, as per the notes above.
+
+> Maybe defer this to kvm_arch_destroy_vm() also?
+
+Sort off. I think we need two separate things here:
+
+- In this particular callback, keep the tearing down of the shadow
+  S2s. They need to be emptied (after all, that's what the callback is
+  about), but the s2_mmu structures still need to exist, just as the
+  one that is embedded in the kvm structure doesn't disappear from
+  under our feet.
+
+- in kvm_arch_destroy_vm(), free the suckers, because that's the only
+  safe point to do so.
+
+> 
+> >  	}
+> > -	kvfree(kvm->arch.nested_mmus);
+> > -	kvm->arch.nested_mmus = NULL;
+> >  	kvm->arch.nested_mmus_size = 0;
+> 
+> This is racey (concurrent S2 teardown again) and should be
+> done with the kvm->mmu_lock held I think.
+> 
+> In my original patch (see below) I simply did:
+> 
+> 	/* We may be raced by concurrent S2 teardown. */
+> 	scoped_guard(write_lock, &kvm->mmu_lock)
+> 		kvm->arch.nested_mmus_size = 0;
+
+As explained above, I don't think this is the place to free the S2
+MMUs at all.
+
+I'll prepare some additional fixes for that.
+
+Thanks,
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
