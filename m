@@ -1,93 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC2130E83F;
-	Thu, 13 Aug 2026 09:06:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26372395AE2;
+	Thu, 13 Aug 2026 09:19:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786612019; cv=none; b=sNhwMPJM+a+GVzK9sZcZeGUwGysoNM/QOm9whSvDZr1KIJOMRys7lrevcUIE5ZFBkVJBqhLvfdVl78fJrB0AOXcWHWw3LMaTy/mu2fm6Cm7ec2B8e8Ao54MfQFYiq5Yhh59iAIE9U4zy2tz+tkpMNeZ4X3pukPiAVKPNYvFg0m4=
+	t=1786612764; cv=none; b=tabu2+dZqb8HAoSlDnxG5dO3j2QT96xdSDjek8ZR/5PuTjH8Av0/0P2wV9ExjPfzZy9TVwNkwfeJMvAF0UNcrRFecJN0FkRgV07jQZBOeelQexJuD5BAxPqVCcBCvsnJndvFlDdaGzrqFArjv/R45Z4YfIXEmyELSvR/GdBg4Oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786612019; c=relaxed/simple;
-	bh=f74M4vY5M+2zO1em0yOqfoJZ60aIm02Bq2xp6Rph69k=;
+	s=arc-20240116; t=1786612764; c=relaxed/simple;
+	bh=Rvlb7d3DPVUO7Rfg/xBsTOVbCksTf2KV0DpMm1IVZm8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MgPGCgSdcoKuNB/kzwcYhm90I4xwF9azTUykIP0pcAYJeLSViW5Pi5jZsOjYbJRfAu37vceRS8s2UbdxoBrd7JbWtP8ps+fdBzpaiWG1aadHsuvW58WHpq+QRciXmD+ynyO3LhN2HXoCVPeELNGS+DRPT0tNPMqq/cA4N6VTnOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZ1JRuGv; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kW+QE/Ye3aj6BIdBVHl/9M80GsEvmzUxHgCk+SU2aCEjCzCKoLpiojEJyvB4PS6tquxL+TxuUbxBVQAaIvSUasU5yv8MMR7fXSi8gXbVtimvtOobTN67j0y74eab4y8MBEyQ8E3ZRPhek/Cahai4tGrRwIvxKHSlagft/tlho5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jaYTaSeR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZ1JRuGv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 193941F000E9;
-	Thu, 13 Aug 2026 09:06:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jaYTaSeR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D7EF1F000E9;
+	Thu, 13 Aug 2026 09:19:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786612017;
-	bh=f74M4vY5M+2zO1em0yOqfoJZ60aIm02Bq2xp6Rph69k=;
+	s=k20260515; t=1786612762;
+	bh=GUbO6EHJZBA9Gb3pwMZqnqkK8tW44x4tkSu21Kl/zb4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UZ1JRuGvfKkMyoxXfQ8kKoa030GuhZsX9w/7MUDxcPmPecINNwx/WxJhR5cDxJzkR
-	 /1kbAoVtalAYqD2He1nq9FJtU89y4q6aiGhMGrdErZEn+I5YdKz6w946Fk/qEMAF3B
-	 pTFPf/qYgy5I9fVvRB4c94tWQvxMB8+H8TXUUSoACVtNykug+Ayb/EQJfqmqF8rDa+
-	 6E124O0yDYZ5IJh5sxcj/mqoZAeIZ5HJU0oCQDcB1gcsAyNK5pFr0vrsddBkg9Io4c
-	 Md9RPmDtObgg3yckY+CLkSo6ohVCFK11OmIThdsayNORgEQascflUh+lhwp4ehbVKn
-	 K6cWSkGaPvKVw==
-Date: Thu, 13 Aug 2026 10:06:34 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Mike Rapoport <rppt@kernel.org>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Andy Lutomirski <luto@kernel.org>, 
-	Borislav Petkov <bp@alien8.de>, David CARLIER <devnexen@gmail.com>, 
-	David Hildenbrand <david@kernel.org>, Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Lu Baolu <baolu.lu@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan <surenb@google.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Toshi Kani <toshi.kani@hpe.com>, 
-	Vishal Moola <vishal.moola@gmail.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Will Deacon <will@kernel.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, stable@vger.kernel.org, x86@kernel.org, 
-	syzbot@syzkaller.appspotmail.com
-Subject: Re: [PATCH 0/5] x86/mm/pat: CPA fixes
-Message-ID: <an2I80eAb1hb1q1t@lucifer>
-References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
- <anCwUb9lV18v6mfN@kernel.org>
- <anXp--mLLEE2Qo0g@lucifer>
- <90c2be6e-fe03-4da9-88d2-fe4d4f745cf2@intel.com>
- <an2GkrW35R5reoeC@lucifer>
+	b=jaYTaSeR3VOJwqy6bt12Os4MdE953BmT3uquBsYvLODJLuE7OLPn6qtJ9jL6p5kc1
+	 46eRqaOTMEQphlGbCnFcKi1LIDPnvqq0/yez/BR08XnjFC/5kJqeohArDWiLodTGx9
+	 mn03W0AM39Ht8NSbisjdcisNicSZdj9FcRmqTfEmReDWKaRBHZMeemZpwLiVDUhBKV
+	 KhSfMsgfDb/6F6O2dbGHeX56O39YHGPUifImpiIe1M++jPqkrfelEyfJx6hKhIN0Zu
+	 uHaYw4d//lIm+bY+GvafkMI1QTrl2UFFf78o1qjwXKA/kMzr7EFRa1PMNbf24O5RxJ
+	 EWQJQn86IsLCA==
+Date: Thu, 13 Aug 2026 11:19:10 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stanimir Varbanov <stanimir.varbanov@linaro.org>, Mansur Alisha Shaik <mansur@codeaurora.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Hans Verkuil <hverkuil@kernel.org>, 
+	Stefan Schmidt <stefan.schmidt@linaro.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: media: qcom,sc7280-venus: Add
+ dma-coherent property
+Message-ID: <20260813-prompt-peculiar-chimera-7d7dab@quoll>
+References: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
+ <20260801-iris-fixes-dma-pseq-fint-v1-1-aba0cb22f6ab@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <an2GkrW35R5reoeC@lucifer>
+In-Reply-To: <20260801-iris-fixes-dma-pseq-fint-v1-1-aba0cb22f6ab@oss.qualcomm.com>
 
-On Thu, Aug 13, 2026 at 09:57:33AM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Aug 12, 2026 at 03:20:23PM -0700, Dave Hansen wrote:
-> > On 8/7/26 07:34, Lorenzo Stoakes (ARM) wrote:
-> > > In any case - Mike - I think you probably need to respin this on tip
-> > > x86/mm anyway?
-> > >
-> > > Maybe worth doing that and seeing if that makes life a little easier for
-> > > the x86 folks.
-> >
-> > Yes, please. If it interacts with things in there, a rebase would be
-> > much appreciated.
->
-> Thanks, Mike is already working on one I think he should get a rebased respin
-> out shortly :)
->
-> >
-> > Also, please do send things separately if they are fixing active
-> > regressions or bugs that folks are hitting in the real world. We'll send
-> > those urgently and not through the normal tip/x86/mm process.
->
-> By separately how do you mean, as individual patches? There are some ordering
-> requirements here I think, is it OK as a series on that basis?
+On Sat, Aug 01, 2026 at 01:07:27PM +0530, Vishnu Reddy wrote:
+> While testing with some higher resolution clips, the venus hardware
+> triggers a fault due to wrong input data being received. Corruption
+> was also observed in the captured output when the client dumped it
+> to a file.
+> 
+> On debugging, this was traced to the venus node not declaring
+> dma-coherent. As a result, DMA buffers shared between the CPU and the
+> venus video hardware/controller are not guaranteed to be I/O coherent:
+> CPU writes to an input buffer can remain in CPU caches without being
+> visible to the video hardware when it reads the same buffer, so the
+> hardware receives input data that does not match what the CPU wrote.
+> Likewise, on the capture path, data written by the video hardware to
+> the output buffer may not be visible to the CPU, so the client reads
+> stale or partial data, resulting in corruption.
+> 
+> Add the dma-coherent property to the venus node so that DMA buffers
+> shared between the CPU and the video hardware and controller remain
+> coherent.
 
-Why, speak of the devil :)
+This is confusing - dma-coherent saves you from syncing the buffers, so
+how could it solve the issue? You basically skip certain cache sync
+operations, not add them.
 
-https://lore.kernel.org/all/20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org/
+Best regards,
+Krzysztof
 
-Let us know if you need anything us from us, happy to help!
-
---
-Cheers, Lorenzo
