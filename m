@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A33E3B893F;
-	Thu, 13 Aug 2026 09:01:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D943B7B8C;
+	Thu, 13 Aug 2026 09:02:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786611722; cv=none; b=KZjs1bsb4PqJ0QxPrTrmB8gR0iMOaiTb0I19pZs1NvmcAXjsKfTFuzRLL47tZsIx/r1MNPxSAXd9D99br0HYX1wM0R4Z76iZDVCzzU+EoSGfGPvvCDXQF4borm/YC2Ls23L87dytLmzmqdP8l7x6Zuzt7WJMJSYRmAXNxSJViGU=
+	t=1786611730; cv=none; b=vARsp16lxVnOU8imzrtP/GOp0aMyCxS7uUqQar3leBlG0aJ0pS1fqfHZL7UMG+aEI9c3bIg9nQJlZajVjjLgkttyiQL/pXWa1pNhuEezogLESPD38rewz3poQIDAIUwe6H51VUySXaoklJEsDeBRrmg/WQQ8tc3Nh8meDo/henA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786611722; c=relaxed/simple;
-	bh=WSIPSNqUu+ryx5Rg2F8NkgOUmUQiNtKd7tK5+iTJPm4=;
+	s=arc-20240116; t=1786611730; c=relaxed/simple;
+	bh=ZwwMINBHW+RxGwt3/tsNmCqt1HXar34b1qTvwZacLfw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SIvLmdfTq7BREt6nCx+/wBUbkOA3wIztsZIzEn/X1IRgKOFt+rE5aJDu6mZXvmOSi1yB/nZbNsitoVP2keLF1FXuoG5dFsZ5Ym0PSOsyhAZYvKnfTk8TGEKCnkhr2qKvgvHM9i8cv30TrsFqGdlPxd2XR9vsLA8cWtew1DDk5AE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fpl58WiJ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=nECH6FPUA7VPVioauKlbIOohdAe/GFLoQ5PE5BKYJ/wqpMD/KPiwq7SowZ0fgGxS8HfM1ZRt1qS4ZgihLoHyWuaICYUmuDq4lEX0bsj5G4dgXe+f/6KSbjsBT+jY1wdogKP3rTEi0jVWJxoy6fwr5fAP+ZulTGb3hXRf4YrAZXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m/6e4+c/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fpl58WiJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 337AD1F00A3A;
-	Thu, 13 Aug 2026 09:01:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m/6e4+c/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397821F00A3E;
+	Thu, 13 Aug 2026 09:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786611716;
-	bh=QbqAHeBmTdNz5nx7DbozdY5ynkW62XANFKaegUYp63U=;
+	s=k20260515; t=1786611724;
+	bh=FNUYuddkzTS87Bqr3ijSBGzCz9N6C4j7LbHsu2d+TBQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=fpl58WiJQbCPqzesROD3VU1p5FQ723FiIYReD8pXtJgCqw0JSoITh9dAMypwqb/lD
-	 3l7vR+MjHy6ki83qrUVjTdoYWSt3ylKYcOZXU/vB56miSBcq0kh9twp2J4UwphiM0N
-	 ON7qNylifK3/bx6E4gCUQCVx0lcL6XBXSPh/OcJolZjvX0Z626PIaGEe+GigZnCIA3
-	 gJUvZMuuuk14KNU0trmRx1BkKlpwsGEmt5boJ+VmnB0UDXD2rGHU2gDiDK1DCgzo55
-	 stgpR546uhuIoSEsbC5m3b1h0drzy+VhB8AAri1nBM5LgJLiUcsKAMyX9TzmVE/xAb
-	 G8H9lBJc7qXFA==
+	b=m/6e4+c/zGvPnNjQbgUwONVEiSwH+bp/iQjpj1MA7E41naGzpipAaNubMIxubt2uR
+	 KKusNZRHuKIKaP4Zw9vmnxT+scVXx2ALxu59GeP9XGLDwQANmqy+qvGyFlJEAOFjDr
+	 iivR3X2njcirCvJ5uWY4/eciRy5BACg2yDT/CP/cDymcfwwjaaaUiZG0xmFM3cOcED
+	 kgFf7ohl58bMf1tcfUnsSMxT9hmfAa7q24MDu3HKgQNnsF7UneMnlPU64C+AdAGsmU
+	 IUaEjJD+tWaLuAq+Em9ACzrt7m07ZaZQVmkp0lP37UM3E7DZjK8/PyAlGs1JkMB219
+	 dRZcLMlUwuaKA==
 From: Mike Rapoport <rppt@kernel.org>
-Date: Thu, 13 Aug 2026 12:01:25 +0300
-Subject: [PATCH v2 2/5] x86/mm/pat: acquire init_mm read lock on attribute
- change to avoid UAF
+Date: Thu, 13 Aug 2026 12:01:26 +0300
+Subject: [PATCH v2 3/5] x86/alternative: exclude text poking against
+ change_page_attr()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-cpa-fixes-v2-2-39b4ff90f91d@kernel.org>
+Message-Id: <20260813-cpa-fixes-v2-3-39b4ff90f91d@kernel.org>
 References: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
 In-Reply-To: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
 To: Dave Hansen <dave.hansen@linux.intel.com>
@@ -61,130 +61,126 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org, syzbot@syzkaller.appspotmail.com, x86@kernel.org
 X-Mailer: b4 0.17-dev
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Pedro Falcato <pfalcato@suse.de>
 
-A previous commit protected us against races between ptdump and CPA
-collapse, however one still exists between attribute changes and collapse
-as reported by Denis V. Lunev (linked).
+From time to time, the following BUG can be observed[0]:
 
-When an attribute change arises, a lockless page table walker obtains a PTE
-entry, which is later written to via set_pte_atomic():
+> kernel BUG at arch/x86/kernel/alternative.c:2576!
+> Oops: invalid opcode: 0000 [#1] SMP NOPTI
+> CPU: 0 UID: 0 PID: 355 Comm: (udev-worker) Not tainted 7.1.3-1-default #1 PREEMPT(full) openSUSE Tumbleweed  8c1795b03ec64f997e57a8ad38b1161e3b98da64
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS unknown 02/02/2022
+> RIP: 0010:__text_poke+0x2aa/0x450
+> Call Trace:
+>  <TASK>
+>  smp_text_poke_batch_finish+0x2a7/0x320
+>  __static_call_transform+0xb7/0x220
+>  arch_static_call_transform+0x5b/0xb0
+>  __static_call_init+0xe9/0x270
+>  static_call_module_notify+0x11f/0x150
+>  notifier_call_chain+0x61/0xe0
+>  blocking_notifier_call_chain_robust+0x63/0xc0
+>  load_module+0x1c92/0x20c0
+>  init_module_from_file+0xd8/0x140
+>  idempotent_init_module+0x100/0x2f0
+>  __x64_sys_finit_module+0x71/0xe0
+>  do_syscall_64+0xe1/0x610
+>  entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
-...
--> change_page_attr_set_clr()
--> __change_page_attr_set_clr()
--> __change_page_attr()
-	-> _lookup_address_cpa()
-	-> lookup_address_in_pgd_attr()
-	-> [ lockless page table walker ]
--> set_pte_atomic()
+which matches the following BUG_ON in alternative.c:
+	/*
+	 * If something went wrong, crash and burn since recovery paths are not
+	 * implemented.
+	 */
+	BUG_ON(!pages[0] || (cross_page_boundary && !pages[1]));
 
-There is nothing preventing a concurrent CPA collapse which can free the
-PTE that was retrieved here, resulting in a use-after-free.
+This can happen if vmalloc_to_page() fails, for any reason. Such can happen
+if text poking races with CPA, which can possibly result in the collapsing
+of page tables (or breaking of PMD hugepages). It is not a problem for most
+users of vmalloc_to_page() (they solely own the vmalloc'd range) but, when
+CONFIG_ARCH_HAS_EXECMEM_ROX=y, various modules own a single execmem vmalloc
+range, and can call set_memory_*() in parallel on it. This can happen to
+race against __text_poke and cause havoc in vmalloc_to_page().
 
-With the mmap write lock taken on init_mm over CPA collapse, we can now
-resolve this race by acquiring an mmap read lock on init_mm over
-__change_page_attr_set_clr().
+Fix it by excluding against CPA using the init_mm mmap read lock.
 
-This locks across the whole operation over which the walk and the PTE entry
-write occurs, solving the race.
-
-It is safe to do this here, as no spinlocks are held upon entry to
-__change_page_attr_set_clr().
-
-However, the lock must not be held over an allocation, as allocation can
-trigger reclaim and shrinkers may call into CPA recursively, making
-deadlocks possible (init_mm -> ... -> fs_reclaim -> init_mm).
-
-A page table is allocated when a huge page needs to be split:
-
--> change_page_attr_set_clr()
--> __change_page_attr_set_clr()
--> __change_page_attr()
--> split_large_page()
-[ pagetable_alloc() ]
--> __split_large_page()
-
-Avoid deadlocks by dropping the mmap lock across pagetable_alloc() in
-split_large_page() and track whether this is needed by adding a new
-'init_mm_read_locked' flag to struct cpa_data.
-
-This is safe as __split_large_page() (called with locks re-established)
-revalidates that the page table entry is the same as it was prior to the
-locks being dropped and __change_page_attr() repeats the entire page table
-walk whenever a split occurs, so concurrent split and collapse are
-accounted for.
-
-Concurrent ptdump is also safe as the lock is only dropped over page table
-allocation during which time the page table has not yet been modified.
-
-The CPA_COLLAPSE flag is only set by set_memory_rox(), which exclusively
-operates upon vmalloc ranges, and on x86 only within the module mapping
-space.
-
-This is important, because some callers directly invoke
-__change_page_attr_set_clr(), bypassing this lock. However, none of these
-operate within the module mapping space.
-
-* cpa_process_alias() - a recursive helper called by
-  __change_page_attr_set_clr().
-* __set_memory_enc_pgtable() - operates on the direct mapping and (via
-  __vmbus_establish_gpadl()) the vmalloc mapping space.
-* __set_pages_[n]p() - called by set_direct_map_[invalid, default,
-  valid]_noflush(), __kernel_map_pages() - operates on the direct map.
-* kernel_[un]map_pages_in_pgd() - operates on EFI ranges.
-
-This work is based upon Denis V. Lunev's excellent analysis of the bug with
-gratitude.
-
-Link: https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org/
-Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
+Fixes: 64f6a4e10c05 ("x86: re-enable EXECMEM_ROX support")
+Reported-by: Jiri Slaby <jirislaby@kernel.org>
+Link: https://bugzilla.opensuse.org/show_bug.cgi?id=1271202 [0]
+Reported-by: Steffen Dirkwinkel <lists@steffen.cc>
+Link: https://lore.kernel.org/linux-mm/555ea1d43a12c30a8f1eaf10c899b3790d728f33.camel@dirkwinkel.cc/
 Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Co-developed-by: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Signed-off-by: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Signed-off-by: Pedro Falcato <pfalcato@suse.de>
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- arch/x86/mm/pat/set_memory.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ arch/x86/kernel/alternative.c | 39 ++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 36 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index c18b887ee4c2..2d04a4bf34aa 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -50,7 +50,8 @@ struct cpa_data {
- 	unsigned int	flags;
- 	unsigned int	force_split		: 1,
- 			force_static_prot	: 1,
--			force_flush_all		: 1;
-+			force_flush_all		: 1,
-+			init_mm_read_locked	: 1;
- 	struct page	**pages;
- };
+diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
+index 62936a3bde19..f81d6bc90a6f 100644
+--- a/arch/x86/kernel/alternative.c
++++ b/arch/x86/kernel/alternative.c
+@@ -6,6 +6,9 @@
+ #include <linux/vmalloc.h>
+ #include <linux/memory.h>
+ #include <linux/execmem.h>
++#include <linux/cleanup.h>
++#include <linux/kgdb.h>
++#include <linux/mmap_lock.h>
  
-@@ -1240,7 +1241,11 @@ static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
- 	struct ptdesc *ptdesc;
+ #include <asm/text-patching.h>
+ #include <asm/insn.h>
+@@ -2543,6 +2546,38 @@ static void text_poke_memset(void *dst, const void *src, size_t len)
  
- 	spin_unlock(&cpa_lock);
-+	if (cpa->init_mm_read_locked)
-+		mmap_read_unlock(&init_mm);
- 	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
-+	if (cpa->init_mm_read_locked)
-+		mmap_read_lock(&init_mm);
- 	spin_lock(&cpa_lock);
- 	if (!ptdesc)
- 		return -ENOMEM;
-@@ -2134,7 +2139,11 @@ static int change_page_attr_set_clr(unsigned long *addr, int numpages,
- 	cpa.curpage = 0;
- 	cpa.force_split = force_split;
+ typedef void text_poke_f(void *dst, const void *src, size_t len);
  
--	ret = __change_page_attr_set_clr(&cpa, 1);
-+	/* Avoid race with concurrent CPA collapse. */
-+	cpa.init_mm_read_locked = true;
-+	scoped_guard(mmap_read_lock, &init_mm)
-+		ret = __change_page_attr_set_clr(&cpa, 1);
-+	cpa.init_mm_read_locked = false;
++static void __poke_vmalloc_pages(struct page **pages, void *addr,
++				 bool cross_page_boundary)
++{
++	pages[0] = vmalloc_to_page(addr);
++	if (cross_page_boundary)
++		pages[1] = vmalloc_to_page(addr + PAGE_SIZE);
++}
++
++static void poke_vmalloc_pages(struct page **pages, void *addr,
++			       bool cross_page_boundary)
++{
++	if (in_dbg_master()) {
++		/*
++		 * If called from kgdb cannot sleep, but all other CPUs stopped
++		 * anyway so safe to proceed without locks
++		 */
++		__poke_vmalloc_pages(pages, addr, cross_page_boundary);
++	} else {
++		/*
++		 * execmem ROX ranges are shared between modules and can be
++		 * collapsed to huge PMD entries, and this collapse can happen
++		 * concurrently with a racing set_memory_rox().
++		 *
++		 * Prevent vmalloc_to_page() from racing by acquiring an
++		 * init_mm read lock which pairs with the init_mm write lock in
++		 * cpa_collapse_large_pages().
++		 */
++		guard(mmap_read_lock)(&init_mm);
++		__poke_vmalloc_pages(pages, addr, cross_page_boundary);
++	}
++}
++
+ static void *__text_poke(text_poke_f func, void *addr, const void *src, size_t len)
+ {
+ 	bool cross_page_boundary = offset_in_page(addr) + len > PAGE_SIZE;
+@@ -2560,9 +2595,7 @@ static void *__text_poke(text_poke_f func, void *addr, const void *src, size_t l
+ 	BUG_ON(!after_bootmem);
  
- 	/*
- 	 * Check whether we really changed something:
+ 	if (!core_kernel_text((unsigned long)addr)) {
+-		pages[0] = vmalloc_to_page(addr);
+-		if (cross_page_boundary)
+-			pages[1] = vmalloc_to_page(addr + PAGE_SIZE);
++		poke_vmalloc_pages(pages, addr, cross_page_boundary);
+ 	} else {
+ 		pages[0] = virt_to_page(addr);
+ 		WARN_ON(!PageReserved(pages[0]));
 
 -- 
 2.53.0
