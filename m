@@ -1,134 +1,93 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0194240098A
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 09:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC2130E83F;
+	Thu, 13 Aug 2026 09:06:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786611991; cv=none; b=Z59j4jhq8oRkFxapRx1j1JQRXbOgxTh67IQlBRUIHgULr/6jLDBUM6V+0QvfHbyL2uFAWQr5FRzS5WYQFJmb6Prrsam3/GEmPYX5au44YfvMa29wI2E4jx0QJ74AqNbKpIEsBo9EY7FkofhBzx23NYi4JPleQtypWRfBGk1+DW0=
+	t=1786612019; cv=none; b=sNhwMPJM+a+GVzK9sZcZeGUwGysoNM/QOm9whSvDZr1KIJOMRys7lrevcUIE5ZFBkVJBqhLvfdVl78fJrB0AOXcWHWw3LMaTy/mu2fm6Cm7ec2B8e8Ao54MfQFYiq5Yhh59iAIE9U4zy2tz+tkpMNeZ4X3pukPiAVKPNYvFg0m4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786611991; c=relaxed/simple;
-	bh=fZVaZ7TjMrKw7+i2lbImOkpXxSg4IUmytFvvhSuahqM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dNsOUGL3fXo5odjQ3sggwNoTZCiZQeGl+E2Lr6enGiuw7JXUcHIZMnrhaJO1jdMaxnNTz7JUs/LAszCg923GvSwGRefnum3PJWyU8h7utpN/7qIT5OU6ZMHcBxGRu2bQcewa2oRozmR8KIb8wWECuMq7cxFo2mdaqmBebRtJEXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Enfym+/z; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Y25KmcrE; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1786612019; c=relaxed/simple;
+	bh=f74M4vY5M+2zO1em0yOqfoJZ60aIm02Bq2xp6Rph69k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MgPGCgSdcoKuNB/kzwcYhm90I4xwF9azTUykIP0pcAYJeLSViW5Pi5jZsOjYbJRfAu37vceRS8s2UbdxoBrd7JbWtP8ps+fdBzpaiWG1aadHsuvW58WHpq+QRciXmD+ynyO3LhN2HXoCVPeELNGS+DRPT0tNPMqq/cA4N6VTnOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZ1JRuGv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Enfym+/z";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Y25KmcrE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786611988;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9N33LkksLPfNjIlTNbni8jbzLx2tB4hZrFzuYLnaQlE=;
-	b=Enfym+/zhasvYjxu8+9TSBYeqO1C8OK0cQrwrhjGMcpJGSKp/BnzHvoD1MAN/zP2qoBLLn
-	he2WyT+GOY2MVP5kU/0egPhlz2iPXUOVI8eDt3N3JbJJ3shmeJcBLFNRH1+r9t85683Mf2
-	T12R+aWtdWsevbBMJpqQ6mNM5d376nw=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-630-xomBc1DlOGazBZm-SFQxiQ-1; Thu, 13 Aug 2026 05:06:26 -0400
-X-MC-Unique: xomBc1DlOGazBZm-SFQxiQ-1
-X-Mimecast-MFC-AGG-ID: xomBc1DlOGazBZm-SFQxiQ_1786611985
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-47f83450a8eso1398950f8f.0
-        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 02:06:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1786611985; x=1787216785; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9N33LkksLPfNjIlTNbni8jbzLx2tB4hZrFzuYLnaQlE=;
-        b=Y25KmcrEbPrKqaM41MtTogq9QEbFTjLISnEHcpgYhWx+5QXirB5IvxGrzXfxGNcLMM
-         EaJDM8JX37dvRMT7gaqn2p5xQ2YI1Iaz0Q6T2NhTeVfJ+wXyZ0cyrghbtfkMUWYOsoTG
-         epJS8LZ3RY34EwZ5G3o3XXjXGdQzM2EXI36AcNKzeQxuzg5lJSRzQS6khzWc1q/OA8vp
-         9xe+0L5Nrk/bzeYRaZ+TnSec6cMDremv4yS6yBjfRr2wpJYjYyg1WEzK5ze9Y9Lf1mXK
-         MPdrNXG1aPacmLzDaFZlUVaBTEO4n6xukCMuuzP8GK2b/fDF0YCZRN5YL9sAQs5d1++p
-         r6mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786611985; x=1787216785;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9N33LkksLPfNjIlTNbni8jbzLx2tB4hZrFzuYLnaQlE=;
-        b=rKjyzXw7gn+fJ/Hrw3b6pR73HzTkEW6Pk0jhWBfjEuS0f5/WiDzMkgJFkG9H++Qsxi
-         Z/WdK96bUDkFHsg2OdHArB+/ARBDAdc4KKftm88mpte/nkmhWRrMhFVAVp/8Km6MxAJh
-         hz98fsGzqEzq8ObVBckg9wiW2FCeT5F9osihrav5Z8ne2s1+/ZuJNNFrjTvGuriHGVl7
-         uSvLKHLbjbZ3wl4HYGgz25KHXEOSKoHwg7TT72xO/uCqHGSTSq3+HzuXKgASfxihFjfV
-         Z2nhcWQMzWFSvXdqVWEg/FpkfGRRhfNGXs6HdNOa6WmCo642XHaw2UdojwpyXVGC7y3N
-         gk1w==
-X-Gm-Message-State: AOJu0YwhYZzTbN8rTcVbvcbAiS0GdUkXzF8qMvd4v+pWKZ9vWvaZYWkz
-	des7EkmATjxFJ84fjGlarJm2sW5aBM2X9ax9tGtDOZwGARpgBhMEur+kpc6KnUzUKVxEvRQEvYg
-	vBKG7OtsiM6/0oLc2ysSqP3CfLsoLZuxSsqqx/3jLZ2wQz44/MBsnm8G5jw==
-X-Gm-Gg: AR+sD13I8ttYHBS5G39rcPOKPqjiR63Gw7PuCGQ3B9C7/XlPhXMv4MsNV7lj0EP8WoM
-	DNFqlJW/Ey0L5ozr28CAFRMtXQz4g2wkDI9sRqbluEtwBy/RMyvIbqmXLJIXJSyk2ZbC2hspJm6
-	Rm5dPViN9SF4sYDIWKK+KOG3m3gsNX4+WFwFJ65QjaEYULzvOlFgiwDqZ0BTFPv3WwmUOM2e1Z0
-	4Y/CFZ0+JxMKJi6/ltWncssiZIDoXpU7pCKk/m2EP1cmmZYMJfbR507TPe0m0/SirNSmO2Ku1m6
-	9BBGKaGZkha3D2kqej08JnhFs9KAytILsU3zRnBR8rhi3jSTksYXYe1yNOQX3VYRCEAnO8t/cGU
-	imJegdY7/Uk6bArDiCDdJsFGIefHt+l9X51b7opaQl6La4T7xWfMwT0bJ34X64oBA0Yo4XlG/br
-	E=
-X-Received: by 2002:adf:e193:0:b0:474:18d9:8371 with SMTP id ffacd0b85a97d-4815a011050mr5799166f8f.28.1786611985346;
-        Thu, 13 Aug 2026 02:06:25 -0700 (PDT)
-X-Received: by 2002:adf:e193:0:b0:474:18d9:8371 with SMTP id ffacd0b85a97d-4815a011050mr5799073f8f.28.1786611984862;
-        Thu, 13 Aug 2026 02:06:24 -0700 (PDT)
-Received: from [192.168.188.103] (ip239-44-231-195.pool-bba.aruba.it. [195.231.44.239])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815a5613e2sm6119566f8f.6.2026.08.13.02.06.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 02:06:24 -0700 (PDT)
-Message-ID: <0c4e75f9-f7ce-41c9-aef9-a3b3b474c695@redhat.com>
-Date: Thu, 13 Aug 2026 11:06:22 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZ1JRuGv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 193941F000E9;
+	Thu, 13 Aug 2026 09:06:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786612017;
+	bh=f74M4vY5M+2zO1em0yOqfoJZ60aIm02Bq2xp6Rph69k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UZ1JRuGvfKkMyoxXfQ8kKoa030GuhZsX9w/7MUDxcPmPecINNwx/WxJhR5cDxJzkR
+	 /1kbAoVtalAYqD2He1nq9FJtU89y4q6aiGhMGrdErZEn+I5YdKz6w946Fk/qEMAF3B
+	 pTFPf/qYgy5I9fVvRB4c94tWQvxMB8+H8TXUUSoACVtNykug+Ayb/EQJfqmqF8rDa+
+	 6E124O0yDYZ5IJh5sxcj/mqoZAeIZ5HJU0oCQDcB1gcsAyNK5pFr0vrsddBkg9Io4c
+	 Md9RPmDtObgg3yckY+CLkSo6ohVCFK11OmIThdsayNORgEQascflUh+lhwp4ehbVKn
+	 K6cWSkGaPvKVw==
+Date: Thu, 13 Aug 2026 10:06:34 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Mike Rapoport <rppt@kernel.org>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Andy Lutomirski <luto@kernel.org>, 
+	Borislav Petkov <bp@alien8.de>, David CARLIER <devnexen@gmail.com>, 
+	David Hildenbrand <david@kernel.org>, Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Lu Baolu <baolu.lu@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan <surenb@google.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Toshi Kani <toshi.kani@hpe.com>, 
+	Vishal Moola <vishal.moola@gmail.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Will Deacon <will@kernel.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, stable@vger.kernel.org, x86@kernel.org, 
+	syzbot@syzkaller.appspotmail.com
+Subject: Re: [PATCH 0/5] x86/mm/pat: CPA fixes
+Message-ID: <an2I80eAb1hb1q1t@lucifer>
+References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
+ <anCwUb9lV18v6mfN@kernel.org>
+ <anXp--mLLEE2Qo0g@lucifer>
+ <90c2be6e-fe03-4da9-88d2-fe4d4f745cf2@intel.com>
+ <an2GkrW35R5reoeC@lucifer>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net/sched: cls_bpf: reject dev-bound programs bound
- to a different device
-To: Jamal Hadi Salim <jhs@mojatatu.com>, netdev@vger.kernel.org
-Cc: stable@vger.kernel.org, vega@nebusec.ai,
- Victor Nogueira <victor@mojatatu.com>, Jakub Kicinski <kuba@kernel.org>,
- Quentin Monnet <qmo@kernel.org>, Simon Horman <horms@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>, Jiri Pirko <jiri@resnulli.us>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, bpf@vger.kernel.org
-References: <20260809094418.901607-1-jhs@mojatatu.com>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260809094418.901607-1-jhs@mojatatu.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <an2GkrW35R5reoeC@lucifer>
 
-On 8/9/26 11:44 AM, Jamal Hadi Salim wrote:
-> cls_bpf_prog_from_efd() obtained a SCHED_CLS program via
-> bpf_prog_get_type_dev() but never verified that a device-bound (offloaded)
-> program's bound netdev matches the TC netdev the classifier is being
-> attached to. This let a program loaded with prog_ifindex for device A be
-> attached via cls_bpf + skip_sw to device B; deleting device A then
-> destroyed the program's offload state while it was still attached to
-> device B, triggering a netdevsim WARN (panic with panic_on_warn=1).
-> 
-> Mirror the XDP attach path (net/core/dev.c) and reject the attach with
-> -EINVAL when a dev-bound program's bound device does not match the
-> target device.
-> 
-> Fixes: 6c8dfe21c435 ("cls_bpf: allow attaching programs loaded for specific device")
-> Reported-by: vega@nebusec.ai
-> Tested-by: Victor Nogueira <victor@mojatatu.com>
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-I understand that Jakub prefers going with this patch (with a correct
-fixes tag), so waiting for such tag landing here ;)
+On Thu, Aug 13, 2026 at 09:57:33AM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Aug 12, 2026 at 03:20:23PM -0700, Dave Hansen wrote:
+> > On 8/7/26 07:34, Lorenzo Stoakes (ARM) wrote:
+> > > In any case - Mike - I think you probably need to respin this on tip
+> > > x86/mm anyway?
+> > >
+> > > Maybe worth doing that and seeing if that makes life a little easier for
+> > > the x86 folks.
+> >
+> > Yes, please. If it interacts with things in there, a rebase would be
+> > much appreciated.
+>
+> Thanks, Mike is already working on one I think he should get a rebased respin
+> out shortly :)
+>
+> >
+> > Also, please do send things separately if they are fixing active
+> > regressions or bugs that folks are hitting in the real world. We'll send
+> > those urgently and not through the normal tip/x86/mm process.
+>
+> By separately how do you mean, as individual patches? There are some ordering
+> requirements here I think, is it OK as a series on that basis?
 
-/P
+Why, speak of the devil :)
 
+https://lore.kernel.org/all/20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org/
+
+Let us know if you need anything us from us, happy to help!
+
+--
+Cheers, Lorenzo
