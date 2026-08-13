@@ -1,267 +1,180 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o12.zoho.in (sender-op-o12.zoho.in [103.117.158.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F043361945
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 07:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AC9330301;
+	Thu, 13 Aug 2026 07:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786604641; cv=pass; b=qxYt7ra5YymNmANBEy665DeaAdjP0He8o18y08HqLwt1FDUOGKzb019jAsf8KSTxclCDdueqiXRA2A66GjcMK7pt/4q2JjtWRbvznKyMYC7ydqpl1c13FjYqOBFLvNyNkrgZMwQ/XYPaJvkmgwsheStEz5mvsU+i4aDA2HHMy2U=
+	t=1786605091; cv=pass; b=jrwK6eBJprznpLaDpucRxB8tG7qfcVIWLEBXd5M0uorPHSdIOkuIInI1BKxd58xudLGTnNcutxhulGv4i3suOG8+KTg+roFTdrwd4uKhFlcbnagN6A9E7R1mQM2jNzetxDVhJrXJJdOfy+I0cABpYr9QWQ5iKsWe2f8cNRIIww4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786604641; c=relaxed/simple;
-	bh=9K47MKJkOX4Imlq/XePjv0OeOE50zPp/VsxPOYek/EA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BwX6ONtd9+oJgSWggo2urJCXI1BjHHQvVmazm3qjbOrj7yyqUvqeGeUigfBw+5aNtXnLW++qoa5mHfSJLMgcxcAN+NqE4rB/pDsKbWOm0FvwyR4L1lhvXhJQZHcuRKbWw9RtxH3Hv2F/Zlh9ks51OFV7H5QEJx77cQSpyW2LTeM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=YmLmwIVS; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
+	s=arc-20240116; t=1786605091; c=relaxed/simple;
+	bh=fZ5C6Nrevz/tCw1/yt/+lBfnDv9QmTE/ijkt9cbd5o8=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=f3yUh9iy1P8qN3RmquX9Nv2JUDqGz9oXLO3+gO5ccMZpzaoRiP+pz3d4vcp/G1n2cB7ARormuxA/IyOfyjZPE3V1ySe6x4NFpjrlkqGJfVaSsGywXuABpXpDjfiBxLCi4Fg16g4QgBJJp8Y/Rr4gLcc171N1A4dH8//K4+tDwug=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=a0rg.com; spf=pass smtp.mailfrom=a0rg.com; dkim=pass (1024-bit key) header.d=a0rg.com header.i=icarus@a0rg.com header.b=WmYDGEdv; arc=pass smtp.client-ip=103.117.158.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=a0rg.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=a0rg.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="YmLmwIVS"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1670dad7a8so269303666b.3
-        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 00:03:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786604635; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KrNLUrAybBJZtRC2xuP6q+7tdXg4hFNB5NWi8QAK9I06ArcBUxCzx3b7osMvN61/rE
-         Zs7Si9ORrCuUIkmrsk3HBbsMoKE0DpTin6KxE52QkUT0ww0X+dfaA7fHPeFxgHyk1f/4
-         EaXWVWy+QWDklsuXorlLXetHKdPOQLV0P3CLB2qvKfxo6vyq2XMOqD5cYuUOaar0Hmvb
-         pKYYA9oo4KvLAnsZEA966b8KmF2Vo9bob7mz+8JnsQFhg4n884S9hSp8mZcfHflbQdbi
-         wh6u2QXYy7fLmnzXTCcXzOb74vlpcqVCvRlaGxX7DeRp/0bCRvEBiASIPdqB5NOB9eG1
-         pyhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=A7yoEOJbb0UjYrEefoP7PhNCYIqC+XYvUQcR5OcOtJg=;
-        fh=Dpe1s/SARQeEe84k8CbW2nRj5e8863Htp04uRl7BmOI=;
-        b=NP/o1VPrnU06sZM7JqJ2h2P49ZQkcjA+HkrWYhSA5Qy/TQHrPfcAaJU+vmp6lwNSUN
-         KSGu5lGJ/4Ws4MtFOs3+Bv4aPqxWe7se/yy3t0X3+nZAIBLsxZuCjE96C6vcXmFW5yFn
-         5x3zJNucMMQgBUDmYb22Ayr7LlJZb2UW8cZEdHJ9j0EfXO0i4+attt64vEwzDHPahjAL
-         6FfN59SiWCeIawoQi/ulZEy4/qOMdv5iO1alcjqCSWOq3DPs64df4cWa0h724cqEPpWN
-         QM3UGdlUj04nkMcyPwunwXasaUZTKa1jCvQEzoJznrTZ1TxJzSAuf8URBlkP5RcleUMe
-         28Rg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=clyso.com; s=google; t=1786604635; x=1787209435; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A7yoEOJbb0UjYrEefoP7PhNCYIqC+XYvUQcR5OcOtJg=;
-        b=YmLmwIVST7iKBtV8qAP27Y9+QA1BTasP0e3gG2ZZ8PJlmU5rLy3S2exfMNjfrISzvI
-         Wrav6/YISbE+bRuD7IcpC1z/LnVqw2fDr7rHYwGeFaltwh0hS/+nsYui81KQ3qIrbdBd
-         ts84Z3NQDNuls32UIZT9A3BhMmiJChLtA5Qfa5zjsT+GD1rx9eKmRuJ6jH0KLaBgT3ks
-         2QmgAdKj45lo/UPGblCfWekTb6y0E3zLIdG5fBCrfFDOSHLs/JYHcaJp9iEx/atgYWSC
-         kD6fhPTbuy7iugTPVoC2BxwNwdGPPPi7XCp2ieCYRAVF99LViVtbbWBU8NNaboRWmQqq
-         sPXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786604635; x=1787209435;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=A7yoEOJbb0UjYrEefoP7PhNCYIqC+XYvUQcR5OcOtJg=;
-        b=BQOjp1kppYnNKMp4nmj6EZf/d4/1JjfJLRjHQ5oKX7c3/YcuUSNcp7UTDNn2CH/qyj
-         yiZDC+xeUBUSlTdLotqIEJiTMVhVBlOCZcfjwh+X5iOZajQZDQ+cmGRWu5+zPjTCRnmg
-         fwPBWWClTVwUGWDy4/CHoZnl//ip9jOOdpflT2AA3XpkwETMcxpqLa3ymRn9BTqGbFEr
-         v5GqXScVR4LVdjO0eLXnufFFPzPjTF4yk0PIwRg640qh0C7Aohg51pl7Tbbp0pB3G+LE
-         501jSlYadlD1GlzjivwsA5tDLMgo6i2DYpiie3+PfEvNLIJtmMaob8MhW5Lr+cVy3wHf
-         dA9Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrJl3nZbVAtoXTSm4kYkyXb2QXFUxsvd2ySp59m1hRH7v4tnMfi3+MRqATP6z1uThSGXNXjiwo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxI1lCPLOcZGbUn+3ftru5ElYMJdQYmwAGCVfTAqVZ6fb0VhyvP
-	7Wsy5S/5gxYrj6pKiPNVgFo2eZaYh4tFzfgExK49ai2caX5o7N7hZYCm8pkuNap8FCzjyUuHYZ4
-	riKCo2pGW+1WBLqDFIPreupaqVFQ/QNvuWEPk0MT9Dw==
-X-Gm-Gg: AR+sD13Y8iinzFuo5m1uozKr/ZQ0jtOmFTrP7+wr4Pk8vZnogRZY05LjkEwPyy8rE3r
-	/SGa40EH+inKNWi5KfflCGiBkqu8eX5DSJacUKt3EtOostNYSIE5DNUipJmBKb+U396ezkDB8Va
-	qVB1L37nUdoBjfi9HQi2B3DwAiJOd5zzgW7jyOvikmWjUxqVqZcfU3OOyeFD9Fqlv5fdKPW4Y/x
-	NbGxxsfnJkkMcWZF2y6k7BYM/Qn/2iRJF7xD8LOWl3BEdFGLHOT+SHAbBMNNH+Q+g5C3e1yB5dv
-	arHF/cE3OkGqJ3lruHYWkVKMnSplTVUwGTwZMYIgtV9BXUj0Y3nfSvzG
-X-Received: by 2002:a17:907:60d1:b0:c1c:3b06:ed24 with SMTP id
- a640c23a62f3a-c210907f844mr169931866b.28.1786604635434; Thu, 13 Aug 2026
- 00:03:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=a0rg.com header.i=icarus@a0rg.com header.b="WmYDGEdv"
+ARC-Seal: i=1; a=rsa-sha256; t=1786605079; cv=none; 
+	d=zohomail.in; s=zohoarc; 
+	b=Z+EoJXsXtVQIORsJ3sZcuxDW8YpVtJb0X3XcblUegb8KbfcbNhxXs/ZxdRSRS4qfKO3vI6Jd794kf4ZGXQHQ3+0kScIXPu87ApXvTsMKoSUlt4Jag9ncptQfbPjbVdcjOa5yNUEF2nkCfaezOf8/LIQgePWYDzQ9ptNje+wbI4Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
+	t=1786605079; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=96OEejPnQuneKnEwTCECyecmPPt751F4H3Yz7DeCxaQ=; 
+	b=RzdZQa3MJKcimUPA5rUDMz9ShXmZlRMpw3toUpvpgSQgWiGKq9TpmOTJBe34CLnIt2cYl40edNIGjxHCXXL8Bz79XfrNIejSnu0hnSyFqaKLaz3l4VsKqnHOVVetzaZzE4g0V9OG0Y9j2PDNXxpHhy+6opg6LzmNyKLkFvkHZP4=
+ARC-Authentication-Results: i=1; mx.zohomail.in;
+	dkim=pass  header.i=a0rg.com;
+	spf=pass  smtp.mailfrom=icarus@a0rg.com;
+	dmarc=pass header.from=<icarus@a0rg.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786605079;
+	s=zmail; d=a0rg.com; i=icarus@a0rg.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=96OEejPnQuneKnEwTCECyecmPPt751F4H3Yz7DeCxaQ=;
+	b=WmYDGEdvQ0zmNveryW++ZWIpljRMzCUuqszYR/PSrALGDh5B1jkaOeXNK2hZU7ee
+	pWUOUMiBW7ICO6s5RRvGQ7Jun/khnUXUYWQDqDWKle3YpJ8B1xIo3haCu/qssxg/3U1
+	yhetwMg6cMrGq6QiCsnc0ms+RNuFvzEQ+HREUJK8=
+Received: from mail.zoho.in by mx.zoho.in
+	with SMTP id 1786605076030512.6942028504891; Thu, 13 Aug 2026 12:41:16 +0530 (IST)
+Date: Thu, 13 Aug 2026 12:41:15 +0530
+From: Anirudh Prasad <icarus@a0rg.com>
+To: "linux-acpi" <linux-acpi@vger.kernel.org>
+Cc: "rafaeljwysocki" <rafael.j.wysocki@intel.com>,
+	"linux-kernel" <linux-kernel@vger.kernel.org>,
+	"stable" <stable@vger.kernel.org>
+Message-ID: <19ff9f5fe16.152015f52867129.231910284877135436@a0rg.com>
+In-Reply-To: <19fdcf5017a.193154c01134335.5292960934110253862@a0rg.com>
+References: <19fdcf5017a.193154c01134335.5292960934110253862@a0rg.com>
+Subject: Re: [PATCH v3] ACPI: pfr_update: fix stack buffer overflow in
+ query_capability()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260812201915.1783578-1-max.kellermann@ionos.com>
-In-Reply-To: <20260812201915.1783578-1-max.kellermann@ionos.com>
-From: Xiubo Li <xiubo.li@clyso.com>
-Date: Thu, 13 Aug 2026 15:03:43 +0800
-X-Gm-Features: AUfX_mx9zXiB0sinbSIZ3j7gQJbtLh6t3KQuhjwAzyVbbmskfPWbScO46DO8YzY
-Message-ID: <CAOJNxR+7oRunYEwBZwiy1z_5yczK2jz7zN_Rg0CyS4ZNe=LmcQ@mail.gmail.com>
-Subject: Re: [PATCH v2] ceph: force a cap message when a deferred revoke can't
- be acked immediately
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
-On Wed, 12 Aug 2026 at 13:19, Max Kellermann <max.kellermann@ionos.com> wrote:
->
-> When the MDS revokes capabilities, handle_cap_grant() normally
-> guarantees a response by setting `CHECK_CAPS_FLUSH_FORCE` (see
-> commit 31634d7597d8 ("ceph: force sending a cap update msg back to MDS
-> for revoke op")), so ceph_check_caps() sends a cap message even if the
-> client would otherwise decide it has nothing to do.  That guarantee is
-> skipped whenever the revoke has to be deferred (via revoke_wait):
-> revoking Fb while dirty data is still buffered (writeback is queued
-> first) or revoking Fc while pages are cached (async invalidation is
-> queued first).
->
-> In those cases, the ack is left to the deferred completion
-> (ceph_put_wrbuffer_cap_refs() after writeback, or the invalidate
-> worker after invalidation); both of which call ceph_check_caps(ci,0)
-> i.e.  without `CHECK_CAPS_FLUSH_FORCE`.  Nothing gets sent under one
-> of the following conditions:
->
-> - the inode is retaining caps because the file was used recently
->   (file_wanted != 0; retain |= CEPH_CAP_ANY)
->
-> - the revoked cap is still used because the page was re-cached (e.g. a
->   file being re-read)
->
-> - the MDS has meanwhile re-granted, so `issued==implemented` and the
->   client sees nothing being revoked
->
-> The client then never emits the cap message which the MDS is waiting
-> for.  The MDS blocks on the revoke indefinitely and logs, for minutes
-> or hours:
->
->   client.NNN isn't responding to mclientcaps(revoke), ino 0x... pending
->   pAsxLsXsxFsxcrwb issued pAsxLsXsxFsxcrwb, sent 964.899182 seconds ago
->
-> The client-side state at that point shows the full cap set still
-> issued, nothing in the revoking/flushing sets.  Thus nothing gets
-> sent.
->
-> This patch fixes it by remembering that a forced response is expected.
-> When a revoke is deferred, set `CEPH_I_FLUSH_FORCE` on the inode.
-> ceph_check_caps() replays it as `CHECK_CAPS_FLUSH_FORCE`, so whichever
-> path re-checks the inode next (the writeback/invalidate completion,
-> the delayed worker, or any other caller) is guaranteed to send a cap
-> message to the MDS.  __prep_cap() clears the flag once a message is
-> actually built.
->
-> This is the deferred-path counterpart of the existing
-> `CHECK_CAPS_FLUSH_FORCE` handling; a normal (non-deferred) revoke
-> still forces the response inline as before.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 31634d7597d8 ("ceph: force sending a cap update msg back to MDS for revoke op")
-> Fixes: 257e6172ab36 ("ceph: don't let check_caps skip sending responses for revoke msgs")
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
-> v1->v2: fix CEPH_I_FLUSH_FORCE/CEPH_I_FLUSH_FORCE_BIT mixup
-> ---
->  fs/ceph/caps.c  | 40 +++++++++++++++++++++++++++++++++-------
->  fs/ceph/super.h |  5 +++++
->  2 files changed, 38 insertions(+), 7 deletions(-)
->
-> diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-> index d7283fb54cec..8ad17787b172 100644
-> --- a/fs/ceph/caps.c
-> +++ b/fs/ceph/caps.c
-> @@ -1410,6 +1410,7 @@ static void __prep_cap(struct cap_msg_args *arg, struct ceph_cap *cap,
->         BUG_ON((retain & CEPH_CAP_PIN) == 0);
->
->         clear_bit(CEPH_I_FLUSH_BIT, &ci->i_ceph_flags);
-> +       clear_bit(CEPH_I_FLUSH_FORCE_BIT, &ci->i_ceph_flags);
->
->         cap->issued &= retain;  /* drop bits we don't want */
->         /*
-> @@ -2038,6 +2039,14 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
->
->         if (ci->i_ceph_flags & CEPH_I_FLUSH)
->                 flags |= CHECK_CAPS_FLUSH;
-> +       /*
-> +        * A revoke whose response was deferred (see handle_cap_grant()) must
-> +        * still be acknowledged.  Replay the forced flush here so that even a
-> +        * check triggered by writeback/invalidation completion sends a cap
-> +        * message to the MDS.
-> +        */
-> +       if (ci->i_ceph_flags & CEPH_I_FLUSH_FORCE)
-
-Since CEPH_I_FLUSH_FORCE is now defined as a bit mask and the flag is
-set/cleared with set_bit()/clear_bit(), could we use test_bit() here
-as well?
-
-if (test_bit(CEPH_I_FLUSH_FORCE_BIT, &ci->i_ceph_flags))
-        flags |= CHECK_CAPS_FLUSH_FORCE;
-
-This keeps the set/test/clear operations consistently using the _BIT
-definition and avoids mixing the bit index and mask forms.
+Hi, just gently nudging this. Thanks!
 
 
+From: Anirudh Prasad <icarus@a0rg.com>
+To: "linux-acpi"<linux-acpi@vger.kernel.org>
+Cc: "rafaeljwysocki"<rafael.j.wysocki@intel.com>, "linux-kernel"<linux-kernel@vger.kernel.org>, "stable"<stable@vger.kernel.org>
+Date: Fri, 07 Aug 2026 21:31:12 +0530
+Subject: [PATCH v3] ACPI: pfr_update: fix stack buffer overflow in query_capability()
 
-> +               flags |= CHECK_CAPS_FLUSH_FORCE;
->  retry:
->         /* Caps wanted by virtue of active open files. */
->         file_wanted = __ceph_caps_file_wanted(ci);
-> @@ -3757,13 +3766,30 @@ static void handle_cap_grant(struct inode *inode,
->         BUG_ON(cap->issued & ~cap->implemented);
->
->         /* don't let check_caps skip sending a response to MDS for revoke msgs */
-> -       if (!revoke_wait && le32_to_cpu(grant->op) == CEPH_CAP_OP_REVOKE) {
-> -               cap->mds_wanted = 0;
-> -               flags |= CHECK_CAPS_FLUSH_FORCE;
-> -               if (cap == ci->i_auth_cap)
-> -                       check_caps = 1; /* check auth cap only */
-> -               else
-> -                       check_caps = 2; /* check all caps */
-> +       if (le32_to_cpu(grant->op) == CEPH_CAP_OP_REVOKE) {
-> +               if (revoke_wait) {
-> +                       /*
-> +                        * We can't ack the revoke yet: the response is deferred
-> +                        * until the writeback or cache invalidation queued above
-> +                        * completes.  Set the CEPH_I_FLUSH_FORCE flag to remember
-> +                        * that a forced cap message is owed so that deferred
-> +                        * completion (ceph_put_wrbuffer_cap_refs() or the
-> +                        * invalidate worker, both of which call ceph_check_caps())
-> +                        * actually sends one, even if by then the revoked caps look
-> +                        * unused, the inode is retaining caps, or the MDS has
-> +                        * re-granted them.  Without this, the cap message is never
-> +                        * sent and the MDS hangs ("isn't responding to
-> +                        * mclientcaps(revoke)").
-> +                        */
-> +                       ci->i_ceph_flags |= CEPH_I_FLUSH_FORCE;
-
-Similar here?
-
-Thanks
-- Xiubo
-
-> +               } else {
-> +                       cap->mds_wanted = 0;
-> +                       flags |= CHECK_CAPS_FLUSH_FORCE;
-> +                       if (cap == ci->i_auth_cap)
-> +                               check_caps = 1; /* check auth cap only */
-> +                       else
-> +                               check_caps = 2; /* check all caps */
-> +               }
->         }
->
->         if (extra_info->inline_version > 0 &&
-> diff --git a/fs/ceph/super.h b/fs/ceph/super.h
-> index 1d6aab060780..878440a2eb3b 100644
-> --- a/fs/ceph/super.h
-> +++ b/fs/ceph/super.h
-> @@ -687,6 +687,10 @@ static inline struct inode *ceph_find_inode(struct super_block *sb,
->  #define CEPH_I_ASYNC_CREATE_BIT                (12) /* async create in flight for this */
->  #define CEPH_I_SHUTDOWN_BIT            (13) /* inode is no longer usable */
->  #define CEPH_I_ASYNC_CHECK_CAPS_BIT    (14) /* check caps after async creating finishes */
-> +#define CEPH_I_FLUSH_FORCE_BIT         (15) /* a revoke's response was deferred;
-> +                                             * force a cap message to the MDS once
-> +                                             * the deferred work completes
-> +                                             */
->
->  #define CEPH_I_DIR_ORDERED             (1 << CEPH_I_DIR_ORDERED_BIT)
->  #define CEPH_I_FLUSH                   (1 << CEPH_I_FLUSH_BIT)
-> @@ -699,6 +703,7 @@ static inline struct inode *ceph_find_inode(struct super_block *sb,
->  #define CEPH_I_ODIRECT                 (1 << CEPH_I_ODIRECT_BIT)
->  #define CEPH_I_ASYNC_CREATE            (1 << CEPH_I_ASYNC_CREATE_BIT)
->  #define CEPH_I_SHUTDOWN                        (1 << CEPH_I_SHUTDOWN_BIT)
-> +#define CEPH_I_FLUSH_FORCE             (1 << CEPH_I_FLUSH_FORCE_BIT)
->
->  /*
->   * Masks of ceph inode work.
-> --
-> 2.47.3
->
+ > query_capability() copies four ACPI buffer objects returned by the 
+ > firmware _DSM into fixed-size u8[16] fields in struct 
+ > pfru_update_cap_info using memcpy with the firmware-supplied length: 
+ >  
+ >  memcpy(&cap_hdr->code_type, 
+ >  elements[CAP_CODE_TYPE_IDX].buffer.pointer, 
+ >  elements[CAP_CODE_TYPE_IDX].buffer.length); 
+ >  
+ > The same pattern repeats for drv_type, platform_id, and oem_id. 
+ > If the firmware returns buffer.length > 16 for any of these fields, 
+ > memcpy writes past the destination array. 
+ >  
+ > struct pfru_update_cap_info is stack-allocated in pfru_ioctl(). 
+ > Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports 
+ > are generated when a DSM returns 64-byte buffers, with writes reaching 
+ > 44 bytes past the end of cap_hdr's [64, 156) frame window into 
+ > adjacent stack redzones. 
+ >  
+ > Introduce a helper pointer to out_obj->package.elements and use it 
+ > to validate each buffer length against its destination field size 
+ > before copying, returning -EINVAL if the firmware supplies an 
+ > oversized buffer. 
+ >  
+ > Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update device driver") 
+ > Cc: stable@vger.kernel.org 
+ > Signed-off-by: Anirudh Prasad <icarus@a0rg.com> 
+ > --- 
+ >  drivers/acpi/pfr_update.c | 47 ++++++++++++++++++++++----------------- 
+ >  1 file changed, 26 insertions(+), 21 deletions(-) 
+ >  
+ > diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c 
+ > index 6283105bb0e8..79cedd4cf2a2 100644 
+ > --- a/drivers/acpi/pfr_update.c 
+ > +++ b/drivers/acpi/pfr_update.c 
+ > @@ -120,7 +120,7 @@ static int query_capability(struct pfru_update_cap_info *cap_hdr, 
+ >                  struct pfru_device *pfru_dev) 
+ >  { 
+ >      acpi_handle handle = ACPI_HANDLE(pfru_dev->parent_dev); 
+ > -    union acpi_object *out_obj; 
+ > +    union acpi_object *out_obj, *elem; 
+ >      int ret = -EINVAL; 
+ >  
+ >      out_obj = acpi_evaluate_dsm_typed(handle, &pfru_guid, 
+ > @@ -150,7 +150,9 @@ static int query_capability(struct pfru_update_cap_info *cap_hdr, 
+ >          goto free_acpi_buffer; 
+ >      } 
+ >  
+ > -    cap_hdr->status = out_obj->package.elements[CAP_STATUS_IDX].integer.value; 
+ > +    elem = out_obj->package.elements; 
+ > + 
+ > +    cap_hdr->status = elem[CAP_STATUS_IDX].integer.value; 
+ >      if (cap_hdr->status != DSM_SUCCEED) { 
+ >          ret = -EBUSY; 
+ >          dev_dbg(pfru_dev->parent_dev, "Query cap Error Status:%d\n", 
+ > @@ -158,29 +160,32 @@ static int query_capability(struct pfru_update_cap_info *cap_hdr, 
+ >          goto free_acpi_buffer; 
+ >      } 
+ >  
+ > -    cap_hdr->update_cap = out_obj->package.elements[CAP_UPDATE_IDX].integer.value; 
+ > +    if (elem[CAP_CODE_TYPE_IDX].buffer.length > sizeof(cap_hdr->code_type) || 
+ > +        elem[CAP_DRV_TYPE_IDX].buffer.length > sizeof(cap_hdr->drv_type) || 
+ > +        elem[CAP_PLAT_ID_IDX].buffer.length > sizeof(cap_hdr->platform_id) || 
+ > +        elem[CAP_OEM_ID_IDX].buffer.length > sizeof(cap_hdr->oem_id)) { 
+ > +        ret = -EINVAL; 
+ > +        goto free_acpi_buffer; 
+ > +    } 
+ > + 
+ > +    cap_hdr->update_cap = elem[CAP_UPDATE_IDX].integer.value; 
+ >      memcpy(&cap_hdr->code_type, 
+ > -           out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointer, 
+ > -           out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length); 
+ > -    cap_hdr->fw_version = 
+ > -        out_obj->package.elements[CAP_FW_VER_IDX].integer.value; 
+ > -    cap_hdr->code_rt_version = 
+ > -        out_obj->package.elements[CAP_CODE_RT_VER_IDX].integer.value; 
+ > +           elem[CAP_CODE_TYPE_IDX].buffer.pointer, 
+ > +           elem[CAP_CODE_TYPE_IDX].buffer.length); 
+ > +    cap_hdr->fw_version = elem[CAP_FW_VER_IDX].integer.value; 
+ > +    cap_hdr->code_rt_version = elem[CAP_CODE_RT_VER_IDX].integer.value; 
+ >      memcpy(&cap_hdr->drv_type, 
+ > -           out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.pointer, 
+ > -           out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length); 
+ > -    cap_hdr->drv_rt_version = 
+ > -        out_obj->package.elements[CAP_DRV_RT_VER_IDX].integer.value; 
+ > -    cap_hdr->drv_svn = 
+ > -        out_obj->package.elements[CAP_DRV_SVN_IDX].integer.value; 
+ > +           elem[CAP_DRV_TYPE_IDX].buffer.pointer, 
+ > +           elem[CAP_DRV_TYPE_IDX].buffer.length); 
+ > +    cap_hdr->drv_rt_version = elem[CAP_DRV_RT_VER_IDX].integer.value; 
+ > +    cap_hdr->drv_svn = elem[CAP_DRV_SVN_IDX].integer.value; 
+ >      memcpy(&cap_hdr->platform_id, 
+ > -           out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.pointer, 
+ > -           out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length); 
+ > +           elem[CAP_PLAT_ID_IDX].buffer.pointer, 
+ > +           elem[CAP_PLAT_ID_IDX].buffer.length); 
+ >      memcpy(&cap_hdr->oem_id, 
+ > -           out_obj->package.elements[CAP_OEM_ID_IDX].buffer.pointer, 
+ > -           out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length); 
+ > -    cap_hdr->oem_info_len = 
+ > -        out_obj->package.elements[CAP_OEM_INFO_IDX].buffer.length; 
+ > +           elem[CAP_OEM_ID_IDX].buffer.pointer, 
+ > +           elem[CAP_OEM_ID_IDX].buffer.length); 
+ > +    cap_hdr->oem_info_len = elem[CAP_OEM_INFO_IDX].buffer.length; 
+ >  
+ >      ret = 0; 
+ >  
+ > -- 
+ > 2.55.0 
+ >  
+ > 
