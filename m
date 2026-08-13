@@ -1,101 +1,144 @@
-Received: from forward501b.mail.yandex.net (forward501b.mail.yandex.net [178.154.239.145])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012014.outbound.protection.outlook.com [40.93.195.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE033EC83E;
-	Thu, 13 Aug 2026 18:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.145
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786644105; cv=none; b=Zrkfr8zMa9vJGgOSV2Px6DkHFep2/JrtPP8IJ4fy0S0bASrw8X3/QNDsRPOMXI29vEeM56FeWZSJ+uuZUkQEQlpb1/QkUL33F6sKxLJnwgKebZn7/Vwvy7ZbFu1t0VWidEAvmsZeOnui7DhKQbKX16jyB7eng5epQK00VdgLTaI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786644105; c=relaxed/simple;
-	bh=ojk4+/q1LTqv50aTKLRsMmkEaK6Gnnm0VxMJIgPQBG8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S9Nh3O6qXki7tQg8WljX1G0lSmog5xf5Yj8F5xfe8yasfynRQ/FYU7+bYI9fwfcQF1OFcE34UR1SavmV2BCs/dKppIC3158q6j3BtQqYkSccToFo8avdIwZzFtiG7HkIfxPMnE5ejmu/0+V22AkD1fKBxhWkvspe/dWLUoy0NQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=cbMF3qQd; arc=none smtp.client-ip=178.154.239.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C1A2F531B;
+	Thu, 13 Aug 2026 18:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786644223; cv=fail; b=SfkSnh+VG7rbwAnsaIe6ztP7OqtI5S1dd1Jln9rs779Kfe9uP4pn8FTqblCfk4Lfyc3Q1zWBQ1Dl9fi7VT3feYbP3XI7EQIAXanS8LQ0WTJA8n8PKeEplI34A4Nsca2jkBBTM5yWqxQkZlSRY7r3JHDua5/L/vXC/uM+kfsRGTo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786644223; c=relaxed/simple;
+	bh=PSj+EISbL8JTHsKq9dLQkY/HyB36/5jLF+vyAHVFvzY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 Content-Type:MIME-Version; b=hjUfhHbLwrhyy537KBst0/iDBkDd9H34ORHH+SAXRjtLzqQlSCBb2qr85FWctN8PFusOAwOiHdihbTkG1TJCw1XssSSustIUs2q0AorjkkVoY5IfldP5XpozzkjB4odSQUNfSzdiCmesXZtKVMqv3N8Bbf4RC3ABHRZxZqCFiS0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VBBR0qw2; arc=fail smtp.client-ip=40.93.195.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="cbMF3qQd"
-Received: from mail-nwsmtp-smtp-production-main-74.sas.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-74.sas.yp-c.yandex.net [IPv6:2a02:6b8:c24:1698:0:640:befc:0])
-	by forward501b.mail.yandex.net (postfix) with ESMTPS id E629281FF5;
-	Thu, 13 Aug 2026 21:01:26 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-74.sas.yp-c.yandex.net (smtp) with ESMTPSA id P1VkbdWdFW20-nCm6xBzR;
-	Thu, 13 Aug 2026 21:01:26 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1786644086; bh=/RNaqBZzAwLTxI7nXUB43pLNDhaKnBp2ZZo/rpJFmxY=;
-	h=From:In-Reply-To:Cc:Date:References:To:Subject:Message-ID;
-	b=cbMF3qQdkkyWCOrRG1ABhBro3ly5enDs9tLYWxJQy5jYIdXHl0NbyBfBXZTVN+q7C
-	 OSkJUGuubHkvQI5JisQQVDBFTK/XkxLVoq8vEjjG1u2QUv78pyHT4gAp5FwY3YXMJ3
-	 0pmpYF0n+e2gPKPZAY/LrjTHjzu7vr1KexH9a+cQ=
-Authentication-Results: mail-nwsmtp-smtp-production-main-74.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-Message-ID: <bccf1ea4-b1a1-4606-9b6e-4d3e20277cf6@yandex.ru>
-Date: Thu, 13 Aug 2026 21:01:25 +0300
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VBBR0qw2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uUHVcbYoo+0hEURFQ2M/B7ALg9wD9MqCwIKwgkfmNAV8MUslBRmDLf8nmJHd19mZTcirAUkcJmfP1o84MEqJq7tzMqLHXJV1DCfCW60GUa6RDCuvXYWrd97cimoc2qiCS8O0U+HeA7hrRjxhd7SBBcooAFDtDQ7LfBfFlaB+dkNa8uOt9sUIQQmj9qtWMuZ4bMDGmksBB0FoyGKClH7g1JK5s2aY0Jr56sRcUOgzjLjaVqtMLiEJJkS5CcC/uo6C5sDX3qXnuf5615fucXsZAMmwI/L4idf5KrEy56GjBmYRT6h9NkxopFsfNMGMX2wNRD4jxqxn1L52t5lwGdLdgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ohQQK8HUTdxvY7wALBmC09rGxpovbVCuIFVWqFX7Vpg=;
+ b=KJiMvP8osMxDAjZpuQDohvcr7NtIMifs2hZWSdzB0Vj9hIV9YxisMl/kd1x+EDCLNN9IxGUKKlgh6Hjwr7p5dOzWAK96ARgdZgAKsn4dbAUb+rqdJyUEOOSLKv77Jvdi3AUTOglwM2UCoo2pcReyZ4kfmWmylfHEneqMPZ4vA3bkyOAQdAyJJ37PqA380rGyNyy+F8m49AyfIbU7IKoIxbGLq/iwCLYX/v45FQ/VAZHRladUfk7Kqq03CoWDBubYpNN2JyqZHSieSTfprR0zY2RSeEehEOydpkG5XxbxXQeTYoDPaP0hKSHOrQQis4XbDROCsH/tQFSWVYTPXMZKTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ohQQK8HUTdxvY7wALBmC09rGxpovbVCuIFVWqFX7Vpg=;
+ b=VBBR0qw2hBimSoY1WniC4P6lcLddSmh5oHCFd9c5SzxQdhVA7YHg7AzoOf2JWXnm/45Ek6V4iwcl+KwWtUrpCrTRUWjKYxFwP+nWONe5a24LZ7IV1OdPJGQF51+t9sfYs+rJRSTPKL4TgwEe9QoTqhnTcnlbYfEWc6MfdwxElS2XPzXgvH1bVO0gXqEDnIiYCq0onBnHbvbkk82TfH7fxi9/Gxc87FYxiNpmQO12K3LY0gD2ndhAOGBcx3baf87kDwbZ0Psm5LXrvfvjuV6vcBiqPrKcfrOsXj98VPqXDgW2OufKJ9pIs2KjO1rsi6ZsXEco3q8REJnanY0ruWcikQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by BY5PR12MB4033.namprd12.prod.outlook.com (2603:10b6:a03:213::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Thu, 13 Aug
+ 2026 18:03:37 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
+ 18:03:37 +0000
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: jgg@ziepe.ca, kevin.tian@intel.com, 
+ Peiyang He <peiyang_he@smail.nju.edu.cn>
+Cc: joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, 
+ stable@vger.kernel.org, iommu@lists.linux.dev, baolu.lu@linux.intel.com, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <38C8DF0A118B7176+20260811095551.2756745-1-peiyang_he@smail.nju.edu.cn>
+References: <38C8DF0A118B7176+20260811095551.2756745-1-peiyang_he@smail.nju.edu.cn>
+Subject: Re: [PATCH] iommufd: Fix UAF in selftest IOPF reporting
+Message-Id: <178664226485.282103.8211602717805460519.b4-ty@b4>
+Date: Thu, 13 Aug 2026 14:31:04 -0300
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-ClientProxiedBy: YT4PR01CA0012.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d1::13) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] usb: gadget: udc: Fix use-after-free in
- gadget_match_driver
-To: Jimmy Hu <hhhuuu@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260625073705.803880-1-hhhuuu@google.com>
-Content-Language: en-US
-From: Dmitry Antipov <dmantipov@yandex.ru>
-In-Reply-To: <20260625073705.803880-1-hhhuuu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|BY5PR12MB4033:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb08454b-9a54-46be-a7db-08def965328d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|18002099003|22082099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	YnZiVMjC5yZ53AQeVHcXXeasrIRI/s9v4kpX4MxuWIfeMeCW5pYjv5CAyHd0s2ZoOgtbVzjls9kvMlj/hy7CeQedsKS7w76eUQaKcRXciajB6xjyHPzLMDgPu22jPK5gm4cUIqvHGf6fgj+GZIrPTuSkgE6eoqcxwCkXX2KOjlC2ELZDB7S6d592tBQgRNUKyPc6NFAplIrsg4EtQ++TdrAjKVTAz1s8krP2TeHC/GxutzfxTXWLzsC4Vo+lrd9Jd1AMQy4rnTgjP7GTUNg/dA6KvCinKy8YUmscz9+zl9+IAi+zzHG+Re7X7PP4prJVeXfV5quTvRlgb2sdcY+XnrV9D9rCmZHFWlhIuTqGNOlT8NUTSGkNWjuPGANpn4G1VP8QoNsrrY4SOwZjYpsM8UMmRH9fySSrNm+1k87zHg+5P0PpZ6LxGoNRm3YByGt1oK1IazM3IjquBxJlr2FFRX1W0bT8NCBHDEzg823nGOYT4YmTTq8+XXr3gdPZ14ranx9vNgYUK8oYlDzT0je6uBo/rc/WvF6x4+JU+JX2CrmTlwlytl5bZUVKR4qi6wRDJr9mYZKl2mtQ+xtpavukhNB9EIzIzZzYi0frFSG6LQBZUt/OX+8IQpisjKWn9JexZVsUzsfhtZ8WzEMYMkgphBopGdX/ML/AFGTJAy2dJgA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZWtjNVZMUnVqSzdycTFkTlZ2cVZOVmhYMkd1YmR6eWJXdVlqb3F5NVA5V1Zi?=
+ =?utf-8?B?dVVRazBzOWkxcjQ1WWx1NDNFdFpvSFVwb0U0ZFp5MTlIM0Z0Q1ZROHJZQnNL?=
+ =?utf-8?B?ZXJJYzBMeTdYNVR5OFVneUZSdGtocG5yWjZWNTZZcGRiOEhhdnZLMG9lcWlz?=
+ =?utf-8?B?eXdBRUJyWW1UNXFIa3podVlET21rcTBseHlsdmV4bHpNOUJBV2pNUjd0WUlx?=
+ =?utf-8?B?ZGdKUmVzVVlEWngrQ3V5dk9UQkR0R2luMUZIUXJaMWM2SWpoVElFQ0R5dWRH?=
+ =?utf-8?B?S0JlWlhQN0RaVGtSYkRZT25XMy9IT0NDaVBYbFZmS1VLOTNraHVrVWJrMWRL?=
+ =?utf-8?B?MnRZTVZEOFhGaCsyQ2FyNWpOTjRrbkpSYkdza1A2cmdLRjh2WmZoNnFHTEYr?=
+ =?utf-8?B?T29rUjc2Zm0xNXJBUlJvekdZQUUvRitDUHZ2QzZkRVk2b1p6N2lxZFg0TzBF?=
+ =?utf-8?B?TUt3SWR4MVBkRkkyRHY3MWhPTDF3M2pnOHl4djhVZjkzUTJ4YSttcDE0Q3Zn?=
+ =?utf-8?B?dDNFTEhud2lia2h0aFJZNy9UZ2tiWEpkY2lWZHVjQS9yRFp1aEhNdzRRdFZS?=
+ =?utf-8?B?dFh5TkZMcGdhVmRHSStUSTNwSzFSUDZFMlBQY21OOUlraldkMWFuTDA3Z01u?=
+ =?utf-8?B?ejh1WlVPRkIrejdsdTBVclk1eEFTMnhkdGtLdG1kUGFtSWxGM0hzOS9EamZz?=
+ =?utf-8?B?RTd0R1ZOUCtxaEsxRjVPK25yZDFyVmNZNll5L29ZU3Q3M2prMk5VV3AwZVZ0?=
+ =?utf-8?B?djJWZ0NnMGdqdi9XY3dFK2prbVNEMEZHWjZQeVl2ck50dWRrT0lTOWZPR3B2?=
+ =?utf-8?B?a1ViZFNzRjFwYXFWOHIrdmhXeml4NkoweC90VlF4akJKVmhWZFFUNk9vaG9F?=
+ =?utf-8?B?ZzNGUGtqQnJhWE52dk82MVFhaWtZWUhNend6VzlnUkZHNDY3d2hIa3V4YlAx?=
+ =?utf-8?B?VTBNT1RjSU4zN3ZPcUlTR2RRTTFBWFRZRDY1dTFPOVF5dkhIWkVYN3B6WTIv?=
+ =?utf-8?B?Y3dBOHFqektGTzBqc2NkRmd1b01GV1czdVFsTHVvMnNXS1NUdmVlbFhhcFI4?=
+ =?utf-8?B?ZEEzSCtUYTRpaVNCajFyM1Y1VUg3Y0t2ZjZPVUJiazJsOG0xV2ZqWkFJeE85?=
+ =?utf-8?B?T2RPYlNyWU51MFVtZWVLYW1TMVNDSDRoSWU2UlNmY0FQcVdQdkVxRmxOczhK?=
+ =?utf-8?B?Mk1TVEJ1UTNzOFRFZmlmN0YxTXBDTTNSeGdvc2dOZjBMNDFvbHQ5NVovdnJQ?=
+ =?utf-8?B?YzZMVXNTdDNZeGthYk5UZS9hc1F2ZnB2ZE1oOWdyVU0rMTZ2NG5Mc0s1WFpw?=
+ =?utf-8?B?YytYTDR5UlhkNy9Uc05Vc1BwMklvdzNrOGExSldFK3MyQldYb0NEWm5mTkhv?=
+ =?utf-8?B?UUs0eXI2T2wrOEVROXpQNkphVzlROUJCYlNkU3E1bVZCUFNDaEVSbFRYRmM4?=
+ =?utf-8?B?WnBYdnJWbmN0dkdCNzV1UnRObC8ySVhqWWlzSWExWFE3QlFsbFEzSnlDUkhY?=
+ =?utf-8?B?N0VzYVNtWWh3aC9iVFUwb00zZnljT1hyMGRxQUNsNnA3eXZ4MXBSV0x6L09M?=
+ =?utf-8?B?bk5PdDhWYXJCRmdGQlZ1RFhxMFc2MjdUVmlualV0c1RucENNUkJDejd5bEUw?=
+ =?utf-8?B?YUp1UWZ0aXVlTVZ5SDlVR3lBT2JKMHp5QmMyam9NSnc0Q3lYWGRKOXA5L2oz?=
+ =?utf-8?B?ODZlK0dHT25NYXNPSXVPdFBoek14MTEwbmpxdVo0VWhSb0VkUmVBbEREbjdn?=
+ =?utf-8?B?Y05aN0M3MHNjbXIwcU0wWm9oV1JhSnJhVmQyZG8wRCtiOTFkSk9RWmZLdjNW?=
+ =?utf-8?B?SENhemMweDIxUG1kUlpDMUVQcWJPYXNBQmVSK1BjdjVtOGZVcitIZjlTVTZ6?=
+ =?utf-8?B?NWQ0b1RFc3NQUWdNSlNZMEsrN3FNUEhUMTR5TzN1LzVENWZ5Zmd1SWVVZmkv?=
+ =?utf-8?B?U3BUbCswU0dQOWV3WGthY2ttVW96dVNjcjJlZ1p3UFJ0ekpZRlFzOWVrZjM2?=
+ =?utf-8?B?cTNnMmdpczFHMXk2bkMwUEFKVHBvbG0zV1djK2VaZnh3dVA1T3Z5YnduOHpG?=
+ =?utf-8?B?Q01Ic3p5Q0NKYkNRN3lWemxRRVRIT2FoVGpLQlhHSGE3dEE1Qk1mNnp3YnpM?=
+ =?utf-8?B?dEJzWGF1UWJyM2hmSkRKVkU1Zms4TEczUGVDSmZzWVZ1eVE0TXQ3ckNrV01H?=
+ =?utf-8?B?SmRPOVRQNHFpT2xYZlpWbnFUaWpOaDU2cTBwRnVMcThqcHIwUDNPU1NKVW1z?=
+ =?utf-8?B?bytWd3JDUUtZbUFZWDFCaFdWM2VId1dOSko0ZjVmcWJmR3MvdXJjeklYMWty?=
+ =?utf-8?B?ZUV3Vnd5dmg1YVIrOHovTTFUN1VMTlZEaHpWRlBTSHUycTdKdlBtdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb08454b-9a54-46be-a7db-08def965328d
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 18:03:37.0133
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4lYtDu3NKH3puyMQKVzLrPtnxsu0DiOJNOA8YRL3BPUF7BmiAh4ITaYWFYIxpNwY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4033
 
-On 6/25/26 10:37 AM, Jimmy Hu wrote:
 
-> The udc structure acts as the management structure for the gadget,
-> but their lifecycles are decoupled. A race condition exists where
-> usb_del_gadget() frees the udc memory (e.g., via mode-switch work)
-> while gadget_match_driver() concurrently accesses the freed udc memory
-> (e.g., via configfs), causing a Use-After-Free (UAF) that triggers a
-> NULL pointer dereference when the freed memory is zeroed:
-> 
-> [39430.908615][ T1171] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-> [39430.911397][ T1171] pc : __pi_strcmp+0x20/0x140
-> [39430.911441][ T1171] lr : gadget_match_driver+0x34/0x60
-> ...
-> [39430.911890][ T1171]  usb_gadget_register_driver_owner+0x50/0xf8
-> [39430.911910][ T1171]  gadget_dev_desc_UDC_store+0xf4/0x140
-> [39430.931308][ T1171]  configfs_write_iter+0xec/0x134
-> 
-> [39430.957058][ T1171] Workqueue: events_freezable __dwc3_set_mode
-> [39430.957287][ T1171]  dwc3_gadget_exit+0x34/0x8c
-> [39430.957304][ T1171]  __dwc3_set_mode+0xc0/0x664
-> 
-> Fix this by ensuring the udc structure remains allocated until the
-> gadget is released. To achieve this, introduce a new
-> usb_gadget_release() routine to the core. When the gadget is added,
-> usb_add_gadget() stores the gadget's release routine in the udc
-> structure and takes a reference to the udc. When the gadget is
-> released, usb_gadget_release() drops the reference to the udc and
-> then calls the gadget's release routine.
+On Tue, 11 Aug 2026 17:55:51 +0800, Peiyang He wrote:
+> iommufd: Fix UAF in selftest IOPF reporting
 
-It seems that the same (or the very similar) race condition still exists,
-see https://syzkaller.appspot.com/bug?extid=9cb1ac7fce4944ba9165.
+Applied, thanks!
 
-And the following may make sense as well:
+[1/1] iommufd: Fix UAF in selftest IOPF reporting
+      commit: 8c07df7cdfcf52f1ff276c588612aabc6c6b8399
 
-diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index 183a25f65ac8..944e46af8b96 100644
---- a/drivers/usb/gadget/configfs.c
-+++ b/drivers/usb/gadget/configfs.c
-@@ -405,6 +405,7 @@ static void gadget_info_attr_release(struct config_item *item)
-         WARN_ON(!list_empty(&gi->string_list));
-         WARN_ON(!list_empty(&gi->available_func));
-         kfree(gi->composite.gadget_driver.function);
-+       driver_unregister(&gi->composite.gadget_driver.driver);
-         kfree(gi->composite.gadget_driver.driver.name);
-         kfree(gi);
-  }
+Best regards,
+-- 
+Jason
 
-Dmitry
