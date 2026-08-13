@@ -1,147 +1,179 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f99.google.com (mail-wm1-f99.google.com [209.85.128.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5646B23909F;
-	Thu, 13 Aug 2026 13:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D2F48125E
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 13:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786629158; cv=none; b=LMaan1RJ98x2N5+HOHYlGyFcpj4hV1yvxcWgByPLIUR/m6EWy8qVq5pMZVdBOyStknlKt2VyqTATBq67F05JBQ3Da9pV+dHYBA3h6Fk4y7pL/7mDJ96fPpEFqnmUy7+pgNHzNgHaTlXHR7nfbi4HVNobIJ4NlMPs1aINMcooKbY=
+	t=1786629521; cv=none; b=PsUvHnZw2rPzwcrT1WpdsGu0XQpxlTA7aRY8s1pl+XeSRCTu5aWMO8UxkGzHl1vt1bOdBkfRQm4FeWm5TIVQBDCcTFPdpmgF7+zDYpW7HDUmn6etzBJqVbnRMY0gjoO0aFxqTFS2Pj1WBdz7/8X0Xl/ZjwLPJ5GSUeyM3Fxf9e4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786629158; c=relaxed/simple;
-	bh=z+qu01YxpWynLq8/YIcR1FOoyXXFwXYFq2Jv+/OQqbw=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=qaAK2l6cfBfRITMBu0oXOZomvojmCTVNpUs67eZqflu81eHvmB0to+DDgwYSZTpp7gAj/XCml9Q3Q73DOi/THExge9Md9cFnlD+NbRl3giN4Tp2SDyu+VtdF7d/b8XNtitHWk1oliGyCociV0/3qHiqYno3IRbfD3qVvgWoK1UE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=DJJk4H+D; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Odl/t/rc; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	s=arc-20240116; t=1786629521; c=relaxed/simple;
+	bh=InMdX+pdiDloclCPV/zVlqIYNtiNdrfnmA7sVFiIrcI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e313u1Ul1l2UKe1Gn2klhIwJVv+SNFVmDiVGbFqqDPlbTGA9O9iA9SY5hYsa9tkZrrbz2EQ+P61OiiTDMJp476v5RHu0oZ+EpmBuYyniP/28+U6u1g2MhUprjolzjdmNoHDHfiqJsRK/Bl6afGrfNXqlVWpBH4Va/3Pi/R5bZrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=cmWI6tF2; arc=none smtp.client-ip=209.85.128.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="DJJk4H+D";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Odl/t/rc"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 98F52EC027E;
-	Thu, 13 Aug 2026 09:52:31 -0400 (EDT)
-Received: from phl-imap-08 ([10.202.2.84])
-  by phl-compute-02.internal (MEProxy); Thu, 13 Aug 2026 09:52:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1786629151;
-	 x=1786715551; bh=/CL92jBIrGFN9TBtjCs00sly5y6noz9+KxR9WPKowzc=; b=
-	DJJk4H+DwhpmSa0jSea4BBwHdAFoUiOR6mryXP+Tnd5soyhiYKdIhV+o2ExUcGTL
-	/c1mNQXtNZcLaq8nBkinsVKPpRtcuxZvXMPhnmgv02fcvie0NYY/o75xsygGAYTW
-	cNLb3pQpV/Z6SKp3LWi5vOUXK94FYcMPxmRd8ZrYrj+3/IOpOF0wkXOn273e37b3
-	cwAR+0ep3hCvJe+jBvFxMrSOHPZswZxqCKOJdHSn/2Jgv9r5HLlbcB7w3oo/R7nM
-	tln0xJv/xRF2lf1HjEcCi/syMohxdwZxlhj0DCUKgBObuO1FORJlGzOk6h8lz8Z6
-	Hs5aPq8PYzLWqBKxeDKILw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786629151; x=
-	1786715551; bh=/CL92jBIrGFN9TBtjCs00sly5y6noz9+KxR9WPKowzc=; b=O
-	dl/t/rcfVJ1qrUZ+CQeUDh6IEoGuuB+XUBg9tpLuyMWLbx/xZQbIyWHdLfcjzvji
-	XmDQz0jw6wAGsDdzLCq/LZDSM8cGR2VCRtu2G9rnY+0HC0srt2XE8+YbqlqMpbp8
-	iJWlbHt4c6DlF5tWHrMPKqeBtSsOOCM/ijJivs6vjllMfuPyPFb6zKYlZ5sPzuGy
-	yHgSvZCVm3skCBUEMSgQSQWF0Wh4igQvk1QfE623I30pcJaIk1Z0OcmtclBU0Inz
-	DUDVaOWsYhQohhgaRa7Q+8oHFMAEMvo80fnGQBye1CFUG7HEmybp1PLvq2FBw4wD
-	5V3E3RJh3jYoW7d8w5mwg==
-X-ME-Sender: <xms:H8x9al9B78gED9d6YPIINQiRlLlORDumw4_NzzpIIEKhH0gMLm9PxA>
-    <xme:H8x9akgDvQPCILrjRMnGJ3K8xmPhQkwFdsSah132KFeLqr6_9v4DWy43k6qBl_4Ty
-    XY9uX8aVXqmm5T-8Hc2f1TEKuEAbV8d6bcgYXMX_PKcNwg9cS5onn8>
-X-ME-Proxy-Cause: dmFkZTE3g4wZNRvPnx2i2raJjLxTkAjrfW8TD+tMyZPVnYxtqSg5Hyl6qSyFU11DLoi+/A
-    loBnC+wX2qLWG+B7ZdwQien673B/96LF5FOBvLBnwKB64eS9RQV+GRnzF32vOUnaDiXjPF
-    Q8TKjRx8TEK/PxW9HAgxNFpqwXHb2p4yHhbtyNUvE119mdpYzy9O7q67111nMWxzEZVNDI
-    u+gfDQvRsnxHLnu0b6eoq4PWcC47yGlibm1EzuXc+u8NeYBsOWx0t7bQm0LL48JnRY+k7Q
-    mCq9g83E1tpEwcLHwsQ6bifU6T2XfksDj/3dX96CI937AYrpAzU9W/5E2UXE3vAQdwXDnD
-    Q8gBhFFmLiyZi8KxmWYo6nHwNDR3h+cXH6/5oUfNTruqZ9FyqTReYb6mQjRi0VXawbspa8
-    gAjQ8e0QKkQwrZBa9ksImnXhVsSJ97l3hoUjZsar8WL8f0klC+wFHjF0V9stNpWHGogV6G
-    b6ksmF5A8pijD2PLozD1fHm9/rpX6l49Mgv41tGhFMlsrkkzcsZv8Pm0+lyCuWHBDx1mnA
-    k8/iT4B5iN65D/SUIf9BBdrBLF0r/t9ZLoDjiwmeg2U7AdO4IkLJgvED2V6gnRLQcq2F58
-    GjF2GpSZmtVjRjyMaCZHbSx1vFPE6c7faDQKUi7s9+nZdJr3gdEwZYcNUYUg
-X-ME-Proxy: <xmx:H8x9ahZdlMmhYO0PdGJ-7nMococErGJ0V16lpTeW8xGunyTLA86vzw>
-    <xmx:H8x9atUbohFzbe1xIoUUpLp0Fm0Hb-6bNBqwM2SqZ66zT_oeg014NA>
-    <xmx:H8x9aoNn4wbw0YwGXX_qK8HeNn5LpX0qI4pDrzlfHovD8CFt22W-Kg>
-    <xmx:H8x9avZ6OFawpCMZSm7lQlQ4e8GT14XvAsQ7U1yvRH3xxFPs-kOo5g>
-    <xmx:H8x9agKAeCMoSAmJ_2lt_rWJfH4KIEuT4PcYWxcUt9CtQU0wYNF3edD9>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id D841B2CE0078; Thu, 13 Aug 2026 09:52:30 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="cmWI6tF2"
+Received: by mail-wm1-f99.google.com with SMTP id 5b1f17b1804b1-4957eefd361so16245745e9.1
+        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 06:58:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1786629517; x=1787234317; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1y55hehoVssabJRQyQs56fbqkSj+SkZHKxYRNj9+z/c=;
+        b=cmWI6tF21dwV/iUgOrxoAzzNeJQ0MhQhcm24ta+wNT2Z/ousus62heoPP4kijyQQ4D
+         Drgqkz0lR1YQl4Qyw/FS9evELGW2FOlDtDwndaLcBThcH3T5Tt5zcBJblKjAWU7g/ycV
+         nsQ77PeNTOdcdWVbEhL9xv0As9oNeXovAqI5hSUzB0Zt6T91V5CBejzTJppFjolWRjjB
+         /AgPTsSH8574IEmTOjfEFyuUHnAGUraB18MXeyhW6327FaNmCkQkN5PYQegitAuIBrR2
+         HVlLkwCqpyNTSi2sI2vB0m9G+mDvoD3tSocAAFyz7VKit7Jkhy0J/PRcitOtRggev4v0
+         rJow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786629517; x=1787234317;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1y55hehoVssabJRQyQs56fbqkSj+SkZHKxYRNj9+z/c=;
+        b=dcmY0CjvfuWfvAVCtWyfSChCag/Sb6Eyz4IyaPCg6AjLPnSby69dILCeZV/An6sS73
+         jqg13Tm8zCx9E9KKve7FpdkJuzLtScykOIRkSzrXdNfdqQntW4fPu7Amh+q5Rvps3yCU
+         iAhR0IlImGcy64h7Q6gobaemOTls2zqm55drafnVDdGEOLX0LVVA/+/3TE8T6RNHZQAJ
+         Bg5gJBUfliH+CFC9XQvsPGJda/lwTL9FcjZ2lS/BA1sqgUO2/7gTrIeNbC7UBWAlesuZ
+         ovzmMOlsB5MXmDJXKbEXYLSO2+gpCPGf8IGc3n39bE3HRZfhrbBimhTJtJrUI3soZxtR
+         x0Og==
+X-Forwarded-Encrypted: i=1; AHgh+RqDbb1IFsrGCIj2YXTvQnZlHscsTCq/WGyXk51STYDD2IxjgtQSwnrtLQxUeRJ0MI1X3a7lYso=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKSPweU0wGhhNu9mb61KGZhKwnzDJaOpwrNnGNV5SJL4JIPi9X
+	4mNTTNUkFOK1NR27Qp71fEH1MdnaG2fHzGjhztduDEJjdloBpGCfDE/xb1p8pQjOhBny9/tNeXs
+	n8GwgT3x//wvxpUWfVbaYLlmuU5Wl0YnPMJOZRRfDrC3rUnAjK1ae
+X-Gm-Gg: AR+sD13HmCpUtU2MtXWKCSeKCSIrwqz5OAJfamrg3CF3cGJu6TYpr68P9hqgOCMqJSr
+	crkKUWxSMSemAvWT2tF7hU6kQlQ/uPom2E/welAGNmouguDtvs0Ax6EzChCjHI81EVU8sqoUIcH
+	LyQE7Do/7Lpgg/8Pu4AyzrYwCM3hHtNptKAopRjOUsrEK/hq1qSHM5Sgldh8oSV98aBHijmE4Ne
+	A4UYYGOJ1POCoJK3z39JPIHyf8vDiT3e21IbI57zTylxIITT0v2yc6Bxv/gQ0VCIl4eI+9SIhGM
+	g0x1wuZWok59Q9+4EEFhaT0p04jHTKkfSIb868ckPhU8v/8u8rylEgC8SXrXVwmaT6DWQ+4SZPW
+	qxSI8+ngW9l0cqNCfzCs76bb6TfOv
+X-Received: by 2002:a05:600c:1385:b0:495:5fdf:2075 with SMTP id 5b1f17b1804b1-49982109cc1mr75225985e9.0.1786629517600;
+        Thu, 13 Aug 2026 06:58:37 -0700 (PDT)
+Received: from c14-smtp-2023.dev.purestorage.com ([2620:125:9008:8012:36:131:5:0])
+        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-49981b16dd0sm9042585e9.7.2026.08.13.06.58.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Aug 2026 06:58:37 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 3A43634029C;
+	Thu, 13 Aug 2026 06:58:36 -0700 (PDT)
+From: tmenninger@purestorage.com
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tim Menninger <tmenninger@purestorage.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] pNFS: Check lseg validity before marking a layout for return
+Date: Thu, 13 Aug 2026 13:58:34 +0000
+Message-Id: <20260813135834.22278-1-tmenninger@purestorage.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A6uA8SAIDAIg
-Date: Thu, 13 Aug 2026 09:52:10 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Thorsten Blum" <thorsten.blum@linux.dev>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: stable@vger.kernel.org, "Mark Pearson" <markpearson@lenovo.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- linux-kernel@vger.kernel.org
-Message-Id: <d25d6a9c-609e-4fa2-9b26-23cded2b58a8@app.fastmail.com>
-In-Reply-To: <20260813082049.41209-2-thorsten.blum@linux.dev>
-References: <20260813082049.41209-2-thorsten.blum@linux.dev>
-Subject: Re: [PATCH v2] platform/x86: think-lmi: Fix current password length check
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Thanks Thorsten
+From: Tim Menninger <tmenninger@purestorage.com>
 
-On Thu, Aug 13, 2026, at 4:20 AM, Thorsten Blum wrote:
-> current_password_store() checks the password length before removing the
-> trailing newline, which can reject valid passwords that are exactly
-> ->maxlen bytes long.
->
-> It also passes ->maxlen to strscpy(), which truncates passwords without
-> a newline.
->
-> Use strchrnul() to measure the password length up to the newline, then
-> copy that many bytes and add a trailing NUL terminator.
->
-> Fixes: a40cd7ef22fb ("platform/x86: think-lmi: Add WMI interface 
-> support on Lenovo platforms")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> ---
-> Changes in v2:
-> - Keep and reword the newline comment
-> - v1: 
-> https://lore.kernel.org/r/20260810132018.156868-3-thorsten.blum@linux.dev/
-> ---
->  drivers/platform/x86/lenovo/think-lmi.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/platform/x86/lenovo/think-lmi.c 
-> b/drivers/platform/x86/lenovo/think-lmi.c
-> index e215e86e3db7..d0ceb6aaa69e 100644
-> --- a/drivers/platform/x86/lenovo/think-lmi.c
-> +++ b/drivers/platform/x86/lenovo/think-lmi.c
-> @@ -438,14 +438,14 @@ static ssize_t current_password_store(struct 
-> kobject *kobj,
->  	struct tlmi_pwd_setting *setting = to_tlmi_pwd_setting(kobj);
->  	size_t pwdlen;
-> 
-> -	pwdlen = strlen(buf);
-> +	/* Strip newline; setting password won't work if one is present. */
-> +	pwdlen = strchrnul(buf, '\n') - buf;
->  	/* pwdlen == 0 is allowed to clear the password */
->  	if (pwdlen && ((pwdlen < setting->minlen) || (pwdlen > setting->maxlen)))
->  		return -EINVAL;
-> 
-> -	strscpy(setting->password, buf, setting->maxlen);
-> -	/* Strip out CR if one is present, setting password won't work if it 
-> is present */
-> -	strreplace(setting->password, '\n', '\0');
-> +	memcpy(setting->password, buf, pwdlen);
-> +	setting->password[pwdlen] = '\0';
->  	return count;
->  }
+pnfs_error_mark_layout_for_return() receives the lseg associated with
+the failed I/O but previously used only its I/O mode, operating on the
+inode's current layout header regardless of whether the lseg itself was
+still valid.
 
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Mark
+A layout stateid can be invalidated while RPCs still hold references to
+its lsegs. pnfs_mark_layout_stateid_invalid() clears NFS_LSEG_VALID on
+those lsegs through pnfs_clear_lseg_state(). A subsequent LAYOUTGET can
+install a replacement stateid in the same pnfs_layout_hdr. If an RPC
+using one of the old lsegs later reports an error, the current code can
+therefore mark the replacement layout for return.
+
+Once NFS_LSEG_VALID has been cleared, the lseg is no longer eligible for
+selection for new I/O and must not initiate another error-driven return
+of the inode's current layout. Fold pnfs_mark_layout_for_return() into
+pnfs_error_mark_layout_for_return() and check pnfs_is_valid_lseg()
+alongside pnfs_layout_is_valid() before setting return info, so a stale
+lseg cannot drive an error return of the current layout.
+
+This was reproduced by restarting a FlexFiles data server during a
+high-throughput read workload. Stale lsegs repeatedly caused the
+replacement layout to be marked for return, triggering I/O cancellation,
+RPC/RDMA transport reconnects, and sustained contention on
+inode->i_lock. The client did not recover on its own and consumed about
+94 CPU cores on a 96-CPU system. With this change, I/O recovered within
+about 20 seconds and recovery load peaked at about 15 CPU cores.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Tim Menninger <tmenninger@purestorage.com>
+---
+ fs/nfs/pnfs.c | 28 ++++++++++------------------
+ 1 file changed, 10 insertions(+), 18 deletions(-)
+
+diff --git a/fs/nfs/pnfs.c b/fs/nfs/pnfs.c
+index 7715e2bd5871..9f32dd7c4c63 100644
+--- a/fs/nfs/pnfs.c
++++ b/fs/nfs/pnfs.c
+@@ -2708,26 +2708,30 @@ pnfs_mark_matching_lsegs_return(struct pnfs_layout_hdr *lo,
+ 	return -ENOENT;
+ }
+ 
+-static void
+-pnfs_mark_layout_for_return(struct inode *inode,
+-			    const struct pnfs_layout_range *range)
++void pnfs_error_mark_layout_for_return(struct inode *inode,
++				       struct pnfs_layout_segment *lseg)
+ {
+ 	struct pnfs_layout_hdr *lo;
+ 	bool return_now = false;
++	struct pnfs_layout_range range = {
++		.iomode = lseg->pls_range.iomode,
++		.offset = 0,
++		.length = NFS4_MAX_UINT64,
++	};
+ 
+ 	spin_lock(&inode->i_lock);
+ 	lo = NFS_I(inode)->layout;
+-	if (!pnfs_layout_is_valid(lo)) {
++	if (!pnfs_layout_is_valid(lo) || !pnfs_is_valid_lseg(lseg)) {
+ 		spin_unlock(&inode->i_lock);
+ 		return;
+ 	}
+-	pnfs_set_plh_return_info(lo, range->iomode, 0);
++	pnfs_set_plh_return_info(lo, range.iomode, 0);
+ 	/*
+ 	 * mark all matching lsegs so that we are sure to have no live
+ 	 * segments at hand when sending layoutreturn. See pnfs_put_lseg()
+ 	 * for how it works.
+ 	 */
+-	if (pnfs_mark_matching_lsegs_return(lo, &lo->plh_return_segs, range, 0) != -EBUSY) {
++	if (pnfs_mark_matching_lsegs_return(lo, &lo->plh_return_segs, &range, 0) != -EBUSY) {
+ 		const struct cred *cred;
+ 		nfs4_stateid stateid;
+ 		enum pnfs_iomode iomode;
+@@ -2742,18 +2746,6 @@ pnfs_mark_layout_for_return(struct inode *inode,
+ 		nfs_commit_inode(inode, 0);
+ 	}
+ }
+-
+-void pnfs_error_mark_layout_for_return(struct inode *inode,
+-				       struct pnfs_layout_segment *lseg)
+-{
+-	struct pnfs_layout_range range = {
+-		.iomode = lseg->pls_range.iomode,
+-		.offset = 0,
+-		.length = NFS4_MAX_UINT64,
+-	};
+-
+-	pnfs_mark_layout_for_return(inode, &range);
+-}
+ EXPORT_SYMBOL_GPL(pnfs_error_mark_layout_for_return);
+ 
+ static bool
+-- 
+2.34.1
+
