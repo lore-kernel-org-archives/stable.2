@@ -1,100 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5937E2F361B;
-	Thu, 13 Aug 2026 19:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC6032B10E;
+	Thu, 13 Aug 2026 19:38:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786649113; cv=none; b=Ppb0OGs1HAw4WQTnYjby6Ml9TTcctdZu0wWkQh8eTGgm1fMnnSFTIyntoW1cdydcqbvF/83QGmoNfjoRygEY6VGDrQCqJ77ku3qUnmwVkLK1uSsMDy49ogixuDcV3aytFQjCswuS+TTerqhxrJzZm0QrrzQN+2yBjYCHTSRMuqA=
+	t=1786649928; cv=none; b=SlRltt4tvwdWlI9bzVeR3QFnGsu3xCGVM1v2vTV79+tuoyx2y1M00cvc/Q+MoY+SKj0oNCHtBfvU6pXY8ZitKPb2+En1xqCca1EGnEB9PSJvkf8vve3TEuo4iEjKuo8lbVgjIllvTlDJNHENoXXo722rjwa+RVwxDkBxNontATM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786649113; c=relaxed/simple;
-	bh=6ckX8TBN9F4koDpmJ3VXPg8frlr2wRrtyoiXs/hAf2s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LQNnnTccGG7It3/CKZz1fhWrZYXrAr3GhKzr8Pzjuy4yBGIC9YSPqzX1gAIkwdKv94Hj0AF5eYYgw+9d141Ns2L7AitSGXfdQopCK9jxBFyTZ8PZ8ked1qPbZlktHFcPSbQcSvEA6Wgqky1EZYW/vvY/z6zrhrOdCRLi9csH4zI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EXEH6pBC; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786649928; c=relaxed/simple;
+	bh=A+a64mQm97l5HbSVkJn9AZG/kupkozWuzXhfYLdNiMk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=akxvP9m94h3Y1lv3pGmErBWzJhAcCG1sllk0H4XrFl0GqpUL+GKHb/MoiNjrb8g0zOpxkCxyIx9wtUI5i8yzsPl7mTaNVbhsllYPWeH6SF2OUlBLe/+WcnHPJqYEsU4Z0gUoDmhst8RMvcHh8RwT4xqLPVcE89Txl/1oqlYPLHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KITOZQWQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EXEH6pBC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786649112; x=1818185112;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6ckX8TBN9F4koDpmJ3VXPg8frlr2wRrtyoiXs/hAf2s=;
-  b=EXEH6pBCZT1h6t4HhRrBSPgOHCPH1KHS5OM/Y1kj3GWwGvFbxTXkaobg
-   HbrDnz4Oy2hrZ1tYVhWarWgNWlIA/VwvfSN8HyWF23yke+mJGFoKinHVK
-   /qWMwZHcT36ybhCALG4KZEWQXw76+8DTrYi1mitAbR/x2WzJGJGUneBwo
-   UEB+LCCiZpsypX1uijgXV5C+Uanx0d+PliqMmuS22bEIMJOX1A90u/ito
-   1sw2FqQ392BTMYYMySjCfBwWRJ/V/yDWB+OGCc9PaZspxwZeJWcJbrUpu
-   N4RMsfcykybGcBb26yeSt2RwNYxPM0M/b9OaIxhK+qrM344C0/vk+gfsl
-   w==;
-X-CSE-ConnectionGUID: XOzOWMtzRmesGx96dJRqNA==
-X-CSE-MsgGUID: qNCdP1jqQfaHgMk4ThO+Zw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="90909158"
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
-   d="scan'208";a="90909158"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Aug 2026 12:25:12 -0700
-X-CSE-ConnectionGUID: Oqpf11YdSs6L1N3EWL++bQ==
-X-CSE-MsgGUID: Q5MnzNdXTLCvEt61Epmvzw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
-   d="scan'208";a="269215252"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 13 Aug 2026 12:25:10 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wub35-00000000WM2-2krK;
-	Thu, 13 Aug 2026 19:25:07 +0000
-Date: Fri, 14 Aug 2026 03:24:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jiaming Zhang <r772577952@gmail.com>, agruenba@redhat.com,
-	gfs2@lists.linux.dev
-Cc: oe-kbuild-all@lists.linux.dev, r772577952@gmail.com,
-	linux-kernel@vger.kernel.org, syzkaller@googlegroups.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] gfs2: validate stuffed inode size before unstuffing
-Message-ID: <202608140317.5gzCSRj5-lkp@intel.com>
-References: <20260705140620.1732914-1-r772577952@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KITOZQWQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 586351F000E9;
+	Thu, 13 Aug 2026 19:38:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786649927;
+	bh=dICXO7+0Rud/oDHZkiYIFj47TYUXR2epDxTQFHgDpGM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KITOZQWQIcY6An7SP/U3Ps20OvV4uGM2z2NIyyNaPDmCscBhflgTnTPXXRei/1o9H
+	 p5IJVxF3lJ+LJgdX5awscIHjsFzT8knBVxOFwEZ5yZbhFp19/UO4fWnaIw0CoDw51K
+	 tTCCdhkFdpjW1dTACsdxXgCG6MYRZ7niEbXPj/6Agvd6dxxdNKC5ok6pudIgiO+fEr
+	 kVMRh4OwWCKckBaYMNSfDGGBzQR7A0KqU0Ga1Bx9kYNU1EMan203FSBND2e8v2cNj3
+	 QRqi5Y7vrudDkN4bXlU+aK8XZtMyDN45M2t2X8CPg71MA2ZdO3u17k07WHHLZH6NlG
+	 XccyWdOIBvAyw==
+Message-ID: <7bb4075c-4186-4f20-8006-2e414429463a@kernel.org>
+Date: Thu, 13 Aug 2026 14:38:45 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260705140620.1732914-1-r772577952@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Scale custom brightness curve from full
+ range
+Content-Language: en-US
+To: Akhmed Zhitaev <zhitaevakh@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
+ stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260813170959.22073-1-zhitaevakh@gmail.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260813170959.22073-1-zhitaevakh@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Jiaming,
 
-kernel test robot noticed the following build warnings:
 
-[auto build test WARNING on gfs2/for-next]
-[also build test WARNING on linus/master v7.2-rc7 next-20260812]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On 8/13/26 12:09, Akhmed Zhitaev wrote:
+> Custom brightness curves use an 8-bit input signal.  After exporting the
+> full PWM range to userspace, the curve normalizer still divides requests
+> by the physical PWM span.  On panels with a nonzero minimum PWM level,
+> this can produce a curve input greater than 255 and send an invalid
+> backlight level to DC.
+> 
+> Scale the userspace [0..max] range to the curve's [0..255] range
+> instead.  This retains the full advertised range and keeps the reverse
+> readback conversion unchanged.
+> 
+> Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to userspace")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Akhmed Zhitaev <zhitaevakh@gmail.com>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jiaming-Zhang/gfs2-validate-stuffed-inode-size-before-unstuffing/20260813-232845
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git for-next
-patch link:    https://lore.kernel.org/r/20260705140620.1732914-1-r772577952%40gmail.com
-patch subject: [PATCH] gfs2: validate stuffed inode size before unstuffing
-config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260814/202608140317.5gzCSRj5-lkp@intel.com/config)
-compiler: powerpc64-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260814/202608140317.5gzCSRj5-lkp@intel.com/reproduce)
+Thanks for this.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608140317.5gzCSRj5-lkp@intel.com/
+We have moved the code in amd-staging-drm-next
 
-All warnings (new ones prefixed by >>):
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/6c2b46e9774f13e45985f6da9f7d5f8458767b98
 
->> Warning: fs/gfs2/bmap.c:55 function parameter 'size' not described in 'gfs2_unstuffer_folio'
->> Warning: fs/gfs2/bmap.c:55 function parameter 'size' not described in 'gfs2_unstuffer_folio'
+As your changes are trivial, I'll adjust while commiting.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 40d82a3ee..533c69f0b 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5131,10 +5131,10 @@ static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+>   	return 1;
+>   }
+>   
+> -/* Rescale from [min..max] to [0..AMDGPU_MAX_BL_LEVEL] */
+> -static inline u32 scale_input_to_fw(int min, int max, u64 input)
+> +/* Rescale userspace [0..max] to the firmware curve's [0..255]. */
+> +static inline u32 scale_input_to_fw(int max, u64 input)
+>   {
+> -	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max - min);
+> +	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
+>   }
+>   
+>   /* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
+> @@ -5147,7 +5147,7 @@ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *cap
+>   				      unsigned int min, unsigned int max,
+>   				      uint32_t *user_brightness)
+>   {
+> -	u32 brightness = scale_input_to_fw(min, max, *user_brightness);
+> +	u32 brightness = scale_input_to_fw(max, *user_brightness);
+>   	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
+>   	int left, right;
+>   
+
