@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABDAA3E7145;
-	Thu, 13 Aug 2026 22:42:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB65A3E7159;
+	Thu, 13 Aug 2026 22:42:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786660968; cv=none; b=pS2cJHlWKLVSZ9R8zuDSHUObux/h3mQcNk5tJQaznvvIpN99+hWwU3opdAYdEAjMMgeh5Dq85jqbzJQtfC/gtMtNnueGzKSPUeNw65xzC8BgS63otQrKkmvixW/7AzgdE8o4v5innvrHjo+edzV+0JHbHyshJeaI69mX2pocVHM=
+	t=1786660976; cv=none; b=BTxf7tEYuyn3380HnUBcwwLyVVEjZ2qvZtQif/GJlV6OiUGarSIpo7K+6V9Hy/3U4VFyDnxEsj3sBXfP77T6AKeNSR+5islC90nnAwBvQUMH1cZE11PZ5D2ehExij+iwReTDyrVP0zibQHvWxALtVLnmwvtjE16AFDY55og4f6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786660968; c=relaxed/simple;
-	bh=yrFhSQkriE8j1b7E4wqilZY+cCwwOrryiL0/RtTaDUw=;
-	h=Date:To:From:Subject:Message-Id; b=Hm58Tb6JBQ4aLiLBcHA4E/PDDn0ug3UAomgG08EW+aFHAhAQcagZ7pXH06bP0YCjKED7C4Eh4epvA0x1oj30S2Ct/H1Ion+rxl1hzuFylOF1siBHfGzlrlU/YcTGzXz608rzbp6h6GTa6YCrWuATyFMncI4Lh3h6LpEqgB5Zs88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=uvwMVUYT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786660976; c=relaxed/simple;
+	bh=WM9ACsG0xMcH6MtJ52BiLuNHevVKqQ3FjYvMzpuIca4=;
+	h=Date:To:From:Subject:Message-Id; b=nTeqNBGST44HvIobMWOj0eUr1b/KzSDgdtn6+FY6Ml88paPRpsGoOzFvyX+YvpgVWL4ujeuyQkGE9VKIPWY5QJS97yJGJvdM7XsGTAOjAD4Dbai9uNYk3GQp0iBm7YfMsE3Bikkxd118Pun7ayM2RjmNhGzm1qJ3QPGJpYFmriU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=tuMEtlbC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="uvwMVUYT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823681F000E9;
-	Thu, 13 Aug 2026 22:42:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="tuMEtlbC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D331F000E9;
+	Thu, 13 Aug 2026 22:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786660966;
-	bh=CWfVmX4P/9txZIAYz+FBfkaU3KpB6L/j7pn6Hf6b+kk=;
+	d=linux-foundation.org; s=korg; t=1786660974;
+	bh=x/QfYFdxGWaAtSlCnTGmeUlCxpEHaK4gy41T3ZoAMpk=;
 	h=Date:To:From:Subject;
-	b=uvwMVUYTrW1sJ7TC8v55yGcbUdc4UTDD04MQMVsVvMnLXjHWUwD64L+5RtZUDxntN
-	 NWPFXAduthpHP7PQTW0RqppPacu6OpSITdp/DDMqvbszz7bHb0NROxitnsFA5Gffxh
-	 SatH6JPDSBcWEfU9IY10xGCqBdJt3pPG9Ci+I1As=
-Date: Thu, 13 Aug 2026 15:42:46 -0700
-To: mm-commits@vger.kernel.org,yabinc@google.com,stable@vger.kernel.org,ndesaulniers@google.com,nathan@kernel.org,morbo@google.com,justinstitt@google.com,gprocida@google.com,edumazet@google.com,ajordanr@google.com,akpm@linux-foundation.org
+	b=tuMEtlbCmeMWf9yQyqbgmvcIEDPpI/ygMHBGAwTiJV2KHm5+6osln+45rJG1IqnfV
+	 cOZFqNmc0VnSlbzD2edi/fwjb5eS8hiX420/wzp8mBm2+exVLWBwRpvqPI/nlxneyW
+	 2Envo8XfWcZ6C0vgIIaGYYIKnBAUgSc9JTbGQpeE=
+Date: Thu, 13 Aug 2026 15:42:53 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,matthias.goergens@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] mark-list_add-and-__list_add-as-__always_inline.patch removed from -mm tree
-Message-Id: <20260813224246.823681F000E9@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] ocfs2-fix-cached-cluster-count-after-suballocator-reclaim.patch removed from -mm tree
+Message-Id: <20260813224254.61D331F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,103 +35,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: include/linux/list.h: mark list_add and __list_add as __always_inline
+     Subject: ocfs2: fix cached cluster count after suballocator reclaim
 has been removed from the -mm tree.  Its filename was
-     mark-list_add-and-__list_add-as-__always_inline.patch
+     ocfs2-fix-cached-cluster-count-after-suballocator-reclaim.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Jordan R Abrahams-Whitehead <ajordanr@google.com>
-Subject: include/linux/list.h: mark list_add and __list_add as __always_inline
-Date: Fri, 31 Jul 2026 20:15:19 +0000
+From: Matthias Goergens <matthias.goergens@gmail.com>
+Subject: ocfs2: fix cached cluster count after suballocator reclaim
+Date: Wed, 5 Aug 2026 19:39:20 +0800
 
-This commit resolves an issue where modpost section verification fails due
-to section mismatches between list_add and its callers.
+When reclaiming a suballocator block group, first reduce the on-disk
+cluster count by cl_cpg.  The current code then subtracts that new count
+(fe->i_clusters) from the old cached count
+(OCFS2_I(alloc_inode)->ip_clusters).
 
-At present, list_add (and its internal __list_add) are called from both
-.text and .init code sections.  Since inlining can vary per call site,
-list_add can be 4 different states:
+For an allocator with N block groups, that leaves the cache at
 
-  list_add in text with arguments to non-.init.data values
-  list_add in init with arguments to static .init.data values
-  list_add in init with arguments to non-.init.data values
-  list_add in text with arguments to static .init.data values
+    N * cl_cpg - (N * cl_cpg - cl_cpg) = cl_cpg
 
-It is last instance that ends up causing the section mismatch caused by
-constant propagation of the address of static libs inside the `dir_add` as
-seen below (with the dir_list being defined statically in initramfs.c,
-resting in .init.data).
+i.e.  ip_clusters -= (fe->i_clusters - cl_cpg) leaves ip_clusters equal to
+cl_cpg regardless of N.  This happens to be correct when reclaiming from
+two block groups, but undercounts the clusters from three block groups
+onwards.  The incorrect cache value is also used immediately to update
+i_blocks.
 
-  WARNING: modpost: vmlinux.o: section mismatch in reference: __list_add
-  (section: .text.unlikely.) -> dir_list (section: .init.data)
+Assign the updated on-disk count to the cache, matching the allocation and
+inode refresh paths.
 
-Because of these section matching requirements, semantically, __list_add
-and list_add MUST be inlined.  This will then ensure callers inside .init
-will receive a list_add that exists and refers to only .init data, and
-list_add code in .text sections will only refer to non-init data.
+In a QEMU test using a clean 256 MiB OCFS2 image and a 10,000-file
+create/delete workload, the first buggy reclaim left the on-disk
+(fe->i_clusters) and cached (ip_clusters) counts at 2048 and 512 clusters
+respectively; later reclaims underflowed the cache.  With this change, the
+cache matched the on-disk count across all four reclaims: 2048, 1536,
+1024, and 512 clusters.
 
-This issue manifests predominently in AutoFDO with clang, which is very
-hesitant to inline cold functions such as list_add even when marked
-`inline`.  Marking them as `__always_inline` therefore matches the
-existing semantic constraints imposed by modpost's section mismatch
-checks.
-
-Link: https://lore.kernel.org/20260731-always-inline-list-add-v1-1-d29f54ce5477@google.com
-Link: https://lore.kernel.org/all/CANn89iJVQe=wedLheJmjZjOTJsWHijT0jZs=iRxKssJZbjAxHw@mail.gmail.com/
-Signed-off-by: Jordan R Abrahams-Whitehead <ajordanr@google.com>
-Suggested-by: Nathan Chancellor <nathan@kernel.org>
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
-Tested-by: Nick Desaulniers <ndesaulniers@google.com>
-Reported-by: Giuliano Procida <gprocida@google.com>
-Reported-by: Yabin Cui <yabinc@google.com>
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2173
-Cc: Bill Wendling <morbo@google.com>
-Cc: Justin Stitt <justinstitt@google.com>
+Link: https://lore.kernel.org/20260805113920.385959-1-matthias.goergens@gmail.com
+Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- include/linux/list.h |   15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ fs/ocfs2/suballoc.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/include/linux/list.h~mark-list_add-and-__list_add-as-__always_inline
-+++ a/include/linux/list.h
-@@ -150,10 +150,13 @@ static inline bool __list_del_entry_vali
-  *
-  * This is only for internal list manipulation where we know
-  * the prev/next entries already!
-+ *
-+ * Must be inlined to ensure it can be safely called
-+ * with initdata arguments.
-  */
--static inline void __list_add(struct list_head *new,
--			      struct list_head *prev,
--			      struct list_head *next)
-+static __always_inline void __list_add(struct list_head *new,
-+				       struct list_head *prev,
-+				       struct list_head *next)
- {
- 	if (!__list_add_valid(new, prev, next))
- 		return;
-@@ -171,8 +174,12 @@ static inline void __list_add(struct lis
-  *
-  * Insert a new entry after the specified head.
-  * This is good for implementing stacks.
-+ *
-+ * Must be inlined to ensure it can be safely called
-+ * with initdata arguments.
-  */
--static inline void list_add(struct list_head *new, struct list_head *head)
-+static __always_inline void list_add(struct list_head *new,
-+				     struct list_head *head)
- {
- 	__list_add(new, head, head->next);
- }
+--- a/fs/ocfs2/suballoc.c~ocfs2-fix-cached-cluster-count-after-suballocator-reclaim
++++ a/fs/ocfs2/suballoc.c
+@@ -2759,7 +2759,7 @@ static int _ocfs2_reclaim_suballoc_to_ma
+ 	fe->i_clusters = cpu_to_le32(tmp_used - le16_to_cpu(cl->cl_cpg));
+ 
+ 	spin_lock(&OCFS2_I(alloc_inode)->ip_lock);
+-	OCFS2_I(alloc_inode)->ip_clusters -= le32_to_cpu(fe->i_clusters);
++	OCFS2_I(alloc_inode)->ip_clusters = le32_to_cpu(fe->i_clusters);
+ 	fe->i_size = cpu_to_le64(ocfs2_clusters_to_bytes(alloc_inode->i_sb,
+ 					     le32_to_cpu(fe->i_clusters)));
+ 	spin_unlock(&OCFS2_I(alloc_inode)->ip_lock);
 _
 
-Patches currently in -mm which might be from ajordanr@google.com are
+Patches currently in -mm which might be from matthias.goergens@gmail.com are
 
 
