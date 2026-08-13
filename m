@@ -1,68 +1,70 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024382F3C18
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 04:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF95D340D9D
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 04:35:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786595278; cv=none; b=nPsG3+oH9Hlsa+CezhUc5FytipVN15jdkF0gcZTsdn/KzMhzmL92ctLz13fb2OUjwMxGKE+Bjzg6fRA6VJqPxryBrhjl3hjKo1Mkq1S38u3y3SbS9o0342aZoHpXA941ajaqr84Cu8aXx5imhNDXGEh0Xa22cOzbRIQZKX5i52A=
+	t=1786595737; cv=none; b=UExtLRhBcht7QlchhmFyJ7gcJzsZ8lSNjOM7/czQMj+PxKjYFAQhfaKeJhqa1gM8D1QrF3kX9VJ9ct1cYgsA4aTd3++SgwZd5l+2i1TT4l7CXH8voKphUd9FmgnnG7slcwHkIjjCDRlWWtMGu3h1x8Y0f5tRcA0k6Z1apJsP2bY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786595278; c=relaxed/simple;
-	bh=5Gv7RZlhRwb9VswtDmfu/0LAxXTZawsmC3zcUUDKRmk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LxzWb6cvTj4F3eyWwArHB0UWxR2mdkSI+fUtKxy3lH9LBvNe8G07poAMbuQqF55hSwo6YlpYB3niGeHg73sSE78w+zDy1MQjvERTmJufZi0NxTmSyJiDlRcWITYb+rBU0oTk0F8eDHL5K95w1UpJGoFUiJXYmlKfqkxyJyLjFA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=enki.co.kr; spf=pass smtp.mailfrom=enki.co.kr; dkim=pass (2048-bit key) header.d=enki.co.kr header.i=@enki.co.kr header.b=NsoTvxxB; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=enki.co.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enki.co.kr
+	s=arc-20240116; t=1786595737; c=relaxed/simple;
+	bh=c/U6ekwMTAbpD3Gk5+1zNc4BKFOGsyDIsrGvmAB0Aj0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=meByT+Ftbb/YhDm5r0SDIqod95TQD1geCzV/8ATDIv3srXaLvBOt4+T/FT6RasqExlNlGMJG4lbNXUb5Bd9K7O1cRsr6dS89uxZKNH8lFCLg4wx3TlVtyLTGEvsgpHgdrAnsJITsgicSAjwPXsG3QSVDKsf/pBiX/h/YQmeT5oM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GDrsVLaT; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=enki.co.kr header.i=@enki.co.kr header.b="NsoTvxxB"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84fa3b14ee1so1489660b3a.0
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 21:27:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GDrsVLaT"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so2310728a91.0
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 21:35:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=enki.co.kr; s=enki; t=1786595276; x=1787200076; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786595735; x=1787200535; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b4Wh/9/TJG4TKh8Rw8lgsGqhmui06OCLYxeU5IcCuI4=;
-        b=NsoTvxxBFmY+bwGlZoxNhyGQ5d/sTvMT4acWTzm4pqaI69VheHnZZoIEx7c5AuSX+x
-         j2j7k1zwvKcpibs0ATB421/844uUopkGUYGXtSQTHbd06fVVy1bTJdHRiY00jA1DJKDd
-         OD0xbImfiJ8DAI8ilT6CIoI45L7c5UyQ+d2Z9pnwVF3/IA1pXgi9O+Nj6AcBRrVypAEX
-         h7i4jfsjO0Of6NRqvmzko4XQtfbVo8jBGiL71qbiqO2UMBeVJgThrACk3l6gECEgEaqi
-         s1Vb49RCfl9Q4svcFA0p0H6O5Egn76g/Ko2ak3m3VZxpv1dePn5+7JyutpQrErBgwoBf
-         cX+Q==
+        bh=qA2QcWA74QvZJW8B+6MEm5KUdiiucn9haV70OA+RUK8=;
+        b=GDrsVLaTr5iXmjvBv3aQ1gXSIQLY370mLTNguLBscDbzMfueHuZIDswvCki2KU58vr
+         4PKjKksSZCa4FDKnn+ptj9OxQqCYEwG7H0pZDe5vEk1jRR7eqprnARvt3Wo3hBYBHvxS
+         7qvAHuMP3nync7OELjm0HLsjkLK0fmo4y7Xv0xlZ9eMYzrry4hCW4LE8luy6+XG/ZDOC
+         iDMopPuJi6GNz8/uLQ1DKM7UWpHfgPk2s0RERa55/JQ5pNAFzuBZ60/HgInKNNvRLHPY
+         ylmKEAS2uxrds3jp3klC8isYpzGFTOhn6wrlgt8dgCaB3lZWKVMxjt89KcholBqCt6ZX
+         D4tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786595276; x=1787200076;
+        d=1e100.net; s=20251104; t=1786595735; x=1787200535;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=b4Wh/9/TJG4TKh8Rw8lgsGqhmui06OCLYxeU5IcCuI4=;
-        b=SR3XnzHDSIT3XZJnXqJT7eukEtj5j0BvGv1xGsiPk6ET72C+hm2UekaDKAudALlIGR
-         eStCLFlKmXyM+mHfV3PRcX0pAW0vBkCk79rDpD7pLrFen1giNO4ErgxW/JTsnGvg+puh
-         uOco2Z8W42O3z4mPf1e+Z3udOTCEly1XfH9BZ8u3b3oy87p8JklG8AXhhR0+xkCvTtnk
-         +GRHi18uCC+Slz7Ehe8xAh3Qqbe2OEhN9Pr91EQTz+xkZeRONrn8c66hux9OmPEjom+e
-         +UmT5Atb3Lh+8H53mnMcux3uaStjiGO54X3KHFvzzSLto3AdVOS0CKkctp6rnEidTLm8
-         +kIA==
-X-Gm-Message-State: AOJu0Yzd9N+YvWPtuZ0d1MFN24djVGN0NC6z4IKtFjT30VdlXuOnWcQa
-	vI+TT4EAWAtbPdjZplf3UNzpoiW61NHQ+PlA9Uels5J8o5ku7A1JpUYe5Om09SOl5mY=
-X-Gm-Gg: AR+sD117I7Qy+onhpxhPa5d3qnsTlo312kB9keUWGH9BYbDwjJPmQHAAmG2c4mho98f
-	NG7cnSPAiEAGU20qx/8JMmHRoyirtU51BRJCwKAKg9hZ+CLghRPwSJF0c2rhrXHRB1PKZeKRYAx
-	jXyTRuPFb3yGNyv/xoWK0zIOl3ZkdnHguwJJmJF/vGQGGQyC5B0ameJ/C6SeDdwlNplKnCNJK3+
-	mvWVbVq4fIGqXLpNInXPHgxRRTASCKfY4+hC7VDFsC6A8DOTfXe8oypWdRQH6T8yg808oZ5T6KE
-	WgWTJCHWJ+C2Z2aOtj8mfNp6gE6TwFbN5ScgNiFfQ7l6ctrgvh4O2+uMcT4gLe5DYT0IfRfRiaM
-	9GYcVKT4yLNZW3dmFt4kKDdVccf0Lv+4judXMzgUVAIIYPL6H+XQvBU+HuXMxbOt4VWVF93TRGS
-	ggpybmg1SIo/ce9tCVWPU8UzzrLfLSKIJAr1i+GEFxQ6vLPCjNykkRu9PPe5VpKeomTbS8Kw+Ut
-	rc9JhR0WxAcqdb0HrTK0tx+rLFIvEIPL2ZAWqeGupwwcQ==
-X-Received: by 2002:a05:6a00:114e:b0:848:5cf5:5040 with SMTP id d2e1a72fcca58-84fc74ab63emr2872767b3a.10.1786595275750;
-        Wed, 12 Aug 2026 21:27:55 -0700 (PDT)
-Received: from DESKTOP-CT6MI1C.tail2ca8a8.ts.net ([121.167.147.36])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fc4787645sm304896b3a.19.2026.08.12.21.27.54
+        bh=qA2QcWA74QvZJW8B+6MEm5KUdiiucn9haV70OA+RUK8=;
+        b=Ze4Rr1qZCri9H5AS/bvAj1bnTjfE8HXRAcvrSqPuwTfn7f0jM5iLizd3hgsofI4OZS
+         9E+BvNbH0D2OuRHSYPTZHFWA9HsktXA391gruJhJuYHmQxUlgTGGBAYVflDb74bQG/Wz
+         wlciiWvgd7VMsEeha4keJtP69VkaDxYJ3s5lmzpK9azfAQA2HA4QXh5bh5H4my/1pM6w
+         u8lFZB+ZgSV7fhbc7tkbNSWgPA7gOl29VX+eEUsWEsjq0ET/YCFzorlGsCf2SyUoa1og
+         8/m4PYEFn1z7i8gIbtrisDaHcNxy1DN5FCdGTweB5A8qol/VXuyPVp0PPN3x21TFKBjO
+         Twhw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqbi2p1aZkDoZHhE8ApbmSSjA5LmFIT5ZBzsR9h2w4O9fOZZuU8V9/TKbIw2XfX5ILJjL+0GUo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZz5d+7N4e2EKsnsz6MtMxbkk4mhsH38g0q2/QkId2LQdv+wKq
+	4Lp0RqDzg4nEhZokljDM222dyhk39dkedHwEyJh+Vy6zKHoA+56TsEbm
+X-Gm-Gg: AR+sD11+nNfEiw5MF7Hu1tJbBP0clJ/kYLQqoCHjzLGGJvlD7kaKn3j8AlhqY1jBsr4
+	nqIUH4WUmND+mjEbkCbGer+oTF6QmWz9kGgEqpba0qfFTaQnXeoMh128kZGxU8yAjF9J8sre3KJ
+	hXTr8oxuxxLWWvS+SR1etZKAERTX9AeZfW5qx9aOic3wix6SS2HSYj/7WYBNDahXPKE2P9juryC
+	VLUvwybMieLxN5K/NLRTPsAllCG8Ek1F1XD8BN3BKGNBbZvfyFyucw0twChn74NPJnDsgTYlgdD
+	rJtryiO3qyDKQB17LYMF+UMemxvhYbE+R1rTiltKodtUcYfOpTU9CowouXkzvRsxBvLHfpbRnCm
+	EMG9w3Iuf45mNdavQyQBdGK+eqDO+VsuC2o5mnJnzYjU5AeSMmEVjQeDgOTkjLLjfdHURe4bkKz
+	y/smsK51p+jXWYeXhkmt+1lmIET9kSpumfNfHH7F81RbPEXOpE9YSB7UpBwQQnSXIOcXKxgKPOl
+	xTJl4BE+kaugNPzhXE0XgCKfEzRvw==
+X-Received: by 2002:a17:90a:d40b:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-3931e058763mr3522065a91.6.1786595734728;
+        Wed, 12 Aug 2026 21:35:34 -0700 (PDT)
+Received: from CT104.localdomain ([118.223.79.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3931ca612e7sm1725295a91.0.2026.08.12.21.35.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 21:27:55 -0700 (PDT)
-From: root <jwlee.b@enki.co.kr>
-X-Google-Original-From: root <root@DESKTOP-CT6MI1C.localdomain>
+        Wed, 12 Aug 2026 21:35:34 -0700 (PDT)
+From: Your Name <rkskek9254@gmail.com>
+X-Google-Original-From: Your Name <your.email@example.com>
 To: jwlee.b@enki.co.kr
-Cc: stable@vger.kernel.org
+Cc: Jinwoo Lee <rkskek9254@gmail.com>,
+	stable@vger.kernel.org
 Subject: [PATCH] KVM: nVMX: Re-arm the vmcs12 pages request if mapping the pages fails
-Date: Thu, 13 Aug 2026 13:27:46 +0900
-Message-ID: <20260813042746.2694681-1-root@DESKTOP-CT6MI1C.localdomain>
+Date: Thu, 13 Aug 2026 04:33:02 +0000
+Message-ID: <20260813043302.3210965-1-your.email@example.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -72,7 +74,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: PLACEHOLDER NAME <jwlee.b@enki.co.kr>
+From: Jinwoo Lee <rkskek9254@gmail.com>
 
 Re-arm KVM_REQ_GET_NESTED_STATE_PAGES when nested_get_vmcs12_pages()
 fails, so that KVM retries the mapping on the next KVM_RUN instead of
@@ -109,7 +111,7 @@ is cleared on VM-Exit" makes unconditional.
 
 Fixes: 671ddc700fd0 ("KVM: nVMX: Don't leak L1 MMIO regions to L2")
 Cc: stable@vger.kernel.org
-Signed-off-by: PLACEHOLDER NAME <jwlee.b@enki.co.kr>
+Signed-off-by: Jinwoo Lee <rkskek9254@gmail.com>
 ---
 Notes for reviewers, not intended for the commit log.
 
@@ -171,8 +173,8 @@ index ddf6df7bee93..9e9bd6c541ba 100644
 -			return false;
 +			goto fail;
  	}
- 
- 
+
+
 @@ -3469,7 +3469,7 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
  			vcpu->run->internal.suberror =
  				KVM_INTERNAL_ERROR_EMULATION;
@@ -181,10 +183,10 @@ index ddf6df7bee93..9e9bd6c541ba 100644
 +			goto fail;
  		}
  	}
- 
+
 @@ -3525,6 +3525,20 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
  		exec_controls_clearbit(vmx, CPU_BASED_USE_MSR_BITMAPS);
- 
+
  	return true;
 +
 +fail:
@@ -201,8 +203,7 @@ index ddf6df7bee93..9e9bd6c541ba 100644
 +	kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
 +	return false;
  }
- 
- static bool vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
--- 
-2.43.0
 
+ static bool vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
+--
+2.43.0
