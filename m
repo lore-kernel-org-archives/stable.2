@@ -1,113 +1,127 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9572D0292;
-	Thu, 13 Aug 2026 02:48:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C90B344D91
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 03:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786589306; cv=none; b=XWuOLWNmBvXPgJZi8671rEjr9KyN8Xu8BKPo9BqNF/xUgRDp9q/u6dxoRfZ73uzXcXzmf5Abkg1Jke/lkMPPEcoY95MhhScV2TWhNe0gkvpaqOyxXWLZRYloSKPb+KJJZYw9PY1AZpOv8scVOWhND744pmla7iJqumFNSAB9IG0=
+	t=1786590881; cv=none; b=TuoqiGcGBVQjdk0qksBMx2TuXp/NybD1B+xxzFoqGY0GxJeEg/TyK+d+80M3ZGfMkd5y8PyNVp/NFAyHKdnOsWG2HAxg+TeCjD1Ew7vgs1pDGvp3hkmuDinIsc4h7c114xP0vsDjX05Uv42W1AtW+ys4//Qp3eiAN0KfK1uYYEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786589306; c=relaxed/simple;
-	bh=F6d+tOUJ99Rld8kBlFOo0jGMvA8ksoK7W0n2Xsz21RA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=VQ+2hv3jHikiLFumJlCrtHH75rbtZVHdf7gRVmzV+AdbLWPTed1aLXrZ/zrpd/yKy8PSbdXf8cQdLdWINAk9bHxwu9hTO6VaxAXPe/tNtO5gg/sbxVO+dgV/3WWIbnx7PZuNX5N/fGeXC3qHkizD2sEioBNX2Iwn3FUtbUPyu6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 6f0a086a96c111f1aa26b74ffac11d73-20260813
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:3ee9cb89-8f7e-4e34-8529-8b33a01c0c99,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:fca12f24adbe9056790d6ab9c1a22647,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|136|850|865|898,TC:nil,Content:0|15|
-	50,EDM:-3|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL
-	:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 6f0a086a96c111f1aa26b74ffac11d73-20260813
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1912808178; Thu, 13 Aug 2026 10:48:16 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: joern@lazybastard.org,
-	miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Pei Xiao <xiaopei01@kylinos.cn>,
-	syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com,
-	=?UTF-8?q?J=C3=B6rn=20Engel?= <joern@barelysecure.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] mtd: block2mtd: Fix divide error when erase_size is zero
-Date: Thu, 13 Aug 2026 10:48:12 +0800
-Message-Id: <25ec7ba58facdf29b42ca43dcf11cd98e2089a5f.1786589041.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1786590881; c=relaxed/simple;
+	bh=+yR0GXJqvxpnWE7rNwD7MXMlRLXMjpOcoHvHrDYrkQE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UbIMcyenxaErh545lKOWWJWJJHbZBSyebWhyc3C4wFAsgHaDppJnR8S++5VLwI+tNzD7duSxzJq9/Ay081IEohTsFYHE6QiQe1iT1NiKV60Cec0psyUne8frqszHlWacRR/pp+xW4DK5W5q26izo+bgUJmGHnRkq188OiQTCVGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B6nJ/Wpe; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B6nJ/Wpe"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93695893ac1so103805285a.0
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 20:14:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786590879; x=1787195679; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uy5Tf0mwgrBlKO3FuSF2JspqHb4xpS1/b6uDnqWQvxA=;
+        b=B6nJ/WpeGrM+uCq6lvdYKqSxQrqos3UeHPArDE07b5JzrzR7M7OnrfO4wYjnui8UWz
+         H3xBumnQFIbAreCQrEjPhtB5nNEQFLWl+V6YcCZjH14u7vZ4/RY4v8KjgtxreXN96YJU
+         ++abJGU898h2DSWHTe54+ZGe+XTic0xk0u00UhaMY8ch8SrD0Zji9Hj0CmWwBGSbpJy6
+         T9458n7rZr+FIKopN+jRHkevcfvBND3IobNWtUk141LQSKoOqI+y4ERilnVyGHAtk6BI
+         Gwt/V73EO3m1GrxcdbDfvjbnbTMeHvA3b72q1H8JxKasaxsBaMWZlOwKT6ENz1ppAjBc
+         oyyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786590879; x=1787195679;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uy5Tf0mwgrBlKO3FuSF2JspqHb4xpS1/b6uDnqWQvxA=;
+        b=Nl6lRDgQN1+OT8sbwnTCLRlINy2o0Maqy3ENd1RWLhDAkJLHpFiFKH5d12mX0ul5GB
+         pxmJK6eI5XCllL2Xrz/cNYbkLjKWY4pzS0POEHvTnSVmMkHsteHgH+OWbDNxdQ+zd1Lw
+         wnadyCV38y/qhsb+s9sGGK0gx503YDHcqwcdTI+hfgav6xiyC5Ik4QJOo4ywPwSisYkI
+         3HDQmhHDGN861JN2wJTdrMFbr12ktasoYGzMvr633wAREzawot1W3ZB/+gLrYWKVU0OQ
+         aOtl2H0RLx31UNa0UcEP/Je7eFPPPxt7ba2y8u6VI2DezeEV0Lt+oBTOp7rkqP0c74qk
+         JjEA==
+X-Forwarded-Encrypted: i=1; AHgh+RrWtLQ+4g6zaLAJUbGOnp3w/RWGdne60ChtTyjiuP49uqQKiaByX0k4X3CBycVp2+xovU8xfwo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxL9qjbWrEKWm/fRL2TeUapLZP3Y2xYCAMyDysUNDfs5TpVKAZr
+	eC+2Ib2nQOVTPCX5KdFp/GuGfoJs759SQvglNi9/PdhZAx+DpY0kWfnz
+X-Gm-Gg: AR+sD10v4MKVnLIgoaRj/CtLgpSFPXoNS8KnO4vceuCtHafAh0/zgVxEgLsfFDD0nda
+	WaVSyzPL/AlmURy44qG2FUsoP2Qc3cwAkLRemdpvjNBnJinaxJ6PknSzICSutcTjgW+btSX5soz
+	+cwxQy1gLJKJ3pnYtltpevD7onA4TRZbpV/Y8Tw7chohvnGkLEDnn1yB1lHELVreTGWQKzIBR6y
+	iX8Jr+LJdZYbIU/5LIHcbQIVqE7UyW25eMShVFPm/QQSw8gO+w1asPp6oXuxpBuSeLbB0uxLVZ6
+	RICEqCyqabkkt0zgou4A+b9NVe+pEUa7l8+ivsSGBQHGX0FBjyhQGdTR0i2q23RPfbUn2327fb8
+	PVSMTHgL8m+yVmj6WvJHKs7Yda2HcvZoos6j/qmgT451BM5j38oeA2TD0kMgDF+RzOPW2wNj8VE
+	53TwvLTH01KXNlN4KHnF+NyOPYB90JOF/geC1RD0kPVNUJpCjQmPMe52cpKRBoh1vPT4eDS8QpI
+	2UzLaK5W16TW+YHlA==
+X-Received: by 2002:a05:620a:a48e:b0:92e:f41d:4730 with SMTP id af79cd13be357-936bf8e8a3dmr214213785a.5.1786590878945;
+        Wed, 12 Aug 2026 20:14:38 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-936c1b12283sm52741285a.23.2026.08.12.20.14.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 20:14:38 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Subject: [PATCH v2] media: gspca: use vb2_video_unregister_device() on disconnect
+Date: Wed, 12 Aug 2026 23:12:35 -0400
+Message-ID: <20260813031235.2468144-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The erase size is parsed from the "block2mtd" module parameter and can
-be set to zero. add_device() then evaluates
+gspca uses vb2_fop_release(), but gspca_disconnect() only unregisters
+the video device. If the queue owner closes the device after USB
+disconnect, vb2_fop_release() releases the queue and invokes
+gspca_stop_streaming() at that point.
 
-        if (size % erase_size)
+gspca_stream_off() calls subdriver stop callbacks and
+usb_set_interface() through gspca_dev->dev. By the time the late close
+runs, the USB core can have freed the usb_device, resulting in a
+use-after-free. This was observed as a KASAN use-after-free in sd_stopN().
 
-with a zero divisor, which triggers a divide error:
+Use vb2_video_unregister_device() so the queue is released and streaming
+is stopped synchronously during disconnect, while the usb_device is still
+valid. Since the helper takes the queue lock, which is usb_lock, call it
+after dropping that lock.
 
-divide error: 0000 [#1] PREEMPT SMP PTI
-RIP: 0010:add_device drivers/mtd/devices/block2mtd.c:296 [inline]
-RIP: 0010:block2mtd_setup2+0x592/0xda0 drivers/mtd/devices/block2mtd.c:459
-Call Trace:
-block2mtd_setup+0x27/0xe0 drivers/mtd/devices/block2mtd.c:476
-param_attr_store+0x214/0x310 kernel/params.c:589
-module_attr_store+0x65/0x90 kernel/params.c:904
-kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
-...
-
-Reject a zero erase size before performing the modulo operation so the
-existing "erasesize must be a divisor of device size" error path
-reports the invalid argument and frees the device.
-
-Fixes: ea6d833a3fdd ("mtd: block2mtd: check device size")
-Reported-by: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/lkml/6a7b58ba.ac361c09.22ff0a.0045.GAE@google.com/
-Suggested-by: Jörn Engel <joern@barelysecure.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Fixes: f729ef5796d8 ("media: videobuf2-v4l2.c: add vb2_video_unregister_device helper function")
+Cc: stable@vger.kernel.org # 5.10.x
+Suggested-by: Hans Verkuil <hverkuil@kernel.org>
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 ---
-changes in v3:
-1.remove (long) cast due to build errors in 32bit config systems
-2.changes git log about (long) cast
+Changes in v2:
+- Use vb2_video_unregister_device() to stop streaming during disconnect,
+  as suggested by Hans.
+- Drop the usb_get_dev()/usb_put_dev() lifetime workaround.
+- Call the helper after releasing usb_lock since it takes the queue lock
+  internally.
 
-changlogs in v2:
-1.Add Suggested-by tag
-2.remove unnecessary (long) cast from the size
----
- drivers/mtd/devices/block2mtd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v1: https://lore.kernel.org/r/20260718025434.2259756-1-shuangpeng.kernel@gmail.com/
 
-diff --git a/drivers/mtd/devices/block2mtd.c b/drivers/mtd/devices/block2mtd.c
-index 03e80b2c4f5a..349fa07be314 100644
---- a/drivers/mtd/devices/block2mtd.c
-+++ b/drivers/mtd/devices/block2mtd.c
-@@ -293,7 +293,7 @@ static struct block2mtd_dev *add_device(char *devname, int erase_size,
- 	}
+ drivers/media/usb/gspca/gspca.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+index 594d73e50b9f..4185c9047241 100644
+--- a/drivers/media/usb/gspca/gspca.c
++++ b/drivers/media/usb/gspca/gspca.c
+@@ -1636,9 +1636,8 @@ void gspca_disconnect(struct usb_interface *intf)
+ #endif
  
- 	size = bdev_nr_bytes(bdev);
--	if ((long)size % erase_size) {
-+	if (!erase_size || (long)size % erase_size) {
- 		pr_err("erasesize must be a divisor of device size\n");
- 		goto err_free_block2mtd;
- 	}
+ 	v4l2_device_disconnect(&gspca_dev->v4l2_dev);
+-	video_unregister_device(&gspca_dev->vdev);
+-
+ 	mutex_unlock(&gspca_dev->usb_lock);
++	vb2_video_unregister_device(&gspca_dev->vdev);
+ 
+ 	/* (this will call gspca_release() immediately or on last close) */
+ 	v4l2_device_put(&gspca_dev->v4l2_dev);
 -- 
-2.25.1
-
+2.43.0
