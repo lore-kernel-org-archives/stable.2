@@ -1,142 +1,90 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07B6484249;
-	Thu, 13 Aug 2026 17:21:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF92438014;
+	Thu, 13 Aug 2026 17:24:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786641678; cv=none; b=ZRMPI5N5RpH7WAcfur5wJ/e9wO2q8c5RRBYdj5lX9maYGAQLpBNNRTcCG7w7JGhedZpAOC4ZySipqGo3IrHbX9AidDE6zniIb8CB6hSWK7Y/Q6C+tPfEB0otYERhtqGPm0KLzj7eS3rAt34DS+zRxI32qhJ1G/29rJOkBhl6dTo=
+	t=1786641853; cv=none; b=tQi2PyS4qQs1tcZ9GYSXNd4Vukuodhqd2kfhlk7MX1MwI9jQw0NrPvCg4hdxQBsHrR76KImWABqctoB61/zrxuGq/km8PWIF2AzSVmyDvsvB5aAm4z9PuW0myQIunp6+LREaReNcsaLufQ+6OC+97/2QP7yDjnV07K/Yh9BQfNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786641678; c=relaxed/simple;
-	bh=Mkidty/zRD+x27WcHPxXMrfSjcU9wppgFrqjf9p/0RQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fu6JmEh/bpCDHofYwwV//n1kgCXVk7AulZQpN62D7MCnQ/Zw8dwAMXE2cp/HdKrZUas/ZB8ddwKLYQBBWs+hFvryfqeSQr5TXdZjc7blbOUMr6fYLVnZZvZrrBm4eS1NlMcMmWVkSoBOvWLy/Nw95f+FN8118x7Thd1kMaQCShU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YIWuEi1+; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786641853; c=relaxed/simple;
+	bh=XHyIg9N7atPTVPE/jkIkUfgWNX1SrxAnr7rAiiTBTlc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=HqW+CivVJ9uyQ1Rbu7IIQCiCNE3MbfWo2R/EEvKBUGN/d80dbAbGCvvPmucEBEVgST3Cc3bGoXUxJeMBT0HXTJLRbU2VjIah4CPyvCfaSuERNdfhYbUxwFXkgFgsF87/sG8m9cf6l2eNfcyR7Jh7G0+fgJe24zTzZ5DGCWDSM9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=UJ5uoZ5T; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YIWuEi1+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786641676; x=1818177676;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Mkidty/zRD+x27WcHPxXMrfSjcU9wppgFrqjf9p/0RQ=;
-  b=YIWuEi1+f8Hf5JhEgMhazoQ+c3a7Um84uEQZSPkHvAM2UnPM9oZ0xfhD
-   aFngRI8N6SaNxOBIoUhOzTXZvj2bGGM7ON2fCFKJxThHiTNUwI2PZtdo3
-   i8FlfT0nVybSyoNx4XQVju58fby+7E8mdcQLOJicGESIju6AeIq6egAgd
-   ut4qPwYG+xDII20FRtiCM+fA3GVnNwOObzkK47XRRvoDSZE9aNDx7WetY
-   o13ANgzdV6h/lWFGWondnCbLUhztT9YacjAUOkeYEcDsxe6+Ryosdc1yo
-   shdOj9mpPUZViHAcscZ5krhO7WAnBZ5FbDqcIBlv8RFGSkWqb49wzVuvv
-   Q==;
-X-CSE-ConnectionGUID: E5fWtnuATEGNWXxlptvv2Q==
-X-CSE-MsgGUID: C0pNClVZR3+4NvwIWsA+wg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="89743047"
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
-   d="scan'208";a="89743047"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Aug 2026 10:21:13 -0700
-X-CSE-ConnectionGUID: fkQBEffCRJievkpflTJP6A==
-X-CSE-MsgGUID: y5sJH6QgRc2ns20kGIimmw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
-   d="scan'208";a="263549106"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 13 Aug 2026 10:21:10 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wuZ75-00000000W0A-0mQw;
-	Thu, 13 Aug 2026 17:21:07 +0000
-Date: Fri, 14 Aug 2026 01:20:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Allison Henderson <achender@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Santosh Shilimkar <santosh.shilimkar@oracle.com>,
-	Ka-Cheong Poon <ka-cheong.poon@oracle.com>,
-	Dan Carpenter <error27@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
-	linux-kernel@vger.kernel.org, Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] rds: synchronize info callbacks with connection teardown
-Message-ID: <202608140151.MOvRf1jc-lkp@intel.com>
-References: <20260720184955.3008978-1-nicoyip.dev@gmail.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="UJ5uoZ5T"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id F22E640E014C;
+	Thu, 13 Aug 2026 17:24:05 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id TVj-N5WKAZy7; Thu, 13 Aug 2026 17:23:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1786641835; bh=XHyIg9N7atPTVPE/jkIkUfgWNX1SrxAnr7rAiiTBTlc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=UJ5uoZ5Td59CHdLiaeAnxSPslsm+K8uAvZVeIUvLq2LOCtSIL/1TEat1iZjkU7IGf
+	 bWHW3/RN7pLQRGbovVC13WRNYKXf9PYpB4rIuEpsGroYX4uMmheGA/4wn2PIxWrd+J
+	 aI4+xbAdwFU1b79IlD8mGPAZBZWAgFQsLvDQiGO6nZs4kALs6nyKoF2IO1Q7Szjwz8
+	 m+jBhydkVqePKUrhPhVC8u4sL593VoC6452uBl2ciwIHFgbeQHL8OAnP+nG7rWVF5N
+	 /7ljH5n4fbnyDxlw6kwQWZomvBZTM5/4gjysaAnQqFAywyGKiL2y97I8GCVyOBk/8i
+	 1tHHD6C2RRWerQHE33Yi8vMYN+YQci9JUnzGpIgiydktqps0ijSYO9W/zJXc1Ct1MT
+	 Tc1Opor4TPiqRcJQviK2QKAV/hm7Ci3DJEz++6+KET5TYjfaBQbLf/HwahcpCdCL+l
+	 7zBAXsNk5O3E5slR+yV4F+H9PXY1lwiPgjLWTvsWMuRh4baZzvA2y69P+FBSDwjA+w
+	 bvJVI3O69SFivEJQQpDHf/SMtYPfKloal/1SD78UzRa5hGdYjLJ1CPKfTz7RsE75n0
+	 QE0SwTf05yN422LoIWq+HOvtU5oSsMI+8POmu90vvW2wKieyoK0JkHWBc80yIx0XeV
+	 +yWaAb4wNV3oiuVntSWVGf0w=
+Received: from ehlo.thunderbird.net (unknown [IPv6:2600:1700:38ca:c00:f14e:c43:6b6d:c6e8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 60B2F40E014A;
+	Thu, 13 Aug 2026 17:23:43 +0000 (UTC)
+Date: Thu, 13 Aug 2026 17:23:38 +0000
+From: Borislav Petkov <bp@alien8.de>
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+CC: Jason Andryuk <jason.andryuk@amd.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org, Penny Zheng <penny.zheng@amd.com>,
+ stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_2/2=5D_x86/amd=5Fnode=3A_Avoid_?=
+ =?US-ASCII?Q?divide_by_zero_on_virtualized_systems?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20260813155621.GA1384528@yaz-khff2.amd.com>
+References: <20260806160159.230453-1-jason.andryuk@amd.com> <20260806160159.230453-3-jason.andryuk@amd.com> <20260810144706.GC57095@yaz-khff2.amd.com> <20260812193117.GBanzKBaDLIdI_1Cfa@fat_crate.local> <20260813155621.GA1384528@yaz-khff2.amd.com>
+Message-ID: <EA7B273F-1BC6-4685-9568-1F58F4AF91AD@alien8.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720184955.3008978-1-nicoyip.dev@gmail.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Chengfeng,
+On August 13, 2026 3:56:21 PM UTC, Yazen Ghannam <yazen=2Eghannam@amd=2Ecom=
+> wrote:
+>On Wed, Aug 12, 2026 at 12:31:17PM -0700, Borislav Petkov wrote:
+>> On Mon, Aug 10, 2026 at 10:47:06AM -0400, Yazen Ghannam wrote:
+>> > I don't think this is necessarily a Firmware bug=2E
+>>=20
+>> What else can it be if we're running on baremetal?
+>>=20
+>
+>Could be the hardware convention changed=2E Unlikely, but could happen=2E
+>
+>Thanks,
+>Yazen
 
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on net/main]
-[also build test WARNING on linus/master horms-ipvs/master v7.2-rc7]
-[cannot apply to net-next/main next-20260812]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Chengfeng-Ye/rds-synchronize-info-callbacks-with-connection-teardown/20260812-225931
-base:   net/main
-patch link:    https://lore.kernel.org/r/20260720184955.3008978-1-nicoyip.dev%40gmail.com
-patch subject: [PATCH] rds: synchronize info callbacks with connection teardown
-config: mips-randconfig-r134-20260813 (https://download.01.org/0day-ci/archive/20260814/202608140151.MOvRf1jc-lkp@intel.com/config)
-compiler: mips-linux-gcc (GCC) 11.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260814/202608140151.MOvRf1jc-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608140151.MOvRf1jc-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
->> net/rds/info.c:83:9: sparse: sparse: cast removes address space '__rcu' of expression
->> net/rds/info.c:83:9: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   net/rds/info.c:83:9: sparse:    void ( [noderef] __rcu * )( ... )
-   net/rds/info.c:83:9: sparse:    void ( * )( ... )
-   net/rds/info.c:84:9: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   net/rds/info.c:84:9: sparse:    void ( [noderef] __rcu * )( ... )
-   net/rds/info.c:84:9: sparse:    void ( * )( ... )
-   net/rds/info.c:96:9: sparse: sparse: cast removes address space '__rcu' of expression
-   net/rds/info.c:96:9: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   net/rds/info.c:96:9: sparse:    void ( [noderef] __rcu * )( ... )
-   net/rds/info.c:96:9: sparse:    void ( * )( ... )
-   net/rds/info.c:97:9: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   net/rds/info.c:97:9: sparse:    void ( [noderef] __rcu * )( ... )
-   net/rds/info.c:97:9: sparse:    void ( * )( ... )
-   net/rds/info.c:222:16: sparse: sparse: cast removes address space '__rcu' of expression
-   net/rds/info.c:222:16: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   net/rds/info.c:222:16: sparse:    void ( [noderef] __rcu * )( ... )
-   net/rds/info.c:222:16: sparse:    void ( * )( ... )
-
-vim +/__rcu +83 net/rds/info.c
-
-    75	
-    76	void rds_info_register_func(int optname, rds_info_func func)
-    77	{
-    78		int offset = optname - RDS_INFO_FIRST;
-    79	
-    80		BUG_ON(optname < RDS_INFO_FIRST || optname > RDS_INFO_LAST);
-    81	
-    82		spin_lock(&rds_info_lock);
-  > 83		BUG_ON(rcu_access_pointer(rds_info_funcs[offset]));
-    84		rcu_assign_pointer(rds_info_funcs[offset], func);
-    85		spin_unlock(&rds_info_lock);
-    86	}
-    87	EXPORT_SYMBOL_GPL(rds_info_register_func);
-    88	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+That's ok, we'll address it when we cross that bridge=2E=2E=2E
+--=20
+Small device=2E Typos and formatting crap
