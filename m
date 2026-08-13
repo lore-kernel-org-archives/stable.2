@@ -1,57 +1,57 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3689C47D47D
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 13:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211CC47CC80
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 13:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786628637; cv=none; b=WIuc1T8svhcA8qOOIaE0yo/CtALfruq0ah0p/gn3RwZv0bT9FyV0JIP1meu89YmEbWXBo6+XSRXbCXfwkRUy0VIEx5+dSp6t3bRkloI3zNz1lof0W1PAi3i/lWzBDFb8JGAfMCfz/nDbmH4jgkDUt5rCiv2aM60PJWx3Ff3eS+Y=
+	t=1786628722; cv=none; b=Bk3n57yU7S5wgaMjObEAaCfAc6OQOPbfhyI7lx8gxN1KgqP7rhFLAWv3ZAnQiqgnU8Bhxhrfxa60FYJL1lzHeU4D2nr94dYXg5gGmBRIc/VtsPwKVhIIdLQpab3XI+2aA/wWtb1MMmUBMh6R1f3bfPdW55DTYe8vXxuyoxadVSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786628637; c=relaxed/simple;
-	bh=9NZ1mXI6/rCCO0gyTy2msnH/+Zn7A4NMhuYQkAH/EDc=;
+	s=arc-20240116; t=1786628722; c=relaxed/simple;
+	bh=NBWxDMgX1ntQ8itk3D8CiEXlI/bvH+OxmmfTTWKn8Mc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Hwm9/I8PIrIhDBa7LLKfoKrQtUDfsmI3hQYPzXRxAN8DiTGmLeCuIufpiYulQHSd1KVAkXXbVJa+51TNuu4g4mHtT4qnU+dPRmkS+XFO40CcGgVRE4wHccQyI7SZ/1AJC6Y2qGciONS8Z/AX4l2qpgk7ApEhenVPv2EKYf5Q95Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OeVhnVUh; arc=none smtp.client-ip=209.85.216.70
+	 To:Cc:Content-Type; b=osiMeip7nmot0E0+g+wLNmCi6Su/eREs6c7GimLjHKQvlxptObErr5mGxFmmbk7vOivwQTj6AtEwTinpdML4UwGFJGs4Ft3byn9OBFkCVxktC9haWs4LexM5IfRtNNxUn9+0Jpm8623nOKLwvoOxPt6wJ4zdsl6PSzq0XUhKgDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bq2Pb4MJ; arc=none smtp.client-ip=209.85.210.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OeVhnVUh"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e5a616d07so2630155a91.2
-        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 06:43:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bq2Pb4MJ"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8484f26852dso2254572b3a.1
+        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 06:45:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786628635; x=1787233435; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1786628720; x=1787233520; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2nh6bXaRs1jjXeqDQSlr3X+FSRmWBiZbbQBUnV+tiPg=;
-        b=OeVhnVUh7l/tI6Mf69GnG0iqMvynXVlW8swk851mjs6rj9Z53zqlu4pHi63gYpzK8L
-         zB0px4zDIXkm4vuGdVwJuEzLwkvXY5KydZlS4Q92/aYGu8N4/mqWvgwrEjqBm81YCOi/
-         BKFY1MWbg0eCK1KLJQEreQGHZV+hgdrrfhFlnmuBtp1srcMXgmUbQ1Y1H3obPCM/X9xA
-         9rmMvyZFcceoEgOFMbJv72bAT4/R4ADYrAg8UPaeTGXXhoaC0TM6UaCtNNKpQoPc2ANK
-         Xpx6yAQdU2ffTestqXK5XL86sB1Yn5+mH6TiXRO3EkzGsnzet7bPZlw+bVCB6mdSyf7d
-         2WKQ==
+        bh=Fl6HuvcqJhrZa9ThhaR07J0ykt0HktDxO4pMG4WTz+A=;
+        b=Bq2Pb4MJUuc/f6ON76Sk+UykEDGCaxmAs6yMz/X5aY1WcU43HNj6iJEgdo4IqbM+QK
+         EK9XG5tP2wcaP+xRALKpqq4NeoeiQR6j5r1cf4aZkUREvGFrxjVzL4BEDq72/pnO31B6
+         WukFMckau5mS7DiSWWzld6+05Szc4MXAl4WvUmtfX8CCBga+sctMK4X2bYA6euLYm8BX
+         nyWNCUTQtV1MWxySfEs3OAPMqcrX+Sx1wIaNFbOKw2e1ta/F3LGOn540qWd9uJT3cLfu
+         TgeyBe+LeFcC096Pqi1s1vh4aQwGRbOT0Af7vcnUUzt05OViA0hLF+jklualVnKpMp6U
+         VxoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786628635; x=1787233435;
+        d=1e100.net; s=20251104; t=1786628720; x=1787233520;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2nh6bXaRs1jjXeqDQSlr3X+FSRmWBiZbbQBUnV+tiPg=;
-        b=s3Dg1ZKyLbltELv094zHYfZJ8qMI+MRuWPr5aIr7gVMGlcUMRZmze36yAMc8VHoQ+o
-         TxlNAQmHiMOgOxuYgqx35hntRhbBcBaD7Sg1mnlOed3YhpyZxpZ6i1Ls7ttbADLNt/Py
-         PaCFTmprsl8nGEQ294VB45dim6/qX5rJtQsBpvx9QD8yHMdCSJbXkuuKqJ1757+ncQRx
-         RXjCkbrDbt/ATgGtoFpcCJYIXoTqBxBTJY0RuyfBLEg8/dJkRpBmQcaYVdELu50sW6UZ
-         N+52O6gCeu5stdpgK4czmvKBZZMXFnzrw1qRidxb+O1MtVGb3g0Nk9qx05I+rsSm6z5I
-         LhNw==
-X-Forwarded-Encrypted: i=1; AHgh+RppMFlGxslcXajGYDlOB9jXlWxCyOwxVrONFCDyTPWPIWDCA2GCxA3zIDNo0oQIfyxTf5+EziU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzZNzpuCIGAn/V3WZ15G02HS1MdcHCHucYyiZOsEqgTh5+rccjL
-	KS3Vu2D1393Ytpmx2ngEd0Jkt7SpY8budU732Mk5CzVfVUCpcPIRt3GzcU78zY64SGYYpsBDbs5
-	3CM2kdg==
-X-Received: from pldr13.prod.google.com ([2002:a17:903:410d:b0:2bf:8db:4516])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:254a:b0:36b:77b9:5c8c
- with SMTP id 98e67ed59e1d1-3931e2dd751mr7051598a91.17.1786628635348; Thu, 13
- Aug 2026 06:43:55 -0700 (PDT)
-Date: Thu, 13 Aug 2026 06:43:54 -0700
-In-Reply-To: <20260813043932.3214460-1-rkskek9254@gmail.com>
+        bh=Fl6HuvcqJhrZa9ThhaR07J0ykt0HktDxO4pMG4WTz+A=;
+        b=tW7/FWh1QpHnlMhDQozaowMxhyG9eWd87OjyUUVXIzPp2+noVEZ8/hmbNMwVb+o6LE
+         BkSOHx+9CRtCMtqf/AgFuzza71PeAUuOtz9cG4rEREPyiy6Gxxa0pKT/oLnbFzS6/vG5
+         5HMRVNvkta1AN7g5mXMnSDmlO7Kr7iDwB2BuHnm+kQFEHS7WUyuA5HqYgpPXwM0xM80L
+         LjjFJORmrbAibRi9+tvgzIWyALKbX7UHCzE1VPV9BNA4Xa4+3WA9eEToEt8FbRZ2yvNx
+         yPZ8/qCdOJs9jeTrR4XqB7tUR+p/CLVbfep/7uPL7fw0Ks7DrtUNvsrYB3qy9JQnxYIj
+         RhbQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rps6fWX02i6lmrsniq+WCC/Jh1Zf5VVnpSQEyfHos54yjKlPjGFFQ2Li9KdNGU0kXjD11tSkVk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNRe9LMm+UoJeFTQD8detN0iAlaesbHAXuqRWJcbjcLrMH8N8m
+	afodq1+ngS6Vmfx8TamfmhSdRLWahLVmaJEB5ub5XX1nWXas/1mgAvx4TrO/JeVvsBSy1lcq1zX
+	gzO4GlQ==
+X-Received: from pfblb8.prod.google.com ([2002:a05:6a00:4f08:b0:845:4da8:56a5])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:6c8a:b0:848:8445:6956
+ with SMTP id d2e1a72fcca58-84fc6e03a04mr6167423b3a.18.1786628720300; Thu, 13
+ Aug 2026 06:45:20 -0700 (PDT)
+Date: Thu, 13 Aug 2026 06:45:18 -0700
+In-Reply-To: <CALz4YMQa4h0oHxrpsiFsPd2qWZO1Q-pE2mbDwvT2wV1b+ukZdg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,202 +59,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260813043932.3214460-1-rkskek9254@gmail.com>
-Message-ID: <an3IZJhxN-zEDSz5@google.com>
+ <20260813045727.903981F000E9@smtp.kernel.org> <CALz4YMQa4h0oHxrpsiFsPd2qWZO1Q-pE2mbDwvT2wV1b+ukZdg@mail.gmail.com>
+Message-ID: <an3Kbl3zTaOLmaa4@google.com>
 Subject: Re: [PATCH] KVM: nVMX: Re-arm the vmcs12 pages request if mapping the
  pages fails
 From: Sean Christopherson <seanjc@google.com>
 To: Jinwoo Lee <rkskek9254@gmail.com>
-Cc: pbonzini@redhat.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+Cc: sashiko-reviews@lists.linux.dev, pbonzini@redhat.com, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 
 On Thu, Aug 13, 2026, Jinwoo Lee wrote:
-> Re-arm KVM_REQ_GET_NESTED_STATE_PAGES when nested_get_vmcs12_pages()
-> fails, so that KVM retries the mapping on the next KVM_RUN instead of
-> resuming L2 with a stale vmcs02.
-> 
-> On failure KVM exits to userspace with KVM_EXIT_INTERNAL_ERROR but
-> leaves the vCPU in guest mode with vmcs02 loaded.  The request has
-> already been consumed by kvm_check_request() in vcpu_enter_guest(), and
-> nothing re-arms it, so a subsequent KVM_RUN goes straight to VM-Enter.
-> 
-> vmcs02's APIC_ACCESS_ADDR, VIRTUAL_APIC_PAGE_ADDR and
-> POSTED_INTR_DESC_ADDR still hold the host physical addresses that were
-> mapped for the previous nested VM-Enter.  Those pages have already been
-> unmapped and unpinned by nested_put_vmcs12_pages(), which runs after
-> vmx_switch_vmcs() to vmcs01 and therefore cannot clear the vmcs02
-> fields, and prepare_vmcs02_early() re-arms the controls that consume
-> them without rewriting the address fields.  Hardware then accesses
-> pages that KVM no longer holds a reference to.
-> 
-> The SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES branch makes this worse by
-> returning before the CPU_BASED_TPR_SHADOW and posted interrupt
-> fallbacks, which would otherwise write INVALID_GPA to
-> VIRTUAL_APIC_PAGE_ADDR and clear PIN_BASED_POSTED_INTR.
-> 
-> Commit 671ddc700fd0 ("KVM: nVMX: Don't leak L1 MMIO regions to L2")
-> replaced the "clear the control" fallback with an error return.  The
-> intent is right, but it left vmcs02 in a usable state.  Re-arming the
-> request closes that; if the mapping keeps failing KVM keeps exiting to
-> userspace, which is noisy but safe.
-> 
-> Note this relies on KVM_REQ_GET_NESTED_STATE_PAGES being cleared on
-> nested VM-Exit, which "KVM: nVMX: Ensure KVM_REQ_GET_NESTED_STATE_PAGES
-> is cleared on VM-Exit" makes unconditional.
-> 
-> Fixes: 671ddc700fd0 ("KVM: nVMX: Don't leak L1 MMIO regions to L2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jinwoo Lee <rkskek9254@gmail.com>
-> ---
-> Notes for reviewers, not intended for the commit log.
-> 
-> Affected versions: v5.4-rc5 (671ddc700fd0) through v7.2-rc6.  Verified that
-> nested_get_vmcs12_pages() and the KVM_REQ_GET_NESTED_STATE_PAGES consumer in
-> vcpu_enter_guest() are unchanged in kvm-x86/next as of 2026-08-13.
-> 
-> Disclosure: this was found with AI-assisted code review, so per
-> Documentation/process/security-bugs.rst it is being reported publicly rather
-> than to security@kernel.org.
+> However, I do not currently see evidence that the SVM failures have the
+> same unpinned-HPA/UAF mechanism as the nVMX APIC-backed VMCS02 fields.
 
-For the record, IMO that's naive policy that fails to capture the nuance of many
-of these bugs.  In many cases, finding a KVM bug is very, very different than
-fully understanding that a bug can be exploited by a guest.  And in my experience,
-using AI to find critical bugs requires some amount of expertise, e.g. to generate
-targeted prompts, to identify the most interesting reports in the spew of findings,
-etc.
+Eh, doesn't really matter.  It's still ugly/flawed code that we should fix,
+especially since fixing this in a common location should be a net reduction in
+code.
 
-> What I verified empirically, on the RSM path with the load_pdptrs() abort:
+> In particular, nested_vmcb02_prepare_control() initially copies
+> vmcb01's KVM-owned MSRPM address into vmcb02, and
+> nested_svm_merge_msrpm() switches vmcb02 to the KVM-owned merged MSRPM
+> only after the merge completes successfully.  Losing the request after
+> a failed merge can therefore allow L2 to run without L1's complete MSR
+> intercept state, but it does not appear to leave hardware pointing at an
+> unpinned guest page.  I will describe and test the SVM impact separately
+> instead of treating it as the same UAF without supporting evidence.
 > 
->   - KVM consumes KVM_REQ_GET_NESTED_STATE_PAGES, the mapping fails, KVM_RUN
->     returns 0 with run->exit_reason left at KVM_EXIT_UNKNOWN, and the vCPU is
->     still in guest mode.
->   - The request is not re-armed, and the next KVM_RUN VM-Enters L2, which then
->     executes with vmcs02 still naming the previously mapped pages.  Confirmed
->     deterministically (4/4) with a selftest, plus a control run showing that
->     the same sequence without the poison maps successfully.
->   - With the patch applied the code compiles clean, but I have not been able to
->     boot a patched kernel, so the fix itself is not runtime tested.  The
->     selftest fails on an unpatched kernel as expected.
+> > Does this allow L2 to resume with unpinned HPAs and lead to a
+> > use-after-free?
 > 
-> What I did not verify:
+> Not uniformly across these paths.  The unpinned-HPA mechanism is the
+> concern for the nVMX VMCS02 address fields described in the patch, but I
+> have not yet reproduced host-page reuse or an actual use-after-free end
+> to end.  For eVMCS and SVM, the current evidence establishes that the
+> deferred setup request can be lost; it does not yet establish the same
+> unpinned-HPA mechanism.
 > 
->   - The APIC-access branch end to end.  That is the interesting one, because it
->     is reachable by L1 alone (point vmcs12->apic_access_addr at an unbacked
->     GPA) and it returns before the CPU_BASED_TPR_SHADOW and posted interrupt
->     fallbacks.  This host does not expose
->     SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES or PIN_BASED_POSTED_INTR to L1, so
->     I could only reach the load_pdptrs() abort, which needs userspace to poison
->     the PDPTEs through a KVM_GUESTDBG_SINGLESTEP window and is therefore not
->     guest-triggerable on its own.
->   - Whether a stale page is actually reused by the host.  The selftest keeps
->     every page allocated as its own guest RAM for the whole run.
-> 
-> On whether userspace resumes: QEMU's kvm_cpu_exec() treats
-> KVM_INTERNAL_ERROR_EMULATION as recoverable and returns EXCP_INTERRUPT when
-> kvm_arch_stop_on_emulation_error() is false, which for x86 is the case when the
-> guest is in protected mode at CPL 3 (target/i386/kvm/kvm.c).  It does not
-> re-push nested state on that path.  This is from reading qemu.git at
-> 055952c0aa91; I have not run it.
-> 
-> A selftest is available.  I have not included it here per the reproducer
-> guidance in security-bugs.rst; happy to post it if you want it.
-> 
->  arch/x86/kvm/vmx/nested.c | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-> index ddf6df7bee93..9e9bd6c541ba 100644
-> --- a/arch/x86/kvm/vmx/nested.c
-> +++ b/arch/x86/kvm/vmx/nested.c
-> @@ -3453,7 +3453,7 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
->  		 * state which can lead to a load of wrong PDPTRs.
->  		 */
->  		if (CC(!load_pdptrs(vcpu, vcpu->arch.cr3)))
-> -			return false;
-> +			goto fail;
+> I will also correct the commit message.  Not every failure reports
+> KVM_EXIT_INTERNAL_ERROR: the load_pdptrs() failure used by my RSM
+> reproducer returns with exit_reason unchanged, which is
+> KVM_EXIT_UNKNOWN in the test.
 
-This error path is broken for other reasons.  AFAICT, it doesn't set
-vcpu->run->exit_reason, i.e. KVM will exit to userspace with an UNKNOWN exit
-reason.  svm_get_nested_state_pages() has similar woes (ah, and I see Sashiko
-pointed that out as well).
-
-I mentioned that because I think we kill all the birds at the same time (it'll
-take more than one stone, but the idiom kinda works?).
-
-E.g. over 2-3 patches, something like:
-
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 73f37b050d0a..f9090b601efa 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -2125,13 +2125,8 @@ static bool svm_get_nested_state_pages(struct kvm_vcpu *vcpu)
- 			return false;
- 	}
- 
--	if (!nested_svm_merge_msrpm(vcpu)) {
--		vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
--		vcpu->run->internal.suberror =
--			KVM_INTERNAL_ERROR_EMULATION;
--		vcpu->run->internal.ndata = 0;
-+	if (!nested_svm_merge_msrpm(vcpu))
- 		return false;
--	}
- 
- 	if (kvm_hv_verify_vp_assist(vcpu))
- 		return false;
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 7ed79894d11d..2743f37d8bab 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -3458,10 +3458,6 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
- 		} else {
- 			pr_debug_ratelimited("%s: no backing for APIC-access address in vmcs12\n",
- 					     __func__);
--			vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
--			vcpu->run->internal.suberror =
--				KVM_INTERNAL_ERROR_EMULATION;
--			vcpu->run->internal.ndata = 0;
- 			return false;
- 		}
- 	}
-@@ -3532,11 +3528,6 @@ static bool vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
- 	if (!nested_get_evmcs_page(vcpu)) {
- 		pr_debug_ratelimited("%s: enlightened vmptrld failed\n",
- 				     __func__);
--		vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
--		vcpu->run->internal.suberror =
--			KVM_INTERNAL_ERROR_EMULATION;
--		vcpu->run->internal.ndata = 0;
--
- 		return false;
- 	}
- #endif
-@@ -3906,8 +3897,12 @@ static int nested_vmx_run(struct kvm_vcpu *vcpu, bool launch)
- 
- vmentry_failed:
- 	vcpu->arch.nested_run_pending = 0;
--	if (status == NVMX_VMENTRY_KVM_INTERNAL_ERROR)
-+	if (status == NVMX_VMENTRY_KVM_INTERNAL_ERROR) {
-+		vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
-+		vcpu->run->internal.suberror = KVM_INTERNAL_ERROR_EMULATION;
-+		vcpu->run->internal.ndata = 0;
- 		return 0;
-+	}
- 	if (status == NVMX_VMENTRY_VMEXIT)
- 		return 1;
- 	WARN_ON_ONCE(status != NVMX_VMENTRY_VMFAIL);
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index e99642acc40d..32401c0b227d 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -8026,6 +8026,10 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 
- 		if (kvm_check_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu)) {
- 			if (unlikely(!kvm_nested_call(get_nested_state_pages)(vcpu))) {
-+				vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
-+				vcpu->run->internal.suberror = KVM_INTERNAL_ERROR_EMULATION;
-+				vcpu->run->internal.ndata = 0;
-+				kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
- 				r = 0;
- 				goto out;
- 			}
+Heh, which as I pointed out in my other reply, is a bug, not intentional.
