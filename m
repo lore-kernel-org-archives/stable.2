@@ -1,152 +1,226 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mta1.migadu.com (out-55.mta1.migadu.com [95.215.58.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F243B2F260C
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 13:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AE02472B6
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 13:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786627336; cv=none; b=ENY1/FvaXLDZ1ITM487Xhj69UFuQQhFH8PNpm3VAaCvKZlCeAUFT7r2m0pBCeZkTHIXbyUt6ln7zcjEpaPA7jGYeyywwlgFdZhc1e7jDDSAllYx78ENamoWM0o6YtrOECIS+V2b7V8S1kL4edpf0tcSDy7Niab872wbu24nLhgY=
+	t=1786627494; cv=none; b=KDgmz434se62OEKpJrEBNtCnA9xp/OmV8/yfLSaVICWBJ78aU7o9Z1FmU+BB2c4wpgRHuv4ju/uuXLw49W8OSKFj1Vd8JscTM0jTG8liD4PafnsFzM3jpvSRTdMjRYxrDIYHUTB6RAZEZoXcT4toKrJqeL57Dpw7wqyhg4aFcR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786627336; c=relaxed/simple;
-	bh=MkqdAWdWz0lutQb8l1T1yO7gmyXKQ04Cgj/5wL4FwHI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V2a0bLJSyk9q9EqHmm1eQCz0CHdg0gRtMnbYD9HFzStAFoFeG0I/35KnoYCKqWYSKk/anxSCURf0OCONjj1OvE1PzSMEZChAjUuMXnOnfrR5Tixec2LZg9G7JdsPcM8jxMBiojQke1OjVZHXDXmsNaxlEAcWn8rTde8sbGzYEM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aabF1RGQ; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786627494; c=relaxed/simple;
+	bh=Pwsu2U0dH2/nTAlsUHKCHjUm/QcKVl/S0PAUrKyclVc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P2aZoLm6zRSmc1HH68tE5fTtWYGr0go1t0ov0vJMpBxVzZyax/JCzaBN/D0MC2Wf+CrcwG1OEjFQDLoiRPAzPA84VNbNzOUsySxkaCca/6o0ay+9tGvh5jrANgQHowaX/Qiz6WumIXFw7sRPmKrwmreGgOddisLcl2T42HjgC3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qmTfvHkJ; arc=none smtp.client-ip=95.215.58.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aabF1RGQ"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d0407aedd6so9651265ad.0
-        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 06:22:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786627334; x=1787232134; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TVWNuYas/MOMOGJWvOzXANfSQQ0qHMRR18n7cjmi/E0=;
-        b=aabF1RGQsKgyr2E/h3KX+AqJbj1sbo9wCA1IJPyStUGbW7pM2E1XfA5Es06Jfcv9XL
-         YG8pnAsWJ4YHViK8oGIq9xkXY2I+txxBACrRF/tQnvp4NUroyh6PNH81lKf+J08dyW22
-         7gcLauNpoOUjfDvKHa/J1wnkvjLMSbZWVBxRrnuDHi7Xny244zXwu6of8JhEEcAmPMJI
-         NXeHaTRXg5TxlE2IQQeJSMGhFoXV4gDwC0GFMXdjjYvvdTiHzOYXmk7N9Kkb92UFiW7j
-         vgfryAxD7dfG6Axs2N/Rmzhw7EfsECl+K3znAYCDqgJGJKYyouHMROOxkTQv5qAnMGAA
-         L8Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786627334; x=1787232134;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=TVWNuYas/MOMOGJWvOzXANfSQQ0qHMRR18n7cjmi/E0=;
-        b=gaIkZaWoF8r6UgMdzuzricWS2RthMJXggysJf3QXY7ISkkweR61jS9BsM88W4jjHdp
-         tdkmj++Tia6HebtJdqJoQGuNClcd498BfgOF777RmSri3eVjaOqv1tZ17EodERUklzno
-         2TnuLAxkyt4C3MXM2u8N0eNr15IdB+mUNUAsN0gPNRgiTz7ea5lI89Le1/5Rvac7fmuz
-         uTDFcetbt5cFrmsezFuZHpMUlhH4WEjh+N/LDJUNOoGI6g8kbvs3IZpx5OQit+n9mXKG
-         hTxjlY4pR4mNpeuXhpnZNEB61la5Hzgg4Rd2YUGWSmPPfYf7qv46XPCl21C5iyUe+AAN
-         06BA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp0znVMVsAZ7HWIqkpZd1XG7gKjwWtIMoYS4I+3oJgWiS9SrmBluj3WPVaG4z+exa6evOUBxBc=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyr15WDXUKWhrkz9MInofB2ZgUJvziwQqWjOM35mV6C9ULR6H6l
-	84dp9H2blgc4EnE+0G/3+JSi2m5s8UXs+9HvCD7jcuj01tNndylGg4oI
-X-Gm-Gg: AR+sD11jxqHZ6SzHj1dCpYqTsikDF9bUo3N5hlEamIN3O54CaIb6rsfVKFk20VNRN7R
-	a91DPoz0CD/kpexp1dWvnNybIkHkiC+EGrXQF5t5nTsE9Ld/UpbucMwhz1trf78KmvFsT1Bo2fD
-	biPuBArod7hCrDhr/GFeuUoM2FfsgAEOTE7lU5H+Pch9IEK8ytODvbKBIohBKDR8BabvNyxmU3f
-	tY7UsFwOK/uamGyQ9ZIGlf1fGDyCmfZGqo+RJORZKxsO7zgehYV3rcV1mcxD9Ls1bOjjtNMMXFQ
-	4ZfIlv/NNNNKYRNd/Y7JbI7nTVYnOI0NM2QzukfyMe9D/YE4zI1pnAVkAvcOORi9pEh8cWaQsLs
-	L+7jLRBp683wG4I+lQboZZ6VboiZJmrxC6XmXrZBnVZZDYpWxPuIRgveEVe64Y3kXtaYkk7TY+0
-	9jjlqwSSKHKQqgoIHPRp0owWHWenP7bfTy7rvyF14tdOjN2uF3ah2pWZ0u5No=
-X-Received: by 2002:a17:903:468e:b0:2ce:7563:70a5 with SMTP id d9443c01a7336-2d37d577d92mr68447035ad.6.1786627333851;
-        Thu, 13 Aug 2026 06:22:13 -0700 (PDT)
-Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d37c4947cfsm9509705ad.65.2026.08.13.06.22.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 06:22:13 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Thu, 13 Aug 2026 21:21:42 +0800
-Subject: [PATCH] drm/nouveau/svm: drain fault handler before freeing svmm
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qmTfvHkJ"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Pwsu2U0dH2/nTAlsUHKCHjUm/QcKVl/S0PAUrKyclVc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786627490; v=1; x=1787232290;
+ b=qmTfvHkJLSApu/4JeMyG5Tk6azPOh1yKj92v6vkP0IzSiwybPNKd+I7bBuqYpxd0KEFj2kRx
+ u/AmFZyRlCv5IZ6WO8Fa8CAHioG7r+5cHmFwR7dZ/1cfYAKnLtfne9M9PVienPsunCD2lhv0efD
+ EmDMhn0O5ipM5wkzbNxd/HC0=
+X-Envelope-To: stable@vger.kernel.org
+Received: from localhost (2a03:2880:10ff:42::)
+	by mta12.migadu.com with ESMTPS id 4a9d9e7215df1a36;
+	Thu, 13 Aug 2026 13:24:50 +0000
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	Borislav Petkov <bp@alien8.de>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>,
+	Sasha Levin <sashal@kernel.org>,
+	samuelcrossley@gmail.com
+Subject: Re: [PATCH 6.18 0019/1611] iommu/amd: Use maximum PPR log buffer size when SNP is enabled on Family 0x19
+Date: Thu, 13 Aug 2026 06:24:45 -0700
+Message-ID: <20260813132447.3396830-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260721152515.228743536@linuxfoundation.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-nouveau-svm-svmm-uaf-v1-1-2d3112dea734@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAOXEfWoC/yXMQQqDMBCF4avIrDugEYP0KsXFJE7qFIwl04SCe
- PdGu3iLb/H+HZSTsMK92SFxEZUtVnS3BvxC8ckoczWY1th27HqMWy5MGbWs51bMFNA5H3pr7EB
- EUK/vxEG+V/Yx/a3Zvdh/zhYcxw/7gCVYeAAAAA==
-X-Change-ID: 20260813-nouveau-svm-svmm-uaf-bbcf36265aaa
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Ben Skeggs <bskeggs@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786627329; l=2616;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=MkqdAWdWz0lutQb8l1T1yO7gmyXKQ04Cgj/5wL4FwHI=;
- b=yWyApmq3N/iL78hHvscIOIj2yoIsiORxcfjfAjWEf97XuifNnsE4SSw4ljisawH+utDwbmttv
- 3Ei8K0VW84RAFRxr9ixUgqc/R/yxG9hg5HPCQE6XMJo06un1mFjA9V1
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+Content-Transfer-Encoding: 8bit
 
-The SVM fault handler nouveau_svm_fault() looks up each fault's
-nouveau_svmm from the per-device instance list under svm->mutex, caches
-it in the fault array, then drops svm->mutex and dereferences the svmm
-across blocking faults (mmu_interval_notifier_insert(), hmm_range_fault()),
-taking svmm->mutex and touching svmm->vmm.
 
-nouveau_svmm has no reference of its own. It is freed on DRM file close,
-via nouveau_svmm_fini() -> mmu_notifier_put(), which frees asynchronously
-through call_srcu() without waiting for the handler; svm->mutex is not
-held during the dereference, and mmget_not_zero() pins the mm, not the
-svmm. A fault handled concurrently with a close can therefore dereference
-a freed svmm. flush_work() on the fault buffer otherwise runs only at
-device removal and suspend, never on the per-client close path.
+On Tue, 21 Jul 2026 17:02:15 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-The instance is already unlinked earlier in the same close, by
-nouveau_svmm_part(), so no new fault can resolve to this svmm. Drain the
-fault handler in nouveau_svmm_fini() before the free, so any handler that
-cached the pointer has completed. nouveau_cli_fini() already flushes
-cli->work here, and device-scope teardown already uses the same idiom.
+> 6.18-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Vasant Hegde <vasant.hegde@amd.com>
+> 
+> [ Upstream commit 1f44aab79bac31f459422dfb213e907bb386509c ]
+> 
+> Due to CVE-2023-20585, the PPR log buffer must use the maximum supported
+> size (512K) on Genoa (Family 0x19, model >= 0x10) systems when SNP is
+> enabled, to mitigate a potential security vulnerability. Note that Family
+> 0x19 models below 0x10 (Milan) do not support PPR when SNP is enabled.
+> Hence the PPR log size increase is only applied for model >= 0x10.
+> All other systems continue to use the default PPR log buffer size (8K).
+> 
+> Apply the errata fix by making the following changes:
+> 
+> - Introduce global new variable (amd_iommu_pprlog_size) to have PPR log buffer
+>   size. Adjust variable size for Genoa family.
+> 
+> - Extend 'amd_iommu_apply_erratum_snp()' to also set the PPR log buffer
+>   size to maximum for Family 0x19 model >= 0x10 when SNP is enabled.
+> 
+> - Rename PPR_* macros to make it more readable.
+> 
+> Link: https://www.amd.com/en/resources/product-security/bulletin/amd-sb-3016.html
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+> Cc: Joerg Roedel <joerg.roedel@amd.com>
+> Signed-off-by: Vasant Hegde <vasant.hegde@amd.com>
+> Tested-by: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
+> Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  drivers/iommu/amd/amd_iommu.h       |  1 +
+>  drivers/iommu/amd/amd_iommu_types.h | 11 ++++++-----
+>  drivers/iommu/amd/init.c            | 13 ++++++++++++-
+>  drivers/iommu/amd/ppr.c             |  8 +++++---
+>  4 files changed, 24 insertions(+), 9 deletions(-)
+> 
 
-Fixes: eeaf06ac1a55 ("drm/nouveau/svm: initial support for shared virtual memory")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
----
- drivers/gpu/drm/nouveau/nouveau_svm.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Hi,
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index dcc92131488e..01191b126be5 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -304,6 +304,17 @@ nouveau_svmm_fini(struct nouveau_svmm **psvmm)
- {
- 	struct nouveau_svmm *svmm = *psvmm;
- 	if (svmm) {
-+		struct nouveau_svm *svm = svmm->vmm->cli->drm->svm;
-+
-+		/* The fault handler caches svmm pointers looked up under
-+		 * svm->mutex and then dereferences them after dropping it,
-+		 * across blocking faults.  The instance has already been
-+		 * unlinked (nouveau_svmm_part), so no new fault can resolve to
-+		 * this svmm; drain the handler to release any in-flight
-+		 * reference before the svmm is freed.
-+		 */
-+		flush_work(&svm->buffer[0].work);
-+
- 		mutex_lock(&svmm->mutex);
- 		svmm->vmm = NULL;
- 		mutex_unlock(&svmm->mutex);
+I have raised this in [1] but also raising it here, this series seems to break
+kexec on Milan hosts.
 
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260813-nouveau-svm-svmm-uaf-bbcf36265aaa
+kexec starts working on SNP hosts once we do:
+Revert "iommu/amd: Use maximum PPR log buffer size when SNP is enabled on Family 0x19"
+Revert "iommu/amd: Use maximum Event log buffer size when SNP is enabled on Family 0x19"
 
-Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
+on top 6.18.43 release.
 
+[1] https://lore.kernel.org/all/20260813131833.2808948-1-usama.arif@linux.dev/
+
+
+> diff --git a/drivers/iommu/amd/amd_iommu.h b/drivers/iommu/amd/amd_iommu.h
+> index 57d7f3faa98c6e..ef397c5a2c4ab2 100644
+> --- a/drivers/iommu/amd/amd_iommu.h
+> +++ b/drivers/iommu/amd/amd_iommu.h
+> @@ -12,6 +12,7 @@
+>  #include "amd_iommu_types.h"
+>  
+>  extern int amd_iommu_evtlog_size;
+> +extern int amd_iommu_pprlog_size;
+>  
+>  irqreturn_t amd_iommu_int_thread(int irq, void *data);
+>  irqreturn_t amd_iommu_int_thread_evtlog(int irq, void *data);
+> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
+> index bdd6c38ddfec9b..2494b1958117b2 100644
+> --- a/drivers/iommu/amd/amd_iommu_types.h
+> +++ b/drivers/iommu/amd/amd_iommu_types.h
+> @@ -257,11 +257,12 @@
+>  #define EVTLOG_LEN_MASK_MAX	(0xFULL << EVTLOG_SIZE_SHIFT)
+>  
+>  /* Constants for PPR Log handling */
+> -#define PPR_LOG_ENTRIES		512
+> -#define PPR_LOG_SIZE_SHIFT	56
+> -#define PPR_LOG_SIZE_512	(0x9ULL << PPR_LOG_SIZE_SHIFT)
+> -#define PPR_ENTRY_SIZE		16
+> -#define PPR_LOG_SIZE		(PPR_ENTRY_SIZE * PPR_LOG_ENTRIES)
+> +#define PPRLOG_ENTRY_SIZE	0x10
+> +#define PPRLOG_SIZE_SHIFT	56
+> +#define PPRLOG_SIZE_DEF		SZ_8K	/* 512 entries */
+> +#define PPRLOG_LEN_MASK_DEF	(0x9ULL << PPRLOG_SIZE_SHIFT)
+> +#define PPRLOG_SIZE_MAX		SZ_512K	/* 32K entries */
+> +#define PPRLOG_LEN_MASK_MAX	(0xFULL << PPRLOG_SIZE_SHIFT)
+>  
+>  /* PAGE_SERVICE_REQUEST PPR Log Buffer Entry flags */
+>  #define PPR_FLAG_EXEC		0x002	/* Execute permission requested */
+> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+> index 64964bb5ce0d36..6e5efc340c83e4 100644
+> --- a/drivers/iommu/amd/init.c
+> +++ b/drivers/iommu/amd/init.c
+> @@ -133,6 +133,7 @@ struct ivhd_entry {
+>  } __attribute__((packed));
+>  
+>  int amd_iommu_evtlog_size = EVTLOG_SIZE_DEF;
+> +int amd_iommu_pprlog_size = PPRLOG_SIZE_DEF;
+>  
+>  /*
+>   * An AMD IOMMU memory definition structure. It defines things like exclusion
+> @@ -3411,6 +3412,16 @@ static void amd_iommu_apply_erratum_snp(void)
+>  	amd_iommu_evtlog_size = EVTLOG_SIZE_MAX;
+>  	pr_info("Applying erratum: Increase Event log size to 0x%x\n",
+>  		amd_iommu_evtlog_size);
+> +
+> +	/*
+> +	 * Set PPR log buffer size to max.
+> +	 * (Family 0x19, model < 0x10 doesn't support PPR when SNP is enabled).
+> +	 */
+> +	if (boot_cpu_data.x86_model >= 0x10) {
+> +		amd_iommu_pprlog_size = PPRLOG_SIZE_MAX;
+> +		pr_info("Applying erratum: Increase PPR log size to 0x%x\n",
+> +			amd_iommu_pprlog_size);
+> +	}
+>  #endif
+>  }
+>  
+> @@ -4071,7 +4082,7 @@ int amd_iommu_snp_disable(void)
+>  		if (ret)
+>  			return ret;
+>  
+> -		ret = iommu_make_shared(iommu->ppr_log, PPR_LOG_SIZE);
+> +		ret = iommu_make_shared(iommu->ppr_log, amd_iommu_pprlog_size);
+>  		if (ret)
+>  			return ret;
+>  
+> diff --git a/drivers/iommu/amd/ppr.c b/drivers/iommu/amd/ppr.c
+> index e6767c057d01fa..1f8d2823bea42c 100644
+> --- a/drivers/iommu/amd/ppr.c
+> +++ b/drivers/iommu/amd/ppr.c
+> @@ -20,7 +20,7 @@
+>  int __init amd_iommu_alloc_ppr_log(struct amd_iommu *iommu)
+>  {
+>  	iommu->ppr_log = iommu_alloc_4k_pages(iommu, GFP_KERNEL | __GFP_ZERO,
+> -					      PPR_LOG_SIZE);
+> +					      amd_iommu_pprlog_size);
+>  	return iommu->ppr_log ? 0 : -ENOMEM;
+>  }
+>  
+> @@ -33,7 +33,9 @@ void amd_iommu_enable_ppr_log(struct amd_iommu *iommu)
+>  
+>  	iommu_feature_enable(iommu, CONTROL_PPR_EN);
+>  
+> -	entry = iommu_virt_to_phys(iommu->ppr_log) | PPR_LOG_SIZE_512;
+> +	entry = iommu_virt_to_phys(iommu->ppr_log);
+> +	entry |= (amd_iommu_pprlog_size == PPRLOG_SIZE_DEF) ?
+> +			PPRLOG_LEN_MASK_DEF : PPRLOG_LEN_MASK_MAX;
+>  
+>  	memcpy_toio(iommu->mmio_base + MMIO_PPR_LOG_OFFSET,
+>  		    &entry, sizeof(entry));
+> @@ -201,7 +203,7 @@ void amd_iommu_poll_ppr_log(struct amd_iommu *iommu)
+>  			raw[0] = raw[1] = 0UL;
+>  
+>  		/* Update head pointer of hardware ring-buffer */
+> -		head = (head + PPR_ENTRY_SIZE) % PPR_LOG_SIZE;
+> +		head = (head + PPRLOG_ENTRY_SIZE) % amd_iommu_pprlog_size;
+>  		writel(head, iommu->mmio_base + MMIO_PPR_HEAD_OFFSET);
+>  
+>  		/* Handle PPR entry */
+> -- 
+> 2.53.0
+> 
+> 
+> 
+> 
