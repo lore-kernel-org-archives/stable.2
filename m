@@ -1,143 +1,131 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163903161A1;
-	Thu, 13 Aug 2026 14:21:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2909728315D;
+	Thu, 13 Aug 2026 14:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786630881; cv=none; b=kfAlf/qPCYYMJo/rY4b3mHF+S7OSER4j9sl/m3psfgu3VyYOfuRdGr49ZZTlv7+GIE6tVmcaiTTJHcPvtvcjFIv3hMeYfT8OdQw9/u3CXR72/c0Vd0Be9T6ns2OlSxURg89UVQP6ZukWELhVidka2AIlEwfhrAIMY0KsrsdF7e0=
+	t=1786632387; cv=none; b=TjPCI6tVEX/KzszWIAMGz2tIaGrdagAsOD/GJN40xT+fQurxUM+dVfE2LDu5+wlqWJNSJq+9iE8/mOEoD032p+M40UT2G1ocTDG+1eViCOhaVYwGDnIv+SaaZXZFF5XwTKw4G17//KFcimjOpfFE0RfpZV2uluR4crrRkcwsESk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786630881; c=relaxed/simple;
-	bh=Bb8hhDEq3stlr7cGSyGhNCzQjZJ78qa01xeCWPofUDc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DescXpRX2f5oVWthIO1kd6Ze6JDRdwnm5EYs7pwhcPh22qIHKbGnsBXv33OjtpY1zsDH7eJrD3TEtB+frTtpTZ0lh7+cE8KPlHNaV9qGkK9aMKzXmqRiOoMSiyOJ7ABS8gprvVMZCcvBFSNXyq9k7gaLloYrzpzNdOEWQGoXe08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn; spf=pass smtp.mailfrom=whut.edu.cn; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=whut.edu.cn
-Received: from Mogu.localdomain (unknown [223.73.65.85])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 49e36c71e;
-	Thu, 13 Aug 2026 22:21:03 +0800 (GMT+08:00)
-From: MoGGuU <Naixumogu@whut.edu.cn>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Oded Gabbay <ogabbay@kernel.org>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Naixumogu@whut.edu.cn
-Subject: [PATCH] accel/rocket: Fix job submit error handling
-Date: Thu, 13 Aug 2026 22:20:59 +0800
-Message-ID: <20260813142059.151644-1-Naixumogu@whut.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1786632387; c=relaxed/simple;
+	bh=viShXPox1K+/HBOaCT5lwo//Bqpfy0LFLQwBQIoaHYg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GR54vqK+2DBx9I6mqp3eEOfzVLil6N5l5CykhWR7nPhVbMUvL2urwj8oj6Y8Xamwi4Jv5gptIWGx/YuVqm6oIwCOGtnc0BoWH5b6l1upI5VAZ0JMszjgz9gbKw/VHmAk1QQRl3Q9bbU5pUOz3tp4Ue9tp0OT/7z19R0XFR7uGQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=MlDgBiMY; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="MlDgBiMY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=tARmPlF+6v7USd2QKdPNMQXKZUo05AnDKb3pnb3gJys=; b=MlDgBiMYxHlAVdLimsb7Nem/f3
+	9plI+c/WkXG2vBLxtmukqVHWUSxWttXgIzj2jOqFnzBx9Co/L4RELVB/bm/1X+2VjB3mdPOMKymRa
+	lv2OqJ04Ft00iWIXAaJ7vEu7PtDdHMn31pvWg21gRvVofKf6qUD1iDWegnv+ZaxDYvx68rFBI6xNh
+	bfTaoDAqkDJDTsmI6YgVIPl7IrtzoWJVtJnzTTkQFzwNuATg2sEZFkk7TRXosEQeTDlKGdbYajBNz
+	pHbyIdrX6XyZ1l66R5fZrTTBsCuiPyvHEpB4JkXrOdhuAC4IJGduUtEMGGp92JkEsztq474W18Hxh
+	EsDxd9pg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wuWhB-005BPt-26;
+	Thu, 13 Aug 2026 14:46:13 +0000
+Date: Thu, 13 Aug 2026 07:46:08 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>, 
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org, 
+	Stanislav Fomichev <sdf@fomichev.me>
+Subject: Re: [PATCH net 1/2] ipv4: mcast: getsockopt: do not overwrite past
+ optlen
+Message-ID: <anxqRqlFXsoc1wwc@gmail.com>
+References: <20260806-mcast_fix-v1-0-bed0a5518e57@debian.org>
+ <20260806-mcast_fix-v1-1-bed0a5518e57@debian.org>
+ <20260807174402.2dfc12d6@pumpkin>
+ <anm9gImFEz6EkUZ9@gmail.com>
+ <20260810222159.409357fa@pumpkin>
+ <ansQ8gHcKdS_Q_ji@gmail.com>
+ <20260811081543.26d18828@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9ffb7f7b4a03a1kunm0ebce40633f04
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUhNVkMYQklOSx9LS0xJQ1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VQ05ZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260811081543.26d18828@kernel.org>
+X-Debian-User: leitao
 
-Several error paths in the job submission path can be triggered by
-unprivileged userspace through malformed DRM_ROCKET_SUBMIT requests.
+Hello Jakub,
 
-First, the input and output BO handle counts are __u32, but GEM lookup and
-reservation helpers take int counts.  Values outside the signed range can
-become negative.  A combined count above INT_MAX can also overflow at the
-call sites.  Reject counts that cannot be represented safely before looking
-up the BOs.
+On Tue, Aug 11, 2026 at 08:15:43AM -0700, Jakub Kicinski wrote:
+> On Tue, 11 Aug 2026 05:19:17 -0700 Breno Leitao wrote:
+> > So my question to you: can you point me to actual software that
+> > passes a "small" optlen and expects the kernel to write past it? That
+> > would help to decide about the two options above.
+> 
+> If you are very confident that no such SW exists - we can try to queue
+> this up for -next. (TBH I'm not, mcast specifically may be full of
+> strange one off manually written user space (as opposed to common libraries)).
 
-Second, rocket_job_push() arms the scheduler job before collecting its
-implicit dependencies.  Dependency collection can fail with -ENOMEM, but
-drm_sched_job_arm() is a point of no return.  An armed job must be pushed;
-it must not be aborted with drm_sched_job_cleanup().  Collect dependencies
-before taking the scheduler lock and arming the job.  Only operations that
-cannot fail remain after arm().
+> If we decide to change the behavior- we will probably have to wait
+> until this makes it to an LTS release + some time for people to deploy.
+> It can't be a fix.
+> 
+> So practically speaking it may be more expedient to add some hacks to
+> cater to this case in the conversion, and then remove the hack. That'd
+> be easier to revert if someone pipes up later that we broke their SW.
 
-Finally, rocket_ioctl_submit() discards each job's return value and reports
-success even when every job fails.  Return the first error
-and stop submitting the remaining jobs.  Jobs queued before an error remain
-queued, giving the ioctl ordered partial-submit semantics.
+Thanks. I was mostly trying to find out whether this is a real problem
+before creating this quirk, and your intuition is helpful here. I will
+proceed with the quirk then.
 
-Tested on RK3588 with zero task counts, invalid task pointers, invalid BO
-handles, and oversized BO counts.  The requests returned the expected error
-codes without warnings or errors in the kernel log.
+For the sockopt_t conversion I can expand the iterator mid-air for the
+few options that size their reply from a count in the header, so the
+conversion stays a no-op for userspace.
 
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-Cc: stable@vger.kernel.org
-Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
----
- drivers/accel/rocket/rocket_job.c | 34 +++++++++++++++++++------------
- 1 file changed, 21 insertions(+), 13 deletions(-)
+Expanding is only safe for a user buffer, though - a kernel-backed
+optval might be too risky, I would say. And it will not break anything,
+given we don't have in-kernel users for this yet (given the __user
+params)
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index bb77b6bf0..c42bbf486 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -206,21 +206,20 @@ static int rocket_job_push(struct rocket_job *job)
- 	if (ret)
- 		goto err;
- 
-+	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
-+					   &job->base, false);
-+	if (ret)
-+		goto err_unlock;
-+
-+	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
-+					   &job->base, true);
-+	if (ret)
-+		goto err_unlock;
-+
- 	scoped_guard(mutex, &rdev->sched_lock) {
- 		drm_sched_job_arm(&job->base);
--
- 		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
--
--		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
--		if (ret)
--			goto err_unlock;
--
--		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
--		if (ret)
--			goto err_unlock;
--
- 		kref_get(&job->refcount); /* put by scheduler job completion */
--
- 		drm_sched_entity_push_job(&job->base);
- 	}
- 
-@@ -556,6 +555,12 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
- 	if (job->task_count == 0)
- 		return -EINVAL;
- 
-+	/* GEM lookup and reservation helpers take signed object counts. */
-+	if (job->in_bo_handle_count > INT_MAX ||
-+	    job->out_bo_handle_count > INT_MAX ||
-+	    job->in_bo_handle_count > INT_MAX - job->out_bo_handle_count)
-+		return -EINVAL;
-+
- 	rjob = kzalloc_obj(*rjob);
- 	if (!rjob)
- 		return -ENOMEM;
-@@ -639,8 +644,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *fil
- 	}
- 
- 
--	for (i = 0; i < args->job_count; i++)
--		rocket_ioctl_submit_job(dev, file, &jobs[i]);
-+	for (i = 0; i < args->job_count; i++) {
-+		ret = rocket_ioctl_submit_job(dev, file, &jobs[i]);
-+		if (ret)
-+			goto exit;
-+	}
- 
- exit:
- 	kvfree(jobs);
 
-base-commit: d85a5e9dfb42449d9f37b0ddc6ec30b129f481ce
--- 
-2.43.0
+I might come up with a helper like this one:
+        static inline void sockopt_expand_out(sockopt_t *opt, size_t len)
+        {
+                if (len < iov_iter_count(&opt->iter_out))
+			// No quirk required
+			return;
+			
+                /* Only a user buffer can be larger than the caller
+                 * declared; a kernel-backed optval has nothing behind it.
+                 */
+                if (WARN_ON_ONCE(!iter_is_ubuf(&opt->iter_out)))
+                        return;
+
+		iov_iter_reexpand(&opt->iter_out, len);
+        }
+
+and then, at the call site, right after the header is read and before
+anything is written back:
+
+        /* The reply is sized by gf_numsrc, not by optlen, which only has
+         * to cover the fixed header. Grow the output iterator to what the
+         * header declares, or the source list gets truncated.
+         */
+        sockopt_expand_out(opt, size_add(size0,
+                                         size_mul(gsf.gf_numsrc,
+                                                  sizeof(gsf.gf_slist_flex[0]))));
+
+
+(All completely untested so far.)
+
+Thanks for the suggestion,
+--breno
 
