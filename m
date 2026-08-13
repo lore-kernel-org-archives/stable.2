@@ -1,62 +1,80 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17E0279DB6
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 06:34:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02591353EE0
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 06:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786602875; cv=none; b=GWpdz4h1/1xGpu+XkjGg6aAZfPUrDUnNnpivFVt8JcX/PZ/bC+b7iVOtsvW1jjLqMuJxAukVO7ZlpCEjYM6ZqNEXzfrrNKHVwvPK36qTcX1daogZ2XPIdnldP89VEpj/QmyluRmQESLaxI7vvLN4oVJMMvsWUW4J+D774xfMxWs=
+	t=1786603755; cv=none; b=TJEABRN4+iWgdRMQFRsVl/e3Ud17gf7RaaZjRIyjSUEfy5yHpech8+8H+QniQh4s/i5+zmQtFPyBDls4iIdBN80AQVrtkLqn7Bq2ew5rka8KDPiGqvBtyx7R/g1xBKqt2ccobAUGBf3hc4KHDcMgdkXRiiXjB8VMzyFn4pG5rLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786602875; c=relaxed/simple;
-	bh=lQl87E1s6Upa7s8Q+G2KYRKPgEZq1WCMfhiN1Gntpj8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e1otmvWTo63QmmNcTZ75hZoVxVDGl8qhlAHEwEkhJRXd51WD8nZOdHcVv0004GqsDeYUppNngo8fReJ62rd5n4PWFU0nR9vPvK0p1MDG5ibn8v57I85HGXbc1hGez7vmpw7cX/ENX2hWZyxwuqdi6eb59vHj3IprPtr6hDQzzhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 0632ec6a96e111f1aa26b74ffac11d73-20260813
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
-	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
-	IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR, DN_TRUSTED
-	SRC_TRUSTED, SA_UNTRUSTED, SA_UNFAMILIAR, SN_UNTRUSTED, SN_UNFAMILIAR
-	SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD_SPF, CIE_UNKNOWN
-	GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-UNFAMILIAR: 1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:fd3c8614-f519-4a77-b0d6-76025dacb9dc,IP:10,
-	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:10
-X-CID-INFO: VERSION:1.3.12,REQID:fd3c8614-f519-4a77-b0d6-76025dacb9dc,IP:10,UR
-	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
-	elease,TS:10
-X-CID-META: VersionHash:e7bac3a,CLOUDID:e260268f0f2686f83a98a19cfcfe2e61,BulkI
-	D:2608131434264LZW1PXM,BulkQuantity:0,Recheck:0,SF:16|19|66|78|102|127|850
-	|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:ni
-	l,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE
-	:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_FSD,TF_CID_SPAM_SNR,TF_CID_SPAM_USA
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 0632ec6a96e111f1aa26b74ffac11d73-20260813
-X-User: lihaojie@kylinos.cn
-Received: from localhost.localdomain [(39.144.190.5)] by mailgw.kylinos.cn
-	(envelope-from <lihaojie@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 876626051; Thu, 13 Aug 2026 14:34:24 +0800
-From: lihaojie <lihaojie@kylinos.cn>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org,
+	s=arc-20240116; t=1786603755; c=relaxed/simple;
+	bh=IeM1daAIpfu6fABLMg3PEU0F1GEGvpEr8JNujtFyz5I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VJtMSAREaPOXztEhQMk/0COMzwq+bXm7akZhEFOLKQ1J4VDTxmGNagmqAog3+DgxzwGNTGm8N6F8FTnkWrqSziT+kFh37Llhv4UIOz4MjQbl2uJRmJmSswM0uJqWqEI7P9k7bMtjEWB1cGwHhQ5QYlJqz+qH14bR3fNYmWeaYvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e1CImrHN; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e1CImrHN"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-381c51fde6bso549419a91.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 23:49:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786603753; x=1787208553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sj4nAB5UJQSiK8q2P2qqPUYrLHWdF5UCEVGSdlXatDA=;
+        b=e1CImrHNgmNAu5tQcxmGeBdVLUYzIQfkRGFgH99kuwv9vhqvGWjqSneg5NwsNR182p
+         jGJJCNpCgGt1Pe1twOsA+GY2BrD4Ct9S1K/NSZSz0xyE3BRgkpn5Vv553qpGi5ZT9F0w
+         4CnYtTekRhvt0FumeSEhf9jdKhRzlufhMvC/krYeLhj7YoTSEhgcKcjzj41YT+Q413bV
+         yvobqd70FXDosPzkIxn8pTDmD72bz343iOsTYd2iKfXcI5ebP29rOFg2AVpssh1SBTVm
+         2uhgpz3tbdBh0ULjBxvL41b0SSUtCz41cn/w+P0oAOrtXVMiWzd7KJCo31GMlSrgJHX6
+         wfZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786603753; x=1787208553;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sj4nAB5UJQSiK8q2P2qqPUYrLHWdF5UCEVGSdlXatDA=;
+        b=lRZBCKXekRHYQyBUFAfnwSK6woX6wkL8Om7glBnsnL58TuurP6H6GpyCSpt3RLA2GI
+         E7ZAfkzBdWWJVUnPkSjx3jPjHsZKD/ONKk48BKvamAESfwh0LmQBEx8wFB+LO/ypIZZz
+         +CFZIH+rXtR8fFDxIB3GlykbPSvrINySZwlvg5QCLTITtEbDHiXpWnsoQ9B7SJ6s/zKO
+         51M0oPKyv0PWLp9O2XItZcWZL5LuwvE2AeiRBFJCfuvFWXDloTxHKeTXjJJxCACVXhqq
+         aMn6NHO2huPTFzaHoFHGGdkPGIkqBJ/eY/tnZBTIJ+GM1ckYygo+IMVKIe6G5KQ014ch
+         bsuQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6g6IkwxWsR3KwlhZh8llUgMe6VNrDsE+jthFvK8GYHf/DEIlxGGbfDtFl/SKOiY5Z6bsP6VU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx848qKLcbNCpX/kM3TiQPWAwUfg0LR36d4pwg5E2VXpBMq/pHO
+	X0lh0LW+tL9Viv93LyDkd7EJeb0d89H2s2fUH8M295GPeuQbgUs/4pwE
+X-Gm-Gg: AR+sD12OC6qw1YZJM2rlS+K60LvEqHVP3xrLyQTUYl8+/DoikHy9qzWmh67pB62Pcvn
+	HmtI60PlmIj6nDGI2U7d3P9MdbCJqYFEp+Y7B3yWb4+0qjZhusAljTYFAYaQqywqGLtZyV0TKVj
+	8utAdQT46NO9NHiNkHISlteexmu4Mv89HmOx76aZ1xUOZCLIm8inCmGlohPVS7A4p8WwAnJ5vlQ
+	DGtn1V2LRR2HaulS3+MHa5etiiCq2yetScx2kEZUle5OpF8zdtjYeQvR3eTRHaZqevTeE3loAPS
+	9wVjVFXnR6o44zZvgHeqxocnvcZb2hA/tPJa/RnyDx+jU0sw2h4yAAXoHhvCSoFp6UekrTeoBSp
+	AsMPO1P/TQDUbIc6CSZVXU2kENl+bs3Z64HzkQ/1gZtYzaluFso9I6FQ2oON41ALFbLdsN2sydR
+	tY4YVDMgV6MJmf3cRBgQ1iW5OI/RewqXr4xQokPeDCFRehcAm5SD9kQh1zZWNY1M8L2wSheZpyD
+	f2Js8jgfFaNxLXE1NdOgxLzwltwg1ceGGa7ET6UhNAim7mwTbT5RWTLfeaL7xMO
+X-Received: by 2002:a17:90b:1d43:b0:38e:3fdc:62e5 with SMTP id 98e67ed59e1d1-3931e2a0572mr4819755a91.19.1786603753033;
+        Wed, 12 Aug 2026 23:49:13 -0700 (PDT)
+Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:229c:e2c9:8c03:c9c1])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1412da6c0e0sm7111503c88.13.2026.08.12.23.49.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 23:49:12 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: jani.nikula@linux.intel.com,
+	joonas.lahtinen@linux.intel.com,
+	rodrigo.vivi@intel.com,
+	tursulin@ursulin.net,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	krzysztof.karas@intel.com
+Cc: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org,
-	lihaojie <lihaojie@kylinos.cn>,
+	linux-kernel@vger.kernel.org,
+	Deepanshu Kartikey <kartikey406@gmail.com>,
+	syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu/virt: fix integer overflow in size_kb shift
-Date: Thu, 13 Aug 2026 14:34:18 +0800
-Message-Id: <20260813063418.2064270-1-lihaojie@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH v2] drm/i915: Guard against NULL driver_data in i915_pci_probe()
+Date: Thu, 13 Aug 2026 12:19:02 +0530
+Message-ID: <20260813064902.367504-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,94 +83,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-size_kb is uint32_t. The expression "size_kb << 10" is computed in
-32-bit arithmetic, which overflows when size_kb >= 0x400000 (4 GB in
-KB). This leads to incorrect buffer sizes being passed to kzalloc(),
-amdgpu_device_vram_access(), and amdgpu_ttm_init_vram_resv(),
-potentially causing undersized allocations and subsequent heap
-overflows.
+pci_match_device() can return the dummy pci_device_id_any entry
+when a device is force-bound via sysfs driver_override, in which
+case ->driver_data is unset (NULL). i915_pci_probe() casts it to
+struct intel_device_info * unconditionally and dereferences
+intel_info->require_force_probe, causing a NULL-ptr-deref.
 
-Fix this by casting size_kb to u64 before the shift, matching the
-existing correct pattern already used in the same file:
-
-  u64 init_hdr_size = (u64)adev->virt.init_data_header.size_kb << 10;
-
-The affected call sites are:
-  - amdgpu_virt_read_exchange_data_from_mem(): dataexchange_size
-  - amdgpu_virt_init_data_exchange(): kzalloc size argument
-  - amdgpu_virt_init_critical_region(): amdgpu_ttm_init_vram_resv size
-  - amdgpu_virt_get_dynamic_data_info(): data_size
-
-Also update the corresponding dev_info/dev_dbg format strings from
-0x%x to 0x%llx to match the new u64 type.
-
-Fixes: 07009df6494d ("drm/amdgpu: Introduce SRIOV critical regions v2 during VF init")
+Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=db96c5ff032f4292a8dc
+Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
 Cc: stable@vger.kernel.org
-Signed-off-by: lihaojie <lihaojie@kylinos.cn>
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 ---
+v2: Drop Fixes tag, this isn't a regression from a single commit -
+    the unconditional dereference of ->driver_data has always assumed
+    it points into a MODULE_DEVICE_TABLE()-backed entry, an assumption
+    broken by the generic driver_override fallback path, not by any
+    i915-specific change. Add Cc: stable instead. (Krzysztof, Jani)
+---
+ drivers/gpu/drm/i915/i915_pci.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 9e8f7d2b898c..51287d2a6d12 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -752,12 +752,12 @@ static int amdgpu_virt_read_exchange_data_from_mem(struct amdgpu_device *adev, u
- {
- 	uint32_t dataexchange_offset =
- 		adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].offset;
--	uint32_t dataexchange_size =
--		adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].size_kb << 10;
-+	u64 dataexchange_size =
-+		(u64)adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].size_kb << 10;
- 	uint64_t pos = 0;
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 82415af47d54..2f03f95945f1 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		(struct intel_device_info *) ent->driver_data;
+ 	int err;
  
- 	dev_info(adev->dev,
--			"Got data exchange info from dynamic crit_region_table at offset 0x%x with size of 0x%x bytes.\n",
-+			"Got data exchange info from dynamic crit_region_table at offset 0x%x with size of 0x%llx bytes.\n",
- 			dataexchange_offset, dataexchange_size);
- 
- 	if (!IS_ALIGNED(dataexchange_offset, 4) || !IS_ALIGNED(dataexchange_size, 4)) {
-@@ -804,7 +804,8 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
- 		/* got through this logic in early init stage to get necessary flags, e.g. rlcg_acc related*/
- 		if (adev->virt.req_init_data_ver == GPU_CRIT_REGION_V2) {
- 			pfvf_data =
--				kzalloc(adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].size_kb << 10,
-+				kzalloc((u64)adev->virt.crit_regn_tbl
-+					[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].size_kb << 10,
- 					GFP_KERNEL);
- 			if (!pfvf_data) {
- 				dev_err(adev->dev, "Failed to allocate memory for pfvf_data\n");
-@@ -1161,7 +1162,7 @@ int amdgpu_virt_init_critical_region(struct amdgpu_device *adev)
- 	/* reserved memory starts from crit region base offset with the size of 5MB */
- 	amdgpu_ttm_init_vram_resv(adev, AMDGPU_RESV_FW_VRAM_USAGE,
- 				  adev->virt.crit_regn.offset,
--				  adev->virt.crit_regn.size_kb << 10, true);
-+				  (u64)adev->virt.crit_regn.size_kb << 10, true);
- 	dev_info(adev->dev,
- 		"critical region v%d requested to reserve memory start at %08llx with %llu KB.\n",
- 			init_data_hdr->version,
-@@ -1181,14 +1182,14 @@ int amdgpu_virt_get_dynamic_data_info(struct amdgpu_device *adev,
- 	int data_id, uint8_t *binary, u32 *size)
- {
- 	uint32_t data_offset = 0;
--	uint32_t data_size = 0;
-+	u64 data_size = 0;
- 	enum amd_sriov_msg_table_id_enum data_table_id = data_id;
- 
- 	if (data_table_id >= AMD_SRIOV_MSG_MAX_TABLE_ID)
- 		return -EINVAL;
- 
- 	data_offset = adev->virt.crit_regn_tbl[data_table_id].offset;
--	data_size = adev->virt.crit_regn_tbl[data_table_id].size_kb << 10;
-+	data_size = (u64)adev->virt.crit_regn_tbl[data_table_id].size_kb << 10;
- 
- 	/* Validate on input params */
- 	if (!binary || !size || *size < (uint64_t)data_size)
-@@ -1200,7 +1201,7 @@ int amdgpu_virt_get_dynamic_data_info(struct amdgpu_device *adev,
- 	*size = (uint64_t)data_size;
- 
- 	dev_dbg(adev->dev,
--		"Got %s info from dynamic crit_region_table at offset 0x%x with size of 0x%x bytes.\n",
-+		"Got %s info from dynamic crit_region_table at offset 0x%x with size of 0x%llx bytes.\n",
- 		amdgpu_virt_dynamic_crit_table_name[data_id], data_offset, data_size);
- 
- 	return 0;
++	if (!intel_info)
++		return -ENODEV;
++
+ 	if (intel_info->require_force_probe && !id_forced(pdev->device)) {
+ 		dev_info(&pdev->dev,
+ 			 "Your graphics device %04x is not properly supported by i915 in this\n"
+-- 
+2.43.0
+
