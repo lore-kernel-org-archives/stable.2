@@ -1,144 +1,103 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564AD3161A1
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 10:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3276468C12;
+	Thu, 13 Aug 2026 11:12:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786617370; cv=none; b=cPEB+b7KX5zz8QWs0KfRprMgL0f5fLsYNdQiMFRe9qR09lJpMjfcLw4x7YOS6SLh9sGZBlH7qfUZtSz3q+R+jmx1Ney6NTQkJ8phKRvH5M/d7S/E1QDy38D/KgmAW8joguNKFVWXwkxuO69BQ7WGtrvBNt+rclFUlpr41BSVSkQ=
+	t=1786619572; cv=none; b=Y7VhvLYS/Jq5mgc946BfDij144adZTQpD02gS2qQE8BzPb31qUhMnGnzyXniGhVcVgMGPqbt45Ig/a1lHXsaE2mb118Y2jp42Pz+dtoPAJnJOiWvEf//nwZYmAvLkK7lmDL15e69iHk5dar6uErf82qWRyKScpHD0fQiYbeBjAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786617370; c=relaxed/simple;
-	bh=meyb6Y2dzI5h7FZCiO0Odzp0AHqH1igJ4/zqrayN1Nc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bAhSGQvUp+7eBD2CVJhYe1t1AsS7BqBMi223nwHL34whpXpWCL4L60iP8ZJMuHcdpyzaK6Ol8tAV5q9a0Q1YqHdbD0m7ovabdndSO2cPOTqcy3q3K5T/daNx6v2rHeadVJrriF1M/nXD4DEpSFIVprH5I6rQhL0ZGkbB8K3kA2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fwdiP6mT; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786619572; c=relaxed/simple;
+	bh=p/sjBHgnvLLEP//S3LHmJLlsuLNjdvN+8vZ7po638dc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GDB4OJwdMx+a59c5a2A63ytFmj4Iq7swhqeiBl3GJwlgE8tw6DSn1YIo2j97pYxMZQkJ1PESSSToql2CmoIly9QiV+3z8xpIYwCyIqHJnv+ThekAS6BCUJLykSHLql8+TU/iQuNrMc4igGS/jcRj1sA/q7W7HiqJUIvlkF3ojv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=OL8nQyU6; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fwdiP6mT"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso1856356a91.3
-        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 03:36:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786617363; x=1787222163; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Z3AY/Bs9FDrd8H3tGAAndoQ/dkrF/oypF8YiYah5nNY=;
-        b=fwdiP6mTFJwXtCcN7Ewc2KSVfzubuJ+E0cwKHiaa8aeRYBx8fQOKcLT58u1LoqsxV4
-         79obt/LD7IzfHST6sUi9FJUuo93u80ZkIDYk5cdPnnHUI7qXD1rB0wkflfhn8yvk7QcV
-         rMruIeKNq00Ae7pRfyH52Sw5Z41fED7gz+aDV8dbFv4BmMS97h2LDlfFMkE9G/rj/nVZ
-         yB+qEhtm/5DtBei+jywtfhFce6ilNKn+tztsF3N4QePbZYAtlrl5NIn4JVj8Li2eIGlW
-         K/PE7jVKMNxZ91hF151C3UTLrCkg3dq3PNuGyk2KbP/q+4jaNeY4QdH/pR6pCgZ2X089
-         X09g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786617363; x=1787222163;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Z3AY/Bs9FDrd8H3tGAAndoQ/dkrF/oypF8YiYah5nNY=;
-        b=jBY8HXh8+0kHY+UFXQeLT2cYIoIQsU3tIyWyw9SIGnG0BZS7pZDKQaS+Vwuvmp7ppD
-         KTj6MLsiFUBo0y5TvxUZcwjMXr6E+i5rWeTUxZV8Z5u4OTehPP0pDyZC8SNf1e9YUtIF
-         zFxMnmUOgh5v3wCAogMYX8tPjOTrad8JgewBQ1o9QqTBi/u8xmjecHZ7rtMG3rJ42E+1
-         kwCxygTY26Wqh3r8kDzA8Fd55Aiy+A2jCRLt4G6vzjcRCGR6yGw9J4DMw6Ug3Ac683w2
-         EeZlPe7pJUNn2oe3j5hxdtLctbQLJGA4txZ3jS0NhBgvGrjiFiNWL8j+r3Ega1SYMLtS
-         SIpw==
-X-Forwarded-Encrypted: i=1; AHgh+RqkkgbjGtpH6SzfczGp1+3fInitbty1uAIhjiR0oemFIZithQ+tixyzB6v/D6LKZEmpnokBoOU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw70YudYaD1DzYS66qLsZ01rhlXQluh2//G4sF7mS2/6eBeUaE0
-	ON1jcK3rdD0NRZtW7quj2kwH/X2vBLuVxUBqXFdV3GZLcgzMDr99GDHE
-X-Gm-Gg: AR+sD11b1fn/BRekHLEWWXsum43b4CsFHwP3rpMFRvmPPneMBBgx3HBFrtdxaYoGVAP
-	KCZ/b/e9ITVqnknG4AiyKKvANipqNUsTiVDOxLS36t4+ln9sItZlEooGrcwUS5jx4eln1WexJWN
-	Hoh2/XTbD8MAGrPhfD7gz9zvjszqILOSiOmsIR3UdhQpylQ8eLi4DcfnreO7GBFPDpWxxfyU1A7
-	SPtfW2k2yjcEVkY6aCQBkgobnZn2/dX8I6bW2FKVuqS3pKOTxRnI3IcGYt2UFElB7tF/kkpPZHC
-	04/hdBXoQIZLs4WINAUF917fPQQyYKs6+d1+hA8z0xrxfmtoAzmoC0urNkhxGCyPN2JTvzNhSeg
-	d07jH82Q6V+cQzY8KD5qpIBYJSsZNIhAjmLHcDE3wzT3l8OWppzvwEeRn5U0XxzEjuHgZmeKsEs
-	HHSw1+YroZqZDdpnlewZv5QcT5eB2HXaAJs6otf/xGT9weEFZTPdDaHHAo0dI=
-X-Received: by 2002:a17:90b:278e:b0:381:25ce:bcc2 with SMTP id 98e67ed59e1d1-3931e0242f8mr6100351a91.6.1786617363370;
-        Thu, 13 Aug 2026 03:36:03 -0700 (PDT)
-Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3931f41ce3fsm2381426a91.10.2026.08.13.03.35.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 03:36:02 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Thu, 13 Aug 2026 18:35:47 +0800
-Subject: [PATCH] drm/nouveau/nv04: check cursor buffer object size before
- upload
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="OL8nQyU6"
+Received: from francesco-nb.. (2-224-16-253.ip168.fastwebnet.it [2.224.16.253])
+	by mail11.truemail.it (Postfix) with ESMTPA id C8ADD1FB7C;
+	Thu, 13 Aug 2026 13:12:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1786619565;
+	bh=osfGB4V80VKvLfFCPsJwLjnIi4GjyoqwiUXnW25KK1E=; h=From:To:Subject;
+	b=OL8nQyU6eW1VGtokO9JM5dUzFbKSBDS1C/SwW8MmQ4Bd/LrJm1GBIwT5eD6aGdund
+	 huWiC8qyL91088VySFQHFy7POlYeQvI9MTEQWz9ls9bpNMXgsCxkAc2Kp/NoqoOBqd
+	 5UqugZTZNfVNNzDP3V8364a2TFBHkaLqSV6ICuvwI+1iKWeAP7HjMy2CvICaw5M29a
+	 cUW3791+vdWpjAmflFf6f0n803Q6CoIzTP7UZalsP1QkFGetaIsAuHDEQwIEXJJga9
+	 NYOENrbha24PkMuxB6sUgFKLiW3+C5/PVd5I0HNtPmraLCcs/VDhbRtJLzxD0tv9uf
+	 PHdh19FCaTrjQ==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Judith Mendez <jm@ti.com>,
+	Moteen Shah <m-shah@ti.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v1] arm64: dts: ti: k3-am62-verdin: Set MMC clock pins as OUTPUT
+Date: Thu, 13 Aug 2026 13:12:36 +0200
+Message-ID: <20260813111238.56892-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-nouveau-nv04-cursor-oob-v1-1-3f3eb37d213d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAKefWoC/yXMTQoCMQxA4asMWRtIOzKIVxEX/YkaF400tgwMc
- 3erLr/FexsYV2GD87RB5S4mWgbcYYL0COXOKHkYPPmFTm7Goq1zaFg6HTG1alpRNWLIPi5ELvO
- cYdSvyjdZf+fL9W9r8cnp/d3Bvn8AMrGehnsAAAA=
-X-Change-ID: 20260813-nouveau-nv04-cursor-oob-ad2b6001de3d
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dave Airlie <airlied@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786617357; l=1859;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=meyb6Y2dzI5h7FZCiO0Odzp0AHqH1igJ4/zqrayN1Nc=;
- b=RNFf4wcl5LftIPZXfs3V3e6M/RvnsKRYFDr2Klg/361+meLcH5wFsHmX27P4vcahMHwYigsCm
- x9MU0ukgwrABPcno3tUpRryRAvmlcH+Rkiw0czCAWwMQsBzK44PWa6V
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+Content-Transfer-Encoding: 8bit
 
-nv04_crtc_cursor_set() validates only the 64x64 cursor geometry, not the
-size of the backing GEM object, before nv11_cursor_upload() /
-nv04_cursor_upload() read up to 64 * 64 * 4 = 16384 bytes from it via
-nouveau_bo_rd32() at hardware-fixed offsets.
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-nv04 uses a legacy cursor_set callback with a NULL cursor plane, so
-drm_mode_cursor_common() passes the raw handle to the driver without
-building a drm_framebuffer; the framebuffer path's size check never runs.
+MMC clock pins must be configured as OUTPUT-only per TRM [0] with
+receiver disabled (RXACTIVE bit = 0). Change MMC CLK pins from
+PIN_INPUT to PIN_OUTPUT to match documentation.
 
-A client with DRM master can thus supply an undersized GEM object and
-trigger an out-of-bounds read, as nouveau_bo_map() only kmaps
-PFN_UP(size) pages.
-
-Reject undersized buffers before mapping, as gma500's
-gma_crtc_cursor_set() does. The check precedes nouveau_bo_map(), so the
-error path only drops the GEM reference via the existing 'out:' label.
-
-Fixes: 6ee738610f41 ("drm/nouveau: Add DRM driver for NVIDIA GPUs")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
+Link: https://www.ti.com/lit/pdf/spruiv7 Rev. C: Table 12-246. MMCSDi I/O Signals [0]
+Fixes: 316b80246b16 ("arm64: dts: ti: add verdin am62")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
- drivers/gpu/drm/nouveau/dispnv04/crtc.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/crtc.c b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-index 500fd77b87d1..0393025baa64 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-@@ -1000,6 +1000,11 @@ nv04_crtc_cursor_set(struct drm_crtc *crtc, struct drm_file *file_priv,
- 		return -ENOENT;
- 	cursor = nouveau_gem_object(gem);
- 
-+	if (gem->size < width * height * 4) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
- 	ret = nouveau_bo_map(cursor);
- 	if (ret)
- 		goto out;
-
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260813-nouveau-nv04-cursor-oob-ad2b6001de3d
-
-Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
+diff --git a/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi b/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi
+index e97b2b047d10..895b1b7dcac7 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi
+@@ -573,7 +573,7 @@ AM62X_IOPAD(0x15c, PIN_INPUT, 0)  /* (AB22) MDIO0_MDIO */ /* ETH_1_MDIO, SODIMM
+ 	pinctrl_sdhci0: main-mmc0-default-pins {
+ 		pinctrl-single,pins = <
+ 			AM62X_IOPAD(0x220, PIN_INPUT,        0) /*  (Y3) MMC0_CMD  */
+-			AM62X_IOPAD(0x218, PIN_INPUT,        0) /* (AB1) MMC0_CLK  */
++			AM62X_IOPAD(0x218, PIN_OUTPUT,       0) /* (AB1) MMC0_CLK  */
+ 			AM62X_IOPAD(0x214, PIN_INPUT,        0) /* (AA2) MMC0_DAT0 */
+ 			AM62X_IOPAD(0x210, PIN_INPUT_PULLUP, 0) /* (AA1) MMC0_DAT1 */
+ 			AM62X_IOPAD(0x20c, PIN_INPUT_PULLUP, 0) /* (AA3) MMC0_DAT2 */
+@@ -589,7 +589,7 @@ AM62X_IOPAD(0x1f8, PIN_INPUT_PULLUP, 0) /* (AC2) MMC0_DAT7 */
+ 	pinctrl_sdhci1: main-mmc1-default-pins {
+ 		pinctrl-single,pins = <
+ 			AM62X_IOPAD(0x23c, PIN_INPUT,        0) /* (A21) MMC1_CMD  */ /* SODIMM 74 */
+-			AM62X_IOPAD(0x234, PIN_INPUT,        0) /* (B22) MMC1_CLK  */ /* SODIMM 78 */
++			AM62X_IOPAD(0x234, PIN_OUTPUT,       0) /* (B22) MMC1_CLK  */ /* SODIMM 78 */
+ 			AM62X_IOPAD(0x230, PIN_INPUT,        0) /* (A22) MMC1_DAT0 */ /* SODIMM 80 */
+ 			AM62X_IOPAD(0x22c, PIN_INPUT,        0) /* (B21) MMC1_DAT1 */ /* SODIMM 82 */
+ 			AM62X_IOPAD(0x228, PIN_INPUT,        0) /* (C21) MMC1_DAT2 */ /* SODIMM 70 */
+@@ -601,7 +601,7 @@ AM62X_IOPAD(0x224, PIN_INPUT,        0) /* (D22) MMC1_DAT3 */ /* SODIMM 72 */
+ 	pinctrl_sdhci2: main-mmc2-default-pins {
+ 		pinctrl-single,pins = <
+ 			AM62X_IOPAD(0x120, PIN_INPUT, 0) /* (C24) MMC2_CMD   */ /* WiFi_SDIO_CMD   */
+-			AM62X_IOPAD(0x118, PIN_INPUT, 0) /* (D25) MMC2_CLK   */ /* WiFi_SDIO_CLK   */
++			AM62X_IOPAD(0x118, PIN_OUTPUT,0) /* (D25) MMC2_CLK   */ /* WiFi_SDIO_CLK   */
+ 			AM62X_IOPAD(0x114, PIN_INPUT, 0) /* (B24) MMC2_DAT0  */ /* WiFi_SDIO_DATA0 */
+ 			AM62X_IOPAD(0x110, PIN_INPUT, 0) /* (C25) MMC2_DAT1  */ /* WiFi_SDIO_DATA1 */
+ 			AM62X_IOPAD(0x10c, PIN_INPUT, 0) /* (E23) MMC2_DAT2  */ /* WiFi_SDIO_DATA2 */
+-- 
+2.47.3
 
