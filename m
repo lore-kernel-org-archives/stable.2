@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AB42931FB
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 00:50:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48684225791
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 00:53:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786582240; cv=none; b=eY2PgVSilPVd1OmQIz7G+pRJm9yR/YAQWTH8TptUOezxsvSauMwybpQQOzFlFVlgxXM/osiYUGA1S65wgI1s652PPzhoMbWVTU0PKLPbpllyGH3M1Fy/2MoU2HQxIznaTCMH6+eEd/0swSDjcdR9UoFcd4JxdmjtkvN7xhxPKsw=
+	t=1786582406; cv=none; b=HwsgnFd6RAqI2zlc5/QpzTB4QtsLN9BiuwfzRK8Wzf15TEvWSA5F0NllNuuAIEu1IRBYRgT75fJ9Pl0dyZGAAu5+WLcJ4PHFjxfcePClqIOOZfGmfNWNwU4b42eD1wZ0GUDTtSwB5Za33tMFvUqfxitlIRSzP20Oo4CPPzfQ9C8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786582240; c=relaxed/simple;
-	bh=On+VH+4RVfM/aJDJiEPZRvi/Cwjo8OnWC6XQuGyX8C0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=F1wL0W5cnXyQRBpaNk/Z2iQkYho8SIBkTP1Uqjqxfb2ZQZDuB8D5ds/YDG4Mw3hnR5ApZkydUkWl9AVhRrRyRShB0fMK1gaz/JvJOSxVFZ2iz9h75sLBuf9G4KYfG1k0YJ2B2UbZoEGhtzXIrvAY/lEQCRCTTiwJt/0DkHufo3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=n3OcB2jr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786582406; c=relaxed/simple;
+	bh=IOyxsIpfUsYYWdB+yrszpZYTdZwtT52YPuKdPjTX+Z0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qp7opqPSOU2I0/1v3g1z7tXOaVlFSsgDPRAV06CZCjwLs/VE6vMsvnbxjyBAW+5xMqajB9UMWzLE8blQu6kYP3hxOxJ1VMjYSKML1E3OYGSmEIgcmIyf6ui4m9eB3vcpf6IyfWMLgua/XplCH4iWJbGevGS/RLEYEVabzPstQyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tm32ggw2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="n3OcB2jr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FB011F000E9;
-	Thu, 13 Aug 2026 00:50:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tm32ggw2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA751F000E9;
+	Thu, 13 Aug 2026 00:53:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786582235;
-	bh=sH4Rf3/JwfXCkbQk8q1kX2dJOiGTPsglSNJN+XJi4PE=;
+	s=korg; t=1786582404;
+	bh=JNJbtahommPxSMuYX4s7oucQrNJOiA2MK2lpVXTfKU8=;
 	h=Subject:To:Cc:From:Date;
-	b=n3OcB2jr0gULnlh4sx3gix7SF8GjIip5BwbYUKGxupATAEj7Cpae/GbXVcetO7Gfq
-	 UeR5NBGA3R4e/CkMZiFhKNq62zaNrta4ej1H5fsOVPJ52SNkSDU5NMIIXtqsM3w+l3
-	 qfnvp4ugYa7BFu2loR1hRsi+c3RWYy21pbdmZg9E=
-Subject: FAILED: patch "[PATCH] net: tap: set skb->dev before parsing virtio net header in" failed to apply to 5.10-stable tree
-To: dongli.zhang@oracle.com,kuba@kernel.org,mst@redhat.com,willemb@google.com
+	b=tm32ggw2u73kOKq/pNhMJiKzL/3ZlqFOweuDRW10FRz6k+gu8D5bkR7VWSVOnzpnb
+	 MdySk/KHTkBBulKIXBiZUcdbJ5Z4FjE6Dcw8GIVSPd7gLSw5+b7lUO6aKkcGRN/c01
+	 YI5o+YqUVAKdKxpI2+uRVDUVcGeCxMQXzsEQvc1I=
+Subject: FAILED: patch "[PATCH] usbnet: cap max_mtu for drivers without bind callback" failed to apply to 6.18-stable tree
+To: lvivier@redhat.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 13 Aug 2026 09:48:53 +0900
-Message-ID: <2026081353-startle-promoter-64a7@gregkh>
+Date: Thu, 13 Aug 2026 09:51:51 +0900
+Message-ID: <2026081351-mothball-parachute-6166@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3874892dd27d5387aa9a06f58d9060f18f351d24
+git cherry-pick -x 1505b2cb6ae1c7e8ac0c6e4590a204ffc3ab2b24
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081353-startle-promoter-64a7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081351-mothball-parachute-6166@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,81 +62,51 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3874892dd27d5387aa9a06f58d9060f18f351d24 Mon Sep 17 00:00:00 2001
-From: Dongli Zhang <dongli.zhang@oracle.com>
-Date: Sun, 2 Aug 2026 15:46:12 -0700
-Subject: [PATCH] net: tap: set skb->dev before parsing virtio net header in
- tap_get_user_xdp()
+From 1505b2cb6ae1c7e8ac0c6e4590a204ffc3ab2b24 Mon Sep 17 00:00:00 2001
+From: Laurent Vivier <lvivier@redhat.com>
+Date: Fri, 31 Jul 2026 11:27:11 +0200
+Subject: [PATCH] usbnet: cap max_mtu for drivers without bind callback
 
-The commit 4f61f133f354 ("net: tap: NULL pointer derefence in
-dev_parse_header_protocol when skb->dev is null") fixed a crash in
-tap_get_user() by assigning skb->dev before calling tun_vnet_hdr_to_skb().
-This is required because virtio_net_hdr_to_skb() may invoke
-dev_parse_header_protocol(), which dereferences skb->dev. Without the
-assignment, a NULL pointer dereference can occur.
+usbnet_probe() initializes max_mtu to ETH_MAX_MTU and only caps it
+inside the if (info->bind) block. Drivers without a bind callback
+never enter this block, so max_mtu stays at ETH_MAX_MTU.
 
-However, tap_get_user_xdp() still parses the virtio-net header before
-assigning skb->dev. When the vhost TX path passes an XDP buffer containing
-a GSO virtio-net header but the protocol is set to zero on purpose,
-tun_vnet_hdr_to_skb() can reach dev_parse_header_protocol() while skb->dev
-is still NULL, resulting in a crash.
+QEMU's usb-net device (0x0525/0xa4a2) is claimed by the cdc_subset
+driver which has no bind callback. The guest accepts any MTU from DHCP
+(e.g. 65520 from passt), leading to TCP segments that exceed the
+device's 2048-byte receive buffer and are silently dropped.
 
-Fix this by looking up the tap device and assigning skb->dev before calling
-tun_vnet_hdr_to_skb(), matching the ordering already used in
-tap_get_user(). Preserve the existing RCU read-side critical section across
-dev_queue_xmit().
+Initialize max_mtu to net->mtu at probe time and update it inside
+the bind block.
 
-Fixes: 924a9bc362a5 ("net: check if protocol extracted by virtio_net_hdr_set_proto is correct")
+Fixes: f77f0aee4da4 ("net: use core MTU range checking in USB NIC drivers")
+Cc: jarod@redhat.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Dongli Zhang <dongli.zhang@oracle.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
-Link: https://patch.msgid.link/20260802224612.264563-1-dongli.zhang@oracle.com
+Link: https://gitlab.com/qemu-project/qemu/-/issues/3268
+Link: https://bugs.passt.top/show_bug.cgi?id=189
+Signed-off-by: Laurent Vivier <lvivier@redhat.com>
+Link: https://patch.msgid.link/20260731092711.857684-1-lvivier@redhat.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/drivers/net/tap.c b/drivers/net/tap.c
-index fae115915c8e..5d2d34d24ce8 100644
---- a/drivers/net/tap.c
-+++ b/drivers/net/tap.c
-@@ -1074,10 +1074,21 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
- 	skb_reset_mac_header(skb);
- 	skb->protocol = eth_hdr(skb)->h_proto;
+diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
+index 25518635b7b7..a19ecf718f36 100644
+--- a/drivers/net/usb/usbnet.c
++++ b/drivers/net/usb/usbnet.c
+@@ -1794,7 +1794,7 @@ usbnet_probe(struct usb_interface *udev, const struct usb_device_id *prod)
+ 	 */
+ 	dev->hard_mtu = net->mtu + net->hard_header_len;
+ 	net->min_mtu = 0;
+-	net->max_mtu = ETH_MAX_MTU;
++	net->max_mtu = net->mtu;
  
-+	rcu_read_lock();
-+	tap = rcu_dereference(q->tap);
-+	if (!tap) {
-+		kfree_skb(skb);
-+		rcu_read_unlock();
-+		return 0;
-+	}
-+	skb->dev = tap->dev;
-+
- 	if (vnet_hdr_len) {
- 		err = tun_vnet_hdr_to_skb(q->flags, skb, gso);
--		if (err)
-+		if (err) {
-+			rcu_read_unlock();
- 			goto err_kfree;
-+		}
- 	}
- 
- 	/* Move network header to the right position for VLAN tagged packets */
-@@ -1085,15 +1096,8 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
- 	    vlan_get_protocol_and_depth(skb, skb->protocol, &depth) != 0)
- 		skb_set_network_header(skb, depth);
- 
--	rcu_read_lock();
--	tap = rcu_dereference(q->tap);
--	if (tap) {
--		skb->dev = tap->dev;
--		skb_probe_transport_header(skb);
--		dev_queue_xmit(skb);
--	} else {
--		kfree_skb(skb);
--	}
-+	skb_probe_transport_header(skb);
-+	dev_queue_xmit(skb);
- 	rcu_read_unlock();
- 
- 	return 0;
+ 	net->netdev_ops = &usbnet_netdev_ops;
+ 	net->watchdog_timeo = TX_TIMEOUT_JIFFIES;
+@@ -1804,6 +1804,7 @@ usbnet_probe(struct usb_interface *udev, const struct usb_device_id *prod)
+ 	// allow device-specific bind/init procedures
+ 	// NOTE net->name still not usable ...
+ 	if (info->bind) {
++		net->max_mtu = ETH_MAX_MTU;
+ 		status = info->bind(dev, udev);
+ 		if (status < 0)
+ 			goto out1;
 
