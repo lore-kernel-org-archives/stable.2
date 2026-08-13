@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC90E43E4BB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF36381B0C;
 	Thu, 13 Aug 2026 21:19:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786655961; cv=none; b=slET7JDutdwAy8dJzAR9B797RJeBdCsvppU6j9BRGPuZ7/VJiEQS7qc/O8RfZemxng1qXl5VhSqli8FKWAmtqYBkrMfaDS4/lLrHtME5kNGt+D3YWnv+cr2SarowKl3GeSqm2uFKYWUF+ozUqqDu9xP88+RLmOdzqEXbQbYimps=
+	t=1786655964; cv=none; b=tI9qMvlU0o1MngHFl5iYTn6ZP0Z1dKUim5liDMBBtCMKS2D58wMW8sm2fbb1f+YiBPv6dwj+lsdO5yvDlIHJ53owUjAQ4RbHrd68WqY0XOOIElz24gFYVirJSOFjqiQdFmYclbyKiE5qSUA9EdIPDV7+XDoqFsopufcoF7dCGxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786655961; c=relaxed/simple;
-	bh=3cUJ2kbgAda/3KuyQsg5scFPZj1YIUFT4vrVWZpCcBc=;
+	s=arc-20240116; t=1786655964; c=relaxed/simple;
+	bh=drEiQ4Vb5t7drAwrcxOPtTvK5P+J6gBeRJxjCxi1YiQ=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=B+PqBv6BdaHZhxTrcWtOCsL/8Jh9sLrZs44x7O/NmTswMJjwH9qeBXxqfAlA0WX7LWAhl7FZg3Ks11HuGvQ3IA4C91PAWJOhlCQojPBj+zgyAcCEaiWMmYMLXkUFF3mVjPavRgyKtSBJj0uBk/oh4hhM0fhveBzr/Ep/xR18zas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AYYdJvwK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=uvMtMhlh5ow5G6Lb5cY1Y/RTJLvR2A+XntlBH7/gib03vmC2Db05wO2aJXQuHbP88l6S8V2+v772M10VJmbh8i/5YdgLPROwo0/0GkKqLQ8zDcvKwbgriDIK1UDgQqjA4tch4DkYkTwq+fgtIp9Ng5u08ymC7+6F4iCgSCvp9Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j3cOtecP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AYYdJvwK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF43E1F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j3cOtecP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20C21F00A3A;
 	Thu, 13 Aug 2026 21:19:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786655949;
-	bh=i+tiIW9fCiXODs9ZRk07BdX+/ESQJtYU52s3f4oUmVY=;
+	bh=7TySX38qpXOkdseJZaIINs0UNHO118jzm0H0b714RJc=;
 	h=Date:From:To:Cc:Subject:References;
-	b=AYYdJvwK3fiTKhE/9OKdtyhpH0duaZiEZs7oF/Dr/74KUWgGzksHl3y3XMfeVI8ob
-	 ko0ng9aIdJW25hxV0eJeBD1VXr5QNz+TFAvevBtCJdRzbUZsytSrC1u8UYCFajCWS6
-	 7BumFrnkH7O0NtnoqNwgombPVrfx3v08TwFuHlyMul6Qi5uonOBopJu70Uk9k0ZhnS
-	 0K1mpVYdQEYt5H36OTN/tIHNAxZbnaAijt0fhu5TJd/jLU0DXybbhdP48hECE87duv
-	 vQQgrXtEykIf6Z30DlhYnl/KuQFfnxMBQGC/nU5lwfIZOP2K9Cn1TwxsHlNLuQvUKF
-	 0wXW+FqujSJCQ==
+	b=j3cOtecPiz10ZbLibZYci1buEOAcZ3YbgPR7B9lz9otO+lePyM0CFV9tXgY/CAmnU
+	 JTc55cm96sJxgJoWQM6xNUx4DtWwPyldeJ49vGWtMh/IWfJkutosZ+++3G09UWYpch
+	 SJns66SrHblRNUUkRIuTrwP1ldB8/fVy6FPz/Lj9OaCXVvBbYDCKDZj4Q3BbkkLUAW
+	 CLKwImccGrcgReuGiLbIzxggtd76EbCjbW67m7GvHVVYPa/sGh5u78yxxZKcioz4cj
+	 zos2N9byDgmYjMq2ImQFuWm4Nx0b5FnBgQny9fHx5inIDBhNZzEir43bEERKVdNnep
+	 X6xNZxYL9pKCw==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wucpi-00000003k9M-3quG;
+	id 1wucpi-00000003k8s-3AB6;
 	Thu, 13 Aug 2026 17:19:26 -0400
-Message-ID: <20260813211926.773252765@kernel.org>
+Message-ID: <20260813211926.612218140@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 13 Aug 2026 17:19:15 -0400
+Date: Thu, 13 Aug 2026 17:19:14 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,9 +40,9 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Michael Wu <michael@allwinnertech.com>
-Subject: [for-linus][PATCH 2/2] tracing: Fix race between update_event_fields and,
- event_define_fields
+ syzbot+4d3143c8e28f6266c636@syzkaller.appspotmail.com,
+ Hui Su <sh_def@163.com>
+Subject: [for-linus][PATCH 1/2] tracing: Fix NULL pointer dereference in module event cache removal
 References: <20260813211913.824371874@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -52,72 +52,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Michael Wu <michael@allwinnertech.com>
+From: Hui Su <sh_def@163.com>
 
-The following sequence may leads race between event_define_fields()
-and update_event_fields():
+A module-only event filter such as ":mod:foo" is cached with a NULL
+event_mod->match when foo has not been loaded. If a later write tries to
+remove a specific match from the same module, remove_cache_mod() passes
+the NULL cached match to strcmp(), causing a NULL pointer dereference.
 
- CPU0 (loads module A)                      CPU1 (loads module B)
- ===============================            ===============================
- load_module(A)                             load_module(B)
-   notifier_call_chain                        notifier_call_chain
-     trace_module_notify                        trace_module_notify
-       mutex_lock(&event_mutex)                   trace_event_update_all()
-         trace_module_add_events(A)                 down_write(&trace_event_sem)
-            __register_event(call_A)
-              __add_event_to_tracers(call_A)
-                event_define_fields(call_A)
-                  for each f:                         list_for_each_entry(field,
-                    list_add(&f->link,                                    &class->fields, link)
-                             &class->fields)            field = class->fields->next;
+The issue can be reproduced from userspace:
 
-Where access to the class->fields is not protected by the event_mutex in
-trace_event_update_all().
+  echo ':mod:trace_events_kunit_missing' > /sys/kernel/tracing/set_event
+  echo '!foo_bar:mod:trace_events_kunit_missing' >> /sys/kernel/tracing/set_event
 
-This produces the following panic:
-   Unable to handle kernel access ... at virtual address 0000000000000018
-   pc : update_event_fields+0xf8/0x368
-   Call trace:
-    update_event_fields+0xf8/0x368
-    trace_event_update_all+0x7c/0x2b4
-    trace_module_notify+0x4c/0x1dc
-    notifier_call_chain+0x84/0x168
-    blocking_notifier_call_chain_robust+0x64/0xd4
-    load_module+0x10c8/0x123c
-    __arm64_sys_finit_module+0x230/0x31c
+The second write must be a concatenation (">>") to not include O_TRUNC as
+that would cause ftrace_clear_events() to clear the cached modules lines.
 
-Fix by taking event_mutex in trace_event_update_all() before
-trace_event_sem.
+The crash was reproduced on x86_64 QEMU while KUnit workers contended on
+the event tracing path:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  #PF: supervisor read access in kernel mode
+  RIP: 0010:strcmp+0x10/0x30
+  Call Trace:
+   __ftrace_set_clr_event_nolock+0x373/0x4a0
+   ftrace_set_clr_event+0xf0/0x180
+   ftrace_event_write+0xdf/0x110
+   vfs_write+0xf6/0x440
+   ksys_write+0x68/0xe0
+   do_syscall_64+0xf9/0x540
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Check event_mod->match before comparing it, consistent with the existing
+NULL checks for the cached system and event fields. The mismatched removal
+continues to return -EINVAL; a broad cached module filter is removed with
+"!:mod:<module>".
 
 Cc: stable@vger.kernel.org
-Fixes: b3bc8547d3be ("tracing: Have TRACE_DEFINE_ENUM affect trace event types as well")
-Link: https://patch.msgid.link/2e5730d2-c631-da41-3a3a-ae35bb4895f3@allwinnertech.com
-Signed-off-by: Michael Wu <michael@allwinnertech.com>
+Link: https://patch.msgid.link/20260811173902.1927376-2-sh_def@163.com
+Fixes: b355247df104 ("tracing: Cache \":mod:\" events for modules not loaded yet")
+Reported-by: syzbot+4d3143c8e28f6266c636@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/lkml/6a7a6b7f.9c11d2ce.289b96.00f8.GAE@google.com/
+Signed-off-by: Hui Su <sh_def@163.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/trace/trace_events.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
-index 032f741ba616..3650d84d4f16 100644
+index c01b10b99f67..032f741ba616 100644
 --- a/kernel/trace/trace_events.c
 +++ b/kernel/trace/trace_events.c
-@@ -3566,6 +3566,7 @@ void trace_event_update_all(struct trace_eval_map **map, int len)
- 	int last_i;
- 	int i;
+@@ -945,7 +945,7 @@ static int remove_cache_mod(struct trace_array *tr, const char *mod,
+ 		if (strcmp(event_mod->module, mod) != 0)
+ 			continue;
  
-+	mutex_lock(&event_mutex);
- 	down_write(&trace_event_sem);
- 	list_for_each_entry_safe(call, p, &ftrace_events, list) {
- 		/* events are usually grouped together with systems */
-@@ -3604,6 +3605,7 @@ void trace_event_update_all(struct trace_eval_map **map, int len)
- 		cond_resched();
- 	}
- 	up_write(&trace_event_sem);
-+	mutex_unlock(&event_mutex);
- }
+-		if (match && strcmp(event_mod->match, match) != 0)
++		if (match && (!event_mod->match || strcmp(event_mod->match, match) != 0))
+ 			continue;
  
- static bool event_in_systems(struct trace_event_call *call,
+ 		if (system &&
 -- 
 2.53.0
 
