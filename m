@@ -1,73 +1,66 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FB635202B
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 04:39:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C5A3AEF54;
+	Thu, 13 Aug 2026 05:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.177.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786595983; cv=none; b=RcgpvyxPwmOUKiKV9UVhfnLM9FvNsoOW2HDYcy8Lup9s6kU3/h7xwQxk5Y4L3ISjkuRY7uciwofExA/R4JoQCO1W6JXFX+qjw3DEW7DSmaoAarb6zcmYuQ0q6I/JzjYdeldAxjY+VPMwcKdj3NzvzTSK6KStalO+GEHpB4449ro=
+	t=1786598074; cv=none; b=khrkx6MzwJMnYjtZqmxaHhBT/7iRDBpuuBgAUHXE7O5KwRhDvvRcE+edNAXDAabF5su7smTzhpOmFsgJfZJEfFhw+esymQMSF2zZ1aq8d0RGR0lrTztWYQmuIQGObd1xu3dnWHusOFmzS1rkJ8FTRu4L6a3Ks4PwRMpYdebyf9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786595983; c=relaxed/simple;
-	bh=MrA1eUn49JHHtkGSWBVP0LTaU/MxZzymHsQV1rsechk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GDLmbgxzrrA6c4u7x7x/vvR0EeSEdCvFmm4ehVVlSdS7yDMCjMZriat8KkCt2zeYJjN+FiFWfS0YAKenHfkPiPuqWjcYOIcA5N2DxbA9kAyN4eEaXOh6M77CnZf2d1lA/f55hDG5HLBuVkyHmD3GVa9DvaX1xFiTqg9V7IX7uoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oyXlXK49; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786598074; c=relaxed/simple;
+	bh=U359jvgB9lHxFvzrB10D/cY7D4DIMzHLKnRI9pPFbJI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EEEdVvwvq1av4pqe3T2fREi/+iilCamLFxO9ZHWOSH3p/lf0649JbY74NKugPUunS2naNVoqdwLk73h6hGlR0zQBKzA+jK+TkGb3Ttjsj1LjSQt5maTSVofewikYlPfVH1TOR5spuAT1vqTWo9VquZV9Wu1G4Fu1rwF+/RsMm6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=A+C/oUoy; arc=none smtp.client-ip=205.220.177.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oyXlXK49"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-ca12086c06eso301370a12.0
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 21:39:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786595981; x=1787200781; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QY0PhIaQe303xAQrTg2FMWpE3pS6R1npxD02nSQKkGo=;
-        b=oyXlXK494Z/C6uht5qpC3+QJ3ej6LcpMvgO00eTR9vcmcgZfySI5GuzQy0YwPYr+Wb
-         OtmHz8tYVWAUZkXyXedaIkBxXhWWTzY/iw6ocV1LE/oTpKZNtpeTiVE213Hgt2kpUHrb
-         wO51ZcKRW+4wZh9wMozFYId0u1Uky4SfugYyi9c6sPV1sCZq0VXvrss+N4N1ool1n3PW
-         OwMtma1nSXrDCsHRoQZv8Z3vw0CUAd9dqN1WX6GugWm9WUf6cHiB03131Ikkm259sLxv
-         vmVcLQNCXfAAViPADi7fcI2bOHze88PWIXymoKCgLU6Wiznhf7WTaYXGevNY7coB+dwk
-         LK0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786595981; x=1787200781;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QY0PhIaQe303xAQrTg2FMWpE3pS6R1npxD02nSQKkGo=;
-        b=qWk+HXdbXM1w3RhZegWvf51wkafT/Ejtw1Tb79txKH/TbrwuBYZdgL7/xSjkcQfHip
-         6C0XfAo8RyUwHqfHHsPRLavMrQv/4Zfcq/VfMktQrquBQTPrGkQ/4kqc3sn4KdJrxyt3
-         tZYOKFPyDKGPzmRyU7ksozQc1HEoToeKHdFPJ7Ue7veesWxt8cwut/5FAT2uyxFiD9ix
-         /cwGQG9CHL7APaaBAaX1gwrtz3dVi1nnP/WJMIwKcauMQfkAnxS2puxA78ILU/ucAO7F
-         aJKeFUQjGcY4q7dkeaogf+x3WtPnRIJsz82+Ab6LbzsNNa+UR3DM+Kp/FcSG9fxdsSoc
-         BDVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrrWricthyw+CkrY+trWwodIR6VgiDGfjeSxkHrgc1S/5bm3NZB9nd4hOzUb5OMC0QwLISsRFg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwInvJmTXi/Gz2MMl0K4rWlvL1lllxQyLlLwzZ5AyHVKU5HiHT9
-	AjmtBX0i7wknvk1E2FSB2mSqQTL/FkMVhK7u+Q9pqdRzyl93lJ0yJ83d6SkoyYEtky8H3w==
-X-Gm-Gg: AR+sD10/sJf7fj5UqjupJeAvUxIF93HldAmSZCcIdtxJ69Q5sszzhPObRyt46UoYdvL
-	B+UmTI1SZd+KBiJYq7LBlIK3CF6+z0VqU2MtVQJYXhchu5OKhYpi0BWSpWEF77b7VT4pPFncaDL
-	RADP2+rAvB1knvm/QhpI/8YB+DvYgd+869xE4m9NxSF4Iuq7Fhssyx6rlOx3CUtkuhjn+43a9+Y
-	lFaBWpkzD/D/vOrM96YF2AltH7Z1crfDLAo07IfMOq+VDE48Pc/comg+/PpuWcyCF2OPePZVgsR
-	TCgJS7gWv9mDS6iuAq4XTSmURJYtKL3JTSOyy5wSjnCTjgpl2g3Celq0XQEpoPaV1adRRJatQEi
-	i39c01bB0Z5PYOeG8KPK/hDUZt6Xvr/Y7mlgkpgfSEA7+UDOfFSdBNb2I/yLmnYeiJ6ELjC0HOa
-	ei3+8AvhxpHyVg/ns5ELv0pV9GEB/nzNsieE/HVFV6bMfD8amjEAIcoe5u9zFU/64vv74YdPbVE
-	8F4N/BPrYEklLSQqfU1eGlxfJQ=
-X-Received: by 2002:a05:6a20:549c:b0:3c3:a9ad:a747 with SMTP id adf61e73a8af0-3cc553d8f30mr4537871637.26.1786595981038;
-        Wed, 12 Aug 2026 21:39:41 -0700 (PDT)
-Received: from CT104.localdomain ([118.223.79.56])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbef710b05csm417325a12.15.2026.08.12.21.39.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 21:39:40 -0700 (PDT)
-From: Jinwoo Lee <rkskek9254@gmail.com>
-To: seanjc@google.com,
-	pbonzini@redhat.com
-Cc: kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jinwoo Lee <rkskek9254@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] KVM: nVMX: Re-arm the vmcs12 pages request if mapping the pages fails
-Date: Thu, 13 Aug 2026 04:39:32 +0000
-Message-ID: <20260813043932.3214460-1-rkskek9254@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="A+C/oUoy"
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67D37hJ12061660;
+	Thu, 13 Aug 2026 05:13:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=corp-2025-04-25; bh=RjoX7sKAdg7B6M+YOHHZVDhjBV3ZT
+	tvzwcbFoavO/n4=; b=A+C/oUoy1yFof8LfftD8EFxpN027HwjCCTUU/zY9M0GTG
+	LynotjE2cq6K5GbLXV+lZLqcB/7nAl1uDd9fWTBcBKy47X+nCy6FmYDVGzALjR5K
+	cdtMp078DAW6YXUWTJeQZPMKdmvkQHrs6suvdAQ0ies/etc+SMFoVZWD4L8liLSl
+	iXzXRqOpv3lv+oaBofR9U9tECw/RQRiRstVSrHXvIXofAnYKzuLBdx50/AQ3KBD+
+	Sn/vF0WT+yYblQimGMztN3/3j0OzHzCmS32wQE8hkVCyQnAHZ2TyW54Kr2fI+tYc
+	u8/2IpJi5rpI9i2tK+KlB4cyTn06Vs0qlIq1+nURQ==
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4fwvhe01m1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 13 Aug 2026 05:13:16 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 67D55mpi027729;
+	Thu, 13 Aug 2026 05:13:16 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4fwtwsjwf7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 13 Aug 2026 05:13:16 +0000 (GMT)
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67D5DF9F008193;
+	Thu, 13 Aug 2026 05:13:15 GMT
+Received: from aakhoje-nft-test1.osdevelopmeniad.oraclevcn.com (aakhoje-nft-test1.allregionaliads.osdevelopmeniad.oraclevcn.com [100.100.248.219])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4fwtwsjwex-1;
+	Thu, 13 Aug 2026 05:13:15 +0000 (GMT)
+From: Anand Khoje <anand.a.khoje@oracle.com>
+To: Brett Creeley <brett.creeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S . Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Abhijit Gangurde <abhijit.gangurde@amd.com>,
+        Shannon Nelson <sln@onemain.com>, Leon Romanovsky <leon@kernel.org>,
+        Eric Joyner <eric.joyner@amd.com>,
+        Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+        Kees Cook <kees@kernel.org>, Mohammad Heib <mheib@redhat.com>,
+        Jacob Keller <jacob.e.keller@intel.com>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: anand.a.khoje@oracle.com
+Subject: [PATCH net-next v2] net/ionic: avoid OOB TX partner lookup for hwstamp RXQ
+Date: Thu, 13 Aug 2026 05:13:15 +0000
+Message-ID: <20260813051315.430146-1-anand.a.khoje@oracle.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,135 +68,103 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-13_01,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ adultscore=0 lowpriorityscore=0 mlxlogscore=999 mlxscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2606160000 definitions=main-2608130033
+X-Proofpoint-ORIG-GUID: UFpWOBX7fWQiW0XTXSfV2xFXAafpASTj
+X-Proofpoint-GUID: UFpWOBX7fWQiW0XTXSfV2xFXAafpASTj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEzMDAzNCBTYWx0ZWRfX52JmoUyyir8s
+ PAbp0WpWnfNY69uVOpjWSxWgP9+oa8me4DQcS+cqV3HfyqJzSkvVM7qtvjWSJlEwHyQyeZMjuG1
+ av97ACgQNktbpX/1oEnfMcmmq/UMvrvLq9SEzNAY/4q5cRAwRU542LuGojZQSq0eSExeQyL5vzI
+ N2mbafhh7PjJ6/O9U9+wX9QCvJ+erN8//hjhEEfeuQCfGajg3ADYYO3reU3kmI4pm65mLtFKt7P
+ EhpohGW1xhVw3pwmO20cdX+3xQkay06ZIO2Z3WAbDT3pDfb+GBVxGZvz9S1vYD0rV9S5h1cAnsX
+ /oAYGvSHzL1TTUJvbkOAkGF0lLWHNnVZI6MU/vfNa/Abgfs88QpppKrb6qRLiuhaIjbsvJ9nZA8
+ qAiu/XSX2fIuabcDJ7LwhBVytEaMN9lcUWJz7+d/8ERi/TAtbXZXS/k3paZUqsmQRmSlFMm4983
+ hqcc0L3MPC4/bFZ4KC91d5m//ciccCzt8uV71nAs=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEzMDAzNCBTYWx0ZWRfX3NzAoW1f6zRz
+ NhzGwVB++mNI7A4IZN0CPl1RnEHgnBgshiEJ9UQXDXU0XPjK2P4Q4IIsx3iMMaMddN3GYIMlWqE
+ VA+oIxOxBbxAsU6MZSCovpu8hVMo1r1B3VXl4hj7qRmJe6oUMz3O
+X-Authority-Analysis: v=2.4 cv=L/YtheT8 c=1 sm=1 tr=0 ts=6a7d526c b=1 cx=c_pps
+ a=qoll8+KPOyaMroiJ2sR5sw==:117 a=qoll8+KPOyaMroiJ2sR5sw==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=BqU2WV_vvsyTyxaotp0D:22 a=yPCof4ZbAAAA:8 a=vHwtaBK_cnxrrt37sGYA:9
+ a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12099
 
-Re-arm KVM_REQ_GET_NESTED_STATE_PAGES when nested_get_vmcs12_pages()
-fails, so that KVM retries the mapping on the next KVM_RUN instead of
-resuming L2 with a stale vmcs02.
+The dedicated hardware timestamp RX queue is allocated with q->index
+equal to lif->ionic->nrxqs_per_lif. The normal txqcqs array only
+contains the regular queue pairs, so using that index to set rxq->partner
+can read one entry past txqcqs[] and then write through the derived
+pointer.
+Only link RX/TX partners for normal queue-pair indexes. Leave the hwstamp
+RX queue unpaired, and make the XDP_TX path abort cleanly if an RX queue
+has no TX partner.
 
-On failure KVM exits to userspace with KVM_EXIT_INTERNAL_ERROR but
-leaves the vCPU in guest mode with vmcs02 loaded.  The request has
-already been consumed by kvm_check_request() in vcpu_enter_guest(), and
-nothing re-arms it, so a subsequent KVM_RUN goes straight to VM-Enter.
-
-vmcs02's APIC_ACCESS_ADDR, VIRTUAL_APIC_PAGE_ADDR and
-POSTED_INTR_DESC_ADDR still hold the host physical addresses that were
-mapped for the previous nested VM-Enter.  Those pages have already been
-unmapped and unpinned by nested_put_vmcs12_pages(), which runs after
-vmx_switch_vmcs() to vmcs01 and therefore cannot clear the vmcs02
-fields, and prepare_vmcs02_early() re-arms the controls that consume
-them without rewriting the address fields.  Hardware then accesses
-pages that KVM no longer holds a reference to.
-
-The SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES branch makes this worse by
-returning before the CPU_BASED_TPR_SHADOW and posted interrupt
-fallbacks, which would otherwise write INVALID_GPA to
-VIRTUAL_APIC_PAGE_ADDR and clear PIN_BASED_POSTED_INTR.
-
-Commit 671ddc700fd0 ("KVM: nVMX: Don't leak L1 MMIO regions to L2")
-replaced the "clear the control" fallback with an error return.  The
-intent is right, but it left vmcs02 in a usable state.  Re-arming the
-request closes that; if the mapping keeps failing KVM keeps exiting to
-userspace, which is noisy but safe.
-
-Note this relies on KVM_REQ_GET_NESTED_STATE_PAGES being cleared on
-nested VM-Exit, which "KVM: nVMX: Ensure KVM_REQ_GET_NESTED_STATE_PAGES
-is cleared on VM-Exit" makes unconditional.
-
-Fixes: 671ddc700fd0 ("KVM: nVMX: Don't leak L1 MMIO regions to L2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jinwoo Lee <rkskek9254@gmail.com>
+Fixes: 8eeed8373e1c ("ionic: Add XDP_TX support")
+Signed-off-by: Anand Khoje <anand.a.khoje@oracle.com>
+Reviewed-by: Si-Wei Liu <si-wei.liu@oracle.com>
 ---
-Notes for reviewers, not intended for the commit log.
+v2:
+ Fixed the Fixes tag.
 
-Affected versions: v5.4-rc5 (671ddc700fd0) through v7.2-rc6.  Verified that
-nested_get_vmcs12_pages() and the KVM_REQ_GET_NESTED_STATE_PAGES consumer in
-vcpu_enter_guest() are unchanged in kvm-x86/next as of 2026-08-13.
+ drivers/net/ethernet/pensando/ionic/ionic_lif.c     | 14 ++++++++++++++
+ drivers/net/ethernet/pensando/ionic/ionic_txrx.c    |  5 ++++-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
 
-Disclosure: this was found with AI-assisted code review, so per
-Documentation/process/security-bugs.rst it is being reported publicly rather
-than to security@kernel.org.
-
-What I verified empirically, on the RSM path with the load_pdptrs() abort:
-
-  - KVM consumes KVM_REQ_GET_NESTED_STATE_PAGES, the mapping fails, KVM_RUN
-    returns 0 with run->exit_reason left at KVM_EXIT_UNKNOWN, and the vCPU is
-    still in guest mode.
-  - The request is not re-armed, and the next KVM_RUN VM-Enters L2, which then
-    executes with vmcs02 still naming the previously mapped pages.  Confirmed
-    deterministically (4/4) with a selftest, plus a control run showing that
-    the same sequence without the poison maps successfully.
-  - With the patch applied the code compiles clean, but I have not been able to
-    boot a patched kernel, so the fix itself is not runtime tested.  The
-    selftest fails on an unpatched kernel as expected.
-
-What I did not verify:
-
-  - The APIC-access branch end to end.  That is the interesting one, because it
-    is reachable by L1 alone (point vmcs12->apic_access_addr at an unbacked
-    GPA) and it returns before the CPU_BASED_TPR_SHADOW and posted interrupt
-    fallbacks.  This host does not expose
-    SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES or PIN_BASED_POSTED_INTR to L1, so
-    I could only reach the load_pdptrs() abort, which needs userspace to poison
-    the PDPTEs through a KVM_GUESTDBG_SINGLESTEP window and is therefore not
-    guest-triggerable on its own.
-  - Whether a stale page is actually reused by the host.  The selftest keeps
-    every page allocated as its own guest RAM for the whole run.
-
-On whether userspace resumes: QEMU's kvm_cpu_exec() treats
-KVM_INTERNAL_ERROR_EMULATION as recoverable and returns EXCP_INTERRUPT when
-kvm_arch_stop_on_emulation_error() is false, which for x86 is the case when the
-guest is in protected mode at CPL 3 (target/i386/kvm/kvm.c).  It does not
-re-push nested state on that path.  This is from reading qemu.git at
-055952c0aa91; I have not run it.
-
-A selftest is available.  I have not included it here per the reproducer
-guidance in security-bugs.rst; happy to post it if you want it.
-
- arch/x86/kvm/vmx/nested.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index ddf6df7bee93..9e9bd6c541ba 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -3453,7 +3453,7 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
- 		 * state which can lead to a load of wrong PDPTRs.
- 		 */
- 		if (CC(!load_pdptrs(vcpu, vcpu->arch.cr3)))
--			return false;
-+			goto fail;
- 	}
-
-
-@@ -3469,7 +3469,7 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
- 			vcpu->run->internal.suberror =
- 				KVM_INTERNAL_ERROR_EMULATION;
- 			vcpu->run->internal.ndata = 0;
--			return false;
-+			goto fail;
- 		}
- 	}
-
-@@ -3525,6 +3525,20 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
- 		exec_controls_clearbit(vmx, CPU_BASED_USE_MSR_BITMAPS);
-
- 	return true;
+diff --git a/drivers/net/ethernet/pensando/ionic/ionic_lif.c b/drivers/net/ethernet/pensando/ionic/ionic_lif.c
+index fd3ee9820531..1822361e1070 100644
+--- a/drivers/net/ethernet/pensando/ionic/ionic_lif.c
++++ b/drivers/net/ethernet/pensando/ionic/ionic_lif.c
+@@ -920,9 +920,23 @@ static int ionic_lif_rxq_init(struct ionic_lif *lif, struct ionic_qcq *qcq)
+ 	};
+ 	int err;
+ 
++	q->partner = NULL;
 +
-+fail:
-+	/*
-+	 * Re-arm the request so that KVM retries the mapping instead of running
-+	 * L2 with a stale vmcs02.  Bailing here leaves the vCPU in guest mode
-+	 * with vmcs02 loaded and its APIC-access, virtual-APIC and posted
-+	 * interrupt descriptor addresses still pointing at the host pages that
-+	 * were mapped for the *previous* nested VM-Enter, which have since been
-+	 * unmapped and unpinned by nested_put_vmcs12_pages().  KVM returns to
-+	 * userspace without leaving guest mode, so if userspace resumes the
-+	 * vCPU, VM-Enter succeeds and hardware accesses those stale HPAs.
++	/* Only normal RX queues have matching TX queue partners,
++	 * skip partner pairing for hwstamp RX queue.
 +	 */
-+	kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
-+	return false;
- }
-
- static bool vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
---
-2.43.0
++	if (q->index >= lif->nxqs)
++		goto skip_partner;
++
++	if (WARN_ON_ONCE(!lif->txqcqs ||
++	    q->index >= lif->ionic->ntxqs_per_lif ||
++	    !lif->txqcqs[q->index]))
++		return -EINVAL;
++
+ 	q->partner = &lif->txqcqs[q->index]->q;
+ 	q->partner->partner = q;
+ 
++skip_partner:
+ 	if (!lif->xdp_prog ||
+ 	    (lif->xdp_prog->aux && lif->xdp_prog->aux->xdp_has_frags))
+ 		ctx.cmd.q_init.flags |= cpu_to_le16(IONIC_QINIT_F_SG);
+diff --git a/drivers/net/ethernet/pensando/ionic/ionic_txrx.c b/drivers/net/ethernet/pensando/ionic/ionic_txrx.c
+index 301ebee2fdc5..73998d61593 100644
+--- a/drivers/net/ethernet/pensando/ionic/ionic_txrx.c
++++ b/drivers/net/ethernet/pensando/ionic/ionic_txrx.c
+@@ -543,13 +543,18 @@ static bool ionic_run_xdp(struct ionic_rx_stats *stats,
+ 		break;
+ 
+ 	case XDP_TX:
++		txq = rxq->partner;
++		if (unlikely(!txq)) {
++			err = -EIO;
++			break;
++		}
++
+ 		xdpf = xdp_convert_buff_to_frame(&xdp_buf);
+ 		if (!xdpf) {
+ 			err = -ENOSPC;
+ 			break;
+ 		}
+ 
+-		txq = rxq->partner;
+ 		nq = netdev_get_tx_queue(netdev, txq->index);
+ 		__netif_tx_lock(nq, smp_processor_id());
+ 		txq_trans_cond_update(nq);
+-- 
+2.47.3
