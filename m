@@ -1,150 +1,135 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA85A3A5452
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 11:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786620713; cv=pass; b=pRbb3sMPjrWvquvM4qkROUbLEIzb23rvkVaL6w7RFVsduqQ1OJdnA1vbgnQU2E9vnlvUCkcuFEaxdxaPjjOphSK3IrAKBpTMaFV12syScmu+zry2usYbanFxyKVXDL0Z+fN6a59V+t8ZUsyy68nvXGyUQqzm3J7pD5QRmPLMa+o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786620713; c=relaxed/simple;
-	bh=MT/2tmGMhh09voamgXY3Cimo1subFeymstrJFGTsuiw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=l5CmYIbWkhbWSRiHaHIEBkKSWKAt5dhPADOyV+czffYNOfzoAPoA6ff82i3DJD5otld0Hvug/FmhmiVxN9IJ7hk4sPmhDLGhwt+oepparfrxZBtV8OTC7hpSDgrM3DWvysabRaeOH1PnBNEkuGF/LhkMukNN4ZivTjbAjY4GWg0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QTJAF7I7; arc=pass smtp.client-ip=209.85.128.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E66437F314;
+	Thu, 13 Aug 2026 11:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786621169; cv=none; b=SDYcQMHCa5bPeGQF7W7ThgMiItcOjYqYsSdCd1pNE2SGlTsFO3l+ZEz94HdSbCW5lmkMRBzTVw1xbwTFM5jkmlxTg2t2AIITkCbJaqxz1ZE9U/qJS7zuscFRxvk/E0Oh+EjXen7adFBT0z5vouaKSK8H8kQP7XPc0UmY3FI1Rm0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786621169; c=relaxed/simple;
+	bh=u2pv9J8nw47sNeMqVwPr4tJKoJalsZjJD+z9MD5GOFg=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=ffndHRenNExt0uHnV/AI9oOlgUwsHVPREsFl11V0iZn86AEsRss7G2R4yi5ZtDNN3PuMuOaJj0fcmjriHaQsglay0AH/J5kmNp7wUGGMfwX+N2B/M63+IGtNGectS7FZHPk1AOBONUeRmYY9Q3hXiopfqB68TzlJgxAdSztF9QA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=Q1bWgZII; arc=none smtp.client-ip=162.62.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QTJAF7I7"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-80c5cb9a888so21962877b3.3
-        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 04:31:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786620711; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ccV8iKVx0Dn9x6NVpwoBEow+qom8Q9OeLPZhHRRbcjw7WeE/rVVA4U2RM8HIhm5Ooc
-         8aS4m0MGb5pNbmubyrTjMwHc1W2aij/EC4a4hkbbjm4jAKI2bCyoSoJgcselYwYtdWcL
-         Q3D84ObZ7EitcbOVfkG+POnhStvReob+6StFNGRx4aUZ7pUgeFEo1R9EcNuBspbvvF+6
-         kidyKrGXqgWdQfnUi0VFu1CguAI3FpXVrrQ4l08VToUfyou3iXwIYGKD5yBMdki1iz1g
-         8DDTGDghAaErXpXbkFWwW10fhLdGSYTplIxV7r6h4fIwsSk4Vdjy5AylAej8Xm9j+L0I
-         +fSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tia08duuH2NBzcDa5W6CuiLGU5uz5B2OAbtc8rVP8as=;
-        fh=3z9Z4Z9Skr4Ci7NH1ssbLjl1l3H5sGNG18mWlESuPJE=;
-        b=occyjnxHkSxdK/ebtFlk8S3maz3oVtAyDU8us1sJJBRP45ckFvusGnDAXSrRDS3QSM
-         YdsubhbRh3ioBk3GlX6KRNr2RJeWPXvZ3T5tz+4cfHPSPdKZud/9mHRGAYgoA+zQ5sXF
-         VZWMugKGPyK+aZu7zqFzsPPwqp+Jg+m0NfRSJ8CuZ+B6YDSwN2Djos4BxVDVhO2Fe0zO
-         pxW6/DTtxhIHA6rrfKFAgb+AX0WSghgRJy/brB0PrVBBem1+JlPMwHFfwt8jaF8gErCq
-         HtsDTQ/A69enPHyTTdh+WJMiBFvB9AOLlQG99j20q9BNzln5h9TTQvOc/b5AJ+XjAevv
-         r6TA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786620711; x=1787225511; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tia08duuH2NBzcDa5W6CuiLGU5uz5B2OAbtc8rVP8as=;
-        b=QTJAF7I7EXKJbINqMRbHgz5PXGi8NbngtyqemWBkmCn40BC/qhDPk4XBSNj5pMMlwr
-         k24SjgdIIlAaFc/a8h5f8/U5QR6aC4M4t1apF6s2GmDgUjAVOL1+oq5j8coWUyfpbj0b
-         ZwtEYzzPk+wmWxe/3dx0RoWpNRt1falKUqKrFXVm5bApIXzpVOe4tt/XL6f4ntTPsTGx
-         wUgWS8M+/N26c4zm291+qyYTBSmKfSYe6bC/w2UG9uhBHIOHHnSw5sm1bYHcRozuzh9G
-         wtNbERbeZZvd49e8TXwz7IwlK8MCNL5dX8ZuImStXVSYtkeZKwQVL3S5BfA/U9rq7dtE
-         n9oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786620711; x=1787225511;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tia08duuH2NBzcDa5W6CuiLGU5uz5B2OAbtc8rVP8as=;
-        b=kCOatNlqcgTrCGBq0RbhXg8sOx6Iy1SYAiGFm4hkZjusdSm+kSSBybzgS3R/01xMyo
-         IET9AmqbDG7ofJTxW6vJhIWf+2Mt9nBwGsfSw3Q/6BfB+8mWZI+EKbD7PUFmTKcSCo/o
-         LQGqOgaA+mHM6fANlH+rSda4k2Yx8Z07dqtXHTkKk+jszj2omLFO9wFKA5t973xZvX3Y
-         mvTY+fYzKJXWPVjMDtriDe8owgED6HVk5QSD4HNUHIvq0Vts2E0elBWrAFwn5HRYX7Ci
-         MVdrAgWDyizY34K/GdmdI9ZKCo6BjeKuyJ8aP1xvmNGcj9+S/9Urc+6nR0lLdpJQnjhv
-         L2tA==
-X-Forwarded-Encrypted: i=1; AHgh+RoKi2Eu1GMu3foF7PRP1HNQE+lLnoxQBFAV6vfqsqO5z2TBI8pP/7JGIvpxYKsq/4O46u+60d0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxquwfCTmCOQysfdyuvJy5wGz39oTQeZHpj1dO8FnOp/BK6Lawf
-	lY/AI9Bg2KIBC+q+YMl99dhG6poUrMtuxhL6Il9zzS2oHoopTX7jvGsAbrQTILcQO3LIaFBubB7
-	ZkJfVF9CPirE66tugZPmO/JPmzVIgQa0=
-X-Gm-Gg: AR+sD13wgSaLuFwyTTvMuXlhc+XYXLBON2DqEO4QgjyLqWaJst2gFDl7pMIPuXtpvFh
-	N7+aeV/mCycplliFta/BdIYfg99j29JZtNtrtAwjyvRwOaaTjIB2wuGshB0uYi+Egh1h8jJK57k
-	tAU03jCiC0v4In86Do6f/ExoTvPHYtplMLkKPR/Fbl0hHjdI13FmdzMQNkn0IcyHLWStgCHNJz1
-	QtwJBSKNb1UDcDvsC4E67R/nZrKme/kauHY6XuM7CvvEVQUm/j9JejvHBiG8r6Si7gPnw6x9jIS
-	ZJwIPW4W5QJTQldd6fQ5KlPQB3qAcX05kleVGZcJWoqKC61pWfb8gDsPWYite237BQjscJyYYNR
-	8
-X-Received: by 2002:a05:690c:6288:b0:833:4ca4:f3d7 with SMTP id
- 00721157ae682-83475d60c58mr25625387b3.29.1786620710489; Thu, 13 Aug 2026
- 04:31:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="Q1bWgZII"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1786621154; bh=VJ7rMVR58nGUE/0GwLtpRa0is1ObRAkjQvb9anXV1uU=;
+	h=From:To:Cc:Subject:Date;
+	b=Q1bWgZIIFuVDbqpfXocCs7sdvJuKddERiZ2TfFEXty2fokV0V2rM9nuPEIXGcPfaG
+	 8m0RA4zS8FkmrKySOysL2BQD5NKmCZZ3S6C2YsUclWSAkzjGPaOljM1PJZwLs6ohkl
+	 Yz+NI8Q7qzVfjyNrryx4q603LQbWPWxWBu/JgzCY=
+Received: from localhost.localdomain ([240e:452:ddba:7caa:95a3:f534:cc57:beeb])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 9CA86CCE; Thu, 13 Aug 2026 19:39:10 +0800
+X-QQ-mid: xmsmtpt1786621150trgldhnoo
+Message-ID: <tencent_E5954D5C14D99713A73E3121B97EEDA6170A@qq.com>
+X-QQ-XMAILINFO: NcAdPGlpF/v/diuJkawnO0kZuTQeM0/JygEL6jx4N/D+CgnVl6SOugeWAzJvxK
+	 hO2830I77jRoi1KwQ18gx4BriTAfY83l4mP4Fgb5ys2VL9AQpEwlzErJq/IOJGTTX182Q2qbZh1X
+	 YsEWUDLeziZqLes3dZ9fkiPU6uVXgKEiPwZX26rmnBcd9PWIE7YZclqknTKi/WzkqqRQyhfMCvQK
+	 2arxyTU4+fgf0mdWsFj1mTKhtlGUN9PEYOiaqWZEWYnh9A59KsyDdf27Gt3UA59EE7qDODds17Vw
+	 BabY8HY9FDwX1gxLT4QwRX1HlzkA1Ucbq9xMRKR2h0TCMcFBag4Ep9dKHbThndmbay2ePwnHbkkB
+	 qTZ95iZl3rTkskeqyT/u0KwANNxeUi6O4KwL5RKQNbZ6T1/vPE57hZQNGJ2bdayPOOXCadl5UC5U
+	 zKFS4KInEFKyFsT2rduqL2FefpcsQ20Wl5f32gNZcChfqyqkXTDwDFyCbLHIMYlAK0p0Y+qEcb90
+	 hPetkzdf5JqZnDmTzn8mcHp2AAD6I9jkoLCnE2cgPhcHiTjoakOKCRFUZMgrn9Q9pZcmcC30H1gd
+	 s+JFvEFar3qivtJrmqFHxmts2JgZctIqkfhc0wRPVwWAeq7klMhFhOcvHkLMU6jrLS2EI8htf9mf
+	 8pQ2bRBN+XDwmvPXwHTmAC5D1tx5plUyDqXYXA/a/lhHrThlUKlCl/G+NLAxuk15SLPX/IAjwpdy
+	 UOsB16qQJMIxmH8gHP+lPu0F8Pl1RPWMwd9Qwpub7emVeTGT13YPwBbd4MiCI8rKsoCpqmkmAkF2
+	 oxdfBNw55AaCZkDc4d9RQjzy/Qx1gbPicfk3KcyjYanuz0gj4NcwIc3opmr4R7fGiP5F/sCuNksr
+	 bsGEPYVqxYCl38jtwrVfh68+7RfCsKmWXn+kyJET/8Q4UNwQx6J7cwW7YivLdfuhJi131NtvbIGY
+	 5coIM/m3dqxAmONAdL4oz2yD2MRvy/jvHaLmwpo2WOvtafEbGzhE2qHe67Jthytdn1U8WzdzvDW4
+	 0JhE8kRDfwOaGN87+B8YPbY+jyzmjnnPIqpptJVMOTCqs05RfA1/wfJsRpkXm0MwK3ylv5ElzlbI
+	 8PBpJWYOcLNCZnHECvEyg+PBMDRN4E2EB94s/KZ6az8Y9wfU4=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Hang Nan <2122295973@qq.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Hang Nan <2122295973@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] Bluetooth: ISO: fix use-after-free of listener socket in iso_conn_ready
+Date: Thu, 13 Aug 2026 19:39:09 +0800
+X-OQ-MSGID: <20260813113910.72336-1-2122295973@qq.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727111534.729615-1-congnt264@gmail.com> <2026081240-shanty-prepay-648e@gregkh>
-In-Reply-To: <2026081240-shanty-prepay-648e@gregkh>
-From: =?UTF-8?B?Tmd1eeG7hW4gQ8O0bmc=?= <congnt264@gmail.com>
-Date: Thu, 13 Aug 2026 18:31:39 +0700
-X-Gm-Features: AUfX_mzGbGbCLUqw5yGVABFLcGDzOMeEoke6_vKzwWhrkgvCIpYRKRc2ZgE3fTs
-Message-ID: <CAJpJ=Gufo_0aKSGPr6rH7C+b6N+VdCzakAL_Zatb_Vp5ejdHJA@mail.gmail.com>
-Subject: Re: [PATCH] staging: vme_user: fix flush_image leak in tsi148 bridge
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Martyn Welch <martyn@welchs.me.uk>, Hao-Qun Huang <alvinhuang0603@gmail.com>, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 12, 2026 at 7:25=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Mon, Jul 27, 2026 at 06:15:34PM +0700, Cong Nguyen wrote:
-> > When error checking is enabled (err_chk=3D1), tsi148_probe() allocates =
-an
-> > extra master window resource, tsi148_device->flush_image, which is used
-> > to flush posted writes by reading back over the VME bus. Unlike the
-> > regular master windows, this resource is not linked into
-> > tsi148_bridge->master_resources.
-> >
-> > Because it is not on any resource list, it is freed neither by the prob=
-e
-> > error path (which only walks the master_resources list) nor by
-> > tsi148_remove(), so it is leaked whenever err_chk is set and either
-> > probe fails after the allocation or the device is unbound / the module
-> > is unloaded.
-> >
-> > Free flush_image in both the probe error path and tsi148_remove(). This
-> > is safe when err_chk is disabled: tsi148_device is allocated with
-> > kzalloc() so flush_image is NULL and kfree(NULL) is a no-op.
-> >
-> > Fixes: d22b8ed9a3b0 ("Staging: vme: add Tundra TSI148 VME-PCI Bridge dr=
-iver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Cong Nguyen <congnt264@gmail.com>
-> > ---
-> >  drivers/staging/vme_user/vme_tsi148.c | 3 +++
-> >  1 file changed, 3 insertions(+)
->
-> How was this found and tested?
+iso_conn_ready() looks up the BIS listener socket with iso_get_sock(),
+which takes a reference, and then, without re-checking its state,
+creates a child socket from it:
 
-Code inspection: flush_image is allocated in tsi148_probe() (when
-err_chk is set) but never added to master_resources, while both the
-probe error path and tsi148_remove() only free windows on that list.
-Build-tested only; I have no TSI148 hardware.
+    parent = iso_get_sock(hdev, ...);
+    if (!parent)
+        return;
 
->
-> Did you forget an Assisted-by: tag?
+    lock_sock(parent);
+    sk = iso_sock_alloc(sock_net(parent), NULL, BTPROTO_ISO, ...);
+    ...
+    iso_chan_add(conn, sk, parent);
+    ...
+    release_sock(parent);
+    sock_put(parent);
 
-Yes, sorry -- found with AI assistance and I missed the tag. I'll send a
-v2 adding:
-Assisted-by: Claude:claude-opus-4
+If the listener socket is closed concurrently, between iso_get_sock()
+and lock_sock(), the reference taken by iso_get_sock() may be the last
+one: the close path drops the link-list reference, and once
+iso_conn_ready() drops its own reference at the end of the function the
+socket is freed.  The child socket, however, is already linked to the
+freed parent, and a later disconnect of the child runs iso_chan_del()
+-> bt_accept_unlink(), which dereferences the dangling parent pointer
+into the freed accept queue (a use-after-free).  The same dangling
+pointer is also dereferenced through parent->***() in
+iso_chan_del().
 
->
-> thanks,
->
-> greg k-h
+Fix it the same way the connected (non-BIS) path was fixed in commit
+0d255e63fcf3 ("Bluetooth: ISO: hold sk properly in iso_conn_ready"):
+after taking the socket lock, re-check that the parent is still a
+listening, alive socket, and bail out otherwise.
 
-Thanks,
-Cong
+Fixes: ccf74f2390d60 ("Bluetooth: Add BTPROTO_ISO socket type")
+Cc: stable@vger.kernel.org
+
+Changes in v2:
+- Fix GitLint B3: replace hard tabs with spaces in the commit message
+  code snippet (no functional change)
+
+Signed-off-by: Hang Nan <2122295973@qq.com>
+---
+ net/bluetooth/iso.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
+index aa2ce78f56a2..069fc87a4e18 100644
+--- a/net/bluetooth/iso.c
++++ b/net/bluetooth/iso.c
+@@ -2277,6 +2277,21 @@ static void iso_conn_ready(struct iso_conn *conn)
+ 
+ 		lock_sock(parent);
+ 
++		/* The listener socket may have been closed concurrently
++		 * between iso_get_sock() and lock_sock(): the reference
++		 * taken by iso_get_sock() may be the last one, in which
++		 * case the socket is freed as soon as we drop it at the
++		 * end of this function.  Recheck that the parent is still
++		 * a valid, listening socket before creating a child
++		 * socket from it.
++		 */
++		if (parent->sk_state != BT_LISTEN ||
++		    sock_flag(parent, SOCK_ZAPPED)) {
++			release_sock(parent);
++			sock_put(parent);
++			return;
++		}
++
+ 		sk = iso_sock_alloc(sock_net(parent), NULL,
+ 				    BTPROTO_ISO, GFP_ATOMIC, 0);
+ 		if (!sk) {
+
