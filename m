@@ -1,145 +1,79 @@
-Received: from mta-201a.earthlink-vadesecure.net (mta-201b.earthlink-vadesecure.net [51.81.229.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D95A3033EC;
-	Thu, 13 Aug 2026 06:08:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.81.229.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A551329C60;
+	Thu, 13 Aug 2026 06:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786601314; cv=none; b=JZJ9KX8HL9whQiBvglvz+e1Z3QnGMFMjAZXW+lo1YYaknp44hfmfQGUrMgW7Tgo+e+q38HjnuYWw9hFSwqkt9KjhjFpVkj5XOWkDrRKngOjAcrBRm49JFIVgLoTJn9Nqe+cs1E/e58BniSh7Z9ZUeN4O8fnzRryYjmmY3H1CaY8=
+	t=1786601656; cv=none; b=NglAl/lLMPGATZVh1XZnCcw0sMM7vLGslgTGJdxnlVrOOK1dDFIgRRcR3ZtQ0H9KQMpMCodgKeqO2z3safeTlFmgGhrvy6X4e3VhEipqO5+8POK5TYevse/CO/uhKbEFK06l6AelbYNzgriXON+0RZhyUFUjgVuMitGMXQaDd6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786601314; c=relaxed/simple;
-	bh=EUpn9wNf/E68gBc+3Iz490nXfjdeIUlfPhiZmNVCzwU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=YADLSluGAn03gB/yzNc1wQPcvmSQnGTTMadEJcxnxlrbfqQIRpa/hq2m1p11tNJEX3kC35Rh5p3yNa3hGEX4rKftb96+UAUzY6hAPhE1Yjgea8I+JqxUI1pKLyR2v+B23aluEGBNghy7dY2mVTcMQghz5uDDdZ0zsHFwa25Uq6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=onemain.com; spf=pass smtp.mailfrom=onemain.com; dkim=pass (2048-bit key) header.d=earthlink.net header.i=@earthlink.net header.b=UVMjIacj; arc=none smtp.client-ip=51.81.229.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=onemain.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onemain.com
+	s=arc-20240116; t=1786601656; c=relaxed/simple;
+	bh=N7bLYYpfEmOPMJSVbIx/4DvgisfsY6K/fwme5uJA3qE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pv1U0aH/ythc/9WD7UKO+D5W1cn8i6NNF4GCGkQMRT0Kb7ARS9zYn5nbsJF8gz8xi1PEg70CJvOKpikEkPdUsGR1HdwksIuNfSwsI7DcTowfc58WMl92upzB4kqIirzacwEFeShjcdTumGlIKqOBZLmx5e2Mpw+0HOTTg0sjciI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n9q+SlQY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=earthlink.net header.i=@earthlink.net header.b="UVMjIacj"
-DKIM-Signature: v=1; a=rsa-sha256; bh=IZ8AHtto8KgxOnhzbTtl69L6Tqe0UTI5qCOem0
- RXSUo=; c=relaxed/relaxed; d=earthlink.net; h=from:reply-to:subject:
- date:to:cc:resent-date:resent-from:resent-to:resent-cc:in-reply-to:
- references:list-id:list-help:list-unsubscribe:list-unsubscribe-post:
- list-subscribe:list-post:list-owner:list-archive; q=dns/txt;
- s=dk12062016; t=1786600358; x=1787205158; b=UVMjIacjxf7Ip2jZWTMrGLKSm7h
- +XID8Tv1npbF1SYaD3zkotXQvyWAT6T8bE4w2T2SGoWxHUc5NU+n7juthWjgm4S8WzdtXND
- mhDGx1Nf9EzE21CjziYABHTajBi5YMvQ1+WyiTv9uiceChhSy9Nu9FoPZuZIsv90mERKqJD
- lvehGHJHPCf3MTrfi1wosMA2OXldmnORi/H4MVPiktOghVWC0W3nOXezX19KzxdCkKcDmQS
- Rj+tApOO96XdGWYKQ89neBe4H8kzzSZ8QcQEStHUlszr3Ea5lfYWqSp989wpAg4l6bFjRjg
- /zs3/plWALfh87b4bQzMkNvrct98uAQ==
-Received: from [192.168.0.23] ([50.47.159.51])
- by vsel2nmtao01p.internal.vadesecure.com with ngmta
- id edc54ede-18cb478c6a002e08; Thu, 13 Aug 2026 05:52:38 +0000
-Message-ID: <5c7cf96a-74a6-46c2-bde3-f39b25a2d09e@onemain.com>
-Date: Wed, 12 Aug 2026 22:52:19 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n9q+SlQY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 299191F000E9;
+	Thu, 13 Aug 2026 06:14:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786601654;
+	bh=hXgxrqF5WzE2LQ/fhkXb+3Tnh+7LoVRm7x5a3Nebzpc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n9q+SlQYx4Wx80YT7HgAzAz4jS2AiUpfcm3L2+yII0LxrTZQ/fIfi84OUz6rt+Ga/
+	 z2EFk0PFPUfkb6C6GC2JCu0W7QIwLZCb+oNXhuMVj1CBP1EqXO5cc90D36I9C1ypba
+	 e4iKV++0sJYdjEFpIYdQaovsKt/ups6D6l14vCYADMdgdkdmP3RGfpOSA5/pQ0ZbMz
+	 +55uCIHgH9gXZnanQcoYJRG1oPqKdmU/LVUMwsRFAqX8PUWs4UhANHt3MhD4MxlRYY
+	 kvuM23UEobH8vtaQOeDgcWMPi/xmTTp4lhAH3emRC26P6iwo+2tV4YL/DFIjRdLZc8
+	 NYeo1w6DQkvmQ==
+Date: Thu, 13 Aug 2026 08:13:58 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Richard Cheng <icheng@nvidia.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	David Rhodes <david.rhodes@cirrus.com>, Richard Fitzgerald <rf@opensource.cirrus.com>, 
+	Charles Keepax <ckeepax@opensource.cirrus.com>, Linus Walleij <linusw@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>, 
+	Dave Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>, 
+	Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>, 
+	Li Ming <ming.li@zohomail.com>, Lizhi Hou <lizhi.hou@amd.com>, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+	patches@opensource.cirrus.com, linux-gpio@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-cxl@vger.kernel.org, Allan Nielsen <allan.nielsen@microchip.com>, 
+	Horatiu Vultur <horatiu.vultur@microchip.com>, Daniel Machon <daniel.machon@microchip.com>, 
+	Steen Hegelund <steen.hegelund@microchip.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v10 06/10] PCI: of: Use fw_devlink_set_device()
+Message-ID: <qmdu6iiffirxs2we2eggepq72hdoto5mmavbpgewunw4jorf7f@7b7tgcagrixw>
+References: <20260717145147.823749-1-herve.codina@bootlin.com>
+ <20260717145147.823749-7-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] net/ionic: avoid OOB TX partner lookup for
- hwstamp RXQ
-To: Anand Khoje <anand.a.khoje@oracle.com>,
- Brett Creeley <brett.creeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Abhijit Gangurde
- <abhijit.gangurde@amd.com>, Leon Romanovsky <leon@kernel.org>,
- Eric Joyner <eric.joyner@amd.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, Kees Cook <kees@kernel.org>,
- Mohammad Heib <mheib@redhat.com>, Jacob Keller <jacob.e.keller@intel.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260813051315.430146-1-anand.a.khoje@oracle.com>
-Content-Language: en-US
-From: Shannon Nelson <sln@onemain.com>
-In-Reply-To: <20260813051315.430146-1-anand.a.khoje@oracle.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260717145147.823749-7-herve.codina@bootlin.com>
 
-On 8/12/26 22:13, Anand Khoje wrote:
-> The dedicated hardware timestamp RX queue is allocated with q->index
-> equal to lif->ionic->nrxqs_per_lif. The normal txqcqs array only
-> contains the regular queue pairs, so using that index to set rxq->partner
-> can read one entry past txqcqs[] and then write through the derived
-> pointer.
-> Only link RX/TX partners for normal queue-pair indexes. Leave the hwstamp
-> RX queue unpaired, and make the XDP_TX path abort cleanly if an RX queue
-> has no TX partner.
->
-> Fixes: 8eeed8373e1c ("ionic: Add XDP_TX support")
-> Signed-off-by: Anand Khoje <anand.a.khoje@oracle.com>
-> Reviewed-by: Si-Wei Liu <si-wei.liu@oracle.com>
-> ---
-> v2:
->   Fixed the Fixes tag.
->
->   drivers/net/ethernet/pensando/ionic/ionic_lif.c     | 14 ++++++++++++++
->   drivers/net/ethernet/pensando/ionic/ionic_txrx.c    |  5 ++++-
->   2 files changed, 20 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/net/ethernet/pensando/ionic/ionic_lif.c b/drivers/net/ethernet/pensando/ionic/ionic_lif.c
-> index fd3ee9820531..1822361e1070 100644
-> --- a/drivers/net/ethernet/pensando/ionic/ionic_lif.c
-> +++ b/drivers/net/ethernet/pensando/ionic/ionic_lif.c
-> @@ -920,9 +920,23 @@ static int ionic_lif_rxq_init(struct ionic_lif *lif, struct ionic_qcq *qcq)
->   	};
->   	int err;
->   
-> +	q->partner = NULL;
-> +
-> +	/* Only normal RX queues have matching TX queue partners,
-> +	 * skip partner pairing for hwstamp RX queue.
-> +	 */
-> +	if (q->index >= lif->nxqs)
-> +		goto skip_partner;
-> +
-> +	if (WARN_ON_ONCE(!lif->txqcqs ||
-> +	    q->index >= lif->ionic->ntxqs_per_lif ||
-> +	    !lif->txqcqs[q->index]))
-> +		return -EINVAL;
+On Fri, Jul 17, 2026 at 04:51:41PM +0200, Herve Codina wrote:
+> The code set directly fwnode.dev field.
+> 
+> Use the dedicated fw_devlink_set_device() helper to perform this
+> operation.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 
-This driver doesn't have any other WARN type statements, and the WARN* 
-is more often frowned upon now that so many places use 
-panic_on_warn.  The other place where this kind of check is done simply 
-prints a dev_err() and returns -ENXIO - see ionic_txrx_enable().  Brett 
-or Eric J might have another opinion, but you might stick with that 
-practice here.
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-> +
->   	q->partner = &lif->txqcqs[q->index]->q;
->   	q->partner->partner = q;
->   
-> +skip_partner:
->   	if (!lif->xdp_prog ||
->   	    (lif->xdp_prog->aux && lif->xdp_prog->aux->xdp_has_frags))
->   		ctx.cmd.q_init.flags |= cpu_to_le16(IONIC_QINIT_F_SG);
-> diff --git a/drivers/net/ethernet/pensando/ionic/ionic_txrx.c b/drivers/net/ethernet/pensando/ionic/ionic_txrx.c
-> index 301ebee2fdc5..73998d61593 100644
-> --- a/drivers/net/ethernet/pensando/ionic/ionic_txrx.c
-> +++ b/drivers/net/ethernet/pensando/ionic/ionic_txrx.c
-> @@ -543,13 +543,18 @@ static bool ionic_run_xdp(struct ionic_rx_stats *stats,
->   		break;
->   
->   	case XDP_TX:
-> +		txq = rxq->partner;
-> +		if (unlikely(!txq)) {
-> +			err = -EIO;
-> +			break;
-> +		}
-> +
->   		xdpf = xdp_convert_buff_to_frame(&xdp_buf);
->   		if (!xdpf) {
->   			err = -ENOSPC;
->   			break;
->   		}
->   
-> -		txq = rxq->partner;
->   		nq = netdev_get_tx_queue(netdev, txq->index);
->   		__netif_tx_lock(nq, smp_processor_id());
->   		txq_trans_cond_update(nq);
+- Mani
 
-Other than the above, this looks fine to me.
-Reviewed-by: Shannon Nelson <sln@onemain.com>
-
+-- 
+மணிவண்ணன் சதாசிவம்
