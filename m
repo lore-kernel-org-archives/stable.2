@@ -1,140 +1,167 @@
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4F342D75E
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 20:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DB6439F8F
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 20:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786653814; cv=none; b=RjS2avuc4ylQxY0RXE/7c0unwrPkwpcHj58omZf8zGtHkbixn8vPac0bKQp8DGZVmsY59nJtPUhfA1p01YH6M9hKc3idaNiUaa4H/fEHQdYHKofAJUIwn2FHGJn6w+BWXhFv6p6JknUJsqg3BToU3K+HoSH1lVuOQIN+ItDmMFY=
+	t=1786654379; cv=none; b=uT8VtUG/MKVCcsd8I/LZExcCoE2D7V+CNhy1gcfkNjgMjbEwsljIEOGLy3JaFaCZdyyBO/d/O5OB8VUSbfZYg2O5oFSc+fm3i8DLoYnEb0b62Z7Z7LXp6bDXPHxABzeOolJutYU4fJl6XAeG/sVKl8ONnz145BuTo/zCd9hMLwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786653814; c=relaxed/simple;
-	bh=UsjfjuhDncxtlbBeZ9IQfuCMw8Vym1bwPGtUunGcIJs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Uq+bBI1/fzreUIouM3IBthUyIJ2sQmim+iY+l1vwalMi4NTlQZuXE44dEk1HIVZudrxlk6GXnaHbWpqeqeNbfJScImzfFo6b4DD/fv4s7fr9qyQ248GwulGMI1Pp66XlCFrA7o5ldLUpU/2I2BIiW9Rdyp4FLpLPCKzBgdKs+Vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YKQvpvxt; arc=none smtp.client-ip=209.85.167.46
+	s=arc-20240116; t=1786654379; c=relaxed/simple;
+	bh=YvOvKR30cP/m0cVMtk8jy1/sQaWDyEAB2J7fRPzdSJg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=P++6Y3AkSAVC/Fxn5+OAIb4pgD/1EVKmaqmq1GWa7Jv08R9C5L87mdZMRyg3ySyRq/Blbv9eYsGbgMeefObNk6zoXTAIjVZ2UEzqdYapseCoE7SUmVtUYp/WD7dS4ZnZ75VP7g00IRuOEIIOSw7pOoBScnMhNnzw9h6fyRtxZE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=dfCoiR5a; arc=none smtp.client-ip=209.85.218.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YKQvpvxt"
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeb59d54b1so246147e87.1
-        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 13:43:32 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="dfCoiR5a"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c20e70a0962so58970066b.2
+        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 13:52:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1786653810; x=1787258610; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NdrNrxezjoizxu3zjSdvwdOKcGeoA1YtD7Hl3JvJCrU=;
-        b=YKQvpvxte2Lew8DZ5sPh1icol+ABX16MA5EOORUVWK4C7FuNirUn+TXmrUu1S+LRFc
-         P16rNgww0MGV78SwInO63gz6pEwX93quSQe0LXvu6D6c0MP4OpKagaUlXOMeyDJGGM4X
-         7V24FElM6FnXWogF587dCLc/+kNLqVUhCDwj0=
+        d=chromium.org; s=google; t=1786654372; x=1787259172; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QKG0huuOVMT2uJhSczfBBnWYxOx3sQqhXePb2p3rxzk=;
+        b=dfCoiR5aqz2QH20h+i8QHojYXSXQ4+l0hT9FqtXrZG4y84RiB+hN0c1gY+QysctZdf
+         LWPlN7uB1TVv6zBa/I4KTqs9uwLDZFozJUm0gULsIX5VorjUiC4+2DZwkM9QIWRRwuMo
+         IJX9WNDh4RsLCg/dtCOVdAzzkbGc3DsM1dzxs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786653810; x=1787258610;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=NdrNrxezjoizxu3zjSdvwdOKcGeoA1YtD7Hl3JvJCrU=;
-        b=OqN1Q2ANx1geGpYzMQLu0Ecn5FqfE/KNHiYANtxCSsz83rrS//c4zlNMqgGSnws3Qx
-         iQmz32T9kqPGhK9g2zGLXJH1xGWtKPzdsuTz7wTs9/7cQbz7UXl+GBVsxHwr3qT8mBT7
-         G9r2HkH6nd5ZfIkhC9luqI00nKrLF3yOFNM/wrFj4cx4FtWigSyzrxAr6ssjJGY4y1Xn
-         ZZxOM64IG0OG1ouXvtmygEe4gggdiOTacOsXU6ftvPBtz6vBOHVZp9UjCkSwVzAtL6gj
-         DnB8ybpj2l4gjpjwGUCirYICOEfjEDIenuKRCnlJmiwaSum6v8zLYx4ZxepUhukDU6yK
-         mJew==
-X-Forwarded-Encrypted: i=1; AHgh+RrEgbaf9NDao5LdThzGAQXSXcohRvHwzjY5y1wzXDAc5+ZoBsWZ1rGLGk73r1WuymXctUgdMTQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzH+0ffmAQIWEYnLxFiHIDYQW7dQmShskS28BUzu8H3D+/lKwNS
-	SU/7hyiKP3xKUqfFxJfcmSLkNpCu5QPXqSjEtKBSdwke0KVrY3J5cYqOKGcoY/O2Pw==
-X-Gm-Gg: AR+sD130vhbVtBcCZ7kMFur2h33ASVa7v8kiTdX1D1XrY/DNeB1Vzf0DcCn9spVjW3U
-	Ae8cqrHzKEkmdfpaw4XoVnFCBhC1z8B/LcseTd2YtS8ZaTRcg7y0zGUFQc5J1VBlm9adZ2WbSuR
-	yDqD2/34k/6lEGRR6CfEiyRy0z1hyqu9Gmh+ommgLsdT/XHMem7liFT4s+6XBemYuwzsPHzPnIE
-	jD1busN2GH+VNNvWwdxmO0pOx+J/vLZ1Pxlhcx0f54iTEJLqy0JWusOPljScUnrsJTa9JNMb/Zy
-	8g3WU0Q8w2itAdTKXZSeQ00/I1c65w5yDf/RmnwR6d0/H+dBnUh50AxPE9n9+rrqblrSNZ0p/la
-	A28vQPDJrKy1snPRsnrQg7nl03k9oZr/p9ESZXvOdYelRrcKExX4zSeVnkI7FfvKhnH5kwOeHuT
-	OC5FhPsgS2oQxuZ5xkHKY0ibapHsjt/uG57eU3axEToQVRQxlaJQM0hu57g8ye0ZYAqriq3RBJq
-	LLiMA1j4NOzuHRfeDqjdGKt7YdEyud9oZRhirI=
-X-Received: by 2002:a05:6512:2315:b0:5b1:5a31:8603 with SMTP id 2adb3069b0e04-5b45914b27cmr88124e87.55.1786653810310;
-        Thu, 13 Aug 2026 13:43:30 -0700 (PDT)
-Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b458bac84fsm102509e87.37.2026.08.13.13.43.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 13:43:28 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Thu, 13 Aug 2026 20:43:24 +0000
-Subject: [PATCH] media: uvcvideo: Do not read beyond the uvc_status_control
- memory
+        d=1e100.net; s=20251104; t=1786654372; x=1787259172;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QKG0huuOVMT2uJhSczfBBnWYxOx3sQqhXePb2p3rxzk=;
+        b=ofFoWM+1lACb8NrL3cUpoUOFhCPehFCX1N5uZhWz/O/yoD2AYB1WMCLL6Mb68E1H4s
+         s8pz1uUXRHf5hSde/lXgprOgT04RjDdD+sAO9MgX87OFUH+KvGKD2kQCWr/z1wVsQMuk
+         TqC7ozUUhFpe/XGna89gcKvbGALNVsDkQ4xRNe/H0LhoO/Rn7LpV38WdgVDvtJbXWrt9
+         qwJ9yJwNRbDtNGcbhD8wknqb8sYj0IwD26H80Ja9kRXAej2aeJsqG0WKOGoSq6dLk1tP
+         CAF1i6UeK5ubDnVCWmxG9FrD7twZO/NgTO5xVzlg1l/j3CZqwb/0mMtF6klcF3ugIIJ/
+         GfXg==
+X-Forwarded-Encrypted: i=1; AHgh+RqYa6s2u7k32XsbfJ/W0iCF/MoWwmVzbhePXpR/+EE7/x7eP+tyKpmQeCN6Awfv8/foYKq6WyU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRo0sT/aZJ1XHdKRjKEPHFDjFSKOaVWoLxIbX89O7HwOR7DjTZ
+	rYJlrotlf1U8gIoXxGRz4fHGvb7GEziFrQAHh/XTx6SNfE/HphbjLHHdXaS5Qo94W76+H5oB86F
+	NdM2yjw==
+X-Gm-Gg: AR+sD1378H+NTAxrjVv1YV2PqhNJzE0+ZS5S9R2Xi5CBBm38wvBPL1XmaDPa8eud+gB
+	lzJWkj92dY/I34Xr3oOCPnjCmDOfcN+JdYa+rA6O9WumuyvZ2kpjL77a7/EMp2CaLHUm4n82Pzk
+	tG7FrOR+/tRrBmLip8rvsYWP3RKs3GCqKMKTadli1bJXPMLhj+HrExWRm4nEKspoIUpFdawnD3O
+	qb3+mk4PRkifgZ20uMrIb1uh1ugmHAb+RPguNYBdfJkqCypZIVCtEIuLivtKUqTiSNc2B0AnD55
+	7XLds0slPyhJ0lEw/68OjjtQx4cid3q9H/hhEIUXdKHGNW960NIN8jfjpGZOstbYvdzMBnlji1Y
+	J05pBUUaLkUczCa/Defonn5GIht3DNaEcb78tlFarTI7BEuWQGC6YBGTuZ1alj0duvo15vMJj9Y
+	RIqRri9qw+gQcSzyl4YFKoFqEFv2Hpe2e1GAwm9XmV+zTzdFafkCZkx4TDkF4tyyilThVU2jIEo
+	K54r9/XAxLL/V0QTFuTvb4HoA==
+X-Received: by 2002:a17:907:3d4d:b0:c16:3187:997e with SMTP id a640c23a62f3a-c2129a8c5f3mr46501466b.7.1786654372528;
+        Thu, 13 Aug 2026 13:52:52 -0700 (PDT)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2123858ca2sm28392566b.60.2026.08.13.13.52.51
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 13 Aug 2026 13:52:51 -0700 (PDT)
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c20e70a0962so58966266b.2
+        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 13:52:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoEdY2oNkNbqRvKprjVewQhNoGudwyWlnUxAWH0G18U2m5B/rpCjgmPb/pBTuo6Hbmjqhrv4c8=@vger.kernel.org
+X-Received: by 2002:a17:907:874f:b0:c21:167b:47f0 with SMTP id
+ a640c23a62f3a-c2129a8508amr50889566b.2.1786654370710; Thu, 13 Aug 2026
+ 13:52:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-uvc-status-11-v1-1-2cf43e9590b0@chromium.org>
-X-B4-Tracking: v=1; b=H4sIAGssfmoC/x3MQQqAIBBA0avIrBtIg8quEi2sppqNhVMSiHdPW
- r7F/wmEApPAoBIEiix8+gJdKVgO53dCXovB1Kate93gExeU292PoNZo7WzJdK4nZ6E0V6CN3/8
- 3Tjl/2Ap7Fl8AAAA=
-X-Change-ID: 20260813-uvc-status-11-99b9e27a8ea9
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
+References: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
+In-Reply-To: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Thu, 13 Aug 2026 22:52:38 +0200
+X-Gmail-Original-Message-ID: <CANiDSCsguGSgvEkWTCWVEctHFYN3teRXS07OczJfumWzVqv4Qw@mail.gmail.com>
+X-Gm-Features: AUfX_mxdIy5-HXGmurVL_I6Zb5p7z94joSTv9qPTZsylVv8sW9Fe3PFFjKqGIpQ
+Message-ID: <CANiDSCsguGSgvEkWTCWVEctHFYN3teRXS07OczJfumWzVqv4Qw@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: preserve status URB interval on resubmit
+To: raoxu <raoxu@uniontech.com>
+Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-When we receive an event from the camera we only receive 11 bytes. If a
-v4l2 control is mapped into a UVC control beyond those 11 bytes, right
-now the code is blindly reading those.
+Hi Xu
 
-Add a check in the event handler to ignore controls that are not
-available in those 11 bytes.
+Good catch :)
 
-Cc: stable@vger.kernel.org
-Closes: https://sashiko.dev/#/patchset/F0F008459FFA835D%2B20260813074632.2021311-1-raoxu%40uniontech.com
-Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
- drivers/media/usb/uvc/uvc_ctrl.c | 4 +++-
- drivers/media/usb/uvc/uvcvideo.h | 3 ++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+On Thu, 13 Aug 2026 at 09:48, raoxu <raoxu@uniontech.com> wrote:
+>
+> From: Xu Rao <raoxu@uniontech.com>
+>
+> usb_fill_int_urb() takes an endpoint interval value and stores the
+> period expected by usb_submit_urb() in urb->interval. For high-speed
+> and SuperSpeed interrupt endpoints, it converts the logarithmic
+> descriptor encoding to the corresponding microframe period.
+>
+> The UVC status URB is initialized once in uvc_status_init(), including
+> the UVC_QUIRK_STATUS_INTERVAL adjustment required by high-speed devices
+> that report bInterval using the old full-speed convention. The first
+> submission therefore carries the intended interval.
+>
+> Both status resubmit paths, however, overwrite urb->interval with the
+> raw endpoint bInterval before submitting the same URB again. On
+> high-speed and SuperSpeed devices this mixes the descriptor encoding
+> with the already converted URB interval representation. For devices
+> using UVC_QUIRK_STATUS_INTERVAL it also deterministically discards the
+> quirk adjustment after the first status completion, making the
+> workaround effective only for the initial submission.
+>
+> This has been easy to miss because the initial status submission is
+> correct, full-speed interrupt endpoints do not have the same
+> logarithmic encoding mismatch, and the status endpoint carries
+> relatively infrequent control and streaming notifications rather than
+> the video payload itself. The problem only appears after the status URB
+> has completed and is resubmitted, and the externally visible effect
+> also depends on how the host controller handles the resulting period.
+>
+> Do not restore bInterval when resubmitting the status URB. Reuse the
+> interval established by usb_fill_int_urb() and usb_submit_urb(), which
+> also preserves the quirk-adjusted value. No additional state or
+> interval conversion is needed because the same URB is being reused.
+>
+> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
+> Cc: stable@vger.kernel.org
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> ---
+>  drivers/media/usb/uvc/uvc_ctrl.c   | 1 -
+>  drivers/media/usb/uvc/uvc_status.c | 1 -
+>  2 files changed, 2 deletions(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index 3ca108b83f1d..6552f541aa0d 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -2196,7 +2196,6 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
+>                 return;
+>
+>         /* Resubmit the URB. */
+> -       w->urb->interval = dev->int_ep->desc.bInterval;
+>         ret = usb_submit_urb(w->urb, GFP_KERNEL);
+>         if (ret < 0)
+>                 dev_err(&dev->intf->dev,
+> diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
+> index b632cf5e3fe9..680c6c7f4ad7 100644
+> --- a/drivers/media/usb/uvc/uvc_status.c
+> +++ b/drivers/media/usb/uvc/uvc_status.c
+> @@ -245,7 +245,6 @@ static void uvc_status_complete(struct urb *urb)
+>         }
+>
+>         /* Resubmit the URB. */
+> -       urb->interval = dev->int_ep->desc.bInterval;
+>         ret = usb_submit_urb(urb, GFP_ATOMIC);
+>         if (ret < 0)
+>                 dev_err(&dev->intf->dev,
+> --
+> 2.50.1
+>
+>
 
-diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-index 3ca108b83f1d..3061f388f57b 100644
---- a/drivers/media/usb/uvc/uvc_ctrl.c
-+++ b/drivers/media/usb/uvc/uvc_ctrl.c
-@@ -2158,7 +2158,9 @@ void uvc_ctrl_status_event(struct uvc_video_chain *chain,
- 	list_for_each_entry(mapping, &ctrl->info.mappings, list) {
- 		s32 value;
- 
--		if (uvc_ctrl_mapping_is_compound(mapping))
-+		if (uvc_ctrl_mapping_is_compound(mapping) ||
-+		    DIV_ROUND_UP(mapping->offset + mapping->size, 8) >
-+		    UVC_STATUS_CONTROL_LEN)
- 			value = 0;
- 		else
- 			value = uvc_mapping_get_s32(mapping, UVC_GET_CUR, data);
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index b6bcee4a222f..ae5e6b6fdd98 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -559,10 +559,11 @@ struct uvc_status_streaming {
- 	u8	button;
- } __packed;
- 
-+#define UVC_STATUS_CONTROL_LEN 11
- struct uvc_status_control {
- 	u8	bSelector;
- 	u8	bAttribute;
--	u8	bValue[11];
-+	u8	bValue[UVC_STATUS_CONTROL_LEN];
- } __packed;
- 
- struct uvc_status {
 
----
-base-commit: 7b1734e1761258d78651263706182f1d772c0d3b
-change-id: 20260813-uvc-status-11-99b9e27a8ea9
-
-Best regards,
 -- 
-Ricardo Ribalda <ribalda@chromium.org>
-
+Ricardo Ribalda
