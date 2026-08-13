@@ -1,86 +1,76 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6F5184
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 02:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD91D20ADF8
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 02:40:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786588800; cv=none; b=deio8pZR6WcnqYPuYpTaQNiR3tGBLBH7sadB5EMEG99J+nn/1T2Rrep9gkIDsDoxbhR09CmEJxQK2GScMFAE601ARDiVQIxscckCB7llSeTH2SgECIWlCd3Ia3OWd9iN6nfFgiv3CpseUfEVPs6McN9ob48uOHVoi2WOPXF5Hvk=
+	t=1786588836; cv=none; b=h0Ex1Aslpoiqw9k4jz4z1Vr9UZXUNc/itty34S6+01hPEXGMM74vrNSlhrMl50vLdxxuxLYi1QzURl3PFWcEC5aclTjeF7YgAjtH0SnYf9DKvcbfxxHYxZ/0ZIIMTa/yybY55XofmdRlothxpywQvC9F8tLI5I+L/D8UxE8PUiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786588800; c=relaxed/simple;
-	bh=lSt0EqBpkyX+cH64uzSW61lENCGn+1Dr2Sf9vrYyv+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KJ+6G7GEJcpKGjsXwBrX8mMeekRJuwnY13j1f954Mi2siTB7J70tdeBVY9H/C3HJwuRLUQXSM5K21iNISDP9k2/H4YxzGAbMZ49Md8LhQ6KYmMR7mwztyYNK3lZElrNOh9Vyt2q9Z8ErX5mFDB4OLNdFoQTpkDSMhyfI1cmmdgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RMurlyrS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QPPNrnaU; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1786588836; c=relaxed/simple;
+	bh=Rm8yJnlT3fsCQLbfHSwTkl17wnWlfVroX3yT09INhmI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=G/ANR8dOIPnrTKDAqEs+2BU62CckgJioZbci9VVYPa5m5MOYxhZ3d2NRFS2XZsKxPn4NUmZQ79XsEfCJFICwZghr3oiMcvh2Wv09qdT9e223L5o+v0KCdZsM/2yt/xmucPDu+wUQP3E7DS7xF3+PVkdugWx48ZHPaAh+z1BoGY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MI2SiVZZ; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RMurlyrS";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QPPNrnaU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786588797;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wWDIoZRUfi9awnYLusDekbM5ZGXjySJAmwmUQrS1l3w=;
-	b=RMurlyrSWP990RB627kFyGjsDtV6hG2HkQ4novQlf9tbUUXsRv8HshvHobJMOSPkShzDTX
-	5HaHf1YY/mrR6tEBYVERX7HyI10b5Z8ssNT8ZMt3rKYsYD409uOfQJqCjwTVb6L3N9U/gm
-	FfYTWl8QpXoQ4tuQQd9aO+lNZnKcTmw=
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-595-adG3ox1TNF60x8wF3Jrd1w-1; Wed, 12 Aug 2026 22:39:56 -0400
-X-MC-Unique: adG3ox1TNF60x8wF3Jrd1w-1
-X-Mimecast-MFC-AGG-ID: adG3ox1TNF60x8wF3Jrd1w_1786588795
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a416619e8dso838028b6e.1
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 19:39:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MI2SiVZZ"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f3b39f2a1so1433439f8f.2
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 19:40:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1786588795; x=1787193595; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786588833; x=1787193633; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wWDIoZRUfi9awnYLusDekbM5ZGXjySJAmwmUQrS1l3w=;
-        b=QPPNrnaUBGS0HLZTxDbGH30acgEtrtcLdlAc10Gt1hVjNpuGzlLF/wIIQqfoOv61NT
-         4VA9Vr1VUYfLeNAJgzktN2WGnPzR+AOc5ga9W+vrS12Vo/I35s0SAAr/iNTSdyHwTonh
-         7Gaev+IRKzAuE9Sjrm7r5pbct12lRG+bprezw5yQwR0WdmD86NDJW/IDRTYKiZrTxQQX
-         3S0NXLwtubH0D0n+n/4a8v1cYQkHvKkAqZwtkrcpQ1GgpLdfo01pGyZfX1qNvSym6E1y
-         /HE4S1PA1MmOgrr2HXwjqG56LHmzilov8W5J8IQGeGXowiEfKnudsmoCMcnKIZjrdEAZ
-         A75w==
+        bh=jBG7b5ISCcqvogeJMToUIR5kJKEpeXF6DhAFVm+3bAY=;
+        b=MI2SiVZZETU7Om+O3zztE1F1/rnfur19hTeebve2Zap+DxfTGVVtU0hU18NoEChDRH
+         gSWt+ke9uukDEFK+zBTQI4lt6MzuzgAiXLmUaFr+Zwk/7WXcYQnv58WiJvrZUo5RXTFf
+         ovshDJatEggJIKRvrH1VQRIhXavjYkKDh2lOAkithqEJ4qJBGfOu4ZXDSd4mYrwjXVHD
+         aRkCTyZAv6fnZc8WNtm7rg2bOHqxydImbURWhB8zikr9/l9MpXcTIf7ZtQdVrE/OzQ88
+         b6/Kusp5AAlYTmpgzUvnfXvGOo/HUK1WXb2gD+rz1fqN1KJBuOJBMVFgcxkTR7/DgMR0
+         BXbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786588795; x=1787193595;
+        d=1e100.net; s=20251104; t=1786588833; x=1787193633;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wWDIoZRUfi9awnYLusDekbM5ZGXjySJAmwmUQrS1l3w=;
-        b=Ei1sHOrcoHCHIOyRl6UlbCZdNj9aKfEZUjo/05VjtgDQefnjy0tu4VYpO1IxvmeOgs
-         lQBhqoEG2jwgR5VbftIeOrfduU3xwdB5He1Kpp/oPX2ulevhWsreSudsprq370IPe2fG
-         PMrNvgzGfQQoNd2pWC+TPPTP5zyOdNro7Lb2GB8UkONk0MY62JRshjYpcTlntNM3TtNu
-         +UNVxDONdauLH6pSTEtCKWwqsNzKO39dnyVkz59k+K+vi2nYL62wO1lgYdslUBryrvEi
-         opFIQ1aFF5+pwmv/1r2HKbmg1EfeU+ewpdAYRAfuMI2rDHhtqARLuElfKwhmCWd4uMfU
-         wcwg==
-X-Gm-Message-State: AOJu0YztZJBwXJ5E57i+biBcso1IG+PInS9lGyixX14SEOc4d7CZjQdN
-	otWAh//pJZQ9QOaMVooiQe+B4NH/CCIGnWYsAjtUyMoA6Sa2rv7USYl7AsCEGHPROiJKLisyM3W
-	UB4ObZQOMZCJQQx0XYeRTM87ZGKpqctJkGRwBAHft0vPX142EqgMNP06jzg==
-X-Gm-Gg: AR+sD11F5G8+j3M/oScdBs+SWngPTEk9Z9Qrwx4d5UlNvMg10gflThV3aeCjpif6Czl
-	BXWoyKrAXXoLYGXeFWH+LLnOy9k+jZ7YSjTR0OeBDREmfGw2uFhsve2mPELb5IOMCHzZQgggMlz
-	X2dwsbzCVYXQLSHq0XAxf8U4UuvHiqj2AhyEqi7CeuLXm9vLz0Q22cTj9C/n0V8eNTJir64GWEP
-	EMrLTsPaxIpTPoME2EA2wNaTdhOst+Rw5Z2t9AwqlvBDTgQ0nOzbvaUq97ZiweF3TIoajNnOMyt
-	4S8OQcHALb40zSwLddlWzWc7Yq2vB2riqisb6+27RkfKQCw511kyQ1TzKw8ss8J/AGF7XiU/4Kp
-	/ezwKkpA4jNtVJopyQyqZM9JbTtQ8lA7FM1ExgUgDti9qzRlZxs0aAgSHXIhhr4ra0Q==
-X-Received: by 2002:a05:6808:1a03:b0:496:976:acad with SMTP id 5614622812f47-4b2286875e3mr1003763b6e.1.1786588795090;
-        Wed, 12 Aug 2026 19:39:55 -0700 (PDT)
-X-Received: by 2002:a05:6808:1a03:b0:496:976:acad with SMTP id 5614622812f47-4b2286875e3mr1003740b6e.1.1786588794489;
-        Wed, 12 Aug 2026 19:39:54 -0700 (PDT)
-Received: from bearskin.sorenson.redhat.com.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b22cd187e2sm506473b6e.6.2026.08.12.19.39.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 19:39:53 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: linux-cifs@vger.kernel.org,
-	stfrench@microsoft.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH] smb: client: fix UAF and buffer leak in cifs_check_trans2() for malformed secondary T2
-Date: Wed, 12 Aug 2026 21:39:51 -0500
-Message-ID: <20260813023951.1846143-1-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
+        bh=jBG7b5ISCcqvogeJMToUIR5kJKEpeXF6DhAFVm+3bAY=;
+        b=g54ptzKqotxqAArxtPlGkraxzbzblIbk3vPgptlcLPm0uW7szyy71q46qH01PcpzZG
+         WJEBCTwk8iK4MoLFcDSNSdhX9paUwMLSq/j8XYggKgLVFT782F8k3ZNMeWqhzg8bwfme
+         cbRSLGNlc8ggd6wx/voFHgfNVkQpAk9dmihp6fNqAoqBEnieefKPzKvlhp5GQ5Lf5Ih4
+         9PJp0i2IuN9NwY/VOYVufW2bpu5ua/byf1nYDKcKRAgeaTWk3jI/79D7www+p2f7BrEw
+         xF/pYBUGaD1hAsKFeWc61K4X5AMiqk7kPzZkGmryAxZp0txWEL4rpq4Yegev0wweVnkt
+         QCQA==
+X-Forwarded-Encrypted: i=1; AHgh+RoISIQvWRcmmPg+C35alXbLCNI0pPqrwxTXjXr/26HMw1NWM6ibMsyoG429AEmrLt/WEagF92s=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+aHNUpfhJUkvaW6lIX/DBi3XuyC3B7hMaUiNKYd/7W4Zknvjy
+	Rt1pa7z1AqTPpcPUpxyoCWJhgXbpFkKEgj8FvIhrGkkT2Y3xmzpx1H/jtLRwVfv5
+X-Gm-Gg: AR+sD137K9RYoXYdSMnfUvXhyt5zJzWSfrPer92B/9TIkwW0VY6UoibBsZcK0ZPEc50
+	UCYBTHXuQCE4pb3SkBUdtSXyDeEpD3i5re9vJXL7f6EXIxX4IUE/QgLKJVd+/IqIIFCNSXgQVAn
+	Mkc+moPh5z4enMb4lMF9Fex0C61oE09nAA9uNOX32n2M1PFmfLnkHW65RbLs2gjF6fAYKraje7Q
+	obkCtYkY9/Xds41T7EBHZjvwyUDvwJ2dcQEP+H/7TQKUucA6uUVycQWOal13hJ1yx+fwmHYpL4V
+	o+v6JeF+b8KVKsDJGAWiNIcM9k1w4JSO/EAOCTA8J3KF8qCLiclClKlpPyY5fdOdVJMSXwthZps
+	8bQyEICo+xQl4AVJVl60qpubQqV7NDr+NXzpUB+SGy+rOCYq3vz/b4vB+5dyJwTID+ce5TbHcWl
+	Fk5ZLusqhxJTlh49SUDAqQgQ/MbZe/9WEa2nGgTlg5GvXPcv0q7miS9/8nF/Y3n6y1aqO7UYG0A
+	8so5+I1D6kvUxFjXNbC/2j9rRTgVFkcX/upGms7djldyJYuG2N00AFUgmIoUrX1vvyiBG7/jHJq
+	6ZxezMA7DdEPzb1MakFtkqVkTRqnxgc+iswImVRrvsnIa+dLAs6xxLQ5tJnicLE7Q0hi
+X-Received: by 2002:a05:6000:388:b0:47f:e770:13e0 with SMTP id ffacd0b85a97d-48159ccc59fmr3151747f8f.7.1786588832762;
+        Wed, 12 Aug 2026 19:40:32 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-9c79-1f01-1565-573d-10dc-99f9.310.pool.telefonica.de. [2a02:3100:9c79:1f01:1565:573d:10dc:99f9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815a5c2308sm2306362f8f.33.2026.08.12.19.40.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 12 Aug 2026 19:40:32 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Michal Simek <monstr@monstr.eu>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Appana Durga Kedareswara rao <appana.durga.kedareswara.rao@amd.com>,
+	kernel test robot <lkp@intel.com>,
+	oe-kbuild-all@lists.linux.dev,
+	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] microblaze: Fix MB_MANAGER build with older binutils
+Date: Thu, 13 Aug 2026 04:40:26 +0200
+Message-Id: <20260813024026.5402-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,54 +79,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a valid primary TRANSACT2 response has been received (mid->resp_buf
-set, mid->multiRsp true) and a subsequent secondary response causes
-cifs_check_trans2() to return false -- either because the SMB header is
-invalid (malformed != 0) or because check2ndT2() rejects the PDU --
-handle_mid() overwrites mid->resp_buf with the new buffer (leaking the
-primary buffer) and, because mid->multiRsp is set, skips the
-server->smallbuf/bigbuf NULL-out.  When the user thread frees
-mid->resp_buf, server->smallbuf or server->bigbuf is left dangling; the
-demux thread reuses it for the next packet, resulting in a use-after-free.
+Commit 88707ebe77e2 ("microblaze: Add custom break vector handler for mb
+manager") added the suspend mnemonic to the MB Manager break handler.
 
-Combine both early-exit conditions and, when mid->multiRsp is already
-set, abort the pending transaction inline: set multiEnd, call
-dequeue_mid() with malformed=true, and return true so handle_mid() exits
-without touching mid->resp_buf or the server buffer pointers.
+GNU as only learned this mnemonic in binutils 2.42. Linux supports
+binutils 2.30, where enabling CONFIG_MB_MANAGER fails:
 
-Fixes: 316cf94a910f ("CIFS: Move trans2 processing to ops struct")
-Cc: stable@vger.kernel.org # cifs_check_trans2() is in smb1ops.c on kernels < 7.0
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+  arch/microblaze/kernel/entry.S:946: Error: unknown opcode "suspend"
+
+The suspend mnemonic is an alias for mbar 24, and both encode as
+0xbb020004. Use the underlying instruction, which GNU as 2.30 already
+supports.
+
+Fixes: 88707ebe77e2 ("microblaze: Add custom break vector handler for mb manager")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202310310151.UhB396Qs-lkp@intel.com/
+Suggested-by: Michal Simek <monstr@monstr.eu>
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- fs/smb/client/smb1transport.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ arch/microblaze/kernel/entry.S | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/smb1transport.c b/fs/smb/client/smb1transport.c
-index 966f2cf83a51..f11a4a243784 100644
---- a/fs/smb/client/smb1transport.c
-+++ b/fs/smb/client/smb1transport.c
-@@ -430,10 +430,18 @@ bool
- cifs_check_trans2(struct mid_q_entry *mid, struct TCP_Server_Info *server,
- 		  char *buf, int malformed)
- {
--	if (malformed)
--		return false;
--	if (check2ndT2(buf) <= 0)
-+	if (malformed || check2ndT2(buf) <= 0) {
-+		/* mid->multiRsp blocks the server buf detach in handle_mid();
-+		 * returning false here would leak resp_buf and leave a dangling
-+		 * server->smallbuf/bigbuf after the user thread frees resp_buf.
-+		 */
-+		if (mid->multiRsp) {
-+			mid->multiEnd = true;
-+			dequeue_mid(server, mid, true);
-+			return true;
-+		}
- 		return false;
-+	}
- 	mid->multiRsp = true;
- 	if (mid->resp_buf) {
- 		/* merge response - fix up 1st*/
+diff --git a/arch/microblaze/kernel/entry.S b/arch/microblaze/kernel/entry.S
+index 582d7256d8154..ad44341a5dbc7 100644
+--- a/arch/microblaze/kernel/entry.S
++++ b/arch/microblaze/kernel/entry.S
+@@ -943,7 +943,7 @@ ret_from_break:
+ 	mbar	1
+ 	mbar	2
+ 	bri	4
+-	suspend
++	mbar	24 /* suspend */
+ 	nop
+ #endif
+ 
 -- 
-2.55.0
-
+2.53.0
