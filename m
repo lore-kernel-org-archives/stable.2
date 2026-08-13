@@ -1,136 +1,150 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845C43203B6
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 11:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786620429; cv=none; b=sTZK2GTXHhTdHVKHK0W3Fhgv9W6zhPRV31q9Eu5bzBLkPqpA4hm9NEISXtRnBlOFzpses/dK0YjmRDN9XyQvIp4jaVOMYSsDtAN0ikxO5u9VS6f8gzqeWlJ5x/2aKz1vt+L3frzF9jewC7f+Q8/S0PHjUb6B2c9UR4QcqSjzHL4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786620429; c=relaxed/simple;
-	bh=r6aBqdp3HpjOWbnS+sckw8OYNQsgx+RxrUg2FsIouh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MyQAOk5EeP/qnzwRolGf3sEEieSkTfeVIY6plLvED5W3OUaHoK9e0d6JQiRRzVc0wkFNLkBb1fU/NEpX1v76eD9hwqe8gXh8tug0zsG5kzFuH2dQ0zY26YlEclSB6A+4mQNiI2/IxIoYc3m0Q0VfgZAqDCfNnoU0mR8iGrQ/gz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cC8Ocd4/; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA85A3A5452
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 11:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786620713; cv=pass; b=pRbb3sMPjrWvquvM4qkROUbLEIzb23rvkVaL6w7RFVsduqQ1OJdnA1vbgnQU2E9vnlvUCkcuFEaxdxaPjjOphSK3IrAKBpTMaFV12syScmu+zry2usYbanFxyKVXDL0Z+fN6a59V+t8ZUsyy68nvXGyUQqzm3J7pD5QRmPLMa+o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786620713; c=relaxed/simple;
+	bh=MT/2tmGMhh09voamgXY3Cimo1subFeymstrJFGTsuiw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l5CmYIbWkhbWSRiHaHIEBkKSWKAt5dhPADOyV+czffYNOfzoAPoA6ff82i3DJD5otld0Hvug/FmhmiVxN9IJ7hk4sPmhDLGhwt+oepparfrxZBtV8OTC7hpSDgrM3DWvysabRaeOH1PnBNEkuGF/LhkMukNN4ZivTjbAjY4GWg0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QTJAF7I7; arc=pass smtp.client-ip=209.85.128.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cC8Ocd4/"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84a2dcede83so2814407b3a.3
-        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 04:27:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QTJAF7I7"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-80c5cb9a888so21962877b3.3
+        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 04:31:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786620711; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ccV8iKVx0Dn9x6NVpwoBEow+qom8Q9OeLPZhHRRbcjw7WeE/rVVA4U2RM8HIhm5Ooc
+         8aS4m0MGb5pNbmubyrTjMwHc1W2aij/EC4a4hkbbjm4jAKI2bCyoSoJgcselYwYtdWcL
+         Q3D84ObZ7EitcbOVfkG+POnhStvReob+6StFNGRx4aUZ7pUgeFEo1R9EcNuBspbvvF+6
+         kidyKrGXqgWdQfnUi0VFu1CguAI3FpXVrrQ4l08VToUfyou3iXwIYGKD5yBMdki1iz1g
+         8DDTGDghAaErXpXbkFWwW10fhLdGSYTplIxV7r6h4fIwsSk4Vdjy5AylAej8Xm9j+L0I
+         +fSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tia08duuH2NBzcDa5W6CuiLGU5uz5B2OAbtc8rVP8as=;
+        fh=3z9Z4Z9Skr4Ci7NH1ssbLjl1l3H5sGNG18mWlESuPJE=;
+        b=occyjnxHkSxdK/ebtFlk8S3maz3oVtAyDU8us1sJJBRP45ckFvusGnDAXSrRDS3QSM
+         YdsubhbRh3ioBk3GlX6KRNr2RJeWPXvZ3T5tz+4cfHPSPdKZud/9mHRGAYgoA+zQ5sXF
+         VZWMugKGPyK+aZu7zqFzsPPwqp+Jg+m0NfRSJ8CuZ+B6YDSwN2Djos4BxVDVhO2Fe0zO
+         pxW6/DTtxhIHA6rrfKFAgb+AX0WSghgRJy/brB0PrVBBem1+JlPMwHFfwt8jaF8gErCq
+         HtsDTQ/A69enPHyTTdh+WJMiBFvB9AOLlQG99j20q9BNzln5h9TTQvOc/b5AJ+XjAevv
+         r6TA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786620423; x=1787225223; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NRGBrMNvLSobAjKhMm1lIf6g/DD55p77HOff+VMHwOw=;
-        b=cC8Ocd4/dNZ7AroPoLOtsGjwkCMB3P3bLLbk/irItEDUEEgD3eNyTkNLJT0YFJIZd/
-         PWSda7pCsnFmGg+6y9B/rPfYc+2GiOBgyVc7RIfAU9Yv3b7Rxi0Z/mAXZrFuN94nw02j
-         rflnNZdbxcxuF4IB0pSPaK+ajUblIe3swm6sX4ym1+3oW30gLghl9aP9/TSeIo0n4IzZ
-         FwKYJHjZq6sF490tE+N/wsJP/ikSzmBPK9qnub2bNDBzhFLusr/IbUjV/7Jp+T35P4vv
-         F5ntvpuq0CAyXHnulSZl+ylHeaonn3UI6HUZgducrKX/HYGfsEt8dYRDtnf+sPoCebBY
-         pPSA==
+        d=gmail.com; s=20251104; t=1786620711; x=1787225511; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tia08duuH2NBzcDa5W6CuiLGU5uz5B2OAbtc8rVP8as=;
+        b=QTJAF7I7EXKJbINqMRbHgz5PXGi8NbngtyqemWBkmCn40BC/qhDPk4XBSNj5pMMlwr
+         k24SjgdIIlAaFc/a8h5f8/U5QR6aC4M4t1apF6s2GmDgUjAVOL1+oq5j8coWUyfpbj0b
+         ZwtEYzzPk+wmWxe/3dx0RoWpNRt1falKUqKrFXVm5bApIXzpVOe4tt/XL6f4ntTPsTGx
+         wUgWS8M+/N26c4zm291+qyYTBSmKfSYe6bC/w2UG9uhBHIOHHnSw5sm1bYHcRozuzh9G
+         wtNbERbeZZvd49e8TXwz7IwlK8MCNL5dX8ZuImStXVSYtkeZKwQVL3S5BfA/U9rq7dtE
+         n9oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786620423; x=1787225223;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NRGBrMNvLSobAjKhMm1lIf6g/DD55p77HOff+VMHwOw=;
-        b=HxrqPap+L6oGtrPSsoKHmaI0KEUzLNJXqHphqeMMvCBjax6Yq4wgp4sD5cLQaQw57N
-         AUGfuJznB8L8Eaf3xdd0q1su9IUWEalei9hn6B05E1ca5ea66ww0DBTieCZ8n/9B4gBP
-         mL1OF9aJ2st/juTAVRw3Ao/Dd+Keo8xcD/NWKEhhOjd/Jl3HV4xEFQhaqLoYlrx4hrSk
-         FM2eS2xMUHXLovlKwtGaprV5GvhXMziSlxArXSdFF4AD87sUtKG9hx7Z1JOkY1bfOEo3
-         csZ9QOolP3PmeikyRvp+CXkCFTzGG+6KK5bUFoIpxN7xRzLcNJI2/VZLf9psfex4Wxf1
-         GxFw==
-X-Forwarded-Encrypted: i=1; AHgh+RohCHs1szxKzWTvK4UgxCiuWG2k6i4SK7AQKxYIGW32OBkuQ6pIbPuE7+uJJCxY8Ale7vvw0aM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy3dVl2CYyU5m3bZLbi3oyQGM6V6h589Fk2GGADciihD5Fq0NGY
-	0aH231TvJ1/WWKws2jcyifBxQqVPWi2DlQeVLO2vBmz6KklDMbCoZyON
-X-Gm-Gg: AR+sD13X3mQHYkXKUI15ND3gvzEDenW5mEzdmqLzvU2arWtMGeG+cHSfc+SkdFJoeAe
-	5vgpAVHrmy9pxLsk/LWFRQJkgXlL4XTgjubW7DSaOBRNRKQgbd3xNIz/XL0eAcVW7PZe+7pv2vC
-	FckFYL1MTiPGxaY82kazaksqNAYbcVieMQp4NeTA6sL56prSF9QfZOTcuLUmc8saGcdEngjEh6q
-	5+8aO54pgwJDpjJFg0xioCBrAVWhJBHjErZj489VTGMUogSx+O/uNjbdulWXDFlmuk37A9X7e+v
-	q/NbvvfEkPjBPyOVBB6WUMjaYaa/YqJwrOoDMwZbdM9RKsnYwzDaayon+EiRYEwxHIFAGiC0A7k
-	BeVpDraFZ8OihPheJUZoCEyVB33NVJX766k7tM9T1V0TaHq2PWTKgmryZM3FB0Y3iWhv0N592zx
-	nv2cHC0CoZ0CAq5LaGd9S5vFPXRSav0PhKk2KJZWGOCr+HbXTxrk8atHxLDAXvgfHfSfkKpOnbC
-	sOxQFLyqUrcRnzGi4jGYMzQ
-X-Received: by 2002:a05:6a00:2999:b0:848:788a:e7f9 with SMTP id d2e1a72fcca58-84fc6dc62cbmr5033736b3a.18.1786620422989;
-        Thu, 13 Aug 2026 04:27:02 -0700 (PDT)
-Received: from localhost ([64.176.39.245])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbef6a59d80sm894282a12.11.2026.08.13.04.27.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 04:27:02 -0700 (PDT)
-From: David Weber <weber.aulendorf@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	siqueira@igalia.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	David Weber <weber.aulendorf@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] drm/amd/display: Skip connector updates without a stream
-Date: Thu, 13 Aug 2026 13:26:33 +0200
-Message-ID: <20260813112634.11455-2-weber.aulendorf@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260813112634.11455-1-weber.aulendorf@gmail.com>
-References: <20260813112634.11455-1-weber.aulendorf@gmail.com>
+        d=1e100.net; s=20251104; t=1786620711; x=1787225511;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tia08duuH2NBzcDa5W6CuiLGU5uz5B2OAbtc8rVP8as=;
+        b=kCOatNlqcgTrCGBq0RbhXg8sOx6Iy1SYAiGFm4hkZjusdSm+kSSBybzgS3R/01xMyo
+         IET9AmqbDG7ofJTxW6vJhIWf+2Mt9nBwGsfSw3Q/6BfB+8mWZI+EKbD7PUFmTKcSCo/o
+         LQGqOgaA+mHM6fANlH+rSda4k2Yx8Z07dqtXHTkKk+jszj2omLFO9wFKA5t973xZvX3Y
+         mvTY+fYzKJXWPVjMDtriDe8owgED6HVk5QSD4HNUHIvq0Vts2E0elBWrAFwn5HRYX7Ci
+         MVdrAgWDyizY34K/GdmdI9ZKCo6BjeKuyJ8aP1xvmNGcj9+S/9Urc+6nR0lLdpJQnjhv
+         L2tA==
+X-Forwarded-Encrypted: i=1; AHgh+RoKi2Eu1GMu3foF7PRP1HNQE+lLnoxQBFAV6vfqsqO5z2TBI8pP/7JGIvpxYKsq/4O46u+60d0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxquwfCTmCOQysfdyuvJy5wGz39oTQeZHpj1dO8FnOp/BK6Lawf
+	lY/AI9Bg2KIBC+q+YMl99dhG6poUrMtuxhL6Il9zzS2oHoopTX7jvGsAbrQTILcQO3LIaFBubB7
+	ZkJfVF9CPirE66tugZPmO/JPmzVIgQa0=
+X-Gm-Gg: AR+sD13wgSaLuFwyTTvMuXlhc+XYXLBON2DqEO4QgjyLqWaJst2gFDl7pMIPuXtpvFh
+	N7+aeV/mCycplliFta/BdIYfg99j29JZtNtrtAwjyvRwOaaTjIB2wuGshB0uYi+Egh1h8jJK57k
+	tAU03jCiC0v4In86Do6f/ExoTvPHYtplMLkKPR/Fbl0hHjdI13FmdzMQNkn0IcyHLWStgCHNJz1
+	QtwJBSKNb1UDcDvsC4E67R/nZrKme/kauHY6XuM7CvvEVQUm/j9JejvHBiG8r6Si7gPnw6x9jIS
+	ZJwIPW4W5QJTQldd6fQ5KlPQB3qAcX05kleVGZcJWoqKC61pWfb8gDsPWYite237BQjscJyYYNR
+	8
+X-Received: by 2002:a05:690c:6288:b0:833:4ca4:f3d7 with SMTP id
+ 00721157ae682-83475d60c58mr25625387b3.29.1786620710489; Thu, 13 Aug 2026
+ 04:31:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260727111534.729615-1-congnt264@gmail.com> <2026081240-shanty-prepay-648e@gregkh>
+In-Reply-To: <2026081240-shanty-prepay-648e@gregkh>
+From: =?UTF-8?B?Tmd1eeG7hW4gQ8O0bmc=?= <congnt264@gmail.com>
+Date: Thu, 13 Aug 2026 18:31:39 +0700
+X-Gm-Features: AUfX_mzGbGbCLUqw5yGVABFLcGDzOMeEoke6_vKzwWhrkgvCIpYRKRc2ZgE3fTs
+Message-ID: <CAJpJ=Gufo_0aKSGPr6rH7C+b6N+VdCzakAL_Zatb_Vp5ejdHJA@mail.gmail.com>
+Subject: Re: [PATCH] staging: vme_user: fix flush_image leak in tsi148 bridge
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Martyn Welch <martyn@welchs.me.uk>, Hao-Qun Huang <alvinhuang0603@gmail.com>, 
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Atomic DPMS can leave a connector assigned to an enabled but inactive
-CRTC after the driver has removed its DC stream. A later atomic commit
-can then change HDR_OUTPUT_METADATA or Broadcast RGB while leaving the
-CRTC mode, routing and active state unchanged.
+On Wed, Aug 12, 2026 at 7:25=E2=80=AFAM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> On Mon, Jul 27, 2026 at 06:15:34PM +0700, Cong Nguyen wrote:
+> > When error checking is enabled (err_chk=3D1), tsi148_probe() allocates =
+an
+> > extra master window resource, tsi148_device->flush_image, which is used
+> > to flush posted writes by reading back over the VME bus. Unlike the
+> > regular master windows, this resource is not linked into
+> > tsi148_bridge->master_resources.
+> >
+> > Because it is not on any resource list, it is freed neither by the prob=
+e
+> > error path (which only walks the master_resources list) nor by
+> > tsi148_remove(), so it is leaked whenever err_chk is set and either
+> > probe fails after the allocation or the device is unbound / the module
+> > is unloaded.
+> >
+> > Free flush_image in both the probe error path and tsi148_remove(). This
+> > is safe when err_chk is disabled: tsi148_device is allocated with
+> > kzalloc() so flush_image is NULL and kfree(NULL) is a no-op.
+> >
+> > Fixes: d22b8ed9a3b0 ("Staging: vme: add Tundra TSI148 VME-PCI Bridge dr=
+iver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+> > ---
+> >  drivers/staging/vme_user/vme_tsi148.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+>
+> How was this found and tested?
 
-That property-only commit does not require a modeset, so it reaches the
-connector stream-update path with a NULL stream. An HDR metadata change
-passes the update bailout and reaches dc_stream_get_status(NULL), while
-a Broadcast RGB change dereferences the stream earlier when comparing
-its output color space.
+Code inspection: flush_image is allocated in tsi148_probe() (when
+err_chk is set) but never added to master_resources, while both the
+probe error path and tsi148_remove() only free windows on that list.
+Build-tested only; I have no TSI148 hardware.
 
-Skip stream updates until a stream exists. The connector state remains
-stored, and an enabling modeset applies it to the newly created stream.
+>
+> Did you forget an Assisted-by: tag?
 
-The crash was reproduced on a Phoenix1 system with DCN 3.1.4 and Linux
-7.2-rc5 using a one-shot AI-generated DRM atomic reproducer:
+Yes, sorry -- found with AI assistance and I missed the tag. I'll send a
+v2 adding:
+Assisted-by: Claude:claude-opus-4
 
-https://pastebin.com/KxT1BcSs
+>
+> thanks,
+>
+> greg k-h
 
-The reproducer first sets HDR_OUTPUT_METADATA on an active CRTC, then
-sets CRTC ACTIVE=0 to remove the DC stream while keeping the connector
-routed to the CRTC, and finally changes HDR_OUTPUT_METADATA from one
-non-NULL blob to another. The last commit does not require a modeset and
-reached dc_stream_get_status(NULL) from amdgpu_dm_atomic_commit_tail().
-The same sequence completed without crashing with this fix applied.
-
-Fixes: b232d4ed92ea ("drm/amd/display: Only force modesets when toggling HDR")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: David Weber <weber.aulendorf@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1820547b1dde..13101a6be437 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -11519,6 +11519,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
- 
- 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
- 		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
-+		/* DPMS-off leaves the connector routed to a streamless CRTC. */
-+		if (!dm_new_crtc_state->stream)
-+			continue;
- 
- 		scaling_changed = is_scaling_state_different(dm_new_con_state,
- 							     dm_old_con_state);
--- 
-2.54.0
-
+Thanks,
+Cong
