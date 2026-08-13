@@ -1,148 +1,314 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11022088.outbound.protection.outlook.com [52.101.53.88])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21E940DB56;
-	Thu, 13 Aug 2026 14:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.88
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786632880; cv=fail; b=QvKu1zldlCAYyHgG6jLWq/OfK9OFhvhR6SBDZBL+18KYaXDFYnLrKsRQatyz8FhYCE8djR5QAtWgVp3WqpzhuQHF3XGDnDGawdkneSE7vgniN9cFf/5CKSIgluW01w/yl0MS6zLW6mHWkSJN7VK8c4qyzGyw72gSVOd2/ZfDmHE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786632880; c=relaxed/simple;
-	bh=UzKVxK2KBqSD+oNCoS1rLmdcYPNjDYwRvA2v3tO1gUY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=JgHqNXBIC6299xljxsgUrS5CNW9NaJNPNv/uCD62NSqUHMO5gNzuoR1Kml7Fi3XqOkf0eDTBv8lTCxKR0F7aOzocuNymJMLTwXIjLkZiNKkHmwbv/+Xo7w/qGodEx/yNCsWNbxzvI3XsyMyPTH4ZCq4b5xY1DbwWK8vTNJ0Dc1g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chelsio.com; spf=pass smtp.mailfrom=chelsio.com; dkim=pass (1024-bit key) header.d=chelsio.com header.i=@chelsio.com header.b=CNnZ1kEQ; arc=fail smtp.client-ip=52.101.53.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chelsio.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chelsio.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAB54854F1
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 15:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786633444; cv=none; b=R6COmqhgnTj92j6PzezXoAcRK+JJd7SKiaoea3kl+QoAViTtbRmg54t2MIv4U4G2NhiGk6cRhZ/NGiO7pR8h7wLpeSQWEK/mqjKeai0U+Z43VQl1CL0xknHqRdrpOyJs6O+uuE1E8cL1t8VWA8ptFj0VXw4Axp8MPEyrf1sf2sY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786633444; c=relaxed/simple;
+	bh=L0POC1dxHiRCxuwK9nJWFxZm24tqjT2/4K6LlboI2aM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V3Up0xRQlS6RfvujB8SHItBm/9Lw0ZLph+7GirNnvwoBacMmg7KOuNZ4bO4X9544gK+ZYI3VYHsji670cgqIfcMCIK2lzGZNEAL6pw6UZzLVp5F2j5o1SCJzK+k5RK53aukCcU/y/m5OeH3SjpdD04fYhnTxsWoz7HMTpoZGQLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=R5QtYXBS; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chelsio.com header.i=@chelsio.com header.b="CNnZ1kEQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xKkp4oqCSv7lYTPg/Ot2o9sQg0Exrxi5E8++PX7UUmJdhItkKhk+8zBknwmgkY9QkTkh5ub1u50OBJ9giC47NV3sHVnEe91IbIPg3g42lv4ky2/ueUnXMAOlXsMgOlz13IYb1GV8km66nGtdBPpvQ77neF7WNtoxK9yArjqOeO/CHhmlup1ihK/Cfwj7dgRQP2s/44A6ravb6FMD3Hol/eEJQMHfCAVUB44SFRu+4lDMCccaAT7gdg+Im9nbal1ZaRNeqk3IPik46ShE5ly50EId/KSsHZIkZRn5DL9CfpgVL/NLGpMJq/TPmj11rcuua1J6zZ8nZnWQTDXtGvOeJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=np1esvjamXhz/NKHVcgvS57frNe749cBYIEvsWTnoRw=;
- b=Tgj9jUE8m0gobmq443tKudnQTDqrm69QiaNdiqFXKRoM1JHQOHx1lStqCRiX0mGkFKhREa1DLl6ZQ/rP76ee6Nkv0H/qL8+CSvJ66bk5X8jj+hVz00TFcjJ+6tcPY1yRIO++nDcUxqoDzjt7aW6zvJqXb90H+9FLMYTmHdesNnbqY3rCjeMSPnTG7Q0GnvIe9Ege+rYNuX9mfAs5fXLBuX9DOJCTs5Yq4BvQ0mhyBvj0D/912tcGmu0h0T3mlIQUDugR3FxcwqIDCFD9YsjqEAtGT11F1WxeqrG6OncLpxU+UUs96UkK9hoI3Z9z1W+tZaOH2gcGwJhbiiQqqw9c2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chelsio.com; dmarc=pass action=none header.from=chelsio.com;
- dkim=pass header.d=chelsio.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chelsio.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=np1esvjamXhz/NKHVcgvS57frNe749cBYIEvsWTnoRw=;
- b=CNnZ1kEQbwcvQte6vVZNiM1oCXiJYS/lF9pzbdfX7rVoNPkxkWamhljPsfANxbFAr47ysDSaFYh0wcKIohXIpVf9o1cCaoSijxwr6VhxrfATCgcavCSgXjr18UgJcQzYA/kyQ24CURFswaFsWsCyFs+cJlzk4f/0ka0W7N6zVeM=
-Received: from IA0PPF73BED5E32.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bd2) by CHAPR12MB999225.namprd12.prod.outlook.com
- (2603:10b6:610:2fe::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 13 Aug
- 2026 14:54:33 +0000
-Received: from IA0PPF73BED5E32.namprd12.prod.outlook.com
- ([fe80::92cf:1858:5560:593]) by IA0PPF73BED5E32.namprd12.prod.outlook.com
- ([fe80::92cf:1858:5560:593%7]) with mapi id 15.21.0292.019; Thu, 13 Aug 2026
- 14:54:33 +0000
-From: Varun Prakash <varun@chelsio.com>
-To: Fan Wu <fanwu01@zju.edu.cn>, "linux-scsi@vger.kernel.org"
-	<linux-scsi@vger.kernel.org>
-CC: "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] scsi: cxgbi: fix retry_timer use-after-free on adapter
- detach
-Thread-Topic: [PATCH] scsi: cxgbi: fix retry_timer use-after-free on adapter
- detach
-Thread-Index: AQHdJHpo/u19QsG+/kOppl+nk1beV7acHQTQ
-Date: Thu, 13 Aug 2026 14:54:33 +0000
-Message-ID:
- <IA0PPF73BED5E32280057B3EBBA6889877DBCDB2@IA0PPF73BED5E32.namprd12.prod.outlook.com>
-References: <20260805013209.418861-1-fanwu01@zju.edu.cn>
-In-Reply-To: <20260805013209.418861-1-fanwu01@zju.edu.cn>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-vipre-scanned: 0012206101B662001221AE
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chelsio.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PPF73BED5E32:EE_|CHAPR12MB999225:EE_
-x-ms-office365-filtering-correlation-id: 02a36fdf-061b-460f-af43-08def94ac93a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|38070700021|10067099003|22082099003|18002099003|56012099006;
-x-microsoft-antispam-message-info:
- VBI5NbWjpv6Y8naj2utudvp8yGlQTV6lAda8M4f08x/D5WBQRcsnhYnG0+djDO+uAVNG8tqnSh0FhX44PV8dVKBrc/hsipf4zKKkOB3F/G4B7iId/AwL1fru+sFSKDJiP44jidUIDhm4R6+PN8eahq7EKETm6wsZ4eOcBnLGq+WHnt3SKWNqROMtjpRPqFP1Ud3NoPY6Y4bNND5YCw8wasedtfJyveWxEmZYcy2moh58Zyab7hTkpDMyjxEiEdV/7ZL7dGy5COL5gb3SJhh5QrN6widq/S5ItLwjbtBgyj02tA0EemtfzOhrKOwrVc6XLgSPa8mWQJPmdWi8ygG5LbKcc0FPHD3FctimkKW4WQj4p4kTpw+bAZh+6t6gh/hO9fPzy+wUZCC/xovorXKKJIfOhB3e57A0CfFdPniBXFHJEs6l9m6hhx7T9BqTZQVKYQncmiadaAJTAOtSwuQupG05JVYvXwGcJcJPyBX4yNtfpSjrtwIvMNrxsHppEpjkBMaqBOuvwrN311A0NtecztJz9UUEGkMyJ7fQYMbk8yuR5kilY7RUi+17BaXY91TKqWNDS9hmnNcgoYGUzi+brO4E7s04h6JPfdbPfTH1XbGVToTzlYGQvkd7t14eQUMVGPlpnVrB37pqiWNN9dVNCkC60UuIv1CRcXLdtR1rRJqLTD2PwLPNp8Jt71In4nheo6h9ndka6FDzxQInfPELs3ZSjTUTSzqHrdJJhL5YJZU=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PPF73BED5E32.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(38070700021)(10067099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?j3duDhdembiPnlST/e/ftq4pzY8+IO7znz7qbCUb8Fa2ZwfyzqhmFyXDdo90?=
- =?us-ascii?Q?qS9bJwaFNwjPNUoXlQIEjBgrrCEY5dVMlflkqUnRrwk2qO6+mzwfNHinZzQj?=
- =?us-ascii?Q?k8p2IAs3rKeRHTKGCSdCgwh43uNS8WLAPP6BPp7FQ0Ryq6KzWGx+bJom9bFV?=
- =?us-ascii?Q?6bRpUIeReOce+PaJx8pR1tZbQUxbcEJoYaF9o3Hw2ETyifmzue5wSlHrBiJm?=
- =?us-ascii?Q?StcNagE81bYSDwp4gPwVdcsCTiFvLbRO1ibQ9mvkzUsgQXAImCWTlO5XHkNk?=
- =?us-ascii?Q?yIjEn5rhdlIj0Jl7Ctg6mWZqqoVhE8uh83Vcovbi/oqoWNYVhcfKQyLbdtp0?=
- =?us-ascii?Q?mNnEqv7FIwJpPTNdJuFZVKbGhihXdVg3evVJEXiNIENpxcw0kpYfMvHE6cI+?=
- =?us-ascii?Q?HoByj746acF1L9j63EjH8dT7oDgUfYh1M47TkkZUAAliyVREL2MXKLzD013/?=
- =?us-ascii?Q?Nwp6Cua8H3refhYYF8GI2uMN9ZjswW4b5ecOU0H4oeLVyZRajiB/FmWgcxOY?=
- =?us-ascii?Q?eNKcY1IBUhX/lHJ2eOuFUUGhy6dXEpRZ86EsOT3LWP73Y3yDuLF/c/3eoYiJ?=
- =?us-ascii?Q?/1W4ne/ikNciQKC3hLQob6X5y3jytuSRwjpDgc9jOtqA4vXsFoOo4ozyOOfu?=
- =?us-ascii?Q?/FgdOtWLLEeZ/XqtSh4vHWyChj8toZ2VUsWqzPvCpdAepsdrJ5u0VrMa/N+Y?=
- =?us-ascii?Q?zMeO5rb0hMSWv2hJTcOiUQmtYzJDwqUvucf7HCnZJTJ1xQwiUwwIyXl3JR19?=
- =?us-ascii?Q?gK2dfhDtgMMXkqyo/PArlVlkHPWhDWVryou7jYsSux67+tMb9hWDshjBqwAS?=
- =?us-ascii?Q?KbSojM5oN1msaaKSuIYQLPvG0UURWrF56PaohIhv6L39uO52fJYEvxp4usB6?=
- =?us-ascii?Q?/VvcTZ9CI5jP/US2kId4tI90sT39aW2oRB/LETwVtt6zqL3Lzerbt78hA+fq?=
- =?us-ascii?Q?hCaCdQPKxEyxOkR/pxjoe/q804eerc7IReTYZKuCBSD4ONFG1zg6Dj/OGtsd?=
- =?us-ascii?Q?V+QgoNlNZgJHj5XU4gU7ZXnvOT8e7VW0RhDQUf+ApW3YhLt3FbBUS5fSasmq?=
- =?us-ascii?Q?+42qoABjt/fiWSE1Ybi20/MB+s8gyOypkam3yC7TaL1sZ+2jxjmc3URlfaGi?=
- =?us-ascii?Q?rAmRlcCuc8rzzzFJCewRvAI828/UN2/iagmu2iCNjgmUo0+YMiEnDF7JKj0c?=
- =?us-ascii?Q?WE5yUZQUA0AgvZyCnHJXSiks1F1RkiYV4EKTNdeQU99APdBc0DbkVl5kptcZ?=
- =?us-ascii?Q?lCRKNcBKOcDP5r+hGNBIzDpTowElvgExFD5zi0M2GAW72FtYlQQDOgQ8FTYd?=
- =?us-ascii?Q?nvxRCfemVi//ckmm5vKLCqL4Svyf1XFkPXDv8Re/xVt5CDwibYBjEEtqwmC6?=
- =?us-ascii?Q?2YoOSk7Ly7LamEfPPeqHrOBXzLpp9CwhQwWl8iUj9lsEQASuDkUelpEwgCGo?=
- =?us-ascii?Q?2UDPjMxCholcXysmCLwAPW3Szo1+erEhTdiFoGpA1Xvepnx7QPk4PmJYIKCp?=
- =?us-ascii?Q?cwUVYQ47JpTQ4batnxpKMpDLQoKbpfjHS3ZAn9JiBefMBPu+5CLxP8mcz1U+?=
- =?us-ascii?Q?G5vjhps654x1RqoBMiFw5FNcrRK64iGDd6h96/4TwtlDtSuO7Qn9kJKCp4nF?=
- =?us-ascii?Q?/Gqzol3+NKOg5SJuCV34Rc+3AtT1vLUUQ56D651L5PDv2DUcln18hYzAdQ2v?=
- =?us-ascii?Q?FmsdfWDDQPMINpnXrnOnFXrg7j6rD4Vhgj1RBkQpvzuL/+LvbT6CLHdaxDPr?=
- =?us-ascii?Q?C3EhMFIQ+A=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="R5QtYXBS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=yl
+	uVcWye/s/7XdOwmqnjfFXhTdJaDPji+Tuj86y5Lk8=; b=R5QtYXBSF32IgsnuOg
+	6PZ43Fi8F/jaVCwdxzeDppe40g7UVr2SF4Jn/abGEbhpWYzf+8NXCXFLcXuFbwe9
+	4rEKbaPh3do/AKMCODKOh3t2MeZScsSS+K1K9oimbBW/6J7d/Lv3r9YrRieCs0jw
+	adSjiXzmXEJONMQH6UzqgvXBU=
+Received: from XLL-9950X.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnN2y33H1qz03vOg--.16715S2;
+	Thu, 13 Aug 2026 23:03:20 +0800 (CST)
+From: Longlong Xia <xialonglong2025@163.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	linux-mm@kvack.org,
+	Longlong Xia <xialonglong@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/swap: publish cluster tables after full initialization
+Date: Thu, 13 Aug 2026 23:03:16 +0800
+Message-ID: <20260813150316.2793642-1-xialonglong2025@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: chelsio.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PPF73BED5E32.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02a36fdf-061b-460f-af43-08def94ac93a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2026 14:54:33.2019
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 065db76d-a7ae-4c60-b78a-501e8fc17095
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vbNbenij7s9gixxM0hejiOqczeMuLFzjoEvbRFRBXRPRGq7a0Jp28tnoUjZiQo55cYqE/QpsztR4YXbt13V9CA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR12MB999225
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnN2y33H1qz03vOg--.16715S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GFWfCF18KryftrWxZrW5ZFb_yoW3CF43pF
+	4fK3s8Kr4fXrnxWrsxAw4ktFyrCw40gryDGFyxGw1a93ZxXr48Wa97AFyavF97CF1kJwnx
+	Kr15Kw17uF48AwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnhL8UUUUU=
+X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC9xhfWGp93LgaqQAA3o
 
+From: Longlong Xia <xialonglong@kylinos.cn>
 
->@@ -1001,6 +1001,15 @@ static void csk_act_open_retry_timer(struct timer_l=
-ist *t)
->	cxgbi_sock_get(csk);
-> 	spin_lock_bh(&csk->lock);
->
->+	if (cxgbi_sock_flag(csk, CTPF_OFFLOAD_DOWN)) {
->+		spin_unlock_bh(&csk->lock);
->+		cxgbi_sock_put(csk);
->+		return;
->+	}
->+
->+	lldi =3D cxgbi_cdev_priv(csk->cdev);
->+	t4 =3D is_t4(lldi->adapter_type);
->+
+swap_cluster_populate() drops the local, global, and cluster locks
+before its sleeping allocation.  The allocation helper publishes ci->table
+before allocating the memcg table and, on some 32-bit configurations, the
+zero bitmap.
 
-With this patch csk->cdev will always be valid, so there is no need to
-move these assignments here.
+A stale per-CPU or global cluster cursor can reach the isolated cluster in
+that window.  Since CLUSTER_FLAG_NONE and a non-NULL table make the cluster
+appear usable, it can allocate a slot without the auxiliary state.  An
+auxiliary allocation failure can then tear down a table which is already in
+use.
 
-Thanks for the patch, please send v2 without lldi and t4 assignment change.
+Allocate the complete set of tables into a private carrier.  Install the
+auxiliary pointers and publish the main table only while holding ci->lock;
+the slow path does this after reacquiring all allocator locks.  Allocation
+failures now free only unpublished resources.
+
+Fixes: b197d41462c2 ("mm/memcg, swap: store cgroup id in cluster table directly")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+---
+ mm/swapfile.c | 167 +++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 117 insertions(+), 50 deletions(-)
+
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 78b49b0658ad..2ca947c540e9 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -410,6 +410,99 @@ static inline unsigned int cluster_offset(struct swap_info_struct *si,
+ 	return cluster_index(si, ci) * SWAPFILE_CLUSTER;
+ }
+ 
++struct swap_cluster_tables {
++	struct swap_table *table;
++#ifdef CONFIG_MEMCG
++	struct swap_memcg_table *memcg_table;
++#endif
++#if !SWAP_TABLE_HAS_ZEROFLAG
++	unsigned long *zero_bitmap;
++#endif
++};
++
++static void swap_cluster_tables_free(struct swap_cluster_tables *tables)
++{
++#ifdef CONFIG_MEMCG
++	kfree(tables->memcg_table);
++	tables->memcg_table = NULL;
++#endif
++
++#if !SWAP_TABLE_HAS_ZEROFLAG
++	kfree(tables->zero_bitmap);
++	tables->zero_bitmap = NULL;
++#endif
++
++	if (!tables->table)
++		return;
++
++	if (SWP_TABLE_USE_PAGE)
++		folio_put(virt_to_folio(tables->table));
++	else
++		kmem_cache_free(swap_table_cachep, tables->table);
++	tables->table = NULL;
++}
++
++static int swap_cluster_tables_alloc(struct swap_cluster_tables *tables,
++				     gfp_t gfp)
++{
++	struct folio *folio;
++
++	if (SWP_TABLE_USE_PAGE) {
++		folio = folio_alloc(gfp | __GFP_ZERO, 0);
++		if (folio)
++			tables->table = folio_address(folio);
++	} else {
++		tables->table = kmem_cache_zalloc(swap_table_cachep, gfp);
++	}
++	if (!tables->table)
++		return -ENOMEM;
++
++#ifdef CONFIG_MEMCG
++	if (!mem_cgroup_disabled()) {
++		tables->memcg_table = kzalloc_obj(*tables->memcg_table, gfp);
++		if (!tables->memcg_table)
++			goto free_tables;
++	}
++#endif
++
++#if !SWAP_TABLE_HAS_ZEROFLAG
++	tables->zero_bitmap = bitmap_zalloc(SWAPFILE_CLUSTER, gfp);
++	if (!tables->zero_bitmap)
++		goto free_tables;
++#endif
++
++	return 0;
++
++#if defined(CONFIG_MEMCG) || !SWAP_TABLE_HAS_ZEROFLAG
++free_tables:
++	swap_cluster_tables_free(tables);
++	return -ENOMEM;
++#endif
++}
++
++static void swap_cluster_tables_install(struct swap_cluster_info *ci,
++					struct swap_cluster_tables *tables)
++{
++	lockdep_assert_held(&ci->lock);
++	VM_WARN_ON_ONCE(ci->flags || !cluster_is_empty(ci));
++	VM_WARN_ON_ONCE(rcu_access_pointer(ci->table));
++
++#ifdef CONFIG_MEMCG
++	VM_WARN_ON_ONCE(ci->memcg_table);
++	ci->memcg_table = tables->memcg_table;
++	tables->memcg_table = NULL;
++#endif
++
++#if !SWAP_TABLE_HAS_ZEROFLAG
++	VM_WARN_ON_ONCE(ci->zero_bitmap);
++	ci->zero_bitmap = tables->zero_bitmap;
++	tables->zero_bitmap = NULL;
++#endif
++
++	rcu_assign_pointer(ci->table, tables->table);
++	tables->table = NULL;
++}
++
+ static void swap_cluster_free_table_folio_rcu_cb(struct rcu_head *head)
+ {
+ 	struct folio *folio;
+@@ -446,50 +539,6 @@ static void swap_cluster_free_table(struct swap_cluster_info *ci)
+ 		 swap_cluster_free_table_folio_rcu_cb);
+ }
+ 
+-static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
+-{
+-	struct swap_table *table = NULL;
+-	struct folio *folio;
+-
+-	/* The cluster must be empty and not on any list during allocation. */
+-	VM_WARN_ON_ONCE(ci->flags || !cluster_is_empty(ci));
+-	if (rcu_access_pointer(ci->table))
+-		return 0;
+-
+-	if (SWP_TABLE_USE_PAGE) {
+-		folio = folio_alloc(gfp | __GFP_ZERO, 0);
+-		if (folio)
+-			table = folio_address(folio);
+-	} else {
+-		table = kmem_cache_zalloc(swap_table_cachep, gfp);
+-	}
+-	if (!table)
+-		return -ENOMEM;
+-
+-	rcu_assign_pointer(ci->table, table);
+-
+-#ifdef CONFIG_MEMCG
+-	if (!mem_cgroup_disabled()) {
+-		VM_WARN_ON_ONCE(ci->memcg_table);
+-		ci->memcg_table = kzalloc_obj(*ci->memcg_table, gfp);
+-		if (!ci->memcg_table) {
+-			swap_cluster_free_table(ci);
+-			return -ENOMEM;
+-		}
+-	}
+-#endif
+-
+-#if !SWAP_TABLE_HAS_ZEROFLAG
+-	VM_WARN_ON_ONCE(ci->zero_bitmap);
+-	ci->zero_bitmap = bitmap_zalloc(SWAPFILE_CLUSTER, gfp);
+-	if (!ci->zero_bitmap) {
+-		swap_cluster_free_table(ci);
+-		return -ENOMEM;
+-	}
+-#endif
+-	return 0;
+-}
+-
+ /*
+  * Sanity check to ensure nothing leaked, and the specified range is empty.
+  * One special case is that bad slots can't be freed, so check the number of
+@@ -527,6 +576,7 @@ static struct swap_cluster_info *
+ swap_cluster_populate(struct swap_info_struct *si,
+ 			 struct swap_cluster_info *ci)
+ {
++	struct swap_cluster_tables tables = {};
+ 	int ret;
+ 
+ 	/*
+@@ -538,9 +588,12 @@ swap_cluster_populate(struct swap_info_struct *si,
+ 		lockdep_assert_held(&si->global_cluster_lock);
+ 	lockdep_assert_held(&ci->lock);
+ 
+-	if (!swap_cluster_alloc_table(ci, __GFP_HIGH | __GFP_NOMEMALLOC |
+-					  __GFP_NOWARN))
++	ret = swap_cluster_tables_alloc(&tables, __GFP_HIGH | __GFP_NOMEMALLOC |
++					       __GFP_NOWARN);
++	if (!ret) {
++		swap_cluster_tables_install(ci, &tables);
+ 		return ci;
++	}
+ 
+ 	/*
+ 	 * Try a sleep allocation. Each isolated free cluster may cause
+@@ -552,8 +605,8 @@ swap_cluster_populate(struct swap_info_struct *si,
+ 		spin_unlock(&si->global_cluster_lock);
+ 	local_unlock(&percpu_swap_cluster.lock);
+ 
+-	ret = swap_cluster_alloc_table(ci, __GFP_HIGH | __GFP_NOMEMALLOC |
+-					   GFP_KERNEL);
++	ret = swap_cluster_tables_alloc(&tables, __GFP_HIGH | __GFP_NOMEMALLOC |
++						GFP_KERNEL);
+ 
+ 	/*
+ 	 * Back to atomic context. We might have migrated to a new CPU with a
+@@ -568,11 +621,19 @@ swap_cluster_populate(struct swap_info_struct *si,
+ 		spin_lock(&si->global_cluster_lock);
+ 	spin_lock(&ci->lock);
+ 
++	/* Nothing except this helper should populate an isolated cluster. */
++	if (WARN_ON_ONCE(cluster_table_is_alloced(ci))) {
++		swap_cluster_tables_free(&tables);
++		return ci;
++	}
++
+ 	if (ret) {
+ 		move_cluster(si, ci, &si->free_clusters, CLUSTER_FLAG_FREE);
+ 		spin_unlock(&ci->lock);
+ 		return NULL;
+ 	}
++
++	swap_cluster_tables_install(ci, &tables);
+ 	return ci;
+ }
+ 
+@@ -788,6 +849,7 @@ static int swap_cluster_setup_bad_slot(struct swap_info_struct *si,
+ 				       struct swap_cluster_info *cluster_info,
+ 				       unsigned int offset, bool mask)
+ {
++	struct swap_cluster_tables tables = {};
+ 	unsigned int ci_off = offset % SWAPFILE_CLUSTER;
+ 	unsigned long idx = offset / SWAPFILE_CLUSTER;
+ 	struct swap_cluster_info *ci;
+@@ -812,9 +874,14 @@ static int swap_cluster_setup_bad_slot(struct swap_info_struct *si,
+ 
+ 	ci = cluster_info + idx;
+ 	/* Need to allocate swap table first for initial bad slot marking. */
+-	if (!ci->count && swap_cluster_alloc_table(ci, GFP_KERNEL))
+-		return -ENOMEM;
++	if (!ci->count) {
++		ret = swap_cluster_tables_alloc(&tables, GFP_KERNEL);
++		if (ret)
++			return ret;
++	}
+ 	spin_lock(&ci->lock);
++	if (tables.table)
++		swap_cluster_tables_install(ci, &tables);
+ 	/* Check for duplicated bad swap slots. */
+ 	if (__swap_table_xchg(ci, ci_off, SWP_TB_BAD) != SWP_TB_NULL) {
+ 		pr_warn("Duplicated bad slot offset %d\n", offset);
+-- 
+2.43.0
+
