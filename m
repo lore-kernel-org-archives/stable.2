@@ -1,66 +1,66 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5760B368D47
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 10:26:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564AD3161A1
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 10:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786616780; cv=none; b=RktHkG1SqVO0hvB/TggXrNeiFEuon7Um5y/zOC2xeY9DU9EgqKLFpvQSLB1bM1ruzgsfMsuNuyGLN/pBT+Bz7HEevSFdlSLOvvFkCAGWUTERMXMWlc/qJsTEtBZSOmohMxtPYglF8PRUHxpCEZ7k46Pclxyx9Xn+ecbCjtXS33c=
+	t=1786617370; cv=none; b=cPEB+b7KX5zz8QWs0KfRprMgL0f5fLsYNdQiMFRe9qR09lJpMjfcLw4x7YOS6SLh9sGZBlH7qfUZtSz3q+R+jmx1Ney6NTQkJ8phKRvH5M/d7S/E1QDy38D/KgmAW8joguNKFVWXwkxuO69BQ7WGtrvBNt+rclFUlpr41BSVSkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786616780; c=relaxed/simple;
-	bh=yrf9imgPzO8wlFHThXUTZ35rA60+QDuQrt+uQxh0u+M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QzRbbjGOQOxv9f4PTeJjGwpxU4of2Twp2RLdkAPEFYvFc1T+3aDmEx6elIURogz2Isyjqt68Ek1z3eXkQ7BeDI9Q6uuHWxv/9m22HvZGNcd7MRxftLybcro+NQwtQ+Ia2ZKO7J669pa+DAgtKigP73zYRy0wicTYf9a8mJ95pMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dFgAJw2u; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1786617370; c=relaxed/simple;
+	bh=meyb6Y2dzI5h7FZCiO0Odzp0AHqH1igJ4/zqrayN1Nc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bAhSGQvUp+7eBD2CVJhYe1t1AsS7BqBMi223nwHL34whpXpWCL4L60iP8ZJMuHcdpyzaK6Ol8tAV5q9a0Q1YqHdbD0m7ovabdndSO2cPOTqcy3q3K5T/daNx6v2rHeadVJrriF1M/nXD4DEpSFIVprH5I6rQhL0ZGkbB8K3kA2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fwdiP6mT; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dFgAJw2u"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cc7e86e7aeso25899325ad.2
-        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 03:26:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fwdiP6mT"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso1856356a91.3
+        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 03:36:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786616779; x=1787221579; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786617363; x=1787222163; darn=vger.kernel.org;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=CheetA0FCd2QHli7re2NKbzT3knYEe7Te2BK6UHPkW8=;
-        b=dFgAJw2u8L17wAZiY7UwFxiu+qbdz2wQ7V5ypB4rknik7lBWrIdUEZd/FipNmh6ABa
-         fY45say1wGw1dVrluyHatVthNxuJRnId32TyEsqZwSU6duNH/AmP/iuhPKMKqGeRmKIT
-         zc1XguCInPy9GuEdb3DpFF7pH2lUOxJjtn8K+uOdyUr0VLAgVpA3415iPNtOSnPKhiTw
-         H824ri1spbPv56Hj/jw3iisTDSryFdzhrJkk5QfKCyDPBoijMVkTiK/BXD583uoeRsFE
-         FAT0dlK2LVnk6otDRQQrxrYHrpqu8iYthicPdBvGTRgm0sq8eroE+sWblTwpsRHQ61Y7
-         54+Q==
+        bh=Z3AY/Bs9FDrd8H3tGAAndoQ/dkrF/oypF8YiYah5nNY=;
+        b=fwdiP6mTFJwXtCcN7Ewc2KSVfzubuJ+E0cwKHiaa8aeRYBx8fQOKcLT58u1LoqsxV4
+         79obt/LD7IzfHST6sUi9FJUuo93u80ZkIDYk5cdPnnHUI7qXD1rB0wkflfhn8yvk7QcV
+         rMruIeKNq00Ae7pRfyH52Sw5Z41fED7gz+aDV8dbFv4BmMS97h2LDlfFMkE9G/rj/nVZ
+         yB+qEhtm/5DtBei+jywtfhFce6ilNKn+tztsF3N4QePbZYAtlrl5NIn4JVj8Li2eIGlW
+         K/PE7jVKMNxZ91hF151C3UTLrCkg3dq3PNuGyk2KbP/q+4jaNeY4QdH/pR6pCgZ2X089
+         X09g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786616779; x=1787221579;
+        d=1e100.net; s=20251104; t=1786617363; x=1787222163;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=CheetA0FCd2QHli7re2NKbzT3knYEe7Te2BK6UHPkW8=;
-        b=RWVvCkkmHBmdn4Mcxxh8LuF7ajC/hnGoXqrj+MTjoPDMvglwlmJF8MFVWjFF2wkeNX
-         gwH4J1UyOk9em/OOuaKKwpoXyoKn5QuEfjt/MiKpwiyTFWqmIYf5RVrqitsxDR0Xd1IK
-         PGyByB3aAZPNgZ4rRNBD0zB7vLYP7/joeFjne3GtNkUAIrl2zc4vP8MAIc3n31C0aCUg
-         EvqI16pvw2f5whpZElg2IOzEXCbH94YwjndExwJva/frMGyrJXRNckgd0u/uxoolIM0z
-         ePNJNO3i3S9vrCkT7e8nXoNesZ3xdt3sWlboj5RGAuhZB2klvimYI8f4Ik/ygF02nodT
-         7whA==
-X-Forwarded-Encrypted: i=1; AHgh+RrGqCJe2W+Y6pFgnzEjW8y19E4zyo5GHmCdfYREUPoiDD2+ir/7KQqyQXpT9+XbbSIJy0Rg0Sc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyX6QVzJm8NLHXi1cF20PnJSfr2BqxSFZ/lUBWB6SlTBU5r6DdG
-	9qGGEe9OMK8GfsYKW1W2dP2V5XiB7YUtjk+fAXjh6t3zHgHSA0HVNhaOj3Pu32oKaU0=
-X-Gm-Gg: AR+sD11NNdr3qTdTIGl9ivDrbeciHv2uCw8edPlij1CwxTMPqSaaAy8Ugx9yrxV/Qcj
-	OH1K9Ndazj1d7eLk0NGPVd2xxu2WlCB29Nar5nmaGkLeCjpPgXNhhW4L/fhq0NnIBH1KewH2Bp5
-	nyFuWiWrYz9J+dBShI4QHisIBjcj3mNBGhmLzGpwFPElnUBeYpEDpBluKGPvKQciSyIYOAtc+sg
-	VbmiIbdq9q/HnSjVYQiqeE27dWVI2KyXNuROwCtNOmcaJktgTkYYCXarFLfAOVOvhPYgVkYRTd+
-	MVwRHWRwzUDOiHirjCNUtQJBHjXp+WEsY5xIkMcSuN/FgnknvkhmdObg8O9T8C8cdKbxPzmw3qP
-	DrWi4H649FoOmmbMoe14gbIBFTxZEClNHKu0NufJAg9sHG7iO4/UtIKo1CZ36V/93cO4rfZW4PT
-	ysrNv9zDHMpFlSXKjlqYAr+9Nki0sDKvZoBqDPOMpY53U+d+/3yXtgvEwGfJs=
-X-Received: by 2002:a17:903:4b28:b0:2cc:777f:d67c with SMTP id d9443c01a7336-2d37e856ffcmr53648995ad.13.1786616778614;
-        Thu, 13 Aug 2026 03:26:18 -0700 (PDT)
+        bh=Z3AY/Bs9FDrd8H3tGAAndoQ/dkrF/oypF8YiYah5nNY=;
+        b=jBY8HXh8+0kHY+UFXQeLT2cYIoIQsU3tIyWyw9SIGnG0BZS7pZDKQaS+Vwuvmp7ppD
+         KTj6MLsiFUBo0y5TvxUZcwjMXr6E+i5rWeTUxZV8Z5u4OTehPP0pDyZC8SNf1e9YUtIF
+         zFxMnmUOgh5v3wCAogMYX8tPjOTrad8JgewBQ1o9QqTBi/u8xmjecHZ7rtMG3rJ42E+1
+         kwCxygTY26Wqh3r8kDzA8Fd55Aiy+A2jCRLt4G6vzjcRCGR6yGw9J4DMw6Ug3Ac683w2
+         EeZlPe7pJUNn2oe3j5hxdtLctbQLJGA4txZ3jS0NhBgvGrjiFiNWL8j+r3Ega1SYMLtS
+         SIpw==
+X-Forwarded-Encrypted: i=1; AHgh+RqkkgbjGtpH6SzfczGp1+3fInitbty1uAIhjiR0oemFIZithQ+tixyzB6v/D6LKZEmpnokBoOU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw70YudYaD1DzYS66qLsZ01rhlXQluh2//G4sF7mS2/6eBeUaE0
+	ON1jcK3rdD0NRZtW7quj2kwH/X2vBLuVxUBqXFdV3GZLcgzMDr99GDHE
+X-Gm-Gg: AR+sD11b1fn/BRekHLEWWXsum43b4CsFHwP3rpMFRvmPPneMBBgx3HBFrtdxaYoGVAP
+	KCZ/b/e9ITVqnknG4AiyKKvANipqNUsTiVDOxLS36t4+ln9sItZlEooGrcwUS5jx4eln1WexJWN
+	Hoh2/XTbD8MAGrPhfD7gz9zvjszqILOSiOmsIR3UdhQpylQ8eLi4DcfnreO7GBFPDpWxxfyU1A7
+	SPtfW2k2yjcEVkY6aCQBkgobnZn2/dX8I6bW2FKVuqS3pKOTxRnI3IcGYt2UFElB7tF/kkpPZHC
+	04/hdBXoQIZLs4WINAUF917fPQQyYKs6+d1+hA8z0xrxfmtoAzmoC0urNkhxGCyPN2JTvzNhSeg
+	d07jH82Q6V+cQzY8KD5qpIBYJSsZNIhAjmLHcDE3wzT3l8OWppzvwEeRn5U0XxzEjuHgZmeKsEs
+	HHSw1+YroZqZDdpnlewZv5QcT5eB2HXaAJs6otf/xGT9weEFZTPdDaHHAo0dI=
+X-Received: by 2002:a17:90b:278e:b0:381:25ce:bcc2 with SMTP id 98e67ed59e1d1-3931e0242f8mr6100351a91.6.1786617363370;
+        Thu, 13 Aug 2026 03:36:03 -0700 (PDT)
 Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d37c49bd29sm7220095ad.64.2026.08.13.03.26.14
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3931f41ce3fsm2381426a91.10.2026.08.13.03.35.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 03:26:18 -0700 (PDT)
+        Thu, 13 Aug 2026 03:36:02 -0700 (PDT)
 From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Thu, 13 Aug 2026 18:24:26 +0800
-Subject: [PATCH] drm/nouveau: disable VM_BIND once a legacy BO VMA is
- created
+Date: Thu, 13 Aug 2026 18:35:47 +0800
+Subject: [PATCH] drm/nouveau/nv04: check cursor buffer object size before
+ upload
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,78 +69,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-nouveau-gem-uvmm-vma-fix-v1-1-4f14d427f2c9@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAFmbfWoC/yXMSwqEMBBF0a1IjS2IX9StiIMkllpCoiQmNIh77
- 3Q7PA/evcGTY/IwZDc4iuz5sAlFnoHepF0JeU6GUpSt6IoK7REiyYArGQzRGIxG4sIf7GaxKKn
- rplY9pPvpKM3/9Di99kHtpK9fD57nC8WTXNF8AAAA
-X-Change-ID: 20260813-nouveau-gem-uvmm-vma-fix-8d0fbac454b9
+Message-Id: <20260813-nouveau-nv04-cursor-oob-v1-1-3f3eb37d213d@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAKefWoC/yXMTQoCMQxA4asMWRtIOzKIVxEX/YkaF400tgwMc
+ 3erLr/FexsYV2GD87RB5S4mWgbcYYL0COXOKHkYPPmFTm7Goq1zaFg6HTG1alpRNWLIPi5ELvO
+ cYdSvyjdZf+fL9W9r8cnp/d3Bvn8AMrGehnsAAAA=
+X-Change-ID: 20260813-nouveau-nv04-cursor-oob-ad2b6001de3d
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dave Airlie <airlied@redhat.com>
+ Dave Airlie <airlied@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
  stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786616773; l=2346;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786617357; l=1859;
  i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=yrf9imgPzO8wlFHThXUTZ35rA60+QDuQrt+uQxh0u+M=;
- b=8up90CkB3EcBEnF95pzAf697k2mBINT6B819yhVrWyqIK8onVKU51wq9dVqfe1WponwGildgE
- n1Cbg8WGmwFBxQyZiMo/7nsnzQyn6HS1V+ThAo1prd3d45OWyzzzIbM
+ bh=meyb6Y2dzI5h7FZCiO0Odzp0AHqH1igJ4/zqrayN1Nc=;
+ b=RNFf4wcl5LftIPZXfs3V3e6M/RvnsKRYFDr2Klg/361+meLcH5wFsHmX27P4vcahMHwYigsCm
+ x9MU0ukgwrABPcno3tUpRryRAvmlcH+Rkiw0czCAWwMQsBzK44PWa6V
 X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
  pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-nouveau_gem_object_open() creates a legacy per-client VMA when the client
-has not initialised VM_BIND (!nouveau_cli_uvmm()), but
-nouveau_gem_object_close() only tears it down while the client is still not
-a VM_BIND client ("if (nouveau_cli_uvmm(cli)) return;").
+nv04_crtc_cursor_set() validates only the 64x64 cursor geometry, not the
+size of the backing GEM object, before nv11_cursor_upload() /
+nv04_cursor_upload() read up to 64 * 64 * 4 = 16384 bytes from it via
+nouveau_bo_rd32() at hardware-fixed offsets.
 
-nouveau_gem_ioctl_new() calls nouveau_cli_disable_uvmm_noinit() to stop a
-client mixing the legacy and VM_BIND uAPIs, but the prime-import and flink
-GEM_OPEN paths that also run nouveau_gem_object_open() do not. A client can
-thus open an object (creating a legacy VMA), call NOUVEAU_VM_INIT, then
-close the handle: close() now returns early and leaks the VMA. If the BO is
-flink-shared it outlives the client's freed vmm, and the next migration
-walks nvbo->vma_list in nouveau_bo_move_ntfy() and dereferences the stale
-vma->vmm -- a use-after-free.
+nv04 uses a legacy cursor_set callback with a NULL cursor plane, so
+drm_mode_cursor_common() passes the raw handle to the driver without
+building a drm_framebuffer; the framebuffer path's size check never runs.
 
-Disable VM_BIND in nouveau_gem_object_open() as nouveau_gem_ioctl_new()
-does; the helper is a no-op once VM_BIND is initialised, so VM_BIND-first
-clients are unaffected.
+A client with DRM master can thus supply an undersized GEM object and
+trigger an out-of-bounds read, as nouveau_bo_map() only kmaps
+PFN_UP(size) pages.
 
-Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
+Reject undersized buffers before mapping, as gma500's
+gma_crtc_cursor_set() does. The check precedes nouveau_bo_map(), so the
+error path only drops the GEM reference via the existing 'out:' label.
+
+Fixes: 6ee738610f41 ("drm/nouveau: Add DRM driver for NVIDIA GPUs")
 Reported-by: Yuhao Jiang <danisjiang@gmail.com>
 Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
 Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_gem.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
-index 20dba02d6175..e33f76b5a239 100644
---- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-@@ -108,6 +108,14 @@ nouveau_gem_object_open(struct drm_gem_object *gem, struct drm_file *file_priv)
- 	if (vmm->vmm.object.oclass < NVIF_CLASS_VMM_NV50)
- 		return 0;
+diff --git a/drivers/gpu/drm/nouveau/dispnv04/crtc.c b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
+index 500fd77b87d1..0393025baa64 100644
+--- a/drivers/gpu/drm/nouveau/dispnv04/crtc.c
++++ b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
+@@ -1000,6 +1000,11 @@ nv04_crtc_cursor_set(struct drm_crtc *crtc, struct drm_file *file_priv,
+ 		return -ENOENT;
+ 	cursor = nouveau_gem_object(gem);
  
-+	/*
-+	 * Opening the object binds it through the legacy per-VMA path below.
-+	 * Disable VM_BIND for this client, as nouveau_gem_ioctl_new() does, so
-+	 * a later NOUVEAU_VM_INIT cannot switch the client to uvmm and leave
-+	 * nouveau_gem_object_close() unable to tear this VMA down.
-+	 */
-+	nouveau_cli_disable_uvmm_noinit(cli);
++	if (gem->size < width * height * 4) {
++		ret = -EINVAL;
++		goto out;
++	}
 +
- 	if (nvbo->no_share && uvmm &&
- 	    drm_gpuvm_resv(&uvmm->base) != nvbo->bo.base.resv)
- 		return -EPERM;
+ 	ret = nouveau_bo_map(cursor);
+ 	if (ret)
+ 		goto out;
 
 ---
 base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260813-nouveau-gem-uvmm-vma-fix-8d0fbac454b9
+change-id: 20260813-nouveau-nv04-cursor-oob-ad2b6001de3d
 
 Best regards,
 --  
