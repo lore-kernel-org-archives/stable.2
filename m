@@ -1,135 +1,403 @@
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E66437F314;
-	Thu, 13 Aug 2026 11:39:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431D046AF0A
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 12:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786621169; cv=none; b=SDYcQMHCa5bPeGQF7W7ThgMiItcOjYqYsSdCd1pNE2SGlTsFO3l+ZEz94HdSbCW5lmkMRBzTVw1xbwTFM5jkmlxTg2t2AIITkCbJaqxz1ZE9U/qJS7zuscFRxvk/E0Oh+EjXen7adFBT0z5vouaKSK8H8kQP7XPc0UmY3FI1Rm0=
+	t=1786623999; cv=none; b=ddeg/zGaa2b/9FH21J90xV+K3RCCqxA2YX5gglx1U00nkfphABJaUKVbOMoYQZghBnd4Gfs8sXmvcolEoH4spZVaTfRqlkuxRkHeikVVQC9oLEIvBocjQSHeM91pvn3W5LAbnMDDDoxtPwpNO10zJn9kntbMuB0Z8JXu3Nn6z9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786621169; c=relaxed/simple;
-	bh=u2pv9J8nw47sNeMqVwPr4tJKoJalsZjJD+z9MD5GOFg=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=ffndHRenNExt0uHnV/AI9oOlgUwsHVPREsFl11V0iZn86AEsRss7G2R4yi5ZtDNN3PuMuOaJj0fcmjriHaQsglay0AH/J5kmNp7wUGGMfwX+N2B/M63+IGtNGectS7FZHPk1AOBONUeRmYY9Q3hXiopfqB68TzlJgxAdSztF9QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=Q1bWgZII; arc=none smtp.client-ip=162.62.58.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1786623999; c=relaxed/simple;
+	bh=rILxIDh9r8KNuWnGSpEvPrsh5xORXJtiqQ6YV6HoBmM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=X7YKwOv44jxWtqDP0C+gT0Kki8zW1hYo4Mm1bUQhMeR/htfWRDk568qgAZiHRYLtWilModvzevk3L5ltMRiIKuhWQRVK6WlhwBwpw5wwkEJw7QnUBAEi719kr1BrIZAHBTh4TEsbTY1g1DrhI/XyF+LTV0B5j+qSSBQRV1nJ9dE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BVEyPE61; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="Q1bWgZII"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1786621154; bh=VJ7rMVR58nGUE/0GwLtpRa0is1ObRAkjQvb9anXV1uU=;
-	h=From:To:Cc:Subject:Date;
-	b=Q1bWgZIIFuVDbqpfXocCs7sdvJuKddERiZ2TfFEXty2fokV0V2rM9nuPEIXGcPfaG
-	 8m0RA4zS8FkmrKySOysL2BQD5NKmCZZ3S6C2YsUclWSAkzjGPaOljM1PJZwLs6ohkl
-	 Yz+NI8Q7qzVfjyNrryx4q603LQbWPWxWBu/JgzCY=
-Received: from localhost.localdomain ([240e:452:ddba:7caa:95a3:f534:cc57:beeb])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 9CA86CCE; Thu, 13 Aug 2026 19:39:10 +0800
-X-QQ-mid: xmsmtpt1786621150trgldhnoo
-Message-ID: <tencent_E5954D5C14D99713A73E3121B97EEDA6170A@qq.com>
-X-QQ-XMAILINFO: NcAdPGlpF/v/diuJkawnO0kZuTQeM0/JygEL6jx4N/D+CgnVl6SOugeWAzJvxK
-	 hO2830I77jRoi1KwQ18gx4BriTAfY83l4mP4Fgb5ys2VL9AQpEwlzErJq/IOJGTTX182Q2qbZh1X
-	 YsEWUDLeziZqLes3dZ9fkiPU6uVXgKEiPwZX26rmnBcd9PWIE7YZclqknTKi/WzkqqRQyhfMCvQK
-	 2arxyTU4+fgf0mdWsFj1mTKhtlGUN9PEYOiaqWZEWYnh9A59KsyDdf27Gt3UA59EE7qDODds17Vw
-	 BabY8HY9FDwX1gxLT4QwRX1HlzkA1Ucbq9xMRKR2h0TCMcFBag4Ep9dKHbThndmbay2ePwnHbkkB
-	 qTZ95iZl3rTkskeqyT/u0KwANNxeUi6O4KwL5RKQNbZ6T1/vPE57hZQNGJ2bdayPOOXCadl5UC5U
-	 zKFS4KInEFKyFsT2rduqL2FefpcsQ20Wl5f32gNZcChfqyqkXTDwDFyCbLHIMYlAK0p0Y+qEcb90
-	 hPetkzdf5JqZnDmTzn8mcHp2AAD6I9jkoLCnE2cgPhcHiTjoakOKCRFUZMgrn9Q9pZcmcC30H1gd
-	 s+JFvEFar3qivtJrmqFHxmts2JgZctIqkfhc0wRPVwWAeq7klMhFhOcvHkLMU6jrLS2EI8htf9mf
-	 8pQ2bRBN+XDwmvPXwHTmAC5D1tx5plUyDqXYXA/a/lhHrThlUKlCl/G+NLAxuk15SLPX/IAjwpdy
-	 UOsB16qQJMIxmH8gHP+lPu0F8Pl1RPWMwd9Qwpub7emVeTGT13YPwBbd4MiCI8rKsoCpqmkmAkF2
-	 oxdfBNw55AaCZkDc4d9RQjzy/Qx1gbPicfk3KcyjYanuz0gj4NcwIc3opmr4R7fGiP5F/sCuNksr
-	 bsGEPYVqxYCl38jtwrVfh68+7RfCsKmWXn+kyJET/8Q4UNwQx6J7cwW7YivLdfuhJi131NtvbIGY
-	 5coIM/m3dqxAmONAdL4oz2yD2MRvy/jvHaLmwpo2WOvtafEbGzhE2qHe67Jthytdn1U8WzdzvDW4
-	 0JhE8kRDfwOaGN87+B8YPbY+jyzmjnnPIqpptJVMOTCqs05RfA1/wfJsRpkXm0MwK3ylv5ElzlbI
-	 8PBpJWYOcLNCZnHECvEyg+PBMDRN4E2EB94s/KZ6az8Y9wfU4=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Hang Nan <2122295973@qq.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Hang Nan <2122295973@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] Bluetooth: ISO: fix use-after-free of listener socket in iso_conn_ready
-Date: Thu, 13 Aug 2026 19:39:09 +0800
-X-OQ-MSGID: <20260813113910.72336-1-2122295973@qq.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BVEyPE61"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96BA61F000E9;
+	Thu, 13 Aug 2026 12:26:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786623996;
+	bh=ww0+jG3ub9ZtlAJ65/5AqIkN257z7g/xCG32tltwgT8=;
+	h=Subject:To:Cc:From:Date;
+	b=BVEyPE61JIK4aDEKHGiQ8aE9KeBoy9g/n06ctFKIRpuxJYEMAGRDSQgORUtMvWllB
+	 N4BMjliVs+BOf1XsLQq3e+bC82B01c/I0egRTKp9R2ut42CxfXs0K1okL2QnKrBFdN
+	 ULzXEcwJxX05IsKrP/vDBODCBI9jd325Tut9+qzU=
+Subject: FAILED: patch "[PATCH] mm/vmalloc: acquire init_mm lock on huge vmap to avoid ptdump" failed to apply to 6.12-stable tree
+To: ljs@kernel.org,akpm@linux-foundation.org,bp@alien8.de,catalin.marinas@arm.com,chaitanya.kumar.borah@intel.com,dave.hansen@linux.intel.com,david@kernel.org,dev.jain@arm.com,hpa@zytor.com,kas@kernel.org,liam@infradead.org,luto@kernel.org,mhocko@suse.com,mingo@redhat.com,peterz@infradead.org,rppt@kernel.org,ryan.roberts@arm.com,shakeel.butt@linux.dev,stable@vger.kernel.org,surenb@google.com,toshi.kani@hpe.com,urezki@gmail.com,vbabka@kernel.org,will@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 13 Aug 2026 21:23:26 +0900
+Message-ID: <2026081326-smudgy-unfixed-4a06@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-iso_conn_ready() looks up the BIS listener socket with iso_get_sock(),
-which takes a reference, and then, without re-checking its state,
-creates a child socket from it:
 
-    parent = iso_get_sock(hdev, ...);
-    if (!parent)
-        return;
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-    lock_sock(parent);
-    sk = iso_sock_alloc(sock_net(parent), NULL, BTPROTO_ISO, ...);
-    ...
-    iso_chan_add(conn, sk, parent);
-    ...
-    release_sock(parent);
-    sock_put(parent);
+To reproduce the conflict and resubmit, you may use the following commands:
 
-If the listener socket is closed concurrently, between iso_get_sock()
-and lock_sock(), the reference taken by iso_get_sock() may be the last
-one: the close path drops the link-list reference, and once
-iso_conn_ready() drops its own reference at the end of the function the
-socket is freed.  The child socket, however, is already linked to the
-freed parent, and a later disconnect of the child runs iso_chan_del()
--> bt_accept_unlink(), which dereferences the dangling parent pointer
-into the freed accept queue (a use-after-free).  The same dangling
-pointer is also dereferenced through parent->***() in
-iso_chan_del().
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 26444eb71465c9934d9d418ef69c43f61185329b
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081326-smudgy-unfixed-4a06@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Fix it the same way the connected (non-BIS) path was fixed in commit
-0d255e63fcf3 ("Bluetooth: ISO: hold sk properly in iso_conn_ready"):
-after taking the socket lock, re-check that the parent is still a
-listening, alive socket, and bail out otherwise.
+Possible dependencies:
 
-Fixes: ccf74f2390d60 ("Bluetooth: Add BTPROTO_ISO socket type")
-Cc: stable@vger.kernel.org
 
-Changes in v2:
-- Fix GitLint B3: replace hard tabs with spaces in the commit message
-  code snippet (no functional change)
 
-Signed-off-by: Hang Nan <2122295973@qq.com>
----
- net/bluetooth/iso.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+thanks,
 
-diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-index aa2ce78f56a2..069fc87a4e18 100644
---- a/net/bluetooth/iso.c
-+++ b/net/bluetooth/iso.c
-@@ -2277,6 +2277,21 @@ static void iso_conn_ready(struct iso_conn *conn)
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 26444eb71465c9934d9d418ef69c43f61185329b Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 23 Jul 2026 16:16:31 +0100
+Subject: [PATCH] mm/vmalloc: acquire init_mm lock on huge vmap to avoid ptdump
+ UAF
+
+Patch series "mm: fix UAF caused by race between ptdump and vmap pgtable
+freeing", v6.
+
+Kernel page table walkers fall into two broad categories - those ranges
+where no exclusion is required via walk_kernel_page_table_range_lockless()
+and those where exclusion is required via walk_kernel_page_table_range()
+or walk_page_range_debug().
+
+The former category is used only by arm64 arch code operating on ranges it
+both wholly owns and does not concurrently write.
+
+The latter category consists of kernel page table walkers operating on
+ranges that are wholly owned (but which need exclusion against concurrent
+writers).
+
+The lock used for exclusion is the mmap lock, and for kernel ranges this
+is the mmap lock on init_mm.
+
+ptdump is a special case being both the only user of
+walk_page_range_debug(), and the only case in which it walks ranges it
+does not own.
+
+This presents a problem, as page tables may be freed under ptdump.  And
+indeed there is a use-after-free bug in the kernel as a result, which this
+series addresses.
+
+vmap promotes page tables to huge leaf entries where possible, freeing the
+lower page table when it does.  It does this with no meaningful locks held
+against concurrent ptdump walks.
+
+As a result, use-after-free can currently occur.  This series addresses
+the issue by having the vmap huge promotion logic acquire the mmap read
+lock while both setting the huge page table entry and freeing the prior
+leaf page table.
+
+The ptdump code already acquires the mmap write lock, so by doing so we
+ensure that the ptdump walker only ever observes either the huge page
+table entry or the existing page table entry, and nothing is freed
+underneath it.
+
+A mitigation for this issue was already applied for arm64 in commit
+fa93b45fd397 ("arm64: Enable vmalloc-huge with ptdump"), which this series
+has to deal with carefully.
+
+This mitigation resolves the issue by acquiring the mmap read lock on
+init_mm on vmap page table free if a ptdump is in progress.
+
+However the fix in this series would cause a deadlock if we were to simply
+apply it for arm64 without also reverting the change.
+
+This is because vmap may acquire the read lock before ptdump attempts to
+acquire the write lock, which then gets queued, and rwsem starvation rules
+mean that the (unacknowledged) nested mmap read lock in the arm64 code
+would also block, meaning the original read lock is never released and
+thus deadlock.
+
+This series works around this by #ifndef CONFIG_ARM64'ing the mmap read
+lock in vmap logic, then partially reverting commit fa93b45fd397 ("arm64:
+Enable vmalloc-huge with ptdump"), keeping the enablement of huge vmap
+support, and removing the ifdeffery with the partial revert patch.
+
+There are related issues that are also addressed in this series:
+
+* x86 page attribute logic, specifically Change Page Attributes (CPA),
+  implements a feature whereby huge ranges can be collapsed into huge leaf
+  entries. This can similarly cause a UAF when done in parallel with a
+  ptdump walk, so similarly acquire the init_mm mmap lock to avoid this.
+
+* The CPA logic allows concurrent page table manipulation and CPA
+  collapse, meaning the former risks accessing a page table the latter
+  frees. Fix this by acquiring mmap write lock on init_mm across the
+  whole CPA collapse operation and read lock on the page table
+  manipulation.
+
+* x86 and arm64 permit walks of non-kernel mm's (both allowing efi mm
+  walks, and in x86's case arbitrary mm's), so we ensure kernel mappings
+  remain stable by locking the init_mm as well as the mm being walked.
+
+The ordering of patches is established for both strict dependencies (the
+arm64 partial revert in particular has to be done after the vmap changes)
+and logical ones (the non-kernel mm fix only makes sense once the vmap/CPA
+fixes are in place).
+
+
+This patch (of 3):
+
+Currently there is a nasty race between ptdump and vmap when attempting to
+map a huge P4D, PUD or PMD entry:
+
+* ptdump walks kernel page table ranges it doesn't own.
+
+* When vmap maps ranges it tries to promotes existing ones to huge page
+  tables in vmap_try_huge_[p4d,pud,pmd]() at P4D, PUD and PMD level,
+  freeing the lower page table in [p4d,pud,pmd]_free_[pud,pmd,pte]_page()
+  when it succeeds.
+
+Both of these things can happen at the same time and as a result ptdump
+can access a freed page table, resulting in a use-after-free and memory
+corruption.
+
+This is possible because while ptdump_walk_pgd() holds both the mem
+hotplug lock and the mmap write lock before invoking
+walk_page_range_debug(), vmap takes no relevant locks at all.
+
+Fix this by holding the mmap read lock in vmap_try_huge_*() when freeing
+page tables.
+
+The read lock is sufficient: ptdump is the only walker that must be
+excluded and it holds the mmap write lock.  Other holders of the read lock
+may run concurrently, but each exclusively owns the range it operates on
+and cannot reach the page tables freed here.
+
+We also hold the lock while assigning the huge page table entry, which
+means page table walkers observe only the huge or non-huge page table
+entry.
+
+We use a trylock to prevent ptdump from blocking vmap making forward
+progress.  This is fine because it's an optimisation in any case, and thus
+the vmap can safely proceed regardless.
+
+All other kernel page table walkers that touch vmalloc ranges either
+exclusively own the memory walked or acquire the mmap lock, so this
+correctly excludes those walkers.
+
+One wrinkle here is commit fa93b45fd397 ("arm64: Enable vmalloc-huge with
+ptdump"), which addresses the issue for arm64 only by explicitly acquiring
+the mmap read lock on kernel page table freeing should a concurrent ptdump
+be in progress.
+
+This is problematic as vmap may acquire the mmap read lock prior to ptdump
+attempting to acquire an mmap write lock, leading to a deadlock when the
+mmap read lock is slept upon on page table freeing due to rwsem
+anti-starvation.
+
+We work around this by predicating the mmap lock being taken on
+!CONFIG_ARM64 for the time being.
+
+With this patch applied, a follow up will partially revert commit
+fa93b45fd397 ("arm64: Enable vmalloc-huge with ptdump") and at that stage
+remove the arm64 ifdeffery.
+
+We also update walk_page_range_debug() to assert the mmap write lock
+unconditionally and update the comment here to reflect this change.
+
+The issue has existed as long as ptdump was available and vmap freed page
+tables when promoting to a huge leaf entry, that is, since commit
+b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
+for huge ioremap, and commit 121e6f3258fe ("mm/vmalloc: hugepage vmalloc
+mappings") for huge vmalloc.
+
+Since the former is the earlier of the two we choose that for our Fixes
+tag.
+
+We also define a guard class for mmap_read_trylock() so we can use
+cleanup.h to make the scope handling cleaner in the implementation.
+
+This patch is based on work by David Carlier (linked), with gratitude!
+
+Link: https://lore.kernel.org/20260723-series-vmap-race-fix-v6-0-8cc77dcc0018@kernel.org
+Link: https://lore.kernel.org/20260723-series-vmap-race-fix-v6-1-8cc77dcc0018@kernel.org
+Fixes: b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a287988.39669fcc.33b062.00a0.GAE@google.com/T/
+Link: https://lore.kernel.org/linux-mm/20260706203128.162335-1-devnexen@gmail.com/
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
+Cc: <stable@vger.kernel.org>
+Cc: Andy Lutomirski <luto@kernel.org>
+Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Cc: "Borislav Petkov (AMD)" <bp@alien8.de>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Toshi Kani <toshi.kani@hpe.com>
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+index 04b8f61ece5d..6b5c2390cc30 100644
+--- a/include/linux/mmap_lock.h
++++ b/include/linux/mmap_lock.h
+@@ -621,6 +621,7 @@ static inline void mmap_read_unlock(struct mm_struct *mm)
  
- 		lock_sock(parent);
+ DEFINE_GUARD(mmap_read_lock, struct mm_struct *,
+ 	     mmap_read_lock(_T), mmap_read_unlock(_T))
++DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
  
-+		/* The listener socket may have been closed concurrently
-+		 * between iso_get_sock() and lock_sock(): the reference
-+		 * taken by iso_get_sock() may be the last one, in which
-+		 * case the socket is freed as soon as we drop it at the
-+		 * end of this function.  Recheck that the parent is still
-+		 * a valid, listening socket before creating a child
-+		 * socket from it.
-+		 */
-+		if (parent->sk_state != BT_LISTEN ||
-+		    sock_flag(parent, SOCK_ZAPPED)) {
-+			release_sock(parent);
-+			sock_put(parent);
-+			return;
-+		}
+ static inline void mmap_read_unlock_non_owner(struct mm_struct *mm)
+ {
+diff --git a/mm/pagewalk.c b/mm/pagewalk.c
+index 3ae2586ff45b..bbcfd68d0907 100644
+--- a/mm/pagewalk.c
++++ b/mm/pagewalk.c
+@@ -678,6 +678,8 @@ int walk_kernel_page_table_range_lockless(unsigned long start, unsigned long end
+  * will also not lock the PTEs for the pte_entry() callback.
+  *
+  * This is for debugging purposes ONLY.
++ *
++ * The mmap write lock must be held.
+  */
+ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
+ 			  unsigned long end, const struct mm_walk_ops *ops,
+@@ -691,6 +693,16 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
+ 		.no_vma		= true
+ 	};
+ 
++	/*
++	 * When walking userland page tables, an mmap write lock must be held to
++	 * account for munmap() downgrading to an mmap read lock when tearing
++	 * down page tables.
++	 *
++	 * When walking kernel page tables, an mmap write lock must also be held
++	 * to account for page table freeing on vmap huge page mapping.
++	 */
++	mmap_assert_write_locked(mm);
 +
- 		sk = iso_sock_alloc(sock_net(parent), NULL,
- 				    BTPROTO_ISO, GFP_ATOMIC, 0);
- 		if (!sk) {
+ 	/* For convenience, we allow traversal of kernel mappings. */
+ 	if (mm == &init_mm)
+ 		return walk_kernel_page_table_range(start, end, ops,
+@@ -700,16 +712,6 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
+ 	if (!check_ops_safe(ops))
+ 		return -EINVAL;
+ 
+-	/*
+-	 * The mmap lock protects the page walker from changes to the page
+-	 * tables during the walk.  However a read lock is insufficient to
+-	 * protect those areas which don't have a VMA as munmap() detaches
+-	 * the VMAs before downgrading to a read lock and actually tearing
+-	 * down PTEs/page tables. In which case, the mmap write lock should
+-	 * be held.
+-	 */
+-	mmap_assert_write_locked(mm);
+-
+ 	return walk_pgd_range(start, end, &walk);
+ }
+ 
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 1afca3568b9b..d5c4d2bb770b 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -43,6 +43,7 @@
+ #include <asm/tlbflush.h>
+ #include <asm/shmparam.h>
+ #include <linux/page_owner.h>
++#include <linux/cleanup.h>
+ 
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/vmalloc.h>
+@@ -158,10 +159,24 @@ static int vmap_try_huge_pmd(pmd_t *pmd, unsigned long addr, unsigned long end,
+ 	if (!IS_ALIGNED(phys_addr, PMD_SIZE))
+ 		return 0;
+ 
+-	if (pmd_present(*pmd) && !pmd_free_pte_page(pmd, addr))
+-		return 0;
++	if (!pmd_present(*pmd))
++		return pmd_set_huge(pmd, phys_addr, prot);
+ 
+-	return pmd_set_huge(pmd, phys_addr, prot);
++	/*
++	 * Acquire the mmap read lock to exclude ptdump, which walks
++	 * kernel page tables it does not own under the mmap write lock.
++	 *
++	 * Concurrent read lock holders are safe: each exclusively owns
++	 * the range it operates on and cannot reach this page table.
++	 */
++#ifndef CONFIG_ARM64
++	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
++#endif
++	{
++		if (!pmd_free_pte_page(pmd, addr))
++			return 0;
++		return pmd_set_huge(pmd, phys_addr, prot);
++	}
+ }
+ 
+ static int vmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
+@@ -210,10 +225,18 @@ static int vmap_try_huge_pud(pud_t *pud, unsigned long addr, unsigned long end,
+ 	if (!IS_ALIGNED(phys_addr, PUD_SIZE))
+ 		return 0;
+ 
+-	if (pud_present(*pud) && !pud_free_pmd_page(pud, addr))
+-		return 0;
++	if (!pud_present(*pud))
++		return pud_set_huge(pud, phys_addr, prot);
+ 
+-	return pud_set_huge(pud, phys_addr, prot);
++	/* See comment in vmap_try_huge_pmd(). */
++#ifndef CONFIG_ARM64
++	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
++#endif
++	{
++		if (!pud_free_pmd_page(pud, addr))
++			return 0;
++		return pud_set_huge(pud, phys_addr, prot);
++	}
+ }
+ 
+ static int vmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
+@@ -262,10 +285,18 @@ static int vmap_try_huge_p4d(p4d_t *p4d, unsigned long addr, unsigned long end,
+ 	if (!IS_ALIGNED(phys_addr, P4D_SIZE))
+ 		return 0;
+ 
+-	if (p4d_present(*p4d) && !p4d_free_pud_page(p4d, addr))
+-		return 0;
++	if (!p4d_present(*p4d))
++		return p4d_set_huge(p4d, phys_addr, prot);
+ 
+-	return p4d_set_huge(p4d, phys_addr, prot);
++	/* See comment in vmap_try_huge_pmd(). */
++#ifndef CONFIG_ARM64
++	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
++#endif
++	{
++		if (!p4d_free_pud_page(p4d, addr))
++			return 0;
++		return p4d_set_huge(p4d, phys_addr, prot);
++	}
+ }
+ 
+ static int vmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
 
