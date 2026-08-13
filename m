@@ -1,127 +1,156 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C90B344D91
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 03:14:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F21343896;
+	Thu, 13 Aug 2026 03:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786590881; cv=none; b=TuoqiGcGBVQjdk0qksBMx2TuXp/NybD1B+xxzFoqGY0GxJeEg/TyK+d+80M3ZGfMkd5y8PyNVp/NFAyHKdnOsWG2HAxg+TeCjD1Ew7vgs1pDGvp3hkmuDinIsc4h7c114xP0vsDjX05Uv42W1AtW+ys4//Qp3eiAN0KfK1uYYEw=
+	t=1786591570; cv=none; b=bTxjRMvU9f01SUaLPEvYnlH12NElQub5g/80cF3kWbgBkkK0jjaOMbFGhh+ePbz+4qnTQ35Bv49bWkDg/ypSJiavGqvB5aTFx8yGpuMyY2HKQP13hJdv0RJtlkKxamox2rBYiAXl7qtdhbY7JX29DYO0qU3WvQBDImRO1c2UwV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786590881; c=relaxed/simple;
-	bh=+yR0GXJqvxpnWE7rNwD7MXMlRLXMjpOcoHvHrDYrkQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UbIMcyenxaErh545lKOWWJWJJHbZBSyebWhyc3C4wFAsgHaDppJnR8S++5VLwI+tNzD7duSxzJq9/Ay081IEohTsFYHE6QiQe1iT1NiKV60Cec0psyUne8frqszHlWacRR/pp+xW4DK5W5q26izo+bgUJmGHnRkq188OiQTCVGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B6nJ/Wpe; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B6nJ/Wpe"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93695893ac1so103805285a.0
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 20:14:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786590879; x=1787195679; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uy5Tf0mwgrBlKO3FuSF2JspqHb4xpS1/b6uDnqWQvxA=;
-        b=B6nJ/WpeGrM+uCq6lvdYKqSxQrqos3UeHPArDE07b5JzrzR7M7OnrfO4wYjnui8UWz
-         H3xBumnQFIbAreCQrEjPhtB5nNEQFLWl+V6YcCZjH14u7vZ4/RY4v8KjgtxreXN96YJU
-         ++abJGU898h2DSWHTe54+ZGe+XTic0xk0u00UhaMY8ch8SrD0Zji9Hj0CmWwBGSbpJy6
-         T9458n7rZr+FIKopN+jRHkevcfvBND3IobNWtUk141LQSKoOqI+y4ERilnVyGHAtk6BI
-         Gwt/V73EO3m1GrxcdbDfvjbnbTMeHvA3b72q1H8JxKasaxsBaMWZlOwKT6ENz1ppAjBc
-         oyyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786590879; x=1787195679;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Uy5Tf0mwgrBlKO3FuSF2JspqHb4xpS1/b6uDnqWQvxA=;
-        b=Nl6lRDgQN1+OT8sbwnTCLRlINy2o0Maqy3ENd1RWLhDAkJLHpFiFKH5d12mX0ul5GB
-         pxmJK6eI5XCllL2Xrz/cNYbkLjKWY4pzS0POEHvTnSVmMkHsteHgH+OWbDNxdQ+zd1Lw
-         wnadyCV38y/qhsb+s9sGGK0gx503YDHcqwcdTI+hfgav6xiyC5Ik4QJOo4ywPwSisYkI
-         3HDQmhHDGN861JN2wJTdrMFbr12ktasoYGzMvr633wAREzawot1W3ZB/+gLrYWKVU0OQ
-         aOtl2H0RLx31UNa0UcEP/Je7eFPPPxt7ba2y8u6VI2DezeEV0Lt+oBTOp7rkqP0c74qk
-         JjEA==
-X-Forwarded-Encrypted: i=1; AHgh+RrWtLQ+4g6zaLAJUbGOnp3w/RWGdne60ChtTyjiuP49uqQKiaByX0k4X3CBycVp2+xovU8xfwo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxL9qjbWrEKWm/fRL2TeUapLZP3Y2xYCAMyDysUNDfs5TpVKAZr
-	eC+2Ib2nQOVTPCX5KdFp/GuGfoJs759SQvglNi9/PdhZAx+DpY0kWfnz
-X-Gm-Gg: AR+sD10v4MKVnLIgoaRj/CtLgpSFPXoNS8KnO4vceuCtHafAh0/zgVxEgLsfFDD0nda
-	WaVSyzPL/AlmURy44qG2FUsoP2Qc3cwAkLRemdpvjNBnJinaxJ6PknSzICSutcTjgW+btSX5soz
-	+cwxQy1gLJKJ3pnYtltpevD7onA4TRZbpV/Y8Tw7chohvnGkLEDnn1yB1lHELVreTGWQKzIBR6y
-	iX8Jr+LJdZYbIU/5LIHcbQIVqE7UyW25eMShVFPm/QQSw8gO+w1asPp6oXuxpBuSeLbB0uxLVZ6
-	RICEqCyqabkkt0zgou4A+b9NVe+pEUa7l8+ivsSGBQHGX0FBjyhQGdTR0i2q23RPfbUn2327fb8
-	PVSMTHgL8m+yVmj6WvJHKs7Yda2HcvZoos6j/qmgT451BM5j38oeA2TD0kMgDF+RzOPW2wNj8VE
-	53TwvLTH01KXNlN4KHnF+NyOPYB90JOF/geC1RD0kPVNUJpCjQmPMe52cpKRBoh1vPT4eDS8QpI
-	2UzLaK5W16TW+YHlA==
-X-Received: by 2002:a05:620a:a48e:b0:92e:f41d:4730 with SMTP id af79cd13be357-936bf8e8a3dmr214213785a.5.1786590878945;
-        Wed, 12 Aug 2026 20:14:38 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-936c1b12283sm52741285a.23.2026.08.12.20.14.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 20:14:38 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Subject: [PATCH v2] media: gspca: use vb2_video_unregister_device() on disconnect
-Date: Wed, 12 Aug 2026 23:12:35 -0400
-Message-ID: <20260813031235.2468144-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1786591570; c=relaxed/simple;
+	bh=h2uxDNeoSu5cIxSdf79jgMoNXAs1VFqo6QCLDgzhuOI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=peCU2PQdhP9zOmAtTCFXM5dJNDcuWMFVEcns9keEOsMQa9o50xha5ak0ueEetlxmkOqd7HQs7CN4eB+L3BauKzrLknItodKE67UopEOvOaWzwArl5WM7QzgBbvAy6jrP0xhSKXROJtIL0L8/Bri6SXZAS6JOyB5zNZZuihH6Dc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: b3a7dec096c611f1aa26b74ffac11d73-20260813
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:7fea67af-adbc-46fc-bda5-31a0ebd4007c,IP:0,U
+	RL:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:20
+X-CID-META: VersionHash:e7bac3a,CLOUDID:a7435a22c99046ef5c7514087897a004,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0
+	|15|52,EDM:-3,IP:nil,URL:11|85|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,C
+	OL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_ULN,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b3a7dec096c611f1aa26b74ffac11d73-20260813
+X-User: luoxueqin@kylinos.cn
+Received: from [10.42.13.56] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <luoxueqin@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1752279995; Thu, 13 Aug 2026 11:25:58 +0800
+Message-ID: <043577d0-4b42-43c7-be7b-abcedbbffc46@kylinos.cn>
+Date: Thu, 13 Aug 2026 11:25:55 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: luoxueqin <luoxueqin@kylinos.cn>
+Subject: Re: [PATCH v2] usb: typec: ucsi: Add ACPI_COMPANION() NULL check in
+ ucsi_acpi_probe
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: gregkh@linuxfoundation.org, pooja.katiyar@intel.com, johan@kernel.org,
+ pmenzel@molgen.mpg.de, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260811095827.1001654-1-luoxueqin@kylinos.cn>
+ <anw-41p6cVPQyrDP@black.igk.intel.com>
+Content-Language: en-US
+In-Reply-To: <anw-41p6cVPQyrDP@black.igk.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-gspca uses vb2_fop_release(), but gspca_disconnect() only unregisters
-the video device. If the queue owner closes the device after USB
-disconnect, vb2_fop_release() releases the queue and invokes
-gspca_stop_streaming() at that point.
+Hi Heikki,
 
-gspca_stream_off() calls subdriver stop callbacks and
-usb_set_interface() through gspca_dev->dev. By the time the late close
-runs, the USB core can have freed the usb_device, resulting in a
-use-after-free. This was observed as a KASAN use-after-free in sd_stopN().
+Thanks for the review.
 
-Use vb2_video_unregister_device() so the queue is released and streaming
-is stopped synchronously during disconnect, while the usb_device is still
-valid. Since the helper takes the queue lock, which is usb_lock, call it
-after dropping that lock.
+However, I'd like to point out that this exact issue has been recognized
+as a security vulnerability (CVE-2026-64227), and Rafael already applied
+the same fix pattern to 14 ACPI platform drivers in commit e4865a56d013
+("ACPI: driver: Check ACPI_COMPANION() against NULL during probe"), which
+is marked for stable backport.
 
-Fixes: f729ef5796d8 ("media: videobuf2-v4l2.c: add vb2_video_unregister_device helper function")
-Cc: stable@vger.kernel.org # 5.10.x
-Suggested-by: Hans Verkuil <hverkuil@kernel.org>
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
-Changes in v2:
-- Use vb2_video_unregister_device() to stop streaming during disconnect,
-  as suggested by Hans.
-- Drop the usb_get_dev()/usb_put_dev() lifetime workaround.
-- Call the helper after releasing usb_lock since it takes the queue lock
-  internally.
+The NULL pointer dereference triggers a kernel oops/panic - a full system
+crash - not just a silent failure. Returning -ENODEV is the correct and
+graceful behavior, consistent with all other drivers fixed in that commit.
 
-v1: https://lore.kernel.org/r/20260718025434.2259756-1-shuangpeng.kernel@gmail.com/
+Could you please reconsider?
 
- drivers/media/usb/gspca/gspca.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Best regards,
+Xueqin Luo
 
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 594d73e50b9f..4185c9047241 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -1636,9 +1636,8 @@ void gspca_disconnect(struct usb_interface *intf)
- #endif
- 
- 	v4l2_device_disconnect(&gspca_dev->v4l2_dev);
--	video_unregister_device(&gspca_dev->vdev);
--
- 	mutex_unlock(&gspca_dev->usb_lock);
-+	vb2_video_unregister_device(&gspca_dev->vdev);
- 
- 	/* (this will call gspca_release() immediately or on last close) */
- 	v4l2_device_put(&gspca_dev->v4l2_dev);
--- 
-2.43.0
+在 2026/8/12 17:37, Heikki Krogerus 写道:
+> On Tue, Aug 11, 2026 at 05:58:27PM +0800, Xueqin Luo wrote:
+>> Add NULL check for ACPI_COMPANION() in ucsi_acpi_probe() to prevent
+>> NULL pointer dereference when driver_override matches a device without
+>> ACPI companion.
+>>
+>> Since every platform driver can be forced to match a device that doesn't
+>> match its list of device IDs because of device_match_driver_override(),
+>> the ACPI_COMPANION() may return NULL, leading to a NULL pointer
+>> dereference at adev->dep_unmet.
+>>
+>> Test steps:
+>>
+>>    $ sudo modprobe ucsi_acpi
+>>    $ echo ucsi_acpi | sudo tee /sys/bus/platform/devices/alarmtimer.0.auto/driver_override
+>>    $ echo alarmtimer.0.auto | sudo tee /sys/bus/platform/drivers/alarmtimer/unbind
+>>    $ echo alarmtimer.0.auto | sudo tee /sys/bus/platform/drivers/ucsi_acpi/bind
+>>
+>> which triggered the following crash:
+>>
+>>    [ 6599.180948] calling  ucsi_acpi_platform_driver_init+0x0/0xff0 [ucsi_acpi] @ 24208
+>>    [ 6599.181198] initcall ucsi_acpi_platform_driver_init+0x0/0xff0 [ucsi_acpi] returned 0 after 207 usecs
+>>    [ 6729.051074] BUG: kernel NULL pointer dereference, address: 00000000000005f4
+>>    [ 6729.051102] #PF: supervisor read access in kernel mode
+>>    [ 6729.051113] #PF: error_code(0x0000) - not-present page
+>>    [ 6729.051122] PGD 0 P4D 0
+>>    [ 6729.051136] Oops: 0000 [#1] PREEMPT SMP NOPTI
+>>    ....
+>>    [ 6729.051300] PKRU: 55555554
+>>    [ 6729.051306] Call Trace:
+>>    [ 6729.051314]  <TASK>
+>>    [ 6729.051327]  platform_probe+0x41/0xa0
+>>    [ 6729.051348]  really_probe+0x1a9/0x410
+>>    [ 6729.051364]  __driver_probe_device+0xc9/0x170
+>>    [ 6729.051377]  device_driver_attach+0x46/0xb0
+>>    [ 6729.051390]  bind_store+0x77/0xd0
+> I don't think kernel can protect the user from everything. I would
+> rather keep the NULL pointer dereference than silently fail in this
+> kind of cases.
+>
+> Note that you can use the driver_override like that also with a device
+> (not UCSI) that does have the ACPI device node. In that case the probe
+> would just continue pass the condition you are introducing below.
+>
+> Thanks,
+>
+>> Fixes: 1f3546ff3f0a ("usb: typec: ucsi: acpi: Check the _DEP dependencies")
+>> Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
+>> Cc: stable@vger.kernel.org
+>> ---
+>>   drivers/usb/typec/ucsi/ucsi_acpi.c | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+>> index 18286d3e9cc5..b4a783217dc6 100644
+>> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
+>> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+>> @@ -188,7 +188,7 @@ static void ucsi_acpi_notify(acpi_handle handle, u32 event, void *data)
+>>   
+>>   static int ucsi_acpi_probe(struct platform_device *pdev)
+>>   {
+>> -	struct acpi_device *adev = ACPI_COMPANION(&pdev->dev);
+>> +	struct acpi_device *adev;
+>>   	const struct ucsi_operations *ops = &ucsi_acpi_ops;
+>>   	const struct dmi_system_id *id;
+>>   	struct ucsi_acpi *ua;
+>> @@ -196,6 +196,10 @@ static int ucsi_acpi_probe(struct platform_device *pdev)
+>>   	acpi_status status;
+>>   	int ret;
+>>   
+>> +	adev = ACPI_COMPANION(&pdev->dev);
+>> +	if (!adev)
+>> +		return -ENODEV;
+>> +
+>>   	if (adev->dep_unmet)
+>>   		return -EPROBE_DEFER;
+>>   
+>> -- 
+>> 2.43.0
