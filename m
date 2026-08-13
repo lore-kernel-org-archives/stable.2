@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5508646F4AE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551DE4779BB;
 	Thu, 13 Aug 2026 12:47:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786625239; cv=none; b=psCIAPDFV07A2zEiSWq/Lrln80ZY4OqbmbAJz+FAXkYus30Ccc8eoKr4heYdz0028cTEybzPe0OCWyihg0p+YhZKXuZyhXKYMdy+NaVOH/tKI3kzTa1or/cAzkRBTDTnx1MpivNSZU7UuijPtSohQhvBghTVUZeLENdHuYzMA/A=
+	t=1786625239; cv=none; b=QpgrdfItOz86j/1ckZFJ7ejfzPWmkVTZxu5MYMRg4u+DLbR7Ilk71QV25YQVkMdjC6kQtOS78UzHi303FqDJzizSzU5IXW22/xwDZF+GM4sMtBLJR+O2OO5w8F5iy4tCwQbPXodbTZ8rXR7TFBP+2FQnWmSe04yb1cbWE4W/wqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786625239; c=relaxed/simple;
-	bh=n7IVb6P0SS6aP6osC/nBykNSX6nP62U+SXlK9oPNqXU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DklOOfPp1CeEiEvdJSwnwdd6Gx/PhLNcz1Dc5SUoxtsmAmUYWTk+eUC4IKU2Y/OKeIH1StDXs2YHK3MB9pQC1zLe/6OBG2bG5OrPp62McyPA2lQGMC1FX608BUBkLO+/GGS0kVy/uSv8byYaPGksUnuCEoQJDyT3L1D8M+pAvoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YkIJT07G; arc=none smtp.client-ip=10.30.226.201
+	bh=VpG4nwidpgDqllXzLatya6ZM559BrQia13sMRj/SAJg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=S7oaCrPXMU1f5OEVFaoGA4cxLLwbV+6rTI4B22dj56eQY4pkAVKpNRNnAZLU25cFwbPqVLsVme4aKpUastrFeVNujFcpiplyy5C+XYTXoJkeTVXX3hYI1UHuf/PHiMfzIA4+msrNPmD7D8yQifCVX4Lr8atBBZ1Wcl5sP95sSgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ej7xMUSk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YkIJT07G"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E3CF9C2BCF7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ej7xMUSk"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D320FC19425;
 	Thu, 13 Aug 2026 12:47:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786625238;
-	bh=n7IVb6P0SS6aP6osC/nBykNSX6nP62U+SXlK9oPNqXU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=YkIJT07Gng0CI7nmRkmGQZuDRu4wHmBhshprD3U8G5gtdniuae4HLQGPDoU7Gm5gw
-	 N5auJIU7ASJ/fJd8jkmnH9SmDPJO67Pd0onSe5qmb2ETWwKO51axE0ZI3Isma3xiHx
-	 AvJUrdczqxetXHNPvlArn4R+XCRUX1i0/vkAffgAhPx5cv74HR88U3Nd3NepQr9/I8
-	 WXcXxrsvd5gBJhb5/HhgvRYXiQziIHwhrAsO4mQKXQMeO8VZi3Yvhs0ud/YDZsmxRO
-	 QwDeGMcRC7uvLMMiC0F9VjLvUMwXpTCJhBo7cpKLA2MCSK88NVXlvX45aTRfV1nH2W
-	 c0V12JSyYir/Q==
+	bh=VpG4nwidpgDqllXzLatya6ZM559BrQia13sMRj/SAJg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=Ej7xMUSkdsrv3rN1FW/I1G1+LpYjrMyJOoM4LJtNrrgIhuehsWLxYS2C5GLKM1pdD
+	 GCDpY0v8AYj5XEgwuowg129R9QveG8hHi2K5SI0iecFseQfYJsyU2GXoj8i+8Sdx41
+	 +Ki5hWJsieAbD3xBWue3wZCGpUMHjMNhO7trrjO7BRwMOg5e7urIKlnsuCRSD28OoR
+	 OMto5MA01w97hcSQhK6yjDLgrej63hQT+GES6xFZwWMZOiMd2I1etqDFqdl5uswr6G
+	 NZ5VdvQqezpBIM6/PLqZZ30tqvuhJ4hCmmc43h+u57w902i5g+4S7Sv0LosTUFXsyf
+	 SKIkIKNyW4t3A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4B40C5DF66;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AAD3EC5CFEB;
 	Thu, 13 Aug 2026 12:47:18 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Thu, 13 Aug 2026 20:47:17 +0800
-Subject: [PATCH 2/2] coresight: etm-perf: reject events that exclude both
- kernel and user space
+Subject: [PATCH 0/2] coresight: etm-perf: fix resume AUX leak and
+ exclude_kernel bypass
+Date: Thu, 13 Aug 2026 20:47:15 +0800
+Message-Id: <20260813-coresight-fixes-v1-0-7411a73cd496@outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,9 +41,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-coresight-fixes-v1-2-7411a73cd496@outlook.com>
-References: <20260813-coresight-fixes-v1-0-7411a73cd496@outlook.com>
-In-Reply-To: <20260813-coresight-fixes-v1-0-7411a73cd496@outlook.com>
+X-B4-Tracking: v=1; b=H4sIANO8fWoC/x3LSwqAMAwA0atI1hZiFX9XERfSxDabKo2IULy7x
+ eVjmAzKSVhhrjIkvkXliAVNXYELW/RshIrBou1xbFrjjsQqPlxml4fVDDQhoe2QaINynYn/UKZ
+ lfd8PGvv9s2EAAAA=
+X-Change-ID: 20260813-coresight-fixes-7d90d0240dda
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
  Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
  Leo Yan <leo.yan@arm.com>, 
@@ -54,13 +55,13 @@ Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>, 
  Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2362;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1493;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=+tTlNVRe/rbkdxYJBnqH+Npz+BDYLaVAW6dG0DYxOHA=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrNo9V/8qvdfao3WvtOtYdOAkb6uwnkvsZyatrJ4vd
- rCYbatm74yOUhYGMS4GWTFFluMFl75Z+G7R3eKzJRlmDisTyBAGLk4BmIhJECPDgc9vbmQpNtmJ
- XTD+v6jq2sPba0Imm7hN2/zNkvN825NyVoZ/RjNW9jxpMdl84rbL75Dmz9v09B4ufSz9eJNcXlz
- q3EcmTAC2ok/O
+ bh=VpG4nwidpgDqllXzLatya6ZM559BrQia13sMRj/SAJg=;
+ b=kA0DAAoWceg4UIuO8EAByyZiAGp9vNSjHQlEcb9EjdLpv+Fnx2ZHfkz4l9Q3T+XGlV9mSIcAh
+ Yh1BAAWCgAdFiEEx3DS9jhNtC20TLRjceg4UIuO8EAFAmp9vNQACgkQceg4UIuO8EDvZwEAnaw5
+ wS8HmZVvjl7Z/YhUflgIhG8lLALa73Cq983JJgIA/2r6v15+IanMe3rftVpzLwidlGuVhwgCozh
+ ut7ZF6/kO
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -68,63 +69,39 @@ X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
 X-Original-From: Junrui Luo <moonafterrain@outlook.com>
 Reply-To: moonafterrain@outlook.com
 
-From: Junrui Luo <moonafterrain@outlook.com>
+Two independent fixes for coresight-etm-perf.c, both tagged for stable.
 
-etm_event_init() validates only attr.type, so a cs_etm event can be
-opened with both attr.exclude_kernel and attr.exclude_user set. Both
-config parsers assign rather than OR the mode bits, so
-ETM_MODE_EXCL_KERN is discarded and only ETM_MODE_EXCL_USER survives.
-A request to exclude the kernel therefore programs the tracer to
-exclude user space and trace the kernel instead.
+Patch 1: etm_event_start() shares one error label between the initial
+start and the PERF_EF_RESUME path. Taking it on resume skips
+fail_end_stop, leaving the AUX transaction from the earlier successful
+start outstanding while the event is marked PERF_HES_STOPPED.
+etm_event_stop() then returns early, so the AUX handle, the sink, the
+remaining path elements and the trace ID are all leaked.
 
-config->mode has several downstream consumers -- on ETMv4 the TRCVICTLR
-ViewInst filter and the FEAT_TRF controls that exist to backstop it, on
-ETMv3 the address comparator access type -- and they all derive that
-same configuration from it. Since perf_event_open() skips
-perf_allow_kernel() when attr.exclude_kernel is set, this potentially
-lets an unprivileged user collect an instruction trace of kernel
-execution in a per-task event's AUX buffer. The existing guards do not
-catch it: etm4_config_trace_mode() warns on the combination but is
-reachable only from sysfs, and the early return in
-etm_config_trace_mode() can never fire because mode never holds both
-bits.
+Patch 2: etm_event_init() accepts events with both attr.exclude_kernel
+and attr.exclude_user set. Neither config parser ORs the mode bits, so
+ETM_MODE_EXCL_KERN is overwritten by ETM_MODE_EXCL_USER and the tracer
+is programmed to trace the kernel instead. perf_event_open() skips
+perf_allow_kernel() when attr.exclude_kernel is set, so an unprivileged
+caller can reach this.
 
-Reject the combination in etm_event_init(), covering both tracer
-generations at the single perf entry point.
+Build tested for arm64. I have no CoreSight hardware, so neither fix has
+been exercised at runtime.
 
-Fixes: 882d5e112491 ("coresight: etm3x: implementing perf_enable/disable() API")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- drivers/hwtracing/coresight/coresight-etm-perf.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Junrui Luo (2):
+      coresight: etm-perf: don't leak the AUX handle on failed resume
+      coresight: etm-perf: reject events that exclude both kernel and user space
 
-diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
-index af0295eab143..9cc93d48e970 100644
---- a/drivers/hwtracing/coresight/coresight-etm-perf.c
-+++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
-@@ -185,6 +185,17 @@ static int etm_event_init(struct perf_event *event)
- 		goto out;
- 	}
- 
-+	/*
-+	 * Excluding both kernel and user space is not a configuration the
-+	 * tracers can express: etm_parse_event_config() and
-+	 * etm4_parse_event_config() overwrite ETM_MODE_EXCL_KERN with
-+	 * ETM_MODE_EXCL_USER, which ends up tracing the kernel instead.
-+	 */
-+	if (event->attr.exclude_kernel && event->attr.exclude_user) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
- 	ret = etm_addr_filters_alloc(event);
- 	if (ret)
- 		goto out;
+ drivers/hwtracing/coresight/coresight-etm-perf.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+---
+base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
+change-id: 20260813-coresight-fixes-7d90d0240dda
 
+Best regards,
 -- 
-2.51.2
+Junrui Luo <moonafterrain@outlook.com>
 
 
