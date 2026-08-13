@@ -1,103 +1,143 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DCE47AF42;
-	Thu, 13 Aug 2026 14:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163903161A1;
+	Thu, 13 Aug 2026 14:21:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786630048; cv=none; b=llKjdKUznlDSkuo1tKmqj7fF9wQ/o3V63zcFgtIdvJkQYFIIPINNfvV7HzMmF6KlLpml2BH5gKI7z4+I1KB30ig/hwZ2CLgoMEJ2Xra7X5sIb4xmvb6ErlEk/BJ8PLBzAW5S6qq/dBSzkSTAg3MKZjwI3iv99Ef3I0d7la5rzZM=
+	t=1786630881; cv=none; b=kfAlf/qPCYYMJo/rY4b3mHF+S7OSER4j9sl/m3psfgu3VyYOfuRdGr49ZZTlv7+GIE6tVmcaiTTJHcPvtvcjFIv3hMeYfT8OdQw9/u3CXR72/c0Vd0Be9T6ns2OlSxURg89UVQP6ZukWELhVidka2AIlEwfhrAIMY0KsrsdF7e0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786630048; c=relaxed/simple;
-	bh=Fqn7isJpEy0tNbhyXRMm4QBjNlNd33jIQfGv6bPhvm0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fn+C7i8yGsIViWRuwURcp4Uycfvlzw3fbeJ28zdfcv+h0zrg28Ff9r98Kkauno3HG8OGFBggKBsZZGX4o3bKlD+usp1KpYPPZkp12iheVYyK5Nvfa6EdPWxlM5/PIVqQ4kphXGSFcPqFPQ8WfcCDzWl599S0sSk4DX2GkStLKWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=4vIVPM7y; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=23F0YiM+; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4vIVPM7y";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="23F0YiM+"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1786630045;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RYsiGRJ5VRa0CWly24xrYp0uLMoS4M867617Q5RPOd8=;
-	b=4vIVPM7y+jTmy+v5FdOb9VUTZD3X9/rQHQTDm+YaDc0Bn6iUGZ6dGqZo7EmTkSbU06y9w5
-	bFverpNxVgzPA6Gdk5jxFsIhUVSqkvEt/ijLOYazmej4K+zoIyhmtLbHDBwEzw4qBnjdpl
-	R/mYaCSm4l0S/vhaOqaORZu9BcG7CP0Ko0cBrhKxY3pTYQb5M9fJOtvXZvFYVGMeD0gNUK
-	fmyVjNkruxN/O04/76sjwHvqtOhFxKitMJfJY7HMNZg8I0Nb5NeO9Ehq8t86j5FJiR7Kyb
-	mB0WRkDd6l1gkVVQlNOhViBD49X5nnpzX/g8Pi6qYHkg/MBWmb7m7AT+Wtolsw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1786630045;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RYsiGRJ5VRa0CWly24xrYp0uLMoS4M867617Q5RPOd8=;
-	b=23F0YiM+UFGTWMqvDts1olu8gPZXmm76ToYd7IU9GBV/qIEZyd0K0pXhuGrLcljsvItmSQ
-	308RHgJJle0f1SAg==
-Date: Thu, 13 Aug 2026 16:07:14 +0200
-Subject: [PATCH RFC 1/7] tracing: Restore :mod: trailer after parsing in
- ftrace_set_clr_event()
+	s=arc-20240116; t=1786630881; c=relaxed/simple;
+	bh=Bb8hhDEq3stlr7cGSyGhNCzQjZJ78qa01xeCWPofUDc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DescXpRX2f5oVWthIO1kd6Ze6JDRdwnm5EYs7pwhcPh22qIHKbGnsBXv33OjtpY1zsDH7eJrD3TEtB+frTtpTZ0lh7+cE8KPlHNaV9qGkK9aMKzXmqRiOoMSiyOJ7ABS8gprvVMZCcvBFSNXyq9k7gaLloYrzpzNdOEWQGoXe08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn; spf=pass smtp.mailfrom=whut.edu.cn; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=whut.edu.cn
+Received: from Mogu.localdomain (unknown [223.73.65.85])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 49e36c71e;
+	Thu, 13 Aug 2026 22:21:03 +0800 (GMT+08:00)
+From: MoGGuU <Naixumogu@whut.edu.cn>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Naixumogu@whut.edu.cn
+Subject: [PATCH] accel/rocket: Fix job submit error handling
+Date: Thu, 13 Aug 2026 22:20:59 +0800
+Message-ID: <20260813142059.151644-1-Naixumogu@whut.edu.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260813-tracing-cli-event-filter-v1-1-57c4e8029c86@linutronix.de>
-References: <20260813-tracing-cli-event-filter-v1-0-57c4e8029c86@linutronix.de>
-In-Reply-To: <20260813-tracing-cli-event-filter-v1-0-57c4e8029c86@linutronix.de>
-To: Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
- stable@vger.kernel.org
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786630039; l=1066;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=Fqn7isJpEy0tNbhyXRMm4QBjNlNd33jIQfGv6bPhvm0=;
- b=ocotHqo+/4aGWH5NW3+sM15QLvSJ+cCd81EjxJ8OoNYbtGGedksbIlce2OljiWY/kf3tFF2TZ
- TQJ/3nzfg3VAMqOoHxY7WgWQhGiYBFdRLZ5Z06n93+Q41HEOjGATQut
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+X-HM-Tid: 0a9ffb7f7b4a03a1kunm0ebce40633f04
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUhNVkMYQklOSx9LS0xJQ1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VQ05ZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
 
-While ftrace_set_clr_event() modifies its input buffer during parsing,
-before returning to the caller the buffer is supposed to be restored
-to its original state.
+Several error paths in the job submission path can be triggered by
+unprivileged userspace through malformed DRM_ROCKET_SUBMIT requests.
 
-This works correctly for the colon between the subsystem and event
-but not the colon at the beginning of :mod:.
+First, the input and output BO handle counts are __u32, but GEM lookup and
+reservation helpers take int counts.  Values outside the signed range can
+become negative.  A combined count above INT_MAX can also overflow at the
+call sites.  Reject counts that cannot be represented safely before looking
+up the BOs.
 
-Restore the colon, so the :mod: trailer is not stripped after
-ftrace_set_clr_event().
+Second, rocket_job_push() arms the scheduler job before collecting its
+implicit dependencies.  Dependency collection can fail with -ENOMEM, but
+drm_sched_job_arm() is a point of no return.  An armed job must be pushed;
+it must not be aborted with drm_sched_job_cleanup().  Collect dependencies
+before taking the scheduler lock and arming the job.  Only operations that
+cannot fail remain after arm().
 
-Fixes: 4c86bc531e60 ("tracing: Add :mod: command to enabled module events")
+Finally, rocket_ioctl_submit() discards each job's return value and reports
+success even when every job fails.  Return the first error
+and stop submitting the remaining jobs.  Jobs queued before an error remain
+queued, giving the ioctl ordered partial-submit semantics.
+
+Tested on RK3588 with zero task counts, invalid task pointers, invalid BO
+handles, and oversized BO counts.  The requests returned the expected error
+codes without warnings or errors in the kernel log.
+
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
 Cc: stable@vger.kernel.org
-Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
 ---
- kernel/trace/trace_events.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/accel/rocket/rocket_job.c | 34 +++++++++++++++++++------------
+ 1 file changed, 21 insertions(+), 13 deletions(-)
 
-diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
-index c46e623e7e0d..6aa32c492280 100644
---- a/kernel/trace/trace_events.c
-+++ b/kernel/trace/trace_events.c
-@@ -1460,6 +1460,8 @@ int ftrace_set_clr_event(struct trace_array *tr, char *buf, int set)
- 	/* Put back the colon to allow this to be called again */
- 	if (buf)
- 		*(buf - 1) = ':';
-+	if (mod)
-+		*(mod - 5) = ':';
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index bb77b6bf0..c42bbf486 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -206,21 +206,20 @@ static int rocket_job_push(struct rocket_job *job)
+ 	if (ret)
+ 		goto err;
  
- 	return ret;
- }
++	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
++					   &job->base, false);
++	if (ret)
++		goto err_unlock;
++
++	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
++					   &job->base, true);
++	if (ret)
++		goto err_unlock;
++
+ 	scoped_guard(mutex, &rdev->sched_lock) {
+ 		drm_sched_job_arm(&job->base);
+-
+ 		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+-
+-		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
+-		if (ret)
+-			goto err_unlock;
+-
+-		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
+-		if (ret)
+-			goto err_unlock;
+-
+ 		kref_get(&job->refcount); /* put by scheduler job completion */
+-
+ 		drm_sched_entity_push_job(&job->base);
+ 	}
+ 
+@@ -556,6 +555,12 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 	if (job->task_count == 0)
+ 		return -EINVAL;
+ 
++	/* GEM lookup and reservation helpers take signed object counts. */
++	if (job->in_bo_handle_count > INT_MAX ||
++	    job->out_bo_handle_count > INT_MAX ||
++	    job->in_bo_handle_count > INT_MAX - job->out_bo_handle_count)
++		return -EINVAL;
++
+ 	rjob = kzalloc_obj(*rjob);
+ 	if (!rjob)
+ 		return -ENOMEM;
+@@ -639,8 +644,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *fil
+ 	}
+ 
+ 
+-	for (i = 0; i < args->job_count; i++)
+-		rocket_ioctl_submit_job(dev, file, &jobs[i]);
++	for (i = 0; i < args->job_count; i++) {
++		ret = rocket_ioctl_submit_job(dev, file, &jobs[i]);
++		if (ret)
++			goto exit;
++	}
+ 
+ exit:
+ 	kvfree(jobs);
 
+base-commit: d85a5e9dfb42449d9f37b0ddc6ec30b129f481ce
 -- 
-2.55.0
+2.43.0
 
