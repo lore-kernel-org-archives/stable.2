@@ -1,156 +1,131 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F21343896;
-	Thu, 13 Aug 2026 03:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D352B2749DC
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 03:59:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786591570; cv=none; b=bTxjRMvU9f01SUaLPEvYnlH12NElQub5g/80cF3kWbgBkkK0jjaOMbFGhh+ePbz+4qnTQ35Bv49bWkDg/ypSJiavGqvB5aTFx8yGpuMyY2HKQP13hJdv0RJtlkKxamox2rBYiAXl7qtdhbY7JX29DYO0qU3WvQBDImRO1c2UwV0=
+	t=1786593580; cv=none; b=EJem1hZ5POR3KAYeA9vtHhO57zCsdzwa0VWV0kRzmrX9tNUgSZgmURMOqq0Kp/E+7EwT0tclvP2StawdOLTASM2m9B1Y8tbzAd881kVqpPloBP6pk5hPLe2VpEIAEB3wJriLRLfim/l/gTXhbaYsNMvEqrVPKup5WjWt0PRTA/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786591570; c=relaxed/simple;
-	bh=h2uxDNeoSu5cIxSdf79jgMoNXAs1VFqo6QCLDgzhuOI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=peCU2PQdhP9zOmAtTCFXM5dJNDcuWMFVEcns9keEOsMQa9o50xha5ak0ueEetlxmkOqd7HQs7CN4eB+L3BauKzrLknItodKE67UopEOvOaWzwArl5WM7QzgBbvAy6jrP0xhSKXROJtIL0L8/Bri6SXZAS6JOyB5zNZZuihH6Dc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b3a7dec096c611f1aa26b74ffac11d73-20260813
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:7fea67af-adbc-46fc-bda5-31a0ebd4007c,IP:0,U
-	RL:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:e7bac3a,CLOUDID:a7435a22c99046ef5c7514087897a004,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0
-	|15|52,EDM:-3,IP:nil,URL:11|85|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,C
-	OL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULN,TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b3a7dec096c611f1aa26b74ffac11d73-20260813
-X-User: luoxueqin@kylinos.cn
-Received: from [10.42.13.56] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <luoxueqin@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1752279995; Thu, 13 Aug 2026 11:25:58 +0800
-Message-ID: <043577d0-4b42-43c7-be7b-abcedbbffc46@kylinos.cn>
-Date: Thu, 13 Aug 2026 11:25:55 +0800
+	s=arc-20240116; t=1786593580; c=relaxed/simple;
+	bh=nD6RhNxzKWTetqlzx61RBaqinCaMJA4+rhml6gRPCNw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lOX5DxQuSOc3BsRl6BVWCghHB5WG97rg6+wxDGWAC+U8dfyp7TmDE/0eipl4gQGvLLPIcr+V9NH4v0TlxkUXStBxlfSm1g7i6QD+siVZbYy3MM5lO43oqagKqQWMaReORiC6JEYhGaUtQET60HcmMtaHnHyfxjnCyiEzjHk5Xi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QU+8CZHe; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QU+8CZHe"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-84e3007a2b7so246838b3a.0
+        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 20:59:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786593578; x=1787198378; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6FudjjefIGcYQYJoeZLUqTaC0084KO9kQWcwAp5c3ro=;
+        b=QU+8CZHeKwQgXT0He+Jhc143VaS8WjnXYAGTJz9vPCWG6Ze0Llrj+vBPOAsxkzMzVm
+         nD4KF5JcroriJew91KUFmuXeBHaOHU9ukJ49e32A1bo7mD2mYM1lra6uWdPZhpemmOFo
+         cEWGoOHPhT0D6dcZB6HBXKzz4RBP/PoTOIK8ptAbDBgpp7L6sbNWmnDwZ4EHvVg7TkJJ
+         WE8uk+Jrvq4nWkNzwnB3VXiAK1qlO8j4XrsqTaL6kqB2DneRTqifdkx7u8nIyjNnzke/
+         MC477tZMlspywXesDXV69R9zBHlk4bSsDOJE6+p4/+jch1wrGQhn7mfKev3BXhhV0wA+
+         7VoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786593578; x=1787198378;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6FudjjefIGcYQYJoeZLUqTaC0084KO9kQWcwAp5c3ro=;
+        b=VwMw9u4Shl6ZgU5x/vR9Vae8uW1wRbVomC2G0MX0Yl2PVM0LfvHUN4/yyKjSYcL/eS
+         sH+LQoDDnAQXc/zjmYrPaJwgXf8Sa60ubhPtD1FbUEkoyCLxJxJGrL3DapsPfyi3ggqN
+         aQ7OOIDJOlrvdWIgJQP5g4VqTDXStlptNRs9r+wNT0ZWsOIYHRE2pSdFjRKyPb3jxVQt
+         4Wd3BF14o5NdtcpreaPHuh2iGnybi3qq1f0n4t3MjkgVgTRBGfmz6+Vze8s7oBPIqzXt
+         j6qPRUwoht9r0QKqKJLJaWcDRSmK65TXQOjnqeo7QBojup5/VsklhEuK8ndSJmG8hB7V
+         jE7A==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/unKymxyO0f2n1GOd+Zc+KWaSB7FduoAQH0gbATsCMsLcerQj8R6OjNRA5XbUn9PPhGWjjOk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy83vTo8LcBOSeiQ0LskhjgDIWbIBHEbqF3A+FbmumvJqYeA/c/
+	/cnH2KlBPfAca2iu0HheaxT3NuN0+i7Qp8Mh2cxNHLBITD1bS+wM3IM=
+X-Gm-Gg: AR+sD12wF1fVbSw9ljnjlsW+vJBRDYdcK6hi9WgjqjiHLm9py0kHx+oqApGIdgZabEC
+	nKQTwAGqBnmTfckY7ik4MRrw2avevOk/eOxJAtccXWsAhZn9qCQDVkqGiQB+ly8HsKFvY2MqYUa
+	LxubLZ1754RKnK5DziFvsOxJNKWQwCI75p9Wci/DLKxfh8dAMgZaZcKcEpVhMjcHEXBkadhqL7z
+	DlVTHeVSJgTeDFoRxn7L6i9K4dDMg867iqKo6x7xm3yI9nJG+A5EdBl7pp+AGS33Gaw/hAfgw1p
+	7CGUGsEyu5spaSrUbnSVbeeLEueru5jc+wMg0GOWp/9bSeKR5OdQ2F8o47mfRq81/LK/dsgImWA
+	wwmhzN4ImAH6KMwo1Qm1RYskIMZNYQDNZEgh5uMV0R45oAtjnfPJosC9jDpWs85ScoJGanZuKuK
+	lo5N48b/APQzFhLM24hR2TvSR6VkVm516cvJTKVdbPGMp76GKzgFW2M9hWY1s/Qe9P8HMbc0TBe
+	3dOi3JLFVLb83L1DtXa
+X-Received: by 2002:a05:6a21:62c7:b0:3c1:85d:fa2f with SMTP id adf61e73a8af0-3cc554d4f6dmr3963089637.36.1786593578062;
+        Wed, 12 Aug 2026 20:59:38 -0700 (PDT)
+Received: from localhost.localdomain ([165.1.213.2])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1412d964443sm3619941c88.9.2026.08.12.20.59.36
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 12 Aug 2026 20:59:37 -0700 (PDT)
+From: Rochan Avlur <rochan.avlur@gmail.com>
+To: miklos@szeredi.hu
+Cc: bernd@bsbernd.com,
+	joannelkoong@gmail.com,
+	djwong@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Rochan Avlur <rochan.avlur@gmail.com>,
+	syzbot+d6540a3fa1626e11360d@syzkaller.appspotmail.com
+Subject: [PATCH] fuse: wait for FR_FINISHED on abort_on_kill to prevent use-after-free
+Date: Wed, 12 Aug 2026 20:58:36 -0700
+Message-ID: <20260813035836.74045-1-rochan.avlur@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: luoxueqin <luoxueqin@kylinos.cn>
-Subject: Re: [PATCH v2] usb: typec: ucsi: Add ACPI_COMPANION() NULL check in
- ucsi_acpi_probe
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: gregkh@linuxfoundation.org, pooja.katiyar@intel.com, johan@kernel.org,
- pmenzel@molgen.mpg.de, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260811095827.1001654-1-luoxueqin@kylinos.cn>
- <anw-41p6cVPQyrDP@black.igk.intel.com>
-Content-Language: en-US
-In-Reply-To: <anw-41p6cVPQyrDP@black.igk.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Heikki,
+The abort_on_kill path in request_wait_answer() calls fuse_abort_conn()
+and returns without waiting for FR_FINISHED.  If fuse_dev_do_write() is
+concurrently processing the same request (FR_LOCKED set), the caller
+frees req->args while it is still being accessed, causing a
+use-after-free.
 
-Thanks for the review.
+Fix this by jumping to the existing wait_event(FR_FINISHED) instead of
+returning early.  The wait will not hang because fuse_abort_conn()
+ensures all requests are ended.
 
-However, I'd like to point out that this exact issue has been recognized
-as a security vulnerability (CVE-2026-64227), and Rafael already applied
-the same fix pattern to 14 ACPI platform drivers in commit e4865a56d013
-("ACPI: driver: Check ACPI_COMPANION() against NULL during probe"), which
-is marked for stable backport.
+Reported-by: syzbot+d6540a3fa1626e11360d@syzkaller.appspotmail.com
+Fixes: 204aa22a686b ("fuse: abort on fatal signal during sync init")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: Rochan Avlur <rochan.avlur@gmail.com>
+---
+Tested by injecting a msleep(100) between spin_unlock(&fpq->lock) and
+the req->args->page_replace access in fuse_dev_do_write() to widen the
+race window, then running a reproducer that concurrently writes the INIT
+reply while SIGKILL is delivered to the mount process.  KASAN reliably
+reports the slab-use-after-free without the fix, and the report is absent
+with the fix applied.
 
-The NULL pointer dereference triggers a kernel oops/panic - a full system
-crash - not just a silent failure. Returning -ENODEV is the correct and
-graceful behavior, consistent with all other drivers fixed in that commit.
+ fs/fuse/dev.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Could you please reconsider?
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index c105aaf9ff5d..b946884d4d5b 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -572,7 +572,7 @@ static void request_wait_answer(struct fuse_req *req)
+ 
+ 		if (req->args->abort_on_kill) {
+ 			fuse_abort_conn(fc);
+-			return;
++			goto wait_for_finish;
+ 		}
+ 
+ 		if (test_bit(FR_URING, &req->flags))
+@@ -583,6 +583,7 @@ static void request_wait_answer(struct fuse_req *req)
+ 			return;
+ 	}
+ 
++wait_for_finish:
+ 	/*
+ 	 * Either request is already in userspace, or it was forced.
+ 	 * Wait it out.
+-- 
+2.45.2
 
-Best regards,
-Xueqin Luo
-
-在 2026/8/12 17:37, Heikki Krogerus 写道:
-> On Tue, Aug 11, 2026 at 05:58:27PM +0800, Xueqin Luo wrote:
->> Add NULL check for ACPI_COMPANION() in ucsi_acpi_probe() to prevent
->> NULL pointer dereference when driver_override matches a device without
->> ACPI companion.
->>
->> Since every platform driver can be forced to match a device that doesn't
->> match its list of device IDs because of device_match_driver_override(),
->> the ACPI_COMPANION() may return NULL, leading to a NULL pointer
->> dereference at adev->dep_unmet.
->>
->> Test steps:
->>
->>    $ sudo modprobe ucsi_acpi
->>    $ echo ucsi_acpi | sudo tee /sys/bus/platform/devices/alarmtimer.0.auto/driver_override
->>    $ echo alarmtimer.0.auto | sudo tee /sys/bus/platform/drivers/alarmtimer/unbind
->>    $ echo alarmtimer.0.auto | sudo tee /sys/bus/platform/drivers/ucsi_acpi/bind
->>
->> which triggered the following crash:
->>
->>    [ 6599.180948] calling  ucsi_acpi_platform_driver_init+0x0/0xff0 [ucsi_acpi] @ 24208
->>    [ 6599.181198] initcall ucsi_acpi_platform_driver_init+0x0/0xff0 [ucsi_acpi] returned 0 after 207 usecs
->>    [ 6729.051074] BUG: kernel NULL pointer dereference, address: 00000000000005f4
->>    [ 6729.051102] #PF: supervisor read access in kernel mode
->>    [ 6729.051113] #PF: error_code(0x0000) - not-present page
->>    [ 6729.051122] PGD 0 P4D 0
->>    [ 6729.051136] Oops: 0000 [#1] PREEMPT SMP NOPTI
->>    ....
->>    [ 6729.051300] PKRU: 55555554
->>    [ 6729.051306] Call Trace:
->>    [ 6729.051314]  <TASK>
->>    [ 6729.051327]  platform_probe+0x41/0xa0
->>    [ 6729.051348]  really_probe+0x1a9/0x410
->>    [ 6729.051364]  __driver_probe_device+0xc9/0x170
->>    [ 6729.051377]  device_driver_attach+0x46/0xb0
->>    [ 6729.051390]  bind_store+0x77/0xd0
-> I don't think kernel can protect the user from everything. I would
-> rather keep the NULL pointer dereference than silently fail in this
-> kind of cases.
->
-> Note that you can use the driver_override like that also with a device
-> (not UCSI) that does have the ACPI device node. In that case the probe
-> would just continue pass the condition you are introducing below.
->
-> Thanks,
->
->> Fixes: 1f3546ff3f0a ("usb: typec: ucsi: acpi: Check the _DEP dependencies")
->> Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
->> Cc: stable@vger.kernel.org
->> ---
->>   drivers/usb/typec/ucsi/ucsi_acpi.c | 6 +++++-
->>   1 file changed, 5 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
->> index 18286d3e9cc5..b4a783217dc6 100644
->> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
->> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
->> @@ -188,7 +188,7 @@ static void ucsi_acpi_notify(acpi_handle handle, u32 event, void *data)
->>   
->>   static int ucsi_acpi_probe(struct platform_device *pdev)
->>   {
->> -	struct acpi_device *adev = ACPI_COMPANION(&pdev->dev);
->> +	struct acpi_device *adev;
->>   	const struct ucsi_operations *ops = &ucsi_acpi_ops;
->>   	const struct dmi_system_id *id;
->>   	struct ucsi_acpi *ua;
->> @@ -196,6 +196,10 @@ static int ucsi_acpi_probe(struct platform_device *pdev)
->>   	acpi_status status;
->>   	int ret;
->>   
->> +	adev = ACPI_COMPANION(&pdev->dev);
->> +	if (!adev)
->> +		return -ENODEV;
->> +
->>   	if (adev->dep_unmet)
->>   		return -EPROBE_DEFER;
->>   
->> -- 
->> 2.43.0
