@@ -1,48 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1768412BFB;
-	Thu, 13 Aug 2026 13:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F3747DD63
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 13:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786628034; cv=none; b=TrcZ8Lvo41RQJc0LY2Cj+ncmNbqAWB8411UtfNyxPMVT8JQhlVuBincxs3wbYT1yQqnDJYyIglZ4lQHUw9O2pDa2AzDPpopxUzCH420YMrVcziCnhz5kFkmZQNyxzaqucs3Y+RYGnccLLals1h1wN1s+X8+W/zrcnJlDEbE4f5c=
+	t=1786628061; cv=none; b=PCuB5D/P6+1yxDIGyUPFhtxUsTnzpd5zmwbyJbnk82eHfXuDIODwPs+NiljCUcW0GwcMF8Uo3+0H1rpmwhJcwqR7rXbg7TiuchDp+96Y+X4Nhhc8zkYSqOgFQJgrIQfEdCcV+cTU9Rlj+jP/t56H8+ipXIgNUnhTfk3uum+TYVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786628034; c=relaxed/simple;
-	bh=mvryYfPk6xan9iXAfWmk4+kCmkQXVt65mPUyB5k9Ebs=;
+	s=arc-20240116; t=1786628061; c=relaxed/simple;
+	bh=OcEezsanPwyYtHJiGOZFG+K3KM7vvhSN97luIVPI1Ng=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ufJwnPVUFtDmLM9rl/vyAQp04OuVF4l5ZROLdC5pxg3YchZlIQZ6NSf/kIrw0ElkqkEsMCzgZDX21JILnkzmn9yZ7DH8k1Z+yvRaiA9Vzmw7U7dEbZ1MNYgT0bi3oOqAW3lYLdM3nusxhzw0mWk2SPPbmiuiVfl0DIDYeQaAsrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flKOaZpl; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=MIqt8dORUr1iD68nHA4mGyCX1eLPM+k2Cp97L1FwokW7FA+Bvnx+suEbE+8Rulns9cgS1T+PF96VB1AS108fj5nbgt+PXRq8/nq6bhOg8EBlc5JzcPvVBNv8j31zRAE3R4nhC1ZBsb+QUDA1AqwWYuOOFazUDKzE87pJIcZYC70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=CcjQFiP0; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flKOaZpl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C19A1F000E9;
-	Thu, 13 Aug 2026 13:33:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786628032;
-	bh=nSLP590tH+YrdMCZ3ykFZ5UctbQuGnKXxbm3iof4jgE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=flKOaZplI1eVL+EvOd2ocj5LMKADV1j0JnLCz8Gat5bVdSlkgB2q9ssXUJZizXrXz
-	 rrfDBMm/Fs22loTiue3RGUKHjotJtgtXH2gWJgCfluyEnTrLmCtkuk1wCrwNjUp+gk
-	 3Oo3OSWQxgxbSVdQuCS+49XHH4bYQ957Wn8+W1KSUHf7kMTUsi4vDJE1n7CweiUiEa
-	 Rp+8PtYDCKzarwMz2tka4v1f2zDh5meSrs/J5j7+vGlMWMAykiPvlAhKo29SIjNFe9
-	 JwDrKtBw2e0kp5fjKvferDsaEyNU6/jjU01+EnjABnR0HyCVuT3Ywx23imI42sr+Mu
-	 c+vfOxSy7wR2g==
-Date: Thu, 13 Aug 2026 14:33:48 +0100
-From: Simon Horman <horms@kernel.org>
-To: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Cc: Lorenzo Bianconi <lorenzo@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	stable@vger.kernel.org,
-	"moderated list:AIROHA ETHERNET DRIVER" <linux-arm-kernel@lists.infradead.org>,
-	"moderated list:AIROHA ETHERNET DRIVER" <linux-mediatek@lists.infradead.org>,
-	"open list:AIROHA ETHERNET DRIVER" <netdev@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net v2] net: airoha: npu: load the firmware without the
- sysfs fallback
-Message-ID: <20260813133348.GB265046@horms.kernel.org>
-References: <20260811181717.19339-1-sochnev.v.74@gmail.com>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="CcjQFiP0"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-8efcef23d21so12700896d6.2
+        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 06:34:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1786628057; x=1787232857; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=b7FsOVpsR2u+8zsOB4pxP+7DxIyGo4TmTgnx74/xvuo=;
+        b=CcjQFiP0ctTj0Le2Ky8m6tyQQqz01JPLLWNocwgNl4gLqqqfEgww/MR21xUeoijZXk
+         4p/FO56zAe/dL4giGgvD0YAe+r1BXIOaJQGtiiMbU04Rpm+4e2FDKm4oZlaO3A7ECfD4
+         FuYlPDfMTXWj7EZj8Lwmtl+3MhNXGPjhMuajuRd3EilDvaBnASsNfWyOxAM8h0/vET8Y
+         pBaVdf1nGyaj54If4XHck++6BFpnKnyxysS6aVJHVTy6oPws0u30L2YdZDUc0V8KuH86
+         1ov4gX0PId7yRqdgl8G0aTOUM4mx1sS/ZB4mRG+ufQNeMOh8xTWV1FGkOfTiwurZaYOs
+         S0oA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786628057; x=1787232857;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b7FsOVpsR2u+8zsOB4pxP+7DxIyGo4TmTgnx74/xvuo=;
+        b=juVNSUG7ksU09ObbCUAp+ZNl6vzoER27NVqefFD+4GOISP1PkrYHg1QY/GbnTpgkbJ
+         ++rbB6bI8dbtwraW/Wo8PlpEw5uBxY5QxA0faLnbwivrdEdSeqiTrwoxCjIWLnj0Ka0Z
+         cqUjZTw3RwAiR2M5dxRnLcd4I2pw7fRUsMa5ZKDJaQ2VhEU0nQm/wMjybDFUi7tJGJ8o
+         p6HXxgNudg5soo4X0978oSf15Z6HwRTs/7sZqOrUTdobvw1gWGvsPyXvFLmaLUhPmO1Q
+         yGpPYWV2XGGfa+5YFQGxTcTHgAvNrrnTRNKx1BgzypmfWavkqkld0zQ4g4NCaWh0/V6e
+         oJXw==
+X-Forwarded-Encrypted: i=1; AHgh+RqXJOGxzPvQZ8U+MlMdZe1icyISdVVNWlFSuUuDMOLMSUTvQJw5fdVIILkQC2ysX3v9qNa0Hks=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWarU6KUEmv3ZVyNKJwJ4MbjpMVF0uC3DLoWsIX1hk5zxoMCWD
+	ZVUD30uVp36aKUdxvHuyaZOcMM9pB3KhoSrxO3aqmlCOoCYXtOTOeLq9EOFTPCWmZoo=
+X-Gm-Gg: AR+sD13tTVUxFtBsjlJMNd6AabQHx6vh7eBZVI72Gtw0lTxYWiDpKyxGvrxA/4gLiEr
+	5iE1N63L+cq497sYpI132jXDDKkJ6a1CmCV1f8GrpXp4r/sB2BgxMm/cLFJ/9U0bS3nJtx7u4To
+	WjkZ9HqRQzcqJzMBAMyni+sdBDGWnHdpIhktuU5xIiqij+0pzYG79tqICPmOVIujLEfdIfZzNdE
+	tF+mRSJGRNK51PJV4TQY+xWC0s5skXYGrI7Dw/G1NcQGDzdtvJ0RjkTwZHjPCXyb7fCgOIS5En/
+	TUpid5RZgrJlCHtjbO3t/freZSSs1l7OqElvqkCmR4SSrcnHhdwpZ0yKevfFxSw70McT/Pk2q+J
+	XqDfRi/f1DUcpOaNjvWJOMntxVoSXHiEPGNcHKIkHLX3bAEKXdxsRB41rOqqLUwR/BIRWK7troP
+	oEqpTEJJWEjUvZhvIp8g4ki6D+MuoBvxETT7b6iA==
+X-Received: by 2002:a05:6214:5d10:b0:8fb:7e7c:b494 with SMTP id 6a1803df08f44-90a80bdf66fmr57373736d6.26.1786628057084;
+        Thu, 13 Aug 2026 06:34:17 -0700 (PDT)
+Received: from ziepe.ca ([142.166.156.215])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90a81aba04bsm14700066d6.44.2026.08.13.06.34.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Aug 2026 06:34:16 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wuVZX-00000003nJq-3M6L;
+	Thu, 13 Aug 2026 10:34:15 -0300
+Date: Thu, 13 Aug 2026 10:34:15 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Cc: David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Tom Murphy <murphyt7@tcd.ie>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Mohammed Almaroof <moh@anthropic.com>,
+	Ben Cressey <ben@cressey.dev>
+Subject: Re: [PATCH 6.18.y] iommu/vt-d: Gather the unmapped range before
+ freeing its page tables
+Message-ID: <20260813133415.GK662699@ziepe.ca>
+References: <20260813-b4-vtd-unmap-gather-v1-1-4c52f4a7a1ac@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,81 +85,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260811181717.19339-1-sochnev.v.74@gmail.com>
+In-Reply-To: <20260813-b4-vtd-unmap-gather-v1-1-4c52f4a7a1ac@linux.dev>
 
-On Tue, Aug 11, 2026 at 07:16:59PM +0100, Vitaliy Sochnev wrote:
-> airoha_npu_load_firmware() maps a missing firmware file to -EPROBE_DEFER
-> so that the NPU can be brought up once the rootfs carrying /lib/firmware
-> has been mounted. That mapping holds only as long as request_firmware()
-> reports -ENOENT.
+On Thu, Aug 13, 2026 at 12:05:26AM +0000, Jose Fernandez (Anthropic) wrote:
+> Under a userspace driver that maps and unmaps DMA buffers through VFIO
+> type1 continuously, this shows up as wrong data in device reads and
+> writes. An occasional DMAR fault on a mapped IOVA is the only thing in
+> the logs. With an Intel DSA engine assigned through vfio-pci, remapping
+> a 16 MiB buffer at a fixed IOVA and reading it through the device
+> returned data from the wrong pages in 280 of 400 iterations. With a
+> fresh IOVA per iteration it never did.
 > 
-> It does not when the sysfs fallback is in play. With
-> CONFIG_FW_LOADER_USER_HELPER_FALLBACK set, or with the fallback armed at
-> runtime through /proc/sys/kernel/firmware_config/force_sysfs_fallback,
-> request_firmware() hands the request to a userspace helper, waits out the
-> full loading_timeout and returns -ETIMEDOUT. The -ENOENT test no longer
-> matches, dev_err_probe() turns the result into a hard failure, and the
-> NPU is left unbound after stalling the boot for 60 seconds:
+> Add the range to the gather first and splice the freed tables into
+> gather->freelist afterwards, so that they are only freed by a sync that
+> also invalidates their range.
 > 
->   airoha-npu 1e900000.npu: Direct firmware load for airoha/en7581_npu_rv32.bin failed with error -2
->   airoha-npu 1e900000.npu: Falling back to sysfs fallback for: airoha/en7581_npu_rv32.bin
->   airoha-npu 1e900000.npu: error -ETIMEDOUT: failed to run npu firmware
->   airoha-npu 1e900000.npu: probe with driver airoha-npu failed with error -110
-> 
-> Clearing FW_LOADER_USER_HELPER in the configuration is not a dependable
-> guard against this, because unrelated drivers select it. On the affected
-> build the symbol was turned back on by LEDS_LP55XX_COMMON, even though
-> the platform had explicitly disabled it.
-> 
-> Use request_firmware_direct() instead. It sets FW_OPT_NOFALLBACK_SYSFS,
-> so a missing file is reported as -ENOENT whatever the firmware loader is
-> configured to do, and the deferred probe path works as intended.
-> 
-> Two consequences are worth stating plainly.
-> 
-> The helper is not merely bypassed for the boot-before-rootfs case.
-> fw_run_sysfs_fallback() returns early on FW_OPT_NOFALLBACK_SYSFS, so this
-> driver's firmware requests can no longer be served by a usermode helper
-> at all, including on a system where that is the only delivery route;
-> having no second firmware source, the driver would defer forever there.
-> That is a deliberate trade-off: the -ENOENT to -EPROBE_DEFER mapping was
-> written to wait for a filesystem, and the sysfs helper interface has had
-> no in-tree consumer since udev dropped firmware loading.
-> 
-> request_firmware_direct() also sets FW_OPT_NO_WARN, which drops the only
-> message naming the file that failed to load. Report it from the driver
-> instead, so the name lands in the deferred probe reason and shows up in
-> the "deferred probe pending" line emitted at
-> driver_deferred_probe_timeout. The generic report in airoha_npu_probe()
-> goes away with it, since it would otherwise overwrite that reason with a
-> message naming nothing; of the paths it covered, devm_ioremap_resource()
-> reports itself and the malformed firmware-name property now does too.
-> 
-> Measured on a Nokia XG-040G-MD with FW_LOADER_USER_HELPER=y and
-> FW_LOADER_USER_HELPER_FALLBACK=y forced on, two images from the same
-> tree differing only by this patch:
-> 
->   without:  fallback at 2.477s -> -ETIMEDOUT at 64.555s -> probe failed
->             with -110, preinit at 69.6s, NPU unbound
->   with:     no fallback, NPU fw version 1456.62 at 3.665s, preinit at
->             7.6s
-> 
-> Fixes: 23290c7bc190 ("net: airoha: Introduce Airoha NPU support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-> ---
-> v2:
->  - Keep the file name in the diagnostics. request_firmware_direct() also
->    sets FW_OPT_NO_WARN, which dropped the only message naming the file;
->    report it from airoha_npu_load_firmware() through dev_err_probe() so
->    the name lands in the deferred probe reason. Drop the generic report
->    in airoha_npu_probe(), which would overwrite that reason, and give
->    the malformed firmware-name path a message of its own.
->  - Say in the changelog that the usermode helper path is disabled for
->    this driver's requests rather than merely bypassed, and why that
->    trade-off is acceptable.
->  - Both points raised in review of v1:
->    https://lore.kernel.org/netdev/20260807024125.434055-1-sochnev.v.74@gmail.com/
+> Mainline removed this code in v6.19 with commit d373449d8e97
+> ("iommu/vt-d: Use the generic iommu page table") and is not affected.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Yeah, I noticed this bug category in iommupt at some point, I didn't
+realize there was long existing errors in the drivers.
 
+I don't know what the process is to put a unique patch into stable
+(backporting the upstream iommupt based fix is not reasonable), but
+this looks correct to me, it follows the pattern iommupt is using and
+I have now extensively tested.
+
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+
+Jason
