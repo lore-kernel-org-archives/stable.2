@@ -1,119 +1,113 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD91D20ADF8
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 02:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9572D0292;
+	Thu, 13 Aug 2026 02:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786588836; cv=none; b=h0Ex1Aslpoiqw9k4jz4z1Vr9UZXUNc/itty34S6+01hPEXGMM74vrNSlhrMl50vLdxxuxLYi1QzURl3PFWcEC5aclTjeF7YgAjtH0SnYf9DKvcbfxxHYxZ/0ZIIMTa/yybY55XofmdRlothxpywQvC9F8tLI5I+L/D8UxE8PUiQ=
+	t=1786589306; cv=none; b=XWuOLWNmBvXPgJZi8671rEjr9KyN8Xu8BKPo9BqNF/xUgRDp9q/u6dxoRfZ73uzXcXzmf5Abkg1Jke/lkMPPEcoY95MhhScV2TWhNe0gkvpaqOyxXWLZRYloSKPb+KJJZYw9PY1AZpOv8scVOWhND744pmla7iJqumFNSAB9IG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786588836; c=relaxed/simple;
-	bh=Rm8yJnlT3fsCQLbfHSwTkl17wnWlfVroX3yT09INhmI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=G/ANR8dOIPnrTKDAqEs+2BU62CckgJioZbci9VVYPa5m5MOYxhZ3d2NRFS2XZsKxPn4NUmZQ79XsEfCJFICwZghr3oiMcvh2Wv09qdT9e223L5o+v0KCdZsM/2yt/xmucPDu+wUQP3E7DS7xF3+PVkdugWx48ZHPaAh+z1BoGY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MI2SiVZZ; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MI2SiVZZ"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f3b39f2a1so1433439f8f.2
-        for <stable@vger.kernel.org>; Wed, 12 Aug 2026 19:40:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786588833; x=1787193633; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jBG7b5ISCcqvogeJMToUIR5kJKEpeXF6DhAFVm+3bAY=;
-        b=MI2SiVZZETU7Om+O3zztE1F1/rnfur19hTeebve2Zap+DxfTGVVtU0hU18NoEChDRH
-         gSWt+ke9uukDEFK+zBTQI4lt6MzuzgAiXLmUaFr+Zwk/7WXcYQnv58WiJvrZUo5RXTFf
-         ovshDJatEggJIKRvrH1VQRIhXavjYkKDh2lOAkithqEJ4qJBGfOu4ZXDSd4mYrwjXVHD
-         aRkCTyZAv6fnZc8WNtm7rg2bOHqxydImbURWhB8zikr9/l9MpXcTIf7ZtQdVrE/OzQ88
-         b6/Kusp5AAlYTmpgzUvnfXvGOo/HUK1WXb2gD+rz1fqN1KJBuOJBMVFgcxkTR7/DgMR0
-         BXbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786588833; x=1787193633;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jBG7b5ISCcqvogeJMToUIR5kJKEpeXF6DhAFVm+3bAY=;
-        b=g54ptzKqotxqAArxtPlGkraxzbzblIbk3vPgptlcLPm0uW7szyy71q46qH01PcpzZG
-         WJEBCTwk8iK4MoLFcDSNSdhX9paUwMLSq/j8XYggKgLVFT782F8k3ZNMeWqhzg8bwfme
-         cbRSLGNlc8ggd6wx/voFHgfNVkQpAk9dmihp6fNqAoqBEnieefKPzKvlhp5GQ5Lf5Ih4
-         9PJp0i2IuN9NwY/VOYVufW2bpu5ua/byf1nYDKcKRAgeaTWk3jI/79D7www+p2f7BrEw
-         xF/pYBUGaD1hAsKFeWc61K4X5AMiqk7kPzZkGmryAxZp0txWEL4rpq4Yegev0wweVnkt
-         QCQA==
-X-Forwarded-Encrypted: i=1; AHgh+RoISIQvWRcmmPg+C35alXbLCNI0pPqrwxTXjXr/26HMw1NWM6ibMsyoG429AEmrLt/WEagF92s=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+aHNUpfhJUkvaW6lIX/DBi3XuyC3B7hMaUiNKYd/7W4Zknvjy
-	Rt1pa7z1AqTPpcPUpxyoCWJhgXbpFkKEgj8FvIhrGkkT2Y3xmzpx1H/jtLRwVfv5
-X-Gm-Gg: AR+sD137K9RYoXYdSMnfUvXhyt5zJzWSfrPer92B/9TIkwW0VY6UoibBsZcK0ZPEc50
-	UCYBTHXuQCE4pb3SkBUdtSXyDeEpD3i5re9vJXL7f6EXIxX4IUE/QgLKJVd+/IqIIFCNSXgQVAn
-	Mkc+moPh5z4enMb4lMF9Fex0C61oE09nAA9uNOX32n2M1PFmfLnkHW65RbLs2gjF6fAYKraje7Q
-	obkCtYkY9/Xds41T7EBHZjvwyUDvwJ2dcQEP+H/7TQKUucA6uUVycQWOal13hJ1yx+fwmHYpL4V
-	o+v6JeF+b8KVKsDJGAWiNIcM9k1w4JSO/EAOCTA8J3KF8qCLiclClKlpPyY5fdOdVJMSXwthZps
-	8bQyEICo+xQl4AVJVl60qpubQqV7NDr+NXzpUB+SGy+rOCYq3vz/b4vB+5dyJwTID+ce5TbHcWl
-	Fk5ZLusqhxJTlh49SUDAqQgQ/MbZe/9WEa2nGgTlg5GvXPcv0q7miS9/8nF/Y3n6y1aqO7UYG0A
-	8so5+I1D6kvUxFjXNbC/2j9rRTgVFkcX/upGms7djldyJYuG2N00AFUgmIoUrX1vvyiBG7/jHJq
-	6ZxezMA7DdEPzb1MakFtkqVkTRqnxgc+iswImVRrvsnIa+dLAs6xxLQ5tJnicLE7Q0hi
-X-Received: by 2002:a05:6000:388:b0:47f:e770:13e0 with SMTP id ffacd0b85a97d-48159ccc59fmr3151747f8f.7.1786588832762;
-        Wed, 12 Aug 2026 19:40:32 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-9c79-1f01-1565-573d-10dc-99f9.310.pool.telefonica.de. [2a02:3100:9c79:1f01:1565:573d:10dc:99f9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815a5c2308sm2306362f8f.33.2026.08.12.19.40.31
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 12 Aug 2026 19:40:32 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Michal Simek <monstr@monstr.eu>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Appana Durga Kedareswara rao <appana.durga.kedareswara.rao@amd.com>,
-	kernel test robot <lkp@intel.com>,
-	oe-kbuild-all@lists.linux.dev,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	linux-kernel@vger.kernel.org,
+	s=arc-20240116; t=1786589306; c=relaxed/simple;
+	bh=F6d+tOUJ99Rld8kBlFOo0jGMvA8ksoK7W0n2Xsz21RA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=VQ+2hv3jHikiLFumJlCrtHH75rbtZVHdf7gRVmzV+AdbLWPTed1aLXrZ/zrpd/yKy8PSbdXf8cQdLdWINAk9bHxwu9hTO6VaxAXPe/tNtO5gg/sbxVO+dgV/3WWIbnx7PZuNX5N/fGeXC3qHkizD2sEioBNX2Iwn3FUtbUPyu6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 6f0a086a96c111f1aa26b74ffac11d73-20260813
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:3ee9cb89-8f7e-4e34-8529-8b33a01c0c99,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:fca12f24adbe9056790d6ab9c1a22647,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|136|850|865|898,TC:nil,Content:0|15|
+	50,EDM:-3|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL
+	:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 6f0a086a96c111f1aa26b74ffac11d73-20260813
+X-User: xiaopei01@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiaopei01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1912808178; Thu, 13 Aug 2026 10:48:16 +0800
+From: Pei Xiao <xiaopei01@kylinos.cn>
+To: joern@lazybastard.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Pei Xiao <xiaopei01@kylinos.cn>,
+	syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com,
+	=?UTF-8?q?J=C3=B6rn=20Engel?= <joern@barelysecure.org>,
 	stable@vger.kernel.org
-Subject: [PATCH] microblaze: Fix MB_MANAGER build with older binutils
-Date: Thu, 13 Aug 2026 04:40:26 +0200
-Message-Id: <20260813024026.5402-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Subject: [PATCH v3] mtd: block2mtd: Fix divide error when erase_size is zero
+Date: Thu, 13 Aug 2026 10:48:12 +0800
+Message-Id: <25ec7ba58facdf29b42ca43dcf11cd98e2089a5f.1786589041.git.xiaopei01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit 88707ebe77e2 ("microblaze: Add custom break vector handler for mb
-manager") added the suspend mnemonic to the MB Manager break handler.
+The erase size is parsed from the "block2mtd" module parameter and can
+be set to zero. add_device() then evaluates
 
-GNU as only learned this mnemonic in binutils 2.42. Linux supports
-binutils 2.30, where enabling CONFIG_MB_MANAGER fails:
+        if (size % erase_size)
 
-  arch/microblaze/kernel/entry.S:946: Error: unknown opcode "suspend"
+with a zero divisor, which triggers a divide error:
 
-The suspend mnemonic is an alias for mbar 24, and both encode as
-0xbb020004. Use the underlying instruction, which GNU as 2.30 already
-supports.
+divide error: 0000 [#1] PREEMPT SMP PTI
+RIP: 0010:add_device drivers/mtd/devices/block2mtd.c:296 [inline]
+RIP: 0010:block2mtd_setup2+0x592/0xda0 drivers/mtd/devices/block2mtd.c:459
+Call Trace:
+block2mtd_setup+0x27/0xe0 drivers/mtd/devices/block2mtd.c:476
+param_attr_store+0x214/0x310 kernel/params.c:589
+module_attr_store+0x65/0x90 kernel/params.c:904
+kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+...
 
-Fixes: 88707ebe77e2 ("microblaze: Add custom break vector handler for mb manager")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202310310151.UhB396Qs-lkp@intel.com/
-Suggested-by: Michal Simek <monstr@monstr.eu>
+Reject a zero erase size before performing the modulo operation so the
+existing "erasesize must be a divisor of device size" error path
+reports the invalid argument and frees the device.
+
+Fixes: ea6d833a3fdd ("mtd: block2mtd: check device size")
+Reported-by: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/lkml/6a7b58ba.ac361c09.22ff0a.0045.GAE@google.com/
+Suggested-by: Jörn Engel <joern@barelysecure.org>
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- arch/microblaze/kernel/entry.S | 2 +-
+changes in v3:
+1.remove (long) cast due to build errors in 32bit config systems
+2.changes git log about (long) cast
+
+changlogs in v2:
+1.Add Suggested-by tag
+2.remove unnecessary (long) cast from the size
+---
+ drivers/mtd/devices/block2mtd.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/microblaze/kernel/entry.S b/arch/microblaze/kernel/entry.S
-index 582d7256d8154..ad44341a5dbc7 100644
---- a/arch/microblaze/kernel/entry.S
-+++ b/arch/microblaze/kernel/entry.S
-@@ -943,7 +943,7 @@ ret_from_break:
- 	mbar	1
- 	mbar	2
- 	bri	4
--	suspend
-+	mbar	24 /* suspend */
- 	nop
- #endif
+diff --git a/drivers/mtd/devices/block2mtd.c b/drivers/mtd/devices/block2mtd.c
+index 03e80b2c4f5a..349fa07be314 100644
+--- a/drivers/mtd/devices/block2mtd.c
++++ b/drivers/mtd/devices/block2mtd.c
+@@ -293,7 +293,7 @@ static struct block2mtd_dev *add_device(char *devname, int erase_size,
+ 	}
  
+ 	size = bdev_nr_bytes(bdev);
+-	if ((long)size % erase_size) {
++	if (!erase_size || (long)size % erase_size) {
+ 		pr_err("erasesize must be a divisor of device size\n");
+ 		goto err_free_block2mtd;
+ 	}
 -- 
-2.53.0
+2.25.1
+
