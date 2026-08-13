@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAFF0184
-	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 00:54:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1A7301704
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 00:54:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786582475; cv=none; b=grcBInNqUaUlgmKUjv/0oIa2GODZywvTGyGAfimqN85q2KhD0+sdBlCmgjT+q8KuVk0jslF2S+xp24ps2MIX0vdgA/aWDg2tJAit+xzxRDuqhmxQbtV509H6uoC2ITQ8BAzupdsPIpqtLLYUpelCDp5Nc/lEQXR20hQaf2+GXow=
+	t=1786582477; cv=none; b=gIHGJ6Bp8EHzvB60aIfl+KBKAqPT1otP7o2OK+5NyZg782DyCOUytLuS4MZefBme4RsohtVcXxRy1gMNeLhzg4yF8DaqefjAfh2QhSVWOIBE/qdHc9igD1nqQp83b9Du4Ri+9AC17OLOuRqHIrcGkvm2ZsVduMR/B9PJI4XeRks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786582475; c=relaxed/simple;
-	bh=IjvQUv8hWil2nV/+DYArLMDEZZpfZm/ZS7iWzC4Htww=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=aoFu1Kz5c4gMJB9YUcl8y7LlW0t9skaNak4dvGBzV4OSLZtTTNKKojFm2j6nDK5LyGROFIrnSoxKWPoPpApvtRZNsTL+gWWT34pc7u+aFmPIVlyMLUAex7IIo2wvJ8c9xhtlJvEnkZrk+J48uo42YSZvdPHcU9YMPGk9O0if2xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KfOChInA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786582477; c=relaxed/simple;
+	bh=l0LvT5FHC9QRzMzHGQEUs4WvrxOegBKOwW97Lu6rISg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=aEinTUlQPbT9J+pDAv4XMqEGvYdjaFFO/6/lVNBojIMzX6D8LBQAidOezkyfDf87IEqhccrRjV5j4TKktlhelfUfKp5ZFAXwxLBWaMjfFlp0svdX6jK6v9sdEb+mHioRu9dDQ1ZofKSwolCiLN/tVoiTAYSWhEpqvqpzcc34o9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Xuy2rm5O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KfOChInA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA8B1F000E9;
-	Thu, 13 Aug 2026 00:54:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Xuy2rm5O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CAF71F000E9;
+	Thu, 13 Aug 2026 00:54:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786582473;
-	bh=3sFHWLzP7wySW447Foo1qMTG+5EJSgyHz7Fwcartgtg=;
+	s=korg; t=1786582476;
+	bh=4IkQeA97JHuZ4kwdVPAECj1grf2GXtoE0tIkKKuti/M=;
 	h=Subject:To:Cc:From:Date;
-	b=KfOChInA/JdSjdVEV0SoGTLSeNKPK+EQxMkNiVqAsSxZY0bZyhG99oA8oZYhoX7Sy
-	 WE7Opd3GexM7580+HYyP2me/r9mocd5bxtMEtKspC71skK+oitrBfFHKwF5PwKNA8n
-	 ImZVi+Xlfj3QicBf4yuASsGSJZ2xygtjpteDWQvs=
-Subject: FAILED: patch "[PATCH] futex: Fix race in futex_pivot_pending() during private hash" failed to apply to 6.18-stable tree
-To: yaokai34@huawei.com,peterz@infradead.org,tglx@kernel.org
+	b=Xuy2rm5ObK2ROh7aLTfJGc6jsF9N1HyLPRoS+FJpzwhQE0OGRpYSSP8UwA3Sm+SYJ
+	 nm7tTzFktRszzeVbL5njG7eYjnIoWfXOZzqirtp4UeoJKqH1AMb8yHV8Atf3lrPFln
+	 n2TlMoU45hobEeGl6CHUM9azZBUW6ziTCVVry6gA=
+Subject: FAILED: patch "[PATCH] futex: Prevent robust futex exit race some more" failed to apply to 7.1-stable tree
+To: keno@juliacomputing.com,keno@juliahub.com,mingo@kernel.org,tglx@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 13 Aug 2026 09:52:53 +0900
-Message-ID: <2026081353-usher-wackiness-91af@gregkh>
+Date: Thu, 13 Aug 2026 09:52:59 +0900
+Message-ID: <2026081359-untie-chance-6812@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8e7ff730dd96519a333d1570edf1c3fabb6d3629
+git cherry-pick -x 6d4514ca9cdf61fec4ec634cf50386f6f7e69748
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081353-usher-wackiness-91af@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081359-untie-chance-6812@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,91 +62,179 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8e7ff730dd96519a333d1570edf1c3fabb6d3629 Mon Sep 17 00:00:00 2001
-From: Yao Kai <yaokai34@huawei.com>
-Date: Tue, 4 Aug 2026 20:55:30 +0800
-Subject: [PATCH] futex: Fix race in futex_pivot_pending() during private hash
- resize
+From 6d4514ca9cdf61fec4ec634cf50386f6f7e69748 Mon Sep 17 00:00:00 2001
+From: Keno Fischer <keno@juliacomputing.com>
+Date: Tue, 21 Jul 2026 00:31:48 +0000
+Subject: [PATCH] futex: Prevent robust futex exit race some more
 
-A task performing a custom private hash resize can remain blocked in
-uninterruptible sleep indefinitely.  The hung-task detector reports:
+A robust futex unlock stores 0 over the whole futex value - wiping
+FUTEX_WAITERS - and wakes a single waiter. That wakeup is a one-shot
+notification: the protocol relies on its recipient to either acquire the
+futex (and eventually unlock while aware of the remaining contention) or
+re-arm FUTEX_WAITERS before sleeping again.  If the woken waiter is killed
+before it can do either, the kernel must jump in and wake the next task
+down the line.
 
-  INFO: task futex-resizer:314 blocked for more than 10 seconds.
-  task:futex-resizer state:D stack:14824 pid:314 tgid:312 ppid:311
+This is a known complication of the futex protocol with a previous
+partial fix in commit ca16d5bee598 ("futex: Prevent robust futex exit
+race"). Unfortunately, that fix is insufficient.
 
-  Call Trace:
-   __schedule+0x521/0xf30
-   schedule+0x22/0xa0
-   futex_hash_allocate+0x3db/0x490
-   __do_sys_prctl+0x6f5/0xbd0
-   do_syscall_64+0xf9/0x530
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+If a third task re-acquired the futex through the uncontended fast
+path in the meantime, the notification is lost: robust exit processing
+sees that it is owned by another task and does nothing, while the new
+owner sees no FUTEX_WAITERS when it unlocks and wakes nobody.
+The remaining waiters sleep forever behind a free futex:
 
-  Kernel panic - not syncing: hung_task: blocked tasks
+  A owns the futex, B and C sleep in FUTEX_WAIT
+                                        uval == A | FUTEX_WAITERS
+  A robust unlock: store 0, FUTEX_WAKE(1) wakes B
+                                        uval == 0
+  D fast path acquire: cmpxchg(0 -> D)
+                                        uval == D, no FUTEX_WAITERS
+  B killed before acting on the wakeup
+  B exit walk, pending op: owner D != B -> no action
+  D unlock: no FUTEX_WAITERS -> no wake
+                                        C sleeps forever
 
-futex_pivot_pending() allows the resize request to continue when
-either no replacement hash is pending (hash_new == NULL) or the current
-hash reference count has reached zero.
+This is clearly a shortcoming in the implementation, which fails to keep
+the FUTEX_WAITERS bit consistent.
 
-After the final-reference wake, another futex task can complete the
-pivot between the two observations:
+Work around this by augmenting the robust list exit processing to also
+perform the extra wakeup if the futex word is owned by another thread but
+FUTEX_WAITERS is not set.
 
-  T1                                  T2
+This does not fix the problem of a non-contended take over/release and free
+sequence, which has been discussed for years and has been addressed by
+commit 3ca9595d9fb6 ("futex: Add support for unlocking robust futexes") and
+subsequent changes, but failed to take the problem described above into
+account.
 
-  futex_hash_allocate()
-    wait_var_event(mm, ...)
-      futex_pivot_pending(mm)
-        hash_new != NULL
-                                      futex_hash()
-                                        futex_ref_get(old) -> false
-                                        futex_pivot_hash(mm)
-                                          hash_new = NULL
-                                          __futex_pivot_hash(mm, new)
-                                            rcu_assign_pointer(hash, new)
-        fph = rcu_dereference(hash) /* new */
-        futex_ref_is_dead(fph) -> false
-      schedule()
+A more complete solution which is based on the in kernel unlock of
+contended robust futexes has been discussed in the context of this change
+and should show up in mainline sooner than later.
 
-The pivot changes the state from hash_new != NULL with a dead current
-hash to hash_new == NULL with a live current hash.  Because
-futex_pivot_pending() reads hash_new and hash without serialization,
-the resize task can observe hash_new in the pre-pivot state and hash in
-the post-pivot state, causing futex_pivot_pending() to return false even
-though the pivot has completed.  The task then goes to sleep after the
-wakeup has already been consumed.
+[ tglx: Amend change log slightly and fixup coding style ]
 
-Serialize state reads in futex_pivot_pending() using futex_mm_phash::lock.
-This guarantees that futex_pivot_pending() observes hash_new and hash
-atomically, eliminating the race condition.
-
-Fixes: bd54df5ea7ca ("futex: Allow to resize the private local hash")
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Fixes: ca16d5bee598 ("futex: Prevent robust futex exit race")
+Signed-off-by: Keno Fischer <keno@juliahub.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Assisted-by: ClaudeCode:claude-fable-5 tla+
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260804125530.3933754-1-yaokai34@huawei.com
+Link: https://patch.msgid.link/20260730194705.38981-1-keno@juliacomputing.com
 
 diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index 2650d1e52803..128c5752f225 100644
+index 179b26e9c934..2650d1e52803 100644
 --- a/kernel/futex/core.c
 +++ b/kernel/futex/core.c
-@@ -1783,14 +1783,15 @@ void futex_hash_free(struct mm_struct *mm)
+@@ -982,8 +982,11 @@ static int handle_futex_death(u32 __user *uaddr, struct task_struct *curr,
+ 		return -1;
  
- static bool futex_pivot_pending(struct mm_struct *mm)
- {
-+	struct futex_mm_phash *mmph = &mm->futex.phash;
- 	struct futex_private_hash *fph;
+ 	/*
+-	 * Special case for regular (non PI) futexes. The unlock path in
+-	 * user space has two race scenarios:
++	 * Special case for regular (non PI) futexes. Ordinarily, we do
++	 * not perform any processing here unless the current thread was
++	 * the owner of the futex (by the TID check below).
++	 *
++	 * However, the unlock path has three race scenarios:
+ 	 *
+ 	 * 1. The unlock path releases the user space futex value and
+ 	 *    before it can execute the futex() syscall to wake up
+@@ -992,42 +995,70 @@ static int handle_futex_death(u32 __user *uaddr, struct task_struct *curr,
+ 	 * 2. A woken up waiter is killed before it can acquire the
+ 	 *    futex in user space.
+ 	 *
+-	 * In the second case, the wake up notification could be generated
+-	 * by the unlock path in user space after setting the futex value
+-	 * to zero or by the kernel after setting the OWNER_DIED bit below.
++	 * 3. A woken up waiter is killed in user space after another
++	 *    thread has acquired the futex, but before it can set
++	 *    FUTEX_WAITERS.
+ 	 *
+-	 * In both cases the TID validation below prevents a wakeup of
+-	 * potential waiters which can cause these waiters to block
+-	 * forever.
++	 * Note that, if userspace uses the FUTEX_ROBUST_UNLOCK flag, we
++	 * will not see case 1 here.
+ 	 *
+-	 * In both cases the following conditions are met:
++	 * In the second and third case, the wake up notification could
++	 * be generated from any of:
+ 	 *
+-	 *	1) task->futex.robust_list->list_op_pending != NULL
+-	 *	   @pending_op == true
+-	 *	2) The owner part of user space futex value == 0
++	 *    i.   An ordinary futex wakeup after unlock (with or
++	 *         without FUTEX_ROBUST_UNLOCK)
++	 *    ii.  A robust wakeup from another thread's death
++	 *    iii. A previous round through this special case
++	 *
++	 * As a result, the futex world will be in one of four states:
++	 *
++	 *    A. The futex word is 0 (unlocked)
++	 *    B. The futex word is owned by another thread
++	 *       (FUTEX_WAITERS is not set)
++	 *    C. The futex word is owned by another thread
++	 *       (FUTEX_WAITERS set)
++	 *    D. The futex's owner died and OWNER_DIED is set
++	 *       (the owner part of the word is 0)
++	 *
++	 * The key issue is that the kernel usually (at least from
++	 * sources ii. and iii. or when so requested by userspace from
++	 * source i.) only ever wakes *one* waiter at a time. If this
++	 * waiter dies before acquiring the futex (or setting the
++	 * FUTEX_WAITERS bit), the kernel *must* still wake the next
++	 * waiter down the line to uphold the futex invariants and
++	 * avoid lost wakeups. Note we do not need to handle state C,
++	 * as it does not matter to us whether *we* successfully set
++	 * the bit or a third thread did so in the meantime.
++	 *
++	 * Therefore, in these cases we must issue an additional
++	 * futex_wake(). Note however that we *must not* set OWNER_DIED
++	 * here. Our thread is *not* the owner of the futex.
++	 *
++	 * Thus to summarize, the conditions for needing the additional
++	 * futex_wake() are:
++	 *
++	 *	1) @pending_op == true (the thread has not finished the
++	 *	   mutex operation)
++	 *	2) The futex word is in one of the states A, B or D
+ 	 *	3) Regular futex: @pi == false
+ 	 *
+-	 * If these conditions are met, it is safe to attempt waking up a
+-	 * potential waiter without touching the user space futex value and
+-	 * trying to set the OWNER_DIED bit. If the futex value is zero,
+-	 * the rest of the user space mutex state is consistent, so a woken
+-	 * waiter will just take over the uncontended futex. Setting the
+-	 * OWNER_DIED bit would create inconsistent state and malfunction
+-	 * of the user space owner died handling. Otherwise, the OWNER_DIED
+-	 * bit is already set, and the woken waiter is expected to deal with
+-	 * this.
++	 * Note in particular that in all of the states A-D the owner
++	 * portion of the futex word differs from our thread's TID
++	 * (unless the actual owner has the same TID in another PID
++	 * namespace, but we cannot currently distinguish that
++	 * scenario), so this can be a special-case wakeup in the bail
++	 * path of the ordinary TID check.
+ 	 */
+ 	owner = uval & FUTEX_TID_MASK;
  
--	guard(rcu)();
-+	guard(mutex)(&mmph->lock);
+-	if (pending_op && !pi && !owner) {
+-		futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, NULL, 1,
+-			   FUTEX_BITSET_MATCH_ANY);
++	if (owner != task_pid_vnr(curr)) {
++		if (pending_op && !pi && (!owner || !(uval & FUTEX_WAITERS))) {
++			futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, NULL, 1,
++				   FUTEX_BITSET_MATCH_ANY);
++		}
+ 		return 0;
+ 	}
  
--	if (!mm->futex.phash.hash_new)
-+	if (!mmph->hash_new)
- 		return true;
- 
--	fph = rcu_dereference(mm->futex.phash.hash);
-+	fph = rcu_dereference_raw(mmph->hash);
- 	return futex_ref_is_dead(fph);
- }
- 
+-	if (owner != task_pid_vnr(curr))
+-		return 0;
+-
+ 	/*
+ 	 * Ok, this dying thread is truly holding a futex
+ 	 * of interest. Set the OWNER_DIED bit atomically
 
