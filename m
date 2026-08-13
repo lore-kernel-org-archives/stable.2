@@ -1,110 +1,148 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A7E3B71A4;
-	Thu, 13 Aug 2026 10:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5760B368D47
+	for <stable@vger.kernel.org>; Thu, 13 Aug 2026 10:26:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786615761; cv=none; b=dFSbyBEe0gnZiWo4XzkZB6rRs93ypqBlMR8S6q+3w+dWbOpOQFTturKvdiyaM98fXllY5tX5FLwgX+7OsiEmthLlnqVj2RlNsgYeFDUFh7IYhiDBY3CXZvRk4Ol16yurtFZexfRLYIdD/qhcGyK3O/Mk7mFHgbkl+rU5J5of2QQ=
+	t=1786616780; cv=none; b=RktHkG1SqVO0hvB/TggXrNeiFEuon7Um5y/zOC2xeY9DU9EgqKLFpvQSLB1bM1ruzgsfMsuNuyGLN/pBT+Bz7HEevSFdlSLOvvFkCAGWUTERMXMWlc/qJsTEtBZSOmohMxtPYglF8PRUHxpCEZ7k46Pclxyx9Xn+ecbCjtXS33c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786615761; c=relaxed/simple;
-	bh=2/40GNmVMzpabgYXiLtoWLh5cSHzJFeZXyGwsZ/vHT4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S6qCpBQb33Va3IaPub6N8vLnXp8sQBT2tV1tqSlcDzBRhhgausMae5oSbPGZgDotGMZ/f26vswC/iBuDiLYM16Z3ZssuznsEa2Zn2PiyvC97nbS0paUCH4IYUNmyyhgu+BwBofa+mehM256Q5bleoC/hHdIcz37zznZGti9+Q7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from DESKTOP-L0HPE2S.localdomain (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAHDDrJl31qFCclBQ--.46566S2;
-	Thu, 13 Aug 2026 18:09:13 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: zajec5@gmail.com
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Haotian Zhang <vulab@iscas.ac.cn>
-Subject: [PATCH] bcma: propagate bcma_register_devices() error to host probe
-Date: Thu, 13 Aug 2026 18:08:36 +0800
-Message-ID: <20260813100836.2913-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1786616780; c=relaxed/simple;
+	bh=yrf9imgPzO8wlFHThXUTZ35rA60+QDuQrt+uQxh0u+M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QzRbbjGOQOxv9f4PTeJjGwpxU4of2Twp2RLdkAPEFYvFc1T+3aDmEx6elIURogz2Isyjqt68Ek1z3eXkQ7BeDI9Q6uuHWxv/9m22HvZGNcd7MRxftLybcro+NQwtQ+Ia2ZKO7J669pa+DAgtKigP73zYRy0wicTYf9a8mJ95pMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dFgAJw2u; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dFgAJw2u"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cc7e86e7aeso25899325ad.2
+        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 03:26:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786616779; x=1787221579; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CheetA0FCd2QHli7re2NKbzT3knYEe7Te2BK6UHPkW8=;
+        b=dFgAJw2u8L17wAZiY7UwFxiu+qbdz2wQ7V5ypB4rknik7lBWrIdUEZd/FipNmh6ABa
+         fY45say1wGw1dVrluyHatVthNxuJRnId32TyEsqZwSU6duNH/AmP/iuhPKMKqGeRmKIT
+         zc1XguCInPy9GuEdb3DpFF7pH2lUOxJjtn8K+uOdyUr0VLAgVpA3415iPNtOSnPKhiTw
+         H824ri1spbPv56Hj/jw3iisTDSryFdzhrJkk5QfKCyDPBoijMVkTiK/BXD583uoeRsFE
+         FAT0dlK2LVnk6otDRQQrxrYHrpqu8iYthicPdBvGTRgm0sq8eroE+sWblTwpsRHQ61Y7
+         54+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786616779; x=1787221579;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=CheetA0FCd2QHli7re2NKbzT3knYEe7Te2BK6UHPkW8=;
+        b=RWVvCkkmHBmdn4Mcxxh8LuF7ajC/hnGoXqrj+MTjoPDMvglwlmJF8MFVWjFF2wkeNX
+         gwH4J1UyOk9em/OOuaKKwpoXyoKn5QuEfjt/MiKpwiyTFWqmIYf5RVrqitsxDR0Xd1IK
+         PGyByB3aAZPNgZ4rRNBD0zB7vLYP7/joeFjne3GtNkUAIrl2zc4vP8MAIc3n31C0aCUg
+         EvqI16pvw2f5whpZElg2IOzEXCbH94YwjndExwJva/frMGyrJXRNckgd0u/uxoolIM0z
+         ePNJNO3i3S9vrCkT7e8nXoNesZ3xdt3sWlboj5RGAuhZB2klvimYI8f4Ik/ygF02nodT
+         7whA==
+X-Forwarded-Encrypted: i=1; AHgh+RrGqCJe2W+Y6pFgnzEjW8y19E4zyo5GHmCdfYREUPoiDD2+ir/7KQqyQXpT9+XbbSIJy0Rg0Sc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyX6QVzJm8NLHXi1cF20PnJSfr2BqxSFZ/lUBWB6SlTBU5r6DdG
+	9qGGEe9OMK8GfsYKW1W2dP2V5XiB7YUtjk+fAXjh6t3zHgHSA0HVNhaOj3Pu32oKaU0=
+X-Gm-Gg: AR+sD11NNdr3qTdTIGl9ivDrbeciHv2uCw8edPlij1CwxTMPqSaaAy8Ugx9yrxV/Qcj
+	OH1K9Ndazj1d7eLk0NGPVd2xxu2WlCB29Nar5nmaGkLeCjpPgXNhhW4L/fhq0NnIBH1KewH2Bp5
+	nyFuWiWrYz9J+dBShI4QHisIBjcj3mNBGhmLzGpwFPElnUBeYpEDpBluKGPvKQciSyIYOAtc+sg
+	VbmiIbdq9q/HnSjVYQiqeE27dWVI2KyXNuROwCtNOmcaJktgTkYYCXarFLfAOVOvhPYgVkYRTd+
+	MVwRHWRwzUDOiHirjCNUtQJBHjXp+WEsY5xIkMcSuN/FgnknvkhmdObg8O9T8C8cdKbxPzmw3qP
+	DrWi4H649FoOmmbMoe14gbIBFTxZEClNHKu0NufJAg9sHG7iO4/UtIKo1CZ36V/93cO4rfZW4PT
+	ysrNv9zDHMpFlSXKjlqYAr+9Nki0sDKvZoBqDPOMpY53U+d+/3yXtgvEwGfJs=
+X-Received: by 2002:a17:903:4b28:b0:2cc:777f:d67c with SMTP id d9443c01a7336-2d37e856ffcmr53648995ad.13.1786616778614;
+        Thu, 13 Aug 2026 03:26:18 -0700 (PDT)
+Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d37c49bd29sm7220095ad.64.2026.08.13.03.26.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Aug 2026 03:26:18 -0700 (PDT)
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+Date: Thu, 13 Aug 2026 18:24:26 +0800
+Subject: [PATCH] drm/nouveau: disable VM_BIND once a legacy BO VMA is
+ created
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAHDDrJl31qFCclBQ--.46566S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr4rZF1rXryfKFyxJr45Awb_yoW8Zw4kpa
-	n8Wa45C34vgr48uF4DAF10yFy5Krn2krW8uF1fCwn5ua9xCry8trWUta40ga1DCFW0ka4r
-	tF1jq3WruayUAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjiL05
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAISA2p9Zlej2QAAsD
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260813-nouveau-gem-uvmm-vma-fix-v1-1-4f14d427f2c9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAFmbfWoC/yXMSwqEMBBF0a1IjS2IX9StiIMkllpCoiQmNIh77
+ 3Q7PA/evcGTY/IwZDc4iuz5sAlFnoHepF0JeU6GUpSt6IoK7REiyYArGQzRGIxG4sIf7GaxKKn
+ rplY9pPvpKM3/9Di99kHtpK9fD57nC8WTXNF8AAAA
+X-Change-ID: 20260813-nouveau-gem-uvmm-vma-fix-8d0fbac454b9
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dave Airlie <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+ stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786616773; l=2346;
+ i=whi4ed0g@gmail.com; h=from:subject:message-id;
+ bh=yrf9imgPzO8wlFHThXUTZ35rA60+QDuQrt+uQxh0u+M=;
+ b=8up90CkB3EcBEnF95pzAf697k2mBINT6B819yhVrWyqIK8onVKU51wq9dVqfe1WponwGildgE
+ n1Cbg8WGmwFBxQyZiMo/7nsnzQyn6HS1V+ThAo1prd3d45OWyzzzIbM
+X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
+ pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-bcma_bus_register() ignores the return value of bcma_register_devices(),
-which reports a failure when bcma_gpio_init() cannot register the GPIO
-chip. The error is silently discarded, so the bus is registered anyway
-and the host device stays bound with the bus half-initialized.
-On device removal bcma_bus_unregister() unconditionally calls
-gpiochip_remove() on a chip whose gpio_device was never registered,
-the failure paths of gpiochip_add_data() free it but leave chip->gpiodev
-dangling, and gpiochip_remove() dereferences it without any check,
-causing a NULL pointer dereference or use-after-free.
+nouveau_gem_object_open() creates a legacy per-client VMA when the client
+has not initialised VM_BIND (!nouveau_cli_uvmm()), but
+nouveau_gem_object_close() only tears it down while the client is still not
+a VM_BIND client ("if (nouveau_cli_uvmm(cli)) return;").
 
-Fix it by checking the return value of bcma_register_devices() in
-bcma_bus_register() and propagating the error to the caller, so the host
-probe fails instead of leaving the device bound in a half-initialized
-state. This new failure exit can be taken after some cores were already
-registered, so make the SoC host probe failure path unregister them, as
-the PCI host already does.
+nouveau_gem_ioctl_new() calls nouveau_cli_disable_uvmm_noinit() to stop a
+client mixing the legacy and VM_BIND uAPIs, but the prime-import and flink
+GEM_OPEN paths that also run nouveau_gem_object_open() do not. A client can
+thus open an object (creating a legacy VMA), call NOUVEAU_VM_INIT, then
+close the handle: close() now returns early and leaks the VMA. If the BO is
+flink-shared it outlives the client's freed vmm, and the next migration
+walks nvbo->vma_list in nouveau_bo_move_ntfy() and dereferences the stale
+vma->vmm -- a use-after-free.
 
-Fixes: cf0936b06d8e ("bcma: add GPIO driver")
+Disable VM_BIND in nouveau_gem_object_open() as nouveau_gem_ioctl_new()
+does; the helper is a no-op once VM_BIND is initialised, so VM_BIND-first
+clients are unaffected.
+
+Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 ---
- drivers/bcma/host_soc.c | 1 +
- drivers/bcma/main.c     | 5 +++--
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_gem.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/bcma/host_soc.c b/drivers/bcma/host_soc.c
-index 20b1816c570b..0bec0d005b89 100644
---- a/drivers/bcma/host_soc.c
-+++ b/drivers/bcma/host_soc.c
-@@ -236,6 +236,7 @@ static int bcma_host_soc_probe(struct platform_device *pdev)
- 	return err;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
+index 20dba02d6175..e33f76b5a239 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_gem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+@@ -108,6 +108,14 @@ nouveau_gem_object_open(struct drm_gem_object *gem, struct drm_file *file_priv)
+ 	if (vmm->vmm.object.oclass < NVIF_CLASS_VMM_NV50)
+ 		return 0;
  
- err_unmap_mmio:
-+	bcma_unregister_cores(bus);
- 	iounmap(bus->mmio);
- 	return err;
- }
-diff --git a/drivers/bcma/main.c b/drivers/bcma/main.c
-index 72f045e6ed51..55d17546c797 100644
---- a/drivers/bcma/main.c
-+++ b/drivers/bcma/main.c
-@@ -477,8 +477,9 @@ int bcma_bus_register(struct bcma_bus *bus)
- 	}
- 
- 	/* Register found cores */
--	bcma_register_devices(bus);
--
-+	err = bcma_register_devices(bus);
-+	if (err)
-+		return err;
- 	bcma_info(bus, "Bus registered\n");
- 
- 	return 0;
--- 
-2.43.0
++	/*
++	 * Opening the object binds it through the legacy per-VMA path below.
++	 * Disable VM_BIND for this client, as nouveau_gem_ioctl_new() does, so
++	 * a later NOUVEAU_VM_INIT cannot switch the client to uvmm and leave
++	 * nouveau_gem_object_close() unable to tear this VMA down.
++	 */
++	nouveau_cli_disable_uvmm_noinit(cli);
++
+ 	if (nvbo->no_share && uvmm &&
+ 	    drm_gpuvm_resv(&uvmm->base) != nvbo->bo.base.resv)
+ 		return -EPERM;
+
+---
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+change-id: 20260813-nouveau-gem-uvmm-vma-fix-8d0fbac454b9
+
+Best regards,
+--  
+Zhenhao Wan <whi4ed0g@gmail.com>
 
