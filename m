@@ -1,118 +1,130 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E0147ACD3;
-	Thu, 13 Aug 2026 12:43:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5508646F4AE;
+	Thu, 13 Aug 2026 12:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786624991; cv=none; b=bESlD5WIaepjDa3M/KOYFIAFR4e2+syD4WLjt/OwLsciBB7ayg7XWqWlubhOFY6cAi2jKaDfpPMRZCRQsW5v58Q8RVFWE7/D+3bqdixQa4oQOujAypMl9iugL4ddZi17LemF+/ZoifTa5gQVoyk+xkBdZnS30ZRHT/3Fvp1B2sQ=
+	t=1786625239; cv=none; b=psCIAPDFV07A2zEiSWq/Lrln80ZY4OqbmbAJz+FAXkYus30Ccc8eoKr4heYdz0028cTEybzPe0OCWyihg0p+YhZKXuZyhXKYMdy+NaVOH/tKI3kzTa1or/cAzkRBTDTnx1MpivNSZU7UuijPtSohQhvBghTVUZeLENdHuYzMA/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786624991; c=relaxed/simple;
-	bh=goZrJCQdbqFoMFq+5ROL10hTGJorfYKSkDKVYuF3PQs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fh5nhcntn7ZJX0tuaCLNjg/BcH2bsXOuuXWona8t+5nIcphjXj7NaJt1spnKb6+4GG8jOQsBCSdr6hK83efSg0GGRRMn2NMNNKeAkq7gJxddyag2NKLxavyWvWWfakFH3lYsfskdFmqq8IDf4ERiFAwjnCfeTzXU/N2M9zN3sTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q33qSe3y; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786625239; c=relaxed/simple;
+	bh=n7IVb6P0SS6aP6osC/nBykNSX6nP62U+SXlK9oPNqXU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DklOOfPp1CeEiEvdJSwnwdd6Gx/PhLNcz1Dc5SUoxtsmAmUYWTk+eUC4IKU2Y/OKeIH1StDXs2YHK3MB9pQC1zLe/6OBG2bG5OrPp62McyPA2lQGMC1FX608BUBkLO+/GGS0kVy/uSv8byYaPGksUnuCEoQJDyT3L1D8M+pAvoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YkIJT07G; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q33qSe3y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786624983; x=1818160983;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=goZrJCQdbqFoMFq+5ROL10hTGJorfYKSkDKVYuF3PQs=;
-  b=Q33qSe3yWu28UgPjtmHAWbaG8gPU476yCApuMUCGEEUBqj8yxMfCuOD4
-   D+QiPCJpoNsSpC507D1V+RXMT/+YN3wcbTNsqK5/1zEdgbvxi/W8Ma8Yl
-   mbieFKSKT5+rP5M4IB7e2rfJI/ukMRw2s3vD/FotFA3vZAyLn6eK9+Vvy
-   kCevQKB2IYPigzoC/PWHxUYB8u1xcgrgG2WjZys2mWX/H8HHCoL25jkxs
-   viMOAy00APORTYh3Mu2A4zVrGPUhM3WU6bFScETFXnC+LLoLktWb4N21Y
-   u9cvl62EX6ydbeYLkNppta+tWRffb4VDN/pET10JgH+d77R5Ov23bVops
-   A==;
-X-CSE-ConnectionGUID: GmQfeP4pSCqSxHK3GYPIVw==
-X-CSE-MsgGUID: 2pD4Zj4xSNWFD0aDzP8/eg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="91071665"
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
-   d="scan'208";a="91071665"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Aug 2026 05:42:51 -0700
-X-CSE-ConnectionGUID: XSImbRHiTB64EZOUNn+oww==
-X-CSE-MsgGUID: C9I4q/jbSGWD65ubRqPKaA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
-   d="scan'208";a="262177574"
-Received: from os-delivery.igk.intel.com ([10.102.18.218])
-  by orviesa006.jf.intel.com with ESMTP; 13 Aug 2026 05:42:48 -0700
-From: Jedrzej Jagielski <jedrzej.jagielski@intel.com>
-To: netdev@vger.kernel.org
-Cc: anthony.l.nguyen@intel.com,
-	kuba@kernel.org,
-	jhs@mojatatu.com,
-	jiri@resnulli.us,
-	edumazet@google.com,
-	Jedrzej Jagielski <jedrzej.jagielski@intel.com>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Subject: [PATCH net v2 2/3] net/sched: cls_u32: fix linked hash table refcount leak
-Date: Thu, 13 Aug 2026 14:22:41 +0200
-Message-Id: <20260813122242.1690024-3-jedrzej.jagielski@intel.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20260813122242.1690024-1-jedrzej.jagielski@intel.com>
-References: <20260813122242.1690024-1-jedrzej.jagielski@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YkIJT07G"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E3CF9C2BCF7;
+	Thu, 13 Aug 2026 12:47:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786625238;
+	bh=n7IVb6P0SS6aP6osC/nBykNSX6nP62U+SXlK9oPNqXU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=YkIJT07Gng0CI7nmRkmGQZuDRu4wHmBhshprD3U8G5gtdniuae4HLQGPDoU7Gm5gw
+	 N5auJIU7ASJ/fJd8jkmnH9SmDPJO67Pd0onSe5qmb2ETWwKO51axE0ZI3Isma3xiHx
+	 AvJUrdczqxetXHNPvlArn4R+XCRUX1i0/vkAffgAhPx5cv74HR88U3Nd3NepQr9/I8
+	 WXcXxrsvd5gBJhb5/HhgvRYXiQziIHwhrAsO4mQKXQMeO8VZi3Yvhs0ud/YDZsmxRO
+	 QwDeGMcRC7uvLMMiC0F9VjLvUMwXpTCJhBo7cpKLA2MCSK88NVXlvX45aTRfV1nH2W
+	 c0V12JSyYir/Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4B40C5DF66;
+	Thu, 13 Aug 2026 12:47:18 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Date: Thu, 13 Aug 2026 20:47:17 +0800
+Subject: [PATCH 2/2] coresight: etm-perf: reject events that exclude both
+ kernel and user space
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260813-coresight-fixes-v1-2-7411a73cd496@outlook.com>
+References: <20260813-coresight-fixes-v1-0-7411a73cd496@outlook.com>
+In-Reply-To: <20260813-coresight-fixes-v1-0-7411a73cd496@outlook.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
+ Leo Yan <leo.yan@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2362;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=+tTlNVRe/rbkdxYJBnqH+Npz+BDYLaVAW6dG0DYxOHA=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrNo9V/8qvdfao3WvtOtYdOAkb6uwnkvsZyatrJ4vd
+ rCYbatm74yOUhYGMS4GWTFFluMFl75Z+G7R3eKzJRlmDisTyBAGLk4BmIhJECPDgc9vbmQpNtmJ
+ XTD+v6jq2sPba0Imm7hN2/zNkvN825NyVoZ/RjNW9jxpMdl84rbL75Dmz9v09B4ufSz9eJNcXlz
+ q3EcmTAC2ok/O
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+Reply-To: moonafterrain@outlook.com
 
-When a new filter is created with TCA_U32_LINK, u32_set_parms() resolves
-the linked hash table and increments its reference count, storing it in
-n->ht_down.
+From: Junrui Luo <moonafterrain@outlook.com>
 
-If u32_replace_hw_knode() subsequently fails, execution jumps to the
-errunbind label which frees the node with kfree(n) but never drops the
-reference on n->ht_down. This leaves the tc_u_hnode refcount permanently
-elevated, preventing it from being freed when the hash table is later
-deleted.
+etm_event_init() validates only attr.type, so a cs_etm event can be
+opened with both attr.exclude_kernel and attr.exclude_user set. Both
+config parsers assign rather than OR the mode bits, so
+ETM_MODE_EXCL_KERN is discarded and only ETM_MODE_EXCL_USER survives.
+A request to exclude the kernel therefore programs the tracer to
+exclude user space and trace the kernel instead.
 
-Drop the ht_down reference at errunbind before freeing the node.
+config->mode has several downstream consumers -- on ETMv4 the TRCVICTLR
+ViewInst filter and the FEAT_TRF controls that exist to backstop it, on
+ETMv3 the address comparator access type -- and they all derive that
+same configuration from it. Since perf_event_open() skips
+perf_allow_kernel() when attr.exclude_kernel is set, this potentially
+lets an unprivileged user collect an instruction trace of kernel
+execution in a per-task event's AUX buffer. The existing guards do not
+catch it: etm4_config_trace_mode() warns on the combination but is
+reachable only from sysfs, and the early return in
+etm_config_trace_mode() can never fire because mode never holds both
+bits.
 
-Cc: <stable@vger.kernel.org>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260807100356.1083774-1-jedrzej.jagielski%40intel.com
-Fixes: af69afc51a56 ("net/sched: cls_u32: Fix reference counter leak leading to overflow")
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Signed-off-by: Jedrzej Jagielski <jedrzej.jagielski@intel.com>
+Reject the combination in etm_event_init(), covering both tracer
+generations at the single perf entry point.
+
+Fixes: 882d5e112491 ("coresight: etm3x: implementing perf_enable/disable() API")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- net/sched/cls_u32.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/hwtracing/coresight/coresight-etm-perf.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/net/sched/cls_u32.c b/net/sched/cls_u32.c
-index dc6e455e64ec..9539dce217df 100644
---- a/net/sched/cls_u32.c
-+++ b/net/sched/cls_u32.c
-@@ -875,7 +875,7 @@ static int u32_change(struct net *net, struct sk_buff *in_skb,
- 		      struct netlink_ext_ack *extack)
- {
- 	struct tc_u_common *tp_c = tp->data;
--	struct tc_u_hnode *ht;
-+	struct tc_u_hnode *ht, *ht_down;
- 	struct tc_u_knode *n;
- 	struct tc_u32_sel *s;
- 	struct nlattr *opt = tca[TCA_OPTIONS];
-@@ -1185,6 +1185,9 @@ static int u32_change(struct net *net, struct sk_buff *in_skb,
+diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+index af0295eab143..9cc93d48e970 100644
+--- a/drivers/hwtracing/coresight/coresight-etm-perf.c
++++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+@@ -185,6 +185,17 @@ static int etm_event_init(struct perf_event *event)
+ 		goto out;
+ 	}
  
- errunbind:
- 	u32_unbind_filter(tp, n, tb);
-+	ht_down = rtnl_dereference(n->ht_down);
-+	if (ht_down && refcount_dec_and_test(&ht_down->refcnt))
-+		kfree(ht_down);
- 
- #ifdef CONFIG_CLS_U32_MARK
- 	free_percpu(n->pcpu_success);
++	/*
++	 * Excluding both kernel and user space is not a configuration the
++	 * tracers can express: etm_parse_event_config() and
++	 * etm4_parse_event_config() overwrite ETM_MODE_EXCL_KERN with
++	 * ETM_MODE_EXCL_USER, which ends up tracing the kernel instead.
++	 */
++	if (event->attr.exclude_kernel && event->attr.exclude_user) {
++		ret = -EINVAL;
++		goto out;
++	}
++
+ 	ret = etm_addr_filters_alloc(event);
+ 	if (ret)
+ 		goto out;
+
 -- 
-2.31.1
+2.51.2
+
 
