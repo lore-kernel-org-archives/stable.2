@@ -1,132 +1,173 @@
-Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B43B371876
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 19:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6781B371876
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 19:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786736741; cv=none; b=J4S79pBl8oCSbiZ2z4JudVVuRZ1SDU+8qf37dwE7dzARLyIYgSkZdn/YVczk0ZtTIzKcXj2qBfBGZZaYOf9SID6kJckSuJpyy9lha560fThkv777HjSeNu2KtfrDuCAquoelVOM3Q49twYNDQ3bKMSIoYY8pcDIerp44XcK1tuw=
+	t=1786736766; cv=none; b=eGE31vk3P8XJIlwLEDwj/eiEsBLP0sRQnirSns9msS6p5b2jHcUZYmlmgdszG2BvTF24Cnd3qW8vznjmmqK14WEIVedhPOb0/NgXcnkMC1KfbqdopvyYIgpdt0SIGDdDeUK2vpXyrA/tv5iXYIviPobOgiX5GB/mG85yGSPnSF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786736741; c=relaxed/simple;
-	bh=z/5tEtgvQR9hXXiwAEKkzI1rrztFMfgGs/20AWZjAAA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uhqhaflzTZQrTzAzub3/sbJKXadqOBS6QdBnsaNol8v6hi0V2LPd/8kFPw/oR3xljZL1Jif3fDVIv96Pwb2fwrdXmRbZsycAvHiwp3I965EQ1mpHbfkwa1czYfbe6Q2yeQojtvh5MDYkxUC30O2/xhYVbjzG24Ekhtm0V6z2kho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GE3aAu43; arc=none smtp.client-ip=91.218.175.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786736766; c=relaxed/simple;
+	bh=yyM4H8Qo8zg143UrT2joE79qhFNxtcSQFaIdxwm2RZo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UdZmT6QSaozY3wYirNan+Eb2wz8kY3W/LLrcHMPwYzTwB64I06odMPbN75V7eL/35EIE0wDw7zw/Q0bNuJKFScWIiMDwhGHL4PfyHibRyEaqSWcpOER09LKRV20YkbgEux6HkOdhj9J9CUNbh06OpeY60746EpzbOOpD4UtMgoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HHvO2cgr; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GE3aAu43"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=z/5tEtgvQR9hXXiwAEKkzI1rrztFMfgGs/20AWZjAAA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1786736737; v=1; x=1787341537;
- b=GE3aAu43WPz1BfZ/3AhYVt21ovzh4b+dg+hWDRf4qPlWVl+o6kacKvrK/fqcHjH+RU6O2Rkv
- k29BY2a0tLoG2hyijh6SKyp6eRtP2l4PH1TCeqTWpRaqwTCwGtwAaulTxu/HmGgrWw1cqvLNUIX
- UhZ6yL7HPoGkqwH1gXBudywc=
-X-Envelope-To: stable@vger.kernel.org
-Received: from [IPV6:2a03:83e0:1251:27:9295:e585:8bf6:fa24] (2620:10d:c090:500::6:7be4)
-	by smtp.migadu.com with ESMTPS id 988c269271074e7b;
-	Fri, 14 Aug 2026 19:45:27 +0000
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a3d7bef2-4168-4804-b92d-cdc1d0184584@linux.dev>
-Date: Fri, 14 Aug 2026 12:45:24 -0700
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HHvO2cgr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786736762;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2CZ60NVHpqwN9DuqhR09Jg1IdibJV1yJ+DJMquDywq4=;
+	b=HHvO2cgrwNDRPvgZloXGSe20n6/WNHLStszFtOzYaDRM/Pg96ItMQBfV9PB18AvdeTdJXt
+	E2bKsYxwhE0WEGNQd5YB+l2c1wnfGRjvwtKAyoFVWhCBMtFSwz5aa9viJkFBnWy6rUgurd
+	tpNOrIZX4pBC2kdHMJP1Cw+DWIeyUSs=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-_VTmw3ItOaqWLCJVtUgoqQ-1; Fri,
+ 14 Aug 2026 15:45:59 -0400
+X-MC-Unique: _VTmw3ItOaqWLCJVtUgoqQ-1
+X-Mimecast-MFC-AGG-ID: _VTmw3ItOaqWLCJVtUgoqQ_1786736757
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EF6CC1956095;
+	Fri, 14 Aug 2026 19:45:56 +0000 (UTC)
+Received: from GoldenWind.lan (unknown [10.22.64.233])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 733D53000239;
+	Fri, 14 Aug 2026 19:45:54 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	"Timur Tabi" <ttabi@nvidia.com>,
+	"Dave Airlie" <airlied@redhat.com>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+	"Ben Skeggs" <bskeggs@nvidia.com>,
+	"Kees Cook" <kees@kernel.org>,
+	"Simona Vetter" <simona@ffwll.ch>,
+	"David Airlie" <airlied@gmail.com>,
+	"Thomas Zimmermann" <tzimmermann@suse.de>,
+	"Maxime Ripard" <mripard@kernel.org>,
+	"Mel Henning" <mhenning@darkrefraction.com>,
+	"Danilo Krummrich" <dakr@kernel.org>,
+	"Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH v5 1/4] Revert "nouveau/gsp: fix suspend/resume regression on r570 firmware"
+Date: Fri, 14 Aug 2026 15:43:48 -0400
+Message-ID: <20260814194542.781955-2-lyude@redhat.com>
+In-Reply-To: <20260814194542.781955-1-lyude@redhat.com>
+References: <20260814194542.781955-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] bpf, x86: Fix per-CPU address resolution into an extended
- register
-To: Eduard Zingerman <eddyz87@gmail.com>, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, x86@kernel.org,
- stable@vger.kernel.org
-References: <20260814165557.3405518-1-vineet.gupta@linux.dev>
- <5acb321999d7cc7ebd945c519495a8762501e3cc.camel@gmail.com>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <5acb321999d7cc7ebd945c519495a8762501e3cc.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On 8/14/26 12:13 PM, Eduard Zingerman wrote:
-> On Fri, 2026-08-14 at 09:55 -0700, Vineet Gupta wrote:
->> The destination of the per-CPU address MOV is encoded in ModRM.reg,
->> which is extended by REX.R, but the REX prefix is built with
->> add_1mod(), which sets REX.B. REX.B extends ModRM.rm and SIB.base, and
->> this instruction addresses memory as disp32 with no base, so the bit
->> has no effect at all and the high register bit is simply lost.
->>
->> Every is_ereg() destination therefore resolves to the wrong register,
->> picking whichever one shares the low three bits:
->>
->>    R5 -> RAX    R7 -> RBP    R8 -> RSI    R9 -> RDI
->>
->> With BPF_REG_5, whose reg2hex is 0, the emitted
->>
->>    65 49 03 04 25 <off>	add %gs:<off>,%rax
->>
->> adds the per-CPU offset to RAX rather than R8. The destination keeps
->> the unadjusted address and RAX is clobbered, so the program goes on to
->> dereference a pointer that was never made per-CPU:
->>
->>    BUG: unable to handle page fault for address: 0000607e386a8894
->>    RIP: bpf_prog_707837aafd2aa9ae_update_percpu_data+0x93/0xc9
->>    Call Trace:
->>     __bpf_prog_test_run_raw_tp+0x2dc/0x7d0
->>     __flush_smp_call_function_queue+0x1e9/0xc80
->>    Kernel panic - not syncing: Fatal exception in interrupt
->>
->> R5 is the mildest of the four, aliasing a scratch register and faulting
->> at the store. R7 aliases RBP and would corrupt the frame pointer, R8
->> and R9 alias the argument registers.
->>
->> Use add_2mod() so the register goes through REX.R, matching how
->> add_2reg() places it in ModRM.reg and how emit_priv_frame_ptr()
->> hardcodes 0x4c for the same instruction with R9. Encodings for the
->> non-extended registers are unchanged.
->>
->> Problem showed up when trying to resurrect BPF_GCC CI (selftests built
->> with BPF_GCC).
->>
->> This has gone unnoticed because clang reloads the address into R1
->> before each per-CPU access, so the destination is never an extended
->> register. GCC keeps several per-CPU addresses live at once, and
->> test_progs-bpf_gcc panics the kernel in global_percpu_data/init, where
->> the address of a .percpu variable ends up in R5.
->>
->> Fixes: 7bdbf7446305 ("bpf: add special internal-only MOV instruction to resolve per-CPU addrs")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
->> ---
->>   arch/x86/net/bpf_jit_comp.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
->> index d920772af7d5..1a9fb530adc3 100644
->> --- a/arch/x86/net/bpf_jit_comp.c
->> +++ b/arch/x86/net/bpf_jit_comp.c
->> @@ -1935,7 +1935,7 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
->>   				EMIT_mov(dst_reg, src_reg);
->>   #ifdef CONFIG_SMP
->>   				/* add <dst>, gs:[<off>] */
->> -				EMIT2(0x65, add_1mod(0x48, dst_reg));
->> +				EMIT2(0x65, add_2mod(0x48, 0, dst_reg));
-> Ok, so the argument is that because there is a SIB byte in this
-> instruction, and the instruction itself is `REX.W + 03 /r | ADD r64, r/m64`,
-> operand #1 ModRM:reg, operand #2 ModRM:r/m, the encoding should adjust
-> REX.R to extend operand #1, not REX.B as it does now.
->
-> I think this is correct. Could you please respin adding an inline
-> assembly test with __xlated() matcher, to verify that jit operates
-> correctly?
+This reverts commit 8302d0afeaec0bc57d951dd085e0cffe997d4d18.
 
-xlated or jited ?
+It turns out this looked like the right fix on some systems, but it's not -
+as this causes runtime PM to actually fail on many a laptop.
 
-> Reviewed-by: Eduard Zingerman <eddyz87@gmail.com>
+Fixes: 8302d0afeaec ("nouveau/gsp: fix suspend/resume regression on r570 firmware")
+Cc: <stable@vger.kernel.org> # v6.19+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 8 ++++----
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h        | 2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-Thanks for the quick review !
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
+index f128330f30d7b..40bf83ea33ac0 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
+@@ -208,7 +208,7 @@ r535_fbsr_resume(struct nvkm_gsp *gsp)
+ }
+ 
+ static int
+-r535_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
++r535_fbsr_suspend(struct nvkm_gsp *gsp)
+ {
+ 	struct nvkm_subdev *subdev = &gsp->subdev;
+ 	struct nvkm_device *device = subdev->device;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+index f544afa12b6bb..4a3b771ded255 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+@@ -1749,7 +1749,7 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
+ 		sr->sysmemAddrOfSuspendResumeData = gsp->sr.radix3.lvl0.addr;
+ 		sr->sizeOfSuspendResumeData = len;
+ 
+-		ret = rm->api->fbsr->suspend(gsp, suspend == NVKM_RUNTIME_SUSPEND);
++		ret = rm->api->fbsr->suspend(gsp);
+ 		if (ret) {
+ 			nvkm_gsp_mem_dtor(&gsp->sr.meta);
+ 			nvkm_gsp_radix3_dtor(gsp, &gsp->sr.radix3);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+index 8ef8b4f655883..2945d5b4e5707 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+@@ -62,7 +62,7 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
+ }
+ 
+ static int
+-r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtime)
++r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size)
+ {
+ 	NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS *ctrl;
+ 	struct nvkm_gsp_object memlist;
+@@ -81,7 +81,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtim
+ 	ctrl->hClient = gsp->internal.client.object.handle;
+ 	ctrl->hSysMem = memlist.handle;
+ 	ctrl->sysmemAddrOfSuspendResumeData = gsp->sr.meta.addr;
+-	ctrl->bEnteringGcoffState = runtime ? 1 : 0;
++	ctrl->bEnteringGcoffState = 1;
+ 
+ 	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
+ 	if (ret)
+@@ -92,7 +92,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtim
+ }
+ 
+ static int
+-r570_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
++r570_fbsr_suspend(struct nvkm_gsp *gsp)
+ {
+ 	struct nvkm_subdev *subdev = &gsp->subdev;
+ 	struct nvkm_device *device = subdev->device;
+@@ -133,7 +133,7 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
+ 		return ret;
+ 
+ 	/* Initialise FBSR on RM. */
+-	ret = r570_fbsr_init(gsp, &gsp->sr.fbsr, size, runtime);
++	ret = r570_fbsr_init(gsp, &gsp->sr.fbsr, size);
+ 	if (ret) {
+ 		nvkm_gsp_sg_free(device, &gsp->sr.fbsr);
+ 		return ret;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
+index a9af94adf9efc..0fb0e67406c67 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
+@@ -78,7 +78,7 @@ struct nvkm_rm_api {
+ 	} *device;
+ 
+ 	const struct nvkm_rm_api_fbsr {
+-		int (*suspend)(struct nvkm_gsp *, bool runtime);
++		int (*suspend)(struct nvkm_gsp *);
+ 		void (*resume)(struct nvkm_gsp *);
+ 	} *fbsr;
+ 
+-- 
+2.55.0
 
--Vineet
