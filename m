@@ -1,91 +1,105 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DEA546F4A6;
-	Fri, 14 Aug 2026 18:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F16370D5E
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 18:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786731554; cv=none; b=Na3xTxX83eX0CbzOzASWI6C5c0Q0YlAVFBPRxdF0FycKKbSRvN+pO+Fzs0xwfxbpVikelFQX56xv5c/MKNZEjPrWZv84SZYiUCH8m44fkwWOsqAo80zhu0XIV9F2i/uyc+1WpyW6N2kxNVhwdr8N/4qiuDo1OjQKrtF1Z9SIKzg=
+	t=1786732918; cv=none; b=c3NGL/q/SBZb0uU4smlerbbkzo6uvpqbJ0Ga259/ovPtkIPr2BzinBSXyoAuvRYR4jHFzEqkg1MlJ7rvYE5IEl83dG44UdbtaUO5ue7Flw4koU8leIeONtdFqpnun0gaS+BlgdFSAuh1QL++8Q+duEqK4GI3JXyjWRS/VS2r+/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786731554; c=relaxed/simple;
-	bh=tuorxcy8kCz954ftTE+fEgeG5Ca9/zq8rpku7IwM4QI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A/EkK+1NVix8S0Piy7LfD4LusbHF0xULJo/30ALXgNvF/B8esbqooJcRj77aSuq6uPhs0ok6aqVfp5wnEqbGkud9CeUn7HUA++vYu1JyvJzKfkqIX7CL90ZQ5upRcVZCebUM1OBnWKnGnq9Kset+fPzyBrbWqlYIQuwqJ7WBZb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=EzTsblWt; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1786732918; c=relaxed/simple;
+	bh=JZZD8FCX7+TEbr6LaAm2+ZwITRqsq5TQ4VDbzz/7fIg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Mu3WInYjSBuvh78pyfgfminY5QHw3IpBwnPPrqWbOZ4PpQQYcZsQxRs/qnTjljzAEe91N+x32Z9g/H0p9LB7DQmVrcAYlTwcUY8r61Qyt4Bx4W02ZLWKVFyD6jFy5kMettajSOaBnSl7bZKGRJbF2qq9vC3/f7ETgPWt4FAjCjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPB9H572; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="EzTsblWt"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3D46840E02DD;
-	Fri, 14 Aug 2026 18:19:10 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id Wx0J8yb45_V4; Fri, 14 Aug 2026 18:19:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1786731540; bh=zRC/6xG+xsEbvjQwqJBHeOIlQXcIvjKZxYYoh28zpAQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EzTsblWt/qEOtEKlNJNHcEz3XjwlWi+4LViVGsS3WsWWqdyabQrlpNbifYvk/u5v9
-	 /L/3E8/1nR+dDzFpwdHITMRGD7+yK27fooDMfcGbhcFkO1NjFhlBb+hh3JFtAER5jN
-	 i7ibhYxDTR4lmLGD3UPFbREg+tdUDU1/ON/edxs04gdAYoewvURxbHujACOV9P6io5
-	 S2a5JDBe/s7VQBVPcMKTQYP/UALVtREUCeGRYekl/Dqd8bAdR9nhkwKabe/TdO5nH0
-	 iccUdWm65+QPkFWLcKuDg9vEJRhXhCOFvGaa3bZgZa2AAZ5N+SFV7oYIY0PAquJK43
-	 yQvDFt7zQ3yh294SRsEUAYR1I7HQ5dPldwCydTnMDeqf4MQlzCihq/cKtkjl1DPSVn
-	 KjrIvDo6BkP/o5WQk0h8cGCgajoOB1JSIjkNrtt898Jia6kOdY3yYpePMcKPuKWjHZ
-	 MY0nghWbyeOWg+xwPj/m2UxwoQMW9qAGiaOctA9VCmVPhtl9pDta+F+whTRn5lLryN
-	 xZAW/Y/dVUxXEGxO9tdjywBAOu6RAOwENQ+xutXELL1xWgMRNyUYcVwxw9M1JuNBep
-	 BNnAMlvQamXHSsgM13/aj2wcvW+4yHQBzbUEBW/iklwsHZZURwuS1wbXcDROm9Ps/k
-	 iZDOBtklOVftLapP9K5iIIr4=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A41C840E014C;
-	Fri, 14 Aug 2026 18:18:48 +0000 (UTC)
-Date: Fri, 14 Aug 2026 11:18:45 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
-	linux-kernel@vger.kernel.org, Penny Zheng <penny.zheng@amd.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] x86/amd_node: Remove smn_exclusive
-Message-ID: <20260814181845.GDan9cBSB731Iq1pAO@fat_crate.local>
-References: <20260806160159.230453-1-jason.andryuk@amd.com>
- <20260806160159.230453-2-jason.andryuk@amd.com>
- <20260810140747.GB57095@yaz-khff2.amd.com>
- <20260812192805.GBanzJRTgkrti3Bm7F@fat_crate.local>
- <a57bdf5f-c9a5-4417-9d8b-d84cd29238b4@amd.com>
- <20260813235800.GAan5aCCfimjHRUV1O@fat_crate.local>
- <95307ce5-e209-4df9-aba4-5fcb668533c0@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPB9H572"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546A81F000E9;
+	Fri, 14 Aug 2026 18:41:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786732916;
+	bh=v7BqxY2Czd6m71rmcVYAGVmpG9PQ6kArqBSmQ+e4U8A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fPB9H572HhEXEcMC0jp5190yYEIzhNrEfkLBouz7wgbrZrecLeT6EQeyodZYdJDpM
+	 dkIaK1lUJmtdBh0SK5xH9VBdlhl9oUaCad9rrkFv7MkV6M3jc1+y7TPzcqqNRoS5bw
+	 axNJfdAdqvxt5TZDtf/fsnq/24k76pAqhpRsLYhz3vBv4Q7znAd46h8crwed9F+jx1
+	 3F0U4WosKIaneLI1o43NjZOfJvuCHLindcXfwP8vRyO5Zr3R7gRchhpRRJj3x99VDV
+	 Zwn9u21GmfoPdHDvtYn8dNxJw0sQUeeYNKz4+vQc9Cq7l0PWdwGL4X4I6qdXkrmb5/
+	 8POIxTJlDFvNg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yang Wang <kevinyang.wang@amd.com>,
+	Kenneth Feng <kenneth.feng@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/amd/pm: fix torn gpu metrics reads
+Date: Fri, 14 Aug 2026 14:41:54 -0400
+Message-ID: <20260814184154.288347-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026080525-manor-gully-805a@gregkh>
+References: <2026080525-manor-gully-805a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <95307ce5-e209-4df9-aba4-5fcb668533c0@amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 09:37:45AM -0400, Jason Andryuk wrote:
-> Re-ordering is fine.  With the divide by zero fix, then amd_smn_init()
-> succeeds in my test with Xen.  So the other patch isn't needed in that case,
-> but it looked like a worthwhile fix.
+From: Yang Wang <kevinyang.wang@amd.com>
 
-Yes, as I said, it becomes a cleanup. And when you add the comment explaining
-how amd_roots is going to be used too, then we're good.
+[ Upstream commit 048f4541b71fb19645fb79d6e62e6e4da23a4035 ]
 
-Thx.
+amdgpu_dpm_get_gpu_metrics() returns a pointer to the shared metrics cache
+after dropping adev->pm.mutex. The sysfs path then copies from that pointer.
+Another reader can refresh the cache in place during the copy and return a
+snapshot containing data from two generations.
 
+Pass caller-provided storage through the DPM interface and copy the metrics
+while the mutex is held. This keeps the cache pointer private and makes each
+sysfs read observe one complete sample.
+
+Fixes: 25c933b1c4fc ("drm/amd/powerplay: add new sysfs interface for retrieving gpu metrics(V2)")
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 862333bb48693ecafcae25af0c9d9ec31015ac77)
+Cc: stable@vger.kernel.org
+[ applied the fix at the caller `amdgpu_get_gpu_metrics()` in amdgpu_pm.c since the `amdgpu_dpm_get_gpu_metrics()` wrapper is a macro on this tree ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 23f3cd9f2e8b0..d8b0c13fc42a3 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -1804,18 +1804,16 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
+ 		return ret;
+ 	}
+ 
++	mutex_lock(&adev->pm.mutex);
+ 	if (adev->powerplay.pp_funcs->get_gpu_metrics)
+ 		size = amdgpu_dpm_get_gpu_metrics(adev, &gpu_metrics);
+ 
+-	if (size <= 0)
+-		goto out;
+-
+-	if (size >= PAGE_SIZE)
+-		size = PAGE_SIZE - 1;
+-
+-	memcpy(buf, gpu_metrics, size);
++	if (size > 0) {
++		size = min_t(ssize_t, size, PAGE_SIZE - 1);
++		memcpy(buf, gpu_metrics, size);
++	}
++	mutex_unlock(&adev->pm.mutex);
+ 
+-out:
+ 	pm_runtime_mark_last_busy(ddev->dev);
+ 	pm_runtime_put_autosuspend(ddev->dev);
+ 
 -- 
-Regards/Gruss,
-    Boris.
+2.53.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
