@@ -1,135 +1,164 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11F93B38BC;
-	Fri, 14 Aug 2026 22:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD13D335066;
+	Fri, 14 Aug 2026 22:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786747003; cv=none; b=rwwNh4NWtMosRUn4zwPqLn06sQcbK5j3uGSrKKdQDP8Bw6LbLjgbRfqEhCOwXNBBOfjeyK13rWpcs6PAzX7Q08FitFDr5Qdwe2v56+VxwnfhvCfFMwuCcSjOFQlxwaB0OSD6EaAQ4Ulz/Lpewpel+4hIiUO+5WVN7l3pUGjCjrE=
+	t=1786747167; cv=none; b=Pm7Gcq3Tkkg0YkRFMlMNmEbzsluyqDKL8AlShpKKrf48+lX9uDBEGboe3lbjdDkL20iocL4RBuml+yfXv6vmHyfC8pPiXriLBApm/SAccYMvxskJ1/Kumiub+ibQf69lbqtma3jqhDcnpQHWbhrj3PQNAJmAnW0KjxRbQz6GwWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786747003; c=relaxed/simple;
-	bh=BceV66EnWz59YURs+8efrBdywEgij0xOiNunywLSDW8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bRZjY6nBDWOkLyvrM9Z7ZtnFIyZbLHmEuZEdiYuGOQTW8DrcqCHtaaJP57SG11gY7mQ3TjsvYzbIMR60KJ4WTiGD3+v+Qvnm2BeL2XzgumSD2Y14Khqu55mjswSAhOfewtzB/HYbMm1a5+/oJBp8M+OUtYyYZw6n3j5VxefkI8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=Wr1FLkxy; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1786747167; c=relaxed/simple;
+	bh=76SNzyY38GOsNKmkWsfVpDZfa9cdPESD4Uc2V7NMthU=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=l0Hnank4/wUSyf0Jgf8T+xDnEK8Il/PTHRblFFI0hXTb2ynNZhVuTrfIo98o9CbvXvwPHQnIyJD1l2ol3QO0mPV6Vo1STgE4VUOX+el9TsHqjPvGoHzVt9X5G9lTWcqn1Ez9wfz6ZA+VKPNdpeQQ/MDX93FQeR+SbqdSU2/JcRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRxlX8kj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="Wr1FLkxy"
-Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 211C31A029D;
-	Fri, 14 Aug 2026 22:36:35 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 3C63E20016;
-	Fri, 14 Aug 2026 22:36:33 +0000 (UTC)
-Date: Fri, 14 Aug 2026 18:36:52 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Martin King <martin3kx@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-rt-users@vger.kernel.org
-Subject: Re: [REGRESSION] sched/rt: NO_RT_PUSH_IPI causes multi-second
- PI-boost starvation in pro-audio workloads (dd29c017aed6)
-Message-ID: <20260814183652.611e7ecf@gandalf.local.home>
-In-Reply-To: <CAEB5A_91hob8ddOhW=PrO1=O7GrFmSxY3r1-_Ard6x8KHHuJGA@mail.gmail.com>
-References: <CAEB5A_91hob8ddOhW=PrO1=O7GrFmSxY3r1-_Ard6x8KHHuJGA@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRxlX8kj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4BDE1F000E9;
+	Fri, 14 Aug 2026 22:39:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786747165;
+	bh=DOTNd6p8SlrZsb5048GqhLcptFwNiD5Hv1ZYRf4mH8M=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=jRxlX8kjxZhThbYvx7BQpsX12oaDAYVlK6z/xtJcTvLINNwTslMhhYjAdqBJC3JtH
+	 U2dmDRIesM2ygi1ipFzhNhbH/do3UoIG/47Z8ZjExkFjVgeGqida/vE2nY8RCRVTAB
+	 BEWIaxbwX6+yE0ZHgSsaWPIcTs4pYiJWKJI26rvuqXqvLf2v1w388b1YvuUdWuWc/N
+	 W5a6w6XFyK/aMiOOXEwuHPeev5/vRBSNkUbgtjpAzTcrgek/WlDkoRkIiHxUxRiCq5
+	 7lcYlZ8AFIH6WNoMv48uqYUBthJMxfXXVrwOtjfp88G0utIYbW92h6gn4xvn+Dgnx7
+	 9KkiQv9Iaxpig==
+Content-Type: multipart/mixed; boundary="===============7034129261370145602=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Message-Id: <67663b343f4aa2719eee273f10ca74a469fa1ab5e8772933083f51b62284a59a@mail.kernel.org>
+In-Reply-To: <20260814220254.3797467-3-vineet.gupta@linux.dev>
+References: <20260814220254.3797467-3-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf v3 2/2] selftests/bpf: Check per-CPU address resolution per register
+From: bot+bpf-ci@kernel.org
+To: vineet.gupta@linux.dev,bpf@vger.kernel.org
+Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,x86@kernel.org,stable@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
+Date: Fri, 14 Aug 2026 22:39:24 +0000 (UTC)
+
+--===============7034129261370145602==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 3C63E20016
-X-Stat-Signature: ytma34o3w57adsjk8e8ni3d5a1bjin68
-X-Rspamd-Server: rspamout07
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19+hD91LTdTXLMydKNjVmf+aEAIjoILDDw=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=ZVC5z6mICC41AJMAiEfDy14gM55qP2OXVwwg9/8vLx4=; b=Wr1FLkxyDERdO00K2rgNNAJ2BjdZc53JfVeUPHnk2US6112f5dCCbCattXgRYdTp3mVRKTfZ1KQyXVl7UeJe1r1jhzNX54EVRpOUbDDNT9m3CVsUupi4wqhwKejzx6g9wDfE8IAcVV+g83yw2e9/oCSjjVU6L4ZWkurAYKbldJU=
-X-HE-Tag: 1786746993-996614
-X-HE-Meta: U2FsdGVkX1/O42CM1fwpH5/5PZQlqikAgF43ao53NhvAY7G6tWaGZ60O5WsR31ZJn3bkiHvvdlBby1JhLI8B63hOMNz4m8x2xwKB7ohj3FXFiUABfQNCXMYdpxAasgicikP6k1FWF9iIybXTnLOihjws0eHI+S+aNteDUNHf4cqC7yEc9rlND30m9IthZ8heYg2UJQ14kwysWBr7RmnqhwtoYSr+ZKG+W/HoON/fzmgtsu/MPZta3En+Zt6+wmUA5aik3jJ89/wW8mO4/yQjkl2Bx939HFnK5HfTnI12Mc8vGbv+IYn/UeuS6FhJNiGd0ag81M2If9kAEHYEdq23x7o07NeoPDt9
 
-On Fri, 14 Aug 2026 16:12:35 -0500
-Martin King <martin3kx@gmail.com> wrote:
+> commit fe4e8b7aecfff8c04bc3c2f472f9243928effc6e
+> Author: Vineet Gupta <vineet.gupta@linux.dev>
+> Date:   Fri Aug 14 15:02:54 2026 -0700
+>
+>     selftests/bpf: Check per-CPU address resolution per register
+>
+>     An ld_imm64 of a per-CPU map value is followed by a mov_percpu_addr that
+>     reuses the same register, so which register the address lands in decides
+>     how the JIT encodes the add. Getting the REX prefix wrong there is
+>     invisible to a functional test unless the address happens to land in an
+>     extended register, which is why this went unnoticed.
 
-> Commit dd29c017aed6 ("sched/rt: Have RT_PUSH_IPI be default off for non
-> PREEMPT_RT") causes reproducible multi-second audio dropouts on an ordinary
-> non-PREEMPT_RT desktop running a DAW.
+Does this mechanism actually exist in the tree?
 
-Thanks for the report.
+There is no verifier or JIT path that follows an ld_imm64 of a per-CPU map
+value with a mov_percpu_addr on the same register. BPF_MOV64_PERCPU_REG has
+exactly four call sites:
 
-> 
-> Symptom
-> -------
-> Audio cuts to silence for 0.2-3.5s at irregular intervals (roughly one per
-> 2-3 minutes of use) while the machine is otherwise idle and responsive.
-> 
-> Mechanism (as measured, not inferred)
-> -------------------------------------
-> REAPER runs one SCHED_RR prio 20 audio thread plus ~15 SCHED_OTHER "livefx"
-> worker threads. During a stall:
-> 
->   - the RT audio thread is blocked in rt_mutex_schedule() on a PI mutex
->   - exactly ONE livefx worker holds that mutex, has been PI-boosted to RT,
->     and is enqueued but never scheduled
->   - its schedstat shows run_ns ~0 with wait_ns tracking the entire stall:
-> 
->         reaper/livefx tid=43910  run=0.0ms  wait=3406.6ms  slices=2
->         (during a 3403ms dropout)
-> 
->   - meanwhile ~17 sibling threads run normally with wait_ns = 0, and no
->     thread does meaningful work (largest run was 7.2ms across 3.4s)
->   - the machine stays responsive throughout; unrelated SCHED_OTHER work
->     proceeds at 84-94% of normal rate with 0-1ms runqueue wait
->   - all 16 cores keep taking timer interrupts at normal rates
-> 
-> So a single PI-boosted RT task sits on a runqueue, unmigrated, while other
-> cores idle. With push disabled nothing hands it to an idle CPU.
-> 
-> Evidence
-> --------------------------------
->   kernel  RT_PUSH_IPI  playing   dropouts >=25ms          xruns
->   7.1.8   off (default)  19 min   8  (191ms - 3471ms)   bursts
-> 23/265/434 per min
->   7.1.3   on             39 min   0                     0
->   7.1.8   on             42 min   0                     0
-> 
-> The third row differs from the first ONLY in the sched feature: Identical
-> kernel, toolchain, GPU driver, project and audio configuration. At the
-> observed broken rate ~13 dropouts were expected in that window; zero were
-> seen, at both 25ms and 10ms detection thresholds (10ms is ~2 missed audio
-> cycles at quantum 256 / 48kHz).
-> 
-> Workaround
-> ----------
->   echo RT_PUSH_IPI > /sys/kernel/debug/sched/features
-> 
-> Applied at boot via a systemd unit.
-> 
-> System
-> ------
->   AMD Ryzen 7 5800X (8c/16t), Arch Linux
->   kernel 7.1.8-arch1-3 (and 7.1.5, 7.1.6 - all affected; 7.1.3 is clean)
->   PipeWire 1.6.8 + pipewire-jack, Focusrite Scarlett 18i20, quantum 256 @ 48kHz
->   CONFIG_PREEMPT_RT not set
+  kernel/bpf/arraymap.c:288   *insn++ = BPF_MOV64_PERCPU_REG(BPF_REG_0, BPF_REG_0);
+  kernel/bpf/hashtab.c:2429   *insn++ = BPF_MOV64_PERCPU_REG(BPF_REG_0, BPF_REG_0);
+  kernel/bpf/fixups.c:2115    insn_buf[1] = BPF_MOV64_PERCPU_REG(BPF_REG_0, BPF_REG_0);
+  kernel/bpf/fixups.c:2136    insn_buf[1] = BPF_MOV64_PERCPU_REG(BPF_REG_0, BPF_REG_0);
 
-Unfortunately, I'm going to be traveling next week and I may not be able to
-look into this until I get back. I don't see anything that the normal (non
-PUSH) logic would fail in this case. Thus I'm thinking it simply has a bug
-that has been hiding because we've been using the PUSH logic.
+All four use BPF_REG_0 as both source and destination. BPF_REG_0 maps to
+RAX, so is_ereg() is always false and the REX.R encoding path is
+unreachable from any loadable program.
 
-I may be asking for some traces here when I get back to find out the exact
-cause. Use the workaround for now.
+An ld_imm64 of a percpu ksym goes through check_pseudo_btf_id() in the
+verifier, which only sets aux->btf_var.reg_type = PTR_TO_BTF_ID |
+MEM_PERCPU. No mov_percpu_addr insn is inserted after it. The per-CPU
+base is added later by bpf_per_cpu_ptr() or bpf_this_cpu_ptr() kfuncs,
+which return in R0.
 
-The RT_PUSH_IPI was added because of a "thundering herd" of IPIs when all
-but one CPU dropped its priority and the one still running had more than
-one RT task on it. That would cause all the other CPUs to send an IPI to
-that CPU to do a pull, but only would would get it. The RT_PUSH_IPI was
-created to pass around a single IPI to do the push for all CPUs wanting a
-new RT task to run.
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c b/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c
+> new file mode 100644
+> index 000000000000..967f4e6e3a49
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c
+> @@ -0,0 +1,72 @@
 
-The above use case doesn't look like it is having that. Thus, I'm thinking
-something else broke.
+[ ... ]
 
--- Steve
+> +SEC("raw_tp")
+> +__description("per-CPU address resolution")
+> +__success
+> +__arch_x86_64
+> +__jited("	movabsq	$0x{{.*}}, %rax")
+> +__jited("	addq	%gs:{{.*}}, %rax")
+> +__jited("	movabsq	$0x{{.*}}, %rdi")
+> +__jited("	addq	%gs:{{.*}}, %rdi")
+> +__jited("	movabsq	$0x{{.*}}, %rsi")
+> +__jited("	addq	%gs:{{.*}}, %rsi")
+> +__jited("	movabsq	$0x{{.*}}, %rdx")
+> +__jited("	addq	%gs:{{.*}}, %rdx")
+> +__jited("	movabsq	$0x{{.*}}, %rcx")
+> +__jited("	addq	%gs:{{.*}}, %rcx")
+> +__jited("	movabsq	$0x{{.*}}, %r8")
+> +__jited("	addq	%gs:{{.*}}, %r8")
+> +__jited("	movabsq	$0x{{.*}}, %rbx")
+> +__jited("	addq	%gs:{{.*}}, %rbx")
+> +__jited("	movabsq	$0x{{.*}}, %r13")
+> +__jited("	addq	%gs:{{.*}}, %r13")
+> +__jited("	movabsq	$0x{{.*}}, %r14")
+> +__jited("	addq	%gs:{{.*}}, %r14")
+> +__jited("	movabsq	$0x{{.*}}, %r15")
+> +__jited("	addq	%gs:{{.*}}, %r15")
+> +__naked void percpu_addr(void)
+> +{
+> +	asm volatile ("					\
+> +	r0 = %[percpu_data] ll;				\
+> +	r1 = %[percpu_data] ll;				\
+> +	r2 = %[percpu_data] ll;				\
+> +	r3 = %[percpu_data] ll;				\
+> +	r4 = %[percpu_data] ll;				\
+> +	r5 = %[percpu_data] ll;				\
+> +	r6 = %[percpu_data] ll;				\
+> +	r7 = %[percpu_data] ll;				\
+> +	r8 = %[percpu_data] ll;				\
+> +	r9 = %[percpu_data] ll;				\
+> +	r0 = 0;						\
+> +	exit;						\
+> +"	:
+> +	: __imm_addr(percpu_data)
+> +	: __clobber_all);
+> +}
+
+Can these 'addq %gs:..., %<reg>' assertions ever match?
+
+A bare sequence of ten ld_imm64s produces ten 'movabsq' lines and zero
+'addq %gs:' lines. The verifier does not insert a mov_percpu_addr insn
+after an ld_imm64 of a percpu ksym. The per-CPU base is added by the
+bpf_per_cpu_ptr() or bpf_this_cpu_ptr() kfuncs, which return in R0.
+
+So the JIT output would be ten consecutive 'movabsq' instructions with no
+'addq' between them. The test expects alternating 'movabsq' and 'addq'
+lines, and consecutive __jited tags must match consecutive disassembly
+lines unless a '...' tag is inserted.
+
+Even if a mov_percpu_addr could be generated, all four call sites hardcode
+BPF_REG_0, so only the %rax form would ever be reachable.
+
+This means the test cannot cover the REX.R fix in acdf39f8be46 ("bpf, x86:
+Fix per-CPU address resolution into an extended register").
+
+Should there be a Link: or Fixes: tag referencing acdf39f8be46, and does
+the commit message need to explain what new path makes the destination
+register reachable?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/31845422431
+--===============7034129261370145602==--
