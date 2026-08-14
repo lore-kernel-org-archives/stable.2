@@ -1,209 +1,298 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8102642DFEA;
-	Fri, 14 Aug 2026 08:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21613F075A;
+	Fri, 14 Aug 2026 08:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786697260; cv=none; b=YmLlt8YhTQXpj5rIoKA49YM0dRkeEdOuaUgB2hJUyWSjvBBX/5rvtf6SUK9tLjr1W5Dxauh7pih0QaoKdU7ipjAOxqiYtM/xOUrDHIztJ0VYYHtraBQkA++PCiRlj+it67QAxbaHK3roU9siog0qUY/EBGCNuQFEZ5JH83hqk8k=
+	t=1786697328; cv=none; b=ItaXUk1nefRupM1WhIMZeSwpsTRbHBgtCSEKl5jtpz1quenxvL82aGthcy6n2mYOtzsAnDxdJ61qJO6dJD6TYAmR0AjWUadGcZQCILm3dol11PIdWcOTAUJ4pLk8lXJIIBSqrWfPZQ8MAw8b0q+9ECou+cpkVWWhu1A7hjQ/16Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786697260; c=relaxed/simple;
-	bh=FwhyIi628vNyQpC4YtXQXcKHt3ZMQSGC8sNJ7RfYS1M=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=Jy53/XR2aI+0xXXHtDoD7hNu57vL7+xOeQnJYOY70ZjCh/tSaQowk+fNlkAufLy72oP2SmccQ1yV5CNW+uLEdhsLLXPfnCZj32QBMiQ1YZUX1lAWJCjkbA/kQnoY5T7I5UMGwSzxE1hNlvciFFImNNg5KJyBhYj8zurHQGnZt2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=eHWkM7M/; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786697328; c=relaxed/simple;
+	bh=ISf3oyrdb6DRe0/DIV9AbD0ZFALjPP6GjtfYOft97EM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tMijjyPKntDQYncA3yXd6CTpD2ff5/z5ZYRwj1l9JdjPTHmBEdLe2hyNXXmKoa632dAEP7e/cUBxjgABeg0VV79dOUhpcfbsPMbq6oRDk1GuvAkGDCZoK7y5sdF8vngmGHFOW4l3VTAM4gSqh5qWt6qn38PaPwMR6BJJK8RdXQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bGUhbdfv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="eHWkM7M/"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67E81dFT2902168;
-	Fri, 14 Aug 2026 08:47:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=9q2/RW
-	eDUjCi2EhMLkRX7e7VEodIhYTNN32xkNKSfyU=; b=eHWkM7M/mKvGKzDvSwzglx
-	SChoNhzWw91rqpujKpgmW0bjMF6hoGvJmbhXq+F14SV1RIfMfWiaSpoVkooMMMb6
-	+nJs4ESiRQMfU0mI+5wTbR4INDLyVOXOOzOfSRxEIg6QU4CrxKOs7y8GVGidXMWw
-	NMxcHaeH89couUyXVr9SY15mFXIHuxATfamqrzQY7zq7ZnbYlZQXqsXP5E7ZESFm
-	tGIlYZn3BYy5/DyBIWuUFalDz/CbhKDaX96uQ//cD0cqRyvsQjD6yTwIOsPXVXxj
-	sUqrCyChZvxHBPrGODvPyHprwkh4ksUOztxT+oxacraQvr64ZbOZYved4ldzgkuQ
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvk0by8y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 14 Aug 2026 08:47:33 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67E8fSvl006726;
-	Fri, 14 Aug 2026 08:47:32 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fxh0gpg0r-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 14 Aug 2026 08:47:32 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67E8lVIh29033120
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 14 Aug 2026 08:47:31 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 37D075804E;
-	Fri, 14 Aug 2026 08:47:31 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4FCE558054;
-	Fri, 14 Aug 2026 08:47:29 +0000 (GMT)
-Received: from [9.111.8.241] (unknown [9.111.8.241])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 14 Aug 2026 08:47:29 +0000 (GMT)
-Message-ID: <c89ca6f9d0a996ab75c47cb62c57c50635a700bc.camel@linux.ibm.com>
-Subject: Re: [PATCH v23 2/5] PCI: Allow per function PCI slots to fix slot
- reset on s390
-From: Niklas Schnelle <schnelle@linux.ibm.com>
-To: Bjorn Helgaas <helgaas@kernel.org>, Farhan Ali <alifm@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org, alex@shazbot.org, mjrosato@linux.ibm.com,
-        stable@vger.kernel.org
-In-Reply-To: <20260813232546.GA1281281@bhelgaas>
-References: <20260813232546.GA1281281@bhelgaas>
-Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 10:46:28 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bGUhbdfv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11C21F000E9;
+	Fri, 14 Aug 2026 08:48:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786697326;
+	bh=uGQwL5UZJipKTW+qGKPo+sHQSdOsrhX2bDvlMA/o8tk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bGUhbdfvvAyZ041IRQFT3yaniWAfDI6dXKx46SzgRufqkn0S6nPYrFxuivv+st59Z
+	 GTaziv7CJYxzm91Hna08972IcnR1hf5Kr6yF/KfslD3Ze3LEc77GQC2OJSk5hp8VM2
+	 KLlr+9DDUHDSGmAtrDYic7l2itUh+mio8Tw1SSzHJxIsIKi9w3EnLlr4lZ9V9u6+y/
+	 4TyP8rYO8EybgfqPlubbVMf+8rAR7HO9uRKU57g5HJPYIYI1ekq0F1Uwo4m1EnjzsW
+	 /nMCBP/AOnj2T/C6d1IkiT28NVTMCQoCl4Q2gqSpPzeWdKutby+ara4wQyZd2rZTa3
+	 HOLXqPHI5CJwg==
+Date: Fri, 14 Aug 2026 09:48:39 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Yao Yuan <yaoyuan@linux.alibaba.com>
+Cc: Wei-Lin Chang <weilin.chang@arm.com>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Jintack Lim <jintack.lim@linaro.org>, 
+	Christoffer Dall <christoffer.dall@arm.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] KVM: arm64: Fix spurious warning for benign stage 2
+ teardown race
+Message-ID: <an7Tk0qrCM84zS54@gremlin>
+References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
+ <20260812-kvm-arm-nested-virt-fix-v1-1-4ad883f1b6a5@kernel.org>
+ <qfhlmmidzdmmsfopfhxpddgwa7nob45jwgb6sabskawaxtox7i@mnxplk3zn34k>
+ <an3gqCJ1fzloWB_N@lucifer>
+ <v3vgnteumpaxbgqjtfwoilcbwpwohfci3uwu4ooykls6zjwjwe@rukbigno2m5o>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDA2NSBTYWx0ZWRfX8EMhnPyJ2lid
- sT0RafpYJRDvyyCdWf7no/hF3Y7JTayH42RWRL8qsItPpK7JzTNzmwvMfpivxpqBaQOf7FF4MaB
- W0aWYX/uVfKAqHQ/9+uTzNJMh8OHE5kC5+4Msm/xRB+D0d+ff0awDVBFHjGluNlAWsSQyUmKqt1
- oGCxN2PEE5HC8pUSJNua9NNGmF3CewAUrS0K3k7KrVJIbsJBLdjocUX2oIXkSteCIloTtX/7j+y
- 4Qs2g9/J2dG0ognAy4cVbSydPVl3zrABneYFYX+G4SZHb427O+NPHVO6/wv5mqG/uhKWfXRFiHg
- h18Yg/9u/aOFyatnG8xcaeq6DJEht1pxZiQqjA1Es2LSdmudkPGHB3lpbNQtKTXGPlO5WFX8E6A
- a9iiwT+z64M+rFTJR1ogMp/KdKZ5u7F9qkKrdt9c70FNBloHN01hTp/BUGBasfhlf7t4ztZTeaK
- CD8VNsC/3yUngNew8kg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDA2NSBTYWx0ZWRfX46vOIuNx7CKM
- StodyB6m6JsAuIfOXTyPJed3Iwa8kfqLUIy39eKuFc2S5VkmhIJymVNhVhaGwkLjRBz+7TRdg4O
- tf8/WNprYHhNcA2KCbEd8P0UZXfx8HM=
-X-Authority-Analysis: v=2.4 cv=RqD16imK c=1 sm=1 tr=0 ts=6a7ed625 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=kwLUSTLGlh9Pi2POkq4A:9
- a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
-X-Proofpoint-GUID: 2LMOONpX1V4ZES8ZNzjWI_AwGkp1AG2M
-X-Proofpoint-ORIG-GUID: 2LMOONpX1V4ZES8ZNzjWI_AwGkp1AG2M
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-14_03,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
- clxscore=1011 adultscore=0 bulkscore=0 malwarescore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608140065
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <v3vgnteumpaxbgqjtfwoilcbwpwohfci3uwu4ooykls6zjwjwe@rukbigno2m5o>
 
-On Thu, 2026-08-13 at 18:25 -0500, Bjorn Helgaas wrote:
-> On Wed, Aug 05, 2026 at 09:55:15AM -0700, Farhan Ali wrote:
-> > On s390 systems, which use a machine level hypervisor, PCI devices are
-> > always accessed through a form of PCI pass-through which fundamentally
-> > operates on a per PCI function granularity. This is also reflected in t=
-he
-> > s390 PCI hotplug driver which creates hotplug slots for individual PCI
-> > functions. Its reset_slot() function, which is a wrapper for
-> > zpci_hot_reset_device(), thus also resets individual functions.
->=20
-> Sorry to come back to this yet again.  I understand the issue with
-> the wrong pci_slot being assigned for these s390 functions.
->=20
-> What I don't understand is why we would use slot_reset() in the first
-> place.  I would expect FLR instead.
->=20
-> The hotplug slot_reset() path is used by pci_reset_bus_function().
-> But given the order in pci_reset_fn_methods[], we would typically try
-> pcie_reset_flr() first, and we would only get to
-> pci_reset_bus_function() if FLR and the other resets are not
-> available.
->=20
-> Since these are actually multi-function devices, I'm surprised that
-> they wouldn't advertise FLR support.
->=20
+On Fri, Aug 14, 2026 at 03:18:42PM +0800, Yao Yuan wrote:
+> On Thu, Aug 13, 2026 at 04:24:49PM +0800, Lorenzo Stoakes (ARM) wrote:
+> > On Thu, Aug 13, 2026 at 12:20:43AM +0100, Wei-Lin Chang wrote:
+> > > Hi Lorenzo,
+> > >
+> > > Thanks for the detailed analysis!
+> >
+> > You're welcome :)
+> >
+> > >
+> > > I can follow what's happening from the report, but one thing I don't
+> > > get:
+> > >
+> > > On Wed, Aug 12, 2026 at 02:31:20PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > > A batch of kernel warnings were triggered in the L0 host kernel when using
+> > > > kvmtool to experiment with nested virtualisation.
+> > > >
+> > > > The issue was observed on an M2 macbook pro with 24 GiB of RAM running
+> > > > asahi linux 7.1.6-400.asahi.fc44.aarch64+16k with 16 KiB page size.
+> > > >
+> > > > The bug is confirmed to exist in mainline and does not appear to be
+> > > > impacted by any downstream patches carried by asahi.
+> > > >
+> > > > kvmtool was used to establish an L1 guest with 8 CPUs and 8 GiB of RAM.
+> > > >
+> > > > kvmtool was then run again within the L1 guest to establish an L2 guest
+> > > > with 4 CPUs and 4 GiB of RAM.
+> > > >
+> > > > Then it was run again to establish another inner guest with 2 CPUs and 2
+> > > > GiB of RAM at L3.
+> > > >
+> > > > Both the L2 and L3 guests were then exited and another L2 guest was
+> > > > established with the same characteristics.
+> > > >
+> > > > Sufficient memory pressure was present in the L0 host to trigger indirect
+> > > > reclaim, waking kcompactd up and triggering migration.
+> > > >
+> > > > Shortly afterwards the L2 guest was stopped, at which point three warnings
 
+So TL;DR - correction is to say L0 here, no change elsewhere.
 
-Hi Bjorn,
+> > > > were observed in the L0 host in quick succession with the second and the
+> > > > third occurring 114us and 189us after the first, respectively.
+> > > >
+> > > > In each case the call trace was the same:
+> > > >
+> > > > WARNING: arch/arm64/kvm/mmu.c:336 at __unmap_stage2_range+0x64/0x80,
+> > > > CPU#5: kcompactd0/66
+> > > > ...
+> > > > __unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3)) (P)
+> > > > kvm_stage2_unmap_range (arch/arm64/kvm/mmu.c:346)
+> > > > kvm_nested_s2_unmap (arch/arm64/kvm/nested.c:1168 (discriminator 14))
+> > > > kvm_unmap_gfn_range (arch/arm64/kvm/mmu.c:2416)
+> > > > kvm_mmu_notifier_invalidate_range_start (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:718 ...)
+> > > > mn_hlist_invalidate_range_start (mm/mmu_notifier.c:525)
+> > > > __mmu_notifier_invalidate_range_start (mm/mmu_notifier.c:580)
+> > > > try_to_migrate_one (./include/linux/mmu_notifier.h:478 ./include/linux/mmu_notifier.h:471 mm/rmap.c:2459)
+> > > > rmap_walk_anon (mm/rmap.c:3001)
+> > > > rmap_walk (mm/rmap.c:3106 mm/rmap.c:3101)
+> > > > try_to_migrate (mm/rmap.c:2774)
+> > > > migrate_folio_unmap (mm/migrate.c:1330 (discriminator 3))
+> > > > migrate_pages_batch (mm/migrate.c:1909)
+> > > > migrate_pages_sync (mm/migrate.c:2026)
+> > > > migrate_pages (mm/migrate.c:2135)
+> > > > compact_zone (mm/compaction.c:2663)
+> > > > compact_node (mm/compaction.c:2932)
+> > > > kcompactd (mm/compaction.c:3230)
+> > > > kthread (kernel/kthread.c:436)
+> > > > ret_from_fork (arch/arm64/kernel/entry.S:858)
+> > > >
+> > > > Analysing this:
+> > > >
+> > > > try_to_migrate() performs the first part of migration on a folio -
+> > > > establishing migration entries in all page tables mapping it - calling
+> > > > try_to_migrate_one() for each VMA the folio is mapped in.
+> > > >
+> > > > Immediately prior to installing the migration entry, try_to_migrate_one()
+> > > > calls mmu_notifier_invalidate_range_start() to signal to notifiers that the
+> > > > existing page table entry is about to be unmapped.
+> > > >
+> > > > Since this range happened to contain folios used by the virtual machine
+> > > > (given its memory consumption this was highly likely to be a target) this
+> > > > in turn triggers arm64 kvm code via an MMU notifier:
+> > > >
+> > > > mmu_notifier_invalidate_range_start()
+> > > >   -> ... -> kvm_mmu_notifier_invalidate_range_start()
+> > > >     -> kvm_mmu_unmap_gfn_range()
+> > > >       -> kvm_unmap_gfn_range()
+> > > >         -> kvm_nested_s2_unmap()
+> > > >           -> kvm_stage2_unmap_range()
+> > > >             -> __unmap_stage2_range()
+> > > >                -> stage2_apply_range()
+> > > >        	       <- -EINVAL, triggering a WARN_ON()
+> > > >
+> > > > Since commit ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page
+> > > > tables") kvm_unmap_gfn_range() invokes kvm_nested_s2_unmap() which takes
+> > > > the rather drastic step of evicting the entirety of the stage 2 shadow page
+> > > > tables for each nested guest:
+> > > >
+> > > > 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> > > > 		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
+> > > >
+> > > > 		if (kvm_s2_mmu_valid(mmu))
+> > > > 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
+> > > > 	}
+> > > >
+> > > > This will iterate through every valid MMU.
+> > > >
+> > > > mmu_notifier_invalidate_range_start() sets the MMU_NOTIFIER_RANGE_BLOCKABLE
+> > > > flag when signalling notifiers, so may_block is true here.
+> > > >
+> > > > __unmap_stage2_range() wraps invocation of stage2_apply_range() in a
+> > > > WARN_ON():
+> > > >
+> > > > 	WARN_ON(stage2_apply_range(mmu, start, end, KVM_PGT_FN(kvm_pgtable_stage2_unmap),
+> > > > 				   may_block));
+> > > >
+> > > > Which is precisely the triggered warning and means stage2_apply_range() is
+> > > > returning an error.
+> > > >
+> > > > In arm64 return values are stored in the x0 register and in each splat w0
+> > > > (since it's a 32-bit value) is 0xffffffea which, by two's complement, is
+> > > > -0b00010110 or -EINVAL.
+> > > >
+> > > > The only way in which stage2_apply_range() can return an error is if either
+> > > > the passed in walk function (kvm_pgtable_stage2_unmap()) returns an error
+> > > > or mmu->pgt is NULL:
+> > > >
+> > > > 	static int stage2_apply_range(...)
+> > > > 	{
+> > > > 		do {
+> > > > 			struct kvm_pgtable *pgt = mmu->pgt;
+> > > > 			if (!pgt)
+> > > > 				return -EINVAL;
+> > > >
+> > > > 			next = stage2_range_addr_end(addr, end);
+> > > > 			ret = fn(pgt, addr, next - addr);
+> > > > 			if (ret)
+> > > > 				break;
+> > > > 			if (resched && next != end)
+> > > > 				cond_resched_rwlock_write(&kvm->mmu_lock);
+> > > > 		} while (addr = next, addr != end);
+> > > >
+> > > > 		return ret;
+> > > > 	}
+> > > >
+> > > > This loop is batched by stage2_range_addr_end() at the granularity of
+> > > > kvm_granule_size(KVM_PGTABLE_MIN_BLOCK_LEVEL), which for a 16 KiB page size
+> > > > kernel is 32 MiB.
+> > > >
+> > > > kvm_pgtable_stage2_unmap() only returns an error if
+> > > > kvm_pgtable_walk_begin() or _kvm_pgtable_walk() return an error. On arm64
+> > > > the former doesn't ever do so, and the latter only returns -EINVAL if
+> > > > either pgd is NULL (we gate that already) or an invalid pgt->start_level is
+> > > > specified (not the case).
+> > > >
+> > > > So the cause of the warning is that mmu->pgt is NULL here.
+> > > >
+> > > > This field is protected by kvm->mmu_lock, but after each invocation of the
+> > > > walk function, if the end of the range has not yet been reached, the lock
+> > > > is dropped.
+> > > >
+> > > > This is done by calling cond_resched_rwlock_write() which drops
+> > > > kvm->mmu_lock when yielding the time slice before reacquiring it upon being
+> > > > scheduled again:
+> > > >
+> > > > 		if (resched && next != end)
+> > > > 			cond_resched_rwlock_write(&kvm->mmu_lock);
+> > > >
+> > > > Note that resched = may_block here and is always true for these walks.
+> > > >
+> > > > This points to something else racing this code to clearing the pgt, and
+> > > > brings us back to the observation above that the issue occurs when tearing
+> > > > down the L2 guest.
+> > > >
+> > > > Upon L0's userspace mm_struct teardown, stage 2 mappings for IPAs mapped by
+> >
+> > s/L0/L2/
+> >
+> > > > the guest are unmapped via mmu notifier:
+> > > >
+> > > > exit_mm()
+> > > >   -> mmput()
+> > > >     -> __mmput()
+> > > >       -> exit_mmap()
+> > > >         -> mmu_notifier_release()
+> > > > 	  -> ... -> kvm_mmu_notifier_release()
+> > > >             -> kvm_flush_shadow_all()
+> > > >               -> kvm_arch_flush_shadow_all()
+> > > > 	        -> kvm_free_stage2_pgd()
+> > > > 		  -> [ acquire kvm->mmu_lock for write ]
+> > > > 		  -> mmu->pgt = NULL [ among other tasks ]
+> > > > 		  -> [ release kvm->mmu_lock for write ]
+> > >
+> > > You mentioned stopping the L2 VM only, which means L1 is still running.
+> > > Why would the L0 userspace mm_struct get torn down if L1 is still live?
+> > > What did I miss?
+> >
+> > Ah yeah this is a mistake sorry :) It should say L2 teardown.
+> >
+> > The stuff relevant to L0 is the MMU notifier bit.
+>
+> Hi Lorenzo,
+>
+> Still have question w/ your above addtional information:
+>
+> The trace is observed on L0, means the exit_mm() path should
+> also happens on L0 to race w/ the
+> mmu_notifier_invalidate_range_start() path, but how this is
+> triggred by L2 teardown, IIUC the L2 teardown triggers the
+> exit_mm() path on L1, not on L0. The L1 is still alive thus
+> the qemu/kvmtool process on L0 which hold all L1/L2/L3 is
+> still alive yet. Please correct me if anything I missed
+> here.
 
-Good question. The problem isn't that FLR isn't advertised or
-unsupported. Rather we end up needing to use the slot reset when the
-platform has put the PCI function in the architected error state which
-blocks both MMIO and DMA similar to DPC and which we can only get out
-of with the platform specific CLP Set PCI Function Disable/Enable
-hypercalls. FLR still works if you have a function that wasn't put in
-the error state but for most real world errors as well as some service
-scenarios we do end up in the error state where a FLR won't work.
+OK so - I confused myself here :)
 
-To give an example for a service scenario because it's pretty neat. We
-have up to 4 drawers of CPUs acting as a single SMP system as well as
-multiple I/O cages with the PCIe cards in them. Now each I/O cage is
-connected to two different PCIe root complexes on two different drawers
-with only one link active. So one thing we can do is to migrate all
-workload off a drawer and then swap over to the alternate root complex
-with a single error event and one such zpci_hot_reset_device(). Then
-with a CPU drawer evacuated you can actually replace CPUs without any
-downtime beyond that reset while staying within a single machine.
+The underlying issue here is that I am working back from a situation where
+I can't quite recall what I did, but am rather reconstructing it based on
+what was observed.
 
-Thanks,
-Niklas
+And you're right - this stack makes no sense for an L2 VM being torn down,
+rather only the L0 being torn down.
+
+So clearly this is what I did, and the correction should be to say this at
+the start of the commit message.
+
+(The truth of what happened was rather more button-mashy and 'oh what?'
+than it appears ;)
+
+Sorry for the confusion!
+
+>
+> >
+> > >
+> > > Thanks,
+> > > Wei-Lin Chang
+> > >
+> > > [...]
+
+--
+Cheers, Lorenzo
