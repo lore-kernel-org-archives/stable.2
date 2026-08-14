@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B11D346A11;
-	Fri, 14 Aug 2026 13:31:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EBE3F8257;
+	Fri, 14 Aug 2026 13:32:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786714311; cv=none; b=K6hoOeEFra+LCz72BqejXQBs80zns8gL7GbJn8oVS2E/9x7q8GprYq/a/5E+M8eSx3EWUVsawmAUGToVEpiqNdp/TX9+Rl1tYGjD1Ez9MD1AVYjnb7YRwpLlv5AK/87VflSbqxJiEaO1mDh63q7gUZkLpzPtm2rhTeKHVPwvQiU=
+	t=1786714374; cv=none; b=FoQeydI/GF2qJsoUeicb5plz5yHM/pu13N0bqjkIOamqhTvlgffODWYEjHASWk1ApO5y0vs+ULLzCjN/fAfTESZFIydkLAY4Cxk5Fzzz/55TVsRpyjG4AEGfJJ95ZT8ouqK3uVJsOXJ7VN8V5NsRbIwaq569ZiiQC8KwA5O8SMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786714311; c=relaxed/simple;
-	bh=iGKAThE6v93p5mUZFHCKi0YKXYgVN/v0BDC7F/79ACE=;
+	s=arc-20240116; t=1786714374; c=relaxed/simple;
+	bh=djElI9sO+iFcbqG0tckEqomJ3fvS5Hf5fazHwi3BFA8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HJgJSWDMIlKp6h3Bd0ZvQqGGPAQCoUleIaRraZJEFlaGjceT/WSOUTpB++0LCAm3MZwb6UtaNTiE66kpSy7N26CKMblqTGJ4FE/eEhRuRkba+SHTzwp9KW/lA5oVJHPrv3bJvTP1aanctkeOleG5JZKjrVomrOGrrXAHQ3qU4Hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nx3cUszk; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=TC0jAM6h03FNcP2NbLwN/agthiJXwkzskiYBMj8G1n12JqM8FckTABj7lu1fnHGp3UimjWneE6wtl4JZWbIeNJIx2e9wTrK9zDwHErF1LJ5N752Gd3AuPUpYmAPtHfVtg1jZfYFUYtBNTypix2/r60EsAWlLxoAdKIkxK5DSUP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OtOLpjnk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nx3cUszk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E691F000E9;
-	Fri, 14 Aug 2026 13:31:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OtOLpjnk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6691F000E9;
+	Fri, 14 Aug 2026 13:32:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786714310;
-	bh=9ZoVl74b1R3gmQ2FbYo+d4AyOhJLlJgJ+LwTVBWSbNM=;
+	s=k20260515; t=1786714372;
+	bh=m5imFIyl91SzmOG/eJYLbFffP4jPZHEnM0gsadR+09o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nx3cUszkVbQpgDk69qw2lFTF+PxyTHpqY/DT2BMCXvMLhrEF7uadHT4WfGB4doCc4
-	 Qe9U21ClDLFeL8VwkkOOTsU17i4bBTWJv/i7hs7CNUTXY3xpBUrChrbbV4r6Ji/+DH
-	 J8pP6NYj8Pjpm66KUsFmLYE2qo4SA0L5UQxAKCdBzwDDkj/3EfDnl2bNmWHCADiEKD
-	 0rgGJwVfSabKMEHhvn3aLlh+qqYKXKsExkwVpC4RutH485SIE8ptOECJcI65IGEyrO
-	 etMZ/E2rDZLzm0YhP6MFarhObGyy6iKMT7/9FersI9ecuJE0OeB6a+gJ9w0nvwy25f
-	 Sgjimornjdfzw==
-Date: Fri, 14 Aug 2026 15:31:45 +0200
+	b=OtOLpjnkIry1pAKAo0UkhscBaxFNjGq8pUCLIgRaggmYWdS14ncYK9nShlzvNoMW+
+	 atnlIOjLPFMvJ5d+wo8S8OfAyy8Ymw1RcmnUlyYwSG9u0EMnymigYiK5Ukful0DdLK
+	 BNJAxFBJUlaL7kQWj8cbduo79Fomoq3q/Nxe45EN383IpHLAGICu7IpyWphaqhy0AX
+	 YgGKxCI7Zfc1muLtfr8AH13IA8/PGtdptPce9694RnOfR9XMV6uFBEcMIsxtnZQ/Ef
+	 aE8VROYhTS9DiKuHtcns8yJnjBI7f0X7+ZkO+Uwrc2hEtNaAPokGAZb6oQgFvxlfVf
+	 9XIKGXnksZaVQ==
+Date: Fri, 14 Aug 2026 15:32:49 +0200
 From: Benjamin Tissoires <bentiss@kernel.org>
 To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 Cc: linux-input@vger.kernel.org, jikos@kernel.org, 
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
 	Sashiko AI review <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] HID: multitouch: stop the release timer from being
- rearmed on remove
-Message-ID: <an8YpGjIs9ze5GvW@beelink>
-References: <20260724000958.938675-1-qwe.aldo@gmail.com>
+Subject: Re: [PATCH] HID: multitouch: keep MT_IO_FLAGS_RUNNING inside the
+ flags word
+Message-ID: <an8YyovFve8HVP4C@beelink>
+References: <20260724000841.933327-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,83 +44,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260724000958.938675-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260724000841.933327-1-qwe.aldo@gmail.com>
 
 On Jul 23 2026, Aldo Ariel Panzardo wrote:
-> mt_remove() quiesces the sticky-finger timer before stopping the
-> hardware:
+> MT_IO_FLAGS_RUNNING is bit 32 of td->mt_io_flags, which is a single
+> unsigned long. On 32-bit architectures a long is 32 bits wide, so the
+> valid bit indices are 0-31 and bit 32 falls in the next word. Both users
+> take and release the flag with atomic bitops:
 > 
->     timer_delete_sync(&td->release_timer);
+>     test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags);
+>     clear_bit_unlock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags);
 > 
->     sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
->     hid_hw_stop(hdev);
+> so on a 32-bit build every report and every sticky-finger timer expiry
+> reads and writes the four bytes that follow mt_io_flags in struct
+> mt_device -- inputmode_value, maxcontacts and the is_* flags -- instead
+> of the flags word itself.
 > 
-> timer_delete_sync() waits for a running callback and dequeues the timer,
-> but it does not stop the timer from being armed again. The transport is
-> still delivering reports at that point, and the report path rearms it:
+> Before commit 46f781e0d151 ("HID: multitouch: fix sticky fingers") the
+> flag was bit 0 and the word only had to hold three flags. That commit
+> reserved the low eight bits for per-slot state (MT_IO_SLOTS_MASK) and
+> moved the flag out to bit 32, one word too far on 32-bit builds.
 > 
->     if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
->         if (td->mt_io_flags & MT_IO_SLOTS_MASK)
->             mod_timer(&td->release_timer,
->                       jiffies + msecs_to_jiffies(100));
+> Put it at MT_IO_SLOTS_BITS, the first bit above the reserved slot range.
+> The value is only ever used as a bit index, so nothing else has to
+> change.
 > 
-> A report that arrives after timer_delete_sync() has returned therefore
-> leaves the timer queued. td is allocated with devm_kzalloc() against
-> hdev->dev, so it is freed when the driver is unbound, after mt_remove()
-> returns. When the timer fires afterwards, mt_expired_timeout()
-> dereferences the freed td:
-> 
->     struct mt_device *td = timer_container_of(td, t, release_timer);
->     struct hid_device *hdev = td->hdev;
-> 
->     if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
-> 
-> Simply moving the teardown after hid_hw_stop() does not fix this on its
-> own, because mt_expired_timeout() calls mt_release_contacts(), which
-> walks hdev->inputs; the timer still has to be quiesced before
-> hid_hw_stop() tears the input devices down.
-> 
-> Use timer_shutdown_sync() instead, which additionally makes any later
-> mod_timer() a no-op, so neither ordering constraint has to be traded off
-> against the other. This is the final-teardown pattern the function was
-> introduced for, and hid-wiimote already uses it for the same reason.
-> 
-> Fixes: 4f4001bc76fd ("HID: multitouch: fix rare Win 8 cases when the touch up event gets missing")
+> Fixes: 46f781e0d151 ("HID: multitouch: fix sticky fingers")
 > Cc: stable@vger.kernel.org
 > Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
 > Closes: https://sashiko.dev/#/patchset/20260723224211.613112-1-you@example.com?part=1
 > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 > ---
-> Found by code inspection after Sashiko AI review flagged the teardown
-> ordering while reviewing an unrelated patch of mine. I have not
-> reproduced the use-after-free at runtime: it needs a report to land in
-> the window between timer_delete_sync() returning and the device being
-> unbound, which I have no way to drive reliably on the hardware I have.
-> The window and the rearm path are visible in the code, and the fix does
-> not depend on the race being hit.
+
+Same result than the previous patch of this non-series: already
+superseeded by an already applied patch, which I just checked was
+already in 7.2-rc3 at the time of the submission.
+
+Cheers,
+Benjamin
+
+> This applies on top of "HID: multitouch: bound the slot index before
+> touching mt_io_flags", which introduces MT_IO_SLOTS_BITS. The two are
+> separate defects with the same Fixes: tag, so they should backport
+> together.
 > 
 >  drivers/hid/hid-multitouch.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-> index 0495152091e3..f25065b9ec66 100644
+> index a75c821f7758..e7d811ed4123 100644
 > --- a/drivers/hid/hid-multitouch.c
 > +++ b/drivers/hid/hid-multitouch.c
-> @@ -2233,7 +2233,7 @@ static void mt_remove(struct hid_device *hdev)
->  {
->  	struct mt_device *td = hid_get_drvdata(hdev);
+> @@ -99,7 +99,7 @@ enum report_mode {
 >  
-> -	timer_delete_sync(&td->release_timer);
-> +	timer_shutdown_sync(&td->release_timer);
-
-Reviewed-by: Benjamin Tissoires <bentiss@kernel.org>
-
-Cheers,
-Benjamin
-
+>  #define MT_IO_SLOTS_MASK		GENMASK(7, 0) /* reserve first 8 bits for slot tracking */
+>  #define MT_IO_SLOTS_BITS		8 /* bits covered by MT_IO_SLOTS_MASK */
+> -#define MT_IO_FLAGS_RUNNING		32
+> +#define MT_IO_FLAGS_RUNNING		MT_IO_SLOTS_BITS
 >  
->  	sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
->  	hid_hw_stop(hdev);
+>  static const bool mtrue = true;		/* default for true */
+>  static const bool mfalse;		/* default for false */
 > -- 
 > 2.43.0
 > 
