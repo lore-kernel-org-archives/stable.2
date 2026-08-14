@@ -1,138 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37BC3189F43
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 11:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2184570C2;
+	Fri, 14 Aug 2026 11:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786706639; cv=none; b=R/daODlLO/HafWWSvHQT5jzscT6GPZUpMWhMtr56vPPIvbwRIL/XYSy1fvprMjdiVVTKQ2/qdRGuMKHS9FU1GMsjudYh8xVxj1Zyft0glM90AOBFO1lJ2+qK+O/V1CUppO6h8WKNaEeW1UdZ6hRVQZpovikaRPH1sl3V7J/w6RI=
+	t=1786706970; cv=none; b=nP/ZLg9rt4xNZMYm17h5qtHW7y4gzu0LvDAM6obJ4xwv1r71nurjcRah5EnaTqjnKNrj9TgAZ7XU1aGN/i+mMCon5S3sgoSHiX7v08Lcoqfh7ee8SlJIt5aOGUGx72QfOC3kaVeL1XQWUL0NEekUBQe9vnpfYbFiKhWnGb5Zo7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786706639; c=relaxed/simple;
-	bh=LrBZvHrwrXM0R1lVgGgVnfZgn4AmW0zo3cE10Pz7gjs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QeHLkiaXodiC/t7J463B6lgpDl1wyDd3msXFOdBScKXzK7V1VbZ18TGzYf0xHXFBLnOetX86UpxjJ9CWdwGMFk+KexG4unMNN8amJGkDnlpZR7PoZBXyKhj3duxxw+Y54Hzm91FIpA6SufcSd1u/8a+tU/LO94Z/+Ke1itfdEK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NZwVPNWd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786706970; c=relaxed/simple;
+	bh=JK/RVAs/dl14S9jsi85PIl3pfYXOOqvpn4TPowSI9nY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hsoq9xtVuzIi0+rwc2ECqJq6O7bWHuS/Pq6hu1HGDVmX1ffXKcbcIx26P1PjQhvgVhOWP6cSQcnR4pjRbW75Qq8CyX1Uj8OUYTAmH+1ha9W+kCOTGTmcjqjJ4IMAzRG23R7EXW6wJ1tP8RK0HjWlPJSk4Dozx0bGzi2w/ayQcCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=enxmOuVO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NZwVPNWd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9981F00ADB
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 11:23:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786706633;
-	bh=rfADc6/R72hwdaY25fr6WLriArvVrwd+ff7yRnwVQRk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NZwVPNWdgl5G6msuqZL9Mkx1Bop2gkMomPd9lMJEeesesx6ly6TLavXoZW/bkVkek
-	 HYGjgpPPIA5N7evtMozSBVC3pHLDLs+zGvALr3Bledk8VgcnNZiGIW1+5+heax77Rz
-	 3dSenU7yBh0xYNLUZaBAMkJ96NpwMBQh135gaQ0FMZ/Ne/rZ+CeXGbxnaBbYOf0Ld+
-	 MlrlOSXDPXFvHs/HbpjNli1SKLqAHV6eCt6z8OiKn0bVFID7AfBBtOJrCMMwfE7Qlx
-	 2KY5pVL41kHgFKxe3QgvV7IK304Xb0eTfd9e7x8UMIA3Ltqdb9QFGRypCM6L8SoNmB
-	 S6S5YTyV+zFHw==
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92e6391b114so70034885a.3
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 04:23:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rro+S2SuEQWcwpY7UWytX4unK/Fed38qrQu80Jpfe6Pth6OlFLGvehSEV+IiWtHMOgvwGkPtkA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx74E2ol9C440EWD5ndfLyXo/ffcNbsuG0nx/gcTZl8G/fBIU5P
-	FDCbJi3xrCyC7/C21r3Dvy3NFbjliL8M7e/Waa/pQM7ihDSkuRxSmaqWE8HtfvC2T8cVwrxQKLr
-	4GyA8VUTIZC7uWxW8ly5DD1eo5KVCNSA=
-X-Received: by 2002:a05:620a:45a0:b0:92e:7533:ef63 with SMTP id
- af79cd13be357-936d2021e07mr461450885a.13.1786706632605; Fri, 14 Aug 2026
- 04:23:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="enxmOuVO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DC6C4C2BCB9;
+	Fri, 14 Aug 2026 11:29:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786706968;
+	bh=JK/RVAs/dl14S9jsi85PIl3pfYXOOqvpn4TPowSI9nY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=enxmOuVOX/uoBTkAq4to0exnriegho/MNOc/0PQNGIrfyqvGQOF0EK+TJM82CZ1ck
+	 UP5WQG8ejliyd/dr2NJ7KrxoL4f1pOrkMgaFLAo+FmfSVV0ioY0KROEG0GmkZUu+kl
+	 2OKhnLEAz61kcOf42gX9jFW+8pEKGAITzIkrkhqLBS4oIo3lQ+mamCO9Uyles1twxK
+	 vTOixa7y7Q2mS1ErjOuPPRv6NaoLD8JVLodiLWX2KwHM7eyR5lVcSizw3xIt+iTIS1
+	 czv4+SSE6pXBayknwPwx6TxKPl+gJ2uluFY9RgepDoaKNCBpwGCEbUtenFgzdLNaTI
+	 nv/LxJFbHeuHA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7693C5CFDB;
+	Fri, 14 Aug 2026 11:29:28 +0000 (UTC)
+From: Christian Wehba via B4 Relay <devnull+weebnuts.hotmail.com@kernel.org>
+Date: Fri, 14 Aug 2026 21:29:28 +1000
+Subject: [PATCH] ALSA: hda/realtek: Match Lenovo Yoga Slim 7 14AKP10 by
+ codec SSID
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260814074705.939721-2-mambaxin@163.com>
-In-Reply-To: <20260814074705.939721-2-mambaxin@163.com>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 14 Aug 2026 19:23:41 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4y+kGUH7TjKEGU+hbwCotHeubNdbJtoBExP+Ya-Wf3fWA@mail.gmail.com>
-X-Gm-Features: AUfX_mxn4RXlpo4fupbSBD57H9Nh3esjr7Y2wqN9hyd0KIKiCgDKSWpkR8DcuIQ
-Message-ID: <CAGsJ_4y+kGUH7TjKEGU+hbwCotHeubNdbJtoBExP+Ya-Wf3fWA@mail.gmail.com>
-Subject: Re: [PATCH] mm: swap_cgroup: fix NULL deref in lookup_swap_cgroup_id
- on swapless host
-To: mambaxin@163.com
-Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
-	shakeelb@google.com, muchun.song@linux.dev, akpm@linux-foundation.org, 
-	david@redhat.com, v-songbaohua@oppo.com, hughd@google.com, 
-	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	gregkh@linuxfoundation.org, jose.fernandez@linux.dev, stable@vger.kernel.org, 
-	syzbot+e12bd9ca48157add237a@syzkaller.appspotmail.com, 
-	David Hildenbrand <david@kernel.org>, Kairui Song <ryncsn@gmail.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Sasha Levin <sashal@kernel.org>, 
-	chenxin <chenxinxin@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260814-alc287-akp10-v1-1-60b3d619f72d@hotmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC0Nj3cScZCMLc93E7AJDA92kZAODZEPTRPPEVAMloJaCotS0zAqwcdG
+ xtbUAR7xwk14AAAA=
+X-Change-ID: 20260813-alc287-akp10-bc00c15a7ae0
+To: linux-sound@vger.kernel.org
+Cc: stable@vger.kernel.org, Christian Wehba <weebnuts@hotmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786706967; l=4514;
+ i=weebnuts@hotmail.com; h=from:subject:message-id;
+ bh=XN40BnZnWOGYHA+7GO2mZkGtsNIWrNdk7lHPf86eDyM=;
+ b=HPrXYTWO2VzjjGrDZRPQMPUjEVwkWHxQrAvdIwKXMyiJ7R8iiH4SDjhiDgMDp78qAk6QtdLIR
+ l7Kgz9njSpqAYYu2Dmw8dZZP5NBx5QQEi3u+Asez6suw/GIHHCafcsI
+X-Developer-Key: i=weebnuts@hotmail.com; a=ed25519;
+ pk=x+EJ28Iu4dCXlGo0o5ZYbAdHluOsP4d5LHGiwTLloZI=
+X-Endpoint-Received: by B4 Relay for weebnuts@hotmail.com/default with
+ auth_id=948
+X-Original-From: Christian Wehba <weebnuts@hotmail.com>
+Reply-To: weebnuts@hotmail.com
 
-On Fri, Aug 14, 2026 at 3:48=E2=80=AFPM <mambaxin@163.com> wrote:
->
-> From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
->
-> [ Upstream commit 63b02a9409cb5180398491b093e48bcb5315f5fb ]
->
-> lookup_swap_cgroup_id() passes swap_cgroup_ctrl[type].map to
-> __swap_cgroup_id_lookup() without checking that the type was ever
-> registered via swap_cgroup_swapon().  On a swapless host every ctrl->map
-> is NULL, so __swap_cgroup_id_lookup() dereferences NULL + a scaled
-> swp_offset().
->
-> Since commit bea67dcc5eea ("mm: attempt to batch free swap entries for
-> zap_pte_range()"), zap_pte_range() -> swap_pte_batch() calls
-> lookup_swap_cgroup_id() on any non-present, non-none PTE that decodes as =
-a
-> real swap entry, without first validating it against swap_info[].  A
-> single PTE corrupted into a type-0 swap entry takes the host down at
-> process exit.
+From: Christian Wehba <weebnuts@hotmail.com>
 
-Thanks for the patch. However, we have a strict check to ensure that
-this is only done for valid swap entries:
+Commit e6c888202297 ("ALSA: hda/realtek: Add quirk for Lenovo Yoga Slim
+7 14AKP10") added an entry for 17aa:391a using SND_PCI_QUIRK, so it is
+only tested against the PCI SSID. On this machine 0x391a is the codec
+SSID; the PCI SSID is 17aa:38b4, which is shared with the Legion Slim 7
+16IRH8.
 
-static inline int swap_pte_batch(pte_t *start_ptep, int max_nr, pte_t pte)
-{
-        pte_t expected_pte =3D pte_next_swp_offset(pte);
-        const pte_t *end_ptep =3D start_ptep + max_nr;
-        pte_t *ptep =3D start_ptep + 1;
+snd_hda_pick_fixup() walks the quirk table in order and returns on the
+first match, so the earlier 17aa:38b4 entry wins and the codec-SSID
+fallback at the end of the function is never reached:
 
-        VM_WARN_ON(max_nr < 1);
-        VM_WARN_ON(!softleaf_is_swap(softleaf_from_pte(pte)));
+  snd_hda_codec_alc269 hdaudioC1D0: ALC287: picked fixup  for PCI SSID 17aa:38b4
 
-        while (ptep < end_ptep) {
-                pte =3D ptep_get(ptep);
+The machine consequently gets ALC287_FIXUP_CS35L41_I2C_2 even though it
+has no CS35L41 amplifiers, and the intended fixup never runs. Its bass
+speakers hang off pin 0x17, which the BIOS reports as unconnected, so
+only the tweeters on pin 0x14 are driven and playback is very quiet.
 
-                if (!pte_same(pte, expected_pte))
-                        break;
-                expected_pte =3D pte_next_swp_offset(expected_pte);
-                ptep++;
-        }
+Convert the entry to HDA_CODEC_QUIRK and move it ahead of the colliding
+17aa:38b4 entry so that it is evaluated first. With
+ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN applied, pin 0x17 is enabled and
+both 0x14 and 0x17 are bound to DAC 0x02, so a single "Speaker Playback
+Volume" drives both speaker pairs:
 
-        return ptep - start_ptep;
-}
+  autoconfig for ALC287: line_outs=2 (0x14/0x17/0x0/0x0/0x0) type:speaker
 
-I don't know why this can happen on a swapless system.
+Verified on a Yoga Slim 7 14AKP10 by forcing the same fixup with
+model=alc287-yoga9-bass-spk-pin, which restores full volume and keeps
+the volume control effective across its whole range.
 
->
-> We hit this in production on a swapless 6.12.58 host: ~1s of
-> "get_swap_device: Bad swap file entry 3f800204222bb" (do_swap_page() bein=
-g
-> correctly defensive about the same entry) followed by
->
->   BUG: unable to handle page fault for address: 000003f800204220
->   RIP: 0010:lookup_swap_cgroup_id+0x2b/0x60
->   Call Trace:
->    swap_pte_batch+0xbf/0x230
->    zap_pte_range+0x4c8/0x780
->    unmap_page_range+0x190/0x3e0
->    exit_mmap+0xd9/0x3c0
->    do_exit+0x20c/0x4b0
->
-> syzbot has reported the identical stack.
->
-> The source of the PTE corruption is a separate bug; this change makes the
-> teardown path as robust as the fault path already is.  Every other caller
-> of lookup_swap_cgroup_id() is downstream of a get_swap_device() that has
-> already validated the entry, so the new branch is cold.
+Note that the existing 17aa:391c and 17aa:391d entries are likewise
+placed after the 17aa:38b4 entry; should those machines also report PCI
+SSID 17aa:38b4 they would need the same reordering, but that could not
+be confirmed here for lack of the hardware.
 
-If the source is PTE corruption, I think we should fix the corruption
-itself rather than work around it here.
+Fixes: e6c888202297 ("ALSA: hda/realtek: Add quirk for Lenovo Yoga Slim 7 14AKP10")
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221298
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Wehba <weebnuts@hotmail.com>
+---
+Single patch; the full analysis is in the commit message.
 
-Best Regards
-Barry
+Tested on a Lenovo Yoga Slim 7 14AKP10 (AMD, ALC287) running 7.1.7 on
+Fedora 44. Without the change the machine matches the Legion Slim 7
+16IRH8 entry on PCI SSID 17aa:38b4 and gets ALC287_FIXUP_CS35L41_I2C_2
+despite having no CS35L41 amplifiers; only the tweeters on pin 0x14 are
+driven, so playback is very quiet. With the fixup applied both speaker
+pairs are driven and the volume control stays effective across its whole
+range.
+
+Reported and tracked at:
+https://bugzilla.kernel.org/show_bug.cgi?id=221298
+---
+ sound/hda/codecs/realtek/alc269.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index be7287ea2..488293612 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -8069,6 +8069,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x38a8, "Y780P AMD VECO dual", ALC287_FIXUP_TAS2781_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x38a9, "Thinkbook 16P", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+ 	SND_PCI_QUIRK(0x17aa, 0x38ab, "Thinkbook 16P", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
++	HDA_CODEC_QUIRK(0x17aa, 0x391a, "Lenovo Yoga Slim 7 14AKP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x38b4, "Legion Slim 7 16IRH8", ALC287_FIXUP_CS35L41_I2C_2),
+ 	HDA_CODEC_QUIRK(0x17aa, 0x391c, "Lenovo Yoga 7 2-in-1 14AKP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ 	HDA_CODEC_QUIRK(0x17aa, 0x391d, "Lenovo Yoga 7 2-in-1 16AKP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+@@ -8117,7 +8118,6 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x3911, "Lenovo Yoga Pro 7 14IAH10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x3912, "Lenovo Xiaoxin 14 GT", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x3913, "Lenovo 145", ALC236_FIXUP_LENOVO_INV_DMIC),
+-	SND_PCI_QUIRK(0x17aa, 0x391a, "Lenovo Yoga Slim 7 14AKP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x391f, "Yoga S990-16 pro Quad YC Quad", ALC287_FIXUP_TXNW2781_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x3920, "Yoga S990-16 pro Quad VECO Quad", ALC287_FIXUP_TXNW2781_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x3929, "Thinkbook 13x Gen 5", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+
+---
+base-commit: f42eb0bd059781dc7f3046c7d37e76f59b874744
+change-id: 20260813-alc287-akp10-bc00c15a7ae0
+
+Best regards,
+-- 
+Christian Wehba <weebnuts@hotmail.com>
+
+
