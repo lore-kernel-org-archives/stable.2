@@ -1,163 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A101F3B8A;
-	Fri, 14 Aug 2026 03:13:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1AE3242A4;
+	Fri, 14 Aug 2026 03:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786677185; cv=none; b=ed9jIJ3owEr13y7U6GBCPbCgMyQBm2GaCBqfTjUpUzzBZl1msGjqal/TDsAwnmr2+uw6EtwnhSlIkwpTHsEKHfl5Rx3tbFWy/O7xofYXeWQIR/uD8BGIrVJanYb97HZaBrb2reOSp+dU9nQHZKnkE7L/MwyZVeebU+sHyH9iwBE=
+	t=1786677362; cv=none; b=uUB5R+6I6xYd8Y1IgbvTjKurXni4jK6L9roq9uaUg5JaG7TzxfWcPk8p/dLSwQXuPY+wZ6Un/3eO4w4AT8n/prFrseS6/O+IwmlAJaJD/+EEYFV+EppOFX1Fom3p5rGqzgC4XczrB4AWWjdABTjRgjWM4FLB0fvhB6TiW2uJx3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786677185; c=relaxed/simple;
-	bh=d3ptSvmswCLpNbskdAJb2art6bCO2dkEZ4BpRXjgdEw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Jkb2liDw4yNQ9CV/PQov4WBFByNbVHINBui6ycFERh9xDcM1bp987h/pOnmoLr/s76gN6xN6ojluj+sG+JEFg7vV2Ss77QHnniXUtKyFwNOP3VWS6sYQakTPoQt9YDhHashK0MC7I7BAz3l6gB3pAKKEWSwx6UBgiHrmVgl52uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IBJ0OJ9X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786677362; c=relaxed/simple;
+	bh=WdfXccHZH/tQhVXJSPz90vcVwbeiDuCh7PBGBs0WbFg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RjOdKMCIuoRjmNfOL6g2tL8EzotRBxoIKAatUdee5y7CCUcsbGShsstsXXThLY1Ecw6ga/SMVe0vd0y1cDUArNw+UsDFHBYaXykBgvf9O/3CXzav+Zfjyr1QjIHmd17eCZ+h2e5DV6Pc5jxqBoY7hFZHlUoQy9uQCxcGo1E1fDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=fXls6qP5; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=bFNSpCwM; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IBJ0OJ9X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ED131F000E9;
-	Fri, 14 Aug 2026 03:13:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786677183;
-	bh=BIOSwc1xpJnji8+UduFcZ8xM4GL3ivYKfnxeDdc6zK0=;
-	h=From:Date:Subject:To:Cc;
-	b=IBJ0OJ9XviiBIZaMSV64pzz+c5ElwbHPeAd6w2fXrJPwD1jsEhG47458+BdQX3oIq
-	 8Pny9ytVbch2A9ylb52CgE+xLo1T+Q7MRp08uFwb6zeyAPAvsRShkv4IPOnvZy5nek
-	 bmduvLXgUBjP/bAm81UJjoNUi/J4bSVui1n5WozItKHFYjYulpxxNqbFAacyEoqgl4
-	 APR+QDBLOptdfm9sowerPS5FTqPWL0OjQauDH5txBKsTF0D4v7dZXUbc8FO8wR9iYE
-	 Sc1zNedSYQJvcXM1L7xdiaW6+ZL83urzTz+xdeGd0NwSRqOs2RLxaLhPtD0l/dr0GI
-	 JZw96UPBjVYHw==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Thu, 13 Aug 2026 20:12:55 -0700
-Subject: [PATCH v2] arch_numa: Avoid false positive fortify warning in
- setup_node_to_cpumask_map()
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="fXls6qP5";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="bFNSpCwM"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hLnRp6V4HzKnR3;
+	Fri, 14 Aug 2026 05:15:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786677350;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=PgW0nNEeRaSLuGVQ0tbwEA3FRbrJWaeTdYUV3Yc7Dok=;
+	b=fXls6qP5/heNel168IHHsYvN6zDvFOIw2c+/04pT/JLCLlGJ5PXw0ZIwot/FtmcAdzzyeg
+	vQcCtwCEJGbUdzXVWWlHpd0afxOPr1fQ8lkPdjlXLVQGhWPwOOwXIkTb2eQmeF9jus+koA
+	wlYvBadppCZtXfxGObcuqf2ccOJIBtdLeR+GQhAQhRb0AivVgXwNqeGzzkY+inIoF2WAaL
+	Rop8E3zYOsWwXKIK3SZ3HrXY29ktLmMcZJqZFuiyo3p9ZvxcCxKNvEkQ3sOgs+AC6I7OeM
+	8OQnQeHgp2UkGs8EZoa8pZhk6GFBbjnKARj6ptnYSjbjJACcUaaY4Sb20yzSyg==
+From: Qing Ming <a0yami@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786677348;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=PgW0nNEeRaSLuGVQ0tbwEA3FRbrJWaeTdYUV3Yc7Dok=;
+	b=bFNSpCwMxXLzuj1vaEYg46TzNeRqGbi1AAZbbeju7VmETqy0j9owKUXY48vdYvZEZzFwaj
+	ECMO3qlsDo50bRA91ktZUaiPdmonliefUxId0AzDFwBEXZRAYQm8kInvRqntZ6riszXZ+m
+	2eHs/kSMB2XfEXlxW0nN3+cg2ir8o7t/lp4zcDaSkbXvFPcJ9liJ6ARL9rUgYYykhf9v8A
+	0l1/plO4gVnvj2oS6H+DdZ96F1c2GGqALGQLg77/Jbicj1Qj17ugDI1GCDFILY4Fukcekh
+	/CKpO7eQZhe8oX/FHScCuHRgULn+qVuwdjph87m6SqKS7zVKMZopTH24vL1xXg==
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Harald Welte <laforge@gnumonks.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	horms@kernel.org,
+	kuniyu@google.com,
+	osmocom-net-gprs@lists.osmocom.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Qing Ming <a0yami@mailbox.org>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4] gtp: serialize PDP context updates
+Date: Fri, 14 Aug 2026 11:15:26 +0800
+Message-ID: <20260814031526.118216-1-a0yami@mailbox.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-arch_numa-avoid-fortify-warning-v2-1-093ad97a78df@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OWw6CMBBFt2L67RhaEMEv92GIqWUK46M1U6gSw
- t4F3ICfJzm5544iIBMGcdyMgjFSIO9mUNuNMK12DQLVMwuVqDwppATNpr24/qlBR081WM8d2QH
- emh25BvJc2+KQJWkmlZhXXoyWPmvhXP049Ncbmm6ZXYyWQud5WC9EuXj/16IECfvSYIp5UdpUn
- +7IDh87z42opmn6AhVO8nThAAAA
-X-Change-ID: 20260811-arch_numa-avoid-fortify-warning-66af87403412
-To: Mike Rapoport <rppt@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
- stable@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4672; i=nathan@kernel.org;
- h=from:subject:message-id; bh=d3ptSvmswCLpNbskdAJb2art6bCO2dkEZ4BpRXjgdEw=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFl17bsqJ8+qTY/P3haXNFlTdZuWioBElqTcleKu6w9bg
- g8Vrm3vKGVhEONikBVTZKl+rHrc0HDOWcYbpybBzGFlAhnCwMUpABNxUGZkWLyC5au4cotgzeG6
- 6sKKvH2vty1lLk+9fvCYRP7VBhHteYwMJ515tHqmOUyTcnnJtN1b5EnOO+dab8u3sbH2v9hyOmL
- 4AQ==
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: cd66ncaa1ym3ob8obuwbyqoxa6ouwjjm
+X-MBO-RS-ID: ae4c0d2be76c36ecd6c
 
-When building ARCH=riscv using clang with CONFIG_FORTIFY_SOURCE and
-CONFIG_UBSAN_BOUNDS enabled, CONFIG_NR_CPUS > 64, and the default value
-of 2 for CONFIG_NODES_SHIFT, there is a compiletime warning from the
-fortify routines.
+PDP contexts can be deleted through GTP_CMD_DELPDP or while the GTP
+network device is being unregistered. The latter is serialized by RTNL,
+but the generic-netlink delete path only holds RCU.
 
-  In file included from mm/arch_numa.c:11:
-  In file included from include/linux/acpi.h:14:
-  In file included from include/linux/resource_ext.h:11:
-  In file included from include/linux/slab.h:17:
-  In file included from include/linux/gfp.h:7:
-  In file included from include/linux/mmzone.h:8:
-  In file included from include/linux/spinlock.h:60:
-  In file included from include/linux/interrupt_rc.h:17:
-  In file included from include/linux/smp.h:13:
-  In file included from include/linux/cpumask.h:11:
-  In file included from include/linux/bitmap.h:13:
-  In file included from include/linux/string.h:383:
-  include/linux/fortify-string.h:430:4: warning: call to '__write_overflow_field' declared with 'warning' attribute: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Wattribue-warning]
-    430 |                         __write_overflow_field(p_size_field, size);
-        |                         ^
-  include/linux/fortify-string.h:430:4: note: called by function 'fortify_memset_chk(unsigned long, unsigned long, unsigned long)'
-  include/linux/bitmap.h:248:3: note: inlined by function 'setup_node_to_cpumask_map'
-    248 |                 memset(dst, 0, len);
-        |                 ^
-  include/linux/fortify-string.h:462:25: note: expanded from macro 'memset'
-    462 | #define memset(p, c, s) __fortify_memset_chk(p, c, s,                   \
-        |                         ^
-  include/linux/fortify-string.h:453:2: note: expanded from macro '__fortify_memset_chk'
-    453 |         fortify_memset_chk(__fortify_size, p_size, p_size_field),       \
-        |         ^
-  include/linux/fortify-string.h:430:4: note: use '-gline-directives-only' (implied by '-g1') or higher for more accurate inlining chain locations
-    430 |                         __write_overflow_field(p_size_field, size);
-        |                         ^
-  1 warning generated.
+Running both paths concurrently can therefore make both paths delete the
+same PDP context. The issue was found through static analysis and
+reproduced on a KASAN-enabled kernel by a simple two-thread program
+racing GTP_CMD_DELPDP against RTM_DELLINK:
 
-In this configuration, MAX_NUMNODES is 4. clang unrolls the for loop in
-setup_node_to_cpumask_map() past this, which triggers the fortify check
-when accessing node_to_cpumask_map on the theoretical fifth loop
-iteration because it would be an out of bounds write.
+  Oops: general protection fault, probably for non-canonical address
+  KASAN: maybe wild-memory-access in range
+         [0xdead000000000120-0xdead000000000127]
+  RIP: gtp_genl_del_pdp+0x1c1/0x420 [gtp]
+  RBP: dead000000000122
 
-Make it clear to clang that nr_node_ids is bounded by MAX_NUMNODES due
-to the logic in setup_nr_node_ids() by early returning in
-setup_node_to_cpumask_map() should that condition be violated.
+The second deletion dereferenced the poisoned hlist pprev pointer.
 
-Cc: stable@vger.kernel.org # all applicable
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2174
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Serialize gtp_pdp_add(), gtp_genl_del_pdp(), and gtp_dellink() with a
+shared mutex. With this change, the same reproducer completed 50 races
+on a KASAN- and lockdep-enabled kernel without a KASAN report, oops, or
+lockdep warning.
+
+Fixes: 459aa660eb1d ("gtp: add initial driver for datapath of GPRS Tunneling Protocol (GTP-U)")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5
+Signed-off-by: Qing Ming <a0yami@mailbox.org>
 ---
-This is based on mm-unstable due to the move of arch_numa.c from mm/ to
-drivers/base/ living there. I have CC'd stable because this warning
-appears in my testing back to at least 6.1 but I see no reason why it
-should not apply to all trees. No fixes tag since this is a layered
-problem that just happens to appear under certain conditions.
+v4:
+- Replace guard() with plain mutex_lock()/mutex_unlock() in the
+  GTP_CMD_NEWPDP path.
+- Narrow the RCU read-side section in gtp_genl_del_pdp() to
+  gtp_find_pdp(); gtp_find_dev() uses dev_get_by_index_rcu().
+- Add mutex-aware lockdep conditions to the shared PDP lookup helpers.
 
-Another alternative would be using the __assume macro to say something
-like
+v3: https://lore.kernel.org/netdev/20260811022012.5416-1-a0yami@mailbox.org/
+ drivers/net/gtp.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
 
-  __assume(nr_node_ids <= MAX_NUMNODES);
-
-but that seems a little more fragile than an outright check.
----
-Changes in v2:
-- Add missing newline to print message (Andrew + sashiko)
-- Print MAX_NUMNODES using '%u' specifier to match nr_node_ids
-- Link to v1: https://patch.msgid.link/20260811-arch_numa-avoid-fortify-warning-v1-1-59ce3e689f3a@kernel.org
----
- mm/arch_numa.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/mm/arch_numa.c b/mm/arch_numa.c
-index 442ea239bba7..459fa60a5621 100644
---- a/mm/arch_numa.c
-+++ b/mm/arch_numa.c
-@@ -105,6 +105,18 @@ static void __init setup_node_to_cpumask_map(void)
- 	if (nr_node_ids == MAX_NUMNODES)
- 		setup_nr_node_ids();
+diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
+index 9a12cc53da00..ea83a6b6aa1a 100644
+--- a/drivers/net/gtp.c
++++ b/drivers/net/gtp.c
+@@ -12,6 +12,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
  
-+	/*
-+	 * This check should never be true but it makes it clear to compilers
-+	 * that node_to_cpumask_map is bound by nr_node_ids, avoiding false
-+	 * positive fortify warnings when accessing node_to_cpumask_map in the
-+	 * for loop below.
-+	 */
-+	if (unlikely(nr_node_ids > MAX_NUMNODES)) {
-+		pr_err("nr_node_ids (%u) is larger than MAX_NUMNODES (%u)\n",
-+		       nr_node_ids, MAX_NUMNODES);
-+		return;
-+	}
-+
- 	/* allocate and clear the mapping */
- 	for (node = 0; node < nr_node_ids; node++) {
- 		alloc_bootmem_cpumask_var(&node_to_cpumask_map[node]);
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/skbuff.h>
+ #include <linux/udp.h>
+ #include <linux/rculist.h>
+@@ -108,6 +109,7 @@ struct gtp_net {
+ };
+ 
+ static u32 gtp_h_initval;
++static DEFINE_MUTEX(gtp_pdp_lock);
+ 
+ static struct genl_family gtp_genl_family;
+ 
+@@ -151,7 +153,8 @@ static struct pdp_ctx *gtp0_pdp_find(struct gtp_dev *gtp, u64 tid, u16 family)
+ 
+ 	head = &gtp->tid_hash[gtp0_hashfn(tid) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == family &&
+ 		    pdp->gtp_version == GTP_V0 &&
+ 		    pdp->u.v0.tid == tid)
+@@ -168,7 +171,8 @@ static struct pdp_ctx *gtp1_pdp_find(struct gtp_dev *gtp, u32 tid, u16 family)
+ 
+ 	head = &gtp->tid_hash[gtp1u_hashfn(tid) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == family &&
+ 		    pdp->gtp_version == GTP_V1 &&
+ 		    pdp->u.v1.i_tei == tid)
+@@ -185,7 +189,8 @@ static struct pdp_ctx *ipv4_pdp_find(struct gtp_dev *gtp, __be32 ms_addr)
+ 
+ 	head = &gtp->addr_hash[ipv4_hashfn(ms_addr) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == AF_INET &&
+ 		    pdp->ms.addr.s_addr == ms_addr)
+ 			return pdp;
+@@ -220,7 +225,8 @@ static struct pdp_ctx *ipv6_pdp_find(struct gtp_dev *gtp,
+ 
+ 	head = &gtp->addr_hash[ipv6_hashfn(ms_addr) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == AF_INET6 &&
+ 		    ipv6_pdp_addr_equal(&pdp->ms.addr6, ms_addr))
+ 			return pdp;
+@@ -1555,9 +1561,11 @@ static void gtp_dellink(struct net_device *dev, struct list_head *head)
+ 	struct pdp_ctx *pctx;
+ 	int i;
+ 
++	mutex_lock(&gtp_pdp_lock);
+ 	for (i = 0; i < gtp->hash_size; i++)
+ 		hlist_for_each_entry_safe(pctx, next, &gtp->tid_hash[i], hlist_tid)
+ 			pdp_context_delete(pctx);
++	mutex_unlock(&gtp_pdp_lock);
+ 
+ 	list_del(&gtp->list);
+ 	unregister_netdevice_queue(dev, head);
+@@ -2053,7 +2061,9 @@ static int gtp_genl_new_pdp(struct sk_buff *skb, struct genl_info *info)
+ 		goto out_unlock;
+ 	}
+ 
++	mutex_lock(&gtp_pdp_lock);
+ 	pctx = gtp_pdp_add(gtp, sk, info);
++	mutex_unlock(&gtp_pdp_lock);
+ 	if (IS_ERR(pctx)) {
+ 		err = PTR_ERR(pctx);
+ 	} else {
+@@ -2134,9 +2144,12 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
+ 	if (!info->attrs[GTPA_VERSION])
+ 		return -EINVAL;
+ 
+-	rcu_read_lock();
++	mutex_lock(&gtp_pdp_lock);
+ 
++	/* gtp_find_dev() uses dev_get_by_index_rcu(). */
++	rcu_read_lock();
+ 	pctx = gtp_find_pdp(sock_net(skb->sk), info->attrs);
++	rcu_read_unlock();
+ 	if (IS_ERR(pctx)) {
+ 		err = PTR_ERR(pctx);
+ 		goto out_unlock;
+@@ -2153,7 +2166,7 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
+ 	pdp_context_delete(pctx);
+ 
+ out_unlock:
+-	rcu_read_unlock();
++	mutex_unlock(&gtp_pdp_lock);
+ 	return err;
+ }
+ 
 
----
-base-commit: 47870fb9b0e3bd20b45e3a069b4c766f3dcb721a
-change-id: 20260811-arch_numa-avoid-fortify-warning-66af87403412
-
-Best regards,
---  
-Cheers,
-Nathan
+base-commit: 24ef02f934eeb48830cff6b739abc3c62b1d107b
+-- 
+2.53.0
 
