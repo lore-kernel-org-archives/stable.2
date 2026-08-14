@@ -1,113 +1,108 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957EF3D9043;
-	Fri, 14 Aug 2026 07:06:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE663DF003
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 07:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786691204; cv=none; b=QFKy0+FkjmwoYgFvTSyer6pbd1r0MsT+9Ue/xq3MI8eNNEQ6NAxehAdvnR50n6qpH4rvKSM5Po8DmQKIs2hCRSIJjQ/2bJQwFYrfrHL2nKKDaPLp9hzUQKxFyWXK2hCFyVtxYrrqUqO07dVosgFvwhb1OkDRh9m7LtEemOCjSKg=
+	t=1786691486; cv=none; b=FrZVpgig0RDf128dKX684i3tokjKstQSPv+3PB2/Td6UbKdcMevd70ERRCAJ3mEOMncTJ/sO27jLhyOsINstJFbCK6UzEHULY/o6ZUxD1hX2uDpa4m8k3Bre9WssAO6aULqc2a+cCw4XJ7dr72W5rDzZq2B1y/UJZXSgLpyPexM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786691204; c=relaxed/simple;
-	bh=lzmBQ0ZVlFnUMtHbHruswaN8lYW0MwwWCO7BX0ZBFA0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=oPaPSp+VvTPDscozV9Os1nChyr8Llt8ELwb0tES/f7ZkQPxQoRUSnsUzFKK0sJ6f+NVwxttBasSqIS8VvLjmzcTIaFWlFqJHwHB8fSK1VnC5Yvey1riXgA2yuZr9FzFepd8gzzTdxDtj5Ptjs57usWjDjZWVBRk8mGElSBfMxOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: ade93e4697ae11f1aa26b74ffac11d73-20260814
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:8e2535c1-ee32-4d81-aa20-1ca546f43662,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:e7bac3a,CLOUDID:9a7178f2d1d7011905d6b71a73858bff,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|865|898,TC:nil,Content:0|1
-	5|50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
-	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ade93e4697ae11f1aa26b74ffac11d73-20260814
-X-User: chenchangcheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <chenchangcheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 2087165878; Fri, 14 Aug 2026 15:06:32 +0800
-From: Chen Changcheng <chenchangcheng@kylinos.cn>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ccc194101@163.com,
-	Chen Changcheng <chenchangcheng@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] HID: alps: fix use-after-free on input2 registration failure
-Date: Fri, 14 Aug 2026 15:06:21 +0800
-Message-Id: <20260814070621.68557-3-chenchangcheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260814070621.68557-1-chenchangcheng@kylinos.cn>
-References: <20260814070621.68557-1-chenchangcheng@kylinos.cn>
+	s=arc-20240116; t=1786691486; c=relaxed/simple;
+	bh=mRUEgaLLRZs3XA6JhpKmVeHN70ytznFWnbmy5/ri8Pk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=aeef02RVA+NelKj4yZ4AxYWMEYp7M5haAb50g5tFUbkPtIWkEZT1yfRJd/m/aV3WOYYfSWhIc/GiNgA78XbyKoqrfvQers2zPNqjX9iUaTx3hUPedgrIqgntKhDJVSmnELCQ8JCmt0DCvxitY2VdVDitHNDszlOq/W4hCoqWG1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=XDhsE7mR; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="XDhsE7mR"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260814071116euoutp01922855b38d458c1c9db5381f1694ef46~Lmm5o09OC0390103901euoutp01C
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 07:11:16 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260814071116euoutp01922855b38d458c1c9db5381f1694ef46~Lmm5o09OC0390103901euoutp01C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1786691476;
+	bh=Bp3R4P4Rp9frlKNA97goT2EzSLN1Lba9YEqq1yzXTJg=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=XDhsE7mRdfj0K0zRAAwoNu04t/ESc1R18IJwxZofSMSSEWRz9eoSBJMOZx43aYhqd
+	 NJlZkM7JQDPetJIrygAtOfUaKeGrybhGGd5vciTRXTYFaSsEZRjxh0VonawLVQJ5IH
+	 rsV43EunDd0YEawVg6VT5NABCQ/GlYdnDVMZeHsM=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260814071115eucas1p12172796c7a61c7d31843b25fc7bff469~Lmm5MSMRb2328123281eucas1p1Z;
+	Fri, 14 Aug 2026 07:11:15 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260814071115eusmtip2f5da583e8a94dacb5c9912ded282f82d~Lmm4kD1vm1291712917eusmtip2h;
+	Fri, 14 Aug 2026 07:11:14 +0000 (GMT)
+Message-ID: <22a4aa19-39c8-4f3d-9542-b2dce50125d1@samsung.com>
+Date: Fri, 14 Aug 2026 09:11:14 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] dma-direct: fix type mismatch in dma_direct_alloc_pages
+To: yangge1116@126.com
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, robin.murphy@arm.com, hch@lst.de, liuzixing@hygon.cn
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <1786689000-14677-1-git-send-email-yangge1116@126.com>
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260814071115eucas1p12172796c7a61c7d31843b25fc7bff469
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260814063037eucas1p13a146c907bec7280bb28d9e8ef009eae
+X-EPHeader: CA
+X-CMS-RootMailID: 20260814063037eucas1p13a146c907bec7280bb28d9e8ef009eae
+References: <CGME20260814063037eucas1p13a146c907bec7280bb28d9e8ef009eae@eucas1p1.samsung.com>
+	<1786689000-14677-1-git-send-email-yangge1116@126.com>
 
-alps_input_configured() stores data->input2 before calling
-input_register_device().  If registration fails, input_free_device()
-frees the input device but data->input2 still points to the freed memory.
-alps_input_configured() calls hid_hw_open() before allocating input2, so
-URBs are already active and raw_event can fire during the failure window.
-A U1_SP_ABSOLUTE_REPORT_ID report arriving then causes u1_raw_event()
-to dereference the freed data->input2 -> use-after-free.
+On 14.08.2026 08:30, yangge1116@126.com wrote:
+> From: Ge Yang <yangge1116@126.com>
+>
+> The pool allocation path directly returned the void* cpu virtual
+> address from dma_direct_alloc_from_pool(), which is type‑mismatched
+> against struct page *. Convert the dma_handle to page via
+> dma_direct_to_page() instead.
+>
+> Fixes: 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool helper")
+> Signed-off-by: Ge Yang <yangge1116@126.com>
+> Cc: stable@vger.kernel.org
 
-Fix by only storing input2 into drvdata after successful registration
-and adding a NULL guard in the raw_event path.
+This is a duplicate of the patch already applied to dma-mapping-for-next, see
 
-Fixes: 2562756dde55 ("HID: add Alps I2C HID Touchpad-Stick support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
----
- drivers/hid/hid-alps.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+https://lore.kernel.org/r/20260717180442.110954-2-aneesh.kumar@kernel.org
 
-diff --git a/drivers/hid/hid-alps.c b/drivers/hid/hid-alps.c
-index 370635f5b704..0556cb5645eb 100644
---- a/drivers/hid/hid-alps.c
-+++ b/drivers/hid/hid-alps.c
-@@ -407,6 +407,8 @@ static int u1_raw_event(struct alps_dev *hdata, u8 *data, int size)
- 		return 1;
- 
- 	case U1_SP_ABSOLUTE_REPORT_ID:
-+		if (!hdata->input2)
-+			return 0;
- 		sp_x = get_unaligned_le16(data+2);
- 		sp_y = get_unaligned_le16(data+4);
- 
-@@ -738,7 +740,6 @@ static int alps_input_configured(struct hid_device *hdev, struct hid_input *hi)
- 			goto exit;
- 		}
- 
--		data->input2 = input2;
- 		input2->phys = input->phys;
- 		input2->name = "DualPoint Stick";
- 		input2->id.bustype = BUS_I2C;
-@@ -762,11 +763,12 @@ static int alps_input_configured(struct hid_device *hdev, struct hid_input *hi)
- 		__set_bit(INPUT_PROP_POINTER, input2->propbit);
- 		__set_bit(INPUT_PROP_POINTING_STICK, input2->propbit);
- 
--		if (input_register_device(data->input2)) {
-+		if (input_register_device(input2)) {
- 			input_free_device(input2);
- 			ret = -ENOENT;
- 			goto exit;
- 		}
-+		data->input2 = input2;
- 	}
- 
- exit:
+> ---
+>  kernel/dma/direct.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+> index 4391b79..f496568 100644
+> --- a/kernel/dma/direct.c
+> +++ b/kernel/dma/direct.c
+> @@ -356,8 +356,12 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
+>  	struct page *page;
+>  	void *ret;
+>  
+> -	if (force_dma_unencrypted(dev) && dma_direct_use_pool(dev, gfp))
+> -		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
+> +	if (force_dma_unencrypted(dev) && dma_direct_use_pool(dev, gfp)) {
+> +		ret = dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
+> +		if (!ret)
+> +			return NULL;
+> +		return dma_direct_to_page(dev, *dma_handle);
+> +	}
+>  
+>  	page = __dma_direct_alloc_pages(dev, size, gfp, false);
+>  	if (!page)
+
+Best regards
 -- 
-2.25.1
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
