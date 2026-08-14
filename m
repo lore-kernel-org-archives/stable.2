@@ -1,116 +1,135 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F4B2FD7D3
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 22:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11F93B38BC;
+	Fri, 14 Aug 2026 22:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786746843; cv=none; b=qW8jM+HF4iCFdYE2F1tMWWGKM9hsDSaFP57pxceJnqUrziVzjzFl9qCT/9+Jw+mC+t/uGALkQQ4R+Fo9OO101ESyH8jUkGxkl3b1Xn7gn03nDQ7FoBs50mrSRd0f4czJekGvl6wO79sVVA3Bd1JNJtVLtfMAGBQusKeDusUrjBc=
+	t=1786747003; cv=none; b=rwwNh4NWtMosRUn4zwPqLn06sQcbK5j3uGSrKKdQDP8Bw6LbLjgbRfqEhCOwXNBBOfjeyK13rWpcs6PAzX7Q08FitFDr5Qdwe2v56+VxwnfhvCfFMwuCcSjOFQlxwaB0OSD6EaAQ4Ulz/Lpewpel+4hIiUO+5WVN7l3pUGjCjrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786746843; c=relaxed/simple;
-	bh=D1fdGjESKvw/uq/JSBCiUbhtq7cGQdHsYD/kdEJes6Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tGJf8JmN1Ya2u1N0eFVhaldioppuDNcC9SiIwjwjhk/IRnrMRYi8eePOT0brATBVxhJLsfoHT3nbiWwbWS26QQ/WbTIThbDo1uM6BEJiAERccgb6f5v1WVoC0RduHDeVtJWKehbc6bdV5MLQGL2xpxhh8FFteIU19ki9R8ppuKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DnTqPvWA; arc=none smtp.client-ip=209.85.222.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786747003; c=relaxed/simple;
+	bh=BceV66EnWz59YURs+8efrBdywEgij0xOiNunywLSDW8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bRZjY6nBDWOkLyvrM9Z7ZtnFIyZbLHmEuZEdiYuGOQTW8DrcqCHtaaJP57SG11gY7mQ3TjsvYzbIMR60KJ4WTiGD3+v+Qvnm2BeL2XzgumSD2Y14Khqu55mjswSAhOfewtzB/HYbMm1a5+/oJBp8M+OUtYyYZw6n3j5VxefkI8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=Wr1FLkxy; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DnTqPvWA"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-92e5c9211d2so121980485a.1
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 15:34:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786746840; x=1787351640; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h5fkXF8XZbOD5FyQfrGiQUBRfaoJPe5kBpNFpnd/1aE=;
-        b=DnTqPvWAEJi+kXs6BriotKPW5QjR9ih4WjIX7obXWdmbm7c+hzePUdBRrUJz4dV9Zk
-         YkP9q4RHTc//NHNXTBtpQBr9mLIPz6S/u9pecnaJIiUQqCWu/JBBZDzgIBlabkw6ptH4
-         siKv3UFfwWZjrOnXK9YAm33qubxa1/i/oiXX0Qh4Ivh4c0Z8jXRFX3tjwTBjrVwuIFIK
-         rhhJNVETJOnc9c+cOTGdtUAHLvMITaHj9uQNgCoqKtoCo4nNd+YFsxf1U+V+Kd48yDPD
-         kFVN7VX6eTC9vJOtBzfHTlLaqKEF2EGkWMKU9OXfYFX/XVsQ/ypa73meJN8BKtdFyV5t
-         YIXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786746840; x=1787351640;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h5fkXF8XZbOD5FyQfrGiQUBRfaoJPe5kBpNFpnd/1aE=;
-        b=rH38vHiMfIP+ViUqz1cWD1UKw2DUY+8J0mz1982UiZ+XZf0tlBTxDfmRwZYTfFqAeF
-         VN+Uhy2fYjM7BtQwVBwjvBJXRkP8mdkxfeMSPSHkxgx8k0T/7KvQzF3NFgFNj0747Xkn
-         F4xqkVbOkSqFLUtCflxCSe7lZE65EE1IOEE3gVmBjINdnPatRC22IKiLsSaxYqvopDwV
-         lha8mXDneWJhXYVcZXsHA4c4NjiF4gSeQRzKSBXCQ8jYpGnvs8HHFY++0+SU0qnQY51F
-         0783AULlFA+vAhboP/ZhsW6CeMYzp2CtEEAHAeahVG3G85K8D9QkafwMpUH+L9/L+zkm
-         UGZw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2C1axd0Hihb/gIYHFYbZu/Tn7UoLQbs9IBGmtKcMw/KTu1BM2kv6ab0XYgDU3gobSXtOfn3w=@vger.kernel.org
-X-Gm-Message-State: AOJu0YytCrQN6MLHRfQH00VJ7xMA52ME7oG1xBwp5x5fwu1cJXYoBGyc
-	JCZVD/l1M1AlMKOW++zIwA1OQwl7UjXhhORBbuLE+mRE6MLm1Rjbpmvf
-X-Gm-Gg: AR+sD11wNI8vYmmtWiKPGQuxbVd+VTckLMpQeU8MZfg0aQwZL4yIHyz2YEcFKiieWBC
-	rPsoW+FMxEUUQwgN6ba8zzgmZ/nu/bhfsLlFS0lJ6uxgm8NT32JxJmrcyH8FSPXH/Wz1jc7vBfU
-	Iw0dfMbcmpT9V8J15vzDx9gK9pslBI0YgOrgtmUlVv8SL7XwrHCVW0aLxlK/N7BVRi/6ZUJKPeB
-	4Kra0zL7v1+vr7G9cO8bjccquMO1+zgS9vRYy6/gGjBbvsDOP1fV7ivhNb2rAtEkW8DpRKjIv4D
-	qVfh2FImT7JnRwgXnZi64Ih9LV4tCTTw25aYL7VCmaYO8VF+6nAN+TniAXxtN//UzAiHC280kGj
-	uf+kxbb6vVxTM/GolpF7eHm5ot29KDEM8MOIOOMmb9fYpUL3zfw7Z1qdVRmTD0O6YShhF7Qinyi
-	804GwcK7Q6aZAuUAQN8znXGPDKiYwi4iXi5hWCtm0UUg6wGWudgTpOtko4U1srFEABRyyBYbdqw
-	WlbUcLf9PxY3Ykilw==
-X-Received: by 2002:a05:620a:44c7:b0:915:8055:3f91 with SMTP id af79cd13be357-936d239f8a7mr962648385a.43.1786746840408;
-        Fri, 14 Aug 2026 15:34:00 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-936ce24d0b5sm371029785a.45.2026.08.14.15.33.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 15:34:00 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: tj@kernel.org,
-	josef@toxicpanda.com,
-	axboe@kernel.dk
-Cc: yukuai3@huawei.com,
-	cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] blk-cgroup: fix use-after-free in blkg_conf_open_bdev
-Date: Fri, 14 Aug 2026 18:33:20 -0400
-Message-ID: <20260814223320.4118614-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="Wr1FLkxy"
+Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id 211C31A029D;
+	Fri, 14 Aug 2026 22:36:35 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 3C63E20016;
+	Fri, 14 Aug 2026 22:36:33 +0000 (UTC)
+Date: Fri, 14 Aug 2026 18:36:52 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Martin King <martin3kx@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ linux-rt-users@vger.kernel.org
+Subject: Re: [REGRESSION] sched/rt: NO_RT_PUSH_IPI causes multi-second
+ PI-boost starvation in pro-audio workloads (dd29c017aed6)
+Message-ID: <20260814183652.611e7ecf@gandalf.local.home>
+In-Reply-To: <CAEB5A_91hob8ddOhW=PrO1=O7GrFmSxY3r1-_Ard6x8KHHuJGA@mail.gmail.com>
+References: <CAEB5A_91hob8ddOhW=PrO1=O7GrFmSxY3r1-_Ard6x8KHHuJGA@mail.gmail.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 3C63E20016
+X-Stat-Signature: ytma34o3w57adsjk8e8ni3d5a1bjin68
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19+hD91LTdTXLMydKNjVmf+aEAIjoILDDw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=ZVC5z6mICC41AJMAiEfDy14gM55qP2OXVwwg9/8vLx4=; b=Wr1FLkxyDERdO00K2rgNNAJ2BjdZc53JfVeUPHnk2US6112f5dCCbCattXgRYdTp3mVRKTfZ1KQyXVl7UeJe1r1jhzNX54EVRpOUbDDNT9m3CVsUupi4wqhwKejzx6g9wDfE8IAcVV+g83yw2e9/oCSjjVU6L4ZWkurAYKbldJU=
+X-HE-Tag: 1786746993-996614
+X-HE-Meta: U2FsdGVkX1/O42CM1fwpH5/5PZQlqikAgF43ao53NhvAY7G6tWaGZ60O5WsR31ZJn3bkiHvvdlBby1JhLI8B63hOMNz4m8x2xwKB7ohj3FXFiUABfQNCXMYdpxAasgicikP6k1FWF9iIybXTnLOihjws0eHI+S+aNteDUNHf4cqC7yEc9rlND30m9IthZ8heYg2UJQ14kwysWBr7RmnqhwtoYSr+ZKG+W/HoON/fzmgtsu/MPZta3En+Zt6+wmUA5aik3jJ89/wW8mO4/yQjkl2Bx939HFnK5HfTnI12Mc8vGbv+IYn/UeuS6FhJNiGd0ag81M2If9kAEHYEdq23x7o07NeoPDt9
 
-blkg_conf_open_bdev() holds rq_qos_mutex while checking whether the disk is
-still live. On the dead-disk error path, it drops the bdev reference before
-unlocking the mutex.
+On Fri, 14 Aug 2026 16:12:35 -0500
+Martin King <martin3kx@gmail.com> wrote:
 
-Once that reference is dropped, a concurrent put_disk() can release the
-remaining device reference and free the bdev. The subsequent mutex_unlock()
-then dereferences bdev->bd_queue from the freed object.
+> Commit dd29c017aed6 ("sched/rt: Have RT_PUSH_IPI be default off for non
+> PREEMPT_RT") causes reproducible multi-second audio dropouts on an ordinary
+> non-PREEMPT_RT desktop running a DAW.
 
-Unlock rq_qos_mutex while the local bdev reference still pins the object.
-Drop the reference only after the final bdev access.
+Thanks for the report.
 
-Fixes: a13bd91be223 ("block/rq_qos: protect rq_qos apis with a new lock")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- block/blk-cgroup.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> Symptom
+> -------
+> Audio cuts to silence for 0.2-3.5s at irregular intervals (roughly one per
+> 2-3 minutes of use) while the machine is otherwise idle and responsive.
+> 
+> Mechanism (as measured, not inferred)
+> -------------------------------------
+> REAPER runs one SCHED_RR prio 20 audio thread plus ~15 SCHED_OTHER "livefx"
+> worker threads. During a stall:
+> 
+>   - the RT audio thread is blocked in rt_mutex_schedule() on a PI mutex
+>   - exactly ONE livefx worker holds that mutex, has been PI-boosted to RT,
+>     and is enqueued but never scheduled
+>   - its schedstat shows run_ns ~0 with wait_ns tracking the entire stall:
+> 
+>         reaper/livefx tid=43910  run=0.0ms  wait=3406.6ms  slices=2
+>         (during a 3403ms dropout)
+> 
+>   - meanwhile ~17 sibling threads run normally with wait_ns = 0, and no
+>     thread does meaningful work (largest run was 7.2ms across 3.4s)
+>   - the machine stays responsive throughout; unrelated SCHED_OTHER work
+>     proceeds at 84-94% of normal rate with 0-1ms runqueue wait
+>   - all 16 cores keep taking timer interrupts at normal rates
+> 
+> So a single PI-boosted RT task sits on a runqueue, unmigrated, while other
+> cores idle. With push disabled nothing hands it to an idle CPU.
+> 
+> Evidence
+> --------------------------------
+>   kernel  RT_PUSH_IPI  playing   dropouts >=25ms          xruns
+>   7.1.8   off (default)  19 min   8  (191ms - 3471ms)   bursts
+> 23/265/434 per min
+>   7.1.3   on             39 min   0                     0
+>   7.1.8   on             42 min   0                     0
+> 
+> The third row differs from the first ONLY in the sched feature: Identical
+> kernel, toolchain, GPU driver, project and audio configuration. At the
+> observed broken rate ~13 dropouts were expected in that window; zero were
+> seen, at both 25ms and 10ms detection thresholds (10ms is ~2 missed audio
+> cycles at quantum 256 / 48kHz).
+> 
+> Workaround
+> ----------
+>   echo RT_PUSH_IPI > /sys/kernel/debug/sched/features
+> 
+> Applied at boot via a systemd unit.
+> 
+> System
+> ------
+>   AMD Ryzen 7 5800X (8c/16t), Arch Linux
+>   kernel 7.1.8-arch1-3 (and 7.1.5, 7.1.6 - all affected; 7.1.3 is clean)
+>   PipeWire 1.6.8 + pipewire-jack, Focusrite Scarlett 18i20, quantum 256 @ 48kHz
+>   CONFIG_PREEMPT_RT not set
 
-diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
-index d9676126c5b5..8628ab6adfa9 100644
---- a/block/blk-cgroup.c
-+++ b/block/blk-cgroup.c
-@@ -799,8 +799,8 @@ int blkg_conf_open_bdev(struct blkg_conf_ctx *ctx)
- 
- 	mutex_lock(&bdev->bd_queue->rq_qos_mutex);
- 	if (!disk_live(bdev->bd_disk)) {
--		blkdev_put_no_open(bdev);
- 		mutex_unlock(&bdev->bd_queue->rq_qos_mutex);
-+		blkdev_put_no_open(bdev);
- 		return -ENODEV;
- 	}
- 
--- 
-2.43.0
+Unfortunately, I'm going to be traveling next week and I may not be able to
+look into this until I get back. I don't see anything that the normal (non
+PUSH) logic would fail in this case. Thus I'm thinking it simply has a bug
+that has been hiding because we've been using the PUSH logic.
 
+I may be asking for some traces here when I get back to find out the exact
+cause. Use the workaround for now.
+
+The RT_PUSH_IPI was added because of a "thundering herd" of IPIs when all
+but one CPU dropped its priority and the one still running had more than
+one RT task on it. That would cause all the other CPUs to send an IPI to
+that CPU to do a pull, but only would would get it. The RT_PUSH_IPI was
+created to pass around a single IPI to do the push for all CPUs wanting a
+new RT task to run.
+
+The above use case doesn't look like it is having that. Thus, I'm thinking
+something else broke.
+
+-- Steve
