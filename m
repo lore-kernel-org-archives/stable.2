@@ -1,148 +1,151 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0733DD84C
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 21:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786741972; cv=pass; b=gb8cI+860BrcaaDSJdigccY0kIkZwN3MZvjtBLFfhIcSvpDrDMukcUhg8RkL02Ry74Kg+axRDWjS0pgdkcLuVtre5xFWtIXtvNYZguP+43qoiU0B58FcpRxejjrreLxkjnJpxx0f5g6tzDWgNPOPhJpSDXAAI396IIs5LcrCt8A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786741972; c=relaxed/simple;
-	bh=DRei2+deSPVy+InZVMN1mkoYxthiUeHYLiILPMCQGwE=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=Zw/g/KArNNqYJtSyrbRE/EpwFeYiqNpNQQ9VaQrdVv1fTPaXk88SBeBfljGNEQMs23c7HiOKrYb/w0DX/8jyC9XDs+kAxDrFz0WhUr7L+WkPXt7q9I1Ps3eal1WtZ9kX+b4jWMb/PGuyKXstczjAaSkDnVBOVQCN3oc7+OXjykc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUW/Ynmh; arc=pass smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849AB22D4C3;
+	Fri, 14 Aug 2026 21:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786742166; cv=none; b=VpdF3I05YR+4cphwU4J4vRjbavXx/al3Zjo85UVF/ypwMVu/DBMVfoDV+LcLnNkx3nHbzG4/SbRG1vzw5LYJ5ZF2NeqTq0PB5hIeF8TJsBR31Jn8DY5SqBKEmFQNdQT45h69KbfX8NQUSfE8tv3+L4HQbbcy0dYx6low2103k1Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786742166; c=relaxed/simple;
+	bh=Xo2Lyg1H6kjT4+1at9Xl3VjTQWE23j3sPQiTGcDPU30=;
+	h=Date:To:From:Subject:Message-Id; b=l4/0TJk3Vg+UJyTI9CuMLp98UPbjcqFRX4Jgz3jA7u6uTNKrNEyg8IUmGREaccleWw9aPmYcbkpNM3ELpOhUkuzt4JrxiWB5uEBpjsHRrNQc31hSfEXEP7INURmlDNp+C02Jq86JSCj6JHVqxUUOiV2TFMLYunm7kOcTF3rp4+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=mOl7NkrS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUW/Ynmh"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aea0fff535so1502862e87.3
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 14:12:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786741968; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZAAtQ1iDZVEkb2G3qWKTZ7lv0rQ5WdjT09yPsW6iPqJpe1t4Vr/+08INtzPSNoMkLT
-         n5c8o+M8OWQq4FR4EQ3T5bi9AiHatOdgZA3XDjVXMpmnogQqRQbeSLH1BuvQ2gMyZtOp
-         iWY3VC7lVk/MC80ksUmCGE+onVvljJ5K4yUkgdsMuzWQhXbke530XXQExFeBgRYHPAHR
-         C77+ur5zlq/IfaT2DZuxaQcbVgPxphPYaMBc5lxKmy60hfVQJ7uTcgu1YqURdFtmfhO/
-         pLMR5aJELVogpirtEFbAcfUAeIX1rmPcHdsLUOTrTKRq/ghM/3t9Xtiz9gsXsCG2GDFr
-         7P1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=suChiBpI2zM7Kh/sweI6ufJ0V5/AtIy5NrlliylEVCA=;
-        fh=ZiudQqZR2RGVSD6senEDIy8CSHR2f5hWdvN22RRbsvk=;
-        b=KSlEPjxpuuBlqEfFzi3jNxsNi2ep9nEFc8f0beZtRxORPZuiWxkOt7xFKSKMyBoudG
-         lnW3a8Xp9Nt2dSGbOOWzd58bWE9gD6GRuwaID4GrSL2iCra5V1W5sJn0Ja+9J6yWgLty
-         ubyIZzYjeL1H/N5OxMUkS4PsXh/tjpQ6u6rFgbVbq94e9aT1/Pc9awXIyvmJurVSP7Jt
-         fdqb52g7pSPr/aqW7j/ncaL21hJ6FB5moJeXwkZqs3EqmSZHRJbEghUKM5+F4k/joOzl
-         qEvJ6JVBHea3zcRtzkN9zhZONO8DiZItTIYUqoWBnKu2VSreojuJpDh9IK7UHUIzsrJh
-         wXpA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="mOl7NkrS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9FD1F000E9;
+	Fri, 14 Aug 2026 21:16:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786741968; x=1787346768; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=suChiBpI2zM7Kh/sweI6ufJ0V5/AtIy5NrlliylEVCA=;
-        b=HUW/YnmheoEkrIDj2Y5pUFa3UI7EYOkGfcbBI3SJdCVN6nZgTujgMmReUdvSyLua3h
-         L8qdGP7/1E7JuVrtlzMVgd94N68foYdY0CABkzBepI3TOwpLfhAchD0kxIQyRci7+3+6
-         P2RIzZ2V8MP3iRGFgS6MBJdWdzeQjGDH0iBGB9XkEMp9+iPGia2tbrpy8Jl+elwkY8bT
-         4YFJzsOGkJFrPrr3gG5Fgiuacxf0sPoOw+5YKp3jizOOLN7c3a71Tx1H+NiPnNa/ABa1
-         yBcYE2cghuoVQZK+ANTX36lLdJP77e5Crhs9qYQs8OJzzjU/9+doDhaU/IOjSN4mwtW/
-         hAIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786741968; x=1787346768;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=suChiBpI2zM7Kh/sweI6ufJ0V5/AtIy5NrlliylEVCA=;
-        b=DfxLaz6UBpwKic7hCfieDpm0/RxOATjGiCHKlOPGpgZG26vpTZHfssWkYb1owEONMv
-         cQKuLupSOdD8AxXTZSGET2OTG1/d544H+Cog0Lbp8e92BpW8NqT/wFJC4Qo8c/UG47xL
-         vX+WSlLUoceiKZq5sCgfELj9MlkQLa/4/9+Z/WbbTUsOjoykAuvoDzHNAvtbzXFhy+9D
-         kPQkrTHMWKJF8cvwkhkHodykIYxWXNzL4cfM2WjmucjKyFSLOevQoUlwIXUJRCXgN52Y
-         gCRbWDMADE1Z/c6SbUFROIr/JSKGyeMQVjt+gvyE64IFa6JUTBxiVXSwnZKmLQDvTtD4
-         jyOA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2N7ZHjat7+bH5K6IGTBAxBGYw9ufz30O4j4vy1Ljm934v2+49P5UM9UsyCFGkClevNlqwjhU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwGv5AYE03L8UseUn/GeT2LzlmZ1guTTj9p54aMzuFQ70XyD4Eq
-	kjKarbnLCBHYvwBya2CTbEz/TYjusgBcxXhmwFPhV6hcr3pOLn+OX+oXlA2coY67LyfJ3l5sQhF
-	DxtKiPo1sxSqlHfrLgYWPnYWpHzCWb2uudWUO
-X-Gm-Gg: AR+sD11xx5y9/6l1ksdRWykUWA+VREZBBup4v9IXSBbGqQLQdP1tQSOGJ0nPQ1cbXuH
-	euJKgEr+ROR7huL8DUqci1RiryhxKQ2bCyouBygvGoPD2A35KW2yJazHJqdHb/rZhTuONUBHRVx
-	OLoYQR6G0jts4WBE8jJf2nwEvyAHZ5TXlz6BShKz2+FyWU+vfgv0I00jnWU1CXRBrVLPeihosWy
-	t2w0/7TwCQ9uQiAbDCPmkF9dVPL6v3NBmyrwnjtjW7RCjp9qNqMisvqtWz8yP32X56qbcM45iCQ
-	HDkxXAb4kkmPoncBtnPVgCX5BjtB8e1U0r6mMRGqb8ST
-X-Received: by 2002:a05:6512:6681:20b0:5b3:f69:fef7 with SMTP id
- 2adb3069b0e04-5b459154ac0mr885241e87.4.1786741967554; Fri, 14 Aug 2026
- 14:12:47 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1786742165;
+	bh=JZfoEZhy5UPGnccHP3LFKuw215JBj5sdNMCVaul3CkY=;
+	h=Date:To:From:Subject;
+	b=mOl7NkrSz3OJBSm60XdH5M0PbP/jTwMjkl/cjhSWtqO/7YV0kJqkFnllGFQVSSHEr
+	 8F/s+qL6H0tEcyuwzIbRyxYHbvMnOTWjgflnypvirZjLuRpCxBsFHn+0Q09xq7AVeQ
+	 eJzyNT52LGD580HgtyxkeQcHN/DkfCoUkYLMz+Sc=
+Date: Fri, 14 Aug 2026 14:16:04 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,rppt@kernel.org,ndesaulniers@google.com,morbo@google.com,kees@kernel.org,justinstitt@google.com,nathan@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + arch_numa-avoid-false-positive-fortify-warning-in-setup_node_to_cpumask_map.patch added to mm-unstable branch
+Message-Id: <20260814211604.DF9FD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-From: Martin King <martin3kx@gmail.com>
-Date: Fri, 14 Aug 2026 16:12:35 -0500
-X-Gm-Features: AUfX_mwPwIqgYkjCpI0inF8DAyhP-Non2hPQrAzUm6egGv1-qM_6abxz0-6x9l8
-Message-ID: <CAEB5A_91hob8ddOhW=PrO1=O7GrFmSxY3r1-_Ard6x8KHHuJGA@mail.gmail.com>
-Subject: [REGRESSION] sched/rt: NO_RT_PUSH_IPI causes multi-second PI-boost
- starvation in pro-audio workloads (dd29c017aed6)
-To: Steven Rostedt <rostedt@goodmis.org>, Peter Zijlstra <peterz@infradead.org>
-Cc: regressions@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, linux-rt-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Commit dd29c017aed6 ("sched/rt: Have RT_PUSH_IPI be default off for non
-PREEMPT_RT") causes reproducible multi-second audio dropouts on an ordinary
-non-PREEMPT_RT desktop running a DAW.
 
-Symptom
--------
-Audio cuts to silence for 0.2-3.5s at irregular intervals (roughly one per
-2-3 minutes of use) while the machine is otherwise idle and responsive.
+The patch titled
+     Subject: arch_numa: avoid false positive fortify warning in setup_node_to_cpumask_map()
+has been added to the -mm mm-unstable branch.  Its filename is
+     arch_numa-avoid-false-positive-fortify-warning-in-setup_node_to_cpumask_map.patch
 
-Mechanism (as measured, not inferred)
--------------------------------------
-REAPER runs one SCHED_RR prio 20 audio thread plus ~15 SCHED_OTHER "livefx"
-worker threads. During a stall:
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/arch_numa-avoid-false-positive-fortify-warning-in-setup_node_to_cpumask_map.patch
 
-  - the RT audio thread is blocked in rt_mutex_schedule() on a PI mutex
-  - exactly ONE livefx worker holds that mutex, has been PI-boosted to RT,
-    and is enqueued but never scheduled
-  - its schedstat shows run_ns ~0 with wait_ns tracking the entire stall:
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-        reaper/livefx tid=43910  run=0.0ms  wait=3406.6ms  slices=2
-        (during a 3403ms dropout)
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-  - meanwhile ~17 sibling threads run normally with wait_ns = 0, and no
-    thread does meaningful work (largest run was 7.2ms across 3.4s)
-  - the machine stays responsive throughout; unrelated SCHED_OTHER work
-    proceeds at 84-94% of normal rate with 0-1ms runqueue wait
-  - all 16 cores keep taking timer interrupts at normal rates
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-So a single PI-boosted RT task sits on a runqueue, unmigrated, while other
-cores idle. With push disabled nothing hands it to an idle CPU.
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-Evidence
---------------------------------
-  kernel  RT_PUSH_IPI  playing   dropouts >=25ms          xruns
-  7.1.8   off (default)  19 min   8  (191ms - 3471ms)   bursts
-23/265/434 per min
-  7.1.3   on             39 min   0                     0
-  7.1.8   on             42 min   0                     0
+------------------------------------------------------
+From: Nathan Chancellor <nathan@kernel.org>
+Subject: arch_numa: avoid false positive fortify warning in setup_node_to_cpumask_map()
+Date: Thu, 13 Aug 2026 20:12:55 -0700
 
-The third row differs from the first ONLY in the sched feature: Identical
-kernel, toolchain, GPU driver, project and audio configuration. At the
-observed broken rate ~13 dropouts were expected in that window; zero were
-seen, at both 25ms and 10ms detection thresholds (10ms is ~2 missed audio
-cycles at quantum 256 / 48kHz).
+When building ARCH=riscv using clang with CONFIG_FORTIFY_SOURCE and
+CONFIG_UBSAN_BOUNDS enabled, CONFIG_NR_CPUS > 64, and the default value of
+2 for CONFIG_NODES_SHIFT, there is a compiletime warning from the fortify
+routines.
 
-Workaround
-----------
-  echo RT_PUSH_IPI > /sys/kernel/debug/sched/features
+  In file included from mm/arch_numa.c:11:
+  In file included from include/linux/acpi.h:14:
+  In file included from include/linux/resource_ext.h:11:
+  In file included from include/linux/slab.h:17:
+  In file included from include/linux/gfp.h:7:
+  In file included from include/linux/mmzone.h:8:
+  In file included from include/linux/spinlock.h:60:
+  In file included from include/linux/interrupt_rc.h:17:
+  In file included from include/linux/smp.h:13:
+  In file included from include/linux/cpumask.h:11:
+  In file included from include/linux/bitmap.h:13:
+  In file included from include/linux/string.h:383:
+  include/linux/fortify-string.h:430:4: warning: call to '__write_overflow_field' declared with 'warning' attribute: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Wattribue-warning]
+    430 |                         __write_overflow_field(p_size_field, size);
+        |                         ^
+  include/linux/fortify-string.h:430:4: note: called by function 'fortify_memset_chk(unsigned long, unsigned long, unsigned long)'
+  include/linux/bitmap.h:248:3: note: inlined by function 'setup_node_to_cpumask_map'
+    248 |                 memset(dst, 0, len);
+        |                 ^
+  include/linux/fortify-string.h:462:25: note: expanded from macro 'memset'
+    462 | #define memset(p, c, s) __fortify_memset_chk(p, c, s,                   \
+        |                         ^
+  include/linux/fortify-string.h:453:2: note: expanded from macro '__fortify_memset_chk'
+    453 |         fortify_memset_chk(__fortify_size, p_size, p_size_field),       \
+        |         ^
+  include/linux/fortify-string.h:430:4: note: use '-gline-directives-only' (implied by '-g1') or higher for more accurate inlining chain locations
+    430 |                         __write_overflow_field(p_size_field, size);
+        |                         ^
+  1 warning generated.
 
-Applied at boot via a systemd unit.
+In this configuration, MAX_NUMNODES is 4.  clang unrolls the for loop in
+setup_node_to_cpumask_map() past this, which triggers the fortify check
+when accessing node_to_cpumask_map on the theoretical fifth loop iteration
+because it would be an out of bounds write.
 
-System
-------
-  AMD Ryzen 7 5800X (8c/16t), Arch Linux
-  kernel 7.1.8-arch1-3 (and 7.1.5, 7.1.6 - all affected; 7.1.3 is clean)
-  PipeWire 1.6.8 + pipewire-jack, Focusrite Scarlett 18i20, quantum 256 @ 48kHz
-  CONFIG_PREEMPT_RT not set
+Make it clear to clang that nr_node_ids is bounded by MAX_NUMNODES due to
+the logic in setup_nr_node_ids() by early returning in
+setup_node_to_cpumask_map() should that condition be violated.
+
+Link: https://lore.kernel.org/20260813-arch_numa-avoid-fortify-warning-v2-1-093ad97a78df@kernel.org
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Closes: https://github.com/ClangBuiltLinux/linux/issues/2174
+Cc: Kees Cook <kees@kernel.org>
+Cc: Bill Wendling <morbo@google.com>
+Cc: Justin Stitt <justinstitt@google.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/arch_numa.c |   12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+--- a/mm/arch_numa.c~arch_numa-avoid-false-positive-fortify-warning-in-setup_node_to_cpumask_map
++++ a/mm/arch_numa.c
+@@ -105,6 +105,18 @@ static void __init setup_node_to_cpumask
+ 	if (nr_node_ids == MAX_NUMNODES)
+ 		setup_nr_node_ids();
+ 
++	/*
++	 * This check should never be true but it makes it clear to compilers
++	 * that node_to_cpumask_map is bound by nr_node_ids, avoiding false
++	 * positive fortify warnings when accessing node_to_cpumask_map in the
++	 * for loop below.
++	 */
++	if (unlikely(nr_node_ids > MAX_NUMNODES)) {
++		pr_err("nr_node_ids (%u) is larger than MAX_NUMNODES (%u)\n",
++		       nr_node_ids, MAX_NUMNODES);
++		return;
++	}
++
+ 	/* allocate and clear the mapping */
+ 	for (node = 0; node < nr_node_ids; node++) {
+ 		alloc_bootmem_cpumask_var(&node_to_cpumask_map[node]);
+_
+
+Patches currently in -mm which might be from nathan@kernel.org are
+
+arch_numa-avoid-false-positive-fortify-warning-in-setup_node_to_cpumask_map.patch
+
