@@ -1,45 +1,45 @@
 Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8388A1C84DC;
-	Fri, 14 Aug 2026 18:06:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2FB490BED;
+	Fri, 14 Aug 2026 18:06:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786730789; cv=pass; b=PFEyLVy3USPq9Ab2fMluyXeYF2bbMTTHHZLac5E6s7WtNJBHtt/U0UMCGW5ue9ycRFdAsrwXSyxvPSmM02tS/mZ4aqA0V4NUrGfn45aVW3YIisRjNy1vVf0699nrbr8WGNGx13y2nJ9Nrio48gN0yFxKky0f50qpg37ZgvElE/0=
+	t=1786730790; cv=pass; b=Hn4MCDNKV45eUk7RJqDq1UlukGM8HsfzMCnO7MPpaT+HQocOoI6ZiGIQOlqd981L31y4KCOFgitSGaSWzLvAAkvOLSHBBoVzaqqhSv1LD/vls8AkSoAHNHg+Q5xCUYsO5qYO9i6g6VDZ/rRVc/1zTv93K5QB2ZLQ5CGOO04b0Jo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786730789; c=relaxed/simple;
-	bh=hwfWHYjrewKQrNSxzEgH626HlmpmxBapKykPYac4pis=;
+	s=arc-20240116; t=1786730790; c=relaxed/simple;
+	bh=UMRJVZtJoMbK+QZv2LANLq1EMht5ioB8A4kmk8r8GUc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HtBG4GvMaa24McSG+awwvZ9xRbL6wvOMSN1OuutYturXm70pd6Mj6M3nRlNpMCnA8oMy0SDW3rc0wHDVzBWIk0Ln/FRXaOp9bTBLJ7+Yyfr90RaA8kG181xAHWpCUMSjzIIl79n9CmK3bCfCbfc/xAzCmNFPjf31oWkdzocM9uw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ikuyo.dev; spf=pass smtp.mailfrom=ikuyo.dev; dkim=pass (1024-bit key) header.d=ikuyo.dev header.i=eritque-arcus@ikuyo.dev header.b=CbXJ3M+6; arc=pass smtp.client-ip=136.143.188.15
+	 In-Reply-To:To:Cc; b=OgYeTvkJF9jAEX9w8PA0O6hoTKL5d5fZ/icKtHP08aruVhHr5TCl3fe7iEBCbCc/QLFLnt55pIrsP3Qz8NUf4f06+CPPUlGwT8hhvCuZ25KA34S4OYsbY5S12uuZv8m1ky+SaY5YdUsxgPRkGrGSUNdDr8jIPIqT2vZ2Wjh8fEs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ikuyo.dev; spf=pass smtp.mailfrom=ikuyo.dev; dkim=pass (1024-bit key) header.d=ikuyo.dev header.i=eritque-arcus@ikuyo.dev header.b=x6ybNpgh; arc=pass smtp.client-ip=136.143.188.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ikuyo.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ikuyo.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ikuyo.dev header.i=eritque-arcus@ikuyo.dev header.b="CbXJ3M+6"
-ARC-Seal: i=1; a=rsa-sha256; t=1786730772; cv=none; 
+	dkim=pass (1024-bit key) header.d=ikuyo.dev header.i=eritque-arcus@ikuyo.dev header.b="x6ybNpgh"
+ARC-Seal: i=1; a=rsa-sha256; t=1786730774; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=gRBzGmaATX5rcofJ4L6aCM2cB3Cv/HxDifz+7jrRToz0plheuKSop6jR1aChp3+MeSq+8B03XjTvj5LxbzFN9aYTmzQgluY8ttcqwnpui5T/BOVQ/lH6hb7bmGSXS8YjgYdHAsSsDKqepeicrCj8JHcMuj+bg4dge5xBQOXfYWo=
+	b=Jx9EN//9Ney4NBz2XZUbto04e+IMDErGZ/RVhSQPWKb/GJJQal8LlzQvqG9ieFOaps+nSMakwbiKfZ3Hfj9MFLWr2yHHzYxQjJ4EM3a7UGsSJM9QrXLecDaFAAo0WHeyzBEXe/XUe7omSRw4eJ09oEIfE7b6ZiznaffHFK8MdWA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1786730772; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=WTUPKcza5IvPfBeHwG59CoJeJWVMUAntwdqncF6fbcU=; 
-	b=n0L8r3J6csMVTgpxoMyjqXvmM4YSkTSMRkyZe0RUGZYZNhiB7WS+huxfGj6voQtZGtBuKGomP5SAdizqVT3dzkBpBe0+E1Sh8yoQ9JXnb0ZA+15TR/Jkh3qJQ0yRZH0+OdVj12RJJvqga4zsK1Fx1UuMNR86IiueQ5tMWd436S8=
+	t=1786730774; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=22kjejwY/pLLHVHpk/sXoxIreYEguRcnZytWbpPx2bI=; 
+	b=cJVTrYG3smNOLXKSEcVvhKzDxW+KKg70Y8yXzGv0bhr7WAi8e8Al6NKi/m72JNpwmlO9900/ZSZeP6cNJQYRZcAnCjeqEIDMDtXDOCpDRSr1iKGYn35Zy2IvS+WhBL3/DAqZkOsnUA8WkjLiCWdQ2DbmQxd+kjcol8GqT40DRzo=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=ikuyo.dev;
 	spf=pass  smtp.mailfrom=eritque-arcus@ikuyo.dev;
 	dmarc=pass header.from=<eritque-arcus@ikuyo.dev>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786730772;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786730774;
 	s=zmail; d=ikuyo.dev; i=eritque-arcus@ikuyo.dev;
 	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=WTUPKcza5IvPfBeHwG59CoJeJWVMUAntwdqncF6fbcU=;
-	b=CbXJ3M+6P5VrbBdwXfC5elzAvOdT2F9Eif/2/mNaJYW8DC3lQ4goTZrtPE2l/UxR
-	v0vAeMrQ/pdlbDIM3fD+XRCzMssOULGFoIz+AUcEi0iMwpsfiA+PDZj26YTiDGF8nwT
-	0SbtyVwkQ0RpKjhsKdHPWdBFRO54k+il73KvJTiI=
-Received: by mx.zohomail.com with SMTPS id 178673077072385.638967822533;
-	Fri, 14 Aug 2026 11:06:10 -0700 (PDT)
+	bh=22kjejwY/pLLHVHpk/sXoxIreYEguRcnZytWbpPx2bI=;
+	b=x6ybNpghIR6deReojgJvfMH6o5MHKK7EthKy+qDlVQW76a+BWWYp9RE+XHD7p0su
+	oQ00LJDmagVFQeBUh9pDx/LqTK3PPh4vGu14z0PbtTnHITDhXcLNcecioYSh109GaqL
+	WvF1gZtGHq35+yuT3xdGV4aXFPC3CR92qofopveM=
+Received: by mx.zohomail.com with SMTPS id 1786730773024540.0022960170999;
+	Fri, 14 Aug 2026 11:06:13 -0700 (PDT)
 From: Yiran Qiu <eritque-arcus@ikuyo.dev>
-Date: Sat, 15 Aug 2026 02:05:46 +0800
-Subject: [PATCH 1/2] can: esd_usb: validate received message length before
- use
+Date: Sat, 15 Aug 2026 02:05:47 +0800
+Subject: [PATCH 2/2] can: kvaser_usb_hydra: reject too-short commands in
+ the receive path
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,7 +48,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260815-can-esd-hydra-fixes-v1-1-de644cbeaec2@ikuyo.dev>
+Message-Id: <20260815-can-esd-hydra-fixes-v1-2-de644cbeaec2@ikuyo.dev>
 References: <20260815-can-esd-hydra-fixes-v1-0-de644cbeaec2@ikuyo.dev>
 In-Reply-To: <20260815-can-esd-hydra-fixes-v1-0-de644cbeaec2@ikuyo.dev>
 To: Frank Jungclaus <frank.jungclaus@esd.eu>, socketcan@esd.eu, 
@@ -57,220 +57,69 @@ To: Frank Jungclaus <frank.jungclaus@esd.eu>, socketcan@esd.eu,
 Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Yiran Qiu <eritque-arcus@ikuyo.dev>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7546;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2298;
  i=eritque-arcus@ikuyo.dev; h=from:subject:message-id;
- bh=hwfWHYjrewKQrNSxzEgH626HlmpmxBapKykPYac4pis=;
- b=owGbwMvMwCW2M2qh3ooTh9cxnlZLYsiqj+T5slM24MqsiR4zL7i7Fc6dOvHCfz/xdGFVVzezp
- dUebfNudpSyMIhxMciKKbJMN9ixmLPdmm2ZgUQozBxWJpAhDFycAjCRT6EM/0yU1jmUlPic7zc5
- cGpr8d+da1da5X+v+n1RSlfBSTRxuRwjw5mPEg/8fatYpx7ocnc+vr+xaa5G8ke/5hr79cUX92Z
- u4AQA
+ bh=UMRJVZtJoMbK+QZv2LANLq1EMht5ioB8A4kmk8r8GUc=;
+ b=owGbwMvMwCW2M2qh3ooTh9cxnlZLYsiqj+RhX5IxqXfu1RWX1xrxXpMKq9LIdO94oqs/+UDlk
+ 8vOWUx3OkpZGMS4GGTFFFmmG+xYzNluzbbMQCIUZg4rE8gQBi5OAZhI+mFGhuPTRQPOTmapkSoN
+ Xa1i3nxu2jHDo3s+nXabl+Uo8r8n4AYjwzVv1bNvi8Vvzbo9+fm046W/j1979tjOS+WJQ+TU+3v
+ TAjkA
 X-Developer-Key: i=eritque-arcus@ikuyo.dev; a=openpgp;
  fpr=9730B8A309873B06A6301855B95AA12EA8C8C3AE
 
-esd_usb_read_bulk_callback() walks a sequence of variable-length
-messages out of the RX URB buffer. The only length check,
-"pos > urb->actual_length", runs *after* the current message has been
-dispatched and after @pos has been advanced, so it can neither protect
-the message being processed nor stop the loop:
+kvaser_usb_hydra_read_bulk_callback() walks commands out of the RX URB
+buffer, using kvaser_usb_hydra_cmd_size() to determine each command's
+length. For an extended command (CMD_EXTENDED) that size is taken
+directly from the device-supplied 16-bit length field with no lower
+bound. A CMD_EXTENDED command whose length is zero makes cmd_size 0, so
+"pos += cmd_len" never advances and this URB-completion softirq spins
+forever.
 
- - The per-message handlers dereference fixed offsets of the message.
-   esd_usb_rx_can_msg() reads the 32-bit CAN id at offset 8 and copies
-   up to CANFD_MAX_DLEN payload bytes from offset 12; the error-event
-   path reads four status bytes at offset 12; esd_usb_tx_done_msg()
-   reads the tx handle at offset 4. A malicious or malfunctioning
-   device can place a short ESD_USB_CMD_CAN_RX header near the end of
-   actual_length so that these reads fall past the buffer, leaking
-   adjacent kernel heap into a received CAN(-FD) skb.
-
- - hdr.len is the message length in 32-bit words. A message with
-   hdr.len == 0 never advances @pos, spinning this URB-completion
-   softirq forever.
-
-Validate the header and the declared message length before dispatch:
-reject a message whose header is not fully present, whose length is
-zero, or which extends past the received data, and advance @pos by the
-validated length. Pass the validated length to the message handlers so
-they can confirm that the fields they read (and the payload they copy)
-were actually received.
-
-This is the esd_usb counterpart of the kvaser_usb_leaf fix,
+Reject a command whose reported size is smaller than the command header
+before it is dispatched, mirroring the minimum-length check added in
 commit 0293dd153f9d ("can: kvaser_usb_leaf: kvaser_usb_leaf_wait_cmd():
-validate received command extents"). esd_usb has the same unbounded
-receive-buffer walk and was not touched by that fix.
+validate received command extents"); that fix did not touch hydra's
+asynchronous read_bulk_callback().
 
-Reproduced with USB_RAW_GADGET + dummy_hcd on a KASAN build: a bulk-IN
-frame whose first message has hdr.len == 255 (advancing @pos to 1020)
-followed by an ESD_USB_CMD_CAN_RX header at offset 1020 yields
+Reproduced with USB_RAW_GADGET + dummy_hcd on a KASAN build: after the
+normal probe/START_CHIP handshake, a 6-byte CMD_EXTENDED frame with the
+length field set to 0 makes the callback loop print
 
-  BUG: KASAN: slab-out-of-bounds in esd_usb_read_bulk_callback+0x38f/0xd70
-  Read of size 4 at addr ffff88800c0a9c04 by task init/1
-   kasan_check_range
-   esd_usb_read_bulk_callback+0x38f/0xd70
-   __usb_hcd_giveback_urb
-   dummy_timer
-  The buggy address belongs to the object at ffff88800c0a9800
-   which belongs to the cache kmalloc-1k of size 1024
-  The buggy address is located 4 bytes to the right of
-   allocated 1024-byte region [ffff88800c0a9800, ffff88800c0a9c00)
+  kvaser_usb 1-1:1.0: Unhandled extended command (255)
 
-Fixes: 96d8e90382dc ("can: Add driver for esd CAN-USB/2 device")
+without bound (306000 times in ~75 s), until
+
+  rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
+
+and the machine had to be killed externally.
+
+Fixes: aec5fb2268b5 ("can: kvaser_usb: Add support for Kvaser USB hydra family")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yiran Qiu <eritque-arcus@ikuyo.dev>
 ---
- drivers/net/can/usb/esd_usb.c | 69 ++++++++++++++++++++++++++++++++++---------
- 1 file changed, 55 insertions(+), 14 deletions(-)
+ drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/net/can/usb/esd_usb.c b/drivers/net/can/usb/esd_usb.c
-index f41d4a0d140f7..13356e68f3f60 100644
---- a/drivers/net/can/usb/esd_usb.c
-+++ b/drivers/net/can/usb/esd_usb.c
-@@ -298,7 +298,7 @@ struct esd_usb_net_priv {
- };
+diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+index efbb7bed34c9d..d44f9875fbe2f 100644
+--- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
++++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+@@ -2156,6 +2156,15 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
  
- static void esd_usb_rx_event(struct esd_usb_net_priv *priv,
--			     union esd_usb_msg *msg)
-+			     union esd_usb_msg *msg, unsigned int msg_len)
- {
- 	struct net_device_stats *stats = &priv->netdev->stats;
- 	struct can_frame *cf;
-@@ -306,8 +306,14 @@ static void esd_usb_rx_event(struct esd_usb_net_priv *priv,
- 	u32 id = le32_to_cpu(msg->rx.id) & ESD_USB_IDMASK;
+ 		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
  
- 	if (id == ESD_USB_EV_CAN_ERROR_EXT) {
--		u8 state = msg->rx.ev_can_err_ext.status;
--		u8 ecc = msg->rx.ev_can_err_ext.ecc;
-+		u8 state;
-+		u8 ecc;
-+
-+		if (msg_len < offsetofend(struct esd_usb_rx_msg, ev_can_err_ext))
-+			return;
-+
-+		state = msg->rx.ev_can_err_ext.status;
-+		ecc = msg->rx.ev_can_err_ext.ecc;
- 
- 		priv->bec.rxerr = msg->rx.ev_can_err_ext.rec;
- 		priv->bec.txerr = msg->rx.ev_can_err_ext.tec;
-@@ -395,7 +401,7 @@ static void esd_usb_rx_event(struct esd_usb_net_priv *priv,
- }
- 
- static void esd_usb_rx_can_msg(struct esd_usb_net_priv *priv,
--			       union esd_usb_msg *msg)
-+			       union esd_usb_msg *msg, unsigned int msg_len)
- {
- 	struct net_device_stats *stats = &priv->netdev->stats;
- 	struct can_frame *cf;
-@@ -407,10 +413,19 @@ static void esd_usb_rx_can_msg(struct esd_usb_net_priv *priv,
- 	if (!netif_device_present(priv->netdev))
- 		return;
- 
-+	/* The device controls the message length; make sure the fixed rx
-+	 * header (up to and including the CAN id) was actually received
-+	 * before it is dereferenced.
-+	 */
-+	if (msg_len < offsetofend(struct esd_usb_rx_msg, id)) {
-+		stats->rx_length_errors++;
-+		return;
-+	}
-+
- 	id = le32_to_cpu(msg->rx.id);
- 
- 	if (id & ESD_USB_EVENT) {
--		esd_usb_rx_event(priv, msg);
-+		esd_usb_rx_event(priv, msg, msg_len);
- 	} else {
- 		if (msg->rx.dlc & ESD_USB_FD) {
- 			skb = alloc_canfd_skb(priv->netdev, &cfd);
-@@ -446,6 +461,15 @@ static void esd_usb_rx_can_msg(struct esd_usb_net_priv *priv,
- 		if (id & ESD_USB_EXTID)
- 			cfd->can_id |= CAN_EFF_FLAG;
- 
-+		/* Reject a frame that claims more payload than was actually
-+		 * received, to avoid copying past the URB buffer.
++		/* An extended command carries a device-supplied length; a
++		 * command shorter than the command header would never advance
++		 * @pos and would spin this URB-completion softirq forever.
 +		 */
-+		if (len > msg_len - offsetofend(struct esd_usb_rx_msg, id)) {
-+			stats->rx_length_errors++;
-+			dev_kfree_skb_any(skb);
-+			return;
-+		}
-+
- 		memcpy(cfd->data, msg->rx.data_fd, len);
- 		stats->rx_bytes += len;
- 		stats->rx_packets++;
-@@ -455,7 +479,7 @@ static void esd_usb_rx_can_msg(struct esd_usb_net_priv *priv,
- }
- 
- static void esd_usb_tx_done_msg(struct esd_usb_net_priv *priv,
--				union esd_usb_msg *msg)
-+				union esd_usb_msg *msg, unsigned int msg_len)
- {
- 	struct net_device_stats *stats = &priv->netdev->stats;
- 	struct net_device *netdev = priv->netdev;
-@@ -464,6 +488,9 @@ static void esd_usb_tx_done_msg(struct esd_usb_net_priv *priv,
- 	if (!netif_device_present(netdev))
- 		return;
- 
-+	if (msg_len < offsetofend(struct esd_usb_tx_done_msg, hnd))
-+		return;
-+
- 	context = &priv->tx_contexts[msg->txdone.hnd & (ESD_USB_MAX_TX_URBS - 1)];
- 
- 	if (!msg->txdone.status) {
-@@ -507,8 +534,27 @@ static void esd_usb_read_bulk_callback(struct urb *urb)
- 
- 	while (pos < urb->actual_length) {
- 		union esd_usb_msg *msg;
-+		unsigned int msg_len;
-+
-+		/* The header must be fully present before hdr.len / hdr.cmd
-+		 * (and the net index below) are read.
-+		 */
-+		if (pos + sizeof(struct esd_usb_header_msg) > urb->actual_length) {
-+			dev_err(dev->udev->dev.parent, "format error\n");
++		if (cmd_len < sizeof(struct kvaser_cmd_header)) {
++			dev_err(&dev->intf->dev, "Format error\n");
 +			break;
 +		}
- 
- 		msg = (union esd_usb_msg *)(urb->transfer_buffer + pos);
-+		msg_len = msg->hdr.len * sizeof(u32); /* convert to # of bytes */
 +
-+		/* A zero-length message would never advance @pos and would
-+		 * spin this URB-completion softirq forever; a message must
-+		 * also fit within the received data.
-+		 */
-+		if (msg->hdr.len == 0 || msg_len > urb->actual_length - pos) {
-+			dev_err(dev->udev->dev.parent, "format error\n");
-+			break;
-+		}
- 
- 		switch (msg->hdr.cmd) {
- 		case ESD_USB_CMD_CAN_RX:
-@@ -517,7 +563,7 @@ static void esd_usb_read_bulk_callback(struct urb *urb)
- 				break;
- 			}
- 
--			esd_usb_rx_can_msg(dev->nets[msg->rx.net], msg);
-+			esd_usb_rx_can_msg(dev->nets[msg->rx.net], msg, msg_len);
- 			break;
- 
- 		case ESD_USB_CMD_CAN_TX:
-@@ -527,16 +573,11 @@ static void esd_usb_read_bulk_callback(struct urb *urb)
- 			}
- 
- 			esd_usb_tx_done_msg(dev->nets[msg->txdone.net],
--					    msg);
-+					    msg, msg_len);
- 			break;
- 		}
- 
--		pos += msg->hdr.len * sizeof(u32); /* convert to # of bytes */
--
--		if (pos > urb->actual_length) {
--			dev_err(dev->udev->dev.parent, "format error\n");
--			break;
--		}
-+		pos += msg_len;
- 	}
- 
- resubmit_urb:
+ 		if (pos + cmd_len > len) {
+ 			/* We got first part of a command */
+ 			int leftover_bytes;
 
 -- 
 2.55.0
