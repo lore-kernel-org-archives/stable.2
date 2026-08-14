@@ -1,53 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02F819E839;
-	Fri, 14 Aug 2026 00:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103AA25782D
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 01:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786668228; cv=none; b=Z3J39XEuc2RxqIh5hsbiQ8H1FA3k4J5tWjdChJMwyB5XF1tyv9vDwAnqndEcH/Y1kLxj0Ta9sJs4M4+utbAr135ipNbKFYntPgpljBhAHmL3y7gkc4wk/eZwflN17CZxDgBJLsJf6P+6VVMMqzE/zTv/0CKuLs1+ZnRFMkhcvhg=
+	t=1786669484; cv=none; b=c2gSUufEPFYusWfc++2FOLTuLhjvomX3uWzYFK1pOm06ZmppiKsrai1HW89vsF0iZTXvGzTVp9dUKMCQGvbKiE+y63I6frvPzFQfubh6/wmql0TZrlcxXzteGXA26i8w98HuGitYuX7L9WqjfPcQ/eXP3QbxSl5O8LCBK/Lz6KM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786668228; c=relaxed/simple;
-	bh=mhzvxLW1qFnzIbEY84rZTKxZLkrCLaH6jjyvuLmDRPc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vC2MC5tJ4c3jKPxocy2KQ/0NLwlwWAAtFLrIrKEy9c7H4NL7BYTT0peJlZvvn2o0iVnQzEWHNhWIMGFLxk6UXJNkzootGCiIaKXcdSRisNAhJvjB4K64vZtEz9t0xSIbOGulKBcYUfElBAf/cvULJQMlce/jXieA+BQr3FN8nJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lpDlKTHO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786669484; c=relaxed/simple;
+	bh=V/3xDLaLwzdcZXn34oe0haRIUfaWGJH4BHB3KlOPQcQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o0jcQBqxUgA4qgFmEx6AmeP99//6gW0GRNOAZRwNHgMOs7m+INLzQtKMQVV5Vpdl+BAkaETIHgXjsiKQZmXLn7eXcA0CMmiWQrfluk7lj0twLXXj/jS3G3x/yM9mAQypRtPrEVmFZJrSKv8uMfQmB8AaVTQSc+mo1bg5kcE8U4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LGoWIOb8; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lpDlKTHO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11D571F000E9;
-	Fri, 14 Aug 2026 00:43:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786668226;
-	bh=D02NEgizCXyw2zjc/lKoGm9/FhM8pyBnoyvGH4+7bVU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lpDlKTHOmnb7t/4QryvbQZmP4zz8HhKFvq6JV9zpC7NH3IiHE6etMOLeN4aennZRP
-	 Ddxs3zPyopSBNsyiLrEW6ZHJCQZuPrucbb9XgRR0OaICtoTDUIh1NU+Wt1/Su2QWNk
-	 teujTR1oDU/f2Pr10BrNVR0AjHKO3I4eVgotCHDoRtcKBBi8g/GZaBy4Z2rtv66VwR
-	 QUCprFis2gLeXQWe++vN7qs7gy584J9rHURsgrnC5WxMS99zrC//t6woEfMbf8wyGo
-	 4huBdulWKCQvMYn7+7Q/aoLlA00p9gIzkssexy9Ik9iLkhKjSAp+6d0btrz9jrk+Pt
-	 IeKuOj+dEcHXw==
-From: Jakub Kicinski <kuba@kernel.org>
-To: nagarevaibhav@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	horms@kernel.org,
-	davem@davemloft.net,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	andrew+netdev@lunn.ch,
-	matvey.kovalev@ispras.ru,
-	Pavel.Zhigulin@kaspersky.com,
-	aelior@marvell.com,
-	manishc@marvell.com,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LGoWIOb8"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8487b7b3fc8so365565b3a.3
+        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 18:04:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1786669480; x=1787274280; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nrgIXEbocHkKTuRcGdQKDKsU+CB1qUGYqJ6bTE9/jVI=;
+        b=LGoWIOb8uT663IvVloOHzYxJOIt/ybVb6vrLZV3PmM9c7l4DQUlAietfh7CDCONHRR
+         kh1R1gvJivD9wVaHFltAGNrC3y50T/HKuoeX7hpIH5d9qeuvvkF6E7PsM6eByzZbP91a
+         RhPlkrzP5wzxHKzDyw8KNCi9GVnKMwLuzVAi8qLOnWyrk9XD+67eh9vxLvsdcNT925sp
+         FihBGsIFiQ4FI0OJ6e5P9omop/m7RRd/hHhPQmWkcXwHjRa3OlHN46/6e1dIoF6WBsYW
+         oAz4tq+FYvKeGLEqUD8knH7MbFnbh5OO1bLBm+xZJ738b7SOFpxMaSHXqdz97ghHwUHG
+         wKKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786669480; x=1787274280;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nrgIXEbocHkKTuRcGdQKDKsU+CB1qUGYqJ6bTE9/jVI=;
+        b=DIynhzPLJuyBTfPNW3agaOwNgl+xlCJuePrU9HKOwY8gY7VCzP5GTLFdK/lrneEuL7
+         miJho+h9BiyMwRfU6lu9G3SlXTA8M8ti0TJCfcvlPlixm4Xi1Cb9NZKRJGkZ1eCScILj
+         7bT7W5CoDiyAwiVOTpU4hpEE/Rzv50LqfLmZasmOTnAbQYnjqucr9z8Hb1du1l4jF2kQ
+         JMriheK7ohSbzc2nIj8DVHmaEYw86o72bovtiCMEUTrpYP4W9prXTonQ1kl+lGb0RFZ9
+         YnsGlHgjZTTQ6gU8/Q0ac9R5btx85TejsPx5UXi3RPY7SfXvygXODLuopb13429hH8MU
+         OMrw==
+X-Forwarded-Encrypted: i=1; AHgh+RpMKgejVf1gPHsYDHQcOe1tBrBwJ+l04Rl9yyV87YrgZA7cRGvTjlTSw/tbyJpaA70fvN9vrX4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YykjuccomPsedZO1cmHqKd37Bx564uaPKg1skmP4VrUbgS9ZTof
+	DvH4J54XnNdFsW9GmOnt3X/TmIt6pWTYCngj8VeayAPvWwED4UcdCk48TwCXUYlPDT0=
+X-Gm-Gg: AR+sD10N0ZOuMhSyotSe4DoL0o3E+D3tgvDFbF3nRePEFWNGIjlaTct4ePDLCDbl+ty
+	2uH+ZxPdXSAFmK1Iqy/uKDVeLg2uBHXy+vs3PF54lOHg+A34IdVBlv5Mipi6y6W7KpENxpjejAA
+	oM7UQL3gFiYpQgkpV/mbn1DFPut6JlHWNsPihBtr3vKoDwk8ZZny4pO+1F1zh7dtxQsTmdvZBnd
+	xE5Dcbawi1DxwXn0fzQJGEsMhBA/z0LqeiSKTdCcG8ha2ZBt9CeRBdTMuIe3c6NKywzOkWAIZ7l
+	LsUpvqHPCzor0Yt/TwiE0z2RacFpsGyuPTU8UAThPY6F620Et3Mb+51FMJvzk6XRZN5CJoHrxqh
+	+hQVZ52VJA1zsXNgVNZS4qbjbfUCtS4G5GDd2ahWatyhOaZvuNIyRz18YK8ROi3a91YCMDhSYeo
+	fqNQSxhfzG+R1yjxOJI5j5nkS7vqbtxuSUI7MxjGP9KFqyNVtmH7qFVrAFJMnra4sZEyZi
+X-Received: by 2002:a05:6a00:92a7:b0:848:8445:695d with SMTP id d2e1a72fcca58-84fde32aedfmr2025720b3a.27.1786669479682;
+        Thu, 13 Aug 2026 18:04:39 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fc5a7d57esm1474044b3a.55.2026.08.13.18.04.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Aug 2026 18:04:39 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: martin.petersen@oracle.com
+Cc: James.Bottomley@HansenPartnership.com,
+	bvanassche@acm.org,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	vnagare@redhat.com
-Subject: Re: [PATCH net v4] qede: Fix NULL pointer dereference in TPA fragment processing
-Date: Thu, 13 Aug 2026 17:42:52 -0700
-Message-ID: <20260814004251.2757568-2-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260810131859.1870628-1-vnagare@redhat.com>
-References: <20260810131859.1870628-1-vnagare@redhat.com>
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: check that the tag map is still there in scsi_host_find_tag()
+Date: Fri, 14 Aug 2026 10:04:22 +0900
+Message-ID: <20260814010423.205976-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,230 +76,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email says: "Looks like AI is questioning whether some of the extra
-code is really needed. Please TAL, the incorrect indent definitely
-needs fixing, however trivial that is."
+scsi_host_find_tag() bounds the hardware queue index against
+tag_set.nr_hw_queues and then dereferences tag_set.tags[hwq].
+blk_mq_free_tag_set() clears the tags - __blk_mq_free_map_and_rqs()
+sets each tags[i] to NULL and the array itself is freed afterwards -
+but it never reduces nr_hw_queues, so the bound still passes and the
+dereference is on NULL.
+
+A driver that looks a tag up while its host is being removed therefore
+faults.  ib_srp does: srp_remove_target() calls scsi_remove_host()
+before it disconnects the target and destroys the queue pair, so an
+SRP_RSP the initiator did not ask for reaches srp_process_rsp() after
+the tag map is gone.
+
+  [    8.800679] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+  [    8.802155] KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  [    8.803134] CPU: 1 UID: 0 PID: 31 Comm: kworker/u8:1 Not tainted 7.2.0-rc5-PRIST2B-gf5098b6bae76-dirty #21 PREEMPT(lazy)
+  [    8.804503] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  [    8.805965] Workqueue: rxe_wq do_work
+  [    8.806548] RIP: 0010:srp_recv_done+0x618/0x1aa0
+  [    8.807184] Code: c1 e8 03 41 80 3c 30 00 0f 85 20 10 00 00 48 8b b0 38 01 00 00 48 8d 14 d6 48 be 00 00 00 00 00 fc ff df 48 89 d7 48 c1 ef 03 <80> 3c 37 00 0f 85 bb 0f 00 00 48 be 00 00 00 00 00 fc ff df 48 8b
+  [    8.807759] ib_srpt DIAG2B: RDMA_CM_EVENT_DISCONNECTED posts=2693 ok=2689 flush=0 other=0
+  [    8.809474] RSP: 0018:ffff88811b108d10 EFLAGS: 00010202
+  [    8.809481] RAX: ffff888106098000 RBX: ffff88810603a180 RCX: 0000000000010006
+  [    8.809484] RDX: 0000000000000008 RSI: dffffc0000000000 RDI: 0000000000000001
+  [    8.809488] RBP: ffff888103baf360 R08: 1ffff11020c13027 R09: ffff888107598008
+  [    8.809491] R10: ffff888106036048 R11: ffff888107598000 R12: ffff88810485c000
+  [    8.809494] R13: ffff88810603a1ec R14: ffff8881060988a8 R15: 0000000000000006
+  [    8.810670] ib_srpt DIAG2B: replay stopped posts=2693 ok=2689 flush=0 other=0
+  [    8.811241] FS:  0000000000000000(0000) GS:ffff8881673a5000(0000) knlGS:0000000000000000
+  [    8.811250] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  [    8.812342] ib_srpt receiving failed for ioctx 0000000023edb106 with status 5
+  [    8.813141] CR2: 000000000fcc7151 CR3: 0000000102313001 CR4: 0000000000770ef0
+  [    8.813153] PKRU: 55555554
+  [    8.813155] Call Trace:
+  [    8.813159]  <IRQ>
+  [    8.813163]  ? net_rx_action+0x349/0xfb0
+  [    8.814224] ib_srpt receiving failed for ioctx 000000005729ebde with status 5
+  [    8.815119]  ? __pfx_srp_recv_done+0x10/0x10
+  [    8.815153]  ? rxe_poll_cq+0x253/0x3d0
+  [    8.815161]  ? enqueue_task_fair+0x70f/0x2b60
+  [    8.816188] ib_srpt receiving failed for ioctx 00000000a48ac180 with status 5
+  [    8.816997]  __ib_process_cq+0xe1/0x390
+  [    8.818042] ib_srpt receiving failed for ioctx 00000000e493e48a with status 5
+  [    8.818769]  ib_poll_handler+0x6e/0x200
+  [    8.819685] ib_srpt receiving failed for ioctx 00000000596851d8 with status 5
+  [    8.820594]  irq_poll_softirq+0x1df/0x480
+  [    8.820968] ib_srpt receiving failed for ioctx 00000000acb38618 with status 5
+  [    8.821300]  ? __pfx_irq_poll_softirq+0x10/0x10
+  [    8.821582] ib_srpt receiving failed for ioctx 00000000d2f29888 with status 5
+  [    8.822094]  ? __pfx_sched_ttwu_pending+0x10/0x10
+  [    8.823079] ib_srpt receiving failed for ioctx 00000000cd218270 with status 5
+  [    8.823632]  handle_softirqs+0x18e/0x590
+  [    8.824134] ib_srpt receiving failed for ioctx 00000000c49ed88c with status 5
+  [    8.824694]  ? __pfx_handle_softirqs+0x10/0x10
+  [    8.825607] ib_srpt receiving failed for ioctx 000000004d7feb6d with status 5
+  [    8.826105]  do_softirq+0x3b/0x60
+  [    8.826110]  </IRQ>
+  [    8.827053] ib_srpt DIAG2B: RDMA_CM_EVENT_DISCONNECTED posts=2693 ok=2689 flush=0 other=0
+  [    8.827515]  <TASK>
+  [    8.838045]  __local_bh_enable_ip+0x61/0x70
+  [    8.838594]  __alloc_skb+0x732/0x890
+  [    8.839093]  ? _raw_spin_lock_irqsave+0x85/0xe0
+  [    8.839790]  ? __pfx___alloc_skb+0x10/0x10
+  [    8.840341]  ? _raw_read_unlock_irqrestore+0x16/0x50
+  [    8.841007]  rxe_init_packet+0x16b/0x4f0
+  [    8.841544]  prepare_ack_packet+0xb8/0x830
+  [    8.842088]  rxe_receiver+0x499/0x9980
+  [    8.842590]  ? __pfx_rxe_receiver+0x10/0x10
+  [    8.843140]  ? rxe_completer+0x29e5/0x38c0
+  [    8.843679]  ? pick_task_fair+0xbfc/0x19b0
+  [    8.844226]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+  [    8.844884]  ? __pfx_rxe_receiver+0x10/0x10
+  [    8.845440]  do_work+0x144/0x470
+  [    8.845875]  process_one_work+0x633/0x1030
+  [    8.846447]  ? assign_work+0x11d/0x370
+  [    8.846972]  worker_thread+0x45b/0xd10
+  [    8.847521]  ? __pfx_worker_thread+0x10/0x10
+  [    8.848126]  kthread+0x2c6/0x3b0
+  [    8.848592]  ? recalc_sigpending+0x15c/0x1e0
+  [    8.849213]  ? __pfx_kthread+0x10/0x10
+  [    8.849737]  ret_from_fork+0x36e/0x5a0
+  [    8.850289]  ? __pfx_ret_from_fork+0x10/0x10
+  [    8.850884]  ? __switch_to+0x572/0xdd0
+  [    8.851430]  ? __pfx_kthread+0x10/0x10
+  [    8.851962]  ret_from_fork_asm+0x1a/0x30
+  [    8.852548]  </TASK>
+  [    8.852872] Modules linked in: ib_srpt
+  [    8.853455] ---[ end trace 0000000000000000 ]---
+
+blk_mq_tagset_busy_iter() reads the same array and tests both the array
+and the element before using them.  Do the same here.  Its SRCU section
+covers the tags being freed; the tests cover them being cleared, which
+is what faults above.
+
+Fixes: 1ee8e889d946 ("scsi: add support for multiple hardware queues in scsi_(host_)find_tag")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
-qede: Fix NULL pointer dereference in TPA fragment processing
+Measured over rxe with KASAN, with an SRP target that reposts an SRP_RSP
+for a command it has already answered while I/O runs and the target is
+deleted through sysfs: the report above appeared in 5 of 5 runs without
+this patch and in none of 3 with it, on 7.2-rc5 with no other change.  A
+conforming target is unaffected - the same 3 runs show no aborts and no
+error completions, matching an unpatched kernel.
+ include/scsi/scsi_tcq.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-This restores the tpa_info->buffer.data assignment in qede_tpa_start() that
-commit 8a8633978b84 ("qede: Add build_skb() support.") dropped, and adds a
-NULL page check plus early error-state exits in the TPA fragment paths.  The
-new early exits recycle or consume the BDs described by cqe->len_list.
-
-A few questions on the commit message and on the added hardening below.
-
-First, on the enumerated list of changes:
-
->     Fix the root cause by:
->     1. Restoring the tpa_info->buffer.data assignment in qede_tpa_start().
->     2. Reverting the error recovery block in qede_tpa_end() to rely on
->        tpa_start_fail, which safely recycles the page without causing
->        double DMA unmaps.
-
-[Severity: Medium]
-Does item 2 correspond to anything in this patch?  In the tree being
-patched, the err: label in qede_tpa_end() already reads:
-
-	if (tpa_info->tpa_start_fail) {
-		qede_reuse_page(rxq, &tpa_info->buffer);
-		tpa_info->tpa_start_fail = false;
-	}
-
-and that block is not touched by any hunk here, so there is nothing being
-reverted relative to the base tree.
-
->     4. Correct bounds checking logic in TPA error loops (evaluating bounds
->        before reading the array elements to prevent out-of-bounds reads).
-
-[Severity: Medium]
-Similarly, which out-of-bounds read does item 4 fix?  The existing loops in
-qede_tpa_cont() and qede_tpa_end() already evaluate the bound first:
-
-	for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
-
-and they appear only as unchanged context lines in the hunks below.  Both
-items 2 and 4 look like deltas against the earlier v3 posting rather than
-against the tree, and an advertised out-of-bounds-read fix in a Cc: stable
-patch tends to get picked up by backport and CVE tooling.  Could the message
-describe only what this patch changes, namely restoring buffer.data, the
-NULL page guard, and the early error-state exits with the consume and
-filled_buffers accounting?
-
-> diff --git a/drivers/net/ethernet/qlogic/qede/qede_fp.c b/drivers/net/ethernet/qlogic/qede/qede_fp.c
-> index c11e0d8f98aa5..ed9db7399d2fc 100644
-> --- a/drivers/net/ethernet/qlogic/qede/qede_fp.c
-> +++ b/drivers/net/ethernet/qlogic/qede/qede_fp.c
-> @@ -670,13 +670,23 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
->  							 NUM_RX_BDS_MAX];
->  	struct qede_agg_info *tpa_info = &rxq->tpa_info[tpa_agg_index];
->  	struct sk_buff *skb = tpa_info->skb;
-> +	struct page *page = current_bd->data;
->  
->  	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START))
->  		goto out;
->  
-> +	/* Avoid NULL pointer dereference when under severe memory pressure */
-> +	if (unlikely(!page)) {
-> +		if (net_ratelimit())
-> +			DP_NOTICE(edev,
-> +				  "Failed to allocate RX buffer for TPA agg %u\n",
-> +				  tpa_agg_index);
-> +		goto out;
-> +	}
-
-[Severity: Low]
-Do the comment and the message here describe the condition that is actually
-detected?  current_bd is just a ring slot:
-
-	struct sw_rx_data *current_bd = &rxq->sw_rx_ring[rxq->sw_rx_cons &
-							 NUM_RX_BDS_MAX];
-
-so no allocator runs between function entry and this test, and a NULL data
-means the sw_rx_ring entry at the consumer index is the "ghost" BD (valid
-mapping, NULL page) that the commit message describes qede_reuse_page() as
-pushing back into the ring.  That is a ring bookkeeping inconsistency rather
-than an allocation failure.
-
-The text is also very close to the genuine allocation-failure notice already
-present in qede_tpa_rx_build_skb():
-
-	DP_NOTICE(edev,
-		  "Failed to allocate RX buffer for tpa start\n");
-
-Would wording that names the ghost descriptor make the two distinguishable
-in field logs?
-
-[ ... ]
-
-> @@ -698,8 +708,12 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
->  
->  out:
->  	tpa_info->state = QEDE_AGG_STATE_ERROR;
-> -	qede_recycle_rx_bd_ring(rxq, 1);
-> -
-> +	if (current_bd->data) {
-> +		qede_recycle_rx_bd_ring(rxq, 1);
-> +	} else {
-> +		qede_rx_bd_ring_consume(rxq);
-> +		rxq->filled_buffers--;
-> +	}
->  	return -ENOMEM;
->  }
->  
-> @@ -850,7 +864,7 @@ static void qede_tpa_start(struct qede_dev *edev,
->  					      pad, false);
->  	tpa_info->buffer.page_offset = sw_rx_data_cons->page_offset;
->  	tpa_info->buffer.mapping = sw_rx_data_cons->mapping;
-> -
-> +	tpa_info->buffer.data = sw_rx_data_cons->data;
-
-[Severity: Low]
-This one assignment appears to be the whole crash fix.  Would it be worth
-splitting it out as the Fixes: / Cc: stable patch and sending items 3 to 6
-as a separate hardening patch?
-
-Two things make the added hardening look inconsistent with itself.  If a
-descriptor with a valid mapping but NULL data really can reach the driver,
-the regular receive path still dereferences the same field unguarded:
-
-qede_build_skb()
-	buf = page_address(bd->data) + bd->page_offset;
-
-qede_rx_build_skb()
-	skb_put_data(skb, page_address(bd->data) + offset, len);
-
-and qede_tpa_start() itself hands sw_rx_data_cons to
-qede_tpa_rx_build_skb() -> qede_build_skb() just above this new assignment,
-before any validation.  Should those consumers get the same treatment, or is
-the ghost BD no longer reachable once buffer.data is restored?
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but the comment on
-struct qede_agg_info::buffer in qede.h is now stale in a way that touches
-this hunk:
-
-	/* rx_buf is a data buffer that can be placed / consumed from rx bd
-	 * chain. It has two purposes: We will preallocate the data buffer
-	 * for each aggregation when we open the interface and will place this
-	 * buffer on the rx-bd-ring when we receive TPA_START.
-	 ...
-
-There is no such preallocation any more.  The only TPA initialisation,
-qede_set_tpa_param() in qede_main.c, just does:
-
-	tpa_info->state = QEDE_AGG_STATE_NONE;
-
-and nothing allocates, unmaps or frees tpa_info->buffer.data; the real
-implementation is the copy of the current Rx consumer descriptor being
-completed here.  Since this patch makes that field live again, could the
-comment be refreshed to match?
-
->  	if (unlikely(!tpa_info->skb)) {
->  		DP_NOTICE(edev, "Failed to allocate SKB for gro\n");
->  
-> @@ -964,8 +978,24 @@ static inline void qede_tpa_cont(struct qede_dev *edev,
->  				 struct qede_rx_queue *rxq,
->  				 struct eth_fast_path_rx_tpa_cont_cqe *cqe)
->  {
-> +	struct qede_agg_info *tpa_info = &rxq->tpa_info[cqe->tpa_agg_index];
->  	int i;
->  
-> +	/* Don't process fragments if TPA start failed */
-> +	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START)) {
-> +		for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++) {
-> +			struct sw_rx_data *rx_bd = &rxq->sw_rx_ring[rxq->sw_rx_cons &
-> +								NUM_RX_BDS_MAX];
-> +				if (likely(rx_bd->data)) {
-> +					qede_recycle_rx_bd_ring(rxq, 1);
-> +				} else {
-> +					qede_rx_bd_ring_consume(rxq);
-> +					rxq->filled_buffers--;
-> +				}
-> +		}
-> +		return;
-> +	}
-> +
-
-[Severity: Low]
-The if (likely(rx_bd->data)) block carries two extra tabs relative to the
-enclosing for loop; checkpatch should flag that.
-
-Beyond the indentation, is this new loop doing anything the existing call
-did not?  With state != QEDE_AGG_STATE_START, qede_fill_frag_skb() takes its
-out: path immediately and, with this patch applied, runs exactly the same
-rx_bd->data test and recycle-or-consume sequence once per len_list entry.
-
-> @@ -991,6 +1021,22 @@ static int qede_tpa_end(struct qede_dev *edev,
->  		dma_unmap_page(rxq->dev, tpa_info->buffer.mapping,
->  			       PAGE_SIZE, rxq->data_direction);
->  
-> +	/* Drop the packet if TPA start failed */
-> +	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START || !skb)) {
-> +		/* Recycle BDs from cqe->len_list to keep ring synchronized */
-> +		for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++) {
-> +			struct sw_rx_data *rx_bd = &rxq->sw_rx_ring[rxq->sw_rx_cons &
-> +								NUM_RX_BDS_MAX];
-> +			if (likely(rx_bd->data)) {
-> +				qede_recycle_rx_bd_ring(rxq, 1);
-> +			} else {
-> +				qede_rx_bd_ring_consume(rxq);
-> +				rxq->filled_buffers--;
-> +			}
-> +		}
-> +		goto err;
-> +	}
-> +
-
-[Severity: Low]
-Same question here: the existing fill loop below already falls through to
-qede_fill_frag_skb()'s out: path when state != QEDE_AGG_STATE_START, and
-then reaches the err: label via the following check.  Is this open-coded
-copy of that behaviour needed, given it enlarges a patch marked for stable?
-
->  	for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
->  		qede_fill_frag_skb(edev, rxq, cqe->tpa_agg_index,
->  				   le16_to_cpu(cqe->len_list[i]));
+diff --git a/include/scsi/scsi_tcq.h b/include/scsi/scsi_tcq.h
+index ea7848e74d257..d62bae05d4e7d 100644
+--- a/include/scsi/scsi_tcq.h
++++ b/include/scsi/scsi_tcq.h
+@@ -29,7 +29,8 @@ static inline struct scsi_cmnd *scsi_host_find_tag(struct Scsi_Host *shost,
+ 		return NULL;
+ 
+ 	hwq = blk_mq_unique_tag_to_hwq(tag);
+-	if (hwq < shost->tag_set.nr_hw_queues) {
++	if (hwq < shost->tag_set.nr_hw_queues && shost->tag_set.tags &&
++	    shost->tag_set.tags[hwq]) {
+ 		req = blk_mq_tag_to_rq(shost->tag_set.tags[hwq],
+ 					blk_mq_unique_tag_to_tag(tag));
+ 	}
 -- 
-pw-bot: cr
+2.43.0
+
