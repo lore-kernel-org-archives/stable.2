@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCAE46D554
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 12:43:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9A946D550
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 12:44:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786711413; cv=none; b=VvgqsJSh9hJU6wj9c4/5Pz/bSdp+t1/vItwUiYiqB5DbW/OAPr0qxWaNeaBgFSxwYFDV3gqP/gS+/vjktfH/irMqmS3vHByhUpHeZBfwXGpKCJMiBfe9rnfr6dKsupyYaWJfezIUQ3HrrapTdQZepxe64SftjspWmh7lYK+UGjA=
+	t=1786711479; cv=none; b=JPptpw6JSEcLF8k1UajRVDfAZ6ZS5olhL284GxiIoyOO9QiWe+91CkzNlaGnFN6224Kq6SPzbNJM4FReY55q9DP6TDNecRpLrJLvOEzd2FZHhEIGK3TjRXcbbZJ/iAfmQngXLRj31pgp+DdZ+vAe1d7jOK+RSPSEy3BAnJ6hgSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786711413; c=relaxed/simple;
-	bh=P3rumJlFCoxww/XmhSm36HlpRMUjcKpDZh5WTMzYmqE=;
+	s=arc-20240116; t=1786711479; c=relaxed/simple;
+	bh=2lja2/By+bBSKPYecrsRVabNCNVgmboMIvZyQUei4X0=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=tGUChMTiknsBxun6xCziWnNQJ20Szno8mazsDZBJfExbUkhCs+5390pu4WKo3j8Z0hIejMJWwc0ZbUlQpWgVHEamWw6Ivw3Zn2fsFsBNGYKD6Aek0BV9SS3+FruOLquzaCc+GXs2GEvUmAiHOqxgrr0jXAnWt0skBUlw7ZdJ0Bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQLxcX9D; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=eujMev88XfkqXYXwCMbm0YUD1494UcJW6E8VvxrpI0bdqWX/dt33dkl8ZV4TbklFuB4wjTvHutCpYcYw6fcKqjzQbt5Y/h30h2XzEutpc7rR9O+zGMDq0Wk72y9wHHmdUvcT0YYof/62gvHMo4Zu+a8cIKNFQANKPO5RvC3LpVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g9/eCWcL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQLxcX9D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 248DF1F000E9;
-	Fri, 14 Aug 2026 12:43:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g9/eCWcL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDD2A1F000E9;
+	Fri, 14 Aug 2026 12:44:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786711411;
-	bh=tcqpRCUlOOOkdoKx24DFstJm3k55sKr6KeY+oCc/HI4=;
+	s=k20260515; t=1786711473;
+	bh=MJ2NMYLJwChIHfAud7MMqnzpTZUYlVp3exxp5pWq82E=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=OQLxcX9DUlgEOt6A0IxR/+9P6rIl1Z+YEBPV1WszStv0rA8cCtxpWBGfHqNUo03wf
-	 mXcakPMAUMGliCiyyyFwzKA4uMZ2KuSKi4vfv19ZVwL1/WpxoWtnEqJWICEOHVSms4
-	 Z/xRwJ5DHvPqSUhYzhZxQjpScsHo7YChPzHJBTBs2VVT1SJ6BzdhtyujtUaJcuFfEP
-	 Fbi729TYTZ6GgWKaoTR/l/0HseLq3Nc9q1jbU56He+rw7C/A/RjY2Qraild7+N3w5g
-	 B5urAPS00q2F8gPQ0g6wPvqRpB65WrjoP2OtJ7Uhzyyy55x6qIotE2Np70CxUB2hjp
-	 HZ+Jq01DjbnTg==
+	b=g9/eCWcL2PiGE/ROpGo6mO2cFhrG5WyH/2lBdKbhUmy24OZOY7yPzpT5/juygbhRt
+	 ymxvg6SlbZ+SLGWCwSbnHO2Wym2AwZ2AtbO+nP8dGA5P3nIfIcX7yDFm6up/M9fH85
+	 lpJHW1hTKiOkB8B+C1Ads4RE9+s8RLhsvmKN1Sb29wVXZiqX3OWs/mKnDV6WV9tNRp
+	 jEp2g23kUg7rqQ4QzqY0pyjc4/uSvzTTiTimduOoFzHDZectAeU1f4jN5YjM7KJIlR
+	 K69Zp3JHGTvuwW6j4+ghaqF0e6DkKqpKrbJCT8vwP8ZQwIqCiyG5Dgw0IfqWV8i3bl
+	 dhQitTaG6A6Yg==
 From: Thomas Gleixner <tglx@kernel.org>
 To: gregkh@linuxfoundation.org, keno@juliacomputing.com, keno@juliahub.com,
  mingo@kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 7.1.y, 6.18.y, 6.12.y] futex: Prevent robust futex exit race
- some more
-In-Reply-To: <2026081359-untie-chance-6812@gregkh>
-References: <2026081359-untie-chance-6812@gregkh>
-Date: Fri, 14 Aug 2026 14:43:28 +0200
-Message-ID: <877blsna8f.ffs@fw13>
+Subject: [PATCH 6.6.y, 6.1.y, 5.15.y, 5.10.y] futex: Prevent robust futex
+ exit race some more
+In-Reply-To: <2026081302-pursuant-asleep-ac62@gregkh>
+References: <2026081302-pursuant-asleep-ac62@gregkh>
+Date: Fri, 14 Aug 2026 14:44:30 +0200
+Message-ID: <874igwna6p.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -106,12 +106,12 @@ Assisted-by: ClaudeCode:claude-fable-5 tla+
 Cc: stable@vger.kernel.org
 Link: https://patch.msgid.link/20260730194705.38981-1-keno@juliacomputing.com
 ---
- kernel/futex/core.c |   91 ++++++++++++++++++++++++++++++++++------------------
- 1 file changed, 61 insertions(+), 30 deletions(-)
+ kernel/futex/core.c |   88 ++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 59 insertions(+), 29 deletions(-)
 ---
 --- a/kernel/futex/core.c
 +++ b/kernel/futex/core.c
-@@ -1027,8 +1027,11 @@ static int handle_futex_death(u32 __user
+@@ -660,8 +660,11 @@ static int handle_futex_death(u32 __user
  		return -1;
  
  	/*
@@ -125,7 +125,7 @@ Link: https://patch.msgid.link/20260730194705.38981-1-keno@juliacomputing.com
  	 *
  	 * 1. The unlock path releases the user space futex value and
  	 *    before it can execute the futex() syscall to wake up
-@@ -1037,42 +1040,70 @@ static int handle_futex_death(u32 __user
+@@ -670,41 +673,68 @@ static int handle_futex_death(u32 __user
  	 * 2. A woken up waiter is killed before it can acquire the
  	 *    futex in user space.
  	 *
@@ -208,13 +208,10 @@ Link: https://patch.msgid.link/20260730194705.38981-1-keno@juliacomputing.com
  	owner = uval & FUTEX_TID_MASK;
  
 -	if (pending_op && !pi && !owner) {
--		futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, 1,
--			   FUTEX_BITSET_MATCH_ANY);
+-		futex_wake(uaddr, 1, 1, FUTEX_BITSET_MATCH_ANY);
 +	if (owner != task_pid_vnr(curr)) {
-+		if (pending_op && !pi && (!owner || !(uval & FUTEX_WAITERS))) {
-+			futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, 1,
-+				   FUTEX_BITSET_MATCH_ANY);
-+		}
++		if (pending_op && !pi && (!owner || !(uval & FUTEX_WAITERS)))
++			futex_wake(uaddr, 1, 1, FUTEX_BITSET_MATCH_ANY);
  		return 0;
  	}
  
