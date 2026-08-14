@@ -1,111 +1,145 @@
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010068.outbound.protection.outlook.com [52.101.46.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021283AE195
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 22:05:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786745116; cv=none; b=azy0Hob+AKVCS8/0DjbwYNpy8WPslXbXFhfkir7bsgDaWMNRn7g+mio23Zmj54zPUjMgZov/2z4Il4BSXd4A8W9dWUNJQqPz1Wv/8XGh2/rz0+MWW8yjGdCccCkBSrq+iXP7/cwvZ6NMSslPUoPqgU105R4KEWtjiM5L8e6WG7E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786745116; c=relaxed/simple;
-	bh=O67pmowHWgU9F4aYcvvzY0blvwu6WfZnDRzj7fLaGd8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tKbS0WodP9Juet1xW/XmmyuYCSrYc8XDjCClopjNgne0DlXYU0l7Pd5sCtZRA5zJhOH5bhpJzouDU2ZiYFXj342LVQtDq6/NS+Daweib1WfrfAGcOZyYs3fWHCIt3sbdwQANSlNlvJNuVJcqgn8vNfiYcqSi+xMFGgbZR4ax//Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dt/JkCXe; arc=none smtp.client-ip=209.85.219.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266B43EB0E6;
+	Fri, 14 Aug 2026 22:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786745470; cv=fail; b=YHO49IC1PgjblDDs6mfpx7aqW9I5fX7AufVUtcGPhpxlFHBp5tHgY4ls9oc527e1mhHnoh2B8yZX8b3AmgKtEgaqzBrRrGX+0v9PmWRELU8c/nCt0VaxcZg+6+kCwK7Wi2s0YmvKBVbFQVQwQRUrLjMEAJxeE9N0s3N/Wg/OQic=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786745470; c=relaxed/simple;
+	bh=RMwFtw7hgheOCXrcoaIxu3thJQdkmoYR1BrsWbHHdYw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=pX+OxdyO0RrUi1jfIlwbv+LDkYM5uMMEWLDNuH5TJuWjNDrFy8UTA5Lor6G3POz2JrkEj7OzrcW6o5Hqaxniop+MXrdblAAjddE5so/POPa8z1lzIQJsubjkfYxDOMtrS8DQ2Lvk1BZ9N0SQf/KeS7ARF2EVtR0WKbGbCVz/kV8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=olUxSrIR; arc=fail smtp.client-ip=52.101.46.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dt/JkCXe"
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-8f186025973so14044416d6.0
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 15:05:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786745114; x=1787349914; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+byDgTzEgx4Gr3ZSkskCbtI+EfBHPCCCfhKahAfUKes=;
-        b=dt/JkCXeb4jMZ7ptoYn6JAe7wFpCpPmbR7hf9Q4CpOr94tcSererFirBGqS2Yqf6Ku
-         4EBcGR3B5mJMaV69RX+Y6mS+zdjHah/HWlXnu/FXjMnqgs5HAVLVVnW2PZp8Z3/ClJG3
-         4aYdgewtBZqEITYQNIHeiG5GjA+VOXFNKRj/tnJdBFLD7bZe8Mnk6Rt3hsxPFPUDEu2h
-         3BSo7GMV8nhuADwYaFHWHSObKXofwXN2Tt+fzWfHKZN+ZBj4WWakedO5giXmxaRXo/vZ
-         OV7fbRLK9IxvVPvQAJNpBncAEK1TXzMsj/aCVMz7a2iwUInbiJvE+2oIv6mrYH9CbQWV
-         4V1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786745114; x=1787349914;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+byDgTzEgx4Gr3ZSkskCbtI+EfBHPCCCfhKahAfUKes=;
-        b=gMlt/B+4lPObqg5ACKx3N52mO4FwcUU3FeldO2ZvjhFTMatXKVVMBNTkTcShH15doY
-         wfO5OUN79sA2Ec4Prff6JByCKjo0yzuJePNOygSX05hxDGzzlg19UgWfVsAPHpsT+1nB
-         C+EzS/gxYRrjO63TWvOhPQbXpBR1nBPHg+IkcChddNSY6yn00vkMB5XmfB6rRG+A1EQW
-         amku0+zxUcB7P9xKVYgvY2eD7pa/1e2Fu0b35EdDuWmwL3EsZ5NedBpmLyPLm7zb3Nxq
-         TivkkQ3EWNPtM65sCtfTluNc11vbtVO3wHjt9DuY0d8vn82Dj6W6hJdo3IidJjHhVS7v
-         wn4Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1/krPAnCg2ngDOur/2BfjbmWDnfOFpUO9GZKvmCbawVrQwiXsGl1oewMkdIiPhnaeIlVsGsg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9NwznC6FPTw1cvYuxxrKvA4U+h68VBwD/I7OddJd0eFpBFfNC
-	eRb2oNR3KDzv2GSiUoJGAmkZ9/a46gQOSwn5qPZghl9tfA/vHD1CF6uU2ADy6vIB
-X-Gm-Gg: AR+sD11ASV1Cd+6v+hgkhZnxpTahWDJ0QJ2dhogkikca1zCdjZ/VQuuuy9bpP2ajFE8
-	SCO2HOpROpLhGfboLozYqNc0Yj3UCu9L0muqEeqpBW8jqbzLtk0SiCoYRePbSiQP2Sjt4hG6VA1
-	nBm3W025BcFp7KLsn7ldnBoScqwn5fVU6HAbiFGauJZ4+1GE+n5z4mQAX8R9kQpLZ1DcFRf/p56
-	QNrnmK/9ckJyVUEQ25fYTqfpGDrvYSS4ziwA0djHWPXTzwN99z+wOT4fY8/oXjDULRmeKBa7dJL
-	LNz+eFbx/vlUKdf9udP1GiMDxA2B1Oo8BdSk0kVihjpUga4W3UtNagEpV8kVyri/DsI5MCQkLFJ
-	zVSAhTbKAyD9D19M57ZI+HLruGhY0ZNcWVjLQBAB9yi9pJxFDhRasUV2GJ99Tzjfdfl7gFJ3mCV
-	qDkqzwGR8TjvfhQNIpTJ8K+vD4m00S179slTkkwclTxkxaRbTH9vlh9QWkJ1su96n5eg0QEeM1y
-	jseEtSEs0XEAunKBw==
-X-Received: by 2002:a05:6214:428a:b0:908:951f:415 with SMTP id 6a1803df08f44-90a91d350efmr118520916d6.13.1786745113943;
-        Fri, 14 Aug 2026 15:05:13 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90a9350678esm26867806d6.26.2026.08.14.15.05.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 15:05:13 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: axboe@kernel.dk
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] block: clear ia_ranges on sysfs registration failure
-Date: Fri, 14 Aug 2026 18:04:48 -0400
-Message-ID: <20260814220448.4085032-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="olUxSrIR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EEscXBKHErOtgRB5wE+mWhgi9oKBUuYPDgTg28JiwUUjRp+ZO6879P8OuRQft4F7FnPmb0T0xh8ZA6UQds+QTZNOtvZbdKRce01gN8ZnhI+GLaYoRtzDpIWcBKWQGTc8pzYFRs1cEelU620uzUqixuzeTwS0/etYkNHGVg9t8nHZp3DweaktVv58K/hYeHr+hCU5xnMY7No9JqObG5A+DQFdpQsmE4LfW4xNW02waZkVcRf769Hf5eoBygZq3COdkgEN3sUcGxtxANAT9f9OsOSOq0KSnC8MqJs4v+hZDaIZ4r6LzLEZF5GWEWPUx5PXWle93SsaIXoPXpAT8DHjYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JwHX4Ts3uLdf6T56DrjZjdj7obPT5nCrX1tAZNkzLiQ=;
+ b=G44BfXzpRqm0rfH3nRDLaoFKQfXbFLSifk59rgfS53iSLsA8jnDZgrDyeolCiIBT4HUtpOVkC2nZujELTnr62pJn6EAyLEu2TDG7cOjxSpJYDn3rRQAtOl/eBU9VBMQ57mzeEx8cucryQU8J8FsqDn1zx++AlNlCi90qcJFSNkWpRohye/V94ya2QGP2JVmTUthXiTfd5lUIHM93rYeFI0cjc+ehU2q0BTPMJnPWSevsiZFOC61LszsSsA2I0TO20SKWjLpphTcFz6IcLrbqE6mr8PnRFsO7tFS4GyPBqDyCAMCqrae4923yqXPe4wpcoWuJO7zBy3xu/MUbkJ3TsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JwHX4Ts3uLdf6T56DrjZjdj7obPT5nCrX1tAZNkzLiQ=;
+ b=olUxSrIR3FKSw/u60ZwflcGP/sx0wwHWdS66XTBUR6YD7eDL7uT5Clm37ugzcdveudLWyKI+7eRUmKnVJ52N0mQlqIXPlwViCAOmjxadI0zXuxLP1uB4XBnQbngLdnqxh4kRLjLkPgX4YnbxLbQnOwgrqIE7wK8hoMgI7w0CFVdMqomTCzfagp4FdBiMlJSLfrWZWyaVrar8DJZgq6TWLxtjkGmNQSQWh+m22OOmrCZeXQZX81t28ytdMjLcBkyyQCh7W9uKuJnLuwObGE/+CUeh2PuHdyvwj4Na64ibKv8tKS6cbZM+uxpGU2V8zdFPviOrT9nXhnHcKLa4AuTrUg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by CH2PR12MB4232.namprd12.prod.outlook.com (2603:10b6:610:a4::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
+ 2026 22:11:05 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
+ 22:11:04 +0000
+Date: Fri, 14 Aug 2026 19:11:03 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Dmitry Malkin <dma@nebius.com>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Joerg Roedel <joro@8bytes.org>, Nicolin Chen <nicolinc@nvidia.com>,
+	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	NB-Core Team <NB-CoreTeam@nebius.com>
+Subject: Re: [RFC PATCH] iommu/arm-smmu-v3: Allow nested attach for PCI
+ bridges without vDEVICE
+Message-ID: <20260814221103.GE510472@nvidia.com>
+References: <PA1P190MB25578C482C8A3B06A4DCC6FDDBDA2@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
+ <20260814174825.GC510472@nvidia.com>
+ <PA1P190MB25573D7CFE42EF7DD2A8CDE8DBDA2@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <PA1P190MB25573D7CFE42EF7DD2A8CDE8DBDA2@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
+X-ClientProxiedBy: MN2PR18CA0026.namprd18.prod.outlook.com
+ (2603:10b6:208:23c::31) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|CH2PR12MB4232:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7afdd56f-a1f8-44aa-4d33-08defa50eec8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|22082099003|18002099003|56012099006|10067099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	VEVD+7XsUTuPiKkSw+8E3Q/4kxz+t38uWy1+XjeaaYTJiYnfoAFdW/FGwg/o+awwXQo0fndtoi0P1FDH6v+C2XW4WyK1cocnevAQTYtQHC6nnysFMWSax5XQtafyfS0O8XgZ48YE1npQJ9XgDfkjG75HN9BpxlolL5D0uO4pktskUAXyOClfCcWkoFt63RlZmiljAVV8rB7/eNKE3Q1f+grSMLYEXEbKVREmRD/itiqQkD463ayNwpDCKYpaChNPGUH0jHeUp9qXabMbB4Ietl/WdQ2jRDNyI5uLMo5yJ8kmjBHyxG9bHU5lFyHiF2IcFK4jm/rkw5mbwO0m0sipyrNlJCXB5xLwt7TnM423XxBtIHgugfDYlJfZWVr0mLcDlFoEIa7/alLAcpoLh3D1xqq7e6xSsd8ls/jW4j55+po7dFmOuiWWoOeqMR9G9ue8WeSt4zDwSwcRbfgDdugUY10UM0OrEmKvGfLXa4n9A/iFWsX+s/B8uf5uCq2KjJokF0BdLMj7OjjNJZoD/uNwIg4w65OAnIgOXA9CxvgPM94OTuwFkFXZfKdFMbDKZE9rW6q2mzC10izfm9BKsob0EE/vaw1rKwWfx51ot+dLO/KwVQZy6pWNOxnStLuBFsRmTCKVeJBfpbgJBmcTayia5nYO0R22Nk2BdwOXdaXxN3s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(22082099003)(18002099003)(56012099006)(10067099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?M89JRlzUgKQul31cjSqKyNSvna+li1xICjLZ6cg7DetDpZM6HHDmPM3Ku5QU?=
+ =?us-ascii?Q?vMdZtiILW42kx0c2aQwxtbE5wmCcoGoalxRWPvcrE0DWhbmqpSKNvcfPtwx9?=
+ =?us-ascii?Q?WNtHShA+8ymHpFOJ5M9urK3HSeYobSzZrii/k7+LcReUizyeKYzoDPqOr6vQ?=
+ =?us-ascii?Q?6Us9sDGSgko9wire6JwEByxSKJK3Gif19LMohpEfIr7WpAJVKGUWgLga/hez?=
+ =?us-ascii?Q?p99lBldO5lWBv+s50dz7cotY7wIMrlymi2RtvYoWIu5CZFBxmeEIt3NBzVhp?=
+ =?us-ascii?Q?yD3eAVaAuW35M4goq4Lbsbo8zrdVUqRGZVgeOBJjVw8hakUharQ+3dIaGXRP?=
+ =?us-ascii?Q?IQvpSvQo9KXNPTwcnPPiLoMhPtVbc6EryYPur8M8/+EJj3CRYmDAdhnRAH80?=
+ =?us-ascii?Q?L5Wy45whywFyCQ/K6wmpIlyYWK5euZjuvN69lnVJBUa89HeOJi/WmmBq0L/6?=
+ =?us-ascii?Q?X8+R3xtT2/H0Q76XQ8JwmrlblgbEB5h6T8BArk5QNFi3DSDOI010IFhjGq8M?=
+ =?us-ascii?Q?KUhUEoAjpQZyt73hrMt8X6/8CCD4B3HpgYC2MujnMoNhVGmzJkm7YTQQD/t3?=
+ =?us-ascii?Q?KKP8GcU2LYEU6Dm+8Z1+59Vv8aPefAnOXs/bBXS9yb3/HWtXrXJ0FICCplzb?=
+ =?us-ascii?Q?fubhANsNprmt5RPDaZrlItFmlp6MAAtabh/W6Adnf3bXQ9ABFJaL8fgxqc3J?=
+ =?us-ascii?Q?+5sbnUVXF/7VkWRFUxKTvpT1P62pwCVB6NgRebUFtbWhA/EqeBJgVHB3Y+CE?=
+ =?us-ascii?Q?rOnh9wMMz6mNmRj//IYB85h29Qh7qDI/pulsV0agHG6PqxYCIygYJuVnSSpk?=
+ =?us-ascii?Q?b2p72ZW9lbFQd/6u4HgBozo0Ho6efPfyFDTYa49AhNSGfQ1Uhr/oPgV/vJXy?=
+ =?us-ascii?Q?0zVqTNwYJctHtne5ftdlK1ejGsYp16ufm5QS/5nYx4kcEngbuAfTf9nkLhVA?=
+ =?us-ascii?Q?roNrzaGagrHvchiOoZkg1E99zroYKpZ0vQEObj/Uwx0tj6T0i+nvGssCmFmw?=
+ =?us-ascii?Q?Wx65ZZkfZMsgLUeIn0LT+GImiWJk4kQoPFLxCh1gX9idPG5Qlpd+15sJIrfC?=
+ =?us-ascii?Q?H1Ok/m/hky7gjTFEawdkTb7PERXyooeVSkOSMk51nkP8UVlympd2QSsHaTe9?=
+ =?us-ascii?Q?7JSh+NLsPiLz1fa6NEjuyKi9BTw8+lSdZ0u6TrfhZF1/mRrD7CGSWfQTSBVY?=
+ =?us-ascii?Q?ziO7b+igok7Zuk+YTRkvQTaNum9Dfj65c6LXmwKwKHupUU1hH6eSQz5Fp1ag?=
+ =?us-ascii?Q?FN5kLkBnDkcNdmkC0k5cIyo4dt8Uw06IhA6c1bhwIP2yX3mbdcLbBwG14rWb?=
+ =?us-ascii?Q?uESkyk2MOHEmVGB0SD7z90qQmowTqGDnIf1GrKNiqZrA6t57FF48qVmCL2JA?=
+ =?us-ascii?Q?j1rN8sHm5a/OwHZI7axBpLS1RsAQ+9H87hhqQD8+uknd1bFwyID/L4kWaY4B?=
+ =?us-ascii?Q?gZUYVUi1VZL+bEKLZggBi2oAJLXrvXfwpdjpyQ8i9rFTyJTib5Z7oN6nDZlW?=
+ =?us-ascii?Q?gXOa2romdS2MlZTCXs5Z4Z7DOZ5UwrM80oWtwBpNsSnPXX3GSPVJDHZJkGpD?=
+ =?us-ascii?Q?C/KYiXBl3yQ3OY6VO1JXt+PKBt8ruQt/tITqLNtxjfCCL4isfXjZKg0NsGVy?=
+ =?us-ascii?Q?qPwH2PRrwFl5eYvdsCDXU2hvX7KXCrsjhj0SHkqj1/ws2u5YiKmYDH1xQSE0?=
+ =?us-ascii?Q?mr7lmAHUYXm/pBOXwmkW60Ut5g3lKhiqhprCFHlyC7w7wa1lYh8hnQQPK2KT?=
+ =?us-ascii?Q?MG2s7UtVhA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7afdd56f-a1f8-44aa-4d33-08defa50eec8
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 22:11:04.5514
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KaBw8o2/goyb1kwIouhbrp14yafF9nUJVB14Q6f2PB6y2l68WL8Sd45bMQs31sll
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4232
 
-disk_register_independent_access_ranges() clears disk->ia_ranges when
-creating the top-level kobject fails. However, if adding one of the range
-kobjects fails, the cleanup drops the final reference to iars and frees it
-while disk->ia_ranges still points at it.
+On Fri, Aug 14, 2026 at 06:56:05PM +0000, Dmitry Malkin wrote:
+> Hi Jason,
+> 
+> > If viommu should support multi-device groups, I'm not sure. I want to
+> > know why you even have multi-device groups in the first place because
+> > that is not normal at all.
+> 
+> That is because of the 'pci=config_acs' kernel command-line
+> parameter. This causes the kernel to create a single IOMMU group
+> containing multiple PCIe devices, including the bridge (PCIe Root
+> Port).
 
-A concurrent disk revalidation can wait for q->sysfs_lock and then call
-disk_unregister_independent_access_ranges(), which dereferences the stale
-pointer after registration releases the mutex.
+Don't use it that way?
 
-Clear disk->ia_ranges before dropping the kobject references on the child
-registration error path, matching the top-level error handling.
+If this is an nvidia system you should talk to your support team.
 
-Fixes: a2247f19ee1c ("block: Add independent access ranges support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- block/blk-ia-ranges.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/block/blk-ia-ranges.c b/block/blk-ia-ranges.c
-index 7be8b58893c9..2430e475a8e7 100644
---- a/block/blk-ia-ranges.c
-+++ b/block/blk-ia-ranges.c
-@@ -135,6 +135,7 @@ int disk_register_independent_access_ranges(struct gendisk *disk)
- 					   &blk_ia_range_ktype, &iars->kobj,
- 					   "%d", i);
- 		if (ret) {
-+			disk->ia_ranges = NULL;
- 			while (--i >= 0)
- 				kobject_del(&iars->ia_range[i].kobj);
- 			kobject_del(&iars->kobj);
--- 
-2.43.0
-
+Jason
