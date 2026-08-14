@@ -1,227 +1,122 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+Received: from mta1.migadu.com (out-83.mta1.migadu.com [95.215.58.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C83330668
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 22:00:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786744833; cv=pass; b=scQVwNMTANPfsJFHZMV3ZwkIRbjum+758hvSZkWGg0U5SWlKv2YwKeWxJUmMFscwUobG2L3sBIajFLEIWdiI4NUjYIy+QALoSXkn2ZRR4eRmnpwdOzwsxJ9Ii4YpkdVFH9YIpzDUaM32KsZjDvB8wDtzh3scJIr4jP+OCDQQGiQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786744833; c=relaxed/simple;
-	bh=6mne82aAJHtUr30KWi7im0zCitkiQ9PmVr7Igj1yZn4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jSb4JoaPhI6Qrsq+EixIB69pJaP8hVo7SEbqVZTyUb6EPISo74zqG5Iaw89IXFjZwIIUbWLMbh7PHSIrKZsF+9BTc1d6KBpUAHSWgAqpS7GpqaMbju6zHQVS122JsvFnbL0XPAEFvNf2dvI3hXfVaxXei46VTL5coGboqYnjUFk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WF3cKRS9; arc=pass smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A687364925
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 22:03:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.83
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786744996; cv=none; b=jE5yF+E84CnBZRo2k7vW0G3tt8l+dcDwMPYjiNTZt4VrokxV2Z3Ur9MLRo1K/Ww0BXd6Pl3AJbPgvJ7y2atLC7M53f2xyrbIEhWEh0DE22HED63DGxD6jh2bSyE7vgViGjgfxCOc6t0PitFoNVDxxUkM5Fv+9S0TZxUMTAgUt0Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786744996; c=relaxed/simple;
+	bh=A0pwEcUmFnhmuPem67TBlaGWjijsG5HTlcmdOV+G4qc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oFlZC29x7j7Lna+hChVw6t56boLfDnnl1HTM46pNV0hAPPr7UBD7KCV8LLk/DP+M/cR0FMcnuc7bWzK9ou+pDl206xDrtPvIOSuAX+aEoC3VXKX1UdpazWLhwXaAao7utJXvW5c6sl8sgZWQp4U5emy3cXbO2z7nBw76ZGRD1iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jZR1urit; arc=none smtp.client-ip=95.215.58.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WF3cKRS9"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-8f186025973so14017466d6.0
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 15:00:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786744831; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g1AIe2ZFEU53ypyQN1c8H2udjzm8CcBCTA968vFdEDM2E9/UpSiqtyVjwof1yWbR/i
-         uciO1ELIRkbxFNcUJmHT+ep6bDCZUcefr8FwCy7C/2a2bzlXbdMgl5fBYboIXOWkLbs0
-         UVaiH3oAX6iGmKzvjE70MizeSrG6IzPOLe3cZ6P2gtxzYvx0YU1epZ78T98/kcwQnvvA
-         4jqYHPUJ7opS937uiSS/+MhDO6qtDTbX+QzdcRq+NKwSL0TaRGU5Cd+6M6/uRYzxIbq8
-         FVdry2F04zW+OAcHCPDnlf+9wYQilDqhwaX5q8F6xmpCe/OJzzZJxXJ3uUBox7R3mllT
-         g8Ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oODB2AjBhLLjzDgKnazTq3JE4KieXBOg7eMpYzfqPKc=;
-        fh=d2xuWbG+OIDqGABa/K9lafVkRlVR5s6pip0/gbKp34U=;
-        b=mcO1dwUJ8vOS7E1mBm84alCBqthjB4/3cArIb8b/NJFqO2iWF3udhZK0cR8G/0lyYB
-         /RMJjlRElucWdpq2HEBTs9L2wJ9acpuYoRVqVtlSeTEzMM+rzot3U2dH481q8FdPvDXG
-         D87ouU3KXGsfC848ixgg8B2naneOKdWGeykCKtgUPZp9VUaHncG+azSTQU/6HxKeT6BO
-         bxFvj1H4IttLJJeIEar4H0zzYG9DZQcBzIbWkEt39nFpiYyHbivIFGrKYBga2qHtrYuJ
-         QuEPDxZyyupwEvJ+qY2zjfXndf4A6qjcNrgdxCN/jYfdoxCU2JkzvkEuNRalMwmkJH4u
-         SYTg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786744831; x=1787349631; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oODB2AjBhLLjzDgKnazTq3JE4KieXBOg7eMpYzfqPKc=;
-        b=WF3cKRS9CScoS4WnQ1cRBD+HZY9urIpF/Msg9sc70Nj0zfYln7Jy8doXjp8e9IPOS4
-         KfezoHDq9kQ7JT7k8ruX/7nElJ0+jl8e8nrEssfwKRx7alHVbHn6EAFKG+F/pyLr7Itq
-         4ljUD0ce3vpnQ8epxZrjlidYn4aW8TSUEWgLA4SKgdqbyj/LagP4hyw4Y/9RRDfEKLUO
-         CVZRxcyHkth9KwdXMLW73JBrHCs+1Vn1HjY9V3PiOnFChxiyY5L7RE/4PwLJ3fSbWChA
-         c/kesoi3WzSY7llFMsakqox0CxhS1pibms8BbHkNWgN41ILLJ55Gf4X4H12ih3KnEERO
-         zEag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786744831; x=1787349631;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oODB2AjBhLLjzDgKnazTq3JE4KieXBOg7eMpYzfqPKc=;
-        b=O8hOejtxk7F2i1zwNdUPWpPLaKR3XWjZPtpa3eIE9tSbi3EKPmsJNW/Gi/jYXEBsi9
-         uusC7yJBlyza3jaUhKeniFqyPO5INDuMpb30QcA1aZ1jDhAIlfkQRmvlBCBFKE6+h6X0
-         SbxqkniVGghSUIpiZ7Tm11SF6SdVHOORDDs648iJOtaND8d8qjc6LRHfZwnQCX921p3+
-         m0fkXcD3oOkNq7/6XV6oNeF3bz6x/K9zC4LzgMS6aihWqt2il+pkYB04wHIft4iA/lVm
-         ICvRHhLHzJUKPeck+HKaQhdi0owKqiigAkG9OJdzMRaHYtz5+8KfIVe7wAe8ucAkCLpH
-         lohg==
-X-Forwarded-Encrypted: i=1; AHgh+RodkUY3iJEgEtXBhypde80VTZy0oDbDgJ7nRtyxEmOIEscScnIp1ProDJ0DveCYt1SP3PxMVgw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyjVRg4YSTq7mxsAjE/jvCBkqcEPYAkGBM0Sk1xwIVwhlYYbQeq
-	VNtyY7mgkZ4HspdQTp5htteqZdeNhml1+iR/QgfuoVrUwZ9vdgaag4rNCPGC13uXyNoxoo3rIf2
-	RFk/Czj82pq5Y+i4QxTGeARU/4K6f3OU=
-X-Gm-Gg: AR+sD12CRFIxAYrEelday7X871obWYrEdiqLBJ/6AsaXdMFx5gvY+tZIoNUqtQvetts
-	kc1CHFmMdMHZV+O+e421wOyzTioNW+DgQ3YNZivsPSvi4rfdBcKzeUDqPUqOeSpqJ5H9thVr1co
-	j+XcmE3yMBqMzKbQXXEoZRtA2k4lPswVfe2cG6MXgMxvFq5CpbfzfDCHCMFcyi1XyJ2ClOaxESI
-	hdtl0Nam4g1MTfWgADhEuSdthz//sKA+fDcoQZAY3nHM95bStJgClLODbew53nsGqE6nTXJPuvo
-	oeobMc6F6sVnz0xgS/u3INHrJOvDaQzjo9ThB0gNcDlb
-X-Received: by 2002:a05:6214:2c08:b0:8f2:940e:2423 with SMTP id
- 6a1803df08f44-90a91d1a557mr123266366d6.11.1786744830628; Fri, 14 Aug 2026
- 15:00:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jZR1urit"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=A0pwEcUmFnhmuPem67TBlaGWjijsG5HTlcmdOV+G4qc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786744992; v=1; x=1787349792;
+ b=jZR1urituhqXzOatHUBDlIrBw2HckGoArqLBI+MOI2Vy6OpkayYFw/QjR6jiHM1CgiBW12jW
+ cFaSVRUzVAVVlzWf10aaWMo/FjLWzewfKUpmu31Xioy32CLUx6iSoota/lwa1E5uyX2CJTNO1Qe
+ Py+ggLDBiyX+1nkvSD3D7MIs=
+X-Envelope-To: stable@vger.kernel.org
+Received: from gvineet-fedora-PF5JGVFY.thefacebook.com (2620:10d:c090:500::6:7be4)
+	by smtp.migadu.com with ESMTPS id 05e17389428761e9;
+	Fri, 14 Aug 2026 22:03:12 +0000
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	x86@kernel.org,
+	stable@vger.kernel.org,
+	Vineet Gupta <vineet.gupta@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>
+Subject: [PATCH bpf v3 1/2] bpf, x86: Fix per-CPU address resolution into an extended register
+Date: Fri, 14 Aug 2026 15:02:53 -0700
+Message-ID: <20260814220254.3797467-2-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260814220254.3797467-1-vineet.gupta@linux.dev>
+References: <20260814220254.3797467-1-vineet.gupta@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260713075110.92469-1-security@auditcode.ai> <20260713093414.94337-1-security@auditcode.ai>
- <36s07n6o-3n6p-p438-6qq7-921r98171q40@xreary.bet>
-In-Reply-To: <36s07n6o-3n6p-p438-6qq7-921r98171q40@xreary.bet>
-From: Jason Gerecke <killertofu@gmail.com>
-Date: Fri, 14 Aug 2026 15:00:18 -0700
-X-Gm-Features: AcwNN1VyQkANU9yxbEMoFSqZ9QhxR0gDHgX6WoklB1oekCay5Qss2SGog6-7A10
-Message-ID: <CANRwn3SJawDyXOgvWg69mLZspQemMnFNxSDa3OdpTOzzf89ddQ@mail.gmail.com>
-Subject: Re: [PATCH v2] HID: wacom: validate report length in wacom_intuos_pro2_bt_irq
-To: Jiri Kosina <jikos@kernel.org>
-Cc: Ibrahim Hashimov <security@auditcode.ai>, ping.cheng@wacom.com, jason.gerecke@wacom.com, 
-	bentiss@kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 5:24=E2=80=AFAM Jiri Kosina <jikos@kernel.org> wrot=
-e:
->
-> Ping, Jason, could you please Ack this one? Looks good to me, but I alway=
-s
-> prefer to have an Ack from one of you on the Wacom HID driver.
->
+The destination of the per-CPU address MOV is encoded in ModRM.reg,
+which is extended by REX.R, but the REX prefix is built with
+add_1mod(), which sets REX.B. REX.B extends ModRM.rm and SIB.base, and
+this instruction addresses memory as disp32 with no base, so the bit
+has no effect at all and the high register bit is simply lost.
 
-LGTM. I suspect there are plenty more similar cases that need
-cleaning, but this is a straightforward improvement.
+Every is_ereg() destination therefore resolves to the wrong register,
+picking whichever one shares the low three bits:
 
-Acked-by: Jason Gerecke <jason.gerecke@wacom.com>
+  R5 -> RAX    R7 -> RBP    R8 -> RSI    R9 -> RDI
 
-Jason (she/they)
+With BPF_REG_5, whose reg2hex is 0, the emitted
+
+  65 49 03 04 25 <off>	add %gs:<off>,%rax
+
+adds the per-CPU offset to RAX rather than R8. The destination keeps
+the unadjusted address and RAX is clobbered, so the program goes on to
+dereference a pointer that was never made per-CPU:
+
+  BUG: unable to handle page fault for address: 0000607e386a8894
+  RIP: bpf_prog_707837aafd2aa9ae_update_percpu_data+0x93/0xc9
+  Call Trace:
+   __bpf_prog_test_run_raw_tp+0x2dc/0x7d0
+   __flush_smp_call_function_queue+0x1e9/0xc80
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+R5 is the mildest of the four, aliasing a scratch register and faulting
+at the store. R7 aliases RBP and would corrupt the frame pointer, R8
+and R9 alias the argument registers.
+
+Use add_2mod() so the register goes through REX.R, matching how
+add_2reg() places it in ModRM.reg and how emit_priv_frame_ptr()
+hardcodes 0x4c for the same instruction with R9. Encodings for the
+non-extended registers are unchanged.
+
+Problem showed up when trying to resurrect BPF_GCC CI (selftests built
+with BPF_GCC).
+
+This has gone unnoticed because clang reloads the address into R1
+before each per-CPU access, so the destination is never an extended
+register. GCC keeps several per-CPU addresses live at once, and
+test_progs-bpf_gcc panics the kernel in global_percpu_data/init, where
+the address of a .percpu variable ends up in R5.
+
+Fixes: 7bdbf7446305 ("bpf: add special internal-only MOV instruction to resolve per-CPU addrs")
+Cc: stable@vger.kernel.org
+Reviewed-by: Eduard Zingerman <eddyz87@gmail.com>
+Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 ---
-Now instead of four in the eights place /
-you=E2=80=99ve got three, =E2=80=98Cause you added one  /
-(That is to say, eight) to the two,     /
-But you can=E2=80=99t take seven from three,    /
-So you look at the sixty-fours....
+ arch/x86/net/bpf_jit_comp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Thanks,
->
-> --
-> Jiri Kosina
-> SUSE Labs
->
-> On Mon, 13 Jul 2026, Ibrahim Hashimov wrote:
->
-> > wacom_intuos_pro2_bt_irq() receives the wire report length in `len`
-> > but never consults it before parsing. After the report-id gate it
-> > unconditionally calls wacom_intuos_pro2_bt_pen() and then, selected by
-> > features.type, a fixed chain of sub-parsers, none of which receive
-> > `len`:
-> >
-> >       wacom_intuos_pro2_bt_pen(wacom);
-> >       if (type =3D=3D INTUOSP2_BT || type =3D=3D INTUOSP2S_BT) {
-> >               wacom_intuos_pro2_bt_touch(wacom);
-> >               wacom_intuos_pro2_bt_pad(wacom);
-> >               wacom_intuos_pro2_bt_battery(wacom);
-> >       } else {
-> >               wacom_intuos_gen3_bt_pad(wacom);
-> >               wacom_intuos_gen3_bt_battery(wacom);
-> >       }
-> >
-> > Each sub-parser dereferences wacom->data at fixed offsets. The furthest
-> > byte touched on each branch is:
-> >
-> >   INTUOSP2_BT / INTUOSP2S_BT: wacom_intuos_pro2_bt_pad() reads data[285=
-]
-> >       (the touchring byte), so the report must be at least 286 bytes;
-> >   INTUOSHT3_BT ("gen3"): wacom_intuos_gen3_bt_battery() reads data[45],
-> >       so the report must be at least 46 bytes.
-> >
-> > features.type is selected from the VID/PID id_table entry and
-> > wacom_setup_device_quirks() force-registers the pen/pad/touch inputs
-> > for that type independent of the report descriptor, so a malicious or
-> > malfunctioning paired/spoofed Bluetooth peripheral can advertise that
-> > VID/PID and send an undersized report that still satisfies the
-> > data[0] =3D=3D 0x80/0x81 gate. The driver then reads past the received
-> > report and forwards the bytes to userspace via evdev (MSC_SERIAL /
-> > ABS_MISC / ABS_WHEEL on the pen and pad input nodes), an out-of-bounds
-> > read with a concrete userspace read-back channel, and a true
-> > out-of-bounds read on transports whose backing buffer is sized to the
-> > (small) report descriptor rather than a fixed-size staging buffer.
-> >
-> > This is the same class of bug commit 2f1763f62909 ("HID: wacom: fix
-> > out-of-bounds read in wacom_intuos_bt_irq") already hardened in the
-> > sibling wacom_intuos_bt_irq(), which guards each report id against its
-> > minimum length before parsing.
-> >
-> > Guard wacom_intuos_pro2_bt_irq() the same way: before parsing, reject
-> > reports shorter than the furthest offset the selected branch actually
-> > dereferences, warn, and bail out. Because the whole pen/touch/pad/
-> > battery chain runs unconditionally per branch, a single up-front check
-> > against the maximum offset (286 bytes for INTUOSP2_BT/INTUOSP2S_BT,
-> > 46 bytes for the gen3 branch) bounds every sub-parser. Returning 0 on
-> > a short report also skips those calls for the same malformed report,
-> > which is the safe, conservative behavior.
-> >
-> > Fixes: 4922cd26f03c ("HID: wacom: Support 2nd-gen Intuos Pro's Bluetoot=
-h classic interface")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> > Assisted-by: AuditCode-AI:2026.07
-> > ---
-> > v2: the v1 check (len < 109 / len < 43) only bounded
-> >     wacom_intuos_pro2_bt_pen(). As sashiko-bot pointed out, the
-> >     unconditional touch/pad/battery calls read much further --
-> >     wacom_intuos_pro2_bt_pad() up to data[285] and
-> >     wacom_intuos_gen3_bt_battery() up to data[45] -- so a report in the
-> >     gap (109..285 / 43..45) passed the guard yet still over-read. Raise
-> >     the minimums to the furthest offset each branch dereferences
-> >     (286 / 46) so the guard actually bounds the whole call chain.
-> >
-> >  drivers/hid/wacom_wac.c | 13 +++++++++++++
-> >  1 file changed, 13 insertions(+)
-> >
-> > diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-> > index da1f0ea85625..89a191cf1924 100644
-> > --- a/drivers/hid/wacom_wac.c
-> > +++ b/drivers/hid/wacom_wac.c
-> > @@ -1548,6 +1548,19 @@ static int wacom_intuos_pro2_bt_irq(struct wacom=
-_wac *wacom, size_t len)
-> >               return 0;
-> >       }
-> >
-> > +     if (wacom->features.type =3D=3D INTUOSP2_BT ||
-> > +         wacom->features.type =3D=3D INTUOSP2S_BT) {
-> > +             if (len < 286) {
-> > +                     dev_warn(wacom->pen_input->dev.parent,
-> > +                              "Pro2 BT report too short: %zu bytes\n",=
- len);
-> > +                     return 0;
-> > +             }
-> > +     } else if (len < 46) {
-> > +             dev_warn(wacom->pen_input->dev.parent,
-> > +                      "Pro2 BT report too short: %zu bytes\n", len);
-> > +             return 0;
-> > +     }
-> > +
-> >       wacom_intuos_pro2_bt_pen(wacom);
-> >       if (wacom->features.type =3D=3D INTUOSP2_BT ||
-> >           wacom->features.type =3D=3D INTUOSP2S_BT) {
-> > --
-> > 2.50.1 (Apple Git-155)
-> >
->
+diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
+index d920772af7d5..1a9fb530adc3 100644
+--- a/arch/x86/net/bpf_jit_comp.c
++++ b/arch/x86/net/bpf_jit_comp.c
+@@ -1935,7 +1935,7 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
+ 				EMIT_mov(dst_reg, src_reg);
+ #ifdef CONFIG_SMP
+ 				/* add <dst>, gs:[<off>] */
+-				EMIT2(0x65, add_1mod(0x48, dst_reg));
++				EMIT2(0x65, add_2mod(0x48, 0, dst_reg));
+ 				EMIT3(0x03, add_2reg(0x04, 0, dst_reg), 0x25);
+ 				EMIT((u32)(unsigned long)&this_cpu_off, 4);
+ #endif
+-- 
+2.53.0-Meta
+
