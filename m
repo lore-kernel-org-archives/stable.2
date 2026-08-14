@@ -1,24 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359403C13E3
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 14:27:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D88E30146C
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 14:27:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786717641; cv=none; b=BtlSnhY/4PNIBlopp41yIvK9+ORhb0FXuSKGjprFfrWLM4K1IJ9J60DhUqdgBop/5jKPWkbo/RALubKF2vti8Zi+RvmQ9yc3jTavaufEnewku2D2yMQaX8hPT8L4gBsoLRfQxzHU39WBwR+dKMbdBygK0sm3u1q6vxajZ1sqyoI=
+	t=1786717649; cv=none; b=FpD5h46vcp6H+RbXXaPl0qwCBUTGV5zD6nVMsMuiasPIkohFZIJHzvJo+lc7o5MN5r2Ove69XZJ63+IY4OOy9cwmzv0sLt0EeCvAcL3OvYFLbiVzCWZKo+jeV2OCmLsr6jsI8Mp8WxjukAqThew/5/Ec6jzOZMwvKdGfVbaQmJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786717641; c=relaxed/simple;
-	bh=AOjoAp7yLVB0ssGnHIz4GBJpR541LFfxz7h6yLOwBrI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dTKPmzsQUZBnT1cL6LuJpk08EqORUgPtnF/q8/zDRKxYUGk3M8Po/tZ/9gRfHfjD3F6E1c3fnL6S0W32cJf3hVvBC3HXvv9g2w7V+BgXejiFrcQnY80jvNO4cQq/ZVlVxUG5K3Mnk0jDu4WAM4db1T3R796yt2YKS1iJB6+Xr9g=
+	s=arc-20240116; t=1786717649; c=relaxed/simple;
+	bh=/D4mPlnSZr/MWIvQVqgi4ngis/FWZQY9Dr6KVd8LfYw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ogymc2XJ9pJaqRSoVWv67J4LvJzWNj9WHGlszz72OEh/fnKPcPdWonZmlb2ig9qxS+KGoj+Zbi/7F7ZLLbfXYQljRoK9PJLQioPqpGUhz+KMQHpVp/Emhggg7hfe9q8ukTSTsrKYOyRlAZAGiaCPCDEl5w3jqWJMRhYDaxksdNs=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABFE61F000E9;
-	Fri, 14 Aug 2026 14:27:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEA171F00AC4;
+	Fri, 14 Aug 2026 14:27:20 +0000 (UTC)
 From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
 To: stable@vger.kernel.org
 Cc: claudiu.beznea@tuxon.dev
 Subject: [PATCH] pinctrl: renesas: rzg2l: Use -ENOTSUPP instead of -EOPNOTSUPP
-Date: Fri, 14 Aug 2026 17:27:10 +0300
-Message-ID: <20260814142710.2949231-1-claudiu.beznea+renesas@tuxon.dev>
+Date: Fri, 14 Aug 2026 17:27:18 +0300
+Message-ID: <20260814142719.2949254-1-claudiu.beznea+renesas@tuxon.dev>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -55,17 +55,17 @@ Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
 Link: https://patch.msgid.link/20260515124008.2947838-2-claudiu.beznea@kernel.org
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 [claudiu.beznea: fixed conflict by dropping the code not present in
- v6.1 stable]
+ v6.6 stable]
 Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 ---
  drivers/pinctrl/renesas/pinctrl-rzg2l.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-index 1304ab0bcac1..85bcc9bbe677 100644
+index ac629c72d592..b713cc8e0fde 100644
 --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
 +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-@@ -708,7 +708,7 @@ static int rzg2l_pinctrl_pinconf_set(struct pinctrl_dev *pctldev,
+@@ -710,7 +710,7 @@ static int rzg2l_pinctrl_pinconf_set(struct pinctrl_dev *pctldev,
  		}
  
  		default:
@@ -74,7 +74,7 @@ index 1304ab0bcac1..85bcc9bbe677 100644
  		}
  	}
  
-@@ -757,7 +757,7 @@ static int rzg2l_pinctrl_pinconf_group_get(struct pinctrl_dev *pctldev,
+@@ -759,7 +759,7 @@ static int rzg2l_pinctrl_pinconf_group_get(struct pinctrl_dev *pctldev,
  
  		/* Check config matching between to pin  */
  		if (i && prev_config != *config)
