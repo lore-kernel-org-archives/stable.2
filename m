@@ -1,77 +1,84 @@
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A89847125B
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 16:10:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A2E429CD9
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 16:26:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786723806; cv=none; b=JeeZSaLWPg54Y4CPuMCVQrX3zqpMVZdzbNLZTN6nwP74bUGn8bMmO63waJ1jEZytEtm6vcCzQ2hjPUv8Mr8b8rfJC4cIDYnj5WmM6w9vWu8e46yii51aRBpyUpkV0hfaam1YGRU7GSoZba0A8O/vgUesASrdaMUhS9WoPPyvVZA=
+	t=1786724787; cv=none; b=dvrfB7fljmY1d7EUnkOqlFR+5QAG/Q80uzlk41DlBXmAAr+UFo6RLDODBnGx/UvWO1/r71jaRF2vp6P6QARtUSYcWm32o3r8hut5RGSh10k+zfweCAGSiWvyE7hh7zEGF8whWz9QMALHpwBCAfl9uIJWU7RG49gJA3ssBHEzGPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786723806; c=relaxed/simple;
-	bh=ed9wtRmkoP7Wdhmi/WVgPoAqFaryqSGPXBlc+TkS3Uo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sxc7T9ivBpvMogr3cS2uzCBSxZsbazQeTlmU/DP0rHoTCd2XVSAqwsYfGiw1Tf3HeH9E0xFVK98SsdPLS/FcTzuR12/2KvwrILWwM9I33q0Ng5rPKU1Vk+ddUY0220o4u6CI4EMB0vCIUhcuRZ/c3rKCmDhYx5NqQY8VcswYSF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JbEAjc8P; arc=none smtp.client-ip=209.85.128.173
+	s=arc-20240116; t=1786724787; c=relaxed/simple;
+	bh=Ud2n/hmwzLtK4efyOOGTQKvorxABAOfcIwF+JM/Wplk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=iJkeksSy5/+a7oId/npdXEt4BYQcx1sqiJl9fx+5PRC0mlujFr8s/X2vMidTChst1v1p+Nwc5XwpUhwld7uZ2+SH7YATOFqT+4SXbI0bHwhDJW/S+5Iv4AeXeIP5WS5TF5y32facHNBORfja1YyRjCIMKKVh11r8s78Vc5GnztQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AY/d+aLz; arc=none smtp.client-ip=209.85.210.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JbEAjc8P"
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-836d2861a39so14116637b3.2
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 09:10:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AY/d+aLz"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84862b0d5f8so979738b3a.3
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 09:26:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786723800; x=1787328600; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yxq818myupXhtwcrZIn4DVpAwIlvbEBii869YtzAJT8=;
-        b=JbEAjc8PzCCLWVHjL+l2Ag8GVALJVKjRlUkr7At05fKWnZ3JnM9rk5cqip/vo+qWcG
-         yMc2dQfgcVb3Qv7pJ9ra2VxpsYgBFEJutMGqO+qhqC0pvW1mwIJNmUrfo2qfZkyB33bk
-         waU4VoB6ETRLKhRJ93/z+EvDBQmuvF7y1TIXQzB1CsPejqxVzCscgiYdJLqeVjnW5Du3
-         EPZyZQKu/K1Nej1wXEDi0kBnDteNBf5/ZBPcnBWHSTLOKkRPI8htnuExEoWozmdmiO+B
-         Q6aAA6KgX1FcwHjgELLxIPqTk5Alg1kuTkRjbHpehVRDLwkXt3B6NhVMQbJfN0Q1AAU+
-         uMiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786723800; x=1787328600;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1786724785; x=1787329585; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yxq818myupXhtwcrZIn4DVpAwIlvbEBii869YtzAJT8=;
-        b=hHMrbIWtLxTnehkZY9KP2sluqkj8s3tSYbKhS/te98QWH821D9m833I0eXK/5AC5UT
-         UKpLoKpirhQCObnf6ByoGg+q7PRhfx8IkU0tGKo8EQNFU8tGB9beIGVDaEHlkIqhZCgD
-         jBJmb7/q5VnR8xxiZn3bIRWDhgTakIXMchxWnEStv8egc7s773jW/Nrrei9xYH5fnEeF
-         281EEMuh8GalqAj9WYhmZYyi+4iij/d8RX7GLIM8V4H36fiNdzS8cfCPGfkG8SviNOgq
-         I/Uc/IyO/avVRUuar+kJTFV9UfP1eIjL2mtSvFW/ACvLYr99tTSg9wyaMvw7GG7sY6vM
-         ve6A==
-X-Forwarded-Encrypted: i=1; AHgh+RquCETYvVE0V4/7lVQ3qhWjGWX/5OYg2vw9rxqaf13ezhLyE7zh9DUs7Yezum0JbmufqVhO+zU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyd1bRYUhcOSTuo4+0DQrvwmh+lfzfnUUhPppq6TZ5T4hB+xj7u
-	wWQCbOwJeUHIvDWbgX4dvdqGKQtXUPcR+OOLjnzUur2DmtVgqd3lZeZh
-X-Gm-Gg: AR+sD10DsdPQIMzmyMHty9AAc3+aFfzgLXtSJGAuwnp3cwqVaAItvzKi6Fz2GmdZQys
-	o7yxNbpbktg4HFtwFHvstp/RC/u6m/LVAL5t+oU46odKU8CoOnCz85TNzMp9bFd3CIYzYI3C2VM
-	pLlLSjKePhg2KkElp8rnH7Sb4ILAjsKfZw35lMPsHNoyJRS0Xzy6D5YDqA+qHTwck0/0rHDjLhz
-	zBCp8ec9yYtk8vy24XLjcF6TqHgsrSSX3EBFjKhBBaCLu9YHE02ur8AavXSrMb6x5witku/Okg9
-	WboQbqw4g/djMXPzbzxjfq/FfzrNlQjUX6z+z5VA7AnYSmI3C/fTSV4nvkpnM21A+eZH4iPXkJN
-	bZTdQ3eZec0TN6CZUUFMS1hdQ2ELSX2fyfbX8MhYZ1QAvgzVPm+4LQOxL0nij/DbP5XTF7DpXBP
-	dS9lYqUQMpgwzWAPCMvv/2KCTzYF4avazKoymjK3EeBZpOPIADmxtF0UdJtneV3DQh4RaxiJDsk
-	gEXbpZP9gDk7uwRIA==
-X-Received: by 2002:a05:690c:6310:b0:7cf:d242:d94a with SMTP id 00721157ae682-8371431484fmr27885107b3.25.1786723800495;
-        Fri, 14 Aug 2026 09:10:00 -0700 (PDT)
-Received: from syssplab.cs.fiu.edu (nat1.cs.fiu.edu. [131.94.134.89])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-836c261a59csm15358717b3.36.2026.08.14.09.09.59
+        bh=y8L9gAWKHdFbBHmHBP3V1LTHp9D98CyhXqgwBwp5N0U=;
+        b=AY/d+aLze/Kbu7l3z4N5k/V86Xm5JOJ11VOte55XVgKsVdtzxVI4sZVs5I3R02rJKg
+         x5Io0hvpt7/RxDCBzArrRggx869aM3jQJv5bN415ZM/+toC0L1MFIc23co5Qy6h/YoAv
+         jin57IzuMYx+k7SuUf+Q9/VgxPHcrWU1i+eqLZPEPsKCgkoe2wFTEQHcA6yRyzCGeQpw
+         4Y9Rt1qwq3VBCDZPr+w8cdFUtPCsRBL8i4W5BUfkb2Ch7VZEpYA6XQM7H4fdGMt8pcoM
+         ilLaCyY3q2JJq8YVAbnjyQFuzLWd2a4FuineRh0B7jxToAAUJNcUDH03toyx3abeBoE5
+         zvfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786724785; x=1787329585;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y8L9gAWKHdFbBHmHBP3V1LTHp9D98CyhXqgwBwp5N0U=;
+        b=P85RqhYU+M6JouQEUrBg0huAIA2nvSEEJbxU69Wb6Pq1or+Xvoj9xtLAoVmK6tQn/f
+         Dw9NKnnCiJ0dHmmaJI65EfdZys2kccX500Zj7BF8+3LT8ZYDtyvdbDmKDAgvAywAjveA
+         4wsnVVy9cSYAJXGLVIYJWo7dgsHUI0dilAXGlgWzR76Yy++AWcdZ/eRVN+HHbgZVWOBe
+         IgPU2d4VCtPCkLGXbEQNHkdOdBaN+dem/iFkY/A9eELWFYCXBH41FsWFU2IVUzmT0NjE
+         v1UuhTRjcWue7bWHwS7IRsWgjxS+jqEgaVpUduG/8Y5qMIt7EF/LqpUWm4R0nrVn/WgN
+         DRUQ==
+X-Forwarded-Encrypted: i=1; AHgh+RokQqDlaOSZ0zJz4u0IlsdpxEnqO5EcuBzbxuWSYO4IFQTEozRREWOHAn/jORKRyhJRVpJXSek=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEw359nawaHpvwji1kuSTV+29wmckprT60Cxma+0+q5k5rXNyM
+	EyM3cx+vTK5fuI5R5KOpx44N8aqHj36nqZdOEw0TSK0gPkFj/ngJ324v
+X-Gm-Gg: AR+sD11D84PpkDp3HN/Vvf5y+bHpeN+xxZKx9o2EzPD7+nNh/NPAVo9Yk9IjTioXeah
+	mADF2gJsVGUMZvGUeEwVyTQguydY5FH4EWmdG+IjehoDMzr2vTvN6X4ZBevMP65m4vqiScIQhOz
+	0bybr5+lxXoSV2MGPPBLzkI2QOYTd4n2UAuQ7+hMZ066LARBb0bMhrQ7ZbP7cUreQX+PIyeCEP/
+	E8ugYRbfG7ktzlc5hLwewoVQUGOyx2DiTa/VLv2xCB9m1D6bxPdLeuYtZqpqMW8NN0hmlbCa1Wq
+	hgPYdt/uHNBLPqvdn7N+9BCq9mbKr56mr2tSVD9Fnf3gQPiHWv0lO+dXzacmkIyV5gQhTghJ6ki
+	lypMi8IHVsxvq6Auct6tXwgVPu9XO4RdWG1aDGh6jkAmfHxXZ8nrN2KZ1i1hz4WisMjiuAAd9XY
+	lWt2ob90CpDycrWIT/MpkQgcVcEb7vkDlquQLy+DQO/YvT9XuC2WiXY9K6f1M=
+X-Received: by 2002:a05:6a00:1c9e:b0:845:ba94:a56 with SMTP id d2e1a72fcca58-84fddfbf1cbmr7727022b3a.5.1786724784867;
+        Fri, 14 Aug 2026 09:26:24 -0700 (PDT)
+Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc095a1fd06sm854391a12.17.2026.08.14.09.26.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 09:10:00 -0700 (PDT)
-From: Chao Shi <coshi036@gmail.com>
-To: kbusch@kernel.org
-Cc: hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk,
-	joshi.k@samsung.com,
-	weizhu@fiu.edu,
-	linux-nvme@lists.infradead.org,
+        Fri, 14 Aug 2026 09:26:24 -0700 (PDT)
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Paul Mackerras <paulus@ozlabs.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Jeremy Kerr <jk@ozlabs.org>
+Cc: linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
+	Junrui Luo <moonafterrain@outlook.com>,
+	Yuhao Jiang <danisjiang@gmail.com>,
 	stable@vger.kernel.org,
-	Chao Shi <coshi036@gmail.com>
-Subject: [PATCH] nvme: reject zoned namespaces whose zone info query failed
-Date: Fri, 14 Aug 2026 12:09:54 -0400
-Message-ID: <20260814160954.2839507-1-coshi036@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Zhenhao Wan <whi4ed0g@gmail.com>
+Subject: Re: [PATCH 0/3] powerpc/spufs: fix a refcount, a type confusion and a coredump underflow
+Date: Sat, 15 Aug 2026 00:25:38 +0800
+Message-Id: <20260814162538.669042-1-whi4ed0g@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260814-spufs-groupa-v1-0-f38f7549ce20@gmail.com>
+References: <20260814-spufs-groupa-v1-0-f38f7549ce20@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,80 +87,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nvme_query_zone_info() returns either a negative errno or a positive NVMe
-status code, but nvme_update_ns_info_block() only tests for the negative
-case:
+Follow-up on testing: this series now builds cleanly with no new
+warnings on powerpc cell_defconfig (clang 17, LLVM=1) -- the two
+affected objects,
 
-	ret = nvme_query_zone_info(ns, lbaf, &zi);
-	if (ret < 0)
-		goto out;
+  arch/powerpc/platforms/cell/spufs/inode.o
+  arch/powerpc/platforms/cell/spufs/file.o
 
-If the Identify Namespace (I/O Command Set specific) command fails on the
-device, or if the Identify Controller command issued by
-nvme_set_max_append() fails, the positive status falls through and setup
-continues with the zero-initialized "struct nvme_zone_info zi = {}".
+compile without error. It is still untested at runtime, as I do not
+have Cell/PS3 hardware.
 
-nvme_update_zone_info() then configures the queue from those zeroes:
+Apologies for the "not build-tested" note in the cover letter; that
+was accurate at submission time and has since been addressed.
 
-	lim->features |= BLK_FEAT_ZONED;
-	lim->max_open_zones = zi->max_open_zones;
-	lim->max_active_zones = zi->max_active_zones;
-	lim->chunk_sectors = ns->head->zsze =
-		nvme_lba_to_sect(ns->head, zi->zone_size);
-
-so the queue ends up marked zoned with a zone size of zero.  This is
-reachable by a malicious NVMe device, a buggy firmware, or an
-attacker-controlled NVMe-oF target that fails this one command.
-
-blk_validate_zoned_limits() does not look at chunk_sectors, so the limits
-commit succeeds.  blk_revalidate_disk_zones() does reject the zero zone
-size, but by then the limits are committed and the queue is unfrozen and
-nothing rolls them back, so block devices that are already open keep
-submitting I/O to a zoned queue whose zone size is zero.  disk_zone_no()
-then shifts by ilog2(0):
-
-  nvme0n1: Invalid non power of two zone size (0)
-  UBSAN: shift-out-of-bounds in include/linux/blkdev.h:747:16
-  shift exponent -1 is negative
-   disk_zone_no include/linux/blkdev.h:747 [inline]
-   bio_zone_no include/linux/blkdev.h:1052 [inline]
-   bio_straddles_zones include/linux/blkdev.h:1058 [inline]
-   blk_zone_wplug_handle_write block/blk-zoned.c:1423 [inline]
-   blk_zone_plug_bio.cold+0x25/0x1c8 block/blk-zoned.c:1605
-   blk_mq_submit_bio+0x18fb/0x2870 block/blk-mq.c:3196
-   __submit_bio+0x315/0xa70 block/blk-core.c:637
-   submit_bio_noacct_nocheck+0x488/0xba0 block/blk-core.c:755
-   submit_bh_wbc+0x575/0x740 fs/buffer.c:2824
-   __block_write_full_folio+0x728/0xdd0 fs/buffer.c:1933
-   wb_workfn+0x8c9/0xd50 fs/fs-writeback.c:2403
-
-Before commit c85c9ab926a5 ("nvme: split nvme_update_zone_info") the
-caller tested "if (ret)" and bailed out on any non-zero return.  Restore
-that behaviour.
-
-Fixes: c85c9ab926a5 ("nvme: split nvme_update_zone_info")
-Cc: stable@vger.kernel.org
-Cc: Weidong Zhu <weizhu@fiu.edu>
-Found by FuzzNvme.
-
-Signed-off-by: Chao Shi <coshi036@gmail.com>
----
- drivers/nvme/host/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 453c1f0b2dd0..dd7859826d2b 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2417,7 +2417,7 @@ static int nvme_update_ns_info_block(struct nvme_ns *ns,
- 	if (IS_ENABLED(CONFIG_BLK_DEV_ZONED) &&
- 	    ns->head->ids.csi == NVME_CSI_ZNS) {
- 		ret = nvme_query_zone_info(ns, lbaf, &zi);
--		if (ret < 0)
-+		if (ret)
- 			goto out;
- 	}
- 
--- 
-2.43.0
-
+Thanks,
+Zhenhao
