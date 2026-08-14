@@ -1,148 +1,138 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012040.outbound.protection.outlook.com [40.93.195.40])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0DB03D5640
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 21:18:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786742314; cv=fail; b=Ki1C1Npf69zWhC46BCjzfruy+jPQzYBQQ30Hz5kJ3Seljj+jHH+WIH0z44D35A4Q+NnabMwbCUX20AfkRScDy3DzDBK4/Ko2JhCUh1bBd0Nkx7zwHyDNDTLwLotE4XaNvIchDsxhKyR1G8sxUQQJU6KPc63TnHVMdu4BdGRs0ao=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786742314; c=relaxed/simple;
-	bh=Z4T1dwuMAb5XH2D6UMJ5H5/gjCcV38fnNkjb3BIKoX8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fug/5kIuXGI0bFTZxdnwBaZvEzTyHws/cvhgBF8EgtQQBuUgMK2XpCsfI76OdfSqOyGTUQyVp9ZXB40anjFQJEsprmTuh7DuZJWQqSzInrJHJe9JUf4fDT9qC77p/GAaertNKU7J0ZNqs8dRJFq8atmTiFw3VMiqMYQIW+n6EZ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=nvzRxJ0v; arc=fail smtp.client-ip=40.93.195.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FF4339872;
+	Fri, 14 Aug 2026 21:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786742422; cv=none; b=sojPmat4p4va/xKK36NEm7Ka4/YnYzfpz3YIDm5f6Pj70u0ub4F77dFoC4nDXudJb5rusB7gL9uJ1HlapAbCiW7TCh/DXSjivNaWeqsJ43avnWdENeYMRojZkyNZVrWdVAMMfoo0relgqp0so6DIzZstuN+7iEZlg+uaEOCKA0k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786742422; c=relaxed/simple;
+	bh=LfiC7i1te87um7ohclD/3S9oECb1gQQNvt4+lqFIumM=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=qa4b3OqIlDwlX5q4qk82ZhEI1eq65vMTUh1ngXkksZTDZ5io7TPstvfKjNC8GJW2hw6QCxPSxyWUWitNbHmkNaWSV+2Oz92aKDlxujPpvN8I+PFfa4IZmvIqvl7Z/Kzt/qpCIXdsfW/Luc9yaFuYTY7cPX974jOWypMygTCqTLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EuJJZ4KP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="nvzRxJ0v"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u2+HXSI/R5+rXtR2bymlMcGaf9A9D3t9aVCQ9SclNINCoJn93N0LJJkwyaR87fE0G3IOTzNg5boqbWpJcyKXVe6716vezgD8mZ7YpvzkuYoX88GM4oC9VA4YK9MXCG7FAjhcKGM5QrqwoupWgyYTFBDNXhntFD/KicTWH9uzDjQpVHEikbpN2MU9uOlyqk5MFsR1WaL97IauqlgyI2nUT49vXj9ZuWW1On4lImPy0qnuu0s/YMY4og7Cfyemft09P9p8wJkg6WHEZqTHSLCqaNLXtXIv1aBhmNccVkDEBXA2USVucFUkdDJ1JqklcxzBQq6iTvHmtS7uFLI34XSseQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aVKZBpWtu7K995u7l92rW6zJrzgKjQz1droDq1AAx10=;
- b=pAsdkC6CxcS3qhOtjh9Wb/rvZJb2balKH+c77LabtwqmxKzdjZGZEscn0z6bEbhnkBTiGgTAyJudt0B2Xm0wgbiXO8tND/0dSF2GqaFgkd4/k/JhRY5LmJL0jlc0yvkHmEncgFjJN23DpTfZo7igRJBwHhpsnqJzNC/j9Cs+qE4Lywh3gdDv+Lfr7cFA7lomDODGzkF8HRrkSI1ecyrz05Qk6gq/gJTiY2i6C08YoZMjI5O62Rp7WKKjoZWWEmDddqksC4ly4ERQPgYnsIFIX3qn4640dDdv+AOVvkBzBnSsj9hoAwztcRnWx6KLV7EFohz9W5hN6c34UF2ivmnI0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aVKZBpWtu7K995u7l92rW6zJrzgKjQz1droDq1AAx10=;
- b=nvzRxJ0v63uSYrvqE8dg6boKJiihQkDv+YBT3CnKftuxgixeAJwhtxliAgACGqjDupP9YNW+JPjw9j86+eCDirPDfooGH9WfkitOEkKit1h6jNqCohEV3guvjY5BnpCu7M9pFvBdlfy1eYqwEeNc8AG1vB67oZvXfrT1r8LRpU0=
-Received: from CH0PR04CA0116.namprd04.prod.outlook.com (2603:10b6:610:75::31)
- by SA3PR12MB7806.namprd12.prod.outlook.com (2603:10b6:806:31d::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
- 2026 21:18:24 +0000
-Received: from CH2PEPF00000141.namprd02.prod.outlook.com
- (2603:10b6:610:75:cafe::9a) by CH0PR04CA0116.outlook.office365.com
- (2603:10b6:610:75::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.15 via Frontend Transport; Fri,
- 14 Aug 2026 21:18:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF00000141.mail.protection.outlook.com (10.167.244.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 21:18:24 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:18:23 -0500
-Received: from hwentlanryzen (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 16:18:22 -0500
-From: Harry Wentland <harry.wentland@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, <stable@vger.kernel.org>, "Alex
- Hung" <alex.hung@amd.com>, Robert Mader <robert.mader@collabora.com>
-Subject: [PATCH v6 10/10] drm/amd/display: Force GAMCOR for subsampled surfaces with PQ/Gamma22/HLG
-Date: Fri, 14 Aug 2026 17:18:16 -0400
-Message-ID: <20260814211816.1219597-11-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260814211816.1219597-1-harry.wentland@amd.com>
-References: <20260814211816.1219597-1-harry.wentland@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EuJJZ4KP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40F51F000E9;
+	Fri, 14 Aug 2026 21:20:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786742421;
+	bh=7s498hmyPH95uXRNYFX/lOgCIdJtR45crHIwDFMIeyo=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=EuJJZ4KPfCIwikniyrMarU2e7tAtOpih209FaJKH4wzFgBimCJAl6Sv2LxOlObfhB
+	 EkzZw3hkYvS8RFH4G2hitY53oggUYhdhoXN8HUdRVbCB3lfDul8ZX+li1ugzo07S4G
+	 0V1bXSSrP8EukbwzGRLKoN4rdaKF9s2G64mZPjefBtwZIwO8L1mw9tlaahPI+1WLDe
+	 Z4IQJkDbLBHdSf8WWp80WSwM/ySy0ErBRGY6X2HjHlegWcHEDgzJu3BUapNc7QzkOD
+	 XoBTb/eBzl6g0RI0LKNqFPmgQD+fGiNG9qlwnE4vf7s3McZ98OyE83pz20Fn761LgT
+	 hQiHEwPI2nJlw==
+Content-Type: multipart/mixed; boundary="===============0578281140868157793=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000141:EE_|SA3PR12MB7806:EE_
-X-MS-Office365-Filtering-Correlation-Id: a25c02e1-d1bf-486d-cccf-08defa499339
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	1kwACb/7zkefYghGHPHTb3NS1I5GvGDhkjjLLuTNEOPRhcATGknYLc7V1UlE8reEzlR6eU5Ygvpq4uZ4XpeaI6vr3+Zyf9EobGz/474UNu+TFhiblVxZf+G3W85pHYNq1TzbWm86UYxTQhoB8jM9VEe+4js3chvqPdFUVEuwpQ1LgAIoFtEY07mbRpE4skMYtXWKIWKMCR6n/oDAG2rUXGyYdPvL5moCZR+0kmUEQSLThBCwITn9eRe+i/Copu7JLJFSOd/SaNX3De3rJDUU8ExzZIO8y/7LyxoNjHDdgmMsUBUBJc2VaHZiLbhtXoacyXCGdaAm09xOhSzpj+mvLlVjEFQZ7TcoP+gOzvb+aBfHsxuobFaCe76CKuwz1yHt3Bg9O0l/evbkjofwoVixiR+uGYjV352PjEZSWywChXuRoXHi4JsG6T0U8zf9dZVnxGb6mQM5U87rCyPpm+dXb8H3z+sJhlp2LPfFimn0Ydt8iyNbEfVxnF149n6+CENphMTOHThqI17ntK14HNvOKFQtdhWbQAMNOYGuJRv4S7feMAhHkL4/QQCmREGdLwEMEuTmuYqyzWQhsoO3bnJUJHldaQMjVh8uG7oi6G2ajQBPW1DXBLlU/2wapxzhdQmQ9nfryICzBA4XCwb8CT6Hpz0KgrZslIFGZ9WR8lmI8/4Tbl355DNq1OCRdiiPe+un1vN+r7kNsWxuH0dRoL1KFA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	I3hyYDl/9oTJzBVlck8Q2RGG2Me1/gjQrLPqwb//O6BiuhB6nEPxVQ4zQZNF75LpWZn4SnFpaw4UorJiIEXt8ma9pKlIsWbweIk2iI5Ne5k4y5AqhZrLThOwqeApW5ypwZzwPoWkDCs/0zzn0XP5wvFWFxEWPjoi6RsjjWXQVxbEyd4rgTCVxcgHe3oo1rB+5jGJfNu5dsUlrjRK8t56ZxwCnyxSCAaV7hj+vRCtzLGWrPRSf7IMhTYy0n/KJheZ8yYhgdFBJncai3Bz51lpCGKYKwpiV9/4epcb6P965UFQV+/6J4v8Wm68KbrXezsrpyegJbl6IEjGJGS/vnrvr2je6BdZe0MPHo2di930cFv/6MREIB4mzeOo5n450QNwk5JvfsIIb2wuNtV5INJp7gBir3kmxiOxMnhZWkvzTm8Svlf2Z0Kkw0PsbQXKlJQG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:18:24.2180
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a25c02e1-d1bf-486d-cccf-08defa499339
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000141.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7806
+Message-Id: <eba560e6a2352222c0ff0e4a8cc4d0525abe3ac1306d42958455ec2c2494801b@mail.kernel.org>
+In-Reply-To: <20260814203248.3714536-2-vineet.gupta@linux.dev>
+References: <20260814203248.3714536-2-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf v2 1/2] bpf, x86: Fix per-CPU address resolution into an extended register
+From: bot+bpf-ci@kernel.org
+To: vineet.gupta@linux.dev,bpf@vger.kernel.org
+Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,x86@kernel.org,stable@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
+Date: Fri, 14 Aug 2026 21:20:20 +0000 (UTC)
 
-The ROM early-return checks for PQ, Gamma 2.2, and HLG in
-mod_color_calculate_degamma_params() do not consider the map_user_ramp
-parameter. When map_user_ramp is true (indicating a subsampled surface
-that requires post-scaler degamma via GAMCOR), the function still takes
-the ROM path, programming PRE_DEGAM instead.
+--===============0578281140868157793==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-For subsampled formats the chroma channels must be upsampled by the
-scaler before degamma is applied. PRE_DEGAM sits before the scaler in
-the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
-Using the ROM for subsampled surfaces means degamma is applied to
-subsampled chroma before upsampling, producing incorrect results.
+> bpf, x86: Fix per-CPU address resolution into an extended register
+>
+> The destination of the per-CPU address MOV is encoded in ModRM.reg,
+> which is extended by REX.R, but the REX prefix is built with
+> add_1mod(), which sets REX.B. REX.B extends ModRM.rm and SIB.base, and
+> this instruction addresses memory as disp32 with no base, so the bit
+> has no effect at all and the high register bit is simply lost.
+>
+> Every is_ereg() destination therefore resolves to the wrong register,
+> picking whichever one shares the low three bits:
+>
+>   R5 -> RAX    R7 -> RBP    R8 -> RSI    R9 -> RDI
+>
+> With BPF_REG_5, whose reg2hex is 0, the emitted
+>
+>   65 49 03 04 25 <off>	add %gs:<off>,%rax
+>
+> adds the per-CPU offset to RAX rather than R8. The destination keeps
+> the unadjusted address and RAX is clobbered, so the program goes on to
+> dereference a pointer that was never made per-CPU:
+>
+>   BUG: unable to handle page fault for address: 0000607e386a8894
+>   RIP: bpf_prog_707837aafd2aa9ae_update_percpu_data+0x93/0xc9
+>   Call Trace:
+>    __bpf_prog_test_run_raw_tp+0x2dc/0x7d0
+>    __flush_smp_call_function_queue+0x1e9/0xc80
+>   Kernel panic - not syncing: Fatal exception in interrupt
+>
+> R5 is the mildest of the four, aliasing a scratch register and faulting
+> at the store. R7 aliases RBP and would corrupt the frame pointer, R8
+> and R9 alias the argument registers.
+>
+> Use add_2mod() so the register goes through REX.R, matching how
+> add_2reg() places it in ModRM.reg and how emit_priv_frame_ptr()
+> hardcodes 0x4c for the same instruction with R9. Encodings for the
+> non-extended registers are unchanged.
+>
+> Problem showed up when trying to resurrect BPF_GCC CI (selftests built
+> with BPF_GCC).
+>
+> This has gone unnoticed because clang reloads the address into R1
+> before each per-CPU access, so the destination is never an extended
+> register. GCC keeps several per-CPU addresses live at once, and
+> test_progs-bpf_gcc panics the kernel in global_percpu_data/init, where
+> the address of a .percpu variable ends up in R5.
+>
+> Fixes: 7bdbf7446305 ("bpf: add special internal-only MOV instruction to resolve per-CPU addrs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 
-Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
-forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
-is subsampled.
+Should this include Eduard Zingerman's Reviewed-by tag? In the v2 review
+thread, Eduard provided "Reviewed-by: Eduard Zingerman <eddyz87@gmail.com>"
+and specifically noted "Please don't drop acks."
 
-Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
-Cc: stable@vger.kernel.org
-Assisted-by: Copilot:claude-opus-4.6
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Robert Mader <robert.mader@collabora.com>
+https://lore.kernel.org/bpf/3338fd93155ac14b3b824ce232ae7be288072608.camel@gmail.com/
+
+> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
+> index de7515ea1bea..276d076d2993 100644
+> --- a/arch/x86/net/bpf_jit_comp.c
+> +++ b/arch/x86/net/bpf_jit_comp.c
+> @@ -1887,7 +1887,7 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
+>  				EMIT_mov(dst_reg, src_reg);
+>  #ifdef CONFIG_SMP
+>  				/* add <dst>, gs:[<off>] */
+> -				EMIT2(0x65, add_1mod(0x48, dst_reg));
+> +				EMIT2(0x65, add_2mod(0x48, 0, dst_reg));
+>  				EMIT3(0x03, add_2reg(0x04, 0, dst_reg), 0x25);
+>  				EMIT((u32)(unsigned long)&this_cpu_off, 4);
+>  #endif
+
+In the v1 review thread, Eduard requested an inline assembly test with
+__xlated() matcher to verify the JIT generates correct code for per-CPU
+address resolution. A test was apparently added in v2 as patch 2/2
+(tools/testing/selftests/bpf/progs/verifier_percpu_addr.c), but that test is
+not present in this commit.
+
+Given that this bug affects all four extended registers (R5, R7, R8, R9)
+and can cause kernel panics or frame pointer corruption, should the test be
+included here to verify the fix works correctly?
+
+https://lore.kernel.org/bpf/5acb321999d7cc7ebd945c519495a8762501e3cc.camel@gmail.com/
+
+
 ---
- drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index 03d88e78165d..5786ef5787ac 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -1696,7 +1696,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
- 			return true;
- 
- 		if (dc_caps != NULL &&
--			dc_caps->dpp.dcn_arch == 1) {
-+			dc_caps->dpp.dcn_arch == 1 &&
-+			!map_user_ramp) {
- 
- 			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
- 					dc_caps->dpp.dgam_rom_caps.pq == 1)
--- 
-2.55.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/31839526403
+--===============0578281140868157793==--
