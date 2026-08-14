@@ -1,25 +1,28 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5560547607B
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 14:35:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EFB4756A1
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 14:36:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786718163; cv=none; b=R9IXsjrwwk2I6nr+qot4RnnZ6XD0MY1qM84gc/ZMw5Meq1qmtE3IgL8Q5Au7p8tXrEUAeYc249NHe0sczoqZ5was8JwpLueXu6u4v6d5iQ2oyPOwGZS6whwPC1nC7kVBbKym5CIOEqPAo90toChgJZ0viTJzM8i+7fbKYLRuOt8=
+	t=1786718165; cv=none; b=WzHsRfdurae84ArHH0IoxqeeGUvU0UhvUOojJL1FhZd7KwWFEKEjyERvbjhsnmGDrBu5xnCQZvZIWmHchsnBJGL7Ek9GGDTjuid8Rf4BSDWo2HrVJOVReM081RJHqkHxb43o32bLxlB0oBO1ysr0Cg2K1WcJqGOzgd02cN3PKuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786718163; c=relaxed/simple;
-	bh=mzLNaw9XHCgDFd8tY15KMylSSZ5fPdDLf+CHr4hhzOY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qt+cEqYHYrArSay/62BEnIn4BAED8HbDT221bn9qcx5eEuMK1oeLc3x5u8b8MOBRFi3zJip0U8/wriMzZPRdTy9eEEp0INmtusuwIcQqNbfNDSSPuOv321I4dtzVGdQ8Lo6iYqr/Kh8r3fZ6oJcQmlJBrRw5JWDYu3PjtKL+0oM=
+	s=arc-20240116; t=1786718165; c=relaxed/simple;
+	bh=n2gcS16dcFkS+5XQkgzIMsaf9eFyHyuax5dVjnfkxcw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Sfi3jC5UmhNUvfyX45JV4zEPGKEYIsV6gtuUdrWRYFNiORz2Tq1LYV/qEBS/LbFdBq5Vmkfet0WD6xD3Z7k2VcktpOhAQoZ/h12jMP3C3W0OTf9m3KHer8XqEDAP0tmFjA8bJ+6sHmybn73g8RqTnxnSDaMHaRF0/YHP91bYxwg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F9291F000E9;
-	Fri, 14 Aug 2026 14:35:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9D41F00A3E;
+	Fri, 14 Aug 2026 14:35:59 +0000 (UTC)
 From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
 To: stable@vger.kernel.org
 Cc: claudiu.beznea@tuxon.dev
-Subject: [PATCH v2 5.15.y] pinctrl: renesas: rzg2l: Use -ENOTSUPP instead of -EOPNOTSUPP
-Date: Fri, 14 Aug 2026 17:35:50 +0300
-Message-ID: <20260814143553.2949913-1-claudiu.beznea+renesas@tuxon.dev>
+Subject: [PATCH v2 6.6.y] pinctrl: renesas: rzg2l: Use -ENOTSUPP instead of -EOPNOTSUPP
+Date: Fri, 14 Aug 2026 17:35:53 +0300
+Message-ID: <20260814143553.2949913-4-claudiu.beznea+renesas@tuxon.dev>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260814143553.2949913-1-claudiu.beznea+renesas@tuxon.dev>
+References: <20260814143553.2949913-1-claudiu.beznea+renesas@tuxon.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,7 +58,7 @@ Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
 Link: https://patch.msgid.link/20260515124008.2947838-2-claudiu.beznea@kernel.org
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 [claudiu.beznea: fixed conflict by dropping the code not present in
- v5.15 stable]
+ v6.6 stable]
 Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 ---
 
@@ -66,19 +69,19 @@ Changes in v2:
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-index f839bd3d0927..eceba66ab033 100644
+index ac629c72d592..b713cc8e0fde 100644
 --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
 +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-@@ -565,7 +565,7 @@ static int rzg2l_pinctrl_pinconf_set(struct pinctrl_dev *pctldev,
- 			break;
+@@ -710,7 +710,7 @@ static int rzg2l_pinctrl_pinconf_set(struct pinctrl_dev *pctldev,
  		}
+ 
  		default:
 -			return -EOPNOTSUPP;
 +			return -ENOTSUPP;
  		}
  	}
  
-@@ -614,7 +614,7 @@ static int rzg2l_pinctrl_pinconf_group_get(struct pinctrl_dev *pctldev,
+@@ -759,7 +759,7 @@ static int rzg2l_pinctrl_pinconf_group_get(struct pinctrl_dev *pctldev,
  
  		/* Check config matching between to pin  */
  		if (i && prev_config != *config)
