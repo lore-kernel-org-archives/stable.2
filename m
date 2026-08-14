@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 025273368AA;
-	Fri, 14 Aug 2026 09:57:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB10D3ADB98
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 09:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786701436; cv=none; b=tU0IfQD0Fdj4q1iAn/EdYau2pfpRjXf48ZpbHSPbvh10Yre8ndJRlL+CO+XQertc8MdkK4gIvTRq8QCf9qp2A2NMKw5iIfW3PUipek8QH/AQpcLHppcI4d8455eWbWrZLzTf7Y5Vs8qGtFZqOrUiG5K3U3NV/9lesIoAzaKbCHc=
+	t=1786701448; cv=none; b=oGlo+CS+g4NTssHxgXe6w0S9+QeQ93sMUl8F6DDNCip9u/1is0BRG7EkbnWWJ+7Y1T+PBNw0f1MUIel4W+lmSEf3OErj4fF7C/1YJHuiKE5naZkydxAhOLhvuBWGJXWAGKhPW9KLPO+Lajrmg899XzCIvs5CNRC6ZOxSehlHXKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786701436; c=relaxed/simple;
-	bh=XL1YHMsiLrCIgpJwj+Lvf/hp3cEuudtyuqE3iuSXkk0=;
+	s=arc-20240116; t=1786701448; c=relaxed/simple;
+	bh=534CagOdQ35DzD17xlcuafXbatIB2JIffyCe7kh9eOE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ODTAIDKpnaHcNm15y4MVWIfL0mZdlz50VouEg3/gCm+rMGawTcPHxE8GElOLxscZEbpBx4uKBMy4FCxCZHUx784b3D9UQabjkrhPkY8X8zrZ3ohHKVjELuOn+G6GK8zTlz633GOoi+Y+YV7/4STBzm5GeWDSfyf9c4Y/4r1iJAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nF7pfmQY; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Jo8AJTPkUB2IAFtwuyCl8v9mVyQksBueQMAeJ6QulxXClutRlSsISZvWqcUhRPKAnhYtTxVQ8Ej7YKvHUJa5kHYiIdkN/B9cOmHyFx3UOhDXDf/syL2YWyQgSNhQ99r6QzbDqnMzLe5MabwKQ694sUcHGzsc/KNeRJ4w1cH8ZX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qrpUuAbf; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nF7pfmQY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DBC11F000E9;
-	Fri, 14 Aug 2026 09:57:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786701429;
-	bh=rMByiubYyoT4kAzUnPbMoGyeBhkz4XHWSu6FQ/KkHHI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nF7pfmQY+Q7J42f8uV8Pt6oYvxGJr14Ua+nSsn4jixehxaEDowJkMiMNJF41eyD1l
-	 bq2YC6wg1DqBQW/K7gMr++fACnnvZToM6o0CRNQsjckgSyaOeX3GzND3uoO0Fc+FIa
-	 9xM/XOrCJkl0vyHhUZ/8sLXU88KjTvBx4pZJMIwjQylch7G0bJcPCOn3Ixhq8zCzJn
-	 Ix7pZ70vqc3d8ltweNqazFnnAGOe2w+gSenrTuh5dOVDRhPm0oTM81ooMRVr/b4+62
-	 HllRmouvh8mWgdNCSuTXIzwi94/R3SNjb/nOVfLcFmr6YMcAQUIoxi9n38q7l7RmQ6
-	 Vh1RL3T2yWe6A==
-Message-ID: <26a880b2-5f37-43be-ae8b-2c0c27c777a1@kernel.org>
-Date: Fri, 14 Aug 2026 11:56:57 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qrpUuAbf"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3811f512167so1021403a91.3
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 02:57:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786701443; x=1787306243; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oqq/eesd6KpkKbZO5cDYLRl1ZtXvrm9zL+ZkU4ZzFdE=;
+        b=qrpUuAbfgp3YKv4gFfJmathDmGWEc4NV+wc6m19FIjwYYcoelM/8Oio2C10A4iIKFo
+         JWytLDhqhvR2FsbzvmkaxZkf7sIi2g+oENlKDuBQR47WaXcopvkxRgrlK+gstT/EQoIo
+         eCs9+fTthWQKarrgJnQFpbr3XNS1UvdcZ9JyYvSOATc5erdDoJTq0GhYK4f4D2s+QHqw
+         H36aq2/fVlEscCnxIe3u2usH4F2CYY1I7+tfzce6r369rkxDbYMk0OO847Qop3dF6dMf
+         MiLa49sx1W0KU8i/kAplkfIYpNocmo/BDePOq2/BEl0NrejYSnsJkEPlubarhRdRGYyc
+         uziA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786701443; x=1787306243;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oqq/eesd6KpkKbZO5cDYLRl1ZtXvrm9zL+ZkU4ZzFdE=;
+        b=FAfb1PjKhfxy/dyUad9owvq8tyjIvjR3O7w9rTA6LbGxJfUvbfYi2YquH0+yP1E8FE
+         uTNM5h46r607IAfkbyzqbC49fDkiHZT/QQI7mtxB0gV0cEPLFCymMLeFMdzVrP6g6rBu
+         Ux96072wJTQzALMOgzRBtrbrTYkKO3Basw2BtSK9xJuT6WOVeoHwtnji1ZjM3klvZVWA
+         Oh9SIdONyTCG0/PlVb5lVZObBagn6gH0XsUg4LklB1IkmjR1UtCDIe8eF1Pi7ycFHUsY
+         aLUQh/PXjXhOTOVI+4PdbFOp9NTBDgsWtdv9F6GEr/YOVhlOcVg2+Mt8gOJB7APBAm+d
+         4GOA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4kuVaGBjcD8bPjdLbPcuw40C45oCnVfUzu61O0wObTub+QQVnVeuRxp1Ia0pY59gyX1aJZdI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyjXYrsoqxZ2m6hfafLzJp2CGFYHTX7edS/ya0FlkUsKmR97XLz
+	QhskoI09P6ygwZieCJ71OKEAyUwnMz/0Y2RtpZ5R6/dly83JGtJIT3BN
+X-Gm-Gg: AR+sD135aVsM8fD9oHk9DTHuFlLek+HJuxldctU/zm9QTm3T+JGB1MSaB5nnEAtQCvV
+	G7NgvtTvJplE7m7SDcOUNtfcZR62xiKKlNCuwJoAaj0PdMiTl7b+gozVjGypmpXzjw7U0SNvgl3
+	NSqkuHtL8LyMN7tZyl0oPyG+ewQhV1U4/QpzAArsw39+4/QffB5gPqWzNxwl7M1BvNJk/IACeJX
+	h1nlAPP0b2JF0CCh3qf9oNjUOmZn4DE68c94qSujeGW5g095rOb6fkYbF4zedluNbbuufkbE9bz
+	9zTxIKtkjAZmYoYyrT+dFrD38E87f+CS3q4mNz/+qOWz2dMafxfnpKJbnWzHAeAv+7cvbmOaRZw
+	iWTVVPX1mljC6dQqrZpAxhaWINHqPUkhTn36SOj9KtgaX5QU0jxEQiVvd1OM4eArrftgh8TkCcK
+	alyCFtCftTWuyCyx7ad5ui7ax519LsdBcBVYpBSwM7c5DKg6VGYCi6X1qpMLflkPEc8Om4mhjv8
+	WIsPL7uh8OLnB+K5AoOOg==
+X-Received: by 2002:a17:90b:1c83:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-3933b77c3f9mr4752626a91.2.1786701443357;
+        Fri, 14 Aug 2026 02:57:23 -0700 (PDT)
+Received: from [10.22.68.200] ([118.201.124.118])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39339b1d20dsm1115327a91.0.2026.08.14.02.57.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 14 Aug 2026 02:57:22 -0700 (PDT)
+Message-ID: <7489ab68-9da6-4c47-8dcd-3bfa1690fbd5@gmail.com>
+Date: Fri, 14 Aug 2026 17:57:18 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,125 +70,145 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: sc7280: Add dma-coherent property
- into venus node
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Mansur Alisha Shaik <mansur@codeaurora.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Hans Verkuil <hverkuil@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
- <20260801-iris-fixes-dma-pseq-fint-v1-2-aba0cb22f6ab@oss.qualcomm.com>
- <20260813-frisky-augmented-crow-fd5d3d@quoll>
- <4b34e718-0878-25cc-a5bd-0d8858df5133@oss.qualcomm.com>
- <30195e14-0dcb-476d-af0d-f85ee57e2aa5@kernel.org>
- <e287e538-135a-4eb7-1b21-55b475c844e0@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] fuse: clear stale intr_entry in fuse_remove_pending_req()
+To: Baokun Li <libaokun@linux.alibaba.com>, fuse-devel@lists.linux.dev,
+ Jun Yang <littleddfu@gmail.com>, Jun Yang <junvyyang@tencent.com>
+Cc: miklos@szeredi.hu, jefflexu@linux.alibaba.com, winters.zc@antgroup.com,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ TencentOS Corvus AI <corvus@tencent.com>
+References: <20260728031641.2497811-1-libaokun@linux.alibaba.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <e287e538-135a-4eb7-1b21-55b475c844e0@oss.qualcomm.com>
+From: Tang Yizhou <tangyeechou@gmail.com>
+In-Reply-To: <20260728031641.2497811-1-libaokun@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/08/2026 11:49, Vishnu Reddy wrote:
+On 28/7/26 11:16 am, Baokun Li wrote:
+> Commit f8fce75fedf7 ("fuse: clear intr_entry in fuse_resend and
+> fuse_remove_pending_req") removes stale interrupt entries in
+> fuse_chan_resend() when requests are moved back to fiq->pending.
+> However, that cleanup only covers interrupt entries that are already
+> linked at scan time.  It can race with a concurrent queue_interrupt()
+> from the request holder:
 > 
-> On 8/14/2026 12:01 PM, Krzysztof Kozlowski wrote:
->> On 14/08/2026 07:29, Vishnu Reddy wrote:
->>> On 8/13/2026 2:49 PM, Krzysztof Kozlowski wrote:
->>>> On Sat, Aug 01, 2026 at 01:07:28PM +0530, Vishnu Reddy wrote:
->>>>> While testing with some higher resolution clips, the venus hardware
->>>>> triggers a fault due to wrong input data being received. Corruption
->>>>> was also observed in the captured output when the client dumped it
->>>>> to a file.
->>>>>
->>>>> On debugging, this was traced to the venus node not declaring
->>>>> dma-coherent. As a result, DMA buffers shared between the CPU and the
->>>>> venus video hardware/controller are not guaranteed to be I/O coherent:
->>>>> CPU writes to an input buffer can remain in CPU caches without being
->>>>> visible to the video hardware when it reads the same buffer, so the
->>>>> hardware receives input data that does not match what the CPU wrote.
->>>>> Likewise, on the capture path, data written by the video hardware to
->>>>> the output buffer may not be visible to the CPU, so the client reads
->>>>> stale or partial data, resulting in corruption.
->>>>>
->>>>> Add the dma-coherent property to the venus node so that DMA buffers
->>>>> shared between the CPU and the video hardware and controller remain
->>>>> coherent.
->>>>>
->>>>> Fixes: 37613aee2179 ("arm64: dts: qcom: sc7280: Add venus DT node")
->>>> Really does not look like a fix. How skipping a cache sync can fix
->>>> anything exactly?
->>> dma-coherent tells the kernel that this device DMA path is hardware-coherent,
->>> so the SMMU maps its buffers as cacheable. That attribute is what causes the
->>> coherent interconnect to snoop CPU cache lines on every VPU transaction, so
->>> hardware keeps CPU caches and VPU-visible memory in sync — which is why the
->>> dma-coherent property lets us skip the unnecessary cache clean/invalidate.
->> You just repeated what I wrote. What for?
->>
->>> If a device doesn't support I/O coherence, its buffers would instead be mapped
->>> non-cacheable, no snooping would occur, and the driver would need explicit
->>> dma_sync_*() calls at each transition. Venus on SC7280 does support I/O
->>> coherence, so dma-coherent describes that existing hardware capability to
->>> the DMA subsystem.
->> How does this anyhow explain your commit msg? Are you saying driver is
->> buggy that it misses sync calls?
+>   CPU 0 (holder thread)           CPU 1 (resend)
+>   ---------------------           --------------
 > 
-> No, driver is not buggy here. dma-coherent flag is missed in the dt node.
+>   req in processing (FR_SENT=1)
+> 
+>   signal arrives
+>   set_bit(FR_INTERRUPTED)
+>   test_bit(FR_SENT) -> true
+>   queue_interrupt():
+>     spins on fiq->lock ...
+>                                   fuse_chan_resend():
+>                                     set_bit(FR_PENDING)
+>                                     clear_bit(FR_SENT)
+>                                     spin_lock(&fiq->lock)
+>                                     cleanup scan:
+>                                       intr_entry not linked yet
+>                                       -> list_del_init is a no-op
+>                                     list_splice -> fiq->pending
+>                                     spin_unlock(&fiq->lock)
+>     ... acquires fiq->lock
+>     list_empty(&req->intr_entry) -> true
+>     FR_FINISHED not set
+>     -> intr_entry added to fiq->interrupts
+>        AFTER the cleanup already ran
+> 
+>   fatal signal arrives
+>   fuse_remove_pending_req():
+>     test_bit(FR_PENDING) -> true
+>     list_del(&req->list)
+>     __fuse_put_request
+>   fuse_put_request (refcount -> 0)
+>   -> req freed, intr_entry dangling
+>      on fiq->interrupts
+> 
+> fuse_dev_queue_interrupt() only checks list_empty() and FR_FINISHED
+> before linking intr_entry -- it does not check FR_PENDING, so a
+> request already spliced back to fiq->pending can still be added to
+> fiq->interrupts.  The lock contention itself produces the bad
+> ordering: while the resend holds fiq->lock to scan the queued
+> requests, the holder spins in queue_interrupt() and links intr_entry
+> right after the scan finishes.
+> 
+> The dangling entry then causes the same use-after-free that the
+> above commit describes: fuse_read_interrupt() writes to the freed
+> slab object via list_del_init() and leaks req->in.h.unique to
+> userspace.  Once the freed memory is reused, INIT_LIST_HEAD() turns
+> the entry into a self-loop and list_empty(&fiq->interrupts) returns
+> false forever, so the daemon reads the same phantom FUSE_INTERRUPT
+> in an infinite loop and never consumes fiq->pending.
+> 
+> Close the race in fuse_remove_pending_req(), which is the common
+> bail-out path for both the legacy and the io_uring transport: after
+> the request is removed from the pending queue, also unlink intr_entry
+> under fiq->lock before the reference is dropped.  fiq->lock must be
+> taken explicitly since the lock argument is the ring queue lock in
+> the io_uring case, while fiq->interrupts is always protected by
+> fiq->lock.  This runs on the holder thread after any
+> queue_interrupt() it issued, and no other path can re-link the entry
+> once the request is off the queues (re-queueing an interrupt from
+> FUSE_INTERRUPT's -EAGAIN reply requires finding the request in the
+> processing queue first).
+> 
+> Fixes: 760eac73f9f6 ("fuse: Introduce a new notification type for resend pending requests")
+> Cc: stable@vger.kernel.org # 6.9
+> Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+> ---
+>  fs/fuse/dev.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+> index 5763a7cd3b37..87891162985c 100644
+> --- a/fs/fuse/dev.c
+> +++ b/fs/fuse/dev.c
+> @@ -678,6 +678,8 @@ static int queue_interrupt(struct fuse_req *req)
+>  
+>  bool fuse_remove_pending_req(struct fuse_req *req, spinlock_t *lock)
+>  {
+> +	struct fuse_iqueue *fiq = &req->chan->iq;
+> +
+>  	spin_lock(lock);
+>  	if (test_bit(FR_PENDING, &req->flags)) {
+>  		/*
+> @@ -686,6 +688,18 @@ bool fuse_remove_pending_req(struct fuse_req *req, spinlock_t *lock)
+>  		 */
+>  		list_del(&req->list);
+>  		spin_unlock(lock);
+> +
+> +		/*
+> +		 * Remove stale intr_entry queued by queue_interrupt() before
+> +		 * the request was requeued, which would otherwise dangle on
+> +		 * fiq->interrupts once the request is freed.
+> +		 */
+> +		if (test_bit(FR_INTERRUPTED, &req->flags)) {
+> +			spin_lock(&fiq->lock);
+> +			list_del_init(&req->intr_entry);
+> +			spin_unlock(&fiq->lock);
+> +		}
+> +
+>  		__fuse_put_request(req);
+>  		req->out.h.error = -EINTR;
+>  		return true;
 
-Again, no... or explain why. Missing dma-coherent is not a fix, but
-rather optimisation, but you claimed it is a fix. Explain why.
+Hi Baokun,
 
-Best regards,
-Krzysztof
+I just read Jun’s solution, and it seems his fix is more comprehensive. If you
+don’t mind, I hope you can take some time to read it.
+
+https://lore.kernel.org/all/20260804091757.503476-3-junvyyang@tencent.com/T/#mf9bb60e63dbd4ef0ab5cf826e97ad67037ccd3ff
+
+To be frank, Jun doesn’t seem to have a deep understanding of the issue. His
+patchset appears to have been written by AI, and the problem description is a
+complete mess. However, his approach to solving the problem seems viable.
+
+I’m not sure whether Jun is able to rewrite his patchset that Miklos would
+accept. If not, I’d be happy to help, since we encountered the same issue in our
+stability testing.
+
+-- 
+Best Regards,
+Yi
+
