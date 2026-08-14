@@ -1,191 +1,247 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011057.outbound.protection.outlook.com [40.107.130.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5BF3446C4
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 14:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786718533; cv=none; b=UV52SIyzhGuEcR3y2ei+17fG9OId0uVpsQhlNNDJhJRyvbJ7RCfAOSlW4js/AXwMTamZ0b01ntDIfI1lQGRB7qmaJLqdRam+WCBYcjotvTPQqWgiYCuQ1z67tUzj9S8cQMBjmdsVeLB4hqfqstyJWUQo7vPO+AVraX+R61fyp1g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786718533; c=relaxed/simple;
-	bh=ZunX9x9Qfg2ygxY02z1CqlB35kcZIQXd5mtkNO+VIUc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F5l9abmMT7fwdTA10ENt/IpRd0SQJtOCq1LFxCASMIwmztioaM3h2btGgI97tJDkccFKHQK5ogYwxdWZ2VkkOWn5DRjES3cO7RRja89AS9vtEIly6I7XUz49ZRu9OFyY8HkuuoWvB77soZdvvilhUjdgBQ07+vuOsKm94P3gE4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JdsNhp0p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Z7FPnPIN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADED35F609;
+	Fri, 14 Aug 2026 14:48:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786718906; cv=fail; b=Em56X0SENp7d5qpI9izKcb6f5hX4jPd7+pnyWGiVECShfAlXdR437xv3XErE89dmaQ0V9UbU3D6DJw4ZhcNx3Isr/ncvfQVA7iCMK5o8UrZT2Iwca9vzRX8V8kp5bfvgDhvvSZXConkvc4XOqh86VCXp4TU1GOXixY5oAPRp480=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786718906; c=relaxed/simple;
+	bh=wq/jtGvlUlaOw3AZde+ykShY0VPYm+dYqusEUJ/SBy0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=CVIU/RBHmIjPbFPDM8vLJygwcXVn6e3Sx7XvNdMUHrDh1u37ozUtJ1eO//OZbVDh2L/XLQwjYAqxLBFWnSK4XH+xAlPhO4L29Ol7D3pDcqi0Jn2mh7ky9UdYDjFsYy/l7if2qU4xANVjJzxqRpAaHhUQl1hWNDuUX9Bbfj8q+Kc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=EwvIJFp+; arc=fail smtp.client-ip=40.107.130.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JdsNhp0p";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z7FPnPIN"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67EDx9ou1935980
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 14:42:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GKepa7JDsXLcEEP/HR6lN/pxWVDviaNjxQkZKdCVmdg=; b=JdsNhp0pcIFBNjGn
-	fPVUydAE6lLbJbeqsTa3wtzxyODH90NGk/9PdiuELpkIY+112yeFjkQ1PWlz2G72
-	Hqi5W/Wis0ZUdmXIYrBhkzmrrAMSjWtIH8CFiMfZZCoMiDwN56MWtLVmkV858avM
-	tkKAhlYGdMCDYyW1LqgpslktuMzcsKO/0fy6JGaJNxg7BQmiiOeYVKTMUoRqz1iz
-	ECnLmHWtvDZROMLiKeizflR67PaZ6KfdY+79bCroF0v+jcAPyZV97cfJ3uWJ+ova
-	DQ0X3P2J7Hx6peJg/KJNfk74ZyUdFksiH3chVfXQSW3I17+tKufGNE+WpgGfNnKm
-	BTdQmA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g20gn97jy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 14:42:07 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e7b87ce77so2240151a91.0
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 07:42:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786718526; x=1787323326; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GKepa7JDsXLcEEP/HR6lN/pxWVDviaNjxQkZKdCVmdg=;
-        b=Z7FPnPINumW5xf0486+PRmnPEGfYs4qRNEN1Lq/7g71JIPne2GQbybL7R7jQNZ0j5a
-         57mqAXxgXvI3OTJV5vr7X2Wjz7diSsjAgSIkvx2ZDgKIkyC6mjQJ/TUtriIIAivsasnP
-         /UIDSuyjnnL/1C81JUWP0fDL4aaa8ILn1TOZy2VbIJp64dpWakpjsLZDQR+nl1Z8UmZe
-         GbmdFvPiBi8VQH0Vve3fK8nTfTqanYkHYT1+OsctWode58RkzOJr9VUBkt3WMI5tVCXO
-         xDMCxZrbLF1ULFhRNbwfXv6zAYAG3GnCMmIz+/b0eSepNYHvtszjXM1AtUXwIzN0R41t
-         HU2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786718526; x=1787323326;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GKepa7JDsXLcEEP/HR6lN/pxWVDviaNjxQkZKdCVmdg=;
-        b=q6GqRe9nW+uSU6NU67ggNcWXlYjQRZTez8kaMvlO+cpTt/xWbxw0R1+HQCEVPVhTfk
-         z1/u1UV2YvaLOost9w6CZw54lr1zCnTNTKslSKUEQfv/Y+UeJP7nLXBpqnpADHdlfI7v
-         DUZUp0xzC/E0ZmQfWZCLYahPkLR89xflxEQJ9nOEBkaRW4O3b0oqBxORB6DF9m3YxY7c
-         NDZyrnDYxt6i/heMDyDEc7g7BTpmOMGCkVUCUiOBW7NJQobZH9gKj1/8Vw8U0GIcs41c
-         wmMREMIu6LaPCxpfkSpU4JKK/W7b5rATxJIDjpcnP1bQV6LDh38noKLpe679jgMYX3Ki
-         oG6Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoW3qo/fY+QQ0Tt9+D1+8Ylf1+dAmTaWbwcmlUVghHbKmcYcjet51oUPIKIOKjOkz7cA/1dDYs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxNrLl7YjAcP1/bRsP+LSwpTLjuRvxCz7+hF8EbAiUH/+70zlbo
-	6pnnLuhoAjgntY24rU094vRkqzJB1uZfFZapO0yiXz+brL1Q6y00U9n04zRoXhtHI8puEHe60dq
-	IxVW4/GNIHnYLNB85Nmd/9lqjQJPjC6CV5sHxnhBA4Y2+4QlvvCZjFPkfoQg=
-X-Gm-Gg: AR+sD1083RYLi0JaBzra5p65TlQGMO+9Tz0dcF/Z5nfE3+yXxQE4UsQxapxMOWQBsTk
-	L+H/p7TyHwPkjQb6LjY7sW2ZO9EcmPlhSpzqnXiUzF3Nzo8CkpMP6k4Vc9dnX3oQOoH21qbQqUF
-	l6f9rOx80DNWEAXCxhJTASNh//5+ulv2ZERXvjAIe274nF1jJvXtq5LngD5BNlu912r3rps3LmJ
-	M7f3o6jQZ0daPa+JP+LlSNEaXHihmu31qDectQNqCgP3fh2VRr6P6Wk6Zx5fxOS6Ai1HwhqjQ1L
-	2uphfx9bsPscBrdy0Z9iUVzzmb8aNmo/ag7mpkysHdBZi76BoEtFkr2oPNxwiZe6Kjz4vThyZMk
-	cV69s23EnpOZRxpu9d0iReDualmQVPUOO
-X-Received: by 2002:a17:90b:5101:b0:36d:b424:4f17 with SMTP id 98e67ed59e1d1-3933b6d0deamr8279684a91.1.1786718526237;
-        Fri, 14 Aug 2026 07:42:06 -0700 (PDT)
-X-Received: by 2002:a17:90b:5101:b0:36d:b424:4f17 with SMTP id 98e67ed59e1d1-3933b6d0deamr8279625a91.1.1786718525734;
-        Fri, 14 Aug 2026 07:42:05 -0700 (PDT)
-Received: from [10.206.103.83] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141387ac9b1sm11516933c88.2.2026.08.14.07.42.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 14 Aug 2026 07:42:05 -0700 (PDT)
-Message-ID: <36dd132f-a879-4e40-9ab3-d416d7e8fb1f@oss.qualcomm.com>
-Date: Fri, 14 Aug 2026 20:11:58 +0530
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="EwvIJFp+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eOM26dXWylaZtinKeKWG/Lv0HYH4hDqFrcivDEODp0tyHxbnL7yyz30lJNzLMdEfWdxloGK73LwPFD7R57hZ63yJeU7LdTZGXWWNwJnIIGDJx6WJQ2eFdXGiPR4njYDVUeFIQX5o2F56RnKyP7pjgi1rnNOi/sxFw1iuZ/VX7bT55EIl+5FZdKJjR5KNtbrETS4ZDdEraiCOSL5cN/OsnTKmqKO9elYc3i4qLa9StrVrtQ3Ju5xmMOQxDxja5IMaELIrONQddHu2j9zilLQtCcZXjAqkv3OS9+KDiEe49aSZNzP6LT4tqBhKbXoJpOddj7eZluIDg1oRptjUYAvKhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=faZw13vDKRLh2wQRGMxkTOquwzAolkc2c5zo8JCXKJA=;
+ b=Qre1K7/a2PW5nPBf7yIkjHe75z0NjRT8TJFuOIe8NMX3hlhloRgB7X/Y+RGDQFJtPRFzJMIjK6GHOrl5SYkXI3NDXymBluXFKgiX/zNZjwIYpbv1fUsNr0w2liUy/SZwfhHLNkvcVz17pWnOtFfot3lXFln0qnS9IUE/qyR7Deotsfs2Ngkl3sWi/znlF8ELwLENKwqmczxH/AbEsq4cjJOdGCg9zQ4ukziuTl3M5vLH0V93XkB+bjNVW8uIBMei8JZsyKN5HC2VBAbk45+h+vl45k6hn174fd84tzsfWywu8zT1ALsbWVeNnxB0aZkS7bSk0BH3qvpj9BtYsl18dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=faZw13vDKRLh2wQRGMxkTOquwzAolkc2c5zo8JCXKJA=;
+ b=EwvIJFp+XyQveIu9JJvMBDljsPiyJoPmmCpnTeNA70PzBHsbGjQ+xtQ2mQi5lAVnTsfwFbVaBz8u4mWPzf007uf9Cm0yq2bh0uvTLztTY05MA4npy6QIZQmef1QPCVHU1rGsOHjM3sSEEW1ADrPCA6phoDY5z5y8crSIryLIFXYfuO1RC3FhgiizasZAo91NSBV5rBsEd9xnG0VR/YJOBoa3q/+YGh0s9OcdCqI119JueU+WBWU1vmMTR6+chdOPBgZ1TlOG4JT1fm6fQJojPP6LCEIqQGoXLrQilyY6s36Fv5zeEZ/NZZOy9S35Nu0XlafWlO3sXMbTHrDnH4kzXQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB12107.eurprd04.prod.outlook.com (2603:10a6:150:334::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
+ 2026 14:48:21 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
+ 14:48:21 +0000
+Date: Fri, 14 Aug 2026 09:48:13 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Christian Lugnberg <christian.lugnberg@soundtrack.io>
+Cc: vkoul@kernel.org, Frank.Li@kernel.org, wens@kernel.org,
+	jernej.skrabec@gmail.com, samuel@sholland.org,
+	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dmaengine: sun6i: fix non-atomic read of DMA
+ position registers
+Message-ID: <an8qrUqJKthIfZq2@SMW015318>
+References: <20260814142708.79120-1-christian.lugnberg@soundtrack.io>
+ <20260814142708.79120-2-christian.lugnberg@soundtrack.io>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260814142708.79120-2-christian.lugnberg@soundtrack.io>
+X-ClientProxiedBy: SA0PR11CA0127.namprd11.prod.outlook.com
+ (2603:10b6:806:131::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: venus: Fix iova allocation from restrict
- region
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260812-reserve_iova_in_driver-v1-0-ed62f801275c@oss.qualcomm.com>
- <20260812-reserve_iova_in_driver-v1-2-ed62f801275c@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260812-reserve_iova_in_driver-v1-2-ed62f801275c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDExMiBTYWx0ZWRfX56y1f5EjbLQw
- JTiXK7AsRkVCpztLpzQ74rvOogFSeH76PGWKrTcI0cH6oxoocKOa5z0122QdN0yHGsIA/8m7dop
- H+/SgJp1ZBzURDF36mCsINezwA4QtriPHpw26A7tDzPGUcI1J5HA671obkqtIYDlaEo3G3wWakZ
- Zf89aRpAfkM/4eb5nLKDBHtfAEahlIclfY+bftDdRGJRmfD6p29Ef2IUY2Gi65ZFqDFJFi+HlXo
- dMXVp+fSvIAlrA12TUK9gUYE7MOz+I9i82tOdTagHBQxJvwqxW45o0uWpzPTPKEes77wMzN8ak+
- diBJhEkCEnouMDufZl30mEa+E0APifXw58Q57f/Vyx2gdCTMVqpxfAB0PmOqGmW+9RIWiiF2JY+
- +XbDqVCnAAJMEy1zChCHCPsoWmkFseQi9Bi9GhsKixHo+7dLpcK7hrgLrxD4YqyQgMFZ7FDqlTe
- /ZoMgqrizlO7zm+jT+w==
-X-Authority-Analysis: v=2.4 cv=DdMnbPtW c=1 sm=1 tr=0 ts=6a7f293f cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Hj55FqqFgxrcsKo4rRQA:9
- a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDExMiBTYWx0ZWRfX0mmPHEMGQ/p/
- PTZ2vImkglIQoE1GyEUBvszz9amBgHCivYGD0YzhAaHAPDtAnEHHcjWKkL/K/5qZKw/H/ZyGbqP
- QU4vTpkmCo0CXRcu/t93i3OzEvUVFtY=
-X-Proofpoint-GUID: c8H1BA5yhnI8GLdvQuzumbCYi87N45zK
-X-Proofpoint-ORIG-GUID: c8H1BA5yhnI8GLdvQuzumbCYi87N45zK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-14_05,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140112
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB12107:EE_
+X-MS-Office365-Filtering-Correlation-Id: b505d750-c492-4f35-5031-08defa1315fb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|19092799006|7416014|376014|366016|10067099003|56012099006|6133799003|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	qGMJiHDdxUwgY1yjJXr/TIrYDfz9YutQMca1VtMUF6CIgUpulSBeGJ6CuTvqVyBWsQFgH5AKjghoaI4k4Uwo4FNMmx6RuxeozEBluU1MpJIU+4SkCsRBPDRGonyC9woSnA7HU6g1d8YB3q/hbfnzFwO2hYszkL6OvsHn95o8xMS55odXvK2yVbN5ztn2cGYc+0w591LvdO+k2g0bT40LVZVnH+UbYoYxaxJ+7d9y24cAxwbNpHefZgjH7oG0MUVpmUYWNz/LIE2P6MT/zLyLypGebv+tDlTHMIVOOslR8m5544nzyUBGJtoWdRww4tKT9U8l2IdtC0Lop3I4IlAz5VtShWJpwryhqumSon8kzpeS9Ns4VhPgl4e93jgvlnf6/7Il3ZpVFhmabciVsGjqJpy02Bvhowh1DtSnhyMyoA5F3vgcAecdeCl9Z5R0JCxVN5+7qWE0yQsbjpFcRmPKW4dnKNlWcPS/zh68ixGoBEkvWvKQ6vI7v/BuiTY2xLjwRyul9Rjb8QKy7WD7SwwryNUMvkilfoEKgBgt2ApCGrCvOxPKq95PFkcgMbFk6uVY1VB3SdyqCnDKBhP5quNcQ3pSD0bRFzBi0ZNNpqLsAik1pr98k0+8yn4MDfkBtoGzez2CL/mC8QfC18LwGWwFyi7EHX5DiudcwOKTctBxvqY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(19092799006)(7416014)(376014)(366016)(10067099003)(56012099006)(6133799003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MVVxbXJMUTFmcXl3bklVd0tUNVRISllOL3ZRVE4rd1B4TXB6allsN3JOS3FL?=
+ =?utf-8?B?TjhqR2tQWlNpcnJ2RmJ1ZjB0SnlVZnhOQW5jSmIrZDRibUdvZFltemNrOHI5?=
+ =?utf-8?B?bkdLOGxlRGRscThoQjJGOWk0dE5GRXVLOEJTcXJqOGFuendJeURxWkhtcTh3?=
+ =?utf-8?B?dHZpWnZXSkc5eGpqQVBXVWw5VHQ0NUlMckdoY0s5ZFVkako2OEdiTTJuYzcw?=
+ =?utf-8?B?RkxzakxpaU94SW93RnZhNFdrdzl4ZlpPenRpM0d1enNmYmFGYldHUEZMMzI4?=
+ =?utf-8?B?KzRLb0ZHK3R4M3JiQlBJMngvNzlSVndPWjVLNlNKOGE1eGZLNkpiVVpvN0V0?=
+ =?utf-8?B?dU1LZUhRTnErY3pha2F0ZStac29tRk1rTllFSUNuT3MxdSsxMDhvNllYV00w?=
+ =?utf-8?B?WjdsSXU4RWtWWjRHSGVNZG00Q2l6a1hiWjRLZnBPQ0ZCcEtkeVI0WWdYRzRr?=
+ =?utf-8?B?Zko2MWIyajBjYzVhOHBxenoyVHA4NklvMVRCYXFQMTlWTURLZGpoZ1hTQU5i?=
+ =?utf-8?B?QVZaWjlsZmlvSERhMDhoMWZMRjcxbG0vQnd1dWc2Z0lQK2xCWjR5MWQ2UllI?=
+ =?utf-8?B?aDZBRUJnQUdvZTFnYXRNNWRFRkdCcDNZSUp2VFBLSnZLeVRMU2phcTR5T2wy?=
+ =?utf-8?B?Z2kzZ1lkeDRZSzRmMWJwT204THlwUCsvVmdaZEd4MGt6ZWZrU0RpdEtWbVND?=
+ =?utf-8?B?c2tzVzFLcnJUZk1QekRjNDFKQWk4WG96cEhXcU4xV1hKS3FQdG9aWkRSTjk3?=
+ =?utf-8?B?SWphVHVSVStIdGh0dkNjWlVUN1BkbExkbytBaHUrU2lxZmhFUWlxSTZKbldS?=
+ =?utf-8?B?OVFnUG40aG1aS29VN2w0ek4rRm5PZ21sSTExd0JXMUMzd2NTTFI2blIybDJH?=
+ =?utf-8?B?U0VjcEZPTE5ySnVyNnIwNGx1R3JUb3hHWWhEKzdTb2EzZlIxMzc5RjA0Wlh1?=
+ =?utf-8?B?Vm16OFpPMkpZdlFYd1pnZWZCV3orcVAyalpSUmF5YnBRL29hdkgxR1NtTTdJ?=
+ =?utf-8?B?Mkt4SGE4T3JSSGdYeStpb2EzK05sWEk2a1JhTkpSbjk2djhqZmNISVZoSVdx?=
+ =?utf-8?B?YmE4SDZEN2ZXYWFnVVVoOVZoR2tYenp5bGVZQ2taZlhiOFVYQXhHc2p6SHRR?=
+ =?utf-8?B?KzBrL1Jsc1VuZm5SdkZsM3VmOHNGUENTUFIzSTQ4dE4yT3BoR2l0ZFVRdTd5?=
+ =?utf-8?B?MXZvKzFUT09saThOVWJIZkJQK2RDN2tVd3hjOW1jeFJnTXlBbTZkRHZKOGdP?=
+ =?utf-8?B?bWJnaE1YdmQrajNDam5sYzNkbkFZMlRROTNaUmxFYm5MWkduVkF6M0k5V3FD?=
+ =?utf-8?B?TXpSWEJHcG9iQll1aDZCbXQ2UFk2ZThRTEw0TVhWL1FuQlhUOTFXNXovb1ZF?=
+ =?utf-8?B?MVpkR3NvM2ZhUWMxY0ROOFV0L1ZxMndTV0NWRWJRZkZNSFdhS1ZHdHJVTEl3?=
+ =?utf-8?B?bWJmV0hqTnVXUjNCSU9ac0pJWG9YY0VQUFRhMFVIMzdWUXdiaUJxcmNYNXVu?=
+ =?utf-8?B?VG12V1M0cDJUZjVwTnBkc1BYZFRCdjlhZFo5YVllVFA1Y3RqZmphVkN5ZVR1?=
+ =?utf-8?B?SmlBTXNYRjdmazhqUzQwWFNSVEJzN1hHZXo0SU5vYjc4NWM1ajZPdER4M2dH?=
+ =?utf-8?B?RGtMZUJuR0ZUTDYrbWUzNVcxVUFMQkZLU09IVWdxNnhEMWt1WnhYaEhtZmd0?=
+ =?utf-8?B?UWM2bEM0MXhFbStkYnZKcjVWc2VPTlJyRitERVdsZUlCbmJ5cWdOUDdMK2NL?=
+ =?utf-8?B?QW1pUll1dDZmSGVNRWpGRlJTMk5mbE14WkFESTk1cUltRFp5TFRkY1puU3ly?=
+ =?utf-8?B?VmxPVU5NMXplRC9NWkdPMnVHODZ1c0lNb3FKVGxVSWovSlF4OVQ5dlFRbHY5?=
+ =?utf-8?B?a3FJa1V5L05UbWR0QXZFaERzN3dDd0Q5UXRHRGJyaHZpallJOUJmSmlUdVB1?=
+ =?utf-8?B?U2ZMblhVWWg3L29ydlkxZHA4Rm5wZjlzRVZ3dkVhZ3JOS1YxWGJFR2luNFln?=
+ =?utf-8?B?ZTJLZ0hjbUdGZ0hxOTQxb2VoaVlTVUw4Y1J4MU5wSjV4UXBXVUxrcVp5bk52?=
+ =?utf-8?B?Mng4NFpPNmdMZi8rY1RsSllhbi9VcmEydC9tOFRUYWJ2L0tYczNZL3JRQ2N4?=
+ =?utf-8?B?YVgyS1pGNC82SmJYTjVyY0dPOUZJZ0FWQ01JMTZiN2czdGd5SlRPQjU5RXZy?=
+ =?utf-8?B?dG9zMUR4Vy9IYWlkTlRWQXJ1MDVOQlM3aXMwaHZMVTE3dXowWjNIUHUzYTVV?=
+ =?utf-8?B?NXI4ZFpRYlc3V1g2cUxLVjNvdE1xa1VrTnBRRUkyRXRPcEhmNWZ2dk82QmFn?=
+ =?utf-8?B?Q0kxMy8vVmtmc2NtVmZyZU81a1BGNitMQ3BHMGo1YnZTWkZYQ3c3TDQxWUcw?=
+ =?utf-8?Q?GVJ/ZQYkfGdbDzF2ESqZaYucOO/L2tzkik6PI?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b505d750-c492-4f35-5031-08defa1315fb
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 14:48:21.5158
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PtK+m9cjulBQXjJTUfV5PqfqLsngnhzBKdpnGtaHxu9MRDvGyk8HW6WlH5T6PVaEzSOxc9mDFMGR8tnPmNesnH3F4Llcs2Emue3M8hMizXnyzVR6uUOXlRmBTUhhoo3r
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB12107
+
+On Fri, Aug 14, 2026 at 04:21:10PM +0200, Christian Lugnberg wrote:
+>
+> sun6i_get_chan_size() reads DMA_CHAN_LLI_ADDR and DMA_CHAN_CUR_CNT in two
+> separate readl() calls with no synchronisation between them:
+>
+>     pos   = readl(pchan->base + DMA_CHAN_LLI_ADDR);
+>     bytes = readl(pchan->base + DMA_CHAN_CUR_CNT);
+>
+> DMA_CHAN_LLI_ADDR holds the physical address of the *next* descriptor the
+> engine will load once the current one completes. DMA_CHAN_CUR_CNT holds the
+> remaining byte count for the *current* descriptor. If the DMA engine
+> advances to the next LLI entry between the two reads, pos becomes stale: it
+> still points to what was the next descriptor at the time of the first read,
+> but that descriptor is now the current one and CUR_CNT reflects its initial
+> (full) byte count. The subsequent virtual-chain walk starts one entry too
+> early and accumulates an extra full period's worth of bytes into the
+> residue estimate.
+
+Thanks for this fix. This common problem, above already clean enough.
+
+please cut below debug/test proccess. and keep
+
+Fix this by re-reading DMA_CHAN_LLI_ADDR after DMA_CHAN_CUR_CNT and
+retrying if the value changed. This double-read pattern guarantees that
+both registers were sampled during the same descriptor interval.
+
+Frank
+
+>
+> For ALSA cyclic buffers the over-counted residue can reach the full buffer
+> size, causing the computed playback position to appear to jump backward to
+> near zero. The ALSA PCM core treats such a backward discontinuity in hw_ptr
+> as evidence that the buffer has underrun and declares an xrun.
+>
+> On the Barix IPAM400 (Allwinner H3, kernel 6.12) this manifests as audible
+> glitches accompanied by spurious xrun log entries, confirmed by two
+> independent observations:
+>
+> First, the ALSA buffer in the affected configuration is 2 seconds deep with
+> a 500 ms refill period (the interval at which the player software wakes up
+> to top up the buffer). For a real underrun to occur the player would have
+> to stall for the full 2 seconds without writing any audio — effectively
+> impossible under normal scheduling conditions. Yet xruns are observed
+> regularly.
+>
+> Second, the underrun duration reported by the kernel at xrun time is
+> ~30 µs, roughly one audio sample at 44100 Hz. A genuine drain of a 2
+> second buffer cannot resolve in 30 µs; only a phantom position jump
+> caused by a register read race can produce such a number.
+>
+> Observed on a 44100 Hz stereo S16_LE stream:
+>
+>   $ cat /proc/asound/Codec/pcm0p/sub0/status
+>   state: XRUN
+>   delay: 0
+>   avail: 88200
+>   avail_max: 22514
+>
+> The avail_max of 22514 frames (511 ms) matches exactly one ALSA period —
+> the amount added by starting the LLI chain walk one entry too early.
+>
+> The race window itself is narrow. Each DMA descriptor covers approximately
+> 88 samples (~2 ms at 44100 Hz), so the engine advances to a new descriptor
+> roughly every 2 ms. The two readl() calls must straddle that exact boundary
+> for the corruption to occur, which explains why the bug is intermittent.
+>
+> The bug is further confirmed by the xrun_debug bit 2 toggle (jiffies
+> position validation). With it enabled xruns cease immediately and do not
+> return; clearing it causes xruns to reappear within minutes. This on/off
+> reproducibility isolates the fault to the hw_ptr position reporting path;
+> the DMA engine itself is functioning correctly, as evidenced by hw_ptr
+> advancing at a steady 44100 frames/sec between events:
+>
+>   $ echo 4 > /proc/asound/Codec/pcm0p/xrun_debug  # xruns stop
+>   $ echo 0 > /proc/asound/Codec/pcm0p/xrun_debug  # xruns return
+>
 
 
-On 8/12/2026 4:25 PM, Vishnu Reddy wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> cannot address the low 600MB of IOVA space, while the pixel stream can
-> address the full range:
->      +-----------------------------------------------------------+
->      | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->      | 0x25800000 - 0xe0000000                                   |
->      +-----------------------------------------------------------+
->      | pixel stream addressable range (0 - 3.5 GB)               |
->      | 0x00000000 - 0xe0000000                                   |
->      +-----------------------------------------------------------+
-> A single "iommus" property on the video-codec node puts every stream
-> in one IOMMU domain sharing one IOVA allocator, so nothing restricts a
-> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below that
-> boundary the hardware faults, which shows up as unhandled SMMU page
-> faults and spontaneous reboots.
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
-> 
-> A series to reserve the 0-600MB IOVA range via "iommu-addresses" was
-> already posted here:
-> https://lore.kernel.org/all/20260807-iris_iova_600mb_fix- 
-> v1-0-3996f67e33f9@oss.qualcomm.com
-> 
-> Those changes involve DT binding and DT node changes, and discussion is
-> still ongoing on how to handle those for stable and for the upcoming
-> sub-node design, with no conclusion reached yet. Thereby a critical reset
-> issue is still open.
-> 
-> This is an alternate solution to fix the unhandled SMMU page fault
-> by restricting the IOVA range in the video driver, which also makes it
-> easier and faster to land on mainline and stable kernels. At the same
-> time the patch only reserves in the IOVA space without allocating
-> any physical memory.
-> 
-> Currently sub-nodes are not yet present, and only a single device is
-> available, so the restriction is applied to both non-pixel and pixel
-> stream IDs. This makes the solution unoptimal while fixing the issue
-> considering all scenarios.
-> Once sub-nodes for non-pixel, pixel, and secure streams become available,
-> the restriction can be made stream specific.
-> 
-> Fixes: af2c3834c8ca ("[media] media: venus: adding core part and helper functions")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
+> Fix this by re-reading DMA_CHAN_LLI_ADDR after DMA_CHAN_CUR_CNT and
+> retrying if the value changed. This double-read pattern guarantees that
+> both registers were sampled during the same descriptor interval. The cost
+> is at most one extra readl() pair per call in the racy case, which occurs
+> only at descriptor boundaries (~every 2 ms) and is negligible.
+>
+> Fixes: a90e173f3faf ("dmaengine: sun6i: Add cyclic capability")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-sonnet-4-6
+> Signed-off-by: Christian Lugnberg <christian.lugnberg@soundtrack.io>
 > ---
->   drivers/media/platform/qcom/venus/core.c | 71 +++++++++++++++++++++++++++++++-
->   drivers/media/platform/qcom/venus/core.h |  5 +++
->   2 files changed, 74 insertions(+), 2 deletions(-)
-
-
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>  drivers/dma/sun6i-dma.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
+> index f47a326dd7ff..04fe1f5042e9 100644
+> --- a/drivers/dma/sun6i-dma.c
+> +++ b/drivers/dma/sun6i-dma.c
+> @@ -354,8 +354,10 @@ static size_t sun6i_get_chan_size(struct sun6i_pchan *pchan)
+>         size_t bytes;
+>         dma_addr_t pos;
+>
+> -       pos = readl(pchan->base + DMA_CHAN_LLI_ADDR);
+> -       bytes = readl(pchan->base + DMA_CHAN_CUR_CNT);
+> +       do {
+> +               pos = readl(pchan->base + DMA_CHAN_LLI_ADDR);
+> +               bytes = readl(pchan->base + DMA_CHAN_CUR_CNT);
+> +       } while (pos != readl(pchan->base + DMA_CHAN_LLI_ADDR));
+>
+>         if (pos == LLI_LAST_ITEM)
+>                 return bytes;
+> --
+> 2.54.0 (Apple Git-156)
+>
