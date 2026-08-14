@@ -1,223 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9A946D550
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 12:44:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86E335C687;
+	Fri, 14 Aug 2026 12:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786711479; cv=none; b=JPptpw6JSEcLF8k1UajRVDfAZ6ZS5olhL284GxiIoyOO9QiWe+91CkzNlaGnFN6224Kq6SPzbNJM4FReY55q9DP6TDNecRpLrJLvOEzd2FZHhEIGK3TjRXcbbZJ/iAfmQngXLRj31pgp+DdZ+vAe1d7jOK+RSPSEy3BAnJ6hgSw=
+	t=1786711797; cv=none; b=FwvQIxwi2p1KFq7YEZ2HEh44FRhNbiq5kKFFxCKhm60m1CvpqjaupdKH1Ns8/WjJW24pW5DkwwncNfNgP1Eiq8vyOlit3iYOb6GfWLbb8Q1YFsHLPW3HtpYBBVS8WSInMbC1gJnP0xQXSjpPSj7o2mogRRNBtNPOwJrcg5nNCcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786711479; c=relaxed/simple;
-	bh=2lja2/By+bBSKPYecrsRVabNCNVgmboMIvZyQUei4X0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=eujMev88XfkqXYXwCMbm0YUD1494UcJW6E8VvxrpI0bdqWX/dt33dkl8ZV4TbklFuB4wjTvHutCpYcYw6fcKqjzQbt5Y/h30h2XzEutpc7rR9O+zGMDq0Wk72y9wHHmdUvcT0YYof/62gvHMo4Zu+a8cIKNFQANKPO5RvC3LpVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g9/eCWcL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786711797; c=relaxed/simple;
+	bh=xgnyFVM48BJQmfstIgNW+DFiWQ+sxSdZGjP8flViMH0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=HHuAB48cKp0CHxSzI48IbdrRkqdEBmbddw7rKxLea74RWRL3tCHg9ZZyrgwy3secCbVE3TsE5uqWeAwfzhZIVGoRSGzQQmhKLnCxEfxVbfIZxnBsX2VPF6Jr4ti3CaxsTP382RqLhJ7S60zhnbYBD9MY8WtAw8Zyqx2Nb2yx324=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PRDfzshg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g9/eCWcL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDD2A1F000E9;
-	Fri, 14 Aug 2026 12:44:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PRDfzshg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E17C91F00A3A;
+	Fri, 14 Aug 2026 12:49:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786711473;
-	bh=MJ2NMYLJwChIHfAud7MMqnzpTZUYlVp3exxp5pWq82E=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=g9/eCWcL2PiGE/ROpGo6mO2cFhrG5WyH/2lBdKbhUmy24OZOY7yPzpT5/juygbhRt
-	 ymxvg6SlbZ+SLGWCwSbnHO2Wym2AwZ2AtbO+nP8dGA5P3nIfIcX7yDFm6up/M9fH85
-	 lpJHW1hTKiOkB8B+C1Ads4RE9+s8RLhsvmKN1Sb29wVXZiqX3OWs/mKnDV6WV9tNRp
-	 jEp2g23kUg7rqQ4QzqY0pyjc4/uSvzTTiTimduOoFzHDZectAeU1f4jN5YjM7KJIlR
-	 K69Zp3JHGTvuwW6j4+ghaqF0e6DkKqpKrbJCT8vwP8ZQwIqCiyG5Dgw0IfqWV8i3bl
-	 dhQitTaG6A6Yg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: gregkh@linuxfoundation.org, keno@juliacomputing.com, keno@juliahub.com,
- mingo@kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 6.6.y, 6.1.y, 5.15.y, 5.10.y] futex: Prevent robust futex
- exit race some more
-In-Reply-To: <2026081302-pursuant-asleep-ac62@gregkh>
-References: <2026081302-pursuant-asleep-ac62@gregkh>
-Date: Fri, 14 Aug 2026 14:44:30 +0200
-Message-ID: <874igwna6p.ffs@fw13>
+	s=k20260515; t=1786711791;
+	bh=km+u9J7sJRcZsJ2wjyW2/278JLQPTswm3POT24nALSw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=PRDfzshgsNO1kymJ5OSeQ7RhESGEGfILgOr5EAtXRhnFzf5RUvAeIznOh7973/Dux
+	 0QTtGMDJtELoX1pM5yJ7aQWemOUMyC0j0jlwo9pZez0x6lWYRxyOxbH7L+NMiBVqff
+	 KSvB55EJ8jaxUuOP8cdAuFyWKHYNC6ejU3IU8OWmgwpPNnZVBwNS8veN+2eAqVgwIl
+	 DgfkinJpfcS7IoL8bd8jWHbAbafNAacNAXstdCIU9C3ypPWtrRCo6vlQQ+uZd0Tq7c
+	 44Qds53TvLdB7lzEJJRxpEbAxVUAR89aO3SVK8t1jmWHhW9nbQGkCckMV+jlnytbCm
+	 UVXfYvd00RXSA==
+Date: Fri, 14 Aug 2026 14:49:48 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Baul Lee <baul.lee@xbow.com>
+cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    =?ISO-8859-2?Q?Tomasz_Paku=B3a?= <tomasz.pakula.oficjalny@gmail.com>, 
+    Oleg Makarenko <oleg@makarenk.ooo>, 
+    Benjamin Tissoires <bentiss@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] HID: universal-pidff: stop the device when force-feedback
+ init fails
+In-Reply-To: <20260729142432.16184-1-baul.lee@xbow.com>
+Message-ID: <p7s8s54n-s272-o580-18o7-93p5110o5oq6@xreary.bet>
+References: <20260729142432.16184-1-baul.lee@xbow.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 
+On Wed, 29 Jul 2026, Baul Lee wrote:
 
-From: Keno Fischer <keno@juliacomputing.com>
+> universal_pidff_probe() starts the device with hid_hw_start() and then, if
+> force-feedback initialisation fails, returns the error through a label that
+> only does "return error".  The device is left started.
+> 
+> The HID core does not unwind on the driver's behalf.  __hid_device_probe()
+> releases the devres group, closes the report and clears hdev->driver:
+> 
+> 	if (ret) {
+> 		devres_release_group(&hdev->dev, hdev->devres_group_id);
+> 		hid_close_report(hdev);
+> 		hdev->driver = NULL;
+> 	}
+> 
+> The hidraw character device that hid_hw_start() registered through
+> hid_connect() is allocated with kzalloc() and added with cdev_device_add(),
+> so it is not devres-managed and survives that.  With hdev->driver NULL,
+> hid_device_remove() skips hid_hw_stop() as well, because it only unwinds
+> while a driver is still attached.  The registration therefore outlives the
+> device on both paths.
+> 
+> Opening the surviving /dev/hidrawX writes into freed memory.  KASAN reports
+> a use-after-free write from hidraw_open() -> hid_hw_open() -> the
+> transport's open callback, which takes a spinlock inside the freed object.
+> A descriptor that carries a PID usage page and no input reports is enough:
+> hidraw claims the device so hid_hw_start() succeeds, while hid->inputs
+> stays empty so force-feedback init fails.  The other failure returns in
+> hid_pidff_init_with_quirks() - no output reports, an allocation failure,
+> pidff_init_fields(), pidff_check_autocenter(), an unusable effect count,
+> input_ff_create() - all reach the same label.
+> 
+> Stop the device on that path.  hid-dr.c and hid-emsff.c, which start the
+> device with the same HID_CONNECT_DEFAULT & ~HID_CONNECT_FF mask, already do
+> this.  The two earlier gotos must keep returning without hid_hw_stop(),
+> since neither has a started device, so give the path that fails after the
+> start its own label.
+> 
+> Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+> 
+> Fixes: f06bf8d94fff ("HID: Add hid-universal-pidff driver and supported device ids")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Baul Lee <baul.lee@xbow.com>
+> ---
+>  drivers/hid/hid-universal-pidff.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hid/hid-universal-pidff.c b/drivers/hid/hid-universal-pidff.c
+> index 549dac555d40..60180467a0bf 100644
+> --- a/drivers/hid/hid-universal-pidff.c
+> +++ b/drivers/hid/hid-universal-pidff.c
+> @@ -104,12 +104,14 @@ static int universal_pidff_probe(struct hid_device *hdev,
+>  	error = init_function(hdev, id->driver_data);
+>  	if (error) {
+>  		hid_warn(hdev, "Error initialising force feedback\n");
+> -		goto err;
+> +		goto err_stop;
+>  	}
+>  
+>  	hid_info(hdev, "Universal pidff driver loaded successfully!");
+>  
+>  	return 0;
+> +err_stop:
+> +	hid_hw_stop(hdev);
+>  err:
+>  	return error;
+>  }
 
-commit 6d4514ca9cdf61fec4ec634cf50386f6f7e69748 upstream.
+Applied, thanks.
 
-A robust futex unlock stores 0 over the whole futex value - wiping
-FUTEX_WAITERS - and wakes a single waiter. That wakeup is a one-shot
-notification: the protocol relies on its recipient to either acquire the
-futex (and eventually unlock while aware of the remaining contention) or
-re-arm FUTEX_WAITERS before sleeping again.  If the woken waiter is killed
-before it can do either, the kernel must jump in and wake the next task
-down the line.
+-- 
+Jiri Kosina
+SUSE Labs
 
-This is a known complication of the futex protocol with a previous
-partial fix in commit ca16d5bee598 ("futex: Prevent robust futex exit
-race"). Unfortunately, that fix is insufficient.
-
-If a third task re-acquired the futex through the uncontended fast
-path in the meantime, the notification is lost: robust exit processing
-sees that it is owned by another task and does nothing, while the new
-owner sees no FUTEX_WAITERS when it unlocks and wakes nobody.
-The remaining waiters sleep forever behind a free futex:
-
-  A owns the futex, B and C sleep in FUTEX_WAIT
-                                        uval == A | FUTEX_WAITERS
-  A robust unlock: store 0, FUTEX_WAKE(1) wakes B
-                                        uval == 0
-  D fast path acquire: cmpxchg(0 -> D)
-                                        uval == D, no FUTEX_WAITERS
-  B killed before acting on the wakeup
-  B exit walk, pending op: owner D != B -> no action
-  D unlock: no FUTEX_WAITERS -> no wake
-                                        C sleeps forever
-
-This is clearly a shortcoming in the implementation, which fails to keep
-the FUTEX_WAITERS bit consistent.
-
-Work around this by augmenting the robust list exit processing to also
-perform the extra wakeup if the futex word is owned by another thread but
-FUTEX_WAITERS is not set.
-
-This does not fix the problem of a non-contended take over/release and free
-sequence, which has been discussed for years and has been addressed by
-commit 3ca9595d9fb6 ("futex: Add support for unlocking robust futexes") and
-subsequent changes, but failed to take the problem described above into
-account.
-
-A more complete solution which is based on the in kernel unlock of
-contended robust futexes has been discussed in the context of this change
-and should show up in mainline sooner than later.
-
-[ tglx: Amend change log slightly and fixup coding style ]
-
-Fixes: ca16d5bee598 ("futex: Prevent robust futex exit race")
-Signed-off-by: Keno Fischer <keno@juliahub.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Assisted-by: ClaudeCode:claude-fable-5 tla+
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260730194705.38981-1-keno@juliacomputing.com
----
- kernel/futex/core.c |   88 ++++++++++++++++++++++++++++++++++------------------
- 1 file changed, 59 insertions(+), 29 deletions(-)
----
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -660,8 +660,11 @@ static int handle_futex_death(u32 __user
- 		return -1;
- 
- 	/*
--	 * Special case for regular (non PI) futexes. The unlock path in
--	 * user space has two race scenarios:
-+	 * Special case for regular (non PI) futexes. Ordinarily, we do
-+	 * not perform any processing here unless the current thread was
-+	 * the owner of the futex (by the TID check below).
-+	 *
-+	 * However, the unlock path has three race scenarios:
- 	 *
- 	 * 1. The unlock path releases the user space futex value and
- 	 *    before it can execute the futex() syscall to wake up
-@@ -670,41 +673,68 @@ static int handle_futex_death(u32 __user
- 	 * 2. A woken up waiter is killed before it can acquire the
- 	 *    futex in user space.
- 	 *
--	 * In the second case, the wake up notification could be generated
--	 * by the unlock path in user space after setting the futex value
--	 * to zero or by the kernel after setting the OWNER_DIED bit below.
--	 *
--	 * In both cases the TID validation below prevents a wakeup of
--	 * potential waiters which can cause these waiters to block
--	 * forever.
--	 *
--	 * In both cases the following conditions are met:
--	 *
--	 *	1) task->robust_list->list_op_pending != NULL
--	 *	   @pending_op == true
--	 *	2) The owner part of user space futex value == 0
-+	 * 3. A woken up waiter is killed in user space after another
-+	 *    thread has acquired the futex, but before it can set
-+	 *    FUTEX_WAITERS.
-+	 *
-+	 * Note that, if userspace uses the FUTEX_ROBUST_UNLOCK flag, we
-+	 * will not see case 1 here.
-+	 *
-+	 * In the second and third case, the wake up notification could
-+	 * be generated from any of:
-+	 *
-+	 *    i.   An ordinary futex wakeup after unlock (with or
-+	 *         without FUTEX_ROBUST_UNLOCK)
-+	 *    ii.  A robust wakeup from another thread's death
-+	 *    iii. A previous round through this special case
-+	 *
-+	 * As a result, the futex world will be in one of four states:
-+	 *
-+	 *    A. The futex word is 0 (unlocked)
-+	 *    B. The futex word is owned by another thread
-+	 *       (FUTEX_WAITERS is not set)
-+	 *    C. The futex word is owned by another thread
-+	 *       (FUTEX_WAITERS set)
-+	 *    D. The futex's owner died and OWNER_DIED is set
-+	 *       (the owner part of the word is 0)
-+	 *
-+	 * The key issue is that the kernel usually (at least from
-+	 * sources ii. and iii. or when so requested by userspace from
-+	 * source i.) only ever wakes *one* waiter at a time. If this
-+	 * waiter dies before acquiring the futex (or setting the
-+	 * FUTEX_WAITERS bit), the kernel *must* still wake the next
-+	 * waiter down the line to uphold the futex invariants and
-+	 * avoid lost wakeups. Note we do not need to handle state C,
-+	 * as it does not matter to us whether *we* successfully set
-+	 * the bit or a third thread did so in the meantime.
-+	 *
-+	 * Therefore, in these cases we must issue an additional
-+	 * futex_wake(). Note however that we *must not* set OWNER_DIED
-+	 * here. Our thread is *not* the owner of the futex.
-+	 *
-+	 * Thus to summarize, the conditions for needing the additional
-+	 * futex_wake() are:
-+	 *
-+	 *	1) @pending_op == true (the thread has not finished the
-+	 *	   mutex operation)
-+	 *	2) The futex word is in one of the states A, B or D
- 	 *	3) Regular futex: @pi == false
- 	 *
--	 * If these conditions are met, it is safe to attempt waking up a
--	 * potential waiter without touching the user space futex value and
--	 * trying to set the OWNER_DIED bit. If the futex value is zero,
--	 * the rest of the user space mutex state is consistent, so a woken
--	 * waiter will just take over the uncontended futex. Setting the
--	 * OWNER_DIED bit would create inconsistent state and malfunction
--	 * of the user space owner died handling. Otherwise, the OWNER_DIED
--	 * bit is already set, and the woken waiter is expected to deal with
--	 * this.
-+	 * Note in particular that in all of the states A-D the owner
-+	 * portion of the futex word differs from our thread's TID
-+	 * (unless the actual owner has the same TID in another PID
-+	 * namespace, but we cannot currently distinguish that
-+	 * scenario), so this can be a special-case wakeup in the bail
-+	 * path of the ordinary TID check.
- 	 */
- 	owner = uval & FUTEX_TID_MASK;
- 
--	if (pending_op && !pi && !owner) {
--		futex_wake(uaddr, 1, 1, FUTEX_BITSET_MATCH_ANY);
-+	if (owner != task_pid_vnr(curr)) {
-+		if (pending_op && !pi && (!owner || !(uval & FUTEX_WAITERS)))
-+			futex_wake(uaddr, 1, 1, FUTEX_BITSET_MATCH_ANY);
- 		return 0;
- 	}
- 
--	if (owner != task_pid_vnr(curr))
--		return 0;
--
- 	/*
- 	 * Ok, this dying thread is truly holding a futex
- 	 * of interest. Set the OWNER_DIED bit atomically
