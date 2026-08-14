@@ -1,145 +1,127 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670BA470111
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 13:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B11D346A11;
+	Fri, 14 Aug 2026 13:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786714188; cv=none; b=aTtnEXwfv6yJbm7VNFyNV/5bnwjpp6plQQMD4/bucXA0ie//4T0R8+cQj4wmhyXYiXW05b9LTfE3475ha0RZ0ncSSqP0x59TujT6Lpm58Mrud7MBfDr6Ncd5O7GUTbx3yTdB4kg4C+r7Ryf3GpnN8Jj7yes5I4KWVcik0mYiUcY=
+	t=1786714311; cv=none; b=K6hoOeEFra+LCz72BqejXQBs80zns8gL7GbJn8oVS2E/9x7q8GprYq/a/5E+M8eSx3EWUVsawmAUGToVEpiqNdp/TX9+Rl1tYGjD1Ez9MD1AVYjnb7YRwpLlv5AK/87VflSbqxJiEaO1mDh63q7gUZkLpzPtm2rhTeKHVPwvQiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786714188; c=relaxed/simple;
-	bh=Z0VrxfrQOACZu83EOUXJrOYZAwJOj58+oO60WgCClXg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NKUXGUtl+yqReQQuNa2sI2FdmuUa2lgLCocqT3DU/Q3CuId7uhP34eM9sv3ilOra41XR4XBIm5v2woIKVyC01u+WRmthw9wlVJA2aEr0tLyjfIxgAEai568ssikdHOqk/Vehvdm0ReO9AFECmeG7LYGI4CCvhrDLjZqbPKtL6/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=soundtrack.io; spf=pass smtp.mailfrom=soundtrack.io; dkim=pass (2048-bit key) header.d=soundtrack.io header.i=@soundtrack.io header.b=mkkNGFOR; arc=none smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=soundtrack.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soundtrack.io
+	s=arc-20240116; t=1786714311; c=relaxed/simple;
+	bh=iGKAThE6v93p5mUZFHCKi0YKXYgVN/v0BDC7F/79ACE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HJgJSWDMIlKp6h3Bd0ZvQqGGPAQCoUleIaRraZJEFlaGjceT/WSOUTpB++0LCAm3MZwb6UtaNTiE66kpSy7N26CKMblqTGJ4FE/eEhRuRkba+SHTzwp9KW/lA5oVJHPrv3bJvTP1aanctkeOleG5JZKjrVomrOGrrXAHQ3qU4Hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nx3cUszk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soundtrack.io header.i=@soundtrack.io header.b="mkkNGFOR"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a18ef236ecso192413a12.2
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 06:29:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soundtrack.io; s=google; t=1786714185; x=1787318985; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ctx57rLzTDeEjtgOib9aUyoQxqr6yVBe4ltDl2pGqk0=;
-        b=mkkNGFOREuXai3iI7Q06uuOc15j2r4vG61uOPFAIYtI8yZB2T47KxbOcw4FDz6pTAF
-         TaOdLVTF4M3XBR/FxDvITpIrIvbxrSjddeJTjUi0SmGKBxzeFmkJWiGyQC2QCD+DcqHK
-         plsneJVBV5sS2+i/0lQc4HpVp0+qxwDDVFNb34/0mcCIhR7xfFroabVmxsdC+qHPRZpR
-         N0+6UxoS3E1XgXZbo2NqUrcirUo7X9kcUB8SSkYiB4INVDDqvpnHJYXekpiHfcZ/iYqK
-         zPcfBP3otkr1deRzp7sUuaIVly6D0J3xSuRU3MjYc5yAL4c6p2otrJ7jhtZ6kbV/2jOL
-         Bd0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786714185; x=1787318985;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ctx57rLzTDeEjtgOib9aUyoQxqr6yVBe4ltDl2pGqk0=;
-        b=ULejlWdjKQjnt01wq+VtDMbbPKt6J7dZmnf6KLJI1C/4u4ZhHy8ceJ+MLigbvgF2DG
-         I+KryExWGjV0Y3D9QEa7YmjHtUUFQlHtcIZdOmDqCjixaZDQsTlZwYdqYV2guDVl1ddK
-         IjhoJykqCDWTjTkGE4AGPlx+au1VeoPtZXuXYPYPBr25C2vZbCHxM7GLmDqwWCMhttJk
-         gyx4ewFelZZ7NMfxD6IVCpOuGAUBvEvSUWtVII3OZVK5xKfTUTWcenKBQBJ39Cwq8huf
-         cPUBdIHefXv/z1PkgVzbrnFh5UTLy1CDXobxlgYNTBYRhJ0xOBLmK7Yx0PWNM/mIH5eL
-         9OWw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrn7HvjL2GITp+69UIbi4tLQNBi6w+r8YCFlwopjtqNmyGMsgG7A/ixxMh0xOUenLwJlUno3Ck=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFzI94gDMIMILhL/0GyOoP4pP97OsuRmQwPpp5XcW429cZ+r+j
-	vz54bB6ccx+BOPXkNiRtgMmXLlxwlCDaa6TBurMcFoWBcD7gSYJdzPZqhaf2OlK8Dt0=
-X-Gm-Gg: AR+sD13v1d88bDje4nVHpZ+lhQ6b2K8Y5hnl9hEJroybvkeYIqb2xjf31dzZSQI0ppP
-	On2soNnHmWxyS0onhDF5SsBYsT25tEvd7IKDhnUn5xqRY7w2OrXTEKcB/6B9sNzX4QUCdogOYQb
-	/M3oi1mJo7Ux7AYVGnzc8JZJOihaArWmV2bKt/vxx+P3R0a9uCYewvqtcIDRe9mV2xUUuSE7TKK
-	9jzRitdvBwkOSha3higq9rG3SqDpozPK+wPzNHZGyVGRm9QXu4Hv6KmJ1athF6tOVXA9wSqrCE5
-	bcEG4qMuGUdIzXPgu5UX8ELk9LbAZYeF2oChT2+KHIVbwRgnVoReQRT0PZ6DU1JqXvoWH+6til+
-	GIJDjNl8KPq9WVCZx6HQ3fJEDYrsV5PDLd3IbKT9E3hFRkGYBCWSRE6wPO76RX4Wtw09bWqEWoR
-	CI27cklR/Zrqzt3H1YvZLs4ErTddlomhWFoFJ6wOkO171PVHlyNN6JjGacSFyeLtLTh8e44SI5t
-	n3kkXdJkvmv9SwKPneTxbIAcfmLdGwgOUkKEugv9cAgO7SS3hp8I+7r2Y9fy1yCwSg8
-X-Received: by 2002:a05:6402:3881:b0:6a1:faeb:c519 with SMTP id 4fb4d7f45d1cf-6a38a97752amr1392217a12.3.1786714184680;
-        Fri, 14 Aug 2026 06:29:44 -0700 (PDT)
-Received: from Christians-MBP (31-209-40-223.cust.bredband2.com. [31.209.40.223])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a38c9d5eb2sm841941a12.5.2026.08.14.06.29.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 14 Aug 2026 06:29:44 -0700 (PDT)
-From: Christian Lugnberg <christian.lugnberg@soundtrack.io>
-To: vkoul@kernel.org
-Cc: Frank.Li@kernel.org,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Christian Lugnberg <christian.lugnberg@soundtrack.io>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] dmaengine: sun6i: fix null pointer dereference in sun6i_dma_tx_status
-Date: Fri, 14 Aug 2026 15:28:30 +0200
-Message-ID: <20260814132906.70322-3-christian.lugnberg@soundtrack.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260814132906.70322-1-christian.lugnberg@soundtrack.io>
-References: <20260814132906.70322-1-christian.lugnberg@soundtrack.io>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nx3cUszk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E691F000E9;
+	Fri, 14 Aug 2026 13:31:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786714310;
+	bh=9ZoVl74b1R3gmQ2FbYo+d4AyOhJLlJgJ+LwTVBWSbNM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nx3cUszkVbQpgDk69qw2lFTF+PxyTHpqY/DT2BMCXvMLhrEF7uadHT4WfGB4doCc4
+	 Qe9U21ClDLFeL8VwkkOOTsU17i4bBTWJv/i7hs7CNUTXY3xpBUrChrbbV4r6Ji/+DH
+	 J8pP6NYj8Pjpm66KUsFmLYE2qo4SA0L5UQxAKCdBzwDDkj/3EfDnl2bNmWHCADiEKD
+	 0rgGJwVfSabKMEHhvn3aLlh+qqYKXKsExkwVpC4RutH485SIE8ptOECJcI65IGEyrO
+	 etMZ/E2rDZLzm0YhP6MFarhObGyy6iKMT7/9FersI9ecuJE0OeB6a+gJ9w0nvwy25f
+	 Sgjimornjdfzw==
+Date: Fri, 14 Aug 2026 15:31:45 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: linux-input@vger.kernel.org, jikos@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Sashiko AI review <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] HID: multitouch: stop the release timer from being
+ rearmed on remove
+Message-ID: <an8YpGjIs9ze5GvW@beelink>
+References: <20260724000958.938675-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260724000958.938675-1-qwe.aldo@gmail.com>
 
-sun6i_dma_tx_status() calls vchan_find_desc() to look up the virtual
-descriptor for a given cookie, then unconditionally dereferences the
-result via to_sun6i_desc() before checking whether the pointer is NULL:
+On Jul 23 2026, Aldo Ariel Panzardo wrote:
+> mt_remove() quiesces the sticky-finger timer before stopping the
+> hardware:
+> 
+>     timer_delete_sync(&td->release_timer);
+> 
+>     sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
+>     hid_hw_stop(hdev);
+> 
+> timer_delete_sync() waits for a running callback and dequeues the timer,
+> but it does not stop the timer from being armed again. The transport is
+> still delivering reports at that point, and the report path rearms it:
+> 
+>     if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
+>         if (td->mt_io_flags & MT_IO_SLOTS_MASK)
+>             mod_timer(&td->release_timer,
+>                       jiffies + msecs_to_jiffies(100));
+> 
+> A report that arrives after timer_delete_sync() has returned therefore
+> leaves the timer queued. td is allocated with devm_kzalloc() against
+> hdev->dev, so it is freed when the driver is unbound, after mt_remove()
+> returns. When the timer fires afterwards, mt_expired_timeout()
+> dereferences the freed td:
+> 
+>     struct mt_device *td = timer_container_of(td, t, release_timer);
+>     struct hid_device *hdev = td->hdev;
+> 
+>     if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
+> 
+> Simply moving the teardown after hid_hw_stop() does not fix this on its
+> own, because mt_expired_timeout() calls mt_release_contacts(), which
+> walks hdev->inputs; the timer still has to be quiesced before
+> hid_hw_stop() tears the input devices down.
+> 
+> Use timer_shutdown_sync() instead, which additionally makes any later
+> mod_timer() a no-op, so neither ordering constraint has to be traded off
+> against the other. This is the final-teardown pattern the function was
+> introduced for, and hid-wiimote already uses it for the same reason.
+> 
+> Fixes: 4f4001bc76fd ("HID: multitouch: fix rare Win 8 cases when the touch up event gets missing")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260723224211.613112-1-you@example.com?part=1
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+> Found by code inspection after Sashiko AI review flagged the teardown
+> ordering while reviewing an unrelated patch of mine. I have not
+> reproduced the use-after-free at runtime: it needs a report to land in
+> the window between timer_delete_sync() returning and the device being
+> unbound, which I have no way to drive reliably on the hardware I have.
+> The window and the rearm path are visible in the code, and the fix does
+> not depend on the race being hit.
+> 
+>  drivers/hid/hid-multitouch.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+> index 0495152091e3..f25065b9ec66 100644
+> --- a/drivers/hid/hid-multitouch.c
+> +++ b/drivers/hid/hid-multitouch.c
+> @@ -2233,7 +2233,7 @@ static void mt_remove(struct hid_device *hdev)
+>  {
+>  	struct mt_device *td = hid_get_drvdata(hdev);
+>  
+> -	timer_delete_sync(&td->release_timer);
+> +	timer_shutdown_sync(&td->release_timer);
 
-    vd = vchan_find_desc(&vchan->vc, cookie);
-    txd = to_sun6i_desc(&vd->tx);   /* vd may be NULL here */
+Reviewed-by: Benjamin Tissoires <bentiss@kernel.org>
 
-    if (vd) {
-        for (lli = txd->v_lli; ...)
+Cheers,
+Benjamin
 
-vchan_find_desc() returns NULL when the descriptor has already been
-completed or is in-flight on a physical channel and no longer present
-in the virtual channel's descriptor list. Dereferencing NULL via
-to_sun6i_desc() in that case is undefined behaviour and will oops on
-any architecture that faults on NULL pointer access.
-
-Move the to_sun6i_desc() call inside the if (vd) block so it is only
-reached when vd is known to be non-NULL:
-
-    vd = vchan_find_desc(&vchan->vc, cookie);
-    if (vd) {
-        struct sun6i_desc *txd = to_sun6i_desc(&vd->tx);
-        for (lli = txd->v_lli; ...)
-
-Fixes: 555859308723 ("dmaengine: sun6i: Add driver for the Allwinner A31 DMA controller")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-sonnet-4-6
-Signed-off-by: Christian Lugnberg <christian.lugnberg@soundtrack.io>
----
- drivers/dma/sun6i-dma.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-index 04fe1f5042e9..7704b016aed8 100644
---- a/drivers/dma/sun6i-dma.c
-+++ b/drivers/dma/sun6i-dma.c
-@@ -981,7 +981,6 @@ static enum dma_status sun6i_dma_tx_status(struct dma_chan *chan,
- 	struct sun6i_pchan *pchan = vchan->phy;
- 	struct sun6i_dma_lli *lli;
- 	struct virt_dma_desc *vd;
--	struct sun6i_desc *txd;
- 	enum dma_status ret;
- 	unsigned long flags;
- 	size_t bytes = 0;
-@@ -993,9 +992,9 @@ static enum dma_status sun6i_dma_tx_status(struct dma_chan *chan,
- 	spin_lock_irqsave(&vchan->vc.lock, flags);
- 
- 	vd = vchan_find_desc(&vchan->vc, cookie);
--	txd = to_sun6i_desc(&vd->tx);
- 
- 	if (vd) {
-+		struct sun6i_desc *txd = to_sun6i_desc(&vd->tx);
- 		for (lli = txd->v_lli; lli != NULL; lli = lli->v_lli_next)
- 			bytes += lli->len;
- 	} else if (!pchan || !pchan->desc) {
--- 
-2.54.0 (Apple Git-156)
-
+>  
+>  	sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
+>  	hid_hw_stop(hdev);
+> -- 
+> 2.43.0
+> 
+> 
