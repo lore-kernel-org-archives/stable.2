@@ -1,137 +1,144 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA073A874D;
-	Fri, 14 Aug 2026 09:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392943A874A;
+	Fri, 14 Aug 2026 09:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786701313; cv=none; b=kaojsoyn3VuHfPVWzxBF7A3msdk+FI/1s8/kjkLCmtxjjLs2zuBaRGKsVSB3viDCMxVQf91A0leVUwoPWq5t2DkIvJo4+A5C5Qk17F/PSjXA4FVJUzNwLLSz1haOMYfUmLbGobFfl811FaNEd1VfsdfiTTiHgTb0+Pt53P01ZLk=
+	t=1786701341; cv=none; b=cq+U3aoGp6hsUKHGSbc/gSb/SdiupOZJFaX5Mef091Eofr8E3WMSzz/mddMESUeifFDU3OjrRjf86pmtpUX6fXUXHx6z2yOSGkoV50c6G5X/frwSYRWjPpP9lCBjbmJV14SVETCOqpjoCOA4N5n1Rx1eKQU9D0pNYRRBkVwbrmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786701313; c=relaxed/simple;
-	bh=0T+f8JEOj92JHGa1TCRTIxJOscVM+UJ6z6RLSzVbRqQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FOgPj07bjIpsrfTzDoc97QH4OirYLvxcEsg0HQoRtWYuq9c2210vgkXESfIyBm3os2OCHyDlRA29w2Zijw99OgGG+Fswn+yBZI102yokGrVLENNVsSU4cOPVJbkCj9fnHOGn+eS3+yZYR8cJc/Rm0TM7K33C6rLvfCHbOJyNGb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S4XB3hBc; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786701341; c=relaxed/simple;
+	bh=hmKchBNPKMjWFJUKwEJ+toH35ASC4JlF5iDo6YCsMI4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ye0mJHBfhHlAdDqIpSgqb79oHu6CVbEEOe/B6RG5H+GsxHk2r/gyNTwxxSU/12LbaK4kOoBxPq1v4Af1KrAbidJpmQ26u94bLQfUNc3sVkD7GLsRAKjiU61D4GjmIiNhiIGQSesG6ko/vEiGpnRWUaF4erQ4u+/pa10nns7bOKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=JNq09U4Z; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=i04ZJt+t; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S4XB3hBc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786701309; x=1818237309;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0T+f8JEOj92JHGa1TCRTIxJOscVM+UJ6z6RLSzVbRqQ=;
-  b=S4XB3hBcLFOZVtfZhUUxTjkmjZhYSftR/Xbam+4Wkb0KXwg9QsOSffU+
-   FMvJ+ZHMCArtGW/juWacfyKU1AGQS7uO0sOVvSpl1bZeLOEkF9y4vP2UV
-   dUefsT7p4Kl6i3f2/698HDdaSQXHb8gsrQBrYrPJPAEQj1AwIKoep9rK+
-   sgXU65Fv5G3UbEF0mcd1AySXsxdG+vfZjprbSFcxfsvxnLfdSaDURPrCc
-   g/CvVQdgXZOsVcUWd/v87iO+RLEtSRd6IWmwz6jLU2FJbEukhnE2a4iDr
-   YLm86+QuAwblKfJJe4qOA9KzXKQnvt1t37+hn1FV9JpYaES+ULZrb72oX
-   w==;
-X-CSE-ConnectionGUID: jzALNurvTgGasjkgFXmMsA==
-X-CSE-MsgGUID: pyecC/GcSEK+bdcXVN6sAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87408840"
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="87408840"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 02:55:05 -0700
-X-CSE-ConnectionGUID: iqNWZyRoQvqFva1sare29w==
-X-CSE-MsgGUID: 962vBUMjRgC74aVrNrN5Gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="266169704"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa004.fm.intel.com with ESMTP; 14 Aug 2026 02:55:03 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id D963899; Fri, 14 Aug 2026 11:55:02 +0200 (CEST)
-Date: Fri, 14 Aug 2026 11:55:02 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, git@amd.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] usb: typec: tipd: fix uninitialized
- typec_partner_desc in cd321x_update_work()
-Message-ID: <an7l9oHsXR3Zp8TL@black.igk.intel.com>
-References: <20260812161454.149606-1-radhey.shyam.pandey@amd.com>
- <20260812161454.149606-3-radhey.shyam.pandey@amd.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="JNq09U4Z";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="i04ZJt+t"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hLyK21ZHKzKnQr;
+	Fri, 14 Aug 2026 11:55:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786701334;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=z1V1huwI7s1opkOH2G7+P7J87ZrDyGAz9YEL7He2GFM=;
+	b=JNq09U4ZHj0m/1zoUkqT7ZWIDTdWqLOhR+V3a6q3Iph2TMsaLoBuVNdXHh0foeeKRArjmR
+	0/At4ADbJRJC9W4e7fmpYNbDzBO4TCG2Cb1PmBF9nbyFeCgD1stSuQ8sXa826fhk6ko/Y+
+	E3MufJ6Fw61N2K+eS/bAUt9w88EJhD1nbkJ1CB7A7ISf527B6GezkoozJsOAV8Xfya/yxs
+	xoW+NatvPYLvSCsyX3R1gpNT549q9GjKacso6/csW+qF14fjErGFLUyKhhMXOGjohr+qVN
+	ncQnID7KI5Pwpsf4E0kLU398zoRcCqCYqeU6q20MkWHMw3bTNhVfae3zlCAjCw==
+From: Qing Ming <a0yami@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786701332;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=z1V1huwI7s1opkOH2G7+P7J87ZrDyGAz9YEL7He2GFM=;
+	b=i04ZJt+tYgmS+QCSgmdTOnqdVC4pcpCOlqfaMOi7eVDYPdsvbGbPEJEjQeaQnih4wTR3/F
+	WvLp615fVvmUL8Km8wzJxZr+H9Ug5Gav4tqG5ajymgBDLwx6wU01wvO5Vmc/oyEgM1fIH2
+	NnBtyOa/6W30DAptnKcwrV18gXmd7KhjXl+NT4Ym1MQ3wFFYe7l5bUSWWpg+khRbJPY2+k
+	KGW/UluCbawDXnzb2NSzh1E9QyOMlzVOF4JrxcRnI75YZjUaKFmLEHgvhEdk3cdviG3l/x
+	nCgFHI7GmxXcPIEULHAbMKDlm0ATZeoFEWwxDuq3RLV164bkNDAvrk5GbTU7qg==
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Guillaume Nault <gnault@redhat.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	David Ahern <dsahern@kernel.org>,
+	Robert Shearman <rshearma@brocade.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Qing Ming <a0yami@mailbox.org>,
+	stable@vger.kernel.org
+Subject: [PATCH net] mpls: reload header after pskb_may_pull()
+Date: Fri, 14 Aug 2026 17:54:04 +0800
+Message-ID: <20260814095404.7205-1-a0yami@mailbox.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812161454.149606-3-radhey.shyam.pandey@amd.com>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: twju1161ye747869k1efat4y8dsbxu61
+X-MBO-RS-ID: 222a4c73fd0df02ca95
 
-On Wed, Aug 12, 2026 at 09:44:54PM +0530, Radhey Shyam Pandey wrote:
-> cd321x_update_work() passes a stack-allocated typec_partner_desc to
-> typec_register_partner() after initializing only usb_pd, accessory and
-> identity.
-> 
-> typec_register_partner() copies attach and deattach from the descriptor
-> into the partner. With those fields left unset, garbage function pointers
-> may be stored and later invoked from typec_partner_link_device() when a USB
-> device is linked to the port. Uninitialized pd_revision and usb_capability
-> similarly leak stack data through partner sysfs.
-> 
-> Zero-initialize the descriptor so optional callbacks remain NULL and the
-> remaining fields are zero.
-> 
-> Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
-> Cc: stable@vger.kernel.org # 6.18+
-> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+mpls_select_multipath() calls mpls_multipath_hash() to choose a nexthop
+when an MPLS route has multiple nexthops.  While walking the MPLS label
+stack, the hash routine caches hdr for the current label.  After finding
+the bottom-of-stack label, it calls pskb_may_pull() before reading the
+inner IP header.
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+If an skb is constructed with the inner IP header in nonlinear data and
+insufficient tailroom in the linear head, pskb_may_pull() calls
+pskb_expand_head() to replace the skb head and free the old one.  This
+leaves hdr pointing to freed memory.  The IPv6 path can invalidate hdr
+again when it performs a second pull for the larger header.
 
-> ---
-> Changes for v3:
-> - Split v2 into separate patches to simplify LTS backporting.
-> - Drop Heikki reviewed-by tag as now patch is split.
-> 
-> Changes for v2:
-> - Add  Assisted-by tag.
-> - Remove explicit indentity=NULL
-> 
-> AI code scanning identified this issue; the possible call graph is shown below.
-> 
->   USB-C plug event (IRQ)
->     tps6598x_interrupt()
->       tps6598x_handle_plug_event()
->         tps6598x_connect()
->           struct typec_partner_desc desc;     /* bug: attach/deattach unset */
->           desc.usb_pd / .accessory / .identity = ...
->           typec_register_partner(port, &desc)   /* class.c */
->             partner->attach   = desc->attach;   /* copy stack garbage */
->             partner->deattach = desc->deattach;
->             [if port->usb2_dev || port->usb3_dev already set]
->               typec_partner_link_device(partner, dev)
->                 if (partner->attach)
->                   partner->attach(partner, dev)  /* indirect call via bad ptr */
-> ---
->  drivers/usb/typec/tipd/core.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-> index 54ca726c3b15..d99a55063e34 100644
-> --- a/drivers/usb/typec/tipd/core.c
-> +++ b/drivers/usb/typec/tipd/core.c
-> @@ -840,11 +840,10 @@ static void cd321x_update_work(struct work_struct *work)
->  
->  	/* Set up partner if we were previously disconnected (or changed). */
->  	if (!tps->partner) {
-> -		struct typec_partner_desc desc;
-> +		struct typec_partner_desc desc = { };
->  
->  		desc.usb_pd = is_pd;
->  		desc.accessory = TYPEC_ACCESSORY_NONE; /* XXX: handle accessories */
-> -		desc.identity = NULL;
->  
->  		if (desc.usb_pd)
->  			desc.identity = &st.partner_identity;
-> -- 
-> 2.43.0
+The issue was found through static analysis.  A reproducer sending a legal
+Geneve packet through a bareudp/MPLS multipath setup triggered the same
+KASAN report in 2 of 2 unpatched runs:
 
+  BUG: KASAN: slab-use-after-free in mpls_select_multipath
+  Read of size 1 at addr ffff88800ecc6e20 by task ksoftirqd/1/23
+
+  Call Trace:
+   mpls_select_multipath
+   mpls_forward
+   __netif_receive_skb_list_core
+   netif_receive_skb_list_internal
+   napi_complete_done
+   gro_cell_poll
+   __napi_poll
+   net_rx_action
+
+  Freed by task 23:
+   kfree
+   pskb_expand_head
+   __pskb_pull_tail
+   mpls_select_multipath
+
+Reload hdr from the current skb head after each successful pull before
+deriving the inner IPv4 or IPv6 header pointer.
+
+Fixes: 9f427a0e474a ("net: mpls: Fix multipath selection for LSR use case")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qing Ming <a0yami@mailbox.org>
+---
+ net/mpls/af_mpls.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/mpls/af_mpls.c b/net/mpls/af_mpls.c
+index 961be5054a03..17b78dcbf8ab 100644
+--- a/net/mpls/af_mpls.c
++++ b/net/mpls/af_mpls.c
+@@ -221,6 +221,7 @@ static u32 mpls_multipath_hash(struct mpls_route *rt, struct sk_buff *skb)
+ 		if (pskb_may_pull(skb, mpls_hdr_len + sizeof(struct iphdr))) {
+ 			const struct iphdr *v4hdr;
+ 
++			hdr = mpls_hdr(skb) + label_index;
+ 			v4hdr = (const struct iphdr *)(hdr + 1);
+ 			if (v4hdr->version == 4) {
+ 				hash = jhash_3words(ntohl(v4hdr->saddr),
+@@ -231,6 +232,7 @@ static u32 mpls_multipath_hash(struct mpls_route *rt, struct sk_buff *skb)
+ 						 sizeof(struct ipv6hdr))) {
+ 				const struct ipv6hdr *v6hdr;
+ 
++				hdr = mpls_hdr(skb) + label_index;
+ 				v6hdr = (const struct ipv6hdr *)(hdr + 1);
+ 				hash = __ipv6_addr_jhash(&v6hdr->saddr, hash);
+ 				hash = __ipv6_addr_jhash(&v6hdr->daddr, hash);
+
+base-commit: 24ef02f934eeb48830cff6b739abc3c62b1d107b
 -- 
-heikki
+2.53.0
+
