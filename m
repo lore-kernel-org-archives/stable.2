@@ -1,171 +1,178 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+Received: from mta1.migadu.com (out-65.mta1.migadu.com [95.215.58.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D6E3BCD15
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 23:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F8E3E3C74
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 23:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786751366; cv=none; b=lXNT27vIn3/Qc4VQCnOZk3rMPSldvo9CgOdUEw7+nI1439Wxy2LAw2Jdm0BL1WsYx1QxM/hd0/3i7n3gc2BzYnTPzwdsS6znmzPsNVxMTs9isYamHjTAS52tbZAG9oBxV5kMJZEuvTdjsGYpx//TdwnN5uiTqgLFy3Z7Brx5wJ4=
+	t=1786751711; cv=none; b=AynkFSGRj1t2A+AnECWxLkkN+ArvoUCw/agXTwEz+/+vc4uKSCpGaq9LBkA8pxZEPhnPz56Fl7qOluv1Unr7rHyH1JWp+OKIbi/TpJvQ4nBiIu0R5P3G6Z77j8HPXWq015l3CLGG8Iv6OMw3XLzJnu1tZNQcahfnN2ivqfcT7jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786751366; c=relaxed/simple;
-	bh=bkqjE8H5yLsZzATIYsHOfEIXGXzmrV039SYCCUNAerQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=CEfSsSuwie5+h4mAcAMWKsZBqNXFVRGAy0SN+HreFchxYaHRE90DZnXMBJpAe7KYLRWkLZe6NbhAi06qDqhLP9KTCJ+pvRH9AqEq/urRfeDTe+mXPL2aJYz+oZj/es/hqqabJzdInJ9K90c8sR1iTbIF2sLvwRjxnnJFFwCnI7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bHCdyhQW; arc=none smtp.client-ip=209.85.210.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com
+	s=arc-20240116; t=1786751711; c=relaxed/simple;
+	bh=RMN5UefWE03kCQbDYhAuTCIAqJYIWwwHF4nusHD7CFQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t/MqqbXzPAifHfgtVZig2hRWRJWzVtvn8Lc1LNuewybz2ZDBU9BrxjylSbesA3RCJdBT4gr3k91ThZmNnHrXytOghczDOy8jN7fnww6fFoiMcbPfX/r0LCdDDRaGNaAA2E7FR+3L4z2UyozfFT1Ay8jUAhRgLSpfufnsKULGKv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QNWmLGwm; arc=none smtp.client-ip=95.215.58.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bHCdyhQW"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84fb5376cb8so1799177b3a.2
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 16:49:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786751363; x=1787356163; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QIhn3gnxRLM65UuEQqpJlwUN/Y3dZ7RL7buNA7bnsTY=;
-        b=bHCdyhQWUHNaZY9a4NHf1W+9G4LZ9K1zlVlUQ69CxObm+rBVovJAhrkGgxUVPjp4g8
-         0wxFcvrIDdt4xYdBTUxUOlHtQATM6EGBtLSkmi3FfQ29wY2H330eDl3UPqYdspOX31HW
-         xi3tSxYqI1tKwZniUI1f6OuieboWS52NdUPZLpUwt6CMt/nyu6zC0thUdHiMUqC4t4UK
-         b2EEUiOFY01J7XoQbHGn8yuauXrD2mJt5PhJ0DQJ+idibY93rGJm+K+MRlh5t5ncajuE
-         37DPaoJIOBlS83R8wPPnQhiKWBMNtKeVgqyE+1pIVQwQWKA0Rb8wyBtgipk6trlfuDLJ
-         ILrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786751363; x=1787356163;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QIhn3gnxRLM65UuEQqpJlwUN/Y3dZ7RL7buNA7bnsTY=;
-        b=FT9xz7pG7vvz4JPdFhumqPtiQ6OOIJke1zCuZPxH3P7zl4iCwLF8bNMNvVlgDnus3n
-         PcYZgYKZOR/L6yZiQalKfXmEq5mI4aWddbdFnwH6EfDvxQBInJjwpxKj9gElXUJMhasC
-         u0zuFPwZA/XTF2kBzuCVAuCBwvcURQd8QqkeSBdbcJy97eGNd95QWb8dGvpaxxsCgfKg
-         OS26k+ieHeDbmhjickR1B9CIbixpXLesc7WEIOf9+gy9bKNe+JlI7c1noze5DQkSc2ER
-         MguAVZz13ziVyPNO33Xfd8J5GzqoR03kSPEh9AlUmzX1LbXsgbQKgtDTBcOF0HoAeeQh
-         DU8w==
-X-Forwarded-Encrypted: i=1; AHgh+RqFaZADqBfEID5nuldwbzmbmbVkLstHJSYKGIQDoas+UgiPpNhgv4VZ7+5Y1fayYpydpSU5PaQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyw3lDimUrHBptAkJ+t7Iu8aibd2al+i6ugkr3raVuJ+IRtorTW
-	hqpDKijPvJcPkVeYZxgmey4PuT0dTImXLFrrd+XkEby9JjYXNz3FWRQA7PsgmP5fJ8nqxMUVjso
-	13EKeo+kw0qsZbA==
-X-Received: from pfbfq10.prod.google.com ([2002:a05:6a00:60ca:b0:84a:3bc9:3bcd])
- (user=joshwash job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:2d86:b0:848:2c6c:dfe3 with SMTP id d2e1a72fcca58-84fde00dea1mr8295276b3a.17.1786751362579;
- Fri, 14 Aug 2026 16:49:22 -0700 (PDT)
-Date: Fri, 14 Aug 2026 16:48:45 -0700
-In-Reply-To: <20260814234845.773189-1-joshwash@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QNWmLGwm"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RMN5UefWE03kCQbDYhAuTCIAqJYIWwwHF4nusHD7CFQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786751708; v=1; x=1787356508;
+ b=QNWmLGwmYUJFSHBTi+G3wcunFWovhJnpG9zZzF4bZx5wlKrUZe0Q+qgo2RjIun05RXEDczJ/
+ 1K1eQe6118hfSEcnsA/+RSZmkCdK850pNqMDY0QnPCpgFLx3L77iOo8+0lxti6aNuI0jLEWnBJ+
+ ZOduXhLFNqVABVAWsDmsGUJI=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2a03:83e0:1251:27:9295:e585:8bf6:fa24] (2620:10d:c090:500::6:7be4)
+	by smtp.migadu.com with ESMTPS id 39cf3d840af50284;
+	Fri, 14 Aug 2026 23:55:08 +0000
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fc9da1e4-714a-4a2a-974b-fe495a3d8afe@linux.dev>
+Date: Fri, 14 Aug 2026 16:55:00 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260814234845.773189-1-joshwash@google.com>
-X-Mailer: git-send-email 2.55.0.691.gc56d675ccc-goog
-Message-ID: <20260814234845.773189-7-joshwash@google.com>
-Subject: [PATCH net 6/6] gve: fix NULL dereference from premature XSK pool DMA unmap
-From: Joshua Washington <joshwash@google.com>
-To: netdev@vger.kernel.org
-Cc: Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Jordan Rhee <jordanrhee@google.com>, Willem de Bruijn <willemb@google.com>, 
-	Ankit Garg <nktgrg@google.com>, Tim Hostetler <thostet@google.com>, 
-	Praveen Kaligineedi <pkaligineedi@google.com>, Jeroen de Borst <jeroendb@google.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v3 2/2] selftests/bpf: Check per-CPU address
+ resolution per register
+To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, x86@kernel.org,
+ stable@vger.kernel.org, martin.lau@kernel.org, eddyz87@gmail.com,
+ yonghong.song@linux.dev, clm@meta.com, ihor.solodrai@linux.dev
+References: <20260814220254.3797467-3-vineet.gupta@linux.dev>
+ <67663b343f4aa2719eee273f10ca74a469fa1ab5e8772933083f51b62284a59a@mail.kernel.org>
+Content-Language: en-US
+From: Vineet Gupta <vineet.gupta@linux.dev>
+In-Reply-To: <67663b343f4aa2719eee273f10ca74a469fa1ab5e8772933083f51b62284a59a@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-To ensure that XSK pools are DMA unmapped in all scenarios, GVE performs
-the unmapping before validating if the interface is up and early
-returning.
 
-However, if rings are up, this introduces a race between the RX NAPI and
-the control plane. As part of DMA unmapping the XSK pool, the kernel
-sets pool->dev to NULL. Because xsk_buff_dma_sync_for_cpu() relies on
-pool->dev, this results in a kernel panic:
 
-BUG: kernel NULL pointer dereference, address: 000000000000030c
-...
-RIP: 0010:gve_rx_poll_dqo+0x2e2/0x13b0 [gve]
-...
-Call Trace:
- <IRQ>
- gve_napi_poll_dqo+0x88/0x170 [gve]
- __napi_poll+0x30/0x210
- net_rx_action+0x210/0x410
- ? dst_destroy_rcu+0x12/0x20
- handle_softirqs+0xe4/0x310
- __irq_exit_rcu+0x10e/0x130
- irq_exit_rcu+0xe/0x20
- common_interrupt+0xb6/0xe0
- </IRQ>
+On 8/14/26 3:39 PM, bot+bpf-ci@kernel.org wrote:
+>> commit fe4e8b7aecfff8c04bc3c2f472f9243928effc6e
+>> Author: Vineet Gupta <vineet.gupta@linux.dev>
+>> Date:   Fri Aug 14 15:02:54 2026 -0700
+>>
+>>      selftests/bpf: Check per-CPU address resolution per register
+>>
+>>      An ld_imm64 of a per-CPU map value is followed by a mov_percpu_addr that
+>>      reuses the same register, so which register the address lands in decides
+>>      how the JIT encodes the add. Getting the REX prefix wrong there is
+>>      invisible to a functional test unless the address happens to land in an
+>>      extended register, which is why this went unnoticed.
+> Does this mechanism actually exist in the tree?
 
-Leave the XSK pool DMA mapped until after rings are guaranteed to no
-longer rely on the pool.
+Indeed these changes are introduced in bpf-next not on *bpf* which the 
+patches were targeting - noob mistake on my part.
 
-Fixes: d57ae093c887 ("gve: deduplicate xdp info and xsk pool registration logic")
-Cc: stable@vger.kernel.org
-Reviewed-by: Jordan Rhee <jordanrhee@google.com>
-Signed-off-by: Joshua Washington <joshwash@google.com>
----
- drivers/net/ethernet/google/gve/gve_main.c | 27 ++++++++++++----------
- 1 file changed, 15 insertions(+), 12 deletions(-)
+I'll respin v4 targeting bpf-next and drop stable etc.
 
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index e084b367a92d..ccaf5f86a1e6 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -1681,28 +1681,24 @@ static int gve_xsk_pool_disable(struct net_device *dev,
- 	struct napi_struct *napi_rx;
- 	struct napi_struct *napi_tx;
- 	struct xsk_buff_pool *pool;
-+	int err = 0;
- 	int tx_qid;
--	int err;
- 
--	if (qid >= priv->rx_cfg.num_queues)
--		return -EINVAL;
-+	if (qid >= priv->rx_cfg.num_queues) {
-+		err = -EINVAL;
-+		goto unmap_and_return;
-+	}
- 
- 	clear_bit(qid, priv->xsk_pools);
- 
--	pool = xsk_get_pool_from_qid(dev, qid);
--	if (pool)
--		xsk_pool_dma_unmap(pool,
--				   DMA_ATTR_SKIP_CPU_SYNC |
--				   DMA_ATTR_WEAK_ORDERING);
--
- 	if (!netif_running(dev) || !priv->tx_cfg.num_xdp_queues)
--		return 0;
-+		goto unmap_and_return;
- 
- 	/* Stop and start RDA queues to repost buffers. */
- 	if (!gve_is_qpl(priv) && priv->xdp_prog) {
- 		err = gve_configure_rings_xdp(priv, priv->rx_cfg.num_queues);
- 		if (err)
--			return err;
-+			goto unmap_and_return;
- 	}
- 
- 	napi_rx = &priv->ntfy_blocks[priv->rx[qid].ntfy_id].napi;
-@@ -1725,7 +1721,14 @@ static int gve_xsk_pool_disable(struct net_device *dev,
- 			napi_schedule(napi_tx);
- 	}
- 
--	return 0;
-+unmap_and_return:
-+	pool = xsk_get_pool_from_qid(dev, qid);
-+	if (pool)
-+		xsk_pool_dma_unmap(pool,
-+				   DMA_ATTR_SKIP_CPU_SYNC |
-+				   DMA_ATTR_WEAK_ORDERING);
-+
-+	return err;
- }
- 
- static int gve_xsk_wakeup(struct net_device *dev, u32 queue_id, u32 flags)
--- 
-2.55.0.691.gc56d675ccc-goog
+Thx,
+-Vineet
+
+>
+> There is no verifier or JIT path that follows an ld_imm64 of a per-CPU map
+> value with a mov_percpu_addr on the same register. BPF_MOV64_PERCPU_REG has
+> exactly four call sites:
+>
+>    kernel/bpf/arraymap.c:288   *insn++ = BPF_MOV64_PERCPU_REG(BPF_REG_0, BPF_REG_0);
+>    kernel/bpf/hashtab.c:2429   *insn++ = BPF_MOV64_PERCPU_REG(BPF_REG_0, BPF_REG_0);
+>    kernel/bpf/fixups.c:2115    insn_buf[1] = BPF_MOV64_PERCPU_REG(BPF_REG_0, BPF_REG_0);
+>    kernel/bpf/fixups.c:2136    insn_buf[1] = BPF_MOV64_PERCPU_REG(BPF_REG_0, BPF_REG_0);
+>
+> All four use BPF_REG_0 as both source and destination. BPF_REG_0 maps to
+> RAX, so is_ereg() is always false and the REX.R encoding path is
+> unreachable from any loadable program.
+>
+> An ld_imm64 of a percpu ksym goes through check_pseudo_btf_id() in the
+> verifier, which only sets aux->btf_var.reg_type = PTR_TO_BTF_ID |
+> MEM_PERCPU. No mov_percpu_addr insn is inserted after it. The per-CPU
+> base is added later by bpf_per_cpu_ptr() or bpf_this_cpu_ptr() kfuncs,
+> which return in R0.
+>
+>> diff --git a/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c b/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c
+>> new file mode 100644
+>> index 000000000000..967f4e6e3a49
+>> --- /dev/null
+>> +++ b/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c
+>> @@ -0,0 +1,72 @@
+> [ ... ]
+>
+>> +SEC("raw_tp")
+>> +__description("per-CPU address resolution")
+>> +__success
+>> +__arch_x86_64
+>> +__jited("	movabsq	$0x{{.*}}, %rax")
+>> +__jited("	addq	%gs:{{.*}}, %rax")
+>> +__jited("	movabsq	$0x{{.*}}, %rdi")
+>> +__jited("	addq	%gs:{{.*}}, %rdi")
+>> +__jited("	movabsq	$0x{{.*}}, %rsi")
+>> +__jited("	addq	%gs:{{.*}}, %rsi")
+>> +__jited("	movabsq	$0x{{.*}}, %rdx")
+>> +__jited("	addq	%gs:{{.*}}, %rdx")
+>> +__jited("	movabsq	$0x{{.*}}, %rcx")
+>> +__jited("	addq	%gs:{{.*}}, %rcx")
+>> +__jited("	movabsq	$0x{{.*}}, %r8")
+>> +__jited("	addq	%gs:{{.*}}, %r8")
+>> +__jited("	movabsq	$0x{{.*}}, %rbx")
+>> +__jited("	addq	%gs:{{.*}}, %rbx")
+>> +__jited("	movabsq	$0x{{.*}}, %r13")
+>> +__jited("	addq	%gs:{{.*}}, %r13")
+>> +__jited("	movabsq	$0x{{.*}}, %r14")
+>> +__jited("	addq	%gs:{{.*}}, %r14")
+>> +__jited("	movabsq	$0x{{.*}}, %r15")
+>> +__jited("	addq	%gs:{{.*}}, %r15")
+>> +__naked void percpu_addr(void)
+>> +{
+>> +	asm volatile ("					\
+>> +	r0 = %[percpu_data] ll;				\
+>> +	r1 = %[percpu_data] ll;				\
+>> +	r2 = %[percpu_data] ll;				\
+>> +	r3 = %[percpu_data] ll;				\
+>> +	r4 = %[percpu_data] ll;				\
+>> +	r5 = %[percpu_data] ll;				\
+>> +	r6 = %[percpu_data] ll;				\
+>> +	r7 = %[percpu_data] ll;				\
+>> +	r8 = %[percpu_data] ll;				\
+>> +	r9 = %[percpu_data] ll;				\
+>> +	r0 = 0;						\
+>> +	exit;						\
+>> +"	:
+>> +	: __imm_addr(percpu_data)
+>> +	: __clobber_all);
+>> +}
+> Can these 'addq %gs:..., %<reg>' assertions ever match?
+>
+> A bare sequence of ten ld_imm64s produces ten 'movabsq' lines and zero
+> 'addq %gs:' lines. The verifier does not insert a mov_percpu_addr insn
+> after an ld_imm64 of a percpu ksym. The per-CPU base is added by the
+> bpf_per_cpu_ptr() or bpf_this_cpu_ptr() kfuncs, which return in R0.
+>
+> So the JIT output would be ten consecutive 'movabsq' instructions with no
+> 'addq' between them. The test expects alternating 'movabsq' and 'addq'
+> lines, and consecutive __jited tags must match consecutive disassembly
+> lines unless a '...' tag is inserted.
+>
+> Even if a mov_percpu_addr could be generated, all four call sites hardcode
+> BPF_REG_0, so only the %rax form would ever be reachable.
+>
+> This means the test cannot cover the REX.R fix in acdf39f8be46 ("bpf, x86:
+> Fix per-CPU address resolution into an extended register").
+>
+> Should there be a Link: or Fixes: tag referencing acdf39f8be46, and does
+> the commit message need to explain what new path makes the destination
+> register reachable?
+>
+>
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/31845422431
 
