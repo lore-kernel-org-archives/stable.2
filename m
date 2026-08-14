@@ -1,240 +1,152 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A53B46C4C6
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 12:14:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9239202C48;
+	Fri, 14 Aug 2026 12:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786709685; cv=none; b=KFUcqj/8mFTWc2fOHWVEa6u8ZN89nog9yj3544JnkKRCmN9cApAggwyUoOG5WGBlM2DlioendJcQ4Qy8pG6xI1zvHFCoeokjzSxlLaZBmmt3QdD0jzdR5CftlJf8RQoOyhWr3riIE8h1fm2VTMn+owNGzv8lFZCXvbpWZINn2lo=
+	t=1786710271; cv=none; b=nmPon2AQesh76GFCaMJiDy4S76Wm31xd9QWrewgKOVtqWTVLkZA3QPtLpXrFszKk0ee3zBlDEFsLDsBuowAWDMaXS1hYCDItGICAUum/y8y/BtJ2Zm3yOR9VDkQSoPPKX8coJZpxi6/foxfV8gubVj3SqSLyvYPlFme423gH5ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786709685; c=relaxed/simple;
-	bh=vS1DaGeA34Vt/UL7hTlZ7x9a+4a9vxNMD5B4EeDQiSw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u+BEwi8CULeHCrBNWkY44Yt/bqLzK6f3ArrYol6dbxKbj/0ZnCJTsVU1AIphdjeCa6lHtmha7S3W7QXmsWj8ehRdt7wiQZDYa7w+mEtqTMekhgQwsqUhNb3OmUbDSn3yVwnwfmArAIPHJVCiGcEK26sZZtD47VsmXfNUrINORPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=XTi8PQsh; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1786710271; c=relaxed/simple;
+	bh=GmlDGSpTrMNkZjAr9KG6HERPUbx+pvkygZBW/WLmyXk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=bdpd5eJa5zKuHPIr5gI0EC3LDNu2eWzcASoipZNI4IgOVBt94trlNsS7zq3vq7Zz/1HW1JDPP49G8QSmlr5+UVZpAUo1LpnpXIWkJRTAuuutYyvOgg3a00D7N3Hiku+Fj84/8Bb+XgPvyjezsayKAkSEJt74Oiqg3chQHy6oiQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dAnBnQEM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="XTi8PQsh"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cbb7926836eso614969a12.3
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 05:14:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1786709680; x=1787314480; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mB3Pg/1SEPTtiURwc1+Fo1eQBiAzNFUq+2h1OebH7HE=;
-        b=XTi8PQsh6fGaESnR6L/VGvrUQElm93drqKeJpVA4qqm3ceqbSpXuNwPjOnvF0kcRWe
-         x3LsSy7QKCm5hRjpEKltckoriI+rzVk48arJ78xlKhDXs4oLHUi9zunevntlYRABGGZu
-         54Mn4ILgUjwmwlC9ewB5pm3bh6KKVxHRYZjCuxKrqKQ5TAQQU8jRqANNyOKxopkg5Cj7
-         qBtEYRVDFItWtxhigikOGtV3AC6/dW8aeLSnRi4OHRz7ThcR6Riy8kBd/9aFCAONlidJ
-         QqIaAmkCRKeB1yjxa9EXiPYwnwUoxaJ7JKO/PjcpnTnk5AGFO5NcsoAYdXYbBP2kV0ae
-         i71Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786709680; x=1787314480;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mB3Pg/1SEPTtiURwc1+Fo1eQBiAzNFUq+2h1OebH7HE=;
-        b=ULQtkbEWX3na/nxs+h0e5iqh2689lpJicJ/2pBsa8P0qY05qOOXDFB5Siuq4rknArA
-         /9bZUANNc3QMonk3u6Aoqgql6WqfUchOYQvtdL8zYTJrpnMh1csjNm1W8mjOmVk0qa4a
-         wY4lkIOMfkGMu/ZOpO3RpZrBBnqjFJGQHPusxBrdhRVVcB0fyqvYXmmaH73/sSUBJlBX
-         Eq0k7q5DlfQfCoIfRD31/QYT/3sk7D1t0wN5nHK0Pv+ka9vXO4+IyztEs3H5s+UI1TBk
-         1p8AYPGTsBQatUAW7KFrSXJwrx0iJ69ESGKDrUyjiEv4Mb7Ki0LJMo5d1/BGQNVGYYA5
-         4ISQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrpsztVw5rKIurhsf8+aXbFZoz0U9S8BoxOHIFfBYii3gIeWFhn/LqVKQdQRw7sUohWIWmrMMU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnRUwjcyDTZLKKgaKF4UCzG4ezhpEzM++zSUDwKPWqgGtE2FFn
-	VMrJFmePZkUikWFroXT4kO+6cnFYrlLyDl+bI2IAxHUiucWU3oeOcH7kd7oUi6WTs44=
-X-Gm-Gg: AR+sD10H/2IvPHEAlrQZ+QsbiBH/wnh22P5Iia94bqcrznbqBNcOfCSWSBy3JCppdyp
-	ROPzznDFjz9I0xW39G19qMarvI6xb6W4b83r2tXffyXpBMFNlI7eKeIQEVc8KXOEiGSMih9X2F8
-	TYy8OWHdC1uqBuzXRIrmadwqEURt10epJ2I3WIYUtHyb0yetR6QW6flLcwpWjDMu9IF1g7ZGO8f
-	UvM1mb0q8TMA6T4W7paJb7s7AdeeQA5eHRj9BaQzXrTnW7Td8KNZKsgVxWpxfKP7v8lZql1Aq9d
-	WUuWfyyvti3vtL2G9vK5pdQ4c6R19r5kErbU2THzpyzPkFR6VEbG6vSSk1kP/flErKH/xDiPURb
-	dBjmQr6F1x9rc2fGvONu4DAa1yOVJQg8eSNKFfpS2nQFt0cFm/povFqCCL4Vftbz9ooZ83o0kCE
-	3DCumVyZ5SlbcvL31HYVGn4kxAkhK9TzaYKqA0NuLeNcDTI0b1XoLpZAshXToMqZ1DwpR9
-X-Received: by 2002:a05:6a00:2383:b0:84e:89a:b8ec with SMTP id d2e1a72fcca58-84fde3d4d3emr5107874b3a.11.1786709680448;
-        Fri, 14 Aug 2026 05:14:40 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8517d267305sm373099b3a.52.2026.08.14.05.14.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 05:14:40 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: martin.petersen@oracle.com
-Cc: michael.christie@oracle.com,
-	cleech@redhat.com,
-	lduncan@suse.com,
-	James.Bottomley@HansenPartnership.com,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: libiscsi_tcp: check that a read got the data the target claimed
-Date: Fri, 14 Aug 2026 21:14:28 +0900
-Message-ID: <20260814121428.359541-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dAnBnQEM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8FE61F000E9;
+	Fri, 14 Aug 2026 12:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786710269;
+	bh=96dYezBU3PumHTy+D61UncG+Mi1IzHUe48AfS/L4Ehs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=dAnBnQEM3bSWZikUIIGDzltuSCeqh7Vyxtg5Av57teZCz7U8QGCfaRw47S6t0AiaF
+	 8b1z823opZ5xG+RCZ9S7vOR2SCsHJH001W2Dx2GMySoE7fWx7liTx2VEE1Lu1hcBXZ
+	 5PY5T9xWy9E7FH/q7ZVEDiRyamqecD4rFQZu1VKSBSEZcxAYH3HZFEnKdhpwtFjYYe
+	 475MUioZ6b5FZOCefoyRWxbaWBC6sfQubTC1I8iXQnFbNHEz25XhrlF6TzLoqJnfrg
+	 twzldmpmTeZKFrS2OR92O3gD/FepKei7y9kTLgVvrO+hgcvDTwgd0MwIcMrgDQwizJ
+	 ppZULau1UajJg==
+Date: Fri, 14 Aug 2026 14:24:26 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Ibrahim Hashimov <security@auditcode.ai>
+cc: ping.cheng@wacom.com, jason.gerecke@wacom.com, bentiss@kernel.org, 
+    dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] HID: wacom: validate report length in
+ wacom_intuos_pro2_bt_irq
+In-Reply-To: <20260713093414.94337-1-security@auditcode.ai>
+Message-ID: <36s07n6o-3n6p-p438-6qq7-921r98171q40@xreary.bet>
+References: <20260713075110.92469-1-security@auditcode.ai> <20260713093414.94337-1-security@auditcode.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-A target can finish a read without sending the data.  iscsi_tcp_data_in()
-bounds each Data-In PDU against the command buffer but never adds them up,
-so a completion that declares no underflow is believed and the command
-ends with DID_OK.  The pages keep whatever they held.
+Ping, Jason, could you please Ack this one? Looks good to me, but I always 
+prefer to have an Ack from one of you on the Wacom HID driver.
 
-Over a 1 MiB pread of a file that had never been read, 999424 bytes came
-back as the contents of an unrelated file the same process had written
-earlier.  pread() returned 1048576 and errno was 0.
+Thanks,
 
-Count the payload per task.  Require each Data-In to continue where the
-last one ended, and at completion compare the total with the buffer
-length, less the residual when an underflow is declared.  A read can end
-on a Data-In or on a SCSI Response, so check both.  Writes are untouched.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-No Fixes: tag.  iscsi_tcp.c had the same shape before a081c13e39b5 ("[SCSI]
-iscsi_tcp: split module into lib and lld"), so the check has never been
-there.
-
-Measured with a proxy in front of tgt.  Four ways of ending a read early
-made it return success with the contents of an unrelated file the same
-process had written: a zero-length Data-In, the status in a SCSI Response,
-and no Data-In at all each gave 999424 of 1048576 bytes, and rewinding
-BufferOffset gave 737280.  Each is refused now, two runs each, as is a
-short last PDU with no underflow declared.  An honest underflow and
-ordinary traffic are unchanged.
-
-The check does not honour DataPDUInOrder: the target answers that key, so
-honouring it lets a target switch the check off - measured.  A target that
-legitimately sends Data-In out of buffer order will now fail.
-
-Not exercised: the cxgbi offload path, and a digest session - tgt would
-not negotiate CRC32C.
- drivers/scsi/libiscsi_tcp.c | 60 +++++++++++++++++++++++++++++++++++--
- include/scsi/libiscsi_tcp.h |  1 +
- 2 files changed, 59 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/scsi/libiscsi_tcp.c b/drivers/scsi/libiscsi_tcp.c
-index e90805ba868fb..ce9c96f968c2a 100644
---- a/drivers/scsi/libiscsi_tcp.c
-+++ b/drivers/scsi/libiscsi_tcp.c
-@@ -467,6 +467,39 @@ void iscsi_tcp_cleanup_task(struct iscsi_task *task)
- }
- EXPORT_SYMBOL_GPL(iscsi_tcp_cleanup_task);
- 
-+/**
-+ * iscsi_tcp_check_data_in - verify the Data-In payload that was received
-+ * @task: scsi command task
-+ * @flags: flags of the PDU carrying the status
-+ * @residual: residual count of that PDU
-+ *
-+ * A target that reports success must have sent the whole buffer, or have
-+ * declared the shortfall as an underflow.  ISCSI_FLAG_CMD_UNDERFLOW and
-+ * ISCSI_FLAG_DATA_UNDERFLOW have the same value, so both paths can use
-+ * this.
-+ */
-+static int iscsi_tcp_check_data_in(struct iscsi_task *task, u32 flags,
-+				   u32 residual)
-+{
-+	struct iscsi_tcp_task *tcp_task = task->dd_data;
-+	struct scsi_cmnd *sc = task->sc;
-+	unsigned int expected;
-+
-+	if (!sc || sc->sc_data_direction == DMA_TO_DEVICE)
-+		return 0;
-+
-+	expected = sc->sdb.length;
-+	if (flags & ISCSI_FLAG_DATA_UNDERFLOW) {
-+		if (residual > expected)
-+			return 0;
-+		expected -= residual;
-+	}
-+	if (tcp_task->data_in_bytes == expected)
-+		return 0;
-+
-+	return ISCSI_ERR_DATALEN;
-+}
-+
- /**
-  * iscsi_tcp_data_in - SCSI Data-In Response processing
-  * @conn: iscsi connection
-@@ -488,7 +521,7 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
- 		iscsi_update_cmdsn(conn->session, (struct iscsi_nopin*)rhdr);
- 
- 	if (tcp_conn->in.datalen == 0)
--		return 0;
-+		goto status;
- 
- 	if (tcp_task->exp_datasn != datasn) {
- 		ISCSI_DBG_TCP(conn, "task->exp_datasn(%d) != rhdr->datasn(%d)"
-@@ -506,7 +539,17 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
- 		return ISCSI_ERR_DATA_OFFSET;
- 	}
- 
-+	if (tcp_task->data_offset != tcp_task->data_in_bytes)
-+		return ISCSI_ERR_DATA_OFFSET;
-+
-+	tcp_task->data_in_bytes += tcp_conn->in.datalen;
-+
- 	conn->datain_pdus_cnt++;
-+
-+status:
-+	if (rhdr->flags & ISCSI_FLAG_DATA_STATUS)
-+		return iscsi_tcp_check_data_in(task, rhdr->flags,
-+					       be32_to_cpu(rhdr->residual_count));
- 	return 0;
- }
- 
-@@ -752,13 +795,25 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
- 		rc = __iscsi_complete_pdu(conn, hdr, NULL, 0);
- 		spin_unlock(&conn->session->back_lock);
- 		break;
--	case ISCSI_OP_SCSI_CMD_RSP:
-+	case ISCSI_OP_SCSI_CMD_RSP: {
-+		struct iscsi_scsi_rsp *rsp = (struct iscsi_scsi_rsp *)hdr;
-+
-+		spin_lock(&conn->session->back_lock);
-+		task = iscsi_itt_to_ctask(conn, hdr->itt);
-+		if (task)
-+			rc = iscsi_tcp_check_data_in(task, rsp->flags,
-+						     be32_to_cpu(rsp->residual_count));
-+		spin_unlock(&conn->session->back_lock);
-+		if (rc)
-+			break;
-+
- 		if (tcp_conn->in.datalen) {
- 			iscsi_tcp_data_recv_prep(tcp_conn);
- 			return 0;
- 		}
- 		rc = iscsi_complete_pdu(conn, hdr, NULL, 0);
- 		break;
-+	}
- 	case ISCSI_OP_R2T:
- 		if (ahslen) {
- 			rc = ISCSI_ERR_AHSLEN;
-@@ -998,6 +1053,7 @@ int iscsi_tcp_task_init(struct iscsi_task *task)
- 
- 	BUG_ON(kfifo_len(&tcp_task->r2tqueue));
- 	tcp_task->exp_datasn = 0;
-+	tcp_task->data_in_bytes = 0;
- 
- 	/* Prepare PDU, optionally w/ immediate data */
- 	ISCSI_DBG_TCP(conn, "task deq [itt 0x%x imm %d unsol %d]\n",
-diff --git a/include/scsi/libiscsi_tcp.h b/include/scsi/libiscsi_tcp.h
-index ef53d4bea28a0..b38be23b9e10b 100644
---- a/include/scsi/libiscsi_tcp.h
-+++ b/include/scsi/libiscsi_tcp.h
-@@ -66,6 +66,7 @@ struct iscsi_tcp_conn {
- 
- struct iscsi_tcp_task {
- 	uint32_t		exp_datasn;	/* expected target's R2TSN/DataSN */
-+	u32			data_in_bytes;	/* Data-In payload received */
- 	int			data_offset;
- 	struct iscsi_r2t_info	*r2t;		/* in progress solict R2T */
- 	struct iscsi_pool	r2tpool;
 -- 
-2.43.0
+Jiri Kosina
+SUSE Labs
 
+On Mon, 13 Jul 2026, Ibrahim Hashimov wrote:
+
+> wacom_intuos_pro2_bt_irq() receives the wire report length in `len`
+> but never consults it before parsing. After the report-id gate it
+> unconditionally calls wacom_intuos_pro2_bt_pen() and then, selected by
+> features.type, a fixed chain of sub-parsers, none of which receive
+> `len`:
+> 
+> 	wacom_intuos_pro2_bt_pen(wacom);
+> 	if (type == INTUOSP2_BT || type == INTUOSP2S_BT) {
+> 		wacom_intuos_pro2_bt_touch(wacom);
+> 		wacom_intuos_pro2_bt_pad(wacom);
+> 		wacom_intuos_pro2_bt_battery(wacom);
+> 	} else {
+> 		wacom_intuos_gen3_bt_pad(wacom);
+> 		wacom_intuos_gen3_bt_battery(wacom);
+> 	}
+> 
+> Each sub-parser dereferences wacom->data at fixed offsets. The furthest
+> byte touched on each branch is:
+> 
+>   INTUOSP2_BT / INTUOSP2S_BT: wacom_intuos_pro2_bt_pad() reads data[285]
+> 	(the touchring byte), so the report must be at least 286 bytes;
+>   INTUOSHT3_BT ("gen3"): wacom_intuos_gen3_bt_battery() reads data[45],
+> 	so the report must be at least 46 bytes.
+> 
+> features.type is selected from the VID/PID id_table entry and
+> wacom_setup_device_quirks() force-registers the pen/pad/touch inputs
+> for that type independent of the report descriptor, so a malicious or
+> malfunctioning paired/spoofed Bluetooth peripheral can advertise that
+> VID/PID and send an undersized report that still satisfies the
+> data[0] == 0x80/0x81 gate. The driver then reads past the received
+> report and forwards the bytes to userspace via evdev (MSC_SERIAL /
+> ABS_MISC / ABS_WHEEL on the pen and pad input nodes), an out-of-bounds
+> read with a concrete userspace read-back channel, and a true
+> out-of-bounds read on transports whose backing buffer is sized to the
+> (small) report descriptor rather than a fixed-size staging buffer.
+> 
+> This is the same class of bug commit 2f1763f62909 ("HID: wacom: fix
+> out-of-bounds read in wacom_intuos_bt_irq") already hardened in the
+> sibling wacom_intuos_bt_irq(), which guards each report id against its
+> minimum length before parsing.
+> 
+> Guard wacom_intuos_pro2_bt_irq() the same way: before parsing, reject
+> reports shorter than the furthest offset the selected branch actually
+> dereferences, warn, and bail out. Because the whole pen/touch/pad/
+> battery chain runs unconditionally per branch, a single up-front check
+> against the maximum offset (286 bytes for INTUOSP2_BT/INTUOSP2S_BT,
+> 46 bytes for the gen3 branch) bounds every sub-parser. Returning 0 on
+> a short report also skips those calls for the same malformed report,
+> which is the safe, conservative behavior.
+> 
+> Fixes: 4922cd26f03c ("HID: wacom: Support 2nd-gen Intuos Pro's Bluetooth classic interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+> Assisted-by: AuditCode-AI:2026.07
+> ---
+> v2: the v1 check (len < 109 / len < 43) only bounded
+>     wacom_intuos_pro2_bt_pen(). As sashiko-bot pointed out, the
+>     unconditional touch/pad/battery calls read much further --
+>     wacom_intuos_pro2_bt_pad() up to data[285] and
+>     wacom_intuos_gen3_bt_battery() up to data[45] -- so a report in the
+>     gap (109..285 / 43..45) passed the guard yet still over-read. Raise
+>     the minimums to the furthest offset each branch dereferences
+>     (286 / 46) so the guard actually bounds the whole call chain.
+> 
+>  drivers/hid/wacom_wac.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+> index da1f0ea85625..89a191cf1924 100644
+> --- a/drivers/hid/wacom_wac.c
+> +++ b/drivers/hid/wacom_wac.c
+> @@ -1548,6 +1548,19 @@ static int wacom_intuos_pro2_bt_irq(struct wacom_wac *wacom, size_t len)
+>  		return 0;
+>  	}
+>  
+> +	if (wacom->features.type == INTUOSP2_BT ||
+> +	    wacom->features.type == INTUOSP2S_BT) {
+> +		if (len < 286) {
+> +			dev_warn(wacom->pen_input->dev.parent,
+> +				 "Pro2 BT report too short: %zu bytes\n", len);
+> +			return 0;
+> +		}
+> +	} else if (len < 46) {
+> +		dev_warn(wacom->pen_input->dev.parent,
+> +			 "Pro2 BT report too short: %zu bytes\n", len);
+> +		return 0;
+> +	}
+> +
+>  	wacom_intuos_pro2_bt_pen(wacom);
+>  	if (wacom->features.type == INTUOSP2_BT ||
+>  	    wacom->features.type == INTUOSP2S_BT) {
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
