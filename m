@@ -1,186 +1,137 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010057.outbound.protection.outlook.com [52.101.69.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3DFD35AC00;
-	Fri, 14 Aug 2026 14:48:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786718929; cv=fail; b=YTFyVjXpivhNCVS61O+mU8kOpKqj+ghb2mlMadRw5gITROuzo88p9mYkHmj0yLYDaTxHV44eP/pwMjpILxwfzZXVPY15TUS3cuVc6YIwls5s5FCfKp8/SAQk1mMdyfwmtYy0Shjmst3RFVpd7eBQIURU+d3fZ6A30P1ZI3rLvjU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786718929; c=relaxed/simple;
-	bh=+9vIAMBy+ivP2ugu9r2pBij512z/qo0rKf9vbORVKUs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=p37wPqYfgjqAnGbLei8CXUZYwNoGqSmtku3LMFgEMiQeqVsieyRSZTPjOMfy7HtlBaOAGMAk9lxoxyd3EVpV7yFbJDcuBezq5k7O2kSUp8/DdM7MPz3PoYB3xVHvNPxKSOB8fg913OiHijzKILOg/Mhgki8y0k1XxZBSdZMfbzo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=tTHLGDhF; arc=fail smtp.client-ip=52.101.69.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51571470448
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 15:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786720440; cv=none; b=A6lo7f4IXDIDN3uMZ1T0MeNQ1u7ssOwA9Sk02wP2Juo6E8slL58yINay5xqMbHp8XjdChToCCgNbuI3aJu6UEoKUJ3SlBBbBOLdfesV/sp9zq172IrtFtJIzNQ6F01U1O0H46r1AOgIhvbziB9ffjDOEtGjWhjLS1lagPKaxFPA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786720440; c=relaxed/simple;
+	bh=oQmhcafvryzQTr8aJS6N1tB2XEUUgWL4lgJR/IbHbFo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cvtmKuof5OrzNQupkNnO5C9t+vWT0jZjn0kGxQq8My41K8ujhF9aQ/L8JzaFpBNujJXv0gaLJ6+m49dsxlLiBBg3tQXvLgSuqO30W1iVER7XLivgrRMYKc2bpxV2qxzUdM+2fI3QbGdWBAUSe8ctZFIkPycdDM8eXy5SOh2c+KM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rcUH/RZD; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="tTHLGDhF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QOY4jwUPY9GrudFD+bO7R5MvoWMv9x//gfsL0xzKj30Uv2OTR1fzAXkDlh9uqvIkasbOT29k1nBVYtOVDBsltzfOs2bAmx+6EVHgXEFbO/Pe1hTcByr8Nu6qDBN/S+jxqkp225nNnDtTJtfDMkdG2Jk8XmlXt6YWSIPrMt/4842P+Ib3gE7uDdtS9mwwgdVjvSC2YR78uUaks3FUleBAkDpsyvrR36BxxP6z9eO9H+zfDBM2+tFMQEcayH8f6dXXITm4OwXDOGkrbMa8D91br+vONS6k2BoqX8YfZtU3MOq704zWeL+Xc1AI7J5KBJu7GQE/AY5jPie32dl4eBoUkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hZI7F6uyjrD+VDfh2+PVfI26GweaET/FuBxmu1TP3BE=;
- b=rbJ4DE5yCGE3OVVDhY9E9RuiTyzku388s8W2s/3j/+E3K3XmwlLRK9sEFyBUBsK5BI6OFsazTnr/KRm58HvJZ7/iFiNlMlRXSDINlf+1hpWlWYJBM77W+M5NUyribEieZXCKAYheUYaBstVNQFBKbnc2ZntyQWnE9Gl1OIihIeu9TsJexHGYW0O/HoRFTbOTr+7MyEMGTx99XSjOSvg9e9uFz5hEmYMN4yPk+5+ezmB5svij2p0n4cE838R06xKTJchDB1+Owbb2gJ/Mn2g3K2zDj1A8g56qNt6fPCLWidvaNmQuvLSPiVlRukbxj2i8mPzaBtOIBgVgiDp6frUbMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hZI7F6uyjrD+VDfh2+PVfI26GweaET/FuBxmu1TP3BE=;
- b=tTHLGDhFJQEuO7tKx4ACUJiDNhtlzSFlQ7AuLcap1oGAZS+75Ewf+FwUxeV/eitW0RddU0AlbOEHEBJUPSB4JK9rhwcTGiW92CXGzRSJjjVcgAzsVhhWeWRiD3vtoJM9MTNWVDSUVHMothsudwrwIAlRAykp2to6i/3wBUzH2ahSL9CLSoV7uWDIHOmFhGZwrP0KhaBPVAqrRIHhK/lplPXLI+P5prh/BjhnVFX89GJ9b4tp+4q4WTqjp/UKxdYlAbpre7hrRXNITRk+ChIoI3CUvXUamudfvgTFwmqU8wPIk87qMpHEocwTdp3kKgroStmwlHUHWMw2B1PvJ3dJLw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DB9PR04MB8364.eurprd04.prod.outlook.com (2603:10a6:10:24c::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
- 2026 14:48:44 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
- 14:48:44 +0000
-Date: Fri, 14 Aug 2026 09:48:35 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Christian Lugnberg <christian.lugnberg@soundtrack.io>
-Cc: vkoul@kernel.org, Frank.Li@kernel.org, wens@kernel.org,
-	jernej.skrabec@gmail.com, samuel@sholland.org,
-	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] dmaengine: sun6i: fix undefined behaviour in
- sun6i_dma_tx_status
-Message-ID: <an8qwzz8rYHRDwWr@SMW015318>
-References: <20260814142708.79120-1-christian.lugnberg@soundtrack.io>
- <20260814142708.79120-3-christian.lugnberg@soundtrack.io>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260814142708.79120-3-christian.lugnberg@soundtrack.io>
-X-ClientProxiedBy: SA9PR13CA0019.namprd13.prod.outlook.com
- (2603:10b6:806:21::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rcUH/RZD"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cc7ef7ec27so14814265ad.1
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 08:13:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786720438; x=1787325238; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fPqMpU+LLRNYiSjrqLFHm/GfoNDBW1/b99+GMQWZD/8=;
+        b=rcUH/RZDKoIVRuBaHQyNb60NubVYBTCP0g43QfKSsgkl/tV3yhm1E4iiU7ux9qzijv
+         Rcdpb1XXXgXuhjUedk5l6HIPTJaxrK6sUiotqImKF6hZyLje3MZz7IowbaNdbUItsZUp
+         mQ7VwzTIvw6N6GHODWVuS8+Vrpw3GLGHoMN6dsI0NrTW5nLpZQcO+KFt+nWelI8rSsK0
+         YvRdPls2tuH+5ApbPYRuGkE3KlR9lso869mw5a7LZGeBUQ16SeVRlhNUfoG4IMt5y/Ko
+         f51lmmU5980cS2jdYMl0sqQzLnI3KQzOK5tHEouhoz3+JbDnT5iyCOCkySD5jU65lATQ
+         8DVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786720438; x=1787325238;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fPqMpU+LLRNYiSjrqLFHm/GfoNDBW1/b99+GMQWZD/8=;
+        b=mlA3YwgnnjxBnBjTW9HLsRR/PIMIq7G7Qsp0u2CnEoeYwUf5iKcu2PP9GU4GDltbZe
+         6DbxOYjQMyfGNRa4G8Q7nyg6PZuHnYV7wbYnNEA2kkMnSyWktpumaUhZYN/z9vCjQ9Uw
+         RVMLaydU9/SwoucWBgkvWPx4p/awrnhpgk2dgy6WQrX2WGu1LDWqg3+wLGc/hrt/PaaX
+         3qw6OlsEBcFB1BUJr0mzMc55F1Xpq7BwGFYkR4+4BYn3PY2Lu/bKmr97oNrgXOtJzKoc
+         JQTsWF+M4YGvho/eEJWJxX5vQhXGkZ9dNOmu2Pdwm7U7rjwp6l+8qH4ZCvrfC7xuXK5k
+         KINw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/RRR/ah9a3w7t2T/M/f4vHNxUtxIEfECFZA1AtO8FaoWheIEqFvrHVdlX2IGCUG5HSU5on08=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWHfiLfpzD/8abmuA5bz27p/b8aCgph4pZXfzunLI/sbDfYf6O
+	nWsVqcNk5eaE8xhiSLXE2yZETNhlAUQl4xJKvGN/wnWbtLdBUThDi+Ni
+X-Gm-Gg: AR+sD10yk1Pe3+T7a7uJ/OqKREmcnpOQyA4VBqnO1gH2A8Wxb/2ghsj9huHZPdKmraY
+	QU0xh9Ko2zTcWimpatk1urX8UWcuDuLiWlHe7wTrMi98DKKXBIp3bmf4C5/svoj7zKyuweEwF2m
+	MZXAVP7kJgt4K92L5c//sekxLD5r2juePfbxL67sICBcPc66+oWBygCAPLqWYyTXbljJKAC92mI
+	H+fPPv1/DWLS/qr9y+ffxHnrWLtZk3If2zdhFKyTNl78i3q1OVNXKbQ9asmzES/yZlghkog+mRN
+	8Jydr3o4V3ETgQYaP5akmJjYzXq0y7UngZc14+kYfPWumcLoIc/ldwDZ23Ft/1vGk0aZdDhY1KZ
+	+7qyoy8HPFHac6DtIbbjFPig32Lf9xrPOxunvQdKqWjCfQx8MMuVvJAkM9bhjaWB+33iZBG7gyE
+	FkkgIjiAlYeUpT//OFAOmRsDfRPVuF6ttY5O4J4lnMrJipYAULIxfnzoKqb84fE8ObM4BETnXQK
+	kOJgIYeyA==
+X-Received: by 2002:a17:902:ec82:b0:2ca:e19c:97b with SMTP id d9443c01a7336-2d3b082b573mr83408195ad.5.1786720438215;
+        Fri, 14 Aug 2026 08:13:58 -0700 (PDT)
+Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3aec22f98sm11006395ad.84.2026.08.14.08.13.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Aug 2026 08:13:57 -0700 (PDT)
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+Subject: [PATCH 0/3] powerpc/spufs: fix a refcount, a type confusion and a
+ coredump underflow
+Date: Fri, 14 Aug 2026 23:13:38 +0800
+Message-Id: <20260814-spufs-groupa-v1-0-f38f7549ce20@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB9PR04MB8364:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87a3af1b-b58b-4068-7fad-08defa13235a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|19092799006|1800799024|376014|7416014|56012099006|10067099003|18002099003|11063799006|4143699003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	XGuvYB00U+LQ2/HuACCyXhMhJWmwaolB0ftQHfj8unUew1VOOTZ8zQwreEOZNjYv22GZ2GEyQi/OdEnmt3eHWqEphkJ2C9vFfA8wxRmbMJujHeJUio2VYgo4sOwxP17MY59QEvvhXVyp4YRmOlVWuI0tCoyHwNUmDlzw2KHyDY1rMSZpyC+/QxPn1ARnzEbn5ImSBCXYgk7JmKUqKPclfpKxMzs/RtnX+4D1RD4QxiRpaFAcb7no3YyBHx27yDnLWdGVgHcczkbpPp2T0ai/U7gT+hQX4pYYZYFPNEckq7yOzHpMidDj29IO4I1dJRkMIyCvRV2XSVyfft6vymB1jFteF7HSGvh6EoRkuqDIzeVy3EkvNGDq2HlqyGYCEJ5EBfb5YQF+MMFba8RVkm1pnwzl4TQSDux/CDUnWAL44KT9LW0YuLf5FnwG620NIhObxDaxlRuMsWJVKD2PkisZEd1cx2q7jIqHrZqaug8s7ZMOoT3de7xsK4fjoGAlFF4WWuvmMv3aqfHZeAQx9ChimkpVHl2E/xJA58gRx5rP8iZoqFZScM1PrKoH9xqSJvwKW2B4fNg3QedsEAZsPXar2hhg2T+/EJp1E/vJzLdf3s6bwnTG0czUerC0Pc8FjyaK1nQkhbMmAZ1cZtpe1udgHriZyVWHqRMjrSGGdJl6Na8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(19092799006)(1800799024)(376014)(7416014)(56012099006)(10067099003)(18002099003)(11063799006)(4143699003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?tqP/LJpFnlIj6P3rv6Ft3JeI/BvOCdiPUlkUocVUbtps9ij/3AMfAVf/aERc?=
- =?us-ascii?Q?Wp08x5+3Ny14r452OKgHSKIJRb/1sfxwCy/DkcRXljJRURKfVNIUEx31AgFz?=
- =?us-ascii?Q?74VrphmCbZG2OOcOtxDtMQNBUj4qCblZPRDMpLOvlL443qjR2iAgPzNaVgA1?=
- =?us-ascii?Q?sr6OZbMujprQDEG62F0wwJ434imDnfR1LdHyii2vzrCCDlDEzFCQr1j2bRFv?=
- =?us-ascii?Q?9j7buKDlmNMO+D2ZXTRUbuPEFhG+UnasjIHwKifaNlggMnyKY+ozg0DEerur?=
- =?us-ascii?Q?vFHmgaiSfq3Ubjs31o2TtNsglnmjSu3WswXN8CwDaDXfPCKQgy1FP2nJXxZ1?=
- =?us-ascii?Q?aoZPw1K2gumF3zmy9QZyxIreRcdf0E7yG1aE8Hh/aIr8mMHQUjlt4s+no99F?=
- =?us-ascii?Q?V9mp4PTNF3HpANR8Gj5heyrs87tAH6aMvo43OnY+YigaQHNQznNv6mnqCQLQ?=
- =?us-ascii?Q?N1w83XJVKc4FXZpU/aW9yNGg9lYM/p+v387PYAUFw9rr9HwY/RrKArgOTfm4?=
- =?us-ascii?Q?3I9q9G7vod+XpcUJO0kVwDgRPSJHfNIHMjxX74tYFniGWyjWWtIycMoR9Yj8?=
- =?us-ascii?Q?ZxXSdvDzSIWBu55BEoda/BYnx7bqymU8LOvgmWhHHj8A/Gj+y+XavZ6G6c3x?=
- =?us-ascii?Q?KBDjHEb8efGSOKN4oZi48ZProy8yP5NhJbQlp6Kp/3n2vIhtWoxJQuBC23iB?=
- =?us-ascii?Q?ws1THKmOfdtfdCP8CVJ1vhox38A2Cb7SYriT2jnxnCQa0QGer5pdmzvyMLUr?=
- =?us-ascii?Q?fJCA4fcY8Vlf92igzlaRQi2UotA2E7RMAgRAuVBu4r99ZaEny/E9DIHMehjR?=
- =?us-ascii?Q?w5WL5HXj/AnhO+yldgSzSUEk/13YO4GfCyKwRpoujYLPBVM4a872NgIY/5gx?=
- =?us-ascii?Q?FfH3ZIGHk/APaYlpE+6WIEGaINlgJ4nfBevGDhj3ICdeuz0b0iWSNn4f+Qfv?=
- =?us-ascii?Q?O3uZ4pivnEPpT6arjQ1ilEiV0amjvRGVRCKsVrZM0+qP8Crl0bYghd0M4f52?=
- =?us-ascii?Q?Ux+KwXxfSGgzOaBc/fj5JcCaXXB+cEJBsAyrOXOrBUPY77KQf8WS79yRaNu2?=
- =?us-ascii?Q?LHMwRFPvpf+Fm4CaVzasnHLfMpYpLJnX83UnpAVLukvdViL0c0uh8XkDWQo1?=
- =?us-ascii?Q?WbeYClM6SsyRs5XOP9STY+xndrkfL1zpMw5zyTeVfg6p8jP+xyOoQUe+Hutx?=
- =?us-ascii?Q?ZHsC5TLOGHQHuKzvmrRHplQ/AuH3Wq+mcY2rbmgESmBY6MR6oQeR+0uAaIR9?=
- =?us-ascii?Q?WokVf9D5bz6aOa60Fh9HGL4ydNLalIiCoEx9kqQuJzKoPqKvJSvBNj51RRBA?=
- =?us-ascii?Q?XsP4edHc7ZKvRBq/kRawX0sc1JMqY8+mt+ZZafBWpXEeyJ7ZIkCR4qy/syOr?=
- =?us-ascii?Q?1Rtm94lmV1Grp7WDMjxMsJLwsm0svDMoQ1kYndI0a4L4KmwaeP4jROJ/954m?=
- =?us-ascii?Q?CdErNu6vPXUBL0lIg4kK+dXF/+MQpREvaVvOCrdCFEYp3FJn9CE3fEz18TVQ?=
- =?us-ascii?Q?kjENWWH2E0V52EZ3vrTUIfAGLOGjzP+YPU/gIY6ZcmLpKYWCSL6ZtKb1XD2b?=
- =?us-ascii?Q?kdr8x546r+3ruZnWKoh5jJKWkG2BXTwSmFNPG7uEUc1FFQgL58kU4Y3Trxc2?=
- =?us-ascii?Q?2x2lmii3YE1MvED1IlBp/XpEL05N/rx1ut2JL1TNjuS0uuaA7Dnlq0E0xWa+?=
- =?us-ascii?Q?DVPSIuSizfZ+D29BqBFcXncy8ZuU5MpxeQoxDW+/IQiNPfOIA1z0fbQeJdyg?=
- =?us-ascii?Q?ejdxU1mMLrM8rdS+w/EFbbnCqI/mq6X976rY+LOdwkNrpYOS6XyM?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87a3af1b-b58b-4068-7fad-08defa13235a
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 14:48:44.0173
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i9SsWsmWzAs267JB/U9snT0RgpKmLdLQhZgT0ZlPJpvY1lDuVoO2WK7UpdYZsw3x+QYPIYq36apsMKVxV7Ul+IiFiHiIIEnXqzP1JTbo5C+CRP8nZPRvwbLU3pYxDyo7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8364
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKMwf2oC/yXMQQqAIBBA0avErBNMQqOrRAur0aZFiZMRRHfPa
+ vkW/1/AGAkZ2uKCiAcxbWtGVRYwznb1KGjKBiWVlk1VCw7JsfBxS8EKrWrt0JgJjYWchIiOzm/
+ X9b85DQuO+/uA+34Au9ZGo3AAAAA=
+X-Change-ID: 20260814-spufs-groupa-6246fe77de7a
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Al Viro <viro@zeniv.linux.org.uk>, Paul Mackerras <paulus@ozlabs.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Jeremy Kerr <jk@ozlabs.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Junrui Luo <moonafterrain@outlook.com>, Zhenhao Wan <whi4ed0g@gmail.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786720431; l=1879;
+ i=whi4ed0g@gmail.com; h=from:subject:message-id;
+ bh=oQmhcafvryzQTr8aJS6N1tB2XEUUgWL4lgJR/IbHbFo=;
+ b=zfG8nyBi7T3ub7M+Svd8MbP/SpBX15kVeB/MKzmI2tsFv1Jn0a9Tkd6kQRapj0IRc+71kQWlG
+ 6ygYYi4+LN7C+D4Ol8M6zTy8bCMWhvKFP+a6kxzyBqvBfNBHYdc+/pE
+X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
+ pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-On Fri, Aug 14, 2026 at 04:21:11PM +0200, Christian Lugnberg wrote:
-> [You don't often get email from christian.lugnberg@soundtrack.io. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> sun6i_dma_tx_status() calls vchan_find_desc() to look up the virtual
-> descriptor for a given cookie, before checking whether the pointer
-> vd is NULL:
->
->     vd = vchan_find_desc(&vchan->vc, cookie);
->     txd = to_sun6i_desc(&vd->tx);   /* vd may be NULL here */
->
->     if (vd) {
->         for (lli = txd->v_lli; ...)
->
-> vchan_find_desc() returns NULL when the descriptor has already been
-> completed or is in-flight on a physical channel and no longer present
-> in the virtual channel's descriptor list. When vd is NULL,
-> to_sun6i_desc() is called unconditionally on &vd->tx before the NULL
-> check, which is undefined behaviour. Move the call inside the if (vd)
-> guard to ensure it is only reached with a valid pointer.
->
->     vd = vchan_find_desc(&vchan->vc, cookie);
->     if (vd) {
->         struct sun6i_desc *txd = to_sun6i_desc(&vd->tx);
->         for (lli = txd->v_lli; ...)
->
-> Fixes: 555859308723 ("dmaengine: sun6i: Add driver for the Allwinner A31 DMA controller")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-sonnet-4-6
-> Signed-off-by: Christian Lugnberg <christian.lugnberg@soundtrack.io>
-> ---
+Three independent bugs in the Cell/PS3 spufs driver's file and coredump
+paths, found by code inspection. The patches are self-contained and have no
+ordering dependency.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+1/3  spufs_create_context() drops the gang->alive reference on the success
+     path -- the epilogue tests a value that is a file descriptor on success
+     -- so the gang directory can be torn down while contexts still
+     reference it.
 
->  drivers/dma/sun6i-dma.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-> index 04fe1f5042e9..7704b016aed8 100644
-> --- a/drivers/dma/sun6i-dma.c
-> +++ b/drivers/dma/sun6i-dma.c
-> @@ -981,7 +981,6 @@ static enum dma_status sun6i_dma_tx_status(struct dma_chan *chan,
->         struct sun6i_pchan *pchan = vchan->phy;
->         struct sun6i_dma_lli *lli;
->         struct virt_dma_desc *vd;
-> -       struct sun6i_desc *txd;
->         enum dma_status ret;
->         unsigned long flags;
->         size_t bytes = 0;
-> @@ -993,9 +992,9 @@ static enum dma_status sun6i_dma_tx_status(struct dma_chan *chan,
->         spin_lock_irqsave(&vchan->vc.lock, flags);
->
->         vd = vchan_find_desc(&vchan->vc, cookie);
-> -       txd = to_sun6i_desc(&vd->tx);
->
->         if (vd) {
-> +               struct sun6i_desc *txd = to_sun6i_desc(&vd->tx);
->                 for (lli = txd->v_lli; lli != NULL; lli = lli->v_lli_next)
->                         bytes += lli->len;
->         } else if (!pchan || !pchan->desc) {
-> --
-> 2.54.0 (Apple Git-156)
->
+2/3  On 4K-page configs the cntl mmap fault handler dereferences
+     file->private_data as a struct spu_context, but simple_attr_open() has
+     replaced it with its own object -- a type confusion. Fetch the context
+     from the inode instead.
+
+3/3  The signal1/signal2/ibox_info coredump notes declare a 4-byte
+     descriptor while their dump callbacks emit an 8-byte u64, driving
+     dump_skip_to() backwards (size_t underflow) and truncating the core
+     dump. Declare the sizes to match what is emitted.
+
+SPU FILE SYSTEM and CELL BROADBAND ENGINE are marked Orphan in MAINTAINERS,
+so this is addressed to the powerpc maintainers and linuxppc-dev. A
+concurrent spufs fix series from Junrui Luo is in flight; these patches
+touch different sites and do not overlap it. Found by inspection; not build-
+or runtime-tested here.
+
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+---
+Zhenhao Wan (3):
+      powerpc/spufs: fix gang->alive double-decrement on context creation
+      powerpc/spufs: fix type confusion in cntl mmap fault handler
+      powerpc/spufs: fix backwards coredump skip from undersized notes
+
+ arch/powerpc/platforms/cell/spufs/file.c  | 8 ++++----
+ arch/powerpc/platforms/cell/spufs/inode.c | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+---
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+change-id: 20260814-spufs-groupa-6246fe77de7a
+
+Best regards,
+--  
+Zhenhao Wan <whi4ed0g@gmail.com>
+
