@@ -1,55 +1,41 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD6845DF68;
-	Fri, 14 Aug 2026 09:26:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934623469EE;
+	Fri, 14 Aug 2026 09:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786699566; cv=none; b=ptIPjQnL+2wy0lwRGvwQlucS41PCLVhx7cj+ZBRx8NUfeotny0dUKDuJxxH7kuZrIPbEkK1JuIW3JBFOxACY8NSXuUSXy+1br8a7O5k/YyZZMmvUlI1A83p/oDl1LXHBE9NH4FMJO3g6OWVDZyykWSTh3++L9AoOwRGsEAQHTCM=
+	t=1786699772; cv=none; b=mvydSpR1lcfA45OPmUWo5WTOFAmDL7OCZ+J+tXVLF+OWadg7ddZEhVswMqBMa1kNs6wyNKKmmEuhQb7on4LBGAo12FKP6z82CBSNX3mGPtqWJVayz5cG+MPN5iqD1ncnWiSEjed/3R2x3QOSkAEl0ZBSsQzBzH7QhUzxY1kSdKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786699566; c=relaxed/simple;
-	bh=6Wz3nRqBwQSLSnWS7xHqs5qaJqtwWalNCSQKTOr1Tso=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VctBuE46S02G54kjPkbk25ubOM3FmaBPqy6Duf2UV5DukeCJ/QK2Bclpq8hxUpietJa8O/nCjxkqaX9uDzd2tkx39ahAk9Yw8jDxSRTX09bVd23ItyImPrkyo75Yo6yAQP1VdK+27qG0r8dRZXBirIrtOBg6qFNWTylPFJ1z1II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QQmQAGpc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786699772; c=relaxed/simple;
+	bh=BBUm2SdUKKNFFTsHjyEsFktq+fiAN+s0e+LPQ3vnIoU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bxK94Ar45Nup8RQxSC8SjfdL2cT/04llCuqbJl/treyi+heSfKzJs6vcY94m4v6zepUkOZebX80LXPbboiVNOa0R2cIQ57gDsTU71n/ZaP+UmpFSVEmZkBRo4ww2DajXmXiWVCm6RI/U8vc5HcNqYkLZbEAFcIR1rj5AIoRLSFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pkbVGOLw; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QQmQAGpc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BB631F000E9;
-	Fri, 14 Aug 2026 09:25:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786699563;
-	bh=VCbZ0KFk5ZUpAhgJyWzjosvAA/mYQFZ16h9KR8EOgiA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QQmQAGpc70y5BEN0/Fyh5Uwgz+y+4fMT1w4eVnrYkY6dq7hcgBBMkDyJlVApEVPqz
-	 nQEPZlldAgZPf+fgByFxrYF2LTRBCtALz2UJyokD5XHJmNVfK/GEUor7ST0rkFhSqK
-	 pfqEEqNpmMVDzCJkMkkGhpOAhdrhpuRaTVTGMhWq+k3Nwkvimsjy0cfmtaFYMYx4nn
-	 lWYkMyMpj/r9LQcq0SpDymbZCHZ1xyq2lOCsx5iWWPJNI+6FfKib+xWOz0xaJk1c6L
-	 Jd8I302CLjTbCmm64CudM6KUTwQRgn/lKSkGGBeJa3XXqmxKtCxyu8UL7HqZY0gRWz
-	 PnBLI7Z8DaErQ==
-From: Andrey Albershteyn <aalbersh@kernel.org>
-To: djwong@kernel.org,
-	ebiggers@kernel.org,
-	hch@lst.de,
-	Jens Axboe <axboe@kernel.dk>,
-	Carlos Maiolino <cem@kernel.org>
-Cc: Andrey Albershteyn <aalbersh@kernel.org>,
-	fsverity@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-unionfs@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-btrfs@vger.kernel.org,
-	david@fromorbit.com,
-	Tal Zussman <tz2294@columbia.edu>,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pkbVGOLw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=0J
+	LHZTe2EOR4+PpHpjRjpPfkYRKj6c1rp4X0nCAmFVU=; b=pkbVGOLwvutrEFrORF
+	ew6WzHcwV9f121JBTwRRiOH+/fKSu9jSF3lTrSq8gHI7cn20IrIBgKtsVxPPEkUF
+	dAGk+F0wX31AhhEYocQM1oHch5kSuoH9cAFr9u131Uh9PCrYD+m9WHN09hQJeLtN
+	VG3u2DLHT2PXS0aHReXRP8t0M=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3CIDc335qQzYVPQ--.10550S2;
+	Fri, 14 Aug 2026 17:29:02 +0800 (CST)
+From: Gongwei Li <13875017792@163.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Kiran K <kiran.k@intel.com>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Gongwei Li <ligongwei@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v15 06/25] fsverity: hoist statx reporting of fs-verity flag
-Date: Fri, 14 Aug 2026 11:24:23 +0200
-Message-ID: <20260814092448.1818082-7-aalbersh@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260814092448.1818082-1-aalbersh@kernel.org>
-References: <20260814092448.1818082-1-aalbersh@kernel.org>
+Subject: [PATCH] Bluetooth: btintel_pcie: fix double free of IRQ in remove()
+Date: Fri, 14 Aug 2026 17:28:38 +0800
+Message-Id: <20260814092838.527062-1-13875017792@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,105 +43,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3CIDc335qQzYVPQ--.10550S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF1xZFyktrW7GrW7Kr4fGrg_yoW8WF43pa
+	98WFWFyrWkXr1UWwsrAa1fXFWUZayrurWfC3sFkw13Wr9xGryktF4rAFyjqr9xCrZYkF4Y
+	y3Z8tr95Gw1DXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joZXOUUUUU=
+X-CM-SenderInfo: rprtmlyvqrllizs6il2tof0z/xtbC-h5pJGp+397ZyQAA3o
 
-All filesystems, supporting fsverity, report this status by checking
-inode flag. Also, BTRFS was missing stat->attributes_mask, which is
-fixed now.
+From: Gongwei Li <ligongwei@kylinos.cn>
 
-Fixes: 146054090b08 ("btrfs: initial fsverity support")
+The MSI-X IRQs are requested with devm_request_threaded_irq() in
+btintel_pcie_setup_irq(), but btintel_pcie_remove() releases them
+explicitly with free_irq() and then calls pci_free_irq_vectors().
+
+After .remove() returns, the driver core releases the remaining devm
+resources of the device, which calls free_irq() a second time on the
+vectors that were already freed and whose MSI-X interrupt domain has
+already been destroyed by pci_free_irq_vectors(), resulting in
+splats like:
+
+  Trying to free already-free IRQ <n>
+
+Fix this by using devm_free_irq(), which unregisters the devres
+entry and then frees the IRQ, keeping the free order introduced by
+the commit below intact: the IRQs are still released before
+pci_free_irq_vectors() and no double free happens on devm cleanup.
+
+Fixes: 041677e7aad6 ("Bluetooth: btintel_pcie: Fix irq leak")
 Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Albershteyn <aalbersh@kernel.org>
-Acked-by: Eric Biggers <ebiggers@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Gongwei Li <ligongwei@kylinos.cn>
 ---
- fs/btrfs/inode.c | 3 ---
- fs/ext4/inode.c  | 5 +----
- fs/f2fs/file.c   | 5 +----
- fs/stat.c        | 6 +++++-
- 4 files changed, 7 insertions(+), 12 deletions(-)
+ drivers/bluetooth/btintel_pcie.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index 2534cd9284d5..ed31ba5a65bc 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -8221,7 +8221,6 @@ static int btrfs_getattr(struct mnt_idmap *idmap,
- 	struct inode *inode = d_inode(path->dentry);
- 	u32 blocksize = btrfs_sb(inode->i_sb)->sectorsize;
- 	u32 bi_flags = BTRFS_I(inode)->flags;
--	u32 bi_ro_flags = BTRFS_I(inode)->ro_flags;
+diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
+index 2b7231be5973..8fc4b8e3e4e1 100644
+--- a/drivers/bluetooth/btintel_pcie.c
++++ b/drivers/bluetooth/btintel_pcie.c
+@@ -2966,7 +2966,7 @@ static void btintel_pcie_remove(struct pci_dev *pdev)
+ 		struct msix_entry *msix_entry;
  
- 	stat->result_mask |= STATX_BTIME;
- 	stat->btime.tv_sec = BTRFS_I(inode)->i_otime_sec;
-@@ -8234,8 +8233,6 @@ static int btrfs_getattr(struct mnt_idmap *idmap,
- 		stat->attributes |= STATX_ATTR_IMMUTABLE;
- 	if (bi_flags & BTRFS_INODE_NODUMP)
- 		stat->attributes |= STATX_ATTR_NODUMP;
--	if (bi_ro_flags & BTRFS_INODE_RO_VERITY)
--		stat->attributes |= STATX_ATTR_VERITY;
+ 		msix_entry = &data->msix_entries[i];
+-		free_irq(msix_entry->vector, msix_entry);
++		devm_free_irq(&pdev->dev, msix_entry->vector, msix_entry);
+ 	}
  
- 	stat->attributes_mask |= (STATX_ATTR_APPEND |
- 				  STATX_ATTR_COMPRESSED |
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index ce99807c5f5b..99fa7a28951f 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -6250,15 +6250,12 @@ int ext4_getattr(struct mnt_idmap *idmap, const struct path *path,
- 		stat->attributes |= STATX_ATTR_IMMUTABLE;
- 	if (flags & EXT4_NODUMP_FL)
- 		stat->attributes |= STATX_ATTR_NODUMP;
--	if (flags & EXT4_VERITY_FL)
--		stat->attributes |= STATX_ATTR_VERITY;
- 
- 	stat->attributes_mask |= (STATX_ATTR_APPEND |
- 				  STATX_ATTR_COMPRESSED |
- 				  STATX_ATTR_ENCRYPTED |
- 				  STATX_ATTR_IMMUTABLE |
--				  STATX_ATTR_NODUMP |
--				  STATX_ATTR_VERITY);
-+				  STATX_ATTR_NODUMP);
- 
- 	generic_fillattr(idmap, request_mask, inode, stat);
- 	return 0;
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 4b52c56d71f0..9b531a016ed4 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -1024,15 +1024,12 @@ int f2fs_getattr(struct mnt_idmap *idmap, const struct path *path,
- 		stat->attributes |= STATX_ATTR_IMMUTABLE;
- 	if (flags & F2FS_NODUMP_FL)
- 		stat->attributes |= STATX_ATTR_NODUMP;
--	if (IS_VERITY(inode))
--		stat->attributes |= STATX_ATTR_VERITY;
- 
- 	stat->attributes_mask |= (STATX_ATTR_COMPRESSED |
- 				  STATX_ATTR_APPEND |
- 				  STATX_ATTR_ENCRYPTED |
- 				  STATX_ATTR_IMMUTABLE |
--				  STATX_ATTR_NODUMP |
--				  STATX_ATTR_VERITY);
-+				  STATX_ATTR_NODUMP);
- 
- 	generic_fillattr(idmap, request_mask, inode, stat);
- 
-diff --git a/fs/stat.c b/fs/stat.c
-index 89909746bed1..ae1299bd7436 100644
---- a/fs/stat.c
-+++ b/fs/stat.c
-@@ -203,8 +203,12 @@ int vfs_getattr_nosec(const struct path *path, struct kstat *stat,
- 	if (IS_DAX(inode))
- 		stat->attributes |= STATX_ATTR_DAX;
- 
-+	if (IS_VERITY(inode))
-+		stat->attributes |= STATX_ATTR_VERITY;
-+
- 	stat->attributes_mask |= (STATX_ATTR_AUTOMOUNT |
--				  STATX_ATTR_DAX);
-+				  STATX_ATTR_DAX |
-+				  STATX_ATTR_VERITY);
- 
- 	idmap = mnt_idmap(path->mnt);
- 	if (inode->i_op->getattr) {
+ 	pci_free_irq_vectors(pdev);
 -- 
-2.54.0
+2.25.1
 
