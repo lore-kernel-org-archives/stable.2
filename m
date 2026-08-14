@@ -1,149 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011061.outbound.protection.outlook.com [52.101.65.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2184570C2;
-	Fri, 14 Aug 2026 11:29:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786706970; cv=none; b=nP/ZLg9rt4xNZMYm17h5qtHW7y4gzu0LvDAM6obJ4xwv1r71nurjcRah5EnaTqjnKNrj9TgAZ7XU1aGN/i+mMCon5S3sgoSHiX7v08Lcoqfh7ee8SlJIt5aOGUGx72QfOC3kaVeL1XQWUL0NEekUBQe9vnpfYbFiKhWnGb5Zo7U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786706970; c=relaxed/simple;
-	bh=JK/RVAs/dl14S9jsi85PIl3pfYXOOqvpn4TPowSI9nY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hsoq9xtVuzIi0+rwc2ECqJq6O7bWHuS/Pq6hu1HGDVmX1ffXKcbcIx26P1PjQhvgVhOWP6cSQcnR4pjRbW75Qq8CyX1Uj8OUYTAmH+1ha9W+kCOTGTmcjqjJ4IMAzRG23R7EXW6wJ1tP8RK0HjWlPJSk4Dozx0bGzi2w/ayQcCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=enxmOuVO; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28FB0377ABF;
+	Fri, 14 Aug 2026 11:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786707867; cv=fail; b=EuLopb3QjCjG1wnB44Vxiy1pPIF00RASoPpaGFnW7VtVcoWsfWpmDbaM9MLO7Z6wwvCzWPm/ZLMj3bqCfLI2L5Lpx0o37abHvGK9dR2JpDWho1+GSFogBNoVjKaDbOdgjJkcGwqtOztawIUpCCn2raqOc9yVU5mR7DE8qUpy7Vs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786707867; c=relaxed/simple;
+	bh=sdgbjdjJbKb4a4rjZOlBWCzVGa9w/YmJzYKSzB1WWMA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=sXuOsSBjZifTk3gozlfWjyE/gR1k0FqGpf0F24+ZhTaRd7V34Hx7tN9ly1ibfEjF0ojo3ww2/JpUyiDsFXu7tEx//SNdTyWahvOlV8onltE6n+IaowFF8aWIK84Jaoao+XJz6s7fa0EwTViScoKYhOEN0Lr7oNl22ti2UBf7sPw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=lYgkHPpk; arc=fail smtp.client-ip=52.101.65.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="enxmOuVO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DC6C4C2BCB9;
-	Fri, 14 Aug 2026 11:29:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786706968;
-	bh=JK/RVAs/dl14S9jsi85PIl3pfYXOOqvpn4TPowSI9nY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=enxmOuVOX/uoBTkAq4to0exnriegho/MNOc/0PQNGIrfyqvGQOF0EK+TJM82CZ1ck
-	 UP5WQG8ejliyd/dr2NJ7KrxoL4f1pOrkMgaFLAo+FmfSVV0ioY0KROEG0GmkZUu+kl
-	 2OKhnLEAz61kcOf42gX9jFW+8pEKGAITzIkrkhqLBS4oIo3lQ+mamCO9Uyles1twxK
-	 vTOixa7y7Q2mS1ErjOuPPRv6NaoLD8JVLodiLWX2KwHM7eyR5lVcSizw3xIt+iTIS1
-	 czv4+SSE6pXBayknwPwx6TxKPl+gJ2uluFY9RgepDoaKNCBpwGCEbUtenFgzdLNaTI
-	 nv/LxJFbHeuHA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B7693C5CFDB;
-	Fri, 14 Aug 2026 11:29:28 +0000 (UTC)
-From: Christian Wehba via B4 Relay <devnull+weebnuts.hotmail.com@kernel.org>
-Date: Fri, 14 Aug 2026 21:29:28 +1000
-Subject: [PATCH] ALSA: hda/realtek: Match Lenovo Yoga Slim 7 14AKP10 by
- codec SSID
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="lYgkHPpk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eVOi6DZ5uMNWMjbQJvHuay3iYhj24wcjYgzpdcM5KgLOjQp3fA6ts/EVB+tcUDQFCiXdRn54wZEDqxynBVVNBUAzIsghk13LylU6pyFN9nzqup3Ea0bGp9I1dXLy/d3VpqD/Nwr8B5GDGjAyUdhQEN4AcqKbAOmgdvWH4MOP4YXNX2wIKx8EIyoi3+8gukBXF+U4cUiQFvc7DJg8vdeDPUmVGc/HnH8Xr3e0/F3JcpXWLqi6zVxQVN3+5JZyOsB8wUNK6uK9BQZExfmUnXB0msviJgjsbpk5Ce8pAjE46CZZEy/efKGYT5bYX4dTrzIwgEQieS3gD4bZ6M2vfhmwkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6NSKeVHpKMlrgd5XGjdCINGiyAv0DgmCBlJEfaodfrE=;
+ b=Ge5cO+zRmud+Iwd7hIEtyVGiisGJCrE2eIBxFW2pbpcu+GW8Pj72F1W42l4YAChxeyfjOvm3Iid7qWS3ENZIEB5MRwbZln3wsPoYSuFSI7t653+PpRaNWMTBPJJUgqE2o4khEBy+igT11f1CrL647PJhP4dMuMsNbaunqvwApMPa5APC4tNo4yXaCsRgNrkrx1HNvCItvxGBpHpHRHVbv90UHRflPDoaEUzhIq6UMrYKIXjIOwJUFzeaxBRTjDPXyJ4tK35H7fzHaLSxlCy9K6QjSSWIZDipcfc7A2UOJv6EptZKuZjBuKp6ENfdE9ctpRPVKhk/KdeVbZJl2MUCTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6NSKeVHpKMlrgd5XGjdCINGiyAv0DgmCBlJEfaodfrE=;
+ b=lYgkHPpkYOCUL8SUHHWOl3yuS6d+ukgLM8m8ZZ9PE8xaXHuP4YKJZ3yOXta3R7UztQupFnIWKaVTUdZKnCC7qMMRTgxdkSLNw7AN4jGu69MZFPDSQLmfdpwAOdx2B+loUhyLfit6rXPdGz5ljctaxPxBIsIhg5aauZuUB21tPKHeltzzzk9O5CryRA9jpTKO1faa7t++ZOIESMLNFN6424lb0L6fUAUbooGQzc79/rQwQAf/Me8x2CeF35vD4Ln4OrUQ4DrvLT6TrCsOxsFCgZWSsuLeMEC6k6gzXiPSEGzHcizlwkJteOtvPGIveIJNfyR/vXmSFi0ijFeihvbZTg==
+Received: from AM8P189CA0019.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:218::24)
+ by AMCPR10MB992216.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:783::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
+ 2026 11:44:21 +0000
+Received: from AM3PEPF00009B9B.eurprd04.prod.outlook.com
+ (2603:10a6:20b:218:cafe::99) by AM8P189CA0019.outlook.office365.com
+ (2603:10a6:20b:218::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.15 via Frontend Transport; Fri,
+ 14 Aug 2026 11:44:21 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM3PEPF00009B9B.mail.protection.outlook.com (10.167.16.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 11:44:21 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 14 Aug
+ 2026 13:49:17 +0200
+Received: from [10.48.86.103] (10.48.86.103) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 14 Aug
+ 2026 13:44:19 +0200
+Message-ID: <a9038d8a-cc47-4c06-8e52-0e645d2e1d23@foss.st.com>
+Date: Fri, 14 Aug 2026 13:44:19 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-alc287-akp10-v1-1-60b3d619f72d@hotmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDC0Nj3cScZCMLc93E7AJDA92kZAODZEPTRPPEVAMloJaCotS0zAqwcdG
- xtbUAR7xwk14AAAA=
-X-Change-ID: 20260813-alc287-akp10-bc00c15a7ae0
-To: linux-sound@vger.kernel.org
-Cc: stable@vger.kernel.org, Christian Wehba <weebnuts@hotmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786706967; l=4514;
- i=weebnuts@hotmail.com; h=from:subject:message-id;
- bh=XN40BnZnWOGYHA+7GO2mZkGtsNIWrNdk7lHPf86eDyM=;
- b=HPrXYTWO2VzjjGrDZRPQMPUjEVwkWHxQrAvdIwKXMyiJ7R8iiH4SDjhiDgMDp78qAk6QtdLIR
- l7Kgz9njSpqAYYu2Dmw8dZZP5NBx5QQEi3u+Asez6suw/GIHHCafcsI
-X-Developer-Key: i=weebnuts@hotmail.com; a=ed25519;
- pk=x+EJ28Iu4dCXlGo0o5ZYbAdHluOsP4d5LHGiwTLloZI=
-X-Endpoint-Received: by B4 Relay for weebnuts@hotmail.com/default with
- auth_id=948
-X-Original-From: Christian Wehba <weebnuts@hotmail.com>
-Reply-To: weebnuts@hotmail.com
-
-From: Christian Wehba <weebnuts@hotmail.com>
-
-Commit e6c888202297 ("ALSA: hda/realtek: Add quirk for Lenovo Yoga Slim
-7 14AKP10") added an entry for 17aa:391a using SND_PCI_QUIRK, so it is
-only tested against the PCI SSID. On this machine 0x391a is the codec
-SSID; the PCI SSID is 17aa:38b4, which is shared with the Legion Slim 7
-16IRH8.
-
-snd_hda_pick_fixup() walks the quirk table in order and returns on the
-first match, so the earlier 17aa:38b4 entry wins and the codec-SSID
-fallback at the end of the function is never reached:
-
-  snd_hda_codec_alc269 hdaudioC1D0: ALC287: picked fixup  for PCI SSID 17aa:38b4
-
-The machine consequently gets ALC287_FIXUP_CS35L41_I2C_2 even though it
-has no CS35L41 amplifiers, and the intended fixup never runs. Its bass
-speakers hang off pin 0x17, which the BIOS reports as unconnected, so
-only the tweeters on pin 0x14 are driven and playback is very quiet.
-
-Convert the entry to HDA_CODEC_QUIRK and move it ahead of the colliding
-17aa:38b4 entry so that it is evaluated first. With
-ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN applied, pin 0x17 is enabled and
-both 0x14 and 0x17 are bound to DAC 0x02, so a single "Speaker Playback
-Volume" drives both speaker pairs:
-
-  autoconfig for ALC287: line_outs=2 (0x14/0x17/0x0/0x0/0x0) type:speaker
-
-Verified on a Yoga Slim 7 14AKP10 by forcing the same fixup with
-model=alc287-yoga9-bass-spk-pin, which restores full volume and keeps
-the volume control effective across its whole range.
-
-Note that the existing 17aa:391c and 17aa:391d entries are likewise
-placed after the 17aa:38b4 entry; should those machines also report PCI
-SSID 17aa:38b4 they would need the same reordering, but that could not
-be confirmed here for lack of the hardware.
-
-Fixes: e6c888202297 ("ALSA: hda/realtek: Add quirk for Lenovo Yoga Slim 7 14AKP10")
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221298
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Wehba <weebnuts@hotmail.com>
----
-Single patch; the full analysis is in the commit message.
-
-Tested on a Lenovo Yoga Slim 7 14AKP10 (AMD, ALC287) running 7.1.7 on
-Fedora 44. Without the change the machine matches the Legion Slim 7
-16IRH8 entry on PCI SSID 17aa:38b4 and gets ALC287_FIXUP_CS35L41_I2C_2
-despite having no CS35L41 amplifiers; only the tweeters on pin 0x14 are
-driven, so playback is very quiet. With the fixup applied both speaker
-pairs are driven and the volume control stays effective across its whole
-range.
-
-Reported and tracked at:
-https://bugzilla.kernel.org/show_bug.cgi?id=221298
----
- sound/hda/codecs/realtek/alc269.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index be7287ea2..488293612 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -8069,6 +8069,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x38a8, "Y780P AMD VECO dual", ALC287_FIXUP_TAS2781_I2C),
- 	SND_PCI_QUIRK(0x17aa, 0x38a9, "Thinkbook 16P", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
- 	SND_PCI_QUIRK(0x17aa, 0x38ab, "Thinkbook 16P", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
-+	HDA_CODEC_QUIRK(0x17aa, 0x391a, "Lenovo Yoga Slim 7 14AKP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
- 	SND_PCI_QUIRK(0x17aa, 0x38b4, "Legion Slim 7 16IRH8", ALC287_FIXUP_CS35L41_I2C_2),
- 	HDA_CODEC_QUIRK(0x17aa, 0x391c, "Lenovo Yoga 7 2-in-1 14AKP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
- 	HDA_CODEC_QUIRK(0x17aa, 0x391d, "Lenovo Yoga 7 2-in-1 16AKP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
-@@ -8117,7 +8118,6 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x3911, "Lenovo Yoga Pro 7 14IAH10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
- 	SND_PCI_QUIRK(0x17aa, 0x3912, "Lenovo Xiaoxin 14 GT", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
- 	SND_PCI_QUIRK(0x17aa, 0x3913, "Lenovo 145", ALC236_FIXUP_LENOVO_INV_DMIC),
--	SND_PCI_QUIRK(0x17aa, 0x391a, "Lenovo Yoga Slim 7 14AKP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
- 	SND_PCI_QUIRK(0x17aa, 0x391f, "Yoga S990-16 pro Quad YC Quad", ALC287_FIXUP_TXNW2781_I2C),
- 	SND_PCI_QUIRK(0x17aa, 0x3920, "Yoga S990-16 pro Quad VECO Quad", ALC287_FIXUP_TXNW2781_I2C),
- 	SND_PCI_QUIRK(0x17aa, 0x3929, "Thinkbook 13x Gen 5", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
-
----
-base-commit: f42eb0bd059781dc7f3046c7d37e76f59b874744
-change-id: 20260813-alc287-akp10-bc00c15a7ae0
-
-Best regards,
--- 
-Christian Wehba <weebnuts@hotmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] crypto: stm32/cryp: fix autosuspend cleanup during
+ teardown
+To: Guangshuo Li <lgs201920130244@gmail.com>, Herbert Xu
+	<herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>, Thorsten Blum <thorsten.blum@linux.dev>, Kees
+ Cook <kees@kernel.org>, Colin Ian King <colin.i.king@gmail.com>,
+	"lionel.debieve@st.com" <lionel.debieve@st.com>,
+	<linux-crypto@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+CC: <stable@vger.kernel.org>
+References: <20260808093623.2744314-1-lgs201920130244@gmail.com>
+Content-Language: en-US
+From: Maxime MERE <maxime.mere@foss.st.com>
+In-Reply-To: <20260808093623.2744314-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM3PEPF00009B9B:EE_|AMCPR10MB992216:EE_
+X-MS-Office365-Filtering-Correlation-Id: 511cee6a-4e8d-4609-ef73-08def9f96194
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|7416014|10067099003|56012099006|11063799006|18002099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	7RwLAZrhEEwcUJN1rMb6Ac6RCHB9577url9Ewg8rloBD+WIMFFPFvj+tCbbTrGxdMpWa2WTlpDvXajW02rAWKCoKXuGLzil8E3A/uhYby2MGlBH0zBbNFIIohd7SKop9KeNTXBk/3nEdW6tV0KcCkQqfQKYuse9ysKXWkpz8qIaoiBv3oxMKmaV1pZzti+Yw5zd4I3v7Ls467X/pOeLZgT/r3vruCSW3QkFL48yFNtkyIADlz5W4ygVaXrOryESXcBHAKq4+fEZpUpEXSmqm7/PvD6rkcEGIvay0AzOWh31kkDVSJz4p/tH7VKlYrq8kdrDxBiLhYyhWZE1N87BeyFOV4Ij+y7Q1lgzq4CYhl+IwtiVFh0jRlDu6SRwjeo9bsilBpA0SLN9Ho8CML0DzZy9buDk0Xi7WwjuindqYy0Y+O6lN4Y/90TlURQjmIjnWytn0qMijWPrYzzveI2XdKz+Jfc7Gkkc9eon51paNjjWq3W57mF72LqzaxmqCHtFYZSO2Xt3XIKRHBYPUSmvPKP8AnYtXmczZhJSaDFg0rWvuhuCXb6smwLjuoyJtR8ffzDi4iX2oaGHeVDbhupFzbo3uzVN9StTO94WaYs8WmHLWVTEnkgdKaq/3vae9xjUxhHnrbAZCzViUh+khYjxnbOldxaq4Q+oPLHcdkpknIU6fc4VNncsKBVaiNwsl4AHg1lSJaYLY2eQJATFNwUjliDk5KKHm1aSL3vLCeroNJwiKmQxsbTUw0ouqCfaH46cV
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(7416014)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	JLxAM44Jgc998VwK1Xyzi/9DQHQQd3KGcabyByKzAf5VeE2hQVEXC8P1NDfGjd27dFGqcRruTAyZ882f7oyIX7T3mgkMGnT2ke4zHrcDu2hmGHUNpipU8vYH79Xbqe6nZQZ/w0dHg8XrkZfxuD+i5jO03XkSNJs/5R2j+qFrJuTGHOPb1EZ+ClWn1YozYd2KIvTOhk8Tln3BWLtXtya2NAuGZTrCxX8fSy/7XHEOToqAkqbVZRqM4RTWlqBF2gC1rh4SOdsuOHw+xKfBWZjRaS20dtV1SC6cWZHswyyvtX07eSJgQwkOTg5vqQToUwapcvUMSz2d3euETQUB2A9SXUZAFOVt6wNO5PvFxpgBiKur5pxavci1rWzCCDrG/pZ9ZLKwl4BnBMj864c0sg1ijxSHx4RYAah8NYSdYkXQGkWbwsMnYkGMizHxway/wGUk
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 11:44:21.1672
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 511cee6a-4e8d-4609-ef73-08def9f96194
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM3PEPF00009B9B.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMCPR10MB992216
 
 
+
+On 8/8/26 11:36, Guangshuo Li wrote:
+> stm32_cryp_probe() calls pm_runtime_use_autosuspend(), but neither the
+> probe failure path nor stm32_cryp_remove() calls the matching
+> pm_runtime_dont_use_autosuspend() before disabling runtime PM.
+> 
+> If the autosuspend delay is set to a negative value while autosuspend
+> is enabled, the runtime PM core increments usage_count to prevent
+> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> during teardown, this reference is not dropped and usage_count remains
+> unbalanced.
+> 
+> Add the missing pm_runtime_dont_use_autosuspend() calls to both the
+> probe failure and remove paths before disabling runtime PM.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 65f9aa36ee47 ("crypto: stm32/cryp - Add power management support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>   drivers/crypto/stm32/stm32-cryp.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/crypto/stm32/stm32-cryp.c b/drivers/crypto/stm32/stm32-cryp.c
+> index b79877099942..74f6e329b1fa 100644
+> --- a/drivers/crypto/stm32/stm32-cryp.c
+> +++ b/drivers/crypto/stm32/stm32-cryp.c
+> @@ -2691,6 +2691,7 @@ static int stm32_cryp_probe(struct platform_device *pdev)
+>   		dma_release_channel(cryp->dma_lch_out);
+>   err_dma:
+>   err_rst:
+> +	pm_runtime_dont_use_autosuspend(dev);
+>   	pm_runtime_disable(dev);
+>   	pm_runtime_put_noidle(dev);
+>   
+> @@ -2722,6 +2723,7 @@ static void stm32_cryp_remove(struct platform_device *pdev)
+>   	if (cryp->dma_lch_out)
+>   		dma_release_channel(cryp->dma_lch_out);
+>   
+> +	pm_runtime_dont_use_autosuspend(cryp->dev);
+>   	pm_runtime_disable(cryp->dev);
+>   	pm_runtime_put_noidle(cryp->dev);
+>   
+
+Reviewed-by: Maxime Méré <maxime.mere@foss.st.com>
+
+Cheers,
+
+Maxime
