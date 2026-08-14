@@ -1,52 +1,48 @@
-Received: from cvsmtppost08.nm.naver.com (cvsmtppost08.nm.naver.com [114.111.35.230])
+Received: from cvsmtppost25.nm.naver.com (cvsmtppost25.nm.naver.com [114.111.35.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4891347532
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 08:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE50E422521
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 08:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786697795; cv=none; b=geEVGR28Cg2lMXUql/WEdlufJtDIbOZas6qviSi/wOTdv80YSXxkyITHPdl/AsCTeLyXL8ZyQDf+uVXxjGbn5lxL9pRUorMlgSJiiHPpLWBI9wNqNwg2RrWjnDSbEbYGAq68h2KTb+MdD9U4iWzEFOvmiecdgqXqYDKedd4CpwI=
+	t=1786697940; cv=none; b=Cy4Dx3IOt5Ey4GMpaC7pzXWUlKT6eh5FDc2EPT9jqu9+b8c4Ib1OhY4hcl01iKamj9pgfyAPuG8aG44Pd2F2A6lK4O21njCpN8jp/fOaOj2PvS3LgUdw1DJXx8SR0kQqLgOOfK+4WMCw67STwkUnwwJlCQ2veBwBWGcCcpOb9g8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786697795; c=relaxed/simple;
-	bh=BCPyBqL54PWZKMN+4NXDapbcOzcTHBSwv8tnKZW/WLc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WXSQrgyY/B2Z5WAX3c9UqqvfwCjLmwXj/Zxhdc2xi0P77bJ0sDiB0Yh3paRdN0bG0WALMMLFAPa6SAIOk2AOmbsqC7hvOyU+exV19AqUdIFEPy2EGBS2rnQcYAAHhCY3KSHtBvL4dXOvmy7RzGPX8x3CvTw7PZ2f280lS5Kvn7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=M7nqo4oH; arc=none smtp.client-ip=114.111.35.230
+	s=arc-20240116; t=1786697940; c=relaxed/simple;
+	bh=rHtkIN9W8DtuaUku2a8RV3LSxPoWBaOHONCmyDHFPSg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kWVgpsytAnkt79QBdIqFg/QOYt3N+zi1LjIY4sjRDZn6IY1B5tdLpm87/EWgh+jF5hKOOT/vEGtqN4jTLNhX8oSvcQNoSp7R3E1Sfg1vbSEIoepOi9MEP4sMO9tugBY8EtbYZJgDkOLe5wXdnzFwi/Ps04peCveV1/i6i/QM2gQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=SMBiOYmK; arc=none smtp.client-ip=114.111.35.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="M7nqo4oH"
-Received: from cvsendbo001.nm ([10.112.18.53])
-  by cvsmtppost08.nm.naver.com with ESMTP id hvnoEJcZQCCfNuuGo2-8dg
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="SMBiOYmK"
+Received: from cvsendbo006.nm ([10.112.20.43])
+  by cvsmtppost25.nm.naver.com with ESMTP id BW6diBNvSuC2Bqgp1r9Q6w
   for <stable@vger.kernel.org>;
-  Fri, 14 Aug 2026 08:46:22 -0000
+  Fri, 14 Aug 2026 08:38:42 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1786697182; bh=BCPyBqL54PWZKMN+4NXDapbcOzcTHBSwv8tnKZW/WLc=;
+	t=1786696722; bh=rHtkIN9W8DtuaUku2a8RV3LSxPoWBaOHONCmyDHFPSg=;
 	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
 	 X-Works-Security;
-	b=M7nqo4oHbU3c3U3YloFtL5UkjSRVJKOEm30zzYP1C/tV1J+AdqCqh6OQaXVnMAamn
-	 Tvfmy9b1kiEYpRVHVSnsPx6PC5QafrDC/egEuoUrCBnkU4j+bJ8qe/gCUsQwn1NRuE
-	 TvRa3aGVkg+T2s/10+MmPg2syEWEDrX91NkbQ42slo0YmnS81Q9sf13nE2hcXqFiBV
-	 x33pliGMzQW5VvDm8NJEf+el1A8fl/A0NKZ3ItOsazH6VWhF6F7l8RSaUn4WLVsVCm
-	 V1NQfwuVWAmRGdqvbx0N0spgLsyDH3P703dP5kJYmdd9pokBEudOyx6AsdVYgNFkV7
-	 ASgZoSIMifcJg==
-X-Session-ID: 1Fb99AraQdaqbpG9cujd7A
-X-Works-Send-Opt: rPF8W4eXjHwYKBm9FAF9FBmwKo2mKqErKqb/jJIFjAJYKg==
-X-Works-Smtp-Source: VdbrFoM/FqJZ+HmZaAbd+6E=
+	b=SMBiOYmKv/rDCt5Jvt0mWqcs1Ly12oBez8UHrLezfQ1MA6d+01lJkjFeKmJw1jWer
+	 R/lUt0Rig+jJlQnLlVIIqNlxn6FTzcJTFyFzjtXqG3YD6LCnSuZDWvcT+v3uEyaXNp
+	 a06f/skXiFLOu6zhJDXX3YLrLneXoydj75wpSRkCjEhy1VO1HWDqpXlm36MsHTF7nP
+	 pvO53b6SpvJnWQhk4wlG/J7EmK8ISjWVcTt8Q52f24pGgPGCTwjMuXBLpK02HraYHs
+	 CLE4PZ0me4YSWhxi6RrdCoBQQnXjzCDKzALy6BQ6YR0sMTFVtaLA0OGxvkEKj/N7DJ
+	 8flVsaq9JSCkQ==
+X-Session-ID: rfoqPPMdT0y6GnA7Juvcug
+X-Works-Send-Opt: rlF8W4eXjHwYKBm9FAF9KBmwKo2mKqErKqb/jJIFjAJYKg==
+X-Works-Smtp-Source: VwYrFoM/FqJZ+HmZKoKd+6E=
 Received: from bl4ckhyun.localdomain ([211.41.193.194])
-  by cvnsmtp004.nm.naver.com with ESMTP id 1Fb99AraQdaqbpG9cujd7A
+  by cvnsmtp005.nm.naver.com with ESMTP id rfoqPPMdT0y6GnA7Juvcug
   for <multiple recipients>
   (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Fri, 14 Aug 2026 08:46:22 -0000
+  Fri, 14 Aug 2026 08:38:42 -0000
 From: Hyeontae Lee <wonju345@naver.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Opasiak <k.opasiak@samsung.com>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyeontae Lee <wonju345@naver.com>
+To: wonju345@naver.com
+Cc: stable@vger.kernel.org
 Subject: [PATCH] usb: gadget: f_hid: only clear write_pending from the owning request
-Date: Fri, 14 Aug 2026 17:46:16 +0900
-Message-ID: <20260814084616.259367-1-wonju345@naver.com>
+Date: Fri, 14 Aug 2026 17:38:35 +0900
+Message-ID: <20260814083835.258824-1-wonju345@naver.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -71,28 +67,10 @@ free hidg->req - which a different write() is holding at that moment.
 The writer resumes, finds hidg->req NULL, and frees its cached pointer a
 second time:
 
-  BUG: KASAN: slab-use-after-free in f_hidg_write+0x7b7/0x920
-  Read of size 8 at addr ffff888104fc9018 by task s4-3/163
-
-  Allocated by task 0:
-   alloc_ep_req+0x20/0x1b0
-   hidg_set_alt+0x1ed/0xbd0
-   composite_setup+0x1072/0x8690
-   configfs_composite_setup+0xcd/0x110
-   dummy_timer+0x1a68/0x31d0
-
-  Freed by task 0:
-   kfree+0x121/0x380
-   hidg_disable+0x559/0x7a0
-   reset_config+0x9d/0x200
-   composite_setup+0x32d4/0x8690
-   configfs_composite_setup+0xcd/0x110
-   dummy_timer+0x1a68/0x31d0
-
-  The buggy address belongs to the object at ffff888104fc9000
-   which belongs to the cache kmalloc-128 of size 128
-
   BUG: KASAN: double-free in f_hidg_write+0x267/0x920
+  BUG: KASAN: slab-use-after-free in f_hidg_write+0x7b7/0x920
+  Freed by task 0:
+    kfree <- hidg_disable <- reset_config <- composite_setup
 
 Record which request owns the flag and let only that request's completion
 clear it. An older queued request being given back then leaves
