@@ -1,194 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B523D5C15
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 19:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102E13D967F;
+	Fri, 14 Aug 2026 20:00:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786737448; cv=none; b=ee7o6JeQIIArEv0GAClLdJsUqJOq17FlQp9dVHAEcnXc+vGnTdjJxp+PAK7Kh7eQfbJET2izQw6Zgm7TdcS7hj9sPwwADdNQpIEYyo/r0aNUjunUwFn3G7gxn1doILrs7bia5ngYc9XjPPGPS963adOzHZhEPr+na5ODdKe0sSM=
+	t=1786737615; cv=none; b=KlIJMau7v78Vkx78DJlMTqXWlQwpCPzYlGihsNOuXrzs+GDESc8PsVQxqT2H8+1TneAclC+vXiQ4ciE8qP5okDTsal+9bjLsdOrgKigqLnKCwrD994Ei8IRxvMKKr6d8YbE1KzT7fMdZVL5j6G0+i4uVb5uCOdaUrI/KtUeQdiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786737448; c=relaxed/simple;
-	bh=5KMSJOTgXjSvdTDyMgmTa2u7F8LvDZRqCU+YXS+jUhk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IyjNuXSISN/1/Lo3WADccg+aHEBiN1b5q/B7G72dIvC9J6VOI1mKMk1y/cJoUKEKhVVldfHydhNa+0socGhKKCl9/orhGfBDsEF83Fp3GpzEEuABC0eZbT6OfmWqgsdd+E3FCXsAwpktwzn7feu3EPm7TkdMzNMQpDgaCe7GrBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XwgVhsl3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786737615; c=relaxed/simple;
+	bh=yejNEu7IFwF/DMYIcLeMMMSuTE+yBgED1C3V4O5lf9U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GTHtQHaZaCOw4N/GzTqkVFxDmh1VrJBsg8MTXcLw0SNHQ3cnIjHn9zrVKxsnJHH6ugZ07CwIoy3MjE0/QdkPvk/PE1XRwQdBIyIKoD23YHqlBrOPlHde3E7+Kn40Gw4oEppF0ji9plLI357JjrYV3DUiRXVnhyMkR7QPf3DntI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jK7DkhM/; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XwgVhsl3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097A21F000E9
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 19:57:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786737447;
-	bh=PswRQ3VybxKVhQl5sV/6OBfdiyOWqcU1+y/a2m04DP4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XwgVhsl3qmR2M5YC/LPx6K9M7TEgCaWqEhCP3v8sblzdQpD/L4IZI+85RHD7AuH++
-	 uro5ji5gjswK6paOQbNu4MH/ickJEvBYaFoOkeFa6jV4O4NjyzOO6B5sXRrNaQ4hGG
-	 y+mll0X2xEJJrEiWGuRPYcpDv7HseOjI+xDEkhWwxMJayDebTwkv5BH0hW3ZmFzG0F
-	 pDYYNttPS81VZcJIKp37ZtBceFJ0ncyRkIkKGB4ISHuZSF4GAhhfIaZ9azmX2oEKrJ
-	 v2pELflRpWigQVuWLJTA7O+We1CTD/UPx31JCEWyEAPF0257scptyJyw33lnlavUJR
-	 yoCjdHW2J12mw==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39faa67fabaso8480091fa.3
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 12:57:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpBKEEji+giJS5lRCUbMzdx+TFJWVht0ESI32YLnzDaO8+81cSKRNXSQdWsWOZb/4PYKR0685M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YynIixVzUXzMsZ659TIOMslmUPn4I4xGdz4hekHEChAovn6WsfA
-	YdULfTHTde6vXD3u2cbo1LQjJayISfmcONqc3V0zBI26BWgwdFo83Bp1hCq9Ih8o/ejoBYS4lxi
-	CIGOkfktdI4zWgQEdqa7jRihHsKjgyaw=
-X-Received: by 2002:a2e:be9b:0:b0:39b:4371:dbe6 with SMTP id
- 38308e7fff4ca-3a13249eb07mr8571421fa.16.1786737445353; Fri, 14 Aug 2026
- 12:57:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jK7DkhM/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786737613; x=1818273613;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yejNEu7IFwF/DMYIcLeMMMSuTE+yBgED1C3V4O5lf9U=;
+  b=jK7DkhM/UJ4UdrbKgmcF7rS/1sg5DsNlFUOxh27RKXRWChpRB/76K04o
+   jrs6D1NAZumRgtbbqkfqv6J7PwdvJUoHz2MqLxq+CTJRfGkuEFi+VnYR1
+   IjorkRYR+EgFRmdWDik2di54TbwObeU1XwBQ3//3HA6b+QctT1ziVLx/B
+   X1zhUzAhqGKAwkYMDFQfqwu7r4GZfIFlCAgam3i7LLmWTyCMkAEDCHgP9
+   zNohXOWfwm1oCQBpO5tehQiCUlWO5/f3LC205ZR5EWHYoQ2vfUL+KBWg0
+   zevnCxHN54Zj99DnABC0zpnmyM5LmDpPNXJmyXCrm1xiBr3R8u5eBXkmQ
+   g==;
+X-CSE-ConnectionGUID: 8fZ/V8+FQCiAfz2bIuZN/g==
+X-CSE-MsgGUID: qpGxAy4bRzSdhaFOvF0gBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11875"; a="87449944"
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
+   d="scan'208";a="87449944"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 13:00:12 -0700
+X-CSE-ConnectionGUID: hq7ddOIqTFu876iPiTuvgg==
+X-CSE-MsgGUID: u/6YRs9WQPGVEYD+tzrCZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
+   d="scan'208";a="302544647"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 14 Aug 2026 13:00:10 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wuy4V-00000000a0s-465e;
+	Fri, 14 Aug 2026 20:00:07 +0000
+Date: Sat, 15 Aug 2026 04:00:07 +0800
+From: kernel test robot <lkp@intel.com>
+To: WenTao Liang <vulab@iscas.ac.cn>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	linux-pci@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Wilczynski <kw@linux.com>,
+	Bjorn Helgaas <helgaas@kernel.org>, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
+Subject: Re: [PATCH] fix: PCI: dra7xx: dra7xx_pcie_probe: fix missing
+ device_link_del on phy   error paths
+Message-ID: <202608150306.dhMPPe3n-lkp@intel.com>
+References: <20260626154809.53770-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <19fdcf5017a.193154c01134335.5292960934110253862@a0rg.com>
-In-Reply-To: <19fdcf5017a.193154c01134335.5292960934110253862@a0rg.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 14 Aug 2026 21:57:01 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jWzfWV1y_i0kpPd0VbvGdmTrR00=nQgO-RJWYUrZRrXQ@mail.gmail.com>
-X-Gm-Features: AUfX_mzSme_BIDTClW9sTfH29rgeGIuaAsyB-dRVMgHwZoZdsPQchkOu7RKr2kU
-Message-ID: <CAJZ5v0jWzfWV1y_i0kpPd0VbvGdmTrR00=nQgO-RJWYUrZRrXQ@mail.gmail.com>
-Subject: Re: [PATCH v3] ACPI: pfr_update: fix stack buffer overflow in query_capability()
-To: Anirudh Prasad <icarus@a0rg.com>
-Cc: linux-acpi <linux-acpi@vger.kernel.org>, rafaeljwysocki <rafael.j.wysocki@intel.com>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, stable <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260626154809.53770-1-vulab@iscas.ac.cn>
 
-On Fri, Aug 7, 2026 at 6:01=E2=80=AFPM Anirudh Prasad <icarus@a0rg.com> wro=
-te:
->
-> query_capability() copies four ACPI buffer objects returned by the
-> firmware _DSM into fixed-size u8[16] fields in struct
-> pfru_update_cap_info using memcpy with the firmware-supplied length:
->
->   memcpy(&cap_hdr->code_type,
->          elements[CAP_CODE_TYPE_IDX].buffer.pointer,
->          elements[CAP_CODE_TYPE_IDX].buffer.length);
->
-> The same pattern repeats for drv_type, platform_id, and oem_id.
-> If the firmware returns buffer.length > 16 for any of these fields,
-> memcpy writes past the destination array.
->
-> struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
-> Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
-> are generated when a DSM returns 64-byte buffers, with writes reaching
-> 44 bytes past the end of cap_hdr's [64, 156) frame window into
-> adjacent stack redzones.
->
-> Introduce a helper pointer to out_obj->package.elements and use it
-> to validate each buffer length against its destination field size
-> before copying, returning -EINVAL if the firmware supplies an
-> oversized buffer.
->
-> Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update de=
-vice driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
-> ---
->  drivers/acpi/pfr_update.c | 47 ++++++++++++++++++++++-----------------
->  1 file changed, 26 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
-> index 6283105bb0e8..79cedd4cf2a2 100644
-> --- a/drivers/acpi/pfr_update.c
-> +++ b/drivers/acpi/pfr_update.c
-> @@ -120,7 +120,7 @@ static int query_capability(struct pfru_update_cap_in=
-fo *cap_hdr,
->                             struct pfru_device *pfru_dev)
->  {
->         acpi_handle handle =3D ACPI_HANDLE(pfru_dev->parent_dev);
-> -       union acpi_object *out_obj;
-> +       union acpi_object *out_obj, *elem;
->         int ret =3D -EINVAL;
->
->         out_obj =3D acpi_evaluate_dsm_typed(handle, &pfru_guid,
-> @@ -150,7 +150,9 @@ static int query_capability(struct pfru_update_cap_in=
-fo *cap_hdr,
->                 goto free_acpi_buffer;
->         }
->
-> -       cap_hdr->status =3D out_obj->package.elements[CAP_STATUS_IDX].int=
-eger.value;
-> +       elem =3D out_obj->package.elements;
-> +
-> +       cap_hdr->status =3D elem[CAP_STATUS_IDX].integer.value;
->         if (cap_hdr->status !=3D DSM_SUCCEED) {
->                 ret =3D -EBUSY;
->                 dev_dbg(pfru_dev->parent_dev, "Query cap Error Status:%d\=
-n",
-> @@ -158,29 +160,32 @@ static int query_capability(struct pfru_update_cap_=
-info *cap_hdr,
->                 goto free_acpi_buffer;
->         }
->
-> -       cap_hdr->update_cap =3D out_obj->package.elements[CAP_UPDATE_IDX]=
-.integer.value;
-> +       if (elem[CAP_CODE_TYPE_IDX].buffer.length > sizeof(cap_hdr->code_=
-type) ||
-> +           elem[CAP_DRV_TYPE_IDX].buffer.length > sizeof(cap_hdr->drv_ty=
-pe) ||
-> +           elem[CAP_PLAT_ID_IDX].buffer.length > sizeof(cap_hdr->platfor=
-m_id) ||
-> +           elem[CAP_OEM_ID_IDX].buffer.length > sizeof(cap_hdr->oem_id))=
- {
-> +               ret =3D -EINVAL;
+Hi WenTao,
 
-ret is equal to -EINVAL already at this point if I'm not mistaken, so
-no need to set it again to the same value.
+kernel test robot noticed the following build errors:
 
-> +               goto free_acpi_buffer;
-> +       }
-> +
-> +       cap_hdr->update_cap =3D elem[CAP_UPDATE_IDX].integer.value;
->         memcpy(&cap_hdr->code_type,
-> -              out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointe=
-r,
-> -              out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length=
-);
-> -       cap_hdr->fw_version =3D
-> -               out_obj->package.elements[CAP_FW_VER_IDX].integer.value;
-> -       cap_hdr->code_rt_version =3D
-> -               out_obj->package.elements[CAP_CODE_RT_VER_IDX].integer.va=
-lue;
-> +              elem[CAP_CODE_TYPE_IDX].buffer.pointer,
-> +              elem[CAP_CODE_TYPE_IDX].buffer.length);
-> +       cap_hdr->fw_version =3D elem[CAP_FW_VER_IDX].integer.value;
-> +       cap_hdr->code_rt_version =3D elem[CAP_CODE_RT_VER_IDX].integer.va=
-lue;
->         memcpy(&cap_hdr->drv_type,
-> -              out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.pointer=
-,
-> -              out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length)=
-;
-> -       cap_hdr->drv_rt_version =3D
-> -               out_obj->package.elements[CAP_DRV_RT_VER_IDX].integer.val=
-ue;
-> -       cap_hdr->drv_svn =3D
-> -               out_obj->package.elements[CAP_DRV_SVN_IDX].integer.value;
-> +              elem[CAP_DRV_TYPE_IDX].buffer.pointer,
-> +              elem[CAP_DRV_TYPE_IDX].buffer.length);
-> +       cap_hdr->drv_rt_version =3D elem[CAP_DRV_RT_VER_IDX].integer.valu=
-e;
-> +       cap_hdr->drv_svn =3D elem[CAP_DRV_SVN_IDX].integer.value;
->         memcpy(&cap_hdr->platform_id,
-> -              out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.pointer,
-> -              out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length);
-> +              elem[CAP_PLAT_ID_IDX].buffer.pointer,
-> +              elem[CAP_PLAT_ID_IDX].buffer.length);
->         memcpy(&cap_hdr->oem_id,
-> -              out_obj->package.elements[CAP_OEM_ID_IDX].buffer.pointer,
-> -              out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length);
-> -       cap_hdr->oem_info_len =3D
-> -               out_obj->package.elements[CAP_OEM_INFO_IDX].buffer.length=
-;
-> +              elem[CAP_OEM_ID_IDX].buffer.pointer,
-> +              elem[CAP_OEM_ID_IDX].buffer.length);
-> +       cap_hdr->oem_info_len =3D elem[CAP_OEM_INFO_IDX].buffer.length;
->
->         ret =3D 0;
->
-> --
-> 2.55.0
->
->
+[auto build test ERROR on pci/next]
+[also build test ERROR on pci/for-linus linus/master v7.2-rc7 next-20260813]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/WenTao-Liang/fix-PCI-dra7xx-dra7xx_pcie_probe-fix-missing-device_link_del-on-phy-error-paths/20260815-023710
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
+patch link:    https://lore.kernel.org/r/20260626154809.53770-1-vulab%40iscas.ac.cn
+patch subject: [PATCH] fix: PCI: dra7xx: dra7xx_pcie_probe: fix missing device_link_del on phy   error paths
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260815/202608150306.dhMPPe3n-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260815/202608150306.dhMPPe3n-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608150306.dhMPPe3n-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/pci/controller/dwc/pci-dra7xx.c: In function 'dra7xx_pcie_resume_noirq':
+>> drivers/pci/controller/dwc/pci-dra7xx.c:918:17: error: label 'err_link' used but not defined
+     918 |                 goto err_link;
+         |                 ^~~~
+
+
+vim +/err_link +918 drivers/pci/controller/dwc/pci-dra7xx.c
+
+   908	
+   909	static int dra7xx_pcie_resume_noirq(struct device *dev)
+   910	{
+   911		struct dra7xx_pcie *dra7xx = dev_get_drvdata(dev);
+   912		int ret;
+   913	
+   914		ret = dra7xx_pcie_enable_phy(dra7xx);
+   915		if (ret) {
+   916			dev_err(dev, "failed to enable phy\n");
+   917			dra7xx_pcie_disable_phy(dra7xx);
+ > 918			goto err_link;
+   919		}
+   920	
+   921		return 0;
+   922	}
+   923	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
