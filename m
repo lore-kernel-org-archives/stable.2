@@ -1,136 +1,279 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010014.outbound.protection.outlook.com [52.101.85.14])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011030.outbound.protection.outlook.com [40.93.194.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30F34908BF;
-	Fri, 14 Aug 2026 17:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E79D489894;
+	Fri, 14 Aug 2026 17:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786729793; cv=fail; b=kPibdTG7H9KhsJsPDZ9PhqoHs1hPG3gAiHoRP5m4O9zGLfPknRNiZdOUmGRITzsq696sawOI/cSN65joy1IhjqdRcuDnjodGJpVk8OEvORkFppnYVFSfQpGOHG5m/A2EnI4hM5ZLfOEKK4zXJBpmwPaRZ42w6e7aL1fjHQf8oZ4=
+	t=1786729798; cv=fail; b=QIjEXm7mxMFwO3a/+2BSscxGJzmmXhxEUQdPeAiQRRwOEh1G94xJPRIn1n7PsdQEOZwwFiutuKh12VNBfejImMHrgkgNEi5xtGmJVZg4ZVdRofrXtP3ozwZeiqjHWojkOT1d/YXmZXK25rT4SKNG6WiGDKhbaCjmINpI95gss+s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786729793; c=relaxed/simple;
-	bh=mVc9q7jY2sxB1eWVO1hhgTM+qPxcUKZpIAq6bU4E2IY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=nXDlBx7mFh7XHf6nmZws3CR8b45r3p8Br5PElCjAGA8+CEpxsu47Qgiyp+Q+e60br7n+4Ct5CClXHKXNQQovsCHMzidJ2tzvmqlFjXE9cZG1I23mvlZEruq2jrip7qamzjUlRkF3MvIHv4ztejIMN5GZSu1LdldqE8VYSuNKrAQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lfPCRt6k; arc=fail smtp.client-ip=52.101.85.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1786729798; c=relaxed/simple;
+	bh=7hiWpmxLEpRzryTa+y1Yc4FXCABftTKIC79kFKB345k=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fwytAEh+RAOG5+7S94393fDYTmJvO75TyLG6OInx2Mh9SZXA2yRpQyDWH9kChAQwQzEWRUnEpy8m8esfBbhkbYZ3/x1TScfQmM/iiXcBYjJvxAdBEAxxfaIDyt4d/8wNFKR1JEeFecLF6vGtWpzHOErYMa0t3ld04eIFURt2yAM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Ji1oK8pd; arc=fail smtp.client-ip=40.93.194.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lfPCRt6k"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Ji1oK8pd"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zDHgmJVQzAWuji3dHPZliTDdprKFuhJdkSwjuoBOdJX1y5cO+/HQQqyKapDvAj34CR2l+ZFubvWtOYeMWVAuD9dhiRCNCIrMh9fQ6jJfIGb3WHsSleABu/8v1kqortyzYku5RvkcGaOXjlCl+297tQqN5mgO5XS9/Y93OzDjTO+O7v1VCNgitVWIcZKGYaBC1pJD5jk06MG1gzyWp6Wg1loAZiKuXiMrCskgY9OZxKf8PbdWImt1omw2iJ4ge6LV+oBTuBHYhqNpVK+zrpyNqWHKoLNFEufCOsK4zAOTuiczGreupKupw/F+barJCl9Fw2BNO3af1yZmqSmG3K3qZw==
+ b=XYgSnYh/sZzc6u2V2zzBGRcVZHIMlrwMTeBBHBmNjBeDHyhWCPELI/XxFpGthPivFKt5Px/zArY8hzi9y2G3IGHyWjL4ymY6dMN1gCqML5r2U+iUfh2XGiMh/DN0bpXFipXO+m+6AEQq6EGVeVP/9Jrj/M2KJUiQGj+2VlN13dqQnw/VzlNd5aN8BAf5dtVaDTECTLH8ghQYfDBaQRDtB4gCfxlbDSphUgJOAz5TgJ9tboWnazjHVz/9MK2nBVO5RWyjWY0kl9UwIYv2CX7TiPb5BO1BWlM5i+EgivMmGaXOjia7CCps8w0VQ5//wQWODCbHnk4OGCe7ZF9Nyl65mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mVc9q7jY2sxB1eWVO1hhgTM+qPxcUKZpIAq6bU4E2IY=;
- b=GS5mt45R3eBn89+8AejI6B+o36+iNw+bQIQMr0AC57zgQHXZ0B8DlFFBMorShFEZnnWHe+Lh7A3CurZNL23fChc9roLhiFwrBuuF7V7H3YCBwCfPKseXqEN8b3mcZYrapWQJ0GNtN6I4r08I94a0sFVqBLpC0iuI0HvkB76dEhEX8lpyE8uoIcrMfU8gBNmWM29hXnqugMmAThnyWAmARlkJTGXW8+EL+cv/c5On5SPQPgkZoDoWKtnGqc1r1ipsE6BqywSjQ1akHhyFnvFacDAKWZcU9Uz6VhaeiZ5BQih9w4rYDd/KrFZzb4K2hIKhMP1iVdprEVBC1w4XXhmTxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=hcwL7q30kVUDpUK8MmIP9skD/RaOel6rO6UeebnHPsQ=;
+ b=VhBSJ7iAKIalSAk5Wg6sJM50+k6IEw/PXdvjQyujzqjqMqvT6BNkDd0nTEQIPBDOwyXARv63AtbvLqt5V+7DNZmajVW0/Ao5VXcC6q+KPfhMKlm8wgDTdK0SgQYyeBpxmUpSFrI3GcEdPrv/z9pk0ypuHugDRr/NIZru3osvly6DTK7jl5w/HrBQ2/mwWVohFUy0Qf3MNiwp6m17yxyyArDZ1ltL7ckyL5lC5fYwXwwt1O8n2lRYUv+9FJ4CH8EBYmruo3AHgBrDAYco5Dcn79aypMDTRKRjEOIV4C6zj1YlEY6GRXa0Tww8YBXaPvTj6nIBZafvIqoowpMvuyvYUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mVc9q7jY2sxB1eWVO1hhgTM+qPxcUKZpIAq6bU4E2IY=;
- b=lfPCRt6kkoSaNJlwYYt4v+vYlMkru+bFaF5bhn+POGDbBwqLqx421aasYK4uLm+DY/dOaMOrU+KFzzv0TVKFAjLTnr34+N3Jmfryb5238nT3hX+kehCeHqNMo1L82xWVbrp0BFt6XnOk/OrmYTOukp5ziEgqJg1UB9OIblj+3a1UHaxRHgP/K/7v6bLL/jiHY62UFEYNtC+uT+qyoAf3XJi56Fe7p1I4pIvyQK5Jxm9MUXVcJ7SU3qwuhJaooO90eugzSmpF0lESmy1lIDX01jTeGjsqn96xOO+chOsf67XHXPQMYD9PjWR+SegQSjdP/Nd4xUm7byNnJXNUly/C2w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by DSWPR12MB999175.namprd12.prod.outlook.com (2603:10b6:8:36f::6) with
+ bh=hcwL7q30kVUDpUK8MmIP9skD/RaOel6rO6UeebnHPsQ=;
+ b=Ji1oK8pdBU0MP3J8Av8/IYiuyoZu/MeSAu9dMX2qg/c6OZ2lh+I6V0r24S5Yak04pzOy7t33Y6nNF5ghjcmjotPII659HOh0mBrwVSznlsvaahLmn1R+jpqJob3meAtHqq1FWZN9XE4EhoYGEOgtL7CeQ8mMOqHT7kbEZYTaAlk=
+Received: from DS1PR04CA0009.namprd04.prod.outlook.com (2603:10b6:8:44f::11)
+ by SA1PR12MB7341.namprd12.prod.outlook.com (2603:10b6:806:2ba::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Fri, 14 Aug
- 2026 17:49:47 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
- 17:49:47 +0000
-Date: Fri, 14 Aug 2026 14:49:45 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Pranjal Shrivastava <praan@google.com>
-Cc: Dmitry Malkin <dma@nebius.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [RFC PATCH] iommu/arm-smmu-v3: Allow nested attach for PCI
- bridges without vDEVICE
-Message-ID: <20260814174945.GD510472@nvidia.com>
-References: <PA1P190MB25578C482C8A3B06A4DCC6FDDBDA2@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
- <an8jEbT9pAUYfsvR@google.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <an8jEbT9pAUYfsvR@google.com>
-X-ClientProxiedBy: YT1PR01CA0135.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::14) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
+ 2026 17:49:50 +0000
+Received: from SA2PEPF000015C7.namprd03.prod.outlook.com
+ (2603:10b6:8:44f:cafe::56) by DS1PR04CA0009.outlook.office365.com
+ (2603:10b6:8:44f::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
+ 14 Aug 2026 17:49:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF000015C7.mail.protection.outlook.com (10.167.241.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 17:49:50 +0000
+Received: from sindhu.amdval.net (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
+ 2026 12:49:43 -0500
+From: Sandipan Das <sandipan.das@amd.com>
+To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
+ Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>, "H . Peter Anvin" <hpa@zytor.com>, Petr Tesarik
+	<ptesarik@suse.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, Zide Chen
+	<zide.chen@intel.com>, Ravi Bangoria <ravi.bangoria@amd.com>, Ananth Narayan
+	<ananth.narayan@amd.com>, Sandipan Das <sandipan.das@amd.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH v2 2/3] perf/x86: Move MSR_CORE_PERF_GLOBAL_* dump to vendor code
+Date: Fri, 14 Aug 2026 23:18:07 +0530
+Message-ID: <d83896ecfd6e98424c2053298fbb10a3d91592f9.1786728929.git.sandipan.das@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1786728929.git.sandipan.das@amd.com>
+References: <cover.1786728929.git.sandipan.das@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|DSWPR12MB999175:EE_
-X-MS-Office365-Filtering-Correlation-Id: 727cbb89-e0c7-40cb-c414-08defa2c6e40
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C7:EE_|SA1PR12MB7341:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7e522ab-4ba1-42d7-e64b-08defa2c704d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|22082099003|18002099003|4143699003|11063799006|10067099003|56012099006;
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|7416014|13003099007|6133799003|3023799007|56012099006|10067099003|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	+O0JBTLh8C01WgGtb9Yu0CHfOiNEbKBSbnBDonSeyFsL5pUhiy1vgJtPWtndrl4NhyRn7iyqKq4yr3d4I7TCQFmfVriEa/88GfEBn9a1fJWLwmIPgk+u+ujGwptV9kgzsGmJPxTuPVeJzaoRqxjWvh1SK0TBpsVQXdo3RpV/VL7B5ALG2FUjciFhZKnGaUs+oxbKhHIFA0xWdHR2EDNKVhnd0DrCXcdI0pYSiAxxzB0lg7WjsZQK1MTXKC8ilLW/51Y1abOozkP05QY0Kczt1XntxhW/5ZlJliS8JO6pvwMqzBunnhSvR4C0/S/fbTVjPdp02JalvHtL1MBNWiowLZpGA45KZOv8O8wmZWLz8wBRzW3bFQIS0++BoG1PrUEU4S7lJHTNRdtTSDJbR5CHV+dCu86otJUqRqFTZ0S1CYqdj9zPsu/DLaHwD9r98jvAosXy7si5tkeRXljodpbeFs15IQCqQHLx5RKJho6JQbCftJguUV7RwHnStDQjssSd7umgqp0U3+eTzJ4GeGSfg6BtgjceYha+HFfmaWzsuXvhZSlwbUBpe/p2+081RzQH4Q8h89w0ozo2t719E4VhgpVCKbGMFeqBU28IYGqiBDxRzpfIEJPYFCzvuvQfr5krZNswxKBwx0GmUvc+iyYYO0xGZMOeieNMIGcHvFfaSCo=
+	Qxg607hA86g8XTWZXS81GtoCfK5MDJ/uSDOLgrxT3Bmm0b149gYd/E0O2VYopubjzTe5lNwFBqt+MgVn7b/ptRltaDhu9oJ8NK4tTY77JgYhapO2AllIzgwCPNPapkf67jjsefvMX2KZdsxEJ81DFitNDigOuIAaTqq3j7o5AvhGL/1b1lGBH9R1TPWa3+locNU6d3Br/EbN1zTg8VDVPAROzo4c3XuQYMhWmS7Y2+1gwFYd6D9TcXf46wfwzxFo5lnhm6Ott8ESJKhUoEeh1JtyyySKYnNJF7jRx9bgVJKPQLieUOhFHjZuA+q3+5e7XuWtd006jDYVuzY++v29HBkpJ2IxPuVfDP40ShRevWBn3IHl06WEfwscjCPS3I+4wboSa8/N1/axRbLwdCyDR4UYz4p8hx5bmfH308yedw/LuPmFhMvUo4OQkH38zBoZTSh4vlXwYu7i1LDqNorysc0j4bdCrli+yKJ/NkO2tlxdU5rhP1sBXxyMtQEr1Y2hJvMSHXKTaTa6zrQ15VM/RGiO2KWUeJIySDnCdBUhi1MTnFs5uUcDyA4ey8Ninn5IeGgqUw6LlabZso8sdrmgIPiYgZoUsnVrF4YWRVOXHkrIz+hxSGmbiFIVp+z1pGUIVqxiWfF6RSKvd5+Jn5GxCXe2ZCOrql2vzYN1lWvnJaBswmqYArF+ch+OEjFTKblp3+Sj0xAQohsn0P2mJk5Lvg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(22082099003)(18002099003)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(7416014)(13003099007)(6133799003)(3023799007)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wkXaiTCTfLaPi1J+HK9h+D7h/X/Vrnx4HqdAj2LSJi/W2khy6/VsVEHKBqDi?=
- =?us-ascii?Q?8TJbYyr2tycf4r8nJaCvutawg72dNE4iMCnpeXclG5sDh+xoevf7QkOCkkCH?=
- =?us-ascii?Q?Gbpley+GZCrzo0PIAk5oQmt7bQCvmh4rxha0etyNcQCbBKhrhDDxMHJa5Txh?=
- =?us-ascii?Q?dDFTDKl3AzG15I1f1McO2UhLsVjL2pIhRa0qqnr0/CXLx1lzoiioM/csAOBJ?=
- =?us-ascii?Q?aUXFjo+E9JEYyaT2CMZUl0wkBoNgw8iQnE6vG4Q0oFv2g/9bRUeamM6+9/aW?=
- =?us-ascii?Q?mB9+Pzs8HLvpkNmTeNm/vsevqmD+S7aQBj8DjgdPzHv5o/BLRAeAMFYX4kKF?=
- =?us-ascii?Q?HHknBDNVFY7IoY3r7q2sABK76JGoofTy+E2JLZKPR3XZah6CRII0z9QQLvim?=
- =?us-ascii?Q?eaPCJJbCDCzPSNIrLcGXUW4782x3sP7xzkXbb5J3CUWuoprhKhiI6jr0CrNP?=
- =?us-ascii?Q?7vr4z1g9EAcuywM8VNftiavHGoegiv+S9+8Wqb6M7Tt7RmcHU70ZRRDf1l+Z?=
- =?us-ascii?Q?C8Ty/wciJ396IOhsncfaMGfo1Dq8L1GZ5Bxz6jqC4MftkasAux3CHc26A8EZ?=
- =?us-ascii?Q?+85lOlMJ79VYaabbGsWWOCc25DI6Bwu/nR+eJ1A6Jb/MBUzB295Lg83rhSyK?=
- =?us-ascii?Q?6utly6ZnQIrhHH8w4ZLux40dTS/za7DeYmsTPCWDTVQ23fglhgsSvxJA35ja?=
- =?us-ascii?Q?fkGJ/m9ghcBf9MPJPvsKVAmhg5ymyaXhFIbfKo9I+TZ1Jil08P04+6TxwJTr?=
- =?us-ascii?Q?rqSnPcAyW4FHOf8iuMQppEtdrYM3MFybuEkIQP/KYyNXtgXSnO7Q3w+CIxMs?=
- =?us-ascii?Q?G4Yux160gEkBb2RvIqNEGH+IfOXlFR9+EuPbM/f0HxVKPYy4qTkXlZ96F0Ba?=
- =?us-ascii?Q?8EoTmpwvWkNv0Gb+cQelQV4rnahZL6sYBHaLs3uXg5jYIjGfElrHIwuF3z5p?=
- =?us-ascii?Q?7t32MZCQSTfmdKzskCrUH+CU7H+B+38vKr4lsLVUSUEb/3w8jiufko7K+2hs?=
- =?us-ascii?Q?guYR4eCYIeQXqinTldEmCTnL21wYFgPPqK+vlm+m8+kkA8T35aAdtjyReaPw?=
- =?us-ascii?Q?SAyPsNsF7YtfJxd6NpYK7dmfkK3If9U1mb0X4wTJFbo+YKykJJYYaIb03Mb7?=
- =?us-ascii?Q?PUzPulmOOm5tDicJ1NukZVifi2UP7Z68urxMoBGw/vsHMKImBq07+9CX4zut?=
- =?us-ascii?Q?4h8KS4/2BlrgazUZCcje9+4V6lyYWWPgCsgQ4LG09TWMuHcBhMEWYRzzr5X7?=
- =?us-ascii?Q?XpiGSX97ZjqRXtVbDqT1dXhXARV55g0lyfQHpSrmZFIHCIK/XtH0Vy4mk37P?=
- =?us-ascii?Q?2K+jtp7GlQdk6dmBVmoi7jQoOZYrXNNM9A7dBNyyFIcJk9MeMzwxr9U5npZ5?=
- =?us-ascii?Q?R/JA2j2Oljhf80GrlL20IWpbBR7WXw5b8k53B3n1FdHYUF/5ixcggaFytIFj?=
- =?us-ascii?Q?o2UvIIC4dwvZNIkAnep80EUbbW/Mp1MiYvclV36oOHj6QY/r9oAvw81rU7iC?=
- =?us-ascii?Q?nLkwYL4llCvZWsa+Peoo7FuDve8fFk2lxIBB+3NVKr46P0ZhglhFOfRrE/5E?=
- =?us-ascii?Q?D4nCNfIcNz/a8FOsJMIFOIpsMqKcGl4H9jd7v9pzKXadiCGb2XsrB7FUocLs?=
- =?us-ascii?Q?In2RN8uJiU2vrNpiYL/oSpFfpU8v448jKJ/i8PQ01zYW9QjWM7THGFrgfd1Y?=
- =?us-ascii?Q?7SN4oEL7gBT6dUnjAURDIh+bcgQxGEmmFf0QD2gk9n7wcZVqM11Az5z5wkgY?=
- =?us-ascii?Q?dZ+qhBKXeA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 727cbb89-e0c7-40cb-c414-08defa2c6e40
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 17:49:46.9810
+	LNj46fmfjBRW/03GnuSWnfuVhN+G57qlwDsTgdsroyEQpgdRHeKHZI6/ARDTUeRAr/Fh/6ebhOx3zyzk21lMze4YwajIfrKy3jbXGxYPnpGdQ4sFRcVIZ/hWUn0A1wtPlxMwp3Sqp29RLlBI7TY73razyTzY6jdJaNjO0Kmc4UgwcqyYhCcPCQgYkG76MNNf3v74QLfgzqjp9ilEDdn1Rf9DbGeUJuNYcnQ6/j8VlIguZ1meAd5wXl3ceF46P3GMKy5wWgbzx6yuJTOkLcSaJP/QP82DwMGsDYO3unuAFwB6Y/uP5RavRRv7+rFnlid7YndK8Z+c4l3EmiScCxoXEv4By3YaUm8dyT58/sJ80yM8MwguTXzH4nISMZOzOVJAkIow8rfqiGlogG7X+3ObSYnrS5Eecz65qHaIZRQyA2BVHtIT4+kTnwRpz7HtnxlR
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 17:49:50.2199
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b4S2M8mkCSEYg/KkDcFzm67HeE8AfDk7Zu0TeOUEahgZJjNnF2YO/MfmOdzg/vkK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999175
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7e522ab-4ba1-42d7-e64b-08defa2c704d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF000015C7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7341
 
-On Fri, Aug 14, 2026 at 02:15:45PM +0000, Pranjal Shrivastava wrote:
+MSR_CORE_PERF_GLOBAL_{CTRL,STATUS} and MSR_ARCH_PERFMON_FIXED_CTR_CTRL
+are Intel Architectural PerfMon registers that are not available on AMD
+processors.
 
-> Also, regarding RID aliasing: while it's true the host bridge doesn't
-> need a vDEVICE for its own host-consumed DMAs (like AER/PME), are we
+Since commit 21d59e3e2c40 ("perf/x86/amd/core: Detect PerfMonV2
+support"), x86_pmu.version is also set to 2 on AMD processors that
+support PerfMonV2, which makes perf_event_print_debug() attempt to read
+these non-existent MSRs. The resulting #GP is caught by the exception
+fixup, but as the reads are unchecked, SysRq-P logs an "unchecked MSR
+access error" for each one and then prints zeroes as if they were valid
+register contents.
 
-RID aliasing shouldn't exist in any modern system. Unfortunately Linux
-gets some things wrong in its ACS processing :\
+Implement x86_pmu::print_debug for the Intel and Zhaoxin PMUs, which do
+have these registers, and drop the reads from common code. Both are
+wired up through PMU descriptors that are selected only when the PMU
+version is at least 2, so the version check is no longer needed.
 
-Jason
+MSR_CORE_PERF_GLOBAL_OVF_CTRL is also dropped from the dump since it is
+write-to-clear and does not read back the overflow state.
+
+Fixes: 21d59e3e2c40 ("perf/x86/amd/core: Detect PerfMonV2 support")
+Reported-by: Petr Tesarik <ptesarik@suse.com>
+Closes: https://lore.kernel.org/all/20260717150315.2868314-1-ptesarik@suse.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Sandipan Das <sandipan.das@amd.com>
+---
+ arch/x86/events/core.c         | 27 ++-------------------------
+ arch/x86/events/intel/core.c   | 32 ++++++++++++++++++++++++++++++++
+ arch/x86/events/zhaoxin/core.c | 18 ++++++++++++++++++
+ 3 files changed, 52 insertions(+), 25 deletions(-)
+
+diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
+index 364a4c83f677..1b5af204cf64 100644
+--- a/arch/x86/events/core.c
++++ b/arch/x86/events/core.c
+@@ -1575,38 +1575,15 @@ static void x86_pmu_start(struct perf_event *event, int flags)
+ 
+ void x86_pmu_print_debug(int cpu)
+ {
+-	u64 ctrl, status, overflow, pmc_ctrl, pmc_count, prev_left, fixed;
+ 	unsigned long *cntr_mask, *fixed_cntr_mask;
+-	struct event_constraint *pebs_constraints;
++	u64 pmc_ctrl, pmc_count, prev_left;
+ 	struct cpu_hw_events *cpuc;
+-	u64 pebs, debugctl;
+ 	int idx;
+ 
+ 	cpuc = &per_cpu(cpu_hw_events, cpu);
+ 	cntr_mask = hybrid(cpuc->pmu, cntr_mask);
+ 	fixed_cntr_mask = hybrid(cpuc->pmu, fixed_cntr_mask);
+-	pebs_constraints = hybrid(cpuc->pmu, pebs_constraints);
+-
+-	if (x86_pmu.version >= 2) {
+-		rdmsrq(MSR_CORE_PERF_GLOBAL_CTRL, ctrl);
+-		rdmsrq(MSR_CORE_PERF_GLOBAL_STATUS, status);
+-		rdmsrq(MSR_CORE_PERF_GLOBAL_OVF_CTRL, overflow);
+-		rdmsrq(MSR_ARCH_PERFMON_FIXED_CTR_CTRL, fixed);
+-
+-		pr_info("\n");
+-		pr_info("CPU#%d: ctrl:       %016llx\n", cpu, ctrl);
+-		pr_info("CPU#%d: status:     %016llx\n", cpu, status);
+-		pr_info("CPU#%d: overflow:   %016llx\n", cpu, overflow);
+-		pr_info("CPU#%d: fixed:      %016llx\n", cpu, fixed);
+-		if (pebs_constraints) {
+-			rdmsrq(MSR_IA32_PEBS_ENABLE, pebs);
+-			pr_info("CPU#%d: pebs:       %016llx\n", cpu, pebs);
+-		}
+-		if (x86_pmu.lbr_nr) {
+-			rdmsrq(MSR_IA32_DEBUGCTLMSR, debugctl);
+-			pr_info("CPU#%d: debugctl:   %016llx\n", cpu, debugctl);
+-		}
+-	}
++
+ 	pr_info("CPU#%d: active:     %016llx\n", cpu, *(u64 *)cpuc->active_mask);
+ 
+ 	for_each_set_bit(idx, cntr_mask, X86_PMC_IDX_MAX) {
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index f6ee1819864e..10f2f8f49340 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -3734,6 +3734,36 @@ static void intel_pmu_reset(void)
+ 	local_irq_restore(flags);
+ }
+ 
++static void intel_pmu_print_debug(int cpu)
++{
++	struct event_constraint *pebs_constraints;
++	struct cpu_hw_events *cpuc;
++	u64 ctrl, status, fixed;
++	u64 pebs, debugctl;
++
++	cpuc = &per_cpu(cpu_hw_events, cpu);
++	pebs_constraints = hybrid(cpuc->pmu, pebs_constraints);
++
++	rdmsrq(MSR_CORE_PERF_GLOBAL_CTRL, ctrl);
++	rdmsrq(MSR_CORE_PERF_GLOBAL_STATUS, status);
++	rdmsrq(MSR_ARCH_PERFMON_FIXED_CTR_CTRL, fixed);
++
++	pr_info("\n");
++	pr_info("CPU#%d: ctrl:       %016llx\n", cpu, ctrl);
++	pr_info("CPU#%d: status:     %016llx\n", cpu, status);
++	pr_info("CPU#%d: fixed:      %016llx\n", cpu, fixed);
++	if (pebs_constraints) {
++		rdmsrq(MSR_IA32_PEBS_ENABLE, pebs);
++		pr_info("CPU#%d: pebs:       %016llx\n", cpu, pebs);
++	}
++	if (x86_pmu.lbr_nr) {
++		rdmsrq(MSR_IA32_DEBUGCTLMSR, debugctl);
++		pr_info("CPU#%d: debugctl:   %016llx\n", cpu, debugctl);
++	}
++
++	x86_pmu_print_debug(cpu);
++}
++
+ /*
+  * We may be running with guest PEBS events created by KVM, and the
+  * PEBS records are logged into the guest's DS and invisible to host.
+@@ -6706,6 +6736,8 @@ static __initconst const struct x86_pmu intel_pmu = {
+ 	 * counting SMM by default.
+ 	 */
+ 	.attr_freeze_on_smi	= 1,
++
++	.print_debug		= intel_pmu_print_debug,
+ };
+ 
+ static __init void intel_clovertown_quirk(void)
+diff --git a/arch/x86/events/zhaoxin/core.c b/arch/x86/events/zhaoxin/core.c
+index e506f677db57..cc447e228efb 100644
+--- a/arch/x86/events/zhaoxin/core.c
++++ b/arch/x86/events/zhaoxin/core.c
+@@ -288,6 +288,22 @@ static inline void zxc_pmu_ack_status(u64 ack)
+ 	zhaoxin_pmu_disable_all();
+ }
+ 
++static void zhaoxin_pmu_print_debug(int cpu)
++{
++	u64 ctrl, status, fixed;
++
++	rdmsrq(MSR_CORE_PERF_GLOBAL_CTRL, ctrl);
++	rdmsrq(MSR_CORE_PERF_GLOBAL_STATUS, status);
++	rdmsrq(MSR_ARCH_PERFMON_FIXED_CTR_CTRL, fixed);
++
++	pr_info("\n");
++	pr_info("CPU#%d: ctrl:       %016llx\n", cpu, ctrl);
++	pr_info("CPU#%d: status:     %016llx\n", cpu, status);
++	pr_info("CPU#%d: fixed:      %016llx\n", cpu, fixed);
++
++	x86_pmu_print_debug(cpu);
++}
++
+ static void zhaoxin_pmu_disable_fixed(struct hw_perf_event *hwc)
+ {
+ 	int idx = hwc->idx - INTEL_PMC_IDX_FIXED;
+@@ -479,6 +495,8 @@ static const struct x86_pmu zhaoxin_pmu __initconst = {
+ 
+ 	.format_attrs		= zx_arch_formats_attr,
+ 	.events_sysfs_show	= zhaoxin_event_sysfs_show,
++
++	.print_debug		= zhaoxin_pmu_print_debug,
+ };
+ 
+ static const struct { int id; char *name; } zx_arch_events_map[] __initconst = {
+-- 
+2.53.0
+
