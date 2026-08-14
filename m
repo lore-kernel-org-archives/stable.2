@@ -1,177 +1,146 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E282141D64C
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 10:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A93432E6C
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 10:06:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786701629; cv=none; b=pJpoJRm6fgzvbA6boPKQRK64mujtjybSPQ8Ew3MGKxPc0yno5LIbdADyLB/EN3EUTdRBwACNkWVgNBRmbNhdETVit2wAxooS7IyKdv1GO+/jbKijHHsIP3IyMnznq0biP7vOeLFwW5/6L0ukZGlG5/39/8fIoMzuEapoQA0/TdI=
+	t=1786702031; cv=none; b=R/CDV/M1tEXSk/RSFykFUwCpIAcZEQ86xbLWDTdpV2ODhYtAN22TxRChih5Znb9rAmI8hHFFLWlu3Bz93JKY3ZZDPt5yECh4yH6IDdF9Y3zC0WXe/tRQZP7SGoCAL1kJG5w/lQHRLNFpe5rzgNaIMtZywETRiBLFIayuyw1jrR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786701629; c=relaxed/simple;
-	bh=Xa5VtHj3w4sPlc/TppIcRh1BbFj+6tLTdDnsIWhMORY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HLBw/76thxcto1cqBIqbbCXA8giw9jmrOqykqlAmCk33jC1qUmnKc1/LwYEE7XdRUCDd71lI8tSZTknUG/9L36GNFC6fJSquYeW1vK4i1KQQc7KlF03RzKmX2kspLe9jnI9z5v4XGg/swUxrYDSqvB+oYPLmJqR/v4fzxjZljMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R2ulGjz7; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786702031; c=relaxed/simple;
+	bh=LoIhzbp1d0ZeCyz04+M4Kj98e1og5GRRnFH0MNcdZ5A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NXapZO/DjrZkd9N/c4hnY+qt4KY8IEkLtRuWtIl5cX/rpUAQqISh7MXXOq/Nlx0jgMxnYGCOTFST98Ps6O53VobQ5aTUM7SxbnKdVLt7sTCXFQ8R0kHdcpxhqOCvbyQk1p4M8qyHNqW8Ur/rSEKiKMqOuKFlF2E9XOAcaOKbUuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=jPl2XbXe; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R2ulGjz7"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8487b7b3fc8so712858b3a.3
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 03:00:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="jPl2XbXe"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4816084e128so68105f8f.3
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 03:06:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786701621; x=1787306421; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CEq/gI0mam4/U63KJoUcke2lMf2q5gb8Kb5V1dW24Zo=;
-        b=R2ulGjz7928lsG1BmYIKZtyKV9hrc5WZVCh9iEfO1XXxnyr+e5LbxJ+Mhko4pvSyAS
-         NeXwgKU4B57uSomM2C0uljvMSlYQgfkavnbwHOvBCyV7flxl1uDN/tdMO5HglFXCuHFg
-         OtTU9sBzvnsMi1xeMMO2WhYh0YWBgl6qe443tMc9BGSgcS1rRnSEYsagMdh0pwmVcFE1
-         +cKG5MgTr2iAeQvzRQkQD1RwzqbBMQglT14+lypKaYfYIqRJAqKs8mCbsooLMcFmn+gZ
-         lia7iCHqg3UyPER6ynuTWm7S87lLKjD5Io3c5IAWx9hWwQFQgAxoB7NeMjxDqK+TNLVb
-         6qag==
+        d=ionos.com; s=google; t=1786702015; x=1787306815; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tf6RM9xJ3M1kyDotpVdoqOYX5D/YfyoZJR50szLtwT0=;
+        b=jPl2XbXe7gHE9iJy2RUnAfE8Z89JF2aKVNFPvWeghueiDRYlmEBOah2C2zV0gd0v6G
+         /JVz3SatvxJmtpQeb5t6qnpqbkaxgxzJAvKuzZxzxq785hTC2c0E1rLckcz+0inwzMBo
+         ccsXVdpHDFz4mxgvLQsV5Wv3FDStwK6Q8thQP+aNrn20iZN19y/+eonMyPKQQ2JvMXgh
+         aofN1zrALCjAyeSutnMTqEndE532yAKe3cvedu3kn+2wVZP2F7hDX7ToLSi0rFxkP3cn
+         pM5oWscB5zQ85XVcBMiMYy6Rwnvbq6FnVV0zbMAOXyKwLR0Ii6y4LI9ov+lNaRbKVhm2
+         MLhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786701621; x=1787306421;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=CEq/gI0mam4/U63KJoUcke2lMf2q5gb8Kb5V1dW24Zo=;
-        b=MqRQ35k1YJ9lHg289W2oQ3GlAKXQCXnANWa8cy72htdE66SE7xpOXwclhBWfLs+/Tn
-         vKCnreyVN3Hxx0PWu+k4tscLFvX/hm/0iiWtAStLLIv5OPmZeOrp/lWy4jggLz968dzk
-         sbwdxP2k62WVbcCeBRuZqEmmbzVDVbZ5cXotMvP1jgs192ehxBnhoyYWQdtEg/1ka28u
-         x2QzsWtce6R8JoT3AyDXQfyTdJu44ei8Wc8B1ypf5a2nJ3x9+EuV8jB8bnm2gjpN0ROT
-         oH222pN/wNdCBhlNKkTCIRzfKDVxin8lwRYsSqLThmUT5hP1bg6rAOr1dE1eCc70jQnK
-         Bxng==
-X-Forwarded-Encrypted: i=1; AHgh+RqqqFb1q3ZRSW4YhVrzo5+/HjD6wDx7yLz+astJ1r7cgm9otqulJ2q5JB1g7h7Lkug2w/UbdL4=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8RJXNDTgxc2RAZgly3B+KoOIod8JBPej8gfxQLIP/+/fgEOvR
-	H/TnfbRd2iVIgI8eweMRX67wNnZOVNh//uGcTRqC7rb0aBinFZoHIOXK77IcI5iW
-X-Gm-Gg: AR+sD13tQOBcxMsBMc7QP2HprUU7+xLflJ3hji0QAPC2D8vL6BYp4cvrDvEWduBy09k
-	nMmxLzrBI28GaVf494dhRy6Mw35I5FGoDzmJnJdm7sNgHZTn7zKcpT6ZQCp4cqABM8ATRssh7z+
-	vgtdRAkTzXMY92YqnvHEs1sx5mOMJ26NfDP4rzzf+eqScQWFOpCcKwMk0PBU8C/j6pebM2yFWU0
-	h/pQ0QSu0qhRc9/5livui5dMQsSpBTjg+M4UqHjM6Nb9AwfXBTHmGf67qd4UhdmndPqemJqwTqM
-	PhUs7bYw08x71nJVL5WYS94Yu/U1Nv0IvAofkopngwaczGXM7l9td6TeVMt/MexS7ctgpk5duUH
-	7lGb/IODj8KAo0kqwwHHOaLi8LAVCn5x6vT4ueC6YFW04XOB0foaw22nCSAEUMsgdf4wBZCDH8H
-	MAx4SmpfaLBn7MBntTsYogvtj45YEeVmdKz/AAKMeLNP8K8KWC5Zdhkcm/LUC8S3Xo
-X-Received: by 2002:a05:6a00:338f:b0:848:467d:293a with SMTP id d2e1a72fcca58-84fde38d267mr5281242b3a.35.1786701620572;
-        Fri, 14 Aug 2026 03:00:20 -0700 (PDT)
-Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8517cfeb3cesm243681b3a.3.2026.08.14.03.00.16
+        d=1e100.net; s=20251104; t=1786702015; x=1787306815;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tf6RM9xJ3M1kyDotpVdoqOYX5D/YfyoZJR50szLtwT0=;
+        b=JBuwflumieerTPeOLIZkzkKinmbqOqPDV/h3qLjTwG/Xb0oqeZ2XwT1MazStTGtdy2
+         Z6UOEbi45iVjxoMmhsFyQ9RcuNixh1DJhlHGBV5PbPR15QA5NYdvCwJLNOO3QWqlBKcc
+         fk5ZobGBcFChGKD/2vtUKOjSaFp3hYpJfqgPZOrwFgqeD4SzJ91ssJEo1MLaQArKxz0B
+         1CsmP7iigyUc3UdO95xusumfV7jTNB1zsMrXmgtNsOzap6oUyMFVq27FZufAUbF8bo1H
+         iFWpiHK2x3RTAXzLKzeeN+/H7arOBhN+4l7+uHJyVWRgw/qmvbJ0TvsJwc4qQM+ecy5T
+         6lAA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+LMZHUGcq++LIMJGk4l0uJPdXMvvXyUFSBYlf+oalFAqhWbH3u3DIWXMwqzKburnOSm/fkrI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4Jn5TmxJE051caVAuhIH3sGWDgpocp4VGVd56FqehtVihMz2D
+	fQ6KLdzjR3o1ztId5+ClVi1SHDxA9X/lXOAh1ryA4IWspdR7+C5bKTooA8XU896erKU=
+X-Gm-Gg: AR+sD13uUFawJCOKDwXqrWh3FQ0sO9WpQkLRotPQMk5tCOLk5f0QKilWB7QbUnyFGV+
+	TYDvtbqE+lkV2LBcfn67QsIjyDiLgt9XwoJlFABCef0RCw/Fr4O7Qb0bzho6Af+pKEPzGs4F99b
+	eenposKfLjf8a1lnYNd2OhUZimGK/1DUpFcvLVV7zzzNogXKKjPXxnzltOF9iJRa8Kz2NRvhmgl
+	qJA45HZzJZB74bnEksnwNWECh2oI6NMdNwywUOr7tUvZl8F3y8ovhWDAT6GImtooNe6hleKr0nT
+	NTR/BM68Lz4wMyPxNfhiQfmidzagGdPqNDl0/Vny5ABHPTIpOHPduPfudpaxCMTtcsP90KmNyRc
+	NhGHUsvg4hQKfO9Endv8mUVGvy1EKUQEZ+rN5CTy9Jwa5oc6jnWd2UL+vHaJgL+gd6ahWD7qrQC
+	ictdmBOgT25zsQgxoH+h0Gt8YsuhFO3Ug0P/o/FHwa0L+L+uulwQnM1WOiYEyb7dZtYRr0CnbSi
+	S2hRXxvQPWIOPglZ6HvU3vtvJTSoZge0lXx
+X-Received: by 2002:a05:600c:3b1f:b0:490:ec79:3046 with SMTP id 5b1f17b1804b1-499878d463cmr31750705e9.0.1786702014957;
+        Fri, 14 Aug 2026 03:06:54 -0700 (PDT)
+Received: from jwang-ThinkPad-T14-Gen-6.fkb.profitbricks.net ([2001:9e8:144c:bd00:56c3:670b:dfc6:d046])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f2b1d9bsm6948207f8f.24.2026.08.14.03.06.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 03:00:20 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Fri, 14 Aug 2026 18:00:05 +0800
-Subject: [PATCH v2] drm/nouveau/svm: drain fault handler before freeing
- svmm
+        Fri, 14 Aug 2026 03:06:54 -0700 (PDT)
+From: Jack Wang <jinpu.wang@ionos.com>
+To: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	stable@vger.kernel.org
+Cc: dmitrii.omelchenko@cloud.ionos.com,
+	Ashish Kalra <ashish.kalra@amd.com>,
+	Dionna Glaze <dionnaglaze@google.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Jack Wang <jinpu.wang@cloud.ionos.com>
+Subject: [stable-6.12 1/4] crypto: ccp - Add new SEV/SNP platform shutdown API
+Date: Fri, 14 Aug 2026 12:02:54 +0200
+Message-ID: <20260814100652.225499-2-jinpu.wang@ionos.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260814100652.225499-1-jinpu.wang@ionos.com>
+References: <20260814100652.225499-1-jinpu.wang@ionos.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-nouveau-svm-svmm-uaf-v2-1-8e6590519f07@gmail.com>
-X-B4-Tracking: v=1; b=H4sIACTnfmoC/4WNQQ6CMBBFr0Jm7RjaKhpX3sOwGMoANZaSljYaw
- t2leAAXf/GS//9bILA3HOBWLOA5mWDcuIE8FKAHGntG024MspRVeRUKRxcTU8SQbI7FSB02je5
- UJaszEcE2nTx35r3fPuofh9g8Wc/5KzcGE2bnP7s3idz7o0gCBcpWCSFbpos63XtL5nXUzkK9r
- usX6v8BRsoAAAA=
-X-Change-ID: 20260813-nouveau-svm-svmm-uaf-bbcf36265aaa
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Ben Skeggs <bskeggs@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786701615; l=3566;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=Xa5VtHj3w4sPlc/TppIcRh1BbFj+6tLTdDnsIWhMORY=;
- b=TBxXokJK8M7vP1OhEP1hGzukGoCRT8H3Zet+dNfTg4l0/uLvvpsPxPmHtEGUTfqyZsKlDo9E4
- ofOpy7NU5suA8CQXNc7SFLTq0vitYWUEzCqlR4zth9V1vglhRYM545G
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+Content-Transfer-Encoding: 8bit
 
-The SVM fault handler nouveau_svm_fault() looks up each fault's
-nouveau_svmm under svm->mutex, caches it in the fault array, then drops
-svm->mutex and dereferences the svmm across blocking faults
-(mmu_interval_notifier_insert(), hmm_range_fault()).
+From: Ashish Kalra <ashish.kalra@amd.com>
 
-nouveau_svmm is not refcounted. On DRM file close nouveau_svmm_fini() ->
-mmu_notifier_put() frees it asynchronously via call_srcu() without
-waiting for the handler, and mmget_not_zero() pins the mm, not the svmm.
-flush_work() on the fault buffer otherwise runs only at device removal
-and suspend, never on close, so a fault handled concurrently with a close
-can dereference a freed svmm.
+commit f7b86e0e75bc234751cb7a82d888083a57ef28b2 upstream.
 
-The instance is already unlinked by nouveau_svmm_part() earlier in the
-same close, so no new fault can resolve to it. Drain the handler in
-nouveau_svmm_fini() before the free, guarding the flush with a NULL check
-on drm->svm: on device teardown nouveau_svm_fini() runs first and frees
-drm->svm (NULL) after blocking the notify and flushing the buffer, so the
-handler is already drained; on per-client close drm->svm is alive and the
-flush runs.
+Add new API interface to do SEV/SNP platform shutdown when KVM module
+is unloaded.
 
-Fixes: eeaf06ac1a55 ("drm/nouveau/svm: initial support for shared virtual memory")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Reviewed-by: Dionna Glaze <dionnaglaze@google.com>
+Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
 ---
-Changes in v2:
-- Fix a NULL deref introduced in v1: guard flush_work() with a NULL
-  check on drm->svm.  On device teardown nouveau_svm_fini() frees
-  drm->svm before the per-client svmm teardown, so nouveau_svmm_fini()
-  would deref NULL (reported by Sashiko AI review); the handler is
-  already drained there, so there is nothing left to flush.
-- Tighten the commit message and the code comment; no functional change.
-- Link to v1: https://patch.msgid.link/20260813-nouveau-svm-svmm-uaf-v1-1-2d3112dea734@gmail.com
+ drivers/crypto/ccp/sev-dev.c | 9 +++++++++
+ include/linux/psp-sev.h      | 3 +++
+ 2 files changed, 12 insertions(+)
 
-To: Lyude Paul <lyude@redhat.com>
-To: Danilo Krummrich <dakr@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Ben Skeggs <bskeggs@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/nouveau/nouveau_svm.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index dcc92131488e..a87406d3da30 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -304,6 +304,19 @@ nouveau_svmm_fini(struct nouveau_svmm **psvmm)
+diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
+index d668f9318c28..7c05cae7e577 100644
+--- a/drivers/crypto/ccp/sev-dev.c
++++ b/drivers/crypto/ccp/sev-dev.c
+@@ -2444,6 +2444,15 @@ static void sev_firmware_shutdown(struct sev_device *sev)
+ 	mutex_unlock(&sev_cmd_mutex);
+ }
+ 
++void sev_platform_shutdown(void)
++{
++	if (!psp_master || !psp_master->sev_data)
++		return;
++
++	sev_firmware_shutdown(psp_master->sev_data);
++}
++EXPORT_SYMBOL_GPL(sev_platform_shutdown);
++
+ void sev_dev_destroy(struct psp_device *psp)
  {
- 	struct nouveau_svmm *svmm = *psvmm;
- 	if (svmm) {
-+		struct nouveau_svm *svm = svmm->vmm->cli->drm->svm;
+ 	struct sev_device *sev = psp->sev_data;
+diff --git a/include/linux/psp-sev.h b/include/linux/psp-sev.h
+index 613a8209bed2..6a4435cfa977 100644
+--- a/include/linux/psp-sev.h
++++ b/include/linux/psp-sev.h
+@@ -947,6 +947,7 @@ int sev_do_cmd(int cmd, void *data, int *psp_ret);
+ void *psp_copy_user_blob(u64 uaddr, u32 len);
+ void *snp_alloc_firmware_page(gfp_t mask);
+ void snp_free_firmware_page(void *addr);
++void sev_platform_shutdown(void);
+ 
+ #else	/* !CONFIG_CRYPTO_DEV_SP_PSP */
+ 
+@@ -981,6 +982,8 @@ static inline void *snp_alloc_firmware_page(gfp_t mask)
+ 
+ static inline void snp_free_firmware_page(void *addr) { }
+ 
++static inline void sev_platform_shutdown(void) { }
 +
-+		/* The fault handler caches svmm pointers under svm->mutex and
-+		 * dereferences them after dropping it, across blocking faults.
-+		 * The instance is already unlinked (nouveau_svmm_part), so drain
-+		 * the handler before the free to release any in-flight reference.
-+		 *
-+		 * On device teardown nouveau_svm_fini() ran first and freed
-+		 * drm->svm (NULL) after draining the buffer; nothing to flush.
-+		 */
-+		if (svm)
-+			flush_work(&svm->buffer[0].work);
-+
- 		mutex_lock(&svmm->mutex);
- 		svmm->vmm = NULL;
- 		mutex_unlock(&svmm->mutex);
-
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260813-nouveau-svm-svmm-uaf-bbcf36265aaa
-
-Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
+ #endif	/* CONFIG_CRYPTO_DEV_SP_PSP */
+ 
+ #endif	/* __PSP_SEV_H__ */
+-- 
+2.43.0
 
