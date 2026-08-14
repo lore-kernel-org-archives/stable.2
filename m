@@ -1,288 +1,205 @@
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302B4343D72
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 04:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272F4238D54
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 04:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786680593; cv=none; b=BzKnGgQImhSJ2IYRMCpSn+bjN7WJhSrjAWooYWTFt9Io3xnTJlrHBn6GR51QYfmxT87Sc8nJQYpfqz9/wdsJOz3E+MQkEOqO9MQUpz7+1dm4ukW791ZlNp0Umt2ftFpLrAgwxyusW/Liwtf5tkdiuj7O/oJnwRaxqzCV+f704dI=
+	t=1786681541; cv=none; b=CC1tsiW/OwfvcaNM5s0NKktabbDOBiouGjtqSj3bVxCcW0MPECV1MftZw3mTq7aVCHJ9YDztH7cKP3fxK+3SDTY1cTpyDb4Ui33gYB7HkqU4B/C3afPmHFobKYSf1hngwbNP5aYPnAlbinqhNATiYYa9NidRdEQJ2n+H7Eykg98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786680593; c=relaxed/simple;
-	bh=4CdgSOYs2iEn7dzlAYJ0RuY4AhdkRPII76Y3IrpesBQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=djS/Zp3ByILXfyQi8NDMGrahHkCBaIzUSXUMfOcf7dDUpre7QfPAZTiuXDlTvQnLuH/DdXbV4Ld7P+asfzX8ZjLXiy5LFqIACnhjDB1R47q/pSkV1XVhLSwJ9CzDvjLYrba+bXobNR6HIo0lr4qI5x7koRtLLuVyufCIAoLTA4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=chTaX+B1; arc=none smtp.client-ip=209.85.128.173
+	s=arc-20240116; t=1786681541; c=relaxed/simple;
+	bh=Bj+GFIAM9t+QnayRLXvIYZmBxLjkp3TTy/+Mx2LFMYQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=syYe0hwAIFyPvlCXUJnUyTYRcKJB91zInc3DZfbaC8vyNzL4NFOtH2jhgfRNorH37cPGr29nQ0TI/TNAJTmrvwFYzkHso2O5qdQxbwIXQiIZjD7o6L/DppY6H5GaodwWMR8WQhZ5cvbG+7UNz5VK4fKCj3GyzexBr/nmaOjxGS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WaqsdDX3; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="chTaX+B1"
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-836c4474028so6671097b3.0
-        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 21:09:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WaqsdDX3"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38759bcd877so693370a91.2
+        for <stable@vger.kernel.org>; Thu, 13 Aug 2026 21:25:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786680591; x=1787285391; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p86XR0IwNusJRzPgLE1JQiJp3QEv5rxXdiBVcpat7NU=;
-        b=chTaX+B15UTW7p90MKoCsi68G/rxPmdjwGRwlqBA6+JmBzW9+ykqmCu8Bv+SqLxwNB
-         /gmT/aRNOoQfkf6AEkPXqfQCFGCJyLW/bzqqetjEH+yZibI3Gx4st7GhD43m8AgMBEzZ
-         KisL/WbfTGe87o9HVirwoPwjR/Nd60k8I8HeNcRkdtOlSzpXSUc1+eTJZ9m72OrZo4VH
-         ++/JJ5J9+fnIr1q6XzhdonWvA2u9IzYiMWuBWd2Od8vO11yVFRkyUqUj5Ir8F8RAx5F7
-         /Lkvc8B1lYGzu3DeiHh7lBcGonf0PiynZPgfmodj/nDV5hsKzrDiAaFLDnBXwBaBrx4I
-         D8kw==
+        d=gmail.com; s=20251104; t=1786681539; x=1787286339; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TPnXUKqHB09+gprPc9dr6m7TW7NThR7K77XWxdq9JR4=;
+        b=WaqsdDX3HuPNP2Y/vu10HvhJX6WBEuOxJQg/3eoqrf2cRknlQ6aLiEUKct26NTuXg0
+         4uHEbgB/pSlz1gHEId+IpZby9MFxA31SGDB+dOFtTvA6rISpwm1lI/qhCFMUoHk/mVjY
+         eSkORXZNEJ19xOUTChFNNe1vwZ4jI0z2+7VoPGJFY2iSl3Gghr1Pk8OBrYeFbWBIvHIb
+         kGAkJC7ae2anTHjBf4ntrwDLaHsyjTeIapjIf2joLyJGWKFFnhZK+E6Ra/GrBLsNwBQU
+         E9PG5eduMbyO4JZUeIM39C/UHtdsMn3Ks1gho/qcKLsGH/diFDqcC1U9PC1Yx6QSkH+W
+         BDHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786680591; x=1787285391;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1786681539; x=1787286339;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p86XR0IwNusJRzPgLE1JQiJp3QEv5rxXdiBVcpat7NU=;
-        b=U1Livu0N5cu5EK+AkGNCpgOWVT3+Yhvc3AEyNehLU6Dj25/tWgMFRUSogLSXDVJDPH
-         kxEGPfM1ZDl83bYQSgro4qoqGNquIvjB+HwS65RpRj/JVqZfoNGMm3yv3P5XOsWNDbrS
-         5DSsJH8lhWFbmDdN8nGf43SU3Tz9SU0O0cCP01HrqDEgoeMoakMJTzG9+7xz6cFyGEAp
-         WbxMZQXLi3lOoNN+A5u8aLS1HlYex4vESdzjuScU1LK+UWJr0rx+InxHIcsyWxFL/Bhr
-         zEyc+EmlJpD0aa1YzHiLnrmKnRWLQx2bSRhAM/R0LnRc3Ee2YahXg3h1fXxQ737mAYYX
-         jI1g==
-X-Forwarded-Encrypted: i=1; AHgh+RryJi21ZR2c/tT2OFEhEd+eCV91tsP0gLW55tFWZe0nWJtuFfAVbfhxdgteZX10PWMaWbpu+jo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyoYymymPh1kTHqVUzlw6+htlghoR/IdRFgZgSvu8q8tmYXLgV/
-	2odFXIHPuTFcBkWIOyhBD0zRMVyAlE5ALp9ef0vymDt5cPJ2bHNwOWZz
-X-Gm-Gg: AR+sD12OIDm9yBbKkA6Ey2exfY8Z/KjrodGTaZSZhGB/YO8vJfp0Rk/sqHmeHENO0zP
-	I4YFI0dSwpw87gdPue7i/GrDwPQjy6a4BJpijhvo0j93uCAixE4isQTOtpfPxq+9mnsQkyxoaX1
-	fYEFL2tMpA7JV7RfLFNaEmm+4nlo4lpDGHLU8xabpJTPV4w10O9KRE/fhVroKY1tGWNh3muFbFR
-	fCDdDxA7vk0ECkkbaEhRoCmYHmU2GanoaHBbG7xL6ptNJ0OLFqKe/YS1jrA2xXnOK6fGFbYkN5n
-	U+sy5j/9ucPTdy0PFSI7l3NdAE3sphzmaLtir5FI9zPB/LltqS/n6AXRfZUUHT6fTS28InAupVT
-	7Sk+R4pU6iKqWbTNVJ/Kw9qdwvaGMRhKwpv/T8416b0JIzXjpGLxaX3bpWgWg+tfzdHlKb+sAF0
-	/Pk5GOgKCOGw63ifjG6CiQAauBS24dTqZRtP1NTfO5++nkU0OwGGSVOoYadZrAvp/D1iEMrZPAx
-	sNXyQ==
-X-Received: by 2002:a05:690c:7487:b0:7e9:9f7e:9e0 with SMTP id 00721157ae682-8370c93d30fmr15168547b3.3.1786680591049;
-        Thu, 13 Aug 2026 21:09:51 -0700 (PDT)
-Received: from mac.lan ([136.55.173.105])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-836c290820csm8156627b3.40.2026.08.13.21.09.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 21:09:50 -0700 (PDT)
-From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-To: joel.granados@kernel.org,
-	kees@kernel.org
-Cc: brauner@kernel.org,
-	oleg@redhat.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	akpm@linux-foundation.org,
-	jack@suse.cz,
-	avagin@gmail.com,
-	ptikhomirov@virtuozzo.com,
-	mjguzik@gmail.com,
-	include@grrlz.net,
-	ebiederm@xmission.com,
-	legion@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	blbllhy@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v4] reboot: fix cad_pid use-after-free race
-Date: Fri, 14 Aug 2026 00:09:44 -0400
-Message-ID: <20260814040944.16561-1-blbllhy@gmail.com>
-X-Mailer: git-send-email 2.52.0
+        bh=TPnXUKqHB09+gprPc9dr6m7TW7NThR7K77XWxdq9JR4=;
+        b=XpFObtAltJD7Bhj5DfYHJftaCUQgT1UpOiuFba0qsw0Dk+o3EtKny/pgHt1SpGtlZP
+         AemzrJ3TijLiziGOqxNSKS0KcUOLzNXuoQIbsGUPgAugQyaRL3KZB2yROw0jK/YNLef+
+         zlyJ/X+Q/rAgny+tpeviFU3MDkGDgZEaNLMr9UNkgvGVZPuYLtfUYy9P0+82gKeFK7qh
+         nJU1MUnRzhBwxsyQ4mwNHr4m3dmk/O+Z4ymGucTc1fgI8MKuFhtJifXw6/LR2bzPKcm7
+         8W3//ZDXLsJ7lkZ4meHeZKmMymy1uhYJmrsm+ZmPRql8hLCU/Myb6efilrNp1KfP9LWo
+         Dy6g==
+X-Forwarded-Encrypted: i=1; AHgh+RoNKLLysJX6nVKUiF8QoLDP6tLpnT5EkQkOYk3zixziQR1Nlfgovz6cK/Kj2Gw9EXJWZOwzd38=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwlSp5MhLIIv+NKga9CBoFEnCWvatyL6h41p9yGuEv8GB5awpic
+	2+WU2XRfTJDUFfqaJC1gQBVDSIYxmzycar5+zEnfeyOXh0fsjhnaIGVU
+X-Gm-Gg: AR+sD12LqDKNxDi4Woh+U8qmlfrUEZB/nGlIb7/jdD2EtBwMSAXvgUUjPYEMs9qORWC
+	isbH8ZCxOqzG/VNAhi3IUhmtC7waTA4M+daU5rqw+jH/AD3enR4l+KeL67EnzDZa2lIr+QIWqXC
+	7oA+qTeHbCYDmn1IUbMHS7dCMfwnK/HJ/waXhNhFpFlEKSMF7vGGuvNoSKbGNM1SqZ5R6Ds8BZS
+	g1PqejcxAsqZr1PvSzWnhVcGzbCDYxrxQq04yDzlWzxpWXqyCesaGFi8BinFZ2M9nnvQStGJZcl
+	6j/Y+N+qoIhrd1BZRChHdoIDdQRcWTYv94zGoKXnxqmJJfchzIsIndO3UhTd8tEdxzvgInuQ0P1
+	MZBCtDUtRVILnWQefDfAwmLpEI8cDubXBtzpiYBM5SP9Hn8wEPFJ3DQF3JInCRwrhhkM5p5/IST
+	ZXsGM7vT7M3AB8ZDAb0u14iCNUfJmeo4uNMrR71IbDh5q1HyP1j4vO0YlYOEMbRLg6RTDZx2AzK
+	8Jx1R+arw==
+X-Received: by 2002:a17:90b:1c87:b0:380:540:d499 with SMTP id 98e67ed59e1d1-3933cae4b3amr2936349a91.6.1786681539297;
+        Thu, 13 Aug 2026 21:25:39 -0700 (PDT)
+Received: from [10.22.68.200] ([111.223.92.222])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-394ea996575sm788095a91.8.2026.08.13.21.25.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 13 Aug 2026 21:25:38 -0700 (PDT)
+Message-ID: <33747609-53e7-4f17-9e97-2fdff67b4460@gmail.com>
+Date: Fri, 14 Aug 2026 12:25:36 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fuse: clear stale intr_entry in fuse_remove_pending_req()
+To: Baokun Li <libaokun@linux.alibaba.com>, fuse-devel@lists.linux.dev
+Cc: miklos@szeredi.hu, jefflexu@linux.alibaba.com, winters.zc@antgroup.com,
+ stable@vger.kernel.org
+References: <20260728031641.2497811-1-libaokun@linux.alibaba.com>
+Content-Language: en-US
+From: Tang Yizhou <tangyeechou@gmail.com>
+In-Reply-To: <20260728031641.2497811-1-libaokun@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-cad_pid is a single kernel-wide struct pid pointer. proc_do_cad_pid()
-reads it and passes it to pid_vnr() without protecting the lifetime of
-the referenced struct pid. A concurrent writer can replace cad_pid and
-drop the final reference to the old struct pid after the reader has
-loaded the pointer but before pid_vnr() has finished dereferencing it,
-causing a use-after-free.
+On 28/7/26 11:16 am, Baokun Li wrote:
+> Commit f8fce75fedf7 ("fuse: clear intr_entry in fuse_resend and
+> fuse_remove_pending_req") removes stale interrupt entries in
+> fuse_chan_resend() when requests are moved back to fiq->pending.
+> However, that cleanup only covers interrupt entries that are already
+> linked at scan time.  It can race with a concurrent queue_interrupt()
+> from the request holder:
+> 
+>   CPU 0 (holder thread)           CPU 1 (resend)
+>   ---------------------           --------------
+> 
+>   req in processing (FR_SENT=1)
+> 
+>   signal arrives
+>   set_bit(FR_INTERRUPTED)
+>   test_bit(FR_SENT) -> true
+>   queue_interrupt():
+>     spins on fiq->lock ...
+>                                   fuse_chan_resend():
+>                                     set_bit(FR_PENDING)
+>                                     clear_bit(FR_SENT)
+>                                     spin_lock(&fiq->lock)
+>                                     cleanup scan:
+>                                       intr_entry not linked yet
+>                                       -> list_del_init is a no-op
+>                                     list_splice -> fiq->pending
+>                                     spin_unlock(&fiq->lock)
+>     ... acquires fiq->lock
+>     list_empty(&req->intr_entry) -> true
+>     FR_FINISHED not set
+>     -> intr_entry added to fiq->interrupts
+>        AFTER the cleanup already ran
+> 
+>   fatal signal arrives
+>   fuse_remove_pending_req():
+>     test_bit(FR_PENDING) -> true
+>     list_del(&req->list)
+>     __fuse_put_request
+>   fuse_put_request (refcount -> 0)
+>   -> req freed, intr_entry dangling
+>      on fiq->interrupts
+> 
 
-kill_cad_pid() has the same lifetime race when it passes cad_pid to
-kill_pid().
+Good catch. We discovered this issue in our recent stability testing. The
+proposed fix looks reasonable, and we plan to validate it.
 
-At the time this issue was reported, an unprivileged user could reach the
-sysctl through user and PID namespaces because cad_pid was registered in
-pid_table[]. Moving cad_pid back to the global reboot sysctl table
-corrected that namespace and permission mismatch, but did not fix the
-underlying lifetime race.
+> fuse_dev_queue_interrupt() only checks list_empty() and FR_FINISHED
+> before linking intr_entry -- it does not check FR_PENDING, so a
+> request already spliced back to fiq->pending can still be added to
+> fiq->interrupts.  The lock contention itself produces the bad
+> ordering: while the resend holds fiq->lock to scan the queued
+> requests, the holder spins in queue_interrupt() and links intr_entry
+> right after the scan finishes.
+> 
+> The dangling entry then causes the same use-after-free that the
+> above commit describes: fuse_read_interrupt() writes to the freed
+> slab object via list_del_init() and leaks req->in.h.unique to
+> userspace.  Once the freed memory is reused, INIT_LIST_HEAD() turns
+> the entry into a self-loop and list_empty(&fiq->interrupts) returns
+> false forever, so the daemon reads the same phantom FUSE_INTERRUPT
+> in an infinite loop and never consumes fiq->pending.
+> 
+> Close the race in fuse_remove_pending_req(), which is the common
+> bail-out path for both the legacy and the io_uring transport: after
+> the request is removed from the pending queue, also unlink intr_entry
+> under fiq->lock before the reference is dropped.  fiq->lock must be
+> taken explicitly since the lock argument is the ring queue lock in
+> the io_uring case, while fiq->interrupts is always protected by
+> fiq->lock.  This runs on the holder thread after any
+> queue_interrupt() it issued, and no other path can re-link the entry
+> once the request is off the queues (re-queueing an interrupt from
+> FUSE_INTERRUPT's -EAGAIN reply requires finding the request in the
+> processing queue first).
 
-Fix this by treating cad_pid as an RCU-protected pointer at both read
-sites and by waiting for a grace period before dropping the old reference
-on the write side.
+The commit message is too verbose and looks AI-generated.
 
-call_rcu(&old_pid->rcu, ...) cannot be used here because free_pid()
-also queues pid->rcu; queueing the same rcu_head twice can corrupt the
-RCU callback list.
-
-Original KASAN crash stack:
-  kernel/pid.c:545 pid_nr_ns()        # reads freed pid->level
-  kernel/pid.c:556 pid_vnr()          # calls pid_nr_ns()
-  kernel/pid.c:775 proc_do_cad_pid()  # calls pid_vnr(cad_pid)
-
-Fixes: 9ec52099e4b8 ("[PATCH] replace cad_pid by a struct pid")
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Closes: https://lore.kernel.org/all/20260717210143.4734-1-blbllhy@gmail.com/
-Link: https://lore.kernel.org/all/alz5ZYLE4kaq_v2P@redhat.com/
-Link: https://lore.kernel.org/all/al4ICz9biJKtdZc4@redhat.com/
-Suggested-by: Mateusz Guzik <mjguzik@gmail.com>
-Suggested-by: Bradley Morgan <include@grrlz.net>
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Suggested-by: Eric W. Biederman <ebiederm@xmission.com>
-Suggested-by: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
----
-v4:
- - Rebase on sysctl-next after Oleg's cad_pid sysctl placement change.
- - Fold the two-patch v3 series into a single lifetime fix.
- - Move kill_cad_pid() implementation to kernel/signal.c.
- - Export kill_cad_pid() and stop exporting the raw cad_pid pointer.
- - Update proc_do_cad_pid() in kernel/reboot.c.
- - Add explicit includes for the RCU API and kill_cad_pid().
- - Preserve the original unprivileged impact context while noting that
-   the namespace permission path has been fixed separately.
-
-v3:
- - Keep kill_cad_pid() inside the RCU read-side critical section
-   instead of taking a pid reference, as suggested by Oleg.
-
-v2:
- - Split out kill_cad_pid() deinline into a preparatory patch.
- - Annotate cad_pid as __rcu and use rcu_dereference().
- - Protect kill_cad_pid() by taking a pid reference under RCU.
- - Add a comment explaining why synchronize_rcu() is used instead of
-   call_rcu().
-
- include/linux/sched.h        |  2 +-
- include/linux/sched/signal.h |  5 +----
- init/main.c                  |  2 +-
- kernel/reboot.c              | 19 +++++++++++++++----
- kernel/signal.c              | 12 ++++++++++++
- 5 files changed, 30 insertions(+), 10 deletions(-)
-
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 373bcc0598d1..31ce72b1233c 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1767,7 +1767,7 @@ static inline bool is_lazy_mmu_mode_active(void)
- }
- #endif
- 
--extern struct pid *cad_pid;
-+extern struct pid __rcu *cad_pid;
- 
- /*
-  * Per process flags
-diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
-index 584ae88b435e..d45a5476b97d 100644
---- a/include/linux/sched/signal.h
-+++ b/include/linux/sched/signal.h
-@@ -562,10 +562,7 @@ static inline sigset_t *sigmask_to_save(void)
- 	return res;
- }
- 
--static inline int kill_cad_pid(int sig, int priv)
--{
--	return kill_pid(cad_pid, sig, priv);
--}
-+int kill_cad_pid(int sig, int priv);
- 
- /* These can be the second arg to send_sig_info/send_group_sig_info.  */
- #define SEND_SIG_NOINFO ((struct kernel_siginfo *) 0)
-diff --git a/init/main.c b/init/main.c
-index e363232b428b..19a10d0c2760 100644
---- a/init/main.c
-+++ b/init/main.c
-@@ -1636,7 +1636,7 @@ static noinline void __init kernel_init_freeable(void)
- 	 */
- 	set_mems_allowed(node_states[N_MEMORY]);
- 
--	cad_pid = get_pid(task_pid(current));
-+	rcu_assign_pointer(cad_pid, get_pid(task_pid(current)));
- 
- 	smp_prepare_cpus(setup_max_cpus);
- 
-diff --git a/kernel/reboot.c b/kernel/reboot.c
-index f070c5c1103a..d177d89fcc33 100644
---- a/kernel/reboot.c
-+++ b/kernel/reboot.c
-@@ -13,7 +13,9 @@
- #include <linux/kexec.h>
- #include <linux/kmod.h>
- #include <linux/kmsg_dump.h>
-+#include <linux/rcupdate.h>
- #include <linux/reboot.h>
-+#include <linux/sched/signal.h>
- #include <linux/suspend.h>
- #include <linux/syscalls.h>
- #include <linux/syscore_ops.h>
-@@ -24,8 +26,7 @@
-  */
- 
- static int C_A_D = 1;
--struct pid *cad_pid;
--EXPORT_SYMBOL(cad_pid);
-+struct pid __rcu *cad_pid;
- 
- #if defined(CONFIG_ARM)
- #define DEFAULT_REBOOT_MODE		= REBOOT_HARD
-@@ -1371,10 +1372,14 @@ static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffe
- {
- 	struct ctl_table tmp_table = *table;
- 	struct pid *new_pid;
-+	struct pid *old_pid;
- 	pid_t tmp_pid;
- 	int r;
- 
--	tmp_pid = pid_vnr(cad_pid);
-+	rcu_read_lock();
-+	tmp_pid = pid_vnr(rcu_dereference(cad_pid));
-+	rcu_read_unlock();
-+
- 	tmp_table.data = &tmp_pid;
- 
- 	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
-@@ -1385,7 +1390,13 @@ static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffe
- 	if (!new_pid)
- 		return -ESRCH;
- 
--	put_pid(xchg(&cad_pid, new_pid));
-+	old_pid = unrcu_pointer(xchg(&cad_pid, RCU_INITIALIZER(new_pid)));
-+	/*
-+	 * Wait for cad_pid readers before put_pid().  We cannot use
-+	 * call_rcu() here because free_pid() already owns pid->rcu.
-+	 */
-+	synchronize_rcu();
-+	put_pid(old_pid);
- 	return 0;
- }
- 
-diff --git a/kernel/signal.c b/kernel/signal.c
-index 9c2b32c4d755..464732c44554 100644
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -1891,6 +1891,18 @@ int kill_pid(struct pid *pid, int sig, int priv)
- }
- EXPORT_SYMBOL(kill_pid);
- 
-+int kill_cad_pid(int sig, int priv)
-+{
-+	int ret;
-+
-+	rcu_read_lock();
-+	ret = kill_pid(rcu_dereference(cad_pid), sig, priv);
-+	rcu_read_unlock();
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL(kill_cad_pid);
-+
- #ifdef CONFIG_POSIX_TIMERS
- /*
-  * These functions handle POSIX timer signals. POSIX timers use
-
-base-commit: 8d75c338f0bcecaa6c9af67f86c176b67b6acf3e
 -- 
-2.43.0
+Best Regards,
+Yi
+
+> 
+> Fixes: 760eac73f9f6 ("fuse: Introduce a new notification type for resend pending requests")
+> Cc: stable@vger.kernel.org # 6.9
+> Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+> ---
+>  fs/fuse/dev.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+> index 5763a7cd3b37..87891162985c 100644
+> --- a/fs/fuse/dev.c
+> +++ b/fs/fuse/dev.c
+> @@ -678,6 +678,8 @@ static int queue_interrupt(struct fuse_req *req)
+>  
+>  bool fuse_remove_pending_req(struct fuse_req *req, spinlock_t *lock)
+>  {
+> +	struct fuse_iqueue *fiq = &req->chan->iq;
+> +
+>  	spin_lock(lock);
+>  	if (test_bit(FR_PENDING, &req->flags)) {
+>  		/*
+> @@ -686,6 +688,18 @@ bool fuse_remove_pending_req(struct fuse_req *req, spinlock_t *lock)
+>  		 */
+>  		list_del(&req->list);
+>  		spin_unlock(lock);
+> +
+> +		/*
+> +		 * Remove stale intr_entry queued by queue_interrupt() before
+> +		 * the request was requeued, which would otherwise dangle on
+> +		 * fiq->interrupts once the request is freed.
+> +		 */
+> +		if (test_bit(FR_INTERRUPTED, &req->flags)) {
+> +			spin_lock(&fiq->lock);
+> +			list_del_init(&req->intr_entry);
+> +			spin_unlock(&fiq->lock);
+> +		}
+> +
+>  		__fuse_put_request(req);
+>  		req->out.h.error = -EINTR;
+>  		return true;
+
 
