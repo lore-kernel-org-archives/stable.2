@@ -1,74 +1,74 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3895129B766
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 13:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64F33002DC
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 13:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786715230; cv=none; b=bZr0S4JccNcMURfnTB/uDH2xTaMrO7MJT6OoGqyHT86EGnsm6FIjW5SC9ZtrkGh+S3O+ZtJS1o1ZG6b4BijQK0JWJO0pQL1P9pmLIPBTpEJYU8vZwoUuDtMomGH67pyLM1j8Bdywe7RLzFzOePZltFh3nZ8G1f2sAiVjIhOVzxQ=
+	t=1786715235; cv=none; b=D4HM8ScG6SxLnuJzsJ8DTP8SLJ12qUhb8rAXCvAI52xlWGrYbx7kEt4w95xlpt3X1wEKFGkJncYfvBaHNDRnsL/DSeaQrxDj921e4IzySe8lyqRXFfeAR1JETxxgV1Bx47F9xQVpv0BLa0hjdpJgJ2xc1EtI74Hxzvnto0XUR4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786715230; c=relaxed/simple;
-	bh=0MAZSpI1FB2pQAJD2x8qbdLKZzJxcnDItyqwbUnBYqo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z//vn8p6yFZWA0gqFq6B/SDI8N+ApRD1xBiPa54+yCSuOT0V/VKe7r6q6FG+pNQdN97s4yjbLQKe+SwTu0zF9MFK0SthCye0eCj9kYBDglf0EHyNzHVetGrYFgdW5oBT1V46gn2+NIIRbo1ZDdro9VWLJ1nhvCFI/hM3FqJAkYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0.security; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=qLjfhZ+B; arc=none smtp.client-ip=209.85.221.54
+	s=arc-20240116; t=1786715235; c=relaxed/simple;
+	bh=JBMowbALXN1jE7/AQew047fyFfMm2Zhn/Kx/LD/R+jM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QN9whKS8U+8IeCsivvo16u50+I9+yyB4O1jAIypHVxM6f44CZ3IQ0DSaPXbWNfJ5sM8C5gaaNiPmYQa8bRD1Z0KHeZopW7RKHkWPrYY2EhzY7GjVV8r+xnowslF5jCO1rrVea7TgT5/phEPorg4GYH7wlSUQ+nmd2H4EAVUqlb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0.security; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=LJQcp5da; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0.security
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="qLjfhZ+B"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4799b3f7c83so716641f8f.2
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 06:47:08 -0700 (PDT)
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="LJQcp5da"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4954a2e73a9so7672335e9.3
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 06:47:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1786715227; x=1787320027; darn=vger.kernel.org;
+        d=0sec.ai; s=google; t=1786715231; x=1787320031; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=la6HmzMWjOjdupN59/M7Vsrfzm3xyDbqoAwnTK10twI=;
-        b=qLjfhZ+BelAiOxKLgA6nrpt9+96IeGwBCh2vcS2MnDhFRsFP0V2c+Jd6mY/Rq8YMIC
-         i6hV5FAakmPr8slmougtvIBKAVaMRrY6PfBH1lXGHZl2OdPJHeV5d9LUnCC5wXGTXJHu
-         Q3JTjDJ2viOJkQpK5W5mXkxjTYyytxeDcG9GNbALegv6Gwvgn1fR9bNnzlB9Sxalp07W
-         LL4oJ2ZlOIPseCDEVWAsiI6zW9aqMyv7chB9SYn+rJGVHounjfgitjXdd3giByKTRn1P
-         5Y3Mm35kKJ+jqNVCggslRqU2pX9+XEBZj1sc06cq43+AZdZ2xuBle9jO0AzneMvCkkkS
-         sO3A==
+        bh=qmRPONQIeS1c8qTvxKNt6o0AVizi+U1D7QhZyeiIky0=;
+        b=LJQcp5datWly0tWT1cCRRg7+DHbe9fLxtMTdtu3+CWxv9kqzJTr+9qA14DLHFRqmQO
+         lBl6dErluf6XghHQv010u7tXeJDKTbhTPzlIegqu1gDTnxNCtDHZgvvk5gxoZxnfNx5N
+         DkQX0SBjno0QcCCsuY+MfIt1zhYQ7y8RPG0oVCrglxZTrJaICWGM4FUJq+SjZxErtq1o
+         UNE0H2zOqUD7vrKQ95rvziibQqcFYs3yq+rkeP0TO5p0UsafEWUc0dKI+O79a/LP0QdF
+         KHZhSiR1eKCo0lvDduWusOWi3KPJcvOBjpcmWgO3cDRvLL14EOwnMzEWmVs2WLjlZ2+Z
+         d3cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786715227; x=1787320027;
+        d=1e100.net; s=20251104; t=1786715231; x=1787320031;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=la6HmzMWjOjdupN59/M7Vsrfzm3xyDbqoAwnTK10twI=;
-        b=WUi5OmXn3hU6mYKTxLZXqZ9OBwtOCIaNFStDWVVZteTrnaE6ln0gNux0XqymB3UBTt
-         38AZTxOc8iw796jCleLGgTb9UyUKnf1UdG+7mUfYMdvjKefSvlkulCep03wxU7TDwZkk
-         E6WJIzDTVVMd0g6+pycGL9Ts4zIRyp4lfaSlUNy+A/U9pzxZgOt+ivlemM3nEJTbq5KZ
-         QDgpNXj0NzeVc6unzryPQNYf4RfyAUKRj/nryiyI/wNAE+CzWxVO04Dg3ZW+qPsHZxNe
-         frUnH8/3T6sd9BElSSSbOa003QmKkhEBW86Hkz+6afM0UvGPS5+AplB/LSkFZ4BqKpAN
-         mW3Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpWqT9vtD4JIFBhCYwT110orRGT2HBIf1n2VeM21fJ96VPZezlcX83RMKdI3ScegJ6ZbbIZ8Tk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYgXyDU7Z2FvvnigIoW4zx+GLiLLTX8ASKi8AmdrTtRo6dI29H
-	8NvCgoAwDlHRohpb3HNEf2fGoMuQZp5s31XxVg7u5dWHTtSUPRjpunchejkZbXv0ubg2K1cvDvq
-	nTzg1rn7a
-X-Gm-Gg: AR+sD126+8JO6TpQ8uOEE8DIZR8Df2+8LRN7j+PEzVWtQWUrOGijzOTnMhOyddXHazs
-	U+zKCmMMN3xkTm96x66uJvvhKstLCO3q2jFRpa1kwyq/xQQYbGbcg8IlsYOTXJYzijO9SOokSye
-	UVNMS5W30VGt+IcRdgRVtCOC0Zn2ltlNkdHrD/7PUfySOTRC/HnXMMBSzrKbDtyuJ+vgNzemsKg
-	9HLXhGoCOBKAM77jwrXTh4CHnBOISoLGEnE8n64eJzCrNNL6d1zK0+hSs7dHHMbTGPatMgGTwFb
-	kGrjiRgldweHc6ihZGG0xDJRH/Fot9rCCx14Tc3Vm7luVle+dLcZ0uEmTY6cMnKB5uLWTb3rggG
-	Uec5vELGKwBdqSeg+XdRGQRMfkLHF1GcWpe3OHI3NtNBYKPBALZFJcC6qVqOzpEXfwBEznBg5/p
-	LK1Z6LyCqNXQ8K0om4FDHB77RpcDnrKcQd+qSp3ZHJ8KOaYQaxPkFCvclv3Np+7artAAVDW/8CM
-	e/fiYE6IC/VBaxaVpoVZPYGAw4HFe3m/PhkCLcKBevuuPcd5Ho8R1/AUNRRc1z2Y1UYh/BCTNHp
-	2gVdPw==
-X-Received: by 2002:a05:6000:2703:b0:461:e27d:5690 with SMTP id ffacd0b85a97d-481607acf59mr6874946f8f.26.1786715227265;
-        Fri, 14 Aug 2026 06:47:07 -0700 (PDT)
+        bh=qmRPONQIeS1c8qTvxKNt6o0AVizi+U1D7QhZyeiIky0=;
+        b=atcmPCGs79SIJm7sMgSKT0DlsRWkQn/y1HIRCWhpUdLF2vY+bk8dUhK1B2e/XkxTri
+         Bxe9kG7uBeU40Xkn0BGvg284drHUV6ZkQnC/tLqVv26mTEY4PYQH7tKTabUX6l1qbRz1
+         AjgAqIyVJLnF7dImqA19UB5iSOSvMnOqR83p1DM6wjMi2ku6wrW5NAZr/Qpj+UL4GS7/
+         GuMs/bPqpH0So2V+VdhrHwcWSmMfYiP3u1UaLlbGFLXkR99zLC0t2W7FnL0flfLEcVGC
+         claHS8lOJk34bkE1pFkPjmmLHl2d6h71LQDmmlzGx/CM/jVzLYfEFlWHwPiKDPOCmijW
+         tg4A==
+X-Forwarded-Encrypted: i=1; AHgh+RoEfxFAR1MXieSZly9g7fcxAOPT1Le8k1kfw/Peadgw7KOL5r7StLVg+d1PcTVmKWhVQaF32Rs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7A6IJizNzfXF54x0qxa4QfAVhtYzCBlrce/Bw1UQ32kJMUeyK
+	VRZ0yQeWtGSerTn8UaEsTKJ19ml0gg3XzPREPcUfo4jMSv03mJtMoxFR9NeXxG6va56y
+X-Gm-Gg: AR+sD10fW/bNvQ+xPY8mHJYGU8FDMn0lTnAbe2JWBYxs6Yf9jsowq6CfX2Fjo+1wl3h
+	kALJDy73BfWaP4CJcZjRNSJWHSqc/gucnDj29dA8wBecmqT0AHwQ378n3EsB2gmLdpQsA7RidDr
+	VjYUMAX6tsoiVlwYcH/mwULqO7iTUwI6EtnIw4NloByvKIcbJgu3w61kT7PeWO7hM1LhM4cVTQl
+	O3u3idhtoJgAxEfwuOfgkjVLqwcvX+59hIyJHWNMShrFmYxEmvx5YGaVs0OhFWJH26WuXMy4oi0
+	1PYNzgXmDwdDYiPUA5vhJykB3fKXOrIR1AkETcVuwvQClH4lEFfqDH9Q4eD6xRAucQgFZaHhS/M
+	6Oxwe7YjHTzaI0ZA8tWU7F3iWgJ2qArp0lY/0T0vdpd8rA8HhFcZS2r0G7St7DFNLz8L7Cc+m9z
+	QeJtS93hdT7hcsbnB7gLdzG213q7Z6lh9TodxbKKQW+Qq5H1Gc3i6vmyIj4xX34MzbNna+9qB4R
+	1P5dXa6Zk3DvK8qeMeC/uo7qPfjcxVtnG2yHMztwz4jIoL4Pz2zjN9EYBXK++Pq9avo5h8briET
+	WHAnhA==
+X-Received: by 2002:a05:600c:600a:b0:495:52a5:8829 with SMTP id 5b1f17b1804b1-49987981e14mr60442135e9.11.1786715231112;
+        Fri, 14 Aug 2026 06:47:11 -0700 (PDT)
 Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f2c129dsm8326893f8f.26.2026.08.14.06.47.05
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49988ae8facsm48742685e9.6.2026.08.14.06.47.09
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 14 Aug 2026 06:47:06 -0700 (PDT)
+        Fri, 14 Aug 2026 06:47:09 -0700 (PDT)
 From: Doruk Tan Ozturk <doruk@0sec.ai>
 To: briannorris@chromium.org
 Cc: francesco@dolcini.it,
+	kees@kernel.org,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Doruk Tan Ozturk <doruk@0sec.ai>
-Subject: [PATCH v3] wifi: mwifiex: bound the pairwise-cipher OUI walk to the IE length
-Date: Fri, 14 Aug 2026 15:47:04 +0200
-Message-ID: <20260814134704.85902-1-doruk@0sec.ai>
+Subject: [PATCH v4] wifi: mwifiex: validate HT/VHT capability and operation IE lengths
+Date: Fri, 14 Aug 2026 15:47:07 +0200
+Message-ID: <20260814134707.85925-1-doruk@0sec.ai>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -78,21 +78,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mwifiex_search_oui_in_ie() reads a pairwise-cipher (PTK) count from a
-beacon/probe-response RSN or WPA information element and then walks that
-many 4-byte OUIs, comparing each with memcmp(). The count comes straight
-from the (attacker-supplied) IE and is never checked against the
-element's own length, and the callers admit the element on element_id
-alone (has_ieee_hdr() / has_vendor_hdr(), no length check). A crafted
-RSN/WPA IE with a large pairwise count therefore makes the walk read up
-to 255 * 4 bytes past the element -- an out-of-bounds read of the
-kmemdup()'d beacon buffer, reachable from any AP whose beacon/probe
-response is processed during scan-result parsing.
+mwifiex_update_bss_desc_with_ie() stores pointers to the HT and VHT
+capability and operation elements, and to the operating-mode
+notification, taken from a beacon/probe response without checking that
+each element is long enough for the fixed-size structure the driver
+later dereferences it as. The beacon buffer is a tight kmemdup() of the
+on-air IEs, so a truncated element leaves the stored pointer short of
+the structure and triggers a slab out-of-bounds read when the BSS
+descriptor is consumed at association time -- e.g.
+mwifiex_cmd_append_11n_tlv() memcpy()s sizeof(struct ieee80211_ht_cap)
+from bcn_ht_cap. A nearby AP (rogue / evil-twin; an open SSID needs no
+credentials) can trigger this on the victim's association attempt.
 
-Pass the number of IE bytes available at the OUI list and bound the walk
-to the element. Keep the length signed and reject a negative value
-before any unsigned arithmetic, so a small or zero IE length cannot
-underflow to a large size_t and defeat the bound.
+mwifiex_set_sta_ht_cap() has the same missing-length pattern in uAP
+mode: it reads ieee80211_ht_cap.cap_info from a
+cfg80211_find_ie(WLAN_EID_HT_CAPABILITY) result without checking the
+element length.
+
+Reject the frame with -EINVAL when any of these elements is shorter than
+the structure the driver later reads, matching the length validation the
+FH/DS/CF/IBSS parameter-set cases in the same parser already perform. The
+operating-mode notification pointer includes the element header, so it is
+checked against total_ie_len; the HT/VHT pointers skip the header and are
+checked against element_len. mwifiex_set_sta_ht_cap() returns void, so
+there the too-short element is skipped instead.
+
+No dynamic reproducer: mwifiex is a fullmac driver for Marvell hardware
+with no mac80211_hwsim equivalent, so this was confirmed by source and
+structure-offset analysis, and compile-tested only.
 
 Found by 0sec automated security-research tooling (https://0sec.ai).
 
@@ -102,84 +115,106 @@ Assisted-by: 0sec:multi-model
 Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
 
-Changes in v3 (per Brian Norris's review of v2):
- - Keep ie_len signed and explicitly reject a negative (underflowed)
-   length before any unsigned arithmetic. The v2 bound added the count
-   to the offset and compared against (size_t)ie_len, so a small or zero
-   IE length that underflowed ie_len wrapped to a large size_t and the
-   bound would not fire.
+Changes in v4 (per Brian Norris's review of v3):
+ - Use sizeof(*ptr) for the length checks instead of naming the struct
+   type, so a check cannot drift from the type the pointer is
+   dereferenced as. bcn_ht_cap/bcn_ht_oper/bcn_vht_cap/bcn_vht_oper/
+   oper_mode are all typed pointers.
+ - Check WLAN_EID_OPMODE_NOTIF against total_ie_len using
+   sizeof(*oper_mode): struct ieee_types_oper_mode_ntf includes the
+   element header and oper_mode points at the header, so a non-zero
+   length test was not sufficient.
+ - Keep -EINVAL on a too-short element (not break), matching the
+   FH/DS/CF/IBSS cases in the same function as introduced in v2.
+
+Changes in v3 (per Francesco Dolcini's review of v2):
+ - Commit message only: spell out why ht_cap_ie->len is safe to test
+   against, and restore the no-dynamic-reproducer note.
 
 Changes in v2 (per Francesco Dolcini's review of v1):
- - Store offsetof(struct ie_body, ptk_body) in a named variable
-   (ptk_body_offset) and reuse it in both bounds checks; no functional
-   change.
+ - Return -EINVAL on a too-short element instead of break, matching the
+   FH/DS/CF/IBSS and VENDOR_SPECIFIC cases. mwifiex_set_sta_ht_cap()
+   returns void, so there it stays a skip.
  - Switch the Assisted-by trailer to 0sec:multi-model.
 
- drivers/net/wireless/marvell/mwifiex/scan.c | 25 ++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+v1: https://lore.kernel.org/all/20260709100800.7026-1-doruk@0sec.ai/
+v2: https://lore.kernel.org/all/20260715185543.14478-1-doruk@0sec.ai/
+
+ drivers/net/wireless/marvell/mwifiex/scan.c | 12 ++++++++++++
+ drivers/net/wireless/marvell/mwifiex/util.c |  2 +-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/wireless/marvell/mwifiex/scan.c b/drivers/net/wireless/marvell/mwifiex/scan.c
-index 97c0ec3b822e7..473f4623ea199 100644
+index 97c0ec3b822e7..80572989bc81c 100644
 --- a/drivers/net/wireless/marvell/mwifiex/scan.c
 +++ b/drivers/net/wireless/marvell/mwifiex/scan.c
-@@ -104,12 +104,24 @@ has_vendor_hdr(struct ieee_types_vendor_specific *ie, u8 key)
-  * a given oui in PTK.
-  */
- static u8
--mwifiex_search_oui_in_ie(struct ie_body *iebody, u8 *oui)
-+mwifiex_search_oui_in_ie(struct ie_body *iebody, u8 *oui, int ie_len)
- {
-+	const size_t ptk_body_offset = offsetof(struct ie_body, ptk_body);
- 	u8 count;
+@@ -1384,6 +1384,8 @@ int mwifiex_update_bss_desc_with_ie(struct mwifiex_adapter *adapter,
+ 							bss_entry->beacon_buf);
+ 			break;
+ 		case WLAN_EID_HT_CAPABILITY:
++			if (element_len < sizeof(*bss_entry->bcn_ht_cap))
++				return -EINVAL;
+ 			bss_entry->bcn_ht_cap = (struct ieee80211_ht_cap *)
+ 					(current_ptr +
+ 					sizeof(struct ieee_types_header));
+@@ -1392,6 +1394,8 @@ int mwifiex_update_bss_desc_with_ie(struct mwifiex_adapter *adapter,
+ 					bss_entry->beacon_buf);
+ 			break;
+ 		case WLAN_EID_HT_OPERATION:
++			if (element_len < sizeof(*bss_entry->bcn_ht_oper))
++				return -EINVAL;
+ 			bss_entry->bcn_ht_oper =
+ 				(struct ieee80211_ht_operation *)(current_ptr +
+ 					sizeof(struct ieee_types_header));
+@@ -1400,6 +1404,8 @@ int mwifiex_update_bss_desc_with_ie(struct mwifiex_adapter *adapter,
+ 					bss_entry->beacon_buf);
+ 			break;
+ 		case WLAN_EID_VHT_CAPABILITY:
++			if (element_len < sizeof(*bss_entry->bcn_vht_cap))
++				return -EINVAL;
+ 			bss_entry->disable_11ac = false;
+ 			bss_entry->bcn_vht_cap =
+ 				(void *)(current_ptr +
+@@ -1409,6 +1415,8 @@ int mwifiex_update_bss_desc_with_ie(struct mwifiex_adapter *adapter,
+ 					      bss_entry->beacon_buf);
+ 			break;
+ 		case WLAN_EID_VHT_OPERATION:
++			if (element_len < sizeof(*bss_entry->bcn_vht_oper))
++				return -EINVAL;
+ 			bss_entry->bcn_vht_oper =
+ 				(void *)(current_ptr +
+ 					 sizeof(struct ieee_types_header));
+@@ -1417,6 +1425,8 @@ int mwifiex_update_bss_desc_with_ie(struct mwifiex_adapter *adapter,
+ 					      bss_entry->beacon_buf);
+ 			break;
+ 		case WLAN_EID_BSS_COEX_2040:
++			if (!element_len)
++				return -EINVAL;
+ 			bss_entry->bcn_bss_co_2040 = current_ptr;
+ 			bss_entry->bss_co_2040_offset =
+ 				(u16) (current_ptr - bss_entry->beacon_buf);
+@@ -1427,6 +1437,8 @@ int mwifiex_update_bss_desc_with_ie(struct mwifiex_adapter *adapter,
+ 				(u16) (current_ptr - bss_entry->beacon_buf);
+ 			break;
+ 		case WLAN_EID_OPMODE_NOTIF:
++			if (total_ie_len < sizeof(*bss_entry->oper_mode))
++				return -EINVAL;
+ 			bss_entry->oper_mode = (void *)current_ptr;
+ 			bss_entry->oper_mode_offset =
+ 					(u16)((u8 *)bss_entry->oper_mode -
+diff --git a/drivers/net/wireless/marvell/mwifiex/util.c b/drivers/net/wireless/marvell/mwifiex/util.c
+index 7d3631d212236..844223c04e2ef 100644
+--- a/drivers/net/wireless/marvell/mwifiex/util.c
++++ b/drivers/net/wireless/marvell/mwifiex/util.c
+@@ -721,7 +721,7 @@ mwifiex_set_sta_ht_cap(struct mwifiex_private *priv, const u8 *ies,
  
-+	/* ie_len is the number of bytes available at iebody. Keep it signed
-+	 * and reject a negative (underflowed) length before the unsigned
-+	 * comparisons below, so a small or zero IE length cannot wrap.
-+	 */
-+	if (ie_len < 0 || (size_t)ie_len < ptk_body_offset)
-+		return MWIFIEX_OUI_NOT_PRESENT;
-+
- 	count = iebody->ptk_cnt[0];
- 
-+	/* Reject an OUI count whose list would run past the element. */
-+	if (ptk_body_offset + count * sizeof(iebody->ptk_body) > (size_t)ie_len)
-+		return MWIFIEX_OUI_NOT_PRESENT;
-+
- 	/* There could be multiple OUIs for PTK hence
- 	   1) Take the length.
- 	   2) Check all the OUIs for AES.
-@@ -143,11 +155,14 @@ mwifiex_is_rsn_oui_present(struct mwifiex_bssdescriptor *bss_desc, u32 cipher)
- 	u8 ret = MWIFIEX_OUI_NOT_PRESENT;
- 
- 	if (has_ieee_hdr(bss_desc->bcn_rsn_ie, WLAN_EID_RSN)) {
-+		int ie_len = (int)bss_desc->bcn_rsn_ie->ieee_hdr.len -
-+			RSN_GTK_OUI_OFFSET;
-+
- 		iebody = (struct ie_body *)
- 			 (((u8 *) bss_desc->bcn_rsn_ie->data) +
- 			  RSN_GTK_OUI_OFFSET);
- 		oui = &mwifiex_rsn_oui[cipher][0];
--		ret = mwifiex_search_oui_in_ie(iebody, oui);
-+		ret = mwifiex_search_oui_in_ie(iebody, oui, ie_len);
- 		if (ret)
- 			return ret;
- 	}
-@@ -169,10 +184,14 @@ mwifiex_is_wpa_oui_present(struct mwifiex_bssdescriptor *bss_desc, u32 cipher)
- 	u8 ret = MWIFIEX_OUI_NOT_PRESENT;
- 
- 	if (has_vendor_hdr(bss_desc->bcn_wpa_ie, WLAN_EID_VENDOR_SPECIFIC)) {
-+		int ie_len = (int)bss_desc->bcn_wpa_ie->vend_hdr.len -
-+			(int)sizeof(bss_desc->bcn_wpa_ie->vend_hdr.oui) -
-+			WPA_GTK_OUI_OFFSET;
-+
- 		iebody = (struct ie_body *)((u8 *)bss_desc->bcn_wpa_ie->data +
- 					    WPA_GTK_OUI_OFFSET);
- 		oui = &mwifiex_wpa_oui[cipher][0];
--		ret = mwifiex_search_oui_in_ie(iebody, oui);
-+		ret = mwifiex_search_oui_in_ie(iebody, oui, ie_len);
- 		if (ret)
- 			return ret;
- 	}
+ 	ht_cap_ie = (void *)cfg80211_find_ie(WLAN_EID_HT_CAPABILITY, ies,
+ 					     ies_len);
+-	if (ht_cap_ie) {
++	if (ht_cap_ie && ht_cap_ie->len >= sizeof(struct ieee80211_ht_cap)) {
+ 		ht_cap = (void *)(ht_cap_ie + 1);
+ 		node->is_11n_enabled = 1;
+ 		node->max_amsdu = le16_to_cpu(ht_cap->cap_info) &
 -- 
 2.43.0
 
