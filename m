@@ -1,68 +1,68 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51571470448
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 15:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44353C5833
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 15:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786720440; cv=none; b=A6lo7f4IXDIDN3uMZ1T0MeNQ1u7ssOwA9Sk02wP2Juo6E8slL58yINay5xqMbHp8XjdChToCCgNbuI3aJu6UEoKUJ3SlBBbBOLdfesV/sp9zq172IrtFtJIzNQ6F01U1O0H46r1AOgIhvbziB9ffjDOEtGjWhjLS1lagPKaxFPA=
+	t=1786720445; cv=none; b=oF34p/M+DCUURNFvslQUpe9/dIRAOhd1rVbu8JtTPrsRc9UQuIwjccKgKh+bXZI4RmvKqFE5dHrc8rpYkqWbVwR2ubc1j0hh00WpFsIfUNTcToBUO+gMRNxPijyHwiT11u8s7eHmDsRjZgMCl5h51UNt5C/Q4VqYe0ZXS3HpIRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786720440; c=relaxed/simple;
-	bh=oQmhcafvryzQTr8aJS6N1tB2XEUUgWL4lgJR/IbHbFo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cvtmKuof5OrzNQupkNnO5C9t+vWT0jZjn0kGxQq8My41K8ujhF9aQ/L8JzaFpBNujJXv0gaLJ6+m49dsxlLiBBg3tQXvLgSuqO30W1iVER7XLivgrRMYKc2bpxV2qxzUdM+2fI3QbGdWBAUSe8ctZFIkPycdDM8eXy5SOh2c+KM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rcUH/RZD; arc=none smtp.client-ip=209.85.214.177
+	s=arc-20240116; t=1786720445; c=relaxed/simple;
+	bh=qpflxoDz4Q2LAuHcccN97A6fnIkF2G+PGjFWuzstZS0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gtaNeU0Dckf3D1DfITfPZGwk31N+uSI0AcFjXOeiewZ0UfsSXYcvNqn6DO6zFg/V1AHXks4nF0CjoLdqTGve6G9hb+4oYLWe15Z0YbJ1JJhVb40zrTZVJI0AevUBe+ztFwVE4jz5tz8jFoOzOnM+dGz/PRR7n8If79uZSPqKFyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=geFEbckE; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rcUH/RZD"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cc7ef7ec27so14814265ad.1
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 08:13:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="geFEbckE"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2caed617615so15817385ad.3
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 08:14:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786720438; x=1787325238; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fPqMpU+LLRNYiSjrqLFHm/GfoNDBW1/b99+GMQWZD/8=;
-        b=rcUH/RZDKoIVRuBaHQyNb60NubVYBTCP0g43QfKSsgkl/tV3yhm1E4iiU7ux9qzijv
-         Rcdpb1XXXgXuhjUedk5l6HIPTJaxrK6sUiotqImKF6hZyLje3MZz7IowbaNdbUItsZUp
-         mQ7VwzTIvw6N6GHODWVuS8+Vrpw3GLGHoMN6dsI0NrTW5nLpZQcO+KFt+nWelI8rSsK0
-         YvRdPls2tuH+5ApbPYRuGkE3KlR9lso869mw5a7LZGeBUQ16SeVRlhNUfoG4IMt5y/Ko
-         f51lmmU5980cS2jdYMl0sqQzLnI3KQzOK5tHEouhoz3+JbDnT5iyCOCkySD5jU65lATQ
-         8DVg==
+        d=gmail.com; s=20251104; t=1786720443; x=1787325243; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2AwaiBewPNb0w3Qz67JVI0ysWpkdHoufX6g1rsCJvXo=;
+        b=geFEbckE4Lw56iKVwnojpRE74iHpkA0lJqcb6MN4Eywh7En/+adTRTIuPnmyJGPlPi
+         8nYMPCfCjQCrBy0N/Uc25/e9viWtj65NBFKccAGzca3bB5AJ/ZqWevDklFr4HsmPetgU
+         amWNN0cEVd6qeWxHnWabfej8peHNhWVD7n7pGpMcepGvFqPf2DP7T60tdzzdO5BGuVVk
+         QAYVth2VNi8fBk6ATNQp34iinUilhy3hR5CJQBsVKIci44oA4lBJut4auteJ9KBav9if
+         aldjze7pr8FyhPPcRLuPAvKGHO/1JMpHGam4OuOfivp2GOLBPQ+4NmfFP1m/nvj5saCw
+         anRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786720438; x=1787325238;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fPqMpU+LLRNYiSjrqLFHm/GfoNDBW1/b99+GMQWZD/8=;
-        b=mlA3YwgnnjxBnBjTW9HLsRR/PIMIq7G7Qsp0u2CnEoeYwUf5iKcu2PP9GU4GDltbZe
-         6DbxOYjQMyfGNRa4G8Q7nyg6PZuHnYV7wbYnNEA2kkMnSyWktpumaUhZYN/z9vCjQ9Uw
-         RVMLaydU9/SwoucWBgkvWPx4p/awrnhpgk2dgy6WQrX2WGu1LDWqg3+wLGc/hrt/PaaX
-         3qw6OlsEBcFB1BUJr0mzMc55F1Xpq7BwGFYkR4+4BYn3PY2Lu/bKmr97oNrgXOtJzKoc
-         JQTsWF+M4YGvho/eEJWJxX5vQhXGkZ9dNOmu2Pdwm7U7rjwp6l+8qH4ZCvrfC7xuXK5k
-         KINw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp/RRR/ah9a3w7t2T/M/f4vHNxUtxIEfECFZA1AtO8FaoWheIEqFvrHVdlX2IGCUG5HSU5on08=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWHfiLfpzD/8abmuA5bz27p/b8aCgph4pZXfzunLI/sbDfYf6O
-	nWsVqcNk5eaE8xhiSLXE2yZETNhlAUQl4xJKvGN/wnWbtLdBUThDi+Ni
-X-Gm-Gg: AR+sD10yk1Pe3+T7a7uJ/OqKREmcnpOQyA4VBqnO1gH2A8Wxb/2ghsj9huHZPdKmraY
-	QU0xh9Ko2zTcWimpatk1urX8UWcuDuLiWlHe7wTrMi98DKKXBIp3bmf4C5/svoj7zKyuweEwF2m
-	MZXAVP7kJgt4K92L5c//sekxLD5r2juePfbxL67sICBcPc66+oWBygCAPLqWYyTXbljJKAC92mI
-	H+fPPv1/DWLS/qr9y+ffxHnrWLtZk3If2zdhFKyTNl78i3q1OVNXKbQ9asmzES/yZlghkog+mRN
-	8Jydr3o4V3ETgQYaP5akmJjYzXq0y7UngZc14+kYfPWumcLoIc/ldwDZ23Ft/1vGk0aZdDhY1KZ
-	+7qyoy8HPFHac6DtIbbjFPig32Lf9xrPOxunvQdKqWjCfQx8MMuVvJAkM9bhjaWB+33iZBG7gyE
-	FkkgIjiAlYeUpT//OFAOmRsDfRPVuF6ttY5O4J4lnMrJipYAULIxfnzoKqb84fE8ObM4BETnXQK
-	kOJgIYeyA==
-X-Received: by 2002:a17:902:ec82:b0:2ca:e19c:97b with SMTP id d9443c01a7336-2d3b082b573mr83408195ad.5.1786720438215;
-        Fri, 14 Aug 2026 08:13:58 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786720443; x=1787325243;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2AwaiBewPNb0w3Qz67JVI0ysWpkdHoufX6g1rsCJvXo=;
+        b=Z9pplUGiWwJb6YHHJNBVyIa6gis8hYZsdNA0spZbuBuEgjxsONd04ddwk6kJOrvRsk
+         FQjLe2gejiQmE4t7ZFaiLUe136bFCY3m+Ht/1KhIphOEf4oVhWte9ugexAi6LY1lvnSa
+         syb2qBwx5hMN9QAhudMowJHsjAFCfwSbz1ZMWGhXlsouKfiDgJmTS/JQXWBJPomvXifR
+         IqMP7dPde8SNn6Pupr5cJ6Me2R6shi/TxSVCnag0n9v3gzrAGLTHxCGxch+CX//drnAT
+         jOD19lT5Q9zNovBE6RxnGFV3hKlSlDt4xQMwxo3ftGdetnBaCEImAt4s8vcZEtOmB9kA
+         T5+A==
+X-Forwarded-Encrypted: i=1; AHgh+RqZ0FYDaDRmwoe+PLZl9ZRp14wGdWzWlR93xWMbC5NQ8mxZZEVV0eOujFl84ZU+idG1FT9W+po=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9yTZnIS0Msp/ea56IYwL742z8s+qELQbCtZMw15XWbC98eKP/
+	65eEte815/wYp2FQOVAkCanj0Zbluflsl+oxTWgYWICsblg+JQ+rkKR9
+X-Gm-Gg: AR+sD12iLdyHBNWudKn3qTi4sld5P5RhinlW+HuFWAgYg8NMor6UgDoroPzScLe0atl
+	+muYDFgZ76QzLzYrxbI4mfnNNiHwjiGPg9H9EcM1SNkqsfDvjBR9iLAATZ9gIhfRorIVP1ZJNQ/
+	hlRHhNlmbPRXGyRDbNHUusyRMysYISaZGomx5Lnb+nQTWSbGWFCJ1VRvh4/ljDICmaWh0Peskoj
+	9bq3xZUsp/qcbfXeCCYYZDcDdqygcQ02iO0YZh4frQgu4/s/biry+oMXdqLKx67HVwF5zOuBEW3
+	DPZww/fLO3Vza3yc73e/2IC/muLTLRCN7KgCcCvdnFBE/pC4vltZ7H3x3sXNgj7+eFez/LbZgYV
+	UygUnJEfPTr4P/tN4Z6KoXthqgT1YSwLyJhsXajoZVU+9rSikjxPRx3KQacl+VN1FHi7Q9Bep7i
+	6n5HaBSYKob3vG22zUWn25qpPxH0dsndeFXt5cE/mGk5+Lj5dfOKAqt+W+RMw=
+X-Received: by 2002:a17:902:fc4e:b0:2d5:2f49:b3de with SMTP id d9443c01a7336-2d52f49c24bmr37915325ad.0.1786720442919;
+        Fri, 14 Aug 2026 08:14:02 -0700 (PDT)
 Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3aec22f98sm11006395ad.84.2026.08.14.08.13.53
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3aec22f98sm11006395ad.84.2026.08.14.08.13.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 08:13:57 -0700 (PDT)
+        Fri, 14 Aug 2026 08:14:02 -0700 (PDT)
 From: Zhenhao Wan <whi4ed0g@gmail.com>
-Subject: [PATCH 0/3] powerpc/spufs: fix a refcount, a type confusion and a
- coredump underflow
-Date: Fri, 14 Aug 2026 23:13:38 +0800
-Message-Id: <20260814-spufs-groupa-v1-0-f38f7549ce20@gmail.com>
+Date: Fri, 14 Aug 2026 23:13:39 +0800
+Subject: [PATCH 1/3] powerpc/spufs: fix gang->alive double-decrement on
+ context creation
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,10 +71,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKMwf2oC/yXMQQqAIBBA0avErBNMQqOrRAur0aZFiZMRRHfPa
- vkW/1/AGAkZ2uKCiAcxbWtGVRYwznb1KGjKBiWVlk1VCw7JsfBxS8EKrWrt0JgJjYWchIiOzm/
- X9b85DQuO+/uA+34Au9ZGo3AAAAA=
-X-Change-ID: 20260814-spufs-groupa-6246fe77de7a
+Message-Id: <20260814-spufs-groupa-v1-1-f38f7549ce20@gmail.com>
+References: <20260814-spufs-groupa-v1-0-f38f7549ce20@gmail.com>
+In-Reply-To: <20260814-spufs-groupa-v1-0-f38f7549ce20@gmail.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
  Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
  "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
@@ -84,54 +83,60 @@ Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Junrui Luo <moonafterrain@outlook.com>, Zhenhao Wan <whi4ed0g@gmail.com>, 
  Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786720431; l=1879;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786720431; l=1857;
  i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=oQmhcafvryzQTr8aJS6N1tB2XEUUgWL4lgJR/IbHbFo=;
- b=zfG8nyBi7T3ub7M+Svd8MbP/SpBX15kVeB/MKzmI2tsFv1Jn0a9Tkd6kQRapj0IRc+71kQWlG
- 6ygYYi4+LN7C+D4Ol8M6zTy8bCMWhvKFP+a6kxzyBqvBfNBHYdc+/pE
+ bh=qpflxoDz4Q2LAuHcccN97A6fnIkF2G+PGjFWuzstZS0=;
+ b=jOy/AYDd7EIMyxpncNLcvaCapZRp5eD3TFKXnXkKchB1tiySy2Lxb7xaouIDUj8swq8VvCdOl
+ r2oHCGZedZqDRTjy8MjdP7EmQbMu6SA+ilnKvxfC4Uj5p9bBZZTcp9Z
 X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
  pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-Three independent bugs in the Cell/PS3 spufs driver's file and coredump
-paths, found by code inspection. The patches are self-contained and have no
-ordering dependency.
+spufs_create_context() takes a reference on the gang with gang->alive++
+and is meant to hold it until the context directory is closed, at which
+point spufs_dir_close() -> unuse_gang() drops it again.
 
-1/3  spufs_create_context() drops the gang->alive reference on the success
-     path -- the epilogue tests a value that is a file descriptor on success
-     -- so the gang directory can be torn down while contexts still
-     reference it.
+The error epilogue instead reads:
 
-2/3  On 4K-page configs the cntl mmap fault handler dereferences
-     file->private_data as a struct spu_context, but simple_attr_open() has
-     replaced it with its own object -- a type confusion. Fetch the context
-     from the inode instead.
+	ret = spufs_context_open(&path);
+	...
+	if (ret && gang)
+		gang->alive--; // can't reach 0
 
-3/3  The signal1/signal2/ibox_info coredump notes declare a 4-byte
-     descriptor while their dump callbacks emit an 8-byte u64, driving
-     dump_skip_to() backwards (size_t underflow) and truncating the core
-     dump. Declare the sizes to match what is emitted.
+spufs_context_open() returns a non-negative file descriptor on success,
+which is non-zero whenever the caller already holds an open fd. The
+condition therefore fires on the success path too, dropping the
+reference immediately; unuse_gang() then decrements it a second time at
+close. The unbalanced double decrement can drive gang->alive to zero
+prematurely, while contexts still reference the gang, triggering
+simple_recursive_removal() of the gang directory too early.
 
-SPU FILE SYSTEM and CELL BROADBAND ENGINE are marked Orphan in MAINTAINERS,
-so this is addressed to the powerpc maintainers and linuxppc-dev. A
-concurrent spufs fix series from Junrui Luo is in flight; these patches
-touch different sites and do not overlap it. Found by inspection; not build-
-or runtime-tested here.
+Test the sign of the return value instead, so the reference is only
+released on actual failure -- matching the idiom already used by
+spufs_create_gang(), which calls unuse_gang() only on ret < 0.
 
+Fixes: c134deabf478 ("spufs: fix gang directory lifetimes")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
 Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 ---
-Zhenhao Wan (3):
-      powerpc/spufs: fix gang->alive double-decrement on context creation
-      powerpc/spufs: fix type confusion in cntl mmap fault handler
-      powerpc/spufs: fix backwards coredump skip from undersized notes
-
- arch/powerpc/platforms/cell/spufs/file.c  | 8 ++++----
  arch/powerpc/platforms/cell/spufs/inode.c | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260814-spufs-groupa-6246fe77de7a
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
+diff --git a/arch/powerpc/platforms/cell/spufs/inode.c b/arch/powerpc/platforms/cell/spufs/inode.c
+index 2b54afb31529..23619fbe0bd9 100644
+--- a/arch/powerpc/platforms/cell/spufs/inode.c
++++ b/arch/powerpc/platforms/cell/spufs/inode.c
+@@ -436,7 +436,7 @@ spufs_create_context(struct inode *inode, struct dentry *dentry,
+ out_aff_unlock:
+ 	if (affinity)
+ 		mutex_unlock(&gang->aff_mutex);
+-	if (ret && gang)
++	if (ret < 0 && gang)
+ 		gang->alive--; // can't reach 0
+ 	return ret;
+ }
+
+-- 
+2.34.1
 
