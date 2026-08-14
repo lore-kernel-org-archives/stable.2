@@ -1,133 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FF4339872;
-	Fri, 14 Aug 2026 21:20:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AF8339872;
+	Fri, 14 Aug 2026 21:20:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786742422; cv=none; b=sojPmat4p4va/xKK36NEm7Ka4/YnYzfpz3YIDm5f6Pj70u0ub4F77dFoC4nDXudJb5rusB7gL9uJ1HlapAbCiW7TCh/DXSjivNaWeqsJ43avnWdENeYMRojZkyNZVrWdVAMMfoo0relgqp0so6DIzZstuN+7iEZlg+uaEOCKA0k=
+	t=1786742425; cv=none; b=SdieF/cwvGbWzP+UYG1YHso1BZM5nvU+j7rMiCBeMaJJb4sliSb8gm08tvFLOuhjiMTo7NZcD/m5FfH6Vswrxd87VKGvGi8dCOYZL0KOtEiD9L4rjbYDOD3xshz9coO07UY8DVh5NRsvpd8eIqGJZLski1VfEaYBEA52peo44/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786742422; c=relaxed/simple;
-	bh=LfiC7i1te87um7ohclD/3S9oECb1gQQNvt4+lqFIumM=;
+	s=arc-20240116; t=1786742425; c=relaxed/simple;
+	bh=5RSqLjRx4HyqqV8crTr1jXkIMp7xf39zVE5ruVKcLc8=;
 	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=qa4b3OqIlDwlX5q4qk82ZhEI1eq65vMTUh1ngXkksZTDZ5io7TPstvfKjNC8GJW2hw6QCxPSxyWUWitNbHmkNaWSV+2Oz92aKDlxujPpvN8I+PFfa4IZmvIqvl7Z/Kzt/qpCIXdsfW/Luc9yaFuYTY7cPX974jOWypMygTCqTLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EuJJZ4KP; arc=none smtp.client-ip=100.103.45.18
+	 Subject:From:To:Cc:Date; b=ZmUpQQ2zpuzjIBcNKP/KEn9M+ATuYz9MZuyGhfUEtxJTENuxnRxSZJ0ZnozkE9pl0PmIwDp596sEUX8kn07HgrX+EdTZLCbCU2Bo3zN7mf3un1/wVteuVAmjWeHx+OgxlqRkPBG1Ewtz7/sRzs5GvAx6D4B8uCPEDWzEspIFwI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jYpGxKRM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EuJJZ4KP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40F51F000E9;
-	Fri, 14 Aug 2026 21:20:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jYpGxKRM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DB431F000E9;
+	Fri, 14 Aug 2026 21:20:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786742421;
-	bh=7s498hmyPH95uXRNYFX/lOgCIdJtR45crHIwDFMIeyo=;
+	s=k20260515; t=1786742424;
+	bh=K9808pCTS0lU1x+gV6QC/9Hva49VgRKffIZnTWJGqfg=;
 	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=EuJJZ4KPfCIwikniyrMarU2e7tAtOpih209FaJKH4wzFgBimCJAl6Sv2LxOlObfhB
-	 EkzZw3hkYvS8RFH4G2hitY53oggUYhdhoXN8HUdRVbCB3lfDul8ZX+li1ugzo07S4G
-	 0V1bXSSrP8EukbwzGRLKoN4rdaKF9s2G64mZPjefBtwZIwO8L1mw9tlaahPI+1WLDe
-	 Z4IQJkDbLBHdSf8WWp80WSwM/ySy0ErBRGY6X2HjHlegWcHEDgzJu3BUapNc7QzkOD
-	 XoBTb/eBzl6g0RI0LKNqFPmgQD+fGiNG9qlwnE4vf7s3McZ98OyE83pz20Fn761LgT
-	 hQiHEwPI2nJlw==
-Content-Type: multipart/mixed; boundary="===============0578281140868157793=="
+	b=jYpGxKRMGIK+OaiFMKJk493CKEWveL5uXMOEyI0QIu089fSDV4AO022kBvWSYWjtb
+	 O+vA9wsQj0enRxoQc+T3s2aLlm8Yb2Ta00QQRZVakUnisWWFm3iam6r5XQf+jlJ6cm
+	 Bu57XqLuD0HJDSBo5LFmbdkCJg62nr7v2EO7U3XbI0gNDhws1RgKvcdw/71KseQmBM
+	 A7R8WujCHTNBcD2aYz5uPVoXw7BgW8DAMTPi8GiNSGlSareo4iObEA0kb2ueFNT2CR
+	 fnyeB3Sf3TeIa4gSB9IH2qJZtTzDqrUveWNPltTY9Fef0bmon1Hn/Kq34GqW5gVyRW
+	 EWIkl04L94YWQ==
+Content-Type: multipart/mixed; boundary="===============3605277855702563190=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <eba560e6a2352222c0ff0e4a8cc4d0525abe3ac1306d42958455ec2c2494801b@mail.kernel.org>
-In-Reply-To: <20260814203248.3714536-2-vineet.gupta@linux.dev>
-References: <20260814203248.3714536-2-vineet.gupta@linux.dev>
-Subject: Re: [PATCH bpf v2 1/2] bpf, x86: Fix per-CPU address resolution into an extended register
+Message-Id: <7276efcb565f80eed9a05dd364570b432a68ba5d980d9d1676bf620501f10040@mail.kernel.org>
+In-Reply-To: <20260814203248.3714536-3-vineet.gupta@linux.dev>
+References: <20260814203248.3714536-3-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf v2 2/2] selftests/bpf: Check per-CPU address resolution per register
 From: bot+bpf-ci@kernel.org
 To: vineet.gupta@linux.dev,bpf@vger.kernel.org
 Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,x86@kernel.org,stable@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
-Date: Fri, 14 Aug 2026 21:20:20 +0000 (UTC)
+Date: Fri, 14 Aug 2026 21:20:23 +0000 (UTC)
 
---===============0578281140868157793==
+--===============3605277855702563190==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-> bpf, x86: Fix per-CPU address resolution into an extended register
->
-> The destination of the per-CPU address MOV is encoded in ModRM.reg,
-> which is extended by REX.R, but the REX prefix is built with
-> add_1mod(), which sets REX.B. REX.B extends ModRM.rm and SIB.base, and
-> this instruction addresses memory as disp32 with no base, so the bit
-> has no effect at all and the high register bit is simply lost.
->
-> Every is_ereg() destination therefore resolves to the wrong register,
-> picking whichever one shares the low three bits:
->
->   R5 -> RAX    R7 -> RBP    R8 -> RSI    R9 -> RDI
->
-> With BPF_REG_5, whose reg2hex is 0, the emitted
->
->   65 49 03 04 25 <off>	add %gs:<off>,%rax
->
-> adds the per-CPU offset to RAX rather than R8. The destination keeps
-> the unadjusted address and RAX is clobbered, so the program goes on to
-> dereference a pointer that was never made per-CPU:
->
->   BUG: unable to handle page fault for address: 0000607e386a8894
->   RIP: bpf_prog_707837aafd2aa9ae_update_percpu_data+0x93/0xc9
->   Call Trace:
->    __bpf_prog_test_run_raw_tp+0x2dc/0x7d0
->    __flush_smp_call_function_queue+0x1e9/0xc80
->   Kernel panic - not syncing: Fatal exception in interrupt
->
-> R5 is the mildest of the four, aliasing a scratch register and faulting
-> at the store. R7 aliases RBP and would corrupt the frame pointer, R8
-> and R9 alias the argument registers.
->
-> Use add_2mod() so the register goes through REX.R, matching how
-> add_2reg() places it in ModRM.reg and how emit_priv_frame_ptr()
-> hardcodes 0x4c for the same instruction with R9. Encodings for the
-> non-extended registers are unchanged.
->
-> Problem showed up when trying to resurrect BPF_GCC CI (selftests built
-> with BPF_GCC).
->
-> This has gone unnoticed because clang reloads the address into R1
-> before each per-CPU access, so the destination is never an extended
-> register. GCC keeps several per-CPU addresses live at once, and
-> test_progs-bpf_gcc panics the kernel in global_percpu_data/init, where
-> the address of a .percpu variable ends up in R5.
->
-> Fixes: 7bdbf7446305 ("bpf: add special internal-only MOV instruction to resolve per-CPU addrs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c b/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c
+> new file mode 100644
+> index 000000000000..962faea8ef90
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c
+> @@ -0,0 +1,114 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <vmlinux.h>
+> +#include <bpf/bpf_helpers.h>
+> +#include "bpf_misc.h"
+> +
+> +int percpu_data SEC(".percpu");
+> +
+> +#if defined(__TARGET_ARCH_x86)
+> +
+> +/*
+> + * An ld_imm64 of a per-CPU map value is followed by a mov_percpu_addr that
+> + * reuses the same register, so the register the address lands in decides how
+> + * the JIT encodes the add. On x86 R5, R7, R8 and R9 are the extended
+> + * registers, whose high bit needs REX.R because the destination sits in
+> + * ModRM.reg. Check one program per extended register, since getting the
+> + * prefix wrong resolves the address into whichever register shares the low
+> + * three bits instead.
+> + */
+> +
+> +SEC("raw_tp")
+> +__description("per-CPU address into r5")
+> +__success
+> +__arch_x86_64
+> +__jited("	addq	%gs:{{.*}}, %r8")
+> +__naked void percpu_addr_into_r5(void)
+> +{
+> +	asm volatile ("					\
+> +	r5 = %[percpu_data] ll;				\
+> +	r0 = *(u32 *)(r5 + 0);				\
+> +	exit;						\
+> +"	:
+> +	: __imm_addr(percpu_data)
+> +	: __clobber_all);
+> +}
 
-Should this include Eduard Zingerman's Reviewed-by tag? In the v2 review
-thread, Eduard provided "Reviewed-by: Eduard Zingerman <eddyz87@gmail.com>"
-and specifically noted "Please don't drop acks."
+This isn't a bug, but would it be tidier to move the percpu_data
+declaration inside the __TARGET_ARCH_x86 block?
 
-https://lore.kernel.org/bpf/3338fd93155ac14b3b824ce232ae7be288072608.camel@gmail.com/
+Currently percpu_data is declared above the arch guard, but its only
+readers (percpu_addr_into_r1/r5/r7/r8/r9) are inside the guard:
 
-> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
-> index de7515ea1bea..276d076d2993 100644
-> --- a/arch/x86/net/bpf_jit_comp.c
-> +++ b/arch/x86/net/bpf_jit_comp.c
-> @@ -1887,7 +1887,7 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
->  				EMIT_mov(dst_reg, src_reg);
->  #ifdef CONFIG_SMP
->  				/* add <dst>, gs:[<off>] */
-> -				EMIT2(0x65, add_1mod(0x48, dst_reg));
-> +				EMIT2(0x65, add_2mod(0x48, 0, dst_reg));
->  				EMIT3(0x03, add_2reg(0x04, 0, dst_reg), 0x25);
->  				EMIT((u32)(unsigned long)&this_cpu_off, 4);
->  #endif
++int percpu_data SEC(".percpu");
++
++#if defined(__TARGET_ARCH_x86)
++
++/* ... test functions using percpu_data ... */
 
-In the v1 review thread, Eduard requested an inline assembly test with
-__xlated() matcher to verify the JIT generates correct code for per-CPU
-address resolution. A test was apparently added in v2 as patch 2/2
-(tools/testing/selftests/bpf/progs/verifier_percpu_addr.c), but that test is
-not present in this commit.
+On every other target the object still carries a .percpu section, so
+libbpf still creates an unused percpu data map for it.
 
-Given that this bug affects all four extended registers (R5, R7, R8, R9)
-and can cause kernel panics or frame pointer corruption, should the test be
-included here to verify the fix works correctly?
-
-https://lore.kernel.org/bpf/5acb321999d7cc7ebd945c519495a8762501e3cc.camel@gmail.com/
+Comparable files in the same directory keep objects used only by guarded
+programs inside the guard. verifier_private_stack.c declares its 'struct
+elem' and 'array SEC(".maps")' after the '#if defined(__TARGET_ARCH_x86)
+|| defined(__TARGET_ARCH_arm64)' guard, and verifier_ldsx.c declares its
+'arena SEC(".maps")' map inside its arch guard.
 
 
 ---
@@ -135,4 +116,4 @@ AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
 See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
 CI run summary: https://github.com/kernel-patches/bpf/actions/runs/31839526403
---===============0578281140868157793==--
+--===============3605277855702563190==--
