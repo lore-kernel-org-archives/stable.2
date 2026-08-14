@@ -1,41 +1,44 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-41.mta1.migadu.com [95.215.58.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934623469EE;
-	Fri, 14 Aug 2026 09:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04E7370D7B
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 09:38:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786699772; cv=none; b=mvydSpR1lcfA45OPmUWo5WTOFAmDL7OCZ+J+tXVLF+OWadg7ddZEhVswMqBMa1kNs6wyNKKmmEuhQb7on4LBGAo12FKP6z82CBSNX3mGPtqWJVayz5cG+MPN5iqD1ncnWiSEjed/3R2x3QOSkAEl0ZBSsQzBzH7QhUzxY1kSdKM=
+	t=1786700287; cv=none; b=ilqkGEKds6wu6UGo1mD3rUD4s6GDjyDQykMChxx5Jch9Mvk5ePzbiedXASF/jYL1mQy1at+0DIXi8VZGn6CiMk/TU1KsMgUKYVXmFZLhg68VyHAKjZQPBcDr5DKodWujG1DmkENfUd3DuMCqe646d3LzTGcP/+Rk9ODBRix9QJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786699772; c=relaxed/simple;
-	bh=BBUm2SdUKKNFFTsHjyEsFktq+fiAN+s0e+LPQ3vnIoU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bxK94Ar45Nup8RQxSC8SjfdL2cT/04llCuqbJl/treyi+heSfKzJs6vcY94m4v6zepUkOZebX80LXPbboiVNOa0R2cIQ57gDsTU71n/ZaP+UmpFSVEmZkBRo4ww2DajXmXiWVCm6RI/U8vc5HcNqYkLZbEAFcIR1rj5AIoRLSFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pkbVGOLw; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1786700287; c=relaxed/simple;
+	bh=FVQfDUrbHjepdRtpMRhLJNPKhj6tVQsSgvGlErmtn/Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a6FLeLbhmTGf8KSgUR+wEIcDWh0wRzSjiodRLX8yBUpLaTZ0/vCp1lO0ELJWPCXs5x3ybgTBAm894rpW69RtzlUNioWSw7Dce+3V/4ixidDzCadBfJNFJlwh1HaxAd4uhBf7XCXx2xVcGNKF5aphQcXl/WHwgF5r0YOLPuXXzPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=R3uyBxVO; arc=none smtp.client-ip=95.215.58.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pkbVGOLw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=0J
-	LHZTe2EOR4+PpHpjRjpPfkYRKj6c1rp4X0nCAmFVU=; b=pkbVGOLwvutrEFrORF
-	ew6WzHcwV9f121JBTwRRiOH+/fKSu9jSF3lTrSq8gHI7cn20IrIBgKtsVxPPEkUF
-	dAGk+F0wX31AhhEYocQM1oHch5kSuoH9cAFr9u131Uh9PCrYD+m9WHN09hQJeLtN
-	VG3u2DLHT2PXS0aHReXRP8t0M=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3CIDc335qQzYVPQ--.10550S2;
-	Fri, 14 Aug 2026 17:29:02 +0800 (CST)
-From: Gongwei Li <13875017792@163.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Kiran K <kiran.k@intel.com>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Gongwei Li <ligongwei@kylinos.cn>,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="R3uyBxVO"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FVQfDUrbHjepdRtpMRhLJNPKhj6tVQsSgvGlErmtn/Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786700283; v=1; x=1787305083;
+ b=R3uyBxVOLncu2mzEvmoRY9tH2UGU1a/f/HUawNBCOCFf0Fv+PN44//29O+qazdLe4k2yg4kY
+ XFxE8q7jMFkuO/J8Ik6HkgHlAdwuZl5n0hyUis0Lj9fpgAMwwCqQPL7Ga26JWTWTWS7nyDs0fol
+ J6m90Pv/3GsnsM9qf2nhoTJU=
+X-Envelope-To: stable@vger.kernel.org
+Received: from thinkbook16p.. (223.70.160.239)
+	by smtp.migadu.com with ESMTPS id 5b9216f55cc885cc;
+	Fri, 14 Aug 2026 09:37:53 +0000
+X-Migadu-Flow: FLOW_OUT
+From: Gang Yan <gang.yan@linux.dev>
+To: yanjun.zhu@linux.dev,
+	jgg@ziepe.ca,
+	leon@kernel.org,
+	linux-rdma@vger.kernel.org
+Cc: Gang Yan <yangang@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: btintel_pcie: fix double free of IRQ in remove()
-Date: Fri, 14 Aug 2026 17:28:38 +0800
-Message-Id: <20260814092838.527062-1-13875017792@163.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH net v3] RDMA/rxe: Fix integer overflow in mr_check_range() leading to OOB access
+Date: Fri, 14 Aug 2026 17:37:40 +0800
+Message-ID: <20260814093740.292954-1-gang.yan@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,52 +46,65 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3CIDc335qQzYVPQ--.10550S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CF1xZFyktrW7GrW7Kr4fGrg_yoW8WF43pa
-	98WFWFyrWkXr1UWwsrAa1fXFWUZayrurWfC3sFkw13Wr9xGryktF4rAFyjqr9xCrZYkF4Y
-	y3Z8tr95Gw1DXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joZXOUUUUU=
-X-CM-SenderInfo: rprtmlyvqrllizs6il2tof0z/xtbC-h5pJGp+397ZyQAA3o
 
-From: Gongwei Li <ligongwei@kylinos.cn>
+From: Gang Yan <yangang@kylinos.cn>
 
-The MSI-X IRQs are requested with devm_request_threaded_irq() in
-btintel_pcie_setup_irq(), but btintel_pcie_remove() releases them
-explicitly with free_irq() and then calls pci_free_irq_vectors().
+mr_check_range() validates that [iova, iova+length) falls within the
+registered MR range using wraparound-prone arithmetic:
 
-After .remove() returns, the driver core releases the remaining devm
-resources of the device, which calls free_irq() a second time on the
-vectors that were already freed and whose MSI-X interrupt domain has
-already been destroyed by pci_free_irq_vectors(), resulting in
-splats like:
+    if (iova < mr->ibmr.iova ||
+        iova + length > mr->ibmr.iova + mr->ibmr.length)
 
-  Trying to free already-free IRQ <n>
+A remote peer can craft an RDMA-Write/Read RETH so that iova + length
+wraps to 0 (e.g. iova=0xfffffffffffffff8, length=8), bypassing the
+check. rxe_mr_iova_to_index() then computes a huge index (int idx, only
+guarded by WARN_ON) and rxe_mr_copy_xarray() dereferences
+mr->page_info[huge], causing an out-of-bounds read/write and a kernel
+oops that is triggerable by an unauthenticated remote peer.
 
-Fix this by using devm_free_irq(), which unregisters the devres
-entry and then frees the IRQ, keeping the free order introduced by
-the commit below intact: the IRQs are still released before
-pci_free_irq_vectors() and no double free happens on devm cleanup.
+Rewrite the check in overflow-safe form; the first two clauses guarantee
+that the subsequent subtractions do not underflow:
 
-Fixes: 041677e7aad6 ("Bluetooth: btintel_pcie: Fix irq leak")
+    if (iova < mr->ibmr.iova ||
+        length > mr->ibmr.length ||
+        iova - mr->ibmr.iova > mr->ibmr.length - length)
+
+With the fix, mr_check_range() returns -EINVAL for the crafted iova and
+the responder reports REMOTE_ACCESS_ERROR instead of triggering the OOB.
+
+Assisted-by: Codex: GLM-5.2
+Fixes: 8700e3e7c485 ("Soft RoCE driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gongwei Li <ligongwei@kylinos.cn>
+Signed-off-by: Gang Yan <yangang@kylinos.cn>
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
 ---
- drivers/bluetooth/btintel_pcie.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changelog:
+v3:
+  - rebase on rdma/for-next
+  - CC to stable maillist
+v2:
+  - Add Yanjun's reviewed-by tag as he suggested.
+v1:
+  - The reproducer is attached in v1 thread.
+  Link: https://lore.kernel.org/all/20260728091128.9116-1-gang.yan@linux.dev/
+---
+ drivers/infiniband/sw/rxe/rxe_mr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index 2b7231be5973..8fc4b8e3e4e1 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -2966,7 +2966,7 @@ static void btintel_pcie_remove(struct pci_dev *pdev)
- 		struct msix_entry *msix_entry;
- 
- 		msix_entry = &data->msix_entries[i];
--		free_irq(msix_entry->vector, msix_entry);
-+		devm_free_irq(&pdev->dev, msix_entry->vector, msix_entry);
- 	}
- 
- 	pci_free_irq_vectors(pdev);
+diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
+index 875eceb55fdf..71d9ea477289 100644
+--- a/drivers/infiniband/sw/rxe/rxe_mr.c
++++ b/drivers/infiniband/sw/rxe/rxe_mr.c
+@@ -33,7 +33,8 @@ int mr_check_range(struct rxe_mr *mr, u64 iova, size_t length)
+ 	case IB_MR_TYPE_USER:
+ 	case IB_MR_TYPE_MEM_REG:
+ 		if (iova < mr->ibmr.iova ||
+-		    iova + length > mr->ibmr.iova + mr->ibmr.length) {
++		    length > mr->ibmr.length ||
++		    iova - mr->ibmr.iova > mr->ibmr.length - length) {
+ 			rxe_dbg_mr(mr, "iova/length out of range\n");
+ 			return -EINVAL;
+ 		}
 -- 
-2.25.1
+2.43.0
 
