@@ -1,162 +1,178 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010025.outbound.protection.outlook.com [52.101.84.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00DA4A341D
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 19:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786734828; cv=none; b=CcGrJOr81J30uq7hSQGQQQy63VtiB7XjWLTvMJlgmCGEcn+DTon9UNR2juiEe7ScWDX0eQv1J7DugbGTA2WZnE9FeYppp9KcLycCNz2fxPu4kkUyZc0FLBIUf1PZG6GLwTAjsxRtUzwGEpXX8pZBmGY6TQlwiaI5jV8OaBN5/uI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786734828; c=relaxed/simple;
-	bh=e+F+dz7Vrd/NGRB76Hc1hxy6p+za7UBrVqp+7mia+u8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QHNfrEQYcIEdYl8r17xlmYNid6Gm9y1d2ZlpRNzgnbEYRvdkqypR5oacVW37OIJ/4DsjFTuic8y/sscXPQw6RRnZ5qZd/P9dUCoZPMfvHKmqcms/Y2zuHNE8JlrJC69NY6tLdwYWhVxDxLzp43/kGp27P4jbaWXt6az2Uf70AuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GMPRUNkY; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E018382F0C;
+	Fri, 14 Aug 2026 19:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786734913; cv=fail; b=G9Rk6e15V+qWhIkxXJdcRRoHtoU/9ONK9N3IZm+EtQ9dVM4MniI5uDBBApnfwEZ+hSt5dkYVx2EQak+WnQDMg8BI3D4URjRmKCH3/xAdHSThuj/78YrxcB+fbHiliQhvPZY6xyJxvs+lAf1ENSunr3h0RlioHZ87Kmfj3yQ0qks=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786734913; c=relaxed/simple;
+	bh=XqkFW5T15wK6oKgx8esysLtvbR073hAmeAO/2TtFsho=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=afIhNv9+eJwTxA5h9HpwHPNw76azZQhHb+A6M4ASvP4wu8ZcAefRGA6QTjtwjvXBIg9zTEJ0smPv4Y+cfcglo6fvUjzIaj3AEjGdUpsUN1eIVVIo7pVXV0e0MuF8KZaCCbG5EPuvgY+euXZ/NZvesplsObqP49qJa7Q75T//nwo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=s1V9v+z5; arc=fail smtp.client-ip=52.101.84.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GMPRUNkY"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cbee846deecso1528668a12.1
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 12:13:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786734824; x=1787339624; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=OPiMr7zjTaHIEwhTowE7X+rM4xtbxseCHAGSiq8mAZ0=;
-        b=GMPRUNkYCJhxjtiAecgL27jmQ3Gn9HjecoyuhybCL1rzbRldPTXzJKQAoydk0Vejzz
-         3+sXXmWqvFJvOAIly6t0/arQb9U0gYkj1rkoTomH6/LLnEgS2RfPc4C++E0hbHOAo/mE
-         lbGCAG3xb6vS4F/Hxtq7fRQi/n7GFJIt+PaxaD5DSc8VtHbOhySwX1l3Uzan6UZ1Xrcz
-         OujvlLYDpMXND1TunVx9e8KTaK9CoZF4Jpdp8iQAqYi6cV8CAm9xWN5lbG9L7dHhSHVm
-         c69DTcEoYZBq8JHKlFIKxvvkcAHQd+Vuw5KF4fc8fIhpl/1PnbbxfnJ1utSmx21QlVqi
-         mzMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786734824; x=1787339624;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OPiMr7zjTaHIEwhTowE7X+rM4xtbxseCHAGSiq8mAZ0=;
-        b=I3sAuX5u+nrY+yOVPE+1aFinIPY+lgl2lHVVE19Rl4G9Zpwtd7mtzJ3vyQivU2T08C
-         XvJVF/iJwWJeQIwX+lmIlQCbDOsnXcwfe2jmEFOmks57w2ocm1FW2t0UfeFBrcbi3at7
-         EJ17iGpIPHuRFuMnQ7OJaE319Vydrr7D+NzXMlyjIBl9ZlyMp7/LCEFvn6CrWixpVx0U
-         ffjqmIAljSAuzG2dROYxyk4C/6mexMswOkT4HRM8MdlY71Qu+RmREP8gD37LHNYkIdGi
-         03VO/cbi++6Us/MhMVRRIV0qgi5UNAEVRqy2yhRLKPrRbpfCAc2qy52pXUUXfMYBcrpk
-         QZdw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq+FEcl8GZRYGy44LsA5p8CXwcpLf/Xaemoi3G/WnIBN8MGBtXC1xLX8u5b66TzbG5aarcpCCg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyX21MKEA6ILnX5qqFJo/6qFNCBeJe4YKZYeekZiFgpr3NhWPRL
-	IrqQl1mYx89026H5oMzU+oDk2xco3Tx3IfYLDZPd7dCNg9HErYLGNkkC
-X-Gm-Gg: AR+sD12CQYfYCgnTnLKjG4YEjvh1CyNMqGyuEzLLlDvfVnOSNgIGalXC0aoYe96xp3M
-	h/mpngg0fG3Utdu1A/AWdYOlBjzawOIqfAQSdjSB3kPyI3NsNEZpWd39N2cdvTjIKO3zr6HGRSJ
-	SAIfirxLx0HilPK36VRv+WgGDqcM0azm54G5YjqsgkPulTYZ9CXoneRm1ibTcpMdi6giqbkIkwc
-	VA6IEoTHK1K1CrCjM0oMo9/7osl84UwsLV/IR3NBuR0GCHawTntBd49LfwCcWAJ+Wd2KxJ6/EcA
-	KGdnug3BhD15K5ySnNp5RkqspSv3mqq6vRJA2uh/qC+T6b2AMOgkOH039QmTrioNOkOgT08Pjb8
-	jUuhK/0rspFR7fKj0BGpWbxGp2Plf12kLqZ1JngSfK0ZgjNJbuChwlmv3SCo/+v7CwHClXoW0ua
-	4SlBy5+3IHWxmqzQ4p4YEZVMj2+OaUGmKnpv+R0bVdR/JL0OFAgQRPkIDtl9UYdGxuxowTb8EdW
-	tS/NZjpJLjvfuV3YD1dkvK36b8dPHtszYfZ18q4pWiD
-X-Received: by 2002:a05:6a20:e613:b0:3cc:55ed:dbfa with SMTP id adf61e73a8af0-3cc71cd3ee1mr10223981637.27.1786734823591;
-        Fri, 14 Aug 2026 12:13:43 -0700 (PDT)
-Received: from ?IPv6:2a03:83e0:115c:1:b77:bdad:4587:c682? ([2620:10d:c090:500::6:84a4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320e9df68ccsm7403359eec.14.2026.08.14.12.13.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 12:13:43 -0700 (PDT)
-Message-ID: <5acb321999d7cc7ebd945c519495a8762501e3cc.camel@gmail.com>
-Subject: Re: [PATCH] bpf, x86: Fix per-CPU address resolution into an
- extended register
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: Vineet Gupta <vineet.gupta@linux.dev>, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, x86@kernel.org,
- 	stable@vger.kernel.org
-Date: Fri, 14 Aug 2026 12:13:41 -0700
-In-Reply-To: <20260814165557.3405518-1-vineet.gupta@linux.dev>
-References: <20260814165557.3405518-1-vineet.gupta@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="s1V9v+z5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PaGRD3a6ONX6MaPHvp/9E2xqS7iI2jklGlsClLrYIhmm6ipaCAkC9QWLBRnXsWch9fkVxpZpI4SmiK5DXLKhpNKhs5pz/XSHpMJPj3ckwGA7OlHYRyAQRVz0+AM+S3g8haxCEVsvwbxQfzRHVRrEDCHbjte1Mxo4oRWhGouKqBtuo1zvD8TceRsUM05xIa7ey/Coe0domjAwteqh1186EjO8G44V++kHnVWeoKcB6LjMdvQB5EJzrT2Ye8KHHgaGc8EiYNrzmt/YG5jToEPsONxcjA+k3YwJOILRn9UX90tNNCLXOVbP2Ox1xeuQef+08u9/iymbbXSBE8yEmLdl3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y/p0wzOXAOOuCXGBb8sadiAlrfLrUESYFCKs83aXYAw=;
+ b=uT1tQ/1e2K2/QbqwQzs3PQLYL3kP5W2lwTIpjscAqSU74eMyAk28ZVGHkLT7BvOJaFU0V7UJOo/AzKK5ByjpdB6ODy+m+N+WawNm8ItTWR9qP+GBTPKbkeJ8gbqUJaIOsQ8nNPopO2RT03zcnsvIQuxmFktHUAwTXgWwZxsf+lBK55dOD2/rGjBZyZrXfHS5VEwPY2/u9zhwy8D/hAb9O2UhffNvFwhMF85xpWks8MXkQAP8bc1SEshtky6GJFbeHWqstWlnfm02MRvAakiwCT9n4KcZodpvgAt4s6YCnve9y6r4U4/I+o1bcMnzXy34ZeW6GFq8OlANjJSbshX5mg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y/p0wzOXAOOuCXGBb8sadiAlrfLrUESYFCKs83aXYAw=;
+ b=s1V9v+z579+Kz4s9ULIR98SBA8/v/3c2yR0HxKCnf/x4/6AVOPg1NT04tf1HSt2nmJUP94FMpBbtdsk9seO5xipoHSnQmg1+G7pZIVAXgwHI0DuwU1Kp8sUrXj8LImnFVDrojBpGaOj7Swjha/wNR3W7uEDkOMi/aq5zN2v2BMHTk21+CuQQ+vqaOeVcGF2lINtFPnaNoQkP+BvsWZioXTNi7ivInDedsnl4vK2SylnX8jcc0RBNf/4hifNkCICvl+OLyGN0qac7z5+HTAuPbxT4SrvHxICEh4dSySZ88cZI9s8nYvDogeC8VDUZGPLkm4yHHE82ZnUQYgwl5lWUcg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB11865.eurprd04.prod.outlook.com (2603:10a6:800:2f8::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
+ 2026 19:15:06 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
+ 19:15:06 +0000
+Date: Fri, 14 Aug 2026 15:14:58 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Sinan Kaya <okaya@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: qcom: hidma: fix autosuspend cleanup during
+ teardown
+Message-ID: <an9pMnafob9F-Ry_@lizhi-Precision-Tower-5810>
+References: <20260808112551.2786782-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260808112551.2786782-1-lgs201920130244@gmail.com>
+X-ClientProxiedBy: PH5P222CA0009.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:34b::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB11865:EE_
+X-MS-Office365-Filtering-Correlation-Id: bba1ec0e-c779-4b60-d8fe-08defa385985
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|7416014|19092799006|366016|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	si/k6qlOBIv61Rn1Raw/CRx+abhFeM4UzA3ne/xT+rxTfwDk+hwCTm3R5hUaFc9u7w9WxULpMVZCQriLuiI241cwOMdBnJBy44hRHiedEeBssQU3S/hRN+DWzsjyc8jfEjYwMpvzoYymB8/9GAqGxJ88TB5CeFh+B+g756/lCewLWqlouZqqq/bvJhNV8DB48BrYWjEJhLkkgq7h+StX3yrh957Fq3wPbLejKsXdY1bv0XCRjbMI1EiABVbs25/ftQtx6X4zLw2256yF/5wYfCnv5RpszbbGLxvDbTdRygObgeKw6NCfmgdjvbVbzEdSq62O02586mrirdpzPGwXi3YCDspMXqPZ+iBnyu6Tat3cvljPeDHG55R8C68GXCjUN2ysKw11eciNqTFhvH2QzvE2Wiv9i5JPPSyk5CIP0NyhzEpZsHW8gp5eQfeTv3o/vEYSqyxSEzqPtct/mB3FUFMuRvgI4zBYfPpNz1Eu8yah/VT8PZjgaMcA1DjqcaLPNqHRNB7PIfF7endEOuF6rrwA3neN57wp9I+vYnB/5m+wDCZ9eREYzAGrDTxSpZRGFuPdcHJvRpyA6fWaNLJXxGL8+8qoheqPqSueya9sYZTjfmeqx4Z1BJ4Y6b2SMG3YzXG4GyfKh/br8XI/MFTJu/X+PGFcAOPQGhk/+BQl+tg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(7416014)(19092799006)(366016)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?7bJ9IzypGUCPZavwC+SF0TKmzpgnXAlFm9MmfGdBzdP9xHDN+MBIIlnPwhfw?=
+ =?us-ascii?Q?zgW1q0N/qlT28HVLlkclrLzf4y1rZfI+1tNJbmcpn7//aS5NfEDj/B864teV?=
+ =?us-ascii?Q?F2ENCh67YfyWFFPaaSgqM12BqgcFeOnyprZleYK+Pp+ptTV5jW5l2DcKEB78?=
+ =?us-ascii?Q?BoXawKKOLu4WQ3OF08LNDaZTf3Kv1nCY5bjWpXywyKTE80cJn1p3CxPj0L/I?=
+ =?us-ascii?Q?GUZT5wrLYtgGIP8srDvLAQoJ7HIk+Fb+RwNbomOY3paotsBtKBRKHSCJWfP4?=
+ =?us-ascii?Q?3YhJnrCy/ITuOfGlhI51yPS9rnp6pzfzgzieVPipAFC++P0LouF2Q9degsCl?=
+ =?us-ascii?Q?iX5GpBxMUQzpt7/N3BMbDZdvakAo+t6OV5Rxydsn6imC7PfIEqGbsDOBGaKj?=
+ =?us-ascii?Q?8tR1TpsnacLlO4/XAgeQ8Qk5Pk7sSo7OS3Svk3fF0Uqe5CweIjAF4bsXbj9F?=
+ =?us-ascii?Q?KiLuq+IqQJzdn3leE+t9+aGtPCDj6/Bl2IiAEag21JgAB4vdwc1xqTQihij+?=
+ =?us-ascii?Q?mPYu4XFF9CVEoT2eIyAbFWIa/P+v5iyHDzCSn9ld5eA6PahYLROGTJbH2Oi2?=
+ =?us-ascii?Q?XXfvcEgoiIZGXBW2m2d6CC4thyBtUeeECigB/sNA8GQcINtQTvKIAN21iTOl?=
+ =?us-ascii?Q?mKOOnnINqwq/zf+R+1/BL7BQr9pyQB4vkC8cWDZKzb4f0cIUYDf50ll7oki5?=
+ =?us-ascii?Q?P77vzIBe/ogD+znzLTFeEOGe0B8VCiIPqYFUqHk4kluJ+n1ivH0bZl71rCcf?=
+ =?us-ascii?Q?HzPN+SqdNMGUj3EfWO7DySFusB9yEzVGDktasGWmUFrfEhHZu/+MLrC/4Iyl?=
+ =?us-ascii?Q?pKhnWf1puFvhz/75Pz7Dk/p4pcF6ZducJayn5kDI3nJngDWXZ3F76Cvott8V?=
+ =?us-ascii?Q?UjaKtwpnTPh56c1ajLB4CVK17YWL7NFn3h6iozilKWLSJ2K3mrOhNy7hMfof?=
+ =?us-ascii?Q?tbNSEyvIST3M1sp9vKgORDUbFSf/9nhin3KrrHniQpaIP2E3lDWtW0oP8yk8?=
+ =?us-ascii?Q?PlzRnd+mxYosoPVGLIGEFaIUFORTfVqljITr4ZAoO/0K6ENHPyAy9AVMiiLb?=
+ =?us-ascii?Q?utoIdTDCCVWPvdWN34wreRGFoCgI8IPzrnpS4CzZI0e1B6jLR6VqacSUNRHm?=
+ =?us-ascii?Q?bzLRJrxThTsBzyDgcbfUFoOFXgUoRzWrtwOPr+EYczqWnkrmXfD9sSI/kxGo?=
+ =?us-ascii?Q?6FPnihasCCbXSxmIUce0O6rpVKbQIAEpUv2OZhBfkx1S0Cnj20wMWRfCco6U?=
+ =?us-ascii?Q?DLa4pRDTZiVQXJ+ngGqHsy7zbHcoMLaKBAaTquLgCAP9CqRjEcAP5RuHO05f?=
+ =?us-ascii?Q?/v31vXkQUI0mmhVPDUqr1Hd2dwdvCq04HRG+2nsL/eAxfGVcJ3i3dofaoMgQ?=
+ =?us-ascii?Q?H6YiL3NMaBoAQ/Oux4iWfwPmQpMtrUkYSVdhDl0t2xClg34c85uKTsERnqiC?=
+ =?us-ascii?Q?G906/48/Bw5GCQad20KVQJnljCs1vNdrjUMmMuk4URRpU/vhm/pDpcRbRZ4a?=
+ =?us-ascii?Q?SuJ4tQbrGdWqlKPDlpDWjCZx2l293/jpaUHzQOoW2GtB2WrBAGzlVxquYKVq?=
+ =?us-ascii?Q?wI113ol3D3Gru5+FDP129HCfw9qJZugSpFLNhMhv9YX5Gr3wFXElf9psdvey?=
+ =?us-ascii?Q?IaTOER7j65sO0S2CThk9KoNh3zo/pO8mTaBfBL0ApzGovs+t1fbxUJkFc49i?=
+ =?us-ascii?Q?CLFnbycvUfgQUXyJfxCfbyEynWC9Jrem/+xFDVjsQnQjsuvunBHuVjc60lkc?=
+ =?us-ascii?Q?7ZLcyFdRy9NmRWoUCl7kpqS5hsZdFbwwcumg5jizJieeMJ8DiKap?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bba1ec0e-c779-4b60-d8fe-08defa385985
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 19:15:06.1844
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ulcC/47ZJCSGGoUy+jMGJelqpQlgyIF1vCSYIDcvn0b5QDxHqztDKDz6zYMrrGkHE6VLkg2o6vgx/nxuLR2UnEiN3Bzl8ExjCG/xzkyOAhC2MwrgBbvmmQfEujVgBgOT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11865
 
-On Fri, 2026-08-14 at 09:55 -0700, Vineet Gupta wrote:
-> The destination of the per-CPU address MOV is encoded in ModRM.reg,
-> which is extended by REX.R, but the REX prefix is built with
-> add_1mod(), which sets REX.B. REX.B extends ModRM.rm and SIB.base, and
-> this instruction addresses memory as disp32 with no base, so the bit
-> has no effect at all and the high register bit is simply lost.
->=20
-> Every is_ereg() destination therefore resolves to the wrong register,
-> picking whichever one shares the low three bits:
->=20
->   R5 -> RAX    R7 -> RBP    R8 -> RSI    R9 -> RDI
->=20
-> With BPF_REG_5, whose reg2hex is 0, the emitted
->=20
->   65 49 03 04 25 <off>	add %gs:<off>,%rax
->=20
-> adds the per-CPU offset to RAX rather than R8. The destination keeps
-> the unadjusted address and RAX is clobbered, so the program goes on to
-> dereference a pointer that was never made per-CPU:
->=20
->   BUG: unable to handle page fault for address: 0000607e386a8894
->   RIP: bpf_prog_707837aafd2aa9ae_update_percpu_data+0x93/0xc9
->   Call Trace:
->    __bpf_prog_test_run_raw_tp+0x2dc/0x7d0
->    __flush_smp_call_function_queue+0x1e9/0xc80
->   Kernel panic - not syncing: Fatal exception in interrupt
->=20
-> R5 is the mildest of the four, aliasing a scratch register and faulting
-> at the store. R7 aliases RBP and would corrupt the frame pointer, R8
-> and R9 alias the argument registers.
->=20
-> Use add_2mod() so the register goes through REX.R, matching how
-> add_2reg() places it in ModRM.reg and how emit_priv_frame_ptr()
-> hardcodes 0x4c for the same instruction with R9. Encodings for the
-> non-extended registers are unchanged.
->=20
-> Problem showed up when trying to resurrect BPF_GCC CI (selftests built
-> with BPF_GCC).
->=20
-> This has gone unnoticed because clang reloads the address into R1
-> before each per-CPU access, so the destination is never an extended
-> register. GCC keeps several per-CPU addresses live at once, and
-> test_progs-bpf_gcc panics the kernel in global_percpu_data/init, where
-> the address of a .percpu variable ends up in R5.
->=20
-> Fixes: 7bdbf7446305 ("bpf: add special internal-only MOV instruction to r=
-esolve per-CPU addrs")
+On Sat, Aug 08, 2026 at 07:25:51PM +0800, Guangshuo Li wrote:
+> hidma_probe() calls pm_runtime_use_autosuspend(), but neither the probe
+> failure path nor hidma_remove() calls the matching
+> pm_runtime_dont_use_autosuspend() before disabling runtime PM.
+>
+> If the autosuspend delay is set to a negative value while autosuspend
+> is enabled, the runtime PM core increments usage_count to prevent
+> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> during teardown, this reference is not dropped and usage_count remains
+> unbalanced.
+>
+> Add the missing pm_runtime_dont_use_autosuspend() calls to both the
+> probe failure and remove paths before disabling runtime PM.
+>
+> This issue was found by manual code inspection.
+
+
+I seen many similar patches to fix similar problem for difference DMA
+engineer driver.
+
+Please use devm_runtime_pm_enable() to fix it.
+
+Frank
+>
+> Fixes: 67a2003e0607 ("dmaengine: add Qualcomm Technologies HIDMA channel driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  arch/x86/net/bpf_jit_comp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
-> index d920772af7d5..1a9fb530adc3 100644
-> --- a/arch/x86/net/bpf_jit_comp.c
-> +++ b/arch/x86/net/bpf_jit_comp.c
-> @@ -1935,7 +1935,7 @@ static int do_jit(struct bpf_verifier_env *env, str=
-uct bpf_prog *bpf_prog, int *
->  				EMIT_mov(dst_reg, src_reg);
->  #ifdef CONFIG_SMP
->  				/* add <dst>, gs:[<off>] */
-> -				EMIT2(0x65, add_1mod(0x48, dst_reg));
-> +				EMIT2(0x65, add_2mod(0x48, 0, dst_reg));
-
-Ok, so the argument is that because there is a SIB byte in this
-instruction, and the instruction itself is `REX.W + 03 /r | ADD r64, r/m64`=
-,
-operand #1 ModRM:reg, operand #2 ModRM:r/m, the encoding should adjust
-REX.R to extend operand #1, not REX.B as it does now.
-
-I think this is correct. Could you please respin adding an inline
-assembly test with __xlated() matcher, to verify that jit operates
-correctly?
-
-Reviewed-by: Eduard Zingerman <eddyz87@gmail.com>
-
->  				EMIT3(0x03, add_2reg(0x04, 0, dst_reg), 0x25);
->  				EMIT((u32)(unsigned long)&this_cpu_off, 4);
->  #endif
+>  drivers/dma/qcom/hidma.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/dma/qcom/hidma.c b/drivers/dma/qcom/hidma.c
+> index c939635be21d..78fd765c81e4 100644
+> --- a/drivers/dma/qcom/hidma.c
+> +++ b/drivers/dma/qcom/hidma.c
+> @@ -893,6 +893,7 @@ static int hidma_probe(struct platform_device *pdev)
+>  		hidma_free(dmadev);
+>  bailout:
+>  	pm_runtime_put_sync(&pdev->dev);
+> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+>  	return rc;
+>  }
+> @@ -930,6 +931,7 @@ static void hidma_remove(struct platform_device *pdev)
+>
+>  	dev_info(&pdev->dev, "HI-DMA engine removed\n");
+>  	pm_runtime_put_sync_suspend(&pdev->dev);
+> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+>  }
+>
+> --
+> 2.43.0
+>
