@@ -1,298 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from cvsmtppost08.nm.naver.com (cvsmtppost08.nm.naver.com [114.111.35.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21613F075A;
-	Fri, 14 Aug 2026 08:48:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4891347532
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 08:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786697328; cv=none; b=ItaXUk1nefRupM1WhIMZeSwpsTRbHBgtCSEKl5jtpz1quenxvL82aGthcy6n2mYOtzsAnDxdJ61qJO6dJD6TYAmR0AjWUadGcZQCILm3dol11PIdWcOTAUJ4pLk8lXJIIBSqrWfPZQ8MAw8b0q+9ECou+cpkVWWhu1A7hjQ/16Q=
+	t=1786697795; cv=none; b=geEVGR28Cg2lMXUql/WEdlufJtDIbOZas6qviSi/wOTdv80YSXxkyITHPdl/AsCTeLyXL8ZyQDf+uVXxjGbn5lxL9pRUorMlgSJiiHPpLWBI9wNqNwg2RrWjnDSbEbYGAq68h2KTb+MdD9U4iWzEFOvmiecdgqXqYDKedd4CpwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786697328; c=relaxed/simple;
-	bh=ISf3oyrdb6DRe0/DIV9AbD0ZFALjPP6GjtfYOft97EM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tMijjyPKntDQYncA3yXd6CTpD2ff5/z5ZYRwj1l9JdjPTHmBEdLe2hyNXXmKoa632dAEP7e/cUBxjgABeg0VV79dOUhpcfbsPMbq6oRDk1GuvAkGDCZoK7y5sdF8vngmGHFOW4l3VTAM4gSqh5qWt6qn38PaPwMR6BJJK8RdXQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bGUhbdfv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786697795; c=relaxed/simple;
+	bh=BCPyBqL54PWZKMN+4NXDapbcOzcTHBSwv8tnKZW/WLc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WXSQrgyY/B2Z5WAX3c9UqqvfwCjLmwXj/Zxhdc2xi0P77bJ0sDiB0Yh3paRdN0bG0WALMMLFAPa6SAIOk2AOmbsqC7hvOyU+exV19AqUdIFEPy2EGBS2rnQcYAAHhCY3KSHtBvL4dXOvmy7RzGPX8x3CvTw7PZ2f280lS5Kvn7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=M7nqo4oH; arc=none smtp.client-ip=114.111.35.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bGUhbdfv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11C21F000E9;
-	Fri, 14 Aug 2026 08:48:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786697326;
-	bh=uGQwL5UZJipKTW+qGKPo+sHQSdOsrhX2bDvlMA/o8tk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bGUhbdfvvAyZ041IRQFT3yaniWAfDI6dXKx46SzgRufqkn0S6nPYrFxuivv+st59Z
-	 GTaziv7CJYxzm91Hna08972IcnR1hf5Kr6yF/KfslD3Ze3LEc77GQC2OJSk5hp8VM2
-	 KLlr+9DDUHDSGmAtrDYic7l2itUh+mio8Tw1SSzHJxIsIKi9w3EnLlr4lZ9V9u6+y/
-	 4TyP8rYO8EybgfqPlubbVMf+8rAR7HO9uRKU57g5HJPYIYI1ekq0F1Uwo4m1EnjzsW
-	 /nMCBP/AOnj2T/C6d1IkiT28NVTMCQoCl4Q2gqSpPzeWdKutby+ara4wQyZd2rZTa3
-	 HOLXqPHI5CJwg==
-Date: Fri, 14 Aug 2026 09:48:39 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Yao Yuan <yaoyuan@linux.alibaba.com>
-Cc: Wei-Lin Chang <weilin.chang@arm.com>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Jintack Lim <jintack.lim@linaro.org>, 
-	Christoffer Dall <christoffer.dall@arm.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: Fix spurious warning for benign stage 2
- teardown race
-Message-ID: <an7Tk0qrCM84zS54@gremlin>
-References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
- <20260812-kvm-arm-nested-virt-fix-v1-1-4ad883f1b6a5@kernel.org>
- <qfhlmmidzdmmsfopfhxpddgwa7nob45jwgb6sabskawaxtox7i@mnxplk3zn34k>
- <an3gqCJ1fzloWB_N@lucifer>
- <v3vgnteumpaxbgqjtfwoilcbwpwohfci3uwu4ooykls6zjwjwe@rukbigno2m5o>
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="M7nqo4oH"
+Received: from cvsendbo001.nm ([10.112.18.53])
+  by cvsmtppost08.nm.naver.com with ESMTP id hvnoEJcZQCCfNuuGo2-8dg
+  for <stable@vger.kernel.org>;
+  Fri, 14 Aug 2026 08:46:22 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1786697182; bh=BCPyBqL54PWZKMN+4NXDapbcOzcTHBSwv8tnKZW/WLc=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=M7nqo4oHbU3c3U3YloFtL5UkjSRVJKOEm30zzYP1C/tV1J+AdqCqh6OQaXVnMAamn
+	 Tvfmy9b1kiEYpRVHVSnsPx6PC5QafrDC/egEuoUrCBnkU4j+bJ8qe/gCUsQwn1NRuE
+	 TvRa3aGVkg+T2s/10+MmPg2syEWEDrX91NkbQ42slo0YmnS81Q9sf13nE2hcXqFiBV
+	 x33pliGMzQW5VvDm8NJEf+el1A8fl/A0NKZ3ItOsazH6VWhF6F7l8RSaUn4WLVsVCm
+	 V1NQfwuVWAmRGdqvbx0N0spgLsyDH3P703dP5kJYmdd9pokBEudOyx6AsdVYgNFkV7
+	 ASgZoSIMifcJg==
+X-Session-ID: 1Fb99AraQdaqbpG9cujd7A
+X-Works-Send-Opt: rPF8W4eXjHwYKBm9FAF9FBmwKo2mKqErKqb/jJIFjAJYKg==
+X-Works-Smtp-Source: VdbrFoM/FqJZ+HmZaAbd+6E=
+Received: from bl4ckhyun.localdomain ([211.41.193.194])
+  by cvnsmtp004.nm.naver.com with ESMTP id 1Fb99AraQdaqbpG9cujd7A
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Fri, 14 Aug 2026 08:46:22 -0000
+From: Hyeontae Lee <wonju345@naver.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Opasiak <k.opasiak@samsung.com>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyeontae Lee <wonju345@naver.com>
+Subject: [PATCH] usb: gadget: f_hid: only clear write_pending from the owning request
+Date: Fri, 14 Aug 2026 17:46:16 +0900
+Message-ID: <20260814084616.259367-1-wonju345@naver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <v3vgnteumpaxbgqjtfwoilcbwpwohfci3uwu4ooykls6zjwjwe@rukbigno2m5o>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 03:18:42PM +0800, Yao Yuan wrote:
-> On Thu, Aug 13, 2026 at 04:24:49PM +0800, Lorenzo Stoakes (ARM) wrote:
-> > On Thu, Aug 13, 2026 at 12:20:43AM +0100, Wei-Lin Chang wrote:
-> > > Hi Lorenzo,
-> > >
-> > > Thanks for the detailed analysis!
-> >
-> > You're welcome :)
-> >
-> > >
-> > > I can follow what's happening from the report, but one thing I don't
-> > > get:
-> > >
-> > > On Wed, Aug 12, 2026 at 02:31:20PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > > A batch of kernel warnings were triggered in the L0 host kernel when using
-> > > > kvmtool to experiment with nested virtualisation.
-> > > >
-> > > > The issue was observed on an M2 macbook pro with 24 GiB of RAM running
-> > > > asahi linux 7.1.6-400.asahi.fc44.aarch64+16k with 16 KiB page size.
-> > > >
-> > > > The bug is confirmed to exist in mainline and does not appear to be
-> > > > impacted by any downstream patches carried by asahi.
-> > > >
-> > > > kvmtool was used to establish an L1 guest with 8 CPUs and 8 GiB of RAM.
-> > > >
-> > > > kvmtool was then run again within the L1 guest to establish an L2 guest
-> > > > with 4 CPUs and 4 GiB of RAM.
-> > > >
-> > > > Then it was run again to establish another inner guest with 2 CPUs and 2
-> > > > GiB of RAM at L3.
-> > > >
-> > > > Both the L2 and L3 guests were then exited and another L2 guest was
-> > > > established with the same characteristics.
-> > > >
-> > > > Sufficient memory pressure was present in the L0 host to trigger indirect
-> > > > reclaim, waking kcompactd up and triggering migration.
-> > > >
-> > > > Shortly afterwards the L2 guest was stopped, at which point three warnings
+f_hidg_write() sets write_pending, caches hidg->req into a stack local,
+and drops write_spinlock across copy_from_user(). hidg_disable() frees
+hidg->req whenever write_pending is clear, so that flag is the only thing
+keeping the writer's cached pointer alive.
 
-So TL;DR - correction is to say L0 here, no change elsewhere.
+f_hidg_req_complete() clears it for whichever request completes, not for
+the one the writer owns. A write() that has queued a request leaves it
+queued indefinitely if the host never issues an IN token. When the host
+then disables the configuration, usb_ep_disable() gives that old request
+back, its completion clears write_pending, and hidg_disable() goes on to
+free hidg->req - which a different write() is holding at that moment.
 
-> > > > were observed in the L0 host in quick succession with the second and the
-> > > > third occurring 114us and 189us after the first, respectively.
-> > > >
-> > > > In each case the call trace was the same:
-> > > >
-> > > > WARNING: arch/arm64/kvm/mmu.c:336 at __unmap_stage2_range+0x64/0x80,
-> > > > CPU#5: kcompactd0/66
-> > > > ...
-> > > > __unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3)) (P)
-> > > > kvm_stage2_unmap_range (arch/arm64/kvm/mmu.c:346)
-> > > > kvm_nested_s2_unmap (arch/arm64/kvm/nested.c:1168 (discriminator 14))
-> > > > kvm_unmap_gfn_range (arch/arm64/kvm/mmu.c:2416)
-> > > > kvm_mmu_notifier_invalidate_range_start (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:718 ...)
-> > > > mn_hlist_invalidate_range_start (mm/mmu_notifier.c:525)
-> > > > __mmu_notifier_invalidate_range_start (mm/mmu_notifier.c:580)
-> > > > try_to_migrate_one (./include/linux/mmu_notifier.h:478 ./include/linux/mmu_notifier.h:471 mm/rmap.c:2459)
-> > > > rmap_walk_anon (mm/rmap.c:3001)
-> > > > rmap_walk (mm/rmap.c:3106 mm/rmap.c:3101)
-> > > > try_to_migrate (mm/rmap.c:2774)
-> > > > migrate_folio_unmap (mm/migrate.c:1330 (discriminator 3))
-> > > > migrate_pages_batch (mm/migrate.c:1909)
-> > > > migrate_pages_sync (mm/migrate.c:2026)
-> > > > migrate_pages (mm/migrate.c:2135)
-> > > > compact_zone (mm/compaction.c:2663)
-> > > > compact_node (mm/compaction.c:2932)
-> > > > kcompactd (mm/compaction.c:3230)
-> > > > kthread (kernel/kthread.c:436)
-> > > > ret_from_fork (arch/arm64/kernel/entry.S:858)
-> > > >
-> > > > Analysing this:
-> > > >
-> > > > try_to_migrate() performs the first part of migration on a folio -
-> > > > establishing migration entries in all page tables mapping it - calling
-> > > > try_to_migrate_one() for each VMA the folio is mapped in.
-> > > >
-> > > > Immediately prior to installing the migration entry, try_to_migrate_one()
-> > > > calls mmu_notifier_invalidate_range_start() to signal to notifiers that the
-> > > > existing page table entry is about to be unmapped.
-> > > >
-> > > > Since this range happened to contain folios used by the virtual machine
-> > > > (given its memory consumption this was highly likely to be a target) this
-> > > > in turn triggers arm64 kvm code via an MMU notifier:
-> > > >
-> > > > mmu_notifier_invalidate_range_start()
-> > > >   -> ... -> kvm_mmu_notifier_invalidate_range_start()
-> > > >     -> kvm_mmu_unmap_gfn_range()
-> > > >       -> kvm_unmap_gfn_range()
-> > > >         -> kvm_nested_s2_unmap()
-> > > >           -> kvm_stage2_unmap_range()
-> > > >             -> __unmap_stage2_range()
-> > > >                -> stage2_apply_range()
-> > > >        	       <- -EINVAL, triggering a WARN_ON()
-> > > >
-> > > > Since commit ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page
-> > > > tables") kvm_unmap_gfn_range() invokes kvm_nested_s2_unmap() which takes
-> > > > the rather drastic step of evicting the entirety of the stage 2 shadow page
-> > > > tables for each nested guest:
-> > > >
-> > > > 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
-> > > > 		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-> > > >
-> > > > 		if (kvm_s2_mmu_valid(mmu))
-> > > > 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
-> > > > 	}
-> > > >
-> > > > This will iterate through every valid MMU.
-> > > >
-> > > > mmu_notifier_invalidate_range_start() sets the MMU_NOTIFIER_RANGE_BLOCKABLE
-> > > > flag when signalling notifiers, so may_block is true here.
-> > > >
-> > > > __unmap_stage2_range() wraps invocation of stage2_apply_range() in a
-> > > > WARN_ON():
-> > > >
-> > > > 	WARN_ON(stage2_apply_range(mmu, start, end, KVM_PGT_FN(kvm_pgtable_stage2_unmap),
-> > > > 				   may_block));
-> > > >
-> > > > Which is precisely the triggered warning and means stage2_apply_range() is
-> > > > returning an error.
-> > > >
-> > > > In arm64 return values are stored in the x0 register and in each splat w0
-> > > > (since it's a 32-bit value) is 0xffffffea which, by two's complement, is
-> > > > -0b00010110 or -EINVAL.
-> > > >
-> > > > The only way in which stage2_apply_range() can return an error is if either
-> > > > the passed in walk function (kvm_pgtable_stage2_unmap()) returns an error
-> > > > or mmu->pgt is NULL:
-> > > >
-> > > > 	static int stage2_apply_range(...)
-> > > > 	{
-> > > > 		do {
-> > > > 			struct kvm_pgtable *pgt = mmu->pgt;
-> > > > 			if (!pgt)
-> > > > 				return -EINVAL;
-> > > >
-> > > > 			next = stage2_range_addr_end(addr, end);
-> > > > 			ret = fn(pgt, addr, next - addr);
-> > > > 			if (ret)
-> > > > 				break;
-> > > > 			if (resched && next != end)
-> > > > 				cond_resched_rwlock_write(&kvm->mmu_lock);
-> > > > 		} while (addr = next, addr != end);
-> > > >
-> > > > 		return ret;
-> > > > 	}
-> > > >
-> > > > This loop is batched by stage2_range_addr_end() at the granularity of
-> > > > kvm_granule_size(KVM_PGTABLE_MIN_BLOCK_LEVEL), which for a 16 KiB page size
-> > > > kernel is 32 MiB.
-> > > >
-> > > > kvm_pgtable_stage2_unmap() only returns an error if
-> > > > kvm_pgtable_walk_begin() or _kvm_pgtable_walk() return an error. On arm64
-> > > > the former doesn't ever do so, and the latter only returns -EINVAL if
-> > > > either pgd is NULL (we gate that already) or an invalid pgt->start_level is
-> > > > specified (not the case).
-> > > >
-> > > > So the cause of the warning is that mmu->pgt is NULL here.
-> > > >
-> > > > This field is protected by kvm->mmu_lock, but after each invocation of the
-> > > > walk function, if the end of the range has not yet been reached, the lock
-> > > > is dropped.
-> > > >
-> > > > This is done by calling cond_resched_rwlock_write() which drops
-> > > > kvm->mmu_lock when yielding the time slice before reacquiring it upon being
-> > > > scheduled again:
-> > > >
-> > > > 		if (resched && next != end)
-> > > > 			cond_resched_rwlock_write(&kvm->mmu_lock);
-> > > >
-> > > > Note that resched = may_block here and is always true for these walks.
-> > > >
-> > > > This points to something else racing this code to clearing the pgt, and
-> > > > brings us back to the observation above that the issue occurs when tearing
-> > > > down the L2 guest.
-> > > >
-> > > > Upon L0's userspace mm_struct teardown, stage 2 mappings for IPAs mapped by
-> >
-> > s/L0/L2/
-> >
-> > > > the guest are unmapped via mmu notifier:
-> > > >
-> > > > exit_mm()
-> > > >   -> mmput()
-> > > >     -> __mmput()
-> > > >       -> exit_mmap()
-> > > >         -> mmu_notifier_release()
-> > > > 	  -> ... -> kvm_mmu_notifier_release()
-> > > >             -> kvm_flush_shadow_all()
-> > > >               -> kvm_arch_flush_shadow_all()
-> > > > 	        -> kvm_free_stage2_pgd()
-> > > > 		  -> [ acquire kvm->mmu_lock for write ]
-> > > > 		  -> mmu->pgt = NULL [ among other tasks ]
-> > > > 		  -> [ release kvm->mmu_lock for write ]
-> > >
-> > > You mentioned stopping the L2 VM only, which means L1 is still running.
-> > > Why would the L0 userspace mm_struct get torn down if L1 is still live?
-> > > What did I miss?
-> >
-> > Ah yeah this is a mistake sorry :) It should say L2 teardown.
-> >
-> > The stuff relevant to L0 is the MMU notifier bit.
->
-> Hi Lorenzo,
->
-> Still have question w/ your above addtional information:
->
-> The trace is observed on L0, means the exit_mm() path should
-> also happens on L0 to race w/ the
-> mmu_notifier_invalidate_range_start() path, but how this is
-> triggred by L2 teardown, IIUC the L2 teardown triggers the
-> exit_mm() path on L1, not on L0. The L1 is still alive thus
-> the qemu/kvmtool process on L0 which hold all L1/L2/L3 is
-> still alive yet. Please correct me if anything I missed
-> here.
+The writer resumes, finds hidg->req NULL, and frees its cached pointer a
+second time:
 
-OK so - I confused myself here :)
+  BUG: KASAN: slab-use-after-free in f_hidg_write+0x7b7/0x920
+  Read of size 8 at addr ffff888104fc9018 by task s4-3/163
 
-The underlying issue here is that I am working back from a situation where
-I can't quite recall what I did, but am rather reconstructing it based on
-what was observed.
+  Allocated by task 0:
+   alloc_ep_req+0x20/0x1b0
+   hidg_set_alt+0x1ed/0xbd0
+   composite_setup+0x1072/0x8690
+   configfs_composite_setup+0xcd/0x110
+   dummy_timer+0x1a68/0x31d0
 
-And you're right - this stack makes no sense for an L2 VM being torn down,
-rather only the L0 being torn down.
+  Freed by task 0:
+   kfree+0x121/0x380
+   hidg_disable+0x559/0x7a0
+   reset_config+0x9d/0x200
+   composite_setup+0x32d4/0x8690
+   configfs_composite_setup+0xcd/0x110
+   dummy_timer+0x1a68/0x31d0
 
-So clearly this is what I did, and the correction should be to say this at
-the start of the commit message.
+  The buggy address belongs to the object at ffff888104fc9000
+   which belongs to the cache kmalloc-128 of size 128
 
-(The truth of what happened was rather more button-mashy and 'oh what?'
-than it appears ;)
+  BUG: KASAN: double-free in f_hidg_write+0x267/0x920
 
-Sorry for the confusion!
+Record which request owns the flag and let only that request's completion
+clear it. An older queued request being given back then leaves
+write_pending set, hidg_disable() declines to free, and the writer frees
+its own request on the existing path.
 
->
-> >
-> > >
-> > > Thanks,
-> > > Wei-Lin Chang
-> > >
-> > > [...]
+Fixes: 25cd9721c2b1 ("usb: gadget: f_hid: fix: Don't access hidg->req without spinlock held")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyeontae Lee <wonju345@naver.com>
+---
+Notes for reviewers:
 
---
-Cheers, Lorenzo
+The clearer was identified by instrumenting the three sites that clear the
+flag: of 4944 frees at hidg_disable(), all 4944 followed a clear from
+f_hidg_req_complete(), and 4440 freed a request a writer was holding.
+
+749494b6bdbb introduced the stack local but left the uses on hidg->req, so
+check and use still agreed; 25cd9721c2b1 moved the uses to the local and
+left the guard on the field, which is why that one is tagged.
+
+Every dereference of the freed pointer is inside f_hidg_write(), so this is
+not remotely triggerable on its own - a local process must be writing to
+/dev/hidgN at the time.
+
+hidg_disable() now declines to free a request a writer owns; f_hid's request
+lifetime under repeated SET_INTERFACE has pre-existing gaps this does not
+address.
+
+Tested on v7.2-rc7-12 (f5bbbfec59b4) under dummy_hcd, report_length=8: over
+45 s of identical workload, double frees of the same address went from 52 to
+0 and KASAN reports from 208 to 0.
+---
+ drivers/usb/gadget/function/f_hid.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/gadget/function/f_hid.c b/drivers/usb/gadget/function/f_hid.c
+index 3c6b43d06a6d1..d65169c9645b1 100644
+--- a/drivers/usb/gadget/function/f_hid.c
++++ b/drivers/usb/gadget/function/f_hid.c
+@@ -89,6 +89,7 @@ struct f_hidg {
+ 	/* send report */
+ 	spinlock_t			write_spinlock;
+ 	bool				write_pending;
++	struct usb_request		*write_req;
+ 	wait_queue_head_t		write_queue;
+ 	struct usb_request		*req;
+ 
+@@ -443,7 +444,16 @@ static void f_hidg_req_complete(struct usb_ep *ep, struct usb_request *req)
+ 	}
+ 
+ 	spin_lock_irqsave(&hidg->write_spinlock, flags);
+-	hidg->write_pending = 0;
++	/*
++	 * Only the completion of the request this writer owns may clear the
++	 * flag. usb_ep_disable() gives back whatever is still queued from an
++	 * earlier write(), and letting that clear write_pending lets
++	 * hidg_disable() go on to free a request a writer is still holding.
++	 */
++	if (req == hidg->write_req) {
++		hidg->write_req = NULL;
++		hidg->write_pending = 0;
++	}
+ 	spin_unlock_irqrestore(&hidg->write_spinlock, flags);
+ 	wake_up(&hidg->write_queue);
+ }
+@@ -480,6 +490,7 @@ static ssize_t f_hidg_write(struct file *file, const char __user *buffer,
+ 
+ 	hidg->write_pending = 1;
+ 	req = hidg->req;
++	hidg->write_req = req;
+ 	count  = min_t(unsigned, count, hidg->report_length);
+ 
+ 	spin_unlock_irqrestore(&hidg->write_spinlock, flags);
+@@ -502,6 +513,8 @@ static ssize_t f_hidg_write(struct file *file, const char __user *buffer,
+ 
+ 	/* when our function has been disabled by host */
+ 	if (!hidg->req) {
++		if (hidg->write_req == req)
++			hidg->write_req = NULL;
+ 		free_ep_req(hidg->in_ep, req);
+ 		/*
+ 		 * TODO
+@@ -534,6 +547,7 @@ static ssize_t f_hidg_write(struct file *file, const char __user *buffer,
+ release_write_pending:
+ 	spin_lock_irqsave(&hidg->write_spinlock, flags);
+ 	hidg->write_pending = 0;
++	hidg->write_req = NULL;
+ 	spin_unlock_irqrestore(&hidg->write_spinlock, flags);
+ 
+ 	wake_up(&hidg->write_queue);
+@@ -1102,6 +1116,7 @@ static int hidg_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
+ 		spin_lock_irqsave(&hidg->write_spinlock, flags);
+ 		hidg->req = req_in;
+ 		hidg->write_pending = 0;
++		hidg->write_req = NULL;
+ 		spin_unlock_irqrestore(&hidg->write_spinlock, flags);
+ 
+ 		wake_up(&hidg->write_queue);
+-- 
+2.43.0
+
