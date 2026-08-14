@@ -1,190 +1,130 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012045.outbound.protection.outlook.com [40.93.195.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-31.mta1.migadu.com [95.215.58.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ED83EC689;
-	Fri, 14 Aug 2026 21:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786743816; cv=fail; b=ctE8BPHtQoSGkZAlagQ+KmAOWlv0H8Lnic1AZJX/mHkpU1MtaXY3T3ti2cIEiS0bGKwrHvXVFXxj8y1PsW1Bkzs0dJLvyxk3v83Hw5scKri0P+wqoigy+9G1DqvBWeK8by+bSTlykO314dk7wORPwmZfHGvHGjqK7SIsnxpJS40=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786743816; c=relaxed/simple;
-	bh=uB48pErrVRuOS8c+3AxSza0mYf6QJ7raXusPA85RRoQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t+wJShBLdW2usUVZwsz1ZcaBepNkcLlME0Ulot6opErKxf1qB9ZvgIA3h0Roobexultn0dBcL2ZQO5S6Nc7T+QcEpvE7513fd7cqYJ6yTVhDtjUD51j5T6gvfVKU61uVEQXGRN9cT12pCQ7nIWbvXbzPFlBwPc0tLxyDoxHlTUo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bxGthUVW; arc=fail smtp.client-ip=40.93.195.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8415422D4C3
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 21:52:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.31
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786744336; cv=none; b=MonlfEC4zBbzO+pbTOi9hfaM8FlINW4LmuBhDzeEw+EQWlfYmbghwJxNsuGbPRrATb5my3nFzJPTkcy52kc7KdnLDPJ8NAb7K/djiKXgudu3U5OHSq3PYNieQDcpG8Tk8Qh0e7n2+LEMQvfC4kMf4vHTzWmAAz20ejrZ6BAM9NQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786744336; c=relaxed/simple;
+	bh=N0myQE++yQTI9u7tY4JAkVybawx1xDvKBp+IGvHCvPI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jkfpCVpp6ShRJ2PzHszjeA8Tv+Ua3ksdxkoTPCpTm4zv2F61NNeG82nofsGMwJzoTDGfGG2ka1G0NYGVw4ONEUZ4fsaRtLyqrphJehU63PCYYeWDbH/lhuWbPTwgrhXsWi2uO4ITYSL3a4uAU2jOzpLIBzN26Kp+UvZjrGCUvvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZgpZxy+k; arc=none smtp.client-ip=95.215.58.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bxGthUVW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PvzH61F8bMnKzFGLpVpe1PRNAFDswXPp/gTJVHyBognqyRrFv6lBCjVbrgd1nW/Wk0YvWfjclmPxhw6MbjcP5KTsMaXcr3EzishIG/1/QOUELtDtcsvucOGWExvjdw+xhbEOYsAk10x8LFDFR9Y1ykvLnNW49f+xRfDPbwbrP8lydhZDb6oAY1Rnex4718SFoXCYx1XCiKTGsMprFb8J4K1v90z7TV5AVT8mbcmIon7TqJrUlejQH9As8kny7LnvN/19ZLaLUvRj2EyI+qAHqi7VxJ19vsDteHLA4b1T/kta3+1BcBaej06JKHko5IpHtcg7M0yGxZHzdObZkg9jhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZiTFlT2xKJ+CHs8iiqmK9YZgLceRB0Nsf34CEDPGWS0=;
- b=TNhto1EfIgvZv73QFv6GTNbJGCWVACPcczUD5Kc9SPn1biLbPgseijtgZunvKOVCpCBTKs0Ti7YDHPI6hll+2d8M/A/p8fSe9/LnHXuMN//h1vNTS09rjtZDzDSF1ddI4z2hQF7usovgcqQnLC507zr2rIoxPq4KCWNjZfuhQsBcI3pKGV85NSnjKUojzkJd4OMFhNT67f8o72gbFHq8j3Z0AwRb718PQ5CuBg0ZPwnszI3yYQrPV8g3VtcgHl5i5PAf07wSFp/M0Ez+86zIFmzJelG4bV5jXOsD6/ZYUpvSsF62R3Za5UpjtdTm4g5CYz4TEVMXtk7RFRhXjMxjdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZiTFlT2xKJ+CHs8iiqmK9YZgLceRB0Nsf34CEDPGWS0=;
- b=bxGthUVWLmzGxRfMWM7+LfMdSZ8QHNMjHPXkfmMLN2N7Sm/ErS9OVoOklEqzl8TCNPCpi5HfrUUjECF1csPaUcepw626yF22Uq2AKXiFwINSYgjuO5EP/FGpBfsvIcsrnxX9Ao6hfOkJvkx6PNmVSwIQRugonnzfKKdIGh7EJVw=
-Received: from BN9PR03CA0041.namprd03.prod.outlook.com (2603:10b6:408:fb::16)
- by SJ2PR12MB9113.namprd12.prod.outlook.com (2603:10b6:a03:560::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
- 2026 21:43:27 +0000
-Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
- (2603:10b6:408:fb:cafe::26) by BN9PR03CA0041.outlook.office365.com
- (2603:10b6:408:fb::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
- 14 Aug 2026 21:43:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 21:43:25 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:43:25 -0500
-Received: from fedora.mshome.net (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 16:43:24 -0500
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, "Mario
- Limonciello" <mario.limonciello@amd.com>, Thomas Gleixner <tglx@kernel.org>,
-	<x86@kernel.org>, Yazen Ghannam <yazen.ghannam@amd.com>
-CC: Jason Andryuk <jason.andryuk@amd.com>, <linux-kernel@vger.kernel.org>,
-	Penny Zheng <penny.zheng@amd.com>, <stable@vger.kernel.org>, "Mario
- Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v2 2/2] x86/amd_node: Remove smn_exclusive
-Date: Fri, 14 Aug 2026 17:42:53 -0400
-Message-ID: <20260814214255.83127-3-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260814214255.83127-1-jason.andryuk@amd.com>
-References: <20260814214255.83127-1-jason.andryuk@amd.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZgpZxy+k"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=N0myQE++yQTI9u7tY4JAkVybawx1xDvKBp+IGvHCvPI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786744332; v=1; x=1787349132;
+ b=ZgpZxy+k0z/aXelvFgJIreejIpGF4yhVN9oTIguC51biWo/FiJP9sKVBNXa3YioFIQGxLyhe
+ QnBlpLLK0k33fAgqRt+xQtTCM+z3Lf7bfdSXUEuiVyv/APIfSxUTmTayorBqpgHQcDY1zcUWDkU
+ 9slA2h79ZR0bVPlHWHXRC91A=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2a03:83e0:1251:27:9295:e585:8bf6:fa24] (2620:10d:c090:500::6:7be4)
+	by smtp.migadu.com with ESMTPS id 92d4703bf2947a41;
+	Fri, 14 Aug 2026 21:52:02 +0000
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c2650d12-784f-4f74-a520-ea97e4cb548c@linux.dev>
+Date: Fri, 14 Aug 2026 14:51:54 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|SJ2PR12MB9113:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1840b14-65a7-42ef-774a-08defa4d122b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|22082099003|18002099003|11063799006|6133799003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	kGhz84bAmt7KhfzIE7jIAisAay49Xp6E+YNlC/k2O9slWie+ku4KLi5QwM0CLS48aKMqw6uZhqMUemPyP4G0UjdADmX6grJpF9HGiC+LINHek7CqMBnkkOIf/9H5neBv4rzSTye2XD9E4wNmbxy87X4J793Bu42WL/obYsBJanrJ6naOQhF8Fs0UkdciKWELhNs9uqAdiWUeWlGOmMeFflb12Ixz6VNlqNK8Vs+DjT6RG/7lz7IYQiCWcAz4CdHvaDrZ+yIAJnHG+Yqz7f1Dn2Kt7AlyIZtOiWucPTOSvAYBKFj2R4QMXZ5b0JaosYRaHeUhJrN0J1xQfLGoRpILNKaEEc6GxEIhT0H0xrazQRgmNR9AGNmew/f6iA9w3sr6BJDfrF41ktx+eApBWjnhIfJYjmUj6/LGXylrWbW9RZx7loWGk1nhijrsV+mDwu2+0AF5/wg2Kcm7102D6s5HBaR5iyMcmV81+09l9VzM2zb+OMUxs4tqrYn2J2Sz/PnEmOLg9q+B4VAy1umT2vt4rys80mmcvZvIleYvCc5s92+zMecJjfldzVpo8oU/SJ9SzEkH4r5yIqIomK0eWEg49cvkePfdBCHWGZQd2BtO89Ut8e2LNKza/qSSrNCU8yldbj3yPjTWsCsPrgbUQFnxHezU5DwMYEzx2sBJvZGEiswJK2A2oBLjBmbhS8t6aS+I5ZVKHMMRYE11l39E4iO3kg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(22082099003)(18002099003)(11063799006)(6133799003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jGzkZRg8AaoUUwdIKvpxejFX08/6RlQLeOABeqHshxR8YT6JYqy8g2rfe0OfHPMSqWh/lZo+QK+KWAT0gfhj6MPm8QZ1om2/4rkjsh06VTWgdRrKK8rcWhQHl5A8ipAXKggnnmXfmr6A4e37nh34Dgdbzl+MuJy/jJhdo6n3Od46m0gt+r95QtmSu+AO4UquM61m4LfqpbiR4K6N/moyc+geZwyUGXtG7i/z6ny7Wsz6U/+PI7lWdG/whSkxV+nZY5pUVM6gVylsqiz3+s5WDyv1yx1V2XLAV7P3QLv8cM6nF7+dMZfnlMaXUvWdq2c2dD36ZePDCVo/ZYLh8oINdlvCK6In4fef7BFAa8FQRc/nH4zhgZyBdaeAG0OQz8hzM7TVqJ3QTnbBMxAKqeVgonYL44Dq5ynvsl5vc2e3ybbredd+LBLO2BtatXRovOTQ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:43:25.7029
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1840b14-65a7-42ef-774a-08defa4d122b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B072.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9113
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v2 2/2] selftests/bpf: Check per-CPU address
+ resolution per register
+To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, x86@kernel.org,
+ stable@vger.kernel.org, martin.lau@kernel.org, eddyz87@gmail.com,
+ yonghong.song@linux.dev, clm@meta.com, ihor.solodrai@linux.dev
+References: <20260814203248.3714536-3-vineet.gupta@linux.dev>
+ <7276efcb565f80eed9a05dd364570b432a68ba5d980d9d1676bf620501f10040@mail.kernel.org>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <7276efcb565f80eed9a05dd364570b432a68ba5d980d9d1676bf620501f10040@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-amd_smn_read/write() are exported functions around __amd_smn_rw(), so
-they are always available even if amd_smn_init() fails.  smn_exclusive
-would prevent access to __amd_smn_rw(), but it is placed too late.  If
-amd_smn_init() failed, amd_roots is NULL and __amd_smn_rw() will fault
-over it.  Replace smn_exclusive with directly checking amd_roots to
-avoid the NULL pointer dereference.
+On 8/14/26 2:20 PM, bot+bpf-ci@kernel.org wrote:
+>> diff --git a/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c b/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c
+>> new file mode 100644
+>> index 000000000000..962faea8ef90
+>> --- /dev/null
+>> +++ b/tools/testing/selftests/bpf/progs/verifier_percpu_addr.c
+>> @@ -0,0 +1,114 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +
+>> +#include <vmlinux.h>
+>> +#include <bpf/bpf_helpers.h>
+>> +#include "bpf_misc.h"
+>> +
+>> +int percpu_data SEC(".percpu");
+>> +
+>> +#if defined(__TARGET_ARCH_x86)
+>> +
+>> +/*
+>> + * An ld_imm64 of a per-CPU map value is followed by a mov_percpu_addr that
+>> + * reuses the same register, so the register the address lands in decides how
+>> + * the JIT encodes the add. On x86 R5, R7, R8 and R9 are the extended
+>> + * registers, whose high bit needs REX.R because the destination sits in
+>> + * ModRM.reg. Check one program per extended register, since getting the
+>> + * prefix wrong resolves the address into whichever register shares the low
+>> + * three bits instead.
+>> + */
+>> +
+>> +SEC("raw_tp")
+>> +__description("per-CPU address into r5")
+>> +__success
+>> +__arch_x86_64
+>> +__jited("	addq	%gs:{{.*}}, %r8")
+>> +__naked void percpu_addr_into_r5(void)
+>> +{
+>> +	asm volatile ("					\
+>> +	r5 = %[percpu_data] ll;				\
+>> +	r0 = *(u32 *)(r5 + 0);				\
+>> +	exit;						\
+>> +"	:
+>> +	: __imm_addr(percpu_data)
+>> +	: __clobber_all);
+>> +}
+> This isn't a bug, but would it be tidier to move the percpu_data
+> declaration inside the __TARGET_ARCH_x86 block?
+>
+> Currently percpu_data is declared above the arch guard, but its only
+> readers (percpu_addr_into_r1/r5/r7/r8/r9) are inside the guard:
+>
+> +int percpu_data SEC(".percpu");
+> +
+> +#if defined(__TARGET_ARCH_x86)
+> +
+> +/* ... test functions using percpu_data ... */
+>
+> On every other target the object still carries a .percpu section, so
+> libbpf still creates an unused percpu data map for it.
 
-commit 83518453074d ("x86/amd_node: Add SMN offsets to exclusive region
-access") added smn_exclusive which indicated the calls to
-pci_request_config_region_exclusive() succeeded to prevent userspace
-access.
+That's a good point, will address this in v3
 
-commit 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
-re-ordered initialization so pci_request_config_region_exclusive() is
-called earlier and a failure exits amd_smn_init() before allocating
-amd_roots.  Setting smn_exclusive moved to the end of amd_smn_init(),
-after amd_roots is allocated.  smn_exclusive became redundant to
-amd_roots and can be removed.
+Thx,
+-Vineet
 
-Add a comment stating how amd_roots replaces smn_exclusive's purpose.
-
-Fixes: 77466b798d59 ("x86/amd_node: Remove dependency on AMD_NB")
-Cc: stable@vger.kernel.org
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
-Fixes is the introduction of amd_roots, which could be a NULL deref.
-
-v2:
-R-b Yazen and Mario
-Add comment about amd_root taking smn_exclusive's purpose to indicate
-userspace access is prevented.
-Expand commit message
----
- arch/x86/kernel/amd_node.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-index c3e214925d9c..14104f8c5d64 100644
---- a/arch/x86/kernel/amd_node.c
-+++ b/arch/x86/kernel/amd_node.c
-@@ -38,7 +38,6 @@ static struct pci_dev **amd_roots;
- 
- /* Protect the PCI config register pairs used for SMN. */
- static DEFINE_MUTEX(smn_mutex);
--static bool smn_exclusive;
- 
- #define SMN_INDEX_OFFSET	0x60
- #define SMN_DATA_OFFSET		0x64
-@@ -91,11 +90,15 @@ static int __amd_smn_rw(u8 i_off, u8 d_off, u16 node, u32 address, u32 *value, b
- 	if (node >= amd_num_nodes())
- 		return err;
- 
--	root = amd_roots[node];
--	if (!root)
-+	/*
-+	 * non-NULL amd_roots indicates pci_request_config_region_exclusive()
-+	 * succeeded and userspace cannot access the registers.
-+	 */
-+	if (!amd_roots)
- 		return err;
- 
--	if (!smn_exclusive)
-+	root = amd_roots[node];
-+	if (!root)
- 		return err;
- 
- 	guard(mutex)(&smn_mutex);
-@@ -313,8 +316,6 @@ static int __init amd_smn_init(void)
- 		debugfs_create_file("value",	0600, debugfs_dir, NULL, &smn_value_fops);
- 	}
- 
--	smn_exclusive = true;
--
- 	return 0;
- }
- 
--- 
-2.55.0
+>
+> Comparable files in the same directory keep objects used only by guarded
+> programs inside the guard. verifier_private_stack.c declares its 'struct
+> elem' and 'array SEC(".maps")' after the '#if defined(__TARGET_ARCH_x86)
+> || defined(__TARGET_ARCH_arm64)' guard, and verifier_ldsx.c declares its
+> 'arena SEC(".maps")' map inside its arch guard.
+>
+>
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/31839526403
 
