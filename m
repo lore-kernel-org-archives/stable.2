@@ -1,105 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F16370D5E
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 18:41:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346AB49502D
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 18:42:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786732918; cv=none; b=c3NGL/q/SBZb0uU4smlerbbkzo6uvpqbJ0Ga259/ovPtkIPr2BzinBSXyoAuvRYR4jHFzEqkg1MlJ7rvYE5IEl83dG44UdbtaUO5ue7Flw4koU8leIeONtdFqpnun0gaS+BlgdFSAuh1QL++8Q+duEqK4GI3JXyjWRS/VS2r+/E=
+	t=1786732929; cv=none; b=mba88R+g+//LzugVB3W6kezgZhSapsmhjkCxVYrSVtr0UhlelOXUoxjMGTJQf7TpnCCszfU15vh2fcPDn6e53wfWcAefV6N9TSP5YuGTsa3raEg69rrsSjBCizOIeue2jPVb0NBbMedCWnpEsXa6HLYNq0ofcerlbK8kDD2h5WE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786732918; c=relaxed/simple;
-	bh=JZZD8FCX7+TEbr6LaAm2+ZwITRqsq5TQ4VDbzz/7fIg=;
+	s=arc-20240116; t=1786732929; c=relaxed/simple;
+	bh=R7hHgGz/RIm70vX1r+F6rfAYqgEe2y0crZBkmMt3R9c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mu3WInYjSBuvh78pyfgfminY5QHw3IpBwnPPrqWbOZ4PpQQYcZsQxRs/qnTjljzAEe91N+x32Z9g/H0p9LB7DQmVrcAYlTwcUY8r61Qyt4Bx4W02ZLWKVFyD6jFy5kMettajSOaBnSl7bZKGRJbF2qq9vC3/f7ETgPWt4FAjCjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPB9H572; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=FEY6v8QOmqTrfU4Gmlu7zx8o5BSBJtWNTb7abY0Fh4gOdAAfiEaLO2f+e9JHOQJlGMZG/Y6bGpNZOC9SAT1Yz3gKUDZPUpJr/J4McvUfp7A8OwkUEUc1ictUwmXjDLcXHOLMPx0Sy7maEF9mOqA53+19qDFpakK0QiPM1DTZGHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eaBzr4Dl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPB9H572"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546A81F000E9;
-	Fri, 14 Aug 2026 18:41:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eaBzr4Dl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7468D1F000E9;
+	Fri, 14 Aug 2026 18:42:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786732916;
-	bh=v7BqxY2Czd6m71rmcVYAGVmpG9PQ6kArqBSmQ+e4U8A=;
+	s=k20260515; t=1786732928;
+	bh=tRi809S/IJzc0scZpcllOsEzIehR5oZ33/H3aQ8sgEs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fPB9H572HhEXEcMC0jp5190yYEIzhNrEfkLBouz7wgbrZrecLeT6EQeyodZYdJDpM
-	 dkIaK1lUJmtdBh0SK5xH9VBdlhl9oUaCad9rrkFv7MkV6M3jc1+y7TPzcqqNRoS5bw
-	 axNJfdAdqvxt5TZDtf/fsnq/24k76pAqhpRsLYhz3vBv4Q7znAd46h8crwed9F+jx1
-	 3F0U4WosKIaneLI1o43NjZOfJvuCHLindcXfwP8vRyO5Zr3R7gRchhpRRJj3x99VDV
-	 Zwn9u21GmfoPdHDvtYn8dNxJw0sQUeeYNKz4+vQc9Cq7l0PWdwGL4X4I6qdXkrmb5/
-	 8POIxTJlDFvNg==
+	b=eaBzr4Dler+udBA/S35GGZjW44SxcT6FK3mvwcI2WvPKwieWmdaJKYoNOmm2b/pzM
+	 dwMKKFBmCSkV0g0ZIuHcC1dS4OsQOyVC6UJlmJvoRA/9EDJnx7Gw+AEusrw1eG1g2u
+	 AlgvZTPHhmoEDs/l6aoBuUl7Xfisfrrtkl28gIrJjoUjfse/hP5b06l9p83Q4wQQP3
+	 bIlOo0VnAp9ywGyaK15K1emos8pHjc9jiK+KyA7FEKm8+kaKGQ1cK0FUoPn2VXpAVR
+	 PeaUf6oblCynuDTjV77sBwgktxxS5ASfFEPPUTS1vckBnGt+NfzVG47hIKL+jcxpDr
+	 CiG/G1TyYXy7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yang Wang <kevinyang.wang@amd.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/amd/pm: fix torn gpu metrics reads
-Date: Fri, 14 Aug 2026 14:41:54 -0400
-Message-ID: <20260814184154.288347-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/amdgpu: move debug_vm handling to amdgpu_cs_parser_fini
+Date: Fri, 14 Aug 2026 14:42:05 -0400
+Message-ID: <20260814184205.288790-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080525-manor-gully-805a@gregkh>
-References: <2026080525-manor-gully-805a@gregkh>
+In-Reply-To: <2026080543-driveway-delirium-704c@gregkh>
+References: <2026080543-driveway-delirium-704c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yang Wang <kevinyang.wang@amd.com>
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-[ Upstream commit 048f4541b71fb19645fb79d6e62e6e4da23a4035 ]
+[ Upstream commit d8726ef11512754a68c0ab53c57634a569b8feff ]
 
-amdgpu_dpm_get_gpu_metrics() returns a pointer to the shared metrics cache
-after dropping adev->pm.mutex. The sysfs path then copies from that pointer.
-Another reader can refresh the cache in place during the copy and return a
-snapshot containing data from two generations.
+The commit referenced below restarts the CS if the validation is
+still in progress. When debug_vm is enabled, all BOs from the CS
+are invalidated so we will hit an infinite loop.
 
-Pass caller-provided storage through the DPM interface and copy the metrics
-while the mutex is held. This keeps the cache pointer private and makes each
-sysfs read observe one complete sample.
+To avoid that, defer BO invalidation to amdgpu_cs_parser_fini.
 
-Fixes: 25c933b1c4fc ("drm/amd/powerplay: add new sysfs interface for retrieving gpu metrics(V2)")
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Fixes: 59720bfd8c6d ("drm/amdgpu: restart the CS if some parts of the VM are still invalidated")
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 862333bb48693ecafcae25af0c9d9ec31015ac77)
+(cherry picked from commit 8c990ee9daa295462df24982ce6878db997a380a)
 Cc: stable@vger.kernel.org
-[ applied the fix at the caller `amdgpu_get_gpu_metrics()` in amdgpu_pm.c since the `amdgpu_dpm_get_gpu_metrics()` wrapper is a macro on this tree ]
+[ adjusted `adev->debug_vm` back to the global `amdgpu_vm_debug` param and restored the `adev` argument to `amdgpu_vm_bo_invalidate()` calls ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 30 ++++++++++++++------------
+ 1 file changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 23f3cd9f2e8b0..d8b0c13fc42a3 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -1804,18 +1804,16 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
- 		return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 2d12bb47c574d..15bb286484b36 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1178,19 +1178,6 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+ 		job->vm_pd_addr = amdgpu_gmc_pd_addr(vm->root.bo);
  	}
  
-+	mutex_lock(&adev->pm.mutex);
- 	if (adev->powerplay.pp_funcs->get_gpu_metrics)
- 		size = amdgpu_dpm_get_gpu_metrics(adev, &gpu_metrics);
+-	if (amdgpu_vm_debug) {
+-		/* Invalidate all BOs to test for userspace bugs */
+-		amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+-			struct amdgpu_bo *bo = e->bo;
+-
+-			/* ignore duplicates */
+-			if (!bo)
+-				continue;
+-
+-			amdgpu_vm_bo_invalidate(adev, bo, false);
+-		}
+-	}
+-
+ 	return 0;
+ }
  
--	if (size <= 0)
--		goto out;
--
--	if (size >= PAGE_SIZE)
--		size = PAGE_SIZE - 1;
--
--	memcpy(buf, gpu_metrics, size);
-+	if (size > 0) {
-+		size = min_t(ssize_t, size, PAGE_SIZE - 1);
-+		memcpy(buf, gpu_metrics, size);
+@@ -1379,6 +1366,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ /* Cleanup the parser structure */
+ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
+ {
++	struct amdgpu_device *adev = parser->adev;
++	struct amdgpu_bo_list_entry *e;
+ 	unsigned int i;
+ 
+ 	amdgpu_sync_free(&parser->sync);
+@@ -1394,8 +1383,21 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
+ 
+ 	if (parser->ctx)
+ 		amdgpu_ctx_put(parser->ctx);
+-	if (parser->bo_list)
++	if (parser->bo_list) {
++		if (amdgpu_vm_debug) {
++			/* Invalidate all BOs to test for userspace bugs */
++			amdgpu_bo_list_for_each_entry(e, parser->bo_list) {
++				struct amdgpu_bo *bo = e->bo;
++
++				/* ignore duplicates */
++				if (!bo)
++					continue;
++
++				amdgpu_vm_bo_invalidate(adev, bo, false);
++			}
++		}
+ 		amdgpu_bo_list_put(parser->bo_list);
 +	}
-+	mutex_unlock(&adev->pm.mutex);
  
--out:
- 	pm_runtime_mark_last_busy(ddev->dev);
- 	pm_runtime_put_autosuspend(ddev->dev);
- 
+ 	for (i = 0; i < parser->nchunks; i++)
+ 		kvfree(parser->chunks[i].kdata);
 -- 
 2.53.0
 
