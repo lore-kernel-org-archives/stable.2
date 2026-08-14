@@ -1,78 +1,240 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEADD41D123
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 12:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A53B46C4C6
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 12:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786709407; cv=none; b=qj6Wls+p1Ixc8vDxRkseKKJo6xnUHjsRpViIhky7pFB6tgf+CHYeP1rZ1uBAeMV1xxq1g+4ladHtTgywpyYNPwpMuQCbhorfnD+hGHiWJaxfnbD6iz70WnwNWseCD/4W8e8u/bQGoNqMG3IRhX7AoLcgNVM0URkKDpXTwqNphHo=
+	t=1786709685; cv=none; b=KFUcqj/8mFTWc2fOHWVEa6u8ZN89nog9yj3544JnkKRCmN9cApAggwyUoOG5WGBlM2DlioendJcQ4Qy8pG6xI1zvHFCoeokjzSxlLaZBmmt3QdD0jzdR5CftlJf8RQoOyhWr3riIE8h1fm2VTMn+owNGzv8lFZCXvbpWZINn2lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786709407; c=relaxed/simple;
-	bh=E3YzPO3gJzQBPXBvPkzYkp3TqT3d5GVf4hf73WjuIsk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=nAJ10QISMHUXCk42WlBl0Pom5ozpeNSp3opJXLx9zO3ZXHM1v8YAHaa74gJA9cKEljt1KOyfBOfJCDoZMFM1PD57pk6l0m7mkHzZ+7ZvN3nUqDJQ8ACsziuUBsbNbSVbD4MAPmrdr2WCxS1Cz1zlovr6P+ExwLZ/ooaNWaNeHLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RW1zEQHP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786709685; c=relaxed/simple;
+	bh=vS1DaGeA34Vt/UL7hTlZ7x9a+4a9vxNMD5B4EeDQiSw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u+BEwi8CULeHCrBNWkY44Yt/bqLzK6f3ArrYol6dbxKbj/0ZnCJTsVU1AIphdjeCa6lHtmha7S3W7QXmsWj8ehRdt7wiQZDYa7w+mEtqTMekhgQwsqUhNb3OmUbDSn3yVwnwfmArAIPHJVCiGcEK26sZZtD47VsmXfNUrINORPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=XTi8PQsh; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RW1zEQHP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD7071F000E9;
-	Fri, 14 Aug 2026 12:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786709405;
-	bh=nzJfaLjLopv5KDjAnsZCI03u435dpJB0jWVUPJzz9Io=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=RW1zEQHPgY126CvaBmbQfmQ4pb9HftuuzfhHdb3iOwAj7T6nQ2APYVbVnhgxcP58s
-	 fWLjjYqYGOSJnCsSD40R8W4W8eZcwR3WSjPC5wQiFN7oyNyG1MZfzBiDlBZN6Vd4+m
-	 AMoViV3JfmmPM8zy9DOVJn36/Qh1vCqsskTvpM/7pj2BWsc2B9qlKVVKT62tZVTE8P
-	 rnDapLRzpOuonYtFWGkyzZ13aOq58VmeWwkS4WN0omxxXAhCO5JNYzenEgOdr1kjG0
-	 hgS6Uq64EeVZwoZUL64YXe9XUkdHJTLkIfnpb++n6BtJ2CATd8CzinbMLHXomtPWZZ
-	 15ho3W6chdIzg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: gregkh@linuxfoundation.org, yaokai34@huawei.com, peterz@infradead.org
-Cc: stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] futex: Fix race in futex_pivot_pending()
- during private hash" failed to apply to 7.1-stable tree
-In-Reply-To: <2026081352-debate-broadband-ab5e@gregkh>
-References: <2026081352-debate-broadband-ab5e@gregkh>
-Date: Fri, 14 Aug 2026 14:10:01 +0200
-Message-ID: <87a4qonbs6.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="XTi8PQsh"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cbb7926836eso614969a12.3
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 05:14:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1786709680; x=1787314480; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mB3Pg/1SEPTtiURwc1+Fo1eQBiAzNFUq+2h1OebH7HE=;
+        b=XTi8PQsh6fGaESnR6L/VGvrUQElm93drqKeJpVA4qqm3ceqbSpXuNwPjOnvF0kcRWe
+         x3LsSy7QKCm5hRjpEKltckoriI+rzVk48arJ78xlKhDXs4oLHUi9zunevntlYRABGGZu
+         54Mn4ILgUjwmwlC9ewB5pm3bh6KKVxHRYZjCuxKrqKQ5TAQQU8jRqANNyOKxopkg5Cj7
+         qBtEYRVDFItWtxhigikOGtV3AC6/dW8aeLSnRi4OHRz7ThcR6Riy8kBd/9aFCAONlidJ
+         QqIaAmkCRKeB1yjxa9EXiPYwnwUoxaJ7JKO/PjcpnTnk5AGFO5NcsoAYdXYbBP2kV0ae
+         i71Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786709680; x=1787314480;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mB3Pg/1SEPTtiURwc1+Fo1eQBiAzNFUq+2h1OebH7HE=;
+        b=ULQtkbEWX3na/nxs+h0e5iqh2689lpJicJ/2pBsa8P0qY05qOOXDFB5Siuq4rknArA
+         /9bZUANNc3QMonk3u6Aoqgql6WqfUchOYQvtdL8zYTJrpnMh1csjNm1W8mjOmVk0qa4a
+         wY4lkIOMfkGMu/ZOpO3RpZrBBnqjFJGQHPusxBrdhRVVcB0fyqvYXmmaH73/sSUBJlBX
+         Eq0k7q5DlfQfCoIfRD31/QYT/3sk7D1t0wN5nHK0Pv+ka9vXO4+IyztEs3H5s+UI1TBk
+         1p8AYPGTsBQatUAW7KFrSXJwrx0iJ69ESGKDrUyjiEv4Mb7Ki0LJMo5d1/BGQNVGYYA5
+         4ISQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrpsztVw5rKIurhsf8+aXbFZoz0U9S8BoxOHIFfBYii3gIeWFhn/LqVKQdQRw7sUohWIWmrMMU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnRUwjcyDTZLKKgaKF4UCzG4ezhpEzM++zSUDwKPWqgGtE2FFn
+	VMrJFmePZkUikWFroXT4kO+6cnFYrlLyDl+bI2IAxHUiucWU3oeOcH7kd7oUi6WTs44=
+X-Gm-Gg: AR+sD10H/2IvPHEAlrQZ+QsbiBH/wnh22P5Iia94bqcrznbqBNcOfCSWSBy3JCppdyp
+	ROPzznDFjz9I0xW39G19qMarvI6xb6W4b83r2tXffyXpBMFNlI7eKeIQEVc8KXOEiGSMih9X2F8
+	TYy8OWHdC1uqBuzXRIrmadwqEURt10epJ2I3WIYUtHyb0yetR6QW6flLcwpWjDMu9IF1g7ZGO8f
+	UvM1mb0q8TMA6T4W7paJb7s7AdeeQA5eHRj9BaQzXrTnW7Td8KNZKsgVxWpxfKP7v8lZql1Aq9d
+	WUuWfyyvti3vtL2G9vK5pdQ4c6R19r5kErbU2THzpyzPkFR6VEbG6vSSk1kP/flErKH/xDiPURb
+	dBjmQr6F1x9rc2fGvONu4DAa1yOVJQg8eSNKFfpS2nQFt0cFm/povFqCCL4Vftbz9ooZ83o0kCE
+	3DCumVyZ5SlbcvL31HYVGn4kxAkhK9TzaYKqA0NuLeNcDTI0b1XoLpZAshXToMqZ1DwpR9
+X-Received: by 2002:a05:6a00:2383:b0:84e:89a:b8ec with SMTP id d2e1a72fcca58-84fde3d4d3emr5107874b3a.11.1786709680448;
+        Fri, 14 Aug 2026 05:14:40 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8517d267305sm373099b3a.52.2026.08.14.05.14.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Aug 2026 05:14:40 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: martin.petersen@oracle.com
+Cc: michael.christie@oracle.com,
+	cleech@redhat.com,
+	lduncan@suse.com,
+	James.Bottomley@HansenPartnership.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: libiscsi_tcp: check that a read got the data the target claimed
+Date: Fri, 14 Aug 2026 21:14:28 +0900
+Message-ID: <20260814121428.359541-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 13 2026 at 09:52, gregkh@linuxfoundation.org wrote:
+A target can finish a read without sending the data.  iscsi_tcp_data_in()
+bounds each Data-In PDU against the command buffer but never adds them up,
+so a completion that declares no underflow is believed and the command
+ends with DID_OK.  The pages keep whatever they held.
 
-> The patch below does not apply to the 7.1-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
->
-> To reproduce the conflict and resubmit, you may use the following commands:
->
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x 8e7ff730dd96519a333d1570edf1c3fabb6d3629
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081352-debate-broadband-ab5e@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
->
-> Possible dependencies:
->
->
->
-> thanks,
->
-> greg k-h
->
-> ------------------ original commit in Linus's tree ------------------
->
-> From 8e7ff730dd96519a333d1570edf1c3fabb6d3629 Mon Sep 17 00:00:00 2001
-> From: Yao Kai <yaokai34@huawei.com>
-> Date: Tue, 4 Aug 2026 20:55:30 +0800
-> Subject: [PATCH] futex: Fix race in futex_pivot_pending() during private hash
->  resize
+Over a 1 MiB pread of a file that had never been read, 999424 bytes came
+back as the contents of an unrelated file the same process had written
+earlier.  pread() returned 1048576 and errno was 0.
 
-Don't backport. It's broken.
+Count the payload per task.  Require each Data-In to continue where the
+last one ended, and at completion compare the total with the buffer
+length, less the residual when an underflow is declared.  A read can end
+on a Data-In or on a SCSI Response, so check both.  Writes are untouched.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+No Fixes: tag.  iscsi_tcp.c had the same shape before a081c13e39b5 ("[SCSI]
+iscsi_tcp: split module into lib and lld"), so the check has never been
+there.
+
+Measured with a proxy in front of tgt.  Four ways of ending a read early
+made it return success with the contents of an unrelated file the same
+process had written: a zero-length Data-In, the status in a SCSI Response,
+and no Data-In at all each gave 999424 of 1048576 bytes, and rewinding
+BufferOffset gave 737280.  Each is refused now, two runs each, as is a
+short last PDU with no underflow declared.  An honest underflow and
+ordinary traffic are unchanged.
+
+The check does not honour DataPDUInOrder: the target answers that key, so
+honouring it lets a target switch the check off - measured.  A target that
+legitimately sends Data-In out of buffer order will now fail.
+
+Not exercised: the cxgbi offload path, and a digest session - tgt would
+not negotiate CRC32C.
+ drivers/scsi/libiscsi_tcp.c | 60 +++++++++++++++++++++++++++++++++++--
+ include/scsi/libiscsi_tcp.h |  1 +
+ 2 files changed, 59 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/scsi/libiscsi_tcp.c b/drivers/scsi/libiscsi_tcp.c
+index e90805ba868fb..ce9c96f968c2a 100644
+--- a/drivers/scsi/libiscsi_tcp.c
++++ b/drivers/scsi/libiscsi_tcp.c
+@@ -467,6 +467,39 @@ void iscsi_tcp_cleanup_task(struct iscsi_task *task)
+ }
+ EXPORT_SYMBOL_GPL(iscsi_tcp_cleanup_task);
+ 
++/**
++ * iscsi_tcp_check_data_in - verify the Data-In payload that was received
++ * @task: scsi command task
++ * @flags: flags of the PDU carrying the status
++ * @residual: residual count of that PDU
++ *
++ * A target that reports success must have sent the whole buffer, or have
++ * declared the shortfall as an underflow.  ISCSI_FLAG_CMD_UNDERFLOW and
++ * ISCSI_FLAG_DATA_UNDERFLOW have the same value, so both paths can use
++ * this.
++ */
++static int iscsi_tcp_check_data_in(struct iscsi_task *task, u32 flags,
++				   u32 residual)
++{
++	struct iscsi_tcp_task *tcp_task = task->dd_data;
++	struct scsi_cmnd *sc = task->sc;
++	unsigned int expected;
++
++	if (!sc || sc->sc_data_direction == DMA_TO_DEVICE)
++		return 0;
++
++	expected = sc->sdb.length;
++	if (flags & ISCSI_FLAG_DATA_UNDERFLOW) {
++		if (residual > expected)
++			return 0;
++		expected -= residual;
++	}
++	if (tcp_task->data_in_bytes == expected)
++		return 0;
++
++	return ISCSI_ERR_DATALEN;
++}
++
+ /**
+  * iscsi_tcp_data_in - SCSI Data-In Response processing
+  * @conn: iscsi connection
+@@ -488,7 +521,7 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
+ 		iscsi_update_cmdsn(conn->session, (struct iscsi_nopin*)rhdr);
+ 
+ 	if (tcp_conn->in.datalen == 0)
+-		return 0;
++		goto status;
+ 
+ 	if (tcp_task->exp_datasn != datasn) {
+ 		ISCSI_DBG_TCP(conn, "task->exp_datasn(%d) != rhdr->datasn(%d)"
+@@ -506,7 +539,17 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
+ 		return ISCSI_ERR_DATA_OFFSET;
+ 	}
+ 
++	if (tcp_task->data_offset != tcp_task->data_in_bytes)
++		return ISCSI_ERR_DATA_OFFSET;
++
++	tcp_task->data_in_bytes += tcp_conn->in.datalen;
++
+ 	conn->datain_pdus_cnt++;
++
++status:
++	if (rhdr->flags & ISCSI_FLAG_DATA_STATUS)
++		return iscsi_tcp_check_data_in(task, rhdr->flags,
++					       be32_to_cpu(rhdr->residual_count));
+ 	return 0;
+ }
+ 
+@@ -752,13 +795,25 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
+ 		rc = __iscsi_complete_pdu(conn, hdr, NULL, 0);
+ 		spin_unlock(&conn->session->back_lock);
+ 		break;
+-	case ISCSI_OP_SCSI_CMD_RSP:
++	case ISCSI_OP_SCSI_CMD_RSP: {
++		struct iscsi_scsi_rsp *rsp = (struct iscsi_scsi_rsp *)hdr;
++
++		spin_lock(&conn->session->back_lock);
++		task = iscsi_itt_to_ctask(conn, hdr->itt);
++		if (task)
++			rc = iscsi_tcp_check_data_in(task, rsp->flags,
++						     be32_to_cpu(rsp->residual_count));
++		spin_unlock(&conn->session->back_lock);
++		if (rc)
++			break;
++
+ 		if (tcp_conn->in.datalen) {
+ 			iscsi_tcp_data_recv_prep(tcp_conn);
+ 			return 0;
+ 		}
+ 		rc = iscsi_complete_pdu(conn, hdr, NULL, 0);
+ 		break;
++	}
+ 	case ISCSI_OP_R2T:
+ 		if (ahslen) {
+ 			rc = ISCSI_ERR_AHSLEN;
+@@ -998,6 +1053,7 @@ int iscsi_tcp_task_init(struct iscsi_task *task)
+ 
+ 	BUG_ON(kfifo_len(&tcp_task->r2tqueue));
+ 	tcp_task->exp_datasn = 0;
++	tcp_task->data_in_bytes = 0;
+ 
+ 	/* Prepare PDU, optionally w/ immediate data */
+ 	ISCSI_DBG_TCP(conn, "task deq [itt 0x%x imm %d unsol %d]\n",
+diff --git a/include/scsi/libiscsi_tcp.h b/include/scsi/libiscsi_tcp.h
+index ef53d4bea28a0..b38be23b9e10b 100644
+--- a/include/scsi/libiscsi_tcp.h
++++ b/include/scsi/libiscsi_tcp.h
+@@ -66,6 +66,7 @@ struct iscsi_tcp_conn {
+ 
+ struct iscsi_tcp_task {
+ 	uint32_t		exp_datasn;	/* expected target's R2TSN/DataSN */
++	u32			data_in_bytes;	/* Data-In payload received */
+ 	int			data_offset;
+ 	struct iscsi_r2t_info	*r2t;		/* in progress solict R2T */
+ 	struct iscsi_pool	r2tpool;
+-- 
+2.43.0
+
