@@ -1,126 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102E13D967F;
-	Fri, 14 Aug 2026 20:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685783D5673
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 20:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786737615; cv=none; b=KlIJMau7v78Vkx78DJlMTqXWlQwpCPzYlGihsNOuXrzs+GDESc8PsVQxqT2H8+1TneAclC+vXiQ4ciE8qP5okDTsal+9bjLsdOrgKigqLnKCwrD994Ei8IRxvMKKr6d8YbE1KzT7fMdZVL5j6G0+i4uVb5uCOdaUrI/KtUeQdiE=
+	t=1786737999; cv=none; b=QDi71AOwt/5W8+LK9IXXwZZlr7do3yqxMlhrg3Els6q1NhoQ6V2e+Elgk5Aq8lQyQB9Nf6MFAOH7y4iRo1oCH1Sf/IZE2UeEhBFTp2J5q0A6QkMmlOQApaEivHiOOtFPuXN8ACpOJ2h7bxOPl/ZNpMBiWrn0ZHqvebQi37wQnM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786737615; c=relaxed/simple;
-	bh=yejNEu7IFwF/DMYIcLeMMMSuTE+yBgED1C3V4O5lf9U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GTHtQHaZaCOw4N/GzTqkVFxDmh1VrJBsg8MTXcLw0SNHQ3cnIjHn9zrVKxsnJHH6ugZ07CwIoy3MjE0/QdkPvk/PE1XRwQdBIyIKoD23YHqlBrOPlHde3E7+Kn40Gw4oEppF0ji9plLI357JjrYV3DUiRXVnhyMkR7QPf3DntI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jK7DkhM/; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786737999; c=relaxed/simple;
+	bh=yhcZ1G2iM4MIK0Jb6mnbZ904HAhDwWSVELtIHajuFrI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s6+utoL6MSYGIRCCdQI5YAqBugE69TcxFCr3fSusGuMLiKVHeNHjyYYua/w5FcJinYRUIQQabg1Jg0ianK3BoJ9GyRLtyLkJPNVCnNseaZXZ8vckL9yBApTVp3l74PTAuBNRlWOOexK8nbrTS41kuHJitx2Ss+v8UUy/RwGzdm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nB/L8k1Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jK7DkhM/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786737613; x=1818273613;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yejNEu7IFwF/DMYIcLeMMMSuTE+yBgED1C3V4O5lf9U=;
-  b=jK7DkhM/UJ4UdrbKgmcF7rS/1sg5DsNlFUOxh27RKXRWChpRB/76K04o
-   jrs6D1NAZumRgtbbqkfqv6J7PwdvJUoHz2MqLxq+CTJRfGkuEFi+VnYR1
-   IjorkRYR+EgFRmdWDik2di54TbwObeU1XwBQ3//3HA6b+QctT1ziVLx/B
-   X1zhUzAhqGKAwkYMDFQfqwu7r4GZfIFlCAgam3i7LLmWTyCMkAEDCHgP9
-   zNohXOWfwm1oCQBpO5tehQiCUlWO5/f3LC205ZR5EWHYoQ2vfUL+KBWg0
-   zevnCxHN54Zj99DnABC0zpnmyM5LmDpPNXJmyXCrm1xiBr3R8u5eBXkmQ
-   g==;
-X-CSE-ConnectionGUID: 8fZ/V8+FQCiAfz2bIuZN/g==
-X-CSE-MsgGUID: qpGxAy4bRzSdhaFOvF0gBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11875"; a="87449944"
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="87449944"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 13:00:12 -0700
-X-CSE-ConnectionGUID: hq7ddOIqTFu876iPiTuvgg==
-X-CSE-MsgGUID: u/6YRs9WQPGVEYD+tzrCZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="302544647"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 14 Aug 2026 13:00:10 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wuy4V-00000000a0s-465e;
-	Fri, 14 Aug 2026 20:00:07 +0000
-Date: Sat, 15 Aug 2026 04:00:07 +0800
-From: kernel test robot <lkp@intel.com>
-To: WenTao Liang <vulab@iscas.ac.cn>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	linux-pci@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof Wilczynski <kw@linux.com>,
-	Bjorn Helgaas <helgaas@kernel.org>, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
-Subject: Re: [PATCH] fix: PCI: dra7xx: dra7xx_pcie_probe: fix missing
- device_link_del on phy   error paths
-Message-ID: <202608150306.dhMPPe3n-lkp@intel.com>
-References: <20260626154809.53770-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nB/L8k1Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E807B1F00A3F
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 20:06:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786737995;
+	bh=79pIxoYm5mk7b3kAefC9hN4ARNrWNULO/5RLuPzCwU8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nB/L8k1ZkMNgGRzZdax/nJQxNw1o2VOcvEXqE94H1G2Dtil/FrkBm+6vblVBvdLcO
+	 HVTe3vrNvHtChFADOIkIjouNeQJ8oqfSehDcrm4R8Fo2+0lmeEDf3h5vLxWyhFDNl6
+	 /fAEW943U6qy189bPgscEoZer5+csOMbUQxm1XnPUEc3zMKKgKPVVvvx4k/Q8EsbIZ
+	 BFA88eC1GEZzn8F6SfbSyfvV6jIBXsSCFfkDnF5+iULzAZhqTnj4amXeg/F37P7r2O
+	 uWl2yzCQWEFEUbOq3Afpf68NOWIX8cZRWSTDaQugpMeZmx3rYtq9GIL2NUqOfK4z1b
+	 pAanEEZMA20og==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b01146b205so1060474e87.2
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 13:06:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqZZ+YKhUvfc+VwGJLrecgh4bfrwc2h1uEUkPsu9S0DBQWkFg+uWxQKDgj1c8Yj3hUEK/UY4R4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmMRkM2z9Bahm+Obnmbc4RLsnEqryupwRNmu7I4jTNUMzYRBIB
+	CCf4R9bEd6uVpeGae4scZguN1fQ/ZHUqk+mVrXBDIHlY1sk9GRbQxG2Kd9WnD7zfEdsgdL7D5Zc
+	N/G+H22n5dxWoFOYrXxB1jA+QEcFeU7M=
+X-Received: by 2002:a05:6512:23a9:b0:5b0:ce5:a063 with SMTP id
+ 2adb3069b0e04-5b459188066mr1101451e87.42.1786737994716; Fri, 14 Aug 2026
+ 13:06:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260626154809.53770-1-vulab@iscas.ac.cn>
+References: <20260814110102.2362246-1-o.rempel@pengutronix.de>
+In-Reply-To: <20260814110102.2362246-1-o.rempel@pengutronix.de>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 14 Aug 2026 22:06:22 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm2vzq1t8c9664xKA+vPK69syMsnU-dyMEKnL6wbNhOcg@mail.gmail.com>
+X-Gm-Features: AcwNN1Xj1Orrn3dsVyyoZswTmpjVuq_pyxwrJ_A4bvW94rRHITkMVbt7PIMfgB4
+Message-ID: <CAD++jLm2vzq1t8c9664xKA+vPK69syMsnU-dyMEKnL6wbNhOcg@mail.gmail.com>
+Subject: Re: [PATCH net v1 1/1] net: dsa: realtek: use gpiod_set_value_cansleep
+ for reset GPIO
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Ahmad Fatoum <a.fatoum@pengutronix.de>, stable@vger.kernel.org, kernel@pengutronix.de, 
+	linux-kernel@vger.kernel.org, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi WenTao,
+On Fri, Aug 14, 2026 at 1:01=E2=80=AFPM Oleksij Rempel <o.rempel@pengutroni=
+x.de> wrote:
 
-kernel test robot noticed the following build errors:
+> From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+>
+> rtl83xx_reset_assert() and rtl83xx_reset_deassert() are only called from
+> the probe path, which may sleep and is not timing-critical.  When the
+> reset GPIO is provided by a sleeping controller such as an I2C I/O
+> expander, gpiod_set_value() warns:
+>
+>   WARNING: drivers/gpio/gpiolib.c:4030 at gpiod_set_value+0x44/0x80, CPU#=
+1: kworker/u16:4/61
+>   Hardware name: B&O MAP CA33 Rev f (UNKNOWN) (DT)
+>   Workqueue: events_unbound deferred_probe_work_func
+>   pc : gpiod_set_value+0x44/0x80
+>   lr : rtl83xx_probe+0x1d8/0x3a0
+>   Call trace:
+>    gpiod_set_value+0x44/0x80 (P)
+>    rtl83xx_probe+0x1d8/0x3a0
+>    realtek_mdio_probe+0x24/0xa0
+>    mdio_probe+0x38/0x78
+>    really_probe+0xc4/0x3e0
+>    __driver_probe_device+0x15c/0x1b8
+>    driver_probe_device+0xb4/0x120
+>    __device_attach_driver+0xb8/0x1a0
+>    bus_for_each_drv+0x88/0xf0
+>    __device_attach+0xa0/0x1d8
+>    device_initial_probe+0x54/0x68
+>    bus_probe_device+0x38/0xa0
+>    deferred_probe_work_func+0xb8/0x120
+>    process_one_work+0x184/0x4e8
+>    worker_thread+0x188/0x308
+>    kthread+0x130/0x150
+>    ret_from_fork+0x10/0x20
+>
+> Switch both helpers to gpiod_set_value_cansleep() so such a reset GPIO ca=
+n
+> be used without triggering the warning.
+>
+> The reset GPIO has been driven with the non-sleeping gpiod_set_value()
+> since the driver was added in v4.19.  The call has since been refactored
+> across several files - from realtek-smi.c / realtek-mdio.c into the commo=
+n
+> rtl83xx.c module and then into the rtl83xx_reset_assert() and
+> rtl83xx_reset_deassert() helpers (both in v6.9).  This patch therefore
+> applies as-is only to kernels that carry those helpers (v6.9+); older
+> stable kernels need the same gpiod_set_value_cansleep() conversion at the
+> corresponding open-coded call sites.
+>
+> Fixes: d8652956cf37 ("net: dsa: realtek-smi: Add Realtek SMI driver")
+> Cc: <stable@vger.kernel.org> # 6.9.x
+> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+> Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-[auto build test ERROR on pci/next]
-[also build test ERROR on pci/for-linus linus/master v7.2-rc7 next-20260813]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/WenTao-Liang/fix-PCI-dra7xx-dra7xx_pcie_probe-fix-missing-device_link_del-on-phy-error-paths/20260815-023710
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
-patch link:    https://lore.kernel.org/r/20260626154809.53770-1-vulab%40iscas.ac.cn
-patch subject: [PATCH] fix: PCI: dra7xx: dra7xx_pcie_probe: fix missing device_link_del on phy   error paths
-config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260815/202608150306.dhMPPe3n-lkp@intel.com/config)
-compiler: powerpc64-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260815/202608150306.dhMPPe3n-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608150306.dhMPPe3n-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/pci/controller/dwc/pci-dra7xx.c: In function 'dra7xx_pcie_resume_noirq':
->> drivers/pci/controller/dwc/pci-dra7xx.c:918:17: error: label 'err_link' used but not defined
-     918 |                 goto err_link;
-         |                 ^~~~
-
-
-vim +/err_link +918 drivers/pci/controller/dwc/pci-dra7xx.c
-
-   908	
-   909	static int dra7xx_pcie_resume_noirq(struct device *dev)
-   910	{
-   911		struct dra7xx_pcie *dra7xx = dev_get_drvdata(dev);
-   912		int ret;
-   913	
-   914		ret = dra7xx_pcie_enable_phy(dra7xx);
-   915		if (ret) {
-   916			dev_err(dev, "failed to enable phy\n");
-   917			dra7xx_pcie_disable_phy(dra7xx);
- > 918			goto err_link;
-   919		}
-   920	
-   921		return 0;
-   922	}
-   923	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Yours,
+Linus Walleij
