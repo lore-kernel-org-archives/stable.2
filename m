@@ -1,48 +1,68 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6AA40863F;
-	Fri, 14 Aug 2026 07:18:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFC941A92A;
+	Fri, 14 Aug 2026 07:41:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786691938; cv=none; b=Kk5wNC1da88mALRw73gtVYZzx5QV+kQmjLKWC5b9XLQaUI5UMOUxA8434IdZ/OxB4AbfDAMvE6abiNfAH80ZiZNeSMQIdIfzGT1lN489GRu+32u2qOKqaIPmoyQaxLOlq0m5dEqGf4xS3ezQFp+h/5LtbLnkWYLkZjvKO36DkRs=
+	t=1786693313; cv=none; b=VB9mkKBu7R5w7LMi/tv/5oiKNKebaWts9+AmsdqptP51NxVqXFfqnAPy5JcR7ZuYaPwT0iO9VupIaKndTBXGKBuKDh1H1EvrHdZ7NcELOQ66jTjZDS4GP5VGx26wRnzqXLKl/eLfuKSumgRabHGjV3Etlu6QcRJ2Pms0qx87Jvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786691938; c=relaxed/simple;
-	bh=Eal3GKmsTZQwTSbaSyUrWFatjQqx0a8H4ryZTBQ5cmc=;
+	s=arc-20240116; t=1786693313; c=relaxed/simple;
+	bh=BEm9CbgOGfIjGNnkBwsXGcP2HUceqHK7a7NA8iH1iXQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uj5SP89V5FiVFEgSAgwhql6aaFL8ZnQ7G6zZqtuRHOlaQZ/zRvAWtkO/dsNjoRbd56NSWhCDeUI8wMLTtVJtMooKasxl5JMXiyvW4eqbZI2Tdule9sm7avBERinZEZyvg8haDQbOiOf5ZAl9LE0KqBQQGj6VVeqlzT/AZHN05r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=vtTe/A8t; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=SfFu+nfPJ0FloqLtsBNDuYVdxsWzSw8ER21GNWwYWMOrtKNwKrF/d9X5Z7UvR4Um5PBgl3Yzfr/zzMaV9e1Bk240HQvDpzecTs4HnGtkDgD1UKNRFnshWdWTyi5g6Xna6ixIR6xlQfecMU2okI3FYYuPIWDuZIoVC4dXbcwE7XI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=MEfiK1H1; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="vtTe/A8t"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1786691924; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=c6S5VaAkAZXn4sFLjHeqvaxpJlJzr1GA23OPYsB5cBI=;
-	b=vtTe/A8tgMMPwSULSa28g9UPDaZYWEbI9gYRtWR1nWklcmlYaw8yAdclRmI8na+7aPc5Nox/BAGiSh21A15CCAlYqtBQLJdMVHzomUhEbeWF1F4svlyyBa+c2GOkkdr0bADtQ/E/9cxc64zQEgcn074EevvNhSr9Abzz+D1i0DM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R581e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=yaoyuan@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0X8wZbHN_1786691923;
-Received: from localhost(mailfrom:yaoyuan@linux.alibaba.com fp:SMTPD_---0X8wZbHN_1786691923 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 14 Aug 2026 15:18:43 +0800
-Date: Fri, 14 Aug 2026 15:18:42 +0800
-From: Yao Yuan <yaoyuan@linux.alibaba.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Wei-Lin Chang <weilin.chang@arm.com>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Jintack Lim <jintack.lim@linaro.org>, 
-	Christoffer Dall <christoffer.dall@linaro.org>, Christoffer Dall <christoffer.dall@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: Fix spurious warning for benign stage 2
- teardown race
-Message-ID: <v3vgnteumpaxbgqjtfwoilcbwpwohfci3uwu4ooykls6zjwjwe@rukbigno2m5o>
-References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
- <20260812-kvm-arm-nested-virt-fix-v1-1-4ad883f1b6a5@kernel.org>
- <qfhlmmidzdmmsfopfhxpddgwa7nob45jwgb6sabskawaxtox7i@mnxplk3zn34k>
- <an3gqCJ1fzloWB_N@lucifer>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="MEfiK1H1"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67E4WBdw156102;
+	Fri, 14 Aug 2026 07:41:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=6+Rcz7kKVVLDRn5aZQPQImSGRHyyJ3
+	MpcEf6UVAEeog=; b=MEfiK1H1q7QTTunwDi1Gm3+4H1a/EesxTBwyV19pkWlNvt
+	RmjvdDHeonU7XZcLiaU/Cck5YxVpoeYc2A360O/V577pCgYqDcZaxKNaLfwivQvE
+	g8kkftpngTVT89ucX0joJftN5nJLZMsf7VpIT8bwvIK0wBLGE1bHgV1+qSTyrc45
+	Pttm5vje1MCCwDBrcCUUedKDuxUWSHY1iTvTqqIMEDICDT+xkEVAJXNpb5VLtIBQ
+	EZQlXMw8xzCl95bVKCVbzI/vD3vQtba6CQUZ3qNuRVsJasPMKkxSOXmAK8duOVl6
+	3k8p7qyg9fgC4grwKqo/rhi1zdl/MkbErYdwkLRg==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvma3u2u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 14 Aug 2026 07:41:12 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67E7QO2W002764;
+	Fri, 14 Aug 2026 07:41:11 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fxesqejvk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 14 Aug 2026 07:41:11 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67E7f9wM46465454
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 14 Aug 2026 07:41:09 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B521320043;
+	Fri, 14 Aug 2026 07:41:09 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2505F20040;
+	Fri, 14 Aug 2026 07:41:06 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.124.211.225])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 14 Aug 2026 07:41:05 +0000 (GMT)
+Date: Fri, 14 Aug 2026 13:11:03 +0530
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: guzebing <guzebing1612@gmail.com>
+Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, tytso@mit.edu,
+        adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, jack@suse.cz,
+        ritesh.list@gmail.com, yi.zhang@huawei.com, bretznic@gmail.com,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: reject delalloc to nodelalloc before applying
+ remount options
+Message-ID: <an7Gj2vWVpbP584g@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+References: <20260814034855.1573759-1-guzebing1612@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,225 +71,158 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <an3gqCJ1fzloWB_N@lucifer>
+In-Reply-To: <20260814034855.1573759-1-guzebing1612@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDA1OCBTYWx0ZWRfXyBcr2IGWXajq
+ +E1u/DRPGuiNG/4Nb+yx2CXdr5hjVAt8TZkUObQRofay8mf60SZS/yQYVBe0G3CD/TA0W+LA0ls
+ zwXQNbP9rlTQfv1DqRVztzSGHHykkcMHsUua7FZCKt5u8jnziCgFBtq1ulrx1urZxu6Yar952M8
+ 2eqFxnwpqSKZjWKP2fVEldnR5BJJAKwe1Uc2jRENg8xO+EVM79AsBvqRHBzj7/rbTlz1B/4j4RQ
+ BdsecT6YANI4qttVtygEsOs/saheA3UqOnALh34FQvQBR21TcRGo1WwW+0PN9/wdl5Aq478ptTV
+ nIVWDWRHdZ5DBMp9T1eNP+JQQlTSNU3kbJUpKSGJSY0CRPn49YPREn3B6loRNufc+xI4MN337yM
+ 4lgIccloyhgbkxiwVmRh7bsxYJy2ZtiDMi0TTmLWk8fMctRQ255gcoSYSip+y9DJoc4dk92C26p
+ 3HjVWahkR8PBlPvtjgQ==
+X-Proofpoint-ORIG-GUID: mBzFtr89K-orXqMWlC23rFFKnWJV_Ue1
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDA1OCBTYWx0ZWRfX8cu5MqYbA1eL
+ u36+Kf7ilaBU+jCFM4nJK2v0UOustgWP46bt9j7zPEPfyoazqgt25Q4UM8dTkKQXZDmCdliPfzw
+ 2PaqsMAj2cgrbMyhCxkPHfpps+zMIeY=
+X-Authority-Analysis: v=2.4 cv=IfK3n2qa c=1 sm=1 tr=0 ts=6a7ec698 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=FLgiNcECAJhIYfXtno0A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: 9TVrCjLsWNHyEiUh_xLXYaXhwQzrXHwB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-14_02,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 adultscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140058
 
-On Thu, Aug 13, 2026 at 04:24:49PM +0800, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Aug 13, 2026 at 12:20:43AM +0100, Wei-Lin Chang wrote:
-> > Hi Lorenzo,
-> >
-> > Thanks for the detailed analysis!
->
-> You're welcome :)
->
-> >
-> > I can follow what's happening from the report, but one thing I don't
-> > get:
-> >
-> > On Wed, Aug 12, 2026 at 02:31:20PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > A batch of kernel warnings were triggered in the L0 host kernel when using
-> > > kvmtool to experiment with nested virtualisation.
-> > >
-> > > The issue was observed on an M2 macbook pro with 24 GiB of RAM running
-> > > asahi linux 7.1.6-400.asahi.fc44.aarch64+16k with 16 KiB page size.
-> > >
-> > > The bug is confirmed to exist in mainline and does not appear to be
-> > > impacted by any downstream patches carried by asahi.
-> > >
-> > > kvmtool was used to establish an L1 guest with 8 CPUs and 8 GiB of RAM.
-> > >
-> > > kvmtool was then run again within the L1 guest to establish an L2 guest
-> > > with 4 CPUs and 4 GiB of RAM.
-> > >
-> > > Then it was run again to establish another inner guest with 2 CPUs and 2
-> > > GiB of RAM at L3.
-> > >
-> > > Both the L2 and L3 guests were then exited and another L2 guest was
-> > > established with the same characteristics.
-> > >
-> > > Sufficient memory pressure was present in the L0 host to trigger indirect
-> > > reclaim, waking kcompactd up and triggering migration.
-> > >
-> > > Shortly afterwards the L2 guest was stopped, at which point three warnings
-> > > were observed in the L0 host in quick succession with the second and the
-> > > third occurring 114us and 189us after the first, respectively.
-> > >
-> > > In each case the call trace was the same:
-> > >
-> > > WARNING: arch/arm64/kvm/mmu.c:336 at __unmap_stage2_range+0x64/0x80,
-> > > CPU#5: kcompactd0/66
-> > > ...
-> > > __unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3)) (P)
-> > > kvm_stage2_unmap_range (arch/arm64/kvm/mmu.c:346)
-> > > kvm_nested_s2_unmap (arch/arm64/kvm/nested.c:1168 (discriminator 14))
-> > > kvm_unmap_gfn_range (arch/arm64/kvm/mmu.c:2416)
-> > > kvm_mmu_notifier_invalidate_range_start (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:718 ...)
-> > > mn_hlist_invalidate_range_start (mm/mmu_notifier.c:525)
-> > > __mmu_notifier_invalidate_range_start (mm/mmu_notifier.c:580)
-> > > try_to_migrate_one (./include/linux/mmu_notifier.h:478 ./include/linux/mmu_notifier.h:471 mm/rmap.c:2459)
-> > > rmap_walk_anon (mm/rmap.c:3001)
-> > > rmap_walk (mm/rmap.c:3106 mm/rmap.c:3101)
-> > > try_to_migrate (mm/rmap.c:2774)
-> > > migrate_folio_unmap (mm/migrate.c:1330 (discriminator 3))
-> > > migrate_pages_batch (mm/migrate.c:1909)
-> > > migrate_pages_sync (mm/migrate.c:2026)
-> > > migrate_pages (mm/migrate.c:2135)
-> > > compact_zone (mm/compaction.c:2663)
-> > > compact_node (mm/compaction.c:2932)
-> > > kcompactd (mm/compaction.c:3230)
-> > > kthread (kernel/kthread.c:436)
-> > > ret_from_fork (arch/arm64/kernel/entry.S:858)
-> > >
-> > > Analysing this:
-> > >
-> > > try_to_migrate() performs the first part of migration on a folio -
-> > > establishing migration entries in all page tables mapping it - calling
-> > > try_to_migrate_one() for each VMA the folio is mapped in.
-> > >
-> > > Immediately prior to installing the migration entry, try_to_migrate_one()
-> > > calls mmu_notifier_invalidate_range_start() to signal to notifiers that the
-> > > existing page table entry is about to be unmapped.
-> > >
-> > > Since this range happened to contain folios used by the virtual machine
-> > > (given its memory consumption this was highly likely to be a target) this
-> > > in turn triggers arm64 kvm code via an MMU notifier:
-> > >
-> > > mmu_notifier_invalidate_range_start()
-> > >   -> ... -> kvm_mmu_notifier_invalidate_range_start()
-> > >     -> kvm_mmu_unmap_gfn_range()
-> > >       -> kvm_unmap_gfn_range()
-> > >         -> kvm_nested_s2_unmap()
-> > >           -> kvm_stage2_unmap_range()
-> > >             -> __unmap_stage2_range()
-> > >                -> stage2_apply_range()
-> > >        	       <- -EINVAL, triggering a WARN_ON()
-> > >
-> > > Since commit ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page
-> > > tables") kvm_unmap_gfn_range() invokes kvm_nested_s2_unmap() which takes
-> > > the rather drastic step of evicting the entirety of the stage 2 shadow page
-> > > tables for each nested guest:
-> > >
-> > > 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
-> > > 		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-> > >
-> > > 		if (kvm_s2_mmu_valid(mmu))
-> > > 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
-> > > 	}
-> > >
-> > > This will iterate through every valid MMU.
-> > >
-> > > mmu_notifier_invalidate_range_start() sets the MMU_NOTIFIER_RANGE_BLOCKABLE
-> > > flag when signalling notifiers, so may_block is true here.
-> > >
-> > > __unmap_stage2_range() wraps invocation of stage2_apply_range() in a
-> > > WARN_ON():
-> > >
-> > > 	WARN_ON(stage2_apply_range(mmu, start, end, KVM_PGT_FN(kvm_pgtable_stage2_unmap),
-> > > 				   may_block));
-> > >
-> > > Which is precisely the triggered warning and means stage2_apply_range() is
-> > > returning an error.
-> > >
-> > > In arm64 return values are stored in the x0 register and in each splat w0
-> > > (since it's a 32-bit value) is 0xffffffea which, by two's complement, is
-> > > -0b00010110 or -EINVAL.
-> > >
-> > > The only way in which stage2_apply_range() can return an error is if either
-> > > the passed in walk function (kvm_pgtable_stage2_unmap()) returns an error
-> > > or mmu->pgt is NULL:
-> > >
-> > > 	static int stage2_apply_range(...)
-> > > 	{
-> > > 		do {
-> > > 			struct kvm_pgtable *pgt = mmu->pgt;
-> > > 			if (!pgt)
-> > > 				return -EINVAL;
-> > >
-> > > 			next = stage2_range_addr_end(addr, end);
-> > > 			ret = fn(pgt, addr, next - addr);
-> > > 			if (ret)
-> > > 				break;
-> > > 			if (resched && next != end)
-> > > 				cond_resched_rwlock_write(&kvm->mmu_lock);
-> > > 		} while (addr = next, addr != end);
-> > >
-> > > 		return ret;
-> > > 	}
-> > >
-> > > This loop is batched by stage2_range_addr_end() at the granularity of
-> > > kvm_granule_size(KVM_PGTABLE_MIN_BLOCK_LEVEL), which for a 16 KiB page size
-> > > kernel is 32 MiB.
-> > >
-> > > kvm_pgtable_stage2_unmap() only returns an error if
-> > > kvm_pgtable_walk_begin() or _kvm_pgtable_walk() return an error. On arm64
-> > > the former doesn't ever do so, and the latter only returns -EINVAL if
-> > > either pgd is NULL (we gate that already) or an invalid pgt->start_level is
-> > > specified (not the case).
-> > >
-> > > So the cause of the warning is that mmu->pgt is NULL here.
-> > >
-> > > This field is protected by kvm->mmu_lock, but after each invocation of the
-> > > walk function, if the end of the range has not yet been reached, the lock
-> > > is dropped.
-> > >
-> > > This is done by calling cond_resched_rwlock_write() which drops
-> > > kvm->mmu_lock when yielding the time slice before reacquiring it upon being
-> > > scheduled again:
-> > >
-> > > 		if (resched && next != end)
-> > > 			cond_resched_rwlock_write(&kvm->mmu_lock);
-> > >
-> > > Note that resched = may_block here and is always true for these walks.
-> > >
-> > > This points to something else racing this code to clearing the pgt, and
-> > > brings us back to the observation above that the issue occurs when tearing
-> > > down the L2 guest.
-> > >
-> > > Upon L0's userspace mm_struct teardown, stage 2 mappings for IPAs mapped by
->
-> s/L0/L2/
->
-> > > the guest are unmapped via mmu notifier:
-> > >
-> > > exit_mm()
-> > >   -> mmput()
-> > >     -> __mmput()
-> > >       -> exit_mmap()
-> > >         -> mmu_notifier_release()
-> > > 	  -> ... -> kvm_mmu_notifier_release()
-> > >             -> kvm_flush_shadow_all()
-> > >               -> kvm_arch_flush_shadow_all()
-> > > 	        -> kvm_free_stage2_pgd()
-> > > 		  -> [ acquire kvm->mmu_lock for write ]
-> > > 		  -> mmu->pgt = NULL [ among other tasks ]
-> > > 		  -> [ release kvm->mmu_lock for write ]
-> >
-> > You mentioned stopping the L2 VM only, which means L1 is still running.
-> > Why would the L0 userspace mm_struct get torn down if L1 is still live?
-> > What did I miss?
->
-> Ah yeah this is a mistake sorry :) It should say L2 teardown.
->
-> The stuff relevant to L0 is the MMU notifier bit.
+On Fri, Aug 14, 2026 at 11:48:55AM +0800, guzebing wrote:
+> Commit 97f5ec3b166d ("ext4: prevent delalloc to nodelalloc on
+> remount") rejects switching a mounted filesystem from delalloc to
+> nodelalloc.  However, it performs the check after ext4_apply_options()
+> has already cleared EXT4_MOUNT_DELALLOC in the live superblock.  The
+> failure path eventually restores the bit, but leaves a window where
+> other CPUs can observe nodelalloc.
+> 
+> test_opt() reads s_mount_opt directly without a lock shared with
+> remount.  If a concurrent truncate's __es_remove_extent() hits this
+> window and observes nodelalloc, it sets count_reserved to false.
+> Delayed extent status entries are then removed without calculating
+> their cluster reservations, leaving reserved at zero.
+> ext4_es_remove_extent() therefore calls ext4_da_release_space() with
+> zero, leaving i_reserved_data_blocks and s_dirtyclusters_counter
+> elevated.  When the inode is later evicted after unlink,
+> ext4_destroy_inode() reports:
+> 
+>   i_reserved_data_blocks (...) not cleared!
+> 
+> CPU 0                             CPU 1
+>                                   ksys_truncate()
+>                                     ...
+>                                     ext4_es_remove_extent()
+> ext4_reconfigure()
+>   ext4_check_opt_consistency()
+>   __ext4_remount()
+>     ext4_apply_options()
+>       clear EXT4_MOUNT_DELALLOC
+>                                       __es_remove_extent()
+>                                         test_opt() sees !DELALLOC
+>                                         count_reserved = false
+>     reject delalloc -> nodelalloc
+>     restore EXT4_MOUNT_DELALLOC
+>                                         remove delayed ES
+>                                     ext4_da_release_space(0)
+> 
 
-Hi Lorenzo,
+Hi guzebing,
 
-Still have question w/ your above addtional information:
+This looks like a valid issue. I think the unrelated issues sashiko has
+pointed is also valid and we can probably move back more of these checks
+from __ext4_remount to ext4_check_opt_consistency, but that can be done
+in separate patches.
 
-The trace is observed on L0, means the exit_mm() path should
-also happens on L0 to race w/ the
-mmu_notifier_invalidate_range_start() path, but how this is
-triggred by L2 teardown, IIUC the L2 teardown triggers the
-exit_mm() path on L1, not on L0. The L1 is still alive thus
-the qemu/kvmtool process on L0 which hold all L1/L2/L3 is
-still alive yet. Please correct me if anything I missed
-here.
+Feel free to add:
+Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
 
->
-> >
-> > Thanks,
-> > Wei-Lin Chang
-> >
-> > [...]
->
-> --
-> Cheers, Lorenzo
+> Follow the pre-apply validation approach used by
+> ext4_check_quota_consistency() and reject the transition in
+> ext4_check_opt_consistency(), before ext4_apply_options() changes live
+> state.  Use mask_s_mount_opt to determine whether delalloc/nodelalloc
+> was specified and ctx_test_mount_opt() to check the final parsed value.
+> 
+> Fixes: 97f5ec3b166d ("ext4: prevent delalloc to nodelalloc on remount")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guzebing <guzebing1612@gmail.com>
+> ---
+> 
+> This issue was first observed in a production environment.  It can now
+> be reproduced with a shell script.
+> 
+>   1. Create a 768 MiB ext4 filesystem and mount it with delalloc.
+>   2. Start 16 workers.  Each worker repeatedly runs:
+> 
+>        xfs_io -f -c 'pwrite -q 0 32m' file-N
+>        truncate -s 262144 file-N
+> 
+>   3. In parallel, repeatedly run "mount -o remount,nodelalloc".  Every
+>      remount is expected to fail.
+>   4. Continuously sample the live mount options with findmnt and record
+>      any transient nodelalloc state.
+>   5. After 300 seconds, stop the workers and unmount the filesystem,
+>      then inspect dmesg for "i_reserved_data_blocks (...) not cleared!".
+> 
+> On an affected kernel, 7 transient nodelalloc samples and 9 reservation
+> warnings were observed during 101 rejected remounts.
+> 
+> With this fix, no transient nodelalloc state or reservation warning was
+> observed.
+
+Can you please add an xfstests for this. The test can stress this path and
+then use the _check_dmesg_for helper to detect if there were any
+i_reserved_data_blocks related warnings.
+
+Regards,
+ojaswin
+
+> 
+>  fs/ext4/super.c | 15 ++++++++-------
+>  1 file changed, 8 insertions(+), 7 deletions(-)
+> 
+> diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+> index 245f67d10ded3..9e1ea94664775 100644
+> --- a/fs/ext4/super.c
+> +++ b/fs/ext4/super.c
+> @@ -2816,6 +2816,14 @@ static int ext4_check_opt_consistency(struct fs_context *fc,
+>  	}
+>  
+>  	if (is_remount) {
+> +		if (test_opt(sb, DELALLOC) &&
+> +		    (ctx->mask_s_mount_opt & EXT4_MOUNT_DELALLOC) &&
+> +		    !ctx_test_mount_opt(ctx, EXT4_MOUNT_DELALLOC)) {
+> +			ext4_msg(sb, KERN_ERR,
+> +				 "can't disable delalloc during remount");
+> +			return -EINVAL;
+> +		}
+> +
+>  		if (!sbi->s_journal &&
+>  		    ctx_test_mount_opt(ctx, EXT4_MOUNT_DATA_ERR_ABORT)) {
+>  			ext4_msg(NULL, KERN_WARNING,
+> @@ -6660,13 +6668,6 @@ static int __ext4_remount(struct fs_context *fc, struct super_block *sb)
+>  		goto restore_opts;
+>  	}
+>  
+> -	if ((old_opts.s_mount_opt & EXT4_MOUNT_DELALLOC) &&
+> -	    !test_opt(sb, DELALLOC)) {
+> -		ext4_msg(sb, KERN_ERR, "can't disable delalloc during remount");
+> -		err = -EINVAL;
+> -		goto restore_opts;
+> -	}
+> -
+>  	sb->s_flags = (sb->s_flags & ~SB_POSIXACL) |
+>  		(test_opt(sb, POSIX_ACL) ? SB_POSIXACL : 0);
+>  
