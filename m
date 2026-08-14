@@ -1,81 +1,191 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E19F63537E8;
-	Fri, 14 Aug 2026 14:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7723A352014;
+	Fri, 14 Aug 2026 14:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786716561; cv=none; b=Ifn1BxPhqQvUg8m4if3JkpIV5Rf0JHqdo9kCw5v1gIjqPiB9/4dGrlG/NWODWJqx0ltdaYRIVXAE7GJXRuPFjmHfI7r7Q5gRbXeIAHyEz2GrQ9uFrbDyen2zkL7cWRUQNfJ4nrJTw3YnCIvz76upaKI26qOZrCSFofuRhkIOLCw=
+	t=1786716828; cv=none; b=MYtquxslfsyvzsd08AE/5BpYdf7XivyjV8deoENGkadUGGi5KISJ7LbaHdddLjZN6fAdfRba7nHObhVaM89ZXUJpqbnfMgD/MXocnEZSQbXYLoJZpBWEaLruoBoX/CDLuDrDDDnCIhlsCpSRQ+QSYaOABlPhwp9quL8fdX8Uc54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786716561; c=relaxed/simple;
-	bh=8mOo4smhMMUvh3mVQ92iE8z67i3k3eUEdQXA0/fFUxs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dLd4Y95Vzbawsf6lLCEwlaqLyfKBD3j1pM9SIuxRLRe0GEmRdRFv94beqB9oj7J3vqRGCOXM2fXXIjFDdIDiKf1od+0a05RTBTGRvwCDm2tta/r/dff6Pqr2VyvEZj4Tw6LuPfnCisrzqHL+FaaGR0RKueZ1/w8Tlkfxh2vD0NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ZpD0SfMV; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ZpD0SfMV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=hD/HYIDNlTIWF9lsI80VPm5RtqwA7Pq0p40F/L9u9uE=; b=ZpD0SfMV8G34pLwtjTg+ymmFf1
-	3sSGKl6Mtv53W15dfvXOsJV0adWqX0qseC4MVeZtMubnNV0IA3uLBW4Q1vhBYhFehKUyM3optzdjD
-	pfoQXDCdud+1cSWAGlkGDe608LAWszneLzaxj4VzcnM77PKZP4DlzXWLWi7osRoWFQ9U=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wusam-00HamW-B8; Fri, 14 Aug 2026 16:09:04 +0200
-Date: Fri, 14 Aug 2026 16:09:04 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>, stable@vger.kernel.org,
-	kernel@pengutronix.de, linux-kernel@vger.kernel.org,
-	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net v1 1/1] net: dsa: realtek: use
- gpiod_set_value_cansleep for reset GPIO
-Message-ID: <e52dcc7b-3545-4e43-888f-7a7b3811af8a@lunn.ch>
-References: <20260814110102.2362246-1-o.rempel@pengutronix.de>
+	s=arc-20240116; t=1786716828; c=relaxed/simple;
+	bh=FCPHczQbcgTaFsYO8Zqk9s0VrESK4kQBnDc9NTlt6Uw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bUH5bZEbBsoAOHx85LU0fIXRzt/UXeReqg6kYdWzFT3Do40TyIuhakgVECjNeSsya/GbmnSVpYYfzzYhpMytLwKwDwA5Gpu2s1m3vb2LKqEXYQgz5unOUXBmUWE7tkNlCZRB0kxQycjEtH3jDq2smcluLteDtwVk/0XZl70D+Mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC47C1F00A3A;
+	Fri, 14 Aug 2026 14:13:24 +0000 (UTC)
+From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+To: lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	p.zabel@pengutronix.de
+Cc: claudiu.beznea@tuxon.dev,
+	linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/7] PCI: rzg3s-host: Follow hardware manual clock/reset initialization order
+Date: Fri, 14 Aug 2026 17:13:06 +0300
+Message-ID: <20260814141312.2947972-2-claudiu.beznea+renesas@tuxon.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260814141312.2947972-1-claudiu.beznea+renesas@tuxon.dev>
+References: <20260814141312.2947972-1-claudiu.beznea+renesas@tuxon.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260814110102.2362246-1-o.rempel@pengutronix.de>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 01:01:02PM +0200, Oleksij Rempel wrote:
-> From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-> 
-> rtl83xx_reset_assert() and rtl83xx_reset_deassert() are only called from
-> the probe path, which may sleep and is not timing-critical.  When the
-> reset GPIO is provided by a sleeping controller such as an I2C I/O
-> expander, gpiod_set_value() warns:
-> 
-> Switch both helpers to gpiod_set_value_cansleep() so such a reset GPIO can
-> be used without triggering the warning.
-> 
-> The reset GPIO has been driven with the non-sleeping gpiod_set_value()
-> since the driver was added in v4.19.  The call has since been refactored
-> across several files - from realtek-smi.c / realtek-mdio.c into the common
-> rtl83xx.c module and then into the rtl83xx_reset_assert() and
-> rtl83xx_reset_deassert() helpers (both in v6.9).  This patch therefore
-> applies as-is only to kernels that carry those helpers (v6.9+); older
-> stable kernels need the same gpiod_set_value_cansleep() conversion at the
-> corresponding open-coded call sites.
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-This is one of those fuzzy cases. It never worked, so this is not a
-regression. Nobody has needed it up until now. So it probably should
-be considered a new feature, and merged via net-next.
+The RZ/G3S PCIe hardware manual specifies that the clocks must be enabled
+before the reset signals are deasserted during initialization.
 
-   Andrew
+Follow this sequence in the probe(), suspend(), and resume() paths to
+match the hardware requirements and avoid potential issues.
+
+Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+---
+
+Changes in v3:
+- none, this patch is new
+
+ drivers/pci/controller/pcie-rzg3s-host.c | 40 +++++++++++++-----------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
+index 3f7393c49a08..830cd7c76699 100644
+--- a/drivers/pci/controller/pcie-rzg3s-host.c
++++ b/drivers/pci/controller/pcie-rzg3s-host.c
+@@ -1888,10 +1888,6 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto sysc_signal_restore;
+ 
+-	ret = rzg3s_pcie_power_resets_deassert(host);
+-	if (ret)
+-		goto sysc_signal_restore;
+-
+ 	pm_runtime_enable(dev);
+ 
+ 	/*
+@@ -1902,12 +1898,16 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto rpm_disable;
+ 
++	ret = rzg3s_pcie_power_resets_deassert(host);
++	if (ret)
++		goto rpm_put;
++
+ 	raw_spin_lock_init(&host->hw_lock);
+ 
+ 	ret = rzg3s_pcie_host_setup(host, rzg3s_pcie_init_irqdomain,
+ 				    rzg3s_pcie_teardown_irqdomain);
+ 	if (ret)
+-		goto rpm_put;
++		goto power_resets_assert;
+ 
+ 	bridge->sysdata = host;
+ 	bridge->ops = &rzg3s_pcie_root_ops;
+@@ -1922,12 +1922,13 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	clk_disable_unprepare(host->port.refclk);
+ 	rzg3s_pcie_teardown_irqdomain(host);
+ 	host->data->config_deinit(host);
++power_resets_assert:
++	reset_control_bulk_assert(host->data->num_power_resets,
++				  host->power_resets);
+ rpm_put:
+ 	pm_runtime_put_sync(dev);
+ rpm_disable:
+ 	pm_runtime_disable(dev);
+-	reset_control_bulk_assert(host->data->num_power_resets,
+-				  host->power_resets);
+ sysc_signal_restore:
+ 	/*
+ 	 * SYSC RST_RSM_B signal need to be asserted before turning off the
+@@ -1948,10 +1949,6 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	struct rzg3s_sysc *sysc = host->sysc;
+ 	int ret;
+ 
+-	ret = pm_runtime_put_sync(dev);
+-	if (ret)
+-		return ret;
+-
+ 	clk_disable_unprepare(port->refclk);
+ 
+ 	/* SoC-specific de-initialization */
+@@ -1964,13 +1961,19 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	if (ret)
+ 		goto config_reinit;
+ 
+-	ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
++	ret = pm_runtime_put_sync(dev);
+ 	if (ret)
+ 		goto power_resets_restore;
+ 
++	ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
++	if (ret)
++		goto rpm_resume;
++
+ 	return 0;
+ 
+ 	/* Restore the previous state if any error happens */
++rpm_resume:
++	pm_runtime_resume_and_get(dev);
+ power_resets_restore:
+ 	reset_control_bulk_deassert(data->num_power_resets,
+ 				    host->power_resets);
+@@ -1980,7 +1983,6 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	data->config_post_init(host);
+ refclk_restore:
+ 	clk_prepare_enable(port->refclk);
+-	pm_runtime_resume_and_get(dev);
+ 	return ret;
+ }
+ 
+@@ -2009,18 +2011,18 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
+ 			goto assert_rst_rsm_b;
+ 	}
+ 
+-	ret = rzg3s_pcie_power_resets_deassert(host);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret)
+ 		goto assert_rst_rsm_b;
+ 
+-	ret = pm_runtime_resume_and_get(dev);
++	ret = rzg3s_pcie_power_resets_deassert(host);
+ 	if (ret)
+-		goto assert_power_resets;
++		goto rpm_put;
+ 
+ 	ret = rzg3s_pcie_host_setup(host, rzg3s_pcie_msi_hw_setup,
+ 				    rzg3s_pcie_msi_hw_teardown);
+ 	if (ret)
+-		goto rpm_put;
++		goto assert_power_resets;
+ 
+ 	return 0;
+ 
+@@ -2028,11 +2030,11 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
+ 	 * If any error happens there is no way to recover the IP. Put it in the
+ 	 * lowest possible power state.
+ 	 */
+-rpm_put:
+-	pm_runtime_put_sync(dev);
+ assert_power_resets:
+ 	reset_control_bulk_assert(data->num_power_resets,
+ 				  host->power_resets);
++rpm_put:
++	pm_runtime_put_sync(dev);
+ assert_rst_rsm_b:
+ 	rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
+ 	return ret;
+-- 
+2.43.0
+
