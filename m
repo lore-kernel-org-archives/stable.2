@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD4A33B966;
-	Fri, 14 Aug 2026 13:49:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C546A3375C3;
+	Fri, 14 Aug 2026 13:49:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786715357; cv=none; b=lECRePyEasCVWCCXWW6tZTNBzgN0IY+3moTm77/nvvgWwtyKWON/VNtkjwCSl20wKBye8hThyNsVpEFm3pfxpmFL4p2Cf7oSiG0Th/SMUHTelWh9bZggHAxzNA5LOiwMlaZslBpIq9SxSus9WM+Hzb8h2yHpOx0ilhbokxNXMjg=
+	t=1786715358; cv=none; b=RIK1c9WnY9+uqVJiBBX39br25h5rWDNkHVO0AFsptkt8q55ji6Z1je0uKBMQVq3KwIdnde9kFZESX87bFR5J/K7jMzSIcUmGE4rTqMEIyq/NgoH3g5YJ3BK3/4PwcEvtJPbpFMt/IpLL1AfO78cdd2sEYLD8CT5DCleWsv5d7BA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786715357; c=relaxed/simple;
-	bh=9yD8kDI+sF9x+QBUzaisVeB7DJKQlRdPNc6GRpnDiko=;
+	s=arc-20240116; t=1786715358; c=relaxed/simple;
+	bh=je0Gn8UedNj46wQelTm807nMV+YFl5+w7RoiNCV0XPk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cBQpigvojq5bc+ps5eT9Yv56Y2efS9HSsdLn+GKXijoHesiwMU1BJy7a14MIQQeDTJlHiXqka8SMw48ZVXnvNASRnk9jTd7PJURrOh7nhaQ72QY1fH48jxQVUfjhP1jssbxRrwy48+eV0vz6Xzq2UguEXg2MIQX++7SXjc+4KJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pi/u6hk8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kzJsxofYjgB8utqIyCUXPzJmi6OFZS7F5gulC0Kyog4GevJ27vf7dCfrXY9ubjMEX34LAsm972L0ngL4DUYqZm/re7MmReBKKNE2ncSUizJ6xXKGyhCkApA3cntO0/SAJGR76719E4ZPF6/pzC9D+VSHhnx6YYHaUiWx5t/XauQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cWLJUP//; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pi/u6hk8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D591F00A3D;
-	Fri, 14 Aug 2026 13:49:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cWLJUP//"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F561F00A3E;
+	Fri, 14 Aug 2026 13:49:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786715355;
-	bh=+2bwLlEmr9s8+euwyllhslq5VQc7xFVwcbM9bauA8CI=;
+	s=k20260515; t=1786715356;
+	bh=4UmPkjJn6FzZdr3G7GcuUavKUP8P36jT9i8Urx3AgHY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pi/u6hk8pIOCrjuRK7UyVqZ+/AcBNXyGIXEDHonaz9GWWIYeKAC9wW6NAgcIJuHBt
-	 wAhsfeNBTEf5+UlXAGUafS8oUX+bhJqn39q2y2j/YdCrvUubeB4dbDydeuWhO+qyL5
-	 chltg7kMoND85tihTp5WtnCVzebqfsuLiMllUPqqaVvCkzLYUpWxzZQ/6sO+oPyzIH
-	 axQMCk2LJmNjaPPCjC+BIKfjlFylnQM6dAsmkUS0PzN8VRP4qzkoiR+65B/NFg/9m6
-	 9u/xVQF8fXTbhVep8gVfgvVlTAfL2CN0JQQv6eu1EzGEVtE6dIIIFFySGTJR43NbTJ
-	 AuN/gZxLHaBpA==
+	b=cWLJUP//6SHXOJ936l2MMRjI97TNV30IJJ84ZqL40ZfY8eXvHsIR7upIZ3Gj1UrJx
+	 sYMvxscEyB7M35GyK0QzH7wrKtX07ra2rmeDAL//xX3C/3BEsyxWuz9LyPJdFB2Om5
+	 TvxYjQeCLrm6LBIqFtYLQMZL9uHZOTvZfVckbNueYE0omdRbq6VbchMffjyRKHvjeT
+	 LycS/nNlqrIEiA5Ly/dm9nLgt3X3xFmb1iV1hajYO7alD29PH/J8KqWmVknuZbPaOk
+	 +bMhkMC0iTrvK1wC+ANYu7WtYCos2E8MZI+55lU8hRSgs1TqYV2TCayxBq9Ct/IWWC
+	 vOV4lzh+HAyDw==
 From: Dinh Nguyen <dinguyen@kernel.org>
 To: bp@alien8.de,
 	tony.luck@intel.com
@@ -35,9 +35,9 @@ Cc: dinguyen@kernel.org,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCHv3 2/4] EDAC/altera: Drop __init from ECC setup paths for re-probe safety
-Date: Fri, 14 Aug 2026 08:48:52 -0500
-Message-ID: <20260814134854.2397810-3-dinguyen@kernel.org>
+Subject: [PATCHv3 3/4] EDAC/altera: Fix code leak on dci allocation failure
+Date: Fri, 14 Aug 2026 08:48:53 -0500
+Message-ID: <20260814134854.2397810-4-dinguyen@kernel.org>
 X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 In-Reply-To: <20260814134854.2397810-1-dinguyen@kernel.org>
 References: <20260814134854.2397810-1-dinguyen@kernel.org>
@@ -49,107 +49,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sashiko reports: Does suppressing sysfs unbinding fully prevent the
-execution of freed __init memory? If altr_sysmgr_regmap_lookup_by_phandle()
-returns -EPROBE_DEFER, the probe is deferred until after __init memory is
-freed.
+sashiko reports: If devres_open_group() fails, the function returns -ENOMEM
+without freeing the dci structure allocated earlier with edac_device_alloc_ctl_info().
 
-The a10 EDAC .setup callbacks (sdmmc, ethernet, nand, dma, usb, qspi)
-and their helpers (altr_init_a10_ecc_device_type,
-altr_init_a10_ecc_block) were marked __init. These run from the probe
-path, which may execute after init memory is freed -- e.g. a probe
-deferred via -EPROBE_DEFER that only succeeds once a late/module
-dependency appears, or a manual unbind/rebind. Calling __init code then
-dereferences freed memory. Remove __init so these functions remain
-valid at runtime.
+Free the dci structure if devres_open_group() fails.
 
-Assisted-by: Cursor:claude-4.8-opus
-Fixes: 788586efd116 ("EDAC/altera: Initialize peripheral FIFOs in probe()")
+Fixes: c3eea1942a16 ("EDAC, altera: Add Altera L2 cache and OCRAM support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
-v3: no changes
+v3: No changes
 v2: reworked v1 to include only true sashiko hits
 ---
- drivers/edac/altera_edac.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/edac/altera_edac.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-index fe501c89dd0dc..d8a3438fb5f44 100644
+index d8a3438fb5f44..ccdfb35178b69 100644
 --- a/drivers/edac/altera_edac.c
 +++ b/drivers/edac/altera_edac.c
-@@ -926,7 +926,7 @@ static int __maybe_unused altr_init_memory_port(void __iomem *ioaddr, int port)
- 	return ret;
- }
+@@ -1516,8 +1516,10 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	altdev = dci->pvt_info;
+ 	*altdev = *device;
  
--static __init int __maybe_unused
-+static int __maybe_unused
- altr_init_a10_ecc_block(struct device_node *np, u32 irq_mask,
- 			u32 ecc_ctrl_en_mask, bool dual_port)
- {
-@@ -1001,7 +1001,7 @@ altr_init_a10_ecc_block(struct device_node *np, u32 irq_mask,
+-	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL))
++	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL)) {
++		edac_device_free_ctl_info(dci);
+ 		return -ENOMEM;
++	}
  
- static int validate_parent_available(struct device_node *np);
- static const struct of_device_id altr_edac_a10_device_of_match[];
--static int __init __maybe_unused altr_init_a10_ecc_device_type(char *compat)
-+static int __maybe_unused altr_init_a10_ecc_device_type(char *compat)
- {
- 	int irq;
- 	struct device_node *child, *np;
-@@ -1330,7 +1330,7 @@ static const struct edac_device_prv_data a10_l2ecc_data = {
- 
- #ifdef CONFIG_EDAC_ALTERA_ETHERNET
- 
--static int __init socfpga_init_ethernet_ecc(struct altr_edac_device_dev *dev)
-+static int socfpga_init_ethernet_ecc(struct altr_edac_device_dev *dev)
- {
- 	int ret;
- 
-@@ -1360,7 +1360,7 @@ static const struct edac_device_prv_data a10_enetecc_data = {
- 
- #ifdef CONFIG_EDAC_ALTERA_NAND
- 
--static int __init socfpga_init_nand_ecc(struct altr_edac_device_dev *device)
-+static int socfpga_init_nand_ecc(struct altr_edac_device_dev *device)
- {
- 	int ret;
- 
-@@ -1390,7 +1390,7 @@ static const struct edac_device_prv_data a10_nandecc_data = {
- 
- #ifdef CONFIG_EDAC_ALTERA_DMA
- 
--static int __init socfpga_init_dma_ecc(struct altr_edac_device_dev *device)
-+static int socfpga_init_dma_ecc(struct altr_edac_device_dev *device)
- {
- 	int ret;
- 
-@@ -1420,7 +1420,7 @@ static const struct edac_device_prv_data a10_dmaecc_data = {
- 
- #ifdef CONFIG_EDAC_ALTERA_USB
- 
--static int __init socfpga_init_usb_ecc(struct altr_edac_device_dev *device)
-+static int socfpga_init_usb_ecc(struct altr_edac_device_dev *device)
- {
- 	int ret;
- 
-@@ -1450,7 +1450,7 @@ static const struct edac_device_prv_data a10_usbecc_data = {
- 
- #ifdef CONFIG_EDAC_ALTERA_QSPI
- 
--static int __init socfpga_init_qspi_ecc(struct altr_edac_device_dev *device)
-+static int socfpga_init_qspi_ecc(struct altr_edac_device_dev *device)
- {
- 	int ret;
- 
-@@ -1598,7 +1598,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
- 	return rc;
- }
- 
--static int __init socfpga_init_sdmmc_ecc(struct altr_edac_device_dev *device)
-+static int socfpga_init_sdmmc_ecc(struct altr_edac_device_dev *device)
- {
- 	int rc = -ENODEV;
- 	struct device_node *child;
+ 	/* Update PortB specific values */
+ 	altdev->edac_dev_name = ecc_name;
 -- 
 2.42.0.411.g813d9a9188
 
