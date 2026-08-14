@@ -1,520 +1,226 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDF346EC9E;
-	Fri, 14 Aug 2026 12:41:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCAE46D554
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 12:43:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786711292; cv=none; b=OhUCXlxok/FWKLbhlkCfHWnVI7kMoIViJRS9PP1r1rDIWlYMFlReD4FtD5pGM7bgd2MfMUkEL1iT6seCKrvGHaz0M12gFL817/w+Yf1v/UrW8i1StkUPszjezYNlAxammmPClbXBj598Rx8Pu63rVhVr+hsFt36060RdQGiT1mI=
+	t=1786711413; cv=none; b=VvgqsJSh9hJU6wj9c4/5Pz/bSdp+t1/vItwUiYiqB5DbW/OAPr0qxWaNeaBgFSxwYFDV3gqP/gS+/vjktfH/irMqmS3vHByhUpHeZBfwXGpKCJMiBfe9rnfr6dKsupyYaWJfezIUQ3HrrapTdQZepxe64SftjspWmh7lYK+UGjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786711292; c=relaxed/simple;
-	bh=19Aza+r8AI8c0ABBe+VtdwpbDMWRnfy291aP2xd8FC4=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=gM1um5fOQhMrleEuMU5aHFpsK1vG8m4Per5AHCPS6Rz/naLUEeMkuamLqo2z0gI6GJ4UQi6MW7sLp4kBq4BKl/QWL+DFiido5mvFVqcJs656mDgCqvSoxwgCSfplpNNidcwT4RxxM4lOBTACu4zapKMIYZhaklWdRR2HGDdPcSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YX4xjBRe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786711413; c=relaxed/simple;
+	bh=P3rumJlFCoxww/XmhSm36HlpRMUjcKpDZh5WTMzYmqE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=tGUChMTiknsBxun6xCziWnNQJ20Szno8mazsDZBJfExbUkhCs+5390pu4WKo3j8Z0hIejMJWwc0ZbUlQpWgVHEamWw6Ivw3Zn2fsFsBNGYKD6Aek0BV9SS3+FruOLquzaCc+GXs2GEvUmAiHOqxgrr0jXAnWt0skBUlw7ZdJ0Bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQLxcX9D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YX4xjBRe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9DD91F00ACA;
-	Fri, 14 Aug 2026 12:41:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQLxcX9D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 248DF1F000E9;
+	Fri, 14 Aug 2026 12:43:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786711284;
-	bh=KYBsyKkbdbzwqWFBVwGDdJrHuJARdhZEJN8hsgChdTg=;
-	h=Date:From:To:Cc:Subject:References;
-	b=YX4xjBReJxOrIMXESgW8thn5pba6drZZLaCfD1sVmjvBk3iuKxzL6emiyD7v1JJsu
-	 wb14bH9Tb0ZkBiAX/fXNl7VM4X8DTY0gBhqaorFJY+O2+VMsBn829ZAacwDFR3Ubjk
-	 E9lb+AN07etmz4MSZ4qm9YCWiQjuv0p7gq6ZUZfQM4jcnrA6JCo0F9OqDcjue6O57G
-	 xXbIArMYcSgQeRkWYGEe4Ntl2iPvoP268r6scUpGtj/iLO9WFwS/8rtQOPAkg/KPPt
-	 XDO7EzVV3fZFlf19hYxBW63KBlq20vh+2b36dfdZwXAvTIhr0z/ihQ3AGoDVvcUVqM
-	 y55eVgpjEwBww==
-Received: from rostedt by gandalf with local (Exim 4.99.4)
-	(envelope-from <rostedt@kernel.org>)
-	id 1wurEE-00000003zmI-1B8N;
-	Fri, 14 Aug 2026 08:41:42 -0400
-Message-ID: <20260814124142.138126038@kernel.org>
-User-Agent: quilt/0.69
-Date: Fri, 14 Aug 2026 08:41:28 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>,
- Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-next][PATCH 5/9] ring-buffer: Fix subbuf resize race with ring buffer readers
-References: <20260814124123.133362396@kernel.org>
+	s=k20260515; t=1786711411;
+	bh=tcqpRCUlOOOkdoKx24DFstJm3k55sKr6KeY+oCc/HI4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=OQLxcX9DUlgEOt6A0IxR/+9P6rIl1Z+YEBPV1WszStv0rA8cCtxpWBGfHqNUo03wf
+	 mXcakPMAUMGliCiyyyFwzKA4uMZ2KuSKi4vfv19ZVwL1/WpxoWtnEqJWICEOHVSms4
+	 Z/xRwJ5DHvPqSUhYzhZxQjpScsHo7YChPzHJBTBs2VVT1SJ6BzdhtyujtUaJcuFfEP
+	 Fbi729TYTZ6GgWKaoTR/l/0HseLq3Nc9q1jbU56He+rw7C/A/RjY2Qraild7+N3w5g
+	 B5urAPS00q2F8gPQ0g6wPvqRpB65WrjoP2OtJ7Uhzyyy55x6qIotE2Np70CxUB2hjp
+	 HZ+Jq01DjbnTg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: gregkh@linuxfoundation.org, keno@juliacomputing.com, keno@juliahub.com,
+ mingo@kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 7.1.y, 6.18.y, 6.12.y] futex: Prevent robust futex exit race
+ some more
+In-Reply-To: <2026081359-untie-chance-6812@gregkh>
+References: <2026081359-untie-chance-6812@gregkh>
+Date: Fri, 14 Aug 2026 14:43:28 +0200
+Message-ID: <877blsna8f.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain
 
-From: Vincent Donnefort <vdonnefort@google.com>
 
-trace_buffer subbuf_size is read lockless in ring_buffer_read_page() and
-ring_buffer_read_start(), while it can simultaneously be resized with
-ring_buffer_subbuf_order_set().
+From: Keno Fischer <keno@juliacomputing.com>
 
-Instead of trace_buffer::subbuf_size, use bpage::order in
-ring_buffer_read_start() and ring_buffer_read_page().
+commit 6d4514ca9cdf61fec4ec634cf50386f6f7e69748 upstream.
 
-In ring_buffer_read_start(), even with resize_disabled, there is still a
-possibility of a race with a buffer modification. Hold the trace_buffer
-mutex to synchronise with any pending ring buffer order modification.
+A robust futex unlock stores 0 over the whole futex value - wiping
+FUTEX_WAITERS - and wakes a single waiter. That wakeup is a one-shot
+notification: the protocol relies on its recipient to either acquire the
+futex (and eventually unlock while aware of the remaining contention) or
+re-arm FUTEX_WAITERS before sleeping again.  If the woken waiter is killed
+before it can do either, the kernel must jump in and wake the next task
+down the line.
 
-trace_buffer::subbuf_size is now actually useless, remove it. Also,
-create accessors rb_subbuf_capacity() and rb_page_capacity() which
-return the actual size available for storing events, while
-rb_subbuf_size() returns the actual subbuf page-size.
+This is a known complication of the futex protocol with a previous
+partial fix in commit ca16d5bee598 ("futex: Prevent robust futex exit
+race"). Unfortunately, that fix is insufficient.
 
+If a third task re-acquired the futex through the uncontended fast
+path in the meantime, the notification is lost: robust exit processing
+sees that it is owned by another task and does nothing, while the new
+owner sees no FUTEX_WAITERS when it unlocks and wakes nobody.
+The remaining waiters sleep forever behind a free futex:
+
+  A owns the futex, B and C sleep in FUTEX_WAIT
+                                        uval == A | FUTEX_WAITERS
+  A robust unlock: store 0, FUTEX_WAKE(1) wakes B
+                                        uval == 0
+  D fast path acquire: cmpxchg(0 -> D)
+                                        uval == D, no FUTEX_WAITERS
+  B killed before acting on the wakeup
+  B exit walk, pending op: owner D != B -> no action
+  D unlock: no FUTEX_WAITERS -> no wake
+                                        C sleeps forever
+
+This is clearly a shortcoming in the implementation, which fails to keep
+the FUTEX_WAITERS bit consistent.
+
+Work around this by augmenting the robust list exit processing to also
+perform the extra wakeup if the futex word is owned by another thread but
+FUTEX_WAITERS is not set.
+
+This does not fix the problem of a non-contended take over/release and free
+sequence, which has been discussed for years and has been addressed by
+commit 3ca9595d9fb6 ("futex: Add support for unlocking robust futexes") and
+subsequent changes, but failed to take the problem described above into
+account.
+
+A more complete solution which is based on the in kernel unlock of
+contended robust futexes has been discussed in the context of this change
+and should show up in mainline sooner than later.
+
+[ tglx: Amend change log slightly and fixup coding style ]
+
+Fixes: ca16d5bee598 ("futex: Prevent robust futex exit race")
+Signed-off-by: Keno Fischer <keno@juliahub.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Assisted-by: ClaudeCode:claude-fable-5 tla+
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813131152.3589632-5-vdonnefort@google.com
-Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Link: https://patch.msgid.link/20260730194705.38981-1-keno@juliacomputing.com
 ---
- kernel/trace/ring_buffer.c | 167 +++++++++++++++++++++++--------------
- 1 file changed, 106 insertions(+), 61 deletions(-)
-
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 0d35fd90ea1d..e436793ed5c1 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -391,6 +391,17 @@ static __always_inline unsigned int rb_page_size(struct buffer_page *bpage)
- 	return rb_data_page_size(bpage->page);
- }
+ kernel/futex/core.c |   91 ++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 61 insertions(+), 30 deletions(-)
+---
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -1027,8 +1027,11 @@ static int handle_futex_death(u32 __user
+ 		return -1;
  
-+/**
-+ * rb_page_capacity - Get the capacity of a buffer page
-+ * @bpage:	The buffer page
-+ *
-+ * Return: The maximum size available for events in the given buffer page.
-+ */
-+static __always_inline unsigned int rb_page_capacity(struct buffer_page *bpage)
-+{
-+	return (PAGE_SIZE << bpage->order) - BUF_PAGE_HDR_SIZE;
-+}
-+
- static void free_buffer_page(struct buffer_page *bpage)
- {
- 	/* Range pages are not to be freed */
-@@ -586,11 +597,42 @@ struct trace_buffer {
- 
- 	struct ring_buffer_meta		*meta;
- 
--	unsigned int			subbuf_size;
- 	unsigned int			subbuf_order;
- 	unsigned int			max_data_size;
- };
- 
-+static __always_inline unsigned int rb_subbuf_size(struct trace_buffer *buffer)
-+{
-+	return PAGE_SIZE << buffer->subbuf_order;
-+}
-+
-+/**
-+ * rb_subbuf_capacity - Get the capacity of a subbuffer
-+ * @buffer:	A trace buffer
-+ *
-+ * Unsafe to use without holding trace_buffer::mutex or with resizing enabled.
-+ * Consider rb_page_capacity() instead.
-+ *
-+ * Return: The maximum size available for events in a trace buffer subbuffer.
-+ */
-+static __always_inline unsigned int rb_subbuf_capacity(struct trace_buffer *buffer)
-+{
-+	return rb_subbuf_size(buffer) - BUF_PAGE_HDR_SIZE;
-+}
-+
-+/**
-+ * rb_subbuf_start - Get the start address of a subbuffer
-+ * @buffer:	A trace buffer
-+ * @addr:	An address of an event on a subbuffer
-+ *
-+ * Return: The start of the subbuffer for where @addr sits
-+ */
-+static __always_inline
-+unsigned long rb_subbuf_start(struct trace_buffer *buffer, unsigned long addr)
-+{
-+	return addr & ~((unsigned long)(rb_subbuf_size(buffer) - 1));
-+}
-+
- struct ring_buffer_iter {
- 	struct ring_buffer_per_cpu	*cpu_buffer;
- 	unsigned long			head;
-@@ -630,7 +672,7 @@ int ring_buffer_print_page_header(struct trace_buffer *buffer, struct trace_seq
- 	trace_seq_printf(s, "\tfield: char data;\t"
- 			 "offset:%u;\tsize:%u;\tsigned:%u;\n",
- 			 (unsigned int)offsetof(typeof(field), data),
--			 (unsigned int)(buffer ? buffer->subbuf_size :
-+			 (unsigned int)(buffer ? rb_subbuf_capacity(buffer) :
- 						 PAGE_SIZE - BUF_PAGE_HDR_SIZE),
- 			 (unsigned int)is_signed_type(char));
- 
-@@ -1620,7 +1662,7 @@ rb_range_align_subbuf(unsigned long addr, int subbuf_size, int nr_subbufs)
-  */
- static void *rb_range_meta(struct trace_buffer *buffer, int nr_pages, int cpu)
- {
--	int subbuf_size = buffer->subbuf_size + BUF_PAGE_HDR_SIZE;
-+	int subbuf_size = rb_subbuf_size(buffer);
- 	struct ring_buffer_cpu_meta *meta;
- 	struct ring_buffer_meta *bmeta;
- 	unsigned long ptr;
-@@ -2432,8 +2474,8 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
- 			bpage->id = i + 1;
- 			cpu_buffer->subbuf_ids[i + 1] = bpage;
- 		} else {
--			int order = cpu_buffer->buffer->subbuf_order;
--			bpage->page = alloc_cpu_data(cpu_buffer->cpu, order);
-+			bpage->page = alloc_cpu_data(cpu_buffer->cpu,
-+						     cpu_buffer->buffer->subbuf_order);
- 			if (!bpage->page)
- 				goto free_pages;
- 		}
-@@ -2556,8 +2598,7 @@ rb_allocate_cpu_buffer(struct trace_buffer *buffer, long nr_pages, int cpu)
- 		bpage->range = 1;
- 		cpu_buffer->subbuf_ids[0] = bpage;
- 	} else {
--		int order = cpu_buffer->buffer->subbuf_order;
--		bpage->page = alloc_cpu_data(cpu, order);
-+		bpage->page = alloc_cpu_data(cpu, bpage->order);
- 		if (!bpage->page)
- 			goto fail_free_reader;
- 	}
-@@ -2731,10 +2772,9 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 
- 	buffer->subbuf_order = order;
- 	subbuf_size = (PAGE_SIZE << order);
--	buffer->subbuf_size = subbuf_size - BUF_PAGE_HDR_SIZE;
- 
- 	/* Max payload is buffer page size - header (8bytes) */
--	buffer->max_data_size = buffer->subbuf_size - (sizeof(u32) * 2);
-+	buffer->max_data_size = rb_subbuf_capacity(buffer) - (sizeof(u32) * 2);
- 
- 	buffer->flags = flags;
- 	buffer->clock = trace_clock_local;
-@@ -2818,9 +2858,8 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 		if (nr_pages < 2)
- 			goto fail_free_buffers;
- 	} else {
--
- 		/* need at least two pages */
--		nr_pages = DIV_ROUND_UP(size, buffer->subbuf_size);
-+		nr_pages = DIV_ROUND_UP(size, rb_subbuf_capacity(buffer));
- 		if (nr_pages < 2)
- 			nr_pages = 2;
- 	}
-@@ -3203,7 +3242,7 @@ static void update_pages_handler(struct work_struct *work)
-  * @size: the new size.
-  * @cpu_id: the cpu buffer to resize
-  *
-- * Minimum size is 2 * buffer->subbuf_size.
-+ * Minimum size is 2 * rb_subbuf_capacity(buffer).
-  *
-  * Returns 0 on success and < 0 on failure.
-  */
-@@ -3225,12 +3264,6 @@ int ring_buffer_resize(struct trace_buffer *buffer, unsigned long size,
- 	    !cpumask_test_cpu(cpu_id, buffer->cpumask))
- 		return 0;
- 
--	nr_pages = DIV_ROUND_UP(size, buffer->subbuf_size);
--
--	/* we need a minimum of two pages */
--	if (nr_pages < 2)
--		nr_pages = 2;
--
  	/*
- 	 * Keep CPUs from coming online while resizing to synchronize
- 	 * with new per CPU buffers being created.
-@@ -3241,6 +3274,12 @@ int ring_buffer_resize(struct trace_buffer *buffer, unsigned long size,
- 	mutex_lock(&buffer->mutex);
- 	atomic_inc(&buffer->resizing);
- 
-+	nr_pages = DIV_ROUND_UP(size, rb_subbuf_capacity(buffer));
-+
-+	/* we need a minimum of two pages */
-+	if (nr_pages < 2)
-+		nr_pages = 2;
-+
- 	if (cpu_id == RING_BUFFER_ALL_CPUS) {
- 		/*
- 		 * Don't succeed if resizing is disabled, as a reader might be
-@@ -3513,7 +3552,7 @@ rb_event_index(struct ring_buffer_per_cpu *cpu_buffer, struct ring_buffer_event
- {
- 	unsigned long addr = (unsigned long)event;
- 
--	addr &= (PAGE_SIZE << cpu_buffer->buffer->subbuf_order) - 1;
-+	addr &= (unsigned long)rb_subbuf_size(cpu_buffer->buffer) - 1;
- 
- 	return addr - BUF_PAGE_HDR_SIZE;
- }
-@@ -3755,8 +3794,8 @@ static inline void
- rb_reset_tail(struct ring_buffer_per_cpu *cpu_buffer,
- 	      unsigned long tail, struct rb_event_info *info)
- {
--	unsigned long bsize = READ_ONCE(cpu_buffer->buffer->subbuf_size);
- 	struct buffer_page *tail_page = info->tail_page;
-+	unsigned long bsize = rb_page_capacity(tail_page);
- 	struct ring_buffer_event *event;
- 	unsigned long length = info->length;
- 
-@@ -4101,8 +4140,7 @@ rb_try_to_discard(struct ring_buffer_per_cpu *cpu_buffer,
- 
- 	new_index = rb_event_index(cpu_buffer, event);
- 	old_index = new_index + rb_event_ts_length(event);
--	addr = (unsigned long)event;
--	addr &= ~((PAGE_SIZE << cpu_buffer->buffer->subbuf_order) - 1);
-+	addr = rb_subbuf_start(cpu_buffer->buffer, (unsigned long)event);
- 
- 	bpage = READ_ONCE(cpu_buffer->tail_page);
- 
-@@ -4767,7 +4805,7 @@ __rb_reserve_next(struct ring_buffer_per_cpu *cpu_buffer,
- 	tail = write - info->length;
- 
- 	/* See if we shot pass the end of this buffer page */
--	if (unlikely(write > cpu_buffer->buffer->subbuf_size)) {
-+	if (unlikely(write > rb_page_capacity(tail_page))) {
- 		check_buffer(cpu_buffer, info, CHECK_FULL_PAGE);
- 		return rb_move_tail(cpu_buffer, tail, info);
- 	}
-@@ -5012,7 +5050,7 @@ rb_decrement_entry(struct ring_buffer_per_cpu *cpu_buffer,
- 	struct buffer_page *bpage = cpu_buffer->commit_page;
- 	struct buffer_page *start;
- 
--	addr &= ~((PAGE_SIZE << cpu_buffer->buffer->subbuf_order) - 1);
-+	addr = rb_subbuf_start(cpu_buffer->buffer, addr);
- 
- 	/* Do the likely case first */
- 	if (likely(bpage->page == (void *)addr)) {
-@@ -5799,7 +5837,6 @@ static struct buffer_page *
- __rb_get_reader_page(struct ring_buffer_per_cpu *cpu_buffer)
- {
- 	int max_loops = cpu_buffer->ring_meta ? cpu_buffer->nr_pages : 3;
--	unsigned long bsize = READ_ONCE(cpu_buffer->buffer->subbuf_size);
- 	struct buffer_page *reader = NULL;
- 	unsigned long overwrite;
- 	unsigned long flags;
-@@ -5947,7 +5984,7 @@ __rb_get_reader_page(struct ring_buffer_per_cpu *cpu_buffer)
- #define USECS_WAIT	1000000
-         for (nr_loops = 0; nr_loops < USECS_WAIT; nr_loops++) {
- 		/* If the write is past the end of page, a writer is still updating it */
--		if (likely(!reader || rb_page_write(reader) <= bsize))
-+		if (likely(!reader || rb_page_write(reader) <= rb_page_capacity(reader)))
- 			break;
- 
- 		udelay(1);
-@@ -6380,36 +6417,44 @@ EXPORT_SYMBOL_GPL(ring_buffer_consume);
- struct ring_buffer_iter *
- ring_buffer_read_start(struct trace_buffer *buffer, int cpu, gfp_t flags)
- {
-+	struct ring_buffer_iter *iter __free(kfree) = kzalloc_obj(*iter, flags);
- 	struct ring_buffer_per_cpu *cpu_buffer;
--	struct ring_buffer_iter *iter;
--
--	if (!cpumask_test_cpu(cpu, buffer->cpumask))
--		return NULL;
- 
--	iter = kzalloc_obj(*iter, flags);
- 	if (!iter)
- 		return NULL;
- 
--	/* Holds the entire event: data and meta data */
--	iter->event_size = buffer->subbuf_size;
--	iter->event = kmalloc(iter->event_size, flags);
--	if (!iter->event) {
--		kfree(iter);
-+	if (!cpumask_test_cpu(cpu, buffer->cpumask))
- 		return NULL;
--	}
- 
- 	cpu_buffer = buffer->buffers[cpu];
- 
--	iter->cpu_buffer = cpu_buffer;
-+	/*
-+	 * Only KDB is using GFP_ATOMIC, for the others, lock the buffer to
-+	 * prevent concurrent resizing.
-+	 */
-+	if (gfpflags_allow_blocking(flags))
-+		mutex_lock(&buffer->mutex);
- 
- 	atomic_inc(&cpu_buffer->resize_disabled);
- 
-+	if (gfpflags_allow_blocking(flags))
-+		mutex_unlock(&buffer->mutex);
-+
-+	/* Holds the entire event: data and meta data. */
-+	iter->event_size = rb_page_capacity(READ_ONCE(cpu_buffer->reader_page));
-+	iter->event = kmalloc(iter->event_size, flags);
-+	if (!iter->event) {
-+		atomic_dec(&cpu_buffer->resize_disabled);
-+		return NULL;
-+	}
-+	iter->cpu_buffer = cpu_buffer;
-+
- 	guard(raw_spinlock_irqsave)(&cpu_buffer->reader_lock);
- 	arch_spin_lock(&cpu_buffer->lock);
- 	rb_iter_reset(iter);
- 	arch_spin_unlock(&cpu_buffer->lock);
- 
--	return iter;
-+	return_ptr(iter);
- }
- EXPORT_SYMBOL_GPL(ring_buffer_read_start);
- 
-@@ -6463,7 +6508,7 @@ unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu)
- 	if (!cpumask_test_cpu(cpu, buffer->cpumask))
- 		return 0;
- 
--	return buffer->subbuf_size * buffer->buffers[cpu]->nr_pages;
-+	return rb_subbuf_capacity(buffer) * buffer->buffers[cpu]->nr_pages;
- }
- EXPORT_SYMBOL_GPL(ring_buffer_size);
- 
-@@ -7094,15 +7139,15 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
- 	if (!data_page || !data_page->data)
- 		return -1;
- 
--	if (data_page->order != buffer->subbuf_order)
--		return -1;
--
- 	dpage = data_page->data;
- 	if (!dpage)
- 		return -1;
- 
- 	guard(raw_spinlock_irqsave)(&cpu_buffer->reader_lock);
- 
-+	if (data_page->order != cpu_buffer->reader_page->order)
-+		return -1;
-+
- 	reader = rb_get_reader_page(cpu_buffer);
- 	if (!reader)
- 		return -1;
-@@ -7228,7 +7273,7 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
- 		 * missed events, then record it there.
- 		 */
- 		if (missed_events > 0 &&
--		    buffer->subbuf_size - size >= sizeof(missed_events)) {
-+		    rb_page_capacity(reader) - size >= sizeof(missed_events)) {
- 			memcpy(&dpage->data[size], &missed_events,
- 			       sizeof(missed_events));
- 			local_add(RB_MISSED_STORED, &dpage->commit);
-@@ -7248,8 +7293,8 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
- 	/*
- 	 * This page may be off to user land. Zero it out here.
+-	 * Special case for regular (non PI) futexes. The unlock path in
+-	 * user space has two race scenarios:
++	 * Special case for regular (non PI) futexes. Ordinarily, we do
++	 * not perform any processing here unless the current thread was
++	 * the owner of the futex (by the TID check below).
++	 *
++	 * However, the unlock path has three race scenarios:
+ 	 *
+ 	 * 1. The unlock path releases the user space futex value and
+ 	 *    before it can execute the futex() syscall to wake up
+@@ -1037,42 +1040,70 @@ static int handle_futex_death(u32 __user
+ 	 * 2. A woken up waiter is killed before it can acquire the
+ 	 *    futex in user space.
+ 	 *
+-	 * In the second case, the wake up notification could be generated
+-	 * by the unlock path in user space after setting the futex value
+-	 * to zero or by the kernel after setting the OWNER_DIED bit below.
+-	 *
+-	 * In both cases the TID validation below prevents a wakeup of
+-	 * potential waiters which can cause these waiters to block
+-	 * forever.
+-	 *
+-	 * In both cases the following conditions are met:
+-	 *
+-	 *	1) task->robust_list->list_op_pending != NULL
+-	 *	   @pending_op == true
+-	 *	2) The owner part of user space futex value == 0
++	 * 3. A woken up waiter is killed in user space after another
++	 *    thread has acquired the futex, but before it can set
++	 *    FUTEX_WAITERS.
++	 *
++	 * Note that, if userspace uses the FUTEX_ROBUST_UNLOCK flag, we
++	 * will not see case 1 here.
++	 *
++	 * In the second and third case, the wake up notification could
++	 * be generated from any of:
++	 *
++	 *    i.   An ordinary futex wakeup after unlock (with or
++	 *         without FUTEX_ROBUST_UNLOCK)
++	 *    ii.  A robust wakeup from another thread's death
++	 *    iii. A previous round through this special case
++	 *
++	 * As a result, the futex world will be in one of four states:
++	 *
++	 *    A. The futex word is 0 (unlocked)
++	 *    B. The futex word is owned by another thread
++	 *       (FUTEX_WAITERS is not set)
++	 *    C. The futex word is owned by another thread
++	 *       (FUTEX_WAITERS set)
++	 *    D. The futex's owner died and OWNER_DIED is set
++	 *       (the owner part of the word is 0)
++	 *
++	 * The key issue is that the kernel usually (at least from
++	 * sources ii. and iii. or when so requested by userspace from
++	 * source i.) only ever wakes *one* waiter at a time. If this
++	 * waiter dies before acquiring the futex (or setting the
++	 * FUTEX_WAITERS bit), the kernel *must* still wake the next
++	 * waiter down the line to uphold the futex invariants and
++	 * avoid lost wakeups. Note we do not need to handle state C,
++	 * as it does not matter to us whether *we* successfully set
++	 * the bit or a third thread did so in the meantime.
++	 *
++	 * Therefore, in these cases we must issue an additional
++	 * futex_wake(). Note however that we *must not* set OWNER_DIED
++	 * here. Our thread is *not* the owner of the futex.
++	 *
++	 * Thus to summarize, the conditions for needing the additional
++	 * futex_wake() are:
++	 *
++	 *	1) @pending_op == true (the thread has not finished the
++	 *	   mutex operation)
++	 *	2) The futex word is in one of the states A, B or D
+ 	 *	3) Regular futex: @pi == false
+ 	 *
+-	 * If these conditions are met, it is safe to attempt waking up a
+-	 * potential waiter without touching the user space futex value and
+-	 * trying to set the OWNER_DIED bit. If the futex value is zero,
+-	 * the rest of the user space mutex state is consistent, so a woken
+-	 * waiter will just take over the uncontended futex. Setting the
+-	 * OWNER_DIED bit would create inconsistent state and malfunction
+-	 * of the user space owner died handling. Otherwise, the OWNER_DIED
+-	 * bit is already set, and the woken waiter is expected to deal with
+-	 * this.
++	 * Note in particular that in all of the states A-D the owner
++	 * portion of the futex word differs from our thread's TID
++	 * (unless the actual owner has the same TID in another PID
++	 * namespace, but we cannot currently distinguish that
++	 * scenario), so this can be a special-case wakeup in the bail
++	 * path of the ordinary TID check.
  	 */
--	if (size < buffer->subbuf_size)
--		memset(&dpage->data[size], 0, buffer->subbuf_size - size);
-+	if (size < rb_page_capacity(reader))
-+		memset(&dpage->data[size], 0, rb_page_capacity(reader) - size);
+ 	owner = uval & FUTEX_TID_MASK;
  
- 	return read;
- }
-@@ -7275,7 +7320,7 @@ EXPORT_SYMBOL_GPL(ring_buffer_read_page_data);
-  */
- int ring_buffer_subbuf_size_get(struct trace_buffer *buffer)
- {
--	return buffer->subbuf_size + BUF_PAGE_HDR_SIZE;
-+	return rb_subbuf_size(buffer);
- }
- EXPORT_SYMBOL_GPL(ring_buffer_subbuf_size_get);
+-	if (pending_op && !pi && !owner) {
+-		futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, 1,
+-			   FUTEX_BITSET_MATCH_ANY);
++	if (owner != task_pid_vnr(curr)) {
++		if (pending_op && !pi && (!owner || !(uval & FUTEX_WAITERS))) {
++			futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, 1,
++				   FUTEX_BITSET_MATCH_ANY);
++		}
+ 		return 0;
+ 	}
  
-@@ -7320,7 +7365,8 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- {
- 	struct ring_buffer_per_cpu *cpu_buffer;
- 	struct buffer_page *bpage, *tmp;
--	int old_order, old_size;
-+	unsigned int old_capacity;
-+	int old_order;
- 	int nr_pages;
- 	int psize;
- 	int err;
-@@ -7329,9 +7375,6 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 	if (!buffer || order < 0)
- 		return -EINVAL;
- 
--	if (buffer->subbuf_order == order)
+-	if (owner != task_pid_vnr(curr))
 -		return 0;
 -
- 	psize = (1 << order) * PAGE_SIZE;
- 	if (psize <= BUF_PAGE_HDR_SIZE)
- 		return -EINVAL;
-@@ -7340,18 +7383,21 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 	if (psize > RB_WRITE_MASK + 1)
- 		return -EINVAL;
- 
--	old_order = buffer->subbuf_order;
--	old_size = buffer->subbuf_size;
--
- 	/* prevent another thread from changing buffer sizes */
- 	guard(mutex)(&buffer->mutex);
-+
-+	old_order = buffer->subbuf_order;
-+	if (old_order == order)
-+		return 0;
-+
-+	old_capacity = rb_subbuf_capacity(buffer);
-+
- 	atomic_inc(&buffer->record_disabled);
- 
- 	/* Make sure all commits have finished */
- 	synchronize_rcu();
- 
- 	buffer->subbuf_order = order;
--	buffer->subbuf_size = psize - BUF_PAGE_HDR_SIZE;
- 
- 	/* Make sure all new buffers are allocated, before deleting the old ones */
- 	for_each_buffer_cpu(buffer, cpu) {
-@@ -7367,8 +7413,8 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 		}
- 
- 		/* Update the number of pages to match the new size */
--		nr_pages = old_size * buffer->buffers[cpu]->nr_pages;
--		nr_pages = DIV_ROUND_UP(nr_pages, buffer->subbuf_size);
-+		nr_pages = old_capacity * buffer->buffers[cpu]->nr_pages;
-+		nr_pages = DIV_ROUND_UP(nr_pages, rb_subbuf_capacity(buffer));
- 
- 		/* we need a minimum of two pages */
- 		if (nr_pages < 2)
-@@ -7456,7 +7502,6 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 
- error:
- 	buffer->subbuf_order = old_order;
--	buffer->subbuf_size = old_size;
- 
- 	atomic_dec(&buffer->record_disabled);
- 
-@@ -7534,7 +7579,7 @@ static void rb_setup_ids_meta_page(struct ring_buffer_per_cpu *cpu_buffer,
- 
- 	meta->meta_struct_len = sizeof(*meta);
- 	meta->nr_subbufs = nr_subbufs;
--	meta->subbuf_size = cpu_buffer->buffer->subbuf_size + BUF_PAGE_HDR_SIZE;
-+	meta->subbuf_size = rb_subbuf_size(cpu_buffer->buffer);
- 	meta->meta_page_size = meta->subbuf_size;
- 
- 	rb_update_meta_page(cpu_buffer);
-@@ -7896,7 +7941,7 @@ int ring_buffer_map_get_reader(struct trace_buffer *buffer, int cpu)
- 			 * missed events, then record it there.
- 			 */
- 			commit = rb_page_size(reader);
--			if (buffer->subbuf_size - commit >= sizeof(missed_events)) {
-+			if (rb_subbuf_capacity(buffer) - commit >= sizeof(missed_events)) {
- 				memcpy(&dpage->data[commit], &missed_events,
- 				       sizeof(missed_events));
- 				local_add(RB_MISSED_STORED, &dpage->commit);
-@@ -7928,7 +7973,7 @@ int ring_buffer_map_get_reader(struct trace_buffer *buffer, int cpu)
- out:
- 	/* Some archs do not have data cache coherency between kernel and user-space */
- 	flush_kernel_vmap_range(cpu_buffer->reader_page->page,
--				buffer->subbuf_size + BUF_PAGE_HDR_SIZE);
-+				rb_subbuf_size(buffer));
- 
- 	rb_update_meta_page(cpu_buffer);
- 
--- 
-2.53.0
-
-
+ 	/*
+ 	 * Ok, this dying thread is truly holding a futex
+ 	 * of interest. Set the OWNER_DIED bit atomically
