@@ -1,46 +1,46 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011060.outbound.protection.outlook.com [40.107.208.60])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012045.outbound.protection.outlook.com [40.93.195.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79303EC685;
-	Fri, 14 Aug 2026 21:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ED83EC689;
+	Fri, 14 Aug 2026 21:43:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786743809; cv=fail; b=GgOki2e/HVJ9feYx4fKSHfy7X7lFaP/s0XK8J0n6X5Sy6zlXxUWqUZz3tVSz3wgMVaMuBM6k0B9vhOaGF9BIpHwRRviNBAkXZvAduVnNDgr7ockRONDeSA+DNGEfEZEIug80RYaF+20Rk3B+x8M1pWkQCxYPVL614M5c8qlHgGY=
+	t=1786743816; cv=fail; b=ctE8BPHtQoSGkZAlagQ+KmAOWlv0H8Lnic1AZJX/mHkpU1MtaXY3T3ti2cIEiS0bGKwrHvXVFXxj8y1PsW1Bkzs0dJLvyxk3v83Hw5scKri0P+wqoigy+9G1DqvBWeK8by+bSTlykO314dk7wORPwmZfHGvHGjqK7SIsnxpJS40=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786743809; c=relaxed/simple;
-	bh=u9AFVvEHM7Oa60FtMHX0yn2iXevigDWq7+cBY3k1Fb8=;
+	s=arc-20240116; t=1786743816; c=relaxed/simple;
+	bh=uB48pErrVRuOS8c+3AxSza0mYf6QJ7raXusPA85RRoQ=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RR7YoWVpUtDuIxCX4URv/U0kEW/RB5ZpX1s0vZj+t3Lg7QRXKIB+mD5SMXQxPjZLCd140lyyjU5IwfFpjljlmg8u4ClxpGNO4Xj+r2/XcJHfsQj93hYG+rv/GXZWv7ybPomD+TAj/29pnEzkE68Bo7Z4LvT58LbxCOFwV8K9K0I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3a9LiPTB; arc=fail smtp.client-ip=40.107.208.60
+	 MIME-Version:Content-Type; b=t+wJShBLdW2usUVZwsz1ZcaBepNkcLlME0Ulot6opErKxf1qB9ZvgIA3h0Roobexultn0dBcL2ZQO5S6Nc7T+QcEpvE7513fd7cqYJ6yTVhDtjUD51j5T6gvfVKU61uVEQXGRN9cT12pCQ7nIWbvXbzPFlBwPc0tLxyDoxHlTUo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bxGthUVW; arc=fail smtp.client-ip=40.93.195.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3a9LiPTB"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bxGthUVW"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ND5sXj1wpw1KOJowPmZE5vqrkh7Bsz06/sWyYNjkiRvWpDVN4zMEr6YKj/KTO8+50xl0+EQpdJF24MPuJpciX3d+xKwQm/S6acVzIa0NgC9qi6DFZRPDnJgJh3n+0mcoefGXV80TKE8yyg6P136gqbtVwipNHXoKkYHfOOLxwWhTGBSFXoMsYEsFH+kGpntvdv0zDhbg/XdTnMLY4/Q3jD6kSg5iowCgEbOy+VMfGjOvmHi/7KamZMo/MLpsTP05uQ9s9Pex0o3ZTq62VWzJRQCFh7wvNAmLmWshoutbc8urx89kz1zZfVv2TYqHByG8pmPIFdZTcBXAELMMM+yYfQ==
+ b=PvzH61F8bMnKzFGLpVpe1PRNAFDswXPp/gTJVHyBognqyRrFv6lBCjVbrgd1nW/Wk0YvWfjclmPxhw6MbjcP5KTsMaXcr3EzishIG/1/QOUELtDtcsvucOGWExvjdw+xhbEOYsAk10x8LFDFR9Y1ykvLnNW49f+xRfDPbwbrP8lydhZDb6oAY1Rnex4718SFoXCYx1XCiKTGsMprFb8J4K1v90z7TV5AVT8mbcmIon7TqJrUlejQH9As8kny7LnvN/19ZLaLUvRj2EyI+qAHqi7VxJ19vsDteHLA4b1T/kta3+1BcBaej06JKHko5IpHtcg7M0yGxZHzdObZkg9jhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8RSv2dgqxcCukVPoBEz6jG0zJR9KiSqFbYPgKCPHrRI=;
- b=pL3sMFRaIhEudvUOYqpJKUbjeRhCfx6UWqMZsVQZZYQsZglFsXHwiXmUKKBVpywtTMGzLqDKBNOekOaT1o2Z2q0z05GhZYtX6gSfy/KyDdO1jJRo3277VlOWul7LLzrHeKEe7Pe4a2Xlubi8JJoZjuiAAWQIPWc94pEP5VoS9B+4JBjMPNd22nUBlFsomJ1UoMeQOq0j3620jVS3e5YrIHsZ8kbWrVsJI+Ud/0c8gcY5iMAOMq0vAYAVnT3zMU+L3IGXn8i9VhRa5NlJom3qojbMVA95yRcC3HW4H7eS2/h1eUxrDgFS+r144HNDMw9oH+BTXvb+cl/KuUKV6niyTg==
+ bh=ZiTFlT2xKJ+CHs8iiqmK9YZgLceRB0Nsf34CEDPGWS0=;
+ b=TNhto1EfIgvZv73QFv6GTNbJGCWVACPcczUD5Kc9SPn1biLbPgseijtgZunvKOVCpCBTKs0Ti7YDHPI6hll+2d8M/A/p8fSe9/LnHXuMN//h1vNTS09rjtZDzDSF1ddI4z2hQF7usovgcqQnLC507zr2rIoxPq4KCWNjZfuhQsBcI3pKGV85NSnjKUojzkJd4OMFhNT67f8o72gbFHq8j3Z0AwRb718PQ5CuBg0ZPwnszI3yYQrPV8g3VtcgHl5i5PAf07wSFp/M0Ez+86zIFmzJelG4bV5jXOsD6/ZYUpvSsF62R3Za5UpjtdTm4g5CYz4TEVMXtk7RFRhXjMxjdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8RSv2dgqxcCukVPoBEz6jG0zJR9KiSqFbYPgKCPHrRI=;
- b=3a9LiPTBQHh/u+A/Cm7yOwZM7bQZ8ZtfaLhIgwTkcDvfGg6DT1BZmKBqDdw5qyav4YXMbJs/5jUf6HkEKWCZtVhmYQD0Fb3xi5XodQjHwXZTzecuPdLMKOgAgWPi25O7cfhbMJ5UbG6nb2+ax9UHttIOR1IEzorAIDrgNKEIRKc=
-Received: from BN9PR03CA0726.namprd03.prod.outlook.com (2603:10b6:408:110::11)
- by PH0PR12MB7814.namprd12.prod.outlook.com (2603:10b6:510:288::15) with
+ bh=ZiTFlT2xKJ+CHs8iiqmK9YZgLceRB0Nsf34CEDPGWS0=;
+ b=bxGthUVWLmzGxRfMWM7+LfMdSZ8QHNMjHPXkfmMLN2N7Sm/ErS9OVoOklEqzl8TCNPCpi5HfrUUjECF1csPaUcepw626yF22Uq2AKXiFwINSYgjuO5EP/FGpBfsvIcsrnxX9Ao6hfOkJvkx6PNmVSwIQRugonnzfKKdIGh7EJVw=
+Received: from BN9PR03CA0041.namprd03.prod.outlook.com (2603:10b6:408:fb::16)
+ by SJ2PR12MB9113.namprd12.prod.outlook.com (2603:10b6:a03:560::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Fri, 14 Aug
- 2026 21:43:22 +0000
-Received: from BN3PEPF0000B073.namprd04.prod.outlook.com
- (2603:10b6:408:110:cafe::76) by BN9PR03CA0726.outlook.office365.com
- (2603:10b6:408:110::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.14 via Frontend Transport; Fri,
- 14 Aug 2026 21:43:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
+ 2026 21:43:27 +0000
+Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
+ (2603:10b6:408:fb:cafe::26) by BN9PR03CA0041.outlook.office365.com
+ (2603:10b6:408:fb::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
+ 14 Aug 2026 21:43:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,26 +48,27 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B073.mail.protection.outlook.com (10.167.243.118) with Microsoft
+ BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 21:43:21 +0000
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 21:43:25 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:43:20 -0500
+ 2026 16:43:25 -0500
 Received: from fedora.mshome.net (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 16:43:19 -0500
+ Transport; Fri, 14 Aug 2026 16:43:24 -0500
 From: Jason Andryuk <jason.andryuk@amd.com>
 To: Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
 	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, "Mario
  Limonciello" <mario.limonciello@amd.com>, Thomas Gleixner <tglx@kernel.org>,
 	<x86@kernel.org>, Yazen Ghannam <yazen.ghannam@amd.com>
 CC: Jason Andryuk <jason.andryuk@amd.com>, <linux-kernel@vger.kernel.org>,
-	Penny Zheng <penny.zheng@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH v2 1/2] x86/amd_node: Avoid divide by zero on virtualized systems
-Date: Fri, 14 Aug 2026 17:42:52 -0400
-Message-ID: <20260814214255.83127-2-jason.andryuk@amd.com>
+	Penny Zheng <penny.zheng@amd.com>, <stable@vger.kernel.org>, "Mario
+ Limonciello (AMD)" <superm1@kernel.org>
+Subject: [PATCH v2 2/2] x86/amd_node: Remove smn_exclusive
+Date: Fri, 14 Aug 2026 17:42:53 -0400
+Message-ID: <20260814214255.83127-3-jason.andryuk@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260814214255.83127-1-jason.andryuk@amd.com>
 References: <20260814214255.83127-1-jason.andryuk@amd.com>
@@ -81,72 +82,109 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B073:EE_|PH0PR12MB7814:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bd3e272-1cc8-4c34-333a-08defa4d0f75
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|SJ2PR12MB9113:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1840b14-65a7-42ef-774a-08defa4d122b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|11063799006|10067099003|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|22082099003|18002099003|11063799006|6133799003|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	grq/LEPxbJ5LNrKv2pZUz6HXUDE42mbzCbTSpd+cQKpLxRqzTo06ztgjV1kK+hjZTOuycwII75qWwAYDhtmoiA/VrsvmYXQbZHnK+exA/k7a9RuNDOwW9cKOZPdZgxmjn4BgI4br6SiCg5s9dsvBLMeYV/kHR9yQyL0hCF+oYo+8vepO/JkHKNitzX+DCGEAL88HKo6v3WRhCtPyuoJR7d/Sk/Vu1HwALA/I5nrijF7jojMaXtu1eyTVMZhsOFsP8NiqnlKkf8yumnSyRjEA0VFSMkXqjlHsZCt7zGtbzWNFcbsyZjabNq5eIi2m40y7hKnnoZxuEALNskcLuuf/i8wJWaNJM4C3iWLpUS3N2y2Xu+MPkMr2Y6mZj4KW2W8mpqukxN9F8k5Ezc5/sRLvMTxtBTr4JSavKEvuQayqaxEREJ2u3nymE609Ca4C3By1uO1a4untrx05p11Du2h0wtGHM4LvjtZwE4OVjn/GRPnPEP0TwWWaeZoUy+0EL/6497ZcGkSwUB7GgQ6f0J75DySQjLhmp7NwA2P7CAMk3Lb3gmYQjqqZPJ38AGF22qswblpzYaXSMRyoIZGi+txsRsb6EdpmLouAZP7b/s5CahcoBZOBmRRk8WkFfEaLooBB5CPNriul1Bqkg8XNnwJK9CSg/Fz2L42twOPLbmQ4vG6YW+8OU9JDV4YgmiZxaNt+hV4BmzzmQwzkoeIe4y1FqA==
+	kGhz84bAmt7KhfzIE7jIAisAay49Xp6E+YNlC/k2O9slWie+ku4KLi5QwM0CLS48aKMqw6uZhqMUemPyP4G0UjdADmX6grJpF9HGiC+LINHek7CqMBnkkOIf/9H5neBv4rzSTye2XD9E4wNmbxy87X4J793Bu42WL/obYsBJanrJ6naOQhF8Fs0UkdciKWELhNs9uqAdiWUeWlGOmMeFflb12Ixz6VNlqNK8Vs+DjT6RG/7lz7IYQiCWcAz4CdHvaDrZ+yIAJnHG+Yqz7f1Dn2Kt7AlyIZtOiWucPTOSvAYBKFj2R4QMXZ5b0JaosYRaHeUhJrN0J1xQfLGoRpILNKaEEc6GxEIhT0H0xrazQRgmNR9AGNmew/f6iA9w3sr6BJDfrF41ktx+eApBWjnhIfJYjmUj6/LGXylrWbW9RZx7loWGk1nhijrsV+mDwu2+0AF5/wg2Kcm7102D6s5HBaR5iyMcmV81+09l9VzM2zb+OMUxs4tqrYn2J2Sz/PnEmOLg9q+B4VAy1umT2vt4rys80mmcvZvIleYvCc5s92+zMecJjfldzVpo8oU/SJ9SzEkH4r5yIqIomK0eWEg49cvkePfdBCHWGZQd2BtO89Ut8e2LNKza/qSSrNCU8yldbj3yPjTWsCsPrgbUQFnxHezU5DwMYEzx2sBJvZGEiswJK2A2oBLjBmbhS8t6aS+I5ZVKHMMRYE11l39E4iO3kg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(22082099003)(18002099003)(11063799006)(6133799003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	pCVt24Ugxk8i5dJXoBwB2L+TWX9y1qPCDqydsfV4KENH8mNdp/nHr1TRT0vWoj5+Dk/ibwhJagqeo9ADgE9xZsIh1BHOIWNFTQewYJm5hw+Q9LkeNeinEJfk+MHBL+8NiJsaL126xnXBQm1vUbXMcVvfg8woCSv7hfQPFMYi7DXnm38WMEEVltL3jsfvw+IMhspQIlDadyDBbDKUaChLFa5G/S6MvC6NKggTaO/ZQ/Bv+Ijn58HjiCQZb9HPTVkXUi4aakvwCPCi93vS0vDaw9VFHLH/gFlbUMl2GOGM3YS0toBs8FCTlB+XVSrls3P3772+8af5vEffhSqNrz1iPWl0bvpcpDrOvtF5n+ewJbea17tPC/v2zNfOZ9ffSZgdLnR/utq9pTB3AD2nqxF5BYw5I+nJ3MFA0mh1b1NZRCxEHSRvJC8PpyBpOEPvlP4M
+	jGzkZRg8AaoUUwdIKvpxejFX08/6RlQLeOABeqHshxR8YT6JYqy8g2rfe0OfHPMSqWh/lZo+QK+KWAT0gfhj6MPm8QZ1om2/4rkjsh06VTWgdRrKK8rcWhQHl5A8ipAXKggnnmXfmr6A4e37nh34Dgdbzl+MuJy/jJhdo6n3Od46m0gt+r95QtmSu+AO4UquM61m4LfqpbiR4K6N/moyc+geZwyUGXtG7i/z6ny7Wsz6U/+PI7lWdG/whSkxV+nZY5pUVM6gVylsqiz3+s5WDyv1yx1V2XLAV7P3QLv8cM6nF7+dMZfnlMaXUvWdq2c2dD36ZePDCVo/ZYLh8oINdlvCK6In4fef7BFAa8FQRc/nH4zhgZyBdaeAG0OQz8hzM7TVqJ3QTnbBMxAKqeVgonYL44Dq5ynvsl5vc2e3ybbredd+LBLO2BtatXRovOTQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:43:21.1519
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:43:25.7029
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bd3e272-1cc8-4c34-333a-08defa4d0f75
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1840b14-65a7-42ef-774a-08defa4d122b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B073.namprd04.prod.outlook.com
+	BN3PEPF0000B072.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7814
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9113
 
-On a virtualized system, the number of nodes does not have a
-relationship to the number of roots.  A Xen PVH dom0 can calculate
-roots_per_node as 0, which crashes with a divide by zero in:
+amd_smn_read/write() are exported functions around __amd_smn_rw(), so
+they are always available even if amd_smn_init() fails.  smn_exclusive
+would prevent access to __amd_smn_rw(), but it is placed too late.  If
+amd_smn_init() failed, amd_roots is NULL and __amd_smn_rw() will fault
+over it.  Replace smn_exclusive with directly checking amd_roots to
+avoid the NULL pointer dereference.
 
-    if (count++ % roots_per_node)
+commit 83518453074d ("x86/amd_node: Add SMN offsets to exclusive region
+access") added smn_exclusive which indicated the calls to
+pci_request_config_region_exclusive() succeeded to prevent userspace
+access.
 
-The issue is seen with Xen, but it could affect other systems.
+commit 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
+re-ordered initialization so pci_request_config_region_exclusive() is
+called earlier and a failure exits amd_smn_init() before allocating
+amd_roots.  Setting smn_exclusive moved to the end of amd_smn_init(),
+after amd_roots is allocated.  smn_exclusive became redundant to
+amd_roots and can be removed.
 
-Change roots_per_node == 0 to 1 to allow the system to boot.  Print a
-warning when this is performed for non-virtualized systems.
+Add a comment stating how amd_roots replaces smn_exclusive's purpose.
 
-Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
+Fixes: 77466b798d59 ("x86/amd_node: Remove dependency on AMD_NB")
 Cc: stable@vger.kernel.org
-Suggested-by: Borislav Petkov <bp@alien8.de>
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 ---
-v2:
-Print as a warning instead of error
-Use "!" instead of "== 0".
+Fixes is the introduction of amd_roots, which could be a NULL deref.
 
-X86_FEATURE_XENPV is only for PV, but this is observed with a PVH dom0.
+v2:
+R-b Yazen and Mario
+Add comment about amd_root taking smn_exclusive's purpose to indicate
+userspace access is prevented.
+Expand commit message
 ---
- arch/x86/kernel/amd_node.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/x86/kernel/amd_node.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-index 0be01725a2a4..c3e214925d9c 100644
+index c3e214925d9c..14104f8c5d64 100644
 --- a/arch/x86/kernel/amd_node.c
 +++ b/arch/x86/kernel/amd_node.c
-@@ -287,6 +287,11 @@ static int __init amd_smn_init(void)
- 		return -ENOMEM;
+@@ -38,7 +38,6 @@ static struct pci_dev **amd_roots;
  
- 	roots_per_node = num_roots / num_nodes;
-+	if (!roots_per_node) {
-+		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
-+			pr_warn(FW_BUG "Error detecting roots per node.");
-+		roots_per_node = 1;
-+	}
+ /* Protect the PCI config register pairs used for SMN. */
+ static DEFINE_MUTEX(smn_mutex);
+-static bool smn_exclusive;
  
- 	count = 0;
- 	node = 0;
+ #define SMN_INDEX_OFFSET	0x60
+ #define SMN_DATA_OFFSET		0x64
+@@ -91,11 +90,15 @@ static int __amd_smn_rw(u8 i_off, u8 d_off, u16 node, u32 address, u32 *value, b
+ 	if (node >= amd_num_nodes())
+ 		return err;
+ 
+-	root = amd_roots[node];
+-	if (!root)
++	/*
++	 * non-NULL amd_roots indicates pci_request_config_region_exclusive()
++	 * succeeded and userspace cannot access the registers.
++	 */
++	if (!amd_roots)
+ 		return err;
+ 
+-	if (!smn_exclusive)
++	root = amd_roots[node];
++	if (!root)
+ 		return err;
+ 
+ 	guard(mutex)(&smn_mutex);
+@@ -313,8 +316,6 @@ static int __init amd_smn_init(void)
+ 		debugfs_create_file("value",	0600, debugfs_dir, NULL, &smn_value_fops);
+ 	}
+ 
+-	smn_exclusive = true;
+-
+ 	return 0;
+ }
+ 
 -- 
 2.55.0
 
