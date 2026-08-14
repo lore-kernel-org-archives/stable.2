@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEFB3C5848
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 17:24:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8A446D0AB
+	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 17:24:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786728294; cv=none; b=bb+ha+rIwFKsnXd5fZOilVFi3jY8Fco3FGkOlCzdKAwU19CQ+E9s0FtVL34ZvX5HnkgTSKsZgZ38RFP1mfChbc7ioTJrknKXETJQUNuBnY2C0/FNRaMtoywXwO3Nw3nlC+JC1b3WFKgP+Huvyona3ddrKxNL38G3Pdrp1zRp/N0=
+	t=1786728298; cv=none; b=RtPK07g4a/Rgb/ElKD8wN9oCheyK0TfKr1nrhYTyYE+Ii6rH8mhTpdiAQaFverdKiMdAWxD5L27PYCxC24HiApbBjtxcCFSSrU/GPdvs+XQlqYCt4zhdHbKUDRWbAFd5iJ1WTLPPN+8Khw4GrLdHyDt7wSp/2xx9jFLjXuYSP0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786728294; c=relaxed/simple;
+	s=arc-20240116; t=1786728298; c=relaxed/simple;
 	bh=nvxLcxHidut6yGGxSOD8tgNlwdeqPcBMLvdqXf+0gwA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q1fuzPKpynuBEeTn8XTR7aFjMGpWz4T9fvVN7gmx/+cMlrNQJSL2r/1eO73nrrIL/mCF/E1qXgf8hdAg+xgjupihnDkWognhTVBTOgMZv6F2jrq+2VlTD9DMBG9wKt3I8CtQjFSBSEOxfE8fk9L26SlUK1ATf//0ribCHcgHBEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kk0mQrlF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qlxcG/X5ElQCSP/7imYhC+81G3PEJ3KPZOOx+gpCAad5Z/D4UK452ijsAXQT7MZgki2bUGvoM7P8ppF+dg9RhEP4ge4xHv1N3sDiMa2MIxPa6/iUT8BP++AV+LQ2xMKyfzY9oj/5r8o5rgYuZpU18pppLPUkjeLLjEfcnWSbMps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XUNDLa6o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kk0mQrlF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71E3F1F000E9;
-	Fri, 14 Aug 2026 17:24:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XUNDLa6o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DCCD1F000E9;
+	Fri, 14 Aug 2026 17:24:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786728293;
+	s=k20260515; t=1786728297;
 	bh=HLaHDMTFebgOTLCQneWrVnfUPGHWBfCcyVJ+yLhbBz8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kk0mQrlFQI3UsuosbKC48nFh5lUWOh0hteRp7B2+O56F/Iavxy4+Oh6gkBBUV9x4a
-	 ETzjsD54k/vs9ye6WIyfrZpUfjEjn8om3nuXKOXcCRAUay3Q2eHlWs4tXpJY1L+zGZ
-	 z5O2OhQNnH5ISM6mHUHOEioWwN9AjJyPE+O8lukWjEU/IfNj9MqxjTY296RAqt1x/8
-	 194lkc+pu7semeIQUO35XU+il8Mu5OKv9NllGHTHcta2ceBW1Syyl91hDJKRCfvHqo
-	 Ikptdb71S9VrCl/m10+h/v8EE7PNZ3DDVpOvzegygOaBOZCOnJnwqtgvXPPINXyGMw
-	 2ooDEwo3MKMKA==
+	b=XUNDLa6oimT1VhS5QB3ppQE6x96RjbM/u8Yj08CY3R2eJ7Jt/OdYYY1/rIuOFJcQw
+	 hQDFhYMcreHh63RFZ12hMzqfUvhf69uPbf6pToltAA6tCDn+Qxvxl7kikzKYA7r3OU
+	 JOk93wpQmuaUySdDyUjtvYaVZnUHlvXsqZFl0b7puKL1tenlWVwPz0DRHlAv2XaOqA
+	 a7mI+CXK48QxoCxEen8cMhaYFxjgyptZiBEf9HEdGzs+tG8K7STftWmgMUeAhJnene
+	 f4xWgQqaCaRX4u9DlqWE/1/N6I5dB+jGyZsMiTQbMw1seln4Rp5OH+PxJ/k4RMM2tK
+	 joWYz9Ytfddbw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Yang Wang <kevinyang.wang@amd.com>,
@@ -33,8 +33,8 @@ Cc: Yang Wang <kevinyang.wang@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
 Subject: [PATCH 6.1.y] drm/amd/pm: fix pptable use-after-free
-Date: Fri, 14 Aug 2026 13:24:50 -0400
-Message-ID: <20260814172450.176584-1-sashal@kernel.org>
+Date: Fri, 14 Aug 2026 13:24:54 -0400
+Message-ID: <20260814172454.176686-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <2026080538-overrate-sinuous-c96e@gregkh>
 References: <2026080538-overrate-sinuous-c96e@gregkh>
