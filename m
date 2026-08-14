@@ -1,136 +1,132 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BDE3B71AC
-	for <stable@vger.kernel.org>; Fri, 14 Aug 2026 23:12:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A49D26AF4;
+	Fri, 14 Aug 2026 23:25:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786749177; cv=none; b=s9keINtYE5EDwE+VCZv6Jhth3XCFQ3L5FmkpQpNtmMNQOuKYwhIeFyV0SZtlmEqZTowN4hcmc1VN7L63UqCWU5cZ1SWIvg+ZWZ7RlY0aNuHNi0tIadoDTPjQ5tIoLWkh2XChlIEO9gbfJhm9tsjw2D3H/imQ/OE40SFcn3rsNFg=
+	t=1786749922; cv=none; b=hXlOqVabL4bQ+yWh6aK4anW3BAcNlqlfSqYK/h3DY7yfe671Yu27kqKxiO27wfeyswQv7AzuHV6A/DgZcMbOfyvW5uzppskjPLlPAUqGSdp4v/rIMl3ZaMQICs4Rgxet2zFFy7q31NjSmYkANuMGCGtldLOS+DVUUmJrasri5pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786749177; c=relaxed/simple;
-	bh=/2viJdQpryEE7rdr5VoupLH1jBOoJzjsw3SbX+zKLYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nk7VTh1GqJZ3Z2RP4ZOVnCea0Lx1FaIGD1k/8gZVEy7M+iMsyfSWsHpAi1rp+vUfdH59+lbjl0rU4vRQBkFmQFLhdUn3b3LI+E2iMrET7acB8ebITw1LR6P85jucwyzBR7iEr3J90FY/VQ7n3CNToHSF3vBqn3piO4+ukqbc6/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GxlkTAcF; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786749922; c=relaxed/simple;
+	bh=mqlG78gvNjAaMYhVSL9ycsVNFdBkJD2N6QgZxtXZGEM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R/f9l03tW9pypEP4tPckL6G4I5Ru2i/JH8TuiptYUBN5uSFt+5OSYsHScFWtjs9VXUSS2pAnp6v7mrP6qnBhrjAklfQ8X1xdjOrqdQ86mDdzp/0feoI8JmWEMen3WWKKivePTI/iwXWU3ZdWLhNLk+JaPAwrQgtCUrtX/g98Fc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=R+quZCN/; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GxlkTAcF"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so1405098f8f.1
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 16:12:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786749174; x=1787353974; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fKB+Iwkbk4H49tmH4QXa0HUCzoP7pEEfG4W0BPo05F8=;
-        b=GxlkTAcF0DJmKRrKpT/NU+6m5+Q7IGVdXEk0qijln5ahXkqEI7/ilAOUJPl19k9HdA
-         5KsgFMCFRKuA3VWbcoyx+nKx2qxf5oJuqlGn7jMEZdqwqtkIDyYZx6VgfccDWAJR6fn6
-         8QvoL7OdlAyDbpW2wk7KHDn1X3n427mziNzWcuAt4k6Bctbv86fGFeJSbkbyEcu5/hJl
-         CLUNOuW3biXwsSDnUjkFbGux1V4yzmiPw4oixVDEF3xXuq2u6tRYO5Js0HJk0bF2ZZ4+
-         6hM4IYxo8xTHie6clHWTNAAUUhFxTLH0683gAl/Ie+Aj58BoOJVdZt5/e+L6BpQdpcRu
-         swCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786749174; x=1787353974;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fKB+Iwkbk4H49tmH4QXa0HUCzoP7pEEfG4W0BPo05F8=;
-        b=CbWzf9JYVE6Jg4UsZm2VBKJvTe1pQGUw2WuEisLWqi64Y2w+SUkLdEx951j93vJjuq
-         roQVSohQo+FOrBWeTvimNal6uk0Adqnu75No4MPuFzyaz5cZ0q7+/hc4bf3e9sp5LSu8
-         NyDyIj8Ou9M0gpKP1hidHPHOeqimmy16IbB0gwzOZ1YXe+jit5CDJDxvN1y4yqss1MZs
-         eT4DdUpQAhu6xPY+D9F5P+PZdTs4H6H/tsJIgbzyi6bMUJhM4hHBkM7yQ8CXRdo5n7gC
-         uNeQhd/CUNPTmP+FRe8wRGCrM8kAZeKPioa8b5llFdxg9SWm2+J+XeMnZJeNjLj+054U
-         Nlgg==
-X-Forwarded-Encrypted: i=1; AHgh+RqMZSACHvh6Yu1qnjgfvYhQYRM1OiSwcECmX5MBFQTlE9YaPgVC20rP9Yq9yBsJ1Gy66H0sP1I=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywx4trn4G5HQ0HOH+KdGM9l3VMxpL4yY3IV2zeBMX/xsN3xE/Oq
-	rAovf/aCR41J0I9gjjaKCIO24OHFmQPesXVVysFuOIft1OU5D1Z58Rw=
-X-Gm-Gg: AR+sD12jtgfYklj1tBuqZNJacJ+jbAanbe/W9omgMqv7GwAQuAmoIBkX5bIw6QcxWx2
-	b8lJGKaE8Z3As1aEmFjpYryS8eAa6/Luw1vNGiLMgGvaa6q4aDePR20NmJncWzD9PkCXVvbkbz8
-	SRGlRXGeErBotJRr8e6rAZhUmDIOd6pNs0TjMzRFOKupPNFF373GM3JpadX4OVtsI2pYPEIdmwJ
-	1pNaa+x+ck/kT9uHapy62E+D4Tt+2VhZ/wiYplA82S2jEsJq+kboeAtYF0dJfEyKDnf0BHzeWZk
-	qZE8DwHxqjai0oKe8A4JpjCrtpPVU7DOuzMnQj3ebD72Y/nKr/tBmlvh0PY3wTeR3nkYJmAP95e
-	87baREeP5be7QzKzDo3qg1vufNUPm3PTMcUe2sLrhy5ccDJBXkYbJBuLzQGZT0+vTNUW2MACtRH
-	OkR+p+2yyeQXG4XKZaSyjMZHC8YwqulA==
-X-Received: by 2002:a05:6000:470d:b0:481:5167:d526 with SMTP id ffacd0b85a97d-481606f4665mr13917452f8f.6.1786749174148;
-        Fri, 14 Aug 2026 16:12:54 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f219f7bsm11739429f8f.13.2026.08.14.16.12.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 16:12:51 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Manish Mandlik <mmandlik@google.com>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH bluetooth] Bluetooth: cancel devcoredump work during device teardown
-Date: Fri, 14 Aug 2026 23:12:48 +0000
-Message-ID: <20260814231248.3096377-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="R+quZCN/"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9235340E014C;
+	Fri, 14 Aug 2026 23:25:17 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id XPZdJJjX0wzA; Fri, 14 Aug 2026 23:25:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1786749906; bh=nxebB20xYfBX3tI/9cemYUdsdYltv9WZzkexbMBYcvc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=R+quZCN/MaAkNkqoxWKbrKGhy1hxq/o83w/dMv0nbEFGxI0t2G0JjmsqPr9MEmuFT
+	 FU3ONjkpMwMSxE6cFYxggFynjkOA0bIneV/Bwf0JyDPkhc+Vm+yJeV/nb5Ohmxbdq6
+	 WMlMvjkQlcyzHyUUgPkgZR/I06BwsAC6k51+FdZCG4WU9qxAwCF+p5aFSL+rV9AutG
+	 /eA5e5IYLUeEft4OXW1NZgmJwQxANXGF/Ef/rtIiCiPvuTur4FbqpEz72sl4BMuGA2
+	 ej4hM5R/6IOI4Oy0f37o8572ncd0IClPzLBUIj3gm7AOpY0lJbcuDg7bjyI3c/EGJH
+	 RYLAO+vaeinYMdNDgENz0+oopZPrMhizUpl2agu1ed8u6DvXEA/YHmFpVAKLd3pnct
+	 fafsOvzfHtnN1UewVmKyTyPQygCldZ2c8PDazuDJuJOzkq/tUYn3DJw3izXdFp7GyU
+	 IUP8/PS9yTf99qE4lEr6ugRHTw4rrRdGmt1Rfd7iiHvSHd5iWDsUK4f6RlvMD1A3vM
+	 mIKNBMHRCfFyONo4QcFrZe13sxG/ziem6IvP0Y2o8DAvlKH4hIYwuu6kJI9jD5mRWl
+	 YHbfHPdwcATSKWglQKhwPetb2EUyqvWCdgqo3v1TgTDlkPlQZpcuQ6tTdKKRENHqWF
+	 hZmRi108lO6CV2yDMSbuGfwM=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1b])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4957840E0031;
+	Fri, 14 Aug 2026 23:24:50 +0000 (UTC)
+Date: Fri, 14 Aug 2026 16:24:46 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Jasjeet Rangi <jrangi@purestorage.com>
+Cc: x86@kernel.org, tony.luck@intel.com, tglx@kernel.org, mingo@redhat.com,
+	dave.hansen@linux.intel.com, hpa@zytor.com,
+	linux-edac@vger.kernel.org, stable@vger.kernel.org,
+	Smita.KoralahalliChannabasappa@amd.com, yazen.ghannam@amd.com,
+	msaggi@purestorage.com, rjethwani@purestorage.com,
+	rhan@purestorage.com, dgiani@purestorage.com
+Subject: Re: [PATCH v2 1/2] x86/mce/amd: Fix inverted interrupt enablement
+ during storm handling
+Message-ID: <20260814232446.GDan-jvtKrj4Bh8Nsa@fat_crate.local>
+References: <20260812221514.598842-1-jrangi@purestorage.com>
+ <20260812221514.598842-2-jrangi@purestorage.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260812221514.598842-2-jrangi@purestorage.com>
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On Wed, Aug 12, 2026 at 04:15:13PM -0600, Jasjeet Rangi wrote:
+> mce_amd_handle_storm() currently does the opposite of what storm
+> handling needs: it enables threshold interrupts when a storm is detected
+> and disables them when the storm subsides.
+> 
+> In addition, machine_check_poll() -> clear_bank() -> amd_clear_bank() ->
+> amd_reset_thr_limit() will unconditionally enable threshold interrupts,
+> which undoes storm mode behavior.
 
-hci_devcd_setup() initializes dump_timeout and dump_rx work items
-during device allocation, but hci_unregister_dev() does not cancel
-them before the device is freed. If a devcoredump is in progress
-when the device is unregistered, the dump_timeout delayed work timer
-remains active. When it fires after hci_release_dev() frees the
-hci_dev struct, it accesses freed memory.
+Except that the Intel side doesn't touch the CMCI_EN bit in
+cmci_set_threshold(). And we should not diverge here. The thresholding
+interrupt should not be a problem because with increased polling frequency
+during a storm, we should not be really getting thresholding interrupts
+because the polling code will pick up all MCEs that get logged, first.
 
-Add hci_devcd_destroy() to disable dump work items and purge the
-dump queue, called from hci_unregister_dev() alongside the existing
-disable_work_sync() calls.
+And the second patch is not really making things better because, well, "on" is
+"in_storm_mode". Basically the same thing. So I'm going to queue the below:
 
-Fixes: 9695ef876fd1 ("Bluetooth: Add support for hci devcoredump")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- include/net/bluetooth/hci_core.h | 9 +++++++++
- net/bluetooth/hci_core.c         | 2 ++
- 2 files changed, 11 insertions(+)
+Author: Jasjeet Rangi <jrangi@purestorage.com>
+Date:   Wed Aug 12 16:15:13 2026 -0600
 
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index 3df59849dcbea..5a60c3f94a462 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -1800,6 +1800,15 @@ static inline void hci_devcd_setup(struct hci_dev *hdev)
- #endif
+    x86/MCE/AMD: Fix inverted interrupt enablement during storm handling
+    
+    mce_amd_handle_storm() currently does the opposite of what storm
+    handling needs: it enables thresholding interrupts when a storm is
+    detected and disables them when the storm subsides.
+    
+    Flip the "on" function argument before passing it to threshold_restart_bank()
+    as it should have been done.
+    
+    To clarify: "on" to mce_handle_storm() means, the storm is on now when
+    "on" is true, and off when "on" is false.
+    
+      [ bp: Simplify. ]
+    
+    Fixes: 5c4663ed1eac ("x86/mce: Handle AMD threshold interrupt storms")
+    Signed-off-by: Jasjeet Rangi <jrangi@purestorage.com>
+    Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+    Cc: stable@vger.kernel.org
+    Link: https://patch.msgid.link/20260812221514.598842-2-jrangi@purestorage.com
+
+diff --git a/arch/x86/kernel/cpu/mce/amd.c b/arch/x86/kernel/cpu/mce/amd.c
+index f916fb4c5d13..1cc20b855b7e 100644
+--- a/arch/x86/kernel/cpu/mce/amd.c
++++ b/arch/x86/kernel/cpu/mce/amd.c
+@@ -865,7 +865,7 @@ static void amd_deferred_error_interrupt(void)
+ 
+ void mce_amd_handle_storm(unsigned int bank, bool on)
+ {
+-	threshold_restart_bank(bank, on);
++	threshold_restart_bank(bank, !on);
  }
  
-+static inline void hci_devcd_destroy(struct hci_dev *hdev)
-+{
-+#ifdef CONFIG_DEV_COREDUMP
-+	disable_delayed_work_sync(&hdev->dump.dump_timeout);
-+	disable_work_sync(&hdev->dump.dump_rx);
-+	skb_queue_purge(&hdev->dump.dump_q);
-+#endif
-+}
-+
- int hci_dev_open(__u16 dev);
- int hci_dev_close(__u16 dev);
- int hci_dev_do_close(struct hci_dev *hdev);
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 5ba9fe8261ec8..d4d559dabf422 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -2671,6 +2671,8 @@ void hci_unregister_dev(struct hci_dev *hdev)
- 	disable_delayed_work_sync(&hdev->cmd_timer);
- 	disable_delayed_work_sync(&hdev->ncmd_timer);
- 
-+	hci_devcd_destroy(hdev);
-+
- 	hci_cmd_sync_clear(hdev);
- 
- 	hci_unregister_suspend_notifier(hdev);
--- 
-2.47.3
+ static void amd_reset_thr_limit(unsigned int bank)
 
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
