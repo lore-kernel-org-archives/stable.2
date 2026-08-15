@@ -1,154 +1,145 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A172C3757;
-	Sat, 15 Aug 2026 13:52:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0768B2561A7
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 14:09:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786801958; cv=none; b=E/+P7923Uuks6eYl3MHGhiM0ZXS0DFVh+luDCFZHQq2/L2WsdC7DF0thfuOwxilaeFG1qR/ATWqX1Bh3uco+lyRmFwxDsyrPwcqX451x7KYtVWbnZostR0at1q3aKWrILOSLzC344b7bGo2RxrvZLgfXvEvFXsrdrRrROLgIP2c=
+	t=1786802996; cv=none; b=NVFSgL52oC0sL4kL3yeyaL6hh9xr2cUG9KLgj/ooRNIgItVQXJKYRRCTD8YGRZHdC5ajKg8SoxKva5YvsO833yzq33s9twyxifnLICwGVl8Ckw3Zv0KQQcHRaCkvHoADYPPQJtCHRaGlQ/30BQBbpmSDDgcvjiZeAp1T2JxDfMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786801958; c=relaxed/simple;
-	bh=adzBY+vyUPRDkFg3C127280D0dslJ/CDMqjk1ZJcDxA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lWVkneUGLxXKs7K9dHUhsr/KjBW4vyPielwqVlM/mrJke7T/oURUQOANz0MDIuA72G6urg7NhcODynRroGeKOZ4ESm3VmKa+kLLEBq1UU4jxeDGHPCOTo/2k58dNV92ewHo0nY1kp8I1CIBRw0QjUv6Z6I8GDMOo8xytnbT1k6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-05 (Coremail) with SMTP id zQCowAAXhT8bb4Bq3mvRBQ--.23067S2;
-	Sat, 15 Aug 2026 21:52:28 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: briannorris@chromium.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Amitkumar Karwar <akarwar@marvell.com>,
-	Ramesh Radhakrishnan <rramesh@marvell.com>,
-	Bing Zhao <bzhao@marvell.com>,
-	Yogesh Ashok Powar <yogeshp@marvell.com>,
-	"John W . Linville" <linville@tuxdriver.com>,
-	Tristan Madani <tristmd@gmail.com>,
-	linux-wireless@vger.kernel.org,
+	s=arc-20240116; t=1786802996; c=relaxed/simple;
+	bh=S1LKiqQSNMlXcxi2Yv2UEG7wi3iotbbEkUf1MkDP2wc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iwEFlTBpGIaDM6M/4vZWoxZVly2fzzKxugQe4oGKOEYA1o3+ot3xSmaGPaQXGBakoDgEh6IsxdjBxGyHRZJd5RWyy8FX9uodShJCVJWAeBtSKiSg27f7AiKHHJW9IXha2+4aE07KT9VquEdE/CK7GquKu8AZ1RSZ37CS1e8IiNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MIX0byll; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MIX0byll"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so1585251a91.2
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 07:09:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786802993; x=1787407793; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rk+TK55LIKRB93LVwwGii2OByDhMrzrdTRJzsNIADDg=;
+        b=MIX0byll+ZOae0HS3sebYFKi2Mub5gXColQEUuIeFFiPYx9fbclCfMh9VVaIZ+eYzl
+         nHomhK5W51AXjicsG4O5FoJ6BbOvUZWKfKK2UkEwYL50XVJIULq40i0XReGfTvShqjta
+         1PwcIkOQyE9ifGvuwv4AkwWi1EXTUSLqHwC3x4hIJMtxfkDjEHrXxfZRKEUS8eOAUNew
+         u6d82DUHSCFJa4z6OM1+0XRI8rhnvXNcxczYSK6wy2UCfF2Coftn42aWwdKndxg9xPSS
+         mSc38rBMe6IgI3a964RQpWGBXDi/rYAIYOv3W7nstwYtTp2IE4Yp5pSGDjmdtnONPDh4
+         T3lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786802993; x=1787407793;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rk+TK55LIKRB93LVwwGii2OByDhMrzrdTRJzsNIADDg=;
+        b=nrptGBBvchEWNKA/aBuCVK1zDrI1MZv8n968CcaPFNScAmStBNZH5Uhz0aqBLjRKlu
+         lTBkIl4u2qoqw8/Q0PxxceNFjOfai3p/RGWkrF+aPkmpmmOKTxh8Hjuab28D3bESwL9B
+         lgiKeg/FczSpfr013MMqbgICe0Y/yB0zdROobGIpGrvjY5QF5V87956v02V7rx9MwUN7
+         68vQD+HiW0SCuAB69ztESaUg1no/YMdxMISlbkY0kPAu2PH/wIeTyjjL3yrI1zRK2S2A
+         +VItQ2wZifi+WavBEuZ/+9nyGkoIY1pqyONYgPbGO0JbeCsWNpBKHKVjkBBZgKzwycyM
+         2nww==
+X-Forwarded-Encrypted: i=1; AHgh+Rqp2B+d02QhACgRLXoUAQIZvW3GG/ZWnd55QsHkUBD8Fe1NX2oRtMIUJ0t5n7lKdLbfggslCqw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyDYio0f8QZ0lCF4N+zE5J5CzpkS+cthvdUz0WwwNYJQ8JgiMx3
+	Ya1XzGEXe/MtJjgKUSyX1e7xxoHosSdCGSTqGmYFEXqNfHOUIvcPwiJK
+X-Gm-Gg: AR+sD12Sp0t9RvAjy0iWoprPEPy7NR/VUvVDV3tnDogYOLLQgX50Nq0mempobr7BMVd
+	M3vdzmekyAD5rsBQ9AzTNixzTxOvWngnoDH1Vxub96WltscylY4Q3dEzxno++wTTIlN3H0Eup0G
+	3NWWfWRiNxewrWpyqMxEZvjmB1UnMO5+FazxlVpR8wDrG2tsSh6H69hQLqqE8bBeI4XYwdWfAZY
+	5OKc2Ga3cEJjNs1sWlfYLtgpKUcJ/RPX25/WZzk+Oo9f0bY50bMFTx+V5AAPul3HyUV9BVww9SI
+	eWUeiH47ZiQu3KnT7+AqFVO8WgMsppnN9F+Ns2cB42HenmDIjQYV3TlQ45ZHM8DlX+IquyuSZeP
+	HIUoKiZ7NRf7bOTGRGwHP3JFhkw9q+jZKoMG91AWmNbnnu1GWBy7/g72VPpqIg9vOMsnbUHOFfs
+	WsqKn62s4ZAMDgRaKJ6J4ZHScNb1d35+pDVc+FABADENozld0NV8p+WiCXEWg+jg9VXDqMPZ57v
+	OnwXRIdCwwVDuetbHSsOTBK0xI=
+X-Received: by 2002:a17:90b:2888:b0:37f:a915:1c29 with SMTP id 98e67ed59e1d1-3933b95dbb3mr15321257a91.19.1786802993171;
+        Sat, 15 Aug 2026 07:09:53 -0700 (PDT)
+Received: from localhost.localdomain ([240a:4280:4800:6ace:25e8:2607:e94d:caaf])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-394ea996575sm6327788a91.8.2026.08.15.07.09.49
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 15 Aug 2026 07:09:52 -0700 (PDT)
+From: Liu Zhenlong <dragonliu2018@gmail.com>
+To: loic.poulain@oss.qualcomm.com,
+	rfoss@kernel.org,
+	andi.shyti@kernel.org
+Cc: vladimir.zapolskiy@linaro.org,
+	wsa@kernel.org,
+	andersson@kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Liu Zhenlong <dragonliu2018@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] wifi: mwifiex: validate scan response extents
-Date: Sat, 15 Aug 2026 21:52:27 +0800
-Message-ID: <20260815135227.50392-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+Subject: [PATCH] i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()
+Date: Sat, 15 Aug 2026 22:09:31 +0800
+Message-ID: <20260815140931.53297-1-dragonliu2018@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXhT8bb4Bq3mvRBQ--.23067S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAr1fKFyxWw1rtw1UXF4DCFg_yoWrGry7pF
-	Z0kw1fXr1kJr17Kr4xJF1Fqay5Ka1rXryjkF9rZw1furnIk34rZFWjkFyF9ryYqFsFgr4a
-	9r4qqr1fAr1DZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
-	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUL0edUUUUU=
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-mwifiex_ret_802_11_scan() subtracts the fixed response fields and the
-firmware-provided BSS length from resp->size without first proving that
-either extent fits. A short response or oversized BSS length can
-therefore underflow tlv_buf_size and make the TLV parser walk beyond the
-command response.
+cci_probe() calls of_node_get() to take an extra reference on the
+child device_node when assigning it to the adapter device.  The
+matching of_node_put() calls exist in both the error cleanup path
+and cci_remove(), but they are placed after i2c_del_adapter().
 
-Compute the fixed extent from the selected normal or background scan
-response. Validate that the fixed fields and BSS data fit before deriving
-the TLV extent and entering the parser.
+i2c_del_adapter() clears adap->dev with memset() at the end (commit
+bd4bc3dbded9 ("i2c: Clear i2c_adapter.dev on adapter removal")), which
+zeroes adap->dev.of_node before of_node_put() runs, turning it into a
+no-op.  The reference taken by of_node_get() is never released, leaking
+the device_node on every cleanup of already-registered adapters and
+every adapter removal.
 
-Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
+The commit that added of_node_get() and the matching of_node_put()
+calls placed the puts after i2c_del_adapter(), so the bug has been
+present since the fix was introduced.
+
+Cache the pointer before calling i2c_del_adapter(), the same approach
+used in i2c-mux (i2c_mux_del_adapters) and mtd (commit 56570bdad5e3
+("mtd: core: Fix refcount error in del_mtd_device()")).
+
+The of_node_put() in the i2c_add_adapter() failure path (before any
+i2c_del_adapter() runs) is correct and left unchanged.
+
+Fixes: 02a4a69667a2 ("i2c: qcom-cci: don't put a device tree node before i2c_add_adapter()")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Liu Zhenlong <dragonliu2018@gmail.com>
 ---
-Changes since v1:
-https://lore.kernel.org/all/20260706092654.79403-1-pengpeng@iscas.ac.cn/
-- narrow this patch to the independent response/BSS extent underflow
-- account for the additional fixed field in background-scan responses
-- leave TSF and channel-band array validation to Tristan Madani's patch:
-  https://lore.kernel.org/all/20260421134938.331334-5-tristmd@gmail.com/
+ drivers/i2c/busses/i2c-qcom-cci.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
- drivers/net/wireless/marvell/mwifiex/scan.c | 29 +++++++++++++++++++----------
- 1 file changed, 19 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/wireless/marvell/mwifiex/scan.c b/drivers/net/wireless/marvell/mwifiex/scan.c
-index 97c0ec3b822e..256201fff971 100644
---- a/drivers/net/wireless/marvell/mwifiex/scan.c
-+++ b/drivers/net/wireless/marvell/mwifiex/scan.c
-@@ -2096,6 +2096,7 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
- 	u32 bytes_left;
- 	u32 idx;
- 	u32 tlv_buf_size;
-+	size_t fixed_size;
- 	struct mwifiex_ie_types_chan_band_list_param_set *chan_band_tlv;
- 	struct chan_band_param_set *chan_band;
- 	u8 is_bgscan_resp;
-@@ -2111,6 +2112,14 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
- 	else
- 		scan_rsp = &resp->params.scan_resp;
+diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+index bdeda3979c48..61c535b8196f 100644
+--- a/drivers/i2c/busses/i2c-qcom-cci.c
++++ b/drivers/i2c/busses/i2c-qcom-cci.c
+@@ -618,8 +618,10 @@ static int cci_probe(struct platform_device *pdev)
  
-+	scan_resp_size = le16_to_cpu(resp->size);
-+	fixed_size = scan_rsp->bss_desc_and_tlv_buffer - (u8 *)resp;
-+	if (scan_resp_size < fixed_size) {
-+		mwifiex_dbg(adapter, ERROR,
-+			    "SCAN_RESP: response is too short\n");
-+		ret = -1;
-+		goto check_next_scan;
-+	}
+ 	for (--i ; i >= 0; i--) {
+ 		if (cci->master[i].cci) {
++			struct device_node *node = cci->master[i].adap.dev.of_node;
++
+ 			i2c_del_adapter(&cci->master[i].adap);
+-			of_node_put(cci->master[i].adap.dev.of_node);
++			of_node_put(node);
+ 		}
+ 	}
+ disable_clocks:
+@@ -635,8 +637,10 @@ static void cci_remove(struct platform_device *pdev)
  
- 	if (scan_rsp->number_of_sets > MWIFIEX_MAX_AP) {
- 		mwifiex_dbg(adapter, ERROR,
-@@ -2128,8 +2137,6 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
- 		    "info: SCAN_RESP: bss_descript_size %d\n",
- 		    bytes_left);
- 
--	scan_resp_size = le16_to_cpu(resp->size);
--
- 	mwifiex_dbg(adapter, INFO,
- 		    "info: SCAN_RESP: returned %d APs before parsing\n",
- 		    scan_rsp->number_of_sets);
-@@ -2137,15 +2144,17 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
- 	bss_info = scan_rsp->bss_desc_and_tlv_buffer;
- 
- 	/*
--	 * The size of the TLV buffer is equal to the entire command response
--	 *   size (scan_resp_size) minus the fixed fields (sizeof()'s), the
--	 *   BSS Descriptions (bss_descript_size as bytesLef) and the command
--	 *   response header (S_DS_GEN)
-+	 * The TLV buffer follows the command-specific fixed fields and the BSS
-+	 * descriptions. Background-scan responses have an additional fixed
-+	 * field before scan_rsp, which is included in fixed_size.
- 	 */
--	tlv_buf_size = scan_resp_size - (bytes_left
--					 + sizeof(scan_rsp->bss_descript_size)
--					 + sizeof(scan_rsp->number_of_sets)
--					 + S_DS_GEN);
-+	if (bytes_left > scan_resp_size - fixed_size) {
-+		mwifiex_dbg(adapter, ERROR,
-+			    "SCAN_RESP: BSS data exceeds response\n");
-+		ret = -1;
-+		goto check_next_scan;
-+	}
-+	tlv_buf_size = scan_resp_size - fixed_size - bytes_left;
- 
- 	tlv_data = (struct mwifiex_ie_types_data *) (scan_rsp->
- 						 bss_desc_and_tlv_buffer +
-
-base-commit: dac3e89a2c90c2feeb471e1f22a2512ad424b792
+ 	for (i = 0; i < cci->data->num_masters; i++) {
+ 		if (cci->master[i].cci) {
++			struct device_node *node = cci->master[i].adap.dev.of_node;
++
+ 			i2c_del_adapter(&cci->master[i].adap);
+-			of_node_put(cci->master[i].adap.dev.of_node);
++			of_node_put(node);
+ 			cci_halt(cci, i);
+ 		}
+ 	}
 -- 
-2.50.1 (Apple Git-155)
+2.55.0
 
