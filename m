@@ -1,102 +1,101 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22081E98EF;
-	Sat, 15 Aug 2026 15:26:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9219041A4F6
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 15:39:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786807620; cv=none; b=ZC7amm5QiSXi6R2hG+tVaNP3s3K5/aOw3djP3z8jUmuxjC/A7GW6qeD96DUczqvBcsqVjQ7SQ6J6B3BWDBG8n2AzhhKi4Bpy7m5N3EdV1uVlW3ewHoWpsWxnuwVaWhOjAmtGn+H2gtw2Pn0+L9NGqAygDuDoQswS/A1mFFMRbtI=
+	t=1786808388; cv=none; b=FePEs3BvgKPRJnOxuGDJIecJ0M0WHc+IA69lwXoxEBN9rDiJheOfG+uMd1DXtxVXc6uCSjb6QGcXT0kF066XfXZPwcE9VPJJYNcZ24OM4tAffyXoofjfV9Uc3XeZUZjLHCe2vK/0SBy+deBpIcK1zVdxhSULzEVLHnmbiD/fsBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786807620; c=relaxed/simple;
-	bh=/ipIDQtHs0or90afAsvSz4gY3ygs+KcFRqPO6KwxsGI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YsAirktx+Tm/oCgvMRakZtik91bGRh71ptIT6qsynYgXfaL/tilBV4qDlQdvCywC4hCKAWi6v5gV7bjE10kyc7F4VPlkTBycoieNlL77+nWVTCJujaqJNxztbIRRgTyERmplc+vxZuCjyHBi4LDYbQeF7G/qOWfAIlEPF176eTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=nEeEAp1j; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1786808388; c=relaxed/simple;
+	bh=jtNz48xCi0S5F6jkuyRThkivP3pn+Gi7R3SLLhEvaMQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lhktsOF0JPCQQq0ctooWIs1poE3GRYB9ut3/6u6YzyFMaz/r8VJtvgTkJUJyRKBB8qi60X6ai97qmd1t4p/ZADSLW0Y4GsxXMsDZQ2TgQH81WExEmoOo/Q2XDMibIzWgZbC8nE+K9v0e3xAdVdL4jJDMf1/M+IlSX0ZTt0OpWrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jQmCeMfO; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="nEeEAp1j"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=6jlcF5KGjKl83YjQHqgob4GJvHyxgBtZCHiFFYhBNHQ=; b=nEeEAp1jVo/nBFG5CYDyLq+CM+
-	evlAjHNuc+YEr79Cwccmrq30Rn1whsHwk7I0u7kpjNAIo9EyPWQ+AJgwMApX5jrL3bUSrIz8j+CoU
-	Xnu/AzJJcCGd3Nli+e+qEYyu7z8sAQ2OCN5+JCHiWsJEDc3Cc8QEIIgZiBQW8dcLhejc2e3IX3EkY
-	UQwtsYloojxE8BNhMcI1/2XHSPKYC2uZ7aL1eXMndmMh3vq2tpXAW43ed2z8sNNhZqbJuFx1/2dOB
-	kTHFfYIM3NfpxCVEeG2bm9YQOmvkZPiKwyW4MSnN9P1LJL5OYkEY6VCAnI1H7zu0WS7lRQ2HBDgf5
-	/jexyPNA==;
-Received: from [179.105.94.163] (helo=[192.168.0.6])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1wvGHT-002cLJ-3k; Sat, 15 Aug 2026 17:26:43 +0200
-Message-ID: <d3aaddb2-b7f7-459f-b80a-e2c4f7b3d87a@igalia.com>
-Date: Sat, 15 Aug 2026 12:26:37 -0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jQmCeMfO"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso13766435e9.2
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 08:39:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786808385; x=1787413185; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=63FZWuPp/rokKWnhrlhEyVlpDgyE7yf/8PcWB4UXVa4=;
+        b=jQmCeMfO9SHqpXfswM/L9c/Pk4/Ibj1MSEWN3Hq0fCToirQxNNqHkiRKJM5PhXAtQm
+         tLpds/hbqlx1WgP1b/neDCJ3JYSs/bWPxB/f9j3bg+PApcbGO7/oB13kVw1z1y+rVFn9
+         Vh8Q7xOAYmXJuNeeauxYMSyIXr+nMbpI3bs9m4MU1mXBkSYabodH2d2uVhfMEJAcKGjR
+         BipgEHEo6Epr1YO1IBTgvi7F2BrBjRRMav7QsPz9q8T4Q1llV9qfUKl3xpagTb3liur0
+         mM9mURw397srSrRYafB3l0twekvXp14+M7RYs0QZAPtARtcvX2uPP43IdhOBUMQgJ+Ep
+         nsOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786808385; x=1787413185;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=63FZWuPp/rokKWnhrlhEyVlpDgyE7yf/8PcWB4UXVa4=;
+        b=FCD0dierrbA+HA1bvmEGA6s2ELu0xuuQ4taTPKTGXxe182LvWSBHb0AJ7oQKS9Flrl
+         hc8KVMbLryq20SUGDqDts3DTRg/X15yz6uJXiixxZvO2R7LicPXv/bU2tSWKQOWAbAat
+         DCo1Jt6rktZu2upaWA30vHzu3qP0b8HQTwagxUmmkL6oiVF8+M3wFaJ67Bvazk99l5d8
+         oAkQp5MasC+CltSFv7WLGDHsFR+OnOpKtdT6G1IAYwd49/5wm6pcNQ15/1yNkcAJPNSh
+         i48NnXtDOTYDMAG/Dbf4twfqGp46Mu12cywmnJX0VrOmM7tiO/LmMJgQOibwKrAmzZdr
+         twKA==
+X-Forwarded-Encrypted: i=1; AHgh+RrbnrwUJLAf+gafJV4a0lBDDT2pqZRmqqoZXVwjLaTDv3Xutj6X1eQ4LOwi/EKmWV82yQjkKuk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxi2XfDnyPPAk+sJwMLZeMA1hYJtVaLBjB2A2USyWZSgrnJpCAL
+	TcQvyRotLVPYaDNvdAuTDY7/U+aa9sRpeJKjpQ5mAcXrvom+7UjYU+dU
+X-Gm-Gg: AR+sD12iurVL5M1+iopReTRTuzjSRLmDCFZbuMI3pt148EAXc6AxLshHEUDFsN6SU6m
+	OqzJN42P/2SEJ4tDc/DIj4qVWP/nJ8OrjvD+7kcUpwDlIUtOqGlnt+QE4+6yuuoBHMmsZ48muSB
+	aQ2thTiono1bUe3Rwvknkn4tvZg06tpVV7d+JAPkfo/mE+ybKurGDMymxUO4BNMUDSszLueDBOQ
+	3t5UUwLUeNWQzjFEd0X/J2YYHZLWg3pAifRLHyvZ5RnHF2uIOr8cscYLqd0HTv6kdmitHPqGuMm
+	ebgfZ8ZzpeKvBbaNj2QuPMGppo0XZ2/rbsgieqSTLyhPgiV8XQC4wi3FVcSe9qv/0XoDJRINMxq
+	mOrWncWzY0oN4mcRCvGjDMOyoPXPhwvvlsEbEIsEac82FYup6DRQpSGQLphH22YnmnnDlwMQd8t
+	U/a1Z/oXR6A5m5D4GZzN3o56jvEe5y6uLX9CU7NdFt/9hZN/mQpPR43srMtSZAREDFq23aGtG4s
+	b6tnNuEnsx2MLBdDZyNGT0HSyzq29q2bR4rCVc8XaUYIJk4Wv3nh1R3sc3mtPtQ63h2C55EIAr2
+	SwPhO/gabso6DQZATchnYu1rzoBjk07zcxGTXM+7GxMd7Gn22wnZvuz8ipybyQCJYw==
+X-Received: by 2002:a7b:ca57:0:b0:499:8777:ccba with SMTP id 5b1f17b1804b1-49987961b86mr146990645e9.12.1786808384630;
+        Sat, 15 Aug 2026 08:39:44 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-aecb-d601-fc34-eb31-14a1-3704.310.pool.telefonica.de. [2a02:3100:aecb:d601:fc34:eb31:14a1:3704])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49988b24746sm259187945e9.12.2026.08.15.08.39.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Aug 2026 08:39:43 -0700 (PDT)
+Date: Sat, 15 Aug 2026 17:39:42 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
+Cc: Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] drm/v3d: Fix NULL pointer dereference in CPU job cleanup
+Message-ID: <aoCH4xjqTOiZc0_K@gmail.com>
+References: <20260815145914.84154-1-kmehltretter@gmail.com>
+ <cdfaab3c-89b4-470b-aae4-d16f7aaf18ea@igalia.com>
+ <aoCEGJXl5k6IrhT5@gmail.com>
+ <d3aaddb2-b7f7-459f-b80a-e2c4f7b3d87a@igalia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/v3d: Fix NULL pointer dereference in CPU job cleanup
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260815145914.84154-1-kmehltretter@gmail.com>
- <cdfaab3c-89b4-470b-aae4-d16f7aaf18ea@igalia.com>
- <aoCEGJXl5k6IrhT5@gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <aoCEGJXl5k6IrhT5@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <d3aaddb2-b7f7-459f-b80a-e2c4f7b3d87a@igalia.com>
 
-On 15/08/26 12:22, Karl Mehltretter wrote:
-> On Sat, Aug 15, 2026 at 12:15:46PM +0100, Maíra Canal wrote:
->> Hi Karl,
->>
->> Thank you for your contribution! Unfortunately, this issue is already
->> addressed in drm-misc-next.
+On Sat, Aug 15, 2026 at 12:26:37PM +0100, Ma�ra Canal wrote:
+> ATM, no, as the fix was part of a larger refactor in V3D's submission
+> code. Have you faced this issue in any real life scenarios? If so, I can
+> think of a way to backport it.
 > 
-> Great to hear this is addressed in drm-misc-next. Is a
-> stable backport plannend for this ?
 
-ATM, no, as the fix was part of a larger refactor in V3D's submission
-code. Have you faced this issue in any real life scenarios? If so, I can
-think of a way to backport it.
+No, I did not hit this in real use. I found it while looking at the v3d
+code and then reproduced it on my Pi 400.
 
-Best regards,
-- Maíra
+So there is no hurry from my side. Please decide as you like.
 
-> 
-> Thanks,
-> Karl
-
+Thanks,
+Karl
