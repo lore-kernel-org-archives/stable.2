@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5582C10F2
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 02:30:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA271CAA78
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 02:33:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786761049; cv=none; b=n62muoGgLlOSHDCsr784PZTduk9DmexU71IzZJ0HovU4h2dDHKTfH3PKmlL6fDFxq4FuGZX7sq6QZFRuzDWir13Jpfkfqfy6NycbT11prTU+XnZlGEUS+mJLXkS8rhughKWRsHMitU7qED4F4FoqILQ4KqnOz5/HxzCGTNromRk=
+	t=1786761208; cv=none; b=CXbLoLJEjTLiKjf0qpLQ1NQ4xchfxgG0kBu8uNslZyiO04aZGUxX+eNBqJzx8QOB18N1P/JFOkqCAO4gBoCFkV8gH+LwL8/xMGyub1uFrIk5H6NfyV8NXOGl33ed7yEp8wJFChO3lc3JAN0aNGTq8GBJadXgsfZkKAPDf1oExM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786761049; c=relaxed/simple;
-	bh=spohH1Xjhn0D77w77Z10g2kBh8oQ2K9K2l/CtV45eck=;
+	s=arc-20240116; t=1786761208; c=relaxed/simple;
+	bh=WGLxPf9BXRWg13VJF+sVptCI7iK+FyeuVOfa42Ocqzw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YW7Caral8/tRhm4SuhM0cs2NoMtwtUQal6HfD2mrQc/k7YmHVYuK8RKttBQSOB9gYd2AJufYu9IVm1EHoLDlateva+L1wUSSQ7Zoxg9m/QJdrvvPRiwD2R8DAMLwiTp0SA0T15ygXY9WzcrQfNGZpnrI1gM4sdnx/gmAtvw3DPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CEtNYFhA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=k2hUVLV+PW7js8ROnpgHyGsFblxvZegNZgA+YFNiwyBuJgdUiQ7J3kCqjZirdBVWAxqPe+SrjCVL+AC9ohBOwEJRpXJyLOV7JbjpAGwdjlyezzyOwaqJeqcHS93Oagr8CuRS4BA65RXMeAqJ/qRV7y/+f9jaQ54DBm0zTXjBPjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7pSDBhD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CEtNYFhA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689261F000E9;
-	Sat, 15 Aug 2026 02:30:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7pSDBhD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A47B1F000E9;
+	Sat, 15 Aug 2026 02:33:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786761048;
-	bh=xJm20HeNKXU7pYJ6blq+7Ct51GVlb7Fg3zdI5+7kjEY=;
+	s=k20260515; t=1786761207;
+	bh=bmDzxUx12ZCp2kzKjcEA2gqeYBb10jFhqZnk6fSpmMQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CEtNYFhAdpuSs2g5IymPEQD8MrrNJnVXhM0lDcYarGbpIuTGdoBQG3AXjIie0XvWI
-	 WTLQlaud2lGIN7bhl642MaH0XkbkzHvpHcKnjAUNKKL1x5I7U5izQfPr1EHwr3Q1Uw
-	 6l4XYhTb+bw5FR4Ie73+xNCQlcjrLkLOEA8TRF5mz+1on3dKbGnoMUieLXkyObSuxT
-	 iTa0HNvdwnN+de3d9ewhEVV19NBZT1vBoEXuVXtTlUmj32nGXrFzmizYnlbU9Q7xgn
-	 Q9cxaGLioR4fpwoIVUPzEunWuvrszHLPOYYEnG3oOtxtvRtz5CynuvCzsi0A+iwJj/
-	 X28Eo4Ia2u+5g==
+	b=D7pSDBhDmFY7cTXFWYg2Mcpuw+DibHa93gJMlfGzLy2klc9yGs8Le/mzYEbtWB1IL
+	 wlGcKcq7OmHthF8m80HfmXLhwhgotuAaZo7PPtx5rA5ck3ttg3GWaQYDdwC+zoASdc
+	 /DFCBHqPUFWQZz//3KX/9So77RHJ/w6P7qD2GCJbYXzIKFIJnMK6knbDkcnqrwzxu8
+	 Fcj6qYbslkh2Z5HCSlX0JLWJ9D8ce07HphzPIdsmYtEtxFaD4YplrOAgft9GfLFlHZ
+	 8qeJPctlS4Qu8uy7ScsZBRA52nVNgMrX3Wr6QbewUBI9r4ZYpgz/J+mA70ZUEwkvwt
+	 j72ASf/kV+jfQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yang Wang <kevinyang.wang@amd.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org
+Cc: Sasha Levin <sashal@kernel.org>,
 	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] drm/amd/pm: fix torn gpu metrics reads
-Date: Fri, 14 Aug 2026 22:30:45 -0400
-Message-ID: <20260815023045.1436662-1-sashal@kernel.org>
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	Sergio Callegari <sergio.callegari@gmail.com>,
+	Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH] Revert "drm/amd/display: Fix backlight max_brightness to match exported range"
+Date: Fri, 14 Aug 2026 22:33:01 -0400
+Message-ID: <20260814193000.1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080525-prowler-kangaroo-7aaa@gregkh>
-References: <2026080525-prowler-kangaroo-7aaa@gregkh>
+In-Reply-To: <20260812144901.2154412-1-alexander.deucher@amd.com>
+References: <20260812144901.2154412-1-alexander.deucher@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,62 +48,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yang Wang <kevinyang.wang@amd.com>
+> This reverts commit 1191285ecb4233e5bf907da7e9394d7999055566.
+>
+> This patch is apparently missing a dependency from 7.2 as users have not
+> reported any regressions with 7.2-rc, but there are regressions on 7.1.
 
-[ Upstream commit 048f4541b71fb19645fb79d6e62e6e4da23a4035 ]
+Queued for 7.1 and 6.18, thanks.
 
-amdgpu_dpm_get_gpu_metrics() returns a pointer to the shared metrics cache
-after dropping adev->pm.mutex. The sysfs path then copies from that pointer.
-Another reader can refresh the cache in place during the copy and return a
-snapshot containing data from two generations.
-
-Pass caller-provided storage through the DPM interface and copy the metrics
-while the mutex is held. This keeps the cache pointer private and makes each
-sysfs read observe one complete sample.
-
-Fixes: 25c933b1c4fc ("drm/amd/powerplay: add new sysfs interface for retrieving gpu metrics(V2)")
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 862333bb48693ecafcae25af0c9d9ec31015ac77)
-Cc: stable@vger.kernel.org
-[ applied the fix at the sole caller `amdgpu_get_gpu_metrics()` since 5.10 lacks the `amdgpu_dpm_get_gpu_metrics()` wrapper function, wrapping both the swsmu and pp_funcs dispatch branches in `adev->pm.mutex` ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index fb1aaf959e7c3..edda4081bd03a 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -1994,20 +1994,18 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
- 		return ret;
- 	}
- 
-+	mutex_lock(&adev->pm.mutex);
- 	if (is_support_sw_smu(adev))
- 		size = smu_sys_get_gpu_metrics(&adev->smu, &gpu_metrics);
- 	else if (adev->powerplay.pp_funcs->get_gpu_metrics)
- 		size = amdgpu_dpm_get_gpu_metrics(adev, &gpu_metrics);
- 
--	if (size <= 0)
--		goto out;
--
--	if (size >= PAGE_SIZE)
--		size = PAGE_SIZE - 1;
--
--	memcpy(buf, gpu_metrics, size);
-+	if (size > 0) {
-+		size = min_t(ssize_t, size, PAGE_SIZE - 1);
-+		memcpy(buf, gpu_metrics, size);
-+	}
-+	mutex_unlock(&adev->pm.mutex);
- 
--out:
- 	pm_runtime_mark_last_busy(ddev->dev);
- 	pm_runtime_put_autosuspend(ddev->dev);
- 
 -- 
-2.53.0
-
+Thanks,
+Sasha
