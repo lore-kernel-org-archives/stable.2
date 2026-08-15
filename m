@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8283B23183F;
-	Sat, 15 Aug 2026 02:33:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CB21CAA78
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 02:33:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786761209; cv=none; b=rtPxBJMMIc0TGWd0u+e20oEObEUUCn69sFoNDUjtKfC045Z1zNPmYG+F+z1gS5QMYT92+7ihy1mHzBEA9RTa6XhTDU3fY4Xrps4ugh/gaLrAtNPqhXeIJvNM1XDyiwL/mbbanslI8GTx559Qdc5rqfKMaTgWHhS4Yiqbtf+J9SE=
+	t=1786761210; cv=none; b=D5hfNORPa0Qrw9Eph/kzbC+2tRnI92J8DtlvlZlTVxCsMlGaBgOrOmPSMSWhcZTwXQMjEdi5g8S2sfIey9aY6RJO7xcyA+3McCWsjnhPtPzmf0heI14MR48kUhh5Rs0GZoJP1ANDg96be4wyx3fubzWzXNYdJC67Kqg42T/NVpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786761209; c=relaxed/simple;
-	bh=ml4F+sbIkuDjlBtGFoWi3+22h/YIw+/bCUoa+CZDqZ0=;
+	s=arc-20240116; t=1786761210; c=relaxed/simple;
+	bh=VfoVVN6z+fCFumsorq6U8dSGLwBRj4qPYbwzWwmMC10=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j4Na1dxrF5oNZME0gFYakCDafrKW8pyUDHpVeWH0kO8UBe+yxq7unFBbhLODU4VyXf2MK/jrTZ0u57oBdVk1HbFqIyhrbRqXObqrNewyq6cxAcfTE8/hHQsCLZH/3qCDpI9hWzV/u/H3ydRwCIwHIV2yWfw9awuTzEEQSIuCzI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bitX7zpf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PDU0Nkixmlme8ZT4Yprdc2JU5FI/RFDmT2SCPt6LMclg7PtNfGzpMPXkA0RVqUK5mhWnHHrEeRlUQ9DxX800Y1EUr7xTcviAgLYvMYQn69H+abxuSk1I80SIOCtiT/PEW5EvpK/mAcl5dZhl+oA/OpQvpHULNMmMWpa25hmkIV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SoYovbUi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bitX7zpf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F9A1F00A3D;
-	Sat, 15 Aug 2026 02:33:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SoYovbUi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5604D1F00A3F;
+	Sat, 15 Aug 2026 02:33:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786761208;
-	bh=Qgu2PA27AaJ+UNj18qtGrqo7K5saoymIzc4Q6Lr98Qs=;
+	s=k20260515; t=1786761209;
+	bh=YMMPxOhAyAGNDkyBdgBF2myCzRg/1fhg2+EJAWnvspk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bitX7zpfDyRRGBFOXYpxLQpGf2qnH9/iPdFO/cdGtOZARY9DCONjXyFRncFtDwpPW
-	 thPBOn6pHmgZPUp5ZfAHoWVqekXgdbC2AMMscf7TQ1PzCuO9/tzlvDeNlE6VwX8mbS
-	 cKBSqc7YOc+Q8jYIz4lLvmk+8muN9Fs2wRB3HAPWGhdysttaN6Xi9l2c4YmMtWztwu
-	 4GHaBWpMKzY+Dh5SGpCp+Tc+ennCOsQ6A1FUiQWpLFL1oD36ZC2SxIhJLGUeLgJ2/n
-	 My030XHQ+CMYZHuUV/bIjOZdiaEEsU9W3H4pjI8HdhsDNhSyPW4o1SOvMB4gChSn8m
-	 O00G51bgV76Ew==
+	b=SoYovbUiSSua2dSq8mNQRDJ8mcvyzwPH3CHM2faYkpxoB43xOHBnwqf+1BF4snysl
+	 C9HJ3SXOZc/Fe8cdYT1bd5PFzGRXqQpa0V0kMd4nRUnkjJGrjLMZQ2yhSTRWdiT25Q
+	 aMQR7gjj2fGqYOWW0nBK3ybgHfdy3PE53s/310IhKuXBC0xQW0wrqxFHetNO5EF2wb
+	 eHVaUaLv2jwzziHnCYbwOVEbXpsKNgXv4DFDLTUoQP71hYQwAb9t2Ihh68PuvSntWb
+	 GYJlpjMHzGvnRZRXiU/GYjQV3uL5qurBTFEl1odVfEVGclR+/Vrrlc1iszh7VKd4e3
+	 fQWphqGFAqnuw==
 From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Simon Liebold <simonlie@amazon.de>
-Subject: Re: [PATCH 6.18.y 1/2] blk-mq: pop cached request if it is usable
-Date: Fri, 14 Aug 2026 22:33:02 -0400
-Message-ID: <20260814193000.2@kernel.org>
+	stable@vger.kernel.org,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH 6.12.y 2/3] i2c: Remove redundant pm_runtime_mark_last_busy() calls
+Date: Fri, 14 Aug 2026 22:33:03 -0400
+Message-ID: <20260814193000.3@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812112545.2630000-1-simonlie@amazon.de>
-References: <20260812112545.2630000-1-simonlie@amazon.de>
+In-Reply-To: <anxJTS3MkvCEckhz@kekkonen.localdomain>
+References: <anxJTS3MkvCEckhz@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,14 +46,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ Upstream commit dc278e9bf2b9513a763353e6b9cc21e0f532954e ]
+> Please don't.
 >
-> When submitting a bio to blk-mq, if the task should sleep after peeking
-> a cached request, but before it pops it, the plug flushes and calls
-> blk_mq_free_plug_rqs, freeing the cached_rqs. This creates a
-> use-after-free bug.
+> The patch adding pm_runtime_mark_last_busy() call to
+> pm_request_autosuspend() was merged in 6.17 so before this version the
+> explicit pm_runtime_mark_last_busy() calls are not redundant.
 
-Queued the series for 6.18, thanks.
+You're right, thanks for catching it. Nothing from that series was queued
+anywhere, so there is nothing to drop.
 
 -- 
 Thanks,
