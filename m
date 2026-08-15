@@ -1,52 +1,80 @@
-Received: from cvsmtppost27.nm.naver.com (cvsmtppost27.nm.naver.com [114.111.35.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C0F33EB1A
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 05:40:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A28E1A683D
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 05:40:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786772419; cv=none; b=Z0FPplBm32xw9yM41QVQyh0oJIKbgMolkLBSxhXoLqUTa2PU50GAYgxQGqNaiYoAaokNMwMdt7vyxP5wB1FeQini1O24Z2djQcesBDNdmIEEZ9B4aKm4up8ygf5rvJcKhAJV8jPRXWukyzXMV6YYHV4TFv1mB+3h3vj/B0DdkUg=
+	t=1786772447; cv=none; b=T1JoIWSBRzcNIJHPZEB9bEwv9mcQAXT2GD+xV08s8mHTVKq6G/L2jwCFlTiw5QJW5QZLPYLyCn6MZjShBNmHz/f6jAvIi017eRwf+168xLcZQfsEzY7T7b0fZqIw3IosPWSFbOHRKCachJ0ezmTqm2jNEqFvyfnF0O7P52pr+SU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786772419; c=relaxed/simple;
-	bh=884LaAzVVhTshgpuDrYlbsmxSEorMucoGoR8jRD33oY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bKcnwgBMMhbrhmlwkWzpyi2JZEjhXpMa8HqQk+RkM+0l6263MXatny4a57b3M4LjnnkgVMq2hJa4trVUqKmlRhs4X3ARcX0OeG8JnzT2wNFdES8LOtCXdbO1HVEPfxcyX5UIA3Y4NnjNFb6wVCxBd4p4hv38ZwvyAbt8Qn7md58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=s+s0bLrz; arc=none smtp.client-ip=114.111.35.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1786772447; c=relaxed/simple;
+	bh=RKr8wDx4vfIVDxaydRzoEQ7U5kq6zGMwRmAGuw0kiFY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lbeBOMy0fMONJVYVen2OwsjbRh3BRGu63JO0KAjDO076ecBYwlRPPt7dqpLibkj0hZSXLJZOS1NIj3uIXMz9KBEW7SJyn6KCp9WvdZnEwrZfD0OPy/qPEDtxpvORu0qX4ADEAloMbv0jUg0VQmJTQ7WmyVySCPdbPSitv8LuRtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QqSFZx6V; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="s+s0bLrz"
-Received: from cvsendbo002.nm ([10.112.20.42])
-  by cvsmtppost27.nm.naver.com with ESMTP id S48EA5MTRuerfVGonIs7cg
-  for <stable@vger.kernel.org>;
-  Sat, 15 Aug 2026 05:30:07 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1786771806; bh=884LaAzVVhTshgpuDrYlbsmxSEorMucoGoR8jRD33oY=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=s+s0bLrzylkJryJgjaoc82iBmA3Fqh2UyxSfCXMhmPZqDjGH+QS8q9wen3CIJxWP7
-	 RSsWly3vv6XBj9RK2LGCeLQyTtWvAY03dMRW4UCK/8rXd2rI3rjAuOuvJzhl/sO5TK
-	 llyJM+DgYj6jRoobKLQAKfnXinXgqczdQ4vgwJZv2gO3UFWV7Xj4Mb0W1aeJCh/Src
-	 UGvQJ+fx3hEZUzhAJxIyCCXwjPFQIlp6gvnDNYPVqBDYvkqm2NTra88TBqgA0MOlUU
-	 Ypm+r6hvYtObIUUkkdT44jNr8BH4wsx8mCJCZzJyHT62dl5yi8INVGxHhStS46IB27
-	 P3w4KmwyhHYLw==
-X-Session-ID: 2HYKETDkQXm94HPKqk7Zcg
-X-Works-Send-Opt: rle8W4eXjHwYKBm9FAF9FHmwKo2mKqErKqb/jJIFjAJYKg==
-X-Works-Smtp-Source: gqYqFqM/FqJZ+HmrKAtl+6E=
-Received: from bl4ckhyun.localdomain ([211.41.193.194])
-  by cvnsmtp008.nm.naver.com with ESMTP id 2HYKETDkQXm94HPKqk7Zcg
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Sat, 15 Aug 2026 05:30:06 -0000
-From: Hyeontae Lee <wonju345@naver.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QqSFZx6V"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cc97653887so29313125ad.1
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 22:40:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786772445; x=1787377245; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xRZrKjh8gSRFHQ09WnLqzB2J4uOH4YDnOZFIpu3HY00=;
+        b=QqSFZx6Vi/qMcrp+18GwQQlQv7VzP2kxObCUH5kH0AsBU4tsGpKFb7MKOg4QwvK+y0
+         H6vobr1vPQ+Kminc2iuX73uGHwNpkh0jA9LDQEFhn0ebyt3MOGKromX2O5Z+1DxyJIk/
+         shKxzYzOBiIeWCVTBASGZq3KhqhD7Kq1r/OXXB26LgjWX5ZnEu28xGLBn3YhDQcjAGBR
+         BFWgdvC26uu99Yze+QECbiL+MbGChCtqc0i7vznLbxDOlcxBUzkT8bX9mPZNQ/9o9GOR
+         tcgE9hHuFEWP9WhjJsVLAq81uR/GVs+iBQTeEUPrNXr1g+l8ZlaMmKeNcMnHwMRDs2Kx
+         Mgvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786772445; x=1787377245;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xRZrKjh8gSRFHQ09WnLqzB2J4uOH4YDnOZFIpu3HY00=;
+        b=K1m6u+YlMvuYKFCyy+RotEaBJVa8FQnrx+FXUFxT0P/57BxabDXy0x3l2OCicb+OJa
+         igkEDhqZ0729h1gU1LNaEjGI8YsT/QziLe4FpVw5JVdfCEg0SzJRjZYeoRbTxzPhN1Y+
+         fCXF0tv6ZwUA6m9eSojSHvsGXmXmqnNljLZEtMG6zqAUWoK9TH55TqGgjbZF2xTv9/MF
+         7TOMGLwq41ozAl/dLO97uH9m4rn6yNeCK5N8wJ07BH7glOzHvmEhiNE1CKKZrGppOodB
+         wGqprlQePnlzapYT17i0jPZnnBSIaZCv2FeDN0ZkChUqmgfEKsckrCfH67BngOcIdGLr
+         lJbw==
+X-Forwarded-Encrypted: i=1; AHgh+RrwVLirovBxegJUhF4EQluEy5V50VOIaHTc83yZ2SVo/WWgOnx6POXHs+7Ue1Me/YmakZSPAlg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxiEiQjXZQzza5W0g2KnTaBLJLABK/ij4Z1jo2EdqiMJNmFuRdL
+	sl4/+isjGYbVLu/VnTWxLyfexL0c5lZMmOwpXJC6LSAL+N+fridLNi4Y
+X-Gm-Gg: AR+sD10m5Lg+z47020p1Ktw4+1OXypdFs+cXsiY4amREjB352R6kBIKQbk+tHCu3yTi
+	eddIUzg7t/3edcw+hBW+iyZIn/xRcUTe5vD5coQIWCaXh7HH6pDwwHeVQ7bUjIJtW5q2zb4/U83
+	EMZKUZYAsOt0pGjq4SIPkYdWzEQCM35fuzZ/khj0In3R2Gf2zw9B/5YW4+gqSL0hPkPpcrRmBeF
+	m19VE08TGBybiOZwc8EBrVAoMAEjP598K1JoUBsaEPocpykoI/jQCAnW/xQcXmKURcZRUSd70Ez
+	7hIzArIpWttaB/8zIb1Y7rrGoIJVpFIW5HrFUjwahm9V8URRItvnmDeA+MQrEvEhPvh8C4S3cg3
+	IW2VxuiHrXozIaL/GBS8Dk+h18ZKJwDRUby0t6xHl2/S6ND6MfyWFCL1Appn0GbNPDcW7Bj/Zii
+	y5EhH9oEBtGZ5pUM8LyrM7lUuf3RbUAvK73Y/EPY0MYPLQNJNw3Q5WEct3XJmeDxLoqfxFNZasA
+	reZoDBGUw==
+X-Received: by 2002:a17:902:fd90:b0:2c8:248a:5dbb with SMTP id d9443c01a7336-2d3b0d16339mr129547175ad.7.1786772445466;
+        Fri, 14 Aug 2026 22:40:45 -0700 (PDT)
+Received: from Default ([2409:40f4:103d:c2fd:25e5:83d3:7385:6296])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320d5bd9fd3sm11025097eec.4.2026.08.14.22.40.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Aug 2026 22:40:44 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: jeffinphilip14@gmail.com,
+	victor.krawiec@arturia.com,
+	fanwu01@zju.edu.cn,
+	christophe.jaillet@wanadoo.fr,
+	kees@kernel.org,
+	balbi@kernel.org,
+	tiwai@suse.de,
+	dave@stgolabs.net,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Hyeontae Lee <wonju345@naver.com>
-Subject: [PATCH] usb: gadget: f_midi: hold transmit_lock while freeing IN requests
-Date: Sat, 15 Aug 2026 14:29:29 +0900
-Message-ID: <20260815052929.146901-1-wonju345@naver.com>
-X-Mailer: git-send-email 2.43.0
+	syzbot+d5fa3d224505c8610702@syzkaller.appspotmail.com
+Subject: [PATCH] usb: gadget: f_midi: initialize work in f_midi_alloc()
+Date: Sat, 15 Aug 2026 11:10:06 +0530
+Message-ID: <20260815054006.102325-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,57 +83,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-f_midi_disable() drains in_req_fifo and frees the requests without taking
-transmit_lock.  f_midi_transmit() holds that lock across the whole of
-f_midi_do_transmit(), which peeks a request off the fifo without removing
-it and then keeps using it.  kfifo_peek() does not advance the read index,
-so the drain frees exactly the request the transmit path is still using.
+f_midi_alloc initializes free_ref to 1 and it can only be incremented
+when a sound card is registered via f_midi_register_card().
+f_midi_register_card() is only called in f_midi_bind() which actually
+performs INIT_WORK. If f_midi_bind() is never run, work is not
+initialized and the if condition in f_midi_free becomes true,
+this results in a warning later in __flush_work as work->func = 0.
+Fix this by moving INIT_WORK from f_midi_bind() to f_midi_alloc().
 
-No hostile host is needed: __composite_disconnect() calls f->disable() as
-well, so a bus reset or a cable pull while a MIDI client is writing is
-enough.
-
-  BUG: KASAN: slab-use-after-free in f_midi_in_work+0x126c/0x18c0
-  Read of size 4 at addr ffff888104818e20 by task kworker/2:2H/164
-  Freed by task 158:
-   kfree+0x121/0x380
-   f_midi_disable+0x20e/0x430
-   reset_config+0x9d/0x200
-   __composite_disconnect+0xa7/0x140
-
-Take the lock around the drain, the way hidg_disable() does.
-
-Fixes: e1e3d7ec5da3 ("usb: gadget: f_midi: pre-allocate IN requests")
+Reported-by: syzbot+d5fa3d224505c8610702@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d5fa3d224505c8610702
+Fixes: 8653d71ce376 ("usb/gadget: f_midi: Replace tasklet with work")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4.8
-Signed-off-by: Hyeontae Lee <wonju345@naver.com>
+Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
 ---
- drivers/usb/gadget/function/f_midi.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/usb/gadget/function/f_midi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
-index fba8cf787d6c1..9e67b3c74296f 100644
+index fba8cf787d6c..63fb6ee70a3d 100644
 --- a/drivers/usb/gadget/function/f_midi.c
 +++ b/drivers/usb/gadget/function/f_midi.c
-@@ -420,6 +420,7 @@ static void f_midi_disable(struct usb_function *f)
- 	struct f_midi *midi = func_to_midi(f);
- 	struct usb_composite_dev *cdev = f->config->cdev;
- 	struct usb_request *req = NULL;
-+	unsigned long flags;
+@@ -879,7 +879,6 @@ static int f_midi_bind(struct usb_configuration *c, struct usb_function *f)
+ 	int status, n, jack = 1, i = 0, endpoint_descriptor_index = 0;
  
- 	DBG(cdev, "disable\n");
- 
-@@ -431,8 +432,10 @@ static void f_midi_disable(struct usb_function *f)
- 	usb_ep_disable(midi->out_ep);
- 
- 	/* release IN requests */
-+	spin_lock_irqsave(&midi->transmit_lock, flags);
- 	while (kfifo_get(&midi->in_req_fifo, &req))
- 		free_ep_req(midi->in_ep, req);
-+	spin_unlock_irqrestore(&midi->transmit_lock, flags);
- 
- 	f_midi_drop_out_substreams(midi);
- }
+ 	midi->gadget = cdev->gadget;
+-	INIT_WORK(&midi->work, f_midi_in_work);
+ 	status = f_midi_register_card(midi);
+ 	if (status < 0)
+ 		goto fail_register;
+@@ -1377,6 +1376,7 @@ static struct usb_function *f_midi_alloc(struct usb_function_instance *fi)
+ 		status = -ENOMEM;
+ 		goto midi_free;
+ 	}
++	INIT_WORK(&midi->work, f_midi_in_work);
+ 	midi->out_ports = opts->out_ports;
+ 	midi->index = opts->index;
+ 	midi->buflen = opts->buflen;
 -- 
-2.43.0
+2.55.0
 
