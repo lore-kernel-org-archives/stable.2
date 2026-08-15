@@ -1,86 +1,80 @@
-Received: from mta0.migadu.com (out-141.mta0.migadu.com [91.218.175.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from devianza.investici.org (devianza.investici.org [198.167.222.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388D6189B84
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 00:36:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FAF924DFF9;
+	Sat, 15 Aug 2026 00:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.167.222.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786754198; cv=none; b=n0MlA1myBvgWmxskZ1Wj+lrsISpxxmCFbsZ7Or6MlgZAuk45ud8Gsc3DwPv/KI/G/aYKKhERxGqRsCjDgmaMQU1O9rvtnXACpW3wthCTvFTXSisWLHWSColZz/rrFE45XWziY63J+3tDx8hepyEnkeT1rokWkMaaI1+K09vWgdE=
+	t=1786755240; cv=none; b=IVsSSBEuAk5D4WzHpHuV3v5tRc+s6OlXAkRxOupBijAcWACIA1BY2vUWPaZVIyfohE2Xf8A00nkk7rbsiOlqJP6/UvBIYrm9ivPCIfeddYFLyWmE5mEXsXfJq1DEjXVTVPMIjkPzRHzcqtpPLNJ+lqB841Y7PXInOVmko2Rn+0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786754198; c=relaxed/simple;
-	bh=tQFdd/qDklLAKb6V+af2UY+3ml4uiTf2rWfzA7UGu7k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RDhAlTBG21hVQniCA8RtFfb6O4j+og8Y4NKYgPjEEIcq6Qo6yQ638S9BASyLhvcvhuXbFJ6DbSoWkhplvyJs5acBmJwLYKm9JxWQBebaHL1wjsRh87iJw+4whdAEwMrAvezgWD4bTNpSU10c+6xPcrNcQY5+UtcdmQkhfQUde2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZXtZQSeP; arc=none smtp.client-ip=91.218.175.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786755240; c=relaxed/simple;
+	bh=OdU/nDkUfm9IAXxZDo/E7ekjsBdXp7N2zS93y0hhLKs=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=S4iLkGTDVy+muKl7Jo7z64UMKFCj13IJ586FakSavcE3/PalA9dyWLJE5ka+FOZzh4X1y7+fD7wQGllq6Q+5MMrZqtBLoSbDTsRlRWGeR2CLnc3r7Pvs8dbzfenLmBmmtd7kzvzgoeTL+w640clPVsc00ySiw03QdwP4vPlaSE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=kV6cVoze; arc=none smtp.client-ip=198.167.222.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZXtZQSeP"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=tQFdd/qDklLAKb6V+af2UY+3ml4uiTf2rWfzA7UGu7k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1786754194; v=1; x=1787358994;
- b=ZXtZQSePINP6hmH8ZHrgbAbxxJ2mLa41IjkEm2dUXKLUcHfyBWppffUu/E0xWfmOvbyNqyjl
- PMkAD5Vn2TlQSod2eMCZxJVzzu/dffreRYPoVDTYh2IlWXVKeV4T66p8x4by9Bnx6lFNO6eGS19
- /HpysRbRvp2+SrfXcqgXh5EE=
-X-Envelope-To: stable@vger.kernel.org
-Received: from localhost (2a03:2880:10ff:6::)
-	by smtp.migadu.com with ESMTPS id eb90bf85938a14c4;
-	Sat, 15 Aug 2026 00:36:34 +0000
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 14 Aug 2026 17:36:32 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Barry Song <baohua@kernel.org>
-Cc: mambaxin@163.com, hannes@cmpxchg.org, mhocko@kernel.org, 
-	roman.gushchin@linux.dev, shakeelb@google.com, muchun.song@linux.dev, 
-	akpm@linux-foundation.org, david@redhat.com, v-songbaohua@oppo.com, hughd@google.com, 
-	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	gregkh@linuxfoundation.org, jose.fernandez@linux.dev, stable@vger.kernel.org, 
-	syzbot+e12bd9ca48157add237a@syzkaller.appspotmail.com, David Hildenbrand <david@kernel.org>, 
-	Kairui Song <ryncsn@gmail.com>, Sasha Levin <sashal@kernel.org>, chenxin <chenxinxin@xiaomi.com>
-Subject: Re: [PATCH] mm: swap_cgroup: fix NULL deref in lookup_swap_cgroup_id
- on swapless host
-Message-ID: <an-yt4a6td75VvHw@linux.dev>
-References: <20260814074705.939721-2-mambaxin@163.com>
- <CAGsJ_4y+kGUH7TjKEGU+hbwCotHeubNdbJtoBExP+Ya-Wf3fWA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="kV6cVoze"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
+	s=stigmate; t=1786755230;
+	bh=Spq06ZOlKB391aPMRPgTTo2/CifK1Sxav1azc6w1EFs=;
+	h=Date:From:To:CC:Subject:In-Reply-To:From;
+	b=kV6cVozekoBdxqY/PEDDgZ82NCi12IFmc4f1k1hB7g1JQ9Qvf7GXvEjgMJAbPGU92
+	 rUaYvIoQD7qBb5I3o7M7h4qSptUvqnOzwwM2g8g0JdpAunFu/0YzU7IEnezO1ZAz5T
+	 Zvg5ge20g7mC2UB4YEuQa+u2d4R0O73J7bPF5jts=
+Received: from mx2.investici.org (unknown [127.0.0.1])
+	by devianza.investici.org (Postfix) with ESMTP id 4hMLFV68Xtz6vJh;
+	Sat, 15 Aug 2026 00:53:50 +0000 (UTC)
+Received: by mx2.investici.org (Postfix) id 4hMLFV2Wwpz4y6W;
+	Sat, 15 Aug 2026 00:53:50 +0000 (UTC)
+Date: Sat, 15 Aug 2026 01:53:50 +0100
+From: Bradley Morgan <include@grrlz.net>
+To: tristmd@gmail.com
+CC: akpm@linux-foundation.org, linux-kernel@vger.kernel.org,
+ penguin-kernel@I-love.SAKURA.ne.jp, rusty@rustcorp.com.au,
+ stable@vger.kernel.org, tristan@talencesecurity.com
+Subject: Re: [PATCH v3] profiling: don't free prof_cpu_mask on init failure
+In-Reply-To: <20260814222019.3054116-1-tristmd@gmail.com>
+Message-ID: <6667EA38-1012-4D8B-A15D-F310184DBC07@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4y+kGUH7TjKEGU+hbwCotHeubNdbJtoBExP+Ya-Wf3fWA@mail.gmail.com>
 
-On Fri, Aug 14, 2026 at 07:23:41PM +0800, Barry Song wrote:
-> On Fri, Aug 14, 2026 at 3:48 PM <mambaxin@163.com> wrote:
-> >
-> > From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-> >
-> > [ Upstream commit 63b02a9409cb5180398491b093e48bcb5315f5fb ]
-> >
-> > lookup_swap_cgroup_id() passes swap_cgroup_ctrl[type].map to
-> > __swap_cgroup_id_lookup() without checking that the type was ever
-> > registered via swap_cgroup_swapon().  On a swapless host every ctrl->map
-> > is NULL, so __swap_cgroup_id_lookup() dereferences NULL + a scaled
-> > swp_offset().
-> >
-> > Since commit bea67dcc5eea ("mm: attempt to batch free swap entries for
-> > zap_pte_range()"), zap_pte_range() -> swap_pte_batch() calls
-> > lookup_swap_cgroup_id() on any non-present, non-none PTE that decodes as a
-> > real swap entry, without first validating it against swap_info[].  A
-> > single PTE corrupted into a type-0 swap entry takes the host down at
-> > process exit.
-> 
-> Thanks for the patch. However, we have a strict check to ensure that
-> this is only done for valid swap entries:
+Ummmm, not sure you should replace it with that long of a comment,
 
-This patch is already in the upstream linus tree.
+What you did was meant to cleanup useless crap. Let's not add more 
+useless crap by adding 7 new lines. When it could be explained shorter
+IMHO, Here's a example, I mean, its not the best, but it works:
 
-Mambaxin, what do you want to do with this patch? Are you requesting to backport
-this to stable tree? Which one? It already had stable CCed, so I would expect
-the stable tree maintainers would pick this up automatically.
+/* No need to free prof_cpu_mask()
+ * anymore, the error path is rare
+ * and the leak is harmless IMHO 
+ */
 
+
+feel free to bikeshed. As per usual.
+
+
+Also, here's some stable "rules" I tell most people
+
+- Please please please add why this is bad in the commit description (you did that! Yay)
+
+- A splat, please. It helps the stable folks not think that this is another "bug" (Do this if possible)
+
+
+If I had to say "Bradley, just review this patch for what it does for f*ck
+sake", I'd say this patch is useful (sorry for my french!)
+
+So.. here is the tag to add for V4,
+
+Reviewed-by: Bradley Morgan <include@grrlz.net>
+
+
+Thanks!
