@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D5C41A938;
-	Sat, 15 Aug 2026 14:56:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E09341D635;
+	Sat, 15 Aug 2026 14:56:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786805801; cv=none; b=pAVzD4MC649JRk2JQnlY5hmwHLaa0UAqtN46P09Uv0t+boRB6a0RbfJ5tI4CUhuOklWL01mPaRapJSUlSfme0jTGP5RkVR4Ch2Ar3KDtQc+QP433s5t4aZ9D+61JZ87V2xyfXcEQME1yUJ/ySx/DllT/KdFbrEX4ZNGqDfw1GPA=
+	t=1786805801; cv=none; b=H2YsDArs53Jd6iw/c6PP6XVeOSxT/yNGEau5ouf/MuSiKmlSkWG3GXI9aPHvjoSQOrI9Ihv7BlqUafweLxDRS1XeltnidGMp7Ap4Pqhe44V64hwF8y0JamPMzewAUFtMHSAGOOn8UksQcA0ImIW8BJGj2ifXsqfn244+zAWvKvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786805801; c=relaxed/simple;
-	bh=A/OHJ9zYmscv3Q/pEhjmGIVnvixUXEumJLOP0slecFA=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YSSd1qKU/BQyqY798jCyaAMwJD1So8/eWbCgOjZggSv9gki4LAvJ71PxZMixEla+p4Wjwkak7wFh5i71wTMOz5n4L+L50UNxYRgd4e097wOMlr6wlQPpth9YcPWeXj6bCRQIYdjvyxFRfB8WEOxByxlyaZEcKOu4CSftL227t2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jc4vSXwQ; arc=none smtp.client-ip=10.30.226.201
+	bh=E7cbrRaKnfEnuB6TrYEj9kr/oZV+HBllIAUlhUhevAs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SOoPI2VFXDhe5dWBjpaCNt6mDgpe3s7ZnQRwI8IgvjI7EeOV0MaJVoN580hM2AVI/QZUgXtNoiI3cY8mMnsLOyembBz75XrNXJNtp3uqP3/oxF4LqQPFJMK37oz7KGPb3XTTYnsg3AYPeJjaSDmO0rctb+53zwTNRlDxPcojkgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flroNpZZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jc4vSXwQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B80E3C19425;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flroNpZZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E6746C2BCFD;
 	Sat, 15 Aug 2026 14:56:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786805800;
-	bh=A/OHJ9zYmscv3Q/pEhjmGIVnvixUXEumJLOP0slecFA=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=Jc4vSXwQNQVIoWyX0w4OqeEpjMX6wtbDe7cedGOmIcsJlCokDW7qIXjvBuYYTLVO4
-	 jzYKKnSnecCr+8qA5gAPhDVmpNElt4722N2SOYNKvnllRq7YDdLDqhbOP5VIbMI0z/
-	 6bMw0gun+5naN4gSdSp3jQH2yl/D+D6b6+Gj0o05JSiTfUWND7knzB/OZi7l+JfRgc
-	 0sIwHdhwkPgh+YlYEkGMY7ZtX9cqP/k+PTloANBv2yeydfEMxUl+aVf1paHTPOaN5T
-	 FDRJkFBK7Zuxb2K0xc6C6WH4dBZFj+9O/5/FJZPU6SrL//P9/UA16s5D6EQ9lryh7r
-	 9eOWdDj0txs3w==
+	s=k20201202; t=1786805801;
+	bh=E7cbrRaKnfEnuB6TrYEj9kr/oZV+HBllIAUlhUhevAs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=flroNpZZeds8B09mO7QvwTXMy28jOQ0Ju9xzui3R0QYzLw8M1XZFeNFpYdp4Bzii6
+	 XUACkU3o47B2AxQn623rEF4KKH+4VDPz/bpqQj3kZE705dfDbdIJlZNqZlIdFMQCWW
+	 wW33o28uR9FmOi7h/+JC3Rroz1XRXzL0kuw27W8TS3iAzIC7+jIePqPEWKGfkVz2W2
+	 HbItKN/rV4v+Z4miSSFh3Fv+PIbK9tg2uMfthtA6OJev4tHGxEw/uC1luo55wDoASA
+	 vuNw6mPVbEBSNpRNhOkRmDOU+a51/jcX0Hu224y6n0z5zIWoZKiRokBzMaGSkQ182p
+	 mfMi1U43Nl9gg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 93618C5CFDB;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D200FC5DF6A;
 	Sat, 15 Aug 2026 14:56:40 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Subject: [PATCH 0/4] media: fix four memory-safety bugs in vicodec and
- v4l2-mem2mem
-Date: Sat, 15 Aug 2026 22:56:34 +0800
-Message-Id: <20260815-vicodec-fixes-v1-0-12101572eba7@outlook.com>
+Date: Sat, 15 Aug 2026 22:56:38 +0800
+Subject: [PATCH 4/4] media: vicodec: make encoder CAPTURE dimensions
+ read-only
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,10 +41,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACJ+gGoC/x3LQQqAIBBA0avErBMcTYmuEi1Ep5qNhoIE4t2Tl
- o/Pb1AoMxXYpgaZKhdOcQDnCfzt4kWCwzAoqaxc0YjKPgXy4uSXirBSOkSjtV4QxvNk+sNY9qP
- 3D+WX4RZfAAAA
-X-Change-ID: 20260815-vicodec-fixes-600a11533341
+Message-Id: <20260815-vicodec-fixes-v1-4-12101572eba7@outlook.com>
+References: <20260815-vicodec-fixes-v1-0-12101572eba7@outlook.com>
+In-Reply-To: <20260815-vicodec-fixes-v1-0-12101572eba7@outlook.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Hans Verkuil <hverkuil@kernel.org>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
@@ -54,13 +53,13 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Junrui Luo <moonafterrain@outlook.com>, Yuhao Jiang <danisjiang@gmail.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1728;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2745;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=A/OHJ9zYmscv3Q/pEhjmGIVnvixUXEumJLOP0slecFA=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrIY61XThyTOXaLilxwZN+i+14OYJ/obLm/SWJFz7Y
- XeZ7YC+yPaOUhYGMS4GWTFFluMFl75Z+G7R3eKzJRlmDisTyBAGLk4BmMjVp4wMS0MUZ2qe3j35
- WNjs8wqCnYF+ZaoyP7y0hZt4/dZbR9nzMPzTftZaUn2yInOXkOuC8v7K1ssp5xqnLbzgzmD32aB
- R8AMTAPGcSDg=
+ bh=39hTfONQcomxQ23TBhyVDkf40Z5LuSFAHoiUH91wz3M=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrIY69f9S97dv0M2N3STy3Zft8LqiJd3Lz3grX9ijw
+ hmzknf1sn8dpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMBHDlwz/rO7x5Nace7V/
+ 7X/By3KZN7hWZv8MaTzD90bn18z5U1heVTAy7Os44KpTX2Pb+tek3lbsZje7wiLGI8fc9X7/zDw
+ udt2ZEwAzA0ya
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -68,44 +67,70 @@ X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
 X-Original-From: Junrui Luo <moonafterrain@outlook.com>
 Reply-To: moonafterrain@outlook.com
 
-Four independent fixes found while auditing the vicodec codec paths.
-Each is reachable from unprivileged userspace and was reproduced under
-KASAN in QEMU.
+From: Junrui Luo <moonafterrain@outlook.com>
 
-  1  v4l2-mem2mem: VIDIOC_REMOVE_BUFS is not serialized against job
-     execution and can free a buffer an in-flight decode is still
-     reading -- use-after-free of a stateless decoder's reference frame.
+Setting the encoder's compressed CAPTURE format to a smaller resolution
+than the raw OUTPUT format makes the encoder write past the end of the
+CAPTURE buffer.
 
-  2  vicodec: vic_round_dim() rounds only the chroma plane, so a
-     dimension one past a multiple of 16 yields a coded size one 8x8
-     block short of what the codec walks.
+For a stateful encoder the CAPTURE width and height are not
+client-settable; Documentation/userspace-api/media/v4l/dev-encoder.rst
+specifies them as "ignored (read-only)" on VIDIOC_S_FMT. vicodec only
+implements half of that: vidioc_s_fmt_vid_out() derives the CAPTURE coded
+size and sizeimage from the OUTPUT format, but S_FMT on the CAPTURE queue
+overwrites them. The encoder then takes its geometry from the OUTPUT
+queue alone, and v4l2_fwht_encode() gets no destination length.
 
-  3  vicodec: S_FMT never clamps the visible dimensions, so shrinking the
-     CAPTURE format leaves visible > coded and the decoder runs off the
-     end of the capture buffer.
+Overwrite the requested width and height with the OUTPUT queue's coded
+dimensions in vidioc_try_fmt_vid_cap(), making them read-only as the
+interface requires.
 
-  4  vicodec: the encoder's CAPTURE width and height are settable
-     independently of the OUTPUT format, letting the encoder write into a
-     buffer far too small for the frame it produces.
-
+Fixes: efec9c815e5d ("media: vicodec: pass on enc output format to capture side")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
-Junrui Luo (4):
-      media: v4l2-mem2mem: serialize REMOVE_BUFS with job execution
-      media: vicodec: fix out-of-bounds write on under-rounded coded dimensions
-      media: vicodec: clamp visible dimensions on S_FMT to coded bounds
-      media: vicodec: make encoder CAPTURE dimensions read-only
+ drivers/media/test-drivers/vicodec/vicodec-core.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
- drivers/media/test-drivers/vicodec/codec-fwht.h   |  2 +-
- drivers/media/test-drivers/vicodec/vicodec-core.c | 15 ++++++
- drivers/media/v4l2-core/v4l2-mem2mem.c            | 60 +++++++++++++++++++++--
- 3 files changed, 72 insertions(+), 5 deletions(-)
----
-base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
-change-id: 20260815-vicodec-fixes-600a11533341
+diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/drivers/media/test-drivers/vicodec/vicodec-core.c
+index 36b92f68ac42..6d20a749635c 100644
+--- a/drivers/media/test-drivers/vicodec/vicodec-core.c
++++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
+@@ -890,6 +890,8 @@ static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
+ 				  struct v4l2_format *f)
+ {
+ 	struct vicodec_ctx *ctx = file2ctx(file);
++	struct vicodec_q_data *q_data_out =
++		get_q_data(ctx, V4L2_BUF_TYPE_VIDEO_OUTPUT);
+ 	struct v4l2_pix_format_mplane *pix_mp;
+ 	struct v4l2_pix_format *pix;
+ 
+@@ -900,6 +902,10 @@ static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
+ 		pix = &f->fmt.pix;
+ 		pix->pixelformat = ctx->is_enc ? V4L2_PIX_FMT_FWHT :
+ 				   find_fmt(f->fmt.pix.pixelformat)->id;
++		if (ctx->is_enc) {
++			pix->width = q_data_out->coded_width;
++			pix->height = q_data_out->coded_height;
++		}
+ 		pix->colorspace = ctx->state.colorspace;
+ 		pix->xfer_func = ctx->state.xfer_func;
+ 		pix->ycbcr_enc = ctx->state.ycbcr_enc;
+@@ -911,6 +917,10 @@ static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
+ 		pix_mp = &f->fmt.pix_mp;
+ 		pix_mp->pixelformat = ctx->is_enc ? V4L2_PIX_FMT_FWHT :
+ 				      find_fmt(pix_mp->pixelformat)->id;
++		if (ctx->is_enc) {
++			pix_mp->width = q_data_out->coded_width;
++			pix_mp->height = q_data_out->coded_height;
++		}
+ 		pix_mp->colorspace = ctx->state.colorspace;
+ 		pix_mp->xfer_func = ctx->state.xfer_func;
+ 		pix_mp->ycbcr_enc = ctx->state.ycbcr_enc;
 
-Best regards,
 -- 
-Junrui Luo <moonafterrain@outlook.com>
+2.51.2
 
 
