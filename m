@@ -1,34 +1,37 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3077323643F;
-	Sat, 15 Aug 2026 13:48:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A172C3757;
+	Sat, 15 Aug 2026 13:52:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786801716; cv=none; b=c5Ar6IK/7o4lThzsCXzNGFFB6TxUINOl3Tcon/2NFBqqeh5u5QBJspril6c9fOy+l4fwZU1TGij5t2hdP8qxXmyXQZoN0Ah6iI0cWiSaTq8HgQi9BEXs8qzvhCYsc9v1REnGcD4g0MYmiAINhhfmuk4fSyyaVpTlGXzXCF1T/OE=
+	t=1786801958; cv=none; b=E/+P7923Uuks6eYl3MHGhiM0ZXS0DFVh+luDCFZHQq2/L2WsdC7DF0thfuOwxilaeFG1qR/ATWqX1Bh3uco+lyRmFwxDsyrPwcqX451x7KYtVWbnZostR0at1q3aKWrILOSLzC344b7bGo2RxrvZLgfXvEvFXsrdrRrROLgIP2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786801716; c=relaxed/simple;
-	bh=7UV2D4vpN/KBruWZwdioP8alSCGT965QmckpccyECIc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=r8gszftMj2m+cIn2iH4JFRijMeWu/MdDtaHtI2My7WXdrxgxAWI6myHGIJky52OB8oX+0jqz/AQ/KgRRkZMq0pHjV4sGHLdVcnAvtU5uGyqoPj4H753CiAnF0HMF/pEA0FN7aEoJTMeGGKUEfxi49VKINbuqvHrW9uUrRJLzIGQ=
+	s=arc-20240116; t=1786801958; c=relaxed/simple;
+	bh=adzBY+vyUPRDkFg3C127280D0dslJ/CDMqjk1ZJcDxA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lWVkneUGLxXKs7K9dHUhsr/KjBW4vyPielwqVlM/mrJke7T/oURUQOANz0MDIuA72G6urg7NhcODynRroGeKOZ4ESm3VmKa+kLLEBq1UU4jxeDGHPCOTo/2k58dNV92ewHo0nY1kp8I1CIBRw0QjUv6Z6I8GDMOo8xytnbT1k6M=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-05 (Coremail) with SMTP id zQCowAAHcTspboBqB13RBQ--.2466S2;
-	Sat, 15 Aug 2026 21:48:25 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowAAXhT8bb4Bq3mvRBQ--.23067S2;
+	Sat, 15 Aug 2026 21:52:28 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: david@ixit.cz
+To: briannorris@chromium.org
 Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Kees Cook <kees@kernel.org>,
-	Doruk Tan Ozturk <doruk@0sec.ai>,
-	Eric Lapuyade <eric.lapuyade@linux.intel.com>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	oe-linux-nfc@lists.linux.dev,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Amitkumar Karwar <akarwar@marvell.com>,
+	Ramesh Radhakrishnan <rramesh@marvell.com>,
+	Bing Zhao <bzhao@marvell.com>,
+	Yogesh Ashok Powar <yogeshp@marvell.com>,
+	"John W . Linville" <linville@tuxdriver.com>,
+	Tristan Madani <tristmd@gmail.com>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3] nfc: microread: validate target discovery payload lengths
-Date: Sat, 15 Aug 2026 21:48:25 +0800
-Message-ID: <20260815134825.48593-1-pengpeng@iscas.ac.cn>
+Subject: [PATCH v2] wifi: mwifiex: validate scan response extents
+Date: Sat, 15 Aug 2026 21:52:27 +0800
+Message-ID: <20260815135227.50392-1-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -38,132 +41,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAHcTspboBqB13RBQ--.2466S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJFyrZrWkKFyDKw1xCrW3Jrb_yoWrAr1Dpa
-	yUWr1DKrW5JrW7Gw13ZFn7ZF1UJw4xuwsF9F1xJwsaya1Yk34DJas3W3y2vF4UAF98urW2
-	kF1vv39xGa9rAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:zQCowAAXhT8bb4Bq3mvRBQ--.23067S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr1fKFyxWw1rtw1UXF4DCFg_yoWrGry7pF
+	Z0kw1fXr1kJr17Kr4xJF1Fqay5Ka1rXryjkF9rZw1furnIk34rZFWjkFyF9ryYqFsFgr4a
+	9r4qqr1fAr1DZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
 	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
 	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
 	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
-	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUL0e
-	dUUUUU=
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUL0edUUUUU=
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-microread_target_discovered() parses target discovery payloads from
-skb->data according to the HCI gate. The fixed field offsets and UID
-copies were checked only against the destination nfc_target buffers, not
-against the actual skb length.
+mwifiex_ret_802_11_scan() subtracts the fixed response fields and the
+firmware-provided BSS length from resp->size without first proving that
+either extent fits. A short response or oversized BSS length can
+therefore underflow tlv_buf_size and make the TLV parser walk beyond the
+command response.
 
-Validate that each gate-specific payload contains the fixed fields and
-UID bytes before reading or copying them.
+Compute the fixed extent from the selected normal or background scan
+response. Validate that the fixed fields and BSS data fit before deriving
+the TLV extent and entering the parser.
 
-Fixes: cfad1ba87150 ("NFC: Initial support for Inside Secure microread")
+Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
 Cc: stable@vger.kernel.org
 Assisted-by: Codex:gpt-5
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
-Changes since v2:
-https://lore.kernel.org/all/20260723103508.1-microread-v2-pengpeng@iscas.ac.cn/
-- no code changes
-- revalidate the patch against current mainline
-- add the required coding-assistant attribution
-
 Changes since v1:
-https://lore.kernel.org/all/20260701053709.45176-1-pengpeng@iscas.ac.cn/
-- add the Fixes tag and stable Cc requested during review
-- rebase onto the current net tree
+https://lore.kernel.org/all/20260706092654.79403-1-pengpeng@iscas.ac.cn/
+- narrow this patch to the independent response/BSS extent underflow
+- account for the additional fixed field in background-scan responses
+- leave TSF and channel-band array validation to Tristan Madani's patch:
+  https://lore.kernel.org/all/20260421134938.331334-5-tristmd@gmail.com/
 
- drivers/nfc/microread/microread.c | 31 +++++++++++++++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
+ drivers/net/wireless/marvell/mwifiex/scan.c | 29 +++++++++++++++++++----------
+ 1 file changed, 19 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/nfc/microread/microread.c b/drivers/nfc/microread/microread.c
-index 4149c5d735bd..dfa2490db545 100644
---- a/drivers/nfc/microread/microread.c
-+++ b/drivers/nfc/microread/microread.c
-@@ -483,13 +483,19 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
+diff --git a/drivers/net/wireless/marvell/mwifiex/scan.c b/drivers/net/wireless/marvell/mwifiex/scan.c
+index 97c0ec3b822e..256201fff971 100644
+--- a/drivers/net/wireless/marvell/mwifiex/scan.c
++++ b/drivers/net/wireless/marvell/mwifiex/scan.c
+@@ -2096,6 +2096,7 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
+ 	u32 bytes_left;
+ 	u32 idx;
+ 	u32 tlv_buf_size;
++	size_t fixed_size;
+ 	struct mwifiex_ie_types_chan_band_list_param_set *chan_band_tlv;
+ 	struct chan_band_param_set *chan_band;
+ 	u8 is_bgscan_resp;
+@@ -2111,6 +2112,14 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
+ 	else
+ 		scan_rsp = &resp->params.scan_resp;
  
- 	switch (gate) {
- 	case MICROREAD_GATE_ID_MREAD_ISO_A:
-+		if (skb->len <= MICROREAD_EMCF_A_LEN) {
-+			r = -EINVAL;
-+			goto exit_free;
-+		}
-+
- 		targets->supported_protocols =
- 		      nfc_hci_sak_to_protocol(skb->data[MICROREAD_EMCF_A_SAK]);
- 		targets->sens_res =
- 			 be16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_A_ATQA]);
- 		targets->sel_res = skb->data[MICROREAD_EMCF_A_SAK];
- 		targets->nfcid1_len = skb->data[MICROREAD_EMCF_A_LEN];
--		if (targets->nfcid1_len > sizeof(targets->nfcid1)) {
-+		if (targets->nfcid1_len > sizeof(targets->nfcid1) ||
-+		    targets->nfcid1_len > skb->len - MICROREAD_EMCF_A_UID) {
- 			r = -EINVAL;
- 			goto exit_free;
- 		}
-@@ -497,13 +503,19 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
- 		       targets->nfcid1_len);
- 		break;
- 	case MICROREAD_GATE_ID_MREAD_ISO_A_3:
-+		if (skb->len <= MICROREAD_EMCF_A3_LEN) {
-+			r = -EINVAL;
-+			goto exit_free;
-+		}
-+
- 		targets->supported_protocols =
- 		      nfc_hci_sak_to_protocol(skb->data[MICROREAD_EMCF_A3_SAK]);
- 		targets->sens_res =
- 			 be16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_A3_ATQA]);
- 		targets->sel_res = skb->data[MICROREAD_EMCF_A3_SAK];
- 		targets->nfcid1_len = skb->data[MICROREAD_EMCF_A3_LEN];
--		if (targets->nfcid1_len > sizeof(targets->nfcid1)) {
-+		if (targets->nfcid1_len > sizeof(targets->nfcid1) ||
-+		    targets->nfcid1_len > skb->len - MICROREAD_EMCF_A3_UID) {
- 			r = -EINVAL;
- 			goto exit_free;
- 		}
-@@ -511,11 +523,21 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
- 		       targets->nfcid1_len);
- 		break;
- 	case MICROREAD_GATE_ID_MREAD_ISO_B:
-+		if (skb->len < MICROREAD_EMCF_B_UID + 4) {
-+			r = -EINVAL;
-+			goto exit_free;
-+		}
-+
- 		targets->supported_protocols = NFC_PROTO_ISO14443_B_MASK;
- 		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_B_UID], 4);
- 		targets->nfcid1_len = 4;
- 		break;
- 	case MICROREAD_GATE_ID_MREAD_NFC_T1:
-+		if (skb->len < MICROREAD_EMCF_T1_UID + 4) {
-+			r = -EINVAL;
-+			goto exit_free;
-+		}
-+
- 		targets->supported_protocols = NFC_PROTO_JEWEL_MASK;
- 		targets->sens_res =
- 			le16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_T1_ATQA]);
-@@ -523,6 +545,11 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
- 		targets->nfcid1_len = 4;
- 		break;
- 	case MICROREAD_GATE_ID_MREAD_NFC_T3:
-+		if (skb->len < MICROREAD_EMCF_T3_UID + 8) {
-+			r = -EINVAL;
-+			goto exit_free;
-+		}
-+
- 		targets->supported_protocols = NFC_PROTO_FELICA_MASK;
- 		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_T3_UID], 8);
- 		targets->nfcid1_len = 8;
++	scan_resp_size = le16_to_cpu(resp->size);
++	fixed_size = scan_rsp->bss_desc_and_tlv_buffer - (u8 *)resp;
++	if (scan_resp_size < fixed_size) {
++		mwifiex_dbg(adapter, ERROR,
++			    "SCAN_RESP: response is too short\n");
++		ret = -1;
++		goto check_next_scan;
++	}
+ 
+ 	if (scan_rsp->number_of_sets > MWIFIEX_MAX_AP) {
+ 		mwifiex_dbg(adapter, ERROR,
+@@ -2128,8 +2137,6 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
+ 		    "info: SCAN_RESP: bss_descript_size %d\n",
+ 		    bytes_left);
+ 
+-	scan_resp_size = le16_to_cpu(resp->size);
+-
+ 	mwifiex_dbg(adapter, INFO,
+ 		    "info: SCAN_RESP: returned %d APs before parsing\n",
+ 		    scan_rsp->number_of_sets);
+@@ -2137,15 +2144,17 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
+ 	bss_info = scan_rsp->bss_desc_and_tlv_buffer;
+ 
+ 	/*
+-	 * The size of the TLV buffer is equal to the entire command response
+-	 *   size (scan_resp_size) minus the fixed fields (sizeof()'s), the
+-	 *   BSS Descriptions (bss_descript_size as bytesLef) and the command
+-	 *   response header (S_DS_GEN)
++	 * The TLV buffer follows the command-specific fixed fields and the BSS
++	 * descriptions. Background-scan responses have an additional fixed
++	 * field before scan_rsp, which is included in fixed_size.
+ 	 */
+-	tlv_buf_size = scan_resp_size - (bytes_left
+-					 + sizeof(scan_rsp->bss_descript_size)
+-					 + sizeof(scan_rsp->number_of_sets)
+-					 + S_DS_GEN);
++	if (bytes_left > scan_resp_size - fixed_size) {
++		mwifiex_dbg(adapter, ERROR,
++			    "SCAN_RESP: BSS data exceeds response\n");
++		ret = -1;
++		goto check_next_scan;
++	}
++	tlv_buf_size = scan_resp_size - fixed_size - bytes_left;
+ 
+ 	tlv_data = (struct mwifiex_ie_types_data *) (scan_rsp->
+ 						 bss_desc_and_tlv_buffer +
 
 base-commit: dac3e89a2c90c2feeb471e1f22a2512ad424b792
 -- 
