@@ -1,190 +1,110 @@
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B55F419305
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 12:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D87C30D3EF
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 13:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786798267; cv=none; b=N4G75zkzrOEOHwMJoZPPfBqJ4GGIHhAFITH0Bg7ghDaozw4oxgRPJJjBSVNjN1n4vRysIV2Fbkp3/Gupo1lyI1cN/+kbVmfbtXCsEQ+KXhDrZpSA8f/eXzdqrqzorXCgNikfEJIUfMWQBsa0KhR5vGIpX1s9nHo/g0iPbEhK7Bw=
+	t=1786801159; cv=none; b=T4kaOKTJZz/LDnVMoCsSLKm4/gQFXq12GqJ4a1A+Fi1/oGkpbE7n/ON8MTuoCwjcr40T6OdS4MMMPwTLeikTt2ObP6hGrfmpi0hWnSR67/KSf3E0WtbuU5gfCZ1ZiP/fR2WT8BwCEK20Wsxw/d/d/EB4I0EUS1cR1zDYXggZn5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786798267; c=relaxed/simple;
-	bh=KE6rTX+Q3muQog0MKP2PpDD8qW91yzaqv4URNi2blZo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VP04+H8Jf8X1ZEE/C7PO/+LOggzrkN0ju47S/JQkdeyG9h9rNJd+bngz2IoRF54w8CaBwwZky0/dLWcOt0zeumWHf5U+x2eAr8wiSz+RsrzQHJZwf6fD8siHHgMcy+HbY7yScJgJ6xN9S5qOGNe8aG7dEvs5Kma18DepPdJTN/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b=CPk3YldL; arc=none smtp.client-ip=209.85.160.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net
+	s=arc-20240116; t=1786801159; c=relaxed/simple;
+	bh=nmeIeb4ghsgslzTmI3belGVuT1iKkYhP5Xqo4t9I41Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S4lUizdfg7iAeJDM4a8Ul0wjeYV8pjoUyNrZTchduHUriU9b6TMHyydNRallmcDq91gFSCkmV+GLyIcIZJTILdTHsAVDiAIhuCWT/bW3KvtvdpVemyEC1qpKdS3sog+8Vn1wnUAu1bXrWS6v81sT+IM0kXow3IqDNcmmVNbcqME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b="CPk3YldL"
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-44856d185bcso1178515fac.3
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 05:51:06 -0700 (PDT)
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5bfb3347dc4so1348325e0c.0
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 06:39:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786798265; x=1787403065;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NthXw1cvoONdGhBW0OtOd2XcLhJSsunw8nyGgyUAdh4=;
-        b=mRuZNRmM3saRuLcvIQAfOiVjY8MUXbStfjReU6oGu3Rbb0oKMrZBiE89y7V8CtUr5J
-         B8XpdFpKzw//27ve/dTbcNWna0AZqQnkZIChPIcCWmSM7jHDcbhBVzT7UYqqmfF4glQn
-         q6MXk5hlhsT9e5t64W6kNxpy7RftUndjFaS9fD4rDbBt+uU2ViSTabFdPm8vUYlP2GkD
-         uEYGbGWdyyjLOnQpa0cswTtSWW7wK4ymk2+7M8kkxqbmgM0vC0HxTE/gT+yxT/SOaRM9
-         G4cD12u8+O48YGYS8kZa4elrBOQD7ItktP2s80bHFRdM08/oRR6G6KT301Vwn/hA9cy4
-         q/rA==
-X-Forwarded-Encrypted: i=1; AHgh+RpVppAImmumq1ptINOCBHjce4HIi9I4U5oPZTeLbENgG8UudKid4cfeYMEctriLBPdLSXr0Nn8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwgC0xzScQoqm3Am0YFG/iiekWvn8RZxDmy3KSinmifK6GL4iRM
-	F1WV46k86AsoNjccyCWkz0ANuvzYVcadTJRJcxas6kolQG+5m453s0K6
-X-Gm-Gg: AR+sD10t/ucDvZlACPRjM68Q4gcDBdfXiP6EQsFXz7g/tJqThTdzY5bZ0Ez3AfssWky
-	dB79+OjDvbmVDwHbFXjOuXBtpLJ2bc7FkHr8FVtTMb9O7xD8dSaNlY6zSpDcDEzePRYkzeDKEW1
-	fr/TMykNnJckX9HN0gfw66RDOQN5mcYrwbBqutylz8LbH8mnoCBmtSuS/xBwo0O9P81sepb4wG/
-	xcZgXDGiCP+JIMu0qNwg0Iopjf+WMcIufJJuF85J3uuamVibiN2S4GCAVWgerTc17ORZSubwLrs
-	CUyGetAVtTvYM4g5iH9OjM9V8jpzW6VbuuLm9/Oqf/5H1vZY7PajIC/3ke/JRqtywk0rdw7FDm8
-	KVz7dST9uMIILOAcBKMs1yqfpfOhWIUf7wRfGZZwSPZeKPDEA2QKpPV0Rxffkl/5+qhow6tmpme
-	W6YAvz6gdER30qUe8OQ1oY4Zq2BhSDWvbOI/OPSUlxVH4dHbY+Ar0YLISuU30n5mqyD6LSHctw6
-	ryjSaDGsb5pkFaKfxEHZQAwoxtYYJnD/BmUzxpcWKFtzit93bxsvvhJft32pcfkMA==
-X-Received: by 2002:a05:6820:180d:b0:6aa:e13e:ba26 with SMTP id 006d021491bc7-6b0d69164demr10829049eaf.33.1786798265135;
-        Sat, 15 Aug 2026 05:51:05 -0700 (PDT)
-Received: from mail.marliere.net (137.65.66.34.bc.googleusercontent.com. [34.66.65.137])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f3e86687f3sm3931954a34.20.2026.08.15.05.51.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 05:51:04 -0700 (PDT)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7C2C260791;
-	Sat, 15 Aug 2026 12:51:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
-	s=dkim; t=1786798262;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=NthXw1cvoONdGhBW0OtOd2XcLhJSsunw8nyGgyUAdh4=;
-	b=CPk3YldL3RCgL5TmZcIvdBAwuyKz8SYYzju39akKENUry5zZ7k1ivcAmuKnI7IK1nUOome
-	1RrKkvfZI9E08gkrsCLUh7Oj20i32cAeHPO4BMi3D83wuPopTUHmlyC9Hc2ruavOlPkOiL
-	HW+JHbzose8CNEQvOQzVqXHsA8dtzFhDsmMrI6MChSImD+eModkJrL7r6kh6FKLqMH8bbC
-	jmbF0GiMKhiN/wfNs1ZtiUMA/lE2Tw2INWEQQbaiM4atQRrgwDZyS8r7u2VaoA8GO2T1AG
-	9CSLuwlOw0yZqeeGlc0ddpPbuokPCvh/Z2zj8nawTg6Ct0czLp2ITsSAjmCAHQ==
-From: =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
-Date: Sat, 15 Aug 2026 09:50:39 -0300
-Subject: [PATCH 7.1.y v2 2/2] selftests/bpf: Adapt sockmap update error
- handling
+        d=1e100.net; s=20251104; t=1786801156; x=1787405956;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LehA2Ewcs8Da1Bm6VxmTUkZDqNIF6RALTN4HmF4fEVY=;
+        b=e2/258HF/nt/sN4mU2WChUptlnq4TKhki39UPGF9uQX4Bn6gTT+Yo5RS3dGfHcvXeh
+         2wDsrv6UhQSBXf3fvO0hTgY7ONqqB7l8+hYMkjEVK30BNiSkqG4rLdFoDg0nCcX/R68m
+         r4ckoQPuGpcIrwHuuRM8xH20K0Z0w03QJvlsV5VBDuLDR6wqbyWilfXJ+l1gc2b+ryPp
+         l9MyAZPFawDJIAuy8sZUo4e5V44WBKfirbCW30mR7YfIvlF5slyLEluFxJgoa2l/JduM
+         cvHUh7//kHYOmT/p7f22jHXpwI/9BUvI7VHKUUiUG9wVIRicx2/AnwhOGhMD6PnuDrF6
+         nv6A==
+X-Forwarded-Encrypted: i=1; AHgh+RpIX1T0ZeEmCvHIGZQh8mVSgRZ6+tb/SKMLaUU5EM/diHokDd1v0RAhUgUbfaaaiGR8YZN1zyc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyzwWawadu+InDJY+Lt6ApJ9TWBzQ7nZbqRAL6TeIkhseYPeino
+	3ivYsPd0n/ZP0ifju6TUg45WRbUGvlHmh29qpH4Nsq62MylYeiBvEtjVj228TH9STQQ=
+X-Gm-Gg: AR+sD101XbncfD81bm14bPFGeSgSdakcORUBT2P4v9fonNrTA+DBFjfSJTNt++LyVB8
+	OJ2JGnLWLB7PIdHQg7Tvm7kYevmY2XpzJFqxDD+eJ6znRkDx59AHU57rXx1LvQ65o7c7Y8JrjG+
+	nzoOVMpkwyYMJtdYkWnXT9Ym8Qr0V/V7KGrMwChNZO2Jvp1jJyluOotXfxZw5QXywoREhsREQdJ
+	v3H511iKOXfq5zzkFkQymmNu06UsLJEqf5Xhm0p0VyE45dbVu92uPXeYr478RMk9lo5z9H+beAE
+	kUNF/CM1jkgtTTCfwweE3AX19gXbUU1Px2aAIChIgDJH39Pv3sZ2PQXtBt4645XPng4dpMv1Onl
+	nLOX1b7nBnx5c/gi8p6bkyQEcAXa6SMcycDSFTxMILGIT4YoLsOBXkG8jNR4TgDs7KWZ/95PB9C
+	SnjGfwIe3y9E8TRBZzoPEj0+1IjcbNtQlRwiV9G/ZdCxQeStandTwNCick3SZiYF3hQVwe2YRy9
+	oQcD1XJbarOz/hRQbNNeaGsLXI=
+X-Received: by 2002:a05:6123:b2:b0:5bd:fc20:1fc3 with SMTP id 71dfb90a1353d-5c591d14f50mr3261891e0c.4.1786801156095;
+        Sat, 15 Aug 2026 06:39:16 -0700 (PDT)
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com. [209.85.222.47])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c597be30easm1679748e0c.15.2026.08.15.06.39.15
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 15 Aug 2026 06:39:15 -0700 (PDT)
+Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-97622cc1f40so1088228241.3
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 06:39:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpaJOgo6WVO/wXBJA2jI6NhXGk3uejQaTiFcXtAc4ZDcBDYLFsN4RgbWWcMN2zvUYL6sswK0xY=@vger.kernel.org
+X-Received: by 2002:a05:6122:884:b0:5bd:71cf:e97e with SMTP id
+ 71dfb90a1353d-5c591d14fdbmr2959910e0c.5.1786801155586; Sat, 15 Aug 2026
+ 06:39:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260815-7-1-y-selftests-bpf-udp_xsk-v2-2-c227473a2300@marliere.net>
-References: <20260815-7-1-y-selftests-bpf-udp_xsk-v2-0-c227473a2300@marliere.net>
-In-Reply-To: <20260815-7-1-y-selftests-bpf-udp_xsk-v2-0-c227473a2300@marliere.net>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Martin KaFai Lau <martin.lau@linux.dev>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, sashal@kernel.org, 
- gregkh@linuxfoundation.org
-Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>, 
- Michal Luczaj <mhal@rbox.co>, Kuniyuki Iwashima <kuniyu@google.com>, 
- Jakub Sitnicki <jakub@cloudflare.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openssh-sha256; t=1786798251; l=2951;
- i=ricardo@marliere.net; h=from:subject:message-id;
- bh=qQmp8P1bskQy6/17jPUYc2um6TvqJkCSlm4/2Y/x6W8=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgguRCc5X8/UX9M40lkMnr//aFGOhce
- x5ezt8MFNUFlqYAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QERbhI0Fsl3IfrWm5pNmGJzkJDRonKGSrxyDcGmHsumgKH5Lxmyeub9wr38+IX7z0Gs5KWnqKOV
- SAB/i3ERjMg0=
-X-Developer-Key: i=ricardo@marliere.net; a=openssh;
- fpr=SHA256:pzhe0fJpYLz+3cZ33FFPhIfaUElk9CXPFFXmalIH+1g
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260815105950.1109-1-getshell@seu.edu.cn>
+In-Reply-To: <20260815105950.1109-1-getshell@seu.edu.cn>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sat, 15 Aug 2026 15:39:04 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXNu2U=Qv5ObE3bs-5+wnVo+4EEXD4oRcjqy1wLVrWjsg@mail.gmail.com>
+X-Gm-Features: AcwNN1WmrRl39UXDmasKU4m-yO8EXt6nBW2XwFpVngIAjB3sbSMnsy-lsqg3m5o
+Message-ID: <CAMuHMdXNu2U=Qv5ObE3bs-5+wnVo+4EEXD4oRcjqy1wLVrWjsg@mail.gmail.com>
+Subject: Re: [PATCH v3] auxdisplay: charlcd: cancel backlight work on
+ registration failure
+To: Hongyan Xu <getshell@seu.edu.cn>
+Cc: Andy Shevchenko <andy@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Jianhao Xu <jianhao.xu@seu.edu.cn>, Lars Poeschel <poeschel@lemonage.de>, Willy Tarreau <w@1wt.eu>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Michal Luczaj <mhal@rbox.co>
+On Sat, 15 Aug 2026 at 13:00, Hongyan Xu <getshell@seu.edu.cn> wrote:
+> With CONFIG_CHARLCD_BL_FLASH, charlcd_init() schedules bl_work before
+> charlcd_register() calls misc_register(). If registration fails, the
+> caller frees the charlcd object while delayed work still contains its
+> address.
+>
+> Add charlcd_deinit() to cancel the delayed work and turn the backlight
+> off. Use it for both registration rollback and normal unregistration.
+>
+> Fixes: 39f8ea46724e ("auxdisplay: charlcd: Extract character LCD core from misc/panel")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+> ---
+> Changes in v3:
+> - Add Cc: stable@vger.kernel.org (Miguel).
+>
+> Changes in v2:
+> - Factor the backlight cleanup into charlcd_deinit() and reuse it from
+>   charlcd_unregister() (Andy, Geert).
+> - Add the Fixes tag (Andy).
 
-[ Upstream commit 30581eda4a07ff15db623612cac578e81869e96f ]
+Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
 
-Update sockmap_listen to accommodate the recent change in sockmap that
-rejects unbound UDP sockets.
+Gr{oetje,eeting}s,
 
-TCP: Reject unbound and bound (unless established or listening).
-UDP: Accept only bound sockets.
-
-While at it, migrate to ASSERT_* and enforce reverse xmas tree.
-
-Signed-off-by: Michal Luczaj <mhal@rbox.co>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Jakub Sitnicki <jakub@cloudflare.com>
-Link: https://lore.kernel.org/bpf/20260707-sockmap-lookup-udp-leak-v4-3-f878346f27ab@rbox.co
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Signed-off-by: Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
----
- .../selftests/bpf/prog_tests/sockmap_listen.c       | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c b/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c
-index cc0c68bab907..1c96a3cf4b97 100644
---- a/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c
-+++ b/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c
-@@ -53,8 +53,8 @@ static void test_insert_opened(struct test_sockmap_listen *skel __always_unused,
- 			       int family, int sotype, int mapfd)
- {
- 	u32 key = 0;
--	u64 value;
- 	int err, s;
-+	u64 value;
- 
- 	s = xsocket(family, sotype, 0);
- 	if (s == -1)
-@@ -63,11 +63,8 @@ static void test_insert_opened(struct test_sockmap_listen *skel __always_unused,
- 	errno = 0;
- 	value = s;
- 	err = bpf_map_update_elem(mapfd, &key, &value, BPF_NOEXIST);
--	if (sotype == SOCK_STREAM) {
--		if (!err || errno != EOPNOTSUPP)
--			FAIL_ERRNO("map_update: expected EOPNOTSUPP");
--	} else if (err)
--		FAIL_ERRNO("map_update: expected success");
-+	ASSERT_ERR(err, "map_update");
-+	ASSERT_EQ(errno, EOPNOTSUPP, "errno");
- 	xclose(s);
- }
- 
-@@ -77,8 +74,8 @@ static void test_insert_bound(struct test_sockmap_listen *skel __always_unused,
- 	struct sockaddr_storage addr;
- 	socklen_t len = 0;
- 	u32 key = 0;
--	u64 value;
- 	int err, s;
-+	u64 value;
- 
- 	init_addr_loopback(family, &addr, &len);
- 
-@@ -93,8 +90,12 @@ static void test_insert_bound(struct test_sockmap_listen *skel __always_unused,
- 	errno = 0;
- 	value = s;
- 	err = bpf_map_update_elem(mapfd, &key, &value, BPF_NOEXIST);
--	if (!err || errno != EOPNOTSUPP)
--		FAIL_ERRNO("map_update: expected EOPNOTSUPP");
-+	if (sotype == SOCK_STREAM) {
-+		ASSERT_ERR(err, "map_update");
-+		ASSERT_EQ(errno, EOPNOTSUPP, "errno");
-+	} else {
-+		ASSERT_OK(err, "map_update");
-+	}
- close:
- 	xclose(s);
- }
-@@ -1289,7 +1290,7 @@ static void test_ops(struct test_sockmap_listen *skel, struct bpf_map *map,
- 		/* insert */
- 		TEST(test_insert_invalid),
- 		TEST(test_insert_opened),
--		TEST(test_insert_bound, SOCK_STREAM),
-+		TEST(test_insert_bound),
- 		TEST(test_insert),
- 		/* delete */
- 		TEST(test_delete_after_insert),
+                        Geert
 
 -- 
-2.55.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
