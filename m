@@ -1,205 +1,198 @@
-Received: from mta1.migadu.com (out-164.mta1.migadu.com [95.215.58.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C7035F609
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 07:04:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DE429898F;
+	Sat, 15 Aug 2026 08:06:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786777487; cv=none; b=hU5yYAbjef/Nv5lwqcWuyvlo7ezK8tFgatuRLp+iOBWbWA0M5jealPvNHT7JzQhvVnVZzw5+jjYah8dqDcPoTldfTdeMcd3SsN0YP4sGkc4m/E91jYpTMGtMrZOcgT7u+ik3RRhehfB97KIzGk5vVPVX63shGllbla22ZdFT43g=
+	t=1786781220; cv=none; b=bDvpjuUEoR8Sas9wry2o2QXwqaZH7k6QmOTQKsISQXzt8zQSSDJI5YEmZiCNvxFSQVeJbty4vdArDJn4ZiWNz4t+/9BtlbH9c3Xu2DrY/R/WQ0x8vom9iPv27xPNngFZ8C1FbR/6MfKayEumYUpeojR1egIqMKU1QGy9QJWo5+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786777487; c=relaxed/simple;
-	bh=Plc0Kt9hQSOO2hAwQfBHQn2XESD4nkRSF2HP4J+dWpo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UtqlqPsZD9/2hNhitjsaSGw6AUwJ5z8yciNHorpz4G501cVHzi9gDvdJ1/C9s24SweRgS9qcTtSRoM8nKDWnQkFAg374glRuJGE2q0rM1jUjtUmn0j7B43dnm3sTonXGXRGkaXHCbH3WUyhrhBN9n8yD3pwV0/4JrMi4cBwWwPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xoSAzdPW; arc=none smtp.client-ip=95.215.58.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786781220; c=relaxed/simple;
+	bh=qeY2koXQxCYCzeSXECseCj8h07szuIIp4yg1qgzBmns=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Agpin1b1KCVQrdlbemqvTMLsXN9XzMZfmHZnofH10hGNmSH9eyWVm5EVvdw8Ke9V81MmYCHZn+/OR4vPhAo+Zi3jtKskMLdyPKHcHUMNSo3f4qBf3lKWKzAtr1pgFyxN5dv0ifB91bSqCP6J8S52dgQ7H1jkDMbs2XEIn0caxJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Om9q3m0I; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xoSAzdPW"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Plc0Kt9hQSOO2hAwQfBHQn2XESD4nkRSF2HP4J+dWpo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1786777483; v=1; x=1787382283;
- b=xoSAzdPW3utYSdVFmNT849XsOgjAlcoXavE5f0FTxkQN7i11X52Sg8HTKkGAUf2kLXwjkWV7
- p0E4yGRr/g6g0tWgmEyQ9Dqd81eDLjAsftlMIGLTXipI6B4pZ3blYppIKSHR+6PkMAI53Y+h1Zm
- JrZqCY5iVOlq5KCOCC9/woAU=
-X-Envelope-To: stable@vger.kernel.org
-Received: from localhost.localdomain (147.136.157.3)
-	by smtp.migadu.com with ESMTPS id 2d80237f62a346b7;
-	Sat, 15 Aug 2026 07:04:33 +0000
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	stable@vger.kernel.org,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH net v2 1/2] net: advertise TCP MSS from the configured MTU, not the learned PMTU
-Date: Sat, 15 Aug 2026 15:03:36 +0800
-Message-ID: <20260815070413.294559-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Om9q3m0I"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 821B3C19425;
+	Sat, 15 Aug 2026 08:06:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786781219;
+	bh=qeY2koXQxCYCzeSXECseCj8h07szuIIp4yg1qgzBmns=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Om9q3m0I61mErujFy5tlyRmJ6UyCQuPXoE1Ij73eMI+Sh7AZJknBgrhOBn531lx+t
+	 yjxsivZjl//TFbEI/mpHk6tqurs8tdaYhoMgW4ZqkTU/kFjmATpwiQ5tb5Bn78qlpG
+	 k76ZR0WNZE8w1jz+MPWLtnNruJWZmdZCyfhDGEyg9evtbp1g34vnxWyZwRCjt7p8hg
+	 Uqn6dSzXzDc1eL9ZJZdgslycomrk/RtNy7ucCIMXvx2qliKh4+OaB995F1zdLIzebC
+	 aKZN+nWyFk5Tjfz1O/ATX5MciczkDXC9Ci9dkGPz8wO3UegQVyKFePdTVhKarlDmt9
+	 kPl0Jj8WxTzdw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C989C5CFC1;
+	Sat, 15 Aug 2026 08:06:59 +0000 (UTC)
+From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
+Date: Sat, 15 Aug 2026 10:06:42 +0200
+Subject: [PATCH] rust: num: reject bool conversion to signed one-bit
+ Bounded
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260815-fix-rust-bounded-from-bool-submit-v1-1-882227bf40ba@younes.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN2w6CMBBEf4Xssxu5RGz8FcNDS7ewRlqzbQ0J4
+ d8t+HgmM3M2iCRMER7VBkJfjhx8geZSwThrPxGyLQxt3fa1am7oeEXJMaEJ2Vuy6CQsBcIbYzY
+ LJ+y0U11vlbs3CsrPR6iMTsdz+HNpvmhMx/HRMDoSGtF+nI8oCE/sr6fF05pg33+AtpQtqAAAA
+ A==
+X-Change-ID: 20260815-fix-rust-bounded-from-bool-submit-3af836d8f718
+To: Alexandre Courbot <acourbot@nvidia.com>, 
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: rust-for-linux@vger.kernel.org, stable@vger.kernel.org, 
+ Younes Akhouayri <git@younes.io>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786781218; l=4446;
+ i=git@younes.io; s=20260712; h=from:subject:message-id;
+ bh=XpIa9KEUmh79aDTOOC/bb1K0iRRekhqcG4MhqMsCDT4=;
+ b=d8wUtrjPLQxRdi8Xk0F441WyLJPxkTsZobYpkNk9eee4bv6pyI5eI0Oyt+dy4t0ir4wB1D9iJ
+ LSTsqUZXUJZCypCXCMm8ny1QLC0AaOE+Mg9JRqSjcqg3q1FAwIVjxMY
+X-Developer-Key: i=git@younes.io; a=ed25519;
+ pk=1DRfzPrQ04RQHHgGK28t+vjIAPv5oISPiAdLMU6J5dE=
+X-Endpoint-Received: by B4 Relay for git@younes.io/20260712 with
+ auth_id=866
+X-Original-From: Younes Akhouayri <git@younes.io>
+Reply-To: git@younes.io
 
-The MSS a host puts in its SYN tells the peer how big a segment it may
-send us. Right now we can shrink it with a PMTU we learned on our own
-send path, which is the wrong direction entirely.
+From: Younes Akhouayri <git@younes.io>
 
-On asymmetric paths this bites - think DSR load balancers, where the
-request side goes through a smaller-MTU overlay. We learn a small PMTU
-going out, then advertise a small MSS, and the peer stays capped for the
-whole connection even though its path back to us is wide. MSS only shows
-up in the SYN and never grows back.
+From<bool> turns true into 1. A signed Bounded with N = 1 can hold
+only -1 and 0. From<bool> therefore creates a value that the type does
+not allow. Deref assumes the value is valid and calls
+unreachable_unchecked() when it is not. Safe Rust can therefore reach
+undefined behavior.
 
-On symmetric paths we lose nothing by dropping it either: the peer runs
-its own PMTU discovery and usually already knows the real path MTU.
+Rust cannot write N >= 2 directly in this From implementation. Add a
+private BoolFits trait. It accepts every valid unsigned width and signed
+widths from 2 through 128. The current Integer types do not use more
+than 128 bits, so this keeps every valid conversion.
 
-So work out the advertised MSS from the configured route or device MTU
-and ignore the learned PMTU. Our send side is unchanged, still clamped by
-tcp_current_mss(). Add ip_dst_mtu_configured()/ip6_dst_mtu_configured()
-and use them from the two default_advmss() paths.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 164a5e7ad531 ("ipv4: ipv4_default_advmss() should use route mtu")
+Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
+Closes: https://lore.kernel.org/rust-for-linux/OzuVxu0--J-9@younes.io/
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Younes Akhouayri <git@younes.io>
 ---
-v1 -> v2: carry with Eric's selftest and target to net tree with Fixes
-tags.
-
-v1: https://lore.kernel.org/netdev/20260814063545.225896-1-jiayuan.chen@linux.dev/
+Do not allow From<bool> for signed Bounded values with N = 1.
+Keep it available for signed Bounded values with N >= 2.
 ---
- include/net/ip.h        | 25 +++++++++++++++++++++++++
- include/net/ip6_route.h | 37 +++++++++++++++++++++++++++++++++++++
- net/ipv4/route.c        |  4 ++--
- net/ipv6/route.c        |  2 +-
- 4 files changed, 65 insertions(+), 3 deletions(-)
+ rust/kernel/num/bounded.rs | 50 +++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 45 insertions(+), 5 deletions(-)
 
-diff --git a/include/net/ip.h b/include/net/ip.h
-index 7f2fe1a8401b..a8f57b4f4aa2 100644
---- a/include/net/ip.h
-+++ b/include/net/ip.h
-@@ -506,6 +506,31 @@ static inline unsigned int ip_dst_mtu_maybe_forward(const struct dst_entry *dst,
- 	return res;
- }
+diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
+index d192610a687d..1856fe6c9865 100644
+--- a/rust/kernel/num/bounded.rs
++++ b/rust/kernel/num/bounded.rs
+@@ -13,7 +13,7 @@
+ };
  
-+/* Configured/administrative MTU of a route, for advertising the TCP MSS.
-+ *
-+ * Unlike ip_dst_mtu_maybe_forward(), this deliberately ignores the
-+ * ICMP-learned path MTU (rt->rt_pmtu).  The advertised MSS bounds what the
-+ * peer may send to us and must reflect our receive capability (the device or
-+ * route-configured MTU), not a path MTU learned on the reverse (send)
-+ * direction, which may not apply to the peer->us path and outlives the fnhe
-+ * for the whole connection.  See RFC 2923 section 2.3 and the comment above
-+ * tcp_advertise_mss().
-+ */
-+static inline unsigned int ip_dst_mtu_configured(const struct dst_entry *dst)
-+{
-+	unsigned int mtu, res;
+ use kernel::{
+-    num::Integer,
++    num::{Integer, Signed, Unsigned},
+     prelude::*, //
+ };
+ 
+@@ -174,13 +174,26 @@ fn fits_within<T: Integer>(value: T, num_bits: u32) -> bool {
+ /// // `u8` (regardless of the passed value).
+ /// // let _ = Bounded::<u32, 6>::from(10u8);
+ ///
+-/// // Booleans can be converted into single-bit `Bounded`s.
++/// // Booleans can be converted into unsigned single-bit `Bounded`s.
+ ///
+ /// let v = Bounded::<u64, 1>::from(false);
+ /// assert_eq!(v.get(), 0);
+ ///
+ /// let v = Bounded::<u64, 1>::from(true);
+ /// assert_eq!(v.get(), 1);
++///
++/// // Signed integers need at least two bits to represent both `0` and `1`.
++/// let v = Bounded::<i8, 2>::from(true);
++/// assert_eq!(v.get(), 1);
++/// ```
++///
++/// A signed single-bit [`Bounded`] cannot represent `1`, so converting a boolean into one does not
++/// build.
++///
++/// ```compile_fail,E0277
++/// use kernel::num::Bounded;
++///
++/// let _: Bounded<i8, 1> = true.into();
+ /// ```
+ ///
+ /// Infallible conversions from a [`Bounded`] to a primitive integer are also supported, and
+@@ -1109,7 +1122,33 @@ fn from(value: Bounded<T, N>) -> $type {
+     i8 i16 i32 i64 isize
+ );
+ 
+-// Single-bit `Bounded`s can be converted from/to a boolean.
++// Conversions between `Bounded`s and booleans.
 +
-+	rcu_read_lock();
-+	mtu = dst_metric_raw(dst, RTAX_MTU);
-+	if (!mtu)
-+		mtu = READ_ONCE(dst_dev_rcu(dst)->mtu);
-+	mtu = min_t(unsigned int, mtu, IP_MAX_MTU);
-+	res = mtu - lwtunnel_headroom(dst->lwtstate, mtu);
-+	rcu_read_unlock();
++/// Marker for signedness types for which a valid `N`-bit integer can represent a boolean.
++trait BoolFits<const N: u32> {}
 +
-+	return res;
++impl<const N: u32> BoolFits<N> for Unsigned {}
++
++macro_rules! impl_signed_bool_fits {
++    ($($num_bits:literal)*) => {
++        $(
++        impl BoolFits<$num_bits> for Signed {}
++        )*
++    };
 +}
 +
- static inline unsigned int ip_skb_dst_mtu(struct sock *sk,
- 					  const struct sk_buff *skb)
++// `N >= 2` cannot be expressed as a trait bound without `generic_const_exprs`, so enumerate every
++// width supported by the current `Integer` implementations.
++impl_signed_bool_fits!(
++    2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
++    17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
++    33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48
++    49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
++    65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
++    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96
++    97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112
++    113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128
++);
+ 
+ impl<T> From<Bounded<T, 1>> for bool
+ where
+@@ -1123,10 +1162,11 @@ fn from(value: Bounded<T, 1>) -> Self {
+ impl<T, const N: u32> From<bool> for Bounded<T, N>
+ where
+     T: Integer + From<bool>,
++    T::Signedness: BoolFits<N>,
  {
-diff --git a/include/net/ip6_route.h b/include/net/ip6_route.h
-index 09ffe0f13ce7..ac1acc0b7436 100644
---- a/include/net/ip6_route.h
-+++ b/include/net/ip6_route.h
-@@ -385,6 +385,43 @@ static inline unsigned int ip6_dst_mtu_maybe_forward(const struct dst_entry *dst
- 	return mtu - lwtunnel_headroom(dst->lwtstate, mtu);
+     fn from(value: bool) -> Self {
+-        // SAFETY: A boolean can be represented using a single bit, and thus fits within any
+-        // integer type for any `N` > 0.
++        // SAFETY: `__new` enforces that `N` is a valid width, and the `BoolFits` bound guarantees
++        // that the integer representation of `value` fits within any such `N`.
+         unsafe { Self::__new(T::from(value)) }
+     }
  }
- 
-+/* Configured/administrative MTU of a route, for advertising the TCP MSS.
-+ *
-+ * Unlike ip6_dst_mtu_maybe_forward(), this ignores any ICMPv6-learned path
-+ * MTU (which is kept on the RTF_CACHE exception route) and returns the MTU of
-+ * the underlying route (fib6_pmtu) or the egress device.  The advertised MSS
-+ * bounds what the peer may send to us and must reflect our receive
-+ * capability, not a path MTU learned on the reverse (send) direction.  See
-+ * RFC 2923 section 2.3 and the comment above tcp_advertise_mss().
-+ */
-+static inline unsigned int ip6_dst_mtu_configured(const struct dst_entry *dst)
-+{
-+	const struct rt6_info *rt = dst_rt6_info(dst);
-+	const struct fib6_info *from;
-+	struct inet6_dev *idev;
-+	unsigned int mtu = 0;
-+
-+	rcu_read_lock();
-+	/* IPv6 keeps the learned PMTU and the configured MTU in the same
-+	 * RTAX_MTU slot: the learned value sits on this (possibly RTF_CACHE)
-+	 * dst, the configured one on the underlying route.  Reach the latter
-+	 * via ->from (fib6_pmtu), populated by ip6_route_info_create().
-+	 */
-+	from = rcu_dereference(rt->from);
-+	if (from)
-+		mtu = from->fib6_pmtu;
-+	if (!mtu) {
-+		mtu = IPV6_MIN_MTU;
-+		idev = __in6_dev_get(dst_dev_rcu(dst));
-+		if (idev)
-+			mtu = max_t(unsigned int, mtu, READ_ONCE(idev->cnf.mtu6));
-+	}
-+	rcu_read_unlock();
-+
-+	mtu = min_t(unsigned int, mtu, IP6_MAX_MTU);
-+	return mtu - lwtunnel_headroom(dst->lwtstate, mtu);
-+}
-+
- u32 ip6_mtu_from_fib6(const struct fib6_result *res,
- 		      const struct in6_addr *daddr,
- 		      const struct in6_addr *saddr);
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index fd688e1f879f..46aa98c92183 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -1334,8 +1334,8 @@ static unsigned int ipv4_default_advmss(const struct dst_entry *dst)
- 
- 	rcu_read_lock();
- 	net = dst_dev_net_rcu(dst);
--	advmss = max_t(unsigned int, ipv4_mtu(dst) - header_size,
--				   net->ipv4.ip_rt_min_advmss);
-+	advmss = max_t(unsigned int, ip_dst_mtu_configured(dst) - header_size,
-+		       net->ipv4.ip_rt_min_advmss);
- 	rcu_read_unlock();
- 
- 	return min(advmss, IPV4_MAX_PMTU - header_size);
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 5968ce5ad150..e2056bd0df3c 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -3261,7 +3261,7 @@ void ip6_sk_redirect(struct sk_buff *skb, struct sock *sk)
- 
- static unsigned int ip6_default_advmss(const struct dst_entry *dst)
- {
--	unsigned int mtu = dst6_mtu(dst);
-+	unsigned int mtu = ip6_dst_mtu_configured(dst);
- 	struct net *net;
- 
- 	mtu -= sizeof(struct ipv6hdr) + sizeof(struct tcphdr);
--- 
-2.43.0
+
+---
+base-commit: 47f27155f17498fccb1f222f79089642337498a9
+change-id: 20260815-fix-rust-bounded-from-bool-submit-3af836d8f718
+
+Best regards,
+--  
+Younes Akhouayri <git@younes.io>
+
 
