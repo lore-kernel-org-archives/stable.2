@@ -1,46 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282952DECD3;
-	Sat, 15 Aug 2026 02:33:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E25A2931F8
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 02:33:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786761226; cv=none; b=H4tE4oMilFFLiQedTmUaGurtt1JE4kdlMOWqRVPofLPiMHLC7mBe2w0pPIf7o2D9276e0Jh3FwFYZEeMTOnZhXqOJBkCeetGeu96cu59ze7IWtiSScdx6FLXj2L4bRAMh18gOwYAErp20/ueQmb0knr6JKP0OC8e5Cmzxbk6NbM=
+	t=1786761227; cv=none; b=MZLNnRWO0V9vtLPtXzdsoysASYGrZAyusy7Oi1UHn0JxzwnfyI1UMDpVs27VumvNGY1B7b0MjYpC+hP+CPv0W9Wbx5VK40YgDuU1jqtK+cZZsCwDJFAnWo8mqA4cOzmQX6AKHak5JKhzvj6IGCEVksk/yTzLBja2yKN34tvZBdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786761226; c=relaxed/simple;
-	bh=vLRoDnNbSv73/vRxLNFdhwGhcAZQpg4yXKkiTGf9vgA=;
+	s=arc-20240116; t=1786761227; c=relaxed/simple;
+	bh=xrKLRvEcIwfiUTcBIFYvN95S8/5tO+lngbms7GRRrPc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cgUGfg2CD7hYue9PGhs+ZPjsK6RCFNNjxmnBb847tkyKyK2WXQxe16FKiVcDjfMBpgdJotf6qAqccplEsewCrqxMUJgJjUhWruXQxQyleBf99PxkuEILArZOBKWW3ynv09AeTX+OVW28rNaj8A+Doq+gbbkCcH+JfQCBDibXH5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvtcPxPN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OspTQx4LUI53r0lDj/IrmjVJ+oX8KSG44x66Nr+Gfq9VVX3u/OX6uh0WeG34IcMk0k+1PNKHVIeCKnvDrfBXY/Y0UJPqgvFVJ2DInZTftpdo8XQhvfvp5L2GaICZY3CSMcLV8U2CbL8kLLWxDkGQynmH351/Z6YiXyflBjzJC6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHPlpUSt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvtcPxPN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E471F00A3D;
-	Sat, 15 Aug 2026 02:33:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHPlpUSt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535FF1F000E9;
+	Sat, 15 Aug 2026 02:33:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786761225;
-	bh=XMJH5IhKgbP0GlplaS7HHmpY8/QxgLYD/LHhFyzeqEU=;
+	s=k20260515; t=1786761226;
+	bh=zm4hfNG7aIr4xBdYXgqVBT1ZMGexy6bcXoC4zsjhVHY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dvtcPxPNINkzeWKUItregYBeEN9pcU4ZdTl4t2KhmnhqKj0OqXFbTeJBYVu9jcI6P
-	 nmFkedCRqNZp7eld+UP5KxKRtv7Kr3V4Vd472dDoUzxxECvphZoimEGsQSZb4QZ4Ou
-	 BbKOjDKB3Xb+z40rpT0bCzgrSe2McJR+G2aBliRYpoXPQ1MySrCaLYX/17ROKNAhhF
-	 4mcL6aDw0Yer9B5E0dCcNm5F+S2L5aB1fIWvPqxkIwZl0y6JtSSPNP0jYuiDCQgPXu
-	 QE9pLS2PE7Cyuv3ksoXxnuCeK+ong98DndN7KPFB63e4fdPwMvBsYoDG58g2FxqCp3
-	 hCvLdbfrUt8dQ==
+	b=FHPlpUStnA02vNrHbOEQq0bZj/WWbIES7AtFMMow9oHJEboeQnq16Lo7iViWwHObb
+	 NZaLwQu522ceP2YgAxnDrfVqG48JPRgkUGay8x7NPVOIrmQeabAduTrPzQOArWUPXF
+	 v3NekmWrkqWdrgkfumH/Kb+eS55kg6rE4LNYiRJDT2KFmh1MUnjcb9CSLNZkF/Q7WP
+	 ooJIGj5a4+MwPKbcuVA7m+w92ahd+sykthYvpWrPVKutnuPKMbyRDi6zPSgigI8y3i
+	 GEiO+NTa3QZtBvgOBf8TzmAAewrvwC1QnamdhG0wc2Fcc8Hc6z5H0X0mU65fGJdo4I
+	 8daOvcIZqDObQ==
 From: Sasha Levin <sashal@kernel.org>
-To: "stable@vger.kernel.org" <stable@vger.kernel.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	"linux-bluetooth@vger.kernel.org" <linux-bluetooth@vger.kernel.org>,
-	Nils Helmig <nils.helmig@web.de>,
-	Alexej Sidorenko <alexej@sidorenko.cz>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	"luiz.dentz@gmail.com" <luiz.dentz@gmail.com>,
-	Stefan Muraru <muraru.stefaan@gmail.com>
-Subject: Re: Please backport two btusb/btrtl commits for RTL8761BU to 7.1.y, 6.18.y, 6.12.y and 6.6.y
-Date: Fri, 14 Aug 2026 22:33:18 -0400
-Message-ID: <20260814193000.18@kernel.org>
+	harshit.m.mogalapalli@oracle.com,
+	gregkh@linuxfoundation.org,
+	krzk+dt@kernel.org,
+	andersson@kernel.org,
+	krzysztof.kozlowski@oss.qualcomm.com,
+	kuldeep.singh@oss.qualcomm.com,
+	Harshal Dev <harshal.dev@oss.qualcomm.com>
+Subject: Re: [PATCH PATCH 6.12.y] dt-bindings: crypto: qcom,ice: Fix missing power-domain and iface clk
+Date: Fri, 14 Aug 2026 22:33:19 -0400
+Message-ID: <20260814193000.19@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <em37b1be4a-6bda-427f-a913-4d6e6521e457@gmail.com>
-References: <em37b1be4a-6bda-427f-a913-4d6e6521e457@gmail.com>
+In-Reply-To: <20260812-adapt-ice-binding-for-6-12-v1-1-ba4374b81a3e@oss.qualcomm.com>
+References: <20260812-adapt-ice-binding-for-6-12-v1-1-ba4374b81a3e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,14 +50,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Could you please pick these two mainline commits into 7.1.y, 6.18.y, 
-> 6.12.y and 6.6.y:
->
-> bc597f0cc44f ("Bluetooth: btusb: Add TP-Link UB600 for Realtek 8761BUV")
-> 5ead2063611a ("Bluetooth: btrtl: fix RTL8761B/BU broken LE extended 
-> scan")
+> The DT bindings for inline-crypto engine do not specify the UFS_PHY_GDSC
+> power-domain and iface clock. Without enabling the iface clock and the
+> associated power-domain the ICE hardware cannot function correctly and
+> leads to unclocked hardware accesses being observed during probe.
 
-Queued both for 7.1 and 6.18, thanks.
+Queued for 6.12 and 6.6, thanks. 6.6 has the same released-DTS-versus-schema
+gap and takes this patch as-is, so I applied it there too.
 
 -- 
 Thanks,
