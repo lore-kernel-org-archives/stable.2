@@ -1,151 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531CC2D7DCF
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 17:06:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC9D332907;
+	Sat, 15 Aug 2026 17:42:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786813562; cv=none; b=VqnYxZkmsyRGEsmRmGkv4OwOEL8/iVFfaA6N+wmVaSuU1srjZjvGNEfQpZoEE9zD3L6VKGf6FSPwdajAMQyZtBo0SssuV9uMnJu0be+zrMjuTrE3gd4wwT5YFUtP2Ca8viKsikbGTaTs+G5sXM74CSvufuh0fGSLtu4hvuQAhCk=
+	t=1786815765; cv=none; b=tFkY4otjgSS9G/snBnu+PIVA9VQLinz0n7PXL+mUED263p+rkFBQ34tM9m0bpRYABBQvwkj4heEJOUdSPyWszM5LAMNgEeOxlH6R/f3qt20iE6poMluH+HhfHLgVC5ETKlHHr54HPlYgM5bQMWh2Dqh5tLL2+93+7unzhXl9fsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786813562; c=relaxed/simple;
-	bh=A6PvZk+pSZLRvR1PMUUKeXFHnO6m31GeXD9y2pbQqFs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EmVuc2/I/WH3BhAzn1NK8ihWKsZfZycfbCuWqk/upd9voxj7W34yLINx+zqCkjF+mzngmvD7i59NBt2OLn0r+/LUyEm0ggzItSU8yX6DGt0jkNb+NRZJtvG7p0zAip9rweW0C3MK3NSfjNsAkWXVMQFNq2tgzpa9hgLbcdZ1XiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YiVVEbSJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786815765; c=relaxed/simple;
+	bh=9KEOxOMG2Z0V7HEWyXx4d/xiiR6+Gtm6jwEic41j/wk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jt+kYhlHVZWldhzl3JyxuuTGGe9sbn4YH2tUYyzREE7atKJhJ3OVQg81AhoENfZpQyRzTffDCmPujPFul5wUOZLPHbODdMFAM4KmOI36vOqx/54xGVwTrUv3Rrttg6GgFyUTgPPAijBkfGHXOKIApt2QZ8UeaZkvzJI30ftpYbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tup5X2Ve; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YiVVEbSJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F7A1F00ACF
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 17:05:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786813560;
-	bh=IGcJjF4HqZWjZBlfYhpWdcCLsDd2mWif2jAJ3D7ZI2w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YiVVEbSJN+tcRONFmq7Pya2FIPOROiLTOUQNpJE3r87FWWbfBf1eV5eVjpSryn5cd
-	 JD/kJcWLu75l4SFsBPinrKWZ+DeFyAHQCgJr0zomv/L5hdtyeWhDImiGr07KwbLRcH
-	 nzowfprgQJLgZ8b0GELAI6LIxDFVSDHKKmJGNunTNO1fcmkR11VUIsy1qOmH7hFmU+
-	 Sp8VtnRWecKqEVb0ONHN1hN1v3syEMg5AgFTzlH/AGXSP4yr929QcHyMcIYTaWlB5S
-	 LELxuncbAzmWCp1W+ZJPK3eL/sK3KBARwsHNgzPRAcbmMJ92ThMuKRANpL1P37OrPU
-	 yil6QzU1GXBoA==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aebd52488cso2168910e87.2
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 10:05:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoJzkE38LrTdNjHAFQriLhjENaDFIKE8bCQ/phzWLcfzjSjIyK4MKdOsZ4PnYoKWTsWANW7KkQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxYK35HJkT8L0lXqYSgES7nqbnIbu54cqVVvh/1mmXF6rvxIvbw
-	3enYVxhK5Bz4NGbT2zOC5INuy1QWhaRsj3oImLWe16phthS9nyGV7+zGOlH5ZHyOQ8Kos0uFUqT
-	e+R+g6X8eUBGpPag7mv0OYvgWVZ/9/3g=
-X-Received: by 2002:a05:6512:a91:b0:5b0:cce:da00 with SMTP id
- 2adb3069b0e04-5b4596bbe02mr1836180e87.1.1786813558396; Sat, 15 Aug 2026
- 10:05:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tup5X2Ve"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BD622C19425;
+	Sat, 15 Aug 2026 17:42:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786815764;
+	bh=9KEOxOMG2Z0V7HEWyXx4d/xiiR6+Gtm6jwEic41j/wk=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=tup5X2VelxkqR92fqtGlQPffcR708x20WuHR4vErB1/dk5h2x04fIbSkS1Yor16on
+	 pk3g5boOAGKEr1mxUw+B7ZpAPMw7OB/sQ1MwbSnEdbjIGRyCSEccu1J1UvTvshml+/
+	 jqJ2ZIlVrcV3bZiQp42miSwOK8EfXwqY75BM1+cJlzw7eoNMLMmlXsoLfHTpcwb5Qe
+	 tZtQPieE1VkcRHvWo+ublxPqy3rBWKlwIDrXo6MtuuwL950aXZvCVrrfIIdG7IcnM+
+	 t0+9z8ZKN18hwcx1jUnP1XKFMrNsMuFBjv9bFeJ6PtCfoEn1FUm9zKKcCf/E962DLo
+	 JIsQB1ITAFXCA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 967E1C5DF6A;
+	Sat, 15 Aug 2026 17:42:44 +0000 (UTC)
+From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
+Date: Sat, 15 Aug 2026 19:42:08 +0200
+Subject: [PATCH v2] rust: num: reject bool conversion to signed one-bit
+ Bounded
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260806142304.1761454-1-sh_def@163.com>
-In-Reply-To: <20260806142304.1761454-1-sh_def@163.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Sat, 15 Aug 2026 19:05:32 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0h=9nMsQU9nnYi-tVHPd7erHi-a+EEMAmTEq-ZueebZhA@mail.gmail.com>
-X-Gm-Features: AcwNN1VEdYJltUSZDmqKZAs5I35hqRKI3UmUW2VuHtLfZki8wlVeLjxkq7PjIOA
-Message-ID: <CAJZ5v0h=9nMsQU9nnYi-tVHPd7erHi-a+EEMAmTEq-ZueebZhA@mail.gmail.com>
-Subject: Re: [PATCH v3] cpufreq: schedutil: Fix rate limit overflow
-To: Hui Su <sh_def@163.com>
-Cc: rafael@kernel.org, viresh.kumar@linaro.org, linux-pm@vger.kernel.org, 
-	mingo@redhat.com, peterz@infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, zhongqiu.han@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260815-fix-rust-bounded-from-bool-submit-v2-1-aa35bb2c22d1@younes.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOTQ7CIBCFr2JYO1rwj7jyHqYLKIMdo2AG2tSY3
+ l2oJ3D5Tb55731EQiZM4rz6CMaREsVQQK1XoutNuCGQKyxUo46NlgfwNAEPKYONQ3DowHN8Fog
+ PSIN9Uoad8Xp3dNqfpBYl58VYnpaOa/vjYt6xyzW4GtYkBMsmdH09RaYbhe3SEnDKVekp5cjvZ
+ ecoa9Q/k0YJErRWSp2s3zfWXN5FxbShKNp5nr/IM7koBwEAAA==
+X-Change-ID: 20260815-fix-rust-bounded-from-bool-submit-3af836d8f718
+To: Alexandre Courbot <acourbot@nvidia.com>, 
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: rust-for-linux@vger.kernel.org, stable@vger.kernel.org, 
+ Younes Akhouayri <git@younes.io>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786815763; l=4692;
+ i=git@younes.io; s=20260712; h=from:subject:message-id;
+ bh=EorzZYAWNZ6qTy3DdJZpEnX9ZK3T3nuD8zrV476wuSc=;
+ b=CiOjZN5wxPj60ipF25YAxkZ0SKzTMrwsnFViZD6AElysKOUhhE1TMCBvRqnDo0+4DX0Sdbp3b
+ ChxC3zeE9bRBxhgI4fRrd5qkrNxs3GafI2csnw3XZ1TxVSJTPvVH0+6
+X-Developer-Key: i=git@younes.io; a=ed25519;
+ pk=1DRfzPrQ04RQHHgGK28t+vjIAPv5oISPiAdLMU6J5dE=
+X-Endpoint-Received: by B4 Relay for git@younes.io/20260712 with
+ auth_id=866
+X-Original-From: Younes Akhouayri <git@younes.io>
+Reply-To: git@younes.io
 
-On Thu, Aug 6, 2026 at 4:23=E2=80=AFPM Hui Su <sh_def@163.com> wrote:
->
-> rate_limit_us is an unsigned int, while NSEC_PER_USEC is defined as
-> 1000L. On 32-bit systems, the multiplication is therefore performed
-> using 32-bit unsigned arithmetic before the result is assigned to
-> freq_update_delay_ns.
->
-> For example, writing 4294968 to rate_limit_us wraps the delay from
-> 4294968000 ns to 704 ns. This makes schedutil update far more often
-> than configured.
->
-> Add sugov_update_rate_limit_us() to widen rate_limit_us to s64 before
-> converting it to nanoseconds. Use the helper when updating the tunable
-> through sysfs and when starting the governor, so both paths perform the
-> conversion without overflow.
->
-> Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler=
- utilization data")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hui Su <sh_def@163.com>
-> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+From: Younes Akhouayri <git@younes.io>
 
-Applied as 7.3 material, thanks!
+From<bool> turns true into 1. A signed Bounded with N = 1 can hold
+only -1 and 0. From<bool> therefore creates a value that the type does
+not allow. Deref assumes the value is valid and calls
+unreachable_unchecked() when it is not. Safe Rust can therefore reach
+undefined behavior.
 
-> ---
-> Changes in v3:
-> - Add a comment explaining why rate_limit_us must be cast before
->   multiplication.
->
-> v2: https://lore.kernel.org/r/20260806072656.1386351-1-sh_def@163.com
->
-> Changes in v2:
-> - Clarify why the multiplication uses 32-bit unsigned arithmetic on
->   32-bit systems.
-> - Cast rate_limit_us to s64 to match freq_update_delay_ns.
-> - Add Zhongqiu's Reviewed-by tag.
->
-> v1: https://lore.kernel.org/r/20260805143942.805176-1-sh_def@163.com
->
->  kernel/sched/cpufreq_schedutil.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
->
-> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_sche=
-dutil.c
-> index dff4ee04694c..614ff0d33c01 100644
-> --- a/kernel/sched/cpufreq_schedutil.c
-> +++ b/kernel/sched/cpufreq_schedutil.c
-> @@ -61,6 +61,17 @@ static DEFINE_PER_CPU(struct sugov_cpu, sugov_cpu);
->
->  /************************ Governor internals ***********************/
->
-> +static void sugov_update_rate_limit_us(struct sugov_policy *sg_policy)
-> +{
-> +       /*
-> +        * Cast rate_limit_us before multiplication to force 64-bit arith=
-metic.
-> +        * Otherwise, on 32-bit platforms, both operands are converted to
-> +        * 32-bit unsigned long and the multiplication may overflow.
-> +        */
-> +       sg_policy->freq_update_delay_ns =3D
-> +               (s64)sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
-> +}
-> +
->  static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64=
- time)
->  {
->         s64 delta_ns;
-> @@ -606,7 +617,7 @@ rate_limit_us_store(struct gov_attr_set *attr_set, co=
-nst char *buf, size_t count
->         tunables->rate_limit_us =3D rate_limit_us;
->
->         list_for_each_entry(sg_policy, &attr_set->policy_list, tunables_h=
-ook)
-> -               sg_policy->freq_update_delay_ns =3D rate_limit_us * NSEC_=
-PER_USEC;
-> +               sugov_update_rate_limit_us(sg_policy);
->
->         return count;
->  }
-> @@ -848,7 +859,7 @@ static int sugov_start(struct cpufreq_policy *policy)
->         void (*uu)(struct update_util_data *data, u64 time, unsigned int =
-flags);
->         unsigned int cpu;
->
-> -       sg_policy->freq_update_delay_ns =3D sg_policy->tunables->rate_lim=
-it_us * NSEC_PER_USEC;
-> +       sugov_update_rate_limit_us(sg_policy);
->         sg_policy->last_freq_update_time        =3D 0;
->         sg_policy->next_freq                    =3D 0;
->         sg_policy->work_in_progress             =3D false;
-> --
-> 2.43.0
->
+Rust cannot write N >= 2 directly in this From implementation. Add a
+private BoolFits trait. It accepts every valid unsigned width and signed
+widths from 2 through 128. The current Integer types do not use more
+than 128 bits, so this keeps every valid conversion.
+
+Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
+Closes: https://lore.kernel.org/rust-for-linux/OzuVxu0--J-9@younes.io/
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Younes Akhouayri <git@younes.io>
+---
+Do not allow From<bool> for signed Bounded values with N = 1.
+Keep it available for signed Bounded values with N >= 2.
+---
+Changes in v2:
+- Use vertical formatting for the nested `num` import.
+- Link to v1: https://lore.kernel.org/rust-for-linux/20260815-fix-rust-bounded-from-bool-submit-v1-1-882227bf40ba@younes.io/
+---
+ rust/kernel/num/bounded.rs | 54 +++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 49 insertions(+), 5 deletions(-)
+
+diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
+index d192610a687d..7306ae541e53 100644
+--- a/rust/kernel/num/bounded.rs
++++ b/rust/kernel/num/bounded.rs
+@@ -13,7 +13,11 @@
+ };
+ 
+ use kernel::{
+-    num::Integer,
++    num::{
++        Integer,
++        Signed,
++        Unsigned, //
++    },
+     prelude::*, //
+ };
+ 
+@@ -174,13 +178,26 @@ fn fits_within<T: Integer>(value: T, num_bits: u32) -> bool {
+ /// // `u8` (regardless of the passed value).
+ /// // let _ = Bounded::<u32, 6>::from(10u8);
+ ///
+-/// // Booleans can be converted into single-bit `Bounded`s.
++/// // Booleans can be converted into unsigned single-bit `Bounded`s.
+ ///
+ /// let v = Bounded::<u64, 1>::from(false);
+ /// assert_eq!(v.get(), 0);
+ ///
+ /// let v = Bounded::<u64, 1>::from(true);
+ /// assert_eq!(v.get(), 1);
++///
++/// // Signed integers need at least two bits to represent both `0` and `1`.
++/// let v = Bounded::<i8, 2>::from(true);
++/// assert_eq!(v.get(), 1);
++/// ```
++///
++/// A signed single-bit [`Bounded`] cannot represent `1`, so converting a boolean into one does not
++/// build.
++///
++/// ```compile_fail,E0277
++/// use kernel::num::Bounded;
++///
++/// let _: Bounded<i8, 1> = true.into();
+ /// ```
+ ///
+ /// Infallible conversions from a [`Bounded`] to a primitive integer are also supported, and
+@@ -1109,7 +1126,33 @@ fn from(value: Bounded<T, N>) -> $type {
+     i8 i16 i32 i64 isize
+ );
+ 
+-// Single-bit `Bounded`s can be converted from/to a boolean.
++// Conversions between `Bounded`s and booleans.
++
++/// Marker for signedness types for which a valid `N`-bit integer can represent a boolean.
++trait BoolFits<const N: u32> {}
++
++impl<const N: u32> BoolFits<N> for Unsigned {}
++
++macro_rules! impl_signed_bool_fits {
++    ($($num_bits:literal)*) => {
++        $(
++        impl BoolFits<$num_bits> for Signed {}
++        )*
++    };
++}
++
++// `N >= 2` cannot be expressed as a trait bound without `generic_const_exprs`, so enumerate every
++// width supported by the current `Integer` implementations.
++impl_signed_bool_fits!(
++    2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
++    17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
++    33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48
++    49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
++    65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
++    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96
++    97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112
++    113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128
++);
+ 
+ impl<T> From<Bounded<T, 1>> for bool
+ where
+@@ -1123,10 +1166,11 @@ fn from(value: Bounded<T, 1>) -> Self {
+ impl<T, const N: u32> From<bool> for Bounded<T, N>
+ where
+     T: Integer + From<bool>,
++    T::Signedness: BoolFits<N>,
+ {
+     fn from(value: bool) -> Self {
+-        // SAFETY: A boolean can be represented using a single bit, and thus fits within any
+-        // integer type for any `N` > 0.
++        // SAFETY: `__new` enforces that `N` is a valid width, and the `BoolFits` bound guarantees
++        // that the integer representation of `value` fits within any such `N`.
+         unsafe { Self::__new(T::from(value)) }
+     }
+ }
+
+---
+base-commit: 47f27155f17498fccb1f222f79089642337498a9
+change-id: 20260815-fix-rust-bounded-from-bool-submit-3af836d8f718
+
+Best regards,
+--  
+Younes Akhouayri <git@younes.io>
+
+
