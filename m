@@ -1,116 +1,112 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228D026AF4
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 11:52:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786794745; cv=none; b=eDInyMcquSpqDx+2thdN2vuP/KGllmopDNjFjRBnZWpHoJQklx6rFVkVVIHtKk0eQeCe2aqXZa1O1nhJ3wCEmM0YFRCj5Aqhp9COPM27Exb3R9sKprboVNJycEbv1MERCFp8fg8mZoPYnQAk4YF86uRwGL6J/3WD2BxnlGxf724=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786794745; c=relaxed/simple;
-	bh=Azo2sCiZllD4H75gWaBzm5I3JqLlnW6xlX7nRXQnSss=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c+InlKri/wH44a4EUxk8sBsCX+SePTSGl1c0ZUV//OumdfDv4TSqnKR44ChsM1bndKGlTr5neujIsJCi6ICMjHmoWN2wZ8I8gnGEVpxqyITEif4QPDUZnavWoDlBvQeVPeKofnpUzyA4VDEIZjTIuYOy7aXkAt9sdqhLNqTURmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hn2voB3B; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06E533F5BC
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 11:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786794889; cv=pass; b=Vcxug0MBzfRbqR3/lDV4kYYa8KWEWB5nSDQISG8Z3clsaZL3huYO+OXwj4+YrWKwTSF+/sXEcSp4RWqtKgqfJT/sIPB5f1sRO8+cMceZiyu68tLnIIUbh70F/+a79iZ5cljSKwBlgW0raMdL/I40w6KJdfqb7x7XuWaUSLDWYOM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786794889; c=relaxed/simple;
+	bh=DwDn4FlgRXsSKB1MiSURzLVBVpvmD0h7YLZFcLJup34=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MSo7fjNeZJucsfJi/ogWUTSpPgFVSVYxcvu44lSmHdAUxCtAJDS3kBO8KK8QkvLGMaSvU0hiZzrFHKrlScYuC/+9zpQS4IZ5isece5S1L31/3dNxXPWDcEnvwKh3xLRmmcnUH8v3iSdnVRL/lY1eP8wNndwUIqfUU/xq8oceAQA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aBSEBdIG; arc=pass smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hn2voB3B"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cbf0dc8c871so1122745a12.1
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 04:52:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aBSEBdIG"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ccdce28edeso3236215ad.0
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 04:54:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786794888; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jwbV/sRj9kQc9FvD67DUt/+4hhmkeRkFWbVuZzdk/lIttEb/a+HSMNVlAdxTOPm0de
+         I2pySif4OOMZpU7n7kqGMXhdnemAA/3iJ0IkfcuL6YGAmdIKVwBhsD7qteh7umZcOyWz
+         Avqjzvh/fExHogcBVG3wUDK9ZqQZd6nJEZJXwQO7zPM+cmSLcqfGOv+T17olMbQc/wta
+         B7Z91TTElVkDtolw2ZKTTEMwADQywOh3dv9LrJPEMDt6BG+Ho4EQWSxkb5nDw46UoueT
+         b+51lkTVKJnDknnATnIrfjiJp4jVS8KWweLtU0Jp+Gi3c5Hq8LR249eQv5VOLk/aYJGX
+         1qbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DwDn4FlgRXsSKB1MiSURzLVBVpvmD0h7YLZFcLJup34=;
+        fh=CLyoIA37UYRn0uoMGeT7we+ZMfCGGcuuPtwK1UL3mFI=;
+        b=bF6mrLJ9uHjgtkzS9vr0N3SR1sXR6OVe0Js5JdRwvG7HcjJiEphVAmdMLt2odt7gkf
+         SyT8kZUz99rUFUkxEr+13BZLpwsOln08F5+d1D6N7WCkbalpldn7R+51UrxJhh2HRt7y
+         NAW+g/axzvr66tpX+Ga1vW0vZFJ4AsSQg6uox/D8MPVHe05klZNQbT/B2GcRRQ8x8/Y7
+         b9ZinuTebfPa90yIpswlVqgsm9FX4RX6DENvZxYyxCMCjamtqxJZq+kGn7p7jQMhRYTV
+         utiHZnJWQ0A7YdCioOhte/u+eXVpooT0l2huvb6blRDVETc/NUW5hUO8eKC/B1VHOduo
+         msow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786794743; x=1787399543; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DKboDhjvAevX2LxnuClRbMjZPu76/sbW2vcejkifeck=;
-        b=Hn2voB3BhyHsXAAks8i4fzAfA7rR97NnSlZCgtz3PbCIihHVvzY9laYt/MqVfN+v0t
-         hcampbC60yG3TnKyQKYjnOWVLKAZZEuBj/9amt4SiGQDtGvTGRfl27cSvja45iEsKPuz
-         afIeWlko5rFD7MkFiaEi7VnN9cmZBlJ5UtoJ0w4ZUKN7CE2m+LX9Q+KyPB9T7dUEmE2e
-         6jlmwp5w4CPrt3VhmhcQY127aMCR7mUloSEmWsPjvDgeT2aDul/JdN/KRddxJqZ5U5ve
-         VP8a1U0Knw37i2YV/w+gfldcsmS+Y1GskQ62umAeHZDbFtRU+8SXS/L/LNtXdjgjlN8X
-         BqAA==
+        d=gmail.com; s=20251104; t=1786794888; x=1787399688; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DwDn4FlgRXsSKB1MiSURzLVBVpvmD0h7YLZFcLJup34=;
+        b=aBSEBdIGKVosPSdXjM2qQvYQY7nUx77PxeOSRv9W50bBZ0V9/GpBrGrE+TfMdCkgOx
+         JK0Fl04ZSiGhzfKMLZxz48I1LBNhhwvBty5eiTOJ9hLVxh+2dyv3DJDwcE3K0Zl03J97
+         vKmW8y5KI1pC3xmN+gva34uzxfVxvU2feBHOqL5H0NQC4UKDAiWcxVU6PcgLRWD5ZRtJ
+         vWOvmZS78NVrgVqA6AAUMDr1HlsplkGd0QxP385ZxSGTUMYFgUpUhvLk8WJWR8vg6AZt
+         PMDPl2VzKOb4vY0kNl9RlS5P0tHeu/yQBDtfqEJpLG+uPaoDapvI/w0g3AT1fvOqRDpb
+         hdzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786794743; x=1787399543;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DKboDhjvAevX2LxnuClRbMjZPu76/sbW2vcejkifeck=;
-        b=J1Dqv5VSmSSr0WgrbcWpdQurAtzj8PI+GL3afmfALBqYk94QQ1poqthskm+wenxH5Z
-         Fyy4TJS1++BdELdEtdA8eO/VfztxteCLc4buzwdakiRmToeQXVcxISlyLbvINPkrP96b
-         n286HiETi8LpKmU1gcTWVbssIiWoYKIUqISFIe7b5d7OAw81Xu8ZNdr3s2jvdQlV5xWV
-         Q/5eSNEnSru/q20aPCrVHQh68mjAdtypcolQ33gqkIydhZFFczZNaVfoIs+mawv7yzi5
-         oTkwL6H+Z4vT3AW/SvH1IGi5Zh9ZU+Sem4P6CPufDF0oQiNBpjzMlWuxUrrgs2+F6kDo
-         uMOA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqe9kc3j7numpVizW+/ehuDOS80W1R+9r1mPGa3Klwkh8nnQ1jYaxovmYV6YFtIip/sD2LoncY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy60I7YZBPEsRXU/6V6XTo691hZTPc85ZQMyEtT+ucOvSAV9dST
-	UC3e07AlKXR7m93icEXVYHllA4FBLaxwQvHHqRFzLXSNsFgIMZRDI4Eu
-X-Gm-Gg: AR+sD12lpiZDcasc89shi4fQ+5YFy16GMI3fzyC8XXxKzwobX00MjXtnT/+zZu5FOqb
-	YlaAP+T/z4nRGkJi1JGobFXKfYUp1HSHH0l6lAXQeje2JOT07WP09ze/Xt0i6nBcvj7p6T5NMAN
-	dl1JYpPTvVZHVr41c7hDT9FmLnnwQgZS2ffAG1GaRjU4Je7o4EwirpqEAZOERpiCk7OFRns48Xd
-	M4V49s0bc9A8qTMVn6dRbFp6Hheb9qWwQS+aRSBM24KIjPYmrPjoNYYBczw27+iZh9O6LlUvx2F
-	iRJRRNLVl40/FSjGaN0NYhsv6smb1CQSWzLlvH9cqjwMpjRA4OtEpwigzlAzuGSlEkmadt7v1ak
-	8BSby7azv6u/N7gU2DEvIGJVlTKUQUr6qkl5sbBa3vHsVoMvX5pa3uqAwSBbUMovA+n4zHxbTvT
-	idC8fjAcPap39btLoYPOhaItexxQQlRq0HDJI4lCkR4D2QCGWCzdUDdG7GOzPvn7MTQydcWZiFF
-	xL/sup68lyGaGrCubBVnXYcBPwMzqczhPbC60dir9xlBp4h
-X-Received: by 2002:a05:6a20:7346:b0:3bf:6ac8:8d29 with SMTP id adf61e73a8af0-3cc71c95248mr13675074637.21.1786794743413;
-        Sat, 15 Aug 2026 04:52:23 -0700 (PDT)
-Received: from LAPTOP-N5EO9J2L.localdomain ([106.205.255.197])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320d5bd9fe0sm23884947eec.1.2026.08.15.04.52.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 04:52:22 -0700 (PDT)
-From: Harshit Varu <harshitvaru666@gmail.com>
-To: netdev@vger.kernel.org
-Cc: mptcp@lists.linux.dev,
-	matttbe@kernel.org,
-	martineau@kernel.org,
-	geliang@kernel.org,
-	Harshit Varu <harshitvaru666@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] mptcp: fix uninitialized local_id in syncookie MP_JOIN reconstruction
-Date: Sat, 15 Aug 2026 17:22:05 +0530
-Message-ID: <20260815115205.197151-1-harshitvaru666@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1786794888; x=1787399688;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DwDn4FlgRXsSKB1MiSURzLVBVpvmD0h7YLZFcLJup34=;
+        b=jOG/Yqh6CggzqE7pJSofK/bICI40ksU+juCvIfAByeMElNEPOYXdyMCET/RsuWG5Qe
+         Xnn2j9QZBIQ5eYKdwUHWmrgeFmqZNsmJalsapM7TyDSpUmeFAmjsQFhU8jT/STAz8Fo2
+         u0awNkquPskCi53GEg1L40IIdZCyuZJrxU9fceW4bV03n+pLUs6Rl+rY5WkkexDsFTtE
+         fk1FGCUODyFcfrnHDzIsnLlly+w1pZz80enR6nW3lccTlG3HFr5KnXS0BADwI5AiJIC9
+         vRrbx9EJmBsQYmiEpIvyXPynY3MLoeDqQ4u7KDCpL27Rt6P4uYIY9mIwuUBlDnBae7Q4
+         F6zw==
+X-Forwarded-Encrypted: i=1; AHgh+RqaQ6B6goZPczxda8Npiw1+Ou9idVQ2D5U/5h4cDKQkviJUErHeMfhlx/GEEVhwf3hbTivcCaQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5cKxMifD7Gb9g6pl2OoOwWZB2kRXJ9HMcafQ+w2ihaZWQxlEE
+	7Z5GUVsTjR2QJrMW2OarfBKsiHE/9p6FFiXBzBzBkBogb0XKQXnXNlI8y46uFdiFLoJ65Uso6wx
+	XE9PaoQhb1JKfR1FdOc6Shl/ZYDxTIwg=
+X-Gm-Gg: AR+sD10hRv+AFYrG6wkJNsZ8G9KY+aLPhr0LXD0QXu5ed1LTKweZpDT+3gOithTSusU
+	kRoQDNDSQqEA6HkBFNLR+79Dw56NlT4C40JjtdQhgX0kO9/8zbF7KfX6GSYtZMHu0TSBb1fVzr6
+	1XXbmS0LKR/9NsLltN1VCP0kckvVX/Ab4QIy0IFf7/rt4YlfBkTysUT4Kohew3Ws+0zc03bbEUC
+	vbfXLUJ9yZ3ngoJPAV5MLATiuukVrLKRacqHUPa2w+zQHyM0QFI/JdXZmNYESWLnuTd5jPf1bjk
+	sIfk8x+ASemYbQlyqajgrdBnPu4oDkWoQkM/ilZ0oTfmoNPjK/mpcnUg9aS05A129Vk/bwbpr4L
+	wdghfKTPiZmpchTfZ16vL6NxomQuxw9lUaBRNRABDfldCY1XfGFR8UCGjUFXp
+X-Received: by 2002:a17:90b:2d8e:b0:38e:6d4c:14df with SMTP id
+ 98e67ed59e1d1-3933bd2c8bdmr9717410a91.1.1786794888152; Sat, 15 Aug 2026
+ 04:54:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260815105950.1109-1-getshell@seu.edu.cn>
+In-Reply-To: <20260815105950.1109-1-getshell@seu.edu.cn>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sat, 15 Aug 2026 13:54:35 +0200
+X-Gm-Features: AcwNN1W9c9Czz9mEsq59ulmrZzIGbv37GqPkIfv6nkihmv0oG4NHyF-3PG6mQuo
+Message-ID: <CANiq72n5L-o4j0sYRKKN=uVE9xtwWkQwKQpdxjweB-Std-jpeA@mail.gmail.com>
+Subject: Re: [PATCH v3] auxdisplay: charlcd: cancel backlight work on
+ registration failure
+To: Hongyan Xu <getshell@seu.edu.cn>
+Cc: Andy Shevchenko <andy@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Miguel Ojeda <ojeda@kernel.org>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>, 
+	Lars Poeschel <poeschel@lemonage.de>, Willy Tarreau <w@1wt.eu>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-mptcp_token_join_cookie_init_state() restores remote_nonce, local_nonce,
-backup, join_id, token and msk from the saved cookie entry when rebuilding
-the request socket for a MP_JOIN 4th-ACK handled under SYN cookies, but it
-does not restore local_id, even though the SYN path saved it.
-subflow_ulp_clone() then reads that uninitialized field and stores it as
-the joined subflow's address-ID. Because the request-sock slab is
-SLAB_TYPESAFE_BY_RCU and not zeroed on allocation, the value is the stale
-byte of a previously freed request socket, which an off-path peer can
-influence by sending concurrent MP_JOIN SYNs. This corrupts the path
-manager's id-based subflow bookkeeping for the connection.
+On Sat, Aug 15, 2026 at 1:00=E2=80=AFPM Hongyan Xu <getshell@seu.edu.cn> wr=
+ote:
+>
+> Changes in v3:
+> - Add Cc: stable@vger.kernel.org (Miguel).
 
-Restore subflow_req->local_id from the cookie entry, as done for the other
-fields.
+Thanks! (Usually it is not needed to send a new version just to add a
+tag -- it can be added by maintainers on apply)
 
-Fixes: 9466a1ccebbe ("mptcp: enable JOIN requests even if cookies are in use")
-Cc: stable@vger.kernel.org
-Assisted-by: opencode:deepseek-v4-flash
-Signed-off-by: Harshit Varu <harshitvaru666@gmail.com>
----
- net/mptcp/syncookies.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/net/mptcp/syncookies.c b/net/mptcp/syncookies.c
-index 7f2252634..b5cac5701 100644
---- a/net/mptcp/syncookies.c
-+++ b/net/mptcp/syncookies.c
-@@ -118,6 +118,7 @@ bool mptcp_token_join_cookie_init_state(struct mptcp_subflow_request_sock *subfl
- 	subflow_req->local_nonce = e->local_nonce;
- 	subflow_req->backup = e->backup;
- 	subflow_req->remote_id = e->join_id;
-+	subflow_req->local_id = e->local_id;
- 	subflow_req->token = e->token;
- 	subflow_req->msk = msk;
- 	spin_unlock_bh(&join_entry_locks[i]);
--- 
-2.53.0
-
+Cheers,
+Miguel
