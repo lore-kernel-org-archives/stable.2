@@ -1,198 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DE429898F;
-	Sat, 15 Aug 2026 08:06:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4765361656
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 08:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786781220; cv=none; b=bDvpjuUEoR8Sas9wry2o2QXwqaZH7k6QmOTQKsISQXzt8zQSSDJI5YEmZiCNvxFSQVeJbty4vdArDJn4ZiWNz4t+/9BtlbH9c3Xu2DrY/R/WQ0x8vom9iPv27xPNngFZ8C1FbR/6MfKayEumYUpeojR1egIqMKU1QGy9QJWo5+A=
+	t=1786783619; cv=none; b=ZQYLLeBrGeBZQUsx3mfhufD8JfTSiLnUkGOFUo6RMjKIARoMZi8wl+lrx4Q+ctIdnOE8MqTjDqVLX90zkoDRr3hLzV5EJ15MIqSgxXdaF6Oi5ASY2FZFtjQeRq90b+NkV4YJF8nCEFVJm5G9Jf24isJrU9zOXsRqIz7WOzGKqeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786781220; c=relaxed/simple;
-	bh=qeY2koXQxCYCzeSXECseCj8h07szuIIp4yg1qgzBmns=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Agpin1b1KCVQrdlbemqvTMLsXN9XzMZfmHZnofH10hGNmSH9eyWVm5EVvdw8Ke9V81MmYCHZn+/OR4vPhAo+Zi3jtKskMLdyPKHcHUMNSo3f4qBf3lKWKzAtr1pgFyxN5dv0ifB91bSqCP6J8S52dgQ7H1jkDMbs2XEIn0caxJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Om9q3m0I; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786783619; c=relaxed/simple;
+	bh=lqX3NFVJb1A4/zvjomlEJ+gLbOtrMdo0bbyB4Eoxjd8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BOVGBHqeI8vqPGMOJQiV08qFDpjAtNdewdq44l1bp129AJi/UiaI3KhbbTe1LCVviOyTy2oG/iKigGZfj/XwjjVR2sogI7piV071/ZYY123dkC0mPGJYpcADHhUFikPk3Xe9iztzcRwf0OUnf9JJ3rsFaMyMCERXC+Snmg8yL+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ULsNAUsc; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Om9q3m0I"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 821B3C19425;
-	Sat, 15 Aug 2026 08:06:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786781219;
-	bh=qeY2koXQxCYCzeSXECseCj8h07szuIIp4yg1qgzBmns=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Om9q3m0I61mErujFy5tlyRmJ6UyCQuPXoE1Ij73eMI+Sh7AZJknBgrhOBn531lx+t
-	 yjxsivZjl//TFbEI/mpHk6tqurs8tdaYhoMgW4ZqkTU/kFjmATpwiQ5tb5Bn78qlpG
-	 k76ZR0WNZE8w1jz+MPWLtnNruJWZmdZCyfhDGEyg9evtbp1g34vnxWyZwRCjt7p8hg
-	 Uqn6dSzXzDc1eL9ZJZdgslycomrk/RtNy7ucCIMXvx2qliKh4+OaB995F1zdLIzebC
-	 aKZN+nWyFk5Tjfz1O/ATX5MciczkDXC9Ci9dkGPz8wO3UegQVyKFePdTVhKarlDmt9
-	 kPl0Jj8WxTzdw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C989C5CFC1;
-	Sat, 15 Aug 2026 08:06:59 +0000 (UTC)
-From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
-Date: Sat, 15 Aug 2026 10:06:42 +0200
-Subject: [PATCH] rust: num: reject bool conversion to signed one-bit
- Bounded
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ULsNAUsc"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ced3386430so18974495ad.1
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 01:46:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786783618; x=1787388418; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q35baY3576CpJCsemdJuaEMGFcmNQl1jwCggun4sD5Q=;
+        b=ULsNAUsc0CMKaatwkE4HmBtndUjqMJSvDfWfWpMU4zHqIvPGpe5dVqrA1xA3cKIBXL
+         YqU1+OMzS/5P/tgeaqv2e7wJjQ7tBX0NK7gxussfmViP/zomSxISScQoAUZu0F5rTMGD
+         v3eVrhifa4WMXz60Okdd8SI0pQOgOuHeJQr/RwPOQjzYRQhgCZmZCAHLGOiYCmbzywea
+         jYZJQ/IBLnqGx9o0pqbbY3AuW8WH4mJnBG6bUHEq5dR5WKGGpxPpi5Yl813CJJDDfQBT
+         ftq7KXVaN3ss2808Vjy4r3urUNg/eLFO7V/GTfmE6fG1w0ps04ttLcP0TCzRZ17F1QKF
+         Yowg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786783618; x=1787388418;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q35baY3576CpJCsemdJuaEMGFcmNQl1jwCggun4sD5Q=;
+        b=r0JRkzcyzcMNITrNSt5np3eNSobRz8Xy+wvQfQ6xY0FEDskHhKgShzoQ3+51zEi6b+
+         FMjhrIEb4p3n3jQKqujQUQ3XMtBNWz44vx++Y9IZQChWID7HTGS72QqzpBcBiZj0S9/n
+         4vvBAlUJ6DQfwrdF23lUDiAW0IHfKwHyZ+HKhWyf/eYh+G4aLA9FCg2GqnauGdcihrsf
+         P29XfK1zNWYjLm4Y4Q2rzjguWFMKdw9ssXmyc3M2vWTxYBoPkAfn75aShaFYXml9i6nU
+         Viv7YKU+hoNOFor2HL7myQ/dmFr79ET+lq5hqUJQbP+ofbyh06IHb/u4+tF/7ONPjWbm
+         ADqA==
+X-Forwarded-Encrypted: i=1; AHgh+RpWjIyIfFxFUBKLL1KcBncgc0pmPpWGT4tAbZAUm1j1dQXJZbIKozCB4MXiBqRZUcworqqfkto=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzP3u1YUiqHXppSlqG1JnUBATTZDvJm8ebPzGZez3Ro8TnmVSUD
+	IyhfWPTJC7hDgRRU3iJN9oaDVDpfGEkXprpnH3Jaq36XvHS9X8sX3EYqqmjG94UG
+X-Gm-Gg: AR+sD11c5FiehpAV6tVytrfhrh/joa61eKmcP8a132xzseORfZcjZVfbFns7qRaVTqk
+	IvunXMv9pHsXQ2UgCEEbM6sngX64i9ugAJzyAyrUDHH3pYlxwgwX8eBys7cC7MlNi9z5le5LUOR
+	uXlfbIozDVAuLv3IJv7cyOf4q8VMgcLlE91Vve4R009DMQGVHNRLwFw4ebhqp2+iITmf7IDuTDG
+	h6Y/7DXeoeD9tzMLpFzqa/gabv/lMHODyp/NUT1qlihBzXzxCk3c5VOvxB9DDopYNwg8q5hkgGk
+	JX6W7BmRX1+DMc79rmMfVGcVlwj0deoNuV0j20LC2aR0ZeWqofKcHZM53XR9LHFNH4wls8HS6d0
+	ilgO0exVZDjiuaDf9eOVoL9AKL4k8nvKx4EZz3bhJdB6YSnmi5cOs8UKjKMpUN6OAQFyQw17VEf
+	VnmYaxcUwMZ/fC7NRH9XJfkhAGbmQ6Anv76YDAduuRp2o2RKoZYdA0Mzm3FbLlw0ZkbhMcBoYy2
+	Gj225gxa9vzo66/ADeL+nrHsELtTTaaPUAZZLcSGlZ/NEbsWLsTNazevU04
+X-Received: by 2002:a17:902:ce8a:b0:2bf:dd0:c8b1 with SMTP id d9443c01a7336-2d3b04a8c75mr139852085ad.0.1786783617926;
+        Sat, 15 Aug 2026 01:46:57 -0700 (PDT)
+Received: from m-upc-A520M-HDV.flets-east.jp ([2400:2410:3f60:500:959f:bb81:fb2:a537])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3ae753ae0sm18121205ad.8.2026.08.15.01.46.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Aug 2026 01:46:55 -0700 (PDT)
+Sender: Yuyang Huang <uyoko90@gmail.com>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	David Ahern <dsahern@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Stefano Brivio <sbrivio@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net] ipv6: use RCU iterator to dump route exceptions
+Date: Sat, 15 Aug 2026 17:46:51 +0900
+Message-ID: <20260815084651.69477-1-sigefriedhyy@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260815-fix-rust-bounded-from-bool-submit-v1-1-882227bf40ba@younes.io>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN2w6CMBBEf4Xssxu5RGz8FcNDS7ewRlqzbQ0J4
- d8t+HgmM3M2iCRMER7VBkJfjhx8geZSwThrPxGyLQxt3fa1am7oeEXJMaEJ2Vuy6CQsBcIbYzY
- LJ+y0U11vlbs3CsrPR6iMTsdz+HNpvmhMx/HRMDoSGtF+nI8oCE/sr6fF05pg33+AtpQtqAAAA
- A==
-X-Change-ID: 20260815-fix-rust-bounded-from-bool-submit-3af836d8f718
-To: Alexandre Courbot <acourbot@nvidia.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: rust-for-linux@vger.kernel.org, stable@vger.kernel.org, 
- Younes Akhouayri <git@younes.io>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786781218; l=4446;
- i=git@younes.io; s=20260712; h=from:subject:message-id;
- bh=XpIa9KEUmh79aDTOOC/bb1K0iRRekhqcG4MhqMsCDT4=;
- b=d8wUtrjPLQxRdi8Xk0F441WyLJPxkTsZobYpkNk9eee4bv6pyI5eI0Oyt+dy4t0ir4wB1D9iJ
- LSTsqUZXUJZCypCXCMm8ny1QLC0AaOE+Mg9JRqSjcqg3q1FAwIVjxMY
-X-Developer-Key: i=git@younes.io; a=ed25519;
- pk=1DRfzPrQ04RQHHgGK28t+vjIAPv5oISPiAdLMU6J5dE=
-X-Endpoint-Received: by B4 Relay for git@younes.io/20260712 with
- auth_id=866
-X-Original-From: Younes Akhouayri <git@younes.io>
-Reply-To: git@younes.io
+Content-Transfer-Encoding: 8bit
 
-From: Younes Akhouayri <git@younes.io>
+rt6_nh_dump_exceptions() uses hlist_for_each_entry() to iterate over
+RCU-protected exception lists. The caller holds rcu_read_lock(), but does
+not hold rt6_exception_lock, so rt6_insert_exception() can concurrently
+add an entry with hlist_add_head_rcu().
 
-From<bool> turns true into 1. A signed Bounded with N = 1 can hold
-only -1 and 0. From<bool> therefore creates a value that the type does
-not allow. Deref assumes the value is valid and calls
-unreachable_unchecked() when it is not. Safe Rust can therefore reach
-undefined behavior.
+KCSAN reports this race (irrelevant details omitted):
 
-Rust cannot write N >= 2 directly in this From implementation. Add a
-private BoolFits trait. It accepts every valid unsigned width and signed
-widths from 2 through 128. The current Integer types do not use more
-than 128 bits, so this keeps every valid conversion.
+  ==================================================================
+  BUG: KCSAN: data-race in rt6_insert_exception / rt6_nh_dump_exceptions
 
-Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
-Closes: https://lore.kernel.org/rust-for-linux/OzuVxu0--J-9@younes.io/
+  write (marked) to 0xffff8a7c44c59620 of 8 bytes by interrupt on cpu 5:
+    rt6_insert_exception+0x3bb/0x760
+    __ip6_rt_update_pmtu+0x4fe/0x750
+    ip6_sk_update_pmtu+0x19a/0x3b0
+    udpv6_err+0x3ff/0x800
+    icmpv6_notify+0x1e1/0x440
+    icmpv6_rcv+0x8c0/0xab0
+    ip6_protocol_deliver_rcu+0x616/0x840
+    ip6_input_finish+0xb9/0x160
+    ...
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+  read to 0xffff8a7c44c59620 of 8 bytes by task 549 on cpu 14:
+    rt6_nh_dump_exceptions+0xb3/0x260
+    rt6_dump_route+0x53e/0x5f0
+    fib6_dump_node+0x6d/0xf0
+    fib6_walk_continue+0x290/0x2d0
+    fib6_dump_table+0x28d/0x360
+    inet6_dump_fib+0x37d/0x620
+    rtnl_dumpit+0x7b/0xd0
+    netlink_dump+0x3ae/0x7e0
+    ...
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+  4 locks held by dumper/549:
+    ...
+    #1: (rcu_read_lock){....}-{1:3}, at: inet6_dump_fib+0x88/0x620
+    #2: (&tb->tb6_lock){+.-.}-{3:3}, at: fib6_dump_table+0x1e9/0x360
+    #3: (rcu_read_lock){....}-{1:3}, at: rt6_dump_route+0x483/0x5f0
+
+  value changed: 0xffff8a7c44e05700 -> 0xffff8a7c45d60100
+
+  Reported by Kernel Concurrency Sanitizer on:
+  CPU: 14 UID: 0 PID: 549 Comm: dumper Not tainted
+  7.2.0-rc7-virtme #38 PREEMPT(lazy)
+  ...
+
+Use hlist_for_each_entry_rcu() to safely iterate over the exception list.
+
+Fixes: 1e47b4837f3b ("ipv6: Dump route exceptions if requested")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Younes Akhouayri <git@younes.io>
+Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
 ---
-Do not allow From<bool> for signed Bounded values with N = 1.
-Keep it available for signed Bounded values with N >= 2.
----
- rust/kernel/num/bounded.rs | 50 +++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 45 insertions(+), 5 deletions(-)
+ net/ipv6/route.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
-index d192610a687d..1856fe6c9865 100644
---- a/rust/kernel/num/bounded.rs
-+++ b/rust/kernel/num/bounded.rs
-@@ -13,7 +13,7 @@
- };
+diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+index 16dfac54a259..526535387512 100644
+--- a/net/ipv6/route.c
++++ b/net/ipv6/route.c
+@@ -6046,7 +6046,7 @@ static int rt6_nh_dump_exceptions(struct fib6_nh *nh, void *arg)
+ 		return 0;
  
- use kernel::{
--    num::Integer,
-+    num::{Integer, Signed, Unsigned},
-     prelude::*, //
- };
- 
-@@ -174,13 +174,26 @@ fn fits_within<T: Integer>(value: T, num_bits: u32) -> bool {
- /// // `u8` (regardless of the passed value).
- /// // let _ = Bounded::<u32, 6>::from(10u8);
- ///
--/// // Booleans can be converted into single-bit `Bounded`s.
-+/// // Booleans can be converted into unsigned single-bit `Bounded`s.
- ///
- /// let v = Bounded::<u64, 1>::from(false);
- /// assert_eq!(v.get(), 0);
- ///
- /// let v = Bounded::<u64, 1>::from(true);
- /// assert_eq!(v.get(), 1);
-+///
-+/// // Signed integers need at least two bits to represent both `0` and `1`.
-+/// let v = Bounded::<i8, 2>::from(true);
-+/// assert_eq!(v.get(), 1);
-+/// ```
-+///
-+/// A signed single-bit [`Bounded`] cannot represent `1`, so converting a boolean into one does not
-+/// build.
-+///
-+/// ```compile_fail,E0277
-+/// use kernel::num::Bounded;
-+///
-+/// let _: Bounded<i8, 1> = true.into();
- /// ```
- ///
- /// Infallible conversions from a [`Bounded`] to a primitive integer are also supported, and
-@@ -1109,7 +1122,33 @@ fn from(value: Bounded<T, N>) -> $type {
-     i8 i16 i32 i64 isize
- );
- 
--// Single-bit `Bounded`s can be converted from/to a boolean.
-+// Conversions between `Bounded`s and booleans.
-+
-+/// Marker for signedness types for which a valid `N`-bit integer can represent a boolean.
-+trait BoolFits<const N: u32> {}
-+
-+impl<const N: u32> BoolFits<N> for Unsigned {}
-+
-+macro_rules! impl_signed_bool_fits {
-+    ($($num_bits:literal)*) => {
-+        $(
-+        impl BoolFits<$num_bits> for Signed {}
-+        )*
-+    };
-+}
-+
-+// `N >= 2` cannot be expressed as a trait bound without `generic_const_exprs`, so enumerate every
-+// width supported by the current `Integer` implementations.
-+impl_signed_bool_fits!(
-+    2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
-+    17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
-+    33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48
-+    49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
-+    65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
-+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96
-+    97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112
-+    113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128
-+);
- 
- impl<T> From<Bounded<T, 1>> for bool
- where
-@@ -1123,10 +1162,11 @@ fn from(value: Bounded<T, 1>) -> Self {
- impl<T, const N: u32> From<bool> for Bounded<T, N>
- where
-     T: Integer + From<bool>,
-+    T::Signedness: BoolFits<N>,
- {
-     fn from(value: bool) -> Self {
--        // SAFETY: A boolean can be represented using a single bit, and thus fits within any
--        // integer type for any `N` > 0.
-+        // SAFETY: `__new` enforces that `N` is a valid width, and the `BoolFits` bound guarantees
-+        // that the integer representation of `value` fits within any such `N`.
-         unsafe { Self::__new(T::from(value)) }
-     }
- }
-
----
-base-commit: 47f27155f17498fccb1f222f79089642337498a9
-change-id: 20260815-fix-rust-bounded-from-bool-submit-3af836d8f718
-
-Best regards,
---  
-Younes Akhouayri <git@younes.io>
-
+ 	for (i = 0; i < FIB6_EXCEPTION_BUCKET_SIZE; i++) {
+-		hlist_for_each_entry(rt6_ex, &bucket->chain, hlist) {
++		hlist_for_each_entry_rcu(rt6_ex, &bucket->chain, hlist) {
+ 			if (w->skip) {
+ 				w->skip--;
+ 				continue;
+-- 
+2.43.0
 
