@@ -1,150 +1,97 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17E91E5714
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 15:17:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBC535E944
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 15:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786807057; cv=none; b=osTlHuMNDHHSUnmH29iK8T7ZEuzjJWvNgucUCcRTNP3NsdiQDAPyOibXwF42ISVxB58dHBqUWrD+yChm8qpLFSQSNTOvoIms3DSwfopOv+rdRGgqpwIWcWzIH2fcqZKLKeS+eBg3G/I+MSzbqIaol4AmZ2IySNhxu3heu1Yf5Zs=
+	t=1786807376; cv=none; b=LxCgAlSjg0C96t4uB6CTrZ6gC6xnG5DIDehX7xC/qEcUiRL9q43dZDgbnlfUmElicMe5uCc89dqHgeGdOzNetULYA37hYEpbM7zlBDitIDXME7Ij1uuYA1IqUM3DbFuvi0xZaDkkxOTCpA1DwFst7IkZbgLhxSmDsQCfR3yWmx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786807057; c=relaxed/simple;
-	bh=Cy7ehUO5QJOp009fJSDqmDrznAwOwERfwSLS7fpTfZY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s7T/G2gfmJCIYe7EaxrNM+XfkQpD558LDeRY8Yvhy/Imy+k9Eupdrqb1jx2aPTZ2sj8JET1hG4uVl1egdnEq+vp05Dydp5WLWRq5perjh+X769iE78dXmR3ozajUZhzGoGXgUQfb6NZEnH8AMmQIvj7fpVAZkVe2i7IMp5oYvxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q7cI/o5n; arc=none smtp.client-ip=209.85.214.171
+	s=arc-20240116; t=1786807376; c=relaxed/simple;
+	bh=lvitTuLtgEEsksn5WwjYncAy64+0deXKerZUzQSy7lI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BXEtT9JRVuCOKW2DhWBI83zMW15RyGWBWYvW19Kiafrx+gAu/29zpID1ruNe+AZgxtULi4jPYU02cjfdqYbleYfKd79b2Mj0A4AbXlhzb6TrB2Jbvzh+3ppIS9eLpgKCCx+QbTxVV7OG3jpph8SulfmbHAVUb0P2V6hqRhwwaBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C2jSCjz1; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q7cI/o5n"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d5655cc850so610175ad.3
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 08:17:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C2jSCjz1"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so21409075e9.2
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 08:22:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786807056; x=1787411856; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TM5YKUrM+Rjhg2FVhoNuNFP8y5+WDuZJ/t6rMuZQeiI=;
-        b=Q7cI/o5nZQHmrk7aEse5r2N7L5zIfk/8VQ1JDrs9oaP9a0ysdFKtPn1XELnXSNqyRS
-         o+AmlT5hg/tNamQg4PQD0OFvVobaf5emAVX6J6JZpKMmpy8LFslLuSA40HxvcpgQt1gw
-         DO5qA9ntfwUma5nK+vn7XemT0qHD57+/BWceh7x1RcVAj6pAMMjUWMnsR9HhEPS18qbN
-         0VgW1jEGLr49J6r8toZuNxx1CRo77icovk88ZE3QYr4cCei1Swm2ham7/1ABhm146wj3
-         KqgNVtTqhWiKNmtH7YXSKzU6NfCChljjZpuG1gYLsaTmzq7N0oDwFHdtFaMezE05/3v9
-         YNXw==
+        d=gmail.com; s=20251104; t=1786807374; x=1787412174; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ySDGKiW6KAfDEAKyZ+TvFma+gFzvsqvzjDXe1UcSZNs=;
+        b=C2jSCjz1aLrjDx2nOp2eYkvFnE79A5WvE0WMFl9F1LyqLrjZ7DNe5v33ExbJ5HegcV
+         pan4A08uDFDQOJ8ZZRAD0FP8yqJwpkWVEmA2ZsoPraGo89RnuoqJJuuLOrogUXxrRd/+
+         eTnMnzsgCh2C2iprC5xN3PrcCA1RtAM9KvwuOs4nEEV9qumSEnu1C7ayADPgkmbB1boG
+         9d82CEg23Bp7lIFhiK3FVqMwOQFZU+H4x6EVYChtcHY9q+gPspxRExFZy6gSJy5qEH0D
+         9dL7BiODypT0OGeZSmNE34MWaUzsmuZRywHLyK9IvciVSIsC1jz/+ubb0DeTChGbbKUp
+         VEkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786807056; x=1787411856;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TM5YKUrM+Rjhg2FVhoNuNFP8y5+WDuZJ/t6rMuZQeiI=;
-        b=OLEaPppH7FBdLcn5XEg3Bvph8kitsPQUYNY4r3pNPqEgo4/PZ3N2b8GalPwAqodaCt
-         MgqNJgfmac83IEXAI6UDuKweE202jKRZdY+eufMfUMHzyeJSQwgWhz6jLkIQgX1aH4Fd
-         gKqgymIGO6EMuzrN6xfqWTTchgweAAz7mrsZBtBAQLob3X3jzyIMWx44g4g1d/e7N6Hm
-         272ENvmE4OfUWK7FQac+XwIOizl94cgadg2yUceR8jS3YmkuUDPecV55OKaE9IoOrieU
-         gYL3OHXQGdskP4lgW2QOjrXzlbGjBIa3SbxFdk8o6JeQErb/+CM9kSnO4o1VCYkLDNQJ
-         M5Kg==
-X-Forwarded-Encrypted: i=1; AHgh+RpWwYgPTqDvOTReO0BkLUv4L4ue6dWhOA/fICAvkEY+S9zJLuVzYzYaA0PW4TX+C1E3/jEtrms=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLBk1Zz5nLbwwflZ9vmlYCDNk/ZgVE4VvvOG0flwixIkJg54S5
-	SsQe6y5CEFJDQGB8bgWOvs1Cy6gNIIYUhpqn5aRgpmNnX6+MLJeypn8L
-X-Gm-Gg: AR+sD126qd0Cnc+HygaWG8KX4/9dUXXV41QYTNPzIqV4HJ7wOKYc6GWlehb2V+yg7m3
-	5UjBZ5F5NN1/9ORK/CfH5V+v/QyYk8c9kMdEEUr3Tipz1G26KUkXDyjuKZPuabt7AmjmufO4h5E
-	HLQZ2tZ4Yd1g+PQXGH4rSd0eG/z+PXgW9ischrxn4xTPYw6Xst1nAhk88FwuC5HEKq0uJIzFltP
-	OrUfLqI4tUbaBLszOo+8OOa6HjUgCNIxMyZNCBXNotco1fLXkjlqM2T0FE2wS06tye8JPK60xwh
-	V2Zz8dKX7hIECGeVa7V/qIXyNQpThOtf7vCCvWERBZtlba9o2APj/FNTfw/SV32YucUOjd+WrhI
-	BGYrTru8zD/bXohH1rkS0yKmCzKpYM+tV3NvwXElYZqOVlPEhXcD1FeEcshvOBBdLm5yZYq0l5e
-	O3g5uXDe93yHKxgSCztjPMuwopgExCGgyph6ebcgki2eW5OZlenrDF/TDHS6GWNWEoYIWXSdO9L
-	ZqxwTjo
-X-Received: by 2002:a17:90b:3c44:b0:380:83fc:4315 with SMTP id 98e67ed59e1d1-3933bf4ac9amr16342589a91.21.1786807056055;
-        Sat, 15 Aug 2026 08:17:36 -0700 (PDT)
-Received: from haichao.tail057a43.ts.net ([2001:da8:e000:1206:5225:2a2e:8e7c:13a7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-394ebc32b24sm6424695a91.17.2026.08.15.08.17.32
+        d=1e100.net; s=20251104; t=1786807374; x=1787412174;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ySDGKiW6KAfDEAKyZ+TvFma+gFzvsqvzjDXe1UcSZNs=;
+        b=doZhnrQbsni24d5BU4LqHf/71hjb5nmJWFLswZOVTX6vvT7vTiFUHuaaO/qsw4UbC0
+         WiH7hH9CA/UudT0A13bzIzsHsxqWXWUW8NZ3NPN5PfPIgO7wB9Hp3YOPT9PMvfBZEYw8
+         mGTIjnA2Kubi3uzu5V3sWLzyUTNG9chlfsK3rcP9UZkpn/1O7lyvaH4yTcelcsxZjaOb
+         ueO9uW6cIShINyJwgeUotvG0xJXcpakPxJRbg8hD+l5u+CUgLKq3EpGFudCezBhsNbC9
+         xLB25BVueav8dhir1WWjkq1fA5y4RGxXeM2VXJaxJmz3GN1Dt3uuGgZz26qsyAyei4Ag
+         E4vg==
+X-Forwarded-Encrypted: i=1; AHgh+RpVLvuy4qWqAPLL6KXhg2ioo/MOSh2yL/mLZaLwCQdKjVeasT7g+Ly2bUJP/wX5VdLXkpOs6Bc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy57Yc8RGan7pPW3mrGZsMhmcUHqyYnY1sPrBDlhH/LkSOzIZDD
+	t18ykIhwEE6M8adq9z7S7Wcrqc1kFc1hn67xHwpaB3NoDJiP2q29GSq8rasZ1hkJ
+X-Gm-Gg: AR+sD122mRvVN+7CCyUfakZg3JHX2XWEvc6WjthDIL6PFtEfdT01z/E6TGuYbihGylo
+	7+W+hOF2Lgv5ELvAut2tla+K46k1yqZG5c00rRrsrQhiGEIsliOG67scvCxzKrMOm9t5CpsUaV6
+	FQtzJXrcN6JDgNGam91gaWfxjU4sRuxq3Tv16WyW09VnO/+XRlY5WAGmFkdPF2WrpG2JfV9zbmq
+	pPfKYVKFJvxPjvPT7Ztj6Q0RAimVeXudb4ugSTyt4UFrD9MatKjM139Xm63D5KnMC+Tu5VDAjYd
+	0ym0agngY36+KslRmPK0s4bd8y9mfUztxCZy0i3mIi+o9IlR70V3NF2B72yn7AoGwbzL2iIAsl9
+	OQdBXTSyzGJXkebSFqJG5FA/HKg8cT6MBAxjlwp6+MTty1ljPQPotNYte5XVENvRSDphD583/Qv
+	+KedYMBYqiz/tRmqHPUAFEvV52rJl34LXCyNCTMgM7SeS+Kdzjfzz7Coy5yjjzJofJ9kDaU99dW
+	MHLHALDktadgwbQqeXs/Ij3UnPEu422cqf6Xr49CHT1jvPs1vAAP7GOcx0I6odCGfSQpiJ47shv
+	dqCmlPACYMj1IhO/oqvPc+RT7QCmbMxROBfMwwv7gzEZKtKzttnGFj3cb6FPlM03IA==
+X-Received: by 2002:a05:600c:37ca:b0:499:858e:de42 with SMTP id 5b1f17b1804b1-49987935039mr195889625e9.6.1786807373788;
+        Sat, 15 Aug 2026 08:22:53 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-aecb-d601-fc34-eb31-14a1-3704.310.pool.telefonica.de. [2a02:3100:aecb:d601:fc34:eb31:14a1:3704])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49988af1068sm161216485e9.8.2026.08.15.08.22.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 08:17:35 -0700 (PDT)
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-To: Aaron Conole <aconole@redhat.com>,
-	Eelco Chaudron <echaudro@redhat.com>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pravin B Shelar <pshelar@ovn.org>,
-	Yi-Hung Wei <yihung.wei@gmail.com>
-Cc: netdev@vger.kernel.org,
-	dev@openvswitch.org,
-	linux-kernel@vger.kernel.org,
-	Ruoyu Wang <ruoyuw560@gmail.com>,
+        Sat, 15 Aug 2026 08:22:53 -0700 (PDT)
+Date: Sat, 15 Aug 2026 17:22:51 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
+Cc: Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH net v2] net: openvswitch: fix nf_connlabels leak in ovs_ct_init
-Date: Sat, 15 Aug 2026 23:17:29 +0800
-Message-ID: <20260815151729.3757984-1-ruoyuw560@gmail.com>
-X-Mailer: git-send-email 2.51.0
+Subject: Re: [PATCH] drm/v3d: Fix NULL pointer dereference in CPU job cleanup
+Message-ID: <aoCEGJXl5k6IrhT5@gmail.com>
+References: <20260815145914.84154-1-kmehltretter@gmail.com>
+ <cdfaab3c-89b4-470b-aae4-d16f7aaf18ea@igalia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <cdfaab3c-89b4-470b-aae4-d16f7aaf18ea@igalia.com>
 
-ovs_ct_init() acquires a connlabels reference before initializing the
-conntrack limit state. If ovs_ct_limit_init() fails, its error is returned
-directly. The pernet core does not invoke the exit callback for the
-operation whose initialization failed, so ovs_ct_exit() cannot drop the
-reference.
+On Sat, Aug 15, 2026 at 12:15:46PM +0100, Maíra Canal wrote:
+> Hi Karl,
+> 
+> Thank you for your contribution! Unfortunately, this issue is already
+> addressed in drm-misc-next.
 
-This leaves labels_used elevated when Open vSwitch pernet registration
-fails for an existing network namespace. Subsequent conntrack entries in
-that namespace may allocate label extensions even though Open vSwitch
-failed to register.
+Great to hear this is addressed in drm-misc-next. Is a
+stable backport plannend for this ?
 
-Drop the connlabels reference before returning a conntrack limit
-initialization error. ovs_ct_limit_init() already releases its partial
-state, and the original error remains unchanged.
-
-This issue was found by a static analysis checker and confirmed by
-manual source review.
-
-Fixes: 11efd5cb04a1 ("openvswitch: Support conntrack zone limit")
-Cc: stable@vger.kernel.org
-Assisted-by: unnamed:gpt-5.5 typestate
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
-
----
-Changes in v2:
-- Initialize err unconditionally and use one return path.
-- Add the stable Cc and Assisted-by tag.
-
-v1: https://lore.kernel.org/r/20260814134040.1386967-1-ruoyuw560@gmail.com/
----
- net/openvswitch/conntrack.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
-index 95697d4e16e64e..38c6f34776c280 100644
---- a/net/openvswitch/conntrack.c
-+++ b/net/openvswitch/conntrack.c
-@@ -2001,6 +2001,7 @@ int ovs_ct_init(struct net *net)
- {
- 	unsigned int n_bits = sizeof(struct ovs_key_ct_labels) * BITS_PER_BYTE;
- 	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
-+	int err = 0;
- 
- 	if (nf_connlabels_get(net, n_bits - 1)) {
- 		ovs_net->xt_label = false;
-@@ -2010,10 +2011,11 @@ int ovs_ct_init(struct net *net)
- 	}
- 
- #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
--	return ovs_ct_limit_init(net, ovs_net);
--#else
--	return 0;
-+	err = ovs_ct_limit_init(net, ovs_net);
-+	if (err && ovs_net->xt_label)
-+		nf_connlabels_put(net);
- #endif
-+	return err;
- }
- 
- void ovs_ct_exit(struct net *net)
--- 
-2.51.0
-
+Thanks,
+Karl
