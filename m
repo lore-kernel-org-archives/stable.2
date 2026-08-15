@@ -1,470 +1,324 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D811374169;
-	Sat, 15 Aug 2026 10:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39C33932E3
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 10:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786788307; cv=none; b=JgFnXNKtWJeMwpVK2OXGIhMYAs/jt/o8zaSmfoMYAg1ZogiLDEtdgnOjHuMLvId+JLklf2yNdqg6pF7yeeICeNJUzX6G4H0RCUSR4f7BG+1yGMdQiWFgMpsDNyFR0UOswGWsup6RSB9dGBUUn/Mkwkfrm06/p3bauIkar+G5VJw=
+	t=1786788913; cv=none; b=KPduP4SpRejLvKd5GEPhHlapePYK8TlLZ+OkHiqirm8klhF2ScV0HVt4e2lOwpaVh2vlL2w5Ke1lO3YO6CPFZ8nIqedZzBRCGQ6qgTNE1dKUgHePXCFGKKynuRh6OS1LZ9Yz9DbkzEJ+l6k0N3yxWybyXPGQWBK7lVJZJbvW7rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786788307; c=relaxed/simple;
-	bh=HcjJhNG21dT5o6nFyPgyNTi71JcFe+OBFD0q1XZg0bo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T7SOkbplCGQQwvPU4x7LpSpfo32vDxhb0yz1Phw9DSWUJYY42fO9YYZ3AiiX1dZ6+UaojQn4ETiGbISeMX+nGaEHcTkzq3iwP4OkFl6FhsbaP0eb5Jgo4iFdh7oJSllsGRPVy9dn7JPTNN/6z013rFK4SBvhmQx3c7WIAVHrd1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Tn2rq2F+; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1786788913; c=relaxed/simple;
+	bh=tPswWSrAOkxkyqOuZVSBKbZkkHr1llipJ9UJBudMQYM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kvY3VQoudNO4GNw7jD23Pev4x5slnNhD/ujv7mUhjDQ2bU+Mlvcp0ZDHZVnHX76dKXoqrnqefA0xWIigj7Ggih6E0PBl/5ORXk3XymQHk+XU5DvYydwXK75IctlFGacTHYH889rU2zEE6idVa4UUOu0irOf+VVuM8H4u/Cg5PeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QM71W//Z; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Tn2rq2F+"
-Received: from LAPTOP-99KJFSET (unknown [36.153.54.101])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4a18cfe0c;
-	Sat, 15 Aug 2026 18:04:55 +0800 (GMT+08:00)
-From: Hongyan Xu <getshell@seu.edu.cn>
-To: Stephan Gerhold <stephan@gerhold.net>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Hongyan Xu <getshell@seu.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] net: wwan: qcom_bam_dmux: fix TX DMA channel use-after-free
-Date: Sat, 15 Aug 2026 18:04:53 +0800
-Message-ID: <20260815100454.695-1-getshell@seu.edu.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QM71W//Z"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3811f512167so2665155a91.3
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 03:15:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786788910; x=1787393710; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X12N/744woeepub7iVFqwglkYXXLpbYa3Z08mQfxA8k=;
+        b=QM71W//ZyDMtNuNtGj5XvCQMuCGbNu0dCTj8nL4UQeo1ofN2+LlgK70LVzGKrAMCfH
+         YG3cAA2cyVKPsrPwD7sPmWHbp4aR5JSpiQevPF+JKbZj2w46czcdj6RrGkSnkRqSoxD+
+         pRTppEW98/ef8DPJJTsVAUMymzKrhKOylek/zMrySExSEPcsOkpIKleQEddvMDgTFPhX
+         E5n2V9MOI0s0Rv1v6d78shGnaBphsFJya8aKEGdwqF022cji6HEw2awQtusjphu/sa19
+         M/Lw1aGEIMl9Dep0JQV7l5Hn5FDzXYQ5PJYi8Q9Te59N2uFOhoJPCvchYVTB72Q22iBE
+         ogmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786788910; x=1787393710;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X12N/744woeepub7iVFqwglkYXXLpbYa3Z08mQfxA8k=;
+        b=N6otcC5zPezgdsmvM1HHam/D8H4yzmJX7IOxbKYqbj9FQuEcZ/K75hqVG8I2ceiPth
+         mPik22uJN7hEacKLhiIqVz40FK6lGOmKG0XWmcGlr0+qiMCAjov80E4E5Kjei4YQYfT/
+         6TapsEbsbiCN6GnjGSJ2euJfKQqiBnt8cTJk2JRC4DRG9+1GsbqnO5XiUuLQe/BqrFHP
+         OtxoWjqz+yGPNc91Lew3/Ip/7XOpy5ZO7wMTY3SQZRiWci28+9fI+IOwuEklr2lKcHhq
+         jH0OBTzBFqnuB0KtSa5l6WKyQGsnVGpX15p7YWhJwSQWc6i7DMLxvTxRz/V9yR1+hJKX
+         VNqg==
+X-Forwarded-Encrypted: i=1; AHgh+RpWU4sO3rSrOcsxLLH3SEHS4rRMt2AuvfLR1zR2V6FfxLepN44UopIO6iBWvVOp4uEWEa6sKOI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVxyE93YDtGDdnRHGMqpNW9Zl9huJTazJNJVqIst3r9KIuMIyl
+	OmZCjUr/XzkgR7C0L+fHrEG7voLeLbK4Dxhe1fbY67cFxXfBj7hjy7fH
+X-Gm-Gg: AR+sD12eZtqI0O3kPZ4Z16+RkIOc/fws8d+NJkPCkg8huKMNce5eS9PUJMaiAT4fSss
+	aFMGFhlePpnfAa3RaaDUEUXic3QxKYpVsphtGun2cZwfTKTKxiqIEoqgeWwONMoXdghFKRE6M9e
+	om6EjguCvWsnWXFnwph5sYUIKos4RplfQiqfNnLSQyXbvubn3PePGOV7RdgrrI7w/x+k/k1uR+Y
+	FH4XjbUjpN031rXilrTN1Yr6nTrNJ0qpfMnD6x3GMzapc0gQzK+4U1/14vne1HrbFvmk4khYR0F
+	LkUMX0nUjnliAWJksTwRZhoajqQ/3d8VD19iYASSkN1VuGYomUx9xYH3PnXkLGuR+BHGNQTj8Qo
+	cYP6345ULwCqdnPczSAtgY555Cjaxx7EqQ6FxpeMC/xCxjuk9TdZNXhgTIBCAf5PsJt9Xo2w5B8
+	go+sWHPmBOogvZCy5phGTKN13vu4dXx3srEUVYOMUd/3rp6GvS1FuJAM6EU8MwTFo=
+X-Received: by 2002:a17:90b:3d43:b0:37f:c97a:939f with SMTP id 98e67ed59e1d1-3933b811e2dmr13701386a91.7.1786788909916;
+        Sat, 15 Aug 2026 03:15:09 -0700 (PDT)
+Received: from localhost ([118.34.230.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-394f818030asm1684606a91.3.2026.08.15.03.15.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Aug 2026 03:15:09 -0700 (PDT)
+Date: Sat, 15 Aug 2026 15:45:07 +0530
+From: shaikh kamaluddin <shaikhkamal2012@gmail.com>
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Ben Cheatham <benjamin.cheatham@amd.com>, tony.luck@intel.com,
+	bp@alien8.de, linux-cxl@vger.kernel.org, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH v2] cxl/mce: Avoid alias page retirement for corrected
+ errors
+Message-ID: <aoA8K-i5QpBaE0xn@acer-nitro-anv15-41>
+References: <20260812151759.14390-1-shaikhkamal2012@gmail.com>
+ <anz7iV2WrZfAnVib@aschofie-mobl2.lan>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa004e1b21703a1kunmd0d1492f86724
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSB8ZVkkfHkMaHk0fGk5NTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKTkhVTk9VSktKWVdZFhoPEhUdFFlBWU9LSFVKS0lITk
-	NDVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Tn2rq2F+FN0kIekbKBd9wExLrnplFuZ244a5+dk/70Ggn5aoj9vH3kOLHcR07hYTZrbHqRq3FoYDULaj1VmZjIYgbYuwTe/ZOqOMqCSANEFlHDXBSD4COUniLe8Zv6HBiF1tycr8ewazQTatT5MGeAoMt/LaAbBMm8EMDQ/1bBg=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=/Ep872+Mf8zZI27x/+GPRoLH3oyVR2uuhm00bDTjDek=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <anz7iV2WrZfAnVib@aschofie-mobl2.lan>
 
-The modem power-control interrupt can release dmux->tx while the command,
-netdev transmit, or deferred wakeup paths are preparing and submitting
-DMA descriptors. A runtime PM reference alone does not order those paths
-against the modem-driven interrupt.
+On Wed, Aug 12, 2026 at 04:02:33PM -0700, Alison Schofield wrote:
+> On Wed, Aug 12, 2026 at 08:47:59PM +0530, Shaikh Kamaluddin wrote:
+> > cxl_handle_mce() offlines the aliased page of an Extended Linear Cache
+> > (ELC) region for any MCE with a usable address in the region. This
+> > includes corrected errors and non-memory errors, needlessly reducing
+> > usable memory.
+> > 
+> > Restrict ELC MCE handling to uncorrected memory errors. Use
+> > mce_is_correctable() so that MCE_AR_SEVERITY errors continue to retire
+> > the alias when the reported page is handled elsewhere.
+> 
+> Hi Shaikh,
+> 
+> Thanks for revising this.
+> 
+> Sashiko had a complaint that needs to be considered about the AMD
+> specific MCE classification and makes me wonder about using
+> mce_is_memory_error() in the test at all.
+> 
+> Could the fix simply reject mce_is_correctable() and retain
+> the existing mce_usable_address() behavior?  (And yeah, I'm thinking
+> I may have missed something in that complex description I asked
+> you to trim.)
+> 
+> Sashiko only replied to the linux-cxl mailing list so not all recipients
+> of your patch will see it:
+> https://sashiko.dev/#/patchset/20260812151759.14390-1-shaikhkamal2012%40gmail.com
+> 
+> BTW - it looks like Sashiko never looked at v1.
+> 
+> -- Alison
+> 
+>
+Hi Alison,
 
-The pc and pc-ack IRQ actions do not encode the modem protocol order. A
-pc=false edge raised before a new host power vote is acknowledged can
-therefore be handled after runtime resume observes the acknowledgment and
-starts using TX. On the other hand, acknowledging a new pc=false transition
-while the acknowledged host vote remains active lets the modem power down
-the DMA engine underneath the driver.
+Yes, exactly - dropping mce_is_memory_error() and keeping
+mce_usable_address() + mce_is_correctable() is the fix. I dug into
+this in detail with Sashiko (full trail is in that thread) and
+confirmed it against amd_mce_usable_address()'s own comment block in
+arch/x86/kernel/cpu/mce/amd.c: poison is defined for every bank
+except legacy northbridge, so it explicitly covers the non-UMC banks
+(Load/Store, Data Fabric) that CXL poison-consumption reports from -
+but mce_is_memory_error() only accepts UMC banks, so it rejects those
+records before mce_usable_address() (which would correctly recognize
+them) is ever reached.
 
-Serialize power-control state with a mutex and distinguish a requested host
-vote from an acknowledged one. Publish each vote acknowledgment and its
-completion under that lock. Before publishing the host-vote
-acknowledgment, sample the actual pc line and process any delayed
-transition. A valid pc=false transition is then handled before runtime
-resume returns, when no path can submit through TX. The channels are
-released before pc is acknowledged, and a queued BAM_DMUX_CMD_OPEN remains
-queued for the new TX channel.
 
-If pc goes low after the host vote was acknowledged, refuse the pc
-acknowledgment and keep the DMA channels allocated. Remember the pending
-transition so runtime suspend can first release the channels and only then
-acknowledge pc=false. This preserves the protocol ordering without exposing
-a released TX channel or cancelling an OPEN command that already succeeded.
+Setting up an AMD SMCA reproduction now before posting v3.
 
-Both IRQ handlers can now change the DMA channel state. Keep them
-inactive until the initial probe state is committed, and disable both
-before the final remove cleanup and before cleaning up a failed probe.
-
-This issue was found by the author's in-house static analysis tool.
-The patch was reviewed by the author.
-
-Fixes: 21a0ffd9b38c ("net: wwan: Add Qualcomm BAM-DMUX WWAN network driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
----
-Changes in v3:
-- Sample the pc line before publishing a host-vote acknowledgment so a
-  delayed, valid pc=false transition is completed before runtime resume.
-- Refuse to acknowledge pc=false after the active host vote was acknowledged.
-- Complete a refused down transition during runtime suspend, releasing the
-  DMA channels before acknowledging it.
-- Serialize the vote acknowledgment and completion with vote changes.
-- Gate both state IRQ handlers until probe initialization is committed and
-  quiesce both before probe-error or remove cleanup.
-
-Changes in v2:
-- Track the host power vote and serialize the power-control paths.
-
-Link: https://lore.kernel.org/netdev/20260808083457.2023-1-getshell@seu.edu.cn/
-Link: https://lore.kernel.org/netdev/20260806060642.1281-1-getshell@seu.edu.cn/
-
- drivers/net/wwan/qcom_bam_dmux.c | 192 ++++++++++++++++++++++++++-----
- 1 file changed, 161 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
-index cc6ace8..41928ed 100644
---- a/drivers/net/wwan/qcom_bam_dmux.c
-+++ b/drivers/net/wwan/qcom_bam_dmux.c
-@@ -12,6 +12,7 @@
- #include <linux/if_arp.h>
- #include <linux/interrupt.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/netdevice.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-@@ -67,12 +68,17 @@ struct bam_dmux_skb_dma {
- struct bam_dmux {
- 	struct device *dev;
- 
--	int pc_irq;
-+	int pc_irq, pc_ack_irq;
- 	bool pc_state, pc_ack_state;
- 	struct qcom_smem_state *pc, *pc_ack;
- 	u32 pc_mask, pc_ack_mask;
- 	wait_queue_head_t pc_wait;
- 	struct completion pc_ack_completion;
-+	struct mutex power_lock; /* Protect power-control state */
-+	bool pc_vote;
-+	bool pc_vote_acked;
-+	bool pc_down_pending;
-+	bool ready;
- 
- 	struct dma_chan *rx, *tx;
- 	struct bam_dmux_skb_dma rx_skbs[BAM_DMUX_NUM_SKB];
-@@ -99,6 +105,22 @@ static void bam_dmux_pc_vote(struct bam_dmux *dmux, bool enable)
- 				    enable ? dmux->pc_mask : 0);
- }
- 
-+static void bam_dmux_pc_vote_locked(struct bam_dmux *dmux, bool enable)
-+{
-+	lockdep_assert_held(&dmux->power_lock);
-+
-+	dmux->pc_vote = enable;
-+	dmux->pc_vote_acked = false;
-+	bam_dmux_pc_vote(dmux, enable);
-+}
-+
-+static void bam_dmux_pc_vote_protected(struct bam_dmux *dmux, bool enable)
-+{
-+	mutex_lock(&dmux->power_lock);
-+	bam_dmux_pc_vote_locked(dmux, enable);
-+	mutex_unlock(&dmux->power_lock);
-+}
-+
- static void bam_dmux_pc_ack(struct bam_dmux *dmux)
- {
- 	qcom_smem_state_update_bits(dmux->pc_ack, dmux->pc_ack_mask,
-@@ -655,6 +677,8 @@ static void bam_dmux_free_skbs(struct bam_dmux_skb_dma skbs[],
- 
- static void bam_dmux_power_off(struct bam_dmux *dmux)
- {
-+	lockdep_assert_held(&dmux->power_lock);
-+
- 	if (dmux->tx) {
- 		dmaengine_terminate_sync(dmux->tx);
- 		dma_release_channel(dmux->tx);
-@@ -670,25 +694,63 @@ static void bam_dmux_power_off(struct bam_dmux *dmux)
- 	bam_dmux_free_skbs(dmux->rx_skbs, DMA_FROM_DEVICE);
- }
- 
--static irqreturn_t bam_dmux_pc_irq(int irq, void *data)
-+static bool bam_dmux_handle_pc(struct bam_dmux *dmux, bool new_state)
- {
--	struct bam_dmux *dmux = data;
--	bool new_state = !dmux->pc_state;
-+	lockdep_assert_held(&dmux->power_lock);
-+
-+	if (new_state == dmux->pc_state) {
-+		if (new_state)
-+			dmux->pc_down_pending = false;
-+		return false;
-+	}
- 
- 	dev_dbg(dmux->dev, "pc: %u\n", new_state);
- 
- 	if (new_state) {
--		if (bam_dmux_power_on(dmux))
-+		if (dmux->rx || bam_dmux_power_on(dmux))
- 			bam_dmux_pc_ack(dmux);
- 		else
- 			bam_dmux_power_off(dmux);
-+	} else if (dmux->pc_vote && dmux->pc_vote_acked) {
-+		/* The modem must keep the DMA engine on until pc is acked. */
-+		dmux->pc_down_pending = true;
-+		dev_err_ratelimited(dmux->dev,
-+				    "refusing pc down while host vote is active\n");
-+		return false;
- 	} else {
- 		bam_dmux_power_off(dmux);
- 		bam_dmux_pc_ack(dmux);
- 	}
- 
--	dmux->pc_state = new_state;
--	wake_up_all(&dmux->pc_wait);
-+	dmux->pc_down_pending = false;
-+	WRITE_ONCE(dmux->pc_state, new_state);
-+	return true;
-+}
-+
-+static irqreturn_t bam_dmux_pc_irq(int irq, void *data)
-+{
-+	struct bam_dmux *dmux = data;
-+	bool new_state, wake;
-+	int ret;
-+
-+	mutex_lock(&dmux->power_lock);
-+	if (!dmux->ready) {
-+		mutex_unlock(&dmux->power_lock);
-+		return IRQ_HANDLED;
-+	}
-+
-+	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
-+				    &new_state);
-+	if (ret) {
-+		mutex_unlock(&dmux->power_lock);
-+		dev_err_ratelimited(dmux->dev, "failed to read pc state: %d\n", ret);
-+		return IRQ_HANDLED;
-+	}
-+
-+	wake = bam_dmux_handle_pc(dmux, new_state);
-+	mutex_unlock(&dmux->power_lock);
-+	if (wake)
-+		wake_up_all(&dmux->pc_wait);
- 
- 	return IRQ_HANDLED;
- }
-@@ -696,9 +758,33 @@ static irqreturn_t bam_dmux_pc_irq(int irq, void *data)
- static irqreturn_t bam_dmux_pc_ack_irq(int irq, void *data)
- {
- 	struct bam_dmux *dmux = data;
-+	bool new_state, wake = false;
-+	int ret;
- 
- 	dev_dbg(dmux->dev, "pc ack\n");
-+
-+	/* Process an earlier pc edge before publishing the host-vote ack. */
-+	synchronize_irq(dmux->pc_irq);
-+	mutex_lock(&dmux->power_lock);
-+	if (!dmux->ready) {
-+		mutex_unlock(&dmux->power_lock);
-+		return IRQ_HANDLED;
-+	}
-+
-+	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
-+				    &new_state);
-+	if (ret) {
-+		mutex_unlock(&dmux->power_lock);
-+		dev_err_ratelimited(dmux->dev, "failed to read pc state: %d\n", ret);
-+		return IRQ_HANDLED;
-+	}
-+
-+	wake = bam_dmux_handle_pc(dmux, new_state);
-+	dmux->pc_vote_acked = true;
- 	complete_all(&dmux->pc_ack_completion);
-+	mutex_unlock(&dmux->power_lock);
-+	if (wake)
-+		wake_up_all(&dmux->pc_wait);
- 
- 	return IRQ_HANDLED;
- }
-@@ -706,9 +792,19 @@ static irqreturn_t bam_dmux_pc_ack_irq(int irq, void *data)
- static int bam_dmux_runtime_suspend(struct device *dev)
- {
- 	struct bam_dmux *dmux = dev_get_drvdata(dev);
-+	bool wake = false;
- 
- 	dev_dbg(dev, "runtime suspend\n");
--	bam_dmux_pc_vote(dmux, false);
-+
-+	mutex_lock(&dmux->power_lock);
-+	bam_dmux_pc_vote_locked(dmux, false);
-+	if (dmux->pc_down_pending)
-+		wake = bam_dmux_handle_pc(dmux, false);
-+	else if (!dmux->pc_state)
-+		bam_dmux_power_off(dmux);
-+	mutex_unlock(&dmux->power_lock);
-+	if (wake)
-+		wake_up_all(&dmux->pc_wait);
- 
- 	return 0;
- }
-@@ -724,40 +820,55 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
- 					 BAM_DMUX_REMOTE_TIMEOUT))
- 		return -ETIMEDOUT;
- 
-+	synchronize_irq(dmux->pc_irq);
-+
- 	/* Vote for power state */
--	bam_dmux_pc_vote(dmux, true);
-+	bam_dmux_pc_vote_protected(dmux, true);
- 
- 	/* Wait for ack */
- 	if (!wait_for_completion_timeout(&dmux->pc_ack_completion,
- 					 BAM_DMUX_REMOTE_TIMEOUT)) {
--		bam_dmux_pc_vote(dmux, false);
-+		bam_dmux_runtime_suspend(dev);
- 		return -ETIMEDOUT;
- 	}
- 
-+	synchronize_irq(dmux->pc_irq);
-+
- 	/* Wait until we're up */
--	if (!wait_event_timeout(dmux->pc_wait, dmux->pc_state,
-+	if (!wait_event_timeout(dmux->pc_wait, READ_ONCE(dmux->pc_state),
- 				BAM_DMUX_REMOTE_TIMEOUT)) {
--		bam_dmux_pc_vote(dmux, false);
-+		bam_dmux_runtime_suspend(dev);
- 		return -ETIMEDOUT;
- 	}
- 
-+	mutex_lock(&dmux->power_lock);
-+
- 	/* Ensure that we actually initialized successfully */
- 	if (!dmux->rx) {
--		bam_dmux_pc_vote(dmux, false);
-+		bam_dmux_pc_vote_locked(dmux, false);
-+		if (!dmux->pc_state)
-+			bam_dmux_power_off(dmux);
-+		mutex_unlock(&dmux->power_lock);
- 		return -ENXIO;
- 	}
- 
- 	/* Request TX channel if necessary */
--	if (dmux->tx)
-+	if (dmux->tx) {
-+		mutex_unlock(&dmux->power_lock);
- 		return 0;
-+	}
- 
- 	dmux->tx = dma_request_chan(dev, "tx");
- 	if (IS_ERR(dmux->tx)) {
- 		dev_err(dev, "Failed to request TX DMA channel: %pe\n", dmux->tx);
- 		dmux->tx = NULL;
--		bam_dmux_runtime_suspend(dev);
-+		bam_dmux_pc_vote_locked(dmux, false);
-+		if (!dmux->pc_state)
-+			bam_dmux_power_off(dmux);
-+		mutex_unlock(&dmux->power_lock);
- 		return -ENXIO;
- 	}
-+	mutex_unlock(&dmux->power_lock);
- 
- 	return 0;
- }
-@@ -766,8 +877,9 @@ static int bam_dmux_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct bam_dmux *dmux;
--	int ret, pc_ack_irq, i;
-+	int ret, i;
- 	unsigned int bit;
-+	bool pc_state;
- 
- 	dmux = devm_kzalloc(dev, sizeof(*dmux), GFP_KERNEL);
- 	if (!dmux)
-@@ -780,9 +892,9 @@ static int bam_dmux_probe(struct platform_device *pdev)
- 	if (dmux->pc_irq < 0)
- 		return dmux->pc_irq;
- 
--	pc_ack_irq = platform_get_irq_byname(pdev, "pc-ack");
--	if (pc_ack_irq < 0)
--		return pc_ack_irq;
-+	dmux->pc_ack_irq = platform_get_irq_byname(pdev, "pc-ack");
-+	if (dmux->pc_ack_irq < 0)
-+		return dmux->pc_ack_irq;
- 
- 	dmux->pc = devm_qcom_smem_state_get(dev, "pc", &bit);
- 	if (IS_ERR(dmux->pc))
-@@ -799,6 +911,7 @@ static int bam_dmux_probe(struct platform_device *pdev)
- 	init_waitqueue_head(&dmux->pc_wait);
- 	init_completion(&dmux->pc_ack_completion);
- 	complete_all(&dmux->pc_ack_completion);
-+	mutex_init(&dmux->power_lock);
- 
- 	spin_lock_init(&dmux->tx_lock);
- 	INIT_WORK(&dmux->tx_wakeup_work, bam_dmux_tx_wakeup_work);
-@@ -817,31 +930,41 @@ static int bam_dmux_probe(struct platform_device *pdev)
- 	pm_runtime_use_autosuspend(dev);
- 	pm_runtime_enable(dev);
- 
--	ret = devm_request_threaded_irq(dev, pc_ack_irq, NULL, bam_dmux_pc_ack_irq,
--					IRQF_ONESHOT, NULL, dmux);
-+	ret = devm_request_threaded_irq(dev, dmux->pc_ack_irq, NULL,
-+					bam_dmux_pc_ack_irq, IRQF_ONESHOT,
-+					NULL, dmux);
- 	if (ret)
- 		goto err_disable_pm;
- 
- 	ret = devm_request_threaded_irq(dev, dmux->pc_irq, NULL, bam_dmux_pc_irq,
- 					IRQF_ONESHOT, NULL, dmux);
- 	if (ret)
--		goto err_disable_pm;
-+		goto err_disable_pc_ack_irq;
- 
-+	mutex_lock(&dmux->power_lock);
- 	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
--				    &dmux->pc_state);
-+				    &pc_state);
- 	if (ret)
--		goto err_disable_pm;
-+		goto err_unlock_disable_irqs;
- 
- 	/* Check if remote finished initialization before us */
--	if (dmux->pc_state) {
--		if (bam_dmux_power_on(dmux))
--			bam_dmux_pc_ack(dmux);
--		else
--			bam_dmux_power_off(dmux);
--	}
-+	bam_dmux_handle_pc(dmux, pc_state);
-+	dmux->ready = true;
-+	mutex_unlock(&dmux->power_lock);
- 
- 	return 0;
- 
-+err_unlock_disable_irqs:
-+	mutex_unlock(&dmux->power_lock);
-+	disable_irq(dmux->pc_ack_irq);
-+	disable_irq(dmux->pc_irq);
-+	goto err_power_off;
-+err_disable_pc_ack_irq:
-+	disable_irq(dmux->pc_ack_irq);
-+err_power_off:
-+	mutex_lock(&dmux->power_lock);
-+	bam_dmux_power_off(dmux);
-+	mutex_unlock(&dmux->power_lock);
- err_disable_pm:
- 	pm_runtime_disable(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
-@@ -872,12 +995,19 @@ static void bam_dmux_remove(struct platform_device *pdev)
- 	pm_runtime_set_suspended(dev);
- 
- 	/* Try to wait for remote side to drop power vote */
--	if (!wait_event_timeout(dmux->pc_wait, !dmux->rx, BAM_DMUX_REMOTE_TIMEOUT))
-+	if (!wait_event_timeout(dmux->pc_wait, !READ_ONCE(dmux->rx),
-+				BAM_DMUX_REMOTE_TIMEOUT))
- 		dev_err(dev, "Timed out waiting for remote side to suspend\n");
- 
- 	/* Make sure everything is cleaned up before we return */
-+	mutex_lock(&dmux->power_lock);
-+	dmux->ready = false;
-+	mutex_unlock(&dmux->power_lock);
-+	disable_irq(dmux->pc_ack_irq);
- 	disable_irq(dmux->pc_irq);
-+	mutex_lock(&dmux->power_lock);
- 	bam_dmux_power_off(dmux);
-+	mutex_unlock(&dmux->power_lock);
- 	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
- }
- 
+Thanks, 
+Shaikh 
+> > 
+> > Fixes: 516e5bd0b6bf ("cxl: Add mce notifier to emit aliased address for extended linear cache")
+> > Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+> > ---
+> > Changelog:
+> > 
+> > v1 -> v2:
+> >   - Reworked commit message per review feedback
+> >   - Dropped redundant comment from the code
+> >  
+> > Reproduced under QEMU/vng. QEMU's cxl-type3 does not emulate the HMAT
+> > extended-linear address_mode bit, so ELC was forced locally for testing
+> > via a one-line debug hack in cxl_region_probe() (not part of this patch):
+> > 
+> > 	if (!p->cache_size && p->res)
+> > 		p->cache_size = resource_size(p->res) / 2;
+> > 
+> > Steps:
+> > 1. Boot with an Intel CPU model under TCG (KVM host-passthrough will
+> >     otherwise leak the host's real vendor ID, and AMD/SMCA takes a
+> >     different mce_usable_address() path than the one under test):
+> > vng -v -r ./arch/x86/boot/bzImage --disable-kvm --qemu-opts='-cpu Skylake-Server-v4,+mce,+mca -m 4G -machine q35,cxl=on -object memory-backend-ram,id=cxl-mem0,size=512M -device pxb-cxl,bus_nr=12,bus=pcie.0,id=cxl.0 -device cxl-rp,port=0,bus=cxl.0,id=root_port0,chassis=0,slot=0 -device cxl-type3,bus=root_port0,volatile-memdev=cxl-mem0,id=cxl-mem-device0 -M cxl-fmw.0.targets.0=cxl.0,cxl-fmw.0.size=512M'
+> > 
+> > 2. modprobe mce-inject
+> > $cxl list -M
+> > $cxl list -D
+> > $cxl create-region -m mem0 -d decoder0.0 -w 1 -g 256 -t ram
+> > $dmesg | grep "DEBUG: forced cache_size"
+> > $modprobe device_dax
+> > $modprobe kmem
+> > $ls /sys/bus/dax/devices/
+> > $daxctl reconfigure-device dax0.0 --mode=system-ram
+> > $lsmem
+> > it will show as below:
+> > dax0.0
+> > [   42.857642] Fallback order for Node 0: 0 
+> > [   42.857828] Built 1 zonelists, mobility grouping on.  Total pages: 1010805
+> > [   42.858446] Policy zone: Normal
+> > [
+> >   {
+> >     "chardev":"dax0.0",
+> >     "size":536870912,
+> >     "target_node":0,
+> >     "align":2097152,
+> >     "mode":"system-ram",
+> >     "online_memblocks":4,
+> >     "total_memblocks":4,
+> >     "movable":true
+> >   }
+> > ]
+> > reconfigured 1 device
+> > RANGE                                  SIZE  STATE REMOVABLE BLOCK
+> > 0x0000000000000000-0x000000007fffffff    2G online       yes  0-15
+> > 0x0000000100000000-0x000000017fffffff    2G online       yes 32-47
+> > 0x0000000190000000-0x00000001afffffff  512M online       yes 50-53
+> > 
+> > Memory block size:       128M
+> > Total online memory:     4.5G
+> > Total offline memory:      0B
+> > 
+> > 3. Load the injector if not loaded earlier and derive the two MCi_STATUS values.
+> > 
+> >     modprobe mce-inject
+> > 
+> >     MCi_STATUS bit layout used here (arch/x86/include/asm/mce.h):
+> >       bit 63  VAL     - record valid
+> >       bit 61  UC      - uncorrected (0 = corrected error under test)
+> >       bit 60  EN      - error reporting enabled
+> >       bit 59  MISCV   - MCi_MISC valid
+> >       bit 58  ADDRV   - MCi_ADDR valid
+> >       bits[15:0] MCACOD - bit 7 set = memory-error signature, per
+> >                           mce_is_memory_error()'s Intel branch
+> > 
+> >     python3 -c "
+> >     VAL, UC, EN, MISCV, ADDRV = 1<<63, 1<<61, 1<<60, 1<<59, 1<<58
+> >     MCACOD_MEM = 1<<7                      # memory error signature
+> >     ce = VAL | EN | MISCV | ADDRV | MCACOD_MEM
+> >     uc = ce | UC
+> >     print(f'CE status = {hex(ce)}')
+> >     print(f'UC status = {hex(uc)}')"
+> >     # CE status = 0x9c00000000000080
+> >     # UC status = 0xbc00000000000080
+> > 
+> >     MCi_MISC: address-mode field, bits[8:6], must be 2 (physical):
+> > 
+> >     python3 -c "print(hex(2 << 6))"
+> >     # misc = 0x80
+> > 
+> > 4.  $ cd /sys/kernel/debug/mce-inject
+> > $echo sw > flags
+> > $echo 0x9C00000000000080 > status
+> > $echo 0x80 > misc
+> > $echo 0x190010000 > addr
+> > $echo 9 > bank
+> > [  221.813395] mce: [Hardware Error]: Machine check events logged
+> > [  221.814716] cxl_mce_debug: entered status=0x9c00000000000080 addr=0x190010000 cache_size=0x10000000 res=[mem 0x190000000-0x1afffffff flags 0x200] usable=1
+> > [  221.816200] cxl_mce_debug: spa=0x190010000 contains=1
+> > [  221.817089] cxl_mce_debug: spa_alias=0x1a0010000 pfn=0x1a0010 pfn_valid=1
+> > [  221.817655] cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
+> > [  221.821504] Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
+> > [  221.823903] mce: [Hardware Error]: CPU 0: Machine Check: 0 Bank 9: 9c00000000000080
+> > [  221.824617] mce: [Hardware Error]: TSC a605ccda40 ADDR 190010000 MISC 80 
+> > [  221.824997] mce: [Hardware Error]: PROCESSOR 0:50654 TIME 1786375908 SOCKET 0 APIC 0 microcode 1
+> > root@virtme-ng:/sys/kernel/debug/mce-inject# 
+> > root@virtme-ng:/sys/kernel/debug/mce-inject# grep HardwareCorrupted /proc/meminfo
+> > HardwareCorrupted:     4 kB
+> > 
+> > CE without this patch:
+> >   cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
+> >   Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
+> >   HardwareCorrupted: 4 kB
+> > ------------------------------------- 
+> > CE with this patch:
+> >   (no "Offlining aliased SPA" message logged)
+> >   HardwareCorrupted: 0 kB
+> > 
+> > $cd /sys/kernel/debug/mce-inject
+> > $echo sw > flags
+> > $echo 0x9C00000000000080 > status
+> > $echo 0x80 > misc
+> > $echo 0x190010000 > addr
+> > $echo 9 > bank
+> > addr  bank  cpu  flags	ipid  misc  README  status  synd
+> > [   61.681659] mce: [Hardware Error]: Machine check events logged
+> > [   61.683442] cxl_mce_debug: entered status=0x9c00000000000080 addr=0x190010000 cache_size=0x10000000 res=[mem 0x190000000-0x1afffffff flags 0x200] usable=1
+> > [   61.684528] mce: [Hardware Error]: CPU 0: Machine Check: 0 Bank 9: 9c00000000000080
+> > [   61.684974] mce: [Hardware Error]: TSC 2eeae32fe0 ADDR 190010000 MISC 80 
+> > [   61.688880] mce: [Hardware Error]: PROCESSOR 0:50654 TIME 1786377156 SOCKET 0 APIC 0 microcode 1
+> > [   86.504456] clocksource: Watchdog remote CPU 11 read timed out
+> > 
+> > $grep HardwareCorrupted /proc/meminfo
+> > HardwareCorrupted:     0 kB
+> > -------------------------
+> > For UC, same steps only status bit information will change :
+> > $cd /sys/kernel/debug/mce-inject
+> > $echo sw > flags
+> > $echo 0xbc00000000000080 > status
+> > $echo 0x80 > misc
+> > $echo 0x190010000 > addr
+> > $echo 9 > bank
+> > $dmesg | grep cxl_mce_debug
+> > $grep HardwareCorrupted /proc/meminfo
+> > [  313.398747] mce: [Hardware Error]: Machine check events logged
+> > [  313.400518] cxl_mce_debug: entered status=0xbc00000000000080 addr=0x190010000 cache_size=0x10000000 res=[mem 0x190000000-0x1afffffff flags 0x200] usable=1
+> > [  313.401727] cxl_mce_debug: spa=0x190010000 contains=1
+> > [  313.402157] cxl_mce_debug: spa_alias=0x1a0010000 pfn=0x1a0010 pfn_valid=1
+> > [  313.402663] cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
+> > [  313.405999] Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
+> > [  313.408375] mce: [Hardware Error]: CPU 0: Machine Check: 0 Bank 9: bc00000000000080
+> > [  313.408999] mce: [Hardware Error]: TSC e9dd2869e0 ADDR 190010000 MISC 80 
+> > [  313.409367] mce: [Hardware Error]: PROCESSOR 0:50654 TIME 1786377750 SOCKET 0 APIC 0 microcode 1
+> > 
+> > Patched, UC: alias still offlined, confirming uncorrected handling is unchanged by this patch.
+> >     cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
+> >     Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
+> >     HardwareCorrupted: 4 kB
+> > 
+> >  drivers/cxl/core/mce.c | 8 +++++++-
+> >  1 file changed, 7 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/cxl/core/mce.c b/drivers/cxl/core/mce.c
+> > index 65fed913b221..e3c561489a00 100644
+> > --- a/drivers/cxl/core/mce.c
+> > +++ b/drivers/cxl/core/mce.c
+> > @@ -18,7 +18,13 @@ static int cxl_handle_mce(struct notifier_block *nb, unsigned long val,
+> >  	u64 spa, spa_alias;
+> >  	unsigned long pfn;
+> >  
+> > -	if (!mce || !mce_usable_address(mce))
+> > +	if (!mce)
+> > +		return NOTIFY_DONE;
+> > +
+> > +	if (!mce_is_memory_error(mce) || mce_is_correctable(mce))
+> > +		return NOTIFY_DONE;
+> > +
+> > +	if (!mce_usable_address(mce))
+> >  		return NOTIFY_DONE;
+> >  
+> >  	spa = mce->addr & MCI_ADDR_PHYSADDR;
+> > 
+> > base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
+> > -- 
+> > 2.43.0
+> > 
