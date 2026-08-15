@@ -1,104 +1,79 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-101.mta1.migadu.com [95.215.58.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5BA370D47;
-	Sat, 15 Aug 2026 11:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D392BFC85
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 12:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786795062; cv=none; b=CHlF4xlWICeazKZz+9yscAbPGpK5gU8QIxcIWNqBBGjzCe+gXf4cB2fRh6pZzUGpiKlgwxEM+9Y3Bif15Gdvlb3i8VCYFD9fb8tvXE6XpXyCRyuo1vIE4VouCAlNqujgHPAl/GYgnwuJG1Oehe+E0xBKAfEllxipNTTey8waagQ=
+	t=1786795409; cv=none; b=UJniI/IpKbiT1VjSnNEEIbQlbcjPJh7PiftLUS5AOQg8L7++kKjjmqdE/WrLHCLrsC//pM1PljhJA45JW3sKyA18RKg1FpDaDLy6rvG0uHEb3udbcDebhS4pfxXrv0njCp38cISupCXQeYuXwLmbLG7mFAsohQDJ53VS4b0APZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786795062; c=relaxed/simple;
-	bh=oJlGwDreVEghrHvKgZJBbUZsu9fVMMD5eoAMtp7ld0w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oH6VkZPdkZg+PprMnRXvsl8HuG+Njfb80I4Q2cwFw0xfcRt7xi0BMZxnqV1fBjgOed72VClIKmGv3zxy+YwETsLmG6kSFqK8npCSflIuuvoH0178TpaPWNQ/nEEw+6WfvC+KqxFjfYMPa+NeabCxqGiAGfszO8fY2C5GM6jagL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 7e0eb62c98a011f19a56ed5b684f684d-20260815
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
-	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
-	IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR, DN_TRUSTED
-	SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED, SN_EXISTED
-	SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD_SPF, CIE_UNKNOWN
-	GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:3e7600db-cfc6-4ace-baee-fe5a5939b856,IP:15,
-	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:35
-X-CID-INFO: VERSION:1.3.19,REQID:3e7600db-cfc6-4ace-baee-fe5a5939b856,IP:15,UR
-	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:35
-X-CID-META: VersionHash:7db8b62,CLOUDID:803080def86a927512b50d6242493b17,BulkI
-	D:260815195733KY7PBH7Y,BulkQuantity:0,SF:10|66|78|102|127|865|898,TC:nil,C
-	ontent:0|15|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,C
-	OL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7e0eb62c98a011f19a56ed5b684f684d-20260815
-X-User: yijiangshan@kylinos.cn
-Received: from lazy-pc.www.tendawifi.com [(118.251.48.97)] by mailgw.kylinos.cn
-	(envelope-from <yijiangshan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 934017081; Sat, 15 Aug 2026 19:57:30 +0800
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-To: johannes.berg@intel.com
-Cc: marco.crivellari@suse.com,
-	maoyixie.tju@gmail.com,
-	luisca@cozybit.com,
-	linville@tuxdriver.com,
-	linux-wireless@vger.kernel.org,
-	libertas-dev@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	13667453960@163.com,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: libertas_tf: fix UAF in lbtf_free_adapter()
-Date: Sat, 15 Aug 2026 19:57:24 +0800
-Message-Id: <20260815115724.920628-1-yijiangshan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1786795409; c=relaxed/simple;
+	bh=LYGRILV/oF9trCXsIGSs2jsbXo2JEiK39Pyy+rnrfoI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YSBYWIJiPZbFvp6xII4nGhMR638WdhbbKQg9M7IOIvoS1lTCcYRXY1XNV6ynfNJBQF4bvkqVN7pt0Gab2fZMy8UFHk6G1VbLMpG7G7JYPsOphXgAUs3FbYNcdvF+0aLRSLgkWn5u3R3QrK9w4Uvsr3JlgESBFcI/Egr9/KN0MMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Z/xHP5yq; arc=none smtp.client-ip=95.215.58.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Z/xHP5yq"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LYGRILV/oF9trCXsIGSs2jsbXo2JEiK39Pyy+rnrfoI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786795406; v=1; x=1787400206;
+ b=Z/xHP5yqXmLMRCFuKAHh35Ur3s161UWbOO3NIS3aNIwSMfDS0x80o4x+JYkTLj5CZJ3zUlOZ
+ n48mR+FX2CF6vs5rB8hVe15r1RVHPZnfQbH3RfFzUgrbrwVPX86D85tl6qX4KskQzPUu9vil1I1
+ 7LEt7mpa5JSKsBSC6xaLPKBc=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2a02:6b6f:e75b:1900:855:edd6:ce7b:4965] (2a02:6b6f:e75b:1900:855:edd6:ce7b:4965)
+	by smtp.migadu.com with ESMTPS id 214e31bdbe017913;
+	Sat, 15 Aug 2026 12:03:26 +0000
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0a97021b-7fdf-4e29-b59d-d9fe07c6c409@linux.dev>
+Date: Sat, 15 Aug 2026 13:03:25 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 0019/1611] iommu/amd: Use maximum PPR log buffer size
+ when SNP is enabled on Family 0x19
+To: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+ Borislav Petkov <bp@alien8.de>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Joerg Roedel <joerg.roedel@amd.com>, Vasant Hegde <vasant.hegde@amd.com>,
+ Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>,
+ samuelcrossley@gmail.com
+References: <20260813132447.3396830-1-usama.arif@linux.dev>
+ <20260814193000.12@kernel.org>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <20260814193000.12@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-lbtf_free_adapter() calls lbtf_free_cmd_buffer() to free the command
-buffers before calling timer_delete_sync() to wait for the command
-timer callback.  If the timer callback (command_timer_fn) is already
-running when lbtf_free_cmd_buffer() frees the command array, the
-callback dereferences priv->cur_cmd->cmdbuf which points to freed
-memory.
 
-Swap the order so that timer_delete_sync() runs first, ensuring any
-in-flight callback has completed before the command buffers are freed.
 
-Fixes: 06b16ae53192 ("libertas_tf: main.c, data paths and mac80211 handlers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
----
- drivers/net/wireless/marvell/libertas_tf/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 15/08/2026 03:33, Sasha Levin wrote:
+>> I have raised this in [1] but also raising it here, this series seems to break
+>> kexec on Milan hosts.
+>>
+>> kexec starts working on SNP hosts once we do:
+>> Revert "iommu/amd: Use maximum PPR log buffer size when SNP is enabled on Family 0x19"
+>> Revert "iommu/amd: Use maximum Event log buffer size when SNP is enabled on Family 0x19"
+>>
+>> on top 6.18.43 release.
+> 
+> Does the kexec hang also reproduce on v7.1.y, or on mainline? That would tell
+> us whether this is the code itself rather than anything specific to the 6.18
+> backport, and it decides whether a stable-side revert is the right remedy at
+> all.
+> 
 
-diff --git a/drivers/net/wireless/marvell/libertas_tf/main.c b/drivers/net/wireless/marvell/libertas_tf/main.c
-index 42be6fa22f9c..411f075b6186 100644
---- a/drivers/net/wireless/marvell/libertas_tf/main.c
-+++ b/drivers/net/wireless/marvell/libertas_tf/main.c
-@@ -173,8 +173,8 @@ static int lbtf_init_adapter(struct lbtf_private *priv)
- static void lbtf_free_adapter(struct lbtf_private *priv)
- {
- 	lbtf_deb_enter(LBTF_DEB_MAIN);
--	lbtf_free_cmd_buffer(priv);
- 	timer_delete_sync(&priv->command_timer);
-+	lbtf_free_cmd_buffer(priv);
- 	lbtf_deb_leave(LBTF_DEB_MAIN);
- }
- 
--- 
-2.25.1
+I tested on mainline, thats broken as well.
 
+We are deploying 6.18 in the fleet and we caught it that way.
