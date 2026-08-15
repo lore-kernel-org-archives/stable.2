@@ -1,101 +1,136 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9219041A4F6
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 15:39:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC4A4229C6
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 15:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786808388; cv=none; b=FePEs3BvgKPRJnOxuGDJIecJ0M0WHc+IA69lwXoxEBN9rDiJheOfG+uMd1DXtxVXc6uCSjb6QGcXT0kF066XfXZPwcE9VPJJYNcZ24OM4tAffyXoofjfV9Uc3XeZUZjLHCe2vK/0SBy+deBpIcK1zVdxhSULzEVLHnmbiD/fsBU=
+	t=1786809317; cv=none; b=IW41fS3lyxTAqSmysPMDOTBKFRO1W4svPjoQW+/f0TyUvVpB7Fws5mMCJTPvPIvrWRYcGFrtUXUvRfkD6shChgnwztxsubsgV52zwcsH5zxHg9ThQYSZWdybtX+uQo66ZthMeUX5RLwq335vcqg+Phu8leAJIkHhRqa1wRXkyn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786808388; c=relaxed/simple;
-	bh=jtNz48xCi0S5F6jkuyRThkivP3pn+Gi7R3SLLhEvaMQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lhktsOF0JPCQQq0ctooWIs1poE3GRYB9ut3/6u6YzyFMaz/r8VJtvgTkJUJyRKBB8qi60X6ai97qmd1t4p/ZADSLW0Y4GsxXMsDZQ2TgQH81WExEmoOo/Q2XDMibIzWgZbC8nE+K9v0e3xAdVdL4jJDMf1/M+IlSX0ZTt0OpWrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jQmCeMfO; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786809317; c=relaxed/simple;
+	bh=8IpuJOxHR706GlJdC1MaCTvBsnsIcuNIwC/JXkIY6C0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Etfw5o3yWQOSR92w//9hod4q2T/Q2APG+SupE8UnGg6rHemY3qDbic7S1KM9aIlWJ86TlTep44zCBoJHqPR3rZxPlPYQydNLJ5WvvuEFU+VGqhI0xUQrEqGToBuz1st7384zqahBjTiefBQabX9uInLW1xiZ4KTMfa46lKD/OG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lnyek3sF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jQmCeMfO"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso13766435e9.2
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 08:39:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786808385; x=1787413185; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=63FZWuPp/rokKWnhrlhEyVlpDgyE7yf/8PcWB4UXVa4=;
-        b=jQmCeMfO9SHqpXfswM/L9c/Pk4/Ibj1MSEWN3Hq0fCToirQxNNqHkiRKJM5PhXAtQm
-         tLpds/hbqlx1WgP1b/neDCJ3JYSs/bWPxB/f9j3bg+PApcbGO7/oB13kVw1z1y+rVFn9
-         Vh8Q7xOAYmXJuNeeauxYMSyIXr+nMbpI3bs9m4MU1mXBkSYabodH2d2uVhfMEJAcKGjR
-         BipgEHEo6Epr1YO1IBTgvi7F2BrBjRRMav7QsPz9q8T4Q1llV9qfUKl3xpagTb3liur0
-         mM9mURw397srSrRYafB3l0twekvXp14+M7RYs0QZAPtARtcvX2uPP43IdhOBUMQgJ+Ep
-         nsOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786808385; x=1787413185;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=63FZWuPp/rokKWnhrlhEyVlpDgyE7yf/8PcWB4UXVa4=;
-        b=FCD0dierrbA+HA1bvmEGA6s2ELu0xuuQ4taTPKTGXxe182LvWSBHb0AJ7oQKS9Flrl
-         hc8KVMbLryq20SUGDqDts3DTRg/X15yz6uJXiixxZvO2R7LicPXv/bU2tSWKQOWAbAat
-         DCo1Jt6rktZu2upaWA30vHzu3qP0b8HQTwagxUmmkL6oiVF8+M3wFaJ67Bvazk99l5d8
-         oAkQp5MasC+CltSFv7WLGDHsFR+OnOpKtdT6G1IAYwd49/5wm6pcNQ15/1yNkcAJPNSh
-         i48NnXtDOTYDMAG/Dbf4twfqGp46Mu12cywmnJX0VrOmM7tiO/LmMJgQOibwKrAmzZdr
-         twKA==
-X-Forwarded-Encrypted: i=1; AHgh+RrbnrwUJLAf+gafJV4a0lBDDT2pqZRmqqoZXVwjLaTDv3Xutj6X1eQ4LOwi/EKmWV82yQjkKuk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxi2XfDnyPPAk+sJwMLZeMA1hYJtVaLBjB2A2USyWZSgrnJpCAL
-	TcQvyRotLVPYaDNvdAuTDY7/U+aa9sRpeJKjpQ5mAcXrvom+7UjYU+dU
-X-Gm-Gg: AR+sD12iurVL5M1+iopReTRTuzjSRLmDCFZbuMI3pt148EAXc6AxLshHEUDFsN6SU6m
-	OqzJN42P/2SEJ4tDc/DIj4qVWP/nJ8OrjvD+7kcUpwDlIUtOqGlnt+QE4+6yuuoBHMmsZ48muSB
-	aQ2thTiono1bUe3Rwvknkn4tvZg06tpVV7d+JAPkfo/mE+ybKurGDMymxUO4BNMUDSszLueDBOQ
-	3t5UUwLUeNWQzjFEd0X/J2YYHZLWg3pAifRLHyvZ5RnHF2uIOr8cscYLqd0HTv6kdmitHPqGuMm
-	ebgfZ8ZzpeKvBbaNj2QuPMGppo0XZ2/rbsgieqSTLyhPgiV8XQC4wi3FVcSe9qv/0XoDJRINMxq
-	mOrWncWzY0oN4mcRCvGjDMOyoPXPhwvvlsEbEIsEac82FYup6DRQpSGQLphH22YnmnnDlwMQd8t
-	U/a1Z/oXR6A5m5D4GZzN3o56jvEe5y6uLX9CU7NdFt/9hZN/mQpPR43srMtSZAREDFq23aGtG4s
-	b6tnNuEnsx2MLBdDZyNGT0HSyzq29q2bR4rCVc8XaUYIJk4Wv3nh1R3sc3mtPtQ63h2C55EIAr2
-	SwPhO/gabso6DQZATchnYu1rzoBjk07zcxGTXM+7GxMd7Gn22wnZvuz8ipybyQCJYw==
-X-Received: by 2002:a7b:ca57:0:b0:499:8777:ccba with SMTP id 5b1f17b1804b1-49987961b86mr146990645e9.12.1786808384630;
-        Sat, 15 Aug 2026 08:39:44 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-aecb-d601-fc34-eb31-14a1-3704.310.pool.telefonica.de. [2a02:3100:aecb:d601:fc34:eb31:14a1:3704])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49988b24746sm259187945e9.12.2026.08.15.08.39.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 08:39:43 -0700 (PDT)
-Date: Sat, 15 Aug 2026 17:39:42 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
-Cc: Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/v3d: Fix NULL pointer dereference in CPU job cleanup
-Message-ID: <aoCH4xjqTOiZc0_K@gmail.com>
-References: <20260815145914.84154-1-kmehltretter@gmail.com>
- <cdfaab3c-89b4-470b-aae4-d16f7aaf18ea@igalia.com>
- <aoCEGJXl5k6IrhT5@gmail.com>
- <d3aaddb2-b7f7-459f-b80a-e2c4f7b3d87a@igalia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lnyek3sF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E8C1F000E9;
+	Sat, 15 Aug 2026 15:55:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786809314;
+	bh=pQBjAZ1SUQVfuIENx8Pz1AtbBIVcuP5UKydLbAkE4ZM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Lnyek3sFEaBp1V5OOvq5f2zYhtWPQMKIV4+8x6fboarnVKX4Cy+rOvuoIZu9M4/Jr
+	 xbpLMYlFewi+OZ8va4gt9KB6XzX4BfXm3BWhMo+yZvv6K1lUsXs8QwJ62kSbrfMgs7
+	 5XIymLXdcRaNfXBKqUNHa1MmPQXtjypiEYrX7E+srAKvLElDHSqmRPRbYaJ25i2SkY
+	 5/B0puJNouRsaQOZKRsolkiL62HLev6TdHMGuliaM2t4US8ggn4RZiccZaB9rsSuWT
+	 6ND6BbQCKYPnd6/pZN/DkJfPhm/w7jaS0dA6udhxOTkCgi6g39iUS4X+0mbHAJuRGW
+	 43lo4cRaoKgjQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yao Kai <yaokai34@huawei.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] futex: Fix race in futex_pivot_pending() during private hash resize
+Date: Sat, 15 Aug 2026 11:55:12 -0400
+Message-ID: <20260815155512.785627-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026081353-usher-wackiness-91af@gregkh>
+References: <2026081353-usher-wackiness-91af@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d3aaddb2-b7f7-459f-b80a-e2c4f7b3d87a@igalia.com>
 
-On Sat, Aug 15, 2026 at 12:26:37PM +0100, Maíra Canal wrote:
-> ATM, no, as the fix was part of a larger refactor in V3D's submission
-> code. Have you faced this issue in any real life scenarios? If so, I can
-> think of a way to backport it.
-> 
+From: Yao Kai <yaokai34@huawei.com>
 
-No, I did not hit this in real use. I found it while looking at the v3d
-code and then reproduced it on my Pi 400.
+[ Upstream commit 8e7ff730dd96519a333d1570edf1c3fabb6d3629 ]
 
-So there is no hurry from my side. Please decide as you like.
+A task performing a custom private hash resize can remain blocked in
+uninterruptible sleep indefinitely.  The hung-task detector reports:
 
-Thanks,
-Karl
+  INFO: task futex-resizer:314 blocked for more than 10 seconds.
+  task:futex-resizer state:D stack:14824 pid:314 tgid:312 ppid:311
+
+  Call Trace:
+   __schedule+0x521/0xf30
+   schedule+0x22/0xa0
+   futex_hash_allocate+0x3db/0x490
+   __do_sys_prctl+0x6f5/0xbd0
+   do_syscall_64+0xf9/0x530
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+  Kernel panic - not syncing: hung_task: blocked tasks
+
+futex_pivot_pending() allows the resize request to continue when
+either no replacement hash is pending (hash_new == NULL) or the current
+hash reference count has reached zero.
+
+After the final-reference wake, another futex task can complete the
+pivot between the two observations:
+
+  T1                                  T2
+
+  futex_hash_allocate()
+    wait_var_event(mm, ...)
+      futex_pivot_pending(mm)
+        hash_new != NULL
+                                      futex_hash()
+                                        futex_ref_get(old) -> false
+                                        futex_pivot_hash(mm)
+                                          hash_new = NULL
+                                          __futex_pivot_hash(mm, new)
+                                            rcu_assign_pointer(hash, new)
+        fph = rcu_dereference(hash) /* new */
+        futex_ref_is_dead(fph) -> false
+      schedule()
+
+The pivot changes the state from hash_new != NULL with a dead current
+hash to hash_new == NULL with a live current hash.  Because
+futex_pivot_pending() reads hash_new and hash without serialization,
+the resize task can observe hash_new in the pre-pivot state and hash in
+the post-pivot state, causing futex_pivot_pending() to return false even
+though the pivot has completed.  The task then goes to sleep after the
+wakeup has already been consumed.
+
+Serialize state reads in futex_pivot_pending() using futex_mm_phash::lock.
+This guarantees that futex_pivot_pending() observes hash_new and hash
+atomically, eliminating the race condition.
+
+Fixes: bd54df5ea7ca ("futex: Allow to resize the private local hash")
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260804125530.3933754-1-yaokai34@huawei.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/futex/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 9e7dea6fc0ccd..0b65188a624b6 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -1743,12 +1743,12 @@ static bool futex_pivot_pending(struct mm_struct *mm)
+ {
+ 	struct futex_private_hash *fph;
+ 
+-	guard(rcu)();
++	guard(mutex)(&mm->futex_hash_lock);
+ 
+ 	if (!mm->futex_phash_new)
+ 		return true;
+ 
+-	fph = rcu_dereference(mm->futex_phash);
++	fph = rcu_dereference_raw(mm->futex_phash);
+ 	return futex_ref_is_dead(fph);
+ }
+ 
+-- 
+2.53.0
+
