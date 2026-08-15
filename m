@@ -1,42 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9FD1E7660
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 02:33:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282952DECD3;
+	Sat, 15 Aug 2026 02:33:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786761225; cv=none; b=QYt05EDWFYn9rs0/SVAvfPgZrFp9emttmdbQhlRbP0F7QvwAAQBjz3EannGQ2W0UZm4TqSjcQrYNifVUa3afSydUpppJMSY+VlvE4tGt6EdPpT6mx84GYAiheynbRZnJ7cdiWBioystgqQ9cDXZaY+4fvivgmpfwntkUZIKB0U4=
+	t=1786761226; cv=none; b=H4tE4oMilFFLiQedTmUaGurtt1JE4kdlMOWqRVPofLPiMHLC7mBe2w0pPIf7o2D9276e0Jh3FwFYZEeMTOnZhXqOJBkCeetGeu96cu59ze7IWtiSScdx6FLXj2L4bRAMh18gOwYAErp20/ueQmb0knr6JKP0OC8e5Cmzxbk6NbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786761225; c=relaxed/simple;
-	bh=0ZJ/bJcbBgz+5xTAQ4fcj5wDsp2dXpIo1akKwHtljNA=;
+	s=arc-20240116; t=1786761226; c=relaxed/simple;
+	bh=vLRoDnNbSv73/vRxLNFdhwGhcAZQpg4yXKkiTGf9vgA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tkIKrfoBAK6MggQ1pq+fBcOA/u9240Cqht6PrFMSkfBSgI2s0SFRC1Wt4ZiwQKH2C9vFdleT3Vz8Ei9je3lnXuh/WphE34uEJK9wgrZXBYD7CfFFrjtIRE1NEuDid594NZRMUHQlSab8tG85oc6VKAykyiRDDAAzJQ9lAuIvXi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uf/iMOpN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cgUGfg2CD7hYue9PGhs+ZPjsK6RCFNNjxmnBb847tkyKyK2WXQxe16FKiVcDjfMBpgdJotf6qAqccplEsewCrqxMUJgJjUhWruXQxQyleBf99PxkuEILArZOBKWW3ynv09AeTX+OVW28rNaj8A+Doq+gbbkCcH+JfQCBDibXH5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvtcPxPN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uf/iMOpN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5CA1F00A3F;
-	Sat, 15 Aug 2026 02:33:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvtcPxPN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E471F00A3D;
+	Sat, 15 Aug 2026 02:33:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786761223;
-	bh=58wWBOlU/x8BUZR8H7okQ6aXgeOnVkk/sJYaXd+7kDg=;
+	s=k20260515; t=1786761225;
+	bh=XMJH5IhKgbP0GlplaS7HHmpY8/QxgLYD/LHhFyzeqEU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Uf/iMOpNNs0ZaSPOES8N+mVgvRZHRO1r680C4V8XrDQJzOdZfcYfuNi8EaoEPmpHY
-	 OqCkCWXg5BpBMVLiLcZBTnMT5zJXefATDE8GFFNZRUTFrPTlB0t2ev0uW+iBRkjN3w
-	 i5uf3GwyggWO6ciMZQukx7ucfeiN0QECdIXKfWchMNqQjUupP2oME7mgAu5/NeUppV
-	 yDGPK4YOmKsR9aQS9kknQY7YeDj1/kDkStYcH00V7q48oYYlX5hxgz3Ia7+19npIXK
-	 zfN6EKtebW74kL+MpuC6Xl2Vy7IOnXpxvW7sYyAmhnMYhu0ArysOaexFj6bpnps7Hw
-	 HVk/e+Lmedpbw==
+	b=dvtcPxPNINkzeWKUItregYBeEN9pcU4ZdTl4t2KhmnhqKj0OqXFbTeJBYVu9jcI6P
+	 nmFkedCRqNZp7eld+UP5KxKRtv7Kr3V4Vd472dDoUzxxECvphZoimEGsQSZb4QZ4Ou
+	 BbKOjDKB3Xb+z40rpT0bCzgrSe2McJR+G2aBliRYpoXPQ1MySrCaLYX/17ROKNAhhF
+	 4mcL6aDw0Yer9B5E0dCcNm5F+S2L5aB1fIWvPqxkIwZl0y6JtSSPNP0jYuiDCQgPXu
+	 QE9pLS2PE7Cyuv3ksoXxnuCeK+ong98DndN7KPFB63e4fdPwMvBsYoDG58g2FxqCp3
+	 hCvLdbfrUt8dQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: "stable@vger.kernel.org" <stable@vger.kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Subject: Re: [REQUEST] netfilter backport for 6.18
-Date: Fri, 14 Aug 2026 22:33:17 -0400
-Message-ID: <20260814193000.17@kernel.org>
+	"linux-bluetooth@vger.kernel.org" <linux-bluetooth@vger.kernel.org>,
+	Nils Helmig <nils.helmig@web.de>,
+	Alexej Sidorenko <alexej@sidorenko.cz>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	"luiz.dentz@gmail.com" <luiz.dentz@gmail.com>,
+	Stefan Muraru <muraru.stefaan@gmail.com>
+Subject: Re: Please backport two btusb/btrtl commits for RTL8761BU to 7.1.y, 6.18.y, 6.12.y and 6.6.y
+Date: Fri, 14 Aug 2026 22:33:18 -0400
+Message-ID: <20260814193000.18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <anyrKBU6iTymdAI7@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <anyrKBU6iTymdAI7@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+In-Reply-To: <em37b1be4a-6bda-427f-a913-4d6e6521e457@gmail.com>
+References: <em37b1be4a-6bda-427f-a913-4d6e6521e457@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,13 +49,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please include commit 7e7a817f2dfd ("netfilter: nf_tables: avoid
-> softlockup warnings in nft_chain_validate") in kernel 6.18, at it
-> resolves a softlockup and the prerequisite patch is already in 6.18
-> (i.e. commit a60a5abe19d6 ("netfilter: nf_tables: allow iter
-> callbacks to sleep")).
+> Could you please pick these two mainline commits into 7.1.y, 6.18.y, 
+> 6.12.y and 6.6.y:
+>
+> bc597f0cc44f ("Bluetooth: btusb: Add TP-Link UB600 for Realtek 8761BUV")
+> 5ead2063611a ("Bluetooth: btrtl: fix RTL8761B/BU broken LE extended 
+> scan")
 
-Queued for 6.18, thanks.
+Queued both for 7.1 and 6.18, thanks.
 
 -- 
 Thanks,
