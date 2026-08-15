@@ -1,125 +1,123 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E016312814;
-	Sat, 15 Aug 2026 01:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8401FCFFC
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 01:38:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786757292; cv=none; b=fNfhZwyPPnH/UO75Y4/O8m5HhWXQSsmhbSRd6QPZEarlp0a1DSF7SfGzZGPRfjuKTFZPTpydYgfxITp9WA8AgQMjOG0fcqaoTiZ+2BoIcF1r0YtJ9qBMkiYbv6XPK2g2DQkQY67ysBtzSBqCPACV2Y0+AcJGTEwFc4yjQNVKuyQ=
+	t=1786757939; cv=none; b=sEO2ise4eyyvN9i/uDp9ar0SsHTzcAw0qxK1fHbCBdq5z34vr0PW6r754TthqXNIFPEb+G4HTVVXBGAu3sshdrROC9S8wAnZhmvQoq7mubPneXPf8nO7wdOVzLbckb47ideLa3DZa+91dav+OrBXxkcxPLw1nOeOfca2LIrlUM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786757292; c=relaxed/simple;
-	bh=i8psI6C/EWkgE1agJYuu20V7N7q/GhFtr6v4aZRaPQA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MnK94UitKT5VhpfMNssiECTrhJgN0HzvArMMWtrk+o+kYEiQ+B3LcYyD8Fw+ZMKZZ14TQcI+QAgxyj6LNAB0gb2MBKrghHwMQz6h6Q/8Ikq6eZs9H3WfwYTyLDfHbVDFDbb3+PArfUDBtoU2veNOAalzFbnROJ8vtBlS/FKlNRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=MobjhtXl; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1786757939; c=relaxed/simple;
+	bh=mCOXa+UzANBq0YSTWd7h4Gptj1cmZ7Q9m3HFpmaUeyc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e9Wnln90Sux63CYMcQ3DZQu4GbPl4rueb6+JPcAWFej08CudGv12iP5kMnTiUC4xIv9Fi395pvDIj//5/WTJ/6M07FEQyoFb6dR4q1axAY9D2D6npUrf7fozvzd0JGco8OKwZ7SVrvwuJb3PrHgtr058vS/PDtMVq7j9sUG2jAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cChEtWE1; arc=none smtp.client-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="MobjhtXl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=r1PYX+dy12H+xNJtrAohlzrViOsVWCnSOZLN4/ka9oE=; 
-	b=MobjhtXlCrYQeBwJp/hpWdl5+QAgHNU/OjrV7USnDD+M9YKRlQG5Cw3cftDmwdHwOEQh8R1FX9Y
-	5Y2pFk+8Rr6yqCj45WlGYPHyNKBPzZ6PXh3RGjUB9afQBV11/t81gtw+pYJm0JgfoyKTiLVhUU+3F
-	Qn4MzjNyMuA6T62Cmndf86Hrun2VqWTA14o7UwtcJwpKRxaH1rhQkUo28KuqH1JLS6ah5E/fwV9OK
-	F18POw0J3VK/fnpRjyM4wv7moAVZ3WNOh/CSTIkM0k36pNXmouGQM5znEDLckfcLbSozlJ9KGFLfo
-	UZ0vLBhMrvcx7HRmGyYSbgkhLFBZKeu18vlg==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1wv3Br-000000054yE-2pUw;
-	Sat, 15 Aug 2026 09:28:04 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Sat, 15 Aug 2026 11:28:03 +1000
-Date: Sat, 15 Aug 2026 11:28:03 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-Cc: Dave Jiang <dave.jiang@intel.com>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Kristen Accardi <kristen.c.accardi@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cChEtWE1"
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8efec2c28f8so10127386d6.2
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 18:38:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786757937; x=1787362737; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0DPz+4csxg4ejb60H4w2G/Kt+5hvp2XVZ2P+UQVR9Dk=;
+        b=cChEtWE1wDypLFTDVZvmbKsaRHG6fe1c6ef+TSesD6EFe1y57VCUfeIqFuQvCLbXjO
+         NUYp+1DXg9haXqwcdBYugSuPmpVe6QkG4Tagm3KHNkpwpiD/ueMNd/U0AWTtfuuGnlJd
+         yzzgCqoz4jUzOfGDhfyoDyIrl7dAHg0RLc7oEzmU5oOppXz329fRquZIbB35kVlMNtGM
+         Bw0Ee3q+td35oSwAjrUtQul4/gi1ifG/hoimC9fsx8BUAsWDynqp6qCy/rKu5THbJYTG
+         Km8ck/RLIp9UeLXxDudrIuMcASdHilHz3wLqOdgiYRlOKufpuASenbfRN5LNJRC04XsW
+         P6xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786757937; x=1787362737;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0DPz+4csxg4ejb60H4w2G/Kt+5hvp2XVZ2P+UQVR9Dk=;
+        b=pBk/e6wYvr2dcI0jlSonTADdBfC9SGgrG+81SHcnAV3odilBXYzZ7fetG4bRNP0fzg
+         ysE1WcED5z640FL9gFTM3HeE8DCKMBtQ0/SILKSvv3iVlw/ANQKarmowBwHSuOP2E7NZ
+         y/VqBriA2003f8+/epS53WOLPirueUTM0mQaJJ6eL1ry+RkWI9aTGeh1Yo1OzEjM0FM4
+         bFkEhNJK9SiJ9nM7B1TpVNcNvzhgUg6FQpWdfb/iXIn0u6r2sjHwMwtUixP2/1wCg4GQ
+         fp0qu74dXYg9mfiCv/W4WfZcQb0SM5SZlVeJ7o2y74PofeUR3lOnJLghMO+ldBFMmXom
+         +hjw==
+X-Forwarded-Encrypted: i=1; AHgh+RqGyiJZFU82Q7lBCoAlSZK4csaigFowhRPwma+qTJfDyAqdOISWppDTMPj+O3tjIUwc43nGJu8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyw/fhHTCuXLcSRigX/w+gAW6uUIBLSvIV//OgejWIW9tZQBT2S
+	R40VZhG3JPw53guyDIvq9EgjxEwiWj9IpK5NBMOK5VEKjWWqdMlbktC2m2X7YRQR
+X-Gm-Gg: AR+sD13mjYIxLw6690KDuL80Q5IG+7aSj/YV5e5TWgKWsVaURoi8ANSNoz8W/F9EZk5
+	fnnDK8LzghWmWc3iah063o/xE7RqRu9jRtDzkIIUUnDLtC6VRQKwGb3FWeGUlDxXA6FNmiSWMlm
+	JhO9DJavNhxBVxjgvqjgQA4vyCZdCnWzm+OohA09BcWr3puJte+uSJDylSx5otH0wNPjx9t49Vo
+	KNrn/y7KrVPC1hM/mhs+M01uwMr+KmyerrbOzwe0Y81p/dtky0+9hpB484nrvzjia60A642AwgS
+	rXCtpCppBVPQ4VI7J3FX3ayWATiKGPVk/OTzUNBZ3Ih82auvuNccGMPmJcdMZtlHtwzp/PkC5jg
+	zkbqwfyVMTM1uyIy2sv73LFGkFwyYWU4lScf4JWv8JMtuxUkdVfQtfDjyJxKOTCvXJSH4o3JSn7
+	XcMAGwr53RatpuKL55T7CogtNRQhwtlAeIWeeFW1wIhY0COoWmvTg4ZGpj2hBgYLg/NBMpsbjDp
+	607WmEpRW1D4bEvxGA=
+X-Received: by 2002:a05:6214:1316:b0:8f2:3472:5b33 with SMTP id 6a1803df08f44-90a91da5cd9mr114078476d6.23.1786757937258;
+        Fri, 14 Aug 2026 18:38:57 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90a9354d2c3sm30800376d6.38.2026.08.14.18.38.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Aug 2026 18:38:56 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: viro@zeniv.linux.org.uk,
+	r.baldyga@samsung.com,
+	balbi@ti.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] crypto: iaa - Fixes for multi entry SG lists
-Message-ID: <an_AozAC9YzCZzIp@gondor.apana.org.au>
-References: <20260805-iaa-crypto-fixes-zswap-v2-0-55c02694f499@intel.com>
+Subject: [PATCH] usb: gadget: f_fs: fix use-after-free in ffs_func_unbind
+Date: Fri, 14 Aug 2026 21:38:18 -0400
+Message-ID: <20260815013818.39466-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805-iaa-crypto-fixes-zswap-v2-0-55c02694f499@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 05, 2026 at 02:19:21PM -0700, Vinicius Costa Gomes wrote:
-> Since commit e2c3b6b21c77 ("mm: zswap: use SG list decompression APIs
-> from zsmalloc"), iaa_crypto started seeing some failures with
-> multi-entry scatter lists.
-> 
-> For that we introduce software fallback, in patch 2/5, to iaa-crypto
-> when SG lists have more than one entry, for both input and output.
-> Patch 4/5 adds a bounce buffer so small/simple requests can be
-> linearized and sent to the hardware. This recovers most of the
-> performance.
-> 
-> Patch 1/5 updates the default resources reserved to iaa-crypto so more
-> engines are associated to the iaa_crypto group, resulting in better
-> utilization by default. Patch 3/5 fixes so software request "bytes"
-> are not counted as hardware "bytes". As the idxd changes only affect
-> iaa_crypto, sending them here makes more sense. Patch 5/5 fixes a
-> pre-existing issue pointed out by sashiko, that could cause data
-> corruption when a hardware error is reported.
-> 
-> A potential use-after-free issue when a descriptor submission times
-> out, pointed out by Sashiko, still remains and will be handled on a
-> future series.
-> 
-> It should be noted that as the software and hardware implementations
-> have different expectations for the window size, something like patch
-> [1] or the future 'set_params()' API are needed to verify that patch
-> 2/5 works without patch 4/5.
-> 
-> [1] https://lore.kernel.org/linux-crypto/20260326100433.57324-1-giovanni.cabiddu@intel.com/
-> 
-> Cheers,
-> 
-> Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-> ---
-> Changes in v2:
-> - Added patch 5/5, for a pre-existing issue, that touches the same
->   code paths as this series (Sashiko);
-> - I took an old version of Giovanni's patch 4/5, new version is
->   simpler to read; because of changes did not take Dave Jiang's
->   Reviewed-by;
-> - Added the missing Signed-off-by tags (Dave Jiang);
-> - Link to v1: https://patch.msgid.link/20260713-iaa-crypto-fixes-zswap-v1-0-65cac23c684d@intel.com
-> 
-> ---
-> Giovanni Cabiddu (4):
->       dmaengine: idxd: assign all engines to group 0 in IAA defaults
->       crypto: iaa - fall back to software for multi-entry scatterlists
->       crypto: iaa - avoid counting fallback decompression bytes
->       crypto: iaa - use bounce buffer for multi-sg decompress input
-> 
-> Vinicius Costa Gomes (1):
->       crypto: iaa - unmap dst before software fallback on decompress
-> 
->  drivers/crypto/intel/iaa/iaa_crypto_main.c  | 270 +++++++++++++++++++---------
->  drivers/crypto/intel/iaa/iaa_crypto_stats.c |   9 +
->  drivers/crypto/intel/iaa/iaa_crypto_stats.h |   2 +
->  drivers/dma/idxd/defaults.c                 |  12 +-
->  4 files changed, 201 insertions(+), 92 deletions(-)
-> ---
-> base-commit: 947d62c094367ef6064907d570b47612cd579df6
-> change-id: 20260713-iaa-crypto-fixes-zswap-ff5baae311d1
+ffs_func_unbind() continues to access ffs after calling
+functionfs_unbind(), including taking ffs->eps_lock for endpoint cleanup.
+However, functionfs_unbind() drops the binding reference to ffs.
 
-All applied.  Thanks.
+A concurrent FunctionFS unmount can drop the independent superblock
+reference. Either put can then release the final reference and free ffs
+before ffs_func_unbind() finishes its endpoint cleanup.
+
+Take a temporary ffs reference for the duration of ffs_func_unbind() and
+drop it only after all post-unbind cleanup is complete.
+
+Fixes: a3058a5d82e2 ("usb: gadget: f_fs: remove redundant ffs_data_get()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+---
+ drivers/usb/gadget/function/f_fs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 44218be1e676..8acad4564b6c 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -4089,6 +4089,9 @@ static void ffs_func_unbind(struct usb_configuration *c,
+ 	unsigned count = ffs->eps_count;
+ 	unsigned long flags;
+ 
++	/* Keep ffs alive until all post-unbind cleanup is complete. */
++	ffs_data_get(ffs);
++
+ 	if (ffs->func == func) {
+ 		ffs_func_eps_disable(func);
+ 		ffs->func = NULL;
+@@ -4122,6 +4125,7 @@ static void ffs_func_unbind(struct usb_configuration *c,
+ 	func->function.ssp_descriptors = NULL;
+ 	func->interfaces_nums = NULL;
+ 
++	ffs_data_put(ffs);
+ }
+ 
+ static struct usb_function *ffs_alloc(struct usb_function_instance *fi)
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.43.0
+
