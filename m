@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D92221FD4
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 02:33:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6ADE2C11C4
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 02:33:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786761214; cv=none; b=vFPNsCZvZCABZf9j4r79nwng9OcZ3B+NJPIXyoF5jkXmdihwWFZ5d2VWKhoeunrOmfeS61QIvsoXhpgNfUXAE8m8wCF4Lls0J5XimlGBruK66qrveyfumLqiudPXkBbQy6q+BURhrU9jmAHWzEwnkAnH12xWd4OTkkacI4GhdCo=
+	t=1786761215; cv=none; b=eFc6OCeoXgwldZQjOS+Bl4/Ah4xvLsnKeCfo4QoRCx0IjKzBewStMuyIkHDnFt65X67jDZXTyGX7t7Rd6RFwrs+rJ/70cZ2GbE591VuV+oJigK1+5SS+/0xAnqJuHKleHTuJOB1ofS3MkfrG8YVux3PX85dUorRK9ARuYx+G4JQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786761214; c=relaxed/simple;
-	bh=Euq2MlUefmaoVcqWBO1jpal1hGzOm7vsSIj8nSlhKd0=;
+	s=arc-20240116; t=1786761215; c=relaxed/simple;
+	bh=bfJFlUYqH1LxK8gFhAYHxyxtX72qYYgYpKWrk69UFTc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WDNf7hnQ5jYnSDgIPQ35IarSYX+9U28QEQ7m9bCcvBfEYiGMR2FNU6Np3gaxQTH08lwIZ3Wvks3V6Aniw+ZNZpU9eX4Odpo/mGQOi4A1jwal6EYInm2CVSuJLGsyy3M0p6HP1j4pMK5mkVuI5OevLTOT99QSSjEyBxSZ0vry0XE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSTml8qX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uNOOaOi4O3eo0LXVii3P+18QFB3Tsqlbg22Hs0C4JtZRowt5XYPbllTjXeYyjtOtjUEHOPSoPFuKuSfs2nVjkGTopi+IJVbZj2+0MbmCNVDJc/JqwwrFhozIlK5P+Fqwi/QOCT7FQkxtU9Aza25BpChAq9wnTYzrnsA05GySQIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FUL3NfhJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSTml8qX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B77E1F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FUL3NfhJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7291F00A3A;
 	Sat, 15 Aug 2026 02:33:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786761213;
-	bh=W1vquZ0g3SXtLGiljW+zLl70j8uCqgl6zjmVi2V+iYk=;
+	s=k20260515; t=1786761214;
+	bh=rJTDjNDC9zCQW2iTEGVLfttRQvcQKO7F/RyvJJOQHss=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cSTml8qXtqcz/dLGwbv7phXvZnx+SKZyO8+nVWcruadKw/lPIk9A3SIrRuMsRfktH
-	 KeV8GgpReJH6l77IS+AIqGHQ6hRNSxf0RGzPsrw1kbxYgYlJl8Ux8IzPTQnuz10/3z
-	 FBagZ1O0z/ejNbqvrExzzq7gQTQa4ubMAvDLuTC6f0eOShMsLOLsaNtNfvbIIiQUi+
-	 0tu56WQcvc+xM70BNscO9ow9DG+0tqBNy74lCmOGrEfQHDyM1FA6BWBRe5E3iMk7Ei
-	 84aVI4ZCmUkTIjjGPHDEPpqjkqcQxduLcQ5iXbV3pXz+pW0hL7XeoyCVUlSKctx6mQ
-	 gxxt8j/Ls5JcQ==
+	b=FUL3NfhJLJDtFV5DZXyxt7/Cqah4wcRHoMlMyzb5aVPF4bI9CeIXRPa1tS2RTymD3
+	 I8RDG4RBvg9JQfp3VFwn7KRAefBD92dHEpDIz3BHm8rBvtMAyg9WnJJi8nCIC4qCW+
+	 +RDB2OC4MGVjQqjTbs4paa6/2tYS3YeW3RCMre8uCJH+bBHFXxdD0f8I5aGyriWqpv
+	 weJb7zJYzdx2B/dcLC2j1iHAUecElWli9i1fakjcxYe53YONp/SEJYNtOlL8o1p8R0
+	 RZ54wMN4fxTzPcNRRvjACc13y1nldpvu02qrFTzmwA/s3jgjuL4i62OH0cRBO4fc0N
+	 4eufPEs6WOcFg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	alifm@linux.ibm.com
-Subject: Re: [PATCH v2 stable 6.1 0/8] s390 KVM PCI backports for 6.1
-Date: Fri, 14 Aug 2026 22:33:08 -0400
-Message-ID: <20260814193000.8@kernel.org>
+	harshit.m.mogalapalli@oracle.com,
+	gregkh@linuxfoundation.org,
+	krzk+dt@kernel.org,
+	andersson@kernel.org,
+	krzysztof.kozlowski@oss.qualcomm.com,
+	kuldeep.singh@oss.qualcomm.com,
+	Harshal Dev <harshal.dev@oss.qualcomm.com>
+Subject: Re: [PATCH 6.18.y] dt-bindings: crypto: qcom,ice: Fix missing power-domain and iface clk
+Date: Fri, 14 Aug 2026 22:33:09 -0400
+Message-ID: <20260814193000.9@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812221323.3645-1-alifm@linux.ibm.com>
-References: <20260812221323.3645-1-alifm@linux.ibm.com>
+In-Reply-To: <20260812-adapt-ice-binding-for-6-18-v1-1-e224dcf77072@oss.qualcomm.com>
+References: <20260812-adapt-ice-binding-for-6-18-v1-1-e224dcf77072@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,19 +50,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This patchset backports the s390 KVM PCI fixes to stable-6.1. The patchset
-> includes one dependency patch (patch 1) from Jason Gunthorpe, to export
-> free_uid(). This is needed to resolve a compilation error. I have resolved
-> all other merge conflicts and tested them on s390.
+> The DT bindings for inline-crypto engine do not specify the UFS_PHY_GDSC
+> power-domain and iface clock. Without enabling the iface clock and the
+> associated power-domain the ICE hardware cannot function correctly and
+> leads to unclocked hardware accesses being observed during probe.
 
-This one is based on released 6.1.y, but the 6.1 queue already carries 2/8,
-5/8 and 7/8. With 5/8 queued the free_aisb: label sits ahead of unlock:, so
-4/8 no longer applies at all and a 3-way merge can't recover it either. And
-taking 3/8 without 4/8 would open a fresh unbounded mm_struct/user_struct
-leak, so a partial series isn't an option.
-
-Could you rebase onto the 6.1 queue - drop 2/8, 5/8 and 7/8, and re-resolve
-4/8 over the free_aisb: block that is already there?
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
