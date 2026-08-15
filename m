@@ -1,136 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E09341D635;
-	Sat, 15 Aug 2026 14:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB6D41D13F
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 14:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786805801; cv=none; b=H2YsDArs53Jd6iw/c6PP6XVeOSxT/yNGEau5ouf/MuSiKmlSkWG3GXI9aPHvjoSQOrI9Ihv7BlqUafweLxDRS1XeltnidGMp7Ap4Pqhe44V64hwF8y0JamPMzewAUFtMHSAGOOn8UksQcA0ImIW8BJGj2ifXsqfn244+zAWvKvs=
+	t=1786805961; cv=none; b=BLkG+TtfOlUuGZYN5Ozug0s5tSe7zpeIFBoSo6nwpnmffR9UtllVNmdd5vi6kSMZbD4692UbG6jyc7DNYjMQVKwwf22Kqqn85JQyRopHEeiFUv9izv1JxspcHiOb7CVmapvXkRhrwnVj4NJp60W8lmfSTr/F1rNiJOi7UpFFok8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786805801; c=relaxed/simple;
-	bh=E7cbrRaKnfEnuB6TrYEj9kr/oZV+HBllIAUlhUhevAs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SOoPI2VFXDhe5dWBjpaCNt6mDgpe3s7ZnQRwI8IgvjI7EeOV0MaJVoN580hM2AVI/QZUgXtNoiI3cY8mMnsLOyembBz75XrNXJNtp3uqP3/oxF4LqQPFJMK37oz7KGPb3XTTYnsg3AYPeJjaSDmO0rctb+53zwTNRlDxPcojkgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flroNpZZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786805961; c=relaxed/simple;
+	bh=hzPZ7/kMFfYPJqfR7nQm8nUAVNSLABD3zpPB6iBojYM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lXSRU9bYTSqP6lvfmWxmSJ+XFdGt35AweuNOCyzuBDn/sLFhLQM8+pl9jSn80OPmZrG/flH6RZvraqV6T8cet7oMSAxygtlqgmiKcAEsCrGwtXd2fBkan9uuhZoYAosZjfbcburKErWPW/xJ9pw0K3IOrzDFsvlINgb3Mbl5+ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LzQvtdVT; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flroNpZZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E6746C2BCFD;
-	Sat, 15 Aug 2026 14:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786805801;
-	bh=E7cbrRaKnfEnuB6TrYEj9kr/oZV+HBllIAUlhUhevAs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=flroNpZZeds8B09mO7QvwTXMy28jOQ0Ju9xzui3R0QYzLw8M1XZFeNFpYdp4Bzii6
-	 XUACkU3o47B2AxQn623rEF4KKH+4VDPz/bpqQj3kZE705dfDbdIJlZNqZlIdFMQCWW
-	 wW33o28uR9FmOi7h/+JC3Rroz1XRXzL0kuw27W8TS3iAzIC7+jIePqPEWKGfkVz2W2
-	 HbItKN/rV4v+Z4miSSFh3Fv+PIbK9tg2uMfthtA6OJev4tHGxEw/uC1luo55wDoASA
-	 vuNw6mPVbEBSNpRNhOkRmDOU+a51/jcX0Hu224y6n0z5zIWoZKiRokBzMaGSkQ182p
-	 mfMi1U43Nl9gg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D200FC5DF6A;
-	Sat, 15 Aug 2026 14:56:40 +0000 (UTC)
-From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Sat, 15 Aug 2026 22:56:38 +0800
-Subject: [PATCH 4/4] media: vicodec: make encoder CAPTURE dimensions
- read-only
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LzQvtdVT"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so18638385e9.1
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 07:59:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786805958; x=1787410758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Wx5BkprMSKmCIjYgcc1kdDlxBMJZQro9c/22It8R+Vk=;
+        b=LzQvtdVTRlYtSvve8G8NWEJRysFMs6ifrtAQmbGR9i0aK8NhPmbb2h3rwaxkAdo2++
+         VW1NH5DtxCr4A3BSFvbsnJiR1FNGNE43La9D8YqF5WLY+oi33J1ASopXJm6nD9kZ/Fbf
+         wAOsVKhhHrP/KqjASTER6bhHk2wkcZ7QQvqK9LZDZwFFE+5UEvmLjhcEGgnFUA6cCdEG
+         I5wBbsasjwiM15fGgZlapfxoiPh5wI8FUAL7XekR0IEpBgDW0N/Nbrike37AmUilkPhk
+         ANw0YbXrP+Aa7feQ5vVSprF2PwjLdejtxo2LbKu+4TpyP6q1BhsdCI6CsPbxdCjWwDn+
+         yt1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786805958; x=1787410758;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wx5BkprMSKmCIjYgcc1kdDlxBMJZQro9c/22It8R+Vk=;
+        b=pAxG+WpTiOabv/RGBLVB1JFh6g3abWraV6w3atFIQezTLmVaIDgrz2p3vOD2BS+uhO
+         gKtXPZu8Rof7A7I/dcZL9UoNdpvQoN9WJJ8juN5GYzF5Phlx0BLC0FTCbTamwOkk39mX
+         L+2tYHJ3JyoQiUn+kFg17rWUMjfDw1By7fgzKr9YkLkvQphAjaTFoEFvm/Ct09kCyMGO
+         Hx31PR+k6Kt4SHp5NvlimXjc7YxuKxD87pqbFl7ZN0iqP0HMPamuJsAOTVVK2gm6NV3s
+         VyeZk4YKC+rbX5EKPBwMjn81DLmq2bNPNCILj2g6ELEmi2MHKK1xj8inM103abhT7Rx+
+         ghMg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1ubZiUYWn7nkPTRZC2++k2h3Qb95SdZNX2bEM2cPyl0g412s/r8gVW1YqBk87NVWRgnGxRbE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7MhOktHDlIXNf0spCydvw32gxg+LFMcLkjM3IRwcz06YhP3wF
+	k48BEGl6sbWmbT+jKudCcEG9Pb3USNpWMFhcvqWL+jAGbRSOCOI9x1jK
+X-Gm-Gg: AR+sD10aoH1lGyOD9DoLWWvh/O3AY8mhTMfialD1TCnefVfU61CnSo0nCXN6lVGCCfc
+	lEBgM6fr4qsj1PbOcYE5WBjDPIXfWaQX4H1nslqbhsozZdZSV2CX/xAqcuMRrGFDsrYLpC2J4VQ
+	t7hxHghpFr5ZQ6okchB3PHDvOf3nVwUs/IuTzrScdimKRVcnPyq1QehDCKhaip2raOLQ4HyBrsu
+	yIqrIN4GIkMU/xQtcY3VYolVQ0+3MvP3+u964kekR4b1DbxFIGi68pSpyoVlb1mXOy0wGpr9xEk
+	KV1jK56wN814hUaJOgiLVxtXIcovF37IDKPhhVGZA8G1SrO0sBkeGyXD2/gRLiIzds6kQr7c/d5
+	qM2KnLAwewMWB3X5fR43yt89vkKN9PHHMe0XSrrETBHHonsGIgFY8gtLguDXV1tqnysEz0DNRWY
+	iF7bI2D+L9bSRFFgZDCjgmweGSwcHoIIA33soLdVAPYzZv4qV6Bx1RVNWFvP3nJJTW8h7ZGedDi
+	WQuhGScBjcWfNtrF8GX/BZRhZ1NLvFnIkU+yFoGv4IcOxUTWmShmrjXgMiATKfWoT7eJ4HXiubH
+	mCfrGTZco6pICUEIF2yhpcfNFQYneXTCgJQE5iqYWW/i0zgo9lIfcAz2i/pLF3N3hWow
+X-Received: by 2002:a05:600c:3485:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-49987938e19mr207043855e9.1.1786805957923;
+        Sat, 15 Aug 2026 07:59:17 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-aecb-d601-fc34-eb31-14a1-3704.310.pool.telefonica.de. [2a02:3100:aecb:d601:fc34:eb31:14a1:3704])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499899b5f86sm119605645e9.5.2026.08.15.07.59.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 15 Aug 2026 07:59:17 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Melissa Wen <mwen@igalia.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Iago Toral Quiroga <itoral@igalia.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/v3d: Fix NULL pointer dereference in CPU job cleanup
+Date: Sat, 15 Aug 2026 16:59:14 +0200
+Message-Id: <20260815145914.84154-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260815-vicodec-fixes-v1-4-12101572eba7@outlook.com>
-References: <20260815-vicodec-fixes-v1-0-12101572eba7@outlook.com>
-In-Reply-To: <20260815-vicodec-fixes-v1-0-12101572eba7@outlook.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Dafna Hirschfeld <dafna3@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
- Junrui Luo <moonafterrain@outlook.com>, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2745;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=39hTfONQcomxQ23TBhyVDkf40Z5LuSFAHoiUH91wz3M=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrIY69f9S97dv0M2N3STy3Zft8LqiJd3Lz3grX9ijw
- hmzknf1sn8dpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMBHDlwz/rO7x5Nace7V/
- 7X/By3KZN7hWZv8MaTzD90bn18z5U1heVTAy7Os44KpTX2Pb+tek3lbsZje7wiLGI8fc9X7/zDw
- udt2ZEwAzA0ya
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
- auth_id=909
-X-Original-From: Junrui Luo <moonafterrain@outlook.com>
-Reply-To: moonafterrain@outlook.com
+Content-Transfer-Encoding: 8bit
 
-From: Junrui Luo <moonafterrain@outlook.com>
+v3d_submit_cpu_ioctl() allocates cpu_job before initializing its embedded
+drm_sched_job. If extension parsing fails, no CPU job extension is
+supplied, or the BO count is invalid, it jumps to fail before
+v3d_job_init().
+v3d_job_cleanup() then calls drm_sched_job_cleanup() with a NULL s_fence,
+causing a NULL pointer dereference.
 
-Setting the encoder's compressed CAPTURE format to a smaller resolution
-than the raw OUTPUT format makes the encoder write past the end of the
-CAPTURE buffer.
+An empty DRM_IOCTL_V3D_SUBMIT_CPU (flags == 0) is sufficient to trigger it.
 
-For a stateful encoder the CAPTURE width and height are not
-client-settable; Documentation/userspace-api/media/v4l/dev-encoder.rst
-specifies them as "ignored (read-only)" on VIDIOC_S_FMT. vicodec only
-implements half of that: vidioc_s_fmt_vid_out() derives the CAPTURE coded
-size and sizeimage from the OUTPUT format, but S_FMT on the CAPTURE queue
-overwrites them. The encoder then takes its geometry from the OUTPUT
-queue alone, and v4l2_fwht_encode() gets no destination length.
+Deallocate the job and clear the pointer on these paths, matching the
+existing handling when v3d_job_init() fails.
 
-Overwrite the requested width and height with the OUTPUT queue's coded
-dimensions in vidioc_try_fmt_vid_cap(), making them read-only as the
-interface requires.
+v3d_job_deallocate() frees only the top-level job. If extension parsing
+already allocated query or indirect-CSD state, that state still leaks on
+these error paths, turning the former oops into a repeatable leak.
+Fixing this safely is more involved and beyond the scope of this fix. This
+patch therefore addresses only the crash.
 
-Fixes: efec9c815e5d ("media: vicodec: pass on enc output format to capture side")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
+Fixes: aafc1a2bea674 ("drm/v3d: Add a CPU job submission")
 Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/media/test-drivers/vicodec/vicodec-core.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Tested on a Raspberry Pi 400: the unpatched kernel oopses on flags=0; with
+this patch the ioctl returns -EINVAL without an oops.
 
-diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/drivers/media/test-drivers/vicodec/vicodec-core.c
-index 36b92f68ac42..6d20a749635c 100644
---- a/drivers/media/test-drivers/vicodec/vicodec-core.c
-+++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
-@@ -890,6 +890,8 @@ static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
- 				  struct v4l2_format *f)
- {
- 	struct vicodec_ctx *ctx = file2ctx(file);
-+	struct vicodec_q_data *q_data_out =
-+		get_q_data(ctx, V4L2_BUF_TYPE_VIDEO_OUTPUT);
- 	struct v4l2_pix_format_mplane *pix_mp;
- 	struct v4l2_pix_format *pix;
+ drivers/gpu/drm/v3d/v3d_submit.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index 7682b24f13ec5..304950ba42a38 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -1313,6 +1313,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+ 		ret = v3d_get_extensions(file_priv, args->extensions, &se, cpu_job);
+ 		if (ret) {
+ 			drm_dbg(dev, "Failed to get extensions.\n");
++			v3d_job_deallocate((void *)&cpu_job);
+ 			goto fail;
+ 		}
+ 	}
+@@ -1321,12 +1322,14 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+ 	if (!cpu_job->job_type) {
+ 		drm_dbg(dev, "CPU job must have a CPU job user extension.\n");
+ 		ret = -EINVAL;
++		v3d_job_deallocate((void *)&cpu_job);
+ 		goto fail;
+ 	}
  
-@@ -900,6 +902,10 @@ static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
- 		pix = &f->fmt.pix;
- 		pix->pixelformat = ctx->is_enc ? V4L2_PIX_FMT_FWHT :
- 				   find_fmt(f->fmt.pix.pixelformat)->id;
-+		if (ctx->is_enc) {
-+			pix->width = q_data_out->coded_width;
-+			pix->height = q_data_out->coded_height;
-+		}
- 		pix->colorspace = ctx->state.colorspace;
- 		pix->xfer_func = ctx->state.xfer_func;
- 		pix->ycbcr_enc = ctx->state.ycbcr_enc;
-@@ -911,6 +917,10 @@ static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
- 		pix_mp = &f->fmt.pix_mp;
- 		pix_mp->pixelformat = ctx->is_enc ? V4L2_PIX_FMT_FWHT :
- 				      find_fmt(pix_mp->pixelformat)->id;
-+		if (ctx->is_enc) {
-+			pix_mp->width = q_data_out->coded_width;
-+			pix_mp->height = q_data_out->coded_height;
-+		}
- 		pix_mp->colorspace = ctx->state.colorspace;
- 		pix_mp->xfer_func = ctx->state.xfer_func;
- 		pix_mp->ycbcr_enc = ctx->state.ycbcr_enc;
-
+ 	if (args->bo_handle_count != cpu_job_bo_handle_count[cpu_job->job_type]) {
+ 		drm_dbg(dev, "This CPU job was not submitted with the proper number of BOs.\n");
+ 		ret = -EINVAL;
++		v3d_job_deallocate((void *)&cpu_job);
+ 		goto fail;
+ 	}
+ 
 -- 
-2.51.2
-
-
+2.53.0
