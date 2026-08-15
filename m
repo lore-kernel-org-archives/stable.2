@@ -1,125 +1,236 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A28E1A683D
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 05:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786772447; cv=none; b=T1JoIWSBRzcNIJHPZEB9bEwv9mcQAXT2GD+xV08s8mHTVKq6G/L2jwCFlTiw5QJW5QZLPYLyCn6MZjShBNmHz/f6jAvIi017eRwf+168xLcZQfsEzY7T7b0fZqIw3IosPWSFbOHRKCachJ0ezmTqm2jNEqFvyfnF0O7P52pr+SU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786772447; c=relaxed/simple;
-	bh=RKr8wDx4vfIVDxaydRzoEQ7U5kq6zGMwRmAGuw0kiFY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lbeBOMy0fMONJVYVen2OwsjbRh3BRGu63JO0KAjDO076ecBYwlRPPt7dqpLibkj0hZSXLJZOS1NIj3uIXMz9KBEW7SJyn6KCp9WvdZnEwrZfD0OPy/qPEDtxpvORu0qX4ADEAloMbv0jUg0VQmJTQ7WmyVySCPdbPSitv8LuRtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QqSFZx6V; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3CC29B77E
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 05:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786773508; cv=pass; b=YHNFst0oJgGakniWj5TxNY1/ugtwInYxpBtxOHYtxc/g0E+6ElGiVIUcA5jq6OvUR3SCILcZZKmp+AT3jqiwWx0iUDCp8XBbb5LvftWK5gBvCYw6d5d24bG+vCLBMBov4ebPWwIYjq9GKuEZXv1PvrMbI8v/Tz+8b3DvHW8cETc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786773508; c=relaxed/simple;
+	bh=MAjFb91ehRZt19IwjNc2zqB7sKvI8LxKr1AycouuNvM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=t2eVmcsft61OvDnh2Q3o/iHXJWAhJ8/jdPK78NR6C4ZO0ZvOaRWuxQyA+QGw4yd2dUmAKdFYL6JT23p8mNeukYDJy1keFkATbMxwPXwroSdv660zdnTmq4SwmOwCtLnb9s6xQ6/jtXCcqnb0rwNhpIsMM8T50hbq1qi13PJCBIg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hfj6DVQJ; arc=pass smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QqSFZx6V"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cc97653887so29313125ad.1
-        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 22:40:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hfj6DVQJ"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ccdf36f63dso180545ad.0
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 22:58:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786773506; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K7aLnJ/qETi/85YVkiMRmAO6XBAxKpVYf8Pvh+65EEALAGefnvQGaDdSwzyk8xitjU
+         LPVuG5boclNYs0PXU1vcmf4IawaXep5d3FxsK+gZHxmmLTwe3CjQWO/I8p2v9t/RT325
+         /ILifHHM9Ca1aOeSSVJ07CnR4uj48hPXyibXrqHO2Sl3I/43bpv9Nk3R89GqxvJo3HnM
+         TXlAjQy7Nmdfeikb4UKYzuMDXhCe9reXEW3afw1ROlHT7PAm9DiPvvgmt+9/Xt/E4xPQ
+         gqkNOHQBSOuZVUd5Vx/5gbo3kDGJJpR3jt54Y2u7AcgUU/r9eZCbSVxa9SE8b8y74bK0
+         J09A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GSNHZ1rhCWbjDqMjYrewNRXpE7DLnZyqNYRIuv59LLs=;
+        fh=WZjn/7oUC8+W7rIT6tx0AAv6nsQkJn5zJgBziffrsRY=;
+        b=TwUlF+eU7RsReE3EXAOMYZhkCJWzHLLQ4EH6iTsA72iugTY6SEgE9D9s4pjonG3vaq
+         GK4XJHpI0ZhrRRTwfRqdC39aPmfjAeUOsh/FmdtlvrMqoVTJfxHZLR1IGBk543A+BTxn
+         nkAFVFjKtNWjkzGVqVwR70kBUfauTpNM+gdGat4fYGHBnvoTEN8uhYsLc3bjlbSFhEhZ
+         Do6m0xrw9OS7jej/8iMndLwO2g5yhE/240ZyXt3UAx0z5AARFDG+PP6mplBND5S9zLEY
+         442zXI2wCrRcJ/7aSu24K6LRa1WRP8n0Lg0PfstWcBkojk+7yK+7V3yD1VZb1XjXQ0E9
+         1toA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786772445; x=1787377245; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xRZrKjh8gSRFHQ09WnLqzB2J4uOH4YDnOZFIpu3HY00=;
-        b=QqSFZx6Vi/qMcrp+18GwQQlQv7VzP2kxObCUH5kH0AsBU4tsGpKFb7MKOg4QwvK+y0
-         H6vobr1vPQ+Kminc2iuX73uGHwNpkh0jA9LDQEFhn0ebyt3MOGKromX2O5Z+1DxyJIk/
-         shKxzYzOBiIeWCVTBASGZq3KhqhD7Kq1r/OXXB26LgjWX5ZnEu28xGLBn3YhDQcjAGBR
-         BFWgdvC26uu99Yze+QECbiL+MbGChCtqc0i7vznLbxDOlcxBUzkT8bX9mPZNQ/9o9GOR
-         tcgE9hHuFEWP9WhjJsVLAq81uR/GVs+iBQTeEUPrNXr1g+l8ZlaMmKeNcMnHwMRDs2Kx
-         Mgvg==
+        d=google.com; s=20251104; t=1786773506; x=1787378306; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GSNHZ1rhCWbjDqMjYrewNRXpE7DLnZyqNYRIuv59LLs=;
+        b=hfj6DVQJAlfvwzocfR3WdlwWy+sIWGGjHr7wAu+TPKjLGjWcOnO5/yaupwxuA0LN5n
+         bV5E7Q7uVV79RW/vfwd7mQgHF/cJXl6/mgq7VuMX6uz/b7NbQTigANXb//uLxzO4NoZi
+         BOh/fk48zlUBmjE2nRWRGFKzzyh2dt8MnuZqp6j9RVjBo1rCfqH9VwcsCm4i0YcZ5kW0
+         Ga4vnVaN8Rw0paWZBFPpG3F47lfiE1NyZ2h2ZS2ySG0iWa1fMp+Y9ikhRnt3fgPRrkTe
+         1DS6RNKqDGmu0Xn6I5dzzpKfx4asf3bxZv0OTnJsbKipvoImvfPXds4s5bdi+BGZSpf4
+         kDwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786772445; x=1787377245;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xRZrKjh8gSRFHQ09WnLqzB2J4uOH4YDnOZFIpu3HY00=;
-        b=K1m6u+YlMvuYKFCyy+RotEaBJVa8FQnrx+FXUFxT0P/57BxabDXy0x3l2OCicb+OJa
-         igkEDhqZ0729h1gU1LNaEjGI8YsT/QziLe4FpVw5JVdfCEg0SzJRjZYeoRbTxzPhN1Y+
-         fCXF0tv6ZwUA6m9eSojSHvsGXmXmqnNljLZEtMG6zqAUWoK9TH55TqGgjbZF2xTv9/MF
-         7TOMGLwq41ozAl/dLO97uH9m4rn6yNeCK5N8wJ07BH7glOzHvmEhiNE1CKKZrGppOodB
-         wGqprlQePnlzapYT17i0jPZnnBSIaZCv2FeDN0ZkChUqmgfEKsckrCfH67BngOcIdGLr
-         lJbw==
-X-Forwarded-Encrypted: i=1; AHgh+RrwVLirovBxegJUhF4EQluEy5V50VOIaHTc83yZ2SVo/WWgOnx6POXHs+7Ue1Me/YmakZSPAlg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxiEiQjXZQzza5W0g2KnTaBLJLABK/ij4Z1jo2EdqiMJNmFuRdL
-	sl4/+isjGYbVLu/VnTWxLyfexL0c5lZMmOwpXJC6LSAL+N+fridLNi4Y
-X-Gm-Gg: AR+sD10m5Lg+z47020p1Ktw4+1OXypdFs+cXsiY4amREjB352R6kBIKQbk+tHCu3yTi
-	eddIUzg7t/3edcw+hBW+iyZIn/xRcUTe5vD5coQIWCaXh7HH6pDwwHeVQ7bUjIJtW5q2zb4/U83
-	EMZKUZYAsOt0pGjq4SIPkYdWzEQCM35fuzZ/khj0In3R2Gf2zw9B/5YW4+gqSL0hPkPpcrRmBeF
-	m19VE08TGBybiOZwc8EBrVAoMAEjP598K1JoUBsaEPocpykoI/jQCAnW/xQcXmKURcZRUSd70Ez
-	7hIzArIpWttaB/8zIb1Y7rrGoIJVpFIW5HrFUjwahm9V8URRItvnmDeA+MQrEvEhPvh8C4S3cg3
-	IW2VxuiHrXozIaL/GBS8Dk+h18ZKJwDRUby0t6xHl2/S6ND6MfyWFCL1Appn0GbNPDcW7Bj/Zii
-	y5EhH9oEBtGZ5pUM8LyrM7lUuf3RbUAvK73Y/EPY0MYPLQNJNw3Q5WEct3XJmeDxLoqfxFNZasA
-	reZoDBGUw==
-X-Received: by 2002:a17:902:fd90:b0:2c8:248a:5dbb with SMTP id d9443c01a7336-2d3b0d16339mr129547175ad.7.1786772445466;
-        Fri, 14 Aug 2026 22:40:45 -0700 (PDT)
-Received: from Default ([2409:40f4:103d:c2fd:25e5:83d3:7385:6296])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320d5bd9fd3sm11025097eec.4.2026.08.14.22.40.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 22:40:44 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: jeffinphilip14@gmail.com,
-	victor.krawiec@arturia.com,
-	fanwu01@zju.edu.cn,
-	christophe.jaillet@wanadoo.fr,
-	kees@kernel.org,
-	balbi@kernel.org,
-	tiwai@suse.de,
-	dave@stgolabs.net,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+d5fa3d224505c8610702@syzkaller.appspotmail.com
-Subject: [PATCH] usb: gadget: f_midi: initialize work in f_midi_alloc()
-Date: Sat, 15 Aug 2026 11:10:06 +0530
-Message-ID: <20260815054006.102325-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1786773506; x=1787378306;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GSNHZ1rhCWbjDqMjYrewNRXpE7DLnZyqNYRIuv59LLs=;
+        b=jHUTkeRpz4QhH9I/271CMjRELi9pv2bepRv8UFynJGG88uk3HOPhavP1QD0yZqw+2K
+         O3O2vfpZMjEXxa3O0cyVzUifEeW0ChrZwWI6SqltEm2n+FG06dSYydFxA2UX1bPZeCp2
+         rYS5KjDyfKO6bBn6T2DkxzO87HDdddzqgmCmrlbxH7rAA6uOUaj9WFqqjMBTYDvckJxI
+         tMRj5FeHGU8gEmfJqQ/zCftIuUIbayaht4aSitUVoAa/XKQeFwRlLKnTsbC5rjYsUVQg
+         sRC12HmcPi8dzzShV53RjNgXio0O9sjfVJG6zkRnQOo2Xd4dz5sSlcdIRe6m8cqX+Mjh
+         j67w==
+X-Forwarded-Encrypted: i=1; AHgh+Rpbeo4LXoG+kTDMdovzcDp8X5ErvZMoAI2pScUkNBd9oNO+ETxPgtkitwIWtjo4ggZr0nQVYgA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzpqqm6JGrIHNUNFT2KzB9/tiCu+v1PbyZgP3T8Yi78d3WdCdWF
+	1rKtaznqjLGe/fZJNyQUN9NpYbcJReFnvTb/QOwHsX/VVLsmWL+JN7icljzso7qMbqdzpoR9LOV
+	hIomBBgCAmPSWtiOIsqblT9ufz7pgaVLx2JSg291o
+X-Gm-Gg: AR+sD1183mVYAX4B9DKHraU+WLFLQZd5xYcLM3PQ8KzTasbTcha1i8mbn51J7bvnI8N
+	sYTizHWVUsXFPXCrqdokThwxfWQTzLuLMpJtIG93itARH8a0CbdbW4b9FF6inIiL+qQd+UJpabF
+	sfY8EQFK8kIERXYU+cQuDXJc5Vu1AWiQUNITpkB8u5xubbDJZuQ4Fh/z+43DWDBVJXFyfruUww6
+	XoR2lga4bbJZdixnBkwIBHQ69Ru70mqihz7B2iVwUU0KWWPDXRBiR+v2bSPonC9/4Z4ljw7Gfy9
+	7uueElaCqrtDUEqVLbfHlJ/SdY2XkwW/tamWqwbeWydqc720cV2GuFM=
+X-Received: by 2002:a17:903:3246:b0:2ca:bf8e:360b with SMTP id
+ d9443c01a7336-2d3b49010f5mr13153455ad.9.1786773505668; Fri, 14 Aug 2026
+ 22:58:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260812054105.102637-1-hao.ge@linux.dev> <20260812054105.102637-3-hao.ge@linux.dev>
+In-Reply-To: <20260812054105.102637-3-hao.ge@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Fri, 14 Aug 2026 22:58:14 -0700
+X-Gm-Features: AcwNN1Vv8e8AYIsvCRMSKDbhePjWJ2ljICkt_7vSL2FAbtl9G2kesUL9ji3umuM
+Message-ID: <CAJuCfpFvdNFdsKdK2CdF2fNp8gbNgFpoeAiaqp70mpbNGCvk3g@mail.gmail.com>
+Subject: Re: [PATCH v5 2/2] alloc_tag: fix undetected compressed tag overflow
+ when profiling is disabled
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-f_midi_alloc initializes free_ref to 1 and it can only be incremented
-when a sound card is registered via f_midi_register_card().
-f_midi_register_card() is only called in f_midi_bind() which actually
-performs INIT_WORK. If f_midi_bind() is never run, work is not
-initialized and the if condition in f_midi_free becomes true,
-this results in a warning later in __flush_work as work->func = 0.
-Fix this by moving INIT_WORK from f_midi_bind() to f_midi_alloc().
+On Tue, Aug 11, 2026 at 10:41=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> In reserve_module_tags(), the tag overflow check is gated on
+> mem_alloc_profiling_enabled():
+>
+>     if (mem_alloc_profiling_enabled() && !tags_addressable())
+>
+> If profiling is toggled off at runtime and a module is loaded whose
+> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
+> skipped. vm_module_tags_populate() still maps memory for the tags and
+> the module loads successfully, but the total tag count now exceeds what
+> NR_UNUSED_PAGEFLAG_BITS can address.
+>
+> Once profiling is re-enabled, ref_to_idx() computes each tag's index
+> as its position in the alloc_tag array. update_page_tag_ref() masks
+> it to alloc_tag_ref_mask before storing in page->flags. Indices
+> beyond the mask are truncated and idx_to_ref() resolves them to wrong
+> tags.
+>
+> This silently corrupts /proc/allocinfo: allocated pages get attributed
+> to the wrong call sites, so the statistics it reports are wrong.
+>
+> mem_alloc_profiling_enabled() and mem_profiling_compressed are
+> independent. Once compressed mode is established at boot, it stays
+> active regardless of runtime toggles of mem_profiling.
+>
+> Remove the mem_alloc_profiling_enabled() guard. On overflow, shut down
+> profiling, release the reservation, and return -EAGAIN so that
+> layout_and_allocate() retries with profiling disabled: codetag sections
+> are then placed as regular module data and the module loads without
+> profiling rather than being rejected entirely.
+>
+> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
+ion")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Suren Baghdasaryan <surenb@google.com>
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
 
-Reported-by: syzbot+d5fa3d224505c8610702@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d5fa3d224505c8610702
-Fixes: 8653d71ce376 ("usb/gadget: f_midi: Replace tasklet with work")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
----
- drivers/usb/gadget/function/f_midi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'm looking at your fixes for pre-existing issues reported by Sashiko
+but this patch looks correct to me.
 
-diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
-index fba8cf787d6c..63fb6ee70a3d 100644
---- a/drivers/usb/gadget/function/f_midi.c
-+++ b/drivers/usb/gadget/function/f_midi.c
-@@ -879,7 +879,6 @@ static int f_midi_bind(struct usb_configuration *c, struct usb_function *f)
- 	int status, n, jack = 1, i = 0, endpoint_descriptor_index = 0;
- 
- 	midi->gadget = cdev->gadget;
--	INIT_WORK(&midi->work, f_midi_in_work);
- 	status = f_midi_register_card(midi);
- 	if (status < 0)
- 		goto fail_register;
-@@ -1377,6 +1376,7 @@ static struct usb_function *f_midi_alloc(struct usb_function_instance *fi)
- 		status = -ENOMEM;
- 		goto midi_free;
- 	}
-+	INIT_WORK(&midi->work, f_midi_in_work);
- 	midi->out_ports = opts->out_ports;
- 	midi->index = opts->index;
- 	midi->buflen = opts->buflen;
--- 
-2.55.0
+Acked-by: Suren Baghdasaryan <surenb@google.com>
 
+> ---
+>  kernel/module/main.c | 25 +++++++++++++++++++++++--
+>  mm/alloc_tag.c       |  8 +++++---
+>  2 files changed, 28 insertions(+), 5 deletions(-)
+>
+> diff --git a/kernel/module/main.c b/kernel/module/main.c
+> index 46dd8d25a605..ed26f167be84 100644
+> --- a/kernel/module/main.c
+> +++ b/kernel/module/main.c
+> @@ -2944,6 +2944,7 @@ static struct module *layout_and_allocate(struct lo=
+ad_info *info, int flags)
+>  {
+>         struct module *mod;
+>         int err;
+> +       unsigned long frob_size[MOD_MEM_NUM_TYPES];
+>
+>         /* Allow arches to frob section contents and sizes.  */
+>         err =3D module_frob_arch_sections(info->hdr, info->sechdrs,
+> @@ -2966,18 +2967,38 @@ static struct module *layout_and_allocate(struct =
+load_info *info, int flags)
+>          */
+>         module_mark_ro_after_init(info->hdr, info->sechdrs, info->secstri=
+ngs);
+>
+> +       /*
+> +        * Save the sizes reserved by module_frob_arch_sections() so they=
+ can
+> +        * be restored if we retry below.
+> +        */
+> +       for_each_mod_mem_type(type)
+> +               frob_size[type] =3D info->mod->mem[type].size;
+> +
+>         /*
+>          * Determine total sizes, and put offsets in sh_entsize.  For now
+>          * this is done generically; there doesn't appear to be any
+>          * special cases for the architectures.
+>          */
+> +retry:
+>         layout_sections(info->mod, info);
+>         layout_symtab(info->mod, info);
+>
+>         /* Allocate and move to the final place */
+>         err =3D move_module(info->mod, info);
+> -       if (err)
+> -               return ERR_PTR(err);
+> +       if (err) {
+> +               if (err !=3D -EAGAIN)
+> +                       return ERR_PTR(err);
+> +               /*
+> +                * -EAGAIN means profiling was disabled but the module
+> +                * can still load without it. Reset state and retry.
+> +                */
+> +               rewrite_section_headers(info, flags);
+> +               for_each_mod_mem_type(type)
+> +                       info->mod->mem[type].size =3D frob_size[type];
+> +               info->sechdrs[info->index.sym].sh_flags &=3D ~(unsigned l=
+ong)SHF_ALLOC;
+> +               info->sechdrs[info->index.str].sh_flags &=3D ~(unsigned l=
+ong)SHF_ALLOC;
+> +               goto retry;
+> +       }
+>
+>         /* Module has been copied to its final place now: return it. */
+>         mod =3D (void *)info->sechdrs[info->index.mod].sh_addr;
+> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> index af44f90379f2..0a7b657fe2de 100644
+> --- a/mm/alloc_tag.c
+> +++ b/mm/alloc_tag.c
+> @@ -950,10 +950,12 @@ static void *reserve_module_tags(struct module *mod=
+, unsigned long size,
+>                 int grow_res;
+>
+>                 module_tags.size =3D offset + size;
+> -               if (mem_alloc_profiling_enabled() && !tags_addressable())=
+ {
+> +               if (!tags_addressable()) {
+>                         shutdown_mem_profiling(true);
+> -                       pr_warn("With module %s there are too many tags t=
+o fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+> -                               mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> +                       pr_warn_once("With module %s there are too many t=
+ags to fit in %d page flag bits. Memory allocation profiling is disabled!\n=
+",
+> +                                    mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> +                       release_module_tags(mod, false);
+> +                       return ERR_PTR(-EAGAIN);
+>                 }
+>
+>                 grow_res =3D vm_module_tags_populate();
+> --
+> 2.25.1
+>
