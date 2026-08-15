@@ -1,487 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020087.outbound.protection.outlook.com [52.101.196.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ACDE2E413;
-	Sat, 15 Aug 2026 18:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786818720; cv=none; b=AfBGeSR3mwLpic5g3ZWnudrT9/ZwPQWVJAP9RV6WkWdJeA57doN6luN1Kl4oaMgEU0sPiTXlnmO2pPdt4aNaaGPy/d2A8LJcVFPvJC/bBLTeQgZN3UsnhSL5fibK385tnjLQ1YRzw7e3z3Utk5QB7VsdPrzOrWny1wMrftl9LEA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786818720; c=relaxed/simple;
-	bh=F3jhPD1aUnatMd9035m8oEkXNxF9O4EokTRtSfdLyq8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KGUEm6576Uo7Ze3oC7AIhGjho8waM6Lask9M6ShQ3nPRV74Q5aNv5umIJUK3LEJcgtQr3w9DwEGpjBAnSNx1eFEoALHYKnVHb8HSSLyTOntMnDARUzQs1xePapg/EEw+fsfg+mrA9m3CR79PdYWCXav6HtYBgphCwZKYD5Dvs18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9tPETNE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2AF189B84;
+	Sat, 15 Aug 2026 18:50:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.87
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786819827; cv=fail; b=IWj2lrXknSkbojDwymn8suq5w/vgIknErDK2rnrKhQRZjCIPMAch8MXZfMYbAbZ44HycE6Z4WwsMdZMDg/NDQA56yzzLXl9fy7ToPsaEtfMgZzSa2XbWQdl/hWCJyaLUrgoGjRlkLP4c/etY8s2Xy+JEKilqPaS3ginfF7lpNlg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786819827; c=relaxed/simple;
+	bh=hInF7LorgcP9qZYvTRbCR3FFaiOffBr7pSyOf7pjpAg=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=Z6MCnahBZm0y6M5R7vnWZt9d5TQYCQ9J5+EmSQuvqZ9rYASKTrwOWy0z6Nu9WWkJRHuiz2dSJLZBArIPeaLYWW2CG4NehsZsDsdWujTN7+oSuawf2RgtY35SvkuY2dJ2/XTPX39Si7PBdgmzGPDQHVZDdEomm8DpGfujjPJVJBk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=OHcxQFFK; arc=fail smtp.client-ip=52.101.196.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9tPETNE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742891F000E9;
-	Sat, 15 Aug 2026 18:31:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786818718;
-	bh=cJnk7Q5UDBL5NHXqQEpFozUi3Cdab8QOvGiVLlPNemY=;
-	h=From:To:Cc:Subject:Date;
-	b=F9tPETNEo5CADNrTkLOcU8maY1ArB3MnkRTDHqIz034JZJKOlEe+t7R0IUtg3jtsH
-	 zC+HWeXm0CHXXxz9x6XcvzVYEa41Orj2C92puuBVtPleTxq4HoL9q8Cq8is9+X3QMy
-	 b/Et+W0S5MUVIpDw74qDy3XG8+3DWu2IYGaWpSdebOvgKs0n1ZP4E0fZMI+ETTaHYK
-	 DawkaoxT8+mBjRkyN3PeVtTz+nMgcIXzpBPZg9m7uYfCLdwmFsEFnl22Im0TE0X7rr
-	 tyacUG5aW917j10yrF+uUJr2G0NZ1UuAixjwC6OXii4YRt5MlbMQp8C6We5waUB/FX
-	 rVh4AslD3Nxow==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-fscrypt@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	syzbot+f55b043dacf43776b50c@syzkaller.appspotmail.com,
-	Mohammed EL Kadiri <med08elkadiri@gmail.com>
-Subject: [PATCH 5.10] fscrypt: Replace mk_users keyring with simple list
-Date: Sat, 15 Aug 2026 11:31:41 -0700
-Message-ID: <20260815183141.101727-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="OHcxQFFK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bMvNkSPn9/lEzq63Q0mEUatbntoAnne6Py2qTEGALtq3lufE1mmsBMGbnxx5Qo1SZ4n3bmKv4FCOsjUe9WpesnBNlKCer2JFf94IP154qKkWDHneWcgYn0gJmlLt/uC1dxtwl4APYPfozOt+TeeW53w5rLIGTtqh/nzPFSwhtCU4ejE5qoISJpEovTiowpMTCTiIYvDGFdSAAK+C4i/p8e8O5hJslbquFuvJJLVtLI1l6aHOjwgr6jUzXJL851HK8sdJjUVUobhzJai8WSefkpAkUIquKE6b1oairtd03w5z+0LXR+Z/EChA54fZaUsgR1u33AhIRUUDdeQLH/6WdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hInF7LorgcP9qZYvTRbCR3FFaiOffBr7pSyOf7pjpAg=;
+ b=vws74jUyfCB3tQcYFxxgLET7FpT+ae1R644g49DVnLSI4qmT8tH4I1uOX37jLifb36fAmL2F2UIVuNjL0xKmihn2yJTgXmQW5F/dg159L1d45tayLX/w87wj81xfQdq1dD0eRcqpdP2yrKzYUm8HzALTOS7d5oEE7KW31gJr7YTfOydJvhy9uukV/4aLSKr+KES1Rih9qz+iECGq5hytQsNgDrOfhfB84Rw9LyEyqDp+QY1yuD8fVXLsUz2Rv555kmvupjQj0vvKIEVVeTz72kzmQmk7KRoE5BsdLCj5+PZeDaGS1dLJfuOauUc5QQlsOEs7nyRunGNFKAn9H+prng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hInF7LorgcP9qZYvTRbCR3FFaiOffBr7pSyOf7pjpAg=;
+ b=OHcxQFFKFOVNeX4TJT8Il/wqApdByX2ZDk9ZE++biH8/cSC7XM9wusOaoWopmAb5e8XZq/yCeq/OmXT9NytS9yWlGzrx3goBvSBWuFTuzJPtajwiH1bCy4cqZ0sNBJZ9uQsUPu2IR5MqwaTNs/c8L6msv6QOAbz/M8PYKs40yL0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LOYP265MB2397.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:11a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Sat, 15 Aug
+ 2026 18:50:21 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0315.016; Sat, 15 Aug 2026
+ 18:50:21 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 15 Aug 2026 19:50:20 +0100
+Message-Id: <DKPQRHQ3WKQF.39SZCXI1UNJDG@garyguo.net>
+Cc: <rust-for-linux@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH] rust: num: reject bool conversion to signed one-bit
+ Bounded
+From: "Gary Guo" <gary@garyguo.net>
+To: <git@younes.io>, "Alexandre Courbot" <acourbot@nvidia.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: aerc 0.22.0
+References: <20260815-fix-rust-bounded-from-bool-submit-v1-1-882227bf40ba@younes.io>
+In-Reply-To: <20260815-fix-rust-bounded-from-bool-submit-v1-1-882227bf40ba@younes.io>
+X-ClientProxiedBy: LO4P123CA0194.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a4::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOYP265MB2397:EE_
+X-MS-Office365-Filtering-Correlation-Id: 511b6467-d5e0-43d3-c935-08defafe0f21
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|1800799024|376014|7416014|23010399003|366016|921020|6133799003|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	eKhw/6p2Tc4HuGQpwu5heBw1z5CDf9S1o8PV3jqxQg+kAf0CV7ev2MU3BNKSb7r2/krQ5h/twxoLFr3HGeG2gcFMB/qZ9tapo066XJ+dq8GU36O5GkRYNYU+/BnhX8USlxwOfkFzT4o8F/LNpS1R4EFDOuIcdVwhUJX7Uos13PyWQOjVw7dI1ojAqjtCQvfdwUHjMzM8uhcspXsA5w2AEIihyunVrrqH25A4mz9ITdFmadryMpoctKeT73nU5XSGmA8iDQ7GX5rYL9umKaNp5I9eF/pFerW/P7R46qDEi4SZb2IwQlbxvMJinasf12pDj9dpxDZBWE68IO12mn8f0oYDemlqGom6QblV5lI48Tm+Xx1QZ2JbMVSrg/XBuC0R5CheWIy2Cgfma0xZDRWfK2xmkypcvq56bwjM3s1xxKqqyFjnC6MwmwGoWAHcmhK+AKBdSUJm8kmLj/sjfvqhBtAZnMHNHhZXfwyPVd7BFxt+QjSajU62rXRS0za80DuAyk/7gFGlIu/Cc16Ua7xf1uRzA5IuHWmKFs604PV8RMBVfJUd1Y3x9CA1k4pGHDexoPTmZExYGFS8vpJMGG61o0w8uuA0Rclua0gTmun0Fev+sQNeAmewsJoswwlcoNrTkA+5qWQu5bSd7xF+i00mbYgiLO9fb1LnH9hN7D0E4zxBujywHVjNWF64Swmf8a5j55BCXqFyZAXLJzkza984Sw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(376014)(7416014)(23010399003)(366016)(921020)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MlBWUWVrTWQwOGZDRzNLOEtESUtJTlZSYklsMkR6ZzVXa3FWQnlheC85T2Q1?=
+ =?utf-8?B?b2dhQ2hnQ2R4Mmc4V2tENUtJbjZmYjZRSzJLbnJpbjM1dVhNNlQrSW9oWUJh?=
+ =?utf-8?B?SldHTjBPRXJhWXpBejJ1V2d4ZDQrMy90bk5oemhIVG9zQk8vbzRsSXZaSm1a?=
+ =?utf-8?B?MWNnbkxmdVFmVm4xTFhNb0JBbFpwVnQ5WTVLYkpDVUpDYkQwQjFyd2s0ODB5?=
+ =?utf-8?B?Y2hRbXl2RFFKdWt4dm5lSE41SlYyV3JaUlFrMFlVUlJUWjRMc1NHdmU5Q1I1?=
+ =?utf-8?B?T2FFTmloT3ZjM2RmTVhadzZCYUpzYXo1TlJCeWl4dzRTd1BCSkYzNXk5VGZU?=
+ =?utf-8?B?ekprTVRHY1c1dFdrRE1UMTVRM0JtVnJtRVNmS21XekFEZ2tiOStIZXpFUmtZ?=
+ =?utf-8?B?VzNkQVpTaUU0aFZ3RmZZM2YvTWFNSEFoejl3VktIcEZ6OVlqY2NDVE8ycEFy?=
+ =?utf-8?B?dlVYdXNnT1lkVVJVWHlsRkZGTkxmNVpaUytLNHU1V01SN1NEZUlOUC9vYUN6?=
+ =?utf-8?B?WVY0Rmc5ZW10bFVTc01HMGVVQ3RvTFVSbGE1WnRLZXExa1JkU3RNNG91SGVW?=
+ =?utf-8?B?TTVSdDdOVHRINWxLSEhjU0ZEQU92cXZIZ1pxd0hhV3FnaXo2SkJYSmFTRDg0?=
+ =?utf-8?B?NVZ2UDE2S0t1d3dMUHFSS0cvK21zOVRFSllBYTFQMGRoQUlYOTB1RjRWc1dU?=
+ =?utf-8?B?QjhHREJSNEUweXdFTDVyT2k4SkMvSG11ZTJuRFNIT2N1ZmIyZUY1V05Kd2tN?=
+ =?utf-8?B?NUZ4U2NXaFp4MEtDT3pETkNOMC9sUmRmUlJzajN3eDNmRGFxYnpNeDhOemx0?=
+ =?utf-8?B?d2FLOHVFazJZYlljdHZXMjR3QVhMYUZLa0JiU1pGVVpSSFRTSnhpWkVyWHNy?=
+ =?utf-8?B?WEJFdzB3bnJhSHFIdUI2Z2FsZDg1NFZidjBTMUthejRxTEdvSTNpSGVpS0I1?=
+ =?utf-8?B?QktZVUMxT3JVVi9yK0dJZWVzbys0S2VnRmpXL1ZjSXFRbE5jaVZzbmwxMmtx?=
+ =?utf-8?B?NWViUzZtWTVmQWNSQlRlSFE5VnFaOGJKNlpxcktaYnFnL0xVdkVjTC85N3VX?=
+ =?utf-8?B?Zk1SdWQ0elZ0blBUVlFJKzZTVnR5a3BhL2JmZzV0U2lrajZUUE1LZVZ1VUNW?=
+ =?utf-8?B?Y3loaXdkU3BIVnJaRXVXZTVQK2M3NURvb3FrUHNPSGkzUFBjd0tlczM5MEE4?=
+ =?utf-8?B?Sk1QZDhncFFnYVlZR21NYmw1TUVaZWpFMWwxdkRJTDlPSlpZK2g4dWNGMFlY?=
+ =?utf-8?B?Q1dMR3VYN1JlUms4cEJBS0JwdTZLWng1R1hRMU03T1hQYTFQdXFmZ09XaTA4?=
+ =?utf-8?B?V0ZaQ0ZZSGpjWkQvTjJ4cllPd3hyZVRoR0hhaC96Z2hxdlZYU3M4aEk2VHRN?=
+ =?utf-8?B?UStFR2V0Ui9FTW56VURFeTB4eGVPMEoxek1Nd2k3OUdzd3o3WDlhRFBtS1Fh?=
+ =?utf-8?B?RkxqaU1KT3pHOGJGL1dnWU9tRXR0Ly96VWZ1ZGZvU0YyV1dmdy94TW8yangw?=
+ =?utf-8?B?S0tEQzg1VUNQSk92TytqcWFENVoxb3B1QmtCMHhkU21TSE1aaHlmSXhsQmF5?=
+ =?utf-8?B?TngvVWM2VWVXd1M1bzJiNEcvYWVVMGkzb1VXWHZWU1hGQiszNHNWTHhsVUwr?=
+ =?utf-8?B?aEFHQWZtOE53cHMrUTZ3TDdFbmRodDlDSUtlOWdJQzZaemFXRTY3VXpaQkx1?=
+ =?utf-8?B?RUU5RkFDaWtiOHM4OWRndUNCSFdOa3FLbFVUWDMxN081UlJMdUljbTlMMjRT?=
+ =?utf-8?B?YTNXUVI3Q010RVMxbXF3M1pUMGxJOW9OOW5BZkZ2dHowb05FbGJPeEc0K0lF?=
+ =?utf-8?B?ZnBJajZXaTFpd24xME1DeG03ME81eFNoUlMzV2JFNkh0UWI3ODhaN05QNnUr?=
+ =?utf-8?B?MkNaMXpsQ0Qzemg1UllKSGxJVi9ob2g2bGpyWXRRdFVCRmx6V1JmZFZublZR?=
+ =?utf-8?B?VUZxeHZGZ1dJSGNoMHJVbGxrMUROYkRQUFhUeHNwYXBjYWlTckFLM1UvcUwx?=
+ =?utf-8?B?ZnV6ZFRENk5HT1ZUQ3hYenVzVWlKcXVOM2x5WGlRZmdCNVF5NUlGVHJWRWds?=
+ =?utf-8?B?MjJMQlFTUEN5d3hrV0R4QmgreExQOEZEWFlFZWNKazViSXFiYjNjY01WWHZC?=
+ =?utf-8?B?SHBoZENyVmJRZ0J3bDV5MXJ4cVoxOFZpZk1FUnVjNTVKVmdzam9sRkxNWHZQ?=
+ =?utf-8?B?R2E0ZVRQVGVueHRyMzVMTmpzMUNHSmxUd0RsOSt6Q2tmVmtEOVRDdzBsSDlZ?=
+ =?utf-8?B?WEhLa3htNlEwY0NPKzROVk1nQ2J1WXpteTJXWkkwMzdMalRsSDVuMXgwbDVi?=
+ =?utf-8?B?OWJ5M0hoMS82My9BUWRtNDZnZGRBeHgzNDFaOWFTSkc3Zm0rZ1FJQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 511b6467-d5e0-43d3-c935-08defafe0f21
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2026 18:50:21.6728
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dSR/ZYL0gVkDzDh3NnVFefeXbawfYe5cNKlK5eHqvMGoDyIDpq5yvm4IUHH05TwoApFBslOx3BLU3YvF0WCArg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB2397
 
-commit 696c030e1e3438955aba443b308ee8b6faa3983e upstream.
+On Sat Aug 15, 2026 at 9:06 AM BST, Younes Akhouayri via B4 Relay wrote:
+> From: Younes Akhouayri <git@younes.io>
+>
+> From<bool> turns true into 1. A signed Bounded with N =3D 1 can hold
+> only -1 and 0. From<bool> therefore creates a value that the type does
+> not allow. Deref assumes the value is valid and calls
+> unreachable_unchecked() when it is not. Safe Rust can therefore reach
+> undefined behavior.
+>
+> Rust cannot write N >=3D 2 directly in this From implementation. Add a
+> private BoolFits trait. It accepts every valid unsigned width and signed
+> widths from 2 through 128. The current Integer types do not use more
+> than 128 bits, so this keeps every valid conversion.
 
-Change mk_users (the set of user claims to an fscrypt master key) from a
-'struct key' keyring to a simple linked list.
+Given that the existing `From<Bounded<T, N>> for uXX` implementation all
+requires signedness match, I think this is being inconsistent (if we view b=
+ool
+as u1). I think restricting it to just unsigned integer is better.
 
-It's still a collection of 'struct key' for quota tracking.  It was
-originally thought to be natural that a collection of 'struct key'
-should be held in a 'struct key' keyring.  In reality, it's just been
-causing problems, similar to how using 'struct key' for the filesystem
-keyring caused problems and was removed in commit d7e7b9af104c
-("fscrypt: stop using keyrings subsystem for fscrypt_master_key").
+Best,
+Gary
 
-Commit d3a7bd420076 ("fscrypt: clear keyring before calling key_put()")
-fixed mk_users cleanup to be synchronous.  But that apparently wasn't
-enough: the keyring subsystem's redundant locking is still generating
-lockdep false positives due to the interaction with filesystem reclaim.
-
-With the simple list, the redundant locking and lockdep issue goes away.
-
-Of course, searching a linked list is linear-time whereas the
-'struct key' keyring used a fancy constant-time associative array.  But
-that's fine here, since in practice there's just one entry in the list.
-In fact the new code is much faster in practice, since it's much smaller
-and doesn't have to convert the kuid_t into a string to search for it.
-
-Reported-by: syzbot+f55b043dacf43776b50c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f55b043dacf43776b50c
-Reported-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-Closes: https://lore.kernel.org/keyrings/20260614150041.21172-1-med08elkadiri@gmail.com/
-Fixes: 23c688b54016 ("fscrypt: allow unprivileged users to add/remove keys for v2 policies")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260618221921.87896-1-ebiggers@kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
- fs/crypto/fscrypt_private.h |  32 ++++--
- fs/crypto/keyring.c         | 212 ++++++++++++++++--------------------
- 2 files changed, 113 insertions(+), 131 deletions(-)
-
-diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
-index b746d7df3758..72db3df9dfad 100644
---- a/fs/crypto/fscrypt_private.h
-+++ b/fs/crypto/fscrypt_private.h
-@@ -403,6 +403,19 @@ fscrypt_is_key_prepared(struct fscrypt_prepared_key *prep_key,
- 
- /* keyring.c */
- 
-+/*
-+ * fscrypt_master_key_user - a user's claim to a master key
-+ */
-+struct fscrypt_master_key_user {
-+	struct list_head link;
-+	kuid_t uid;
-+	/*
-+	 * This 'struct key' contains no secret.  It exists solely to charge the
-+	 * appropriate user's key quota.
-+	 */
-+	struct key *quota_key;
-+};
-+
- /*
-  * fscrypt_master_key_secret - secret key material of an in-use master key
-  */
-@@ -489,19 +502,18 @@ struct fscrypt_master_key {
- 	struct fscrypt_key_specifier		mk_spec;
- 
- 	/*
--	 * Keyring which contains a key of type 'key_type_fscrypt_user' for each
--	 * user who has added this key.  Normally each key will be added by just
--	 * one user, but it's possible that multiple users share a key, and in
--	 * that case we need to keep track of those users so that one user can't
--	 * remove the key before the others want it removed too.
-+	 * List of user claims to this key (struct fscrypt_master_key_user).
-+	 * Normally each key will be added by just one user, but it's possible
-+	 * that multiple users share a key, and in that case we need to keep
-+	 * track of those users so that one user can't remove the key before the
-+	 * others want it removed too.
- 	 *
--	 * This is NULL for v1 policy keys; those can only be added by root.
-+	 * Used only for v2 policy keys.  v1 policy keys can be added only by
-+	 * root, so user tracking doesn't apply to them.
- 	 *
--	 * Locking: protected by ->mk_sem.  (We don't just rely on the keyrings
--	 * subsystem semaphore ->mk_users->sem, as we need support for atomic
--	 * search+insert along with proper synchronization with ->mk_secret.)
-+	 * Locking: protected by ->mk_sem.
- 	 */
--	struct key		*mk_users;
-+	struct list_head	mk_users;
- 
- 	/*
- 	 * List of inodes that were unlocked using this key.  This allows the
-diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index 02f8bf8bd54d..51cd45785f0c 100644
---- a/fs/crypto/keyring.c
-+++ b/fs/crypto/keyring.c
-@@ -64,18 +64,19 @@ static void fscrypt_free_master_key(struct rcu_head *head)
- 	kfree_sensitive(mk);
- }
- 
-+static void clear_mk_users(struct fscrypt_master_key *mk);
-+
- void fscrypt_put_master_key(struct fscrypt_master_key *mk)
- {
- 	if (!refcount_dec_and_test(&mk->mk_struct_refs))
- 		return;
- 	/*
--	 * No structural references left, so free ->mk_users, and also free the
-+	 * No structural references left, so clear ->mk_users, and also free the
- 	 * fscrypt_master_key struct itself after an RCU grace period ensures
- 	 * that concurrent keyring lookups can no longer find it.
- 	 */
- 	WARN_ON(refcount_read(&mk->mk_active_refs) != 0);
--	key_put(mk->mk_users);
--	mk->mk_users = NULL;
-+	clear_mk_users(mk);
- 	call_rcu(&mk->mk_rcu_head, fscrypt_free_master_key);
- }
- 
-@@ -141,8 +142,8 @@ static void fscrypt_user_key_describe(const struct key *key, struct seq_file *m)
- }
- 
- /*
-- * Type of key in ->mk_users.  Each key of this type represents a particular
-- * user who has added a particular master key.
-+ * Type of fscrypt_master_key_user::quota_key.  This contains no secret; it
-+ * exists solely to charge a user's key quota.
-  *
-  * Note that the name of this key type really should be something like
-  * ".fscrypt-user" instead of simply ".fscrypt".  But the shorter name is chosen
-@@ -156,30 +157,9 @@ static struct key_type key_type_fscrypt_user = {
- 	.describe		= fscrypt_user_key_describe,
- };
- 
--#define FSCRYPT_MK_USERS_DESCRIPTION_SIZE	\
--	(CONST_STRLEN("fscrypt-") + 2 * FSCRYPT_KEY_IDENTIFIER_SIZE + \
--	 CONST_STRLEN("-users") + 1)
--
- #define FSCRYPT_MK_USER_DESCRIPTION_SIZE	\
- 	(2 * FSCRYPT_KEY_IDENTIFIER_SIZE + CONST_STRLEN(".uid.") + 10 + 1)
- 
--static void format_mk_users_keyring_description(
--			char description[FSCRYPT_MK_USERS_DESCRIPTION_SIZE],
--			const u8 mk_identifier[FSCRYPT_KEY_IDENTIFIER_SIZE])
--{
--	sprintf(description, "fscrypt-%*phN-users",
--		FSCRYPT_KEY_IDENTIFIER_SIZE, mk_identifier);
--}
--
--static void format_mk_user_description(
--			char description[FSCRYPT_MK_USER_DESCRIPTION_SIZE],
--			const u8 mk_identifier[FSCRYPT_KEY_IDENTIFIER_SIZE])
--{
--
--	sprintf(description, "%*phN.uid.%u", FSCRYPT_KEY_IDENTIFIER_SIZE,
--		mk_identifier, __kuid_val(current_fsuid()));
--}
--
- /* Create ->s_master_keys if needed.  Synchronized by fscrypt_add_key_mutex. */
- static int allocate_filesystem_keyring(struct super_block *sb)
- {
-@@ -318,91 +298,94 @@ fscrypt_find_master_key(struct super_block *sb,
- 	return mk;
- }
- 
--static int allocate_master_key_users_keyring(struct fscrypt_master_key *mk)
-+/* Find the current user's claim in ->mk_users.  ->mk_sem must be held. */
-+static struct fscrypt_master_key_user *
-+find_master_key_user(struct fscrypt_master_key *mk)
- {
--	char description[FSCRYPT_MK_USERS_DESCRIPTION_SIZE];
--	struct key *keyring;
--
--	format_mk_users_keyring_description(description,
--					    mk->mk_spec.u.identifier);
--	keyring = keyring_alloc(description, GLOBAL_ROOT_UID, GLOBAL_ROOT_GID,
--				current_cred(), KEY_POS_SEARCH |
--				  KEY_USR_SEARCH | KEY_USR_READ | KEY_USR_VIEW,
--				KEY_ALLOC_NOT_IN_QUOTA, NULL, NULL);
--	if (IS_ERR(keyring))
--		return PTR_ERR(keyring);
--
--	mk->mk_users = keyring;
--	return 0;
--}
-+	struct fscrypt_master_key_user *mk_user;
-+	kuid_t uid = current_fsuid();
- 
--/*
-- * Find the current user's "key" in the master key's ->mk_users.
-- * Returns ERR_PTR(-ENOKEY) if not found.
-- */
--static struct key *find_master_key_user(struct fscrypt_master_key *mk)
--{
--	char description[FSCRYPT_MK_USER_DESCRIPTION_SIZE];
--	key_ref_t keyref;
--
--	format_mk_user_description(description, mk->mk_spec.u.identifier);
--
--	/*
--	 * We need to mark the keyring reference as "possessed" so that we
--	 * acquire permission to search it, via the KEY_POS_SEARCH permission.
--	 */
--	keyref = keyring_search(make_key_ref(mk->mk_users, true /*possessed*/),
--				&key_type_fscrypt_user, description, false);
--	if (IS_ERR(keyref)) {
--		if (PTR_ERR(keyref) == -EAGAIN || /* not found */
--		    PTR_ERR(keyref) == -EKEYREVOKED) /* recently invalidated */
--			keyref = ERR_PTR(-ENOKEY);
--		return ERR_CAST(keyref);
-+	list_for_each_entry(mk_user, &mk->mk_users, link) {
-+		if (uid_eq(mk_user->uid, uid))
-+			return mk_user;
- 	}
--	return key_ref_to_ptr(keyref);
-+	return NULL;
- }
- 
- /*
-- * Give the current user a "key" in ->mk_users.  This charges the user's quota
-+ * Give the current user a claim in ->mk_users.  This charges the user's quota
-  * and marks the master key as added by the current user, so that it cannot be
-  * removed by another user with the key.  Either ->mk_sem must be held for
-  * write, or the master key must be still undergoing initialization.
-  */
- static int add_master_key_user(struct fscrypt_master_key *mk)
- {
-+	kuid_t uid = current_fsuid();
- 	char description[FSCRYPT_MK_USER_DESCRIPTION_SIZE];
--	struct key *mk_user;
-+	struct key *quota_key;
-+	struct fscrypt_master_key_user *mk_user;
- 	int err;
- 
--	format_mk_user_description(description, mk->mk_spec.u.identifier);
--	mk_user = key_alloc(&key_type_fscrypt_user, description,
--			    current_fsuid(), current_gid(), current_cred(),
--			    KEY_POS_SEARCH | KEY_USR_VIEW, 0, NULL);
--	if (IS_ERR(mk_user))
--		return PTR_ERR(mk_user);
-+	snprintf(description, sizeof(description), "%*phN.uid.%u",
-+		 FSCRYPT_KEY_IDENTIFIER_SIZE, mk->mk_spec.u.identifier,
-+		 __kuid_val(uid));
-+	quota_key = key_alloc(&key_type_fscrypt_user, description, uid,
-+			      current_gid(), current_cred(),
-+			      KEY_POS_SEARCH | KEY_USR_VIEW, 0, NULL);
-+	if (IS_ERR(quota_key))
-+		return PTR_ERR(quota_key);
-+
-+	err = key_instantiate_and_link(quota_key, NULL, 0, NULL, NULL);
-+	if (err) {
-+		key_put(quota_key);
-+		return err;
-+	}
- 
--	err = key_instantiate_and_link(mk_user, NULL, 0, mk->mk_users, NULL);
--	key_put(mk_user);
--	return err;
-+	mk_user = kzalloc(sizeof(*mk_user), GFP_KERNEL);
-+	if (!mk_user) {
-+		key_put(quota_key);
-+		return -ENOMEM;
-+	}
-+	mk_user->uid = uid;
-+	mk_user->quota_key = quota_key;
-+	list_add(&mk_user->link, &mk->mk_users);
-+	return 0;
-+}
-+
-+static void unlink_and_free_mk_user(struct fscrypt_master_key_user *mk_user)
-+{
-+	list_del(&mk_user->link);
-+	key_put(mk_user->quota_key);
-+	kfree(mk_user);
- }
- 
- /*
-- * Remove the current user's "key" from ->mk_users.
-+ * Remove the current user's claim from ->mk_users.
-  * ->mk_sem must be held for write.
-  *
-- * Returns 0 if removed, -ENOKEY if not found, or another -errno code.
-+ * Returns 0 if removed or -ENOKEY if not found.
-  */
- static int remove_master_key_user(struct fscrypt_master_key *mk)
- {
--	struct key *mk_user;
--	int err;
-+	struct fscrypt_master_key_user *mk_user;
- 
- 	mk_user = find_master_key_user(mk);
--	if (IS_ERR(mk_user))
--		return PTR_ERR(mk_user);
--	err = key_unlink(mk->mk_users, mk_user);
--	key_put(mk_user);
--	return err;
-+	if (!mk_user)
-+		return -ENOKEY;
-+	unlink_and_free_mk_user(mk_user);
-+	return 0;
-+}
-+
-+/*
-+ * Clear ->mk_users.  Either ->mk_sem must be held for write, or 'mk' must have
-+ * no structural references left.
-+ */
-+static void clear_mk_users(struct fscrypt_master_key *mk)
-+{
-+	struct fscrypt_master_key_user *mk_user, *tmp;
-+
-+	list_for_each_entry_safe(mk_user, tmp, &mk->mk_users, link)
-+		unlink_and_free_mk_user(mk_user);
- }
- 
- /*
-@@ -426,13 +409,12 @@ static int add_new_master_key(struct super_block *sb,
- 	refcount_set(&mk->mk_struct_refs, 1);
- 	mk->mk_spec = *mk_spec;
- 
-+	INIT_LIST_HEAD(&mk->mk_users);
-+
- 	INIT_LIST_HEAD(&mk->mk_decrypted_inodes);
- 	spin_lock_init(&mk->mk_decrypted_inodes_lock);
- 
- 	if (mk_spec->type == FSCRYPT_KEY_SPEC_TYPE_IDENTIFIER) {
--		err = allocate_master_key_users_keyring(mk);
--		if (err)
--			goto out_put;
- 		err = add_master_key_user(mk);
- 		if (err)
- 			goto out_put;
-@@ -460,19 +442,13 @@ static int add_existing_master_key(struct fscrypt_master_key *mk,
- 	int err;
- 
- 	/*
--	 * If the current user is already in ->mk_users, then there's nothing to
--	 * do.  Otherwise, we need to add the user to ->mk_users.  (Neither is
--	 * applicable for v1 policy keys, which have NULL ->mk_users.)
-+	 * For v2 policy keys (FSCRYPT_KEY_SPEC_TYPE_IDENTIFIER): If the current
-+	 * user is already in ->mk_users, then there's nothing to do.
-+	 * Otherwise, add the user to ->mk_users.
- 	 */
--	if (mk->mk_users) {
--		struct key *mk_user = find_master_key_user(mk);
--
--		if (mk_user != ERR_PTR(-ENOKEY)) {
--			if (IS_ERR(mk_user))
--				return PTR_ERR(mk_user);
--			key_put(mk_user);
-+	if (mk->mk_spec.type == FSCRYPT_KEY_SPEC_TYPE_IDENTIFIER) {
-+		if (find_master_key_user(mk) != NULL)
- 			return 0;
--		}
- 		err = add_master_key_user(mk);
- 		if (err)
- 			return err;
-@@ -787,7 +763,6 @@ int fscrypt_verify_key_added(struct super_block *sb,
- {
- 	struct fscrypt_key_specifier mk_spec;
- 	struct fscrypt_master_key *mk;
--	struct key *mk_user;
- 	int err;
- 
- 	mk_spec.type = FSCRYPT_KEY_SPEC_TYPE_IDENTIFIER;
-@@ -799,13 +774,10 @@ int fscrypt_verify_key_added(struct super_block *sb,
- 		goto out;
- 	}
- 	down_read(&mk->mk_sem);
--	mk_user = find_master_key_user(mk);
--	if (IS_ERR(mk_user)) {
--		err = PTR_ERR(mk_user);
--	} else {
--		key_put(mk_user);
-+	if (find_master_key_user(mk) != NULL)
- 		err = 0;
--	}
-+	else
-+		err = -ENOKEY;
- 	up_read(&mk->mk_sem);
- 	fscrypt_put_master_key(mk);
- out:
-@@ -998,16 +970,18 @@ static int do_remove_key(struct file *filp, void __user *_uarg, bool all_users)
- 	down_write(&mk->mk_sem);
- 
- 	/* If relevant, remove current user's (or all users) claim to the key */
--	if (mk->mk_users && mk->mk_users->keys.nr_leaves_on_tree != 0) {
--		if (all_users)
--			err = keyring_clear(mk->mk_users);
--		else
-+	if (!list_empty(&mk->mk_users)) {
-+		if (all_users) {
-+			clear_mk_users(mk);
-+			err = 0;
-+		} else {
- 			err = remove_master_key_user(mk);
-+		}
- 		if (err) {
- 			up_write(&mk->mk_sem);
- 			goto out_put_key;
- 		}
--		if (mk->mk_users->keys.nr_leaves_on_tree != 0) {
-+		if (!list_empty(&mk->mk_users)) {
- 			/*
- 			 * Other users have still added the key too.  We removed
- 			 * the current user's claim to the key, but we still
-@@ -1095,6 +1069,8 @@ int fscrypt_ioctl_get_key_status(struct file *filp, void __user *uarg)
- 	struct super_block *sb = file_inode(filp)->i_sb;
- 	struct fscrypt_get_key_status_arg arg;
- 	struct fscrypt_master_key *mk;
-+	kuid_t uid;
-+	const struct fscrypt_master_key_user *mk_user;
- 	int err;
- 
- 	if (copy_from_user(&arg, uarg, sizeof(arg)))
-@@ -1127,19 +1103,13 @@ int fscrypt_ioctl_get_key_status(struct file *filp, void __user *uarg)
- 	}
- 
- 	arg.status = FSCRYPT_KEY_STATUS_PRESENT;
--	if (mk->mk_users) {
--		struct key *mk_user;
- 
--		arg.user_count = mk->mk_users->keys.nr_leaves_on_tree;
--		mk_user = find_master_key_user(mk);
--		if (!IS_ERR(mk_user)) {
-+	uid = current_fsuid();
-+	list_for_each_entry(mk_user, &mk->mk_users, link) {
-+		arg.user_count++;
-+		if (uid_eq(mk_user->uid, uid))
- 			arg.status_flags |=
- 				FSCRYPT_KEY_STATUS_FLAG_ADDED_BY_SELF;
--			key_put(mk_user);
--		} else if (mk_user != ERR_PTR(-ENOKEY)) {
--			err = PTR_ERR(mk_user);
--			goto out_release_key;
--		}
- 	}
- 	err = 0;
- out_release_key:
-
-base-commit: acccef89f184a697fee1c96a1dc9cccbba36937b
--- 
-2.55.0
+>
+> Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
+> Closes: https://lore.kernel.org/rust-for-linux/OzuVxu0--J-9@younes.io/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Younes Akhouayri <git@younes.io>
 
