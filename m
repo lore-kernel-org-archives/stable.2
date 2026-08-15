@@ -1,206 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC9D332907;
-	Sat, 15 Aug 2026 17:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A8C42A15B
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 18:12:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786815765; cv=none; b=tFkY4otjgSS9G/snBnu+PIVA9VQLinz0n7PXL+mUED263p+rkFBQ34tM9m0bpRYABBQvwkj4heEJOUdSPyWszM5LAMNgEeOxlH6R/f3qt20iE6poMluH+HhfHLgVC5ETKlHHr54HPlYgM5bQMWh2Dqh5tLL2+93+7unzhXl9fsI=
+	t=1786817576; cv=none; b=TbxVkoa9yzVT6Z72wQ76dO00Tbg6RGVeRGz+FpoEKBaPRx0u26bVRgK4x7rLuIo1dA8GQWuqat2hdmDpox3JHP71ZjXjSqWb76dHVxIxyFBmhjitSuF8gBDMs88Rs9LdhrBFP8ytXVtOR9LbISx/Xqhj7WTV36ZwmB1VqOzP/Xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786815765; c=relaxed/simple;
-	bh=9KEOxOMG2Z0V7HEWyXx4d/xiiR6+Gtm6jwEic41j/wk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jt+kYhlHVZWldhzl3JyxuuTGGe9sbn4YH2tUYyzREE7atKJhJ3OVQg81AhoENfZpQyRzTffDCmPujPFul5wUOZLPHbODdMFAM4KmOI36vOqx/54xGVwTrUv3Rrttg6GgFyUTgPPAijBkfGHXOKIApt2QZ8UeaZkvzJI30ftpYbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tup5X2Ve; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786817576; c=relaxed/simple;
+	bh=g/8fGhqkCV7RQstwEmzMAoWTNxRnB/a8B7+vfAI/r7I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Jv1viKQz6b+6dug/Lo6+ScjUvc3jZ5wkLtmb9eJpeDHhkX4HO2AUIWvRMMLf6HIeVc5d9MRQpFf9GohnXxYi2HaqaBHFK+0os+Ero/1pUcIyMPrrt39jfFYyy/HQpY5aUvlSC8i+uc2gpDk7NAiMhlaJX+jdzIHszdEFQMNH9ZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QOlgOvj+; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tup5X2Ve"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BD622C19425;
-	Sat, 15 Aug 2026 17:42:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786815764;
-	bh=9KEOxOMG2Z0V7HEWyXx4d/xiiR6+Gtm6jwEic41j/wk=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=tup5X2VelxkqR92fqtGlQPffcR708x20WuHR4vErB1/dk5h2x04fIbSkS1Yor16on
-	 pk3g5boOAGKEr1mxUw+B7ZpAPMw7OB/sQ1MwbSnEdbjIGRyCSEccu1J1UvTvshml+/
-	 jqJ2ZIlVrcV3bZiQp42miSwOK8EfXwqY75BM1+cJlzw7eoNMLMmlXsoLfHTpcwb5Qe
-	 tZtQPieE1VkcRHvWo+ublxPqy3rBWKlwIDrXo6MtuuwL950aXZvCVrrfIIdG7IcnM+
-	 t0+9z8ZKN18hwcx1jUnP1XKFMrNsMuFBjv9bFeJ6PtCfoEn1FUm9zKKcCf/E962DLo
-	 JIsQB1ITAFXCA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 967E1C5DF6A;
-	Sat, 15 Aug 2026 17:42:44 +0000 (UTC)
-From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
-Date: Sat, 15 Aug 2026 19:42:08 +0200
-Subject: [PATCH v2] rust: num: reject bool conversion to signed one-bit
- Bounded
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QOlgOvj+"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cf452def93so24898445ad.1
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 11:12:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786817568; x=1787422368; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uq/zXomRaUtmPVU0X/7Fe7/2pJ+viXdEE1hutqkzih4=;
+        b=QOlgOvj+whoo5+ZxgIL1l86V/C6PeXlWEPKfaD/ynydtTue1vPvXIjwkmm3KYi5pg1
+         Kf74xnr4RE7DVn2kgCk1M4802tAMKT5PhikJdUv9iLSP2Waf5zF4NAhuest46wqmtsta
+         ZbLaGIgYuqMzuoOtnrejqYNb7SBkBsNywvo3VdImF6o4vEltAnyzVbZgfjSA9NiN6+mw
+         wZCu+Fe+UmWxGPeOzcvzfd4vt8ZrT/8lzrhyodezjMwfpDej1U5vVrZeKdcwUjU+Ygaz
+         N1NQ5g296iyrWSCFEMb5qSzDnoKsve8Qzw9X7SKXSRaGOLvk1hmkGVOaiPdPpo/z0vpk
+         3g1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786817568; x=1787422368;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uq/zXomRaUtmPVU0X/7Fe7/2pJ+viXdEE1hutqkzih4=;
+        b=tJBWZnKhxwvT7IcUHPCOQDHQvrpSe4tlvpLKdsietZwfl+nfOLBVFODZFKgL+V8Zw6
+         gt8p/Su53NLbjBnQb+JqEQR7DNdpXNjPEApEuT7mJ/1wUzYHfexyjo6BWiIrUaXqhJ71
+         chieOChpN3LVNBnzC8BGxGUHKgtcdpIshBo2ChzrXRlPINzhav9HlisU7LOS8aAP1zf0
+         r5qdN0mM90HYxRoNdlM49WYsnEjbVwzE3BR+YING/Y5DefB2eQCgCAzeZXFwED5bHnMZ
+         Swq3p83XVhKZ+E1KjiY/+XpffJDPfDpXSYJ2ExbhQHwZKNycdvluZkqReAZ3V+08Vd1I
+         WftA==
+X-Forwarded-Encrypted: i=1; AHgh+RphxgtBwD3iSiF+0m62YQbWH/ymxRJlzCeJlSLtAC1e14sG0obtxS0ZK1aRGOepMjtIGVFkH2Q=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxxl6XzwzMSCiTP0mJHPdAl7oXHu8k+yeaZmK72EdfbE6/bJiC1
+	RUwZQSD+Ppwd3VR80RHyhdPSIW08lXU/HKuK5obNl+tMHEQIebOcVbbW
+X-Gm-Gg: AR+sD107IAkJMNhlwooyTcWqHDoVIwXxJvmV0YHHGFX8wVYpS3ZdhC7xaCAG6rrYLD1
+	EisgZZMLE3y3Gg35IzpiL72leBDN54VduwyR2xZS+Z+K6Aq09CY9Z3m89xVNtjXpY2L8vGmOnZO
+	oCvQeLwGnefLvFbY2Cri18aC+T6d9qJNn9aDj9K9AaOH0qumx+xrDp1MTjne7xCFZXWkVrVFHKj
+	yzFtyDqdghzuAAYfJQQqsLuyYAXs87EzmMYjOYsx2rgkce0puilU97gVjW+kcgb1d5kIDdn1tne
+	NbPlsvgZIfCsWjdoF3OjDMNV20XEo1rVzaWDSYl0FfRb+BMvQUI+BQaRpza5kK9TqV+3nOuYrsn
+	/G3ixtFLXPiyQPuh0SNT1qwuNdNsTSdxHyh37UjVegAoYB9QYn5+psjtxll4HevT3XMS66QJOja
+	yYku+2Lc/dC4VMWZTBF25CHfFyPOErAVeeY2DnwH4QbBPrUMjakFGEVvW3a0biLRBif7fEZ5T7c
+	b0QAwSSwq6GfVLRmouFpFRxqkU=
+X-Received: by 2002:a17:90b:1b43:b0:38e:9ca8:e99 with SMTP id 98e67ed59e1d1-3933af8b5d7mr10385225a91.5.1786817568272;
+        Sat, 15 Aug 2026 11:12:48 -0700 (PDT)
+Received: from localhost.localdomain ([240a:4280:4800:6ace:25e8:2607:e94d:caaf])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-394eb7539d3sm7304254a91.15.2026.08.15.11.12.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 15 Aug 2026 11:12:46 -0700 (PDT)
+From: Liu Zhenlong <dragonliu2018@gmail.com>
+To: andi.shyti@kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	jochen@scram.de,
+	maddy@linux.ibm.com,
+	vz@mleia.com,
+	piotr.wojtaszczyk@timesys.com
+Cc: mpe@ellerman.id.uk,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	grant.likely@secretlab.ca,
+	neelegup@linux.vnet.ibm.com,
+	benh@kernel.crashing.org,
+	wsa@kernel.org,
+	stigge@antcom.de,
+	linux-i2c@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Liu Zhenlong <dragonliu2018@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/5] i2c: mpc: fix device_node refcount leak in fsl_i2c_probe()/fsl_i2c_remove()
+Date: Sun, 16 Aug 2026 02:12:00 +0800
+Message-ID: <20260815181204.2321-2-dragonliu2018@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260815181204.2321-1-dragonliu2018@gmail.com>
+References: <20260815181204.2321-1-dragonliu2018@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260815-fix-rust-bounded-from-bool-submit-v2-1-aa35bb2c22d1@younes.io>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOTQ7CIBCFr2JYO1rwj7jyHqYLKIMdo2AG2tSY3
- l2oJ3D5Tb55731EQiZM4rz6CMaREsVQQK1XoutNuCGQKyxUo46NlgfwNAEPKYONQ3DowHN8Fog
- PSIN9Uoad8Xp3dNqfpBYl58VYnpaOa/vjYt6xyzW4GtYkBMsmdH09RaYbhe3SEnDKVekp5cjvZ
- ecoa9Q/k0YJErRWSp2s3zfWXN5FxbShKNp5nr/IM7koBwEAAA==
-X-Change-ID: 20260815-fix-rust-bounded-from-bool-submit-3af836d8f718
-To: Alexandre Courbot <acourbot@nvidia.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: rust-for-linux@vger.kernel.org, stable@vger.kernel.org, 
- Younes Akhouayri <git@younes.io>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786815763; l=4692;
- i=git@younes.io; s=20260712; h=from:subject:message-id;
- bh=EorzZYAWNZ6qTy3DdJZpEnX9ZK3T3nuD8zrV476wuSc=;
- b=CiOjZN5wxPj60ipF25YAxkZ0SKzTMrwsnFViZD6AElysKOUhhE1TMCBvRqnDo0+4DX0Sdbp3b
- ChxC3zeE9bRBxhgI4fRrd5qkrNxs3GafI2csnw3XZ1TxVSJTPvVH0+6
-X-Developer-Key: i=git@younes.io; a=ed25519;
- pk=1DRfzPrQ04RQHHgGK28t+vjIAPv5oISPiAdLMU6J5dE=
-X-Endpoint-Received: by B4 Relay for git@younes.io/20260712 with
- auth_id=866
-X-Original-From: Younes Akhouayri <git@younes.io>
-Reply-To: git@younes.io
+Content-Transfer-Encoding: 8bit
 
-From: Younes Akhouayri <git@younes.io>
+fsl_i2c_probe() calls of_node_get() to take an extra reference on the
+platform device's of_node when assigning it to the adapter device, but
+neither the probe error path nor fsl_i2c_remove() drops it.
 
-From<bool> turns true into 1. A signed Bounded with N = 1 can hold
-only -1 and 0. From<bool> therefore creates a value that the type does
-not allow. Deref assumes the value is valid and calls
-unreachable_unchecked() when it is not. Safe Rust can therefore reach
-undefined behavior.
+device_release() does not call of_node_put() and i2c_adapter_dev_release()
+only completes a struct, so the extra reference is never released, leaking
+the device_node on every probe failure and every adapter removal.
 
-Rust cannot write N >= 2 directly in this From implementation. Add a
-private BoolFits trait. It accepts every valid unsigned width and signed
-widths from 2 through 128. The current Integer types do not use more
-than 128 bits, so this keeps every valid conversion.
+Add the matching of_node_put() to both paths.
 
-Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
-Closes: https://lore.kernel.org/rust-for-linux/OzuVxu0--J-9@younes.io/
+In the probe error path, i2c_add_numbered_adapter() failure does not run
+i2c_del_adapter(), so of_node_put(i2c->adap.dev.of_node) is safe.
+
+In fsl_i2c_remove(), i2c_del_adapter() clears adap->dev with memset() at
+the end (commit bd4bc3dbded9 ("i2c: Clear i2c_adapter.dev on adapter
+removal")), which zeroes adap->dev.of_node before of_node_put() runs,
+turning it into a no-op.  Cache the pointer before calling
+i2c_del_adapter(), the same approach used in i2c-mux
+(i2c_mux_del_adapters) and mtd (commit 56570bdad5e3 ("mtd: core: Fix
+refcount error in del_mtd_device()")).
+
+Compile-tested with gcc-powerpc-linux-gnu on pmac32 defconfig; no
+hardware available for runtime testing.
+
+Fixes: 9fd049927ccb ("of/i2c: Generalize OF support")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Younes Akhouayri <git@younes.io>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Liu Zhenlong <dragonliu2018@gmail.com>
 ---
-Do not allow From<bool> for signed Bounded values with N = 1.
-Keep it available for signed Bounded values with N >= 2.
----
-Changes in v2:
-- Use vertical formatting for the nested `num` import.
-- Link to v1: https://lore.kernel.org/rust-for-linux/20260815-fix-rust-bounded-from-bool-submit-v1-1-882227bf40ba@younes.io/
----
- rust/kernel/num/bounded.rs | 54 +++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 49 insertions(+), 5 deletions(-)
+ drivers/i2c/busses/i2c-mpc.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
-index d192610a687d..7306ae541e53 100644
---- a/rust/kernel/num/bounded.rs
-+++ b/rust/kernel/num/bounded.rs
-@@ -13,7 +13,11 @@
+diff --git a/drivers/i2c/busses/i2c-mpc.c b/drivers/i2c/busses/i2c-mpc.c
+index a21fa45bd64c..8182f7dc3d0f 100644
+--- a/drivers/i2c/busses/i2c-mpc.c
++++ b/drivers/i2c/busses/i2c-mpc.c
+@@ -867,8 +867,10 @@ static int fsl_i2c_probe(struct platform_device *op)
+ 	i2c_set_adapdata(&i2c->adap, i2c);
+ 
+ 	result = i2c_add_numbered_adapter(&i2c->adap);
+-	if (result)
++	if (result) {
++		of_node_put(i2c->adap.dev.of_node);
+ 		return result;
++	}
+ 
+ 	return 0;
  };
- 
- use kernel::{
--    num::Integer,
-+    num::{
-+        Integer,
-+        Signed,
-+        Unsigned, //
-+    },
-     prelude::*, //
- };
- 
-@@ -174,13 +178,26 @@ fn fits_within<T: Integer>(value: T, num_bits: u32) -> bool {
- /// // `u8` (regardless of the passed value).
- /// // let _ = Bounded::<u32, 6>::from(10u8);
- ///
--/// // Booleans can be converted into single-bit `Bounded`s.
-+/// // Booleans can be converted into unsigned single-bit `Bounded`s.
- ///
- /// let v = Bounded::<u64, 1>::from(false);
- /// assert_eq!(v.get(), 0);
- ///
- /// let v = Bounded::<u64, 1>::from(true);
- /// assert_eq!(v.get(), 1);
-+///
-+/// // Signed integers need at least two bits to represent both `0` and `1`.
-+/// let v = Bounded::<i8, 2>::from(true);
-+/// assert_eq!(v.get(), 1);
-+/// ```
-+///
-+/// A signed single-bit [`Bounded`] cannot represent `1`, so converting a boolean into one does not
-+/// build.
-+///
-+/// ```compile_fail,E0277
-+/// use kernel::num::Bounded;
-+///
-+/// let _: Bounded<i8, 1> = true.into();
- /// ```
- ///
- /// Infallible conversions from a [`Bounded`] to a primitive integer are also supported, and
-@@ -1109,7 +1126,33 @@ fn from(value: Bounded<T, N>) -> $type {
-     i8 i16 i32 i64 isize
- );
- 
--// Single-bit `Bounded`s can be converted from/to a boolean.
-+// Conversions between `Bounded`s and booleans.
-+
-+/// Marker for signedness types for which a valid `N`-bit integer can represent a boolean.
-+trait BoolFits<const N: u32> {}
-+
-+impl<const N: u32> BoolFits<N> for Unsigned {}
-+
-+macro_rules! impl_signed_bool_fits {
-+    ($($num_bits:literal)*) => {
-+        $(
-+        impl BoolFits<$num_bits> for Signed {}
-+        )*
-+    };
-+}
-+
-+// `N >= 2` cannot be expressed as a trait bound without `generic_const_exprs`, so enumerate every
-+// width supported by the current `Integer` implementations.
-+impl_signed_bool_fits!(
-+    2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
-+    17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
-+    33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48
-+    49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
-+    65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
-+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96
-+    97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112
-+    113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128
-+);
- 
- impl<T> From<Bounded<T, 1>> for bool
- where
-@@ -1123,10 +1166,11 @@ fn from(value: Bounded<T, 1>) -> Self {
- impl<T, const N: u32> From<bool> for Bounded<T, N>
- where
-     T: Integer + From<bool>,
-+    T::Signedness: BoolFits<N>,
+@@ -876,8 +878,10 @@ static int fsl_i2c_probe(struct platform_device *op)
+ static void fsl_i2c_remove(struct platform_device *op)
  {
-     fn from(value: bool) -> Self {
--        // SAFETY: A boolean can be represented using a single bit, and thus fits within any
--        // integer type for any `N` > 0.
-+        // SAFETY: `__new` enforces that `N` is a valid width, and the `BoolFits` bound guarantees
-+        // that the integer representation of `value` fits within any such `N`.
-         unsafe { Self::__new(T::from(value)) }
-     }
- }
-
----
-base-commit: 47f27155f17498fccb1f222f79089642337498a9
-change-id: 20260815-fix-rust-bounded-from-bool-submit-3af836d8f718
-
-Best regards,
---  
-Younes Akhouayri <git@younes.io>
-
+ 	struct mpc_i2c *i2c = platform_get_drvdata(op);
++	struct device_node *node = i2c->adap.dev.of_node;
+ 
+ 	i2c_del_adapter(&i2c->adap);
++	of_node_put(node);
+ };
+ 
+ static int __maybe_unused mpc_i2c_suspend(struct device *dev)
+-- 
+2.55.0
 
