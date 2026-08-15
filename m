@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC4A4229C6
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 15:55:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B59A424D64
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 15:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786809317; cv=none; b=IW41fS3lyxTAqSmysPMDOTBKFRO1W4svPjoQW+/f0TyUvVpB7Fws5mMCJTPvPIvrWRYcGFrtUXUvRfkD6shChgnwztxsubsgV52zwcsH5zxHg9ThQYSZWdybtX+uQo66ZthMeUX5RLwq335vcqg+Phu8leAJIkHhRqa1wRXkyn0=
+	t=1786809323; cv=none; b=ZRItx9sn68/ePsFx6ueHaprha/kddDpT2JguiUh3Sx7yw2oheA/aFz6ZW3slBZ2QQwSo/gPxTLGi08wmpiA8M4p1pSiTigRFzklRK2If/MS3vLQPFFrT+0hvMZrKl9ZXIRJgHwdJYdSgdmpa0KuDewntqeEAmwNpQIEruIKUEJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786809317; c=relaxed/simple;
-	bh=8IpuJOxHR706GlJdC1MaCTvBsnsIcuNIwC/JXkIY6C0=;
+	s=arc-20240116; t=1786809323; c=relaxed/simple;
+	bh=yZ3pKQNC0tPvkjM+vVpvbFR+R3Sm4sRJbZ1EvlTrxFg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Etfw5o3yWQOSR92w//9hod4q2T/Q2APG+SupE8UnGg6rHemY3qDbic7S1KM9aIlWJ86TlTep44zCBoJHqPR3rZxPlPYQydNLJ5WvvuEFU+VGqhI0xUQrEqGToBuz1st7384zqahBjTiefBQabX9uInLW1xiZ4KTMfa46lKD/OG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lnyek3sF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fPriQB0EGV6um2X1r/UogQwObuL7AkeTTTXQ7Uj9bb7NDqx5aAGNKeeSSnb9yll4MJSCbW3MctWHjLcyr874RaivyfXsC/zjvXMlOTTd3MZrHidFs2vg+NV6UsL0Xj9Ar41rWti0nfy52qvXY52RJbqfIzt+1gpl8j3Ijct1Fc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CQ1GxjHO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lnyek3sF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E8C1F000E9;
-	Sat, 15 Aug 2026 15:55:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CQ1GxjHO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9E881F000E9;
+	Sat, 15 Aug 2026 15:55:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786809314;
-	bh=pQBjAZ1SUQVfuIENx8Pz1AtbBIVcuP5UKydLbAkE4ZM=;
+	s=k20260515; t=1786809320;
+	bh=xVXl6IFooS+7eslXFEGhs//PEMlsN3JeEkrWxmCiDCM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lnyek3sFEaBp1V5OOvq5f2zYhtWPQMKIV4+8x6fboarnVKX4Cy+rOvuoIZu9M4/Jr
-	 xbpLMYlFewi+OZ8va4gt9KB6XzX4BfXm3BWhMo+yZvv6K1lUsXs8QwJ62kSbrfMgs7
-	 5XIymLXdcRaNfXBKqUNHa1MmPQXtjypiEYrX7E+srAKvLElDHSqmRPRbYaJ25i2SkY
-	 5/B0puJNouRsaQOZKRsolkiL62HLev6TdHMGuliaM2t4US8ggn4RZiccZaB9rsSuWT
-	 6ND6BbQCKYPnd6/pZN/DkJfPhm/w7jaS0dA6udhxOTkCgi6g39iUS4X+0mbHAJuRGW
-	 43lo4cRaoKgjQ==
+	b=CQ1GxjHOWGA9FmvM416PV/IizOzvI5tuHefEt12mUjID1YqrBoi74jiGgw/+qc06z
+	 Dh2Mk0Ba5Y8EF3217hv4ErGHaKEIp81p820hJv3qQHvLvkt9kIbU0xC948xSTF9mVD
+	 L9TQkAgJWyuiv2R0KHl9FT5tOFyBpSiGyquKnBeFn751Lmc2xhqgv5smGAYUHRZN7X
+	 oBwLsiqp/gA1jOS/mgh0e2A3l9W1JkOyhTe97d3RxNGfaEKgqmzcwX//BEwpju8BRX
+	 D3ppAk04TtRIXnTSrxaDhmBTmOLNVoM+lMG1QxpI0qgb1mBAYnlhfzChscrA2LEUgY
+	 4sJ+cV7zjJM+w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yao Kai <yaokai34@huawei.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
+Cc: Dongli Zhang <dongli.zhang@oracle.com>,
+	Willem de Bruijn <willemb@google.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] futex: Fix race in futex_pivot_pending() during private hash resize
-Date: Sat, 15 Aug 2026 11:55:12 -0400
-Message-ID: <20260815155512.785627-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] net: tap: set skb->dev before parsing virtio net header in tap_get_user_xdp()
+Date: Sat, 15 Aug 2026 11:55:17 -0400
+Message-ID: <20260815155517.786060-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081353-usher-wackiness-91af@gregkh>
-References: <2026081353-usher-wackiness-91af@gregkh>
+In-Reply-To: <2026081349-dropout-afoot-d502@gregkh>
+References: <2026081349-dropout-afoot-d502@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,91 +47,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yao Kai <yaokai34@huawei.com>
+From: Dongli Zhang <dongli.zhang@oracle.com>
 
-[ Upstream commit 8e7ff730dd96519a333d1570edf1c3fabb6d3629 ]
+[ Upstream commit 3874892dd27d5387aa9a06f58d9060f18f351d24 ]
 
-A task performing a custom private hash resize can remain blocked in
-uninterruptible sleep indefinitely.  The hung-task detector reports:
+The commit 4f61f133f354 ("net: tap: NULL pointer derefence in
+dev_parse_header_protocol when skb->dev is null") fixed a crash in
+tap_get_user() by assigning skb->dev before calling tun_vnet_hdr_to_skb().
+This is required because virtio_net_hdr_to_skb() may invoke
+dev_parse_header_protocol(), which dereferences skb->dev. Without the
+assignment, a NULL pointer dereference can occur.
 
-  INFO: task futex-resizer:314 blocked for more than 10 seconds.
-  task:futex-resizer state:D stack:14824 pid:314 tgid:312 ppid:311
+However, tap_get_user_xdp() still parses the virtio-net header before
+assigning skb->dev. When the vhost TX path passes an XDP buffer containing
+a GSO virtio-net header but the protocol is set to zero on purpose,
+tun_vnet_hdr_to_skb() can reach dev_parse_header_protocol() while skb->dev
+is still NULL, resulting in a crash.
 
-  Call Trace:
-   __schedule+0x521/0xf30
-   schedule+0x22/0xa0
-   futex_hash_allocate+0x3db/0x490
-   __do_sys_prctl+0x6f5/0xbd0
-   do_syscall_64+0xf9/0x530
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Fix this by looking up the tap device and assigning skb->dev before calling
+tun_vnet_hdr_to_skb(), matching the ordering already used in
+tap_get_user(). Preserve the existing RCU read-side critical section across
+dev_queue_xmit().
 
-  Kernel panic - not syncing: hung_task: blocked tasks
-
-futex_pivot_pending() allows the resize request to continue when
-either no replacement hash is pending (hash_new == NULL) or the current
-hash reference count has reached zero.
-
-After the final-reference wake, another futex task can complete the
-pivot between the two observations:
-
-  T1                                  T2
-
-  futex_hash_allocate()
-    wait_var_event(mm, ...)
-      futex_pivot_pending(mm)
-        hash_new != NULL
-                                      futex_hash()
-                                        futex_ref_get(old) -> false
-                                        futex_pivot_hash(mm)
-                                          hash_new = NULL
-                                          __futex_pivot_hash(mm, new)
-                                            rcu_assign_pointer(hash, new)
-        fph = rcu_dereference(hash) /* new */
-        futex_ref_is_dead(fph) -> false
-      schedule()
-
-The pivot changes the state from hash_new != NULL with a dead current
-hash to hash_new == NULL with a live current hash.  Because
-futex_pivot_pending() reads hash_new and hash without serialization,
-the resize task can observe hash_new in the pre-pivot state and hash in
-the post-pivot state, causing futex_pivot_pending() to return false even
-though the pivot has completed.  The task then goes to sleep after the
-wakeup has already been consumed.
-
-Serialize state reads in futex_pivot_pending() using futex_mm_phash::lock.
-This guarantees that futex_pivot_pending() observes hash_new and hash
-atomically, eliminating the race condition.
-
-Fixes: bd54df5ea7ca ("futex: Allow to resize the private local hash")
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Fixes: 924a9bc362a5 ("net: check if protocol extracted by virtio_net_hdr_set_proto is correct")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260804125530.3933754-1-yaokai34@huawei.com
+Signed-off-by: Dongli Zhang <dongli.zhang@oracle.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Acked-by: Michael S. Tsirkin <mst@redhat.com>
+Link: https://patch.msgid.link/20260802224612.264563-1-dongli.zhang@oracle.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/futex/core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/tap.c | 24 ++++++++++++++----------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
 
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index 9e7dea6fc0ccd..0b65188a624b6 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -1743,12 +1743,12 @@ static bool futex_pivot_pending(struct mm_struct *mm)
- {
- 	struct futex_private_hash *fph;
+diff --git a/drivers/net/tap.c b/drivers/net/tap.c
+index c460b1f39136a..b3cb7d5a95850 100644
+--- a/drivers/net/tap.c
++++ b/drivers/net/tap.c
+@@ -1199,10 +1199,21 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
+ 	skb_reset_mac_header(skb);
+ 	skb->protocol = eth_hdr(skb)->h_proto;
  
--	guard(rcu)();
-+	guard(mutex)(&mm->futex_hash_lock);
++	rcu_read_lock();
++	tap = rcu_dereference(q->tap);
++	if (!tap) {
++		kfree_skb(skb);
++		rcu_read_unlock();
++		return 0;
++	}
++	skb->dev = tap->dev;
++
+ 	if (vnet_hdr_len) {
+ 		err = virtio_net_hdr_to_skb(skb, gso, tap_is_little_endian(q));
+-		if (err)
++		if (err) {
++			rcu_read_unlock();
+ 			goto err_kfree;
++		}
+ 	}
  
- 	if (!mm->futex_phash_new)
- 		return true;
+ 	/* Move network header to the right position for VLAN tagged packets */
+@@ -1210,15 +1221,8 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
+ 	    vlan_get_protocol_and_depth(skb, skb->protocol, &depth) != 0)
+ 		skb_set_network_header(skb, depth);
  
--	fph = rcu_dereference(mm->futex_phash);
-+	fph = rcu_dereference_raw(mm->futex_phash);
- 	return futex_ref_is_dead(fph);
- }
+-	rcu_read_lock();
+-	tap = rcu_dereference(q->tap);
+-	if (tap) {
+-		skb->dev = tap->dev;
+-		skb_probe_transport_header(skb);
+-		dev_queue_xmit(skb);
+-	} else {
+-		kfree_skb(skb);
+-	}
++	skb_probe_transport_header(skb);
++	dev_queue_xmit(skb);
+ 	rcu_read_unlock();
  
+ 	return 0;
 -- 
 2.53.0
 
