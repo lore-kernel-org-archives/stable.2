@@ -1,80 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from cvsmtppost27.nm.naver.com (cvsmtppost27.nm.naver.com [114.111.35.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CB21E5B68;
-	Sat, 15 Aug 2026 05:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C0F33EB1A
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 05:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786772281; cv=none; b=iNfuHKxW93saUHfFB/PGkAJxbfnFsr+TJ5+COaT/VjuwCA4EQJ7otlzC3LdBsMyw8uJqzIdj4WlQ4v+8TRwe2IjZibYaGkF1Sld7NVYp/FyBxJ/vYv8GmdTxyKosDWqJean9XJZgwrh9Y+TEVdXggoNgrRysImvqj7p/3W7uOpM=
+	t=1786772419; cv=none; b=Z0FPplBm32xw9yM41QVQyh0oJIKbgMolkLBSxhXoLqUTa2PU50GAYgxQGqNaiYoAaokNMwMdt7vyxP5wB1FeQini1O24Z2djQcesBDNdmIEEZ9B4aKm4up8ygf5rvJcKhAJV8jPRXWukyzXMV6YYHV4TFv1mB+3h3vj/B0DdkUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786772281; c=relaxed/simple;
-	bh=znOtKGq9CSBESJoTQuuODs7JUEg/IoIP45OP8FIVOg8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SW0ojKKLDy4ep2jzXZIzRO1kU/0JuQbEye0MRHBd+/vLiYSV+28cJWiL+V2CV/bOlAOyTY0xPwJgbK5jFfaS1mHGzWrOeMaTum4YPLFFvg2kOEkRo8hM1/O8gpO7Op/nB8626trU/tzuQZOwvsP3RNN5eY6h6DkGz3d42gulsvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ljBfxGVB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786772419; c=relaxed/simple;
+	bh=884LaAzVVhTshgpuDrYlbsmxSEorMucoGoR8jRD33oY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bKcnwgBMMhbrhmlwkWzpyi2JZEjhXpMa8HqQk+RkM+0l6263MXatny4a57b3M4LjnnkgVMq2hJa4trVUqKmlRhs4X3ARcX0OeG8JnzT2wNFdES8LOtCXdbO1HVEPfxcyX5UIA3Y4NnjNFb6wVCxBd4p4hv38ZwvyAbt8Qn7md58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=s+s0bLrz; arc=none smtp.client-ip=114.111.35.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ljBfxGVB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BCA71F000E9;
-	Sat, 15 Aug 2026 05:37:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786772280;
-	bh=bcBhFr9xaSQ8k7Q5Ps8mwB92vV7xY6nRCY1+LlCosoM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ljBfxGVBBjDGfWMqN16MozsgkKW/1dTktvkpLTBOJpH+VK6pWbT5XVCa9J1UTdcnt
-	 lEkSYwvPmyX0WT08ARQebNOKgsidRsNt7a4iO8CU0WMQEWcEFDMB4SP9ktBpDV1qe/
-	 CCWjd7mc2oq42i/bq74el6x797EBjBYtvWOZhIDQ=
-Date: Sat, 15 Aug 2026 14:36:24 +0900
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Viktor =?iso-8859-1?Q?J=E4gersk=FCpper?= <viktor_jaegerskuepper@freenet.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, stable <stable@vger.kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: "Fixes:" tags on commits with Cc: stable
-Message-ID: <2026081508-exhale-five-3357@gregkh>
-References: <db97cf96-e7c8-437b-9069-0952c62b023a@freenet.de>
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="s+s0bLrz"
+Received: from cvsendbo002.nm ([10.112.20.42])
+  by cvsmtppost27.nm.naver.com with ESMTP id S48EA5MTRuerfVGonIs7cg
+  for <stable@vger.kernel.org>;
+  Sat, 15 Aug 2026 05:30:07 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1786771806; bh=884LaAzVVhTshgpuDrYlbsmxSEorMucoGoR8jRD33oY=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=s+s0bLrzylkJryJgjaoc82iBmA3Fqh2UyxSfCXMhmPZqDjGH+QS8q9wen3CIJxWP7
+	 RSsWly3vv6XBj9RK2LGCeLQyTtWvAY03dMRW4UCK/8rXd2rI3rjAuOuvJzhl/sO5TK
+	 llyJM+DgYj6jRoobKLQAKfnXinXgqczdQ4vgwJZv2gO3UFWV7Xj4Mb0W1aeJCh/Src
+	 UGvQJ+fx3hEZUzhAJxIyCCXwjPFQIlp6gvnDNYPVqBDYvkqm2NTra88TBqgA0MOlUU
+	 Ypm+r6hvYtObIUUkkdT44jNr8BH4wsx8mCJCZzJyHT62dl5yi8INVGxHhStS46IB27
+	 P3w4KmwyhHYLw==
+X-Session-ID: 2HYKETDkQXm94HPKqk7Zcg
+X-Works-Send-Opt: rle8W4eXjHwYKBm9FAF9FHmwKo2mKqErKqb/jJIFjAJYKg==
+X-Works-Smtp-Source: gqYqFqM/FqJZ+HmrKAtl+6E=
+Received: from bl4ckhyun.localdomain ([211.41.193.194])
+  by cvnsmtp008.nm.naver.com with ESMTP id 2HYKETDkQXm94HPKqk7Zcg
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Sat, 15 Aug 2026 05:30:06 -0000
+From: Hyeontae Lee <wonju345@naver.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyeontae Lee <wonju345@naver.com>
+Subject: [PATCH] usb: gadget: f_midi: hold transmit_lock while freeing IN requests
+Date: Sat, 15 Aug 2026 14:29:29 +0900
+Message-ID: <20260815052929.146901-1-wonju345@naver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <db97cf96-e7c8-437b-9069-0952c62b023a@freenet.de>
 
-On Fri, Aug 14, 2026 at 07:20:57PM +0200, Viktor Jägersküpper wrote:
-> Hi,
-> 
-> regarding a recent fix for AMDGPU which was tagged with Cc: stable, Greg
-> wrote that the "Fixes:" tag in that commit was wrong from his point of
-> view: It referenced a commit which was not contained in the mainline
-> kernel, but only in the drm-next branch (for the next merge window). The
-> patch from the referenced commit had been cherry-picked for the mainline
-> kernel via the drm-fixes branch, so Greg argued that the "Fixes:" tag
-> should have referenced that commit because a reference to a non-mainline
-> commit doesn't work with the stable team's tooling, which was confirmed
-> by Sasha.
-> 
-> However, Alex mentioned that some time ago it was determined that the
-> "Fixes" tag should reference the original commit (drm-next is upstream
-> for drm-fixes I guess) so that you could follow the cherry-pick -x chain.
-> 
-> As far as I can tell, the documentation doesn't say explicitly what is
-> correct. Since this issue might be relevant for more people, I'm asking
-> for a clarification so that the issue can be avoided in the future. Most
-> likely the documentation should be made clear on this matter.
+f_midi_disable() drains in_req_fifo and frees the requests without taking
+transmit_lock.  f_midi_transmit() holds that lock across the whole of
+f_midi_do_transmit(), which peeks a request off the fifo without removing
+it and then keeps using it.  kfifo_peek() does not advance the read index,
+so the drain frees exactly the request the transmit path is still using.
 
-A Fixes: tag should point to the correct commit that it actually fixes.
-When you point to a "future" commit, that just breaks the whole graph
-entirely.
+No hostile host is needed: __composite_disconnect() calls f->disable() as
+well, so a bus reset or a cable pull while a MIDI client is writing is
+enough.
 
-Because of this, we know that drm "fixes" are not being applied to
-stable kernels properly, which it seems the DRM developers are ok with,
-so there's not much more I can say here :(
+  BUG: KASAN: slab-use-after-free in f_midi_in_work+0x126c/0x18c0
+  Read of size 4 at addr ffff888104818e20 by task kworker/2:2H/164
+  Freed by task 158:
+   kfree+0x121/0x380
+   f_midi_disable+0x20e/0x430
+   reset_config+0x9d/0x200
+   __composite_disconnect+0xa7/0x140
 
-good luck!
+Take the lock around the drain, the way hidg_disable() does.
 
-greg k-h
+Fixes: e1e3d7ec5da3 ("usb: gadget: f_midi: pre-allocate IN requests")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4.8
+Signed-off-by: Hyeontae Lee <wonju345@naver.com>
+---
+ drivers/usb/gadget/function/f_midi.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
+index fba8cf787d6c1..9e67b3c74296f 100644
+--- a/drivers/usb/gadget/function/f_midi.c
++++ b/drivers/usb/gadget/function/f_midi.c
+@@ -420,6 +420,7 @@ static void f_midi_disable(struct usb_function *f)
+ 	struct f_midi *midi = func_to_midi(f);
+ 	struct usb_composite_dev *cdev = f->config->cdev;
+ 	struct usb_request *req = NULL;
++	unsigned long flags;
+ 
+ 	DBG(cdev, "disable\n");
+ 
+@@ -431,8 +432,10 @@ static void f_midi_disable(struct usb_function *f)
+ 	usb_ep_disable(midi->out_ep);
+ 
+ 	/* release IN requests */
++	spin_lock_irqsave(&midi->transmit_lock, flags);
+ 	while (kfifo_get(&midi->in_req_fifo, &req))
+ 		free_ep_req(midi->in_ep, req);
++	spin_unlock_irqrestore(&midi->transmit_lock, flags);
+ 
+ 	f_midi_drop_out_substreams(midi);
+ }
+-- 
+2.43.0
+
