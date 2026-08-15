@@ -1,143 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E26385D79;
-	Sat, 15 Aug 2026 06:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F3B3F4126
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 06:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786775835; cv=none; b=HgrgXg0XadJte350t1KWxIHqQ6j3VpRzG4n8Oft+Yzd9jzlaHYiDUSoLYFHv3888Pz36IlG2vNBuOCWhKiZGWfHQXTEXE/UTAd6u4zpB40brlaq1f4J7AP9iJEBUyuz3WWmroNocrRCmaRPvTyIK6mdxEttxdHSVnIlFMYr/uJc=
+	t=1786777187; cv=none; b=pI1lBlwhyS/xsr/QFoqq03WlfazXVLCOu+g4AOIiieMNqgFEMrwN6MC3s3HqGLWadeIF4dVE9x3iJxekqd7xBiTqpcc45UJwJ3E05r8entm9tQ7fnEPyyrMwXNF1MlrkYPCvTieuYn3CDNpe1DBOqmMtmcqd6fjWFL5r6it9aFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786775835; c=relaxed/simple;
-	bh=9T77PimmZzMHSJlCsZUQkkkVxlGA/4YGsi6l6j74tiY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=crBDD33tNf7MaVWy+6aFRC2fvi6udhCO4o5IGhIFmjjSummyGrIesJmuGEPZx+wJ42gEunSf4s8bOYJUPjYtwf3CfBy+pwUs/bdZiT1mcBfmbqp1MZnKO4x4l/5C+MJlFnbLAO/rf/wxa8W5UNMhKS93IdDmGH3REXQ4G+cXey8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOomPtrM; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786777187; c=relaxed/simple;
+	bh=2XRsYUoPzYnatPTvcy6y5W3t3RWQ5s0KpPGVdws+DbY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qVY7dDXUkRXF2q3y+Xni3OSgKyOPqG3ehouNsNtHS2F3s/H8PTGY1fPnGxOwMbmR5AZgC+z5Ol7TDdCQ9gf6x1iQN+HEmUkefHhpSEMYLkpFwQ2HDM889eOXwcAEVzwcLjod+kEsUX63ZrEkq50NIWra1dcoHpiNw197GyfIYxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MMH8arRH; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOomPtrM"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D3CBC2BCC7;
-	Sat, 15 Aug 2026 06:37:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786775835;
-	bh=9T77PimmZzMHSJlCsZUQkkkVxlGA/4YGsi6l6j74tiY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=IOomPtrMNDPPp53vAXQbOGNGLBrlqX0s7E+Lp2dQCDYaebYb+v62dkXEo9wMY0Nfs
-	 Bv6JqsuYEThgjj4EaiwpBUAAgv2vxH89F7xBPF8LhnP8MqAgPAlzyeuYzwR4s5Xpp7
-	 c5dSHITMLrA0WFV+yf0uxUm2Ydss8nJ8XC9M75O3zJbICruV/QZA9V7GYnjReDWJK5
-	 lX2Wybn7I3+xvs5eamC7ury3scjRk7P+ArSEqmMy1XhzzxXv/zMPFPJ8sS0Q9PP+vc
-	 eppjKbRMBSJsrAOhNDhzMFbYRNd+facWIdVbhniE/+xaPCYX1YdntmYpuSgWVAVhJW
-	 gE9n+0yqo31cw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3677BC5AD5A;
-	Sat, 15 Aug 2026 06:37:15 +0000 (UTC)
-From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Sat, 15 Aug 2026 14:37:08 +0800
-Subject: [PATCH] drm: check for NULL master in drm_getunique() and
- drm_getmagic()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MMH8arRH"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84e0688b859so146231b3a.0
+        for <stable@vger.kernel.org>; Fri, 14 Aug 2026 23:59:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786777184; x=1787381984; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=2XRsYUoPzYnatPTvcy6y5W3t3RWQ5s0KpPGVdws+DbY=;
+        b=MMH8arRHM2OKYrulo38TBgFRWRLrUcul/k/ue8uqtA/JKxBxUqcCi7X9dDRc67gT6C
+         UNEZc18VB0of86YVRTcJ05Gkplon0I2Mzke/yQSkxInnFxt/Vxcdl7RCYr+eSZKJe+KF
+         Jaq82eKNmfJSznGatBnoQli/5bsfUzn4WtXu6Shu1yadikfY5oGUaZ5TeUV+NRr/xfmC
+         i2IWDaZPPUgUH9qyMO6ZARCBE1PvQocoE0HTurDIO2vFK8yoV1ABt1hgCuQ2g5LUr4qf
+         VytaAaJ+THPXpU1l5YV5eW1/hWS3jkYSz2EdnGevZa+3XPe8nQcf+jkobwPU7CEKZ11L
+         kwuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786777184; x=1787381984;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2XRsYUoPzYnatPTvcy6y5W3t3RWQ5s0KpPGVdws+DbY=;
+        b=OAfN/ObpGHTxlEIhMMiImGJYCp6rET2TWHA2FBJypy20qA939KDSBu79w5pXbhewmp
+         4YNP3GoLvbHMHVVfdVEqAun/Rqh2PiBv8RL3H+dNsR6Q9GUut0qmqvadvyT/7JffJftU
+         jddAIZhqxyADT8me0vcMJCRjPNtBXYxo60NjK8M/81wbSzl831pzNWBHO3JGC8CKEbN2
+         5ta+HcuWNC560ZVIH1rgTV0aq+AMWnT75iMUpIcOKWItfmkx3ws4cxCojQ3Ye8FwyL0g
+         W64jRgTaTbD5ZFmsLGvdDR7AM3TgLPk4++2oYWkiQ6JUvAaUZ4AOg+qaIrjOKHfjcaxp
+         FDiw==
+X-Forwarded-Encrypted: i=1; AHgh+RqCB9MDWgynaSr3B/DhV5MHw2j8XXBhOLP7eVo67MqEMpEG05v/TrcWnSgw1XJXspRLZMi6cEM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHAhl88Y7lyafDekjWyCbAcgHY5Evs9pE9JHg3o+GkmiylOYMF
+	3FWWvWZuYVKI9Xt2DOV7amoSVrp1gtzroErOaby3BmAPk6uDCREz7nW3
+X-Gm-Gg: AR+sD13XBO0u6r9ISITWTyBD0b5jUyKvBBK7X/+3y4dxFfDR50L75Bm8ySL1+kSDplu
+	08snJX+kTgyLfBn2HxeMcIKsz0Jtpqxm8V4aJ2my1Od3SwKCHI1xxiCqjDkv4h/X1+Swdr8RyZY
+	hKhnpewXnZEVVRiJdGaoPchqAywfisRo4T67t9H/Hvs9dlFUrTadgE/VIv5jummt+6AxLFZfIG+
+	pR6t3Z65SBnndzndogfl8Hm14edy/G9Qw2qRBfpL0B7Y6WTzQtNdW5f0ZcB6ckrVkcVlxmRBVGG
+	uqig2gK+2ChrKrXWnt2I3yhGEPXvHbcyVN8teMHRVWaSnW781I6yojjkDJR7oFyTPiiQlm099Tr
+	kBkdZwjzkFrf734U3lh+MX4KiQYMJQwbY28y06HDIysyH3GXYeE4zhWdROt5K2HVR2x4DJ8TeMq
+	e4AUKi8E4m0TP0f63ErqizL19rcFZhmFSo4CLHV+agMIHi5z8rrIkwbRpbVCKcRK1dAjDiBbUst
+	JBqb4i8ksim7ZBq
+X-Received: by 2002:a05:6a00:418a:b0:847:99a7:c751 with SMTP id d2e1a72fcca58-84fde75b0cemr10999018b3a.25.1786777183910;
+        Fri, 14 Aug 2026 23:59:43 -0700 (PDT)
+Received: from [192.168.0.13] ([38.34.87.7])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8517d223f8csm1223558b3a.35.2026.08.14.23.59.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Aug 2026 23:59:43 -0700 (PDT)
+Message-ID: <2d19f707f3c70c3e170acd3fc79fb70e7a27d5b5.camel@gmail.com>
+Subject: Re: [PATCH bpf v3 0/2] bpf, x86: fix per-CPU address resolution
+ into an extended register
+From: Eduard Zingerman <eddyz87@gmail.com>
+To: Vineet Gupta <vineet.gupta@linux.dev>, bpf@vger.kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, x86@kernel.org,
+ 	stable@vger.kernel.org
+Date: Fri, 14 Aug 2026 23:59:39 -0700
+In-Reply-To: <20260814220254.3797467-1-vineet.gupta@linux.dev>
+References: <20260814220254.3797467-1-vineet.gupta@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260815-drm-accel-null-master-v1-1-93bdd3ba52f1@outlook.com>
-X-B4-Tracking: v=1; b=H4sIABMJgGoC/x3MQQqAIBBA0avErBtQqYiuEi1Mpxowi7EiiO6et
- HyL/x9IJEwJuuIBoYsTbzFDlwW4xcaZkH02GGUa1eoavaxonaOA8QwBV5sOElTe1NRoUyk7Qm5
- 3oYnv/9sP7/sBoCUOC2cAAAA=
-X-Change-ID: 20260815-drm-accel-null-master-0d25e61240ab
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>, Melissa Wen <mwen@igalia.com>, 
- Dave Airlie <airlied@redhat.com>, 
- Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>, 
- Oded Gabbay <ogabbay@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org, 
- Junrui Luo <moonafterrain@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2581;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=14Xmewi+giltRJel9Gjr6ymfbKDBgR2rRdumGxnoDdQ=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrAZOqUOeDpPN7Pz9l2+SO3q5OeDTruefTzwPf/LY6
- ZuA7fLQ6uMdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMBFfJkaGl3PW9f0Pn6O1
- 4cQG7wWnzQ3eMz3nmLtm7rXIl/ptsn/L7BgZri59ujdx2WNLpQdRbSulfvv77rly723cwdN7N87
- Njw//xAAAUWlPag==
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
- auth_id=909
-X-Original-From: Junrui Luo <moonafterrain@outlook.com>
-Reply-To: moonafterrain@outlook.com
 
-From: Junrui Luo <moonafterrain@outlook.com>
+On Fri, 2026-08-14 at 15:02 -0700, Vineet Gupta wrote:
 
-drm_getunique() and drm_getmagic() dereference file_priv->master without
-checking it, and both ioctls are registered with flags of 0.
-drm_open_helper() only calls drm_master_open() for primary clients, so a
-drm_file opened on a non-primary minor keeps master == NULL. Render
-clients are already rejected by the DRM_RENDER_ALLOW test in
-drm_ioctl_permit(), so before commit 2c204f3d5321 ("accel: add dedicated
-minor for accelerator devices") every drm_file reaching these ioctls had
-a master.
+Triggered bpf-next CI manually [1] and pushed to bpf-next.
+(Since it would be sent to Linus on Monday).
+Thank you for the fix!
 
-DRM_MINOR_ACCEL is neither primary nor render: it gets no master in
-drm_open_helper() and is not covered by drm_is_render_client(). Issuing
-DRM_IOCTL_GET_UNIQUE or DRM_IOCTL_GET_MAGIC on /dev/accel/accel* leads
-to a NULL pointer dereference, in drm_getunique() with dev->master_mutex
-held. The compat entry point reaches drm_getunique() through
-drm_ioctl_kernel() with flags of 0 as well.
+[1] https://github.com/kernel-patches/bpf/pull/13314
 
-Return -EINVAL when master is NULL, matching drm_setmaster_ioctl().
-
-Fixes: 2c204f3d5321 ("accel: add dedicated minor for accelerator devices")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
----
- drivers/gpu/drm/drm_auth.c  | 3 +++
- drivers/gpu/drm/drm_ioctl.c | 5 +++++
- 2 files changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-index e5013b870ba0..cb9e02c486f0 100644
---- a/drivers/gpu/drm/drm_auth.c
-+++ b/drivers/gpu/drm/drm_auth.c
-@@ -97,6 +97,9 @@ int drm_getmagic(struct drm_device *dev, void *data, struct drm_file *file_priv)
- 	int ret = 0;
- 
- 	guard(mutex)(&dev->master_mutex);
-+	if (!file_priv->master)
-+		return -EINVAL;
-+
- 	if (!file_priv->magic) {
- 		ret = idr_alloc(&file_priv->master->magic_map, file_priv,
- 				1, 0, GFP_KERNEL);
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 9039a39c4324..083722d8dd44 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -120,6 +120,11 @@ int drm_getunique(struct drm_device *dev, void *data,
- 
- 	mutex_lock(&dev->master_mutex);
- 	master = file_priv->master;
-+	if (!master) {
-+		mutex_unlock(&dev->master_mutex);
-+		return -EINVAL;
-+	}
-+
- 	if (u->unique_len >= master->unique_len) {
- 		if (copy_to_user(u->unique, master->unique, master->unique_len)) {
- 			mutex_unlock(&dev->master_mutex);
-
----
-base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
-change-id: 20260815-drm-accel-null-master-0d25e61240ab
-
-Best regards,
--- 
-Junrui Luo <moonafterrain@outlook.com>
-
-
+...
