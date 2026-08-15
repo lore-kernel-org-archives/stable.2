@@ -1,110 +1,171 @@
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D87C30D3EF
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 13:39:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3077323643F;
+	Sat, 15 Aug 2026 13:48:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786801159; cv=none; b=T4kaOKTJZz/LDnVMoCsSLKm4/gQFXq12GqJ4a1A+Fi1/oGkpbE7n/ON8MTuoCwjcr40T6OdS4MMMPwTLeikTt2ObP6hGrfmpi0hWnSR67/KSf3E0WtbuU5gfCZ1ZiP/fR2WT8BwCEK20Wsxw/d/d/EB4I0EUS1cR1zDYXggZn5A=
+	t=1786801716; cv=none; b=c5Ar6IK/7o4lThzsCXzNGFFB6TxUINOl3Tcon/2NFBqqeh5u5QBJspril6c9fOy+l4fwZU1TGij5t2hdP8qxXmyXQZoN0Ah6iI0cWiSaTq8HgQi9BEXs8qzvhCYsc9v1REnGcD4g0MYmiAINhhfmuk4fSyyaVpTlGXzXCF1T/OE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786801159; c=relaxed/simple;
-	bh=nmeIeb4ghsgslzTmI3belGVuT1iKkYhP5Xqo4t9I41Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S4lUizdfg7iAeJDM4a8Ul0wjeYV8pjoUyNrZTchduHUriU9b6TMHyydNRallmcDq91gFSCkmV+GLyIcIZJTILdTHsAVDiAIhuCWT/bW3KvtvdpVemyEC1qpKdS3sog+8Vn1wnUAu1bXrWS6v81sT+IM0kXow3IqDNcmmVNbcqME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5bfb3347dc4so1348325e0c.0
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 06:39:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786801156; x=1787405956;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LehA2Ewcs8Da1Bm6VxmTUkZDqNIF6RALTN4HmF4fEVY=;
-        b=e2/258HF/nt/sN4mU2WChUptlnq4TKhki39UPGF9uQX4Bn6gTT+Yo5RS3dGfHcvXeh
-         2wDsrv6UhQSBXf3fvO0hTgY7ONqqB7l8+hYMkjEVK30BNiSkqG4rLdFoDg0nCcX/R68m
-         r4ckoQPuGpcIrwHuuRM8xH20K0Z0w03QJvlsV5VBDuLDR6wqbyWilfXJ+l1gc2b+ryPp
-         l9MyAZPFawDJIAuy8sZUo4e5V44WBKfirbCW30mR7YfIvlF5slyLEluFxJgoa2l/JduM
-         cvHUh7//kHYOmT/p7f22jHXpwI/9BUvI7VHKUUiUG9wVIRicx2/AnwhOGhMD6PnuDrF6
-         nv6A==
-X-Forwarded-Encrypted: i=1; AHgh+RpIX1T0ZeEmCvHIGZQh8mVSgRZ6+tb/SKMLaUU5EM/diHokDd1v0RAhUgUbfaaaiGR8YZN1zyc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzwWawadu+InDJY+Lt6ApJ9TWBzQ7nZbqRAL6TeIkhseYPeino
-	3ivYsPd0n/ZP0ifju6TUg45WRbUGvlHmh29qpH4Nsq62MylYeiBvEtjVj228TH9STQQ=
-X-Gm-Gg: AR+sD101XbncfD81bm14bPFGeSgSdakcORUBT2P4v9fonNrTA+DBFjfSJTNt++LyVB8
-	OJ2JGnLWLB7PIdHQg7Tvm7kYevmY2XpzJFqxDD+eJ6znRkDx59AHU57rXx1LvQ65o7c7Y8JrjG+
-	nzoOVMpkwyYMJtdYkWnXT9Ym8Qr0V/V7KGrMwChNZO2Jvp1jJyluOotXfxZw5QXywoREhsREQdJ
-	v3H511iKOXfq5zzkFkQymmNu06UsLJEqf5Xhm0p0VyE45dbVu92uPXeYr478RMk9lo5z9H+beAE
-	kUNF/CM1jkgtTTCfwweE3AX19gXbUU1Px2aAIChIgDJH39Pv3sZ2PQXtBt4645XPng4dpMv1Onl
-	nLOX1b7nBnx5c/gi8p6bkyQEcAXa6SMcycDSFTxMILGIT4YoLsOBXkG8jNR4TgDs7KWZ/95PB9C
-	SnjGfwIe3y9E8TRBZzoPEj0+1IjcbNtQlRwiV9G/ZdCxQeStandTwNCick3SZiYF3hQVwe2YRy9
-	oQcD1XJbarOz/hRQbNNeaGsLXI=
-X-Received: by 2002:a05:6123:b2:b0:5bd:fc20:1fc3 with SMTP id 71dfb90a1353d-5c591d14f50mr3261891e0c.4.1786801156095;
-        Sat, 15 Aug 2026 06:39:16 -0700 (PDT)
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com. [209.85.222.47])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c597be30easm1679748e0c.15.2026.08.15.06.39.15
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 15 Aug 2026 06:39:15 -0700 (PDT)
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-97622cc1f40so1088228241.3
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 06:39:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpaJOgo6WVO/wXBJA2jI6NhXGk3uejQaTiFcXtAc4ZDcBDYLFsN4RgbWWcMN2zvUYL6sswK0xY=@vger.kernel.org
-X-Received: by 2002:a05:6122:884:b0:5bd:71cf:e97e with SMTP id
- 71dfb90a1353d-5c591d14fdbmr2959910e0c.5.1786801155586; Sat, 15 Aug 2026
- 06:39:15 -0700 (PDT)
+	s=arc-20240116; t=1786801716; c=relaxed/simple;
+	bh=7UV2D4vpN/KBruWZwdioP8alSCGT965QmckpccyECIc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=r8gszftMj2m+cIn2iH4JFRijMeWu/MdDtaHtI2My7WXdrxgxAWI6myHGIJky52OB8oX+0jqz/AQ/KgRRkZMq0pHjV4sGHLdVcnAvtU5uGyqoPj4H753CiAnF0HMF/pEA0FN7aEoJTMeGGKUEfxi49VKINbuqvHrW9uUrRJLzIGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-05 (Coremail) with SMTP id zQCowAAHcTspboBqB13RBQ--.2466S2;
+	Sat, 15 Aug 2026 21:48:25 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: david@ixit.cz
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Kees Cook <kees@kernel.org>,
+	Doruk Tan Ozturk <doruk@0sec.ai>,
+	Eric Lapuyade <eric.lapuyade@linux.intel.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	oe-linux-nfc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] nfc: microread: validate target discovery payload lengths
+Date: Sat, 15 Aug 2026 21:48:25 +0800
+Message-ID: <20260815134825.48593-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815105950.1109-1-getshell@seu.edu.cn>
-In-Reply-To: <20260815105950.1109-1-getshell@seu.edu.cn>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Sat, 15 Aug 2026 15:39:04 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXNu2U=Qv5ObE3bs-5+wnVo+4EEXD4oRcjqy1wLVrWjsg@mail.gmail.com>
-X-Gm-Features: AcwNN1WmrRl39UXDmasKU4m-yO8EXt6nBW2XwFpVngIAjB3sbSMnsy-lsqg3m5o
-Message-ID: <CAMuHMdXNu2U=Qv5ObE3bs-5+wnVo+4EEXD4oRcjqy1wLVrWjsg@mail.gmail.com>
-Subject: Re: [PATCH v3] auxdisplay: charlcd: cancel backlight work on
- registration failure
-To: Hongyan Xu <getshell@seu.edu.cn>
-Cc: Andy Shevchenko <andy@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Jianhao Xu <jianhao.xu@seu.edu.cn>, Lars Poeschel <poeschel@lemonage.de>, Willy Tarreau <w@1wt.eu>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHcTspboBqB13RBQ--.2466S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJFyrZrWkKFyDKw1xCrW3Jrb_yoWrAr1Dpa
+	yUWr1DKrW5JrW7Gw13ZFn7ZF1UJw4xuwsF9F1xJwsaya1Yk34DJas3W3y2vF4UAF98urW2
+	kF1vv39xGa9rAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
+	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUL0e
+	dUUUUU=
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Sat, 15 Aug 2026 at 13:00, Hongyan Xu <getshell@seu.edu.cn> wrote:
-> With CONFIG_CHARLCD_BL_FLASH, charlcd_init() schedules bl_work before
-> charlcd_register() calls misc_register(). If registration fails, the
-> caller frees the charlcd object while delayed work still contains its
-> address.
->
-> Add charlcd_deinit() to cancel the delayed work and turn the backlight
-> off. Use it for both registration rollback and normal unregistration.
->
-> Fixes: 39f8ea46724e ("auxdisplay: charlcd: Extract character LCD core from misc/panel")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-> ---
-> Changes in v3:
-> - Add Cc: stable@vger.kernel.org (Miguel).
->
-> Changes in v2:
-> - Factor the backlight cleanup into charlcd_deinit() and reuse it from
->   charlcd_unregister() (Andy, Geert).
-> - Add the Fixes tag (Andy).
+microread_target_discovered() parses target discovery payloads from
+skb->data according to the HCI gate. The fixed field offsets and UID
+copies were checked only against the destination nfc_target buffers, not
+against the actual skb length.
 
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Validate that each gate-specific payload contains the fixed fields and
+UID bytes before reading or copying them.
 
-Gr{oetje,eeting}s,
+Fixes: cfad1ba87150 ("NFC: Initial support for Inside Secure microread")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+Changes since v2:
+https://lore.kernel.org/all/20260723103508.1-microread-v2-pengpeng@iscas.ac.cn/
+- no code changes
+- revalidate the patch against current mainline
+- add the required coding-assistant attribution
 
-                        Geert
+Changes since v1:
+https://lore.kernel.org/all/20260701053709.45176-1-pengpeng@iscas.ac.cn/
+- add the Fixes tag and stable Cc requested during review
+- rebase onto the current net tree
 
+ drivers/nfc/microread/microread.c | 31 +++++++++++++++++++++++++++++--
+ 1 file changed, 29 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/nfc/microread/microread.c b/drivers/nfc/microread/microread.c
+index 4149c5d735bd..dfa2490db545 100644
+--- a/drivers/nfc/microread/microread.c
++++ b/drivers/nfc/microread/microread.c
+@@ -483,13 +483,19 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
+ 
+ 	switch (gate) {
+ 	case MICROREAD_GATE_ID_MREAD_ISO_A:
++		if (skb->len <= MICROREAD_EMCF_A_LEN) {
++			r = -EINVAL;
++			goto exit_free;
++		}
++
+ 		targets->supported_protocols =
+ 		      nfc_hci_sak_to_protocol(skb->data[MICROREAD_EMCF_A_SAK]);
+ 		targets->sens_res =
+ 			 be16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_A_ATQA]);
+ 		targets->sel_res = skb->data[MICROREAD_EMCF_A_SAK];
+ 		targets->nfcid1_len = skb->data[MICROREAD_EMCF_A_LEN];
+-		if (targets->nfcid1_len > sizeof(targets->nfcid1)) {
++		if (targets->nfcid1_len > sizeof(targets->nfcid1) ||
++		    targets->nfcid1_len > skb->len - MICROREAD_EMCF_A_UID) {
+ 			r = -EINVAL;
+ 			goto exit_free;
+ 		}
+@@ -497,13 +503,19 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
+ 		       targets->nfcid1_len);
+ 		break;
+ 	case MICROREAD_GATE_ID_MREAD_ISO_A_3:
++		if (skb->len <= MICROREAD_EMCF_A3_LEN) {
++			r = -EINVAL;
++			goto exit_free;
++		}
++
+ 		targets->supported_protocols =
+ 		      nfc_hci_sak_to_protocol(skb->data[MICROREAD_EMCF_A3_SAK]);
+ 		targets->sens_res =
+ 			 be16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_A3_ATQA]);
+ 		targets->sel_res = skb->data[MICROREAD_EMCF_A3_SAK];
+ 		targets->nfcid1_len = skb->data[MICROREAD_EMCF_A3_LEN];
+-		if (targets->nfcid1_len > sizeof(targets->nfcid1)) {
++		if (targets->nfcid1_len > sizeof(targets->nfcid1) ||
++		    targets->nfcid1_len > skb->len - MICROREAD_EMCF_A3_UID) {
+ 			r = -EINVAL;
+ 			goto exit_free;
+ 		}
+@@ -511,11 +523,21 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
+ 		       targets->nfcid1_len);
+ 		break;
+ 	case MICROREAD_GATE_ID_MREAD_ISO_B:
++		if (skb->len < MICROREAD_EMCF_B_UID + 4) {
++			r = -EINVAL;
++			goto exit_free;
++		}
++
+ 		targets->supported_protocols = NFC_PROTO_ISO14443_B_MASK;
+ 		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_B_UID], 4);
+ 		targets->nfcid1_len = 4;
+ 		break;
+ 	case MICROREAD_GATE_ID_MREAD_NFC_T1:
++		if (skb->len < MICROREAD_EMCF_T1_UID + 4) {
++			r = -EINVAL;
++			goto exit_free;
++		}
++
+ 		targets->supported_protocols = NFC_PROTO_JEWEL_MASK;
+ 		targets->sens_res =
+ 			le16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_T1_ATQA]);
+@@ -523,6 +545,11 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
+ 		targets->nfcid1_len = 4;
+ 		break;
+ 	case MICROREAD_GATE_ID_MREAD_NFC_T3:
++		if (skb->len < MICROREAD_EMCF_T3_UID + 8) {
++			r = -EINVAL;
++			goto exit_free;
++		}
++
+ 		targets->supported_protocols = NFC_PROTO_FELICA_MASK;
+ 		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_T3_UID], 8);
+ 		targets->nfcid1_len = 8;
+
+base-commit: dac3e89a2c90c2feeb471e1f22a2512ad424b792
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.50.1 (Apple Git-155)
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
