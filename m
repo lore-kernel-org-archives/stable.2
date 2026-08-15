@@ -1,127 +1,151 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82191A9F83
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 16:41:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531CC2D7DCF
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 17:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786812121; cv=none; b=KzmQEwrHvDWCft5EuEpulUUycel5mTIT9plgOMFMD+EUcCsHE3nu+2JRqOUNBrA+zUqUsqxoYzLzVtzr0VGOxUl/V0e1GO0yk1FHlDdBmNA2+OvYwzqMQnfxgL+DkOUEqmnmXZ4gkTZEf2Bj5Q/i3gi3OYPZznoI4juOLdFSxv8=
+	t=1786813562; cv=none; b=VqnYxZkmsyRGEsmRmGkv4OwOEL8/iVFfaA6N+wmVaSuU1srjZjvGNEfQpZoEE9zD3L6VKGf6FSPwdajAMQyZtBo0SssuV9uMnJu0be+zrMjuTrE3gd4wwT5YFUtP2Ca8viKsikbGTaTs+G5sXM74CSvufuh0fGSLtu4hvuQAhCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786812121; c=relaxed/simple;
-	bh=ApPK93Vn7+LxrGyA2qPKaVyKxA1dS0RdxMSlm7KVDV4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bzb8abc1xHBI6ZMtCXb2QMxuMtpt0mu3r5ubO6DKIQPiv6wVbWXAUMnZ9YK2gQx/jtJaNQOXxD98NkMBqgTsxuDiv8rNfP+bg3UqoX7bIpVSODRepzCKN7+Ox7tS1JCYO/RT5lUoEkobcblFd3mQ/VLdZh7bkTqK7/9lxFIA7II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tj7i6CHn; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786813562; c=relaxed/simple;
+	bh=A6PvZk+pSZLRvR1PMUUKeXFHnO6m31GeXD9y2pbQqFs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EmVuc2/I/WH3BhAzn1NK8ihWKsZfZycfbCuWqk/upd9voxj7W34yLINx+zqCkjF+mzngmvD7i59NBt2OLn0r+/LUyEm0ggzItSU8yX6DGt0jkNb+NRZJtvG7p0zAip9rweW0C3MK3NSfjNsAkWXVMQFNq2tgzpa9hgLbcdZ1XiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YiVVEbSJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tj7i6CHn"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84faf87d19dso2073491b3a.3
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 09:41:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786812119; x=1787416919; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B7syqqlv6107gB1yL3JYNqE/FxDJIWovYEa1sbJDV+M=;
-        b=Tj7i6CHnru7omoVZKJL3YE9W0bRRv64bdE9rAymlO8QOgwpJqF9CEiKSm2ghL7ZAhN
-         N5I+yTTaWnrNuUTqXIRy+PXoZrtY0DEpTDwPqsqIK8f+xu5Kub44MEK52boA7DZ8lykX
-         yB6Bzdh4gq0gtkRjVlWovHIF0WVb/DWxIT7GViN1NGZT1ietKY4HXL0uZ5BQjswvkTOB
-         inThj0ie8KNWpQ8rtW1A6XPEXK7Zi92v0btAwqmRisRn6K1NZ0e98g6vMhbJPPuoG75B
-         nzqnPG3vI2eS4KZHpjhQS2zUEqCSdyF/4nRUvK0RVvoNCst2REmXkSu+LwRmirPFZTMQ
-         VLdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786812119; x=1787416919;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B7syqqlv6107gB1yL3JYNqE/FxDJIWovYEa1sbJDV+M=;
-        b=OxMEe2YC5IQgr0ea6MyXMLz192qOh4lnGK9HjbRlap+L0vKQGdFphRTS2W28A3dFSv
-         3MBo6TdZFR6ZqwVw+R3Pd3s6Jb6J0ZYXbl6btworu2+sVkb5FV4ddTtEKyfTktPpVQ+v
-         cBvbFKg4oEEVtPUsxvWWfh9oTA51WfSQbR2djdrrKwDheLKPGsihxsjlxdmjbBAop8Mp
-         10B359TvPOUHZb6BPv2C/AVelCJkcI9WNho4YF5mQvQr2FD3g6UIaqEjGaUVw5szdmIf
-         CkdIAX/K0spV7Wt2IQaCf9WUWl++3I4b40cv1Ztmk7b7Y3so5V1SkIu9a3+4W3+eVSSc
-         EDpw==
-X-Forwarded-Encrypted: i=1; AHgh+RoUflCRskDgBa0j37fT703rQFfKSZitBqDVxU3az+/TZ5AE2Dgfg/7lSTTwAUKiajDM0eJJ6VI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzk9HPlmtaOSq/qNXBZbhkQdgyUYIBOI1vsdTn3ekg/nx5fWwJt
-	E3OPgUH84OIGxKUjY5UFM5EpWsKq+2h6Ql/jtQXSLWy8o5emgpQBwTPPF9vlvjl8u16HIZA/
-X-Gm-Gg: AR+sD12TP/URSczfRQjqZEdxdQvyZ4CD8iBxDl1eGsop4ocvEeNa3AyBmZkf7IjXi7F
-	/syqFK1F15t/GiuOfaAX+M7q7d6F82N2cd82GQdJjaQHemu8dwhBkedPOXWSO/3Onxe/rserAnc
-	r6kwMH3MvhiH21GGBO9i77qG6TOWiCXPySBmlIf35ADmrrFtLoMjSaNR+shQCsZ8N7Z+r4gB4PH
-	6+/kURJ1eRsNpbgzTqeDGgglIgiKOqQfYmhkdAmTp1R85mAD8fTa1Q+Up4c9G2jOcTPPY0rmQJk
-	bLKxWqcQGka2t71+Ve1K4dyTIYdGhud+G5pMYMaOiKkhirvnPVmJXr7cthqEg4NHoTTqKxM41+L
-	yfNwE708AsQF0x79vs+8ZD1lFcaN5YjqbSNhdX7IzvMoWDVJDif9RvUtSH/gRaLZAWGIU6j8rgR
-	kdtt5FyGUV6zzn3L939UIER7SjXEkzk5EtfSnY7G2SRkvgotjhCcbeWPFFSufPcVURnajPik9fU
-	WWKllTsPwS4/z/IN74vVQ==
-X-Received: by 2002:a05:6a00:1810:b0:837:f79d:909 with SMTP id d2e1a72fcca58-84fde2defa1mr13881212b3a.39.1786812118931;
-        Sat, 15 Aug 2026 09:41:58 -0700 (PDT)
-Received: from allen-xiaomibookpro14.lan ([2600:1900:4030:ad65:0:1::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8517d249c54sm1405086b3a.48.2026.08.15.09.41.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 09:41:58 -0700 (PDT)
-From: =?UTF-8?q?Chang=20Jiong=28=E5=B8=B8=E7=82=AF=29?= <xspeed1989@gmail.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	joonas.lahtinen@linux.intel.com,
-	ville.syrjala@linux.intel.com,
-	stable@vger.kernel.org,
-	Chang Jiong <xspeed1989@gmail.com>
-Subject: [PATCH] drm/i915/cdclk: Don't force cd2x pipe select on Xe3 in bxt_sanitize_cdclk()
-Date: Sun, 16 Aug 2026 00:41:47 +0800
-Message-ID: <20260815164149.607690-1-xspeed1989@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YiVVEbSJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F7A1F00ACF
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 17:05:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786813560;
+	bh=IGcJjF4HqZWjZBlfYhpWdcCLsDd2mWif2jAJ3D7ZI2w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YiVVEbSJN+tcRONFmq7Pya2FIPOROiLTOUQNpJE3r87FWWbfBf1eV5eVjpSryn5cd
+	 JD/kJcWLu75l4SFsBPinrKWZ+DeFyAHQCgJr0zomv/L5hdtyeWhDImiGr07KwbLRcH
+	 nzowfprgQJLgZ8b0GELAI6LIxDFVSDHKKmJGNunTNO1fcmkR11VUIsy1qOmH7hFmU+
+	 Sp8VtnRWecKqEVb0ONHN1hN1v3syEMg5AgFTzlH/AGXSP4yr929QcHyMcIYTaWlB5S
+	 LELxuncbAzmWCp1W+ZJPK3eL/sK3KBARwsHNgzPRAcbmMJ92ThMuKRANpL1P37OrPU
+	 yil6QzU1GXBoA==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aebd52488cso2168910e87.2
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 10:05:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoJzkE38LrTdNjHAFQriLhjENaDFIKE8bCQ/phzWLcfzjSjIyK4MKdOsZ4PnYoKWTsWANW7KkQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxYK35HJkT8L0lXqYSgES7nqbnIbu54cqVVvh/1mmXF6rvxIvbw
+	3enYVxhK5Bz4NGbT2zOC5INuy1QWhaRsj3oImLWe16phthS9nyGV7+zGOlH5ZHyOQ8Kos0uFUqT
+	e+R+g6X8eUBGpPag7mv0OYvgWVZ/9/3g=
+X-Received: by 2002:a05:6512:a91:b0:5b0:cce:da00 with SMTP id
+ 2adb3069b0e04-5b4596bbe02mr1836180e87.1.1786813558396; Sat, 15 Aug 2026
+ 10:05:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260806142304.1761454-1-sh_def@163.com>
+In-Reply-To: <20260806142304.1761454-1-sh_def@163.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Sat, 15 Aug 2026 19:05:32 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0h=9nMsQU9nnYi-tVHPd7erHi-a+EEMAmTEq-ZueebZhA@mail.gmail.com>
+X-Gm-Features: AcwNN1VEdYJltUSZDmqKZAs5I35hqRKI3UmUW2VuHtLfZki8wlVeLjxkq7PjIOA
+Message-ID: <CAJZ5v0h=9nMsQU9nnYi-tVHPd7erHi-a+EEMAmTEq-ZueebZhA@mail.gmail.com>
+Subject: Re: [PATCH v3] cpufreq: schedutil: Fix rate limit overflow
+To: Hui Su <sh_def@163.com>
+Cc: rafael@kernel.org, viresh.kumar@linaro.org, linux-pm@vger.kernel.org, 
+	mingo@redhat.com, peterz@infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, zhongqiu.han@oss.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL
-without a full PLL re-enable") bxt_sanitize_cdclk() normalizes the
-CD2X pipe select field of the CDCLK_CTL readback to PIPE_NONE before
-comparing against the expected value.
+On Thu, Aug 6, 2026 at 4:23=E2=80=AFPM Hui Su <sh_def@163.com> wrote:
+>
+> rate_limit_us is an unsigned int, while NSEC_PER_USEC is defined as
+> 1000L. On 32-bit systems, the multiplication is therefore performed
+> using 32-bit unsigned arithmetic before the result is assigned to
+> freq_update_delay_ns.
+>
+> For example, writing 4294968 to rate_limit_us wraps the delay from
+> 4294968000 ns to 704 ns. This makes schedutil update far more often
+> than configured.
+>
+> Add sugov_update_rate_limit_us() to widen rate_limit_us to s64 before
+> converting it to nanoseconds. Use the helper when updating the tunable
+> through sysfs and when starting the governor, so both paths perform the
+> conversion without overflow.
+>
+> Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler=
+ utilization data")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hui Su <sh_def@163.com>
+> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 
-However bxt_cdclk_ctl() does not include the CD2X pipe select field
-at all on DISPLAY_VER() >= 30, so on Xe3 (PTL) the normalized
-readback (pipe field forced to the PIPE_NONE encoding, 0b111) can
-never match the expected value (pipe field 0). The comparison now
-fails on every boot and we always take the full CDCLK PLL
-disable+re-enable path with the BIOS framebuffer actively scanning
-out - exactly what this code was trying to avoid. On a Panther Lake
-laptop (Arc B390, 8086:b080, eDP 3120x2080@120) this causes
-"CPU pipe A FIFO underrun" during probe and persistent full-screen
-scanout corruption for the first KMS client (the SDDM greeter);
-the corruption lasts until the next full modeset.
+Applied as 7.3 material, thanks!
 
-Only normalize the CD2X pipe select field on platforms where
-bxt_cdclk_ctl() actually programs it, mirroring its DISPLAY_VER()
-check.
-
-Fixes: 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chang Jiong(常炯) <xspeed1989@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_cdclk.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2364,8 +2364,10 @@ static void bxt_sanitize_cdclk(struct intel_display *display)
- 	 * dividers both syncing to an active pipe, or asynchronously
- 	 * (PIPE_NONE).
- 	 */
--	cdctl &= ~bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
--	cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-+	if (DISPLAY_VER(display) < 30) {
-+		cdctl &= ~bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-+		cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-+	}
-
- 	if (cdctl != expected) {
- 		if (DISPLAY_VER(display) < 20) {
+> ---
+> Changes in v3:
+> - Add a comment explaining why rate_limit_us must be cast before
+>   multiplication.
+>
+> v2: https://lore.kernel.org/r/20260806072656.1386351-1-sh_def@163.com
+>
+> Changes in v2:
+> - Clarify why the multiplication uses 32-bit unsigned arithmetic on
+>   32-bit systems.
+> - Cast rate_limit_us to s64 to match freq_update_delay_ns.
+> - Add Zhongqiu's Reviewed-by tag.
+>
+> v1: https://lore.kernel.org/r/20260805143942.805176-1-sh_def@163.com
+>
+>  kernel/sched/cpufreq_schedutil.c | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_sche=
+dutil.c
+> index dff4ee04694c..614ff0d33c01 100644
+> --- a/kernel/sched/cpufreq_schedutil.c
+> +++ b/kernel/sched/cpufreq_schedutil.c
+> @@ -61,6 +61,17 @@ static DEFINE_PER_CPU(struct sugov_cpu, sugov_cpu);
+>
+>  /************************ Governor internals ***********************/
+>
+> +static void sugov_update_rate_limit_us(struct sugov_policy *sg_policy)
+> +{
+> +       /*
+> +        * Cast rate_limit_us before multiplication to force 64-bit arith=
+metic.
+> +        * Otherwise, on 32-bit platforms, both operands are converted to
+> +        * 32-bit unsigned long and the multiplication may overflow.
+> +        */
+> +       sg_policy->freq_update_delay_ns =3D
+> +               (s64)sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
+> +}
+> +
+>  static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64=
+ time)
+>  {
+>         s64 delta_ns;
+> @@ -606,7 +617,7 @@ rate_limit_us_store(struct gov_attr_set *attr_set, co=
+nst char *buf, size_t count
+>         tunables->rate_limit_us =3D rate_limit_us;
+>
+>         list_for_each_entry(sg_policy, &attr_set->policy_list, tunables_h=
+ook)
+> -               sg_policy->freq_update_delay_ns =3D rate_limit_us * NSEC_=
+PER_USEC;
+> +               sugov_update_rate_limit_us(sg_policy);
+>
+>         return count;
+>  }
+> @@ -848,7 +859,7 @@ static int sugov_start(struct cpufreq_policy *policy)
+>         void (*uu)(struct update_util_data *data, u64 time, unsigned int =
+flags);
+>         unsigned int cpu;
+>
+> -       sg_policy->freq_update_delay_ns =3D sg_policy->tunables->rate_lim=
+it_us * NSEC_PER_USEC;
+> +       sugov_update_rate_limit_us(sg_policy);
+>         sg_policy->last_freq_update_time        =3D 0;
+>         sg_policy->next_freq                    =3D 0;
+>         sg_policy->work_in_progress             =3D false;
+> --
+> 2.43.0
+>
