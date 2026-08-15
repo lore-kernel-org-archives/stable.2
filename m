@@ -1,324 +1,218 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39C33932E3
-	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 10:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF99823ABB9
+	for <stable@vger.kernel.org>; Sat, 15 Aug 2026 10:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786788913; cv=none; b=KPduP4SpRejLvKd5GEPhHlapePYK8TlLZ+OkHiqirm8klhF2ScV0HVt4e2lOwpaVh2vlL2w5Ke1lO3YO6CPFZ8nIqedZzBRCGQ6qgTNE1dKUgHePXCFGKKynuRh6OS1LZ9Yz9DbkzEJ+l6k0N3yxWybyXPGQWBK7lVJZJbvW7rc=
+	t=1786790757; cv=none; b=JWQR41Fyrq80kuuDpGeeAtq0dtH7kkbOjR+utScNu6EVzq6raJJEqFW2gTrdahNGnwxvK6ernVnriohvbd39SJpBs2ISchW44d9XZGHUyQEoNohTLriWczs1inJACGwnbXMWLtqSqrl2ROErB7pUmkDnf5ZnT+HbjWti2yI59IM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786788913; c=relaxed/simple;
-	bh=tPswWSrAOkxkyqOuZVSBKbZkkHr1llipJ9UJBudMQYM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kvY3VQoudNO4GNw7jD23Pev4x5slnNhD/ujv7mUhjDQ2bU+Mlvcp0ZDHZVnHX76dKXoqrnqefA0xWIigj7Ggih6E0PBl/5ORXk3XymQHk+XU5DvYydwXK75IctlFGacTHYH889rU2zEE6idVa4UUOu0irOf+VVuM8H4u/Cg5PeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QM71W//Z; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786790757; c=relaxed/simple;
+	bh=QpUm6CVCQQwGrppEIrtM90WDN1gNlvT8gtcLxZ+Uq/M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cobU6/mvo77wZc+UlNjVCTszrqGgXzeBUzoyu0GYTGBfpV+LEMirRmv0hnQqzdIBSh1Jp4B7sRVhrQ6vHb7eIGvm4Ii0NzN00BnFgGVXlNhgthqbpwoAxpBWruBS2N5RZncYI7IJDKA2r54aLEJaHkkZxqNS1V3a8KQOR+mtObQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=gN22j3LJ; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QM71W//Z"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3811f512167so2665155a91.3
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 03:15:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="gN22j3LJ"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4815bce4652so1188140f8f.1
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 03:45:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786788910; x=1787393710; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=X12N/744woeepub7iVFqwglkYXXLpbYa3Z08mQfxA8k=;
-        b=QM71W//ZyDMtNuNtGj5XvCQMuCGbNu0dCTj8nL4UQeo1ofN2+LlgK70LVzGKrAMCfH
-         YG3cAA2cyVKPsrPwD7sPmWHbp4aR5JSpiQevPF+JKbZj2w46czcdj6RrGkSnkRqSoxD+
-         pRTppEW98/ef8DPJJTsVAUMymzKrhKOylek/zMrySExSEPcsOkpIKleQEddvMDgTFPhX
-         E5n2V9MOI0s0Rv1v6d78shGnaBphsFJya8aKEGdwqF022cji6HEw2awQtusjphu/sa19
-         M/Lw1aGEIMl9Dep0JQV7l5Hn5FDzXYQ5PJYi8Q9Te59N2uFOhoJPCvchYVTB72Q22iBE
-         ogmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786788910; x=1787393710;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=suse.com; s=google; t=1786790754; x=1787395554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=X12N/744woeepub7iVFqwglkYXXLpbYa3Z08mQfxA8k=;
-        b=N6otcC5zPezgdsmvM1HHam/D8H4yzmJX7IOxbKYqbj9FQuEcZ/K75hqVG8I2ceiPth
-         mPik22uJN7hEacKLhiIqVz40FK6lGOmKG0XWmcGlr0+qiMCAjov80E4E5Kjei4YQYfT/
-         6TapsEbsbiCN6GnjGSJ2euJfKQqiBnt8cTJk2JRC4DRG9+1GsbqnO5XiUuLQe/BqrFHP
-         OtxoWjqz+yGPNc91Lew3/Ip/7XOpy5ZO7wMTY3SQZRiWci28+9fI+IOwuEklr2lKcHhq
-         jH0OBTzBFqnuB0KtSa5l6WKyQGsnVGpX15p7YWhJwSQWc6i7DMLxvTxRz/V9yR1+hJKX
-         VNqg==
-X-Forwarded-Encrypted: i=1; AHgh+RpWU4sO3rSrOcsxLLH3SEHS4rRMt2AuvfLR1zR2V6FfxLepN44UopIO6iBWvVOp4uEWEa6sKOI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVxyE93YDtGDdnRHGMqpNW9Zl9huJTazJNJVqIst3r9KIuMIyl
-	OmZCjUr/XzkgR7C0L+fHrEG7voLeLbK4Dxhe1fbY67cFxXfBj7hjy7fH
-X-Gm-Gg: AR+sD12eZtqI0O3kPZ4Z16+RkIOc/fws8d+NJkPCkg8huKMNce5eS9PUJMaiAT4fSss
-	aFMGFhlePpnfAa3RaaDUEUXic3QxKYpVsphtGun2cZwfTKTKxiqIEoqgeWwONMoXdghFKRE6M9e
-	om6EjguCvWsnWXFnwph5sYUIKos4RplfQiqfNnLSQyXbvubn3PePGOV7RdgrrI7w/x+k/k1uR+Y
-	FH4XjbUjpN031rXilrTN1Yr6nTrNJ0qpfMnD6x3GMzapc0gQzK+4U1/14vne1HrbFvmk4khYR0F
-	LkUMX0nUjnliAWJksTwRZhoajqQ/3d8VD19iYASSkN1VuGYomUx9xYH3PnXkLGuR+BHGNQTj8Qo
-	cYP6345ULwCqdnPczSAtgY555Cjaxx7EqQ6FxpeMC/xCxjuk9TdZNXhgTIBCAf5PsJt9Xo2w5B8
-	go+sWHPmBOogvZCy5phGTKN13vu4dXx3srEUVYOMUd/3rp6GvS1FuJAM6EU8MwTFo=
-X-Received: by 2002:a17:90b:3d43:b0:37f:c97a:939f with SMTP id 98e67ed59e1d1-3933b811e2dmr13701386a91.7.1786788909916;
-        Sat, 15 Aug 2026 03:15:09 -0700 (PDT)
-Received: from localhost ([118.34.230.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-394f818030asm1684606a91.3.2026.08.15.03.15.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 03:15:09 -0700 (PDT)
-Date: Sat, 15 Aug 2026 15:45:07 +0530
-From: shaikh kamaluddin <shaikhkamal2012@gmail.com>
-To: Alison Schofield <alison.schofield@intel.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Ben Cheatham <benjamin.cheatham@amd.com>, tony.luck@intel.com,
-	bp@alien8.de, linux-cxl@vger.kernel.org, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v2] cxl/mce: Avoid alias page retirement for corrected
- errors
-Message-ID: <aoA8K-i5QpBaE0xn@acer-nitro-anv15-41>
-References: <20260812151759.14390-1-shaikhkamal2012@gmail.com>
- <anz7iV2WrZfAnVib@aschofie-mobl2.lan>
+        bh=+i8sSuNGd6mmLHE2UfzLIflavVjmbyhwZK+DDdZURwg=;
+        b=gN22j3LJBUgUW4n0mofX+AT+LJQELbhXEDS1l0/wXGMNsbKdVciVghTfKGnJkf3naD
+         K7pvf1x2iX1Vjutw/kIRYQBvyOt56GsgvdY1DVrkEVQKzLydmNyo7+yWBEBQGisgxzmo
+         NDgU38st9945n/IQlFvDKO5o6eRYD/+f2RxmOURQtlOmilXba18NEcgvEu1YIB1UZJW6
+         Nq/wuUfswDbacpzegELdA3WOCJJvFjb++3SWXLgdnEFB4w2H9ddrM0tJ8vC9K8IAT9xx
+         wFtc8G4WRM3CTvhi3hm70jnbByQsNOmksuH9oLmbXbHLPvATOtnsAi7P+c9C1J3u74K2
+         qhVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786790754; x=1787395554;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+i8sSuNGd6mmLHE2UfzLIflavVjmbyhwZK+DDdZURwg=;
+        b=sA40T2KQdMPjZEMATZFXjmdc1wXC88A6juAMlRTZihFPSAULUJviA5f7+QZNbsfU8R
+         8P/6Pd0HKlQ4Y9ZCtHljhZULpRwRlP2ddf3iaMHOAOOfSciRtcTT4/8Z9Gd14rJ6ikSD
+         TtRa0xaiZgNswtV9WY2V2gBBOWmJGMumGJwNWn4wtqflR0rEKtgnG+z0/Rr4rkjqFXwN
+         Jj6cZI7fiXYYk5qcaVriYriDg+jvxu1zAOShHupehdEP4JkwC1HR9mA9jtyQ6JoZJAnL
+         y67FkdVnmJhMD+gAAXvCXtdp++ktaBw7V9C388SDsRjphCB7gIIS7oOrs1H3kKheKmq5
+         JOtw==
+X-Forwarded-Encrypted: i=1; AHgh+RrDuOlk7AvC6q/eejDlhNwntRuUwuIsueUKqKLABT9ZdiCFWN/ijyRzwoXGPOMQMCUEvq+bIzg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyesHUDZhh4dVoI7RFP5/beW+rzuC7N+DjGUfNDaic+fzINJiEs
+	ntj+xr7IEdB1SIoCsYLy1vOTkz969q76ZzKnn99Vtg3981zh1lsJoicqrJuIqAMcrMY=
+X-Gm-Gg: AR+sD13SAU5sdtW7XgTevAQRGEzeu+N6jlJaVSpLC+Rsez/qwLdQMjMn8vZ37TdcR0B
+	HbxeGzADpzsJfPeNlhQkwj0mWgE22yCZwk9XG73kFxjWPosESoiwJBh4NCTWi4jlYjLIUORiWZi
+	N1WClyu7pbGpLIKQ132rBf9U/PCQzj5plzisBdEJWII+bj/jptTJDHgF1lv5oNPwjSmk4oZNzXA
+	OV3Y04OIf5q0v0Ur6m0kC0wUQ3uTuS28cPXaJ+eXoQiUvlWvT+4nA1HkxEF0MtD8a4HZQPz+0Eb
+	mcQStC0pdltcUd9yHzLaUpDOvxVT6e74h3E5+KCWacv5XI0W6tcwaxBISA1R5JsLSgyZ+eENAE3
+	q0Il2tI5EScc8ugwaZLPyGzsmjyGaokRkcC73opLgrrdfe+Kp3ntpw4b/e+9J6ybesIKFf0c50v
+	58L6hHoNJ6+aul382LSwMydMY6cgOmks6C586Fnd2ArX+mHXAytcybayR1ziy8b+fw6BvA5US5Z
+	MfQJLkuJI8qlKFNIQDQqFfc
+X-Received: by 2002:a05:6000:29c2:b0:481:44e5:160c with SMTP id ffacd0b85a97d-48160723ca6mr13951544f8f.2.1786790754104;
+        Sat, 15 Aug 2026 03:45:54 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:fc6c:f9a2:4a0a:6354? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f2ccc00sm15346737f8f.35.2026.08.15.03.45.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 15 Aug 2026 03:45:53 -0700 (PDT)
+Message-ID: <143a37b5-93a2-4038-8be9-29e13263e743@suse.com>
+Date: Sat, 15 Aug 2026 12:45:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <anz7iV2WrZfAnVib@aschofie-mobl2.lan>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] alloc_tag: fix undetected compressed tag overflow
+ when profiling is disabled
+To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org
+References: <20260812054105.102637-1-hao.ge@linux.dev>
+ <20260812054105.102637-3-hao.ge@linux.dev>
+ <CAJuCfpFvdNFdsKdK2CdF2fNp8gbNgFpoeAiaqp70mpbNGCvk3g@mail.gmail.com>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <CAJuCfpFvdNFdsKdK2CdF2fNp8gbNgFpoeAiaqp70mpbNGCvk3g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 12, 2026 at 04:02:33PM -0700, Alison Schofield wrote:
-> On Wed, Aug 12, 2026 at 08:47:59PM +0530, Shaikh Kamaluddin wrote:
-> > cxl_handle_mce() offlines the aliased page of an Extended Linear Cache
-> > (ELC) region for any MCE with a usable address in the region. This
-> > includes corrected errors and non-memory errors, needlessly reducing
-> > usable memory.
-> > 
-> > Restrict ELC MCE handling to uncorrected memory errors. Use
-> > mce_is_correctable() so that MCE_AR_SEVERITY errors continue to retire
-> > the alias when the reported page is handled elsewhere.
+On 8/12/26 7:41 AM, Hao Ge wrote:
+> In reserve_module_tags(), the tag overflow check is gated on
+> mem_alloc_profiling_enabled():
 > 
-> Hi Shaikh,
+>     if (mem_alloc_profiling_enabled() && !tags_addressable())
 > 
-> Thanks for revising this.
+> If profiling is toggled off at runtime and a module is loaded whose
+> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
+> skipped. vm_module_tags_populate() still maps memory for the tags and
+> the module loads successfully, but the total tag count now exceeds what
+> NR_UNUSED_PAGEFLAG_BITS can address.
 > 
-> Sashiko had a complaint that needs to be considered about the AMD
-> specific MCE classification and makes me wonder about using
-> mce_is_memory_error() in the test at all.
+> Once profiling is re-enabled, ref_to_idx() computes each tag's index
+> as its position in the alloc_tag array. update_page_tag_ref() masks
+> it to alloc_tag_ref_mask before storing in page->flags. Indices
+> beyond the mask are truncated and idx_to_ref() resolves them to wrong
+> tags.
 > 
-> Could the fix simply reject mce_is_correctable() and retain
-> the existing mce_usable_address() behavior?  (And yeah, I'm thinking
-> I may have missed something in that complex description I asked
-> you to trim.)
+> This silently corrupts /proc/allocinfo: allocated pages get attributed
+> to the wrong call sites, so the statistics it reports are wrong.
 > 
-> Sashiko only replied to the linux-cxl mailing list so not all recipients
-> of your patch will see it:
-> https://sashiko.dev/#/patchset/20260812151759.14390-1-shaikhkamal2012%40gmail.com
+> mem_alloc_profiling_enabled() and mem_profiling_compressed are
+> independent. Once compressed mode is established at boot, it stays
+> active regardless of runtime toggles of mem_profiling.
 > 
-> BTW - it looks like Sashiko never looked at v1.
-> 
-> -- Alison
-> 
->
-Hi Alison,
+> Remove the mem_alloc_profiling_enabled() guard. On overflow, shut down
+> profiling, release the reservation, and return -EAGAIN so that
+> layout_and_allocate() retries with profiling disabled: codetag sections
+> are then placed as regular module data and the module loads without
+> profiling rather than being rejected entirely.
 
-Yes, exactly - dropping mce_is_memory_error() and keeping
-mce_usable_address() + mce_is_correctable() is the fix. I dug into
-this in detail with Sashiko (full trail is in that thread) and
-confirmed it against amd_mce_usable_address()'s own comment block in
-arch/x86/kernel/cpu/mce/amd.c: poison is defined for every bank
-except legacy northbridge, so it explicitly covers the non-UMC banks
-(Load/Store, Data Fabric) that CXL poison-consumption reports from -
-but mce_is_memory_error() only accepts UMC banks, so it rejects those
-records before mce_usable_address() (which would correctly recognize
-them) is ever reached.
+When the described overflow occurs, why should codetag sections be
+placed as regular module data? Will the codetag support use them in any
+way, or do they simply waste space? Is the issue that alloc_hooks()
+creates relocations pointing into .codetag.alloc_tags?
 
+> 
+> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Suren Baghdasaryan <surenb@google.com>
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> ---
+>  kernel/module/main.c | 25 +++++++++++++++++++++++--
+>  mm/alloc_tag.c       |  8 +++++---
+>  2 files changed, 28 insertions(+), 5 deletions(-)
+> 
+> diff --git a/kernel/module/main.c b/kernel/module/main.c
+> index 46dd8d25a605..ed26f167be84 100644
+> --- a/kernel/module/main.c
+> +++ b/kernel/module/main.c
+> @@ -2944,6 +2944,7 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
+>  {
+>  	struct module *mod;
+>  	int err;
+> +	unsigned long frob_size[MOD_MEM_NUM_TYPES];
 
-Setting up an AMD SMCA reproduction now before posting v3.
+frob_size is used to store values of module_memory::size, which has type
+`unsigned int`. The types should match.
 
-Thanks, 
-Shaikh 
-> > 
-> > Fixes: 516e5bd0b6bf ("cxl: Add mce notifier to emit aliased address for extended linear cache")
-> > Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-> > ---
-> > Changelog:
-> > 
-> > v1 -> v2:
-> >   - Reworked commit message per review feedback
-> >   - Dropped redundant comment from the code
-> >  
-> > Reproduced under QEMU/vng. QEMU's cxl-type3 does not emulate the HMAT
-> > extended-linear address_mode bit, so ELC was forced locally for testing
-> > via a one-line debug hack in cxl_region_probe() (not part of this patch):
-> > 
-> > 	if (!p->cache_size && p->res)
-> > 		p->cache_size = resource_size(p->res) / 2;
-> > 
-> > Steps:
-> > 1. Boot with an Intel CPU model under TCG (KVM host-passthrough will
-> >     otherwise leak the host's real vendor ID, and AMD/SMCA takes a
-> >     different mce_usable_address() path than the one under test):
-> > vng -v -r ./arch/x86/boot/bzImage --disable-kvm --qemu-opts='-cpu Skylake-Server-v4,+mce,+mca -m 4G -machine q35,cxl=on -object memory-backend-ram,id=cxl-mem0,size=512M -device pxb-cxl,bus_nr=12,bus=pcie.0,id=cxl.0 -device cxl-rp,port=0,bus=cxl.0,id=root_port0,chassis=0,slot=0 -device cxl-type3,bus=root_port0,volatile-memdev=cxl-mem0,id=cxl-mem-device0 -M cxl-fmw.0.targets.0=cxl.0,cxl-fmw.0.size=512M'
-> > 
-> > 2. modprobe mce-inject
-> > $cxl list -M
-> > $cxl list -D
-> > $cxl create-region -m mem0 -d decoder0.0 -w 1 -g 256 -t ram
-> > $dmesg | grep "DEBUG: forced cache_size"
-> > $modprobe device_dax
-> > $modprobe kmem
-> > $ls /sys/bus/dax/devices/
-> > $daxctl reconfigure-device dax0.0 --mode=system-ram
-> > $lsmem
-> > it will show as below:
-> > dax0.0
-> > [   42.857642] Fallback order for Node 0: 0 
-> > [   42.857828] Built 1 zonelists, mobility grouping on.  Total pages: 1010805
-> > [   42.858446] Policy zone: Normal
-> > [
-> >   {
-> >     "chardev":"dax0.0",
-> >     "size":536870912,
-> >     "target_node":0,
-> >     "align":2097152,
-> >     "mode":"system-ram",
-> >     "online_memblocks":4,
-> >     "total_memblocks":4,
-> >     "movable":true
-> >   }
-> > ]
-> > reconfigured 1 device
-> > RANGE                                  SIZE  STATE REMOVABLE BLOCK
-> > 0x0000000000000000-0x000000007fffffff    2G online       yes  0-15
-> > 0x0000000100000000-0x000000017fffffff    2G online       yes 32-47
-> > 0x0000000190000000-0x00000001afffffff  512M online       yes 50-53
-> > 
-> > Memory block size:       128M
-> > Total online memory:     4.5G
-> > Total offline memory:      0B
-> > 
-> > 3. Load the injector if not loaded earlier and derive the two MCi_STATUS values.
-> > 
-> >     modprobe mce-inject
-> > 
-> >     MCi_STATUS bit layout used here (arch/x86/include/asm/mce.h):
-> >       bit 63  VAL     - record valid
-> >       bit 61  UC      - uncorrected (0 = corrected error under test)
-> >       bit 60  EN      - error reporting enabled
-> >       bit 59  MISCV   - MCi_MISC valid
-> >       bit 58  ADDRV   - MCi_ADDR valid
-> >       bits[15:0] MCACOD - bit 7 set = memory-error signature, per
-> >                           mce_is_memory_error()'s Intel branch
-> > 
-> >     python3 -c "
-> >     VAL, UC, EN, MISCV, ADDRV = 1<<63, 1<<61, 1<<60, 1<<59, 1<<58
-> >     MCACOD_MEM = 1<<7                      # memory error signature
-> >     ce = VAL | EN | MISCV | ADDRV | MCACOD_MEM
-> >     uc = ce | UC
-> >     print(f'CE status = {hex(ce)}')
-> >     print(f'UC status = {hex(uc)}')"
-> >     # CE status = 0x9c00000000000080
-> >     # UC status = 0xbc00000000000080
-> > 
-> >     MCi_MISC: address-mode field, bits[8:6], must be 2 (physical):
-> > 
-> >     python3 -c "print(hex(2 << 6))"
-> >     # misc = 0x80
-> > 
-> > 4.  $ cd /sys/kernel/debug/mce-inject
-> > $echo sw > flags
-> > $echo 0x9C00000000000080 > status
-> > $echo 0x80 > misc
-> > $echo 0x190010000 > addr
-> > $echo 9 > bank
-> > [  221.813395] mce: [Hardware Error]: Machine check events logged
-> > [  221.814716] cxl_mce_debug: entered status=0x9c00000000000080 addr=0x190010000 cache_size=0x10000000 res=[mem 0x190000000-0x1afffffff flags 0x200] usable=1
-> > [  221.816200] cxl_mce_debug: spa=0x190010000 contains=1
-> > [  221.817089] cxl_mce_debug: spa_alias=0x1a0010000 pfn=0x1a0010 pfn_valid=1
-> > [  221.817655] cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
-> > [  221.821504] Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
-> > [  221.823903] mce: [Hardware Error]: CPU 0: Machine Check: 0 Bank 9: 9c00000000000080
-> > [  221.824617] mce: [Hardware Error]: TSC a605ccda40 ADDR 190010000 MISC 80 
-> > [  221.824997] mce: [Hardware Error]: PROCESSOR 0:50654 TIME 1786375908 SOCKET 0 APIC 0 microcode 1
-> > root@virtme-ng:/sys/kernel/debug/mce-inject# 
-> > root@virtme-ng:/sys/kernel/debug/mce-inject# grep HardwareCorrupted /proc/meminfo
-> > HardwareCorrupted:     4 kB
-> > 
-> > CE without this patch:
-> >   cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
-> >   Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
-> >   HardwareCorrupted: 4 kB
-> > ------------------------------------- 
-> > CE with this patch:
-> >   (no "Offlining aliased SPA" message logged)
-> >   HardwareCorrupted: 0 kB
-> > 
-> > $cd /sys/kernel/debug/mce-inject
-> > $echo sw > flags
-> > $echo 0x9C00000000000080 > status
-> > $echo 0x80 > misc
-> > $echo 0x190010000 > addr
-> > $echo 9 > bank
-> > addr  bank  cpu  flags	ipid  misc  README  status  synd
-> > [   61.681659] mce: [Hardware Error]: Machine check events logged
-> > [   61.683442] cxl_mce_debug: entered status=0x9c00000000000080 addr=0x190010000 cache_size=0x10000000 res=[mem 0x190000000-0x1afffffff flags 0x200] usable=1
-> > [   61.684528] mce: [Hardware Error]: CPU 0: Machine Check: 0 Bank 9: 9c00000000000080
-> > [   61.684974] mce: [Hardware Error]: TSC 2eeae32fe0 ADDR 190010000 MISC 80 
-> > [   61.688880] mce: [Hardware Error]: PROCESSOR 0:50654 TIME 1786377156 SOCKET 0 APIC 0 microcode 1
-> > [   86.504456] clocksource: Watchdog remote CPU 11 read timed out
-> > 
-> > $grep HardwareCorrupted /proc/meminfo
-> > HardwareCorrupted:     0 kB
-> > -------------------------
-> > For UC, same steps only status bit information will change :
-> > $cd /sys/kernel/debug/mce-inject
-> > $echo sw > flags
-> > $echo 0xbc00000000000080 > status
-> > $echo 0x80 > misc
-> > $echo 0x190010000 > addr
-> > $echo 9 > bank
-> > $dmesg | grep cxl_mce_debug
-> > $grep HardwareCorrupted /proc/meminfo
-> > [  313.398747] mce: [Hardware Error]: Machine check events logged
-> > [  313.400518] cxl_mce_debug: entered status=0xbc00000000000080 addr=0x190010000 cache_size=0x10000000 res=[mem 0x190000000-0x1afffffff flags 0x200] usable=1
-> > [  313.401727] cxl_mce_debug: spa=0x190010000 contains=1
-> > [  313.402157] cxl_mce_debug: spa_alias=0x1a0010000 pfn=0x1a0010 pfn_valid=1
-> > [  313.402663] cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
-> > [  313.405999] Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
-> > [  313.408375] mce: [Hardware Error]: CPU 0: Machine Check: 0 Bank 9: bc00000000000080
-> > [  313.408999] mce: [Hardware Error]: TSC e9dd2869e0 ADDR 190010000 MISC 80 
-> > [  313.409367] mce: [Hardware Error]: PROCESSOR 0:50654 TIME 1786377750 SOCKET 0 APIC 0 microcode 1
-> > 
-> > Patched, UC: alias still offlined, confirming uncorrected handling is unchanged by this patch.
-> >     cxl_region region0: Offlining aliased SPA address0: 0x1a0010000
-> >     Memory failure: 0x1a0010: recovery action for free buddy page: Recovered
-> >     HardwareCorrupted: 4 kB
-> > 
-> >  drivers/cxl/core/mce.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/cxl/core/mce.c b/drivers/cxl/core/mce.c
-> > index 65fed913b221..e3c561489a00 100644
-> > --- a/drivers/cxl/core/mce.c
-> > +++ b/drivers/cxl/core/mce.c
-> > @@ -18,7 +18,13 @@ static int cxl_handle_mce(struct notifier_block *nb, unsigned long val,
-> >  	u64 spa, spa_alias;
-> >  	unsigned long pfn;
-> >  
-> > -	if (!mce || !mce_usable_address(mce))
-> > +	if (!mce)
-> > +		return NOTIFY_DONE;
-> > +
-> > +	if (!mce_is_memory_error(mce) || mce_is_correctable(mce))
-> > +		return NOTIFY_DONE;
-> > +
-> > +	if (!mce_usable_address(mce))
-> >  		return NOTIFY_DONE;
-> >  
-> >  	spa = mce->addr & MCI_ADDR_PHYSADDR;
-> > 
-> > base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
-> > -- 
-> > 2.43.0
-> > 
+>  
+>  	/* Allow arches to frob section contents and sizes.  */
+>  	err = module_frob_arch_sections(info->hdr, info->sechdrs,
+> @@ -2966,18 +2967,38 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
+>  	 */
+>  	module_mark_ro_after_init(info->hdr, info->sechdrs, info->secstrings);
+>  
+> +	/*
+> +	 * Save the sizes reserved by module_frob_arch_sections() so they can
+> +	 * be restored if we retry below.
+> +	 */
+> +	for_each_mod_mem_type(type)
+> +		frob_size[type] = info->mod->mem[type].size;
+> +
+>  	/*
+>  	 * Determine total sizes, and put offsets in sh_entsize.  For now
+>  	 * this is done generically; there doesn't appear to be any
+>  	 * special cases for the architectures.
+>  	 */
+> +retry:
+>  	layout_sections(info->mod, info);
+>  	layout_symtab(info->mod, info);
+>  
+>  	/* Allocate and move to the final place */
+>  	err = move_module(info->mod, info);
+> -	if (err)
+> -		return ERR_PTR(err);
+> +	if (err) {
+> +		if (err != -EAGAIN)
+> +			return ERR_PTR(err);
+
+The move_module() logic is non-trivial. -EAGAIN could be returned by
+other code, now or in the future.
+
+> +		/*
+> +		 * -EAGAIN means profiling was disabled but the module
+> +		 * can still load without it. Reset state and retry.
+> +		 */
+> +		rewrite_section_headers(info, flags);
+> +		for_each_mod_mem_type(type)
+> +			info->mod->mem[type].size = frob_size[type];
+> +		info->sechdrs[info->index.sym].sh_flags &= ~(unsigned long)SHF_ALLOC;
+> +		info->sechdrs[info->index.str].sh_flags &= ~(unsigned long)SHF_ALLOC;
+
+Why is it necessary to reset SHF_ALLOC for .symtab and .strtab here?
+
+> +		goto retry;
+> +	}
+>  
+>  	/* Module has been copied to its final place now: return it. */
+>  	mod = (void *)info->sechdrs[info->index.mod].sh_addr;
+
+I'm not sure this is the best approach. It's complex logic for what
+appears to be an edge case related to a debugging facility. It will have
+the usual problem of error paths not getting enough testing and breaking
+subtly over time.
+
+An alternative could be to reset SHF_ALLOC on the codetag section to
+remove it from further processing and have relocations that point to
+this section resolve to something else. It seems that alloc_hooks_tag()
+could tolerate this, since it only needs to reference the associated
+alloc_tag when mem_alloc_profiling_enabled() is true and that gets
+disabled by reserve_module_tags() on the overflow.
+
+It is also not an ideal approach, but I feel it could be less intrusive
+to the module loader. I can put together a prototype if needed.
+
+-- 
+Thanks,
+Petr
