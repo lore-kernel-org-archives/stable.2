@@ -1,127 +1,126 @@
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141F22C11DF
-	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 04:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7927332B107;
+	Sun, 16 Aug 2026 05:17:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786855528; cv=none; b=uigkSruw+9DeWy9ch5DOtS5DCppYcqGQ0z46IIp2Nz2fvlYQCmJfUB6/FCzit72TE0b/b/LjBdef1yMV57AKORogNz9gze+wvJIHE48xnSOulZ2wHSvYrEn2aAtxGYO8PzXyIm7ejB6JPhWadQRk21eMGdzb2zDhN5aPfTWITXw=
+	t=1786857441; cv=none; b=Y96l1mz2sPmhVEH9b/jaqifV+5JjnBuGlZwtfvFLA8J66WAm66pCW5SRGv3vHsNCQwuHryOfAFQnnDxS/HEoLCNQuKIkda6dWji2Hjar/PS89Z0rn7JeBrWADji0witQh+Y127MQ3V2aMvx41Av4rYO6o873PaKKEgGkIaMUwik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786855528; c=relaxed/simple;
-	bh=VPZwRSomxevHO7ok/WVEp7eMxLHx3jbGcDllWYjpIk0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KafSCPnbluSJ5x8xUy6gLPSmmmSz6ONZgTI6Y7m6DQi4Q1kCt4j51nysYRe7gNlbh5ZxGJxEWT5sEhcG8RkjOpNnrUL8mpyo8gp0a7ij6hrDOhFJmgZHWWWgS67dt3Cu5SnBCyosT/ZG774ixV4ztI384hdEc//PpsQCpXDgF4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qRSqVadc; arc=none smtp.client-ip=209.85.219.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786857441; c=relaxed/simple;
+	bh=VfXD0eRxgae+TtU/Q7eMx8k52VXZwPzo9TG9IGvTy3U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uv2/Mle3VGbmcuZ1/yqiPxK09Q/qG6720yTYAOdyAef8jYlpISEII6B4cPT2+VKLPYS5N5nayCRqTVWn6snziwLCQKAd2PF8mEi23rW3zQF4fzd0sJqofpYyDD8YjLv8ynA5dz3fVsg7xkg0A+FL/PBmh623NmW12RFrLdcnh6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=APxwxssp; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qRSqVadc"
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-90a80860d35so20365646d6.2
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 21:45:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786855525; x=1787460325; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aXQqM4Uz+B7ErOlECxSpCZ++Y8mo3D64bY4QdYcgNwo=;
-        b=qRSqVadcpAn7biNDanCxu8O7iykcNgRAO46rIZbwxWbcqrfJi1z8kuY6jf8fVar0Z/
-         KnIGj4FQ4P7SNjpQyZ0XbVMhhFW0mGzYBxWTeh3fUNjhRulGYflWZZ3Dqm3FkCB7Po8W
-         i27/poacJt16rvPraNr7ytlrZNtJHVilbk88ln1RlWSVJjeqxdAVxaowgmPJDZT9tk8g
-         6QwdeKcEGTl74Jod0yHiWcHjnfhXfJY1uxxpJKrtrI+sticqhZgGGdpUMmaxVzsSd9Y9
-         xofZMHB0+NTx/HapRBbOHXQpaaQyG00r7UVLNLKcR5KWqvOL/4RJsJeM7pUbU2Ad6WzZ
-         WUpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786855525; x=1787460325;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aXQqM4Uz+B7ErOlECxSpCZ++Y8mo3D64bY4QdYcgNwo=;
-        b=eqdSlDrxZ8lndYp5Dbzk9YrZvP4TtK/nJM1AvP5ptIKhs9ts+P6q9jH7pKzNFT9Jc4
-         BIdokO1lgWuYs4T3LBcYA//BTip6Fh+4+h1x6wyWbjlL5bQ2rQYJJF4n9PMDUeaWqP3e
-         wCILpFATyOo7CLIqxHJ+rvq/JBuzZGW+8ACBYoQFJJ5LSZmRVm5kDJOGlM8tyBxZ2fcT
-         xX5SLRCORYS3ylAHxJ1Xh28NDwY4nbaoGL5hsHbiitOrSCYqje3SU6fd5696xZI85KgH
-         FpRuCpVXiQa3f83CvyzituJRn3MwO1oD7QGKAReFjMqg1iPk09XwO+/c0XQW8rKoZpLK
-         PotQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqmmph3AL8vDZ6MHyP9VjQMbALWd8QOQTQtsYv/zR1EwjakW6YhqmEDjT/Duclo6YK5g2A5niI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfTBN88KYz3KBQXqkBS4cmX2dJRfKnTQ4oNHRJkBQ3Qv55DF0F
-	KghRn3eUGusi/zO+B+Ejo8SkiQQvNbSZRxZXef/rdmPHcBLnbThAWq9T
-X-Gm-Gg: AR+sD10R9gc8VihIDgBM6xZ//Z1F7Tf8W5vbWqMq9AK+saBZCWjTakFOBjEQlT4v8+S
-	59KtxDNZe/5A0Ce0ClJEYQzHhVBojOexBHCJ+s/G/hM0/sSSySeuV7ajHdnUnoWhtkO2XlbCbBT
-	XScRJwUB8XXNWdbLWz8pYmdH5aiqbMnKYFcXoTcLXP4Le8x+TOO7MAIeYH823Tj0Ew4WskZvrgf
-	UG2gg+Z+iSdtXuEYndQP7ACmtSS28iPMdXGsQb5GiSe+0ABDLVfApxxNiwv/hWvkmrLrE59ovoC
-	2X1pGZL83jAM8ZPf3oUbRoYd0MZqkoMF2EiZvWEkQAVR+DLwxj10XkUYAf7imH4OYjwhVxVHLtm
-	YGC5UxJ4iEPZmVEjMZD2twb6x+8diaknobedwTYGmISFPLPak5wB1b5vi29IiqVIMxrvb+XQvhA
-	FK2NJcW+0conwwfR7ZmhWpoQt62nyavA8S+UUgnyBaAslh+kw+WG5DX3hMqGNhFxzDeZh6OdgPh
-	oblMmeySAeOvMBM7w==
-X-Received: by 2002:a05:620a:a293:b0:934:970a:beb2 with SMTP id af79cd13be357-936d22ce4d1mr1589429185a.26.1786855524958;
-        Sat, 15 Aug 2026 21:45:24 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-936ce1ea6cfsm687105385a.27.2026.08.15.21.45.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 21:45:24 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: yishaih@nvidia.com,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Subject: [PATCH] IB/mlx4: Fix use-after-free on pkey sysfs registration failure
-Date: Sun, 16 Aug 2026 00:45:10 -0400
-Message-ID: <20260816044510.3848996-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="APxwxssp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786857439; x=1818393439;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VfXD0eRxgae+TtU/Q7eMx8k52VXZwPzo9TG9IGvTy3U=;
+  b=APxwxssptHj9fX2BboNKByUub6ub0CLpRuA34ThLV2pkaXaDKo0eILCx
+   l69mEC99tBAuFjqDlW5V1ROuEvsXtyXeyH8e2QZ6m+4tH3v3RrgakYw9y
+   IzTVmSGlBTg3EeakRoXr7zOnZnshKiVvW7h51AZyurKF9xTNh2/93aUly
+   xOnRi7tBkFtXagEr6Y/DpBIGpWWwEBF0w/tYQ8kzzKXEPzEHWTBs4hCxc
+   fhZbih7yQBkasMblfoyPqkgarwfRyCrmc7r9SQoTPznwSVRjjqnNSNzbz
+   irVHC+u4FLFFELckqjfXNiEIE6AIXM0pi8WoSTxpEYgxmEHkvQhHJlBld
+   A==;
+X-CSE-ConnectionGUID: sDu7aFqZTHKfzd6mUSUjrw==
+X-CSE-MsgGUID: s8jqeIomR/CbaeBjbVu3pQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11876"; a="87391590"
+X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; 
+   d="scan'208";a="87391590"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Aug 2026 22:17:19 -0700
+X-CSE-ConnectionGUID: d7JKQlxAQDyjYniT/djYJQ==
+X-CSE-MsgGUID: R8KTK66LR/WwXsy1M8Y0vg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; 
+   d="scan'208";a="288079862"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by fmviesa002.fm.intel.com with ESMTP; 15 Aug 2026 22:17:17 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wvTFC-00000000ckO-1K5y;
+	Sun, 16 Aug 2026 05:17:14 +0000
+Date: Sun, 16 Aug 2026 13:16:20 +0800
+From: kernel test robot <lkp@intel.com>
+To: WenTao Liang <vulab@iscas.ac.cn>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	linux-pci@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Wilczynski <kw@linux.com>,
+	Bjorn Helgaas <helgaas@kernel.org>, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
+Subject: Re: [PATCH] fix: PCI: dra7xx: dra7xx_pcie_probe: fix missing
+ device_link_del on phy   error paths
+Message-ID: <202608161318.LcyznJeH-lkp@intel.com>
+References: <20260626154809.53770-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260626154809.53770-1-vulab@iscas.ac.cn>
 
-register_pkey_tree() ignores errors from register_one_pkey_tree() and
-continues registering the remaining slaves. The per-slave error path has
-already released the pkey parent kobjects, but their pointers remain
-stored in the device. A later device cleanup therefore passes the stale
-pointers to kobject_put(), causing a use-after-free.
+Hi WenTao,
 
-Clear the parent pointers after releasing a failed slave tree and skip
-unregistered trees during device cleanup. This preserves the existing
-best-effort registration behavior while preventing a second cleanup of
-the failed tree.
+kernel test robot noticed the following build errors:
 
-Fixes: c1e7e466120b ("IB/mlx4: Add iov directory in sysfs under the ib device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- drivers/infiniband/hw/mlx4/sysfs.c | 4 ++++
- 1 file changed, 4 insertions(+)
+[auto build test ERROR on pci/next]
+[also build test ERROR on pci/for-linus linus/master v7.2-rc7 next-20260814]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/drivers/infiniband/hw/mlx4/sysfs.c b/drivers/infiniband/hw/mlx4/sysfs.c
-index e688ad66a895..5438224bf325 100644
---- a/drivers/infiniband/hw/mlx4/sysfs.c
-+++ b/drivers/infiniband/hw/mlx4/sysfs.c
-@@ -751,11 +751,13 @@ static int register_one_pkey_tree(struct mlx4_ib_dev *dev, int slave)
- 		kobject_put(p);
- 	}
- 	kobject_put(dev->dev_ports_parent[slave]);
-+	dev->dev_ports_parent[slave] = NULL;
- 
- err_ports:
- 	kobject_put(dev->pkeys.device_parent[slave]);
- 	/* extra put for the device_parent create_and_add */
- 	kobject_put(dev->pkeys.device_parent[slave]);
-+	dev->pkeys.device_parent[slave] = NULL;
- 
- fail_dev:
- 	kobject_put(dev->iov_parent);
-@@ -785,6 +787,8 @@ static void unregister_pkey_tree(struct mlx4_ib_dev *device)
- 		return;
- 
- 	for (slave = device->dev->persist->num_vfs; slave >= 0; --slave) {
-+		if (!device->pkeys.device_parent[slave])
-+			continue;
- 		list_for_each_entry_safe(p, t,
- 					 &device->pkeys.pkey_port_list[slave],
- 					 entry) {
--- 
-2.43.0
+url:    https://github.com/intel-lab-lkp/linux/commits/WenTao-Liang/fix-PCI-dra7xx-dra7xx_pcie_probe-fix-missing-device_link_del-on-phy-error-paths/20260815-023710
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
+patch link:    https://lore.kernel.org/r/20260626154809.53770-1-vulab%40iscas.ac.cn
+patch subject: [PATCH] fix: PCI: dra7xx: dra7xx_pcie_probe: fix missing device_link_del on phy   error paths
+config: arm64-randconfig-001-20260816 (https://download.01.org/0day-ci/archive/20260816/202608161318.LcyznJeH-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 844a18e753e822736c9805ab779144b647a2c186)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260816/202608161318.LcyznJeH-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608161318.LcyznJeH-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/pci/controller/dwc/pci-dra7xx.c:918:8: error: use of undeclared label 'err_link'
+     918 |                 goto err_link;
+         |                      ^
+   1 error generated.
+
+
+vim +/err_link +918 drivers/pci/controller/dwc/pci-dra7xx.c
+
+   908	
+   909	static int dra7xx_pcie_resume_noirq(struct device *dev)
+   910	{
+   911		struct dra7xx_pcie *dra7xx = dev_get_drvdata(dev);
+   912		int ret;
+   913	
+   914		ret = dra7xx_pcie_enable_phy(dra7xx);
+   915		if (ret) {
+   916			dev_err(dev, "failed to enable phy\n");
+   917			dra7xx_pcie_disable_phy(dra7xx);
+ > 918			goto err_link;
+   919		}
+   920	
+   921		return 0;
+   922	}
+   923	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
