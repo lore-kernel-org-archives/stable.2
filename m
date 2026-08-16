@@ -1,125 +1,174 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5E62F8E87
-	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 09:00:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786870844; cv=none; b=qtclNvx+JsppVqWRXAVVriDSInHONkmR4WMvL5ZtMoA90n/aug14CMIraTpSsOq7meGqLJ3LCobnqvDPGqBnZNOP21P0Vd5Aaa4/ToYREQ5wbag9UJ+rEnHtfjOSAAEkAXsluLVrKBYWG9Y6myqRabAm7wGmQ7o/3K63EvY0OFY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786870844; c=relaxed/simple;
-	bh=6T7GMCkGLOuSfaHhVTsEusliObvxag9Q/Qbw1CjZNeg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dKE2kJo/gWAkRSZ92N+vTByQl6yurcrUXRuPC4EWGPVg2e4bRJQu4MV/GYrwPI5gAzLGYKnm2DnobJI8ipJV1zt+jeiWAKL4EesmL/C/VKTv5FvG0BMKO/sQi8zsNcdz/4rEbkIFV4WrbOkmzVqZiBB6sAb02+B5SC3ABFSmAnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=esCZ2Fxk; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D75732B135;
+	Sun, 16 Aug 2026 09:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786870909; cv=pass; b=HLiReuo1NJuz4knNXLm/dsx8bAKPHY+owL0wL2uOE2/2M4qDTM/JyHPySLTNkh/HmJgcMTu+mvAJznEpsJy0sLeLax7HG9HMmIw56J5ly31Lk5+lRUpdNWOgAMIgQJ4hbu1YPHj00FkEigoNPdfb/G2BS20u7PKQO8SzaXW7ra4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786870909; c=relaxed/simple;
+	bh=Sj+LPkX87LuEdq1n2vLAbsQj7LhMcMzKl7u9lwxpqvE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=Xh+xVin9bPMeGyj/ewP25n94Tv7DBpJQDqeEp/JlISLf4g60VRHqIv/FElrqO1Jp8sci7lQtougIrJqudPOUhBkr93Tg6CxbjwsweuVWlZ8tR+yVWyybHTiXxRGf1mRqpu71kX75jzGnDdQnW4oqyK6ke3uQ0inrMvAPh2Y5wd4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=jM0Lzegw; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="esCZ2Fxk"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so2432738f8f.1
-        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 02:00:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786870841; x=1787475641; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TB5hLITgaLSvnkEZ2ABO7VyYwwjhkPuh1sGrI3sQjr4=;
-        b=esCZ2FxkxMAdRy+o8iOCfI4AswWnHWutK5R2q7oAZxQ3ixw4OMsCSVKlaa59n4ogJs
-         lgKdcdDAMOFhPmpwTGAdXH0nhtQIOdAfZzwsypuYL+OuG1CFdGwaUbwnwLURodh5YPN3
-         UozwjNkb/YVhNeT8YsH8o1S+vHI2+R3fRifNWdccZBAbIqObt9m/sKtLuxvkzAXX6zWM
-         ztLysI23yNgsS7g1Put4ityWpEuvNxfh32joEdJYAAEDC8rilm4IWgwziT7lEd9RKogQ
-         xfESjQKjc9fT00mcaK7OnDmOG0EKFsI5WdL2uysBrpLZGX3n9xZbNFGeVktUZmyP87ND
-         VKcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786870841; x=1787475641;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TB5hLITgaLSvnkEZ2ABO7VyYwwjhkPuh1sGrI3sQjr4=;
-        b=Egz3xsYAHA3Qm8s3hXc2eePdaNZFM9Dw2sd9T65lVnnU5t9QxyzJ50uaaNdC9L+3NZ
-         9QGHtv50AA8m/C53hxSMFr4FcAaScBj+Ou0yONtmdZu96OLL3Rez07Lvj4X3ovK6IcYj
-         5UvFTOylRfNiqiIA6hkxtJ2n03M5TorTJYjX0bKTcHEJdlhbzSOSQmMoioRipDZCjGHu
-         BJxgeSeHUl3VpgK/HXFE4HmWBwhsly4u8TwrB77+NHjiJeQvG3kMFThjP+Ym7QCQzoAX
-         Iz6W7TSaQ6jaFmw0FQpdDJ7HIh5dXca/4/itLMCpc2tPLjvE4aNi6eP1Tsu/MIqGOEQZ
-         joWw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp7f92b6W0p+nrJcLwcy7HB2s9MUM4p6MjJugjOYyNNFFBUffasVrMujulgGJ7GJCWyJxzERNw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzd9Rq+7ZsMz6OcPNf1HqlDN1ciuca1bLhBAymDe6waWjdNfHYD
-	v3R7ZPHcNbnwKetw25IpfAIdTW6TxgDIVK30HO4pCEooU6khIG17o1dg
-X-Gm-Gg: AR+sD11qHK4aK/u785P8MFq15Ne8LnReraCDFbRvra0AHaVzOPltDXZEpyyEuItdRTU
-	Hpva879vsgpaU5vnGcyopq2ZSPKVn2+lO9BltyFbqrpnm5mPxD6FGAzldOYzNWB2jLh7IqApRZu
-	T+jYPp9b1j3b8Ayn5mAAEKqyB6mTNFNat54sJldWEdMzhnrZ4XQ3Jv/eCiKWNmGD8Jg/pSzizqr
-	p4eiqBkffYIiYWbst6qdxjZbEJLOnW9y295aU45zxkz5deb7zlajgLZ96R+YE9bUqlFkcGSYv2+
-	jyouYIL/TK7yNbTcl9eYb4Viy7PlB0q+uyJDkW2bf2rfE6BanCKVtLBtBNxLLGVWHKNHfu3QpoN
-	UuThP+KnC+ES6dfemRsbw9rvmL95XGIr28KIEoS/7WSjPsO+goSx+Lu57WYQH1RAdqlqJcZODfh
-	aejdhBSygKnyq+uDLvGojc2IgU54NhTkoXa0j2tPrIzTJc+TUTuzN3Z4z+
-X-Received: by 2002:adf:f392:0:b0:46e:1815:6a83 with SMTP id ffacd0b85a97d-4816078c790mr19677263f8f.29.1786870840761;
-        Sun, 16 Aug 2026 02:00:40 -0700 (PDT)
-Received: from zen ([37.203.152.61])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f2b13c3sm18665907f8f.19.2026.08.16.02.00.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 16 Aug 2026 02:00:39 -0700 (PDT)
-From: Kiarash Azarnia <kiarash.azarnia@gmail.com>
-To: rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org
-Cc: graf@amazon.com,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] kho: fix signed shift UB in kho_preserved_memory_reserve()
-Date: Sun, 16 Aug 2026 12:30:37 +0330
-Message-ID: <20260816090038.3117276-1-kiarash.azarnia@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="jM0Lzegw"
+ARC-Seal: i=1; a=rsa-sha256; t=1786870889; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=XLfLL1N+AnqzFwXg586xF8QAQR/Mn+TYzYl/q93grOfvO/GI6BT9ZNIw/JWKrz3qvs8fk5kZZlm0lZTVrhatTAm843g+BWIU3O26IKoGBg+EsZFNXh8iOPdbfxFVDNiL9Yv7+rtJWpaI4rq42rsOXtkqeSyaSMK2pKzieFIbDTE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1786870889; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=uC0rrKBJiyK6GKrZ7oOkFU15ENgVC1tzNfFlEDiLMFo=; 
+	b=VT5G0Kxy5ieuaptmWnpawbmpfuqkIPj66/JDgmVGL9F1E2XFNiQ9Ahni+YdBLdTVzmp1zyfBNX0F9xVjUS+Z5olYHk9DuaUTYmOQnN9sjc3aZUjz8itTXCvrwpY/FrGGMd7PMmPhLDwFMQ06qWTVrZm5uj6AwL/gqs50aCSMsVQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786870889;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:Reply-To;
+	bh=uC0rrKBJiyK6GKrZ7oOkFU15ENgVC1tzNfFlEDiLMFo=;
+	b=jM0Lzegw6T4kcPJphd+ovvczrq7jLss4jh8upiRgtX6Dd8O8+kmInqknR1xOPjD4
+	g8C2Dw4qXMMmzqr0NL0+HFBwpuXoknuIpjo8mlt6gpsWHOlAgEJrAD2JbnI/H7bH7mx
+	AAewMjbMHQi1iJhyh9EMYZCgIm8ydAT8UpXxzF1I=
+Received: by mx.zohomail.com with SMTPS id 1786870887237223.54892824363822;
+	Sun, 16 Aug 2026 02:01:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 16 Aug 2026 17:01:16 +0800
+Message-Id: <DKQ8V08O8TKD.QHLCPR9W40HE@pigmoral.tech>
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: "Guo Ren" <guoren@kernel.org>, <linux-riscv@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+Cc: <dlan@kernel.org>, <devicetree@vger.kernel.org>,
+ <spacemit@lists.linux.dev>, <stable@vger.kernel.org>, "Guodong Xu"
+ <docular.xu@gmail.com>, "linux-riscv"
+ <linux-riscv-bounces@lists.infradead.org>
+Subject: Re: [PATCH] riscv: dts: spacemit: k3: fix IMSIC guest parameters
+X-Mailer: aerc 0.21.0
+References: <20260816074125.2105828-1-guoren@kernel.org>
+In-Reply-To: <20260816074125.2105828-1-guoren@kernel.org>
+X-ZohoMailClient: External
 
-kho_preserved_memory_reserve() computes the size of a preserved
-reservation as:
+Hi Guo,
 
-	sz = 1 << (order + PAGE_SHIFT);
+On Sun Aug 16, 2026 at 3:41 PM CST, Guo Ren wrote:
+> From: "GUO Ren (XuanTie)" <guoren@kernel.org>
+>
+> The initial K3 device tree used generic/placeholder values for the
+> IMSIC guest configuration:
+>
+>   riscv,guest-index-bits =3D <6>;
+>   riscv,num-guest-ids    =3D <511>;
+>
+> According to the SpacemiT K3 User Manual [1] these values are
+> incorrect for the X100 cores:
+>
+>  - Hypervisor Extension: RVH 1.0, GEILEN =3D 8
+>  - Advanced Interrupt Architecture (AIA):
+>     - M-mode MSI: 512
+>     - S-mode MSI: 512
+>     - VS-mode MSI: 64
+>
+> Therefore:
+>
+> - S-mode IMSIC (simsic) only needs guest-index-bits =3D 3 (to cover
+>   GEILEN =3D 8) and num-guest-ids =3D 63.
+> - M-mode IMSIC (mimsic) does not implement guest interrupt files at
+>   all, so the guest-related properties must be omitted.
+>
+> Although the KVM AIA driver will re-detect the actual number of guest
+> interrupt files via hgeie and correct guest-index-bits at runtime, the
+> device tree should still describe the correct hardware parameters.
+>
+> Update the device tree to match the silicon.
+>
+> [1] https://www.spacemit.com/community/document/info?lang=3Den&nodepath=
+=3Dhardware/key_stone/k3/k3_docs/k3_usermanual/08_cpu.md
+>
+> Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 So=
+C")
+> Cc: stable@vger.kernel.org
+> Cc: Guodong Xu <docular.xu@gmail.com>
+> Cc: Yixun Lan <dlan@kernel.org>
+> Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
+> ---
+>  arch/riscv/boot/dts/spacemit/k3.dtsi | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
+pacemit/k3.dtsi
+> index 19fc9b49668e..4120eb0c4083 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> @@ -1127,9 +1127,9 @@ simsic: interrupt-controller@e0400000 {
+>  					      <&cpu4_intc 9>, <&cpu5_intc 9>,
+>  					      <&cpu6_intc 9>, <&cpu7_intc 9>;
+>  			msi-controller;
+> -			riscv,guest-index-bits =3D <6>;
+> +			riscv,guest-index-bits =3D <3>;
 
-`1` is a signed int, so the shift is signed-int arithmetic. For order
-19 (a 2 GiB region) it produces 1 << 31, which is unrepresentable in
-int and is undefined behavior; in practice it yields 0x80000000,
-sign-extended on the assignment to the u64 sz. For order >= 20 the
-shift count exceeds the width of int, which is also undefined. The
-return value of memblock_reserve() is ignored and memblock_cap_size()
-clamps the bogus size, so the kernel silently reserves the wrong
-amount of memory for the preserved region.
+According to the IMSIC DT binding, riscv,guest-index-bits describes
+the number of guest-index bits in the MSI target address, not the
+number of guest interrupt files actually implemented by a hart.
 
-kho_alloc_preserve() caps order at MAX_PAGE_ORDER and cannot reach
-order 19, but a boot-time reserve_mem= region of at least 2 GiB drives
-kho_preserve_pages() to compute order 19, and kho_preserve_pages() is
-EXPORT_SYMBOL_GPL(), so the path is reachable.
+On K3, the per-hart IMSIC stride is 0x40000 bytes (0x200000 / 8).
+Therefore, riscv,guest-index-bits should remain 6, which satisfies the
+per-hart stride formula specified by the AIA specification:
 
-Cast the shift operand to u64 so the arithmetic is done in 64 bits:
+  2^(guest-index-bits + 12) =3D 2^(6 + 12) =3D 0x40000 bytes
 
-	sz = (u64)1 << (order + PAGE_SHIFT);
+KVM already handles the difference between the address space and the
+actual number of guest interrupt files. It reads HGEIE to find the
+actual number of guest interrupt files and uses the smaller value:
 
-Fixes: 3f2ad90060f6 ("kho: adopt radix tree for preserved memory tracking")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kiarash Azarnia <kiarash.azarnia@gmail.com>
----
- kernel/liveupdate/kexec_handover.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  /*
+   * Number of usable per-HART HGEI lines should be minimum of
+   * per-HART IMSIC guest files and number of bits in HGEIE.
+   */
+  if (lc)
+          hgctrl->nr_hgei =3D
+                  min((ulong)hgctrl->nr_hgei, lc->nr_guest_files);
 
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index 175c08a6e41e..c79f48bd64ac 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -501,7 +501,7 @@ static int __init kho_preserved_memory_reserve(phys_addr_t phys,
- 	struct page *page;
- 	u64 sz;
- 
--	sz = 1 << (order + PAGE_SHIFT);
-+	sz = (u64)1 << (order + PAGE_SHIFT);
- 	page = kho_get_preserved_page(phys, order);
- 
- 	/* Reserve the memory preserved in KHO in memblock */
--- 
-2.53.0
+I also tested this on K3. HGEIE returned 0xfe after writing all ones,
+so the driver gets fls_long(0xfe) - 1 =3D 7 usable guest interrupt files.
 
+>  			riscv,hart-index-bits =3D <4>;
+> -			riscv,num-guest-ids =3D <511>;
+> +			riscv,num-guest-ids =3D <63>;
+
+This change looks good to me.
+
+>  			riscv,num-ids =3D <511>;
+>  		};
+> =20
+> @@ -1168,9 +1168,7 @@ mimsic: interrupt-controller@f1000000 {
+>  					      <&cpu4_intc 11>, <&cpu5_intc 11>,
+>  					      <&cpu6_intc 11>, <&cpu7_intc 11>;
+>  			msi-controller;
+> -			riscv,guest-index-bits =3D <6>;
+>  			riscv,hart-index-bits =3D <4>;
+> -			riscv,num-guest-ids =3D <511>;
+>  			riscv,num-ids =3D <511>;
+>  			status =3D "reserved";
+>  		};
+
+For the mimsic part, I already sent a related fix earlier:
+https://lore.kernel.org/linux-riscv/20260729-k3-mimsic-fix-v1-1-368c0aec04b=
+9@pigmoral.tech/
+
+If you would like, you can pick that patch and combine the two changes
+into a v2, as Yixun suggested.
+
+--=20
+Best regards,
+Junhui Liu
