@@ -1,148 +1,185 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4493DDAF0
-	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 10:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18383C9EFC
+	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 11:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786877135; cv=none; b=uOklfdnnZzUyWXo054Rw9JKhj0jOuNQn8FiGDN0ZJSwUIsO743gtrG39fARI81HbnK4esD1hTZcAJ6oAoDNJjsJLwpBYiYW/Hqj8Mq+sCKvLwcxUxZxZI6W6rIp64FkfINeWrU3VhlK5qUEO/zHcYcxif6cTkiyEwl+ujY8fO9s=
+	t=1786879621; cv=none; b=hS2mXEb4aJRfkxEydG1Lh2dOsMtb/LRmTlTsDzZS1qd3aVgPO5r+/gyLu6T7+1pY8m+HThaFY9A+Txnf+c5LMJ/sIe9OSoZx3xCCEe7jZoH2U8gsCDvgIWS+3fLQAmfTRYrCBxqExRpeIO8fU7Cfw6SYs4v4aPY4bjT6qXmKV/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786877135; c=relaxed/simple;
-	bh=VBBRBhYNyAIINV8g13Bp95XFGJdb782H2BTytJfQwUk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZY45hpVoOWnN5nGNcHCcE5ERNa3oJH7fV9HzrycoC4zc4uP42zOJ7Te5C/GubHD+POaP7nfUO/mlRpl9O3Wfy5/AQBKCM4FewU0uPfdT0veaaWZUAv+JFghL9d+c3R32Qy9UjQIEa9CA4xSFNse2zdENMPIIPFEVPskdNVn32y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ha7XXt1S; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ToK+YGa4; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=C9reJAeg; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jd/GeASw; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1786879621; c=relaxed/simple;
+	bh=GJQxoOEI82kYZgbkA2M3DWUOfXbIzfMVlcW5bXPgOoE=;
+	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Type:Date; b=eOkHc4khvX7CRuQDhB0JVzqVwA9ygVS5aKbQy3XowHd6We/mTYBSkF1dkt6Q3KP7EQOpy4T5oWRXo1QEkGUaHQ/VbXwr6MoTCysv+d1KRFelbXjX2LBNcZsFAI9ECGfbNfxNPqkUwQtwY20xtOxYHUo/8LrWX7Blcd+WO92GUOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=R32MyC6b; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=DS1WzV3u; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ha7XXt1S";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ToK+YGa4";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="C9reJAeg";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jd/GeASw"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4163C3E25;
-	Sun, 16 Aug 2026 10:43:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786877043; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="R32MyC6b";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="DS1WzV3u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786879618;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xsd0giZowRyO7s6xgALZUr1zoOCjQCgaiy9LzKVAnbY=;
-	b=ha7XXt1SPCwKEpCNyLK3A4y26BGS1JwebpNFdTBqLppyRQljU/12NpSlefAZIa4vvlI1qQ
-	Kl45WGXUV3Y02pY+wdNNNQszJzYtfD9+a20Myu0nKhq+5WzbHn9yKwKQLGpQ8t525pIlWB
-	omZWzZm7q6LH4Eiu6y4z3f2z29f0Ixw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786877043;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xsd0giZowRyO7s6xgALZUr1zoOCjQCgaiy9LzKVAnbY=;
-	b=ToK+YGa4HHJkmgsYhBePKkfG8loWFlm2dcMv/HoFfpdERhvVNYgrz3ka1hP0HSpVkNdoiO
-	kj7JiiUgKlABiCBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1786877039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xsd0giZowRyO7s6xgALZUr1zoOCjQCgaiy9LzKVAnbY=;
-	b=C9reJAegS7k+sO6ugiaoeKohnIul2ufC+3Ly5XwS/lz74rtQbdX0YWhce3p3KrGV+L+T1W
-	PGS1PZt4EwFdrii56L89xehiWM4KKtN6LeqwfjI2g/Ur4ZpIDq+yTAXWCSJ6hIbxpqO/eb
-	gdHr5J7FsP2rwlb3BqK9+XWwpuKce1g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1786877039;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xsd0giZowRyO7s6xgALZUr1zoOCjQCgaiy9LzKVAnbY=;
-	b=jd/GeASwNMJ6pDkzkYuNLFxoKzq/qjRgGcNyh6MlMC5RgFGyWIMkhW7Y+ZSeqlp4EJckd3
-	Zm6oxTlJNjxNGICg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7298B78E6C;
-	Sun, 16 Aug 2026 10:43:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id np/WGW6UgWo+bAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 16 Aug 2026 10:43:58 +0000
-Date: Sun, 16 Aug 2026 12:43:58 +0200
-Message-ID: <87wltqcpld.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: gregkh@linuxfoundation.org,
-	victor.krawiec@arturia.com,
-	fanwu01@zju.edu.cn,
-	christophe.jaillet@wanadoo.fr,
-	kees@kernel.org,
-	balbi@kernel.org,
-	tiwai@suse.de,
-	dave@stgolabs.net,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+d5fa3d224505c8610702@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: gadget: f_midi: initialize work in f_midi_alloc()
-In-Reply-To: <20260815054006.102325-1-jeffinphilip14@gmail.com>
-References: <20260815054006.102325-1-jeffinphilip14@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	bh=RG/0CkmnfI4ubU5H6lTIDt7bAjkJ/SgtQ01dx0rQ568=;
+	b=R32MyC6b0Hqg3eWbPJ5W9jcJqUAcHygFTdN4ZV9eN1asvgABdcCOQrgsElDbh7BpeWodOO
+	48UodlCZEEUxbPQK0G64lh1krSy2S9lrZtYul/4m0tHBJlXUCi++nvGtSbykADjM0l175b
+	nZ/7yrj9Qjn/VA/XF0uh0JbiUiblkHc=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-166-Vh5TXZakODSjtIJmXHKdEQ-1; Sun, 16 Aug 2026 07:26:57 -0400
+X-MC-Unique: Vh5TXZakODSjtIJmXHKdEQ-1
+X-Mimecast-MFC-AGG-ID: Vh5TXZakODSjtIJmXHKdEQ_1786879616
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so15197715e9.1
+        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 04:26:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1786879616; x=1787484416; darn=vger.kernel.org;
+        h=date:content-transfer-encoding:content-type:mime-version
+         :organization:references:in-reply-to:message-id:subject:cc:to:from
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RG/0CkmnfI4ubU5H6lTIDt7bAjkJ/SgtQ01dx0rQ568=;
+        b=DS1WzV3uRBZy1D1eGa6oezneZuwMXWRrl2QWys0rSx7Cp9ytTJyJh4XqNVowe654P0
+         nNcGn1/Q0eaDcNb0YtHQ2rsQxsIsbHEpMUTHqG5KF9okne3u50cr/bQwMe0+2Yf2CcuF
+         WParIzZtX/7HbdrHRUg03w6sT9Ufv7tTUHLN51v3P2FBqv/P0mCkh99PivwMy8Ap8f1i
+         aNOALadMT6r4QvgNEWwBj3XYSFN2c9m6/wjAkpubs8Fc2b8OpPkntop4ZXCw4gjWGrbF
+         DEwxNzoodlIG8sl7AF6LAjUbhFPY3QrXIdRQ+XFEiZ2VXH8knq8ls+yARsjjiWlH/Cu4
+         1SxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786879616; x=1787484416;
+        h=date:content-transfer-encoding:content-type:mime-version
+         :organization:references:in-reply-to:message-id:subject:cc:to:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=RG/0CkmnfI4ubU5H6lTIDt7bAjkJ/SgtQ01dx0rQ568=;
+        b=Wh25AInkkkDZrRiu5gAkqtXQU9mnJrGyLUHOsaqMw69j4Fqi6JXM//eBCvSr9Ma2Lz
+         b1Vi6cEwB0/+e/cVl63gyv3z7FK6xotXfwem1UVcnby5qdv43FMeld+Yw0TTZEQcYN7H
+         xOCPmnoaPrbn3S02zDsTQisRYZtcCY4LbUfry2F+zV/dBM/92KiPZJJPG9CR5DJ9dPn+
+         rCnA5lR7rsO8WIDwC9nmA26F9T+w0wJ5IoLaj4eQG2XyGd6NwaUioD0JyQm0rkQyZRiH
+         r3Ct5hoCq4ALgYRkmfIdOjhrqA3hd/Obx73XpRSkk6suMVwZh+SdwQ1hcGqN1i+4SeOA
+         wBUw==
+X-Forwarded-Encrypted: i=1; AHgh+RrSDf6N33B7aLXm4TH2fZQyDN4eQOxGD2OaVOIw19vZK1dXJJbSTi/crBTuh3coHImj5w+FmX0=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/nM375tTm4YcVT8DZAYQuWEyexrdeaCYQxWB4jT9cnGB8Y3N+
+	P5mecLeWvlix/7AraWvAM1j0ikLxeJbBuzmMEbY6W/rfulfXyGTHL+KyPO51/4o7nnFuint3T7Q
+	HpeN861P9fgm2IREYjf4v3mkyfoyPcmKxq0Assz0VpZ/ROM36qllAdzwO9A==
+X-Gm-Gg: AR+sD12D+r2tfD6QPiu03NwD2zn3MMgWYdwDC10eHfaXx+ZTCVfyfrmwJeAJNV9K7D1
+	S4Bpw+EzsZrsiv9jzk3vniU3RqthCGPapjCawepcP0ql+6u3a3b/ckOHUUPGORA1Ecd+ZXFB11J
+	LhyQE7nxlqYj4yqsUScXjLw0jBiBqTGr9E6FOd+NRSg2RMw+r9YvSX31YJNPRWChuEWIIozueV4
+	eh9xG+p0rTfz3aDBYrIjFivhpTx8RCwGVPfrfMzu1PVZ5UAg3CXNBffV4HCOtswrVYsBQbH/Xwe
+	5A0R5qWE6VET3ctjys6GGCbyZyJpIqt+BHtKrlaDMpFeCJ0eDbV7BPvAE4WuKTstx00t7DxHVhf
+	iApGUkTnHs6ISL61+MDmRaCZeGUGs
+X-Received: by 2002:a05:600c:6986:b0:499:79ba:ed92 with SMTP id 5b1f17b1804b1-49988c5efe7mr311028195e9.13.1786879616278;
+        Sun, 16 Aug 2026 04:26:56 -0700 (PDT)
+X-Received: by 2002:a05:600c:6986:b0:499:79ba:ed92 with SMTP id 5b1f17b1804b1-49988c5efe7mr311027455e9.13.1786879615824;
+        Sun, 16 Aug 2026 04:26:55 -0700 (PDT)
+Received: from maya.myfinge.rs (ifcgrfdd.trafficplex.cloud. [176.103.220.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499960fef95sm47627815e9.1.2026.08.16.04.26.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 16 Aug 2026 04:26:55 -0700 (PDT)
+From: Stefano Brivio <sbrivio@redhat.com>
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, David Ahern
+ <dsahern@kernel.org>, Eric Dumazet <edumazet@google.com>, Ido Schimmel
+ <idosch@nvidia.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net] ipv6: use RCU iterator to dump route exceptions
+Message-ID: <20260816132653.1fa1b16f@elisabeth>
+In-Reply-To: <20260815084651.69477-1-sigefriedhyy@gmail.com>
+References: <20260815084651.69477-1-sigefriedhyy@gmail.com>
+Organization: Red Hat
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.49; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -1.80
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[d5fa3d224505c8610702];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,wanadoo.fr];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linuxfoundation.org,arturia.com,zju.edu.cn,wanadoo.fr,kernel.org,suse.de,stgolabs.net,vger.kernel.org,syzkaller.appspotmail.com];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[appspotmail.com:email,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,syzkaller.appspot.com:url]
+Content-Transfer-Encoding: 7bit
+Date: Sun, 16 Aug 2026 13:26:54 +0200 (CEST)
 
-On Sat, 15 Aug 2026 07:40:06 +0200,
-Jeffin Philip wrote:
+On Sat, 15 Aug 2026 17:46:51 +0900
+Yuyang Huang <sigefriedhyy@gmail.com> wrote:
+
+> rt6_nh_dump_exceptions() uses hlist_for_each_entry() to iterate over
+> RCU-protected exception lists. The caller holds rcu_read_lock(), but does
+> not hold rt6_exception_lock, so rt6_insert_exception() can concurrently
+> add an entry with hlist_add_head_rcu().
+
+Ah, right, I didn't consider that, thanks for fixing this.
+
 > 
-> f_midi_alloc initializes free_ref to 1 and it can only be incremented
-> when a sound card is registered via f_midi_register_card().
-> f_midi_register_card() is only called in f_midi_bind() which actually
-> performs INIT_WORK. If f_midi_bind() is never run, work is not
-> initialized and the if condition in f_midi_free becomes true,
-> this results in a warning later in __flush_work as work->func = 0.
-> Fix this by moving INIT_WORK from f_midi_bind() to f_midi_alloc().
+> KCSAN reports this race (irrelevant details omitted):
 > 
-> Reported-by: syzbot+d5fa3d224505c8610702@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=d5fa3d224505c8610702
-> Fixes: 8653d71ce376 ("usb/gadget: f_midi: Replace tasklet with work")
+>   ==================================================================
+>   BUG: KCSAN: data-race in rt6_insert_exception / rt6_nh_dump_exceptions
+> 
+>   write (marked) to 0xffff8a7c44c59620 of 8 bytes by interrupt on cpu 5:
+>     rt6_insert_exception+0x3bb/0x760
+>     __ip6_rt_update_pmtu+0x4fe/0x750
+>     ip6_sk_update_pmtu+0x19a/0x3b0
+>     udpv6_err+0x3ff/0x800
+>     icmpv6_notify+0x1e1/0x440
+>     icmpv6_rcv+0x8c0/0xab0
+>     ip6_protocol_deliver_rcu+0x616/0x840
+>     ip6_input_finish+0xb9/0x160
+>     ...
+>     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>   read to 0xffff8a7c44c59620 of 8 bytes by task 549 on cpu 14:
+>     rt6_nh_dump_exceptions+0xb3/0x260
+>     rt6_dump_route+0x53e/0x5f0
+>     fib6_dump_node+0x6d/0xf0
+>     fib6_walk_continue+0x290/0x2d0
+>     fib6_dump_table+0x28d/0x360
+>     inet6_dump_fib+0x37d/0x620
+>     rtnl_dumpit+0x7b/0xd0
+>     netlink_dump+0x3ae/0x7e0
+>     ...
+>     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>   4 locks held by dumper/549:
+>     ...
+>     #1: (rcu_read_lock){....}-{1:3}, at: inet6_dump_fib+0x88/0x620
+>     #2: (&tb->tb6_lock){+.-.}-{3:3}, at: fib6_dump_table+0x1e9/0x360
+>     #3: (rcu_read_lock){....}-{1:3}, at: rt6_dump_route+0x483/0x5f0
+> 
+>   value changed: 0xffff8a7c44e05700 -> 0xffff8a7c45d60100
+> 
+>   Reported by Kernel Concurrency Sanitizer on:
+>   CPU: 14 UID: 0 PID: 549 Comm: dumper Not tainted
+>   7.2.0-rc7-virtme #38 PREEMPT(lazy)
+>   ...
+> 
+> Use hlist_for_each_entry_rcu() to safely iterate over the exception list.
+> 
+> Fixes: 1e47b4837f3b ("ipv6: Dump route exceptions if requested")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+> Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
+> ---
+>  net/ipv6/route.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+> index 16dfac54a259..526535387512 100644
+> --- a/net/ipv6/route.c
+> +++ b/net/ipv6/route.c
+> @@ -6046,7 +6046,7 @@ static int rt6_nh_dump_exceptions(struct fib6_nh *nh, void *arg)
+>  		return 0;
+>  
+>  	for (i = 0; i < FIB6_EXCEPTION_BUCKET_SIZE; i++) {
+> -		hlist_for_each_entry(rt6_ex, &bucket->chain, hlist) {
+> +		hlist_for_each_entry_rcu(rt6_ex, &bucket->chain, hlist) {
+>  			if (w->skip) {
+>  				w->skip--;
+>  				continue;
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Reviewed-by: Stefano Brivio <sbrivio@redhat.com>
 
+-- 
+Stefano
 
-thanks,
-
-Takashi
