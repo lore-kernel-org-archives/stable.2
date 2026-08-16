@@ -1,70 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3AC3BB4A;
-	Sun, 16 Aug 2026 10:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1C4331A63;
+	Sun, 16 Aug 2026 10:09:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786874642; cv=none; b=NODyNCaJY054OGaQVVZquRIvECMyXUnO9S1BX5PK0NT3/rjvMDPZ+6nhAgLAXfiYdlXDbSlD215oH8i02T7tNI0sIPStOapk+Fi+VNdjIyHc1h4OfrkughGMst4V+6MHb77DGTrZsRUi6ErHbTLctLtsuj3CiGyc0ei+XWDFg6s=
+	t=1786874964; cv=none; b=PeOZw1LlxG/oBzQAh99AWJJ7QW24hO1QNOtmvVIHzWasqrGtB0gcRzU7DOpuwhsjCseEFnVTFul1yeFP/rBZKZgOonLy2b8TPrPwAXmQHwtB23L9aAhCfR4OMh/izD1p4YkmDNfxW9+Lx+HO5DyZnHxBf4slUcdx243Gxj2ycHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786874642; c=relaxed/simple;
-	bh=QCHuSXuI82+26HAyEPya2lRT3U2ES6mHe6Iw+/XTO4g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sSEV2WAlmOjad3GW9sHk03jp4YKwsIkiQWcGOpruY0DK2RJhJp1HInNAoDi66Hnd4jXgsLpV3i/0QPGICbw19NGK24HBxK0ix1/dxFQFDsBPGKuPGp7s7pS4FlTgGtsa04HQv/UkYg8V3ixargpr7SttElwYyhpKGQQtmTdRrJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T/Y+R4ot; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786874964; c=relaxed/simple;
+	bh=/mKAOxenTlVLV/NSiPNXhb+L3reSdCcDy8WrDgp0700=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uqPIkUWuw/8okN9JdQDyojwjdR+++pQFxDIFAk9rp3gxJrLRneNnLcJMEoBRa0AGVDKK0GzDeU8Om0b49TH3LSNHGALWlDrsVkgmMu5aRlGqZV0D8FvkHhogwVBZCQLy1k93AZRGz/3yf72aHBJRLDw5Ad+wmzMJBJUbwunsXSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=QjVI20Fr; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T/Y+R4ot"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 855501F000E9;
-	Sun, 16 Aug 2026 10:04:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786874641;
-	bh=96EAqzlE+l7iETtBQ/wW27Tvy5Yd49LHOVFLdK7D4GE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T/Y+R4ot066PBcUYwhvBtT8WquE8RO0OuHRhiiQ1WQGlAmL8eomXk6Ru/71qDY82k
-	 0D2Ttuau3/AWLzb2xxMtLliBhD6BrvcM8McZ4toXbbtTnnYNxKTwUbY/4n91BN+UL/
-	 qWxRTRZCdJqIjiyBT3bYvMxwDueTRn1Gn0VG6GcNkZy/obHGu3jk4TYY+wvgKLnvjo
-	 +ClMBNYGxwQazfjblA/7iCbiggpA0HOwBNOI7m62ddG5gebYUYmwGRUjFc93Za2cGJ
-	 yN6jyzcoHEt0md1QFl1dbWZthy4TvQm+tT0wfmrHPTO6xKJVpSbgMttms2HtpIR9tv
-	 9k82ibZgY1oWg==
-Date: Sun, 16 Aug 2026 10:30:05 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, stable@vger.kernel.org, patches@lists.linux.dev, 
-	Danielle Costantino <dcostantino@meta.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Suren Baghdasaryan <surenb@google.com>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, bot@kernelci.org, 
-	kernelci-results@groups.io
-Subject: Re: [PATCH 6.12 289/337] mm/slab: prevent unbounded recursion in
- free path with new kmalloc type
-Message-ID: <aoGCsmkycnDCNNfZ@ubuntu-vm-arm64>
-References: <20260807143418.516897842@linuxfoundation.org>
- <20260807143424.797445703@linuxfoundation.org>
- <20260807180245.GA4067747@ax162>
- <20260808030732.GA9608581@kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="QjVI20Fr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=3k
+	j3CWKVoqanhjaDiOQkFlbZwGd/reF0lfRSEGgryzY=; b=QjVI20FrC+RSFqFjn8
+	y9aP891HD10WM9ugroKcbvgIrFU9CDUwB97s1G1o4MP47lKU/Vvm/ijPNoS5h9sC
+	eWWnh8+kmkHtMDDdZLupqUDVf9BlMFLQtOhY4lDaftyizo7KNQUg4SUyNBU2ORiV
+	5tVxM8Kf/HlVmjFU6DB7+dNac=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnV8cHjIFqSc7HPQ--.53482S2;
+	Sun, 16 Aug 2026 18:08:08 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] tracing/histograms: Fix use-after-free with same-name named triggers
+Date: Sun, 16 Aug 2026 18:04:29 +0800
+Message-ID: <20260816100427.33642-3-sh_def@163.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260808030732.GA9608581@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnV8cHjIFqSc7HPQ--.53482S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGw43CF48CF47ZFWfWF4DJwb_yoW5Ar4fpF
+	WFgr13Kr48tr42vF4xuF48u347CrW8JrZrWF4UCw13t3s8Wr10gFZFgay7Z3WrtF48WrZ8
+	KF4jgrWjgrW7XFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UQ0eLUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6Qggf2qBjAgMNwAA3q
 
-On Sat, Aug 08, 2026 at 07:10:33AM -0400, Sasha Levin wrote:
-> On Fri, Aug 07, 2026 at 11:02:45AM -0700, Nathan Chancellor wrote:
-> >   linux/mm/slab.h:572:24: error: duplicate 'inline' declaration specifier [-Werror,-Wduplicate-decl-specifier]
-> >     572 | static __always_inline inline bool need_kmalloc_no_objext(void)
-> > 
-> > The 'inline' should be dropped, as '__always_inline' includes 'inline'
-> > already.
+When two hist triggers on different events are registered with the same
+name=, the second one reuses the first as named_data.  Both are added to
+tr->hist_vars by save_hist_vars() during event_hist_trigger_parse(),
+because save_hist_vars() is called before event_trigger_register() while
+the named reuse is only detected later, in hist_register_trigger().
 
-Ouch, thanks for catching.
-It's silly that I didn't catch it while testing.
+In the named-data branch hist_register_trigger() then frees the second
+histogram's hist_data via destroy_hist_data(), but never removes its
+tr->hist_vars list entry, leaving a dangling pointer and leaking the
+trace_array reference it holds.
 
-> Fixed in the queue - I dropped the redundant 'inline' and kept
-> '__always_inline', so the 6.12 backport now reads:
-> 
->   static __always_inline bool need_kmalloc_no_objext(void)
+A later hist trigger that references a variable makes find_var_file()
+walk tr->hist_vars and dereference the freed hist_data.  The bug is
+reproducible from userspace by writing three hist triggers to tracefs:
 
-Looks good to me, thanks for fixing!
+  echo 'hist:keys=common_pid:x=common_pid:name=mh' > \
+      /sys/kernel/tracing/events/sched/sched_switch/trigger
+  echo 'hist:keys=common_pid:x=common_pid:name=mh' > \
+      /sys/kernel/tracing/events/sched/sched_process_fork/trigger
+  echo 'hist:keys=common_pid:vals=$x' > \
+      /sys/kernel/tracing/events/sched/sched_process_exit/trigger
+
+The third write panics the kernel:
+
+  BUG: KASAN: slab-use-after-free in find_var_file.part.0+0x272/0x290
+  Read of size 8 at addr ffff888001f8a0e0 by task sh/1
+  CPU: 1 UID: 0 PID: 1 Comm: sh Tainted: G      D          N
+  Call Trace:
+    find_var_file.part.0
+    find_event_var
+    parse_atom
+    parse_expr
+    __create_val_field
+    event_hist_trigger_parse
+    trigger_process_regex
+    event_trigger_write
+    vfs_write
+    ksys_write
+    do_syscall_64
+    entry_SYSCALL_64_after_hwframe
+  Allocated by task 1:
+    event_hist_trigger_parse
+  Freed by task 1:
+    hist_register_trigger+0x618/0xa30
+    event_hist_trigger_parse
+  The buggy address belongs to freed 2048-byte region
+  Oops: general protection fault ... RIP: find_var_file.part.0
+  Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+
+Fix by removing the hist_data from tr->hist_vars and releasing the
+trace_array reference in the named-data branch of hist_register_trigger()
+before freeing the hist_data.
+
+Fixes: 6f86bdeab633 ("tracing: Fix bad hist from corrupting named_triggers list")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+ kernel/trace/trace_events_hist.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 58d28cd1afa3..6bf00710fd10 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -6641,8 +6641,10 @@ static int hist_register_trigger(char *glob,
+ 		tracing_set_filter_buffering(file->tr, true);
+ 	}
+ 
+-	if (named_data)
++	if (named_data) {
++		remove_hist_vars(hist_data);
+ 		destroy_hist_data(hist_data);
++	}
+  out:
+ 	return ret;
+ }
+-- 
+2.54.0
+
