@@ -1,120 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422225477E;
-	Sun, 16 Aug 2026 17:31:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50116318EF4;
+	Sun, 16 Aug 2026 17:46:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786901513; cv=none; b=I2NIZEKD8W1HhTHcjhne18jD1w/jrOsmxGn6MOqumek1sRRfVupaNuoKY2W7dyOoDV5qKd+Hx9j0HnSQ5MAKifBaO+7lTJ4Iqfu3lcAwjQNlmDTyzUB6VXNp7XLuTDi4V1TmGeSsxN1NwgZfXXalb4yQarg7FTTjX+3W322WPXg=
+	t=1786902366; cv=none; b=XXg/f0OhjMymLrhghPVA0yfTdTVCZ6guoZsxwckKO7SaW2MX+UJ0WzeqcXdzm4wwjuFGyTPgf2YEbuPTHbEPvkYUQxoTY5pFMDf/EmcbPQ+NGwJ0hT7VNACHS/Da9IRHyAYn1nYnxhs6NPwXIraAxP6DmBV9dF00fbuf/3IQbQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786901513; c=relaxed/simple;
-	bh=eA8hUazT8uGAbzaAi6BpxlBElQzOCp7R32DPn7wL8LI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OzN2JJrgNWYChgkUGp1zOJm9/juWutj0E0Btnu8h4OOlNdPfTQY/K7PSs/uT4D3x0esHudnCl0dcJv1fY7ClI5QN+3olMgYROx21srk/QKGVWVDvk60wjIWBlbp0fRZBM5uur92QHPwp/i7mbtQMdFXVBBAdQLQOgH9eHC8EPz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VWDSdQe2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786902366; c=relaxed/simple;
+	bh=U8/lHO7bNUJBgx+9HZXO1/MFvALZJyLBGBBtUS9ujOg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=X70jpt1WTJTSE5JBxDTs4oKJyx/X3jTYNqob+loOGwDoAm+I25QPzk2pbHHlK9Ej188uIz/7mISM4y4AiW1qRFoQJmqWYmH/22Ntuj4tj+JwlIyePaO4W1jXZq1hJtnQRXHBdQgp1CYJcNdoNBv02YbKRyp6ENvzhM3HUPhQjBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kT6hNHY8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VWDSdQe2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5571F000E9;
-	Sun, 16 Aug 2026 17:31:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kT6hNHY8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1A51F000E9;
+	Sun, 16 Aug 2026 17:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786901511;
-	bh=UQ71jAqB89Ibnvdbmp5P0Np0dgcwLAJ/2WfpvOGlF7c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VWDSdQe2JRIo3PtGZzPQaBrXVaZ3FDuPZNDJEd2V5xxEroB35xn1IfPIv9ORludSc
-	 2AQBwA+LRPtiKeXIOnR6HQlyVyQdxp0al/BK/OeVcexzC7N3D5rm/zB9+dADKNDRWc
-	 NO1SSTxkY+vvwU4NG6xRYt96/ySLPlq36lB75tQ5sZ78EGm9mwLCIusIlk3yjK0xGr
-	 EHmfgvZOqndzLAMDIm6JF3iSdMn5xUl4+RcQbkRuZWeu/uvSeVjfngJxZU5gGocSCC
-	 UYE2asRAjm1wJoYwf5NyuuntWAzLdOaCFl/kvdUuMUVLrWux0rDfVDmT7xVE1yeiq5
-	 Hc2YQzKSYrD9Q==
-Message-ID: <4e9b815b-d116-4a34-b88d-297f3270d7f3@kernel.org>
-Date: Sun, 16 Aug 2026 19:31:47 +0200
+	s=k20260515; t=1786902364;
+	bh=jwghG+wlU/H6vXyODbTWWoT5cNNlk8GRr6O30A+QvWA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kT6hNHY8N3GpmcoKJYyyTnKLqfpikcGybvqktlEiDJw/MzznfFBfq8YOGwFimYKIZ
+	 rEtw+/qYEAT0XfxaGVuYwbwfpRunbPm1eyDnXzXveyhkPDqwLtO4uobSca8bvOIVBr
+	 +NJfQQ7pkWrKT1l8lickLvcLX0UEVrUebQ77xwiXsYVbgpDu9bd/hP7ti2lJVoDuqY
+	 gDmyee9dJfAn9C5PqZH54iji6BXRQlFxOK6rj3T6lFLruKvCkjmZa/Zvh80VJslS0/
+	 cQS6/sf/i805584zvvE+zvUJ/VRjvvXGpHHSF+crj4Ml0QpPlW8KLarTrdc1XyW2sr
+	 Wwc25MURqUHdA==
+Date: Sun, 16 Aug 2026 18:46:02 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: light: gp2ap020a00f: drain irq_work after free_irq
+Message-ID: <20260816184602.2dd023f6@jic23-huawei>
+In-Reply-To: <20260806132923.468833-1-fanwu01@zju.edu.cn>
+References: <20260806132923.468833-1-fanwu01@zju.edu.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net] mptcp: fix uninitialized local_id in syncookie
- MP_JOIN reconstruction
-Content-Language: fr
-To: Harshit Varu <harshitvaru666@gmail.com>, netdev@vger.kernel.org
-Cc: mptcp@lists.linux.dev, martineau@kernel.org, geliang@kernel.org,
- stable@vger.kernel.org
-References: <20260815115205.197151-1-harshitvaru666@gmail.com>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
- YBNdx5Xl74NLSgx6y/1NiMQGuKeu+2BmtnkiGxBNanfXcnl4L4Lzz+iXBvvbtCbynnnqDDqU
- c7SPFMpMesgpcu1xFt0F6bcxE+0ojRtSCZ5HDElKlHJNYtD1uwY4UYVGWUGCF/+cY1YLmtfb
- WdNb/SFo+Mp0HItfBC12qtDIXYvbfNUGVnA5jXeWMEyYhSNktLnpDL2gBUCsdbkov5VjiOX7
- CRTkX0UgNWRjyFZwThaZADEvAOo12M5uSBk7h07yJ97gqvBtcx45IsJwfUJE4hy8qZqsA62A
- nTRflBvp647IXAiCcwWsEgE5AXKwA3aL6dcpVR17JXJ6nwHHnslVi8WesiqzUI9sbO/hXeXw
- TDSB+YhErbNOxvHqCzZEnGAAFf6ges26fRVyuU119AzO40sjdLV0l6LE7GshddyazWZf0iac
- nEhX9NKxGnuhMu5SXmo2poIQttJuYAvTVUNwQVEx/0yY5xmiuyqvXa+XT7NKJkOZSiAPlNt6
- VffjgOP62S7M9wDShUghN3F7CPOrrRsOHWO/l6I/qJdUMW+MHSFYPfYiFXoLUZyPvNVCYSgs
- 3oQaFhHapq1f345XBtfG3fOYp1K2wTXd4ThFraTLl8PHxCn4ywARAQABzSRNYXR0aGlldSBC
- YWVydHMgPG1hdHR0YmVAa2VybmVsLm9yZz7CwZEEEwEIADsCGwMFCwkIBwIGFQoJCAsCBBYC
- AwECHgECF4AWIQToy4X3aHcFem4n93r2t4JPQmmgcwUCZUDpDAIZAQAKCRD2t4JPQmmgcz33
- EACjROM3nj9FGclR5AlyPUbAq/txEX7E0EFQCDtdLPrjBcLAoaYJIQUV8IDCcPjZMJy2ADp7
- /zSwYba2rE2C9vRgjXZJNt21mySvKnnkPbNQGkNRl3TZAinO1Ddq3fp2c/GmYaW1NWFSfOmw
- MvB5CJaN0UK5l0/drnaA6Hxsu62V5UnpvxWgexqDuo0wfpEeP1PEqMNzyiVPvJ8bJxgM8qoC
- cpXLp1Rq/jq7pbUycY8GeYw2j+FVZJHlhL0w0Zm9CFHThHxRAm1tsIPc+oTorx7haXP+nN0J
- iqBXVAxLK2KxrHtMygim50xk2QpUotWYfZpRRv8dMygEPIB3f1Vi5JMwP4M47NZNdpqVkHrm
- jvcNuLfDgf/vqUvuXs2eA2/BkIHcOuAAbsvreX1WX1rTHmx5ud3OhsWQQRVL2rt+0p1DpROI
- 3Ob8F78W5rKr4HYvjX2Inpy3WahAm7FzUY184OyfPO/2zadKCqg8n01mWA9PXxs84bFEV2mP
- VzC5j6K8U3RNA6cb9bpE5bzXut6T2gxj6j+7TsgMQFhbyH/tZgpDjWvAiPZHb3sV29t8XaOF
- BwzqiI2AEkiWMySiHwCCMsIH9WUH7r7vpwROko89Tk+InpEbiphPjd7qAkyJ+tNIEWd1+MlX
- ZPtOaFLVHhLQ3PLFLkrU3+Yi3tXqpvLE3gO3LM7BTQRV4/npARAA5+u/Sx1n9anIqcgHpA7l
- 5SUCP1e/qF7n5DK8LiM10gYglgY0XHOBi0S7vHppH8hrtpizx+7t5DBdPJgVtR6SilyK0/mp
- 9nWHDhc9rwU3KmHYgFFsnX58eEmZxz2qsIY8juFor5r7kpcM5dRR9aB+HjlOOJJgyDxcJTwM
- 1ey4L/79P72wuXRhMibN14SX6TZzf+/XIOrM6TsULVJEIv1+NdczQbs6pBTpEK/G2apME7vf
- mjTsZU26Ezn+LDMX16lHTmIJi7Hlh7eifCGGM+g/AlDV6aWKFS+sBbwy+YoS0Zc3Yz8zrdbi
- Kzn3kbKd+99//mysSVsHaekQYyVvO0KD2KPKBs1S/ImrBb6XecqxGy/y/3HWHdngGEY2v2IP
- Qox7mAPznyKyXEfG+0rrVseZSEssKmY01IsgwwbmN9ZcqUKYNhjv67WMX7tNwiVbSrGLZoqf
- Xlgw4aAdnIMQyTW8nE6hH/Iwqay4S2str4HZtWwyWLitk7N+e+vxuK5qto4AxtB7VdimvKUs
- x6kQO5F3YWcC3vCXCgPwyV8133+fIR2L81R1L1q3swaEuh95vWj6iskxeNWSTyFAVKYYVskG
- V+OTtB71P1XCnb6AJCW9cKpC25+zxQqD2Zy0dK3u2RuKErajKBa/YWzuSaKAOkneFxG3LJIv
- Hl7iqPF+JDCjB5sAEQEAAcLBXwQYAQIACQUCVeP56QIbDAAKCRD2t4JPQmmgc5VnD/9YgbCr
- HR1FbMbm7td54UrYvZV/i7m3dIQNXK2e+Cbv5PXf19ce3XluaE+wA8D+vnIW5mbAAiojt3Mb
- 6p0WJS3QzbObzHNgAp3zy/L4lXwc6WW5vnpWAzqXFHP8D9PTpqvBALbXqL06smP47JqbyQxj
- Xf7D2rrPeIqbYmVY9da1KzMOVf3gReazYa89zZSdVkMojfWsbq05zwYU+SCWS3NiyF6QghbW
- voxbFwX1i/0xRwJiX9NNbRj1huVKQuS4W7rbWA87TrVQPXUAdkyd7FRYICNW+0gddysIwPoa
- KrLfx3Ba6Rpx0JznbrVOtXlihjl4KV8mtOPjYDY9u+8x412xXnlGl6AC4HLu2F3ECkamY4G6
- UxejX+E6vW6Xe4n7H+rEX5UFgPRdYkS1TA/X3nMen9bouxNsvIJv7C6adZmMHqu/2azX7S7I
- vrxxySzOw9GxjoVTuzWMKWpDGP8n71IFeOot8JuPZtJ8omz+DZel+WCNZMVdVNLPOd5frqOv
- mpz0VhFAlNTjU1Vy0CnuxX3AM51J8dpdNyG0S8rADh6C8AKCDOfUstpq28/6oTaQv7QZdge0
- JY6dglzGKnCi/zsmp2+1w559frz4+IC7j/igvJGX4KDDKUs0mlld8J2u2sBXv7CGxdzQoHaz
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20260815115205.197151-1-harshitvaru666@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Hi Harshit,
+On Thu,  6 Aug 2026 13:29:23 +0000
+Fan Wu <fanwu01@zju.edu.cn> wrote:
 
-On 15/08/2026 13:52, Harshit Varu wrote:
-> mptcp_token_join_cookie_init_state() restores remote_nonce, local_nonce,
-> backup, join_id, token and msk from the saved cookie entry when rebuilding
-> the request socket for a MP_JOIN 4th-ACK handled under SYN cookies, but it
-> does not restore local_id, even though the SYN path saved it.
-> subflow_ulp_clone() then reads that uninitialized field and stores it as
-> the joined subflow's address-ID. Because the request-sock slab is
-> SLAB_TYPESAFE_BY_RCU and not zeroed on allocation, the value is the stale
-> byte of a previously freed request socket, which an off-path peer can
-> influence by sending concurrent MP_JOIN SYNs. This corrupts the path
-> manager's id-based subflow bookkeeping for the connection.
+> The threaded IRQ handler queues data->work through irq_work_queue() so
+> the trigger is polled from a per-CPU context.  free_irq() does not flush
+> an irq_work the handler already queued, so after gp2ap020a00f_remove()
+> returns that work may still run and call iio_trigger_poll() on data->trig,
+> which the devm cleanup has already freed, causing a use-after-free.
+> 
+> Add irq_work_sync(&data->work) after free_irq() in remove() and in the
+> probe error path, mirroring commit 78601726d4a5 ("iio: trigger: sysfs:
+> fix use-after-free on remove").
+> 
+> Found by an in-house static analysis tool, confirmed by manual review.
+> 
+> Fixes: bf29fbeaa13d ("iio: gp2ap020a00f: Add a driver for the device")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Hi,
 
-Thank you for this new version:
+Thanks for the patch. It looks correct to me but this is an old driver
+and we'd not use an irq work at all these days. The reason it was used
+was to ensure we could use the trigger from this device to drive capture
+on another one that needed a top half.  However the top half (non threaded
+bit) of trigger handlers only ever gets a timestamp, so we end up dancing
+through
+threaded_irq->irq_work->iio_pollfunc_get_timestamp->actualhander.
+which almost certainly gives a less useful timestamp than
+threaded_irq->actuallhandler without the irq_work part.
+The slight risk is someone is actually using that timestamp in
+a consumer and will find pf->timestamp is now always 0.  However
+I think that's very unlikely with a light sensor (sensor fusion
+doesn't really occur much like it does for inertial sensors)
 
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+So I think a better solution given you've identified a bug here, would be
+to rip out the irq_work dance in favour of a direct call to
+iio_trigger_poll_nested() instead of irq_work_queue() in 
+gp2ap020a00f_thresh_event_handler()
 
-Please next time add all the reviewers in cc -- as requested in your v2
--- and add the version number in the prefix. No need to send a new
-version to address that.
+That would mean also grabbing a timestamp locally in
+gp2ap020a00f_trigger_handler() rather than using pf->timestamp()
++ dropping the use of iio_pollfunc_store_time.
 
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
+A more invasive change, but one that lands us with a more modern solution
+and removes the problematic code entirely.
+
+Do you feel like taking that challenge on?  If so do it on top
+of this patch because this one is going to be easier to backport.
+
+Applied to the fixes-togreg branch of iio.git but note that won't
+go upstream until after rc1 is released (and I'll rebase on that)
+
+Thanks,
+
+Jonathan
+
+
+> ---
+>  drivers/iio/light/gp2ap020a00f.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/iio/light/gp2ap020a00f.c b/drivers/iio/light/gp2ap020a00f.c
+> index c7df4b258e2c..20d1aa9e99d7 100644
+> --- a/drivers/iio/light/gp2ap020a00f.c
+> +++ b/drivers/iio/light/gp2ap020a00f.c
+> @@ -1560,6 +1560,7 @@ static int gp2ap020a00f_probe(struct i2c_client *client)
+>  	iio_trigger_unregister(data->trig);
+>  error_free_irq:
+>  	free_irq(client->irq, indio_dev);
+> +	irq_work_sync(&data->work);
+>  error_uninit_buffer:
+>  	iio_triggered_buffer_cleanup(indio_dev);
+>  error_regulator_disable:
+> @@ -1582,6 +1583,7 @@ static void gp2ap020a00f_remove(struct i2c_client *client)
+>  	iio_device_unregister(indio_dev);
+>  	iio_trigger_unregister(data->trig);
+>  	free_irq(client->irq, indio_dev);
+> +	irq_work_sync(&data->work);
+>  	iio_triggered_buffer_cleanup(indio_dev);
+>  	regulator_disable(data->vled_reg);
+>  }
+> 
 
