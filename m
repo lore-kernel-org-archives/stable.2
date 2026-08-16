@@ -1,118 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0A718BC3B;
-	Sun, 16 Aug 2026 07:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4264301486;
+	Sun, 16 Aug 2026 08:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786866100; cv=none; b=lgO6z0a4XM2wlZfg716+hALH9bd5AKuRAKVbrzm87vFL+n0rxvRyVQucErVuZkkI/oR0Jb9CBb26mOpN3PaR7yF50MBvDJhz46DFh2wtUZG2xVhVETG7vUMWKURZKXsPLpYDVVmj1qHUEj3L+0nG/QfKO0ZcHVxoH6qu2EBq6t8=
+	t=1786867293; cv=none; b=ZDzk1dIRBPLt4vw9B+7m0DHq1NPbJhDpu8wMdcRnJzI4bB+ssEctP3X8Xso2wOintGa5zOlhjjgSrv7RJgedBdbSAKQf6jq0EJdHoOaXAlFPXNK+aJzPRXo/CqRvAC6CyvuxI1JQKgUYfLSO9axpsk/nY3UXN/vCgdL0xFqACsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786866100; c=relaxed/simple;
-	bh=wN7iSMMaGhsQeofzb6qK7Tgl4wGdSW3AGantVN8g2ag=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MIPtczinvpLnDjqCWT49hQlqrgV4bLGMmk6aeNz5ovabMGWej4XNPAM8vqD+Fc559DRFouN1yJjeUt9czl1Kkbdf6ySPW6RtSnBXncaOwhTW3oz3V+9J07iYzuhPd9Gq3gNrDwp8yLZETYoMjg0tQY4E/hZ591ntRkxPevwhav0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bNdO0ZGS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786867293; c=relaxed/simple;
+	bh=ugIdjCPx7Q44lWqGntaI4myy9Ts7PbfRvgOhT5lVeFU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RLvZNxm/x5hSfn5XwHihdoKpm6E4OYoZ/cy8gLlq+Imf471Lm9EawMzwN/ygcGKtJVY52Jin83z51u30thuWEAx9hTar4eDjBOTOt/sDUKWwmfFcJ0kcpSzJAFxdrb1RVMz8JawtyksuE2jSvozez3ZzRV3W39un/mQH5P7RXrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VQ3aRtha; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bNdO0ZGS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3361F000E9;
-	Sun, 16 Aug 2026 07:41:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786866099;
-	bh=Mga7YU8olL03rKcmeXwf1ZVpiLVR3P7uFAukeYH2nEk=;
-	h=From:To:Cc:Subject:Date;
-	b=bNdO0ZGS0NB+KiJgyB8kBORkitZ40RFSin9smRe2M47kyLoAAKGwAUvdwjoq5YeLm
-	 qfovbYfmIz4aR43xPXaGFHUh5dU7AK+Sbg7WI1PfFH+vXwXSrfAUPc1NbWiFISGzin
-	 Da2m6B6Rt6mHb/HCw5istgPFOfObDzdjZzdtM5SF6r5oK9JM8ogE9i0cf3ypwIcis4
-	 iDSohKpYL/l5HNoyRq2xKgsP7hWRAo7at5BTNgJH6UAhMp7bdplpXvM9MPN+LlOreO
-	 DHEc4vZZRB+SVGmdUb8La8+QfQqffrPm1oiXmiTmMDU0cK0wePgT9JBqtt58smQbAt
-	 mOG7LRpXjhhYw==
-From: Guo Ren <guoren@kernel.org>
-To: linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: dlan@kernel.org,
-	devicetree@vger.kernel.org,
-	spacemit@lists.linux.dev,
-	"GUO Ren (XuanTie)" <guoren@kernel.org>,
-	stable@vger.kernel.org,
-	Guodong Xu <docular.xu@gmail.com>
-Subject: [PATCH] riscv: dts: spacemit: k3: fix IMSIC guest parameters
-Date: Sun, 16 Aug 2026 07:41:25 +0000
-Message-ID: <20260816074125.2105828-1-guoren@kernel.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VQ3aRtha"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 56F3EC2BCF4;
+	Sun, 16 Aug 2026 08:01:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786867293;
+	bh=ugIdjCPx7Q44lWqGntaI4myy9Ts7PbfRvgOhT5lVeFU=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=VQ3aRthatDu4etGVlcOiEzbHhaSUURnhoHEqyJ/v9XXYj0oN75r8q6D1tJvoCF7Tt
+	 ieAk4AWA1LtTs8y2Lq0reHUcQ2naTlYYP1YDROj+dZzL5fQ8ILgbSmySqDZd3b3zYM
+	 LR5JI1AsIc+4HU3pIgycRaSBpTCoWpTJJB9y0J9gAK3byvyEUVXoAMloKUAhhpTBoN
+	 d3/33ic5H4n4/uVh8BxASl3QQr4++/OxsjGzCG+A9L2WI+AmGtDcIe4+wAKsJKdjwR
+	 sLC2WVg8rITswbDgIbszMXBm5s3BbefH7cLVA6yak/WQuNGxB4fWYrcz22kcbxCMIH
+	 vWmQeWNIWYbBA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42F03C5B572;
+	Sun, 16 Aug 2026 08:01:33 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Subject: [PATCH 0/3] NFSv4/pnfs: LAYOUTSTATS overflow, DS cache aliasing,
+ lseg leak
+Date: Sun, 16 Aug 2026 16:01:26 +0800
+Message-Id: <20260816-nfs4-fixes-v1-0-a810f21729ab@outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFdugWoC/x2LQQqAIBAAvyJ7TlApsb4SHazW2ouFCxGIf2/pO
+ MxMBcZCyDCpCgUfYrqygO0UbGfMB2rahcEZ502wXufEvU70ImtM0YTVej+MFmS4C/5C+nlp7QO
+ UOy8KXAAAAA==
+X-Change-ID: 20260816-nfs4-fixes-efa08b166591
+To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ Peng Tao <tao.peng@primarydata.com>, 
+ Jeff Layton <jeff.layton@primarydata.com>, 
+ Tao Peng <bergwolf@primarydata.com>, 
+ Weston Andros Adamson <dros@primarydata.com>, 
+ Tom Haynes <loghyr@primarydata.com>
+Cc: Trond Myklebust <trond.myklebust@primarydata.com>, 
+ linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Trond Myklebust <trond.myklebust@hammerspace.com>, 
+ Junrui Luo <moonafterrain@outlook.com>, Yuhao Jiang <danisjiang@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2261;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=ugIdjCPx7Q44lWqGntaI4myy9Ts7PbfRvgOhT5lVeFU=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMa8KBV1LqFvtlsyOHozLz+tNuQ69vRB/TyTGVxne
+ RqeiwUxm3eUsjCIcTHIiimyHC+49M3Cd4vuFp8tyTBzWJlAhjBwcQrARJ5qMvxT/rB1u2b8krdr
+ 1zAoCjt8asnZt75JL2BiK+vNDK1dM4UTGRm2mCxzTEpWZhFk72x4PmF5a9C1V7MW7gr4YSwxfeK
+ +E5xsAEHIR34=
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+Reply-To: moonafterrain@outlook.com
 
-From: "GUO Ren (XuanTie)" <guoren@kernel.org>
+Three independent pNFS client fixes, all in paths that consume data the
+server gets to choose. They touch different files and can be applied in
+any order.
 
-The initial K3 device tree used generic/placeholder values for the
-IMSIC guest configuration:
+Patch 1 raises PNFS_LAYOUTSTATS_MAXSIZE. encode_layoutstats_maxsz
+reserves 256 bytes for the layoutupdate4 body, but a flexfiles record
+whose data server filehandle approaches NFS_MAXFHSIZE already exceeds
+that before the netaddr4 is encoded at all. The encoder then walks past
+the end of the send buffer while dss_info->mirror->lock is held, and
+that lock is never released.
 
-  riscv,guest-index-bits = <6>;
-  riscv,num-guest-ids    = <511>;
+Patch 2 adds the NFS version to the per-net data server cache key.
+nfs4_pnfs_ds_add() matches on the multipath address set alone, which is
+enough for the files layout driver because it always connects with
+version 4, but flexfiles takes its version tuple from GETDEVICEINFO per
+device. One address serving both NFSv3 and NFSv4 - a legitimate
+configuration - collapses into a single nfs4_pnfs_ds, and whichever
+mirror connects first pins ds_clp to its own version; the other one then
+selects rpc_call_ops for a version the connection does not speak.
 
-According to the SpacemiT K3 User Manual [1] these values are
-incorrect for the X100 cores:
+Patch 3 restores the pnfs_free_lseg_list() call on the out_forget path
+of pnfs_layout_process(). The drain was added by 814b84971388, dropped
+by 08bd8dbe8882 when the destination became lo->plh_return_segs (which
+is drained elsewhere), and not restored by fb700ef02676 when the
+destination went back to the on-stack free_me.
 
- - Hypervisor Extension: RVH 1.0, GEILEN = 8
- - Advanced Interrupt Architecture (AIA):
-    - M-mode MSI: 512
-    - S-mode MSI: 512
-    - VS-mode MSI: 64
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 
-Therefore:
-
-- S-mode IMSIC (simsic) only needs guest-index-bits = 3 (to cover
-  GEILEN = 8) and num-guest-ids = 63.
-- M-mode IMSIC (mimsic) does not implement guest interrupt files at
-  all, so the guest-related properties must be omitted.
-
-Although the KVM AIA driver will re-detect the actual number of guest
-interrupt files via hgeie and correct guest-index-bits at runtime, the
-device tree should still describe the correct hardware parameters.
-
-Update the device tree to match the silicon.
-
-[1] https://www.spacemit.com/community/document/info?lang=en&nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/08_cpu.md
-
-Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 SoC")
-Cc: stable@vger.kernel.org
-Cc: Guodong Xu <docular.xu@gmail.com>
-Cc: Yixun Lan <dlan@kernel.org>
-Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
 ---
- arch/riscv/boot/dts/spacemit/k3.dtsi | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Junrui Luo (3):
+      NFSv4.2: fix LAYOUTSTATS send buffer exhaustion
+      NFSv4/pnfs: key the data server cache on the NFS version
+      NFSv4.1: fix layout segment leak on the pnfs_layout_process() forget path
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index 19fc9b49668e..4120eb0c4083 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -1127,9 +1127,9 @@ simsic: interrupt-controller@e0400000 {
- 					      <&cpu4_intc 9>, <&cpu5_intc 9>,
- 					      <&cpu6_intc 9>, <&cpu7_intc 9>;
- 			msi-controller;
--			riscv,guest-index-bits = <6>;
-+			riscv,guest-index-bits = <3>;
- 			riscv,hart-index-bits = <4>;
--			riscv,num-guest-ids = <511>;
-+			riscv,num-guest-ids = <63>;
- 			riscv,num-ids = <511>;
- 		};
- 
-@@ -1168,9 +1168,7 @@ mimsic: interrupt-controller@f1000000 {
- 					      <&cpu4_intc 11>, <&cpu5_intc 11>,
- 					      <&cpu6_intc 11>, <&cpu7_intc 11>;
- 			msi-controller;
--			riscv,guest-index-bits = <6>;
- 			riscv,hart-index-bits = <4>;
--			riscv,num-guest-ids = <511>;
- 			riscv,num-ids = <511>;
- 			status = "reserved";
- 		};
+ fs/nfs/filelayout/filelayoutdev.c         |  3 ++-
+ fs/nfs/flexfilelayout/flexfilelayoutdev.c |  3 ++-
+ fs/nfs/pnfs.c                             |  1 +
+ fs/nfs/pnfs.h                             |  3 ++-
+ fs/nfs/pnfs_nfs.c                         | 14 +++++++++-----
+ include/linux/nfs_xdr.h                   |  2 +-
+ 6 files changed, 17 insertions(+), 9 deletions(-)
+---
+base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
+change-id: 20260816-nfs4-fixes-efa08b166591
+
+Best regards,
 -- 
-2.43.0
+Junrui Luo <moonafterrain@outlook.com>
+
 
