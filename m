@@ -1,58 +1,44 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.ptr1337.dev (mail.ptr1337.dev [202.61.224.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148081F427C;
-	Sun, 16 Aug 2026 13:33:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F4323B62B;
+	Sun, 16 Aug 2026 13:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.61.224.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786887190; cv=none; b=aBD4+jhJsloJoycUAKr3nAIg1NBrGw+0gJPll8gOGP8PJp0RBHjPex73yPa9ppVFeQj0CwnWGIZvYKO4deqW9TNv3knuLugByTGJAvZJOQwEdy15cT82eOPTPuM32oQI8mtpr0Tc/J6z38Apjhz6AIFjVs4B8OyzPdNxA0nM/g0=
+	t=1786887430; cv=none; b=CcXAKcNkltgamjhRHCUnY/gweolgPGS4hWx5yAVjyO+er7GPdrZ28dtteE8ffF/MM62QIuTGyzxD7J5qmGnsXUlINyYeTdjvxuOvfwmE75kYEluRDZ+56Jq2yu8SHK9d2hB4gXqqy4COXVvSoEgcMV/znisM/ei4ZhSnYXKegVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786887190; c=relaxed/simple;
-	bh=5iViqrtuiYjowEv84cPsF4YhtQkTdlKxLPMIseafVhU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cix8V/Ixgsaa0aeXjMOS9RpdoGDhS5T5CKvGbgxtuQbBVqeVrP7QW3UwSvB2hwXWPI6S0HJHqXMzsza9OiF6ZAqFReQnVYOeuSsGuNSMApVj5a6y1V2CRDVl/4iG488sjfCPuy+Vu8Sibq58l8jGuqnjFJE6Q7eMtrG8dFVrMhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dz3QNuui; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786887430; c=relaxed/simple;
+	bh=0z8X7wom4hIo3XWtTWIOxcyhSIIm2cgNyTJsTbuvFzw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fcW78b6/msnyhLLwMGzoOX7rNejHlaJQTxTdSrclstUbSbV2HPihvt+P85FUlAdhFV9OyClGzrLXejMWgGX6KFQV0dUF/b57E3xPJOwiGVehJSf5iA0a2rg/bmJHJ80mwQ18dSPJXaryyrABgB0yjpoJClAQtE/29G7oa3I9jOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ptr1337.dev; spf=pass smtp.mailfrom=ptr1337.dev; dkim=pass (2048-bit key) header.d=ptr1337.dev header.i=@ptr1337.dev header.b=ThXV3rs1; arc=none smtp.client-ip=202.61.224.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ptr1337.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ptr1337.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dz3QNuui"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036E01F00ACA;
-	Sun, 16 Aug 2026 13:33:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786887188;
-	bh=ynufwqLeA6bQ7foSOOmJD2OeEh+eIuScndOhi6Sfq5Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dz3QNuui+oLNC+qkkeCSURUCXpPHwgEWoY3l30qzHqYuhqUrQ4kX8v04XZgfhTfUr
-	 cw2RBfTFNUsVlcnnQMrZeKb3XpyfRCOYvOlgMtYDup2LE6dClWnlrOTqm1RuskRE4r
-	 KuUexx7m7a/KgQtsNDAsAg490Uc5zDEXtpik5CG8QGjf7pPUexGrPVGUt9+NsYxLQ3
-	 wcShIjhmBvFkggkey3eY7Yz3G5ntGhe0IXfDaC5JbYsugt8q9iyvrtIXkdixYSQbT8
-	 9QKySLgfFNeY3cSAkUhSzWDAUAtduKbE/OerurC4yhlZIG3lcp5iBNqw12omjfFhdS
-	 OamESoKhIiHFQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Matthew Maurer <mmaurer@google.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kbuild@vger.kernel.org,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	rust-for-linux@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=ptr1337.dev header.i=@ptr1337.dev header.b="ThXV3rs1"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 932A02815B5;
+	Sun, 16 Aug 2026 15:31:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ptr1337.dev; s=dkim;
+	t=1786887071; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=cY/5/mjQStAGoa5AtH+HsUDyJj6Qqf5cI3Ktzm3zuZY=;
+	b=ThXV3rs10J3ToJxfCsYaOcYhiGDjHkVALh2mesPPajDUwX6NGI2tB6hmKDvEe6k9Ls0coS
+	DBC5MKv8fkCUKe6nH1UQNtOMFE8gbP8xs3fz5osy/qogS3weXNRGHIVViBf98NKmH1/qvh
+	4QXyKWgjK4lCn/omfikLlnlnAIr9cJeCn36I0c80E5v26HhFSzAmkf8gr78m6j1PK1MExp
+	rT2oOKhwJHhbHSe8ekWOV+m3S28mI3jRFG7/3LNvS+PPSmzCHVsvuPx26Tm+9RzW0hqmy0
+	kZesPSocP9ULqwwfWKyujPWIUEqL4YqVPwkO5lNQfXBJVD2AxmoqbQF/rhsXfw==
+From: Peter Jung <admin@ptr1337.dev>
+To: gregkh@linuxfoundation.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] kbuild: rust: keep Rust objects out of Clang LTO with inline helpers
-Date: Sun, 16 Aug 2026 15:32:33 +0200
-Message-ID: <20260816133233.197500-2-ojeda@kernel.org>
-In-Reply-To: <20260816133233.197500-1-ojeda@kernel.org>
-References: <20260816133233.197500-1-ojeda@kernel.org>
+Cc: rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Peter Jung <admin@ptr1337.dev>
+Subject: [PATCH 7.1.y] Revert "tracing: perf: Fix stale head for perf syscall tracing"
+Date: Sun, 16 Aug 2026 15:31:01 +0200
+Message-ID: <20260816133101.83109-1-admin@ptr1337.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,77 +46,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Under `CONFIG_LTO_CLANG` + `CONFIG_RUST_INLINE_HELPERS`, one may hit
-`objtool` errors such as:
+This reverts commit be94a3a77e7eb99c53418de7d4a01bc7eb3f634e.
 
-    vmlinux.o: error: objtool: _R..._3Gsp4boot+0xd6a:
-    can't find jump dest instruction at .text._R..._3Gsp4boot+0x1dfd
+The upstream commit was applied after commit 57918341dd19 ("bpf: Add
+sleepable support for classic tracepoint programs"), which moved BPF
+program execution before the per-CPU perf event list is checked.
 
-The reason is that in such builds, the Clang invocation that compiles
-the combined Rust plus helpers bitcode emits LLVM bitcode (again) --
-the final code generation happens in the linker's LTO step, which the
-`-mllvm` trap options passed to Clang do not reach.
+The 7.1.y implementation has not undergone that restructuring. It handles
+BPF and perf consumers together, and already reloads the current CPU's
+perf event list after syscall_get_data().
 
-This, in turn, means that unreachable traps are missing, and the
-impossible paths do not merely fallthrough to the next symbol, but past
-the end of their own section, since LTO builds place each function in
-its own section.
+As a result, the backport adds an unconditional hlist_empty() return before
+bpf_prog_array_valid() is consulted. A syscall trace event can have a valid
+BPF program array while the current CPU's perf event list is empty. In that
+case the early return prevents the BPF program from running.
 
-Thus filter `CC_FLAGS_LTO` out of the Clang invocation, so that it always
-emits machine code directly, with the traps in place.
+This breaks BPF consumers of faultable syscall-enter tracepoints such as
+sys_enter_execve. One observed consequence is that Proton VPN's app-based
+split tunneling no longer receives exec argument events and therefore
+cannot match newly started processes.
 
-Assisted-by: LLM
-Cc: Gary Guo <gary@garyguo.net>
-Cc: Boqun Feng <boqun@kernel.org>
-Cc: Alice Ryhl <aliceryhl@google.com>
-Cc: Matthew Maurer <mmaurer@google.com>
+Revert the stable backport. The existing head assignment below the removed
+block preserves its intended stale-head protection while retaining the
+previous BPF-aware handling.
+
+Fixes: be94a3a77e7e ("tracing: perf: Fix stale head for perf syscall tracing")
 Cc: stable@vger.kernel.org
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Fixes: 3a2486cc1da5 ("kbuild: rust: provide an option to inline C helpers into Rust")
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Peter Jung <admin@ptr1337.dev>
 ---
-This is like the previous patch, but for the LTO case.
+ kernel/trace/trace_syscalls.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-Another possible alternative that Gary suggested is to turn the flags on
-globally for C, whether only when inline helpers are enabled or in all
-cases, but it may be intended that in C we expect not to generate the
-`unreachable`s.
-
-Even if we do that later, we may want to still land this as the minimal
-fix for backporting, since it only affects the experimental option and
-only the Rust side.
-
- rust/Makefile          | 2 +-
- scripts/Makefile.build | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/rust/Makefile b/rust/Makefile
-index f871d94f6af2..3afaad4a4a3a 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -644,7 +644,7 @@ quiet_cmd_rustc_library = $(if $(skip_clippy),RUSTC,$(RUSTC_OR_CLIPPY_QUIET)) L
- 		-Zunstable-options \
- 	$(if $(link_helper),;$(LLVM_LINK) --internalize --suppress-warnings $(patsubst %.o,%.bc,$@) \
- 		$(obj)/helpers/helpers$(if $(part-of-module),_module).bc -o $(patsubst %.o,%.m.bc,$@); \
--		$(CC) $(CLANG_FLAGS) $(KBUILD_CFLAGS) \
-+		$(CC) $(CLANG_FLAGS) $(filter-out $(CC_FLAGS_LTO),$(KBUILD_CFLAGS)) \
- 		$(CC_FLAGS_RUST_INLINE_HELPERS) -Wno-override-module -c $(patsubst %.o,%.m.bc,$@) -o $@ \
- 		$(cmd_ld_single)) \
- 	$(if $(rustc_objcopy),;$(OBJCOPY) $(rustc_objcopy) $@) \
-diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index 0b3b81f4a652..0b71f759eb5c 100644
---- a/scripts/Makefile.build
-+++ b/scripts/Makefile.build
-@@ -346,7 +346,7 @@ quiet_cmd_rustc_o_rs = $(RUSTC_OR_CLIPPY_QUIET) $(quiet_modtag) $@
-       cmd_rustc_o_rs = $(rust_common_cmd) --emit=$(if $(CONFIG_RUST_INLINE_HELPERS),llvm-bc=$(patsubst %.o,%.bc,$@),obj=$@) $< \
- 	$(if $(CONFIG_RUST_INLINE_HELPERS),;$(LLVM_LINK) --internalize --suppress-warnings $(patsubst %.o,%.bc,$@) \
- 		$(objtree)/rust/helpers/helpers$(if $(part-of-module),_module).bc -o $(patsubst %.o,%.m.bc,$@); \
--		$(CC) $(CLANG_FLAGS) $(KBUILD_CFLAGS) \
-+		$(CC) $(CLANG_FLAGS) $(filter-out $(CC_FLAGS_LTO),$(KBUILD_CFLAGS)) \
- 		$(CC_FLAGS_RUST_INLINE_HELPERS) -Wno-override-module -c $(patsubst %.o,%.m.bc,$@) -o $@ \
- 		$(cmd_ld_single)) \
- 	$(cmd_objtool)
---
-2.55.0
+diff --git a/kernel/trace/trace_syscalls.c b/kernel/trace/trace_syscalls.c
+index 8dcedff8429a..8ad72e17d8eb 100644
+--- a/kernel/trace/trace_syscalls.c
++++ b/kernel/trace/trace_syscalls.c
+@@ -1436,11 +1436,6 @@ static void perf_syscall_enter(void *ignore, struct pt_regs *regs, long id)
+ 		if (syscall_get_data(sys_data, args, &user_ptr,
+ 				     &size, user_sizes, &uargs, buf_size) < 0)
+ 			return;
+-
+-		/* The above may have caused a migration */
+-		head = this_cpu_ptr(sys_data->enter_event->perf_events);
+-		if (hlist_empty(head))
+-			return;
+ 	}
+ 
+ 	head = this_cpu_ptr(sys_data->enter_event->perf_events);
+-- 
+2.51.0
