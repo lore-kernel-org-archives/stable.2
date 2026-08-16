@@ -1,74 +1,74 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FE23016FB
-	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 06:16:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2053304BB3
+	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 06:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786860984; cv=none; b=cwEbitz0LV6lvBpuF5norTPNVrx1ACzzmR1FTsPshXatyr0nR0rRc6AuoUqh0cJNqWxhiquprxR7QooPDvhl9BdvpwGsHX+vpBsrUiEoBamgMWX/Atckcsv6WbJsQaXlI9n9R80Rekq8QGgiU2p9dBP7so+wBlN/Pt8dGa7nK0I=
+	t=1786861050; cv=none; b=B18UR6CUA05Vh8Wq4WA5/alClLtT1X1wfkkHdA6wpXgixe88ih1NXNj/FEEKAhfoo9ylO2Z8oYQxri5iSvKq4MZZBr4VMKpMaH276pudebJtvbKxnKxsgkCM3yS+IcIfjxau2zttUZkbqc8Brtzq8ylCQcqQlz1NrT17FGtQoac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786860984; c=relaxed/simple;
-	bh=PwBAtWLTBQdOhYmMRvqHmuyod5fAKCsuGd/VPX/xwMY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ORLbNlRApENiDYmqrUzQrBsn+M5eELWlUGUzwMwNqVg7YoKBGu8D6Nod/H3LeqM9x2xbL1HICuV2e4Mn3xJCl9klPzgX4aaKv1VactMbNdUof1dz0CzeubusdTIS3cONrc9MwsziD56wBmoAedPe6Yzo1D08+0NR9WiJpMItio8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OKDfErwp; arc=none smtp.client-ip=209.85.160.176
+	s=arc-20240116; t=1786861050; c=relaxed/simple;
+	bh=9rkh+l6xraLTWwL32qe6TKz2/frEdnGi3YOr9WdAETs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FU3zWSq2crLKbt8yXIVa/UsWRYaOwOYa9XtmJCAxm/8c1pdZpB4iYd5AipEK5xCVSCFh3kKP95exWL68RbDE3Z9hSThgaIF79Hk+SYKqIO0KWBvPWwfuer60prE+lf2oIaHrMJOUzm9VDwv2a017npkABlJatwPx+8+D0ruA9JA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DEE9Swyi; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OKDfErwp"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-51c2a449c57so13237911cf.1
-        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 23:16:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DEE9Swyi"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so1789645a91.0
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 23:17:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786860982; x=1787465782; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786861049; x=1787465849; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dx71Tj0Yh74N2KF4WkBSx6E9gWnoVmw5HGH3PfpwUbA=;
-        b=OKDfErwpCvTgRHTuf+8/EpjXDLdgNZqDCXzjD5dMI8r54n2DmWx9Zuk77TlK85dgTP
-         mUFKgNppp+YnOdTVvjo5xlwScL/eEdlsrGQPMn3j9bFjcQKZ7VI4XcAKVhzbA7FBV9Cx
-         zwzT498CXUMpb/V41mjy6HSD8uBbFOnnZ2Eo4kwMNYgUy94scxQtJXYHphkZuXtbl7+v
-         e/2zheg9s3mwHfddAbqwM5CRaT30tXeRY1bvLkHnmiAU593Fkd6Skw9d0LhZg2fUs+jl
-         Q4YuPVZq4lZHYX4jkYmZzzisdmTdUuF7496vetmaQBOEePSHyVH7mgp7nMl98Cobq7st
-         MZRw==
+        bh=/lt0MYPB2A8n9D+NrNfP6TZGyktOpHcmig9SIzvH9ZY=;
+        b=DEE9SwyicVMYdnUaIW1jzVnbllX3Na5ABZ7ZwM7WadjOJrd+aW9UXvmeJUJoAl7/Cc
+         yyOEMM1iCuhZR0Uh5uyZ5PzYcMX93bLZg2qaiH9WMl+8aAcTuO0JwfQu+/v3W0e/gEn4
+         2/CvOFqUr1kg7XspSrdWLLLp5k9ItSi0pzUDx75Hh6r3OYbrnqBG/KjwHSa8lhzaCCpY
+         Z3lmuGWm0TgqLF7T/tnVNi3ATuS4aOA1x+58FgVlpbwT6GJ4S4cNo6FlR6jlEKogQnoO
+         rGj9Z/hZlhYYxt0IfJJ7ec4v6bKLkw/40RfO23gYCc3pR1e2Fsudjk55tlB3aKEXGyMW
+         Si9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786860982; x=1787465782;
+        d=1e100.net; s=20251104; t=1786861049; x=1787465849;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Dx71Tj0Yh74N2KF4WkBSx6E9gWnoVmw5HGH3PfpwUbA=;
-        b=Kh17ywB6cFhsC6LQd711u+z4zvgbG8y24kyN19dtADu9EgJ75orqxcPpX2sJPq2s/Q
-         nxbzJGhUVIdh/vcp/fSEzAiGSHsce9NlA9QzYCUBqXJnzrJm92oMx5ci28IQ2OWX2cFr
-         VthZS77elkv+TQJdMYQi/0xERzmRUJmeWY+IFYnbbQVVtEzzKg9NsHKkEydD9ovhJ33i
-         gtIkEeuUxbTWGjrlqdG1qJ2Hegh/ZO0TGBZSzu9ZKofb9PAIsmlMobgSJt9Hcg9XSqjL
-         JilTjH6jqzUJIvMHKMdrVU6vDUfCE13Z+m75m7IyXuQ6Mcj1AIvNG0blBKJc228B5pu1
-         zGwQ==
-X-Forwarded-Encrypted: i=1; AHgh+Roa2X8ONwb884mcOzX8jH5VsKTh3kBdXFzPYJop9vmroNoE91a4qbqvAJSS2w5k2zEiXYCFN60=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzlomLX2CK3rHv+Qt/sXLW9wO6hA46nzF80zb0d9+K2B7vMQA+z
-	SQnFa0HnOvWnYa73wDPe6zm0TdfsegZqQpi9QU5TsSLGV/P8r7q4opj7
-X-Gm-Gg: AR+sD13D9g01dtawsS2TMj41fi2QKJlLRVq7RC326MaQEebVL2vlD2WUPbkYVzBTE2J
-	UI6PGHt7+Gnz6C991zHsNzFpbTwNxTj8ixkVnfVjRz63rSQyi276BcwvkJo5KNbMLPOUkJNvgF6
-	Juy1KDgKbc1NnS69rcXFeLE4nuB7sBotxi2JwI/A+iW8ndsMlnp1WcEQLywD5XWbL5E0NJyH1n8
-	MkhLThze30D7Wk5sXtvamoyXuZbD5OkGUXCfvJkFC3qVEJzq95bQUrkt/ADYI6r1soGosk8kdJ1
-	ZldvM0EDSr+5f5ilUA5pEVKrqip4etAmHEzhKGfCOmWl9hhAbgUbXlj8/RMOOiPj646i+/kKlni
-	250IiNd7xIAO+aHHhP29i1JOi4xQuCKlCPOxezaKnZMpBQMqcyQUyC7QhGsrjBWGYzyiOnwqczr
-	Bw2NfS/csq8ctNTzRN+jRcY9RDfslWKq9FfGWxtjsdzgyH4dsxJTmR75W55dQq1RR+077HnqvJc
-	uyXhpNy3OP6Ceky3A==
-X-Received: by 2002:ac8:7fd4:0:b0:519:8b76:2ce0 with SMTP id d75a77b69052e-52d85538e0emr189855501cf.37.1786860982216;
-        Sat, 15 Aug 2026 23:16:22 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d84043241sm54126611cf.16.2026.08.15.23.16.21
+        bh=/lt0MYPB2A8n9D+NrNfP6TZGyktOpHcmig9SIzvH9ZY=;
+        b=SH9f+AYoRjuR0O6ziCN5P0q1QTBJD5tFa/KJ3XGzOrVboimKAfOV6ThmcPXgWikNf9
+         0XmeeeF7ixAUxmSQUYxTvsEZfo6YWb9xr/2bA3M3zlqxGYuU1mos7Nd/D9/Y20CXfMrh
+         hRNSVyv4YyFseL1DBfPAHW/8u7EnUDKvLdZ1RlAPvQmFq4hHRN4tqgIW+zEfB3PVTzU3
+         4fCQzSOI7b1t+KRFYAOdJgiHsKqz/s5VSPxLffeNXQg6KiUJF2MfFVCSUaO92HeEBAxQ
+         Y/rs4awxyjpbf5EJbBYpHQZK4Cl7tI0tup9zya3scTgpAQQ8aB/yoikJyXrGtCZRihsH
+         4FtA==
+X-Forwarded-Encrypted: i=1; AHgh+RqyKEbg/dASEXi0E8EbVHItU7risv9ytWrnG7UPGDIIsXf+d7arwWOY30oyx2qUyYlZ84yIbgg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzr+uPvED3xAgOIydu7zoHgqlAzwJLZlq1G48nt8D9nXasQ8F5d
+	2+WJ0cfSKaWjl6tOchkENOrcHDOiwbgzQbpwFAY+anSxaI7YsNBUn0GW
+X-Gm-Gg: AR+sD11aTUT1srmljuWLyqU/KBAgoZ1ydBJBS++hhWbeidyFaZa9uUVm0R8CEMWf+f8
+	a7Arc2QrPbTY4kQFloeejwjhauj53utbCuimQmXYfnnuAatH/b8Gx+ocegaxSUPbyyEZQuJSc8e
+	uARV5K/Xbb3pPImdfzEstQT1wUdJT+8XyO+R+3B5cNkLtWCbga7cpangN7teUpffFZr+3rSnQRZ
+	jNMsAhmIuN1VFN8EMx3c8Sdgs2nCVw/3IHrv22jdQ0nIMj2Em9J8EGXDJQ07DU9kCVumUVCLxN/
+	ljbFzKyFkS1cIOas/GwamyhVWo9qK9ZrxG0kYCTaW4zZn7HKn0kOdVtg09+DPH3yEvvGguq+7Jc
+	cK/9cYFvAQHpHKnQpYWXCS0x5iDoNh2XIIJsUUWmCjjvONqH+pajwnn4+6Az2pv4cwGZpWYo6y9
+	5GIevmmaeR+Kbp3RPanE+M6Pl3HRQKUL2ezvSa3QWnj6TtcSeBoQanFFxS+0qLpNi2qw==
+X-Received: by 2002:a17:90b:3c91:b0:380:f85c:94b4 with SMTP id 98e67ed59e1d1-3933b78e3c2mr19285769a91.7.1786861048973;
+        Sat, 15 Aug 2026 23:17:28 -0700 (PDT)
+Received: from Default ([2409:40f4:1032:c11e:2df8:ef26:4db8:5cbd])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141387e49d3sm27378993c88.7.2026.08.15.23.17.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 23:16:21 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: bernard.metzler@linux.dev,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
+        Sat, 15 Aug 2026 23:17:28 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: jeffinphilip14@gmail.com,
+	balbi@ti.com,
+	bigeasy@linutronix.de,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Subject: [PATCH] RDMA/siw: Fix CEP reference race in siw_accept()
-Date: Sun, 16 Aug 2026 02:13:53 -0400
-Message-ID: <20260816061353.4059242-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	syzbot+fd6ef980cf1c722be639@syzkaller.appspotmail.com
+Subject: [PATCH] usb: gadget: fix null pointer dereference in usb_put_function_instance()
+Date: Sun, 16 Aug 2026 11:47:12 +0530
+Message-ID: <20260816061712.15547-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,53 +77,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-siw_accept() associates a CEP with the selected QP while holding
-qp->state_lock. If the transition to RTS fails, the error path releases
-the lock before detaching that association.
+usb_put_function_instance() attempts to dereference fd inside fi struct
+to get mod in uvc_alloc_inst() error path. However, fd is not allocated
+until later in try_get_usb_function_instance() after allocating fi in
+uvc_alloc_inst() and thus guranteed to be null in error path. Fix this
+by adding a null check for fi->fd that returns if fd is null.
 
-The cleanup drops the QP association reference before clearing qp->cep.
-A concurrent QP destroy can acquire qp->state_lock in between, observe
-the stale pointer, and drop the same association reference again. This
-can free the CEP before siw_accept() releases its remaining reference,
-causing a use-after-free.
-
-Serialize the error-side detachment with qp->state_lock and clear qp->cep
-before dropping the association reference. This ensures that either the
-accept cleanup or QP teardown removes the association, but not both.
-
-This is a follow-up to commit a93949718259 ("RDMA/siw: Fix
-use-after-free in siw_accept()") and addresses a separate race in the
-same error path.
-
-Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
-Link: https://patch.msgid.link/20260801213632.1086548-1-shuangpeng.kernel@gmail.com
+Reported-by: syzbot+fd6ef980cf1c722be639@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=fd6ef980cf1c722be639
+Fixes: 0062f6e56f70 ("usb: gadget: add a forward pointer from usb_function to its "instance"")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
 ---
- drivers/infiniband/sw/siw/siw_cm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/usb/gadget/functions.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw/siw_cm.c
-index 0245b25e7271..da1b953f3fa3 100644
---- a/drivers/infiniband/sw/siw/siw_cm.c
-+++ b/drivers/infiniband/sw/siw/siw_cm.c
-@@ -1751,11 +1751,13 @@ int siw_accept(struct iw_cm_id *id, struct iw_cm_conn_param *params)
- 	cep->state = SIW_EPSTATE_CLOSED;
+diff --git a/drivers/usb/gadget/functions.c b/drivers/usb/gadget/functions.c
+index 203361a64212..70e31c40e267 100644
+--- a/drivers/usb/gadget/functions.c
++++ b/drivers/usb/gadget/functions.c
+@@ -70,7 +70,7 @@ void usb_put_function_instance(struct usb_function_instance *fi)
+ {
+ 	struct module *mod;
  
- 	siw_free_cm_id(cep);
-+	down_write(&qp->state_lock);
- 	if (qp->cep == cep) {
--		siw_cep_put(cep);
- 		qp->cep = NULL;
-+		siw_cep_put(cep);
- 	}
- 	cep->qp = NULL;
-+	up_write(&qp->state_lock);
- 	siw_qp_put(qp);
- free_cep:
- 	siw_cep_set_free_and_put(cep);
-
-base-commit: a9394971825933074032794a5feee5211509c774
+-	if (!fi)
++	if (!fi || !fi->fd)
+ 		return;
+ 
+ 	mod = fi->fd->mod;
 -- 
-2.43.0
+2.55.0
 
