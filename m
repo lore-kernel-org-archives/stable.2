@@ -1,64 +1,38 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012025.outbound.protection.outlook.com [40.107.209.25])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CD435A38C;
-	Sun, 16 Aug 2026 15:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786895397; cv=fail; b=e+S/X0dyZdfB44WLUTBpe8z33FXn2afyS16jOtdORAWH7NNtara5Ixo4VYJhWixMo63G31V62wG6zJRXUn3knIP0AdPHjHZTdO4x00wdt66iWEMtYJibIsSm9zeVJMtEp6TLmxyvQ4lfrTvxB70bwTHLpJYUrq+PY24on5CsW5U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786895397; c=relaxed/simple;
-	bh=jxiqrS26nswZvJrOzWQ7M3DiiuDTx00kRIcfIiYoFUI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=NinwRlvtFKheZa4+EFSxn1ambdLBLOgQD7m6HSiXYTZ+R/1EGWn6202UeO+aKA9P5i/mdaWuHeg6goq4ZIz7mpPCRhDFTva/NMCyzvSIiCLgn6C5FUtaOEIzSygySu2LccqbediFD609aYWs9caKPrlposOmxt1R5itAhued8Tc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=RaD2ZIL5; arc=fail smtp.client-ip=40.107.209.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C2BF346E75;
+	Sun, 16 Aug 2026 16:11:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786896683; cv=none; b=AWOrB6Y/Qn25L1FIf94/X1V4wobodJBIFiSCGC342VHCyg2snk2uLHzYTvH/BXQmH9spHZUz8bjFZu6uh4qL5cljrv+3xwjV60Dj0vneU8MP3VmEKuzLH5P2Wse8KjJ8Uce6FyYyghugOFQYq7MbTQmXGXA/BH1H4x2BQZWAPjU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786896683; c=relaxed/simple;
+	bh=F2ekJeE+WuqeAaVxK/jJWMpPvhrgloRK3OiNqJW1IyQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=N7JAswwnw4tTsW4xIA6gRW4dv2BarAQFeX/YLJGNC3Q754DaT7wiyQqUG8GlxeljpO21ybO+/dKOnnJkydyO2TdM7RPlTDYdGW8FacSQUUGbARrjXIcPofBGs98xVpbz3tU8IuoYQMvim3bD9u7TWuQgxvjZh9+F/BPYj839ziY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UnWn3a1Y; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="RaD2ZIL5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zD+/fJQX+YM8pxJ1+nFO3RLrvKrg8TgYTEetdowN28AEuHvLJ6efYLytGzSbnviauH1NSE0L7M0uUQ6Sie4A7iWZxXmQl83oFV1U24wX3166+0+Xa1O5EAWH8+3jjl1RHgNSg2H8JS/cXOZ9+cRxs/w7Vr6qWnWryZdGymzzcuqciE4qECACbtoWb26vbNgWk31t9aQsFGaw/4xkC8U2Jy1da74V4avk6rr1d6ETWx3iB1uoZ0X5aQK98BShI6RfeUNzRfELcCoiWHcuqYqULlveUR88MHFAu7bEjhwMhp8i7d37kCC5NZvNdyrxKQFEpqQpq6Vht4nhUzHiTeFewA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+j/8RC/1QOjOmvJ/5FBPVw+5X39jsQAEIkDBQDOwXPQ=;
- b=YTF92i59MPYjAYE3XsjTluJK5IDRcWeUxn6g3Pm9DQ/rIoo2D/cpVd1mEQtwZ8oI3ptFmp5CxRAPfII+kIcpLAuILO7h3aCEUesW1WWDEisN9m85QPW17Mm7rj0ZtVdjLjJeprEgMQNFdU8AKN6c2fi7fCFpHyi2rmyKaY1alSfPShZaj0iMbHQuxjfG7LOGz+g29yX8PeByNXGYKqehaQDFPTk+zpsoRJrPgAupobrxte+2E4AcdexgoAJxQTD3gyzEEDZqJbe1g9mo4ANxGhW8intOj+6WVSk4jCkINlHiogUk4MEMdFuvD9SxGXZufQyMTGJOzzW5s2WYpNFuoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+j/8RC/1QOjOmvJ/5FBPVw+5X39jsQAEIkDBQDOwXPQ=;
- b=RaD2ZIL58pY8Ik0hb2cfGiAVx3IrZInE1tHPPLjOsV7XyHrFoiM3PdFaEY/L9lvssn7yaawzw9p0tuP71z/8kACy25+BPwMPZTuEa1vHjKTH5RmrpK10o2fPRO4F5JIow6oXxhd8vw/6g64T2N4UvAGIljCLExRrcGrhMbE4fA8=
-Received: from CH2PR19CA0010.namprd19.prod.outlook.com (2603:10b6:610:4d::20)
- by SJ0PR12MB5662.namprd12.prod.outlook.com (2603:10b6:a03:429::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Sun, 16 Aug
- 2026 15:49:45 +0000
-Received: from CH1PEPF0000AD78.namprd04.prod.outlook.com
- (2603:10b6:610:4d:cafe::c) by CH2PR19CA0010.outlook.office365.com
- (2603:10b6:610:4d::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Sun,
- 16 Aug 2026 15:49:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD78.mail.protection.outlook.com (10.167.244.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Sun, 16 Aug 2026 15:49:44 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 16 Aug
- 2026 10:49:42 -0500
-From: Shivank Garg <shivankg@amd.com>
-Date: Sun, 16 Aug 2026 15:49:27 +0000
-Subject: [PATCH v3 3/3] dmaengine: wait for RCU readers before releasing
- dma_device
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UnWn3a1Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C7DE0C2BCC7;
+	Sun, 16 Aug 2026 16:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786896682;
+	bh=F2ekJeE+WuqeAaVxK/jJWMpPvhrgloRK3OiNqJW1IyQ=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=UnWn3a1Y9hLqvdV3gY6o75S4jE1NAt493LiZplm2R17B5pvsrudvVh7qpPtM7PB4Q
+	 CIjHSK58LUAZEKYt9/2zmeflizpdGefb/z+sfLwaEwHuraNuEmQDwINFx3ZfpCbvdD
+	 8PCEjwLiFR6HvOkEdC0s+pra9EI4UXKEa5I2vJ5kMGhhKAE8EoLU9SgBHlm213FZWB
+	 AS3ByjDunIaGhJUZ14gFuBMJ7A8z5v0RpNusyDkNbFuVld8F5THIha9OF3Uy4Rb0l9
+	 P7hGR/1wN1UmbQa4YC6f9EXJRC5JSM5rKe755v9D49OkD27+U6+Wl+O1673vxx+B7e
+	 PkU+0X7Qw7Egg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1C78C5DF6E;
+	Sun, 16 Aug 2026 16:11:22 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Subject: [PATCH 0/2] drm/amdgpu/userq: fix a leaked fence driver and an
+ unlocked doorbell walk
+Date: Mon, 17 Aug 2026 00:11:17 +0800
+Message-Id: <20260817-amdgpu-fixes-v1-0-36d5298da646@outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,100 +41,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260816-dmaengine-kref-fix-v3-3-7e76187145df@amd.com>
-References: <20260816-dmaengine-kref-fix-v3-0-7e76187145df@amd.com>
-In-Reply-To: <20260816-dmaengine-kref-fix-v3-0-7e76187145df@amd.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, "Logan
- Gunthorpe" <logang@deltatee.com>, Andrew Morton <akpm@linux-foundation.org>
-CC: <stable@vger.kernel.org>, <dmaengine@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Shivank Garg <shivankg@amd.com>, Sashiko
-	<sashiko-bot@kernel.org>
-X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786895373; l=2066;
- i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=jxiqrS26nswZvJrOzWQ7M3DiiuDTx00kRIcfIiYoFUI=;
- b=/uuSh1RH1PDp9cMe4PWWLC4i4eMMKTPkz40gBC886+brLf54A7amVji4RaYZuTclD4rLkDmtU
- V76zdRHu3cuB/J/Sb4nypHrJq+ZY1pizk31kdmlPVSLrv7Q/1A/ATUJ
-X-Developer-Key: i=shivankg@amd.com; a=ed25519;
- pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD78:EE_|SJ0PR12MB5662:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9289b9d5-3c41-4284-b15d-08defbadfe64
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|376014|82310400026|13003099007|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	BPRKIJRUhnhYFLlAP/BAW6UWznHoXTc37T/+JP6BNs5FbzU9qfi+gsbvDx8jfAZ2kOfxY9UrJIIe3InIJnMkGUe8mBfPaUjh8Gf6p6l6ZKpjQQ9ft8P7riVbrMbFd71+jwzstfxFxbBlVz1LlDmiU54UEncjqleKIgx9+A8dJ6pTAYYZL7MbmHwAVAhLQ67H3HaHyDSfZDXsWbxDV30UzxW9RjySJYcYozT7b+du71ygSf18anPIMfqVVdmlUHBkucUYB1jH+Q3wXuOuu0ZeZI/czWJDRc9r+ZLP4zVsjwLZon/kNUYk56uslHZk3lAuKvHn99wW8NCHLUKCYU9Jp/WFVtxF+dBXZYqSz8R+kTphfcq8OOmBBgV16oMshKA2v4QM/c4R5+DcTH6Gg+beUQmYMCPbIqs6p1bqP2ydCZytHnW4EozUKtnidMSIdl4bZsaSZOjcssTCXo2BcREOwGAgwDRPfCckFffrDA3Ly1/NJROkqSp3Y+yE3t6srYHMYSwlQP7r8Bqz1BXHV5LB3+ni2TdSSChDn2SCYqPks5P05eikblIEzzYwzqb3Tie0m+NdHNODL9QMaFb/x48PAiF92hkg3PLnO1gT2L/OHfnCt9L2QZJGg+E2SdvPqFpFAIuyUs1PSI5rXxjfzBpDXQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(376014)(82310400026)(13003099007)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	7sHZt1VHiPqXaZon9jt/800L20+HQmOZdWnU3n0vh80S/+8yDtGmyWLd1a+aQ2OuCimRyurejlzEqg7PbCxYv/n22vwD9j4NrqcDkOjmJrnpqJN6apwJma3C4L+JZu2nMCHiDwMSxdmsjVTNHFtnnHk9QYEimy6pU6WfSjRI39d5H6U4h9igwZJQyObHNmh5y/FoL/i+eQQ5LQpbmtfqVrF3uKtPvosuawjpMu3nBGj7m0oCM/mgp/XaXws3u40tQfHFVpHjlPRDPysSQlbmPZJdSBNBqotrh5JjIwdTilsHJZaUYbZogIVMFfY8nOV5ihto+xiZBvOuo9kjtTdQi12Sg43pe87mJKf7i2qXckueUwycbdWgnlYQuwPeIlIXFTP4E4G/PQOYpnNrk8RiVWIqGc0ukdOILLV0olGA/DZ1g1YbuWBEr9a/quyxIxxG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2026 15:49:44.8568
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9289b9d5-3c41-4284-b15d-08defbadfe64
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD78.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5662
+X-B4-Tracking: v=1; b=H4sIACXhgWoC/x3LQQqAIBBA0avIrBNUULSrRAvRyWaRiVIE0t2Tl
+ o/P79CwEjaYWYeKNzU684CcGITd54Sc4jAooYyw0nB/xFQuvtGDjUsbnXbWWx08jKVU/MM4lvV
+ 9P+N5n4deAAAA
+X-Change-ID: 20260816-amdgpu-fixes-18d9598a85ca
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Sunil Khatri <sunil.khatri@amd.com>, 
+ "Jesse.Zhang" <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, Junrui Luo <moonafterrain@outlook.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1063;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=F2ekJeE+WuqeAaVxK/jJWMpPvhrgloRK3OiNqJW1IyQ=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMaHGqH3leYU86UqPzPpmOS856qDxupfaY8ua9qF8
+ ly8V7ry9tmOUhYGMS4GWTFFluMFl75Z+G7R3eKzJRlmDisTyBAGLk4BmMiCrwz/Hfh2Vf1elrln
+ 6evDwrOZVkwR473dNaPlq9eewosvpcUaIxgZrnJov7Wojtics1aeZZWc5qIr3aIzlzYkbHeI/5t
+ +k+UPHwBTZkyn
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+Reply-To: moonafterrain@outlook.com
 
-dma_issue_pending_all() walks the dma_device_list with
-list_for_each_entry_rcu() under rcu_read_lock(). dma_device_release()
-unlinks the device with list_del_rcu() and then calls
-device->device_release() (which in many drivers, such as plx_dma.c,
-directly calls kfree()).
+Patch 1 cancels the fences still linked on a queue's fence driver when the
+queue goes away.  Each of them holds a reference on the driver, so its
+refcount never reaches zero and the seq64 slot stays allocated for the
+lifetime of the device.
 
-Because there is no grace period between unlinking the device and
-freeing it, concurrent RCU readers in dma_issue_pending_all() can
-access the device after it has been freed.
+Patch 2 holds xa_lock_irqsave() across the doorbell xarray walk in
+mes_userq_detect_and_reset().  That xarray is device wide, so the walk
+dereferences queues owned by other drm_files, and nothing keeps them alive
+for its duration.
 
-The lockless walk originally relied on clients holding a dmaengine
-reference to pin the provider module, and therefore the device, for as
-long as they might traverse the list. Commit 8ad342a86359 ("dmaengine:
-Add reference counting to dma_device struct") decoupled the dma_device
-lifetime from the module reference, so the device can now be released
-while a reader is still walking the list.
-
-Add synchronize_rcu() before the device is freed, so RCU readers are
-guaranteed to have finished. Keep it unconditional: providers that do
-not implement device_release() free the device themselves once
-dma_async_device_unregister() returns, so they need the same grace
-period.
-
-Fixes: 2ba05622b8b1 ("dmaengine: provide a common 'issue_pending_all' implementation")
-Suggested-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260526-dmaengine-kref-fix-v2-0-3df60afac01d@amd.com
-Signed-off-by: Shivank Garg <shivankg@amd.com>
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- drivers/dma/dmaengine.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Junrui Luo (2):
+      drm/amdgpu/userq: cancel linked fences on fence driver free
+      drm/amdgpu/userq: hold the doorbell xa lock during hang reset
 
-diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-index bf491eb10596..29b128aa0bea 100644
---- a/drivers/dma/dmaengine.c
-+++ b/drivers/dma/dmaengine.c
-@@ -429,6 +429,12 @@ static void dma_device_release(struct kref *ref)
- 	list_del_rcu(&device->global_node);
- 	dma_channel_rebalance();
- 
-+	/*
-+	 * Wait for RCU readers (e.g. dma_issue_pending_all()) that may still
-+	 * be traversing dma_device_list before the device is freed.
-+	 */
-+	synchronize_rcu();
-+
- 	if (device->device_release)
- 		device->device_release(device);
- }
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 71 ++++++++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c      | 13 ++++-
+ 2 files changed, 57 insertions(+), 27 deletions(-)
+---
+base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
+change-id: 20260816-amdgpu-fixes-18d9598a85ca
 
+Best regards,
 -- 
-2.43.0
+Junrui Luo <moonafterrain@outlook.com>
+
 
