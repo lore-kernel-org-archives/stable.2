@@ -1,159 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6F12D5C83;
-	Sun, 16 Aug 2026 16:33:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73E0EEA8
+	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 17:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786898039; cv=none; b=afMi0vMFlIQ6Vf3VuxG/huHHIcwo2ZMWuCG0J2vodeh9Gp3FLNF4bVD9VQhe5KH71J5MEDyjcq9HNU6jr0A86T2NszeMydWvg3yWDZPcqNEUGCJHA3HLh2c0YP9+bTtzcaL2eLufTuFoAs7ptElCTEXynBmcVJP0aA77aWcrpbk=
+	t=1786900618; cv=none; b=Nd/oEADcPJZIaVB4VLOu59pGW9aFLhj4hknda6izWT/x3Htf9lPg8UE8Z3YJZDEyw3LesYO8k01QK6Vatuyh30E3OfAEWQz1GBJyo/Zo62WbPqLtVk+bumB2LoNub+LzAfPUCZfPwQ4YpM41m2HzG623oxIHZhXsIotCCD406zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786898039; c=relaxed/simple;
-	bh=rDiNd49aWx3MAbzZAQIXttSKwyHUL0YuxTMN8QxgY2M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N84o0sPKC+BkFmNDa9ZX6QOL9y/yNqPiqY/l18XnHtG6pvpD2J4Wm3ZDZRXjltqbDxk9j7mNi5nYYh4vRX8FxVv4JR5X5gxxEyWRFSWx0r2CNo89kBtKLM1IAGCWlchdvHLXyA5xuLwTIspR0/lEoLjZugr0mM5jJLU2OuwEUms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UngjnQZe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786900618; c=relaxed/simple;
+	bh=CRqmAvWGksbZfUuvcjjpvynfTJFjP2gans9vMh8Sje4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PXTsycY9LJ66j3u9KhgqPfcEjvTAgh2vRFeAwe9Ok3euMQmUV2eitE+HiAA6KtkMzlViWRWwTqRHYm3py3FUqXQOLXVeyo/DPAmdue5V0G5IckIjik3qJXF41arsRjnfGfoBMp8b2Io0xJ3W0fzCFUK2op57+PbnylEa/xDPG0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cIaWTi61; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UngjnQZe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C1DC1F000E9;
-	Sun, 16 Aug 2026 16:33:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786898038;
-	bh=w84+BbCsoMApIrLAjEDcBmIlBtHQNSUwPmoLeJf3H2o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UngjnQZeqH+34nuCkYpcT4b5H0QCcyMlnHcap34Td7qC9iZy96gXs1kJazVUj1UEj
-	 a4XNKWu1UMy8k8Ys7MwBzuA8a28DcyTQJZHtrBKKJwgRsSekMgTGpYhdptT1a9f5N+
-	 ngFKT5Yi9NVwZ3C2VhCYlwISUdPhXvhNpV56e67xl2L2qITj8oQv9w8FqptUmq68HH
-	 b5ZfMgkEJCh/29KTgGMa3Qi/2S8WZvMSR24LPeQYwld50UvbNBjDzNl2neQ9t53x1u
-	 3uUvi4O5zVDr3wPG1A5meUljb5efAdXjAZM5IxFnNG7qM3e8eXRGxWJTVuJQVPCdKS
-	 m7tbVGdy0aL7A==
-Message-ID: <69fdc442-a4f2-42e0-80f6-6b35cbc207bf@kernel.org>
-Date: Sun, 16 Aug 2026 11:33:56 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cIaWTi61"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so2103703a91.2
+        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 10:16:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786900617; x=1787505417; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jqHlndu2mP4JOXXcMYq7yqkvIBuKIHfSguke33kVois=;
+        b=cIaWTi61vQqxn5hzucL1kCgdg0BVmC6RaHwLsXnOQlWtkrAnSU1msJJ1dA7QJ4+b3D
+         71sLe7t/i7ixhF3E198uXoYryQP844pX6GD3GAv3sIZzhgrr7RliLPnNOKEUHW6ssVsG
+         0idHIdu+DRKzubnh0gNLdHSnoM2Ei1opfEKpsoEZ0rlWSLp+BIBSjccG2cJFmXKM3ROu
+         Rumf8VOefyVy0rf9h7Dz0kslH0PoI+PrjwBZ40EI2zaNNbyiePQNX9OCmVnsGz3gQfeE
+         Lk1+Klf1WftJTsgk47OGo5flHnUJZT3PvmhAkfWiv2geaV5ZeKodX3A8rgjksffRr31n
+         TMEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786900617; x=1787505417;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jqHlndu2mP4JOXXcMYq7yqkvIBuKIHfSguke33kVois=;
+        b=Nk/c+m8yhF0EbGVlUl8nppRY7jqjlXW2OpSbhG8zm2pg7O0eco7pj+iscSJTgt0hmI
+         nPDsuVJvZOTZImsnprkVYszW6+z+Cwl33OSkZyOJzekEbTceb4nLPoVE2FA2b3LLRGRU
+         G2dMJEmkOFXwqy2qBmH0Va8S21hBeZSuQnM3a8AUahF4k3poiLzgxV4AM6rmdmPPgOXx
+         IaTo22VKz35/rF0Xn/3KSY8IxTMvI0pYWpCycnH9HD/u88+ud5d2BliVImM6ZivB/+7l
+         7K7tuQhwmeo2K/Bph6NUi3VGstsj/N0F87SUbRcl7npgQWl1VRoNhgvegPFkWjDNYhER
+         zjqw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqge/+0iihXC9/smweCpgaf/rSQwtAo8eJmGwk9PXsLeg1XyLLlghTPGVr6NI9m2WoZOQEiO2c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyufKpfPFuYho/XWjOqh9sV6h2AmNfXcTM1EtPR96avBtUBjfHc
+	DWPfHXqcDWUzoQTO6gooOnCjVyqf1hvYiGI7DBss4neZ2QQAgucd32Kl
+X-Gm-Gg: AR+sD133vr8O7rYOQuXpfGX01jj7KmHuMt4NZqknaoEPRjIvGr/dgXh8y4rMi6APwT5
+	ao6sdPF2W7MiB6L73bDDWjSkbyPZmvZHMNdOExW8eRmCkqfxSN6y5jq7HFPHESIfILTHsl+Gc3K
+	7+JK0Gn05t2uP34ZY1nOcuTtS1OfBRo3eGgmMZMeOhxqRLQewkODTRIe06lcC/cch6ise99UEYW
+	BJQxA+JX5A7NDIsXYqWpbEU8eLgulLgdQUCyGRRV83FM9nfanMmj+gZSQVv8V++n/EfcDRi7srH
+	EGyGA9KboJCNaojFHQT6HlDI22ZGcETIecipm1KhEFo129fZKoKXGa83ORAhhD7UeAnZxjl5lpT
+	B6Pkem0zCpBTq7iL/ztZuLesr6KV0XkJjYvV8TxkmAPKvSFTRHRiYn1J3PlP3B8/jUcH8ybreQb
+	CS7PaqmBUSbN4MsNTALeVU0lmNnBG4uWdgXZxAvbhP2Vnie3DBSktcRQPMnGV1qzYqsV9LKmtbo
+	mEK5OoVXkJ8Qq+qiSCQ/j1954A=
+X-Received: by 2002:a17:90b:528a:b0:38e:5ac1:9517 with SMTP id 98e67ed59e1d1-3933b7c3696mr20611825a91.3.1786900616817;
+        Sun, 16 Aug 2026 10:16:56 -0700 (PDT)
+Received: from localhost.localdomain ([240a:4280:4800:1470:95d0:2f3e:656d:65de])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39339d00eafsm4607627a91.1.2026.08.16.10.16.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 16 Aug 2026 10:16:54 -0700 (PDT)
+From: Liu Zhenlong <dragonliu2018@gmail.com>
+To: linux-pci@vger.kernel.org
+Cc: jacky_chou@aspeedtech.com,
+	mani@kernel.org,
+	bhelgaas@google.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	robh@kernel.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Liu Zhenlong <dragonliu2018@gmail.com>
+Subject: [PATCH] PCI: aspeed: fix clk and phy leak in aspeed_pcie_port_init error paths
+Date: Mon, 17 Aug 2026 01:16:33 +0800
+Message-ID: <20260816171633.15025-1-dragonliu2018@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: pci-quirks: always assert xHCI OS ownership
-Content-Language: en-US
-To: Rishabh Jain <rishabh.jain1198@gmail.com>,
- Mathias Nyman <mathias.nyman@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260815014534.77850-1-rishabh.jain1198@gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260815014534.77850-1-rishabh.jain1198@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/14/26 20:45, Rishabh Jain wrote:
-> The xHCI ownership protocol requires the OS driver to assert the HC OS
-> Owned semaphore before using the host controller, then wait for HC BIOS
-> Owned to clear if firmware owns it.
-> 
-> quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
-> is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
-> while both ownership semaphores remain clear.
-> 
-> On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
-> resume to terminate Controller Restore State with USBSTS 0x401. Linux
-> then reset the host controller, both root hubs and the USB Bluetooth
-> adapter.
-> 
-> The controller entered resume ready and halted with USBSTS 0x1.
-> Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
-> device contexts and command, event and transfer rings were verified not
-> to cause the restore error.
-> 
-> Asserting only HC OS Owned changed USBLEGSUP from 0x00000801 to
-> 0x01000801 and eliminated the restore failure across four S3 cycles,
-> including a stock-kernel test. Clearing USBLEGCTLSTS was independently
-> verified to be unnecessary.
-> 
-> Always assert OS Owned when the xHCI Legacy Support capability is
-> present. Use the independently accessible ownership byte so firmware
-> can update BIOS Owned without racing a 32-bit read-modify-write. Keep
-> the existing BIOS handoff wait and legacy SMI cleanup unchanged.
-> 
-> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
-> Tested-by: Rishabh Jain <rishabh.jain1198@gmail.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
-> ---
-> Additional context:
-> 
-> * Kernel Bugzilla #216470 documents the same USBSTS 0x401/reinitialize
->    behavior and its impact on attached USB devices:
->    https://bugzilla.kernel.org/show_bug.cgi?id=216470
-> 
-> * Commit a7d57abcc8a5 ("xhci: workaround CSS timeout on AMD SNPS 3.0
->    xHC") is related workaround history: it tolerates a distinct AMD CSS
->    timeout and resets the controller on resume:
->    https://github.com/torvalds/linux/commit/a7d57abcc8a5bdeb53bbf8e87558e8e0a2c2a29d
-> 
-> The external reports do not record their ownership semaphore values but
-> are included as corroborating failure signatures that this might fix.
-> 
-> drivers/usb/host/pci-quirks.c | 12 +++++++++---
->   1 file changed, 9 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-> index 0404489c2f6a..d76a4791b8f5 100644
-> --- a/drivers/usb/host/pci-quirks.c
-> +++ b/drivers/usb/host/pci-quirks.c
-> @@ -1185,6 +1185,14 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
->   		dev_warn(&pdev->dev, "xHCI controller failing to respond");
->   		goto iounmap;
->   	}
-> +
-> +	/*
-> +	 * The OS ownership semaphore must be asserted while the OS owns the
-> +	 * xHC, even if firmware did not assert the BIOS ownership semaphore.
-> +	 * Update only the OS ownership byte to avoid racing with firmware.
-> +	 */
-> +	writeb(readb(base + ext_cap_offset + 3) | BIT(0),
-> +	       base + ext_cap_offset + 3);
+aspeed_pcie_port_init() calls clk_prepare_enable() to enable the port
+clock, but if phy_init() or phy_set_mode_ext() fails afterwards, the
+function returns without calling clk_disable_unprepare(), leaking the
+clock reference on every probe failure.  Additionally, when
+phy_set_mode_ext() fails, phy_init() has already succeeded, so
+phy_exit() is also missing, leaking the phy reference.
 
-I'm assuming you are actually meaning XHCI_EXT_CAPS_PM for the 3 here. 
-Why are you doing all this math?
+Add the matching clk_disable_unprepare() to both error paths, and
+phy_exit() to the phy_set_mode_ext() failure path, mirroring the
+cleanup pattern in pci-aardvark.
 
-We already have the defines XHCI_HC_OS_OWNED, can't you just use that?
+Compile-tested with gcc on arm64 defconfig using COMPILE_TEST; no
+hardware available for runtime testing.
 
-And for that matter it sounds like you are really proposing to just 
-remove this check but adding more complexity in the process.
+Fixes: 9aa0cb68fcc1 ("PCI: aspeed: Add ASPEED PCIe RC driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Liu Zhenlong <dragonliu2018@gmail.com>
+---
+ drivers/pci/controller/pcie-aspeed.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-	if (val & XHCI_HC_BIOS_OWNED)
-
-I guess the way I would do this is at least leave a debug breadcrumb 
-since you're reading the register something like this:
-
-val = readl(base + ext_cap_offset);
-if (val & XHCI_HC_BIOS_OWNED)
-	pci_debug(pdev, "BIOS owns XHCI HC\n"0;
-writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
-timeout = handshake(...)
-if (timeout && (val & XHCI_HC_BIOS_OWNED)) {
-	dev_warn(...)
-	writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
-}
-
-Then you have a single read, no extra writes.
-
->   	val = readl(base + ext_cap_offset);
->   
->   	/* Auto handoff never worked for these devices. Force it and continue */
-> @@ -1195,10 +1203,8 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
->   		writel(val, base + ext_cap_offset);
->   	}
->   
-> -	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
-> +	/* If the BIOS owns the HC, wait for it to hand over control */
->   	if (val & XHCI_HC_BIOS_OWNED) {
-> -		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
-> -
->   		/* Wait for 1 second with 10 microsecond polling interval */
->   		timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
->   				0, 1000000, 10);
+diff --git a/drivers/pci/controller/pcie-aspeed.c b/drivers/pci/controller/pcie-aspeed.c
+index 9aa9e14c6148..1fd663ea3bf8 100644
+--- a/drivers/pci/controller/pcie-aspeed.c
++++ b/drivers/pci/controller/pcie-aspeed.c
+@@ -761,16 +761,21 @@ static int aspeed_pcie_port_init(struct aspeed_pcie_port *port)
+ 				     port->slot);
+ 
+ 	ret = phy_init(port->phy);
+-	if (ret)
++	if (ret) {
++		clk_disable_unprepare(port->clk);
+ 		return dev_err_probe(dev, ret,
+ 				     "failed to init phy pcie for slot (%d)\n",
+ 				     port->slot);
++	}
+ 
+ 	ret = phy_set_mode_ext(port->phy, PHY_MODE_PCIE, PHY_MODE_PCIE_RC);
+-	if (ret)
++	if (ret) {
++		phy_exit(port->phy);
++		clk_disable_unprepare(port->clk);
+ 		return dev_err_probe(dev, ret,
+ 				     "failed to set phy mode for slot (%d)\n",
+ 				     port->slot);
++	}
+ 
+ 	reset_control_deassert(port->perst);
+ 	msleep(PCIE_RESET_CONFIG_WAIT_MS);
+-- 
+2.55.0
 
