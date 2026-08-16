@@ -1,183 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AAB5EEB3;
-	Sun, 16 Aug 2026 03:01:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141F22C11DF
+	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 04:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786849307; cv=none; b=WGvrvI+jf3fZxsRb2pTIbpFr18IL0P2y1vzE/tuWNwtoOcEylpuLekoM+1fgebFsE1MnDQbrwoIRKija4NMUyOW9uz/ezLbGWPZzKmkOyqJrFSrbwRSNcuXVreDKkg6xYZjYf4LODPIwQ5evr6MHBRbpVZ0psRDnBdHUAFOk7e4=
+	t=1786855528; cv=none; b=uigkSruw+9DeWy9ch5DOtS5DCppYcqGQ0z46IIp2Nz2fvlYQCmJfUB6/FCzit72TE0b/b/LjBdef1yMV57AKORogNz9gze+wvJIHE48xnSOulZ2wHSvYrEn2aAtxGYO8PzXyIm7ejB6JPhWadQRk21eMGdzb2zDhN5aPfTWITXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786849307; c=relaxed/simple;
-	bh=yp7K/kfA27jeeIoNQBpdzCIYIozk4pkmL/+R5q6sKyI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hecZ8J8/etRDdGkKctjylhON5GvVBJoDIXMjokgQsvvvvzkY9crvVNkj0ATUuumeGpWZHnlFaH25i1fNV09Sxdvn6v1nB/ePgLPJc2Yt1zGJ1jMUyIkweYQRiV3qcW6iuO2ZE9TpUy29bs0us/Dgj+0YnhabaDqdqAAQxuEsxB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aWW9Zyhx; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786855528; c=relaxed/simple;
+	bh=VPZwRSomxevHO7ok/WVEp7eMxLHx3jbGcDllWYjpIk0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KafSCPnbluSJ5x8xUy6gLPSmmmSz6ONZgTI6Y7m6DQi4Q1kCt4j51nysYRe7gNlbh5ZxGJxEWT5sEhcG8RkjOpNnrUL8mpyo8gp0a7ij6hrDOhFJmgZHWWWgS67dt3Cu5SnBCyosT/ZG774ixV4ztI384hdEc//PpsQCpXDgF4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qRSqVadc; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aWW9Zyhx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786849304; x=1818385304;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yp7K/kfA27jeeIoNQBpdzCIYIozk4pkmL/+R5q6sKyI=;
-  b=aWW9Zyhx/mzETf6lajs1FCL7PmO0Ty/UMVxIHPf/TfrLzxu3+LC2E2u6
-   myDIZ8k2TEmgiaOaRaK/3Ir1Pz6v2WzRlDU4jFIk495038JkWhBwZ7w+V
-   Gc5CARyGhikAHxgxCFLVKZitoTbhwmkGP3Dik3pwV3tO42F1Z1JQZ8Y2E
-   81Q8nZNs1XEFIkDB6HLN97LlGMRhvS3mCVGddxFWUKV5bwnWQ4E131xc/
-   RFnhX9VIOswtysqZgH+0hyD8NcCjuC7UuU62jQZFqz33hKDrAejLx6gJX
-   aSD8ZY10dI8olHoZOGW0qyJzYpOEhKBuHDBitcYuc762sRXY7XYVir2YA
-   w==;
-X-CSE-ConnectionGUID: nu7f7jn5S36udiit9WSAog==
-X-CSE-MsgGUID: cA5kUhfsSAyTOK+lKGBJEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11876"; a="98031744"
-X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; 
-   d="scan'208";a="98031744"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Aug 2026 20:01:43 -0700
-X-CSE-ConnectionGUID: PFAW3R9FQ9y0VVsmUMJBvg==
-X-CSE-MsgGUID: LYFm/FfYS/SdEmaOmuEw8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; 
-   d="scan'208";a="262806706"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 15 Aug 2026 20:01:41 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wvR7y-00000000ci6-112D;
-	Sun, 16 Aug 2026 03:01:38 +0000
-Date: Sun, 16 Aug 2026 11:01:02 +0800
-From: kernel test robot <lkp@intel.com>
-To: WenTao Liang <vulab@iscas.ac.cn>, ntb@lists.linux.dev
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, jdmason@kudzu.us,
-	dave.jiang@intel.com, allenbh@gmail.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>, Greg KH <greg@kroah.com>
-Subject: Re: [PATCH v2] ntb: fix tx descriptor leak on dmaengine_submit
- failure
-Message-ID: <202608161033.NUWmez14-lkp@intel.com>
-References: <20260628083301.9781-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qRSqVadc"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-90a80860d35so20365646d6.2
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 21:45:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786855525; x=1787460325; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aXQqM4Uz+B7ErOlECxSpCZ++Y8mo3D64bY4QdYcgNwo=;
+        b=qRSqVadcpAn7biNDanCxu8O7iykcNgRAO46rIZbwxWbcqrfJi1z8kuY6jf8fVar0Z/
+         KnIGj4FQ4P7SNjpQyZ0XbVMhhFW0mGzYBxWTeh3fUNjhRulGYflWZZ3Dqm3FkCB7Po8W
+         i27/poacJt16rvPraNr7ytlrZNtJHVilbk88ln1RlWSVJjeqxdAVxaowgmPJDZT9tk8g
+         6QwdeKcEGTl74Jod0yHiWcHjnfhXfJY1uxxpJKrtrI+sticqhZgGGdpUMmaxVzsSd9Y9
+         xofZMHB0+NTx/HapRBbOHXQpaaQyG00r7UVLNLKcR5KWqvOL/4RJsJeM7pUbU2Ad6WzZ
+         WUpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786855525; x=1787460325;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aXQqM4Uz+B7ErOlECxSpCZ++Y8mo3D64bY4QdYcgNwo=;
+        b=eqdSlDrxZ8lndYp5Dbzk9YrZvP4TtK/nJM1AvP5ptIKhs9ts+P6q9jH7pKzNFT9Jc4
+         BIdokO1lgWuYs4T3LBcYA//BTip6Fh+4+h1x6wyWbjlL5bQ2rQYJJF4n9PMDUeaWqP3e
+         wCILpFATyOo7CLIqxHJ+rvq/JBuzZGW+8ACBYoQFJJ5LSZmRVm5kDJOGlM8tyBxZ2fcT
+         xX5SLRCORYS3ylAHxJ1Xh28NDwY4nbaoGL5hsHbiitOrSCYqje3SU6fd5696xZI85KgH
+         FpRuCpVXiQa3f83CvyzituJRn3MwO1oD7QGKAReFjMqg1iPk09XwO+/c0XQW8rKoZpLK
+         PotQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqmmph3AL8vDZ6MHyP9VjQMbALWd8QOQTQtsYv/zR1EwjakW6YhqmEDjT/Duclo6YK5g2A5niI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfTBN88KYz3KBQXqkBS4cmX2dJRfKnTQ4oNHRJkBQ3Qv55DF0F
+	KghRn3eUGusi/zO+B+Ejo8SkiQQvNbSZRxZXef/rdmPHcBLnbThAWq9T
+X-Gm-Gg: AR+sD10R9gc8VihIDgBM6xZ//Z1F7Tf8W5vbWqMq9AK+saBZCWjTakFOBjEQlT4v8+S
+	59KtxDNZe/5A0Ce0ClJEYQzHhVBojOexBHCJ+s/G/hM0/sSSySeuV7ajHdnUnoWhtkO2XlbCbBT
+	XScRJwUB8XXNWdbLWz8pYmdH5aiqbMnKYFcXoTcLXP4Le8x+TOO7MAIeYH823Tj0Ew4WskZvrgf
+	UG2gg+Z+iSdtXuEYndQP7ACmtSS28iPMdXGsQb5GiSe+0ABDLVfApxxNiwv/hWvkmrLrE59ovoC
+	2X1pGZL83jAM8ZPf3oUbRoYd0MZqkoMF2EiZvWEkQAVR+DLwxj10XkUYAf7imH4OYjwhVxVHLtm
+	YGC5UxJ4iEPZmVEjMZD2twb6x+8diaknobedwTYGmISFPLPak5wB1b5vi29IiqVIMxrvb+XQvhA
+	FK2NJcW+0conwwfR7ZmhWpoQt62nyavA8S+UUgnyBaAslh+kw+WG5DX3hMqGNhFxzDeZh6OdgPh
+	oblMmeySAeOvMBM7w==
+X-Received: by 2002:a05:620a:a293:b0:934:970a:beb2 with SMTP id af79cd13be357-936d22ce4d1mr1589429185a.26.1786855524958;
+        Sat, 15 Aug 2026 21:45:24 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-936ce1ea6cfsm687105385a.27.2026.08.15.21.45.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Aug 2026 21:45:24 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: yishaih@nvidia.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Subject: [PATCH] IB/mlx4: Fix use-after-free on pkey sysfs registration failure
+Date: Sun, 16 Aug 2026 00:45:10 -0400
+Message-ID: <20260816044510.3848996-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260628083301.9781-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
-Hi WenTao,
+register_pkey_tree() ignores errors from register_one_pkey_tree() and
+continues registering the remaining slaves. The per-slave error path has
+already released the pkey parent kobjects, but their pointers remain
+stored in the device. A later device cleanup therefore passes the stale
+pointers to kobject_put(), causing a use-after-free.
 
-kernel test robot noticed the following build errors:
+Clear the parent pointers after releasing a failed slave tree and skip
+unregistered trees during device cleanup. This preserves the existing
+best-effort registration behavior while preventing a second cleanup of
+the failed tree.
 
-[auto build test ERROR on jonmason-ntb/ntb-next]
-[also build test ERROR on linus/master v7.2-rc7 next-20260814]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Fixes: c1e7e466120b ("IB/mlx4: Add iov directory in sysfs under the ib device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+---
+ drivers/infiniband/hw/mlx4/sysfs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/WenTao-Liang/ntb-fix-tx-descriptor-leak-on-dmaengine_submit-failure/20260815-061001
-base:   https://github.com/jonmason/ntb ntb-next
-patch link:    https://lore.kernel.org/r/20260628083301.9781-1-vulab%40iscas.ac.cn
-patch subject: [PATCH v2] ntb: fix tx descriptor leak on dmaengine_submit failure
-config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20260816/202608161033.NUWmez14-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 844a18e753e822736c9805ab779144b647a2c186)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260816/202608161033.NUWmez14-lkp@intel.com/reproduce)
+diff --git a/drivers/infiniband/hw/mlx4/sysfs.c b/drivers/infiniband/hw/mlx4/sysfs.c
+index e688ad66a895..5438224bf325 100644
+--- a/drivers/infiniband/hw/mlx4/sysfs.c
++++ b/drivers/infiniband/hw/mlx4/sysfs.c
+@@ -751,11 +751,13 @@ static int register_one_pkey_tree(struct mlx4_ib_dev *dev, int slave)
+ 		kobject_put(p);
+ 	}
+ 	kobject_put(dev->dev_ports_parent[slave]);
++	dev->dev_ports_parent[slave] = NULL;
+ 
+ err_ports:
+ 	kobject_put(dev->pkeys.device_parent[slave]);
+ 	/* extra put for the device_parent create_and_add */
+ 	kobject_put(dev->pkeys.device_parent[slave]);
++	dev->pkeys.device_parent[slave] = NULL;
+ 
+ fail_dev:
+ 	kobject_put(dev->iov_parent);
+@@ -785,6 +787,8 @@ static void unregister_pkey_tree(struct mlx4_ib_dev *device)
+ 		return;
+ 
+ 	for (slave = device->dev->persist->num_vfs; slave >= 0; --slave) {
++		if (!device->pkeys.device_parent[slave])
++			continue;
+ 		list_for_each_entry_safe(p, t,
+ 					 &device->pkeys.pkey_port_list[slave],
+ 					 entry) {
+-- 
+2.43.0
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608161033.NUWmez14-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/ntb/ntb_transport.c:1577:2: error: call to undeclared function 'dmaengine_desc_put'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    1577 |         dmaengine_desc_put(txd);
-         |         ^
-   drivers/ntb/ntb_transport.c:1577:2: note: did you mean 'dmaengine_desc_free'?
-   include/linux/dmaengine.h:1607:19: note: 'dmaengine_desc_free' declared here
-    1607 | static inline int dmaengine_desc_free(struct dma_async_tx_descriptor *desc)
-         |                   ^
-   drivers/ntb/ntb_transport.c:1901:2: error: call to undeclared function 'dmaengine_desc_put'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    1901 |         dmaengine_desc_put(txd);
-         |         ^
-   2 errors generated.
-
-
-vim +/dmaengine_desc_put +1577 drivers/ntb/ntb_transport.c
-
-  1515	
-  1516	static int ntb_async_rx_submit(struct ntb_queue_entry *entry, void *offset)
-  1517	{
-  1518		struct dma_async_tx_descriptor *txd;
-  1519		struct ntb_transport_qp *qp = entry->qp;
-  1520		struct dma_chan *chan = qp->rx_dma_chan;
-  1521		struct dma_device *device;
-  1522		size_t pay_off, buff_off, len;
-  1523		struct dmaengine_unmap_data *unmap;
-  1524		dma_cookie_t cookie;
-  1525		void *buf = entry->buf;
-  1526	
-  1527		len = entry->len;
-  1528		device = chan->device;
-  1529		pay_off = (size_t)offset & ~PAGE_MASK;
-  1530		buff_off = (size_t)buf & ~PAGE_MASK;
-  1531	
-  1532		if (!is_dma_copy_aligned(device, pay_off, buff_off, len))
-  1533			goto err;
-  1534	
-  1535		unmap = dmaengine_get_unmap_data(device->dev, 2, GFP_NOWAIT);
-  1536		if (!unmap)
-  1537			goto err;
-  1538	
-  1539		unmap->len = len;
-  1540		unmap->addr[0] = dma_map_phys(device->dev, virt_to_phys(offset),
-  1541					      len, DMA_TO_DEVICE, 0);
-  1542		if (dma_mapping_error(device->dev, unmap->addr[0]))
-  1543			goto err_get_unmap;
-  1544	
-  1545		unmap->to_cnt = 1;
-  1546	
-  1547		unmap->addr[1] = dma_map_phys(device->dev, virt_to_phys(buf),
-  1548					      len, DMA_FROM_DEVICE, 0);
-  1549		if (dma_mapping_error(device->dev, unmap->addr[1]))
-  1550			goto err_get_unmap;
-  1551	
-  1552		unmap->from_cnt = 1;
-  1553	
-  1554		txd = device->device_prep_dma_memcpy(chan, unmap->addr[1],
-  1555						     unmap->addr[0], len,
-  1556						     DMA_PREP_INTERRUPT);
-  1557		if (!txd)
-  1558			goto err_get_unmap;
-  1559	
-  1560		txd->callback_result = ntb_rx_copy_callback;
-  1561		txd->callback_param = entry;
-  1562		dma_set_unmap(txd, unmap);
-  1563	
-  1564		cookie = dmaengine_submit(txd);
-  1565		if (dma_submit_error(cookie))
-  1566			goto err_set_unmap;
-  1567	
-  1568		dmaengine_unmap_put(unmap);
-  1569	
-  1570		qp->last_cookie = cookie;
-  1571	
-  1572		qp->rx_async++;
-  1573	
-  1574		return 0;
-  1575	
-  1576	err_set_unmap:
-> 1577		dmaengine_desc_put(txd);
-  1578	err_get_unmap:
-  1579		dmaengine_unmap_put(unmap);
-  1580	err:
-  1581		return -ENXIO;
-  1582	}
-  1583	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
