@@ -1,192 +1,147 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 39C3F3C09E2
-	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 00:45:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EF130F543
+	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 02:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786841104; cv=none; b=HR7jot+rqqMzTcjHoS7OES82e0Zo3SlCRQr0/id5GDeiOWh/+Fj5Er5hXR/NIzPjkXTv4HZBsl30BOlcloxliYXxuzixJqKJQdfBZDqnXDG5+iclSzAIeMQCJKSCy98nopz2s4inoxw8EGxRzITYLLN61TTBm2MyE+wIfYSD9uA=
+	t=1786847196; cv=none; b=Den3/b4ks+1bO8c5UmpkEwm8IQ5GMhWrGe50WYpfROHG4BZ0Wyi8TsE9O3c2wg1OYvoJIfFeu9ck6Nyh4k7tEqn+NVbzcDVmo4ynimTSxcm7usXS6EzqVPArv4dFHVbps8ArgaQquR1lcr4zr1Iug/Nyn9geKC6FVlaiXNGxhjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786841104; c=relaxed/simple;
-	bh=+EW7yBAgOs+cnUKsieEofViU2UFBNGtlBW5FLGSXq7E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qJizKMdTNZ8gV+Zeof/mjwpN0hf4nFq4tg5hdC8q6aAblQ7p60Sld/tpviL2k3SZqUfWOatWCqqQGBdRXZRh7zcjOyhnRWJZcIs435K2NJ/f2e4lsrxd0/NVfrYLOI66rVjNjxZecOCHf+iReognbeRA7AIBxP7zLJBCUoCbTWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bHlYzfGL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1786847196; c=relaxed/simple;
+	bh=pis0kTjcjwtXLktyJ0SMWtk1i2ffUG1YYWwDE5g8zV0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZhLJQu+C+dhxNMLLlDKTwZcHomcc1ksFYQosiPVtksqSCP6R9jFwkJW3M6Si1Kvp168X6JFpjXroCjscygP/r8Dnu9uKFTa9FYp7RhU1GwgRCDDhXBIXTwDGJyBNHw7YHeD43Rz1KqsmqprsZ08koZDdmhe6RG15/doiAaLwXQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S6yKdvkH; arc=none smtp.client-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bHlYzfGL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 69C521595;
-	Sat, 15 Aug 2026 17:44:56 -0700 (PDT)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4E2483F66F;
-	Sat, 15 Aug 2026 17:44:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1786841100; bh=+EW7yBAgOs+cnUKsieEofViU2UFBNGtlBW5FLGSXq7E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bHlYzfGLuSxzn+vqITNqw39GnQ5tVbpNJuWPYSI2iqOwQpsoA6UwqrRT/IFLf96ha
-	 jEb+1TSFjiJ1+slX6dzbmJE4xrXyZxm2X5RvoWzxHwDCd1pTyqdQXoSbTCzFi/D1Rn
-	 CIAvw4Hhwdd12MewlhTpXx4udAZbG7C3mv+k587U=
-Date: Sun, 16 Aug 2026 01:44:50 +0100
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Cc: Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, ljs@kernel.org, 
-	Shen Yongchao <grayhat@foxmail.com>, Karl Mehltretter <kmehltretter@gmail.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] KVM: arm64: nv: Delay freeing of shadow S2
- structures until VM destruction
-Message-ID: <4rr77zka26omz5onb25niwjbvqzxqwqzjwqbmfgnyu7yop5f2z@zggt74l2wh4c>
-References: <20260814103230.858578-1-maz@kernel.org>
- <20260814103230.858578-3-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S6yKdvkH"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-9034b6b7674so13633946d6.0
+        for <stable@vger.kernel.org>; Sat, 15 Aug 2026 19:26:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786847194; x=1787451994; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oXHBCMGnZB0X0bTy2l3XtoU3OG3/4+XfTiH2lDtrhfs=;
+        b=S6yKdvkHAmjS56QPh2hlZBBCqr4z1B952I/To89eri4sdNUmefb9kBt8Rl6sSwFWul
+         /8Af8xqBujfX5gmL6uNpSRxPLwibmpMp5i+90+37JOQyIdgb4bzdlcD5sFIMbgUMTjmY
+         9m8+BBvkgXh++vIkjTl4XqcYz1OGOiEh9EmgGHSWdXysTArodw2fY+rkwDHZ1lzURAyb
+         0EIGQkSHQojAbMBXf/svrK6QkaQecl+NrVAoygb3ubIo3TeUUjllH1sAk1LMNYflyXPX
+         cZt6AvlxE/KZzcEZHzUn1foelOj0nCkpR8B/KOfqAjGnn3CMRah2bFAziB+Em7afW1/U
+         OzEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786847194; x=1787451994;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oXHBCMGnZB0X0bTy2l3XtoU3OG3/4+XfTiH2lDtrhfs=;
+        b=i9N5JbLMzly1sI7HgB4LhklBc7A68CbosdS7JFjpNgszfOrW3u0n9k8XhHvlTBa2AP
+         e88BfOhbul0R8BKzmJnobT+8Zf3ohd4dz2iDNiM4E3eCKFaYQzaW2I/j6nD0AfmJXWmt
+         VTYGELH0rJjrosDSbS3Mz+ZmzY5jN3Q0pukOxlJkNRG+7tGTpek69FdVF4rqQExjprZ8
+         FVu2OcIa+rbGrQF6UAMlFJ9OD/E6rNK9k70y7VjscvK2QmEuE94heRjHFEt8OYZgBF3r
+         d9RpeUrU7KsjEDt2oUWKr3wrxOQEkxaQMYu2hN29+1aGzGOwmWsslNC5lHV3cowo/m4V
+         tEbw==
+X-Forwarded-Encrypted: i=1; AHgh+RqmBabv+AtsUWt09dhk79OmOVW3uZO4ujJDnAlA48Q7DGkdu372vSDCtnt5BwMkRUdQuzVr0G4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQIjahLtU5qjiaGb1Pj/cnm3khluh9Ga/cqNQQ4X8zaqAi84Mh
+	oll6KETf1Zm7WqO7roIGi0NnykIyU1GK/DwO7nNzZn9auNqm0KRiCuey
+X-Gm-Gg: AR+sD12NFoUfSGGMrsPKnGaY6bgkD8KQWFnLk9O4nwJTCWz5OU1GOUd9XeFlSolEFB1
+	7/5LI/0e3Ule7miVab/WyM5N9o5qv/PLRNT26xYOOfF6n6m6rC9fWzOLTHHrSAmqdqsDx8/StL/
+	Cx4m0BU/pKGrO0WYLo7+YBxn2pqHZUEbkW41q38QlxcNTJVMYgbGgbDItd79wr6V1J1oL/sWMcY
+	/v5J2059N0pCu/3Y4LH9Jyq6TU8V0hMzS/UvzDbYM/8N2CYz3/g45xBzrIGhj9BAEpWbr45hrZ6
+	pMKiRBY7JLVYIO0+Kdp5yn3zWn3HXXzic8rnBViwkASnPQ7CtrHPC7LRuWxLq+Ha8E2GXFrAIZo
+	2WVDzD8lrF/sYtBkfbGhb8z0GT121EaKUnmyzsEfKDIIrS4DzgOyJc7GTSdFLV0RJNlymb+ufPp
+	wP8H+RMYzilz+nVuHh0ibP+Nx2zbWtGZurFzXCNY8FUzEi1KpIYjrKQkVNEv+ZFs2qtUTjla4Wp
+	XRzU5VdklHSK1MWJg==
+X-Received: by 2002:a05:6214:27ca:b0:90a:6016:deab with SMTP id 6a1803df08f44-90a91d06fafmr191287646d6.8.1786847193628;
+        Sat, 15 Aug 2026 19:26:33 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90a921e54e2sm54192436d6.3.2026.08.15.19.26.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Aug 2026 19:26:33 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: bernard.metzler@linux.dev,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Subject: [PATCH] RDMA/siw: Fix CEP use-after-free in siw_connect()
+Date: Sat, 15 Aug 2026 22:26:19 -0400
+Message-ID: <20260816022619.3629422-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260814103230.858578-3-maz@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 11:32:30AM +0100, Marc Zyngier wrote:
-> We free the shadow S2 structures from kvm_arch_flush_shadow_all(), which
-> is a Bad Idea(tm). Freeing the page tables is fair game (this is what
-> this callback is for), but freeing the container that could still be
-> referenced by another part of the system is not great.
-> 
-> Instead, grow separate destructors that gets called when we tear the VM
-> down for good. From there, we can nuke both the individual MMUs as well
-> as the global array that points to them, safe in the knowledge that the
-> vcpus themselves have been destroyed already.
-> 
-> Note that similarly to what happens for the canonical S2 MMU, we need to
-> manage the freeing of the page tables both in kvm_arch_flush_shadow_all
-> (called on address space teardown) and VM teardown (as a result of
-> closing the VM fd, amongst others), as there is no guaranteed ordering
-> between these two events.
+siw_connect() publishes a newly allocated CEP through qp->cep and gives
+the QP an association reference.
 
-From my understanding, for a normal teardown, address space vs VM
-teardown ordering does not matter. kvm_arch_flush_shadow_all() will
-always be run before kvm_arch_destroy_vm(). (there is
-mmu_notifier_unregister() before kvm_arch_destroy_vm() in
-kvm_destroy_vm())
+If connection setup fails while the QP is being destroyed, QP teardown
+can clear qp->cep and drop that reference first. The error path
+nevertheless drops what it assumes is the association reference. This
+consumes the local allocation reference and frees the CEP before the
+error path updates cep->state and releases cep->in_use, causing a
+use-after-free.
 
-The reason we need kvm_uninit_stage2_mmu() in both functions is if
-kvm_create_vm() fails the canonical pgt could be allocated without the
-mmu notifier registered. Therefore a kvm_uninit_stage2_mmu() in
-kvm_arch_destroy_vm() is required.
+Serialize CEP association and error-side detachment with qp->state_lock.
+Only drop the association reference when qp->cep still points to the CEP
+being cleaned up, leaving the local reference valid until cleanup is
+complete.
 
-For nested mmus we have different conditions. No pgts can be allocated
-unless the VM is successfully created, this makes
-kvm_uninit_shadow_stage2_mmu() redundant in kvm_destroy_nested().
+Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+---
+ drivers/infiniband/sw/siw/siw_cm.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-I don't oppose to having kvm_uninit_shadow_stage2_mmu() in
-kvm_destroy_nested(), as it makes the operations symmetric for canonical
-and nested mmus.
+diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw/siw_cm.c
+index 87c79527ac09..7b32158ea49f 100644
+--- a/drivers/infiniband/sw/siw/siw_cm.c
++++ b/drivers/infiniband/sw/siw/siw_cm.c
+@@ -1467,11 +1467,13 @@ int siw_connect(struct iw_cm_id *id, struct iw_cm_conn_param *params)
+ 	siw_cep_set_inuse(cep);
+ 
+ 	/* Associate QP with CEP */
++	down_write(&qp->state_lock);
+ 	siw_cep_get(cep);
+ 	qp->cep = cep;
+ 
+ 	/* siw_qp_get(qp) already done by QP lookup */
+ 	cep->qp = qp;
++	up_write(&qp->state_lock);
+ 
+ 	id->add_ref(id);
+ 	cep->cm_id = id;
+@@ -1564,16 +1566,19 @@ int siw_connect(struct iw_cm_id *id, struct iw_cm_conn_param *params)
+ 		siw_socket_disassoc(s);
+ 		sock_release(s);
+ 
+-		cep->qp = NULL;
+-
+ 		cep->cm_id = NULL;
+ 		id->rem_ref(id);
+ 
+-		qp->cep = NULL;
+-		siw_cep_put(cep);
+-
+ 		cep->state = SIW_EPSTATE_CLOSED;
+ 
++		down_write(&qp->state_lock);
++		cep->qp = NULL;
++		if (qp->cep == cep) {
++			qp->cep = NULL;
++			siw_cep_put(cep);
++		}
++		up_write(&qp->state_lock);
++
+ 		siw_cep_set_free_and_put(cep);
+ 
+ 	} else if (s) {
+-- 
+2.43.0
 
-For this last paragraph, maybe we can just remove it, or describe the
-extra kvm_uninit_shadow_stage2_mmu() in kvm_destroy_nested() as
-defensive.
-
-Thanks,
-Wei-Lin Chang
-
-> 
-> Fixes: 4f128f8e1aaac ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> Cc: stable@vger.kernel.org
-> ---
->  arch/arm64/include/asm/kvm_nested.h |  1 +
->  arch/arm64/kvm/arm.c                |  4 ++--
->  arch/arm64/kvm/nested.c             | 32 ++++++++++++++++++++---------
->  3 files changed, 25 insertions(+), 12 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-> index 5b8edb2e8a87d..586026e859030 100644
-> --- a/arch/arm64/include/asm/kvm_nested.h
-> +++ b/arch/arm64/include/asm/kvm_nested.h
-> @@ -67,6 +67,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
->  extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
->  extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
->  extern int kvm_init_nested(struct kvm *kvm);
-> +extern void kvm_destroy_nested(struct kvm *kvm);
->  extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
->  extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
->  extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 7607173c1a40c..2b069c6440669 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -269,7 +269,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
->  
->  err_uninit_mmu:
->  	kvm_uninit_stage2_mmu(kvm);
-> -	kvfree(kvm->arch.nested_mmus);
-> +	kvm_destroy_nested(kvm);
->  err_free_cpumask:
->  	free_cpumask_var(kvm->arch.supported_cpus);
->  err_unshare_kvm:
-> @@ -327,7 +327,7 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
->  
->  	kvm_unshare_hyp(kvm, kvm + 1);
->  
-> -	kvfree(kvm->arch.nested_mmus);
-> +	kvm_destroy_nested(kvm);
->  	kvm_arm_teardown_hypercalls(kvm);
->  }
->  
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index 254cbd8703b3d..d0c05db554b1c 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -55,6 +55,27 @@ int kvm_init_nested(struct kvm *kvm)
->  	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
->  }
->  
-> +static void kvm_uninit_shadow_stage2_mmu(struct kvm *kvm)
-> +{
-> +	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
-> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
-> +
-> +		if (!WARN_ON(atomic_read(&mmu->refcnt)))
-> +			kvm_free_stage2_pgd(mmu);
-> +	}
-> +}
-> +
-> +void kvm_destroy_nested(struct kvm *kvm)
-> +{
-> +	kvm_uninit_shadow_stage2_mmu(kvm);
-> +
-> +	for (int i = 0; i < kvm->arch.nested_mmus_size; i+= S2_MMU_PER_VCPU)
-> +		kvfree(kvm->arch.nested_mmus[i]);
-> +
-> +	kvm->arch.nested_mmus_size = 0;
-> +	kvfree(kvm->arch.nested_mmus);
-> +}
-> +
->  static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
->  {
->  	/*
-> @@ -1310,16 +1331,7 @@ void kvm_nested_s2_flush(struct kvm *kvm)
->  
->  void kvm_arch_flush_shadow_all(struct kvm *kvm)
->  {
-> -	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
-> -		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
-> -
-> -		if (!WARN_ON(atomic_read(&mmu->refcnt)))
-> -			kvm_free_stage2_pgd(mmu);
-> -
-> -		if ((i % S2_MMU_PER_VCPU) == 0)
-> -			kvfree(mmu);
-> -	}
-> -	kvm->arch.nested_mmus_size = 0;
-> +	kvm_uninit_shadow_stage2_mmu(kvm);
->  	kvm_uninit_stage2_mmu(kvm);
->  }
->  
-> -- 
-> 2.47.3
-> 
