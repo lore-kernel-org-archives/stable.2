@@ -1,53 +1,52 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022117.outbound.protection.outlook.com [52.101.101.117])
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022128.outbound.protection.outlook.com [52.101.101.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5ADB28D831
-	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 00:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7431933D6D5
+	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 00:36:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.128
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786839614; cv=fail; b=n3r+lkW3fxXo3KbOJSDIWuDUTPbEH0WKoAC++b8LTVwvYgrUEmYrZq6oBBxwMZH8R75MYdJYmX7RdQUtow37V8fArD4LEu2KFmybos2Q5M7JhUpqHFV1TTlbJjw6jdWc+bwx5j7uOeZ78Pic5VWOKm5PIbnlvuPdpifZT+FZwZg=
+	t=1786840602; cv=fail; b=fhe45TXSgRd0OTB8yYAytqS3BOFa3q0EhZThz4ACWkldSvlAtlBGJ4kMrHsz1bdTR6nm17OrtgeeWjtP4iv686ceE7km+T2Z9hUCB9mhS7eJU9Upi15g95Xmt/cAO8Ot9MuDXfD1mxMwC/qaG83KhRtdwUVVMEw6sxxDSH70lfY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786839614; c=relaxed/simple;
-	bh=YUIZW9Ot/nrNfYkumBhfRgtSt/jvGNZ2y5f4gVb0C0I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KQF+99vyd/pASuH6ff0ucDxa4koVlZ7U4WEHk2tlKekLW1MQyp3af8veohyEE2VhkBFQl8eZQeAxNwWINDblgwVT+JevG6iefkZCBQ+t5ew3VKYnl7D0u6yLuS2c30thwnkYp7A8d2qWzaaFG/2WK4yDQk2HlMzFRHJ2dj0DlOg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.117
+	s=arc-20240116; t=1786840602; c=relaxed/simple;
+	bh=DKGj2z/F4tYTstjGYnq9FLTXkBcCdXhuoHKk5PFyY5I=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=GQs/0O4ft5SpeZaMsz/y6VrtFjElBdEMXbG7LmtzA7qSE4IUsF8xwWHzW3xsD5OrQBzarCEeO/qQTCe2vW1JE8CtG2tYw5LekXaNmSNC2bPTspZNXCKM0aDLDDrreNLQc9PRzck8u4jck8ZMCsz5xhKfrQ6T93cckOFuisLgghQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.128
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xpH1rkut2dPpt5dpfTfz9JzgZzCKnxcqbohN/n7n/fWlMPKLWTgopi7uJDaMs23yZjg0nUOpbrbh2gabKJtU/lWdA55QoZrGslXiXmxeYlwKjZVXMgCKiEC+IGDkp4wWgz9n8/bs2bOn3dQG7etWMDoKM8kOOgek3Cv1t+mkazG+Wo1Ta1jMdNGq7J1oMqekXoMquGSNIC0YO6LWy3wD6QKLdat5fCvv19kkQtj+2FgK5Xkot76x+qbVU5LN1nWeuq/YnjZ9p5mYeeaIxK47Hn+v+oIuv76RyWaMxUFYTl/GfsANHWBTW5mR36Y7zeMAh9QNBeRkTMxh2GE2nT9zDQ==
+ b=PawLHfZ28FuExPV3sGa/9OcrVt9oDB0Ngmms+L+IzvwSzhqhRAhitJCqdwN1z4hy/SbXRuvPK+nrM3DsAlh2M3Z7I54qqbCAUXAnzHfkPDBex63XZTAPb5kmbOZOAD5MPh66SuocCqwcRI4ZHeza8mxiyDEM7mrga7yVVs8lx4gp9a/g4E4DAWKgLDdP4VCteVfYBdWFABhLqknwQolpSDMlUfN4v4ek3oBg1R+WHtWHIbM8+Bj1tjnRg7oz6gKI3QuQnfB7RLNTiSZtNy2xzn+jZNkNentpsrI2dbAli1z6aTCRBNtUm/Il0Pz+Zmabzpe3vqUIeD/Ipju4Jb77oQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=/oWP/mN+YbwMpPX2h/8ZD4ThYxJa0UlRkoo2lQrCc3Y=;
- b=tgbuE2PVWMpN17h4/8xlhQNM9NaMvu9l97gTLDL2LUp9VnCH3KoZwRUL/xiq5VS+hG+pVLQWqLurcbNuGE9v61LpXF7Y+qH69Rr3hs9ph/ZtY6LEQanIF625DmiGYJtkIdPQmNsSgEzJZNEJB4XhhbI5vmUfQnIjRLi8bnqIYH/XdR/kfU4lmxFh9VtcZGHGX0NFbqib85ya7X894qNw9QT/0y6GzWA5ep/qxHaRz2lN7+o70K2TE0cOS6eplepTsZe64qAkqaAS/uzPFWBEbIinL5KjgwJTWdrXutMD9KFkGi/WtY2mKufsxRzb93LdRndKCyvdwDiJi8pg4qs0Aw==
+ bh=U0DAAuGowqoc11o+drNs/jhMiEXxn7iEPwboerg8S70=;
+ b=OiYydOQQoVEaD0K4oSOj5YMGQPACsBwMaU+FZgCsZeBfO9e0TjWcqeTHiaOO9u/Mwb/gicM9dMJcA1PeDWEJeQ27Idmjgw/buJaHOb/b62672zMrM6OXHsYhu27fzrXc5a7X4ZAqs4YRXMCbe+i8AXBdxazBQbmuqcs6XWNCY0wDg4hYr/AMnyg0OFgE2tAsRJab4Iho9CoIBn1dHWaSvnVZcK6nNMYE0Yty9iJ433AGRK+x7hXWr5IBBm5YlPd62dHDWCPFx1j6Z7rFp3jceF6OJVgnVWO1qfr2oaRMMP+1lRDXRSsJ8PO7BSuHqCmsquA5idIuIC3Kxf7dsnO4jA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=atomlin.com;
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by CW1P123MB8648.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:279::13) with
+ by LO0P123MB7280.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:334::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Sun, 16 Aug
- 2026 00:20:09 +0000
+ 2026 00:36:37 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0315.016; Sun, 16 Aug 2026
- 00:20:08 +0000
-Date: Sat, 15 Aug 2026 20:20:05 -0400
+ 00:36:37 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH 5.10.y] mips: sched: Fix CPUMASK_OFFSTACK memory
- corruption
-Message-ID: <r762h45xpp37buhq652fie7el4uw3l6hzrxlqti6ivhsw5o2vb@5jaid5doqohi>
-References: <20260723181719.540786-1-atomlin@atomlin.com>
- <20260725192000.stable-0016@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260725192000.stable-0016@kernel.org>
-X-ClientProxiedBy: BN9PR03CA0112.namprd03.prod.outlook.com
- (2603:10b6:408:fd::27) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+To: stable@vger.kernel.org
+Cc: sashal@kernel.org,
+	tsbogend@alpha.franken.de,
+	gregkh@linuxfoundation.org,
+	atomlin@atomlin.com
+Subject: [PATCH 5.10.y v2] mips: sched: Fix CPUMASK_OFFSTACK memory corruption
+Date: Sat, 15 Aug 2026 20:36:33 -0400
+Message-ID: <20260816003633.530523-1-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN0PR07CA0011.namprd07.prod.outlook.com
+ (2603:10b6:408:141::32) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -56,93 +55,156 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB8648:EE_
-X-MS-Office365-Filtering-Correlation-Id: 571f3ae5-49c8-4c37-2037-08defb2c2116
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB7280:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6079ac9-0c62-4723-7c41-08defb2e6e0d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|4143699003|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|18002099003|56012099006|3023799007|5023799004|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	u0VtdNmgAv7Leik1Jff3N7UN0b5PehTPALm4Gzpi3EwTOM3mzKz2Q4gQkrIWmjwKbUjKMj2AWuoYZDyg8N1jMCqtSbfLcCwkp0KhuD9g4tlp2QCIYDkJ+w8WF8byRQNm1AQSjiOz9pun1doc3tMzBOgwXosgJEg4Yj+JQOchNsAmrf/ekL9MDlbXSf5WfTxWGE+U/d2QaRbj0huT6NV0R1hcBvBhNfNM9K3+t0eowApAUuxHsH75jhHw3rqy3dxT/WTah/ttKHomljhfVEfkrwkBtYoAXjP3NE3Y8E+QEgJP/dg2Zx9VK0eDI6HBmETUP53gFUqj3B8E0nUgm1GLCj3426oFNCJc7j8pMbzGwW/iuo+MXzRFCjfDu1L68qxs2tItb1zwi579u1cpFXx4CXU4q4i+/jYuuFJuIEtNxaOzP7rwyj9qpDRzKgSK1HYSEmi/m1VTIO3qGBTgLMmtap1UK7+fYVte772zuLBF/ETPDvuloZszueoM11zd8uq2FykigG/9I9sSfO4skIw1ptQYx8ltmK/lUbTykSWhrITVqzZe+nPQcx+wPwQc3HSkYpZx4RL8kbMLVM/ziznoo7P1X8jSe34+Y0RWkk7Lc26zoLYyqEjcetE2CQlIPYkqTW+gGmg9zofaxfTxUIUYgSnefmyhQy80w0JbG9rMDCg=
+	ex9yAKQ1vA5/sjsuHoP2JW2paGFDxKD9YeNbLgChFlRqLJu4mtN5bDuuIjA6WR5vVAcZB4mPKQlXdAQd8pdLr9JjD/kUCERZLfl4Fvbt8u6vNqgJrXRxrhbWc6jPaPiOzvsSao8lqgSstviEXhPsV1Gkj5tHZKSNnM8warp5uym26ILCp5W6l8dH6IsttTlipbT+P0xlXmiWl1Gc+Fw+ucKAd5IO3vB/ZA2JJEbrPeNwnt/EtXTJmh+Z1mIEHT77hZ7umRoCRL7z9UWE/+Sz2sAUXHYj/wo6HQvk0By8/5qLbR3UwfwguupipZCP70HLYALJMXOytln+xhfokoYNF5C88CxpfvfmXTCFfHrhrcI7aXaT4hgrDGPbgKFXm/SzComGQUBcR37jRp6qL5mOhjHwb97dXnrsrlhXHTFbfvlwr+8wDKmyGnkhEAJ7J9qGiRsmaDj0qWz0gVO+b5GYsSdHLaA/hGf29zVWamITUm+VvzyBlJtZjPZlELTRX9icPEL85O3e4fD0EWyDcXaMWuqDfWjSKSLhv62AkLpZWs3Sqy2wpqw8ZV2FV/dHnP9eAZeMYQYUXrOmt4Zn34qZlFlgxxCCBvWYBgaXfrDHyZTWb88cvxBxhYBReNIc6E9gSGUDEIP7VbAgWfP5vMzKdY2x6DOwCwzYWJop5nNL+Mg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(18002099003)(56012099006)(3023799007)(5023799004)(10067099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NW9wSXl3aDZNSi9lK2ZGSldmcGtxUXQxbXNqTkEzb1RPS1B4ZWJwV3UxaGdY?=
- =?utf-8?B?Y2UzLzJ6ZitJQmJjTC91Vm5RSDZkV1RDc1paeUNaNUFYRWw0SU5iNWU0UzE1?=
- =?utf-8?B?VHRzQy9yUXZSMFVnTHoyMDJRMTFxblEyUzNvRXhNdVdpYjZxQllNMnNPbjdv?=
- =?utf-8?B?NXJhaWVtaW4yVHF6anNXTG5OUzJINmtvNEVwQTZubFdLTjJYalBUQTVQTVFw?=
- =?utf-8?B?eEZoQTdUR2VpUzM4Vlo2WkszSUpRNGRHa1JYOEZkWTNNeENXK1hPYnFITER0?=
- =?utf-8?B?TWg4UlpzT0pMY0xvQjN2ak9rcFVpbW10bGdCYzg0QkV5ck9POTc3RnRUbERL?=
- =?utf-8?B?MnlqMCt1K1JDQldISkNuQXhnUXRpQnVRT0FHYnRLVURFQml2ekc1NHNtTlhs?=
- =?utf-8?B?TEUvRC9qVFlaSW1uSk1Fblp5Y05qWE5MUUs5Yjc1aHhZN3JCc1doSkVyY1Fl?=
- =?utf-8?B?akQ0K243clpwbFlVUDFqdFNXbVQvNEtqdzVBL0hOR0tQRHJadVNSWk1mSjV3?=
- =?utf-8?B?ZDF0WjMzck9xVzhNS1A2TUFuWWZmYWl6VXFOSHBycnpGMjhSUnd4SnhPOGpt?=
- =?utf-8?B?dDIzcjlncFpLdm9DalZJTXBvY014TmVMUlRBcFFiUEk2c2E1VFV2eitsNXZY?=
- =?utf-8?B?TkdJWkhGc1VuWHRlV3RCcHFERWYxZHJzd1J5K2NvZ3Vza3lnV0tlZWx4dXBG?=
- =?utf-8?B?eko4MEIzSlJQZnNoYmJkRUxIWmlFMU40V2V3S2RIeFV1ZG83MXFaRmkxbTRj?=
- =?utf-8?B?d2FVY2xaZndXTVI2Y2xUMXV6L1hQRC9TNW1mV1dJc0RqcVM4ZERCTlhPNGUy?=
- =?utf-8?B?NE5RbVVTSzNnWHBYNldZeUJLWUtFQnY3aVBoUXFNQ3dNZ2kreVkvNWNFbm92?=
- =?utf-8?B?M1BnNmZ3MVNKMjk3RmRDSVFvZnF4dkwrQklwVlhqVGlRZlBtZ2pqaXZ6bGJC?=
- =?utf-8?B?L3dZOWNVOFZzemFpS2ZIM0lnZGNkdUVqMkZ6ditSd3NCSGJBZUZQTTBTMk0x?=
- =?utf-8?B?aDEyQXl6aExwVjlIQnowVHBMWTVnclBROHpuYTRHWGlyTzFCdGdwem9JRXBD?=
- =?utf-8?B?M2Rodk9WSjMwbFJ5bVcvem8rTDM5bVVoQTgzUXBFeGkrcXNxNnc3Z0xxTHJU?=
- =?utf-8?B?b2NxNHl1VGJScXZnOVVNdVlLM0pHeTZUN3lxcEpxNHdmbXRISmRPYzZXcDFM?=
- =?utf-8?B?NGU4TEdMWnYrU1dIdmw5TVJTUE9EM3Racy9XQjNXY2ZvZ3NVN3RIYXdDaWZz?=
- =?utf-8?B?bTN5cDFadkRBdlQ4TDRhY0Z5dkJ6MjBjTzNyZU9sWmMzemMrL2lJaTRkQStP?=
- =?utf-8?B?bSt6T3RINThNRzR5L3dQelV0OXZobXdTSDJKSE4xVmsyTFM2TUVLeUJOZDZk?=
- =?utf-8?B?clE4ZmIxanlTa2dkcDZBMmphM1lPZjVpNFgwS3M2V3JjWVhJeUZud05QNDRX?=
- =?utf-8?B?TkRURFI5R3MxM1FvREw0TzlmVmI4bXk3ZG5ZNVhyUHNNZUZXL0lwTDAyQnJE?=
- =?utf-8?B?VXB3QVc1Wk53Y2UxTVRLVENML1pLNXQ0eTBDOC93ZkIvdTFETHhyL0Y5a3lS?=
- =?utf-8?B?L1o4M0FscU5ZMTMra1d6dm1MRGdNekErYUphMGNWeU9CQWFwd3FmcHVwak11?=
- =?utf-8?B?cW43bkdVQ1R3NjlFbDQ3dlI5aTBJZHpzQ0hESDVHYzg1ejYwa3llNUpTYkND?=
- =?utf-8?B?T0JUMTZnVmY0dmxva2RubTVsRnZybmx0WjAzT1N0L3owNGoyWkppMTZGQUZC?=
- =?utf-8?B?SWJjUEtXaFlPNUFTR3ZYNklyb1hRQ083czhub1BCSzR2Y3AzOGViZnZuZnRZ?=
- =?utf-8?B?U3ZuUFV5Ym5SRXdZb3lsVzAxeXhIM2pCV1JLK3lJOGxWeitIa2x4bk12THQ4?=
- =?utf-8?B?MWR5czBvcDA2cUJPeHZnR3Fub2h4cWw1TVFydjFQSWU2dXo2TzhycGh4Qi83?=
- =?utf-8?B?Y1hzZzRuMzBDS3hFMjduQVMyOUFUQWxPc3B1TnFWUW9aVjhEQ0lBbDJ1Wk03?=
- =?utf-8?B?SmhmaHprTmIzK2pRQUdWVDRXa05nQVd0a1VNTGp5Q3krMXN0ODhkTGpWTVln?=
- =?utf-8?B?eEk4ZzcvYXlzb0l0VG0rTElOWFh0T3pJZmJRTTBWc2FaQlIzU28vWDRTMHB2?=
- =?utf-8?B?WDVOZk1jTitWT2ZGRU5wOFZVVms2RlNLeXg5VHZDRUhVNGtBcDZzaWxHZGd6?=
- =?utf-8?B?NnhBWi9uMmZnRG9naDdZZ1RDZUh0RU1SVVViTTEzZk80cjlmZFpNekNWSmE2?=
- =?utf-8?B?cFlGRzBJbVVHbVNkTk5iMmxVbW5EQytpM1lDOTFnZ1lRdjI4NGV0dEVXSUNR?=
- =?utf-8?B?OW5YQmwzMWIrb3BEeEpsSkl3L3I1dVNGcWNuOXRINndaOEo4OG1aZz09?=
+	=?us-ascii?Q?qPeUG7bxb3QdLP+dSgNPDHUJmjCaZfYSsAaICUwZnT0xg4mmlLBStSLLPrBN?=
+ =?us-ascii?Q?waH/yjkQK9yLrRZZF35JO2N/TxBGMEjMOxamczI8979U+Ezzv0YNSmmzUTuJ?=
+ =?us-ascii?Q?AhmBxrpPi7WORp/A3eRmsf7rEbV8rSPan1qjBKNur5KBRhAYmupl8P4Gf3V2?=
+ =?us-ascii?Q?uHZS4WBoKSyI1h3KQW5YUkoYvVU9a99pxiE7y3j6JJ35ja8CIlKfuAjd8NUa?=
+ =?us-ascii?Q?Eibjdxd1mXvGiWn/1Et+PSv5F8mFyIzFsp9YYVG7o97HdDuUXTKwLPAXEkAv?=
+ =?us-ascii?Q?JsqKihGpzyrAN2x+MjJAHFkT0XP3Azks3TnckaZ3jEDwHyrQIkM8i2Zn6Yf2?=
+ =?us-ascii?Q?RAmNnPB8fy9zdzyeRyYLQ3B59nR4PNmw2kF0eG33QT8loebMhUJgApccIMuw?=
+ =?us-ascii?Q?JSLNVzD6WEGIhnJ2QzCyhyZohrwebmhCVgLKN8fnNLllsT9i//oZrbHiAFnk?=
+ =?us-ascii?Q?mXj3GHgIcN57gxUJdEVZti2DDNWQE/4QS1b6rbOPr4chdQMKPKguh0fjDghe?=
+ =?us-ascii?Q?EYHOEZewpmZPWvkMgyT1V+GsVE1m/yptPvR3ZmvlwpTmf7sQbOkZtYw3CQb6?=
+ =?us-ascii?Q?Ud4uXSGdjo1ShxJVgHgUXfsh/ox3DPUblScBvZiwCYBRZBWHK84FWa12TZGf?=
+ =?us-ascii?Q?r4xmoQMRZ0/loc4c5W3awlEveZVCSCnH7J6K4lw33FvATTaaybdGbWESscss?=
+ =?us-ascii?Q?ax+AIPReI2HCPc/Gkn/Tywd+EP+AF/9AEMQI+CEIBV3SOKc1/ntNTNio8Mh6?=
+ =?us-ascii?Q?z/W0nIpntA9r1vac1EDJUhAFlDI1N+2N5+xxuAv+dRdZUQM/Um441BpTc0JM?=
+ =?us-ascii?Q?IkQve8iKOCTm+uojvvwvmrse9RfUi6ZvJ2FuEMMOL/Kczz7gcM1JYUdVT1oI?=
+ =?us-ascii?Q?xJ3C6qfiyaVNp1zPd81wIWqhOl4LyohFKs4g6yBDmVAn/mfBhP2dr7QJDmkU?=
+ =?us-ascii?Q?y+ejkdYe/nAtEKJr17Xmr0Zi4jGVqUI2Yg5SqYgD+SwYGfqFlymK0UsypfjF?=
+ =?us-ascii?Q?ol70CO/eDgfZ5/p6pI76O0E1/naP8i+HIBtGBfYh3tf+0Pn1E1NNRTr+waYj?=
+ =?us-ascii?Q?lfqka93krbT0iSLTs8Ye9iTysKs41ITICsd9b7u5O5fw8SWGy7pfywHhTXe7?=
+ =?us-ascii?Q?PrP4ltTXFQsp4/F5IwYrMnmU5OUIIVcDqL0BhBkJDnHy1Npx/SkidbWnkUel?=
+ =?us-ascii?Q?Fy4QOIqAr5m9WsL8yytm+Byek8fD3A/3dbao7Ja+/eu8p0JcCkYZ1dwoq/GT?=
+ =?us-ascii?Q?7qApwUtWQaVRgBNf5GSS8KldYHjcNQDGWKbxFDy/5lHbdqaG8024fT72xL6Q?=
+ =?us-ascii?Q?QUwDMljGmmskwtBGSlsNiX+JCL4QBUt/HbitOD13wto/fSQ80XoR+cZZtP+B?=
+ =?us-ascii?Q?UgMbmS6s7tV9iIhOLQUJFYmDfQWMxVFa9mvjtAKxIR/MTblr9OaVJ+aHiC82?=
+ =?us-ascii?Q?AGW3VS8LeidFTQeOiiUgtPcZYeDtlriMcz2xF6IXsHI6IgRrLZ+bhi1RJjif?=
+ =?us-ascii?Q?fzJp9hl3KJtXf8lnCR4XfdQxRaj8pAIUp3ovSOfCB/Qb/Xx9DR0+F9cfLQ0e?=
+ =?us-ascii?Q?m9xOH5IbmaoecdNPsXlbcxZzy+Vsqcz4sUjmLS8Ql3OjROfWOvmGI5dt1mvQ?=
+ =?us-ascii?Q?QhOMVBsaWxQGTnl4O7NEX6lnSOjVbjbzWaWeYkT3KIbvpuYwszDVZEPHHBLI?=
+ =?us-ascii?Q?htoLir5i0yLj1DdVjxAOEmaRnIsHCSrScv1KiS5/8VDa51U0pLyPhwzZsseD?=
+ =?us-ascii?Q?ZWHSgu+U/w=3D=3D?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 571f3ae5-49c8-4c37-2037-08defb2c2116
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6079ac9-0c62-4723-7c41-08defb2e6e0d
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2026 00:20:08.7389
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2026 00:36:37.0385
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6L1DQIaB+Cxy50C9aX9G6jGND0vR1BBR2kixZtyLDePP39lejZXG6d0s3wiw0zjyNL9NS+lGE+03wPhUFtdROA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB8648
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7LfU6F23kZsSscPgMhm8wGU/f4pw4TrTxS1HF2G05kdls4toibIGihXmLHjefS9hPX4U6G36Yir5DSWbigN8QQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB7280
 
-On Sun, Jul 26, 2026 at 08:04:55AM -0400, Sasha Levin wrote:
-> > Fix this by allocating new_mask first. To handle variable-sized user
-> > masks correctly, use cpumask_size() to truncate overly large user masks
-> > or pad undersized masks with zeros before copying the data directly into
-> > the allocated buffer.
-> 
-> The allocation move looks right, but the '!p' error path is off: it
-> keeps "return -ESRCH;" and appends an unreachable "goto out_free_new_mask;"
-> after it. Since new_mask is now allocated at the top of the function,
-> that path leaks new_mask, and the trailing goto is dead code. Upstream
-> (and the already-queued 5.15 backport) convert it to
-> "retval = -ESRCH; goto out_free_new_mask;" instead. Could you fix that
-> and resend a v2? Thanks.
-> 
-> -- 
-> Thanks,
-> Sasha
+This patch addresses a critical memory management flaw. When
+CONFIG_CPUMASK_OFFSTACK is enabled, cpumask_var_t is a pointer.
+Consequently, sizeof(new_mask) evaluates to the pointer size, causing
+copy_from_user() to clobber the mask pointer. Furthermore, the old
+logic performed copy_from_user() before allocating the mask.
 
-Hi Sasha,
+Fix this by allocating new_mask first. To handle variable-sized user
+masks correctly, use cpumask_size() to truncate overly large user masks
+or pad undersized masks with zeros before copying the data directly into
+the allocated buffer.
 
-Apologies for the delay.
+Fixes: 295cbf6d63165 ("[MIPS] Move FPU affinity code into separate file.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+(cherry picked from commit 98e37db4a34d3af3fb2f4648295c25b5e40b20e3)
 
-I will resolve this shortly.
+---
 
-Kind regards,
+Changes since v1:
+
+ - Fixed the !p error path to set retval = -ESRCH and jump to
+   out_free_new_mask so new_mask is properly freed on failure (Sasha Levin)
+
+ - Link to v1: https://lore.kernel.org/stable/20260723181719.540786-1-atomlin@atomlin.com/
+---
+ arch/mips/kernel/mips-mt-fpaff.c | 28 +++++++++++++++-------------
+ 1 file changed, 15 insertions(+), 13 deletions(-)
+
+diff --git a/arch/mips/kernel/mips-mt-fpaff.c b/arch/mips/kernel/mips-mt-fpaff.c
+index 6c590ef27648..5feffc8708ad 100644
+--- a/arch/mips/kernel/mips-mt-fpaff.c
++++ b/arch/mips/kernel/mips-mt-fpaff.c
+@@ -70,11 +70,16 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
+ 	struct task_struct *p;
+ 	int retval;
+ 
+-	if (len < sizeof(new_mask))
+-		return -EINVAL;
+-
+-	if (copy_from_user(&new_mask, user_mask_ptr, sizeof(new_mask)))
+-		return -EFAULT;
++	if (!alloc_cpumask_var(&new_mask, GFP_KERNEL))
++		return -ENOMEM;
++	if (len < cpumask_size())
++		cpumask_clear(new_mask);
++	else if (len > cpumask_size())
++		len = cpumask_size();
++	if (copy_from_user(new_mask, user_mask_ptr, len)) {
++		retval = -EFAULT;
++		goto out_free_new_mask;
++	}
+ 
+ 	get_online_cpus();
+ 	rcu_read_lock();
+@@ -83,7 +88,8 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
+ 	if (!p) {
+ 		rcu_read_unlock();
+ 		put_online_cpus();
+-		return -ESRCH;
++		retval = -ESRCH;
++		goto out_free_new_mask;
+ 	}
+ 
+ 	/* Prevent p going away */
+@@ -94,13 +100,9 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
+ 		retval = -ENOMEM;
+ 		goto out_put_task;
+ 	}
+-	if (!alloc_cpumask_var(&new_mask, GFP_KERNEL)) {
+-		retval = -ENOMEM;
+-		goto out_free_cpus_allowed;
+-	}
+ 	if (!alloc_cpumask_var(&effective_mask, GFP_KERNEL)) {
+ 		retval = -ENOMEM;
+-		goto out_free_new_mask;
++		goto out_free_cpus_allowed;
+ 	}
+ 	if (!check_same_owner(p) && !capable(CAP_SYS_NICE)) {
+ 		retval = -EPERM;
+@@ -141,13 +143,13 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
+ 	}
+ out_unlock:
+ 	free_cpumask_var(effective_mask);
+-out_free_new_mask:
+-	free_cpumask_var(new_mask);
+ out_free_cpus_allowed:
+ 	free_cpumask_var(cpus_allowed);
+ out_put_task:
+ 	put_task_struct(p);
+ 	put_online_cpus();
++out_free_new_mask:
++	free_cpumask_var(new_mask);
+ 	return retval;
+ }
+ 
 -- 
-Aaron Tomlin
+2.55.0
+
