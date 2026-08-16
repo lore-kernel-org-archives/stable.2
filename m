@@ -1,169 +1,167 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C562E92B3
-	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 19:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786907291; cv=pass; b=drtF2H6j0WTvikAbpQg/qtIdmcmA0SugwhfWbx1W7VIjtUY9XFNdM7biNpnc88iGF3uGEsVs8yEahF/ub4MgkTHX0XHdQN+EtBfiQbOwraeSLXH3sDasRlNn83M1+ytz1BeOeKgPtvtJheeVEtg97c1TxQSQhuSCWAFUxlXXTMw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786907291; c=relaxed/simple;
-	bh=XwkAtK8mb547dOop0lL275XKuuWVoIn8HVsM4LiJAaA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Lkd2CDW5MJHq7CS4hHHjjBwIWOOBiP9Ss9I2XlZj3uvlteMV7n7f0oLJsHEReZ041ru5Cxv1vDExVBxxUnuDSeltaXT7up7rdEqkcWSoDenMy2VBEGHzpu4k5hIVcY8SMldkABRm7fjwBFQsizdB7wO083afYD1UV5/xDC6vLn4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fdLEYJ9h; arc=pass smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47904B04B6
+	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 19:17:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786907859; cv=none; b=X9nAoBupj0haAgUQyqur3v76DVhFWq6CKk+VfFqQQ7CnocStr3/oLSjcDJqNH7/Fgm0driuTN8P1+nr5PuHprvy98SLNoarD0hhu+VwWwmUUMV+NMM0g/3b7wKrvJ/otWBmDBvUiUK3px35V+epb4uOKVY/hsgPjBjDWWSL3bbw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786907859; c=relaxed/simple;
+	bh=T0h1D6+F6G80KEwNjlSZDg0Rlz+RAzRQLdI3ihYaork=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ngbfy1J3QJce0z+ks4Lnbx7CrkZz9FgyHutAfqEjH1Nf8/nv9Kl/Is89lgo9HdgMBwKefgy8+Ye7VlRYWT4czd/f2+LBvd7HvY2ThJkh+l1gdTuMaJHH3LCLKaGf8zYfQvYfmRWdnxF7YDBigyaKN00/OQROKa6+8ZsMkyub2L4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VQiyfkjY; arc=none smtp.client-ip=209.85.128.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fdLEYJ9h"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a1542cdb53so2884634a12.2
-        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 12:08:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786907288; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RjYdlq0k5/Q11BP6JhEtK8/Zs2ZdftqjsPVj1/5TOOT+hX064euwyANq8M+kWaVRwi
-         NQ5vBdDU2DS1JB4Cucl8wkKpbD8zWb/remmii+/ghQcU+enOhypMPhNKZed1pvAI7ZI/
-         684R+Zhh933I+HvqAUiZNZUMreY/T/3oGNjvoZjzMLjqKStdEDEewPes2RgGtTu0dOgD
-         3VeCdggvpaI9xy+bHZCOd0WHq5FmBEc9yVJhqV09F5dLFyu0vcmtJb/FAPohJgBBJeuM
-         LbtjKHVr0/AojwIrGpCtdRD+DlaImqLtTsNFIm5iO5NYXMk8R5Lsid6fPka5kym8vdsK
-         33XQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MJpiUaeSmSukMEiVdIJ7E+Eb4oTrVCSTLcJCR2loI3k=;
-        fh=Fre6VZFaO7pRLUUDGgmKc7Kc+SdfznlgsAllThRu5Bs=;
-        b=LdG/DoEqvreulGxy7lNY/HQPSRjsWKgNaBdPMK/Hu/qs4bTe+HTQcRl2JcE3MDzdE7
-         4FcKooI3HtnVXlkM7McSHtpxgjm5rwwOyrnv8g3oOynSny0tH7ZKCNrmFFInYZ/F2+gG
-         xb77p3RtApsGbp0ExVOChC4wsAZBcopsNxlt20ZNtgIdPaLZINmYHvU5n+BBIJ27duQT
-         ETsZLZfyxKna3WH2jiHbOgFcGIyUb2rWkiKQwmEDw1fSuyFpbasaggh8l2gpoh5CE6iL
-         NJzH1iBCQED98OorZf8qzUGoQ+XmEeDZ8inPmiS0/J0oGUQG7qiaVqLhSrQ23PlRIO6g
-         VStA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VQiyfkjY"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-836c436a6b3so37046667b3.0
+        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 12:17:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786907288; x=1787512088; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MJpiUaeSmSukMEiVdIJ7E+Eb4oTrVCSTLcJCR2loI3k=;
-        b=fdLEYJ9htxaxpCOJ3dSL8DBNnSf6qaKlUBDuHL5rEfpYkHVQvWRCNxHeWB+xhDRNAY
-         C5jcU5shhexTZsV55yJl/OfPh0H2Qktrrlh4X0KkGEoQeOqIeaQhifI20AbB7U7gtUgS
-         1kVuyvd/SH22T6tV5Iy7wqiwJHVNAbskrlltkDAPC1xy4z3aMuTg0JaGJkBxDAKcdtVy
-         n6RNOqWf/ruVkoeMyLwIrmmutAh3Lu7iUWaAEJf/0eQJJHPfHYXMjFjSZvayY3TSbu7y
-         tbrDqbBiSIxjqOeiv23AqxS+KEqOMJvdZ3b9w+zeDyvv6NfhsxBtCraNrbT7Z+ZMiTot
-         t3gQ==
+        d=gmail.com; s=20251104; t=1786907856; x=1787512656; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AISqMB6CvA0Lb35Q0jRjNWDuiHxCP9fPg6wK9jXO2X8=;
+        b=VQiyfkjYp3Nm/sFqtCN5TjUGYwMOxOCAKIWryw9oOtxv3w+Hpi7p3VDhXZ2+hZYsFG
+         nhXxt/Eyg6tmVY0zRTHO6SZ8tmL4h51bNIS1+x5uvao1bEMyXJhhctfnCx03K/2z/Gfg
+         YQxvXNkqMuLTKLW/c3vJT378SiWVeTpzTxxzVb/XwOOLdVkUEzg1lz8lIPlQaaFkCuVS
+         jy3+4g38vll1iI1lGHYSC12lu8PlLf347D34yAVsh/CjGjzcbVkX+9Yhfo3+p+KIAMKZ
+         Zvb3d026i1cBmXISxy6GCbDuRh1/X+Ac0jOoDRwfNwFooxpUkuh8kmnIqApDisc0iasY
+         pQrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786907288; x=1787512088;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MJpiUaeSmSukMEiVdIJ7E+Eb4oTrVCSTLcJCR2loI3k=;
-        b=MJNpAhu2v4ElW/YdFZiiUbS5Nzk20EOYZm6nA6SjqKUkU5QzVFyVRZ/pd96cBE22KD
-         SV28ox5nrbaqCNQuxHkWJdOU0AmnPddsX1SlYvPbDoMrum2McVN45jQZkb4lrdw9OMoT
-         vbAtXO02FUFbcIkFOpR76G7JiBKNFMjI/rv5RudzSpV5MwjqUoiHrziuWSJoejHFYiRb
-         ND9nrzYTOzj76517z5dlVtIKWk2NX563VAKVUfsdHCJs4Qg7ZWmbEOPOfLHxR5tYaKMq
-         JRqs0uh5GGeoQvFz6v8LMYjXJjsb28AHPUUC8LNWryHyFZM1xtDZNS8KxmtBXc1wGb87
-         YwQQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqIAhytnZjAgMLdbqRLAJeDm/PCRzN6UEl+i595QufRmS8Sfht5S3i5EGM0IA1CKoAS8gLutXA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyY/apqctGggUa1C0XOXRr9Sw5TCr3ACwR5S1oEz/2MRCUX38iN
-	lvs14LOjDSB/HFgu8VRtTF2ZiJNX9/cbIrTF8FxGOUC8fluYWj7VAgm4sWbGTN/sqW0Olu7PVbc
-	5PgQCFgeK8nx+SIeT1b/SCl2ZNRF+QCQmkDCUndo=
-X-Gm-Gg: AR+sD100ZQ9PWyv5CbIqJxd2Tfi9uLhnVYOO93inlqmppIoBii8BLBSO4qxPaiZX6Ke
-	xUr6BY31OGlGcArNHibvmMitmbQjGBWWTxw+3+elmt6xsS593iJkOtHCAiJvoFH7D2Oxxzi9czK
-	rDBF/toWF0McmOubgQb9fVzwGBgxZeNO/U0LPV0VBNQLNBfySAnGBkYFwbPUDV+JqhXXshRHXTk
-	WXr7rGN1HfYoOWrPb0l1F/rsSAWWijOz7TvvyJHLcyyrkXY+6TMcQ5QXQSJtO6NXT3pJ4CQ852x
-	RsR7TSSAeSsbkA0XofLw5trm6angqBnt4SekNXBhOcfy
-X-Received: by 2002:a05:6402:530b:b0:6a0:567c:c2fe with SMTP id
- 4fb4d7f45d1cf-6a38a9a323dmr9308591a12.20.1786907288432; Sun, 16 Aug 2026
- 12:08:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786907856; x=1787512656;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AISqMB6CvA0Lb35Q0jRjNWDuiHxCP9fPg6wK9jXO2X8=;
+        b=OXMO0EWklaY2eoGN+ObKi/rJTEaIe0CwGurAa3lkCtmfMk0jHU9QaLUwCBMAGzEfrq
+         gKIfnZ/LrgWy/kcU7dS96p1DFd+gU72JAOEZno19dbg69yi84X2JYHcULYzCsEApcP7n
+         HAuTCsS2OQ3QC1xYLRtiSeaf7UDw7ofCsURM0nGEjWcJEdAgfwJ/2Ya9Xm/FbI9YWF5r
+         Irt/Abz+ZxArvkDx0NvBtq8H1qH9MOWj3fkD8x8CzPRWj3LGU55wbGmja5k8zq2oP3g8
+         NCxxepDJf/6xStd5ThIscd9NeG3h5eOb2mZ6hSdRdDeVOw1gVI30bHaa4dzuPRX6u0cn
+         kCEw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq94Pqs7bgKMq62sKZtS0KKiBeu2pRLDcjN8ulJIc1QtE1z6Ivr0ifQDGQ78A7lpFgnxntvTz4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyfni3wk2u9HUrLK9/cA2N5UuwlqCZNoDHeUmxP1TYVDd942h73
+	qgNmUy55FLFmcQqwq681VDqvCA9HVfHFRs64T3YpgGQ+BrmsBGQDAuob
+X-Gm-Gg: AR+sD12BZxHbszepUKb8p6t0ERCyOJlOh4N5WCL9N9dmhxOyAoVVS0vm6jQWOxttNFN
+	DlhBeVPsvGQR/ENOp3Dq5Ba8IdcOC6HCooloeRp7dOMpqT1IWnXODCIQ4qEwHMs4FtahmPF19b/
+	TvuoPxfaHwJ8Zm2OnNAfvx8s5dzCE5DXoTuF0ptwEATbiGaQ5n0SyHg6Jx+9fLJsADNKR57srpI
+	ZDSb4c070qC3Sko1pRRRpTx+JE5jy6sqR547ZeN2VGv4PG42TVAZEew5f3RU7BusUYMKBdUVH7W
+	KgNkiEXIF7J4tWx9h68IpUkWr1LRkUO3tb1q1Bm+OBLH1thLHQn0FWxsCvD6jZIolQnTVCQ5rVw
+	hjKvyxRCWL0h52UT1n2cKyLAAfFk1Cldq/BjG2U7hcPgFYkIixkHk0nHtFMDRmQaLnunBnwH0Wr
+	/BJak6NJ+HT3BhSNMaS6eggVeNGSf91XntiMGRAPgnSPJR9xal+ThHhXFRA321JMxbBt/HBg5+U
+	IahO34=
+X-Received: by 2002:a05:690c:e292:b0:827:b35:9d5e with SMTP id 00721157ae682-83714123a7fmr56142987b3.33.1786907855860;
+        Sun, 16 Aug 2026 12:17:35 -0700 (PDT)
+Received: from syssplab.cs.fiu.edu (nat1.cs.fiu.edu. [131.94.134.89])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-836c17784f2sm38580437b3.32.2026.08.16.12.17.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 16 Aug 2026 12:17:34 -0700 (PDT)
+From: Chao Shi <coshi036@gmail.com>
+To: kbusch@kernel.org
+Cc: hch@lst.de,
+	sagi@grimberg.me,
+	axboe@kernel.dk,
+	joshi.k@samsung.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Chao Shi <coshi036@gmail.com>,
+	Weidong Zhu <weizhu@fiu.edu>
+Subject: [PATCH v2] nvme: skip the zoned limits update if the zone info query failed
+Date: Sun, 16 Aug 2026 15:17:29 -0400
+Message-ID: <20260816191729.2865523-1-coshi036@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260814160954.2839507-1-coshi036@gmail.com> <an9sbzM52QqKdQuP@kbusch-mbp>
-In-Reply-To: <an9sbzM52QqKdQuP@kbusch-mbp>
-From: Chris S <coshi036@gmail.com>
-Date: Sun, 16 Aug 2026 15:07:57 -0400
-X-Gm-Features: AcwNN1UGmJA_m0q1P9tSBlDs0Z5V6pFvjJicpL-HIgO9xLhhaYThNptM0VyB1C8
-Message-ID: <CACd_6n1d9kdEYARkmf6bRzbt5SXwmf-8jk_Dd-xJ0gyQ1TcMMQ@mail.gmail.com>
-Subject: Re: [PATCH] nvme: reject zoned namespaces whose zone info query failed
-To: Keith Busch <kbusch@kernel.org>
-Cc: hch@lst.de, sagi@grimberg.me, axboe@kernel.dk, joshi.k@samsung.com, 
-	weizhu@fiu.edu, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 3:28=E2=80=AFPM Keith Busch <kbusch@kernel.org> wro=
-te:
->
-> On Fri, Aug 14, 2026 at 12:09:54PM -0400, Chao Shi wrote:
-> > Before commit c85c9ab926a5 ("nvme: split nvme_update_zone_info") the
-> > caller tested "if (ret)" and bailed out on any non-zero return.  Restor=
-e
-> > that behaviour.
->
-> I think the namespace is generally left up on purpose for controller
-> reported errors so that we have a device handle for admin debugging
-> purposes.
->
-> Can you just skip the zone limits update when you have a bad response?
-> Something like:
->
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -2457,7 +2457,8 @@ static int nvme_update_ns_info_block(struct nvme_ns=
- *ns,
->                 capacity =3D 0;
->
->         if (IS_ENABLED(CONFIG_BLK_DEV_ZONED) &&
-> -           ns->head->ids.csi =3D=3D NVME_CSI_ZNS)
-> +           ns->head->ids.csi =3D=3D NVME_CSI_ZNS &&
-> +           zi.max_open_zones)
->                 nvme_update_zone_info(ns, &lim, &zi);
->
->         if ((ns->ctrl->vwc & NVME_CTRL_VWC_PRESENT) && !info->no_vwc)
+nvme_query_zone_info() returns either a negative errno or a positive
+NVMe status code, but nvme_update_ns_info_block() only tests for the
+negative case:
 
-Thanks -- keeping the namespace around is clearly the right, I
-had not considered the admin handle.  v2 does that.
+	ret = nvme_query_zone_info(ns, lbaf, &zi);
+	if (ret < 0)
+		goto out;
 
-I did not use zi.max_open_zones as the condition though, because 0 is a
-legal value there.  MOR and MAR are 0's based and FFFFFFFFh means "no
-limit", so nvme_query_zone_info() does:
+If the device fails the Identify Namespace (I/O Command Set specific)
+command, or the Identify Controller command issued by
+nvme_set_max_append(), the positive status falls through and setup
+continues with the zero-initialized zone info.  nvme_update_zone_info()
+then marks the queue zoned with chunk_sectors and ns->head->zsze set to
+zero.
 
-zi->max_open_zones =3D le32_to_cpu(id->mor) + 1;
+blk_validate_zoned_limits() does not check chunk_sectors, so the limits
+commit succeeds.  blk_revalidate_disk_zones() does reject the zero zone
+size, but by then the limits are live and nothing rolls them back, so
+I/O keeps being submitted to a zoned queue with a zero zone size and
+disk_zone_no() shifts by ilog2(0):
 
-which deliberately wraps FFFFFFFFh to 0, matching the block layer where
-0 also means "no limit" -- blk_validate_zoned_limits() tests
-"if (lim->max_active_zones && ...)" for exactly that reason.  So a
-healthy device that reports no open resource limit has
-zi.max_open_zones =3D=3D 0, and gating on it would leave that device's
-namespace unzoned.  QEMU hits this with its defaults: hw/nvme/ns.c has
+  nvme0n1: Invalid non power of two zone size (0)
+  UBSAN: shift-out-of-bounds in include/linux/blkdev.h:747:16
+  shift exponent -1 is negative
+   disk_zone_no include/linux/blkdev.h:747 [inline]
+   bio_straddles_zones include/linux/blkdev.h:1058 [inline]
+   blk_zone_wplug_handle_write block/blk-zoned.c:1423 [inline]
+   blk_zone_plug_bio.cold+0x25/0x1c8 block/blk-zoned.c:1605
+   blk_mq_submit_bio+0x18fb/0x2870 block/blk-mq.c:3196
+   submit_bh_wbc+0x575/0x740 fs/buffer.c:2824
+   __block_write_full_folio+0x728/0xdd0 fs/buffer.c:1933
 
-id_ns_z->mor =3D cpu_to_le32(ns->params.max_open_zones - 1);
+Any device, firmware or NVMe-oF target that fails this one command
+reaches this.
 
-and zoned.max_open_zones defaults to 0.
+Skip the zoned limits update in that case.  The namespace stays
+registered and usable for admin commands, but the queue is not
+configured from zone info that was never read.
 
-zi.zone_size does not have that ambiguity.  Every path in
-nvme_query_zone_info() that returns a positive status returns before
-zone_size is assigned, and once it is assigned the only remaining
-failure is -ENODEV, which the caller already handles.  A successful
-query therefore always leaves it a non-zero power of two.  So v2 is:
+zi.zone_size is an exact indicator: every path that returns a positive
+status returns before it is assigned, and after that the only failure
+left is -ENODEV, which the caller already handles.
 
-if (IS_ENABLED(CONFIG_BLK_DEV_ZONED) &&
-   ns->head->ids.csi =3D=3D NVME_CSI_ZNS && zi.zone_size)
-nvme_update_zone_info(ns, &lim, &zi);
+Fixes: c85c9ab926a5 ("nvme: split nvme_update_zone_info")
+Cc: stable@vger.kernel.org
+Cc: Weidong Zhu <weizhu@fiu.edu>
+Suggested-by: Keith Busch <kbusch@kernel.org>
+Found by FuzzNvme.
 
-One open question in v2: on a first scan the namespace now comes up as
-a non-zoned block device.  Setting capacity =3D 0 there as well would
-match what this function already does for nvme_update_disk_info() and
-nvme_init_integrity() failures, and would still keep the handle.  I
-left it out to keep the change minimal -- happy to add it if you would
-rather have it.
+Signed-off-by: Chao Shi <coshi036@gmail.com>
+---
+Changes since v1:
+- Only skip the zoned limits instead of failing the update, as
+  suggested by Keith.
+- Gate on zi.zone_size, not zi.max_open_zones, where 0 is legal
+  (reasoning in my reply on v1).
+- Drop the "malicious device" wording.
 
-Sending v2 now.
+v1: https://lore.kernel.org/linux-nvme/20260814160954.2839507-1-coshi036@gmail.com/
 
-Thanks,
-Chao
+ drivers/nvme/host/core.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 453c1f0b2dd0..87e0534cde1c 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2447,8 +2447,13 @@ static int nvme_update_ns_info_block(struct nvme_ns *ns,
+ 	if (!nvme_update_disk_info(ns, id, nvm, &lim))
+ 		capacity = 0;
+ 
++	/*
++	 * A failed zone info query leaves zi zero-initialized.  Leave the
++	 * namespace registered so that it can still be used as a device
++	 * handle, but do not configure the zoned limits from it.
++	 */
+ 	if (IS_ENABLED(CONFIG_BLK_DEV_ZONED) &&
+-	    ns->head->ids.csi == NVME_CSI_ZNS)
++	    ns->head->ids.csi == NVME_CSI_ZNS && zi.zone_size)
+ 		nvme_update_zone_info(ns, &lim, &zi);
+ 
+ 	if ((ns->ctrl->vwc & NVME_CTRL_VWC_PRESENT) && !info->no_vwc)
+-- 
+2.43.0
+
