@@ -1,211 +1,256 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-235.mta1.migadu.com [95.215.58.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566D83B19B5;
-	Sun, 16 Aug 2026 21:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893773E3151
+	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 21:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786914164; cv=none; b=dqeVCW4ST02qXXCnVzscL/UVVLKsn+Ve994el0yWl59dDm9jbhP4PIGaD9w0xULUtNofac2ENyqUFnWUM2NjEkg2bv6Go1kkRxjOQW45n6kfCO/oyc4+T7N1ZMIdKvga9pvUFHjXidgignsr9NlAGogxFNW9r1aVcbNOTxjrIE4=
+	t=1786916710; cv=none; b=OsW82sjnlTR5dxvhRhmiBd+OIW32eJHJQMhl7bbhFsJyBMNvji4FVCcFTsWTCzI0d7Kx58kBSFzoO7ruFEVtC4D12hEfiDwiC0pHg9DdXszHjdEfjZXJ06Ysy2A9SrmNpI4uIpIGu8z9hVi89Im1zOAbzrKSpQtaCtu5y8pY/6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786914164; c=relaxed/simple;
-	bh=zB+bLSx2ZDwxjjitDphKtVLI6sAuY5BuNf+XJgmiv0w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ROpvRMo+Xt3Bahz1TajRnOdVdaMWMQKRWvpKjdRGSRfmv+B0fcVtm+JYALtYN1SGySJzOS/fiWEZA5n7gjxngjolFBGKSueLiFKsImQm6Bra/Iqe+YUBm59sj+uXzzY8a+eSLMRsrFjgqZBGz1hJMpSMq5wPOgfAeC2NzRgIZdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=a6xXXiFA; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	s=arc-20240116; t=1786916710; c=relaxed/simple;
+	bh=mNO74oi8yh6Pq1I2jmraMnHrjznHRP7lLpSh+N+aPWg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PW6wYvK0DT+lL1u215rwgNq70nlwcCZDn99lok1LE0z4kZj3ZlATbBdRX23/DAHZxkCut6XxL7jQWtw+e0KJ8od0W3lnyJyQ3mVMtQ3Txe19Mm9FKS4xoFQVc2GkontzabV8sJv2faO2lThj9PcR4p+1lJOAe3UFGXu+b1y5BfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Q/hdBoLB; arc=none smtp.client-ip=95.215.58.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="a6xXXiFA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1786914150;
-	bh=RQDgQIDpq2a95XlpjXPV52Y4fURSPzXkE3dG47J0Rhk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=a6xXXiFAb795zWbC9VDi88AjoYoyA6na2Z00HTHv2QnJfq1Qx1VTuf28vOP74WDEs
-	 3zSgUOMTop4LnnOvdWArttddCzu8zHKHVRwC7SgFEo+66S6l2EanmDcPvwK9YRTf0K
-	 8Cq64ZE8gXG+UkIOH5cItXfVcATp/suhAQxh6omtqGNBsmtZqHwZA218Zgk7t/1NnE
-	 GXSBqYwACeYCv7SSbkyw9A5uzc4+cQg4QrIyMduADhD3qFMNdIUpu3CfLPYuE8VB6B
-	 lNmVlEku/zfsY0S5daTY548jF8AH3OBgHKLmR5KNsPmUgqzJoGWIVGzQYwA1a/daGz
-	 zZKZaQF1Tcw7g==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id B838D6005E;
-	Sun, 16 Aug 2026 23:02:30 +0200 (CEST)
-Date: Sun, 16 Aug 2026 23:02:27 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Qing Ming <a0yami@mailbox.org>
-Cc: Harald Welte <laforge@gnumonks.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	horms@kernel.org, kuniyu@google.com,
-	osmocom-net-gprs@lists.osmocom.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v4] gtp: serialize PDP context updates
-Message-ID: <aoIlY3NaRtICIQZV@chamomile>
-References: <20260814031526.118216-1-a0yami@mailbox.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Q/hdBoLB"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mNO74oi8yh6Pq1I2jmraMnHrjznHRP7lLpSh+N+aPWg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786916705; v=1; x=1787521505;
+ b=Q/hdBoLBBw00SHPTFMbNRiqZJ3LaPO5S9ArwH1IC8G6IqYRG43BV/CYhRiNvYU9FaSG+ppuH
+ aBnU28NiqYflxuO0LwD4M3ZWGFYXXUeTrA2ofm8I/EMmisaj2ykoY4zLvLWvplP/feHjMxWK0t5
+ 3umW06HdjNp7jmH6kZ8OemNI=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2601:647:6300:a030:dd46:d520:270e:1608] (2601:647:6300:a030:dd46:d520:270e:1608)
+	by smtp.migadu.com with ESMTPS id f42f421dbd52d924;
+	Sun, 16 Aug 2026 21:45:01 +0000
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2063d67f-27c5-4329-aaf5-39823f9de6ff@linux.dev>
+Date: Sun, 16 Aug 2026 14:44:54 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260814031526.118216-1-a0yami@mailbox.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] RDMA/rxe: copy send WQE to kernel buffer before
+ processing
+To: Tristan Madani <tristmd@gmail.com>, Zhu Yanjun <zyjzyj2000@gmail.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+Cc: Moni Shoua <monis@mellanox.com>, linux-rdma@vger.kernel.org,
+ stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
+References: <20260816104432.849996-1-tristmd@gmail.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20260816104432.849996-1-tristmd@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 11:15:26AM +0800, Qing Ming wrote:
-> PDP contexts can be deleted through GTP_CMD_DELPDP or while the GTP
-> network device is being unregistered. The latter is serialized by RTNL,
-> but the generic-netlink delete path only holds RCU.
-> 
-> Running both paths concurrently can therefore make both paths delete the
-> same PDP context. The issue was found through static analysis and
-> reproduced on a KASAN-enabled kernel by a simple two-thread program
-> racing GTP_CMD_DELPDP against RTM_DELLINK:
-> 
->   Oops: general protection fault, probably for non-canonical address
->   KASAN: maybe wild-memory-access in range
->          [0xdead000000000120-0xdead000000000127]
->   RIP: gtp_genl_del_pdp+0x1c1/0x420 [gtp]
->   RBP: dead000000000122
-> 
-> The second deletion dereferenced the poisoned hlist pprev pointer.
-> 
-> Serialize gtp_pdp_add(), gtp_genl_del_pdp(), and gtp_dellink() with a
-> shared mutex. With this change, the same reproducer completed 50 races
-> on a KASAN- and lockdep-enabled kernel without a KASAN report, oops, or
-> lockdep warning.
-> 
-> Fixes: 459aa660eb1d ("gtp: add initial driver for datapath of GPRS Tunneling Protocol (GTP-U)")
+
+在 2026/8/16 3:44, Tristan Madani 写道:
+> From: Tristan Madani <tristan@talencesecurity.com>
+>
+> The rxe send queue is mapped into userspace via mmap. The requester
+> processes Work Queue Entries (WQEs) directly from this shared buffer
+> without first copying them to kernel memory. Userspace can modify WQE
+> fields (num_sge, sge_offset, SGE entries) between kernel reads,
+> leading to inconsistent state in copy_data().
+>
+> This is the send-path counterpart to the receive-path fixes:
+>   - commit 22b8fbded65b8 ("RDMA/rxe: Fix TOCTOU heap overflow in
+>     get_srq_wqe")
+>   - commit d6ab440240a04 ("RDMA/rxe: Copy WQE to local buffer in
+>     non-SRQ receive path")
+>
+> Fix by copying the send WQE to a kernel-private buffer in req_next_wqe()
+> before processing. The local copy is reused across multi-packet sends
+> to preserve DMA progress state (cur_sge, sge_offset, resid). State
+> changes are written back to the shared queue so the completer can observe
+> them (e.g., wqe_state_pending for RC acknowledgment processing).
+>
+> The copy is invalidated when:
+>   - The WQE index advances (last packet sent, error, local ops, UD oversized)
+>   - A retry occurs (req_retry resets WQE state in shared memory)
+>
+> The num_sge field is validated against qp->sq.max_sge on copy-in to
+> reject corrupted values early.
+>
+> Fixes: 8700e3e7c485 ("Soft RoCE driver")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Qing Ming <a0yami@mailbox.org>
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 > ---
-> v4:
-> - Replace guard() with plain mutex_lock()/mutex_unlock() in the
->   GTP_CMD_NEWPDP path.
-> - Narrow the RCU read-side section in gtp_genl_del_pdp() to
->   gtp_find_pdp(); gtp_find_dev() uses dev_get_by_index_rcu().
-> - Add mutex-aware lockdep conditions to the shared PDP lookup helpers.
-> 
-> v3: https://lore.kernel.org/netdev/20260811022012.5416-1-a0yami@mailbox.org/
->  drivers/net/gtp.c | 25 +++++++++++++++++++------
->  1 file changed, 19 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
-> index 9a12cc53da00..ea83a6b6aa1a 100644
-> --- a/drivers/net/gtp.c
-> +++ b/drivers/net/gtp.c
-> @@ -12,6 +12,7 @@
->  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
->  
->  #include <linux/module.h>
-> +#include <linux/mutex.h>
->  #include <linux/skbuff.h>
->  #include <linux/udp.h>
->  #include <linux/rculist.h>
-> @@ -108,6 +109,7 @@ struct gtp_net {
->  };
->  
->  static u32 gtp_h_initval;
-> +static DEFINE_MUTEX(gtp_pdp_lock);
->  
->  static struct genl_family gtp_genl_family;
->  
-> @@ -151,7 +153,8 @@ static struct pdp_ctx *gtp0_pdp_find(struct gtp_dev *gtp, u64 tid, u16 family)
->  
->  	head = &gtp->tid_hash[gtp0_hashfn(tid) % gtp->hash_size];
->  
-> -	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
-> +	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
-> +				 lockdep_is_held(&gtp_pdp_lock)) {
->  		if (pdp->af == family &&
->  		    pdp->gtp_version == GTP_V0 &&
->  		    pdp->u.v0.tid == tid)
-> @@ -168,7 +171,8 @@ static struct pdp_ctx *gtp1_pdp_find(struct gtp_dev *gtp, u32 tid, u16 family)
->  
->  	head = &gtp->tid_hash[gtp1u_hashfn(tid) % gtp->hash_size];
->  
-> -	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
-> +	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
-> +				 lockdep_is_held(&gtp_pdp_lock)) {
->  		if (pdp->af == family &&
->  		    pdp->gtp_version == GTP_V1 &&
->  		    pdp->u.v1.i_tei == tid)
-> @@ -185,7 +189,8 @@ static struct pdp_ctx *ipv4_pdp_find(struct gtp_dev *gtp, __be32 ms_addr)
->  
->  	head = &gtp->addr_hash[ipv4_hashfn(ms_addr) % gtp->hash_size];
->  
-> -	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
-> +	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
-> +				 lockdep_is_held(&gtp_pdp_lock)) {
->  		if (pdp->af == AF_INET &&
->  		    pdp->ms.addr.s_addr == ms_addr)
->  			return pdp;
-> @@ -220,7 +225,8 @@ static struct pdp_ctx *ipv6_pdp_find(struct gtp_dev *gtp,
->  
->  	head = &gtp->addr_hash[ipv6_hashfn(ms_addr) % gtp->hash_size];
->  
-> -	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
-> +	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
-> +				 lockdep_is_held(&gtp_pdp_lock)) {
->  		if (pdp->af == AF_INET6 &&
->  		    ipv6_pdp_addr_equal(&pdp->ms.addr6, ms_addr))
->  			return pdp;
-> @@ -1555,9 +1561,11 @@ static void gtp_dellink(struct net_device *dev, struct list_head *head)
->  	struct pdp_ctx *pctx;
->  	int i;
->  
-> +	mutex_lock(&gtp_pdp_lock);
->  	for (i = 0; i < gtp->hash_size; i++)
->  		hlist_for_each_entry_safe(pctx, next, &gtp->tid_hash[i], hlist_tid)
->  			pdp_context_delete(pctx);
-> +	mutex_unlock(&gtp_pdp_lock);
->  
->  	list_del(&gtp->list);
->  	unregister_netdevice_queue(dev, head);
-> @@ -2053,7 +2061,9 @@ static int gtp_genl_new_pdp(struct sk_buff *skb, struct genl_info *info)
->  		goto out_unlock;
->  	}
->  
-> +	mutex_lock(&gtp_pdp_lock);
->  	pctx = gtp_pdp_add(gtp, sk, info)
+>   drivers/infiniband/sw/rxe/rxe_req.c   | 55 ++++++++++++++++++++++++++-
+>   drivers/infiniband/sw/rxe/rxe_verbs.h |  6 +++
+>   2 files changed, 60 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+> index 12d03f390b097..499f398b674c7 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_req.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_req.c
+> @@ -161,6 +161,20 @@ static void req_check_sq_drain_done(struct rxe_qp *qp)
+>   	spin_unlock_irqrestore(&qp->state_lock, flags);
+>   }
+>   
+> +/* Write local WQE copy back to shared queue so the completer
+> + * can observe state transitions (e.g., wqe_state_pending).
+> + */
+> +static void rxe_req_writeback_wqe(struct rxe_qp *qp)
+> +{
+> +	if (qp->req.send_wqe_valid && qp->req.shared_wqe) {
+> +		unsigned int num_sge = qp->req.send_wqe.wqe.dma.num_sge;
+> +		size_t size = sizeof(struct rxe_send_wqe) +
+> +			      num_sge * sizeof(struct rxe_sge);
+> +
+> +		memcpy(qp->req.shared_wqe, &qp->req.send_wqe.wqe, size);
+> +	}
+> +}
+> +
+rxe_req_writeback_wqe() uses memcpy() to write the local WQE state back
+to qp->req.shared_wqe in user-mapped memory without synchronization.
 
-This does not look fine, it should protect the entire section where
-this pctx object is used.
+This introduces two data race hazards:
+1. Malicious or concurrent userspace writes during memcpy() can race
+    with the kernel writeback, causing tearing or inconsistent shared state.
+2. The kernel completer tasklet concurrently reads shared_wqe without
+    holding a lock, risking torn reads of intermediate WQE states (e.g.
+    wqe_state_pending) and triggering state machine corruption.
 
-> +	mutex_unlock(&gtp_pdp_lock);
->  	if (IS_ERR(pctx)) {
->  		err = PTR_ERR(pctx);
->  	} else {
-> @@ -2134,9 +2144,12 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
->  	if (!info->attrs[GTPA_VERSION])
->  		return -EINVAL;
->  
-> -	rcu_read_lock();
-> +	mutex_lock(&gtp_pdp_lock);
->  
-> +	/* gtp_find_dev() uses dev_get_by_index_rcu(). */
-> +	rcu_read_lock();
->  	pctx = gtp_find_pdp(sock_net(skb->sk), info->attrs);
+Writebacks to shared user-mapped memory must update state fields atomically
+or execute under appropriate lock serialization rather than performing an
 
-Same here.
+uncontrolled bulk memcpy().
 
-> +	rcu_read_unlock();
->  	if (IS_ERR(pctx)) {
->  		err = PTR_ERR(pctx);
->  		goto out_unlock;
-> @@ -2153,7 +2166,7 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
->  	pdp_context_delete(pctx);
->  
->  out_unlock:
-> -	rcu_read_unlock();
-> +	mutex_unlock(&gtp_pdp_lock);
->  	return err;
->  }
->  
-> 
-> base-commit: 24ef02f934eeb48830cff6b739abc3c62b1d107b
-> -- 
-> 2.53.0
-> 
+Please fix the above problem with appropriate synchronize methods.
+
+Thanks a lot.
+
+Yanjun.Zhu
+
+>   static struct rxe_send_wqe *__req_next_wqe(struct rxe_qp *qp)
+>   {
+>   	struct rxe_queue *q = qp->sq.queue;
+> @@ -178,6 +192,8 @@ static struct rxe_send_wqe *req_next_wqe(struct rxe_qp *qp)
+>   {
+>   	struct rxe_send_wqe *wqe;
+>   	unsigned long flags;
+> +	unsigned int num_sge;
+> +	size_t copy_size;
+>   
+>   	req_check_sq_drain_done(qp);
+>   
+> @@ -193,6 +209,29 @@ static struct rxe_send_wqe *req_next_wqe(struct rxe_qp *qp)
+>   	}
+>   	spin_unlock_irqrestore(&qp->state_lock, flags);
+>   
+> +	/* If we already have a valid local copy of this WQE, use it.
+> +	 * This preserves DMA progress state across multi-packet sends.
+> +	 */
+> +	if (qp->req.send_wqe_valid && qp->req.shared_wqe == wqe)
+> +		return &qp->req.send_wqe.wqe;
+> +
+> +	/* Copy WQE from userspace-mapped shared queue to kernel-private
+> +	 * buffer. Userspace can concurrently modify num_sge, SGE entries,
+> +	 * or inline data offsets, leading to inconsistent state in
+> +	 * copy_data(). This is the send-path variant of the receive-path
+> +	 * fix in rxe_get_recv_wqe().
+> +	 */
+> +	num_sge = wqe->dma.num_sge;
+> +	if (unlikely(num_sge > qp->sq.max_sge)) {
+> +		rxe_dbg_qp(qp, "invalid num_sge in send WQE\n");
+> +		return NULL;
+> +	}
+> +	copy_size = sizeof(*wqe) + num_sge * sizeof(struct rxe_sge);
+> +	memcpy(&qp->req.send_wqe.wqe, wqe, copy_size);
+> +	qp->req.shared_wqe = wqe;
+> +	qp->req.send_wqe_valid = true;
+> +
+> +	wqe = &qp->req.send_wqe.wqe;
+>   	wqe->mask = wr_opcode_mask(wqe->wr.opcode, qp);
+>   	return wqe;
+>   }
+> @@ -582,9 +621,14 @@ static void update_state(struct rxe_qp *qp, struct rxe_pkt_info *pkt)
+>   {
+>   	qp->req.opcode = pkt->opcode;
+>   
+> -	if (pkt->mask & RXE_END_MASK)
+> +	/* Write back local WQE state before possibly advancing index */
+> +	rxe_req_writeback_wqe(qp);
+> +
+> +	if (pkt->mask & RXE_END_MASK) {
+>   		qp->req.wqe_index = queue_next_index(qp->sq.queue,
+>   						     qp->req.wqe_index);
+> +		qp->req.send_wqe_valid = false;
+> +	}
+>   
+>   	qp->need_req_skb = 0;
+>   
+> @@ -635,6 +679,7 @@ static int rxe_do_local_ops(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
+>   	wqe->state = wqe_state_done;
+>   	wqe->status = IB_WC_SUCCESS;
+>   	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
+> +	qp->req.send_wqe_valid = false;
+>   
+>   	return 0;
+>   }
+> @@ -695,6 +740,7 @@ int rxe_requester(struct rxe_qp *qp)
+>   	if (unlikely(qp->req.need_retry && !qp->req.wait_for_rnr_timer)) {
+>   		req_retry(qp);
+>   		qp->req.need_retry = 0;
+> +		qp->req.send_wqe_valid = false;
+>   	}
+>   
+>   	wqe = req_next_wqe(qp);
+> @@ -761,6 +807,7 @@ int rxe_requester(struct rxe_qp *qp)
+>   						       qp->req.wqe_index);
+>   			wqe->state = wqe_state_done;
+>   			wqe->status = IB_WC_SUCCESS;
+> +			qp->req.send_wqe_valid = false;
+>   			goto done;
+>   		}
+>   		payload = mtu;
+> @@ -820,12 +867,18 @@ int rxe_requester(struct rxe_qp *qp)
+>   	 * will continue looping and return to rxe_requester
+>   	 */
+>   done:
+> +	/* Write back local WQE for paths that skip update_state()
+> +	 * (local ops, UD oversized packets).
+> +	 */
+> +	rxe_req_writeback_wqe(qp);
+>   	ret = 0;
+>   	goto out;
+>   err:
+>   	/* update wqe_index for each wqe completion */
+>   	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
+>   	wqe->state = wqe_state_error;
+> +	rxe_req_writeback_wqe(qp);
+> +	qp->req.send_wqe_valid = false;
+>   	rxe_qp_error(qp);
+>   exit:
+>   	ret = -EAGAIN;
+> diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.h b/drivers/infiniband/sw/rxe/rxe_verbs.h
+> index 0f5ffd94643f9..a22dfc6e5ae3c 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_verbs.h
+> +++ b/drivers/infiniband/sw/rxe/rxe_verbs.h
+> @@ -114,6 +114,12 @@ struct rxe_req_info {
+>   	int			wait_for_rnr_timer;
+>   	int			noack_pkts;
+>   	int			again;
+> +	struct rxe_send_wqe	*shared_wqe;
+> +	bool			send_wqe_valid;
+> +	struct {
+> +		struct rxe_send_wqe	wqe;
+> +		struct ib_sge		sge[RXE_MAX_SGE];
+> +	} send_wqe;
+>   };
+>   
+>   struct rxe_comp_info {
+
+-- 
+Best Regards,
+Yanjun.Zhu
+
