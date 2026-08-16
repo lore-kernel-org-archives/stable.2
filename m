@@ -1,98 +1,125 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8AA20ADF8
-	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 08:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5E62F8E87
+	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 09:00:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786870617; cv=none; b=N9Lo1gdyVIY3CC7oG1YKGXypndc800cv0NzEZ62bJMaTMHs9HhZZsIBwLTdRgqAr5r0SDZwNVU2FPOdpabNNbK//+VKE+5hlDM3q+v6L0xa9jLcLCWjba1gNu70+HoWluP5r+MAxkCS1rawaIOC4j+Re2U+cCMUO5779gClQDjQ=
+	t=1786870844; cv=none; b=qtclNvx+JsppVqWRXAVVriDSInHONkmR4WMvL5ZtMoA90n/aug14CMIraTpSsOq7meGqLJ3LCobnqvDPGqBnZNOP21P0Vd5Aaa4/ToYREQ5wbag9UJ+rEnHtfjOSAAEkAXsluLVrKBYWG9Y6myqRabAm7wGmQ7o/3K63EvY0OFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786870617; c=relaxed/simple;
-	bh=tJAz/ItHBVgRIrjKlGA7Yf2OR9BlJEZ77puY8x/smJA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BOHSr4/sJ7PXCmeIHpQ4lhSsMNmH2HwUW2wwByBh0+8arWhtwpvuBbHHTPTIzHLtXwtDnue/F3KJoEsha3gdH0mgrXYRJdFYV/3k+Vlp9fcEbt5qwh6ZOnXeL/SvEyLJjgU7UjAGb/u07/h9xjFBi+HT6R4MQKS6bV6LT/EdZJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
+	s=arc-20240116; t=1786870844; c=relaxed/simple;
+	bh=6T7GMCkGLOuSfaHhVTsEusliObvxag9Q/Qbw1CjZNeg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dKE2kJo/gWAkRSZ92N+vTByQl6yurcrUXRuPC4EWGPVg2e4bRJQu4MV/GYrwPI5gAzLGYKnm2DnobJI8ipJV1zt+jeiWAKL4EesmL/C/VKTv5FvG0BMKO/sQi8zsNcdz/4rEbkIFV4WrbOkmzVqZiBB6sAb02+B5SC3ABFSmAnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=esCZ2Fxk; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47f93b2fe4cso1287698f8f.0
-        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 01:56:55 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="esCZ2Fxk"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so2432738f8f.1
+        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 02:00:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786870841; x=1787475641; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TB5hLITgaLSvnkEZ2ABO7VyYwwjhkPuh1sGrI3sQjr4=;
+        b=esCZ2FxkxMAdRy+o8iOCfI4AswWnHWutK5R2q7oAZxQ3ixw4OMsCSVKlaa59n4ogJs
+         lgKdcdDAMOFhPmpwTGAdXH0nhtQIOdAfZzwsypuYL+OuG1CFdGwaUbwnwLURodh5YPN3
+         UozwjNkb/YVhNeT8YsH8o1S+vHI2+R3fRifNWdccZBAbIqObt9m/sKtLuxvkzAXX6zWM
+         ztLysI23yNgsS7g1Put4ityWpEuvNxfh32joEdJYAAEDC8rilm4IWgwziT7lEd9RKogQ
+         xfESjQKjc9fT00mcaK7OnDmOG0EKFsI5WdL2uysBrpLZGX3n9xZbNFGeVktUZmyP87ND
+         VKcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786870614; x=1787475414;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1786870841; x=1787475641;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=s0b91MIc9baawgnHgsNGw4IC7c2ROOK7JfMUTm1Q4pU=;
-        b=jHYk8esL4TXiP7V7MLvhqLnFV6/xUCH6Krenv1uAKPAWOgl+aBJHbHld/gEREtlAyF
-         TBvEPzhQCX6+hK1F94KOYoYrjDndd3kc1I9QohaqoWli3McEBSzhNIlbVWJp+oP3e6h1
-         Q4VpU2wKitoQyFp7hoO6Vn+ib3cyQlgUJu5rOqOcBuxPYpCl9DpC1q6kobhlZfdq84TA
-         01nui/CozNZabhzA9+g/Z60lSkwz8KSo5aAzBHUhpkquMc5PkSCi7vYmFwAnKYb8X0jU
-         AcarweRgkQXEto2VeOjG/cJyjM57EuBPDnD0fmZubioZAZh/bg8USfjVzh/5p7nFGuVl
-         a6QA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4mQZXeoU5Le3CKhPjwSDexrrIa/V8hgcDIZpTOnyRRsIp4LbxaE8yB0k1Kh0ojts3SR4Yito=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8dOkvwk2VrCOafp1CgeuR2+SWmrKnSR2Unl70R2ki9FZTXdIT
-	I8womvgXoPB9AUgetjKU/azXU9v/wtG1HKIkguKGz0E+KN4whng++uTK
-X-Gm-Gg: AR+sD117GTdlKcTYiKMsNaCIgbEH1btJ7Y0lmwI+Rm1xxckadfSlwFPfszarrAWCjJN
-	3Cf9hCFTGeAKqMXxJrH1QajxbAi64xvsKOkEPYj1UaJdKbRMdfLRBLd6KtHSqlvVt6plZJ3uamA
-	COx1JaE/bThgVoaM6cdAjHCIJaivfddwqHbYFbIC5khnaNIHXBWLbL0VTcAmkgLcPMvxStO/1HN
-	LYxbbELkY8tip6guvN8DSyXQwoUAT6c6qIOxY0MmfuSwn7IlhfaS6GC1wsOE7yM8VvqcSNyN2X4
-	So6adBta0H9qHDnZ3oHHOdQCQeG9nfOwoaeXS7EG1cMbGAEij4yBx1v+c4rECFAsmoQg73hwHML
-	AEGEheszHpp4BUjC2NJovfwmhCdSr4YDtZyr7OnyvpJVOkaqxoX2PpgYRACtjc8B4QJoJG57uiu
-	v3EX1KETsbgfmmaUdVqFgmscBvwof0CyKzaU0V/1n2mb2+lc8x9YUpktJrHVdwTkbYEqX4XxoSO
-	y4MCb+DBFOzHST7YUFrSINnzam8OA7vLksMzD/0A33h9k+eKAe6zoQiKOh9hPsvQXVm
-X-Received: by 2002:a05:6000:25ec:b0:47f:f3d4:26da with SMTP id ffacd0b85a97d-4816070f86dmr24247754f8f.11.1786870614391;
-        Sun, 16 Aug 2026 01:56:54 -0700 (PDT)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f2b1d90sm23948147f8f.22.2026.08.16.01.56.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 16 Aug 2026 01:56:53 -0700 (PDT)
-Message-ID: <1b4e3d62-619a-454f-a1f3-32165a58f3ef@reactivated.net>
-Date: Sun, 16 Aug 2026 09:56:52 +0100
+        bh=TB5hLITgaLSvnkEZ2ABO7VyYwwjhkPuh1sGrI3sQjr4=;
+        b=Egz3xsYAHA3Qm8s3hXc2eePdaNZFM9Dw2sd9T65lVnnU5t9QxyzJ50uaaNdC9L+3NZ
+         9QGHtv50AA8m/C53hxSMFr4FcAaScBj+Ou0yONtmdZu96OLL3Rez07Lvj4X3ovK6IcYj
+         5UvFTOylRfNiqiIA6hkxtJ2n03M5TorTJYjX0bKTcHEJdlhbzSOSQmMoioRipDZCjGHu
+         BJxgeSeHUl3VpgK/HXFE4HmWBwhsly4u8TwrB77+NHjiJeQvG3kMFThjP+Ym7QCQzoAX
+         Iz6W7TSaQ6jaFmw0FQpdDJ7HIh5dXca/4/itLMCpc2tPLjvE4aNi6eP1Tsu/MIqGOEQZ
+         joWw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7f92b6W0p+nrJcLwcy7HB2s9MUM4p6MjJugjOYyNNFFBUffasVrMujulgGJ7GJCWyJxzERNw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzd9Rq+7ZsMz6OcPNf1HqlDN1ciuca1bLhBAymDe6waWjdNfHYD
+	v3R7ZPHcNbnwKetw25IpfAIdTW6TxgDIVK30HO4pCEooU6khIG17o1dg
+X-Gm-Gg: AR+sD11qHK4aK/u785P8MFq15Ne8LnReraCDFbRvra0AHaVzOPltDXZEpyyEuItdRTU
+	Hpva879vsgpaU5vnGcyopq2ZSPKVn2+lO9BltyFbqrpnm5mPxD6FGAzldOYzNWB2jLh7IqApRZu
+	T+jYPp9b1j3b8Ayn5mAAEKqyB6mTNFNat54sJldWEdMzhnrZ4XQ3Jv/eCiKWNmGD8Jg/pSzizqr
+	p4eiqBkffYIiYWbst6qdxjZbEJLOnW9y295aU45zxkz5deb7zlajgLZ96R+YE9bUqlFkcGSYv2+
+	jyouYIL/TK7yNbTcl9eYb4Viy7PlB0q+uyJDkW2bf2rfE6BanCKVtLBtBNxLLGVWHKNHfu3QpoN
+	UuThP+KnC+ES6dfemRsbw9rvmL95XGIr28KIEoS/7WSjPsO+goSx+Lu57WYQH1RAdqlqJcZODfh
+	aejdhBSygKnyq+uDLvGojc2IgU54NhTkoXa0j2tPrIzTJc+TUTuzN3Z4z+
+X-Received: by 2002:adf:f392:0:b0:46e:1815:6a83 with SMTP id ffacd0b85a97d-4816078c790mr19677263f8f.29.1786870840761;
+        Sun, 16 Aug 2026 02:00:40 -0700 (PDT)
+Received: from zen ([37.203.152.61])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f2b13c3sm18665907f8f.19.2026.08.16.02.00.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 16 Aug 2026 02:00:39 -0700 (PDT)
+From: Kiarash Azarnia <kiarash.azarnia@gmail.com>
+To: rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org
+Cc: graf@amazon.com,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] kho: fix signed shift UB in kho_preserved_memory_reserve()
+Date: Sun, 16 Aug 2026 12:30:37 +0330
+Message-ID: <20260816090038.3117276-1-kiarash.azarnia@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpiolib: of: don't mark hog nodes OF_POPULATED before a
- chip is found
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260815-gpiolib-of-hog-flag-leak-v1-1-6126aac5f6f3@nexthop.ai>
-Content-Language: en-US
-From: Daniel Drake <dan@reactivated.net>
-In-Reply-To: <20260815-gpiolib-of-hog-flag-leak-v1-1-6126aac5f6f3@nexthop.ai>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/08/2026 21:44, Abdurrahman Hussain wrote:
-> When a gpio-hog node is attached by a device-tree overlay before its
-> parent GPIO chip has been registered, of_gpio_notify() sets
-> OF_POPULATED on the node via of_node_test_and_set_flag() and only then
-> discovers that there is no gpio_device for the parent, returning
-> NOTIFY_DONE without clearing the flag.
-> 
-> Since gpiochip_hog_lines() skips any hog child whose of_node carries
-> OF_POPULATED, the leaked flag makes the hog silently ignored when the
-> chip is registered later. Applying an overlay containing both a GPIO
-> controller node and its hog children - and populating devices only
-> after the overlay apply completes - hits this on every boot; the hog
-> is only applied if the chip driver is unbound (which clears the flag
-> in the remove path) and rebound.
-> 
-> Look up the parent gpio_device before claiming the node so that a hog
-> attached ahead of its chip stays unclaimed and is picked up normally
-> by gpiochip_hog_lines() at registration time.
-> 
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Fixes: a23226b7c1f6 ("gpiolib: handle gpio-hogs only once")
-> Cc: stable@vger.kernel.org
-Looks correct, and this is consistent with OF_POPULATED handling in 
-of_i2c_notify() and of_spi_notify().
+kho_preserved_memory_reserve() computes the size of a preserved
+reservation as:
 
-Reviewed-by: Daniel Drake <dan@reactivated.net>
+	sz = 1 << (order + PAGE_SHIFT);
+
+`1` is a signed int, so the shift is signed-int arithmetic. For order
+19 (a 2 GiB region) it produces 1 << 31, which is unrepresentable in
+int and is undefined behavior; in practice it yields 0x80000000,
+sign-extended on the assignment to the u64 sz. For order >= 20 the
+shift count exceeds the width of int, which is also undefined. The
+return value of memblock_reserve() is ignored and memblock_cap_size()
+clamps the bogus size, so the kernel silently reserves the wrong
+amount of memory for the preserved region.
+
+kho_alloc_preserve() caps order at MAX_PAGE_ORDER and cannot reach
+order 19, but a boot-time reserve_mem= region of at least 2 GiB drives
+kho_preserve_pages() to compute order 19, and kho_preserve_pages() is
+EXPORT_SYMBOL_GPL(), so the path is reachable.
+
+Cast the shift operand to u64 so the arithmetic is done in 64 bits:
+
+	sz = (u64)1 << (order + PAGE_SHIFT);
+
+Fixes: 3f2ad90060f6 ("kho: adopt radix tree for preserved memory tracking")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kiarash Azarnia <kiarash.azarnia@gmail.com>
+---
+ kernel/liveupdate/kexec_handover.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index 175c08a6e41e..c79f48bd64ac 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -501,7 +501,7 @@ static int __init kho_preserved_memory_reserve(phys_addr_t phys,
+ 	struct page *page;
+ 	u64 sz;
+ 
+-	sz = 1 << (order + PAGE_SHIFT);
++	sz = (u64)1 << (order + PAGE_SHIFT);
+ 	page = kho_get_preserved_page(phys, order);
+ 
+ 	/* Reserve the memory preserved in KHO in memblock */
+-- 
+2.53.0
 
