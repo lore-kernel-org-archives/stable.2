@@ -1,135 +1,127 @@
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62C8A3E3C4F
-	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 21:49:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71683EA955
+	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 23:42:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786916993; cv=none; b=LelkqUqlZvM+mr35Dc1IF2qBdFif1g0LfrNaOrWow+SQq/unvT9QZEN0QtgxmOIugLLkZkM5xxoZxS728eW5uPw7grS0TbooLZ4s6NHs8K1OExq+Fc84O/m/SjXSmP+hyPNe51BLYE9K+v4jSXMcrunZBeDJxt0g9EdjHNqCv8A=
+	t=1786923766; cv=none; b=tPz76VY4EJlHLzphpp9zbPHKmNFFR0GJ5xXEm5b0CcfSdcLG17RhcMsfMxFa6O0/n+uRaBHqUwvYbmjD+uIe9MP/iCSOtEaLaLWvja/VBQfHiY/iFuSzjYkmaditICI0+WnZN6305ZGJEd3vb0/orq6SaTmy8hFCFUXMjIr+WR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786916993; c=relaxed/simple;
-	bh=JddUaa0wLJyC6eSU+yxvhJrBLSskqrBTBPGi8c6Tuww=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=X414LdfnmU6Mp/mHofelizUkUnsTJabelVNSJhi6/YJFGEINuyHURdSkwSarECZq2fm9/9dHD4t2r0sUf5JlbEbuW675SQohKUVSNLhZqamen6caoIV2/mo9bdz8R8pmNCehxu/FGdwoql278RHtnMjkAznybF0MGH60VRD3T3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=N1i4pxtV; arc=none smtp.client-ip=202.36.163.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	s=arc-20240116; t=1786923766; c=relaxed/simple;
+	bh=VrOjBtDyZdaPKMTzH33OYXvmL8G+wknlOLtphJjQl1c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=F4OS45zbJq37/wwXrqRFdDY0dJWbFjN6Hy+plW+8c5rFLx//6Q3iBsCUDIJAPi6dx6+a0pr6fgVCnn7vDpHbL768WJjgrR955UeeLZDz9IfaNGm6Vj9C2+xsvRLfMieS2YsJBqG2njnArloQ4GxJVJg3cVGV5699M4jj5iQUi48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JtMmysjv; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="N1i4pxtV"
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 17F922C0504;
-	Mon, 17 Aug 2026 09:32:10 +1200 (NZST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1786915930;
-	bh=JddUaa0wLJyC6eSU+yxvhJrBLSskqrBTBPGi8c6Tuww=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=N1i4pxtVLgvcn+9ZtP+NKO0YeaJXIumjb0bTEbZWKAULW8zMI1Bmx2wbBEEVSlvR9
-	 Eucafh1bXagxm4ADjS18kq6kfkbMQBLXfbyUWa/Yaii8z9zFdZXA5+/SdgOj5lU0W+
-	 XH2N+jkSbRhnvnukdP1/fRTa3l5bGWw3v7AzgZgS4RKqGGtWqq8jUqCE4yznb8ivty
-	 d9rbtJ82lNYRUokLY0NjxW4Z1kqPoVDlG2qlGIsn4m2ScWlZaXwaB3LPXNovYvdjS2
-	 s5DBpk8yXebj5P5svgIyGfApOCBQR/akL638/+YDPJnrAxJSjoqG3aJJETaEZ+19+n
-	 zb56oJHhKv+7g==
-Received: from svr-chch-ex2.atlnz.lc (Not Verified[2001:df5:b000:bc8::76]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B6a822c590001>; Mon, 17 Aug 2026 09:32:10 +1200
-Received: from svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8:f753:6de:11c0:a008) by
- svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8:f753:6de:11c0:a008) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Mon, 17 Aug 2026 09:32:09 +1200
-Received: from svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567]) by
- svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567%15]) with mapi id
- 15.02.1748.039; Mon, 17 Aug 2026 09:32:09 +1200
-From: Chris Packham <Chris.Packham@alliedtelesis.co.nz>
-To: Liu Zhenlong <dragonliu2018@gmail.com>, "andi.shyti@kernel.org"
-	<andi.shyti@kernel.org>, "jochen@scram.de" <jochen@scram.de>,
-	"maddy@linux.ibm.com" <maddy@linux.ibm.com>, "vz@mleia.com" <vz@mleia.com>,
-	"piotr.wojtaszczyk@timesys.com" <piotr.wojtaszczyk@timesys.com>
-CC: "mpe@ellerman.id.uk" <mpe@ellerman.id.uk>, "npiggin@gmail.com"
-	<npiggin@gmail.com>, "chleroy@kernel.org" <chleroy@kernel.org>,
-	"grant.likely@secretlab.ca" <grant.likely@secretlab.ca>,
-	"neelegup@linux.vnet.ibm.com" <neelegup@linux.vnet.ibm.com>,
-	"benh@kernel.crashing.org" <benh@kernel.crashing.org>, "wsa@kernel.org"
-	<wsa@kernel.org>, "stigge@antcom.de" <stigge@antcom.de>,
-	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
-	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH 1/5] i2c: mpc: fix device_node refcount leak in
- fsl_i2c_probe()/fsl_i2c_remove()
-Thread-Topic: [PATCH 1/5] i2c: mpc: fix device_node refcount leak in
- fsl_i2c_probe()/fsl_i2c_remove()
-Thread-Index: AQHdLOGwizUCWCZB906ULMjP0xiw17aganMA
-Date: Sun, 16 Aug 2026 21:32:09 +0000
-Message-ID: <5d7663b2-628e-43d3-9077-fc3a8c0fe9b3@alliedtelesis.co.nz>
-References: <20260815181204.2321-1-dragonliu2018@gmail.com>
- <20260815181204.2321-2-dragonliu2018@gmail.com>
-In-Reply-To: <20260815181204.2321-2-dragonliu2018@gmail.com>
-Accept-Language: en-NZ, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <795203B68820D24CBB330239887239E9@alliedtelesis.co.nz>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JtMmysjv"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49954b88fffso31543795e9.0
+        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 16:42:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786923763; x=1787528563; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G8Fz286ccYp2u449U94NCIPiv/rPOIyX29xqISQ0+fg=;
+        b=JtMmysjvUjYxClZ2FBrTP3CTcp/Pjy76tr0imHX0XRpBqXQZFaFEnenhpPZIj77Agv
+         WQZ3QfTlRLsmIG1IU+KdZrXSDkOi7kgHDMIAIAp0TxYRos8I1LDDiP8/gGw61OyyQxgU
+         J1kOobyWSorhYmY30F1pmQiB/uJibhgRTEB6BSCYeiuC1Af5qBbw+PEpdNVFnq6sGp0i
+         JiWSL40TvBKFlxLaMpPzAdVHxn0iOPSxVs7k8rTP0UrDXJUsz7jS7fy+8+Zvd6OEcQWU
+         e9xfVLEAMNGASctbKXXNJNYmZVB1RliUzKhPwmbDJwyVrzrqJa5hlM9vvAlQX7oNjL/M
+         fv+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786923763; x=1787528563;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G8Fz286ccYp2u449U94NCIPiv/rPOIyX29xqISQ0+fg=;
+        b=OOE51oIfyaypbIaAkLR2LTUYsI6Ocw3pnDtrLg3FLnVOR1sZgZEm6BBadI6mGnnkmP
+         PdGoU2TkLosUAPjWUUhn0IzB0mBBxo6qSiF4dKszag0MUbYWwxYuMB+/MhpRx6djhrCC
+         XuXl+1tGZSkJvZa1COBHMQpDWYh6AEYUh0GMkJcMorkNQV5ukHWWU6KpKIAME3vzL1wL
+         oGb9B303u0Si1Xm1Q7bsMMH4OGWcV/9KP2P5d7UJ+e+EUzKKlFMH5u9lFLfvp6LgA8vA
+         tYf1LbfGjWX4WTpWyqNZxoR/v0pIypqgVETrKPeuvXmZhxk+fMfVUc9fnyZt+P7hSQV3
+         bujA==
+X-Forwarded-Encrypted: i=1; AHgh+RpO83szufnhohxiYwBGdhDgmfq+rjrjG2iTHIbPCAZx/9Z38hRQ8tBSuW/lkClt3L4g2vkwvo4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxpa8xhN8Ti7WnNMyLCIwaQZv66CaEMdH2iTlB+jfVLFgjKKpCt
+	Pj0R0LDRwScMuf+4IpUPoh+OixFDX/6ytLFprH8KlGMOL92gEQ5MKUjb
+X-Gm-Gg: AR+sD129Rw/5W4016UJbQECJauC6mWBt5rxAiYnm1nGJFLwQE5sYADowRX3h4IvKNuB
+	5NaB9WOH7hKQ/ao/VuwIscshHckA6Csu+XATAmqxNLZ7/NjosZTkz6ZlduNdv0OJy5uo66KbRDR
+	3/qqqJ9tYUnEhw7C0chGSvBy58qaW8MQrE5COPcsUiK38pp67OMDKgFu3oGZ6x2jraWm/FuxZK4
+	Vj1bDwym0Oo1XjzZWA4V3bmzLuQABEwpl4J2RgTWEO9oHsqWJT9+Cfq9Y3yli1FnZUzpoIpyXOw
+	6g6nTBBhuz5Ox/nqE5Sv7qMbTGkSuRt2G8SmCVmRlzcKOJ6wGTKoDQ0GGJEeeHbGkPPn9KOEgsz
+	9NwOSJaNgYCVvOvoAu/LBi4qmkGVN3Qn+qBUQ+5If5Rnc/SjJllFWxclDnbifOQ7Vfa52h2hkMA
+	D6MqlwelMpOcng74Epq0cPYss1I5u2jhhevAGCYYM6rhW8DjFPIE2nrdkkEeG2kqWonFWJ/0+l6
+	RwpJ5b3iWUFtDPdvALXRphidHOLcGThqTM=
+X-Received: by 2002:a05:600c:3485:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-49987938e19mr343714265e9.1.1786923762984;
+        Sun, 16 Aug 2026 16:42:42 -0700 (PDT)
+Received: from MacBookPro ([2001:8a0:6c97:6700:ac71:8b16:e755:35c9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499960ff072sm112915555e9.3.2026.08.16.16.42.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 16 Aug 2026 16:42:41 -0700 (PDT)
+From: Gabriel Rondon <grondon@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Stepan Ionichev <sozdayvek@gmail.com>,
+	Maxwell Doose <m32285159@gmail.com>,
+	Yash Suthar <yashsuthar983@gmail.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v4 2/3] iio: accel: bmc150: take the lock before checking ev_enable_state
+Date: Mon, 17 Aug 2026 00:42:30 +0100
+Message-ID: <20260816234231.14168-3-grondon@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260816234231.14168-1-grondon@gmail.com>
+References: <20260816234231.14168-1-grondon@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=CKmJXgrD c=1 sm=1 tr=0 ts=6a822c5a a=Xf/6aR1Nyvzi7BryhOrcLQ==:117 a=xqWC_Br6kY4A:10 a=drD7vYo3kbIA:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=g5w_v8IkoF8M0yuuWAMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-SEG-SpamProfiler-Score: 0
+Content-Transfer-Encoding: 8bit
 
-SGkgTGl1DQoNCk9uIDE2LzA4LzIwMjYgMDY6MTIsIExpdSBaaGVubG9uZyB3cm90ZToNCj4gZnNs
-X2kyY19wcm9iZSgpIGNhbGxzIG9mX25vZGVfZ2V0KCkgdG8gdGFrZSBhbiBleHRyYSByZWZlcmVu
-Y2Ugb24gdGhlDQo+IHBsYXRmb3JtIGRldmljZSdzIG9mX25vZGUgd2hlbiBhc3NpZ25pbmcgaXQg
-dG8gdGhlIGFkYXB0ZXIgZGV2aWNlLCBidXQNCj4gbmVpdGhlciB0aGUgcHJvYmUgZXJyb3IgcGF0
-aCBub3IgZnNsX2kyY19yZW1vdmUoKSBkcm9wcyBpdC4NCj4NCj4gZGV2aWNlX3JlbGVhc2UoKSBk
-b2VzIG5vdCBjYWxsIG9mX25vZGVfcHV0KCkgYW5kIGkyY19hZGFwdGVyX2Rldl9yZWxlYXNlKCkN
-Cj4gb25seSBjb21wbGV0ZXMgYSBzdHJ1Y3QsIHNvIHRoZSBleHRyYSByZWZlcmVuY2UgaXMgbmV2
-ZXIgcmVsZWFzZWQsIGxlYWtpbmcNCj4gdGhlIGRldmljZV9ub2RlIG9uIGV2ZXJ5IHByb2JlIGZh
-aWx1cmUgYW5kIGV2ZXJ5IGFkYXB0ZXIgcmVtb3ZhbC4NCj4NCj4gQWRkIHRoZSBtYXRjaGluZyBv
-Zl9ub2RlX3B1dCgpIHRvIGJvdGggcGF0aHMuDQo+DQo+IEluIHRoZSBwcm9iZSBlcnJvciBwYXRo
-LCBpMmNfYWRkX251bWJlcmVkX2FkYXB0ZXIoKSBmYWlsdXJlIGRvZXMgbm90IHJ1bg0KPiBpMmNf
-ZGVsX2FkYXB0ZXIoKSwgc28gb2Zfbm9kZV9wdXQoaTJjLT5hZGFwLmRldi5vZl9ub2RlKSBpcyBz
-YWZlLg0KPg0KPiBJbiBmc2xfaTJjX3JlbW92ZSgpLCBpMmNfZGVsX2FkYXB0ZXIoKSBjbGVhcnMg
-YWRhcC0+ZGV2IHdpdGggbWVtc2V0KCkgYXQNCj4gdGhlIGVuZCAoY29tbWl0IGJkNGJjM2RiZGVk
-OSAoImkyYzogQ2xlYXIgaTJjX2FkYXB0ZXIuZGV2IG9uIGFkYXB0ZXINCj4gcmVtb3ZhbCIpKSwg
-d2hpY2ggemVyb2VzIGFkYXAtPmRldi5vZl9ub2RlIGJlZm9yZSBvZl9ub2RlX3B1dCgpIHJ1bnMs
-DQo+IHR1cm5pbmcgaXQgaW50byBhIG5vLW9wLiAgQ2FjaGUgdGhlIHBvaW50ZXIgYmVmb3JlIGNh
-bGxpbmcNCj4gaTJjX2RlbF9hZGFwdGVyKCksIHRoZSBzYW1lIGFwcHJvYWNoIHVzZWQgaW4gaTJj
-LW11eA0KPiAoaTJjX211eF9kZWxfYWRhcHRlcnMpIGFuZCBtdGQgKGNvbW1pdCA1NjU3MGJkYWQ1
-ZTMgKCJtdGQ6IGNvcmU6IEZpeA0KPiByZWZjb3VudCBlcnJvciBpbiBkZWxfbXRkX2RldmljZSgp
-IikpLg0KPg0KPiBDb21waWxlLXRlc3RlZCB3aXRoIGdjYy1wb3dlcnBjLWxpbnV4LWdudSBvbiBw
-bWFjMzIgZGVmY29uZmlnOyBubw0KPiBoYXJkd2FyZSBhdmFpbGFibGUgZm9yIHJ1bnRpbWUgdGVz
-dGluZy4NCj4NCj4gRml4ZXM6IDlmZDA0OTkyN2NjYiAoIm9mL2kyYzogR2VuZXJhbGl6ZSBPRiBz
-dXBwb3J0IikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gQXNzaXN0ZWQtYnk6IENs
-YXVkZTpjbGF1ZGUtb3B1cy01DQo+IFNpZ25lZC1vZmYtYnk6IExpdSBaaGVubG9uZyA8ZHJhZ29u
-bGl1MjAxOEBnbWFpbC5jb20+DQoNCkkgZGlkIHdvbmRlciBpZiB0aGVyZSB3YXMgYSBiZXR0ZXIg
-d2F5IG9mIGZpeGluZyB0aGlzIGdlbmVyaWNhbGx5IHNpbmNlIA0KaXQgYWZmZWN0cyBtdWx0aXBs
-ZSBkcml2ZXJzIGUuZy4gZG9pbmcgdGhlIHB1dCBpbiBpMmNfZGVsX2FkYXB0ZXIoKSwgDQphZGRp
-bmcgYSBkZXZtXyBmdW5jdGlvbiB0aGFuIGRlYWxzIHdpdGggdGhlIHJlZmVyZW5jZSBvciBqdXN0
-IG5vdCANCmFjcXVpcmluZyB0aGUgcmVmZXJlbmNlICh3aGljaCBzZWVtcyB0byBiZSB3aGF0IFNQ
-SSBkb2VzKS4NCg0KUmVnYXJkbGVzcyBmb3IgYW4gb2xkZXIgZHJpdmVyIGxpa2UgaTJjLW1wYyB0
-aGlzIGlzIHByb2JhYmx5IGEgbWluaW1hbGx5IA0Kc2FuZSBmaXguDQoNClJldmlld2VkLWJ5OiBD
-aHJpcyBQYWNraGFtIDxjaHJpcy5wYWNraGFtQGFsbGllZHRlbGVzaXMuY28ubno+DQoNCj4gLS0t
-DQo+ICAgZHJpdmVycy9pMmMvYnVzc2VzL2kyYy1tcGMuYyB8IDYgKysrKystDQo+ICAgMSBmaWxl
-IGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPg0KPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9pMmMvYnVzc2VzL2kyYy1tcGMuYyBiL2RyaXZlcnMvaTJjL2J1c3Nlcy9pMmMt
-bXBjLmMNCj4gaW5kZXggYTIxZmE0NWJkNjRjLi44MTgyZjdkYzNkMGYgMTAwNjQ0DQo+IC0tLSBh
-L2RyaXZlcnMvaTJjL2J1c3Nlcy9pMmMtbXBjLmMNCj4gKysrIGIvZHJpdmVycy9pMmMvYnVzc2Vz
-L2kyYy1tcGMuYw0KPiBAQCAtODY3LDggKzg2NywxMCBAQCBzdGF0aWMgaW50IGZzbF9pMmNfcHJv
-YmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqb3ApDQo+ICAgCWkyY19zZXRfYWRhcGRhdGEoJmky
-Yy0+YWRhcCwgaTJjKTsNCj4gICANCj4gICAJcmVzdWx0ID0gaTJjX2FkZF9udW1iZXJlZF9hZGFw
-dGVyKCZpMmMtPmFkYXApOw0KPiAtCWlmIChyZXN1bHQpDQo+ICsJaWYgKHJlc3VsdCkgew0KPiAr
-CQlvZl9ub2RlX3B1dChpMmMtPmFkYXAuZGV2Lm9mX25vZGUpOw0KPiAgIAkJcmV0dXJuIHJlc3Vs
-dDsNCj4gKwl9DQo+ICAgDQo+ICAgCXJldHVybiAwOw0KPiAgIH07DQo+IEBAIC04NzYsOCArODc4
-LDEwIEBAIHN0YXRpYyBpbnQgZnNsX2kyY19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpv
-cCkNCj4gICBzdGF0aWMgdm9pZCBmc2xfaTJjX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNl
-ICpvcCkNCj4gICB7DQo+ICAgCXN0cnVjdCBtcGNfaTJjICppMmMgPSBwbGF0Zm9ybV9nZXRfZHJ2
-ZGF0YShvcCk7DQo+ICsJc3RydWN0IGRldmljZV9ub2RlICpub2RlID0gaTJjLT5hZGFwLmRldi5v
-Zl9ub2RlOw0KPiAgIA0KPiAgIAlpMmNfZGVsX2FkYXB0ZXIoJmkyYy0+YWRhcCk7DQo+ICsJb2Zf
-bm9kZV9wdXQobm9kZSk7DQo+ICAgfTsNCj4gICANCj4gICBzdGF0aWMgaW50IF9fbWF5YmVfdW51
-c2VkIG1wY19pMmNfc3VzcGVuZChzdHJ1Y3QgZGV2aWNlICpkZXYp
+bmc150_accel_write_event_config() compared the requested state against
+data->ev_enable_state before acquiring data->mutex. Two threads racing
+to enable and disable the same event can both pass the check and then
+both call bmc150_accel_set_interrupt(), which tracks enables with an
+atomic users count. The inc/dec can become unbalanced, leaving the
+interrupt enabled or disabled against the callers' intent.
+
+Move the check inside the locked region so the test of ev_enable_state
+and its update are atomic with respect to the interrupt accounting.
+
+Fixes: 14ee64f438b8 ("iio: bmc150: exit early if event / trigger state is not changed")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gabriel Rondon <grondon@gmail.com>
+---
+ drivers/iio/accel/bmc150-accel-core.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/iio/accel/bmc150-accel-core.c b/drivers/iio/accel/bmc150-accel-core.c
+index d067da9b5ce4..bcbb9f0c830a 100644
+--- a/drivers/iio/accel/bmc150-accel-core.c
++++ b/drivers/iio/accel/bmc150-accel-core.c
+@@ -805,11 +805,13 @@ static int bmc150_accel_write_event_config(struct iio_dev *indio_dev,
+ 	struct bmc150_accel_data *data = iio_priv(indio_dev);
+ 	int ret;
+ 
+-	if (state == data->ev_enable_state)
+-		return 0;
+-
+ 	mutex_lock(&data->mutex);
+ 
++	if (state == data->ev_enable_state) {
++		mutex_unlock(&data->mutex);
++		return 0;
++	}
++
+ 	ret = bmc150_accel_set_interrupt(data, BMC150_ACCEL_INT_ANY_MOTION,
+ 					 state);
+ 	if (ret < 0) {
+-- 
+2.50.1 (Apple Git-155)
+
