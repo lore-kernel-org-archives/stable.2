@@ -1,43 +1,38 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FDE2DC783;
-	Mon, 17 Aug 2026 14:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13E84B0481;
+	Mon, 17 Aug 2026 14:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786977760; cv=none; b=dCgstEQ/ZbGW8lch/uDhjrHxaY9jQBFPHlbDg7DJLQuv7sRLyX+ybn2lw1cebGAEFHd/HwC9vX/SRpPRdBJiPZ3W02SBt4Yq4UViMKLQet7ACrxQojUFpTR5jxQTQVe4Idk8DZ/ir8CSqkTq3TJR0aG1T5ME8u9VXRkbYCeXzoo=
+	t=1786977761; cv=none; b=tKgaGSXJ4tyMjMCz0m5BFnT6wFaGKNs7vxJxmh+uyz7X1ZYQ/NLNga4yK195LX1gXPRs9nhPz5oNsGUWdTxSP73oKjm1qStkcasIl8cFtyIdnuMNUbRwv1pgG3ZKja8esIIpTlHd/UT6XEGOaNtQa8IK4sJu+XBpbpEKYICdAzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786977760; c=relaxed/simple;
-	bh=EDlEL8QXuVd5pkL9ypqWw0dmz8MyPqIFX9dAs9etxKQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z4XleC0LL6aFh51osGzbZB3ievW/av5doP00zBIbs1kJIYJVyo0nPpLiz/uPUW+hAqJw9KP3jXdynUZ6m7gnLldBE8AbTrRfFU2c6286iuJxK9GuLSZXLopez0u2n8F+zeIQUvwS1zjUZ6/SXKOkFYqkhXZ4MXt2o8Akic5GtAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qYZCF4Gq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786977761; c=relaxed/simple;
+	bh=Z8/BKdzKYPpt9DJRJ6pYE8bYfi8YO+28uSvokqOYrM0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=D+GlOwKS9HJ2AgpgEsOJwscFyMv2CsZW2yu3b/U7qvPkhoDXA8616QgKEqWCxjIPpQknSpkeXfnOPRyq5kXi11DIlJI5hWJ3cJASiaI2hrTbF5dswdlTp6Jz6UxiFw81kjtVtLiKtXBpgodJ2jaRENUGZfNWiA/UJ+ElGCgNvLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=KywU49zq; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qYZCF4Gq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7C01F000E9;
-	Mon, 17 Aug 2026 14:42:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786977759;
-	bh=l+eDUMKqwNIfwy+hRKszxxcNnmzetWb3jVWUK13E1JE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qYZCF4Gq+gNTf54OnTp4q2i+dcOS91NULwFU2sKMW6F3YKhQXt57rA8HQnUxxS6FA
-	 C2/H2NLe1u/syTKDIcn7RnA9h24j2cDsVPK1Ly4Lfb1nieEZrctGx3u0t87PrwJLBK
-	 oMPvrm+lcD79Eq+7GCtNe2ImfTqaZXMDnOh+eg88=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Wagenaar, C.C.J. (Chris)" <c.c.j.wagenaar@vu.nl>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: [PATCH 5.15 400/456] Input: evdev - sanitize event type index when fetching event masks
-Date: Mon, 17 Aug 2026 15:33:10 +0200
-Message-ID: <20260817132554.980305958@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817132539.792407575@linuxfoundation.org>
-References: <20260817132539.792407575@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="KywU49zq"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a47a6f35;
+	Mon, 17 Aug 2026 22:37:22 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH 0/2] nvmet: avoid configfs recursion when enabling backends
+Date: Mon, 17 Aug 2026 22:37:12 +0800
+Message-Id: <20260817143714.1344255-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,64 +40,38 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa01027db8703a1kunmc75580f1e6400
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGk5PVk8fTktCHktDSkpJTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=KywU49zqZbkoGv6mn38VdoEC77PYf7D43LK6J0Fh/hiac+LQ8TRNirJGsYXijXKNv7nQsRKsq8lwea81eLBLW3EDFduefc0e/B8mgPrJgbcLenMKL22WO37vBT8daUWJvkE1n64YEY0bGhzOLubt/nCG1aD6zl+/qUi1ZytlnHE=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=xZkaB3vSNVhh3AwEWOTxc3wLSRpDilse7YBukLyfPIQ=;
+	h=date:mime-version:subject:message-id:from;
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+The nvmet configfs store callbacks run while configfs holds the item's
+frag_sem. Two enable paths then call filp_open() on user-controlled
+paths:
 
-------------------
+- file-backed namespace enable via device_path
+- passthru controller enable via passthru_ctrl_path
 
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+If either path points back into configfs, the open path re-enters
+__configfs_open_file() and tries to take the same frag_sem again.
 
-commit 3abd29c61d2ef37c4102cf755b18be53bb9dbea6 upstream.
+Resolve the configured path before opening it, reject configfs-backed
+paths, and use dentry_open() on the resolved path. This prevents the
+configfs recursion without changing valid backend users.
 
-The user-supplied event type index passed to EVIOCGMASK / EVIOCSMASK
-ioctls is used to index the static counts array in evdev_get_mask_cnt()
-and client evmasks array in evdev_get_mask().
+Runyu Xiao (2):
+  nvmet: avoid recursive configfs open for file-backed namespaces
+  nvmet: avoid recursive configfs open for passthru
 
-While the event type is architecturally bounded by EV_CNT, speculative
-execution may mispredict bounds checks and perform out-of-bounds loads.
+ drivers/nvme/target/io-cmd-file.c | 19 ++++++++++++++++++-
+ drivers/nvme/target/passthru.c    | 17 ++++++++++++++++-
+ 2 files changed, 34 insertions(+), 2 deletions(-)
 
-Sanitize the event type index in evdev_get_mask_cnt() branchlessly using
-array_index_mask_nospec(). This clamps the index to 0 for safe array
-access and forces the returned count to 0 speculatively when the index
-is out of bounds.
-
-We do not need additional array_index_nospec() calls in evdev_get_mask()
-because evdev_get_mask_cnt() speculatively forces the count (and
-resulting xfer_size) to 0 for out-of-bounds types, preventing any
-speculative memory access to client evmasks array.
-
-Reported-by: "Wagenaar, C.C.J. (Chris)" <c.c.j.wagenaar@vu.nl>
-Cc: stable@vger.kernel.org
-Assisted-by: Antigravity:gemini-3.6-flash
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Link: https://patch.msgid.link/anFCAfvxwXB5eJF1@google.com
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/input/evdev.c |    5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
---- a/drivers/input/evdev.c
-+++ b/drivers/input/evdev.c
-@@ -21,6 +21,7 @@
- #include <linux/init.h>
- #include <linux/input/mt.h>
- #include <linux/major.h>
-+#include <linux/nospec.h>
- #include <linux/device.h>
- #include <linux/cdev.h>
- #include "input-compat.h"
-@@ -67,8 +68,10 @@ static size_t evdev_get_mask_cnt(unsigne
- 		[EV_SND]	= SND_CNT,
- 		[EV_FF]		= FF_CNT,
- 	};
-+	unsigned long mask = array_index_mask_nospec(type, EV_CNT);
- 
--	return (type < EV_CNT) ? counts[type] : 0;
-+	/* Returns 0 for out-of-bounds types, including speculatively */
-+	return counts[type & mask] & mask;
- }
- 
- /* requires the buffer lock to be held */
-
-
+-- 
+2.34.1
