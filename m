@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0252F42D76C
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 13:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562C141E6B2
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 13:11:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786972212; cv=none; b=a8nYPeIWPEV/r/0ac567gv9k3H90Be5ZSzYhjVi6UVp19SEa01Pq2xPxdpGZH2XTCW3T+V/pO/4V9x+WmXkFszLhBdWo5Q7iLs/CvgBw95easpOmMf+KFoUMGINemb6jLtVrcXJMPx15Ms0lmj5/O+72icNI0j+8Ehj3kSGNUPI=
+	t=1786972298; cv=none; b=X37ANjno3JZQn7g5Y73+ZOS1hSYgmdjap1G3rZ+NIBBt0drKf2sPMU5Ejp5zJ8+89mh2EP4P8yGWWLudf0lmSNE9EwkjDJY2vzbMQSNHWMgXJs4tBT7b842Evp68ixYpefWdoanLPWZPHWQ3fuzxmj0WiiUFojn+NRzrhLHtzUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786972212; c=relaxed/simple;
-	bh=4qjL9/23Q5XBBmE+HMivWrmIG0Jx1p9uBeS9Z9boFR0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Hox3K6SsFtxR4slVo2m01jbVgiRs5+bjNiShUAjx2UVFCc3QmeJKu/YBKsVUwCVqkiUr71KyG3MVqtYfcgN5Ik7fLGB15FQcB1Yd2/vRhr2qqLqgxgO2DawtXIUKuI3at0MISHVV+Cukisv3odrALkpzdsSSkJKy7nsYzbv5+c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X6WeHn/d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786972298; c=relaxed/simple;
+	bh=teS2ZFl9fLvu5DyDO8rFZZYNt/zL/TTiddNC1aYmkq8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oRIWzbLphbnMH/5siyysWFc77NbGln5sUyOkM4kcLXT/4wcdVtZRkDl7RKqHV5E84cimbSz+6kd0z1JMCHXNehYA2nMlDkp3jQCi/Ba5KTYgrEVzxz9RCXVJDB0DPG3Yv0RCiPcobCKnq8uaDfQ+zVRBDg5kG52+So5RuYVEYt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UUYOw9+D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X6WeHn/d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3D11F0156B;
-	Mon, 17 Aug 2026 13:10:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UUYOw9+D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63ECC1F00A3A;
+	Mon, 17 Aug 2026 13:11:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786972203;
-	bh=GW8Oa9DjGV8xq4x6HSlYTEEdZD1PYw6EIoQ/TGDAH6s=;
+	s=korg; t=1786972295;
+	bh=2IlWTiv+kB8/Eh86PQWYfzgAXL0f9+nxmF1R+QIE2kw=;
 	h=Subject:To:Cc:From:Date;
-	b=X6WeHn/dSIrWRw0jGbxf60JSQldJh0IHd7AV+y3IbGeN+NZD0NJKfcGBPT1iu9eTl
-	 TFxzfJLNsgcWbXgOu1+v+uMzoqelWB9oa1Jg/EK4KpdiDJj1VrgKMSEte6a0XC/juc
-	 kRTon+BeW3wI/aLbyQS/aEtthsKpysC9Vwv8dMP4=
-Subject: FAILED: patch "[PATCH] KVM: x86/mmu: WARN and clear role.invalid when creating a" failed to apply to 5.10-stable tree
-To: seanjc@google.com,imv4bel@gmail.com,pbonzini@redhat.com
+	b=UUYOw9+DL55xZiVXh4TG5ebHUX7LrvsyuLaEgBPGsrqsNf1g7hoJZtWiNpItiYn2z
+	 qllxlwlHcD14FXpB/z9PF1aVLF6W9ABlnfI1+X+K2PTP7ZCseBZAeXuRHlK6EWYSkd
+	 NASobd11KS8rZee49p66A3qJV/hQitBIdL9Rx/PI=
+Subject: FAILED: patch "[PATCH] ALSA: usx2y: bound the hwdep mmap fault offset" failed to apply to 5.10-stable tree
+To: baul.lee@xbow.com,federico.kirschbaum@xbow.com,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:56:20 +0200
-Message-ID: <2026081720-ethics-exhaust-35f0@gregkh>
+Date: Mon, 17 Aug 2026 14:57:20 +0200
+Message-ID: <2026081720-deviant-snipping-e432@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5ec42d57655c690234c14aece6dd3f209778c1d8
+git cherry-pick -x 2ca1eea3cd17930daffe9e429a7c89232036ec24
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081720-ethics-exhaust-35f0@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081720-deviant-snipping-e432@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,91 +62,87 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5ec42d57655c690234c14aece6dd3f209778c1d8 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Mon, 13 Jul 2026 08:25:49 -0700
-Subject: [PATCH] KVM: x86/mmu: WARN and clear role.invalid when creating a
- child shadow page
+From 2ca1eea3cd17930daffe9e429a7c89232036ec24 Mon Sep 17 00:00:00 2001
+From: Baul Lee <baul.lee@xbow.com>
+Date: Wed, 5 Aug 2026 10:34:45 +0900
+Subject: [PATCH] ALSA: usx2y: bound the hwdep mmap fault offset
 
-Explicitly clear role.invalid when deriving a child shadow page's role from
-its parent to harden against bugs elsewhere in KVM, as violating KVM's
-invariant that invalid pages are NOT on the list of active MMU pages leads
-to use-after-free due to __kvm_mmu_prepare_zap_page() using list_add()
-instead of list_move() when processing an invalid shadow page, i.e. makes a
-bad situation far worse.
+snd_us428ctls_vm_fault() turns the faulting page offset into a kernel
+address with no bound of any kind:
 
-Yell loudly if the parent is invalid, as it means KVM has missed a validity
-check, i.e. KVM is attempting to map memory using an invalid/obsolete root,
-but continue on as the child is otherwise still a valid shadow page.
+	offset = vmf->pgoff << PAGE_SHIFT;
+	vaddr = (char *)(...)->us428ctls_sharedmem + offset;
+	page = virt_to_page(vaddr);
+	get_page(page);
+	vmf->page = page;
 
-  ==================================================================
-  BUG: KASAN: slab-use-after-free in __kvm_mmu_get_shadow_page+0x1817/0x1860 [kvm]
-  Write of size 8 at addr ff11000153dd1368 by task repro/853
+	return 0;
 
-  CPU: 1 UID: 1000 PID: 853 Comm: repro Not tainted 7.2.0-rc2-3aec122bdcaf-next-vm #5 PREEMPT
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x4b/0x70
-   print_report+0x153/0x49c
-   kasan_report+0xbc/0xf0
-   __kvm_mmu_get_shadow_page+0x1817/0x1860 [kvm]
-   mmu_alloc_root+0x141/0x320 [kvm]
-   kvm_mmu_load+0x612/0x20f0 [kvm]
-   kvm_arch_vcpu_ioctl_run+0x3dd5/0x6150 [kvm]
-   kvm_vcpu_ioctl+0x5e4/0x10d0 [kvm]
-   __x64_sys_ioctl+0x131/0x1b0
-   do_syscall_64+0x67/0x5f0
-   entry_SYSCALL_64_after_hwframe+0x4b/0x53
-   </TASK>
+snd_us428ctls_mmap() checks only the length of the mapping, never the
+offset, and us428ctls_sharedmem is a single page from
+alloc_pages_exact().  For a character device file_mmap_size_max()
+returns ULONG_MAX, so the mm layer imposes no ceiling either.  Every page
+offset above zero resolves to a struct page outside the object, and the
+handler installs it into the caller's address space read-write; the vma
+is not marked read-only.
 
-  Allocated by task 853:
-   kasan_save_stack+0x20/0x40
-   kasan_save_track+0x14/0x30
-   __kasan_slab_alloc+0x5f/0x70
-   kmem_cache_alloc_noprof+0xfe/0x2e0
-   __kvm_mmu_topup_memory_cache+0x135/0x530 [kvm]
-   paging64_page_fault+0x318/0x1e30 [kvm]
-   kvm_mmu_do_page_fault+0x21d/0x630 [kvm]
-   kvm_mmu_page_fault+0x18c/0x17b0 [kvm]
-   kvm_arch_vcpu_ioctl_run+0x1f35/0x6150 [kvm]
-   kvm_vcpu_ioctl+0x5e4/0x10d0 [kvm]
-   __x64_sys_ioctl+0x131/0x1b0
-   do_syscall_64+0x67/0x5f0
-   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+The caller picks the page frame with a single mmap() argument and gets
+read-write access to a page of kernel memory it does not own; an offset
+that lands in an unpopulated vmemmap region oopses instead.
 
-  Freed by task 853:
-   kasan_save_stack+0x20/0x40
-   kasan_save_track+0x14/0x30
-   kasan_save_free_info+0x3b/0x60
-   __kasan_slab_free+0x43/0x70
-   kmem_cache_free+0xe2/0x400
-   kvm_mmu_commit_zap_page.part.0+0x1e2/0x310 [kvm]
-   kvm_mmu_free_roots+0x283/0x560 [kvm]
-   kvm_arch_vcpu_ioctl_run+0x33c8/0x6150 [kvm]
-   kvm_vcpu_ioctl+0x5e4/0x10d0 [kvm]
-   __x64_sys_ioctl+0x131/0x1b0
-   do_syscall_64+0x67/0x5f0
-   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+A process that can open the hwdep node of an attached US-X2Y reaches
+this after loading the FPGA image through the same node; no capability
+check is involved.
 
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Fixes: a770f6f28b1a ("KVM: MMU: Inherit a shadow page's guest level count from vcpu setup")
+On 7.2.0-rc5 (arm64), mmap() with a large offset:
+
+  Unable to handle kernel paging request at virtual address fffffdffc45d5ac8
+  pc : snd_us428ctls_vm_fault+0x68/0x140 [snd_usb_usx2y]
+  Call trace:
+   snd_us428ctls_vm_fault+0x68/0x140 [snd_usb_usx2y]
+   __do_fault
+   __handle_mm_fault
+   handle_mm_fault
+   el0_da
+
+Reject any offset outside the shared region.  The pcm hwdep handler in
+usx2yhwdeppcm.c computes its address the same way and needs the same
+bound.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+Reported-by: Baul Lee <baul.lee@xbow.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Link: https://patch.msgid.link/20260805013445.38283-1-baul.lee@xbow.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index c9e4739b26d7..a61750f8e1e3 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2442,6 +2442,9 @@ static union kvm_mmu_page_role kvm_mmu_child_role(u64 *sptep, bool direct,
- 	role.direct = direct;
- 	role.passthrough = 0;
+diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
+index 4d7925184826..7f153a2fcdd8 100644
+--- a/sound/usb/usx2y/usX2Yhwdep.c
++++ b/sound/usb/usx2y/usX2Yhwdep.c
+@@ -25,6 +25,8 @@ static vm_fault_t snd_us428ctls_vm_fault(struct vm_fault *vmf)
+ 	void *vaddr;
  
-+	WARN_ON_ONCE(role.invalid);
-+	role.invalid = 0;
-+
- 	/*
- 	 * If the guest has 4-byte PTEs then that means it's using 32-bit,
- 	 * 2-level, non-PAE paging. KVM shadows such guests with PAE paging
+ 	offset = vmf->pgoff << PAGE_SHIFT;
++	if (offset >= US428_SHAREDMEM_PAGES)
++		return VM_FAULT_SIGBUS;
+ 	vaddr = (char *)((struct usx2ydev *)vmf->vma->vm_private_data)->us428ctls_sharedmem + offset;
+ 	page = virt_to_page(vaddr);
+ 	get_page(page);
+diff --git a/sound/usb/usx2y/usx2yhwdeppcm.c b/sound/usb/usx2y/usx2yhwdeppcm.c
+index 7c90214485d9..f1d5b4b797ad 100644
+--- a/sound/usb/usx2y/usx2yhwdeppcm.c
++++ b/sound/usb/usx2y/usx2yhwdeppcm.c
+@@ -672,6 +672,8 @@ static vm_fault_t snd_usx2y_hwdep_pcm_vm_fault(struct vm_fault *vmf)
+ 	void *vaddr;
+ 
+ 	offset = vmf->pgoff << PAGE_SHIFT;
++	if (offset >= USX2Y_HWDEP_PCM_PAGES)
++		return VM_FAULT_SIGBUS;
+ 	vaddr = (char *)((struct usx2ydev *)vmf->vma->vm_private_data)->hwdep_pcm_shm + offset;
+ 	vmf->page = virt_to_page(vaddr);
+ 	get_page(vmf->page);
 
