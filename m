@@ -1,177 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5763AB47E;
-	Mon, 17 Aug 2026 09:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDB5B2DF126
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 09:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786960508; cv=none; b=BNp3Fj/OODY1Lvwl/n0I6StzM1d4sZ+Op+6BXcWwczyqvb+mscmEs4k6VOm1VcMEP3z9qO5W4q6+BV4JlfZRwBa5TSP+p1eLcuaNtD0lnYKHTiZM9ndgGsVQxr0w8QWJ2PTHHEB6x29Yl2HBBnbDQz2ojUh+5FEvO8ILfoUksjg=
+	t=1786960771; cv=none; b=SfhqMzvJo4QZmBUKacVuP8JcujqvJkPLsm5pe/+c+ud8/ug2JzX68+J8TrMrgVt0YkA7PyylGa83Ugd0B96NCBoDui5d0W8a6cI/9AlW9kwBmWeCTS3/2b18qqUj+OBDFM9jQo3ldhd2ylwTPR2U/et1Wswgn+0KEyGUFEkn0uk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786960508; c=relaxed/simple;
-	bh=wplaBJDMkV25nU9sxF6S09uQ1TlArf0Uk2IpJewXnT4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OdRuBHPVeNw46u8j16cgb4QZ4srvR+7bqrY3yd0tCwkQHMprOYQxNpegxXWTWdeQXr937bQ1d1ByWBnpwZ+RY5xV/DI7YEt7+QroR2/DS1jx+0i3FP2MLb1LJ3NLKk99qZw7pGLTHz9DTIcEPNEC3WWRqc35LGG9UrJsf5/jeHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LHp7JlD9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786960771; c=relaxed/simple;
+	bh=CBhBOxKW9DXkHE6Vdw9XCfb+WTJBsS8SlILHHvnc8TI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S7Jcxl2iK3Xxtntf754exCR7yMhNXbQOlW6KBDybupOqhMTMQIDkPcoWS8/PB4tTEjoLX8flOkFR5U+0SYZTyM3IHGOG0hNpO1Y16caDHtvOyQ5sDBHqg204TOfl1sxFfJCcqc9Sp4F7AIl2y80ToV8PpP+l0xlJ92tXoQn4Mek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r58tA3a5; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LHp7JlD9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36D101F000E9;
-	Mon, 17 Aug 2026 09:54:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786960507;
-	bh=+Lv1NIWLjXK/CzfWPsyXDeMuZHAoY0c6NItRAMaTRxY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LHp7JlD95ovgSe8r0bR72lGNqqz8lIIrBBVRUyh1pozBAv5uE+g9C6zFCQqjsMnkW
-	 DmUgJUMiQOSOoFt7Cc4v+LCWenjyqMc3Wf1Xs6ckxwFk3zEsAbYM9JZN793yXK6VYN
-	 KbSEhe8SNgjDJ2NY6Is305LoEzuuNmHEwzGh2OadlUX4D5hxMGwksUI8I5EB/FmRhg
-	 uA6TO5F4mU+T4tBbKsAwUaaFaf7tUvhJ3QBYhB02AF97L0UBINVaXb3cdAfzX5385r
-	 jcFZEAw6T2O717gnR5C9BNna5eJjT8FM4PHZPPuIunZtuKuM8EDvL44O42OzPGUu/I
-	 YozSSqCPt9PJw==
-Message-ID: <e5e2d588-cee0-4105-b34e-34d2718786ee@kernel.org>
-Date: Mon, 17 Aug 2026 10:54:47 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r58tA3a5"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49558ce01afso24341365e9.1
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 02:59:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786960753; x=1787565553; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n63sUKQMdSKf2IRWefDfMPcW8wjg+n1z3lYjhlrIgr4=;
+        b=r58tA3a5JpXgezjaC1WENgcDK/zZhZPyZZq/kRqG8yfvp+6KVaGI+rQyx7k8pDDJhx
+         5OPgbeqf68/fkhNYOHToyU9UaRmS0LSSd84D9fkKV9v9rtEHnzugLEvDstrPfQBbgmW9
+         AXtKb4P01885viv3qCujfxuQR7Pa16eDUZfEiuOb1ERALdHnyUZsB+tEhyNCdJhxawcB
+         /0HUsE1fs5fUhFGEEqfC175+yLKsITkopCrG4VtB0d2KohKsC8zv8JZ6B6n+gegcac83
+         OeDHwtq7+onVRpDqcWgGqt6vOaz63uwzhRteI7fxokuruEl6qduZ6xGe6Qko0eyngd8f
+         CjwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786960753; x=1787565553;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n63sUKQMdSKf2IRWefDfMPcW8wjg+n1z3lYjhlrIgr4=;
+        b=iHBZNddJ6y2IVPUdXO6gitv5XZTUsLEREx3IckOcE6z89kVCMgxPteXa9+nM78oP3C
+         MXUvwPBu7RvMMo1bvHqRBB0ijmRWe/nQLuLQ8tAjXXFR77PlqRFispJeDX7pZQ1JIrFv
+         LJ4Wev0qeUbWSGd2jiOnTDa5kM4uVqZK0GU5vmKqnGC7WbC+dJ+OCyxiDq/uUJ12whep
+         loRMpXzCm+uex3ciTSS5CrKIUaEym6CTdiTun8x8YARZF32yYjbkgdvnr5Mf/UIv/JYY
+         XdjLfVg7dl9pYHhU2MHCjFL7z+1cVsiyc7qfwxf22hJdkDxi3tQ2YMvqnojYsbzC5Oed
+         ahUQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpgHpt92l6sZGXvpAUYye2QZZ2dH9FiMYxtF60ykkemZ90iF+5IlHklymJsYIn1a6BcQq9j8YA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyUx2Cq5XCqDcF8WrUyfqOu1dLBGXevvlDqVuLgDeDss8vKbv1R
+	+pxQJhNVjXrX5IDbuNQZFCY+GmpD9t9RUV/Hc1ftdl5amF/913mt7yya
+X-Gm-Gg: AR+sD11h4AS3s1Jd6Gz55vcmbhj+90Yme2Spj/oDHI5JbziE0RMmLAKhXWetDagXMgR
+	X249NQIuAHKlBrVMrHcX51dHxgjF/PL8Y1Az0K7B0aOkkFXoSDTInc5z1isz392X1GUnCw6ScCB
+	TZHgMvYoMODNyBPEk0u/mtQXK1N2BbstVEKs/qvTk0+9g8+OSWhUGoeyph/4Dhs02jsY/14tYiA
+	/FA+u/oPSMuDbxs48odqraRfXd7CDeTGp1Gc5YR/kBOaX3Ea7+TWSzHbGHtTcrhawJOd3h9+AhN
+	w1t0QmTdD/lS3nTb0XAi5ep5cwulyCmLBFcquJmgRKBdSMJWJTMqU59j6BK21bJxf6CE1g3E0DG
+	4/UKbV6BB53mkShauUr1LRFndSzhXuMKYJpikv6PwgMy+t5zzqyXTGDp4S0PEgrd4tcrUisEZnh
+	r+lC6knDnEyBQxfyZNVp/kgqiv8YhUMHOqtrdl7wUZcrcuWgV+gG20ZACtgQ==
+X-Received: by 2002:a05:600c:500d:b0:499:86f5:9e33 with SMTP id 5b1f17b1804b1-499879bc10emr392118895e9.18.1786960753464;
+        Mon, 17 Aug 2026 02:59:13 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:9cf4:43df:e612:817b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5b7cd38sm2863663f8f.32.2026.08.17.02.59.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 02:59:12 -0700 (PDT)
+Date: Mon, 17 Aug 2026 12:59:09 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: moonafterrain@outlook.com
+Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	Teddy Wang <teddy.wang@siliconmotion.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] staging: sm750fb: do not program the PLL from an
+ uninitialized value
+Message-ID: <aoLbbZ--FrkVN3SU@stanley.mountain>
+References: <20260817-sm750-fixes-v1-1-978c617e5a20@outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Rob Herring <robh@kernel.org>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Stephan Gerhold <stephan.gerhold@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Johan Hovold <johan+linaro@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
- Mansur Alisha Shaik <mansur@codeaurora.org>,
- Andy Gross <andy.gross@linaro.org>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>,
- Yassine Oudjana <y.oudjana@protonmail.com>,
- Pierre-Hugues Husson <phhusson@freebox.fr>,
- Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org,
- Matthias Kaehlcke <mka@chromium.org>,
- Douglas Anderson <dianders@chromium.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Aniket Masule <amasule@codeaurora.org>,
- Malathi Gottam <quic_mgottam@quicinc.com>,
- Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek
- <jonathan@marek.ca>, Dikshita Agarwal <dikshita@qti.qualcomm.com>,
- Renjiang Han <quic_renjiang@quicinc.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
- <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
- <20260807162405.GA896590-robh@kernel.org>
- <c3hVumMy_QnRbUmbFTSWGjkfG7lPjGFEcZfPsZeGQ57nWKkhlBL3wgmcDcAgT9cNb8Ju3qZ_sSKgHk8vmow0xQ==@protonmail.internalid>
- <6ee7f32e-eb6c-e264-6f0d-541555f8fd62@oss.qualcomm.com>
- <56b3dfcf-b1ad-4192-8199-06c80cc5d124@kernel.org>
- <Gm8h4cjoxHsgA2enLuxEd_3c_3Nq_RVJ9PkosuciOEss5Bw-GbnVoJCzsc5ciseK-L6bnlf9dbkbbh4ui3PSOQ==@protonmail.internalid>
- <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817-sm750-fixes-v1-1-978c617e5a20@outlook.com>
 
-On 10/08/2026 14:47, Rob Herring wrote:
->>> As per the reserved-memory.yaml schema document, the iommu-addresses
->>> property for IOVA reservation into /reserved-memory is allowed — it's
->>> documented for IOVA carveout reservations:
->>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/ 
->>> schemas/reserved-memory/reserved-memory.yaml#L56
->> I think that is an entirely reasonable reading of the text
->>
->> Quote:
->>
->> "If no "reg" property is specified, the "iommu-addresses" property
->>    defines carveout regions in the IOVA space for the given device. This
->>    can be useful if a certain memory region should not be mapped through
->>    the IOMMU."
->>
->> Which is exactly what this series does. Excludes a specific IOVA range
->> from being allocated for this device.
-> But if "iommu-addresses" is the only property of the reserved memory,
-> why put this property in reserved-memory rather than directly in the
-> device's node? I'm only questioning where is the right place to
-> describe a reserved IOVA.
+On Mon, Aug 17, 2026 at 05:13:53PM +0800, Junrui Luo via B4 Relay wrote:
+> From: Junrui Luo <moonafterrain@outlook.com>
 > 
-> Rob
+> sm750_calc_pll_value() writes pll->M, N, OD and POD only when its search
+> loop finds a divider combination with 0 < M < 256, and returns 0 when
+> there is none. ddk750_set_mode_timing() discards that return value and
+> calls program_mode_registers() regardless, so sm750_format_pll_reg()
+> reads the four members uninitialized and pokes them into PANEL_PLL_CTRL
+> or CRT_PLL_CTRL. Nothing bounds var->pixclock on the way in, so a mode
+> set can ask for a clock the loop cannot represent.
+> 
+> Consume the return value and reject the mode; hw_sm750_crtc_set_mode()
+> already propagates a non-zero return. Initialize the structure as well:
+> sm750_calc_pll_value() returns early for SM750LE without writing the
+> members, and returns non-zero on that path.
+> 
+> Fixes: 81dee67e215b ("staging: sm750fb: add sm750 to staging")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+> ---
 
-Back from the eclipse, sorry for the delayed response.
+Greg is not taking AI patches unless they can be tested.
+https://lore.kernel.org/all/2026080354-skater-urgent-31b2@gregkh/
 
-Ah I get you.
+I kind of hate AI commit messages...  They are so verbose, confident
+and reasonable sounding.  But they don't answer any of the real
+questions I want to know.  How did Yuhao Jiang find this bug?  What
+did the symptoms look like to a user?  Are there ways we could
+improve our QC process to prevent this sort of bug in the future?
 
-Yes.
+Probably the answer is that the bug was detected with AI and we
+have no idea what the symptoms look like.  Everyone sane automatically
+initializes variables to zero so probably there are no symptoms.
 
-I take your point. This is a property of the node itself; the IOVA < 
-600MB only matters _if_ the venus or iris nodes are enabled - otherwise 
-an IOVA < 600MB is perfectly fine.
+So the problem is that the user inputs invalid var->pixclock, and
+it leads to an uninitialized variable usage.  This patch addresses
+it by initializing he variable to zero and checking if
+sm750_calc_pll_value() returns an error code.  Either approach on
+its own would would fix the problem, hopefully right?  So it's a belt
+and suspenders approach.  But isn't the real solution to reject
+invalid pixclocks in lynxfb_ops_check_var()?
 
-So it follows its a property specific to this node not specific to the 
-overall system.
+We're not going to apply this patch because it hasn't been tested.
+Probably we should invent a new tag so we can create a TODO list
+of rejected AI patches.
 
-Yep, I agree - its a device/node property, not a top-level property.
+KTODO: investigate unintialized variables in sm750fb found by AI
 
----
-bod
+regards,
+dan carpenter
+
