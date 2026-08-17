@@ -1,89 +1,124 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9598D4483B3;
-	Mon, 17 Aug 2026 15:52:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F373F1AA1;
+	Mon, 17 Aug 2026 15:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786981971; cv=none; b=VyZYJHxyEPmmbjzt4oJXOuonWLouA9jCy++qStyKa7Tom3uv2P9ZNI9TGH55eDN83euyW1FNnOeNh99ADzBo4YzmMtdfQM6yHFrp474J0UUnVl2asDdJ/c1FQKaRlh/lF2tH/U+LA6RHAex+CWw7gj3jeXlQJo00PSYNmHfbWBc=
+	t=1786982199; cv=none; b=N38Erc0mov7cSDBECTArhtYB9Q+3WKyATvm4/hdda+7hgStQeBoSqRTq8DNmCAY3drth1ltZW1JCLOAM52s+b9uxlA/ZSsSxhdK4PL9lDvQ2cUd0qiZzdBK7BPRdaHVJbFk3n/ULqIebPweIftnd5PugBlWzDOIxq4wBsRYvSTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786981971; c=relaxed/simple;
-	bh=6XbzM7U2yhfRCYJq+XhwXzE9Jl2Ou01wwoUd4ztTUgo=;
+	s=arc-20240116; t=1786982199; c=relaxed/simple;
+	bh=GTEsANk54wl/XGobmIXxhwFPZjdwv7Xswwym6rG0W00=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fN5633xOz03exI4vdeP/F/SwBU/QQL9kZNxQKkML2pgWuQJENnLAJJsIJH6FRi/Wql/sghLf9VWrEqaRvutBwwL0iB4MGJgVs77fxAyVrDbZPv/pTYrGryjGL9ecDQjC7OLeRH0BwAzIkIO007jupdXHBz9dUxwUZEBcusH9BtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=NDBU9SVf; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=asmtKfl7ydZrwP7/+JwIrpEyTV5K/YQFCT+5YB9/aGzpEwjwmkSL03G509ONrp5Sc4+jlX1FWcKUbjT8ySp2wMfkKV9K65gcb1blH94M8ZVIXx4xrrAPJ/723IGx5mkElL0SsNpBEzW4uNwYZ+gx/dMwzX7MHw/Wdr2vFkR6ULU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=h02nLnMd; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="NDBU9SVf"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DF49911C29D;
-	Mon, 17 Aug 2026 17:52:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1786981961;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=fuObdAp1WKHkf0IoE/O3exx9E2qzD/4ccL/aHVrS10k=;
-	b=NDBU9SVfu3X8DYXdFM+8ymYV45aMMxq8d2oEC6Ne0HTjeD+d9xxmun3QopspUseCgnc8Uz
-	p0fLoQt43cT8d/P92aw2hOBjBS1Dnk5BYtsTA6aK252ekpiWDd+qgrQLGW+VdMMI40hnig
-	qU05p99W25nZKyR4Ou5oWyHlq1p18LNS5Lma9XkzNZR+vN1unl//KnD0ACQwIbJ15z9QEy
-	WJiKiH6JQKBfY4vs0nsl+BFe1n66kh8Mdn1673F7YSv7nZ22aQn8+7R4f1IuJas/JVDGgj
-	wROLAXDkBv+hywU2P5j0WWzRXgnXDqFZ0RSS8yIWQZDND0dDrD9EIIjuuq+ktw==
-Date: Mon, 17 Aug 2026 17:52:35 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 5.10 000/389] 5.10.265-rc1 review
-Message-ID: <aoMuQ8CEWcHXsGVD@duo.ucw.cz>
-References: <20260817132538.796021292@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="h02nLnMd"
+Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 287C5E4E;
+	Mon, 17 Aug 2026 17:55:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1786982115;
+	bh=GTEsANk54wl/XGobmIXxhwFPZjdwv7Xswwym6rG0W00=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h02nLnMdLRXfIC5QeQDxntWBYd3acYVG1EZ8cmwAyQfG3i/G2K2ffq5goqL3R9kvy
+	 lCr074CxUOH9UqvKY1bXytzCJ64nz0OYf9avC3OOWfeqOSOsvhscpiUXeEiDf0/7tk
+	 VansDdgavXNVEY7Rb3QBa1kghOvRs3PaghkUQRPk=
+Date: Mon, 17 Aug 2026 17:56:30 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David CARLIER <devnexen@gmail.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: v4l2-isp: reject zero-sized parameter blocks
+Message-ID: <aoMuMvE0zJG1MYD2@zed>
+References: <20260815193839.141406-1-devnexen@gmail.com>
+ <aoLZ5e0ffVvZ-FfB@zed>
+ <CA+XhMqxR+m7Jt0UUHetCfXSHHtW5w-jUc0_PSSWjTbprYn8ZwQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="NgXJAiGw43SAS0zO"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260817132538.796021292@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <CA+XhMqxR+m7Jt0UUHetCfXSHHtW5w-jUc0_PSSWjTbprYn8ZwQ@mail.gmail.com>
+
+Hi David
+
+On Mon, Aug 17, 2026 at 02:40:53PM +0100, David CARLIER wrote:
+> Hi Jacopo,
+>
+> On Mon, Aug 17, 2026 at 11:59:15AM +0200, Jacopo Mondi wrote:
+> > > whenever the driver's type_info[] entry is an uninitialised hole, so
+> >
+> > This shouldn't happen (an empty type_info[] I mean)
+> [...]
+> > > held. rppx1 has such a hole today; fix the core so the walk terminates
+> >
+> > Uh, where ?
+>
+> Sorry, I should have spelled this out in the commit message.
+>
+> RPPX1_PARAMS_BLOCK_INFO() is a designated initialiser indexed by the
+> block type (rpp_params.c:13):
+>
+>       #define RPPX1_PARAMS_BLOCK_INFO(block, data) \
+>               [RPPX1_PARAMS_BLOCK_TYPE_ ## block] = { \
+>                       .size = sizeof(struct rppx1_ ## data ## _params), \
+>               }
+>
+> so the list reads as dense but is indexed by the enum. It has 17
+
+Upsie, you're right, I didn't properly consider that..
 
 
---NgXJAiGw43SAS0zO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> entries for 18 enumerators, and the missing one is AWBG_POST (== 3).
+> The last index used is LIN_PRE2 (== 17), so ARRAY_SIZE() is still 18
+> and the entry at 3 is simply zeroed.
+>
+> A block with type AWBG_POST and size 0 then gets through: 0 is not
+> larger than the remaining buffer, and block->size != info->size is
+> 0 != 0. block_offset and buffer_size don't move and the loop spins,
+> in .buf_prepare, holding the queue mutex.
+>
+> > I'm not against this, but it only makes sense if the driver populates
+> > the list of v4l2_isp_params_block_type_info[] with an empty item,
+> > which shouldn't happen.
+>
+> True, and rppx1 is the only one that does - rkisp1, c3-isp and
+> mali-c55 all look complete. What bothers me is that the loop only
+> terminates if every driver's table is right, and nothing checks that
+> at build time. A missing line in a driver would be a rejected buffer
 
-Hi!
+Right.
 
-> This is the start of the stable review cycle for the 5.10.265 release.
-> There are 389 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Should we instead deman that all entries provided by the driver are
+populated by failing validation if info->size == 0 ?
 
-I'll likely have comments about some of the patches in near future.
+> rather than a stuck task. And a block size below its own header is
+> malformed anyway, whatever the type.
+>
+> That said, rppx1 needs a patch either way: AWBG_POST is documented i
+> rppx1-config.h and the driver probes rpp->post.awbg, but the block
+> can't be used today - the size check compares against 0, and
+> rppx1_params() has no case for it in the switch.
 
-CIP testing did not find any problems here:
+Right.. you might have seen ?
+https://patchwork.linuxtv.org/project/linux-media/list/?series=29170
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-5.10.y
+In any case, yes, I think we should populate all entries and either
+require all info blocks to be valid (hence a 0 sized block from
+userspace is refused) or explicitly check if block->size > 0
+as you're doing here.
 
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
 
-Best regards,
-                                                                Pavel
-
---NgXJAiGw43SAS0zO
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaoMuQwAKCRAw5/Bqldv6
-8hJtAJ905HypLxu30sdvxzOn36b1NzzkfQCfTN0XbauhtKbchhnyvsyyt1f/3Uw=
-=m86T
------END PGP SIGNATURE-----
-
---NgXJAiGw43SAS0zO--
+>
+> Happy to drop a separate patch and keep only the driver fix if you prefer.
+>
+> Cheers.
