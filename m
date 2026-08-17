@@ -1,130 +1,179 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23A93E5A19
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 16:19:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786983575; cv=pass; b=h+/Ngwj0L8wa8ttjULeh+LS1pfKfAZGS+FDLnf/yDob+op839y7Tfk9j593pGN5Rnr/tdUhmwGR9NtHwJVQK6V5XsMEQt1Ie0KpNbmcChRD5+6JEQO7nEHH93oAJFF5E4kYlVAUd8s/fMIFCog/mPbmj0w8Eu5vYyIL8+E3h3a0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786983575; c=relaxed/simple;
-	bh=ok9b/hGgMHy0RvQBlUb/jv2F/avpSyhfO7YHzTf9RfE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SjCzEx47kyG5AgXoGJmfnH2nrFg4XZ6B8ABEl7Tqz53DdNik0nH4x/eeorAHiOtzHkJc9X/TJz/zxivaorusC1bWK8jxrNKzDu0ZeogUpijGs23omWk+VTypX7CX8aB2Vo0RaBK5VXVKwI2VUwaVO+OiZGv6lGFXdxZu7isIj0M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JPf5m405; arc=pass smtp.client-ip=209.85.210.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EBC34252D9;
+	Mon, 17 Aug 2026 16:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786983610; cv=none; b=WtAxcCoR8B88DNLL2ihDnBtmwMkLbB+ZR/Iw3CdVgNaHS86YmZOOahG462/Z72Cey2+vBWePRiSGPjRXbg4/QdXwego95DyWlBuaeldQpHxCoPEzDJvkfDSJ7Z+z5tOkh6WQZxQCJjidxIN3ROWm5pOhN/BCQFPct8z3JoWjcrw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786983610; c=relaxed/simple;
+	bh=Tc6EKhKZEpOzx7zPHtS1ACk9Y+HJmXHvolXhoFltBGI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bgyhfHIbTodHKo3CXrajp2FFotH2mvFL+dxtt7NKGxmxwNR+3zzJ5+0CllgbLItPpxXn17FHfQg/AlfpIJg97kAUHfq6Sk6oj0cGsplwxy+yVArSlEgiDFoHLazBrCAjANk+EEcDzhfPAIcqKBbOjaxKKBBRs/M7gvjGrb/WqbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K/lE1v/e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JPf5m405"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7eb34c17b96so2652227a34.2
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 09:19:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786983570; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HCutjxgS/lXYI9U8W1rq3LwzNaBOtOtKNh1xth6HJ0iMg9x4Yva0SY7nHUEH/3Abm3
-         vc7UweWvw2g7IFgTphFYxNyl3gsm5y3Wrl0wjrqaAJz1GpjoRUdNAdWUBITgwZGjO9WH
-         jok+eyOnl6dSh9fSz1LXTbSPfFPKx/pD0HbLDOnXIqVYmRD2CpC8WrmdsvZlNCQfVagR
-         E13LuQH13zDzUoVR+JEAVZ32wfOD1H6oMwYFDp/wrMqWBrbJpQBuhBv3HAoKeYLTyxin
-         j8O9OcQe0UzPVr0UcXs6svKkeVFvquuyadiotOgGsuFi0It2z5zlWSY7ur9ZimV02x2x
-         4NjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ok9b/hGgMHy0RvQBlUb/jv2F/avpSyhfO7YHzTf9RfE=;
-        fh=jj+Vv3fAXarIBR92JKLXLuED41wZt2hPa4l+wXi0c9Y=;
-        b=SSWSRnlflbzWMWsvXH9S72zFMBsy4hfYQuDY1/+943OsI2sqziX5kC7k3+SSYT3hBu
-         +2+e8hBa0m/1xZkORtNDSdLp247TUpJIbPn6YZdSyH9iqonRUpOyQgCvUsqZ2NRdRvsJ
-         WOVetwaX41ygE8mHWOre1qM3DnakNPlcyj3kf/83bD+fBRdzMo3r9rwQXuf7vEG9paPo
-         xQxzftMARhSu9bCmArDoh1swVN2CxoQXdyUKILzAS2P6UhLQyhOmBy3Q3lDUgkxM8vyu
-         De2PwXQCiCRLdd6JJvMEe3SYyWu/ul7kmvWSWjQISeE25Ci8NZxuNX99x4DdxfTMcuZM
-         jZ+A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786983570; x=1787588370; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ok9b/hGgMHy0RvQBlUb/jv2F/avpSyhfO7YHzTf9RfE=;
-        b=JPf5m405qPvZwR2e3ujJvHhR2vqCU4opbuw1B7H7DhzYIgSjZs7yC4TP7s2Ujm/K8K
-         rEKXzV5fo5Zw/goVj7ZrJKiumFXdTZPszwF+GdgNTX4SdjPHpHS6nz1J/MDUCZU1g10e
-         svl0D1KT36pKyfakNXY/lfCRXxow5cIJwCSE6xPxFa9Wjdw27hLNxJCFGtK/lo6GsDEP
-         PXR7hdMQbNudyzzPV1K0jOB4flHjNDZ+PXOi1cEZ6dtkvXZD2WEeL4QegMZnqg6cu+5Q
-         kjGhwlN5/FoFWxvkBLw3KuuNsDahkMldxyQJt6gb2/3u/yC3B+gYq1gaTh9sP7934scg
-         yBkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786983570; x=1787588370;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ok9b/hGgMHy0RvQBlUb/jv2F/avpSyhfO7YHzTf9RfE=;
-        b=lAAi1xrStD6eTp7uquZTI4O9+kOqrKx/J+l26rOdL8h+Pi1LP5SCjp2lpJ/at4lJJR
-         H20hilsACY/6u3S6AgQUhedcfNqXDBXODK3JD/nQGIDUB5Wpmn8TpmD5H0ZoAWb/hmMw
-         +eTQoj/t3ehHGEoiu9uBKWY+Hh14iSB+XFfEE0VTsnVWa5ue1J57Xpjo18UvBDztJdwV
-         jrCp/iQCwlWR4n453MvmO91BCgKgr/AE4j3QLKcuNicWa80iH625Fq3PDG4Ocu4GfFK9
-         rJ/ohSe0HqSjmfsfsJFGofsL8SYmzG7ts5QC0GguN5OLTwzGYQjzVKtGO0lKHUbmhhDk
-         /cyg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr92dpbOyq61lQKBsZly7ymwwiqlrOCbpzjB4SPDlMzWVNg1PbyOyso3gVEv8+5p62na2UUex4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwkU9TlDs5459RtZErxotljuq/8P77Xo4NaZTJshMoigQyie2Na
-	vEZ+g9V2siqbVRNXey6TGh4UzCEzFrBwe7OdSMtCyMKXde6KWvsq68w5JyRfMgDTmwtH7MkGHJF
-	CsPGOvLpUev5cfOjU9WAQ2Z8SLQtm9Z8=
-X-Gm-Gg: AR+sD12Kt/6rqnUOqZ87bjnoVuCiHfY6+IJUVATzUZEvJuz7xv76BE/plomc+gMJwOO
-	2CiKCjIuJ7Zh6qmUPVUW4kfNpvEMusrSbp3MaW3nN6QTRkZcsNDrjn9U46PvOwnHDxEATlfBnbY
-	jUCyLFizqoxeBhFqrYojTp9rzOg584oJZMtKdAvBcofFbU3sJ4bFb8ycEqgydROjpA5SFduod2/
-	2/QR2kAc0NIk6FjB9FKyq/hwpJxPU4/wEdy15gNcj5w3TeZwyRjM/Bu7ufl+2ZvVkDv8rzkJ62L
-	W1TP02hnq5akGtCF+thQHdmeoXNzi6atSdiL9vYsd1jLwQaYABvOHLDDe77DmAss2K9tf9LnVhE
-	=
-X-Received: by 2002:a05:6830:2708:b0:7e9:cad9:4bc4 with SMTP id
- 46e09a7af769-7f3de64c4e5mr26475112a34.7.1786983570237; Mon, 17 Aug 2026
- 09:19:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K/lE1v/e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D570F1F000E9;
+	Mon, 17 Aug 2026 16:20:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786983608;
+	bh=BwmBPA0cmpr0pww4s+vEVGEC63NoNEq70yV7x2DU3f0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=K/lE1v/eySVjx+rC2sXxm6SLXW94ZMm218ziXfKDfGjLCAEm76QEtrWEkhZTX8+PM
+	 epjC6DfaGpME43QZEc0wfNXeeBFCGAmKrxb4QOKgvqrPp/cEop7Y2lEVtroYPtZ6V6
+	 IXK+WdZfYjHU48VoRpNdWw0NO4hKb/HTqeZmgosVts6DGxRewARn//GH4xn20ZJHjg
+	 VOEUZxK56MCqVCsxhH6bugj1fzpTy5FOc66qhDw3Z2DE1hMECWnpySOH+Dd5ldoA67
+	 wtLTOm2spBn4HB0owjypAfnC7cbNnU5uXLpgMVgveNjHt5DtEgwTIZN+meI6CkluH6
+	 hxdl+R+Gem8CA==
+Message-ID: <cd555188-2b51-4559-a315-0e8af6b2572a@kernel.org>
+Date: Mon, 17 Aug 2026 18:20:02 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815193839.141406-1-devnexen@gmail.com> <aoLZ5e0ffVvZ-FfB@zed>
- <CA+XhMqxR+m7Jt0UUHetCfXSHHtW5w-jUc0_PSSWjTbprYn8ZwQ@mail.gmail.com> <aoMuMvE0zJG1MYD2@zed>
-In-Reply-To: <aoMuMvE0zJG1MYD2@zed>
-From: David CARLIER <devnexen@gmail.com>
-Date: Mon, 17 Aug 2026 17:19:18 +0100
-X-Gm-Features: AcwNN1WZtk7Zm16KusB7eA5zYDAAIyL9cuvp343NEcRNeo5rJN7TigkzkaaAfMw
-Message-ID: <CA+XhMqxY3u5YR06j8jX2+wCwX95vQrb5EVH39GvuJXrwA48XWw@mail.gmail.com>
-Subject: Re: [PATCH] media: v4l2-isp: reject zero-sized parameter blocks
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] mm: khugepaged: fix folio is used after
+ pte_unmap_unlock()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Vernon Yang <vernon2gm@gmail.com>
+Cc: akpm@linux-foundation.org, nico.pache@linux.dev, ryan.roberts@arm.com,
+ dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev,
+ usama.arif@linux.dev, zokeefe@google.com, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20260815051924.194810-1-vernon2gm@gmail.com>
+ <20260815051924.194810-3-vernon2gm@gmail.com> <aoMynfFI2XK2UXXN@lucifer>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <aoMynfFI2XK2UXXN@lucifer>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 17, 2026 at 05:56:30PM +0200, Jacopo Mondi wrote:
-> Should we instead deman that all entries provided by the driver are
-> populated by failing validation if info->size == 0 ?
+On 8/17/26 18:11, Lorenzo Stoakes (ARM) wrote:
+> On Sat, Aug 15, 2026 at 01:19:23PM +0800, Vernon Yang wrote:
+>> From: Vernon Yang <yanglincheng@kylinos.cn>
+>>
+>> After the page table lock has dropped, the folio can be freed
+>> concurrently. The trace_mm_khugepaged_scan_pmd() is left with
+>> a dangling folio pointer.
+>>
+>> So using the folio_pfn() before dropping the page table lock,
+>> closing use-after-free window.
+>>
+>> Fixes: 7d2eba0557c1 ("mm: add tracepoint for scanning pages")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+>> ---
+>>  include/trace/events/huge_memory.h | 6 +++---
+>>  mm/khugepaged.c                    | 4 +++-
+>>  2 files changed, 6 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
+>> index d3572d4ef453..5dc71d292f47 100644
+>> --- a/include/trace/events/huge_memory.h
+>> +++ b/include/trace/events/huge_memory.h
+>> @@ -55,10 +55,10 @@ SCAN_STATUS
+>>
+>>  TRACE_EVENT(mm_khugepaged_scan_pmd,
+>>
+>> -	TP_PROTO(struct mm_struct *mm, struct folio *folio,
+>> +	TP_PROTO(struct mm_struct *mm, unsigned long pfn,
+>>  		 int referenced, int none_or_zero, int status, int unmapped),
+>>
+>> -	TP_ARGS(mm, folio, referenced, none_or_zero, status, unmapped),
+>> +	TP_ARGS(mm, pfn, referenced, none_or_zero, status, unmapped),
+>>
+>>  	TP_STRUCT__entry(
+>>  		__field(struct mm_struct *, mm)
+>> @@ -71,7 +71,7 @@ TRACE_EVENT(mm_khugepaged_scan_pmd,
+>>
+>>  	TP_fast_assign(
+>>  		__entry->mm = mm;
+>> -		__entry->pfn = folio ? folio_pfn(folio) : -1;
+>> +		__entry->pfn = pfn;
+>>  		__entry->referenced = referenced;
+>>  		__entry->none_or_zero = none_or_zero;
+>>  		__entry->status = status;
+>> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>> index e7830761d3a2..7c8c48577408 100644
+>> --- a/mm/khugepaged.c
+>> +++ b/mm/khugepaged.c
+>> @@ -1603,6 +1603,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+>>  	enum scan_result result = SCAN_FAIL;
+>>  	struct page *page = NULL;
+>>  	struct folio *folio = NULL;
+>> +	unsigned long pfn = -1;
+>>  	unsigned long addr;
+>>  	unsigned long enabled_orders;
+>>  	spinlock_t *ptl;
+>> @@ -1778,6 +1779,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+>>  		result = SCAN_SUCCEED;
+>>  	}
+>>  out_unmap:
+>> +	pfn = folio ? folio_pfn(folio) : -1;
+>>  	pte_unmap_unlock(pte, ptl);
+>>  	if (result == SCAN_SUCCEED) {
+>>  		/* collapse_huge_page expects the lock to be dropped before calling */
+>> @@ -1788,7 +1790,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+>>  		*lock_dropped = true;
+>>  	}
+>>  out:
+>> -	trace_mm_khugepaged_scan_pmd(mm, folio, referenced,
+>> +	trace_mm_khugepaged_scan_pmd(mm, pfn, referenced,
+> 
+> Same comment as 1/3 I don't see why we should be storing a pfn value used
+> nowhere else just for tracing.
 
-Good idea, and I'd rather keep both in v2 if you don't mind - they
-guard different things.
+I prefer it that way. Even if just for tracing. :)
 
-info->size == 0 is about the driver table, and it lets us answer
-"this driver doesn't handle that type" rather than carrying on with
-an empty entry and a NULL block_validate.
+-- 
+Cheers,
 
-block->size < sizeof(*block) is about the buffer coming from
-userspace: a block's size includes its header, so anything smaller is
-malformed no matter what the table says, and it keeps the loop moving
-without depending on the table at all.
-
-Both are a couple of lines, so dropping either one is no trouble if
-you prefer.
-
-> Right.. you might have seen ?
-> https://patchwork.linuxtv.org/project/linux-media/list/?series=29170
-
-I hadn't, thanks. That takes care of the rppx1 side, so there's
-nothing left for me to send there and I'll stick to the core change.
-
-I'll reword the commit message so it doesn't lean on rppx1, and keep
-Cc: stable unless you disagree.
-
-Cheers.
+David
