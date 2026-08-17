@@ -1,109 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEC3443E22;
-	Mon, 17 Aug 2026 15:24:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86ADC4432EB;
+	Mon, 17 Aug 2026 15:24:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786980283; cv=none; b=BpqD0pRdQBugKTRf7zUzUCBYjG/jrQkTLXxUzGgvYamEd/wcHr4ILMrViBUjxprTgHLAkKahHpGoI+2omb46Xyc2DoQ+wEEXtrJ/r5gmdPBJ7Jh6Cflav+KVmEL8D++iBKjP3BUCLqzVZ8TG4tAMCe+ZMdE4qIi9uthm8eNS7Wk=
+	t=1786980285; cv=none; b=tyjSe5EkGscSkIda2tsibor+PwuXv0nTzy5dAcrmtfZFYnY/w8o4wPR4RF/Lb7L06YKaH1R53uB5QajuI9iH/EJuLhdifxMQYIpMBJvwapADKV9ayvmFFWPr4UY+kDFadwew3OBjy+MiDFLbzpOPZZB9lRIbcToRyG9BIftRWvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786980283; c=relaxed/simple;
-	bh=8uW3MV6lhajFsvFt35ClnFibktg5vHBKa0XLYDe77fU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HznylbhbuV6A6eOpX41ileKUzfknXsgq5+j2FX/t972PJCupCoYEpQEyTC4IOvuRLaJDQsUH2NspzNBuUodqHNAkP+XVPhTEOutBKN9FywLxMec/XhaerRLY1UMkEnw1IB3VUIlV+r3BqMKiCmaYRviwNTLLm1tRa1kmIZ4PKg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=L+zBvhnv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786980285; c=relaxed/simple;
+	bh=bI/HkcuVGfANO/aCzdpxrXBHKWd0bIJH5HNiAYhHzVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rvnhgkbPKgM9mUAgg4BTz4WCsrUfRdjmYpUFJBpfj1CcwKUlk0kH22BQqHnECAa9ad9IHKDHhH8WCTf7usaKe3mG2uq+AXeZZ8ICwbAzL9MrDlepTl+Daj14ziCLLQQkCj3hPobpgHl3HDbOwVzoG6JTknSTpn6fDxvG/YMaY7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cVdOMp9r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="L+zBvhnv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118E81F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cVdOMp9r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE1A1F00A3A;
 	Mon, 17 Aug 2026 15:24:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786980282;
-	bh=nO1GG/zc/gPepdLnPjmjgXmXawZTxtym/S0u3W/ZCJo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L+zBvhnv0vgqvQ7G/1aPE3d9dEzABRSSBPyUiMt1+2UioMwww5G8MnvECdFdDf+xU
-	 jVeyZG1GxYdn4Y7Sx8KlNL3AMcTmMcHa2bEf0oOl+20Jji7X//+lREYGZn3hKeslWE
-	 gC2z6i5ygT2JJLdAsnp93pz+t6kDjNwgLqFxSqZk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Michael Chan <michael.chan@broadcom.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 518/609] bnxt_en: Disable EOP for TPA on all chips to prevent data corruption
-Date: Mon, 17 Aug 2026 15:33:34 +0200
-Message-ID: <20260817132601.166389430@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
-References: <20260817132543.039278408@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786980284;
+	bh=sXhh25rASqE1XEPZ4VlKoRqWRqzspvhKKVBYJrbPBZ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cVdOMp9r/vAg91xrEFj5709701L+0KagTnaEw0dpTIqWAR5TKLXieiWYxq02TIUa8
+	 tPbNRovbr5gf8BFo/ecLxEIxBlv+vu4WhBIthaOwy7uYy0+TDPptU9dXbkGUp2rTKX
+	 fyn8qe4X1ggTtALxm0oRvoUoML+8IqVOSC/lQ8IYb0c8N7/c6PXJwjbTswK1TtjGck
+	 LEWkojhdxpnFu3n3wVioSMaHmr/D4mqgGJrkMnGzNbpPP6zcYIP5AqGUJckYTnQL6z
+	 F9ZrDrxsVh/6Z0AKJMEVurhwsaizuZPQzK2svyasT5pM5SwGxiYncu8+N+CDk0WoNx
+	 7J2cDRCkZTvxw==
+Date: Mon, 17 Aug 2026 16:24:39 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Shen Yongchao <grayhat@foxmail.com>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	Wei-Lin Chang <weilin.chang@arm.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] KVM: arm64: nv: Delay freeing of shadow S2
+ structures until VM destruction
+Message-ID: <aoMm7iZZYYz2lw2B@gremlin>
+References: <20260814103230.858578-1-maz@kernel.org>
+ <20260814103230.858578-3-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260814103230.858578-3-maz@kernel.org>
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Fri, Aug 14, 2026 at 11:32:30AM +0100, Marc Zyngier wrote:
+> We free the shadow S2 structures from kvm_arch_flush_shadow_all(), which
+> is a Bad Idea(tm). Freeing the page tables is fair game (this is what
+> this callback is for), but freeing the container that could still be
+> referenced by another part of the system is not great.
+>
+> Instead, grow separate destructors that gets called when we tear the VM
+> down for good. From there, we can nuke both the individual MMUs as well
+> as the global array that points to them, safe in the knowledge that the
+> vcpus themselves have been destroyed already.
+>
+> Note that similarly to what happens for the canonical S2 MMU, we need to
+> manage the freeing of the page tables both in kvm_arch_flush_shadow_all
+> (called on address space teardown) and VM teardown (as a result of
+> closing the VM fd, amongst others), as there is no guaranteed ordering
+> between these two events.
+>
+> Fixes: 4f128f8e1aaac ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
 
-------------------
+All LGTM, Wei Lin had a comment on the commit msg (now saying this on the right
+commit...!) so with that addressed:
 
-From: Michael Chan <michael.chan@broadcom.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-[ Upstream commit c3faf548a00f4c17100cc9204746975fa46a73b9 ]
+> Cc: stable@vger.kernel.org
+> ---
+>  arch/arm64/include/asm/kvm_nested.h |  1 +
+>  arch/arm64/kvm/arm.c                |  4 ++--
+>  arch/arm64/kvm/nested.c             | 32 ++++++++++++++++++++---------
+>  3 files changed, 25 insertions(+), 12 deletions(-)
+>
+> diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
+> index 5b8edb2e8a87d..586026e859030 100644
+> --- a/arch/arm64/include/asm/kvm_nested.h
+> +++ b/arch/arm64/include/asm/kvm_nested.h
+> @@ -67,6 +67,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
+>  extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
+>  extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
+>  extern int kvm_init_nested(struct kvm *kvm);
+> +extern void kvm_destroy_nested(struct kvm *kvm);
+>  extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
+>  extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
+>  extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 7607173c1a40c..2b069c6440669 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -269,7 +269,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+>
+>  err_uninit_mmu:
+>  	kvm_uninit_stage2_mmu(kvm);
+> -	kvfree(kvm->arch.nested_mmus);
+> +	kvm_destroy_nested(kvm);
+>  err_free_cpumask:
+>  	free_cpumask_var(kvm->arch.supported_cpus);
+>  err_unshare_kvm:
+> @@ -327,7 +327,7 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
+>
+>  	kvm_unshare_hyp(kvm, kvm + 1);
+>
+> -	kvfree(kvm->arch.nested_mmus);
+> +	kvm_destroy_nested(kvm);
 
-EOP (End of frame padding) on the AGG ring may cause overlapping of
-zero padding at the end of one segment with the next segment's data.
-If Relaxed Ordering (RO) is enabled, the zero padding may overwrite
-valid data in the next segment and corrupt the data.  Older chips
-(P5 and older) do not automatically disable RO when EOP is enabled.
-On some ARM systems, data corruption was reported on 57508 (P5)
-chips with RO enabled.
+Yeah this definitely seems to be the right place to do it.
 
-Always disable EOP on all chips on the AGG rings when TPA is enabled
-to fix the data corruption.
+>  	kvm_arm_teardown_hypercalls(kvm);
+>  }
+>
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index 254cbd8703b3d..d0c05db554b1c 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -55,6 +55,27 @@ int kvm_init_nested(struct kvm *kvm)
+>  	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
+>  }
+>
+> +static void kvm_uninit_shadow_stage2_mmu(struct kvm *kvm)
+> +{
+> +	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+> +
+> +		if (!WARN_ON(atomic_read(&mmu->refcnt)))
+> +			kvm_free_stage2_pgd(mmu);
+> +	}
+> +}
+> +
+> +void kvm_destroy_nested(struct kvm *kvm)
+> +{
+> +	kvm_uninit_shadow_stage2_mmu(kvm);
+> +
+> +	for (int i = 0; i < kvm->arch.nested_mmus_size; i+= S2_MMU_PER_VCPU)
+> +		kvfree(kvm->arch.nested_mmus[i]);
+> +
+> +	kvm->arch.nested_mmus_size = 0;
+> +	kvfree(kvm->arch.nested_mmus);
+> +}
+> +
+>  static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
+>  {
+>  	/*
+> @@ -1310,16 +1331,7 @@ void kvm_nested_s2_flush(struct kvm *kvm)
+>
+>  void kvm_arch_flush_shadow_all(struct kvm *kvm)
+>  {
+> -	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
+> -		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+> -
+> -		if (!WARN_ON(atomic_read(&mmu->refcnt)))
+> -			kvm_free_stage2_pgd(mmu);
+> -
+> -		if ((i % S2_MMU_PER_VCPU) == 0)
+> -			kvfree(mmu);
+> -	}
+> -	kvm->arch.nested_mmus_size = 0;
+> +	kvm_uninit_shadow_stage2_mmu(kvm);
+>  	kvm_uninit_stage2_mmu(kvm);
+>  }
+>
+> --
+> 2.47.3
+>
+>
 
-Fixes: bfcd8d791ec1 ("bnxt_en: Add fast path logic for TPA on 57500 chips.")
-Reviewed-by: Pavan Chebbi <pavan.chebbi@broadcom.com>
-Reviewed-by: Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
-Signed-off-by: Michael Chan <michael.chan@broadcom.com>
-Link: https://patch.msgid.link/20260731190937.807270-5-michael.chan@broadcom.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index f11ca14c5c4d3..f69ad1ffc0c9d 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -3766,11 +3766,14 @@ static int bnxt_init_one_rx_ring(struct bnxt *bp, int ring_nr)
- 		type = ((u32)BNXT_RX_PAGE_SIZE << RX_BD_LEN_SHIFT) |
- 			RX_BD_TYPE_RX_AGG_BD;
- 
--		/* On P7, setting EOP will cause the chip to disable
--		 * Relaxed Ordering (RO) for TPA data.  Disable EOP for
--		 * potentially higher performance with RO.
-+		/* Disable EOP if TPA is enabled to prevent overlapping zero
-+		 * padding with the next segment's data.  On P7_PLUS, EOP will
-+		 * automatically disable Relaxed Ordering (RO) to prevent
-+		 * potential data corruption (and may degrade performance).  On
-+		 * older chips, RO will not be automatically disabled and may
-+		 * cause corruption.
- 		 */
--		if (BNXT_CHIP_P5_AND_MINUS(bp) || !(bp->flags & BNXT_FLAG_TPA))
-+		if (!(bp->flags & BNXT_FLAG_TPA))
- 			type |= RX_BD_FLAGS_AGG_EOP;
- 
- 		bnxt_init_rxbd_pages(ring, type);
--- 
-2.53.0
-
-
-
+--
+Cheers, Lorenzo
