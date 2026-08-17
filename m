@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A603B1B3;
-	Mon, 17 Aug 2026 08:08:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1077B190462;
+	Mon, 17 Aug 2026 08:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786954120; cv=none; b=gmh2lZR+BFpj32S1eUBcBbntfVm7RNhlNOABRpHF8QpCrLTo5ycCXUykoHhzgXo53pn7GdotmlNSkc0kNMsezzY74rMkkNl0mow2PWIlT5I+RcaMxhkPXiilPBlcx98gh5VvxuZ01PNnefXtg2bbH6Uj9A48m3Kpcs/wykFYF0g=
+	t=1786954231; cv=none; b=Reg3LjRSOcQPrrPOTHhqW0hllavWOY9NjuV1j90ln/xJwF4+lmaNHFGL3RcsclMoBBTopSvz6soPMQ/41XAFaZ4/acUiOblcKLRY2JdZ++3RMvxkt1EGHzjaKun+xMxm1vHWCa5/T/RtGoH5O6TYpAb5aCTqoSS0hyf8Yv9CP6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786954120; c=relaxed/simple;
-	bh=N1asHTRKCpcEnDNQlROeyRpfmEjSM+yGQ4uvlpZRL7c=;
+	s=arc-20240116; t=1786954231; c=relaxed/simple;
+	bh=bY4TCuOOw5IetSosG1NCHo6cbnBVS49n+Pmaj4zxxhw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EV8VmqoPo3noLSRKyrxLuA9brEhwnMApuWKHnsOKP/6nohPwJUHrjezXrK7xHe4WzdyhczNDFzyhykvK1cFKD/hNWZFR47iqUNwui3jd4zurMrMkus02nbR/37TKCq2q6xavHGQ1vTR0R96rywlZVYQyPuD6TF++ZBMORJjCoeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=bp3gSJwV; arc=none smtp.client-ip=117.135.210.5
+	 MIME-Version; b=d+mk34Fy3VGjNvFJjAcFBhhe9A5yO12fkn29TbjCChSWXNSa7yNJ0YVbmLEslKyH3hTYnyYltJyDqTAyHn/xk4O/47VSnp+obKPU4OxfE4/X81q6ck6K57m/Bdd/JigkoEDtdVMb8kCZaBbHZ0DPPTS4+HOpZ6vPTyAN4sP/EXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lGUpqhY4; arc=none smtp.client-ip=220.197.31.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="bp3gSJwV"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lGUpqhY4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=jB
-	0Ii9VVJ36PDJ+rCQ20pEyAgsPYY4wT++RC7X4XDwo=; b=bp3gSJwVKWCo5/nq5O
-	CnGaNdRhS+R6iu92eDby2z7DoNxHFz4Ff0guGfrwIGzG5wtwJCZKZEuTHQtUxQc0
-	R68VRtlf5qxmEJ0DPDWikvgR+fHnw74rflGt3hY6lLl8MeeV8th0mJD6oToXSAW8
-	RdmMDOvU7vmHnVd4RPSfuk610=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=C/
+	Ds0Ouy+iXpMEJIWkJQJBFzDXs1DtTbz9+QQw4wjHc=; b=lGUpqhY4rsR/O0EJus
+	QvdX09cXPzSYkpzJ/bF3WfE/8jfOBRSG7c/UP1rg9GLOy2Wo0FWwC5zdPR++w1B0
+	DELohYhgS/e4lMHnivDl0lImdZ48wOQxVPkYyeQuEYHA6m/UNrw/E1de361Bqx2r
+	110xTfm9IXm8AN+rv5PT/OGJ8=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wBnnvpFwYJqCVRqOA--.71S3;
-	Mon, 17 Aug 2026 16:07:39 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wBnnvpFwYJqCVRqOA--.71S4;
+	Mon, 17 Aug 2026 16:07:40 +0800 (CST)
 From: Yang Xiuwei <yangxiuwei@kylinos.cn>
 To: James.Bottomley@HansenPartnership.com,
 	martin.petersen@oracle.com
@@ -35,11 +35,11 @@ Cc: axboe@kernel.dk,
 	io-uring@vger.kernel.org,
 	linux-scsi@vger.kernel.org,
 	rc@rexion.ai,
-	Yang Xiuwei <yangxiuwei@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 1/3] scsi: bsg: cap io_uring sense copy to max_response_len
-Date: Mon, 17 Aug 2026 16:07:28 +0800
-Message-Id: <20260817080730.967879-2-yangxiuwei@kylinos.cn>
+	stable@vger.kernel.org,
+	Yang Xiuwei <yangxiuwei@kylinos.cn>
+Subject: [PATCH v4 2/3] scsi: bsg: fix TOCTOU in io_uring passthrough command setup
+Date: Mon, 17 Aug 2026 16:07:29 +0800
+Message-Id: <20260817080730.967879-3-yangxiuwei@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260817080730.967879-1-yangxiuwei@kylinos.cn>
 References: <20260817080730.967879-1-yangxiuwei@kylinos.cn>
@@ -50,59 +50,127 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBnnvpFwYJqCVRqOA--.71S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJry7tr1fJw17AF1UuFyxAFb_yoW8Zry5pF
-	4rKw45ZrZ8Wr4IkrZrArWjvFyYy3Z5ua47KFWj9a43CryUAr9a93W0k3WIqFyrXrWIy3s8
-	Xw4kKF4Yk3WjqwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j7Z23UUUUU=
+X-CM-TRANSID:_____wBnnvpFwYJqCVRqOA--.71S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr1kCr1fWr1xXw47WF43Awb_yoWrur18pF
+	WYqw4Svr45WF1IkFyDJFZ8Aay5twn7C3WxKFW3Ww43trWDur909a18tFyIqF9xAr97AFy8
+	Jr1qgF1DCr1jq3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U_73PUUUUU=
 Sender: yangxiuwei2025@163.com
-X-CM-SenderInfo: p1dqw55lxzvxisqskqqrwthudrp/xtbC6Qu9TmqCwUteLgAA3D
+X-CM-SenderInfo: p1dqw55lxzvxisqskqqrwthudrp/xtbCwQy+T2qCwUwMgQAA3U
 
-Completion copied scmd->sense_len to the user response buffer without
-honoring max_response_len. After a valid sense, the midlayer sets
-sense_len to the real length (up to SCSI_SENSE_BUFFERSIZE), so a
-smaller user buffer was overrun.
+From: Rahul Chandelkar <rc@rexion.ai>
+
+scsi_bsg_uring_cmd() reads bsg_uring_cmd from the shared mmap'd SQE.
+Userspace can change a field after we check it and before we use it.
+request_len is the sharp case: it can grow past sizeof(scmd->cmnd)
+after the bound check and overflow scmd->cmnd in copy_from_user().
+
+READ_ONCE() the SQE fields we check or use into locals before use.
 
 Fixes: 7b6d3255e7f8 ("scsi: bsg: add io_uring passthrough handler")
 Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/20260527105931.3950913-1-rc@rexion.ai
+Signed-off-by: Rahul Chandelkar <rc@rexion.ai>
+Co-developed-by: Yang Xiuwei <yangxiuwei@kylinos.cn>
 Signed-off-by: Yang Xiuwei <yangxiuwei@kylinos.cn>
 ---
- drivers/scsi/scsi_bsg.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/scsi/scsi_bsg.c | 39 +++++++++++++++++++++++++--------------
+ 1 file changed, 25 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/scsi/scsi_bsg.c b/drivers/scsi/scsi_bsg.c
-index e80dec53174e..b3c4b1063d6f 100644
+index b3c4b1063d6f..5eec248a77a6 100644
 --- a/drivers/scsi/scsi_bsg.c
 +++ b/drivers/scsi/scsi_bsg.c
-@@ -18,6 +18,7 @@ struct scsi_bsg_uring_cmd_pdu {
- 	struct bio *bio;		/* mapped user buffer, unmap in task work */
- 	struct request *req;		/* block request, freed in task work */
- 	u64 response_addr;		/* user space response buffer address */
-+	u32 max_response_len;		/* user response buffer size */
- };
- static_assert(sizeof(struct scsi_bsg_uring_cmd_pdu) <= sizeof_field(struct io_uring_cmd, pdu));
+@@ -77,12 +77,10 @@ static enum rq_end_io_ret scsi_bsg_uring_cmd_done(struct request *req,
  
-@@ -45,8 +46,8 @@ static void scsi_bsg_uring_task_cb(struct io_tw_req tw_req, io_tw_token_t tw)
- 	if (scsi_status_is_check_condition(scmd->result)) {
- 		driver_status = DRIVER_SENSE;
- 		if (pdu->response_addr)
--			sense_len_wr = min_t(u8, scmd->sense_len,
--					     SCSI_SENSE_BUFFERSIZE);
-+			sense_len_wr = min_t(unsigned int, pdu->max_response_len,
-+					     scmd->sense_len);
+ static int scsi_bsg_map_user_buffer(struct request *req,
+ 				    struct io_uring_cmd *ioucmd,
+-				    unsigned int issue_flags, gfp_t gfp_mask)
++				    unsigned int issue_flags, gfp_t gfp_mask,
++				    bool is_write, u64 buf_addr,
++				    unsigned long buf_len)
+ {
+-	const struct bsg_uring_cmd *cmd = io_uring_sqe128_cmd(ioucmd->sqe, struct bsg_uring_cmd);
+-	bool is_write = cmd->dout_xfer_len > 0;
+-	u64 buf_addr = is_write ? cmd->dout_xferp : cmd->din_xferp;
+-	unsigned long buf_len = is_write ? cmd->dout_xfer_len : cmd->din_xfer_len;
+ 	struct iov_iter iter;
+ 	int ret;
+ 
+@@ -105,21 +103,28 @@ static int scsi_bsg_uring_cmd(struct request_queue *q, struct io_uring_cmd *iouc
+ 			       unsigned int issue_flags, bool open_for_write)
+ {
+ 	struct scsi_bsg_uring_cmd_pdu *pdu = scsi_bsg_uring_cmd_pdu(ioucmd);
+-	const struct bsg_uring_cmd *cmd = io_uring_sqe128_cmd(ioucmd->sqe, struct bsg_uring_cmd);
++	const struct bsg_uring_cmd *cmd =
++		io_uring_sqe128_cmd(ioucmd->sqe, struct bsg_uring_cmd);
+ 	struct scsi_cmnd *scmd;
+ 	struct request *req;
+ 	blk_mq_req_flags_t blk_flags = 0;
+ 	gfp_t gfp_mask = GFP_KERNEL;
++	u64 request = READ_ONCE(cmd->request);
++	u32 request_len = READ_ONCE(cmd->request_len);
++	u64 dout_xferp = READ_ONCE(cmd->dout_xferp);
++	u32 dout_xfer_len = READ_ONCE(cmd->dout_xfer_len);
++	u64 din_xferp = READ_ONCE(cmd->din_xferp);
++	u32 din_xfer_len = READ_ONCE(cmd->din_xfer_len);
+ 	int ret;
+ 
+ 	if (cmd->protocol != BSG_PROTOCOL_SCSI ||
+ 	    cmd->subprotocol != BSG_SUB_PROTOCOL_SCSI_CMD)
+ 		return -EINVAL;
+ 
+-	if (!cmd->request || cmd->request_len == 0)
++	if (!request || request_len == 0)
+ 		return -EINVAL;
+ 
+-	if (cmd->dout_xfer_len && cmd->din_xfer_len) {
++	if (dout_xfer_len && din_xfer_len) {
+ 		pr_warn_once("BIDI support in bsg has been removed.\n");
+ 		return -EOPNOTSUPP;
+ 	}
+@@ -132,20 +137,20 @@ static int scsi_bsg_uring_cmd(struct request_queue *q, struct io_uring_cmd *iouc
+ 		gfp_mask = GFP_NOWAIT;
  	}
  
- 	if (sense_len_wr) {
-@@ -155,8 +156,7 @@ static int scsi_bsg_uring_cmd(struct request_queue *q, struct io_uring_cmd *iouc
- 	}
+-	req = scsi_alloc_request(q, cmd->dout_xfer_len ?
++	req = scsi_alloc_request(q, dout_xfer_len ?
+ 				 REQ_OP_DRV_OUT : REQ_OP_DRV_IN, blk_flags);
+ 	if (IS_ERR(req))
+ 		return PTR_ERR(req);
  
+ 	scmd = blk_mq_rq_to_pdu(req);
+-	if (cmd->request_len > sizeof(scmd->cmnd)) {
++	if (request_len > sizeof(scmd->cmnd)) {
+ 		ret = -EINVAL;
+ 		goto out_free_req;
+ 	}
+-	scmd->cmd_len = cmd->request_len;
++	scmd->cmd_len = request_len;
+ 	scmd->allowed = SG_DEFAULT_RETRIES;
+ 
+-	if (copy_from_user(scmd->cmnd, uptr64(cmd->request), cmd->request_len)) {
++	if (copy_from_user(scmd->cmnd, uptr64(request), request_len)) {
+ 		ret = -EFAULT;
+ 		goto out_free_req;
+ 	}
+@@ -158,8 +163,14 @@ static int scsi_bsg_uring_cmd(struct request_queue *q, struct io_uring_cmd *iouc
  	pdu->response_addr = cmd->response;
--	scmd->sense_len = cmd->max_response_len ?
--		min(cmd->max_response_len, SCSI_SENSE_BUFFERSIZE) : SCSI_SENSE_BUFFERSIZE;
-+	pdu->max_response_len = cmd->max_response_len;
+ 	pdu->max_response_len = cmd->max_response_len;
  
- 	if (cmd->dout_xfer_len || cmd->din_xfer_len) {
- 		ret = scsi_bsg_map_user_buffer(req, ioucmd, issue_flags, gfp_mask);
+-	if (cmd->dout_xfer_len || cmd->din_xfer_len) {
+-		ret = scsi_bsg_map_user_buffer(req, ioucmd, issue_flags, gfp_mask);
++	if (dout_xfer_len || din_xfer_len) {
++		bool is_write = dout_xfer_len > 0;
++		u64 buf_addr = is_write ? dout_xferp : din_xferp;
++		unsigned long buf_len = is_write ? dout_xfer_len : din_xfer_len;
++
++		ret = scsi_bsg_map_user_buffer(req, ioucmd, issue_flags,
++					       gfp_mask, is_write, buf_addr,
++					       buf_len);
+ 		if (ret)
+ 			goto out_free_req;
+ 		pdu->bio = req->bio;
 -- 
 2.25.1
 
