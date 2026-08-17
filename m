@@ -1,201 +1,148 @@
-Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BCF41DEF7
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0DF41E6D5;
+	Mon, 17 Aug 2026 12:58:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786971453; cv=none; b=R6g6KtP0T1Yl/5aNtC0tkGJbIAxH+ysISWAVDJ5Ft954gTbH+YEAkrU+s5zrgIOB3No4BFmpJvz0zFFa16wa27K1rtA6pXqx6/ovgP2UqOpjDByuAVLRj8AjpFt0NrzK4bx3GCPA24xy7jL0U9+GOdqijvaEbTVYkCCCneYXWHc=
+	t=1786971518; cv=none; b=ZI/D+on+f0bfSt6i1t7bnQcJL9KajLM9N8d/rctyglak+olfQeKsIiZrCWS8kbtcp4+7OEqc5EzD5eSZp/vdzN2BPjguaCa2RL1u3/KobiIORB1M9f3d63QOqBAWmsgsgaXZxVcqxDZuMNCDhvsEGqC1GjrGIuTAb26L7e5yCT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786971453; c=relaxed/simple;
-	bh=QzCIqujJVLpkrjFijyqBfUXFULhr5Y/Irtg7x2TkVr0=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=p40XvSrXtExiWRfdmxZpTJgWFsII1HwrcbxY9+mnGq+BvbNUNVeQLYRDZFns9+Y8umBzrHiyV87I+I0kEbIVHnjm8Mbf5sLxXqSZmmSsYAzNxMikU9XLeMkgMaivdT8jJa3kFgc8/WGw23wXPHG1+eITrFZDfwSaPK7R7OoIKvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=u9V0G/TM; arc=none smtp.client-ip=46.14.118.250
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
+	s=arc-20240116; t=1786971518; c=relaxed/simple;
+	bh=T77iMH3Z7su686rwm4StmqSLreGVhRCgO3oVeMiLkFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VlfDJF997hiSpEHMVJz9ICnyarfyqO/z7aXDiZL8kwNUXgMqu/RvDklZ0dPzKNT6y+Xgh3vGG0V15C/58KlD6zjjDw+rn2THQUUF2TjcT7xeJjucrz7AQ+I8gvkEJF3QOXhGaVyMKRyRzluSEgsSOjzP1l0Rov/+OMPq1dlVVo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lm1e/4MG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="u9V0G/TM"
-Received: from [192.168.16.44] (port=21959 helo=remote.fiveco.ch)
-	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.96)
-	(envelope-from <valentin.kindschi@fiveco.ch>)
-	id 1wvwu4-000000007B5-2kvt;
-	Mon, 17 Aug 2026 14:57:24 +0200
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
-	t=1786971444; h=from:subject:to:date:message-id;
-	bh=QzCIqujJVLpkrjFijyqBfUXFULhr5Y/Irtg7x2TkVr0=;
-	b=u9V0G/TMG7HyqZu/FCILt/HdSCSzkjmCYKKgPOUo2H4gjTF9yE/wJ+qgUkKWhTpovZZDMN0cjH4
-	mUHGtGezdaarJ11xyQ9sNLBTDb2bLZGjcpqxKli6iblBf5H0jERiJcPqfr8G8TRXiBcu3wi1Uz4xD
-	aVjjmhXKmF3AqgaP9xw=
-Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
- FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.61; Mon, 17 Aug 2026 14:57:24 +0200
-From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-To: <linux-bluetooth@vger.kernel.org>
-CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
-	<linux-kernel@vger.kernel.org>, Valentin Kindschi
-	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
-Subject: [PATCH] Bluetooth: hci_sync: pause advertising before setting the active scan address
-Date: Mon, 17 Aug 2026 14:57:07 +0200
-Message-ID: <20260817125707.508716-1-valentin.kindschi@fiveco.ch>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lm1e/4MG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76DFE1F000E9;
+	Mon, 17 Aug 2026 12:58:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786971516;
+	bh=B24AzCGu2i0BRtNVjCKkH15/evGoeyRqt5EfBxlcjZI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lm1e/4MGolyMIDxOxQ/5lbFPDnVoASbnCrwYLmIDP2c8dHLbqcSYOCcVYNX2LKTAI
+	 jdqMoVjcHYdEYr8SgBFKYaFhG3H4VplroKymHXfaKGLqQeAYzVyu1viR+YyfB7sdaY
+	 33w3jikSLH7FnlCYnyCJfVCnjN6jEjEWoQbz/UNOGH6P79mQ3zesYsEXM+r9NLIa7D
+	 gD6tq161RayJm8xEz1CqrfWjxeFtw4LOpuO/s4xSSzA+rqvo+5y/dsxtqeI5gkwNuJ
+	 nlBJaEk5eOYwC92wfhwSdBsjvjo7graMKPaHqSHeHnDzUCysncDbnDTu81IPLqSjFj
+	 JfzvSDXpFr7iw==
+Date: Mon, 17 Aug 2026 14:58:31 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: sergeh@kernel.org
+Cc: jack@suse.cz, djwong@kernel.org, hch@lst.de, serge@hallyn.com, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org, 
+	stable@vger.kernel.org, "Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>
+Subject: Re: [PATCH v4 1/5] xfs: fix capability check in xfs
+Message-ID: <aoMFRhWDH0LpgDid@andromeda.toxiclabs.cc>
+References: <20260804094602.84766-1-cem@kernel.org>
+ <20260804094602.84766-2-cem@kernel.org>
+ <anTC1e_zAhKedcpH@AUS2MQ6190Y76.amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
- FIVECO-MX01.fiveco.local (192.168.16.44)
-X-Sophos-OBS: success
-X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.8.17.122719
-X-SASI-RCODE: 200
-X-SASI-SpamProbability: 8%
-X-SASI-Hits: BODY_SIZE_5000_5999 0.000000, BODY_SIZE_7000_LESS 0.000000,
- CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000, DKIM_SIGNATURE 0.000000,
- HTML_00_01 0.050000, HTML_00_10 0.050000, MULTIPLE_RCPTS 0.100000,
- NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000, NO_URI_HTTPS 0.000000,
- OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000, SENDER_NO_AUTH 0.000000,
- WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000, WEBMAIL_X_IP_HDR 0.000000,
- __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000, __BULK_NEGATE 0.000000,
- __CC_NAME 0.000000, __CC_NAME_DIFF_FROM_ACC 0.000000,
- __CC_REAL_NAMES 0.000000, __CT 0.000000, __CTE 0.000000,
- __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000, __DKIM_ALIGNS_2 0.000000,
- __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000, __DQ_NEG_IP 0.000000,
- __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000,
- __HAS_MSGID 0.000000, __HAS_XOIP 0.000000, __HAS_X_MAILER 0.000000,
- __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000, __MIME_TEXT_P1 0.000000,
- __MIME_VERSION 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
- __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
- __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
- __RCVD_CTE 0.000000, __RCVD_EXIM_4_96_AES_128 0.000000,
- __RCVD_FROM_HOMEUSER 0.000000, __SANE_MSGID 0.000000,
- __SHIPPING_ACTION 0.000000, __SL_HEAVY 0.000000, __SUBJ_ALPHA_END 0.000000,
- __SUBJ_STARTS_S_BRACKETS 0.000000, __TO_MALFORMED_2 0.000000,
- __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000, __URI_NO_WWW 0.000000,
- __URI_NS 0.000000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anTC1e_zAhKedcpH@AUS2MQ6190Y76.amd.com>
 
-hci_active_scan_sync() generates a non-resolvable private address and
-programs it with LE Set Random Address on every active scan start:
+On Thu, Aug 06, 2026 at 12:22:29PM -0500, sergeh@kernel.org wrote:
+> On Tue, Aug 04, 2026 at 11:45:51AM +0200, cem@kernel.org wrote:
+> > From: Carlos Maiolino <cem@kernel.org>
+> > 
+> > An user reported a bug where he managed to evade group's quota
+> > by changing a file's gid to a different group id the same user
+> > belonged to, even though quotas were enforced on both gids and the
+> > file's size was big enough to exceed the quota's hardlimit.
+> > 
+> > Commit eba0549bc7d1 replaced a capable() call by a
+> > has_capability_noaudit() to prevent unnecessary selinux audit messages.
+> > Turns out that both calls have slightly different semantics even though
+> > their documentation seems similar. Where in a nutshell:
+> > 
+> > capable() - Tests the task's effective credentials
+> > has_ns_capability_noaudit() - Tests the task's real credentials
+> > 
+> > This most of the time has no practical difference but in some cases like
+> > changing attrs (specifically group id in this case) through a NFS client
+> > this will allow the quota code to use XFS_QMOPT_FORCE_RES, effectively
+> > bypassing quota accounting checks.
+> > 
+> > Using instead ns_capable_noaudit() should fix this issue and prevent
+> > selinux audit messages.
+> 
+> Hi,
+> 
+> this makes perfect sense, but since you say "should fix this issue",
+> did you have a chance to set up a reproducer, and verify?
 
-	/* All active scans will be done with either a resolvable private
-	 * address (when privacy feature has been enabled) or non-resolvable
-	 * private address.
-	 */
-	err = hci_update_random_address_sync(hdev, true, scan_use_rpa(hdev),
-					     &own_addr_type);
+Hi Serge.
 
-BLUETOOTH CORE SPECIFICATION Vol 4, Part E, 7.8.4 states the controller
-shall return Command Disallowed (0x0C) for LE Set Random Address while
-legacy advertising or scanning is enabled.
+Yes, I do have a reproducer to test this all, I'm in process of wiring
+it up on a xfstests once I get to it on my pile of stuff to do :)
 
-Advertising is only stopped beforehand when LL privacy is in use.
-hci_pause_addr_resolution(), called just above, returns early when
-!use_ll_privacy(hdev), so its hci_pause_advertising_sync() never runs.
-On a device that advertises while active scanning - a peripheral that is
-also a central, such as a gateway - every scan start therefore issues a
-command the host can already know will be rejected:
 
-	Bluetooth: hci0: Opcode 0x2005 failed: -16
-
-The address write is not retried either: hci_set_random_addr_sync()
-defers only when hdev->random_addr is already set, and it never becomes
-set because the write keeps failing, so HCI_RPA_EXPIRED is not used here.
-
-Observed on a BCM43455 with Privacy=off, one advertising instance and
-continuous active discovery, at the scan restart period (~10 s):
-
-  < LE Set Random Address  Address: 02:16:91:90:F1:D4 (Non-Resolvable)
-  > Command Complete       LE Set Random Address, Command Disallowed
-  < LE Set Random Address  Address: 26:90:57:96:9A:3E (Non-Resolvable)
-  > Command Complete       LE Set Random Address, Command Disallowed
-  < LE Set Random Address  Address: 16:32:01:BC:B5:CE (Non-Resolvable)
-  > Command Complete       LE Set Random Address, Command Disallowed
-
-Pause advertising for the address update regardless of privacy, and
-resume it on every exit path. Previously the resume was guarded by
-use_ll_privacy() and only reached on the error path, which matched the
-pause being privacy-only.
-
-With the patch, the same scan restart on the same hardware:
-
-  < LE Set Advertising Enable                            Success
-  < LE Set Random Address                                Success
-  < LE Set Scan Parameters                               Success
-  < LE Set Scan Enable                                   Success
-  < LE Set Advertising Parameters                        Success
-  < LE Set Advertising Enable                            Success
-
-Over 35425 records / ~4 min of btmon with continuous active discovery and
-advertising enabled there were no Command Disallowed responses of any
-kind, against one per scan restart before. A central could still connect
-to the device, confirming advertising is restored after the pause.
-
-Tooling disclosure (Documentation/process/generated-content.rst): an AI
-coding assistant was used to investigate this and to draft the change;
-the patch text and code are its output, reviewed by me. Inputs were btmon
-captures and kernel logs from the affected device, with the request to
-identify what re-issues LE Set Random Address every ~10 s and to fix it.
-Three earlier explanations it proposed were discarded after being checked
-against the captures: bluetoothd restarting service discovery; RPA
-rotation (excluded, Privacy=off); and the static-address branch of
-hci_update_random_address_sync() (excluded, both random_address and
-static_address read 00:00:00:00:00:00). The cause was only established
-after decoding the command payloads, which showed a freshly generated
-non-resolvable address per attempt. Testing is as described above, on the
-device, using btmon and a second device to confirm connectability.
-
-Fixes: abfeea476c68 ("Bluetooth: hci_sync: Convert MGMT_OP_START_DISCOVERY")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5 btmon
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
----
- net/bluetooth/hci_sync.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
-
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -6074,6 +6074,14 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval,
- 	if (err)
- 		goto failed;
-
-+	/* LE Set Random Address is disallowed while advertising is enabled, so
-+	 * pause it for the address update. hci_pause_addr_resolution() above
-+	 * only does this when LL privacy is in use.
-+	 */
-+	err = hci_pause_advertising_sync(hdev);
-+	if (err)
-+		goto failed;
-+
- 	/* All active scans will be done with either a resolvable private
- 	 * address (when privacy feature has been enabled) or non-resolvable
- 	 * private address.
-@@ -6102,13 +6110,18 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval,
- 	err = hci_start_scan_sync(hdev, LE_SCAN_ACTIVE, interval,
- 				  hdev->le_scan_window_discovery,
- 				  own_addr_type, filter_policy, filter_dup);
--	if (!err)
-+	if (!err) {
-+		/* Advertising was paused for the address update above. */
-+		hci_resume_advertising_sync(hdev);
- 		return err;
-+	}
-
- failed:
--	/* Resume advertising if it was paused */
--	if (use_ll_privacy(hdev))
--		hci_resume_advertising_sync(hdev);
-+	/* Resume advertising if it was paused. hci_resume_advertising_sync()
-+	 * is a no-op when hdev->advertising_paused is not set, so this covers
-+	 * both the privacy and the address-update pause.
-+	 */
-+	hci_resume_advertising_sync(hdev);
-
- 	/* Resume passive scanning */
- 	hci_update_passive_scan_sync(hdev);
---
-2.34.1
+> 
+> > This also fix the remaining calls to has_capability_noaudit()
+> > 
+> > Fixes: eba0549bc7d1 ("xfs: don't generate selinux audit messages for capability testing")
+> > Cc: <stable@vger.kernel.org> # v5.18
+> > Reported-by: Dr. Thomas Orgis <thomas.orgis@uni-hamburg.de>
+> > Signed-off-by: Carlos Maiolino <cmaiolino@redhat.com>
+> > Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+> 
+> Reviewed-by: Serge Hallyn <sergeh@kernel.org>
+> 
+> thanks,
+> -serge
+> 
+> > ---
+> >  fs/xfs/xfs_fsmap.c | 2 +-
+> >  fs/xfs/xfs_ioctl.c | 2 +-
+> >  fs/xfs/xfs_iops.c  | 2 +-
+> >  3 files changed, 3 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/fs/xfs/xfs_fsmap.c b/fs/xfs/xfs_fsmap.c
+> > index b6a3bc9f143c..7c79fbe0a74c 100644
+> > --- a/fs/xfs/xfs_fsmap.c
+> > +++ b/fs/xfs/xfs_fsmap.c
+> > @@ -1175,7 +1175,7 @@ xfs_getfsmap(
+> >  		return -EINVAL;
+> >  
+> >  	use_rmap = xfs_has_rmapbt(mp) &&
+> > -		   has_capability_noaudit(current, CAP_SYS_ADMIN);
+> > +		   ns_capable_noaudit(&init_user_ns, CAP_SYS_ADMIN);
+> >  	head->fmh_entries = 0;
+> >  
+> >  	/* Set up our device handlers. */
+> > diff --git a/fs/xfs/xfs_ioctl.c b/fs/xfs/xfs_ioctl.c
+> > index 1b53701bebea..1a8af827dde1 100644
+> > --- a/fs/xfs/xfs_ioctl.c
+> > +++ b/fs/xfs/xfs_ioctl.c
+> > @@ -647,7 +647,7 @@ xfs_ioctl_setattr_get_trans(
+> >  		goto out_error;
+> >  
+> >  	error = xfs_trans_alloc_ichange(ip, NULL, NULL, pdqp,
+> > -			has_capability_noaudit(current, CAP_FOWNER), &tp);
+> > +			ns_capable_noaudit(&init_user_ns, CAP_FOWNER), &tp);
+> >  	if (error)
+> >  		goto out_error;
+> >  
+> > diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
+> > index 6339f4956ecb..7a8c77fdcf68 100644
+> > --- a/fs/xfs/xfs_iops.c
+> > +++ b/fs/xfs/xfs_iops.c
+> > @@ -835,7 +835,7 @@ xfs_setattr_nonsize(
+> >  	}
+> >  
+> >  	error = xfs_trans_alloc_ichange(ip, udqp, gdqp, NULL,
+> > -			has_capability_noaudit(current, CAP_FOWNER), &tp);
+> > +			ns_capable_noaudit(&init_user_ns, CAP_FOWNER), &tp);
+> >  	if (error)
+> >  		goto out_dqrele;
+> >  
+> > -- 
+> > 2.55.0
+> > 
+> 
