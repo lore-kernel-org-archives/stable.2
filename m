@@ -1,46 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5117429CE8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA7942CB0D;
 	Mon, 17 Aug 2026 15:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786979621; cv=none; b=mPegQexxnZDmxQyRjNToeM+PuYs9/z+8SEjd6c8AGvD/lyr8XwrRbD0K1+4iwoOaAeRPmvWyuJ4bzJ2auFVmGktwyqAaPogEG3iKoZeuLuUjGt+pHyRpelnbZOwSTgXfvfCygMJO3M+ZooVue1D4UH/i8Zx8DAaVCQFGTablgFw=
+	t=1786979623; cv=none; b=bpp/8ddEbFqTHODp2dn5vfIocD7J/INr4D/feh99znb5dJt9OqIP72p8IFqZt7OPxZSgNuugFZ5vnHkNqgqWs4HR+CTWVEma3lAeR30zlQQ6+6TGIIZ/vB2ml8gxOmMu0uc1Usm4jj94Z1Ylq96j3QXwlXcXKNk/WRGBpje/deM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786979621; c=relaxed/simple;
-	bh=yRUYRfRL2+kw+PunshOrtSrlst14ZwurPMFqckKQl3Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LZ6MKa+ondexLDeIb1oxnKke5TM6XQyjhBdjqtMhsN1KkZ6NB0dCAEbEj2r81mumhoeDcbgJ+PQBLpA80/EKIUh+jYnM7TOiQoHne91aPLJKnUvaWhAnSqxu2GmUu6IOv4ImWbDbk/D+G1P4FRUzFhON5CN/C8mf8KwwPWD2GSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=L3VWRKfI; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="L3VWRKfI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 059071F000E9;
-	Mon, 17 Aug 2026 15:13:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786979619;
-	bh=auI3JBvoC3y/pssVdZQ/vc8/HubjcvzRO6vHEeXmWks=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L3VWRKfIZPiljvEEUFZEOPnanwsPq+c2DwNtRZUwba/abKwYTwJ24JIpEBlNgL0lx
-	 rZyqvoB9E9dmqqRoKnsIL1w0LEKY9tTBnqTmq/8ojPWUhjNtuiAQHxdQZiv5PmXqV3
-	 dVR79j/lY+hNCl4LY1/YtdtwvVJpl9v9q+0awMcg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Kyle Zeng <kylebot@openai.com>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	Aaron Conole <aconole@redhat.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 290/609] openvswitch: fix GSO userspace truncation underflow
-Date: Mon, 17 Aug 2026 15:29:46 +0200
-Message-ID: <20260817132553.906950183@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
-References: <20260817132543.039278408@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=arc-20240116; t=1786979623; c=relaxed/simple;
+	bh=UK919ur0Crj2WKAHkdqqE7j2Wn/t+VvslJgIQXR+SUU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XoE7zzVNBJxxhLOjar+fffu6Sy5R2SKRbn3Bkucr4JP8NrahMBvivkgQ0f2OBWxqo0zOWlkW0XkfPAJ/MBtcOa0vhnQoztdVvmstPytUoxXVyhEN7z9/u1Y02HgzB1a1la0XWuljrQn4xmy8YwLcFXlfiBdYn+BZi145NLZ7Wbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 35ff55269a4e11f19a56ed5b684f684d-20260817
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR
+	DN_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, UD_TRUSTED
+	CIE_GOOD_SPF, CIE_UNKNOWN, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:9b1c82c8-673e-4abf-bf35-5398e5da9fa0,IP:10,
+	URL:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:35
+X-CID-INFO: VERSION:1.3.19,REQID:9b1c82c8-673e-4abf-bf35-5398e5da9fa0,IP:10,UR
+	L:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:35
+X-CID-META: VersionHash:7db8b62,CLOUDID:ec3bcec95b7a91d83ef71b9eea5389b7,BulkI
+	D:260817231335EZOKGL7X,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
+	C:nil,Content:0|15|50,EDM:-3,IP:-2,URL:93|82|11|1,File:nil,RT:nil,Bulk:nil
+	,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:
+	0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 35ff55269a4e11f19a56ed5b684f684d-20260817
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(120.227.38.248)] by mailgw.kylinos.cn
+	(envelope-from <yijiangshan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 2076017799; Mon, 17 Aug 2026 23:13:32 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: skalluru@marvell.com,
+	manishc@marvell.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: vadim.fedorenko@linux.dev,
+	dmitry@broadcom.com,
+	eilong@broadcom.com,
+	ariele@broadcom.com,
+	yuvalmin@broadcom.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	13667453960@163.com,
+	Jiangshan Yi <yijiangshan@kylinos.cn>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] bnx2x: fix NULL pointer dereference in bnx2x_free_mem_bp()
+Date: Mon, 17 Aug 2026 23:13:26 +0800
+Message-Id: <20260817151326.765824-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,197 +77,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+bnx2x_alloc_mem_bp() sets bp->fp_array_size before allocating bp->fp.
+If the fp allocation fails, the error path calls bnx2x_free_mem_bp(),
+which dereferences bp->fp in a loop bounded by the non-zero
+bp->fp_array_size, causing a NULL pointer dereference.
 
-------------------
+Move the bp->fp_array_size assignment to after bp->fp is set so that
+the loop in bnx2x_free_mem_bp() naturally becomes a no-op when bp->fp
+is NULL, since bp is zero-initialized and fp_array_size remains 0.
 
-From: Kyle Zeng <kylebot@openai.com>
-
-[ Upstream commit 4032f8ed10fcb84d41c508dfb04be96589f78dfe ]
-
-OVS_ACTION_ATTR_TRUNC currently stores a delta from the original skb
-length in OVS_CB(skb)->cutlen. When a later userspace action segments a
-GSO skb, queue_gso_packets() reuses that delta for each smaller segment.
-A segment can then reach queue_userspace_packet() with cutlen greater
-than skb->len, underflowing the length passed to skb_zerocopy().
-
-Store the maximum preserved length instead and bound each consumer
-against the current skb length. Use U32_MAX as the no-truncation
-sentinel so the value remains valid if skb geometry changes before a
-consumer handles it.
-
-Fixes: f2a4d086ed4c ("openvswitch: Add packet truncation support.")
+Fixes: c3146eb676e7c ("bnx2x: Correct memory preparation and release")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260815122149.951215-1-yijiangshan@kylinos.cn
+Suggested-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
-Reviewed-by: Aaron Conole <aconole@redhat.com>
-Link: https://patch.msgid.link/20260707221635.27489-1-kylebot@openai.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[6.1.y supports neither OVS_ACTION_ATTR_PSAMPLE nor OVS drop reasons]
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+
 ---
- net/openvswitch/actions.c  | 15 +++++----------
- net/openvswitch/datapath.c | 25 ++++++++++++++-----------
- net/openvswitch/datapath.h |  2 +-
- net/openvswitch/vport.c    |  2 +-
- 4 files changed, 21 insertions(+), 23 deletions(-)
+Changes in v2:
+- Remove the defensive NULL guard in bnx2x_free_mem_bp() as suggested
+  by Vadim Fedorenko, since the assignment-order fix alone is sufficient
+  to prevent the NULL pointer dereference (bp is zero-initialized so
+  fp_array_size remains 0 when allocation fails).
 
-diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
-index f7cc87e67d3c8c..18e419affb5727 100644
---- a/net/openvswitch/actions.c
-+++ b/net/openvswitch/actions.c
-@@ -856,12 +856,8 @@ static void do_output(struct datapath *dp, struct sk_buff *skb, int out_port,
- 		u16 mru = OVS_CB(skb)->mru;
- 		u32 cutlen = OVS_CB(skb)->cutlen;
+ drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c
+index 5b2640bd31c3..926ffe3e2c43 100644
+--- a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c
++++ b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c
+@@ -4742,13 +4742,13 @@ int bnx2x_alloc_mem_bp(struct bnx2x *bp)
  
--		if (unlikely(cutlen > 0)) {
--			if (skb->len - cutlen > ovs_mac_header_len(key))
--				pskb_trim(skb, skb->len - cutlen);
--			else
--				pskb_trim(skb, ovs_mac_header_len(key));
--		}
-+		if (unlikely(cutlen < skb->len))
-+			pskb_trim(skb, max(cutlen, ovs_mac_header_len(key)));
+ 	/* fp array: RSS plus CNIC related L2 queues */
+ 	fp_array_size = BNX2X_MAX_RSS_COUNT(bp) + CNIC_SUPPORT(bp);
+-	bp->fp_array_size = fp_array_size;
+-	BNX2X_DEV_INFO("fp_array_size %d\n", bp->fp_array_size);
++	BNX2X_DEV_INFO("fp_array_size %d\n", fp_array_size);
  
- 		if (likely(!mru ||
- 		           (skb->len <= mru + vport->dev->hard_header_len))) {
-@@ -1242,22 +1238,21 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
- 			clone = skb_clone(skb, GFP_ATOMIC);
- 			if (clone)
- 				do_output(dp, clone, port, key);
--			OVS_CB(skb)->cutlen = 0;
-+			OVS_CB(skb)->cutlen = U32_MAX;
- 			break;
- 		}
- 
- 		case OVS_ACTION_ATTR_TRUNC: {
- 			struct ovs_action_trunc *trunc = nla_data(a);
- 
--			if (skb->len > trunc->max_len)
--				OVS_CB(skb)->cutlen = skb->len - trunc->max_len;
-+			OVS_CB(skb)->cutlen = trunc->max_len;
- 			break;
- 		}
- 
- 		case OVS_ACTION_ATTR_USERSPACE:
- 			output_userspace(dp, skb, key, a, attr,
- 						     len, OVS_CB(skb)->cutlen);
--			OVS_CB(skb)->cutlen = 0;
-+			OVS_CB(skb)->cutlen = U32_MAX;
- 			break;
- 
- 		case OVS_ACTION_ATTR_HASH:
-diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
-index 0c0d89470145a1..1181807f2b5020 100644
---- a/net/openvswitch/datapath.c
-+++ b/net/openvswitch/datapath.c
-@@ -251,7 +251,7 @@ void ovs_dp_process_packet(struct sk_buff *skb, struct sw_flow_key *key)
- 			upcall.portid = ovs_vport_find_upcall_portid(p, skb);
- 
- 		upcall.mru = OVS_CB(skb)->mru;
--		error = ovs_dp_upcall(dp, skb, key, &upcall, 0);
-+		error = ovs_dp_upcall(dp, skb, key, &upcall, U32_MAX);
- 		switch (error) {
- 		case 0:
- 		case -EAGAIN:
-@@ -414,7 +414,8 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
- 	struct sk_buff *nskb = NULL;
- 	struct sk_buff *user_skb = NULL; /* to be queued to userspace */
- 	struct nlattr *nla;
--	size_t len;
-+	size_t msg_size;
-+	size_t skb_len;
- 	unsigned int hlen;
- 	int err, dp_ifindex;
- 	u64 hash;
-@@ -435,7 +436,8 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
- 		skb = nskb;
- 	}
- 
--	if (nla_attr_size(skb->len) > USHRT_MAX) {
-+	skb_len = min(skb->len, cutlen);
-+	if (nla_attr_size(skb_len) > USHRT_MAX) {
- 		err = -EFBIG;
- 		goto out;
- 	}
-@@ -450,13 +452,13 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
- 	 * padding logic. Only perform zerocopy if padding is not required.
- 	 */
- 	if (dp->user_features & OVS_DP_F_UNALIGNED)
--		hlen = skb_zerocopy_headlen(skb);
-+		hlen = min(skb_zerocopy_headlen(skb), cutlen);
- 	else
--		hlen = skb->len;
-+		hlen = skb_len;
- 
--	len = upcall_msg_size(upcall_info, hlen - cutlen,
--			      OVS_CB(skb)->acts_origlen);
--	user_skb = genlmsg_new(len, GFP_ATOMIC);
-+	msg_size = upcall_msg_size(upcall_info, hlen,
-+				   OVS_CB(skb)->acts_origlen);
-+	user_skb = genlmsg_new(msg_size, GFP_ATOMIC);
- 	if (!user_skb) {
- 		err = -ENOMEM;
- 		goto out;
-@@ -517,7 +519,7 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
- 	}
- 
- 	/* Add OVS_PACKET_ATTR_LEN when packet is truncated */
--	if (cutlen > 0 &&
-+	if (skb_len < skb->len &&
- 	    nla_put_u32(user_skb, OVS_PACKET_ATTR_LEN, skb->len)) {
- 		err = -ENOBUFS;
- 		goto out;
-@@ -542,9 +544,9 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
- 		err = -ENOBUFS;
- 		goto out;
- 	}
--	nla->nla_len = nla_attr_size(skb->len - cutlen);
-+	nla->nla_len = nla_attr_size(skb_len);
- 
--	err = skb_zerocopy(user_skb, skb, skb->len - cutlen, hlen);
-+	err = skb_zerocopy(user_skb, skb, skb_len, hlen);
- 	if (err)
- 		goto out;
- 
-@@ -601,6 +603,7 @@ static int ovs_packet_cmd_execute(struct sk_buff *skb, struct genl_info *info)
- 		packet->ignore_df = 1;
- 	}
- 	OVS_CB(packet)->mru = mru;
-+	OVS_CB(packet)->cutlen = U32_MAX;
- 
- 	if (a[OVS_PACKET_ATTR_HASH]) {
- 		hash = nla_get_u64(a[OVS_PACKET_ATTR_HASH]);
-diff --git a/net/openvswitch/datapath.h b/net/openvswitch/datapath.h
-index 0cd29971a907ca..88156a677f22c5 100644
---- a/net/openvswitch/datapath.h
-+++ b/net/openvswitch/datapath.h
-@@ -114,7 +114,7 @@ struct datapath {
-  * @mru: The maximum received fragement size; 0 if the packet is not
-  * fragmented.
-  * @acts_origlen: The netlink size of the flow actions applied to this skb.
-- * @cutlen: The number of bytes from the packet end to be removed.
-+ * @cutlen: The number of bytes in the packet to preserve on output.
-  */
- struct ovs_skb_cb {
- 	struct vport		*input_vport;
-diff --git a/net/openvswitch/vport.c b/net/openvswitch/vport.c
-index 5d7af559a20bed..e83aa6417ffde0 100644
---- a/net/openvswitch/vport.c
-+++ b/net/openvswitch/vport.c
-@@ -438,7 +438,7 @@ int ovs_vport_receive(struct vport *vport, struct sk_buff *skb,
- 
- 	OVS_CB(skb)->input_vport = vport;
- 	OVS_CB(skb)->mru = 0;
--	OVS_CB(skb)->cutlen = 0;
-+	OVS_CB(skb)->cutlen = U32_MAX;
- 	if (unlikely(dev_net(skb->dev) != ovs_dp_get_net(vport->dp))) {
- 		u32 mark;
- 
+-	fp = kzalloc_objs(*fp, bp->fp_array_size);
++	fp = kzalloc_objs(*fp, fp_array_size);
+ 	if (!fp)
+ 		goto alloc_err;
+ 	bp->fp = fp;
++	bp->fp_array_size = fp_array_size;
+ 	for (i = 0; i < bp->fp_array_size; i++) {
+ 		fp[i].tpa_info =
+ 			kzalloc_objs(struct bnx2x_agg_info,
 -- 
-2.53.0
-
-
+2.25.1
 
