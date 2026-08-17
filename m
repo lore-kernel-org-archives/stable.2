@@ -1,38 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7828C4399C4;
-	Mon, 17 Aug 2026 13:49:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F68434E51;
+	Mon, 17 Aug 2026 13:49:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974558; cv=none; b=J5RvFIhm5IvCBIDXZqvKpmy+IqzXQ2Y34YhHtCEIwT6yuwvXkkgpeNBr8WLluoMD4FA42MoGeuUPZyAMM1DD/PhCMwKKuerMChkA5gTGGfqyXcn56z203DtBl8NJKIYPpKcjk/xj/cGfOiKbmWxAFe5C8kY+OIIED6/gikZy3jg=
+	t=1786974563; cv=none; b=CMNptDMXPE9UEBNFlan3WV6hqwuu3Ffu+uBDZV2T5ApmbfqaZHTl43nz+hyc+C7EuFcckBke7TCqiSOFDhuvVW4diMaOQNXJLeYYnbF0bbOO28N06s7LSqVBVdCRlzmszMkm02cYoygtSXO9ZqvdlJBWldxqZAiR4yys7nPZXnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974558; c=relaxed/simple;
-	bh=wsCuJ5MX6TTe5DSf67QSoOFP854AskKULbFgqwWw57M=;
+	s=arc-20240116; t=1786974563; c=relaxed/simple;
+	bh=UCVpiWZjA2zbhm432P6+dRSiRKvBR6ZqCxUU1o5QbQ4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=auXLdsjJRMwgSJvDRaqzZJ4OZWDRPNpzvadZidXWFwQNhCMMCCv2bmno0sTxiTaLttThJSWpYrCgIE8ZcgKcO2MmRbtZeOJvJgoejRi3TgHJ9RYIZNo3uULf/bYeXnvZ5IXR2ZYAXOv3OgSPAgSzPeCAoRCJHCjck8lFeIoMae4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b+97q1Ed; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QeQtX0hpQPAob4E5wO97+XgAoTh+upPjpi3zsc4igdw06/rSNBaL+H1CPUMqMdQfiJ8+HeCKdLY06qkYsFN/LIJZH/EATBlXVuaBxuNo6Q5CMeoxgphQDxVUIso21qz94z+hNqkPOZtTQg2leRG8LwwLsHaw7/1/RjGnDSfjkJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HC2EXCaT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b+97q1Ed"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDC711F00A3D;
-	Mon, 17 Aug 2026 13:49:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HC2EXCaT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F771F000E9;
+	Mon, 17 Aug 2026 13:49:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974555;
-	bh=1PTtydbF1G719oCtcAVf1FABlwMABfIIuOuPB4E4TWc=;
+	s=korg; t=1786974558;
+	bh=u0Rm4dnTyGDHZddsTKupYflg6YUONIPQztiSLoOh5yU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b+97q1EdnWXuwtm7T4whsgfQ28bWQjKaEzSWBUpZ/m8wZ13xpZm4FctRQvLxvbutW
-	 ZR1AmBTqDlPJe9BNbHcWCf3grQm/xKNwlXlYSeIncKLx+yo6Tu4zfT8o0tvT+KdcFx
-	 fvllkKM+ueact9cNd4eKwNecY2m3+czmsidRBQlQ=
+	b=HC2EXCaTh3aQSW9TJIcCgHPsZPoyoPK/NpEK41lLstYMi8hXWqa2iHtmyMg7J36pF
+	 3EvN6jkGl0KMK+NcZI66Z6mJCn23UPY6YPII95HS+up2MpTTD/jrhQupJzI9W+9k2P
+	 zgJVJFFkOUD2mitn5CBrsdd0FqLjnMuos0S3xNBI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH 7.1 245/271] eventfs: Use children field for rcu head and add memory barriers
-Date: Mon, 17 Aug 2026 15:32:50 +0200
-Message-ID: <20260817132546.821248538@linuxfoundation.org>
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Hengbin Zhang <uqbarz@gmail.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Hugh Dickins <hughd@google.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <npache@redhat.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Yang Shi <shy828301@gmail.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 7.1 210/271] mm/huge_memory: fix huge_zero_pfn race
+Date: Mon, 17 Aug 2026 15:32:15 +0200
+Message-ID: <20260817132545.442957376@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
 References: <20260817132536.752504388@linuxfoundation.org>
@@ -51,95 +65,258 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Steven Rostedt <rostedt@goodmis.org>
+From: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-commit f0ece16ffca7384787b692431961ce202907acf5 upstream.
+commit 33192a26cddea7a7e4ca66e5c3eebd36fa8be2bb upstream.
 
-When an eventfs inode is freed, it sets ei->is_freed and then uses its
-ei->list to add it to the srcu link list as the list field is a union with
-the rcu list head. As the ei->list is used to iterate over an SRCU
-protected list without taking the eventfs_mutex, there's nothing stopping
-the iteration over that list to see the ei->rcu instead of the ei->list
-and it will read a corrupt target.
+Patch series "mm/huge_memory: fix huge_zero_pfn race", v2.
 
-To fix this, change the union of the rcu list head with the children list.
-On freeing the eventfs inode, set the is_free and execute a smp_wmb()
-before adding the eventfs inode to the SRCU list.
+There is a subtle race in the reference-counted huge_zero_folio
+implementation.
 
-On iteration of the ei->children list, at the start, execute a smp_rmb()
-and then read the is_freed of the ei to see if the children list is still
-valid. If is_freed is set, then the ei_child read is not valid and the
-loop should exit immediately.
+The fast path atomic logic fails to account for the fact that the shrinker
+(which drops the final huge_zero_refcount pin) can overwrite huge_zero_pfn
+with the ~0UL sentinel value in shrink_huge_zero_folio_scan() after a
+racing get_huge_zero_folio() installed a valid value there.
 
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260808094215.4252430d@robin
-Fixes: 704f960dbee2f ("eventfs: Read ei->entries before ei->children in eventfs_iterate()")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260806022719.375354-1-shuangpeng.kernel%40gmail.com
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+This results in huge_zero_folio being correctly set but huge_zero_pfn
+being set incorrectly and thus is_huge_zero_pfn() and consequently
+is_huge_zero_pmd() will misidentify the huge zero folio as being an
+ordinary THP folio.
+
+This can result in the huge zero folio being split and otherwise treated
+incorrectly.
+
+The solution to this is very subtle as there is an atomic fast path, and
+thus ordering in weakly ordered architectures has to be treated very
+carefully.
+
+The first commit fixes the issue by introducing a spinlock around
+huge_zero_[pfn, folio, refcount] write, with careful consideration paid to
+load/store ordering in the fast path.  It is placed first and kept as
+small as possible so that it can be backported on its own.
+
+The second commit is a pure cleanup which reworks the
+CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic to better separate the persistent
+logic from the dynamically allocated one.
+
+
+This patch (of 2):
+
+If !CONFIG_PERSISTENT_HUGE_ZERO_FOLIO, the huge_zero_folio is refcounted
+by huge_zero_refcount and returned by mm_get_huge_zero_folio().
+
+When the caller is done with the huge zero page, its reference count is
+decremented.  Only a shrinker can set the reference count to zero.
+
+A race can unfortunately occur between a shrinker decrementing the
+reference count to zero and a concurrent page fault.
+
+This is because shrink_huge_zero_folio_scan() might, if very unlucky, be
+preempted between setting huge_zero_refcount to zero and writing an
+invalid value.
+
+During this time get_huge_zero_folio() could write to huge_zero_pfn before
+shrink_huge_zero_folio_scan() resumes.
+
+In this event the huge zero folio will be persistently misidentified
+causing the THP code path to be entered inappropriately for the huge zero
+folio:
+
+                CPU 0                                   CPU 1
+=======================================|=================================
+shrink_huge_zero_folio_scan()          |
+   atomic_cmpxchg() sets refcount to 0 |
+   xchg() sets huge_zero_folio to NULL | get_huge_zero_folio()
+                 |                     |    atomic_inc_not_zero() -> zero
+      preempted for a long time        |    Allocate new huge zero folio
+                 |                     |    Write valid huge_zero_folio
+                 v                     |    Write valid huge_zero_pfn
+  Overwrite huge_zero_pfn with ~0UL   <--- Invalid overwrite!
+
+This results in is_huge_zero_pfn() and is_huge_zero_pmd() incorrectly
+returning false for a huge zero page which could result in issues like the
+huge zero folio being incorrectly split.
+
+Note that the issue is with huge_zero_pfn not huge_zero_folio, as
+get_huge_zero_folio() uses cmpxchg() gated on huge_zero_folio being NULL
+with a retry loop and shrink_huge_zero_folio_scan() uses xchg() to set
+huge_zero_folio.
+
+Fix the issue by introducing a spinlock, huge_zero_lock, to prevent
+concurrent write of huge_zero_folio, huge_zero_pfn and huge_zero_refcount.
+
+There needs to be significant care taken here to ensure correctness:
+
+The fast path in get_huge_zero_folio() uses atomic_inc_not_zero(), which
+is outside of the critical section, and means huge zero allocation is
+gated on zero huge_zero_refcount.
+
+The fast path doesn't use huge_zero_lock, so the critical section is
+irrelevant to it.
+
+So invariants are required - huge_zero_refcount MUST:
+
+* Only be set in the huge_zero_lock critical section to ensure
+  serialisation of huge_zero_pfn, huge_zero_folio and huge_zero_refcount
+  writes.
+
+* Be set non-zero only AFTER huge_zero_[pfn, folio] are set to valid values
+  so installation of the huge zero folio on read page fault ensures
+  concurrent is_huge_zero_*() calls correctly identify the huge zero folio.
+
+* Be set zero only BEFORE huge_zero_[pfn, folio] are set to NULL and ~0UL
+  respectively, and atomically.
+
+Establish these by:
+
+* Only setting huge_zero_refcount to zero or an absolute value in the
+  huge_zero_lock critical section in get_huge_zero_folio() and
+  shrink_huge_zero_folio_scan(), and always updating atomically there
+  and elsewhere.
+
+* Using atomic_set_release(&huge_zero_refcount) in get_huge_zero_folio()
+  after huge_zero_[pfn, folio] are set. This is paired with
+  atomic_inc_not_zero() to ensure atomic_inc_not_zero() only observes a
+  non-zero value if huge_zero_[pfn, folio] are set.
+
+* Using atomic_cmpxchg() in shrink_huge_zero_folio_scan() (as before) to
+  ensure that it is set zero only when equal to 1 and set atomically.
+
+* atomic_cmpxchg() being fully ordered ensures this is done prior to
+  huge_zero_[folio, pfn] being set to NULL and ~0UL respectively.
+
+Eliminate the retry loop in get_huge_zero_folio() as the atomic_cmpxchg()
+in shrink_huge_zero_folio_scan() is now performed under the lock, and
+replace with an equally locked atomic_inc() to set the reference count
+should the caller be raced on huge zero folio installation.
+
+folio_put() naturally implies a full memory barrier so its ordering is
+maintained correctly.
+
+The huge zero folio also cannot be released except when the shrinker does
+so as it is non-LRU and non-rmappable.
+
+Note that only the huge zero shrinker (via shrink_huge_zero_folio_scan())
+can actually set huge_zero_refcount to zero, which is the count of mm's
+which have at least one huge zero folio installed plus one shrinker pin.
+
+Additionally convert a BUG_ON() to a VM_WARN_ON_ONCE().
+
+Link: https://lore.kernel.org/20260730-fix-refcounted-huge-zero-v2-0-c5d8a41b317f@kernel.org
+Link: https://lore.kernel.org/20260730-fix-refcounted-huge-zero-v2-1-c5d8a41b317f@kernel.org
+Fixes: 3b77e8c8cde5 ("mm/thp: make is_huge_zero_pmd() safe and quicker")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: Hengbin Zhang <uqbarz@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20260727154001.4102341-1-uqbarz@gmail.com/
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Hannes Reinecke <hare@suse.de>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Pankaj Raghav <p.raghav@samsung.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Yang Shi <shy828301@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/tracefs/event_inode.c |   24 ++++++++++++++++++++++++
- fs/tracefs/internal.h    |    4 ++--
- 2 files changed, 26 insertions(+), 2 deletions(-)
+ mm/huge_memory.c |   43 +++++++++++++++++++++++++++++--------------
+ 1 file changed, 29 insertions(+), 14 deletions(-)
 
---- a/fs/tracefs/event_inode.c
-+++ b/fs/tracefs/event_inode.c
-@@ -124,7 +124,17 @@ static inline void put_ei(struct eventfs
- static inline void free_ei(struct eventfs_inode *ei)
- {
- 	if (ei) {
-+		/* The ei should have no children if it is being freed. */
-+		WARN_ON_ONCE(!list_empty(&ei->children));
- 		ei->is_freed = 1;
-+		/*
-+		 * The SRCU iteration has a smp_rmb() to make sure it
-+		 * sees a child (that may have already been freed)
-+		 * before it reads is_free. If is_free is set, it must
-+		 * not use the child it acquired from ei->children, as
-+		 * the list may be used for SRCU.
-+		 */
-+		smp_wmb();
- 		put_ei(ei);
- 	}
- }
-@@ -629,6 +639,20 @@ static int eventfs_iterate(struct file *
- 	list_for_each_entry_srcu(ei_child, &ei->children, list,
- 				 srcu_read_lock_held(&eventfs_srcu)) {
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -40,6 +40,7 @@
+ #include <linux/pgalloc.h>
+ #include <linux/pgalloc_tag.h>
+ #include <linux/pagewalk.h>
++#include <linux/cleanup.h>
  
-+		/*
-+		 * If the ei is being freed, then the ei->children may be
-+		 * being used as the rcu list, which means the next element
-+		 * may be garbage. The ei->is_free is set before switching
-+		 * the ei->children over to ei->rcu. The read memory barrier
-+		 * here makes sure the ei_child is read before is_free is
-+		 * updated.
-+		 *
-+		 * Matches the smp_wmb() in free_ei()
-+		 */
-+		smp_rmb();
-+		if (ei->is_freed)
-+			return -EINVAL;
+ #include <asm/tlb.h>
+ #include "internal.h"
+@@ -75,6 +76,7 @@ static unsigned long deferred_split_scan
+ static bool split_underused_thp = true;
+ 
+ static atomic_t huge_zero_refcount;
++static DEFINE_SPINLOCK(huge_zero_lock);
+ struct folio *huge_zero_folio __read_mostly;
+ unsigned long huge_zero_pfn __read_mostly = ~0UL;
+ unsigned long huge_anon_orders_always __read_mostly;
+@@ -221,7 +223,8 @@ unsigned long __thp_vma_allowable_orders
+ static bool get_huge_zero_folio(void)
+ {
+ 	struct folio *zero_folio;
+-retry:
 +
- 		if (c > 0) {
- 			c--;
- 			continue;
---- a/fs/tracefs/internal.h
-+++ b/fs/tracefs/internal.h
-@@ -46,11 +46,11 @@ struct eventfs_attr {
-  * @ino:	The saved inode number
-  */
- struct eventfs_inode {
-+	struct list_head	list;
- 	union {
--		struct list_head	list;
-+		struct list_head	children;
- 		struct rcu_head		rcu;
- 	};
--	struct list_head		children;
- 	const struct eventfs_entry	*entries;
- 	const char			*name;
- 	struct eventfs_attr		*entry_attrs;
++	/* Paired with atomic_set_release(). */
+ 	if (likely(atomic_inc_not_zero(&huge_zero_refcount)))
+ 		return true;
+ 
+@@ -234,17 +237,22 @@ retry:
+ 	}
+ 	/* Ensure zero folio won't have large_rmappable flag set. */
+ 	folio_clear_large_rmappable(zero_folio);
+-	preempt_disable();
+-	if (cmpxchg(&huge_zero_folio, NULL, zero_folio)) {
+-		preempt_enable();
++
++	/* Paired with critical section in shrink_huge_zero_folio_scan(). */
++	spin_lock(&huge_zero_lock);
++	if (huge_zero_folio) {
++		/* Somebody else already installed it. */
++		atomic_inc(&huge_zero_refcount);
++		spin_unlock(&huge_zero_lock);
+ 		folio_put(zero_folio);
+-		goto retry;
++		return true;
+ 	}
++	WRITE_ONCE(huge_zero_folio, zero_folio);
+ 	WRITE_ONCE(huge_zero_pfn, folio_pfn(zero_folio));
++	/* Paired with atomic_inc_not_zero(). +1 for shrinker pin. */
++	atomic_set_release(&huge_zero_refcount, 2);
++	spin_unlock(&huge_zero_lock);
+ 
+-	/* We take additional reference here. It will be put back by shrinker */
+-	atomic_set(&huge_zero_refcount, 2);
+-	preempt_enable();
+ 	count_vm_event(THP_ZERO_PAGE_ALLOC);
+ 	return true;
+ }
+@@ -294,15 +302,22 @@ static unsigned long shrink_huge_zero_fo
+ static unsigned long shrink_huge_zero_folio_scan(struct shrinker *shrink,
+ 						 struct shrink_control *sc)
+ {
+-	if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) == 1) {
+-		struct folio *zero_folio = xchg(&huge_zero_folio, NULL);
+-		BUG_ON(zero_folio == NULL);
++	struct folio *zero_folio;
++
++	/* Paired with critical section in get_huge_zero_folio(). */
++	scoped_guard(spinlock, &huge_zero_lock) {
++		/* Paired with atomic_inc_not_zero() in get_huge_zero_folio(). */
++		if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) != 1)
++			return 0;
++
++		zero_folio = huge_zero_folio;
++		VM_WARN_ON_ONCE(!zero_folio);
++		WRITE_ONCE(huge_zero_folio, NULL);
+ 		WRITE_ONCE(huge_zero_pfn, ~0UL);
+-		folio_put(zero_folio);
+-		return HPAGE_PMD_NR;
+ 	}
+ 
+-	return 0;
++	folio_put(zero_folio);
++	return HPAGE_PMD_NR;
+ }
+ 
+ static struct shrinker *huge_zero_folio_shrinker;
 
 
