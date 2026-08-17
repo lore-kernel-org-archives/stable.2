@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52243D47DD
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C4A34F49F
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:32:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786966320; cv=none; b=sq0mrcR4J6LUjx+6uGUTODmMi0xUrZSoZlVd7tly5X7ByboitWj7iHmI1/69dakV6RmyXqrrrIq9MSs1aS9tQuKQtp/zXlnYaE0xn383a2F5RZ8AexwGD00jsD/mMCp9evLRhBzJong924BNjNhAQUa2hFYOTYPvfUc9Vk6b8m8=
+	t=1786966348; cv=none; b=HKnYbeD8PkMmOTWOP9oxGtcL2yrmPko5THVZDm/4w9jDNxVYpK6/5B0bjDld9sQzwE7K1GyClG5pBFcXRZeoDgJICZezrZqwb35+mqfAWEetGLrCISFBczUPvrWXfapG1xr/w411/dfeh+hBRvkSZul+TSYHdfKBGFWRWkPPa7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786966320; c=relaxed/simple;
-	bh=UHBkQpk1y5VdopYXcW+ptfwf/yNEEMIvkdfWOuCqOng=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ndcpc1o4PMBx9heb67u6bXjv7LnmI9nM9jXHpWm/rBU58dl+TWJ9eHtSjDtTvnd8Pei9x6/Oimj6tZgITsVeHanjj2NX/735t+PwAd9oovOlbsgGVZzlL2cKSuIQw7D1qXTYwnV66VVFalZD3ZkoBzRLZmDnA5btCgRqgS15Ylg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FVOWSmq/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786966348; c=relaxed/simple;
+	bh=jAuSMTvvnoGB+WH6/zL+sHZWF/LNidJGzw1UZ/hP+0Y=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CyWeplJj7FgTQ0bw62FaUgONdu34ooF7zOcgydiRue7PpGZcIY7r/GPPb9I0w0ahoRm4NpCtan1WWG7dVPIsO1oEqn+DSzK4e7MEwvQoxw0e99PfKcIMXDQanNJefwmNSX578wRFirSwf7wZVnJQxuKz+BlPYK52Vuf9lfnKgMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=P0EdfFAx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FVOWSmq/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D241F000E9;
-	Mon, 17 Aug 2026 11:31:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="P0EdfFAx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10DEA1F00A3F;
+	Mon, 17 Aug 2026 11:32:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786966318;
-	bh=Uk+1VN6WJCFW6Ojc+zUGUcTaxQQIsIewmvz33V49oLs=;
+	s=korg; t=1786966346;
+	bh=yXt2g73yFC45+511Od87JplYxrLpKZPK0ETlqpU5nMg=;
 	h=Subject:To:Cc:From:Date;
-	b=FVOWSmq/k2rBwoqxS/4GvGEa3PVsEP7iDKFPYMYTdy0WYVdM7P0iQnN03qzuWBlfj
-	 dSt3KAZfA0t93pvUhT+9mtmNlqFNndtt7DAKZ7vFU3RrCNcfVkg8hd8J2tulcEYPu9
-	 ivWl8grlEocbApx1fGLQoozt92AXJH63xZO52nKc=
-Subject: FAILED: patch "[PATCH] net/sched: reject overly deep qdisc hierarchies" failed to apply to 5.10-stable tree
-To: milkory@outlook.com,enjou1224z@gmail.com,jhs@mojatatu.com,pabeni@redhat.com,vega@nebusec.ai,victor@mojatatu.com
+	b=P0EdfFAx3mD8u/E4UGALuMhjBhbj2pb5HRKz7xhPRpgW1b33J8aFsA7ujlPN8f2Q4
+	 3ovCpJ5DcMfTMuMOmXrT5puHCQ4upSSYAZ0KTKBZLSC5AvNeTn8RJVfjHH82bxRw3Q
+	 oJbwe7ziac7Zhe/P7TTT+Yfus9OOlSy/Kc8Ml8JU=
+Subject: FAILED: patch "[PATCH] inet: frags: publish queues before arming timer" failed to apply to 6.12-stable tree
+To: zhilinz@nebusec.ai,enjou1224z@gmail.com,kuba@kernel.org,vega@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 13:30:13 +0200
-Message-ID: <2026081713-handiwork-idealness-deb8@gregkh>
+Date: Mon, 17 Aug 2026 13:30:49 +0200
+Message-ID: <2026081749-cash-armed-755d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x dedd34b0f2310e28c5f6d4875cfbf4b7ed821c01
+git cherry-pick -x 653d7ddf6cba867777a3d14c4f83ace008c5ad13
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081713-handiwork-idealness-deb8@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081749-cash-armed-755d@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,72 +62,63 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From dedd34b0f2310e28c5f6d4875cfbf4b7ed821c01 Mon Sep 17 00:00:00 2001
-From: Zijie Huang <milkory@outlook.com>
-Date: Sat, 1 Aug 2026 21:42:33 +0800
-Subject: [PATCH] net/sched: reject overly deep qdisc hierarchies
+From 653d7ddf6cba867777a3d14c4f83ace008c5ad13 Mon Sep 17 00:00:00 2001
+From: Zhiling Zou <zhilinz@nebusec.ai>
+Date: Tue, 28 Jul 2026 01:23:29 +0800
+Subject: [PATCH] inet: frags: publish queues before arming timer
 
-Deep qdisc hierarchies can lead to excessive recursion in qdisc tree
-walkers and exhaust the kernel stack. The existing loop check does not
-cover the create-and-graft path, so a hierarchy can still be extended by
-creating a new child qdisc below an already deep parent.
+inet_frag_create() arms the fragment queue timer before inserting the
+queue into the fqdir rhashtable. If the namespace fragment timeout is
+zero or negative, the timer can run before the queue is published.
 
-Store the hierarchy depth in struct Qdisc and update it when qdiscs are
-grafted. Reject new child qdiscs once the parent is already at the maximum
-allowed depth.
+The timer callback then marks the queue complete, tries to remove a node
+that is not in the hash table yet, and drops the anticipated hash
+reference. Creation can subsequently publish the completed queue without
+restoring that reference, leaving a stale hash node after the caller drops
+the remaining reference.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Publish the queue first and arm the timer while holding the queue lock.
+This makes timer expiry wait until the queue is visible in the hash table,
+so inet_frag_kill() can remove the node and balance the hash reference.
+
+Fixes: 648700f76b03 ("inet: frags: use rhashtables for reassembly units")
 Cc: stable@vger.kernel.org
-Suggested-by: Jamal Hadi Salim <jhs@mojatatu.com>
 Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zijie Huang <milkory@outlook.com>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
 Signed-off-by: Ren Wei <enjou1224z@gmail.com>
-Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-Link: https://patch.msgid.link/1e9ab39597423fd5d13cfaaf52279b8ee3d9fc3c.1785434373.git.milkory@outlook.com
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Link: https://patch.msgid.link/bf66785e7c0c139d7a1900e2f01faeeab344b960.1784948849.git.zhilinz@nebusec.ai
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
-index 45a1e8c78222..cbc248776511 100644
---- a/include/net/sch_generic.h
-+++ b/include/net/sch_generic.h
-@@ -99,6 +99,7 @@ struct Qdisc {
- 	struct hlist_node       hash;
- 	u32			handle;
- 	u32			parent;
-+	int			depth;
- 
- 	struct netdev_queue	*dev_queue;
- 
-diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
-index 668bcd60d183..65b35528d125 100644
---- a/net/sched/sch_api.c
-+++ b/net/sched/sch_api.c
-@@ -1114,6 +1114,9 @@ static int qdisc_graft(struct net_device *dev, struct Qdisc *parent,
- 		unsigned int i, num_q, ingress;
- 		struct netdev_queue *dev_queue;
- 
-+		if (new)
-+			new->depth = 0;
-+
- 		ingress = 0;
- 		num_q = dev->num_tx_queues;
- 		if ((q && q->flags & TCQ_F_INGRESS) ||
-@@ -1211,9 +1214,15 @@ static int qdisc_graft(struct net_device *dev, struct Qdisc *parent,
- 			NL_SET_ERR_MSG(extack, "STAB not supported on a non root");
- 			return -EINVAL;
- 		}
-+		if (new && parent->depth >= 7) {
-+			NL_SET_ERR_MSG(extack, "Qdisc hierarchy is too deep");
-+			return -E2BIG;
-+		}
- 		err = cops->graft(parent, cl, new, &old, extack);
- 		if (err)
- 			return err;
-+		if (new)
-+			new->depth = parent->depth + 1;
- 		notify_and_destroy(net, skb, n, classid, old, new, extack);
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index 848c0f0c2ed9..fc0cb993959f 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -393,8 +393,8 @@ static struct inet_frag_queue *inet_frag_create(struct fqdir *fqdir,
+ 		*prev = ERR_PTR(-ENOMEM);
+ 		return NULL;
  	}
- 	return 0;
+-	mod_timer(&q->timer, jiffies + fqdir->timeout);
+ 
++	spin_lock_bh(&q->lock);
+ 	*prev = rhashtable_lookup_get_insert_key(&fqdir->rhashtable, &q->key,
+ 						 &q->node, f->rhash_params);
+ 	if (*prev) {
+@@ -402,13 +402,13 @@ static struct inet_frag_queue *inet_frag_create(struct fqdir *fqdir,
+ 		 * we need to cancel what inet_frag_alloc()
+ 		 * anticipated.
+ 		 */
+-		int refs = 1;
+-
+ 		q->flags |= INET_FRAG_COMPLETE;
+-		inet_frag_kill(q, &refs);
+-		inet_frag_putn(q, refs);
++		spin_unlock_bh(&q->lock);
++		inet_frag_putn(q, 2);
+ 		return NULL;
+ 	}
++	mod_timer(&q->timer, jiffies + fqdir->timeout);
++	spin_unlock_bh(&q->lock);
+ 	return q;
+ }
+ 
 
