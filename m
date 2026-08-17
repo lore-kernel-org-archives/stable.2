@@ -1,176 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4466630F932
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82390418351
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:53:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786971148; cv=none; b=UF27s1wCz5qHcL31NHpydo3vkPiHcOQYF751eLBGimMVSdbN/nAqXyJXeKVXeZdj17tc80Erb3coJ2ystkqEFSLrqR8ixjn5YjmMnCvAY7HegVbFU0XPAC7zOmKUOwv2U/iyLcdq8E4/JbzR9MdCUQV3joh+asXANDQoxmuIw48=
+	t=1786971225; cv=none; b=cK1rpVj3BD0S7KIgrrDgmC/5ryn+6rSzP+hgpqCd9qfqEvKubtQK2uyYM6JzbDcDaHklPVK24wL0FRp7hNP3M1IwQJ2GdQ4RxGiQMKNILBjQVvyrrSBvLT4+CeFICjGsP/+qdZYZlvoZIwXOr43QlTzhX+xCavNB5jP1IYLWEW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786971148; c=relaxed/simple;
-	bh=l1BkhU7IEoNp0rK3JILL338OZwoY/1VhMH+t/ry1IRM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=D0exqCK99qHgtFHP42CKaMEo1/KOT+wcDevWkZEz8xx9pq7t51wDQ192M8crAkXAcBSWKSXC9Pm7QmLnPFNl5zDbUTMb5VKhcLzgWp3Py3TobhbpzySGgydikuG7ma9H1TA0TbKycBPvUhpqIBgO98r4GnTOEbChD+hgKV3ZuyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=y4U7Bplq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786971225; c=relaxed/simple;
+	bh=92/LJ9ytiCnTo9nxdyNCfvLsbqsb1dRXtZFbNV2qfgk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qN6cCLqDrm7gS81k8R7xWrXckrGDEJXQHF3mm1t1gWMe3fV7JiRYpToa/R6hBPxeCDJCPcU+ijCkVMJr+y4mn/TxitJ/Xk22SW0ncN6/rMoYIpBjR3fb5VPM23Y6NyVjOjvp2bWYycNB+YN+Bm0WbbE7iJE77xoMoOzB4SQRbuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=q+vnvTrV; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="y4U7Bplq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC271F000E9;
-	Mon, 17 Aug 2026 12:52:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786971147;
-	bh=51XHgNdIxtzeYa6oojjiS77fh45Hmuy02ANaVPr0/IQ=;
-	h=Subject:To:Cc:From:Date;
-	b=y4U7BplqGVSdWXE7p61Cs0qBnXnD90RfvOwwRexAF1RoMacBkTOWMl3UHVWHG6b5b
-	 Ww0+fghcHBg8FSONYhAnxDGYG1hrvI6hnBJNwJe4SI1gsTAe3Ah3nafEG2B6vB+oQY
-	 dFYs7Zwxruu9ZFJUkb/QEhs8ZjmrI7Ty9w5CVICM=
-Subject: FAILED: patch "[PATCH] mm/ptdump: always stabilise against page table freeing using" failed to apply to 5.10-stable tree
-To: ljs@kernel.org,akpm@linux-foundation.org,bp@alien8.de,catalin.marinas@arm.com,chaitanya.kumar.borah@intel.com,dave.hansen@linux.intel.com,david@kernel.org,dev.jain@arm.com,devnexen@gmail.com,hpa@zytor.com,kas@kernel.org,liam@infradead.org,luto@kernel.org,mhocko@suse.com,mingo@redhat.com,peterz@infradead.org,rppt@kernel.org,ryan.roberts@arm.com,shakeel.butt@linux.dev,stable@vger.kernel.org,surenb@google.com,toshi.kani@hpe.com,urezki@gmail.com,vbabka@kernel.org,will@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:51:59 +0200
-Message-ID: <2026081759-chaps-reluctant-4a0a@gregkh>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="q+vnvTrV"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cede6375caso261855ad.0
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 05:53:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1786971224; x=1787576024; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U/HO5352xrmxomcN/usyEVXCVrY50VpsMFDwsFMZfKc=;
+        b=q+vnvTrVo4MslOUavPP0NIbDRH/ble9BohqbLZZgLXM+e2NM3DidaFz5e80kK3FIuz
+         K5Zwvk9IzaVuKkNyY4mnn39mSUQEjqx3E85fRuO/FCsjH0iibn06nvaYy3+52003MIMc
+         Z5kgnRURj6JSr2py1wJ1f6gkI6nHQXMyPURLmrSZVO6ftS8VGyZ9EevAHAL3o/t8BK8A
+         T5sV8Q+LU7dk7G4BxG1A13S7k4h5RDK/KaLVheZFm3jHGE4xzCFyEakoneL191rTtzCn
+         FSEFhmL0MLYg7bCuBKUXN/MErIn3ZlHeAY0j/QFqZSPsoYofp8fPZh73eVLLl/ogkjC+
+         n+ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786971224; x=1787576024;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U/HO5352xrmxomcN/usyEVXCVrY50VpsMFDwsFMZfKc=;
+        b=rwORnGtjk3wIiAKOu8FQLoRyDc9ZeM4DiwjwRT7zmK4RFzxik/ROw9krgXHDm8VUwa
+         9pXimEjD+jagBt+6oEjqFfbnjzUV+/4t2VdvuWbEs0RcTexYtj6+lU513USHjc9Aw5DN
+         w8540ahKMfsYxc2kdeA7Z/zv7mgd+rKvKrgLoLtyvsTizblhIjGGHllirD7fxHPEMOWe
+         DDINwn+0r5qQW+MfP3vstIacood0HVjLs/r+UonSKaJRUFlLaszBgbxMMCjGEpxtRIKt
+         Q3a7f6ai808QEVqmIVPP64nt2CONg+TXba2atphnRnW8VWqEx5sc9/PmSK4aTvy+thy5
+         rwzw==
+X-Forwarded-Encrypted: i=1; AHgh+RoDZpv5fq35JsytkS4EBisMkSwmKYGEyowUmz7O3UUu5PX51Awefb04phmVrWabzmRLNueUuro=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywrn9SjGF7H/EQ0NQ+AqKtRsJTvW7ugNxD33oRXvLInvp5uYMsQ
+	i6eZ/09sStfgmzIKORYw8MikjatWCUG/+npms7tf1QCkEuVwU54tp365CrVKewHIMg==
+X-Gm-Gg: AR+sD12iRthQk6yQ0qJhHloSo5HL+F7J01bVKng4l3e14DQ0yZ+AsDMh6ybRSCM+9Ek
+	LbSn9dotuOHufZAq0UTv6Cmsoyveh6llLmUw8TYohtnzzgG00jZwmC/OEjU7GGwXFU0Z4+Wt52j
+	TCJuXUZiHzCVhWvXBj+yAVhLEI9qe6QCjOmba8AGgESWHHiUnESfKJa0b6cZqZYkBJfDu8lsM+1
+	SEV/z9OQnYa20ToqeJWi2H3RKJN+WrnHEpbUNpC9kSHf241Aq5fvzmLGtWaje9B96sA1y30IkLq
+	4BVO4wcFIXemQ/YhuuPZ1Vf+VmmIF4D7l/nd2Zg4sOoYxvSGp6rylHkW9WHC4TOhgEuXO31VBwo
+	m3/pmWk8yyn+hFb6dSrUuiC0FvPA8lvjhopQShyw1nQvx7mLbiVhhqxQJUT8ZndOmZko9YMFFKr
+	cnB/y7g8/ZK1arsmnCmV66yUhZMGxIpRJkM6NmruFRrU8hQAMJAeRy8kTA81uZ9F9hmLBzxyl5c
+	wsQJhJSzrJ0MvZIYEqiWOM=
+X-Received: by 2002:a17:902:d983:b0:2cf:41ba:96b8 with SMTP id d9443c01a7336-2d590bad516mr5207305ad.6.1786971223287;
+        Mon, 17 Aug 2026 05:53:43 -0700 (PDT)
+Received: from google.com (21.168.124.34.bc.googleusercontent.com. [34.124.168.21])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bb499d4bsm5258655ad.4.2026.08.17.05.53.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 05:53:42 -0700 (PDT)
+Date: Mon, 17 Aug 2026 12:53:36 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Dmitry Malkin <dma@nebius.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	NB-Core Team <NB-CoreTeam@nebius.com>
+Subject: Re: [RFC PATCH] iommu/arm-smmu-v3: Allow nested attach for PCI
+ bridges without vDEVICE
+Message-ID: <aoMEUDQKlaWzvE8n@google.com>
+References: <PA1P190MB25578C482C8A3B06A4DCC6FDDBDA2@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
+ <20260814174825.GC510472@nvidia.com>
+ <PA1P190MB25573D7CFE42EF7DD2A8CDE8DBDA2@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
+ <20260814221103.GE510472@nvidia.com>
+ <PA1P190MB2557D53CB7FCB70EB8F79D09DBA72@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
+ <aoLtgeYLpYobpyKN@google.com>
+ <20260817114407.GB1175472@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817114407.GB1175472@nvidia.com>
 
+On Mon, Aug 17, 2026 at 08:44:07AM -0300, Jason Gunthorpe wrote:
+> On Mon, Aug 17, 2026 at 11:16:17AM +0000, Pranjal Shrivastava wrote:
+> > But, regarding PCI P2PDMA, you can still enable it with ACS enabled in
+> > the upstream kernel *IF* your hardware supports TLP forwarding between
+> > root ports.
+> > 
+> > When ACS is enabled, all TLPs get forwarded to the host's Root Ports
+> > instead of getting routed directly through the switch.
+> 
+> Generally nobody wants to run like that, the performance is
+> terrible. The reason these systems have a PCI switch is because of
+> performance of the P2P path.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Ack. I was assuming the enablement was the major challenge. For perf we
+definitly need to hairpin at the switch. 
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> 
+> Jason
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 27c32e5538344b13c1505a08861e04620c125d47
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081759-chaps-reluctant-4a0a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 27c32e5538344b13c1505a08861e04620c125d47 Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 23 Jul 2026 16:16:34 +0100
-Subject: [PATCH] mm/ptdump: always stabilise against page table freeing using
- init_mm
-
-Previous commits have established the invariant that kernel page table
-freeing is performed while an mmap read lock on init_mm is held, which
-fixes races between ptdump and kernel page table freeing over init_mm.
-
-However, x86 and arm64 can perform a ptdump over an mm other than init_mm
-via ptdump_walk_pgd() and since kernel memory ranges are shared across
-non-kernel mm's, this means that the race still exists for these cases.
-
-Fix this by acquiring a nested mmap write lock for init_mm in
-ptdump_walk_pgd().
-
-This is safe as we take this after mmap write locking the mm, and nothing
-acquires the init_mm lock first before locking an arbitrary mm, so no
-deadlock is possible.
-
-Also update walk_page_range_debug() to assert that init_mm is write
-locked, add a comment explaining why and remove some redundant code, and
-eliminate the unnecessary and confusing invocation of
-walk_kernel_page_table_range().
-
-We can safely remove the non-NULL check for walk.mm, as the mmap lock
-asserts would NULL pointer deref if it was (and of course no callers do
-this).
-
-The first point at which ptdump can race kernel page table freeing is
-commit b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page
-table"), so we target this in the Fixes tag.
-
-Link: https://lore.kernel.org/20260723-series-vmap-race-fix-v6-4-8cc77dcc0018@kernel.org
-Fixes: b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andy Lutomirski <luto@kernel.org>
-Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Cc: "Borislav Petkov (AMD)" <bp@alien8.de>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: David Carlier <devnexen@gmail.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Toshi Kani <toshi.kani@hpe.com>
-Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/mm/pagewalk.c b/mm/pagewalk.c
-index bbcfd68d0907..5d87c632a255 100644
---- a/mm/pagewalk.c
-+++ b/mm/pagewalk.c
-@@ -702,12 +702,16 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
- 	 * to account for page table freeing on vmap huge page mapping.
- 	 */
- 	mmap_assert_write_locked(mm);
-+	/*
-+	 * x86, arm64 ptdump allow walks of efi mm's and x86 ptdump allows walks
-+	 * of arbitrary mm's.
-+	 *
-+	 * However, they both must also hold the init_mm lock to account for
-+	 * concurrent kernel page table freeing.
-+	 */
-+	mmap_assert_write_locked(&init_mm);
- 
--	/* For convenience, we allow traversal of kernel mappings. */
--	if (mm == &init_mm)
--		return walk_kernel_page_table_range(start, end, ops,
--						    pgd, private);
--	if (start >= end || !walk.mm)
-+	if (start >= end)
- 		return -EINVAL;
- 	if (!check_ops_safe(ops))
- 		return -EINVAL;
-diff --git a/mm/ptdump.c b/mm/ptdump.c
-index 973020000096..5851096e6f65 100644
---- a/mm/ptdump.c
-+++ b/mm/ptdump.c
-@@ -178,11 +178,18 @@ void ptdump_walk_pgd(struct ptdump_state *st, struct mm_struct *mm, pgd_t *pgd)
- 
- 	get_online_mems();
- 	mmap_write_lock(mm);
-+	/* To stabilise kernel page tables we must hold the init_mm lock too. */
-+	if (mm != &init_mm)
-+		mmap_write_lock_nested(&init_mm, SINGLE_DEPTH_NESTING);
-+
- 	while (range->start != range->end) {
- 		walk_page_range_debug(mm, range->start, range->end,
- 				      &ptdump_ops, pgd, st);
- 		range++;
- 	}
-+
-+	if (mm != &init_mm)
-+		mmap_write_unlock(&init_mm);
- 	mmap_write_unlock(mm);
- 	put_online_mems();
- 
-
+Thanks,
+Praan
