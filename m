@@ -1,42 +1,51 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F282475F7;
-	Mon, 17 Aug 2026 07:46:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901723A9871;
+	Mon, 17 Aug 2026 07:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786952780; cv=none; b=fY1PslB7ej7Dy/U6GDlXsMv/dCEf3sYnMiNUV7QWS74PpA2Dkdd3qkX0+17FHYCCuHPFnIMLgwhLNz+nRQ0elsF70Zzom/jej56W4/9PoiZAuylZ+DYErfPuIPwPTSiVYJhnCj2V8Co2FlcP2ujq3OjcltXbvUXkpRaOru/3Ahg=
+	t=1786952783; cv=none; b=iGoo4cpbvNwrtN/DF1k7OXiEv+NlngENc7Novl0jwDD7X1dKOX9r6mQplKkC1cTD7nyuM7aAO0DqU240ayfaYjGBp5bIkXK9NgWtJY+zACX3jTywSQ0RtfdOamQOQiSdjtbS65KzfQ/qRFKQfcY8bF4tPGOK8iZZ48U8KmQPzxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786952780; c=relaxed/simple;
-	bh=Yt65Jb9Hqpkawj5X0j7bYU1Su3aQC+kjHY+GGij7OrM=;
+	s=arc-20240116; t=1786952783; c=relaxed/simple;
+	bh=JZZXEFDYThXPDeqagEiJtWaSB7camyOFAL2f0M4H82A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YBJbfL/2Sp2U70w0Opv53S+umXuR4frFXR/iKMn+36xfc8qtwknI9EcpNvwCi8B83csZQOwALd22/pwEibB7gJM5gkvmL/yVCj4GzzyhRYodfD6dwZWgBH/RFIyds+GtpxwX+DfWXe6rWw0S73UK3UH/jPVN2PGqp11SkciXv1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OowGp0BA; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=EA6YNWe9n9c2MJro3eul2lpcf/i27XIn5m0X1wgU+kR2kjiA86qkfB3PMmhoIlTBt5wcVPqUoHv7gY2BGTo3PPiIoM6i8Vnd743im5HwiU+OVGRnI+RCprLzxyzX0Ys9A8aDe8oyI3Ult4BWGoc+Bt30ekLp7F+1/rPC4lcRdxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5cCwZFm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OowGp0BA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=vbOaEtok5gbldi2AYftLQvoiGyh8fPqsDjdJTNLwiTg=; b=OowGp0BAPsb+WimBQOiOFTIxDd
-	3TXyP7RXxUsg5j+6ZwxeXIL+mWMbbUEdQ9D6z2NAQ00KDovcv01e8hDNZkEFKhCdRuqpDbuPudOd6
-	3clFI6bp7b+s/nSwlj+UNol7hiRocNiyq/Vg7xr7LCRdtuE09f5xVwQP5obPrOdO76wFjq9Qj3Ddm
-	rEKInxrLSYdzJ47AYhk5ncnjYL/78RVq8NtSx2bbetZjEJgLcQx6ssjnz0ZztrzPi83H/49up2uTB
-	jgXlZJ6CGWrYghSDJhJUx+Qc8Km5x6zIuUZ3DSFS3saLUu4RgdCZ/t5sz3bNSoalaovCAP3wfDn62
-	I8pOnzqw==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wvs2z-00000005aoI-0C9R;
-	Mon, 17 Aug 2026 07:46:17 +0000
-Date: Mon, 17 Aug 2026 00:46:17 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5cCwZFm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB881F00A3A;
+	Mon, 17 Aug 2026 07:46:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786952782;
+	bh=3EvQjw+wWOIIOHZmFhG/4lQ3ETvY/zjgD1sqcMFevPY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h5cCwZFmSnkWiyzty/pQ12jW/TPWRirRxWX7/AqR4M/Bd8/2MGjtBpiRoaydQzrDZ
+	 YDRANLlAaded4e8kMnryHktioBtFOSIVc9nge4YHvecM0NJCc3E9qI3IFXNx3Fku5I
+	 i5fOR/CW2OQkK8qG7aCAMzOebUBGLdA60s/z0nM8DrfdBYP79+Ru4DTSyQBrJcMZHF
+	 jLxOxE7McfjdHTrWR10YLKauf/24I86ywHia3dYN7QRnbJ4MTT5DsZVKJ/Tr/e+Xqh
+	 +EblOYe12KIitI5JsIVa+DccMaeIOwZGDtdoFmJX597HWQsaCBgX9Bl2AA0n7YLpH1
+	 r7gaj4Uvt/S3g==
+Date: Mon, 17 Aug 2026 08:46:02 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Yao Yuan <yaoyuan@linux.alibaba.com>
+Cc: Wei-Lin Chang <weilin.chang@arm.com>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Jintack Lim <jintack.lim@linaro.org>, 
+	Christoffer Dall <christoffer.dall@arm.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] block: clear ia_ranges on sysfs registration failure
-Message-ID: <aoK8STazvF366Qwo@infradead.org>
-References: <20260814220448.4085032-1-shuangpeng.kernel@gmail.com>
+Subject: Re: [PATCH 1/2] KVM: arm64: Fix spurious warning for benign stage 2
+ teardown race
+Message-ID: <aoK7vLOD3oKKAxH0@lucifer>
+References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
+ <20260812-kvm-arm-nested-virt-fix-v1-1-4ad883f1b6a5@kernel.org>
+ <qfhlmmidzdmmsfopfhxpddgwa7nob45jwgb6sabskawaxtox7i@mnxplk3zn34k>
+ <an3gqCJ1fzloWB_N@lucifer>
+ <v3vgnteumpaxbgqjtfwoilcbwpwohfci3uwu4ooykls6zjwjwe@rukbigno2m5o>
+ <an7Tk0qrCM84zS54@gremlin>
+ <dlvicg2jykp4icqkpa7xjm6bmim7sbp7vventkzgoihzpombcc@pemvii5d6qfj>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,47 +54,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260814220448.4085032-1-shuangpeng.kernel@gmail.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <dlvicg2jykp4icqkpa7xjm6bmim7sbp7vventkzgoihzpombcc@pemvii5d6qfj>
 
-Looks good:
+On Mon, Aug 17, 2026 at 08:38:37AM +0800, Yao Yuan wrote:
+> On Fri, Aug 14, 2026 at 09:48:39AM +0800, Lorenzo Stoakes (ARM) wrote:
+> > OK so - I confused myself here :)
+> >
+> > The underlying issue here is that I am working back from a situation where
+> > I can't quite recall what I did, but am rather reconstructing it based on
+> > what was observed.
+> >
+> > And you're right - this stack makes no sense for an L2 VM being torn down,
+> > rather only the L0 being torn down.
+> >
+> > So clearly this is what I did, and the correction should be to say this at
+> > the start of the commit message.
+>
+> Ah I see.  I agree the race is there. Below is just an idea
+> in my mind for reproducing this, hope this is helpful to you :-)
+>
+> migratepages (https://man7.org/linux/man-pages/man8/migratepages.8.html) can
+> help to trigger the MMU notifier to qemu/kvmtool easily on 2P system, meanwhile
+> kill the qemu/kvmtool on L0 to reprouduce the racing. For 1P system kernel has
+> numa=fake parameter to generate more NUMAs there.
+>
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Ah nice thanks! There's also /proc/sys/vm/compact_memory so you can do:
 
-On Fri, Aug 14, 2026 at 06:04:48PM -0400, Shuangpeng Bai wrote:
-> disk_register_independent_access_ranges() clears disk->ia_ranges when
-> creating the top-level kobject fails. However, if adding one of the range
-> kobjects fails, the cleanup drops the final reference to iars and frees it
-> while disk->ia_ranges still points at it.
-> 
-> A concurrent disk revalidation can wait for q->sysfs_lock and then call
-> disk_unregister_independent_access_ranges(), which dereferences the stale
-> pointer after registration releases the mutex.
-> 
-> Clear disk->ia_ranges before dropping the kobject references on the child
-> registration error path, matching the top-level error handling.
-> 
-> Fixes: a2247f19ee1c ("block: Add independent access ranges support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-> ---
->  block/blk-ia-ranges.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/block/blk-ia-ranges.c b/block/blk-ia-ranges.c
-> index 7be8b58893c9..2430e475a8e7 100644
-> --- a/block/blk-ia-ranges.c
-> +++ b/block/blk-ia-ranges.c
-> @@ -135,6 +135,7 @@ int disk_register_independent_access_ranges(struct gendisk *disk)
->  					   &blk_ia_range_ktype, &iars->kobj,
->  					   "%d", i);
->  		if (ret) {
-> +			disk->ia_ranges = NULL;
->  			while (--i >= 0)
->  				kobject_del(&iars->ia_range[i].kobj);
->  			kobject_del(&iars->kobj);
-> -- 
-> 2.43.0
-> 
-> 
----end quoted text---
+$ echo 1 | sudo tee /proc/sys/vm/compact_memory
+
+To trigger immediate memory compaction (and thus migration) also :)
+
+--
+Cheers, Lorenzo
