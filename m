@@ -1,79 +1,139 @@
-Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937283DC857
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 16:56:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6FF145FFBA
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 17:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786985780; cv=none; b=gP16mzXRrzo/L0NDrMqDknSs52WLFFkMFZrKrmZvBE+UpUb2Al57IVRfcfHPGYJLwcY7BOoLQbUaYCiMt3WBxML2sjOdqfqbR3R1GvvtkoONwWOHmQwsjIQr1mMIBlaFm5Tf9tKvdUQmo1vU5lVetuYCeMIco9F/eAIk2yQQIFs=
+	t=1786986497; cv=none; b=IX/Umjro1EDgt5LdqoVQ3Z0HvH7RJ2j0hjgIhoKBbbLlxQAA5Adzgnl4r4o2DIVZlVJs4f+N+61+bZ2O4pnV4de+NcKVpo2vwpmooGrhfSxkOMxPgIB9AJaLrJs8u44Mr0cwzc7SN4P6g86jUWAS9S0jUIRWxxONhKr0w++1kRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786985780; c=relaxed/simple;
-	bh=lWWM9eWYrdBnIjngfz8xN12uYcDZNfPkeMROsEkfpO8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=upobLh7EH/YRC3xGv0oWoi4evYhk0NnQxR/2ZVTrnzXGJTEet7zJlede1ww/ZalPSzWSdFA2jTQNxotIEAGi5QUu6cqbUMmSEe+U4+B2g5pmV+InIK3pR23qfFZaiV7pmoWo6hofSnVfiuDw6DNp0ChyKO5zsPKq+0Gtsta1iec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C4Pzb7mm; arc=none smtp.client-ip=91.218.175.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786986497; c=relaxed/simple;
+	bh=NlqrtaF1jvx4fxtT+Rln6rcHZtm9m2tvcwizoBcGjAs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QuRwVPeK3cVoSB1vjyusSrw2QYltuzJrJOLbTqqPDYVlptSP+kqHXAbt3OTBpKtRwARJoG7cJkvJDD5AdUwf8p8VBqCcjuRppXIRyozg37y0Kzz5HIKEQLxrFDXJ30F/689cZrqU677piUt7zO6YRrAUd1eLcQ6UBRBsKFMoLpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y+0zKY8R; arc=none smtp.client-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C4Pzb7mm"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lWWM9eWYrdBnIjngfz8xN12uYcDZNfPkeMROsEkfpO8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1786985772; v=1; x=1787590572;
- b=C4Pzb7mm00OWVdV8Yz1zcn6whJG6y/wBVPkfsaUdbCoGbB1GAeI9dSWlTRBHaR0s5ObmPEoT
- k7HNZ82SpvUWCgxXYcgA89vKfGiBgjVR5PE3vhmgfks1r2QAAabF8IRF0V4WpH7yNfEG3iIbOqV
- JGKznYK7MxSOcFTKllg7SXqI=
-X-Envelope-To: stable@vger.kernel.org
-Received: from [IPV6:2a03:83e0:111e:2:c6:2f62:38ca:59d8] (2620:10d:c092:500::6:5429)
-	by smtp.migadu.com with ESMTPS id 9420b58903291c55;
-	Mon, 17 Aug 2026 16:56:12 +0000
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d88017c7-7089-4e85-b56e-21175310db93@linux.dev>
-Date: Mon, 17 Aug 2026 17:56:11 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y+0zKY8R"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39c74722e27so1901581fa.0
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 10:08:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786986494; x=1787591294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dnqUISuF1GqxCyfBU21SiazIrKDqoxo6IB2fRQd9Di0=;
+        b=Y+0zKY8RnZ6dgFF4KdgKr/rQa4DpiHD+fKERC8vpJ4r3biQq3AgQRaHxocojLYmFj+
+         YstU3/5JumLztO4F+Dsuez8E4BJSZfa8rcq08aYEdmQPJaA5otqzba0zfdCh/+sU267s
+         XtlpQ4f7YyDRRzRRYRg+C6n61RNSzfEuuVul4FEHtj0iDq477YKfB1+4Gu+5oStD4tWK
+         OJsM+VQrCOyHFkymk3baekKNg/nQyI5+ZXKBVCUPj3bDLW5a5KAtFmq74Gh8JmerPLrn
+         oCUXyYE9GATRlhVr06d0M4px//GR+Nl60Ho6VtXF1mr8ALSlgW6k+NrauNtgqbLID3Ni
+         I7Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786986494; x=1787591294;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dnqUISuF1GqxCyfBU21SiazIrKDqoxo6IB2fRQd9Di0=;
+        b=F8JEHumHlVmn5A9WjRP+uWvVbgK9PNJ/fds+8F81rYJO6kn/HbRN5D82RamDZwx425
+         hFkezjk9OJA4QaZMR/YTZNg+WFsGoo7c0anaSMtXL6EvzUKfK7iUed3y47NEImViTd0E
+         ssL6vc25sEGjyee6E7RqLkZs2ueXLPSoE5Ao0otjNR4DAASkpn3AaFPQcnd4qu5WUM6R
+         1RFLNHpB94oho9y1WMvwugt1GCbSuAXAtXzBGCVdYxMK6uWscofHeB1iKsIghUnePZ+y
+         Zcfbitfjn6PKcL62cbeM+Yl4Mmmi9x4jVgap0h0AnTg5gtKrOZ0aYmut2idvzZurXZFw
+         7YUA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5aGfjFRR0aPI1AFFgWl2p6iVokRPtu4Z2VnNqWxoDP+p67HA7ENDwHEDxaQVsqGZd6eKn4Jo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyDU14lYQv2fZLcBSDh68CyOF9WBUAAAGii1XJ8vDcPIeDM9VL4
+	pcYaQa7d+jYcXvF3A3CCCTeuPHpXuJX0y2dzTacWANUaQR4PpM7VEcjn
+X-Gm-Gg: AR+sD12UbuQL6FxhMrCD+eP4R2jtEUrmL7/HMGO+OzPpdfoEWk/s0E1SvozFbGC3fWB
+	E0ZKDpUoOFCzMS8+NRKSbMkJXB/gvaAW/9cWBkW/dnb/MbfskAJGnGoGOoWO15MdBH2R7hOvi0a
+	vQNjp9/4XV4kz6R0db+oxwv0Zo8c8x0N69D6aFvUjBqIx68NG2o62iOd38TVLiwdmBWXaRk/bzt
+	MPGjUYmJR6eoHEbd+80M+TNLc3ey4ukMF35qI68CTKgGbb6/3yGvgqd3ZB7sYqkrHA8GYCfxu0o
+	xt5FI89PsWT5c6gsyTwe3XheH3Rz+5tmW6YC9Su2hCuCwfX9zGSnrRylW3o2dTTTtqkqqXonZNj
+	z1ONSLIHBOTsRXzq68Rz5cFwRkqVc36Pbb1z/KejoaCwQXUBTH43FAk2l9I82CBuvfCwopr5TjP
+	cIm3t4aMoMuKfgpUHId/eARuq+qyohMmM4OOAPyZa4dXm80GWmIct18a7LBdqEIaSmMwtGLM6g3
+	BwyqBUtIWaz8I6Qgzi5Y3bB1cq2PTyj45QnPoFxDPcrVxyO935CKMMSO4Nh6mHt+Fl5FA==
+X-Received: by 2002:a05:651c:a210:10b0:39f:af21:75b0 with SMTP id 38308e7fff4ca-3a176a18d7amr746881fa.8.1786986493427;
+        Mon, 17 Aug 2026 10:08:13 -0700 (PDT)
+Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a16b0e54casm6053841fa.15.2026.08.17.10.08.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 10:08:12 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Jonathan Cameron <jic23@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5 1/3] iio: pressure: dps310: fix CFG_REG bit definitions
+Date: Mon, 17 Aug 2026 20:07:23 +0300
+Message-ID: <20260817170725.1074078-2-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260817170725.1074078-1-zoone.rupert@gmail.com>
+References: <20260817170725.1074078-1-zoone.rupert@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] bnx2x: fix NULL pointer dereference in
- bnx2x_free_mem_bp()
-To: Jiangshan Yi <yijiangshan@kylinos.cn>, skalluru@marvell.com,
- manishc@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Cc: dmitry@broadcom.com, eilong@broadcom.com, ariele@broadcom.com,
- yuvalmin@broadcom.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- 13667453960@163.com, Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260817151326.765824-1-yijiangshan@kylinos.cn>
-Content-Language: en-US
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20260817151326.765824-1-yijiangshan@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17/08/2026 16:13, Jiangshan Yi wrote:
-> bnx2x_alloc_mem_bp() sets bp->fp_array_size before allocating bp->fp.
-> If the fp allocation fails, the error path calls bnx2x_free_mem_bp(),
-> which dereferences bp->fp in a loop bounded by the non-zero
-> bp->fp_array_size, causing a NULL pointer dereference.
-> 
-> Move the bp->fp_array_size assignment to after bp->fp is set so that
-> the loop in bnx2x_free_mem_bp() naturally becomes a no-op when bp->fp
-> is NULL, since bp is zero-initialized and fp_array_size remains 0.
-> 
-> Fixes: c3146eb676e7c ("bnx2x: Correct memory preparation and release")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260815122149.951215-1-yijiangshan@kylinos.cn
-> Suggested-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Three of the CFG_REG bit defines do not match the datasheet. P_SHIFT is
+bit 2, FIFO_EN is bit 1 and SPI_MODE is bit 0, but the driver defines them
+as BIT(4), BIT(5) and BIT(6). Those three positions are INT_PRS, INT_TMP
+and INT_FIFO, the measurement ready and FIFO full interrupt enables for the
+SDO pin. All three have had the wrong value since the driver was added,
+when only the temperature shift bit had a user.
 
-No need for this tag, it's not used for code improvements
+DPS310_PRS_SHIFT_EN got its first user when pressure support was added, and
+there it is a real bug. The datasheet requires the pressure result
+bit-shift to be enabled when the oversampling rate is higher than 8 times,
+so dps310_set_pres_precision() sets it for oversampling ratios of 16 and
+above. With the wrong definition it leaves P_SHIFT clear and toggles the
+pressure ready interrupt instead. The result register is then never
+shifted, so it no longer matches the scale factor the compensation divides
+by. On a DPS310 breakout, reading in_pressure_input at oversampling 16, 32
+and 64 returns -ERANGE, because dps310_calculate_pressure() ends up
+negative. Oversampling 128 was not observed to be affected.
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+DPS310_FIFO_EN and DPS310_SPI_EN still have no users, so correcting them
+changes nothing on its own, but the FIFO enable is needed by the hardware
+FIFO support later in this series.
 
-Please, review netdev contribution rules at
-https://docs.kernel.org/process/maintainer-netdev.html
+Temperature is not affected, T_SHIFT is bit 3 and DPS310_TMP_SHIFT_EN
+already matches it.
 
-Especially patch formatting and 24h cool-down period
+Fixes: ba6ec48e76bc ("iio: Add driver for Infineon DPS310")
+Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+---
+ drivers/iio/pressure/dps310.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index f45af72a0554..68382960382f 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -50,9 +50,9 @@
+ #define DPS310_CFG_REG		0x09
+ #define  DPS310_INT_HL		BIT(7)
+ #define  DPS310_TMP_SHIFT_EN	BIT(3)
+-#define  DPS310_PRS_SHIFT_EN	BIT(4)
+-#define  DPS310_FIFO_EN		BIT(5)
+-#define  DPS310_SPI_EN		BIT(6)
++#define  DPS310_PRS_SHIFT_EN	BIT(2)
++#define  DPS310_FIFO_EN		BIT(1)
++#define  DPS310_SPI_EN		BIT(0)
+ #define DPS310_RESET		0x0c
+ #define  DPS310_RESET_MAGIC	0x09
+ #define DPS310_COEF_BASE	0x10
+-- 
+2.43.0
+
