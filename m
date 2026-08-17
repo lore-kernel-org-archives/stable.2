@@ -1,44 +1,50 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC1C3E1205
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 09:39:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A2540855;
+	Mon, 17 Aug 2026 09:47:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786959570; cv=none; b=KZNnGuDipXdigm/fIZe/dTmBbYDOz5WkcnUmXbinq3tqAEMU9+S6K5nVEfM33Z4xcOUIMMShOkPFgx3X8Hl06+HJQk2nz7q4ks7aQnln9Snb931c5PuxT1flBK+WJZnQwNwo+ZVHQx9LJenJ3iJHm4W897ejdPxtc4yr5fRVgeg=
+	t=1786960044; cv=none; b=T5SRQlnWV2GX0O854yYhlwZXsTcODU5/Pbg3pm+p6lWLwXNtzzs5RjXu4H60ZCFY2S6q/MGiOkX799mUYi81SA96mZQ7VJCxchpmiG8ixcBmDw0u2l7bZLlyLu+MLKp6wGCpZwcjy/42KyVK3+5VvDQziDXIM0DuwdAEyMAFJE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786959570; c=relaxed/simple;
-	bh=Tmj5cj/8tq0gcy/naaVLdK3FTTt/ZpEqLYMyMWTDr20=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Uxv3E1nRt5Z0ETuQh+eW7kCL7e/VHwz73BfsSC27kSUFB+BZR73EUTMJkceqPvf0CaMZSkPK0CHcYQe2eS5V3sThhBYaT+JInNYi2GuMdA+b0Xo68EEQpi0k1z9DrTH4udWc3nKNeRc9a4XrharGDwuw7/0StKCfcKUrO4xoCAk=
+	s=arc-20240116; t=1786960044; c=relaxed/simple;
+	bh=AdvbOiSXA7hqEpX426buHhTr9aHX4xm1dvXCym0E+d0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Hk695GN68Efh4uaYd0J/QlFNnkAIztIwmmNrgZMwtGFFkOa00LWPALi0+2CFYq5SMm42YjMpX6rgbAwkbm3A7tRGyQnZLtbqSfcq2zGMSDN3rjVklby+7EKdfA8DIcqO2gLwe061VqABMfazOr2qPn2SUzvUU4+aPHhgfjOp9d8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 83d5246c9a1f11f19a56ed5b684f684d-20260817
+X-UUID: 9f7dc0929a2011f19a56ed5b684f684d-20260817
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:1253c753-50aa-4547-a6fd-6087236513b5,IP:0,U
+X-CID-O-INFO: VERSION:1.3.19,REQID:acb4430b-7850-45ca-9fa2-dc2b1e899c8b,IP:0,U
 	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
 	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:7c132e033a63f224f8c4906b4b610c8f,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:5|-
-	100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:270fc703ce41d0f0d3e784edce797000,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50,E
+	DM:5|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
+	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 83d5246c9a1f11f19a56ed5b684f684d-20260817
+X-UUID: 9f7dc0929a2011f19a56ed5b684f684d-20260817
 X-User: zhangheng@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <zhangheng@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 487478946; Mon, 17 Aug 2026 17:39:17 +0800
+	with ESMTP id 1567164326; Mon, 17 Aug 2026 17:47:13 +0800
 From: Zhang Heng <zhangheng@kylinos.cn>
-To: zhangheng@kylinos.cn
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] ALSA: hda/realtek: Fix Lenovo Yoga Slim 7 14AKP10 quirk ordering
-Date: Mon, 17 Aug 2026 17:39:12 +0800
-Message-Id: <20260817093912.213042-1-zhangheng@kylinos.cn>
+To: tiwai@suse.de
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	Zhang Heng <zhangheng@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ALSA: hda/realtek: Fix Lenovo Yoga Slim 7 14AKP10 quirk ordering
+Date: Mon, 17 Aug 2026 17:47:08 +0800
+Message-Id: <20260817094708.222154-1-zhangheng@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <871pbxmb4v.wl-tiwai@suse.de>
+References: <871pbxmb4v.wl-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,7 +84,7 @@ Cc: stable@vger.kernel.org
 Link: https://bugzilla.kernel.org/show_bug.cgi?id=221298
 Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
 ---
-Changes in v2 (per review feedback from Takashi Iwai):
+Changes in v3 (per review feedback from Takashi Iwai):
   - Move the 17aa:391a HDA_CODEC_QUIRK to before the 17aa:38b4 entry so
     that it actually takes precedence over the Legion Slim 7 16IRH8 PCI
     quirk; the v1 placement (after 17aa:38b4) could never be reached.
@@ -112,5 +118,6 @@ index 3f0e276fc606..9ee7af1cfe25 100644
  	SND_PCI_QUIRK(0x17aa, 0x391f, "Yoga S990-16 pro Quad YC Quad", ALC287_FIXUP_TXNW2781_I2C),
  	SND_PCI_QUIRK(0x17aa, 0x3920, "Yoga S990-16 pro Quad VECO Quad", ALC287_FIXUP_TXNW2781_I2C),
  	SND_PCI_QUIRK(0x17aa, 0x3929, "Thinkbook 13x Gen 5", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
---
+-- 
 2.25.1
+
