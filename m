@@ -1,74 +1,149 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A120F233958;
-	Mon, 17 Aug 2026 18:37:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B443A7843
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 18:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786991857; cv=none; b=IWN46KS4ptBMkQkz1km4nRGVhBnG4ZSGIhegT86FmzbA0M3n3amjHLCzQOYz4B/9A+Hvk//Sck4bMhLsueSPHnatt7v8daOY0/OpiNEZo1nsjVWgd56pLDTz8zjAYsRPiPSu+Wu7hgRtLag2RSM4cPy0mmktA0EjJhCpT9q0IQs=
+	t=1786992408; cv=none; b=QxRMm0yekHjyR/OdUFnyRPn9m/1rbROJRWyKuyUyFZhU/UJY9X5tZDji19jGhbV8O8uguTbxBzKPlL/JqGmujNq4akyUpemJLOqovixTv+ClCwMFpiL9AuV/RDau1eASwlgbSU+bD53i3soNpr/wb0JRpUZJj/dIJgz7SeeaPow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786991857; c=relaxed/simple;
-	bh=U85LDAMK/A6NJ8B8DZMNvIm88HpsEcZBY2TmWfO/x2E=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=IhSNJD/7VnkvnqJf1afLFunCetthIkqe0njV3DWm7/TS7xKMz+inJ38WMyXqHmxrVZG8U1KW29XS+C809RqEoTXLvySw5xmLN0rcuiLTeEnRSszvZHOOCAWPk/X6U9Sb8iQ30HZQZSwLCvo7M7e0y5Zqw0nCcPdwd4JnHmU5WDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=a5xe8Sd0; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1786992408; c=relaxed/simple;
+	bh=xVmHJlFrQrU+BNvTVmBFyd8+1yfvVnB4Cal9+GCRYxU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tQmPwzcYLNEsgpJ3v2jsCxUODlfLdr8Rot+gb3uRthFsUa+JZLnC1hE9EKHaTOwBrOzx01kMunUKiU3oAW8EyRlVd70esS767KJYyM9C+wjt1e+IovrPGQMDq4YvjxSL/gdEIKT5YD19F14ZlMbI6BWkDUUMvOnmW2y7ZCu1iJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BjbMjRlC; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="a5xe8Sd0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=53E9Jpbg3eCRROpWbHch7NuxkM40Oow6A5i91k/57jQ=; b=a5xe8Sd0e8XDb9COp9h08KYJql
-	ZDanMLvxx56F0utZsYwqCRGjyTL0+/wS4iyh8Oetgdt2eTXBCgqN1mTKkmnI0JZ36L9yB4rimBQ5l
-	Sh/SQDaQn14rmDPkxJ3xWV3j7gxWRlMdTkuX4/mP484MtXLhV4hI+WALpX8V3/3dVGqIHnexdHBr4
-	EPrWLDEkbDSCJHeecvc+tFhNVD3oB+9g5tAzBBlMm+2gPyCeNRXJovmplbKUciDEe7bsh0WrWAdU1
-	G2HtziAt5mjT7iJkIawKaZkyR05vAYClqWx93Cu4O1qUedbkiSE4gALrujSnz9z6E/o9cjCtoCINV
-	gzQQD44Q==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1ww28z-000000009v8-0YtD;
-	Mon, 17 Aug 2026 15:33:09 -0300
-Message-ID: <c47031397f33123195775ea65d0834ce@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Frank Sorenson <sorenson@redhat.com>, linux-cifs@vger.kernel.org,
- stfrench@microsoft.com
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH] smb: client: fix use-before-check of ReparseDataLength
- in reparse_buf_ptr()
-In-Reply-To: <20260817171657.212776-1-sorenson@redhat.com>
-References: <20260817171657.212776-1-sorenson@redhat.com>
-Date: Mon, 17 Aug 2026 15:33:08 -0300
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BjbMjRlC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786992406;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=4GlCflkteeelg4VY0ysidlGum1huGIUMb9+9VM+1VjQ=;
+	b=BjbMjRlCEcXpm9FWq8MuZMLcGXKwDtow/2P8/o6PCYU2rqVB33seDcrpjZuYyjzBnhe5/D
+	VJIsCpthv8yRzaM1YZjMTTmgBWZUJvKDk9LSb2cvC4Bdud/EKcJsb8qqBokOMvFd8OPvNU
+	AW1xgnodfF81fE/I+KvuCUn68Hg9r60=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-62-MqdoLrTVN7SVLsg8DO9jFg-1; Mon,
+ 17 Aug 2026 14:46:40 -0400
+X-MC-Unique: MqdoLrTVN7SVLsg8DO9jFg-1
+X-Mimecast-MFC-AGG-ID: MqdoLrTVN7SVLsg8DO9jFg_1786992398
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8254E18007FB;
+	Mon, 17 Aug 2026 18:46:38 +0000 (UTC)
+Received: from thuth-p1g4.redhat.corp (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 68590423;
+	Mon, 17 Aug 2026 18:46:35 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Bongsu Jeon <bongsu.jeon@samsung.com>,
+	David Heidelberg <david@ixit.cz>,
+	Shuah Khan <shuah@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>
+Cc: stable@vger.kernel.org,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] selftests: nci: Fix wrong size of status variables in nci_dev test
+Date: Mon, 17 Aug 2026 20:46:33 +0200
+Message-ID: <20260817184633.324615-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Frank Sorenson <sorenson@redhat.com> writes:
+pthread_join() stores the thread's return value (a "void *", i.e.
+8 bytes on 64 bit computers) into the address of "status", but the
+"status" variable is declared as "int" with only 4 bytes. The extra
+4 bytes clobber whatever is adjacent on the stack, which could
+silently corrupt other local variables. Use "intptr_t" to declare
+the "status" variables with the correct size.
 
-> reparse_buf_ptr() reads buf->ReparseDataLength before checking that
-> count covers the full fixed header:
->
->     buf = (struct reparse_data_buffer *)((u8 *)io + off);
->     len = sizeof(*buf);                          /* 8 bytes */
->     rdlen = le16_to_cpu(buf->ReparseDataLength); /* offset 4, 2 bytes */
->
->     if (count < len || count < rdlen + len)      /* check comes after */
->
-> struct reparse_data_buffer has ReparseDataLength at offset 4.  If a
-> server returns OutputCount < 6, the read at offset 4-5 reaches past
-> the end of the received data.  The off+count bounds against iov_len
-> were already validated, but that does not protect against count being
-> smaller than sizeof(*buf).
->
-> Split the check: verify count >= sizeof(*buf) before reading
-> ReparseDataLength, then verify count covers the data region.
->
-> Fixes: a158bb66b137 ("smb: client: optimise reparse point querying")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Fixes: f595cf1242f3d ("selftests: Add nci suite")
+Cc: stable@vger.kernel.org
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ v2: Add "Fixes:" and "Cc: stable" tags
 
-Acked-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
+ tools/testing/selftests/nci/nci_dev.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/tools/testing/selftests/nci/nci_dev.c b/tools/testing/selftests/nci/nci_dev.c
+index 312f84ee0444f..4e7a5856f7ea3 100644
+--- a/tools/testing/selftests/nci/nci_dev.c
++++ b/tools/testing/selftests/nci/nci_dev.c
+@@ -6,6 +6,7 @@
+  * Test code for nci
+  */
+ 
++#include <stdint.h>
+ #include <stdlib.h>
+ #include <errno.h>
+ #include <string.h>
+@@ -404,7 +405,7 @@ FIXTURE_SETUP(NCI)
+ 	struct msgtemplate msg;
+ 	pthread_t thread_t;
+ 	__u32 event_group;
+-	int status;
++	intptr_t status;
+ 	int rc;
+ 
+ 	self->open_state = false;
+@@ -497,7 +498,7 @@ static void *virtual_deinit_v2(void *data)
+ FIXTURE_TEARDOWN(NCI)
+ {
+ 	pthread_t thread_t;
+-	int status;
++	intptr_t status;
+ 	int rc;
+ 
+ 	if (self->open_state) {
+@@ -585,7 +586,7 @@ int start_polling(int dev_idx, int proto, int virtual_fd, int sd, int fid, int p
+ 	void *nla_start_poll_data[2] = {&dev_idx, &proto};
+ 	int nla_start_poll_len[2] = {4, 4};
+ 	pthread_t thread_t;
+-	int status;
++	intptr_t status;
+ 	int rc;
+ 
+ 	rc = pthread_create(&thread_t, NULL, virtual_poll_start,
+@@ -605,7 +606,7 @@ int start_polling(int dev_idx, int proto, int virtual_fd, int sd, int fid, int p
+ int stop_polling(int dev_idx, int virtual_fd, int sd, int fid, int pid)
+ {
+ 	pthread_t thread_t;
+-	int status;
++	intptr_t status;
+ 	int rc;
+ 
+ 	rc = pthread_create(&thread_t, NULL, virtual_poll_stop,
+@@ -816,7 +817,7 @@ int disconnect_tag(int nfc_sock, int virtual_fd)
+ {
+ 	pthread_t thread_t;
+ 	char buf[256];
+-	int status;
++	intptr_t status;
+ 	int len;
+ 
+ 	send(nfc_sock, &nci_t4t_select_cmd3[3], sizeof(nci_t4t_select_cmd3) - 3, 0);
+@@ -860,7 +861,7 @@ TEST_F(NCI, deinit)
+ {
+ 	struct msgtemplate msg;
+ 	pthread_t thread_t;
+-	int status;
++	intptr_t status;
+ 	int rc;
+ 
+ 	rc = get_nci_devid(self->sd, self->fid, self->pid, self->dev_idex,
+-- 
+2.55.0
+
