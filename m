@@ -1,308 +1,204 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761F01DD0EF;
-	Mon, 17 Aug 2026 00:38:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B76B23741
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 00:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786927132; cv=none; b=PlEevYi404wMIUc0mUY10md8lJKiXdraoiZkBVC2cCZSkTI/AXMQ3KBDlG4k6HEfa/imUtRBjjJw/kPihz9OF5Kz19Y5TyriW3Dfpeb2RZnJs8TAUDZBxp1lslMJYO+S9quhC5LgyXpCcoxNExjYCJugZlNQaaeh3QtdqLS/kbo=
+	t=1786927883; cv=none; b=QtuzBu4W52l4jTGzwdOjgBvsxpn37Zj7vIQFtjHp0w4CfnGnZc1U7Jaw+lqDyXlZV1M3KANXvAB7lfUCISqoIjqrHT5Wz35+0WvFdMlTfoGUw16oOIZkFe3vWPOF+V6EfIpU7zDcY9bLXQDt2awg/fOv5uFskHM0lw6ltxZjAf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786927132; c=relaxed/simple;
-	bh=wZkFnuMXBfDgZ2cW63Tq92p/fGAOErczt1VEEMVduZw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EdAVxt58HicpoHQpowSxLlBU7gstwSg3NdNpMWaQt/ES7fSAMrj3spnFDrQAk5wmgPcafyCRyfB5dkCu0fIhhLRQ2SNEA71c7dPdKqCO8BryALxgp2d2uTWxH3SG1DOmgbt51b1LRKaSc4WGPMm+IrsVcWGPXaoGMYNbpFUgaOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=SY50wgUc; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1786927883; c=relaxed/simple;
+	bh=doXuL1EmQFsFUTuzqzEkyqw3QjIMey0buz+8dUHN0sc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Y9FhFzstTW21qaJGPA4keX6mmx78upEMqTuyQKu4wZbkVvBy0TcHcaVB9pU6uI+/a0o8D1oShrr+yaLO0yxkOhiKQlyVDN9yUseSDlBEjb3pSCW+aBe0sun5OLvlp7f3aaokLP7FKWVbDvFo0WQ2oZ6g0IodBp2PDrAX0jtT0wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXqgszus; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="SY50wgUc"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1786927119; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=FkEbpoYaj8AmQL1n1cxZDG8OTgibwSKiJIDqapThTVY=;
-	b=SY50wgUcL+VpArhH36l8siSa6ENqzYfYdl7+wg7qv1RMBBCaTpX12daeQmdM+whnZt/G7L+u9zfZ7hq+vxe2euRJUCNJtNzzodHfYNmlzSfKlQ9H6HvfHMRYyjx/y/3Pvm2nGcgdIvRfBZFSeLvddV996X/1Bl48VQJHHhiT2Hk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R891e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=yaoyuan@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0X911f-o_1786927118;
-Received: from localhost(mailfrom:yaoyuan@linux.alibaba.com fp:SMTPD_---0X911f-o_1786927118 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 17 Aug 2026 08:38:38 +0800
-Date: Mon, 17 Aug 2026 08:38:37 +0800
-From: Yao Yuan <yaoyuan@linux.alibaba.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Wei-Lin Chang <weilin.chang@arm.com>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Jintack Lim <jintack.lim@linaro.org>, 
-	Christoffer Dall <christoffer.dall@arm.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: Fix spurious warning for benign stage 2
- teardown race
-Message-ID: <dlvicg2jykp4icqkpa7xjm6bmim7sbp7vventkzgoihzpombcc@pemvii5d6qfj>
-References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
- <20260812-kvm-arm-nested-virt-fix-v1-1-4ad883f1b6a5@kernel.org>
- <qfhlmmidzdmmsfopfhxpddgwa7nob45jwgb6sabskawaxtox7i@mnxplk3zn34k>
- <an3gqCJ1fzloWB_N@lucifer>
- <v3vgnteumpaxbgqjtfwoilcbwpwohfci3uwu4ooykls6zjwjwe@rukbigno2m5o>
- <an7Tk0qrCM84zS54@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXqgszus"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02DDE1F00A3F
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 00:51:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786927882;
+	bh=PYq3lsa/Oi8dnPmiPAXKaQHT4eRBFtxYWtEVJj/IqnE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=FXqgszusNuufG8bfQmvMJQzOZNlcHYKRUauGQiJ21jfuY7BqgIC9qXrHBsSQJK51k
+	 8cyQ27Tshn517HN3kMaQsHGaG032tTVOMtK8PfeeYyMgdJ7PHI4GQE8P3Tr/CFavvZ
+	 uc69e1KU3y0B07wbsdPnUg6brShi2xOYe74nO3ag3Frze079nCEIVL/0JSo5uTTg/8
+	 ZEP91GJjEpFp9AUGMvKUaPQp56u53yWOfXxndDIZf7qjWsiKTJYZt1wr5Q8nasX+St
+	 bO29tXKEt9qg3rijdNFzsrVn4pJXnFZx7//6WzF71KtAThgDXZoXKV6Rj9W+0WSa1G
+	 LYymYESB4KjPw==
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f84023916so2666123f8f.3
+        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 17:51:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq2Of9RNtG2JK9pSyHQ95tbHoeXWev5l60dC+jlssVPnzo3EICTEvAJnLzngmx6QPW1Soj576c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPU0eMzBaJgzpzR7LHnXKLwVt7gwL0UnTsyhPtO45eMaJf03dh
+	2BgqAG57b/QGYyCegn8PMU6otO2+5qUQxve4nS29zyYk70Cie2h+9QhSbTB85Bkso87y/fnNKnC
+	Kbl2OJme+VwvQlyWMew4puX/JnJ879iA=
+X-Received: by 2002:a05:6000:2c09:b0:47f:9760:4d2e with SMTP id
+ ffacd0b85a97d-481607618e8mr27937060f8f.24.1786927880559; Sun, 16 Aug 2026
+ 17:51:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <an7Tk0qrCM84zS54@gremlin>
+References: <20260816074125.2105828-1-guoren@kernel.org> <DKQ8V08O8TKD.QHLCPR9W40HE@pigmoral.tech>
+In-Reply-To: <DKQ8V08O8TKD.QHLCPR9W40HE@pigmoral.tech>
+From: Guo Ren <guoren@kernel.org>
+Date: Mon, 17 Aug 2026 08:51:07 +0800
+X-Gmail-Original-Message-ID: <CAJF2gTRwMXVzxDL=C3JjmtxP3K5aLqki5qZdcyv751BTZ2p=5g@mail.gmail.com>
+X-Gm-Features: AcwNN1WU1MNdBpQY-vPRrNvDmBPPyD6eTSwnIFNd601KbR74IzZdtewLxNO4yDA
+Message-ID: <CAJF2gTRwMXVzxDL=C3JjmtxP3K5aLqki5qZdcyv751BTZ2p=5g@mail.gmail.com>
+Subject: Re: [PATCH] riscv: dts: spacemit: k3: fix IMSIC guest parameters
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	dlan@kernel.org, devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
+	stable@vger.kernel.org, Guodong Xu <docular.xu@gmail.com>, 
+	linux-riscv <linux-riscv-bounces@lists.infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 14, 2026 at 09:48:39AM +0800, Lorenzo Stoakes (ARM) wrote:
-> On Fri, Aug 14, 2026 at 03:18:42PM +0800, Yao Yuan wrote:
-> > On Thu, Aug 13, 2026 at 04:24:49PM +0800, Lorenzo Stoakes (ARM) wrote:
-> > > On Thu, Aug 13, 2026 at 12:20:43AM +0100, Wei-Lin Chang wrote:
-> > > > Hi Lorenzo,
-> > > >
-> > > > Thanks for the detailed analysis!
-> > >
-> > > You're welcome :)
-> > >
-> > > >
-> > > > I can follow what's happening from the report, but one thing I don't
-> > > > get:
-> > > >
-> > > > On Wed, Aug 12, 2026 at 02:31:20PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > > > A batch of kernel warnings were triggered in the L0 host kernel when using
-> > > > > kvmtool to experiment with nested virtualisation.
-> > > > >
-> > > > > The issue was observed on an M2 macbook pro with 24 GiB of RAM running
-> > > > > asahi linux 7.1.6-400.asahi.fc44.aarch64+16k with 16 KiB page size.
-> > > > >
-> > > > > The bug is confirmed to exist in mainline and does not appear to be
-> > > > > impacted by any downstream patches carried by asahi.
-> > > > >
-> > > > > kvmtool was used to establish an L1 guest with 8 CPUs and 8 GiB of RAM.
-> > > > >
-> > > > > kvmtool was then run again within the L1 guest to establish an L2 guest
-> > > > > with 4 CPUs and 4 GiB of RAM.
-> > > > >
-> > > > > Then it was run again to establish another inner guest with 2 CPUs and 2
-> > > > > GiB of RAM at L3.
-> > > > >
-> > > > > Both the L2 and L3 guests were then exited and another L2 guest was
-> > > > > established with the same characteristics.
-> > > > >
-> > > > > Sufficient memory pressure was present in the L0 host to trigger indirect
-> > > > > reclaim, waking kcompactd up and triggering migration.
-> > > > >
-> > > > > Shortly afterwards the L2 guest was stopped, at which point three warnings
+On Sun, Aug 16, 2026 at 5:01=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.tec=
+h> wrote:
 >
-> So TL;DR - correction is to say L0 here, no change elsewhere.
+> Hi Guo,
 >
-> > > > > were observed in the L0 host in quick succession with the second and the
-> > > > > third occurring 114us and 189us after the first, respectively.
-> > > > >
-> > > > > In each case the call trace was the same:
-> > > > >
-> > > > > WARNING: arch/arm64/kvm/mmu.c:336 at __unmap_stage2_range+0x64/0x80,
-> > > > > CPU#5: kcompactd0/66
-> > > > > ...
-> > > > > __unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3)) (P)
-> > > > > kvm_stage2_unmap_range (arch/arm64/kvm/mmu.c:346)
-> > > > > kvm_nested_s2_unmap (arch/arm64/kvm/nested.c:1168 (discriminator 14))
-> > > > > kvm_unmap_gfn_range (arch/arm64/kvm/mmu.c:2416)
-> > > > > kvm_mmu_notifier_invalidate_range_start (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:718 ...)
-> > > > > mn_hlist_invalidate_range_start (mm/mmu_notifier.c:525)
-> > > > > __mmu_notifier_invalidate_range_start (mm/mmu_notifier.c:580)
-> > > > > try_to_migrate_one (./include/linux/mmu_notifier.h:478 ./include/linux/mmu_notifier.h:471 mm/rmap.c:2459)
-> > > > > rmap_walk_anon (mm/rmap.c:3001)
-> > > > > rmap_walk (mm/rmap.c:3106 mm/rmap.c:3101)
-> > > > > try_to_migrate (mm/rmap.c:2774)
-> > > > > migrate_folio_unmap (mm/migrate.c:1330 (discriminator 3))
-> > > > > migrate_pages_batch (mm/migrate.c:1909)
-> > > > > migrate_pages_sync (mm/migrate.c:2026)
-> > > > > migrate_pages (mm/migrate.c:2135)
-> > > > > compact_zone (mm/compaction.c:2663)
-> > > > > compact_node (mm/compaction.c:2932)
-> > > > > kcompactd (mm/compaction.c:3230)
-> > > > > kthread (kernel/kthread.c:436)
-> > > > > ret_from_fork (arch/arm64/kernel/entry.S:858)
-> > > > >
-> > > > > Analysing this:
-> > > > >
-> > > > > try_to_migrate() performs the first part of migration on a folio -
-> > > > > establishing migration entries in all page tables mapping it - calling
-> > > > > try_to_migrate_one() for each VMA the folio is mapped in.
-> > > > >
-> > > > > Immediately prior to installing the migration entry, try_to_migrate_one()
-> > > > > calls mmu_notifier_invalidate_range_start() to signal to notifiers that the
-> > > > > existing page table entry is about to be unmapped.
-> > > > >
-> > > > > Since this range happened to contain folios used by the virtual machine
-> > > > > (given its memory consumption this was highly likely to be a target) this
-> > > > > in turn triggers arm64 kvm code via an MMU notifier:
-> > > > >
-> > > > > mmu_notifier_invalidate_range_start()
-> > > > >   -> ... -> kvm_mmu_notifier_invalidate_range_start()
-> > > > >     -> kvm_mmu_unmap_gfn_range()
-> > > > >       -> kvm_unmap_gfn_range()
-> > > > >         -> kvm_nested_s2_unmap()
-> > > > >           -> kvm_stage2_unmap_range()
-> > > > >             -> __unmap_stage2_range()
-> > > > >                -> stage2_apply_range()
-> > > > >        	       <- -EINVAL, triggering a WARN_ON()
-> > > > >
-> > > > > Since commit ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page
-> > > > > tables") kvm_unmap_gfn_range() invokes kvm_nested_s2_unmap() which takes
-> > > > > the rather drastic step of evicting the entirety of the stage 2 shadow page
-> > > > > tables for each nested guest:
-> > > > >
-> > > > > 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
-> > > > > 		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-> > > > >
-> > > > > 		if (kvm_s2_mmu_valid(mmu))
-> > > > > 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
-> > > > > 	}
-> > > > >
-> > > > > This will iterate through every valid MMU.
-> > > > >
-> > > > > mmu_notifier_invalidate_range_start() sets the MMU_NOTIFIER_RANGE_BLOCKABLE
-> > > > > flag when signalling notifiers, so may_block is true here.
-> > > > >
-> > > > > __unmap_stage2_range() wraps invocation of stage2_apply_range() in a
-> > > > > WARN_ON():
-> > > > >
-> > > > > 	WARN_ON(stage2_apply_range(mmu, start, end, KVM_PGT_FN(kvm_pgtable_stage2_unmap),
-> > > > > 				   may_block));
-> > > > >
-> > > > > Which is precisely the triggered warning and means stage2_apply_range() is
-> > > > > returning an error.
-> > > > >
-> > > > > In arm64 return values are stored in the x0 register and in each splat w0
-> > > > > (since it's a 32-bit value) is 0xffffffea which, by two's complement, is
-> > > > > -0b00010110 or -EINVAL.
-> > > > >
-> > > > > The only way in which stage2_apply_range() can return an error is if either
-> > > > > the passed in walk function (kvm_pgtable_stage2_unmap()) returns an error
-> > > > > or mmu->pgt is NULL:
-> > > > >
-> > > > > 	static int stage2_apply_range(...)
-> > > > > 	{
-> > > > > 		do {
-> > > > > 			struct kvm_pgtable *pgt = mmu->pgt;
-> > > > > 			if (!pgt)
-> > > > > 				return -EINVAL;
-> > > > >
-> > > > > 			next = stage2_range_addr_end(addr, end);
-> > > > > 			ret = fn(pgt, addr, next - addr);
-> > > > > 			if (ret)
-> > > > > 				break;
-> > > > > 			if (resched && next != end)
-> > > > > 				cond_resched_rwlock_write(&kvm->mmu_lock);
-> > > > > 		} while (addr = next, addr != end);
-> > > > >
-> > > > > 		return ret;
-> > > > > 	}
-> > > > >
-> > > > > This loop is batched by stage2_range_addr_end() at the granularity of
-> > > > > kvm_granule_size(KVM_PGTABLE_MIN_BLOCK_LEVEL), which for a 16 KiB page size
-> > > > > kernel is 32 MiB.
-> > > > >
-> > > > > kvm_pgtable_stage2_unmap() only returns an error if
-> > > > > kvm_pgtable_walk_begin() or _kvm_pgtable_walk() return an error. On arm64
-> > > > > the former doesn't ever do so, and the latter only returns -EINVAL if
-> > > > > either pgd is NULL (we gate that already) or an invalid pgt->start_level is
-> > > > > specified (not the case).
-> > > > >
-> > > > > So the cause of the warning is that mmu->pgt is NULL here.
-> > > > >
-> > > > > This field is protected by kvm->mmu_lock, but after each invocation of the
-> > > > > walk function, if the end of the range has not yet been reached, the lock
-> > > > > is dropped.
-> > > > >
-> > > > > This is done by calling cond_resched_rwlock_write() which drops
-> > > > > kvm->mmu_lock when yielding the time slice before reacquiring it upon being
-> > > > > scheduled again:
-> > > > >
-> > > > > 		if (resched && next != end)
-> > > > > 			cond_resched_rwlock_write(&kvm->mmu_lock);
-> > > > >
-> > > > > Note that resched = may_block here and is always true for these walks.
-> > > > >
-> > > > > This points to something else racing this code to clearing the pgt, and
-> > > > > brings us back to the observation above that the issue occurs when tearing
-> > > > > down the L2 guest.
-> > > > >
-> > > > > Upon L0's userspace mm_struct teardown, stage 2 mappings for IPAs mapped by
-> > >
-> > > s/L0/L2/
-> > >
-> > > > > the guest are unmapped via mmu notifier:
-> > > > >
-> > > > > exit_mm()
-> > > > >   -> mmput()
-> > > > >     -> __mmput()
-> > > > >       -> exit_mmap()
-> > > > >         -> mmu_notifier_release()
-> > > > > 	  -> ... -> kvm_mmu_notifier_release()
-> > > > >             -> kvm_flush_shadow_all()
-> > > > >               -> kvm_arch_flush_shadow_all()
-> > > > > 	        -> kvm_free_stage2_pgd()
-> > > > > 		  -> [ acquire kvm->mmu_lock for write ]
-> > > > > 		  -> mmu->pgt = NULL [ among other tasks ]
-> > > > > 		  -> [ release kvm->mmu_lock for write ]
-> > > >
-> > > > You mentioned stopping the L2 VM only, which means L1 is still running.
-> > > > Why would the L0 userspace mm_struct get torn down if L1 is still live?
-> > > > What did I miss?
-> > >
-> > > Ah yeah this is a mistake sorry :) It should say L2 teardown.
-> > >
-> > > The stuff relevant to L0 is the MMU notifier bit.
+> On Sun Aug 16, 2026 at 3:41 PM CST, Guo Ren wrote:
+> > From: "GUO Ren (XuanTie)" <guoren@kernel.org>
 > >
-> > Hi Lorenzo,
+> > The initial K3 device tree used generic/placeholder values for the
+> > IMSIC guest configuration:
 > >
-> > Still have question w/ your above addtional information:
+> >   riscv,guest-index-bits =3D <6>;
+> >   riscv,num-guest-ids    =3D <511>;
 > >
-> > The trace is observed on L0, means the exit_mm() path should
-> > also happens on L0 to race w/ the
-> > mmu_notifier_invalidate_range_start() path, but how this is
-> > triggred by L2 teardown, IIUC the L2 teardown triggers the
-> > exit_mm() path on L1, not on L0. The L1 is still alive thus
-> > the qemu/kvmtool process on L0 which hold all L1/L2/L3 is
-> > still alive yet. Please correct me if anything I missed
-> > here.
+> > According to the SpacemiT K3 User Manual [1], these values are
+> > incorrect for the X100 cores:
+> >
+> >  - Hypervisor Extension: RVH 1.0, GEILEN =3D 8
+> >  - Advanced Interrupt Architecture (AIA):
+> >     - M-mode MSI: 512
+> >     - S-mode MSI: 512
+> >     - VS-mode MSI: 64
+> >
+> > Therefore:
+> >
+> > - S-mode IMSIC (simsic) only needs guest-index-bits =3D 3 (to cover
+> >   GEILEN =3D 8) and num-guest-ids =3D 63.
+> > - M-mode IMSIC (mimsic) does not implement guest interrupt files at
+> >   all, so the guest-related properties must be omitted.
+> >
+> > Although the KVM AIA driver will re-detect the actual number of guest
+> > interrupt files via hgeie and correct guest-index-bits at runtime, the
+> > device tree should still describe the correct hardware parameters.
+> >
+> > Update the device tree to match the silicon.
+> >
+> > [1] https://www.spacemit.com/community/document/info?lang=3Den&nodepath=
+=3Dhardware/key_stone/k3/k3_docs/k3_usermanual/08_cpu.md
+> >
+> > Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 =
+SoC")
+> > Cc: stable@vger.kernel.org
+> > Cc: Guodong Xu <docular.xu@gmail.com>
+> > Cc: Yixun Lan <dlan@kernel.org>
+> > Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
+> > ---
+> >  arch/riscv/boot/dts/spacemit/k3.dtsi | 6 ++----
+> >  1 file changed, 2 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts=
+/spacemit/k3.dtsi
+> > index 19fc9b49668e..4120eb0c4083 100644
+> > --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> > +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> > @@ -1127,9 +1127,9 @@ simsic: interrupt-controller@e0400000 {
+> >                                             <&cpu4_intc 9>, <&cpu5_intc=
+ 9>,
+> >                                             <&cpu6_intc 9>, <&cpu7_intc=
+ 9>;
+> >                       msi-controller;
+> > -                     riscv,guest-index-bits =3D <6>;
+> > +                     riscv,guest-index-bits =3D <3>;
 >
-> OK so - I confused myself here :)
+> According to the IMSIC DT binding, riscv,guest-index-bits describes
+> the number of guest-index bits in the MSI target address, not the
+> number of guest interrupt files actually implemented by a hart.
 >
-> The underlying issue here is that I am working back from a situation where
-> I can't quite recall what I did, but am rather reconstructing it based on
-> what was observed.
+> On K3, the per-hart IMSIC stride is 0x40000 bytes (0x200000 / 8).
+> Therefore, riscv,guest-index-bits should remain 6, which satisfies the
+> per-hart stride formula specified by the AIA specification:
 >
-> And you're right - this stack makes no sense for an L2 VM being torn down,
-> rather only the L0 being torn down.
+>   2^(guest-index-bits + 12) =3D 2^(6 + 12) =3D 0x40000 bytes
 >
-> So clearly this is what I did, and the correction should be to say this at
-> the start of the commit message.
+> KVM already handles the difference between the address space and the
+> actual number of guest interrupt files. It reads HGEIE to find the
+> actual number of guest interrupt files and uses the smaller value:
+>
+>   /*
+>    * Number of usable per-HART HGEI lines should be minimum of
+>    * per-HART IMSIC guest files and number of bits in HGEIE.
+>    */
+>   if (lc)
+>           hgctrl->nr_hgei =3D
+>                   min((ulong)hgctrl->nr_hgei, lc->nr_guest_files);
+>
+> I also tested this on K3. HGEIE returned 0xfe after writing all ones,
+> so the driver gets fls_long(0xfe) - 1 =3D 7 usable guest interrupt file
 
-Ah I see.  I agree the race is there. Below is just an idea
-in my mind for reproducing this, hope this is helpful to you :-)
+I don't think the reserved per-hart address stride alone is sufficient
+reason to set riscv,guest-index-bits to 6.
 
-migratepages (https://man7.org/linux/man-pages/man8/migratepages.8.html) can
-help to trigger the MMU notifier to qemu/kvmtool easily on 2P system, meanwhile
-kill the qemu/kvmtool on L0 to reprouduce the racing. For 1P system kernel has
-numa=fake parameter to generate more NUMAs there.
+As mentioned in the commit log:
+"Although the KVM AIA driver will re-detect the actual number of guest
+interrupt files via hgeie and correct guest-index-bits at runtime, the
+device tree should still describe the correct hardware parameters."
+
+Although K3 reserves a 0x40000-byte IMSIC address window per hart, only
+the first 0x8000 bytes, corresponding to guest indexes 0 through 7, are
+actually implemented. The remaining range from 0x8000 to 0x3ffff does
+not correspond to any implemented interrupt file.
+
+If we describe guest-index-bits =3D <6>, that raises a few questions:
+ - What hardware resource is represented by guest indexes 8 through 63?
+ - What behavior does the K3 hardware guarantee for accesses to the
+unused 0x8000-0x3ffff range?
+ - Shall we let the kernel map that unused range and consume
+additional page-table entries for it?
 
 >
-> (The truth of what happened was rather more button-mashy and 'oh what?'
-> than it appears ;)
+> >                       riscv,hart-index-bits =3D <4>;
+> > -                     riscv,num-guest-ids =3D <511>;
+> > +                     riscv,num-guest-ids =3D <63>;
 >
-> Sorry for the confusion!
+> This change looks good to me.
+Thx for the review.
+
 >
+> >                       riscv,num-ids =3D <511>;
+> >               };
 > >
-> > >
-> > > >
-> > > > Thanks,
-> > > > Wei-Lin Chang
-> > > >
-> > > > [...]
+> > @@ -1168,9 +1168,7 @@ mimsic: interrupt-controller@f1000000 {
+> >                                             <&cpu4_intc 11>, <&cpu5_int=
+c 11>,
+> >                                             <&cpu6_intc 11>, <&cpu7_int=
+c 11>;
+> >                       msi-controller;
+> > -                     riscv,guest-index-bits =3D <6>;
+> >                       riscv,hart-index-bits =3D <4>;
+> > -                     riscv,num-guest-ids =3D <511>;
+> >                       riscv,num-ids =3D <511>;
+> >                       status =3D "reserved";
+> >               };
 >
-> --
-> Cheers, Lorenzo
+> For the mimsic part, I already sent a related fix earlier:
+> https://lore.kernel.org/linux-riscv/20260729-k3-mimsic-fix-v1-1-368c0aec0=
+4b9@pigmoral.tech/
+Okay, I would remove the mimsic part.
+
+>
+> If you would like, you can pick that patch and combine the two changes
+> into a v2, as Yixun suggested.
+
+--=20
+Best Regards
+ Guo Ren
