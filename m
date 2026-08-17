@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E874F3E44E8
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:31:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAE430EF68
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:31:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786966284; cv=none; b=bm2RL0PxolgLO1BRIRRARIjD9S2MFg6apRBB2e90wmfKw5FfZNGXQLHF4ZjmA21BOcms+T0w35A7DIdQD3yIA5Iu8/ONSHNXZVUHYtlmcGt8VnSiEk/3AHS2UuUoCYJ71UuSlRC9kxJ0OcUmfgB8Z8oEnc1D0ePDbsosHH86YC4=
+	t=1786966311; cv=none; b=rgYJpqFAoIarLE2qYTEQjTD6V5cGG1G8Apis+KeSVWRjbB4isp7aZ/CSWoRJtcGDdf6uwQgqb4aitrg9gAXXKT+c8FBlaOZQk+7G2/4ddhgC/kVybighE/6L35qYq6xki7Msi6GkQjbrAu0ay2YOUEP2pav9ZVdBdftZB4Lc3zI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786966284; c=relaxed/simple;
-	bh=CdxLP9UP1bRiOO9a19BBVQc6YFYErY4yF6fw1aC/r84=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cmTE6A5Wrnh4rXkDHl89bU5mIohDZ42HH6i3l9XjSjgWFy13YouBFGIKDtMg2ScVaTjOvWDT+JCZVMvG4y8wqTWaBkBTYjw8Ookb/jSfiPmawB2ykF8PiG/95xixbzUHi3SZad+/bqdYZwpd/idgadNNzMxhtjQkmFW5XrWM2jM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=edrRZ+PX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786966311; c=relaxed/simple;
+	bh=pLbbvvwZaSN5ynxW8Uz2C4odHSZFmLXQdlmrfklun94=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=alZbc5T3/mNKoiYtuOEzCAgaggg0AcAqZYcmvKatxx/6BdfgTdJ1vmV8zdio94PNRe3vPxY6mWGogHcjcTd+lWtka9E1oCo6yWI4uPxTKTdJdE+hvI7VI+KtzzWVSWlhcbBThBIrN95EaBX+X5OtJwiF9tPmLDsHnPwbLaiiHek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IUK2XSda; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="edrRZ+PX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4216B1F000E9;
-	Mon, 17 Aug 2026 11:31:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IUK2XSda"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19F71F000E9;
+	Mon, 17 Aug 2026 11:31:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786966282;
-	bh=5laVPpWn/IXWaiBHgzO6sDpobwHuLjNverusc1mONAI=;
+	s=korg; t=1786966310;
+	bh=PzqVG1cV+gXdX8dL3C4GAfY2cbNE8s2+PRPT0F0xJRw=;
 	h=Subject:To:Cc:From:Date;
-	b=edrRZ+PX6tK+dBR6XIU/D+wSOddDTme08iyg5DrdNhpFkqfvAwZqNPhERV8j5ULGT
-	 tVJf0qcqWDAr+LkaivyBbJszzRQ8rA3Z/RiU02LnGyZab2GvDiJhHm/aqqaTy5+iih
-	 HiAcAEO/RScYXnYHNRO34fnzAA3oR+0kVcOgEHxk=
-Subject: FAILED: patch "[PATCH] packet: synchronize pressure clearing with ring" failed to apply to 5.15-stable tree
-To: zihanx@nebusec.ai,pabeni@redhat.com,vega@nebusec.ai
+	b=IUK2XSdapGENqPIeOOqmYFlW+FPCPpj0NXb6HhSt1DGuz+3WGiZcKfBLCz+2/34Jr
+	 Qo/FRQwG6/s7aV73KuFko4ylFmnN6SFIKHiBcsRm4nyK8wpoU9rELQSwSMRGKMaIBs
+	 nk28gICLSo81mQIKn1E+vedwT9+cMS0i5S9hR37E=
+Subject: FAILED: patch "[PATCH] net/sched: reject overly deep qdisc hierarchies" failed to apply to 5.15-stable tree
+To: milkory@outlook.com,enjou1224z@gmail.com,jhs@mojatatu.com,pabeni@redhat.com,vega@nebusec.ai,victor@mojatatu.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 13:29:35 +0200
-Message-ID: <2026081735-transpire-shining-9653@gregkh>
+Date: Mon, 17 Aug 2026 13:30:13 +0200
+Message-ID: <2026081713-crushed-deftly-56ac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1a35da325cac4d5bcad76a2aa943408a6f1d9000
+git cherry-pick -x dedd34b0f2310e28c5f6d4875cfbf4b7ed821c01
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081735-transpire-shining-9653@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081713-crushed-deftly-56ac@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,96 +62,72 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1a35da325cac4d5bcad76a2aa943408a6f1d9000 Mon Sep 17 00:00:00 2001
-From: Zihan Xi <zihanx@nebusec.ai>
-Date: Wed, 29 Jul 2026 09:16:53 +0000
-Subject: [PATCH] packet: synchronize pressure clearing with ring
- reconfiguration
+From dedd34b0f2310e28c5f6d4875cfbf4b7ed821c01 Mon Sep 17 00:00:00 2001
+From: Zijie Huang <milkory@outlook.com>
+Date: Sat, 1 Aug 2026 21:42:33 +0800
+Subject: [PATCH] net/sched: reject overly deep qdisc hierarchies
 
-packet_set_ring() updates the RX ring state under sk_receive_queue.lock,
-but used to publish the tpacket receive mode through po->prot_hook.func
-after releasing that lock. packet_poll() and packet_recvmsg() can then
-run the pressure clearing path after the ring has been cleared while
-still seeing tpacket_rcv, causing __packet_rcv_has_room() to dereference
-stale or NULL ring storage.
+Deep qdisc hierarchies can lead to excessive recursion in qdisc tree
+walkers and exhaust the kernel stack. The existing loop check does not
+cover the create-and-graft path, so a hierarchy can still be extended by
+creating a new child qdisc below an already deep parent.
 
-Move the existing receive hook assignment into the same
-sk_receive_queue.lock section as the ring state update. Keep the
-assignment otherwise unchanged, including on TX ring reconfiguration, to
-avoid adding behavior changes that are not required for the fix.
+Store the hierarchy depth in struct Qdisc and update it when qdiscs are
+grafted. Reject new child qdiscs once the parent is already at the maximum
+allowed depth.
 
-Serialize packet_recvmsg() pressure clearing with the same queue lock
-only after PACKET_SOCK_PRESSURE has been observed. If the flag is clear
-and the socket has moved away from tpacket_rcv, packet_set_ring() has
-already detached the socket and waited for synchronize_net(), so no new
-packet input can set the flag again.
-
-packet_poll() already holds sk_receive_queue.lock, so it uses the new
-unlocked helper directly.
-
-Fixes: 2ccdbaa6d55b ("packet: rollover lock contention avoidance")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
+Suggested-by: Jamal Hadi Salim <jhs@mojatatu.com>
 Reported-by: Vega <vega@nebusec.ai>
 Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Link: https://patch.msgid.link/f90b5688311fa278d1361ea8c6be0bf25967d591.1785247446.git.zihanx@nebusec.ai
+Signed-off-by: Zijie Huang <milkory@outlook.com>
+Signed-off-by: Ren Wei <enjou1224z@gmail.com>
+Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+Link: https://patch.msgid.link/1e9ab39597423fd5d13cfaaf52279b8ee3d9fc3c.1785434373.git.milkory@outlook.com
+Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 5ae0511e89e3..0e1355be89f6 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -1315,13 +1315,25 @@ static int packet_rcv_has_room(struct packet_sock *po, struct sk_buff *skb)
- 	return ret;
- }
+diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
+index 45a1e8c78222..cbc248776511 100644
+--- a/include/net/sch_generic.h
++++ b/include/net/sch_generic.h
+@@ -99,6 +99,7 @@ struct Qdisc {
+ 	struct hlist_node       hash;
+ 	u32			handle;
+ 	u32			parent;
++	int			depth;
  
--static void packet_rcv_try_clear_pressure(struct packet_sock *po)
-+static void __packet_rcv_try_clear_pressure(struct packet_sock *po)
- {
- 	if (packet_sock_flag(po, PACKET_SOCK_PRESSURE) &&
- 	    __packet_rcv_has_room(po, NULL) == ROOM_NORMAL)
- 		packet_sock_flag_set(po, PACKET_SOCK_PRESSURE, false);
- }
+ 	struct netdev_queue	*dev_queue;
  
-+static void packet_rcv_try_clear_pressure(struct packet_sock *po)
-+{
-+	struct sock *sk = &po->sk;
+diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
+index 668bcd60d183..65b35528d125 100644
+--- a/net/sched/sch_api.c
++++ b/net/sched/sch_api.c
+@@ -1114,6 +1114,9 @@ static int qdisc_graft(struct net_device *dev, struct Qdisc *parent,
+ 		unsigned int i, num_q, ingress;
+ 		struct netdev_queue *dev_queue;
+ 
++		if (new)
++			new->depth = 0;
 +
-+	if (!packet_sock_flag(po, PACKET_SOCK_PRESSURE))
-+		return;
-+
-+	spin_lock_bh(&sk->sk_receive_queue.lock);
-+	__packet_rcv_try_clear_pressure(po);
-+	spin_unlock_bh(&sk->sk_receive_queue.lock);
-+}
-+
- static void packet_sock_destruct(struct sock *sk)
- {
- 	skb_queue_purge(&sk->sk_error_queue);
-@@ -4305,7 +4317,7 @@ static __poll_t packet_poll(struct file *file, struct socket *sock,
- 			TP_STATUS_KERNEL))
- 			mask |= EPOLLIN | EPOLLRDNORM;
+ 		ingress = 0;
+ 		num_q = dev->num_tx_queues;
+ 		if ((q && q->flags & TCQ_F_INGRESS) ||
+@@ -1211,9 +1214,15 @@ static int qdisc_graft(struct net_device *dev, struct Qdisc *parent,
+ 			NL_SET_ERR_MSG(extack, "STAB not supported on a non root");
+ 			return -EINVAL;
+ 		}
++		if (new && parent->depth >= 7) {
++			NL_SET_ERR_MSG(extack, "Qdisc hierarchy is too deep");
++			return -E2BIG;
++		}
+ 		err = cops->graft(parent, cl, new, &old, extack);
+ 		if (err)
+ 			return err;
++		if (new)
++			new->depth = parent->depth + 1;
+ 		notify_and_destroy(net, skb, n, classid, old, new, extack);
  	}
--	packet_rcv_try_clear_pressure(po);
-+	__packet_rcv_try_clear_pressure(po);
- 	spin_unlock_bh(&sk->sk_receive_queue.lock);
- 	spin_lock_bh(&sk->sk_write_queue.lock);
- 	if (po->tx_ring.pg_vec) {
-@@ -4545,14 +4557,14 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 		rb->frame_max = (req->tp_frame_nr - 1);
- 		rb->head = 0;
- 		rb->frame_size = req->tp_frame_size;
-+		po->prot_hook.func = (po->rx_ring.pg_vec) ?
-+						tpacket_rcv : packet_rcv;
- 		spin_unlock_bh(&rb_queue->lock);
- 
- 		swap(rb->pg_vec_order, order);
- 		swap(rb->pg_vec_len, req->tp_block_nr);
- 
- 		rb->pg_vec_pages = req->tp_block_size/PAGE_SIZE;
--		po->prot_hook.func = (po->rx_ring.pg_vec) ?
--						tpacket_rcv : packet_rcv;
- 		skb_queue_purge(rb_queue);
- 		if (atomic_long_read(&po->mapped))
- 			pr_err("packet_mmap: vma is busy: %ld\n",
+ 	return 0;
 
