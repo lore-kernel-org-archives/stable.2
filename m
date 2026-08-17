@@ -1,122 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491CF235045;
-	Mon, 17 Aug 2026 21:41:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB2426ED4F
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 21:49:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787002908; cv=none; b=lDHBlvonPRchqEogrzjvNT86VmxiHw57GVRsbmHKQTyCoi6ZE3ZRWLL2XvwdELmmu+oQhe0usXqAwYKEURzoGa4kWm95pYtMtYwgnqANjr3HilWWQM31HXp2Y2As/5gYZeXiXkkj9rG6ZvRsJhZwT14tlIKNpwo5tcYaw2XH3Y4=
+	t=1787003393; cv=none; b=eWM1OvmzeD91hQwpR2yILswSG0jIOrUV8WP7ludMiV5dpEAhCagfFTupBgfCgwgNPNgCHSgn3YlqiTu2XGI/Z0R7KDQk+GWACZwtBLdHzmdPHAgdAJZ4bYAIjbsNUxCvTrgQUYVQvf3Zw1hnAKxLb3IF180mN5ZZJfiXBJOGGSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787002908; c=relaxed/simple;
-	bh=4WmHemqiGzwEr1P1GxIM9j8ebaIyfeQllPWsWFoDuzM=;
-	h=Date:To:From:Subject:Message-Id; b=j5JKBQmLhwxAJqJelDH7SpPa0W/vgpf31hcSzVhTj5HHvEigfui0eMRfpbvY4wAMcHvZ4uaASTfYF7skfqLx5vvloP11pxgXEgzQojSPnaEnco/SzzJL78PeMzICOV0FnU7LVXbnMkjJxePiK752aei8i7M9WB9sQoyDHT597YU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wOXU9p2K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787003393; c=relaxed/simple;
+	bh=ec6qc1oDKNxMJv5NHulpSlaSCNolwso75xXsCcOXOWc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KprB4kIomL6iqyJ0kPPohppSEvkqOhHpl6rodCfGTsk25X8ns+yze8CWMS0kIL5///je6aPlzE/pW8GDH7sBupBujPVAkGD+Twy9aOS+7ck3DeljH4Lggb2Qou5hynCYOEGUFCjmUNT5Ubg+P4u7/e7IyQUwDHXzHT3bJv9zY1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=gaIsQyxY; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wOXU9p2K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20191F000E9;
-	Mon, 17 Aug 2026 21:41:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="gaIsQyxY"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso50089195e9.1
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 14:49:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787002906;
-	bh=ilJFcXuONEQu0+B/j2F5OhA+v+1LDqzZjl8KkJQ9AWo=;
-	h=Date:To:From:Subject;
-	b=wOXU9p2KWkYpMm+KoAe0RN/bztE6aqx9KSEkNl1kK4aL/UXJbErrM0Ol5UXb/I/lT
-	 MukG8KRB34zYwzMRZYKehyAvmYraXW2ddcy0R1odzkHLpBvc7an8AoRhljHu9o4dV+
-	 eSwuDsJmO7Ld7uv/E0B8jZOv3IplWdkeVCeDjjKM=
-Date: Mon, 17 Aug 2026 14:41:46 -0700
-To: mm-commits@vger.kernel.org,tujinjiang@huawei.com,stable@vger.kernel.org,osalvador@suse.de,muchun.song@linux.dev,david@kernel.org,xialonglong@kylinos.cn,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260817214146.C20191F000E9@smtp.kernel.org>
+        d=googlemail.com; s=20251104; t=1787003390; x=1787608190; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/VweXn4ZwGBq5JiHyqSLqQhPbx5NBCMv1RpSwymi+p0=;
+        b=gaIsQyxYD0/6IRTe1hJmLJTg5QF7smtNR2FGS8ipREPC7MllFAukuTKbRlMTdjrhcq
+         P8xZiTq0KA6EZOiLrWe419NCUXCsyvL3gRkEo/IQX8RteJs/ovxKuTqchv/BJV3h32Ar
+         Mepsfe8re/+TqoKNEafvbkVyY0WNLKGkvinglHPQQJmwY7gllZnPgUw3CU46d3frdi/S
+         txC9ZCxxRkJDHGq5mAnPFUPYleFhroxM+1xO26vhRUPeUGRbFq3cDn9yDpD5ip7t/rPn
+         s0t3ktc32Y+gorjuP9Ml35j+JTaeYheUcVoqTsanHSIuOV+OVbMCf1HumoftZAjbZ3+h
+         Rzlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787003390; x=1787608190;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/VweXn4ZwGBq5JiHyqSLqQhPbx5NBCMv1RpSwymi+p0=;
+        b=blFuy6IY3ytZOUcGvWMSNug8fAC59hVzyDLyITx31I8XNLHvObFdGeLEvYU3ChhzQ7
+         aesnbtIQIcbbuOTBXnJmF1Naww6NlhR94eaXZOtccMYLjm+XMrRXxCKd+ilZLRlr7LTj
+         Vuk5cTyb/Nry52u/4XVrTh1yfOtDkAThia0ktfp55eaOExe7LQaHmgRXQusxhqEAoG93
+         ksbYc0ZE8Qio/pt30oOBLFDlB/JKiqSkRnMLQxvpPkFtjYKi964efvryaORm6H8pU48n
+         fkAL3l1hAEBTedHdhLuJ3Xk7R3d/BNT7EldQidLwlrKQ6qMoT7Q7nQVgVnFQ4jb2KxJG
+         Fyow==
+X-Forwarded-Encrypted: i=1; AHgh+Rp2Hnt5BDM3+mnr0AbNxk+Di4jFs8HlZ08gySvjiHNLKDectAjfoGsCzvuCnG2BF56uavyqnF8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YztfxJOiEwO+wtt40X7tDcwe0vZl1V6evyIwdJypmJiVvOhIKJq
+	rjQqUI9NN+qKPfw/CsCQUgAzhSXEOMJG2/897lzt3W1gwlne4svXMsY=
+X-Gm-Gg: AR+sD1312D9jZkZTYS8/3Wx9NXfdVwl3+2Yd/2swYe+4vtqZ3AhOw28UnJErPtkCKHk
+	seW4XblqtR288601fVA+D/T9o0P5Gqm+pkNRDyF2QRG9aswJ2RFOOoLxC05Pw+SMEtnrLqPGWd3
+	bwuXCbSTdohvlZLGzTRzfosqJgmPD+MT0vNh74Ip79meIb8mOzkVOGOhAOvRZjU1NW9KQd3XNRS
+	bhC8ZF4JfP1iDOk87rrh16W5CgUvgMXL710z331H/TeNJp/hsWJq51Dx7cUm0+C26OGvH88N4lh
+	ywfZ1jUbX2/UZtgElhJvm/G/CH9owlCpM0Ylt6cPTqUu2DdLGtIiZq5OMPBpks9/jmLdXyPz8Sc
+	nzjoEbiThJQtHanLbeY9qllbGtgQugf1k6b6vIiQYG7AK1RPFUpb459oLbNDTil+hJUZLXmugoV
+	IveP5f3OX+E7DJ71vTUWCEIkL4jSUX3wFjCBckxIBKih/3PRewG2NO6IbMqwsa1eZQ/+yv0l6Hq
+	XWFxxqowcP7MFFkeGXptML7EbxRmUSIaS5YqP/o
+X-Received: by 2002:a05:600c:5253:b0:499:9eb8:a1d7 with SMTP id 5b1f17b1804b1-4999eb8b71emr72583625e9.9.1787003389675;
+        Mon, 17 Aug 2026 14:49:49 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2b466b.dip0.t-ipconnect.de. [91.43.70.107])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4999d061637sm67513855e9.1.2026.08.17.14.49.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 17 Aug 2026 14:49:49 -0700 (PDT)
+Message-ID: <3cb36c81-cc96-4a6a-902b-009349adc7c2@googlemail.com>
+Date: Mon, 17 Aug 2026 23:49:48 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.1 000/271] 7.1.9-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260817132536.752504388@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 17.08.2026 um 15:28 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.1.9 release.
+> There are 271 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
+
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
 
-The patch titled
-     Subject: mm/hugetlb: keep max_huge_pages when dissolving surplus folios
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios.patch
+Beste Grüße,
+Peter Schneider
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios.patch
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Longlong Xia <xialonglong@kylinos.cn>
-Subject: mm/hugetlb: keep max_huge_pages when dissolving surplus folios
-Date: Fri, 14 Aug 2026 16:30:27 +0800
-
-dissolve_free_hugetlb_folio() can remove a free folio as surplus when its
-node has surplus pages.  In that case remove_hugetlb_folio() decrements
-both nr_huge_pages and surplus_huge_pages, leaving the persistent pool
-size unchanged.
-
-Updating max_huge_pages as if a persistent folio had been removed can
-therefore corrupt the persistent pool target and underflow it when
-max_huge_pages is zero.  Keep max_huge_pages unchanged for surplus folios,
-including the vmemmap restoration rollback path.
-
-Link: https://lore.kernel.org/20260814083027.1419487-1-xialonglong2025@163.com
-Fixes: cb402bbdabca ("mm/hugetlb: fix surplus pages in dissolve_free_huge_page()")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jinjiang Tu <tujinjiang@huawei.com>
-Cc: Longlong Xia <xialonglong@kylinos.cn>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/hugetlb.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
---- a/mm/hugetlb.c~mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios
-+++ a/mm/hugetlb.c
-@@ -2002,7 +2002,8 @@ retry:
- 		if (h->surplus_huge_pages_node[folio_nid(folio)])
- 			adjust_surplus = true;
- 		remove_hugetlb_folio(h, folio, adjust_surplus);
--		h->max_huge_pages--;
-+		if (!adjust_surplus)
-+			h->max_huge_pages--;
- 		spin_unlock_irq(&hugetlb_lock);
- 
- 		/*
-@@ -2022,7 +2023,8 @@ retry:
- 			if (rc) {
- 				spin_lock_irq(&hugetlb_lock);
- 				add_hugetlb_folio(h, folio, adjust_surplus);
--				h->max_huge_pages++;
-+				if (!adjust_surplus)
-+					h->max_huge_pages++;
- 				goto out;
- 			}
- 		} else {
-_
-
-Patches currently in -mm which might be from xialonglong@kylinos.cn are
-
-mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios.patch
-mm-ksm-avoid-missing-ksmd-wakeups-in-ksm_enter.patch
-zram-fix-out-of-bounds-access-in-writeback_store.patch
-zram-fix-out-of-bounds-access-in-read_block_state.patch
-zsmalloc-account-for-handle-size-in-class-lookup.patch
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
