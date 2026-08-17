@@ -1,113 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92EEA421220;
-	Mon, 17 Aug 2026 15:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2635944236B
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 15:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786980565; cv=none; b=DZsPyHy4bGlS5g+tH0rWPk7ZEbNhN2DmJAz0CcWbR6031Kiw7AowmbHg8cIRJ4lZeB8sLTsCN+8MW5/chevUGXYhI6gqEIsMiWKMH5PIqaJQamcia2aRC3ue92sGV7jzKretXs5cgi45nbpsC+mF3TlOR6GtPVz/14QnlrC0d9g=
+	t=1786981134; cv=none; b=b7CHmR5fS1eJlLlT9eXUV6BoJunshPigfq9M3wDchbVOuf9D1ukts6ETj+J1WExeY1sbzT/igk8uT+joRsgdhle4mwkn9vSY8VWRqXBeM2ckfGQOTPXAU5Yl4S50j2GFVZwRVjHvSpdr8wp/JiPhL2iBb5B1kOoPy8GoxqKUNHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786980565; c=relaxed/simple;
-	bh=r43UqAmh4UWafSUhX0WIbNKkrd/Q8lVD7Qgt3+BKozI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s2D8d4zlDfHFY3nFbe3/wwBwtC9bO5GNRiN0D0nZbGaO+ZIJPD3zNf83q0G5zjWwmZzitL88sbeZUQnSEUYJDVoezsQWmBEcfPx/yjUof+hd8kOkRnfcesQgz+76s5K4OxX39O+LHRh12xe3S0FTmV20pksXuNew+NGvSZkm66g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PV+IUpVP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786981134; c=relaxed/simple;
+	bh=oBrnpScWWBrQJQdo/rLjHvow2EdW7eY5TmIXqt2jKak=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h83DZc5VQ0R7UpjlnYMlmS+E1R9lvwQ7G13craDM2x9nHxDIWV+D4FlrKOm60J3H/JbIDztdPWNWjffph/ziND8O3byiaroruJWUo0JYqnjHxC1pIFLolCPANAxG8DkpOft6DUPYfGB+55Is3kGFpn157cto6OuU8m2OxQDebtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhZQaeRE; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PV+IUpVP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAE931F000E9;
-	Mon, 17 Aug 2026 15:29:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786980564;
-	bh=GsHdtbYzFzQfzWY/hNxBlEwC0GOT4MMkGpSZP6sSErQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PV+IUpVPSEkrgp0wZrqmCCpqfgGY/e0OauyGP6c1nEHVK82CNdTbOQjBYaKD+aYAc
-	 spSbdTyrWJi2RIgLV+7nATerSC5rs0AzFF2jaOeutUYHSdtHFv/nYUpc3Fwby/yQEz
-	 X/5fVBPmrJhrOYYJMq/B1y/f4wl3z+datjJM+i4I=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	stable <stable@kernel.org>,
-	Cunhao Lu <1579567540@qq.com>
-Subject: [PATCH 6.1 569/609] serial: 8250_dma: Clear stale RX state on shutdown
-Date: Mon, 17 Aug 2026 15:34:25 +0200
-Message-ID: <20260817132602.760771663@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
-References: <20260817132543.039278408@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhZQaeRE"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d590f4c291so2021375ad.0
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 08:38:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786981132; x=1787585932; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6ttFNIm5J59uLE19rktxqz0bELz7EGhv91DNjHXA4KA=;
+        b=NhZQaeREbChotUbiwxnXBRAKdqpmpACrZlXT/8JPyHSU+sew1AZzbLqVwtwDXHejUJ
+         41kgKQvpWQMlYc7kCg03LStHBAZWSCk3DfDqU0fTnxByCrMXenqxIHQEdZRUBBzdVf2r
+         ER8nYxKbdPO9jP8vhM4j55IE+jw3PLK3Iid46X7Dad2nEHDjI7wNx3gt4OfAA+8kwdIX
+         IJSKqfGszlI3Uk2xnf5rjzw0LXAUBjT6sALDsj2KEuKQ5ckkxu4KtOon4cqiDKhL2acv
+         FiVOOjk9KS67vuhBiMUlvbCxBR2s+5Pz63p32WoXZcXhe0vHWyYHoTVHRAVXjYZvrU1g
+         BaXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786981132; x=1787585932;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6ttFNIm5J59uLE19rktxqz0bELz7EGhv91DNjHXA4KA=;
+        b=sWgOHn7tTbY6S6ldyD/TEcmQYm3tIH+SQbwpmt1Lx7kmntmx821waK0kr4lsYak4Nj
+         AyESWEwW2HE3N0cmdHdHYucdS/SZJD9L9wMiGez/wLyHQgiFHkzL0O9787mK7FE1qi5L
+         HKE+/1h47LqYFMtDZQUmWk+boTDNMzwg/ZLSoffIjEbngHidWtUdGIXOHKyfZuKY/QYz
+         5r0Zhq8g5Kb/tdCFBqxhQqI74XPVhKCddRMOuZ2/JgFBfWK+KobcKbThZORdtA9EXCpY
+         dci6PXkt63LdUPSYwqfdtbBC6lPX+PEUZZRJ1pgqhAAr2RVIbI7OlQRPVNSZrnvfeqK/
+         MUVg==
+X-Forwarded-Encrypted: i=1; AHgh+RqO0gBZ+z0Kd1iAAekFz8YgIVM1R5TGGvVeRalgd1b5il86omS44AesPb6udWWuwoN9TEzoGDQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwjCOCWdxx0zKUBkqx/LDhO8eihUhT6U3NDcAloNKTCdXpbYGTd
+	V/fxgEvN1OKF8wj3w97EFpj98GdHq79mTHg6k/aGugFLtdtM2zIAzE0x
+X-Gm-Gg: AR+sD11Q76Nh0T9M55EElDh0wrP66WdHdmn4IETJIZ9/6R6NW7tE29pF4/l8cvvggdz
+	lbCKgcJoeKML7fhiSSPkgV/Ws6M73hWx44b7S4Cd1RrNpPwheAOMef9h/Oi1jFc+TBo/2ruVzgM
+	SYckJ2T3Ay8oagnDoH/llVzQeSzZUKi82PoCFBEJKS8nTOjIKOAYTxvdmHe3Szp5yCSuS5kLI17
+	bQO6xcI31ei3U1/SBMTr0z2hABDp32AbqUuTbA/Oia4i0cm7LWsGIPi0a+XMmEgPXxrusFzoa2h
+	QtVA34efQJQV0VMIivIkKdm+giCOcjYaFOShoXn8BKk6XShwObgHiLxwq3HOYR/kHZwcIE6FfwD
+	5/Ga6dRLvilzuIy3+OxRAHzAJYtHLaGUlLn76MywzVKWGG9Iz9ob2+OW9xiIUBnmrqJ/OqE4aOt
+	YeRyQVXitwYK6mYdDxsQ7jZjq4DuC98VFyaquuizj8CM7XCuQ5GXl5vlUPay5mmW0PUcXsjgRu6
+	YoTiLX6/YKd
+X-Received: by 2002:a17:902:e54c:b0:2c9:ed4a:c3a4 with SMTP id d9443c01a7336-2d3b0503575mr184872235ad.0.1786981132291;
+        Mon, 17 Aug 2026 08:38:52 -0700 (PDT)
+Received: from ?IPV6:::? ([20.24.212.12])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5c1e54330sm5304955ad.44.2026.08.17.08.38.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 17 Aug 2026 08:38:51 -0700 (PDT)
+Message-ID: <6933d09a-4dc1-43f8-a1c5-bc3db2f6ffb7@gmail.com>
+Date: Mon, 17 Aug 2026 23:38:41 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] net: hsr: fix packet drops caused by GRO superpackets
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
+ shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
+ qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
+ bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
+ liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com
+References: <20260809121455.1745-1-xiexinet@gmail.com>
+ <20260809121455.1745-2-xiexinet@gmail.com>
+ <20260813182111.088aee3d@kernel.org>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ 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
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <20260813182111.088aee3d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On 14/08/2026 09:21, Jakub Kicinski wrote:
+> 1) could you explain in more detail why GRO is breaking things?
+> GRO shouldn't merge packets with different L2/L2.5 and packets
+> with trailers?
+> 
+> 2) the code seems inspired by LRO but LRO also has
+> NETIF_F_UPPER_DISABLES. This change looks rather incomplete.
+> Calling it "best effort" seems like an excuse.
+> 
+> 3) Clashiko has a number of other comments:
+> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260809121455.1745-1-xiexinet@gmail.com
 
-------------------
+I am currently on annual leave until the middle of September. I will continue this topic when I return.
 
-From: Cunhao Lu <1579567540@qq.com>
-
-commit e2fe6a0efecbef00e3ecc2db64dd5afa8c212b41 upstream.
-
-serial8250_release_dma() terminates RX DMA and releases the channel, but
-leaves rx_running set.  If the port is closed while an RX transfer is
-active, the stale state remains while rxchan is NULL until the channel is
-requested again on the next open.
-
-The DesignWare BUSY workaround added by commit a7b9ce39fbe4
-("serial: 8250_dw: Ensure BUSY is deasserted") calls
-serial8250_rx_dma_flush() from the LCR write path during startup.  This
-happens before serial8250_request_dma() obtains a new RX channel.  On
-reopen, the stale rx_running state therefore makes the flush path pass a
-NULL channel to dmaengine_pause(), causing a kernel Oops.
-
-Clear rx_running after terminating RX DMA, matching the TX cleanup.  Also
-make the flush helper return if the DMA object or RX channel is not
-available so startup and teardown paths cannot pass a NULL channel to the
-DMAengine API.
-
-Fixes: 0fcb7901f9d6 ("tty: serial: 8250_dma: keep own book keeping about RX transfers")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
-Link: https://patch.msgid.link/tencent_9EE2945F4C933B4D810C73C2D7485E000F06@qq.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/tty/serial/8250/8250_dma.c |   12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
-
---- a/drivers/tty/serial/8250/8250_dma.c
-+++ b/drivers/tty/serial/8250/8250_dma.c
-@@ -195,11 +195,12 @@ void serial8250_rx_dma_flush(struct uart
- {
- 	struct uart_8250_dma *dma = p->dma;
- 
--	if (dma->rx_running) {
--		dmaengine_pause(dma->rxchan);
--		__dma_rx_complete(p);
--		dmaengine_terminate_async(dma->rxchan);
--	}
-+	if (!dma || !dma->rxchan || !dma->rx_running)
-+		return;
-+
-+	dmaengine_pause(dma->rxchan);
-+	__dma_rx_complete(p);
-+	dmaengine_terminate_async(dma->rxchan);
- }
- EXPORT_SYMBOL_GPL(serial8250_rx_dma_flush);
- 
-@@ -308,6 +309,7 @@ void serial8250_release_dma(struct uart_
- 
- 	/* Release RX resources */
- 	dmaengine_terminate_sync(dma->rxchan);
-+	dma->rx_running = 0;
- 	dma_free_coherent(dma->rxchan->device->dev, dma->rx_size, dma->rx_buf,
- 			  dma->rx_addr);
- 	dma_release_channel(dma->rxchan);
-
-
+-- 
+Xin
