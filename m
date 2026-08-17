@@ -1,40 +1,48 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEE3248F64;
-	Mon, 17 Aug 2026 12:07:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373D940BCA0;
+	Mon, 17 Aug 2026 12:10:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786968458; cv=none; b=ryDwkogkO/PlBrTljwmSWFIV+TVZoO0rRNneVM2hW1b56ESDsSBOfi2Znz9HrEWkbtA0dc44BvNQml1iwxIrz/f0qF79fJ0lSOpuclGI24joTjzjkd9qgu8/YCZIC5y5NpjpPE4iOrUk+oG1KEdfvyIMSOKifNYyBAowtEbcbx8=
+	t=1786968626; cv=none; b=N02okCfNQLcrgy/Nx6PiaUBa1SiVwLWefO3hVPfxyE9n0B6MjMKshG5W/FHptnQMvsb4dQsc815lw6dEIp/I1WbOOQ8YyYxTRBfrq5WNY1Dp6hBFBqxALNcn0AIHzB1VVIwjCVS6gNRhzVcnqKULnWv0QfQCGYztx0gS+fafPes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786968458; c=relaxed/simple;
-	bh=b3/cuiGaJ2CXMTSctVZ96ZEy//G1nKhQiqF1rdPk//I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q6xkS2Xy2VWLTanABrjhfQPLovDxq143WWdUJQyq9MsAmAvKmKUumV3Fn0C3kQ19XAyrz4tBZ6Uiwn/iNgh9Ar6Uc0hsBmKlCDd7o41l+QqNqD+ctHrLwN5rIr21HSiPFghcXAC0q2xKchIuaHfFIeNeHBITAQWPFbOh60J52zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LaP5Fmay; arc=none smtp.client-ip=220.197.31.4
+	s=arc-20240116; t=1786968626; c=relaxed/simple;
+	bh=hbU7wg8u1lZULIvKNQZIkpjS01V7MhDXJfMjuyzDN7I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=od9T9VXmDnQUjuXILUfVDAcOc4DgTXgfdoIgXEXF8pTsALQZbyNYq3540lb9REFtUGtzASVJr0PeUDdeOJ8ceorJzyppCYZPPhcpdVMKXsZOlcMaz3UvmkfNltJn8/1X1sIjtjoq5uNNnu4pKPvmF0HMDH2INE05zv/vp6ODyTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JX5FVsx+; arc=none smtp.client-ip=117.135.210.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LaP5Fmay"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JX5FVsx+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ZW
-	8PjdOEfVzLQrehGNbuwtUBqbcnqy3HE9qsNFjcoLQ=; b=LaP5Fmaygijq05exIC
-	0ZVOpBoyBXkTYV8TEnq0fanSnE3wfZh/CyCZt/kHE27g56PoaI3t9IOfEwSHZA+b
-	TahV5k5EW2ddwCZ91V/LIv+DtS4kZ0dU49cpwlZF6E32CJDIfCk4iEYl9nz416Zp
-	fJTFhZvX/JFq23ZwngzKecDLk=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=7h
+	H8SEbWRyKCE3jQdtxktQ3xXVtwKBmUFnlCGecuPeI=; b=JX5FVsx+KFnEfak8/X
+	LTICC4Ckg3PQDGC2luU/oyyijeiMi+tPSbzsx16V2WJI9MZk/wHgMG4oOpF6rfw2
+	kDb2OE9LdR5W9WCDjz/zwAVZRfPzbBxgKrFSUhuTaQ0a6lXhWd+aKC1WMzYfIGHK
+	1y1Qbx10ny+TA/dUETDDa3VbM=
 Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDXH+5o+YJqUzs_Pw--.29641S2;
-	Mon, 17 Aug 2026 20:07:05 +0800 (CST)
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wCXL4Ty+YJq0YOTPw--.30266S2;
+	Mon, 17 Aug 2026 20:09:24 +0800 (CST)
 From: Hui Su <sh_def@163.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com
-Cc: linux-trace-kernel@vger.kernel.org,
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	balbirs@nvidia.com
+Cc: ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hui Su <sh_def@163.com>
-Subject: [PATCH v2] tracing: Fix crash passing ERR_PTR to kthread_stop()
-Date: Mon, 17 Aug 2026 20:06:44 +0800
-Message-ID: <20260817120642.668375-3-sh_def@163.com>
+Subject: [PATCH v2] mm/migrate_device: avoid out-of-bounds writes for compound folios
+Date: Mon, 17 Aug 2026 20:08:00 +0800
+Message-ID: <20260817120758.669807-3-sh_def@163.com>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -43,51 +51,86 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXH+5o+YJqUzs_Pw--.29641S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uw4kGr1rtw1kCw45Gw1kAFb_yoW8Wryxpa
-	yFkr13Kr4jyan29a9rW3WkCw1Uta48Za4UGr95Gw1fAw1Ygw45XrWjgFyj9rnYkrWkW34a
-	v3Z0yrZ2k3ykXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRsID5UUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QzUNGqC+WzpHwAA3O
+X-CM-TRANSID:_____wCXL4Ty+YJq0YOTPw--.30266S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXw4xCF4rKry3KFWDuFW5Awb_yoW5GrWfpr
+	4Fg3WDJrWDG347Kw13u3WxZr1293s8Xa1fKas7GwnakFZ8JF95ua4IqwnxtFs0y397AFyx
+	Zay2qFyxZ3WUXaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piJUUUUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6RT2VmqC+fTynAAA3W
 
-event_test_stuff() calls kthread_run() and unconditionally passes the
-returned task_struct pointer to kthread_stop(). kthread_run() returns an
-error pointer such as ERR_PTR(-ENOMEM) when kthread creation fails, for
-example under memory pressure during the boot-time event self-test.
-kthread_stop() then dereferences the invalid pointer, crashing the kernel.
+migrate_device_range() and migrate_device_pfns() clear the entries
+following a compound folio so that the PFN arrays retain their
+page-granular representation.
 
-Check the result of kthread_run() before passing it to kthread_stop(). Use
-WARN_ON() so that a failure to create the self-test thread does not go
-unnoticed, matching the ring-buffer self-test fix in commit
-91542863abad ("ring-buffer: Fix crash passing ERR_PTR to kthread_stop()").
+If a compound folio extends beyond the end of the caller-provided range,
+the loops clear all following folio entries without limiting them to the
+number of slots remaining in the npages-sized array, causing an
+out-of-bounds write.
 
-Fixes: e6187007d6c3 ("tracing/events: add startup tests for events")
+Do not proceed with a compound folio if its page-granular representation
+does not fit entirely in the remaining PFN array. If this happens, drop
+any reference and lock acquired for the folio, clear the remaining
+entries, and stop collecting.
+
+Observed with a KASAN x86 QEMU kernel using the HMM
+migrate_anon_huge_zero selftest. Closing /dev/hmm_dmirror0 after
+migrating an anonymous huge page to device memory exercises:
+
+  dmirror_fops_release()
+    -> dmirror_device_evict_chunk()
+      -> migrate_device_range()
+
+Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hui Su <sh_def@163.com>
 ---
-
 Changes in v2:
-- Use WARN_ON(IS_ERR(test_thread)) so thread creation failures are not
-  silently ignored, as suggested by Steven Rostedt.
+- Do not partially represent a compound folio when it does not fit in
+  the remaining PFN array.
+- Drop any reference and lock acquired for that folio, clear the
+  remaining entries, and stop collecting, as suggested by Balbir Singh.
 
-v1: https://lore.kernel.org/r/20260815190151.568893-4-sh_def@163.com/
+v1: https://lore.kernel.org/lkml/20260817074350.442493-2-sh_def@163.com/
 
- kernel/trace/trace_events.c | 2 ++
- 1 file changed, 2 insertions(+)
+ mm/migrate_device.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
-index 3650d84d4f16..28167b229419 100644
---- a/kernel/trace/trace_events.c
-+++ b/kernel/trace/trace_events.c
-@@ -4901,6 +4901,8 @@ static __init void event_test_stuff(void)
- 	struct task_struct *test_thread;
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 908d2d4ec43a..69b8d0660bab 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -1400,6 +1400,15 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
  
- 	test_thread = kthread_run(event_test_thread, NULL, "test-events");
-+	if (WARN_ON(IS_ERR(test_thread)))
-+		return;
- 	msleep(1);
- 	kthread_stop(test_thread);
- }
+ 		src_pfns[i] = migrate_device_pfn_lock(pfn);
+ 		nr = folio_nr_pages(folio);
++		if (nr > npages - i) {
++			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
++				folio_unlock(folio);
++				folio_put(folio);
++			}
++			memset(&src_pfns[i], 0,
++			       (npages - i) * sizeof(*src_pfns));
++			break;
++		}
+ 		if (nr > 1) {
+ 			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+ 			for (j = 1; j < nr; j++)
+@@ -1434,6 +1443,15 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+ 
+ 		src_pfns[i] = migrate_device_pfn_lock(src_pfns[i]);
+ 		nr = folio_nr_pages(folio);
++		if (nr > npages - i) {
++			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
++				folio_unlock(folio);
++				folio_put(folio);
++			}
++			memset(&src_pfns[i], 0,
++			       (npages - i) * sizeof(*src_pfns));
++			break;
++		}
+ 		if (nr > 1) {
+ 			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+ 			for (j = 1; j < nr; j++)
 -- 
 2.54.0
 
