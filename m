@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9C8435EC8;
-	Mon, 17 Aug 2026 15:24:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E100435EC8;
+	Mon, 17 Aug 2026 15:24:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786980286; cv=none; b=t65rG32dUzsWiSC9Ah/6lS288Ly/wR/p7G6bxcxx9L5WTL7IB20Qb6sz9abLWv47x1SJVZr5kDyreLui1SGx5e16k+qQIIM05QrNx6BZjV2abTNQ4jy47vVQE7W9rNw+jkmKCQ22U7BOC54Prmp3JyL54lGpYO6kax4eyU7a2g8=
+	t=1786980288; cv=none; b=AfW1YB5NZ+laYnlZ7YKjPi9UEAcb/5v2lPaXNBb4BUtQIn+3AGEGf/g4JGb5w7G5NfC1hdcNG3eywu+rwDtQKEFV16cYG5NLSmwDvpEbBGocOmKdltiomz0gegGeUblTdPvafpUSqAIdaUQgCqDIlyVdJeqTWzK+7K5er6Cu9ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786980286; c=relaxed/simple;
-	bh=RzGIH0hbj7jIjMdAzfowc3lzTzqKYM8IEuPZsyxiWho=;
+	s=arc-20240116; t=1786980288; c=relaxed/simple;
+	bh=dNcimHv0Z3LaZAFyeWiXLwH88Bh+R3lMKtSTFiy3j3U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P2NWNAUM7JAuOLSdNgvcJ6Nt2cg/Sxptp0L4G4NjTTs2OJYU+42NLCmFCmysV+8rtUKO2ei+x/2f31UhyG8ut9GyoI4I0kTo2s08ixCsDwTT3xm7sTIaxGzL0tIQsDf2JYtJ6eWMXqpJbdfFUZ851MbTkvJrN+HLxCRBLNLga+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uNWl/AvB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ge15cUYBOlZnf7m5bP1EZY15EtRepfo9CIPivUUFeM8TZvbbIvVRzZ+oqO6Qz0hMhfKPJnpiyvddskbHeZ7Hpy92SXXuUPrbrOHoTc2sJpBDW5M7DJztVaKcvrKVQhqF2VPU3MTM+ItsInYE77D9Cp/mx49srObNnBp/6n6bvD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5MqzcPF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uNWl/AvB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D96A11F000E9;
-	Mon, 17 Aug 2026 15:24:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786980285;
-	bh=VSxXSSiQJDcGY82MYv53HLDeu2KMHh4o0l0v32b6R9w=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5MqzcPF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59E1F1F00A3A;
+	Mon, 17 Aug 2026 15:24:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786980287;
+	bh=5AyCoTGV33G1LxEHnCfLrKk+yhp8RcBBAwKqrk6jpAU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uNWl/AvBWf5srEm3NCZRiuFvUN9C2TP45URjMO6effA/V/ptaYGojeuNXMR5PHQvt
-	 D8gd/Mmtnp9MZDKhWw1PFYQSgf6dcB1OMpLQu0nAmEM54URjXf8uHMGSuwEx9fMTjP
-	 J7Yt/RImt/WBTZHuJzpmDilDhG/QJDYdL9spxKzs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=J5MqzcPF01fkTW0OBZiS5eiLv1sSRTqrlO/MkHSvZ+knG8JGTGDLCvjJGGpcUEOqg
+	 DxJHU/5aomKCM1oe5q6HFPlMSV++0URmw/8c+0aNsq2Z8Kf0JbQat0P2YTFpvEpjIm
+	 +Ej51auh42chu3yPBEXZUF362LqC56WnW4WarG5a2JuD+cSna4qAoBCuV7bpdrIHAL
+	 xZCrl9dnHhfhUu8mSmhRY5Bq3RdVl9P2HQCuGxA/+TXtDEwl7LXXcUt4kROVH13Lk5
+	 kKQlX39Chb5xNv4DwOyAJtAeAMHOK2FOUyasyCeVVINlgbAIn0V6T40ce9ieie0DGH
+	 7ca4IcZKCIiMg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Keegan Freyhof <keegan.freyhof@broadcom.com>,
-	Michael Chan <michael.chan@broadcom.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 519/609] bnxt_en: Fix PTP PPS setting bug
-Date: Mon, 17 Aug 2026 15:33:35 +0200
-Message-ID: <20260817132601.197723718@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
-References: <20260817132543.039278408@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Sasha Levin <sashal@kernel.org>,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-sound@vger.kernel.org,
+	Michael Diesen <michael.diesen@posteo.de>
+Subject: Re: Please apply bed0c8084044 to 7.1.y and 6.18.y
+Date: Mon, 17 Aug 2026 11:24:39 -0400
+Message-ID: <20260817150000.1@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <1786957127.718071.28963@posteo.de>
+References: <1786957127.718071.28963@posteo.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,58 +46,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+> Could you queue bed0c8084044 ("ALSA: hda/realtek: Add quirk for HP
+> Dragonfly Folio G3 2-in-1 (103c:8a05)") for 6.18.y as well?
 
-------------------
+Queued for 6.18, thanks - sorry for the miss, the prerequisite went in
+ahead of it and this one never followed.
 
-From: Keegan Freyhof <keegan.freyhof@broadcom.com>
-
-[ Upstream commit 80eaf88efec33ac77ed7726d066c4f2f932cc329 ]
-
-The existing driver logic is always turning on PTP_CLK_REQ_PPS
-regardless of the "on" parameter passed to bnxt_ptp_enable().
-During shutdown, PTP_CLK_REQ_PPS may be turned off and this
-bug will do the opposite and may trigger a PCIe PTM request TLP.
-On some systems this can trigger a PCIe AER.
-
-Fix it by properly configuring PTP_CLK_REQ_PPS based on the "on"
-parameter.
-
-Fixes: 9e518f25802c ("bnxt_en: 1PPS functions to configure TSIO pins")
-Reviewed-by: Pavan Chebbi <pavan.chebbi@broadcom.com>
-Signed-off-by: Keegan Freyhof <keegan.freyhof@broadcom.com>
-Signed-off-by: Michael Chan <michael.chan@broadcom.com>
-Link: https://patch.msgid.link/20260731190937.807270-6-michael.chan@broadcom.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c
-index 1c888d6c3aee8..850e4c44044ac 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c
-@@ -460,12 +460,15 @@ static int bnxt_ptp_enable(struct ptp_clock_info *ptp_info,
- 		return rc;
- 	case PTP_CLK_REQ_PPS:
- 		/* Configure PHC PPS IN */
--		rc = bnxt_ptp_cfg_pin(bp, 0, BNXT_PPS_PIN_PPS_IN);
-+		pin_id = 0;
-+		if (!on)
-+			break;
-+		rc = bnxt_ptp_cfg_pin(bp, pin_id, BNXT_PPS_PIN_PPS_IN);
- 		if (rc)
- 			return rc;
- 		rc = bnxt_ptp_cfg_event(bp, BNXT_PPS_EVENT_INTERNAL);
- 		if (!rc)
--			ptp->pps_info.pins[0].event = BNXT_PPS_EVENT_INTERNAL;
-+			ptp->pps_info.pins[pin_id].event = BNXT_PPS_EVENT_INTERNAL;
- 		return rc;
- 	default:
- 		netdev_err(ptp->bp->dev, "Unrecognized PIN function\n");
 -- 
-2.53.0
-
-
-
+Thanks,
+Sasha
