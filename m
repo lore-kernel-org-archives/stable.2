@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A20E439F98;
-	Mon, 17 Aug 2026 13:40:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE1043D50C;
+	Mon, 17 Aug 2026 13:40:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974032; cv=none; b=O7XGW3rYtepfYm/nzZ1fWX3KSwD/ZweNriYaeIu3ViJrFyMIGAto6qguKl9XlA3ITCe5np97Q4WMBV2YUMG+L7FNOr1nhgBV5Xz4eGwQvrNiayhgLaMNtbmlarGUU+RCzKagyb/5MN7KOt+FZZCF+TUGiZt7xDs5rv6pwOezD7Y=
+	t=1786974036; cv=none; b=akQIao6GoBbTfR/peK2tc2iXsoXsN1tT5LddQX9C7szakvzgf/uvj8o6pAvR8NXnqmxG9IK8o9iFgPWB8bjatgx0wFOMQsR+sKEXGvAaiu5H7uWMYt78sJ6AWORWt22PU4MDAGKC9c3VXYrnLJtb38pV+N5g83FQWXNfmz2JuGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974032; c=relaxed/simple;
-	bh=uzn8iDerMGbeBFm6DRw5n4VKLZKa1ZF3rynp4rtej+U=;
+	s=arc-20240116; t=1786974036; c=relaxed/simple;
+	bh=k3um3xjFBGSmtfoyniVcss9TSjdfEGO2v7T98ZT3aQo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YlB3CTlNvH1iEQvYRWoKXBNc+V3LZT44LHJGg5YA6N12uCaV75k8dqill3bBMtWNk5Uqzw5jbwC7N1gVscJT1QxF5uQWSzNLQd7VhMUI3e0y0+4PubhXIGBj9Sxtb4n2MoZyI/XoqngnfF/FQgnF4nlqBTPFe5rsDWUmj2ZGouk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SEb3CzL+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mDHML8k8JXuUpw8FFOjRFZroA0hbhVCTr/Gn6b2ldTjNqwlbUzeuzkQxmNGEQHIkVrcnD9foVG0sjPZbDrSP+dj8XGLaQ/W8x4tgQo4L8waHqd+PrliqG5oWflBx7GIl1QZuY5V3rWnuR8xaHZJvlJ0L5QGasDeq9R7SdS65wI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N871OnCW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SEb3CzL+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EBB01F00A3A;
-	Mon, 17 Aug 2026 13:40:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N871OnCW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E16F41F00A3A;
+	Mon, 17 Aug 2026 13:40:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974028;
-	bh=LGc9BzqXUujZYpTe7SDHdLaVvGi/k5hY51PPSHsLz/c=;
+	s=korg; t=1786974034;
+	bh=jwPawwNC7hJD8CXJrXattx2nSnyqGMg2DfJP48KHhMY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SEb3CzL+RZRohIzxQUCGd02Qmx6oXbT+SPqaVV4EBHi0zchBsEeXmNRwNWkSsRpgF
-	 ymxbM7hTzKOPe7EyuGOuc/VGIORj2/du/O0aW9LsAJuazoEXpaLyUQwyfJAZQaaFC0
-	 IQB36FZWC0ehn/TxoVHzpNPmL74ZvcBJahzOc+Gw=
+	b=N871OnCWkeg6f/cAvi8qUHUnY6ncDG4RlSsjhIPtz0jQMLWCUP2WjH0StHvhuoZXY
+	 kjhHVhtp4wCUiH48dVnXakZeq+nZ/LRw6Of7lSPxEZMSI9yhdtEmRyZcGRgPcRgDCO
+	 hq/BpQWjqZGXDZMnaqFb8kM0NCZFtNL28p/ucVK8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Brian van den Berg <faxuser@proton.me>,
-	Rong Zhang <i@rong.moe>,
-	Takashi Iwai <tiwai@suse.de>,
+	Satish Kharat <satishkh@cisco.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 064/271] ALSA: usb-audio: Add QUIRK_FLAG_MIXER_GET_CUR_BROKEN for Logitech PRO X 2 LIGHTSPEED
-Date: Mon, 17 Aug 2026 15:29:49 +0200
-Message-ID: <20260817132539.375555340@linuxfoundation.org>
+Subject: [PATCH 7.1 039/271] enic: fix tx_hang_reset use-after-free on device removal
+Date: Mon, 17 Aug 2026 15:29:24 +0200
+Message-ID: <20260817132538.351618888@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
 References: <20260817132536.752504388@linuxfoundation.org>
@@ -52,51 +51,47 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Rong Zhang <i@rong.moe>
+From: Satish Kharat <satishkh@cisco.com>
 
-[ Upstream commit c973e61895db8fe4a69d8b33de92068d135cafd8 ]
+[ Upstream commit ec680ea4ba1bca92a767fb7e7869758bfdd886e3 ]
 
-The UAC mixer of the Logitech PRO X 2 LIGHTSPEED has broken mixer
-GET_CUR behavior but otherwise works fine.
+enic_remove() cancels the reset and change_mtu_work items but does not
+cancel tx_hang_reset. A TX timeout that fires while the device is being
+removed can schedule enic_tx_hang_reset() so that it runs after
+free_netdev(), resulting in a use-after-free.
 
-Add a quirk table entry matching VID/PID=0x046d/0x0af7 and apply the
-MIXER_GET_CUR_BROKEN quirk flag to make the mixer usable again.
+cancel_work_sync() alone is not sufficient here: the still-live watchdog
+and notify paths can re-schedule these work items in the window between
+the cancel and unregister_netdev(). Use disable_work_sync(), which
+cancels the work and blocks any subsequent schedule_work() from
+requeuing it, and apply it to the reset and change_mtu_work items as
+well so the same requeue race is closed for all teardown work.
 
-Quirky device sample (after applying the quirk flag):
-
-  usb 3-2.1: New USB device found, idVendor=046d, idProduct=0af7, bcdDevice= 1.00
-  usb 3-2.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
-  usb 3-2.1: Product: PRO X 2 LIGHTSPEED
-  usb 3-2.1: Manufacturer: Logitech
-  usb 3-2.1: SerialNumber: 0000000000000000
-  usb 3-2.1: 2:0: broken mixer GET_CUR (-18944/0/256 => -2662)
-  usb 3-2.1: 6:0: broken mixer GET_CUR (-18944/0/256 => 0)
-
-Fixes: 86aa1ea1f15c ("ALSA: usb-audio: Do not expose sticky mixers")
-Suggested-by: Brian van den Berg <faxuser@proton.me>
-Reported-by: Brian van den Berg <faxuser@proton.me>
-Link: https://lore.kernel.org/all/370007e6-b73b-4bfc-8410-a860781c7ad7@proton.me/
-Signed-off-by: Rong Zhang <i@rong.moe>
-Link: https://patch.msgid.link/20260731-uac-lg-pro-x-2-ls-v1-1-268eaefe66ab@rong.moe
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: 937317c7c109 ("enic: do hang reset only in case of tx timeout")
+Signed-off-by: Satish Kharat <satishkh@cisco.com>
+Link: https://patch.msgid.link/20260728062730.2394873-1-satishkh@cisco.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/cisco/enic/enic_main.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 688993bfa8fd1..e97038cf5271e 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2249,6 +2249,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 	DEVICE_FLG(0x046d, 0x0a8f, /* Logitech H390 headset */
- 		   QUIRK_FLAG_CTL_MSG_DELAY_1M |
- 		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
-+	DEVICE_FLG(0x046d, 0x0af7, /* Logitech PRO X 2 LIGHTSPEED */
-+		   QUIRK_FLAG_MIXER_GET_CUR_BROKEN),
- 	DEVICE_FLG(0x0499, 0x1506, /* Yamaha THR5 */
- 		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
- 	DEVICE_FLG(0x0499, 0x1509, /* Steinberg UR22 */
+diff --git a/drivers/net/ethernet/cisco/enic/enic_main.c b/drivers/net/ethernet/cisco/enic/enic_main.c
+index e7125b8180879..d98f7e7ccab9b 100644
+--- a/drivers/net/ethernet/cisco/enic/enic_main.c
++++ b/drivers/net/ethernet/cisco/enic/enic_main.c
+@@ -3011,8 +3011,9 @@ static void enic_remove(struct pci_dev *pdev)
+ 	if (netdev) {
+ 		struct enic *enic = netdev_priv(netdev);
+ 
+-		cancel_work_sync(&enic->reset);
+-		cancel_work_sync(&enic->change_mtu_work);
++		disable_work_sync(&enic->reset);
++		disable_work_sync(&enic->tx_hang_reset);
++		disable_work_sync(&enic->change_mtu_work);
+ 		unregister_netdev(netdev);
+ 		enic_dev_deinit(enic);
+ 		vnic_dev_close(enic->vdev);
 -- 
 2.53.0
 
