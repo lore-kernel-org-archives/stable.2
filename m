@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B0541DDE0
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:43:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE25F41D23F
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:43:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786970604; cv=none; b=uMgbf92CvRvmptc4t0E8jR+moIBWHr/qarRxpI7wVPfJ67T5NjhSa1hxb9ZDypCadho2q/P6LbPHG72/4Y7HCn8XhHgpfbVkIVGilvbiIH9lUWJlh4V6IbF23QCxzMzTl2aOxyJKNbq+hCxGu3ywLrFKgeKr02NRNaD3Xun6W40=
+	t=1786970609; cv=none; b=IBsUvSzMwz2/0JhEO9UuBf4Yj53L3ekbe0sSA0WpkGYh72eyuwifws/XkWFkUiiWI3vwBHDliW4Win8vLOsyfr5s0jLVmruk2Jt3ED67kXxYvjPuzJnfv0RyVktL3z1eDaOpYaGivJ4XYObPNCN2GNatLce8UXmsb5QzN0mCVmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786970604; c=relaxed/simple;
-	bh=t/l+ba0i3eHH5VlktI0o1lVX0VcEU0GeDCkBq9ei0F0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SANGMadOkJEkgl2kFXUr2F579JczfPNSl+ckBq1dk4dB6XXEPXdyZIaETtu5y+zEmuZszDq9PMmyQD+t1dQWz7kAnRJPK+TbEvpoD8ukw1RLwxNMibQlaBLs6CwGRapZGkU5C/sDjjX2qmollsIsFCmnG2Gav6ESR4C9CftqWcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VNrZgqPn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786970609; c=relaxed/simple;
+	bh=gi1OT0Cwo/f/ajCU5CIzHLMHhkvxBR+z5UltsM14XFQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LmgUApOcwVACKJTvCnqIljZIWCH6w1topZgHyyij7w5hONuGW3Gi8PHpu9+SVzvRIVZYM+1JVz9CyYLkowGzBmrB0RUY+Es51ilhDe0xqxISkfcqCnH4AiOIipDsZ7MyaswK5huiqMpr2vSueIgSKxPkV53ERo4xZHXraCaIX5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0QyATCNi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VNrZgqPn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B9581F00A3A;
-	Mon, 17 Aug 2026 12:43:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0QyATCNi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F2E1F000E9;
+	Mon, 17 Aug 2026 12:43:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786970602;
-	bh=mMe14nghkwN37Wlfc9P+ONbgyv+HtVgEiKq3OyMw/6g=;
+	s=korg; t=1786970607;
+	bh=vfUyJLQfSdjed3AgsE5N/UewLYnkstR4se965jDdsuA=;
 	h=Subject:To:Cc:From:Date;
-	b=VNrZgqPn/mCDrz8G/nsORZTEkLfgBRWiNLg02qaGMr4GfNB7wZWkGO1A0aG+CJRJa
-	 Jk3F9QB6ZJApDy+KOb0HiDC+H3c/MpBSpJ4a/rY/e1Z0D0mEsfC7DNsWXGS9yZszDQ
-	 eHxIrvqpHPYHcjrhnox5ZelAtlpRud8WVnZ46oNk=
-Subject: FAILED: patch "[PATCH] mm/huge_memory: separate out" failed to apply to 5.10-stable tree
-To: ljs@kernel.org,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,david@kernel.org,dev.jain@arm.com,hare@suse.de,hughd@google.com,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,npache@redhat.com,p.raghav@samsung.com,ryan.roberts@arm.com,shy828301@gmail.com,stable@vger.kernel.org,uqbarz@gmail.com,ziy@nvidia.com
+	b=0QyATCNiihzYGrDouwvKw83fmcxXBLerrRo1ZQeQxmVZ/CE08IlC4v2UzBOgKRbH1
+	 ndnfDqOR9sJUbI8JuCa0XeZQ3uxjzYhyfc+ZW+aoeRLR3FpBtn6MQPIXFYEIG8e3WA
+	 cN+XRN13XuvyCvkKYyoUI4FfH/GOO5A5RWB5H1Q4=
+Subject: FAILED: patch "[PATCH] net: smc: fix splice entry lifetime imbalance in" failed to apply to 5.15-stable tree
+To: d4n.for.sec@gmail.com,dust.li@linux.alibaba.com,enjou1224z@gmail.com,kuba@kernel.org,lx24@stu.ynu.edu.cn,sidraya@linux.ibm.com,vega@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:40:37 +0200
-Message-ID: <2026081737-unleveled-prologue-7681@gregkh>
+Date: Mon, 17 Aug 2026 14:41:10 +0200
+Message-ID: <2026081710-untie-barn-6dcc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 98bd3af0bb6bfdb0fb39cbfa05456acb374b691e
+git cherry-pick -x 5d9686af2976741bbd79b150d1c9e60b81e7f12e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081737-unleveled-prologue-7681@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081710-untie-barn-6dcc@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,266 +62,84 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 98bd3af0bb6bfdb0fb39cbfa05456acb374b691e Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 30 Jul 2026 11:55:48 +0100
-Subject: [PATCH] mm/huge_memory: separate out
- CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic
+From 5d9686af2976741bbd79b150d1c9e60b81e7f12e Mon Sep 17 00:00:00 2001
+From: Daming Li <d4n.for.sec@gmail.com>
+Date: Thu, 30 Jul 2026 22:55:52 +0800
+Subject: [PATCH] net: smc: fix splice entry lifetime imbalance in
+ smc_rx_splice
 
-Rather than mixing the refcounted and non-refcounted
-CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic, separate the two out cleanly so
-it is clear what happens when this configuration option is set and what
-happens when it is not.
+smc_rx_splice() passes pages to splice_to_pipe() before taking the
+references that cover the lifetime of each splice entry. In the
+VM-backed RMB path, splice_to_pipe() may drop unqueued entries through
+smc_rx_spd_release(), while queued entries are released later via the
+pipe buffer callback.
 
-Introduce HUGE_ZERO_UNSET_PFN to abstract the ~0UL assignment, only
-introduce the refcount, lock and shrinker if
-!CONFIG_PERSISTENT_HUGE_ZERO_FOLIO, abstract initialisation and teardown,
-abstract the huge zero folio allocation from refcounting.
+The old post-splice accounting also derives the number of queued VM pages
+from an offset mutated while building the descriptor, and a multi-page
+splice pairs one sock_hold() with multiple sock_put() calls.
 
-Also change a BUG_ON() to WARN_ON_ONCE() while we're at it.
+Take the page and socket references for every candidate entry before
+splice_to_pipe(), and drop the matching private state, page reference,
+and socket reference from smc_rx_spd_release() for entries that never
+get queued. This fixes a refcount imbalance that can underflow page
+refcounts and trigger a use-after-free.
 
-No functional change intended.
+Fixes: 9014db202cb7 ("smc: add support for splice()")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Co-developed-by: Xiao Liu <lx24@stu.ynu.edu.cn>
+Signed-off-by: Xiao Liu <lx24@stu.ynu.edu.cn>
+Signed-off-by: Daming Li <d4n.for.sec@gmail.com>
+Signed-off-by: Ren Wei <enjou1224z@gmail.com>
+Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
+Reviewed-by: Sidraya Jayagond <sidraya@linux.ibm.com>
+Link: https://patch.msgid.link/20260730145552.360287-2-enjou1224z@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-Link: https://lore.kernel.org/20260730-fix-refcounted-huge-zero-v2-2-c5d8a41b317f@kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Fixes: 3b77e8c8cde5 ("mm/thp: make is_huge_zero_pmd() safe and quicker")
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Hannes Reinecke <hare@suse.de>
-Cc: Hengbin Zhang <uqbarz@gmail.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Pankaj Raghav <p.raghav@samsung.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Yang Shi <shy828301@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index f43852ef9944..f84fe7913d88 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -78,10 +78,15 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
- 					 struct shrink_control *sc);
- static bool split_underused_thp = true;
- 
-+#define HUGE_ZERO_UNSET_PFN (~0UL)
-+struct folio *huge_zero_folio __read_mostly;
-+unsigned long huge_zero_pfn __read_mostly = HUGE_ZERO_UNSET_PFN;
-+#ifndef CONFIG_PERSISTENT_HUGE_ZERO_FOLIO
- static atomic_t huge_zero_refcount;
- static DEFINE_SPINLOCK(huge_zero_lock);
--struct folio *huge_zero_folio __read_mostly;
--unsigned long huge_zero_pfn __read_mostly = ~0UL;
-+static struct shrinker *huge_zero_folio_shrinker;
-+#endif
-+
- unsigned long huge_anon_orders_always __read_mostly;
- unsigned long huge_anon_orders_madvise __read_mostly;
- unsigned long huge_anon_orders_inherit __read_mostly;
-@@ -223,6 +228,47 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 	return orders;
- }
- 
-+static struct folio *alloc_huge_zero_folio(void)
-+{
-+	struct folio *zero_folio;
-+
-+	zero_folio = folio_alloc((GFP_TRANSHUGE | __GFP_ZERO | __GFP_ZEROTAGS) &
-+				 ~__GFP_MOVABLE,
-+			HPAGE_PMD_ORDER);
-+	if (!zero_folio) {
-+		count_vm_event(THP_ZERO_PAGE_ALLOC_FAILED);
-+		return NULL;
-+	}
-+	folio_clear_large_rmappable(zero_folio); /* Explicitly not rmappable. */
-+	return zero_folio;
-+}
-+
-+#ifdef CONFIG_PERSISTENT_HUGE_ZERO_FOLIO
-+static int __init huge_zero_init(void)
-+{
-+	huge_zero_folio = alloc_huge_zero_folio();
-+	if (!huge_zero_folio) {
-+		pr_warn("Allocating persistent huge zero folio failed\n");
-+	} else {
-+		huge_zero_pfn = folio_pfn(huge_zero_folio);
-+		count_vm_event(THP_ZERO_PAGE_ALLOC);
-+	}
-+	return 0;
-+}
-+
-+static void __init huge_zero_shrinker_exit(void)
-+{
-+}
-+
-+struct folio *mm_get_huge_zero_folio(struct mm_struct *mm)
-+{
-+	return huge_zero_folio;
-+}
-+
-+void mm_put_huge_zero_folio(struct mm_struct *mm)
-+{
-+}
-+#else
- static bool get_huge_zero_folio(void)
+diff --git a/net/smc/smc_rx.c b/net/smc/smc_rx.c
+index c1d9b923938d..5c9e4d8b57de 100644
+--- a/net/smc/smc_rx.c
++++ b/net/smc/smc_rx.c
+@@ -150,7 +150,12 @@ static const struct pipe_buf_operations smc_pipe_ops = {
+ static void smc_rx_spd_release(struct splice_pipe_desc *spd,
+ 			       unsigned int i)
  {
- 	struct folio *zero_folio;
-@@ -231,15 +277,9 @@ static bool get_huge_zero_folio(void)
- 	if (likely(atomic_inc_not_zero(&huge_zero_refcount)))
- 		return true;
- 
--	zero_folio = folio_alloc((GFP_TRANSHUGE | __GFP_ZERO | __GFP_ZEROTAGS) &
--				 ~__GFP_MOVABLE,
--			HPAGE_PMD_ORDER);
--	if (!zero_folio) {
--		count_vm_event(THP_ZERO_PAGE_ALLOC_FAILED);
-+	zero_folio = alloc_huge_zero_folio();
-+	if (unlikely(!zero_folio))
- 		return false;
--	}
--	/* Ensure zero folio won't have large_rmappable flag set. */
--	folio_clear_large_rmappable(zero_folio);
- 
- 	/* Paired with critical section in shrink_huge_zero_folio_scan(). */
- 	spin_lock(&huge_zero_lock);
-@@ -266,33 +306,7 @@ static void put_huge_zero_folio(void)
- 	 * Counter should never go to zero here. Only shrinker can put
- 	 * last reference.
- 	 */
--	BUG_ON(atomic_dec_and_test(&huge_zero_refcount));
--}
--
--struct folio *mm_get_huge_zero_folio(struct mm_struct *mm)
--{
--	if (IS_ENABLED(CONFIG_PERSISTENT_HUGE_ZERO_FOLIO))
--		return huge_zero_folio;
--
--	if (mm_flags_test(MMF_HUGE_ZERO_FOLIO, mm))
--		return READ_ONCE(huge_zero_folio);
--
--	if (!get_huge_zero_folio())
--		return NULL;
--
--	if (mm_flags_test_and_set(MMF_HUGE_ZERO_FOLIO, mm))
--		put_huge_zero_folio();
--
--	return READ_ONCE(huge_zero_folio);
--}
--
--void mm_put_huge_zero_folio(struct mm_struct *mm)
--{
--	if (IS_ENABLED(CONFIG_PERSISTENT_HUGE_ZERO_FOLIO))
--		return;
--
--	if (mm_flags_test(MMF_HUGE_ZERO_FOLIO, mm))
--		put_huge_zero_folio();
-+	WARN_ON_ONCE(atomic_dec_and_test(&huge_zero_refcount));
++	struct smc_spd_priv *priv = (struct smc_spd_priv *)spd->partial[i].private;
++	struct sock *sk = &priv->smc->sk;
++
++	kfree(priv);
+ 	put_page(spd->pages[i]);
++	sock_put(sk);
  }
  
- static unsigned long shrink_huge_zero_folio_count(struct shrinker *shrink,
-@@ -316,14 +330,53 @@ static unsigned long shrink_huge_zero_folio_scan(struct shrinker *shrink,
- 		zero_folio = huge_zero_folio;
- 		VM_WARN_ON_ONCE(!zero_folio);
- 		WRITE_ONCE(huge_zero_folio, NULL);
--		WRITE_ONCE(huge_zero_pfn, ~0UL);
-+		WRITE_ONCE(huge_zero_pfn, HUGE_ZERO_UNSET_PFN);
+ static int smc_rx_splice(struct pipe_inode_info *pipe, char *src, size_t len,
+@@ -209,6 +214,10 @@ static int smc_rx_splice(struct pipe_inode_info *pipe, char *src, size_t len,
+ 			offset = 0;
+ 		}
  	}
- 
- 	folio_put(zero_folio);
- 	return HPAGE_PMD_NR;
- }
- 
--static struct shrinker *huge_zero_folio_shrinker;
-+static int __init huge_zero_init(void)
-+{
-+	huge_zero_folio_shrinker = shrinker_alloc(0, "thp-zero");
-+	if (!huge_zero_folio_shrinker) {
-+		shrinker_free(deferred_split_shrinker);
-+		list_lru_destroy(&deferred_split_lru);
-+		return -ENOMEM;
++	for (i = 0; i < nr_pages; i++) {
++		get_page(pages[i]);
++		sock_hold(&smc->sk);
 +	}
-+
-+	huge_zero_folio_shrinker->count_objects = shrink_huge_zero_folio_count;
-+	huge_zero_folio_shrinker->scan_objects = shrink_huge_zero_folio_scan;
-+	shrinker_register(huge_zero_folio_shrinker);
-+	return 0;
-+}
-+
-+static void __init huge_zero_shrinker_exit(void)
-+{
-+	shrinker_free(huge_zero_folio_shrinker);
-+}
-+
-+struct folio *mm_get_huge_zero_folio(struct mm_struct *mm)
-+{
-+	if (mm_flags_test(MMF_HUGE_ZERO_FOLIO, mm))
-+		return READ_ONCE(huge_zero_folio);
-+
-+	if (!get_huge_zero_folio())
-+		return NULL;
-+
-+	if (mm_flags_test_and_set(MMF_HUGE_ZERO_FOLIO, mm))
-+		put_huge_zero_folio();
-+
-+	return READ_ONCE(huge_zero_folio);
-+}
-+
-+void mm_put_huge_zero_folio(struct mm_struct *mm)
-+{
-+	if (mm_flags_test(MMF_HUGE_ZERO_FOLIO, mm))
-+		put_huge_zero_folio();
-+}
-+#endif /* CONFIG_PERSISTENT_HUGE_ZERO_FOLIO */
+ 	spd.nr_pages_max = nr_pages;
+ 	spd.nr_pages = nr_pages;
+ 	spd.pages = pages;
+@@ -217,16 +226,8 @@ static int smc_rx_splice(struct pipe_inode_info *pipe, char *src, size_t len,
+ 	spd.spd_release = smc_rx_spd_release;
  
- #ifdef CONFIG_SYSFS
- static ssize_t enabled_show(struct kobject *kobj,
-@@ -987,39 +1040,14 @@ static int __init thp_shrinker_init(void)
- 	deferred_split_shrinker->scan_objects = deferred_split_scan;
- 	shrinker_register(deferred_split_shrinker);
- 
--	if (IS_ENABLED(CONFIG_PERSISTENT_HUGE_ZERO_FOLIO)) {
--		/*
--		 * Bump the reference of the huge_zero_folio and do not
--		 * initialize the shrinker.
--		 *
--		 * huge_zero_folio will always be NULL on failure. We assume
--		 * that get_huge_zero_folio() will most likely not fail as
--		 * thp_shrinker_init() is invoked early on during boot.
--		 */
--		if (!get_huge_zero_folio())
--			pr_warn("Allocating persistent huge zero folio failed\n");
--		return 0;
+ 	bytes = splice_to_pipe(pipe, &spd);
+-	if (bytes > 0) {
+-		sock_hold(&smc->sk);
+-		if (!lgr->is_smcd && smc->conn.rmb_desc->is_vm) {
+-			for (i = 0; i < PAGE_ALIGN(bytes + offset) / PAGE_SIZE; i++)
+-				get_page(pages[i]);
+-		} else {
+-			get_page(smc->conn.rmb_desc->pages);
+-		}
++	if (bytes > 0)
+ 		atomic_add(bytes, &smc->conn.splice_pending);
 -	}
--
--	huge_zero_folio_shrinker = shrinker_alloc(0, "thp-zero");
--	if (!huge_zero_folio_shrinker) {
--		shrinker_free(deferred_split_shrinker);
--		list_lru_destroy(&deferred_split_lru);
--		return -ENOMEM;
--	}
--
--	huge_zero_folio_shrinker->count_objects = shrink_huge_zero_folio_count;
--	huge_zero_folio_shrinker->scan_objects = shrink_huge_zero_folio_scan;
--	shrinker_register(huge_zero_folio_shrinker);
--
--	return 0;
-+	return huge_zero_init();
- }
- 
- static void __init thp_shrinker_exit(void)
- {
--	shrinker_free(huge_zero_folio_shrinker);
- 	shrinker_free(deferred_split_shrinker);
- 	list_lru_destroy(&deferred_split_lru);
-+	huge_zero_shrinker_exit();
- }
- 
- static int __init hugepage_init(void)
+ 	kfree(priv);
+ 	kfree(partial);
+ 	kfree(pages);
 
