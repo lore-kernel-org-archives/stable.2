@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF23D330B0B
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:29:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975F13F483C
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:29:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786966195; cv=none; b=B5RfzsK8XW4zpy1OuD7FqgGQgwd4D69zzLksDI3X7B48v8UVXOYSUMHqGGf3/bFDV1tq7gpT+C01zjdCILIC2OJAbQVWQwIbwq+QhrvgGu1UBVooUwWR1nRq/D4njr0rLM7Vrfq43YQrsD6iGuFr5EABwa4f37Z95kHnfxgAPhs=
+	t=1786966198; cv=none; b=LI3ie9GKmB6xEtZ3rZ3xT6icL0EhkvTKzOwFf0nQ4LuKV16QVVEHZ1eHrgxL247g0QqDu6UhmbsrStytTnZmmy3irTLMp/ynbqgynt7xuesMxwTzHBZ3kC0u53VtWDibv1Mj5MPIaN8Zr3BaAYjVyf4lJFWcs4B1A7t++NRETHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786966195; c=relaxed/simple;
-	bh=go4i6ii0u8NbhpfcDMfRbv8kWdUfZk7IHyfFPNsTmhs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gnpKJmyuqTwf9axZUh6SWDeNetqAz0KqFLhlpcp1bQC3+NRZp3sB5dSd5ueu8S3pbhMq5l4tVnAwGlUr+HxjBCjc1wB/DoJvvwLKZU1KtH271Pp1estEAcF/Ai6SrGIE59asZgDwc3MrAKdZu/IFlKZWEZI2xL7ipf2KwrrOm/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KPtKBuLm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786966198; c=relaxed/simple;
+	bh=jFuyikQZDRWEPNUQYxhJcER5O5qMKKUS5crdSHZG5Ig=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FRtwfv15e5fix+Xc73mbY0F/lJyS1WEjIYHm449nejFQNMPLa6CtvFWs1z/5i9BsN5/Xw6e6phdIdncysSFNa4VGNRsXeTd31u7bFZMf7G7gYheLEyzUHc7bIntaOFAknOHLJlWb7TXJk/YJPTXz49lpJGeaCZECCB1Q+j5/CaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nviZot9+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KPtKBuLm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5FC1F000E9;
-	Mon, 17 Aug 2026 11:29:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nviZot9+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3171F000E9;
+	Mon, 17 Aug 2026 11:29:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786966193;
-	bh=Jq1FvvgebgyxT5CjhFqBN3LrnmQiN6pGS9/lIghyAOM=;
+	s=korg; t=1786966196;
+	bh=J4p4JHRnGjFCac8jtcou7DiWfp873E3Mon4QomOl6n8=;
 	h=Subject:To:Cc:From:Date;
-	b=KPtKBuLmtYJGaBdpb99LuQVBbPpdLQdEYrxy2q2MF1OJz71d7DIi4Zt72A1ya1hAB
-	 INRQCwhBtKUo1Gq8M5xSH1e/2VLHgU/bA3WovEd6x1zXiymAtG9tod1h0rjy4kG/hX
-	 exdZbfIsy2CN+4mdA33CFKBfkJ+ClWeqolZU9vCo=
-Subject: FAILED: patch "[PATCH] ipvs: separate destination availability state" failed to apply to 6.1-stable tree
+	b=nviZot9+UtCsufqV7NNaUhaaFHXu+k7AMw3mB1uexQB69gsavhvcFRsm3CJyCy/Xn
+	 KmIZhOQsmouEr5BqD35oBDKD+b/eGuxmO2y05bnkNx8TS3uVyPl3dp00a9+pwFC/sK
+	 +HDO0BjW1UWuOfaeHZdtulbrLwEZgbULtym13/AU=
+Subject: FAILED: patch "[PATCH] ipvs: separate destination availability state" failed to apply to 5.10-stable tree
 To: zhaoyz24@mails.tsinghua.edu.cn,fengxw06@126.com,ja@ssi.bg,pablo@netfilter.org,qli01@tsinghua.edu.cn,wangao@seu.edu.cn,xuke@tsinghua.edu.cn,yangyx22@mails.tsinghua.edu.cn
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 13:28:01 +0200
-Message-ID: <2026081701-remover-discern-cca8@gregkh>
+Date: Mon, 17 Aug 2026 13:28:02 +0200
+Message-ID: <2026081702-renovator-concave-ba8d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x cdcc4e46180df8161f4d2f3c6fd6beaf6990133d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081701-remover-discern-cca8@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081702-renovator-concave-ba8d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
