@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5323E6381
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:21:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE3A21D3F5
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:24:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786969279; cv=none; b=OJS1zAQd8EEGS69hHQdTIIsawvtPKwjCtJwHHO9iUzLvUjOXWEacCMW32HVUNSBk3KDhZfedU9qdu1SgIBVrUpAk1vUJS+tS1yBxuo/bOafLCChQHdavTMB7+tIUPqFaDjozaz0IrPl4HYYxkF2Z4R9IE7Sl0cpaAGXbeJcJM6I=
+	t=1786969489; cv=none; b=Fzx4xb1q0q0nWdHpR+LlUR1PY3iB9eWiHm160YRQ2LcuQPjsEQIg8eAWyzq8RIMBp4iEk8LIxeekOXYWI/IC7MHn5XOedqQcGbNpBlQGJGD5qsUI8attBrBGuNB+zDPcKYI6gmxz73wbfukvrKWmPKBheEBuODI6eYpX5MvGgfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786969279; c=relaxed/simple;
-	bh=+Yl5j4tOZqDzS56N4CJO6ebogOc6w3fhWvFmjkkoCS4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qG+0STVdrNqTt/Om0ymehAp0uZHBmQdBMGbc9DwpmpnZwFUjaaHStrPgWXxq2Gk/chC70EuPYBRyEOeT73k/jDdJBspzeDnBf3LWjWMy7Lw23PLAWCTG9fXL5So8he7W+PjC4ilKJCibd151mFrLY01Y+mW2yeQWeijH5Cycx3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WWuWckve; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786969489; c=relaxed/simple;
+	bh=edumdP7c/zivR7D9RhkRyla8qJg+FbP+gLk0iSEhIZA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ibf4mEWJj3yNl+LkMd/Nt2qsNSUbvEQIvFRAPVTEsM8QwqezNXAhDLESBO94uh84kL40uvYogzpuz7yRsntSoZ2RhPxh9TZrWX1kTJqn/IA2UNZ4ippy+DdPPIy+s56T9RClL5W+r9zDCs8FyZTiYxhi1z33PukfVE0hHLeCIS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hc9+xFyl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WWuWckve"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52621F000E9;
-	Mon, 17 Aug 2026 12:21:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hc9+xFyl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7001F000E9;
+	Mon, 17 Aug 2026 12:24:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786969277;
-	bh=KjqjR3M121XDLw+LDTURiJNAT+DMkHCW6dN5eYnhZzM=;
+	s=korg; t=1786969487;
+	bh=b7k2X3Td8DJapdXzcsXnPFDfOuuN00gDvfGgn9vYPkY=;
 	h=Subject:To:Cc:From:Date;
-	b=WWuWckve3CjMvF57lIe6u+D8uePRxG7i3EkY56yVEbYtgBnQC5FqtBg3JGcfoPWA2
-	 irsTvBeuEU0MMmKB4bW+Rke16JAzFtiQnqPYXP344qaWTzr/0xp5gOw5hNUXTj8FG1
-	 XANMpGdIY2q/Ye/OIzRPJQszknoms0roj80zrMM8=
-Subject: FAILED: patch "[PATCH] ipv4: Fix fib_nlmsg_size() for RTA_VIA nexthops" failed to apply to 5.10-stable tree
-To: zihanx@nebusec.ai,idosch@nvidia.com,kuba@kernel.org,vega@nebusec.ai
+	b=hc9+xFylq6oaSvobV836QBuU88+CInLAUxlkBH8g1HZO52oZPQOiOrZMKpI0MA4zH
+	 hrOfj8A96uE6/vO6JE+ggbDtesKcbqYkfU7HM6NPOCqplH8DD+MKH1YUHnvy862Sdc
+	 TBs9wAvlq2MqzXLFR+omVTfZwFNWCwQgCbWtq2R0=
+Subject: FAILED: patch "[PATCH] serial: qcom-geni: fix TX DMA buffer flush" failed to apply to 6.6-stable tree
+To: linux@jaseg.de,gregkh@linuxfoundation.org,praveen.talari@oss.qualcomm.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:21:13 +0200
-Message-ID: <2026081713-siesta-mute-edca@gregkh>
+Date: Mon, 17 Aug 2026 14:24:43 +0200
+Message-ID: <2026081743-aghast-resisting-a8ca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4ff9548d84945d2cbf9e4c207288063a200ea397
+git cherry-pick -x e3c04834ae1ab5e9cfbe8ac54ec734aa4774249d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081713-siesta-mute-edca@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081743-aghast-resisting-a8ca@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,124 +62,132 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4ff9548d84945d2cbf9e4c207288063a200ea397 Mon Sep 17 00:00:00 2001
-From: Zihan Xi <zihanx@nebusec.ai>
-Date: Thu, 30 Jul 2026 12:59:26 +0000
-Subject: [PATCH] ipv4: Fix fib_nlmsg_size() for RTA_VIA nexthops
+From e3c04834ae1ab5e9cfbe8ac54ec734aa4774249d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>
+Date: Wed, 29 Jul 2026 19:41:05 +0200
+Subject: [PATCH] serial: qcom-geni: fix TX DMA buffer flush
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-fib_nlmsg_size() still estimates nexthop space as if every gateway is
-encoded as an IPv4 RTA_GATEWAY attribute. IPv4 routes can also carry an
-IPv6 gateway, which fib_nexthop_info() dumps as RTA_VIA.
+When transmit flushing a qcom-geni UART during an ongoing TX DMA, the
+UART gets stuck infinitely repeating corrupted TX DMA frames.
 
-As a result, route notifications can allocate an skb that is too small.
-fib_dump_info() then fails with -EMSGSIZE and rtmsg_fib() hits the
-WARN_ON() that marks such failures as a fib_nlmsg_size() bug. With
-panic_on_warn set, this becomes a kernel panic.
+The DMA-mode uart_ops does not provide a flush_buffer callback, so an
+in-flight transfer can complete after serial core has reset the transmit
+kfifo, underflowing its length and resubmitting page-sized transfers
+indefinitely. Add one that stops the transfer and clears tx_remaining
+and tx_queued.
 
-Mirror the actual nexthop dump layout in fib_nlmsg_size(): account for
-IPv6 nexthop gateways dumped as RTA_VIA, for the no-header rtnexthop
-layout used inside RTA_MULTIPATH, and for RTA_FLOW only when it is
-actually present.
+The stop path was also broken: it unmapped the buffer while the serial
+engine could still read it, and never reset the TX DMA state machine.
+Cancel the main sequencer command first, then reset the state machine
+and wait for it before unmapping. Drop the early return so a pending
+mapping is also cleaned up when the main command is inactive.
 
-Fixes: d15662682db2 ("ipv4: Allow ipv6 gateway with ipv4 routes")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/6f53fa797fcaeb26966432ed7ae9bb87c4961f37.1785411220.git.zihanx@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+The bug can be triggered from userspace with a large write immediately
+followed by TCOFLUSH. A following tcdrain will hang forever. The bug was
+reproduced and this fix was validated on Arduino Uno Q (QRB2210)
+using /dev/ttyHS1.
 
-diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
-index 4f3c0740dde9..78f84ae3ee12 100644
---- a/net/ipv4/fib_semantics.c
-+++ b/net/ipv4/fib_semantics.c
-@@ -490,6 +490,34 @@ int ip_fib_check_default(__be32 gw, struct net_device *dev)
- 	return -1;
+Assisted-by: Claude:claude-5-opus Codex:gpt-5
+Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
+Fixes: 2aaa43c70778 ("tty: serial: qcom-geni-serial: add support for serial engine DMA")
+Cc: stable <stable@kernel.org>
+Reviewed-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260729174105.21838-2-git@jaseg.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
+index 7ead87b4eb65..1e39122ec09f 100644
+--- a/drivers/tty/serial/qcom_geni_serial.c
++++ b/drivers/tty/serial/qcom_geni_serial.c
+@@ -158,6 +158,7 @@ static const struct uart_ops qcom_geni_uart_pops;
+ static struct uart_driver qcom_geni_console_driver;
+ static struct uart_driver qcom_geni_uart_driver;
+ 
++static void qcom_geni_serial_stop_tx_dma(struct uart_port *uport);
+ static void __qcom_geni_serial_cancel_tx_cmd(struct uart_port *uport);
+ static void qcom_geni_serial_cancel_tx_cmd(struct uart_port *uport);
+ static int qcom_geni_serial_port_setup(struct uart_port *uport);
+@@ -636,35 +637,34 @@ static unsigned int qcom_geni_serial_tx_empty(struct uart_port *uport)
+ 	return !readl(uport->membase + SE_GENI_TX_FIFO_STATUS);
  }
  
-+static size_t fib_nexthop_nlmsg_size(const struct fib_nh_common *nhc,
-+				     bool skip_oif)
++static void qcom_geni_serial_flush_buffer_dma(struct uart_port *uport)
 +{
-+	size_t nhsize = 0;
++	struct qcom_geni_serial_port *port = to_dev_port(uport);
 +
-+	switch (nhc->nhc_gw_family) {
-+	case AF_INET:
-+		nhsize += nla_total_size(4); /* RTA_GATEWAY */
-+		break;
-+	case AF_INET6:
-+		nhsize += nla_total_size(sizeof(struct rtvia) +
-+					 sizeof(struct in6_addr));
-+		break;
-+	}
-+
-+	if (!skip_oif && nhc->nhc_dev)
-+		nhsize += nla_total_size(4); /* RTA_OIF */
-+
-+	if (nhc->nhc_lwtstate) {
-+		/* RTA_ENCAP */
-+		nhsize += lwtunnel_get_encap_size(nhc->nhc_lwtstate);
-+		/* RTA_ENCAP_TYPE */
-+		nhsize += nla_total_size(2);
-+	}
-+
-+	return nhsize;
++	qcom_geni_serial_stop_tx_dma(uport);
++	port->tx_remaining = 0;
++	port->tx_queued = 0;
 +}
 +
- size_t fib_nlmsg_size(struct fib_info *fi)
+ static void qcom_geni_serial_stop_tx_dma(struct uart_port *uport)
  {
- 	size_t payload = NLMSG_ALIGN(sizeof(struct rtmsg))
-@@ -507,32 +535,35 @@ size_t fib_nlmsg_size(struct fib_info *fi)
- 		payload += nla_total_size(4); /* RTA_NH_ID */
+ 	struct qcom_geni_serial_port *port = to_dev_port(uport);
+-	bool done;
  
- 	if (nhs) {
--		size_t nh_encapsize = 0;
--		/* Also handles the special case nhs == 1 */
--
--		/* each nexthop is packed in an attribute */
--		size_t nhsize = nla_total_size(sizeof(struct rtnexthop));
-+		size_t mpsize = 0;
- 		unsigned int i;
+-	if (!qcom_geni_serial_main_active(uport))
+-		return;
++	if (qcom_geni_serial_main_active(uport))
++		__qcom_geni_serial_cancel_tx_cmd(uport);
  
--		/* may contain flow and gateway attribute */
--		nhsize += 2 * nla_total_size(4);
--
--		/* grab encap info */
- 		for (i = 0; i < fib_info_num_path(fi); i++) {
- 			struct fib_nh_common *nhc = fib_info_nhc(fi, i);
-+			size_t nhsize;
- 
--			if (nhc->nhc_lwtstate) {
--				/* RTA_ENCAP_TYPE */
--				nh_encapsize += lwtunnel_get_encap_size(
--						nhc->nhc_lwtstate);
--				/* RTA_ENCAP */
--				nh_encapsize +=  nla_total_size(2);
-+			nhsize = fib_nexthop_nlmsg_size(nhc, nhs != 1);
+ 	if (port->tx_dma_addr) {
++		writel(1, uport->membase + SE_DMA_TX_FSM_RST);
++		if (!qcom_geni_serial_poll_bit(uport, SE_DMA_TX_IRQ_STAT,
++					       TX_RESET_DONE, true))
++			dev_err_ratelimited(uport->dev, "TX DMA reset failed");
++		writel(TX_RESET_DONE | TX_DMA_DONE,
++		       uport->membase + SE_DMA_TX_IRQ_CLR);
 +
-+			if (nhs != 1)
-+				nhsize += NLA_ALIGN(sizeof(struct rtnexthop));
-+
-+#ifdef CONFIG_IP_ROUTE_CLASSID
-+			if (nhc->nhc_family == AF_INET) {
-+				struct fib_nh *nh;
-+
-+				nh = container_of(nhc, struct fib_nh, nh_common);
-+				if (nh->nh_tclassid)
-+					nhsize += nla_total_size(4);
- 			}
-+#endif
-+			if (nhs == 1)
-+				payload += nhsize;
-+			else
-+				mpsize += nhsize;
- 		}
- 
--		/* all nexthops are packed in a nested attribute */
--		payload += nla_total_size((nhs * nhsize) + nh_encapsize);
--
-+		if (nhs != 1)
-+			payload += nla_total_size(mpsize);
+ 		geni_se_tx_dma_unprep(&port->se, port->tx_dma_addr,
+ 				      port->tx_remaining);
+ 		port->tx_dma_addr = 0;
+-		port->tx_remaining = 0;
  	}
+-
+-	geni_se_cancel_m_cmd(&port->se);
+-
+-	done = qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
+-					 M_CMD_CANCEL_EN, true);
+-	if (!done) {
+-		geni_se_abort_m_cmd(&port->se);
+-		done = qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
+-						 M_CMD_ABORT_EN, true);
+-		if (!done)
+-			dev_err_ratelimited(uport->dev, "M_CMD_ABORT_EN not set");
+-		writel(M_CMD_ABORT_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
+-	}
+-
+-	writel(M_CMD_CANCEL_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
+ }
  
- 	return payload;
+ static void qcom_geni_serial_start_tx_dma(struct uart_port *uport)
+@@ -1180,7 +1180,7 @@ static void qcom_geni_serial_shutdown(struct uart_port *uport)
+ 	uart_port_unlock_irq(uport);
+ }
+ 
+-static void qcom_geni_serial_flush_buffer(struct uart_port *uport)
++static void qcom_geni_serial_flush_buffer_fifo(struct uart_port *uport)
+ {
+ 	qcom_geni_serial_cancel_tx_cmd(uport);
+ }
+@@ -1769,7 +1769,7 @@ static const struct uart_ops qcom_geni_console_pops = {
+ 	.request_port = qcom_geni_serial_request_port,
+ 	.config_port = qcom_geni_serial_config_port,
+ 	.shutdown = qcom_geni_serial_shutdown,
+-	.flush_buffer = qcom_geni_serial_flush_buffer,
++	.flush_buffer = qcom_geni_serial_flush_buffer_fifo,
+ 	.type = qcom_geni_serial_get_type,
+ 	.set_mctrl = qcom_geni_serial_set_mctrl,
+ 	.get_mctrl = qcom_geni_serial_get_mctrl,
+@@ -1792,6 +1792,7 @@ static const struct uart_ops qcom_geni_uart_pops = {
+ 	.request_port = qcom_geni_serial_request_port,
+ 	.config_port = qcom_geni_serial_config_port,
+ 	.shutdown = qcom_geni_serial_shutdown,
++	.flush_buffer = qcom_geni_serial_flush_buffer_dma,
+ 	.type = qcom_geni_serial_get_type,
+ 	.set_mctrl = qcom_geni_serial_set_mctrl,
+ 	.get_mctrl = qcom_geni_serial_get_mctrl,
 
