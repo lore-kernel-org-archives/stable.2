@@ -1,68 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B76B23741
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 00:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15AC23A99F
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 00:56:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786927883; cv=none; b=QtuzBu4W52l4jTGzwdOjgBvsxpn37Zj7vIQFtjHp0w4CfnGnZc1U7Jaw+lqDyXlZV1M3KANXvAB7lfUCISqoIjqrHT5Wz35+0WvFdMlTfoGUw16oOIZkFe3vWPOF+V6EfIpU7zDcY9bLXQDt2awg/fOv5uFskHM0lw6ltxZjAf4=
+	t=1786928163; cv=none; b=FXwDfhMn31Rf8RDUZhWBSnozkcHjQiqFwRfAosE9mqYs/s+pWAl+qPtu6KA32ddAjbWnDGZ3GElPmVZH4WZE6vXSp7Iygo1gPttsdWnHrkn+wiZTuNSt4DI2i7eQYNh107MOGsxF5zFNSNcUQzVTgVc3E9GeedMBBFWT8QKU7Ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786927883; c=relaxed/simple;
-	bh=doXuL1EmQFsFUTuzqzEkyqw3QjIMey0buz+8dUHN0sc=;
+	s=arc-20240116; t=1786928163; c=relaxed/simple;
+	bh=KC8UUdmIE/Ltr3CJ3Si1ywx2jVlKmv8hOHz+JeQtCUM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y9FhFzstTW21qaJGPA4keX6mmx78upEMqTuyQKu4wZbkVvBy0TcHcaVB9pU6uI+/a0o8D1oShrr+yaLO0yxkOhiKQlyVDN9yUseSDlBEjb3pSCW+aBe0sun5OLvlp7f3aaokLP7FKWVbDvFo0WQ2oZ6g0IodBp2PDrAX0jtT0wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXqgszus; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=BoeStRXLyyy5Li1TOvOdm73PmmoCuwaIHghMPTmaYA75PDXfst10/qf/fYYeMy0lblwLzM9kmy7z56HjC3lje+0hVaeYP/0Aowg+nEiZy+iASzqd4HSFBTSZBsPaxDqMwZDA/sztiZHFh+W4DpyIkKycyG/C9XSXhQh5v6thABg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K83dJ6EE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXqgszus"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02DDE1F00A3F
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 00:51:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K83dJ6EE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3CFB1F00A3D
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 00:56:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786927882;
-	bh=PYq3lsa/Oi8dnPmiPAXKaQHT4eRBFtxYWtEVJj/IqnE=;
+	s=k20260515; t=1786928161;
+	bh=r5Eq/rNnDykdzzrPy34h6zrlHsN1zXEpsuTuZzQJUeU=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FXqgszusNuufG8bfQmvMJQzOZNlcHYKRUauGQiJ21jfuY7BqgIC9qXrHBsSQJK51k
-	 8cyQ27Tshn517HN3kMaQsHGaG032tTVOMtK8PfeeYyMgdJ7PHI4GQE8P3Tr/CFavvZ
-	 uc69e1KU3y0B07wbsdPnUg6brShi2xOYe74nO3ag3Frze079nCEIVL/0JSo5uTTg/8
-	 ZEP91GJjEpFp9AUGMvKUaPQp56u53yWOfXxndDIZf7qjWsiKTJYZt1wr5Q8nasX+St
-	 bO29tXKEt9qg3rijdNFzsrVn4pJXnFZx7//6WzF71KtAThgDXZoXKV6Rj9W+0WSa1G
-	 LYymYESB4KjPw==
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f84023916so2666123f8f.3
-        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 17:51:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq2Of9RNtG2JK9pSyHQ95tbHoeXWev5l60dC+jlssVPnzo3EICTEvAJnLzngmx6QPW1Soj576c=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPU0eMzBaJgzpzR7LHnXKLwVt7gwL0UnTsyhPtO45eMaJf03dh
-	2BgqAG57b/QGYyCegn8PMU6otO2+5qUQxve4nS29zyYk70Cie2h+9QhSbTB85Bkso87y/fnNKnC
-	Kbl2OJme+VwvQlyWMew4puX/JnJ879iA=
-X-Received: by 2002:a05:6000:2c09:b0:47f:9760:4d2e with SMTP id
- ffacd0b85a97d-481607618e8mr27937060f8f.24.1786927880559; Sun, 16 Aug 2026
- 17:51:20 -0700 (PDT)
+	b=K83dJ6EE3WngNkItbVUPztbGMbxz3gk9xLHZgaDDE7pw/FktUXqN8PMDaHGQoYuha
+	 smbqsyK/SKYyidDtJ+/yDe7dJrgH5ie4QUXeieKzRkW3977D+peQbKjy6VaTWUwcIE
+	 WyEge/f1vko2T4pvrqueWPiPNmmq6fXy0IxKD3ZqZNnStEBfivMu/oxxnG0rZJStHz
+	 6vBi8n7cLMDQZBmvJjkO3Rt11KqwRMtsRNKA5BRJqhzbVGFAZwyLbsMiIY5guB3fms
+	 KTAiN3kzV7rmk6hWYCgdcMXE1t2cUhw6SKthc7kvdddgOIe9+ITO1RoS+0pbAx2kwT
+	 QmvZIq7fdbi6w==
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso27374025e9.3
+        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 17:56:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqX/tv8asWBz0QdtcR/XP/W1cCSOPY4NAU1XeTY9dn+GfUZj7hTjXcl4tQLzUEwr16E7vtgiI4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDmLZlI6yU2JGspiPUz2/iKVqqQ1rGyFliXkM7NGO54PTLzuwd
+	84f32PUc/J6yBEN/tsE3jPcNufEeTLGqWyJiJ/q6/LsfOyCfKpySI2SHasBZGTbSFm2auMRpotZ
+	uNK340HKr7JGWucZvVZtUQoWPHifDwLs=
+X-Received: by 2002:a05:600c:19d1:b0:495:4e89:3f30 with SMTP id
+ 5b1f17b1804b1-499879ae4f4mr313180965e9.15.1786928160326; Sun, 16 Aug 2026
+ 17:56:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260816074125.2105828-1-guoren@kernel.org> <DKQ8V08O8TKD.QHLCPR9W40HE@pigmoral.tech>
-In-Reply-To: <DKQ8V08O8TKD.QHLCPR9W40HE@pigmoral.tech>
+References: <20260816074125.2105828-1-guoren@kernel.org> <20260816084034-GKC318749@kernel.org>
+In-Reply-To: <20260816084034-GKC318749@kernel.org>
 From: Guo Ren <guoren@kernel.org>
-Date: Mon, 17 Aug 2026 08:51:07 +0800
-X-Gmail-Original-Message-ID: <CAJF2gTRwMXVzxDL=C3JjmtxP3K5aLqki5qZdcyv751BTZ2p=5g@mail.gmail.com>
-X-Gm-Features: AcwNN1WU1MNdBpQY-vPRrNvDmBPPyD6eTSwnIFNd601KbR74IzZdtewLxNO4yDA
-Message-ID: <CAJF2gTRwMXVzxDL=C3JjmtxP3K5aLqki5qZdcyv751BTZ2p=5g@mail.gmail.com>
+Date: Mon, 17 Aug 2026 08:55:48 +0800
+X-Gmail-Original-Message-ID: <CAJF2gTTXn6HMGcUFsm2y1FekRXHEOockTv3JWDwq3OfJRJ8k8w@mail.gmail.com>
+X-Gm-Features: AcwNN1XdN1EseW_kz3Aepyd6qgzvXrqCYj75XYIr84-1wXSCGEE2tintqRNc3Jk
+Message-ID: <CAJF2gTTXn6HMGcUFsm2y1FekRXHEOockTv3JWDwq3OfJRJ8k8w@mail.gmail.com>
 Subject: Re: [PATCH] riscv: dts: spacemit: k3: fix IMSIC guest parameters
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	dlan@kernel.org, devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
-	stable@vger.kernel.org, Guodong Xu <docular.xu@gmail.com>, 
-	linux-riscv <linux-riscv-bounces@lists.infradead.org>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	spacemit@lists.linux.dev, stable@vger.kernel.org, 
+	Guodong Xu <docular.xu@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Aug 16, 2026 at 5:01=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.tec=
-h> wrote:
+On Sun, Aug 16, 2026 at 4:40=E2=80=AFPM Yixun Lan <dlan@kernel.org> wrote:
 >
-> Hi Guo,
+> hi Guo,
 >
-> On Sun Aug 16, 2026 at 3:41 PM CST, Guo Ren wrote:
+> On 07:41 Sun 16 Aug     , Guo Ren wrote:
 > > From: "GUO Ren (XuanTie)" <guoren@kernel.org>
 > >
 > > The initial K3 device tree used generic/placeholder values for the
@@ -71,7 +70,7 @@ h> wrote:
 > >   riscv,guest-index-bits =3D <6>;
 > >   riscv,num-guest-ids    =3D <511>;
 > >
-> > According to the SpacemiT K3 User Manual [1], these values are
+> > According to the SpacemiT K3 User Manual [1] these values are
 > > incorrect for the X100 cores:
 > >
 > >  - Hypervisor Extension: RVH 1.0, GEILEN =3D 8
@@ -84,18 +83,39 @@ h> wrote:
 > >
 > > - S-mode IMSIC (simsic) only needs guest-index-bits =3D 3 (to cover
 > >   GEILEN =3D 8) and num-guest-ids =3D 63.
+> ..
 > > - M-mode IMSIC (mimsic) does not implement guest interrupt files at
 > >   all, so the guest-related properties must be omitted.
 > >
+> Cc Junhui
+>
+> There is already one fix for IMSIC [1], but it's actually too late to
+> pick for v7.3 .. I'm not sure how best to handle this, would it possible
+It's not for v7.3; we could merge it in the next window.
+The mimsic part is a separate fix; we could do these separately.
+
+> on your side to pick Junhui's patch and rework to combine them to
+> send a V2? or I could pick his patch first ..
+
+I would remove the mimsic part, but I won't include it in v2. Because
+there is no update for the mimsic patch, v2 makes it confusing.
+
+>
+> https://lore.kernel.org/all/20260729-k3-mimsic-fix-v1-1-368c0aec04b9@pigm=
+oral.tech/
+>
 > > Although the KVM AIA driver will re-detect the actual number of guest
 > > interrupt files via hgeie and correct guest-index-bits at runtime, the
 > > device tree should still describe the correct hardware parameters.
 > >
 > > Update the device tree to match the silicon.
 > >
+> ..
 > > [1] https://www.spacemit.com/community/document/info?lang=3Den&nodepath=
 =3Dhardware/key_stone/k3/k3_docs/k3_usermanual/08_cpu.md
 > >
+> no blank line and use "Link: https://.. [1]" format
+>
 > > Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 =
 SoC")
 > > Cc: stable@vger.kernel.org
@@ -119,61 +139,9 @@ SoC")
 > >                       msi-controller;
 > > -                     riscv,guest-index-bits =3D <6>;
 > > +                     riscv,guest-index-bits =3D <3>;
->
-> According to the IMSIC DT binding, riscv,guest-index-bits describes
-> the number of guest-index bits in the MSI target address, not the
-> number of guest interrupt files actually implemented by a hart.
->
-> On K3, the per-hart IMSIC stride is 0x40000 bytes (0x200000 / 8).
-> Therefore, riscv,guest-index-bits should remain 6, which satisfies the
-> per-hart stride formula specified by the AIA specification:
->
->   2^(guest-index-bits + 12) =3D 2^(6 + 12) =3D 0x40000 bytes
->
-> KVM already handles the difference between the address space and the
-> actual number of guest interrupt files. It reads HGEIE to find the
-> actual number of guest interrupt files and uses the smaller value:
->
->   /*
->    * Number of usable per-HART HGEI lines should be minimum of
->    * per-HART IMSIC guest files and number of bits in HGEIE.
->    */
->   if (lc)
->           hgctrl->nr_hgei =3D
->                   min((ulong)hgctrl->nr_hgei, lc->nr_guest_files);
->
-> I also tested this on K3. HGEIE returned 0xfe after writing all ones,
-> so the driver gets fls_long(0xfe) - 1 =3D 7 usable guest interrupt file
-
-I don't think the reserved per-hart address stride alone is sufficient
-reason to set riscv,guest-index-bits to 6.
-
-As mentioned in the commit log:
-"Although the KVM AIA driver will re-detect the actual number of guest
-interrupt files via hgeie and correct guest-index-bits at runtime, the
-device tree should still describe the correct hardware parameters."
-
-Although K3 reserves a 0x40000-byte IMSIC address window per hart, only
-the first 0x8000 bytes, corresponding to guest indexes 0 through 7, are
-actually implemented. The remaining range from 0x8000 to 0x3ffff does
-not correspond to any implemented interrupt file.
-
-If we describe guest-index-bits =3D <6>, that raises a few questions:
- - What hardware resource is represented by guest indexes 8 through 63?
- - What behavior does the K3 hardware guarantee for accesses to the
-unused 0x8000-0x3ffff range?
- - Shall we let the kernel map that unused range and consume
-additional page-table entries for it?
-
->
 > >                       riscv,hart-index-bits =3D <4>;
 > > -                     riscv,num-guest-ids =3D <511>;
 > > +                     riscv,num-guest-ids =3D <63>;
->
-> This change looks good to me.
-Thx for the review.
-
->
 > >                       riscv,num-ids =3D <511>;
 > >               };
 > >
@@ -189,15 +157,14 @@ c 11>;
 > >                       riscv,num-ids =3D <511>;
 > >                       status =3D "reserved";
 > >               };
+> > --
+> > 2.43.0
+> >
 >
-> For the mimsic part, I already sent a related fix earlier:
-> https://lore.kernel.org/linux-riscv/20260729-k3-mimsic-fix-v1-1-368c0aec0=
-4b9@pigmoral.tech/
-Okay, I would remove the mimsic part.
+> --
+> Yixun Lan (dlan)
 
->
-> If you would like, you can pick that patch and combine the two changes
-> into a v2, as Yixun suggested.
+
 
 --=20
 Best Regards
