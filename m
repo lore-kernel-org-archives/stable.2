@@ -1,244 +1,227 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012051.outbound.protection.outlook.com [40.107.200.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9535A442FBE
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 16:42:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440B742643C;
+	Mon, 17 Aug 2026 16:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786984979; cv=pass; b=Ppq3uuvnUnBNekkbKC/aCa2egAAFMp4nFOrY7pDlcCYKV+YGf6qPI/5C6qOO5VJH4WJQbENe/8TjVuHAlpOQO/LkYyNO5lhz43gHw8PrU8Zc48zo3RiKMDD4A7nzYVuTH9G+zjF05hW0zCNkz+J9EskqzXVTkRDcM0Tb8sR3lUI=
+	t=1786985144; cv=fail; b=XJe3nl7Ung46FQd+DCEv+8CneQ4odnmMUoa6pqjAGZgpl9w4Ui9N0q78rlNLZ8+OPqZuwqoRbE8+G5i/bG84CKxtCdP5di3cTbpc/NXofVEB1JqYUuBMPslzVTs6LOT9mYO0ce7x3tJHxZNvAUMQZQaa8Wul5Zrl33J7SpmfWiQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786984979; c=relaxed/simple;
-	bh=EkJmkr4i0XfDcLVsu3GNYhW4t/PNRuWRBy9eVihU4eE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gdfcjz8NFWu7sYRjcnuvOaSnyFGuAfKZtOyWVAthyjXKztZBGqGTS2+duqJF8JRVIz+9UJXlR/adTQqJCngjkeXXqtY1Yo9wiOx8N5SHb3/7sDMeuDk64EM9ARIgnrbcCwIU7lZExo4iMxvp8PKywGw/WC05tmI1jEr0P92IuF4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LHPFdZW6; arc=pass smtp.client-ip=209.85.128.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786985144; c=relaxed/simple;
+	bh=ftsSD3XUqR8K5ifb2ti5TOvOBdSldofNalAK6F5+r+I=;
+	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=aRDmSK3dhNaI2i36/RQthK1UA0SI4E6McmRY5mFYnU3qXWltNemG+1uAJN52CHC3gfQ1g59I2EYgZdoKpPP8JjvRtjtXqPQv9vIUc5NqQUQeNKZ5CFQzpZce/1iO5M332kVImC/QIaYc5xewE2dJiWsDqcSs/1Fq1bcRvzOS3Dc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=5UDd4T00; arc=fail smtp.client-ip=40.107.200.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LHPFdZW6"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81f3b227a4aso52921297b3.1
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 09:42:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786984974; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ghwZatuUxK80xZR5itEXaZDR3czfk6PUJCV/fRi6Ckh96zKGnYjGJjdfhcrPuECgUQ
-         dPl1kTVij6xMo3D3B0W2/DKD5cwX6k6xoD6uuV40wP71nn+m+3BpJE3kBTDtgkq9E+ur
-         kPBPvpdcW/xL1grk83WrFCQLQrrGUHapI1nj9HpzlA1sY+yPXuIdej5HM6/JGx4WElUK
-         RW6sGMtwS8IFjsm0dteLn5g0cJ+YLvI+LcorkkeBrjKR2Bw68NjLzk3JVCH6Itn6XvKF
-         83Dim+S4+YtciOPXR53U+s5U57yeZfHPOBDoucAtCtpRcw4YjT+EvLJfLtLd/uip8thW
-         osqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=S/btAlrvPaD93Lrko/2BtnY6B4NRoou9llL+XSVCd+w=;
-        fh=RKuApSpDlcZbU6pVtH7yriLdqbxf77qNGNtzzWZ4J44=;
-        b=OI43pmpON5k4WDxKYGWgA56bc9S+AZCoj1D1Xr7OpedY9nBrJeXWPH4X7tIKvJGo4M
-         aVgNisBNDqCN9Osmf8dJd24efuemeVOWV+xQrJZOGtjg/7PV08lOoNB4GVXFR89F3fte
-         +EMMSrKRjrupf5wiGYamGD+1JDYGKp3qFGtkHO8lO+pwsNNmhhmMWpAY2vtDZuyZJWpA
-         VxBi1qP2AffUXeHu1J1BxT6olxqG+M/w7QgHYr7ryov5pz8r/NzAsCMCBxR9Encavr8M
-         hmGiSSNIlcygu+eLKHKV2Gc7BQFDDhRtH9WPNE2JD2svnX7GmIscMSoncPbCn9wNl6X4
-         5/XQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786984974; x=1787589774; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S/btAlrvPaD93Lrko/2BtnY6B4NRoou9llL+XSVCd+w=;
-        b=LHPFdZW6lRnqTYHW60ekEN7LwPD/XOtMmKdf3xzuGRbaNPzO12wes4uvPKveW9nwdz
-         KtkuJRoamK2z7su1NLWKAwOKRtHPssFN6c2sNqrrxxjf3+xRGKjh3+3Tp4Vjpl+Gz/f2
-         DngfBxjRGIDakFTB8M9k79sZZO/8pqYNgPVzoNoWXyntXAS+ovVSreUJOoWgS6brJNDX
-         CdBkgetLTfoBZvDwadKJHKGgcSOz4RseDsBelZEU4didA3nWI+id7Rv2jUkRRwxJl7ke
-         Ufu2Lvyg8FUKwDFydD0wqV2vrWLUVxjVP15+ZypYrcdrjyaTTD+zmw8UWHTAgaNm8Rmy
-         m2DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786984974; x=1787589774;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S/btAlrvPaD93Lrko/2BtnY6B4NRoou9llL+XSVCd+w=;
-        b=OU7Pfy50ZoC68MeJH2JR3gKLKrK1xfZiMUAYx5TBZO4itwZJqEI7Y5ciGVMV1W7TbI
-         2a/tp6CfcS+zmgTcWgnZNwOgL4rdZt7bZbieeLbW3mKxF+V+nnGe1iqhWLSA7Y7n6Vnx
-         MIowWGf9uomBTb6wbp6wmg2Fv40zqMnVLcXN+kA5CXFRcPnf48pUnmv+EurRaRPhFb8z
-         lwSNpcSVhsXAaYMo1wlFUdeDlpBd5k6C9+1zQo39E47r9XMUA1q2Bl9320aJVh4Y0KIa
-         DBvmj+uj9OuAgzmJJegZp0AzSRtUSUCul8jre1heQmsyy/TC9urKT6MnLVN+f2x11prb
-         umKg==
-X-Forwarded-Encrypted: i=1; AHgh+Roq2Qdz9nTkSWax1a/RsuGrdQd5nLQ4Fp0vz3yu5CQb/tx7LhFYXXEqBWu/D/1BD5aQUggE2Zg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrOYdcv+VYSTI7k9wu6rcRLa/4MyLWp7UibtOr1QC5Nxw2KVat
-	V5d3OYsfom9xvJVmFNZmcOtjHKtlAhsZAh2i1qUIdW8hQNg7I5mx7SEcP89ro6MpkVhhwQWyzwG
-	G1DTOOES8VS2KCmnEynxOk5E1nEB2spU=
-X-Gm-Gg: AR+sD129Lhbvqo1OJnfjy1UYgEtMOH30EXbEayaxBOeqy7CF0jKTlUNFqLIcOdoANJx
-	vhFvqVF4fMWDkZ5vWxN1oFEJl2BPnL0Tshxgk85VlLJC349ei1/RU8uH4e++ir7+jfztoFTwaOK
-	9n8oERHFKuZM83VoqIWvn1HnFjcrB0JDD5Scn8IR3fWzbWlNeKiC4AIyFP/wsPbCreokD+Z/tGI
-	wdBjdUjl335aHH5BEJtRQGPTxpMsd6SCVTjTQvvxNeKHRw7FL1Sk9CkEkoAvCNUuRyOFB8OFymm
-	YVfyAYU8aOwtam0WdinbMZFEGQY8LJQOGP4YQ28/swocacFu3zhC915+oDMJogkxclu2Jefa7bV
-	jlTJ4asVgwjGXjqtGF/1MGJd3+UjV
-X-Received: by 2002:a05:690c:ec2:b0:81e:893c:2c23 with SMTP id
- 00721157ae682-8370dfb375amr114957297b3.11.1786984973996; Mon, 17 Aug 2026
- 09:42:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="5UDd4T00"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ecsv21WmfmaPtj6krnVlEBJDVn412C2vL7ZrK9byTp6+RWdlJcBBgjpDDf3fnplqvu6STqqiBiqPNWs1QJiyB42h5N5C26VJWFdb0Fb97XtvLjpiEu6p0vXR/OQ0Aa9MOhYK5AfSyKxHLvMdyvWHp14a/1Sc86RC3P2YRJVjGIi0buNGPlGGXiE8P7eF01GnY4A72JUc7oyTr5WdXksSq0W+qF1sstH3B5GUi49+20GNbw6Qs1qXnfacox6aTDFsdibYscbXOAXGCbIOR0Y4t7+wCCqMfUUTUVRiiMo4OU190LwoM+EFIkENStR/SbqWCbEsvO0PlwKwHB9R9jmB6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wAkd7IUZSuDUxRUNAHACGaPV1VxzlhB2lsYps2B4Mm0=;
+ b=rL45JwJhgwSdQU5FJ9m/zsYMyaPmM7LAxhGnhu9Kxexcnvv4ZEPtL/J5rokGDzXAOzd2r1GhYCcI4gjWzV+QoBWHjPzo1+Oj27UzMh11cwYUIJ2o2LaSqmgYzrN+ifl6kKXiW+uph9BzMrZNxpW0SNuijkI7FRVo2IGsvTXyreY6OSRETRHTykIuXg3kNAMrW/sRKVvQabMZmfYhK5U2GbyfsEu52263atvSm3ZiZZKFUjVkmuqcYOtXgV0DYHT4rujLdPrmKDaaXc3qsCcaXIJ0gnuy1Z6m1HTCWiaEuOVdCqIPm2fPvbA3QwIttbGUVtFqJub+dMmN7+A6BJkDBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wAkd7IUZSuDUxRUNAHACGaPV1VxzlhB2lsYps2B4Mm0=;
+ b=5UDd4T00jivw/Ca9HjimSDJyLwq6yMN7t2cEfK9cEO6hxYB5ExZLpCSvEQ3Llwh49RXbqBzLr5g84Suz5cmyHO6NwhIc3ghbzpGTD2lySy+MW+KUZB7nWylj+NQM/RN1i4N4BqaqjkzC4b5mJU1HRYvxHPKhU7ywhEoubMPRkPA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5389.namprd12.prod.outlook.com (2603:10b6:5:39e::8) by
+ SA1PR12MB9471.namprd12.prod.outlook.com (2603:10b6:806:458::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Mon, 17 Aug
+ 2026 16:45:32 +0000
+Received: from DM4PR12MB5389.namprd12.prod.outlook.com
+ ([fe80::1f4e:98f9:2c94:8e4e]) by DM4PR12MB5389.namprd12.prod.outlook.com
+ ([fe80::1f4e:98f9:2c94:8e4e%4]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
+ 16:45:32 +0000
+Message-ID: <a2054afb-31a9-41c5-b27a-7c70d382a10d@amd.com>
+Date: Mon, 17 Aug 2026 09:45:25 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3] net/ionic: avoid OOB TX partner lookup for
+ hwstamp RXQ
+To: Anand Khoje <anand.a.khoje@oracle.com>,
+ Brett Creeley <brett.creeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Abhijit Gangurde
+ <abhijit.gangurde@amd.com>, Shannon Nelson <sln@onemain.com>,
+ Leon Romanovsky <leon@kernel.org>, Eric Joyner <eric.joyner@amd.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, Kees Cook <kees@kernel.org>,
+ Mohammad Heib <mheib@redhat.com>, Jacob Keller <jacob.e.keller@intel.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260813083705.454897-1-anand.a.khoje@oracle.com>
+Content-Language: en-US
+From: "Creeley, Brett" <bcreeley@amd.com>
+In-Reply-To: <20260813083705.454897-1-anand.a.khoje@oracle.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PH7P221CA0006.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:32a::19) To DM4PR12MB5389.namprd12.prod.outlook.com
+ (2603:10b6:5:39e::8)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817150240.520181-1-valentin.kindschi@fiveco.ch>
- <20260817150240.520181-3-valentin.kindschi@fiveco.ch> <CABBYNZJ55q+jpSRrp7PS31hR6xbDEPNExQCADKGWFKtKKweMjQ@mail.gmail.com>
- <700f0c2d3c5d4ac8bea4774375703bba@fiveco.ch>
-In-Reply-To: <700f0c2d3c5d4ac8bea4774375703bba@fiveco.ch>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Mon, 17 Aug 2026 12:42:42 -0400
-X-Gm-Features: AcwNN1U0lbZ9sKvFCoDq7ZEQvI75MALh1DTXrlbrIEUc-kGiNRabIMye2jFeZVw
-Message-ID: <CABBYNZKLcM2L9VTNhyr=O+TMHK-CoyspCQA+yU_hP2ER-SOS+g@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] Bluetooth: hci_event: keep HCI_LE_ADV set if the
- host cancelled
-To: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-Cc: "linux-bluetooth@vger.kernel.org" <linux-bluetooth@vger.kernel.org>, 
-	"marcel@holtmann.org" <marcel@holtmann.org>, "johan.hedberg@gmail.com" <johan.hedberg@gmail.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5389:EE_|SA1PR12MB9471:EE_
+X-MS-Office365-Filtering-Correlation-Id: 872ecab3-d5aa-495c-4c9e-08defc7ef3e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|22082099003|18002099003|56012099006|10067099003|921020|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	YlYArZHqaJhAx1HiS6+1LoTdR+ixTj+tcu+HA7aeM2CbueHPrC6AmxukXSl31qfkSv51Axj3Qd8XqGZLUixAuZsZOznPJiyO2xzyGquR6XN2J1KnUI5PgCfWwbw2SRkwBN4Qm3PzKAtq6nlZKi+VtUDmFoyBQrgWN0+7yTpK5BH6z/vjJX/1yY6qTmgwJYleEjftLzzfyYJlqIueRnzOA3JXQM4YdJqekUO4hvjMKMXpRVqT7plEdd0xEFfsYntS/HW0u6PFWkEys1gkqCj+8lVbpFn8jLWx8DKHb+Pgql53kAe1OLkhlcKNISKgOvBkFW9rotK7uGi/BFlsiij29qPqcvINa+LuA0CxUEyjTWLKUP5QyObiOhGY9L920pj+mPEiyJdUv+lBohWWqJHAKeI9gdI2S0pnRO+AFiKnzB+hQ0bliFxqM5k88LVJiRL7DhOPTgPxxFiH9vBI/utNw2gtjOwkVfyIi+1sXwQCnwy5Dij5SjP8c5tWMzkvvKYraRQcqWIoGSypQRmhnosMzFyiq6sy2KlbCd2SMxLRwkyyGUKZHMUe/W8rAStw/dJBDZjWjLgXErCjvH2vv4HGVHUmz3jAAlh+S2qLnDS2w9VMZW7uUVkOgd3rGiNKv9xavIZLZaVteM+PLbEUJ+FnoU5CtTtWm0Y6YLv/vgnPEYVhwXSbHV0R8CqEZ5aw2bhePRrOpAPvQNMtzPOjvjaP6g==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5389.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(10067099003)(921020)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bnkxdXI5UmNjN1FTZFo3MTRqT0dNUVlLZ1phVm9zQndmZ1diQW4rZW9reFRD?=
+ =?utf-8?B?dEQwd0hZTUdaQUxnRk1JM3JCbFhwVnlqZFNabmRJN3U1T1J3bGVMTC8zTDU0?=
+ =?utf-8?B?V1FYTXQyRjRVcHl0SVNnMDNpZFNTNTllUWZXTWNMOGphSm96RjM2RnljY09W?=
+ =?utf-8?B?S2prS01jbnliYURPT0tTK2hmVzNvVFlBK3RGTDFSRU9NYXEwLzhPbDBsLzhS?=
+ =?utf-8?B?OXJ5QnZ3cjlzU09JRzNHYWQzNWtzRFlEYXB4cmM3UWlaTjlLMlh1SnVJMCtm?=
+ =?utf-8?B?WUpnS0VmVFRhYkx1VTJJZzM0aHdCc0F3eVBDWng0ODRndEZNSWN3SnlXZGIv?=
+ =?utf-8?B?VXBrL1M1ZHVmS1FDVFhDV1E1SUNmOEZVTktwM09GMTJSbXhzbkl3OHoxcllu?=
+ =?utf-8?B?MGo2YU9GREhScFVXZ1JvOHNmQVhWb3l1N0daRUROV05qVHZ3UFVleUdCT29o?=
+ =?utf-8?B?dFhwbXMxR3BFdDhiZ1dyUEcyT2JIR09wOG91RXpEU2VrakxuSTVCRlhGQkxU?=
+ =?utf-8?B?a0ZOSTNKdlBZckNyNEM1ZDdhZTY4dWhLVzhPcnNRZkFLYk4rQU1oM05VVWdQ?=
+ =?utf-8?B?d0RWS0VISSt0dTRQVGhIU25tWFJ5TytUTnE4RXhmQ08xVTUxS2IrbnhHeEdw?=
+ =?utf-8?B?QTZTNnpGeXFKdmVhcjNtdmpVL2R1dmUyL040Y1ZaS2dYdTRpNGZLYlJZUXVu?=
+ =?utf-8?B?VU90eHVLcS95Q3FiUVRsV21pR3BSb2FCQzduOG4vRmFhSEJjdzJHWUc1OWQ3?=
+ =?utf-8?B?VWE3c0JMOGlsdG40a2h2SHZaMFJEaFpFcGdzL0lzMlpYYmVSUXJNZjlrVHZa?=
+ =?utf-8?B?U01IcEhleWE1NzRMQW1WcVpXM3BPcnpKbGRKUGRDdXFGVmxUSEg2dmNBUUpo?=
+ =?utf-8?B?RUU0TjVTcXcvdnM0cituWktHQzNwTkZUWEloK1VQeXR2cXE2Yi90Z2g0V1Y1?=
+ =?utf-8?B?VlM3aFQ3Z1NBYjFWMG12NFJFL1FOQUJBbUk1R1ViQXl0aFU1eWl1c3dZZTB5?=
+ =?utf-8?B?dFpOVE16Sm8yU1FmKzhyRk1jR3M3VlVJTzJjTEVwU1M1T3VhWDI4SFlVbUts?=
+ =?utf-8?B?ZVF4eVFzamw1d1lBRDNmM0JkSFh3UkRNWEtWZnlNQTlMakxpOW9Zd1plMVNG?=
+ =?utf-8?B?MkRnQlBNdVJYWVErRGdMWWV5SFkwbmtHTDQvcWlQaHZhMEowTXVRWEp5dENU?=
+ =?utf-8?B?TlJYc1V0blhTODlUWUthNlpSQndheEQ5K2E2M09zZ3VsWG5NVjVJK2ZRek5t?=
+ =?utf-8?B?b3BlVUpVeU9LMlZPdytnZStQK29VYzZVTlBxRm9EenpXaEVRQURqa0RWSmQx?=
+ =?utf-8?B?aE9RTGxRQ1pmWVdHeUtSOVpnMXNlL21YWFE3cDB6dlFHYUowYStiWnUydzJn?=
+ =?utf-8?B?d2ZoblhuWkE5YkdWc01qTWI0cFdxMnlUUGtrQng4eGxKV1ZuT0FNTjdQUlFr?=
+ =?utf-8?B?TlVYZnd2VEFhcUpQZW5lZG80bUxqNmc3Zzd6eEpzU0c4SnJ4bENnNVFwK0Fm?=
+ =?utf-8?B?U24wS3c3bHF1RTVGZDVQbERxaURSSytxZXppSE5LMzEwWnBOUGpEdXdJMGpF?=
+ =?utf-8?B?eFlKS2hZWTVvazMzaG5QTm1hWTNaMDZGODBoUlFOcS8yWFhBK2NOYVE1YUFR?=
+ =?utf-8?B?YklUSXNNMUVNNEM0emdaVTMvWXI0U29zWnIwOGxaUWhuTUEwMlY0aXZkQmh3?=
+ =?utf-8?B?MFFmR0NhTk4vWWRnTHdVQUUrd0xUU0NqY24xSFJHQThEWkl6d3UyVmNQVG5I?=
+ =?utf-8?B?VnRpcHRFK3V1VHBqUmdmR2x5R3hHelkxYlpySDFGMXVSSFBjRTJJWlJMUVNK?=
+ =?utf-8?B?L3Zlc3FLekwvN0N5ZDM0d0dMVHA5dFhka1NxamphVm1DRm4vb2RQc0k1MWFB?=
+ =?utf-8?B?RDlRZDh1N2hXTnJCbmF4MWk4Y21OSG4zd3NTejNSRWd6bWV4aTVYTEN5UkFX?=
+ =?utf-8?B?MGgwVDJYaHV6bStjZ3hhdEFDNjlhNFR3VXFWNm9xS0kvWmpuS1BoQ2dPMUZz?=
+ =?utf-8?B?ZjZtckg3clhkdjFIcndmV2cvZFBKbXN2WDFncTlQWEVMN2hEY29OeHo1MWtB?=
+ =?utf-8?B?MEpLM2VFcHF0dWtCOEdhRDNubHJaUHA0OXBoekpnTlVma1ZwajJ6Z242NnFE?=
+ =?utf-8?B?Wnhrd3AydjVXS3UwV0JXZW83OE9zYldsNHJyNjJOd29ETFJLdmxLM2U1Rko3?=
+ =?utf-8?B?TmlvNnF6eGhmWUlKT1A3dUpaNkIxV3J4dUdUa1RleU5yN2lrNVJQMWxjNDha?=
+ =?utf-8?B?TVdMQ2Jpd0hhNVpVc2pWajRmUlBPVHI3U3Eyd3FhYUN6dkllZFFJM0I2Znha?=
+ =?utf-8?B?Ty91WkNwNmlLdVM0OFZyRGsrbjBoMDNIUEhMcW9KK2VNcjFtR2RtUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 872ecab3-d5aa-495c-4c9e-08defc7ef3e8
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5389.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 16:45:32.3932
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3w9yb/5aOD7tscrlKwRfIkke9dpoZAhwFROX7WaG2p3/gsQRmFohicD2ydh1GGWKYiRQ6TtQx7djy1uD9btcvQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9471
 
-Hi Valentin,
 
-On Mon, Aug 17, 2026 at 12:31=E2=80=AFPM Valentin Kindschi
-<valentin.kindschi@fiveco.ch> wrote:
->
-> Oh, you're right. The test is too narrow - a connection timeout on the ce=
-ntral path should not clear it either.
->
-> The clear exists because advertising stops when a peripheral connection i=
-s created, so the role seems more relevant than the status - but ev->role i=
-s not dependable on a failed event, and the conn lookup that would give a t=
-rustworthy role happens after this point.
->
-> We could move the clear below the lookup and gate it on conn->role, or si=
-mply !status ?
 
-Try with !status, we need to confirm that doesn't break any CI test
-either. That said, it does look like it would clear it also for
-extended advertising where there could be multiple instances
-advertising, so I'm not sure if it's correct to assume that if one
-instance connects all others shall also be considered connected.
+On 8/13/2026 1:37 AM, Anand Khoje wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>
+>
+> The dedicated hardware timestamp RX queue is allocated with q->index
+> equal to lif->ionic->nrxqs_per_lif. The normal txqcqs array only
+> contains the regular queue pairs, so using that index to set rxq->partner
+> can read one entry past txqcqs[] and then write through the derived
+> pointer.
+> Only link RX/TX partners for normal queue-pair indexes. Leave the hwstamp
+> RX queue unpaired, and make the XDP_TX path abort cleanly if an RX queue
+> has no TX partner.
+>
+> Fixes: 8eeed8373e1c ("ionic: Add XDP_TX support")
+> Signed-off-by: Anand Khoje <anand.a.khoje@oracle.com>
+> Reviewed-by: Si-Wei Liu <si-wei.liu@oracle.com>
+> Reviewed-by: Shannon Nelson <sln@onemain.com>
+> Cc: stable@vger.kernel.org
+> ---
+> v3:
+>   Use dev_err() and return -ENXIO for a missing normal TX partner.
+>
+> v2:
+>   Correct the Fixes tag.
+>
+>   drivers/net/ethernet/pensando/ionic/ionic_lif.c | 17 +++++++++++++++--
+>   .../net/ethernet/pensando/ionic/ionic_txrx.c    |  7 ++++++-
+>   2 files changed, 21 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/pensando/ionic/ionic_lif.c b/drivers/net/ethernet/pensando/ionic/ionic_lif.c
+> index fd3ee98..abc8e35 100644
+> --- a/drivers/net/ethernet/pensando/ionic/ionic_lif.c
+> +++ b/drivers/net/ethernet/pensando/ionic/ionic_lif.c
+> @@ -920,8 +920,21 @@ static int ionic_lif_rxq_init(struct ionic_lif *lif, struct ionic_qcq *qcq)
+>          };
+>          int err;
+>
+> -       q->partner = &lif->txqcqs[q->index]->q;
+> -       q->partner->partner = q;
+> +       q->partner = NULL;
+> +
+> +       /* Only normal RX queues have matching TX queue partners. */
+> +       if (q->index < lif->nxqs) {
+> +               if (!lif->txqcqs ||
+> +                   q->index >= lif->ionic->ntxqs_per_lif ||
+> +                   !lif->txqcqs[q->index]) {
+> +                       dev_err(dev, "missing TX queue partner for RX queue %u\n",
+> +                               q->index);
+> +                       return -ENXIO;
+> +               }
+> +
+> +               q->partner = &lif->txqcqs[q->index]->q;
+> +               q->partner->partner = q;
+> +       }
+>
+>          if (!lif->xdp_prog ||
+>              (lif->xdp_prog->aux && lif->xdp_prog->aux->xdp_has_frags))
+> diff --git a/drivers/net/ethernet/pensando/ionic/ionic_txrx.c b/drivers/net/ethernet/pensando/ionic/ionic_txrx.c
+> index 301ebee..73998d6 100644
+> --- a/drivers/net/ethernet/pensando/ionic/ionic_txrx.c
+> +++ b/drivers/net/ethernet/pensando/ionic/ionic_txrx.c
+> @@ -545,13 +545,18 @@ static bool ionic_run_xdp(struct ionic_rx_stats *stats,
+>                  break;
+>
+>          case XDP_TX:
+> +               txq = rxq->partner;
+> +               if (unlikely(!txq)) {
+> +                       err = -EIO;
+> +                       break;
+> +               }
+> +
+>                  xdpf = xdp_convert_buff_to_frame(&xdp_buf);
+>                  if (!xdpf) {
+>                          err = -ENOSPC;
+>                          break;
+>                  }
+>
+> -               txq = rxq->partner;
+>                  nq = netdev_get_tx_queue(netdev, txq->index);
+>                  __netif_tx_lock(nq, smp_processor_id());
+>                  txq_trans_cond_update(nq);
 
-> Valentin Kindschi
->
-> -----Message d'origine-----
-> De : Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-> Envoy=C3=A9 : lundi, 17 ao=C3=BBt 2026 18:12
-> =C3=80 : Valentin Kindschi <valentin.kindschi@fiveco.ch>
-> Cc : linux-bluetooth@vger.kernel.org; marcel@holtmann.org; johan.hedberg@=
-gmail.com; linux-kernel@vger.kernel.org; stable@vger.kernel.org
-> Objet : Re: [PATCH v3 2/2] Bluetooth: hci_event: keep HCI_LE_ADV set if t=
-he host cancelled
->
-> Hi Valentin,
->
-> On Mon, Aug 17, 2026 at 11:03=E2=80=AFAM Valentin Kindschi <valentin.kind=
-schi@fiveco.ch> wrote:
-> >
-> > le_conn_complete_evt() clears HCI_LE_ADV before looking at the event
-> > status, on the premise stated in its comment that all controllers stop
-> > advertising when a connection is created.
-> >
-> > That premise fails for Unknown Connection Identifier (0x02), which is
-> > what an HCI_LE_Connection_Complete carries after the host issued LE
-> > Create Connection Cancel: no connection was created and the controller
-> > never stopped advertising. Clearing the flag there makes the host
-> > believe advertising is off while the controller has it on.
-> >
-> > Other non-zero statuses must keep clearing it. Advertising Timeout
-> > (0x3c) in particular means the controller gave up advertising on its
-> > own, so the flag has to go; leaving it set would make the "already
-> > advertising" shortcut in hci_schedule_adv_instance_sync() skip the HCI
-> > commands and silently stop advertising altogether.
-> >
-> > With legacy advertising the disagreement is self-sustaining. On the
-> > next software rotation tick hci_enable_advertising_sync() runs:
-> >
-> >   - hci_disable_advertising_sync() returns early without sending
-> >     anything, because HCI_LE_ADV is clear;
-> >   - LE Set Advertising Parameters is then sent while the controller is
-> >     still advertising, and is correctly rejected with Command Disallowe=
-d
-> >     (0x0c);
-> >   - the function returns before LE Set Advertising Enable, so nothing
-> >     re-sets HCI_LE_ADV.
-> >
-> > hci_schedule_adv_instance_sync() re-arms adv_instance_expire every
-> > HCI_DEFAULT_ADV_DURATION (2 s) and its "already advertising" shortcut
-> > tests HCI_LE_ADV, which can no longer become true, so the command is
-> > retried every 2 s indefinitely:
-> >
-> >   Bluetooth: hci0: Opcode 0x2006 failed: -16
-> >
-> > Captured on a BCM43455 (no LE Extended Advertising) after a central
-> > connection attempt timed out and was cancelled:
-> >
-> >   LE Set Advertising Parameters (0x2006)   Success
-> >   LE Set Advertising Enable     (0x200a)   Success        HCI_LE_ADV se=
-t
-> >   LE Create Connection Cancel   (0x200e)   Success
-> >   LE Connection Complete                   Unknown Conn Id  <- flag cle=
-ared
-> >   LE Set Advertising Parameters (0x2006)   Command Disallowed  [+2.033 =
-s]
-> >   LE Set Advertising Parameters (0x2006)   Command Disallowed  [+2.016 =
-s]
-> >   ...
-> >
-> > Keep the flag only for the host-cancelled case.
-> >
-> > Fixes: fbd96c151cdc ("Bluetooth: Fix clearing HCI_LE_ADV for LE
-> > connections")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Claude:claude-opus-5 btmon
-> > Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-> > ---
-> > Changes in v2:
-> > - Rebased onto bluetooth-next; no functional change.
-> >   v1's hci_event.c context lacked the hci_store_wake_reason() call
-> >   present in mainline, so the hunk did not apply.
-> >
-> >  net/bluetooth/hci_event.c | 8 +++++---
-> >  1 file changed, 5 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-> > --- a/net/bluetooth/hci_event.c
-> > +++ b/net/bluetooth/hci_event.c
-> > @@ -5720,10 +5720,12 @@ static void le_conn_complete_evt(struct hci_dev=
- *hdev, u8 status,
-> >         hci_dev_lock(hdev);
-> >         hci_store_wake_reason(hdev, bdaddr, bdaddr_type);
-> >
-> > -       /* All controllers implicitly stop advertising in the event of =
-a
-> > -        * connection, so ensure that the state bit is cleared.
-> > +       /* Advertising stops when a connection is created, and when the
-> > +        * controller gives up advertising on its own. It keeps adverti=
-sing
-> > +        * when the host cancelled an outgoing connection.
-> >          */
-> > -       hci_dev_clear_flag(hdev, HCI_LE_ADV);
-> > +       if (status !=3D HCI_ERROR_UNKNOWN_CONN_ID)
-> > +               hci_dev_clear_flag(hdev, HCI_LE_ADV);
->
-> Hmm, I wonder if this is not valid for all status !=3D 0 though, for exam=
-ple if the connection timeout we probably shouldn't clear it either.
->
-> >         /* Check for existing connection:
-> >          *
-> > --
-> > 2.34.1
->
->
->
+LGTM. Thanks for the fix.
+
+Reviewed-by: Brett Creeley <brett.creeley@amd.com>
 > --
-> Luiz Augusto von Dentz
+> 2.52.0
 
-
-
---=20
-Luiz Augusto von Dentz
