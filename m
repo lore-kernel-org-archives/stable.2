@@ -1,123 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF1D422541
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 15:10:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A292E3C76A0;
+	Mon, 17 Aug 2026 15:10:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786979430; cv=none; b=GtgYhJmM/rNOM0r/OlRhbc5J2WDg5CpCPqRdXi/K3K3D/SZ71PIqtEQA9ehawfn+F6mWLLa/wYOmxukWPnvraRQ9nAOO5Jf0GWIyTJQzvouYh/J4oV7jDnp5jl8mgbhirhTve4PAvEC/TOPLMxF+YUW549ofTle4ktydVZPm/b4=
+	t=1786979430; cv=none; b=on3OKPuiWaAoA+mMgPZ3pMh0tNG6XjnaBplFH5eBh2JeDonVPlVGu7iE9Pxj4Mf8gv3O3Qt6Mh30wjaES81v0leaxdhLea4L3VHJ95Gw9goVDk4hdwzpAYwBWD5KM/3Gas4lzYNkjkM5o9TTCQOSXjUnSSIGlb4y9CANWrzAvkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786979430; c=relaxed/simple;
-	bh=KD9pntKicv6wGZwjlKMK4UFit6A6SElZVKcmmkZjLic=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hgbAEG2nj32616N2pPHRlGPyBNQqw5iMJ9aNC+oT5JI8bfnHFwj9afOyOtmZ8jSYWV0dhJSyasIPxWQxMBujxvixKBZmckCV/wHmNdqI1D0IZNQkwb8DpcFAD8+FkoPv+Ktxz21oJd7qPZUcwcP8ElB0RhEOy+Fpr17D98YHcm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GWiF8Otr; arc=none smtp.client-ip=100.103.45.18
+	bh=lWj0YGiSadADqjnJBnMwDklD0JO6aI/hTzc0a+voBhQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kGHEIIX8tVoTkJ2A5bmRQ3d70E6F4txxeQl8NzJTvruIvxwneHPwK91bg7HQqhJ77EgQEocjEXo8ycJP5DvL2iUo6peWkdQoMqMSzE/iIcRF+k882fOHf8NEiJ+A2xEV03jWag1hHhKTnNdLIdefEffkOqlUOqMWi4cxYxUYqEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LEiWHaGI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GWiF8Otr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389D21F00A3A;
-	Mon, 17 Aug 2026 15:10:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786979428;
-	bh=Eo2+YfxM63ujcSnJDyWIW/AYTNaxfj+sSZ6E63Xt7EI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GWiF8OtrLKaPMx47NgR3aA3GaVU99i413uugrlObg9GGI18V21ou+/4eV3w3iTZw1
-	 4lFs5PFA1CGnskE8zCwVI4ZMrcPtArjTFnJ+9S6Op1Iqy84C+Pxf3k2N53XxhiBjv+
-	 8wKsvSTclRO8b8f7dwYurRMvm6er5Y5ihYa3p4JWBkBHPo0Vs0MuGG+YsJ4nq3aL+e
-	 7eGiQvbTYB60h4aVqZkGX+tvI0Rp8fCK3ALtxYqtQ/tzI2S2htcgRwxdpMwRXKox2M
-	 wQXeF0ItWWPom0dI9nopDOp4lqrJD6X21sTQREeOgcr6CapeNs3bWLgipb6Y4d347c
-	 y3IQa7ICLOTkw==
-Date: Mon, 17 Aug 2026 17:10:23 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Rihyeon Kim <rihyeon8648@gmail.com>
-Cc: justin.tee@broadcom.com, nareshgottumukkala83@gmail.com,
-	paul.ely@broadcom.com, kbusch@kernel.org, axboe@kernel.dk,
-	hch@lst.de, sagi@grimberg.me, kch@nvidia.com,
-	stable@vger.kernel.org,
-	syzbot+f58e57380a6083c4041d@syzkaller.appspotmail.com,
-	linux-nvme@lists.infradead.org
-Subject: Re: [PATCH] nvme-fc: fix double free of fabrics options when
- nvme_add_ctrl() fails
-Message-ID: <aoMkX_davK7TWlaj@ryzen>
-References: <20260814143833.1953415-2-cassel@kernel.org>
- <20260817061815.154794-1-rihyeon8648@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LEiWHaGI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0714D1F000E9;
+	Mon, 17 Aug 2026 15:10:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786979429;
+	bh=nfIcWO16fLyJ9mq4jQoVAoiei31Plf5pTeqIXa1pVaA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LEiWHaGIjZVa8TTr1tDo0Rl63xzjLx41Ji31cGHAZJG1NORifCNbKaMNOIwF928y3
+	 j/HFmJmLbgEtGBrGSMsObh7YNur2BOT5G5+2zp+HnQOVP9d1Yjv7PW0VGp70YUEE6F
+	 8hgT0ZnpRN82zoAga/LQhYnsNWyzvHQ9cpfBYfPM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Devin Wittmayer <lucid_duck@justthetip.ca>,
+	Felix Fietkau <nbd@nbd.name>
+Subject: [PATCH 6.1 222/609] wifi: mt76: mt7615: drop TXRX_NOTIFY on non-mmio buses
+Date: Mon, 17 Aug 2026 15:28:38 +0200
+Message-ID: <20260817132551.519892414@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
+References: <20260817132543.039278408@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260817061815.154794-1-rihyeon8648@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 17, 2026 at 03:18:15PM +0900, Rihyeon Kim wrote:
-> Hello,
-> 
-> Thanks for the explanation, and for picking this up.
-> 
-> My testing of v1 and v2 never reached this case.  The syzbot config has
-> "# CONFIG_NVME_HOST_AUTH is not set", and I was not aware that the
-> dhchap option tokens are compiled out when it is disabled.  A connect
-> string containing dhchap_secret= is simply rejected, so every run I did
-> tore down with ctrl->dhchap_ctxs NULL, and there was no path that
-> dereferenced ctrl->opts.
-> 
-> I rebuilt with CONFIG_NVME_HOST_AUTH=y and swept fail-nth 1..200 over a
-> connect write containing dhchap_secret=.  You are right:
-> 
->   clearing opts at out_put_ctrl:   dies at attempt 20
->   this patch                       200/200, with 35 of the injections
->                                    landing in nvme_add_ctrl()
-> 
->   Oops: general protection fault, probably for non-canonical address
->         0xdffffc0000000008
->   KASAN: null-ptr-deref in range [0x0000000000000040-0x0000000000000047]
->   RIP: 0010:nvme_auth_free+0x99/0x450
->    nvme_free_ctrl+0x231/0x6c0
-> 
-> The injection for that attempt landed in kobj_map() under cdev_add(), so
-> this is the nvme_add_ctrl() failure path.  ctrl_max_dhchaps() then
-> dereferences ctrl->opts at offset 0x40.  Clearing the pointer really does
-> just trade the double free for this NULL pointer dereference.  Good catch.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-Thanks a lot for verifying that the Sashiko comment about the NULL pointer
-dereference in nvme_auth_free() can actually happen, and was not only
-theoretical.
+------------------
 
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
 
-> 
-> Your version also addresses the two things I was unsure about in my
-> earlier mail: fail_unlist: covers the two exit paths after
-> list_add_tail(), and checking list_empty() while holding the lock keeps
-> ida_free(), put_device(), and nvme_fc_rport_put() on the unlisted path.
-> 
-> Dropping my v2 in favour of this one.
-> 
-> Tested-by: Rihyeon Kim <rihyeon8648@gmail.com>
+commit 39afc46c0243d10b7795e6e6cf4ae91f41732120 upstream.
 
-It seems like Keith did prefer your patch, but as you said, your patch does
-not avoid a NULL pointer dereference in nvme_auth_free().
+PKT_TYPE_TXRX_NOTIFY is an mmio-only event, but mt7615_rx_check() and
+mt7615_queue_rx_skb() dispatch it to mt7615_mac_tx_free() on every bus.
+mt7615_mac_tx_free() cleans the DMA tx queues with
+mt76_queue_tx_cleanup(), which calls queue_ops->tx_cleanup(). Only the
+mmio queue ops implement that callback; on the mt7663 USB and SDIO
+buses it is NULL, so a TXRX_NOTIFY there calls a NULL pointer in the RX
+worker. Same defect as the mt7921 and mt7925 patches in this series.
 
+Drop the event on non-mmio buses via mt76_is_mmio(), as in
+commit 5683e1488aa9 ("wifi: mt76: connac: do not check WED status for
+non-mmio devices").
 
-My patch should also avoid a potential sysfs NULL pointer dereference as
-reported by Sashiko:
-https://sashiko.dev/#/patchset/20260811125310.165487-1-rihyeon8648%40gmail.com
+Fixes: eb99cc95c3b6 ("mt76: mt7615: introduce mt7663u support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Link: https://patch.msgid.link/20260627191336.20223-4-lucid_duck@justthetip.ca
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/net/wireless/mediatek/mt76/mt7615/mac.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
 
-which is currently also only possible for fc.c, because of the
-'ctrl->ctrl.opts = NULL;' hack.
+--- a/drivers/net/wireless/mediatek/mt76/mt7615/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7615/mac.c
+@@ -1618,6 +1618,8 @@ bool mt7615_rx_check(struct mt76_dev *md
+ 
+ 	switch (type) {
+ 	case PKT_TYPE_TXRX_NOTIFY:
++		if (!mt76_is_mmio(mdev))
++			return false;
+ 		mt7615_mac_tx_free(dev, data, len);
+ 		return false;
+ 	case PKT_TYPE_TXS:
+@@ -1651,6 +1653,10 @@ void mt7615_queue_rx_skb(struct mt76_dev
+ 		dev_kfree_skb(skb);
+ 		break;
+ 	case PKT_TYPE_TXRX_NOTIFY:
++		if (!mt76_is_mmio(mdev)) {
++			dev_kfree_skb(skb);
++			break;
++		}
+ 		mt7615_mac_tx_free(dev, skb->data, skb->len);
+ 		dev_kfree_skb(skb);
+ 		break;
 
 
-Personally, I prefer this patch, since it makes fc.c more similar to rdma.c,
-tcp.c, and loop.c, by checking if the controller is on the linked list or not,
-rather than setting 'ctrl->ctrl.opts = NULL;' before the teardown is even done.
-
-
-I agree that this patch adds more code than what we ideally would have wanted,
-but I don't see any other way (other than completely refactoring the ownership
-model of the controller options - which would require much bigger changes -
-and would most likely require changes to both fabrics.c + all the different
-transport drivers).
-
-
-Kind regards,
-Niklas
