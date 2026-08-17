@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975F13F483C
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:29:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A05D21ABBB
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:30:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786966198; cv=none; b=LI3ie9GKmB6xEtZ3rZ3xT6icL0EhkvTKzOwFf0nQ4LuKV16QVVEHZ1eHrgxL247g0QqDu6UhmbsrStytTnZmmy3irTLMp/ynbqgynt7xuesMxwTzHBZ3kC0u53VtWDibv1Mj5MPIaN8Zr3BaAYjVyf4lJFWcs4B1A7t++NRETHg=
+	t=1786966239; cv=none; b=e6+g5Load0oBU6MWipq1r8bE9t6KB8oBuA41bNFpFBa3e4M431CSecPC3tdk0cFkBZyzFglhf5CCds7dmHnlsVSOymbPZWMQGcoBzMO/EI35esaxRKuww2C5iofIrnCxQLMK3RSPxcL0H3m9v8cJQyQik6jcMggS5k71Rw6hTzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786966198; c=relaxed/simple;
-	bh=jFuyikQZDRWEPNUQYxhJcER5O5qMKKUS5crdSHZG5Ig=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FRtwfv15e5fix+Xc73mbY0F/lJyS1WEjIYHm449nejFQNMPLa6CtvFWs1z/5i9BsN5/Xw6e6phdIdncysSFNa4VGNRsXeTd31u7bFZMf7G7gYheLEyzUHc7bIntaOFAknOHLJlWb7TXJk/YJPTXz49lpJGeaCZECCB1Q+j5/CaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nviZot9+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786966239; c=relaxed/simple;
+	bh=cF2O9tPiMu7Bw+6tRclPxl1yNRl8eX+WuUG1jvHubQg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=V994r8VeEJIgFT16xx/jWSM8MzJ1RQctTesmGvsnowz010nVJOvwmxQRfFH0makEVheS3sti2Hq2Gl0aVx2HGMY0LcaeFnmnnoQsR9MhXWjr/LH0uKuYz4dbt/ajiEq/9RYMpQClSY2ICcU9oP2AoEZ6W90M9wuwc+0xFk2SmZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lTcH5jzz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nviZot9+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3171F000E9;
-	Mon, 17 Aug 2026 11:29:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lTcH5jzz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E118E1F000E9;
+	Mon, 17 Aug 2026 11:30:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786966196;
-	bh=J4p4JHRnGjFCac8jtcou7DiWfp873E3Mon4QomOl6n8=;
+	s=korg; t=1786966238;
+	bh=WTxFKbZFfzFcKhgAQ3epZ3v1lRXSGRsKzlnat4tskpg=;
 	h=Subject:To:Cc:From:Date;
-	b=nviZot9+UtCsufqV7NNaUhaaFHXu+k7AMw3mB1uexQB69gsavhvcFRsm3CJyCy/Xn
-	 KmIZhOQsmouEr5BqD35oBDKD+b/eGuxmO2y05bnkNx8TS3uVyPl3dp00a9+pwFC/sK
-	 +HDO0BjW1UWuOfaeHZdtulbrLwEZgbULtym13/AU=
-Subject: FAILED: patch "[PATCH] ipvs: separate destination availability state" failed to apply to 5.10-stable tree
-To: zhaoyz24@mails.tsinghua.edu.cn,fengxw06@126.com,ja@ssi.bg,pablo@netfilter.org,qli01@tsinghua.edu.cn,wangao@seu.edu.cn,xuke@tsinghua.edu.cn,yangyx22@mails.tsinghua.edu.cn
+	b=lTcH5jzzq4SK/vhtw3CmCamE8sD55yPwJOud/Z4D5uhqC44eYIiCf9AlBi81bNlKQ
+	 XRjGDDpYw/dsu+f3WcBO4IiF7SlOVf911pdbl1ERqWDWcoS4DlQtu9JV1zYovkc13Q
+	 +eCjTgcspSB94x5xnrdq1Ibwkf6YvVQuI1EbqUmM=
+Subject: FAILED: patch "[PATCH] packet: use consistent hard_header_len in non-ring send paths" failed to apply to 6.1-stable tree
+To: q.h.hack.winter@gmail.com,kuba@kernel.org,willemb@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 13:28:02 +0200
-Message-ID: <2026081702-renovator-concave-ba8d@gregkh>
+Date: Mon, 17 Aug 2026 13:29:01 +0200
+Message-ID: <2026081701-education-monument-ba42@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x cdcc4e46180df8161f4d2f3c6fd6beaf6990133d
+git cherry-pick -x 03390aa32e669cc4ecd7d34108e2e1afc13d689d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081702-renovator-concave-ba8d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081701-education-monument-ba42@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,234 +62,143 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From cdcc4e46180df8161f4d2f3c6fd6beaf6990133d Mon Sep 17 00:00:00 2001
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Date: Fri, 31 Jul 2026 22:27:43 +0800
-Subject: [PATCH] ipvs: separate destination availability state
+From 03390aa32e669cc4ecd7d34108e2e1afc13d689d Mon Sep 17 00:00:00 2001
+From: Qihang Tang <q.h.hack.winter@gmail.com>
+Date: Wed, 5 Aug 2026 20:57:28 +0800
+Subject: [PATCH] packet: use consistent hard_header_len in non-ring send paths
 
-IPVS configuration paths update destination availability while connection
-accounting updates destination overload state. The two independent states
-share dest->flags, so their read-modify-write updates can race and lose one
-another.
+packet_snd() reads dev->hard_header_len multiple times while allocating
+and constructing an skb. Device reconfiguration can change this value
+concurrently, for example through bonding device type changes.
 
-Keep OVERLOAD in flags, where the preceding patch serializes its updates
-with dst_lock, and move AVAILABLE to cflags. This keeps configuration-
-controlled availability out of the scheduler hot cacheline until a
-scheduler needs to check it. It also prevents availability updates from
-clobbering overload state.
+For SOCK_RAW, packet_snd() can save a larger value in reserve and later
+allocate headroom using a smaller value. Moving skb->data back by reserve
+then places it before skb->head, and the following copy from userspace can
+attempt an out-of-bounds write.
 
-The destination status bits are not exposed through the IPVS sockopt or
-netlink interfaces, so keep their definitions in the internal IPVS header.
+packet_sendmsg_spkt() has the same issue because it calculates its
+reservation and header offset from separate reads before dropping the RCU
+read lock to allocate the skb.
 
-Readers can still observe stale destination state; this does not provide a
-cross-field snapshot.
+Add LL_RESERVED_SPACE_EX() for callers that already saved a header length.
+Read hard_header_len once in packet_snd() and use it for allocation and
+construction. In packet_sendmsg_spkt(), preserve the allocation-time value
+through the device lookup retry.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+The separate SOCK_DGRAM consistency problem between hard_header_len and
+header_ops->create is not addressed here.
+
+Fixes: b84bbaf7a6c8 ("packet: in packet_snd start writing at link layer allocation")
 Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Link: https://lore.kernel.org/all/8913381c-1e02-35c7-0ec4-61de5a12fd35@ssi.bg/
-Assisted-by: Claude-Code:GLM-5.2
-Suggested-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Acked-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260805125729.19220-3-q.h.hack.winter@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-index e99382930617..fc2ef5ef31a6 100644
---- a/include/net/ip_vs.h
-+++ b/include/net/ip_vs.h
-@@ -36,6 +36,12 @@
- #define IP_VS_HDR_INVERSE	1
- #define IP_VS_HDR_ICMP		2
- 
-+/* Destination Server Flags */
-+#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
-+
-+/* Destination Server Config Flags */
-+#define IP_VS_DEST_CF_AVAILABLE	0x0001		/* server is available */
-+
- /* conn_tab limits (as per Kconfig) */
- #define IP_VS_CONN_TAB_MIN_BITS	8
- #if BITS_PER_LONG > 32
-@@ -976,6 +982,7 @@ struct ip_vs_dest {
- 	volatile unsigned int	flags;		/* dest status flags */
- 	atomic_t		conn_flags;	/* flags to copy to conn */
- 	atomic_t		weight;		/* server weight */
-+	unsigned long		cflags;		/* config flags */
- 	atomic_t		last_weight;	/* server latest weight */
- 	__u16			tun_type;	/* tunnel type */
- 	__be16			tun_port;	/* tunnel port */
-diff --git a/include/uapi/linux/ip_vs.h b/include/uapi/linux/ip_vs.h
-index 1ed234e7f251..2c37c6ac7525 100644
---- a/include/uapi/linux/ip_vs.h
-+++ b/include/uapi/linux/ip_vs.h
-@@ -28,12 +28,6 @@
- #define IP_VS_SVC_F_SCHED_SH_FALLBACK	IP_VS_SVC_F_SCHED1 /* SH fallback */
- #define IP_VS_SVC_F_SCHED_SH_PORT	IP_VS_SVC_F_SCHED2 /* SH use port */
- 
--/*
-- *      Destination Server Flags
-- */
--#define IP_VS_DEST_F_AVAILABLE	0x0001		/* server is available */
--#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
--
- /*
-  *      IPVS sync daemon states
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 9a770eb823ce..8840b126979f 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -300,9 +300,11 @@ struct hh_cache {
+  * We could use other alignment values, but we must maintain the
+  * relationship HH alignment <= LL alignment.
   */
-diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-index abf52a226fee..6fa3e1dc534c 100644
---- a/net/netfilter/ipvs/ip_vs_conn.c
-+++ b/net/netfilter/ipvs/ip_vs_conn.c
-@@ -1279,7 +1279,7 @@ int ip_vs_check_template(struct ip_vs_conn *ct, struct ip_vs_dest *cdest)
- 	 * Checking the dest server status.
- 	 */
- 	if ((dest == NULL) ||
--	    !(dest->flags & IP_VS_DEST_F_AVAILABLE) ||
-+	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE) ||
- 	    expire_quiescent_template(ipvs, dest) ||
- 	    (cdest && (dest != cdest))) {
- 		IP_VS_DBG_BUF(9, "check_template: dest not available for "
-@@ -2020,7 +2020,7 @@ void ip_vs_expire_nodest_conn_flush(struct netns_ipvs *ipvs)
- 			cp = ip_vs_hn0_to_conn(hn);
- 			resched_score++;
- 			dest = cp->dest;
--			if (!dest || (dest->flags & IP_VS_DEST_F_AVAILABLE))
-+			if (!dest || (dest->cflags & IP_VS_DEST_CF_AVAILABLE))
- 				continue;
+-#define LL_RESERVED_SPACE(dev) \
+-	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom)) \
++#define LL_RESERVED_SPACE_EX(dev, hlen) \
++	((((hlen) + READ_ONCE((dev)->needed_headroom)) \
+ 	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
++#define LL_RESERVED_SPACE(dev) \
++	LL_RESERVED_SPACE_EX(dev, (dev)->hard_header_len)
+ #define LL_RESERVED_SPACE_EXTRA(dev,extra) \
+ 	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom) + (extra)) \
+ 	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 0e1355be89f6..b7af45c809e4 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1966,8 +1966,9 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 	struct net_device *dev;
+ 	struct sockcm_cookie sockc;
+ 	__be16 proto = 0;
+-	int err;
++	int hard_header_len;
+ 	int extra_len = 0;
++	int err;
  
- 			if (atomic_read(&cp->n_control))
-diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-index 0bdaeb4ed61e..95af77b68851 100644
---- a/net/netfilter/ipvs/ip_vs_core.c
-+++ b/net/netfilter/ipvs/ip_vs_core.c
-@@ -302,7 +302,7 @@ ip_vs_in_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
- 	struct ip_vs_dest *dest = cp->dest;
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 
--	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		struct ip_vs_cpu_stats *s;
- 		struct ip_vs_service *svc;
- 
-@@ -338,7 +338,7 @@ ip_vs_out_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
- 	struct ip_vs_dest *dest = cp->dest;
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 
--	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		struct ip_vs_cpu_stats *s;
- 		struct ip_vs_service *svc;
- 
-@@ -2210,7 +2210,7 @@ ip_vs_in_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state
+ 	/*
+ 	 *	Get and verify the address.
+@@ -2010,14 +2011,18 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 		extra_len = 4; /* We're doing our own CRC */
  	}
  
- 	/* Check the server status */
--	if (cp && cp->dest && !(cp->dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (cp && cp->dest && !(cp->dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		/* the destination server is not available */
- 		if (sysctl_expire_nodest_conn(ipvs)) {
- 			bool old_ct = ip_vs_conn_uses_old_conntrack(cp, skb);
-diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
-index 974773642af8..8f9a8e491ad6 100644
---- a/net/netfilter/ipvs/ip_vs_ctl.c
-+++ b/net/netfilter/ipvs/ip_vs_ctl.c
-@@ -1402,7 +1402,7 @@ __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
++	/* Keep the allocation-time header length across retry. */
++	if (!skb)
++		hard_header_len = READ_ONCE(dev->hard_header_len);
++
+ 	err = -EMSGSIZE;
+-	if (len > dev->mtu + dev->hard_header_len + VLAN_HLEN + extra_len)
++	if (len > dev->mtu + hard_header_len + VLAN_HLEN + extra_len)
+ 		goto out_unlock;
+ 
+ 	if (!skb) {
+-		size_t reserved = LL_RESERVED_SPACE(dev);
++		size_t reserved = LL_RESERVED_SPACE_EX(dev, hard_header_len);
+ 		int tlen = dev->needed_tailroom;
+-		unsigned int hhlen = dev->header_ops ? dev->hard_header_len : 0;
++		unsigned int hhlen = dev->header_ops ? hard_header_len : 0;
+ 
+ 		rcu_read_unlock();
+ 		skb = sock_wmalloc(sk, len + reserved + tlen, 0, GFP_KERNEL);
+@@ -2047,7 +2052,7 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 		err = -EINVAL;
+ 		goto out_unlock;
+ 	}
+-	if (len > (dev->mtu + dev->hard_header_len + extra_len) &&
++	if (len > (dev->mtu + hard_header_len + extra_len) &&
+ 	    !packet_extra_vlan_len_allowed(dev, skb)) {
+ 		err = -EMSGSIZE;
+ 		goto out_unlock;
+@@ -2969,7 +2974,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 	int offset = 0;
+ 	struct packet_sock *po = pkt_sk(sk);
+ 	int vnet_hdr_sz = READ_ONCE(po->vnet_hdr_sz);
+-	int hlen, tlen, linear;
++	int hard_header_len, hlen, tlen, linear;
+ 	int extra_len = 0;
+ 
+ 	/*
+@@ -3009,8 +3014,9 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 			goto out_unlock;
  	}
  
- 	/* set the dest status flags */
--	dest->flags |= IP_VS_DEST_F_AVAILABLE;
-+	dest->cflags |= IP_VS_DEST_CF_AVAILABLE;
++	hard_header_len = READ_ONCE(dev->hard_header_len);
+ 	if (sock->type == SOCK_RAW)
+-		reserve = dev->hard_header_len;
++		reserve = hard_header_len;
+ 	if (vnet_hdr_sz) {
+ 		err = packet_snd_vnet_parse(msg, &len, &vnet_hdr, vnet_hdr_sz);
+ 		if (err)
+@@ -3031,10 +3037,10 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 		goto out_unlock;
  
- 	if (READ_ONCE(dest->u_threshold) != udest->u_threshold ||
- 	    READ_ONCE(dest->l_threshold) != udest->l_threshold) {
-@@ -1662,7 +1662,7 @@ static void __ip_vs_unlink_dest(struct ip_vs_service *svc,
- 				struct ip_vs_dest *dest,
- 				int svcupd)
- {
--	dest->flags &= ~IP_VS_DEST_F_AVAILABLE;
-+	dest->cflags &= ~IP_VS_DEST_CF_AVAILABLE;
- 
- 	spin_lock_bh(&dest->dst_lock);
- 	__ip_vs_dst_cache_reset(dest);
-diff --git a/net/netfilter/ipvs/ip_vs_dh.c b/net/netfilter/ipvs/ip_vs_dh.c
-index e1f62f6b25e2..43abed7a26a6 100644
---- a/net/netfilter/ipvs/ip_vs_dh.c
-+++ b/net/netfilter/ipvs/ip_vs_dh.c
-@@ -219,8 +219,8 @@ ip_vs_dh_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
- 
- 	s = (struct ip_vs_dh_state *) svc->sched_data;
- 	dest = ip_vs_dh_get(svc->af, s, &iph->daddr);
--	if (!dest
--	    || !(dest->flags & IP_VS_DEST_F_AVAILABLE)
-+	if (!dest ||
-+	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE)
- 	    || atomic_read(&dest->weight) <= 0
- 	    || is_overloaded(dest)) {
- 		ip_vs_scheduler_err(svc, "no destination available");
-diff --git a/net/netfilter/ipvs/ip_vs_lblc.c b/net/netfilter/ipvs/ip_vs_lblc.c
-index 15ccb2b2fa1f..693bcc82ccb7 100644
---- a/net/netfilter/ipvs/ip_vs_lblc.c
-+++ b/net/netfilter/ipvs/ip_vs_lblc.c
-@@ -502,7 +502,7 @@ ip_vs_lblc_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
- 		 */
- 
- 		dest = en->dest;
--		if ((dest->flags & IP_VS_DEST_F_AVAILABLE) &&
-+		if ((dest->cflags & IP_VS_DEST_CF_AVAILABLE) &&
- 		    atomic_read(&dest->weight) > 0 && !is_overloaded(dest, svc))
- 			goto out;
+ 	err = -ENOBUFS;
+-	hlen = LL_RESERVED_SPACE(dev);
++	hlen = LL_RESERVED_SPACE_EX(dev, hard_header_len);
+ 	tlen = dev->needed_tailroom;
+ 	linear = __virtio16_to_cpu(vio_le(), vnet_hdr.hdr_len);
+-	linear = max(linear, min_t(int, len, dev->hard_header_len));
++	linear = max(linear, min_t(int, len, hard_header_len));
+ 	skb = packet_alloc_skb(sk, hlen + tlen, hlen, len, linear,
+ 			       msg->msg_flags & MSG_DONTWAIT, &err);
+ 	if (skb == NULL)
+@@ -3050,7 +3056,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 	} else if (reserve) {
+ 		skb_reserve(skb, -reserve);
+ 		if (len < reserve + sizeof(struct ipv6hdr) &&
+-		    dev->min_header_len != dev->hard_header_len)
++		    dev->min_header_len != hard_header_len)
+ 			skb_reset_network_header(skb);
  	}
-diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-index c90ea897c3f7..f53f05ceea36 100644
---- a/net/netfilter/ipvs/ip_vs_lblcr.c
-+++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-@@ -169,8 +169,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
- 		if (least->flags & IP_VS_DEST_F_OVERLOAD)
- 			continue;
  
--		if ((atomic_read(&least->weight) > 0)
--		    && (least->flags & IP_VS_DEST_F_AVAILABLE)) {
-+		if ((atomic_read(&least->weight) > 0) &&
-+		    (least->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 			loh = ip_vs_dest_conn_overhead(least);
- 			goto nextstage;
- 		}
-@@ -186,8 +186,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
- 
- 		doh = ip_vs_dest_conn_overhead(dest);
- 		if (((__s64)loh * atomic_read(&dest->weight) >
--		     (__s64)doh * atomic_read(&least->weight))
--		    && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+		     (__s64)doh * atomic_read(&least->weight)) &&
-+		    (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 			least = dest;
- 			loh = doh;
- 		}
-diff --git a/net/netfilter/ipvs/ip_vs_xmit.c b/net/netfilter/ipvs/ip_vs_xmit.c
-index c4508f3f43dd..fc7403186394 100644
---- a/net/netfilter/ipvs/ip_vs_xmit.c
-+++ b/net/netfilter/ipvs/ip_vs_xmit.c
-@@ -351,7 +351,7 @@ __ip_vs_get_out_rt(struct netns_ipvs *ipvs, int skb_af, struct sk_buff *skb,
- 			 * stored in dest_trash.
- 			 */
- 			if (!rt_dev_is_down(dst_dev_rcu(&rt->dst)) &&
--			    dest->flags & IP_VS_DEST_F_AVAILABLE)
-+			    dest->cflags & IP_VS_DEST_CF_AVAILABLE)
- 				__ip_vs_dst_set(dest, dest_dst, &rt->dst, 0);
- 			else
- 				noref = 0;
-@@ -530,7 +530,7 @@ __ip_vs_get_out_rt_v6(struct netns_ipvs *ipvs, int skb_af, struct sk_buff *skb,
- 			 * stored in dest_trash.
- 			 */
- 			if (!rt_dev_is_down(dst_dev_rcu(&rt->dst)) &&
--			    dest->flags & IP_VS_DEST_F_AVAILABLE)
-+			    dest->cflags & IP_VS_DEST_CF_AVAILABLE)
- 				__ip_vs_dst_set(dest, dest_dst, &rt->dst, cookie);
- 			else
- 				noref = 0;
 
