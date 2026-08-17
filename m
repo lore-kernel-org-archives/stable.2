@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18DD41D111;
-	Mon, 17 Aug 2026 16:24:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FC244E67A;
+	Mon, 17 Aug 2026 16:30:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786983896; cv=none; b=FnZ3sbW4Spd19H2ZeSsuRg9Ss4HsMIBE7iVRgtLvi8XdS8/TWTXeN2D4RkTuT04F4hTrg9T9S87s6uvB244md8GbfHWR+xWvgp4c34DiJdhJ4a6xJQSZ7k8wYcPJNFAJ9zrpvq5RXaFTBxcStE1e7WGOuAD+tEdUDrlvmlm6UPk=
+	t=1786984203; cv=none; b=qHaDM++a8sQyjnDUeMxWS4uvkcecDU+u9rGC2PHNNv3KrN8OW0hxOzayRYoDQ0pQpmfb8Psbtz2xffNBhqkh2H8JaFMcQnq5qaDPi3s0UGaUD9jpJ+FZobKnGi8CzyrnpRjmbOaucNsvEGGIL2ghYhPE0ljSjVK7QXoiJN3TGdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786983896; c=relaxed/simple;
-	bh=4cmHE4rc/iExtMHG6ducb6RazvtPIobkfRuroHL664c=;
+	s=arc-20240116; t=1786984203; c=relaxed/simple;
+	bh=SSt6Jc5NlsZOhtaj7jirxeAg2gOOIvG336WvTpXoGlo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eueuj6PXqCfug5PVME3xFdU8GBiFn3bmbrNz3rK4RuFJUwUeBX1k5Rcc+5StVthCCpWxavBp/WW9Kagaskj+hM9Fh5u7IB4zrZ7oLljTUnKsUgAG55hslhkIouiKnGyfBTqWen6VkGKOqQm64wrMz/XBrfkjh0FeuaSbxPvzf4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJVzTsn8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=qfkbrrKsPZo2Ltsg60vG0fQlE8a10OtSY8GiOGQz/EL4TeHlRj9afp8hsmiQb0kQ1hc4nzC1dQCmHSOW0sBio3Js61v95ia16yDyM7Ks8KZzNxl7D7CM92lXjHI0aUXyH/NXZC7LDwyRrVSsSdGEQ1eTZ9hbxO2eZAjsuu64oL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwOEf1yM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJVzTsn8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC5831F000E9;
-	Mon, 17 Aug 2026 16:24:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwOEf1yM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30E011F000E9;
+	Mon, 17 Aug 2026 16:29:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786983895;
-	bh=c5CU30hf+MXBRHB8OXc7DblMS9Myra57RuQWaqX120Y=;
+	s=k20260515; t=1786984201;
+	bh=SSt6Jc5NlsZOhtaj7jirxeAg2gOOIvG336WvTpXoGlo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PJVzTsn8qnM3BwB9BgTg/LvNeYXnPQsvVcU4MYqNHmq5qkQ/tReJgUdUVK8iKBhp3
-	 BB2ZgNzWfwWT2Ah3uFVhvN4MXQw12bRYLVnmEdxiwds4bVH/Hkgmn9bmAMWsEHepNs
-	 7hZ6ZCHYhd9ZhXd4V3CYlTk0QpLlEtLYNfw+EEiIgOIXTRFy/wXgoYyjyazHF0dvfy
-	 3sh8QjuJ9obb5Cx5Hrb2neGzGKSQeVrEQfedVClEs848shDPB3jOXRceOQMlkOTg+U
-	 XIOq8EvqmpRZI5HQ4M6JrItRfJ9Hhp4LBw7rrZI26T/QBkueevkdYjHiEF56DBH/7R
-	 H6J0ZFZMvFFvw==
-Date: Mon, 17 Aug 2026 17:24:36 +0100
+	b=VwOEf1yMXe96Q8PKjzX/91j8sVh665aI2y+5Y0LVVlTqa59ZzxnsqpuiV+lPJh7xy
+	 hp/j6q6dCpnWBF4zkNWvuAWUVRGK77NUas9YyofzOEjg99k82gtnT3w5fzYDTpHE13
+	 whYrmxu1KdPAG2BxjYzcp/UnAHHSxLFZ6/4iHV5+b7QlNB5vGNyLuanxXGX9WI4+N9
+	 GViRqRz1c5jBvZZD656cAKEfaTcLGC4LABq+Bo2drpmytDMH0pSzgqTMfXVs0EcXor
+	 b5oySlCYcDOxKEuwP+ndAMV+oJJpalzCLVBUoUUlTTrMtYOXb8MMzn3V1lve66+718
+	 JFDYkl7W5qwWg==
+Date: Mon, 17 Aug 2026 17:29:42 +0100
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org, 
@@ -34,13 +34,13 @@ Cc: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org,
 	lance.yang@linux.dev, usama.arif@linux.dev, zokeefe@google.com, 
 	linux-kernel@vger.kernel.org, linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>, 
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] mm: khugepaged: fix swap entry value to
- folio_pfn()
-Message-ID: <aoM1kq6fWvCFXobj@lucifer>
+Subject: Re: [PATCH v2 2/3] mm: khugepaged: fix folio is used after
+ pte_unmap_unlock()
+Message-ID: <aoM10Z0wAKOMzsEO@lucifer>
 References: <20260815051924.194810-1-vernon2gm@gmail.com>
- <20260815051924.194810-2-vernon2gm@gmail.com>
- <aoMs79VDCnYvA9S7@lucifer>
- <cf1d271c-f002-427a-a843-00a1fbc59251@kernel.org>
+ <20260815051924.194810-3-vernon2gm@gmail.com>
+ <aoMynfFI2XK2UXXN@lucifer>
+ <cd555188-2b51-4559-a315-0e8af6b2572a@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,34 +49,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cf1d271c-f002-427a-a843-00a1fbc59251@kernel.org>
+In-Reply-To: <cd555188-2b51-4559-a315-0e8af6b2572a@kernel.org>
 
-On Mon, Aug 17, 2026 at 06:19:16PM +0200, David Hildenbrand (Arm) wrote:
+On Mon, Aug 17, 2026 at 06:20:02PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/17/26 18:11, Lorenzo Stoakes (ARM) wrote:
+> > Same comment as 1/3 I don't see why we should be storing a pfn value used
+> > nowhere else just for tracing.
 >
-> > I mean maybe better to just reduce this to something like:
-> >
-> > 	/* folio is NULL unless exited early. */
-> > 	trace_mm_khugepaged_scan_file(mm,
-> > 			(!folio || xa_is_value(folio)) ? -1 : folio_pfn(folio),
-> > 			file, present, swap, result);
-> >
-> > As the least invasive way of fixing the trace + limiting the contageon?
->
-> I raised that using a folio after dropping relevant refs+locks is in general an
-> anti-pattern (IOW wrong if folios can just get split afterwards and are suddenly
-> no longer folios).
->
-> I'd like us to avoid that where possible (and suspect Willy will thank us later ;) )
->
-> Isn't there some minimal way to just calculate the pfn once we obtain a folio? I
-> was assuming that there should be an easier way to do that.
+> I prefer it that way. Even if just for tracing. :)
 
-See my reply-to-self. My initial reply was wrong because parisc + mips do
-actually do classic sparsemem (sigh).
+This is moot because you have to store the PFN for lifetime for museum-piece
+architectures.
 
-I suggest what you're saying here basically.
+But anyway FWIW:
 
-(Moving folio_put()'s for the break cases out of the loop is nasty)
+Yes I agree accessing a now-invalid folio isn't great, but the reason I dislike
+this pattern is that you're tracking this state in a different way that now has
+maintenance overhead (if anybody reassigns folio or does weird control flow
+etc. they must now update 2 things and etc.)
+
+For the sake of CONFIG_SPARSEMEM and tracing for a value that is not at all
+intuitive as to what it means, that's not great.
+
+Let me go back and review this again accounting for the lifetime issue that I
+missed first time.
 
 >
 > --
