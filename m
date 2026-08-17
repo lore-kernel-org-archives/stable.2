@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62C241D13B
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:43:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2E641D202
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:43:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786970637; cv=none; b=q81dP2XOdErTC9xev2Gq1enG65SnTS5SpflRF/DuVcAwFzbZ5eo8oFER66PxDuYrMk9QVILKaLL8rN87a6RK4yzmvTSLbuyaOIjk2unyEmTIegqZTJKlxvNNwhPxuwbwVx5FDAkxpt+bgsEQBYAWsmdU8VJ1zAG9epamS1oIV0I=
+	t=1786970642; cv=none; b=NBIPgMWSMKQJXEz1C++iiOmB6gVnS2RNzR7uEmOVaDRC7yzjujqfd1sKjqKmtoXI8JTR8rZcb5WEf+XkvTlLQEbi6kTK33ZHIYgaNgarmFGpZaEwJs5OrIhgifAvtfSDxNdb/kAp6xUpQzNMXhNDAKVGxB5yaDUCTHIss6fjHpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786970637; c=relaxed/simple;
-	bh=JE122lrQQf9D/PM3VLLfsnGiJqqHTOe99wUuecGaOTQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pUaxw58zIKGM8I85Q74QZ6T0gPtgEajAOMLjd/ArYST6VWGYRe8w8LNY13jYcLvdaV7DrcU/vV9+yp+tgQvu2rbR7gUUwXcroQINvLOQZGg+4nkBaGKG/VtBWv8l3pHaDV5V1/g9NOG+1mWhYG+L7vcIIn9vSn7ANis75mjabtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=po6f3cdk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786970642; c=relaxed/simple;
+	bh=P25wMSifTchGgEid0DzI38TNbLTUswnJbivnRWNxQXw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=N9aWtNl2Pa2nJd/dcpwkqZadKKMzzsIORRAJed/xFL7TGZMw5IcT+zRp+HgwBRSS8L7Q/4tXysl4xZ9ipNQpyCIuGS6QJqlStILt71DtCm4Oqyn783h7A8lTrH+5Q/GJf8R4gN3rkibD0LOmMvfj2JtY/wQ0VRFx6i0tkPeC0lM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cKbPHG9F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="po6f3cdk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 927691F000E9;
-	Mon, 17 Aug 2026 12:43:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cKbPHG9F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C361E1F000E9;
+	Mon, 17 Aug 2026 12:43:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786970635;
-	bh=gIHqJBWoMP2KfEh0qBJa4/o7iYXQo3vq+B5n0oJ5hi4=;
+	s=korg; t=1786970639;
+	bh=E2BC6LF6O/o0BRXitmyRQKTd6jjIyBYpgEq5bxmOABE=;
 	h=Subject:To:Cc:From:Date;
-	b=po6f3cdkhBd7eBLOBPeklp0n9zLGTZlwNg6LbHY3rBswBbrhRE/20ch9OVciEEY1M
-	 fO1tVWGkK2RFuz4mLG06VNQxjDygqQS4+6odgqSwbsPH7Em8MQs17gPjOFA4Md3XHE
-	 s+x5QwaiBgkQgLk+LJ4e6ubRmb7V7b4zJRBW/Mds=
-Subject: FAILED: patch "[PATCH] net/x25: fix use-after-free of the socket by its timers" failed to apply to 5.10-stable tree
-To: baul.lee@xbow.com,kuba@kernel.org
+	b=cKbPHG9FPYVqyC1Uut5nyuncP2E6SMlt/WZ4zR4ywIeN9RnGLviHGLp9mS2oE1wgr
+	 m4Otn/TmpYZ28etwEKFtHlj5qZ4ZqjUsIH1Rf3WpNMkuQ2UShHlmvm9bpUfbG1zEq4
+	 tSc/76AfTksDeHL5ApN+/pBxzZsMlZpJ8xITa0PE=
+Subject: FAILED: patch "[PATCH] NTB: ntb_netdev: Preserve RX queue depth on allocation" failed to apply to 6.12-stable tree
+To: den@valinux.co.jp,dave.jiang@intel.com,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:41:45 +0200
-Message-ID: <2026081745-contend-uranium-639b@gregkh>
+Date: Mon, 17 Aug 2026 14:42:09 +0200
+Message-ID: <2026081709-chump-underhand-f0fd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2195424c3da2ef1829a63b807e3a900a90e57d85
+git cherry-pick -x d2121faf133ac3bf9531b53a7e21273649a08517
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081745-contend-uranium-639b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081709-chump-underhand-f0fd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,153 +62,69 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2195424c3da2ef1829a63b807e3a900a90e57d85 Mon Sep 17 00:00:00 2001
-From: Baul Lee <baul.lee@xbow.com>
-Date: Mon, 27 Jul 2026 07:03:42 +0900
-Subject: [PATCH] net/x25: fix use-after-free of the socket by its timers
+From d2121faf133ac3bf9531b53a7e21273649a08517 Mon Sep 17 00:00:00 2001
+From: Koichiro Den <den@valinux.co.jp>
+Date: Thu, 6 Aug 2026 12:25:37 +0900
+Subject: [PATCH] NTB: ntb_netdev: Preserve RX queue depth on allocation
+ failure
 
-The x25 timers are armed with mod_timer() and cancelled with
-timer_delete(), so a pending timer holds no reference on the socket and a
-cancel does not wait for a callback already running on another CPU.
+ntb_netdev_rx_handler() hands the received skb to the network stack
+before allocating its replacement. If the allocation fails, nothing is
+reposted. Every failure therefore takes one buffer out of the RX queue
+while the interface remains up, and enough failures eventually stall
+reception.
 
-x25_heartbeat_expiry() also rearms unconditionally, so it can reinstall
-sk->sk_timer after __x25_destroy_socket() has passed its cancel point.
-The following __sock_put() frees the socket while the timer is still
-queued, and the next expiry uses freed memory.  KASAN reports a
-slab-use-after-free on the kmalloc-2k object freed by close().
+A retry path could refill the queue later, but ntb_netdev has none.
+Allocate the replacement first instead. If that fails, drop the packet
+and repost the same skb. This keeps the queue full and lets packet
+delivery resume as soon as memory is available again.
 
-timer_delete_sync() cannot be used here: x25_heartbeat_expiry() and
-x25_timer_expiry() both reach the cancels from inside the timer they
-would wait on, through __x25_destroy_socket() and x25_disconnect().
-
-Arm the timers with sk_reset_timer() and cancel them with sk_stop_timer()
-so that an armed timer owns a reference, and release it in both expiry
-handlers.  Rearm the heartbeat only while sk_hashed(sk) is still true,
-since __x25_destroy_socket() unlinks the socket before dropping it.  Arm
-the deferred destroy timer the same way and drop its reference in
-x25_destroy_timer().
-
-Reproduced on net with KASAN, with the heartbeat period shortened so the
-window recurs.  With this patch the reproducer no longer triggers a
-report and /proc/net/x25 drains.
-
-Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 548c237c0a99 ("net: Add support for NTB virtual ethernet device")
 Cc: stable@vger.kernel.org
-Signed-off-by: Baul Lee <baul.lee@xbow.com>
-Link: https://patch.msgid.link/20260726220342.47245-1-baul.lee@xbow.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Link: https://patch.msgid.link/20260806032537.3526498-1-den@valinux.co.jp
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 
-diff --git a/net/x25/af_x25.c b/net/x25/af_x25.c
-index 8aae9273b7c1..033e7d059f58 100644
---- a/net/x25/af_x25.c
-+++ b/net/x25/af_x25.c
-@@ -363,6 +363,7 @@ static void x25_destroy_timer(struct timer_list *t)
- 	struct sock *sk = timer_container_of(sk, t, sk_timer);
- 
- 	x25_destroy_socket_from_timer(sk);
-+	sock_put(sk);
- }
- 
- /*
-@@ -398,9 +399,8 @@ static void __x25_destroy_socket(struct sock *sk)
- 
- 	if (sk_has_allocations(sk)) {
- 		/* Defer: outstanding buffers */
--		sk->sk_timer.expires  = jiffies + 10 * HZ;
- 		sk->sk_timer.function = x25_destroy_timer;
--		add_timer(&sk->sk_timer);
-+		sk_reset_timer(sk, &sk->sk_timer, jiffies + 10 * HZ);
- 	} else {
- 		/* drop last reference so sock_put will free */
- 		__sock_put(sk);
-diff --git a/net/x25/x25_timer.c b/net/x25/x25_timer.c
-index 2ec63a1f4c6d..7896cd43f1cc 100644
---- a/net/x25/x25_timer.c
-+++ b/net/x25/x25_timer.c
-@@ -36,45 +36,45 @@ void x25_init_timers(struct sock *sk)
- 
- void x25_start_heartbeat(struct sock *sk)
+diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
+index c3a6ba96fc8a..029a4a532a10 100644
+--- a/drivers/net/ntb_netdev.c
++++ b/drivers/net/ntb_netdev.c
+@@ -127,8 +127,8 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
  {
--	mod_timer(&sk->sk_timer, jiffies + 5 * HZ);
-+	sk_reset_timer(sk, &sk->sk_timer, jiffies + 5 * HZ);
- }
+ 	struct ntb_netdev_queue *q = qp_data;
+ 	struct ntb_netdev *dev = q->ntdev;
++	struct sk_buff *skb, *new_skb;
+ 	struct net_device *ndev;
+-	struct sk_buff *skb;
+ 	int rc;
  
- void x25_stop_heartbeat(struct sock *sk)
- {
--	timer_delete(&sk->sk_timer);
-+	sk_stop_timer(sk, &sk->sk_timer);
- }
- 
- void x25_start_t2timer(struct sock *sk)
- {
- 	struct x25_sock *x25 = x25_sk(sk);
- 
--	mod_timer(&x25->timer, jiffies + x25->t2);
-+	sk_reset_timer(sk, &x25->timer, jiffies + x25->t2);
- }
- 
- void x25_start_t21timer(struct sock *sk)
- {
- 	struct x25_sock *x25 = x25_sk(sk);
- 
--	mod_timer(&x25->timer, jiffies + x25->t21);
-+	sk_reset_timer(sk, &x25->timer, jiffies + x25->t21);
- }
- 
- void x25_start_t22timer(struct sock *sk)
- {
- 	struct x25_sock *x25 = x25_sk(sk);
- 
--	mod_timer(&x25->timer, jiffies + x25->t22);
-+	sk_reset_timer(sk, &x25->timer, jiffies + x25->t22);
- }
- 
- void x25_start_t23timer(struct sock *sk)
- {
- 	struct x25_sock *x25 = x25_sk(sk);
- 
--	mod_timer(&x25->timer, jiffies + x25->t23);
-+	sk_reset_timer(sk, &x25->timer, jiffies + x25->t23);
- }
- 
- void x25_stop_timer(struct sock *sk)
- {
--	timer_delete(&x25_sk(sk)->timer);
-+	sk_stop_timer(sk, &x25_sk(sk)->timer);
- }
- 
- unsigned long x25_display_timer(struct sock *sk)
-@@ -108,7 +108,7 @@ static void x25_heartbeat_expiry(struct timer_list *t)
- 			     sock_flag(sk, SOCK_DEAD))) {
- 				bh_unlock_sock(sk);
- 				x25_destroy_socket_from_timer(sk);
--				return;
-+				goto out;
- 			}
- 			break;
- 
-@@ -120,8 +120,14 @@ static void x25_heartbeat_expiry(struct timer_list *t)
- 			break;
+ 	ndev = dev->ndev;
+@@ -144,6 +144,12 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
+ 		goto enqueue_again;
  	}
- restart_heartbeat:
--	x25_start_heartbeat(sk);
-+	/* Do not rearm once __x25_destroy_socket() has unlinked the socket:
-+	 * it is past its cancel point and owns the teardown from there on.
-+	 */
-+	if (sk_hashed(sk))
-+		x25_start_heartbeat(sk);
- 	bh_unlock_sock(sk);
-+out:
-+	sock_put(sk);
- }
  
- /*
-@@ -166,4 +172,5 @@ static void x25_timer_expiry(struct timer_list *t)
- 	} else
- 		x25_do_timer_expiry(sk);
- 	bh_unlock_sock(sk);
-+	sock_put(sk);
- }
++	new_skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
++	if (!new_skb) {
++		ndev->stats.rx_dropped++;
++		goto enqueue_again;
++	}
++
+ 	skb_put(skb, len);
+ 	skb->protocol = eth_type_trans(skb, ndev);
+ 	skb->ip_summed = CHECKSUM_NONE;
+@@ -157,12 +163,7 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
+ 		ndev->stats.rx_bytes += len;
+ 	}
+ 
+-	skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
+-	if (!skb) {
+-		ndev->stats.rx_errors++;
+-		ndev->stats.rx_frame_errors++;
+-		return;
+-	}
++	skb = new_skb;
+ 
+ enqueue_again:
+ 	rc = ntb_transport_rx_enqueue(qp, skb, skb->data, ndev->mtu + ETH_HLEN);
 
