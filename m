@@ -1,133 +1,113 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC293B585F;
-	Mon, 17 Aug 2026 06:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0978626296;
+	Mon, 17 Aug 2026 06:53:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786949573; cv=none; b=kN/CztSl3E0A9hByzWUAbHwpEbFlzqw02cAozFXN7CJpKSIhsVDqEUX24y3BkVFt4rjNY6wWLkL5ENQJ262tjHNNk5rGdYQhLuSWHEzrSA2GoOxd8jzOlIB+K1KWArlk4ojRw5+C0ZQBMIpwRFOw62sRG2+jfAyKrtWYuS4d4rI=
+	t=1786949590; cv=none; b=O9XlcyeSqPVO4NX8cS1nRJJDf83C7bYaDqtDTUOJGeDlHGDyP1Pk3YXz8TuyFrsHASYovGT92KDFkBjY0w+ddy5CYtDx11ydDZuhGL2f9Ojy9ePx/SuvZJTIwyCBiMudvxG+KBLTNNO5B9vNgIDgJ2atxr6c8Od9kZdfwe9/3A8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786949573; c=relaxed/simple;
-	bh=Wn5lGPS+kuaGxuYHLrt9nEjywar+suE6Y5h5dD4AxS0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=tZ44/4bmS3N7HK1sDWZNoXl/a2iHsCKbkUlVjjxFuzIVzaHq6226PQGixW6cJbHUNzYxp+VkmzD1geP43/EvjGxTlluwi9Frvv6IR4ZcuZLOyeI8me9tW8mdpc2iHqrr/SHcAzFXi3y5Hkesqj/IoSu0swNlVdclCIHRQffvNh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=oRNh7TBk; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1786949590; c=relaxed/simple;
+	bh=p3/Sw/eJ0ZET0TkCIyedSL83NsIXWqmnGZVWEyechoQ=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=nsJPi+UvGP6zbAASx5LvRROgUswZE8d2kn1hA/slNy2QJqy9/pO3lsUEHodoB6FZfhLtn35x3EbKw9H94WH/xhERwJb2RYbWKDfJHfdOYxwISsQXCA8oLqtMK9cBcWxGl2fN34tpKw1BYP53SOQGcgd5IY8ILL1nxsNKUlScr2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=G7K2PYfn; arc=none smtp.client-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="oRNh7TBk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1786949571; x=1818485571;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=Wn5lGPS+kuaGxuYHLrt9nEjywar+suE6Y5h5dD4AxS0=;
-  b=oRNh7TBkSGTgAxyKRI2mLyZ+SW88YTDCIEP4S97Ieq9whukIjAIsL2d8
-   Yq2fxqTQPhMJi7NtCO6lA+pIZbVI59pVLQFNi6kf52rHtgZdHG5TWgtbn
-   1OiHi2RdljBzxkxo96rQLf4svn/r5waofXfyqQJNSQoFw43Hi8GRhhi+E
-   0viDGdoHSTNGjJvw7ZCb6Qv+gVeaRmOFlOsB8+NATAmvWW3bG6iJsv9Lv
-   +Bde9G2QTqwn+T8y8jMclxUJwtoGFr7GMplNUj0IRuJtGBPPZnPnfPHNa
-   JJaEYU0YsF/eKtPF8KCXmUOO9cruPvgVWqylm713488/pOZBuyECY972N
-   A==;
-X-CSE-ConnectionGUID: qszNy0ISQQukmIHHhUM3+w==
-X-CSE-MsgGUID: UgV4bmmMTyucvW5WMWslUA==
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; 
-   d="scan'208";a="71930910"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Aug 2026 23:52:50 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Sun, 16 Aug 2026 23:52:50 -0700
-Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Sun, 16 Aug 2026 23:52:45 -0700
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Mon, 17 Aug 2026 12:22:07 +0530
-Subject: [PATCH v5 10/10] media: microchip-isc: fix WB offset and gain
- register field masking
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="G7K2PYfn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
+	Content-Type; bh=T6JhlI5Lwjo13OciHZyhNMqjBQV4tl4R3bmbw7QKmeE=;
+	b=G7K2PYfn6R2XrEw0DonOaL7V01DFst+Bm+tlEbxvey/TW0jV4IOoWr2+Bk/gRw
+	UShrlpH4fB+DHeh4+iFl3GuIYVsyqB+5emPWI7LU7TgZ7ByEoDOCphIDLk3+c7p+
+	B4tKsAflqQV/w3fKsTpH0czBU9i+f3Aq8MspOBFapYVNc=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDHL2igr4Jq4LjfFw--.22964S2;
+	Mon, 17 Aug 2026 14:52:16 +0800 (CST)
+Message-ID: <6A82AF88.4090101@126.com>
+Date: Mon, 17 Aug 2026 14:51:52 +0800
+From: Hongling Zeng <zhongling0719@126.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260817-balki-isc-prefix-fixes-v1-v5-10-2514df336c5e@microchip.com>
-References: <20260817-balki-isc-prefix-fixes-v1-v5-0-2514df336c5e@microchip.com>
-In-Reply-To: <20260817-balki-isc-prefix-fixes-v1-v5-0-2514df336c5e@microchip.com>
-To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>
-CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, <linux-media@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Balakrishnan Sambath
-	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
-X-Mailer: b4 0.14.3
+To: Qu Wenruo <wqu@suse.com>, Hongling Zeng <zenghongling@kylinos.cn>, 
+ clm@fb.com, dsterba@suse.com, boris@bur.io, willy@infradead.org
+CC: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Subject: Re: [PATCH] btrfs: fix missing folio_unlock in read_merkle_tree_page
+ error path
+References: <20260817053607.46939-1-zenghongling@kylinos.cn> <72e6138f-3c9e-4094-a746-bd1e4c6f1558@suse.com>
+In-Reply-To: <72e6138f-3c9e-4094-a746-bd1e4c6f1558@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDHL2igr4Jq4LjfFw--.22964S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CrWfKry5XF4fZr1fJrykuFg_yoW8Cryfpr
+	4xG3Z8C395Jr18ur4IkanIyryFv34DJa15ZF9xWw4Iv3Z3ZFn2gFW2k3WY93y8Jr4UGFWf
+	tw4SgF1qvF1DArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjyIUUUUUU=
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBoQFPIGqCr6G9qQAA39
 
-ISC_WB_O_* and ISC_WB_G_* each pack two 13-bit fields. A negative offset
-sign-extends and corrupts the adjacent field. Add masks for the two
-fields and write them with FIELD_PREP(), which masks each value into its
-field, so sign extension can no longer bleed across.
 
-Fixes: 73c1a577b839 ("media: atmel: atmel-isc: reworked white balance feature")
-Cc: stable@vger.kernel.org
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
----
- drivers/media/platform/microchip/microchip-isc-base.c | 16 ++++++++--------
- drivers/media/platform/microchip/microchip-isc-regs.h |  6 ++++++
- 2 files changed, 14 insertions(+), 8 deletions(-)
+在 2026年08月17日 14:43, Qu Wenruo 写道:
+>
+>
+> 在 2026/8/17 15:06, Hongling Zeng 写道:
+>> filemap_add_folio() adds the folio to the page cache and leaves it 
+>> locked.
+>> If read_key_bytes() fails, the error path only calls folio_put() without
+>> first unlocking the folio, leaving it permanently locked in the page 
+>> cache.
+>> This causes subsequent attempts to lock this folio to hang.
+>>
+>> Fix by adding folio_unlock() before folio_put() in the error handling 
+>> path.
+>>
+>> Fixes: 06ed09351b67 ("btrfs: convert btrfs_read_merkle_tree_page() to 
+>> use a folio")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: Codex:gpt-5.5
+>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+>
+> A fix is already submitted and merged:
+>
+> https://lore.kernel.org/linux-btrfs/20260722025435.1493093-1-chenyichong@uniontech.com/ 
+>
+>
+> Next time let your agent to read the btrfs developer's note and check 
+> if there is already a fix:
+>
+> https://btrfs.readthedocs.io/en/latest/dev/Developer-s-FAQ.html#development-phase-linux-next-for-next 
+>
+>
+   Thanks for the feedback.
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index e5ecf6ffd24a..963d5fd53b58 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -63,17 +63,17 @@ static inline void isc_update_awb_ctrls(struct isc_device *isc)
- 	/* In here we set our actual hw pipeline config */
- 
- 	regmap_write(isc->regmap, ISC_WB_O_RGR,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_R])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GR]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_O_BGB,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_B])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GB]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GB]));
- 	regmap_write(isc->regmap, ISC_WB_G_RGR,
--		     ctrls->gain[ISC_HIS_CFG_MODE_R] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GR] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_G_BGB,
--		     ctrls->gain[ISC_HIS_CFG_MODE_B] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GB] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GB]));
- }
- 
- static inline void isc_reset_awb_ctrls(struct isc_device *isc)
-diff --git a/drivers/media/platform/microchip/microchip-isc-regs.h b/drivers/media/platform/microchip/microchip-isc-regs.h
-index 9ddbbb6dd68b..fe145b142b82 100644
---- a/drivers/media/platform/microchip/microchip-isc-regs.h
-+++ b/drivers/media/platform/microchip/microchip-isc-regs.h
-@@ -149,6 +149,12 @@
- /* ISC White Balance Gain for B, GB Register */
- #define ISC_WB_G_BGB	0x0000006c
- 
-+/* Each WB offset/gain register packs two 13-bit fields, low and high */
-+#define ISC_WB_O_LO	GENMASK(12, 0)	/* R or B  offset [12:0]  */
-+#define ISC_WB_O_HI	GENMASK(28, 16)	/* GR or GB offset [28:16] */
-+#define ISC_WB_G_LO	GENMASK(12, 0)	/* R or B  gain [12:0]  */
-+#define ISC_WB_G_HI	GENMASK(28, 16)	/* GR or GB gain [28:16] */
-+
- /* ISC Color Filter Array Control Register */
- #define ISC_CFA_CTRL    0x00000070
- 
+   I should have checked for existing fixes first.
 
--- 
-2.34.1
+   I will ensure to check git history and mailing lists before submitting
+   future patches.
+
+   Apologies for the duplicate submission.
+>> ---
+>>   fs/btrfs/verity.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
+>> index 983365a73541..4431656140f8 100644
+>> --- a/fs/btrfs/verity.c
+>> +++ b/fs/btrfs/verity.c
+>> @@ -753,6 +753,7 @@ static struct page 
+>> *btrfs_read_merkle_tree_page(struct inode *inode,
+>>       ret = read_key_bytes(BTRFS_I(inode), 
+>> BTRFS_VERITY_MERKLE_ITEM_KEY, off,
+>>                    folio_address(folio), PAGE_SIZE, folio);
+>>       if (ret < 0) {
+>> +        folio_unlock(folio);
+>>           folio_put(folio);
+>>           return ERR_PTR(ret);
+>>       }
 
