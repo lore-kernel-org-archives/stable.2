@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7554543A7F9;
-	Mon, 17 Aug 2026 13:52:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C4D418344;
+	Mon, 17 Aug 2026 13:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974748; cv=none; b=ZtEQj92SLPyWTCyc4eFN0z6bjAMR5ezHfFzbOS9m1+9mYhskYksQXt9+Yjrx3g+ZyBHciPt4dYX73i702elEBnuUCMkCVs7xyNmds5vvilQBypURi8SMtqBOp1Ar6mOylrLvtHYsENLfudBF5nNRvzgCJL2QuIkBB1+lylpDJYY=
+	t=1786974754; cv=none; b=kuNCYYqoybrkXrnuOxYepvrxPXcSjYOsm3BjYCZRu2E71QAA6NjhavTCNxWwwSPtcO6lfYRpN7+dIliF8el2aIwwiDvnCs03/gJRp6NnBbVhvqr+D9d7LaH1rMzkFlngQAG0hnq4X7hYa4whImpoIQlRIPR0tyHkHDRPN8eVn70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974748; c=relaxed/simple;
-	bh=x+g7ZG72dtE4ZrO8I0i74W5js3IOYHiLzKCHxcoflHc=;
+	s=arc-20240116; t=1786974754; c=relaxed/simple;
+	bh=puYPRVzaQjWogNWf93Bl3AS4DW5UDIn0VOuNtiPuIfg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nMJyQ8G2/DaNnerOc0aLYgC+66j99HPhUA/9Gr22vxK0GZuAftd315at1igvmqoPl7KdM9cKjVf3kKQNDxFsiFT25xGYcGp9LJ0aeTkLeq7Q/Jhjp5QQ61ce5ZYmoV0AMgiGnqTdJH2idLisyXCn3jikgLVJB+YZ0rcB5fkfL+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Q0kGwSEN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gRzAAHs/zpaLHwQrGxV9qLOf5O+nH7QTKDMEQpnSmOsEPm+NbDhgBXcoyNG6p4t7g5+faFhzKAJR3cS7SxwV4zC2fhMlTLfHfQtDsFrck7Wdz+8ZzRVueLpdj27on2/eSCuG6EyIR5jD9BNZ8xlPA6Niblz+O+13UfOMBaxxfSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Xof81n7X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Q0kGwSEN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E24961F00A3F;
-	Mon, 17 Aug 2026 13:52:17 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Xof81n7X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A3C51F000E9;
+	Mon, 17 Aug 2026 13:52:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974738;
-	bh=8yNGmlQpX7wchIwIyK30Nb+oH1RO9Ra4Enx1/b+TgA8=;
+	s=korg; t=1786974749;
+	bh=7vlwEo2Hkse/GNYMS7hfgdbySqbkljTtR2bakzj3OFE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q0kGwSENeB87GnKItaalNocutEXXIA4CbWtPM36hya7i8A7dappn9y/n2cvf4j50F
-	 KpPX3ieUk7PQbBs80c3kftQOdj48sxPjHzXOLyH1+RJ2TmMFqDrNrA7UL+fh/hK0SP
-	 aCU3Tl3tOByoTviyZDNyiqEOi858lp/5KY1LfvF0=
+	b=Xof81n7XxpLAJHRZgZjl2UeRU2rvFMMcNWk8EOOvnIpUtthpPTcwjOGMmaJ8XfpHo
+	 +q1hIt2VaCLdxHCMIQkLLKsNoVNgF1jrkd68lHf+ZdaKaHxhlM2oNa2qaeEngWDE7/
+	 yQs066gB/TmzemlX6TgdVnYGZt1ah4FwzLhnI9F8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Filipe Manana <fdmanana@suse.com>,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 038/250] netfilter: ipset: switch ext_size to atomic64_t
-Date: Mon, 17 Aug 2026 15:29:59 +0200
-Message-ID: <20260817132538.010262902@linuxfoundation.org>
+Subject: [PATCH 6.18 042/250] btrfs: fix memory leak in btrfs_do_encoded_write()
+Date: Mon, 17 Aug 2026 15:30:03 +0200
+Message-ID: <20260817132538.168034254@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132536.466235697@linuxfoundation.org>
 References: <20260817132536.466235697@linuxfoundation.org>
@@ -52,132 +52,94 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jozsef Kadlecsik <kadlec@netfilter.org>
+From: Dmitry Antipov <dmantipov@yandex.ru>
 
-[ Upstream commit 712a6f545c359b427daa9a5a782e30d2f8331e25 ]
+[ Upstream commit d2a4e4e626b2f4670b69b430c357f03f53eb6632 ]
 
-The hash types do not acquire set->lock, they use 'region locking' where
-only part of the hash table is locked. Parallel inserts and deletes are
-possible and CPUs can race on ->ext_size update.  Switch to atomic64_t.
+Local fuzzing of 6.12.94 has found the following memory leak:
 
-This leaves another bug unresolved: there still can be a race on
-comment extension re-init.  This will be handled in a later commit
-when converting to rhashtable backend.
+Unreferenced object 0xffff888018050a80 (size 64):
+  comm "syz.0.17", pid 10297, jiffies 4294953601
+  hex dump (first 32 bytes):
+    00 10 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ................
+    10 0a 05 18 80 88 ff ff 10 0a 05 18 80 88 ff ff  ................
+  backtrace (crc a8a6fc29):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:42 [inline]
+    slab_post_alloc_hook mm/slub.c:4152 [inline]
+    slab_alloc_node mm/slub.c:4197 [inline]
+    __kmalloc_cache_noprof+0x168/0x2c0 mm/slub.c:4358
+    kmalloc_noprof include/linux/slab.h:878 [inline]
+    extent_changeset_alloc fs/btrfs/extent_io.h:207 [inline]
+    qgroup_reserve_data+0x1c5/0x7d0 fs/btrfs/qgroup.c:4305
+    btrfs_qgroup_reserve_data+0x2e/0xb0 fs/btrfs/qgroup.c:4355
+    btrfs_do_encoded_write+0x92e/0x1040 fs/btrfs/inode.c:9746
+    btrfs_encoded_write fs/btrfs/file.c:1482 [inline]
+    btrfs_do_write_iter+0x280/0x610 fs/btrfs/file.c:1507
+    btrfs_ioctl_encoded_write+0x3d6/0x490 fs/btrfs/ioctl.c:4738
+    btrfs_ioctl+0x6f9/0xc90 fs/btrfs/ioctl.c:-1
+    vfs_ioctl fs/ioctl.c:51 [inline]
+    __do_sys_ioctl fs/ioctl.c:906 [inline]
+    __se_sys_ioctl+0xf9/0x170 fs/ioctl.c:892
+    do_syscall_x64 arch/x86/entry/common.c:47 [inline]
+    do_syscall_64+0xbe/0x1a0 arch/x86/entry/common.c:78
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Fixes: f66ee0410b1c ("netfilter: ipset: Fix "INFO: rcu detected stall in hash_xxx" reports")
-Signed-off-by: Jozsef Kadlecsik <kadlec@netfilter.org>
-Signed-off-by: Florian Westphal <fw@strlen.de>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Unreferenced object 0xffff888018050a00 (size 64):
+  comm "syz.0.17", pid 10297, jiffies 4294953601
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 ff 0f 00 00 00 00 00 00  ................
+    90 0a 05 18 80 88 ff ff 90 0a 05 18 80 88 ff ff  ................
+  backtrace (crc cb5c9580):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:42 [inline]
+    slab_post_alloc_hook mm/slub.c:4152 [inline]
+    slab_alloc_node mm/slub.c:4197 [inline]
+    __kmalloc_cache_noprof+0x168/0x2c0 mm/slub.c:4358
+    kmalloc_noprof include/linux/slab.h:878 [inline]
+    kzalloc_noprof include/linux/slab.h:1014 [inline]
+    ulist_prealloc+0x9c/0x110 fs/btrfs/ulist.c:114
+    extent_changeset_prealloc fs/btrfs/extent_io.h:217 [inline]
+    __set_extent_bit+0x16b/0x1a70 fs/btrfs/extent-io-tree.c:1086
+    set_record_extent_bits+0x50/0x90 fs/btrfs/extent-io-tree.c:1821
+    qgroup_reserve_data+0x274/0x7d0 fs/btrfs/qgroup.c:4312
+    btrfs_qgroup_reserve_data+0x2e/0xb0 fs/btrfs/qgroup.c:4355
+    btrfs_do_encoded_write+0x92e/0x1040 fs/btrfs/inode.c:9746
+    btrfs_encoded_write fs/btrfs/file.c:1482 [inline]
+    btrfs_do_write_iter+0x280/0x610 fs/btrfs/file.c:1507
+    btrfs_ioctl_encoded_write+0x3d6/0x490 fs/btrfs/ioctl.c:4738
+    btrfs_ioctl+0x6f9/0xc90 fs/btrfs/ioctl.c:-1
+    vfs_ioctl fs/ioctl.c:51 [inline]
+    __do_sys_ioctl fs/ioctl.c:906 [inline]
+    __se_sys_ioctl+0xf9/0x170 fs/ioctl.c:892
+    do_syscall_x64 arch/x86/entry/common.c:47 [inline]
+    do_syscall_64+0xbe/0x1a0 arch/x86/entry/common.c:78
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Fix this by freeing an extent changeset before returning from
+btrfs_do_encoded_write().
+
+Fixes: 7c0c7269f7b5 ("btrfs: add BTRFS_IOC_ENCODED_WRITE")
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
+Signed-off-by: Filipe Manana <fdmanana@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/netfilter/ipset/ip_set.h  | 2 +-
- net/netfilter/ipset/ip_set_bitmap_gen.h | 4 ++--
- net/netfilter/ipset/ip_set_core.c       | 6 +++---
- net/netfilter/ipset/ip_set_hash_gen.h   | 2 +-
- net/netfilter/ipset/ip_set_list_set.c   | 4 ++--
- 5 files changed, 9 insertions(+), 9 deletions(-)
+ fs/btrfs/inode.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/netfilter/ipset/ip_set.h b/include/linux/netfilter/ipset/ip_set.h
-index b98331572ad29..cadae9b2578f1 100644
---- a/include/linux/netfilter/ipset/ip_set.h
-+++ b/include/linux/netfilter/ipset/ip_set.h
-@@ -273,7 +273,7 @@ struct ip_set {
- 	/* Number of elements (vs timeout) */
- 	u32 elements;
- 	/* Size of the dynamic extensions (vs timeout) */
--	size_t ext_size;
-+	atomic64_t ext_size;
- 	/* Element data size */
- 	size_t dsize;
- 	/* Offsets to extensions in elements */
-diff --git a/net/netfilter/ipset/ip_set_bitmap_gen.h b/net/netfilter/ipset/ip_set_bitmap_gen.h
-index 798c7993635e6..d99e2e2e58559 100644
---- a/net/netfilter/ipset/ip_set_bitmap_gen.h
-+++ b/net/netfilter/ipset/ip_set_bitmap_gen.h
-@@ -77,7 +77,7 @@ mtype_flush(struct ip_set *set)
- 		mtype_ext_cleanup(set);
- 	bitmap_zero(map->members, map->elements);
- 	set->elements = 0;
--	set->ext_size = 0;
-+	atomic64_set(&set->ext_size, 0);
- }
- 
- /* Calculate the actual memory size of the set data */
-@@ -93,7 +93,7 @@ mtype_head(struct ip_set *set, struct sk_buff *skb)
- {
- 	const struct mtype *map = set->data;
- 	struct nlattr *nested;
--	size_t memsize = mtype_memsize(map, set->dsize) + set->ext_size;
-+	size_t memsize = mtype_memsize(map, set->dsize) + atomic64_read(&set->ext_size);
- 
- 	nested = nla_nest_start(skb, IPSET_ATTR_DATA);
- 	if (!nested)
-diff --git a/net/netfilter/ipset/ip_set_core.c b/net/netfilter/ipset/ip_set_core.c
-index f51a1af31513c..29bf5ee74fe36 100644
---- a/net/netfilter/ipset/ip_set_core.c
-+++ b/net/netfilter/ipset/ip_set_core.c
-@@ -350,7 +350,7 @@ ip_set_init_comment(struct ip_set *set, struct ip_set_comment *comment,
- 	size_t len = ext->comment ? strlen(ext->comment) : 0;
- 
- 	if (unlikely(c)) {
--		set->ext_size -= sizeof(*c) + strlen(c->str) + 1;
-+		atomic64_sub(sizeof(*c) + strlen(c->str) + 1, &set->ext_size);
- 		rcu_assign_pointer(comment->c, NULL);
- 		kfree_rcu(c, rcu);
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 36f75c6a8344d..7af5ea0cf55fd 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -10037,6 +10037,7 @@ ssize_t btrfs_do_encoded_write(struct kiocb *iocb, struct iov_iter *from,
  	}
-@@ -362,7 +362,7 @@ ip_set_init_comment(struct ip_set *set, struct ip_set_comment *comment,
- 	if (unlikely(!c))
- 		return;
- 	strscpy(c->str, ext->comment, len + 1);
--	set->ext_size += sizeof(*c) + strlen(c->str) + 1;
-+	atomic64_add(sizeof(*c) + strlen(c->str) + 1, &set->ext_size);
- 	rcu_assign_pointer(comment->c, c);
- }
- EXPORT_SYMBOL_GPL(ip_set_init_comment);
-@@ -392,7 +392,7 @@ ip_set_comment_free(struct ip_set *set, void *ptr)
- 	c = rcu_dereference_protected(comment->c, 1);
- 	if (unlikely(!c))
- 		return;
--	set->ext_size -= sizeof(*c) + strlen(c->str) + 1;
-+	atomic64_sub(sizeof(*c) + strlen(c->str) + 1, &set->ext_size);
- 	rcu_assign_pointer(comment->c, NULL);
- 	kfree_rcu(c, rcu);
- }
-diff --git a/net/netfilter/ipset/ip_set_hash_gen.h b/net/netfilter/ipset/ip_set_hash_gen.h
-index 4c1082e38e3d1..81d7f601ed06a 100644
---- a/net/netfilter/ipset/ip_set_hash_gen.h
-+++ b/net/netfilter/ipset/ip_set_hash_gen.h
-@@ -1289,7 +1289,7 @@ mtype_head(struct ip_set *set, struct sk_buff *skb)
- 	rcu_read_lock_bh();
- 	t = rcu_dereference_bh(h->table);
- 	mtype_ext_size(set, &elements, &ext_size);
--	memsize = mtype_ahash_memsize(h, t) + ext_size + set->ext_size;
-+	memsize = mtype_ahash_memsize(h, t) + ext_size + atomic64_read(&set->ext_size);
- 	htable_bits = t->htable_bits;
- 	rcu_read_unlock_bh();
- 
-diff --git a/net/netfilter/ipset/ip_set_list_set.c b/net/netfilter/ipset/ip_set_list_set.c
-index 34bb84d7b174c..7bb807b3c6282 100644
---- a/net/netfilter/ipset/ip_set_list_set.c
-+++ b/net/netfilter/ipset/ip_set_list_set.c
-@@ -421,7 +421,7 @@ list_set_flush(struct ip_set *set)
- 	list_for_each_entry_safe(e, n, &map->members, list)
- 		list_set_del(set, e);
- 	set->elements = 0;
--	set->ext_size = 0;
-+	atomic64_set(&set->ext_size, 0);
- }
- 
- static void
-@@ -455,7 +455,7 @@ list_set_head(struct ip_set *set, struct sk_buff *skb)
- {
- 	const struct list_set *map = set->data;
- 	struct nlattr *nested;
--	size_t memsize = list_set_memsize(map, set->dsize) + set->ext_size;
-+	size_t memsize = list_set_memsize(map, set->dsize) + atomic64_read(&set->ext_size);
- 
- 	nested = nla_nest_start(skb, IPSET_ATTR_DATA);
- 	if (!nested)
+ 	kvfree(folios);
+ out:
++	extent_changeset_free(data_reserved);
+ 	if (ret >= 0)
+ 		iocb->ki_pos += encoded->len;
+ 	return ret;
 -- 
 2.53.0
 
