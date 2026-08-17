@@ -1,70 +1,44 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D4B374A0D
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 18:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A0037B012;
+	Mon, 17 Aug 2026 18:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786990949; cv=none; b=oRmxGPaCnRP3SFhq1CgmiNoDPybQkLNJnYJTohRqM96xne+gLqbK/wjWiIfzKg3qcVA/DSOB2gTn1FHuQqpEqJdDihf0G/AC5ERUxkJQhc1c9crA0EYWe85iS3HOetijw85w07mFG2Xxm6jVAlC5q9oFIVoAB9ThiQ5VAJYK7W0=
+	t=1786990997; cv=none; b=OOJEpDql95QUEuBrvjCQ3WTA+zRSQceQ4/MRpiOh3MMCivXBKFGD2wRGzY1ev5irQgNMxp4P7sU1jhayIcaRgSNdIIhof3uXIxta/ajay+ynDC39S64b/42V9H0fzsihHqDPHJ1eu7qSJTXKqHpUeMwRfB6ZJYMiBJjshwubgNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786990949; c=relaxed/simple;
-	bh=RIun3CTewN6YQNwQff089fZvm5G2LmNg86JPd42Vc0o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sOmf7WtFwmitMR92a5OX1sdmm1MFMj5MXnQ5DA9LNlRZtlWNjjI7G/AtQvq4Ao1fruP6uWiNcyJuhtVj3KvmZe2Qo7puH/qoShn32KfyvGaxul3ttS2FRzEcwEkWs8Tru9T1TL0vIOINQwVas4tMFTqms2pi+jGuZGk2+EYjygc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NNSM0oyw; arc=none smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786990997; c=relaxed/simple;
+	bh=2bMHlIscTGYaXERazCnrdjlYA/91AAbUKHMMbmOXA0w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fzrz56X3wAP0XVUYzuqHdt4M60vDNNHLVu0NtE3j7B4PZiBIRmrj5NN69TgK45dp1mDQThvH6fpfzkXSSqrzBPGXaEIn6ob+0pd7tpikLu4vBO4kSE7pr6rakJ85mYu49REpgFtc7mg6XDOY0ArncT5m+PYtvRFR6LHgIscg2Vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=F5d6b4kC; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NNSM0oyw"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92e6c4a867cso230478785a.0
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:22:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786990942; x=1787595742; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n/J5Ku7TUMPFkncTWiaJAkFB/DQoyY+kfM1udqiEm5g=;
-        b=NNSM0oywmUPr4uXMqYbzULNHPKnkzeG1npY5XpgoJCI76H2SPKpgDE7lcejQe1xY8Y
-         CEG3PuByt3ws0oM0O3+WFkXtUgoOeTh6Dydpov0XTa2t2rPd/3kkDpK2RzyhbEv9GJuk
-         0kpTx0rBp/r6gbTbbd86hMTUMjRRlluR1PsDVEyV3idro5EohVqjulwQ/cmFf76Vr1xF
-         nC5l4MgePYX0UyI2KFeqKxINnt4/6eDgUPWhYkXipu1qSA1oa2WXGGSsYGWDv5Yqgqhy
-         yDyEXoLLMSLBRwDiBOLg2eINyktcbmexnYT8wKVIY7GUWStFoXXQEyqxJolgeEDTl7hL
-         qVIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786990942; x=1787595742;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n/J5Ku7TUMPFkncTWiaJAkFB/DQoyY+kfM1udqiEm5g=;
-        b=NdJpxOHrl0EB7yfn+Wm8dNzg7LFysaG6UBOte8f1oc9tBPLFFnz8B+XMfibC82R9dU
-         fYCa9vKxmRAazj2yd5WnfcPXa5m5MpTZ/9889UUf2ZS0tiU0PISX64ncsfTyulCRrdM1
-         Zj+0sv09NmPJD7FgMLR925ZY3DGW5tC/5Rgep9Jo5ZwFrX0Q2nQhGXKL9Rio6+1FtK7i
-         FCuD2dvlUzEYtylwxudCjDGH2EbcFXE5c7ba7eyYVs8P5A4m1i9sS98jDvvD5wUcpkoO
-         4cTQ3GRpwEkEWbKjRXZZJzT9XRtmC/Q/isBDLtGsbvk+m8z9Igrih9UGz8qYyzS4jcdu
-         LoRg==
-X-Forwarded-Encrypted: i=1; AHgh+RrF/IwnS1dHC783XzBgHJpw5W52KenzL0a3APHugiLC5c6Y14frXULRBziSBH+/JPRQSMwUshs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YypfYd8jchmRdr5ic/9YZCjkCaw7l++Ex9yIhRyZqA7fu83+5hD
-	NTqJUpV6+Si8NM0HOrlAYuO6tJMguo8gXrF0r2zOXhaKher69tRJ8/vi
-X-Gm-Gg: AR+sD10qxNH0AohNkbSTslMhM3kivecZhIQyNJ8JB3rj0jqu8czhDexBNtOr2TmkH0E
-	Ol5oHKgrMeFh5fJL0tlVkGuuOgZ29KYtIpR0NNlUOaBR7w8RYEJ01suuDZnyRpzPlOmCaUc+/BH
-	RHmy+oWLqF5ele6wHH+oog/W/ulJjVFOOaPD+QT2ZoTtAn0aJXoCaokOP7mYyx2khAf89vCztLe
-	yPgDTU5OurYO9UX0S2qckQathoSlGKqWK1vaXdniAdCX2mb5xbv0zDIHbhcOPgZty4k2agSUyRA
-	EEuGXqHXskh7c8BZeeAoDTpembgoElS5LGkRU2CRpCWIolzO6XP0qDXpGSLbtUoWXdf2B7+E5z6
-	LWmXl0b42/EMheIuqz+qOb7cqlygdluuTt/y3Gys1zWP70i0D65tljCxreTwbaDoOpllCImL3+9
-	/5wgcEq2/oZHcvI0UFBZJ6SKRGE5HW17hNWNtk9Atj7FN9bENQOi+6+3zAJe+QvE0+Wb8Qnaui0
-	rYiZoP7iy4bvzstt6E=
-X-Received: by 2002:a05:620a:800b:b0:936:41fe:2351 with SMTP id af79cd13be357-936d22e74f3mr3151285685a.30.1786990942348;
-        Mon, 17 Aug 2026 11:22:22 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-937033cd8a7sm104563185a.28.2026.08.17.11.22.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 11:22:22 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] Input: synaptics-rmi4 - reject concurrent firmware updates
-Date: Mon, 17 Aug 2026 14:22:04 -0400
-Message-ID: <20260817182205.906592-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="F5d6b4kC"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4007311C2E9;
+	Mon, 17 Aug 2026 20:23:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1786990986; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=db1Hr6GtgGeEWrhLdGQK8Vw6KYbkanMTqL7CzgrrjMM=;
+	b=F5d6b4kCLhfbp55Jy+fuZBacmQASu6rxf3ymso+Mhq+j+tmy6e9wgkxvkPXxEy07EaAWKQ
+	KW6N94QCHOqme/cd4VaPxg80sumsWbbmHzgulCRIjN4xM7K4+QIeaJ6sq/CxxtAt1E22yK
+	62mYFfiosqFpby51Fz5TT/lo9HGPS/QQwzCYvXAENtO3gk/UYXgwGzoj9CEH/EhbXJDbyg
+	5Z7DLr5J9RgMfOISnj5vvfAdvDKg7W9rAvepcwmdARTpXRSjs4v5mAAI1j/m0JH9pKmB6L
+	riFxlqFEgtfJDd4N4UTs46GReUlAmqTsd6MNElqLZyfNdFl0kV22X8yuhbAAKw==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-usb@vger.kernel.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] usb: typec: mux: Fix typec_switch_match()
+Date: Mon, 17 Aug 2026 20:22:39 +0200
+Message-ID: <20260817182302.146546-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,82 +46,78 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The update_fw sysfs store callback can execute concurrently. Each
-invocation runs rmi_firmware_update(), which tears down and rebuilds the
-RMI function list.
+The fwnode_typec_switch_get() sporadically returns NULL instead of an
+-EPROBE_DEFER for orientation-switch described in DT. This makes it
+impossible to discern whether the DT does describe an orientation-switch
+which did not probe yet, or whether the DT does not describe the switch.
+This happens with gpio-sbu-mux connected to an I2C GPIO expander.
 
-If two writes overlap, both rmi_free_function_list() calls can walk the
-same list and select the same rmi_function entry. One invocation can delete
-and unregister the entry while the other still uses its iterator's fn
-pointer, resulting in use-after-free or list corruption. This was
-reproduced as list_del corruption in rmi_free_function_list().
+The class_find_device() on typec_switch_match() may return NULL in case
+the mux did not probe just yet early on boot. The sw_devs[] array can be
+empty on boot as well. If these two conditions occur, then the conditional
+if (to_typec_switch_dev(dev) == sw_devs[i]) evaluates to true and the match
+function returns NULL, which propagates to fwnode_typec_switch_get() which
+makes it look as if the orientation-switch was not described in DT.
 
-Firmware flashing is an exclusive operation, and running a second update
-concurrently has no useful semantics. Add a per-device update_mutex and
-try to acquire it immediately before starting the update. Return -EBUSY if
-another update is already active, and hold the mutex until the update has
-completed so their function-list teardown cannot overlap.
+This is incorrect, because the mux driver will probe a bit later on, but
+at that point, the caller of fwnode_typec_switch_get() already got the
+NULL return value. The NULL return value also does not trigger IS_ERR(),
+therefore the caller driver interprets this as if the orientation-switch
+is not described in DT, and does not return -EPROBE_DEFER to try again,
+even if it should.
 
-The status attribute does not acquire update_mutex, so update_fw_status can
-still be polled while an update is running.
+Fix this by checking the class_find_device() return value, and return
+-EPROBE_DEFER if it is NULL right away. If the return value is not NULL,
+perform the deduplication test, and if that test passes, consider the
+return value to be already non-NULL.
 
-Fixes: 29fd0ec2bdbe ("Input: synaptics-rmi4 - add support for F34 device reflash")
+Fixes: a53b4f9c51a9 ("usb: typec: mux: avoid duplicated orientation switches")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
- drivers/input/rmi4/rmi_driver.c | 1 +
- drivers/input/rmi4/rmi_f34.c    | 8 +++++---
- include/linux/rmi.h             | 1 +
- 3 files changed, 7 insertions(+), 3 deletions(-)
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: kernel@dh-electronics.com
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+---
+NOTE: A similar change was reverted in
+      f576c75f95a5 ("Revert "usb: typec: mux: avoid duplicated mux switches"")
+      Maybe the orientation switch commit also needs a revert ?
+      Or the mux switch revert can be undone and fixed using this NULL check ?
+---
+ drivers/usb/typec/mux.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index 5d49a9021c7d..3a5cb17e938f 100644
---- a/drivers/input/rmi4/rmi_driver.c
-+++ b/drivers/input/rmi4/rmi_driver.c
-@@ -1218,6 +1218,7 @@ static int rmi_driver_probe(struct device *dev)
+diff --git a/drivers/usb/typec/mux.c b/drivers/usb/typec/mux.c
+index 9b908c46bd7df..2bc7e8edb3cbd 100644
+--- a/drivers/usb/typec/mux.c
++++ b/drivers/usb/typec/mux.c
+@@ -56,17 +56,19 @@ static void *typec_switch_match(const struct fwnode_handle *fwnode,
+ 	 * function "defers probe" for now.
+ 	 */
+ 	dev = class_find_device(&typec_mux_class, NULL, fwnode,
+ 				switch_fwnode_match);
++	if (!dev)
++		return ERR_PTR(-EPROBE_DEFER);
  
- 	mutex_init(&data->irq_mutex);
- 	mutex_init(&data->enabled_mutex);
-+	mutex_init(&data->update_mutex);
+ 	/* Skip duplicates */
+ 	for (i = 0; i < TYPEC_MUX_MAX_DEVS; i++)
+ 		if (to_typec_switch_dev(dev) == sw_devs[i]) {
+ 			put_device(dev);
+ 			return NULL;
+ 		}
  
- 	retval = rmi_probe_interrupts(data);
- 	if (retval)
-diff --git a/drivers/input/rmi4/rmi_f34.c b/drivers/input/rmi4/rmi_f34.c
-index f1947f03b06a..04f12165cab0 100644
---- a/drivers/input/rmi4/rmi_f34.c
-+++ b/drivers/input/rmi4/rmi_f34.c
-@@ -468,13 +468,15 @@ static ssize_t rmi_driver_update_fw_store(struct device *dev,
- 	if (error)
- 		return error;
- 
-+	if (!mutex_trylock(&data->update_mutex))
-+		return -EBUSY;
-+
- 	dev_info(dev, "Flashing %s\n", fw_name);
- 
- 	error = rmi_firmware_update(data, fw);
--	if (error)
--		return error;
- 
--	return count;
-+	mutex_unlock(&data->update_mutex);
-+	return error ?: count;
+-	return dev ? to_typec_switch_dev(dev) : ERR_PTR(-EPROBE_DEFER);
++	return to_typec_switch_dev(dev);
  }
  
- static DEVICE_ATTR(update_fw, 0200, NULL, rmi_driver_update_fw_store);
-diff --git a/include/linux/rmi.h b/include/linux/rmi.h
-index ab7eea01ab42..d56c23240868 100644
---- a/include/linux/rmi.h
-+++ b/include/linux/rmi.h
-@@ -340,6 +340,7 @@ struct rmi_driver_data {
- 
- 	struct rmi_function *f01_container;
- 	struct rmi_function *f34_container;
-+	struct mutex update_mutex;
- 	bool bootloader_mode;
- 
- 	int num_of_irq_regs;
+ /**
+  * fwnode_typec_switch_get - Find USB Type-C orientation switch
 -- 
-2.43.0
+2.53.0
 
