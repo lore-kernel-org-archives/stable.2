@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F6941D202
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:42:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BCB41D131
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:42:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786970575; cv=none; b=Zpwhon3W9Mo0xyiH0Ihr6A8eBTRPEKOdcdEHaSyv8K28FlSjrZDOofWpaQayipjA6IJ5gVLBcOEq0UfEluSajgM0LFratTC5uxOPPKrBKb3OBWSFdItLAkMJD+Yx4DaV5YKrtJmATPZdPR43Dxauxm60VsyqKP2pxbEVuZyAlFg=
+	t=1786970580; cv=none; b=ulC6Y+q+W8UIbRlSH3UalFFyu1w9qz/q7HWO4OVYRKmEOrdwejkG0nRGrablpF7ERnHo7CEpsfNLzJSzt1PxTD9/PETMlvVXQUxiohsgzroYQqHqeejisb89JePGcRT4856w17e3YlfbDxPlxDhavVYm3M0quUGsYcgYGJtNpZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786970575; c=relaxed/simple;
-	bh=GSLhDwHS7BFA3btSaNSBwd6UDZBXXgsVCksWgJhqZfA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gT7+wVmM4Kfe0+dc8S796J4TBJTUYnVAReIm5FFB2ZnMkLWRCqfXd6rM89Taxj50CNegf84AN2cGti8scT5Z9G65X1LdwLSVj+3QhwDSyyAThBQVkDJWCiBXnb1ya+zB+BHTtOq1HxENLX0pWeL0u8BFZ7ZgDHe3bbsWO5wRL50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZlF81PI0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786970580; c=relaxed/simple;
+	bh=/SJlA5j7S5In5pzQma6IGXITl5+yWW54qYyvAePftlc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=n1zeiSAxCbimSYK4UHUAawyIdJsuLrKMPddCeB/+aX54PaZKalk9DV7BC2QgqPJV/ZVMoRqwSBwJmASdto5kGF7EpZ3qDHjNkuLVaQtfuZigj6f1++BpSRLBdt46SwWowKz8DaexRRc/BUEiOU7mnNzQD/7/ZFx+ZHzw8xh2d6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cH2A7ZSI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZlF81PI0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8AEC1F000E9;
-	Mon, 17 Aug 2026 12:42:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cH2A7ZSI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A65A51F000E9;
+	Mon, 17 Aug 2026 12:42:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786970573;
-	bh=m5CH4wiGff9kHMSEkCInRfLaHwYiwXCuA1g6KGaV9ts=;
+	s=korg; t=1786970578;
+	bh=aoBrigIUvc0ZpLEJKLmO1CrshEdwEBT4tAfwzwaSJsc=;
 	h=Subject:To:Cc:From:Date;
-	b=ZlF81PI0CRUXZ9J1HTAKrXu+tAMB4dJ3rUslUdkvL2cZC57vT7sYjGFWqd2LUBsS6
-	 pPsIMVdp9N3hnHBCvxX+n8MsQKmXYZ56FpE9RpQLJuzOEr1FmpYyaaa+fTjkS4w3y1
-	 aNZNv70X1Nzk8DJ7RdJTw6NROHMgQ+ubQkuC6P00=
-Subject: FAILED: patch "[PATCH] mm/huge_memory: separate out" failed to apply to 7.1-stable tree
+	b=cH2A7ZSImEwgD9CDB+N7b1jRZ9nGBX9x5P7YkmJb9th1fPQJMwvD010y5qkQsP6X+
+	 TnyU4gFwrBUk1/V7Sm0DbtU5pwq+Qiep6fuUzs0Y2k52xaX+ZbwO3fLvaAVdwP18+j
+	 sTzdl2EnVmp2RSQaG6BuXktAK3wBn7A0TOOoM/wo=
+Subject: FAILED: patch "[PATCH] mm/huge_memory: separate out" failed to apply to 6.18-stable tree
 To: ljs@kernel.org,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,david@kernel.org,dev.jain@arm.com,hare@suse.de,hughd@google.com,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,npache@redhat.com,p.raghav@samsung.com,ryan.roberts@arm.com,shy828301@gmail.com,stable@vger.kernel.org,uqbarz@gmail.com,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:40:33 +0200
-Message-ID: <2026081733-ending-blush-18e6@gregkh>
+Date: Mon, 17 Aug 2026 14:40:34 +0200
+Message-ID: <2026081734-foster-unplug-b6f9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 98bd3af0bb6bfdb0fb39cbfa05456acb374b691e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081733-ending-blush-18e6@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081734-foster-unplug-b6f9@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
