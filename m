@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF5D440A25;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D1244239E;
 	Mon, 17 Aug 2026 15:24:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786980289; cv=none; b=ffDTGqKLcErbws5ucIWCUlCDSEaUxTTs36kEE40Epk99bKpM0qFYhqUKQNUbuPWsUNhrQpf1iZX83nY1G80YY3J0UuIJyyTjCCusOVFH9G+HuNr9pHZ90HeMa/Elk7lowi2JYFnQ5sgdBO5LFn/TizXdoG4YG9bzafXDx2TKH/M=
+	t=1786980289; cv=none; b=OroQKt+qxtYMjI6GBdeCgwHMDmFcvBzsG0H+A6Kmhf//UW67x8R2YwtVcbTaA2XuFan3/1ALxHkYG1OQ+PITZos+a14Qj5FyJLGszvVJDu+3xeci0NcSnLwv1X0rCA0tCc5miQecfw5VpfWyXJ5l70vXqyQi4cZQ3f65k7tn7so=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786980289; c=relaxed/simple;
-	bh=b08zChp0o29dodsssb6TkSggxUxNj5Udb6Jvc8WhoJo=;
+	bh=rP3VUhi3w5/DnNXaAWxciSck6JMwAiNsuZK11XfsmnM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QNgQzsnZf7tyVh1kJMoXgfVYaxhjyckzR/BNIH3EA6oaFIzPwr7v1BrKGKt3oLykwFMZigYL56lPQpp0KU/nAWpUe3W/ylfGuDtKfs7eHPkR3fhfbJKCOovP+uwV/VU88H5e9GiCIqRqQsGwHbVB9QE8RiF+LwHsooBFsu60uTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QgZ80qrQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TOwWrZa9NiNmQ9MQDF/QNubGnGEPnsuXkTu8TLMgOimSzH6YM7WGDc8QpfF4pGMqHyl79rAoA0I8LjKzbXw6mmw8zYXCTb88p4rUPJ7sFq2tSvJEp4WdFbyzWAc0lp11JjEXUWmPHGWDPdh0ul9kGYkmmoEd/XODpfAzT10W10Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X+ySFysK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QgZ80qrQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7BB1F000E9;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X+ySFysK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD5161F00ADB;
 	Mon, 17 Aug 2026 15:24:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786980288;
-	bh=FuPzUDmQKbOowTX2ptTEZOqxyo+PviRTDwqmhrgRh+A=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786980288;
+	bh=KKLWHFKL77zF9euU2vPYEyAiPjasMIN/uZ6K14lLKUE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QgZ80qrQ9uknhgs079rAM4s2WVxww1TwsfuiqFRMOFCN28qXd8abOb3wvgG5yWdkD
-	 1DsA8fZg9beYfIzltSo0QUxMtDgh5tGQtebrbIq9/Ns4zXWa14EAEPI5vE+0v67/yX
-	 TQ5tv5meh6F5KzEdTDaTVwcAF3p7pcyGBN0U0HM4pA+oCMbeXHfDSGMkHjcrhWfXDK
-	 C9PFHbmw/vtDDEotpzYZaAFESlBn1N7AZF9DTkGHJrrB7ZvcGkggnEl9GOzzP36cxI
-	 krUe0Bw3o8/CE1myC/4S0Q9N4bVEL0UEkJuXhGJuo+F5SVfgNVgN6KMpGSAgOd9g5C
-	 IS4P+aLSpXU+w==
-From: Sasha Levin <sashal@kernel.org>
-To: gregkh@linuxfoundation.org,
-	stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Peter Jung <admin@ptr1337.dev>
-Subject: Re: [PATCH 7.1.y] Revert "tracing: perf: Fix stale head for perf syscall tracing"
-Date: Mon, 17 Aug 2026 11:24:40 -0400
-Message-ID: <20260817150000.2@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260816133101.83109-1-admin@ptr1337.dev>
-References: <20260816133101.83109-1-admin@ptr1337.dev>
+	b=X+ySFysK2EeFdCWwVQ+kqjY86js+YhSH2c0qj+sMUQMncm7OxxyKCzWObdm656mHQ
+	 d6h8HLwlZTOUR+h6fhGxz4iLMYTv9YuubpkGwZ81BMoAqsbhBz96MGJzi9NA3nTVku
+	 6rGvnaBiWYMHjyquh5ALb8MUeECSHhrxRlUzvBbs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Qing Luo <luoqing@kylinos.cn>,
+	Xin Long <lucien.xin@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 520/609] sctp: fix addip_serial increment on ASCONF_ACK allocation failure
+Date: Mon, 17 Aug 2026 15:33:36 +0200
+Message-ID: <20260817132601.227536301@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
+References: <20260817132543.039278408@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,19 +48,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The 7.1.y implementation has not undergone that restructuring. It handles
-> BPF and perf consumers together, and already reloads the current CPU's
-> perf event list after syscall_get_data().
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-The analysis checks out on 7.1.y: 57918341dd19 ("bpf: Add sleepable
-support for classic tracepoint programs") is not there, so the added
-hlist_empty() early return runs before bpf_prog_array_valid() is ever
-consulted and a BPF-only consumer stops firing.
+------------------
 
-Since this reverts a commit that already shipped in 7.1.6, I would like
-your test result before queueing it - you mentioned you would have one
-today. Ping the thread once you do and I will pick it up.
+From: Qing Luo <luoqing@kylinos.cn>
 
+[ Upstream commit aa2e13ae8d3cbe2c15ef4f7e971b2de0832794aa ]
+
+In sctp_process_asconf(), when sctp_make_asconf_ack() fails to allocate
+the ASCONF_ACK chunk due to memory pressure, the code jumps to the
+done label where asoc->peer.addip_serial is unconditionally incremented.
+
+This leaves the peer's ASCONF (serial N) unacknowledged while the local
+endpoint now expects serial N+1. When the peer retransmits serial N, it
+falls into the serial < addip_serial + 1 branch ,
+which attempts to look up a cached ACK for serial N. No cached ACK
+exists since the allocation failed, so the retransmission is silently
+discarded. The peer eventually times out and ABORTs the association.
+
+Move the addip_serial increment inside the if (asconf_ack) block so that
+the serial number is only advanced when the ASCONF_ACK is successfully
+created and cached. This way, on allocation failure, the serial number
+is unchanged and the peer's retransmitted ASCONF will be correctly
+re-processed.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20260804025514.241767-1-l1138897701@163.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sctp/sm_make_chunk.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index 837fb8280bfd5..6d738f95aff1d 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -3362,12 +3362,11 @@ struct sctp_chunk *sctp_process_asconf(struct sctp_association *asoc,
+ 			goto done;
+ 	}
+ done:
+-	asoc->peer.addip_serial++;
+-
+ 	/* If we are sending a new ASCONF_ACK hold a reference to it in assoc
+ 	 * after freeing the reference to old asconf ack if any.
+ 	 */
+ 	if (asconf_ack) {
++		asoc->peer.addip_serial++;
+ 		sctp_chunk_hold(asconf_ack);
+ 		list_add_tail(&asconf_ack->transmitted_list,
+ 			      &asoc->asconf_ack_list);
 -- 
-Thanks,
-Sasha
+2.53.0
+
+
+
