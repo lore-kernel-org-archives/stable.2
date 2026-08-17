@@ -1,169 +1,165 @@
-Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99AAB282F29
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 15:03:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBD62D249B;
+	Mon, 17 Aug 2026 15:03:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786978993; cv=none; b=uB1J96GGRQnR1nEhxRJ3BjHpI1nQy30UBiDwRHCTold/9RbAhMEoEuvlIWVw4grxMQBrx6CBXmg/uWaRYRFxdxTDp6suY8AMiofcyoJ0SZg07K8bALo9Ro/wy/AAK4DeY7opYDZMA4oLKBK/PQxGSz9X+DtSOQJipZZa18Ovgz8=
+	t=1786978996; cv=none; b=MLr9z/m5+5lQQhYvRmusoogzI/za24H3NPr7D2feyyOWL5uD+oYCy//KBp5HaMAtH6gyKS6NLqnIJXRIhhOpTlfEJOiDgAR9dZQinouZmf2P8nPmp69dM0DoisPW1q1qsd5f5/8IwzqgzkBkFet/qWivsn5tmgZDX9/1qC8e9F0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786978993; c=relaxed/simple;
-	bh=u6IA3+MZorn4q8oBxqHpzAK9EvJj+U75Xif8c84/rOc=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version; b=cSJn68pGyB+nhL9Sr1nbHgAttczuqezKZRa6ODT+mobMavY5Eka20SFLDzVTwGVEZabK3qI7jCHExiFmAs+cc/U/XuDmvUEyc0auqQeu/qp0ll6sMBd+AmbWtusr3eAjre7aZHFvVe7YLyFZ722o7jai3wS3YpafIo9iLFNJrPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=4nN7Ihb2; arc=none smtp.client-ip=46.14.118.250
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
+	s=arc-20240116; t=1786978996; c=relaxed/simple;
+	bh=M+/4Q5kOJyDJ/x3A7NwGSRWR9IlNDKz90JZf33AqSqQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XQZ66xoN7lZrPJoKcT7Gxeub0YJpjLswECjOYDHi71/1tDQm+SFqSMTp+EXhd819lSPTdcR7NFRylu5vMIVkl5HM8/5gV8v1KrSYgNIm+JrT6fvv44aG0GBPOJxnBwj5xIk/ec72GCOs/jhgfCoSePGZ6lXfjqaljWJRloIZh/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=M7SKtUhL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="4nN7Ihb2"
-Received: from [192.168.16.44] (port=36555 helo=remote.fiveco.ch)
-	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.96)
-	(envelope-from <valentin.kindschi@fiveco.ch>)
-	id 1wvyrU-000000003Qi-22DZ;
-	Mon, 17 Aug 2026 17:02:52 +0200
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
-	t=1786978972; h=from:subject:to:date:message-id;
-	bh=u6IA3+MZorn4q8oBxqHpzAK9EvJj+U75Xif8c84/rOc=;
-	b=4nN7Ihb23dZfTYJ8dDrkV2Mz1CdF/YFUl/Y07YYNCGQ1mWw81HJg6XIx7YrQzkJpKArumQaJS1E
-	RYxeZy8Mfe3l8c/LplaTT53oLToE3Kr3iI+wEi8NtbNj1fg5D+cCDkGpokT85ehyxovUfWr8nsReg
-	Kx1jSKXRY9/p+iq2q9M=
-Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
- FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.61; Mon, 17 Aug 2026 17:02:52 +0200
-From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-To: <linux-bluetooth@vger.kernel.org>
-CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
-	<linux-kernel@vger.kernel.org>, Valentin Kindschi
-	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
-Subject: [PATCH v3 2/2] Bluetooth: hci_event: keep HCI_LE_ADV set if the host cancelled
-Date: Mon, 17 Aug 2026 17:02:40 +0200
-Message-ID: <20260817150240.520181-3-valentin.kindschi@fiveco.ch>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260817150240.520181-1-valentin.kindschi@fiveco.ch>
-References: <20260817150240.520181-1-valentin.kindschi@fiveco.ch>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="M7SKtUhL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C640D1F000E9;
+	Mon, 17 Aug 2026 15:03:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786978995;
+	bh=5dnFUKdIyV8fj76L1Q9t3OkryBvRokoSwDpMtC8fplQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=M7SKtUhLxdZElSi/RybicUHAgAu3t5UowMvZvIY88w5IYxe2bxYg9eYqERU48c437
+	 G/E0RgB9AeQWBhivFNhENWJtei8q3K7jBQ3Elw9nLGkMhd6gEao1Jk1/NUVgeAiFCJ
+	 oBkij5qm8/LU5/c55q2CA9+r6uHjzLgZpj8v7dxY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sanghoon Choi <csh0052@gmail.com>,
+	Seungjin Bae <eeodqql09@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 022/609] Input: ims-pcu - fix heap-buffer-overflow in ims_pcu_process_data()
+Date: Mon, 17 Aug 2026 15:25:18 +0200
+Message-ID: <20260817132543.961691460@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
+References: <20260817132543.039278408@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
- FIVECO-MX01.fiveco.local (192.168.16.44)
-X-Sophos-OBS: success
-X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.8.17.142719
-X-SASI-RCODE: 200
-X-SASI-SpamProbability: 10%
-X-SASI-Hits: ADVERT_CODE2 0.400000, BODY_SIZE_3000_3999 0.000000,
- BODY_SIZE_5000_LESS 0.000000, BODY_SIZE_7000_LESS 0.000000,
- CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000, DKIM_SIGNATURE 0.000000,
- HTML_00_01 0.050000, HTML_00_10 0.050000, IN_REP_TO 0.000000,
- MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000,
- NO_URI_HTTPS 0.000000, OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000,
- REFERENCES 0.000000, SENDER_NO_AUTH 0.000000, TRANSACTIONAL 0.000000,
- WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000, WEBMAIL_X_IP_HDR 0.000000,
- __ADVERT_CODE2 0.000000, __ANY_URI 0.000000, __B2B_PROBE 0.000000,
- __BODY_NO_MAILTO 0.000000, __BULK_NEGATE 0.000000, __CC_NAME 0.000000,
- __CC_NAME_DIFF_FROM_ACC 0.000000, __CC_REAL_NAMES 0.000000, __CT 0.000000,
- __CTE 0.000000, __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000,
- __DKIM_ALIGNS_2 0.000000, __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000,
- __DQ_NEG_IP 0.000000, __FRAUD_MONEY_DENOMINATION 0.000000,
- __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000,
- __HAS_MSGID 0.000000, __HAS_REFERENCES 0.000000, __HAS_XOIP 0.000000,
- __HAS_X_MAILER 0.000000, __INVOICE_MULTILINGUAL 0.000000,
- __IN_REP_TO 0.000000, __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000,
- __MIME_TEXT_P1 0.000000, __MIME_VERSION 0.000000,
- __MSGID_DOMAIN_IN_REFERENCES 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
- __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
- __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
- __RCVD_CTE 0.000000, __RCVD_EXIM_4_96_AES_128 0.000000,
- __RCVD_FROM_HOMEUSER 0.000000, __REFERENCES 0.000000, __SANE_MSGID 0.000000,
- __SL_HEAVY 0.000000, __SUBJ_ALPHA_END 0.000000,
- __SUBJ_STARTS_S_BRACKETS 0.000000, __SUBJ_TRANSACTIONAL 0.000000,
- __SUBJ_TR_GEN 0.000000, __TO_MALFORMED_2 0.000000, __TO_NO_NAME 0.000000,
- __URI_MAILTO 0.000000, __URI_NO_WWW 0.000000, __URI_NS 0.000000
+Content-Transfer-Encoding: 8bit
 
-le_conn_complete_evt() clears HCI_LE_ADV before looking at the event
-status, on the premise stated in its comment that all controllers stop
-advertising when a connection is created.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-That premise fails for Unknown Connection Identifier (0x02), which is
-what an HCI_LE_Connection_Complete carries after the host issued
-LE Create Connection Cancel: no connection was created and the
-controller never stopped advertising. Clearing the flag there makes the
-host believe advertising is off while the controller has it on.
+------------------
 
-Other non-zero statuses must keep clearing it. Advertising Timeout
-(0x3c) in particular means the controller gave up advertising on its
-own, so the flag has to go; leaving it set would make the
-"already advertising" shortcut in hci_schedule_adv_instance_sync() skip
-the HCI commands and silently stop advertising altogether.
+From: Seungjin Bae <eeodqql09@gmail.com>
 
-With legacy advertising the disagreement is self-sustaining. On the next
-software rotation tick hci_enable_advertising_sync() runs:
+[ Upstream commit 875115b82c295277b81b6dfee7debc725f44e854 ]
 
-  - hci_disable_advertising_sync() returns early without sending
-    anything, because HCI_LE_ADV is clear;
-  - LE Set Advertising Parameters is then sent while the controller is
-    still advertising, and is correctly rejected with Command Disallowed
-    (0x0c);
-  - the function returns before LE Set Advertising Enable, so nothing
-    re-sets HCI_LE_ADV.
+The `ims_pcu_process_data()` processes incoming URB data byte by byte.
+However, it fails to check if the `read_pos` index exceeds
+IMS_PCU_BUF_SIZE.
 
-hci_schedule_adv_instance_sync() re-arms adv_instance_expire every
-HCI_DEFAULT_ADV_DURATION (2 s) and its "already advertising" shortcut
-tests HCI_LE_ADV, which can no longer become true, so the command is
-retried every 2 s indefinitely:
+If a malicious USB device sends a packet larger than IMS_PCU_BUF_SIZE,
+`read_pos` will increment indefinitely. Moreover, since `read_pos` is
+located immediately after `read_buf`, the attacker can overwrite
+`read_pos` itself to arbitrarily control the index.
 
-  Bluetooth: hci0: Opcode 0x2006 failed: -16
+This manipulated `read_pos` is subsequently used in
+`ims_pcu_handle_response()` to copy data into `cmd_buf`, leading to a
+heap buffer overflow.
 
-Captured on a BCM43455 (no LE Extended Advertising) after a central
-connection attempt timed out and was cancelled:
+Specifically, an attacker can overwrite the `cmd_done.wait.head` located
+at offset 136 relative to `cmd_buf` in the `ims_pcu_handle_response()`.
+Consequently, when the driver calls `complete(&pcu->cmd_done)`, it
+triggers a control flow hijack by using the manipulated pointer.
 
-  LE Set Advertising Parameters (0x2006)   Success
-  LE Set Advertising Enable     (0x200a)   Success        HCI_LE_ADV set
-  LE Create Connection Cancel   (0x200e)   Success
-  LE Connection Complete                   Unknown Conn Id  <- flag cleared
-  LE Set Advertising Parameters (0x2006)   Command Disallowed  [+2.033 s]
-  LE Set Advertising Parameters (0x2006)   Command Disallowed  [+2.016 s]
-  ...
+Fix this by adding a bounds check for `read_pos` before writing to
+`read_buf`. If the packet is too long, discard it, log a warning,
+and reset the parser state.
 
-Keep the flag only for the host-cancelled case.
-
-Fixes: fbd96c151cdc ("Bluetooth: Fix clearing HCI_LE_ADV for LE connections")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5 btmon
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+Fixes: 628329d524743 ("Input: add IMS Passenger Control Unit driver")
+Co-developed-by: Sanghoon Choi <csh0052@gmail.com>
+Signed-off-by: Sanghoon Choi <csh0052@gmail.com>
+Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
+Link: https://patch.msgid.link/20251221211442.841549-2-eeodqql09@gmail.com
+[dtor: factor out resetting packet state, reset checksum as well]
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Rebased onto bluetooth-next; no functional change.
-  v1's hci_event.c context lacked the hci_store_wake_reason() call
-  present in mainline, so the hunk did not apply.
+ drivers/input/misc/ims-pcu.c | 32 ++++++++++++++++++++++++++------
+ 1 file changed, 26 insertions(+), 6 deletions(-)
 
- net/bluetooth/hci_event.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+diff --git a/drivers/input/misc/ims-pcu.c b/drivers/input/misc/ims-pcu.c
+index 2bac9d9c7b0c9c..af1dfc08b10b25 100644
+--- a/drivers/input/misc/ims-pcu.c
++++ b/drivers/input/misc/ims-pcu.c
+@@ -448,6 +448,14 @@ static void ims_pcu_handle_response(struct ims_pcu *pcu)
+ 	}
+ }
+ 
++static void ims_pcu_reset_packet(struct ims_pcu *pcu)
++{
++	pcu->have_stx = true;
++	pcu->have_dle = false;
++	pcu->read_pos = 0;
++	pcu->check_sum = 0;
++}
++
+ static void ims_pcu_process_data(struct ims_pcu *pcu, struct urb *urb)
+ {
+ 	int i;
+@@ -460,6 +468,14 @@ static void ims_pcu_process_data(struct ims_pcu *pcu, struct urb *urb)
+ 			continue;
+ 
+ 		if (pcu->have_dle) {
++			if (pcu->read_pos >= IMS_PCU_BUF_SIZE) {
++				dev_warn(pcu->dev,
++					 "Packet too long (%d bytes), discarding\n",
++					 pcu->read_pos);
++				ims_pcu_reset_packet(pcu);
++				continue;
++			}
++
+ 			pcu->have_dle = false;
+ 			pcu->read_buf[pcu->read_pos++] = data;
+ 			pcu->check_sum += data;
+@@ -472,10 +488,8 @@ static void ims_pcu_process_data(struct ims_pcu *pcu, struct urb *urb)
+ 				dev_warn(pcu->dev,
+ 					 "Unexpected STX at byte %d, discarding old data\n",
+ 					 pcu->read_pos);
++			ims_pcu_reset_packet(pcu);
+ 			pcu->have_stx = true;
+-			pcu->have_dle = false;
+-			pcu->read_pos = 0;
+-			pcu->check_sum = 0;
+ 			break;
+ 
+ 		case IMS_PCU_PROTOCOL_DLE:
+@@ -495,12 +509,18 @@ static void ims_pcu_process_data(struct ims_pcu *pcu, struct urb *urb)
+ 				ims_pcu_handle_response(pcu);
+ 			}
+ 
+-			pcu->have_stx = false;
+-			pcu->have_dle = false;
+-			pcu->read_pos = 0;
++			ims_pcu_reset_packet(pcu);
+ 			break;
+ 
+ 		default:
++			if (pcu->read_pos >= IMS_PCU_BUF_SIZE) {
++				dev_warn(pcu->dev,
++					 "Packet too long (%d bytes), discarding\n",
++					 pcu->read_pos);
++				ims_pcu_reset_packet(pcu);
++				continue;
++			}
++
+ 			pcu->read_buf[pcu->read_pos++] = data;
+ 			pcu->check_sum += data;
+ 			break;
+-- 
+2.53.0
 
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -5720,10 +5720,12 @@ static void le_conn_complete_evt(struct hci_dev *hdev, u8 status,
- 	hci_dev_lock(hdev);
- 	hci_store_wake_reason(hdev, bdaddr, bdaddr_type);
- 
--	/* All controllers implicitly stop advertising in the event of a
--	 * connection, so ensure that the state bit is cleared.
-+	/* Advertising stops when a connection is created, and when the
-+	 * controller gives up advertising on its own. It keeps advertising
-+	 * when the host cancelled an outgoing connection.
- 	 */
--	hci_dev_clear_flag(hdev, HCI_LE_ADV);
-+	if (status != HCI_ERROR_UNKNOWN_CONN_ID)
-+		hci_dev_clear_flag(hdev, HCI_LE_ADV);
- 
- 	/* Check for existing connection:
- 	 *
---
-2.34.1
+
+
