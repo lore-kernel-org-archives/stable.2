@@ -1,119 +1,173 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DD43FB042
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0543FE658
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786965387; cv=none; b=WMojj4FK4iIkcNWjo+XBESbvEgQFreLwH1W/+OzhT2lUQeOFVO8Qb8EHjWghv4KaHxN+L/qQgyst6Z743hm/UsQLjT1qNGyIVjzpUxrptJLB4A9xIVXS8A6uOsvUIMsC2V+WkXR1hzLQ5HogBDiokXBvR7S6Bd4hxVBPGUYZGKo=
+	t=1786965466; cv=none; b=lTcTgRXcWyDtMYWb6oApDPICiLIc7SQ9x9vAjg0gL/PqtizZ/qK1u4LPHuZl6HoSAqs/YfPCHDf+Mc5xHYlKX/dv0Fpe2eXUKrdYUsj85URFC6N6aquJZ42/GH9KvqwkzJmkmihbgClBZfhb7s/StKkPtyXmtpteNsNNoezlXkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786965387; c=relaxed/simple;
-	bh=VVXh1hJaIziTnYcw5VXBnBRcdWv8NrGa70oD5ZkUoBQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r3Y17UXYvru6JBzp3gn0pKEGIu42fRgWwgnQ7PreXUbjMeXutMUwve9F4OvOCQY/WLJc3dg4hUXyfkyqQsAXvgf83ByvvGuu+IqmNPicws0KFPbbL9Hld1PjqlQ8ZKwDLlgdclOWqpf5IL4Y8fc3k5KZuCDCYqDBnHgD64kKR9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AWKcQcjX; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1786965466; c=relaxed/simple;
+	bh=nmIJqKYUorjBeUTJ55+kjKbsShLkxxa8SVIxElN7dTc=;
+	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Type:Date; b=Vcv2VP+r9zBHkA7nQ/0WnpAq6fkFeV9Glb0bgIjrJchHL7/uHVWJkXWCi4S+oL8IKyas76BmWB2WxUTh3txEjExz6cNSJ1/i4Azy5pTZ0P6hmgMITc0lrVj4vN31M+dqQRNnLK7HfwTNLvpCZUZca8NkbYv62yaJkt6epXgyv5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UheXgto0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=N4JVShq7; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AWKcQcjX"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ccdf36f63dso246605ad.0
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 04:16:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UheXgto0";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="N4JVShq7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786965464;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jlLmM3V4bNqNAIwd0E7E4syK/sSR82TVvTikdxpHb34=;
+	b=UheXgto0hpL3yCYPxDDFfae9wzMhNL1u6df7yW9lpS9GfIf2uS6VN844CE33SjbmXzXuZf
+	CtawJT76cXlMFWYp2MSHBGqHf9w8dbWB3A5LFhXVuCG/j1WuNQezVdinBmMcFGWG3u/b8u
+	VZjM6EiOt143Ols3/4AdUFVpCPAj7AY=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-318-TYnpmqkgMr6NAUAwd-bwIw-1; Mon, 17 Aug 2026 07:17:42 -0400
+X-MC-Unique: TYnpmqkgMr6NAUAwd-bwIw-1
+X-Mimecast-MFC-AGG-ID: TYnpmqkgMr6NAUAwd-bwIw_1786965462
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-47fe85684b9so2751904f8f.3
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 04:17:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786965385; x=1787570185; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R+l+UxdGP4xSYpq+snL3DrvZxjB7YwI2tVyA/dO6w4c=;
-        b=AWKcQcjXD/D6J5J1hZni+5sx8WNCevU9x2JSSbpH2TJ0yKIPP2LmJ3QcQUyxItHItF
-         4+bCQQxgh4eEGt5OHlTHLQkvvT6S8421GiRvp5gzhESIZpFXgFb9iyYmY4HoDy+4E8xx
-         lub2WalbGNi3NDuornLxNnmj2gQwUJu5t9kFXft2xbUB5yIAowJaDLC55gg6+E6+mwlD
-         Do1+DO6f2v6Mr9Ih9FaocC3vblyf80ZBDTqG2/KdHti/wQPLogjd1UAqCqwZTdaP7EO/
-         NIN6RJHPV2jaQdWGvuNRAtYSuBwdS0nZ7gO783Jjzss4JoqSFwJN+9Shdx76+VkJ9a4I
-         eN4g==
+        d=redhat.com; s=google; t=1786965461; x=1787570261; darn=vger.kernel.org;
+        h=date:content-transfer-encoding:content-type:mime-version
+         :organization:references:in-reply-to:message-id:subject:cc:to:from
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jlLmM3V4bNqNAIwd0E7E4syK/sSR82TVvTikdxpHb34=;
+        b=N4JVShq7MhCNlo68qwtt2kPCCgiQhhJY09ARkrDZ8MHxpQKR8Xm6dL5hgkCx+a6kte
+         S+1rsqpNHsUEhXz/h8y/nqKv/Ga9p5SDgRNwQ2oyQahq30G66+ylQ3dW4V/nqRzjiA7B
+         WdnmCNwEh9EBkoERhPifTYHXKBvYMgUNOpRCRlld3Sh8C8rMaqqqnPLfJvjdYTJvjcSZ
+         bMPc3Jp1lqRtM2je1Zu3IElqeRcAL+wsQJdjUnzt45znkDaMZwYTfrMxOlyLy0MSIsLH
+         PR4B1nNkShuRqDjwQUG1pcF7xUttkex8z5tUNjWKaqPQxbZEd96SpLdXsGZAaOLKO9Sb
+         Qvlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786965385; x=1787570185;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R+l+UxdGP4xSYpq+snL3DrvZxjB7YwI2tVyA/dO6w4c=;
-        b=R5JBLSmHJT8BaAinOJVGJ854Y3cKAj/bAe36zhfRL9Q+iaTVogrqb+xNgphAmbkNJD
-         acVpCwijNv6ffCH8gwFp9wD8kCFs/fy0xnslXs2UaT8hM3O8oSr57KnIFpyt84SdmPYE
-         R6tpw4WsFqjP3nMMK6FqoSMmdQ9xBQbUjyt+61b1vc8CGO8BBjs0EZ7UCLtcW18YH9RR
-         uh/TaGiBKE/BQoJ8ju9b0HR9eDrVYMYIHNjIzPfoM47cWAS7owIMyLlZUnh8Z363uDah
-         zY/vC1s8vySy6X3kGv9biZz6747d2vNR2/G2HBYf1BNPONjBu0rK9wfeXAyGKsyJQEUb
-         pCYw==
-X-Forwarded-Encrypted: i=1; AHgh+RrWWC6vCjIT5gYnD0k/QHkKy4WN6/HUX4rldncp95uK+V9NMRuc88K+p/jcU/c9IMcKIXivDHU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyVQ5JzAeSSwd4wzxENcZqQX+gCL0dz8pUPys4QPtabNomHN6PE
-	EtaS7edZQthLhKexRSPRz7/KtERpM603m+W+Np21noRqaM1FIz470LT9Wv4onDadXg==
-X-Gm-Gg: AR+sD11qQrQCp6H3fFmePpQdt5PKhpaZc7ttZnVqiApTyo+pyI71hAEVA1tKwFaxqwj
-	0xuNTTJa2/NbWiXafYudX4Ht9evvnhNGSTYpBqahHhaFKgjzSauMxyxIY/+PTsR0GOTAjca5HPe
-	e3iY/VT1RBwVYpG5Rx1Pwsha9WLLhtYsFVb4JidPbZuJOCRv8Fh1BryCYU22+WrI3JTycVrM4EU
-	p4vahi32ltcVF8zCwFgiiDOp6MCfsjZYD7TU/j9QoMqomS3w7HN4Q2EQNQmkT1fuV/eLAaItCNr
-	URdSEZzlToUsPPZZtZoTMfyyfURNqvVJLug7Asq84Y+BtgMeTCYrgwO9HQPXf3yXRyZAfUR8eeU
-	8LLNxNMjPFtxjPBfU2Ub9HAWNZMTAZxZjKNe1o7TYaRlk/fnIffFFfUdZASJQXZg7GuHPQPkVia
-	X0GnQCa0fBS9WDNGvM8JgdXRkdvH70h4UTf/75nx4NSvciXvSMcBCR7BmdtBe2UhsnCHmibU181
-	+KHK87zZfZSjmiurvh6wRs=
-X-Received: by 2002:a17:903:2b0c:b0:2bf:1000:d3ac with SMTP id d9443c01a7336-2d596cfb925mr4566865ad.11.1786965384912;
-        Mon, 17 Aug 2026 04:16:24 -0700 (PDT)
-Received: from google.com (21.168.124.34.bc.googleusercontent.com. [34.124.168.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bb499e8csm3975245ad.2.2026.08.17.04.16.21
+        d=1e100.net; s=20251104; t=1786965461; x=1787570261;
+        h=date:content-transfer-encoding:content-type:mime-version
+         :organization:references:in-reply-to:message-id:subject:cc:to:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jlLmM3V4bNqNAIwd0E7E4syK/sSR82TVvTikdxpHb34=;
+        b=UEUY966yA1JKPmQELfOBiWJiYC43NRs/TzLEOoIlXu6L9epHHkTve3WnTATMAyd391
+         31U3hTtFjpVZzqiYcsI1s5E2ShfSQh62qMUAxx5nSrk8jbo17fImpsWDOHt2vjrbYqpv
+         X9qM+hRbnpAkJiSFCwxVwq2FVcVcVKl3YQ8R9GpYFBZWiCoOqNdQn15WoAtXrxPlLCmJ
+         KFJivHLO7BcrJ2zdOLm4OGioTdulENZefuZe7p67rKcv+9N22U4oIam0PAe4ftuMQuaR
+         XNuzZpnJhCWOhrGHqvK7p9vDeTw6xtDIy4r5glZgSpUIPTXA+2o4yhvlVhMXQrJVR9xA
+         6Psw==
+X-Forwarded-Encrypted: i=1; AHgh+Roj3TzlLPPqST0mTYxg0fSMsMTpuuoAJlsI0MTUu1ekAF6tanm8ZuyDQQJ4co4Y6KZa8J1dTqI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFYFcTfc8WwECZI4oiu6eq+kptlYL4mp3lD9aGpCfjZYFtOSWl
+	zTJO6ckdzMfWI06HmDWSNd0tD2oX57WLbTyb0RZkzIF8rl1v0+RGDTVslZkvtIkK16+6zTNaBNH
+	Cig5caEHMXZOfsYI8dwLKBdOVyCURpdW6qv1wvQiDrrSKY5OzCHSq5EmxSQ==
+X-Gm-Gg: AR+sD11ZE71WFiklcRhBRdpKbZHHgaBZ6aVMS95NECvkPGHFRyNv+VlEdUi+Q7RQL67
+	6E1cnZk6kcZjPOYig47UOKhIIiMRab08gdGldORv4KauY1eJA5EY4q+zfRARX3CL4TLweqdfOKR
+	lZnrunILlcG5RDg7wT2omYjBR6M22FTfTXl2OFyZuAuvg0G9pvlbowTLSgvtHHP/veg9zVFTcew
+	hOpr2nsXUTBuZ9cbDrykpmzau1758SCnvZ0Vf+Ikmu0tfiTf2wdYhWCzaPNWT1Vm1lR6jqxPOjx
+	nMEKigNmGeUQq4MSIRCr2hEXNqKJ4gm803pDeN7JC1ff39fkwGNNqnyeijeANmVVevc6yabJr1V
+	aJMftjaOynJr9Jm9ZFE15xz/U63eq
+X-Received: by 2002:a05:6000:18a6:b0:47f:5ec2:d54 with SMTP id ffacd0b85a97d-481607351d6mr41088960f8f.5.1786965461444;
+        Mon, 17 Aug 2026 04:17:41 -0700 (PDT)
+X-Received: by 2002:a05:6000:18a6:b0:47f:5ec2:d54 with SMTP id ffacd0b85a97d-481607351d6mr41088827f8f.5.1786965460933;
+        Mon, 17 Aug 2026 04:17:40 -0700 (PDT)
+Received: from maya.myfinge.rs (ifcgrfdd.trafficplex.cloud. [176.103.220.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5a31572sm3207747f8f.5.2026.08.17.04.17.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 04:16:24 -0700 (PDT)
-Date: Mon, 17 Aug 2026 11:16:17 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Dmitry Malkin <dma@nebius.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	NB-Core Team <NB-CoreTeam@nebius.com>
-Subject: Re: [RFC PATCH] iommu/arm-smmu-v3: Allow nested attach for PCI
- bridges without vDEVICE
-Message-ID: <aoLtgeYLpYobpyKN@google.com>
-References: <PA1P190MB25578C482C8A3B06A4DCC6FDDBDA2@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
- <20260814174825.GC510472@nvidia.com>
- <PA1P190MB25573D7CFE42EF7DD2A8CDE8DBDA2@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
- <20260814221103.GE510472@nvidia.com>
- <PA1P190MB2557D53CB7FCB70EB8F79D09DBA72@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
+        Mon, 17 Aug 2026 04:17:40 -0700 (PDT)
+From: Stefano Brivio <sbrivio@redhat.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org,
+ linux-raid@vger.kernel.org, Christoph Hellwig <hch@infradead.org>,
+ linux-crypto@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
+ Taehee Yoo <ap420073@gmail.com>, netfilter-devel@vger.kernel.org, Pablo
+ Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, Phil
+ Sutter <phil@nwl.cc>, stable@vger.kernel.org
+Subject: Re: [PATCH 6/6] netfilter: nft_set_pipapo_avx2: add missing
+ vzeroupper
+Message-ID: <20260817131738.51554efe@elisabeth>
+In-Reply-To: <20260816171518.GA2013@sol>
+References: <20260815205750.169336-1-ebiggers@kernel.org>
+	<20260815205750.169336-7-ebiggers@kernel.org>
+	<20260816123839.3670e5c3@elisabeth>
+	<20260816171518.GA2013@sol>
+Organization: Red Hat
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.49; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <PA1P190MB2557D53CB7FCB70EB8F79D09DBA72@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Date: Mon, 17 Aug 2026 13:17:39 +0200 (CEST)
 
-On Mon, Aug 17, 2026 at 09:29:10AM +0000, Dmitry Malkin wrote:
-> > Don't use it that way?
+On Sun, 16 Aug 2026 10:15:18 -0700
+Eric Biggers <ebiggers@kernel.org> wrote:
+
+> On Sun, Aug 16, 2026 at 12:38:41PM +0200, Stefano Brivio wrote:
+> > Eric, thanks for taking care of this.
+> > 
+> > The patch looks good to me, I just have two questions:
+> > 
+> > On Sat, 15 Aug 2026 13:57:50 -0700
+> > Eric Biggers <ebiggers@kernel.org> wrote:
+> >   
+> > > Since pipapo_get_avx2() uses YMM registers, execute vzeroupper before
+> > > returning from it.  This is needed to avoid degrading the performance of
+> > > any later SSE code that may happen to be executed.  
+> > 
+> > Out of curiosity: was this prompted by some observed latency spike in
+> > execution of SSE code, or it's just meant to satisfy the recommendation
+> > from AMD and Intel to use it while transitioning from AVX to SSE modes?  
 > 
-> Why not? We use pci=config_acs to configure ACS at kernel startup and
-> enable direct PCIe peer-to-peer traffic between GPUs and NICs. All 
-> affected devices are assigned to the same VM and IOMMU domain, which 
-> also reduces the memory footprint by reducing the number of page tables
-> and lowers IOTLB pressure.
+> This one was found by code review.  But the latency spike has been
+> observed in other cases with missing vzeroupper, so it's definitely a
+> real effect at least on some CPUs.
+
+Ah, interesting, I've been wondering about that.
+
+> > > Fixes: 7400b063969b ("nft_set_pipapo: Introduce AVX2-based lookup implementation")
+> > > Cc: stable@vger.kernel.org  
+> > 
+> > Is this really stable material? Skipping vzeroupper might have a
+> > performance impact, but it's not an issue for correctness.
+> > 
+> > The main reason why I'm asking is that, while vzeroupper might look
+> > harmless and obviously safe, it actually caused CVE-2023-20593
+> > ("ZenBleed") on AMD Zen 2.
+> > 
+> > I expect systems receiving stable kernel updates to also run the
+> > patched microcode by now, so I'm not overly concerned in any case.  
 > 
+> It's awkward to mark something as a fix, then not actually want it to be
+> fixed everywhere.  The stable maintainers know this, and they often
+> apply fixes anyway regardless of 'Cc stable'.
 
-I'll defer the debate of enabling ACS or not OR supporting multi-device
-groups for vIOMMU for a moment.
+Right, I guess you have point there.
 
-But, regarding PCI P2PDMA, you can still enable it with ACS enabled in
-the upstream kernel *IF* your hardware supports TLP forwarding between
-root ports.
+> And if vzeroupper is really not safe due to ZenBleed, then why is it
+> used everywhere else in the kernel?  This is just one of the few
+> exceptions that doesn't have it.  If it's not safe then they should all
+> be alternatives that patch them out to no-ops on affected CPUs.
+> 
+> But since that was never implemented, and userspace almost always uses
+> vzeroupper too, it seems the only real solution is the microcode.  I
+> don't think it makes sense to have a middle ground where almost all of
+> userspace uses vzeroupper, ~97% of the kernel uses vzeroupper, and a
+> random 3% of the kernel doesn't use it.
 
-When ACS is enabled, all TLPs get forwarded to the host's Root Ports
-instead of getting routed directly through the switch. All that needs to
-be done is to add an entry of your hardware to the whitelist in p2pdma.c
-(pci_p2pdma_whitelist). Are you aware if your HW supports this? If yes,
-then a simple addition like [1] should work.
+Don't get me wrong, I wasn't advocating against "fixing" this for
+specific paths, rather just pointing out that something seemingly
+harmless such as vzeroupper can have nasty side effects.
 
-Thanks,
-Praan
+I used ZenBleed as a mere example, not as a current reason to do or not
+do anything specific.
 
-[1] https://lore.kernel.org/all/20260409150123.3538444-2-jmoroni@google.com/
+-- 
+Stefano
+
