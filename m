@@ -1,139 +1,153 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6FF145FFBA
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 17:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D50D45FFDE;
+	Mon, 17 Aug 2026 17:09:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786986497; cv=none; b=IX/Umjro1EDgt5LdqoVQ3Z0HvH7RJ2j0hjgIhoKBbbLlxQAA5Adzgnl4r4o2DIVZlVJs4f+N+61+bZ2O4pnV4de+NcKVpo2vwpmooGrhfSxkOMxPgIB9AJaLrJs8u44Mr0cwzc7SN4P6g86jUWAS9S0jUIRWxxONhKr0w++1kRw=
+	t=1786986559; cv=none; b=dq8+YkQieV3rdkr+Nbfc8vhLU16/t0YZHDhiua6y9fqNgCtEeiV10O+XEDQniizHls3dhwxGFkltmit/oi3n87K53PtGulLd+Dp7qwteFi3U8g3hjookY2fnu854GtzJzunL39XXhcJ/t2Br2dXRuek2M+QwbTkJV+f20+bJSp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786986497; c=relaxed/simple;
-	bh=NlqrtaF1jvx4fxtT+Rln6rcHZtm9m2tvcwizoBcGjAs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QuRwVPeK3cVoSB1vjyusSrw2QYltuzJrJOLbTqqPDYVlptSP+kqHXAbt3OTBpKtRwARJoG7cJkvJDD5AdUwf8p8VBqCcjuRppXIRyozg37y0Kzz5HIKEQLxrFDXJ30F/689cZrqU677piUt7zO6YRrAUd1eLcQ6UBRBsKFMoLpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y+0zKY8R; arc=none smtp.client-ip=209.85.208.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786986559; c=relaxed/simple;
+	bh=g7nCiYcQngdCpXxLdXAcd1yyDzpaGAuCS7hpQBLAD9k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rZi9tpiMN73mkH0+k6jzDYyxF0lB5d4M4SncMAeMp2phGUzZu3JFDbT7hxDsK3nisVoh8i/wE23WJYGoVrdtQtDwR2iKO1Eby+VnkXHDG1vxbLImfRv+pR0hTVezrzWgqB4B5rCXicPYRS1d6lDn7/pEFQj323tY/gAX40l3RyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=J2S6WTsE; arc=none smtp.client-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y+0zKY8R"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39c74722e27so1901581fa.0
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 10:08:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786986494; x=1787591294; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dnqUISuF1GqxCyfBU21SiazIrKDqoxo6IB2fRQd9Di0=;
-        b=Y+0zKY8RnZ6dgFF4KdgKr/rQa4DpiHD+fKERC8vpJ4r3biQq3AgQRaHxocojLYmFj+
-         YstU3/5JumLztO4F+Dsuez8E4BJSZfa8rcq08aYEdmQPJaA5otqzba0zfdCh/+sU267s
-         XtlpQ4f7YyDRRzRRYRg+C6n61RNSzfEuuVul4FEHtj0iDq477YKfB1+4Gu+5oStD4tWK
-         OJsM+VQrCOyHFkymk3baekKNg/nQyI5+ZXKBVCUPj3bDLW5a5KAtFmq74Gh8JmerPLrn
-         oCUXyYE9GATRlhVr06d0M4px//GR+Nl60Ho6VtXF1mr8ALSlgW6k+NrauNtgqbLID3Ni
-         I7Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786986494; x=1787591294;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dnqUISuF1GqxCyfBU21SiazIrKDqoxo6IB2fRQd9Di0=;
-        b=F8JEHumHlVmn5A9WjRP+uWvVbgK9PNJ/fds+8F81rYJO6kn/HbRN5D82RamDZwx425
-         hFkezjk9OJA4QaZMR/YTZNg+WFsGoo7c0anaSMtXL6EvzUKfK7iUed3y47NEImViTd0E
-         ssL6vc25sEGjyee6E7RqLkZs2ueXLPSoE5Ao0otjNR4DAASkpn3AaFPQcnd4qu5WUM6R
-         1RFLNHpB94oho9y1WMvwugt1GCbSuAXAtXzBGCVdYxMK6uWscofHeB1iKsIghUnePZ+y
-         Zcfbitfjn6PKcL62cbeM+Yl4Mmmi9x4jVgap0h0AnTg5gtKrOZ0aYmut2idvzZurXZFw
-         7YUA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5aGfjFRR0aPI1AFFgWl2p6iVokRPtu4Z2VnNqWxoDP+p67HA7ENDwHEDxaQVsqGZd6eKn4Jo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDU14lYQv2fZLcBSDh68CyOF9WBUAAAGii1XJ8vDcPIeDM9VL4
-	pcYaQa7d+jYcXvF3A3CCCTeuPHpXuJX0y2dzTacWANUaQR4PpM7VEcjn
-X-Gm-Gg: AR+sD12UbuQL6FxhMrCD+eP4R2jtEUrmL7/HMGO+OzPpdfoEWk/s0E1SvozFbGC3fWB
-	E0ZKDpUoOFCzMS8+NRKSbMkJXB/gvaAW/9cWBkW/dnb/MbfskAJGnGoGOoWO15MdBH2R7hOvi0a
-	vQNjp9/4XV4kz6R0db+oxwv0Zo8c8x0N69D6aFvUjBqIx68NG2o62iOd38TVLiwdmBWXaRk/bzt
-	MPGjUYmJR6eoHEbd+80M+TNLc3ey4ukMF35qI68CTKgGbb6/3yGvgqd3ZB7sYqkrHA8GYCfxu0o
-	xt5FI89PsWT5c6gsyTwe3XheH3Rz+5tmW6YC9Su2hCuCwfX9zGSnrRylW3o2dTTTtqkqqXonZNj
-	z1ONSLIHBOTsRXzq68Rz5cFwRkqVc36Pbb1z/KejoaCwQXUBTH43FAk2l9I82CBuvfCwopr5TjP
-	cIm3t4aMoMuKfgpUHId/eARuq+qyohMmM4OOAPyZa4dXm80GWmIct18a7LBdqEIaSmMwtGLM6g3
-	BwyqBUtIWaz8I6Qgzi5Y3bB1cq2PTyj45QnPoFxDPcrVxyO935CKMMSO4Nh6mHt+Fl5FA==
-X-Received: by 2002:a05:651c:a210:10b0:39f:af21:75b0 with SMTP id 38308e7fff4ca-3a176a18d7amr746881fa.8.1786986493427;
-        Mon, 17 Aug 2026 10:08:13 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a16b0e54casm6053841fa.15.2026.08.17.10.08.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 10:08:12 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	Jonathan Cameron <jic23@kernel.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rupesh Majhi <zoone.rupert@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 1/3] iio: pressure: dps310: fix CFG_REG bit definitions
-Date: Mon, 17 Aug 2026 20:07:23 +0300
-Message-ID: <20260817170725.1074078-2-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260817170725.1074078-1-zoone.rupert@gmail.com>
-References: <20260817170725.1074078-1-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="J2S6WTsE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1786986550; x=1787245750;
+	bh=reDhZ9aU9Fk2ZVUwiW4cHGgqUkWbfEUrxNONFX7C3mY=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=J2S6WTsEizDrSUNnRTJCcm2nZfuzOEyMIDLkjw24pg8iY+JD9vEKrL9A1Ftl3Fs6g
+	 IEsOqf8QM+kBTr0TuywjPxeA32zLYsoPSqYmvGJOaexMIos55mY/6ekXF1FJ8mWhBU
+	 WLClq/mwJv+ySVKbmOHKMmysjx0Zncguix9x1km/xAvS0x5UAhVruxepxg+sxEME2K
+	 UJYPj+v0hevAP+7cUOK9jtD6auU3Va5TPobMTv5sHxpVA/xxJpZ0ejbVexKXRXOkMl
+	 gCRXTyUMStx9ydba7teJL6gtACsExV4mfAMdk6AwRBa56XlyFsYADkP7nzFqdpKpE9
+	 6OSaqQYiu/YSA==
+X-Pm-Submission-Id: 4hNznr0T83z2SchQ
+From: Esben Haabendal <esben@geanix.com>
+Subject: [PATCH v5 0/8] iio: light: ltr501: Add ltr329 support
+Date: Mon, 17 Aug 2026 19:08:49 +0200
+Message-Id: <20260817-liteon-ltr329-v5-0-6f71ab2b0588@geanix.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33Ny27CMBCF4VdBXtfI4zuseA/UhS8TcEUTZKdRK
+ pR3rwNCQJC6PNJ8/1xIwZywkO3qQjIOqaSurUN9rEg4uvaANMW6CWdcMwNAT6nHrqWnPgu+oU6
+ gBy5BWq1JNeeMTRqvvf3nbZcf/4WhnyPzxTGVvsu/14cDzHf3tlq0B6CMCmgYN0yB2sjdAV2bx
+ nXovskcH/i/nFcewbpGKYzOqzcuHtwyueSi8qC90TaYYOQ7l08c2JLLyq2PIjYRFLfshU/T9Af
+ I2JsjegEAAA==
+X-Change-ID: 20260711-liteon-ltr329-a3eb12414866
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikita@trvn.ru>, 
+ Maslov Dmitry <maslovdmitry@seeed.cc>, 
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Pan Chuang <panchuang@vivo.com>, 
+ Yangtao Li <frank.li@vivo.com>
+Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ stable@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786986543; l=3702;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=g7nCiYcQngdCpXxLdXAcd1yyDzpaGAuCS7hpQBLAD9k=;
+ b=j7dwX35+Ko0AYTjKyG1cFzEZXW1smcDGt7nO5cudfcnZnDPEP7hwGqEKLPxoY+RbkNcEKkK7t
+ bv4VDhuzursB76GmZ1XdHvAy8BNXjCqV4A/w5euMuW2yuk1Goq0S70+
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-Three of the CFG_REG bit defines do not match the datasheet. P_SHIFT is
-bit 2, FIFO_EN is bit 1 and SPI_MODE is bit 0, but the driver defines them
-as BIT(4), BIT(5) and BIT(6). Those three positions are INT_PRS, INT_TMP
-and INT_FIFO, the measurement ready and FIFO full interrupt enables for the
-SDO pin. All three have had the wrong value since the driver was added,
-when only the temperature shift bit had a user.
+The LiteON LTR-329ALS-01 chip is similar to the LTR-303ALS-01, except for
+interrupt support and related registers, which LTR-329ALS-01 does not have.
 
-DPS310_PRS_SHIFT_EN got its first user when pressure support was added, and
-there it is a real bug. The datasheet requires the pressure result
-bit-shift to be enabled when the oversampling rate is higher than 8 times,
-so dps310_set_pres_precision() sets it for oversampling ratios of 16 and
-above. With the wrong definition it leaves P_SHIFT clear and toggles the
-pressure ready interrupt instead. The result register is then never
-shifted, so it no longer matches the scale factor the compensation divides
-by. On a DPS310 breakout, reading in_pressure_input at oversampling 16, 32
-and 64 returns -ERANGE, because dps310_calculate_pressure() ends up
-negative. Oversampling 128 was not observed to be affected.
-
-DPS310_FIFO_EN and DPS310_SPI_EN still have no users, so correcting them
-changes nothing on its own, but the FIFO enable is needed by the hardware
-FIFO support later in this series.
-
-Temperature is not affected, T_SHIFT is bit 3 and DPS310_TMP_SHIFT_EN
-already matches it.
-
-Fixes: ba6ec48e76bc ("iio: Add driver for Infineon DPS310")
-Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/iio/pressure/dps310.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Changes in v5:
+- Changed error handling of interrupt being configured for ltr329 device to
+  just print a warning message and get on with life.
+- Mark interrupt properties as invalid for liteon,ltr329 bindings.
+- Changed patch 5 to not claim to be a fix.
+- Link to v4: https://patch.msgid.link/20260810-liteon-ltr329-v4-0-8bd3dfd15280@geanix.com
 
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index f45af72a0554..68382960382f 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -50,9 +50,9 @@
- #define DPS310_CFG_REG		0x09
- #define  DPS310_INT_HL		BIT(7)
- #define  DPS310_TMP_SHIFT_EN	BIT(3)
--#define  DPS310_PRS_SHIFT_EN	BIT(4)
--#define  DPS310_FIFO_EN		BIT(5)
--#define  DPS310_SPI_EN		BIT(6)
-+#define  DPS310_PRS_SHIFT_EN	BIT(2)
-+#define  DPS310_FIFO_EN		BIT(1)
-+#define  DPS310_SPI_EN		BIT(0)
- #define DPS310_RESET		0x0c
- #define  DPS310_RESET_MAGIC	0x09
- #define DPS310_COEF_BASE	0x10
--- 
-2.43.0
+Changes in v4:
+- Split the duplicate error message removal into separate patch.
+- Removed uneeded enum =0 assignment.
+- Use dev_err_probe() instead of plain dev_err().
+- Link to v3: https://patch.msgid.link/20260804-liteon-ltr329-v3-0-c6b768c7c745@geanix.com
+
+Changes in v3:
+- Removed duplicated error message on devm_request_threaded_irq() failure.
+- Added Fixes: and Cc: stable tags to fix for error handling of
+  devm_request_threaded_irq() failure.
+- Added no_irq_support boolean to simplify checking for chip irq support.
+- Moved check for no_irq_support from ltr501_read_intr_prst() and
+  ltr501_write_intr_prst() to callers. Note: event functions are not
+  registered for no_irq_support devices.
+- Moved #include <linux/array_size.h> into its place according to
+  alphabetical sorting order (although the rest is not really wel sorted).
+- Restored alphanumerical ordering of compatible list in bindings
+  documentation.
+- Ordered device arrays and enum values according to alphanumerical sorting
+  order.
+- Link to v2: https://patch.msgid.link/20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com
+
+Changes in v2:
+- Fixed error handling when irq is defined for a chip that does not support
+  irq, powering the chip down again.
+- Added simlar fix to error handling of devm_request_threaded_irq() error
+  handling, powering the chip down again on failure.
+- Added explicit #include <linux/array_size.h>.
+- Link to v1: https://patch.msgid.link/20260715-liteon-ltr329-v1-0-31f027051594@geanix.com
+
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Nikita Travkin <nikita@trvn.ru>
+To: Maslov Dmitry <maslovdmitry@seeed.cc>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+To: Thomas Gleixner <tglx@kernel.org>
+To: Pan Chuang <panchuang@vivo.com>
+To: Yangtao Li <frank.li@vivo.com>
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Esben Haabendal (8):
+      dt-bindings: iio: light: ltr501: Sort compatible enum array
+      dt-bindings: iio: light: ltr501: Add missing ltr303 compatible
+      dt-bindings: iio: light: ltr501: Add ltr329 compatible
+      iio: light: ltr501: Power down chip if request irq fails
+      iio: light: ltr501: Drop duplicated error message
+      iio: light: ltr501: Add ltr329 driver support
+      iio: light: ltr501: Fix sorting order of device arrays
+      dt-bindings: iio: light: ltr501: Make proximity-near-level conditional
+
+ .../bindings/iio/light/liteon,ltr501.yaml          |  32 +++++-
+ drivers/iio/light/ltr501.c                         | 114 +++++++++++++--------
+ 2 files changed, 101 insertions(+), 45 deletions(-)
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260711-liteon-ltr329-a3eb12414866
+
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
 
