@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE293BFE5D
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:45:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF605412272
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:46:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786970706; cv=none; b=oRGc/nKBjSuMYRNJ4sQJFbPKBpC92GN5aLLbZs0iQMQT2MRiTx8u9m3dw13cXETZi4l9rOdjKyJT7kgsxRqtn0ZFGY9mdyE9HxD1vUDNd5Bss3xb8m1msx99ch6kO21kVK2/AOEvEhzDn/0btAnKj1tWL2o9UY6Zi54u+Gpwfv4=
+	t=1786970806; cv=none; b=A+mszmI7U82CFi8QU3ooD3EuS+oDLH01WT9//UeO2xFf+sZYsmxjdybD55jMPwf6VfpvcNM/haw2KL6cJXCYlBtYLcsh+F6HWFDkafFXZXuip3B0Co5ue5iKW2HAIiLOEiPPcg28g9bT/wl707kk+Sq3DHy/KjRWg23N50eVz9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786970706; c=relaxed/simple;
-	bh=JJnKLc8JQW726PcjBA6iSJLe4afqd1UinyKC0ppodPE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TQM5CVNoBkV67JWyBnEWsVeJ63NPOk25xinyQbBOPzhTuXjatBfS+05LfkMPz5uP+uTz+nHVQwRldvmmFmIaJAVrCVwVghtytw057QR/GmOHLVsZpVuMw1Y5EAeOoJuSVkIJXSyYq/zRPJF7GP/WgFULNxjT9shS5QXUOZiyPjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EZLOnUQN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786970806; c=relaxed/simple;
+	bh=wiK3bzeuvuPsfR/R3UQyyR6lxPlWRvdW1Ac0XJY2dGM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fw7fTv2Pt+yiEnxf9blXG3SJfszTtCtNp1mW4etwu7jJ0WNyyTC20q2N/Wn6hXAWdkKSQsRxB++mFnFf2Kdm3K5k1fE/7DQTKKDU29DqcWg3QSQndw14Kc340joauF3GvhVzoYzqNmIEKYBPl+bwyg7CNzuf90mheqGfcedqtbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1pv0lYUY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EZLOnUQN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38C531F000E9;
-	Mon, 17 Aug 2026 12:45:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1pv0lYUY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3601F000E9;
+	Mon, 17 Aug 2026 12:46:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786970705;
-	bh=hnWP1cRzJc+wE3JNISjE1URb3Cv9G22DLHbWFXhRw6E=;
+	s=korg; t=1786970804;
+	bh=eL/Y0/WnteRQmlz7calkoOoEZeShZ7OTOgCm9klpR1c=;
 	h=Subject:To:Cc:From:Date;
-	b=EZLOnUQNEwsYQMgWilYVYHo8mDgT86wrInIeQncMfg6UIg0SGm+ZWt0zamf/u4H0s
-	 VrmGnKZzeRBTeQwk4+mTKqTpomVrPm6YYa3c/z1vJiclEe2RlW01O6Jd+oL1rsLcFp
-	 AHwrxlQxxJNa32WsmTJvbMifvLuq16iFklcmF2EU=
-Subject: FAILED: patch "[PATCH] net/sched: act_gact, act_police: range check the fallback" failed to apply to 5.10-stable tree
-To: hj351016@gmail.com,jhs@mojatatu.com,kuba@kernel.org,victor@mojatatu.com
+	b=1pv0lYUYNdHpXPCBxCfs55cQ0XNmOV+ce+Fh/HkyCZa/PVdnsTC53Lb4Siln1s9os
+	 CBDKgzOWE9S+ZN7NASxl2/RjlptpkjEyRfrq04z9LKaaa4VE3491070In2zGimntqD
+	 2E9Hbd+pxyBHGt7xSAyS1wnH7ShzB9vLwJPY1srs=
+Subject: FAILED: patch "[PATCH] x86/mce: Set up the polling timer before CMCI discovery" failed to apply to 6.12-stable tree
+To: leitao@debian.org,bp@alien8.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:44:10 +0200
-Message-ID: <2026081710-bronco-grumpily-43a9@gregkh>
+Date: Mon, 17 Aug 2026 14:46:38 +0200
+Message-ID: <2026081738-avert-freebie-72be@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 883b56ae58fe657d8497806c7059646e9ba6dbd0
+git cherry-pick -x a213dfaa2596c1c0dc4dae91c14fbfa499c03223
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081710-bronco-grumpily-43a9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081738-avert-freebie-72be@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,125 +62,65 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 883b56ae58fe657d8497806c7059646e9ba6dbd0 Mon Sep 17 00:00:00 2001
-From: Hyunjung Ko <hj351016@gmail.com>
-Date: Thu, 6 Aug 2026 19:12:52 +0900
-Subject: [PATCH] net/sched: act_gact, act_police: range check the fallback
- control action
+From a213dfaa2596c1c0dc4dae91c14fbfa499c03223 Mon Sep 17 00:00:00 2001
+From: Breno Leitao <leitao@debian.org>
+Date: Mon, 3 Aug 2026 02:47:40 -0700
+Subject: [PATCH] x86/mce: Set up the polling timer before CMCI discovery
 
-tcf_action_check_ctrlact() range checks the primary control action:
+I hit the following on one of my machines:
 
-	if (!opcode)
-		ret = action > TC_ACT_VALUE_MAX ? -EINVAL : 0;
+  mce: CPU0 BANK15 CMCI inherited storm
+  ------------[ cut here ]------------
+  ODEBUG: assert_init not available (active state 0) object: (____ptrval____) object type: timer_list hint: 0x0
+  WARNING: lib/debugobjects.c:632 at debug_object_assert_init+0x178/0x230, CPU#0: swapper/0/0
+  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5 #3 PREEMPTLAZY
+  RIP: 0010:debug_object_assert_init+0x18f/0x230
+  Call Trace:
+   <TASK>
+   __mod_timer
+   mce_timer_kick
+   cmci_discover
+   intel_init_cmci
+   mce_intel_feature_init
+   mcheck_cpu_init
+   identify_cpu
+   identify_boot_cpu
+   arch_cpu_finalize_init
+   start_kernel
 
-TC_ACT_VALUE_MAX is TC_ACT_TRAP, so kernel-internal verdicts above it
-cannot be set that way. But act_gact and act_police each carry a second,
-independent control action supplied by user space that never reaches that
-helper - TCA_GACT_PROB.paction and TCA_POLICE_RESULT. Both only reject
-TC_ACT_GOTO_CHAIN, so any other value is stored verbatim and returned
-verbatim from the action.
+A second splat follows right after, from timer_setup() finding that same
+timer already queued:
 
-In particular user space can store TC_ACT_CONSUMED, which is
-TC_ACT_VALUE_MAX + 1 and is deliberately not part of the UAPI value
-range. That verdict tells every caller the action took ownership of the
-skb, so nobody frees it: sch_handle_ingress(), sch_handle_egress() and
-tcf_qevent_handle() all deliberately skip the free for it. The result is
-one leaked sk_buff plus its data buffer per packet traversing the filter,
-unbounded, for all traffic on the chain including kernel-generated
-packets.
+  ODEBUG: init active (active state 0) object: (____ptrval____) object type: timer_list hint: stub_timer+0x0/0x10
 
-Both are trivially deterministic. act_gact clamps tcfg_pval to >= 1, so
-with pval = 1 gact_determ() returns the fallback for every packet.
-act_police has no mandatory rate, so rate = 0 leaves tcfp_mtu = ~0 and
-tcf_police_mtu_check() always passes.
+This is happening because CMCI storm detection is trying to modify the timer
+before latter was properly set up.
 
-TC_ACT_CONSUMED was added by commit 720f22fed81b ("net: sched: refactor
-reinsert action"), after both goto-chain guards were written:
-commit 9469f375ab09 ("net/sched: act_gact: disallow 'goto chain' on
-fallback control action") and
-commit c08f5ed5d625 ("net/sched: act_police: disallow 'goto chain' on
-fallback control action"). Neither guard was widened when the new
-verdict appeared.
+Set up the timer first. __mcheck_cpu_setup_timer() only calls timer_setup(),
+and depends on neither the generic nor the vendor init.
 
-Factor the existing range test out of tcf_action_check_ctrlact() as
-tcf_action_valid() and apply it to both fallbacks. The helper cannot call
-tcf_action_check_ctrlact() directly because that also allocates a
-goto_chain, which is exactly what these two sites must not do.
+  [ bp: Massage commit message. ]
 
-Reproduced on v7.2-rc6: kmemleak reports one leaked 232-byte
-skbuff_head_cache object plus its 704-byte data buffer per packet. With
-this patch both configurations are rejected with -EINVAL and kmemleak
-reports none.
+Fixes: 1f68ce2a0272 ("x86/mce: Handle Intel threshold interrupt storms")
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260803-mce_timer_init-v1-1-9539db424330@debian.org
 
-Fixes: 720f22fed81b ("net: sched: refactor reinsert action")
-Cc: stable@vger.kernel.org # v5.3+
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Link: https://patch.msgid.link/20260806101252.809593-1-hj351016@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/include/net/act_api.h b/include/net/act_api.h
-index 20d9e55f8564..fd03f6319e88 100644
---- a/include/net/act_api.h
-+++ b/include/net/act_api.h
-@@ -270,6 +270,25 @@ int tcf_action_check_ctrlact(int action, struct tcf_proto *tp,
- struct tcf_chain *tcf_action_set_ctrlact(struct tc_action *a, int action,
- 					 struct tcf_chain *newchain);
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index 9bba1e2f03af..cfb74be19994 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -2266,10 +2266,10 @@ void mcheck_cpu_init(struct cpuinfo_x86 *c)
  
-+/* Range check for a control action supplied by user space.
-+ *
-+ * This is the same test tcf_action_check_ctrlact() applies to the primary
-+ * control action, factored out for the *fallback* control actions
-+ * (act_gact's TCA_GACT_PROB.paction and act_police's TCA_POLICE_RESULT),
-+ * which must not reach tcf_action_check_ctrlact() because they have no
-+ * goto_chain to allocate.  Without it, user space can store kernel-internal
-+ * verdicts such as TC_ACT_CONSUMED, which is TC_ACT_VALUE_MAX + 1 and is
-+ * deliberately not part of the UAPI value range.
-+ */
-+static inline bool tcf_action_valid(int action)
-+{
-+	int opcode = TC_ACT_EXT_OPCODE(action);
-+
-+	if (!opcode)
-+		return action <= TC_ACT_VALUE_MAX;
-+	return opcode <= TC_ACT_EXT_OPCODE_MAX || action == TC_ACT_UNSPEC;
-+}
-+
- #ifdef CONFIG_INET
- DECLARE_STATIC_KEY_FALSE(tcf_frag_xmit_count);
- #endif
-diff --git a/net/sched/act_gact.c b/net/sched/act_gact.c
-index e949280eb800..565860cccba6 100644
---- a/net/sched/act_gact.c
-+++ b/net/sched/act_gact.c
-@@ -89,6 +89,11 @@ static int tcf_gact_init(struct net *net, struct nlattr *nla,
- 		p_parm = nla_data(tb[TCA_GACT_PROB]);
- 		if (p_parm->ptype >= MAX_RAND)
- 			return -EINVAL;
-+		if (!tcf_action_valid(p_parm->paction)) {
-+			NL_SET_ERR_MSG(extack,
-+				       "invalid fallback control action");
-+			return -EINVAL;
-+		}
- 		if (TC_ACT_EXT_CMP(p_parm->paction, TC_ACT_GOTO_CHAIN)) {
- 			NL_SET_ERR_MSG(extack,
- 				       "goto chain not allowed on fallback");
-diff --git a/net/sched/act_police.c b/net/sched/act_police.c
-index b16468a98c55..ce08f6840ef7 100644
---- a/net/sched/act_police.c
-+++ b/net/sched/act_police.c
-@@ -128,6 +128,12 @@ static int tcf_police_init(struct net *net, struct nlattr *nla,
+ 	mca_cfg.initialized = 1;
  
- 	if (tb[TCA_POLICE_RESULT]) {
- 		tcfp_result = nla_get_u32(tb[TCA_POLICE_RESULT]);
-+		if (!tcf_action_valid(tcfp_result)) {
-+			NL_SET_ERR_MSG(extack,
-+				       "invalid fallback control action");
-+			err = -EINVAL;
-+			goto failure;
-+		}
- 		if (TC_ACT_EXT_CMP(tcfp_result, TC_ACT_GOTO_CHAIN)) {
- 			NL_SET_ERR_MSG(extack,
- 				       "goto chain not allowed on fallback");
++	__mcheck_cpu_setup_timer();
+ 	__mcheck_cpu_init_generic();
+ 	__mcheck_cpu_init_vendor(c);
+ 	__mcheck_cpu_init_prepare_banks();
+-	__mcheck_cpu_setup_timer();
+ 	cr4_set_bits(X86_CR4_MCE);
+ }
+ 
 
