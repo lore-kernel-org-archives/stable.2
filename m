@@ -1,40 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3949D3AEF2A;
-	Mon, 17 Aug 2026 13:51:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEFD413788;
+	Mon, 17 Aug 2026 13:51:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974679; cv=none; b=pFlVm2ir40fI5iAlpB0PEfY49xaGO6/vJkg/6QALAiLIFmnph+R4grwOW/WJ3BS7XB9U0Z1VJ44KDoszAv8h6+HnmyxJDfz0eVRwL5cbV1/seehfYw0wsiTsfvwx69Fe1fctKOyg8hG1aLxG1GO77/JnjLZziKzXa8+rKot2xqs=
+	t=1786974689; cv=none; b=IQN82pEHZn/vzvPWVS2hVEB/lPf0h1AKpRvPHJnOJmQ53b/pLH0FXqbO/ehHyXqp5NLfS5TXkIT/gSHJ2w5YnBL5yefuRiD6lUyP+QPCYHsr+OMFekwJYaREPluvJTTCyy26yGwviH0qUE0ZnJAscmKexQME+YjBS4TQS0mpPO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974679; c=relaxed/simple;
-	bh=Jb/XXMmKPL1ZGEB4RH7EMCX6qbluf2znM0zkI6WkA6U=;
+	s=arc-20240116; t=1786974689; c=relaxed/simple;
+	bh=67RK/01MJUavIIi+P+yJvqs/pzufEpdnLAzevqNEDqc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dgt1OgL8gViQmRMYLJcyCYoT/3v8nmMAlfjmR6DrJfKhcKxh7MDBSjju50L4fq4777DwDa4/AM1EKncAzhIttUnI6YUwm9z7TAtuSOolhrcpn3ilSVypAJrCW5F6GYV+aQpCD92n5PpmiPZQi3MLkTcXC66NCYFp8J+KufSdadk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d+fRAPX4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=G4dI4SDy+KXsKqUakI/37kwFECDPLryfbnq4zcWXMH6ruolqCjLF8AUV4asab92KotYLqeKFelhkYZYqKG4Q6VoHwsure4pJZheh7Dj1mXO/HHkDzOaSqhghYjAT6oKw7R1uJTHOPIsgY83NPD6Ece2OYRNixDB1AnBBMkEjVQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=H0/dtxya; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d+fRAPX4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3131F00A3A;
-	Mon, 17 Aug 2026 13:51:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="H0/dtxya"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671841F00A3A;
+	Mon, 17 Aug 2026 13:51:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974672;
-	bh=u6u1IBD9ydDiWGxO2Z4kNV549t6Nnnq5+ATsQcj75OA=;
+	s=korg; t=1786974680;
+	bh=YHc3BvhHqbGqSDerjcV3MM3KvQr5+VQT47Q6M9APOaM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d+fRAPX42XGjB6S90Rxb75gbhcUfUrPaJUFvopY6YEKmsLvY378GkLgwSVY4oHgcW
-	 /CukCxAUIn01/WVk0aCWKHPXWbE74zNiWmIufEhoyO/9CkiCTOcAV9s79jBN/FX2vb
-	 t9D9u1V1/hRTmvQW+8S3LaAYzcWK89uEhS2RTHc0=
+	b=H0/dtxyaFLf/8dALEmo2v/J5LQeZeHVDY5bConWaEeNJEEqSgvTuuAtM+e1AV3rwn
+	 eP2PcezKISUJCfx92DDcRTVUANg/VfsDmGPr7KN0kAkYcoMlkJx+rIz8B457wrwIIj
+	 FX5c8DIX/ZCT5/83+PlI5+AXeMrPPd+eYyT/Hw3M=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+94c22d92f72f5a235b7d@syzkaller.appspotmail.com,
-	Yun Zhou <yun.zhou@windriver.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+	Hans Ulli Kroll <linux@ulli-kroll.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 015/250] xfs: handle NULL b_addr in xfs_buf_free
-Date: Mon, 17 Aug 2026 15:29:36 +0200
-Message-ID: <20260817132537.079003746@linuxfoundation.org>
+Subject: [PATCH 6.18 018/250] pinctrl: qcom: ipq806x: mark gpio as a GPIO pin function
+Date: Mon, 17 Aug 2026 15:29:39 +0200
+Message-ID: <20260817132537.187975208@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132536.466235697@linuxfoundation.org>
 References: <20260817132536.466235697@linuxfoundation.org>
@@ -53,51 +54,63 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yun Zhou <yun.zhou@windriver.com>
+From: Hans Ulli Kroll <linux@ulli-kroll.de>
 
-[ Upstream commit d852729c5f4f830fbe7413df032e29459b3daf83 ]
+[ Upstream commit 687f39faccba29ab26de965411db37e849af8ec2 ]
 
-When xfs_buf_alloc_backing_mem() fails, xfs_buf_free() is called with
-bp->b_addr still NULL.  The code falls through to the folio_put path
-which calls virt_to_folio(NULL), dereferencing an invalid address and
-causing a kernel crash.
+The qcom pinctrl core supports marking functions that represent GPIO mode
+via PINCTRL_GPIO_PINFUNCTION(), so that strict pinmuxing does not reject
+GPIO requests for pins that are muxed to the GPIO function.
 
- Call Trace:
-  xfs_buf_free+0x25f/0x510
-  xfs_buf_alloc+0xc98/0x19b0
-  xfs_buf_find_insert+0x55/0x14d0
-  xfs_buf_get_map+0x122b/0x17c0
-  xfbtree_init_leaf_block+0x11c/0x4a0
-  xfbtree_init+0x1bb/0x460
-  xrep_rmap_setup_scan+0x100/0x1f0
-  xrep_rmapbt+0x41/0xc0
+Add a IPQ_GPIO_PIN_FUNCTION() helper and use it for the ipq806x gpio
+function, matching how the msm-based qcom drivers handle this.
 
-Fix this by skipping folio_put() when bp->b_addr is NULL.
+This allows ipq806x to keep the GPIO-related configuration in DTS
+without tripping over strict pinmux ownership
+checks.
 
-Fixes: 5076a6040ca1 ("xfs: support in-memory buffer cache targets")
-Reported-by: syzbot+94c22d92f72f5a235b7d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=94c22d92f72f5a235b7d
-Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Fixes: cc85cb96e2e4 ("pinctrl: qcom: make the pinmuxing strict")
+Signed-off-by: Hans Ulli Kroll <linux@ulli-kroll.de>
+Acked-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260719134548.8830-2-linux@ulli-kroll.de
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/xfs_buf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pinctrl/qcom/pinctrl-ipq8064.c | 2 +-
+ drivers/pinctrl/qcom/pinctrl-msm.h     | 5 +++++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
-index 1ca95ef46a73d..441631c736c1c 100644
---- a/fs/xfs/xfs_buf.c
-+++ b/fs/xfs/xfs_buf.c
-@@ -117,7 +117,7 @@ xfs_buf_free(
- 		vfree(bp->b_addr);
- 	else if (bp->b_flags & _XBF_KMEM)
- 		kfree(bp->b_addr);
--	else
-+	else if (bp->b_addr)
- 		folio_put(virt_to_folio(bp->b_addr));
+diff --git a/drivers/pinctrl/qcom/pinctrl-ipq8064.c b/drivers/pinctrl/qcom/pinctrl-ipq8064.c
+index 0a9e357e64c60..c1651f112950e 100644
+--- a/drivers/pinctrl/qcom/pinctrl-ipq8064.c
++++ b/drivers/pinctrl/qcom/pinctrl-ipq8064.c
+@@ -480,7 +480,7 @@ static const char * const ps_hold_groups[] = {
+ };
  
- 	call_rcu(&bp->b_rcu, xfs_buf_free_callback);
+ static const struct pinfunction ipq8064_functions[] = {
+-	IPQ_PIN_FUNCTION(gpio),
++	IPQ_GPIO_PIN_FUNCTION(gpio),
+ 	IPQ_PIN_FUNCTION(mdio),
+ 	IPQ_PIN_FUNCTION(ssbi),
+ 	IPQ_PIN_FUNCTION(spmi),
+diff --git a/drivers/pinctrl/qcom/pinctrl-msm.h b/drivers/pinctrl/qcom/pinctrl-msm.h
+index 120217012a9f6..33d8b17f2e559 100644
+--- a/drivers/pinctrl/qcom/pinctrl-msm.h
++++ b/drivers/pinctrl/qcom/pinctrl-msm.h
+@@ -24,6 +24,11 @@ struct pinctrl_pin_desc;
+ 					fname##_groups,		\
+ 					ARRAY_SIZE(fname##_groups))
+ 
++#define IPQ_GPIO_PIN_FUNCTION(fname)					\
++	[IPQ_MUX_##fname] = PINCTRL_GPIO_PINFUNCTION(#fname,		\
++					fname##_groups,		\
++					ARRAY_SIZE(fname##_groups))
++
+ #define MSM_PIN_FUNCTION(fname) 				\
+ 	[msm_mux_##fname] = PINCTRL_PINFUNCTION(#fname,		\
+ 					fname##_groups,		\
 -- 
 2.53.0
 
