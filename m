@@ -1,108 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDAD4418FF;
-	Mon, 17 Aug 2026 15:18:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786979906; cv=none; b=DJG8Ut3vV3Wfeq3Cof4CnzaScR3Bf+8F0X7WLCS2wmJDjzpWGuPvrNkAuI/I1UVnwR5Fs2ezlcJQlIkv3pZnXJwAqNJLqfLJdY8xsAbcUpzzJixOf1SrpfzLHqTawRUL9Ijpqqj2qPI15nqol/lXe/torgi/5hu3GBkI+eU90Rk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786979906; c=relaxed/simple;
-	bh=2pRskpz9ZFHqktziPOIDln5+4KGHNCG5TrEV4C0GzfQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K2hniKpKSNXB8gefLA5jAZCFMcYjtp2H6apd1ysdtCISxCAMC9Mv5MUku6qOPMDafehm+Hda1tPjlNB7YS4d0reZpl5KTljLZB6BesO/F+qq7DX0fnXu25kjGzIZMp4gV7zeJ4fCbUbiir2KcGezANQ5IG+LcbxwPuyPDXo70Ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=udVEUUQl; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="udVEUUQl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 973621F00A3A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8163A440A13;
 	Mon, 17 Aug 2026 15:18:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786979905;
-	bh=gVrqLhIJjkavSM/MU/8vnnPx17xiguPtvE4OJA9Vxfg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=udVEUUQlUHfHdSD8A6y9gTQSA2eO4TBCJ0fA4r4SkFTN0YejJY0OjlyFmjT5/oVPl
-	 zWa5798XXkqpfrE8YwPkhjEBraNpmNs55jeiJ7oXev1FCgkqS+bvVHYtWETrs1HBRG
-	 apzYFnfHfhEk+5yT8QNUImuvzO3GuIavqV5ykZlA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	sashiko-bot@kernel.org,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 361/609] hwmon: (adt7470) Fix PWM auto temp state array and bounds check
-Date: Mon, 17 Aug 2026 15:30:57 +0200
-Message-ID: <20260817132556.365610316@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
-References: <20260817132543.039278408@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786979909; cv=none; b=E5dd+TVvZjKHzLwESVfEGUVwSaZkV9VbA4zakcT1P+nXKraRM792JKdfk+zg5sExmN0s3pH2IYp7y98kMyEk+TjPJ0hxLKBQO8rOWfaV8XR97FtILTzMT7dIh+gfnLwphBLSUmFscYZ4jMW1RXhRjrzyKL9fXwZdqaZE8E4hNms=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786979909; c=relaxed/simple;
+	bh=oPtTfHEcpMTFd9+ls6wSqfDqMGeBmozNcUF0YjVmNxY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SvG/IFWTbUQDKtUeNWUi8zSasQn8srWAZsVWL+xuiJT+9EgnBTAEpcHxAL+RoMkB0GTYcL8vpqE6k0OltEDyEuC9OJxnYbv7wzDJj6SUmORJrAcYnWlStKG5xjVwkY4E96wm6Th0auXebgiC2RyQewLh0PJFsUloBxYB9kfe1rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=OGTE737w; arc=none smtp.client-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="OGTE737w"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1786979901; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=OfsYHPDZd44RieEP0J3vhgYzaNzr+sUgN6eIy9rDHLs=;
+	b=OGTE737wI5gXE6oNM5hz0L13ePUqTyC0jpkGjR5/Lvi8WiRkaihfacl9AQuWMqPsB1YMLOGlsmbHBuMCWgysAo04cNZNaVCjrxCDf5UseNqi2SqNnk1drfpmyP2wjrJLCG6Ufnxn+7qxVP9kjtlYqPB//3lo9ZlPUgVsAd2bhXI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R241e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0X9A6o9t_1786979900;
+Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0X9A6o9t_1786979900 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 17 Aug 2026 23:18:20 +0800
+From: Baokun Li <libaokun@linux.alibaba.com>
+To: fuse-devel@lists.linux.dev
+Cc: miklos@szeredi.hu,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	vgoyal@redhat.com,
+	jefflexu@linux.alibaba.com,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] fuse: fix invalidate lock leak on setattr writeback failure
+Date: Mon, 17 Aug 2026 23:18:00 +0800
+Message-ID: <20260817151801.2677899-2-libaokun@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260817151801.2677899-1-libaokun@linux.alibaba.com>
+References: <20260817151801.2677899-1-libaokun@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+fuse_do_setattr() takes filemap_invalidate_lock() for a DAX truncate
+(fault_blocked = true) and releases it at the out:/error: labels.  But
+when a writeback flush is also needed, a write_inode_now() failure
+returns directly and leaks the lock, so any later fault or truncate on
+the file stalls on the stale rwsem.
 
-------------------
+For example, truncate(2) on a setuid file reaches fuse_do_setattr()
+with both ATTR_SIZE and ATTR_MODE set:
 
-From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+  truncate(2)
+  └─ do_truncate()
+     ├─ dentry_needs_remove_privs()         # S_ISUID
+     └─ notify_change()                     # KILL_SUID -> ATTR_MODE
+        └─ fuse_setattr()                   # no killpriv:
+           │                                #   ia_valid |= ATTR_MODE
+           └─ fuse_do_setattr()
+              ├─ filemap_invalidate_lock()  # IS_DAX && is_truncate
+              └─ write_inode_now()          # is_wb && ATTR_MODE
+                 └─ if (err)                # e.g. daemon -> -EIO
+                    return err              # <- lock leaked
 
-[ Upstream commit 92413f439d1ec5e55b73ede8d66a7b971cbd1ced ]
+Fix this by adding an unlock label that releases the lock before
+returning the error, and use it for the fuse_dax_break_layouts()
+failure path as well.
 
-In pwm_auto_temp_store(), the parsed user input was missing bounds
-checks, allowing values > 0xF to overflow into the adjacent channel's
-bits. Furthermore, the value was being incorrectly written to the
-pwm_automatic state array instead of pwm_auto_temp.
-
-Fix this by rejecting values > 0xF with -EINVAL, and assigning the
-value to the correct array only after a successful I2C write.
-
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260727034932.0B7C41F000E9@smtp.kernel.org/#t
-Fixes: 6f9703d0be16 ("hwmon: add support for adt7470")
-Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Link: https://lore.kernel.org/r/20260727-adt7470_fixes-v2-8-598e38a46ba6@gmail.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 6ae330cad6ef ("virtiofs: serialize truncate/punch_hole and dax fault path")
+Cc: <stable@vger.kernel.org> # v5.10+
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
 ---
- drivers/hwmon/adt7470.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ fs/fuse/dir.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/hwmon/adt7470.c b/drivers/hwmon/adt7470.c
-index 8010ed6f86a18..9783593a1de76 100644
---- a/drivers/hwmon/adt7470.c
-+++ b/drivers/hwmon/adt7470.c
-@@ -1057,8 +1057,10 @@ static ssize_t pwm_auto_temp_store(struct device *dev,
- 	if (temp < 0)
- 		return temp;
- 
-+	if (temp > 0xF)
-+		return -EINVAL;
-+
- 	mutex_lock(&data->lock);
--	data->pwm_automatic[attr->index] = temp;
- 
- 	if (!(attr->index % 2)) {
- 		mask = 0xF0;
-@@ -1069,6 +1071,9 @@ static ssize_t pwm_auto_temp_store(struct device *dev,
+diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+index 0e2a1039fa43..48763bc192f3 100644
+--- a/fs/fuse/dir.c
++++ b/fs/fuse/dir.c
+@@ -2161,10 +2161,8 @@ int fuse_do_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		filemap_invalidate_lock(mapping);
+ 		fault_blocked = true;
+ 		err = fuse_dax_break_layouts(inode, 0, -1);
+-		if (err) {
+-			filemap_invalidate_unlock(mapping);
+-			return err;
+-		}
++		if (err)
++			goto unlock;
  	}
  
- 	err = regmap_update_bits(data->regmap, pwm_auto_reg, mask, val);
-+	if (!err)
-+		data->pwm_auto_temp[attr->index] = temp;
-+
- 	mutex_unlock(&data->lock);
+ 	if (attr->ia_valid & ATTR_OPEN) {
+@@ -2191,7 +2189,7 @@ int fuse_do_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 			 ATTR_TIMES_SET)) {
+ 		err = write_inode_now(inode, true);
+ 		if (err)
+-			return err;
++			goto unlock;
  
- 	return err < 0 ? err : count;
+ 		fuse_set_nowrite(inode);
+ 		fuse_release_nowrite(inode);
+@@ -2299,6 +2297,7 @@ int fuse_do_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 
+ 	clear_bit(FUSE_I_SIZE_UNSTABLE, &fi->state);
+ 
++unlock:
+ 	if (fault_blocked)
+ 		filemap_invalidate_unlock(mapping);
+ 	return err;
 -- 
-2.53.0
-
-
+2.43.7
 
