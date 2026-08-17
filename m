@@ -1,148 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562C141E6B2
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 13:11:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031A0425888
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 13:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.252
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786972298; cv=none; b=X37ANjno3JZQn7g5Y73+ZOS1hSYgmdjap1G3rZ+NIBBt0drKf2sPMU5Ejp5zJ8+89mh2EP4P8yGWWLudf0lmSNE9EwkjDJY2vzbMQSNHWMgXJs4tBT7b842Evp68ixYpefWdoanLPWZPHWQ3fuzxmj0WiiUFojn+NRzrhLHtzUU=
+	t=1786972304; cv=none; b=KpnFOacBrb3uFu5a61Sho6dOUg7tCrPjwAKEJHYwCM+1cKPeU4RjJtqXEFnXP7XOYjEVvTGa+c1V5hYy7SUJc6vnuWBCAvHkOjNCHpiqQXMjE28rDF7GP6pKmXVgZgEXHUmbVC6JR6B5MyJXgkBOq1zfQRfd+fADSTnO1zYfXzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786972298; c=relaxed/simple;
-	bh=teS2ZFl9fLvu5DyDO8rFZZYNt/zL/TTiddNC1aYmkq8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oRIWzbLphbnMH/5siyysWFc77NbGln5sUyOkM4kcLXT/4wcdVtZRkDl7RKqHV5E84cimbSz+6kd0z1JMCHXNehYA2nMlDkp3jQCi/Ba5KTYgrEVzxz9RCXVJDB0DPG3Yv0RCiPcobCKnq8uaDfQ+zVRBDg5kG52+So5RuYVEYt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UUYOw9+D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786972304; c=relaxed/simple;
+	bh=iA5srvVkeBvjwt/oKVyedL29fZDrf4G88HAM0hvgjMw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gS69XGIuTkBllE+rUDGSLIDm7k5iju7SOxII57n4nVrv9MEmHOCnYuQORjrbrh0cumI2iBgbb/ku+CkiDW+PVxY87NjiQUmGVbn+28c0Woz7YfOyGuJcnGhgJLPTENtmMTaAOPc5gHMZL9rlJPbXGyzxImQ9tZ6rVRPW8c/fg2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hv2TihzJ; arc=none smtp.client-ip=95.215.58.252
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UUYOw9+D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63ECC1F00A3A;
-	Mon, 17 Aug 2026 13:11:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786972295;
-	bh=2IlWTiv+kB8/Eh86PQWYfzgAXL0f9+nxmF1R+QIE2kw=;
-	h=Subject:To:Cc:From:Date;
-	b=UUYOw9+DL55xZiVXh4TG5ebHUX7LrvsyuLaEgBPGsrqsNf1g7hoJZtWiNpItiYn2z
-	 qllxlwlHcD14FXpB/z9PF1aVLF6W9ABlnfI1+X+K2PTP7ZCseBZAeXuRHlK6EWYSkd
-	 NASobd11KS8rZee49p66A3qJV/hQitBIdL9Rx/PI=
-Subject: FAILED: patch "[PATCH] ALSA: usx2y: bound the hwdep mmap fault offset" failed to apply to 5.10-stable tree
-To: baul.lee@xbow.com,federico.kirschbaum@xbow.com,tiwai@suse.de
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:57:20 +0200
-Message-ID: <2026081720-deviant-snipping-e432@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hv2TihzJ"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=iA5srvVkeBvjwt/oKVyedL29fZDrf4G88HAM0hvgjMw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786972298; v=1; x=1787577098;
+ b=hv2TihzJN6cUQz578KgznlGn2XO6jYiMV4Ck3FqMHjIGQlIKs2mTjdRDvBrqs47qha3eF6+R
+ WA0kwZ8q+AdOEPmY6fNk1ti29VgOaMNXafefqoNf3DnnUkBjp9U36/y8xWmi9vJFSQutDjZUaX6
+ IUu+vYOFcOZxTZUm8MCMBNmo=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2a03:83e0:111e:2:c6:2f62:38ca:59d8] (2620:10d:c092:500::6:5429)
+	by smtp.migadu.com with ESMTPS id a0bb66c1330947f5;
+	Mon, 17 Aug 2026 13:11:38 +0000
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a7360a7e-6c42-4891-a01c-a349d1cb803a@linux.dev>
+Date: Mon, 17 Aug 2026 14:11:36 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] bnx2x: fix NULL pointer dereference in
+ bnx2x_free_mem_bp()
+To: Jiangshan Yi <yijiangshan@kylinos.cn>, skalluru@marvell.com,
+ manishc@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
+Cc: yuvalmin@broadcom.com, dmitry@broadcom.com, ariele@broadcom.com,
+ eilong@broadcom.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ 13667453960@163.com, Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260817033332.175665-1-yijiangshan@kylinos.cn>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20260817033332.175665-1-yijiangshan@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 17/08/2026 04:33, Jiangshan Yi wrote:
+> bnx2x_alloc_mem_bp() sets bp->fp_array_size before allocating bp->fp.
+> If the fp allocation fails, the error path calls bnx2x_free_mem_bp(),
+> which dereferences bp->fp in a loop bounded by the non-zero
+> bp->fp_array_size, causing a NULL pointer dereference.
+> 
+> Move the bp->fp_array_size assignment to after bp->fp is set, and
+> add a NULL guard in bnx2x_free_mem_bp().
+> 
+> Fixes: c3146eb676e7c ("bnx2x: Correct memory preparation and release")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260815122149.951215-1-yijiangshan%40kylinos.cn
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+> ---
+>   drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c | 12 +++++++-----
+>   1 file changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c
+> index 5b2640bd31c3..d84d1845a096 100644
+> --- a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c
+> +++ b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c
+> @@ -4712,8 +4712,10 @@ void bnx2x_free_mem_bp(struct bnx2x *bp)
+>   {
+>   	int i;
+>   
+> -	for (i = 0; i < bp->fp_array_size; i++)
+> -		kfree(bp->fp[i].tpa_info);
+> +	if (bp->fp) {
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+there is no need to put this defensive code ...
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> +		for (i = 0; i < bp->fp_array_size; i++)
+> +			kfree(bp->fp[i].tpa_info);
+> +	}
+>   	kfree(bp->fp);
+>   	kfree(bp->sp_objs);
+>   	kfree(bp->fp_stats);
+> @@ -4742,13 +4744,13 @@ int bnx2x_alloc_mem_bp(struct bnx2x *bp)
+>   
+>   	/* fp array: RSS plus CNIC related L2 queues */
+>   	fp_array_size = BNX2X_MAX_RSS_COUNT(bp) + CNIC_SUPPORT(bp);
+> -	bp->fp_array_size = fp_array_size;
+> -	BNX2X_DEV_INFO("fp_array_size %d\n", bp->fp_array_size);
+> +	BNX2X_DEV_INFO("fp_array_size %d\n", fp_array_size);
+>   
+> -	fp = kzalloc_objs(*fp, bp->fp_array_size);
+> +	fp = kzalloc_objs(*fp, fp_array_size);
+>   	if (!fp)
+>   		goto alloc_err;
+>   	bp->fp = fp;
+> +	bp->fp_array_size = fp_array_size;
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 2ca1eea3cd17930daffe9e429a7c89232036ec24
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081720-deviant-snipping-e432@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+... when you have fixed the root cause of the issue
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 2ca1eea3cd17930daffe9e429a7c89232036ec24 Mon Sep 17 00:00:00 2001
-From: Baul Lee <baul.lee@xbow.com>
-Date: Wed, 5 Aug 2026 10:34:45 +0900
-Subject: [PATCH] ALSA: usx2y: bound the hwdep mmap fault offset
-
-snd_us428ctls_vm_fault() turns the faulting page offset into a kernel
-address with no bound of any kind:
-
-	offset = vmf->pgoff << PAGE_SHIFT;
-	vaddr = (char *)(...)->us428ctls_sharedmem + offset;
-	page = virt_to_page(vaddr);
-	get_page(page);
-	vmf->page = page;
-
-	return 0;
-
-snd_us428ctls_mmap() checks only the length of the mapping, never the
-offset, and us428ctls_sharedmem is a single page from
-alloc_pages_exact().  For a character device file_mmap_size_max()
-returns ULONG_MAX, so the mm layer imposes no ceiling either.  Every page
-offset above zero resolves to a struct page outside the object, and the
-handler installs it into the caller's address space read-write; the vma
-is not marked read-only.
-
-The caller picks the page frame with a single mmap() argument and gets
-read-write access to a page of kernel memory it does not own; an offset
-that lands in an unpopulated vmemmap region oopses instead.
-
-A process that can open the hwdep node of an attached US-X2Y reaches
-this after loading the FPGA image through the same node; no capability
-check is involved.
-
-On 7.2.0-rc5 (arm64), mmap() with a large offset:
-
-  Unable to handle kernel paging request at virtual address fffffdffc45d5ac8
-  pc : snd_us428ctls_vm_fault+0x68/0x140 [snd_usb_usx2y]
-  Call trace:
-   snd_us428ctls_vm_fault+0x68/0x140 [snd_usb_usx2y]
-   __do_fault
-   __handle_mm_fault
-   handle_mm_fault
-   el0_da
-
-Reject any offset outside the shared region.  The pcm hwdep handler in
-usx2yhwdeppcm.c computes its address the same way and needs the same
-bound.
-
-Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
-Reported-by: Baul Lee <baul.lee@xbow.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Baul Lee <baul.lee@xbow.com>
-Link: https://patch.msgid.link/20260805013445.38283-1-baul.lee@xbow.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-
-diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
-index 4d7925184826..7f153a2fcdd8 100644
---- a/sound/usb/usx2y/usX2Yhwdep.c
-+++ b/sound/usb/usx2y/usX2Yhwdep.c
-@@ -25,6 +25,8 @@ static vm_fault_t snd_us428ctls_vm_fault(struct vm_fault *vmf)
- 	void *vaddr;
- 
- 	offset = vmf->pgoff << PAGE_SHIFT;
-+	if (offset >= US428_SHAREDMEM_PAGES)
-+		return VM_FAULT_SIGBUS;
- 	vaddr = (char *)((struct usx2ydev *)vmf->vma->vm_private_data)->us428ctls_sharedmem + offset;
- 	page = virt_to_page(vaddr);
- 	get_page(page);
-diff --git a/sound/usb/usx2y/usx2yhwdeppcm.c b/sound/usb/usx2y/usx2yhwdeppcm.c
-index 7c90214485d9..f1d5b4b797ad 100644
---- a/sound/usb/usx2y/usx2yhwdeppcm.c
-+++ b/sound/usb/usx2y/usx2yhwdeppcm.c
-@@ -672,6 +672,8 @@ static vm_fault_t snd_usx2y_hwdep_pcm_vm_fault(struct vm_fault *vmf)
- 	void *vaddr;
- 
- 	offset = vmf->pgoff << PAGE_SHIFT;
-+	if (offset >= USX2Y_HWDEP_PCM_PAGES)
-+		return VM_FAULT_SIGBUS;
- 	vaddr = (char *)((struct usx2ydev *)vmf->vma->vm_private_data)->hwdep_pcm_shm + offset;
- 	vmf->page = virt_to_page(vaddr);
- 	get_page(vmf->page);
+>   	for (i = 0; i < bp->fp_array_size; i++) {
+>   		fp[i].tpa_info =
+>   			kzalloc_objs(struct bnx2x_agg_info,
 
