@@ -1,188 +1,189 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA0237D104
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 17:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786989551; cv=none; b=tXjXNJoi152Suup68jYXmHGN048P/9yZLCVaKAT1E8gSCP8f/EgKn8WStluIw3sjx3toF+WBqnfO0jP+NQIy0xhBIGqodGbyIoW2RzlGB9x55yHJwR+sVt8E/FIkymkOX+vsYiN3BYGegW25ypGtdBBcTncS0d+jkMHwduhqLx8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786989551; c=relaxed/simple;
-	bh=sibB8iFM5/VjAIlNkLRcDDT+OS/yXnoeHHKfXPGdynE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m4HtpEJNBIgXw426KOCV/j340Yo+BJSFcSQY/b1NPnEIgkCtG/fdm/rMT8VdUODM4ylhlsnLrqjDi1cdFXlv6FE188UGTyOsG/o7e4JzNgjS4whH9MCb+9nvG/VXboFULzYfIkvb34sa0jN0XNoqck2g66XOjoNEpIgDd1zTqM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YRS6rdnH; arc=none smtp.client-ip=74.125.224.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB60381EAB
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 18:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786990126; cv=pass; b=uVKZ5jFtZIAF+PRYKROKKsshEo20MWJ7u24J45CoYUiIXVw+69JDIMKY9SRxEp7uYPKaoGNW+6/tvCwUehLnPd1tw94hydHZik+9NFxlx3/1NRYOY1LCS1he4tr9hsKmzQx5Fwx4mBFLZl3ttWfqgdj5GJ9bkxWtfYw3n+1T1DE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786990126; c=relaxed/simple;
+	bh=g9vm5w6edydR/psOaPLVrWIm43mfOABWY3KZ4s6f9J0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IpbBJBT9j2d8Lsk/VibyUW2Z6fQfV6xIF5DYIJx6eDuY4qtZoBDZeTxIz+c5isBvaCpwG4ZUqKLAl8Z6BUJ2dn2rIU66XbKOeGuG3O3R3ybXv4r5+cVcJ0zoSQJNca9weoQY+fnTnAbdiFxeFKqz/OR3x9mj1Vu6dwwFvIh/dbQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BWHhQg4D; arc=pass smtp.client-ip=209.85.221.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YRS6rdnH"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66c7264d87dso291996d50.1
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 10:59:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BWHhQg4D"
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5c5ad240851so78579e0c.3
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:08:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786990122; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TbAITtCQQTKeThy+IgEskZvCkZY1gIRKJ67bebCm+lPFL2Z8z3junT0BtypIAkBRTf
+         /9APcYjl8CCwUtbhE/r7BIQRBhkbx01O8RudOsYTddSasvAKZWjhznjDIBVs2ttFKttQ
+         d/MB/e97NvOgGYCCh7K0NDzos6TZQCpf+1Tu/aYc9qxKv/JzDakTxlGDf35TaXVenmWl
+         9qBaOhMlkFymhM30U0G5MG8JZsL1lDTDPhokPmT3N873cZwIZ06jTwLEODHzz0+o1PNa
+         9VWge6yZPo+JO5Q0rN4qyv1xtskBz1w8b3G2H4kXTV1aJs0D+Nf0ps//2rytPXSVkDBR
+         Uybw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=G5mJBVeRBN256FUPWqFXAEOzYwxXlado9G43KCVVgU8=;
+        fh=rTflyyXGjp/326wdUHDSKjZun+sys9aYiTyHshH4hUM=;
+        b=DRdV/TYqQLexTwFK1wsR+Ruc+OcU2mUi3BEKMp4ml7GlfhuFZEf1U0/Sql2DjgIWYq
+         hGWo9aN/zZ4C1Ofy3cX09Q7b0V44u/Pn/RcLyFV1Q91RHcZn2NqFZw1aflH1Eggo0pAy
+         NtiZVS2iNBjx13+ys+yfDqGisjFI0np6lNCE2jRnxchYJAGuKf4GA/EUDDLWh6fVNZ+D
+         lX5tWIPmgiS6E3KEkwRBmHpzCN+qVrbyZzTwE2pvUOPi80mJM6rlkRqrVFJz3TrvzDC2
+         lty2QsNPQrdeBStmIBovyqX/f1RR0XCSdh5IjrZFsgZJLl9bSR1rsUmjKXHqbCCoGyil
+         9pxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786989544; x=1787594344; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TICx1S6M3SSE9LLwX9NrLNWIBAvmWSHkNpsaEs/JHlY=;
-        b=YRS6rdnHXcrLdo9oYS7LodJ0ewf78Y0KdPiAhjKH7eCCvYYakVptF5q8D82oRMsS8p
-         s+sCiQthGphpDlFGq5zdGco3Ig2WsR4AB7mhsLSQE3RJ1jLSyqRWjHyTwF0OjnA42V8Y
-         T+hRK1SoTkbdprOYvHDevJqjXhJ9OU9zMpKZwnywo6LyhpKZKo7ix8xP6/4Gs0Hv6pk2
-         xFyyA8haV7bA8jMNKvl8gj/It95sIOQCDmDGQ3ZYq1Xm82SC2TYhvcu3V50Mg0IngSyS
-         qgKVjbZbm7aoYncQXVwGLUKGS0YSG4PKwlfP4sWqnpFKS3oWMtotlX1xiIWP3TXF/FDV
-         +wHA==
+        d=gmail.com; s=20251104; t=1786990122; x=1787594922; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G5mJBVeRBN256FUPWqFXAEOzYwxXlado9G43KCVVgU8=;
+        b=BWHhQg4Df0G4Rm6VKsGONzMO4otwcPwIq8sHSLOt5GLLVFrjMsFRPRS0akYr9QAkm3
+         CsbGg2oTdBDbAfDUlDnz8Ea42ugJaOJLwKeyS6nrq4pE0/2LZWB1kGcqyv2+XraQ4Bdc
+         Pc//YYPeKcf8+vNfOz6dBX3w+UMV+85clBEM+NYLoZza36N30MnVzEZjeqsW5gG1Tv7T
+         D1Q1RE/MtUM694HEXDdoP89V5KzDxZC+pxbhictqby7StjSesm9eVjgGqBJ/SiBmdLVa
+         C4DcqaiNhMvhqvKSsaRDsqiah82WBC6VjfxNa6aD4Pp3FVzVKZm6OE9vgs5SYOpamCm/
+         a26g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786989544; x=1787594344;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TICx1S6M3SSE9LLwX9NrLNWIBAvmWSHkNpsaEs/JHlY=;
-        b=TNU30rdlXwpZE74tk7zBIu09TpWcSmH2QnmrJOIIu4/QK2o/W6/+HfdzVGA7Tj+xQB
-         pbiBlHcuSO2ogO3uXu3Qrjs7gmwcN9Yx3ANqj0p18IcdIFpn4qRd3U8YNcMeFTdh+Z2i
-         AmpqevLP2YH6djcK/NLg4mbg91hcIOOPclI3R7rEgQSrlCZukmrBa//BGCGb5U9v0nU0
-         hAQH7sesdz+7XbxBQrIqRLlHCjHKgl37bvpd+1NjAQetR8549SJul5ehOYLhZPjygaml
-         3uGNnhZLeCJZGiKeuRERDHJDA4DIXUe+XkN+fAfE3LKigs5uZtmTxxPoS6EPXumbDTd1
-         iBjA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro/ebr9CtH22dMNGyPVHQKK30Yjh8BktCByc5FJZCI3y7sfPtUKY9u6mQJTH3JYzQUK1NfDuH4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxNWGyl9yN+O35+aDrvSypuKu2jQmk8+mvy0VIwiaBy2zQbJAdD
-	T+apuPn9tJr99ZlQYP21R4/3IROGEQh4I89DyNwcdqggcS1p20a1CMk6
-X-Gm-Gg: AR+sD11MlLAKuvmhRNcNekIwZ5ih/PwTonwc9Yb04uedZgwwrpyGRXwqZa+OmsYc4D3
-	ryMR27r2GTcpB9sOvmwO4P1P7q6/Z2WSab44xQYcMhlF3qS6s2nZ7H6pmWNnb1GZe10pGYs6AWn
-	hJBlunq9yMRadp2LCDtGNN8qCUschMFheZBlNyhjESzcnoq2ztqBv0EOUiPmjA1sI2CAzcnyt3l
-	sHpkUA6ftsF9bog62XmLdGDWN/8EaL0s6pIc/d/X5i9tii/NTE/1YWfx8nk63QozyfV6NDCLFwq
-	qy6hXo9qEp/PheOR9G0TZcyKwN7yN4TFI0487J82tYzfq1s9PFFEnY2s4rrNIlsX43h+Vn7NTec
-	tINxzzytqVWlphPToXFrvlhbXFHWE6wpeItFnxA8KBL5uC9PW6Zhb3RJ1ZeS3fJ1DXlwE2UNvLV
-	vEJFt8b721qqEkOwViB8a3wG1Zcnvpu9aadtExOd6+ROjuJl/JZvpQmxD/T928ucfInk/bL+Hca
-	jci8jc=
-X-Received: by 2002:a53:d94d:0:b0:664:c5f8:e342 with SMTP id 956f58d0204a3-66cbc0c01dcmr292247d50.3.1786989543723;
-        Mon, 17 Aug 2026 10:59:03 -0700 (PDT)
-Received: from syssplab.cs.fiu.edu (nat1.cs.fiu.edu. [131.94.134.89])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66cb3eb8374sm1136431d50.1.2026.08.17.10.59.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 10:59:03 -0700 (PDT)
-From: Chao Shi <coshi036@gmail.com>
-To: kbusch@kernel.org
-Cc: hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk,
-	dlemoal@kernel.org,
-	joshi.k@samsung.com,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Chao Shi <coshi036@gmail.com>,
-	Weidong Zhu <weizhu@fiu.edu>
-Subject: [PATCH v3] nvme: skip the zoned limits update if the zone info query failed
-Date: Mon, 17 Aug 2026 13:58:59 -0400
-Message-ID: <20260817175859.2966055-1-coshi036@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1786990122; x=1787594922;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G5mJBVeRBN256FUPWqFXAEOzYwxXlado9G43KCVVgU8=;
+        b=qgziJR/He4wnQx34ujDjT1FQIXRYEfH1+U3t6csWCXI/0yZJBqsBG0q0l13B1TNUcR
+         PRbS8gZLR33pOkBUHFr0fVJefaVzBgH7UpmSlyg+d0TycA+NJ5f3gkfKcN/f8Jznbkj3
+         NKJllRXorHwR9v2Ip3L3jrlFrxeMaYm/aZ8V1T8ZdfiCLmeMZXKHhnobf/QRuE/p4bqd
+         Jvaid3f3qZRn8dN7PKLiLkonzr7S+7yHs0ZQ35RvMrL4Glf1wG3dtTyHeUjh/CBCpVFc
+         UXtFYeCF93NQPjiZWE6H0cRTbAjnuhfxePfBt3HKBEWVyaIPkRu9h+wqUr07JMnrBgiq
+         UVUA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+5InEU4RnAQXMXlaloN8lUYj9ysezfe7srnuIqc3i3KTQXB1VsdqTipYCUjgswXnpwj8eS74=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywr5dbhU0qexfhZWLE4KG8tae3NMimZ6mD6GQ2byRjpvjFxC0E0
+	QpwMNlEan0ZOEU2Tqlrj2+u9LHw4awCcxcbLNtU6nfAzvoadmlo2c6XG1JFYj29HuE4pXguRd2S
+	U2GFbdD4nq3CZSPzIm055IYifE0uK5rM=
+X-Gm-Gg: AR+sD12J2hfgr5Z1/2c2T7TiOvMWp7HlgIlAOMYLuOnB725eotib4bMJ030vIoFouNT
+	O0CfHtDsFfiTSAc5u705r7l9jV9G9VnKhYAsbUTQL76FgHKqhIQPEfb4ZoBLj9WCbIZSzPJWwkp
+	DXndcUwgNan33+n7ot7ejegGvtLEhdcIaYyLA9YvwDN85iKr0wZJmxycwuliL2b66pm9mzAO7K1
+	soCA7hcQLoQqQsL2g7nbcHoLjDNHY06hw7thScHtn3FGkftp73QE8Bqe3A03tqVyqbylomfDeCM
+	+nvCIlXZRegsMI0K10Zw+8S2qVbYDewrLlTdwEAfqkNPhlY=
+X-Received: by 2002:a05:6102:6888:b0:745:17b0:10d5 with SMTP id
+ ada2fe7eead31-76f2cd6ba90mr1698150137.3.1786990122356; Mon, 17 Aug 2026
+ 11:08:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260710194638.1502-1-saileshnandanavanam@gmail.com>
+ <bc13f78b-287c-4832-b2f1-a68e7b35b57d@oss.qualcomm.com> <CAF+TLO0F9jQ0+pPei7iFDqcC-gKd44gc5SXa-o_dBKzNsHKU=g@mail.gmail.com>
+ <CAF+TLO0S-Sp9PWKhvGeRfnxMaV7ZH=Ncr-p4NAu1pvE8odLTjA@mail.gmail.com>
+In-Reply-To: <CAF+TLO0S-Sp9PWKhvGeRfnxMaV7ZH=Ncr-p4NAu1pvE8odLTjA@mail.gmail.com>
+From: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>
+Date: Mon, 17 Aug 2026 23:38:55 +0530
+X-Gm-Features: AcwNN1XbJOOIvkV8kvtl_H-i18dMwgL565JAwIvCltqfJM4L9alfTNXqZpQAn-0
+Message-ID: <CAF+TLO2YiAUe0Yqzg5fa7-wKUVcjWUzULszhxYbzLqFak_zk9A@mail.gmail.com>
+Subject: Re: [PATCH] remoteproc: qcom_q6v5_mss: Fix off-by-one error in
+ regulator error cleanup
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: andersson@kernel.org, mathieu.poirier@linaro.org, 
+	quic_akdwived@quicinc.com, linux-arm-msm@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-nvme_query_zone_info() returns either a negative errno or a positive
-NVMe status code, but nvme_update_ns_info_block() only tests for the
-negative case:
+Hi Konrad,
 
-	ret = nvme_query_zone_info(ns, lbaf, &zi);
-	if (ret < 0)
-		goto out;
+Following up once more =E2=80=94 still hoping to understand whether your
+comment was a correctness concern (the err_enable/err_set_load
+fallthrough into err_set_voltage) or a preference on the label
+structure itself, so I can send a v2 that addresses it correctly.
 
-If the device fails the Identify Namespace (I/O Command Set specific)
-command, or the Identify Controller command issued by
-nvme_set_max_append(), the positive status falls through and setup
-continues with the zero-initialized zone info.  nvme_update_zone_info()
-then marks the queue zoned with chunk_sectors and ns->head->zsze set to
-zero.
+Happy to rework this either way once I know which direction you'd prefer.
 
-blk_validate_zoned_limits() does not check chunk_sectors, so the limits
-commit succeeds.  blk_revalidate_disk_zones() does reject the zero zone
-size, but by then the limits are live and nothing rolls them back, so
-I/O keeps being submitted to a zoned queue with a zero zone size and
-disk_zone_no() shifts by ilog2(0):
+Thanks,
+Sailesh
 
-  nvme0n1: Invalid non power of two zone size (0)
-  UBSAN: shift-out-of-bounds in include/linux/blkdev.h:747:16
-  shift exponent -1 is negative
-   disk_zone_no include/linux/blkdev.h:747 [inline]
-   bio_straddles_zones include/linux/blkdev.h:1058 [inline]
-   blk_zone_wplug_handle_write block/blk-zoned.c:1423 [inline]
-   blk_zone_plug_bio.cold+0x25/0x1c8 block/blk-zoned.c:1605
-   blk_mq_submit_bio+0x18fb/0x2870 block/blk-mq.c:3196
-   submit_bh_wbc+0x575/0x740 fs/buffer.c:2824
-   __block_write_full_folio+0x728/0xdd0 fs/buffer.c:1933
-
-Any device, firmware or NVMe-oF target that fails this one command
-reaches this.
-
-Skip the zoned limits update in that case, and log which of the two
-things happened: during a revalidation the queue keeps the zone
-geometry it was last validated with, and on a first scan the namespace
-is registered without zoned limits, so that it is still available as a
-handle for admin commands.  Neither of the paths in
-nvme_query_zone_info() that return a positive status logs anything, so
-the failure would otherwise be silent.
-
-zi.zone_size is an exact indicator: every path that returns a positive
-status returns before it is assigned, and after that the only failure
-left is -ENODEV, which the caller already handles.
-
-Fixes: c85c9ab926a5 ("nvme: split nvme_update_zone_info")
-Cc: stable@vger.kernel.org
-Cc: Weidong Zhu <weizhu@fiu.edu>
-Suggested-by: Keith Busch <kbusch@kernel.org>
-Found by FuzzNvme.
-
-Signed-off-by: Chao Shi <coshi036@gmail.com>
----
-Changes since v2:
-- Mention the revalidation case in the comment, and warn about which
-  of the two outcomes happened.  Both per Christoph's review.
-
-Changes since v1:
-- Only skip the zoned limits instead of failing the whole update.
-- Gate on zi.zone_size, not zi.max_open_zones, where 0 is legal.
-
-v1: https://lore.kernel.org/linux-nvme/20260814160954.2839507-1-coshi036@gmail.com/
-v2: https://lore.kernel.org/linux-nvme/20260816191729.2865523-1-coshi036@gmail.com/
-
- drivers/nvme/host/core.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 453c1f0b2dd0..5ceab58e8e4d 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2447,9 +2447,26 @@ static int nvme_update_ns_info_block(struct nvme_ns *ns,
- 	if (!nvme_update_disk_info(ns, id, nvm, &lim))
- 		capacity = 0;
- 
-+	/*
-+	 * A failed zone info query leaves zi zero-initialized, so skip the
-+	 * zoned limits update instead of configuring the queue from it.
-+	 * During a revalidation that keeps the zone geometry the queue was
-+	 * last validated with; on a first scan the namespace is registered
-+	 * without zoned limits, so that it is still available as a handle
-+	 * for admin commands.
-+	 */
- 	if (IS_ENABLED(CONFIG_BLK_DEV_ZONED) &&
--	    ns->head->ids.csi == NVME_CSI_ZNS)
--		nvme_update_zone_info(ns, &lim, &zi);
-+	    ns->head->ids.csi == NVME_CSI_ZNS) {
-+		if (zi.zone_size)
-+			nvme_update_zone_info(ns, &lim, &zi);
-+		else
-+			dev_warn(ns->ctrl->device,
-+				 "zone info query failed for nsid %u, %s\n",
-+				 ns->head->ns_id,
-+				 blk_queue_is_zoned(ns->disk->queue) ?
-+				 "keeping the previous zone limits" :
-+				 "not enabling zoned mode");
-+	}
- 
- 	if ((ns->ctrl->vwc & NVME_CTRL_VWC_PRESENT) && !info->no_vwc)
- 		lim.features |= BLK_FEAT_WRITE_CACHE | BLK_FEAT_FUA;
--- 
-2.43.0
-
+On Sun, Aug 2, 2026 at 3:12=E2=80=AFPM Sailesh Nandanavanam
+<saileshnandanavanam@gmail.com> wrote:
+>
+> Hi Konrad,
+>
+> Just following up on this - wanted to check if you had a chance to
+> look at my question above. Happy to send a v2 as soon as I know
+> whether the concern is about correctness or the label structure.
+>
+> Thanks,
+> Sailesh Nandanavanam
+>
+> On Sat, Jul 18, 2026 at 1:27=E2=80=AFAM Sailesh Nandanavanam
+> <saileshnandanavanam@gmail.com> wrote:
+> >
+> > On 7/17/26 3:01 PM, Konrad Dybcio wrote:
+> > > The first two labels only unwind a single regulator
+> >
+> > Thanks for taking a look. Could you clarify whether this is a
+> > correctness concern (e.g. the fallthrough from err_enable/err_set_load
+> > into err_set_voltage not doing what you'd expect), or more a
+> > structural/style preference (e.g. avoiding three chained labels in
+> > favor of a different approach)? Happy to send a v2 once I understand
+> > what you'd like changed.
+> >
+> > Thanks,
+> > Sailesh
+> >
+> >
+> > On Fri, Jul 17, 2026 at 3:01=E2=80=AFPM Konrad Dybcio
+> > <konrad.dybcio@oss.qualcomm.com> wrote:
+> > >
+> > > On 7/10/26 9:46 PM, Sailesh Nandanavanam wrote:
+> > > > In q6v5_regulator_enable(), when any operation fails for regulator =
+at
+> > > > index 'i', the error cleanup path unconditionally calls
+> > > > regulator_disable() starting from index 'i'. However, regulator 'i'
+> > > > was never successfully enabled at this point, resulting in an
+> > > > unbalanced disable.
+> > > >
+> > > > There are three distinct failure points:
+> > > > - regulator_set_voltage() failure: voltage was never set, load was
+> > > > never set, regulator was never enabled.
+> > > > - regulator_set_load() failure: voltage was set, but regulator was
+> > > > never enabled.
+> > > > - regulator_enable() failure: voltage and load were set, but
+> > > > regulator was never enabled.
+> > > >
+> > > > Fix this by introducing three separate error labels to handle each
+> > > > failure point correctly. For the failing regulator at index 'i',
+> > > > only reset the resources that were actually configured, without
+> > > > calling regulator_disable(). Then roll back all previously enabled
+> > > > regulators using 'i--' in the for loop initializer to skip the
+> > > > never-enabled regulator.
+> > > >
+> > > > Fixes: 19f902b53b47 ("remoteproc: qcom: Initialize and enable proxy=
+ and active regulators.")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>
+> > > > ---
+> > >
+> > > [...]
+> > >
+> > > > -err:
+> > > > -     for (; i >=3D 0; i--) {
+> > > > +err_enable:
+> > > > +     if (regs[i].uA > 0)
+> > > > +             regulator_set_load(regs[i].reg, 0);
+> > > > +err_set_load:
+> > > > +     if (regs[i].uV > 0)
+> > > > +             regulator_set_voltage(regs[i].reg, 0, INT_MAX);
+> > >
+> > > The first two labels only unwind a single regulator
+> > >
+> > > Konrad
