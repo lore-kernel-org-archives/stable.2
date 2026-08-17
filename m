@@ -1,84 +1,43 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8345F3C3F70
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 09:04:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7F443BD241;
+	Mon, 17 Aug 2026 09:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786957443; cv=none; b=D3WqvwSBdc3hfEn5NtdwpYn3kF55z90MGa3viNrFA8ADRjPGy7rkgs/ENMxftk7gzFCcKSAU9rTZtGIRa3Za8uLGmXklw4dU5NPAIqTud5l8Qoltviu6tIrIWueHYX9lAiEQ8/i2wRT9O4BNQzMOgiAgqYon6eZqmRjjT6mr20Y=
+	t=1786957827; cv=none; b=HmFkR3xoVKaDsxqKHdIt7ejT+CT36S7SCvLSwBo9bRCBOQIG9bOyGgjL+XuNEI0/e5GAc4JrAbSzj94oFSWvuL/Jb+T0HvJDPpocS3JQ2nsrfX5QULJ6fDcJeIkaAX5ETauMPwF4DXYty4C7fp0xRcIctwwXZ1VMa+V4OVmiQsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786957443; c=relaxed/simple;
-	bh=W2PxdTIuJ5LHF/IMnebkVsvR7qjLz3RJEHJoN800q1Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TqDEld+A8gw8YuhoFDy47QzBeogx3R1+cf80GRLpgGYTrcdJCkE+Z3ITgaX4PiEBCk0rgityYwytQc7nBXkZK77j3YNh79bDo2leHUkKo5RqKYjT0z+dDEd/HwZfwvflUbXWFxTU8E+XO8bSSBQy6AJIHfqJKDZVOeevgshHQhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rWA4Kfhx; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rWA4Kfhx"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-848643382fcso3196558b3a.1
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 02:04:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786957442; x=1787562242; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S2uhz0qtH2rdwkxROqvYm518UOZqAraZAM2LKzgDTDA=;
-        b=rWA4KfhxcYLwociHWmNI+oXPgGb1Yx/O06GJVX3ZGrwrLFGES2xfm2JsPnPbKuMpDy
-         jo3vmsuXAJXKN7WGqV+x3IZc3TD1xx9+dmme1qVdYYuP7Kpqe4mrwDzUHLlkQyzUVjNc
-         YjwtRleMlicyUNDAK7Abm+tgSYOLgm/48tkjrlKlsRpy4oj0PGxFaHU/ST1fXzZivj0v
-         4eOrjEmGXf6lCMM/gNkuIw8+SErmpEo6CLLd37Th0ewuhnepzxpsjanYTVdHunC81rRz
-         PrL4TOhcHpuWwm3Ned2NIwqxusDZWFxgs/JdlXFEfculdzEgvMtc65yMSPlv7l02BPlJ
-         Iijg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786957442; x=1787562242;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S2uhz0qtH2rdwkxROqvYm518UOZqAraZAM2LKzgDTDA=;
-        b=UL9aJlOwi/JkIKqY5nLhZF+IOJWIRu+0KbNzFy3rxU7VgfP7HyeV/4dowUMOdO9PM8
-         pNsd/R04mhTBRFfv8MJwlRlxa1shMpkvXwsa7zWa75V7d+gyd0enZ5tcouwpeFgnii2m
-         OqNLhmkCRPeXSspqUt/Sx2voEapo88Xeidx7SjqxpQQ/kJUTxCnR9o93ofuwpsV3IIoD
-         A+xCMtxhRX+/AB28fWXIBjquEKobAt0OMywAG1hJOTED75poqgDJbGHFmefAlPbaOgbB
-         Uj3b+SeWZ9uNCcpir3iD6iEpuX0MUxix13L1H9pxXZc4vPDxfAkzwrSIv9s2Sx4lHDo7
-         oA4g==
-X-Forwarded-Encrypted: i=1; AHgh+RrTCwdn6QD0N/OhnCmdckBncmgDC4CJo7v/YBPMWKTzfZZSUmE3MP6JKpd/oI9wEQv6ti6MZqg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTO/fI1dxic0T/NXJhbbyRP2JafxV1U/dybH+9XkbOnGLxAg1B
-	fCdKLnX6xLxOazesSNVgfTz7gyNelCRaK/rlyQCRl6GAUjKO+21+BVYz
-X-Gm-Gg: AR+sD126wqcSRTH4Blm3K8mI8zo9kBj4CKjBVws/Fd/Z1vl2/aq9+nZzwGuztrRSjOf
-	EZfwpZN86pMjLvLY60RNo20FH+eBF59Kn37Vl/+B6iHC1+/lSk67rGKaacVMoLYKby5RnQFrz92
-	/81kyLDSiEgIy34usdCIfYGe3PvDSMA5vkHJOh3optvfyQ77IWBizh39U9rAaAvmWKoZ0XEDnKa
-	KPPZfbZOEr6p34qrdVNYizF6Ump1tkN4Uh53hOGutwBAPqSeRnJauv90NFVwwB6fpet8WDVBBP0
-	gk/eaTCUhtTbsvMr/4VIDE2voBrRghIlFNXkzjFBKeVIllpXnkhNuq5CTw/PtdlYzfO8P9aRoJG
-	krGJUG11glujA1QlDlAt5IzcmqgsSJQPbE7O6h3ifW1A5eI7r1t+cfbRkHdye+BrAEmrr/WQKKR
-	Ij+BT8FsWbRSsmVVw6YBuVaqmvtL6i4o2bTLFA75OgZYHXWHEDFQeA+A3lpvmT82WFcs5t88kH8
-	ooTGyAIVpOhjxXEuozW/Ik=
-X-Received: by 2002:a05:6a00:b4f:b0:845:c7f1:29fa with SMTP id d2e1a72fcca58-84fde330ca8mr23049775b3a.30.1786957441665;
-        Mon, 17 Aug 2026 02:04:01 -0700 (PDT)
-Received: from v4bel.. ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8517d2476easm2342517b3a.42.2026.08.17.02.03.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 02:04:01 -0700 (PDT)
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	dsahern@kernel.org,
-	ncardwell@google.com,
-	kuniyu@google.com,
-	horms@kernel.org,
-	willemb@google.com,
-	andrew+netdev@lunn.ch
-Cc: netdev@vger.kernel.org,
-	imv4bel@gmail.com,
+	s=arc-20240116; t=1786957827; c=relaxed/simple;
+	bh=twgfasG1qCJet0Els0Yo0gKIOaN4CqpS1I4Ked/MunE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=br1kxmamCX8irJWCA5WsGq54/+SkRLdlYRMLCQvXw8wmxxTos9di8KX6N5HLnmZ2MJPxy32QvFT/ymC7JY7O/YeP83ffBIRtFVrs/THpRALEtr0Lf7InWhJ1xc8TNvr5W4zQdUZteeszfBnP+SQc6fen9CDWkA9z/6vNxqQR5vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8BxrtL_z4JqsNMBAA--.5571S3;
+	Mon, 17 Aug 2026 17:10:23 +0800 (CST)
+Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJAxW873z4JqP8QHAA--.7094S4;
+	Mon, 17 Aug 2026 17:10:21 +0800 (CST)
+From: Hongliang Wang <wanghongliang@loongson.cn>
+To: Hongliang Wang <wanghongliang@loongson.cn>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	Xi Ruoyao <xry111@xry111.site>,
+	Huacai Chen <chenhuacai@loongson.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH net 3/3] tcp: do not inherit out_of_order_queue from parent
-Date: Mon, 17 Aug 2026 18:03:17 +0900
-Message-ID: <20260817090319.3897799-4-imv4bel@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260817090319.3897799-1-imv4bel@gmail.com>
-References: <20260817090319.3897799-1-imv4bel@gmail.com>
+Subject: [PATCH v10 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed
+Date: Mon, 17 Aug 2026 17:07:21 +0800
+Message-Id: <20260817090721.30582-3-wanghongliang@loongson.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260817090721.30582-1-wanghongliang@loongson.cn>
+References: <20260817090721.30582-1-wanghongliang@loongson.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,42 +45,163 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxW873z4JqP8QHAA--.7094S4
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxXryrXFWktr1kGr4kWFy8JFc_yoWrKrykpa
+	yDC34rGr4qgr12grs3Jw1UZFyayws5GayxCFy7K3Zxu3Z3Arn8X3WftFnIvF4ruFyxWayD
+	ZayDWFsrCFWjvrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+	6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0epB3UUUUU==
 
-A child gets a copy of the parent's out_of_order_queue, which can be non
-empty when/if parent morphs from listener to active session. Parent and
-child then point at the same rbtree.
+The original driver uses a fixed PCLK frequency(LS2X_I2C_PCLK_FREQ) and
+fixed div(5) for I2C bus speed calculation. As PCLK frequency and div
+vary on different SoCs and ACPI platforms, this leads to inaccurate I2C
+bus speed calculation and poor adaptability across platforms.
 
-The parent is no longer a listener, so inet_csk_reqsk_queue_add() forgets
-the child immediately, and tcp_disconnect() frees the skbs the parent
-still owns. The parent's own root and ooo_last_skb are left alone, so it
-keeps using those skbs. That is a use-after-free, and the parent frees
-them a second time when it closes.
+Improve the accuracy of I2C bus speed calculation across different
+platforms by parsing the real I2C bus reference clock (PCLK) and div.
+Support both DTS and ACPI.
 
-We need to make sure this can not happen, by initializing the queue after
-socket cloning.
+For DTS:
+- Retrieve I2C bus reference clock via the common clock framework
+- Fetch div from match data for LS2K/LS7A series
+- Fallback to default values if clock lookup fails or the obtained
+  pclk or div is zero
 
-Very similar to commit 8b485ce69876 ("tcp: do not inherit fastopen_req
-from parent")
+For ACPI:
+- Parse "clocks" property to get I2C bus reference clock
+- Parse "clock-div" property to get div
+- Fallback to the default values if property parsing fails or the
+  obtained pclk or div is zero
 
-Fixes: 9f5afeae5152 ("tcp: use an RB tree for ooo receive queue")
+Calculate the I2C clock prescaler based on reference clock, div and
+target bus frequency with the formula:
+
+prescale = (pclk * 10) / (div * bus_freq_hz) - 1
+
+Dynamically acquiring PCLK and div per platform ensures accurate I2C bus
+speed calculation and reliable operation across different platforms.
+
+Tested-by: Xi Ruoyao <xry111@xry111.site>
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 Cc: stable@vger.kernel.org
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
 ---
- net/ipv4/tcp_minisocks.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/i2c/busses/i2c-ls2x.c | 44 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 41 insertions(+), 3 deletions(-)
 
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index 6ab3e3a0b43173..d13813d50947dd 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -591,6 +591,7 @@ struct sock *tcp_create_openreq_child(const struct sock *sk,
- 	newtp->total_retrans = req->num_retrans;
+diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
+index b475dd27b7af..57d6d38e2711 100644
+--- a/drivers/i2c/busses/i2c-ls2x.c
++++ b/drivers/i2c/busses/i2c-ls2x.c
+@@ -12,6 +12,7 @@
  
- 	tcp_init_xmit_timers(newsk);
-+	newtp->out_of_order_queue = RB_ROOT;
- 	WRITE_ONCE(newtp->write_seq, newtp->pushed_seq = treq->snt_isn + 1);
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/clk.h>
+ #include <linux/completion.h>
+ #include <linux/device.h>
+ #include <linux/iopoll.h>
+@@ -63,11 +64,19 @@
+ /* The default bus frequency, which is an empirical value */
+ #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
  
- 	if (sock_flag(newsk, SOCK_KEEPOPEN))
++/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
++#define LS2X_I2C_2K_CLOCK_DIV	40
++
++/* The div of i2c reference clock on LS7A1000/7A2000 */
++#define LS2X_I2C_7A_CLOCK_DIV	50
++
+ struct ls2x_i2c_priv {
+ 	struct i2c_adapter	adapter;
+ 	void __iomem		*base;
+ 	struct i2c_timings	i2c_t;
+ 	struct completion	cmd_complete;
++	unsigned int		div;
++	unsigned int		pclk;
+ };
+ 
+ /*
+@@ -107,12 +116,14 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+ 	else
+ 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
+ 
++	val = div64_u64((u64)priv->pclk * 10,
++			(u64)priv->div * t->bus_freq_hz) - 1;
++
+ 	/*
+ 	 * According to the chip manual, we can only access the registers as bytes,
+ 	 * otherwise the high bits will be truncated.
+ 	 * So set the I2C frequency with a sequential writeb() instead of writew().
+ 	 */
+-	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
+ 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
+ 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
+ }
+@@ -287,6 +298,7 @@ static const struct i2c_algorithm ls2x_i2c_algo = {
+ static int ls2x_i2c_probe(struct platform_device *pdev)
+ {
+ 	int ret, irq;
++	struct clk *clk;
+ 	struct i2c_adapter *adap;
+ 	struct ls2x_i2c_priv *priv;
+ 	struct device *dev = &pdev->dev;
+@@ -304,6 +316,32 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	if (dev_of_node(dev)) {
++		clk = devm_clk_get_optional_enabled(dev, NULL);
++		if (IS_ERR(clk))
++			return PTR_ERR(clk);
++		if (clk) {
++			priv->pclk = clk_get_rate(clk);
++			if (!priv->pclk)
++				priv->pclk = LS2X_I2C_PCLK_FREQ;
++		} else {
++			priv->pclk = LS2X_I2C_PCLK_FREQ;
++		}
++
++		priv->div = (unsigned long)device_get_match_data(dev);
++		if (!priv->div)
++			priv->div = LS2X_I2C_2K_CLOCK_DIV;
++	} else {
++		/* clocks and clock-div properties are used only in ACPI path. */
++		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
++		if (ret || !priv->pclk)
++			priv->pclk = LS2X_I2C_PCLK_FREQ;
++
++		ret = device_property_read_u32(dev, "clock-div", &priv->div);
++		if (ret || !priv->div)
++			priv->div = LS2X_I2C_7A_CLOCK_DIV;
++	}
++
+ 	/* Add the i2c adapter */
+ 	adap = &priv->adapter;
+ 	adap->retries = 5;
+@@ -349,8 +387,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
+ 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
+ 
+ static const struct of_device_id ls2x_i2c_id_table[] = {
+-	{ .compatible = "loongson,ls2k-i2c" },
+-	{ .compatible = "loongson,ls7a-i2c" },
++	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
++	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
 -- 
-2.43.0
+2.47.2
 
