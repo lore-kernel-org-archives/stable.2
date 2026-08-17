@@ -1,39 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD4C43B49E;
-	Mon, 17 Aug 2026 13:50:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB3F424D75;
+	Mon, 17 Aug 2026 13:50:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974662; cv=none; b=X25jPkfzHuzCVEgiVa6j7Kd+4AsbwE0UQP5k/5jdUFneMqlAAsAzXTXmQOjI+gsSs87OpYoOIgUZb6VeeKu+L1gugEaCYR81FdgT10ams88Ii+CCGCjy9IJJ9/BN1YCAWSkCW6BC8dmRjuCP7kFlyOM7Sz7VkaY/9n/oWh7Zqvk=
+	t=1786974666; cv=none; b=Srh3r2oZ23eRnPdxcUQUK/iXCt0PBj4GvTemJei+wrUSGRRMmmbE8PJ0iFjUoxfgqzz2IK0yOIsLaaTKjI96/S98h6b+laykTv2fzHS1btZPGOoiJWNJcCyNmLrLQLvN3IWp3wAdq59pELZ/Hf/noZYkqAVEogC1YPaKf6mGuRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974662; c=relaxed/simple;
-	bh=La8VgLa/nqBDE5yz67raa2YdHccpAh8yk4w6NFGEL24=;
+	s=arc-20240116; t=1786974666; c=relaxed/simple;
+	bh=MgaZS1M1cLYDnmwiDn7WZqInU41A8/jCiDYAyPM6izk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eTUCPqg4CYQrO7KAQCn2LQENZCsRunnJDzZp4ZCs9fN5fxuBgHCD+Qo49hj4i7GuOhvf9R9dEBqcR6zzAFsk9dp4kLoV/LfuhYbQIdu/DaD2UwrfhETwdNylOsyiDHPkOxnQAa1TXvgeTCJFxnFTilOJIGW3OxsDGCgpH6zjLMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HtGqTEdU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=S9VmYmcbm/2YAEiTcNBGSB+TltMBU/0xvXaGpMnfSFHFP59VEY+Duzo0BU+I9/eP5qFmdiUWyLdXCrZ2tvbX8y0wmEBdU//TkxB2/iVtLlaA1NpM6e4rNy6hqcS0c51TI4dvEqNLMbKT1xmlywa8A5sAiuNel7eIkrpRdikDnyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fw22X0sg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HtGqTEdU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B84B1F00A3A;
-	Mon, 17 Aug 2026 13:50:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fw22X0sg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538991F00A3D;
+	Mon, 17 Aug 2026 13:50:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974652;
-	bh=fMlt8pTlaCkRUpDDCieGllPCZT8dNBCWTUBkpPZ9xtw=;
+	s=korg; t=1786974657;
+	bh=H1aIq2nvb1G96qTN4XfMzOysFNwmhRycMHgGOHBgF7k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HtGqTEdUEkIDWcpcq7jN2xDG1dgMBKPAKEPRHAQHx2ZipK3yuefNr296MtNMxAOwr
-	 IH/dJZbUWD01ND1gGHkhT7qFApbFu9e1R1ITnyRZb3bY6ACyIqPQfVOtaOsimrz+Qu
-	 7oGTLOr+GobC2JSQze09PKou4Z2QtLa1OhQ46ysg=
+	b=fw22X0sgDb+h7GnFEbujW370LkzM64/biU24H0o2ErggJGHEgQfG67jJsXuZUSv1h
+	 wGzBkFJUf0fhj+RVm/5uJbYJABqfoQv3EUfVu+ebbweLzbA8JL+Fbb3g6dkCyXTPaU
+	 GB4x7bMQI1QBbnjxFZ7+XauBdToCL1otw6C2bw7M=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Subject: [PATCH 7.1 248/271] Revert "thermal: hwmon: Register a hwmon device for each thermal zone"
-Date: Mon, 17 Aug 2026 15:32:53 +0200
-Message-ID: <20260817132546.955858333@linuxfoundation.org>
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 010/250] arm64: dts: qcom: rename x1p42100 to purwa
+Date: Mon, 17 Aug 2026 15:29:31 +0200
+Message-ID: <20260817132536.875990928@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
-References: <20260817132536.752504388@linuxfoundation.org>
+In-Reply-To: <20260817132536.466235697@linuxfoundation.org>
+References: <20260817132536.466235697@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -45,271 +47,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-commit f93d951ce0d02b5dca01c0c72add411fb17849bb upstream.
+[ Upstream commit ef659a5bd91bed7fae2c2a150f8ecca06599ac03 ]
 
-Revert commit d6323469bcfb ("thermal: hwmon: Register a hwmon device
-for each thermal zone") that changed the names of hwmon class devices
-associated with thermal zones and their sysfs layout which made user
-space unhappy.
+Follow the example of other platforms and rename X1P42100 to purwa.dtsi.
 
-Closes: https://lore.kernel.org/linux-pm/cafd8af9-c6e9-4bf2-b496-23e796fbc9a6@linux.dev/
-Closes: https://lore.kernel.org/linux-hwmon/ab8b093b-46e6-4738-afcf-4b97c9ad5af9@googlemail.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/2301040.irdbgypaU6@rafael.j.wysocki
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20251030-rename-dts-2-v1-3-80c0b81c4d77@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Stable-dep-of: 4cd774c1feb3 ("arm64: dts: qcom: purwa: Fix GPU IOMMU property")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/thermal/thermal_hwmon.c |  151 +++++++++++++++++++++++++++-------------
- 1 file changed, 104 insertions(+), 47 deletions(-)
+ arch/arm64/boot/dts/qcom/{x1p42100.dtsi => purwa.dtsi}    | 0
+ arch/arm64/boot/dts/qcom/x1p42100-asus-zenbook-a14.dtsi   | 2 +-
+ arch/arm64/boot/dts/qcom/x1p42100-crd.dts                 | 2 +-
+ arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts     | 2 +-
+ arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts | 2 +-
+ 5 files changed, 4 insertions(+), 4 deletions(-)
+ rename arch/arm64/boot/dts/qcom/{x1p42100.dtsi => purwa.dtsi} (100%)
 
---- a/drivers/thermal/thermal_hwmon.c
-+++ b/drivers/thermal/thermal_hwmon.c
-@@ -19,33 +19,30 @@
- #include "thermal_hwmon.h"
- #include "thermal_core.h"
+diff --git a/arch/arm64/boot/dts/qcom/x1p42100.dtsi b/arch/arm64/boot/dts/qcom/purwa.dtsi
+similarity index 100%
+rename from arch/arm64/boot/dts/qcom/x1p42100.dtsi
+rename to arch/arm64/boot/dts/qcom/purwa.dtsi
+diff --git a/arch/arm64/boot/dts/qcom/x1p42100-asus-zenbook-a14.dtsi b/arch/arm64/boot/dts/qcom/x1p42100-asus-zenbook-a14.dtsi
+index 7ccb2076bab66..22470a97e1e39 100644
+--- a/arch/arm64/boot/dts/qcom/x1p42100-asus-zenbook-a14.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1p42100-asus-zenbook-a14.dtsi
+@@ -6,7 +6,7 @@
  
--/*
-- * Needs to be large enough to hold a thermal zone type string followed by an
-- * underline character and a 32-bit integer in decimal representation.
-- */
--#define THERMAL_HWMON_NAME_LENGTH (THERMAL_NAME_LENGTH + 11)
-+/* hwmon sys I/F */
-+/* thermal zone devices with the same type share one hwmon device */
-+struct thermal_hwmon_device {
-+	char type[THERMAL_NAME_LENGTH];
-+	struct device *device;
-+	int count;
-+	struct list_head tz_list;
-+	struct list_head node;
-+};
+ /dts-v1/;
  
- struct thermal_hwmon_attr {
- 	struct device_attribute attr;
-+	char name[16];
- };
+-#include "x1p42100.dtsi"
++#include "purwa.dtsi"
+ #include "x1-asus-zenbook-a14.dtsi"
  
- /* one temperature input for each thermal zone */
- struct thermal_hwmon_temp {
-+	struct list_head hwmon_node;
- 	struct thermal_zone_device *tz;
- 	struct thermal_hwmon_attr temp_input;	/* hwmon sys attr */
- 	struct thermal_hwmon_attr temp_crit;	/* hwmon sys attr */
- 	bool temp_crit_present;
- };
+ /delete-node/ &pmc8380_6;
+diff --git a/arch/arm64/boot/dts/qcom/x1p42100-crd.dts b/arch/arm64/boot/dts/qcom/x1p42100-crd.dts
+index cf999c2cf8d4e..7ed4116b95904 100644
+--- a/arch/arm64/boot/dts/qcom/x1p42100-crd.dts
++++ b/arch/arm64/boot/dts/qcom/x1p42100-crd.dts
+@@ -5,7 +5,7 @@
  
--/* hwmon sys I/F */
--/* thermal zone devices with the same type share one hwmon device */
--struct thermal_hwmon_device {
--	char name[THERMAL_HWMON_NAME_LENGTH];
--	struct device *device;
--	struct list_head node;
--	struct thermal_hwmon_temp tz_temp;
--};
--
- static LIST_HEAD(thermal_hwmon_list);
+ /dts-v1/;
  
- static DEFINE_MUTEX(thermal_hwmon_list_lock);
-@@ -91,6 +88,45 @@ temp_crit_show(struct device *dev, struc
- 	return sysfs_emit(buf, "%d\n", temperature);
- }
+-#include "x1p42100.dtsi"
++#include "purwa.dtsi"
+ #include "x1-crd.dtsi"
  
-+
-+static struct thermal_hwmon_device *
-+thermal_hwmon_lookup_by_type(const struct thermal_zone_device *tz)
-+{
-+	struct thermal_hwmon_device *hwmon;
-+	char type[THERMAL_NAME_LENGTH];
-+
-+	mutex_lock(&thermal_hwmon_list_lock);
-+	list_for_each_entry(hwmon, &thermal_hwmon_list, node) {
-+		strscpy(type, tz->type);
-+		strreplace(type, '-', '_');
-+		if (!strcmp(hwmon->type, type)) {
-+			mutex_unlock(&thermal_hwmon_list_lock);
-+			return hwmon;
-+		}
-+	}
-+	mutex_unlock(&thermal_hwmon_list_lock);
-+
-+	return NULL;
-+}
-+
-+/* Find the temperature input matching a given thermal zone */
-+static struct thermal_hwmon_temp *
-+thermal_hwmon_lookup_temp(const struct thermal_hwmon_device *hwmon,
-+			  const struct thermal_zone_device *tz)
-+{
-+	struct thermal_hwmon_temp *temp;
-+
-+	mutex_lock(&thermal_hwmon_list_lock);
-+	list_for_each_entry(temp, &hwmon->tz_list, hwmon_node)
-+		if (temp->tz == tz) {
-+			mutex_unlock(&thermal_hwmon_list_lock);
-+			return temp;
-+		}
-+	mutex_unlock(&thermal_hwmon_list_lock);
-+
-+	return NULL;
-+}
-+
- static bool thermal_zone_crit_temp_valid(struct thermal_zone_device *tz)
- {
- 	int temp;
-@@ -101,39 +137,54 @@ int thermal_add_hwmon_sysfs(struct therm
- {
- 	struct thermal_hwmon_device *hwmon;
- 	struct thermal_hwmon_temp *temp;
-+	int new_hwmon_device = 1;
- 	int result;
+ /delete-node/ &pmc8380_6;
+diff --git a/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts b/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts
+index 47ab0c5b30341..0f338e457abda 100644
+--- a/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts
++++ b/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts
+@@ -2,7 +2,7 @@
  
-+	hwmon = thermal_hwmon_lookup_by_type(tz);
-+	if (hwmon) {
-+		new_hwmon_device = 0;
-+		goto register_sys_interface;
-+	}
-+
- 	hwmon = kzalloc_obj(*hwmon);
- 	if (!hwmon)
- 		return -ENOMEM;
+ /dts-v1/;
  
--	/*
--	 * Append the thermal zone ID preceded by an underline character to the
--	 * type to disambiguate the sensors command output.
--	 */
--	scnprintf(hwmon->name, THERMAL_HWMON_NAME_LENGTH, "%s_%d", tz->type, tz->id);
--	strreplace(hwmon->name, '-', '_');
-+	INIT_LIST_HEAD(&hwmon->tz_list);
-+	strscpy(hwmon->type, tz->type, THERMAL_NAME_LENGTH);
-+	strreplace(hwmon->type, '-', '_');
- 	hwmon->device = hwmon_device_register_for_thermal(&tz->device,
--							  hwmon->name, hwmon);
-+							  hwmon->type, hwmon);
- 	if (IS_ERR(hwmon->device)) {
- 		result = PTR_ERR(hwmon->device);
- 		goto free_mem;
- 	}
+-#include "x1p42100.dtsi"
++#include "purwa.dtsi"
+ #include "hamoa-pmics.dtsi"
+ #include "x1-hp-omnibook-x14.dtsi"
+ /delete-node/ &pmc8380_6;
+diff --git a/arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts b/arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts
+index f7d372d2e9612..3186e79e862de 100644
+--- a/arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts
++++ b/arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts
+@@ -13,7 +13,7 @@
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
  
--	temp = &hwmon->tz_temp;
-+ register_sys_interface:
-+	temp = kzalloc_obj(*temp);
-+	if (!temp) {
-+		result = -ENOMEM;
-+		goto unregister_name;
-+	}
+-#include "x1p42100.dtsi"
++#include "purwa.dtsi"
+ #include "hamoa-pmics.dtsi"
  
- 	temp->tz = tz;
-+	hwmon->count++;
- 
--	temp->temp_input.attr.attr.name = "temp1_input";
-+	snprintf(temp->temp_input.name, sizeof(temp->temp_input.name),
-+		 "temp%d_input", hwmon->count);
-+	temp->temp_input.attr.attr.name = temp->temp_input.name;
- 	temp->temp_input.attr.attr.mode = 0444;
- 	temp->temp_input.attr.show = temp_input_show;
- 	sysfs_attr_init(&temp->temp_input.attr.attr);
- 	result = device_create_file(hwmon->device, &temp->temp_input.attr);
- 	if (result)
--		goto unregister_name;
-+		goto free_temp_mem;
- 
- 	if (thermal_zone_crit_temp_valid(tz)) {
--		temp->temp_crit.attr.attr.name = "temp1_crit";
-+		snprintf(temp->temp_crit.name,
-+				sizeof(temp->temp_crit.name),
-+				"temp%d_crit", hwmon->count);
-+		temp->temp_crit.attr.attr.name = temp->temp_crit.name;
- 		temp->temp_crit.attr.attr.mode = 0444;
- 		temp->temp_crit.attr.show = temp_crit_show;
- 		sysfs_attr_init(&temp->temp_crit.attr.attr);
-@@ -145,17 +196,21 @@ int thermal_add_hwmon_sysfs(struct therm
- 		temp->temp_crit_present = true;
- 	}
- 
--	/* The list is needed for hwmon lookup during removal. */
- 	mutex_lock(&thermal_hwmon_list_lock);
--	list_add_tail(&hwmon->node, &thermal_hwmon_list);
-+	if (new_hwmon_device)
-+		list_add_tail(&hwmon->node, &thermal_hwmon_list);
-+	list_add_tail(&temp->hwmon_node, &hwmon->tz_list);
- 	mutex_unlock(&thermal_hwmon_list_lock);
- 
- 	return 0;
- 
-  unregister_input:
- 	device_remove_file(hwmon->device, &temp->temp_input.attr);
-+ free_temp_mem:
-+	kfree(temp);
-  unregister_name:
--	hwmon_device_unregister(hwmon->device);
-+	if (new_hwmon_device)
-+		hwmon_device_unregister(hwmon->device);
-  free_mem:
- 	if (new_hwmon_device)
- 		kfree(hwmon);
-@@ -164,37 +219,39 @@ int thermal_add_hwmon_sysfs(struct therm
- }
- EXPORT_SYMBOL_GPL(thermal_add_hwmon_sysfs);
- 
--static struct thermal_hwmon_device *
--thermal_hwmon_lookup(const struct thermal_zone_device *tz)
--{
--	struct thermal_hwmon_device *hwmon;
--
--	list_for_each_entry(hwmon, &thermal_hwmon_list, node) {
--		if (hwmon->tz_temp.tz == tz)
--			return hwmon;
--	}
--	return NULL;
--}
--
- void thermal_remove_hwmon_sysfs(struct thermal_zone_device *tz)
- {
- 	struct thermal_hwmon_device *hwmon;
- 	struct thermal_hwmon_temp *temp;
- 
--	scoped_guard(mutex, &thermal_hwmon_list_lock) {
--		hwmon = thermal_hwmon_lookup(tz);
--		if (!hwmon)
--			return;
--
--		list_del(&hwmon->node);
-+	hwmon = thermal_hwmon_lookup_by_type(tz);
-+	if (unlikely(!hwmon)) {
-+		/* Should never happen... */
-+		dev_dbg(&tz->device, "hwmon device lookup failed!\n");
-+		return;
- 	}
- 
--	temp = &hwmon->tz_temp;
-+	temp = thermal_hwmon_lookup_temp(hwmon, tz);
-+	if (unlikely(!temp)) {
-+		/* Should never happen... */
-+		dev_dbg(&tz->device, "temperature input lookup failed!\n");
-+		return;
-+	}
- 
- 	device_remove_file(hwmon->device, &temp->temp_input.attr);
- 	if (temp->temp_crit_present)
- 		device_remove_file(hwmon->device, &temp->temp_crit.attr);
- 
-+	mutex_lock(&thermal_hwmon_list_lock);
-+	list_del(&temp->hwmon_node);
-+	kfree(temp);
-+	if (!list_empty(&hwmon->tz_list)) {
-+		mutex_unlock(&thermal_hwmon_list_lock);
-+		return;
-+	}
-+	list_del(&hwmon->node);
-+	mutex_unlock(&thermal_hwmon_list_lock);
-+
- 	hwmon_device_unregister(hwmon->device);
- 	kfree(hwmon);
- }
+ /delete-node/ &pmc8380_6;
+-- 
+2.53.0
+
 
 
