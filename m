@@ -1,107 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7920C442118;
-	Mon, 17 Aug 2026 14:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786977010; cv=none; b=Hq92mA0dmb6ow/p7W5Cf7o3Uwr+hjo7tJEmfPM9yTVaR4ctXFdkVhn8qQr2FhF3X89X++NeOpH9NcvMOB52DrCROoGMG8UTTaeZDA9lRIkz9QJK7vo8oHI9SerfhC5w3B7Y5HVh6npG6aSBTULtsm+gr52JIBBcqQ8VLwmxmCfk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786977010; c=relaxed/simple;
-	bh=OaFbI96z5bYRKB9A2KWR7pfJdiUP7+qPhuc+GalKbl0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jFp7k2RoK59xXFSlO/OtIRLrcLNvQum1AKkXQ/mtf1YsSkBKqnQEM8WafL8hCqjH2SGbl9WbTR20rWwZU4R0CRSUi2jQW6dn3XX+GZMeDgoXjWJq3eOFSDwkl4n7eSsVRRZW2x79sshT+2+RUJk6pRnvqXBEo7PJBSKd/+JXAUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LYSseyyH; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LYSseyyH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B396F1F00A3D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB803EDE40;
 	Mon, 17 Aug 2026 14:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786977009;
-	bh=VozOojdl2ArPdxhCrRLaBZ5GjRpqzJ5POpqXfdQP32g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LYSseyyHdqg1hb0rsJ7H+L+nsZR6a0ukp4fnF+8YZM/VTPJz3rIJaq49krAGFX3nG
-	 HkcANy07VtRfQ3hDJqZYi5iSgtfVEkubmfcBuWQurMDIku2FaTEMuvEaD7U/goxbru
-	 oupHsGGIPnRzwuOArHac2rPPyeodvRIFdwJHgCeA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Huihui Huang <hhhuang@smu.edu.sg>,
-	Johannes Berg <johannes.berg@intel.com>
-Subject: [PATCH 5.15 180/456] wifi: wilc1000: validate assoc response length before subtracting header
-Date: Mon, 17 Aug 2026 15:29:30 +0200
-Message-ID: <20260817132547.169550554@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817132539.792407575@linuxfoundation.org>
-References: <20260817132539.792407575@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786977011; cv=pass; b=AgLkgXHSp/B9wowgPVQsWoroSfylOv/cuEtp4cJvXp6YICFqfZvPARA+4Utwe84lsNxgN6B3LWiZoMXbIS6I/VkhC90+5RqmXjGzIBurXLKfz/6JcRH8Yd0M4+jxstEzmfTuu4O/dAvkC1xbN3Yd5Z1IeFI3Ms5YEm8BefJrY48=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786977011; c=relaxed/simple;
+	bh=/2jrLdUML8Wr+RGIy2cCWWnIcbKr/+VyfHueIU+RMl0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=TXcIGQx8nn6Sd8H6nFHyz2TT0Lb0AHPEHYMuSUueR7uA6lruJ9Z78m0gJJepe2JCqXZM/4NaoqSOYfRx6ERTy8lD7LIPll1EtA8tGkBNYZBezcpOrKWZSHTm3VdSUMyPMTnzqdVFKXGrl5TZ2GqzRe6hy1uWjOpWqItWvYU/3aY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=fdMCEkNR; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="fdMCEkNR"
+ARC-Seal: i=1; a=rsa-sha256; t=1786976993; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=U6cymWYYO7LXndn2y17LP9o0JEgyHfqvJ3ux/NfjYTSOMXA9NrrNa//Xf7fyJ8ApU7ucrKRdUE4kmzwLAl78KpOuw37h+MkKa8nrOwmwJXH4dcu5dsm1RC7SUqq/BKRiqi7zHMEsLCbErYtiijAwSbTvxw3iCrat5LOa+xe/A8w=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1786976993; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=erKOPNhhAS8hOf6hp4YHEJXpYsPwwHn/G7aMOMRsfvs=; 
+	b=b326afBRjI2Y2P9eyVJy7LReoDzFCGZHtShx4tTaWtLpjCsChBYMza7hOQelkfPYvuN6Yd72/I5e2Xhexti7QIYYAo4tk27hhIXv1lZDDfZsHUzrkZ2Bj+QLOuYKWllS5Paympsu2puZAdBuMMbLEpm3BQA2EmTIHbILlOky+Xk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786976993;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:Reply-To;
+	bh=erKOPNhhAS8hOf6hp4YHEJXpYsPwwHn/G7aMOMRsfvs=;
+	b=fdMCEkNRdXEkVujOyg8J8DBhqyPel9M9ywdjX7MUINuL94DuQuqnU6jasT85TsAL
+	DwTqgFiE/h30SKmb+U+HnuwSRiGOIWC62ZttM228rEOIUmfnXYAlNibwHxramTW0aFv
+	n//g1ukf93JAeIfmaGsp7kktWythK4+yjb2FbICU=
+Received: by mx.zohomail.com with SMTPS id 1786976991076117.6855924745521;
+	Mon, 17 Aug 2026 07:29:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 17 Aug 2026 22:29:42 +0800
+Message-Id: <DKRAH0LTEIJ8.IFPZCP0258SM@pigmoral.tech>
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: "Guo Ren" <guoren@kernel.org>, <linux-riscv@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+Cc: <dlan@kernel.org>, <devicetree@vger.kernel.org>,
+ <spacemit@lists.linux.dev>, <junhui.liu@pigmoral.tech>,
+ <stable@vger.kernel.org>, "Guodong Xu" <docular.xu@gmail.com>
+Subject: Re: [PATCH V2] riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
+X-Mailer: aerc 0.21.0
+References: <20260817033038.2286436-1-guoren@kernel.org>
+In-Reply-To: <20260817033038.2286436-1-guoren@kernel.org>
+X-ZohoMailClient: External
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+Hi Guo,
 
-------------------
+On Mon Aug 17, 2026 at 11:30 AM CST, Guo Ren wrote:
+> From: "GUO Ren (XuanTie)" <guoren@kernel.org>
+>
+> The initial K3 device tree used generic/placeholder values for the
+> IMSIC guest configuration:
+>
+>   riscv,num-guest-ids    =3D <511>;
+>
+> According to the SpacemiT K3 User Manual this values is incorrect
+> for the X100 cores:
+>
+>  - Advanced Interrupt Architecture (AIA):
+>     - M-mode MSI: 512
+>     - S-mode MSI: 512
+>     - VS-mode MSI: 64
+>
+> Therefore, S-mode IMSIC (simsic) needs num-guest-ids =3D 63.
+>
+> Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 So=
+C")
+> Cc: stable@vger.kernel.org
+> Cc: Guodong Xu <docular.xu@gmail.com>
+> Cc: Yixun Lan <dlan@kernel.org>
+> Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
 
-From: Huihui Huang <hhhuang@smu.edu.sg>
+Reviewed-by: Junhui Liu <junhui.liu@pigmoral.tech>
 
-commit 4c4c97b60a5e978121d9ee8cb0ab3916e5d6a8de upstream.
-
-wilc_parse_assoc_resp_info() computes the trailing IE length as
-
-	ies_len = buffer_len - sizeof(*res);
-
-without first checking that buffer_len is at least sizeof(struct
-wilc_assoc_resp) (6 bytes). buffer_len is the length reported for a
-received association response (host_int_parse_assoc_resp_info() passes
-hif_drv->assoc_resp / assoc_resp_info_len straight in) and must be
-validated before the driver accesses the fixed header.
-
-For a frame shorter than the 6-byte fixed header, the subtraction wraps.
-For a four-byte response the result is truncated to a u16 ies_len of
-65534, so kmemdup() then attempts to copy 65534 bytes starting at
-buffer + sizeof(*res), beyond the valid association-response data
-(CWE-125). A response shorter than four bytes can also cause an
-out-of-bounds read of res->status_code at offsets 2 and 3.
-
-Reject frames too short to hold the fixed header before touching the
-header or computing ies_len. Also set the connection status to a failure
-on this path: the caller falls through to a
-"conn_info->status == WLAN_STATUS_SUCCESS" check after the parser
-returns, so leaving the status untouched could let a malformed short
-response be treated as a successful association.
-
-Fixes: c5c77ba18ea6 ("staging: wilc1000: Add SDIO/SPI 802.11 driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Huihui Huang <hhhuang@smu.edu.sg>
-Link: https://patch.msgid.link/20260714091811.3596126-1-hhhuang@smu.edu.sg
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/net/wireless/microchip/wilc1000/hif.c |    5 +++++
- 1 file changed, 5 insertions(+)
-
---- a/drivers/net/wireless/microchip/wilc1000/hif.c
-+++ b/drivers/net/wireless/microchip/wilc1000/hif.c
-@@ -582,6 +582,11 @@ static s32 wilc_parse_assoc_resp_info(u8
- 	u16 ies_len;
- 	struct wilc_assoc_resp *res = (struct wilc_assoc_resp *)buffer;
- 
-+	if (buffer_len < sizeof(*res)) {
-+		ret_conn_info->status = WLAN_STATUS_UNSPECIFIED_FAILURE;
-+		return -EINVAL;
-+	}
-+
- 	ret_conn_info->status = le16_to_cpu(res->status_code);
- 	if (ret_conn_info->status == WLAN_STATUS_SUCCESS) {
- 		ies = &buffer[sizeof(*res)];
-
-
+--=20
+Best regards,
+Junhui Liu
