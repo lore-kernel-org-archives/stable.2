@@ -1,182 +1,106 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81427303C97;
-	Mon, 17 Aug 2026 01:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2546175A84;
+	Mon, 17 Aug 2026 01:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786930859; cv=none; b=TFxLNbyh5Q65g/VQFNlLycKvC9mGFf4Cbr/ubO8RHHL55U1OTjC0tAGdm47dG1pJOYa2ENrVaYs0/4Nw1gYSsw8PvEHDUO0qKWb3jLqechsRQA4KtoUi9Ew1HACYJUVzp1a0xr8NfvuI+KEDwEHSJHGS+dRHuon/692fNl2DAho=
+	t=1786931155; cv=none; b=oAyqoxvZZ5Dhgt/rbKvDzjSHHrSI8SeJ2q12oTLEwQAPV4qXwLuTChOyexBdxKaAUH4+rDriChW87zyHJ6VCmK0y4ZO96AjFYa3inXbW0c2oozGuaBNbz88hEjkpXFo8VgZ/tHkzbpOpzMaGCW7/WaK8KPlTfSFEPloKJ8QAsbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786930859; c=relaxed/simple;
-	bh=ux8gLgSR3j2QA11SEXSaPNcECtiTdhBHExpdrJgeSqQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=m8oCGH9ntDgTuxxO3nlfbHSvHpJr9UF/7tDc9fIoT2d/Book2dBRpD4gOkYkLzEfEXfwQIg+VliSJ8RxEPadIRPgxDk+Bll9vqD9mRgqSX+fIyDIGQ9g9YRoknOABNfzuUYcnkEYjyis+4i4YzzdCRMxGiwA/wmc6uA7kr8ooq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=H2rWPQEC; arc=none smtp.client-ip=220.197.31.2
+	s=arc-20240116; t=1786931155; c=relaxed/simple;
+	bh=xCalpKfJwppbsjEw142Sk0IZWbTHlPAac+YOCWP48vA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ZFgpfgQ3JuJfPjBYSXRSHNCJtL011pJrB0WFcjLpDAq8muPFZBEDPAjDf+E16p6gZIvmgCLNP9txrczW+sPNORAgzv7EgDLWA0fiM6hp+akkwHhX8I3x3UBV0WP3CG6usn0axpZRNkIuK4aHzBWz8lDpPJVZXvqh3HunFoN//TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="H2rWPQEC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=vG
-	hqCu/6WiBRPxTiWmmpCCcdk3NXMSbgCtEM3V5wjIM=; b=H2rWPQECIzP+SVr5ch
-	V5UQFSOuicTkafTdQ+Yn3UI3nqzUymO7o9o3UO2nI9AOBPpu38l/9O7uSSnMSH6E
-	1esal8lQIGrVVVvGmX4JRRwv6JM2N6M69MwzoIZEcA4L4f3Hpsl7v5i29I7sRGso
-	eSrcvU28LFBVjzNH1k5LpXYX0=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgDH5w5yZoJqQVejLg--.13488S3;
-	Mon, 17 Aug 2026 09:40:06 +0800 (CST)
-From: Yang Xiuwei <yangxiuwei@kylinos.cn>
-To: James.Bottomley@HansenPartnership.com,
-	martin.petersen@oracle.com
-Cc: axboe@kernel.dk,
-	bvanassche@acm.org,
-	csander@purestorage.com,
-	fujita.tomonori@lab.ntt.co.jp,
-	io-uring@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	rc@rexion.ai,
-	stable@vger.kernel.org,
-	Yang Xiuwei <yangxiuwei@kylinos.cn>
-Subject: [PATCH v3 1/2] scsi: bsg: fix TOCTOU in io_uring passthrough command setup
-Date: Mon, 17 Aug 2026 09:39:58 +0800
-Message-Id: <20260817013959.165425-2-yangxiuwei@kylinos.cn>
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5e92b35099dd11f19a56ed5b684f684d-20260817
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:6d8657b7-551d-4f27-a1c1-8f1814073dd4,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:edb4ca3ec98e39d76c197dc47d296679,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5e92b35099dd11f19a56ed5b684f684d-20260817
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 498122896; Mon, 17 Aug 2026 09:45:47 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linux-btrfs@vger.kernel.org
+Cc: Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] btrfs: fix use-after-free in mark_block_group_to_copy
+Date: Mon, 17 Aug 2026 09:45:45 +0800
+Message-Id: <20260817014545.13169-1-zenghongling@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260817013959.165425-1-yangxiuwei@kylinos.cn>
-References: <20260817013959.165425-1-yangxiuwei@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgDH5w5yZoJqQVejLg--.13488S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAr1kCr1fWr1xXw47WF43Awb_yoWrKryfpF
-	WYqw4Svr45WF1IkF9rJFW5Zay5tw1ku3WxKFW3Ww43trWqvr9093W8XFyIqFWfAr97AFyF
-	qr4qgF1DCr1jq3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jUzV8UUUUU=
-Sender: yangxiuwei2025@163.com
-X-CM-SenderInfo: p1dqw55lxzvxisqskqqrwthudrp/xtbC6hbxgmqCZnb6wQAA3M
 
-From: Rahul Chandelkar <rc@rexion.ai>
+mark_block_group_to_copy() iterates over the commit root with
+skip_locking=true to avoid lock contention. Without holding
+commit_root_sem,a concurrent transaction commit can swap and free
+the commit root during iteration, leading to use-after-free when
+accessing extent buffers.
 
-scsi_bsg_uring_cmd() reads bsg_uring_cmd from the shared mmap'd SQE.
-Userspace can change a field after we check it and before we use it.
-request_len is the sharp case: it can grow past sizeof(scmd->cmnd)
-after the bound check and overflow scmd->cmnd in copy_from_user().
+The fix adds commit_root_sem locking, but CRITICALLY must only cover the
+actual search period (btrfs_for_each_slot), NOT the preceding while loop
+which calls btrfs_commit_transaction(). If held during that loop, we get
+self-deadlock: down_read(commit_root_sem) → btrfs_commit_transaction()
+→ switch_commit_roots() → down_write(commit_root_sem), blocking forever
+on our own read lock.
 
-READ_ONCE() the SQE fields we check or use into locals before use.
+Lock scope:
+- down_read() after path setup, before btrfs_for_each_slot
+- up_read() immediately after btrfs_for_each_slot completes
+- NOT held during while loop (btrfs_commit_transaction) path
+- NOT held on the !path error path (goto unlock before lock
+  acquisition)
 
-Fixes: 7b6d3255e7f8 ("scsi: bsg: add io_uring passthrough handler")
+This matches the established btrfs pattern used in send.c, backref.c, etc.:
+hold commit_root_sem read lock ONLY while searching commit root, never
+across transaction commits.
+
+Fixes: 78ce9fc269af ("btrfs: zoned: mark block groups to copy for device-replace")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20260527105931.3950913-1-rc@rexion.ai
-Signed-off-by: Rahul Chandelkar <rc@rexion.ai>
-Co-developed-by: Yang Xiuwei <yangxiuwei@kylinos.cn>
-Signed-off-by: Yang Xiuwei <yangxiuwei@kylinos.cn>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- drivers/scsi/scsi_bsg.c | 44 ++++++++++++++++++++++++++---------------
- 1 file changed, 28 insertions(+), 16 deletions(-)
+ fs/btrfs/dev-replace.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/scsi/scsi_bsg.c b/drivers/scsi/scsi_bsg.c
-index e80dec53174e..7758c5f22a7e 100644
---- a/drivers/scsi/scsi_bsg.c
-+++ b/drivers/scsi/scsi_bsg.c
-@@ -76,12 +76,10 @@ static enum rq_end_io_ret scsi_bsg_uring_cmd_done(struct request *req,
+diff --git a/fs/btrfs/dev-replace.c b/fs/btrfs/dev-replace.c
+index dc0834f920c3..734807bf48b3 100644
+--- a/fs/btrfs/dev-replace.c
++++ b/fs/btrfs/dev-replace.c
+@@ -499,6 +499,7 @@ static int mark_block_group_to_copy(struct btrfs_fs_info *fs_info,
+ 	key.type = BTRFS_DEV_EXTENT_KEY;
+ 	key.offset = 0;
  
- static int scsi_bsg_map_user_buffer(struct request *req,
- 				    struct io_uring_cmd *ioucmd,
--				    unsigned int issue_flags, gfp_t gfp_mask)
-+				    unsigned int issue_flags, gfp_t gfp_mask,
-+				    bool is_write, u64 buf_addr,
-+				    unsigned long buf_len)
- {
--	const struct bsg_uring_cmd *cmd = io_uring_sqe128_cmd(ioucmd->sqe, struct bsg_uring_cmd);
--	bool is_write = cmd->dout_xfer_len > 0;
--	u64 buf_addr = is_write ? cmd->dout_xferp : cmd->din_xferp;
--	unsigned long buf_len = is_write ? cmd->dout_xfer_len : cmd->din_xfer_len;
- 	struct iov_iter iter;
- 	int ret;
++	down_read(&fs_info->commit_root_sem);
+ 	btrfs_for_each_slot(root, &key, &found_key, path, iter_ret) {
+ 		struct extent_buffer *leaf = path->nodes[0];
  
-@@ -104,21 +102,29 @@ static int scsi_bsg_uring_cmd(struct request_queue *q, struct io_uring_cmd *iouc
- 			       unsigned int issue_flags, bool open_for_write)
- {
- 	struct scsi_bsg_uring_cmd_pdu *pdu = scsi_bsg_uring_cmd_pdu(ioucmd);
--	const struct bsg_uring_cmd *cmd = io_uring_sqe128_cmd(ioucmd->sqe, struct bsg_uring_cmd);
-+	const struct bsg_uring_cmd *cmd =
-+		io_uring_sqe128_cmd(ioucmd->sqe, struct bsg_uring_cmd);
- 	struct scsi_cmnd *scmd;
- 	struct request *req;
- 	blk_mq_req_flags_t blk_flags = 0;
- 	gfp_t gfp_mask = GFP_KERNEL;
-+	u64 request = READ_ONCE(cmd->request);
-+	u32 request_len = READ_ONCE(cmd->request_len);
-+	u64 dout_xferp = READ_ONCE(cmd->dout_xferp);
-+	u32 dout_xfer_len = READ_ONCE(cmd->dout_xfer_len);
-+	u64 din_xferp = READ_ONCE(cmd->din_xferp);
-+	u32 din_xfer_len = READ_ONCE(cmd->din_xfer_len);
-+	u32 max_response_len = READ_ONCE(cmd->max_response_len);
- 	int ret;
+@@ -525,6 +526,8 @@ static int mark_block_group_to_copy(struct btrfs_fs_info *fs_info,
+ 	if (iter_ret < 0)
+ 		ret = iter_ret;
  
- 	if (cmd->protocol != BSG_PROTOCOL_SCSI ||
- 	    cmd->subprotocol != BSG_SUB_PROTOCOL_SCSI_CMD)
- 		return -EINVAL;
- 
--	if (!cmd->request || cmd->request_len == 0)
-+	if (!request || request_len == 0)
- 		return -EINVAL;
- 
--	if (cmd->dout_xfer_len && cmd->din_xfer_len) {
-+	if (dout_xfer_len && din_xfer_len) {
- 		pr_warn_once("BIDI support in bsg has been removed.\n");
- 		return -EOPNOTSUPP;
- 	}
-@@ -131,20 +137,20 @@ static int scsi_bsg_uring_cmd(struct request_queue *q, struct io_uring_cmd *iouc
- 		gfp_mask = GFP_NOWAIT;
- 	}
- 
--	req = scsi_alloc_request(q, cmd->dout_xfer_len ?
-+	req = scsi_alloc_request(q, dout_xfer_len ?
- 				 REQ_OP_DRV_OUT : REQ_OP_DRV_IN, blk_flags);
- 	if (IS_ERR(req))
- 		return PTR_ERR(req);
- 
- 	scmd = blk_mq_rq_to_pdu(req);
--	if (cmd->request_len > sizeof(scmd->cmnd)) {
-+	if (request_len > sizeof(scmd->cmnd)) {
- 		ret = -EINVAL;
- 		goto out_free_req;
- 	}
--	scmd->cmd_len = cmd->request_len;
-+	scmd->cmd_len = request_len;
- 	scmd->allowed = SG_DEFAULT_RETRIES;
- 
--	if (copy_from_user(scmd->cmnd, uptr64(cmd->request), cmd->request_len)) {
-+	if (copy_from_user(scmd->cmnd, uptr64(request), request_len)) {
- 		ret = -EFAULT;
- 		goto out_free_req;
- 	}
-@@ -155,11 +161,17 @@ static int scsi_bsg_uring_cmd(struct request_queue *q, struct io_uring_cmd *iouc
- 	}
- 
- 	pdu->response_addr = cmd->response;
--	scmd->sense_len = cmd->max_response_len ?
--		min(cmd->max_response_len, SCSI_SENSE_BUFFERSIZE) : SCSI_SENSE_BUFFERSIZE;
-+	scmd->sense_len = max_response_len ?
-+		min(max_response_len, SCSI_SENSE_BUFFERSIZE) : SCSI_SENSE_BUFFERSIZE;
- 
--	if (cmd->dout_xfer_len || cmd->din_xfer_len) {
--		ret = scsi_bsg_map_user_buffer(req, ioucmd, issue_flags, gfp_mask);
-+	if (dout_xfer_len || din_xfer_len) {
-+		bool is_write = dout_xfer_len > 0;
-+		u64 buf_addr = is_write ? dout_xferp : din_xferp;
-+		unsigned long buf_len = is_write ? dout_xfer_len : din_xfer_len;
++	up_read(&fs_info->commit_root_sem);
 +
-+		ret = scsi_bsg_map_user_buffer(req, ioucmd, issue_flags,
-+					       gfp_mask, is_write, buf_addr,
-+					       buf_len);
- 		if (ret)
- 			goto out_free_req;
- 		pdu->bio = req->bio;
+ 	btrfs_free_path(path);
+ unlock:
+ 	mutex_unlock(&fs_info->chunk_mutex);
 -- 
 2.25.1
 
