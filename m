@@ -1,85 +1,186 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5CE3F8EBE;
-	Mon, 17 Aug 2026 15:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71D2421259;
+	Mon, 17 Aug 2026 15:23:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786980226; cv=none; b=Lm5ZDGtvXAY+e6txGUTRZgoMfoPhlH4sBiqXshqZr3RU1JzXtE02r+bWNyfHYSDYK8i5tkG4VC9zSEukjgqWOb5aJAIKSjBj51LQgLS1DkhFD9fQT+3/W9CMXSQtYdjVgI+JX7bdpRWEkj9qs7yQAhDLmJIzz+B8euijvNsgpf4=
+	t=1786980226; cv=none; b=CdMaB6CzBqGqosZM05aTv6ojy9a4vfJuYyqNEXWSn/4Ob2v8giEeSDjDspyclYLj2Cv7drz6TZcGuMXoeBofX98OrgYl3RBU/O+IId2tB++q57evkFEqQuPFpK1PnQJPaPw2QqMyvaERazoC1drHGoekpTEM3c0IkykVoCnI9ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786980226; c=relaxed/simple;
-	bh=msl28pOI/fIME2wOC1gRmqujU8+8NPSO78hDxF33EKM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H6XF1sJyR5c+eACvCGKA+yXO56lSsD4YY6Vt8Km9wOh0xIp5dlfjcX7k2Gavam8y6fIsWo0TUqf/+WCiDSBZJt6Uc5h8ymuQmOOpx+DKLDW4zoURP4JQXGtL4YRo9kN+X2fz65+IRfe/2ST7buioLRqe1yzwG7IahkmsdOcRueU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WTJFx4d9; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	bh=HLmsO73FAoVs/YzYx1Bk0PrQUxIx5PXksBLUsgTfy2s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lUAs2z1yyorE0VrzN+mmWGpqJH2Ydpwu9VkYTiKMLq00pC+YqmaCcQTKOJ68rMxPbfnYr1Q6749S13JNxpD7CXSSk71foO3FQQpMWaB1J49E30iYikj152Job3xKwz/g3VkYK5Y4hQvnLXabIZSBx5eLr+r9DWAApGrozDDzN3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=g0S0EWKC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WTJFx4d9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786980224; x=1818516224;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=msl28pOI/fIME2wOC1gRmqujU8+8NPSO78hDxF33EKM=;
-  b=WTJFx4d94Xt5SocJ+XOvsPYbkIzIJqug7jmi9pS+sTNSlNTmi1JntZcI
-   4Q80EEmXR8jy3tkpSHZERVpkNob17atpIPOI2KsEWuMwF2O/dtFcOfA5r
-   W1KMnLo0GNTItMQlSShtHXltquP8Priuxc549j0xk18RB8XQSHC3ylE03
-   y8XPecwqRt4EGNCRedUgPJsHavpQR4Ywd5+wgBNSpq2VRECjUncpXyEXm
-   abQhqTsFnm9A8zi0j0oky/jS/CLDUZ35TGAnHteB94VPWp8jF5JSFyLYK
-   j6Ib/u11jQ8xuk8he673hlRDGOVqCbsz7JdBZW9aC2yBnIZ3ocEXRtRPv
-   Q==;
-X-CSE-ConnectionGUID: 3QTYP/McSaimCAj6dnsX6A==
-X-CSE-MsgGUID: eJC78q/MSZ2UetkjxabJ9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="74989006"
-X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
-   d="scan'208";a="74989006"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 08:23:43 -0700
-X-CSE-ConnectionGUID: wBEASFEzQSuiNDwVEiCcow==
-X-CSE-MsgGUID: YZhT4dB2R96XbM/i3gQ2fQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
-   d="scan'208";a="264486862"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 08:23:42 -0700
-Date: Mon, 17 Aug 2026 18:23:38 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="g0S0EWKC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079F41F00A3A;
+	Mon, 17 Aug 2026 15:23:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786980225;
+	bh=lxYvNEPFup4Cwnnew+NIj02bz3Ia7qyM0ULVT/jutQ0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g0S0EWKCfUDClfRya5GaXNFI6Z33NWW4hM3vbL+7rqAb0VoFytSWieq21FsBTcYCw
+	 MN6frO6BxNfEg9Cm0COGwEZMByMJdPTVvItujh8vNFNZ24fe9Xgl4RzX7KSQExfeFF
+	 c2lirGAgyiQvA1jRhkx3oabRYoKhvFEXlVOSwlPA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Xu Yang <xu.yang_2@nxp.com>,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drivers: base: test: Depend on OF instead of selecting it
-Message-ID: <aoMnevcLHdUEZr9-@ashevche-desk.local>
-References: <20260817-driver-pe-v1-1-7003ddb9e400@chromium.org>
+	patches@lists.linux.dev,
+	Michael Guralnik <michaelgur@nvidia.com>,
+	Shay Drori <shayd@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 500/609] net/mlx5: fw_tracer, return NULL on create error
+Date: Mon, 17 Aug 2026 15:33:16 +0200
+Message-ID: <20260817132600.612737682@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
+References: <20260817132543.039278408@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260817-driver-pe-v1-1-7003ddb9e400@chromium.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 17, 2026 at 11:54:44AM +0000, Ricardo Ribalda wrote:
-> Selecting OF instead of depending on it makes it impossible to
-> disable OF when KUNIT_ALL_TESTS is selected.
-> 
-> The purpose of KUNIT_ALL_TESTS is to test everything with satisfied
-> dependencies, not to force dependencies.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+------------------
 
-Shouldn't we also handle this in tools/testing/kunit/configs/all_tests.config?
-(maybe in the future).
+From: Michael Guralnik <michaelgur@nvidia.com>
 
+[ Upstream commit af39eb111ce6b5eba9c08513b62c4868eb7e7fd5 ]
+
+Tracer creation can fail by returning either NULL or ERR_PTR.
+The return value is stored without a check on the device, and users
+treat ERR_PTR and NULL the same way.
+This also causes a crash in the core dump logic, which is missing the
+ERR_PTR check and ends up dereferencing it, as shown in the trace below.
+
+Switch tracer creation to return NULL on failure only, so callers only
+need a single NULL check.
+
+  Internal error: Oops: 0000000096000006 [#1]  SMP
+  Modules linked in: mlx5_ib ib_uverbs ib_core ipv6 mlx5_core
+  CPU: 1 UID: 0 PID: 12 Comm: kworker/u16:0 Not tainted 6.19.7 #1 PREEMPT(none)
+  Workqueue: mlx5_health0001:01:00.0 mlx5_fw_reporter_err_work [mlx5_core]
+  pstate: a3400009 (NzCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+  pc : mlx5_fw_tracer_trigger_core_dump_general+0x58/0xe0 [mlx5_core]
+  lr : mlx5_fw_tracer_trigger_core_dump_general+0x40/0xe0 [mlx5_core]
+  sp : ffff800081cf3c40
+  x29: ffff800081cf3c90 x28: 0000000000000000 x27: 0000000000000000
+  x26: ffff000080018828 x25: 0000000000000000 x24: ffff000080304a05
+  x23: ffff800081cf3d80 x22: ffff0000847e01a0 x21: 0000000000000000
+  x20: ffff0000847e01a0 x19: ffffffffffffffa1 x18: ffff80008310bbf0
+  x17: ffff800080119650 x16: ffff80008010df54 x15: ffff80008010d4ac
+  x14: ffff800079c202e4 x13: ffff80008002fe60 x12: ffff800080119650
+  x11: ffff80008010df54 x10: ffff80008010d4ac x9 : ffff800079c203d8
+  x8 : ffff800081cf3c88 x7 : 0000000000000000 x6 : 0000000000000000
+  x5 : 0000000000000000 x4 : 0000000000000008 x3 : 0000000000000030
+  x2 : 0000000000000008 x1 : 0000000000000000 x0 : 00000000c5c4000e
+  Call trace:
+   mlx5_fw_tracer_trigger_core_dump_general+0x58/0xe0 [mlx5_core] (P)
+   mlx5_fw_reporter_dump+0x30/0x2e0 [mlx5_core]
+   devlink_health_do_dump+0x9c/0x160
+   devlink_health_report+0x1c0/0x288
+   mlx5_fw_reporter_err_work+0xac/0xc0 [mlx5_core]
+   process_one_work+0x15c/0x3d8
+   worker_thread+0x18c/0x320
+   kthread+0x148/0x228
+   ret_from_fork+0x10/0x20
+  Code: b9400000 5ac00800 7a401800 540003ca (3940a260)
+  ---[ end trace 0000000000000000 ]---
+  Kernel panic - not syncing: Oops: Fatal exception
+  SMP: stopping secondary CPUs
+  Kernel Offset: disabled
+  CPU features: 0x000000,00078031,75fce5a1,35fffe67
+  Memory Limit: none
+  ---[ end Kernel panic - not syncing: Oops: Fatal exception ]---
+
+Fixes: fd1483fe1f9f ("net/mlx5: Add support for FW reporter dump")
+Signed-off-by: Michael Guralnik <michaelgur@nvidia.com>
+Reviewed-by: Shay Drori <shayd@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Link: https://patch.msgid.link/20260729080402.2427184-1-tariqt@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../ethernet/mellanox/mlx5/core/diag/fw_tracer.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/diag/fw_tracer.c b/drivers/net/ethernet/mellanox/mlx5/core/diag/fw_tracer.c
+index c216634c8919e..de0bb2669e4ce 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/diag/fw_tracer.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/diag/fw_tracer.c
+@@ -1036,13 +1036,11 @@ struct mlx5_fw_tracer *mlx5_fw_tracer_create(struct mlx5_core_dev *dev)
+ 
+ 	tracer = kvzalloc(sizeof(*tracer), GFP_KERNEL);
+ 	if (!tracer)
+-		return ERR_PTR(-ENOMEM);
++		return NULL;
+ 
+ 	tracer->work_queue = create_singlethread_workqueue("mlx5_fw_tracer");
+-	if (!tracer->work_queue) {
+-		err = -ENOMEM;
++	if (!tracer->work_queue)
+ 		goto free_tracer;
+-	}
+ 
+ 	tracer->dev = dev;
+ 
+@@ -1082,7 +1080,7 @@ struct mlx5_fw_tracer *mlx5_fw_tracer_create(struct mlx5_core_dev *dev)
+ 	destroy_workqueue(tracer->work_queue);
+ free_tracer:
+ 	kvfree(tracer);
+-	return ERR_PTR(err);
++	return NULL;
+ }
+ 
+ static int fw_tracer_event(struct notifier_block *nb, unsigned long action, void *data);
+@@ -1093,7 +1091,7 @@ int mlx5_fw_tracer_init(struct mlx5_fw_tracer *tracer)
+ 	struct mlx5_core_dev *dev;
+ 	int err;
+ 
+-	if (IS_ERR_OR_NULL(tracer))
++	if (!tracer)
+ 		return 0;
+ 
+ 	dev = tracer->dev;
+@@ -1136,7 +1134,7 @@ int mlx5_fw_tracer_init(struct mlx5_fw_tracer *tracer)
+ /* Stop tracer + Cleanup HW resources */
+ void mlx5_fw_tracer_cleanup(struct mlx5_fw_tracer *tracer)
+ {
+-	if (IS_ERR_OR_NULL(tracer))
++	if (!tracer)
+ 		return;
+ 
+ 	mlx5_core_dbg(tracer->dev, "FWTracer: Cleanup, is owner ? (%d)\n",
+@@ -1155,7 +1153,7 @@ void mlx5_fw_tracer_cleanup(struct mlx5_fw_tracer *tracer)
+ /* Free software resources (Buffers, etc ..) */
+ void mlx5_fw_tracer_destroy(struct mlx5_fw_tracer *tracer)
+ {
+-	if (IS_ERR_OR_NULL(tracer))
++	if (!tracer)
+ 		return;
+ 
+ 	mlx5_core_dbg(tracer->dev, "FWTracer: Destroy\n");
+@@ -1203,7 +1201,7 @@ int mlx5_fw_tracer_reload(struct mlx5_fw_tracer *tracer)
+ 	struct mlx5_core_dev *dev;
+ 	int err;
+ 
+-	if (IS_ERR_OR_NULL(tracer))
++	if (!tracer)
+ 		return 0;
+ 
+ 	dev = tracer->dev;
 -- 
-With Best Regards,
-Andy Shevchenko
+2.53.0
+
 
 
