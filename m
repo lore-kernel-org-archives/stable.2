@@ -1,191 +1,89 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E45F3BCD24
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 08:49:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90703C0619;
+	Mon, 17 Aug 2026 08:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786956599; cv=none; b=NQg4vgL1fIzf3ZPPfS9owlFUh7tRc7gjK3lLdYqIxVz7PWsjO3VohGc/rnjwEA8tx1wcNCbLnT+AZuHNpYEFmg4hgMaPcmtT/CCimnLYmJcTdws53N032E8xAOAFOG2QjMWgNr/HiAG2JeVbMcPGZwKVVb/HZhN2xxRr5Mnnu+o=
+	t=1786956625; cv=none; b=YlKfOffPvx1kedFkdarGO6SHXAk7ZxxUgIp9lMkHf5MDF8IDVhG30FPseUtOewtdRJxqcU0PZ2dISQ5t0F1/nvKPuSwreAQ18jB/KJ4D1ZpLn5zR6c8smBYn8yO96yimBo6Cc0bkQpS81uL5gpUIyuWlK+JXYX7x//1JFVoYMRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786956599; c=relaxed/simple;
-	bh=as2SDlcdmZszLVLpp6U0wTu9/8GUPviDLNz+v3rqc6U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QC7juJzb12G9R8DjcGP3pXpeIGa/04sda85i1DPMfWBPhllzG3oHw9HT77sivlyM8NSOTl1zAN3tNhyHTHSKVInQMNg7hhCZ0h2DHp6/PDlYspGgh8PzF+s6gyTaKlNswTfgjErwwX6DU7KsTyTyonCBN104KqErBkuttL3ebrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=BxIpjygb; arc=none smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1786956625; c=relaxed/simple;
+	bh=HTsJFf2fB2f4yRKdoFXC/7hJQf+ILq783r7QSY/F3q8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YlVpTgSiCxnsgMVG1GELDZSaSYIeBLQ32N7AZkV+NDy4BxfHIHP6yRU46+fcuvIxfj3P83TS4h77s0BE7YmD1K1zYs3zthUSSm7cmuHUGeBPYBh1PEsWsZMobvButcl07q6Glvj+AMRStg+HALhg0hF1Wzki3y/P+4MpvMTIZdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m7g9ylkH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="BxIpjygb"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-51c04bf4711so31489451cf.2
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 01:49:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1786956597; x=1787561397; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6lLhWIiCgpmicN480/UwG2uhnEik8ZpJA1z/kNF7n0I=;
-        b=BxIpjygbPBsERGuqYa65TdvDLAtwrPMxEugGngYmCrYOzDhdHE1Mcruipw1JP8Clb5
-         6liZ75ZtWhzFUW1mHjkiihQnNEb27cQNugUHVO8JoyXEWc6ss20S2LBvGui9TBABY5RB
-         jnUIaSOOswXGOACCJyhSl5I3S5J+xlYzG95UyU2f43Cmp4IAUZdv5dfkWqkL5hoNVQfq
-         XzkDowMZrDNSEczKjPTxgHY2ItLi1/dtrRs16a5hxoVHk2bOF+V9ZOSobX33rH+yIqDL
-         9RMvyHBHzqrHzNpdW/U0QjOddYLYk5So0WezB5jFW2ED/GMpzLuIDAlxoUQaVnxQx0QU
-         Xw1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786956597; x=1787561397;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6lLhWIiCgpmicN480/UwG2uhnEik8ZpJA1z/kNF7n0I=;
-        b=KSjgIQFZ4vUnCCT0vHpbajA+QhirNxhm6kypAIhEipUNMgjVZT7S+UdWWIqQ/9Ptsl
-         ssIqkDoW8yicj1iwXs+X6mb+pJjO3LTsHoyv/IMskhUsB52ux+SSX3hyFxLcvJY0V14Z
-         rbW70u0o9NL7SvY3jjo6fX1klKaEfTPNE/M2TkBto5zvCVF9ODcC7GrmsyaX7vGtReB2
-         y57sybG0ckKz70gg5fKJEG3taV1CH26ztnCHQSUxncfxsex9XAbULKvq17ODfY4pgU04
-         WAEZhaAXt3nGSSh6XzLywIvy7ugqNIzI/EiDkF8ybAvFnl+0aGaYKSS/G/Of1Fcug1UQ
-         wUgA==
-X-Forwarded-Encrypted: i=1; AHgh+RpU+TJrzcU7DASlVXYhYFBNqG1aSU/mKK5lfUo1oJhA6iWGJqFhGK7S1IgHWhnSb1Q9oo3VmFA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy5dX9AxjIIY3QZsVqSXP/1RWXEBd1b4klZXjrj6Lyj4KrkMgRo
-	rlwXLrIKEOsaeSQW9ItTF0nmjT2SyTruk/r4crHFg2VuhYGrxhZSQDROhuYnt3CyGg0=
-X-Gm-Gg: AR+sD10w16Pu8Eu49U+yWAuxM2RpwYFOvDcpxWrTEFkvokc3ZN5qPherGLmJlfKvcLK
-	6dV+/IihRfiP7mO2enmE+IJRie3nPuJ9w3eGwCngOnNppcnmQQEagWhEPdeh2r6RcQsVEqjOOoY
-	8fEDSyJCYcSYiK+kYnL5w23El9aUvEj+rYwPAk6QMobGAHU1sC6KUGBPMoMbKX4BHPAO4k2ICKP
-	cPCBR5VGt7f4fHllSEI4DA2P3DAWxcJ77L6lfysEAFtRgJzBFtv+epKHT8o3LP6S97/cwoRUEp9
-	+uc35vIjhPSFpFwioCxXi6SBakRAfbx4kYXd6VCSPVjzGDrdjrvo1O795iZX+/YdgmEA+3v1CGX
-	EUrRKGWzzU1KiGunPZyuaJFGBxYtW3eRntl0Vh3XVK5SSQgRCk3BvxwR5VRUMtrqAKKJaWRwe8Y
-	OvT8Mp7Lc+9qolGNlZcRRUkiTYY4i7RLT+r1reOFVxx3ysl1gblFLAAo2ccaRf3EvkDOU=
-X-Received: by 2002:a05:622a:3d4:b0:51b:fb82:67d1 with SMTP id d75a77b69052e-52d8542c8e8mr204942221cf.20.1786956597000;
-        Mon, 17 Aug 2026 01:49:57 -0700 (PDT)
-Received: from localhost ([146.190.222.192])
-        by smtp.gmail.com with UTF8SMTPSA id d75a77b69052e-52db60eb85csm9405991cf.4.2026.08.17.01.49.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Aug 2026 01:49:56 -0700 (PDT)
-From: David Lee <david.lee@trailofbits.com>
-To: marek.lindner@mailbox.org,
-	sw@simonwunderlich.de,
-	antonio@mandelbit.com,
-	sven@narfation.org
-Cc: Kyle Zeng <kylebot@openai.com>,
-	davem@davemloft.net,
-	linus.luessing@c0d3.blue,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
-	netdev@vger.kernel.org,
-	b.a.t.m.a.n@lists.open-mesh.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	David Lee <david.lee@trailofbits.com>
-Subject: [PATCH net v3] batman-adv: reject unrepresentable multicast TVLV offsets
-Date: Mon, 17 Aug 2026 08:49:54 +0000
-Message-ID: <20260817084955.944189-1-david.lee@trailofbits.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m7g9ylkH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06281F00A3A;
+	Mon, 17 Aug 2026 08:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786956624;
+	bh=Uc7aL40On+N+owN43pREKxKVuYx6yh3KMGJHIRHRr+M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m7g9ylkHRhKs8rGQtvNnGNQvSsQeDKdhZqNE4JFdCFAh8VV6jL9h5kLUzFYQR/ODB
+	 888l22EMeOBNcHMqO+Sf9WbbQ+NLxV1ASriq/bX0DWpcAkaeovMa81dg/ZJzy7WRLh
+	 a+nK32Utj3gdApPAzxZhnh8TAP94OzqFXgdo4Uzio8gm0QsV5mhoMLKpknnIA0MRXZ
+	 fi6eaYP7dwDDR2QRtULZ8PjaxeD1qkMMhgRPqDp5ieUmvsyRiELMP+c3coUhHkNx6x
+	 L/jFD/oUqm+uCD3J9bpHlYpZcFa0ey3HmpKzhaxypNHogF44ZLqBlstSIyMplbpvxd
+	 zd/rzOhfyyv6A==
+Date: Mon, 17 Aug 2026 08:50:22 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Guo Ren <guoren@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+	junhui.liu@pigmoral.tech, stable@vger.kernel.org,
+	Guodong Xu <docular.xu@gmail.com>
+Subject: Re: [PATCH V2] riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
+Message-ID: <20260817085022-GKB571540@kernel.org>
+References: <20260817033038.2286436-1-guoren@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260817033038.2286436-1-guoren@kernel.org>
 
-From: Kyle Zeng <kylebot@openai.com>
+Hi Guo
 
-The network and transport header fields in struct sk_buff are 16-bit
-offsets from skb->head, and U16_MAX is reserved as the unset transport
-header value. batadv_tvlv_call_handler() sets both fields from a received
-multicast TVLV without checking whether the TVLV end is representable.
+On 03:30 Mon 17 Aug     , Guo Ren wrote:
+> From: "GUO Ren (XuanTie)" <guoren@kernel.org>
+> 
+> The initial K3 device tree used generic/placeholder values for the
+> IMSIC guest configuration:
+> 
+>   riscv,num-guest-ids    = <511>;
+> 
+> According to the SpacemiT K3 User Manual this values is incorrect
+> for the X100 cores:
+> 
+>  - Advanced Interrupt Architecture (AIA):
+>     - M-mode MSI: 512
+>     - S-mode MSI: 512
+>     - VS-mode MSI: 64
+> 
+> Therefore, S-mode IMSIC (simsic) needs num-guest-ids = 63.
+> 
+> Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 SoC")
+> Cc: stable@vger.kernel.org
+> Cc: Guodong Xu <docular.xu@gmail.com>
+> Cc: Yixun Lan <dlan@kernel.org>
+> Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
+> ---
+> V2:
+>  - Drop the riscv,guest-index-bits change for simsic: the property
+>    describes the number of guest index bits in the MSI target address,
+>    and the per-hart stride on K3 is 0x40000 = 2^(6 + 12), so 6 is
+>    correct as is.
+>  - Drop the mimsic changes: already fixed by Junhui.
+>  - Reword the subject and commit log accordingly.
+> ---
+>  arch/riscv/boot/dts/spacemit/k3.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+Reviewed-by: Yixun Lan <dlan@kernel.org>
 
-If the end offset exceeds the field's range, skb_set_transport_header()
-truncates it so that the transport header precedes the network header.
-The negative difference is then returned by skb_network_header_len() as
-a large u32. batadv_mcast_forw_packet() consequently accepts an oversized
-multicast tracker and accesses memory beyond the skb data.
-
-Add skb_set_transport_header_careful(), an offset-aware counterpart to
-skb_reset_transport_header_careful(), which validates the final
-head-relative offset before assigning it. Use the new helper in
-batadv_tvlv_call_handler() and reject unrepresentable TVLVs before
-setting the network header.
-
-Fixes: 07afe1ba288c ("batman-adv: mcast: implement multicast packet reception and forwarding")
-Cc: stable@vger.kernel.org	
-Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Co-developed-by: David Lee <david.lee@trailofbits.com>
-Signed-off-by: David Lee <david.lee@trailofbits.com>
----
-Changes in v3:
-- Rename transport_offset to thoff so the comparisons fit on one line.
-
-v2: https://lore.kernel.org/netdev/20260810145754.828936-1-david.lee@trailofbits.com/
-
-Changes in v2:
-- Add an offset-aware careful transport-header setter and make batman-adv
-  handle its failure, as suggested by Sven Eckelmann.
-- Restore Kyle Zeng as the patch author and correct the sign-off chain.
-- Move the research credit below the commit-message separator.
-
-v1: https://lore.kernel.org/all/20260731135222.566367-1-david.lee@trailofbits.com/
-
-Bug found and triaged by OpenAI Security Research and
-validated by Trail of Bits.
-
-Trail of Bits has a reproducer for this bug that triggers a
-KASAN use-after-free and can share if needed.
-
- include/linux/skbuff.h | 24 ++++++++++++++++++++++++
- net/batman-adv/tvlv.c  |  5 ++++-
- 2 files changed, 28 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 22eda1d54a0e..ed6a2bc23db5 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -3126,6 +3126,30 @@ static inline void skb_set_transport_header(struct sk_buff *skb,
- 	skb->transport_header += offset;
- }
- 
-+/**
-+ * skb_set_transport_header_careful - conditionally set transport header
-+ * @skb: buffer to alter
-+ * @offset: offset to add to skb->data
-+ *
-+ * Hardened version of skb_set_transport_header().
-+ *
-+ * Returns: true if the operation was a success.
-+ */
-+static inline bool __must_check
-+skb_set_transport_header_careful(struct sk_buff *skb, const int offset)
-+{
-+	long thoff = skb->data - skb->head + offset;
-+
-+	if (unlikely(thoff != (typeof(skb->transport_header))thoff))
-+		return false;
-+
-+	if (unlikely(thoff == (typeof(skb->transport_header))~0U))
-+		return false;
-+
-+	skb->transport_header = thoff;
-+	return true;
-+}
-+
- static inline unsigned char *skb_network_header(const struct sk_buff *skb)
- {
- 	return skb->head + skb->network_header;
-diff --git a/net/batman-adv/tvlv.c b/net/batman-adv/tvlv.c
-index 1c9fb21985f6..c384db16bcac 100644
---- a/net/batman-adv/tvlv.c
-+++ b/net/batman-adv/tvlv.c
-@@ -433,8 +433,11 @@ static int batadv_tvlv_call_handler(struct batadv_priv *bat_priv,
- 			return NET_RX_SUCCESS;
- 
- 		tvlv_offset = (unsigned char *)tvlv_value - skb->data;
-+		if (!skb_set_transport_header_careful(skb,
-+						      tvlv_offset + tvlv_value_len))
-+			return -EINVAL;
-+
- 		skb_set_network_header(skb, tvlv_offset);
--		skb_set_transport_header(skb, tvlv_offset + tvlv_value_len);
- 
- 		return tvlv_handler->mcast_handler(bat_priv, skb);
- 	}
 -- 
-2.53.0
+Yixun Lan (dlan)
