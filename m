@@ -1,107 +1,79 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC91419303
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 16:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937283DC857
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 16:56:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786985412; cv=none; b=Qz1UXiPRFUkqoa/R6W8jBrWvRIrXvvzFJQcF+oy74ZTiIg6Q0Au8tcMbcN3q8kcmWZnuwVNZ7LB2b0F8M+eefd13ddqL02SLWt3ueGHe20uol4/zXyTMP1pBDyoMg0y1n2Lp3HNQqhQJVeEGX/aRS44mf7MiptT99BVqenpw7Uo=
+	t=1786985780; cv=none; b=gP16mzXRrzo/L0NDrMqDknSs52WLFFkMFZrKrmZvBE+UpUb2Al57IVRfcfHPGYJLwcY7BOoLQbUaYCiMt3WBxML2sjOdqfqbR3R1GvvtkoONwWOHmQwsjIQr1mMIBlaFm5Tf9tKvdUQmo1vU5lVetuYCeMIco9F/eAIk2yQQIFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786985412; c=relaxed/simple;
-	bh=OjVP2UeqV+/uwx9h4iMCB5MSvlTrb0jTxwrkDvH7M7I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t/TOC81ZzQ9Bm9uhrXue/tOCxy97viKdruo2Tb+lLhyFSnlM4orLe9VGxRjCp18jIKCz4q8Zxcbfwh2B0ZaQwOJlLoGZt5rDqRMHKMmsZMl86TcamKc0aFhQ0xQFz/lHYCy8kgZQEzNLKqeJMkFwO9taLocW5eSNSiTapjoEkes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=GJuCVGvl; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
+	s=arc-20240116; t=1786985780; c=relaxed/simple;
+	bh=lWWM9eWYrdBnIjngfz8xN12uYcDZNfPkeMROsEkfpO8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=upobLh7EH/YRC3xGv0oWoi4evYhk0NnQxR/2ZVTrnzXGJTEet7zJlede1ww/ZalPSzWSdFA2jTQNxotIEAGi5QUu6cqbUMmSEe+U4+B2g5pmV+InIK3pR23qfFZaiV7pmoWo6hofSnVfiuDw6DNp0ChyKO5zsPKq+0Gtsta1iec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C4Pzb7mm; arc=none smtp.client-ip=91.218.175.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="GJuCVGvl"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-8efec2c28f8so20808496d6.2
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 09:50:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxtx.org; s=google; t=1786985409; x=1787590209; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6cuuYCzWxNZq7lzPSX8I2phdXL25gl0XeNUwdzBzNVE=;
-        b=GJuCVGvlwEv8iJcIkFGEAWPuDUfp40jglMG2ToQlPgVxDriniw/C/urWoWXWQFW6nc
-         lIDVXSeowChx26oYAuXYoCzYRuhXiDJCg4er7qNKMmNZZV0F6hn8mxP8UVIE58R5JOd2
-         4Y4+t/vzGOzMx6YO7i60xsXZU/5K+P5dELisI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786985409; x=1787590209;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6cuuYCzWxNZq7lzPSX8I2phdXL25gl0XeNUwdzBzNVE=;
-        b=lAtYQ5K6FYPAl/g4O14cTDqpssKSj1c46u97Tn6mxgkUtsOpm0fwIsBnfyfoMnzK1a
-         wwkNhndfrh82CzRqS21FoVhnxwSYAirW/7HSZnLJCwFa3ngJF6DCdto90VvXiAD1Lmp8
-         apSmYDDTC7oTLvSmsTuevMWjNLNFoEsQh81AdEdJI08XTPjkfsXp1MvqNkUU6/7Z9FFG
-         tA6X9Dg5+2RGPiSeHOuhQle1GrT9OPMu3h+cVe5akCnHmbDh9LFBGUUNhIGe6uWyqpxE
-         /oogCV1/y4zlEVigCEb8eVuMAgiHbBssLtL7nwL/rpJonBnWIF8hJiYoZxA+n5gbiLbU
-         XqAw==
-X-Gm-Message-State: AOJu0YwmHZBQMBK/7RGLoaA/BEefhZOPtnIrSPlERL3UrMfpdgAQaSxv
-	7qQJaRsQcT6CkSeftFQHORUuWtDKt9HiNenjMwp6i+Q+n7f1rY1eSlAjUYXjl4VOfewY6hug3/k
-	SjbNAp6cl
-X-Gm-Gg: AR+sD12xjkR3muQt6RpLuC+f0VupOG+6CKn11qQQXF1WjhbQvfwTsE+79hwtK2PWh89
-	4FUe/+b5s2le8J5R/huh+LJx/Ntst0hJDswZl6hECALTIp0wuzna66KT+KyPT0hkp3DFKklOmU/
-	Yo3wsOws4Mf9tjrsT93OOSA7faLtZKjL90X+b8wMM/e6lB3U5vbg7LztAzQWs7BczmvIjUL0V2K
-	C29fTCIenC3GOw+Hj8cZOlMrrnbBmHHjzrfqY6OYm+HwhnfukwKKmsiARUu+o2GFO5+0UpkGInq
-	nsLz8SlZr2QtOUZniTrvtUP4bGL69svHitu6XbeeuVrTvugbFhzHr41qC0KLXJ8SZ2Fyka2jO74
-	4AuHM1siCzmP9Q7EuhBq80atGPIXOZzNkYIJhJc3CbdDWEW5Js+HnpYJEkx1JlQF3rZBSS7mgL3
-	VSH0aQbw267pKVTgMkk2hUodI4GUm8B6VzWnXRE3k5XR0+1A8Lw0TGsSPMvMtapi3A6LP/MZRGO
-	N/O
-X-Received: by 2002:a05:6214:252d:b0:908:958f:4f2 with SMTP id 6a1803df08f44-90a91c7b53cmr274029526d6.2.1786985408929;
-        Mon, 17 Aug 2026 09:50:08 -0700 (PDT)
-Received: from fedora64.linuxtx.org ([98.97.3.250])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c4583a412sm12867376d6.12.2026.08.17.09.50.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 09:50:08 -0700 (PDT)
-Sender: Justin Forbes <jmforbes@linuxtx.org>
-Date: Mon, 17 Aug 2026 10:50:05 -0600
-From: Justin Forbes <jforbes@fedoraproject.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.1 000/271] 7.1.9-rc1 review
-Message-ID: <aoM7vdn9WMQE3fM3@fedora64.linuxtx.org>
-References: <20260817132536.752504388@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C4Pzb7mm"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lWWM9eWYrdBnIjngfz8xN12uYcDZNfPkeMROsEkfpO8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786985772; v=1; x=1787590572;
+ b=C4Pzb7mm00OWVdV8Yz1zcn6whJG6y/wBVPkfsaUdbCoGbB1GAeI9dSWlTRBHaR0s5ObmPEoT
+ k7HNZ82SpvUWCgxXYcgA89vKfGiBgjVR5PE3vhmgfks1r2QAAabF8IRF0V4WpH7yNfEG3iIbOqV
+ JGKznYK7MxSOcFTKllg7SXqI=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2a03:83e0:111e:2:c6:2f62:38ca:59d8] (2620:10d:c092:500::6:5429)
+	by smtp.migadu.com with ESMTPS id 9420b58903291c55;
+	Mon, 17 Aug 2026 16:56:12 +0000
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d88017c7-7089-4e85-b56e-21175310db93@linux.dev>
+Date: Mon, 17 Aug 2026 17:56:11 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] bnx2x: fix NULL pointer dereference in
+ bnx2x_free_mem_bp()
+To: Jiangshan Yi <yijiangshan@kylinos.cn>, skalluru@marvell.com,
+ manishc@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
+Cc: dmitry@broadcom.com, eilong@broadcom.com, ariele@broadcom.com,
+ yuvalmin@broadcom.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ 13667453960@163.com, Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260817151326.765824-1-yijiangshan@kylinos.cn>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20260817151326.765824-1-yijiangshan@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 17, 2026 at 03:28:45PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.9 release.
-> There are 271 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 17/08/2026 16:13, Jiangshan Yi wrote:
+> bnx2x_alloc_mem_bp() sets bp->fp_array_size before allocating bp->fp.
+> If the fp allocation fails, the error path calls bnx2x_free_mem_bp(),
+> which dereferences bp->fp in a loop bounded by the non-zero
+> bp->fp_array_size, causing a NULL pointer dereference.
 > 
-> Responses should be made by Wed, 19 Aug 2026 13:23:44 +0000.
-> Anything received after that time might be too late.
+> Move the bp->fp_array_size assignment to after bp->fp is set so that
+> the loop in bnx2x_free_mem_bp() naturally becomes a no-op when bp->fp
+> is NULL, since bp is zero-initialized and fp_array_size remains 0.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.9-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+> Fixes: c3146eb676e7c ("bnx2x: Correct memory preparation and release")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260815122149.951215-1-yijiangshan@kylinos.cn
+> Suggested-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
 
-Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x,
-x86_64), and boot tested x86_64. No regressions noted.
+No need for this tag, it's not used for code improvements
 
-Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+
+Please, review netdev contribution rules at
+https://docs.kernel.org/process/maintainer-netdev.html
+
+Especially patch formatting and 24h cool-down period
