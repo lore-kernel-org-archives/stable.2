@@ -1,144 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE0E448D1D;
-	Mon, 17 Aug 2026 16:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786984441; cv=none; b=a3ax6f+46pqd6Ao7OHR3zs8S21G+4141p0aYn+divEUQWU8E6jMhrfnyh0K9FlpGIJWeh04+S0PmreNCrcsnJB8Ip7GhnIvlO/f0SIK9H4YjrI2y7XJuieA/++/ZEPRY9P/xi3aQA0XdreLMANspak+5o4yEObpi3iDsHZxQ/bY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786984441; c=relaxed/simple;
-	bh=U/eLL9bUNSCvrH9sLn2NYPvhZRCuw7ZtYYwXtyU5EtM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=taRmFJ8U68PgjqHRiyTogOXL2dKjd2JQomVIMHGa8wT2R8vWgMdzNzxfAk1a0RrIIzGWd81KolpD9VOrCckLllDeq/rC8qNmxwVI0PRTOOz80slUYsK8KidKH1/066yIKWMD+jXLQaoCO3Q6yblJqz7xe8jF3fmTbrUbtoNiqNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PVe0wnP6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9535A442FBE
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 16:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786984979; cv=pass; b=Ppq3uuvnUnBNekkbKC/aCa2egAAFMp4nFOrY7pDlcCYKV+YGf6qPI/5C6qOO5VJH4WJQbENe/8TjVuHAlpOQO/LkYyNO5lhz43gHw8PrU8Zc48zo3RiKMDD4A7nzYVuTH9G+zjF05hW0zCNkz+J9EskqzXVTkRDcM0Tb8sR3lUI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786984979; c=relaxed/simple;
+	bh=EkJmkr4i0XfDcLVsu3GNYhW4t/PNRuWRBy9eVihU4eE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gdfcjz8NFWu7sYRjcnuvOaSnyFGuAfKZtOyWVAthyjXKztZBGqGTS2+duqJF8JRVIz+9UJXlR/adTQqJCngjkeXXqtY1Yo9wiOx8N5SHb3/7sDMeuDk64EM9ARIgnrbcCwIU7lZExo4iMxvp8PKywGw/WC05tmI1jEr0P92IuF4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LHPFdZW6; arc=pass smtp.client-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PVe0wnP6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E21751F00A3F;
-	Mon, 17 Aug 2026 16:33:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786984439;
-	bh=yArJ3n0LedpZD7yr7DsVqSaiwMdPJtOBt5PMrcip4oQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=PVe0wnP6NQy5lHXwo+hOArsEWIzrAmBGS3XKY5dRqDHavILmjT/IFQ/1+yyQ4FGRQ
-	 1nBrp2wXxv4EjfOQtWbakN3sN+mu/H5ziCgevGS8fbF+0EZBgufhbLQ/AOOTjg5qnI
-	 LX02KkOu+3g8lWLRacPiebN0nOvk407RP/DOAI10GjVFOq7pVEPkjJubmLxwgFfDPs
-	 zX18+rwFQ4Kkf5rvbhvksCcaRuwit2MkIBSJTl7/kWBRSvOzKnyQuhl7ZjtI/W8kxi
-	 MW/gl+czNGXxExoHdOHIJyUM1/l7R0ZZVHgFF2aMwIrCXXMboOlYGIdy2BkOuezO3O
-	 WoEAHc5YgmmAw==
-Date: Mon, 17 Aug 2026 17:33:40 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Vernon Yang <vernon2gm@gmail.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, 
-	usama.arif@linux.dev, zokeefe@google.com, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] mm: khugepaged: fix folio is used after
- pte_unmap_unlock()
-Message-ID: <aoM3BJE2mGmHZybs@lucifer>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LHPFdZW6"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81f3b227a4aso52921297b3.1
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 09:42:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786984974; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ghwZatuUxK80xZR5itEXaZDR3czfk6PUJCV/fRi6Ckh96zKGnYjGJjdfhcrPuECgUQ
+         dPl1kTVij6xMo3D3B0W2/DKD5cwX6k6xoD6uuV40wP71nn+m+3BpJE3kBTDtgkq9E+ur
+         kPBPvpdcW/xL1grk83WrFCQLQrrGUHapI1nj9HpzlA1sY+yPXuIdej5HM6/JGx4WElUK
+         RW6sGMtwS8IFjsm0dteLn5g0cJ+YLvI+LcorkkeBrjKR2Bw68NjLzk3JVCH6Itn6XvKF
+         83Dim+S4+YtciOPXR53U+s5U57yeZfHPOBDoucAtCtpRcw4YjT+EvLJfLtLd/uip8thW
+         osqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=S/btAlrvPaD93Lrko/2BtnY6B4NRoou9llL+XSVCd+w=;
+        fh=RKuApSpDlcZbU6pVtH7yriLdqbxf77qNGNtzzWZ4J44=;
+        b=OI43pmpON5k4WDxKYGWgA56bc9S+AZCoj1D1Xr7OpedY9nBrJeXWPH4X7tIKvJGo4M
+         aVgNisBNDqCN9Osmf8dJd24efuemeVOWV+xQrJZOGtjg/7PV08lOoNB4GVXFR89F3fte
+         +EMMSrKRjrupf5wiGYamGD+1JDYGKp3qFGtkHO8lO+pwsNNmhhmMWpAY2vtDZuyZJWpA
+         VxBi1qP2AffUXeHu1J1BxT6olxqG+M/w7QgHYr7ryov5pz8r/NzAsCMCBxR9Encavr8M
+         hmGiSSNIlcygu+eLKHKV2Gc7BQFDDhRtH9WPNE2JD2svnX7GmIscMSoncPbCn9wNl6X4
+         5/XQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786984974; x=1787589774; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=S/btAlrvPaD93Lrko/2BtnY6B4NRoou9llL+XSVCd+w=;
+        b=LHPFdZW6lRnqTYHW60ekEN7LwPD/XOtMmKdf3xzuGRbaNPzO12wes4uvPKveW9nwdz
+         KtkuJRoamK2z7su1NLWKAwOKRtHPssFN6c2sNqrrxxjf3+xRGKjh3+3Tp4Vjpl+Gz/f2
+         DngfBxjRGIDakFTB8M9k79sZZO/8pqYNgPVzoNoWXyntXAS+ovVSreUJOoWgS6brJNDX
+         CdBkgetLTfoBZvDwadKJHKGgcSOz4RseDsBelZEU4didA3nWI+id7Rv2jUkRRwxJl7ke
+         Ufu2Lvyg8FUKwDFydD0wqV2vrWLUVxjVP15+ZypYrcdrjyaTTD+zmw8UWHTAgaNm8Rmy
+         m2DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786984974; x=1787589774;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S/btAlrvPaD93Lrko/2BtnY6B4NRoou9llL+XSVCd+w=;
+        b=OU7Pfy50ZoC68MeJH2JR3gKLKrK1xfZiMUAYx5TBZO4itwZJqEI7Y5ciGVMV1W7TbI
+         2a/tp6CfcS+zmgTcWgnZNwOgL4rdZt7bZbieeLbW3mKxF+V+nnGe1iqhWLSA7Y7n6Vnx
+         MIowWGf9uomBTb6wbp6wmg2Fv40zqMnVLcXN+kA5CXFRcPnf48pUnmv+EurRaRPhFb8z
+         lwSNpcSVhsXAaYMo1wlFUdeDlpBd5k6C9+1zQo39E47r9XMUA1q2Bl9320aJVh4Y0KIa
+         DBvmj+uj9OuAgzmJJegZp0AzSRtUSUCul8jre1heQmsyy/TC9urKT6MnLVN+f2x11prb
+         umKg==
+X-Forwarded-Encrypted: i=1; AHgh+Roq2Qdz9nTkSWax1a/RsuGrdQd5nLQ4Fp0vz3yu5CQb/tx7LhFYXXEqBWu/D/1BD5aQUggE2Zg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrOYdcv+VYSTI7k9wu6rcRLa/4MyLWp7UibtOr1QC5Nxw2KVat
+	V5d3OYsfom9xvJVmFNZmcOtjHKtlAhsZAh2i1qUIdW8hQNg7I5mx7SEcP89ro6MpkVhhwQWyzwG
+	G1DTOOES8VS2KCmnEynxOk5E1nEB2spU=
+X-Gm-Gg: AR+sD129Lhbvqo1OJnfjy1UYgEtMOH30EXbEayaxBOeqy7CF0jKTlUNFqLIcOdoANJx
+	vhFvqVF4fMWDkZ5vWxN1oFEJl2BPnL0Tshxgk85VlLJC349ei1/RU8uH4e++ir7+jfztoFTwaOK
+	9n8oERHFKuZM83VoqIWvn1HnFjcrB0JDD5Scn8IR3fWzbWlNeKiC4AIyFP/wsPbCreokD+Z/tGI
+	wdBjdUjl335aHH5BEJtRQGPTxpMsd6SCVTjTQvvxNeKHRw7FL1Sk9CkEkoAvCNUuRyOFB8OFymm
+	YVfyAYU8aOwtam0WdinbMZFEGQY8LJQOGP4YQ28/swocacFu3zhC915+oDMJogkxclu2Jefa7bV
+	jlTJ4asVgwjGXjqtGF/1MGJd3+UjV
+X-Received: by 2002:a05:690c:ec2:b0:81e:893c:2c23 with SMTP id
+ 00721157ae682-8370dfb375amr114957297b3.11.1786984973996; Mon, 17 Aug 2026
+ 09:42:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoMynfFI2XK2UXXN@lucifer>
+References: <20260817150240.520181-1-valentin.kindschi@fiveco.ch>
+ <20260817150240.520181-3-valentin.kindschi@fiveco.ch> <CABBYNZJ55q+jpSRrp7PS31hR6xbDEPNExQCADKGWFKtKKweMjQ@mail.gmail.com>
+ <700f0c2d3c5d4ac8bea4774375703bba@fiveco.ch>
+In-Reply-To: <700f0c2d3c5d4ac8bea4774375703bba@fiveco.ch>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Mon, 17 Aug 2026 12:42:42 -0400
+X-Gm-Features: AcwNN1U0lbZ9sKvFCoDq7ZEQvI75MALh1DTXrlbrIEUc-kGiNRabIMye2jFeZVw
+Message-ID: <CABBYNZKLcM2L9VTNhyr=O+TMHK-CoyspCQA+yU_hP2ER-SOS+g@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] Bluetooth: hci_event: keep HCI_LE_ADV set if the
+ host cancelled
+To: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+Cc: "linux-bluetooth@vger.kernel.org" <linux-bluetooth@vger.kernel.org>, 
+	"marcel@holtmann.org" <marcel@holtmann.org>, "johan.hedberg@gmail.com" <johan.hedberg@gmail.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 17, 2026 at 05:12:01PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Sat, Aug 15, 2026 at 01:19:23PM +0800, Vernon Yang wrote:
-> > From: Vernon Yang <yanglincheng@kylinos.cn>
+Hi Valentin,
+
+On Mon, Aug 17, 2026 at 12:31=E2=80=AFPM Valentin Kindschi
+<valentin.kindschi@fiveco.ch> wrote:
+>
+> Oh, you're right. The test is too narrow - a connection timeout on the ce=
+ntral path should not clear it either.
+>
+> The clear exists because advertising stops when a peripheral connection i=
+s created, so the role seems more relevant than the status - but ev->role i=
+s not dependable on a failed event, and the conn lookup that would give a t=
+rustworthy role happens after this point.
+>
+> We could move the clear below the lookup and gate it on conn->role, or si=
+mply !status ?
+
+Try with !status, we need to confirm that doesn't break any CI test
+either. That said, it does look like it would clear it also for
+extended advertising where there could be multiple instances
+advertising, so I'm not sure if it's correct to assume that if one
+instance connects all others shall also be considered connected.
+
+> Valentin Kindschi
+>
+> -----Message d'origine-----
+> De : Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+> Envoy=C3=A9 : lundi, 17 ao=C3=BBt 2026 18:12
+> =C3=80 : Valentin Kindschi <valentin.kindschi@fiveco.ch>
+> Cc : linux-bluetooth@vger.kernel.org; marcel@holtmann.org; johan.hedberg@=
+gmail.com; linux-kernel@vger.kernel.org; stable@vger.kernel.org
+> Objet : Re: [PATCH v3 2/2] Bluetooth: hci_event: keep HCI_LE_ADV set if t=
+he host cancelled
+>
+> Hi Valentin,
+>
+> On Mon, Aug 17, 2026 at 11:03=E2=80=AFAM Valentin Kindschi <valentin.kind=
+schi@fiveco.ch> wrote:
 > >
-> > After the page table lock has dropped, the folio can be freed
-> > concurrently. The trace_mm_khugepaged_scan_pmd() is left with
-> > a dangling folio pointer.
+> > le_conn_complete_evt() clears HCI_LE_ADV before looking at the event
+> > status, on the premise stated in its comment that all controllers stop
+> > advertising when a connection is created.
 > >
-> > So using the folio_pfn() before dropping the page table lock,
-> > closing use-after-free window.
+> > That premise fails for Unknown Connection Identifier (0x02), which is
+> > what an HCI_LE_Connection_Complete carries after the host issued LE
+> > Create Connection Cancel: no connection was created and the controller
+> > never stopped advertising. Clearing the flag there makes the host
+> > believe advertising is off while the controller has it on.
 > >
-> > Fixes: 7d2eba0557c1 ("mm: add tracepoint for scanning pages")
+> > Other non-zero statuses must keep clearing it. Advertising Timeout
+> > (0x3c) in particular means the controller gave up advertising on its
+> > own, so the flag has to go; leaving it set would make the "already
+> > advertising" shortcut in hci_schedule_adv_instance_sync() skip the HCI
+> > commands and silently stop advertising altogether.
+> >
+> > With legacy advertising the disagreement is self-sustaining. On the
+> > next software rotation tick hci_enable_advertising_sync() runs:
+> >
+> >   - hci_disable_advertising_sync() returns early without sending
+> >     anything, because HCI_LE_ADV is clear;
+> >   - LE Set Advertising Parameters is then sent while the controller is
+> >     still advertising, and is correctly rejected with Command Disallowe=
+d
+> >     (0x0c);
+> >   - the function returns before LE Set Advertising Enable, so nothing
+> >     re-sets HCI_LE_ADV.
+> >
+> > hci_schedule_adv_instance_sync() re-arms adv_instance_expire every
+> > HCI_DEFAULT_ADV_DURATION (2 s) and its "already advertising" shortcut
+> > tests HCI_LE_ADV, which can no longer become true, so the command is
+> > retried every 2 s indefinitely:
+> >
+> >   Bluetooth: hci0: Opcode 0x2006 failed: -16
+> >
+> > Captured on a BCM43455 (no LE Extended Advertising) after a central
+> > connection attempt timed out and was cancelled:
+> >
+> >   LE Set Advertising Parameters (0x2006)   Success
+> >   LE Set Advertising Enable     (0x200a)   Success        HCI_LE_ADV se=
+t
+> >   LE Create Connection Cancel   (0x200e)   Success
+> >   LE Connection Complete                   Unknown Conn Id  <- flag cle=
+ared
+> >   LE Set Advertising Parameters (0x2006)   Command Disallowed  [+2.033 =
+s]
+> >   LE Set Advertising Parameters (0x2006)   Command Disallowed  [+2.016 =
+s]
+> >   ...
+> >
+> > Keep the flag only for the host-cancelled case.
+> >
+> > Fixes: fbd96c151cdc ("Bluetooth: Fix clearing HCI_LE_ADV for LE
+> > connections")
 > > Cc: stable@vger.kernel.org
-> > Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+> > Assisted-by: Claude:claude-opus-5 btmon
+> > Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
 > > ---
-> >  include/trace/events/huge_memory.h | 6 +++---
-> >  mm/khugepaged.c                    | 4 +++-
-> >  2 files changed, 6 insertions(+), 4 deletions(-)
+> > Changes in v2:
+> > - Rebased onto bluetooth-next; no functional change.
+> >   v1's hci_event.c context lacked the hci_store_wake_reason() call
+> >   present in mainline, so the hunk did not apply.
 > >
-> > diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
-> > index d3572d4ef453..5dc71d292f47 100644
-> > --- a/include/trace/events/huge_memory.h
-> > +++ b/include/trace/events/huge_memory.h
-> > @@ -55,10 +55,10 @@ SCAN_STATUS
+> >  net/bluetooth/hci_event.c | 8 +++++---
+> >  1 file changed, 5 insertions(+), 3 deletions(-)
 > >
-> >  TRACE_EVENT(mm_khugepaged_scan_pmd,
+> > diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
+> > --- a/net/bluetooth/hci_event.c
+> > +++ b/net/bluetooth/hci_event.c
+> > @@ -5720,10 +5720,12 @@ static void le_conn_complete_evt(struct hci_dev=
+ *hdev, u8 status,
+> >         hci_dev_lock(hdev);
+> >         hci_store_wake_reason(hdev, bdaddr, bdaddr_type);
 > >
-> > -	TP_PROTO(struct mm_struct *mm, struct folio *folio,
-> > +	TP_PROTO(struct mm_struct *mm, unsigned long pfn,
-> >  		 int referenced, int none_or_zero, int status, int unmapped),
-> >
-> > -	TP_ARGS(mm, folio, referenced, none_or_zero, status, unmapped),
-> > +	TP_ARGS(mm, pfn, referenced, none_or_zero, status, unmapped),
-> >
-> >  	TP_STRUCT__entry(
-> >  		__field(struct mm_struct *, mm)
-> > @@ -71,7 +71,7 @@ TRACE_EVENT(mm_khugepaged_scan_pmd,
-> >
-> >  	TP_fast_assign(
-> >  		__entry->mm = mm;
-> > -		__entry->pfn = folio ? folio_pfn(folio) : -1;
-> > +		__entry->pfn = pfn;
-> >  		__entry->referenced = referenced;
-> >  		__entry->none_or_zero = none_or_zero;
-> >  		__entry->status = status;
-> > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> > index e7830761d3a2..7c8c48577408 100644
-> > --- a/mm/khugepaged.c
-> > +++ b/mm/khugepaged.c
-> > @@ -1603,6 +1603,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
-> >  	enum scan_result result = SCAN_FAIL;
-> >  	struct page *page = NULL;
-> >  	struct folio *folio = NULL;
-> > +	unsigned long pfn = -1;
-> >  	unsigned long addr;
-> >  	unsigned long enabled_orders;
-> >  	spinlock_t *ptl;
-> > @@ -1778,6 +1779,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
-> >  		result = SCAN_SUCCEED;
-> >  	}
-> >  out_unmap:
-> > +	pfn = folio ? folio_pfn(folio) : -1;
-
-You already defaulted the value to -1, better as:
-
-	if (folio)
-		pfn = folio_pfn(folio);
-
-> >  	pte_unmap_unlock(pte, ptl);
-> >  	if (result == SCAN_SUCCEED) {
-> >  		/* collapse_huge_page expects the lock to be dropped before calling */
-> > @@ -1788,7 +1790,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
-> >  		*lock_dropped = true;
-> >  	}
-> >  out:
-> > -	trace_mm_khugepaged_scan_pmd(mm, folio, referenced,
-> > +	trace_mm_khugepaged_scan_pmd(mm, pfn, referenced,
+> > -       /* All controllers implicitly stop advertising in the event of =
+a
+> > -        * connection, so ensure that the state bit is cleared.
+> > +       /* Advertising stops when a connection is created, and when the
+> > +        * controller gives up advertising on its own. It keeps adverti=
+sing
+> > +        * when the host cancelled an outgoing connection.
+> >          */
+> > -       hci_dev_clear_flag(hdev, HCI_LE_ADV);
+> > +       if (status !=3D HCI_ERROR_UNKNOWN_CONN_ID)
+> > +               hci_dev_clear_flag(hdev, HCI_LE_ADV);
 >
-> Same comment as 1/3 I don't see why we should be storing a pfn value used
-> nowhere else just for tracing.
-
-Disregard, I didn't account for lifetime.
-
+> Hmm, I wonder if this is not valid for all status !=3D 0 though, for exam=
+ple if the connection timeout we probably shouldn't clear it either.
 >
-> >  				     none_or_zero, result, unmapped);
-> >  	return result;
-> >  }
+> >         /* Check for existing connection:
+> >          *
 > > --
-> > 2.53.0
-> >
+> > 2.34.1
+>
+>
 >
 > --
-> Cheers, Lorenzo
+> Luiz Augusto von Dentz
 
---
-Cheers, Lorenzo
+
+
+--=20
+Luiz Augusto von Dentz
