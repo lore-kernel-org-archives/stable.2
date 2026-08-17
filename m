@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5919B3F1662;
-	Mon, 17 Aug 2026 13:46:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9533F327D;
+	Mon, 17 Aug 2026 13:46:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974410; cv=none; b=UtLWfQKma3jtS0cq4S/UrleG/XylHDLfk/edo3Vi63SznBdE9D0KJVORXgcyj1JAjl7s/fe3JwbkzgxYbhCSYADLGGw9nwNFvKWlXlZ8c5WvYCOSRwZaEGPygyhdSd0kLU4yiYnSB3j6+i0njrWO2sK1/iay1ouCZ6LLexpH88M=
+	t=1786974413; cv=none; b=n2cxqnVzVLzQV/2p67e+rXnj01NdbbEC0r3CoYLhayoCDFz+2Lq3dTQjw6aOv63+H/nWQTG8TuhBRCEVxNs/7WZVo6mBQvrKU3BtQ/VLinWQOZOfNgtYvz6yc1sq8d/kyhoHH0t4ytN6qfQhdB/b3Z32sPnSiuSSb0YuTT75shA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974410; c=relaxed/simple;
-	bh=i6LkfkjJcMbWBAMJw2dvK2TMT9DecgmP26FuOQ7kOUs=;
+	s=arc-20240116; t=1786974413; c=relaxed/simple;
+	bh=0EVTO2Ywc4rl8/+9qtYrJwxrdo2BRDV61nKT24h8Msk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Crr76tQnSELgRutjXZx99cXjd4sE3XUOYTMjLx8f38ohf/EvsOcQkMV0DAyoUXIM8xZrck1zqyw+FNCV2kKB/jI0lvV9HBzD68yv0woWzNWwb5Z2fxOok7WbT4fAMPejNUPekxLUNtqD0cEuRBAVnPlBMV3h5A2M3SJeLenU69c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SFZHBVc2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=J27SsGCsIV2QY+cW2oc4i1rh/Y4Ra3gR+P2NCbLuxmdTpzuBwyO37D4BoXS827lY3N4lcUSJsnnrN6T4yn86weaP5ENb1oSBpMVCswySjdpPc8ScCN5zSV9c2W1hfcy/1pzRvo4LMPPx91UOVqyhUyOryWXyIlPfJQYxGsFDEB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uAoUiXa/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SFZHBVc2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052CE1F00A3E;
-	Mon, 17 Aug 2026 13:46:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uAoUiXa/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BD31F000E9;
+	Mon, 17 Aug 2026 13:46:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974405;
-	bh=Z4OJcnK5fF3vpMI9h3PROQSuBFd+pC6yd6AW9Nh77h4=;
+	s=korg; t=1786974408;
+	bh=hkvNYoHNIQM5GAi04Gm4AiUCLlN5kRcxEuoGGuL1Cnk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SFZHBVc2/60TAghOjCFVGjf9OExLMXaoshEtYJ7xNY+puKJG9OFTXOF9Y66tIO206
-	 nbRlTkWmJba/OXp+HXikB4nK5WZYNkX7YdN5Q4j4M+u7Ytv8dATlYEygBKE2F/zDzc
-	 3gDnbVOWBysSH89gWFLnyESEraZjTtJvz/P3+2pI=
+	b=uAoUiXa/KqFLViKKs8frm2+wCQJNL/7WYZQ8//4+rhN8n99fXlOr67Vp3JqSqhAli
+	 A5thus0ZIQglXUPGrSik5G0bGVtRsSfTLdQg55n4NmyCxAlDHPQFAH5BwGzUD4cqnB
+	 gqQ0Y+3TTOH3+9C4gzlvyHQFLetl9iL0xUuffO5E=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Alexej Sidorenko <alexej@sidorenko.cz>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 167/271] Bluetooth: btrtl: fix RTL8761B/BU broken LE extended scan
-Date: Mon, 17 Aug 2026 15:31:32 +0200
-Message-ID: <20260817132543.754082100@linuxfoundation.org>
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 7.1 194/271] mm/damon/lru_sort: error out for >10000 active_mem_bp
+Date: Mon, 17 Aug 2026 15:31:59 +0200
+Message-ID: <20260817132544.799692319@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
 References: <20260817132536.752504388@linuxfoundation.org>
@@ -51,55 +50,60 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Alexej Sidorenko <alexej@sidorenko.cz>
+From: SJ Park <sj@kernel.org>
 
-[ Upstream commit 5ead2063611ae56809b1b113ac44cef9547c81d7 ]
+commit 06befa61c427e74319781e6f35a364cfc32dbae8 upstream.
 
-RTL8761B and RTL8761BU devices report HCI version 5.1 but do not
-support the LE Extended Scan commands. This causes repeated failures
-with Opcode 0x2042 (LE Set Extended Scan Parameters) returning -EBUSY
-when BlueZ attempts extended scanning while a connection is active.
+damos_quota_score() can trigger division by zero if the target value is
+zero.  DAMON_LRU_SORT lets users set the target value for the hot memory
+scheme via active_mem_bp parameter.  It avoids setting it as the target
+value if the parameter value is zero.  However, it also sets the cold
+memory scheme with a target value that is calculated as '10000 -
+active_mem_bp + 2'.  Hence, if a user sets active_mem_bp 10002, the cold
+memory scheme's quota goal target value can be zero.  As a result,
+division by zero can be triggered.  Fix by returning an error when the
+user tries to start DAMON with >10000 active_mem_bp parameter value.
 
-Set HCI_QUIRK_BROKEN_EXT_SCAN for CHIP_ID_8761B to make BlueZ fall
-back to legacy LE scan commands which the firmware supports correctly.
+It makes no sense to set active_mem_bp with 10002.  It also requires
+module parameters write permission to reproduce the issue.  That said, the
+consequence is quite bad.
 
-Tested with RTL8761BU (USB ID 0bda:a728) where the issue manifested
-as continuous 'Opcode 0x2042 failed: -16' errors in dmesg whenever
-a BLE connection was active.
+One reliable way to reproduce the issue is like below:
 
-Signed-off-by: Alexej Sidorenko <alexej@sidorenko.cz>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+    # cd /sys/module/damon_lru_sort/parameters
+    # echo 1000 > wmarks_high
+    # echo 995 > wmarks_mid
+    # echo 0 > wmarks_low
+    # echo 10002 > active_mem_bp
+    # echo Y > enabled
+    # dmesg -w
+    [...]
+    [  597.421247] Oops: divide error: 0000 [#1] SMP NOPTI
+    [  597.428848] RIP: 0010:damos_quota_score+0x6f/0x480
+
+This issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260803134034.15217-3-sj@kernel.org
+Link: https://lore.kernel.org/20260801213028.5127-1-sj@kernel.org [1]
+Fixes: 40d98d31cd70 ("mm/damon/lru_sort: support active:inactive memory ratio based auto-tuning")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 7.0.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/bluetooth/btrtl.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ mm/damon/lru_sort.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/bluetooth/btrtl.c b/drivers/bluetooth/btrtl.c
-index 03fa9409e3ee4..7f54d2d2d13a0 100644
---- a/drivers/bluetooth/btrtl.c
-+++ b/drivers/bluetooth/btrtl.c
-@@ -1343,6 +1343,19 @@ void btrtl_set_quirks(struct hci_dev *hdev, struct btrtl_device_info *btrtl_dev)
- 	if (!btrtl_dev->ic_info)
- 		return;
+--- a/mm/damon/lru_sort.c
++++ b/mm/damon/lru_sort.c
+@@ -234,6 +234,8 @@ static int damon_lru_sort_add_quota_goal
  
-+	switch (btrtl_dev->project_id) {
-+	case CHIP_ID_8761B:
-+		/* RTL8761B/BU reports HCI version 5.1 but does not support
-+		 * the LE Extended Scan commands (Opcode 0x2042), causing
-+		 * repeated -EBUSY failures when BlueZ attempts extended
-+		 * scanning while a connection is active.
-+		 */
-+		hci_set_quirk(hdev, HCI_QUIRK_BROKEN_EXT_SCAN);
-+		break;
-+	default:
-+		break;
-+	}
-+
- 	switch (btrtl_dev->ic_info->lmp_subver) {
- 	case RTL_ROM_LMP_8703B:
- 		/* 8723CS reports two pages for local ext features,
--- 
-2.53.0
-
+ 	if (!active_mem_bp)
+ 		return 0;
++	if (10000 < active_mem_bp)
++		return -EINVAL;
+ 	goal = damos_new_quota_goal(DAMOS_QUOTA_ACTIVE_MEM_BP, active_mem_bp);
+ 	if (!goal)
+ 		return -ENOMEM;
 
 
