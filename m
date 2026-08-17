@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA5F42643C;
-	Mon, 17 Aug 2026 13:49:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9223E0C76;
+	Mon, 17 Aug 2026 13:49:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974603; cv=none; b=ExoqWxlJbqLOCsvOBOe4zmk4SO0oKaDhYkZi0WERxOvNPAsbZc9KbQcSyA+dCD7UEEmzVhzgQ1g6bqhaIdz9y8vQcNyZRzblsSs2GjstNlGK6zghq6KQk2OK4lqeEyi3vbp/BTOhhz3nmRHh0oBrrPm4ZSEi+ydBlz0qSgtUNNg=
+	t=1786974603; cv=none; b=ly0vdXnAD3DbM43PmxBO6khXKlu/kY7RgdZSUKTa6UzTV3ISTDX7jeDP8ZQygGVgWbmrrwIoDuvNmqKfbkriQQgBxElzSehCvkSH2A0FXUy/bVBOw2EfwLmcI+MHZId9o3gdz/mShL+8Vb7yh4DxxCfq/BGKSX9Udzv/hr9sZVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786974603; c=relaxed/simple;
-	bh=74oHSjISF2CIbIOjOXp9ub9PDbXFkUnB10n0pPrvNbQ=;
+	bh=wygAWLnw80k61MuDXL3W0Sq2xjLmU1OdNv70KaMSgR0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LyZkLG+oD05SS8W0giGPUXaugwYBdsuJ/SC6F1cL5Mf3vf8cLGXSjw/+0c5jSy0liX4f558BJ3eQhBxtddGPeMHmwCz5t6Q6kC+0+jAzxQ8ED6KCfVEu1H/6fCItua/lnMSMsg1qUVRNlyy6W8Ixg5IXF7rLX0eTkn5k+3ieMkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zLmmQ/vy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Kjr4jRd0Cd3wo4O0L0MHAJ3M5VXuzhkzDu0DT7x9VjTJCPQrGKryKyayMLa2tVJDjbx3fb4z3NBTYjXeyssVvKv5elBNk1/oVon5YIN5upB+HLTlSVV9PWT4GEmbmFn25+RGl9UyiVuzXsKsq0YseER4Cp10pt++XFsRjrYS32s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QWStZfrj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zLmmQ/vy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE9B81F00A3D;
-	Mon, 17 Aug 2026 13:49:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QWStZfrj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B931F00A3F;
+	Mon, 17 Aug 2026 13:49:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974597;
-	bh=uctj8PD2JA4PJ+Y7SSxT/Y7TKuFpN62azv6XgMscnBw=;
+	s=korg; t=1786974594;
+	bh=XlnKN+t2/Rh9z6cTNOOAPcLn/L1DrkrvedBnYyXmSgs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zLmmQ/vyR3cqHa9xAK4r5eloqStPAnqwyZuZEWQgrWDw0EV0BeHwRHYkhp2AsTpyZ
-	 WlQTa1ldf/tWj4+vLeDkmySfvirH/5JDdJDsAl0XEvuZIA5dHLAM7V2O7WwD/Jc9Uj
-	 St9/r7+NPMjatZs58cjI/HrlKCYRA5/ZonWHBEOY=
+	b=QWStZfrjtnUwnkEgpiwCSKlbL9k9ybi+9NLkc59aFhjsLTZAht4hTPM8+pFPPoolB
+	 /knvRa8jl+wu40UbPy8/XxuVz8Lk61OEtS+YqrzOVbLkj0lNd0AKeUgdHRa7f+fkGO
+	 0yL2MXLUk+S7Hg48dpXZXJWLKJKEqDPihxW4ugJ8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Frederick Lawler <fred@cloudflare.com>,
-	Mimi Zohar <zohar@linux.ibm.com>
-Subject: [PATCH 7.1 261/271] ima: Instantiate file_truncate and path_truncate hooks
-Date: Mon, 17 Aug 2026 15:33:06 +0200
-Message-ID: <20260817132547.469928763@linuxfoundation.org>
+	Tejun Heo <tj@kernel.org>,
+	Andrea Righi <arighi@nvidia.com>
+Subject: [PATCH 7.1 260/271] sched_ext: Take cgroup_lock() first in scx_cgroup_lock()
+Date: Mon, 17 Aug 2026 15:33:05 +0200
+Message-ID: <20260817132547.425654772@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
 References: <20260817132536.752504388@linuxfoundation.org>
@@ -50,82 +50,70 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Mimi Zohar <zohar@linux.ibm.com>
+From: Tejun Heo <tj@kernel.org>
 
-commit b80bed5c871a80151351342c065579405ce77145 upstream.
+commit 5f8b69642d18e1f3e11996707842ac530444e959 upstream.
 
-Instantiate the file_truncate and path_truncate LSM hooks to reset the
-action cache flags (IMA_DONE_MASK) as soon as truncation is requested,
-so the file, based on policy, is re-collected, re-measured, re-audited,
-and re-appraised on next access.
+scx_cgroup_lock() write-locks scx_cgroup_ops_rwsem and then takes
+cgroup_lock(), which can deadlock through kernfs:
 
-Tested-by: Frederick Lawler <fred@cloudflare.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
+  scx enable/disable         cgroup rmdir           cpu.weight write
+  ------------------         ------------           ----------------
+                             cgroup_lock()
+  percpu_down_write(rwsem)
+  cgroup_lock()
+                                                    kernfs_get_active()
+                                                    percpu_down_read(rwsem)
+                             kernfs_drain()
+
+The enable path waits for the rmdir to release cgroup_mutex. The rmdir,
+deactivating the cpu controller's files, waits in kernfs_drain() for the
+write's active reference. The write, in scx_group_set_weight(), waits for
+the rwsem behind the pending writer.
+
+Take cgroup_lock() first. The set_* paths take no cgroup locks inside the
+read side, so a pending write-lock then only waits for read sections that
+always run to completion, and no dependency from the rwsem back to
+cgroup_mutex remains.
+
+Fixes: a5bd6ba30b33 ("sched_ext: Use cgroup_lock/unlock() to synchronize against cgroup operations")
+Cc: stable@vger.kernel.org # v6.18+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- security/integrity/ima/ima_main.c |   39 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ kernel/sched/ext.c |    9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
---- a/security/integrity/ima/ima_main.c
-+++ b/security/integrity/ima/ima_main.c
-@@ -687,6 +687,43 @@ static int ima_file_check(struct file *f
- 					   MAY_APPEND), FILE_CHECK, 0, false);
+--- a/kernel/sched/ext.c
++++ b/kernel/sched/ext.c
+@@ -4515,20 +4515,25 @@ static struct cgroup *root_cgroup(void)
+ 	return &cgrp_dfl_root.cgrp;
  }
  
 +/*
-+ * ima_reset_action_flags - invalidate action flags after a content change
-+ * @inode: inode of the file whose content is about to be truncated
-+ *
-+ * Clear IMA_DONE_MASK so the file is re-collected, re-measured,
-+ * re-audited, and re-appraised on next access.
++ * cgroup_lock() must nest outside the rwsem write side: a writer waiting
++ * for cgroup_mutex deadlocks with cgroup teardown, which holds it while
++ * draining a set_* file write blocked on the rwsem behind the writer.
 + */
-+static void ima_reset_action_flags(struct inode *inode)
-+{
-+	struct ima_iint_cache *iint;
-+
-+	if (!ima_policy_flag || !S_ISREG(inode->i_mode))
-+		return;
-+
-+	iint = ima_iint_find(inode);
-+	if (!iint)
-+		return;
-+
-+	mutex_lock(&iint->mutex);
-+	iint->flags &= ~IMA_DONE_MASK;
-+	iint->measured_pcrs = 0;
-+	mutex_unlock(&iint->mutex);
-+	return;
-+}
-+
-+static int ima_path_truncate(const struct path *path)
-+{
-+	ima_reset_action_flags(path->dentry->d_inode);
-+	return 0;
-+}
-+
-+static int ima_file_truncate(struct file *file)
-+{
-+	ima_reset_action_flags(file_inode(file));
-+	return 0;
-+}
-+
- static int __ima_inode_hash(struct inode *inode, struct file *file, char *buf,
- 			    size_t buf_size)
+ static void scx_cgroup_lock(void)
  {
-@@ -1300,11 +1337,13 @@ static struct security_hook_list ima_hoo
- 	LSM_HOOK_INIT(file_release, ima_file_free),
- 	LSM_HOOK_INIT(mmap_file, ima_file_mmap),
- 	LSM_HOOK_INIT(file_mprotect, ima_file_mprotect),
-+	LSM_HOOK_INIT(file_truncate, ima_file_truncate),
- 	LSM_HOOK_INIT(kernel_load_data, ima_load_data),
- 	LSM_HOOK_INIT(kernel_post_load_data, ima_post_load_data),
- 	LSM_HOOK_INIT(kernel_read_file, ima_read_file),
- 	LSM_HOOK_INIT(kernel_post_read_file, ima_post_read_file),
- 	LSM_HOOK_INIT(path_post_mknod, ima_post_path_mknod),
-+	LSM_HOOK_INIT(path_truncate, ima_path_truncate),
- #ifdef CONFIG_IMA_MEASURE_ASYMMETRIC_KEYS
- 	LSM_HOOK_INIT(key_post_create_or_update, ima_post_key_create_or_update),
++	cgroup_lock();
+ #ifdef CONFIG_EXT_GROUP_SCHED
+ 	percpu_down_write(&scx_cgroup_ops_rwsem);
  #endif
+-	cgroup_lock();
+ }
+ 
+ static void scx_cgroup_unlock(void)
+ {
+-	cgroup_unlock();
+ #ifdef CONFIG_EXT_GROUP_SCHED
+ 	percpu_up_write(&scx_cgroup_ops_rwsem);
+ #endif
++	cgroup_unlock();
+ }
+ #else	/* CONFIG_EXT_GROUP_SCHED || CONFIG_EXT_SUB_SCHED */
+ static struct cgroup *root_cgroup(void) { return NULL; }
 
 
