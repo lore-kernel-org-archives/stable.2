@@ -1,230 +1,110 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98A037CD53
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 19:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C08A2FB084
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 19:18:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786993807; cv=none; b=TNK29YrTbEnE9W3VdnSrKpAWJp7/5+l77Uw/MXzx38GS8uNbxNrfm6B14t+FXyfxmWLX0o/109SaoeFl05aeU2Z4ktfJSSVuJzkRbCFsd35+JexVG9DW9clqFKD1KN3vlidvHzT2rucFa6L1HydeG3quE7D9Zev9pH7H8VkaKZo=
+	t=1786994308; cv=none; b=MFG4D0kl8TvEVPjMOlSoB0V/SwLGtO8ZthIiwxNiO4w8slUtPVLfs5Dkfl86kZdDuMYsP1tguGZWStH8GGmcU817jQUpcVPL8NwwwZGBdTCf/RgDHombV8jG9EYeMEsq6slZ0D0Pmu95bHBG0PAxiMhyCgWLuhb8OL+xAglMxYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786993807; c=relaxed/simple;
-	bh=MmTOyUrolNwdXixWEA61+iSEN1nJRaq75qaAf+1wVcw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wh/kUSmkouKovpqFFKuI1E9zPMAjd23zGfIpSeaQhzxMocKhlksE5IVyD/DVvGVB1HZLGDFv80gLTIW5mhH8rWjman7y2tt+AgjC8DlbS4xFvSpeWO88ztr7RZfpoaZry3xt9A/2ZqTTxDBahzLam0p/l0rNMm2+jA8dqNig2uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=djoDY2FS; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1786994308; c=relaxed/simple;
+	bh=29/UPfY5Nthq2RpwxSboYXXvxzzYGsctgvnG0yqUzuI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L76rh3pB5iYNntDJCLxBW0TTJq3RyiGJshY6NNuC9ofVa3ycQodMS53QdivInjpX/oP4Ri5wlF4H5xTmlTINt4vIKxLp32FwChxRA9ZOJ5c/KvZGFqBLIOuZzIhCAR/pPEhyu7ueW/Pj7gde+zsktvrIfUKazfCIWihxrOeNb3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=aE02GP/E; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="djoDY2FS"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38dd55ad76cso247588a91.1
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:10:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="aE02GP/E"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so31215245e9.1
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:18:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1786993805; x=1787598605; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c/2C+RYvjKIOLmlpG91ZI2qQFAEpzRihy5VcIrSXsdU=;
-        b=djoDY2FSvFK7RnkZS5fyF5m4iaFcAqWvNOr02/AJLDNs0WzlvagJluBrwJ+5JZ6jKQ
-         LWbw9KOvO63JslTr75enZib7ZwGuq3YOgIPhO2jT7qrQvF85Wxj8R7vb8fidE+Ddt80X
-         peDzfqCaU3qFwhx+sPQWJA0yH1g18/XWz/8yAyYiiYMq81IFYAqTnsUdTrdRPvHbUj3K
-         k9lYVx9aF3VsET7nW3zytnfvITDdzihg4QXHPBr2+DjBkm9WPq5grGQuNdMSDejKy/+C
-         +YEM8eCH4NeQu7FpBi9mwmqGFB3JIlt7ukQaBmSHCYWrmptxRp/vzUi9hmwEwZedabK+
-         SPqA==
+        d=googlemail.com; s=20251104; t=1786994305; x=1787599105; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CMVdF/RXKO/xfkwhQ6TWQXJqHUFG6J2KjoazKU+K+tY=;
+        b=aE02GP/EC+40eIYdSaqi2iu2RjEj2tix4iQLEFPrwxZn6Hzz+3ITU+pYL4ot7uHaxn
+         krn1AKIIMzvg3VlVvd3GVPeMKm8IcjNHPfxUS/FfLAFfdxOtuFoJOKPizCL0Q0cSEFY0
+         Doj+bXSuWgU5FFiWaR7wNx5wQj8twQSJ3+AQSFD/sRJxwYzszEPlZ+USF9CaS5lw+2iO
+         3OZZPCOLiRhTtUWeG2cuasw0l1VFmRVFPnX8fHGybSGzA9+SNeWPyzdmgWh0XGrtQMjN
+         jtrRUi+yRDKFynbD6vj2TBxuGw3cwU02ojwCS9DACvIoGChOloYaJpy6eCLdTCsHmY0R
+         zN4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786993805; x=1787598605;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c/2C+RYvjKIOLmlpG91ZI2qQFAEpzRihy5VcIrSXsdU=;
-        b=g0NF4IS4uStUz4SmJA9RWS9e4MLholHpLyyUj1+K5r1calicmQ29PNmM3Is0FwG26M
-         cNsj2kpatdGP8TvwWe5RCi4si9RTVQiropV8PinJLnGWkGZxB+4+amX88pzHOExgYTUn
-         e4fqfFDIGtwT8CqVV0iZj9uLK37p0zJsT6VeIXObWTi7m/cTcBUId/3rEaOoezbyfMOe
-         zxufioXeAIRCHMNHnV3xjqBtdwBLcggdv4aay3elTVjPKbYmiho6eHwpI3aV2HuFjzGv
-         5k3kAXPatrk7kxRi0QNwQ2jUZh4FOWsqnB9BMBtbS26yncbmoz3jyN6UCJY2KYh/W0mc
-         BjPw==
-X-Forwarded-Encrypted: i=1; AHgh+RqAxkbVIRDw0MSia68mvA1PjGTAAWaMVFD4SgcU7WTEUyODAMEzEW1kZ14gePHaqpezjav2RqE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfKGRJqq5M6Q1+/y/BRsIy6RzCMjoQZSCnrvhz6PnYppxUuC2K
-	2wd2hrDBSIebYEsdyUNNvRUH7gVTi9eR7/wi+ybbzociGdjWR9TdygBBkv0PF4P9eMKy
-X-Gm-Gg: AR+sD10WqiDO2DOko6AzvAsBCeJRAWvPrrpkrzuhYfDMequOsX6U1EWICtQR03/JGeA
-	ypWMyoA9HK+4yKXATGVmtmIJYINH4HFYy6pEfHgS32v4mEAMstVITPh3BfFOWBrC7h5gQDEUne8
-	XiuTf269H57H0kjkABrAAIjiOmEKbFsJkY5EfXiWIRRO6oBbGHWYc8ruDHpZZtX2fCa1sQqPZXi
-	+wq8Rd9ppRpwRVSdDuWVMjv1XnlP1GAg1hlWBNWXxlAOKII4HuQK0aBKE6xYA220SaFy/pWwZPi
-	E6Q7qj8N87nleV1HB3Cdod1VqsuLRpecZ6EvNuoh+dxjB//JCiRwgGltg/oOJTKuAtOFymC0Pc/
-	2Fsn+d5iZZaXkb3KY/m6k17okkBtyW4TuWsVFRSXnrsqNsQc11JyxUGT1EZpaogo8D2O1WR7WXg
-	qD+cG8YrZNdEUvifFQm02vVzIUUlFRzpnXxQCg/8FuVwkeh3VVaMyEMg==
-X-Received: by 2002:a17:90b:390c:b0:38f:1a29:7a82 with SMTP id 98e67ed59e1d1-395638840ccmr52847a91.6.1786993804800;
-        Mon, 17 Aug 2026 12:10:04 -0700 (PDT)
-Received: from gmail.com ([115.196.71.116])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39531e8904dsm6145831a91.8.2026.08.17.12.09.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 12:10:04 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netdev@vger.kernel.org
-Cc: steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zihan Xi <zihanx@nebusec.ai>,
-	stable@vger.kernel.org,
-	Eyal Birger <eyal.birger@gmail.com>,
-	Vega <vega@nebusec.ai>
-Subject: [PATCH ipsec v3 1/1] xfrm: bound nat keepalive state collection
-Date: Mon, 17 Aug 2026 19:09:56 +0000
-Message-ID: <4fadde7d28791a4e1196664cec692fdebce99bb5.1786987905.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1786987905.git.zihanx@nebusec.ai>
-References: <cover.1786987905.git.zihanx@nebusec.ai>
+        d=1e100.net; s=20251104; t=1786994305; x=1787599105;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CMVdF/RXKO/xfkwhQ6TWQXJqHUFG6J2KjoazKU+K+tY=;
+        b=Yys6B4PQwO8Zh7pRo7WOjCbrlEkLys45aFVAPX4aeaFDIbvIN+SJ18D5RsUXvhBgmg
+         ShUuXVOycz2E7hP1M0dIvRsrPaDwgIDl+6aT1mZkRVnHKxpHrgrAwRafKXBgpyWvX75P
+         dEYJULZGswKn6TsHtlebUYrw8XIgk1MGsozdvXfp7IZqaZrLJbqs2lGWIQfoIH5wFQf7
+         baWW4iWBbcrEGLpLFWgB7DsCAT7EdBArfg9R8vlnhMcVRyYVQWPPH0+8R/xdCdHRjvxc
+         kfYwOWZCCvOLuj3CvgpW9ZjeOdLUDcAMNLr3coePEE2JH0wlK4sGhRJu0tO3Cdl+yREk
+         wQ5g==
+X-Forwarded-Encrypted: i=1; AHgh+RrQyAGOE8iTW5S2X6OIKluEnzx5Hagn4jcX//i99xUOIHe1CHla8jP0j2z3CCi0ZnBGqrKyR+M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxsAQ0BrrBfGPzCB7aIlKENjjmq+nwZUFxX7Ec5p0XCwgaYhbqY
+	ZlZsnuDtA9xA166IvhXo9fNtuweC/tMYF5Zn21vv44yJg5qiHnuaTnI=
+X-Gm-Gg: AR+sD13JtdCxUTMsHqpAunjwxgnPIF5rsPVK3aGruGSL6Nao7MCX1mXUkIzJkfJPksj
+	JTEkEeuNi0/NEhOnYf+vlWO4v9dNZdLfjT4BBwNOQTqurli+Rodbp8pO+ABc+H9pxJNVD+AOjxI
+	SZQvGvEvU/M/hD4KcVv5jBWb5uvWKlhVfgmq2ods7lAfALvC8dyvj4gC6+iZ4OHjatKcj/K651X
+	8EQZEN400XcMANdL120WHpqG7UON3Ovrh3VwyjH1owaJMdMfG9SH+UzNvgtW297xcsr694/acwR
+	XlsM+bjKeveH0E2i8/CCsoyMQ1JmzXKJr9OxqsUmIUI6oivb/MPTxjFJHySwndOm2Ez2lT4Px06
+	DbR3fGI+j7Bk7+0siwtKMkJkjgaVJWXlhAgqGjbAtFsgjz8CZ46rLaUt8K63eX70ZBhzlzdN4jk
+	1Q6q9/VQnryUB8UUJp99xk59OUOK/CyP4aiNoaSxwc4h4jDZh04J0KbopaiajuMFhdoqhFr/uvh
+	UqW8382W8aRsUncOrvASUTguuRnak5DMEzheSMQ
+X-Received: by 2002:a05:600c:a4d:b0:496:ca1f:a428 with SMTP id 5b1f17b1804b1-49987981e52mr453171115e9.19.1786994305106;
+        Mon, 17 Aug 2026 12:18:25 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2b466b.dip0.t-ipconnect.de. [91.43.70.107])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4999610966dsm222871785e9.5.2026.08.17.12.18.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 17 Aug 2026 12:18:24 -0700 (PDT)
+Message-ID: <e9f71a63-839a-4d6f-abb6-f2b8c579233b@googlemail.com>
+Date: Mon, 17 Aug 2026 21:18:23 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 000/181] 6.12.104-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260817132535.394764707@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260817132535.394764707@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The v1 nat keepalive fix allocates a GFP_ATOMIC object for every state
-while collecting references for phase two. This makes the worker's
-temporary memory use depend on the number of states and lets -ENOMEM abort
-the scan.
+Am 17.08.2026 um 15:31 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.12.104 release.
+> There are 181 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Replace the allocated list with a fixed-size batch. When the batch is full,
-return a private walk status so xfrm_state_walk() leaves a cursor; drain
-the references after the walk releases xfrm_state_lock and resume from
-the cursor. This bounds temporary memory use and avoids the allocation
-failure path.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
 
-The v1 fix also moved nat_keepalive_send() out of the walk callback. Keep
-the phase-two drain BH-disabled, as required by local_lock_nested_bh()
-used by the keepalive sockets.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-Fixes: 763fe700b7c5 ("xfrm: avoid lock inversion in nat keepalive work")
-Cc: stable@vger.kernel.org
-Cc: Eyal Birger <eyal.birger@gmail.com>
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-Changes in v3:
-  - send an incremental fix on top of ipsec/master as requested by
-    Steffen Klassert instead of replacing the queued v1
-  - replace v1's unbounded GFP_ATOMIC list with a bounded batch and
-    xfrm_state_walk() cursor resume
-  - keep the phase-two drain BH-disabled for local_lock_nested_bh()
-  - distinguish the template-only userspace command from the actual
-    in-kernel validation integration, configuration, build, and boot steps
-  - validate 17 concurrent states so the v3 worker fills its 16-entry
-    batch and resumes from its cursor
-  - recapture the complete original lockdep report and add its full
-    batch addr2line mapping from the matching unstripped vmlinux
-  - record the validation-kernel user-namespace limitation and the
-    separate NETLINK_XFRM EINVAL result instead of implying that the
-    template userspace command reproduced the bug
-  - identify the crash log as evidence from a separate earlier root-cause
-    reproducer revision, not output from the 17-state v3 batch PoC
-  - v2 Link: https://lore.kernel.org/all/cover.1785861392.git.zihanx@nebusec.ai/
 
-Changes in v2:
-  - reroll on top of net cf6f8b29befb
-  - replace the unbounded GFP_ATOMIC state list with a bounded batch
-  - keep phase-two processing in BH-disabled context
-  - clarify the validation permission model and reproducer scope
-  - v1 Link: https://lore.kernel.org/all/cover.1784645321.git.xizh2024@lzu.edu.cn/
+Beste Grüße,
+Peter Schneider
 
- net/xfrm/xfrm_nat_keepalive.c | 46 ++++++++++++++++-------------------
- 1 file changed, 21 insertions(+), 25 deletions(-)
-
-diff --git a/net/xfrm/xfrm_nat_keepalive.c b/net/xfrm/xfrm_nat_keepalive.c
-index 8679c68c10a1..5cd6d43164db 100644
---- a/net/xfrm/xfrm_nat_keepalive.c
-+++ b/net/xfrm/xfrm_nat_keepalive.c
-@@ -155,32 +155,30 @@ static void nat_keepalive_send(struct nat_keepalive *ka)
- 	}
- }
- 
-+enum {
-+	NAT_KEEPALIVE_BATCH_SIZE = 16,
-+	NAT_KEEPALIVE_BATCH_FULL = 1,
-+};
-+
- struct nat_keepalive_work_ctx {
--	struct list_head states;
-+	struct xfrm_state *batch[NAT_KEEPALIVE_BATCH_SIZE];
-+	unsigned int nr;
- 	time64_t next_run;
- 	time64_t now;
- };
- 
--struct nat_keepalive_state {
--	struct list_head list;
--	struct xfrm_state *x;
--};
--
- static int nat_keepalive_work_collect(struct xfrm_state *x, int count, void *ptr)
- {
- 	struct nat_keepalive_work_ctx *ctx = ptr;
--	struct nat_keepalive_state *state;
- 
- 	if (!READ_ONCE(x->nat_keepalive_interval))
- 		return 0;
- 
--	state = kmalloc_obj(*state, GFP_ATOMIC);
--	if (!state)
--		return -ENOMEM;
-+	if (ctx->nr == ARRAY_SIZE(ctx->batch))
-+		return NAT_KEEPALIVE_BATCH_FULL;
- 
- 	xfrm_state_hold(x);
--	state->x = x;
--	list_add_tail(&state->list, &ctx->states);
-+	ctx->batch[ctx->nr++] = x;
- 	return 0;
- }
- 
-@@ -226,29 +224,27 @@ static void nat_keepalive_work_single(struct xfrm_state *x,
- 
- static void nat_keepalive_work(struct work_struct *work)
- {
--	struct nat_keepalive_state *state, *tmp;
- 	struct nat_keepalive_work_ctx ctx;
- 	struct xfrm_state_walk walk;
- 	struct net *net;
--	int err;
-+	int err, i;
- 
--	INIT_LIST_HEAD(&ctx.states);
- 	ctx.next_run = 0;
- 	ctx.now = ktime_get_real_seconds();
- 
- 	net = container_of(work, struct net, xfrm.nat_keepalive_work.work);
- 	xfrm_state_walk_init(&walk, IPPROTO_ESP, NULL);
--	err = xfrm_state_walk(net, &walk, nat_keepalive_work_collect, &ctx);
-+	do {
-+		ctx.nr = 0;
-+		err = xfrm_state_walk(net, &walk, nat_keepalive_work_collect, &ctx);
-+		local_bh_disable();
-+		for (i = 0; i < ctx.nr; i++) {
-+			nat_keepalive_work_single(ctx.batch[i], &ctx);
-+			xfrm_state_put(ctx.batch[i]);
-+		}
-+		local_bh_enable();
-+	} while (err == NAT_KEEPALIVE_BATCH_FULL);
- 	xfrm_state_walk_done(&walk, net);
--	list_for_each_entry_safe(state, tmp, &ctx.states, list) {
--		nat_keepalive_work_single(state->x, &ctx);
--		xfrm_state_put(state->x);
--		kfree(state);
--	}
--	if (err == -ENOMEM) {
--		schedule_delayed_work(&net->xfrm.nat_keepalive_work, 0);
--		return;
--	}
- 	if (ctx.next_run)
- 		schedule_delayed_work(&net->xfrm.nat_keepalive_work,
- 				      (ctx.next_run - ctx.now) * HZ);
 -- 
-2.43.0
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
