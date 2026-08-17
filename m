@@ -1,140 +1,113 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2635944236B
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 15:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B409D2773C3;
+	Mon, 17 Aug 2026 15:49:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786981134; cv=none; b=b7CHmR5fS1eJlLlT9eXUV6BoJunshPigfq9M3wDchbVOuf9D1ukts6ETj+J1WExeY1sbzT/igk8uT+joRsgdhle4mwkn9vSY8VWRqXBeM2ckfGQOTPXAU5Yl4S50j2GFVZwRVjHvSpdr8wp/JiPhL2iBb5B1kOoPy8GoxqKUNHk=
+	t=1786981780; cv=none; b=N3cmN22KQGNo1hUaTD81p0r3WSki3tx5nza4ZjMcjQ3o3bum/G/iGmu3wFEl8ZNU5ASZ/VvZJ2W8wcMf8wc8y2Gk5c/jiXo7DW6XAl9IKMbYbKI0SsPQPYGkTteYlhybwlKWt40u38q9noVRz33nb6R0I1asnTXCXPK3oWTbp4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786981134; c=relaxed/simple;
-	bh=oBrnpScWWBrQJQdo/rLjHvow2EdW7eY5TmIXqt2jKak=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h83DZc5VQ0R7UpjlnYMlmS+E1R9lvwQ7G13craDM2x9nHxDIWV+D4FlrKOm60J3H/JbIDztdPWNWjffph/ziND8O3byiaroruJWUo0JYqnjHxC1pIFLolCPANAxG8DkpOft6DUPYfGB+55Is3kGFpn157cto6OuU8m2OxQDebtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhZQaeRE; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786981780; c=relaxed/simple;
+	bh=KNqtq7cZH+z+YbRIDHrssZ7GumMCLkuaX3RHUb0Lcew=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AObrczf4d5CeKYkQgqvM2PLTECjKqWP+IJl6fud/vjOHj8wMZ8oVSwpBdA5pbBkKi8gh0aRl7jijg43u9QKE8w3BtfhHV2Hz5pACuQe2fv1YPawneqQ6Dqpqdadg7LbOgbWnm3T3J21X53fAPzNwtvqxrQwI/u/rjOpxr+kEyhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=10hH2T+J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhZQaeRE"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d590f4c291so2021375ad.0
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 08:38:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786981132; x=1787585932; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6ttFNIm5J59uLE19rktxqz0bELz7EGhv91DNjHXA4KA=;
-        b=NhZQaeREbChotUbiwxnXBRAKdqpmpACrZlXT/8JPyHSU+sew1AZzbLqVwtwDXHejUJ
-         41kgKQvpWQMlYc7kCg03LStHBAZWSCk3DfDqU0fTnxByCrMXenqxIHQEdZRUBBzdVf2r
-         ER8nYxKbdPO9jP8vhM4j55IE+jw3PLK3Iid46X7Dad2nEHDjI7wNx3gt4OfAA+8kwdIX
-         IJSKqfGszlI3Uk2xnf5rjzw0LXAUBjT6sALDsj2KEuKQ5ckkxu4KtOon4cqiDKhL2acv
-         FiVOOjk9KS67vuhBiMUlvbCxBR2s+5Pz63p32WoXZcXhe0vHWyYHoTVHRAVXjYZvrU1g
-         BaXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786981132; x=1787585932;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6ttFNIm5J59uLE19rktxqz0bELz7EGhv91DNjHXA4KA=;
-        b=sWgOHn7tTbY6S6ldyD/TEcmQYm3tIH+SQbwpmt1Lx7kmntmx821waK0kr4lsYak4Nj
-         AyESWEwW2HE3N0cmdHdHYucdS/SZJD9L9wMiGez/wLyHQgiFHkzL0O9787mK7FE1qi5L
-         HKE+/1h47LqYFMtDZQUmWk+boTDNMzwg/ZLSoffIjEbngHidWtUdGIXOHKyfZuKY/QYz
-         5r0Zhq8g5Kb/tdCFBqxhQqI74XPVhKCddRMOuZ2/JgFBfWK+KobcKbThZORdtA9EXCpY
-         dci6PXkt63LdUPSYwqfdtbBC6lPX+PEUZZRJ1pgqhAAr2RVIbI7OlQRPVNSZrnvfeqK/
-         MUVg==
-X-Forwarded-Encrypted: i=1; AHgh+RqO0gBZ+z0Kd1iAAekFz8YgIVM1R5TGGvVeRalgd1b5il86omS44AesPb6udWWuwoN9TEzoGDQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjCOCWdxx0zKUBkqx/LDhO8eihUhT6U3NDcAloNKTCdXpbYGTd
-	V/fxgEvN1OKF8wj3w97EFpj98GdHq79mTHg6k/aGugFLtdtM2zIAzE0x
-X-Gm-Gg: AR+sD11Q76Nh0T9M55EElDh0wrP66WdHdmn4IETJIZ9/6R6NW7tE29pF4/l8cvvggdz
-	lbCKgcJoeKML7fhiSSPkgV/Ws6M73hWx44b7S4Cd1RrNpPwheAOMef9h/Oi1jFc+TBo/2ruVzgM
-	SYckJ2T3Ay8oagnDoH/llVzQeSzZUKi82PoCFBEJKS8nTOjIKOAYTxvdmHe3Szp5yCSuS5kLI17
-	bQO6xcI31ei3U1/SBMTr0z2hABDp32AbqUuTbA/Oia4i0cm7LWsGIPi0a+XMmEgPXxrusFzoa2h
-	QtVA34efQJQV0VMIivIkKdm+giCOcjYaFOShoXn8BKk6XShwObgHiLxwq3HOYR/kHZwcIE6FfwD
-	5/Ga6dRLvilzuIy3+OxRAHzAJYtHLaGUlLn76MywzVKWGG9Iz9ob2+OW9xiIUBnmrqJ/OqE4aOt
-	YeRyQVXitwYK6mYdDxsQ7jZjq4DuC98VFyaquuizj8CM7XCuQ5GXl5vlUPay5mmW0PUcXsjgRu6
-	YoTiLX6/YKd
-X-Received: by 2002:a17:902:e54c:b0:2c9:ed4a:c3a4 with SMTP id d9443c01a7336-2d3b0503575mr184872235ad.0.1786981132291;
-        Mon, 17 Aug 2026 08:38:52 -0700 (PDT)
-Received: from ?IPV6:::? ([20.24.212.12])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5c1e54330sm5304955ad.44.2026.08.17.08.38.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Aug 2026 08:38:51 -0700 (PDT)
-Message-ID: <6933d09a-4dc1-43f8-a1c5-bc3db2f6ffb7@gmail.com>
-Date: Mon, 17 Aug 2026 23:38:41 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="10hH2T+J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3DF1F000E9;
+	Mon, 17 Aug 2026 15:49:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786981778;
+	bh=eiiXkoxCzkICIBoaYv0pHz0oOrj5p1ZL+U6ZxrizS30=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=10hH2T+JD23i0m61UBGkZQ27/KHwjh6USzpIhpa4KGDZiofwlz2AXr8kCxs71C5nz
+	 Hvl/91eCNuHVPVgiebPzqsPZ+lgSmYP97Y+6p1R/sWoAO0yxlO+hwlw4uKnXxS0/Hz
+	 AjlsUqBXC54bk7Q1kpx/7iPXWhGB5xitEffT6nPQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable@vger.kernel.org,
+	Tze Yee Ng <tze.yee.ng@altera.com>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 307/389] firmware: stratix10-svc: fix memory leaks and list corruption bugs
+Date: Mon, 17 Aug 2026 15:32:26 +0200
+Message-ID: <20260817132550.998667043@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817132538.796021292@linuxfoundation.org>
+References: <20260817132538.796021292@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] net: hsr: fix packet drops caused by GRO superpackets
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
- shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
- qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
- bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
- liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com
-References: <20260809121455.1745-1-xiexinet@gmail.com>
- <20260809121455.1745-2-xiexinet@gmail.com>
- <20260813182111.088aee3d@kernel.org>
-Content-Language: en-GB
-From: Xin Xie <xiexinet@gmail.com>
-Autocrypt: addr=xiexinet@gmail.com; keydata=
- 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
- sNySbH3veZ/55EtlXA==
-In-Reply-To: <20260813182111.088aee3d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14/08/2026 09:21, Jakub Kicinski wrote:
-> 1) could you explain in more detail why GRO is breaking things?
-> GRO shouldn't merge packets with different L2/L2.5 and packets
-> with trailers?
-> 
-> 2) the code seems inspired by LRO but LRO also has
-> NETIF_F_UPPER_DISABLES. This change looks rather incomplete.
-> Calling it "best effort" seems like an excuse.
-> 
-> 3) Clashiko has a number of other comments:
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260809121455.1745-1-xiexinet@gmail.com
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-I am currently on annual leave until the middle of September. I will continue this topic when I return.
+------------------
 
+From: Tze Yee Ng <tze.yee.ng@altera.com>
+
+[ Upstream commit 9119ceb76e987c2ec2b549ea100e3268ce3a1c7c ]
+
+Fix a memory leak when gen_pool_alloc() fails by freeing pmem on the error
+path. Switch pmem allocation from devm_kzalloc() to kzalloc() with
+explicit kfree() in the free path to match its list-managed lifetime.
+Remove the erroneous list_del(&svc_data_mem) which corrupted the list head
+on failed lookups.
+
+Fixes: 7ca5ce896524 ("firmware: add Intel Stratix10 service layer driver")
+Cc: stable@vger.kernel.org#5.0+
+Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+(cherry picked from commit 9119ceb76e987c2ec2b549ea100e3268ce3a1c7c)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/firmware/stratix10-svc.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
+index 6b6a819fcddfa..ae6d942ab2d75 100644
+--- a/drivers/firmware/stratix10-svc.c
++++ b/drivers/firmware/stratix10-svc.c
+@@ -911,13 +911,15 @@ void *stratix10_svc_allocate_memory(struct stratix10_svc_chan *chan,
+ 	struct gen_pool *genpool = chan->ctrl->genpool;
+ 	size_t s = roundup(size, 1 << genpool->min_alloc_order);
+ 
+-	pmem = devm_kzalloc(chan->ctrl->dev, sizeof(*pmem), GFP_KERNEL);
++	pmem = kzalloc(sizeof(*pmem), GFP_KERNEL);
+ 	if (!pmem)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	va = gen_pool_alloc(genpool, s);
+-	if (!va)
++	if (!va) {
++		kfree(pmem);
+ 		return ERR_PTR(-ENOMEM);
++	}
+ 
+ 	memset((void *)va, 0, s);
+ 	pa = gen_pool_virt_to_phys(genpool, va);
+@@ -950,10 +952,9 @@ void stratix10_svc_free_memory(struct stratix10_svc_chan *chan, void *kaddr)
+ 				       (unsigned long)kaddr, pmem->size);
+ 			pmem->vaddr = NULL;
+ 			list_del(&pmem->node);
++			kfree(pmem);
+ 			return;
+ 		}
+-
+-	list_del(&svc_data_mem);
+ }
+ EXPORT_SYMBOL_GPL(stratix10_svc_free_memory);
+ 
 -- 
-Xin
+2.53.0
+
+
+
