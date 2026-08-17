@@ -1,82 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA53246EF82;
-	Mon, 17 Aug 2026 19:46:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CD83CBE6D;
+	Mon, 17 Aug 2026 19:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786996016; cv=none; b=VOiE4Eje245hrTPNXL3M0hdQWKIMWMKouKMWWEZxWCwOHh5uXqD4PCxsYEkhWggpGXsmAbsnZRGHsjIQBmqkKUYzyhZ5PcpO9VpR0OZzuq7AryhYtO4kz5VXTPBthiIuxrFF8UKpbINtopH5OrASWx0q8m2RzFjk/PMPf5yJEUc=
+	t=1786996450; cv=none; b=TrLrtG7/fLNOUjKO0QzyL7LlLKJ8sguG8mfNw34ZW6/NyXGubr7xnpqxcieDxN1vk7SLo6uykc0uWIy2P8VnTzCLrRFRAHiKnJsDWI4IeybeOY5NckNXYN1XjLW/tPqdRNBpnPkOBsnqPuAXQk7sS2si17fgS84lDoiD9eaoikQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786996016; c=relaxed/simple;
-	bh=8rNJPOvWQeLSMlRINIAUAZDPECL7vEwSPcEYDpKEVDo=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=DYvHEAGtRZq1rlH/jjiAHKkRXp3xhJfaKNR74PcIEkx2qTqM50SXZnCLsAovSD0MPkSTeg6jpRn8rrEYTuYp8hcmBxWfCmA3mZ+nibogRNy4AS5/CirlTngHrtDVZ5iYZBCaRIXZOjSMjJEDfnPxuo2uZpNB38zZUFFFQD2qGRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=foTs1yhj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786996450; c=relaxed/simple;
+	bh=Wvk/GoG5BUNG7j62FvnpVbC2KSxj9mBYK7LX+M98XUw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HAUYTk/z+ORQIejskrxUzb0DhVJBH/24KAYNJKvbaf+bGPzxuuFLFLs2FeTH9FKi4n4dbAYSUOhbEi9Rtf4O5MTv6FQyUgC7zAhSIXaCbEw92camP2DyvpIVAxlI0hoGtAqb8tqgYZc/2ozmQyF5CIRBa0uezzzCJKoS8rECnEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJ/H/Fs6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="foTs1yhj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F6751F00A3A;
-	Mon, 17 Aug 2026 19:46:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786996014;
-	bh=LTWf/+YwmHFRhCjhh37NBeey88rf7DYi9mDCQWcAItk=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=foTs1yhjahbTjHY2OhKe9adS/J3VrGzfDZ5rs1s+/cYkdKFhZfXHZ1GAk4ULs8Zzz
-	 WjIHPHhWMQYWX9JzI/7qlgnkR3Y6GhEejjppedjdO19SZ6r3aQtEl7uWapg660609+
-	 VW9eUFhV9HF+LveANHl0D+rLcXMannDezWrYnHzTlG/AMi+ZO5iKZnsDxWCenxRlNP
-	 QcG0a5Xw6TNlHnfCwM2q+g0tt/A9z4Z7yklq6wp3bl6+kO8ejGXGgqRUZWIhNrOeuu
-	 Uhqa45ytlIJAjWY05jX53Vs/cGIxCjvin0Eqthwt06HOlzq2r9nMMGZ11naNUbNq6C
-	 kNNR52RnaEMOQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D08CB3926262;
-	Mon, 17 Aug 2026 19:46:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJ/H/Fs6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D3DDC2BCFC;
+	Mon, 17 Aug 2026 19:54:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786996450;
+	bh=Wvk/GoG5BUNG7j62FvnpVbC2KSxj9mBYK7LX+M98XUw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=GJ/H/Fs6QggOUmmy34BTXEShCg8Aw5WBF/rfLsuAa2ho21zussWee38eG/YO9+Lto
+	 PHj/JDj42kGnr01kVGBppRHdS4UtzEcVQaOJPZouwo+wlTyJhAcg+G6O2lYviZ0jWn
+	 UTC0xVEQ6B0fGdL1604bNslwTg13OOBom6Z2ksCCeGzx5yYBeQZOaWRMLebrkTzbsA
+	 HkjExn70iR6tEUtWJU4eR16IT60DcyACWYkh67Z/7VNK3fOuQlIr053RP2+9yJN7AC
+	 du8yfNlvoMEpkaxpzvQMocv52veTYeET4+RtgPKrRW0/x61C3doLFrMyJ8XoLsHkVL
+	 Oz3hOjjXpyq8A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47445C5DF7F;
+	Mon, 17 Aug 2026 19:54:10 +0000 (UTC)
+From: Sven Peter <sven@kernel.org>
+Date: Mon, 17 Aug 2026 21:54:01 +0200
+Subject: [PATCH 4/5] thunderbolt: Don't access a DP tunnel after its DPRX
+ read was canceled
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3] Bluetooth: eir: Fix OOB read in eir_get_service_data()
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <178699596638.1691257.16551460626446632057.git-patchwork-notify@kernel.org>
-Date: Mon, 17 Aug 2026 19:46:06 +0000
-References: <20260815062419.37489-1-sammiee5311@gmail.com>
-In-Reply-To: <20260815062419.37489-1-sammiee5311@gmail.com>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260817-b4-tbt-fixes-v1-4-eded2461f5fc@kernel.org>
+References: <20260817-b4-tbt-fixes-v1-0-eded2461f5fc@kernel.org>
+In-Reply-To: <20260817-b4-tbt-fixes-v1-0-eded2461f5fc@kernel.org>
+To: Andreas Noever <andreas.noever@gmail.com>, 
+ Mika Westerberg <westeri@kernel.org>, 
+ Yehezkel Bernat <YehezkelShB@gmail.com>
+Cc: asahi@lists.linux.dev, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>, 
+ Sven Peter <sven@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3140; i=sven@kernel.org;
+ h=from:subject:message-id;
+ bh=Wvk/GoG5BUNG7j62FvnpVbC2KSxj9mBYK7LX+M98XUw=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ1Zz2j3RWz+WHPqf/6gjIbvVb2nfokfamiHuEz9eZrsZv
+ eNjavTZjlIWBjEuBlkxRZbt++1Nnzx8I7h006X3MHNYmUCGMHBxCsBEwr4yMjzta3nyKXDTgU3l
+ m9vftK2Li+gyK79/VWZlmuaxjc4nN+9nZJgoVvZEoOTMUq5m70MH7T4sXPRF0/bYvJ1/Us24BDq
+ l73ADAA==
+X-Developer-Key: i=sven@kernel.org; a=openpgp;
+ fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
+X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
+ auth_id=407
 
-Hello:
+tb_dp_dprx_work checks dprx_canceled before it takes tb->lock so it
+misses a tb_dp_dprx_stop that could not cancel the already running
+work. It then polls the DPRX capabilities and runs the callback for a
+tunnel that is being torn down and touches routers that may already be
+gone after an unplug.
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+Check the flag with tb->lock held instead and check it again in
+tb_dp_tunnel_active because the callback runs after the lock has been
+dropped again.
 
-On Sat, 15 Aug 2026 15:24:19 +0900 you wrote:
-> eir_get_service_data() walks the advertising data for a Service Data
-> field with a matching UUID.  On a mismatch it advances:
-> 
->     eir += dlen;
->     eir_len -= dlen;
-> 
-> eir_get_data() reports dlen as the field's data length, but the field
-> spans dlen + 2 bytes once its length and type bytes count, and more
-> when non-Service-Data fields were skipped to reach it.  The pointer
-> lands correctly on the next field.  eir_len does not, and the shortfall
-> compounds across fields until eir_get_data() reads the length and type
-> bytes of a "field" past the end of the buffer.
-> 
-> [...]
+Also clear the flag in tb_dp_dprx_start so that it only ever describes
+the work that is currently in flight.
 
-Here is the summary with links:
-  - [v3] Bluetooth: eir: Fix OOB read in eir_get_service_data()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/14a97a38ba8f
+Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sven Peter <sven@kernel.org>
+---
+ drivers/thunderbolt/tb.c     | 12 ++++++++++++
+ drivers/thunderbolt/tunnel.c | 11 +++++++++--
+ 2 files changed, 21 insertions(+), 2 deletions(-)
 
-You are awesome, thank you!
+diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+index fb9da53fe391..e368a6b53f64 100644
+--- a/drivers/thunderbolt/tb.c
++++ b/drivers/thunderbolt/tb.c
+@@ -1910,6 +1910,18 @@ static void tb_dp_tunnel_active(struct tb_tunnel *tunnel, void *data)
+ 	struct tb *tb = data;
+ 
+ 	mutex_lock(&tb->lock);
++
++	/*
++	 * If the DPRX read was canceled the tunnel is already being torn
++	 * down by whoever canceled it. Do not touch the adapters here
++	 * because the routers may be gone by now.
++	 */
++	if (tunnel->dprx_canceled) {
++		tb_tunnel_dbg(tunnel, "DPRX read canceled, not activating\n");
++		mutex_unlock(&tb->lock);
++		return;
++	}
++
+ 	if (tb_tunnel_is_active(tunnel)) {
+ 		int consumed_up, consumed_down, ret;
+ 
+diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
+index 82d9c0b556dd..52fa90786ff8 100644
+--- a/drivers/thunderbolt/tunnel.c
++++ b/drivers/thunderbolt/tunnel.c
+@@ -1090,8 +1090,14 @@ static void tb_dp_dprx_work(struct work_struct *work)
+ 	struct tb_tunnel *tunnel = container_of(work, typeof(*tunnel), dprx_work.work);
+ 	struct tb *tb = tunnel->tb;
+ 
++	/*
++	 * The DPRX read can be canceled while this work is waiting for
++	 * tb->lock. Check the flag only once it is held: while the lock is
++	 * held the tunnel cannot be torn down under us and the adapters are
++	 * safe to access.
++	 */
++	mutex_lock(&tb->lock);
+ 	if (!tunnel->dprx_canceled) {
+-		mutex_lock(&tb->lock);
+ 		if (tb_dp_is_usb4(tunnel->src_port->sw) &&
+ 		    tb_dp_wait_dprx(tunnel, TB_DPRX_WAIT_TIMEOUT)) {
+ 			if (ktime_before(ktime_get(), tunnel->dprx_timeout)) {
+@@ -1103,8 +1109,8 @@ static void tb_dp_dprx_work(struct work_struct *work)
+ 		} else {
+ 			tb_tunnel_set_active(tunnel, true);
+ 		}
+-		mutex_unlock(&tb->lock);
+ 	}
++	mutex_unlock(&tb->lock);
+ 
+ 	if (tunnel->callback)
+ 		tunnel->callback(tunnel, tunnel->callback_data);
+@@ -1123,6 +1129,7 @@ static int tb_dp_dprx_start(struct tb_tunnel *tunnel)
+ 		tb_domain_get(tunnel->tb);
+ 
+ 		tunnel->dprx_started = true;
++		tunnel->dprx_canceled = false;
+ 		tunnel->dprx_timeout = dprx_timeout_to_ktime(dprx_timeout);
+ 		queue_delayed_work(tunnel->tb->wq, &tunnel->dprx_work, 0);
+ 		return -EINPROGRESS;
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+2.55.0
 
 
