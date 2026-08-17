@@ -1,37 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE97C3E2ADD;
-	Mon, 17 Aug 2026 13:50:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF91233923;
+	Mon, 17 Aug 2026 13:50:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974639; cv=none; b=NlQyoybkZGoLB/6oKslA7RxFGJ6nqe8GqI8h/scWwm6s9t/saibtY5yx4QSlvO6fIH441WethiVIbCS+PJnlTRKynZ+pMSW1KSApIX6YTD21wpWx5XNQpf2Fol/g2CS8fa1iIk2rmVh1jy5H5Kr3A2lZtiM1AjKZbqx1GMwdzPM=
+	t=1786974644; cv=none; b=nsz43Z+pNFYOBvs0Ta0K2dVgjzpZDnnoyF8Lfxr7f+d3n7FAQjI8d1bWayUgFYE+mmFZg3OWAMWtWq9zBs1AQxjJkkrcS68jjhgaJJ1fVytECVNaWDMT6bKuPj7H3kYL+4k4YgLNOekVh2WRWRiyWhFnR3gNtGwuKTvFRpbRjfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974639; c=relaxed/simple;
-	bh=3gB+RI+6oDEh+nl3bNV2ClYLWnLnhj4Rs3x7gyMPyb0=;
+	s=arc-20240116; t=1786974644; c=relaxed/simple;
+	bh=h2I5F5KkiAFndwC/UQNPS4qO/xbAJZBUJOT1XlBmeds=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JXf4yesmyB2A5m0x6cg/qnifaDSWFOLa7Y2KlLduJitbgq2GNeL+ttAkALnw8nJCGY23gqn6XbFa7a7J3D50BFTeyhkGq0CXYfUVCplLXHel34vAqOdFvfmeB60HnZZgdd3i/m3Qv2lmgoOkucAa3HCJx1QbvIIMhryajK37gw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0aOcL8K9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eL5nsBPq98YR1l1/JhadpvKk8pLvx+B+iH7GBuTv3n6M4cIbAGVMH59neSRWqCx77dcjq0xDBSs7OfeGCPRdcVCjXhlvuyEReTidZ6Mo3z6eLfhXFalttK53bVTUaExMC6kolhNU+u9OZew0FBkVDfqReEqys4X3VND1sANHe0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jDwutzOH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0aOcL8K9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F761F00A3A;
-	Mon, 17 Aug 2026 13:50:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jDwutzOH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBEB41F000E9;
+	Mon, 17 Aug 2026 13:50:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974631;
-	bh=6tSa+3v5dFbwLPvtefE5hLVY+lmiJAFLosTNziQl0nI=;
+	s=korg; t=1786974637;
+	bh=yJ1JfK7nm9znuVAgs8GwZsj13tUx0jg4L93GLgdcjNk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0aOcL8K9xGWqIIUtB6+x5bioWiK/xj25YiuRStik5afXxp916Eyxj/jR/jNGSlctq
-	 NhTQVmvtTR9TtkXa9tax2dDXgeoNlffDHWmRjMpsfSJjVPIiI7yMf9jYxSDuy5m92I
-	 1ySOBc+JeNrZDwh5SJ2XgnCFvGUWTc2afwQ/16F8=
+	b=jDwutzOHm3JQ4kn6+N8xYHqkL9AW7DSviaU8KwI3UkO/R71mAd8u6GKPa7W+2AAtF
+	 0bQ9fnlAKZhYa9SDb7zzw6bvnugYgX5kCNDiSgB7P+petq8ygh+kzkmoOzoczXUmZN
+	 x1I9roZCmqB0dtLMt8ab27JVzzrc9l3PhiLJ0E84=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Tengda Wu <wutengda@huaweicloud.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH 7.1 251/271] ring-buffer: Use current_context for safe per-CPU buffer swap
-Date: Mon, 17 Aug 2026 15:32:56 +0200
-Message-ID: <20260817132547.065275922@linuxfoundation.org>
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	David Carlier <devnexen@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Toshi Kani <toshi.kani@hpe.com>,
+	"Uladzislau Rezki (Sony)" <urezki@gmail.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 7.1 253/271] mm/ptdump: always stabilise against page table freeing using init_mm
+Date: Mon, 17 Aug 2026 15:32:58 +0200
+Message-ID: <20260817132547.160451967@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
 References: <20260817132536.752504388@linuxfoundation.org>
@@ -50,77 +72,115 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Tengda Wu <wutengda@huaweicloud.com>
+From: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-commit f27bdc43077e4fcb5557dfc315ee8d91e741f483 upstream.
+commit 27c32e5538344b13c1505a08861e04620c125d47 upstream.
 
-The ring_buffer_swap_cpu() function currently checks the per-CPU
-committing counter to determine if a buffer is actively being written to
-before performing the swap. However, there exists a race window where
-this check can be bypassed:
+Previous commits have established the invariant that kernel page table
+freeing is performed while an mmap read lock on init_mm is held, which
+fixes races between ptdump and kernel page table freeing over init_mm.
 
-    ring_buffer_lock_reserve
-        cpu_buffer = buffer->buffers[cpu];       // cpu_buffer_a
-        rb_reserve_next_event
-            rb_start_commit // inc committing
-            if (unlikely(READ_ONCE(cpu_buffer->buffer) != buffer)) {...}
-            __rb_reserve_next
-                rb_move_tail
-                    rb_end_commit(cpu_buffer);   // dec committing => 0
-                    /* interrupt hits here, successfully swaps! */
-                    local_inc(&cpu_buffer->committing);
+However, x86 and arm64 can perform a ptdump over an mm other than init_mm
+via ptdump_walk_pgd() and since kernel memory ranges are shared across
+non-kernel mm's, this means that the race still exists for these cases.
 
-    ring_buffer_unlock_commit
-        cpu_buffer = buffer->buffers[cpu];      // cpu_buffer_b
-        rb_commit
-            rb_end_commit
-            RB_WARN_ON(cpu_buffer, !local_read(&cpu_buffer->committing))
-                                                // triggers warning
+Fix this by acquiring a nested mmap write lock for init_mm in
+ptdump_walk_pgd().
 
-The committing counter can temporarily drop to 0 during a single write
-operation (within rb_move_tail), creating a window where swap can
-succeed even though the write is still in progress. This leads to
-inconsistent buffer state and triggers the RB_WARN_ON in rb_commit().
+This is safe as we take this after mmap write locking the mm, and nothing
+acquires the init_mm lock first before locking an arbitrary mm, so no
+deadlock is possible.
 
-Replace the committing counter check with current_context checks, which
-are set at the entry of ring_buffer_lock_reserve() and remain valid
-throughout the entire write operation, providing a reliable indicator of
-buffer busy state during swap.
+Also update walk_page_range_debug() to assert that init_mm is write
+locked, add a comment explaining why and remove some redundant code, and
+eliminate the unnecessary and confusing invocation of
+walk_kernel_page_table_range().
 
-Cc: stable@vger.kernel.org
-Fixes: 4239c38fe0b3 ("ring-buffer: Process commits whenever moving to a new page.")
-Link: https://patch.msgid.link/20260803005640.2445666-2-wutengda@huaweicloud.com
-Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+We can safely remove the non-NULL check for walk.mm, as the mmap lock
+asserts would NULL pointer deref if it was (and of course no callers do
+this).
+
+The first point at which ptdump can race kernel page table freeing is
+commit b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page
+table"), so we target this in the Fixes tag.
+
+Link: https://lore.kernel.org/20260723-series-vmap-race-fix-v6-4-8cc77dcc0018@kernel.org
+Fixes: b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andy Lutomirski <luto@kernel.org>
+Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Cc: "Borislav Petkov (AMD)" <bp@alien8.de>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: David Carlier <devnexen@gmail.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Toshi Kani <toshi.kani@hpe.com>
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- kernel/trace/ring_buffer.c |    8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ mm/pagewalk.c |   14 +++++++++-----
+ mm/ptdump.c   |    7 +++++++
+ 2 files changed, 16 insertions(+), 5 deletions(-)
 
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -6683,7 +6683,7 @@ int ring_buffer_swap_cpu(struct trace_bu
- {
- 	struct ring_buffer_per_cpu *cpu_buffer_a;
- 	struct ring_buffer_per_cpu *cpu_buffer_b;
--	int ret = -EINVAL;
-+	int ret = -EBUSY;
+--- a/mm/pagewalk.c
++++ b/mm/pagewalk.c
+@@ -702,12 +702,16 @@ int walk_page_range_debug(struct mm_stru
+ 	 * to account for page table freeing on vmap huge page mapping.
+ 	 */
+ 	mmap_assert_write_locked(mm);
++	/*
++	 * x86, arm64 ptdump allow walks of efi mm's and x86 ptdump allows walks
++	 * of arbitrary mm's.
++	 *
++	 * However, they both must also hold the init_mm lock to account for
++	 * concurrent kernel page table freeing.
++	 */
++	mmap_assert_write_locked(&init_mm);
  
- 	if (!cpumask_test_cpu(cpu, buffer_a->cpumask) ||
- 	    !cpumask_test_cpu(cpu, buffer_b->cpumask))
-@@ -6724,10 +6724,10 @@ int ring_buffer_swap_cpu(struct trace_bu
- 	atomic_inc(&cpu_buffer_a->record_disabled);
- 	atomic_inc(&cpu_buffer_b->record_disabled);
+-	/* For convenience, we allow traversal of kernel mappings. */
+-	if (mm == &init_mm)
+-		return walk_kernel_page_table_range(start, end, ops,
+-						    pgd, private);
+-	if (start >= end || !walk.mm)
++	if (start >= end)
+ 		return -EINVAL;
+ 	if (!check_ops_safe(ops))
+ 		return -EINVAL;
+--- a/mm/ptdump.c
++++ b/mm/ptdump.c
+@@ -178,11 +178,18 @@ void ptdump_walk_pgd(struct ptdump_state
  
--	ret = -EBUSY;
--	if (local_read(&cpu_buffer_a->committing))
-+	/* Do not swap if either buffer is in the process of writing */
-+	if (cpu_buffer_a->current_context)
- 		goto out_dec;
--	if (local_read(&cpu_buffer_b->committing))
-+	if (cpu_buffer_b->current_context)
- 		goto out_dec;
+ 	get_online_mems();
+ 	mmap_write_lock(mm);
++	/* To stabilise kernel page tables we must hold the init_mm lock too. */
++	if (mm != &init_mm)
++		mmap_write_lock_nested(&init_mm, SINGLE_DEPTH_NESTING);
++
+ 	while (range->start != range->end) {
+ 		walk_page_range_debug(mm, range->start, range->end,
+ 				      &ptdump_ops, pgd, st);
+ 		range++;
+ 	}
++
++	if (mm != &init_mm)
++		mmap_write_unlock(&init_mm);
+ 	mmap_write_unlock(mm);
+ 	put_online_mems();
  
- 	/*
 
 
