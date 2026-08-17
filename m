@@ -1,38 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A933DFC6B;
-	Mon, 17 Aug 2026 13:53:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26EB42D763;
+	Mon, 17 Aug 2026 13:53:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974804; cv=none; b=nhBzEpNyzh0gBGN2irr/xGeQnQlaNHMtpMShijfTiFA5zqhpMOeyPBEumxQ2SCeAf7OnJVP1fF/6MJ48mvushbfCt9HE6BoFKDIt9YwZnrdEKdj7M4ssiLkxs4Lqa3YmbWzcSysHH5C03vOW2pciaSa8660TNOS5SifLhCjsyJ4=
+	t=1786974805; cv=none; b=ln5o+h/mOKKneD9CTAtVo/J9tzmYywuVV7YfOAZeq2g54FdVPhRt8NO5/Mp953Xg8yvfxACXQ+J9pY+8TkYqE/mnu0cyNg7Sj2gGPB7inmE5xTYIvqM0QfvmoMfCxvdoOj8yxkalk/DHjh1BcbD3S1Oo+jjhlfobVik7x7KuEls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974804; c=relaxed/simple;
-	bh=6Iv5vQAnWQ3BXROrZLU5ROs083kcce6vjCdoSSxoyKk=;
+	s=arc-20240116; t=1786974805; c=relaxed/simple;
+	bh=lYr9G7psHtT3NSSQdmrMeSAiJDAvvrazYJf4vbAIX8s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OneF5vxsY5fALEWjErtVZ7A4HdT2z1NUi5SWrJiO3RFjggsWgnGEIo1yQJ04Pod/qD63TC1jP1p9QIzc1lHcOrEx9FWeogT7Cec3gEnwpw/cC4JDcgF5NztReLNHCyHi3Og3pGMRm2xm/aX/4MGYYYr+uupdU5tWkUzlM3rE97U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pLr/bS++; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=a4KbkuOIvpNf2YDNVzH96XWctuzxU3BZbEMt7bimEvC0rZJqxF4VtPgw8lIWHEpxBWGAkArj+xzO7En/qQLuEfxE2Cb41ch4Z/mVReqqMg+M9QfYfz9QRhWAxmULeoDJ0RhwGfDCBBa6BvJkTwPoI6Qry6ZC5he8I/3DE9UqrBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X8kKRoMl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pLr/bS++"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C8591F00A3A;
-	Mon, 17 Aug 2026 13:53:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X8kKRoMl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12C891F00A3E;
+	Mon, 17 Aug 2026 13:53:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974798;
-	bh=g2gK1DHMLmkZBEz1mEnSETProKlCnzKp6QxGGRIz23s=;
+	s=korg; t=1786974801;
+	bh=1bRrGOSnBZ5wvfnxSGl2YQ985uXAgikOBmhDgV8zaKo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pLr/bS++UylPTrcYcacccBvrv++3DzXYnffunlRNZiWk9S9xZaguHVSlvHPhFYiQy
-	 Svx9X8dwforeC0K/vuhWv5JqSzpTe3pyCIW0/gbiGXSbdvBPPynVDZu3+QWUK+GEtY
-	 3Sc5TSvwnwUoU2DoJodAiGah4Il3cBqzOSdMApl8=
+	b=X8kKRoMlw/HaXiB7Dtb28gKreT4CVL82ubcPWz/4B9/arc91SVn9W+/1m3I2gLIKL
+	 kF8LZU3Y1MhI/PVihNthlsUuN8B2Iv/wMOK5RWhR+pkG3ONEIrlaPB4WQGVK6A3Zq2
+	 dZx3Ixx3iCHip95nITmmt+o7vsOkhpW/xsllAiHg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Nathan Gao <zcgao@amazon.com>,
+	Andy Gospodarek <andrew.gospodarek@broadcom.com>,
+	Somnath Kotur <somnath.kotur@broadcom.com>,
+	Michael Chan <michael.chan@broadcom.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 057/250] tcp: do not change rcv_ssthresh in tcp_measure_rcv_mss()
-Date: Mon, 17 Aug 2026 15:30:18 +0200
-Message-ID: <20260817132538.768439173@linuxfoundation.org>
+Subject: [PATCH 6.18 058/250] bnxt_en: Do not set EOP on RX AGG BDs on 5760X chips
+Date: Mon, 17 Aug 2026 15:30:19 +0200
+Message-ID: <20260817132538.808454124@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132536.466235697@linuxfoundation.org>
 References: <20260817132536.466235697@linuxfoundation.org>
@@ -51,59 +53,64 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Nathan Gao <zcgao@amazon.com>
+From: Michael Chan <michael.chan@broadcom.com>
 
-[ Upstream commit 0e125ecfe20c077625cf0be8d750d5c3abc0dce9 ]
+[ Upstream commit 30f253f8d9a01d532fdb7ec6c8a9d4c15fe29241 ]
 
-Commit f5da7c45188e ("tcp: adjust rcvq_space after updating scaling
-ratio") replaced the direct window_clamp update in tcp_measure_rcv_mss()
-with a call to tcp_set_window_clamp(), a helper that implements the
-TCP_WINDOW_CLAMP setsockopt. As a side effect, the helper also shrinks
-rcv_ssthresh via __tcp_adjust_rcv_ssthresh().
+With End-of-Packet padding (EOP) set, the chip will disable Relaxed
+Ordering (RO) of TPA data packets.  A TPA segment with EOP set will be
+padded to the next cache boundary and can potentially overwrite the
+beginning bytes of the next TPA segment when RO is enabled on 5760X.
+To prevent that, the chip disables RO for TPA when EOP is set.
 
-As a result, each scaling_ratio decrease detected by
-tcp_measure_rcv_mss() also cuts rcv_ssthresh. Elsewhere in TCP,
-rcv_ssthresh is usually cut under memory pressure and grows via
-tcp_grow_window().
+To take advantge of RO and higher performance, do not set EOP on
+5760X chips when TPA is enabled.  Define a proper RX_BD_FLAGS_AGG_EOP
+constant to make it clear that we are setting EOP.
 
-Flows whose segment sizes vary keep scaling_ratio oscillating, which
-leads to an unstable rcv_ssthresh: a dip of rcv_ssthresh only recovers
-via tcp_grow_window(), keeping the advertised window at a relatively
-low level even after the ratio itself has recovered, and can even stall
-the sender.
-
-Observed on a customer's proxy gateway after upgrading from kernel 6.1
-to 6.12: in the worst case, rcv_ssthresh was cut in half by a
-scaling_ratio dip. P99 latency jumped from <10ms on 6.1 to ~100ms on
-6.12, and almost returned to the 6.1 level with this patch applied.
-
-Restore the plain WRITE_ONCE() update of window_clamp, as introduced
-in commit a2cbb1603943 ("tcp: Update window clamping condition"), and
-keep the rcvq_space.space adjustment. Now rcv_ssthresh is decoupled from
-scaling_ratio changes in tcp_measure_rcv_mss().
-
-Fixes: f5da7c45188e ("tcp: adjust rcvq_space after updating scaling ratio")
-Signed-off-by: Nathan Gao <zcgao@amazon.com>
-Link: https://patch.msgid.link/20260725030806.28135-1-zcgao@amazon.com
+Reviewed-by: Andy Gospodarek <andrew.gospodarek@broadcom.com>
+Reviewed-by: Somnath Kotur <somnath.kotur@broadcom.com>
+Signed-off-by: Michael Chan <michael.chan@broadcom.com>
+Link: https://patch.msgid.link/20251126215648.1885936-6-michael.chan@broadcom.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: d1000fd7995e ("bnxt: fix memory leak in bnxt_queue_mem_alloc error cases")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/tcp_input.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 9 ++++++++-
+ drivers/net/ethernet/broadcom/bnxt/bnxt.h | 1 +
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index 8c74fbeb771d5..c1769031a9e93 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -252,7 +252,7 @@ static void tcp_measure_rcv_mss(struct sock *sk, const struct sk_buff *skb)
- 				struct tcp_sock *tp = tcp_sk(sk);
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index 98a911eae8eac..1efd1f8776abe 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -4495,7 +4495,14 @@ static void bnxt_init_one_rx_agg_ring_rxbd(struct bnxt *bp,
+ 	ring->fw_ring_id = INVALID_HW_RING_ID;
+ 	if ((bp->flags & BNXT_FLAG_AGG_RINGS)) {
+ 		type = ((u32)BNXT_RX_PAGE_SIZE << RX_BD_LEN_SHIFT) |
+-			RX_BD_TYPE_RX_AGG_BD | RX_BD_FLAGS_SOP;
++			RX_BD_TYPE_RX_AGG_BD;
++
++		/* On P7, setting EOP will cause the chip to disable
++		 * Relaxed Ordering (RO) for TPA data.  Disable EOP for
++		 * potentially higher performance with RO.
++		 */
++		if (BNXT_CHIP_P5_AND_MINUS(bp) || !(bp->flags & BNXT_FLAG_TPA))
++			type |= RX_BD_FLAGS_AGG_EOP;
  
- 				val = tcp_win_from_space(sk, sk->sk_rcvbuf);
--				tcp_set_window_clamp(sk, val);
-+				WRITE_ONCE(tp->window_clamp, val);
- 
- 				if (tp->window_clamp < tp->rcvq_space.space)
- 					tp->rcvq_space.space = tp->window_clamp;
+ 		bnxt_init_rxbd_pages(ring, type);
+ 	}
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.h b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+index d55987e24ad6e..b140799f07d69 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.h
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+@@ -131,6 +131,7 @@ struct rx_bd {
+ 	 #define RX_BD_TYPE_48B_BD_SIZE				 (2 << 4)
+ 	 #define RX_BD_TYPE_64B_BD_SIZE				 (3 << 4)
+ 	#define RX_BD_FLAGS_SOP					(1 << 6)
++	#define RX_BD_FLAGS_AGG_EOP				(1 << 6)
+ 	#define RX_BD_FLAGS_EOP					(1 << 7)
+ 	#define RX_BD_FLAGS_BUFFERS				(3 << 8)
+ 	 #define RX_BD_FLAGS_1_BUFFER_PACKET			 (0 << 8)
 -- 
 2.53.0
 
