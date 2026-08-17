@@ -1,41 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEFD413788;
-	Mon, 17 Aug 2026 13:51:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BDE424D75;
+	Mon, 17 Aug 2026 13:51:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974689; cv=none; b=IQN82pEHZn/vzvPWVS2hVEB/lPf0h1AKpRvPHJnOJmQ53b/pLH0FXqbO/ehHyXqp5NLfS5TXkIT/gSHJ2w5YnBL5yefuRiD6lUyP+QPCYHsr+OMFekwJYaREPluvJTTCyy26yGwviH0qUE0ZnJAscmKexQME+YjBS4TQS0mpPO0=
+	t=1786974686; cv=none; b=gySExd5MlrgtasQ0Ytap3HXOZXdZvybtE2XMRXl/RZXlAAt0C7er/23n8KfGRiRS+WdgrrqdXGoGgGxRYDYwkxE7l0Aj7CVDLPkyJkCuiPWWfITvKERPh+mPMBhrXa+DjeCkynbz7RALRsaBJksPz6bVTb7Anr+Mm1qqpCpon4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974689; c=relaxed/simple;
-	bh=67RK/01MJUavIIi+P+yJvqs/pzufEpdnLAzevqNEDqc=;
+	s=arc-20240116; t=1786974686; c=relaxed/simple;
+	bh=2rZIfAQxcpbJYLPN+RM888iHWjVprCoiudznxkwDkLs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G4dI4SDy+KXsKqUakI/37kwFECDPLryfbnq4zcWXMH6ruolqCjLF8AUV4asab92KotYLqeKFelhkYZYqKG4Q6VoHwsure4pJZheh7Dj1mXO/HHkDzOaSqhghYjAT6oKw7R1uJTHOPIsgY83NPD6Ece2OYRNixDB1AnBBMkEjVQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=H0/dtxya; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NEOpBS/vPMZbmhnHsQcusDQqPzmlEYFq07yzc8MMF8BgVVPyvmcGJld6FbGQ/OkRfUjXexkWcdE7Ihpf9E8NZG1wisjP2WdO15rQgKHV6LLkwfORKqFgs1KZMV4UTaz3JxiAJ94UOHLbUJLOb9tQ7XdsRxMApc5KbA5Qx7nglMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=osvHYOBr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="H0/dtxya"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671841F00A3A;
-	Mon, 17 Aug 2026 13:51:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="osvHYOBr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A46D91F000E9;
+	Mon, 17 Aug 2026 13:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974680;
-	bh=YHc3BvhHqbGqSDerjcV3MM3KvQr5+VQT47Q6M9APOaM=;
+	s=korg; t=1786974675;
+	bh=MPmgOUZ6bWQYvLhfJEsgN/jXVSi6csMRT+0aPgF8nm0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H0/dtxyaFLf/8dALEmo2v/J5LQeZeHVDY5bConWaEeNJEEqSgvTuuAtM+e1AV3rwn
-	 eP2PcezKISUJCfx92DDcRTVUANg/VfsDmGPr7KN0kAkYcoMlkJx+rIz8B457wrwIIj
-	 FX5c8DIX/ZCT5/83+PlI5+AXeMrPPd+eYyT/Hw3M=
+	b=osvHYOBr0O0BGOJ1nPWsRwWvCjGUZEgH38qtBqXOMbVhjG8Z1Hzb1yNht5glLXnNw
+	 y5o4GI0cfNKKJRF9mHI9Q1C3dpiphQpBVL5OVIFTwNejgX0TRX+q0/dddho8gfybGk
+	 1qp14SUuXsZnM2fNvHgS0c6CVu6Ml/4hvQUIAuHg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Hans Ulli Kroll <linux@ulli-kroll.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Yuho Choi <dbgh9129@gmail.com>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 018/250] pinctrl: qcom: ipq806x: mark gpio as a GPIO pin function
-Date: Mon, 17 Aug 2026 15:29:39 +0200
-Message-ID: <20260817132537.187975208@linuxfoundation.org>
+Subject: [PATCH 6.18 016/250] ARM: npcm: Fix OF node refcount leaks in SMP setup
+Date: Mon, 17 Aug 2026 15:29:37 +0200
+Message-ID: <20260817132537.114222611@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132536.466235697@linuxfoundation.org>
 References: <20260817132536.466235697@linuxfoundation.org>
@@ -54,63 +52,48 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Hans Ulli Kroll <linux@ulli-kroll.de>
+From: Yuho Choi <dbgh9129@gmail.com>
 
-[ Upstream commit 687f39faccba29ab26de965411db37e849af8ec2 ]
+[ Upstream commit 8eb052f48331474c2789d07b7f11165c323bd2f9 ]
 
-The qcom pinctrl core supports marking functions that represent GPIO mode
-via PINCTRL_GPIO_PINFUNCTION(), so that strict pinmuxing does not reject
-GPIO requests for pins that are muxed to the GPIO function.
+npcm7xx_smp_boot_secondary() and npcm7xx_smp_prepare_cpus() look up
+the GCR and SCU nodes with of_find_compatible_node(). The returned
+nodes are used for of_iomap(), but the node references are never
+released.
 
-Add a IPQ_GPIO_PIN_FUNCTION() helper and use it for the ipq806x gpio
-function, matching how the msm-based qcom drivers handle this.
+of_iomap() does not consume the device node reference, and iounmap()
+only releases the MMIO mapping. Drop each node reference after the
+corresponding mapping attempt.
 
-This allows ipq806x to keep the GPIO-related configuration in DTS
-without tripping over strict pinmux ownership
-checks.
-
-Fixes: cc85cb96e2e4 ("pinctrl: qcom: make the pinmuxing strict")
-Signed-off-by: Hans Ulli Kroll <linux@ulli-kroll.de>
-Acked-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260719134548.8830-2-linux@ulli-kroll.de
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Fixes: 7bffa14c9aed ("arm: npcm: add basic support for Nuvoton BMCs")
+Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+Signed-off-by: Andrew Jeffery <andrew@codeconstruct.com.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pinctrl/qcom/pinctrl-ipq8064.c | 2 +-
- drivers/pinctrl/qcom/pinctrl-msm.h     | 5 +++++
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ arch/arm/mach-npcm/platsmp.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/pinctrl/qcom/pinctrl-ipq8064.c b/drivers/pinctrl/qcom/pinctrl-ipq8064.c
-index 0a9e357e64c60..c1651f112950e 100644
---- a/drivers/pinctrl/qcom/pinctrl-ipq8064.c
-+++ b/drivers/pinctrl/qcom/pinctrl-ipq8064.c
-@@ -480,7 +480,7 @@ static const char * const ps_hold_groups[] = {
- };
- 
- static const struct pinfunction ipq8064_functions[] = {
--	IPQ_PIN_FUNCTION(gpio),
-+	IPQ_GPIO_PIN_FUNCTION(gpio),
- 	IPQ_PIN_FUNCTION(mdio),
- 	IPQ_PIN_FUNCTION(ssbi),
- 	IPQ_PIN_FUNCTION(spmi),
-diff --git a/drivers/pinctrl/qcom/pinctrl-msm.h b/drivers/pinctrl/qcom/pinctrl-msm.h
-index 120217012a9f6..33d8b17f2e559 100644
---- a/drivers/pinctrl/qcom/pinctrl-msm.h
-+++ b/drivers/pinctrl/qcom/pinctrl-msm.h
-@@ -24,6 +24,11 @@ struct pinctrl_pin_desc;
- 					fname##_groups,		\
- 					ARRAY_SIZE(fname##_groups))
- 
-+#define IPQ_GPIO_PIN_FUNCTION(fname)					\
-+	[IPQ_MUX_##fname] = PINCTRL_GPIO_PINFUNCTION(#fname,		\
-+					fname##_groups,		\
-+					ARRAY_SIZE(fname##_groups))
-+
- #define MSM_PIN_FUNCTION(fname) 				\
- 	[msm_mux_##fname] = PINCTRL_PINFUNCTION(#fname,		\
- 					fname##_groups,		\
+diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+index 41891d3aa1247..4c1fc9983746c 100644
+--- a/arch/arm/mach-npcm/platsmp.c
++++ b/arch/arm/mach-npcm/platsmp.c
+@@ -32,6 +32,7 @@ static int npcm7xx_smp_boot_secondary(unsigned int cpu,
+ 		goto out;
+ 	}
+ 	gcr_base = of_iomap(gcr_np, 0);
++	of_node_put(gcr_np);
+ 	if (!gcr_base) {
+ 		pr_err("could not iomap gcr");
+ 		ret = -ENOMEM;
+@@ -60,6 +61,7 @@ static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
+ 		return;
+ 	}
+ 	scu_base = of_iomap(scu_np, 0);
++	of_node_put(scu_np);
+ 	if (!scu_base) {
+ 		pr_err("could not iomap scu");
+ 		return;
 -- 
 2.53.0
 
