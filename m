@@ -1,41 +1,44 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFAB175A6B;
-	Mon, 17 Aug 2026 14:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D5C2DC783;
+	Mon, 17 Aug 2026 14:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786977763; cv=none; b=IjA4yK8iNPwr2Wt9/nB9jbycwBxrqxOebG1r1Isqunk+8NXXptXrXJFjZxgfIkbnz/JRISfqKYJSj3Y/UmAcNsa7BpC5+o9ZiXxED1P1R1lqF8FONOwGvezqVCKVSKrhFgs0Sd9wMmcie95NwHEyU/qqAmuXO6tqTiF5wkdnrbk=
+	t=1786977764; cv=none; b=KiSpN8w6VSQPSwPUzfK+pL1ODuPlIQtP6ppArchc6OzSH8RERhZy2LhH+TmzTU4D8KhO3PUxNmfTGjkwMTjwig/9iXkhr8sTelpHk+iEJlapceDMH8ZiOf5DxNFg6Re8g9SY2LMAQ23LWBebMtze4vOo/ElG0Ehg2oqeZn/Z3Uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786977763; c=relaxed/simple;
-	bh=oL5S44imAAG2KlNoJmeXXjenVxbiHXB8mVj1bXbTvZg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OQtsZThcDbZs6RQ5VaLDeCZFaj3WyweLt+W4dAD+YvBmIISazQjw+ARDS6vO1Eurfcp9XJPxPhn9p3rBQsdIQYYGzE5k57GjE18pK2GBSR+Pqhxg6dMoWc4N8xwEngwJk+/HXhhoD7G20dbIzc8ZKQBJAEUZ01Q5uxzXXoGHlos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=PJincbCR; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1786977764; c=relaxed/simple;
+	bh=HsHWbGXwbj/J2gyFknqrG8teWhHZwNzh/18vxP1wAjk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Fe/h9trFsCydXouhC0BcDZ/vPZfAll0n1kKZrHHEnA90s5jm1NBQJ1PTXUKyJc5X2tFkc8rU16PT6/hSsiPfS82A3l6LwyOXVQlBTycZTtW8mw6mkpBWSh0gBClApTKNgxD8FRvd3dlCvIIICmFqzc5dq4ffyOOU/iBMBtGR3G4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EHWz9/ZZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="PJincbCR"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4a47a6f37;
-	Mon, 17 Aug 2026 22:37:26 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH 2/2] nvmet: avoid recursive configfs open for passthru
-Date: Mon, 17 Aug 2026 22:37:14 +0800
-Message-Id: <20260817143714.1344255-3-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260817143714.1344255-1-runyu.xiao@seu.edu.cn>
-References: <20260817143714.1344255-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EHWz9/ZZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C431F000E9;
+	Mon, 17 Aug 2026 14:42:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786977762;
+	bh=39vCbSMHRyohZNMLyNfCjYkUlCj3Q8THOhERnzI2DpA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EHWz9/ZZTAA8Zf51gmNwxKEfS8OivMEaf7/x2G7oV+9T5PrQTeZ2C5G9aQacMZMmf
+	 lM9DvLke1AFwIxAepUxBABU4TRx1VPOHDaUeyZ6d6kggvw2ru/2qy/d1nVh1EoRXBO
+	 RYXvz+XkFErB+rFFTDkKeSivMKuq85q2cYq04PNI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Federico Kirschbaum <federico.kirschbaum@xbow.com>,
+	Baul Lee <baul.lee@xbow.com>,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 5.15 401/456] ALSA: usb-audio: fix OOB write on Type II inbound URBs
+Date: Mon, 17 Aug 2026 15:33:11 +0200
+Message-ID: <20260817132555.009189258@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817132539.792407575@linuxfoundation.org>
+References: <20260817132539.792407575@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,79 +46,114 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa01027eafc03a1kunmc75580f1e640c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTkJPVhpMSR1JGEoZQk8dGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=PJincbCRMNd6K0UNnic6L9wqQ4/9bbeX6LQFv6LQnhBWyV0ox06NcdMWRYkLHhG69RPm2h6IuHBH3r+qWK/fW2PhvcQU3JDmDLdvELQ0NzxRGwkDy6qR0zFiW40kA8VmOew+tNYm4gFgi/pywl4+Z6SPSJg6RH0hCK8epEjgHis=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=AfF+O6VMncuZ2JqyZIH2RZeP5KJgvfiBK7YXB9hk6FA=;
-	h=date:mime-version:subject:message-id:from;
 
-nvmet_passthru_enable_store() runs as a configfs store callback while
-configfs holds the item's frag_sem. nvmet_passthru_ctrl_enable() then
-uses filp_open() on the configured passthru_ctrl_path.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-If passthru_ctrl_path points back into configfs, the open path
-re-enters __configfs_open_file() and tries to take the same frag_sem
-again.
+------------------
 
-Resolve the path with kern_path(), reject configfs paths, and open the
-resolved path with dentry_open() instead of filp_open(). Configfs paths
-are not valid passthru controller backends, so rejecting them avoids
-the recursion without changing valid users.
+From: Baul Lee <baul.lee@xbow.com>
 
-Fixes: cae5b01a2afc ("nvmet: introduce the passthru configfs interface")
+commit 69ee44e1a23be62318189dc4b37fa4ad94053269 upstream.
+
+data_ep_set_params() sizes each URB transfer buffer before it adds the
+Format Type II transfer delimiter:
+
+	u->packets = urb_packs;
+	u->buffer_size = maxsize * u->packets;
+
+	if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
+		u->packets++; /* for transfer delimiter */
+	u->urb = usb_alloc_urb(u->packets, GFP_KERNEL);
+
+buffer_size is computed from the pre-increment packet count and never
+recomputed, so for a Type II endpoint the buffer is one packet short of
+the packet count the URB is built with.
+
+prepare_inbound_urb() then lays out one iso frame per packet and never
+consults buffer_size:
+
+	offs = 0;
+	for (i = 0; i < urb_ctx->packets; i++) {
+		urb->iso_frame_desc[i].offset = offs;
+		urb->iso_frame_desc[i].length = ep->curpacksize;
+		offs += ep->curpacksize;
+	}
+
+	urb->transfer_buffer_length = offs;
+	urb->number_of_packets = urb_ctx->packets;
+
+The last descriptor therefore points one packet past the end of the
+transfer buffer, where the host controller writes device data on every
+inbound transfer.  prepare_silent_urb() and prepare_playback_urb() bound
+their fill loops by ctx->buffer_size, so only capture is affected.
+
+fmt_type comes from the device's audio streaming descriptors, so any
+device advertising a Type II capture format hits this once userspace sets
+hw_params on the stream.
+
+KASAN on 7.2.0-rc5 (arm64) with a dummy_hcd/raw-gadget device, one report
+per inbound transfer:
+
+  BUG: KASAN: slab-out-of-bounds in dummy_timer
+  Write of size 64 at addr ffff0000186171c0 by task cons02/166
+   __asan_memcpy
+   dummy_timer
+   hrtimer_run_softirq
+  Allocated by task 166:
+   usb_alloc_coherent
+   snd_usb_endpoint_set_params
+  The buggy address is located 0 bytes to the right of
+   allocated 64-byte region [ffff000018617180, ffff0000186171c0)
+
+Compute buffer_size after the delimiter packet has been accounted for,
+and bound the fill loop by buffer_size, as prepare_silent_urb() already
+does on the outbound side.  This grows every Type II URB allocation by
+one maxsize packet.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: 8fdff6a319e7 ("ALSA: snd-usb: implement new endpoint streaming model")
+Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+Reported-by: Baul Lee <baul.lee@xbow.com>
 Cc: stable@vger.kernel.org
-
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Link: https://patch.msgid.link/20260805013441.38245-1-baul.lee@xbow.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/nvme/target/passthru.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ sound/usb/endpoint.c |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/nvme/target/passthru.c b/drivers/nvme/target/passthru.c
-index 0c361b1e3566..be302f70d0e2 100644
---- a/drivers/nvme/target/passthru.c
-+++ b/drivers/nvme/target/passthru.c
-@@ -8,6 +8,7 @@
-  *
-  */
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+#include <linux/namei.h>
- #include <linux/module.h>
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -387,13 +387,15 @@ static int prepare_inbound_urb(struct sn
+ 	case SND_USB_ENDPOINT_TYPE_DATA:
+ 		offs = 0;
+ 		for (i = 0; i < urb_ctx->packets; i++) {
++			if (offs + ep->curpacksize > urb_ctx->buffer_size)
++				break;
+ 			urb->iso_frame_desc[i].offset = offs;
+ 			urb->iso_frame_desc[i].length = ep->curpacksize;
+ 			offs += ep->curpacksize;
+ 		}
  
- #include "../host/nvme.h"
-@@ -578,6 +579,7 @@ int nvmet_passthru_ctrl_enable(struct nvmet_subsys *subsys)
- {
- 	struct nvme_ctrl *ctrl;
- 	struct file *file;
-+	struct path path;
- 	int ret = -EINVAL;
- 	void *old;
+ 		urb->transfer_buffer_length = offs;
+-		urb->number_of_packets = urb_ctx->packets;
++		urb->number_of_packets = i;
+ 		break;
  
-@@ -592,7 +594,20 @@ int nvmet_passthru_ctrl_enable(struct nvmet_subsys *subsys)
- 		goto out_unlock;
- 	}
+ 	case SND_USB_ENDPOINT_TYPE_SYNC:
+@@ -1251,10 +1253,10 @@ static int data_ep_set_params(struct snd
+ 		u->index = i;
+ 		u->ep = ep;
+ 		u->packets = urb_packs;
+-		u->buffer_size = maxsize * u->packets;
  
--	file = filp_open(subsys->passthru_ctrl_path, O_RDWR, 0);
-+	ret = kern_path(subsys->passthru_ctrl_path, LOOKUP_FOLLOW, &path);
-+	if (ret)
-+		goto out_unlock;
-+
-+	if (!strcmp(path.dentry->d_sb->s_type->name, "configfs")) {
-+		pr_err("configfs paths cannot back passthru controller %s\n",
-+		       subsys->passthru_ctrl_path);
-+		path_put(&path);
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	file = dentry_open(&path, O_RDWR, current_cred());
-+	path_put(&path);
- 	if (IS_ERR(file)) {
- 		ret = PTR_ERR(file);
- 		goto out_unlock;
--- 
-2.34.1
+ 		if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
+ 			u->packets++; /* for transfer delimiter */
++		u->buffer_size = maxsize * u->packets;
+ 		u->urb = usb_alloc_urb(u->packets, GFP_KERNEL);
+ 		if (!u->urb)
+ 			goto out_of_memory;
+
+
