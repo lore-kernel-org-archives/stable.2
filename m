@@ -1,84 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FC244E67A;
-	Mon, 17 Aug 2026 16:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4981343B6CF
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 16:32:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786984203; cv=none; b=qHaDM++a8sQyjnDUeMxWS4uvkcecDU+u9rGC2PHNNv3KrN8OW0hxOzayRYoDQ0pQpmfb8Psbtz2xffNBhqkh2H8JaFMcQnq5qaDPi3s0UGaUD9jpJ+FZobKnGi8CzyrnpRjmbOaucNsvEGGIL2ghYhPE0ljSjVK7QXoiJN3TGdM=
+	t=1786984333; cv=none; b=S/lv0WQlUSyCrkCgCm5R4GNVJsUXciKCHCfAgWIr65yp2ma7KDpfzasPkPVd+Cnrv7S37medD67MjaDru5/zugbwU13rAAm5IQU+AzYKyQEQIvm0MQbOZTpF3SmOrhAURs1rs+aY96R/heAPRzgHqTyP7/TXUHjCgWZQFPfz4JI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786984203; c=relaxed/simple;
-	bh=SSt6Jc5NlsZOhtaj7jirxeAg2gOOIvG336WvTpXoGlo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qfkbrrKsPZo2Ltsg60vG0fQlE8a10OtSY8GiOGQz/EL4TeHlRj9afp8hsmiQb0kQ1hc4nzC1dQCmHSOW0sBio3Js61v95ia16yDyM7Ks8KZzNxl7D7CM92lXjHI0aUXyH/NXZC7LDwyRrVSsSdGEQ1eTZ9hbxO2eZAjsuu64oL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwOEf1yM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786984333; c=relaxed/simple;
+	bh=OzOVqw7Y9HjgXBD3K4ivCtcHfnIW3SZe+5EYnS5grCE=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:References:
+	 In-Reply-To:MIME-Version; b=G4oMFSl9FhTSDIJbvSuM2qz11EgKasH2F3G7TwoeTYw4eSMHpNDT8FJXcP5SYd0N/O2v7NsMt5/QQOpQ5AZcl4mht1UBIdvelyCpGv3rFOTwLBQ46sizciDNKNAzy7/4gu/cGfhxhMTxkl7KlavPf+73+Ttio67I/18KAkqnwbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=FBNjHV8V; arc=none smtp.client-ip=46.14.118.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwOEf1yM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30E011F000E9;
-	Mon, 17 Aug 2026 16:29:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786984201;
-	bh=SSt6Jc5NlsZOhtaj7jirxeAg2gOOIvG336WvTpXoGlo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VwOEf1yMXe96Q8PKjzX/91j8sVh665aI2y+5Y0LVVlTqa59ZzxnsqpuiV+lPJh7xy
-	 hp/j6q6dCpnWBF4zkNWvuAWUVRGK77NUas9YyofzOEjg99k82gtnT3w5fzYDTpHE13
-	 whYrmxu1KdPAG2BxjYzcp/UnAHHSxLFZ6/4iHV5+b7QlNB5vGNyLuanxXGX9WI4+N9
-	 GViRqRz1c5jBvZZD656cAKEfaTcLGC4LABq+Bo2drpmytDMH0pSzgqTMfXVs0EcXor
-	 b5oySlCYcDOxKEuwP+ndAMV+oJJpalzCLVBUoUUlTTrMtYOXb8MMzn3V1lve66+718
-	 JFDYkl7W5qwWg==
-Date: Mon, 17 Aug 2026 17:29:42 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org, 
-	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, 
-	lance.yang@linux.dev, usama.arif@linux.dev, zokeefe@google.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] mm: khugepaged: fix folio is used after
- pte_unmap_unlock()
-Message-ID: <aoM10Z0wAKOMzsEO@lucifer>
-References: <20260815051924.194810-1-vernon2gm@gmail.com>
- <20260815051924.194810-3-vernon2gm@gmail.com>
- <aoMynfFI2XK2UXXN@lucifer>
- <cd555188-2b51-4559-a315-0e8af6b2572a@kernel.org>
+	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="FBNjHV8V"
+Received: from [192.168.16.44] (port=45340 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1ww0Fa-000000003tm-0JJG;
+	Mon, 17 Aug 2026 18:31:50 +0200
+Content-Language: fr-FR
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1786984309; h=from:subject:to:date:message-id;
+	bh=OzOVqw7Y9HjgXBD3K4ivCtcHfnIW3SZe+5EYnS5grCE=;
+	b=FBNjHV8VZkduoAatdJeuuSg3tDktODWVm7M2nsU7bPOPitDK+b8xxuEY4hk4D/98sl/qfejHdyj
+	q+mDNPZtY9dFhkS7Y6pJK+8sNqZDfvyLH4d4E7RfxnV+NbsFUbd3t7IBZXeOR32hMyLKCU9AZp8dL
+	KENKdiCPZ7H/E4BptVs=
+Received: from FIVECO-MX01.fiveco.local (192.168.16.44) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Mon, 17 Aug 2026 18:31:49 +0200
+Received: from FIVECO-MX01.fiveco.local ([fe80::c512:b974:5da:2168]) by
+ FIVECO-MX01.fiveco.local ([fe80::c512:b974:5da:2168%4]) with mapi id
+ 15.01.2507.061; Mon, 17 Aug 2026 18:31:49 +0200
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+CC: "linux-bluetooth@vger.kernel.org" <linux-bluetooth@vger.kernel.org>,
+	"marcel@holtmann.org" <marcel@holtmann.org>, "johan.hedberg@gmail.com"
+	<johan.hedberg@gmail.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH v3 2/2] Bluetooth: hci_event: keep HCI_LE_ADV set if the
+ host cancelled
+Thread-Topic: [PATCH v3 2/2] Bluetooth: hci_event: keep HCI_LE_ADV set if the
+ host cancelled
+Thread-Index: AQHdLll6H3Gt74RhrkC8rZuD3GrYrbaiR/GAgAAkF3A=
+Date: Mon, 17 Aug 2026 16:31:49 +0000
+Message-ID: <700f0c2d3c5d4ac8bea4774375703bba@fiveco.ch>
+References: <20260817150240.520181-1-valentin.kindschi@fiveco.ch>
+ <20260817150240.520181-3-valentin.kindschi@fiveco.ch>
+ <CABBYNZJ55q+jpSRrp7PS31hR6xbDEPNExQCADKGWFKtKKweMjQ@mail.gmail.com>
+In-Reply-To: <CABBYNZJ55q+jpSRrp7PS31hR6xbDEPNExQCADKGWFKtKKweMjQ@mail.gmail.com>
+Accept-Language: fr-FR, fr-CH, en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cd555188-2b51-4559-a315-0e8af6b2572a@kernel.org>
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.8.17.155719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 10%
+X-SASI-Hits: ADVERT_CODE2 0.400000, BODY_SIZE_6000_6999 0.000000,
+ BODY_SIZE_7000_LESS 0.000000, CTE_BASE64 0.000000, DKIM_ALIGNS 0.000000,
+ DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000, HTML_00_10 0.050000,
+ IN_REP_TO 0.000000, LEGITIMATE_SIGNS 0.000000, MSG_THREAD 0.000000,
+ MSG_THREAD_SOLO 0.000000, MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000,
+ NO_FUR_HEADER 0.000000, NO_URI_HTTPS 0.000000, OUTBOUND 0.000000,
+ OUTBOUND_SOPHOS 0.000000, REFERENCES 0.000000, SENDER_NO_AUTH 0.000000,
+ SUPERLONG_LINE 0.050000, SUSP_DH_NEG 0.000000, TRANSACTIONAL 0.000000,
+ WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000, WEBMAIL_X_IP_HDR 0.000000,
+ __ADVERT_CODE2 0.000000, __ANY_URI 0.000000, __B2B_PROBE 0.000000,
+ __BODY_NO_MAILTO 0.000000, __BOUNCE_CHALLENGE_SUBJ 0.000000,
+ __BOUNCE_NDR_SUBJ_EXEMPT 0.000000, __BULK_NEGATE 0.000000,
+ __BUSINESS_SIGNATURE 0.000000, __CC_NAME 0.000000, __CT 0.000000,
+ __CTE 0.000000, __CTYPE_CHARSET_QUOTED 0.000000, __CT_TEXT_PLAIN 0.000000,
+ __DKIM_ALIGNS_1 0.000000, __DKIM_ALIGNS_2 0.000000, __DQ_NEG_DOMAIN 0.000000,
+ __DQ_NEG_HEUR 0.000000, __DQ_NEG_IP 0.000000, __FORWARDED_MSG 0.000000,
+ __FRAUD_BODY_WEBMAIL 0.000000, __FRAUD_MONEY_DENOMINATION 0.000000,
+ __FRAUD_NEGATE 0.000000, __FRAUD_WEBMAIL 0.000000,
+ __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000,
+ __HAS_MSGID 0.000000, __HAS_REFERENCES 0.000000, __HAS_XOIP 0.000000,
+ __HIGHBIT_ASCII_MIX 0.000000, __INVOICE_MULTILINGUAL 0.000000,
+ __IN_REP_TO 0.000000, __MAIL_CHAIN 0.000000, __MIME_BOUND_CHARSET 0.000000,
+ __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000, __MIME_TEXT_P1 0.000000,
+ __MIME_VERSION 0.000000, __MSGID_32HEX 0.000000,
+ __MSGID_DOMAIN_IN_REFERENCES 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
+ __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
+ __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
+ __RCVD_EXIM_4_96_AES_128 0.000000, __RCVD_FROM_HOMEUSER 0.000000,
+ __REFERENCES 0.000000, __SANE_MSGID 0.000000, __SCAN_D_NEG 0.000000,
+ __SCAN_D_NEG2 0.000000, __SCAN_D_NEG_HEUR 0.000000,
+ __SCAN_D_NEG_HEUR2 0.000000, __SL_HEAVY 0.000000, __SUBJ_ALPHA_END 0.000000,
+ __SUBJ_ALPHA_NEGATE 0.000000, __SUBJ_REPLY 0.000000,
+ __SUBJ_TRANSACTIONAL 0.000000, __SUBJ_TR_GEN 0.000000, __TO_GMAIL 0.000000,
+ __TO_MALFORMED_2 0.000000, __TO_NAME 0.000000,
+ __TO_NAME_DIFF_FROM_ACC 0.000000, __TO_REAL_NAMES 0.000000,
+ __URI_MAILTO 0.000000, __URI_NO_WWW 0.000000, __URI_NS 0.000000
 
-On Mon, Aug 17, 2026 at 06:20:02PM +0200, David Hildenbrand (Arm) wrote:
-> On 8/17/26 18:11, Lorenzo Stoakes (ARM) wrote:
-> > Same comment as 1/3 I don't see why we should be storing a pfn value used
-> > nowhere else just for tracing.
->
-> I prefer it that way. Even if just for tracing. :)
-
-This is moot because you have to store the PFN for lifetime for museum-piece
-architectures.
-
-But anyway FWIW:
-
-Yes I agree accessing a now-invalid folio isn't great, but the reason I dislike
-this pattern is that you're tracking this state in a different way that now has
-maintenance overhead (if anybody reassigns folio or does weird control flow
-etc. they must now update 2 things and etc.)
-
-For the sake of CONFIG_SPARSEMEM and tracing for a value that is not at all
-intuitive as to what it means, that's not great.
-
-Let me go back and review this again accounting for the lifetime issue that I
-missed first time.
-
->
-> --
-> Cheers,
->
-> David
-
---
-Cheers, Lorenzo
+T2gsIHlvdSdyZSByaWdodC4gVGhlIHRlc3QgaXMgdG9vIG5hcnJvdyAtIGEgY29ubmVjdGlvbiB0
+aW1lb3V0IG9uIHRoZSBjZW50cmFsIHBhdGggc2hvdWxkIG5vdCBjbGVhciBpdCBlaXRoZXIuDQoN
+ClRoZSBjbGVhciBleGlzdHMgYmVjYXVzZSBhZHZlcnRpc2luZyBzdG9wcyB3aGVuIGEgcGVyaXBo
+ZXJhbCBjb25uZWN0aW9uIGlzIGNyZWF0ZWQsIHNvIHRoZSByb2xlIHNlZW1zIG1vcmUgcmVsZXZh
+bnQgdGhhbiB0aGUgc3RhdHVzIC0gYnV0IGV2LT5yb2xlIGlzIG5vdCBkZXBlbmRhYmxlIG9uIGEg
+ZmFpbGVkIGV2ZW50LCBhbmQgdGhlIGNvbm4gbG9va3VwIHRoYXQgd291bGQgZ2l2ZSBhIHRydXN0
+d29ydGh5IHJvbGUgaGFwcGVucyBhZnRlciB0aGlzIHBvaW50Lg0KDQpXZSBjb3VsZCBtb3ZlIHRo
+ZSBjbGVhciBiZWxvdyB0aGUgbG9va3VwIGFuZCBnYXRlIGl0IG9uIGNvbm4tPnJvbGUsIG9yIHNp
+bXBseSAhc3RhdHVzID8NCg0KVmFsZW50aW4gS2luZHNjaGkNCg0KLS0tLS1NZXNzYWdlIGQnb3Jp
+Z2luZS0tLS0tDQpEZcKgOiBMdWl6IEF1Z3VzdG8gdm9uIERlbnR6IDxsdWl6LmRlbnR6QGdtYWls
+LmNvbT4gDQpFbnZvecOpwqA6IGx1bmRpLCAxNyBhb8O7dCAyMDI2IDE4OjEyDQrDgMKgOiBWYWxl
+bnRpbiBLaW5kc2NoaSA8dmFsZW50aW4ua2luZHNjaGlAZml2ZWNvLmNoPg0KQ2PCoDogbGludXgt
+Ymx1ZXRvb3RoQHZnZXIua2VybmVsLm9yZzsgbWFyY2VsQGhvbHRtYW5uLm9yZzsgam9oYW4uaGVk
+YmVyZ0BnbWFpbC5jb207IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IHN0YWJsZUB2Z2Vy
+Lmtlcm5lbC5vcmcNCk9iamV0wqA6IFJlOiBbUEFUQ0ggdjMgMi8yXSBCbHVldG9vdGg6IGhjaV9l
+dmVudDoga2VlcCBIQ0lfTEVfQURWIHNldCBpZiB0aGUgaG9zdCBjYW5jZWxsZWQNCg0KSGkgVmFs
+ZW50aW4sDQoNCk9uIE1vbiwgQXVnIDE3LCAyMDI2IGF0IDExOjAz4oCvQU0gVmFsZW50aW4gS2lu
+ZHNjaGkgPHZhbGVudGluLmtpbmRzY2hpQGZpdmVjby5jaD4gd3JvdGU6DQo+DQo+IGxlX2Nvbm5f
+Y29tcGxldGVfZXZ0KCkgY2xlYXJzIEhDSV9MRV9BRFYgYmVmb3JlIGxvb2tpbmcgYXQgdGhlIGV2
+ZW50IA0KPiBzdGF0dXMsIG9uIHRoZSBwcmVtaXNlIHN0YXRlZCBpbiBpdHMgY29tbWVudCB0aGF0
+IGFsbCBjb250cm9sbGVycyBzdG9wIA0KPiBhZHZlcnRpc2luZyB3aGVuIGEgY29ubmVjdGlvbiBp
+cyBjcmVhdGVkLg0KPg0KPiBUaGF0IHByZW1pc2UgZmFpbHMgZm9yIFVua25vd24gQ29ubmVjdGlv
+biBJZGVudGlmaWVyICgweDAyKSwgd2hpY2ggaXMgDQo+IHdoYXQgYW4gSENJX0xFX0Nvbm5lY3Rp
+b25fQ29tcGxldGUgY2FycmllcyBhZnRlciB0aGUgaG9zdCBpc3N1ZWQgTEUgDQo+IENyZWF0ZSBD
+b25uZWN0aW9uIENhbmNlbDogbm8gY29ubmVjdGlvbiB3YXMgY3JlYXRlZCBhbmQgdGhlIGNvbnRy
+b2xsZXIgDQo+IG5ldmVyIHN0b3BwZWQgYWR2ZXJ0aXNpbmcuIENsZWFyaW5nIHRoZSBmbGFnIHRo
+ZXJlIG1ha2VzIHRoZSBob3N0IA0KPiBiZWxpZXZlIGFkdmVydGlzaW5nIGlzIG9mZiB3aGlsZSB0
+aGUgY29udHJvbGxlciBoYXMgaXQgb24uDQo+DQo+IE90aGVyIG5vbi16ZXJvIHN0YXR1c2VzIG11
+c3Qga2VlcCBjbGVhcmluZyBpdC4gQWR2ZXJ0aXNpbmcgVGltZW91dA0KPiAoMHgzYykgaW4gcGFy
+dGljdWxhciBtZWFucyB0aGUgY29udHJvbGxlciBnYXZlIHVwIGFkdmVydGlzaW5nIG9uIGl0cyAN
+Cj4gb3duLCBzbyB0aGUgZmxhZyBoYXMgdG8gZ287IGxlYXZpbmcgaXQgc2V0IHdvdWxkIG1ha2Ug
+dGhlICJhbHJlYWR5IA0KPiBhZHZlcnRpc2luZyIgc2hvcnRjdXQgaW4gaGNpX3NjaGVkdWxlX2Fk
+dl9pbnN0YW5jZV9zeW5jKCkgc2tpcCB0aGUgSENJIA0KPiBjb21tYW5kcyBhbmQgc2lsZW50bHkg
+c3RvcCBhZHZlcnRpc2luZyBhbHRvZ2V0aGVyLg0KPg0KPiBXaXRoIGxlZ2FjeSBhZHZlcnRpc2lu
+ZyB0aGUgZGlzYWdyZWVtZW50IGlzIHNlbGYtc3VzdGFpbmluZy4gT24gdGhlIA0KPiBuZXh0IHNv
+ZnR3YXJlIHJvdGF0aW9uIHRpY2sgaGNpX2VuYWJsZV9hZHZlcnRpc2luZ19zeW5jKCkgcnVuczoN
+Cj4NCj4gICAtIGhjaV9kaXNhYmxlX2FkdmVydGlzaW5nX3N5bmMoKSByZXR1cm5zIGVhcmx5IHdp
+dGhvdXQgc2VuZGluZw0KPiAgICAgYW55dGhpbmcsIGJlY2F1c2UgSENJX0xFX0FEViBpcyBjbGVh
+cjsNCj4gICAtIExFIFNldCBBZHZlcnRpc2luZyBQYXJhbWV0ZXJzIGlzIHRoZW4gc2VudCB3aGls
+ZSB0aGUgY29udHJvbGxlciBpcw0KPiAgICAgc3RpbGwgYWR2ZXJ0aXNpbmcsIGFuZCBpcyBjb3Jy
+ZWN0bHkgcmVqZWN0ZWQgd2l0aCBDb21tYW5kIERpc2FsbG93ZWQNCj4gICAgICgweDBjKTsNCj4g
+ICAtIHRoZSBmdW5jdGlvbiByZXR1cm5zIGJlZm9yZSBMRSBTZXQgQWR2ZXJ0aXNpbmcgRW5hYmxl
+LCBzbyBub3RoaW5nDQo+ICAgICByZS1zZXRzIEhDSV9MRV9BRFYuDQo+DQo+IGhjaV9zY2hlZHVs
+ZV9hZHZfaW5zdGFuY2Vfc3luYygpIHJlLWFybXMgYWR2X2luc3RhbmNlX2V4cGlyZSBldmVyeSAN
+Cj4gSENJX0RFRkFVTFRfQURWX0RVUkFUSU9OICgyIHMpIGFuZCBpdHMgImFscmVhZHkgYWR2ZXJ0
+aXNpbmciIHNob3J0Y3V0IA0KPiB0ZXN0cyBIQ0lfTEVfQURWLCB3aGljaCBjYW4gbm8gbG9uZ2Vy
+IGJlY29tZSB0cnVlLCBzbyB0aGUgY29tbWFuZCBpcyANCj4gcmV0cmllZCBldmVyeSAyIHMgaW5k
+ZWZpbml0ZWx5Og0KPg0KPiAgIEJsdWV0b290aDogaGNpMDogT3Bjb2RlIDB4MjAwNiBmYWlsZWQ6
+IC0xNg0KPg0KPiBDYXB0dXJlZCBvbiBhIEJDTTQzNDU1IChubyBMRSBFeHRlbmRlZCBBZHZlcnRp
+c2luZykgYWZ0ZXIgYSBjZW50cmFsIA0KPiBjb25uZWN0aW9uIGF0dGVtcHQgdGltZWQgb3V0IGFu
+ZCB3YXMgY2FuY2VsbGVkOg0KPg0KPiAgIExFIFNldCBBZHZlcnRpc2luZyBQYXJhbWV0ZXJzICgw
+eDIwMDYpICAgU3VjY2Vzcw0KPiAgIExFIFNldCBBZHZlcnRpc2luZyBFbmFibGUgICAgICgweDIw
+MGEpICAgU3VjY2VzcyAgICAgICAgSENJX0xFX0FEViBzZXQNCj4gICBMRSBDcmVhdGUgQ29ubmVj
+dGlvbiBDYW5jZWwgICAoMHgyMDBlKSAgIFN1Y2Nlc3MNCj4gICBMRSBDb25uZWN0aW9uIENvbXBs
+ZXRlICAgICAgICAgICAgICAgICAgIFVua25vd24gQ29ubiBJZCAgPC0gZmxhZyBjbGVhcmVkDQo+
+ICAgTEUgU2V0IEFkdmVydGlzaW5nIFBhcmFtZXRlcnMgKDB4MjAwNikgICBDb21tYW5kIERpc2Fs
+bG93ZWQgIFsrMi4wMzMgc10NCj4gICBMRSBTZXQgQWR2ZXJ0aXNpbmcgUGFyYW1ldGVycyAoMHgy
+MDA2KSAgIENvbW1hbmQgRGlzYWxsb3dlZCAgWysyLjAxNiBzXQ0KPiAgIC4uLg0KPg0KPiBLZWVw
+IHRoZSBmbGFnIG9ubHkgZm9yIHRoZSBob3N0LWNhbmNlbGxlZCBjYXNlLg0KPg0KPiBGaXhlczog
+ZmJkOTZjMTUxY2RjICgiQmx1ZXRvb3RoOiBGaXggY2xlYXJpbmcgSENJX0xFX0FEViBmb3IgTEUg
+DQo+IGNvbm5lY3Rpb25zIikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gQXNzaXN0
+ZWQtYnk6IENsYXVkZTpjbGF1ZGUtb3B1cy01IGJ0bW9uDQo+IFNpZ25lZC1vZmYtYnk6IFZhbGVu
+dGluIEtpbmRzY2hpIDx2YWxlbnRpbi5raW5kc2NoaUBmaXZlY28uY2g+DQo+IC0tLQ0KPiBDaGFu
+Z2VzIGluIHYyOg0KPiAtIFJlYmFzZWQgb250byBibHVldG9vdGgtbmV4dDsgbm8gZnVuY3Rpb25h
+bCBjaGFuZ2UuDQo+ICAgdjEncyBoY2lfZXZlbnQuYyBjb250ZXh0IGxhY2tlZCB0aGUgaGNpX3N0
+b3JlX3dha2VfcmVhc29uKCkgY2FsbA0KPiAgIHByZXNlbnQgaW4gbWFpbmxpbmUsIHNvIHRoZSBo
+dW5rIGRpZCBub3QgYXBwbHkuDQo+DQo+ICBuZXQvYmx1ZXRvb3RoL2hjaV9ldmVudC5jIHwgOCAr
+KysrKy0tLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMo
+LSkNCj4NCj4gZGlmZiAtLWdpdCBhL25ldC9ibHVldG9vdGgvaGNpX2V2ZW50LmMgYi9uZXQvYmx1
+ZXRvb3RoL2hjaV9ldmVudC5jDQo+IC0tLSBhL25ldC9ibHVldG9vdGgvaGNpX2V2ZW50LmMNCj4g
+KysrIGIvbmV0L2JsdWV0b290aC9oY2lfZXZlbnQuYw0KPiBAQCAtNTcyMCwxMCArNTcyMCwxMiBA
+QCBzdGF0aWMgdm9pZCBsZV9jb25uX2NvbXBsZXRlX2V2dChzdHJ1Y3QgaGNpX2RldiAqaGRldiwg
+dTggc3RhdHVzLA0KPiAgICAgICAgIGhjaV9kZXZfbG9jayhoZGV2KTsNCj4gICAgICAgICBoY2lf
+c3RvcmVfd2FrZV9yZWFzb24oaGRldiwgYmRhZGRyLCBiZGFkZHJfdHlwZSk7DQo+DQo+IC0gICAg
+ICAgLyogQWxsIGNvbnRyb2xsZXJzIGltcGxpY2l0bHkgc3RvcCBhZHZlcnRpc2luZyBpbiB0aGUg
+ZXZlbnQgb2YgYQ0KPiAtICAgICAgICAqIGNvbm5lY3Rpb24sIHNvIGVuc3VyZSB0aGF0IHRoZSBz
+dGF0ZSBiaXQgaXMgY2xlYXJlZC4NCj4gKyAgICAgICAvKiBBZHZlcnRpc2luZyBzdG9wcyB3aGVu
+IGEgY29ubmVjdGlvbiBpcyBjcmVhdGVkLCBhbmQgd2hlbiB0aGUNCj4gKyAgICAgICAgKiBjb250
+cm9sbGVyIGdpdmVzIHVwIGFkdmVydGlzaW5nIG9uIGl0cyBvd24uIEl0IGtlZXBzIGFkdmVydGlz
+aW5nDQo+ICsgICAgICAgICogd2hlbiB0aGUgaG9zdCBjYW5jZWxsZWQgYW4gb3V0Z29pbmcgY29u
+bmVjdGlvbi4NCj4gICAgICAgICAgKi8NCj4gLSAgICAgICBoY2lfZGV2X2NsZWFyX2ZsYWcoaGRl
+diwgSENJX0xFX0FEVik7DQo+ICsgICAgICAgaWYgKHN0YXR1cyAhPSBIQ0lfRVJST1JfVU5LTk9X
+Tl9DT05OX0lEKQ0KPiArICAgICAgICAgICAgICAgaGNpX2Rldl9jbGVhcl9mbGFnKGhkZXYsIEhD
+SV9MRV9BRFYpOw0KDQpIbW0sIEkgd29uZGVyIGlmIHRoaXMgaXMgbm90IHZhbGlkIGZvciBhbGwg
+c3RhdHVzICE9IDAgdGhvdWdoLCBmb3IgZXhhbXBsZSBpZiB0aGUgY29ubmVjdGlvbiB0aW1lb3V0
+IHdlIHByb2JhYmx5IHNob3VsZG4ndCBjbGVhciBpdCBlaXRoZXIuDQoNCj4gICAgICAgICAvKiBD
+aGVjayBmb3IgZXhpc3RpbmcgY29ubmVjdGlvbjoNCj4gICAgICAgICAgKg0KPiAtLQ0KPiAyLjM0
+LjENCg0KDQoNCi0tDQpMdWl6IEF1Z3VzdG8gdm9uIERlbnR6DQo=
