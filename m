@@ -1,328 +1,308 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDCF3E51C5
-	for <stable@vger.kernel.org>; Sun, 16 Aug 2026 23:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761F01DD0EF;
+	Mon, 17 Aug 2026 00:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786924621; cv=none; b=AukRNJtSpjg15PkFroy08m6LMuRmCFScre8YUiqsRKuVuEh3hXJANgelMg2PO1UD2ud610Dvladc64GpXsQ/2lZspmi2Za9/XSf/sxLEXjWW2VZzuR8AGKlvqrKywGeb3eUnKlyeJMVpC/juYQuQ4vLuY9gQwAwdUXEb7O5xoVw=
+	t=1786927132; cv=none; b=PlEevYi404wMIUc0mUY10md8lJKiXdraoiZkBVC2cCZSkTI/AXMQ3KBDlG4k6HEfa/imUtRBjjJw/kPihz9OF5Kz19Y5TyriW3Dfpeb2RZnJs8TAUDZBxp1lslMJYO+S9quhC5LgyXpCcoxNExjYCJugZlNQaaeh3QtdqLS/kbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786924621; c=relaxed/simple;
-	bh=j8W9v+DMvCm7xwzvpnKfgU4W0xz2PG8pXiICjfmYCyQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UnhT5xUfCmUWBuOclYtzJofW4TeTzfhFJ5OImItpabn4DU524whbLKEJtKJcGpooFF4ZUbuBBC0khse5yInSsxMo8FrLIsAbaFph3+yZK1EWG/ilq99pRhED1NuyU6DaUhIjxtuJ6120cdQDdZLWWdJD3DApb4IdgDwMkxCJx00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=ebdLJMSV; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1786927132; c=relaxed/simple;
+	bh=wZkFnuMXBfDgZ2cW63Tq92p/fGAOErczt1VEEMVduZw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EdAVxt58HicpoHQpowSxLlBU7gstwSg3NdNpMWaQt/ES7fSAMrj3spnFDrQAk5wmgPcafyCRyfB5dkCu0fIhhLRQ2SNEA71c7dPdKqCO8BryALxgp2d2uTWxH3SG1DOmgbt51b1LRKaSc4WGPMm+IrsVcWGPXaoGMYNbpFUgaOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=SY50wgUc; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="ebdLJMSV"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d560775ca2so7321685ad.1
-        for <stable@vger.kernel.org>; Sun, 16 Aug 2026 16:56:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1786924619; x=1787529419; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R9zkz/bQqiUuqgiqt1pYBMReM2U8h0/2RImPaWmHL0g=;
-        b=ebdLJMSVbfAsUWDWm7Qxyt+Wv6MOGUHxUwU3YKuOo5rGzAHIaQv/Y2UXRQLjeVPkxy
-         rHh7M/ZsFiJJht/atvOMQnMVQWGbbQRRuLSdUO4tQkJrpM9NQYloUmOCky+TKvlpNXhk
-         m6MVwoMmpcVliQw/yof7DcgggN6x1AL+lkW/A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786924619; x=1787529419;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R9zkz/bQqiUuqgiqt1pYBMReM2U8h0/2RImPaWmHL0g=;
-        b=FoYOVCl30LBmSgQktBPc94JHPFAJpoNMd+X+VSPzQHJ8JBn7b0kMZYKn7qxXw8LNzo
-         E/GBkKcO/as1aYE2AZaITKSaavgu5+5eaauNnHmkiop4cJhdPQTDsCF1+ZaQSvw0rt5P
-         yPQrYd6b47zZ3BgVNEDeSCw63pJe051gyR4QHOlKD96KmIvU1r4vfk4oCpWspwomV6kh
-         oqRuz+i/wdKA0+V/kOEwWPXeqAJFpfg2uXEuBKlnDNfa2A+0XLSh5VizgYleVxGOCPsc
-         ErXfZ68z8i6Z5GivmvS30W6D936DiHrGrCdXhvMbqh4jMwHUYw+1qVHgpcMK68eJVzbI
-         uRRg==
-X-Forwarded-Encrypted: i=1; AHgh+RqF7UfSShTSibQ5nciX5JG113DZtpux/D/Vp8bO8jZrKETvH48U4302T2NidjoH86sP9HoT9Jw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzp4vZGTWdPX7T0Cpntyxjmfjny/ePUZbdqzvoRljeaEXWuSZ/U
-	6Iumm1AIJH4tP1Fm56zStddp9FLkVrzZIX3hgaL/ekGuZMdc7mQ5ChVBVB/CBwD2aWs=
-X-Gm-Gg: AR+sD11+vYtQ8M4OmuVTzfoYpmArTeb9ddfZ3ZD1eKB/oxzrdMy8IBZKRkfNitQlaoO
-	9rQOTPxmsTvveXpLq24xlak6bgVIvEPiqCHs3ZtER8rnpW0allmrUcypgCTVQu1Q/N817HymK5+
-	zbG72DB8c0ZJxFcd5RsrG568MLCeuVi19suQh/fI3Ay+D2nfk3AxtjfzWd8XkFuNZ7WQvEZENHW
-	cZlgmMlAviJHAoaOuC4oLe2b3F2gyun1MeThnZMln4+eXxexUW6ogHDSsKcFEcZsgq+xgDoa3wV
-	2GFAkZsT8tVYKWpZXNCPowyM+bVhN6M6s2/dz+ouK1u18sZQFBwdqJyG5N5SXzNpj/XcNmHalx6
-	vc1awk/pmvS9Lmyc/cEsaUN8bIYJWPZMtvP7mZ27GOgjbD1rfvXhI5vtcKh3gc+5O9HNaKwNzwG
-	psWgdp0KDs5Jvh6TEaeViOrQr8IxGcnnVSf4xhALt8fe9qzsd2mLKz/18ILSu4Mr4zu0o9FbKO7
-	a5e6grAh4O6zSVKfl9Jthr8C0Oz11tjbGQOKrI+xJPi23UtlWS7IEFkx0Hos4Z5kSj+Lqs=
-X-Received: by 2002:a05:6a20:748a:b0:3c3:a9e1:a819 with SMTP id adf61e73a8af0-3cc71fb5781mr23180089637.24.1786924619000;
-        Sun, 16 Aug 2026 16:56:59 -0700 (PDT)
-Received: from com-75606.corp.openai.org ([104.241.0.233])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320d5ff42b7sm34817537eec.7.2026.08.16.16.56.57
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 16 Aug 2026 16:56:58 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: netdev@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Muhammad_Hazley_SAMSUDIN_from.TP@tech.gov.sg,
-	Kyle Zeng <kylebot@openai.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net/packet: defer vmalloc TX_RING free until skbs finish
-Date: Sun, 16 Aug 2026 16:56:46 -0700
-Message-ID: <20260816235646.76500-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="SY50wgUc"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1786927119; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=FkEbpoYaj8AmQL1n1cxZDG8OTgibwSKiJIDqapThTVY=;
+	b=SY50wgUcL+VpArhH36l8siSa6ENqzYfYdl7+wg7qv1RMBBCaTpX12daeQmdM+whnZt/G7L+u9zfZ7hq+vxe2euRJUCNJtNzzodHfYNmlzSfKlQ9H6HvfHMRYyjx/y/3Pvm2nGcgdIvRfBZFSeLvddV996X/1Bl48VQJHHhiT2Hk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R891e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=yaoyuan@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0X911f-o_1786927118;
+Received: from localhost(mailfrom:yaoyuan@linux.alibaba.com fp:SMTPD_---0X911f-o_1786927118 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 17 Aug 2026 08:38:38 +0800
+Date: Mon, 17 Aug 2026 08:38:37 +0800
+From: Yao Yuan <yaoyuan@linux.alibaba.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Wei-Lin Chang <weilin.chang@arm.com>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Jintack Lim <jintack.lim@linaro.org>, 
+	Christoffer Dall <christoffer.dall@arm.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] KVM: arm64: Fix spurious warning for benign stage 2
+ teardown race
+Message-ID: <dlvicg2jykp4icqkpa7xjm6bmim7sbp7vventkzgoihzpombcc@pemvii5d6qfj>
+References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
+ <20260812-kvm-arm-nested-virt-fix-v1-1-4ad883f1b6a5@kernel.org>
+ <qfhlmmidzdmmsfopfhxpddgwa7nob45jwgb6sabskawaxtox7i@mnxplk3zn34k>
+ <an3gqCJ1fzloWB_N@lucifer>
+ <v3vgnteumpaxbgqjtfwoilcbwpwohfci3uwu4ooykls6zjwjwe@rukbigno2m5o>
+ <an7Tk0qrCM84zS54@gremlin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <an7Tk0qrCM84zS54@gremlin>
 
-AF_PACKET TX_RING skbs keep a raw pointer to their ring frame. The skb
-page references preserve page-backed ring blocks after pg_vec is freed,
-but they do not preserve a vmalloc mapping.
+On Fri, Aug 14, 2026 at 09:48:39AM +0800, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Aug 14, 2026 at 03:18:42PM +0800, Yao Yuan wrote:
+> > On Thu, Aug 13, 2026 at 04:24:49PM +0800, Lorenzo Stoakes (ARM) wrote:
+> > > On Thu, Aug 13, 2026 at 12:20:43AM +0100, Wei-Lin Chang wrote:
+> > > > Hi Lorenzo,
+> > > >
+> > > > Thanks for the detailed analysis!
+> > >
+> > > You're welcome :)
+> > >
+> > > >
+> > > > I can follow what's happening from the report, but one thing I don't
+> > > > get:
+> > > >
+> > > > On Wed, Aug 12, 2026 at 02:31:20PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > > > A batch of kernel warnings were triggered in the L0 host kernel when using
+> > > > > kvmtool to experiment with nested virtualisation.
+> > > > >
+> > > > > The issue was observed on an M2 macbook pro with 24 GiB of RAM running
+> > > > > asahi linux 7.1.6-400.asahi.fc44.aarch64+16k with 16 KiB page size.
+> > > > >
+> > > > > The bug is confirmed to exist in mainline and does not appear to be
+> > > > > impacted by any downstream patches carried by asahi.
+> > > > >
+> > > > > kvmtool was used to establish an L1 guest with 8 CPUs and 8 GiB of RAM.
+> > > > >
+> > > > > kvmtool was then run again within the L1 guest to establish an L2 guest
+> > > > > with 4 CPUs and 4 GiB of RAM.
+> > > > >
+> > > > > Then it was run again to establish another inner guest with 2 CPUs and 2
+> > > > > GiB of RAM at L3.
+> > > > >
+> > > > > Both the L2 and L3 guests were then exited and another L2 guest was
+> > > > > established with the same characteristics.
+> > > > >
+> > > > > Sufficient memory pressure was present in the L0 host to trigger indirect
+> > > > > reclaim, waking kcompactd up and triggering migration.
+> > > > >
+> > > > > Shortly afterwards the L2 guest was stopped, at which point three warnings
+>
+> So TL;DR - correction is to say L0 here, no change elsewhere.
+>
+> > > > > were observed in the L0 host in quick succession with the second and the
+> > > > > third occurring 114us and 189us after the first, respectively.
+> > > > >
+> > > > > In each case the call trace was the same:
+> > > > >
+> > > > > WARNING: arch/arm64/kvm/mmu.c:336 at __unmap_stage2_range+0x64/0x80,
+> > > > > CPU#5: kcompactd0/66
+> > > > > ...
+> > > > > __unmap_stage2_range (arch/arm64/kvm/mmu.c:335 (discriminator 3)) (P)
+> > > > > kvm_stage2_unmap_range (arch/arm64/kvm/mmu.c:346)
+> > > > > kvm_nested_s2_unmap (arch/arm64/kvm/nested.c:1168 (discriminator 14))
+> > > > > kvm_unmap_gfn_range (arch/arm64/kvm/mmu.c:2416)
+> > > > > kvm_mmu_notifier_invalidate_range_start (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:718 ...)
+> > > > > mn_hlist_invalidate_range_start (mm/mmu_notifier.c:525)
+> > > > > __mmu_notifier_invalidate_range_start (mm/mmu_notifier.c:580)
+> > > > > try_to_migrate_one (./include/linux/mmu_notifier.h:478 ./include/linux/mmu_notifier.h:471 mm/rmap.c:2459)
+> > > > > rmap_walk_anon (mm/rmap.c:3001)
+> > > > > rmap_walk (mm/rmap.c:3106 mm/rmap.c:3101)
+> > > > > try_to_migrate (mm/rmap.c:2774)
+> > > > > migrate_folio_unmap (mm/migrate.c:1330 (discriminator 3))
+> > > > > migrate_pages_batch (mm/migrate.c:1909)
+> > > > > migrate_pages_sync (mm/migrate.c:2026)
+> > > > > migrate_pages (mm/migrate.c:2135)
+> > > > > compact_zone (mm/compaction.c:2663)
+> > > > > compact_node (mm/compaction.c:2932)
+> > > > > kcompactd (mm/compaction.c:3230)
+> > > > > kthread (kernel/kthread.c:436)
+> > > > > ret_from_fork (arch/arm64/kernel/entry.S:858)
+> > > > >
+> > > > > Analysing this:
+> > > > >
+> > > > > try_to_migrate() performs the first part of migration on a folio -
+> > > > > establishing migration entries in all page tables mapping it - calling
+> > > > > try_to_migrate_one() for each VMA the folio is mapped in.
+> > > > >
+> > > > > Immediately prior to installing the migration entry, try_to_migrate_one()
+> > > > > calls mmu_notifier_invalidate_range_start() to signal to notifiers that the
+> > > > > existing page table entry is about to be unmapped.
+> > > > >
+> > > > > Since this range happened to contain folios used by the virtual machine
+> > > > > (given its memory consumption this was highly likely to be a target) this
+> > > > > in turn triggers arm64 kvm code via an MMU notifier:
+> > > > >
+> > > > > mmu_notifier_invalidate_range_start()
+> > > > >   -> ... -> kvm_mmu_notifier_invalidate_range_start()
+> > > > >     -> kvm_mmu_unmap_gfn_range()
+> > > > >       -> kvm_unmap_gfn_range()
+> > > > >         -> kvm_nested_s2_unmap()
+> > > > >           -> kvm_stage2_unmap_range()
+> > > > >             -> __unmap_stage2_range()
+> > > > >                -> stage2_apply_range()
+> > > > >        	       <- -EINVAL, triggering a WARN_ON()
+> > > > >
+> > > > > Since commit ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page
+> > > > > tables") kvm_unmap_gfn_range() invokes kvm_nested_s2_unmap() which takes
+> > > > > the rather drastic step of evicting the entirety of the stage 2 shadow page
+> > > > > tables for each nested guest:
+> > > > >
+> > > > > 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> > > > > 		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
+> > > > >
+> > > > > 		if (kvm_s2_mmu_valid(mmu))
+> > > > > 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
+> > > > > 	}
+> > > > >
+> > > > > This will iterate through every valid MMU.
+> > > > >
+> > > > > mmu_notifier_invalidate_range_start() sets the MMU_NOTIFIER_RANGE_BLOCKABLE
+> > > > > flag when signalling notifiers, so may_block is true here.
+> > > > >
+> > > > > __unmap_stage2_range() wraps invocation of stage2_apply_range() in a
+> > > > > WARN_ON():
+> > > > >
+> > > > > 	WARN_ON(stage2_apply_range(mmu, start, end, KVM_PGT_FN(kvm_pgtable_stage2_unmap),
+> > > > > 				   may_block));
+> > > > >
+> > > > > Which is precisely the triggered warning and means stage2_apply_range() is
+> > > > > returning an error.
+> > > > >
+> > > > > In arm64 return values are stored in the x0 register and in each splat w0
+> > > > > (since it's a 32-bit value) is 0xffffffea which, by two's complement, is
+> > > > > -0b00010110 or -EINVAL.
+> > > > >
+> > > > > The only way in which stage2_apply_range() can return an error is if either
+> > > > > the passed in walk function (kvm_pgtable_stage2_unmap()) returns an error
+> > > > > or mmu->pgt is NULL:
+> > > > >
+> > > > > 	static int stage2_apply_range(...)
+> > > > > 	{
+> > > > > 		do {
+> > > > > 			struct kvm_pgtable *pgt = mmu->pgt;
+> > > > > 			if (!pgt)
+> > > > > 				return -EINVAL;
+> > > > >
+> > > > > 			next = stage2_range_addr_end(addr, end);
+> > > > > 			ret = fn(pgt, addr, next - addr);
+> > > > > 			if (ret)
+> > > > > 				break;
+> > > > > 			if (resched && next != end)
+> > > > > 				cond_resched_rwlock_write(&kvm->mmu_lock);
+> > > > > 		} while (addr = next, addr != end);
+> > > > >
+> > > > > 		return ret;
+> > > > > 	}
+> > > > >
+> > > > > This loop is batched by stage2_range_addr_end() at the granularity of
+> > > > > kvm_granule_size(KVM_PGTABLE_MIN_BLOCK_LEVEL), which for a 16 KiB page size
+> > > > > kernel is 32 MiB.
+> > > > >
+> > > > > kvm_pgtable_stage2_unmap() only returns an error if
+> > > > > kvm_pgtable_walk_begin() or _kvm_pgtable_walk() return an error. On arm64
+> > > > > the former doesn't ever do so, and the latter only returns -EINVAL if
+> > > > > either pgd is NULL (we gate that already) or an invalid pgt->start_level is
+> > > > > specified (not the case).
+> > > > >
+> > > > > So the cause of the warning is that mmu->pgt is NULL here.
+> > > > >
+> > > > > This field is protected by kvm->mmu_lock, but after each invocation of the
+> > > > > walk function, if the end of the range has not yet been reached, the lock
+> > > > > is dropped.
+> > > > >
+> > > > > This is done by calling cond_resched_rwlock_write() which drops
+> > > > > kvm->mmu_lock when yielding the time slice before reacquiring it upon being
+> > > > > scheduled again:
+> > > > >
+> > > > > 		if (resched && next != end)
+> > > > > 			cond_resched_rwlock_write(&kvm->mmu_lock);
+> > > > >
+> > > > > Note that resched = may_block here and is always true for these walks.
+> > > > >
+> > > > > This points to something else racing this code to clearing the pgt, and
+> > > > > brings us back to the observation above that the issue occurs when tearing
+> > > > > down the L2 guest.
+> > > > >
+> > > > > Upon L0's userspace mm_struct teardown, stage 2 mappings for IPAs mapped by
+> > >
+> > > s/L0/L2/
+> > >
+> > > > > the guest are unmapped via mmu notifier:
+> > > > >
+> > > > > exit_mm()
+> > > > >   -> mmput()
+> > > > >     -> __mmput()
+> > > > >       -> exit_mmap()
+> > > > >         -> mmu_notifier_release()
+> > > > > 	  -> ... -> kvm_mmu_notifier_release()
+> > > > >             -> kvm_flush_shadow_all()
+> > > > >               -> kvm_arch_flush_shadow_all()
+> > > > > 	        -> kvm_free_stage2_pgd()
+> > > > > 		  -> [ acquire kvm->mmu_lock for write ]
+> > > > > 		  -> mmu->pgt = NULL [ among other tasks ]
+> > > > > 		  -> [ release kvm->mmu_lock for write ]
+> > > >
+> > > > You mentioned stopping the L2 VM only, which means L1 is still running.
+> > > > Why would the L0 userspace mm_struct get torn down if L1 is still live?
+> > > > What did I miss?
+> > >
+> > > Ah yeah this is a mistake sorry :) It should say L2 teardown.
+> > >
+> > > The stuff relevant to L0 is the MMU notifier bit.
+> >
+> > Hi Lorenzo,
+> >
+> > Still have question w/ your above addtional information:
+> >
+> > The trace is observed on L0, means the exit_mm() path should
+> > also happens on L0 to race w/ the
+> > mmu_notifier_invalidate_range_start() path, but how this is
+> > triggred by L2 teardown, IIUC the L2 teardown triggers the
+> > exit_mm() path on L1, not on L0. The L1 is still alive thus
+> > the qemu/kvmtool process on L0 which hold all L1/L2/L3 is
+> > still alive yet. Please correct me if anything I missed
+> > here.
+>
+> OK so - I confused myself here :)
+>
+> The underlying issue here is that I am working back from a situation where
+> I can't quite recall what I did, but am rather reconstructing it based on
+> what was observed.
+>
+> And you're right - this stack makes no sense for an L2 VM being torn down,
+> rather only the L0 being torn down.
+>
+> So clearly this is what I did, and the correction should be to say this at
+> the start of the commit message.
 
-tpacket_destruct_skb() currently drops the pending reference before
-writing the timestamp and TP_STATUS_AVAILABLE to the frame. Move the
-decrement after those stores. The smp_wmb() in __packet_set_status()
-orders the frame stores before the decrement.
+Ah I see.  I agree the race is there. Below is just an idea
+in my mind for reproducing this, hope this is helpful to you :-)
 
-Also recheck pending TX frames under pg_vec_lock before non-closing
-ring replacement, so a racing send cannot add a pending skb between
-the initial check and the ring swap.
+migratepages (https://man7.org/linux/man-pages/man8/migratepages.8.html) can
+help to trigger the MMU notifier to qemu/kvmtool easily on 2P system, meanwhile
+kill the qemu/kvmtool on L0 to reprouduce the racing. For 1P system kernel has
+numa=fake parameter to generate more NUMAs there.
 
-Ring allocation can produce a mixture of page-backed and vmalloc-backed
-blocks. Allocate deferred-work storage during TX ring setup when the
-first vmalloc-backed block is encountered, and keep its pointer in the
-pg_vec allocation header. If allocation fails, return -ENOMEM from ring
-setup. On socket close, a non-NULL pointer identifies a vmalloc-backed
-vector without a scan. If TX skbs remain, defer the whole vector to
-system_long_wq.
-
-After pg_vec is detached, a late destructor can skip the pending
-decrement. Use socket write-memory accounting as the deferred lifetime
-gate instead: an skb remains charged through its final sock_wfree(),
-after all ring-frame accesses. The delayed work retains a socket
-reference and reschedules itself until no TX skbs remain.
-
-Move pending_refcnt release to packet_sock_destruct() so late skb
-destructors and deferred cleanup can safely use it after
-packet_release(). Page-backed teardown remains synchronous, and no lock
-is added to the TX completion hot path.
-
-Fixes: b013840810c2 ("packet: use percpu mmap tx frame pending refcount")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260721015824.45829-1-kylebot@openai.com/
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Assisted-by: Codex:gpt-5.6-sol
----
-Changes in v2:
-- Allocate cleanup work during setup, only for vmalloc-backed TX rings.
-- Keep its pointer in the pg_vec allocation header; remove the teardown
-  detection scan, allocation, and synchronous fallback.
-- Use socket write-memory accounting for both the close-time decision
-  and the deferred worker.
-- Recheck pending TX frames under pg_vec_lock before non-closing swaps.
-- Rebase onto f5bbbfec59b4.
-
- net/packet/af_packet.c | 96 ++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 87 insertions(+), 9 deletions(-)
-
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 435756877aba..7bb5d8ca1593 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -88,6 +88,7 @@
- #include <linux/errqueue.h>
- #include <linux/net_tstamp.h>
- #include <linux/percpu.h>
-+#include <linux/workqueue.h>
- #ifdef CONFIG_INET
- #include <net/inet_common.h>
- #endif
-@@ -1341,6 +1342,8 @@ static void packet_sock_destruct(struct sock *sk)
- 	WARN_ON(atomic_read(&sk->sk_rmem_alloc));
- 	WARN_ON(refcount_read(&sk->sk_wmem_alloc));
- 
-+	packet_free_pending(pkt_sk(sk));
-+
- 	if (!sock_flag(sk, SOCK_DEAD)) {
- 		pr_err("Attempt to release alive packet socket: %p\n", sk);
- 		return;
-@@ -2534,11 +2537,11 @@ static void tpacket_destruct_skb(struct sk_buff *skb)
- 		__u32 ts;
- 
- 		ph = skb_zcopy_get_nouarg(skb);
--		packet_dec_pending(&po->tx_ring);
- 
- 		ts = __packet_set_timestamp(po, ph, skb);
- 		__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
- 
-+		packet_dec_pending(&po->tx_ring);
- 		complete(&po->skb_completion);
- 	}
- 
-@@ -3204,7 +3207,6 @@ static int packet_release(struct socket *sock)
- 	/* Purge queues */
- 
- 	skb_queue_purge(&sk->sk_receive_queue);
--	packet_free_pending(po);
- 
- 	sock_put(sk);
- 	return 0;
-@@ -4367,11 +4369,26 @@ static const struct vm_operations_struct packet_mmap_ops = {
- 	.close	=	packet_mm_close,
- };
- 
-+struct packet_pg_vec {
-+	struct packet_pg_vec_free *deferred;
-+	unsigned int order;
-+	unsigned int len;
-+	struct pgv pg_vec[] __counted_by(len);
-+};
-+
-+struct packet_pg_vec_free {
-+	struct delayed_work work;
-+	struct sock *sk;
-+	struct packet_pg_vec *vec;
-+};
-+
- static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
- 			unsigned int len)
- {
-+	struct packet_pg_vec *vec;
- 	int i;
- 
-+	vec = container_of_const(pg_vec, struct packet_pg_vec, pg_vec[0]);
- 	for (i = 0; i < len; i++) {
- 		if (likely(pg_vec[i].buffer)) {
- 			if (is_vmalloc_addr(pg_vec[i].buffer))
-@@ -4382,7 +4399,46 @@ static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
- 			pg_vec[i].buffer = NULL;
- 		}
- 	}
--	kfree(pg_vec);
-+	kfree(vec->deferred);
-+	kfree(vec);
-+}
-+
-+static void packet_free_pg_vec_work(struct work_struct *work)
-+{
-+	struct packet_pg_vec_free *deferred;
-+	struct packet_pg_vec *vec;
-+	struct sock *sk;
-+
-+	deferred = container_of_const(to_delayed_work(work),
-+				      struct packet_pg_vec_free, work);
-+	vec = deferred->vec;
-+	sk = deferred->sk;
-+	if (sk_wmem_alloc_get(sk)) {
-+		queue_delayed_work(system_long_wq, &deferred->work, 1);
-+		return;
-+	}
-+
-+	free_pg_vec(vec->pg_vec, vec->order, vec->len);
-+	sock_put(sk);
-+}
-+
-+static void packet_free_tx_ring(struct sock *sk, struct pgv *pg_vec,
-+				unsigned int order, unsigned int len)
-+{
-+	struct packet_pg_vec_free *deferred;
-+	struct packet_pg_vec *vec;
-+
-+	vec = container_of_const(pg_vec, struct packet_pg_vec, pg_vec[0]);
-+	deferred = vec->deferred;
-+	if (!deferred || !sk_wmem_alloc_get(sk)) {
-+		free_pg_vec(pg_vec, order, len);
-+		return;
-+	}
-+
-+	/* A detached ring's pending count can miss late skb destructors. */
-+	deferred->sk = sk;
-+	sock_hold(sk);
-+	queue_delayed_work(system_long_wq, &deferred->work, 0);
- }
- 
- static char *alloc_one_pg_vec_page(unsigned long order)
-@@ -4410,20 +4466,35 @@ static char *alloc_one_pg_vec_page(unsigned long order)
- 	return NULL;
- }
- 
--static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order)
-+static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring)
- {
- 	unsigned int block_nr = req->tp_block_nr;
-+	struct packet_pg_vec *vec;
- 	struct pgv *pg_vec;
- 	int i;
- 
--	pg_vec = kzalloc_objs(struct pgv, block_nr, GFP_KERNEL | __GFP_NOWARN);
--	if (unlikely(!pg_vec))
--		goto out;
-+	vec = kzalloc_flex(*vec, pg_vec, block_nr, GFP_KERNEL | __GFP_NOWARN);
-+	if (unlikely(!vec))
-+		return NULL;
-+	vec->order = order;
-+	vec->len = block_nr;
-+	pg_vec = vec->pg_vec;
- 
- 	for (i = 0; i < block_nr; i++) {
- 		pg_vec[i].buffer = alloc_one_pg_vec_page(order);
- 		if (unlikely(!pg_vec[i].buffer))
- 			goto out_free_pgvec;
-+
-+		if (tx_ring && !vec->deferred &&
-+		    is_vmalloc_addr(pg_vec[i].buffer)) {
-+			vec->deferred = kzalloc_obj(*vec->deferred,
-+						    GFP_KERNEL | __GFP_NOWARN);
-+			if (!vec->deferred)
-+				goto out_free_pgvec;
-+			vec->deferred->vec = vec;
-+			INIT_DELAYED_WORK(&vec->deferred->work,
-+					  packet_free_pg_vec_work);
-+		}
- 	}
- 
- out:
-@@ -4506,7 +4577,7 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 
- 		err = -ENOMEM;
- 		order = get_order(req->tp_block_size);
--		pg_vec = alloc_pg_vec(req, order);
-+		pg_vec = alloc_pg_vec(req, order, tx_ring);
- 		if (unlikely(!pg_vec))
- 			goto out;
- 		switch (po->tp_version) {
-@@ -4558,6 +4629,9 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 	err = -EBUSY;
- 	mutex_lock(&po->pg_vec_lock);
- 	if (closing || atomic_long_read(&po->mapped) == 0) {
-+		if (tx_ring && !closing && packet_read_pending(rb))
-+			goto out_unlock;
-+
- 		err = 0;
- 		spin_lock_bh(&rb_queue->lock);
- 		swap(rb->pg_vec, pg_vec);
-@@ -4579,6 +4653,7 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 			pr_err("packet_mmap: vma is busy: %ld\n",
- 			       atomic_long_read(&po->mapped));
- 	}
-+out_unlock:
- 	mutex_unlock(&po->pg_vec_lock);
- 
- 	spin_lock(&po->bind_lock);
-@@ -4600,7 +4675,10 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- out_free_pg_vec:
- 	if (pg_vec) {
- 		bitmap_free(rx_owner_map);
--		free_pg_vec(pg_vec, order, req->tp_block_nr);
-+		if (tx_ring && closing)
-+			packet_free_tx_ring(sk, pg_vec, order, req->tp_block_nr);
-+		else
-+			free_pg_vec(pg_vec, order, req->tp_block_nr);
- 	}
- out:
- 	return err;
-
-base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
--- 
-2.55.0.openai.347.g2b0ba75e4a61
+>
+> (The truth of what happened was rather more button-mashy and 'oh what?'
+> than it appears ;)
+>
+> Sorry for the confusion!
+>
+> >
+> > >
+> > > >
+> > > > Thanks,
+> > > > Wei-Lin Chang
+> > > >
+> > > > [...]
+>
+> --
+> Cheers, Lorenzo
