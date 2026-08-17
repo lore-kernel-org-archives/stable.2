@@ -1,115 +1,201 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82390418351
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BCF41DEF7
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:57:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786971225; cv=none; b=cK1rpVj3BD0S7KIgrrDgmC/5ryn+6rSzP+hgpqCd9qfqEvKubtQK2uyYM6JzbDcDaHklPVK24wL0FRp7hNP3M1IwQJ2GdQ4RxGiQMKNILBjQVvyrrSBvLT4+CeFICjGsP/+qdZYZlvoZIwXOr43QlTzhX+xCavNB5jP1IYLWEW4=
+	t=1786971453; cv=none; b=R6g6KtP0T1Yl/5aNtC0tkGJbIAxH+ysISWAVDJ5Ft954gTbH+YEAkrU+s5zrgIOB3No4BFmpJvz0zFFa16wa27K1rtA6pXqx6/ovgP2UqOpjDByuAVLRj8AjpFt0NrzK4bx3GCPA24xy7jL0U9+GOdqijvaEbTVYkCCCneYXWHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786971225; c=relaxed/simple;
-	bh=92/LJ9ytiCnTo9nxdyNCfvLsbqsb1dRXtZFbNV2qfgk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qN6cCLqDrm7gS81k8R7xWrXckrGDEJXQHF3mm1t1gWMe3fV7JiRYpToa/R6hBPxeCDJCPcU+ijCkVMJr+y4mn/TxitJ/Xk22SW0ncN6/rMoYIpBjR3fb5VPM23Y6NyVjOjvp2bWYycNB+YN+Bm0WbbE7iJE77xoMoOzB4SQRbuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=q+vnvTrV; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1786971453; c=relaxed/simple;
+	bh=QzCIqujJVLpkrjFijyqBfUXFULhr5Y/Irtg7x2TkVr0=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=p40XvSrXtExiWRfdmxZpTJgWFsII1HwrcbxY9+mnGq+BvbNUNVeQLYRDZFns9+Y8umBzrHiyV87I+I0kEbIVHnjm8Mbf5sLxXqSZmmSsYAzNxMikU9XLeMkgMaivdT8jJa3kFgc8/WGw23wXPHG1+eITrFZDfwSaPK7R7OoIKvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=u9V0G/TM; arc=none smtp.client-ip=46.14.118.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="q+vnvTrV"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cede6375caso261855ad.0
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 05:53:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786971224; x=1787576024; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U/HO5352xrmxomcN/usyEVXCVrY50VpsMFDwsFMZfKc=;
-        b=q+vnvTrVo4MslOUavPP0NIbDRH/ble9BohqbLZZgLXM+e2NM3DidaFz5e80kK3FIuz
-         K5Zwvk9IzaVuKkNyY4mnn39mSUQEjqx3E85fRuO/FCsjH0iibn06nvaYy3+52003MIMc
-         Z5kgnRURj6JSr2py1wJ1f6gkI6nHQXMyPURLmrSZVO6ftS8VGyZ9EevAHAL3o/t8BK8A
-         T5sV8Q+LU7dk7G4BxG1A13S7k4h5RDK/KaLVheZFm3jHGE4xzCFyEakoneL191rTtzCn
-         FSEFhmL0MLYg7bCuBKUXN/MErIn3ZlHeAY0j/QFqZSPsoYofp8fPZh73eVLLl/ogkjC+
-         n+ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786971224; x=1787576024;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U/HO5352xrmxomcN/usyEVXCVrY50VpsMFDwsFMZfKc=;
-        b=rwORnGtjk3wIiAKOu8FQLoRyDc9ZeM4DiwjwRT7zmK4RFzxik/ROw9krgXHDm8VUwa
-         9pXimEjD+jagBt+6oEjqFfbnjzUV+/4t2VdvuWbEs0RcTexYtj6+lU513USHjc9Aw5DN
-         w8540ahKMfsYxc2kdeA7Z/zv7mgd+rKvKrgLoLtyvsTizblhIjGGHllirD7fxHPEMOWe
-         DDINwn+0r5qQW+MfP3vstIacood0HVjLs/r+UonSKaJRUFlLaszBgbxMMCjGEpxtRIKt
-         Q3a7f6ai808QEVqmIVPP64nt2CONg+TXba2atphnRnW8VWqEx5sc9/PmSK4aTvy+thy5
-         rwzw==
-X-Forwarded-Encrypted: i=1; AHgh+RoDZpv5fq35JsytkS4EBisMkSwmKYGEyowUmz7O3UUu5PX51Awefb04phmVrWabzmRLNueUuro=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywrn9SjGF7H/EQ0NQ+AqKtRsJTvW7ugNxD33oRXvLInvp5uYMsQ
-	i6eZ/09sStfgmzIKORYw8MikjatWCUG/+npms7tf1QCkEuVwU54tp365CrVKewHIMg==
-X-Gm-Gg: AR+sD12iRthQk6yQ0qJhHloSo5HL+F7J01bVKng4l3e14DQ0yZ+AsDMh6ybRSCM+9Ek
-	LbSn9dotuOHufZAq0UTv6Cmsoyveh6llLmUw8TYohtnzzgG00jZwmC/OEjU7GGwXFU0Z4+Wt52j
-	TCJuXUZiHzCVhWvXBj+yAVhLEI9qe6QCjOmba8AGgESWHHiUnESfKJa0b6cZqZYkBJfDu8lsM+1
-	SEV/z9OQnYa20ToqeJWi2H3RKJN+WrnHEpbUNpC9kSHf241Aq5fvzmLGtWaje9B96sA1y30IkLq
-	4BVO4wcFIXemQ/YhuuPZ1Vf+VmmIF4D7l/nd2Zg4sOoYxvSGp6rylHkW9WHC4TOhgEuXO31VBwo
-	m3/pmWk8yyn+hFb6dSrUuiC0FvPA8lvjhopQShyw1nQvx7mLbiVhhqxQJUT8ZndOmZko9YMFFKr
-	cnB/y7g8/ZK1arsmnCmV66yUhZMGxIpRJkM6NmruFRrU8hQAMJAeRy8kTA81uZ9F9hmLBzxyl5c
-	wsQJhJSzrJ0MvZIYEqiWOM=
-X-Received: by 2002:a17:902:d983:b0:2cf:41ba:96b8 with SMTP id d9443c01a7336-2d590bad516mr5207305ad.6.1786971223287;
-        Mon, 17 Aug 2026 05:53:43 -0700 (PDT)
-Received: from google.com (21.168.124.34.bc.googleusercontent.com. [34.124.168.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bb499d4bsm5258655ad.4.2026.08.17.05.53.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 05:53:42 -0700 (PDT)
-Date: Mon, 17 Aug 2026 12:53:36 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Dmitry Malkin <dma@nebius.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	NB-Core Team <NB-CoreTeam@nebius.com>
-Subject: Re: [RFC PATCH] iommu/arm-smmu-v3: Allow nested attach for PCI
- bridges without vDEVICE
-Message-ID: <aoMEUDQKlaWzvE8n@google.com>
-References: <PA1P190MB25578C482C8A3B06A4DCC6FDDBDA2@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
- <20260814174825.GC510472@nvidia.com>
- <PA1P190MB25573D7CFE42EF7DD2A8CDE8DBDA2@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
- <20260814221103.GE510472@nvidia.com>
- <PA1P190MB2557D53CB7FCB70EB8F79D09DBA72@PA1P190MB2557.EURP190.PROD.OUTLOOK.COM>
- <aoLtgeYLpYobpyKN@google.com>
- <20260817114407.GB1175472@nvidia.com>
+	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="u9V0G/TM"
+Received: from [192.168.16.44] (port=21959 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1wvwu4-000000007B5-2kvt;
+	Mon, 17 Aug 2026 14:57:24 +0200
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1786971444; h=from:subject:to:date:message-id;
+	bh=QzCIqujJVLpkrjFijyqBfUXFULhr5Y/Irtg7x2TkVr0=;
+	b=u9V0G/TMG7HyqZu/FCILt/HdSCSzkjmCYKKgPOUo2H4gjTF9yE/wJ+qgUkKWhTpovZZDMN0cjH4
+	mUHGtGezdaarJ11xyQ9sNLBTDb2bLZGjcpqxKli6iblBf5H0jERiJcPqfr8G8TRXiBcu3wi1Uz4xD
+	aVjjmhXKmF3AqgaP9xw=
+Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Mon, 17 Aug 2026 14:57:24 +0200
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: <linux-bluetooth@vger.kernel.org>
+CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
+	<linux-kernel@vger.kernel.org>, Valentin Kindschi
+	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
+Subject: [PATCH] Bluetooth: hci_sync: pause advertising before setting the active scan address
+Date: Mon, 17 Aug 2026 14:57:07 +0200
+Message-ID: <20260817125707.508716-1-valentin.kindschi@fiveco.ch>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260817114407.GB1175472@nvidia.com>
+X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
+ FIVECO-MX01.fiveco.local (192.168.16.44)
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.8.17.122719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 8%
+X-SASI-Hits: BODY_SIZE_5000_5999 0.000000, BODY_SIZE_7000_LESS 0.000000,
+ CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000, DKIM_SIGNATURE 0.000000,
+ HTML_00_01 0.050000, HTML_00_10 0.050000, MULTIPLE_RCPTS 0.100000,
+ NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000, NO_URI_HTTPS 0.000000,
+ OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000, SENDER_NO_AUTH 0.000000,
+ WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000, WEBMAIL_X_IP_HDR 0.000000,
+ __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000, __BULK_NEGATE 0.000000,
+ __CC_NAME 0.000000, __CC_NAME_DIFF_FROM_ACC 0.000000,
+ __CC_REAL_NAMES 0.000000, __CT 0.000000, __CTE 0.000000,
+ __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000, __DKIM_ALIGNS_2 0.000000,
+ __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000, __DQ_NEG_IP 0.000000,
+ __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000,
+ __HAS_MSGID 0.000000, __HAS_XOIP 0.000000, __HAS_X_MAILER 0.000000,
+ __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000, __MIME_TEXT_P1 0.000000,
+ __MIME_VERSION 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
+ __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
+ __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
+ __RCVD_CTE 0.000000, __RCVD_EXIM_4_96_AES_128 0.000000,
+ __RCVD_FROM_HOMEUSER 0.000000, __SANE_MSGID 0.000000,
+ __SHIPPING_ACTION 0.000000, __SL_HEAVY 0.000000, __SUBJ_ALPHA_END 0.000000,
+ __SUBJ_STARTS_S_BRACKETS 0.000000, __TO_MALFORMED_2 0.000000,
+ __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000, __URI_NO_WWW 0.000000,
+ __URI_NS 0.000000
 
-On Mon, Aug 17, 2026 at 08:44:07AM -0300, Jason Gunthorpe wrote:
-> On Mon, Aug 17, 2026 at 11:16:17AM +0000, Pranjal Shrivastava wrote:
-> > But, regarding PCI P2PDMA, you can still enable it with ACS enabled in
-> > the upstream kernel *IF* your hardware supports TLP forwarding between
-> > root ports.
-> > 
-> > When ACS is enabled, all TLPs get forwarded to the host's Root Ports
-> > instead of getting routed directly through the switch.
-> 
-> Generally nobody wants to run like that, the performance is
-> terrible. The reason these systems have a PCI switch is because of
-> performance of the P2P path.
+hci_active_scan_sync() generates a non-resolvable private address and
+programs it with LE Set Random Address on every active scan start:
 
-Ack. I was assuming the enablement was the major challenge. For perf we
-definitly need to hairpin at the switch. 
+	/* All active scans will be done with either a resolvable private
+	 * address (when privacy feature has been enabled) or non-resolvable
+	 * private address.
+	 */
+	err = hci_update_random_address_sync(hdev, true, scan_use_rpa(hdev),
+					     &own_addr_type);
 
-> 
-> Jason
+BLUETOOTH CORE SPECIFICATION Vol 4, Part E, 7.8.4 states the controller
+shall return Command Disallowed (0x0C) for LE Set Random Address while
+legacy advertising or scanning is enabled.
 
-Thanks,
-Praan
+Advertising is only stopped beforehand when LL privacy is in use.
+hci_pause_addr_resolution(), called just above, returns early when
+!use_ll_privacy(hdev), so its hci_pause_advertising_sync() never runs.
+On a device that advertises while active scanning - a peripheral that is
+also a central, such as a gateway - every scan start therefore issues a
+command the host can already know will be rejected:
+
+	Bluetooth: hci0: Opcode 0x2005 failed: -16
+
+The address write is not retried either: hci_set_random_addr_sync()
+defers only when hdev->random_addr is already set, and it never becomes
+set because the write keeps failing, so HCI_RPA_EXPIRED is not used here.
+
+Observed on a BCM43455 with Privacy=off, one advertising instance and
+continuous active discovery, at the scan restart period (~10 s):
+
+  < LE Set Random Address  Address: 02:16:91:90:F1:D4 (Non-Resolvable)
+  > Command Complete       LE Set Random Address, Command Disallowed
+  < LE Set Random Address  Address: 26:90:57:96:9A:3E (Non-Resolvable)
+  > Command Complete       LE Set Random Address, Command Disallowed
+  < LE Set Random Address  Address: 16:32:01:BC:B5:CE (Non-Resolvable)
+  > Command Complete       LE Set Random Address, Command Disallowed
+
+Pause advertising for the address update regardless of privacy, and
+resume it on every exit path. Previously the resume was guarded by
+use_ll_privacy() and only reached on the error path, which matched the
+pause being privacy-only.
+
+With the patch, the same scan restart on the same hardware:
+
+  < LE Set Advertising Enable                            Success
+  < LE Set Random Address                                Success
+  < LE Set Scan Parameters                               Success
+  < LE Set Scan Enable                                   Success
+  < LE Set Advertising Parameters                        Success
+  < LE Set Advertising Enable                            Success
+
+Over 35425 records / ~4 min of btmon with continuous active discovery and
+advertising enabled there were no Command Disallowed responses of any
+kind, against one per scan restart before. A central could still connect
+to the device, confirming advertising is restored after the pause.
+
+Tooling disclosure (Documentation/process/generated-content.rst): an AI
+coding assistant was used to investigate this and to draft the change;
+the patch text and code are its output, reviewed by me. Inputs were btmon
+captures and kernel logs from the affected device, with the request to
+identify what re-issues LE Set Random Address every ~10 s and to fix it.
+Three earlier explanations it proposed were discarded after being checked
+against the captures: bluetoothd restarting service discovery; RPA
+rotation (excluded, Privacy=off); and the static-address branch of
+hci_update_random_address_sync() (excluded, both random_address and
+static_address read 00:00:00:00:00:00). The cause was only established
+after decoding the command payloads, which showed a freshly generated
+non-resolvable address per attempt. Testing is as described above, on the
+device, using btmon and a second device to confirm connectability.
+
+Fixes: abfeea476c68 ("Bluetooth: hci_sync: Convert MGMT_OP_START_DISCOVERY")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5 btmon
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+---
+ net/bluetooth/hci_sync.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -6074,6 +6074,14 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval,
+ 	if (err)
+ 		goto failed;
+
++	/* LE Set Random Address is disallowed while advertising is enabled, so
++	 * pause it for the address update. hci_pause_addr_resolution() above
++	 * only does this when LL privacy is in use.
++	 */
++	err = hci_pause_advertising_sync(hdev);
++	if (err)
++		goto failed;
++
+ 	/* All active scans will be done with either a resolvable private
+ 	 * address (when privacy feature has been enabled) or non-resolvable
+ 	 * private address.
+@@ -6102,13 +6110,18 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval,
+ 	err = hci_start_scan_sync(hdev, LE_SCAN_ACTIVE, interval,
+ 				  hdev->le_scan_window_discovery,
+ 				  own_addr_type, filter_policy, filter_dup);
+-	if (!err)
++	if (!err) {
++		/* Advertising was paused for the address update above. */
++		hci_resume_advertising_sync(hdev);
+ 		return err;
++	}
+
+ failed:
+-	/* Resume advertising if it was paused */
+-	if (use_ll_privacy(hdev))
+-		hci_resume_advertising_sync(hdev);
++	/* Resume advertising if it was paused. hci_resume_advertising_sync()
++	 * is a no-op when hdev->advertising_paused is not set, so this covers
++	 * both the privacy and the address-update pause.
++	 */
++	hci_resume_advertising_sync(hdev);
+
+ 	/* Resume passive scanning */
+ 	hci_update_passive_scan_sync(hdev);
+--
+2.34.1
