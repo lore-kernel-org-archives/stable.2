@@ -1,127 +1,122 @@
-Received: from devianza.investici.org (devianza.investici.org [198.167.222.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7632D8796
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 21:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.167.222.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491CF235045;
+	Mon, 17 Aug 2026 21:41:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787002425; cv=none; b=tcVIs368jxWQ9aIG+oaKNo2Zk/FaNoUEzCt9tl5Vux6gfhry3l7VmopE2hSmjE5MaRrNIGvs64QIPENlY/ExusRrQkCnYjWnZSxyvOL3iDOH34j5PnwO9RKHEAKeFDMMx7cUeYk0b0bQdrGUGyfoATdoss0CRHXjhMYuD1tsANc=
+	t=1787002908; cv=none; b=lDHBlvonPRchqEogrzjvNT86VmxiHw57GVRsbmHKQTyCoi6ZE3ZRWLL2XvwdELmmu+oQhe0usXqAwYKEURzoGa4kWm95pYtMtYwgnqANjr3HilWWQM31HXp2Y2As/5gYZeXiXkkj9rG6ZvRsJhZwT14tlIKNpwo5tcYaw2XH3Y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787002425; c=relaxed/simple;
-	bh=atBvt6ggsW+GpKsl7BOrm3SRcSD58I8dYlFVLADl49c=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=WyXmJ/MsXKf5ZHwS9ULrAlQLSDnG3gQV9kcnICYxKQh6m7SNFYQacBm0cDb2X+595Frzco4oo+CsxVh+O2/xmRIUbWosgat+G1eqP/4MI3uiAOtTMykMDXId3J1TiX3xy7XOR2W8nP9iCVrl1TmJSaQokfA98jAI9tvxT3p3Cog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=lyiidq5x; arc=none smtp.client-ip=198.167.222.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
+	s=arc-20240116; t=1787002908; c=relaxed/simple;
+	bh=4WmHemqiGzwEr1P1GxIM9j8ebaIyfeQllPWsWFoDuzM=;
+	h=Date:To:From:Subject:Message-Id; b=j5JKBQmLhwxAJqJelDH7SpPa0W/vgpf31hcSzVhTj5HHvEigfui0eMRfpbvY4wAMcHvZ4uaASTfYF7skfqLx5vvloP11pxgXEgzQojSPnaEnco/SzzJL78PeMzICOV0FnU7LVXbnMkjJxePiK752aei8i7M9WB9sQoyDHT597YU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wOXU9p2K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="lyiidq5x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1787002421;
-	bh=mCFEcVWtlwsRjDxhRgkUtls5h6xVNAYS0UrutaOS14k=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=lyiidq5xof5aggVSEzRohaQYm3FjX/DL0Ufny3c7QLRa1TIzVqZ8gK5HxcN3zxK6T
-	 QY7pul77YN01hHqZPkDRx60AdycD6CcE1GghDNVU+r2SkRxCIBnLwHBYEW0fOXBYnh
-	 9bJZCfY/Thp3RVFs9aBNzmrnTljIPhVjP95GhNXY=
-Received: from mx2.investici.org (unknown [127.0.0.1])
-	by devianza.investici.org (Postfix) with ESMTP id 4hP5g906w9z6vVt;
-	Mon, 17 Aug 2026 21:33:41 +0000 (UTC)
-Received: by mx2.investici.org (Postfix) id 4hP5g84Hvgz4y6W;
-	Mon, 17 Aug 2026 21:33:40 +0000 (UTC)
-Date: Mon, 17 Aug 2026 22:33:42 +0100
-From: Bradley Morgan <include@grrlz.net>
-To: alifm@linux.ibm.com
-CC: eric.auger@redhat.com, gregkh@linuxfoundation.org, jgg@nvidia.com,
- kevin.tian@intel.com, lixiao.yang@intel.com, mjrosato@linux.ibm.com,
- nicolinc@nvidia.com, sashal@kernel.org, stable@vger.kernel.org,
- yi.l.liu@intel.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_1/5=5D_kernel/user=3A_Allow_user?=
- =?US-ASCII?Q?=5Fstruct=3A=3Alocked=5Fvm_to_be_usable_for_iommufd?=
-In-Reply-To: <A8667FCC-75A1-461E-82A8-5318859E2ABA@grrlz.net>
-References: <A8667FCC-75A1-461E-82A8-5318859E2ABA@grrlz.net>
-Message-ID: <6B0C12A1-7979-41F4-932B-886EA42EE192@grrlz.net>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wOXU9p2K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20191F000E9;
+	Mon, 17 Aug 2026 21:41:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1787002906;
+	bh=ilJFcXuONEQu0+B/j2F5OhA+v+1LDqzZjl8KkJQ9AWo=;
+	h=Date:To:From:Subject;
+	b=wOXU9p2KWkYpMm+KoAe0RN/bztE6aqx9KSEkNl1kK4aL/UXJbErrM0Ol5UXb/I/lT
+	 MukG8KRB34zYwzMRZYKehyAvmYraXW2ddcy0R1odzkHLpBvc7an8AoRhljHu9o4dV+
+	 eSwuDsJmO7Ld7uv/E0B8jZOv3IplWdkeVCeDjjKM=
+Date: Mon, 17 Aug 2026 14:41:46 -0700
+To: mm-commits@vger.kernel.org,tujinjiang@huawei.com,stable@vger.kernel.org,osalvador@suse.de,muchun.song@linux.dev,david@kernel.org,xialonglong@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260817214146.C20191F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
 
-On 17 August 2026 22:24:00 BST, Bradley Morgan <include@grrlz.net> wrote:
->On 17 August 2026 21:16:02 BST, Farhan Ali <alifm@linux.ibm.com> wrote:
->>From: Jason Gunthorpe <jgg@nvidia.com>
->>
->>Following the pattern of io_uring, perf, skb, and bpf, iommfd will use
->>user->locked_vm for accounting pinned pages. Ensure the value is included
->>in the struct and export free_uid() as iommufd is modular.
->>
->>user->locked_vm is the good accounting to use for ulimit because it is
->>per-user, and the security sandboxing of locked pages is not supposed to
->>be per-process. Other places (vfio, vdpa and infiniband) have used
->>mm->pinned_vm and/or mm->locked_vm for accounting pinned pages, but this
->>is only per-process and inconsistent with the new FOLL_LONGTERM users in
->>the kernel.
->>
->>Concurrent work is underway to try to put this in a cgroup, so everything
->>can be consistent and the kernel can provide a FOLL_LONGTERM limit that
->>actually provides security.
->>
->>Link:
->https://lore.kernel.org/r/7-v6-a196d26f289e+11787-iommufd_jgg@nvidia.com
->>Reviewed-by: Kevin Tian <kevin.tian@intel.com>
->>Reviewed-by: Eric Auger <eric.auger@redhat.com>
->
->Reviewed-by: Bradley Morgan <include@grrlz.net> # kernel/
->
 
-Oopsie! I didn't realise it was a backport commit :(
+The patch titled
+     Subject: mm/hugetlb: keep max_huge_pages when dissolving surplus folios
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios.patch
 
-Could you add [PATCH 6.1.x] or something in the title, so I don't mess up
-again
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios.patch
 
->>Tested-by: Nicolin Chen <nicolinc@nvidia.com>
->>Tested-by: Yi Liu <yi.l.liu@intel.com>
->>Tested-by: Lixiao Yang <lixiao.yang@intel.com>
->>Tested-by: Matthew Rosato <mjrosato@linux.ibm.com>
->>Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
->>(cherry picked from commit ce5a23c835aa0f0a931b5bcde1e7811f951b0146)
->>Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
->>---
->> include/linux/sched/user.h | 2 +-
->> kernel/user.c              | 1 +
->> 2 files changed, 2 insertions(+), 1 deletion(-)
->>
->>diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
->>index f054d0360a75..4cc52698e214 100644
->>--- a/include/linux/sched/user.h
->>+++ b/include/linux/sched/user.h
->>@@ -25,7 +25,7 @@ struct user_struct {
->> 
->> #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
->> 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
->>-	defined(CONFIG_VFIO_PCI_ZDEV_KVM)
->>+	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
->> 	atomic_long_t locked_vm;
->> #endif
->> #ifdef CONFIG_WATCH_QUEUE
->>diff --git a/kernel/user.c b/kernel/user.c
->>index e2cf8c22b539..d667debeafd6 100644
->>--- a/kernel/user.c
->>+++ b/kernel/user.c
->>@@ -185,6 +185,7 @@ void free_uid(struct user_struct *up)
->> 	if (refcount_dec_and_lock_irqsave(&up->__count, &uidhash_lock, &flags))
->> 		free_user(up, flags);
->> }
->>+EXPORT_SYMBOL_GPL(free_uid);
->> 
->> struct user_struct *alloc_uid(kuid_t uid)
->> {
->>
->
->
->Thanks!
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Thanks!
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Longlong Xia <xialonglong@kylinos.cn>
+Subject: mm/hugetlb: keep max_huge_pages when dissolving surplus folios
+Date: Fri, 14 Aug 2026 16:30:27 +0800
+
+dissolve_free_hugetlb_folio() can remove a free folio as surplus when its
+node has surplus pages.  In that case remove_hugetlb_folio() decrements
+both nr_huge_pages and surplus_huge_pages, leaving the persistent pool
+size unchanged.
+
+Updating max_huge_pages as if a persistent folio had been removed can
+therefore corrupt the persistent pool target and underflow it when
+max_huge_pages is zero.  Keep max_huge_pages unchanged for surplus folios,
+including the vmemmap restoration rollback path.
+
+Link: https://lore.kernel.org/20260814083027.1419487-1-xialonglong2025@163.com
+Fixes: cb402bbdabca ("mm/hugetlb: fix surplus pages in dissolve_free_huge_page()")
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Jinjiang Tu <tujinjiang@huawei.com>
+Cc: Longlong Xia <xialonglong@kylinos.cn>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/hugetlb.c |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+--- a/mm/hugetlb.c~mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios
++++ a/mm/hugetlb.c
+@@ -2002,7 +2002,8 @@ retry:
+ 		if (h->surplus_huge_pages_node[folio_nid(folio)])
+ 			adjust_surplus = true;
+ 		remove_hugetlb_folio(h, folio, adjust_surplus);
+-		h->max_huge_pages--;
++		if (!adjust_surplus)
++			h->max_huge_pages--;
+ 		spin_unlock_irq(&hugetlb_lock);
+ 
+ 		/*
+@@ -2022,7 +2023,8 @@ retry:
+ 			if (rc) {
+ 				spin_lock_irq(&hugetlb_lock);
+ 				add_hugetlb_folio(h, folio, adjust_surplus);
+-				h->max_huge_pages++;
++				if (!adjust_surplus)
++					h->max_huge_pages++;
+ 				goto out;
+ 			}
+ 		} else {
+_
+
+Patches currently in -mm which might be from xialonglong@kylinos.cn are
+
+mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios.patch
+mm-ksm-avoid-missing-ksmd-wakeups-in-ksm_enter.patch
+zram-fix-out-of-bounds-access-in-writeback_store.patch
+zram-fix-out-of-bounds-access-in-read_block_state.patch
+zsmalloc-account-for-handle-size-in-class-lookup.patch
+
