@@ -1,105 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from forwardcorp1a.mail.yandex.net (forwardcorp1a.mail.yandex.net [178.154.239.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC7332B131;
-	Mon, 17 Aug 2026 05:51:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C27339023D;
+	Mon, 17 Aug 2026 05:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786945903; cv=none; b=EnnRWnhFXhb/kHEwnaz3PZmzbUZyvhsUObsnMVkwmgiWs+g8batYIH5ReCjRFW+Fs/VUgoFo9iPu7/mHngoN89PptI4Gtpl7uQzOYS2BpL9zDmiS8eLLpF/1vtM+NxoKgLePjReLGIdVv5ub6wMtfbAi/hmKCWjUxOWrJIFlMIU=
+	t=1786946294; cv=none; b=MtX+6dvpp8xQ2+MyzAje3MCR11f396x/+2tScoV6pULbVegVysOaej5iuWbIvZISDNB5eoMfr1BWElQIyViwr9UmrCAosndncgrwGTXO66P9nfINp+ZRSCDLwdpMoVDO7kRqmQytm2syXT/CQPS/jta4Rqe5aLdTNuvU/gp2Jnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786945903; c=relaxed/simple;
-	bh=YSYOP8MdQKz8Mamy8EjTxufZQVa9pRaebBJsJfp5qO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WkRP/zo1GMdDplqwY2IHMTYZIvWJkBR/woVwNP8mFxyP0ESriuXO7EhRk8AWjGMf+/JzFdHFZOce83m9dCfUJzY6TRynVbZOqU/Av3R+3OgZ48N8jdkTsJ3CTiVYpt8TsGEI967Trs8+MfcVrrc9FBgEvoupq3YmR+/ONbcOugo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2gKdWFh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786946294; c=relaxed/simple;
+	bh=qSDbSBGYDH07oPwBa+Rp+nBO3HAO/2alQKi/kD/jmxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hnGCPQL5/RMNwsqfg544rEl6q7CZTvxCfw4LeijNd+zxt6AS21ywIcKuVzDovSlR5RBjZCbw9Sju3Ppv97oqpFo6NujcH9qppHZjXJDylmPWIVuEuPyx2WEkT618tRHFHPth0M7T/2CAJgnAeUfBT5zQBH5VE3rNe3cb9nAFzMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru; spf=pass smtp.mailfrom=yandex-team.ru; dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b=DHB+LTpi; arc=none smtp.client-ip=178.154.239.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex-team.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2gKdWFh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF9EC1F000E9;
-	Mon, 17 Aug 2026 05:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786945901;
-	bh=49GLJIYRy4vZ3cG5rYKQJNFQilEnE70SWvjy9to5mKY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E2gKdWFh05E+WTUIOy6fVlmJoZ3AvzL3kKF6IpS67NmfM0FfdNGCl0v01yMKbnGC5
-	 gdYwLQP5f3+qFGLh37gfG4MPQtnrkZ/Ly5TzzUuhdbxJEpKQzEOewIjVencSyP5sWg
-	 qePR8aIdDUEXfbYtP2RFGB7IRpDpKJR3GnykUJ5p1yZFfcoxDTNJNy80cVP7Zr10ZY
-	 o6S9F93N96hliFB9V0GwS0CS0qP5agd9pNj/qum8Hcal7Syo8NGbz0OdNbKfOqpKWA
-	 zjROHDvoZF+n5TBVvlruFBx7pLDYILQsS0OoalotCdVlBLjku764siAifLFJzQ/S6M
-	 X8q/9FNobYH5A==
-Date: Mon, 17 Aug 2026 08:51:34 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Kiarash Azarnia <kiarash.azarnia@gmail.com>
-Cc: pasha.tatashin@soleen.com, pratyush@kernel.org, graf@amazon.com,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] kho: fix signed shift UB in
- kho_preserved_memory_reserve()
-Message-ID: <aoKhZqkTNUJGpOEf@kernel.org>
-References: <20260816090038.3117276-1-kiarash.azarnia@gmail.com>
+	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b="DHB+LTpi"
+Received: from mail-nwsmtp-smtp-corp-main-80.iva.yp-c.yandex.net (mail-nwsmtp-smtp-corp-main-80.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:118b:0:640:b49:0])
+	by forwardcorp1a.mail.yandex.net (postfix) with ESMTPS id E43EDC04A1;
+	Mon, 17 Aug 2026 08:58:06 +0300 (MSK)
+Received: from i111667286.ld.yandex.ru (unknown [2a02:6bf:8080:a8e::1:e])
+	by mail-nwsmtp-smtp-corp-main-80.iva.yp-c.yandex.net (smtpcorp) with ESMTPSA id 3wMQJY0e8iE0-NCrh3X0I;
+	Mon, 17 Aug 2026 08:58:06 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+	s=default; t=1786946286;
+	bh=733PnIbHO+Ohzr6RPQsMlbQJ91Cy5grRI728PGy9aeM=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=DHB+LTpiHkdoO8hzw3YGR5mE6yU6DSYn35SOuI75CpCdNdU9g0V8Jpot8k6SfmVMQ
+	 qKWa0lxQ2rK4lham/RPRqGQIb4Mf6PuY23jNfpkDcjq9Uor7kCL/6HiVMg0xxwQmVx
+	 gZmHGVYPl2+2/3gNOVpLuGAdxezbMLiQDgztCS5Y=
+Authentication-Results: mail-nwsmtp-smtp-corp-main-80.iva.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
+From: Andrey Troshin <drtrosh@yandex-team.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Andrey Troshin <drtrosh@yandex-team.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-media@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10] media: mtk-vcodec: potential null pointer deference in SCP
+Date: Mon, 17 Aug 2026 08:58:03 +0300
+Message-ID: <20260817055803.1946-1-drtrosh@yandex-team.ru>
+X-Mailer: git-send-email 2.51.0.windows.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260816090038.3117276-1-kiarash.azarnia@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 16, 2026 at 12:30:37PM +0330, Kiarash Azarnia wrote:
-> kho_preserved_memory_reserve() computes the size of a preserved
-> reservation as:
-> 
-> 	sz = 1 << (order + PAGE_SHIFT);
-> 
-> `1` is a signed int, so the shift is signed-int arithmetic. For order
-> 19 (a 2 GiB region) it produces 1 << 31, which is unrepresentable in
-> int and is undefined behavior; in practice it yields 0x80000000,
-> sign-extended on the assignment to the u64 sz. For order >= 20 the
-> shift count exceeds the width of int, which is also undefined. The
-> return value of memblock_reserve() is ignored and memblock_cap_size()
-> clamps the bogus size, so the kernel silently reserves the wrong
-> amount of memory for the preserved region.
-> 
-> kho_alloc_preserve() caps order at MAX_PAGE_ORDER and cannot reach
-> order 19, but a boot-time reserve_mem= region of at least 2 GiB drives
-> kho_preserve_pages() to compute order 19, and kho_preserve_pages() is
-> EXPORT_SYMBOL_GPL(), so the path is reachable.
+From: Fullway Wang <fullwaywang@outlook.com>
 
-This looks like LLM generated, please make sure to add Assisted-by tag next
-time.
+[ Upstream commit 53dbe08504442dc7ba4865c09b3bbf5fe849681b ]
+
+The return value of devm_kzalloc() needs to be checked to avoid
+NULL pointer deference. This is similar to CVE-2022-3113.
+
+Link: https://lore.kernel.org/linux-media/PH7PR20MB5925094DAE3FD750C7E39E01BF712@PH7PR20MB5925.namprd20.prod.outlook.com
+Signed-off-by: Fullway Wang <fullwaywang@outlook.com>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+[Andrey Troshin: backport fixs from
+ drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_scp.c 
+ to drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c]
+Signed-off-by: Andrey Troshin <drtrosh@yandex-team.ru>
+---
+Backport fix for CVE-2024-40973
+Link: https://nvd.nist.gov/vuln/detail/CVE-2024-40973
+---
+ drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c b/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c
+index d8e66b645bd8..27f08b1d34d1 100644
+--- a/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c
++++ b/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c
+@@ -65,6 +65,8 @@ struct mtk_vcodec_fw *mtk_vcodec_fw_scp_init(struct mtk_vcodec_dev *dev)
+ 	}
  
-> Cast the shift operand to u64 so the arithmetic is done in 64 bits:
-> 
-> 	sz = (u64)1 << (order + PAGE_SHIFT);
-> 
-> Fixes: 3f2ad90060f6 ("kho: adopt radix tree for preserved memory tracking")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kiarash Azarnia <kiarash.azarnia@gmail.com>
-> ---
->  kernel/liveupdate/kexec_handover.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-> index 175c08a6e41e..c79f48bd64ac 100644
-> --- a/kernel/liveupdate/kexec_handover.c
-> +++ b/kernel/liveupdate/kexec_handover.c
-> @@ -501,7 +501,7 @@ static int __init kho_preserved_memory_reserve(phys_addr_t phys,
->  	struct page *page;
->  	u64 sz;
->  
-> -	sz = 1 << (order + PAGE_SHIFT);
-> +	sz = (u64)1 << (order + PAGE_SHIFT);
->  	page = kho_get_preserved_page(phys, order);
-
-This is already fixed:
-https://patch.msgid.link/20260727150240.889555-1-pratyush@kernel.org
-  
->  	/* Reserve the memory preserved in KHO in memblock */
-> -- 
-> 2.53.0
-> 
-
+ 	fw = devm_kzalloc(&dev->plat_dev->dev, sizeof(*fw), GFP_KERNEL);
++	if (!fw)
++		return ERR_PTR(-ENOMEM);
+ 	fw->type = SCP;
+ 	fw->ops = &mtk_vcodec_rproc_msg;
+ 	fw->scp = scp;
 -- 
-Sincerely yours,
-Mike.
+2.34.1
+
