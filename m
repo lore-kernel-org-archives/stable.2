@@ -1,152 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705E11A238F;
-	Mon, 17 Aug 2026 13:41:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974069; cv=none; b=tnBoWalj3R/YvsUNtdUF4mcOagpuVm5ovqwB6vnf1XoQdRiSTCL4VYKBiwMIvQZBKzpJAOwam/XUD1fqikLeffJheGEzNRNyJpWVywciI5Wd8RX2aImu8Gclg0PhOM7KjYutukAWPbmvUILNcYVa7HwK35ULTK3MW0DzdbP99fA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974069; c=relaxed/simple;
-	bh=9VZjK4FvYMiVfR1vMKfBtpu3hujeXP+JOxogqbNzBdA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QjrtTfTdLcaK4ZOCjynAUtBbK6A/MIr1tMfnxxBBncWOp0bSSLtDCjdj5khKV8tr/m2Co27qnlOQOGQh+afD+ceYha0qVa1UrGxleitHQoqJem6rTL88DGDZUNc5C4lEkmGbngnBmFslmvPlsXCn46PnG98dZsV9nMZSTzi+uqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pMginkX0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2DD439909
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 13:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786974071; cv=pass; b=EkuNPpDpDJP4REkfwvyYxXr3ykYKRgLH/Y8c3Cu6C+x1fKKBWcRw/CKGNffYhwN3vwBQU+MPzuNpBoozRk8xytesCLUL6F0UoamfJDVzrhVzaModWisVRI769B432XkKY9H+Obs0ssV06O5iau68yskZ2er9ipeDtzTwbzkJ3Ic=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786974071; c=relaxed/simple;
+	bh=LccJHv51dWHfTmazwdGiPtOxYE5F4fFp6PNdP0l+77o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sAXaTy+EI2Ic/8ORW/rx2RaUFOpp3xs4fH2oXOkco2NlRKX6oShHS9OUVlUx4WV8+TsxrHLZiDCLVUJwwK8ih3KV2sdD29yyoay+TdCMsV1X+scWtuNKdHOfRVEV/ovpOlVO4CQFmsrThU0h7Oy34oGr6G4k/F1+WPpew4Rs8X4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YI0WLstc; arc=pass smtp.client-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pMginkX0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC5C81F00A3D;
-	Mon, 17 Aug 2026 13:41:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974066;
-	bh=8n5J7O1F5cNkxXCOaY1eOpE9B6PldZOkemb264RgJCc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pMginkX063ANXj22Bl9cJ0IAOs2QmGg7o9arHOgjykRV+FIcGUM4PpFwu1JLn/ioX
-	 jkquZa67q2F+gW6G3Utf3IVje0RWKgmMltR+Qa1XGBwnwXVHJgTdwfNORTnhJhPuXj
-	 9rMPbGrSEWXpDFUIOFnoF/robBrB3PLfn6NcD9Z4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Shay Drory <shayd@nvidia.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 040/271] net/mlx5e: TC, Check if flow is PEER before acquiring devcom lock
-Date: Mon, 17 Aug 2026 15:29:25 +0200
-Message-ID: <20260817132538.387817771@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
-References: <20260817132536.752504388@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YI0WLstc"
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7f3ece23165so1971326a34.0
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 06:41:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786974065; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HsFVOUjAN/T9yOrJ6ZT1W84umi2FS5I2HnzH/XwB8nD2niILhXx2S5D/gVxlzwdMEx
+         uQEaJHYX059zmE7qQu3xnYgEOjHbfTTxBgMH8aTKUXuLUaSwFC02IKA1nAD9TCp0cdm2
+         05FnTjg+Cpa0LXjj1XJDu0M3htsdQdvNSb6uoSwv2ESNALWhUjf4VqWgR1UJdKxCrIdw
+         /BUH3TZycC2mF6UbSuSrhv7rIlMmf5JNthQu7GBHfXA3eYEnstnH/w8gnrRQHaox6FB+
+         gAKfAEv9PsQnznRx0+lGoKobLH9IACFZc3X+b+tLSk84pt9LfsMi464CtLJl+BscmZH+
+         1dQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=oDTS9dNSi8/M/pYr4xjwQbPNngmswF+O1PTtSVfQuX8=;
+        fh=ZL/qH3s7QdNRSwxSO2mqWhGMljdaYxIWIGRU2nZjGlg=;
+        b=HVaGWN4KTamkps0KhWbs4z/N6vh4ngjHQ8B4FqKy7SDWu+zb+CnIIhgYYZsjLBJbOp
+         OjLlhLujRQCVRaI6Lj6NsbMXlXzi8aUouxkD6dB/9pNiOFK37csRgKRDxGKMd4g/cecV
+         7kAFU2puc37taMxBlsLg8vcl7Gaw0d7OPJrJ9fiGzGufZgQcfdZIme9N/gpGxB7czAes
+         LYQWLy6oWfAvuEOWc1Yze02aUnXMiSUbDjZue0In/xnuXUfLg9LOCD7v/DGzZnqELVrx
+         sPWEjWlzcRDNB9AbHB/fgbs7BGEtNLFPpB403U2pb3sxnHCxIn9RryGUCgBpxe3iTSNF
+         gRrA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786974065; x=1787578865; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oDTS9dNSi8/M/pYr4xjwQbPNngmswF+O1PTtSVfQuX8=;
+        b=YI0WLstcjecGun7YCagn2FYgjw3+zs1jjMFE5gEIlRqMJG6cTLT78Z/LPprQ8YJVd5
+         oryrflmEQBsURJDhZUk9Jr7kPu1oAGNduzP0+j5yWu9XfCOnElbG7W34PLImxFXyZ6GB
+         yu4/v7yUpZWbt7NZYhi0s1fT16c1PM9HWXcxDdZOyjwiOn3mz7fSPjh+iPu7CLPOPhOz
+         kKIbK2RonvSJvg6GRsY2m+Y2g0Yl4+SEkDxsXgAUZg/NsrutODpkCVCPw/QmOS9M9S5z
+         mCEK5VAJTkfcm7kgaxU9FNn8P+alIgvqsH17hbfzzfecjCo+mC4o0eSRxDelZam+A/Ln
+         ts0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786974065; x=1787578865;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oDTS9dNSi8/M/pYr4xjwQbPNngmswF+O1PTtSVfQuX8=;
+        b=hzZnKFPFgwarG9l8b5mbzXzsmYmKaV36OCMos9XsQfC+DN/9n6zRgLtQLm7VcQeQ52
+         Fa9XN6JymU6FU8y8qNut3xyRNeSUJ5KF4MZzEvHbZH6BCYp1XRLXW77pxtKnGTc6Rxe5
+         qIWj9hW38bjzX07FAg+AoGgA/Gmx0smWotCvGihNtPz7E4yBQSbsbRnQkIqtzmKAz9B4
+         7x8eysLfsHv31lyNDrtA0v2Mzo2pJMXjFgoh1Qpy7zV89RyJRTg315Baqk80RXSsjs8D
+         +ATTaeK/aNegvqb6pPdZ6eYgj6mk2gymwlSb9w3VfRDzDGE24zI1sbFlJt/Ib141HaZ0
+         MEpg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1gypZYcYLdhVUi+HAjnZ59G5tltr9JnasMgLioxhflSMuJomKLtZtEcnqs9Ty5UhegaXeq/M=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw+ZD+4VwLkWwZsStR2r9cI9nKlUa3JWPuIHB7EpqPAPYaXRJAV
+	MiDkx464AGUF/ySRp0csHbUFSH4RhCJLPp1sspJVKe937WeQzJ7McAhG7DP5lWoekG6e1s5I47F
+	bqXOlIGj4I1OYzKNJvqtzJLbN72X4rfE=
+X-Gm-Gg: AR+sD10YiK/6mTC3EB4zprW+AQjTJqu5dZGPH7ipyEOLNwGyU5bMIdXXLTCs7SMGM7B
+	9f/XFzpoWSdvYdyHHbJAoK+26jguhj1qKIsBkXNEicFz1BvjAUA20m0NaQXumlsG+jgIc1qlKbh
+	xfIACMpYw+dTGlO1HHBUWk6FOPmjKf8thqqMdMeMgu7gQ1108BbeXOljXiUXXPLuK3pXGBO4i4N
+	P+YNZv42d5cDQrOOexFNrMMxR3dg1RhohaQyKmZ7LWiZofOXKCNmEeKuLL3tVbkZqr/lIsAG+Pl
+	Ni7nVD0M2f8o5l8SMGvxzxP1HgTU6lS1r/bt9m7eTYqXJZSiOtDbJS1IGAat+d0ZMvq5EXP/Y9I
+	=
+X-Received: by 2002:a05:6830:6f85:b0:7e6:deb1:485b with SMTP id
+ 46e09a7af769-7f3de691f65mr27293555a34.16.1786974065393; Mon, 17 Aug 2026
+ 06:41:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260815193839.141406-1-devnexen@gmail.com> <aoLZ5e0ffVvZ-FfB@zed>
+In-Reply-To: <aoLZ5e0ffVvZ-FfB@zed>
+From: David CARLIER <devnexen@gmail.com>
+Date: Mon, 17 Aug 2026 14:40:53 +0100
+X-Gm-Features: AcwNN1USfhnetw2tQ9PDyWfNQbBpx-4phjp8VYLXp0rsU7HGDiG_ChLUo2X-AbY
+Message-ID: <CA+XhMqxR+m7Jt0UUHetCfXSHHtW5w-jUc0_PSSWjTbprYn8ZwQ@mail.gmail.com>
+Subject: Re: [PATCH] media: v4l2-isp: reject zero-sized parameter blocks
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+Hi Jacopo,
 
-------------------
+On Mon, Aug 17, 2026 at 11:59:15AM +0200, Jacopo Mondi wrote:
+> > whenever the driver's type_info[] entry is an uninitialised hole, so
+>
+> This shouldn't happen (an empty type_info[] I mean)
+[...]
+> > held. rppx1 has such a hole today; fix the core so the walk terminates
+>
+> Uh, where ?
 
-From: Shay Drory <shayd@nvidia.com>
+Sorry, I should have spelled this out in the commit message.
 
-[ Upstream commit 6ddfba2ea98db21b001e0e5c472499156224650c ]
+RPPX1_PARAMS_BLOCK_INFO() is a designated initialiser indexed by the
+block type (rpp_params.c:13):
 
-In case __mlx5e_add_fdb_flow() fails in lower levels, the flow is
-deleted via mlx5e_tc_del_flow(), and mlx5e_tc_del_flow() is acquiring
-ESW devcom lock without condition. In addition, in case of peer_flow,
-__mlx5e_add_fdb_flow() is called while holding ESW devcom comp lock.
-This results in an AA deadlock.
+      #define RPPX1_PARAMS_BLOCK_INFO(block, data) \
+              [RPPX1_PARAMS_BLOCK_TYPE_ ## block] = { \
+                      .size = sizeof(struct rppx1_ ## data ## _params), \
+              }
 
-To fix this, introduce a new PEER flag that is set on flows created as
-peer flows (the duplicate flows on peer devices), and check it in
-mlx5e_tc_del_flow() before acquiring ESW devcom lock.
+so the list reads as dense but is indexed by the enum. It has 17
+entries for 18 enumerators, and the missing one is AWBG_POST (== 3).
+The last index used is LIN_PRE2 (== 17), so ARRAY_SIZE() is still 18
+and the entry at 3 is simply zeroed.
 
-Lockdep splat:
-============================================
-WARNING: possible recursive locking detected
-============================================
- Possible unsafe locking scenario:
-       CPU0
-       ----
-  lock(&comp->lock_key#2);
-  lock(&comp->lock_key#2);
- *** DEADLOCK ***
-Call Trace:
- <TASK>
- dump_stack_lvl+0x69/0xa0
- print_deadlock_bug.cold+0xbd/0xca
- __lock_acquire+0x1671/0x2ec0
- lock_acquire+0x10e/0x2e0
- down_read+0x95/0x430
- mlx5_devcom_for_each_peer_begin+0x4e/0xe0 [mlx5_core]
- mlx5e_tc_del_flow+0x11d/0xa70 [mlx5_core]
- mlx5e_flow_put+0x99/0x100 [mlx5_core]
- __mlx5e_add_fdb_flow+0x409/0xf00 [mlx5_core]
- mlx5e_configure_flower+0x2a86/0x4100 [mlx5_core]
- mlx5e_rep_setup_tc_cls_flower+0x12f/0x1b0 [mlx5_core]
- mlx5e_rep_setup_tc_cb+0x153/0x750 [mlx5_core]
- tc_setup_cb_add+0x1dc/0x470
- fl_change+0x2f4d/0x626d [cls_flower]
- tc_new_tfilter+0x79b/0x2310
- rtnetlink_rcv_msg+0x778/0xad0
- do_syscall_64+0x70/0x960
- entry_SYSCALL_64_after_hwframe+0x4b/0x53
- </TASK>
+A block with type AWBG_POST and size 0 then gets through: 0 is not
+larger than the remaining buffer, and block->size != info->size is
+0 != 0. block_offset and buffer_size don't move and the loop spins,
+in .buf_prepare, holding the queue mutex.
 
-Fixes: 04de7dda7394 ("net/mlx5e: Infrastructure for duplicated offloading of TC flows")
-Signed-off-by: Shay Drory <shayd@nvidia.com>
-Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://patch.msgid.link/20260728044338.2271143-1-tariqt@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/mellanox/mlx5/core/en/tc_priv.h | 1 +
- drivers/net/ethernet/mellanox/mlx5/core/en_tc.c      | 4 +++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+> I'm not against this, but it only makes sense if the driver populates
+> the list of v4l2_isp_params_block_type_info[] with an empty item,
+> which shouldn't happen.
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/tc_priv.h b/drivers/net/ethernet/mellanox/mlx5/core/en/tc_priv.h
-index efb34de4cb7ad..692ac2f21d94e 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en/tc_priv.h
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en/tc_priv.h
-@@ -30,6 +30,7 @@ enum {
- 	MLX5E_TC_FLOW_FLAG_FAILED                = MLX5E_TC_FLOW_BASE + 9,
- 	MLX5E_TC_FLOW_FLAG_SAMPLE                = MLX5E_TC_FLOW_BASE + 10,
- 	MLX5E_TC_FLOW_FLAG_USE_ACT_STATS         = MLX5E_TC_FLOW_BASE + 11,
-+	MLX5E_TC_FLOW_FLAG_PEER                  = MLX5E_TC_FLOW_BASE + 12,
- };
- 
- struct mlx5e_tc_flow_parse_attr {
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-index 8b5a421a22a37..f3d4586e09e37 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-@@ -2165,7 +2165,8 @@ static void mlx5e_tc_del_flow(struct mlx5e_priv *priv,
- 	if (mlx5e_is_eswitch_flow(flow)) {
- 		struct mlx5_devcom_comp_dev *devcom = flow->priv->mdev->priv.eswitch->devcom;
- 
--		if (!mlx5_devcom_for_each_peer_begin(devcom)) {
-+		if (flow_flag_test(flow, PEER) ||
-+		    !mlx5_devcom_for_each_peer_begin(devcom)) {
- 			mlx5e_tc_del_fdb_flow(priv, flow);
- 			return;
- 		}
-@@ -4605,6 +4606,7 @@ static int mlx5e_tc_add_fdb_peer_flow(struct flow_cls_offload *f,
- 	else
- 		in_mdev = priv->mdev;
- 
-+	flow_flags |= BIT(MLX5E_TC_FLOW_FLAG_PEER);
- 	parse_attr = flow->attr->parse_attr;
- 	peer_flow = __mlx5e_add_fdb_flow(peer_priv, f, flow_flags,
- 					 parse_attr->filter_dev,
--- 
-2.53.0
+True, and rppx1 is the only one that does - rkisp1, c3-isp and
+mali-c55 all look complete. What bothers me is that the loop only
+terminates if every driver's table is right, and nothing checks that
+at build time. A missing line in a driver would be a rejected buffer
+rather than a stuck task. And a block size below its own header is
+malformed anyway, whatever the type.
 
+That said, rppx1 needs a patch either way: AWBG_POST is documented i
+rppx1-config.h and the driver probes rpp->post.awbg, but the block
+can't be used today - the size check compares against 0, and
+rppx1_params() has no case for it in the switch.
 
+Happy to drop a separate patch and keep only the driver fix if you prefer.
 
+Cheers.
