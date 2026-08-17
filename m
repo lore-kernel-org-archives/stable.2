@@ -1,111 +1,149 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E94B43BDA7
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 17:20:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54045446821
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 17:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786987238; cv=none; b=YkQ0MrUvhvQNzR4JvkBEb/fetkVFtA0lPVxWqjhu4goWPqPa9oLHF9gCKey3wQbuLW/ZHzZRhIF9UB0brfzWzBslB7DjNABjK/Y4zqFjltHO5S3CNjEUy/A50930bUHR3DB6eLpUlf2L6QgDZCZeF/4en/TGtPftZCCrOVmhheU=
+	t=1786987280; cv=none; b=Jyufxqi+QF7o2WTIrpYADTTBTs382jUb8CqCXQ62Sio9lT5Q7uDPDXSWTLAehlX1jwtA89FaRqUqE0BDgy2H0QKAh3SDw0A7mPH/ki0339tYCgHquAs/1TXgBNEYvKnHabVql2yHYhZTbYM7QBlxf58Ko43D2tDGddBbn44R1l8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786987238; c=relaxed/simple;
-	bh=FkzwyK3KPZZP37ixbuECgtmLOwoZSJSYgIIH4AGLFl4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tTR/Rwgh1Ksp7T0V8TYYt3w7RuzlVhluELp8szNRIREGdBNTVGgUL8LpPywXSk47By2F4iFntTb9offoo/u3ElDkOPo+ZV2D+5cI4+x8Q98u8nwc1VbpZ3TcWP2cSKbA7ts0Is6FkRmXJb6nP1Awg7CDLYCbGfUO+lP8PUPvNAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=YHJPUmxH; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1786987280; c=relaxed/simple;
+	bh=rsWpgWyTG8F1CuDnXVgty6t/FxOndhvrhLNDCyp5r0s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=W5argM9Kbv+UzbAtwYFQdfDDFA00gMDr8LzZGS5MnC5hTqebwLws6WkV2jHK80bdYMYm+4NjYnJlRXagpmasvrTE8p6TSbHYceMEV+eMYI8rDIrzyHaheTXHinqkq8cx3f7EzgrAsbNDyjt17WICW8bMCKNQhb0/rXVUrFOpPyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=dxxaXRag; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="YHJPUmxH"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47fecbbafdaso1166542f8f.0
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 10:20:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="dxxaXRag"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2caea3f742bso62318565ad.0
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 10:21:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1786987235; x=1787592035; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q4v0BK/tyq0gTbl7z9GFhQ9Wm9CgOL+/eWmBB0CzgUE=;
-        b=YHJPUmxHsSPXu39ac2KhItDRINrrbQsiOz5UojJPIgdpm9NM7KUlCR8xjFskTQeinh
-         vrnJnDvZxgqY+QbvNBosDYlCt7PNGJakrHOASEzI2hi6G49GzoXnObHV+umM/l96OFrh
-         LSSo8qgxDLi4YkGPuAEv1H3LgZzzPwPQP2bYoO4R1gQ+bm3i+hGnE/QxSvd6KhRlkVtl
-         Ke6/Q2qL++S1ygjsA4KsAZovYne2iHyp3j6QjT2SHobVeCRYFPP05w+0XoCk8rNLHwuh
-         X8IXpBlVxgVdCQkjVmMpV/YaL+IGQ/84pMKifhyh+xMyJzFAuk7iG4tDM9DIVBBz5h4G
-         aS/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786987235; x=1787592035;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=nebusec.ai; s=google; t=1786987279; x=1787592079; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=q4v0BK/tyq0gTbl7z9GFhQ9Wm9CgOL+/eWmBB0CzgUE=;
-        b=DYERT3bjKWknRGj/UrEX5LfGBlWvHReO9wP7TSmWXBfsB8yD+9NRbPPgT6EvLDkpjL
-         wcfltNU12iboktERDGgrVpFP3NjEoyzJ67jASPA4OsQoF8WbAboWu1mOEo6r8jCb371V
-         mXgquSEtAPHIzvAoG/I48jCiaXGR4INLjqvVll9M5gEUD2+rYhgBmpj1WqRr2iwfM7Og
-         qLkLryhr41WyAtpcVEcpC2G7nRNP5zDEEArw7J3ELotoWl/FWow4mwNcqicnw1q5959r
-         8GEITPUFf8fmbgFdSA+RdMlpPqPY64IyPGOZU+15DOtEWdv9RDtfjs2s98zZEBbHlDgi
-         aPEg==
-X-Forwarded-Encrypted: i=1; AHgh+RrJLeXkrcoE3/vnOCbaH/McHieVfeXL0sW6QpCf9InMpjvr3Kq/vnrxAfjt85wG4JSMZt3gg3U=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyL7M9kxuEL7twNBPvknqpgMy3/kCeOgRvxb63a/hYEpJX7j9MO
-	sx81HzIFbeoiFivzj2nJjtBG7N31QtRvjv0Hbx0Ed4FSI6NVABAcu9s=
-X-Gm-Gg: AR+sD132KmpN45DcjM2nuP3DvkwzkdWO9IO09RA2kcGQ8PDeLiQ/04ApsIhicTf9fu1
-	qlb28WVK/wPnRoIBpOBFW3ACos47axvRxLWpM192OduwxAXiQzMJV4FNXdV9zaNuiAXuy5h8NW0
-	xfBu/zOzGIRdtdNVbO7Yseh6IrVoiPpLZ168j00VXl/zyc2oWW+1qnVP+iCrFdnmZfeoBRkzkRq
-	MdrH19wXT58N8xHRNsW5Y5WP+RUgs73M6/53/UcuVSeJ7DAgAvl7lS91lNnFXiSKEZNrfduOx7Q
-	3As1zWapz2DJ7syAsjpd2vdxVkCk3hz6Xiia/Y07DB2XJiBneHqFzx+ns/InWBQrKAvhJ1uoihD
-	RHY9kjD7GRc37f3gxWpfFCBVZuzD4jH/RFDr6EVop681tYYOj3YtbO1h/Z05GH+7PEcDKI/K3Ea
-	kwn71XDCte50y60TPCeHTvQx6rto5+PwVugFUQ1z3QyP8fyLjNlcC6aYfYOAB67elSLvjq7Rj2H
-	jWfFMb68QjpdXsjewIQ/hP3CfjIuebjAESnpOKG
-X-Received: by 2002:adf:e002:0:10b0:482:a610:7a27 with SMTP id ffacd0b85a97d-482a6107a55mr5847941f8f.20.1786987235375;
-        Mon, 17 Aug 2026 10:20:35 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2b466b.dip0.t-ipconnect.de. [91.43.70.107])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5a315d3sm5510095f8f.6.2026.08.17.10.20.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Aug 2026 10:20:34 -0700 (PDT)
-Message-ID: <8cee667a-adda-4d36-a865-c467a71dae71@googlemail.com>
-Date: Mon, 17 Aug 2026 19:20:34 +0200
+        bh=DSEJPmFXNKbNuUcOcjgoKVWZNDzQ/7KKx2/i/MKTQ10=;
+        b=dxxaXRagGTbbECiKjxie2UCAtU/XCsRMayK5Z8eiCTp57NPS0aoe+8kETqnafVAAys
+         CdvxVHk6917eClcbVFSdMGPqgzBjF8roFnYFMCKd8fkUnshcSjc2W4/c7axDqc/UDjmF
+         O1tm8wCPV5FIwBKOITKovTwFJKsPB4gQqXG/nT1KAyKhStfFlNfWkzjFMBm/UjJr7PLX
+         nyaFIK+FZ0zdIRaVZmmvC3W+qSdAjNgmQaHswD2un7WAZbhUZOiqO/q7lFP4rxPeLi2W
+         bma0bW7EGqT3Bcl7VyDoWmeFZAFvjQaurEdBJXtb56ijreJyenGtt/xHBcv9sX0O9NXJ
+         wU+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786987279; x=1787592079;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DSEJPmFXNKbNuUcOcjgoKVWZNDzQ/7KKx2/i/MKTQ10=;
+        b=qzi6zDsDci7M3Ztpv+HA2fcNpJ2VN4er42X4qCxLIKDLnHzIFH4c/dou7Qvbv7oJwM
+         INEoflcqlCj7bCUCeIdoUBdOMEjgWEBHS+QrwHMIRFht9PkIPvmPd67WT01QR11T2h6A
+         +jHEp7fzurJ9JC78m/1nDoStV5antuXASi9QcFOKy224UvEYxh322xf7YTc1TMivHTYS
+         hovmUPEEZgBqcAQS6epx+bIpONEnrhsDZdwsDvXrMTRrHQpx9zm2JiWLx4/lUOHi3+YP
+         zWxCtiA/YkoB0coQLateKQ6YpuBMWZASCYguL4C6A+nhzY0KMe8TQCXkK0tF6bH43Kj8
+         7sHA==
+X-Forwarded-Encrypted: i=1; AHgh+RoBeW7qL+XN2GN5JcgZXPuqYprGLXR3QACRMM44cJWJkNhUM9cAt6VqGWvAXtp8VT7fakJvs6U=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywn5OFrndPS51v2NlAkAjPKZ5qg12918X4aB9d9QIzyWTYXEQy2
+	SGleiX2rVYNKmtsG0+cvNVqIqtSHL0INk0fSiUCqQepy01n+NnvX2bFf4alhqFeh2TP9
+X-Gm-Gg: AR+sD10Ud/Yvt0wjJubXHIjK7/laMQPTcQl2E8M10xXZuq0nUhfS691+h6pY8f2HOTB
+	NaFZvOkSXdcNjAOKD+sWyTklPWht42qC43KTaSRqdebvr/2sRFX/gGg9q1kdEZOANktXtEtfool
+	yGdM4+rHahe2uuxGbcHHZp4wiGk1xX3TFhEQtWe0pcFXJXxu/jnAPSDAwTcEUP6YsnE0Wh9tqp1
+	5rgrF69Px/qtjIPw2XbfQXqEjSOOf/NnEpw/G2ZKX6Gd8JftHMn+0tJzIPzraI7F8iNnJ5cUXXO
+	Gni4mbtWpc3L5YBy16y7nuMRPQkCep6Rx8cv5P9Gw8gzq9Lvn4Ieda1Sefy0d7th6hVQK/onJW0
+	605aZBCHA2gmQYPbdC0c7GuiCdFlRkr21D5Veq+n4l93iwXusX1BCWgPf8x8PGYsAdKehSfbeWU
+	dr8Y8YWEUgq1K4sHjzs+rL0CFzEv7KuSLJgtwbonU9G2c85Cp8m0t8cQ==
+X-Received: by 2002:a17:902:e5cd:b0:2c9:bf82:dd11 with SMTP id d9443c01a7336-2d5c4f38113mr13840855ad.7.1786987278618;
+        Mon, 17 Aug 2026 10:21:18 -0700 (PDT)
+Received: from gmail.com ([115.196.71.116])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5c1e8de43sm6184255ad.57.2026.08.17.10.21.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 10:21:18 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	bhong@brocade.com,
+	stephen@networkplumber.org,
+	sven@brocade.com,
+	linux-kernel@vger.kernel.org,
+	Zihan Xi <zihanx@nebusec.ai>,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>
+Subject: [PATCH net 1/1] net: l2tp: ignore multicast notification errors in netlink commands
+Date: Mon, 17 Aug 2026 17:21:09 +0000
+Message-ID: <e9cf566687c906ba6843f72b28f11a3431a595b5.1786962220.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1786962220.git.zihanx@nebusec.ai>
+References: <cover.1786962220.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.1 000/609] 6.1.183-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260817132543.039278408@linuxfoundation.org>
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 17.08.2026 um 15:24 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.1.183 release.
-> There are 609 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+l2tp_nl_cmd_tunnel_create(), l2tp_nl_cmd_session_create(), and
+l2tp_nl_cmd_session_modify() update live state before sending their
+multicast notifications. A notification helper can fail while allocating
+or encoding the message, or while multicasting it. Returning any such
+best-effort notification error after the state change makes a successful
+command look like a failure and can cause retries to accumulate live
+objects.
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
+Keep sending notifications for listener visibility, but do not let their
+best-effort status overwrite the command result. The explicit (void) casts
+make this intentional for all notification helper failures.
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+Fixes: 33f72e6f0c67 ("l2tp : multicast notification to the registered listeners")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: Codex:gpt-5.4
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+ net/l2tp/l2tp_netlink.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-
-Beste Grüße,
-Peter Schneider
-
+diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
+index 59457c0c1..21160284f 100644
+--- a/net/l2tp/l2tp_netlink.c
++++ b/net/l2tp/l2tp_netlink.c
+@@ -248,8 +248,8 @@ static int l2tp_nl_cmd_tunnel_create(struct sk_buff *skb, struct genl_info *info
+ 		kfree(tunnel);
+ 		goto out;
+ 	}
+-	ret = l2tp_tunnel_notify(&l2tp_nl_family, info, tunnel,
+-				 L2TP_CMD_TUNNEL_CREATE);
++	(void)l2tp_tunnel_notify(&l2tp_nl_family, info, tunnel,
++			      L2TP_CMD_TUNNEL_CREATE);
+ 	l2tp_tunnel_put(tunnel);
+ 
+ out:
+@@ -645,8 +645,8 @@ static int l2tp_nl_cmd_session_create(struct sk_buff *skb, struct genl_info *inf
+ 		session = l2tp_session_get(net, tunnel->sock, tunnel->version,
+ 					   tunnel_id, session_id);
+ 		if (session) {
+-			ret = l2tp_session_notify(&l2tp_nl_family, info, session,
+-						  L2TP_CMD_SESSION_CREATE);
++			(void)l2tp_session_notify(&l2tp_nl_family, info, session,
++					   L2TP_CMD_SESSION_CREATE);
+ 			l2tp_session_put(session);
+ 		}
+ 	}
+@@ -710,8 +710,8 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
+ 	if (info->attrs[L2TP_ATTR_RECV_TIMEOUT])
+ 		session->reorder_timeout = nla_get_msecs(info->attrs[L2TP_ATTR_RECV_TIMEOUT]);
+ 
+-	ret = l2tp_session_notify(&l2tp_nl_family, info,
+-				  session, L2TP_CMD_SESSION_MODIFY);
++	(void)l2tp_session_notify(&l2tp_nl_family, info,
++				   session, L2TP_CMD_SESSION_MODIFY);
+ 
+ 	l2tp_session_put(session);
+ 
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.43.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
