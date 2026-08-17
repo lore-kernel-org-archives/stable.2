@@ -1,52 +1,52 @@
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB3223741;
-	Mon, 17 Aug 2026 06:52:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C7B3B3C1B;
+	Mon, 17 Aug 2026 06:52:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786949542; cv=none; b=BoPhm2YwVlZgKby9zyiK5sJywKwpWL6uurS3ZJvmCnXmttIhAwEV4EKSXl9D3ASJsDRWJOB56fbYfo8Caw0d0pXJNPuZ5Kgqr+iRgMcqaLzsEZCsWYMvovEHp/fyhPqf0yst3Of4GW6/MdVrAGIEqDr8brZIXYG50XKZDYCTvDE=
+	t=1786949543; cv=none; b=rACO3ItPA18aL9fP38Zr341jbt3NFJKDtBfbq9gY885uoKIzVMMenPCfB9l9kNjsJEtPlPPnIyebSQL6hbe5BVxNHZN77pr4lH8D2ibP2NjbVzNYV+d5on21Mh8HRqxhBddjQTj7LhU0Vr45/dNUSaSoVewMagjJoTTE9cJqrvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786949542; c=relaxed/simple;
-	bh=PPuWwveO0ERW19jC3hyJIbV4SEC8N4W0p8Skwdf+y5s=;
+	s=arc-20240116; t=1786949543; c=relaxed/simple;
+	bh=JRU2XAxRSOjhBWgRSicm4i31gBEucOZSJGhB6Z1kwDs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=njv3FZUAY0i80S2OUxHEQNVHFyDNhiJcQK2c6j8fnxl+z3KyyeQMqOoX++3rzKtXXPrTGrhQYlzPI8JtweOKlRZpkbJyPx7aK6b7ixrTUZ7P5MEbmY3+Vt6F9poSgz911Osok2lUVG6wRC4V+2SntSk5eNv/Bn4/dnHEMTeiPJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=xTHBwntn; arc=none smtp.client-ip=68.232.154.123
+	 In-Reply-To:To:CC; b=F0FQF99Dzrj7vkk1rKrkGrDDKzDi5TQXfz5EtvONp3fXujZLAjigmJ/ckYLL7rIIKAPVVxeGDRaXQR6L2VcKPrDH3bAWA42/khumUbawChEK4/R1PMoeZ03pkgzV67CfsPrBm3EUOjiW9xcYeTKh4HCPRBSV7RruNa//1VbT/PM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=sdERXfIi; arc=none smtp.client-ip=68.232.154.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="xTHBwntn"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="sdERXfIi"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1786949540; x=1818485540;
+  t=1786949542; x=1818485542;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=PPuWwveO0ERW19jC3hyJIbV4SEC8N4W0p8Skwdf+y5s=;
-  b=xTHBwntnN7Uz0zTV+s00I+SCOVaRoYWHpW0n/7qk/uFK43LABIgqnBP4
-   tS2a0p9nGjwnjORCasrbICUiuFHcOSK/25EEh6k3O+UY2C43pdlsKQzTY
-   +f6yHXer2PaOsL5lIxj4FJx51UUYPYbXIv/NsHcfdxEPStvziVYhRMxto
-   iAqZsgq0dAeS/MUesbKAx9pSdNR6BYf+s4eg/o8v0tNJONpcTcQxrzyHB
-   SkjmmSWFg8wVh3G9+Zg/BPCY0PqwwfUPH4G5D54JCLS0+tF6uBDvecoRB
-   nGp2smu2rd1S7OerXQm9H6I6jdc0j2yZSXQuhYpzicbjV8z+GQWZPRgQX
-   w==;
-X-CSE-ConnectionGUID: 7F2Wpgj4TpSTeI/jFDlsVg==
-X-CSE-MsgGUID: iySwbNavR8+Ld82foVdt3w==
+  bh=JRU2XAxRSOjhBWgRSicm4i31gBEucOZSJGhB6Z1kwDs=;
+  b=sdERXfIiW5qY1xyxAweX8587kG5TZmLKEh3IK8eqBLD+gq3IBx8Tbp7a
+   ihy9e+PdN4T4RxEIJI+JX3wtn7PXVWbd5FGdDefiixoz4NtTayvZdwcf3
+   G0GGpPCC9W83tg0O7tdA9UdL8KYReGNVDtfqvQF2FtaP2pGqOI0DaFxwE
+   8kHfBXCbFLX/VN41/U29dTfi9dNtFE7foP/C8V8pBQIBnpZ6LiVTnbWrR
+   Ie97t6xoX+0KvuBfbVep2l+GJd7OWxKs7PGkNH5IGNWKTtGnlurIU+vmF
+   davpxX32JGfiXy3siOfDha6ZsvCbIG7moHBFAZ8lFXcP2LHh6E94JKxuo
+   A==;
+X-CSE-ConnectionGUID: 3HJdlEjFQ0SDAbuD/recGA==
+X-CSE-MsgGUID: duOs5jr5RZqehxp5QlRZtg==
 X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; 
-   d="scan'208";a="61331925"
+   d="scan'208";a="61331926"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 16 Aug 2026 23:52:13 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Aug 2026 23:52:18 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Sun, 16 Aug 2026 23:52:13 -0700
+ 15.2.2562.45; Sun, 16 Aug 2026 23:52:17 -0700
 Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
  (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Sun, 16 Aug 2026 23:52:08 -0700
+ Transport; Sun, 16 Aug 2026 23:52:13 -0700
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Mon, 17 Aug 2026 12:21:59 +0530
-Subject: [PATCH v5 02/10] media: microchip-isc: take a reference on the
- parsed endpoints
+Date: Mon, 17 Aug 2026 12:22:00 +0530
+Subject: [PATCH v5 03/10] media: microchip-isc: synchronize the IRQ before
+ disabling clocks on stop
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,7 +55,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260817-balki-isc-prefix-fixes-v1-v5-2-2514df336c5e@microchip.com>
+Message-ID: <20260817-balki-isc-prefix-fixes-v1-v5-3-2514df336c5e@microchip.com>
 References: <20260817-balki-isc-prefix-fixes-v1-v5-0-2514df336c5e@microchip.com>
 In-Reply-To: <20260817-balki-isc-prefix-fixes-v1-v5-0-2514df336c5e@microchip.com>
 To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
@@ -66,150 +66,78 @@ CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
 	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
 X-Mailer: b4 0.14.3
 
-for_each_endpoint_of_node() drops the reference on the current node as
-it advances. xisc_parse_dt() and isc_parse_dt() store the node in
-subdev_entity->epn and release it later with of_node_put(), but never
-took their own reference, so the stored pointer refers to an
-already-released node. This underflows the refcount and can
-use-after-free, reachable through the camera device tree overlay.
+isc_stop_streaming() masks the DMA interrupt and then drops the runtime
+PM reference, which disables the ISC clocks. microchip_isc_interrupt()
+may still be executing on another CPU at that point; it reads ISC_INTSR
+over regmap, and touching the unclocked registers triggers an external
+abort.
 
-Take a reference with of_node_get() when storing the node, and drop it
-in microchip_isc_subdev_cleanup() so the entities the bind loop never
-reaches on an early exit do not leak it.
+Store the IRQ number at probe and call synchronize_irq() after masking
+the interrupt, before dropping the PM reference.
 
-Fixes: c9aa973884a1 ("media: atmel: atmel-isc: add microchip-xisc driver")
-Fixes: d6701f13bd07 ("media: atmel: Use v4l2_async_notifier_add_fwnode_remote_subdev")
+Fixes: 106267444f12 ("[media] atmel-isc: add the Image Sensor Controller code")
 Cc: stable@vger.kernel.org
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
 ---
- drivers/media/platform/microchip/microchip-isc-base.c   |  6 ++++++
- .../media/platform/microchip/microchip-sama5d2-isc.c    | 17 ++++++++++++-----
- .../media/platform/microchip/microchip-sama7g5-isc.c    | 17 ++++++++++++-----
- 3 files changed, 30 insertions(+), 10 deletions(-)
+ drivers/media/platform/microchip/microchip-isc-base.c    | 3 +++
+ drivers/media/platform/microchip/microchip-isc.h         | 1 +
+ drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 ++
+ drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 ++
+ 4 files changed, 8 insertions(+)
 
 diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index eebbcb28a7ee..ca4f3b5f58aa 100644
+index ca4f3b5f58aa..debbc38717de 100644
 --- a/drivers/media/platform/microchip/microchip-isc-base.c
 +++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -1853,6 +1853,12 @@ void microchip_isc_subdev_cleanup(struct isc_device *isc)
- 	list_for_each_entry(subdev_entity, &isc->subdev_entities, list) {
- 		v4l2_async_nf_unregister(&subdev_entity->notifier);
- 		v4l2_async_nf_cleanup(&subdev_entity->notifier);
-+		/*
-+		 * Release the endpoint reference taken while parsing. It is
-+		 * NULL for entities the bind loop already consumed, so this
-+		 * only drops the ones left over on an early exit.
-+		 */
-+		of_node_put(subdev_entity->epn);
- 	}
+@@ -425,6 +425,9 @@ static void isc_stop_streaming(struct vb2_queue *vq)
+ 	/* Disable DMA interrupt */
+ 	regmap_write(isc->regmap, ISC_INTDIS, ISC_INT_DDONE);
  
- 	INIT_LIST_HEAD(&isc->subdev_entities);
++	/* let a running IRQ handler finish before the clock is disabled */
++	synchronize_irq(isc->irq);
++
+ 	pm_runtime_put_sync(isc->dev);
+ 
+ 	/* Disable stream on the sub device */
+diff --git a/drivers/media/platform/microchip/microchip-isc.h b/drivers/media/platform/microchip/microchip-isc.h
+index ad4e98a1dd8f..f5e322c2e36b 100644
+--- a/drivers/media/platform/microchip/microchip-isc.h
++++ b/drivers/media/platform/microchip/microchip-isc.h
+@@ -287,6 +287,7 @@ struct isc_device {
+ 	u32			dcfg;
+ 
+ 	struct device		*dev;
++	int			irq;
+ 	struct v4l2_device	v4l2_dev;
+ 	struct video_device	video_dev;
+ 
 diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-index 25d241b4c66a..18e1ec0b94fa 100644
+index 18e1ec0b94fa..5bd109e93a8f 100644
 --- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
 +++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-@@ -357,28 +357,30 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
- 	struct device_node *epn;
- 	struct isc_subdev_entity *subdev_entity;
- 	unsigned int flags;
-+	int ret;
+@@ -448,6 +448,8 @@ static int microchip_isc_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
  
- 	INIT_LIST_HEAD(&isc->subdev_entities);
- 
- 	for_each_endpoint_of_node(np, epn) {
- 		struct v4l2_fwnode_endpoint v4l2_epn = { .bus_type = 0 };
--		int ret;
- 
- 		ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(epn),
- 						 &v4l2_epn);
- 		if (ret) {
--			of_node_put(epn);
- 			dev_err(dev, "Could not parse the endpoint\n");
--			return -EINVAL;
-+			of_node_put(epn);
-+			ret = -EINVAL;
-+			goto err_cleanup;
- 		}
- 
- 		subdev_entity = devm_kzalloc(dev, sizeof(*subdev_entity),
- 					     GFP_KERNEL);
- 		if (!subdev_entity) {
- 			of_node_put(epn);
--			return -ENOMEM;
-+			ret = -ENOMEM;
-+			goto err_cleanup;
- 		}
--		subdev_entity->epn = epn;
-+		subdev_entity->epn = of_node_get(epn);
- 
- 		flags = v4l2_epn.bus.parallel.flags;
- 
-@@ -399,6 +401,11 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
- 	}
- 
- 	return 0;
++	isc->irq = irq;
 +
-+err_cleanup:
-+	list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
-+		of_node_put(subdev_entity->epn);
-+	return ret;
- }
- 
- static int microchip_isc_probe(struct platform_device *pdev)
+ 	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
+ 			       "microchip-sama5d2-isc", isc);
+ 	if (ret < 0) {
 diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index 998146adabd8..d0b91a74bb1a 100644
+index d0b91a74bb1a..3ebcbc1bb5a5 100644
 --- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
 +++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -341,6 +341,7 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
- 	struct isc_subdev_entity *subdev_entity;
- 	unsigned int flags;
- 	bool mipi_mode;
-+	int ret;
+@@ -437,6 +437,8 @@ static int microchip_xisc_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
  
- 	INIT_LIST_HEAD(&isc->subdev_entities);
- 
-@@ -348,23 +349,24 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
- 
- 	for_each_endpoint_of_node(np, epn) {
- 		struct v4l2_fwnode_endpoint v4l2_epn = { .bus_type = 0 };
--		int ret;
- 
- 		ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(epn),
- 						 &v4l2_epn);
- 		if (ret) {
--			of_node_put(epn);
- 			dev_err(dev, "Could not parse the endpoint\n");
--			return -EINVAL;
-+			of_node_put(epn);
-+			ret = -EINVAL;
-+			goto err_cleanup;
- 		}
- 
- 		subdev_entity = devm_kzalloc(dev, sizeof(*subdev_entity),
- 					     GFP_KERNEL);
- 		if (!subdev_entity) {
- 			of_node_put(epn);
--			return -ENOMEM;
-+			ret = -ENOMEM;
-+			goto err_cleanup;
- 		}
--		subdev_entity->epn = epn;
-+		subdev_entity->epn = of_node_get(epn);
- 
- 		flags = v4l2_epn.bus.parallel.flags;
- 
-@@ -388,6 +390,11 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
- 	}
- 
- 	return 0;
++	isc->irq = irq;
 +
-+err_cleanup:
-+	list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
-+		of_node_put(subdev_entity->epn);
-+	return ret;
- }
- 
- static int microchip_xisc_probe(struct platform_device *pdev)
+ 	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
+ 			       "microchip-sama7g5-xisc", isc);
+ 	if (ret < 0) {
 
 -- 
 2.34.1
