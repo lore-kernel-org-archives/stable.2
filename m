@@ -1,115 +1,99 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDB0426D03
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 15:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786982333; cv=pass; b=Q1lfn8gvuh0jmyImNoUzCNU1X1hAHz3wdBw3pLvZkd/rXzpIbImiZUEkBigqc3n7raJ2N8/vmdjJiY43xeQdbJeZ0ClPoH+NqB+XNVyJ8G6yVykH/5J7tK4vMKCUz19EVVgyEGRsjQ5RRQOGI+vNqkzTcnSNdmXJs9e86NHGjGs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786982333; c=relaxed/simple;
-	bh=no5UqGeu/I9IJaiTWAxVWsktaYLTQKvl28qMYcHHr+s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=i1SFByKBBimtK97Pjyaq3z178dtZKgXVdqA1gyLDVIHfEdtn0Rmfcfcc4TgSrFu93Tkjjj7WOQaaZi13rBwK4mAa1KremXW34/+CKDnM/GmQccGHDtl99hiLE10G80q5i7FcMs+6HA3MXlMeEH2vqtLTnF5kll9ShralAx3azhQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=cYUn7vv+; arc=pass smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A10449B16
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 16:03:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786982626; cv=none; b=pCyH1MeJCC4lY27zJJrp+G6YBk0YumqpnR9JLqnEVjPa14XU+8WzYbljHC9pgsfZf5b8/jE3MsxDS+FYd17ZHYGoQoXv0a30yS71x58xMz2+vl/lmiI76O8UHF0jTK9zR7wK+FlOlRzJWVbEqJ6ZTcvWNI7M2AKZipGLPhhE9yg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786982626; c=relaxed/simple;
+	bh=yguGrGipj1Sr3lM9LirwlqlAubM2+wrNpMoDM1U6p5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UJx5mIY7D5ejo/4s5KCB9DHsqWNgnon7CojGOIHkLOHrH+W2z3HKabbZ68eXhzjj0OeQjN7LGnCU0wA8V02e3pTwbg/JmzF8iiF27UTiuzspYCoMr9A2xjyMQ/C5s/65y5fcEut8hUKknBiHSHOeeThg+lwY+1ilUNYKm+h3Mzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oRVXyAfh; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="cYUn7vv+"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-92e7c6ec9dbso163849285a.0
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 08:58:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786982331; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i/pm9EWY3CE1IXkIc+fvCxYM8mNQqo9Hpfy7TZzDzm/jOAWgGNmGfYxsQR+NMtKIqg
-         ZRMyjryibjJrUKdD42wAyFOv0HpKu6DYXgvcRNL5kSkxSNaqph8kLFLoj3JFHr6Ey3MH
-         J3FLUJYpvsE4rVsuKTM3CSpRrJsiEZhqm1KnaO6Z7MVqEpHF4DOGiKu7EJcHPj4xjKhM
-         xBWLuWvKEVPdng3hQ6flZQOQzFLIMLmpT4aO2yxgNeOVh6sS7ngV5VyBOitsyJl71UQF
-         GESblqpcVOrhF97RtxOmp+WjefosUyqrAfnDtMUx/tX3vkj+rHa/mh0yD5trAEZ3Kkv9
-         oThA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=OJIRLSwLK/lqQ9XUExR41FCofow37PdnqIN9EEDwdwI=;
-        fh=4xOxhBlQnq0woYNxJLDGxqNwoJSHQNcfTukIUpLAfqY=;
-        b=f3GpdwB+HbUhJRVuYgfHZdLaIWOme1CB8+H8dLEtEjEvR0SVwQVpTXA5q+hAmEYyqC
-         lVKn+wsHU345H5rNtmmPfE+237xkr4G5ApIE/pEgSAr9gvBKwbKjvwt4HEFUwpMnnurJ
-         ol1ubesnNJLYOo4dfeEXnerhR0t1uWHBYtwM6wqS4OII3KEzfIWHRX36hU8SSt6svy81
-         rV3GDFaZNhel3AtE6NQJyB0wMgjE4ev5ZtCj9AI8sOTv3qQRKBg/Wu1J+xcyfegEwuJC
-         SnrmpK0MGRG7gplmWJ5AsltEE3th36zkiPn4JDJNTSlx8i3wZmRyfw22x0tU/XJj3ZYi
-         dw7g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oRVXyAfh"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cacb8416a1so34674125ad.1
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 09:03:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1786982331; x=1787587131; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OJIRLSwLK/lqQ9XUExR41FCofow37PdnqIN9EEDwdwI=;
-        b=cYUn7vv+/NM0UmxmOzcAOD1iOns4Z+X1PzoQWgqgWwvdSitZfzaXUXMkSbr9wNWKfr
-         iDmh3AeBMWbhRcifC/Sztcg12QQDcRvBRC40BcLJz+csbnHXbxmBGax1AYfj1q6t9EhA
-         5tMql5PUbK4NmEQvwixc6NXSIocViXu+IMz6o=
+        d=gmail.com; s=20251104; t=1786982616; x=1787587416; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7eAUOGoRQ+1j0VLJyMKulBFqB6sfqwvkZHzDAzcL4Sc=;
+        b=oRVXyAfhw1YQ1MN0B0HFJVplEVhCpIMepbJ9TURT97sFPPU0nd065c/WbFCTkzTzeR
+         LlUzq0+pY4aFExfYmYJe9I+GimIKv5GSb8ob+PvynKYPk0tubP5eq76AOTP18jqHb0m1
+         WardKUGGlq+F8oEDUcSkgjGDsnvZo7XNw+D2+sT8xGAH7KXRRUk89jGBak2h9tOXr9cy
+         OYqKKrwKRgBhOxMhBq2WGmYAueznuv58uIEJJukyd7VmSrwHhxaQ55J9ZH18Fl7taEU3
+         Vai0YpMPvWaG8PgOMnme36JssS21ul9vIP8RXadPT4X14QGXEpnc+mRO5D94Sn0gp5ov
+         L0eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786982331; x=1787587131;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OJIRLSwLK/lqQ9XUExR41FCofow37PdnqIN9EEDwdwI=;
-        b=g+DTfqlO5NAyHGAsOGYzRIsUNejyovRp4OjyMVdIe1YXN955L93qHuuFmGwdSeXi+J
-         sXHheoL0PalEcEzJVzriGtZ4qpIPCqLeB3WMxkjy1Mky69OIg7HcxtuBRx8BWwL07kq7
-         0NkXleaTnV6ecZd7sdJI30/EsALfiyWzyAvtEP0gWJejYYy8tZ/gjBas7dNf9aSQuP46
-         C5Gkpc/tmMukmYBZrDTJhKEc/K27VO4Jl3PobxLZPbn1cbptDb8/YB0XoLUUHytSjKQz
-         H8IHG+lfiK7MXFoJAeupv7mkSO0MUPlK62Xd6yMWhyURdoSSmBFXoHVcL8WjsYzitY0p
-         s6MA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+sJzWnHTL40k68OOvfAPb+rVsy0ZphQZZ1cf/uZTBCPBC4S/HAZ12BIAvJNOP86ep+77LPcI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSYjnk3fYkyWEFn8nEzhORSId7lZflU/Sp6uA9MdJ+JtmK1TRP
-	RJTneDUkp/kAeNDuT81sQ0LpcaDdGhIooTiNq/WYe1sUSVUOV8j2xz1KcJG3nCL2V+T0dGl8tlQ
-	tHPJpTOf2p1anN4WGJnyE5yiXjvuvSDNcTnqOJF37tw==
-X-Gm-Gg: AR+sD119FKVi/6xSp/+MpZUt8goBoYIovSVBnCMVVNq2wheBIR1qZvsFqALeL69lKnf
-	lgS2GHumW+PGxCWHTO5536HYjAbpdErtMieLTSCtxnHNLRpeuJM0kwf9zcXVd8ZrnAVbIwSVIUx
-	ZcttWy4bmGpqBaSinwUxNRV8rtrR3yyRZ3/6gQlkAlgLvFi/cokFv0a3BxBd2gwp4/FqpOAQnd4
-	0QM0M9KHyt2c/0Sp0X2FjZz/rc+S8wxBbN/LlajpIzbp+MpI1AbYpSIhI79OihFtN/MQHdGfcR2
-	YQSb9qjvNcJ8F3+ATnDus9PB4vIOnfAHlJyV01gDJAXYbIeG2jglvJcYFrVsv/MpV8gTZq0WpKP
-	s
-X-Received: by 2002:a05:620a:bd4:b0:915:e670:4021 with SMTP id
- af79cd13be357-93704c453bamr158105685a.45.1786982331219; Mon, 17 Aug 2026
- 08:58:51 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786982616; x=1787587416;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7eAUOGoRQ+1j0VLJyMKulBFqB6sfqwvkZHzDAzcL4Sc=;
+        b=KZ/nuzb5YHkaugtrZRKCKOBAWuHz03KntaHRxkt1JrKFZ/d0G2R5aQK1mPgNciqbuB
+         eyecYIN2+l+CpDuEW3pE61I5gKP69Orpm3CTU/qAo4vF+HYq7ncc0gWRmwltS5sMXsj/
+         W9BObMqcBRYZr8LVapcXL7Mlepd+LUSghGzE+/BgMDeV4gbTumKtlRg/l6W3ESen3s8e
+         2nRhQfpzPw3hpsNzDNRaXsmzUzXaIpLqDh528Hdi5DtfHuosPK4WiIa9Bk2ZhSD8Hmzn
+         OD3F0TX10ruc6HEQ5fmK9LyA6iTWQG2jUbn+aF9oa6QTiwmdkIw07wl+xRWmbZWnPYX3
+         xfwg==
+X-Forwarded-Encrypted: i=1; AHgh+RqdRlmXpxlvCyPjgwPmJSJ6j4W1hX+N1v01aHLqHrWkn53KmhStBEPIaWzgoIbIOZ8qXeJ5NtM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHKqJM+uiTLyZPIQCgCFRzjugNwyitpoRzeXpQy9DZBBYaXVK0
+	jcJk9lMjgxUM2IU+K4wW6Ea7vt+7e9Sjz7lBnVT4gJK99e2nUDDrYP2a
+X-Gm-Gg: AR+sD112npHzbXAT/+g4sjzqR+n4o6D43OJlBZQC1w48OOLwo5ST84atZ/UmhtHrAH8
+	5O26oshLabTSjwfnaEoCuT0j7Uu7BAdl30t4+MVDTDCVOBNbiY0EiwjCoCqlhr3rKTiQKp4Y96n
+	LdLCfifsZYnmhQJykg6LxzjrNCxG1Y4jQjzQOGpBiycvSP2Q9itjEkvjFrcoZCaNsGSIFfcHyjB
+	vYj83zekWWSmq2hbDJfsM6pnZSYXE6uqkgwWYUjYuhXeIHpJCpgpxpZzLskpCdqeiT9hKTnfUu4
+	I6SG70JShIPyPfCzj/P5UtJjpINJRrgj5CoFI5TNVATLL3eOecbnlq7hJ/C9kGA7JMRjSs78vot
+	yHuw5YQ2v0F0sWh0nWlollVJj3jcIvJvwCwisKwdbj+zgFHg5Wl9hJGtWDz+vYxKn936O5eICIc
+	TlRT+IgbmfgOCN8iRLpyQvwV6D8sR04noBRAXuiM9ua1ojwWKH2mhMqyOXwYo4q7S/GVt43JjlV
+	n7l
+X-Received: by 2002:a17:90b:528a:b0:38e:5ac1:9517 with SMTP id 98e67ed59e1d1-3933b7c3696mr26862150a91.3.1786982616335;
+        Mon, 17 Aug 2026 09:03:36 -0700 (PDT)
+Received: from Default ([2409:40f4:103f:ca54:3a70:ebd6:25c9:29fd])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39531e31a9dsm5481969a91.4.2026.08.17.09.03.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 09:03:35 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: stern@rowland.harvard.edu
+Cc: christophe.jaillet@wanadoo.fr,
+	felipe.balbi@linux.intel.com,
+	gregkh@linuxfoundation.org,
+	jeffinphilip14@gmail.com,
+	kees@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com
+Subject: [PATCH] usb: gadget: f_mass_storage: fix null pointer dereference in fsg_common_set_num_buffers()
+Date: Mon, 17 Aug 2026 21:33:19 +0530
+Message-ID: <20260817160319.28251-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <e52c5913-9210-47cd-9a97-ab00547f53c4@rowland.harvard.edu>
+References: <e52c5913-9210-47cd-9a97-ab00547f53c4@rowland.harvard.edu>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813035836.74045-1-rochan.avlur@gmail.com>
-In-Reply-To: <20260813035836.74045-1-rochan.avlur@gmail.com>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Mon, 17 Aug 2026 17:58:39 +0200
-X-Gm-Features: AcwNN1VSPxOYN7kpQnUrOdAukJXi-HG8yj6uq1YUzdXVgD6MbWB9mTBM8yTMWRQ
-Message-ID: <CAJfpeguLnQ3rps_zz5sQmb4BZSG+C8+d5cCJdW2+VxCdtajhxA@mail.gmail.com>
-Subject: Re: [PATCH] fuse: wait for FR_FINISHED on abort_on_kill to prevent use-after-free
-To: Rochan Avlur <rochan.avlur@gmail.com>
-Cc: bernd@bsbernd.com, joannelkoong@gmail.com, djwong@kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, syzbot+d6540a3fa1626e11360d@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, 13 Aug 2026 at 05:59, Rochan Avlur <rochan.avlur@gmail.com> wrote:
->
-> The abort_on_kill path in request_wait_answer() calls fuse_abort_conn()
-> and returns without waiting for FR_FINISHED.  If fuse_dev_do_write() is
-> concurrently processing the same request (FR_LOCKED set), the caller
-> frees req->args while it is still being accessed, causing a
-> use-after-free.
->
-> Fix this by jumping to the existing wait_event(FR_FINISHED) instead of
-> returning early.  The wait will not hang because fuse_abort_conn()
-> ensures all requests are ended.
->
-> Reported-by: syzbot+d6540a3fa1626e11360d@syzkaller.appspotmail.com
-> Fixes: 204aa22a686b ("fuse: abort on fatal signal during sync init")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-6
-> Signed-off-by: Rochan Avlur <rochan.avlur@gmail.com>
+On Mon, 17 Aug 2026 10:01:36 -0400, Alan Stern wrote:
+>In fe5a6c48fd95 ("usb: gadget: storage: get rid of 
+>fsg_num_buffers_validate()"), the code that was changed originally 
+>required the number to lie between 2 and 32.  Even 1 was not acceptable.
 
-Applied, thanks.
+Kconfig currently sets the limit from 2 to 256 with default as 2. However,
+we use that only at build time. So, if we enter during runtime via configfs,
+we set page content to 0\0 and get the null pointer dereference. So we will
+need to add the check for num < 2 in fsg_opts_num_buffers_store() and return
+EINVAL? Upper bound is 256 which is below what kstrtou8() can return anyway.
 
-Miklos
+Thanks,
+Jeffin.
