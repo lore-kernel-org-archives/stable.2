@@ -1,142 +1,143 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695413D8907
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 21:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787003919; cv=pass; b=FMsMePtqv0byVXEkZKWzhALk7RzDewCEvSX5jGMMoLIA0z5nfbGQ888teEJ91Dn15g/vw7C/bWp2+HpZV4hLNg+zjpe2AOft0EEVGmTZDIl4XQx8HUP1/z134IzZnKZL8HHH5KFcOI9utUG8WF6WQhRS2TLpRtjOZKhD0qAj8eY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787003919; c=relaxed/simple;
-	bh=CEdKirEq2+Q+UOHNlHEHrgKgh5UZWOj3QauTHmy16Wk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CD1yBl6iqPbfLiIJYN7NdpWOIGPCcoMWltzCGcuHd3JVA5DpgoD+UGjdaqpQRDEiva7pStrO994V7x5Tt38PivnNrN5l7Sw/nDjdjceTiCCV7nuRHFt3A/y/HOAZfhdEl+G275rShqaz07MZc9OoWYvYJD4C3mL2szYqeuEvy7k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V5a8i5nq; arc=pass smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E333D5246
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 22:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787004500; cv=none; b=bVHilnY8MROZmv+FXpAXYc4CeczAQkR0BnFMRv4c/fQzkI2WCf1z2ISBpPacwZVu7Z83EPHlXDoydFETfesCSPchu4/ZcjHLP5NFLsQx0bR3KXxM7o1ldQYXGUfy9I5mlRJJOKTYKRMCc9TiZgmQsLjLyWRJ6+ykB6jS6AH0YZk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787004500; c=relaxed/simple;
+	bh=eGQzoSEE5m0muRmnymqYrMlvGNiyTyTu7qrpYKn3c/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R2H+rzPbdEh6Eww3mRlTgIIP9N82/ob1ZSzb85yVvHVpw5sWHuFjzeMUXYrW3nfJlVNxwWJcKueU9jFJyX92zpW78HNF5Mi82lho4cxBmeZDG49hnncj8gZOIQQQk7Zv68wlX6T8q+qqsrMEqMvg4DoHr0JCmHVEa/V+Ft0wVUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=etvdKpc2; arc=none smtp.client-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V5a8i5nq"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c1600d040e4so52579366b.1
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 14:58:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787003912; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gMUG2Avm/LGeHPmELpuumlZkxRTbaX4peCt1AbpGs9LBNt1aN45C5708iBrIG4kg2i
-         Vw52uT5Gr2ji6qHWzraHjKauUimx02ntn2EuI+p7i3RZXLutndeSfvJRASHbOJ13CSqO
-         75P4TK3JvZ9B2mpPiVhouC252aeDAGqhfGnri7jVT265y3mFtYZTfZ0q+dp1FjGq+tgh
-         Yh/ABtG73+XYCMucFMOp8KlrHvWcverILnw0PIoRbr/gW3AmKjjD14nbgnfIJiUHKENg
-         noa68FSQ3EbuZEh03rBrOcV4/DcWZILd5SZEFrGSFAd/jf+JVcLcOgdiOOzWjNovpJJZ
-         nPxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=okaAU3zYOn1hyhzNcOWFnCkDHyrXnj6mHvmxdNYRJ3k=;
-        fh=vgL3PVBOi2inONv6kzfWFQ79sTxIWbErj0iLJzNtllA=;
-        b=DovQCh88sfirYaInBAyBGjRW+goNJy0FxdmYDAqENs3v928hErjGWaob1smzfsqxB9
-         88s96VD5t3WdwaxdLyjzBxhhs5tpUE2Drw1mxGsd6JplBfgPe/JThaiOrssMJtkYCk4i
-         jc+6aYy3a0TCbvsnKF0tt+WbSetFIdIprjOKeNvMrPWh5OicJeRiAZ0TQcbc4QRd023O
-         TBWAy2Wj6h5mu5MDBjZ4NhMpx7FY7WuqD9LgXMwRZV/80i+s1OyAL8GW94K3FWSLueEp
-         jSmfQXIqZ0zqlZu/MFZIZw5z1906gnyJuHlNR+DSVxlvXmxSRUMWnwRpitC9+JeLRDon
-         qw2Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="etvdKpc2"
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-930f618435cso229696185a.3
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 15:08:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787003912; x=1787608712; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=okaAU3zYOn1hyhzNcOWFnCkDHyrXnj6mHvmxdNYRJ3k=;
-        b=V5a8i5nqbuohWfohFrNLnVCVqqHkfdYAGiGmkIZtCysd1i38yFe7rxSqh2pc24GVys
-         ft1L3A7r6buXXs24sCCU5JmqfDxXFhheFlR6zTkEBoVbmoH6BdSp2pYsJBBUpKwwJ/wE
-         603gi/hqqu0KiMLgVP1qe1eDJw9UoRy09E9hK9rFJwS+YxiHB8zRG2/GV0KEUznz6jBQ
-         /xYiWFOiyQlLS6pirLEQS4zEqiw51Fo7fWXclVzX89CusN2/CP6DqNDdbSrLCT7LNFjD
-         KW+854O2KiPhqN95rHUGfB2B87qDBFWUBlvZrsUoCEOQ7Mw+ZLxSax9UuyDwT2h+hNwf
-         ofhg==
+        d=gourry.net; s=google; t=1787004497; x=1787609297; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2TbSdQcY7KD6I3WslktwD+M/q5vUGGfVm2gu43i1aVI=;
+        b=etvdKpc2xritJ0nNaQaJ1DR2HWbhoonO9gXUxKyC16t3DfgUfRMGyEDzdLNeo4H2po
+         1N7Kqkj7BWcF7OJH0Rfq/ymV7Q2nlov7f840eqp3LsnGXRbVoxUv4NZp/gf+oiai0G9v
+         oQExtBYc7EgQCRUIv9ZWgrp+/F2EsSeX9oj0ZiPAsHGiPCkBCErIqaoGyIDsTaUyOkpG
+         ZDe+3dgYz4X7O0p968iwoExwSagDA/iLST8AV3nqvZcmFfsT2q7mY7X3oXyzqNLH2DaJ
+         DOr2TP4cvBwyHSdlMOTXIf5hzZUJzs/tqAbBSX3yZ34OWFJoRIVI6YpMOZA+4ArDsKMT
+         eA4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787003912; x=1787608712;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=okaAU3zYOn1hyhzNcOWFnCkDHyrXnj6mHvmxdNYRJ3k=;
-        b=BcdN3GE4iuc6KzC8SFSUTikaqpahqd6hJIrdMlnsHkYACYrV6TE8utesSrRWe2Q55b
-         /0Dfhz3SNKYMd9abj6RH/KZKdYws5RxgDNf1sjPsH+C4oOwlJf/7o03Up5ZfU+wMwM96
-         /u9CoZ3Z6ZiRrt1deXr2q3wrn7VBYLGeI5POQOD03rWf2ApgXKd7VTv0rJOM7cOyMRFO
-         emrrESWkybbTQW5p1W8FFHOWVIeuF1kLzjidriuvI0b3wr2FrjVKbN9dGhiLqfaSAnj1
-         I4BAlh8PeSTEALdgTiY6TQdQc4f3WWwwsmakVJyxcE6nC2NtJOkjggRWLzo2UetAuyr2
-         NOnA==
-X-Forwarded-Encrypted: i=1; AHgh+RqizzTZAdgk1G1guxhd6lngmKo9zKchkA6tjTSoyc7AbsdhvXNgQIn3JCTaVGlrcR1xZ4d08x4=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxd++ISGGkyfgl/N8npittFZhUBMMmgkwn2Z7ZNTdH1SQ4Smf1W
-	cBLHJzY8UPSrKURwrlmjU0Szh7B54jz2geL7i+y6Voe6AB4n23u6uDIbWkEUcKAWvatDkHXzasY
-	6hJnTs2/qjUx/BlYU8wEqShDaX+WtrjQVZG+PHj0R
-X-Gm-Gg: AR+sD1240cOqt8lciM3bgHrsrUZlWMMU1c0m30QxYu+veWsBdnrTlPSIirkaRJcF/bf
-	iH/l9QyDkBQ38/Xsr8zHdQJwdNgfzOe0KRsP3mbISKL93dzn3Hlktq+5KlxFJsxlqdDE7FyhS0Y
-	qq7zTtJDpXiJIOrdrbqC7TDhXkinyIB0H1Jip7+OTsZK3V84ooAOMsPL2whkZV19WHKsmrOqMCO
-	UtZgEuVmcSstqW2p0ncmWbuUOZu/wvHaz0+0mu08uejx3338OEQn+tG0cSucLX2qn87O6twlEvD
-	W+AKvfZDCG3vqKYrjeBSDBbUIfaVpDqhlWJVlD4KdDpAfS8aOe4tUFGthk4awo988YmEGvhgLvS
-	Rh1mJ8Hc3AqU48btBdgIuNXu2AuA7TkSOSaIpvuxkQ5l8Cu35trbLp6C7
-X-Received: by 2002:a17:907:9446:b0:c0d:7c31:26a9 with SMTP id
- a640c23a62f3a-c218d9ba953mr40425566b.2.1787003911741; Mon, 17 Aug 2026
- 14:58:31 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787004497; x=1787609297;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2TbSdQcY7KD6I3WslktwD+M/q5vUGGfVm2gu43i1aVI=;
+        b=cgKe/ZqR2SXbUGcNdUimcj5xkiTLE4MQLsJy0sztjdu7QW10GOrWDIjy6lnWJ+1N7o
+         YA/I5cBXMya54jbORldcHTtohzVkdPRK2ypLdVuH6WhEvh5pCgppMJh9wTeMr/xzT+bB
+         hFTlBD+EIsLyHtXz8vEndA/OykKhP46Jmz3TvY/eN+wUKLNdUaKYj6HuHxnYUkAYlhnC
+         kbhHKPRGLHHuXr9IeuiYOQ2e2JzG0f39y7w4LdLy/fLVNexTJ/qo0HXlhN63o5n0yKu2
+         4fXCtfHHa9WKRHaS88gJ9gntT1ps2VE8CVeTEGW+bMnkzXn1Qzm0fZeYbGfRZri7vGay
+         OngQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqZ1QfO8ea4gflRmS40gySO2TOGK6fYZU9Czkzjif2YxIpiac+SjpRURynX9lprbXMDvnAzIXM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yys1tupSC+M3MlXwBXkod5rXrP3VdwpV7aTZOqB5NlkpUSMPsal
+	Ryu64MhbXqQAtlINImaJlXYFQFqQgnAN9ssb/dMzJGOmNokc0p+kAOoB6fLsziD0XNs=
+X-Gm-Gg: AR+sD11U4UauIeKXCRR0FrV4bWJJR5IyAfP6isCf3zvskoDi/tuZ+B26xVO7X4pGY0j
+	/DFP4gvwJkOXU0i9WSk5Fs5qXXI62VQqsfJ4cFx05YUw+QCtfxpHV7xE/DWO8ARDGJTkGbkJUnR
+	X9Tk2g4Giew8X36uZNs+QxKnxjCW/USS2RRO2NiuwqEOWL/eaz4iQnBK3xN4cZNLGrFGT9IYBgV
+	vOC6SWaG/ra0ceU2cgBNRgwOZqSoA119d0J8gcGgPU/SOvxJDm3sAIh0f//Vaz7IPjN7AEe9CEO
+	6/osoQAxSE+ZkQZQ0J7WjWzc6TiL5BRYgZbDSBv4tafJwvPONzu/sBXQYxwrYRPjLXtym0/mbOk
+	C08j3v5rYWI90m1XCijb+x7ffQ7FZ3M2ls9IWH54RkSkG/xuWKjzQFd1xxEkYkQnuSQB22WED4a
+	DPZO2t1VpGLaxv8DLnFCINacuKiqKBKg3pLEJcEtKIJBPUGNyZwOG82y3WnAr6nLsyXPpcAOCkO
+	uvJqSHpsyM6UfyomGV9Bb8pNGS1u3c2+AvCSemwfrcIKSmubA==
+X-Received: by 2002:a05:620a:80d:b0:930:c12d:b915 with SMTP id af79cd13be357-936d202fbedmr2459244885a.18.1787004497552;
+        Mon, 17 Aug 2026 15:08:17 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-937033ce78csm147108885a.31.2026.08.17.15.08.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 15:08:17 -0700 (PDT)
+From: Gregory Price <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	vbabka@kernel.org,
+	jannh@google.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	balbirs@nvidia.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] mm/huge_memory: skip zone device folios in madvise_free_huge_pmd()
+Date: Mon, 17 Aug 2026 18:08:08 -0400
+Message-ID: <20260817220810.1175596-2-gourry@gourry.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817220810.1175596-1-gourry@gourry.net>
+References: <20260817220810.1175596-1-gourry@gourry.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260718111340.159896-1-linux@yoavmoshe.com> <CABCJKudqGL+BFFcz3qsuoJB6S_OAt-vs2yqePC_=oy+JzmPpVw@mail.gmail.com>
- <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com> <20260721180950.GA3684684@ax162>
- <180001f5-bddd-4e58-8442-f7ef3c979500@yoavmoshe.com> <CABCJKufhvTxmVm8y7xr4RWWKsoZk0h8UGBnem+F5fknnimaqPA@mail.gmail.com>
- <7f273a08-b29c-4e15-b340-898b251efe57@yoavmoshe.com> <CABCJKud+GsBVv+XMTsi_4QAaTHo7jXD2Hyvi9wqKd7x3i2xyAg@mail.gmail.com>
- <415ffa24-a30b-43b2-aa6a-a1cde3bd4ef0@yoavmoshe.com> <CABCJKud9B8vB-J8f0HLHw6EgEKVWzy+Q1PrNxpO_6yCGtEyi8A@mail.gmail.com>
- <12a46993-82a5-4109-87fa-61b8fcf764aa@yoavmoshe.com> <CABCJKufoQ0fX797M01t7CkTgMEwNCELY1=ptZsxr=jWOR-KAyA@mail.gmail.com>
- <CAKwvOdnaOy-nyZ=8oLw4N-_hA9JZVdP2BhR8cweCAOhsy4VG6w@mail.gmail.com> <91cb0f21-e78a-4931-b123-937c6a01592c@yoavmoshe.com>
-In-Reply-To: <91cb0f21-e78a-4931-b123-937c6a01592c@yoavmoshe.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Mon, 17 Aug 2026 14:58:19 -0700
-X-Gm-Features: AcwNN1VNo3n6QqxpiSk3WE0KBl-3YmOc0Qs-sAl-zs64L7Q39Eb5f5vg2HrwQ5Q
-Message-ID: <CAKwvOdk-JmqjhZWBiLjXTxKhEV+T3BAB6An+3Ara8oybmhAMpA@mail.gmail.com>
-Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
-To: "Yo'av Moshe" <linux@yoavmoshe.com>
-Cc: Sami Tolvanen <samitolvanen@google.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Russell King <linux@armlinux.org.uk>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Jul 26, 2026 at 8:37=E2=80=AFAM Yo'av Moshe <linux@yoavmoshe.com> w=
-rote:
->
-> On 2026-07-24 10:49 PM, Nick Desaulniers wrote:
-> > Yeah, Yo'av did you test further modifications that explicitly copy
-> > the hash prefix? I assumed Nathan's change _plus some additional tweak
-> > to copy not just imx6_suspend to OCRAM which I assume the code already
-> > does, but I would imagine you need another change to copy
-> > __kcfi_typeid_imx6_suspend into OCRAM just before the function.  Was
-> > that tested?
-> Yes, I tried that as well and it unfortunately didn't work.
->
-> I tested Nathan's change along with explicitly copying the 4-byte
-> prefix from before imx6_suspend into OCRAM right before calling fncpy().
+madvise_free_huge_pmd() resolves the folio backing a PMD via pmd_folio()
+and marks it lazyfree without checking for zone device memory.
 
-Can you share that diff? I would have expected that to work. Perhaps a
-minor mistake in your implementation?
+The surrounding guards do not cover every zone device case:
+ - MADV_FREE only operates on anonymous VMAs (DAX mappings are excluded)
 
-> However, when checking the compiled binary, "&imx6_suspend - 4" just
-> contained padding rather than the hash, so the copied 4-byte value
-> didn't match what the call site expected.
+ - !pmd_present() branch rejects device-private and migration entries
 
-How did you verify this? Can you share the command line invocations and out=
-put?
+ - present zone device PMD (device coherent THP) is not filtered.
+   Unlike vm_normal_page_pmd(), it performs no special/pfnmap check,
+   and would be marked lazyfree here.
 
->
-> Yo'av
+Bail out when the folio is a zone device folio.
 
+Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ mm/huge_memory.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index ced400f72d43a..714773695bbff 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2381,6 +2381,10 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 	}
+ 
+ 	folio = pmd_folio(orig_pmd);
++
++	if (folio_is_zone_device(folio))
++		goto out;
++
+ 	/*
+ 	 * If other processes are mapping this folio, we couldn't discard
+ 	 * the folio unless they all do MADV_FREE so let's skip the folio.
+-- 
+2.53.0-Meta
 
---=20
-Thanks,
-~Nick Desaulniers
