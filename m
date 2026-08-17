@@ -1,39 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23C34399F8;
-	Mon, 17 Aug 2026 14:54:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8303643F089;
+	Mon, 17 Aug 2026 14:54:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786978475; cv=none; b=k3o/DYMBL4brbZMHKRB7FAxx/W9xnzer86cK419UPeDronX8Pzc2tNHhdouU4pzlROlA62qVhiOKL534bvDCN9V6ZNzKdVjPRBym03W6Ad0vMsBRMf4qjE01k/uS3lPiqHkapcovSowQ8n50+fG8zPX4IUwSy+qUNiUiwGqdYKU=
+	t=1786978481; cv=none; b=tmPjmtFiLar3KVV543e8X1WEK8Aw/ZlYwhddAKovkFCsjDnzTTRW3DuGDoKlbw+AMDDRY4tTJOcDYgXm9ECb5A8QdFQXrfBzqduc6V9FKLjSrRwTHqOZOFRTeLhGk3NR7PKEdXT5cPwIdrUOmVe4rTmkxrR89h3YXgdbxSrz9fQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786978475; c=relaxed/simple;
-	bh=ohE5EPTUERhn3NGJHwRlmnJGWsemlIzbuEL/mMd6JJE=;
+	s=arc-20240116; t=1786978481; c=relaxed/simple;
+	bh=NFPqUCWOm4qQyyd9SuC/KHhmiLxN+zynDEXqhkdY+fI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A8tt7fj+2EdwNsRiOjDBEFVC/vITh2gt/7VDkqPCAbIhkEbxRnep64KV0srrRlb8YyL7yq3JEI1iZLKCwsHMnSJW8IsETXGUNnjQKyY1NoYXAcXI5/CIJvv1sBtmDle9Oy6Ahon8uYRr7zSyiEE64/vsgF4b3a8S0a1I6Vl3Nik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IrMoTeol; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Fwi82gPIYw5SAJs1IE7zd9YiYGGd8u5mPM8pmvc0TKUNc36uYDIauVcvTRNySm3O7M8ftv9aQB00GHItIq0TKIT+ihCnMk6guaz2Ig198NXQL2KPiHYZKgsN9b3relJgfdUwUb/rVArQn7UPWZO+GKSCH8Dimd+NMP1PnySTm5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZsbMQpYK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IrMoTeol"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080721F000E9;
-	Mon, 17 Aug 2026 14:54:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZsbMQpYK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4AA41F00A3D;
+	Mon, 17 Aug 2026 14:54:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786978473;
-	bh=czMy6j+olyWiJ14kT2Ja37CiFr9lPm7/6+IAvRWpbsk=;
+	s=korg; t=1786978476;
+	bh=CdgdFbil1zpqeWLFU8NgAlMh5rS+MyxNwqRsrqbd7i0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IrMoTeol/8BiNDt2D2YyJ4NEgQKuoXp71nWWgpjAmtdt/c1zdWcaClVvImAGD0D3v
-	 U5cAMSrWYoJsSps/PFBMfyxt+/DD+qTrZ1mmuoS9clfjhAJLgaPSUScmksUt6yj4yO
-	 leIOjFR5r4eiS05d0icaW4rRZrZM8+cBz4StYilI=
+	b=ZsbMQpYKb5/Ns7t/PeQGfHLh86Jx4SG8spI7hmCG5DJ/VFzZWgA/lFiZK0PvAL9yp
+	 qtfBOgNsvaXoWpWvYRZ+7ZUWsU+cvo17NhtGINd7/8BQggH7m3RmT3dhbZ4TxVQIXB
+	 Hrolgf6NdtDeanoXmHEHVaWwxOrbdNEhHLBfF/hM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+22c3218a6fa219e47321@syzkaller.appspotmail.com,
-	Eric Dumazet <edumazet@google.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Breno Leitao <leitao@debian.org>,
+	Dust Li <dust.li@linux.alibaba.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 050/156] net: remove WARN_ON_ONCE() from sk_mc_loop()
-Date: Mon, 17 Aug 2026 15:33:04 +0200
-Message-ID: <20260817132536.551178595@linuxfoundation.org>
+Subject: [PATCH 6.6 051/156] net/smc: fix TOCTOU race between smc_listen_out() and listener close
+Date: Mon, 17 Aug 2026 15:33:05 +0200
+Message-ID: <20260817132536.589861327@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132534.666299318@linuxfoundation.org>
 References: <20260817132534.666299318@linuxfoundation.org>
@@ -52,43 +54,69 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Eric Dumazet <edumazet@google.com>
+From: Sidraya Jayagond <sidraya@linux.ibm.com>
 
-[ Upstream commit b8a39a09ae4eaae04309e1e38ed6a1101d967496 ]
+[ Upstream commit 185a4caeecabc150106deda1da170b09f2ad803f ]
 
-sk_mc_loop() can be called for sockets that are neither AF_INET
-nor AF_INET6 (e.g. AF_PACKET sockets when sending packets via raw/packet
-socket over virtual devices such as VRF or ipvlan).
+smc_listen_out() reads lsmc->sk.sk_state without the listener lock,
+then acquires lock_sock_nested() only after the check passes. This
+opens a window where smc_close_active() can transition the listener
+to SMC_CLOSED, call smc_close_cleanup_listen() to drain the accept
+queue, and release the lock, all between the lockless read and the
+delayed lock acquisition:
 
-In such cases, sk_family is not AF_INET/AF_INET6 and sk_mc_loop() falls
-through the switch statement and triggers WARN_ON_ONCE(1).
+  smc_listen_work (smc_hs_wq)          smc_close_active()
+  -------------------------------      -------------------------
+  release_sock(child)
+  if (sk_state == SMC_LISTEN) TRUE
+                                        lock_sock(listener)
+                                        sk_state = SMC_CLOSED
+                                        smc_close_cleanup_listen()
+                                        release_sock(listener)
+                                        flush_work(tcp_listen_work)
+  lock_sock_nested(listener)
+  smc_accept_enqueue(listener, child) /* child enqueued on dead listener */
 
-Non-INET sockets do not support IP_MULTICAST_LOOP or IPV6_MULTICAST_LOOP
-options, so loopback should default to true without generating a warning.
+smc_close_active() flushes only tcp_listen_work. Work items already
+dispatched onto smc_hs_wq for the CLC handshake continue running
+unguarded. smc_accept_enqueue() takes a sock_hold() on the child that
+is never released, so the child smc_sock, its clcsock, and the
+reference all leak. A remote peer that opens TCP connections while the
+server calls close() can exhaust kernel memory.
 
-Fixes: f60e5990d9c1 ("ipv6: protect skb->sk accesses from recursive dereference inside the stack")
-Reported-by: syzbot+22c3218a6fa219e47321@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/6a72024c.13623e66.bdc14.0019.GAE@google.com/T/#u
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260804152048.2134341-1-edumazet@google.com
+Move lock_sock_nested() to before the sk_state check so that the test
+and the enqueue are atomic under the listener lock.
+
+Fixes: fd57770dd198 ("net/smc: wait for pending work before clcsock release_sock")
+Reviewed-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Signed-off-by: Sidraya Jayagond <sidraya@linux.ibm.com>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
+Link: https://patch.msgid.link/20260803070701.126339-1-sidraya@linux.ibm.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/sock.c | 1 -
- 1 file changed, 1 deletion(-)
+ net/smc/af_smc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/core/sock.c b/net/core/sock.c
-index 87e6060c8bca7..846e95805c199 100644
---- a/net/core/sock.c
-+++ b/net/core/sock.c
-@@ -776,7 +776,6 @@ bool sk_mc_loop(struct sock *sk)
- 		return inet6_sk(sk)->mc_loop;
- #endif
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index e5e07160e5719..087102ff3c640 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -1921,11 +1921,12 @@ static void smc_listen_out(struct smc_sock *new_smc)
+ 		atomic_dec(&lsmc->queued_smc_hs);
+ 
+ 	release_sock(newsmcsk); /* lock in smc_listen_work() */
++	lock_sock_nested(&lsmc->sk, SINGLE_DEPTH_NESTING);
+ 	if (lsmc->sk.sk_state == SMC_LISTEN) {
+-		lock_sock_nested(&lsmc->sk, SINGLE_DEPTH_NESTING);
+ 		smc_accept_enqueue(&lsmc->sk, newsmcsk);
+ 		release_sock(&lsmc->sk);
+ 	} else { /* no longer listening */
++		release_sock(&lsmc->sk);
+ 		smc_close_non_accepted(newsmcsk);
  	}
--	WARN_ON_ONCE(1);
- 	return true;
- }
- EXPORT_SYMBOL(sk_mc_loop);
+ 
 -- 
 2.53.0
 
