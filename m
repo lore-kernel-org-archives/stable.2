@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B57041D205
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:43:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6BE41D22A
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:43:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786970613; cv=none; b=cTd601BJyv6OKOjTuXedk3yf690Wt2WDISVcNPRADjRq7sX30KNEtdhma/WUNnOOoQ3n7WX+g+xs39oayIlesr+AUUfDhbuSd1kmR9pccV2krDoJTosENKirhftVpfUu7Tb24QzfmhvEeikAVIZ7iGcBayd0GOApr+zhQil1lms=
+	t=1786970618; cv=none; b=UWxL7ba68Wpfc0kbJYQ1kETZw9M7dAXzzedVX/hsz4eox+pWA1VNYcIiA0vSgteqVPUNm/POdoZzZhwZAr/tMcdtEUYaaTzhWfWpnYfFqGL0L/J+Z68puDmTWHVLJezojct9ZKD3r8vMn3xKBqEJ3mJlENtq2oFZHF8m8PBnTNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786970613; c=relaxed/simple;
-	bh=CsXP2s1iZXE1+R4iprwIk89vphk+CfU/v08LymtODWE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sMubPYj3pTLhZvemKU0Bqc2dWTT/D9Geoi1T6lDqsYJbjWYBi50IhI1Dtkiy/gUPt6Puzn/IpYcF/gc/OW4JBxUAnknAnQ3Tp8RvZQMAszf98vul0SgSI9CHI7yPhc/DnEqFukaGBlBEvPgyu1Yl5EEAVB41DLs+Va//SB/ae7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NFrHV8TF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786970618; c=relaxed/simple;
+	bh=6UUXXxCzKW7582Xa7MlPUIzME0Cb9X0X8D91FaPWcVI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qzwSppN1EPX9hWWgPd6wcQJ+/R5jemdTNiS1lRYVjwJ1LPlAs9kw5VkEWMGevnW5/IEhc4JLVfE+2Fl9g5C8Uzecgc0bGPHBlsj+oJ+maeoHS8z8m0P64q9ZyHDp1usPGfezO+bJgz1sQ3S3KujNhF3U2SpkDj+gLn81MfoAVMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=17ajr2TQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NFrHV8TF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C2B1F000E9;
-	Mon, 17 Aug 2026 12:43:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="17ajr2TQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 108271F000E9;
+	Mon, 17 Aug 2026 12:43:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786970612;
-	bh=ODQZAkESdQL3C75yHdbxJXseUYKirl96MpH3+OfhU1E=;
+	s=korg; t=1786970617;
+	bh=ZBLx9B5SgdynooWSakiuih/A8m1br3+IgIcng5M4Qlo=;
 	h=Subject:To:Cc:From:Date;
-	b=NFrHV8TFI09/ZCd/laZTR9aHDEd+4fB2jwvkB3xDQ0i0n106NW3XGVW+puI+I5UrP
-	 AhhS/MDfrdMqI7y9pgcUQ8JV+cfY0uFynexAIPfEQ2pkUeENFkuk5Drj9SmqqD184O
-	 LGwdG9V+d8WloIluxbS5OH+K+DxVrbfckfve7zrI=
-Subject: FAILED: patch "[PATCH] net: smc: fix splice entry lifetime imbalance in" failed to apply to 5.10-stable tree
-To: d4n.for.sec@gmail.com,dust.li@linux.alibaba.com,enjou1224z@gmail.com,kuba@kernel.org,lx24@stu.ynu.edu.cn,sidraya@linux.ibm.com,vega@nebusec.ai
+	b=17ajr2TQOtiY8WmNtog4pc2KFK2Mo7NLDDKm4FQv7oU5LEIkQlEubhueU3OudT0cJ
+	 5jMGH7y53DkUn+u3WjUA624FHDNLmmMqs3hoCVxIy/PCN1b5bTUTYo+D8wvOczNQ9j
+	 qKlLNlOQRN89q/bd7QxnJbF9/Kg8nkj2MUGkMed4=
+Subject: FAILED: patch "[PATCH] net/x25: fix use-after-free of the socket by its timers" failed to apply to 6.12-stable tree
+To: baul.lee@xbow.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:41:11 +0200
-Message-ID: <2026081711-stamina-rebuttal-bfcf@gregkh>
+Date: Mon, 17 Aug 2026 14:41:41 +0200
+Message-ID: <2026081741-fasting-obtuse-fd95@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5d9686af2976741bbd79b150d1c9e60b81e7f12e
+git cherry-pick -x 2195424c3da2ef1829a63b807e3a900a90e57d85
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081711-stamina-rebuttal-bfcf@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081741-fasting-obtuse-fd95@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,84 +62,153 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5d9686af2976741bbd79b150d1c9e60b81e7f12e Mon Sep 17 00:00:00 2001
-From: Daming Li <d4n.for.sec@gmail.com>
-Date: Thu, 30 Jul 2026 22:55:52 +0800
-Subject: [PATCH] net: smc: fix splice entry lifetime imbalance in
- smc_rx_splice
+From 2195424c3da2ef1829a63b807e3a900a90e57d85 Mon Sep 17 00:00:00 2001
+From: Baul Lee <baul.lee@xbow.com>
+Date: Mon, 27 Jul 2026 07:03:42 +0900
+Subject: [PATCH] net/x25: fix use-after-free of the socket by its timers
 
-smc_rx_splice() passes pages to splice_to_pipe() before taking the
-references that cover the lifetime of each splice entry. In the
-VM-backed RMB path, splice_to_pipe() may drop unqueued entries through
-smc_rx_spd_release(), while queued entries are released later via the
-pipe buffer callback.
+The x25 timers are armed with mod_timer() and cancelled with
+timer_delete(), so a pending timer holds no reference on the socket and a
+cancel does not wait for a callback already running on another CPU.
 
-The old post-splice accounting also derives the number of queued VM pages
-from an offset mutated while building the descriptor, and a multi-page
-splice pairs one sock_hold() with multiple sock_put() calls.
+x25_heartbeat_expiry() also rearms unconditionally, so it can reinstall
+sk->sk_timer after __x25_destroy_socket() has passed its cancel point.
+The following __sock_put() frees the socket while the timer is still
+queued, and the next expiry uses freed memory.  KASAN reports a
+slab-use-after-free on the kmalloc-2k object freed by close().
 
-Take the page and socket references for every candidate entry before
-splice_to_pipe(), and drop the matching private state, page reference,
-and socket reference from smc_rx_spd_release() for entries that never
-get queued. This fixes a refcount imbalance that can underflow page
-refcounts and trigger a use-after-free.
+timer_delete_sync() cannot be used here: x25_heartbeat_expiry() and
+x25_timer_expiry() both reach the cancels from inside the timer they
+would wait on, through __x25_destroy_socket() and x25_disconnect().
 
-Fixes: 9014db202cb7 ("smc: add support for splice()")
+Arm the timers with sk_reset_timer() and cancel them with sk_stop_timer()
+so that an armed timer owns a reference, and release it in both expiry
+handlers.  Rearm the heartbeat only while sk_hashed(sk) is still true,
+since __x25_destroy_socket() unlinks the socket before dropping it.  Arm
+the deferred destroy timer the same way and drop its reference in
+x25_destroy_timer().
+
+Reproduced on net with KASAN, with the heartbeat period shortened so the
+window recurs.  With this patch the reproducer no longer triggers a
+report and /proc/net/x25 drains.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Co-developed-by: Xiao Liu <lx24@stu.ynu.edu.cn>
-Signed-off-by: Xiao Liu <lx24@stu.ynu.edu.cn>
-Signed-off-by: Daming Li <d4n.for.sec@gmail.com>
-Signed-off-by: Ren Wei <enjou1224z@gmail.com>
-Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
-Reviewed-by: Sidraya Jayagond <sidraya@linux.ibm.com>
-Link: https://patch.msgid.link/20260730145552.360287-2-enjou1224z@gmail.com
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Link: https://patch.msgid.link/20260726220342.47245-1-baul.lee@xbow.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/smc/smc_rx.c b/net/smc/smc_rx.c
-index c1d9b923938d..5c9e4d8b57de 100644
---- a/net/smc/smc_rx.c
-+++ b/net/smc/smc_rx.c
-@@ -150,7 +150,12 @@ static const struct pipe_buf_operations smc_pipe_ops = {
- static void smc_rx_spd_release(struct splice_pipe_desc *spd,
- 			       unsigned int i)
- {
-+	struct smc_spd_priv *priv = (struct smc_spd_priv *)spd->partial[i].private;
-+	struct sock *sk = &priv->smc->sk;
-+
-+	kfree(priv);
- 	put_page(spd->pages[i]);
+diff --git a/net/x25/af_x25.c b/net/x25/af_x25.c
+index 8aae9273b7c1..033e7d059f58 100644
+--- a/net/x25/af_x25.c
++++ b/net/x25/af_x25.c
+@@ -363,6 +363,7 @@ static void x25_destroy_timer(struct timer_list *t)
+ 	struct sock *sk = timer_container_of(sk, t, sk_timer);
+ 
+ 	x25_destroy_socket_from_timer(sk);
 +	sock_put(sk);
  }
  
- static int smc_rx_splice(struct pipe_inode_info *pipe, char *src, size_t len,
-@@ -209,6 +214,10 @@ static int smc_rx_splice(struct pipe_inode_info *pipe, char *src, size_t len,
- 			offset = 0;
- 		}
- 	}
-+	for (i = 0; i < nr_pages; i++) {
-+		get_page(pages[i]);
-+		sock_hold(&smc->sk);
-+	}
- 	spd.nr_pages_max = nr_pages;
- 	spd.nr_pages = nr_pages;
- 	spd.pages = pages;
-@@ -217,16 +226,8 @@ static int smc_rx_splice(struct pipe_inode_info *pipe, char *src, size_t len,
- 	spd.spd_release = smc_rx_spd_release;
+ /*
+@@ -398,9 +399,8 @@ static void __x25_destroy_socket(struct sock *sk)
  
- 	bytes = splice_to_pipe(pipe, &spd);
--	if (bytes > 0) {
--		sock_hold(&smc->sk);
--		if (!lgr->is_smcd && smc->conn.rmb_desc->is_vm) {
--			for (i = 0; i < PAGE_ALIGN(bytes + offset) / PAGE_SIZE; i++)
--				get_page(pages[i]);
--		} else {
--			get_page(smc->conn.rmb_desc->pages);
--		}
-+	if (bytes > 0)
- 		atomic_add(bytes, &smc->conn.splice_pending);
--	}
- 	kfree(priv);
- 	kfree(partial);
- 	kfree(pages);
+ 	if (sk_has_allocations(sk)) {
+ 		/* Defer: outstanding buffers */
+-		sk->sk_timer.expires  = jiffies + 10 * HZ;
+ 		sk->sk_timer.function = x25_destroy_timer;
+-		add_timer(&sk->sk_timer);
++		sk_reset_timer(sk, &sk->sk_timer, jiffies + 10 * HZ);
+ 	} else {
+ 		/* drop last reference so sock_put will free */
+ 		__sock_put(sk);
+diff --git a/net/x25/x25_timer.c b/net/x25/x25_timer.c
+index 2ec63a1f4c6d..7896cd43f1cc 100644
+--- a/net/x25/x25_timer.c
++++ b/net/x25/x25_timer.c
+@@ -36,45 +36,45 @@ void x25_init_timers(struct sock *sk)
+ 
+ void x25_start_heartbeat(struct sock *sk)
+ {
+-	mod_timer(&sk->sk_timer, jiffies + 5 * HZ);
++	sk_reset_timer(sk, &sk->sk_timer, jiffies + 5 * HZ);
+ }
+ 
+ void x25_stop_heartbeat(struct sock *sk)
+ {
+-	timer_delete(&sk->sk_timer);
++	sk_stop_timer(sk, &sk->sk_timer);
+ }
+ 
+ void x25_start_t2timer(struct sock *sk)
+ {
+ 	struct x25_sock *x25 = x25_sk(sk);
+ 
+-	mod_timer(&x25->timer, jiffies + x25->t2);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t2);
+ }
+ 
+ void x25_start_t21timer(struct sock *sk)
+ {
+ 	struct x25_sock *x25 = x25_sk(sk);
+ 
+-	mod_timer(&x25->timer, jiffies + x25->t21);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t21);
+ }
+ 
+ void x25_start_t22timer(struct sock *sk)
+ {
+ 	struct x25_sock *x25 = x25_sk(sk);
+ 
+-	mod_timer(&x25->timer, jiffies + x25->t22);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t22);
+ }
+ 
+ void x25_start_t23timer(struct sock *sk)
+ {
+ 	struct x25_sock *x25 = x25_sk(sk);
+ 
+-	mod_timer(&x25->timer, jiffies + x25->t23);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t23);
+ }
+ 
+ void x25_stop_timer(struct sock *sk)
+ {
+-	timer_delete(&x25_sk(sk)->timer);
++	sk_stop_timer(sk, &x25_sk(sk)->timer);
+ }
+ 
+ unsigned long x25_display_timer(struct sock *sk)
+@@ -108,7 +108,7 @@ static void x25_heartbeat_expiry(struct timer_list *t)
+ 			     sock_flag(sk, SOCK_DEAD))) {
+ 				bh_unlock_sock(sk);
+ 				x25_destroy_socket_from_timer(sk);
+-				return;
++				goto out;
+ 			}
+ 			break;
+ 
+@@ -120,8 +120,14 @@ static void x25_heartbeat_expiry(struct timer_list *t)
+ 			break;
+ 	}
+ restart_heartbeat:
+-	x25_start_heartbeat(sk);
++	/* Do not rearm once __x25_destroy_socket() has unlinked the socket:
++	 * it is past its cancel point and owns the teardown from there on.
++	 */
++	if (sk_hashed(sk))
++		x25_start_heartbeat(sk);
+ 	bh_unlock_sock(sk);
++out:
++	sock_put(sk);
+ }
+ 
+ /*
+@@ -166,4 +172,5 @@ static void x25_timer_expiry(struct timer_list *t)
+ 	} else
+ 		x25_do_timer_expiry(sk);
+ 	bh_unlock_sock(sk);
++	sock_put(sk);
+ }
 
