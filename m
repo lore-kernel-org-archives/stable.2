@@ -1,165 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC013ED5A7
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CAF73E63AA
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:50:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786967451; cv=none; b=ntzonH/nl8s8ud1b85M5Tqa91lglsJM9sKNjtpUGbplG4dG4TCzFg3P+SNvsAMdg8tGgJng1uGDbxYdBrRu2SHkenwsg8VF+kFirPo+AzpWkmOMXPBINUx6towTCuIfmEsW5gR8Ttz6tfpb6tTEiRkJGWcechiHY2UwBb3Hu99M=
+	t=1786967456; cv=none; b=bBzFVel5/mNhHQwMGN8FvPAB5Vj5imkXvj7M7/HsZF4l0AkVToSgZyVvXBWW62tG87CNhvJajcplxCFE3DQJcWW2QBWBO42tbAIRXJnqd/DDSbpGNSEgpw6NyoXpB63frIXH2vz8DCre/ZYbWJUsycTf9jIzDVf2wsQZuYnVJN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786967451; c=relaxed/simple;
-	bh=D5HP+wakGBFQCdzs+LJCskaCLO9aQ5he8OO99C85Wbc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C7dbyjUtIoc0A9BTjP/pzbu3zaqhGh44ZshIzarMzvZCpXNUY1EKrsWtUT2bqz+LausdUQBm/bBN2BaYOo8eH67wef5mOOR6PaD0lgcdV2UNcLfdtHGLYIkYxV111ciE6bHPXRIkKvzjJLKLXLNCTTBYE4gugx14BmOmbl1RdI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hEwrLxe/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786967456; c=relaxed/simple;
+	bh=rwJNIapA800sCs366jCkk8FA1RafH1+/r936kftYCMM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PgI8CipaCiLxf6orG4Th/SOwN8uDSHOfD4lgyuJdZMfzscdzwWKXUYGQ6VhStEm1iWnVraTRp+6ukwvDoPqE7FLzIXzMSUkjwaS7E5gsVU5n1AGRyIwyhK968ab49BGTysLwUyey8iRdvLKNYde84dAok/VfAr87quLeijQqE6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=j6/ndEV9; arc=none smtp.client-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hEwrLxe/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC201F000E9;
-	Mon, 17 Aug 2026 11:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786967449;
-	bh=kRgn2lowjkFKlupS2TjbMQS/6iXzFIgyh9KR85ww4JE=;
-	h=Subject:To:Cc:From:Date;
-	b=hEwrLxe/sOLHz01acSFFDZL4niAwS2Si2FIkx3lOBQgoSaS/FVLYZSk53Y9XX8YVS
-	 FbkEDcHyx0VniZxqsZmXBCShHETGJP07I2fsxHb/AxGDJqO+waq3NmN+tx6X9kpgqO
-	 MFZHxg9rP8uXxBB97wvVeWJiStb/Lsm+ZmuQ4Rdk=
-Subject: FAILED: patch "[PATCH] packet: use consistent hard_header_len in TX_RING send path" failed to apply to 6.1-stable tree
-To: q.h.hack.winter@gmail.com,kuba@kernel.org,willemb@google.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 13:50:45 +0200
-Message-ID: <2026081745-brisket-pastime-f9bb@gregkh>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="j6/ndEV9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1786967442; x=1787226642;
+	bh=+ORQCulCc5ZwcXJKsviVRkoHboXo/P7l/HLfq2cCUS0=;
+	h=From:Date:Subject:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=j6/ndEV9kGMsmGayX+8qfSwHTpgf1NN4VeoHRPsn3d8fzPB3I1lznz3hiHS3dyOZB
+	 Gb93WTf7Tl7yUi4ZPmMTq2IrsadhRa/Nc3idCZQd1+bIn5jCzfdRMA97n4pIVKnkq5
+	 +dSmh5W5l6O8EbSaYqOWUtkhuTFkKsBv8SBvMj5Lol5Blc9Vn6eW1+fCzyQ5oBJRPi
+	 5H+prC6n1xDF7TNQ6VKD3xE2PEpng/DL9hlfrEiBFv+NMF+lqjjtip+dKGl2rdyPzG
+	 29AE6GaNrDew09CbALUgRw+4Ae53+ZyaWIfmiR6DgKOyUT8WzkYRaaBFqV8iXLExg2
+	 Z3bUbJiYpuPgQ==
+X-Pm-Submission-Id: 4hNrkR4Qdqz1DDs3
+From: Esben Haabendal <esben@geanix.com>
+Date: Mon, 17 Aug 2026 13:50:27 +0200
+Subject: [PATCH] Input: gpio_decoder - fix bit order reversal introduced by
+ bitmap conversion
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260817-gpio-decoder-bitrev-v1-1-6ffb77e323b8@geanix.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrE1CQ4mriIV2BmOh0iIScXfF8
+ i3+vyCwFw7QJBd4PiSIWyLyNAE79cvIKBQNKlM6q/MKx1UcEltH7NHIFiNURVmRrgfSykAsV8+
+ DnN+17X6H3cxst3cF9/0Ayip+PHcAAAA=
+X-Change-ID: 20260817-gpio-decoder-bitrev-2457d68fd62b
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Esben Haabendal <esbenhaabendal@gmail.com>, 
+ Esben Haabendal <esben@geanix.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786967438; l=1881;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=rwJNIapA800sCs366jCkk8FA1RafH1+/r936kftYCMM=;
+ b=Nd1TOhgVXbsJnhZ6kENTdL98wgw1fWm+J8b+Er2ez/EEKVBT8la+xUaciXbdu8myVomJhwAPs
+ Fytk6IkgPFfBEuQb7sm6D8ozdVFs3JE6ouJbBj0b3JT7leVGwRdH2Cc
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
+The switch from a manual loop to gpiod_get_array_value_cansleep() +
+bitmap_read() inadvertently reversed the bit order of the decoded value.
+The original loop treated GPIO[0] as MSB by shifting left on each
+iteration, but bitmap_read() returns GPIO[0] at bit 0 (LSB).
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+The previous bit order was correct according to device-tree bindings, and
+the change broke existing users.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 21b5953e7494c16a42e6cd8cf110e18d13ae4a6b
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081745-brisket-pastime-f9bb@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 21b5953e7494c16a42e6cd8cf110e18d13ae4a6b Mon Sep 17 00:00:00 2001
-From: Qihang Tang <q.h.hack.winter@gmail.com>
-Date: Wed, 5 Aug 2026 20:57:29 +0800
-Subject: [PATCH] packet: use consistent hard_header_len in TX_RING send path
-
-tpacket_snd() reads dev->hard_header_len independently for skb
-allocation and header construction in tpacket_fill_skb(). Concurrent
-netdevice reconfiguration can therefore make the reserved headroom
-smaller than the amount later pushed, or make copylen - hard_header_len
-negative.
-
-Snapshot hard_header_len once before processing ring frames and use it
-for the frame limit, headroom allocation, copy length, and skb
-construction. Pass the snapshot to tpacket_fill_skb().
-
-The separate SOCK_DGRAM consistency problem between hard_header_len and
-header_ops->create is not addressed here.
-
-Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
+Fixes: 4eec8772e4f5 ("Input: gpio_decoder - replace custom loop by gpiod_get_array_value_cansleep()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260805125729.19220-4-q.h.hack.winter@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Esben Haabendal <esbenhaabendal@gmail.com>
+---
+The refactoring from a custom loop to gpiod_get_array_value_cansleep() +
+bitmap_read() caused the bit order to be changed from reading MSB first to
+LSB first.
 
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index b7af45c809e4..435756877aba 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -2587,6 +2587,7 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
- static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
- 		void *frame, struct net_device *dev, void *data, int tp_len,
- 		__be16 proto, unsigned char *addr, int hlen, int copylen,
-+		int hard_header_len,
- 		const struct sockcm_cookie *sockc)
- {
- 	union tpacket_uhdr ph;
-@@ -2618,8 +2619,8 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
- 	} else if (copylen) {
- 		int hdrlen = min_t(int, copylen, tp_len);
+The device-tree bindings explicitly states that that it should be MSB
+first, and the change obviously is a regression for existing users.
+
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+ drivers/input/misc/gpio_decoder.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/input/misc/gpio_decoder.c b/drivers/input/misc/gpio_decoder.c
+index 0e4a49845afa..055bfcbd5235 100644
+--- a/drivers/input/misc/gpio_decoder.c
++++ b/drivers/input/misc/gpio_decoder.c
+@@ -7,6 +7,7 @@
+  */
  
--		skb_push(skb, dev->hard_header_len);
--		skb_put(skb, copylen - dev->hard_header_len);
-+		skb_push(skb, hard_header_len);
-+		skb_put(skb, copylen - hard_header_len);
- 		err = skb_store_bits(skb, 0, data, hdrlen);
- 		if (unlikely(err))
- 			return err;
-@@ -2750,7 +2751,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 	void *data;
- 	int len_sum = 0;
- 	int status = TP_STATUS_AVAILABLE;
--	int hlen, tlen, copylen = 0;
-+	int hard_header_len, hlen, tlen, copylen = 0;
- 	long timeo;
- 
- 	mutex_lock(&po->pg_vec_lock);
-@@ -2797,8 +2798,9 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto out_put;
+ #include <linux/bitmap.h>
++#include <linux/bitrev.h>
+ #include <linux/dev_printk.h>
+ #include <linux/device/devres.h>
+ #include <linux/err.h>
+@@ -39,7 +40,7 @@ static int gpio_decoder_get_gpios_state(struct gpio_decoder *decoder)
+ 		return err;
  	}
  
-+	hard_header_len = READ_ONCE(dev->hard_header_len);
- 	if (po->sk.sk_socket->type == SOCK_RAW)
--		reserve = dev->hard_header_len;
-+		reserve = hard_header_len;
- 	size_max = po->tx_ring.frame_size
- 		- (po->tp_hdrlen - sizeof(struct sockaddr_ll));
+-	return bitmap_read(values, 0, size);
++	return bitrev32(bitmap_read(values, 0, size)) >> (32 - size);
+ }
  
-@@ -2835,7 +2837,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto tpacket_error;
- 
- 		status = TP_STATUS_SEND_REQUEST;
--		hlen = LL_RESERVED_SPACE(dev);
-+		hlen = LL_RESERVED_SPACE_EX(dev, hard_header_len);
- 		tlen = dev->needed_tailroom;
- 		if (vnet_hdr_sz) {
- 			data += vnet_hdr_sz;
-@@ -2853,10 +2855,10 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 						    vnet_hdr.hdr_len);
- 			has_vnet_hdr = true;
- 		}
--		copylen = max_t(int, copylen, dev->hard_header_len);
-+		copylen = max_t(int, copylen, hard_header_len);
- 		skb = sock_alloc_send_skb(&po->sk,
- 				hlen + tlen + sizeof(struct sockaddr_ll) +
--				(copylen - dev->hard_header_len),
-+				(copylen - hard_header_len),
- 				!need_wait, &err);
- 
- 		if (unlikely(skb == NULL)) {
-@@ -2866,7 +2868,8 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto out_status;
- 		}
- 		tp_len = tpacket_fill_skb(po, skb, ph, dev, data, tp_len, proto,
--					  addr, hlen, copylen, &sockc);
-+					  addr, hlen, copylen, hard_header_len,
-+					  &sockc);
- 		if (likely(tp_len >= 0) &&
- 		    tp_len > dev->mtu + reserve &&
- 		    !vnet_hdr_sz &&
+ static void gpio_decoder_poll_gpios(struct input_dev *input)
+
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260817-gpio-decoder-bitrev-2457d68fd62b
+
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
 
