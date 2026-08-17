@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344B23EA979;
-	Mon, 17 Aug 2026 13:47:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A67432309;
+	Mon, 17 Aug 2026 13:47:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786974478; cv=none; b=gOORHmrFiR5qqNoGKIpwb3IOunwfB4u/ubgvq6Jee4LQ9wqfx4N7bClZVRQJOTaGkQ7fLZi8DTsCP/gBr9PkhKkzYty3zCD7oksvHY/lBBYA7puVVbiqCDXgrX9Ne1M7jDH7eoT3w0hoTxZpWx7iBD2BmaJ2meMmTxjIw4cYGlU=
+	t=1786974484; cv=none; b=pQP6mmiAxvHCkCASkWWxsCSH1lpm2ihDvvZ1JibvP/JgByk5HFij2+YyUC7s5Uq01bGqHHSiX9f4oYeBV35sBt4ht4Ecl6/kEzGizyT/bjMcLAHai5Ciy6kHYKFMwgVMBEuLdkCTwh5x3L5vz8H/dQHHkIiDjDirwK7vokO5Ydg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786974478; c=relaxed/simple;
-	bh=10pdNGn6N09DdAefvwR9bR8m/AXwyr4AF2hKxDVP3GI=;
+	s=arc-20240116; t=1786974484; c=relaxed/simple;
+	bh=lj/gl8tt9tV3kj1h7dVnnMJxWmJ5tm+nbQuSurZVyDY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sh5mNc7NGYQs/SiicmiU23GtIGxczKialm34KNDVOenZqyuQrG4DNDSxuOi+et5qQEeixcu9zSg/MbRFm5EBKQT/QnmJQoFvIvkTp8mvcZZpLL9TbbUgrI5pAXO0biCJb2dTU7hA84rpWPFgzfrvDPx6QDyqMF48ToTmG6qF0K4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ozFFc8Rh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=q5/1C/nwwMdkIYb3bMQSzFLpvKZao4hwFJUNO8jjg+lOxelIlfxhohHnTz2UBwgv/ui9yXkIRFw9klW8YOQ1bPnkrvefhej+72Nll8vhwIa/wqr5FSsfqDK2p+rB9UxvFuP0HzLrrd6cBozst+LeFnqhRi3KpIBvXCM6sOVYHx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PANr62Jf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ozFFc8Rh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46DDC1F000E9;
-	Mon, 17 Aug 2026 13:47:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PANr62Jf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150D31F00ADB;
+	Mon, 17 Aug 2026 13:47:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786974471;
-	bh=Ij7iqqfUJsbphNLHvYoglR/A8uU/ADjVCyZvhwba8lk=;
+	s=korg; t=1786974477;
+	bh=vqY3DmTPyGuAByegfzBKq1FE1BkMSFq1Y2lGR4suuIw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ozFFc8Rhec4i6WXzmYIni39nge3d/qQUqb7X40iSvIlmmmtUoCqHCpX1YSPcgOj6C
-	 UgLBwPFaZJxttrxNJHbPIkuBtD2fsll8stDaxy8GkQhMVngxL9+YaApYaUApiLuDzi
-	 LC1QD2gXepxQJo4E6CRrRsQu1UA3/P/OrZH5YjXQ=
+	b=PANr62JfjZIbchf2W1QIlZHogtYdwY9m7R6NcaznzOJQYZc8LkMb0a2P14qE3+vft
+	 /8PxnHL2okh8ANwgzeAJQAdzuPoT/5cPmat1GD46dnQYtgRoIMzgNscEx2DnBXQJKF
+	 NbJ+eIqCpuPGlQl0oDNP5iEH348ZT2PZ4OMKX2Cg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Vega <vega@nebusec.ai>,
-	Zhiling Zou <zhilinz@nebusec.ai>,
-	Pablo Neira Ayuso <pablo@netfilter.org>
-Subject: [PATCH 7.1 218/271] netfilter: bridge: release template ct on non-IP path
-Date: Mon, 17 Aug 2026 15:32:23 +0200
-Message-ID: <20260817132545.742607118@linuxfoundation.org>
+	Sukhdeep Singh <sukhdeeps@marvell.com>,
+	Yangyu Chen <cyy@cyyself.name>,
+	Mina Almasry <almasrymina@google.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 7.1 220/271] net: atlantic: free stranded TX buffers on ring deinit
+Date: Mon, 17 Aug 2026 15:32:25 +0200
+Message-ID: <20260817132545.814080090@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
 References: <20260817132536.752504388@linuxfoundation.org>
@@ -51,41 +52,105 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Yangyu Chen <cyy@cyyself.name>
 
-commit d45cc8020d7c0a9f01dee42ff5c40bc14c9af72f upstream.
+commit 452636ea5410a96e02ebaaf80b21e3620b98e0dd upstream.
 
-A bridge nftables ct zone set rule can attach a conntrack template to
-an skb before nf_ct_bridge_pre() sees it. For non-IPv4 and non-IPv6
-EtherTypes, nf_ct_bridge_pre() currently overwrites skb->_nfct with
-IP_CT_UNTRACKED without releasing the existing template reference.
+aq_vec_deinit() drains the TX rings with a single aq_ring_tx_clean()
+call, which frees at most AQ_CFG_TX_CLEAN_BUDGET (256) descriptors and
+stops at hw_head, which no longer moves once aq_vec_stop() has stopped
+the hardware and NAPI. Completed descriptors beyond the budget and
+everything still posted in [hw_head, sw_tail) keep their skb or
+xdp_frame when the interface goes down: aq_vec_ring_free() then frees
+the buffer ring and the references are lost for good.
 
-That makes the per-cpu template, and any temporary templates allocated
-for concurrent use, unreachable and leaks memory until the host runs out
-of slab.
+Today this is a silent memory leak on every interface down under
+TX/XDP_TX load. With the conversion of the RX path to page_pool posted
+for net-next it becomes much more visible: XDP_TX frames carry fragment
+references on the RX ring's page_pool, so a single stranded frame keeps
+the pool's inflight count above zero forever. page_pool_destroy() then
+never completes, the pool is leaked together with its pages, and
+"page_pool_release_retry() stalled pool shutdown" is warned every 60
+seconds from that point on, on every ifdown, XDP detach or ring resize
+under XDP_TX load.
 
-Reset the skb conntrack state before marking the frame untracked so the
-existing template reference is dropped on the non-IP path.
+Bring back aq_ring_tx_deinit() as it was before the removal and use it
+for teardown again, with one extension: TX rings can hold xdp_frames
+nowadays, so release those too. They are returned with
+xdp_return_frame() since this runs in process context.
 
-Fixes: 3c171f496ef5 ("netfilter: bridge: add connection tracking system")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Fixes: eb36bedf28be ("net: aquantia: remove function aq_ring_tx_deinit")
+Cc: stable@vger.kernel.org # v4.11+
+Reviewed-by: Sukhdeep Singh <sukhdeeps@marvell.com>
+Signed-off-by: Yangyu Chen <cyy@cyyself.name>
+Acked-by: Mina Almasry <almasrymina@google.com>
+Link: https://patch.msgid.link/tencent_EEDC35FAF2750A3A6A0B39BAE0E2C484860A@qq.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/bridge/netfilter/nf_conntrack_bridge.c |    1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/ethernet/aquantia/atlantic/aq_ring.c |   29 +++++++++++++++++++++++
+ drivers/net/ethernet/aquantia/atlantic/aq_ring.h |    1 
+ drivers/net/ethernet/aquantia/atlantic/aq_vec.c  |    2 -
+ 3 files changed, 31 insertions(+), 1 deletion(-)
 
---- a/net/bridge/netfilter/nf_conntrack_bridge.c
-+++ b/net/bridge/netfilter/nf_conntrack_bridge.c
-@@ -280,6 +280,7 @@ static unsigned int nf_ct_bridge_pre(voi
- 		ret = nf_ct_br_defrag6(skb, &bridge_state);
- 		break;
- 	default:
-+		nf_reset_ct(skb);
- 		nf_ct_set(skb, NULL, IP_CT_UNTRACKED);
- 		return NF_ACCEPT;
+--- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
++++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
+@@ -336,6 +336,35 @@ out:
+ 	return !!budget;
+ }
+ 
++void aq_ring_tx_deinit(struct aq_ring_s *self)
++{
++	if (!self)
++		return;
++
++	for (; self->sw_head != self->sw_tail;
++		self->sw_head = aq_ring_next_dx(self, self->sw_head)) {
++		struct aq_ring_buff_s *buff = &self->buff_ring[self->sw_head];
++		struct device *ndev = aq_nic_get_dev(self->aq_nic);
++
++		if (buff->is_mapped) {
++			if (buff->is_sop) {
++				dma_unmap_single(ndev, buff->pa, buff->len,
++						 DMA_TO_DEVICE);
++			} else {
++				dma_unmap_page(ndev, buff->pa, buff->len,
++					       DMA_TO_DEVICE);
++			}
++		}
++
++		if (buff->is_eop) {
++			if (buff->skb)
++				dev_kfree_skb_any(buff->skb);
++			else if (buff->xdpf)
++				xdp_return_frame(buff->xdpf);
++		}
++	}
++}
++
+ static void aq_rx_checksum(struct aq_ring_s *self,
+ 			   struct aq_ring_buff_s *buff,
+ 			   struct sk_buff *skb)
+--- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
++++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
+@@ -199,6 +199,7 @@ void aq_ring_update_queue_state(struct a
+ void aq_ring_queue_wake(struct aq_ring_s *ring);
+ void aq_ring_queue_stop(struct aq_ring_s *ring);
+ bool aq_ring_tx_clean(struct aq_ring_s *self);
++void aq_ring_tx_deinit(struct aq_ring_s *self);
+ int aq_xdp_xmit(struct net_device *dev, int num_frames,
+ 		struct xdp_frame **frames, u32 flags);
+ int aq_ring_rx_clean(struct aq_ring_s *self,
+--- a/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
++++ b/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
+@@ -275,7 +275,7 @@ void aq_vec_deinit(struct aq_vec_s *self
+ 
+ 	for (i = 0U; self->tx_rings > i; ++i) {
+ 		ring = self->ring[i];
+-		aq_ring_tx_clean(&ring[AQ_VEC_TX_ID]);
++		aq_ring_tx_deinit(&ring[AQ_VEC_TX_ID]);
+ 		aq_ring_rx_deinit(&ring[AQ_VEC_RX_ID]);
  	}
+ 
 
 
