@@ -1,89 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901723A9871;
-	Mon, 17 Aug 2026 07:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47ED4390618
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 07:48:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786952783; cv=none; b=iGoo4cpbvNwrtN/DF1k7OXiEv+NlngENc7Novl0jwDD7X1dKOX9r6mQplKkC1cTD7nyuM7aAO0DqU240ayfaYjGBp5bIkXK9NgWtJY+zACX3jTywSQ0RtfdOamQOQiSdjtbS65KzfQ/qRFKQfcY8bF4tPGOK8iZZ48U8KmQPzxU=
+	t=1786952901; cv=none; b=ul8FYgyQjbUZXmNFpXMY98dS24JmWKAI7Es/OBJv2bKI9wGRmcry2XpnHFfvbd66ZLYOSZR099XVyOw1wfZpiCtgGyMG4b+1stOGvmCQ89QMkH6wyKmv1miaBYhiKrvNm3BzPf+GsGP4uwci0bs4LHiPRlgQYGlejtzI57P1xRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786952783; c=relaxed/simple;
-	bh=JZZXEFDYThXPDeqagEiJtWaSB7camyOFAL2f0M4H82A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EA6YNWe9n9c2MJro3eul2lpcf/i27XIn5m0X1wgU+kR2kjiA86qkfB3PMmhoIlTBt5wcVPqUoHv7gY2BGTo3PPiIoM6i8Vnd743im5HwiU+OVGRnI+RCprLzxyzX0Ys9A8aDe8oyI3Ult4BWGoc+Bt30ekLp7F+1/rPC4lcRdxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5cCwZFm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786952901; c=relaxed/simple;
+	bh=KILH+OOA0ThbcblvuVAEgdGql3C398mPUD66caEU0As=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=hc96HijE+peOrQKEnY3ooi8iHS/JEACH/ohEcrxLrg0tVfD9R0uvK80Vk/ZWKiIGlcAwg3V3TMJD7M54SqH/dNfG222fEnZvA3WkszathvRA+La6DswzHUxNGq7pYsnmMIkVvXZO4Pp3ZaC2bwxd3YXWTJdeA6uYAIIdzZ6z30g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=gaHeCdnG; arc=none smtp.client-ip=162.62.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5cCwZFm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB881F00A3A;
-	Mon, 17 Aug 2026 07:46:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786952782;
-	bh=3EvQjw+wWOIIOHZmFhG/4lQ3ETvY/zjgD1sqcMFevPY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h5cCwZFmSnkWiyzty/pQ12jW/TPWRirRxWX7/AqR4M/Bd8/2MGjtBpiRoaydQzrDZ
-	 YDRANLlAaded4e8kMnryHktioBtFOSIVc9nge4YHvecM0NJCc3E9qI3IFXNx3Fku5I
-	 i5fOR/CW2OQkK8qG7aCAMzOebUBGLdA60s/z0nM8DrfdBYP79+Ru4DTSyQBrJcMZHF
-	 jLxOxE7McfjdHTrWR10YLKauf/24I86ywHia3dYN7QRnbJ4MTT5DsZVKJ/Tr/e+Xqh
-	 +EblOYe12KIitI5JsIVa+DccMaeIOwZGDtdoFmJX597HWQsaCBgX9Bl2AA0n7YLpH1
-	 r7gaj4Uvt/S3g==
-Date: Mon, 17 Aug 2026 08:46:02 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Yao Yuan <yaoyuan@linux.alibaba.com>
-Cc: Wei-Lin Chang <weilin.chang@arm.com>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Jintack Lim <jintack.lim@linaro.org>, 
-	Christoffer Dall <christoffer.dall@arm.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: Fix spurious warning for benign stage 2
- teardown race
-Message-ID: <aoK7vLOD3oKKAxH0@lucifer>
-References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
- <20260812-kvm-arm-nested-virt-fix-v1-1-4ad883f1b6a5@kernel.org>
- <qfhlmmidzdmmsfopfhxpddgwa7nob45jwgb6sabskawaxtox7i@mnxplk3zn34k>
- <an3gqCJ1fzloWB_N@lucifer>
- <v3vgnteumpaxbgqjtfwoilcbwpwohfci3uwu4ooykls6zjwjwe@rukbigno2m5o>
- <an7Tk0qrCM84zS54@gremlin>
- <dlvicg2jykp4icqkpa7xjm6bmim7sbp7vventkzgoihzpombcc@pemvii5d6qfj>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="gaHeCdnG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1786952895; bh=opBOpwT3kb/x2ZnFUUpehu1KTMBnLjc4UIJXivfi+oQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gaHeCdnGuYmztEDFcmHnBTNxEGYhmQfxk2QHybFUPC7a3j3dxbHb0sRnwy9UEHV6H
+	 5X8hr9z7kEUAjHdgaJtD0Hm9/5H+4GHJ02Ftz+Zxc58yNa8hCF4XvllDJOMTWcivKH
+	 r0LEMHnzpJy5IZrMMSYKUo2wu2NNXAHYPmO4WdWY=
+Received: from localhost.localdomain ([117.88.121.65])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id BDDA2646; Mon, 17 Aug 2026 15:47:29 +0800
+X-QQ-mid: xmsmtpt1786952849twq2brmki
+Message-ID: <tencent_EC328062C381CEDAEF690B8695F7752EC105@qq.com>
+X-QQ-XMAILINFO: OMwdwY5aSqdOMlMuSIs48YkLCwzCH044VrrUv//fr+n6gC6iDzCU4Yz6WO7GTt
+	 eiYZG1YBhEsl1DDOo9PLrubCyj4VE9VjvdhoC82rXZM3IN+JclzmKRJTHAckHVdywZrspCeViuJU
+	 Z9w929d5sdAM0FthnFsCmhilNoOTGoYoVkpjT2asRNy3+pPv3B+ysx+1X4hA3Ch8TrE7W4u0zSxo
+	 hsHJCpH5XFBA3CI854CWPxXqlRDNoLm3hihiLEPwxLkHlrSE5J477YqOhOMnVyorHtKCsoSu1Vac
+	 X+tAYTeSmcFxhwcfoTidPFOhaJJn7JZ5UvvDjzptTiv5VJzs0y50HchLweio8Eyny5MNW6AxzJe3
+	 RmId2sV5piDDk8x1apJQbwk7joV04s7ACNxqvqaZ8Clte1PqgPrFHqHnqw2zq6B43a86mzpuk6rr
+	 tZzwtxJYcrBCbpe1RfUNMKF+lj6ZeR6x4n+03ntQwGyYisunZgLinIXCle1mL+gbf1Rm96v275fJ
+	 OCiSkIkzcxseCq3E4FgI0el8Ul73Pqs7kHvyir/jlbQjvG/5VYisD/NiCgJpiPWgfMXvKX2qnI2o
+	 6pMbRDsbjRxFC996BhatyOW5pUbUJscUxsa9EP2FVHIRZmD7fmneq/WBRtV2R97WDDQKUTxCjLHG
+	 SKndVsM2RtP1V+gBYE2w5tXqBzNaYAfBeFUciH8TeoPZwQB64M865Lc+GJENlR/hpb05Ff4V6cSY
+	 8MFXtU17ZyNGZ8TYUtE9SWdBBRKrxk4I80U/Xny0qKp8UpooY/1Yt0MKB9iNZKWUMQaMUSKUQ+7b
+	 IMrOG/niU7RYRGdUIQfPjCVq52/vw5R90Rq99z4QWWUcmdgqFbgox7+R7TWwuyQg6BsFHlqKEk51
+	 2W7X+h4jepif+Y77Uo4JAQgo9Rdr0ZAb8KXRorruibIVwAG+9fOv/mWBw/Xb1pmBvllpSlka9Xti
+	 0a0i4a0fBhGsDGR4MV2V3u4WW6xuk91DpYS1Jluy0r3t50YdBpE2e4ybY976p9yUYwN7/QMow5M3
+	 3HiI7Ebh1JMpeiI/Y1WRO4P5Y/ZnMbPfyB1RZu6NORmvHVkZpxc+WGBLyyWUH68W1Scxn5UQ==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Aohan Mei <3472274613@qq.com>
+To: bot+bpf-ci@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	bpf@vger.kernel.org
+Cc: martin.lau@linux.dev,
+	song@kernel.org,
+	jolsa@kernel.org,
+	zhuyifei@google.com,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	corvus@tencent.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 bpf] bpf: Enforce cgroup storage map consistency for freplace attach
+Date: Mon, 17 Aug 2026 15:47:19 +0800
+X-OQ-MSGID: <20260817074729.2888421-1-3472274613@qq.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260817062306.2707661-1-3472274613@qq.com>
+References: <20260817062306.2707661-1-3472274613@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dlvicg2jykp4icqkpa7xjm6bmim7sbp7vventkzgoihzpombcc@pemvii5d6qfj>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 17, 2026 at 08:38:37AM +0800, Yao Yuan wrote:
-> On Fri, Aug 14, 2026 at 09:48:39AM +0800, Lorenzo Stoakes (ARM) wrote:
-> > OK so - I confused myself here :)
-> >
-> > The underlying issue here is that I am working back from a situation where
-> > I can't quite recall what I did, but am rather reconstructing it based on
-> > what was observed.
-> >
-> > And you're right - this stack makes no sense for an L2 VM being torn down,
-> > rather only the L0 being torn down.
-> >
-> > So clearly this is what I did, and the correction should be to say this at
-> > the start of the commit message.
+On Mon, 17 Aug 2026, bot+bpf-ci@kernel.org wrote:
+> Does this Fixes tag point to the correct commit?
 >
-> Ah I see.  I agree the race is there. Below is just an idea
-> in my mind for reproducing this, hope this is helpful to you :-)
->
-> migratepages (https://man7.org/linux/man-pages/man8/migratepages.8.html) can
-> help to trigger the MMU notifier to qemu/kvmtool easily on 2P system, meanwhile
-> kill the qemu/kvmtool on L0 to reprouduce the racing. For 1P system kernel has
-> numa=fake parameter to generate more NUMAs there.
->
+> [...] should the Fixes tag reference be8704ff07d2 instead to direct
+> the backport to the correct range?
 
-Ah nice thanks! There's also /proc/sys/vm/compact_memory so you can do:
+The analysis is largely correct: before 7d9c3427894f, the extension
+could already observe the target's storage. bpf_get_local_storage()
+resolved the buffer through a per-CPU pointer set from the prog array
+item in the run loop (bpf_cgroup_storage_set(_item->cgroup_storage)
+in include/linux/bpf.h), bpf_cgroup_storage_assign() enforced 1:1
+map-to-prog binding so an extension and its target could never share
+a map, and be8704ff07d2 made EXT programs inherit the target's
+verifier ops without excluding cgroup targets. So the freplace +
+mismatched-storage combination was technically reachable since v5.6.
 
-$ echo 1 | sudo tee /proc/sys/vm/compact_memory
+I kept 7d9c3427894f anyway, for three reasons:
 
-To trigger immediate memory compaction (and thus migration) also :)
+1. abad3d0bad72 ("bpf: Fix oob access in cgroup local storage"), the
+   analogous fix for the tail-call vector of the same
+   verifier-vs-runtime-context confusion, uses Fixes: 7d9c3427894f.
+   Identical tags keep the backport sets of both fixes aligned.
 
---
-Cheers, Lorenzo
+2. All currently maintained stable trees (5.10+) contain both
+   be8704ff07d2 and 7d9c3427894f, so the tag choice does not change
+   which kernels receive this fix in practice.
+
+3. 7d9c3427894f introduced the shared prog_item->cgroup_storage
+   runtime model that both this changelog and abad3d0bad72 describe;
+   the pre-7d9c3427894f per-CPU mechanism was superseded by it.
+
+That said, if maintainers prefer be8704ff07d2 for strict
+reachability accuracy, I can respin with the tag changed.
+
+Thanks,
+Aohan
+
