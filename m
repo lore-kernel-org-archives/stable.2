@@ -1,121 +1,185 @@
-Received: from mta0.migadu.com (out-200.mta0.migadu.com [91.218.175.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032733B4EA9
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5323E6381
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:21:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786968853; cv=none; b=kqITv6mkifG+HGH5hTCgHIv+9huh6bsSUAZNvPG9OQ4DJcnzHMhvzMsLeDfpfvKLBY0dev5rYWCUJb0PECwSYs/MPZlXlkOeQcT17j6W9lMqx5snKXTWG/j+kUcOeDhCzOHRBFQasVHZPNZMMUR4EjGYWD/63t/lYWDs3iqDTrs=
+	t=1786969279; cv=none; b=OJS1zAQd8EEGS69hHQdTIIsawvtPKwjCtJwHHO9iUzLvUjOXWEacCMW32HVUNSBk3KDhZfedU9qdu1SgIBVrUpAk1vUJS+tS1yBxuo/bOafLCChQHdavTMB7+tIUPqFaDjozaz0IrPl4HYYxkF2Z4R9IE7Sl0cpaAGXbeJcJM6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786968853; c=relaxed/simple;
-	bh=BZGD/kL6wdaidGWNG1WyLeQTkSGw7D7Oxub8aW7qdWQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RkZNJQ+oLn8L1ZKNMKebLUON0rvs/Nz0b80dMZg+CSS/7Zqw7M/3Hp94BdpiJVzuI66ipSlyeiiI3AbZdhDw5Zx1V3JNcBD14Rtd6QAjmcF7mFjuC9bP+wGeAhP9BrYbsOvNfrI1o8ZHC+YzW1JD60fB7vwou789H4FrxyljzuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xmzgoR4Z; arc=none smtp.client-ip=91.218.175.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786969279; c=relaxed/simple;
+	bh=+Yl5j4tOZqDzS56N4CJO6ebogOc6w3fhWvFmjkkoCS4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qG+0STVdrNqTt/Om0ymehAp0uZHBmQdBMGbc9DwpmpnZwFUjaaHStrPgWXxq2Gk/chC70EuPYBRyEOeT73k/jDdJBspzeDnBf3LWjWMy7Lw23PLAWCTG9fXL5So8he7W+PjC4ilKJCibd151mFrLY01Y+mW2yeQWeijH5Cycx3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WWuWckve; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xmzgoR4Z"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BZGD/kL6wdaidGWNG1WyLeQTkSGw7D7Oxub8aW7qdWQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1786968849; v=1; x=1787573649;
- b=xmzgoR4ZIhGADnLD8KmFyxCh9vTQMaec+kv6nCtPrRoQrHqUVpSlExRGveykq0P4FU57pEMC
- aVSNCqtICeEwqx5cbGtYKT2OZ+4OU3E3/V2YB1vE6LQFGiQ5JhH9dqDw3tJ3goFydFKApdmdAho
- MKACFHcM0zwzw4fVM0Jb8yz8=
-X-Envelope-To: stable@vger.kernel.org
-Received: from [10.54.25.56] (222.72.143.228)
-	by smtp.migadu.com with ESMTPS id 7968e220c24ef2f1;
-	Mon, 17 Aug 2026 12:14:09 +0000
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0e872f9e-ee7a-41db-afbf-4bae49257bc0@linux.dev>
-Date: Mon, 17 Aug 2026 20:14:03 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WWuWckve"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52621F000E9;
+	Mon, 17 Aug 2026 12:21:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786969277;
+	bh=KjqjR3M121XDLw+LDTURiJNAT+DMkHCW6dN5eYnhZzM=;
+	h=Subject:To:Cc:From:Date;
+	b=WWuWckve3CjMvF57lIe6u+D8uePRxG7i3EkY56yVEbYtgBnQC5FqtBg3JGcfoPWA2
+	 irsTvBeuEU0MMmKB4bW+Rke16JAzFtiQnqPYXP344qaWTzr/0xp5gOw5hNUXTj8FG1
+	 XANMpGdIY2q/Ye/OIzRPJQszknoms0roj80zrMM8=
+Subject: FAILED: patch "[PATCH] ipv4: Fix fib_nlmsg_size() for RTA_VIA nexthops" failed to apply to 5.10-stable tree
+To: zihanx@nebusec.ai,idosch@nvidia.com,kuba@kernel.org,vega@nebusec.ai
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 17 Aug 2026 14:21:13 +0200
+Message-ID: <2026081713-siesta-mute-edca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 1/3] ipv6: fix request socket use-after-free after
- IPV6_ADDRFORM
-To: Hyunwoo Kim <imv4bel@gmail.com>, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, dsahern@kernel.org,
- ncardwell@google.com, kuniyu@google.com, horms@kernel.org,
- willemb@google.com, andrew+netdev@lunn.ch
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org
-References: <20260817090319.3897799-1-imv4bel@gmail.com>
- <20260817090319.3897799-2-imv4bel@gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20260817090319.3897799-2-imv4bel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
 
-On 8/17/26 5:03 PM, Hyunwoo Kim wrote:
-> IPV6_ADDRFORM turns an AF_INET6 TCP socket into an AF_INET one. It requires
-> the socket to be established, and a listener can get there with
-> connect(AF_UNSPEC) followed by connect(). Request sockets queued while it
-> was listening are still there: inet_csk_listen_stop() leaves them in the
-> ehash, and their timers only drop them while the socket is not listening,
-> so making it listen again keeps them alive.
->
-> A request that arrived over IPv6 was hashed with inet6_ehashfn(). Its child
-> is cloned from the converted socket and hashed with inet_ehashfn(), so it
-> belongs in a different bucket.
->
-> inet_ehash_insert() locks the child's bucket, warns about the mismatching
-> hashes, and replaces the request with the child in the request's own bucket
-> anyway. reqsk_queue_unlink() locks the bucket the request is really in, so
-> there is no synchronization between the two. Both can see the request still
-> hashed and both can drop the reference the ehash holds.
->
-> The extra put takes the request's refcount to zero too early, so it is
-> freed while it is still on the listener's accept queue. The listener is
-> then closed, and inet_csk_listen_stop() reads the freed request and
-> writes to it in reqsk_put().
->
-> Refuse the conversion if inet_csk_reqsk_queue_len() is not zero. Nothing
-> clears that counter when a socket stops listening or listens again, so it
-> still accounts for the requests left in the ehash. A socket that never
-> listened is not affected.
->
-> Fixes: 079096f103fa ("tcp/dccp: install syn_recv requests into ehash table")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-> ---
->   net/ipv6/ipv6_sockglue.c | 4 ++++
->   1 file changed, 4 insertions(+)
->
-> diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
-> index b4c977434c2e0a..64fc6127e75332 100644
-> --- a/net/ipv6/ipv6_sockglue.c
-> +++ b/net/ipv6/ipv6_sockglue.c
-> @@ -572,6 +572,10 @@ int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
->   					retv = -EBUSY;
->   					break;
->   				}
-> +				if (inet_csk_reqsk_queue_len(sk)) {
-> +					retv = -EBUSY;
-> +					break;
-> +				}
->   			} else {
->   				break;
->   			}
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Just thinking out loud.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Gating on inet_csk_reqsk_queue_len() reads a bit oddly, since we already 
-require TCP_ESTABLISHED right above.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 4ff9548d84945d2cbf9e4c207288063a200ea397
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081713-siesta-mute-edca@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
-it's really just a proxy for "this socket used to listen and still has 
-leftover requests.
+Possible dependencies:
 
-The real issue is we should drain req when disconnect the listen socket, 
-at least we should avoid replaces the request with the child even when 
-sk->sk_hash != osk->sk_hash.
 
-But that's the hot path, so hardening it for such a rare corner case 
-isn't worth the cost.
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 4ff9548d84945d2cbf9e4c207288063a200ea397 Mon Sep 17 00:00:00 2001
+From: Zihan Xi <zihanx@nebusec.ai>
+Date: Thu, 30 Jul 2026 12:59:26 +0000
+Subject: [PATCH] ipv4: Fix fib_nlmsg_size() for RTA_VIA nexthops
+
+fib_nlmsg_size() still estimates nexthop space as if every gateway is
+encoded as an IPv4 RTA_GATEWAY attribute. IPv4 routes can also carry an
+IPv6 gateway, which fib_nexthop_info() dumps as RTA_VIA.
+
+As a result, route notifications can allocate an skb that is too small.
+fib_dump_info() then fails with -EMSGSIZE and rtmsg_fib() hits the
+WARN_ON() that marks such failures as a fib_nlmsg_size() bug. With
+panic_on_warn set, this becomes a kernel panic.
+
+Mirror the actual nexthop dump layout in fib_nlmsg_size(): account for
+IPv6 nexthop gateways dumped as RTA_VIA, for the no-header rtnexthop
+layout used inside RTA_MULTIPATH, and for RTA_FLOW only when it is
+actually present.
+
+Fixes: d15662682db2 ("ipv4: Allow ipv6 gateway with ipv4 routes")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/6f53fa797fcaeb26966432ed7ae9bb87c4961f37.1785411220.git.zihanx@nebusec.ai
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+index 4f3c0740dde9..78f84ae3ee12 100644
+--- a/net/ipv4/fib_semantics.c
++++ b/net/ipv4/fib_semantics.c
+@@ -490,6 +490,34 @@ int ip_fib_check_default(__be32 gw, struct net_device *dev)
+ 	return -1;
+ }
+ 
++static size_t fib_nexthop_nlmsg_size(const struct fib_nh_common *nhc,
++				     bool skip_oif)
++{
++	size_t nhsize = 0;
++
++	switch (nhc->nhc_gw_family) {
++	case AF_INET:
++		nhsize += nla_total_size(4); /* RTA_GATEWAY */
++		break;
++	case AF_INET6:
++		nhsize += nla_total_size(sizeof(struct rtvia) +
++					 sizeof(struct in6_addr));
++		break;
++	}
++
++	if (!skip_oif && nhc->nhc_dev)
++		nhsize += nla_total_size(4); /* RTA_OIF */
++
++	if (nhc->nhc_lwtstate) {
++		/* RTA_ENCAP */
++		nhsize += lwtunnel_get_encap_size(nhc->nhc_lwtstate);
++		/* RTA_ENCAP_TYPE */
++		nhsize += nla_total_size(2);
++	}
++
++	return nhsize;
++}
++
+ size_t fib_nlmsg_size(struct fib_info *fi)
+ {
+ 	size_t payload = NLMSG_ALIGN(sizeof(struct rtmsg))
+@@ -507,32 +535,35 @@ size_t fib_nlmsg_size(struct fib_info *fi)
+ 		payload += nla_total_size(4); /* RTA_NH_ID */
+ 
+ 	if (nhs) {
+-		size_t nh_encapsize = 0;
+-		/* Also handles the special case nhs == 1 */
+-
+-		/* each nexthop is packed in an attribute */
+-		size_t nhsize = nla_total_size(sizeof(struct rtnexthop));
++		size_t mpsize = 0;
+ 		unsigned int i;
+ 
+-		/* may contain flow and gateway attribute */
+-		nhsize += 2 * nla_total_size(4);
+-
+-		/* grab encap info */
+ 		for (i = 0; i < fib_info_num_path(fi); i++) {
+ 			struct fib_nh_common *nhc = fib_info_nhc(fi, i);
++			size_t nhsize;
+ 
+-			if (nhc->nhc_lwtstate) {
+-				/* RTA_ENCAP_TYPE */
+-				nh_encapsize += lwtunnel_get_encap_size(
+-						nhc->nhc_lwtstate);
+-				/* RTA_ENCAP */
+-				nh_encapsize +=  nla_total_size(2);
++			nhsize = fib_nexthop_nlmsg_size(nhc, nhs != 1);
++
++			if (nhs != 1)
++				nhsize += NLA_ALIGN(sizeof(struct rtnexthop));
++
++#ifdef CONFIG_IP_ROUTE_CLASSID
++			if (nhc->nhc_family == AF_INET) {
++				struct fib_nh *nh;
++
++				nh = container_of(nhc, struct fib_nh, nh_common);
++				if (nh->nh_tclassid)
++					nhsize += nla_total_size(4);
+ 			}
++#endif
++			if (nhs == 1)
++				payload += nhsize;
++			else
++				mpsize += nhsize;
+ 		}
+ 
+-		/* all nexthops are packed in a nested attribute */
+-		payload += nla_total_size((nhs * nhsize) + nh_encapsize);
+-
++		if (nhs != 1)
++			payload += nla_total_size(mpsize);
+ 	}
+ 
+ 	return payload;
 
