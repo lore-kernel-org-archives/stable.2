@@ -1,185 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640843E556D;
-	Mon, 17 Aug 2026 11:07:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E29D3F5BF0
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 11:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786964821; cv=none; b=F3J7n5Y/tISw91rtmQ5qEPNeoEtbv+xq84No6A62ona82vU+z+n9IApHoun4M14KT72e/617d4v8AD5BibO9Z6q+Q6UEZLc8KWbxuinxlaICt9fp4aLQ5mDKwimqI/Uf6AOfMqt5be+lYT6hSCkyTAmTLQK4gm0egoU/a2WZxFA=
+	t=1786964956; cv=none; b=Hy52rvdWFD1tJMgB/jhBGawRVAVSKXZ+t+XusJx5nT/txAJSBLJpAYBlMMoReHHGFXPviVQmIApYPHrBY2j+hE1olrp6qEz/ywJ8YhF9fpAxdRdEFd9qOH9jQRqb18EcFdbNYK85wiKdOxB9hb8qNvYvwxEdY690be1uQra+9P4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786964821; c=relaxed/simple;
-	bh=fO+N+Fkifn0mW/pTvU8tTWvaTIxvL3jVYOD0t4VT6hg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LVfzzN+eITmc03jYT9uU5MkoFSfoDmfpJIwDFK7M3BpUbWqWfSaeqQfcRFHvNnenTZfzmy8mrwWal2BFlw3ziOcvUPiIu9w9AA4iyyHhTyRA/b7DM/WGnvzVBD61kb0eTZHipiwG2scV9XYDoXrj9yxA3Y/9Y1I407q4KhKiy5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlMlXTuT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786964956; c=relaxed/simple;
+	bh=zQITEraiHsGpDDYt9Nt1jR8D0YOYzfn8aHodB9I1nps=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HcTK4LjZugI5NbvVDlzgii1TEXF3XP+C0azKS8wMdNu9C8KC7yqLb1sg4PL5P8E2jVUofukzGQBHX3O3Y2BRN/4ZvTq4jryycqLDJxdKmdqi/QcKPCoSD5gN/t8qxJlK6UxjRiHmdIOFJu4SpUW98oK4Yzqubth7e2X/PvW0ttQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bk/Qv4rs; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlMlXTuT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EBC71F000E9;
-	Mon, 17 Aug 2026 11:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786964820;
-	bh=n81T4W7eTaTT4B+ApvT6XYE8dIt+elKVf9cHQUeK6Jk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UlMlXTuT1i9qWoH/ZmuDsBmC+/dqUxfA97bCzcw3GHd1RCpWl0gZRVFK7nEyHwsQO
-	 DUU3XCIyclryx69iu7+ilTc7VoXO64Hz71ST68T0hilcwuAkAqraMhEK4OqgfdfSif
-	 Yx3Qy3yml/J+XBZiY7X+l5yozg72fRqCgXrZ7hsjDSSAZqyn66rEvdyQv6iDM3bmrx
-	 8f14MDqP3/UyLqdeO7oe7xtmCVxH5NVts14jUmOIwA12FCGuGd/PGYzu7BmbC9oRgi
-	 A0zkF8mChjYvKyNKT97lFjegHnkXcv6QvEfYWXaU23ps+GotmubtsOovv6ts4MZ7u/
-	 d3XdkZMaYKIhg==
-Message-ID: <9b3b6f29-35a8-4b79-a002-bd0aac5dbee4@kernel.org>
-Date: Mon, 17 Aug 2026 13:06:48 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bk/Qv4rs"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbedf318752so2129310a12.0
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 04:09:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786964955; x=1787569755; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bbOXjIOE5eUZ77E2jan3Zky2z5kifDys7cgukCqXI+w=;
+        b=bk/Qv4rsJKuR0lKES/Ci2m7JR9S86vVNBP31BLixS28E1NYeyQU9bGI+sI8Z71aUQg
+         GlQz/ouBILSYBhy18AElqf66Fu9AcFn4NMNT3N/0wUZFoRNA/aLJoTXXojF7HiNQPpB/
+         ahuLCn++7eMwG8mjs/wORExiKeUQX0uGlIgNCUwp+/us8W8bgMLIb1yFM1KZ7sI4Poe/
+         RztxfGlprLGYQ5LxXnpi2eRLp1seTCPsBZiUab/GSwcXW8ZRv9hJ0RHyFQ+ExNTOZM/Q
+         uXjg9RFlyhkys0welLXTUKfoDaMJiLUMHsDwTVVE3avSGlaaO1Q/EVhMVgTLk5YJmZU3
+         SW8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786964955; x=1787569755;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bbOXjIOE5eUZ77E2jan3Zky2z5kifDys7cgukCqXI+w=;
+        b=dl66uA/80Brlo9Pf0Sw20OvSwK8oCGBXguFkQ4+t1J7Th1GnLN/3vRI71JQpEWzR5V
+         FXxRbV5ZCV2Vhb5XA6DHfA3cBz/9RBwavVFZtbzAE2c3b1xIfJGIJi1tFNQMaW7Y3ozi
+         EG7e7Ie2/xLFNjyDtiPs8xfi8NNAOrY2BlXdFZH46iPkKtLEz/8CAUXGLFIsTXw9/2we
+         WHxrpXy55IDvZG4K7p1wgFnufiOy5+Ny4v4b1YCqbGVfbEznpc++3TxW4Ts4/D1NkZRp
+         iqPuT9cpY7udaAwPrzkJsCa3P6/VRnpU/XkqjFuLaRslyduOssDKRj9+E7rxdKf8FNBX
+         6Aqg==
+X-Forwarded-Encrypted: i=1; AHgh+RosH+Lb8pjVujo8w9ssRgFQO0qke73ifzN5foKCvN/NwyOGuLHZDyyocAQViM/H5QcaKtCZifI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YySX9VUzMgwfv4e/bPy0SU1Ad6EGvL898itmFnwNAvQWpZwgYqu
+	vsF/q7ggcZrCetejgL0ApZ5Y1jxxOiFSWKlLchMj9Y1hjbcqLObRc/GP
+X-Gm-Gg: AR+sD100Y7wiCGH8mdrc/7Bo6oBMR6DOcHORw6HjxtxNpZJsvQg3kskER0fECLjEQjK
+	fH8RR2vseckPlhuLNbZRthXhTJ3PwYiDxd0vU2Qko6VY45OcHaUdxcDXbygbq/ufArIbzyTVurs
+	ruisMosZ2xqc/P7kZbo4IDOHRfjbMH9UIqitnTCVtqwXgb5SiOEMax1wsgqsq6LedWeCtK+NYPE
+	2+qAOh/ngtEdjB4t4Bi0VMuKU2Xs80AuuQLAz33GkdG+DBVXvl/QH3Pdc4U90aciNlw8xMAsAwQ
+	Rn5bvd0Na96uzPPLJehaQb+/nWpoTrMwULco/MkjAYVDiuFY4mcnbmUHAV6yCpN+P9IqyCDk2vN
+	XVIz924ls5Jr76NQz0CayNFd3ymU5SEjifQnRRab4qfLonyCuE+2i3doSc70jEDxD9THcOX3NaN
+	onkvBoLY9MwbpQavHtOy4/z/Nt6kxFQHcXufIwoqEr89Fn2EPBV5wyqzsu6lO25uMSGQ==
+X-Received: by 2002:a05:6a21:6110:b0:3cc:1d2b:2ac3 with SMTP id adf61e73a8af0-3cc71d195cdmr26060283637.26.1786964954730;
+        Mon, 17 Aug 2026 04:09:14 -0700 (PDT)
+Received: from Default ([2409:40f4:102a:23fd:2be3:947e:c2d2:30da])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1415305e48esm6077568c88.5.2026.08.17.04.09.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 04:09:13 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: gregkh@linuxfoundation.org,
+	felipe.balbi@linux.intel.com
+Cc: christophe.jaillet@wanadoo.fr,
+	kees@kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com,
+	Jeffin Philip <jeffinphilip14@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: gadget: f_mass_storage: fix null pointer dereference in fsg_common_set_num_buffers()
+Date: Mon, 17 Aug 2026 16:38:39 +0530
+Message-ID: <20260817110839.8201-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: net: wireless: add flag
- marvell,ignore-regulatory-hint
-To: George Valkov <gvalkov@gmail.com>
-Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch,
- francesco@dolcini.it, johannes.berg@intel.com, kees@kernel.org,
- miriam.rachel.korenblit@intel.com, wenst@chromium.org,
- rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com,
- s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
- sebastian.hesselbarth@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, Frank.Li@nxp.com, chunfan.chen@gmail.com,
- linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- stable@vger.kernel.org
-References: <anoYr9H4KojJv-aZ@google.com>
- <20260814125025.90522-1-gvalkov@gmail.com>
- <20260817-hairy-serval-of-refinement-49039a@quoll>
- <CADOrJmb3uJPpYR481rB-CnL0A9B_5PQ683XP+Gdis47uihqMBw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CADOrJmb3uJPpYR481rB-CnL0A9B_5PQ683XP+Gdis47uihqMBw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17/08/2026 12:43, George Valkov wrote:
-> On Mon, 17 Aug 2026 at 11:54, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On Fri, Aug 14, 2026 at 03:50:23PM +0300, Georgi Valkov wrote:
->>> WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
->>> from the mwifiex ROM, which conflicts with the platform regulatory
->>> configuration on units sold outside the US market. For example:
->>> - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
->>> - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
->>> - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
->>
->> v1 as reply to v3 in big thread. How tools can parse that?
-> 
-> Hello Krzysztof,
-> I apologise, I forgot to add the v4 tag to the subject.
-> I have documented the changes between each revision.
-> I saw my mistake after sending the mail. But I wasn't sure
-> what to do? I will make sure to add v5 to my next revision.
-> 
->> Does b4 diff work?
->>
->> b4 diff '20260814125025.90522-1-gvalkov@gmail.com'
-> 
-> What is b4?
+In fsg_common_set_num_buffers(), n can be 0 as conversion to u8
+using kstrtou8() in fsg_opts_num_buffers_store() can return
+values from _0_ to 255. When passing 0 as "n" value to kzalloc_objs,
+it can return a ZERO_SIZE_PTR, which passes the null check for
+buffhds. This leads to a null pointer dereference later in bh->next
+in the do while loop. Fix this by adding a check for n = 0 case and
+returning -EINVAL if n is 0.
 
-Tool used by maintainers and contributors to handle/send patches. See
-korg docs (or just google "What is b4 Linux kernel").
+Reported-by: syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=791be35f1fbcc85d06d7
+Fixes: fe5a6c48fd95 ("usb: gadget: storage: get rid of fsg_num_buffers_validate()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+---
+ drivers/usb/gadget/function/f_mass_storage.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
+diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gadget/function/f_mass_storage.c
+index a50743caf083..640d3bcb7bf0 100644
+--- a/drivers/usb/gadget/function/f_mass_storage.c
++++ b/drivers/usb/gadget/function/f_mass_storage.c
+@@ -2747,6 +2747,9 @@ int fsg_common_set_num_buffers(struct fsg_common *common, unsigned int n)
+ 	struct fsg_buffhd *bh, *buffhds;
+ 	int i;
+ 
++	if (!n)
++		return -EINVAL;
++
+ 	buffhds = kzalloc_objs(*buffhds, n);
+ 	if (!buffhds)
+ 		return -ENOMEM;
+-- 
+2.55.0
 
-> 
-> 
->>> When the system boots, it detects a conflict between the user selected
->>> region and the radios, e.g. BG FR US, and applies extreme restrictions,
->>> preventing use of 5 GHz and DFS channels. This also affects phy0.
->>>
->>> Add a device-tree flag, which allows affected platforms to ignore
->>> an incorrect regulatory hint from ROM, so userspace can set the
->>> correct platform regulatory domain.
->>>
->>> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
->>> [2] https://github.com/openwrt/openwrt/issues/9956
->>>
->>> Tested-on: WRT3200ACM, OpenWrt
->>
->> Not a valid tag, drop.
-> 
-> I believe the tag is helpful because it describes that my changes
-> have been tested on a certain device and platform. It's a common
-> practice in OpenWrt contributions. My last two accepted patches
-> have this tag. Should I still remove it?
-
-Drop the tag everywhere and instead on the patches which were possible
-to be tested mention how did you test it.
-
-> 
-> 
->> And you cannot even do that, otherwise explain me
->> how did your device execute THIS (exactly THIS) code?
-> 
-> I am not used to your terminology and this gets me completely confused.
-> You have not quoted any particular code change, so I'm not sure what
-> you are referring to. Here is a summary of the patch series:
-
-Tested means executing or parsing or using the code on the device under
-test. How can you execute/parse/use this code on the device?
-
-> 
-> Patch 1 documents a new flag: marvell,ignore-regulatory-hint.
-> Patch 2 adds a device-tree node with the radio and the flag.
-> Patch 3 skips the regulatory_hint() call when the flag is set.
-
-I can read your patchsets and above does not proof how can you test binding.
-
-> 
->>> Cc: stable@vger.kernel.org
->>
->> Drop, what is the bug being fixed here?
-> 
-
-
-Best regards,
-Krzysztof
