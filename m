@@ -1,48 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49264457DF;
-	Mon, 17 Aug 2026 15:24:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4501044685D;
+	Mon, 17 Aug 2026 15:24:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786980290; cv=none; b=O9TIaCYCQ44qK3jatpWGqAmPA1r/key4cSpd0w2xvOTfwsgr9ei0pzFenDT84peY6TiRJFhNOUzphd3+l11HjhBXydkVd5uUeKMl3bY5bUPZWUsdM24xEL1ElwbHRr5HneAA0qehEnEr5a4XRU+l+Y8jQ3kVOYmWuAyeLcH5ULY=
+	t=1786980292; cv=none; b=ffK4MUgaa6s49e2k8xu7f1DCr/adA6ZV1AzNmqxXTMHdhJYajNTkhAqmeyXdLspIH6FX0BU49AaU+9J4YDLhy4rZL3KoRkIeGozFnaao79b513SAFn1/J0FFkc8S2NPJ0eGIttGCxcxmfPhYsqRPOn24AJwh9KvcW+XY0aSvxaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786980290; c=relaxed/simple;
-	bh=0c3q6d2zWk63PBLtKZF8gEN4gUfghbPU/Zan4SOPAbY=;
+	s=arc-20240116; t=1786980292; c=relaxed/simple;
+	bh=rLvFgnQRFEO+l1PMOfha9ft5IcqjY5QR/8xHLtdl/J4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PO2gRMPBlfyL3ZBeMg38thhuBRKKFyFxvpfSmvYsWYqkNRTIDX3Sj8Hh9N2QfihDUOOOdiyOgKCM1zkHC1N57L7w9dLlgIZJK7Bng9XTtPIknrlLB0dMeEyKAaJf95SqYk8sY6rDNj2goRcdefCmGYJ9JiT0Qoz5zzFEKvmbxJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSDjjHqP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OzWvQ5lDRi1OdU4PxgAkWThPaG1JBqC1E6xlAd0dFo9srDUrTLeWy2q0on0FfofYMHjFh+2vrWcudTsXBZ/CP8BKiM8DRWR7iwCyGqKQ5J/7tvZiHCqoAa5XUKMWvG+t8ib0/P5z14x9T+QA1XEp/tIxJtNgfWainf5jAlwb7+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qXt6WkmV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSDjjHqP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D281F00A3D;
-	Mon, 17 Aug 2026 15:24:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786980289;
-	bh=EK7cUu3dbm4rFg2BVK151Vb9UHwILqRX2WqYb8MnLbM=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qXt6WkmV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EE1B1F00A3A;
+	Mon, 17 Aug 2026 15:24:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786980291;
+	bh=Pk0ubivgxgjN/FQ43Tgt8uOZXhRGFgUecw0p5SEL1cI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iSDjjHqPmsKVphhCi4Kv8ll5B8iOl5P8FTaw4MbacOtNWo4F+BnCl8XhjFvR4PmUz
-	 FF81Tey9aliUljD3zePBGjlwYFg+9fpvPYBuKu2rvROiaJSLAUF6JFZktnyfFIwel6
-	 i5ao6fD7X+gM6/MK/+M6F/4VMSpPdE3ufawHmxDFPiOZxIUDru8mOlsUbVrunkeZIy
-	 PwmwRt2kI8jcYrb/UNHOu4Huky2TRLNArFWDdrONUO9PPsZixQUvfvJfQYVCWAfhBK
-	 8PT+CG+nBlgTy8D+U5MXlAffnu44ePmxLQMR+Hkxe8FKPhJ0xVIiiF2GUZ8jzjgcCg
-	 17Z57vFX/jW8A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Andrey Troshin <drtrosh@yandex-team.ru>,
-	Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	linux-media@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: Re: [PATCH 5.10] media: mtk-vcodec: potential null pointer deference in SCP
-Date: Mon, 17 Aug 2026 11:24:41 -0400
-Message-ID: <20260817150000.3@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260817055803.1946-1-drtrosh@yandex-team.ru>
-References: <20260817055803.1946-1-drtrosh@yandex-team.ru>
+	b=qXt6WkmV6tqXe3R/bIC4O4qrP7hmMyUKwuUx2qq+mdkIV4uCtsGOo0JU6CPGhOC3e
+	 mbeeEP1URNcYqJabvQkF/WeYaNurci8g3vBrvVDQP4ItYD3cc/YqIHZj6XJf2Fsj1C
+	 Q1W4RrmRibn/I/oyyzb8cDW3tTSH4vUOLDDlEGjQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 521/609] tcp: fix TFO max_qlen accounting across reuseport migration
+Date: Mon, 17 Aug 2026 15:33:37 +0200
+Message-ID: <20260817132601.258596324@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
+References: <20260817132543.039278408@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,23 +49,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
->  	fw = devm_kzalloc(&dev->plat_dev->dev, sizeof(*fw), GFP_KERNEL);
-> +	if (!fw)
-> +		return ERR_PTR(-ENOMEM);
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-The backport itself is faithful, but the error path it adds returns
-without dropping the scp reference taken just above it. That leak is
-fixed upstream by 4936cd5817af ("media: mediatek: vcodec: Fix a resource
-leak related to the scp device in FW initialization") (Fixes:
-53dbe0850444, Cc: stable), and every tree carrying 53dbe0850444 already
-carries the follow-up as well - taking this one alone would leave 5.10 as
-the only stable tree in the leaky state.
+------------------
 
-Could you resend it as a 2-patch series covering both commits, targeting
-5.15 as well as 5.10? 5.15 is missing both and holds the file at the same
-path with an identical blob, so the same two patches apply there
-unchanged.
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
 
+[ Upstream commit a0ab2ba83e35159d81cec830a92e885ecf8139be ]
+
+A listener's TCP_FASTOPEN max_qlen stops being accurate and lets through
+far more pending Fast Open requests than it was configured for.
+
+This only shows up with SO_REUSEPORT listener migration, where closing a
+listener hands its still-pending TFO children over to a surviving one.
+
+fastopenq.qlen is charged in tcp_fastopen_create_child() when the child
+is created and uncharged in reqsk_fastopen_remove() when the handshake
+completes.  The uncharge follows rsk_listener of the request the child
+points at, and inet_reqsk_clone() has repointed the child at a new
+request owned by the new listener, so the ++ and the -- land on two
+different sockets.  The new listener's qlen drifts negative and its
+limit no longer binds.
+
+Charge the new listener during migration, like reqsk_queue_migrated()
+already does for queue->young and queue->qlen.
+
+Fixes: 54b92e841937 ("tcp: Migrate TCP_ESTABLISHED/TCP_SYN_RECV sockets in accept queues.")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260803061739.134737-1-jiayuan.chen@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/ipv4/inet_connection_sock.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index a275ab5321a96..a0014311c520c 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -927,11 +927,23 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
+ 
+ 	nreq->rsk_listener = sk;
+ 
+-	/* We need not acquire fastopenq->lock
+-	 * because the child socket is locked in inet_csk_listen_stop().
+-	 */
+-	if (sk->sk_protocol == IPPROTO_TCP && tcp_rsk(nreq)->tfo_listener)
++	if (sk->sk_protocol == IPPROTO_TCP && tcp_rsk(nreq)->tfo_listener) {
++		struct fastopen_queue *fastopenq;
++
++		/* reqsk_fastopen_remove() will uncharge nreq->rsk_listener,
++		 * that is @sk, so charge it here.  Unlike the listener
++		 * being closed, @sk is live and needs its lock.
++		 */
++		fastopenq = &inet_csk(sk)->icsk_accept_queue.fastopenq;
++		spin_lock_bh(&fastopenq->lock);
++		fastopenq->qlen++;
++		spin_unlock_bh(&fastopenq->lock);
++
++		/* We need not acquire fastopenq->lock
++		 * because the child socket is locked in inet_csk_listen_stop().
++		 */
+ 		rcu_assign_pointer(tcp_sk(nreq->sk)->fastopen_rsk, nreq);
++	}
+ 
+ 	return nreq;
+ }
 -- 
-Thanks,
-Sasha
+2.53.0
+
+
+
