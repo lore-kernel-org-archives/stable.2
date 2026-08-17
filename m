@@ -1,84 +1,89 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48C5347529;
-	Mon, 17 Aug 2026 13:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A5D3D3302;
+	Mon, 17 Aug 2026 13:37:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786973846; cv=none; b=VNt0KKXJbc8JbyJQj97erMHp3aud6IZQLwnvMU+coFSEhqfXkGkd2+Hx88BrrG+NFfYSq6iS8oscBkldZXqH8Bd+np1HIDZPoF9stOycH1FtoeqX5QPNb6rBnFUt8djMfJQFpdYE//NtwJWDZBwBGoEEHjQLbV4jSZCvefbUwZ8=
+	t=1786973869; cv=none; b=OIcTwTCu5emaq/yWAG97BtMIHiD7DIDFfezbjsz15YKuss+KtuVICefkdY+XqRKwbggpMIvRUDL/LbNBdrWzxDj5h0+SwTtKILjbRMya78W5aFV317Wa2vPFLFX3zCsvB8M/MX4R3/k6y44byldWjOXwUx3xPaM7/E9Bxw+Yqr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786973846; c=relaxed/simple;
-	bh=ATKu1NaVCSAbFWJ1duEZ4qn7VCIj2cNoMx74eOWAt08=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qJiDDAliDKmD0yvoYUdso6ilLiyLgvZeG7coCAl8V4zIRLQuaegGMC4eFhRy/2Ho4XFB0463w6dTQE3cRnV7i4Q/GBwxklco2XV04w9fz+D56xu0UWaOqOKSGtR9icvzrzsip+mZyHcgU6xe1LHcsvo5Vgg2BhrwbEEEDB1ITo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AOpy38GE; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786973869; c=relaxed/simple;
+	bh=EU7+EVjgBelsUZyhtG1DYBiurIY+HV92Mxh5YoYUjdY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zel7bF9A6ezG2fTClriB6KNUJpISN/M8f9ezUxmEDiLdI2Ald6mzKM73xSKqVps1RxzgpKGQ0aD9fyzrqysD0D6Y3tHDzRTv4HGJ8m2RXISwvfudwix7VzjIpyBrlgkXa+BnrMf43FpAJTxJyDOQo3klBMq36AX6lWqHXTp8lfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qa/UUx3U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AOpy38GE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786973841; x=1818509841;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ATKu1NaVCSAbFWJ1duEZ4qn7VCIj2cNoMx74eOWAt08=;
-  b=AOpy38GEKf28SAmXRwm6A3pn7ZymKh6Agy0BxDjnCAP5dLZtpBK5ltbB
-   ExCFJd3Srdd6pGMKDL+B3GXxvnnTJHJsIw1SjKcBxHqCEgwZPRSb+IxCK
-   zC+Qg6MSqGhJZ4Yqhn7Yqu4UkjwbPUiTB4kb31WBUh7YGE1Znk5eumtj3
-   5ulF/YNaVo2/8l1aVL1h1+LC6BSJcwkoLYg6jOlWca6MCmhY+Zk5VBjrc
-   PmWshr+4DNQbtJfar0biIpSnyE09DBsTrUrqEazWuHwu6SA5IbGe3nz1Z
-   GJc71+iIUJlkklhfHoqNEIpO29Xy1lQI9RUxdjdSaOZRTxcI3I03QPB9B
-   g==;
-X-CSE-ConnectionGUID: WjsVgn8FSQOjVUUM3YCVkQ==
-X-CSE-MsgGUID: cI8KLDDgRo6Of8PFFBrExA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="87514821"
-X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
-   d="scan'208";a="87514821"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 06:37:19 -0700
-X-CSE-ConnectionGUID: jwC4U05WSa2cmRUSykzWFA==
-X-CSE-MsgGUID: 7WXHSTqhRDeJuoUTvMSnCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
-   d="scan'208";a="258717198"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 06:37:16 -0700
-Date: Mon, 17 Aug 2026 16:37:13 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Esben Haabendal <esbenhaabendal@gmail.com>
-Subject: Re: [PATCH] Input: gpio_decoder - fix bit order reversal introduced
- by bitmap conversion
-Message-ID: <aoMOiZNrbOtRgXu-@ashevche-desk.local>
-References: <20260817-gpio-decoder-bitrev-v1-1-6ffb77e323b8@geanix.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qa/UUx3U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B1131F000E9;
+	Mon, 17 Aug 2026 13:37:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786973866;
+	bh=aTfzxgfLnGzlysy1+QljsMtu17afPQITifZLJpAf9/g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Qa/UUx3UsVFF2/1xYmndYhAFQTKMRIIQ8JQH2/y/7Qoen9lsNzyuKpymTvhb+O/lS
+	 39CmBwECjmpbZoMRARcjTQMhxgehgvU3wawIzZbeJzYX9yJsUlAAWS4ecehyk1B//Q
+	 z/w619uLVsSy4saONtB0L9tG4yqdppWWGBwitV6E=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Denis Arefev <arefev@swemel.ru>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1 001/271] mount: honour SB_NOUSER in the new mount API
+Date: Mon, 17 Aug 2026 15:28:46 +0200
+Message-ID: <20260817132536.817918154@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
+References: <20260817132536.752504388@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260817-gpio-decoder-bitrev-v1-1-6ffb77e323b8@geanix.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 17, 2026 at 01:50:27PM +0200, Esben Haabendal wrote:
-> The switch from a manual loop to gpiod_get_array_value_cansleep() +
-> bitmap_read() inadvertently reversed the bit order of the decoded value.
-> The original loop treated GPIO[0] as MSB by shifting left on each
-> iteration, but bitmap_read() returns GPIO[0] at bit 0 (LSB).
-> 
-> The previous bit order was correct according to device-tree bindings, and
-> the change broke existing users.
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-Oops, thanks for catching this!
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+------------------
 
+From: Al Viro <viro@zeniv.linux.org.uk>
+
+[ Upstream commit 6dd3c6884cd9defb511284b566cef5ac8f657dbf ]
+
+One should *not* be allowed to mount one of those, new API or not.
+
+Reported-by: Denis Arefev <arefev@swemel.ru>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Link: https://patch.msgid.link/20260602020444.GP2636677@ZenIV
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/namespace.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/fs/namespace.c b/fs/namespace.c
+index 341ddd353b3a8..841ef26127861 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -4502,6 +4502,10 @@ SYSCALL_DEFINE3(fsmount, int, fs_fd, unsigned int, flags,
+ 	new_mnt = vfs_create_mount(fc);
+ 	if (IS_ERR(new_mnt))
+ 		return PTR_ERR(new_mnt);
++	if (new_mnt->mnt_sb->s_flags & SB_NOUSER) {
++		mntput(new_mnt);
++		return -EINVAL;
++	}
+ 	new_mnt->mnt_flags = mnt_flags;
+ 
+ 	new_path.dentry = dget(fc->root);
 -- 
-With Best Regards,
-Andy Shevchenko
+2.53.0
+
 
 
