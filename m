@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5492C1594;
-	Mon, 17 Aug 2026 14:03:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB603F23B1;
+	Mon, 17 Aug 2026 14:03:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786975393; cv=none; b=DEzt9osLw9Jh/Xqx/mh+BQpVvlZZLXjdQO6n5c+JM4QLP/4eDz0OEjkdGVRJ5qNpkIhr/+Muah1G0zF5PXBTNvifCVVpaHBgNuJrZtQpgahhCP0qOmWxwP/7hT+hLduowsXZT7xe9y0Su4NTdowlzFh0FOECnTNSoFi8bvUbi1I=
+	t=1786975396; cv=none; b=aHXtBUvHNNzcnG+kSAxACqUnJeKB9brdJDC2OUaWNHD18TMwlB+Fw6OkgH1O8tM2Ir5RSlKEXtMWfmppFa1w08uQKT4ulRPRcncbL5m86RXXP0p132zML3nwgi8w8xxONI/mdeMZrDNhzqkkc8jmG58eKqNbWpnqNUiZJTllZOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786975393; c=relaxed/simple;
-	bh=bpbMUHYfLrhQQG20cMz5Hquy/ZaeIVfN4QojXnlXa/U=;
+	s=arc-20240116; t=1786975396; c=relaxed/simple;
+	bh=gBjbZ4FUngala8O6Z+FQdpKzVg0DmDvRDe50eHPAlAE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bgGR847QT2UHo5jHDqmeL6ky/MIOXyueBUmoemVzQ72zaIsAEbKuQDoUP58EAuZ3kAXwBMYrDr2MD0OGoNxZ8pxKgRHvUcnM9hSlULb8zRiQlSMz4lDg+fZpsdaCxoYM0NuIT2pEeWdtSnIAdm/YmdEJhz3OSk4m1Z/iLGogncc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zxnr+WTK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=B/JkQOuMRZEdvd9+xJm2bxOyulrXQStRL56zwiv3z04A0wOF/+Rt36b6G9qdRYzSiBeAxNBRdfGaVeMQLTveSPE8v/yVJvuEdz55M4NFNw4/7A2sGf1zG8eIvHOAKf6EXDQQzfRv3p2td+vgD6VRiMR76Wr63Au/+DJyVQqgihI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0yXg0rQl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zxnr+WTK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06F41F000E9;
-	Mon, 17 Aug 2026 14:03:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0yXg0rQl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02CC31F000E9;
+	Mon, 17 Aug 2026 14:03:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786975392;
-	bh=NCVMlK1hQNYMB5RnEWuMiuT48dqMln2it7W21TlypUA=;
+	s=korg; t=1786975395;
+	bh=/DuFVA72uV7TU2slQAmbQhjie7HIWSi6A8OHQVVDZxQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zxnr+WTKKxrQk4BnZ6cljlNx1VTQWffLUs71C7gmpDXRUPDUKHnJF03tMu9+9PJcz
-	 LR7EiKZhFForYQJsNSABzUXbxXr/1kH/CSMHdrUC89hp7sWExoEESGn7CVmRsifC91
-	 X+t3Ek2jq2a8aHlgM5JlfcLkizqYB1l3mL1oUzqk=
+	b=0yXg0rQlQmuqAV+vpGX5WWtdGVvxD7uFlresE4vEISSX6TyJoYnn0Q4Q09JM+Dces
+	 GXvpvfnF+mlC50JpN9Q6NrApzQNV9IZm2VnJVfATiv3pD4WyeiYBhstvlPW7NIMx6+
+	 McnTF5a2ESahQUf96xPBh7kFGiHd+lxSeHyy1kGk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Nikolay Borisov <nborisov@suse.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 013/389] mtd: nand: mtk-ecc: stop on ECC idle timeouts
-Date: Mon, 17 Aug 2026 15:27:32 +0200
-Message-ID: <20260817132539.366599321@linuxfoundation.org>
+Subject: [PATCH 5.10 014/389] btrfs: remove crc_check logic from free space
+Date: Mon, 17 Aug 2026 15:27:33 +0200
+Message-ID: <20260817132539.410980773@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260817132538.796021292@linuxfoundation.org>
 References: <20260817132538.796021292@linuxfoundation.org>
@@ -51,73 +51,124 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: Nikolay Borisov <nborisov@suse.com>
 
-[ Upstream commit 16f7ec8d5dc100eafd2c8e06cd30340a30b104a1 ]
+[ Upstream commit 7dbdb443a7b49f66d9c4da0d810e2c54e0727d82 ]
 
-mtk_ecc_wait_idle() logs when the encoder or decoder does not become
-idle, but returns void. Callers can therefore configure a non-idle ECC
-engine or read parity bytes after an unconfirmed encoder idle state.
+Following removal of the ino cache io_ctl_init will be called only on
+behalf of the freespace inode. In this case we always want to check
+CRCs so conditional code that depended on io_ctl::check_crc can be
+removed.
 
-Return the idle poll result and propagate it from the enable and encode
-paths that require the engine to be idle before continuing.
-
-Fixes: 1d6b1e464950 ("mtd: mediatek: driver for MTK Smart Device")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Signed-off-by: Nikolay Borisov <nborisov@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: a2d8d5647ed8 ("btrfs: reject free space cache with more entries than pages")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mtd/nand/raw/mtk_ecc.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ fs/btrfs/free-space-cache.c | 37 +++++--------------------------------
+ fs/btrfs/free-space-cache.h |  1 -
+ 2 files changed, 5 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/mtk_ecc.c b/drivers/mtd/nand/raw/mtk_ecc.c
-index c115e03ede889b..c60e04cdf03a52 100644
---- a/drivers/mtd/nand/raw/mtk_ecc.c
-+++ b/drivers/mtd/nand/raw/mtk_ecc.c
-@@ -116,8 +116,8 @@ static int mt7622_ecc_regs[] = {
- 	[ECC_DECIRQ_STA] =      0x144,
+diff --git a/fs/btrfs/free-space-cache.c b/fs/btrfs/free-space-cache.c
+index a779965d299054..756a06f062fdf3 100644
+--- a/fs/btrfs/free-space-cache.c
++++ b/fs/btrfs/free-space-cache.c
+@@ -304,16 +304,11 @@ static int io_ctl_init(struct btrfs_io_ctl *io_ctl, struct inode *inode,
+ 		       int write)
+ {
+ 	int num_pages;
+-	int check_crcs = 0;
+ 
+ 	num_pages = DIV_ROUND_UP(i_size_read(inode), PAGE_SIZE);
+ 
+-	if (btrfs_ino(BTRFS_I(inode)) != BTRFS_FREE_INO_OBJECTID)
+-		check_crcs = 1;
+-
+ 	/* Make sure we can fit our crcs and generation into the first page */
+-	if (write && check_crcs &&
+-	    (num_pages * sizeof(u32) + sizeof(u64)) > PAGE_SIZE)
++	if (write && (num_pages * sizeof(u32) + sizeof(u64)) > PAGE_SIZE)
+ 		return -ENOSPC;
+ 
+ 	memset(io_ctl, 0, sizeof(struct btrfs_io_ctl));
+@@ -324,7 +319,6 @@ static int io_ctl_init(struct btrfs_io_ctl *io_ctl, struct inode *inode,
+ 
+ 	io_ctl->num_pages = num_pages;
+ 	io_ctl->fs_info = btrfs_sb(inode->i_sb);
+-	io_ctl->check_crcs = check_crcs;
+ 	io_ctl->inode = inode;
+ 
+ 	return 0;
+@@ -419,13 +413,8 @@ static void io_ctl_set_generation(struct btrfs_io_ctl *io_ctl, u64 generation)
+ 	 * Skip the csum areas.  If we don't check crcs then we just have a
+ 	 * 64bit chunk at the front of the first page.
+ 	 */
+-	if (io_ctl->check_crcs) {
+-		io_ctl->cur += (sizeof(u32) * io_ctl->num_pages);
+-		io_ctl->size -= sizeof(u64) + (sizeof(u32) * io_ctl->num_pages);
+-	} else {
+-		io_ctl->cur += sizeof(u64);
+-		io_ctl->size -= sizeof(u64) * 2;
+-	}
++	io_ctl->cur += (sizeof(u32) * io_ctl->num_pages);
++	io_ctl->size -= sizeof(u64) + (sizeof(u32) * io_ctl->num_pages);
+ 
+ 	put_unaligned_le64(generation, io_ctl->cur);
+ 	io_ctl->cur += sizeof(u64);
+@@ -439,14 +428,8 @@ static int io_ctl_check_generation(struct btrfs_io_ctl *io_ctl, u64 generation)
+ 	 * Skip the crc area.  If we don't check crcs then we just have a 64bit
+ 	 * chunk at the front of the first page.
+ 	 */
+-	if (io_ctl->check_crcs) {
+-		io_ctl->cur += sizeof(u32) * io_ctl->num_pages;
+-		io_ctl->size -= sizeof(u64) +
+-			(sizeof(u32) * io_ctl->num_pages);
+-	} else {
+-		io_ctl->cur += sizeof(u64);
+-		io_ctl->size -= sizeof(u64) * 2;
+-	}
++	io_ctl->cur += sizeof(u32) * io_ctl->num_pages;
++	io_ctl->size -= sizeof(u64) + (sizeof(u32) * io_ctl->num_pages);
+ 
+ 	cache_gen = get_unaligned_le64(io_ctl->cur);
+ 	if (cache_gen != generation) {
+@@ -466,11 +449,6 @@ static void io_ctl_set_crc(struct btrfs_io_ctl *io_ctl, int index)
+ 	u32 crc = ~(u32)0;
+ 	unsigned offset = 0;
+ 
+-	if (!io_ctl->check_crcs) {
+-		io_ctl_unmap_page(io_ctl);
+-		return;
+-	}
+-
+ 	if (index == 0)
+ 		offset = sizeof(u32) * io_ctl->num_pages;
+ 
+@@ -488,11 +466,6 @@ static int io_ctl_check_crc(struct btrfs_io_ctl *io_ctl, int index)
+ 	u32 crc = ~(u32)0;
+ 	unsigned offset = 0;
+ 
+-	if (!io_ctl->check_crcs) {
+-		io_ctl_map_page(io_ctl, 0);
+-		return 0;
+-	}
+-
+ 	if (index == 0)
+ 		offset = sizeof(u32) * io_ctl->num_pages;
+ 
+diff --git a/fs/btrfs/free-space-cache.h b/fs/btrfs/free-space-cache.h
+index e3d5e0ad8f8e4e..d8c2f3df5a0666 100644
+--- a/fs/btrfs/free-space-cache.h
++++ b/fs/btrfs/free-space-cache.h
+@@ -76,7 +76,6 @@ struct btrfs_io_ctl {
+ 	int num_pages;
+ 	int entries;
+ 	int bitmaps;
+-	unsigned check_crcs:1;
  };
  
--static inline void mtk_ecc_wait_idle(struct mtk_ecc *ecc,
--				     enum mtk_ecc_operation op)
-+static inline int mtk_ecc_wait_idle(struct mtk_ecc *ecc,
-+				    enum mtk_ecc_operation op)
- {
- 	struct device *dev = ecc->dev;
- 	u32 val;
-@@ -129,6 +129,8 @@ static inline void mtk_ecc_wait_idle(struct mtk_ecc *ecc,
- 	if (ret)
- 		dev_warn(dev, "%s NOT idle\n",
- 			 op == ECC_ENCODE ? "encoder" : "decoder");
-+
-+	return ret;
- }
- 
- static irqreturn_t mtk_ecc_irq(int irq, void *id)
-@@ -302,7 +304,11 @@ int mtk_ecc_enable(struct mtk_ecc *ecc, struct mtk_ecc_config *config)
- 		return ret;
- 	}
- 
--	mtk_ecc_wait_idle(ecc, op);
-+	ret = mtk_ecc_wait_idle(ecc, op);
-+	if (ret) {
-+		mutex_unlock(&ecc->lock);
-+		return ret;
-+	}
- 
- 	ret = mtk_ecc_config(ecc, config);
- 	if (ret) {
-@@ -402,7 +408,9 @@ int mtk_ecc_encode(struct mtk_ecc *ecc, struct mtk_ecc_config *config,
- 	if (ret)
- 		goto timeout;
- 
--	mtk_ecc_wait_idle(ecc, ECC_ENCODE);
-+	ret = mtk_ecc_wait_idle(ecc, ECC_ENCODE);
-+	if (ret)
-+		goto timeout;
- 
- 	/* Program ECC bytes to OOB: per sector oob = FDM + ECC + SPARE */
- 	len = (config->strength * ecc->caps->parity_bits + 7) >> 3;
+ struct inode *lookup_free_space_inode(struct btrfs_block_group *block_group,
 -- 
 2.53.0
 
