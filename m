@@ -1,64 +1,64 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D6F3C65FD
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 09:03:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8345F3C3F70
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 09:04:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786957440; cv=none; b=WJBOhK1Ux45NupFX/TdzocJUFEKpZdFSUpJxKJ0EVhYEFi+J9OxKbnfdUgPIuC0FBR3vd1TNj/WCW/8JH03clOQxSGojP9KoU6EfYifWdLiC40X5wMcBUwqbbio8EA/cH1U8JsrgACZlYpSLJcdwgDrRIhQdvHo9lnpMxqNjSRo=
+	t=1786957443; cv=none; b=D3WqvwSBdc3hfEn5NtdwpYn3kF55z90MGa3viNrFA8ADRjPGy7rkgs/ENMxftk7gzFCcKSAU9rTZtGIRa3Za8uLGmXklw4dU5NPAIqTud5l8Qoltviu6tIrIWueHYX9lAiEQ8/i2wRT9O4BNQzMOgiAgqYon6eZqmRjjT6mr20Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786957440; c=relaxed/simple;
-	bh=jmcCgsbGNKvQsGopZdfhbfD93w4f5WcJJOrmkdyxHBo=;
+	s=arc-20240116; t=1786957443; c=relaxed/simple;
+	bh=W2PxdTIuJ5LHF/IMnebkVsvR7qjLz3RJEHJoN800q1Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nrl/q/YEmgDa4Z1VATR+r6fQs6Hfpfir3yQZDgelu0mumUhDQbONIf/tt30nZt4gMiVG25EI0/MLkdRpqRGELRtUwJGdTyA92qsURSKoMIbTZUk7q81o2tKAU4JZn/bNQDxcJpzhr37+izmw224OVtAB6d1pBunHbAjPWd761jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ofGRpFb6; arc=none smtp.client-ip=209.85.210.171
+	 MIME-Version; b=TqDEld+A8gw8YuhoFDy47QzBeogx3R1+cf80GRLpgGYTrcdJCkE+Z3ITgaX4PiEBCk0rgityYwytQc7nBXkZK77j3YNh79bDo2leHUkKo5RqKYjT0z+dDEd/HwZfwvflUbXWFxTU8E+XO8bSSBQy6AJIHfqJKDZVOeevgshHQhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rWA4Kfhx; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ofGRpFb6"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-848761b5897so992539b3a.3
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 02:03:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rWA4Kfhx"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-848643382fcso3196558b3a.1
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 02:04:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786957439; x=1787562239; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786957442; x=1787562242; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g951Y30fAYIITqf5Upt52gggx1O3bnI71YidBFSIjvY=;
-        b=ofGRpFb6GrgWajH1QI6mzY5/MnDc/WDM0j2JtyWu0RD63CSgYSfE5DwEGAXl2abj85
-         d47ZbsEJz7M8FCBNC1QIP+oi8EP8ynOxt2ddyhLv2QGUJgqUPa5oGZwytkrabdNZB/qG
-         Fwe5LoTPRilnTW0HVEaK1k8p1N8xSEezjCD8BbsPEhlGDn/HReFOWOsj8w1h8rUHsKML
-         +PuSidRixyZCh5snW7Dj/ABjv8fKaZ64aWkbf79vVBDomlm7H6QPsor1nlVpkrbRK1y6
-         X3KinlDYRZsl68+Ty5ocEB0Twr56vvVSs1mdudVSPy/fEibuApkNUd0TUtKMe3+d3lzE
-         9KbQ==
+        bh=S2uhz0qtH2rdwkxROqvYm518UOZqAraZAM2LKzgDTDA=;
+        b=rWA4KfhxcYLwociHWmNI+oXPgGb1Yx/O06GJVX3ZGrwrLFGES2xfm2JsPnPbKuMpDy
+         jo3vmsuXAJXKN7WGqV+x3IZc3TD1xx9+dmme1qVdYYuP7Kpqe4mrwDzUHLlkQyzUVjNc
+         YjwtRleMlicyUNDAK7Abm+tgSYOLgm/48tkjrlKlsRpy4oj0PGxFaHU/ST1fXzZivj0v
+         4eOrjEmGXf6lCMM/gNkuIw8+SErmpEo6CLLd37Th0ewuhnepzxpsjanYTVdHunC81rRz
+         PrL4TOhcHpuWwm3Ned2NIwqxusDZWFxgs/JdlXFEfculdzEgvMtc65yMSPlv7l02BPlJ
+         Iijg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786957439; x=1787562239;
+        d=1e100.net; s=20251104; t=1786957442; x=1787562242;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g951Y30fAYIITqf5Upt52gggx1O3bnI71YidBFSIjvY=;
-        b=IGL79tekT9+/G6LfOYPomdFSbCHipA3lWxRKynSeQ9WkhaeKmxS+kV5R0CHLSSUvwF
-         eoKR+akBD229A1w0ISamCgjZpazVrBd4+ZusxzuVSM1PoM5WsFwx/KRotxeQNXtU33ON
-         YXJ+qX8cK4vIxWblnMnfjXZMnXO9LgECqd2QV2XkLmRuEDATycnyaQhRi/1l9O2QqWuU
-         /Q5lTzOIxjbSWGY9WXATVMk9IbyZOS/rUEwiNAZ5/g9SQAvxu+ZEXfDwsQwVLDKNKmcW
-         Q1K3nY5ElYtIWPUKLZ9xkFElNzBOQOwrtkq9I30pev+mcjhJ161k28N9pxCj4jZeGCBH
-         32Ug==
-X-Forwarded-Encrypted: i=1; AHgh+RruvOVKKrcTN99I+c6oDtsONOik6jmJjHgcFXzM2/yo33NDpYjeGF6JB15HFiSY7mnibEnjUO0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyHgTduqxTypAtkG9quewUY1dVhRhUemK8mVNZtHLPj6xUA9YGE
-	CzJNS9gzcQ3p7vGmtLShOm54M2WUwno+DDlfNU1vsW56twnvUZp7fy8+
-X-Gm-Gg: AR+sD10plsRk36xRiOf/zFgI+y7zHVHpEJAEVQ/zc+ydCW12NjmGZppFsp34qkAOSzm
-	wQm6DxvDLJ9mCS31DwhLZFJnXzh/bjecxep1pI9HRdmoN01cyE7CAuwdk6ILnd/BcNRZu9EzHZa
-	bLcO5fIJ84LqLBSsJUNdAb/8ThTY2ibaZcYYS+qCURVhq5NgROFb5Xc4rpV7FarU7nUXE+Sj3i+
-	IwR2ve42DRzM+Pjo1QK49AftdC/zarbUkiQXYTCJ/MYOrm7YELdHvCCcqq4fgpR5izxcdPI9MIM
-	Yio22h09WKEFHgrGmOmjHsFywOcfKSQ1IVQT5hGyrd7pyxCGTd9q7+mwYbQbeaZ1S3R0zIlZArf
-	G460mXLTvv7OVpXn/inGBREAKuU2f2iyMOkTAOnNZzZFkQwVJ38m0uH5i1MvsaYXiROqX5RKQ0v
-	4OYfypUBUWYqWIfi5z/oX3k2BdXh4Uc6/VovurCs7i0yIHwO88LSNaVTDCoAqP5aqI9wOv2fu0F
-	yLVrCsFTcY=
-X-Received: by 2002:a05:6a00:1895:b0:845:4928:8655 with SMTP id d2e1a72fcca58-84fde33319bmr22306634b3a.39.1786957438516;
-        Mon, 17 Aug 2026 02:03:58 -0700 (PDT)
+        bh=S2uhz0qtH2rdwkxROqvYm518UOZqAraZAM2LKzgDTDA=;
+        b=UL9aJlOwi/JkIKqY5nLhZF+IOJWIRu+0KbNzFy3rxU7VgfP7HyeV/4dowUMOdO9PM8
+         pNsd/R04mhTBRFfv8MJwlRlxa1shMpkvXwsa7zWa75V7d+gyd0enZ5tcouwpeFgnii2m
+         OqNLhmkCRPeXSspqUt/Sx2voEapo88Xeidx7SjqxpQQ/kJUTxCnR9o93ofuwpsV3IIoD
+         A+xCMtxhRX+/AB28fWXIBjquEKobAt0OMywAG1hJOTED75poqgDJbGHFmefAlPbaOgbB
+         Uj3b+SeWZ9uNCcpir3iD6iEpuX0MUxix13L1H9pxXZc4vPDxfAkzwrSIv9s2Sx4lHDo7
+         oA4g==
+X-Forwarded-Encrypted: i=1; AHgh+RrTCwdn6QD0N/OhnCmdckBncmgDC4CJo7v/YBPMWKTzfZZSUmE3MP6JKpd/oI9wEQv6ti6MZqg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTO/fI1dxic0T/NXJhbbyRP2JafxV1U/dybH+9XkbOnGLxAg1B
+	fCdKLnX6xLxOazesSNVgfTz7gyNelCRaK/rlyQCRl6GAUjKO+21+BVYz
+X-Gm-Gg: AR+sD126wqcSRTH4Blm3K8mI8zo9kBj4CKjBVws/Fd/Z1vl2/aq9+nZzwGuztrRSjOf
+	EZfwpZN86pMjLvLY60RNo20FH+eBF59Kn37Vl/+B6iHC1+/lSk67rGKaacVMoLYKby5RnQFrz92
+	/81kyLDSiEgIy34usdCIfYGe3PvDSMA5vkHJOh3optvfyQ77IWBizh39U9rAaAvmWKoZ0XEDnKa
+	KPPZfbZOEr6p34qrdVNYizF6Ump1tkN4Uh53hOGutwBAPqSeRnJauv90NFVwwB6fpet8WDVBBP0
+	gk/eaTCUhtTbsvMr/4VIDE2voBrRghIlFNXkzjFBKeVIllpXnkhNuq5CTw/PtdlYzfO8P9aRoJG
+	krGJUG11glujA1QlDlAt5IzcmqgsSJQPbE7O6h3ifW1A5eI7r1t+cfbRkHdye+BrAEmrr/WQKKR
+	Ij+BT8FsWbRSsmVVw6YBuVaqmvtL6i4o2bTLFA75OgZYHXWHEDFQeA+A3lpvmT82WFcs5t88kH8
+	ooTGyAIVpOhjxXEuozW/Ik=
+X-Received: by 2002:a05:6a00:b4f:b0:845:c7f1:29fa with SMTP id d2e1a72fcca58-84fde330ca8mr23049775b3a.30.1786957441665;
+        Mon, 17 Aug 2026 02:04:01 -0700 (PDT)
 Received: from v4bel.. ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8517d2476easm2342517b3a.42.2026.08.17.02.03.55
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8517d2476easm2342517b3a.42.2026.08.17.02.03.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 02:03:58 -0700 (PDT)
+        Mon, 17 Aug 2026 02:04:01 -0700 (PDT)
 From: Hyunwoo Kim <imv4bel@gmail.com>
 To: davem@davemloft.net,
 	edumazet@google.com,
@@ -73,9 +73,9 @@ To: davem@davemloft.net,
 Cc: netdev@vger.kernel.org,
 	imv4bel@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH net 2/3] net: fix out-of-bounds write in sk_clone() racing with IPV6_ADDRFORM
-Date: Mon, 17 Aug 2026 18:03:16 +0900
-Message-ID: <20260817090319.3897799-3-imv4bel@gmail.com>
+Subject: [PATCH net 3/3] tcp: do not inherit out_of_order_queue from parent
+Date: Mon, 17 Aug 2026 18:03:17 +0900
+Message-ID: <20260817090319.3897799-4-imv4bel@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260817090319.3897799-1-imv4bel@gmail.com>
 References: <20260817090319.3897799-1-imv4bel@gmail.com>
@@ -87,54 +87,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sk_clone() allocates the child from sk->sk_prot, and IPV6_ADDRFORM can
-change sk_prot under it. The conversion requires the socket to be
-established, and a listener gets there with connect(AF_UNSPEC) followed
-by connect().
+A child gets a copy of the parent's out_of_order_queue, which can be non
+empty when/if parent morphs from listener to active session. Parent and
+child then point at the same rbtree.
 
-tcp_check_req() completes a request without the listener lock, so it can
-run while the conversion is in progress. IPV6_ADDRFORM stores sk_prot
-before icsk_af_ops, so tcp_check_req() can still call
-tcp_v6_syn_recv_sock() once sk_prot is tcp_prot. The child then comes
-from tcp_prot's slab while the AF_INET6 code treats it as a tcp6_sock.
+The parent is no longer a listener, so inet_csk_reqsk_queue_add() forgets
+the child immediately, and tcp_disconnect() frees the skbs the parent
+still owns. The parent's own root and ooo_last_skb are left alone, so it
+keeps using those skbs. That is a use-after-free, and the parent frees
+them a second time when it closes.
 
-tcp_inet6_sk() is a fixed offset into tcp6_sock, and in a child sized by
-tcp_prot that offset is the end of the object. The ipv6_pinfo copy is
-therefore a slab out-of-bounds write of sizeof(struct ipv6_pinfo) bytes
-past the child.
+We need to make sure this can not happen, by initializing the queue after
+socket cloning.
 
-The out-of-bounds address is also stored in the child's pinet6, so
-everything that reaches the socket through inet6_sk() keeps writing
-there. A request that arrived over IPv4 takes the same copy in
-tcp_v6_mapped_child_init().
+Very similar to commit 8b485ce69876 ("tcp: do not inherit fastopen_req
+from parent")
 
-Checking sk_prot before the clone does not help. It can change between
-that check and the read inside sk_clone(). Use sk_prot_creator instead.
-It is set once in sk_alloc() and never changes, and the socket is
-already freed back through it. No caller that replaces sk_prot installs
-a proto with a larger obj_size than the creator, so the child gets the
-size the parent object actually has.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 9f5afeae5152 ("tcp: use an RB tree for ooo receive queue")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
 ---
- net/core/sock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/ipv4/tcp_minisocks.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/core/sock.c b/net/core/sock.c
-index 1ad41904db25b4..098e58b40f304b 100644
---- a/net/core/sock.c
-+++ b/net/core/sock.c
-@@ -2479,7 +2479,7 @@ static void sk_init_common(struct sock *sk)
- struct sock *sk_clone(const struct sock *sk, const gfp_t priority,
- 		      bool lock)
- {
--	struct proto *prot = READ_ONCE(sk->sk_prot);
-+	struct proto *prot = sk->sk_prot_creator;
- 	struct sk_filter *filter;
- 	bool is_charged = true;
- 	struct sock *newsk;
+diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
+index 6ab3e3a0b43173..d13813d50947dd 100644
+--- a/net/ipv4/tcp_minisocks.c
++++ b/net/ipv4/tcp_minisocks.c
+@@ -591,6 +591,7 @@ struct sock *tcp_create_openreq_child(const struct sock *sk,
+ 	newtp->total_retrans = req->num_retrans;
+ 
+ 	tcp_init_xmit_timers(newsk);
++	newtp->out_of_order_queue = RB_ROOT;
+ 	WRITE_ONCE(newtp->write_seq, newtp->pushed_seq = treq->snt_isn + 1);
+ 
+ 	if (sock_flag(newsk, SOCK_KEEPOPEN))
 -- 
 2.43.0
 
