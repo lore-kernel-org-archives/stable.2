@@ -1,64 +1,64 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32C943C7DF
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 13:57:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5852E442393
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 13:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786975059; cv=none; b=iHP+ikbeevj2HZ7qX09SlDrNwwq6IlABzdsDCe1PXokbBtiWM6GZ1hRzQ0YbXM2M90jDR4FJGwLij23fDdJTpJ2z5YQKa4zuLCzwrKTyTTDWfMNNbo7CPLSlvfra7UdUoc7HFSeiqPSz8d4YyDyvluPW/NmK9gJGIlTSyb/Q+i0=
+	t=1786975060; cv=none; b=s3ed5mux2fL2Y/V/AveMNmOzZ19G/7fPpZROAc1Ks0N8vbSr4LnwWy8EPn2/2oj9oSlkeeATTGaR0AKN6IJ4CpahuClBrvnmom4VKQXOFBb6ZmB9WBQjw1dO4RJ8smGibOUSaQUR8Mj0+mFbwJp/sDScMPdAlnXQfb41jBlei+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786975059; c=relaxed/simple;
-	bh=PZI7MMxmJVNzbmV5bnrz48F2Q3n5UxIGaRjcpiHxuHk=;
+	s=arc-20240116; t=1786975060; c=relaxed/simple;
+	bh=k0KzLk/Py5MfNs6v0LG2pawI7nCHX5oUhShrr2VzixE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QQN+byNfwPrWNwiqHmTFybP6AMzSeA8I7Xs9i69xxgupZAGs1VT7aYZlMrcRpCxSNJ05I7xyX0beYrjsmczNzrj3jJBz2NmjgmfS5fz/BB25T2fXMLqtdUYqm3uVkbTJnBDOyICJUxds3ga+Ua7UUVoBy5hBzq+twa0VLTO4iZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=soundtrack.io; spf=pass smtp.mailfrom=soundtrack.io; dkim=pass (2048-bit key) header.d=soundtrack.io header.i=@soundtrack.io header.b=tEpTIBqH; arc=none smtp.client-ip=209.85.208.51
+	 MIME-Version; b=kD77DZH9k5UtbQjpgQUI41kp6jvidAO52BUKiSoPWYy5LB+qrdpfAO1hMQK4bAusfuJ2nVp6sqXZQBed3s5+GO/oGRx5WHPbmX29qDOIAuTI/Je/RWlIEZhaGYOZnUxM5soS4GW/CqG6Cr3sOro9eIF5bo/1JApKQSaXDAS/0p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=soundtrack.io; spf=pass smtp.mailfrom=soundtrack.io; dkim=pass (2048-bit key) header.d=soundtrack.io header.i=@soundtrack.io header.b=hdJx5niR; arc=none smtp.client-ip=209.85.208.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=soundtrack.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soundtrack.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soundtrack.io header.i=@soundtrack.io header.b="tEpTIBqH"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-69fdfd98eb8so471374a12.0
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 06:57:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=soundtrack.io header.i=@soundtrack.io header.b="hdJx5niR"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a1f56768baso587045a12.0
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 06:57:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soundtrack.io; s=google; t=1786975054; x=1787579854; darn=vger.kernel.org;
+        d=soundtrack.io; s=google; t=1786975057; x=1787579857; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WLmqosVfHRUnCpTXG/vmgJdRPIFeEEdEr21ji49UgUg=;
-        b=tEpTIBqHOBDANpCGB3UUeUWv7fsWbUyEVdhtcDtwO4ow2BV1/qXXoNsn4KpTBZceNS
-         +epRX8gxHhp3p7jD8atP/eTILwMrLYloFOlBsRqnmQK7pK8S/VQaeg1hwZtNyAKdqKbW
-         XhxA33Er+1OhNraUijNWjhKECGmKgR5Hjaqsz8TDqZOlZ/WmWKjpS8eZ/SpVAHXR2DvK
-         qtSS0NCcAyYCwKi4zaQT5w9kZc7bvntfyunBiIIckGK5/3/Zp1t3s+aL18avXya01HuK
-         nXvhhAvdM5DohQnoyNoi3atR92f7m0KTP0MOgmIMF/GfDw/Mzo2K3xoYdI4PjEkG0hqN
-         V/JQ==
+        bh=t8f5UJCABHvmBw6dzoHdGzw6KbaLnhVEoCCS6jqmRT4=;
+        b=hdJx5niR0E94H+nb8qraeXqUsnG1zW9Iefn8aVEaWVoNUVi73xHl4faMuaxtHbGUVv
+         1+iCpJGw85dX1UB/Utz6R5p81h0HWeAgBnKulOzx46iLMMVclrPROTxuCJjwVZbQlJEj
+         BsFKfCFzXNP15fGR7XUuOv2fbOj2V83Mb3824LpUbW5w/4wBhAdlzeSMKPDZ1Xtd4clT
+         ggRJT6JrvD+zzX0n9vfH26bOkZZ1GSbFewlYrx6QCgvgjWK1K5vrVFE7fV99XilpOOK1
+         NJU4h+agtuSxVBcROd5IQ7P/hSI8GGLF5sAQs1lXVHhcS7XZHv+aldPuC9d162N8hFq8
+         fXuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786975054; x=1787579854;
+        d=1e100.net; s=20251104; t=1786975057; x=1787579857;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WLmqosVfHRUnCpTXG/vmgJdRPIFeEEdEr21ji49UgUg=;
-        b=NRiP7EaY21nrkAY+o67xxlD+2a3wl8+bgNTT/2oQLCtFcSLVHFbwbu6YzoQxq6PxZ1
-         gwU9NkQgair3eq/1zpsUH490/KSIf87QrtD/nng3mX8IwEl5ldTVCXsh1vDCREbuiP6D
-         2gFRH+dvTXORUOxRO6yqSfVPTE8wK4ZC1RtP9PomVwv4v3dgyiWYPetC2gZskVyBu1WS
-         o8R3HJXvA6TonJqSdRiogXBysD/23GZikO5Q2PA3GNLo5b51sutQdkWsrgydjLc7MA/m
-         ToSOQTQseZNlLEZTQYdu8XIi57I11+H+7onP6B30A61lwsrF/JL0kYyZQNOlZNYOstYp
-         qVjw==
-X-Forwarded-Encrypted: i=1; AHgh+Rptzfvpqvzzx3V6AZfW0D/OL3CRpviRMJWKtJ4B/ryXWq+eYS1xM3bkkHhlJFJjyuHQcAM0niQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwA73tEOkysBdTCSvtXwdOE3Sv8fvFDh2a1o+waQhSz4jHC1/hJ
-	FEy0dvHrbr3TI/YLQNV+c2SraMqa7IrYby9ItjE0Et2uIvys2WYnayKEyz0itBGKoxE=
-X-Gm-Gg: AR+sD13mubUVejH/A6G42QJJkL143GHfZOz3GiNt4XEWAwReYQimWp44fGr0KAVIxq8
-	n0zBnyjKh1WUCyrkWL5usOvy8G/HWrFAVAI9BRDj65/VhKwxJOCUsnKpr2f61Sixm2zI/rawJ1k
-	2cVQ7OOXQrStCUgH7VwoZAKcat+AzvkkKpyERGosq3Ranmhuk+vbkkjjF2FoJaU+8Atx1z+amjL
-	Kc6etWjCOUqPCR2IT237NZIxNIckdw3hii0N5x09OkA+z34tUb/nEDrTo13E5R4uAnI+IZtRUEw
-	n1Gg+lO3vWl6v0Ni0sgVFi4sAPvvFYVLvi+3vmM+3asEjHPcgPMCahdUlT1pxuQhTxB1E+bNpXF
-	6kVQ3Jy0kuDdp+7El5TwSiUDocij/vBRLsRSvtmUUw6vGXi/Y1sbmwyTloPPFnypUDvAnnD56+7
-	2GfZKphgCD7QlWIGvvmDu1TGuh+LBWM0a3QEIdhomf7MwLDZ7njy06/MFNGzYc7t60bSolxlg0n
-	0LVwWdq/eUTmsbZxaWplMFA01AGkb/NvDfnwjgLqd+4uLqHFN1NBd90nno=
-X-Received: by 2002:a05:6402:234b:b0:6a3:68c2:9a9e with SMTP id 4fb4d7f45d1cf-6a38a845a42mr7135042a12.0.1786975054047;
-        Mon, 17 Aug 2026 06:57:34 -0700 (PDT)
+        bh=t8f5UJCABHvmBw6dzoHdGzw6KbaLnhVEoCCS6jqmRT4=;
+        b=V2nPhoXxV+y6ypD9nhB2pBH0oB+8MWeCnff8D+A3U05IbxyPeLhqJgzn83YLz9ac5b
+         h42fglLFlwgRSYTinUHG6Dq8cFAcBg08HuoB8AkOqwLZha8eNENml7HGavnysuT1HrM9
+         CIwEp6rq1VDkvs3DatChEZ1jOidbSzVmoBiXLTRCKaHG6fKKwXKeMrTRm90yBGy3iOdw
+         u43Qdp6/rg0saWmcMEwuKWCyHZC8yEB+/VfUEdLZqenf9n+u0vmhV7KSX/Josb2aHVWu
+         St1C2Hixp8NdH6/bfMCrO60k5xf97/uETv1/kTJfo1MxOWZJ6a67jvBdFe6Oe+ZX5NbO
+         ZKxA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp9YhGObJbywlE1up/AsRQcjqMIJcWDAsAo+L7BJ51HAy2bvkRPIcp36ji9Tq+K56lpI7/D43Q=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcGfXK3HDbYl/VP7K2DqaUJzlINdcTiYWRN24ap6b1BPJxmnfq
+	41g0Z1Ld5dmnxcpFhnDfn6cvj+kRBBlz6BevENwzjbndQXVBuSc2L9dw5BGsBAu12jw=
+X-Gm-Gg: AR+sD117ysk4lWY1Lixznh/77wmvAPTyMwAA/pnvKQkyUJtG5hE05XkrXnTRYSeT1T7
+	eNOXYGwzwnKMIqstCe4o/nJFbHo+Z+6CVcxvqk+MnJOI+uglrBDzOFLpS6e7oGoi73ag+G8SUhO
+	hnx/Dh/sSKQeG7FiFcaOJ54zC88+9dYx5Klx7vbcVp0S4/HNizjry7a0WBkSkr1Tfscxf2TqxWk
+	BuVN6EI+LKY2QRyPXH3orBE+VqCzQN1A+3ePuoKqb2+t3R83iAaAEg8NNeCNCkblFH5lYoZ5347
+	VDGfltc5WQFaVqLmsnbj6J7OrEYOfT3PxUFPH95bgh7nC+L00U3V2xmPKhIHOkTEUmFRjqllQal
+	3C0pRlC3YQ71AM7rCH2wEO/W++CME1khgOD5xG30pBCA5MHT/ONep1Zb9TzPEMp/DN33LGOJDPE
+	jd9lRDBrUQYwydmy+5LGHMFCva/8T03WEuMoEoocOlEJPI4Erber1LtTcfjPCPekOHYhH7VSmzA
+	9F0H5kU6TkN8gZEUyT59WfFMiE8HoyuCIRM+kXsvjVY7kcNd/q9Vn08uLk=
+X-Received: by 2002:a05:6402:2812:b0:6a3:8446:c56b with SMTP id 4fb4d7f45d1cf-6a38a8bf430mr6474052a12.1.1786975056608;
+        Mon, 17 Aug 2026 06:57:36 -0700 (PDT)
 Received: from Mac.localdomain (31-209-40-223.cust.bredband2.com. [31.209.40.223])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3d85319b1sm810238a12.13.2026.08.17.06.57.32
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3d85319b1sm810238a12.13.2026.08.17.06.57.35
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 17 Aug 2026 06:57:33 -0700 (PDT)
+        Mon, 17 Aug 2026 06:57:36 -0700 (PDT)
 From: Christian Lugnberg <christian.lugnberg@soundtrack.io>
 To: vkoul@kernel.org
 Cc: Frank.Li@kernel.org,
@@ -71,9 +71,9 @@ Cc: Frank.Li@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Christian Lugnberg <christian.lugnberg@soundtrack.io>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] dmaengine: sun6i: fix non-atomic read of DMA position registers
-Date: Mon, 17 Aug 2026 15:51:22 +0200
-Message-ID: <20260817135723.12807-2-christian.lugnberg@soundtrack.io>
+Subject: [PATCH v3 2/2] dmaengine: sun6i: fix undefined behaviour in sun6i_dma_tx_status
+Date: Mon, 17 Aug 2026 15:51:23 +0200
+Message-ID: <20260817135723.12807-3-christian.lugnberg@soundtrack.io>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260817135723.12807-1-christian.lugnberg@soundtrack.io>
 References: <20260817135723.12807-1-christian.lugnberg@soundtrack.io>
@@ -85,53 +85,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sun6i_get_chan_size() reads DMA_CHAN_LLI_ADDR and DMA_CHAN_CUR_CNT in two
-separate readl() calls with no synchronisation between them:
+sun6i_dma_tx_status() calls vchan_find_desc() to look up the virtual
+descriptor for a given cookie, before checking whether the pointer
+vd is NULL:
 
-    pos   = readl(pchan->base + DMA_CHAN_LLI_ADDR);
-    bytes = readl(pchan->base + DMA_CHAN_CUR_CNT);
+    vd = vchan_find_desc(&vchan->vc, cookie);
+    txd = to_sun6i_desc(&vd->tx);   /* vd may be NULL here */
 
-DMA_CHAN_LLI_ADDR holds the physical address of the *next* descriptor the
-engine will load once the current one completes. DMA_CHAN_CUR_CNT holds the
-remaining byte count for the *current* descriptor. If the DMA engine
-advances to the next LLI entry between the two reads, pos becomes stale: it
-still points to what was the next descriptor at the time of the first read,
-but that descriptor is now the current one and CUR_CNT reflects its initial
-(full) byte count. The subsequent virtual-chain walk starts one entry too
-early and accumulates an extra full period's worth of bytes into the
-residue estimate.
+    if (vd) {
+        for (lli = txd->v_lli; ...)
 
-Fix this by re-reading DMA_CHAN_LLI_ADDR after DMA_CHAN_CUR_CNT and
-retrying if the value changed. This double-read pattern guarantees that
-both registers were sampled during the same descriptor interval. The cost
-is at most one extra readl() pair per call in the racy case, which occurs
-only at descriptor boundaries (~every 2 ms) and is negligible.
+vchan_find_desc() returns NULL when the descriptor has already been
+completed or is in-flight on a physical channel and no longer present
+in the virtual channel's descriptor list. When vd is NULL,
+to_sun6i_desc() is called unconditionally on &vd->tx before the NULL
+check, which is undefined behaviour. Move the call inside the if (vd)
+guard to ensure it is only reached with a valid pointer.
 
-Fixes: a90e173f3faf ("dmaengine: sun6i: Add cyclic capability")
+    vd = vchan_find_desc(&vchan->vc, cookie);
+    if (vd) {
+        struct sun6i_desc *txd = to_sun6i_desc(&vd->tx);
+        for (lli = txd->v_lli; ...)
+
+Fixes: 555859308723 ("dmaengine: sun6i: Add driver for the Allwinner A31 DMA controller")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-sonnet-4-6
 Signed-off-by: Christian Lugnberg <christian.lugnberg@soundtrack.io>
 ---
- drivers/dma/sun6i-dma.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/dma/sun6i-dma.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-index f47a326dd7ff..04fe1f5042e9 100644
+index 04fe1f5042e9..7704b016aed8 100644
 --- a/drivers/dma/sun6i-dma.c
 +++ b/drivers/dma/sun6i-dma.c
-@@ -354,8 +354,10 @@ static size_t sun6i_get_chan_size(struct sun6i_pchan *pchan)
- 	size_t bytes;
- 	dma_addr_t pos;
+@@ -981,7 +981,6 @@ static enum dma_status sun6i_dma_tx_status(struct dma_chan *chan,
+ 	struct sun6i_pchan *pchan = vchan->phy;
+ 	struct sun6i_dma_lli *lli;
+ 	struct virt_dma_desc *vd;
+-	struct sun6i_desc *txd;
+ 	enum dma_status ret;
+ 	unsigned long flags;
+ 	size_t bytes = 0;
+@@ -993,9 +992,9 @@ static enum dma_status sun6i_dma_tx_status(struct dma_chan *chan,
+ 	spin_lock_irqsave(&vchan->vc.lock, flags);
  
--	pos = readl(pchan->base + DMA_CHAN_LLI_ADDR);
--	bytes = readl(pchan->base + DMA_CHAN_CUR_CNT);
-+	do {
-+		pos = readl(pchan->base + DMA_CHAN_LLI_ADDR);
-+		bytes = readl(pchan->base + DMA_CHAN_CUR_CNT);
-+	} while (pos != readl(pchan->base + DMA_CHAN_LLI_ADDR));
+ 	vd = vchan_find_desc(&vchan->vc, cookie);
+-	txd = to_sun6i_desc(&vd->tx);
  
- 	if (pos == LLI_LAST_ITEM)
- 		return bytes;
+ 	if (vd) {
++		struct sun6i_desc *txd = to_sun6i_desc(&vd->tx);
+ 		for (lli = txd->v_lli; lli != NULL; lli = lli->v_lli_next)
+ 			bytes += lli->len;
+ 	} else if (!pchan || !pchan->desc) {
 -- 
 2.54.0 (Apple Git-156)
 
