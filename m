@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE8241D131
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:44:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803AD41D133
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:44:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786970651; cv=none; b=TXnB8KpKnP/X12YAL2Zvuye25jjQPniIuh5fA7Xv3R/QD4IQT4O3Qe0UqNNkboBECnl6p0xByvL1RWnA+Lclo5R+G+iyHEr9ugroBvUUEhAj26Blz4+uyTcZK1vAXmldrGMBnC6L+/PPyeu+P81vHl1Clga6d9ssKKUjEHgy1Do=
+	t=1786970655; cv=none; b=Zkrr1ynESyAO+xPXmCmIxKxCjrKuClqjK/GnrbOVPSUYsKpcqxaGvmBI9AbNpyqs8/hox031Is+qs7sJ7JWHIIOjtDbE4fsuHLcFNfaBgdI7DwV3p43yZc9anlICFe1EcZopTHocxwFTFIjcRbo2HbIvKjjZEsnuGV7bL4UHYOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786970651; c=relaxed/simple;
-	bh=u6tcTlCxQNlQCa6mT6YCqcLAh06VzoJVAasNRUaA9qU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WiUgIsHExHfJDeU3a816Qddq4U1aA4uWV34yPRmM9DLeHKF95QNs1hJbwJn4ACokSJKw+2+j5YPfFySyD5cVRjgqbtzAQjbC5R14VBdzLiFrZ8fdLOG8jQfDGnDMBOas33o2Ryo69KHjDwKt1GzjRJ5N82uFFvNPWipYtjkmOys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rkwSTbGe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786970655; c=relaxed/simple;
+	bh=ObvUoJV7jgaKbkxF0KrDgOsvi2Fadpv5AZ5fv7DiuU4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fL9XJv3C6HZK1y+HyfH5dsRviHPgkRTVxF1XQ8ft9bvQVzq9nSDk+HmwBSU9WHlkNXJBVksMkES4fyOOw7YW25lpql+d8GdAtyZGawaBz5pO5fbx6PJtL5ffkTrA6/V+0TDDVK3xd2UIfgyoLtSLJatW5P/+snf1SX+2jk1Iso8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PNEy0EaB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rkwSTbGe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 997AA1F000E9;
-	Mon, 17 Aug 2026 12:44:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PNEy0EaB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20DDA1F000E9;
+	Mon, 17 Aug 2026 12:44:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786970649;
-	bh=9OOh4P3GPKZ8sPIr2kwquN5o7XH7FZctEM8A3FygGv0=;
+	s=korg; t=1786970654;
+	bh=kWIyIZzeWf1Jhhwbjn+4lZfj45eE/oOP6oYAPluUbnk=;
 	h=Subject:To:Cc:From:Date;
-	b=rkwSTbGeyC6FAnSzRpazR2QD5vpTzRCfgwN8BF20m490bfi16lKT4WZ8GEeP8CoA3
-	 rMy1SxQCc2yAoUYgqeDsbNd/MEce+JGRkRsqzlcL6LFlUYJnLejx932BRjkodqymV+
-	 9Ui0kc3hQwZlQOZHpkeaQW8N7xKlo+0P7U/2tlIA=
-Subject: FAILED: patch "[PATCH] NTB: ntb_netdev: Preserve RX queue depth on allocation" failed to apply to 6.1-stable tree
+	b=PNEy0EaB3UnkNlt/MwN0O+/yy687rkR93fR/za5VeKXxfzoSu53II0Yat5ESidSgZ
+	 7sVkxGUcaX8qLdGvO41uvIh+0BmnuLxWLt42HtCR6MvtPK0V0/x7fSUty+DZhrhzSe
+	 kAIYfe8ILwNRhaUUL4aXS1DYHJX78W9BZmZfwcGg=
+Subject: FAILED: patch "[PATCH] NTB: ntb_netdev: Preserve RX queue depth on allocation" failed to apply to 6.6-stable tree
 To: den@valinux.co.jp,dave.jiang@intel.com,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 17 Aug 2026 14:42:10 +0200
-Message-ID: <2026081710-dwindling-extenuate-15ef@gregkh>
+Message-ID: <2026081710-mandolin-absence-59b8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x d2121faf133ac3bf9531b53a7e21273649a08517
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081710-dwindling-extenuate-15ef@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081710-mandolin-absence-59b8@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
