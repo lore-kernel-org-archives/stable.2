@@ -1,203 +1,381 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4C237F732;
-	Mon, 17 Aug 2026 22:54:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3183BFE2B;
+	Mon, 17 Aug 2026 23:12:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787007277; cv=fail; b=nJjpYsHCkM8VF/zDiJ7pt4AbsxVSOXBB5CCEhH9kCqImzVPwTRPr6cvLsCz/1FzQuv3BVjCA6Hvi7AWvO/4qtdpKKbTUu+B+rWCp5GKqOKYB62PTwChyPJmG8SMqAK/ciYX8k/i0oQO+KRCcjGuLQsCLAzlXDUUa7car56hKJ0Y=
+	t=1787008383; cv=fail; b=SYBsNGPuESNq8zFLWq8g1iAH4hbE5kVxrd6108N2uK/EwKZUWFjB9q9CzOJyml0/8rYWD8QTp/Dy5zFdNi93cqlGgX1WTtNbc5fv9mvNEhpIfIfyH80U+6WFZHzddPzHnI1/0WKsewwqSsSoFv/dYovTxIetPpc6rdojcYSGj+E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787007277; c=relaxed/simple;
-	bh=+1Es1iekum7cN3zZGUFv3N2PyqKhA8EjsilZJqJ821o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Ne9f/rUozLI8ZlIuVFRe7Y/IAS/zTAsWjvDqZDukIP1JpCATJpJRAMPAbxSdJW4cbMhxkxtjuxMuAfiAHwyTW13E7SfJ4ayHOzvOgNhDftyBE+Ju0X7tpluVQuiI44Yo7ednw9WnYXLtbojkK7nrIwImq4MQ1icDZG8JxL1Bx4A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=dFQgWoh0; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=NnuDy6zO; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1787008383; c=relaxed/simple;
+	bh=MfE4hSs2LNqfvsnRbFZbKd0iyObnaH9+A9d4f1BcwdQ=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=HINaC04zhxPb0FEJgnhY2+rIQhk2HSXu8aO7aymZbecRQSDH7fW2eIqt7IsBOITG75Rq3d246eLRHyhLYs+CJrDDO0DPXyoxp5FTRvxND38W0IMYlZeF7LoZ086NtvOYvXVbrLEwaLh3I0cD0IcHmvdrcnwaoMICwpV85+WzMuc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ryf2iUvg; arc=fail smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="dFQgWoh0";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="NnuDy6zO"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 67HLoCJa2008296;
-	Mon, 17 Aug 2026 17:54:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=EcsZZ1umWqnIdEU8l9Z38SHVzg5pxaBH/1wjvFtxY
-	fM=; b=dFQgWoh0YNaxVo2YyHL09lCaxvO9Ip19O80JV5JlD47VJBrjZuiJ+4xzO
-	gQatigrHgecnxLfLWkVnU9HPe70BgGI+tXBBZWtzNuVUub75sKSGUbOVCwwnxRe7
-	92DCuCp5RoujSuQzIzam85mxXdSqwCpPK9Qi6FpzvZ7SmGaFbovxbiGqRWw+QSbZ
-	hqqPlFpXtD8406c/OsVCBKNKopxoY2WRfUeGJPySMbavcKrJzGNOKmDF28gaIkPF
-	4YCK54fcKPA2rIQfmaRVJCAQusFdMPpMbw6BV7gyX1GuiK+lA+kdMXduJauPHJEt
-	xKAvMOQoD7f+OwaAclcMdppTcMPyw==
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012020.outbound.protection.outlook.com [52.101.53.20])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4g3ykmmhc1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 17 Aug 2026 17:54:12 -0500 (CDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ryf2iUvg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787008380; x=1818544380;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=MfE4hSs2LNqfvsnRbFZbKd0iyObnaH9+A9d4f1BcwdQ=;
+  b=Ryf2iUvg9fYDUNPVV7JI4jrUExIanzBlzyLwu/BCKsIuNnVb9p72c4WY
+   bCxXkG8duXKvf3GpGRfnW18vRDoU6jtKKYJdi6AVhsx2RnTyfwbfmYA00
+   mPUQ3KFZ+ZtUv3Tmnw6YAEtfm+q8kNL4hjj7LARyrlfLCKjDJ0cUqYQrd
+   EwsOq6aXdYbhDtClUblVD4o6QyWk9GwKVg+oRb7aPK80g5Kd4+sJ/4pz+
+   rl8KS5pvUdyRpkpRbAI8UTinriFrfXhghji6nWG0aWkVRfn08QV/rQm6b
+   NomY2HYXa3lvVlg1fPYdIZVUFaTSrNZamy4omweERUbz+G2qSfH9dSCsR
+   A==;
+X-CSE-ConnectionGUID: 3QHc/NtzQBWgSurxLpGoPQ==
+X-CSE-MsgGUID: JDo3rsTNSIemwEFuaS0uoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="91173144"
+X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
+   d="scan'208";a="91173144"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 16:12:59 -0700
+X-CSE-ConnectionGUID: jdTgSlj4RZaV4ixzryUTAQ==
+X-CSE-MsgGUID: qIw0BaBPRvm8fcaBL+fAfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
+   d="scan'208";a="260829963"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 16:12:59 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 17 Aug 2026 16:12:58 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Mon, 17 Aug 2026 16:12:58 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.31) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 17 Aug 2026 16:12:57 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sxCuf3U+glSqO3dbfhtW2n7FcTbhOTpO9RX95ouM2vUz++XRU1JF45cpDF3Kisa/9Xp6CJ+60oKgjlAPa96k9t7r6JZ2MhxQOdAvQa206teRNdFlfduYUMg5vYaPWQWQ4TP37KDKxh/goxOCkuaN3/M45+ZOTaW55SAU+DiDANPgATa49cMnDdP2vXH/cs/huSG2/9T1ooOXHF4CovXFfIvyyBt8dd1/L4F/1I0U5p2/4ZwTdZxWEg5Wh1wrBheo0GT2uyYnwwyLU93yxy+ITyUNZdMesolGzNFVzmUJhw6YjfbdWyoVZ8okiKfnRIbPmiU8ujYBEKKwXLJ7Gz6TJw==
+ b=s9XFk/BYiflmGOFeI2b6OYAqW+M3DxCJcOJG4RrJFCEV0fhllPMtgjw4HOG16xdKiaHrD7+CPuKLYDC44evX81sgPD720yrh4OfUGfaumJ9nHZw6mVZYIilvloYFUhMQCqh4T2DuakjSb/msGHbm2IBEJjgGBnmfJWFW4KZPxuAtjZJK+FHtkQGohSCf/C7Agm3mM3Mso1zzEh8GdFcNGqLUkPxihweBpT5Ns43uSw6tmIHAVtKmfQtqRcbzeOzABopdeJghok3RsZrN+LTdSq6Csuen5CjJe6w0tohC+cd0kNpOSr3aDw9g7ljQgkERapRrv3OhTKjCscdo6da65Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EcsZZ1umWqnIdEU8l9Z38SHVzg5pxaBH/1wjvFtxYfM=;
- b=L4w6dzRO6FYHaFWBpgUVzpTBfXKkUzfwPkE+Yv0Bc+4N+DNsitgd78jeSo+QJ8aAS5ieaFSypTIqC6jC63fnEL81CYXjA2CqXW0wh9aTfArXRtJsGF7wD+A8lwwx1cCty6CZcB3SUoyVJBD0RHyeqY06k4hbXBgL6ZubyCYYlpuVFY8kwZoXvUjNLbvyNEEZuyXaRl15xim+uoevcpp9xeEZDeT1XjAuWuZXST2GYglvA6eeJ5zvOXKwTPbbYCm1PoPS2UmzpocaQ5vBvv0VX3sDeBIfbDrRmeeghfRQUwgMk6U88UA5FAJTvsDZaEMzTNGb+tYeQ2dt70syza8kmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EcsZZ1umWqnIdEU8l9Z38SHVzg5pxaBH/1wjvFtxYfM=;
- b=NnuDy6zObosQCuYNaWUEBlivrglSyYLx4P9qN9Vn+Wld0bP0RS/AEX/yeem786kEbukeGXh0OcyT1co61ZLzxgo0HDLxBR4NMxDDHbfIKOSy9fvkrIczSGTNqqMBR29iqQVZX+Qx8NnIL4zWu/14Fcr6cnYPDH4NtTmqCvnhzdc=
-Received: from BLAPR03CA0159.namprd03.prod.outlook.com (2603:10b6:208:32f::34)
- by MW4PR10MB6461.namprd10.prod.outlook.com (2603:10b6:303:21a::22) with
+ bh=4dQJCteomMlT+vu9elM0LhPcCmogvIpWDaXwaFv2D+o=;
+ b=f1SVfEdz2Lo8vnuVER4w5IbG8bGfcFW4wpz5FS3bjEvDGd8uE0GhbLmqpPf9h0h+HeMAmAM35ZIPVsXp3MXZTlLyd8FpwfDl38eHfDgv3/4rihuR831/c7s3B5R/j3oVeYeb0SzA2QMv3xzezAzG3LOl9YTGIwXXIP8unOdTmqvqkPNXnxypZPgZYbMixEP2PmVcGHsg8WJ8qFaGBOLG3I0DnS/eDUbWLd4nJp3/VbpsZTUSq+RrAD78eVEOSRwqo3dOV0/zt4PGCu4mzmEI4KJIVmQtXq2vzEOri0Gc84WmBKL6g/XQowqwIwHTLWtz9PyWT78m3VWqY+Srh0elmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by DM4PR11MB6311.namprd11.prod.outlook.com (2603:10b6:8:a6::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 22:54:04 +0000
-Received: from BN3PEPF0000B374.namprd21.prod.outlook.com
- (2603:10b6:208:32f:cafe::5a) by BLAPR03CA0159.outlook.office365.com
- (2603:10b6:208:32f::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Mon,
- 17 Aug 2026 22:54:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BN3PEPF0000B374.mail.protection.outlook.com (10.167.243.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Mon, 17 Aug 2026 22:54:03 +0000
-Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 17 Aug
- 2026 17:54:02 -0500
-Received: from DLEE202.ent.ti.com (157.170.170.77) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 17 Aug
- 2026 17:54:02 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 17 Aug 2026 17:54:02 -0500
-Received: from [10.249.36.144] ([10.249.36.144])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67HMs1rc307974;
-	Mon, 17 Aug 2026 17:54:02 -0500
-Message-ID: <1bced387-8c0f-441a-b7fc-bedbbb4735e1@ti.com>
-Date: Mon, 17 Aug 2026 17:54:01 -0500
+ 2026 23:12:54 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::e721:90d7:9214:2d53]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::e721:90d7:9214:2d53%6]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
+ 23:12:54 +0000
+Date: Mon, 17 Aug 2026 16:12:49 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: shaikh kamaluddin <shaikhkamal2012@gmail.com>
+CC: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>, Davidlohr Bueso
+	<dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>, Dave Jiang
+	<dave.jiang@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, Dan Williams
+	<djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>, Li Ming
+	<ming.li@zohomail.com>, <tony.luck@intel.com>, <bp@alien8.de>,
+	<linux-cxl@vger.kernel.org>, <linux-edac@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, <x86@kernel.org>
+Subject: Re: [PATCH] cxl/mce: Only act on uncorrected memory errors
+Message-ID: <aoOVcQHklDi2_lhL@aschofie-mobl2.lan>
+References: <20260810183013.47085-1-shaikhkamal2012@gmail.com>
+ <8cef03f0-ab19-42b7-ad04-a1e98e2270ec@amd.com>
+ <anyYev89TB1jHAXe@acer-nitro-anv15-41>
+ <e0f20e5c-91af-4f9d-b1fb-b00eaef76f58@amd.com>
+ <anz2yiHLrDFhkxuv@aschofie-mobl2.lan>
+ <aoL2QSTlDoAQhWhv@acer-nitro-anv15-41>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <aoL2QSTlDoAQhWhv@acer-nitro-anv15-41>
+X-ClientProxiedBy: SJ0PR03CA0098.namprd03.prod.outlook.com
+ (2603:10b6:a03:333::13) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: ti: k3-am62-verdin: Set MMC clock pins as
- OUTPUT
-To: Francesco Dolcini <francesco@dolcini.it>
-CC: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-        "Tero
- Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Francesco Dolcini" <francesco.dolcini@toradex.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Moteen Shah <m-shah@ti.com>,
-        <stable@vger.kernel.org>
-References: <20260813111238.56892-1-francesco@dolcini.it>
- <b4ed6b46-07c3-4ebf-9fc8-b9ae0dc03a51@ti.com>
- <20260814071549.GA5246@francesco-nb>
-Content-Language: en-US
-From: "Mendez, Judith" <jm@ti.com>
-In-Reply-To: <20260814071549.GA5246@francesco-nb>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B374:EE_|MW4PR10MB6461:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b61f667-6903-4577-0146-08defcb26f5a
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|DM4PR11MB6311:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47ee6d24-c031-4c64-5936-08defcb51107
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|23010399003|13003099007|3023799007|56012099006|10067099003|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	WqQbrzpDxOVbBosnVk7RDgjfwonREz9AEiR2IiNQ+WbS0rkshZ1qfgeCbWCf8GojlEDVAecTkaAise+z3N6OSAMJGyLEjm62oxwMj6KpWEeNx8yYtdE4qx6ZIBGqEs2ooKK+qmz8PiRX+v5TMdXNJTHQJF5bH/3troBQyn91C5gIaKzVpBKuMCueJrTvQRfitANdPdRwEwh2baqZyHam+j7BuJhEboDiZnLCCPT/4+jbS45zfD0+y/Z/tWB79C0ZkAxsMs7qzYn1SgrpFW6GHdY7JIO/B2/e/5sR2Q3QxDO5NIMWHfviYAMB7casgFHZvc8WcR8Mv//Cowm4evoMP5OrCFjJIGHDJA1XNP547SeKLViEWsit+k3EgFULKqmfnV/SKDfvR71r0E2KR/rSZ747aUvIKyuHbPWuL/BWkItGxyLQuSLSkxi0aehlxSgGnP2S0ToRzqDud2Hf0V0qC0ukn3eLZXv8uyo7SZ20nZ9bgKBAKnWZ3neAmMwvUUceGCtV1UQbZb5o6zdjUG4ct0iEE1shwatYPRyiteOXuAWNbcSU239LWM3GE+Q/60bC2pQymAoc2NKffGBemDsdtyoN4zEYEdKaaaXzOeK9xnUZw4YoCKzK7NZC9KKJ0qC6TD4Tcsz1MM5ffXcd3R3ILb6cqLuyrgmVV6XgCiBmw60syquiKxO4t/oMBCn8/slsoLNoQhpJ8vJJxZk5eJ7iLQ==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(23010399003)(13003099007)(3023799007)(56012099006)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|18002099003|22082099003|56012099006|13003099007|6133799003|11063799006|10067099003|5023799004|4143699003;
+X-Microsoft-Antispam-Message-Info: H7/wnh8DwslSXytZAqAC0rypdvNddbUnwcjTf/FGOXfmjfotNOOC35j1UpPdCfrtuAXDTHfJYnSRX/yY6Mv8oGopktjJHe2qnz/fG1FVCGLXkAfukZAhc3Fpvd29Gt/PyC/J/7fsGw66TzqVR5wNFNha3K7gB1i8+gmQhXnqXoNMv7Fk14w0Cd44uj3exWhaFpampbKRfYF1mLPd5aGUHgT0pN5Z9oLpySV7cPi5jIlRvt6dx4Aq3S8fHWeXpq8EZAglaquzoThnL2jokgo9g7q3H2fXXlPNe26g6y6cb3n/wp5mnI4y/juKNd3PzHKkddnxyZWykT84sO0H+7lTTYGf/aAiIlNW9Xyn7zVHnKc42C/UKg5zzmB9Gced9x4oAP3fPblm6TrIWB3f2dkKstjBMOQggjxUvpXpoWVyuVl+IsxKZWbvTZVRVI1Z6zaSQ616qyTR/YREASN8gKu5QioqhXp3BW26m8CqB5BEVwU6kvDj9dRTEdFV9rQn3oBem7l2sEUMM3ZfczTYzgreOAr89e/uKIsGPRJioH0okNbSXn9osVBo+6kiuy+9lwVVzHUasYcMK+wv7GrkV0lv398HfOUWe2EuWmBUzUCGtrmdLpyn3LytQ0qeOgptpveL
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099006)(13003099007)(6133799003)(11063799006)(10067099003)(5023799004)(4143699003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	8Kxy6eSBdTz3KZyc2tDf0WJwIwzV8s+gJ3aKl+rbxbCiUoTBAhEtNjbZRY2Vz119eoBhKEhQLlg6tuVBJExxalrvN63BItlW7IGpU/bNbbWWJw6p5/Uc70KsNvOxCeC3gYaDl0xyI+jcRnpjlDtGP5I+str3rBq6u12yju3h421KNtBkgsd6EiTWuw2ivDthk8gcPC27iSXQxSXkCC0UhVSuVEpWJHY6AaITkrARem42Qhs7Lsdq91T1rnqax3PSt+woAf3ezQ9Vq/A749l+bwpqGN7ych3s9IaXvKiIIlk9JromVZzCvF4y9eDP6auNDnXjpbFJ/bKA/Gpj1D8B3PeJETGLjl87X2WxUMNOh1xI9pDRqYja20qKNKIbMkxH/vri2EY6Wrr4WKAcSBC6KdW9uvjH53ojYJMtXV//BbsYqbz8yh8FFnsikKhNrJL3
-X-Exchange-RoutingPolicyChecked:
-	Ecxc7ZT8hOn6waVhWuI3OYdBdhMwwHcmTwLTinuzdoutOkA/czSYAE7x+pb0aT4m/k0kPqllWfxe34N7kyF49ImP5X2H9tAgpQlAnSubKsAJoXEixNPfah518OpBwI+eRtiMhMBQEInLP421/UZcO2dRyPMWbUQ15YhxaaxuOycZyDH3TwB09Hp568Xya0JuixF1CtWEoCwgHDWVplDRRU85P2cSiEmsOxW67gF93pGWtoxeqq+64CQnmc7QF88caiEk8Zx2VzpL4nk8p0ydQIZsml9iUQXKU/1nShAdDhY5ZcAgpFqfSwvkaICLuZzWTJM5evQnMzRBG3a/RZED2A==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 22:54:03.4651
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?oVqcpAIsAPPa1ZNAxkkTxqEbX2Q5ZzIw1MsSJzjbMUKTxiPA7ymjn70GYVmu?=
+ =?us-ascii?Q?rsOzl4xgZyaKXcQGvXMy/bfmFMP83bcWDka/0nNRAcDoWWVhiFVghP8Gjncs?=
+ =?us-ascii?Q?eyOZWLu5Frdzyl/9Kv8zVnYAj8XRGfNTjEkTINSouB5BOvWwxXa5PG4WwFiw?=
+ =?us-ascii?Q?Bm5CQJ18ZyaSz/4AdTJ3EbpqfDKLuXPxXVM8zLEtUBqIcf6gTuB8i/dv+noj?=
+ =?us-ascii?Q?zoz/SR7ZsbPi+tlSff9h0Jqj7LpJcC7UpP4o2nwOhG3azlkZBFxKthppe3zm?=
+ =?us-ascii?Q?cbps2HcYHXwVETHbm/Ns4s9cl7RCVPAJpTSOIP4M2enCR4eZ48lAUYdu08vF?=
+ =?us-ascii?Q?r/Oarc5JVdSUPS0nNG0xGsCn+oGrS0Tm16i83YhMTDvf2XpSh7DMo0ihY+0s?=
+ =?us-ascii?Q?5keeKFbs7GQ4D9FHY9Lg4NjuaNcneBMTGfBUvpy+6niJcyGruG8ZV9YGnxpZ?=
+ =?us-ascii?Q?wz+wGgeyKwHxHw16+a24wV7gPyttnJWV4P1NzPi0EeJ7OIeyaqRbMYb2Ho7n?=
+ =?us-ascii?Q?vOk0aMOmgg8f/ouYsj1P+1NjoKpyt6FstYWENQ0DbfdkDjk9k/VnIXI82d4G?=
+ =?us-ascii?Q?TaB3KKAeHVEncx4MTAAwEyUgXM9P+czSLgLL7/TeVnWET3v0D0LuostMOn4O?=
+ =?us-ascii?Q?99ij7WYoYk0vX+xYlgL1EayV+eJGlsR/vlDylXIE8xVgT935pWju+R6LUC7U?=
+ =?us-ascii?Q?nQWDTnVUsFox4PzJrE1VdhCRskqTeMMuvLv/nKWQh6vbKkSwBx4TqhryUdZG?=
+ =?us-ascii?Q?+Ttj+bTutrqheHUMJZUQ77YlzXpPk36s8krgv1Xh+9jOHLmjehixVXjPswqh?=
+ =?us-ascii?Q?Wtrn1B5PU9osZeKusZuL5gAcXT8xRVIJq4+QG3DQj2/Frzt8LoeDcfJkSz4r?=
+ =?us-ascii?Q?JMaZsNv3+31UhYw6MkojvcvGxKgF3gmq3BG7zzUQ/AnOsDH10w5LtdT3gKqe?=
+ =?us-ascii?Q?wqJWGD6eiKYVcClkjDno8rYeoDMTWkkn4f+krpA0kCaUQ6n2hKqFfxt9LL5A?=
+ =?us-ascii?Q?TNMy6MiSrsMqTGeW1fWaB8iH/jkQUG5iUpUuBAFyr0v47tzJk6P6rhwQexb8?=
+ =?us-ascii?Q?C2C0qVBPaurNk1zvGwfqKxMpMz9J2B0S1ZWxtszp/eyC+CC7nAJNuXFp1WNf?=
+ =?us-ascii?Q?rOuTfejIC03qRAeorsGTdDC4qnuQLf273omk8+GCj4EPUQJ0zdB+5GXQQ/KC?=
+ =?us-ascii?Q?LhFyvGkeWYLZa/SPRRydBp1X1rfaaqVKZX7ueguKawnKaEKj6BvUu17UvN2N?=
+ =?us-ascii?Q?r6a3tc8dMTxSo5HLGKBn+p5EF6uodLsxDvIlwyyGq7COwRe0zU9UXQcJV1jX?=
+ =?us-ascii?Q?IUret5RVWM83tLvX1CuO+Ymhyd/hvKL3tRnZtPYAgwJ2Y8zK45vI53UMZTmr?=
+ =?us-ascii?Q?PHxRFn/gI99pDVndYu80GsmQA1yukO6T2ap8jW8d/nex7JWaO1nCX2Ob/aWn?=
+ =?us-ascii?Q?PM1BGu0aRNetg7PSbzmdUgGhc3iWxWCjfuALyLQsfjpPYrq/pJw7hgvRYbXh?=
+ =?us-ascii?Q?2ImtQyGCVt/5k7b8o+uW172BveWHdX6yzEt4+fF5NjCOo42oqkqf8yIKucEC?=
+ =?us-ascii?Q?UEiOe2SuOImi3CH+agMsvCU5/UAnkDMYQ3XIFJTCWTjoOocashUXj3flaN/i?=
+ =?us-ascii?Q?Q0tlrI/SpDwCc4UeUdh8BhEvCnuJaMwTpO4yLvHdUPpzjgFlN0s75CZ6GZ1l?=
+ =?us-ascii?Q?9AW1CatH9ILwiurJY27AWVJ/XFJjmp2uwezj2pQ6VXvwkmSnd/OSRNCPwvxo?=
+ =?us-ascii?Q?+PNvoAnVGJRLKUc1eClivvV0GcONosg=3D?=
+X-Exchange-RoutingPolicyChecked: Q59Dg4xZqkKyIDlo0MDFJcbV0/EVwvfJORT4dhrTZ3L5U6Q5NwP+HyqliV0f7fucsn9/soW+q9L2HVVDnFPPTQ5SqcuUDYn9APOjhScK24OSzAm+M9tZq5pGsBj46/1UehVQPXf5ugrfcdZY1A0qmWrpIDP99wMmc9p2Eu4EuVOxgKziuDkgdGBG3xwpGL07HPas5/KXfsQbRJxEzOuG0xZfo6X0PeM+U/Vin8lkYP8NYxZZO07Sg3blB7qS3o/9hzcTk1REMIqIZXXA4pQQXjunbYhEFq2uh1NC9dTChud59UlL4MdQ4NmHfDen73iQmXZ22QSA+iB3zc3nySs7CQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47ee6d24-c031-4c64-5936-08defcb51107
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 23:12:54.0356
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b61f667-6903-4577-0146-08defcb26f5a
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B374.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB6461
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDE3NCBTYWx0ZWRfX/K7bJneFgerD
- b92sx8/nvFBTqSOKX0AfdDvvzWA5I5BALxEFU/tB0dvFVMPmq3ldCMO7R0HsQb5hq5scXJ+3vVn
- BdwBkkr3GcF4wMGCcgE7p5tYGeHNVicYOYOshG1Bu7vaHUd7mO9NM/M7yZn3yGPd5fv7qW8o1gL
- GPPFuL+aTJCkzgWHDPdcv1HPFTE2nJWi69T8UOAaGrhU4MuloFoxRFDKoRRjkyKvJfLBagJouS8
- M/6sLGHvvKdgmXd03lA5I+QlOCC/b5EN22t2YroXkrCRti0ppXdNqg7rlZnd3fLA/wco8jEAbnd
- ugxCCDUwLZ5ZKpRrlGUDTTZbpab301TkMIPqUUnUrin/OPnF14Pza2cEo1vgpKSNclZhhEQb2km
- lzpkfpJyU3RaLu0z20KXBDA0eN5a4CqmdxM9hVJYoFX0qaoRPuwcjc67FkAGmu/vbY7Ql+HvHRs
- VwsV0/RiMBv9R5S8pvQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDE3NCBTYWx0ZWRfX7tiGJYPFxfBS
- ifGr1KaaFJjWRJWOV9qPykdsAtvZRwd6TxP0HFUBYm5kpHSSvU/3EDucJmYQcAm3zU8Lx+hbh9t
- d+ss0FgiJDlEPX60ejBPwDri109/UcU=
-X-Proofpoint-ORIG-GUID: gNWg3Pq9b8UgxUCGSAGMrx8bvUv5UytS
-X-Authority-Analysis: v=2.4 cv=Q/fiJY2a c=1 sm=1 tr=0 ts=6a839115 cx=c_pps
- a=3tfckwpITFtzIurveUQz+Q==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8
- a=m8ToADvmAAAA:8 a=VwQbUJbxAAAA:8 a=Om0eTydDL3Fyhap43XoA:9 a=QEXdDO2ut3YA:10
- a=kCrBFHLFDAq2jDEeoMj9:22
-X-Proofpoint-GUID: gNWg3Pq9b8UgxUCGSAGMrx8bvUv5UytS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 bulkscore=0 adultscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608170174
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GvyshkLwAEqbNBf1k+bfODJTm/TfogwLdtiDfDm6oWL1P+DtNPBdBDoQC17jvVyFbuBtF5m8+nvdvBmuI+Oa4FtEBJzMBA4lUl4ZbZpOlCU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6311
+X-OriginatorOrg: intel.com
 
-Hi Francesco,
+On Mon, Aug 17, 2026 at 05:23:37PM +0530, shaikh kamaluddin wrote:
+> On Wed, Aug 12, 2026 at 03:42:18PM -0700, Alison Schofield wrote:
+> > On Wed, Aug 12, 2026 at 11:19:40AM -0500, Cheatham, Benjamin wrote:
+> > > On 8/12/2026 10:59 AM, shaikh kamaluddin wrote:
+> > > > [You don't often get email from shaikhkamal2012@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> > > > 
+> > > > On Mon, Aug 10, 2026 at 02:00:18PM -0500, Cheatham, Benjamin wrote:
+> > > >> On 8/10/2026 1:30 PM, Shaikh Kamaluddin wrote:
+> > > >>> [You don't often get email from shaikhkamal2012@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> > > >>>
+> > > >>> cxl_handle_mce() offlines the aliased page of an ELC region on any
+> > > >>> record with a usable address; it does not check MCI_STATUS_UC or
+> > > >>> filter non-memory errors. uc_decode_notifier(), the equivalent
+> > > >>> handler for plain memory on the same chain at the same priority,
+> > > >>> filters on mce->severity and leaves corrected errors untouched.
+> > > >>> cxl_handle_mce() has no such gate, so a corrected error - which
+> > > >>> the generic handler ignores - still causes the alias to be
+> > > >>> permanently retired via memory_failure().
+> > > >>>
+> > > >>> Corrected errors do reach the chain: machine_check_poll() logs
+> > > >>> them via the same mce_gen_pool_process() path that feeds
+> > > >>> x86_mce_decoder_chain, and cxl_extended_linear_cache_resize()
+> > > >>> extends p->res to cover the DRAM half of the ELC pair, so a
+> > > >>> routine DRAM CE carries an address inside the region resource.
+> > > >>>
+> > > >>> Filter the record as nfit_handle_mce() does. Commit fc08a4703a41
+> > > >>> ("acpi, nfit: Fix the memory error check in nfit_handle_mce()") and
+> > > >>> commit 5d96c9342c23 ("acpi/nfit, x86/mce: Handle only uncorrectable
+> > > >>> machine checks") established this filter for an equivalent handler
+> > > >>> on the same notifier chain; the consequence here is more severe, as
+> > > >>> the CXL handler calls memory_failure() rather than recording a bad
+> > > >>> block.
+> > > >>>
+> > > >>> mce_is_correctable() is used instead of copying
+> > > >>> uc_decode_notifier()'s AO/DEFERRED test because the alias must
+> > > >>> still be offlined on MCE_AR_SEVERITY, where kill_me_maybe() owns
+> > > >>> the reported page but nothing owns the alias.
+> > > >>>
+> > > >>> Fixes: 516e5bd0b6bf ("cxl: Add mce notifier to emit aliased address for extended linear cache")
+> > > >>>
+> > > >>> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+> > > >>> ---
+> > > >>
+> > > >> This looks good to me, so:
+> > > >> Reviewed-by: Ben Cheatham <benjamin.cheatham@amd.com>
+> > > >>
+> > > > Thanks for review!
+> > > >> If you have the time, could you also share a script that does the below testing on the list? It may
+> > > >> be possible to integrate into the CXL testing suite (see https://github.com/pmem/ndctl.git), though
+> > > >> the QEMU usage may throw a wrench in that. Even if it's not possible, having the tests out there
+> > > >> for people to run would help with any future breakage.
+> > > > Happy to share it. One question on where it'd fit best: ndctl
+> > > > (github.com/pmem/ndctl.git) as you mentioned, or drivers/cxl's own
+> > > > tools/testing/cxl/ in-tree? I'm open to either, or proposing it in
+> > > > both if that's useful - happy to follow your lead on which is the
+> > > > better home for it.
+> > > > 
+> > > 
+> > > If looks like there's already some mock functions for extended linear cache in tools/testing/cxl, so
+> > > I'd recommending trying to put it there to begin with. It may require updates to ndctl after the fact
+> > > to run the test(s) as well. If that looks too involved then sending the script out to the list standalone
+> > > should be fine. I don't know if anyone will pick it up, but it'll be searchable on lore if anyone wants
+> > > to test this.
+> > 
+> > 
+> > This sounded interesting! I gave it a try with cxl_test and mce-inject,
+> > and it looks like this can be tested without the QEMU CXL topology or the
+> > forced cache_size hack.
+> > 
+> > I built with CONFIG_X86_MCE_INJECT=m and loaded cxl_test with its
+> > existing ELC support:
+> > 
+> > # modprobe cxl_test extended_linear_cache=1
+> > # cxl list -R
+> > [
+> >   {
+> >     "region":"region0",
+> >     "resource":70300293136384,
+> >     "size":1073741824,
+> >     "extended_linear_cache_size":536870912,
+> >     "type":"ram",
+> >     "interleave_ways":2,
+> >     "interleave_granularity":4096,
+> >     "decode_state":"commit",
+> >     "locked":false
+> >   }
+> > ]
+> > 
+> > Using 0x3ff010010000 as the injected SPA, I first injected the
+> > corrected error from your example. On the patched kernel there was no
+> > CXL offlining message, as expected.
+> > 
+> > I then changed only the status to the uncorrectable case:
+> > 
+> > # cd /sys/kernel/debug/mce-inject
+> > # echo sw > flags
+> > # echo 0xbc00000000000080 > status
+> > # echo 0x80 > misc
+> > # echo 0x3ff010010000 > addr
+> > # echo 9 > bank
+> > 
+> > and got:
+> > 
+> > cxl_region region0: Offlining aliased SPA address0: 0x3ff030010000
+> > Memory failure: 0x3ff030010: memory outside kernel control
+> > mce: [Hardware Error]: CPU 0: Machine Check: 0 Bank 9: bc00000000000080
+> > mce: [Hardware Error]: TSC 23c5a5a9188 ADDR 3ff010010000 MISC 80
+> > mce: [Hardware Error]: PROCESSOR 0:50657 TIME 1786573477 SOCKET 0 APIC 0 microcode 5003302
+> > 
+> > So the cxl_test ELC plus mce-inject looks sufficient to exercise the
+> > path: the CE is ignored with the patch, while the UC reaches the alias
+> > offlining path and computes the expected alias.
+> > 
+> > The "memory outside kernel control" is because I did not put the
+> > aliased memory into system RAM for this quick test.
+> > 
+> > This would be a test case addition for the the cxl-elc.sh unit test.
+> > It seems like a tiny, close-the-barn-door-after-the-horse-got-out,
+> > kind of test case, but maybe not?  Maybe it opens the door to more
+> > things can do we mce-inject elsewhere?
+> > 
+> > I'll leave that to Shaikh if they want to add the new test case.
+> > 
+> > -- Alison
+> 
+> 
+> Hi Alison,
+> 
+> Thanks for trying this. This is very helpful.
+> 
+> I had initially started with the same cxl_test + mce-inject approach before moving to the vng/QEMU CXL Type-3 setup.
+> 
+> On the current cxl/next tree, I was first blocked while building tools/testing/cxl with LLVM/ld.lld. modpost was failing on wrapped CXL symbols, for example:
+> 
+> .export_symbol section references '__wrap_devm_cxl_add_rch_dport',
+> but it does not seem to be an export symbol
+> 
+> .export_symbol section references '__wrap_devm_cxl_add_dport_by_dev',
+> but it does not seem to be an export symbol
+> 
+> .export_symbol section references '__wrap_cxl_await_media_ready',
+> but it does not seem to be an export symbol
+> 
+> There were similar failures for some of the decoder/CDAT wrappers.
+> 
+> This appears to be the same issue addressed by the patch currently under review:
+> 
+> [PATCH] tools/testing/cxl: Don't wrap cxl_core's own exported symbols
+> 
+> https://lore.kernel.org/linux-cxl/20260721084009.38100-1-icheng@nvidia.com/
+> 
+> The patch avoids globally wrapping the CXL core symbols that are also defined/exported by cxl_core, and instead applies those wrappers only to the modules that need them.
 
-On 8/14/2026 2:15 AM, Francesco Dolcini wrote:
-> On Thu, Aug 13, 2026 at 02:57:52PM -0500, Mendez, Judith wrote:
->> Hi Francesco,
->>
->> On 8/13/2026 6:12 AM, Francesco Dolcini wrote:
->>> From: Francesco Dolcini <francesco.dolcini@toradex.com>
->>>
->>> MMC clock pins must be configured as OUTPUT-only per TRM [0] with
->>> receiver disabled (RXACTIVE bit = 0). Change MMC CLK pins from
->>> PIN_INPUT to PIN_OUTPUT to match documentation.
->>>
->>> Link: https://www.ti.com/lit/pdf/spruiv7 Rev. C: Table 12-246. MMCSDi I/O Signals [0]
->>> Fixes: 316b80246b16 ("arm64: dts: ti: add verdin am62")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
->>
->> Assuming defaults are set.
-> 
-> We have
-> 
->    AM62X_IOPAD(0x11c, PIN_INPUT, 0) /* (#N/A) MMC2_CLKB */
-> 
-> is this what you are referring to here and in the other discussion
-> thread?
-Yes, without this defined, MMC2 would not work normally. You have it
-defined so you should not have any problems.
+Hi Shaikh,
 
-~ Judith
+I applied the patch to the base commit included in the patch:
+>> base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
+
+I don't use LLVM toolchain, but I do see Richards patch you refer to.
+We'll need to get that queued for 7.4.
+
+> 
+> With that patch applied, tools/testing/cxl builds successfully for me. However, I still hit a runtime crash when loading the ELC setup:
+> 
+> # modprobe cxl_test extended_linear_cache=1
+> 
+> BUG: unable to handle page fault for address: 0000000000003358
+> #PF: supervisor read access in kernel mode
+> RIP: __alloc_frozen_pages_noprof+0x12e/0x320
+> CR2: 0000000000003358
+> Workqueue: async async_run_entry_fn
+
+
+So there must be something different about your cxl-test address 
+space. I have 
+region resource: 0x3ff010000000
+region size:     0x40000000
+ELC size:        0x20000000
+
+You cannot even load w elc = 1 !
+
+Does "modprobe cxl_test" work for you?
+If yes, how far can you get? Does cxl-topology.sh work for you?
+I wouldn't have you try the whole suite since you are telling me
+cxl-elc.sh  already fails.
+
+Maybe we need to look at where cxl test is loaded for you and why
+the ELC address shennanigans fail in your environment.
+
+Let me know what you see. 
+
+Thanks,
+Alison
+
+
+
+> 
+> So the build issue and this runtime crash appear to be separate problems. The runtime failure is what led me to use the vng/QEMU CXL Type-3 setup for validating the MCE change, where I was able to exercise both the CE and UC cases.
+> 
+> Since you were able to run:
+> 
+> modprobe cxl_test extended_linear_cache=1
+>         +
+> mce-inject
+> 
+> successfully, could you please share the kernel configuration and any patches you have on top of cxl/next? That would help me compare the working setup with mine and identify what I am still missing on the cxl_test side.
+> 
+> Your result also confirms that, once I get this setup stable, extending the existing cxl-elc.sh test looks like the right direction for regression coverage. My plan would be to derive the SPA and expected alias dynamically from the ELC region, inject a CE and verify that the alias-offlining path is not reached, then inject a UC and verify that the expected aliased SPA is still offlined.
+> 
+> This is a small regression test for the current issue, but exercising mce-inject through the CXL test infrastructure may also provide useful coverage for other CXL RAS/MCE paths in the future.
+> 
+> For the current patch validation, I still think the vng/QEMU Type-3 setup is useful as an end-to-end test since it can exercise the actual CXL region and system-RAM memory_failure() path, while cxl_test + mce-inject looks better suited for the lightweight automated regression test.
+> 
+> Thanks,
+> Shaikh
+> 
+> 
+> > 
+> > > 
+> > > Thanks,
+> > > Ben
