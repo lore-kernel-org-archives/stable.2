@@ -1,236 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66B8420495;
-	Mon, 17 Aug 2026 13:25:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82554439F81
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 13:25:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786973113; cv=none; b=SoaSvyK1IXIwsfWjn1umaKrnYvdg0SDICm4Sch6xYxEOojleFi/TRPX5w2F7V1zQ+Qso12m5/FyMdD7DVcomfY+0npLjASWybxQld/Bw7RWrv15vQAYTKeyc7CyZx6vtyVTXiRHc6qxh9kRMlIrZNqoOeXlKq5KaN+pmp8fdWlw=
+	t=1786973141; cv=none; b=o/Z3WboiZShfYRYDHnIM0gdEcpBZx4irXqiRjMKzc97DLLdLSWQ4ZJNI928Jd6uTTaVx/DK4KVB3uAHp9d/PTpwb54v3SXe6WkI/HmQyBd30W5iYyqpsislfncoYAZmQdlt9j5P28Z2gVGXTS8S8TEpn9aCbHA/eAFSD220g74k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786973113; c=relaxed/simple;
-	bh=KLKeQEu8rXiwO5XrKVW4YX0KnqktTvlGl+6Z2GtkTjU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aBbaO9GPst0LXqENAUOGSkkYLQCSw+INANPR15Z7oiFXdI4K8188n1XvWergn8+84BKX9K0CHsD5fGJ4R6CajwmaonFhSQiBMMFakNZESkVwRX3V1z9/FWp8XxRIFLOF3/xf7scwB5aqPAoCzAO5LsARtjRQPQTzNj2EtU49uzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FiE3BpkG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786973141; c=relaxed/simple;
+	bh=2bqgYurh8iwQTQa/keWKcKZ+VVDHHq6p4qTQ51UEFgU=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version; b=H90dihPnn51oD14ZLYa3bhhS3mNyf14UJrI05MWB3u4NcUgWpDsm/5eGsFZADYMeCdt/3HJroxEd9/1p6KGohn+p2fb24pWLGhnsWHI0HiIM6nLMxnNl2GJcWl2oeiBYRD7+9zyqus4lS4T3wh103LIaWiPcYcOLPQSE17ujgfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=DNK7v3Zd; arc=none smtp.client-ip=46.14.118.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FiE3BpkG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5C71F00A3D;
-	Mon, 17 Aug 2026 13:25:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786973110;
-	bh=vRJ5wN5BP9Vexmqogl8NhDRj+dNiWoiVFS9/SULJCiw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FiE3BpkGG3X5ylo52BGzSOchbeETup+HJnY/NfEibmxFLcAtX6sg9hA6x0vlh0aPw
-	 HBU/Mkg4EvBYCh/0DNkl2HGXD2o2eDfPi00sr14tIGnzXn3UAmmL7jfgm3pVqLIRir
-	 GxH8/P5OsO/IJLxLQ83B6qeFNxfQIrqRAGCY98eudLsoTkvjajWTtbAh37ciOIVz47
-	 ip9BQw7z9bpIwQkUZajdx/IR5kOLdeRuIzNU5oRcNDp/0Gw8Nkjs1JL2Bc+16wQt5E
-	 lwQGW9Tz8wYYdSURXILJmK8FcH4ZQYzTMtXm9tqabXWXp6IX62ORBJthY4EcrIWkc2
-	 MHXJmMaAKSLIQ==
-Message-ID: <2f264b09-98e9-4260-b413-97a494ba789f@kernel.org>
-Date: Mon, 17 Aug 2026 15:24:59 +0200
+	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="DNK7v3Zd"
+Received: from [192.168.16.44] (port=25366 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1wvxKp-000000001aq-3aZr;
+	Mon, 17 Aug 2026 15:25:03 +0200
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1786973103; h=from:subject:to:date:message-id;
+	bh=2bqgYurh8iwQTQa/keWKcKZ+VVDHHq6p4qTQ51UEFgU=;
+	b=DNK7v3Zdlxz9C1HyjCpjDt1f3D0YjnifJbTq/bii1ywqBeBMNbTct+g2j9LP2Dfi2TQDIsf5ph7
+	T27iCiNmoUazY+L83BCB9gZ2Ofwlx5BJtcAlI4mNGOgODD0e+4lqscyfG4+KP8mJKl5d27dBU0fSc
+	ZtfiV48PklBusLZNnGA=
+Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Mon, 17 Aug 2026 15:25:03 +0200
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: <linux-bluetooth@vger.kernel.org>
+CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
+	<linux-kernel@vger.kernel.org>, Valentin Kindschi
+	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
+Subject: [PATCH v2 1/2] Bluetooth: hci_conn: only re-enable advertising after a failed peripheral connection
+Date: Mon, 17 Aug 2026 15:24:48 +0200
+Message-ID: <20260817132449.509304-2-valentin.kindschi@fiveco.ch>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260817132449.509304-1-valentin.kindschi@fiveco.ch>
+References: <20260817132449.509304-1-valentin.kindschi@fiveco.ch>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: net: wireless: add flag
- marvell,ignore-regulatory-hint
-To: George Valkov <gvalkov@gmail.com>
-Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch,
- francesco@dolcini.it, johannes.berg@intel.com, kees@kernel.org,
- miriam.rachel.korenblit@intel.com, wenst@chromium.org,
- rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com,
- s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
- sebastian.hesselbarth@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, Frank.Li@nxp.com, chunfan.chen@gmail.com,
- linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- stable@vger.kernel.org
-References: <anoYr9H4KojJv-aZ@google.com>
- <20260814125025.90522-1-gvalkov@gmail.com>
- <20260817-hairy-serval-of-refinement-49039a@quoll>
- <CADOrJmb3uJPpYR481rB-CnL0A9B_5PQ683XP+Gdis47uihqMBw@mail.gmail.com>
- <9b3b6f29-35a8-4b79-a002-bd0aac5dbee4@kernel.org>
- <CADOrJmZRBQb9u9oi2m=4iJuKDLVi6HNjOoSurRwE5QKPB_LetA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CADOrJmZRBQb9u9oi2m=4iJuKDLVi6HNjOoSurRwE5QKPB_LetA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
+ FIVECO-MX01.fiveco.local (192.168.16.44)
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.8.17.125719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 8%
+X-SASI-Hits: BODY_SIZE_3000_3999 0.000000, BODY_SIZE_5000_LESS 0.000000,
+ BODY_SIZE_7000_LESS 0.000000, CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000,
+ DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000, HTML_00_10 0.050000,
+ IN_REP_TO 0.000000, MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000,
+ NO_FUR_HEADER 0.000000, NO_URI_HTTPS 0.000000, OUTBOUND 0.000000,
+ OUTBOUND_SOPHOS 0.000000, REFERENCES 0.000000, SENDER_NO_AUTH 0.000000,
+ WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000, WEBMAIL_X_IP_HDR 0.000000,
+ __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000, __BODY_VOICEMAIL 0.000000,
+ __BULK_NEGATE 0.000000, __CC_NAME 0.000000, __CC_NAME_DIFF_FROM_ACC 0.000000,
+ __CC_REAL_NAMES 0.000000, __CT 0.000000, __CTE 0.000000,
+ __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000, __DKIM_ALIGNS_2 0.000000,
+ __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000, __DQ_NEG_IP 0.000000,
+ __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000,
+ __HAS_MSGID 0.000000, __HAS_REFERENCES 0.000000, __HAS_XOIP 0.000000,
+ __HAS_X_MAILER 0.000000, __INVOICE_MULTILINGUAL 0.000000,
+ __IN_REP_TO 0.000000, __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000,
+ __MIME_TEXT_P1 0.000000, __MIME_VERSION 0.000000,
+ __MSGID_DOMAIN_IN_REFERENCES 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
+ __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
+ __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
+ __PASSWORD_IN_BODY 0.000000, __PHISH_SPEAR_SUBJ_PREDICATE 0.000000,
+ __RCVD_CTE 0.000000, __RCVD_EXIM_4_96_AES_128 0.000000,
+ __RCVD_FROM_HOMEUSER 0.000000, __REFERENCES 0.000000, __SANE_MSGID 0.000000,
+ __SL_HEAVY 0.000000, __SUBJ_ALPHA_END 0.000000,
+ __SUBJ_STARTS_S_BRACKETS 0.000000, __TO_MALFORMED_2 0.000000,
+ __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000, __URI_NO_WWW 0.000000,
+ __URI_NS 0.000000
 
-On 17/08/2026 15:20, George Valkov wrote:
-> On Mon, 17 Aug 2026 at 14:07, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On 17/08/2026 12:43, George Valkov wrote:
->>> On Mon, 17 Aug 2026 at 11:54, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>>
->>>> On Fri, Aug 14, 2026 at 03:50:23PM +0300, Georgi Valkov wrote:
->>>>> WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
->>>>> from the mwifiex ROM, which conflicts with the platform regulatory
->>>>> configuration on units sold outside the US market. For example:
->>>>> - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
->>>>> - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
->>>>> - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
->>>>
->>>> v1 as reply to v3 in big thread. How tools can parse that?
->>>
->>> Hello Krzysztof,
->>> I apologise, I forgot to add the v4 tag to the subject.
->>> I have documented the changes between each revision.
->>> I saw my mistake after sending the mail. But I wasn't sure
->>> what to do? I will make sure to add v5 to my next revision.
->>>
->>>> Does b4 diff work?
->>>>
->>>> b4 diff '20260814125025.90522-1-gvalkov@gmail.com'
->>>
->>> What is b4?
->>
->> Tool used by maintainers and contributors to handle/send patches. See
->> korg docs (or just google "What is b4 Linux kernel").
-> 
-> Thanks!
-> 
-> 
->>>>> When the system boots, it detects a conflict between the user selected
->>>>> region and the radios, e.g. BG FR US, and applies extreme restrictions,
->>>>> preventing use of 5 GHz and DFS channels. This also affects phy0.
->>>>>
->>>>> Add a device-tree flag, which allows affected platforms to ignore
->>>>> an incorrect regulatory hint from ROM, so userspace can set the
->>>>> correct platform regulatory domain.
->>>>>
->>>>> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
->>>>> [2] https://github.com/openwrt/openwrt/issues/9956
->>>>>
->>>>> Tested-on: WRT3200ACM, OpenWrt
->>>>
->>>> Not a valid tag, drop.
->>>
->>> I believe the tag is helpful because it describes that my changes
->>> have been tested on a certain device and platform. It's a common
->>> practice in OpenWrt contributions. My last two accepted patches
->>> have this tag. Should I still remove it?
->>
->> Drop the tag everywhere and instead on the patches which were possible
->> to be tested mention how did you test it.
-> 
-> ok
-> 
-> 
->>>> And you cannot even do that, otherwise explain me
->>>> how did your device execute THIS (exactly THIS) code?
->>>
->>> I am not used to your terminology and this gets me completely confused.
->>> You have not quoted any particular code change, so I'm not sure what
->>> you are referring to. Here is a summary of the patch series:
->>
->> Tested means executing or parsing or using the code on the device under
->> test. How can you execute/parse/use this code on the device?
-> 
-> Test procedure:
-> Compile, FLASH and run OpenWrt firmware for WRT3200ACM.
-> This compiles the Linux kernel along with all dts files and drivers.
-> 
-> 1. Before the fix
-> Notice how each radio has its own country:
-> iw reg get
-> https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-> 
-> If the user sets their correct country code, e.g. BG, then global
-> will be set to BG. This conflicts with FR from phy0 and phy1.
-> And also conflicts with phy2 which reports US.
-> Result: the main radio phy0 does not start.
-> 
-> 2. With the fix applied
-> iw reg get
-> phy2 does not appear in the list, so there is no conflict with the US
-> region. I can address phy0 and phy1 later in another PR. They need
-> a similar device-tree flag in the board file. The actual driver is not part
-> of Linux. So I'm not sure if there is any place to add documentation?
-> Result: phy0 and phy2 work. 5 GHz and DFS work.
-> 
-> I also used this test code to confirm that the flag is set:
-> mwifiex_dbg(adapter, ERROR,
->             "[%s][%pfwP] ignore-regulatory-hint %u ++\n",
->             dev_name(adapter->dev), dev_fwnode(adapter->dev),
->             device_property_read_bool(adapter->dev,
->                                       "marvell,ignore-regulatory-hint"));
-> 
-> [   19.927595] mwifiex_sdio mmc0:0001:1:
-> [mmc0:0001:1][wifi@1] ignore-regulatory-hint 1 ++
+hci_le_conn_failed() unconditionally calls hci_enable_advertising(),
+although its own comment states advertising should be re-enabled only
+when the failed attempt was made as a peripheral.
 
-You are not responding to the actual problem.
+hci_le_conn_failed() is reached from hci_conn_failed() for every failed
+LE connection, including outgoing central connections. For a central
+attempt this enable is redundant: hci_le_create_conn_sync() already
+restores advertising via hci_resume_advertising_sync() in its done:
+block. Because hci_enable_advertising() only queues the work on
+cmd_sync_work, it runs *after* that resume has already succeeded and
+set HCI_LE_ADV.
 
-In very simple words, like one or two sentences, explain me how this
-YAML file affected `iw reg get`?
+The resulting HCI sequence, captured on a BCM43455 (no LE Extended
+Advertising, so legacy advertising is used):
 
+  LE Create Connection                     Status Success
+  ... 13.8 s, peer never answers ...
+  LE Set Advertising Parameters (0x2006)   Success   <- done: resume,
+  LE Set Advertising Enable     (0x200a)   Success      HCI_LE_ADV set
+  LE Create Connection Cancel   (0x200e)   Success
+  LE Connection Complete                   Unknown Conn Id
+  LE Set Advertising Parameters (0x2006)   Command Disallowed (0x0c)
 
-> 
-> 
->>> Patch 1 documents a new flag: marvell,ignore-regulatory-hint.
->>> Patch 2 adds a device-tree node with the radio and the flag.
->>> Patch 3 skips the regulatory_hint() call when the flag is set.
->>
->> I can read your patchsets and above does not proof how can you test binding.
-> 
-> Ah, you mean how I tested if the device-tree changes are valid?
-> I have almost no experience with dts. I ran this command before
-> sending v4, and I think it seems fine. Here's a link to the output:
-> make dt_binding_check
-> https://httpstorm.com/share/.openwrt/test/2026-08-17_mwifiex/dt_binding_check-01.txt
+The last command is the queued enable from hci_le_conn_failed() running
+as a second hci_enable_advertising_sync() pass. It clears HCI_LE_ADV
+(hci_sync.c, "Clear the HCI_LE_ADV bit temporarily"), then sends
+LE Set Advertising Parameters while the controller is still advertising,
+which the controller correctly rejects with Command Disallowed.
 
-This is a make process, so build stage. Nothing related to testing on DUT.
+The disable-first call at the top of hci_enable_advertising_sync()
+cannot prevent this: hci_disable_advertising_sync() returns early
+without sending anything when HCI_LE_ADV is clear, so it is a no-op
+exactly when the flag is wrong.
 
-Building kernel (and running standard tools) is not testing, so I repeat
-- do not introduce "tested" statements to commits which is impossible to
-test by the definition of "tested" in Linux kernel. We discuss all this
-in this very specific patch, not some other patches.
+hci_enable_advertising_sync() then returns without sending LE Set
+Advertising Enable, so HCI_LE_ADV is never set again. The legacy
+software rotation loop re-arms hci_schedule_adv_instance_sync() every
+HCI_DEFAULT_ADV_DURATION (2 s), and its "already advertising" shortcut
+tests HCI_LE_ADV, which can no longer become true. The command is
+therefore retried every 2 s indefinitely:
 
-Best regards,
-Krzysztof
+  Bluetooth: hci0: Opcode 0x2006 failed: -16
+
+Observed on a gateway as 5326 occurrences over 3 hours, ending only when
+bluetoothd was restarted. Connection attempts that succeed do not call
+hci_le_conn_failed() and never trigger this.
+
+Add the role test the comment already describes. Both other
+hci_enable_advertising() call sites reached from a failed/closed LE
+connection (hci_cs_disconnect() and hci_disconn_complete_evt()) already
+guard on conn->role == HCI_ROLE_SLAVE; this one was missed.
+
+Reproducing needs legacy advertising (ext_adv_capable() false, so the
+software rotation loop is used), simultaneous peripheral advertising and
+outgoing central connects, and a central connect that times out rather
+than failing fast.
+
+The Fixes tag points at the commit that introduced the advertising
+restart into this path for the directed-advertising (peripheral) case;
+the role test that the later commit 0b1db38ca26b ("Bluetooth: Fix check
+for direct advertising") added to the sibling paths was never applied
+here.
+
+Fixes: 3c857757ef6e ("Bluetooth: Add directed advertising support through connect()")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5 btmon
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+---
+Changes in v2:
+- Rebased onto bluetooth-next; no functional change.
+
+ net/bluetooth/hci_conn.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
+--- a/net/bluetooth/hci_conn.c
++++ b/net/bluetooth/hci_conn.c
+@@ -1262,7 +1262,8 @@ static void hci_le_conn_failed(struct hci_conn *conn, u8 status)
+ 	/* Enable advertising in case this was a failed connection
+ 	 * attempt as a peripheral.
+ 	 */
+-	hci_enable_advertising(hdev);
++	if (conn->role == HCI_ROLE_SLAVE)
++		hci_enable_advertising(hdev);
+ }
+
+ /* This function requires the caller holds hdev->lock */
+--
+2.34.1
