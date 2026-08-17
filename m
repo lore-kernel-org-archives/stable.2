@@ -1,92 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CD03D9545;
-	Mon, 17 Aug 2026 15:23:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5CE3F8EBE;
+	Mon, 17 Aug 2026 15:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786980224; cv=none; b=ghecmEiRg/zcFKl1+0+Estvyz9P0M04Fgjy8wobKhVaqCxdlif3W0EYUKAbY3kH1ZzmzMiCy8SgdESls+nEGv6Ekygb99S+3UQVeEoSqvFM0w+EPAzZa4vYqWUasfVIGsNc5vwHggicX/Pa7AzhUKzjJ1ONzWaY4IAzD+B+CiII=
+	t=1786980226; cv=none; b=Lm5ZDGtvXAY+e6txGUTRZgoMfoPhlH4sBiqXshqZr3RU1JzXtE02r+bWNyfHYSDYK8i5tkG4VC9zSEukjgqWOb5aJAIKSjBj51LQgLS1DkhFD9fQT+3/W9CMXSQtYdjVgI+JX7bdpRWEkj9qs7yQAhDLmJIzz+B8euijvNsgpf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786980224; c=relaxed/simple;
-	bh=WMa3kgej+vnxJQrH/BeswNXnv8Afg9Fb5VKiRDH/MUo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CiCSr5K9PWG3Xywz/kTfA3HY9hFzRdumd7mVwMBuASDAk1Vs+6JYzNt8Jl1NbjQABGp+/V1yQnmu0WiotHcVhLRRUPuFqp8Nf3zImtSPLxHveqKBPloRljLy17ValHgON+BJ48Fg8EVCRcNOfz3f0I7PZJxBF8NcrqJ8ypNLnng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B3n4x0q1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786980226; c=relaxed/simple;
+	bh=msl28pOI/fIME2wOC1gRmqujU8+8NPSO78hDxF33EKM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H6XF1sJyR5c+eACvCGKA+yXO56lSsD4YY6Vt8Km9wOh0xIp5dlfjcX7k2Gavam8y6fIsWo0TUqf/+WCiDSBZJt6Uc5h8ymuQmOOpx+DKLDW4zoURP4JQXGtL4YRo9kN+X2fz65+IRfe/2ST7buioLRqe1yzwG7IahkmsdOcRueU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WTJFx4d9; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B3n4x0q1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369B91F000E9;
-	Mon, 17 Aug 2026 15:23:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786980222;
-	bh=+HvKQ/SjzuwylEHhWHzWpvgMh+mD8N4TVhMfNNZQ2v0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B3n4x0q1rM0lG/9kM4B3PABuTIz42lVMrOru9BSGU11ABhA0NEjX63DAE7vrDo7yZ
-	 2utBvsTi9fMd1ajouSzCvaitaDO3c+2mvVhxBqDMXZCKG35LXjoJnZTQXd1EtDZ+qa
-	 4ZpyuqTu4Glq9TYgxX0yb/Km1KlCzTYTFRBFAk+k=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WTJFx4d9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786980224; x=1818516224;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=msl28pOI/fIME2wOC1gRmqujU8+8NPSO78hDxF33EKM=;
+  b=WTJFx4d94Xt5SocJ+XOvsPYbkIzIJqug7jmi9pS+sTNSlNTmi1JntZcI
+   4Q80EEmXR8jy3tkpSHZERVpkNob17atpIPOI2KsEWuMwF2O/dtFcOfA5r
+   W1KMnLo0GNTItMQlSShtHXltquP8Priuxc549j0xk18RB8XQSHC3ylE03
+   y8XPecwqRt4EGNCRedUgPJsHavpQR4Ywd5+wgBNSpq2VRECjUncpXyEXm
+   abQhqTsFnm9A8zi0j0oky/jS/CLDUZ35TGAnHteB94VPWp8jF5JSFyLYK
+   j6Ib/u11jQ8xuk8he673hlRDGOVqCbsz7JdBZW9aC2yBnIZ3ocEXRtRPv
+   Q==;
+X-CSE-ConnectionGUID: 3QTYP/McSaimCAj6dnsX6A==
+X-CSE-MsgGUID: eJC78q/MSZ2UetkjxabJ9w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="74989006"
+X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
+   d="scan'208";a="74989006"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 08:23:43 -0700
+X-CSE-ConnectionGUID: wBEASFEzQSuiNDwVEiCcow==
+X-CSE-MsgGUID: YZhT4dB2R96XbM/i3gQ2fQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
+   d="scan'208";a="264486862"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 08:23:42 -0700
+Date: Mon, 17 Aug 2026 18:23:38 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jiawen Liu <1298662399@qq.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 499/609] net: hisilicon: hix5hd2_gmac: remove redundant NAPI delete
-Date: Mon, 17 Aug 2026 15:33:15 +0200
-Message-ID: <20260817132600.584924880@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
-References: <20260817132543.039278408@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Xu Yang <xu.yang_2@nxp.com>,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] drivers: base: test: Depend on OF instead of selecting it
+Message-ID: <aoMnevcLHdUEZr9-@ashevche-desk.local>
+References: <20260817-driver-pe-v1-1-7003ddb9e400@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817-driver-pe-v1-1-7003ddb9e400@chromium.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Mon, Aug 17, 2026 at 11:54:44AM +0000, Ricardo Ribalda wrote:
+> Selecting OF instead of depending on it makes it impossible to
+> disable OF when KUNIT_ALL_TESTS is selected.
+> 
+> The purpose of KUNIT_ALL_TESTS is to test everything with satisfied
+> dependencies, not to force dependencies.
 
-------------------
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-From: Jiawen Liu <1298662399@qq.com>
+Shouldn't we also handle this in tools/testing/kunit/configs/all_tests.config?
+(maybe in the future).
 
-[ Upstream commit f307a7dc32097c11413178fca437a10d20890bc2 ]
-
-hix5hd2_dev_remove() calls netif_napi_del() before unregister_netdev().
-This is not needed because free_netdev() deletes all NAPI instances
-attached to the net_device.
-
-Remove the redundant call and let the networking core tear down the NAPI
-instance during unregister_netdev(). The probe error path still keeps its
-explicit netif_napi_del(), because the device has not been registered
-there.
-
-Fixes: 57c5bc9ad7d7 ("net: hisilicon: add hix5hd2 mac driver")
-Signed-off-by: Jiawen Liu <1298662399@qq.com>
-Link: https://patch.msgid.link/tencent_5FFD37A252B4FEA6A80AD25B17C8E904F005@qq.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/hisilicon/hix5hd2_gmac.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-index f867e95311173..4834cf1cd9b3e 100644
---- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-+++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-@@ -1288,7 +1288,6 @@ static int hix5hd2_dev_remove(struct platform_device *pdev)
- 	struct net_device *ndev = platform_get_drvdata(pdev);
- 	struct hix5hd2_priv *priv = netdev_priv(ndev);
- 
--	netif_napi_del(&priv->napi);
- 	unregister_netdev(ndev);
- 	mdiobus_unregister(priv->bus);
- 	mdiobus_free(priv->bus);
 -- 
-2.53.0
-
+With Best Regards,
+Andy Shevchenko
 
 
