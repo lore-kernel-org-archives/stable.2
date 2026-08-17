@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0651B3FA5D4
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:42:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA65C41D131
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:42:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786970551; cv=none; b=SUfin24ropsjfgQ5x+Ioxs9/EH209kNnOY0j4XpTZU7jU2cL/FNWfO1qIMFGqSWegzzVPMYTFUsYa42Qlkrcsl2yW7HS0ktTPLZ+3T7dP5UUeJ4v89NA6lyHPgC526JRLZQer5qRf0I4/4Ow1RZ7p5Uw9oakGC2B3Xh5FVPqlgY=
+	t=1786970556; cv=none; b=XCGhB32eVmMwn12JF1NzfWIJ5bp9M2zaDrIfQ3ZKzM3wJDdzodqIIbMJGCHo6xvUR3XLZrMVPlxvDP1GA4tO3s/8FAoNN3lGaMd2xEYDDbPmr6ZVeXBHi7A4Rkmy06nS57gl5jPhcx8q/BLyrfMYsjTe7zqWCzasMgF1xLd3HY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786970551; c=relaxed/simple;
-	bh=fwaPM9IgD3fmIUhvNM00us/gOlPMdl6unP4vvuyeNIM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NY4yb8LjfOapeUAMv4zF4g9OGt03fim7X3Z+c9iwYslE3LsX1kNcy6LOYmJ0U19M8Ry4FDAin/XiA9vYuGywO9SpUkdQKGrYKbUnAJk0ttKAGL8lRn+hz1LIyLpApocc7UjEwMii5UKdi8KgYy+DBD99O7E+FCZAFdQiP2+4Afk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=S2edOGj+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786970556; c=relaxed/simple;
+	bh=3h4+tCEC15OQmpZm/aHGWCyjdhbaJvbGiQP4bSFZZPU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tuQvwatp0EZ8LCCT5XDbkFqhgOjWx3kNQTy5Vg1iLfgOgTBwbAgBScxO2qWFY8aUk0X+rgOD17euH13xdsLtaM4OEyjQ06tmAZ8SahSVv4YZQI5FVMvlhsl+IvwFNO+v7A22zhZ6W3bN1AK2P/r0ZGrkEHGf8ueylDq0O2UijKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IzbwGUXe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="S2edOGj+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19EFD1F000E9;
-	Mon, 17 Aug 2026 12:42:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IzbwGUXe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD24D1F000E9;
+	Mon, 17 Aug 2026 12:42:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786970549;
-	bh=Q2dAUaK8DobeM+gj8GLGsD/gpNfT6MhO86rP4PVUMEg=;
+	s=korg; t=1786970554;
+	bh=KmPfNWxYaBZ6rqTCpARY7oWRAR8MMwgPL82pIrrvx+c=;
 	h=Subject:To:Cc:From:Date;
-	b=S2edOGj+zNK3OobIgDLkvXzl9RqxbsZ0Ws6LF33nq0K9j0JC3JQ3ujxHnGFTcZ/Eq
-	 VkYSrxKn4pr3AdQksUcSdgAr3VQlpjhzo6UTlZjDgOw4YOCkvYqgyHxmVbj6/jmKEg
-	 +3JS9b2fKnfMz+WsUyHr9ARhcjEEj27ESsTrOF+Q=
-Subject: FAILED: patch "[PATCH] mm/huge_memory: initialise workingset state before folio" failed to apply to 6.18-stable tree
-To: mfleming@cloudflare.com,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,david@fromorbit.com,david@kernel.org,dev.jain@arm.com,lance.yang@linux.dev,liam@infradead.org,ljs@kernel.org,muchun.song@linux.dev,npache@redhat.com,roman.gushchin@linux.dev,ryan.roberts@arm.com,ryncsn@gmail.com,shakeel.butt@linux.dev,stable@vger.kernel.org,willy@infradead.org,ziy@nvidia.com
+	b=IzbwGUXeul/jhwpVTDmXOIkVU4TpM62A4/YThRoXG2hUL3Ip9ei9sgjtX229T+eEI
+	 F+O8cYKimYV8VKVjN9DLh61K0YY+xDik+jtl4jlCIFYxRti6ZgsvRix0tD1LTAkOKD
+	 WlF7T/Cr6ydLaBiYH+ExULJI3YI1iRv47nY0BAhU=
+Subject: FAILED: patch "[PATCH] mm/huge_memory: fix huge_zero_pfn race" failed to apply to 6.6-stable tree
+To: ljs@kernel.org,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,david@kernel.org,dev.jain@arm.com,hare@suse.de,hughd@google.com,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,npache@redhat.com,p.raghav@samsung.com,ryan.roberts@arm.com,shy828301@gmail.com,stable@vger.kernel.org,uqbarz@gmail.com,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:39:33 +0200
-Message-ID: <2026081733-plastic-tidings-c30e@gregkh>
+Date: Mon, 17 Aug 2026 14:39:54 +0200
+Message-ID: <2026081754-outsource-trapping-d56b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x aca1f2d5de17e138bc6c4859126b77e516b82541
+git cherry-pick -x 33192a26cddea7a7e4ca66e5c3eebd36fa8be2bb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081733-plastic-tidings-c30e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081754-outsource-trapping-d56b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,65 +62,259 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From aca1f2d5de17e138bc6c4859126b77e516b82541 Mon Sep 17 00:00:00 2001
-From: Matt Fleming <mfleming@cloudflare.com>
-Date: Sat, 25 Jul 2026 11:14:19 +0100
-Subject: [PATCH] mm/huge_memory: initialise workingset state before folio
- split
+From 33192a26cddea7a7e4ca66e5c3eebd36fa8be2bb Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 30 Jul 2026 11:55:47 +0100
+Subject: [PATCH] mm/huge_memory: fix huge_zero_pfn race
 
-xas_try_split() adds __GFP_ACCOUNT for page-cache xa_nodes, but
-__folio_split() leaves the xa_state's xa_lru unset.  That lets a live,
-memcg-charged xa_node exist without being linked into the mapping's
-shadow_nodes list_lru; when reclaim later walks the list_lru it trips
-VM_WARN_ON(!css_is_dying()).
+Patch series "mm/huge_memory: fix huge_zero_pfn race", v2.
 
-Use mapping_set_update() to install both the workingset update callback
-and the shadow_nodes list_lru on the xa_state.
+There is a subtle race in the reference-counted huge_zero_folio
+implementation.
 
-Link: https://lore.kernel.org/20260725101419.3938406-1-matt@readmodwrite.com
-Fixes: 58729c04cf10 ("mm/huge_memory: add buddy allocator like (non-uniform) folio_split()")
-Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
-Reported-by: syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c5b060ce82921a2fd500
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+The fast path atomic logic fails to account for the fact that the shrinker
+(which drops the final huge_zero_refcount pin) can overwrite huge_zero_pfn
+with the ~0UL sentinel value in shrink_huge_zero_folio_scan() after a
+racing get_huge_zero_folio() installed a valid value there.
+
+This results in huge_zero_folio being correctly set but huge_zero_pfn
+being set incorrectly and thus is_huge_zero_pfn() and consequently
+is_huge_zero_pmd() will misidentify the huge zero folio as being an
+ordinary THP folio.
+
+This can result in the huge zero folio being split and otherwise treated
+incorrectly.
+
+The solution to this is very subtle as there is an atomic fast path, and
+thus ordering in weakly ordered architectures has to be treated very
+carefully.
+
+The first commit fixes the issue by introducing a spinlock around
+huge_zero_[pfn, folio, refcount] write, with careful consideration paid to
+load/store ordering in the fast path.  It is placed first and kept as
+small as possible so that it can be backported on its own.
+
+The second commit is a pure cleanup which reworks the
+CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic to better separate the persistent
+logic from the dynamically allocated one.
+
+
+This patch (of 2):
+
+If !CONFIG_PERSISTENT_HUGE_ZERO_FOLIO, the huge_zero_folio is refcounted
+by huge_zero_refcount and returned by mm_get_huge_zero_folio().
+
+When the caller is done with the huge zero page, its reference count is
+decremented.  Only a shrinker can set the reference count to zero.
+
+A race can unfortunately occur between a shrinker decrementing the
+reference count to zero and a concurrent page fault.
+
+This is because shrink_huge_zero_folio_scan() might, if very unlucky, be
+preempted between setting huge_zero_refcount to zero and writing an
+invalid value.
+
+During this time get_huge_zero_folio() could write to huge_zero_pfn before
+shrink_huge_zero_folio_scan() resumes.
+
+In this event the huge zero folio will be persistently misidentified
+causing the THP code path to be entered inappropriately for the huge zero
+folio:
+
+                CPU 0                                   CPU 1
+=======================================|=================================
+shrink_huge_zero_folio_scan()          |
+   atomic_cmpxchg() sets refcount to 0 |
+   xchg() sets huge_zero_folio to NULL | get_huge_zero_folio()
+                 |                     |    atomic_inc_not_zero() -> zero
+      preempted for a long time        |    Allocate new huge zero folio
+                 |                     |    Write valid huge_zero_folio
+                 v                     |    Write valid huge_zero_pfn
+  Overwrite huge_zero_pfn with ~0UL   <--- Invalid overwrite!
+
+This results in is_huge_zero_pfn() and is_huge_zero_pmd() incorrectly
+returning false for a huge zero page which could result in issues like the
+huge zero folio being incorrectly split.
+
+Note that the issue is with huge_zero_pfn not huge_zero_folio, as
+get_huge_zero_folio() uses cmpxchg() gated on huge_zero_folio being NULL
+with a retry loop and shrink_huge_zero_folio_scan() uses xchg() to set
+huge_zero_folio.
+
+Fix the issue by introducing a spinlock, huge_zero_lock, to prevent
+concurrent write of huge_zero_folio, huge_zero_pfn and huge_zero_refcount.
+
+There needs to be significant care taken here to ensure correctness:
+
+The fast path in get_huge_zero_folio() uses atomic_inc_not_zero(), which
+is outside of the critical section, and means huge zero allocation is
+gated on zero huge_zero_refcount.
+
+The fast path doesn't use huge_zero_lock, so the critical section is
+irrelevant to it.
+
+So invariants are required - huge_zero_refcount MUST:
+
+* Only be set in the huge_zero_lock critical section to ensure
+  serialisation of huge_zero_pfn, huge_zero_folio and huge_zero_refcount
+  writes.
+
+* Be set non-zero only AFTER huge_zero_[pfn, folio] are set to valid values
+  so installation of the huge zero folio on read page fault ensures
+  concurrent is_huge_zero_*() calls correctly identify the huge zero folio.
+
+* Be set zero only BEFORE huge_zero_[pfn, folio] are set to NULL and ~0UL
+  respectively, and atomically.
+
+Establish these by:
+
+* Only setting huge_zero_refcount to zero or an absolute value in the
+  huge_zero_lock critical section in get_huge_zero_folio() and
+  shrink_huge_zero_folio_scan(), and always updating atomically there
+  and elsewhere.
+
+* Using atomic_set_release(&huge_zero_refcount) in get_huge_zero_folio()
+  after huge_zero_[pfn, folio] are set. This is paired with
+  atomic_inc_not_zero() to ensure atomic_inc_not_zero() only observes a
+  non-zero value if huge_zero_[pfn, folio] are set.
+
+* Using atomic_cmpxchg() in shrink_huge_zero_folio_scan() (as before) to
+  ensure that it is set zero only when equal to 1 and set atomically.
+
+* atomic_cmpxchg() being fully ordered ensures this is done prior to
+  huge_zero_[folio, pfn] being set to NULL and ~0UL respectively.
+
+Eliminate the retry loop in get_huge_zero_folio() as the atomic_cmpxchg()
+in shrink_huge_zero_folio_scan() is now performed under the lock, and
+replace with an equally locked atomic_inc() to set the reference count
+should the caller be raced on huge zero folio installation.
+
+folio_put() naturally implies a full memory barrier so its ordering is
+maintained correctly.
+
+The huge zero folio also cannot be released except when the shrinker does
+so as it is non-LRU and non-rmappable.
+
+Note that only the huge zero shrinker (via shrink_huge_zero_folio_scan())
+can actually set huge_zero_refcount to zero, which is the count of mm's
+which have at least one huge zero folio installed plus one shrinker pin.
+
+Additionally convert a BUG_ON() to a VM_WARN_ON_ONCE().
+
+Link: https://lore.kernel.org/20260730-fix-refcounted-huge-zero-v2-0-c5d8a41b317f@kernel.org
+Link: https://lore.kernel.org/20260730-fix-refcounted-huge-zero-v2-1-c5d8a41b317f@kernel.org
+Fixes: 3b77e8c8cde5 ("mm/thp: make is_huge_zero_pmd() safe and quicker")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: Hengbin Zhang <uqbarz@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20260727154001.4102341-1-uqbarz@gmail.com/
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
 Cc: Barry Song <baohua@kernel.org>
-Cc: Dave Chinner <david@fromorbit.com>
 Cc: Dev Jain <dev.jain@arm.com>
-Cc: Kairui Song <ryncsn@gmail.com>
+Cc: Hannes Reinecke <hare@suse.de>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
 Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Nico Pache <npache@redhat.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Pankaj Raghav <p.raghav@samsung.com>
 Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Yang Shi <shy828301@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index f84fe7913d88..5d94fa4c74fd 100644
+index 58cabe6af33d..f43852ef9944 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -4076,7 +4076,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 		gfp_t gfp;
+@@ -41,6 +41,7 @@
+ #include <linux/pgalloc.h>
+ #include <linux/pgalloc_tag.h>
+ #include <linux/pagewalk.h>
++#include <linux/cleanup.h>
  
- 		mapping = folio->mapping;
--		min_order = mapping_min_folio_order(folio->mapping);
-+		min_order = mapping_min_folio_order(mapping);
- 		if (new_order < min_order) {
- 			ret = -EINVAL;
- 			goto out;
-@@ -4090,6 +4090,8 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 			goto out;
- 		}
+ #include <asm/tlb.h>
+ #include "internal.h"
+@@ -78,6 +79,7 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+ static bool split_underused_thp = true;
  
-+		mapping_set_update(&xas, mapping);
+ static atomic_t huge_zero_refcount;
++static DEFINE_SPINLOCK(huge_zero_lock);
+ struct folio *huge_zero_folio __read_mostly;
+ unsigned long huge_zero_pfn __read_mostly = ~0UL;
+ unsigned long huge_anon_orders_always __read_mostly;
+@@ -224,7 +226,8 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+ static bool get_huge_zero_folio(void)
+ {
+ 	struct folio *zero_folio;
+-retry:
 +
- 		if (split_type == SPLIT_TYPE_UNIFORM) {
- 			xas_set_order(&xas, folio->index, new_order);
- 			xas_split_alloc(&xas, folio, old_order, gfp);
++	/* Paired with atomic_set_release(). */
+ 	if (likely(atomic_inc_not_zero(&huge_zero_refcount)))
+ 		return true;
+ 
+@@ -237,17 +240,22 @@ static bool get_huge_zero_folio(void)
+ 	}
+ 	/* Ensure zero folio won't have large_rmappable flag set. */
+ 	folio_clear_large_rmappable(zero_folio);
+-	preempt_disable();
+-	if (cmpxchg(&huge_zero_folio, NULL, zero_folio)) {
+-		preempt_enable();
+-		folio_put(zero_folio);
+-		goto retry;
+-	}
+-	WRITE_ONCE(huge_zero_pfn, folio_pfn(zero_folio));
+ 
+-	/* We take additional reference here. It will be put back by shrinker */
+-	atomic_set(&huge_zero_refcount, 2);
+-	preempt_enable();
++	/* Paired with critical section in shrink_huge_zero_folio_scan(). */
++	spin_lock(&huge_zero_lock);
++	if (huge_zero_folio) {
++		/* Somebody else already installed it. */
++		atomic_inc(&huge_zero_refcount);
++		spin_unlock(&huge_zero_lock);
++		folio_put(zero_folio);
++		return true;
++	}
++	WRITE_ONCE(huge_zero_folio, zero_folio);
++	WRITE_ONCE(huge_zero_pfn, folio_pfn(zero_folio));
++	/* Paired with atomic_inc_not_zero(). +1 for shrinker pin. */
++	atomic_set_release(&huge_zero_refcount, 2);
++	spin_unlock(&huge_zero_lock);
++
+ 	count_vm_event(THP_ZERO_PAGE_ALLOC);
+ 	return true;
+ }
+@@ -297,15 +305,22 @@ static unsigned long shrink_huge_zero_folio_count(struct shrinker *shrink,
+ static unsigned long shrink_huge_zero_folio_scan(struct shrinker *shrink,
+ 						 struct shrink_control *sc)
+ {
+-	if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) == 1) {
+-		struct folio *zero_folio = xchg(&huge_zero_folio, NULL);
+-		BUG_ON(zero_folio == NULL);
++	struct folio *zero_folio;
++
++	/* Paired with critical section in get_huge_zero_folio(). */
++	scoped_guard(spinlock, &huge_zero_lock) {
++		/* Paired with atomic_inc_not_zero() in get_huge_zero_folio(). */
++		if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) != 1)
++			return 0;
++
++		zero_folio = huge_zero_folio;
++		VM_WARN_ON_ONCE(!zero_folio);
++		WRITE_ONCE(huge_zero_folio, NULL);
+ 		WRITE_ONCE(huge_zero_pfn, ~0UL);
+-		folio_put(zero_folio);
+-		return HPAGE_PMD_NR;
+ 	}
+ 
+-	return 0;
++	folio_put(zero_folio);
++	return HPAGE_PMD_NR;
+ }
+ 
+ static struct shrinker *huge_zero_folio_shrinker;
 
