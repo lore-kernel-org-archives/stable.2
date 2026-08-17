@@ -1,59 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED430274FD0
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 03:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3378D274FD0;
+	Mon, 17 Aug 2026 03:27:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786937130; cv=none; b=i1c0X7ajYAd9qyyzOmGoFwS12HEmTut4r3a3654QrLtedkxO+9NsjlGGsUv1gOgOXQa37cdaqCBuQ2bLZ7TgvGYApaT1cUgH8Q6XiGoSBRgO+LMvVJ8rD+ITcjBcfIYxbnDd5JNL0kNFDLWqH3WAQHx9i7VUIVVRIPLXIZj9g5I=
+	t=1786937269; cv=none; b=AMKhimWtlfcr3z/fQCRSNDMBuREh//DpuagxwLuO9iZwNKj1z56q+WW407utE9dPMv8ePc29nytVGa8eJU3DGCGYY3JhCg5BCe6I+QGMSFc5PlBo5YXTGvgvorsym23oVUepDAiGpL9K5+GljDKzHLgRYK6Zk+Z7uZJhT1PeUeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786937130; c=relaxed/simple;
-	bh=ketbWZ5PgYOvlmffbg1C1krYA0dLiaAcW4RL6JTUfWg=;
+	s=arc-20240116; t=1786937269; c=relaxed/simple;
+	bh=VVolysXLoWy18qGySXXaNw29/bQB5p1TiMd7mDZT48o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wk6IzGC89k56rMwFIPgxIyae4m6vSVhlWi1sliO8vHGODnM83xZ1ecLrxyU4wBBxHGwlmFTfP9mT4FdPI0ek0wggR8er0JVevgstclmJXvwKSdE97d0C2gQaZvXV3GcyzJC9chA/Esb7Fe9uUGC955pYO9nznLVR+pEof2QTQB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+3zXTQx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KOHLXqo/WQW0Eo2XBB/NtVYTtZe9qMd240QysCB9wV3bnx3Q7e2TSN4ocU/okXla9GUWmULUgz9uOXHC9c3nOkSfzY76Um9XsfeA4r5AdjGA1uFl2/S0K+ykCloQXpJ61K27UwLvUeKnQ4b2u64V5AD0uk80fyR+WoM+dPhSUwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=o1ClP4Mq; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+3zXTQx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559341F00A3A;
-	Mon, 17 Aug 2026 03:25:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786937129;
-	bh=2lxj1JIdxwx7lHFXGJQcAoPGTzYS472TJSBYQQfzaCg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E+3zXTQxDWk/NBcRXJz39Xbp9ttk8NmPGGqudcUKsI2S1UfIVup5AiPKR6vyvzkAc
-	 6N/shQ02iQiOsyt5lfA0z9IMhzOu9Mn4xBv6TSjBbaDLEdfP3mzffZuBE1YCghch4D
-	 sQZBmWi6b4XE9cxzipPDMfVphyx1P9dU7SvqmfIdM52A02UOBAwChJrLpM787mhoKc
-	 k3mLvJtX8oPyM9+sXYnHIEbEtpir8oRLSoknqUkDQFEoVgZgZkvf6i1IECwhhA7V9f
-	 rsoFU/U3/IqloNItWNz5nwpqMU3XLMy1b2liQTejQ+LOE0SYCAKXB0w8IbD0eC2CRM
-	 HQ0YDuwUkyafg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	claudiu.beznea@tuxon.dev,
-	Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Subject: Re: [PATCH v2 5.15.y] pinctrl: renesas: rzg2l: Use -ENOTSUPP instead of -EOPNOTSUPP
-Date: Sun, 16 Aug 2026 23:25:16 -0400
-Message-ID: <20260816211000.13@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260814143553.2949913-1-claudiu.beznea+renesas@tuxon.dev>
-References: <20260814143553.2949913-1-claudiu.beznea+renesas@tuxon.dev>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="o1ClP4Mq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=jm
+	UlmtGTb4gVi/IDEHbLDTYOtz1T8CJBO+NBBDn380E=; b=o1ClP4Mqj77ZrliAXF
+	c2FViRDOp+8kKI798/qcsVA14TvC84/8WHzQQnLrU57h0hnDvQk1wse53UQhRog5
+	KsNisreYI3HQQjaezj7RHNReUb6iSMfnadjymBsEvbmjJsSibNGcPtml4IWUqJJx
+	gYqYStlMHodZs6YloIAbAfk6w=
+Received: from localhost (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3mfBef4JqlrSwLg--.26496S3;
+	Mon, 17 Aug 2026 11:26:23 +0800 (CST)
+From: mambaxin@163.com
+To: shakeel.butt@linux.dev
+Cc: akpm@linux-foundation.org,
+	baohua@kernel.org,
+	cgroups@vger.kernel.org,
+	chenxinxin@xiaomi.com,
+	david@kernel.org,
+	david@redhat.com,
+	gregkh@linuxfoundation.org,
+	hannes@cmpxchg.org,
+	hughd@google.com,
+	jose.fernandez@linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	mambaxin@163.com,
+	mhocko@kernel.org,
+	muchun.song@linux.dev,
+	roman.gushchin@linux.dev,
+	ryncsn@gmail.com,
+	sashal@kernel.org,
+	shakeelb@google.com,
+	stable@vger.kernel.org,
+	syzbot+e12bd9ca48157add237a@syzkaller.appspotmail.com,
+	v-songbaohua@oppo.com
+Subject: Re: [PATCH] mm: swap_cgroup: fix NULL deref in lookup_swap_cgroup_id on swapless host
+Date: Mon, 17 Aug 2026 11:26:22 +0800
+Message-ID: <20260817032622.1135640-1-mambaxin@163.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <an-yt4a6td75VvHw@linux.dev>
+References: <an-yt4a6td75VvHw@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-CM-TRANSID:PSgvCgD3mfBef4JqlrSwLg--.26496S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7urW5ZFy8ZFyxCr4UCr4fuFg_yoW8CrWxpF
+	yrWas3tF4rJryxtr4I9w1rta4F9a1fW3y5trn5Kry5Zan0vryaqr1xuFyj9F9F9ws3GrW2
+	vFnFy34xWr1jvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piN6pfUUUUU=
+X-CM-SenderInfo: xpdputx0lqqiywtou0bp/xtbCwR8yPGqCf186cQAA3T
 
-> commit c1492da3939c89372929e062d731f328f7693f1e upstream.
->
-> The pinctrl and GPIO core code make exceptions for the -ENOTSUPP error
-> code.  One such example is gpio_set_config_with_argument_optional(),
-> which returns success when gpio_set_config_with_argument() returns
-> -ENOTSUPP, but reports failure for all other error codes.
+> On Fri, Aug 14, 2026 at 07:23:41PM +0800, Barry Song wrote:=0D
+> > On Fri, Aug 14, 2026 at 3:48=E2=80=AFPM <mambaxin@163.com> wrote:=0D
+> > >=0D
+> > > From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>=0D
+> > >=0D
+> > > [ Upstream commit 63b02a9409cb5180398491b093e48bcb5315f5fb ]=0D
+> > >=0D
+> > > lookup_swap_cgroup_id() passes swap_cgroup_ctrl[type].map to=0D
+> > > __swap_cgroup_id_lookup() without checking that the type was ever=0D
+> > > registered via swap_cgroup_swapon().  On a swapless host every ctrl->=
+map=0D
+> > > is NULL, so __swap_cgroup_id_lookup() dereferences NULL + a scaled=0D
+> > > swp_offset().=0D
+> > >=0D
+> > > Since commit bea67dcc5eea ("mm: attempt to batch free swap entries fo=
+r=0D
+> > > zap_pte_range()"), zap_pte_range() -> swap_pte_batch() calls=0D
+> > > lookup_swap_cgroup_id() on any non-present, non-none PTE that decodes=
+ as a=0D
+> > > real swap entry, without first validating it against swap_info[].  A=
+=0D
+> > > single PTE corrupted into a type-0 swap entry takes the host down at=
+=0D
+> > > process exit.=0D
+> > =0D
+> > Thanks for the patch. However, we have a strict check to ensure that=0D
+> > this is only done for valid swap entries:=0D
+> =0D
+> This patch is already in the upstream linus tree.=0D
+> =0D
+> Mambaxin, what do you want to do with this patch? Are you requesting to b=
+ackport=0D
+> this to stable tree? Which one? It already had stable CCed, so I would ex=
+pect=0D
+> the stable tree maintainers would pick this up automatically.=0D
+=0D
+Hi Shakeel,Yes, we would like to backport this patch to the 6.6.y stable tr=
+ee. =0D
+We have encountered the same issue on a product running the Android GKI 6.6=
+ kernel. =0D
+We are still investigating the underlying PTE corruption using various debu=
+gging approaches, =0D
+but the reproduction rate is low. Given the constraints of our product rele=
+ase schedule, =0D
+we would like to first bring in this fix from upstream so that we can subse=
+quently pull it into the Android GKI kernel.=0D
 
-Queued the v2 set for 5.15, 6.1, 6.6 and 6.12, thanks.
-
--- 
-Thanks,
-Sasha
