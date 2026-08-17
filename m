@@ -1,132 +1,102 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5C93C3429;
-	Mon, 17 Aug 2026 08:37:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C163C2B92
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 08:40:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786955878; cv=none; b=MnEtGvm35POW6EpZRBRylUIWRVroLbXrGicUtHoUMUwG59SIZkUYGo9ZQl0ixVCtFu9rtuNZtoZcBYlFkheFRvVpWZxRI1IB4uo7H4s03PjY33yCJtHr76vamiq7HjFNZDb8SI+KOK9CnYxo17ePjFo0sIZPQpyfRSpWRfz7DoA=
+	t=1786956050; cv=none; b=s9fjXIBWbtj1kvk8V4HI+fEarOwubS9QoiwJL+pR6Bajiz/BV5NqomDrNcyz8QS/aDcKZ+M85rRy9AP6ww2FzA/dHW52vq3gzVMWp0WUvR8qL2aDkHEi1wnZbBPXeDrIPZtOf6z87Bph0OPA5QTTgQfCk/64kQcc83fEoTgw8cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786955878; c=relaxed/simple;
-	bh=6+THv/VN/Y+n9BVIKhbN/v4vhN7xpQ+o1F8CVld/c/s=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=KfpSMzPdn1+Sxz2UKiQ70B8O+S9TfRPGWTJvW228p5wxpKHEnFpe6V4+h9HvyW42/oYjIOj5HrOeh8F/jMQ136YskX0CBtMPUB/IVCmZbioI3HxuKMYj0ffnqX1tBL5wventL5i9LpvTxITg/Wwcjc5lWmLTOJCeB6BQqq9t8C8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VeuldaVS; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TTfMORlb; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1786956050; c=relaxed/simple;
+	bh=UiZrryI/woLbzrHwPZuKXDp6mTnlhFPB8es5+z7jzxo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Ul1wZ7mQPhmGsZw3okvfxFfP4Mnda4aRFyGoyPScSSBQkrwKFVKatMFVzTdAPhQftJS/VcRza3YWcgwWL6TP+H+sxdl56/ecJpK/VkLx9fifTaCzUEhbGVvDvYvm4M+4LXTkdEMz9CVAFzWSD4nETYvgxngTcgChjAG97bx9nUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=korsgaard.com; spf=pass smtp.mailfrom=korsgaard.com; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=r1L3D7zo; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=korsgaard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korsgaard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VeuldaVS";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TTfMORlb"
-Date: Mon, 17 Aug 2026 08:37:53 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1786955875;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aqpeupT4hhBpNxpSIddBxKc75rO+7F5W1JfhyL/OP4g=;
-	b=VeuldaVS2xK41DqdyOiqoV63AuwEw+HkKZSaD0V5gjwLcgO3HAwPi9lwjfhEyCFo81GTRt
-	ovHUPTAoYPI1RIH3BcbhM7czASC/bF8CMqTV+LeUX7CmVI+Eb16uXXOTzu4n/h9HusLKZV
-	eVvyMBYbEfN19OTdCKbMY0fKgkhHNbO8fK76OrXzwHicyjIreZRphSFqHsuoL687jb/F1L
-	67DW968cLhco73bHIW5uYQUquEmEPSwH9bZlZS35EakT8Ce0OKQ9lWUkXQLDbFW3afS15r
-	nLbHk5G+lcf9KhtQcNdV0Siu9njJwjrYwSkhkfke2eOMAYkcE+8xtR/1OdAjZw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1786955875;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aqpeupT4hhBpNxpSIddBxKc75rO+7F5W1JfhyL/OP4g=;
-	b=TTfMORlb8cQhXbY/lSGoiKF9qmLbMvh/T6e0mhZcMwI6KMg/CoQXbmwZc0cq6FP+DLBau7
-	hdcjwGOCbCqGPLCA==
-From: "tip-bot2 for Felix Yan" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/clocksource] clocksource/drivers/timer-sun4i: Advertise
- a real minimum delta
-Cc: Indrek Kruusa <indrek.kruusa@gmail.com>,
- Felix Yan <felixonmars@archlinux.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, stable@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260624220434.4183732-1-felixonmars@archlinux.org>
-References: <20260624220434.4183732-1-felixonmars@archlinux.org>
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="r1L3D7zo"
+DKIM-Signature: a=rsa-sha256; b=r1L3D7zo4W81pdcIuldBiMxTPs+GNkl9UupMlHj3xj3eZDpAxyvlzszqjpKPLVVXIRZHO+NW4MpSZXUclO6VG2oAkFtVItIxnoH7g0ORWFukgB2YG59JtHDywEpB2/fb9iK7b7gFyUJ25UFm1wQGi0FsBwkxFlDCDn6Bx+5f7ts9E0fNL2FeBqdUkMS6XB5Ehxfc3tOYChu01PK9d1tiul/Ze9ZbHYVBYcOcVbQZr5eMNHhO823p7IAWc68Dx8+ixkFVG9OovZgtOgI0gPUYBI3HHthafFrs/qBU1EjYiIl+VGv4EA4cyrfHvMpVZPaMUJLg9vCJaxpMGbSzcqYfrA==; s=purelymail3; d=purelymail.com; v=1; bh=UiZrryI/woLbzrHwPZuKXDp6mTnlhFPB8es5+z7jzxo=; h=Feedback-ID:Received:Received:From:To:Subject:Date;
+Feedback-ID: 21632:4007:null:purelymail
+X-Pm-Original-To: stable@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 875708539;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Mon, 17 Aug 2026 08:39:54 +0000 (UTC)
+Received: from peko by dell.be.48ers.dk with local (Exim 4.98.2)
+	(envelope-from <peter@korsgaard.com>)
+	id 1wvssq-00000002Jc4-11bM;
+	Mon, 17 Aug 2026 10:39:52 +0200
+From: Peter Korsgaard <peter@korsgaard.com>
+To: Linkai Gong <gonglinkai@kylinos.cn>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,  Michael Zimmermann
+ <sigmaepsilon92@gmail.com>,  Christophe JAILLET
+ <christophe.jaillet@wanadoo.fr>,  John Keeping
+ <jkeeping@inmusicbrands.com>,  William Wu <william.wu@rock-chips.com>,
+  Marco Crivellari <marco.crivellari@suse.com>,  Ethan Tidmore
+ <ethantidmore06@gmail.com>,  Kees Cook <kees@kernel.org>,  Chris Wulff
+ <Chris.Wulff@biamp.com>,  David Sands <david.sands@biamp.com>,
+  linux-usb@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] usb: gadget: f_hid: do not copy_from_user() under a
+ spinlock
+In-Reply-To: <20260817061141.82597-1-gonglinkai@kylinos.cn> (Linkai Gong's
+	message of "Mon, 17 Aug 2026 14:11:41 +0800")
+References: <20260817061141.82597-1-gonglinkai@kylinos.cn>
+Date: Mon, 17 Aug 2026 10:39:52 +0200
+Message-ID: <87o6f19m3r.fsf@dell.be.48ers.dk>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178695587398.1542179.16026420239437792986.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-The following commit has been merged into the timers/clocksource branch of ti=
-p:
+>>>>> "Linkai" == Linkai Gong <gonglinkai@kylinos.cn> writes:
 
-Commit-ID:     d21808328225ab8cee46885bf9a0dffcefbe630e
-Gitweb:        https://git.kernel.org/tip/d21808328225ab8cee46885bf9a0dffcefb=
-e630e
-Author:        Felix Yan <felixonmars@archlinux.org>
-AuthorDate:    Thu, 25 Jun 2026 06:04:34 +08:00
-Committer:     Daniel Lezcano <daniel.lezcano@kernel.org>
-CommitterDate: Thu, 13 Aug 2026 18:13:01 +02:00
+ > f_hidg_get_report() already copied the report from userspace into a
+ > new entry, then called copy_from_user() again under
+ > get_report_spinlock. That can fault and sleep in atomic context.
 
-clocksource/drivers/timer-sun4i: Advertise a real minimum delta
+ > Update the existing entry with memcpy() from the copy already taken.
 
-sun4i_clkevt_next_event() compensates for the timer stop/start
-synchronization delay by programming evt - TIMER_SYNC_TICKS into the
-hardware interval register. The clockevent device currently advertises
-TIMER_SYNC_TICKS as min_delta_ticks, so the clockevents core is allowed
-to call set_next_event() with evt =3D=3D TIMER_SYNC_TICKS.
+ > Fixes: a139c98f760e ("USB: gadget: f_hid: Add GET_REPORT via userspace IOCTL")
+ > Cc: stable@vger.kernel.org
+ > Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
 
-That programs a zero-tick interval. With oneshot/highres/nohz timer
-operation this can leave the next event stuck, which was observed as a
-boot hang on Allwinner D1 after the clockevents core started reusing
-forced minimum-delta events.
+Acked-by: Peter Korsgaard <peter@korsgaard.com>
 
-Advertise one extra tick instead, so the smallest event accepted by the
-core still programs at least one hardware tick after the synchronization
-compensation.
+> ---
+ >  drivers/usb/gadget/function/f_hid.c | 11 +++--------
+ >  1 file changed, 3 insertions(+), 8 deletions(-)
 
-Fixes: 12e1480bcb49 ("clocksource: sun4i: Report the minimum tick that we can=
- program")
-Reported-by: Indrek Kruusa <indrek.kruusa@gmail.com>
-Closes: https://lore.kernel.org/linux-riscv/CA+fTLhgLmTY+exGujKf8OYYQvcEW5X5N=
-J_5sLq2AYL6zER2c0A@mail.gmail.com/
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Felix Yan <felixonmars@archlinux.org>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@kernel.org>
-Tested-by: Indrek Kruusa <indrek.kruusa@gmail.com>
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-riscv/CA+fTLhgLmTY+exGujKf8OYYQvcEW5X5NJ_=
-5sLq2AYL6zER2c0A@mail.gmail.com/
-Link: https://patch.msgid.link/20260624220434.4183732-1-felixonmars@archlinux=
-.org
----
- drivers/clocksource/timer-sun4i.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ > diff --git a/drivers/usb/gadget/function/f_hid.c b/drivers/usb/gadget/function/f_hid.c
+ > index 3c6b43d06a6d..e4621e5a0b69 100644
+ > --- a/drivers/usb/gadget/function/f_hid.c
+ > +++ b/drivers/usb/gadget/function/f_hid.c
+ > @@ -667,14 +667,9 @@ static int f_hidg_get_report(struct file *file, struct usb_hidg_report __user *b
+ >  	ptr = f_hidg_search_for_report(hidg, report_id);
+ 
+ >  	if (ptr) {
+ > -		/* Report already exists in list - update it */
+ > -		if (copy_from_user(&ptr->report_data, buffer,
+ > -				sizeof(struct usb_hidg_report))) {
+ > -			spin_unlock_irqrestore(&hidg->get_report_spinlock, flags);
+ > -			ERROR(cdev, "copy_from_user error\n");
+ > -			kfree(entry);
+ > -			return -EINVAL;
+ > -		}
+ > +		/* Report already exists; data was copied before taking the lock. */
+ > +		memcpy(&ptr->report_data, &entry->report_data,
+ > +		       sizeof(struct usb_hidg_report));
+ >  		kfree(entry);
+ >  	} else {
+ >  		/* Report does not exist in list - add it */
+ > -- 
 
-diff --git a/drivers/clocksource/timer-sun4i.c b/drivers/clocksource/timer-su=
-n4i.c
-index 7bdcc60..c2d04ab 100644
---- a/drivers/clocksource/timer-sun4i.c
-+++ b/drivers/clocksource/timer-sun4i.c
-@@ -208,7 +208,7 @@ static int __init sun4i_timer_init(struct device_node *no=
-de)
- 	sun4i_timer_clear_interrupt(timer_of_base(&to));
-=20
- 	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
--					TIMER_SYNC_TICKS, 0xffffffff);
-+					TIMER_SYNC_TICKS + 1, 0xffffffff);
-=20
- 	/* Enable timer0 interrupt */
- 	val =3D readl(timer_of_base(&to) + TIMER_IRQ_EN_REG);
+ > 2.25.1
+
+
+-- 
+Bye, Peter Korsgaard
