@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2E241167E
-	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:44:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5A941D205
+	for <stable@vger.kernel.org>; Mon, 17 Aug 2026 12:44:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786970681; cv=none; b=OeewrodDgM5WcZVhgTNwMXSzAs6HmpTSov+H+vaXlR9Eymsq5kve3QfP2jYjXYb65MrKBIq5JsbiK0jr6T48n2F4PJnZENRPLLUnzrFZQ9a9RvNqxWJ1ukyua+TVUJMQ64U2L6pgb0P3ndwrwkoEzBXrvdXNRXujNTYQrgFj35Q=
+	t=1786970686; cv=none; b=ZU9aL2vqfCcKfHc9f8znrFBrFfSI2YT6wEJz+5BUHBLsBEq7qfTSw7KKdam4IvLD+/0W2ss5cep0cUZ6FYDrHwPKWubP5rZ3rNrxlYC/kS3h1R2Xaj31KZqkuNzfnEiDHHJsUaOrPcNls2Z53UJtytCBOsXQvSg42PUuPrbls4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786970681; c=relaxed/simple;
-	bh=HQTztExFIaQ9x78LCVdmXWWcH9Uwbvg9/UI0v667mZc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SQXcFm1XPjGXxW+rje74b87apujbgDwurJsVX5h1lP4KDYuPlpsTZ4eZPp7s0wNuStFmLW5+K8umhUTlwNEo64kzVxic7p6O7y5PEwC/l4yKXXH7RkjJlm3rSdFKR0OLN00mt9jFg+XxVFeq/XaRfmLe5vvqkUSVuT79Ofun5yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=auFba4gM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786970686; c=relaxed/simple;
+	bh=4PrD5x6XHpbFqVz3+m0saTn1+mjgASd2hRylYuc2xpM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iXrpnZjAnruz53I8bhx+UL2lknIiD2v6RIDtdqiiKrdi4Blq1zIhoNk+n8wV+zA9zmEaiDyAG6A/KPwXbt88AzAATB1sCw0luosisTir2QyNZKxDxdWe4QIGWJKkWnDidh7UZ/iQ/rvLreEcnZRJ9tZJPMdbdqKH+PxG4L6C32Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N2YeRYoD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="auFba4gM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41701F000E9;
-	Mon, 17 Aug 2026 12:44:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N2YeRYoD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D9B1F000E9;
+	Mon, 17 Aug 2026 12:44:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786970680;
-	bh=74VBkJicJmClkBZ8YTYKDz4EYyuMDSKhUayN47qJkT8=;
+	s=korg; t=1786970685;
+	bh=yIkLqaXw8rcu32ewVGagPH9UiPEpXw4VqspJNgr3Kl8=;
 	h=Subject:To:Cc:From:Date;
-	b=auFba4gMr8BgCXraopL9vWtQVrEyWXlyAgL1/bK9x0MN1OnbMWADbpe01wV1YJkBy
-	 s1tDqfzlQ3uJAveApYm+O56ybRH9ugJkSAVY2S9cHJ7CjJeOFaUJPp/Rzd1Zv++NhU
-	 pr+TpxyXBNxd6ra7sreJEWOgxYAf7KH6m8GfWlcE=
-Subject: FAILED: patch "[PATCH] net: expect instance lock in netdev_queue_get_dma_dev()" failed to apply to 7.1-stable tree
-To: kuba@kernel.org,daniel@iogearbox.net,horms@kernel.org
+	b=N2YeRYoDIsJaxKsLgKJ9mv9KK7WwFBvjiAsEuzFkK5cwFdEDRjiH7lexDMamwEeGy
+	 /sLJltu2YTP9tT6KSh88EfhVZwt3usGZV+Bu9lxbgS43k8Z+vyoURH1gqyRPPnQeof
+	 Zy1i/ipn4wLJz3lrPOk1Sf6SNnwpwPsXorBS5tS0=
+Subject: FAILED: patch "[PATCH] net: atlantic: free stranded TX buffers on ring deinit" failed to apply to 5.10-stable tree
+To: cyy@cyyself.name,almasrymina@google.com,kuba@kernel.org,sukhdeeps@marvell.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 17 Aug 2026 14:43:08 +0200
-Message-ID: <2026081708-gracious-yard-1b78@gregkh>
+Date: Mon, 17 Aug 2026 14:43:29 +0200
+Message-ID: <2026081729-unengaged-tremor-0888@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 92465f46f3c3a92e4758af20d2363b7adc43e1f5
+git cherry-pick -x 452636ea5410a96e02ebaaf80b21e3620b98e0dd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081708-gracious-yard-1b78@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026081729-unengaged-tremor-0888@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,42 +62,105 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 92465f46f3c3a92e4758af20d2363b7adc43e1f5 Mon Sep 17 00:00:00 2001
-From: Jakub Kicinski <kuba@kernel.org>
-Date: Thu, 6 Aug 2026 15:56:26 -0700
-Subject: [PATCH] net: expect instance lock in netdev_queue_get_dma_dev()
+From 452636ea5410a96e02ebaaf80b21e3620b98e0dd Mon Sep 17 00:00:00 2001
+From: Yangyu Chen <cyy@cyyself.name>
+Date: Sun, 2 Aug 2026 23:46:00 +0800
+Subject: [PATCH] net: atlantic: free stranded TX buffers on ring deinit
 
-netdev_queue_get_dma_dev() uses "compat" locking assert which wants
-either the rtnl_lock or netdev instance lock. This is not right,
-the callers are taking the instance lock unconditionally. All entry
-points for queue config are purely instance locked.
+aq_vec_deinit() drains the TX rings with a single aq_ring_tx_clean()
+call, which frees at most AQ_CFG_TX_CLEAN_BUDGET (256) descriptors and
+stops at hw_head, which no longer moves once aq_vec_stop() has stopped
+the hardware and NAPI. Completed descriptors beyond the budget and
+everything still posted in [hw_head, sw_tail) keep their skb or
+xdp_frame when the interface goes down: aq_vec_ring_free() then frees
+the buffer ring and the references are lost for good.
 
-In other words the callers use netdev_get_by_index_lock(), not
-netdev_get_by_index_lock_ops_compat(). All the state we will
-access is effectively instance lock protected (it's const for
-devices which are not ops-locked).
+Today this is a silent memory leak on every interface down under
+TX/XDP_TX load. With the conversion of the RX path to page_pool posted
+for net-next it becomes much more visible: XDP_TX frames carry fragment
+references on the RX ring's page_pool, so a single stranded frame keeps
+the pool's inflight count above zero forever. page_pool_destroy() then
+never completes, the pool is leaked together with its pages, and
+"page_pool_release_retry() stalled pool shutdown" is warned every 60
+seconds from that point on, on every ifdown, XDP detach or ring resize
+under XDP_TX load.
 
-Update the assert to avoid false positive warnings.
+Bring back aq_ring_tx_deinit() as it was before the removal and use it
+for teardown again, with one extension: TX rings can hold xdp_frames
+nowadays, so release those too. They are returned with
+xdp_return_frame() since this runs in process context.
 
-Cc: stable@vger.kernel.org
-Fixes: b6c5f9454ef34 ("io_uring/zcrx: call netdev_queue_get_dma_dev() under instance lock")
-Reported-by: syzbot+a78926bdac2adb52dc0e@syzkaller.appspotmail.com
-Reviewed-by: Simon Horman <horms@kernel.org>
-Acked-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://patch.msgid.link/20260806225627.3998672-1-kuba@kernel.org
+Fixes: eb36bedf28be ("net: aquantia: remove function aq_ring_tx_deinit")
+Cc: stable@vger.kernel.org # v4.11+
+Reviewed-by: Sukhdeep Singh <sukhdeeps@marvell.com>
+Signed-off-by: Yangyu Chen <cyy@cyyself.name>
+Acked-by: Mina Almasry <almasrymina@google.com>
+Link: https://patch.msgid.link/tencent_EEDC35FAF2750A3A6A0B39BAE0E2C484860A@qq.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/core/netdev_queues.c b/net/core/netdev_queues.c
-index 4d6864bb4f6b..f5558b12877c 100644
---- a/net/core/netdev_queues.c
-+++ b/net/core/netdev_queues.c
-@@ -40,7 +40,7 @@ struct device *netdev_queue_get_dma_dev(struct net_device *dev,
- 	struct netdev_rx_queue *hw_rxq;
- 	struct device *dma_dev;
+diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
+index 8ff07de2bd52..81685a4dc5a6 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
++++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
+@@ -360,6 +360,35 @@ bool aq_ring_tx_clean(struct aq_ring_s *self)
+ 	return !!budget;
+ }
  
--	netdev_assert_locked_ops_compat(dev);
-+	netdev_assert_locked(dev);
++void aq_ring_tx_deinit(struct aq_ring_s *self)
++{
++	if (!self)
++		return;
++
++	for (; self->sw_head != self->sw_tail;
++		self->sw_head = aq_ring_next_dx(self, self->sw_head)) {
++		struct aq_ring_buff_s *buff = &self->buff_ring[self->sw_head];
++		struct device *ndev = aq_nic_get_dev(self->aq_nic);
++
++		if (buff->is_mapped) {
++			if (buff->is_sop) {
++				dma_unmap_single(ndev, buff->pa, buff->len,
++						 DMA_TO_DEVICE);
++			} else {
++				dma_unmap_page(ndev, buff->pa, buff->len,
++					       DMA_TO_DEVICE);
++			}
++		}
++
++		if (buff->is_eop) {
++			if (buff->skb)
++				dev_kfree_skb_any(buff->skb);
++			else if (buff->xdpf)
++				xdp_return_frame(buff->xdpf);
++		}
++	}
++}
++
+ static void aq_rx_checksum(struct aq_ring_s *self,
+ 			   struct aq_ring_buff_s *buff,
+ 			   struct sk_buff *skb)
+diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ring.h b/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
+index a70b880ada67..6431cc62962f 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
++++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
+@@ -202,6 +202,7 @@ void aq_ring_update_queue_state(struct aq_ring_s *ring);
+ void aq_ring_queue_wake(struct aq_ring_s *ring);
+ void aq_ring_queue_stop(struct aq_ring_s *ring);
+ bool aq_ring_tx_clean(struct aq_ring_s *self);
++void aq_ring_tx_deinit(struct aq_ring_s *self);
+ int aq_xdp_xmit(struct net_device *dev, int num_frames,
+ 		struct xdp_frame **frames, u32 flags);
+ int aq_ring_rx_clean(struct aq_ring_s *self,
+diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_vec.c b/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
+index 2f9033ceed8c..05814fea0f5f 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
++++ b/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
+@@ -275,7 +275,7 @@ void aq_vec_deinit(struct aq_vec_s *self)
  
- 	/* Only RX side supports queue leasing today. */
- 	if (type != NETDEV_QUEUE_TYPE_RX || !netif_rxq_is_leased(dev, idx))
+ 	for (i = 0U; self->tx_rings > i; ++i) {
+ 		ring = self->ring[i];
+-		aq_ring_tx_clean(&ring[AQ_VEC_TX_ID]);
++		aq_ring_tx_deinit(&ring[AQ_VEC_TX_ID]);
+ 		aq_ring_rx_deinit(&ring[AQ_VEC_RX_ID]);
+ 	}
+ 
 
