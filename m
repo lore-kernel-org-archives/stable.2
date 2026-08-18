@@ -1,73 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-240.mta1.migadu.com [95.215.58.240])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6303A479874;
-	Tue, 18 Aug 2026 13:37:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFD043B3F4
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 13:39:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787060256; cv=none; b=cfAu57jTQg9cCW4rOnmmv/pDAvoGdl3cNKfj+1Tuu9aud1OkRBVqfEF4AatFlZGZLm2itCcfZpOMfRZmNCbGS32mrtJPHnRSaXp1czXBEKKsbzKHoE//9UnH+AmazjBjjJcIFjyrBaRTolNbvR10hmb8tZEHQSv5oq3y3WCFGjA=
+	t=1787060391; cv=none; b=pFVLcOcxzpyajfVZXH+wK5pHaE5G2osqdNEzUvK5rHn6fNTYgZFBKbaSALBdbp1AM4QCp/eW0hzhO49R0/R0+T/DpxmlhNW0wEFgsZMDHq81jYtcVU67QTa4CK2WujXgp+zu1bQj29Uhn+5HbexLUZlavH0dXcLSM8vstSoISSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787060256; c=relaxed/simple;
-	bh=bAqH+Io+91/tPcWYNwTXHjTKZCv0wSZoEGrlptyhYF4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k1/1lykzhsrEsXgnuqZAzTnRZbaxEYD8zQmnTzqNfq00cedwVHL5ZhZfNdXZHRE4zTSHnd7dzyeUd0+7MDTrSyNZvGhet+LNeitbfZaS4nuwTzvJ+1KS7GUL7JXaKWfjlRL7VIv5uTSBm66rrfe322u6FtHqqm6ANWHZNl1luwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lchbX8Ye; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787060391; c=relaxed/simple;
+	bh=UO2prC+9gZc9HrbV5lfB5QMWufcfETeUdC0Fe7EGUtc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jZnClwKHWd6V5JBrDVHIk+T1PJ/7onSuTr1xts/I4ue709y9HgBTeMtkLhaQtoRWKCWPh9KRrEZMI7eLprEBIxghpZik8EO0b/9GrtP2MXmqr0dsCwCvmrl15Wr/rvxjLrIjk0PC6PdWeJAJ1BdzXpjPD6JRPBl9n7hHUo4K5NA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=m2VHNx29; arc=none smtp.client-ip=95.215.58.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lchbX8Ye"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF5421F00ACF;
-	Tue, 18 Aug 2026 13:37:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787060246;
-	bh=9o2NgcEpXttlg6NfXMHTh7HTu3ILtf6I4MroKBAsIPo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lchbX8Ye3ZwHam9iyu+djaWXZCByTfOMnBtNIhzaZe0Nm22d/DdrCA0aDwzlTAUDs
-	 D1qaK3h1hnbmF+vy2eRzeRQh3yaHMlcMlKT9+QnjcjBNFp/IHf4UqcD7JfubTggPwH
-	 O4mmgwMNuO71ffk6QjrIvx8VFTJu9NAycjAOXCjK4Oen4/09Ovy9ZM0Thmk77ORIMc
-	 ziaHmTxKJdxrYAaRedEquOUGqk5Vq9adE/TJF5dJFc68m5X3RQbkhU1L5ZRHjtWWc7
-	 nPW4WjJMVFI0L87BABeXpxPWm1jHxYc5UyHOP6kHwlTd4zTBU/wcVzR3xL9h8CLloU
-	 /N23s1KgUfBlg==
-Message-ID: <32509367-79c9-49f1-895a-d1ed48ab370b@kernel.org>
-Date: Tue, 18 Aug 2026 16:37:22 +0300
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="m2VHNx29"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UO2prC+9gZc9HrbV5lfB5QMWufcfETeUdC0Fe7EGUtc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787060387; v=1; x=1787665187;
+ b=m2VHNx29Z0GvFkF7+lSDT/yqLQSdCCML6vEvtzPwAtpD89rNce2a8dNZbrd61ceTs94ZX0tc
+ zqqGRN8i29ptip6X2ZfMkhRa2YtfcyN72vNuZOhkPee8pPyUbKJXrjtLmnFY9ScQSDoVjEEzsMY
+ Dhx/nCvI4ctSihSEXJWy1l/s=
+X-Envelope-To: stable@vger.kernel.org
+Received: from linux.dev (62.216.208.217)
+	by mta11.migadu.com with ESMTPS id 073b82d9ffc1d5ee;
+	Tue, 18 Aug 2026 13:39:37 +0000
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 18 Aug 2026 15:39:35 +0200
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Hans de Goede <hansg@kernel.org>, stable@vger.kernel.org,
+	Mark Pearson <markpearson@lenovo.com>,
+	platform-driver-x86@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] platform/x86: think-lmi: Fix current password length
+ check
+Message-ID: <aoRgl4fG_t07FqVK@linux.dev>
+References: <20260813082049.41209-2-thorsten.blum@linux.dev>
+ <daeefbce-83f6-f161-71f5-38730fe9c9d5@linux.intel.com>
+ <aoRa_PwLxneo9Juv@linux.dev>
+ <dddaae9d-88d4-bf7b-3bc1-76cd115742c2@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/10] media: microchip-isc: take a reference on the
- parsed endpoints
-To: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260817-balki-isc-prefix-fixes-v1-v5-0-2514df336c5e@microchip.com>
- <20260817-balki-isc-prefix-fixes-v1-v5-2-2514df336c5e@microchip.com>
-From: Eugen Hristev <ehristev@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260817-balki-isc-prefix-fixes-v1-v5-2-2514df336c5e@microchip.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <dddaae9d-88d4-bf7b-3bc1-76cd115742c2@linux.intel.com>
 
-On 8/17/26 09:51, Balakrishnan Sambath wrote:
-> for_each_endpoint_of_node() drops the reference on the current node as
-> it advances. xisc_parse_dt() and isc_parse_dt() store the node in
-> subdev_entity->epn and release it later with of_node_put(), but never
-> took their own reference, so the stored pointer refers to an
-> already-released node. This underflows the refcount and can
-> use-after-free, reachable through the camera device tree overlay.
+On Tue, Aug 18, 2026 at 04:20:10PM +0300, Ilpo Järvinen wrote:
+> On Tue, 18 Aug 2026, Thorsten Blum wrote:
+> > On Tue, Aug 18, 2026 at 02:28:50PM +0300, Ilpo Järvinen wrote:
+> > > On Thu, 13 Aug 2026, Thorsten Blum wrote:
+> > > > current_password_store() checks the password length before removing the
+> > > > trailing newline, which can reject valid passwords that are exactly
+> > > > ->maxlen bytes long.
+> > > > 
+> > > > It also passes ->maxlen to strscpy(), which truncates passwords without
+> > > > a newline.
+> > > > 
+> > > > Use strchrnul() to measure the password length up to the newline, then
+> > > > copy that many bytes and add a trailing NUL terminator.
+> > > > 
+> > > > Fixes: a40cd7ef22fb ("platform/x86: think-lmi: Add WMI interface support on Lenovo platforms")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> > > > ---
+> > > > Changes in v2:
+> > > > - Keep and reword the newline comment
+> > > > - v1: https://lore.kernel.org/r/20260810132018.156868-3-thorsten.blum@linux.dev/
+> > > > ---
+> > > >  drivers/platform/x86/lenovo/think-lmi.c | 8 ++++----
+> > > >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platform/x86/lenovo/think-lmi.c
+> > > > index e215e86e3db7..d0ceb6aaa69e 100644
+> > > > --- a/drivers/platform/x86/lenovo/think-lmi.c
+> > > > +++ b/drivers/platform/x86/lenovo/think-lmi.c
+> > > > @@ -438,14 +438,14 @@ static ssize_t current_password_store(struct kobject *kobj,
+> > > >  	struct tlmi_pwd_setting *setting = to_tlmi_pwd_setting(kobj);
+> > > >  	size_t pwdlen;
+> > > >  
+> > > > -	pwdlen = strlen(buf);
+> > > > +	/* Strip newline; setting password won't work if one is present. */
+> > > > +	pwdlen = strchrnul(buf, '\n') - buf;
+> > > >  	/* pwdlen == 0 is allowed to clear the password */
+> > > >  	if (pwdlen && ((pwdlen < setting->minlen) || (pwdlen > setting->maxlen)))
+> > > >  		return -EINVAL;
+> > > >  
+> > > > -	strscpy(setting->password, buf, setting->maxlen);
+> > > > -	/* Strip out CR if one is present, setting password won't work if it is present */
+> > > > -	strreplace(setting->password, '\n', '\0');
+> > > > +	memcpy(setting->password, buf, pwdlen);
+> > > > +	setting->password[pwdlen] = '\0';
+> > > 
+> > > Hi,
+> > > 
+> > > I don't understand why is this strscpy() -> memcpy() conversion required? 
+> > 
+> > It's not required, strscpy() would also work.
+> > 
+> > > Wouldn't it work with:
+> > > 
+> > > 	strscpy(..., pwdlen);
+> > > 
+> > > ?
+> > 
+> > However, strscpy(setting->password, buf, pwdlen) wouldn't work because
+> > pwdlen is the number of characters to copy, but the destination buffer
+> > size also needs to include room for the NUL terminator. Since there is
+> > no NUL before pwdlen, it would copy only pwdlen - 1 characters and set
+> > setting->password[pwdlen - 1] = '\0'.
 > 
-> Take a reference with of_node_get() when storing the node, and drop it
-> in microchip_isc_subdev_cleanup() so the entities the bind loop never
-> reaches on an early exit do not leak it.
+> Okay, I was thinking in my mind if I've a off-by-one error in my 
+> suggestion but didn't want to spend too much time on figuring it out.
 > 
-> Fixes: c9aa973884a1 ("media: atmel: atmel-isc: add microchip-xisc driver")
-> Fixes: d6701f13bd07 ("media: atmel: Use v4l2_async_notifier_add_fwnode_remote_subdev")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-> ---
+> > strscpy(setting->password, buf, pwdlen + 1) would work, but since we
+> > already know that exactly pwdlen bytes need to be copied, memcpy() is
+> > sufficient.
+> 
+> It may work, but since you then go to nul terminate it yourself, I think 
+> using the existing function is way better than memcpy() + custom nul 
+> termination code.
 
+I used memcpy() because we already determined the string length pwdlen,
+which strscpy() would have to determine again internally.
 
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+The performance difference shouldn't matter here, so it's mostly a
+matter of style or personal preference. I'm fine either way.
 
+Thanks,
+Thorsten
