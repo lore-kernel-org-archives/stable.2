@@ -1,124 +1,163 @@
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C912BEC23
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 13:04:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D21473C67
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 13:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787058257; cv=pass; b=LN4Mswfh7x10LkEsbuWxsas0fx8olz8FfZWjzvR5BOrgM8hEvV4Vw3VxyZOz9DdFHP5yNlalCjAjEoEqZjbdkJMZZp+yZ6kkfevTb4g64BhDgb3ZwtvBt/UUHjm2T1KKqPu0y23a2INEOHMb/FISVM4+MebRdqQH6CIOm95qto8=
+	t=1787058914; cv=pass; b=VKMxfRY6rbeEzwgifkYJ4048y3EJgJ7RCXej1Wvn14AutambP6G5yXqF4K7f5Ha3pLRYhQ1GKty3omTJ7wluJuHcy9eRjUZet5ZOk4+1GRe7/rlTRxRuHKjsMrim24pCQrZXXC0DQa+9OvhhtT76qJoSDb47I/Z34wPEsUJ3BEQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787058257; c=relaxed/simple;
-	bh=ploCEruzMLrsvcFKJbusqZCgx+ZRPcCM4jxMdCl5+Ec=;
+	s=arc-20240116; t=1787058914; c=relaxed/simple;
+	bh=KmOPgecutUsmjwBlgKM8KuaPjy+z2DOw9/Sj82TrOBA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JVTE3zNUc4JjxyAb2O3VkWgOuQ9xGkRYCoUplC7SxeDgu1WWyAGB8cYUnLXJL+U6z1vKUeIAg5hvJYUe3uYsN3xr0eZt8dg2iJfoeAWee3Jl1FffT6i1uL3bu+A+CQmaxdkd3NJiZNP90kDLOBQc3mEh6G+YkmU6+rIjAfH3fYA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=pH00YnMm; arc=pass smtp.client-ip=209.85.222.169
+	 To:Cc:Content-Type; b=lLhVgWDC0CvA7gxUkzNV6SdszLfsy6gUlC3DyouxHJm4TcP2raTHASMLYJgfb1FXRQEP9Lm1g/ThoUb14UnqCgtpa6O4hHbofI6erSy3sfCSHSCm7QF+X4siP9aA8ekphcv/SkppaoehthQBHjxb5S2Xk5Bgafqt9ntW8uyJE4E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=R7WpH7XQ; arc=pass smtp.client-ip=209.85.222.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="pH00YnMm"
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-936c02e58dfso294198785a.3
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 06:04:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787058255; cv=none;
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="R7WpH7XQ"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-936c02e58dfso295720385a.3
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 06:15:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787058910; cv=none;
         d=google.com; s=arc-20260327;
-        b=IogaGV8K5Eeo8tMoWl1pMUlNRuRbRjUfq44u8B9rWuiAihdWGSZPKr3ALEOVk/hjf3
-         t9Qu/vPS5vcF3fs52NHePUicAE5lzAr3deJM+EGC5OptIHBb8cwnyYY64hSqIZz+4uoh
-         u4qiRA7CQVKir5bTgX/+BaQgiRhZz1pUIeC1F5bmGSO+gjG0vpbNZQFxiNncQFJPyd02
-         KWhPJYlhfnGFf2eLe6KIw+09Up1ep8o1t9u1XXDX4jx9EkUVUp3/mYP6FxaDBG4UZhZY
-         qCDDcwo42F6aq16oI+bWespixeMtG5elImXiGwR0Y2+ZGO8qZEJpfguYNtZ8clu6h9GS
-         my3Q==
+        b=hiezxcpw2HcI0/WqUPDV1drcju419AtvkN+5z0nuXMaMQSce3R7WjxkCfv/GRBsczk
+         fuou+AhkxIboSZiMGXh077sYMSkSTc+CdnB0FzGpnEQbo+onJzfEgluX8aG/OOKWHTX9
+         IFaYWLF0BkZEVj54EQJxjAG1uTiDfu6O//CE72+iVn7wXHDnew8Oyt56PK4ZuTsHvsnW
+         ohK0fx4IKyK2+8LJ/nhNAMwcCiRO2oIpi036sUZS/R5olpJK0Q/PWNqulrJwlPuOsYpB
+         Yr9vaDTA2POYOy1akTE8V9/IAfil2Xr9y5NtzcHW9Lp9y0Cz8BYDfJTYBJnWygbXXVpY
+         1UQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=wf9pJ19y5V3dewNhrrazrtHM/xSDMX1kzRQHqyjKLRs=;
-        fh=wm8bMM3gFlnqCgUNm4pjveSfcfDVdJiNLF/1NytxXKg=;
-        b=Im23du1g9ApEAs+1WkCW83qzv0ZScW1S2t3+qw0iHRDoStcU/MEfoqk1JAU0EJnvCq
-         pitoyHpMGAIY84n0ZrzqTLDu9oeKnMA/BBGY7tID4CJaYtM9SbtRITThKxAI5hyqAIKr
-         jSkd0y6noV8wDVT4V5O4rrFSO4s4ZXXSBx1qWvPNNzc0yqUgWnzV/0nNkipJ9+AIjsue
-         T2OrhjcFAaKBoIO7WWZ/ZOZFz7ZQgGetyVL7TNXYxTdfRQTMQEqjNabRfq/ubi1ZEWM2
-         UBpTHAzjBiMEtjXvGeM10oIUb8XflCjH7HrJIgQoVE6+42Y8N6xdTXxnS8rBJ8ueB02F
-         TWGw==;
+        bh=jxh5XpAHdieXwLPBDP0ROoYTT/Q1CVkQ5V4OzfSiXHI=;
+        fh=eWYklhjph1TJUuOqAKHHcskWNIsl59IVZH0he9Q+h58=;
+        b=I3CogyqtvTESTFzlVQ5DUCbsNijgnhN6dJcABWAXhf0xLoi7qja06YyjqUxursHBGN
+         RlHHmm9mGF2tWDkIGEF+WDPpIgnK8+3lN++FXJ1D1k33HJtdCL3SaIXDUJalcMmcs1ug
+         xBLTR0izOSrcZQl0wbf3BmDZAEVCUPy/MFPlBoKcxfbSLghGBLQxpv5GLAqgKtiIpwyf
+         zlGa3jvaNh/iszcZ8m2eiTyuqku6kSi/RTQoxf9T4G4zdzJA4kb4Rzf9VWTd4EJJfuw0
+         bDrFymi8DTwxrvfr3FB+1CBxlQXgV6AZ8uDavjIrhY8TkOkahnFVQmvhCqMRAkQD81yh
+         VKHg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1787058255; x=1787663055; darn=vger.kernel.org;
+        d=szeredi.hu; s=google; t=1787058910; x=1787663710; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wf9pJ19y5V3dewNhrrazrtHM/xSDMX1kzRQHqyjKLRs=;
-        b=pH00YnMmfBuR1X+DvmHlh4U02osuCqMCd7MPtguq76h8bKNjxDbac9+ZMlryuCHkWk
-         uAfp1L6njsMl1rpt5UB8ZjlHQgL6lJHNPlMoUvPB+W7/oCnAqR9cWIbDQvMJNbqO9aEf
-         MmI3JqKC5qWqapzx+ZxkZCINSxctondw3DU3g=
+        bh=jxh5XpAHdieXwLPBDP0ROoYTT/Q1CVkQ5V4OzfSiXHI=;
+        b=R7WpH7XQU+s1dPr0CcPCikdC0N2EQs40h248ps8kh/hFM5N9xQ/hD2TfPWcl9xaOqz
+         PWrcFWccreowAZlgmWR+EvyZYndrZ96uTCaa8V4GzKuPrf6C7X8+VoTjCI4/WSAJ65KD
+         4AOjAy8XRa03bEX8khTR8J67UGihvM+9P8HEA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787058255; x=1787663055;
+        d=1e100.net; s=20251104; t=1787058910; x=1787663710;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=wf9pJ19y5V3dewNhrrazrtHM/xSDMX1kzRQHqyjKLRs=;
-        b=lf7RO7NUwoEXr5pApOYy/WA9OBILeULHxlW98Vu0yHDFxDlzsepOSbnFameh3GhZUf
-         NH70dhjLtwDoDCGZO5AYHW/CzR6Sxn5KUW2X1jGqtTLTo9Qm7ZisSWVmKGISj7nSdLwN
-         WIuU5PAzN6oSJaRgo+rBFDhjeVrC5q9LCU0HvosC/kTFkGMjPBiObD8kMj5oR3eP3OFm
-         VXI0/8g+azrBoZ2JItNwbCRJcWm9vOX4Ls6P0YuBf/sndr3KcudJQcyVhfburTu59/q9
-         MluM3o3cZ7y22b8XhV5f3U9J6NsobzifmGzMcI+57qhmQ9v6SnF3oDmuncBaabk/J+3J
-         gctQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrtjqca+AyNrKkXexKIuMj/ymx//fSW5d7hWMzbdEadqRsY8ojs6uLnYqkpHHT7vqS8hzbyiNI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYpffXbsL1klf8QSfh/8k/PnPD22VoEsI/6FgjVqwPPBZUqOwt
-	IrlnyZXV7wze5HOeGryIHrR5ii0goZFC55HBzHPkGneMcGsU6zuFKkL2tpDPIXTRGvUGuaqFRJW
-	vn41uhcVocWsYuIJA/tpETkJbgkymzm/aoMvpuwxfBA==
-X-Gm-Gg: AR+sD11UIzO6QIt3w6WAhW0B7O0twXsL6E/Mk1cDKkGdRu89gb6h18H/sanCaOAv627
-	cqcnlKTYNbEKsNJ1lZ17duiq4Q169jAx3Fq27VUjCEXryR68d3eDcrf0/9KISmQSUbiZBzA0pER
-	BgxdRaCsdYTWhFAJSHsC27+Br0htl4sSmpgtMN/fjpJYc1ZXIugQpPGhy/e/YqsBPxBjavAHF+W
-	ancQuLTO45NcVveM7I/1+8qnRoi9oNDc85D6PpZhEmoSFB8YOwojLOsMTWgy9wvy/xa7Y+BCOFW
-	tC6cmDJ9ZtsOX3DD0WXA9JH1jmXayCEhIiohl5roTLBAs9e3cBZMOJKbbyw5sXQUqAzqwoFqY2u
-	U
-X-Received: by 2002:a05:620a:1793:b0:937:7ea:3421 with SMTP id
- af79cd13be357-93707ea37b5mr558245685a.26.1787058254552; Tue, 18 Aug 2026
- 06:04:14 -0700 (PDT)
+        bh=jxh5XpAHdieXwLPBDP0ROoYTT/Q1CVkQ5V4OzfSiXHI=;
+        b=p//iRn0C5/YfGxiTq+hag0/pDIb56y5iZGiuBNd86r+zz7UOisTSmzNYfq4FmjPyVf
+         Yo7oyeuBe4CX6ttK2Rq+Se6ZDr5U2dIysnxZB/YfM09D5RMOBpK8fqROs4492wpdKxj0
+         OFKnPrKoy1aXI96ImFhULhRyYIjcvIvhkEk5p2gXEmH6mUisACkciO+X87iTez5Ls107
+         rGg/rkeu0SowkVo5hhG7tp+QVQ1B1reQt/dqzJHe+PaRoK7IxFhujZ+F75DzG7/zCg3T
+         2kICVUCp0ULsH4/3tizNCegflreQ+UhdxM3unqK/QtknvtGok6lpph2lSyXUVHs6gMug
+         UfYQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpkk+Vftax49PDUBmU7FJMAU5y1lQoEx17ulXngDfPwcBRRc9pvk0X78qB306Q+zEcYn56KdVQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwSA2hNQqiXOke16zzJYCJRyOF1FPqBmbwGKVaH8Uld0872VaV4
+	rtAzuKPBWWKPAqgAzD4DPieKKg+pBjWl+mp9slP6VAtNuYj0TfCMoPiLPykS4rHL8ynOpyIuFhp
+	OtWxuskHvZS5RZJWLdyW2dMVKmhW4hCxXY0uvtegawA==
+X-Gm-Gg: AR+sD11OjSRX0++GlWegDBHeuIoxzDaCsMUTDcZ8VsIZTyhnB2W00u9RMpT6O20LI9S
+	w6UcxPzlmyXac8AEy/uYcwGGZELNS5uOsE8BgDygQhpPRMZWdKI1zl/agCHdtBGqY39NO0MPHsF
+	YtwWpPyyx364ZTasLL7NUf+y2fWNIPMb9k5ktvZy432G+cQVbkiwKdUbPgEp6+TsVhmJPNF1Nvc
+	XH+rAXZ7Z1YrJ2wP6DCRNz02mq8TN00pRhuaNKmDETSjanwWA4uOvZjdWDCdrp1RVpNUetFzD5y
+	ORCfGpmJiE7HYj3t6mV62dElQzi6SlK6zP1mxUmjiaaWtbqo1TqCibfidRA0GNd0oVO/fcRbK7r
+	L
+X-Received: by 2002:a05:620a:404c:b0:936:e3c3:8cb8 with SMTP id
+ af79cd13be357-936e3c38cc9mr2458814485a.45.1787058910323; Tue, 18 Aug 2026
+ 06:15:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260731120353.558833-1-david.lee@trailofbits.com>
-In-Reply-To: <20260731120353.558833-1-david.lee@trailofbits.com>
+References: <20260802-work-fill_super-warn-v1-0-4e987911a39a@kernel.org> <20260802-work-fill_super-warn-v1-1-4e987911a39a@kernel.org>
+In-Reply-To: <20260802-work-fill_super-warn-v1-1-4e987911a39a@kernel.org>
 From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Tue, 18 Aug 2026 15:04:02 +0200
-X-Gm-Features: AcwNN1VGq915hcsob5kNsXXFds76SFj9nmfNmaFXNVfhjgc8ZfBiwmIN9uIVwNY
-Message-ID: <CAJfpegt5g5j-OOQeLXH=z-7wMXn564iKWRiUtuD8z7Fpezg_7A@mail.gmail.com>
-Subject: Re: [PATCH] fuse: wait for sync init request after abort
-To: David Lee <david.lee@trailofbits.com>
-Cc: Kyle Zeng <kylebot@openai.com>, 
-	"Dominik 'Disconnect3d' Czarnota" <dominik.czarnota@trailofbits.com>, fuse-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 18 Aug 2026 15:14:59 +0200
+X-Gm-Features: AcwNN1UBQAWcx1tOEiU47Frr3JyAbsHxepEKWSi_zYBw_ITdoj7CtNDGWqz3aiE
+Message-ID: <CAJfpegtXbdpFZmV2dYSbp6eL0DBGmZin98TFr42nxJCfuryfrw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] ovl: don't warn when the mount is completed from
+ another user namespace
+To: Christian Brauner <brauner@kernel.org>
+Cc: Amir Goldstein <amir73il@gmail.com>, linux-unionfs@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Kees Cook <kees@kernel.org>, 
+	Laurent Vivier <laurent@vivier.eu>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 31 Jul 2026 at 14:03, David Lee <david.lee@trailofbits.com> wrote:
+On Sun, 2 Aug 2026 at 20:00, Christian Brauner <brauner@kernel.org> wrote:
 >
-> After a fatal signal interrupts synchronous FUSE_INIT,
-> request_wait_answer() aborts the channel and returns immediately.  If the
-> request is in an FR_LOCKED reply-copy interval, fuse_chan_abort() leaves
-> it for the writer to finish.  The synchronous caller can then free the
-> fuse_init_args that owns the reply destination while the writer is still
-> copying into it.
+> fsopen() records the caller's user namespace in fc->user_ns and hands
+> back an ordinary file descriptor. Nothing ties the task that calls
+> fsconfig(FSCONFIG_CMD_CREATE) to the task that created the context. The
+> fd is inherited across fork() and exec() and it can be passed over a
+> unix socket.
 >
-> Wait for fuse_request_end() after aborting the channel.  This keeps the
-> synchronous caller's reply storage alive until any locked copy has
-> finished, while preserving the fatal-signal abort behavior.
+> Completing a context from another user namespace is allowed on purpose.
+> vfs_cmd_create() authorizes the create with mount_capable(), which for
+> FS_USERNS_MOUNT checks ns_capable(fc->user_ns, CAP_SYS_ADMIN), and that
+> succeeds for a task holding CAP_SYS_ADMIN in an ancestor of fc->user_ns.
+> So an unprivileged task can reach the WARN_ON() in ovl_fill_super():
+> create a user and a mount namespace in a child, call fsopen("overlay")
+> there, send the fscontext fd to the parent and let the parent issue
+> FSCONFIG_CMD_CREATE. Both namespaces come from a plain unshare(1) and no
+> capability is needed anywhere:
 >
-> Fixes: 204aa22a686b ("fuse: abort on fatal signal during sync init")
-> Cc: stable@vger.kernel.org
-> Bug found and triaged by OpenAI Security Research and
-> validated by Trail of Bits.
+>   WARNING: fs/overlayfs/super.c:1551 at ovl_fill_super+0x7b9/0x1e20 [overlay]
+>   CPU: 3 UID: 1000 PID: 3243376 Comm: fswarn
+>   Call Trace:
+>    get_tree_nodev+0x71/0xa0
+>    ovl_get_tree+0x15/0x20 [overlay]
+>    vfs_get_tree+0x2a/0x100
+>    vfs_cmd_create+0x60/0xf0
+>    __do_sys_fsconfig+0x4b2/0x500
 >
-> Assisted-by: Codex:gpt-5.6-sol gpt-5.5-cyber
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> The child needs the mount namespace because fsopen() itself gates on
+> may_mount(), which asks for CAP_SYS_ADMIN in the user namespace owning
+> the caller's mount namespace. fsconfig() doesn't repeat that check.
+>
+> It is a WARN_ON() and not a WARN_ON_ONCE(), so the condition can be
+> raised in a loop to taint the kernel and flood the log, and it panics a
+> kernel booted with panic_on_warn.
+>
+> Keep refusing the mount and stop warning about it. ovl_parse_param()
+> already spells a user namespace check this way for Opt_override_creds.
+>
+> Fixes: 1784fbc2ed9c ("ovl: port to new mount api")
+> Cc: stable@vger.kernel.org # v6.5+
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> ---
+>  fs/overlayfs/super.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+> index 60f0b7ceef0a..60b808b85fc4 100644
+> --- a/fs/overlayfs/super.c
+> +++ b/fs/overlayfs/super.c
+> @@ -1544,7 +1544,8 @@ int ovl_fill_super(struct super_block *sb, struct fs_context *fc)
+>         int err;
+>
+>         err = -EIO;
+> -       if (WARN_ON(fc->user_ns != current_user_ns()))
+> +       /* The fscontext fd may have been passed to another user namespace. */
+> +       if (fc->user_ns != current_user_ns())
+>                 goto out_err;
 
-Thanks for the report and patch.
+Just one comment on this (I know it's been merged, will do a fixup
+patch):  EIO should be turned into EINVAL.
 
-I've committed an equivalent fix to fuse.git #for-next:
-
-64b0b5cacbd2 ("fuse: wait for FR_FINISHED on abort_on_kill to prevent
-use-after-free")
+The EIO was used to signal an internal error (commit 9efb069de4ba
+("ovl: add warning on user_ns mismatch")) , which is no longer the
+case.
 
 Thanks,
 Miklos
