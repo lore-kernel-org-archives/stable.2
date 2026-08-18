@@ -1,126 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0F9451988;
-	Tue, 18 Aug 2026 11:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880A43C65E0;
+	Tue, 18 Aug 2026 11:32:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787052539; cv=none; b=KPSEu6lhgyyovCLFpFFjPG2c+W6Wr70smnpFqN9ms0DTo0tbClT5UkyghEdr2/bgsQpdngdkU68lmZTkvNCtX9XCjnjaX2KfvEwKEDYS2HdlWFOUfHjHd0D/VW0pvsn3+x+0s42ZAKN0fZHL+8l4lH8b/z7kHkmBXCfId4Tixxo=
+	t=1787052776; cv=none; b=IiGSB2FGDm9Yzk1gLWKThfwGIKdVUsWH3wRdGRcKjOKyHUasPSWnTsCiTVTKvgv0PDKki6/U+vu+3hFhJJBD5CLacWDO72rWTozj1iKJ6kiVbRmzG9dGOp5SZC9nwW0slHPSaQ6t1WwNaVdfqW6c989gYIRSTr31jnpuuKFSKBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787052539; c=relaxed/simple;
-	bh=6mMGVYsJXpLKwTZA6X09wqiPlrAoEFFH3gh4Yyir/q4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Zpo5VOZlS0TXwBSNWrQPqQTS8LjwHMlyBhhHWtW4u+kDQioOENfHCT3n+CGI6g+HotekDr/TL4xUWE5XsxpPZ7kNM76dr4lPW3fxTLes8/DhuUNJzvyY2KevR0Q/wtLARQm4w5/tBVDuCMVFrP1+vRjvx4PoI7nFfFYvgIzNC9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mwRqegez; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787052776; c=relaxed/simple;
+	bh=EakNYh9kUDyy5tnxVvIk7oHliuUk6LONJgb+cBSWtmo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fbJ0xcmFo0LkngaPy25O9oPC0Yq2c9QgGGS9U6w9+FyrsOE9Tabe7vUKUDWZB6YP6xto5D4AcC3/xLcT1bpbymXb7F4g3syoUJ1tyKTVjhG02XOzNG2N8BiD2/9R4e0MlOJBiAJhPUhsPbBac9iZrXsYIrx3Wkz8whq3qqE5wb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=bb4lDBQX; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mwRqegez"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787052538; x=1818588538;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=6mMGVYsJXpLKwTZA6X09wqiPlrAoEFFH3gh4Yyir/q4=;
-  b=mwRqegezx/JH+6WKoCm0VNUDrMro5BX2Cj+wCRCsmhhzS+SZRJUj6k4e
-   Ss03+42Z5vZMHQw2d8x99EDAKaPwKaowRw/q1fnRB8i9tEV9VXpwaAofI
-   QQ3ngWwqElrle1Gk3RhqigBaZcADCaZWXWfagSBI5LrxoII9e+8qyzL41
-   RidileVxKGlCZif+9D57/jYAz45eAhVHQxQadA1qQdi4lI5j8KzXmddAc
-   mMffZYNDd5gpLb5V7eiZSEj7PYXuF6jy7+IS91eFlF5vFdVZlhx6T8jFV
-   ApqdMNWI9laJLS0pBFA1uATD8UebSxE0KhyJMOMHJMn8OmUGknpwSwTnN
-   g==;
-X-CSE-ConnectionGUID: ZtiLg1EVQdqwrAsF2uJXMA==
-X-CSE-MsgGUID: vOOhVVDaQQayOojfokptdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="87608966"
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="87608966"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 04:28:57 -0700
-X-CSE-ConnectionGUID: iv2/0hjhRZG6PZFL/s283A==
-X-CSE-MsgGUID: FJqinRumQtCX13hLsqrvTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="259002624"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.38])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 04:28:54 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 18 Aug 2026 14:28:50 +0300 (EEST)
-To: Thorsten Blum <thorsten.blum@linux.dev>
-cc: Mark Pearson <mpearson-lenovo@squebb.ca>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Hans de Goede <hansg@kernel.org>, stable@vger.kernel.org, 
-    Mark Pearson <markpearson@lenovo.com>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] platform/x86: think-lmi: Fix current password length
- check
-In-Reply-To: <20260813082049.41209-2-thorsten.blum@linux.dev>
-Message-ID: <daeefbce-83f6-f161-71f5-38730fe9c9d5@linux.intel.com>
-References: <20260813082049.41209-2-thorsten.blum@linux.dev>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="bb4lDBQX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1787052736;
+	bh=/rHXuTbZJ777DLlB13Eo79dpg7xSIMLf+a1wmQs1xlE=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=bb4lDBQXEfFnhH364AbZlKSEw+9HJiB1kLYdElIxjvLfv6Q1oMOfOikmhAo/Rbnyh
+	 UIijrnWK7Y/tMToMXw9Kak4g1Q2HokM4sMyq+M6pwabjWyve9FRm2Y2aCWZDSbs+1r
+	 ruQhOwvNSH6rZ8SAPDU6wyXIOh1INNpz5O/McUOM=
+X-QQ-mid: zesmtpgz5t1787052718t8a59aaa4
+X-QQ-Originating-IP: Uxaq1WO9BaDFSUMhf/L6k9leD3Dr3PtK2pNhVsKQWWk=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 18 Aug 2026 19:31:56 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 13596695146941906174
+EX-QQ-RecipientCnt: 8
+From: raoxu <raoxu@uniontech.com>
+To: ulfh@kernel.org
+Cc: error27@gmail.com,
+	rex.chen_1@nxp.com,
+	kees@kernel.org,
+	raoxu@uniontech.com,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] mmc: spi: reset bytes_xfered before retrying CRC failures
+Date: Tue, 18 Aug 2026 19:31:53 +0800
+Message-ID: <CD1C18732FB187DE+20260818113153.3521044-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NvjhxCSDgXICZuUYhqeWsHl7ZGbF0aqf+7bUt7Cs1clUpbATUFW69/DE
+	KG/M29RDOx4BcitiroB2NSUZbc1DPdNO2e2QNfl8FtJKtmlUfti2Co0z8NbgwbMqCQTGtpF
+	ebSfEgzIWKCTIr9lQkAvdcOPmdXg5UlSMwvjmdZDUSdU7Q68EzpEk+/jw8sG4cTUpznKPR1
+	KKMShr73wkPJsgBAo3YItIo3mfjS8PPgMA8OudeBeZsp+l2NBeyBmWk8jPfv6+qe+OucQ7f
+	vWTfkQ/FmbZZbdIApGcZij9KfCDj6V0f3FPifcNF9XSG0heo1ERv5RVk1hmc3Gqx9KVSUgS
+	+P5pJK8Q7d6mYB9/Ox2NvTXQn6GNSSq1ID4fULg1qCob/s//IQ0yQZpKOfpYB1ze3P9kUqJ
+	Qu+mDWOxgwIqwyYXg3hhMtOOrpxugjLgpDRlKCl+G4nJ4CCLRADaZpjEWuxPNQVWf93hh/I
+	RYwNT1VUnEbR2U8IDWGs0g9D98BAxrGa5G1XEIwi1klJEcr+AoQHah31a6tCe8itcgN3rHy
+	giqmriQrIaRfJa+IWQ4U46qtUyjounCGdSnraboFVszM425Yy+plVhR/ukj2F6q4+pMP+rf
+	nxq5ZZXo/+09OBMQ2blpAIrU1BSF0HDhFjj8p/bnwO3keUsDhiCE/ZrFPYu27sM0z3YWPMb
+	DWnsJkk/R3Atg9LQJDwxPgA7ccsp7iMAWuPeSOP5eTTIjjfly0KW4mNzyL07gguxh0v9HwS
+	Ky8kbt1BmMauVx608z08DWvr9EzrVJQ7ZeHtaMQNSpj/lRrj0YOMFdThc5yjwFDNN5PZxKM
+	r03Zx4KwBznrpdIKlvqWbt8uuIphe95sZFYHwk6LNVClZGz4TvuLOrpjahhdSUfFAjc0qDL
+	9pp/11SYCV3lpuacXZucS3cmbidjYql+nptR0ATwHbzvVsp8yKUgzFjqpTgLgMgdXKhM3i8
+	Soin02506yf4Z8cByf8jtaNOBuRP4S1y5un7yh+dAdvfloKvWgmcujDw3IO7QMcvpH1SRlg
+	Ao9zKK7tJwZFMYm306bcbJUYl9c+fl2sOulwIY5dGBoL6znAbIISmymdZCU2+c9HFm2GKZp
+	17z1Ubh7WEO
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-On Thu, 13 Aug 2026, Thorsten Blum wrote:
+From: Xu Rao <raoxu@uniontech.com>
 
-> current_password_store() checks the password length before removing the
-> trailing newline, which can reject valid passwords that are exactly
-> ->maxlen bytes long.
-> 
-> It also passes ->maxlen to strscpy(), which truncates passwords without
-> a newline.
-> 
-> Use strchrnul() to measure the password length up to the newline, then
-> copy that many bytes and add a trailing NUL terminator.
-> 
-> Fixes: a40cd7ef22fb ("platform/x86: think-lmi: Add WMI interface support on Lenovo platforms")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> ---
-> Changes in v2:
-> - Keep and reword the newline comment
-> - v1: https://lore.kernel.org/r/20260810132018.156868-3-thorsten.blum@linux.dev/
-> ---
->  drivers/platform/x86/lenovo/think-lmi.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platform/x86/lenovo/think-lmi.c
-> index e215e86e3db7..d0ceb6aaa69e 100644
-> --- a/drivers/platform/x86/lenovo/think-lmi.c
-> +++ b/drivers/platform/x86/lenovo/think-lmi.c
-> @@ -438,14 +438,14 @@ static ssize_t current_password_store(struct kobject *kobj,
->  	struct tlmi_pwd_setting *setting = to_tlmi_pwd_setting(kobj);
->  	size_t pwdlen;
->  
-> -	pwdlen = strlen(buf);
-> +	/* Strip newline; setting password won't work if one is present. */
-> +	pwdlen = strchrnul(buf, '\n') - buf;
->  	/* pwdlen == 0 is allowed to clear the password */
->  	if (pwdlen && ((pwdlen < setting->minlen) || (pwdlen > setting->maxlen)))
->  		return -EINVAL;
->  
-> -	strscpy(setting->password, buf, setting->maxlen);
-> -	/* Strip out CR if one is present, setting password won't work if it is present */
-> -	strreplace(setting->password, '\n', '\0');
-> +	memcpy(setting->password, buf, pwdlen);
-> +	setting->password[pwdlen] = '\0';
+mmc_spi_data_do() updates data->bytes_xfered after each block has been
+transferred successfully.  If a later block in the same data request
+fails with a CRC error, data->bytes_xfered may therefore contain the
+number of bytes completed before the failing block.
 
-Hi,
+mmc_spi_request() has a private recovery path for such CRC failures.  It
+sends STOP_TRANSMISSION, clears data->error and jumps back to
+crc_recover to issue the same command and data request again.  However,
+it does not clear data->bytes_xfered before the retry.
 
-I don't understand why is this strscpy() -> memcpy() conversion required? 
+If the retry succeeds, the request is completed with the bytes from the
+failed attempt still included in data->bytes_xfered.  For a multi-block
+request this can make the completed request report more bytes than were
+transferred by the successful retry, and can even exceed the request size
+when most blocks completed before the CRC error.
 
-Wouldn't it work with:
+This is most likely to be observed on MMC-over-SPI systems where long
+multi-block transfers occasionally hit a data CRC error but the
+mmc_spi-internal retry succeeds.  The data itself is retried, but the
+completion accounting is not.
 
-	strscpy(..., pwdlen);
+Clear data->bytes_xfered together with data->error before repeating the
+request so the final completion reports only the bytes transferred by the
+successful attempt.
 
-?
+Fixes: 061c6c847eeb ("mmc_spi: Recover from CRC errors for r/w operation over SPI.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/mmc/host/mmc_spi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-strscpy() forces NUL termination and there shouldn't be any NULs or 
-newlines before pwdlen.
+diff --git a/drivers/mmc/host/mmc_spi.c b/drivers/mmc/host/mmc_spi.c
+index b471a7795b4d..5217d713c826 100644
+--- a/drivers/mmc/host/mmc_spi.c
++++ b/drivers/mmc/host/mmc_spi.c
+@@ -952,6 +952,7 @@ static void mmc_spi_request(struct mmc_host *mmc, struct mmc_request *mrq)
+ 			status = mmc_spi_command_send(host, mrq, &stop, 0);
+ 			crc_retry--;
+ 			mrq->data->error = 0;
++			mrq->data->bytes_xfered = 0;
+ 			goto crc_recover;
+ 		}
 
--- 
- i.
+--
+2.50.1
 
