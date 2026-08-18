@@ -1,165 +1,354 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADE427FD74
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 05:07:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B260E3D3CEE;
+	Tue, 18 Aug 2026 05:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787029627; cv=none; b=lmrSeqItO/luH33mH+vqp6tec7BQTJRgH4C5qULmSu7NAZYsiLZDEh/TYXvAZ4amFLfDF48liSbGjbJJ0LyN/DMdfB48q8ejZh2WAiRlPesUMo5XoR/SAWH+Nq0gFMHebpHCVdMJgNxfgUWQA1QZCo+vDyIJ3oBDnIgvKO3vQew=
+	t=1787030098; cv=none; b=NeaXoX+WmdAUBrW81JJhLK7HKd7h5TQD1ojDIYRVfcMNYD+8eL3BCHFK11Ir9OCp9r4icHgBcMCOOkzN4ledB8ragM0Xok2OutCyLjfbpjOzKy0cINs5aTGKUUbEixUBsB2wcRXoZJ63puiAPKfxM1DzmGm+wkKX77ks2ymWMtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787029627; c=relaxed/simple;
-	bh=mdu//a0Msa9i1GDiaeUzEd6ZcjMTI+PpLfvTOGgn0J8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pt7P+YCW3K4SEiBI2VVURCdkf3ptQheFfFOy2drgHJISayfFzdZuCAJSybljdG8CJ/QP6J+Ikkou5/ufm18geqIoaAg+qli384gcvaOpIkdFVO2rYnONzyXSeBVqGV/6RDCOrkJ/GT9f8OYPpDoZJfXNHZH5Djaobgy1NUgQLZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PJ/ovc61; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ln81m2WY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787030098; c=relaxed/simple;
+	bh=xcCrXBRJwwJIVxDb8wMsZi0W8TTSs3hoL4lt0ROqKV0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=oXQXFRXcV919wn/t5AKoOVxJDcAyBAP5k+yT5sxhPv1f+P9hy8sVx4Gy39H2aPWhcR+MGFEYHLQaebP6hdqUQcpR84ajD+CADSKH63vVcI+6vXF8Fyj7PDW3AQ5BBu8gd/3lbAywIq3ByM7D9REeYJ791R6Q/ybOAq6327rg/xQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=YHK7qeTg; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PJ/ovc61";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ln81m2WY"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I25AHC3603497
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 05:07:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=N7HGS+js9AQ3WFgzMDszCKky
-	Dss9f629sxI3gpvij1g=; b=PJ/ovc61iT8zGIRSevkAb7H2Uu2MtBok7dpcghQn
-	w68b6TKfFcXYbLJrbQlL30w5jK5f6Xu5qg8N3Sg/3Tc/Jdx2PU5BQk1aOX5olvUW
-	d1j5dYKS1uBLDQl/kin/hL/YtMvQOGE3a26caBamwqk6iNPWMCA9Fbg4iufmopXd
-	xt6jPLB32XWutsHmXBPN/5cFPM5kxA7kRyVQI7HyVMI5grTJcVHAL7eDf8D6d1R4
-	AwIzv6Qoa222HCZXvZlFLz+6YDFe40gmwDEQYoawzYn8Sd4UgIQ48GiyJPEkFgsT
-	aZhShp8PxkGcGdzDzOT9HuuPCK1LDrf3AnBDe+DvAlovbw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4ea2gpch-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 05:07:05 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9368f2b7b2bso422624685a.0
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 22:07:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787029625; x=1787634425; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=N7HGS+js9AQ3WFgzMDszCKkyDss9f629sxI3gpvij1g=;
-        b=Ln81m2WYjc1+Atl0tvPkA1vI/2BHNTuhtJoikfxx1aJqBdJV0Zh01ppA2LegUuOlq6
-         FNm82PwQAHVSfrj6hQ7Id3tRodzZ3AsY3cZw5JywD3JLjM5YG2T3X3Ozl46SIHbiT1Tn
-         h7Z09E/b2zwXMYtW/SVLQ9FFlbNrF9LkPZRA5svHpRyaYU2GtTq1EpamsCsfXEE+td0S
-         LEK9xUdmCtNxvzu91v7Dw1QF5tUipy226V3oE/8RsfkWNWlYrUNFyezBoCJXcOaG3cQI
-         +7JLOG4BOdjXm4pajz2kteLuWNJ/Mg2T2ttdswc9rO7dhctxMkxmm1C3s/2fPRIxoI58
-         rhIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787029625; x=1787634425;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N7HGS+js9AQ3WFgzMDszCKkyDss9f629sxI3gpvij1g=;
-        b=e55Q/W1lWBeZJTm0XIGo0AhezMoygToS+DQkFLTeiIXFQ2oghxY1EjbazfomvEF312
-         7q6FArwg3Lb9rFEhOsT0d4miLJOsyNxasdsLHmpfNYV2deNv1Z0hD5ddZlCRkMLsrJf9
-         aMoaofK2UNbwYt1DGS02ekhWJ/OSqzhqciq85iYsYQuV+h43CsmhUWtIXTdD19zQvYcs
-         1UMMU3nxeZoIkAz+BhpL/a57IaGeMR35RHhffeezxbLeOXuuveMz7tyyDkMXEU8mMb0t
-         uhk5y1zAY4LWEJqj48bhoWceOkocQY8hXOc+Ls9ko7GP76IlgfRZhmjBAREsv39nr4i4
-         hTUA==
-X-Forwarded-Encrypted: i=1; AHgh+RoV3C7b1I2PSko8Hw6D817PvbM5DhJPtl77TGfmbCPfFlI2V4a820URRFmjbIkhq+vKWDSo2sI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yymz3OAX5diUnBw/rsVtDxQcP1caD4S8LvpCMYGco39toO35FVs
-	SO2sMTjN/qbmSxR2hREB8SeVad1vG5jUf+aIghezKHRGSijdIhgv68jz3jTzOx+8YxYUk67/0qi
-	avdr2EnLyFZwINrggB+T9bcNXu89mKjWW9eetcNjaYtrvZm4dGZCsczb8n2U=
-X-Gm-Gg: AR+sD11Qiv38raE098NN3X6LkzP0pG01WFT+S7L2Zh/jfbve3s+KnrcxFVrFHvEv2Nz
-	bs57xbgmDuGOkfrsZcjKtRg78MDr+j7J4zh2Bxav3HO1mXDljE29E87K1+nyZg1YBmZGrhHmog2
-	RgDSyo36jLPmX8jfqFLGWufWp6Xhu88GEV8fMkfoT4GQi22qzsAhH6WizGYRGMebzHNOIJNATGG
-	HEpEHPqyXpOQuz+PvPTqJt925Lc7UHE79945CY3A6/LLVgi3SvZpy2JrHeaVG35FP03S6hbLMG9
-	MHhIdjqHtuqzhgSDT3+A/iHAu5OoDiC+c0O7qQGRXaa2U5Fv7ohSSSB+ibeUHYDePm/JoSXTlDp
-	IqtMUh0isLXYARhGB5xJsd7QQMkjkNMKGFrp4fAgpE3ee6Y0Z0RciihrQ/sIcqGuN3iv5ZK2yeU
-	3umjEKVdzRffeM
-X-Received: by 2002:a05:620a:319b:b0:936:9fd5:4fa0 with SMTP id af79cd13be357-93704bdff4cmr553673585a.45.1787029624692;
-        Mon, 17 Aug 2026 22:07:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:319b:b0:936:9fd5:4fa0 with SMTP id af79cd13be357-93704bdff4cmr553671685a.45.1787029624245;
-        Mon, 17 Aug 2026 22:07:04 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a16b204389sm9696581fa.42.2026.08.17.22.07.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 22:07:02 -0700 (PDT)
-Date: Tue, 18 Aug 2026 08:07:00 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>
-Cc: andersson@kernel.org, mathieu.poirier@linaro.org,
-        quic_akdwived@quicinc.com, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: qcom_q6v5_mss: Fix off-by-one error in
- regulator error cleanup
-Message-ID: <54zzrehjmurnpx5nv7f3vmq47y2elsns3cfsjdae2khr6oy6om@by6wtlwb3zd4>
-References: <20260710194638.1502-1-saileshnandanavanam@gmail.com>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="YHK7qeTg"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a5c35185;
+	Tue, 18 Aug 2026 13:14:49 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: "Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: Nicholas Bellinger <nab@linux-iscsi.org>,
+	Lee Duncan <lduncan@suse.com>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH v2] scsi: target: pin db_root for metadata writes
+Date: Tue, 18 Aug 2026 13:14:42 +0800
+Message-Id: <20260818051442.1523210-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260818042720.1511778-1-runyu.xiao@seu.edu.cn>
+References: <20260818042720.1511778-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710194638.1502-1-saileshnandanavanam@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDAzNiBTYWx0ZWRfX4Hh1AuT01I/h
- RFV9Qf9hMumP9P4q5eBwyryvwk61nzw8acdPCQ1N+s5mLxW2vl2kBN/LC5AvHeCVowI4jtPDvOR
- D99QTS07yl/Uw0VnkSDZI15ntQ2WmOcnQi3k816b5vREowBluDk1J5UOaDVpjiSfRiC5gA+FAPz
- t4S15x7Y6bkotX3m/8GegslmERe1c3AXdy7FyFOu79lwGc0ucUowSYnPoK5e4l4urbimlhHvND9
- eNiUgYpSo1D/5MnH7+eKc0WyCBlI9nPaxWVMypsSZULXlHBWh7MaiUpU/ytQok/o6ZzCihrtKAo
- MPDqavMQZbm9XEDkgTth6tsJaVRFGrZnStM61Mzrfq7IdFVKoxNeBggnZkWta50KgxoRmlypAGw
- 5mVqxli2HGTrjMoZTABxXVT5rAt3qOm7Pgh/DuD23uMg7hBVQtC5S1a5N+IPeWUlg9m4LwWplNR
- aS5E2+WYeucp3GRE0Ww==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDAzNiBTYWx0ZWRfX8lwTzkc++m3T
- Vdq2KJsXBXOlu/f6uqgWSQcg3kRELpMFlrDRRudYqhpcvCb0oIoXjKRG2OBdAXPFXNaNu3RJeJu
- DEaRK4zKAKYwi3qwfmUmE3LEAAZoWp8=
-X-Authority-Analysis: v=2.4 cv=XtfK/1F9 c=1 sm=1 tr=0 ts=6a83e879 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=hI5qLSgjwfH9RGL9AckA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: ZkjNoqGjnFf0hYpAAXhiDzxfLjfliUQt
-X-Proofpoint-GUID: ZkjNoqGjnFf0hYpAAXhiDzxfLjfliUQt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- phishscore=0 clxscore=1015 suspectscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180036
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0134b2d2d03a1kunmd19dcf4f100ddd
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHksYVhpIQxpLGENPGBkdS1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=YHK7qeTgrxapvlvXZqIEQa4abNhb9XVZrTVqPmlA3OLtxf+clBzPiyeLqWydncjWocUR+CCLUKaZ8cgffucmV2mP1cQs9EZEGSvIUQzUx8JC+PtIhtHrlPeWODFikW+yGV5DU5aChgfvJEPwd3mxsGeqScQC4tIQl0vST4mmBlY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=DBZXc7HLX9/pYjM/ke+KsiHNFOie7BrTQqBdvFxmdp0=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sat, Jul 11, 2026 at 01:16:38AM +0530, Sailesh Nandanavanam wrote:
-> In q6v5_regulator_enable(), when any operation fails for regulator at
-> index 'i', the error cleanup path unconditionally calls
-> regulator_disable() starting from index 'i'. However, regulator 'i'
-> was never successfully enabled at this point, resulting in an
-> unbalanced disable.
-> 
-> There are three distinct failure points:
-> - regulator_set_voltage() failure: voltage was never set, load was
-> never set, regulator was never enabled.
-> - regulator_set_load() failure: voltage was set, but regulator was
-> never enabled.
-> - regulator_enable() failure: voltage and load were set, but
-> regulator was never enabled.
-> 
-> Fix this by introducing three separate error labels to handle each
-> failure point correctly. For the failing regulator at index 'i',
-> only reset the resources that were actually configured, without
-> calling regulator_disable(). Then roll back all previously enabled
-> regulators using 'i--' in the for loop initializer to skip the
-> never-enabled regulator.
-> 
-> Fixes: 19f902b53b47 ("remoteproc: qcom: Initialize and enable proxy and active regulators.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>
-> ---
->  drivers/remoteproc/qcom_q6v5_mss.c | 16 +++++++++++-----
->  1 file changed, 11 insertions(+), 5 deletions(-)
-> 
+db_root is configured from configfs as a pathname string. ALUA and
+APTPL later build metadata filenames under that string and open them
+with filp_open().
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Validating db_root once in target_core_item_dbroot_store() is not
+enough. A later symlink retarget can bypass a one-time check, and doing
+path resolution under target_devices_lock keeps the VFS lock-order
+concern in the configfs store path.
 
+Resolve db_root to a directory path once, keep a pinned struct path
+reference, and open metadata files relative to that fixed root with
+file_open_root(). Also reject configfs-backed roots before publishing
+them and move the path walk out from under target_devices_lock.
 
+This closes the ALUA recursive configfs re-entry path without leaving a
+string-based TOCTOU gap, and keeps the same fixed-root semantics for
+APTPL metadata writes.
+
+Fixes: a96e9783e058 ("target: make target db location configurable")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+v2:
+- replace one-time store-path validation with a pinned db_root path
+- move db_root path resolution out from under target_devices_lock
+- open ALUA and APTPL metadata files relative to the pinned root
+- close the string-based TOCTOU gap raised in review
+
+ drivers/target/target_core_alua.c     | 40 ++++++++-----
+ drivers/target/target_core_configfs.c | 83 ++++++++++++++++++---------
+ drivers/target/target_core_internal.h |  3 +
+ drivers/target/target_core_pr.c       | 19 ++++--
+ 4 files changed, 96 insertions(+), 49 deletions(-)
+
+diff --git a/drivers/target/target_core_alua.c b/drivers/target/target_core_alua.c
+index 10250aca5a81..cfe4c30e534a 100644
+--- a/drivers/target/target_core_alua.c
++++ b/drivers/target/target_core_alua.c
+@@ -856,17 +856,27 @@ static int core_alua_write_tpg_metadata(
+ 	unsigned char *md_buf,
+ 	u32 md_buf_len)
+ {
+-	struct file *file = filp_open(path, O_RDWR | O_CREAT | O_TRUNC, 0600);
++	struct file *file;
+ 	loff_t pos = 0;
+ 	int ret;
+ 
++	if (!db_root_path.dentry) {
++		pr_err("db_root is not initialized for ALUA metadata path: %s/%s\n",
++		       db_root, path);
++		return -ENODEV;
++	}
++
++	file = file_open_root(&db_root_path, path, O_RDWR | O_CREAT | O_TRUNC,
++			      0600);
+ 	if (IS_ERR(file)) {
+-		pr_err("filp_open(%s) for ALUA metadata failed\n", path);
++		pr_err("file_open_root(%s/%s) for ALUA metadata failed\n",
++		       db_root, path);
+ 		return -ENODEV;
+ 	}
+ 	ret = kernel_write(file, md_buf, md_buf_len, &pos);
+ 	if (ret < 0)
+-		pr_err("Error writing ALUA metadata file: %s\n", path);
++		pr_err("Error writing ALUA metadata file: %s/%s\n", db_root,
++		       path);
+ 	fput(file);
+ 	return (ret < 0) ? -EIO : 0;
+ }
+@@ -896,9 +906,9 @@ static int core_alua_update_tpg_primary_metadata(
+ 			tg_pt_gp->tg_pt_gp_alua_access_status);
+ 
+ 	rc = -ENOMEM;
+-	path = kasprintf(GFP_KERNEL, "%s/alua/tpgs_%s/%s", db_root,
+-			&wwn->unit_serial[0],
+-			config_item_name(&tg_pt_gp->tg_pt_gp_group.cg_item));
++	path = kasprintf(GFP_KERNEL, "alua/tpgs_%s/%s",
++			 &wwn->unit_serial[0],
++			 config_item_name(&tg_pt_gp->tg_pt_gp_group.cg_item));
+ 	if (path) {
+ 		rc = core_alua_write_tpg_metadata(path, md_buf, len);
+ 		kfree(path);
+@@ -1187,16 +1197,16 @@ static int core_alua_update_tpg_secondary_metadata(struct se_lun *lun)
+ 			lun->lun_tg_pt_secondary_stat);
+ 
+ 	if (se_tpg->se_tpg_tfo->tpg_get_tag != NULL) {
+-		path = kasprintf(GFP_KERNEL, "%s/alua/%s/%s+%hu/lun_%llu",
+-				db_root, se_tpg->se_tpg_tfo->fabric_name,
+-				se_tpg->se_tpg_tfo->tpg_get_wwn(se_tpg),
+-				se_tpg->se_tpg_tfo->tpg_get_tag(se_tpg),
+-				lun->unpacked_lun);
++		path = kasprintf(GFP_KERNEL, "alua/%s/%s+%hu/lun_%llu",
++				 se_tpg->se_tpg_tfo->fabric_name,
++				 se_tpg->se_tpg_tfo->tpg_get_wwn(se_tpg),
++				 se_tpg->se_tpg_tfo->tpg_get_tag(se_tpg),
++				 lun->unpacked_lun);
+ 	} else {
+-		path = kasprintf(GFP_KERNEL, "%s/alua/%s/%s/lun_%llu",
+-				db_root, se_tpg->se_tpg_tfo->fabric_name,
+-				se_tpg->se_tpg_tfo->tpg_get_wwn(se_tpg),
+-				lun->unpacked_lun);
++		path = kasprintf(GFP_KERNEL, "alua/%s/%s/lun_%llu",
++				 se_tpg->se_tpg_tfo->fabric_name,
++				 se_tpg->se_tpg_tfo->tpg_get_wwn(se_tpg),
++				 lun->unpacked_lun);
+ 	}
+ 	if (!path) {
+ 		rc = -ENOMEM;
+diff --git a/drivers/target/target_core_configfs.c b/drivers/target/target_core_configfs.c
+index a2bd2e81d2c6..7788db0c64eb 100644
+--- a/drivers/target/target_core_configfs.c
++++ b/drivers/target/target_core_configfs.c
+@@ -96,8 +96,31 @@ static ssize_t target_core_item_version_show(struct config_item *item,
+ CONFIGFS_ATTR_RO(target_core_item_, version);
+ 
+ char db_root[DB_ROOT_LEN] = DB_ROOT_DEFAULT;
++struct path db_root_path;
+ static char db_root_stage[DB_ROOT_LEN];
+ 
++static int target_validate_db_root(const char *path_str, struct path *path)
++{
++	int ret;
++
++	ret = kern_path(path_str, LOOKUP_FOLLOW | LOOKUP_DIRECTORY, path);
++	if (ret) {
++		pr_err("db_root: cannot open: %s\n", path_str);
++		if (ret == -ENOTDIR)
++			pr_err("db_root: not a directory: %s\n", path_str);
++		return ret;
++	}
++
++	if (!strcmp(path->dentry->d_sb->s_type->name, "configfs")) {
++		pr_err("db_root: configfs is not a valid target database root: %s\n",
++		       path_str);
++		path_put(path);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static ssize_t target_core_item_dbroot_show(struct config_item *item,
+ 					    char *page)
+ {
+@@ -110,43 +133,49 @@ static ssize_t target_core_item_dbroot_store(struct config_item *item,
+ 	ssize_t read_bytes;
+ 	ssize_t r = -EINVAL;
+ 	struct path path = {};
+-
+-	mutex_lock(&target_devices_lock);
+-	if (target_devices) {
+-		pr_err("db_root: cannot be changed because it's in use\n");
+-		goto unlock;
+-	}
++	struct path old_path = {};
++	bool have_old_path = false;
+ 
+ 	if (count > (DB_ROOT_LEN - 1)) {
+ 		pr_err("db_root: count %d exceeds DB_ROOT_LEN-1: %u\n",
+ 		       (int)count, DB_ROOT_LEN - 1);
+-		goto unlock;
++		return r;
+ 	}
+ 
+ 	read_bytes = scnprintf(db_root_stage, DB_ROOT_LEN, "%s", page);
+ 	if (!read_bytes)
+-		goto unlock;
++		return r;
+ 
+ 	if (db_root_stage[read_bytes - 1] == '\n')
+ 		db_root_stage[read_bytes - 1] = '\0';
+ 
+ 	/* validate new db root before accepting it */
+-	r = kern_path(db_root_stage, LOOKUP_FOLLOW | LOOKUP_DIRECTORY, &path);
+-	if (r) {
+-		pr_err("db_root: cannot open: %s\n", db_root_stage);
+-		if (r == -ENOTDIR)
+-			pr_err("db_root: not a directory: %s\n", db_root_stage);
+-		goto unlock;
++	r = target_validate_db_root(db_root_stage, &path);
++	if (r)
++		return r;
++
++	mutex_lock(&target_devices_lock);
++	if (target_devices) {
++		pr_err("db_root: cannot be changed because it's in use\n");
++		goto unlock_put;
+ 	}
+-	path_put(&path);
+ 
++	have_old_path = db_root_path.dentry;
++	if (have_old_path)
++		old_path = db_root_path;
++	db_root_path = path;
++	path = (struct path){};
+ 	strscpy(db_root, db_root_stage);
+ 	pr_debug("Target_Core_ConfigFS: db_root set to %s\n", db_root);
+ 
+ 	r = read_bytes;
+ 
+-unlock:
++unlock_put:
+ 	mutex_unlock(&target_devices_lock);
++	if (path.dentry)
++		path_put(&path);
++	if (have_old_path)
++		path_put(&old_path);
+ 	return r;
+ }
+ 
+@@ -3643,21 +3672,19 @@ void target_setup_backend_cits(struct target_backend *tb)
+ 
+ static void target_init_dbroot(void)
+ {
+-	struct file *fp;
++	struct path path = {};
++	int ret;
+ 
+-	snprintf(db_root_stage, DB_ROOT_LEN, DB_ROOT_PREFERRED);
+-	fp = filp_open(db_root_stage, O_RDONLY, 0);
+-	if (IS_ERR(fp)) {
+-		pr_err("db_root: cannot open: %s\n", db_root_stage);
+-		return;
+-	}
+-	if (!S_ISDIR(file_inode(fp)->i_mode)) {
+-		filp_close(fp, NULL);
+-		pr_err("db_root: not a valid directory: %s\n", db_root_stage);
+-		return;
++	strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_PREFERRED);
++	ret = target_validate_db_root(db_root_stage, &path);
++	if (ret) {
++		strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_DEFAULT);
++		ret = target_validate_db_root(db_root_stage, &path);
++		if (ret)
++			return;
+ 	}
+-	filp_close(fp, NULL);
+ 
++	db_root_path = path;
+ 	strscpy(db_root, db_root_stage);
+ 	pr_debug("Target_Core_ConfigFS: db_root set to %s\n", db_root);
+ }
+diff --git a/drivers/target/target_core_internal.h b/drivers/target/target_core_internal.h
+index 20aab1f50565..4cbc6218d4de 100644
+--- a/drivers/target/target_core_internal.h
++++ b/drivers/target/target_core_internal.h
+@@ -169,6 +169,9 @@ extern struct se_portal_group xcopy_pt_tpg;
+ #define	DB_ROOT_DEFAULT		"/var/target"
+ #define	DB_ROOT_PREFERRED	"/etc/target"
+ 
++struct path;
++
+ extern char db_root[];
++extern struct path db_root_path;
+ 
+ #endif /* TARGET_CORE_INTERNAL_H */
+diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
+index 83e172c92238..35ec38c6f528 100644
+--- a/drivers/target/target_core_pr.c
++++ b/drivers/target/target_core_pr.c
+@@ -1965,15 +1965,21 @@ static int __core_scsi3_write_aptpl_to_file(
+ 	int ret;
+ 	loff_t pos = 0;
+ 
+-	path = kasprintf(GFP_KERNEL, "%s/pr/aptpl_%s", db_root,
+-			&wwn->unit_serial[0]);
++	path = kasprintf(GFP_KERNEL, "pr/aptpl_%s", &wwn->unit_serial[0]);
+ 	if (!path)
+ 		return -ENOMEM;
+ 
+-	file = filp_open(path, flags, 0600);
++	if (!db_root_path.dentry) {
++		pr_err("db_root is not initialized for APTPL metadata path: %s/%s\n",
++		       db_root, path);
++		kfree(path);
++		return -ENODEV;
++	}
++
++	file = file_open_root(&db_root_path, path, flags, 0600);
+ 	if (IS_ERR(file)) {
+-		pr_err("filp_open(%s) for APTPL metadata"
+-			" failed\n", path);
++		pr_err("file_open_root(%s/%s) for APTPL metadata failed\n",
++		       db_root, path);
+ 		kfree(path);
+ 		return PTR_ERR(file);
+ 	}
+@@ -1983,7 +1989,8 @@ static int __core_scsi3_write_aptpl_to_file(
+ 	ret = kernel_write(file, buf, pr_aptpl_buf_len, &pos);
+ 
+ 	if (ret < 0)
+-		pr_debug("Error writing APTPL metadata file: %s\n", path);
++		pr_debug("Error writing APTPL metadata file: %s/%s\n", db_root,
++			 path);
+ 	fput(file);
+ 	kfree(path);
+ 
 -- 
-With best wishes
-Dmitry
+2.34.1
