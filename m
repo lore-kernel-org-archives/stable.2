@@ -1,35 +1,42 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B385833F595;
-	Tue, 18 Aug 2026 16:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE3E42E8FA;
+	Tue, 18 Aug 2026 17:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.126.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787072225; cv=none; b=rlh4jUGilkC64S+TAIWFnoL2Y7kQidicoY3FrvGxUnLfphuU6yldeNha7cJkan4mGUCumBnDKm4RhGVKCrK6zHuMk2kwK+AMxvUzNC2L2gburb11w6mohnXjEL9ZSUPM2OapzpiUjsgWEA5h7UGH4OGHhAtAQmH9i5afsT5XI0g=
+	t=1787073104; cv=none; b=srZVEJULBKnWM2oZRRXB7gPVGom7XTcVd9hfMjj76J2cfOou0NaFqiGH4K/x0iLCmDHRaJMt/7Y6cDWD+PdSff2OhWJ4Db5XsmZHcxPG5+jfhuQEbs6J38ufrzKId4lpP1JUMjpAlfiMy7jNpkgXAuoFJAJVUvw5wAUpcaYhhHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787072225; c=relaxed/simple;
-	bh=44z5lgFGYGRPX9DUgWmoiqY3j7JJlYIBmB1UHvvNdjI=;
+	s=arc-20240116; t=1787073104; c=relaxed/simple;
+	bh=lZh4VQTt68VOHT+8YjIBZnJWuVmjw2fszleC4QzJfmU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B01WepaV8zgKDJtg1Tu1b2HPZ8Bgqq6GZ3aCZSoNOJr9kjjZ+mYco83jWB+S4ojcbLYBG7xjip/sdR4ViqM489kmClLuRe0e+Fvo05hqvrbId3vjQ1O+Obbcw0CUE4U0/wCeHWCDE3ko4XkOJ2pT4ZqyLYOpK/YRxs3+aYm70Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=jzPRBktI; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 In-Reply-To:Content-Type; b=DB82rWwXJPL/mtvZtsOYe/v1IVwEPhNO9XxAD3RVJEeCxVuUaoeIUvS+D2FR7NCECndN04cjGzmy9+L7KEK3uP37ZMeujkxOyQK7yq1Faz4rZggzKKh9GyzOJg7cwEnM7WqABfUe7zj+s3LDJdt/i7TUKVFveMEXFSYa8gHEWxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz; spf=pass smtp.mailfrom=oldschoolsolutions.biz; dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b=ec5wbqKd; arc=none smtp.client-ip=212.227.126.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oldschoolsolutions.biz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="jzPRBktI"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C399311C31D;
-	Tue, 18 Aug 2026 18:56:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787072214;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=XW+R/bVPewEY+UjFdeGzB0LwlhlvVKED2LQpFCgnlRM=;
-	b=jzPRBktIZDIaN/tn7j9TdnX6RSM0bItaYdpo0QLLxOwHxlwENW/nMC1mrciVjPr/cmn1vl
-	tXGHDoeY0BwYasFgL6D0eZC4vA3/CzLG/shFcBcDQCe95qpEZQFIcu52aFweE+TvhOxmFG
-	n0HxIgs7FAJaJRrq7a+0E4ACtRNXNLFH9UgCgmm3xahFF0RlyFvC3Pn1MXeEujpMwPjFCw
-	h3HBo+9xQCnu9rkVruTrjVj33vSOt3o2b0oiuTkm7A/8bOsDWqR31liPeG4OSAfOKJVf5N
-	JOJNuTkEYCqfhr8Fv9oRRjG/75usj0JJau0oGOwbLiFrbarZ0w1V0YRwjF0lCg==
-Message-ID: <dfac3134-920e-498e-a59b-720a6c51b82a@nabladev.com>
-Date: Tue, 18 Aug 2026 18:56:52 +0200
+	dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="ec5wbqKd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=oldschoolsolutions.biz; s=s1-ionos; t=1787073099; x=1787677899;
+	i=jens.glathe@oldschoolsolutions.biz;
+	bh=lZh4VQTt68VOHT+8YjIBZnJWuVmjw2fszleC4QzJfmU=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=ec5wbqKdwI2MGtKvSYp909n5zBCHxu5HbNYT52wIXHVxFOz7eBJ9x6qiUEw8iBBN
+	 VEujlL4V1DH3RZ+Qgz2s+Bs4+i20Q8yNyfpuOkN9c2SccsLr8kO3QJm9Uk+k/19j6
+	 Gq6hC8GIhrCmVh6TMr91s9BqiMZP1oS2u0WZtk5X/lLD8B31uyOjZJa0cUmzxNcUJ
+	 KWVDyDOix0QDWrWzgpfgedK4u9azCFUW6oeT4jzJc42hwPis3wfNIbKpaQXGF9QSV
+	 EnrDr68md28bpVoIjpki1HdgucAoEJwmviVKHquytt66emmsMY3lsmxruE+Nm1h7V
+	 BcXpFYLFVBR2IrpTNA==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue009
+ [212.227.15.167]) with ESMTPSA (Nemesis) id 1N7Qp3-1wtJKW43w5-00ruUl; Tue, 18
+ Aug 2026 19:05:54 +0200
+Message-ID: <1aeaa585-79f2-4f43-87b1-2ae3925b176c@oldschoolsolutions.biz>
+Date: Tue, 18 Aug 2026 19:05:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,106 +45,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] usb: typec: mux: Fix typec_switch_match()
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Marek Vasut <marex@nabladev.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 Cc: linux-usb@vger.kernel.org, stable@vger.kernel.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>, kernel@dh-electronics.com,
- linux-kernel@vger.kernel.org
+ kernel@dh-electronics.com, linux-kernel@vger.kernel.org
 References: <20260817182302.146546-1-marex@nabladev.com>
- <aoSFjbydIiu4KyW0@venus>
+ <aoSFjbydIiu4KyW0@venus> <dfac3134-920e-498e-a59b-720a6c51b82a@nabladev.com>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <aoSFjbydIiu4KyW0@venus>
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+In-Reply-To: <dfac3134-920e-498e-a59b-720a6c51b82a@nabladev.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:PzSJGJc6iVkBZfSwhp6gZRrDM2SOjFInsQnNV9p+cHWoeWjmO3z
+ JmyKu1hbzQoNiwx9JPnsKFCiRtS5ghuSG7UjsEgjGlsWYgqMpLQSDA+6ZGaKli09xUlSZth
+ lpCdK3q4N5YPsSDrDkyGg3uG1hk4k8lyWFD5Hcz+JdEhUDgbzLftXpEELSD+yUQvl9HmDYG
+ yCVzBAPBuA3iLZUtv8Cyw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:uWBz/Pi3P8k=;3VDVq3mIPS+zvGCTRhPVOKdtT87
+ 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
 
-On 8/18/26 6:24 PM, Sebastian Reichel wrote:
+Hi Marek,
 
-Hello Sebastian,
+On 8/18/26 18:56, Marek Vasut wrote:
+> Hello Sebastian,
+[...]
+> Could you revert f576c75f95a5 ("Revert "usb: typec: mux: avoid=20
+> duplicated mux switches"") and apply the following patch (equivalent=20
+> to this patch, applies to mux instead of switch) and see if that fixes=
+=20
+> the T14s for you too then ? If yes, than, I think this might be the=20
+> proper fix rather than the revert:
+>
+> diff --git a/drivers/usb/typec/mux.c b/drivers/usb/typec/mux.c
+> index 4a4297f15aad3..afa6fc1813978 100644
+> --- a/drivers/usb/typec/mux.c
+> +++ b/drivers/usb/typec/mux.c
+> @@ -294,6 +294,8 @@ static void *typec_mux_match(const struct=20
+> fwnode_handle *fwnode,
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev =3D class_find_device(&ty=
+pec_mux_class, NULL, fwnode,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mux_fwnode_match);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!dev)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 return ERR_PTR(-EPROBE_DEFER);
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Skip duplicates */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < TYPEC_MUX_M=
+AX_DEVS; i++)
+> @@ -303,7 +305,7 @@ static void *typec_mux_match(const struct=20
+> fwnode_handle *fwnode,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 }
+>
+>
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return dev ? to_typec_mux_dev(dev)=
+ : ERR_PTR(-EPROBE_DEFER);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return to_typec_mux_dev(dev);
+> =C2=A0}
+>
+> =C2=A0/**
 
-> On Mon, Aug 17, 2026 at 08:22:39PM +0200, Marek Vasut wrote:
->> The fwnode_typec_switch_get() sporadically returns NULL instead of an
->> -EPROBE_DEFER for orientation-switch described in DT. This makes it
->> impossible to discern whether the DT does describe an orientation-switch
->> which did not probe yet, or whether the DT does not describe the switch.
->> This happens with gpio-sbu-mux connected to an I2C GPIO expander.
->>
->> The class_find_device() on typec_switch_match() may return NULL in case
->> the mux did not probe just yet early on boot. The sw_devs[] array can be
->> empty on boot as well. If these two conditions occur, then the conditional
->> if (to_typec_switch_dev(dev) == sw_devs[i]) evaluates to true and the match
->> function returns NULL, which propagates to fwnode_typec_switch_get() which
->> makes it look as if the orientation-switch was not described in DT.
->>
->> This is incorrect, because the mux driver will probe a bit later on, but
->> at that point, the caller of fwnode_typec_switch_get() already got the
->> NULL return value. The NULL return value also does not trigger IS_ERR(),
->> therefore the caller driver interprets this as if the orientation-switch
->> is not described in DT, and does not return -EPROBE_DEFER to try again,
->> even if it should.
->>
->> Fix this by checking the class_find_device() return value, and return
->> -EPROBE_DEFER if it is NULL right away. If the return value is not NULL,
->> perform the deduplication test, and if that test passes, consider the
->> return value to be already non-NULL.
->>
->> Fixes: a53b4f9c51a9 ("usb: typec: mux: avoid duplicated orientation switches")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Marek Vasut <marex@nabladev.com>
->> ---
->>
->> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
->> Cc: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
->> Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
->> Cc: kernel@dh-electronics.com
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-usb@vger.kernel.org
->> ---
->> NOTE: A similar change was reverted in
->>        f576c75f95a5 ("Revert "usb: typec: mux: avoid duplicated mux switches"")
->>        Maybe the orientation switch commit also needs a revert ?
->>        Or the mux switch revert can be undone and fixed using this NULL check ?
->> ---
-> 
-> This revert negatively affects Rockchip once my USB-C rework for
-> USB-DP lands and I undid it locally. I've just not yet found the
-> time to investigate why it regresses the X1E platform to reintroduce
-> the feature. Maybe you found the root cause and fix already, but
-> investigating with my T14s Gen6 Snapdragon is on my TODO list.
-> 
-> FWIW this patch is
-> 
-> Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Could you revert f576c75f95a5 ("Revert "usb: typec: mux: avoid 
-duplicated mux switches"") and apply the following patch (equivalent to 
-this patch, applies to mux instead of switch) and see if that fixes the 
-T14s for you too then ? If yes, than, I think this might be the proper 
-fix rather than the revert:
+I will test that one with the=C2=A0f576c75f95a5=C2=A0reverted on the x1p a=
+nd=20
+sc8280xp boxes I have here, let's see. T14s G6 shouldn't be affected=20
+either way.
 
-diff --git a/drivers/usb/typec/mux.c b/drivers/usb/typec/mux.c
-index 4a4297f15aad3..afa6fc1813978 100644
---- a/drivers/usb/typec/mux.c
-+++ b/drivers/usb/typec/mux.c
-@@ -294,6 +294,8 @@ static void *typec_mux_match(const struct 
-fwnode_handle *fwnode,
+with best regards
 
-         dev = class_find_device(&typec_mux_class, NULL, fwnode,
-                                 mux_fwnode_match);
-+       if (!dev)
-+               return ERR_PTR(-EPROBE_DEFER);
+Jens
 
-         /* Skip duplicates */
-         for (i = 0; i < TYPEC_MUX_MAX_DEVS; i++)
-@@ -303,7 +305,7 @@ static void *typec_mux_match(const struct 
-fwnode_handle *fwnode,
-                 }
-
-
--       return dev ? to_typec_mux_dev(dev) : ERR_PTR(-EPROBE_DEFER);
-+       return to_typec_mux_dev(dev);
-  }
-
-  /**
