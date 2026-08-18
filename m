@@ -1,33 +1,52 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723DD3B637E;
-	Tue, 18 Aug 2026 10:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFCD93BED2B
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 10:19:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787048317; cv=none; b=gLw4cm7TvCm7nD1F4G4ewVchABVvFTOxRalRlZMkpUQuKVPAxCWZJt9/LYrvYHW5e0QkSMcOxXjUGrvmzFSpH/umx3VsLWfepqEanA9kmH2dV3yDXPIzJZuyH//GV3yXdwClN/QjXK6sWH7IJNrs/HFH1tgobXTEyXraUr0gcjM=
+	t=1787048343; cv=none; b=JOpIixeuWaydVfUgATGW2EoUjPKfVREXQMKFb6bKIJbxKnj8E4sX1s690VSV0/jJvXqiXPJDfX+Qg+QzNR5KAMXQUs7CReRWViGxzRFLACh2cyemKSQFnzjizPtggEIh3EyiAs+41nTsXoPavhvPvdYwAGx2LgBA0GKnzabGllQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787048317; c=relaxed/simple;
-	bh=W1YH3+8VVyvfEepL+yHDGcRwlem1OIr1djZsbDMYCGI=;
+	s=arc-20240116; t=1787048343; c=relaxed/simple;
+	bh=0TlEoSYHKI4S/s3MxpnfpzgbB+tTwda8gUtINvvqdK8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p1G5xVdMRfQLxV06qynilKWYxdD4yZy4o34fIs4LTugLlkFxo8/wsjZA0jjOcXGAsPWHTG7lvYqwfbrGUtINGkgKk6AAScDTE0Af/HzL1vONOseCBgvm2Wrv6EY6Znbi8Ww5ESI93mj9hHaYjXK4lQ9oZLh5YLlOwVcV7ZrS/BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KV386nPW; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=uURk92R61qKRNbIVvIf5e2jHe0y+gU2w3F2ZAuPvEHj/WU09rZnGyAPivUuGDDIMI2ewKTBZXPQN/9D9nkBdd8EU50Q3xeVbS3gSJY2tncV6uX3BtAKZHC36gLS03w12+Gbu0njdwQoxoq4oRjkmy8sQKOwCGb6t3CKSaFCG/Tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=pdtjAmnT; arc=none smtp.client-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KV386nPW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECAF21F000E9;
-	Tue, 18 Aug 2026 10:18:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787048316;
-	bh=jwMVdHrvk7kTvruvTnXxLTgiBwjN9S2XLihzM95fzKA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KV386nPWRRE08204XuIMIhxBIzXbvitBA2n8kC55lLchcC5H77jxWoNLp+CcZpgn3
-	 2LTsZDmsFve1IDOETXFC31pTaUC6MfVOaYE6NuvXCjh/RzCry0bp9mbFs2YZLEwSi6
-	 oDATN7X738a1cU1OBcGN4JFa2c6YxmKRqdxEVKExxYfuq7Doi24xvNkSfVcJwA4zmV
-	 a35f81ArZpZD7kevePUAlhXuTZMr71l2xfygQfsQub6A0mylXm3vaZqOT0UlpqPG07
-	 FpGyINUmTYl6VeIi1AW37N4uDPvYztCq/elHtEVXuU9F7lFFLOmQMxTQAQ+7ebylFv
-	 jC9UKQtXv+BQw==
-Message-ID: <63b6eb28-dc1b-4e51-89c0-1591ff216da5@kernel.org>
-Date: Tue, 18 Aug 2026 12:18:31 +0200
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="pdtjAmnT"
+Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
+	by cmsmtp with ESMTPS
+	id wECqwUatSJFmFwGuLw1yYm; Tue, 18 Aug 2026 10:19:01 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id wGuKwLJ10ooyIwGuKw0ykg; Tue, 18 Aug 2026 10:19:00 +0000
+X-Authority-Analysis: v=2.4 cv=AZ6xH2XG c=1 sm=1 tr=0 ts=6a843194
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=zhJSSY/EK6kgEJflgRaTcp6LU1SosJn9L7Gn7NFlMOo=; b=pdtjAmnTAMTiWIhQ+mrRQDaiCC
+	+prDXrrgosyYfJXY/zXhB5NjK7Xeoj1EIvYePeIC16roDpYGOfBkyhsK864uC4x9jid8Ss9TaFFc/
+	oC7d1hmbG2KHmPUuD0XsVhTkl0TiZoKaaIyIN8FebE0+Gj3nmIqQxl1JdhXD3HYMeqErDm9EngWii
+	4rhcaKAszC8AEVtUAoU4572LtX9HT3oOxdjmxDUQTxKCNLf2UOZtL3MnJ22YIZjjFpA8IY7mo4dbi
+	w4J6P5x0rG0F94yknX5kB/nZgj/YwuVL02rYqjUnKatumhP2nlvbHM/+qT3UIMQpikhcQKGWphqYE
+	X12OZDvQ==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:53860 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <re@w6rz.net>)
+	id 1wwGuJ-00000002Pkg-39QR;
+	Tue, 18 Aug 2026 04:18:59 -0600
+Message-ID: <f7d9d51b-db72-4ea8-8f20-40a935ec34b5@w6rz.net>
+Date: Tue, 18 Aug 2026 03:18:58 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,77 +54,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Bluetooth: hci_bcm4377: Ignore reserved PHY in ext adv
- reports on BCM4378
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260818-fix-bcm4378-ext-adv-v1-1-81a143eac194@kernel.org>
+Subject: Re: [PATCH 5.15 000/456] 5.15.216-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260817132539.792407575@linuxfoundation.org>
 Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <20260818-fix-bcm4378-ext-adv-v1-1-81a143eac194@kernel.org>
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260817132539.792407575@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wwGuJ-00000002Pkg-39QR
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:53860
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 59
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfDDqrps+fL1bgoyIhr7Ln9qoWIHQ34WAN0gYiE+OqzErWIVfSCqJ09CyBz+O66bAPIJP+ye7rhlJ8/y6MDvNSqDr3HOSwxbNvlNz+QSBckMQlBoE5Egr
+ oOY31VOLFDuwMQKQxr+ufVxsRJeTNE+MJxXSxoE3d+O64dqUgoBPemRfyTlNJECdQDuqf0YRTZRb2w==
 
-On 18.08.26 11:49, Lorenzo Stoakes (ARM) wrote:
-> Commit ed2a2ef16a6b ("Bluetooth: Add quirk to ignore reserved PHY bits in
-> LE Extended Adv Report") added a quirk to handle creative use of the
-> reserved bits in the PHY fields for 4388 controllers in Apple silicon.
-> 
-> I observed the same issue with the BCM4378 Bluetooth controller (14e4:5f69,
-> rev 05) on an Apple MacBook Pro (13-inch, M2, 2022):
-> 
->> HCI Event: LE Meta Event (0x3e) plen 51
->        LE Extended Advertising Report (0x0d)
->          Num reports: 1
->          Entry 0
->            Event type: 0x2513
->              Props: 0x0013
->                Connectable
->                Scannable
->                Use legacy advertising PDUs
->              Data status: Complete
->              Reserved (0x2500)
->            Legacy PDU Type: Reserved (0x2513)
->            Address type: Random (0x01)
->            Address: EA:C1:82:F0:24:C6 (Static)
->            Primary PHY: Reserved
->            Secondary PHY: No packets
->            SID: no ADI field (0xff)
->            TX power: 127 dBm
->            RSSI: -57 dBm (0xc7)
->            Periodic advertising interval: 0.00 msec (0x0000)
->            Direct address type: Public (0x00)
->            Direct address: 00:00:00:00:00:00 (OUI 00-00-00)
->            Data length: 25
-> 
-> This results in the firmware rejecting connection attempts with
-> "Unsupported Feature or Parameter Value" (0x11).
-> 
-> Fix the issue by using the same quirk for BCM4378 devices too.
-> 
-> I tested this locally and confirmed that the issue is resolved.
-> 
-> This was observed when attempting to connect a Kinesis Advantage 360
-> keyboard to the MacBook.
-> 
-> Assisted-by: Claude:claude-fable-5
-> Fixes: 2e7ed5f5e69b ("Bluetooth: hci_sync: Use advertised PHYs on hci_le_ext_create_conn_sync")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
+On 8/17/26 06:26, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.216 release.
+> There are 456 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Wed, 19 Aug 2026 13:23:44 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.216-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Reviewed-by: Sven Peter <sven@kernel.org>
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Kinda surprised no one ran into this so far tbh.
-
-
-Best,
-
-
-Sven
-
+Tested-by: Ron Economos <re@w6rz.net>
 
