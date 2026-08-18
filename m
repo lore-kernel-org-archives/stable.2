@@ -1,34 +1,59 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E62C176026;
-	Tue, 18 Aug 2026 06:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4608133D4E2;
+	Tue, 18 Aug 2026 06:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787035212; cv=none; b=GtOwRgS1WX3xKGgerHmNkvoYg3vPqQ9xHgiRVq1rUbplGJNTM+jv8xXVzVwCngB1x/nvTKDRbsAmsZYIeVsdWGIr3dLvu1Q7N/kCv0XwnnXgsA8b8pEmiXDL1gKclOfTsknXYvE/pnn+srwsWW6AdIVlSlK6wZ79jmFFV2SqfvU=
+	t=1787035685; cv=none; b=REb1ArlE3+DzIlgDRq0Ne/BseCi+qDdBNq6/NlQQXfr8XGkn85gw8MeF/XOcXVIGCD5+IVwhS4j9nC2DTyjufulT7nLWO4u/nVFVdaRccOq86A2DZO6uHBwwDjLDgilKbiSSRpfCi/FxFKcaDX75gjcDMnVaRJVvyx9Pyrw1DXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787035212; c=relaxed/simple;
-	bh=OaAR/3tnIIqHDn4LW0gta2OryXk9M+Y0mBqwD8TRKlc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q9VZFpL27kDvBK4Nkk8J0qCD8A66ZDYo2gQ/AF+0cZIuvxghV97oG4OgTV+s3sizarL8XOJzfxPFZ33zMzOtPwjkT57+wTywphZbZh5fBLdOgKW+LD5R0d+Q2wdMZlJ266rSqH8aiJX/S1St2ChP9CeHzPV6LVcH8wIJJy2CM9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDnOGQ7_oNqgZGiAA--.26236S3;
-	Tue, 18 Aug 2026 14:39:56 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgAXY8c1_oNqZ0L4Aw--.23563S2;
-	Tue, 18 Aug 2026 14:39:55 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-can@vger.kernel.org
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	s=arc-20240116; t=1787035685; c=relaxed/simple;
+	bh=kYJKMEgZRvrg/ZmBGoCHoLKuuVLGUWl3c21JlFVTFpM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Pfq+6Rbp4ELwoy6w0pBAMZHmfeNp0oHM6ZM94BWuBZbsLGMRUlQFTloTSIofwISAZpOcLS5pxoVwUaviaQ0tDKANNV6lw1WvOGq31MC5B8Cw6CkUXV2/j/zBr5EZkWRLufhT73pQSCNKh+8orCQGruTtyF4r0Cld5mVX9KM5zrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lJOXoJN0; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lJOXoJN0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787035685; x=1818571685;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=kYJKMEgZRvrg/ZmBGoCHoLKuuVLGUWl3c21JlFVTFpM=;
+  b=lJOXoJN0Vy3gEti8zbu/UxqniLWO68/pvNX6+/U3Y7t9AzV3FeSo1Kwn
+   TVLNENNTOhvvpWtw3ZtYROgfO1onOx66QHAdUxfC7b03iJ6h13nNuvUAn
+   qElDYPGrHr8odQboao1nW8xkbnJEuEjoQ1YuPKzmRuBtgqiUZrurkxhNa
+   dV3GI5mW6+L07uy8fdQrR6cymzJy1F1k9d2uPH8Q1LunawEz6wj1rn9EK
+   VwnpIIQti2T6xcWu+PD50zy6XV//N9Ch4VhS6yQ6x3Lnmhassu4FG+D31
+   O2tu61Z0yqusAmx9zGZfkwurqRnv2J/yOMxlM5a1t2/FoIh/wyF69TjwP
+   g==;
+X-CSE-ConnectionGUID: HTX/9UcETg6UEffhHhfASQ==
+X-CSE-MsgGUID: 965vwpOHR26XBEcAbgVxRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="91200138"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="91200138"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 23:48:04 -0700
+X-CSE-ConnectionGUID: dvwQPeLBTsipBhtO2dhzRQ==
+X-CSE-MsgGUID: MqzIWp3RRXmH4xN95R5LDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="303366159"
+Received: from tester.sh.intel.com ([10.112.106.126])
+  by orviesa001.jf.intel.com with ESMTP; 17 Aug 2026 23:48:01 -0700
+From: Tao Yu <tao1.yu@intel.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
 	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] can: kvaser_pciefd: fix use-after-free in bec poll timer
-Date: Tue, 18 Aug 2026 06:38:32 +0000
-Message-Id: <20260818063832.383829-1-fanwu01@zju.edu.cn>
+	Tao Yu <tao1.yu@intel.com>,
+	syzbot+98850521518b962c5bab@syzkaller.appspotmail.com
+Subject: [PATCH] mmc: vub300: defer host release from inactivity timer context
+Date: Tue, 18 Aug 2026 14:48:00 +0800
+Message-Id: <20260818064800.3886851-1-tao1.yu@intel.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,69 +62,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgAXY8c1_oNqZ0L4Aw--.23563S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?rJhsWwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI0osi4h2mLwQPBhTJ8YXMPOr9JId3qYK5paZlKljE4n/w+A
-	61bmZQQFyu0z6rowZYLN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoW7Ww15tF4DJw1kWw1UKrWkXwc_yoW8AF4kpr
-	s8KF47Aryvvr4Y9w17uF4kZFyUZw13Crs7u34xt3y5uF4Svr1UJFyY9ay3WFWakr4vvFy3
-	ZF4UZwn8Ar98ArgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
-	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
-	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
-	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-The bec poll timer is rearmed from the interrupt handler, so the
-timer_delete() call in kvaser_pciefd_remove() neither waits for a
-callback that is already running nor stops the handler from rearming
-the timer until the interrupt is freed later in the same function.
-The timer can therefore still be pending or running when free_candev()
-frees the CAN device, causing a use-after-free in
-kvaser_pciefd_bec_poll_timer().
+The vub300 inactivity timer can drop the last controller reference after
+the device has been disconnected:
 
-Use timer_shutdown_sync() instead, which waits for a running callback
-and makes a later rearm a no-op.  Also drain the timer in
-kvaser_pciefd_teardown_can_ctrls(), which frees the CAN devices on the
-probe error paths.
+  vub300_inactivity_timer_expired()
+    kref_put()
+      vub300_delete()
+        mmc_free_host()
+          mmc_host_classdev_release()
+            wakeup_source_unregister()
+              synchronize_srcu()
 
-This issue was found by an in-house static analysis tool.
+This release path currently runs from timer softirq context, but
+synchronize_srcu() must be invoked from process context. With
+DEBUG_OBJECTS_RCU_HEAD enabled this triggers a warning when SRCU
+annotates its on-stack rcu_head from the softirq path, which can panic
+the kernel when panic_on_warn is set.
 
-Fixes: 26ad340e582d ("can: kvaser_pciefd: Add driver for Kvaser PCIEcan devices")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Fix this by deferring the timer-held final put to a work item, so the
+host teardown and wakeup-source unregistration always happen from
+process context. Keep the other kref_put() call sites unchanged, as they
+already run from sleepable context and do not need deferred release.
+
+Reported-by: syzbot+98850521518b962c5bab@syzkaller.appspotmail.com
+Fixes: 88095e7b473a ("mmc: Add new VUB300 USB-to-SD/SDIO/MMC driver")
+Signed-off-by: Tao Yu <tao1.yu@intel.com>
 ---
- drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c | 1 +1 +
- 1 file changed, 2 insertions(+), 1 deletions(-)
+ drivers/mmc/host/vub300.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c b/drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c
-index d8c9bfb20..a0597db72 100644
-@@ -1739,6 +1739,7 @@
- 			iowrite32(0, can->reg_base + KVASER_PCIEFD_KCAN_IEN_REG);
- 			kvaser_pciefd_pwm_stop(can);
- 			kvaser_pciefd_devlink_port_unregister(can);
-+			timer_shutdown_sync(&can->bec_poll_timer);
- 			free_candev(can->can.dev);
- 		}
- 	}
-@@ -1879,7 +1880,7 @@
- 		struct kvaser_pciefd_can *can = pcie->can[i];
+diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
+index 2dae474dcd067..21f1b5d6ca862 100644
+--- a/drivers/mmc/host/vub300.c
++++ b/drivers/mmc/host/vub300.c
+@@ -344,6 +344,7 @@ struct vub300_mmc_host {
+ 	struct timer_list sg_transfer_timer;
+ 	struct usb_sg_request sg_request;
+ 	struct timer_list inactivity_timer;
++	struct work_struct release_work;
+ 	struct work_struct deadwork;
+ 	struct work_struct cmndwork;
+ 	struct delayed_work pollwork;
+@@ -367,7 +368,7 @@ struct vub300_mmc_host {
+ #define GET_SYSTEM_PORT_STATUS		0
  
- 		unregister_candev(can->can.dev);
--		timer_delete(&can->bec_poll_timer);
-+		timer_shutdown_sync(&can->bec_poll_timer);
- 		kvaser_pciefd_pwm_stop(can);
- 		kvaser_pciefd_devlink_port_unregister(can);
+ static void vub300_delete(struct kref *kref)
+-{				/* kref callback - softirq */
++{				/* kref release callback */
+ 	struct vub300_mmc_host *vub300 = kref_to_vub300_mmc_host(kref);
+ 	struct mmc_host *mmc = vub300->mmc;
+ 
+@@ -443,6 +444,14 @@ static void vub300_queue_dead_work(struct vub300_mmc_host *vub300)
  	}
+ }
+ 
++static void vub300_release_work_thread(struct work_struct *work)
++{
++	struct vub300_mmc_host *vub300 =
++		container_of(work, struct vub300_mmc_host, release_work);
++
++	kref_put(&vub300->kref, vub300_delete);
++}
++
+ static void irqpoll_res_completed(struct urb *urb)
+ {				/* urb completion handler - hardirq */
+ 	struct vub300_mmc_host *vub300 = (struct vub300_mmc_host *)urb->context;
+@@ -744,7 +753,7 @@ static void vub300_inactivity_timer_expired(struct timer_list *t)
+ 	struct vub300_mmc_host *vub300 = timer_container_of(vub300, t,
+ 							    inactivity_timer);
+ 	if (!vub300->interface) {
+-		kref_put(&vub300->kref, vub300_delete);
++		queue_work(deadworkqueue, &vub300->release_work);
+ 	} else if (vub300->cmd) {
+ 		mod_timer(&vub300->inactivity_timer, jiffies + HZ);
+ 	} else {
+@@ -2324,6 +2333,7 @@ static int vub300_probe(struct usb_interface *interface,
+ 	usb_set_intfdata(interface, vub300);
+ 	INIT_DELAYED_WORK(&vub300->pollwork, vub300_pollwork_thread);
+ 	INIT_WORK(&vub300->cmndwork, vub300_cmndwork_thread);
++	INIT_WORK(&vub300->release_work, vub300_release_work_thread);
+ 	INIT_WORK(&vub300->deadwork, vub300_deadwork_thread);
+ 	kref_init(&vub300->kref);
+ 	timer_setup(&vub300->sg_transfer_timer, vub300_sg_timed_out, 0);
+-- 
+2.34.1
 
