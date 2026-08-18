@@ -1,95 +1,131 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058BE379ED4;
-	Tue, 18 Aug 2026 04:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BC737C0FE;
+	Tue, 18 Aug 2026 04:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787027260; cv=none; b=JPbviPVzK7w9ipXaYObTrQv66yUYlnf7tFMepJmpH0ZynTwlMl6+20qAUFgJRoK5ag554W90sKv11SobXhm84+cyX3k7/YZQCxZeRVwSSXImUMONOCzUildjGiXJx2MPHY8dc1cASXa/kVixucPW44mhjHmj58umMVX5n8GRPig=
+	t=1787028158; cv=none; b=eNcmEWxlA9rnWkIgTNVp/V23bkTTjoeOseE0+ya8LfR8sf51ZgpVF54RTr4druuukgo8YGxNevqNpSNFLGp+HyR1RDh5jE/ooyQbFIgfTQ0zFjbaPK2OzrbG9/XiuhYGgEjh8jYSl5McEtdxs/1L3lAiju2WrnXbiy6d2Cq1TZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787027260; c=relaxed/simple;
-	bh=4FEAs/0DLTDub6Cax+qu2wup/MihohBeeoK64o6r+R4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ezEYkXrJ5ylbLWGlajG97i+HmDuSciiC2FVh14THKhoe/fL6yzR1ndar7/ogtkqj0F66SqbBsKDOjlfwyEe4R4y1b4m7ICc+BDREbb82JP7h/A3l/DxZ6A2IXrtGifUZlhftgTt99IEEn545LbB0HQL4Ukk0Zm6bkjTbh7TSLhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=bEDFnZoD; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1787028158; c=relaxed/simple;
+	bh=beJQykPMz75byPsAGpDchMYPEmOy2/H1CoYZ5C4bcsw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tdEye34VJPuPlD+pNhXRuz0euooYyC/aPQ6NE3RxQlsszf2F3GyXDi6DvcZvSfSikCiWA5EwmAoEdP55LFKw8XAGWek/qlBEKmoi1XTHbckA8YjuVfIv7yGcvTOBpTJIGi/1aS+LDsNCZL7MxVgYrClCAUO5Xps/3ymE+UFQwmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F0mE4OnY; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="bEDFnZoD"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4a5b5664d;
-	Tue, 18 Aug 2026 12:27:28 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: Nicholas Bellinger <nab@linux-iscsi.org>,
-	Lee Duncan <lduncan@suse.com>,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] scsi: target: reject configfs db_root for ALUA metadata
-Date: Tue, 18 Aug 2026 12:27:20 +0800
-Message-Id: <20260818042720.1511778-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F0mE4OnY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787028157; x=1818564157;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=beJQykPMz75byPsAGpDchMYPEmOy2/H1CoYZ5C4bcsw=;
+  b=F0mE4OnYPvtPENzjKreY1y5z8rvxZnBM5lgfSO7y9n0gNEWpYVb+LIa1
+   0giPBkVLaT0+3aXeO/NUjU6QTSO6N5Sc2zNeGnzzQtpsHQpLvBb91b7JK
+   b16lI/VY9B+tD1NftIuuf8kk3GQ2RydZ/cGlNc3Hy1ocnftS18iX0Q5BK
+   hJHvL0Zjm8X/PELAOtSJS6vMCuuvJbas6f0WKokPT0xy2F53DivAjm2XW
+   nq66yzF6r7ZimNAqLoREEjLM/6t+OVbAKvCtpulfARH4J0Wk5BOObLPpn
+   FIWmYk2eAXHyCpSe/+Kw9DDheqyZKZLyXpWexw+aVlevyXSZxkpE2kaHt
+   w==;
+X-CSE-ConnectionGUID: 6r4JMpOuQRSNFoHENp0E9A==
+X-CSE-MsgGUID: k6+vO9tYTSKircEyTHvQGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="87529074"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="87529074"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 21:42:36 -0700
+X-CSE-ConnectionGUID: 1gfHfwMZRZOINcQ8JGDwAg==
+X-CSE-MsgGUID: 01wVAVsjRm2AG06qDtxQFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="261369324"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa010.fm.intel.com with ESMTP; 17 Aug 2026 21:42:33 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 5B72399; Tue, 18 Aug 2026 06:42:32 +0200 (CEST)
+Date: Tue, 18 Aug 2026 06:42:32 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Sven Peter <sven@kernel.org>
+Cc: Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>, asahi@lists.linux.dev,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konradybcio@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] thunderbolt: Fix tunnel reference leak when the DPRX
+ work is not started
+Message-ID: <20260818044232.GS893316@black.igk.intel.com>
+References: <20260817-b4-tbt-fixes-v1-0-eded2461f5fc@kernel.org>
+ <20260817-b4-tbt-fixes-v1-1-eded2461f5fc@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0131fd5a203a1kunmf87a4c31ff45b
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH04eVhgfGhlDT0oZTU9KTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=bEDFnZoDeYOttk8GDpu7Xfji40sUT9AfgYbPGqTvQHu5/uDdIyzkQ6RR4cnKG64XzuUFFzHoocMWR2ZlnGNG21vLyn1tbrnRTpRPxKnXFCPsemGnQKPO4VdAqkjSnvHJdTYcgMgSCr5nAiSLlZKYXpxvrwjy7LVxqCWTi9ZA7d0=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=kFZji1UczirQvsTexDxdPp1mViiA9VfHBDfa3zLAh1Q=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260817-b4-tbt-fixes-v1-1-eded2461f5fc@kernel.org>
 
-The db_root configfs attribute only validates that the supplied path
-resolves to a directory. Later ALUA metadata writes build file names
-under db_root and open them with filp_open().
+Hi,
 
-If db_root itself points at a configfs mount, an ALUA transition that
-updates metadata can re-enter configfs through that filp_open() path
-while configfs is still servicing the original store. That makes the
-metadata path recurse back into the same frag_sem.
+On Mon, Aug 17, 2026 at 09:53:58PM +0200, Sven Peter wrote:
+> tb_dp_dprx_start always takes a tunnel reference which is only dropped
+> by dprx_work eventually. Tunnels that have no callback don't ever queue
+> that work and tb_dp_dprx_stop then has nothing to cancel. It however only
+> releases the reference if cancel_delayed_work returned true and the
+> reference is leaked then.
 
-Reject configfs-backed db_root values in target_core_item_dbroot_store()
-so later metadata users keep running on a normal filesystem instead of
-re-entering configfs.
+Okay but we always actually pass that callback there so I guess you are
+hitting this because you have modified the caller in tb.c not to pass the
+callback, right? If that's the case then I suggest mention how you actually
+reproduced this whole issue.
 
-Fixes: a96e9783e058 ("target: make target db location configurable")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/target/target_core_configfs.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+I'm thinking we should make the callback mandatory instead as we always
+need it for DP tunnels anyway. It should work the same also in Apple
+silicon (one you have the DP tunneling in place).
 
-diff --git a/drivers/target/target_core_configfs.c b/drivers/target/target_core_configfs.c
-index a2bd2e8..5ee6f9c 100644
---- a/drivers/target/target_core_configfs.c
-+++ b/drivers/target/target_core_configfs.c
-@@ -138,8 +138,16 @@ static ssize_t target_core_item_dbroot_store(struct config_item *item,
- 			pr_err("db_root: not a directory: %s\n", db_root_stage);
- 		goto unlock;
- 	}
-+	if (!strcmp(path.dentry->d_sb->s_type->name, "configfs")) {
-+		pr_err("db_root: configfs is not a valid target database root: %s\n",
-+		       db_root_stage);
-+		r = -EINVAL;
-+	}
- 	path_put(&path);
-
-+	if (r)
-+		goto unlock;
-+
- 	strscpy(db_root, db_root_stage);
- 	pr_debug("Target_Core_ConfigFS: db_root set to %s\n", db_root);
-
--- 
-2.34.1
+> Fix this by only taking the reference when dprx_work is actually queued.
+> 
+> Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> ---
+> I didn't actually hit this on hardware but found it while fixing a domain
+> leak in the same area and that fix depends on this one.
+> ---
+>  drivers/thunderbolt/tunnel.c | 15 +++++++--------
+>  1 file changed, 7 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
+> index b7f32305f14a..50580ebdac4b 100644
+> --- a/drivers/thunderbolt/tunnel.c
+> +++ b/drivers/thunderbolt/tunnel.c
+> @@ -1113,15 +1113,14 @@ static void tb_dp_dprx_work(struct work_struct *work)
+>  
+>  static int tb_dp_dprx_start(struct tb_tunnel *tunnel)
+>  {
+> -	/*
+> -	 * Bump up the reference to keep the tunnel around. It will be
+> -	 * dropped in tb_dp_dprx_stop() once the tunnel is deactivated.
+> -	 */
+> -	tb_tunnel_get(tunnel);
+> -
+> -	tunnel->dprx_started = true;
+> -
+>  	if (tunnel->callback) {
+> +		/*
+> +		 * Bump up the reference to keep the tunnel around until the
+> +		 * work has run or has been canceled.
+> +		 */
+> +		tb_tunnel_get(tunnel);
+> +
+> +		tunnel->dprx_started = true;
+>  		tunnel->dprx_timeout = dprx_timeout_to_ktime(dprx_timeout);
+>  		queue_delayed_work(tunnel->tb->wq, &tunnel->dprx_work, 0);
+>  		return -EINPROGRESS;
+> 
+> -- 
+> 2.55.0
+> 
