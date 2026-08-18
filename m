@@ -1,110 +1,154 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6776935DA7B;
-	Tue, 18 Aug 2026 08:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AB843B6CB
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:57:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787043412; cv=none; b=Kc4phiF5bF6sC9Z2ArxntfFGf96N2zyfkzPhbzMdEIg+W0NirBrxr03G88O58ZOnkA4nQX3XiOzppmWQK1nZWQ9SD/DPwJzyD29Usm0w0QJxVYcm/HyKsEixyyqS6Xp2ZAJP66Uz1L6WytbeS+lySIGmN3WjPVrgzXGz5pILQXc=
+	t=1787043450; cv=none; b=g8CaGB5BRMVLFuRvz/0FYq9UB0ZEWIqbhiWIAWyMyOsZQm5FVltfVXtldifHX5P7SZPqQ2TxhQNMgSgmk/zRqbU9o+Z0SH4LJS9fr4SgxB2hBL5A0d36JSghxeAcXuImNILaYgsyDkB4kMPjDnoeVYfV5FCudaNL9PvNJGP1rhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787043412; c=relaxed/simple;
-	bh=rGO72Nu3u3y59i6C77GnLE8GqGgMgPtMsemmQWxPX3I=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=ppjRKrg/g97IP2AalqR7LDWtg9Ly343hd0oDZ3y9cPcUB1pnO7NdneaYuLk2KxgL/dSTjG/HCRweYpORszh5LJzE7sLVnmOko9oBfF6aH52AfRKmJaL43cqpJJN3p+I0uzmfF25nZYKXEE+HoL5rmxwX3TPseIJHhkham5ukGFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CVHhtU8m; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iihNEubs; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1787043450; c=relaxed/simple;
+	bh=kE3IGiRBfT+OP9aoR2Sy7p8mz+Jai9RJi1voXK4dbu8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oW4vQGV4fMv704yvf+bL8o/swf69GVCkVc4XPKN+lkuB/yCqrqYF/AWgDxdOrIAm7hRjCUmhCQYT9Gu9SN5iDbqpU4Tbj6qOXrahrwUEybsk9TbYiw9S8yKvVjPte7PEjeHr0WmKZUFi32S8DAmmKsQqVWZg6So2dt+9EuQwtVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DY5niDhe; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CVHhtU8m";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iihNEubs"
-Date: Tue, 18 Aug 2026 08:56:39 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787043401;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hlyxpcd3AxqgdzdJIfA5KIIkNn8sIPxtRHQXBl0W0Ew=;
-	b=CVHhtU8mAPjxBry7Jh2iwtCLS93ZPCDOjpLMV1sDUq+vOaGyBviHK9yuyZJahs8elXC0W/
-	OaRrjx+Kjb1R8Uz3VGikNfuXZW7W0wqc4ZWd3hmnunvCMQ8akdxqLy6pfpe0nyJcz45a1b
-	QEHbFrFkKT9u18VgCcTQiantNNUIwfw+17guGJHbOFGR7fEmqoVjmaklYgK2JlkOQOcCFa
-	edHAEFJPaG6i2TmlALhQpy9WvaqF8LS9bFlcPmYBPBUrj+qbVjyEf0zPfcCWUWiOxgjeQ6
-	lhZHVfhn0JLfJMoXlsFOLKpQpTVtT6ZzDjXXT18B1BmxxiLe6Iw8O9XqM/8tuw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787043401;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hlyxpcd3AxqgdzdJIfA5KIIkNn8sIPxtRHQXBl0W0Ew=;
-	b=iihNEubsfUD4FhOk+3QKUyCawyvYxQvpi24Al3OfOsZprTCx1fyEAAF9u2TBmwJp65QMq4
-	j3IcLquFG65pmtDg==
-From: "tip-bot2 for Thomas Gleixner" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: core/urgent] timer: Keep debugobjects state consistent in
- migrate_timer_list()
-Cc: Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <87bjb0l7ha.ffs@fw13>
-References: <87bjb0l7ha.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DY5niDhe"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4980dc26022so44194145e9.1
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:57:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787043447; x=1787648247; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eu5Qnu4amjO34gGljjkfb/hRSwAhGsO9O9HKCuZFn60=;
+        b=DY5niDheQOP4kUeXhCXcU9tlmagYBKLN45uT41dHJZ5KNDG2lFprRd2bPD+WC1jtN1
+         zmWK0AlK+AYAXHROg3mSuoUmlaJtLOf7EUaloOtI2Rvv0g+ejrfLQ9jHXy+WtxQvDdl7
+         daywLerXs4jxKYIj7ex668qTo+3ygdMJH3kpNQ4Cle3DC6KQ1mEsP4ypVV5k/lHddrDX
+         vltp3AmXTix3eCX8UCYs4XQV4FlzLC17E1xZ2cI0hql9tQsKIY6SUFHFpOzRj7XJBaNR
+         MLPQWt9PM/rJ3iAJ5ZOo6GOBwXR/x0fgSPfoP2nuLY952h9MhggMrDFrc3z+qxJagIuW
+         0JYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787043447; x=1787648247;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eu5Qnu4amjO34gGljjkfb/hRSwAhGsO9O9HKCuZFn60=;
+        b=MdOPRJJU/jvGkQXyqEyi7xBYg7dqG8Ns+xbm0NMdHtvL/NvT42ol7cXk3ALoFWT3vM
+         paMLI8+js86COGYTe4vszd0SlWgP7o9wGWXln4kTY8IkaCVAyHJvM2mFtPxn+SYwIHQX
+         U2uOSSO4VWzSR/MWQ+xi5wKS/8aeTn2mpcU4tvLc08kv4F2ywSNMAVLCRoreWnkBVr3c
+         K7WpoKeEe2Q2wvvqUJPDO3Lub6Grr8fmae38MQPoiH2ZbdOgxRO4ZCKoQPzul06BUhQ+
+         v7hIMstwU3QozsSwVHhFPlNleLiC1ww8vIxTgQ7jBKMO9Zj0f3e9d0I4gBtfxiykAK2q
+         mw5g==
+X-Forwarded-Encrypted: i=1; AHgh+RpjVjWrKmejElOIrYjLrieYkodEz2empP63ZDM2PYQOuEhi2Px1TP/yMYvp0D8+Q9scjDQiZec=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yydn8xHEgDS9R27SuwAxczf4l1jxQo3+PWuYYz0aAFV29dTB4dl
+	dAnUw4JtjyHR/JipFruSI/9x77LJtFKps8JTBMXoYLvAgkCXpimz5CqZ
+X-Gm-Gg: AR+sD12Tx9EbXj9bOtqkmSwbj0TsbWVxwvnmMKbsaoKLd0MQG8pVNbSkBLMZQ0MTgcd
+	Zhm4BO1FlzTEtUO+kDiIvqtwWhgt2Gyhek77Vc/rN98G3xG9OGDb6BNQHajUmTB0Nq2mX/EBcu+
+	WfYfECNkhtEUn6e2UtL18ma0AYCfWs1iMjGEXCsnInMKq9VDRwXN1dd8DWPw7HN8T1OgyFd8P6E
+	uEtLFyDdq93vnYdMCcLxMysDT8s4CiLA/sJ8tUNMcYaEZUzoZZJKRsv7jqAAClgnS8DV8VFgmgn
+	E2JRF992xP5Slar5fsaEsiHJAwpXmSxevh1c7U1cOK7sRrDITumyUBRj1TqFlIDEsRFcyxO1scy
+	dbQHd6A4JykSxyCMf/2ek78t518mC5wemudXKshNL02teZJalWEsd0T2te+MwzS8Enm9/eJdloz
+	om29iEVFCdOjP5eTe1OZjteP6B3kdZkjj67nUFks0SB0kJzimLMRPezJHW6b61xtQlvVrfHnJFs
+	9fV+SSom+IGzvy+uN2FYDjZs9dD+UkOJgE=
+X-Received: by 2002:a05:600c:19ca:b0:499:7ce1:d8a2 with SMTP id 5b1f17b1804b1-499879426e9mr406445745e9.8.1787043446852;
+        Tue, 18 Aug 2026 01:57:26 -0700 (PDT)
+Received: from HomeOffice (046125138157.public.t-mobile.at. [46.125.138.157])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4999d10ba73sm119747925e9.13.2026.08.18.01.57.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 01:57:26 -0700 (PDT)
+From: Panz Dev <panz.development@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Denis Benato <denis.benato@linux.dev>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Panz Dev <panz.development@gmail.com>
+Subject: [PATCH] HID: asus: fix touchpad multitouch initialization regression
+Date: Tue, 18 Aug 2026 10:56:23 +0200
+Message-ID: <20260818085623.18467-1-panz.development@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178704339949.1542179.13819936766894002577.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the core/urgent branch of tip:
+In Linux 7.1, commit 7253091766de ("HID: asus: do not abort probe when not necessary")
+and commit 0919db9f3583 ("HID: asus: always fully initialize devices")
+introduced regressions in the probe sequence for ASUS I2C/HID touchpads
+(such as on the ASUS E200HA):
 
-Commit-ID:     c793bbfc4a0a9f5a66978fc91559e9681748dbeb
-Gitweb:        https://git.kernel.org/tip/c793bbfc4a0a9f5a66978fc91559e968174=
-8dbeb
-Author:        Thomas Gleixner <tglx@kernel.org>
-AuthorDate:    Tue, 18 Aug 2026 00:14:57 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Tue, 18 Aug 2026 10:51:43 +02:00
+1. asus_start_multitouch() was placed inside the claimed input check block:
+     if (drvdata->input && (hdev->claimed & HID_CLAIMED_INPUT))
+   On ASUS touchpads, (hdev->claimed & HID_CLAIMED_INPUT) evaluates to
+   false during asus_probe(), skipping asus_start_multitouch().
 
-timer: Keep debugobjects state consistent in migrate_timer_list()
+2. The asus_report_id_init loop in asus_probe() was executed unconditionally
+   for all devices, which sends keyboard initialization feature requests
+   (asus_kbd_init) to touchpad endpoints, corrupting touchpad probe state.
 
-When timers are migrated away from an offline CPU the debugobjects state
-gets corrupted. The timer is accounted as inactive on deletion, but the
-enqueue on the alive CPU lacks the activation call.
+This patch fixes both issues by:
+- Skipping keyboard report initialization for touchpad devices (!drvdata->tp).
+- Moving asus_start_multitouch() outside the claimed input check block so
+  multitouch initialization is always executed for touchpads.
 
-That used to work, but got broken when the trace point and the debug
-objects call got separated. That change missed to fixup
-migrate_timer_list().
+Tested on ASUS E200HA (where touchpad functionality is fully restored)
+and ASUS VivoBook Flip 14 TP401MA (confirming zero regressions).
 
-Add the missing debug_timer_activate() invocation to fix it.
-
-Fixes: dc1e7dc5ac62 ("timer: Move trace point to get proper index")
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Fixes: 7253091766de ("HID: asus: do not abort probe when not necessary")
+Fixes: 0919db9f3583 ("HID: asus: always fully initialize devices")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87bjb0l7ha.ffs@fw13
+Signed-off-by: Panz Dev <panz.development@gmail.com>
 ---
- kernel/time/timer.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/hid/hid-asus.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/kernel/time/timer.c b/kernel/time/timer.c
-index 655a8c6..ae9abf1 100644
---- a/kernel/time/timer.c
-+++ b/kernel/time/timer.c
-@@ -2492,6 +2492,7 @@ static void migrate_timer_list(struct timer_base *new_b=
-ase, struct hlist_head *h
- 		timer =3D hlist_entry(head->first, struct timer_list, entry);
- 		detach_timer(timer, false);
- 		timer->flags =3D (timer->flags & ~TIMER_BASEMASK) | cpu;
-+		debug_timer_activate(timer);
- 		internal_add_timer(new_base, timer);
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index 3f5e96900b67..7f19ca1e5a1b 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -1294,12 +1294,14 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		return ret;
  	}
- }
+
+-	for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
+-		if (asus_has_report_id(hdev, asus_report_id_init[r])) {
+-			ret = asus_kbd_init(hdev, asus_report_id_init[r]);
+-			if (ret < 0)
+-				hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
+-					 asus_report_id_init[r], ret);
++	if (!drvdata->tp) {
++		for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
++			if (asus_has_report_id(hdev, asus_report_id_init[r])) {
++				ret = asus_kbd_init(hdev, asus_report_id_init[r]);
++				if (ret < 0)
++					hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
++						 asus_report_id_init[r], ret);
++			}
+ 		}
+ 	}
+
+@@ -1327,12 +1329,12 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 			drvdata->input->name = "Asus TouchPad";
+ 		else
+ 			drvdata->input->name = "Asus Keyboard";
++	}
+
+-		if (drvdata->tp) {
+-			ret = asus_start_multitouch(hdev);
+-			if (ret)
+-				goto err_stop_hw;
+-		}
++	if (drvdata->tp) {
++		ret = asus_start_multitouch(hdev);
++		if (ret)
++			goto err_stop_hw;
+ 	}
+
+ 	return 0;
+-- 
+2.47.0
