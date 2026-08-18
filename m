@@ -1,78 +1,55 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FE23D3CEE
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 03:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC5833F8A5
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 04:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787025570; cv=none; b=VlYbFQkoTV993d5EimYJsjrVWLmcAoAjE19USw5JFm+xUtmu6y6DZD7hexIZjnc1k5j49Psrh1bdOHeBfrXWQ3Yvja6cyyvaiOa9yMn8LgxUjffWHHjaJoaMzzF2j7vty5TIhT44CZTcx0WzM75OChoONhMSoczxfYKUJ1Sc4pQ=
+	t=1787026070; cv=none; b=Q+aqUI+zraEWAP20ydV/n/N9CDFTZU/YbA81Wbq5uVn17foLik9OKM1OmKxYTU5csvfLXmRJcJfDgidRlYuaRk+3T4LIOeEsAQFeEaXpqHGMaNuXntBl0K9PCozRflzmgGAJ9qdF6x+MDy8LoiMq1/HdDD9riZZEfsd/XfLUC5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787025570; c=relaxed/simple;
-	bh=E0fATSG/nzGiqE76k6QJzFgiaNu4qeaMIc3wFF7Gi4s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dpC23wNb32JAjAvPQQlltvFZHUTp70EsqpZdD1TGQ479zduRzk/Sy6NLw2ChUiS16JNs/8mK6Qi+bC7jj+v8afm9ka0Z3i0bormM9vq5WetWD3oDkq2SqPLy4JFZgP7LQBNp6rriS7ftFBtqph0fnVsrsm0nKH+BbV7IX8zfkeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OQV5r3xn; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787026070; c=relaxed/simple;
+	bh=ie7UiFEuQgwL1qP/sNwBsUOvW06oVYujPhEeWTFwr1c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gcN8sfcqEFAHqjEbW2Y2xeVBj2cg81MaupyAn78txk4FRUAjVfrUxJ6S810ih/2XoxZXYhkiBBBEaol5aeVdj+H9eigF0vygANZdHRpia4gB8hr76TWRgVWinU7ndBQyIrFlv/8hoXEBqXdeCXwWFJEJ5Rr44omxuYVlCHNLX+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RKZxEGeX; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OQV5r3xn"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d58efc7356so21347635ad.1
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 20:59:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787025568; x=1787630368; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jANj+rRs676FGfXiCbtyRb/0kLIKRey+NQsOgHVTV8A=;
-        b=OQV5r3xnZLaEeYLujBkOoJifhIemBhKspqoSkg5Ppg8Ofj1lrgGv9WnoE1mJ4XV6eK
-         21kTbr8gr5Hi0UKj1FjwLA5GXITpBK8Sn1YifXjC/Olv29sde4BFCgkDGiIUckE+WWP/
-         xgoDbvtubNFXKYEwdqQDGIs/QEyMkWcMJ7lDmCVHOWQopRFpFCFMYXzOQGmMISn+XksX
-         rRqYskG0qvSQO/DifmhtUwbB3gBSWM8S5T3KkfUTW50mGGVPbiOFp+GkMmmp3Klj7mZp
-         FRe5hY9makhWc67H/0xk7apHPBNCqvdb1BpFqXsJK57wa3C6qxyR5/El9nszexd+FRu7
-         M7RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787025568; x=1787630368;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jANj+rRs676FGfXiCbtyRb/0kLIKRey+NQsOgHVTV8A=;
-        b=XaBMhA3prU1KTJuEujc5GVHa+1LOVnw4cYUvJGtsazzd68Pk+GuOLdcL9NuiZxwamr
-         nJte2kAVDWjwCKKS4dg+amwy8vOfQetlwl+b1i/2xN/ErtnOdJVDa5Ce0u7mgQSOP0hC
-         AJPrMO7u2yvedgm6ktplUjB/WSAHSKShKorvoF80OIhe9TSBu7qcZQq3G3+Dj8SvOixO
-         PMKuDGlg4NsxklgSXnZlyZS5e6L8ulXSvw75okW7ohHVBy/xaQ+zXoX0PdVb+LPtJvdO
-         jHa+f5bYUU4o2GhYBb6eoUVttgZQzPcWljeEbm8IYnKDfRAjNNOKbv6G3gRaSgAIr6lW
-         B/Sw==
-X-Forwarded-Encrypted: i=1; AHgh+RqLuElakVkObD46lCpKJe+ZLqMcjRIUUjjAdijAAnr6XfS1Tqc+YGlch3DU2z9yMhaMTXhQVSk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yye4C6AGvTiK1UIJAgynuycbn1UW2nbWyCIKsu6K9rPOCKjx5Ig
-	1XkKLVbqznx+Sb63l++dxp+awuBs0sSYVoImnE7wjDI78pZ1egBuF+ab
-X-Gm-Gg: AR+sD11bjysGGx0J9D3jgjYNLUUzXXckTrzMWV/Dp5w/g4hH1ve1CEmKyHzWry0s7M1
-	lRx6MDrx7A2B8DC6D39eglU1bzeFJaQL+Hxv+UZ6iifCbW5BVY3G29ulyymiQ63xtMyFxi+bVMF
-	saq2J1WxeCTWmWz+JAiWAyh0ApFDEw4mtm8e5jLIt+lNL4qjibqrcN4P1p+G/jaSTxclLWH3RAl
-	EHp0MIZFxvI8nfooC88UmFlITrHzmyzAPVY8b7FTvLrXVQpc+T9YH2RIwGMSM0V2SZJjA2kl1Ut
-	WzB2IqRS1RfbDiZbJcmySeAHoo97PQ2GkSIAGHLmFLEFR7TDCCY9o9HeTBal6IkSOvseEYZ1mKL
-	jlCPzQ2D7GjGc65Htjd5GyRU849RB3Ap+vsrCSKuDtyxevRj2/RnK7ix8xPOizoxBNlGGPa/6m9
-	EDkZ1ZWSR4+5X2BX9RQgnHMn47sYcb2AV+KfyBMSZ9z0w6nek/6fxWedN3IrzKAQmVfhPcFQEIw
-	E4=
-X-Received: by 2002:a17:902:f688:b0:2d5:cb05:49d9 with SMTP id d9443c01a7336-2d5cb054fbdmr45434345ad.5.1787025567552;
-        Mon, 17 Aug 2026 20:59:27 -0700 (PDT)
-Received: from Default ([2409:40f4:1036:ea4:2b52:6050:3690:cbce])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32678dd22f7sm17761341eec.1.2026.08.17.20.59.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 20:59:27 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: christophe.jaillet@wanadoo.fr,
-	festevam@gmail.com,
-	jeffinphilip14@gmail.com,
-	eeodqql09@gmail.com,
-	kees@kernel.org,
-	felipe.balbi@linux.intel.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] usb: gadget: f_mass_storage: fix null pointer dereference in fsg_common_set_num_buffers()
-Date: Tue, 18 Aug 2026 09:29:04 +0530
-Message-ID: <20260818035904.10324-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RKZxEGeX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787026067; x=1818562067;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ie7UiFEuQgwL1qP/sNwBsUOvW06oVYujPhEeWTFwr1c=;
+  b=RKZxEGeXSUY1dQakYi8ICVFe1cTX11WzPVZZgxqr9ZVL/zcnJNoWMQYx
+   xOvLhNaQCv1mv+dzj1gh9wbFKXRYAqNyEnuAFP6SZQcmSPdKmPih0deZh
+   ao15ARJE3FAYxm6HqMIUH4K994N5n2XHPRFvCQwEZkCRT+qM8urF3dOBD
+   E1AXAufX9tdTs8A1AfJQ1UdY8M5Wi6Tyu33G630rfUTAnmoRaPWt+IbIb
+   HZ1NKzC1uDKrMctUoW6fOuPDwHHAc8w6EDQrs1qRreLqbBSpR20SBs4n7
+   9dt5AlgoGC1Nmx148N4ecst1JxIwab4fU8YCoTV9eHea2f2yDPWSltcUO
+   Q==;
+X-CSE-ConnectionGUID: fdpijghTRFSib13b/2a2Zw==
+X-CSE-MsgGUID: jx/gG4dsRJ2xfWxo9T5ugQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="98870337"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="98870337"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 21:07:46 -0700
+X-CSE-ConnectionGUID: Edo7hWWbQuGrnc9IrH8w+Q==
+X-CSE-MsgGUID: qXqPoZrTSKmzy8k8VnKN5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="262477149"
+Received: from varungup-desk.iind.intel.com ([10.190.238.71])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 21:07:45 -0700
+From: Varun Gupta <varun.gupta@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org,
+	matthew.brost@intel.com
+Subject: [PATCH] drm/xe/guc: Skip CLEANUP message when GuC is stopped
+Date: Tue, 18 Aug 2026 09:37:33 +0530
+Message-ID: <20260818040733.135964-1-varun.gupta@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,40 +58,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Previously fsg_num_buffers_validate() was removed as it was not
-necessary due to Kconfig setting the limits for n from 2 to 256 with
-default as 2. However, setting the page content in such a way that
-kstrtou8() reflects n value as either 0 or 1 bypasses these
-restrictions leading to a null pointer dereference if n is 0. Fix
-this by adding a check for n < 2 and returning -EINVAL if n is
-either 0 or 1 consistent with Kconfig logic.
+Attempting to enqueue a CLEANUP message while the GuC is stopped
+(during a device reset or suspend) triggers a missing outer runtime
+PM protection warning in xe_pm_runtime_get_noresume().
 
-Reported-by: syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=791be35f1fbcc85d06d7
-Fixes: fe5a6c48fd95 ("usb: gadget: storage: get rid of fsg_num_buffers_validate()")
+Since the GuC cannot service Command Transport (CT) requests while
+stopped, skip the message and route directly to local teardown.
+
+Fixes: d930c19fdff3 ("drm/xe: Build PM into GuC CT layer")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+Signed-off-by: Varun Gupta <varun.gupta@intel.com>
 ---
-Changes in v2:
- - Change check from n = 0 to n < 2 consistent with Kconfig logic
----
- drivers/usb/gadget/function/f_mass_storage.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/xe/xe_guc_submit.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gadget/function/f_mass_storage.c
-index a50743caf083..4e743be220cc 100644
---- a/drivers/usb/gadget/function/f_mass_storage.c
-+++ b/drivers/usb/gadget/function/f_mass_storage.c
-@@ -2747,6 +2747,9 @@ int fsg_common_set_num_buffers(struct fsg_common *common, unsigned int n)
- 	struct fsg_buffhd *bh, *buffhds;
- 	int i;
+diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
+index 9036f89dff7d..24f35b0179e1 100644
+--- a/drivers/gpu/drm/xe/xe_guc_submit.c
++++ b/drivers/gpu/drm/xe/xe_guc_submit.c
+@@ -2180,12 +2180,14 @@ static bool guc_exec_queue_try_add_msg(struct xe_exec_queue *q,
+ #define STATIC_MSG_CGP_SYNC	3
+ static void guc_exec_queue_destroy(struct xe_exec_queue *q)
+ {
++	struct xe_guc *guc = exec_queue_to_guc(q);
+ 	struct xe_sched_msg *msg = q->guc->static_msgs + STATIC_MSG_CLEANUP;
  
-+	if (n < 2)
-+		return -EINVAL;
-+
- 	buffhds = kzalloc_objs(*buffhds, n);
- 	if (!buffhds)
- 		return -ENOMEM;
+-	if (!(q->flags & EXEC_QUEUE_FLAG_PERMANENT) && !exec_queue_wedged(q))
++	if (!(q->flags & EXEC_QUEUE_FLAG_PERMANENT) && !exec_queue_wedged(q) &&
++	    !xe_guc_read_stopped(guc))
+ 		guc_exec_queue_add_msg(q, msg, CLEANUP);
+ 	else
+-		__guc_exec_queue_destroy(exec_queue_to_guc(q), q);
++		__guc_exec_queue_destroy(guc, q);
+ }
+ 
+ static int guc_exec_queue_set_priority(struct xe_exec_queue *q,
 -- 
-2.55.0
+2.43.0
 
