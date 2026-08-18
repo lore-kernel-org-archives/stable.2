@@ -1,160 +1,181 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CD6448B9C
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 09:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787047098; cv=pass; b=lkHMmn5YPiu6j6bNMrVtugfZYL6h5Or7Bkk7upop4SMIKl9DeUkwW7nrYVNBRaGyrkttQwN8RWrROtYVmaMf1XZIt31JNyTJw016CZjsxpmbT+qD70cOxri1TeGGMsepVkssX7S2oXB27Wa5mBwy+UrJJoQIUEkdXdogOqVXDCo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787047098; c=relaxed/simple;
-	bh=v7X5fOOgkMN7zwozDWTMmdpVAqvNyDVzElCQ5lmWHdo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GRkh64evusesck/H6LF4hYpr1nw4IcKaHXuFcmU2ZX3Yj61WbyxEjUHhtJenGCVrq542bBeDwkAzG1STp+vs3yGUtheoBkJReWQMv33yXqVzi18KxE81jqhk5W6Ky946vdpccNXXsx28G+3w28oL77lIkZmD7PVyOMXjlYEEqig=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XTn1BIgF; arc=pass smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDC24483A0
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 09:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787047179; cv=none; b=JYV33DQXJIDcdn+Bcqhcv7ek9HYC0kIkQCivyz7lrnAGqtDCh8zsjJXx2ouZoSt+4+ROXnh3q29XFxDeKY9XOmvDv+oOLyZePXB2sMVB15iFz7jbAzZQTuf85SJHdzeafDS7uoRRRZ6mRIlZ38PXGvW1Aikpv6gFO6huNpdJjCY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787047179; c=relaxed/simple;
+	bh=5u8fqtUZicxB3yEdtSB90F7qmMvwCOPD6nA4msBr57M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Wj935fBKb9GCcbzGqvRH00TDUrEzttNCHt2uCiHgnqgYXfVuQlTdUDU6rPfu37lWQBrxTVmj5VwiKsFG1ATshMwzkCvSrXr0I3B+QMcOp4NbXYoke5sSX1iVLjEBicCjppopJbhLxSRZndrW/qqgxnw9Db8DsieCR+5bhMNlPUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=QhgeYcvp; arc=none smtp.client-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XTn1BIgF"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b159850b16so4197138e87.3
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 02:58:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787047095; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iHS2lmCgU+9c1XEovQKw0o6P6cT/1fkCPouyo1UOlYLJ6MO9T9NcPS8z5kULt9h9wk
-         9K4KAK2Aj17f1I19H7k8SmxdPs06pK+79Y53U7xb4SPRtfgsHita+jw1MvyHNim9Kxac
-         peB7CDy30PNn3Y9vZ8hJhcLzLfTAig0/NZqJfCvBlENVAqsGosfUT28TNy1lyJGb5t6M
-         +0TuALWtSoWxffyEv1nJaGPMZeo12iS32ZyFEC5s4AIxLgkzugmMxG8iV4kWBBFj1Vk8
-         w9h+BkcsD65aXfQHl+RHSJmGEmFEjxBAe7mksE/qRfFfomH8mAcEUp6Vx7/TV1598vNR
-         ysrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=wB5u1mD3caKiv5VwodTINCWhAlYduQugf9/JTmV6yLg=;
-        fh=o1J3G540joER4jerVNGoYZqpuT9UqHegLUwiNRfq/Ys=;
-        b=GprV+2MpqScZT/YnU9I3rvkpLebk5TeLRBVhswsdbsDoIeMguagvy1XHpGO2AZDF0g
-         4p0IHiq2OioC5diWYa7Z78njG5S38KPFURNWNH2uikfuaOhTEZSbB3iQv6xVx3nR9Jii
-         IPIuNMJ0jCRz4vqrn6lwnx1ucAmoC1O6VwwKlkzpjEAmj5Yq9joN8sBcMIOU8VQHj1aQ
-         fyzc/VnPLdzKamQxPpeuTvdUonQ8d+6fxVnuJcpEvpRcDFdxVhAcRI/9VQC8G7pBoGiv
-         6lSqsv0nrfhUD+38x/RvgQFZfjMsRu2inBW+zfUJIM5VnObXbVUfHlwFHog5F/s3coCy
-         6Lpg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="QhgeYcvp"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-92e65e18969so71591685a.1
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 02:59:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787047095; x=1787651895; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=mojatatu.com; s=google; t=1787047176; x=1787651976; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wB5u1mD3caKiv5VwodTINCWhAlYduQugf9/JTmV6yLg=;
-        b=XTn1BIgFrgnNUBoTe47C0ZSHKKiP97okpPyS1BjPkb1qn+3DbdNtn6UvsTNpQPcwED
-         PCR/IqGBZmSfV6SW6NiR42WxSnAx1kc++wDHZ20Mf3KeL05wHYDrMqlYtK/5pn00Ghju
-         twFU2mwtnVNZqjCRU5I099xRuq+J+319Pa+CsrBrCJIk4rK+cQGFC3cIpSkw/9QZuv4Z
-         oyTSdAsrcJLRK+vXKQlH1qMESygSNW8qTc/CTBlPcLfwQmdU3JsYplnEDRCmVtN9QS/t
-         nx5+Y8WuJdgT9dy+xJA79XM+/q5oTae6Itv+GL1nYNUzdPUy3ZMu0Cc28eZXF75T2Npn
-         z6Ig==
+        bh=bYwTcLeF+btFWttAuBsk3+cG8NPflYKJAIfuTzy7tRc=;
+        b=QhgeYcvpjVroqBQJV2+Dp4S0LY43n3mV/LU9pzrn8ZFESJB/eU7HTcTYyiujdGubQ6
+         R4kF9qPnytAB68UwId4GiBqkxb284TxRgRgWka9tCYjEqitKl94pV9V5XCVUH63Nw+Nh
+         9KX2oBCNKDuI94bqMFq8Y7kI/7nF7amHnGg8k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787047095; x=1787651895;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wB5u1mD3caKiv5VwodTINCWhAlYduQugf9/JTmV6yLg=;
-        b=Jv7BA5J9+QPdzi2BZzzrd1us0VKFVW3lL32OZUC0qAH91Aq0Ak5wZWt/ThhLJ1xtX0
-         VnuNlQ/NfxeBuuc8PF3U2NiDs1DymwzYekXM3AyeisHe8kn1W8d3uv4pwQ76FpHgCrHe
-         SGi5t9MC4O6OAyrAJp3NK4PQkTUfpctMU7qLATa4Q4mDSJptbBIWhYWHEZN5j/Jy0pOh
-         WdB8albfto4itTFpacZoKgMAAPJg6gb35qd0BQzu/vtS9TktZxL9es3svocUiF5Zb689
-         Az63N9rNo09mvHs5Z7dgnv7bnH/mKtYM5/QiVG0Eaj3yz1odQOxKkaU+uRWey/S7t3xC
-         svRw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr9csiKHT8TvIKX4/eFJ1/4Z88+ZKj7Odrw58XF8tFYz23un7YMschTmeEDto3TXprUXsTIVnc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwaMxrskskOyt9+kn063BWiPG6bpXezX78RnRFtnsvgQ4NMBup/
-	2bMokBOpW9kIQdqpp4rnYRVr8J0vX7US2o0dE/WqrBtmmTLyBzOlJJvrsqoXmyQMaCvNAAD+7Ok
-	jQx/IDcySvz9j4qs5Kx/324OdIh2ReLw=
-X-Gm-Gg: AR+sD11V7Htwcv4lwuZR9KQPHtSi24FWUmV37j2/ajVhtfxGTuqIsOWBUw0awLaJeJq
-	1Ef7b15Y3LwcbKvmQ5S2ZtXh6Pgk4b/lZaotvk5AVT3Ul+0f26YmtOl/V5M+X9W1BM+JihDOE21
-	YqApqjBZHjTad7vx0r76vAagCealkg4FkA3qyohhyd9kGaprh3nzPxO4itpgGngvsl39rdWhr+4
-	BBsd75+WSxHOOszqL4NoiJP9L2zth5/uzMN29C6u4yNB/2soiBNmwFh+ajKWtG0SCdOI+yG3cKx
-	Ftp+shJMHwk6q5gkslOParsiW7YVlOfOnH33rsXn9ccLsIWP4QrOJo5R5V+jvIP0O/9g0ULaAVM
-	uqxPa3fkHAuADuntjYN2qwJMw2w==
-X-Received: by 2002:a05:6512:3d12:b0:5b3:c15:c688 with SMTP id
- 2adb3069b0e04-5b470661ef1mr1563289e87.7.1787047094580; Tue, 18 Aug 2026
- 02:58:14 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787047176; x=1787651976;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bYwTcLeF+btFWttAuBsk3+cG8NPflYKJAIfuTzy7tRc=;
+        b=p0Xfae6CjkBzYwZL21EyrM6mLhb0Xin3qJfbclp9Uaw4Jq1jaQ0ALIsd8WvGBU3Oll
+         UElF1L2IV3KS8w/wHxqwkaC0qgmmgR5Jj2HuMC2SV948qK90PoqO1FeJCttwcELwOxcU
+         W+LjWmtbXR4rTqnmC35iphT4ZxyMXXInd4cXwm5d+jikjgak6oRcz9pDNwFXQ6+oVgLg
+         CxzUCz/LpJADacTw+yllwj+JLLccli6Y1kiRpB9YYVAOGC/yYyrt/usaiz2Sw1NjK/XM
+         tdP16bRq8VhQiTYyUy6Giq8Xsv5JtbVWR0jg1tPUUib8QEl1NbYMY/K7ur+/dIeaBSSV
+         poJA==
+X-Forwarded-Encrypted: i=1; AHgh+RpnzHLqphxSFzCSHUnFUrRZ3t4jpsEPNucM6IBNJ7xpGfY0n7w3HKcHUsXkC+kxtJHRN5EhwDk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxjIYveRGe+hhKuWofQyBDRPTfNaLebN0A8TjrNglGocTFve3F0
+	W2jhm9PFPNoBVtwl9/oQvFDog7N/CAMch39vDx8RRHM7r0A3Vw/kS5bnCFSjXh5qtw==
+X-Gm-Gg: AR+sD10pQuMdE4xGbaQbnMsC2Enzd7ATlCK0gx4o+zvj4W4TUGP/3NuiCQ+YqNIXUwD
+	4NoJtxG+8b85mTtS51xzsvd87MazjxeVLgfej5h9LmkHDRDEqA/Sa/powOsO39yx+VoEwBkADfu
+	IzK2c8uVnPuuGWwmb8Ra3XtZBcRfUUHAC/5c6mXQtRsNY98puOVSYmDrv2t7T40pUKJZ1UkB+Ve
+	hflafu4g/OWxz4XpBiExxHHX4AsluVcnehQbEC1xalqpmmF/99y1wPUY1MptcfBY4EzuGoXkLkS
+	BTPqS/DYq2QtYbQ1F0irR97RLlQftAf68ENKT0GiHtZDIpFW/oen3pf6tMyuUaSaMTiYFl5PHSC
+	LfkYzgkfa2+8x4XPFs3Zc61u6ehMAKz8ZMCt3BIPvitfR7w/8wrZsAi5k38NjstbNTU/xCcSEUZ
+	WldoJjCnTV2tSlmzjrSNVrZX2yNwuAD4s2WlZgi3D+Kei4UOi1OOpb87j1gq19fJxV4+5ej01f3
+	EEIb1DbdnL+y3ymgsVo/3eTISp7zMA9xcy8vu3uimFZ/od2471Y5ZD4
+X-Received: by 2002:a05:620a:44cd:b0:92e:d2d4:2d04 with SMTP id af79cd13be357-93706699d3fmr532054085a.23.1787047175576;
+        Tue, 18 Aug 2026 02:59:35 -0700 (PDT)
+Received: from majuu.waya (bras-base-kntaon1621w-grc-04-184-144-29-222.dsl.bell.ca. [184.144.29.222])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-937010c32f8sm289740985a.6.2026.08.18.02.59.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 02:59:34 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	david.ward@ll.mit.edu,
+	vega@nebusec.ai,
+	victor@mojatatu.com,
+	zhanxusheng1024@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: sched: fix 32-bit backlog wrap in gred, bfifo and plug enqueue
+Date: Tue, 18 Aug 2026 05:59:27 -0400
+Message-Id: <20260818095927.15901-1-jhs@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
- <20260817215428.84740-1-gvalkov@gmail.com> <c10c5132-1bac-4bf7-acd5-1319ce072eaa@lunn.ch>
-In-Reply-To: <c10c5132-1bac-4bf7-acd5-1319ce072eaa@lunn.ch>
-From: George Valkov <gvalkov@gmail.com>
-Date: Tue, 18 Aug 2026 12:58:03 +0300
-X-Gm-Features: AcwNN1XJfTB43bmjv2TjXUd_fF7J3LtyinrySWzpxtBcHtKj_KY-OKWZu5UgGM4
-Message-ID: <CADOrJmZpJo+MDZpaAC=cGv-i_ZZ0wNjWsMP-dttnE3aQPpHLMA@mail.gmail.com>
-Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag marvell,ignore-regulatory-hint
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: briannorris@chromium.org, johannes@sipsolutions.net, krzk+dt@kernel.org, 
-	francesco@dolcini.it, johannes.berg@intel.com, kees@kernel.org, 
-	miriam.rachel.korenblit@intel.com, wenst@chromium.org, 
-	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
-	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
-	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
-	Frank.Li@nxp.com, chunfan.chen@gmail.com, 
-	linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 18 Aug 2026 at 03:53, Andrew Lunn <andrew@lunn.ch> wrote:
->
-> > +  marvell,ignore-regulatory-hint:
-> > +    $ref: /schemas/types.yaml#/definitions/flag
-> > +    description:
-> > +      Ignore an incorrect regulatory hint from ROM,
-> > +      so userspace can set the correct regulatory domain.
-> > +
->
-> Maybe this has been discussed in a previous version of this patch...
->
-> What is Marvell specific here? I assume any vendor can mess up, and
-> make a US only device, but ship it elsewhere.
+gred_enqueue(), bfifo_enqueue() and plug_enqueue() admit a packet when the
+current backlog plus the packet length fits within the queue limit:
 
-I don't recall any previous discussion on that topic, other than the
-use of a root flag in v3, which was objected to, because
-marvell,ignore-regulatory-hint does not belong there. I assume this is
-due to the marvell prefix. I guess we can have a generic flag?
-Implementation instructions, along with good design patterns are
-warmly welcomed.
+  sch->qstats.backlog + qdisc_pkt_len(skb) <= sch->limit (gred default VQ)
+  gred_backlog+qdisc_pkt_len(skb) <= q->limit  (gred configured VQ)
+  sch->qstats.backlog + qdisc_pkt_len(skb) <= sch->limit (bfifo)
+  sch->qstats.backlog + skb->len <= q->limit             (plug)
 
-I like the idea of implementing a standardised approach, which is
-scalable to any platform or driver that needs this quirk. I would also
-like to add this feature to mwlwifi (not part of Linux), because the
-main radios (88W8964) on WRT3200ACM have a hard-coded region of 98
-(non-standard EU, translated to FR because it's the most restrictive).
-This way I can set my correct region: BG.
+sch->qstats.backlog and q->backlog are u32, and qdisc_pkt_len()/skb->len
+are unsigned int, so all sums are computed in 32 bits and wrap at 2^32.
+Once the true backlog exceeds 4 GiB the wrapped sum becomes small and
+admission keeps succeeding, so the queue grows without bound and the kernel
+can be driven to OOM.
 
-In theory it is possible for other vendors to make the same mess. I
-think the chances are very low, because they would violate
-regulations. The story with this Linksys router is special:
-It was designed and marketed to be OpenWrt compatible. Likely because
-open-source gives a lot of power they made sure the hands of all users
-are well tied-up: all radios use proprietary firmware and are
-locked-down to their certified region in ROM. They do not allow
-anything related to regions to be set. A third radio 88W8887 using the
-mwifiex driver was added with the sole purpose to monitor for radars:
-this idea was later abandoned. I do not have any information about
-this choice, but my educated guess is that using a US radio created a
-conflict and they disabled support for this radio to avoid it.
+Promote the sums to u64 so admission stops once the true backlog exceeds
+the limit.  The limit is u32, so the bounded queue stays below 2^32 and
+the stored u32 backlog never wraps.
 
-openwrt-ai:
-https://github.com/openwrt/openwrt/pull/24458#pullrequestreview-4956971863
-TLDR: It suggests that the compatible string should be marvell,sd8887
-instead of marvell,sd8897. The string it suggested is not documented
-and would need more changes, which I hope to avoid. I prefer keeping
-things simple. The string I used works and is documented.
+The bug can only be reproduced as root (albeit with ridiculous setup):
+ attach a gred (or bfifo/plug) qdisc with a limit near 4 GiB,
+ leaving the default VQ unconfigured (for gred), and drive >4 GiB of
+ queued traffic (e.g. via a size table / stab to inflate qdisc_pkt_len,
+ or sustained high-rate traffic). The u32 backlog+len sum wraps at 2^32,
+ admission keeps succeeding, and the queue grows unboundedly to OOM.
 
-Sashiko-bot complained that patch 2 adds a flag to the device-tree,
-with no support in the driver. Patch 3 adds support in the driver. Let
-me know if I should reorder them?
+Fixes: a3eb95f891d6 ("net_sched: gred: add TCA_GRED_LIMIT attribute")
+Reported-by: vega@nebusec.ai
+Tested-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+---
+v1->v2:
 
-Greetings!
+1. Added bfifo+plug into the same patch as gred since it is the same
+   pattern. Flagged by Zhan Xusheng and Sashiko[1][2].
+2. Starting this patch, and for the rest of AI found bugs,  i will start
+   adding the conditions required to reproduce the patch (see the
+   above commentary "The bug can only be reproduced as root...").
 
-Georgi Valkov
+[1] https://sashiko.dev/#/patchset/20260809091657.879929-1-jhs@mojatatu.com
+[2] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260809091657.879929-1-jhs@mojatatu.com
+---
+ net/sched/sch_fifo.c | 2 +-
+ net/sched/sch_gred.c | 4 ++--
+ net/sched/sch_plug.c | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/net/sched/sch_fifo.c b/net/sched/sch_fifo.c
+index e6bfd39ff339..1b6388d50967 100644
+--- a/net/sched/sch_fifo.c
++++ b/net/sched/sch_fifo.c
+@@ -19,7 +19,7 @@
+ static int bfifo_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 			 struct sk_buff **to_free)
+ {
+-	if (likely(sch->qstats.backlog + qdisc_pkt_len(skb) <=
++	if (likely((u64)sch->qstats.backlog + qdisc_pkt_len(skb) <=
+ 		   READ_ONCE(sch->limit)))
+ 		return qdisc_enqueue_tail(skb, sch);
+ 
+diff --git a/net/sched/sch_gred.c b/net/sched/sch_gred.c
+index fcc1a4c03636..f04f425c6c44 100644
+--- a/net/sched/sch_gred.c
++++ b/net/sched/sch_gred.c
+@@ -179,7 +179,7 @@ static int gred_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 			 * if no default DP has been configured. This
+ 			 * allows for DP flows to be left untouched.
+ 			 */
+-			if (likely(sch->qstats.backlog + qdisc_pkt_len(skb) <=
++			if (likely((u64)sch->qstats.backlog + qdisc_pkt_len(skb) <=
+ 					sch->limit))
+ 				return qdisc_enqueue_tail(skb, sch);
+ 			else
+@@ -244,7 +244,7 @@ static int gred_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 		break;
+ 	}
+ 
+-	if (gred_backlog(t, q, sch) + qdisc_pkt_len(skb) <= q->limit) {
++	if ((u64)gred_backlog(t, q, sch) + qdisc_pkt_len(skb) <= q->limit) {
+ 		q->backlog += qdisc_pkt_len(skb);
+ 		return qdisc_enqueue_tail(skb, sch);
+ 	}
+diff --git a/net/sched/sch_plug.c b/net/sched/sch_plug.c
+index cefb65201e17..b60ddfee6a68 100644
+--- a/net/sched/sch_plug.c
++++ b/net/sched/sch_plug.c
+@@ -89,7 +89,7 @@ static int plug_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ {
+ 	struct plug_sched_data *q = qdisc_priv(sch);
+ 
+-	if (likely(sch->qstats.backlog + skb->len <= q->limit)) {
++	if (likely((u64)sch->qstats.backlog + skb->len <= q->limit)) {
+ 		if (!q->unplug_indefinite)
+ 			q->pkts_current_epoch++;
+ 		return qdisc_enqueue_tail(skb, sch);
+-- 
+2.43.0
+
