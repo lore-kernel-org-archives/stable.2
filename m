@@ -1,190 +1,111 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0A948423C
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 17:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF02342885E
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 18:03:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787075894; cv=none; b=ON9xkHSgL4iaQs/hLQpcNWGudzcSzTxwSCx7InsenafrksaD2Fxyp8BMwyVRvNP73aEb12GAS51V7NYmeS1QMPUKqpoJmv76JmYrR+rPm96eT0Ew2W+Xuqw3TVdTuhiD1ygU0dKyOYH8an5E5TFINxu7r2aZRwGHrDt+2fXVzF8=
+	t=1787076191; cv=none; b=qNH0qETrG8B4IfREyzXY6S5g8t+cgUMopkYpys8UfLexYl2RHw3k72orUA2mdmP27P+8nufXMDqCVv1b9BE32PgQVUVZHP0DhWpDgvFhteNRJ+Q1AqmSwaZyIJYfvzWzCoIeAzyYlOvkTKJbQ8Z3KU2Xg+DzH9To6wZMgQWt11w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787075894; c=relaxed/simple;
-	bh=PteXAD1DPggMcw8dT/xS22YuwTISejXEqBeq+NyzCoM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lEnxcDNwoAIxiIDyJXGwrRuIysm/XboDpJ4Ey8srPT3vkJ3QXDc72Ea1ex4pZfEiEqHenF+2rr+UA/US742ppHr2Zzjxd3aeva5VqesMZkT83+ooudemT8XWCUQMXelEl6nkqc7DDqBpjzAofCr6/e9DMFU+SeOEUphhIRwmKfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PmUmLlRg; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787076191; c=relaxed/simple;
+	bh=kux7923xqGElgDtYxjlW1kCHNma8Cxn+0IS7mbJ7Srw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qvPjZMbD104aTA2X8Hc/wgaaLWmq9S22xdugGZeuwBTkoLlx27HI0RtDzEuj4pJPIAGxxv+FC1r7DQcpYXhrsTeXntkwiWeZXcItr9pHEgU/j3zkB48iZuDDNK6QEgz+NJqbkmeU7lihCdu+Yn1IEceO+n+kHMwkp10/C3M6x4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=D0BXwz3d; arc=none smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PmUmLlRg"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d530328efbso1133795ad.0
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 10:58:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="D0BXwz3d"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7eb4d532e65so61622a34.0
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:03:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787075892; x=1787680692; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OVwPxM1zwUuisKDv++BvBZsLlEbaJx1tUb1t0BisU8Y=;
-        b=PmUmLlRgrMph6z6p9pYvFXEd3ULNL50PI0qWEnDIn9tFCOi7Sx9wGh9iBvhEVGm1E+
-         Y4/LofSomCbm/St59kMy3GoYfvUjDDIlvLKUTuOn9GxUW1m2GFd4K98ko64aMPpzwEPw
-         8lIF7zGTeqDTL+aTtYCyV3LLswH7ps6RPpmJwcPr3rzBdnm5jbYR+YXJ+rrNQW57ZbH5
-         /d83208+aKZoKucfZTF270FF/FJbWtynkGcsDMcFKqazS04QcHxM2TAmSl9wcEFVrfpv
-         azvexelKerHh/67vfLa5PxCdKgH/c1KpreXyd+KIU96C6A272WuRcXQPpt368snsrDjF
-         1spA==
+        d=linuxfoundation.org; s=google; t=1787076188; x=1787680988; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=86SBJV0XE5iT1q0TvIA359xjqIYiArOaY9A0khfcrDU=;
+        b=D0BXwz3dErbpe0JF6bdaeKPos+90VccSSPc66Su0C796YRosXTOqCbxW6NhsBD6MX8
+         qcJuyo289I1qUd+Klstq6/S6lhHbWke+6sTiSbTsyhhtEK9YxvHwM3bifaSQ534aqPZt
+         jmojhy6/KFNsOdrFaZzX/ZnlHUKa+uf2hMst8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787075892; x=1787680692;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OVwPxM1zwUuisKDv++BvBZsLlEbaJx1tUb1t0BisU8Y=;
-        b=aWrjV3vJQJKgy6Jp3b7sraGBsoQBxErXlDTCclbsa+p7pp7FTsKSKIOYRfFrjz3+4j
-         RCWZm8ISgXqwUb1RXWOTXAb2TQE8Pwc4i7QP8ar35FIhNAX9rPjrpxdXyEpMiKqBzttH
-         +r/wPUYSEKBIDgObKuY5jKUrM2WwrDd2YVMR7YHgumlbbQU2b4nHJFi8tHKZ632egAmU
-         7LDJpDz4O8XcY6uuD8mCp1eSmqJ+TjdKeyOn5d3TjEplcbklqGUYZYLefjkBDAEFPP+a
-         kSzR+ov60R2itWi+liA1vrb5BP0XeugzkZ5cUhYgI1krWucC4WZR1qEOoLGKcY+o8HCf
-         UNng==
-X-Forwarded-Encrypted: i=1; AHgh+RqTq3gM7rU9TcM4BPhKf33ETh8CBVm9fDFo0SP0+fxxSXTrtkga0wTTej9il/nLrBWuTYp9/Vs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywm/aQ/+Ld7o27iKE2RmLL0Sm1aqSW56TlHGeItkNz3GeY0D1Wl
-	o20zcrwNAGmlz6A0SOPhkWs+WesiB3U0Dk2yHcdlvJHcNZub/n3vRPqX
-X-Gm-Gg: AR+sD10ltvsSQOszqouaowPuUPrYWqbE6EoM5cpYMANCjhdWIWu1yyzL94ageO37vc7
-	c+mn5pqUZHCC4scUQVaVWwH+osOWGmhcpWdpWk0C4Lxr4NPK2kYwUO51im2AoiBGjR/PouMktl2
-	2YfTc9zNozEzK3MPT17H3bUbKUnZunCdBmLDFJ72PIpw7avx8KdM5aREihmETUzeBaHXFfWwEGm
-	oCGQEWxOVrBXgrhSqc5oqaTQmTdMFjsGmxPL0yzddGC2AtbN6S9sK6AeTEYmLTN7fmjDw9YmEC+
-	vdh7kMNgWipZkgdY+xfhB57hqECJvAfn0ro+aY8VpnDvxMlhW5woR52oWtLuOAO3Qw4TptFD7u/
-	255GpXtWgNbeGsN6k3cKRRB/8hlq7HUSn81yLe8CeJOe6KfGFLKyp81OcpuNOJU6CJBz6NRppJc
-	+0on8j4cWQl03WgrFyhrhoRVSxX3yVV6v9YhYdB2BxGHSytcuyk1RCXGlHM5+3JZBDSgu5cdmEf
-	Z9zJLtDDB+hsffZiOv9TqwZvx0=
-X-Received: by 2002:a17:903:388b:b0:2d0:401c:2ebb with SMTP id d9443c01a7336-2d5c4ee9c5dmr151317545ad.4.1787075891614;
-        Tue, 18 Aug 2026 10:58:11 -0700 (PDT)
-Received: from localhost.localdomain ([240a:4282:4801:1b98:2558:3176:8229:fc85])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5c1e8dc12sm17420645ad.56.2026.08.18.10.58.05
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 18 Aug 2026 10:58:10 -0700 (PDT)
-From: Liu Zhenlong <dragonliu2018@gmail.com>
-To: linux-i2c@vger.kernel.org
-Cc: konrad.dybcio@oss.qualcomm.com,
-	stable@vger.kernel.org,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Robert Foss <rfoss@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Wolfram Sang <wsa@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()
-Date: Wed, 19 Aug 2026 01:57:50 +0800
-Message-ID: <20260818175750.4205-1-dragonliu2018@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260815140931.53297-1-dragonliu2018@gmail.com>
-References: <20260815140931.53297-1-dragonliu2018@gmail.com>
+        d=1e100.net; s=20251104; t=1787076188; x=1787680988;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=86SBJV0XE5iT1q0TvIA359xjqIYiArOaY9A0khfcrDU=;
+        b=BBEcDGHaGeZHrxYwFOwdpV7WmlADkopkjVAdfUR0Ob/kCZdt2/Qd2sMSQvlYDi66K1
+         FBHOp2NxarbI4x1VLEFjz6A7bNqYnDjc7Rq7sLPHqWH8/wYg7IWv6cTMaDQfxJPGEr4A
+         p0aLLo11DYm/pnDjNYX/Lnp12kcuGzCA+V2PgOUpjSI3nGdIU4xjtH3c9awx3SD8cME8
+         51jzHx7qcyABU7DbdtSTxdtVmarCZUGvvixuie6duxt4aV6DmBE1wEtQxiZ6Dn89LYYh
+         plVkGKBxJn/WCoMehkhwULYuIiyQeXCv3FmQwprzBTYabbx2aJ0fLhoXOKD+ruPyX0yD
+         1u9w==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0K4p4rQexAQ4Xu3b85Che3be76gkW2emlv2oQ0WEE1V/ZoTY6eoniFUOPl6r+KB5O2zGWnUE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz47o0lW5+35mK+65a+EbGXBCygBfVelesW49zHgJKhRNs+fiLi
+	SflLo/NEkTEAv2VMnPCMPwhDQcnu99zv53EWjzFkWsMWBJcpVkEyEYW46lswfoz0AHY=
+X-Gm-Gg: AR+sD13ZkiTPytGOe1gfZlUMo6SwuYvSjk5pE4VNZnaeVFZPI7PGIO2lHvClrLsTKqa
+	dHpVOFYSLg6EI2n2B+DH/zIWT9J8PHb4i3ONgHxqoDke5eKrzvOKZaUZLaLeJB0LMbIXT+HZWcw
+	2xMjBWjEXflz1SaK2UN4MqKtUY65kZ3+BVG1jfJ0Oagi0xADwTwzphWQaFwX3wiyySg+OwTHXt2
+	J5o/iXzqA/kAOKRjwoVG5MOMqIW4S9CNpU/XGGpjS7W10pRsMp35VhvE+9tEuJKeGopwK64wOBU
+	Xqs4UJzMuIk6Xh9pkQKsX10YBIZyidNTqpJqibj7MZPCyHn/8xrfUHylB13ZX2zAvh3DRnwi0N8
+	tjXyZwaeQn6Pj5S5OIMemJf3P3NpGwjtnFakb2EKr4iMvtp/C1jhuZkoLz+2HDwkCDlAQbY3soP
+	yP/h6wfU8BjxjXJ0jCB9ihFD/poMhy4Q0CokJrTYxB2RoWd/n+v69te6//NjhLK6Y14wDVQDY=
+X-Received: by 2002:a05:6830:3748:b0:7e9:e0be:583b with SMTP id 46e09a7af769-7f3de71d894mr31867311a34.9.1787076187678;
+        Tue, 18 Aug 2026 11:03:07 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f41c0b93b3sm4759046a34.13.2026.08.18.11.03.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 11:03:07 -0700 (PDT)
+Message-ID: <869474f3-45e4-48f9-9379-4116fcd6ebbd@linuxfoundation.org>
+Date: Tue, 18 Aug 2026 12:03:02 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 000/456] 5.15.216-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260817132539.792407575@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260817132539.792407575@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The of_node_put() matching of_node_get() runs after i2c_del_adapter(),
-whose trailing memset() zeroes adap->dev and thus adap->dev.of_node,
-making the put a no-op and leaking the node on every adapter removal
-and error cleanup.
+On 8/17/26 07:26, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.216 release.
+> There are 456 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Wed, 19 Aug 2026 13:23:44 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.216-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-Use a devm action: the pointer is captured at registration, out of
-reach of that memset(), and devres runs the put once on probe failure
-and detach, replacing the three manual of_node_put() calls.  The
-setup loop uses the scoped iterator form so the child node is released
-automatically if devm_add_action_or_reset() fails mid-loop.
+Compiled and booted on my test system. No dmesg regressions.
 
-Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Fixes: 02a4a69667a2 ("i2c: qcom-cci: don't put a device tree node before i2c_add_adapter()")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Liu Zhenlong <dragonliu2018@gmail.com>
----
-Changes in v2:
-- Rework the fix to use a devm action (cci_put_of_node) instead of
-  caching the pointer before i2c_del_adapter(), per Konrad Dybcio.
-  The pointer is captured at registration, out of reach of the
-  memset() in i2c_del_adapter(); the three manual of_node_put() calls
-  are removed.
-- Use for_each_available_child_of_node_scoped() so the child
-  reference is released if devm_add_action_or_reset() fails mid-loop.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
- drivers/i2c/busses/i2c-qcom-cci.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index bdeda3979c48..d3528c7d15bd 100644
---- a/drivers/i2c/busses/i2c-qcom-cci.c
-+++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -497,10 +497,14 @@ static const struct dev_pm_ops qcom_cci_pm = {
- 	SET_RUNTIME_PM_OPS(cci_suspend_runtime, cci_resume_runtime, NULL)
- };
- 
-+static void cci_put_of_node(void *data)
-+{
-+	of_node_put(data);
-+}
-+
- static int cci_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
--	struct device_node *child;
- 	struct resource *r;
- 	struct cci *cci;
- 	int ret, i;
-@@ -516,7 +520,7 @@ static int cci_probe(struct platform_device *pdev)
- 	if (!cci->data)
- 		return -ENOENT;
- 
--	for_each_available_child_of_node(dev->of_node, child) {
-+	for_each_available_child_of_node_scoped(dev->of_node, child) {
- 		struct cci_master *master;
- 		u32 idx;
- 
-@@ -537,6 +541,9 @@ static int cci_probe(struct platform_device *pdev)
- 		master->adap.algo = &cci_algo;
- 		master->adap.dev.parent = dev;
- 		master->adap.dev.of_node = of_node_get(child);
-+		ret = devm_add_action_or_reset(dev, cci_put_of_node, child);
-+		if (ret)
-+			return ret;
- 		master->master = idx;
- 		master->cci = cci;
- 
-@@ -604,10 +611,8 @@ static int cci_probe(struct platform_device *pdev)
- 			continue;
- 
- 		ret = i2c_add_adapter(&cci->master[i].adap);
--		if (ret < 0) {
--			of_node_put(cci->master[i].adap.dev.of_node);
-+		if (ret < 0)
- 			goto error_i2c;
--		}
- 	}
- 
- 	return 0;
-@@ -617,10 +622,8 @@ static int cci_probe(struct platform_device *pdev)
- 	pm_runtime_dont_use_autosuspend(dev);
- 
- 	for (--i ; i >= 0; i--) {
--		if (cci->master[i].cci) {
-+		if (cci->master[i].cci)
- 			i2c_del_adapter(&cci->master[i].adap);
--			of_node_put(cci->master[i].adap.dev.of_node);
--		}
- 	}
- disable_clocks:
- 	cci_disable_clocks(cci);
-@@ -636,7 +639,6 @@ static void cci_remove(struct platform_device *pdev)
- 	for (i = 0; i < cci->data->num_masters; i++) {
- 		if (cci->master[i].cci) {
- 			i2c_del_adapter(&cci->master[i].adap);
--			of_node_put(cci->master[i].adap.dev.of_node);
- 			cci_halt(cci, i);
- 		}
- 	}
--- 
-2.55.0
-
+thanks,
+-- Shuah
