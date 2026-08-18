@@ -1,291 +1,215 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CDB376A16;
-	Tue, 18 Aug 2026 20:17:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251243290B9
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 20:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787084248; cv=none; b=QewTUSe8vlqVxvwyBDm+9dBNDBRxnBdehBPA97ArhBe7SVJUt0N3Nonx07wRelYR/p6u+MsG2NB+vdUEorT8kgMdhgJ7PyD4KhDNyxfXyf+ychxRDL5CuIceMLgtqOMZ/NbLDWQsOkdM0Lk+AaX/7BNFkRmPranj3ZPbwhO5HjY=
+	t=1787084328; cv=none; b=n7DW2YBWZLRJmNhGe5/U6MHCKNaFqqq8ub013VSL1KSJlxJ3SsDh0Albxyi2Pdv+lJkgq1oQ95eVk8OlnuUAWoVK/SYWxJzrdtDa+h629i+hhFjUMjM128fXZI6kOJyGKCvZbSw5z0x23T04y+0Hk7O9d2skTftMeQJ6N6pTnXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787084248; c=relaxed/simple;
-	bh=JpHHj35FkGBLiU/LWm6Hzh64bz7NqhwxKdzb3VX0EOI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pF3fM2AM2JQVq4QK1FzHFt8hdMj6pBDfNXCe4fsq5NvCWxhqQwyTpU3FBv4N1xRQCGnaaV0Dnxdlr1CO+SoFpz4NOs3682Ch/wS9XYin97eScRha3BSSot2w7592mOtzKMBqD1VPm5Jcrz4aOXqcxAYAk7ov+cAY+BQW459EdF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=5IvFN7+w; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1787084328; c=relaxed/simple;
+	bh=QSjEJ+3oiIlDrlfXsEdJ5jpNGIkTPrgzJoW6lljP6f8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=akMWzliLPnJYkSnAdM+Ep7at5BvZxmO/2jP5vbnILIEvut0tPROBN6siL+OG6vIdNGRpkGVFE/pLDCekyoABm/HgO+/RH5Ff6X1r8ZFpYDLok3DqGyO8Y2zbUePiUoJAAQY8XuJOsO+J3f+xrc/d1B2kqUn7fZfLb8WRTwnR1gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cx/4bFqE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ssI6nvWl; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="5IvFN7+w"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 2489221DBF;
-	Tue, 18 Aug 2026 23:17:13 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-transfer-encoding:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=m+dvpQnJxszAtsaLlh834Lb4G8Qek8B1GHTn5sF2l18=; b=5IvFN7+wB4cy
-	YC0vt+gwhGlCbC5AReOvrP6KpJfX25upRxRflELip0mgYY6Ce/gIdSdSsGKwKsj4
-	c189+odEYH8ZqaVOYFU0W7Ch5Wdi9hnxlm2gFWbuUGdCgIYau3RBy7ZIp6yaFBr5
-	rGGR2Vrc/yo8zjbeAQWG887L3XpuwiDcm9bsCLmHvCFdzCPpr+mRyWzpinxh4f5F
-	z8iUP3jzDOUaotFn1GAYpBI4fylbGRscuzyh3BH30wRDdC7J+nOU5LXGCBVVNcNN
-	LJlQTqOeNCjFySIHvqzD9p/CIao6biPJyyEv1ocep45LvzOZ9MGgdRy2+anJFLVn
-	czBD7hnna6Lh8xV7/Y+jyOmzz105VK2gVjus2SRbGfzH4bqw229UwvWMpVo6uolu
-	vmxKv0wEQyfYXIX/pyGWOjOEPqZnAtDcF6Ew07BIqSO+wrlE3IwugQVRdAbs6rSP
-	t4P9Jlk2I0UGFDZYV8OsCs2ay3iyDDwdWvJKCtQN2tswcRO86/RaUMnvtNm/dA33
-	98UW2XBivnJ/K4lVwYtZBioKYMWbnY29HgokYcW3eaOMuNokpgy51Xhu6GdFkdUS
-	RQg4FX+iHDiR34rtxTWU1z4tGoBi2sh1bnOi/NV5WW5gfdFpoJcyQNARaZ0SeSXK
-	SLjlBuLeXE0+tJj957ww59Ond6cjxjg=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Tue, 18 Aug 2026 23:17:13 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 37D9E61DD5;
-	Tue, 18 Aug 2026 23:17:15 +0300 (EEST)
-Received: from ja.home.ssi.bg (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 67IKH4Js121476;
-	Tue, 18 Aug 2026 23:17:04 +0300
-Received: (from root@localhost)
-	by ja.home.ssi.bg (8.18.2/8.18.2/Submit) id 67IKH4T1121474;
-	Tue, 18 Aug 2026 23:17:04 +0300
-From: Julian Anastasov <ja@ssi.bg>
-To: stable@vger.kernel.org
-Cc: Simon Horman <horms@verge.net.au>, lvs-devel@vger.kernel.org,
-        Pablo Neira Ayuso <pablo@netfilter.org>,
-        Florian Westphal <fw@strlen.de>, netfilter-devel@vger.kernel.org
-Subject: [PATCH -stable 1/1] ipvs: separate destination availability state
-Date: Tue, 18 Aug 2026 23:16:38 +0300
-Message-ID: <20260818201638.121446-2-ja@ssi.bg>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260818201638.121446-1-ja@ssi.bg>
-References: <20260818201638.121446-1-ja@ssi.bg>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cx/4bFqE";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ssI6nvWl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787084326;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g9OWuHNZhe61OBLjXm8D+LZBFST1XmHdZMCDCW5KK8E=;
+	b=cx/4bFqEFoXVIBAUFafdi1KhtIsYYeNbC3hp0IENT3OGULF8KwFOvRqyXmCg5CWKiscLUW
+	WoWWq11FVJtG0/H6oKwLLGw62NYL00YFHgXpJhE661xyopXOtovzi2ivLDBLIa03QH6kMF
+	55Y+OU1P6RTWRjOrz1rrIpgxrbILuI8=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-210-0aE8XyQ-NMWdYlyuyk_lcA-1; Tue, 18 Aug 2026 16:18:44 -0400
+X-MC-Unique: 0aE8XyQ-NMWdYlyuyk_lcA-1
+X-Mimecast-MFC-AGG-ID: 0aE8XyQ-NMWdYlyuyk_lcA_1787084324
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8ef8249f871so4215046d6.0
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 13:18:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787084324; x=1787689124; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=g9OWuHNZhe61OBLjXm8D+LZBFST1XmHdZMCDCW5KK8E=;
+        b=ssI6nvWlaS8pbxt7AN6Y1dEZxZK5CF/GMbsaacl4FI5QXSBiEjIcVoeWdhasLbFi0/
+         5i5dJQMeTBa6jG68CJAZG6BjwT04X3YBultRhDWeM8wV/ymruRzkqyM09N9PFimelDGJ
+         cKhn9iEBWMYFvLuYETILE+UqGQ+znB8lRLQSnFqt9zVzerfawn1W62MuM4V4tO/XFG2p
+         U3XAcSQeaH6ccbVqiv8+W9ewn/kilH+bGkg3NhCGiu3SMkTNvQ+9bdEJNfbfwnUrWiO9
+         Jm86Y9XHU3eOsqIWFO3KIH9+5R/7cFX7HVZJCfNwv4pnNLADWxBnlFE9JIp7xJf0wXBo
+         rG/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787084324; x=1787689124;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g9OWuHNZhe61OBLjXm8D+LZBFST1XmHdZMCDCW5KK8E=;
+        b=pITMfkIoW8Ihb430l81p7REH2vhgh2LfK92BnSW+mGlFOljL/3/Q99WAY4CebFc5ft
+         lkHyGxUr9A6f23R9dVP4XAwt0mn8L38QlfB7v1neZ3JRVXh3nmPxvgcUfyErnHSzMtoe
+         hhLeqb5F+OFGRxDFrriDML6a1vQTLcm1AC8JTA1NxxXGvMb45VuNEi+kGAtEyf36LnOa
+         hWAdaFZ3Z1Fn3RgYwN7j3j2icXdvrz/E697AbWRlRma5NE9dN9RriWX3PGMa9NLLNonq
+         6ugBpGbPdKzAW0aYW/JnlY49EFhwnwiM4PuRClAX3jgAYwW6UWSnTFkn9YLAoE33Os1o
+         NSxA==
+X-Forwarded-Encrypted: i=1; AHgh+RopqV5RFEuFWlJIAhc0H/JazS780onBPFUIYdd3ccBGugWxx8XLsJsM/DHZ9Y4bT7xEzdNJSTg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxM0CUqtE2USB+pxq789IKH3aAn13Xfd5eZ3t55n7xOieU7pxrr
+	LnheaE4c46E+v7REmBhIX5wB7tzzp/F5ANV040o0u0kINRtNqi0mFwVlKaH87ehEctCRVUuRrU6
+	H5VXnZe3Vue1fELuIVsHpUIE+JsKsviSOtIPPGlilB1UR/QMDVTrASJjmOg==
+X-Gm-Gg: AR+sD11eQbkGBnUG8kbxpp2K+XUBcSaBnKqbksSCcP1ExE0Hf/vcZlgMUrtvAg9Ivkd
+	6VqmfMdX4/f4XuX7qgVE2gOPl49C+5/4dAGQo4RnONsgIA/Wj63rPK2AvGXcRW3UVMl/jUWVGAS
+	7VBFHA4MBqFSrw7BrOqR5M0p8/QDxDiuqwGjWfEWl2NjjVc8QgdQO7R2LhczuMYM0WufBlyXGqM
+	i69aqTM+PGk5D4X6YAWJTvwlw94gqjz7bk+sjnijHpZieZDl8KSrHZeUuNIhI1PKFs5YOPqhFfx
+	DsQHRexZnbeumt78lkS8O0XrLpXjGwWgzBcvfh+V978+XRafHUDp/9TKF65guG5UQhDpyPkx
+X-Received: by 2002:a05:6214:4518:b0:8be:7779:d1b1 with SMTP id 6a1803df08f44-90c5c14e795mr13754636d6.30.1787084323989;
+        Tue, 18 Aug 2026 13:18:43 -0700 (PDT)
+X-Received: by 2002:a05:6214:4518:b0:8be:7779:d1b1 with SMTP id 6a1803df08f44-90c5c14e795mr13753966d6.30.1787084323495;
+        Tue, 18 Aug 2026 13:18:43 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c4597793esm39672716d6.41.2026.08.18.13.18.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 13:18:42 -0700 (PDT)
+Message-ID: <d7adac6cd62cdf816e0caf96f524d3ff30811186.camel@redhat.com>
+Subject: Re: [PATCH v2] drm/nouveau/svm: drain fault handler before freeing
+ svmm
+From: lyude@redhat.com
+To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Ben Skeggs
+ <bskeggs@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+	stable@vger.kernel.org
+Date: Tue, 18 Aug 2026 16:18:42 -0400
+In-Reply-To: <20260814-nouveau-svm-svmm-uaf-v2-1-8e6590519f07@gmail.com>
+References: <20260814-nouveau-svm-svmm-uaf-v2-1-8e6590519f07@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-commit cdcc4e46180df8161f4d2f3c6fd6beaf6990133d upstream.
+Will push to drm-misc-next in just a moment
 
-IPVS configuration paths update destination availability while connection
-accounting updates destination overload state. The two independent states
-share dest->flags, so their read-modify-write updates can race and lose one
-another.
-
-Keep OVERLOAD in flags, where the preceding patch serializes its updates
-with dst_lock, and move AVAILABLE to cflags. This keeps configuration-
-controlled availability out of the scheduler hot cacheline until a
-scheduler needs to check it. It also prevents availability updates from
-clobbering overload state.
-
-The destination status bits are not exposed through the IPVS sockopt or
-netlink interfaces, so keep their definitions in the internal IPVS header.
-
-Readers can still observe stale destination state; this does not provide a
-cross-field snapshot.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Link: https://lore.kernel.org/all/8913381c-1e02-35c7-0ec4-61de5a12fd35@ssi.bg/
-Assisted-by: Claude-Code:GLM-5.2
-Suggested-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Acked-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-(cherry picked from commit cdcc4e46180df8161f4d2f3c6fd6beaf6990133d)
-[ Julian: Backport by removing the hunks from ip_vs_xmit.c ]
-Signed-off-by: Julian Anastasov <ja@ssi.bg>
----
- include/net/ip_vs.h              | 7 +++++++
- include/uapi/linux/ip_vs.h       | 6 ------
- net/netfilter/ipvs/ip_vs_conn.c  | 4 ++--
- net/netfilter/ipvs/ip_vs_core.c  | 6 +++---
- net/netfilter/ipvs/ip_vs_ctl.c   | 4 ++--
- net/netfilter/ipvs/ip_vs_dh.c    | 4 ++--
- net/netfilter/ipvs/ip_vs_lblc.c  | 2 +-
- net/netfilter/ipvs/ip_vs_lblcr.c | 8 ++++----
- 8 files changed, 21 insertions(+), 20 deletions(-)
-
-diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-index b65009a226e0..94dfc3a265ee 100644
---- a/include/net/ip_vs.h
-+++ b/include/net/ip_vs.h
-@@ -34,6 +34,12 @@
- #define IP_VS_HDR_INVERSE	1
- #define IP_VS_HDR_ICMP		2
- 
-+/* Destination Server Flags */
-+#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
-+
-+/* Destination Server Config Flags */
-+#define IP_VS_DEST_CF_AVAILABLE	0x0001		/* server is available */
-+
- /* Generic access of ipvs struct */
- static inline struct netns_ipvs *net_ipvs(struct net* net)
- {
-@@ -725,6 +731,7 @@ struct ip_vs_dest {
- 	volatile unsigned int	flags;		/* dest status flags */
- 	atomic_t		conn_flags;	/* flags to copy to conn */
- 	atomic_t		weight;		/* server weight */
-+	unsigned long		cflags;		/* config flags */
- 	atomic_t		last_weight;	/* server latest weight */
- 	__u16			tun_type;	/* tunnel type */
- 	__be16			tun_port;	/* tunnel port */
-diff --git a/include/uapi/linux/ip_vs.h b/include/uapi/linux/ip_vs.h
-index 1ed234e7f251..2c37c6ac7525 100644
---- a/include/uapi/linux/ip_vs.h
-+++ b/include/uapi/linux/ip_vs.h
-@@ -28,12 +28,6 @@
- #define IP_VS_SVC_F_SCHED_SH_FALLBACK	IP_VS_SVC_F_SCHED1 /* SH fallback */
- #define IP_VS_SVC_F_SCHED_SH_PORT	IP_VS_SVC_F_SCHED2 /* SH use port */
- 
--/*
-- *      Destination Server Flags
-- */
--#define IP_VS_DEST_F_AVAILABLE	0x0001		/* server is available */
--#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
--
- /*
-  *      IPVS sync daemon states
-  */
-diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-index e42fed876596..7da11628073b 100644
---- a/net/netfilter/ipvs/ip_vs_conn.c
-+++ b/net/netfilter/ipvs/ip_vs_conn.c
-@@ -759,7 +759,7 @@ int ip_vs_check_template(struct ip_vs_conn *ct, struct ip_vs_dest *cdest)
- 	 * Checking the dest server status.
- 	 */
- 	if ((dest == NULL) ||
--	    !(dest->flags & IP_VS_DEST_F_AVAILABLE) ||
-+	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE) ||
- 	    expire_quiescent_template(ipvs, dest) ||
- 	    (cdest && (dest != cdest))) {
- 		IP_VS_DBG_BUF(9, "check_template: dest not available for "
-@@ -1408,7 +1408,7 @@ void ip_vs_expire_nodest_conn_flush(struct netns_ipvs *ipvs)
- 				continue;
- 
- 			dest = cp->dest;
--			if (!dest || (dest->flags & IP_VS_DEST_F_AVAILABLE))
-+			if (!dest || (dest->cflags & IP_VS_DEST_CF_AVAILABLE))
- 				continue;
- 
- 			if (atomic_read(&cp->n_control))
-diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-index d121ea3d16bc..1f62ca2f7330 100644
---- a/net/netfilter/ipvs/ip_vs_core.c
-+++ b/net/netfilter/ipvs/ip_vs_core.c
-@@ -124,7 +124,7 @@ ip_vs_in_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
- 	struct ip_vs_dest *dest = cp->dest;
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 
--	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		struct ip_vs_cpu_stats *s;
- 		struct ip_vs_service *svc;
- 
-@@ -160,7 +160,7 @@ ip_vs_out_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
- 	struct ip_vs_dest *dest = cp->dest;
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 
--	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		struct ip_vs_cpu_stats *s;
- 		struct ip_vs_service *svc;
- 
-@@ -2030,7 +2030,7 @@ ip_vs_in_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state
- 	}
- 
- 	/* Check the server status */
--	if (cp && cp->dest && !(cp->dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (cp && cp->dest && !(cp->dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		/* the destination server is not available */
- 		if (sysctl_expire_nodest_conn(ipvs)) {
- 			bool old_ct = ip_vs_conn_uses_old_conntrack(cp, skb);
-diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
-index 5dea5a14e85f..c0257ef4d8b0 100644
---- a/net/netfilter/ipvs/ip_vs_ctl.c
-+++ b/net/netfilter/ipvs/ip_vs_ctl.c
-@@ -1058,7 +1058,7 @@ __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
- 	}
- 
- 	/* set the dest status flags */
--	dest->flags |= IP_VS_DEST_F_AVAILABLE;
-+	dest->cflags |= IP_VS_DEST_CF_AVAILABLE;
- 
- 	if (READ_ONCE(dest->u_threshold) != udest->u_threshold ||
- 	    READ_ONCE(dest->l_threshold) != udest->l_threshold) {
-@@ -1325,7 +1325,7 @@ static void __ip_vs_unlink_dest(struct ip_vs_service *svc,
- 				struct ip_vs_dest *dest,
- 				int svcupd)
- {
--	dest->flags &= ~IP_VS_DEST_F_AVAILABLE;
-+	dest->cflags &= ~IP_VS_DEST_CF_AVAILABLE;
- 
- 	/*
- 	 *  Remove it from the d-linked destination list.
-diff --git a/net/netfilter/ipvs/ip_vs_dh.c b/net/netfilter/ipvs/ip_vs_dh.c
-index 75f4c231f4a0..f04d2530a093 100644
---- a/net/netfilter/ipvs/ip_vs_dh.c
-+++ b/net/netfilter/ipvs/ip_vs_dh.c
-@@ -220,8 +220,8 @@ ip_vs_dh_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
- 
- 	s = (struct ip_vs_dh_state *) svc->sched_data;
- 	dest = ip_vs_dh_get(svc->af, s, &iph->daddr);
--	if (!dest
--	    || !(dest->flags & IP_VS_DEST_F_AVAILABLE)
-+	if (!dest ||
-+	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE)
- 	    || atomic_read(&dest->weight) <= 0
- 	    || is_overloaded(dest)) {
- 		ip_vs_scheduler_err(svc, "no destination available");
-diff --git a/net/netfilter/ipvs/ip_vs_lblc.c b/net/netfilter/ipvs/ip_vs_lblc.c
-index 156181a3bacd..9bb1e05063dc 100644
---- a/net/netfilter/ipvs/ip_vs_lblc.c
-+++ b/net/netfilter/ipvs/ip_vs_lblc.c
-@@ -503,7 +503,7 @@ ip_vs_lblc_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
- 		 */
- 
- 		dest = en->dest;
--		if ((dest->flags & IP_VS_DEST_F_AVAILABLE) &&
-+		if ((dest->cflags & IP_VS_DEST_CF_AVAILABLE) &&
- 		    atomic_read(&dest->weight) > 0 && !is_overloaded(dest, svc))
- 			goto out;
- 	}
-diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-index a021e6aba3d7..1a53c1254fe5 100644
---- a/net/netfilter/ipvs/ip_vs_lblcr.c
-+++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-@@ -170,8 +170,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
- 		if (least->flags & IP_VS_DEST_F_OVERLOAD)
- 			continue;
- 
--		if ((atomic_read(&least->weight) > 0)
--		    && (least->flags & IP_VS_DEST_F_AVAILABLE)) {
-+		if ((atomic_read(&least->weight) > 0) &&
-+		    (least->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 			loh = ip_vs_dest_conn_overhead(least);
- 			goto nextstage;
- 		}
-@@ -187,8 +187,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
- 
- 		doh = ip_vs_dest_conn_overhead(dest);
- 		if (((__s64)loh * atomic_read(&dest->weight) >
--		     (__s64)doh * atomic_read(&least->weight))
--		    && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+		     (__s64)doh * atomic_read(&least->weight)) &&
-+		    (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 			least = dest;
- 			loh = doh;
- 		}
--- 
-2.55.0
-
+On Fri, 2026-08-14 at 18:00 +0800, Zhenhao Wan wrote:
+> The SVM fault handler nouveau_svm_fault() looks up each fault's
+> nouveau_svmm under svm->mutex, caches it in the fault array, then
+> drops
+> svm->mutex and dereferences the svmm across blocking faults
+> (mmu_interval_notifier_insert(), hmm_range_fault()).
+>=20
+> nouveau_svmm is not refcounted. On DRM file close nouveau_svmm_fini()
+> ->
+> mmu_notifier_put() frees it asynchronously via call_srcu() without
+> waiting for the handler, and mmget_not_zero() pins the mm, not the
+> svmm.
+> flush_work() on the fault buffer otherwise runs only at device
+> removal
+> and suspend, never on close, so a fault handled concurrently with a
+> close
+> can dereference a freed svmm.
+>=20
+> The instance is already unlinked by nouveau_svmm_part() earlier in
+> the
+> same close, so no new fault can resolve to it. Drain the handler in
+> nouveau_svmm_fini() before the free, guarding the flush with a NULL
+> check
+> on drm->svm: on device teardown nouveau_svm_fini() runs first and
+> frees
+> drm->svm (NULL) after blocking the notify and flushing the buffer, so
+> the
+> handler is already drained; on per-client close drm->svm is alive and
+> the
+> flush runs.
+>=20
+> Fixes: eeaf06ac1a55 ("drm/nouveau/svm: initial support for shared
+> virtual memory")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+> ---
+> Changes in v2:
+> - Fix a NULL deref introduced in v1: guard flush_work() with a NULL
+> =C2=A0 check on drm->svm.=C2=A0 On device teardown nouveau_svm_fini() fre=
+es
+> =C2=A0 drm->svm before the per-client svmm teardown, so
+> nouveau_svmm_fini()
+> =C2=A0 would deref NULL (reported by Sashiko AI review); the handler is
+> =C2=A0 already drained there, so there is nothing left to flush.
+> - Tighten the commit message and the code comment; no functional
+> change.
+> - Link to v1:
+> https://patch.msgid.link/20260813-nouveau-svm-svmm-uaf-v1-1-2d3112dea734@=
+gmail.com
+>=20
+> To: Lyude Paul <lyude@redhat.com>
+> To: Danilo Krummrich <dakr@kernel.org>
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> To: Ben Skeggs <bskeggs@redhat.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: nouveau@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_svm.c | 13 +++++++++++++
+> =C2=A01 file changed, 13 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c
+> b/drivers/gpu/drm/nouveau/nouveau_svm.c
+> index dcc92131488e..a87406d3da30 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_svm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
+> @@ -304,6 +304,19 @@ nouveau_svmm_fini(struct nouveau_svmm **psvmm)
+> =C2=A0{
+> =C2=A0	struct nouveau_svmm *svmm =3D *psvmm;
+> =C2=A0	if (svmm) {
+> +		struct nouveau_svm *svm =3D svmm->vmm->cli->drm->svm;
+> +
+> +		/* The fault handler caches svmm pointers under svm-
+> >mutex and
+> +		 * dereferences them after dropping it, across
+> blocking faults.
+> +		 * The instance is already unlinked
+> (nouveau_svmm_part), so drain
+> +		 * the handler before the free to release any in-
+> flight reference.
+> +		 *
+> +		 * On device teardown nouveau_svm_fini() ran first
+> and freed
+> +		 * drm->svm (NULL) after draining the buffer;
+> nothing to flush.
+> +		 */
+> +		if (svm)
+> +			flush_work(&svm->buffer[0].work);
+> +
+> =C2=A0		mutex_lock(&svmm->mutex);
+> =C2=A0		svmm->vmm =3D NULL;
+> =C2=A0		mutex_unlock(&svmm->mutex);
+>=20
+> ---
+> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> change-id: 20260813-nouveau-svm-svmm-uaf-bbcf36265aaa
+>=20
+> Best regards,
+> --=C2=A0=20
+> Zhenhao Wan <whi4ed0g@gmail.com>
 
