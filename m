@@ -1,221 +1,142 @@
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8D323D7F0;
-	Tue, 18 Aug 2026 04:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24936347BD4
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 04:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787028450; cv=none; b=uToQrKjgzV40SkeEtdsd2rmcteqEGzuUfbMA2MlZ+L3rG/lEF+Lv2sg9loC4pDd2CXqUXMvDBgttvBpg7JNqrYfGp6mJPOHO7nF25EgGYBoaQQg2Fo9g/OUHweqIcvnlsaAd5uPJxhFSP+NbIJ+TMJo1nucqgJFuhAWnn1HZqlY=
+	t=1787028938; cv=none; b=SZ6z0HNno36KdB6Ih4/hRAmv+3T3rnVr1qgyGraLQ3n0Jh8/McbFlf32fHj5AzTjv67pNrUAA0ybXXLiy8j7i2isrY+34OHJzIo3OkJvZXchWDlDa4jD9xQEMnSPO52dsoJa1/un4JoDHG3ysw2BVcq8rjcUljwuQ4KY1uemzEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787028450; c=relaxed/simple;
-	bh=CwHyacFbu+Kyy9CF4ozacw335KBNHHWjFpPwFMPtdr4=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=Pdr8hMs8IEObR0zFJSAlqAJRmH2tLwU2vo4SSWvxO786YfVJHSfqrG8UVQDRVGDOfPGivIBM0k3SIMCMjEhK7YQFkhG/sxSv6yufBwNRUxBjr3ZBJLOtJN7a77dVopLu/IOElpS1wDhtDC8LCZQhF3unQw7kXsgOLsIhNmrF2xY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=bZrjObYt; arc=none smtp.client-ip=113.46.200.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1787028938; c=relaxed/simple;
+	bh=o4+aZ6qS0S9nkK81uPz+cUCUIngJN+MKKpptDZdgbkk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ah8pzUtpH7Br6k641A9x3xFoSQzi4A82ZXf+xB5kLFcWc3Zws8UWvkLP1IXjX/F+EcU4ixbOx8zDyJR9AUwb16Hs2x3xPi5nybM8Q/IkPBfLrQCB5iUQcpqvNzXF0DJ1wK2Lq7nGSd4IlZ4uNu5w/SKrCDIYRZNsTDWLagPEKH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R9+r6LDA; arc=none smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="bZrjObYt"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=fKK3qATimt/wdTrHhSiowrHjAlFSvKzysC+KCiLE/Z0=;
-	b=bZrjObYta2T0FDnulsERsW1si+rQd/pk7mkgsfzu0o8uM6TCCfNlHvLadtSs5VmiXdPetltEh
-	Bz/iRH4Kjd/HhIUElGccZwIj3BVw5hQvo4VeZK/Smfs+nrL8eY4bRDjceTmFN3R0BA1Ne/4WuEd
-	nsylu8DfVrU+CoaZ0ZCimIY=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hPH3H4876zRhR0;
-	Tue, 18 Aug 2026 12:36:43 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4EC7640575;
-	Tue, 18 Aug 2026 12:47:22 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 18 Aug 2026 12:47:21 +0800
-Subject: Re: [PATCH v6.12.y 2/2] ubi: fastmap: fix ubi->fm memory leak
-To: Dominique Martinet <dominique.martinet@atmark-techno.com>,
-	<stable@vger.kernel.org>
-CC: Richard Weinberger <richard@nod.at>, Miquel Raynal
-	<miquel.raynal@bootlin.com>, <linux-mtd@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Liyuan Pang <pangliyuan1@huawei.com>
-References: <20260818-ubi-backports-v1-0-324d6816d2ae@atmark-techno.com>
- <20260818-ubi-backports-v1-2-324d6816d2ae@atmark-techno.com>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <819387b2-0fb8-4cb7-5645-181619eb6fc3@huawei.com>
-Date: Tue, 18 Aug 2026 12:47:20 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R9+r6LDA"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-8f186025973so38926426d6.0
+        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 21:55:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787028936; x=1787633736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Wc1B4UKGofVVH26ecK+ofT0cydYY+iUUwt3ZyLVBedk=;
+        b=R9+r6LDA3Xn+S/lYbFDZCeT8SGWO01cNC4BvR7OwUBV6EM4RPLA5M7UWrLWvPKTDK3
+         GLLdICa8NOVoEtU4Ve/nPkW8HeOc2DKUAZFHJgiWBN/JvjXQco/uAxS/wtF5DEFv1cbX
+         OSb53Xr86zUHNM+sqCUHyDp1l4fGLRptFimOnuGHvaFb8Sb0rlXSvtpyiH5keKVrc4xm
+         cPNs/d8YnTihaA1lI9qHzj0NObvHVgikRLm9W8U5M8XywTsLmcq+vRaafgNc0PWIHdOX
+         j2Kh6XFPoHgVX73fE7oy+RJcLfg257xx/AydkZAgyi/d/kLf1ZSNzxHWrYyyvKOFjNTs
+         Qkpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787028936; x=1787633736;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wc1B4UKGofVVH26ecK+ofT0cydYY+iUUwt3ZyLVBedk=;
+        b=R8pvFXDwglW8jQZtOCdP2MDkczoAVwmtQF3I+xV7YhvcflYHVGVKhtNXtZF7jegTrk
+         7yRUoR+u7Yx4FWC4AQRBf8BwfTnj8LI3ixdzKFz7A9IrrC6OWSa9h16EFRAcsiV68QfC
+         y/ofBEj0vtkmTFd5O11NZecOtX1RQib800XavMYEoa8/7+CklnmaAhrZplgHBOFSpdWI
+         4bfgr53GpbydEPkg9Tw5S2oXu1itg6F09/iEph0T7/gimocrsgZzO37Ahez3XGNLV6lu
+         /1bo/XsikDb6sYK8nTLkiR4/wS/c9ygeA0RubqkSu8Y+YAGBe+LffUpLwVfDB5KZsBCU
+         scIw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4d/L/dFmwfLNEyeHHFlOYc9s+Ut/uzyxpIE+zaOLmN9ohPFl2GjIKUTJG0ZeY+wnyO0bIgHY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfacNUkHmMJLztfhlAG9IL0PuUVe0KlOkg5Bq7jRXhEIZMj3Ux
+	9Tk9I3G46ag2ab+ANzFQjpMRVPyGANsNCGJLnqT8o2nFQVhPn8MYhUae
+X-Gm-Gg: AR+sD13q9IV87mCsW1KpFUE1N5t/FdRr7ZgayoC/ypMulHqAZzHrMLsb4Zjf3IkbUdS
+	cl7jdtiKz4V0RvP/iWW3aFZt8aPyCIav3LRT1tETrc/8xevE+O+Qbx358AkvnxbMUn+x+PD0xcY
+	DbtLdR8dEOiPYWme3tt+wTE1rbm4gGx/GVy6pO2ALvMqaRi48GgN2TqFNBr2Gqc0+tj5X7rcVa9
+	+ApaedjuP9jn6kowNYxj5cNQl4xbMrxhqWrf6stbpKP9XpfRcmEZaPiMYcUuL0qvQxln3Gf9YxV
+	mh2L3MZpHtA57zIPkgqpHUJESZPZrTCaa3wwjOTnXUNYFC9mVvDfQ0rZdh1vMGSgeAb4sRsOSdh
+	LRv+wRz5ydx0QZVS0Q2FgcYshKZTX97Q01sCmuQoEdm+5WgsQ3wFBZdEdCISdrNQ+u8uO3lSrKx
+	IT96KRExLk1cBgkvYacIOZ5ZkkpSckb7P9nUhxd90NKVMYryFqwds6/pJaN9/Fl4q6HOw062cnF
+	YJFtahCnVkTn9tfdA==
+X-Received: by 2002:a05:6214:53c3:b0:906:2b80:4684 with SMTP id 6a1803df08f44-90a91cf1279mr338284886d6.3.1787028936056;
+        Mon, 17 Aug 2026 21:55:36 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c4d0c0360sm12345536d6.16.2026.08.17.21.55.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 21:55:35 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: dvb-core: remove active network interfaces on release
+Date: Tue, 18 Aug 2026 00:55:21 -0400
+Message-ID: <20260818045521.1600266-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260818-ubi-backports-v1-2-324d6816d2ae@atmark-techno.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemo200011.china.huawei.com (7.152.185.179)
 
-在 2026/8/18 10:09, Dominique Martinet 写道:
-> From: Liyuan Pang <pangliyuan1@huawei.com>
-> 
-> The problem is that scan_fast() allocate memory for ubi->fm
-> and ubi->fm->e[x], but if the following attach process fails
-> in ubi_wl_init or ubi_read_volume_table, the whole attach
-> process will fail without executing ubi_wl_close to free the
-> memory under ubi->fm.
-> 
-> Fix this by add a new ubi_free_fastmap function in fastmap.c
-> to free the memory allocated for fm.
-> 
-> If SLUB_DEBUG and KUNIT are enabled, the following warning messages
-> will show:
-> ubi0: detaching mtd0
-> ubi0: mtd0 is detached
-> ubi0: default fastmap pool size: 200
-> ubi0: default fastmap WL pool size: 100
-> ubi0: attaching mtd0
-> ubi0: attached by fastmap
-> ubi0: fastmap pool size: 200
-> ubi0: fastmap WL pool size: 100
-> ubi0 error: ubi_wl_init [ubi]: no enough physical eraseblocks (4, need 203)
-> ubi0 error: ubi_attach_mtd_dev [ubi]: failed to attach mtd0, error -28
-> UBI error: cannot attach mtd0
-> =================================================================
-> BUG ubi_wl_entry_slab (Tainted: G    B      O L   ): Objects remaining in ubi_wl_entry_slab on __kmem_cache_shutdown()
-> -----------------------------------------------------------------------------
-> 
-> Slab 0xffff2fd23a40cd00 objects=22 used=1 fp=0xffff2fd1d0334fd8 flags=0x883fffc010200(slab|head|section=34|node=0|zone=1|lastcpupid=0x7fff)
-> CPU: 0 PID: 5884 Comm: insmod Tainted: G    B      O L    5.10.0 #1
-> Hardware name: LS1043A RDB Board (DT)
-> Call trace:
->   dump_backtrace+0x0/0x198
->   show_stack+0x18/0x28
->   dump_stack+0xe8/0x15c
->   slab_err+0x94/0xc0
->   __kmem_cache_shutdown+0x1fc/0x39c
->   kmem_cache_destroy+0x48/0x138
->   ubi_init+0x1d4/0xf34 [ubi]
->   do_one_initcall+0xb4/0x24c
->   do_init_module+0x4c/0x1dc
->   load_module+0x212c/0x2260
->   __se_sys_finit_module+0xb4/0xd8
->   __arm64_sys_finit_module+0x18/0x28
->   el0_svc_common.constprop.0+0x78/0x1a0
->   do_el0_svc+0x78/0x90
->   el0_svc+0x20/0x38
->   el0_sync_handler+0xf0/0x140
->   normal+0x3d8/0x400
-> Object 0xffff2fd1d0334e68 @offset=3688
-> Allocated in ubi_scan_fastmap+0xf04/0xf40 [ubi] age=80 cpu=0 pid=5884
-> 	__slab_alloc.isra.21+0x6c/0xb4
-> 	kmem_cache_alloc+0x1e4/0x80c
-> 	ubi_scan_fastmap+0xf04/0xf40 [ubi]
-> 	ubi_attach+0x1f0/0x3a8 [ubi]
-> 	ubi_attach_mtd_dev+0x810/0xbc8 [ubi]
-> 	ubi_init+0x238/0xf34 [ubi]
-> 	do_one_initcall+0xb4/0x24c
-> 	do_init_module+0x4c/0x1dc
-> 	load_module+0x212c/0x2260
-> 	__se_sys_finit_module+0xb4/0xd8
-> 	__arm64_sys_finit_module+0x18/0x28
-> 	el0_svc_common.constprop.0+0x78/0x1a0
-> 	do_el0_svc+0x78/0x90
-> 	el0_svc+0x20/0x38
-> 	el0_sync_handler+0xf0/0x140
-> 	normal+0x3d8/0x400
-> 
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=220744
-> 
-> Signed-off-by: Liyuan Pang <pangliyuan1@huawei.com>
-> Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> Signed-off-by: Richard Weinberger <richard@nod.at>
-> (cherry picked from commit d133e30aabc7c8eb8206827f8fbe0f3679adb911)
-> Signed-off-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
-> ---
->   drivers/mtd/ubi/attach.c     |  4 +++-
->   drivers/mtd/ubi/fastmap-wl.c |  8 +-------
->   drivers/mtd/ubi/ubi.h        | 12 ++++++++++++
->   3 files changed, 16 insertions(+), 8 deletions(-)
-> 
+dvb_net_release() marks the DVB net instance as exiting and then calls
+dvb_net_remove_if() for each network interface.  The latter rejects an
+interface while it is in use, but the release path cannot propagate the
+result and leaves the netdev registered and its feed active.  Callers may
+then proceed to tear down the demux and driver resources on which that feed
+depends.
 
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> diff --git a/drivers/mtd/ubi/attach.c b/drivers/mtd/ubi/attach.c
-> index adc47b87b38a..884171871d0e 100644
-> --- a/drivers/mtd/ubi/attach.c
-> +++ b/drivers/mtd/ubi/attach.c
-> @@ -1600,7 +1600,7 @@ int ubi_attach(struct ubi_device *ubi, int force_scan)
->   
->   	err = ubi_read_volume_table(ubi, ai);
->   	if (err)
-> -		goto out_ai;
-> +		goto out_fm;
->   
->   	err = ubi_wl_init(ubi, ai);
->   	if (err)
-> @@ -1642,6 +1642,8 @@ int ubi_attach(struct ubi_device *ubi, int force_scan)
->   out_vtbl:
->   	ubi_free_all_volumes(ubi);
->   	vfree(ubi->vtbl);
-> +out_fm:
-> +	ubi_free_fastmap(ubi);
->   out_ai:
->   	destroy_ai(ai);
->   	return err;
-> diff --git a/drivers/mtd/ubi/fastmap-wl.c b/drivers/mtd/ubi/fastmap-wl.c
-> index 9bdb6525f128..e2bc1122bfd3 100644
-> --- a/drivers/mtd/ubi/fastmap-wl.c
-> +++ b/drivers/mtd/ubi/fastmap-wl.c
-> @@ -530,8 +530,6 @@ int ubi_is_erase_work(struct ubi_work *wrk)
->   
->   static void ubi_fastmap_close(struct ubi_device *ubi)
->   {
-> -	int i;
-> -
->   	return_unused_pool_pebs(ubi, &ubi->fm_pool);
->   	return_unused_pool_pebs(ubi, &ubi->fm_wl_pool);
->   
-> @@ -540,11 +538,7 @@ static void ubi_fastmap_close(struct ubi_device *ubi)
->   		ubi->fm_anchor = NULL;
->   	}
->   
-> -	if (ubi->fm) {
-> -		for (i = 0; i < ubi->fm->used_blocks; i++)
-> -			kfree(ubi->fm->e[i]);
-> -	}
-> -	kfree(ubi->fm);
-> +	ubi_free_fastmap(ubi);
->   }
->   
->   /**
-> diff --git a/drivers/mtd/ubi/ubi.h b/drivers/mtd/ubi/ubi.h
-> index 1c9e874e8ede..450a7b9a5bd7 100644
-> --- a/drivers/mtd/ubi/ubi.h
-> +++ b/drivers/mtd/ubi/ubi.h
-> @@ -970,10 +970,22 @@ int ubi_scan_fastmap(struct ubi_device *ubi, struct ubi_attach_info *ai,
->   		     struct ubi_attach_info *scan_ai);
->   int ubi_fastmap_init_checkmap(struct ubi_volume *vol, int leb_count);
->   void ubi_fastmap_destroy_checkmap(struct ubi_volume *vol);
-> +static inline void ubi_free_fastmap(struct ubi_device *ubi)
-> +{
-> +	if (ubi->fm) {
-> +		int i;
-> +
-> +		for (i = 0; i < ubi->fm->used_blocks; i++)
-> +			kmem_cache_free(ubi_wl_entry_slab, ubi->fm->e[i]);
-> +		kfree(ubi->fm);
-> +		ubi->fm = NULL;
-> +	}
-> +}
->   #else
->   static inline int ubi_update_fastmap(struct ubi_device *ubi) { return 0; }
->   static inline int ubi_fastmap_init_checkmap(struct ubi_volume *vol, int leb_count) { return 0; }
->   static inline void ubi_fastmap_destroy_checkmap(struct ubi_volume *vol) {}
-> +static inline void ubi_free_fastmap(struct ubi_device *ubi) { }
->   #endif
->   
->   /* block.c */
-> 
+In ttusb-budget, a concurrent netdev open can be starting an isochronous
+feed while disconnect passes the failed interface removal and frees the
+driver's URBs.  If URB submission fails, the feed-start error path can then
+call usb_kill_urb() on an URB freed by disconnect.
+
+Keep returning -EBUSY when userspace explicitly requests removal of an
+active interface, but use the exit state to let the final release proceed.
+Unregister the netdev first so the networking core blocks new opens,
+synchronizes with an open already in progress, and invokes ndo_stop for an
+active interface.  Wait for the feed-management work to finish before
+freeing the netdev.  Since set_multicast_list_wq can restart a feed after
+ndo_stop(), stop any feed left by a completed work item.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+---
+ drivers/media/dvb-core/dvb_net.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
+index a2159b2bc176..a5726a006bc1 100644
+--- a/drivers/media/dvb-core/dvb_net.c
++++ b/drivers/media/dvb-core/dvb_net.c
+@@ -1404,18 +1404,26 @@ static int dvb_net_remove_if(struct dvb_net *dvbnet, unsigned long num)
+ {
+ 	struct net_device *net = dvbnet->device[num];
+ 	struct dvb_net_priv *priv;
++	bool exiting;
+ 
+ 	if (!dvbnet->state[num])
+ 		return -EINVAL;
+ 	priv = netdev_priv(net);
+-	if (priv->in_use)
++	mutex_lock(&dvbnet->remove_mutex);
++	exiting = dvbnet->exit;
++	mutex_unlock(&dvbnet->remove_mutex);
++	if (priv->in_use && !exiting)
+ 		return -EBUSY;
+ 
+-	dvb_net_stop(net);
+-	flush_work(&priv->set_multicast_list_wq);
+-	flush_work(&priv->restart_net_feed_wq);
+ 	pr_info("removed network interface %s\n", net->name);
+ 	unregister_netdev(net);
++	flush_work(&priv->set_multicast_list_wq);
++	flush_work(&priv->restart_net_feed_wq);
++	/*
++	 * set_multicast_list_wq may have restarted a feed after ndo_stop().
++	 */
++	if (priv->secfeed || priv->tsfeed)
++		dvb_net_feed_stop(net);
+ 	dvbnet->state[num]=0;
+ 	dvbnet->device[num] = NULL;
+ 	free_netdev(net);
+-- 
+2.43.0
 
