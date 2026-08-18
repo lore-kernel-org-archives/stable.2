@@ -1,55 +1,37 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC5833F8A5
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 04:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058BE379ED4;
+	Tue, 18 Aug 2026 04:27:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787026070; cv=none; b=Q+aqUI+zraEWAP20ydV/n/N9CDFTZU/YbA81Wbq5uVn17foLik9OKM1OmKxYTU5csvfLXmRJcJfDgidRlYuaRk+3T4LIOeEsAQFeEaXpqHGMaNuXntBl0K9PCozRflzmgGAJ9qdF6x+MDy8LoiMq1/HdDD9riZZEfsd/XfLUC5g=
+	t=1787027260; cv=none; b=JPbviPVzK7w9ipXaYObTrQv66yUYlnf7tFMepJmpH0ZynTwlMl6+20qAUFgJRoK5ag554W90sKv11SobXhm84+cyX3k7/YZQCxZeRVwSSXImUMONOCzUildjGiXJx2MPHY8dc1cASXa/kVixucPW44mhjHmj58umMVX5n8GRPig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787026070; c=relaxed/simple;
-	bh=ie7UiFEuQgwL1qP/sNwBsUOvW06oVYujPhEeWTFwr1c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gcN8sfcqEFAHqjEbW2Y2xeVBj2cg81MaupyAn78txk4FRUAjVfrUxJ6S810ih/2XoxZXYhkiBBBEaol5aeVdj+H9eigF0vygANZdHRpia4gB8hr76TWRgVWinU7ndBQyIrFlv/8hoXEBqXdeCXwWFJEJ5Rr44omxuYVlCHNLX+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RKZxEGeX; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787027260; c=relaxed/simple;
+	bh=4FEAs/0DLTDub6Cax+qu2wup/MihohBeeoK64o6r+R4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ezEYkXrJ5ylbLWGlajG97i+HmDuSciiC2FVh14THKhoe/fL6yzR1ndar7/ogtkqj0F66SqbBsKDOjlfwyEe4R4y1b4m7ICc+BDREbb82JP7h/A3l/DxZ6A2IXrtGifUZlhftgTt99IEEn545LbB0HQL4Ukk0Zm6bkjTbh7TSLhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=bEDFnZoD; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RKZxEGeX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787026067; x=1818562067;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ie7UiFEuQgwL1qP/sNwBsUOvW06oVYujPhEeWTFwr1c=;
-  b=RKZxEGeXSUY1dQakYi8ICVFe1cTX11WzPVZZgxqr9ZVL/zcnJNoWMQYx
-   xOvLhNaQCv1mv+dzj1gh9wbFKXRYAqNyEnuAFP6SZQcmSPdKmPih0deZh
-   ao15ARJE3FAYxm6HqMIUH4K994N5n2XHPRFvCQwEZkCRT+qM8urF3dOBD
-   E1AXAufX9tdTs8A1AfJQ1UdY8M5Wi6Tyu33G630rfUTAnmoRaPWt+IbIb
-   HZ1NKzC1uDKrMctUoW6fOuPDwHHAc8w6EDQrs1qRreLqbBSpR20SBs4n7
-   9dt5AlgoGC1Nmx148N4ecst1JxIwab4fU8YCoTV9eHea2f2yDPWSltcUO
-   Q==;
-X-CSE-ConnectionGUID: fdpijghTRFSib13b/2a2Zw==
-X-CSE-MsgGUID: jx/gG4dsRJ2xfWxo9T5ugQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="98870337"
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="98870337"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 21:07:46 -0700
-X-CSE-ConnectionGUID: Edo7hWWbQuGrnc9IrH8w+Q==
-X-CSE-MsgGUID: qXqPoZrTSKmzy8k8VnKN5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="262477149"
-Received: from varungup-desk.iind.intel.com ([10.190.238.71])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 21:07:45 -0700
-From: Varun Gupta <varun.gupta@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: stable@vger.kernel.org,
-	matthew.brost@intel.com
-Subject: [PATCH] drm/xe/guc: Skip CLEANUP message when GuC is stopped
-Date: Tue, 18 Aug 2026 09:37:33 +0530
-Message-ID: <20260818040733.135964-1-varun.gupta@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="bEDFnZoD"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a5b5664d;
+	Tue, 18 Aug 2026 12:27:28 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: "Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: Nicholas Bellinger <nab@linux-iscsi.org>,
+	Lee Duncan <lduncan@suse.com>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] scsi: target: reject configfs db_root for ALUA metadata
+Date: Tue, 18 Aug 2026 12:27:20 +0800
+Message-Id: <20260818042720.1511778-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,42 +39,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0131fd5a203a1kunmf87a4c31ff45b
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH04eVhgfGhlDT0oZTU9KTVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=bEDFnZoDeYOttk8GDpu7Xfji40sUT9AfgYbPGqTvQHu5/uDdIyzkQ6RR4cnKG64XzuUFFzHoocMWR2ZlnGNG21vLyn1tbrnRTpRPxKnXFCPsemGnQKPO4VdAqkjSnvHJdTYcgMgSCr5nAiSLlZKYXpxvrwjy7LVxqCWTi9ZA7d0=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=kFZji1UczirQvsTexDxdPp1mViiA9VfHBDfa3zLAh1Q=;
+	h=date:mime-version:subject:message-id:from;
 
-Attempting to enqueue a CLEANUP message while the GuC is stopped
-(during a device reset or suspend) triggers a missing outer runtime
-PM protection warning in xe_pm_runtime_get_noresume().
+The db_root configfs attribute only validates that the supplied path
+resolves to a directory. Later ALUA metadata writes build file names
+under db_root and open them with filp_open().
 
-Since the GuC cannot service Command Transport (CT) requests while
-stopped, skip the message and route directly to local teardown.
+If db_root itself points at a configfs mount, an ALUA transition that
+updates metadata can re-enter configfs through that filp_open() path
+while configfs is still servicing the original store. That makes the
+metadata path recurse back into the same frag_sem.
 
-Fixes: d930c19fdff3 ("drm/xe: Build PM into GuC CT layer")
+Reject configfs-backed db_root values in target_core_item_dbroot_store()
+so later metadata users keep running on a normal filesystem instead of
+re-entering configfs.
+
+Fixes: a96e9783e058 ("target: make target db location configurable")
 Cc: stable@vger.kernel.org
-Signed-off-by: Varun Gupta <varun.gupta@intel.com>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/gpu/drm/xe/xe_guc_submit.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/target/target_core_configfs.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
-index 9036f89dff7d..24f35b0179e1 100644
---- a/drivers/gpu/drm/xe/xe_guc_submit.c
-+++ b/drivers/gpu/drm/xe/xe_guc_submit.c
-@@ -2180,12 +2180,14 @@ static bool guc_exec_queue_try_add_msg(struct xe_exec_queue *q,
- #define STATIC_MSG_CGP_SYNC	3
- static void guc_exec_queue_destroy(struct xe_exec_queue *q)
- {
-+	struct xe_guc *guc = exec_queue_to_guc(q);
- 	struct xe_sched_msg *msg = q->guc->static_msgs + STATIC_MSG_CLEANUP;
- 
--	if (!(q->flags & EXEC_QUEUE_FLAG_PERMANENT) && !exec_queue_wedged(q))
-+	if (!(q->flags & EXEC_QUEUE_FLAG_PERMANENT) && !exec_queue_wedged(q) &&
-+	    !xe_guc_read_stopped(guc))
- 		guc_exec_queue_add_msg(q, msg, CLEANUP);
- 	else
--		__guc_exec_queue_destroy(exec_queue_to_guc(q), q);
-+		__guc_exec_queue_destroy(guc, q);
- }
- 
- static int guc_exec_queue_set_priority(struct xe_exec_queue *q,
+diff --git a/drivers/target/target_core_configfs.c b/drivers/target/target_core_configfs.c
+index a2bd2e8..5ee6f9c 100644
+--- a/drivers/target/target_core_configfs.c
++++ b/drivers/target/target_core_configfs.c
+@@ -138,8 +138,16 @@ static ssize_t target_core_item_dbroot_store(struct config_item *item,
+ 			pr_err("db_root: not a directory: %s\n", db_root_stage);
+ 		goto unlock;
+ 	}
++	if (!strcmp(path.dentry->d_sb->s_type->name, "configfs")) {
++		pr_err("db_root: configfs is not a valid target database root: %s\n",
++		       db_root_stage);
++		r = -EINVAL;
++	}
+ 	path_put(&path);
+
++	if (r)
++		goto unlock;
++
+ 	strscpy(db_root, db_root_stage);
+ 	pr_debug("Target_Core_ConfigFS: db_root set to %s\n", db_root);
+
 -- 
-2.43.0
-
+2.34.1
