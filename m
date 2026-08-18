@@ -1,235 +1,114 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F0941D626
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 14:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ACF347884B;
+	Tue, 18 Aug 2026 14:11:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787062280; cv=none; b=VtTwb+/rSFXuw+iBCjXGjJhXXG22lztBl6qV1sH6kXjIsoo8PkMN5Bsqt3X9SIQ2txNtEzKlo7RE43DicnXRMJyiZg4TcCH1UsVHno8IaClyChqnTm98a97Aa82B1aR5ZqLI1uVF7rslNIa/pHPtEn9iC6Y5s77zWoLMY01IS7c=
+	t=1787062319; cv=none; b=hxMoGxlzwSyUp9LNkxLOgxZRFtUPGLTLOI2mHcm8lhUyZhbFcMG9MnRpuiKlX4EPEFCoxdWQdRVuscfzk1Xz929wLH9x7WiyzLC8g5V7wicpH2078463ExnjuY0DMG390e/shO0dDN4ySCKkirLam/IJ4c264QpWHSzdLZLJGwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787062280; c=relaxed/simple;
-	bh=wBahHeg+lDLO+AV3x7Z3I6jGYfvyAMcgBn6vJxK/uO4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XgSUQeXGGvnPhODesbSBXTQLND2kalkABP/xqz06hS29SL5VflDU13zJY0bZkwNYN1UE2NtWMSET3CNxkTr0dFjtchItfYpCb8lmuAePclduoSePgpFirmu1bCJVcMl7hql1luYKhr1f0OkXhoxikm9QzqBNoVZRNJZsKA9yU4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Jn+mwgva; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=DvSH/740; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Bigxi8r5; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=YDWhbXqV; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1787062319; c=relaxed/simple;
+	bh=fIoIqPbUubodBIIxSD+L6GhMDg5Wc4I1XqdQbaERO5U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JfqWERrHAPMuJhX4bff4+CEGTNB+/kmI1YWkD+Kjwr8EhCLHs5uLYdyi1Glg1rEcQxIYlsmXUr4oiOrm2KlBJMXXR29ctbO9CKqcJOSmBNb6Bc+6dYdgcPqYH8qBigf+A/zBXiSaSOr60CdICoEZy2VlRczX4kED1MwIbH+TmI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLQdp0mA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Jn+mwgva";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="DvSH/740";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Bigxi8r5";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="YDWhbXqV"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8D2EF845CB;
-	Tue, 18 Aug 2026 14:10:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787062263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bBd8ZOyP4NMTDqED4J5h3OTsh0RMWI78apSdiwygb+4=;
-	b=Jn+mwgvaUEGH2by31n4mWHnyS4y1+AwZbiei2R/QqbET2/F3bRXY0WwwkmlNB/h1QFbH8O
-	GvFsMyZYpnxE5Q/6bh5ajo/0FoXE3ARkSfodOLCM2W6u6wQpT2Xsq0q1I5dkMCjesCEfqq
-	IyW+u+tbT4A/k2TR+yvC1FTAywy8CwY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787062263;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bBd8ZOyP4NMTDqED4J5h3OTsh0RMWI78apSdiwygb+4=;
-	b=DvSH/740Y68PaNk9orzIDMFSNoqAUsZFEveveeLb+Z0cNOD3SLUzEGR3R7sb8o4aeKfUC0
-	y2rQU/pG7Qgi6JAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787062259; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bBd8ZOyP4NMTDqED4J5h3OTsh0RMWI78apSdiwygb+4=;
-	b=Bigxi8r5RGU6gWWnd8AeyLfYnYh+QFeqJIUJU0RNRWdAXv+R4F5O0kbMYzGCwx7IcKUtt0
-	aUq3cy15IcmI/gVvsUxTv0tutP32gJcm61jPxGXX25NxBakBUWfCma2EjbmjdqW3mpUWql
-	cKSVhWC7AtdeREHEVFYC7FDbWOIei7I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787062259;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bBd8ZOyP4NMTDqED4J5h3OTsh0RMWI78apSdiwygb+4=;
-	b=YDWhbXqVTMrnRNU6GCl4yT3NiZ3U142u20H6qnUUgvFG2Z/zAfl3B7dA59Cjzyi87fuKZ7
-	3YCpKTvRdpPXRDCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8488D339C;
-	Tue, 18 Aug 2026 14:10:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 7NRbIPNnhGqcbgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 18 Aug 2026 14:10:59 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 49170A13AB; Tue, 18 Aug 2026 16:10:59 +0200 (CEST)
-Date: Tue, 18 Aug 2026 16:10:59 +0200
-From: Jan Kara <jack@suse.cz>
-To: Hsiu-Hsien Lee <swinds24@gmail.com>
-Cc: tytso@mit.edu, adilger.kernel@dilger.ca, jack@suse.cz, 
-	libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, harshadshirwadkar@gmail.com, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: fix fast commit replay failing on a read-only mount
-Message-ID: <nhu74zexptuaeywzhef3zs5wkfkrnllz4d2kcyebrgircwogm3@yqsm6h5kbdjl>
-References: <20260812044353.1018268-1-swinds24@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLQdp0mA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78C621F00A3A;
+	Tue, 18 Aug 2026 14:11:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787062317;
+	bh=y+3JbKoCLfb4aCv0jX3F9Hhn4V179wBGNgJrcmUx5QI=;
+	h=From:To:Cc:Subject:Date;
+	b=nLQdp0mA5zuEIbbOIdRaTKIua/sgtNPIedaKGFdO7ZH2BGlUg6IhTBjhvmlS0NNjz
+	 Gdvu5gZ+WILpJP0TmLN5N7//fwbFxxPrYD8t6dNvmCyNe9w5DFYyHnfq++IhKnmM2Z
+	 0XXxFgbWC/QImJvXXf/02tys51AzRa/kqZEn1rAcZ6f8NDBtab5OsKca26bnWUyutP
+	 9MQ9oPs3vWNaASajYDbqsul8VKKBJVb9X9AYLbYnI9m6fSxtbrOpnZqqrlOI36AiTI
+	 Ur2pOkFrc2ltMQ0YNwXHDd45vx88hQuSMcoevte3M7tFTwfdBv1RiaURjFQGeyimMa
+	 S/4k7t7ubkCkQ==
+From: Ard Biesheuvel <ardb@kernel.org>
+To: linux-efi@vger.kernel.org
+Cc: x86@kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	stable@vger.kernel.org,
+	Anisse Astier <anisse@astier.eu>,
+	Ravi Bangoria <ravi.bangoria@amd.com>
+Subject: [PATCH] efivarfs: Rate limit statfs() handler
+Date: Tue, 18 Aug 2026 16:11:50 +0200
+Message-ID: <20260818141150.905336-1-ardb@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812044353.1018268-1-swinds24@gmail.com>
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,suse.cz,linux.alibaba.com,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.30
-X-Spam-Level: 
+Content-Transfer-Encoding: 8bit
 
-On Wed 12-08-26 12:43:53, Hsiu-Hsien Lee wrote:
-> A filesystem with fast_commit that needs recovery cannot be mounted
-> read-only:
-> 
->   EXT4-fs (dm-0): INFO: recovery required on readonly filesystem
->   EXT4-fs (dm-0): write access will be enabled during recovery
->   WARNING: CPU: 22 PID: 5544 at fs/ext4/ext4_jbd2.c:73
->    ext4_journal_check_start
->    __ext4_journal_start_sb
->    __ext4_unlink
->    ext4_fc_replay
->    do_one_pass
->    jbd2_journal_recover
->    jbd2_journal_load
->    __ext4_fill_super
->   JBD2: journal recovery failed
->   EXT4-fs (dm-0): error loading journal
-> 
-> Fast commit replay runs ext4 metadata operations instead of writing
-> blocks through the buffer cache: ext4_fc_replay_{unlink,link,create}()
-> reach __ext4_unlink() and __ext4_link(), which start a handle.
-> ext4_journal_check_start() returns -EROFS on a read-only sb, and as
-> that is not -ENOENT it propagates out of jbd2_journal_recover() and
-> kills the whole recovery.  The EXT4_FC_REPLAY check that would hand
-> out a no-journal handle sits after the sb_rdonly() test, so replay can
-> never complete read-only.
-> 
-> ext4_load_journal() has already promised that write access will be
-> enabled during recovery, so make that true for the superblock as well:
-> clear SB_RDONLY across jbd2_journal_load() when recovery is needed on a
-> read-only mount and the devices are writable, as ext4_orphan_cleanup()
-> does.  Unlike ext4_handle_error(), which avoids SB_RDONLY because it
-> would need s_umount, the sb here is still inside ext4_fill_super() and
-> not published, so nothing can observe it.
-> 
-> The failure is not clean either: the replay handlers passing a NULL
-> handle (ext4_fc_replay_inode(), _add_range(), _del_range()) never hit
-> ext4_journal_check_start() and do write, leaving a partially applied
-> fast commit behind.
-> 
-> Reproducer, where the unlink only ever reaches the fast commit area:
-> 
->   mke2fs -q -F -t ext4 -O fast_commit -b 4096 /dev/sdb3 262144
->   mount /dev/sdb3 /mnt
->   dd if=/dev/zero of=/mnt/victim bs=4k count=1 conv=fsync
->   sync                          # victim now in a full commit
->   rm /mnt/victim
->   dd if=/dev/zero of=/mnt/trigger bs=4k count=1 conv=fsync
->   <crash, or snapshot the device while mounted and write it back>
->   mount -o ro /dev/sdb3 /mnt
-> 
-> Without this patch that mount fails; with it recovery completes and
-> victim is gone, i.e. the UNLINK record was really replayed.
-> 
-> Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hsiu-Hsien Lee <swinds24@gmail.com>
+Ravi reports that statfs() may be called by unprivileged users on the
+efivarfs mount point, which may result in a flood of calls to the
+QueryVariableInfo() runtime service. These calls are disproportionately
+costly on x86 systems where the variable store is backed by SMM, as each
+SMM entry requires a rendez-vous of all the CPUs.
 
-Looks sensible to me and I'm surprised nobody tripped over this earlier.
-Feel free to add:
+So rate limit the calls to QueryVariableInfo() at twice per second, and
+return the most recently obtained values for calls that are elided.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Cc: <stable@vger.kernel.org>
+Cc: Anisse Astier <anisse@astier.eu>
+Reported-by: Ravi Bangoria <ravi.bangoria@amd.com>
+Fixes: d86ff3333cb1 ("efivarfs: expose used and total size")
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+---
+This supersedes [0], which had some issues, the main one being that a
+cache that requires explicit invalidation may go out of sync due to
+direct calls to SetVariable() made by other drivers.
 
-								Honza
+[0] https://lore.kernel.org/all/20260801144258.15977-2-ardb@kernel.org/
 
-> ---
->  fs/ext4/super.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-> index 245f67d10ded..6c2b275a9cf3 100644
-> --- a/fs/ext4/super.c
-> +++ b/fs/ext4/super.c
-> @@ -6096,6 +6096,7 @@ static int ext4_load_journal(struct super_block *sb,
->  	int err = 0;
->  	int really_read_only;
->  	int journal_dev_ro;
-> +	bool enable_write = false;
->  
->  	if (WARN_ON_ONCE(!ext4_has_feature_journal(sb)))
->  		return -EFSCORRUPTED;
-> @@ -6152,6 +6153,7 @@ static int ext4_load_journal(struct super_block *sb,
->  			}
->  			ext4_msg(sb, KERN_INFO, "write access will "
->  			       "be enabled during recovery");
-> +			enable_write = true;
->  		}
->  	}
->  
-> @@ -6168,7 +6170,19 @@ static int ext4_load_journal(struct super_block *sb,
->  		if (save)
->  			memcpy(save, ((char *) es) +
->  			       EXT4_S_ERR_START, EXT4_S_ERR_LEN);
-> +		/*
-> +		 * Fast commit replay performs regular ext4 metadata updates
-> +		 * (see ext4_fc_replay()) which refuse to run on a read-only
-> +		 * superblock.  We promised write access above, so make that
-> +		 * true for the duration of the recovery, the same way
-> +		 * ext4_orphan_cleanup() does.  The superblock is not published
-> +		 * yet, so nothing can observe the transient state.
-> +		 */
-> +		if (enable_write)
-> +			sb->s_flags &= ~SB_RDONLY;
->  		err = jbd2_journal_load(journal);
-> +		if (enable_write)
-> +			sb->s_flags |= SB_RDONLY;
->  		if (save && memcmp(((char *) es) + EXT4_S_ERR_START,
->  				   save, EXT4_S_ERR_LEN)) {
->  			memcpy(((char *) es) + EXT4_S_ERR_START,
-> -- 
-> 2.43.0
-> 
+ fs/efivarfs/super.c | 30 ++++++++++++++++----
+ 1 file changed, 24 insertions(+), 6 deletions(-)
+
+diff --git a/fs/efivarfs/super.c b/fs/efivarfs/super.c
+index 733c19571f1c..8d33f11db2a1 100644
+--- a/fs/efivarfs/super.c
++++ b/fs/efivarfs/super.c
+@@ -89,12 +89,30 @@ static int efivarfs_statfs(struct dentry *dentry, struct kstatfs *buf)
+ 	/* Some UEFI firmware does not implement QueryVariableInfo() */
+ 	storage_space = remaining_space = 0;
+ 	if (efi_rt_services_supported(EFI_RT_SUPPORTED_QUERY_VARIABLE_INFO)) {
+-		status = efivar_query_variable_info(attr, &storage_space,
+-						    &remaining_space,
+-						    &max_variable_size);
+-		if (status != EFI_SUCCESS && status != EFI_UNSUPPORTED)
+-			pr_warn_ratelimited("query_variable_info() failed: 0x%lx\n",
+-					    status);
++		static DEFINE_RATELIMIT_STATE(_rs, 2 * HZ, 5);
++		static u64 storage, remaining;
++		static DEFINE_SPINLOCK(lock);
++
++		if (!__ratelimit(&_rs)) {
++			ratelimit_set_flags(&_rs, RATELIMIT_MSG_ON_RELEASE);
++
++			spin_lock(&lock);
++			storage_space = storage;
++			remaining_space = remaining;
++			spin_unlock(&lock);
++		} else {
++			status = efivar_query_variable_info(attr, &storage_space,
++							    &remaining_space,
++							    &max_variable_size);
++			if (status != EFI_SUCCESS && status != EFI_UNSUPPORTED)
++				pr_warn("query_variable_info() failed: 0x%lx\n",
++					status);
++
++			spin_lock(&lock);
++			storage = storage_space;
++			remaining = remaining_space;
++			spin_unlock(&lock);
++		}
+ 	}
+ 
+ 	/*
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.55.0.699.gb54405d56f-goog
+
