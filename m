@@ -1,111 +1,179 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF02342885E
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 18:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787076191; cv=none; b=qNH0qETrG8B4IfREyzXY6S5g8t+cgUMopkYpys8UfLexYl2RHw3k72orUA2mdmP27P+8nufXMDqCVv1b9BE32PgQVUVZHP0DhWpDgvFhteNRJ+Q1AqmSwaZyIJYfvzWzCoIeAzyYlOvkTKJbQ8Z3KU2Xg+DzH9To6wZMgQWt11w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787076191; c=relaxed/simple;
-	bh=kux7923xqGElgDtYxjlW1kCHNma8Cxn+0IS7mbJ7Srw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qvPjZMbD104aTA2X8Hc/wgaaLWmq9S22xdugGZeuwBTkoLlx27HI0RtDzEuj4pJPIAGxxv+FC1r7DQcpYXhrsTeXntkwiWeZXcItr9pHEgU/j3zkB48iZuDDNK6QEgz+NJqbkmeU7lihCdu+Yn1IEceO+n+kHMwkp10/C3M6x4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=D0BXwz3d; arc=none smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4915F44236B
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 18:08:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787076537; cv=pass; b=Tr4cZ2NJyW6SQPP4v8viw95ytZRmuliqfFoUJP3eU09dXn1KSP7yAcZegdeoMtIs+0iCJFzg9DYzkpA/YxXplbSS56txRCUovQU5kWsJrRIeSPOxUdYzOGxigQq5Lc17Og3eVBoPgFLxCX3jtNnZbo13yeWPTlm2aRKE+2s2cH0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787076537; c=relaxed/simple;
+	bh=SEUySfRaQtbQd7ONSCax+h6nByvImRHhLqI63bO+18Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HNUiOOucIt5V7tNXTeR7bATMU1z2lk713lEvcrj/Y3EKerKIp2DbmsphsIX3oLeVA9YznL7zWRwELieBcn8EEJ+DbtzA1/KrueDVcQLNINiPHHdYFdafuLN0tlVk8RJblqRtmuXdr3nXsDQ0wuLrJjVkOijLcuES/JamTznidGM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pkdlVUgl; arc=pass smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="D0BXwz3d"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7eb4d532e65so61622a34.0
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:03:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pkdlVUgl"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-836eac5682bso1373767b3.0
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:08:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787076535; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RSuIlMIuBBUWCFIv39LBlWIjX/jfodH1OWutJGo31ThqeBFEceD1ycIbKF3RsTLZeh
+         O0KLp3BpCeZ4EbEeGOfyJxT65niYzrNzNMmXkiIfb0FTLGrb6szW1EvKHFX6bMZZxg3I
+         OpJ8w+wQw7pI2CI6I+81p4gZyTSC1mjmp/BfHk0KafZxT6sgVLTjraRRhkeenMQmMQsQ
+         pxrTDqvY088zlRJ9ZeyxEeqesjpjYNQ8P6r3h84NjNz+Q2IyLmsTmH662z6YF5A1nuva
+         SDcsF07zrOlZEXOTZzb/gp1sqFQGzMEZE3AtcSdt9RsW411Z2dNUMtggLc8SgBqOSecr
+         lYHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2uqoXLdriDwngiEdIujJPR1d7VzbepHTpyozA2PyKQQ=;
+        fh=k7K4tCcBoLlS6S2i2CnlbvyhVwifLeGBQ1h93tC0us8=;
+        b=Lu3m3MTi4hFGwDyxqBHwcmQs0MfFN7uEmYsEr2D3ejxatCZR0yhb+cjL4wzU+Xh81S
+         RskPWlS9kf9Dn4/zvzz9Tc9JyPbvJ3YETX7Aps99FBufcjZ/FYK4hBy4EU+0QXH6qam2
+         6VSIuJLV9nIL96HowFHtZaO4DhNuRQ5r3deCmS0N4C9NDFnSmS/xY6MJsoqDhVYF0HOA
+         v6HNhCBE3hzz0B9Ir1GBBUDSjvEJK/tk/JBm4DYQeTHX2U7mhDehaQaIAjA6ydmU5I6X
+         DW6c7ke0S70L3vvIR8de1V/TnMB4kSAK6xp0bvXIQKRxNol94SuawAr8dlW7tTemd0kY
+         kn9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1787076188; x=1787680988; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=86SBJV0XE5iT1q0TvIA359xjqIYiArOaY9A0khfcrDU=;
-        b=D0BXwz3dErbpe0JF6bdaeKPos+90VccSSPc66Su0C796YRosXTOqCbxW6NhsBD6MX8
-         qcJuyo289I1qUd+Klstq6/S6lhHbWke+6sTiSbTsyhhtEK9YxvHwM3bifaSQ534aqPZt
-         jmojhy6/KFNsOdrFaZzX/ZnlHUKa+uf2hMst8=
+        d=gmail.com; s=20251104; t=1787076535; x=1787681335; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2uqoXLdriDwngiEdIujJPR1d7VzbepHTpyozA2PyKQQ=;
+        b=pkdlVUgl4tMtPE1utRsDlQCsi4ea7D36l+QK23WFlzYvzttqzevGnWmm6qOJsqYixm
+         aqxsU2jxeDgeaH7pdmzzlg3i4UYh8bd7yTGx3/cR9Z6y8Dz0iHamrE+6j0VmFCdffPrl
+         g5LVCKJeughLKb9bpSbnlBHG+9E/2JSUp4lYSoZSHlAxCAS0FjSnUwDoKz8Y0Rac9vLM
+         ml/wmLJZCHpbp3ZuDzR3iu/ecdiTXgi22L6SVRpYCjp1tBh4W/f6tRePEe0nnUuViiMO
+         +Qf5uG/gL5tjkTGOOT86Qoj05rA/VaAJb6BJ0U5g5qSiAkHXkOnaNC3NvhX2zwhh7wVb
+         cG3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787076188; x=1787680988;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=86SBJV0XE5iT1q0TvIA359xjqIYiArOaY9A0khfcrDU=;
-        b=BBEcDGHaGeZHrxYwFOwdpV7WmlADkopkjVAdfUR0Ob/kCZdt2/Qd2sMSQvlYDi66K1
-         FBHOp2NxarbI4x1VLEFjz6A7bNqYnDjc7Rq7sLPHqWH8/wYg7IWv6cTMaDQfxJPGEr4A
-         p0aLLo11DYm/pnDjNYX/Lnp12kcuGzCA+V2PgOUpjSI3nGdIU4xjtH3c9awx3SD8cME8
-         51jzHx7qcyABU7DbdtSTxdtVmarCZUGvvixuie6duxt4aV6DmBE1wEtQxiZ6Dn89LYYh
-         plVkGKBxJn/WCoMehkhwULYuIiyQeXCv3FmQwprzBTYabbx2aJ0fLhoXOKD+ruPyX0yD
-         1u9w==
-X-Forwarded-Encrypted: i=1; AHgh+Rr0K4p4rQexAQ4Xu3b85Che3be76gkW2emlv2oQ0WEE1V/ZoTY6eoniFUOPl6r+KB5O2zGWnUE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz47o0lW5+35mK+65a+EbGXBCygBfVelesW49zHgJKhRNs+fiLi
-	SflLo/NEkTEAv2VMnPCMPwhDQcnu99zv53EWjzFkWsMWBJcpVkEyEYW46lswfoz0AHY=
-X-Gm-Gg: AR+sD13ZkiTPytGOe1gfZlUMo6SwuYvSjk5pE4VNZnaeVFZPI7PGIO2lHvClrLsTKqa
-	dHpVOFYSLg6EI2n2B+DH/zIWT9J8PHb4i3ONgHxqoDke5eKrzvOKZaUZLaLeJB0LMbIXT+HZWcw
-	2xMjBWjEXflz1SaK2UN4MqKtUY65kZ3+BVG1jfJ0Oagi0xADwTwzphWQaFwX3wiyySg+OwTHXt2
-	J5o/iXzqA/kAOKRjwoVG5MOMqIW4S9CNpU/XGGpjS7W10pRsMp35VhvE+9tEuJKeGopwK64wOBU
-	Xqs4UJzMuIk6Xh9pkQKsX10YBIZyidNTqpJqibj7MZPCyHn/8xrfUHylB13ZX2zAvh3DRnwi0N8
-	tjXyZwaeQn6Pj5S5OIMemJf3P3NpGwjtnFakb2EKr4iMvtp/C1jhuZkoLz+2HDwkCDlAQbY3soP
-	yP/h6wfU8BjxjXJ0jCB9ihFD/poMhy4Q0CokJrTYxB2RoWd/n+v69te6//NjhLK6Y14wDVQDY=
-X-Received: by 2002:a05:6830:3748:b0:7e9:e0be:583b with SMTP id 46e09a7af769-7f3de71d894mr31867311a34.9.1787076187678;
-        Tue, 18 Aug 2026 11:03:07 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f41c0b93b3sm4759046a34.13.2026.08.18.11.03.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 11:03:07 -0700 (PDT)
-Message-ID: <869474f3-45e4-48f9-9379-4116fcd6ebbd@linuxfoundation.org>
-Date: Tue, 18 Aug 2026 12:03:02 -0600
+        d=1e100.net; s=20251104; t=1787076535; x=1787681335;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2uqoXLdriDwngiEdIujJPR1d7VzbepHTpyozA2PyKQQ=;
+        b=tVF5zVCOw86HgX0zZrRW23GHRM3eDE0w8aiaNwqbZ3w7wWa41MupuPPTXXkiFpCTSO
+         bQUyHzyQC5+HU2ZSqbF8JHrMESixu24j62NwyWPHCu5I23yEi5xI1kFXJofU/mA7qHP3
+         4YJhk1le3WPPrCtfqVXNc9aFRl9Srz0ix8LwSavrA7TW8sAs3w2DTM9wBFsNQ1pK3Wv6
+         kH5jxtigGZlqb/T+AYR6+B0Y0UwcDg7ucyAFZEEvVKF+5RyEPzGLezQc71chLBDMcmxS
+         tyM35Co4ZjJEq8gIRL5cOhsrB/NqC6qKMYLoDKvxMdYA5lYz1AzDgqdFVgsev1O05jct
+         Pv0w==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+7Vcihq4dEAw5D5OaOTBw+qHDSpI0TNeNw2tj6Iw/X5AjbhLsgw53Kzys9W1HCI0a8RSQrS8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvHiU21f8mkTqADTrsEbmuqAukBkltraPpv+5ZOqDs/Ag8Bww6
+	+g83yguWuwmF0bvCfX4APLJcztIx6cOcGp0Ubzu8pli++b6zrUiR7ws5NZ8g3pNcPFRJcjQvQXl
+	/w7lfPKzIWeMlw7r3UBg/n9bfIDkFUT4=
+X-Gm-Gg: AR+sD13ipPsjBsLNrvBtKMvLB8NQ2IM36pB+yRj6W5APbbch03QXqSgIOsnKf9wW9uS
+	HoHB/QmUBo1fdXdox6Bt/H7zb+G5s6KIKhp7gKNy3hzeHMNK/g6iflrzUx1ZxqIpl82X9Md79A5
+	icM4lMTfSueW2k6z9YBUhZzpmDoIUXcR7/ArR/MdOa+kXjKMmBkrMcutKpTOfwFsAervmz0ppxe
+	t1ytmDdsvrJhpJCfh3NDjvzXtP56DNzcD+Nz0wOp/yE942eOW+ZKapfESwX/MiQeaYN0u+n/lcS
+	OkvF2w5uJK9M40kzJAGkC5QqirBYaPhf6I+aRLIFij0FaLQ5W0btyGFUSLfbP7Qz2UFRWYxDfMI
+	0vwu0mPkTm04NpDNoDZIP1bzrGWYIYjg=
+X-Received: by 2002:a05:690c:e649:10b0:7ef:9fd9:db07 with SMTP id
+ 00721157ae682-8449448428bmr482527b3.12.1787076535103; Tue, 18 Aug 2026
+ 11:08:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/456] 5.15.216-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260817132539.792407575@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260817132539.792407575@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <tencent_1E12CBD7417A4019FF058EFD19B1DB930006@qq.com>
+In-Reply-To: <tencent_1E12CBD7417A4019FF058EFD19B1DB930006@qq.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Tue, 18 Aug 2026 14:08:43 -0400
+X-Gm-Features: AcwNN1UH_RpM9ZVjCPTTexQXLT4sspTvFco6Bzj2nGl1dnd4gH3a2pfhfNV5OR4
+Message-ID: <CABBYNZL1_fTkwdhjK0aKqg44c0MneOAOWThQQDPudFUe0m_htA@mail.gmail.com>
+Subject: Re: [PATCH v3] Bluetooth: ISO: fix use-after-free of listener socket
+ in iso_conn_ready
+To: Hang Nan <2122295973@qq.com>
+Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, pav@iki.fi
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/17/26 07:26, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.216 release.
-> There are 456 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 19 Aug 2026 13:23:44 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.216-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+Hi Hang,
 
-Compiled and booted on my test system. No dmesg regressions.
+On Tue, Aug 18, 2026 at 7:33=E2=80=AFAM Hang Nan <2122295973@qq.com> wrote:
+>
+> iso_conn_ready() looks up the BIS listener socket with iso_get_sock(),
+> which takes a reference, and then, without re-checking its state,
+> creates a child socket from it:
+>
+>     parent =3D iso_get_sock(hdev, ...);
+>     if (!parent)
+>         return;
+>
+>     lock_sock(parent);
+>     sk =3D iso_sock_alloc(sock_net(parent), NULL, BTPROTO_ISO, ...);
+>     ...
+>     iso_chan_add(conn, sk, parent);
+>     ...
+>     release_sock(parent);
+>     sock_put(parent);
+>
+> If the listener socket is closed concurrently, between iso_get_sock()
+> and lock_sock(), the reference taken by iso_get_sock() may be the last
+> one: the close path drops the link-list reference, and once
+> iso_conn_ready() drops its own reference at the end of the function the
+> socket is freed.  The child socket, however, is already linked to the
+> freed parent, and a later disconnect of the child runs iso_chan_del()
+> -> bt_accept_unlink(), which dereferences the dangling parent pointer
+> into the freed accept queue (a use-after-free).  The same dangling
+> pointer is also dereferenced through parent->***() in
+> iso_chan_del().
+>
+> Fix it the same way the connected (non-BIS) path was fixed in commit
+> 0d255e63fcf3 ("Bluetooth: ISO: hold sk properly in iso_conn_ready"):
+> after taking the socket lock, re-check that the parent is still a
+> listening, alive socket, and bail out otherwise.
+>
+> Fixes: ccf74f2390d60 ("Bluetooth: Add BTPROTO_ISO socket type")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hang Nan <2122295973@qq.com>
+> ---
+> Changes in v3:
+> - Move the changelog below the "---" separator so it is not part
+>   of the commit message
+> - Shorten the comment in iso_conn_ready()
+>
+> Changes in v2:
+> - Fix GitLint B3: replace hard tabs with spaces in the commit
+>   message code snippet (no functional change)
+>
+>  net/bluetooth/iso.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
+> index aa2ce78f56a2..069fc87a4e18 100644
+> --- a/net/bluetooth/iso.c
+> +++ b/net/bluetooth/iso.c
+> @@ -2277,6 +2277,14 @@ static void iso_conn_ready(struct iso_conn *conn)
+>
+>                 lock_sock(parent);
+>
+> +               /* The listener may have been closed concurrently. */
+> +               if (parent->sk_state !=3D BT_LISTEN ||
+> +                   (parent, SOCK_ZAPPED)) {
+> +                       release_sock_flagsock(parent);
+> +                       sock_put(parent);
+> +                       return;
+> +               }
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+Looks like there is a typo and this should have been release_sock
+rather than release_sock_flagsock (or there is a new function called
+that introduced via some other tree?)
 
-thanks,
--- Shuah
+>                 sk =3D iso_sock_alloc(sock_net(parent), NULL,
+>                                     BTPROTO_ISO, GFP_ATOMIC, 0);
+>                 if (!sk) {
+>
+
+
+--=20
+Luiz Augusto von Dentz
