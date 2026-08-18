@@ -1,122 +1,186 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD030336884
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 21:03:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AD534BA20
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 21:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787087026; cv=none; b=VKuvsLW01HtmVwZAn8QgjcKTILUX6NlVb+UE3gEE4L8HcJ8xtS5NmIoKNlzGSNgYTSe3C3zE96UY0o93AqF+El5kFUvQKxNcz0fpmPeHb7Dl4p4UWgaaQAtGdDfJqlmiAvA2udeDfjIsAqaDEfWdqECeqbAs+u6Gh+j/DdRDnRc=
+	t=1787087620; cv=none; b=e539R2FXDkJN1iAd11xoLgS74Qz9yk5qYesU6f4Wa3Mab4B8OcI+cJIZJokP5h2kJw9Qfcw/ZOy+6zBOiB8A2IfAPpzYw/tqqfbNZntxwWdaQ4p63jxHzvSrnvFbkG9l73f3WgO7hVhwFFoqW7NpfeFaYm/quGPslp6/gKnoj4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787087026; c=relaxed/simple;
-	bh=Ciga8fyK2UWC2s/b5cGw55pFzypHL9tfi1jBgKUzLFs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jh3LSHfDuICf0oYQYMb1JIF7fJLRDrEvF8b5TOnUkooXFGxDvEE2tKYlgWPBi/s2B4Ww/QSRUG2wn+P3hUMUnSXUytJBfFE/yn36pSbJCyNpPcb2+8SWL44d2VF7ObBx3BRCRlMpAn+wJHMkVebw8IKNA7PtjivCM+vAscv0N7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+4VXr4l; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787087620; c=relaxed/simple;
+	bh=b7oEMYUXlq+mHFUiLsAJ1CRe1nlUA18m2Gr8L3M+3vc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VdKMcNdy3uvpT6+SKStAFOkRx2uZkSa68YrnLBLx8+klzJg8VoTUbNqu8YZltzd9FNpTiNBQSeNMTHx+fV7tDK0pIJ/W9eik1NQx8DPfTaaRJ23xeBHr37HpQvZnRq5jtTydj+Bpz57qmmOQ7fE3/MFy6oYRsyjRiLpyUJrVWQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=aeALswgK; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=NNE6VQWm; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=aEbkbUMC; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=VhY5hR6J; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+4VXr4l"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c15d3cd51b2so38245466b.3
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 14:03:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787087023; x=1787691823; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Su7JG/xj7C0P3Xla66ic7tZrV6Rekk1QPQ97x1ZodVQ=;
-        b=G+4VXr4laiwUjYBDJc1iSH3kniDzehfdw8uOAascpIjCWHa/5Q3DLrc4CljbiLLp/1
-         AOS0wo4PWI756fIIMyECsXi4op87rwUevyawJ/XMIRNaC8ySurmze16B50WizNunSDsI
-         +4Tc0A1nkRu69OAJZLqn+yikDxJqegqSr4Lbw4lo6zo3MZYTMtWMvoCM+orkMHRq8j1z
-         vj1DxnMvFRLfOHmzcm1m2B+pTEcrvBS3nQCnLQ0zPwWshfp7DRemSKNBD71e9zB/M656
-         7wvOrLETx5dmQR2pmDUTLVp3e8iPmEVTP7ARwbPzoiabZlvaPAmM8jmGkA46CkmWyfzX
-         TRmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787087023; x=1787691823;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Su7JG/xj7C0P3Xla66ic7tZrV6Rekk1QPQ97x1ZodVQ=;
-        b=ASTAEM8v+Np+2mXmkeXHnILNLcI6eUJK61p1/biqWguT/l8VW8bBDe+bVddROuojiE
-         rXzl8auMbGKRJYQfE9OeUj0H4ZFRy7y6A+IvWWvNLCpIDOG7vfG+HGlzXBbEHr+Qmh3U
-         lLojxm2KS5rxV76z3okzB6XzDJ+/c3fBwOj5ERF4l0oOWXpRyu3kpvyG8y8XJF5M0R1a
-         E2p9/nmxtWal5yyCTZi7wZQ1Cei1484SI3Jsx+ysp7hXXRgqJm/+5NyNMDLSVxiS2Ivy
-         00/Dxx8vr6Ht6MFBNiaWf/jYVJNkoIefaULz6HlcSBtr64UmgNopZlFcFHhTES63Zzzo
-         GjfQ==
-X-Forwarded-Encrypted: i=1; AHgh+RryM5iqr7aoJI8UKJKlszr0Xs1WH+BpmKjTRsgdirVGwCQsVAY8DUIAEQrgreBXQGboXAcU884=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyN4JLkAMdIZYzN/P9k73oPCHqwt66vb+EK07+gDdGAW6jZZRb8
-	/mab+BtJnkEqBnyaLWAUpxOOHFd4D0lPe5nbQvNQQw/7zbLhiLRWNk9l
-X-Gm-Gg: AR+sD12crI2aWZqcLN81F/Kw583ths7nwUHd/0TJI/Fn6G1Ie4q3/afwO4jrjxuNM9L
-	HfRzjODDBo+4Nmcnb/lZ3fx5juz6SeAUHCQyFIWUAJdR92HiByDJGnPox6VOetsjblfUlKExgAr
-	HoCsk8ZAv1PpkDffBEGWpTdpLM22BaJKXAou+17cmAzq7TidK6lauC/w+CKU0D2RLHkfEmmwlOE
-	UvpeB1Q4dSkd2Z23gpsWavCHbPbb329w4NmASvdkE8wFhg5yv0cJuUS7DHf7iFNWX9kasASkxGv
-	h1v7Kr69P/gUay7qtUv6wzOzsearqSPSyRkBXXGGAFKGOlJHMhcUxvVF5DeZSZURTzsDvAEsC8S
-	7WJAGGavcsFxoBdI82lud4DAw22BvNJhXMkahjurMi7dzG/WsK1AIAUkPMpEep1PdGFI68+kID3
-	sfj8YPU6P87pEkA/E8D8ZtSYp+BNWivSrCGDnPggyM3aPPz6PfjNAqXmmfstQNG3JHH6Da1cHOq
-	xz7367fQE+hCQxDJ6ZO6h7S
-X-Received: by 2002:a17:907:94c7:b0:c21:f41:e192 with SMTP id a640c23a62f3a-c222a0ee20bmr66226666b.26.1787087022655;
-        Tue, 18 Aug 2026 14:03:42 -0700 (PDT)
-Received: from fedora ([2a02:6ea0:5601:6307::13])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c219e3f64d6sm51888466b.32.2026.08.18.14.03.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 14:03:40 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>,
-	linux-mmc@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH] mmc: vub300: fix Use-After-Free of inactivity_timer on disconnect and probe failure
-Date: Wed, 19 Aug 2026 02:03:22 +0500
-Message-ID: <20260818210322.53266-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="aeALswgK";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NNE6VQWm";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="aEbkbUMC";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="VhY5hR6J"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4DB0B8475F;
+	Tue, 18 Aug 2026 21:13:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787087605; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FZaoCOLPxZMMphF4PrSLiZW5UKGPnIa/2ZrS/1lqOHY=;
+	b=aeALswgKA1B+n8pfrtpnF3MF2JX/2w9HakWfLxuEjvf5WSDmomhRxmkSc4rC+MFfChlk5U
+	PVD38J8USmGrjeQEv4DdzYPL0LS+2FnhZOMH9l+T+lhKbK2om6ODH/FBwmRJoPvXVXQoIc
+	zNAVngtGGzKoswkvll/wKJPfl+ZrMxg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787087605;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FZaoCOLPxZMMphF4PrSLiZW5UKGPnIa/2ZrS/1lqOHY=;
+	b=NNE6VQWmXBA4vGGHZGHErMd/fI4+pa8JJ5XM0cGgNPg1dltdrCeMFym3qA/WTSSOm0Y5Qm
+	NF12N3dpwc5MnzCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=aEbkbUMC;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=VhY5hR6J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787087601; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FZaoCOLPxZMMphF4PrSLiZW5UKGPnIa/2ZrS/1lqOHY=;
+	b=aEbkbUMC1L421+wcRHTSH2qbhy9jH9YKnmQFLxlWVXjy600GcofrT3QRuzEdZiFTiWdRAm
+	pu4PC/5nwmRahgAf9CjG26WGe7qtZXUagxwUSeVXcdx8Oarztli1O3Vyd/Eh6FO5GYmCzp
+	qnrwTEaCtKQxi35msBUCGu8RBzknTdk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787087601;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FZaoCOLPxZMMphF4PrSLiZW5UKGPnIa/2ZrS/1lqOHY=;
+	b=VhY5hR6JW0Bum9McJiw2xn8MDb8f2tWzezPnoFXHtYH5c6uqutCIr+RdQvMzX8Sjutcp/r
+	ij+R1cBCi+kvIADA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E29A22BA;
+	Tue, 18 Aug 2026 21:13:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id nHxXB/HKhGovfgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 18 Aug 2026 21:13:21 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id B9359A13AD; Tue, 18 Aug 2026 23:13:16 +0200 (CEST)
+Date: Tue, 18 Aug 2026 23:13:16 +0200
+From: Jan Kara <jack@suse.cz>
+To: guzebing <guzebing1612@gmail.com>
+Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
+	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, bretznic@gmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: reject delalloc to nodelalloc before applying
+ remount options
+Message-ID: <4hnd5hokn2w4diixm65yzgyjgxgs6oafctqsa5fmrnv4fkhh75@ymcd6ixsapoh>
+References: <20260814034855.1573759-1-guzebing1612@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260814034855.1573759-1-guzebing1612@gmail.com>
+X-Spam-Score: -2.51
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 4DB0B8475F
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:email,suse.cz:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-The vub300 driver arms inactivity_timer during probe and acquires a kref
-reference for the running timer. However, vub300_disconnect() sets
-vub300->interface = NULL and drops the driver's kref without shutting down
-the timer via timer_shutdown_sync().
+On Fri 14-08-26 11:48:55, guzebing wrote:
+> Commit 97f5ec3b166d ("ext4: prevent delalloc to nodelalloc on
+> remount") rejects switching a mounted filesystem from delalloc to
+> nodelalloc.  However, it performs the check after ext4_apply_options()
+> has already cleared EXT4_MOUNT_DELALLOC in the live superblock.  The
+> failure path eventually restores the bit, but leaves a window where
+> other CPUs can observe nodelalloc.
+> 
+> test_opt() reads s_mount_opt directly without a lock shared with
+> remount.  If a concurrent truncate's __es_remove_extent() hits this
+> window and observes nodelalloc, it sets count_reserved to false.
+> Delayed extent status entries are then removed without calculating
+> their cluster reservations, leaving reserved at zero.
+> ext4_es_remove_extent() therefore calls ext4_da_release_space() with
+> zero, leaving i_reserved_data_blocks and s_dirtyclusters_counter
+> elevated.  When the inode is later evicted after unlink,
+> ext4_destroy_inode() reports:
+> 
+>   i_reserved_data_blocks (...) not cleared!
+> 
+> CPU 0                             CPU 1
+>                                   ksys_truncate()
+>                                     ...
+>                                     ext4_es_remove_extent()
+> ext4_reconfigure()
+>   ext4_check_opt_consistency()
+>   __ext4_remount()
+>     ext4_apply_options()
+>       clear EXT4_MOUNT_DELALLOC
+>                                       __es_remove_extent()
+>                                         test_opt() sees !DELALLOC
+>                                         count_reserved = false
+>     reject delalloc -> nodelalloc
+>     restore EXT4_MOUNT_DELALLOC
+>                                         remove delayed ES
+>                                     ext4_da_release_space(0)
+> 
+> Follow the pre-apply validation approach used by
+> ext4_check_quota_consistency() and reject the transition in
+> ext4_check_opt_consistency(), before ext4_apply_options() changes live
+> state.  Use mask_s_mount_opt to determine whether delalloc/nodelalloc
+> was specified and ctx_test_mount_opt() to check the final parsed value.
+> 
+> Fixes: 97f5ec3b166d ("ext4: prevent delalloc to nodelalloc on remount")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guzebing <guzebing1612@gmail.com>
 
-If the timer expires after the host is removed and vub300 is freed,
-or if concurrent work items re-arm the timer,
-vub300_inactivity_timer_expired() accesses the already freed vub300
-structure, causing a Use-After-Free.
+Looks good. Feel free to add:
 
-Fix this by explicitly shutting down inactivity_timer via
-timer_shutdown_sync() and releasing the timer's kref reference in
-vub300_disconnect() and probe error cleanup paths.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Fixes: 88095e7b473a ("mmc: Add new VUB300 USB-to-SD/SDIO/MMC driver")
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
- drivers/mmc/host/vub300.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-index 8e45dc1a4a12..9f84bd1531e2 100644
---- a/drivers/mmc/host/vub300.c
-+++ b/drivers/mmc/host/vub300.c
-@@ -2350,6 +2350,8 @@ static int vub300_probe(struct usb_interface *interface,
- 
- err_stop_io:
- 	vub300->interface = NULL;
-+	timer_shutdown_sync(&vub300->inactivity_timer);
-+	kref_put(&vub300->kref, vub300_delete);
- 	kref_put(&vub300->kref, vub300_delete);
- 
- 	return retval;
-@@ -2385,6 +2387,8 @@ static void vub300_disconnect(struct usb_interface *interface)
- 			usb_set_intfdata(interface, NULL);
- 			/* prevent more I/O from starting */
- 			vub300->interface = NULL;
-+			timer_shutdown_sync(&vub300->inactivity_timer);
-+			kref_put(&vub300->kref, vub300_delete);
- 			mmc_remove_host(mmc);
- 			kref_put(&vub300->kref, vub300_delete);
- 			pr_info("USB vub300 remote SDIO host controller[%d]"
+								Honza
 -- 
-2.43.0
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
