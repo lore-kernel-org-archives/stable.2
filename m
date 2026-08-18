@@ -1,149 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EA735C6BE;
-	Tue, 18 Aug 2026 22:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DE7348C5D
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 22:14:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787090798; cv=none; b=tJTFFE4+eL7WCdfBZq0SyXwWe/AQPy7aQUoZ3vkmVioTA6TDyKNGBKJCiudwfmDRQ/SS3Ao72OOhGenSkI7/SYrNCeSVu5avFHkh/zMrchn5+gSAwYBNcTB1r6frTJYU3LsmOrt4ffpxDGT5QYk1iTkugJ7YcvcK7C9E2N6KnDw=
+	t=1787091286; cv=none; b=n3yrit6wtu5wIrODnMA2MAmM+ls/d+Iys4iI2oqizmrjqAi7t9Hr11WX7mpq0oLzb6IM1wshUWSVQj/rbyR+FhvJNqPAITBJ4v9ipEhGM+uZYrjdf4dRueYR8Qn5CIZgylpyYk5QvfXQHoT/Hl96S+3CPlm+cf2X8CtByVFyehs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787090798; c=relaxed/simple;
-	bh=gAJTYSYiWXhrolRSqJCWY3mR3i51mMFQ9lQZc8faHYY=;
-	h=Date:To:From:Subject:Message-Id; b=hVxb6kUtYukNlbK5x/gRWEAfY+QZhmR9uMFQ49JuwF5Fdjissj9kI5ODGM43sZLgj12tfFduJma0WozeWHZ5hsh7nTpQVo/E8Sb84WStPliqzSoMIbD0LUr/MylOPfONaHG6a0Weuwm6pBQ8lR6Ns7GB0sKP7w8lny2Zm+YZU6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=tsAg317A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787091286; c=relaxed/simple;
+	bh=+/H+wBy1+ETyZpr5acESYNGEUWdWsdU4YXrENI7QCgQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fWiIP1KLIr5pGZx8k101oxR94VBbhUGFIxYuZ9cAPSBiPzdB15RBfnpTwnb5BuFd0lzL5KiTEarEN5/y0K4xcyUuES+9U1A0OoN7SZNpCbHqJARMSTWLSkQtyrMfRSU4Ph9K3fFQtd0Wv9P2yudprHO23MnM1W6A+JjJvT5uyEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HuY9p5Zj; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="tsAg317A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEF0E1F000E9;
-	Tue, 18 Aug 2026 22:06:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HuY9p5Zj"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47fe2d179e2so185037f8f.1
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 15:14:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787090796;
-	bh=RZXxTjxEKKa9cwKqC1gQMFwrwsAMnH8GocVEsS1q4u8=;
-	h=Date:To:From:Subject;
-	b=tsAg317AOZfYk/IZvG58yV2+Uf/GHtIUIYs85OCAwFZWPyf1en6J2+jFr8+kQe5A0
-	 va8qQKLaIGUbiyJWRDFvCIVlIRUbPYouJOrtaPXJYKMms70FFPrmyIBl6La42SzCtr
-	 GQ7tDDwU5+aq9OVWEu72tdgxr0br4wSaJbV+ZFkc=
-Date: Tue, 18 Aug 2026 15:06:36 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,stable@vger.kernel.org,ryan.roberts@arm.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,hughd@google.com,dev.jain@arm.com,david@kernel.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-fix-incorrect-vm_flags-usage-when-checking-allowable-orders-for-tmpfs.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260818220636.CEF0E1F000E9@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1787091283; x=1787696083; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=efM3F+wFbP0mAVU02OW9oAVJkwM8FLNE+I19WeQALlE=;
+        b=HuY9p5Zj23pcNkb9huJiePbYawpN0OU3jt9HT7QCfyGaB+I0V7Buy19La+pBAVqBDM
+         eyrkwrePD1b3mo8AC9y9WBweVs/2Hz5LOQOEBD0eOTKZwZ9qKfCKGiz12M0qrpjFZIBq
+         hxQylH0GyBH1IAwDz0AtmTDg1w+re60HDL3AsKs8qj/ERH7yKqAfW5K4mVT5bwro3cYi
+         bT24+QtnvFuJzmzZ8dp879zAW7tXxiL8dfcSxDZ5Pw4/r1pZD1OeJiQvx8wuxDVTwfr9
+         sKAfqg6Dg+o2OFx+tHifLwxCvneyAom554txle2iwtaviSb5mRIlHAvoqPKk2Vmmrfjf
+         sWcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787091283; x=1787696083;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=efM3F+wFbP0mAVU02OW9oAVJkwM8FLNE+I19WeQALlE=;
+        b=Lv7+Q5t+zzIXd+4hMUjvbBDHW2ByUlrKazh8fp4g226U48Lmv2zJT3A79iFokXjWbQ
+         VFeapBoSRcvvKuLg42L8oSOuzPmqjTRyYz7bogU9yVIv/X3Or3hMaz27ZpaWSUehivZw
+         hRY/cgoX4WRlziCcvqZrZQd7TJIw1ImDeFiqDudf0B5gbDbtv3sXEveRWmQ46dcYi7j1
+         jjOpx02HZb7hr6Km5rxyOpSESpRGjRaagK71iBdQR4wxpg4zQK6YN2sJSXxSN3LGe7+T
+         4oUFZzgmN4aq0RQhfw2/+Onetbi8EqVF/H684nRmwRidLgx/S8JNHcZaHWjqU+Dd25dU
+         8k2g==
+X-Forwarded-Encrypted: i=1; AHgh+Rre/448SI5JNh4RVXI/SouFSMRfpLnN402lGtFhudLHDD0Gt4m6N9T7EC7Z9sVbYLTwxP8PPbg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy0AR0EAT212TzknLb+HZwWdL8sGDVbWDk0FhrRV0PKmCwhuuKI
+	yIpZ3vyb/bu10TSynoI6Xnk60UPQOSRkxJAmuVKpb9yXqLamMdSFpoFi
+X-Gm-Gg: AR+sD126PMWIg6ve0Wg0bLrzk7jFvbUMEP6XXU8IabMTxdqVWEn8hKIyn/Yzkijn2ho
+	SLJVRuYXCwTuc8ARqUzpGUW9m8Oo+dKPwWqRsMEAi6sBmtoNXxFY2DpnQIpAZeQFIZxsvMsySf5
+	i2PK9Vg1/K9NpwHFGSY1fzptkcp5VUFAPuPFZxELKNszZllhJmjIJHR/ozMjr79Fs4m9hnFYqL6
+	zRKY2It2Ke+qF2bb/YyPYG49WHabecQwH4xUe6U6mvfsfI6wXY5x4HlZQydDqzUiKRzfo5oTImV
+	bgARZecJfchkLZUg++tuLQcgXYAnR2L3GZRBr6cf8ltIFdI/8KQaQcEslvhxoLYCh3ZVQt+/GhX
+	hL7udG4HAEqWymYFDd7lshtttKYHtkc88SmNK5lQvH+x2TA7sgdkL48k72bZ2nHSU6ugw0x5Bjf
+	b7GR+GVYiSTSmdvmcfHw1gR4QdrcRoqOCv5VdrU6J/pS98HI1QnXWEVwjq7IiiRgjeMpdRqkNMf
+	ig8Qg==
+X-Received: by 2002:adf:e18a:0:b0:481:56ec:b422 with SMTP id ffacd0b85a97d-482b07d6433mr2245539f8f.9.1787091283389;
+        Tue, 18 Aug 2026 15:14:43 -0700 (PDT)
+Received: from foxbook (bfg7.neoplus.adsl.tpnet.pl. [83.28.44.7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b1450e54sm429660f8f.11.2026.08.18.15.14.42
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Tue, 18 Aug 2026 15:14:43 -0700 (PDT)
+Date: Wed, 19 Aug 2026 00:15:11 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Mario Limonciello <superm1@kernel.org>
+Cc: Rishabh Jain <rishabh.jain1198@gmail.com>, Mathias Nyman
+ <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] usb: pci-quirks: always assert xHCI OS ownership
+Message-ID: <20260819001511.45b3621b.michal.pecio@gmail.com>
+In-Reply-To: <2d13e2ae-f5da-4951-bbe4-be7bb0b296cf@kernel.org>
+References: <20260815014534.77850-1-rishabh.jain1198@gmail.com>
+	<69fdc442-a4f2-42e0-80f6-6b35cbc207bf@kernel.org>
+	<20260816220306.64c615f2.michal.pecio@gmail.com>
+	<2d13e2ae-f5da-4951-bbe4-be7bb0b296cf@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sun, 16 Aug 2026 16:00:47 -0500, Mario Limonciello wrote:
+> On 8/16/26 15:03, Michal Pecio wrote:
+> > Not sure if this has anything to do with PROM21, or if some BIOS
+> > is just trying to use the xHC at resume because it's permitted to.
+> > Then it makes too many changes for Restore State to still work.
+> > 
+> > Potentially, such bugs may have happened and been left unsolved or
+> > "solved" with RESET_ON_RESUME quirks and other hacks.  
+> 
+> What do you think about making this a series with each of those
+> quirks dropped one-by-one?  The head patch (a variation of this one)
+> could go to stable and the rest of the commits dropping those can go
+> to linux-next.
 
-The patch titled
-     Subject: mm: fix incorrect vm_flags usage when checking allowable orders for tmpfs
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-fix-incorrect-vm_flags-usage-when-checking-allowable-orders-for-tmpfs.patch
+Hard to tell. All we have is a wild theory. I couldn't even test what
+happens when the BIOS claims an unclaimed xHC during resume from S3,
+because my BIOS doesn't do that even when I clear the "OS owned" bit
+before suspending.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-fix-incorrect-vm_flags-usage-when-checking-allowable-orders-for-tmpfs.patch
+Those quirks may be wrong in the sense that they weren't specific to
+the particular PCI IDs, but to some particular buggy BIOSes or kernels
+in the past. Maybe those problems don't exist, maybe they still do.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+I have completely disabled RESET_ON_RESUME on my test system with no
+apparent ill efects so far.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+OTOH, I tried disabling the "broken streams (UAS)" quirk on ASM1042.
+While the kernel crash which those chips used to cause has been fixed
+long ago, it turns out they just don't work correctly (Set TR Deq is
+a No-Op with streams). So I'm not rushing to remove this quirk.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-Subject: mm: fix incorrect vm_flags usage when checking allowable orders for tmpfs
-Date: Tue, 18 Aug 2026 10:47:26 +0800
-
-Lance reported that when nothing else causes the mm to be considered for
-khugepaged collapse, an MADV_HUGEPAGE-advised tmpfs VMA alone does not
-trigger scanning.
-
-After commit 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled()
-into shmem_allowable_huge_orders()"), the shmem/tmpfs allowable order
-check reads vma->flags directly.  However, when MADV_HUGEPAGE is handled,
-khugepaged_enter_vma() is called before the VMA's flags have been updated,
-so the check uses stale flags and incorrectly rejects the VMA for
-collapse.  As a result, khugepaged does not collapse the tmpfs file into
-PMD order in time.
-
-Fix this by calling khugepaged_enter_vma() with the new VMA flags in
-madvise_update_vma().  Meanwhile we can remove the khugepaged_enter_vma()
-in hugepage_madvise().
-
-Link: https://lore.kernel.org/7d5b5eb27be798f89d563b06254c947ff53db0b2.1787020910.git.baolin.wang@linux.alibaba.com
-Fixes: 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled() into shmem_allowable_huge_orders()")
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reported-by: Lance Yang <lance.yang@linux.dev>
-Closes: https://lore.kernel.org/all/20260815181632.21453-1-lance.yang@linux.dev/
-Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/khugepaged.c |    6 ------
- mm/madvise.c    |    8 ++++++++
- 2 files changed, 8 insertions(+), 6 deletions(-)
-
---- a/mm/khugepaged.c~mm-fix-incorrect-vm_flags-usage-when-checking-allowable-orders-for-tmpfs
-+++ a/mm/khugepaged.c
-@@ -452,12 +452,6 @@ int hugepage_madvise(struct vm_area_stru
- 	case MADV_HUGEPAGE:
- 		*vm_flags &= ~VM_NOHUGEPAGE;
- 		*vm_flags |= VM_HUGEPAGE;
--		/*
--		 * If the vma become good for khugepaged to scan,
--		 * register it here without waiting a page fault that
--		 * may not happen any time soon.
--		 */
--		khugepaged_enter_vma(vma, *vm_flags);
- 		break;
- 	case MADV_NOHUGEPAGE:
- 		*vm_flags &= ~VM_HUGEPAGE;
---- a/mm/madvise.c~mm-fix-incorrect-vm_flags-usage-when-checking-allowable-orders-for-tmpfs
-+++ a/mm/madvise.c
-@@ -177,6 +177,14 @@ static int madvise_update_vma(vm_flags_t
- 	/* vm_flags is protected by the mmap_lock held in write mode. */
- 	vma_start_write(vma);
- 	vma->flags = new_vma_flags;
-+	/*
-+	 * If the vma become good for khugepaged to scan,
-+	 * register it here without waiting a page fault that
-+	 * may not happen any time soon.
-+	 */
-+	if (vma_flags_test(&new_vma_flags, VMA_HUGEPAGE_BIT))
-+		khugepaged_enter_vma(vma, vma_flags_to_legacy(new_vma_flags));
-+
- 	if (set_new_anon_name)
- 		return replace_anon_vma_name(vma, anon_name);
- 
-_
-
-Patches currently in -mm which might be from baolin.wang@linux.alibaba.com are
-
-mm-fix-incorrect-vm_flags-usage-when-checking-allowable-orders-for-tmpfs.patch
-mm-vmscan-convert-folio_referenced-to-use-vma_flags_t.patch
-mm-vmscan-add-a-helper-to-identify-file-backed-executable-folios.patch
-mm-mglru-promote-mapped-executable-folios-after-first-usage.patch
-selftests-mm-extend-the-check_huge-to-support-mthp-check.patch
-selftests-mm-move-gather_after_split_folio_orders-into-vm_utilc-file.patch
-selftests-mm-implement-the-mthp-sized-hugepage-check-helpers.patch
-selftests-mm-add-mthp-collapse-test-cases.patch
-
+Regards,
+Michal
