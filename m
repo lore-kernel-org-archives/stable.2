@@ -1,161 +1,105 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AEB946D540;
-	Tue, 18 Aug 2026 13:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76F5E265620;
+	Tue, 18 Aug 2026 13:23:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787059218; cv=none; b=SwoP6bfAZfmEuaswxw4d9Vyji3ASvxKJan0Ws1aXR2jelvINJ8bvUhsc6fth0c/bvJhA8zF4xbxez1waRzP8O+nDXt7/m0GMgo8qEnWSEAtus2JMkWxya/7kLaAYfZ/su6PnMBj+8tMZe6C66QaQ+VU6b4aKv+/V6w1t+17JNyA=
+	t=1787059393; cv=none; b=XshgKlZKaPrKoex69ilShRb/1+Tu5s48zSEd6gbXw2rG86QMgnIcLTLeVG+IeUBXfuFMGIFepm0VxhIe9RfQqiPPaV/8eSgZNLuN85JSWIYV4w/nx7SFNORMirpU8JTe1lMzMGQ2OwgcMkHBCYe8KqTNVdPePj6jX5LWfY6eW94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787059218; c=relaxed/simple;
-	bh=2Dxfea+kxrncUMNEaRi5COMeVYYhJ0LJ7uya+soIV1o=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=bLrFmsxInmMb3aaV9ZjtqWMJ2EBIYtcqc+LWPyjwiKoX978tC5wuHM7R541HVlp7Bddj7Tew6psNNHbV4826UpQtCahbxPbXt+WIOHqAfIJkGRGXoGL0Z0MWSYkbneAPMXShyOX5jKC+kdsGJkD6tBcmSMO+nziwdbNos2epMIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dAvqMbTC; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dAvqMbTC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787059218; x=1818595218;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=2Dxfea+kxrncUMNEaRi5COMeVYYhJ0LJ7uya+soIV1o=;
-  b=dAvqMbTCU8GBZ401tjDKconCvmVjc4lONK93T4qM6SPeVS8W9rv7WD3z
-   jkoBmXtyFoM8BBByP93nzNgk/i2mYdCXuI4ZbiCJUxVwqpTGh94LUBKSN
-   W9duuGnMsBv6TV12a2YN3+MjE7Id6iqhtg3UdDKHTQl/rb4aZ7z8aUxwt
-   hWVxuucGHGGZRI2EaZT7lrK1mhEmp2KKM0bcNRL/+kM98b0MkkPtnWUkC
-   zgedeFDhH2Ps+eOFnKfrT76azgr02/HanJs1Z40PyBUZn/A1ILyJiWBWu
-   hA+DVCqkMBinYW03Ss0Rsm+kzQrtgYN5dQzF2OiDHKO4nGgypfJkuQWIZ
-   Q==;
-X-CSE-ConnectionGUID: O0F+NdbYQca6FPrl0SyKzg==
-X-CSE-MsgGUID: +iS2pc1iSf2J6AQ8nJe2TQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="87756301"
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="87756301"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 06:20:17 -0700
-X-CSE-ConnectionGUID: ZnKkCSXlSb2urRrpcWkIQA==
-X-CSE-MsgGUID: 8M7fekzVSuashiYMI9AGRQ==
-X-ExtLoop1: 1
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.38])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 06:20:13 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 18 Aug 2026 16:20:10 +0300 (EEST)
-To: Thorsten Blum <thorsten.blum@linux.dev>
-cc: Mark Pearson <mpearson-lenovo@squebb.ca>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Hans de Goede <hansg@kernel.org>, stable@vger.kernel.org, 
-    Mark Pearson <markpearson@lenovo.com>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] platform/x86: think-lmi: Fix current password length
- check
-In-Reply-To: <aoRa_PwLxneo9Juv@linux.dev>
-Message-ID: <dddaae9d-88d4-bf7b-3bc1-76cd115742c2@linux.intel.com>
-References: <20260813082049.41209-2-thorsten.blum@linux.dev> <daeefbce-83f6-f161-71f5-38730fe9c9d5@linux.intel.com> <aoRa_PwLxneo9Juv@linux.dev>
+	s=arc-20240116; t=1787059393; c=relaxed/simple;
+	bh=rKLsA3aGNbgt2pa2mIymRT1P8WdpYnV8vAbLjWJUaPs=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=GAOkAY4JgNvm+7MsPkeAUylzbVUfprUlqXUNXr4TRrx0tsWftSIoRanY0MoG0lmaHEoUCEGEn3xh3+4VwWLtxWZAlYKxrk+WxQCJC5W1fVo+2Rc36KCkFz5EQ5PdtvXohyhFkwN0ORWPIpFzjXOM3Hk/wti4IDuUj53To+ZSCMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=4.193.249.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.97.62.103])
+	by mtasvr (Coremail) with SMTP id _____wAnAX62XIRq+jWkAA--.11144S3;
+	Tue, 18 Aug 2026 21:23:03 +0800 (CST)
+Received: from smtpclient.apple (unknown [10.97.62.103])
+	by mail-app1 (Coremail) with SMTP id yy_KCgAnd5+2XIRqdaz4Aw--.17569S2;
+	Tue, 18 Aug 2026 21:23:02 +0800 (CST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-501368272-1787059210=:9077"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [PATCH] can: kvaser_pciefd: fix use-after-free in bec poll timer
+From: Fan Wu <12321260@zju.edu.cn>
+In-Reply-To: <20260818-ambrosial-courageous-carp-1162c8-mkl@pengutronix.de>
+Date: Tue, 18 Aug 2026 21:22:51 +0800
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+ linux-can@vger.kernel.org,
+ Vincent Mailhol <mailhol@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <D2ED044B-6B32-4FB4-B9FF-E65497B84A25@zju.edu.cn>
+References: <20260818063832.383829-1-fanwu01@zju.edu.cn>
+ <20260818-ambrosial-courageous-carp-1162c8-mkl@pengutronix.de>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+X-Mailer: Apple Mail (2.3774.600.62)
+X-CM-TRANSID:yy_KCgAnd5+2XIRqdaz4Aw--.17569S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?YUXfcQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBGHAYlwMLSMXGSVoKbAzcD4niq98Nj4ItGd8L8jX8/TLZXz
+	oEyL/WX6XoCu+ioMtz8Qig7m8RJtowMQOTNUOYX5
+X-Coremail-Antispam: 1Uk129KBj93XoW7urW3AFWfKw4rurWfGw48AFc_yoW8Xr18pr
+	Z8Wa17Jr1vqr4FkFn7ZF4vqryUZwnay3yrA3s2vry3Cw43Xr15WFWYkrW8Way2k3sYq3W7
+	Kw18Z3s8JFn8JFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi Marc,
 
---8323328-501368272-1787059210=:9077
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Yes. The driver has three timer_delete() call sites, all for
+bec_poll_timer.
 
-On Tue, 18 Aug 2026, Thorsten Blum wrote:
+The calls in kvaser_pciefd_bus_on() and kvaser_pciefd_stop() are runtime
+cancellations: the CAN device stays alive after both, and the timer must
+stay rearmable for the next open/bus-on cycle, since the interrupt
+handler arms it from handle_error_packet(), handle_status_resp() and
+handle_status_packet().  Converting either one to timer_shutdown_sync()
+would make those later mod_timer() calls no-ops.  The stop() flush-timeout
+path, which skips its timer_delete() entirely, is also covered: the device
+is still alive there, and remove() still shuts the timer down
+unconditionally.
 
-> On Tue, Aug 18, 2026 at 02:28:50PM +0300, Ilpo J=E4rvinen wrote:
-> > On Thu, 13 Aug 2026, Thorsten Blum wrote:
-> > > current_password_store() checks the password length before removing t=
-he
-> > > trailing newline, which can reject valid passwords that are exactly
-> > > ->maxlen bytes long.
-> > >=20
-> > > It also passes ->maxlen to strscpy(), which truncates passwords witho=
-ut
-> > > a newline.
-> > >=20
-> > > Use strchrnul() to measure the password length up to the newline, the=
-n
-> > > copy that many bytes and add a trailing NUL terminator.
-> > >=20
-> > > Fixes: a40cd7ef22fb ("platform/x86: think-lmi: Add WMI interface supp=
-ort on Lenovo platforms")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> > > ---
-> > > Changes in v2:
-> > > - Keep and reword the newline comment
-> > > - v1: https://lore.kernel.org/r/20260810132018.156868-3-thorsten.blum=
-@linux.dev/
-> > > ---
-> > >  drivers/platform/x86/lenovo/think-lmi.c | 8 ++++----
-> > >  1 file changed, 4 insertions(+), 4 deletions(-)
-> > >=20
-> > > diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platfo=
-rm/x86/lenovo/think-lmi.c
-> > > index e215e86e3db7..d0ceb6aaa69e 100644
-> > > --- a/drivers/platform/x86/lenovo/think-lmi.c
-> > > +++ b/drivers/platform/x86/lenovo/think-lmi.c
-> > > @@ -438,14 +438,14 @@ static ssize_t current_password_store(struct ko=
-bject *kobj,
-> > >  =09struct tlmi_pwd_setting *setting =3D to_tlmi_pwd_setting(kobj);
-> > >  =09size_t pwdlen;
-> > > =20
-> > > -=09pwdlen =3D strlen(buf);
-> > > +=09/* Strip newline; setting password won't work if one is present. =
-*/
-> > > +=09pwdlen =3D strchrnul(buf, '\n') - buf;
-> > >  =09/* pwdlen =3D=3D 0 is allowed to clear the password */
-> > >  =09if (pwdlen && ((pwdlen < setting->minlen) || (pwdlen > setting->m=
-axlen)))
-> > >  =09=09return -EINVAL;
-> > > =20
-> > > -=09strscpy(setting->password, buf, setting->maxlen);
-> > > -=09/* Strip out CR if one is present, setting password won't work if=
- it is present */
-> > > -=09strreplace(setting->password, '\n', '\0');
-> > > +=09memcpy(setting->password, buf, pwdlen);
-> > > +=09setting->password[pwdlen] =3D '\0';
-> >=20
-> > Hi,
-> >=20
-> > I don't understand why is this strscpy() -> memcpy() conversion require=
-d?=20
->=20
-> It's not required, strscpy() would also work.
->=20
-> > Wouldn't it work with:
-> >=20
-> > =09strscpy(..., pwdlen);
-> >=20
-> > ?
->=20
-> However, strscpy(setting->password, buf, pwdlen) wouldn't work because
-> pwdlen is the number of characters to copy, but the destination buffer
-> size also needs to include room for the NUL terminator. Since there is
-> no NUL before pwdlen, it would copy only pwdlen - 1 characters and set
-> setting->password[pwdlen - 1] =3D '\0'.
+kvaser_pciefd_remove() is different: its timer_delete() is followed by
+free_irq() and then by the final free_candev(), while the interrupt
+handler can still rearm the timer.  That is the call converted by this
+patch, which also adds timer_shutdown_sync() to
+kvaser_pciefd_teardown_can_ctrls(), the probe-error path that frees the
+CAN devices after free_irq().
 
-Okay, I was thinking in my mind if I've a off-by-one error in my=20
-suggestion but didn't want to spend too much time on figuring it out.
+Thanks,
+Fan
 
-> strscpy(setting->password, buf, pwdlen + 1) would work, but since we
-> already know that exactly pwdlen bytes need to be copied, memcpy() is
-> sufficient.
+> On Aug 18, 2026, at 20:00, Marc Kleine-Budde <mkl@pengutronix.de> wrote:
+> 
+> On 18.08.2026 06:38:32, Fan Wu wrote:
+>> The bec poll timer is rearmed from the interrupt handler, so the
+>> timer_delete() call in kvaser_pciefd_remove() neither waits for a
+> 
+> There are more timer_delete() in the code, have you had a look at them,
+> too?
+> 
+> regards,
+> Marc
 
-It may work, but since you then go to nul terminate it yourself, I think=20
-using the existing function is way better than memcpy() + custom nul=20
-termination code.
-
---=20
- i.
-
---8323328-501368272-1787059210=:9077--
