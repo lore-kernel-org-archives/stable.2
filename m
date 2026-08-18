@@ -1,91 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from forwardcorp1b.mail.yandex.net (forwardcorp1b.mail.yandex.net [178.154.239.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84354442B39;
-	Tue, 18 Aug 2026 09:27:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0437E3C10B0;
+	Tue, 18 Aug 2026 09:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045233; cv=none; b=arKjy4LkIY4hKibkpJLyf23+ckNJQJaH88NEFs3sy/0dPu/S4CMVX1d5dB9Wc9nexcgHuM5Ygr0d160zGydQorF4ysCwyGjR3rCSVc+BBGokd9UkdyDaPq383Oy/rCt8yNIMTuZFgUDcLusgJ3IGWbaqUqy6o6fZMwtXI+6zWCI=
+	t=1787045339; cv=none; b=kW/dxbZ/LX+8VXPfrvpFsksknZeuQWqrIWb3Fi3jJ+nmmXm5cg90C8WbMTBSb6YMbVd3Lca2WwUCsLSwtAPeg8nA4KfAp8tPP6UqIuBOCLgdWA2BY3I46ISt06rGrnXl87M8ARGoEZz7u/Q79JHw/rpTKnTgbaqjz83AWn6U/MU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045233; c=relaxed/simple;
-	bh=QIVFiD43+1OPw/wHvwwLZ/TaoJRXAySqKqdidyBCAj8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WRooAXOs3wvSD3M4FrHVYLud3debyEBpvN+wDMdpeNLa50ibPjOiGkudBlH25PpWJZEwK9EwNiD82kMkyW8RfY9y4zfTrVZPoLQ7ZjWxRPsaBtNfP8PL5tMYfQXIzQzUmNwFUldu9G2ylx0mmgom/TPFYz6+Vcdh0vb4BFitpE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nAg4bcC2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787045339; c=relaxed/simple;
+	bh=qSDbSBGYDH07oPwBa+Rp+nBO3HAO/2alQKi/kD/jmxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=imSxM6I9Bk3PAk2jzhNZOdMQWXOXBFE0OHsQundDz+4R6ABEb5ZnPke+RBkAsh/a0OsQgBldr1I6uYxupqe5k3lkIO8JrX8w6NpSRmmHa0ePyH8/wM/uD86gfJRdC1cFK7VCPPClPYejBqYsuPRiw8at1CPmAVADk+t2q1zLuzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru; spf=pass smtp.mailfrom=yandex-team.ru; dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b=plU/4h+b; arc=none smtp.client-ip=178.154.239.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex-team.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nAg4bcC2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 073451F00ACA;
-	Tue, 18 Aug 2026 09:27:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787045232;
-	bh=xUcfhj85sX4cPSzt12bp3zzQ/yVXxAtFH+q/piQ/qBI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nAg4bcC2+xd4rXCg1Xoy05lf0LRLLNQkiFqvbfD1IZWaPZSWI34IBfju7U4vO1r+Q
-	 n4+E3PM/xuCbBLjsOhVYbKrZ+8M+aFTsDHOHiMaAxEIoywpR4tMLpybhBVzRmGXRQf
-	 AmHs+8M/RWjcxUZFa5vlMaQn7c+8SS7wAvccJiyCL7audVJddbgsGZ1dDVtbV1FrTN
-	 65e5nDotPtuakJ7snWZFdnM5i8faaPQOJHezh+irnjm0AlAmnuVkzvZW353tiwG4CB
-	 UpaSA+l+dB3St2LCtm9OcXWuq/cM4LInNCYeVpKbmolYlwbm0hdUyTQWi2w5rB17y0
-	 OXulz5OKBHQLw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1wwG69-00000000oqO-2TCu;
-	Tue, 18 Aug 2026 11:27:09 +0200
-Date: Tue, 18 Aug 2026 11:27:09 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Dong Aisheng <aisheng.dong@nxp.com>,
-	Shawn Guo <shawnguo@kernel.org>, linux-clk@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] clk: imx: scu: fix autosuspend cleanup on probe failure
-Message-ID: <aoQlbUquNf44_eav@hovoldconsulting.com>
-References: <20260808082933.2692878-1-lgs201920130244@gmail.com>
+	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b="plU/4h+b"
+Received: from mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net (mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net [IPv6:2a02:6b8:c24:fa2:0:640:41ee:0])
+	by forwardcorp1b.mail.yandex.net (postfix) with ESMTPS id 856AD8085B;
+	Tue, 18 Aug 2026 12:28:45 +0300 (MSK)
+Received: from i111667286.ld.yandex.ru (unknown [2a02:6bf:8080:51e::1:6])
+	by mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net (smtpcorp) with ESMTPSA id fSRm579aVa60-kPdJBykV;
+	Tue, 18 Aug 2026 12:28:44 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+	s=default; t=1787045325;
+	bh=733PnIbHO+Ohzr6RPQsMlbQJ91Cy5grRI728PGy9aeM=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=plU/4h+bzSlho4oiD8IHRx4LValFVcIx6rHM+y7FF5OeVCrTGT8/Zt0bV8yaiVBZp
+	 c5ikFWt89S618rt3+t7W9/fe3okyUpwGO7OOF+gw2nptokfqGVDlR9m1ZSFsb9PbC5
+	 iGeBeoOgnKRJAsnD+39fVozuStFm6nWMyM5/Ly4w=
+Authentication-Results: mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
+From: Andrey Troshin <drtrosh@yandex-team.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Andrey Troshin <drtrosh@yandex-team.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-media@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10 1/2] media: mtk-vcodec: potential null pointer deference in SCP
+Date: Tue, 18 Aug 2026 12:28:40 +0300
+Message-ID: <20260818092842.1975-1-drtrosh@yandex-team.ru>
+X-Mailer: git-send-email 2.51.0.windows.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260808082933.2692878-1-lgs201920130244@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 08, 2026 at 04:29:33PM +0800, Guangshuo Li wrote:
-> imx_clk_scu_probe() calls pm_runtime_use_autosuspend() for non-CPU
-> clocks, but its probe failure paths do not call the matching
-> pm_runtime_dont_use_autosuspend() before disabling runtime PM.
-> 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during cleanup, this reference is not dropped and usage_count remains
-> unbalanced.
+From: Fullway Wang <fullwaywang@outlook.com>
 
-As I've explained elsewhere, this is just misleading. There is no usage
-count leak here as the count is balanced whenever the user re-enables
-autosuspend through sysfs (by writing a non-negative timeout).
+[ Upstream commit 53dbe08504442dc7ba4865c09b3bbf5fe849681b ]
 
-Drivers should clean up after themselves and disable autosuspend, but
-this is more of a clean up than a fix and should not be backported.
+The return value of devm_kzalloc() needs to be checked to avoid
+NULL pointer deference. This is similar to CVE-2022-3113.
 
-You've sent upwards of 60 of these in the matter of just a few days,
-some of which have even been picked up. Please send follow-ups (replies
-or v2s) as soon as possible to prevent further of these from getting
-merged.
+Link: https://lore.kernel.org/linux-media/PH7PR20MB5925094DAE3FD750C7E39E01BF712@PH7PR20MB5925.namprd20.prod.outlook.com
+Signed-off-by: Fullway Wang <fullwaywang@outlook.com>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+[Andrey Troshin: backport fixs from
+ drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_scp.c 
+ to drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c]
+Signed-off-by: Andrey Troshin <drtrosh@yandex-team.ru>
+---
+Backport fix for CVE-2024-40973
+Link: https://nvd.nist.gov/vuln/detail/CVE-2024-40973
+---
+ drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> Add the missing pm_runtime_dont_use_autosuspend() calls to the probe
-> failure paths before disabling runtime PM.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 78edeb080330 ("clk: imx: scu: add runtime pm support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+diff --git a/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c b/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c
+index d8e66b645bd8..27f08b1d34d1 100644
+--- a/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c
++++ b/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c
+@@ -65,6 +65,8 @@ struct mtk_vcodec_fw *mtk_vcodec_fw_scp_init(struct mtk_vcodec_dev *dev)
+ 	}
+ 
+ 	fw = devm_kzalloc(&dev->plat_dev->dev, sizeof(*fw), GFP_KERNEL);
++	if (!fw)
++		return ERR_PTR(-ENOMEM);
+ 	fw->type = SCP;
+ 	fw->ops = &mtk_vcodec_rproc_msg;
+ 	fw->scp = scp;
+-- 
+2.34.1
 
-Johan
