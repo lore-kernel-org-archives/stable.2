@@ -1,142 +1,204 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B7A3DEFFE
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 19:11:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C74BC3115AC;
+	Tue, 18 Aug 2026 19:16:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787080317; cv=none; b=MeaDlXK6o3+5c8W4b4qFzTrDC08pmwdz+mM7IvCvsXjCHyRWfr++SjKQtts0wF6/tffXIriAs/w/rwK4STyHF2Du/p0suw6RIxoFR9isZ5U5UU5eKpe/hj7ARbECSRJo6eqzkclAu7V0+hIiYqQJbXSGn0zrI/Aux7+MGndOI+M=
+	t=1787080601; cv=none; b=DFRVX8igCqGQ6eU+2rF4XfaJf+ng/90FdLcgMpLmrjRIsJN7TAZVRo9mt9TzrVxFKLG0XWQpdjycqutiBnHyB7vzvAcQAFa4NyNIPfTTF/x36GuSb3eisgvqISj1ny/2HxBwO2kiuTBrhHivpJTg36iTPNNAie158SkMinRTmT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787080317; c=relaxed/simple;
-	bh=prE0cxZeAxUrFNCwuGQT3qOCxUJi84Egaqgt5CsozWw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rkTcb/0Jfp5kFxBNp6C5B1XLgvjx8xYG3yGVb3GEJNaiOr7kx2PVMUlv7Yg1KEgXCrZm2G8gfkPJFED7l8Kz2ihJv9nzxJVuL8sNGEJxLOh7xcorRObKt8sDGlBnq3mN7gTA+6LHzO6K4uPbFGg7Z1AhB9sudzISWCGcb2+1B3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fYgjWFln; arc=none smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787080601; c=relaxed/simple;
+	bh=gDFH+XjE5QIm5tvxucY09olIi5Bp4gHBeLUG/M/MycA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sCnAFS6t3b8c3ZzgNQB4uQpdxw9nmpnro0aADFfujyxMFSZW8GmaGGDMs+38j36vHbS3yFeG7Bx8+EU9gEAEXrlKfgGlN/kdCeEeuwPON24Bio4Ep7dWYo/9DEh4QAhUKM3M4D5pTeTI2OCE5lkIaiQcn0IUeAO2Rd5v0LHFkhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=b3Ej5yOf; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fYgjWFln"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a3819e8be8so243091a12.0
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 12:11:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787080314; x=1787685114; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CXD7tc6oMBFEmd9i6wgkKuOD03Mu31Lz4UBhvt5Ho/Q=;
-        b=fYgjWFlnQeLQuMHfOq7WtkXNwV3pEcfK9oUDZDgqwkiXpUM4uJl/fI32jGYMw+gO2X
-         14Tr4HVN/9zeBEB2eEJ+JYx3Crf0MJ7kI/vyEMwAmJb3yXv36pL6O/yRO9/YNMPKH5lm
-         CzonU0d+HYAK2srMK48GTqYIVkiNAQUJHE0+qAc6j9cOp+mmZjG7i+PXD1WymsZZSyKJ
-         opTmOrUxr5nlSZA6lmcCDZZq/7OSX3ipzJ5RyGi0THrIDl9IE6n81vW0PwGS2+kvoiXQ
-         jHXK60TgLS0Ycigs6jDu62WiqkTNGQ+JEclEis3eL8GwFzil4457KTUweuhdmK/KaEyM
-         zO1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787080314; x=1787685114;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CXD7tc6oMBFEmd9i6wgkKuOD03Mu31Lz4UBhvt5Ho/Q=;
-        b=ZRpfBcQYA/OUKzxviwdPeYXkA8N2Met7gHleuZUHej0ctNhrT4Z3ZFIVLs0Tez/6pG
-         XxE4oIh6B3+6UIK/p6jqOQntnkj12ah6uzm062yYPOmayGpCuTO8OQ/iiYVpIpGEwHur
-         ZsPCulTcKynn2liGTtAyy/68nlIIWfnHOtpQqW7aKyhr7q9J+y912oOBiwXFLAQrzzeO
-         EyDyEiyHsuStvhiZ7X4glRpZXuAo5TtfySQek+UOmlIm1qdV5UTw85YeDq4IdRXPGcv2
-         eTvneIxzesfHmVeSgUv8N+TNM0LIgZCsxdhxDlB6rn8MjOqub+uWV4MrQxO3GJnmg74w
-         bjwg==
-X-Forwarded-Encrypted: i=1; AHgh+RrCyrRL1GN2AfbDGCnmuLgApjBu7A+9GnsN9HdX+VDJXvG3A/L5YjsskFfocgMkh3FRiZqvKww=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnGBViJ2w4BsCAZQ01mgxA+qEBFQrsRmY6zdDjGEOVMQsIeO64
-	FmO0L1NXwSnsQOog9rOxWnG+g25mwq6qOfAIpSsa+z7vjbUszS6z4cYe
-X-Gm-Gg: AR+sD10qvLcjJ0D77aSZH29MeZ8jZ3gJM58/OXvEr89DE94wjY5X8kK6fX96w2cO03Y
-	Pj04sS+FGqlDEaQMwTFBm6Rq+jJWYqlqaDGlLAWcvi5yYAKAZqtLGuWElWUJwOubGXY4LrY+lHf
-	sdxyrxVr5z5WnmXtMfO1YhIjPFmWoRSrSf1SoszL34J/SexCBZiv4oL4igimGsgTbtL2BF+1udC
-	fmFCT6sAnn0ah3/5bk/0WhW6zwNXmYHJXLts1d/h7M4rWP5NoY2mTFdvxdgdFwX3i5P8rCuVigq
-	l/QGXPcQYFD+t8Ejk4VluBR311Ai09LC1RrH+ZtW+9o7VDF5gmlc1c1hqkE8AEXBGxmFRIhrtCn
-	82r9yDQaTclp2HgK3fv+mYtCqN0x3TomAM/9a4vSSrxGpwEZbMbcpPdjqbydqPAZDEoeKPWyflv
-	ZAlLkSwGNg6mLUF+47Zv8BVBTZXJagbuJQNGo7OLLNKMkunv9SZRWmuMs7uFprnlxw8HtCAKswp
-	skLv4bPUDrZKuTaxTJM7g==
-X-Received: by 2002:a05:6402:24cd:b0:6a0:9ce5:3f5c with SMTP id 4fb4d7f45d1cf-6a3e3c986f2mr4530938a12.7.1787080314075;
-        Tue, 18 Aug 2026 12:11:54 -0700 (PDT)
-Received: from fedora ([2a00:7c80:0:3b5::11])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3d8531694sm2291552a12.11.2026.08.18.12.11.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 12:11:53 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: platform-driver-x86@vger.kernel.org
-Cc: jorge.lopez2@hp.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	linux@weissschuh.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v3 2/2] platform/x86: hp-bioscfg: remove dead bounds check in audit_log_entries_show
-Date: Wed, 19 Aug 2026 00:11:08 +0500
-Message-ID: <20260818191120.38556-3-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260818191120.38556-1-meatuni001@gmail.com>
-References: <20260818191120.38556-1-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="b3Ej5yOf"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IHVjB33307195;
+	Tue, 18 Aug 2026 19:16:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=J0CX+p
+	kzPUoaXlRK/iseroW2RKfpri41KVBpIYDYSTY=; b=b3Ej5yOfnmATr2KhP/saRl
+	TdXsIM7YtMbHCA7IKYSZVOc9eBrVX1wfNjnbZ/lbsv8EIDyeTMseSybCaq2D+0x8
+	RtHolFi6bGrQDw/PJnUIbtXzOMY+5LLKBaFAYCFKTZmcNBu5XanaGpVgVH4i5knV
+	G5e8bDi9it+s0Tt2l/wxyLVOuN4ioBQS4f+SJAd3zFjSc0aJh/a1JaLYC1jdpvvT
+	1ZgECM+6Sf2oUjTzxElFYfK8yP2pThOU1vtXVB3GNEdPQDuilt49N14Edi1Ke9X3
+	BU1IH9xIK1xbrTvJP9RA1KEsa3OjXPiu035fVwSICQbPmVzQkaxI0hDwpk3NZ27Q
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g2fsqtctb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 19:16:33 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67IJBJ3f029774;
+	Tue, 18 Aug 2026 19:16:32 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g34ngctt9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 19:16:32 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67IJGVP230147112
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 18 Aug 2026 19:16:31 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7594A58069;
+	Tue, 18 Aug 2026 19:16:31 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4BA7858052;
+	Tue, 18 Aug 2026 19:16:30 +0000 (GMT)
+Received: from [9.61.26.94] (unknown [9.61.26.94])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 18 Aug 2026 19:16:30 +0000 (GMT)
+Message-ID: <2404fd93-9b70-4ef7-8967-6006a5d98b8a@linux.ibm.com>
+Date: Tue, 18 Aug 2026 15:16:29 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] s390/vfio-ap: Fix leak of KVM GISC resources
+To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+        stable@vger.kernel.org
+References: <20260818115819.1656595-1-akrowiak@linux.ibm.com>
+ <a45d4bbe-21d3-43c3-9618-bea56667ca17@linux.ibm.com>
+Content-Language: en-US
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <a45d4bbe-21d3-43c3-9618-bea56667ca17@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDE0MCBTYWx0ZWRfX2PbvHfIibCZU
+ hyvVTTaCPnaOvnjz9OLBwArPtRgc5jZmroMDbsjlTvpqAd7wxAlgxgNRK5bftPrDZzg8R+JYPWN
+ k7U2LnqC7fXSQodnieSip6ZQ5PtxuuzxoA8i9lb8w4Vy+BkhyLZNaX9SwkAnQ/pyuMNKKV1gJ+T
+ VbkjD9lo8SWRgIAnpRdxDtcVauv536ckOZq9SQE/LwvwrkTiXNufF3MQfcqIN5NiKNTVetkBad5
+ fAUq+ur610U5AOONB/leMsWlw2p4E6RlqCpew7HMH0VKIeMR3YVZZeUvQYVGvgtVKOTgrdpB25l
+ gLs2BgeU0LcZ6Hkv3zBwU/Y2PI16vw0suIixTQ67z6ILr2WgO7INXiob8AloMKoo0Mri4LRvdmF
+ 6HO8ltQuwjsX7vCJD5nF8JFwlyk/7h1/rxp+8bUfF2RUq8POwa1gIk99Lzm5VRbWk5ngttgatOU
+ zb4GQ1l0aOHWNztDp3g==
+X-Proofpoint-ORIG-GUID: WI3RAu-8sZn6rqexXyA0oCX33nn5EHz7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDE0MCBTYWx0ZWRfX6luzpBt+j2Ej
+ 4+gtNh5o1qKjpEtBBZhcqNWFfi6VENHM4l1jsDZ8IDg6OS4/EUdN7GdCDQdLO27o/IDwnrF/ImV
+ 9RtHeZTn/wv3oRbx92eYjnbudjW5IlQ=
+X-Authority-Analysis: v=2.4 cv=DJe/JSNb c=1 sm=1 tr=0 ts=6a84af91 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=P5o94yUMNGGiSLQdnMsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: WI3RAu-8sZn6rqexXyA0oCX33nn5EHz7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-18_03,2026-08-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 spamscore=0 clxscore=1015 bulkscore=0
+ suspectscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180140
 
-audit_log_entries_show() checks "count * LOG_ENTRY_SIZE > PAGE_SIZE"
-prior to entering the loop. Because "count" is already bounded to fit
-within PAGE_SIZE, the inner loop check "(LOG_ENTRY_SIZE * i) > PAGE_SIZE"
-can never be reached and is dead code.
 
-Remove the redundant inner bounds check and eliminate the unnecessary
-"else" block after "break" to clean up the loop control flow.
 
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
-Changes in v3:
-  - Remove the dead inner loop check completely instead of adjusting
-    the boundary arithmetic, as noted by Ilpo Järvinen.
-  - Remove the redundant else block after break.
+On 8/18/26 1:32 PM, Matthew Rosato wrote:
+> On 8/18/26 7:58 AM, Anthony Krowiak wrote:
+>> s390/vfio-ap: fix KVM GISC and page leak when queue removed from host config
+>>
+>> Two related problems exist in the handling of KVM interrupt and page
+>> resources when a queue is removed from the host's AP configuration
+>> while assigned to a mediated device (mdev).
+>>
+>> Problem 1: AP_RESPONSE_Q_NOT_AVAIL not handled in
+>> vfio_ap_mdev_reset_queue()
+>>
+>> When the AP bus removes a queue device whose adapter or domain has
+>> been removed from the host's AP configuration,
+>> vfio_ap_mdev_remove_queue() is called. If the queue is still in the
+>> host's AP configuration at that point, it calls
+>> vfio_ap_mdev_reset_queue(), which issues a PQAP(ZAPQ). Since the
+>> adapter is already gone from the host configuration, ap_zapq() returns
+>> AP_RESPONSE_Q_NOT_AVAIL (0x01). This response code is not handled in
+>> vfio_ap_mdev_reset_queue()'s switch statement and falls through to
+>> the default case, which issues a WARN but does not call
+>> vfio_ap_free_aqic_resources(). As a result, if IRQ handling was
+>> enabled for the queue by the guest, the KVM GISC registration and
+>> the pinned guest page holding the notification indicator byte (NIB)
+>> are both leaked.
+>>
+>> This is fixed by adding AP_RESPONSE_Q_NOT_AVAIL to the same case as
+>> AP_RESPONSE_DECONFIGURED and AP_RESPONSE_CHECKSTOPPED in
+>> vfio_ap_mdev_reset_queue(). Like those response codes, Q_NOT_AVAIL
+>> indicates the queue is not operational and no further reset attempts
+>> are possible; the correct action is to free the IRQ resources
+>> immediately.
+>>
+>> Problem 2: vfio_ap_free_aqic_resources() leaks saved_isc when
+>> kvm is NULL
+>>
+>> vfio_ap_free_aqic_resources() guards the call to
+>> kvm_s390_gisc_unregister() with:
+>>
+>>      if (q->saved_isc != VFIO_AP_ISC_INVALID &&
+>>          !WARN_ON(!(q->matrix_mdev && q->matrix_mdev->kvm)))
+>>
+>> If matrix_mdev->kvm is NULL -- which can happen when
+>> vfio_ap_mdev_unset_kvm() has already run and cleared kvm before a
+>> subsequent cleanup path reaches this function -- the WARN_ON fires
+>> and the entire block is skipped. This leaves q->saved_isc set to a
+>> non-invalid value, creating a potential double-free on any subsequent
+>> call to this function.
+>>
+>> When kvm is NULL the KVM guest is already torn down, so
+>> kvm_s390_gisc_unregister() need not and cannot be called; however,
+>> q->saved_isc must always be cleared. Fix this by separating the
+>> kvm_s390_gisc_unregister() call from the q->saved_isc reset. The
+>> WARN_ON now guards only the genuinely impossible case of matrix_mdev
+>> being NULL. A NULL kvm is handled gracefully by skipping only the
+>> unregister call, and q->saved_isc = VFIO_AP_ISC_INVALID is set
+>> unconditionally whenever saved_isc was not already invalid.
+>>
+>> Additionally, add an else clause to the host-config check in
+>> vfio_ap_mdev_remove_queue() to call vfio_ap_free_aqic_resources()
+>> directly when the queue is not in the host's AP configuration. This
+>> serves as a backstop: when the AP bus fires the driver .remove
+>> callback after an adapter is removed from the host config, the queue
+>> is by definition no longer addressable, so vfio_ap_mdev_reset_queue()
+>> would always return Q_NOT_AVAIL. The else clause handles this case
+>> directly without the unnecessary ap_zapq() call, and ensures cleanup
+>> occurs even if kvm has already been set to NULL by a prior call to
+>> vfio_ap_mdev_unset_kvm().
+>>
+>> Fixes: b9bd10c43456d ("s390/vfio-ap: do not reset queue removed from host config")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+>> ---
+> Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+>
+> For archive purposes, this is a continuation of
+>
+> [PATCH v5 9/9] s390/vfio-ap: Fix memory leak when queue removed from host AP config
+>
+> https://lore.kernel.org/linux-s390/20260812200240.818004-10-akrowiak@linux.ibm.com/
 
-Changes in v2:
-  - None for this patch; resubmitted as part of the v2 series.
+I just noticed that I had a commit editor open for this patch when I got 
+back
+from an appointment for which I had to run out the door. I added a case for
+the AP_RESPONSE_Q_NOT_AVAIL  to apq_reset_check() for the same reason
+a case was added to vfio_ap_mdev_reset_queue(). When 
+vfio_ap_mdev_reset_queue()
+has to wait for an asynch reset to complete, it queues the 
+apq_status_check()
+function to a work queue. That function calls apq_reset_check() to check 
+the
+status response code which also did not check for AP_RESPONSE_Q_NOT_AVAIL
+and leaked AQIC resources. That patch is forthcoming today.
 
-Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.com [v1]
-Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.com [v2]
----
- drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+>
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-index b57e42f29282..3b20757a3e74 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-@@ -93,15 +93,12 @@ static ssize_t audit_log_entries_show(struct kobject *kobj,
- 					   HPWMI_SURESTART,
- 					   audit_log_buffer, 1, 128);
- 
--		if (ret < 0 || (LOG_ENTRY_SIZE * i) > PAGE_SIZE) {
--			/*
--			 * Encountered a failure while reading
--			 * individual logs. Only a partial list of
--			 * audit log will be returned.
--			 */
-+		/*
-+		 * Encountered a failure while reading individual logs.
-+		 * Only a partial list of audit log will be returned.
-+		 */
-+		if (ret < 0)
- 			break;
--		} else {
--			memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
--			buf += LOG_ENTRY_SIZE;
--		}
-+
-+		memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
-+		buf += LOG_ENTRY_SIZE;
- 	}
- 
- 	return i * LOG_ENTRY_SIZE;
--- 
-2.43.0
