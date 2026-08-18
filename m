@@ -1,19 +1,19 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0AD3A782D;
-	Tue, 18 Aug 2026 12:40:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0229846C83B;
+	Tue, 18 Aug 2026 12:41:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787056859; cv=none; b=D0WChgl3U7hrVBp9yqdokSgaFqoqDttHukO5KQJ4SRkqxLnb4z18tWbdTgFPCoj+qC/1S/uULz7dRzFCAUwR5MfEnruUS1MDWNeMawU7PDtYIt/z9AUD4aO39LR05WjV1SNxql/LjQYM3NJPHX3CR28bhtSalmK6yKlPg1EY3xQ=
+	t=1787056884; cv=none; b=aYuT0ztVKu4rGk1kJuak/jKj7vEiTJmUWu1PS0lxH7FPfWVIXAmkQcFzBzgedeHb2PClZhaTCBDpycRBAJbcBAKsw/w/cayNFwzuWK2zkuckV4XtmEueA6C3CsR9wEz/D5WWKicAWMBvJYeie5MPQZjfuFXx12FVTs2/E1RchPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787056859; c=relaxed/simple;
-	bh=gdXZDaMP9VYXtCLquhuJtmlDM8Bl8q4Qe66enhMHBr8=;
+	s=arc-20240116; t=1787056884; c=relaxed/simple;
+	bh=rLcSt2kfYOBdgaMB6RoZ+1ArusdKM3QJC841FuKNZYk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C4Oq/tDs4gITAyZ2tCB1+FaSsnYLHrhNellJZbQLJc0FuW9M57ylLdKpcn1YPYkCazhDM/3bJg7WdWW5YELiKukXZ8+xWCrhOVwHTVIZU3IeRyKKvSaupXvmoywGk3CkSoDM7vF3Z8GTNkho+QZmWk0SqFTi4xpXkekdl3E4wno=
+	 MIME-Version; b=stt5FyHU0nXExbM4mrzht/+jNRwtQ7u2Mevw4O0w8Wx8CUw04G3Y1F7twGCCM8octKPlE7nE+AialVVaXwm/R/4FzMCYVIq8Lcn2irnJKqh9qPLOfn/vxNCRPtcsyu0v7iueh8851Lytnv1tUZERLMbxfAiriS1XPUP0fi1tLdM=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3D81F000E9;
-	Tue, 18 Aug 2026 12:40:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53C611F000E9;
+	Tue, 18 Aug 2026 12:41:18 +0000 (UTC)
 From: Huacai Chen <chenhuacai@loongson.cn>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
 	Viresh Kumar <viresh.kumar@linaro.org>,
@@ -26,9 +26,9 @@ Cc: loongarch@lists.linux.dev,
 	Huacai Chen <chenhuacai@loongson.cn>,
 	stable@vger.kernel.org,
 	Hongliang Wang <wanghongliang@loongson.cn>
-Subject: [PATCH 2/5] cpufreq: loongson3: Adjust the width of id and val in smc_message
-Date: Tue, 18 Aug 2026 20:39:18 +0800
-Message-ID: <20260818123921.3600606-3-chenhuacai@loongson.cn>
+Subject: [PATCH 3/5] cpufreq: loongson3: Replace per-package mutex with per-node
+Date: Tue, 18 Aug 2026 20:39:19 +0800
+Message-ID: <20260818123921.3600606-4-chenhuacai@loongson.cn>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260818123921.3600606-1-chenhuacai@loongson.cn>
 References: <20260818123921.3600606-1-chenhuacai@loongson.cn>
@@ -40,42 +40,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The id field of smc_message is usually stand for the CPU ID. In the past
-this driver was only tested for desktop and laptop productions so 4-bits
-are enough. But now we have servers that can have as many as 256 cores,
-so we need 8-bits CPU ID.
-
-On the other hand, the val field is usually stand for CPU frequency so
-12-bits are enough to represent 4GHz, and for higher frequencies there
-is an extra bit to extend (enough for 8GHz).
-
-In theory, this is a incompatible change, but fortunately the old SMC
-firmwares are not widely shipped and can be updated on the air, thus we
-can safely adjust the widths.
+Our server productions (e.g. Loongson-3D6000/3E6000) can have multiple
+nodes in one package and SMC mailboxes are also per-node. So replace the
+per-package mutex with per-node one.
 
 Cc: stable@vger.kernel.org
 Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
 Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 ---
- drivers/cpufreq/loongson3_cpufreq.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/cpufreq/loongson3_cpufreq.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/cpufreq/loongson3_cpufreq.c b/drivers/cpufreq/loongson3_cpufreq.c
-index 1e8715ea1b77..630f679aa739 100644
+index 630f679aa739..e3cd78a5ab18 100644
 --- a/drivers/cpufreq/loongson3_cpufreq.c
 +++ b/drivers/cpufreq/loongson3_cpufreq.c
-@@ -21,9 +21,9 @@
- union smc_message {
- 	u32 value;
- 	struct {
--		u32 id		: 4;
-+		u32 id		: 8;
- 		u32 info	: 4;
--		u32 val		: 16;
-+		u32 val		: 12;
- 		u32 cmd		: 6;
- 		u32 extra	: 1;
- 		u32 complete	: 1;
+@@ -169,7 +169,7 @@ struct loongson3_freq_data {
+ 	struct cpufreq_frequency_table table[];
+ };
+ 
+-static struct mutex cpufreq_mutex[MAX_PACKAGES];
++static struct mutex cpufreq_mutex[MAX_NUMNODES];
+ static struct cpufreq_driver loongson3_cpufreq_driver;
+ static DEFINE_PER_CPU(struct loongson3_freq_data *, freq_data);
+ 
+@@ -177,14 +177,14 @@ static inline int do_service_request(u32 id, u32 info, u32 cmd, u32 val, u32 ext
+ {
+ 	int retries;
+ 	unsigned int cpu = raw_smp_processor_id();
+-	unsigned int package = cpu_data[cpu].package;
++	unsigned int nid = cpu_to_node(cpu);
+ 	union smc_message msg, last;
+ 
+-	mutex_lock(&cpufreq_mutex[package]);
++	mutex_lock(&cpufreq_mutex[nid]);
+ 
+ 	last.value = iocsr_read32(LOONGARCH_IOCSR_SMCMBX);
+ 	if (!last.complete) {
+-		mutex_unlock(&cpufreq_mutex[package]);
++		mutex_unlock(&cpufreq_mutex[nid]);
+ 		return -EPERM;
+ 	}
+ 
+@@ -208,11 +208,11 @@ static inline int do_service_request(u32 id, u32 info, u32 cmd, u32 val, u32 ext
+ 	}
+ 
+ 	if (!msg.complete || msg.cmd != CMD_OK) {
+-		mutex_unlock(&cpufreq_mutex[package]);
++		mutex_unlock(&cpufreq_mutex[nid]);
+ 		return -EPERM;
+ 	}
+ 
+-	mutex_unlock(&cpufreq_mutex[package]);
++	mutex_unlock(&cpufreq_mutex[nid]);
+ 
+ 	return msg.val;
+ }
+@@ -337,7 +337,7 @@ static int loongson3_cpufreq_probe(struct platform_device *pdev)
+ {
+ 	int i, ret;
+ 
+-	for (i = 0; i < MAX_PACKAGES; i++) {
++	for (i = 0; i < MAX_NUMNODES; i++) {
+ 		ret = devm_mutex_init(&pdev->dev, &cpufreq_mutex[i]);
+ 		if (ret)
+ 			return ret;
 -- 
 2.52.0
 
