@@ -1,168 +1,123 @@
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C303446B0
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787041543; cv=pass; b=QUyqy6G3s/RezY1h9kCdRUFF16MBXPEnc3U7kc2ItiFKwE6rl3dwyh+2vanVolG8wtwgbRuD/jFw3mIbgJVjAxGUx48B7Qr/S+pBjUPrgH87xqGeQEDnv6v5DhHOWrl4v+5hZb1SfiuUV8orFGfBXpYZzL+ct6xptmQBKVsOqbw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787041543; c=relaxed/simple;
-	bh=DJT11aK4BEheJPP/qY8HOdFg5c0h+5gAbI1rRLgLv24=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=bUMhYCtKK165jFbEstgkLF8nHgFZkgAouOJIH3GitICCXBnEQApU6agE3+pMxNU+8fIMYy0rV0qF6FXILJMf24QRZ2+nDOBDAeM9qScqCren/pDhyfLJoRKyMx+7wVZ0DqdA7IuzzEIUHjewIWj8V1/FdcyIiqddz/vhHVLyCEE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZA39j0q9; arc=pass smtp.client-ip=209.85.208.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF743446B0;
+	Tue, 18 Aug 2026 08:26:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787041607; cv=none; b=gFRh1SOF2N3QR/vRQIa0X4LpJXMQQH53CsPITiKu1EXkn237lhAO2mYhBcUbN3jncNvVOpV4vm+STmCqERfGWkKOghSF8S8W0boyirfBuAaHq/zLaBrXQujC7JMWO7kYpQaeklLIyoINzpHSTf2oyUCVcXK2i7CgO0UQcL2/39w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787041607; c=relaxed/simple;
+	bh=Hw5QSf7LguCSNMBpzlpSPawZ6KwlO9KQc0tQS3V7aJA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rTbbOoUPtbF9mJN28iKJPMcq8K31z++9IH+MV5wYme3xFQoSP5YONZBg/XKvP8plii0H3eyUpOFkMhbqVx/9LRyxBF8IL7XiVWIWWxSDWJuB0qgAgkGppjS5LHKcMkT5WI1oAQF3UzBOzW2Uvhd0J6JJeIdSkCtC3VEfkSdWNm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LooOcyja; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZA39j0q9"
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39c9a3acd40so29964851fa.3
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:25:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787041540; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TVF9Go/tgrPer+xn9zz5fidsc8rSrrOHfe6BLF//16ipDCX58LgcfWBfYsdPzGr7qP
-         kjgWXVSWuSHmtlYQOhiSz+e/ZnpWxk6Ojv85iVrJJF+BUjqddGKNbKX88u3+zKbQYC7v
-         nMgqVQvk6uOhvI7ATbcVEQSyA7KJ66wITZgndUA0SZAa+s0xpEFyiSobNWAR6Q6lh4z1
-         D1LD7YO3vWOabKL/toI14OSanehsamcvrWXPFx+a/2S4hpmGBUdgoHXzhoiDmLr4hyqE
-         7DS/W0VwW13xMw/y/xJbgTlQm9qfg7NK6tBynQ5J56SaQzj/zCjKj3nU/eDTqKd/1gLy
-         X/5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=AFqjh8HzrXpWibQdtihVChZ+YGjEXJtHt987hhzQmKs=;
-        fh=dNgM7mYlNcxLEuKDa+6GeEFAQGRfv/T9wApdaOqQ3ko=;
-        b=s5xs6SIXRnaDw7QgwmGrnVO49hZN9xfEhZhxhyltRLkGd3LyzFXn9to21SHEzPg7Ig
-         ARSGd68gDNsCVGB5qG9Fo2CfSph3r573k7x5E9v2XZfOC8bwXnHjKhT8wWsDVwcvj57E
-         Xt9G03xlJE4/B3Af3DTO1Y8PmFseJ804Sx/Yt1zK2K+mnNKNLU0kSvi1JyxWMUWsS4y4
-         Qq6zYvEN+3JHexdoQd1c3C4mi9WZZ+N90J4KgmrxncUGOaXNvkzqwBkegGAx7QQVBG45
-         SfcDzmHq66uf4qmo0O/PqlRQS+qLKZKjJVSkdoBa+x0MhhcoTfxGMlLvBxEnUhbSkTJG
-         xEGw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787041540; x=1787646340; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AFqjh8HzrXpWibQdtihVChZ+YGjEXJtHt987hhzQmKs=;
-        b=ZA39j0q9mwAJRkAWxKGtroIIAtNUI5Ng8vUyGEgmxB6VhWrqDh+MzBtG8Z2Df/jOoA
-         sKW4ziafRZ89eiDGouyVqnt1PXk/1O3QLh6hAYgv5orGJZnbE0oge/pHh7CV+zuKT8G3
-         LYAxskEDS9JJNgDdFF9hk2gPRZjlg5mPuwHymO/N4LHUCFpWhP6EkSG1dJnInR4tos/K
-         ZHnu9unsPTJl/Jrq0ih0Hc9tXYnz+gZx+gYRTK3A1CU0Zzr1fPiVcUDEj6bA3PZt1fD4
-         bD19Mspm7t+57cdMcddzuK7fYPodTw+qhnA2QNdgsfZbCH+MC0arDY6ZNDTbV0swWeGy
-         ypRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787041540; x=1787646340;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AFqjh8HzrXpWibQdtihVChZ+YGjEXJtHt987hhzQmKs=;
-        b=CO8Kz49vX5xvEScXnVufSuuzimAORJwqM37R9/9DOhNWMgJXF8x2DEZ1OWzoLChBW1
-         zB9VeQaFnJmU2aigAcRB6kTVN7KDe2LWrMQAcsTEIG0LvH5PNR1GIF+hTkg00VQ7Q7Wk
-         qhtlJWNjB+bEZ3jWTpQPc+bcooXZVVPoAVBDNkuVQbs7Pfr66nON8EKxpO08vtGa5gGk
-         M9BKXxMLdyepsqTzXEFupmcSB/RvuydjPZywu6cKpDyR83tgusteHdgeF2yVkEWEGISw
-         Zu0JW+Y/JwoEn2AfAghNtxNYXuzs8f0sIByrDnxJvxrLePCYmcvzhQWnALoTnIyyr4yG
-         DMeg==
-X-Forwarded-Encrypted: i=1; AHgh+RrReCpVO7/tyVOVtQEufv3fNS63vTq25b+pU1yIWBZH+2XId5FQ72FmNMk27rBYHHi8sCmNtVU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyaXvT+L0FAaI1JxfUdgC35KMixe4hFwnmitGbv38bhPg3ekuA/
-	/plT/rqROOMY3uFO5NNEXZTm8Um5Vcp53gCjvsgGAkMqnkx6YEQ3ioGAwB4pzQ77qJlb8CgDC9v
-	/bBFUTeNa5RA+EqqaIFvwAw84z4JYUcA=
-X-Gm-Gg: AR+sD113X4jfhB9M2v6kmcJnqMTemsheOcJ8NRTVHfNKi8is3GmpvK6asKhXXU6/Wqw
-	QPkFyv1s1QMOf7Pc6/Ts6xzB1J6PeljJ5IDOsmYJUDVqgiar7rlTS73kcxumnLGiKRmUbEyJJfp
-	Feeru4NIfav+XCNA0UCmndtOg5w5Bqm5ACLgfAWLU/VhK4Gz61blStUbU0YNZHNu793pNaVlVii
-	kZ79EmDrjTLyPDFyvA+/R9fg/xtFFiddimz48q6ZwzBcI+Mx13oVShCueYkvdduh/+o2cyZxMws
-	JKRFDswBqRxJNHovKhspH4FYXMoObMHiO3ho/e0NPmRj/Q==
-X-Received: by 2002:a05:651c:2103:b0:39a:ee64:36f4 with SMTP id
- 38308e7fff4ca-3a17516851bmr8813871fa.1.1787041539838; Tue, 18 Aug 2026
- 01:25:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LooOcyja"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787041605; x=1818577605;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Hw5QSf7LguCSNMBpzlpSPawZ6KwlO9KQc0tQS3V7aJA=;
+  b=LooOcyjagJiqP+R1UCrdsZRWY6Vjn5QXnrHnsjAJlDHlCCkitK3zsFYE
+   mpkfhuG4hLq3BW/970IXjXooTrm7iyUIqgBUn6VrOzA57Nx+WFmxdLCGI
+   7MPnQ8waV6aL87E96LA9dpR34/9Wda0OeXGK+42o/7H3HOA+Hv9iPqkTS
+   LiDyr/0qzXnUCBGAcy3TIfPuL3PuQJuHsfviGi5pTQG/ELE0yZJJGePLv
+   3T6VFHE8pLjlJ+KEF/cLgJLBqCBy95HPPk/e3MXDmk+bMQCb3tJAewN4Z
+   rPvMu9e+LHihLFpuZhYMEu8CsaiispsYl9Uqnqgxxg5BhFcWOyQ09V7AB
+   g==;
+X-CSE-ConnectionGUID: bszbL/wrTW6XvbWOvOUpdQ==
+X-CSE-MsgGUID: YQetxx0AQPa+7IqhSr5UgA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="87441817"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="87441817"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 01:26:45 -0700
+X-CSE-ConnectionGUID: fo6r2X9USASGIMr6kQwY/Q==
+X-CSE-MsgGUID: t+X7AI4JQA6WkT8nAAIJ5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="268667909"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 01:26:42 -0700
+Date: Tue, 18 Aug 2026 11:26:39 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Zhang Jie <zhangjie14@huaqin.corp-partner.google.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, gwendal@chromium.org, swboyd@chromium.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] iio: proximity: sx9324: Correct proximity channel
+ resolution
+Message-ID: <aoQXPzFaMBpD2eC8@ashevche-desk.local>
+References: <20260818072803.463864-1-zhangjie14@huaqin.corp-partner.google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: PANZ <panz.development@gmail.com>
-Date: Tue, 18 Aug 2026 10:25:27 +0200
-X-Gm-Features: AcwNN1VRNToSE64_qqetuINC4oPAxG8EulkO8jxh2qP4RjtvZkYBWSdc6WMgTOM
-Message-ID: <CAFinCN9OV6fS8acwZjqsp9WR7r9tKk2afdc0y9RuAsmmmJpWnw@mail.gmail.com>
-Subject: [PATCH] HID: asus: fix touchpad multitouch initialization regression
-To: jikos@kernel.org, bentiss@kernel.org
-Cc: denis.benato@linux.dev, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818072803.463864-1-zhangjie14@huaqin.corp-partner.google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-In Linux 7.1, commit 7253091766de ("HID: asus: do not abort probe when
-not necessary")
-and commit 0919db9f3583 ("HID: asus: always fully initialize devices")
-introduced regressions in the probe sequence for ASUS I2C/HID touchpads
-(such as on the ASUS E200HA):
+On Tue, Aug 18, 2026 at 03:28:03PM +0800, Zhang Jie wrote:
+> The proximity channels were previously defined with 12 realbits.
+> However, PROXDIFF is read from RegDiffMsb (0x65) and RegDiffLsb
+> (0x66). The SX9324 datasheet assigns bits 7:0 of each register to
+> PROXDIFF and documents it as a signed two's-complement value
+> (Revision 3, Section 8, Table 8, page 43). In contrast, RegOffsetMsb
+> explicitly marks bits 7:6 as reserved. Thus, PROXDIFF is a 16-bit
+> signed value.
+> 
+> With realbits = 12, sx_common_read_proximity() uses bit 11 as the
+> sign bit in sign_extend32(), causing samples outside the 12-bit
+> signed range to wrap into the [-2048, 2047] range.
+> 
+> Correct the realbits value to 16 to accurately reflect the hardware.
 
-1. asus_start_multitouch() was placed inside the claimed input check block:
-     if (drvdata->input && (hdev->claimed & HID_CLAIMED_INPUT))
-   On ASUS touchpads, (hdev->claimed & HID_CLAIMED_INPUT) evaluates to
-   false during asus_probe(), skipping asus_start_multitouch().
+> Tested on an SX9324-based device: a phase 0 DIFF readback of 0x7fff
+> was reported as -1 before this change and as 32767 afterward.
 
-2. The asus_report_id_init loop in asus_probe() was executed unconditionally
-   for all devices, which sends keyboard initialization feature requests
-   (asus_kbd_init) to touchpad endpoints, corrupting touchpad probe state.
+Yeah, there seems only Chromebook devices (in ACPI world), MediaTek and
+Qualcomm (in DT world). Do we have anybody from Qualcomm to test this?
 
-This patch fixes both issues by:
-- Skipping keyboard report initialization for touchpad devices (!drvdata->tp).
-- Moving asus_start_multitouch() outside the claimed input check block so
-  multitouch initialization is always executed for touchpads.
+Hans, I think you (or somebody you might know at QCOMM) might be interested
+in this fix.
 
-Tested on ASUS E200HA (where touchpad functionality is fully restored)
-and ASUS VivoBook Flip 14 TP401MA (confirming zero regressions).
+From the datasheet shared I see the same as described in this commit
+and since it was tested on real devices I'm quite sure this is the case.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Fixes: 7253091766de ("HID: asus: do not abort probe when not necessary")
-Fixes: 0919db9f3583 ("HID: asus: always fully initialize devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: ppanzenboeck <panz.development@gmail.com>
----
- drivers/hid/hid-asus.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+> Fixes: 4c18a890dff8 ("iio:proximity:sx9324: Add SX9324 support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhang Jie <zhangjie14@huaqin.corp-partner.google.com>
+> ---
+>  drivers/iio/proximity/sx9324.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/proximity/sx9324.c b/drivers/iio/proximity/sx9324.c
+> index 36c45d101336..de6176fd8d47 100644
+> --- a/drivers/iio/proximity/sx9324.c
+> +++ b/drivers/iio/proximity/sx9324.c
+> @@ -223,7 +223,7 @@ static const struct iio_chan_spec_ext_info sx9324_channel_ext_info[] = {
+>  	.scan_index = idx,					 \
+>  	.scan_type = {						 \
+>  		.sign = 's',					 \
+> -		.realbits = 12,					 \
+> +		.realbits = 16,					 \
+>  		.storagebits = 16,				 \
+>  		.endianness = IIO_BE,				 \
+>  	},							 \
 
-diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index 3f5e96900b67..7f19ca1e5a1b 100644
---- a/drivers/hid/hid-asus.c
-+++ b/drivers/hid/hid-asus.c
-@@ -1294,12 +1294,14 @@ static int asus_probe(struct hid_device *hdev,
-const struct hid_device_id *id)
-  return ret;
-  }
-
-- for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
-- if (asus_has_report_id(hdev, asus_report_id_init[r])) {
-- ret = asus_kbd_init(hdev, asus_report_id_init[r]);
-- if (ret < 0)
-- hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
-- asus_report_id_init[r], ret);
-+ if (!drvdata->tp) {
-+ for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
-+ if (asus_has_report_id(hdev, asus_report_id_init[r])) {
-+ ret = asus_kbd_init(hdev, asus_report_id_init[r]);
-+ if (ret < 0)
-+ hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
-+ asus_report_id_init[r], ret);
-+ }
-  }
-  }
-
-@@ -1327,12 +1329,12 @@ static int asus_probe(struct hid_device *hdev,
-const struct hid_device_id *id)
-  drvdata->input->name = "Asus TouchPad";
-  else
-  drvdata->input->name = "Asus Keyboard";
-+ }
-
-- if (drvdata->tp) {
-- ret = asus_start_multitouch(hdev);
-- if (ret)
-- goto err_stop_hw;
-- }
-+ if (drvdata->tp) {
-+ ret = asus_start_multitouch(hdev);
-+ if (ret)
-+ goto err_stop_hw;
-  }
-
-  return 0;
 -- 
-2.47.0
+With Best Regards,
+Andy Shevchenko
+
+
