@@ -1,35 +1,79 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01EF283FC4;
-	Tue, 18 Aug 2026 14:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30406344036
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 14:55:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787064546; cv=none; b=JnidViMB3v8fg4si8uGAOzLoGWmg1irBbNBx1jiiIPMIYYdAWkT0eYm+guMRMgYihB95NgoNo8kv2dL3Rc5DR5gJM2ZB42D6PkxjcYGmAL+zyojGVmDbz36ays+sHFfwGuKq8kmKowkcUdRJkk9aR4S2Y3UD3hilhhco6WZnnkc=
+	t=1787064946; cv=none; b=YSrfCUHG+zpXfNF9eG32ZZMm5HkHhpoxyyim2Oa/k4cfT91YFsw0b0msqCT2Cfz5RCfezigphGDSs0CTy5mU1PkIAiHfHnaHLrToPhwkjq73Gv+rOls9l5HHTlJNeJSyuSYWYGCROJSrfS78mDSMded2qInRqbyvovI+KSHlBxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787064546; c=relaxed/simple;
-	bh=abyYGMXMQVbJhue7bJqHhpaIPJzjQr1nPgzrACKCdqU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=i5uWtARAugYjl7pqAOKPQAQp/5bFpPllgaml27s6GtTjcVDSwFDrdM+CIWvlOHR84W/9Bq157z5xoymwuRJnpBXMj1sBEkpf/dPc6v3vdZFp1VN0iRJDYh9jYs78ornkse4CYDqK9R5eITbWQISd4dj3zd/dScgH6V8yN3d8Emg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=iZuI/w84; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1787064946; c=relaxed/simple;
+	bh=cBojm8RkVX6FRIrkZj9tO4jHBWALogJ6xQ3/fRKghc0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LU0K7HzdsXhZI7uXvxnkejbrZaARxEjaAyD774ELCGx349csQexL8hS2wY9yl8mGmGLfsLwM8UJMmfLImrAU95xxfFn3Q5v7hmatuRDQyiavXAzpB/PX38iM8VvwkV0MOgWyiPmdqL6/JoZ8v0qFaTOwrHOuRK2B7+u+HDA8dpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHzr1RHK; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="iZuI/w84"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4a6e04cd7;
-	Tue, 18 Aug 2026 22:48:50 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHzr1RHK"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ceb096e675so53480485ad.0
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 07:55:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787064944; x=1787669744; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YsFaoS644NH2HkD0bh5kmr+46rtAuXi0WRjeGi4FwF4=;
+        b=UHzr1RHKNWo/7uDDbcqtSRB443DT27So1KBIHmYRkfeOdO5g+9n1fObM6ziWvimRFD
+         OtYBxVMJX1BRmbsgV9hRkkKrgKtS/l0plrb+3rIbWCJGy3sDjA9bahxGq2f87KLqwx0T
+         z/4cc7bqgOL/c7jjHGdr5X3xQLAdoYPgPXY6fruoUgOi0IVLOK329fmL30lhQUTNoaTU
+         CMJ88aRhyO8uSx7zlAjl3xjrAVgI/GcFPtLXY5eyxbcKOLo6cnGBHRQMrkds8zoT6y01
+         37RxMyNig8KB71OQLuDbDreJVkSKaNPtI8mlgKvUqCSZCljzr87SXsuqBC9workKc92d
+         1DqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787064944; x=1787669744;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YsFaoS644NH2HkD0bh5kmr+46rtAuXi0WRjeGi4FwF4=;
+        b=edU5TSqwGQnQBE/YZArV5E/amLKQ+a4HefwfbwGnrpVcBdsnE5uNhyhijonk/Hknpw
+         2QJt2+udFnrfCN8oA40F9Uj24SrwOqxnf9USNqbzVGOvQDcrUtSRJsC46TsF6uDmntTB
+         nutRa4het7IsY/arEAmd79nYZpoAXyh99JbeKpBPLM4ZuoYF/hbiLrei6gXFXWhY9Dhf
+         mAzdD6RWP3IvlMpAnvwbaSRsPUYwZL0o7ZCu6IdGVaBIWHN+i4/YjVp9bNI+rPEUi5nq
+         cg19BQb5dJ37GwfgCr+B2V/zofzeQDzXXnCH2U/rgbi70fccSjhCGr86/NaPY+/Q6URV
+         AcOg==
+X-Forwarded-Encrypted: i=1; AHgh+RqPfgOkqmVgpGB4B1V06xaGT1px22x3GEqC/IOcJJqW3x0e8J9HuSUH9/8u0ALZumPnSN1hZqk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzt1H0UO1PikgNAi+APAcQYJOdoAmoRxvSZTQTaDqTgCpi/AETs
+	qtzY7+CypNLE5JQm3qszQRGk3SdJNBH8Q0K9wXYBbpoxj1ypXkCyPGzD
+X-Gm-Gg: AR+sD12VQz2wlOf7i1yOtEtz1jgyzCM7E9NJmwdZEiRXhIZ4cWl8/LOhJFntNL7GZrV
+	54+npUTxt/XkWFnx74GyiJbWye/h9xtcpealltYZkUjj1u7ZAIHHgWJIPy8F2u3+C3m5fuDh6cd
+	N6FyVzGkGZYMU6LRXYZfSUlRn8nWRSYsi4ZTTEThFSiT4EXeZo6oUJmMoz2RJL0B2/Y9ZkmvUmq
+	TFef9WsT/00Ypy356KAXPoc38gVVehAqhRGUbsIO47OvlHp7eX8/LV7sZMl8rv0CVXwmQoFsjlL
+	s6RNSwP6PUKYfY+rBX/bIqXukPe9gWM+iUjV0gDBgzCQLhg5a49DQWob6kLH0xtziqyYYqcPm+o
+	hw8W5K1jnTSKPTO15btfqttZj5KEcPai4RVDhJB1ge4GsO7HaO2F6P7DbkcblBid1+8nUgSOcjX
+	CrJ0X3DfcjI2u7FPsE+z8j6xHVoF4Ju2wOYftySXm/g8bqNf4pPJJPFlAzf59Z27jjViYloR243
+	wYnMXQa0X4=
+X-Received: by 2002:a17:90b:17c5:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-3933b874ad6mr34245555a91.10.1787064944280;
+        Tue, 18 Aug 2026 07:55:44 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39339d00eafsm7363740a91.1.2026.08.18.07.55.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 07:55:43 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Sunmin Jeong <s_min.jeong@samsung.com>,
+	Sungjong Seo <sj1557.seo@samsung.com>,
+	Yeongjin Gil <youngjin.gil@samsung.com>,
+	Yunji Kang <yunji0.kang@samsung.com>,
+	zhanxusheng@xiaomi.com,
+	linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] ALSA: pcxhr: initialize mutexes before requesting threaded IRQ
-Date: Tue, 18 Aug 2026 22:47:17 +0800
-Message-Id: <20260818144717.2269918-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Zhan Xusheng <zhanxusheng1024@gmail.com>
+Subject: [PATCH v2] f2fs: fix i_size when pinned fallocate partially fails
+Date: Tue, 18 Aug 2026 22:55:35 +0800
+Message-ID: <20260818145535.449055-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,62 +81,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa01558b63303a1kunm10a86825114b6e
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHh0YVkpCHRpCTUkaShofSFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=iZuI/w84KZgRPbHm650rThuqxRw6eVtlM6xOMcbPVUQpNGSkgWvH1WbsgfeoakFKq2usMDFehZHDPWoAxD+VR7NYowKgSPiem0CVTQbOlDVyk6ngD8pEaE53FQjRn9O3W7KovQDHTdv+6I6tzT4+Ttz/2C6S5esqnzO5AD79eyw=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=21lG1nz3gXedQM4708u65RGG2z3e/pmYO1+gfk0/I9M=;
-	h=date:mime-version:subject:message-id:from;
 
-pcxhr_probe() requests pcxhr_threaded_irq() before initializing
-mgr->lock, even though the threaded handler takes that mutex.
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
 
-Initialize the manager locks before request_threaded_irq() so an
-early interrupt cannot run against uninitialized mutex state during
-probe.
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-Fixes: 9bef72bdb26e ("ALSA: pcxhr: Use nonatomic PCM ops")
+Commit 4275b59673eb ("f2fs: fix to round down start offset of fallocate
+for pin file") moved the allocation loop's start down to a section
+boundary, but the error path still converts @expanded against @pg_start,
+which holds the unrounded start.
+
+@pg_start exists for that conversion: commit 88f2cfc5fa90 ("f2fs: fix to
+update last i_size if fallocate partially succeeds") added it as an
+immutable base because map.m_lblk moves every round.  Each round now maps
+exactly sec_blks blocks starting from rounddown(pg_start, sec_blks), so
+pg_start + expanded overshoots the last allocated block by
+pg_start % sec_blks, and a partial failure leaves i_size covering a tail
+that was never allocated.  Nothing corrects that afterwards either, since
+file_dont_truncate() has already cleared FADVISE_TRUNC_BIT.
+
+It needs a start offset that is not section aligned plus a fallocate that
+hits ENOSPC partway, so the error path runs with expanded > 0.  On an
+80 MiB image with 2 MiB sections:
+
+  truncate -s 80M img
+  mkfs.f2fs -s 1 -f img
+  mount -o loop img /mnt
+  touch /mnt/pinned
+  f2fs_io pinfile set /mnt/pinned
+  # 2093056 = block 511, so pg_start % sec_blks = 511
+  f2fs_io fallocate 0 2093056 536870912 /mnt/pinned
+  stat -c %s /mnt/pinned
+  filefrag -v /mnt/pinned
+
+The last extent ends at block 10737 either way.  Before, i_size is
+46075904, block 11249, so 511 blocks of it were never allocated, and
+filefrag does not mark the last extent eof.  After, i_size is 43982848,
+block 10738, and eof is back.  A kernel from before that commit also
+shows no overshoot.
+
+Keep @pg_start pointing at where allocation actually begins.
+
+Fixes: 4275b59673eb ("f2fs: fix to round down start offset of fallocate for pin file")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
- sound/pci/pcxhr/pcxhr.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+v1->v2:
+- Added the reproducer and the before/after numbers to the changelog,
+  as asked by Chao Yu.  No code change.
 
-diff --git a/sound/pci/pcxhr/pcxhr.c b/sound/pci/pcxhr/pcxhr.c
-index 83066d08367e..7b37b2aa76a6 100644
---- a/sound/pci/pcxhr/pcxhr.c
-+++ b/sound/pci/pcxhr/pcxhr.c
-@@ -1532,6 +1532,13 @@ static int pcxhr_probe(struct pci_dev *pci,
- 	mgr->pci = pci;
- 	mgr->irq = -1;
+v1: https://lore.kernel.org/r/20260817022723.3324123-1-zhanxusheng@xiaomi.com
+
+ fs/f2fs/file.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 4b52c56d71f0..cc0d2b8c4684 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -1919,8 +1919,9 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
+ 		block_t sec_len;
  
-+	/* ISR lock  */
-+	mutex_init(&mgr->lock);
-+	mutex_init(&mgr->msg_lock);
-+
-+	/* init setup mutex*/
-+	mutex_init(&mgr->setup_mutex);
-+
- 	if (request_threaded_irq(pci->irq, pcxhr_interrupt,
- 				 pcxhr_threaded_irq, IRQF_SHARED,
- 				 KBUILD_MODNAME, mgr)) {
-@@ -1545,13 +1552,6 @@ static int pcxhr_probe(struct pci_dev *pci,
- 		 "Digigram at 0x%lx & 0x%lx, 0x%lx irq %i",
- 		 mgr->port[0], mgr->port[1], mgr->port[2], mgr->irq);
- 
--	/* ISR lock  */
--	mutex_init(&mgr->lock);
--	mutex_init(&mgr->msg_lock);
--
--	/* init setup mutex*/
--	mutex_init(&mgr->setup_mutex);
--
- 	mgr->prmh = kmalloc(sizeof(*mgr->prmh) +
- 			    sizeof(u32) * (PCXHR_SIZE_MAX_LONG_STATUS -
- 					   PCXHR_SIZE_MAX_STATUS),
+ 		if (map.m_lblk % sec_blks) {
+-			map.m_lblk = rounddown(map.m_lblk, sec_blks);
+-			map.m_len = pg_end - map.m_lblk;
++			pg_start = rounddown(map.m_lblk, sec_blks);
++			map.m_lblk = pg_start;
++			map.m_len = pg_end - pg_start;
+ 			if (off_end)
+ 				map.m_len++;
+ 		}
 -- 
-2.34.1
+2.43.0
+
