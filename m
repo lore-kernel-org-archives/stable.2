@@ -1,126 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C16F3E833E;
-	Tue, 18 Aug 2026 11:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C88C463B98
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787053966; cv=none; b=JhAuKIX1dKFbBl1/DDqr70vKyd3Bv9hEyKB/gpkETeEL5JUXyVTBD+pcQVdJBiL7qb8e+qIg42hPgxez+tObDpuen8UzXThJpe/4xDGP9frM4/I80HMckPcM8FUt1uLdo4cCL0LMx5W5JJ+IZ86TniWhloenf8MSfmMmdgx/CDQ=
+	t=1787054253; cv=none; b=XbLLWbDdJWqMQ3kVw+1OFtu/Z6zDustbsugWhyv9Ja1MKLIbGdUMbdq9DM+4wZi61L6VkONkLKKdr7gJ81kuRelkTVjo4wuOmkiE+bOB0M+gkiBqsh2qpvClC95/kE4mcBdZ+mlvMUiK4YagNLhIOzGQVYSdgQ4QGwkrl4VuO4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787053966; c=relaxed/simple;
-	bh=Ow3f1qpRA2hrnhnSZ2Acc5SriPtU02W5FyWyujUmx7Y=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=WCzctsXPrM1zgLnni1cBGjukK91R8GNg9onwqcVv8N4H7JRILmi/pXMZ9I9mE0pFyrMKF6mw0UrnTmXTBNRUgFjJnfPZh4EjSMUt7nH3sXC/J8F+LxLaBfwVX09uVXH+tnSyjs6OlY7FY84L8h8Syvwl0VgKKjfU9aQXhNNsgaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lSx+VBP0; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787054253; c=relaxed/simple;
+	bh=9ptTQiBje5Y6Ly+9PCotPYO3IXdqeFHugUToRNIuPlE=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=KpPUB+M1126sv9a66RoqIEH/37kZ5V3BGngfab7t1kP1Ap99/l6JSwI9f2HjAHmBTNA6+pnC1Nn9sFALF8oiRUewbKMkgY/8Z5f7B99Ga+OJFslxAQa55IgT+So4iTfZWJiymG03a/jewu2Ko66PsN2jtuE8YZdB7z1LxGbVofc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tLvbvb5D; arc=none smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lSx+VBP0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787053963; x=1818589963;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=Ow3f1qpRA2hrnhnSZ2Acc5SriPtU02W5FyWyujUmx7Y=;
-  b=lSx+VBP0jzUIqFo9zWXoGUMSkn70TzBW7LO3QgX/4yjOHNvb5LtKBxQ6
-   hFe9aR588A9gaKUhNls/4GNMS29RuUsEWqy3EwdYuamINMhGdlOLwVnbn
-   eW7mj2nLUkIQV0HU081gQ7ZJfILhZ+5aOFIC3UX3HyiCDsHpq3XJfMEDK
-   PmSBas1pp/yaUVMbE2hHrmxG2r7VU4MiFllawvN99hN/2oorEEFBJBhCi
-   Z5n/JCu7pDohdkPBFDnKaStIxcq+mhRix5VNw3Tm1HFZjtTtPWxqzYi4V
-   bgBgE5y2t0kAQQdGAoCncMKrGOclRLozxlNz4iG+YYRSjGiAaA5URbVbM
-   w==;
-X-CSE-ConnectionGUID: MhR3YSQzRB+6GluxpsPhZQ==
-X-CSE-MsgGUID: sEawKmUrRkaIh0p3mdDcDg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="99064002"
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="99064002"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 04:52:42 -0700
-X-CSE-ConnectionGUID: RlPeevTlRcOT9kNa8i9Rwg==
-X-CSE-MsgGUID: okHSi8d3R6K/laWEnfgo1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="261923665"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.38])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 04:52:40 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 18 Aug 2026 14:52:36 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: platform-driver-x86@vger.kernel.org, jorge.lopez2@hp.com, 
-    Hans de Goede <hansg@kernel.org>, linux@weissschuh.net, 
-    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 5/9] platform/x86: hp-bioscfg: fix off-by-one heap
- OOB write in audit_log_entries_show
-In-Reply-To: <20260812111829.172273-6-meatuni001@gmail.com>
-Message-ID: <52ade3a2-d703-6707-2136-172c0ad6a7da@linux.intel.com>
-References: <20260812111829.172273-1-meatuni001@gmail.com> <20260812111829.172273-6-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tLvbvb5D"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51c928bf172so28143481cf.3
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 04:57:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787054249; x=1787659049; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CGnWARA0pJpVSqn4L0M3VW7HCuNuG1CRz9WCa3eaIvs=;
+        b=tLvbvb5DEcfDKgL1WxK7VzHCLzDhMqwBdqyTVcNqap+lhxMVNefemfzMInX0r3cxMq
+         wRoz1270DtwNULi74Qb9iQtFRJyhdbNnLHXfWgIYgRF6loOK+B6jdBT0KsyBECApKSZX
+         V84Uv97xckTxxk39jfuQuydFG24M2vHYy73hldBuS8lHxOLpzdImbGhQ40LJXivNX2Zm
+         MR3bsh3IBzrlfVXLwNG8e/1m2yXq336UhSJAxL5A0S1sKZhUEogmr9A3yFewDrnZLrgF
+         ydyTnzt39+pnEtOmocNqwpWCOXh48ZabH5ajOLP8gncKCBaWhanHJFqUYr3VKTjgtsl+
+         Cd/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787054249; x=1787659049;
+        h=content-transfer-encoding:content-type:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CGnWARA0pJpVSqn4L0M3VW7HCuNuG1CRz9WCa3eaIvs=;
+        b=bRAe89Uh0ENu4XzujlHjPdnXpuHGrgZ60YSXjYHOGIGjKIcV2lgaWBkTiq5IRtpZNF
+         tnLhJpfxBXIAt9sXX4qIXvIMF0hCs3yH0DXM7bJ+66V8ciFcXDHABDvEriIhTa1+DPXC
+         MmxG1WJIvFoDEj4bZflmZhM73dVVLppzFrTwiq9S5rFSklOBc7O5e941qihTJSam7CTh
+         xc3huv5yIso0ZR/sQbhM5I+quvcLwLAEh2IHZVxSv31aBDdaoCZTSkATgGSKFDVLTYw6
+         iYdAEjGFOee/n4Pu1pIC4Y8UoJ+emcrirHXxxJaE+bC6u906d5HdV7hhWuhh7IOnr8tz
+         nGcg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpl8+cXnVxumNdgkZ1U/XLIqxiyM/uxQTmib7bM+3n1OPqaOBqzMtUQpHEeRh1XbqFuuWOdjU0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxC3SLiZlGAxiWLThLCn5AWgwTvyDFJKDopFHRWLIXhzALDBcCy
+	KmIUHq2Nf/yO9mWrX5vIL64T21HlMGGVloRMThdH9QgIkvGHX2M29ac=
+X-Gm-Gg: AR+sD10f+f2uZpbKarxYDpJai8M2UbM/T57Mzo0TTPK010mHkkodyan1HBzV8LREcFq
+	Sof5p+XmI7IMiB3Q90s6jWHkoUMVfrYVaCXRrLxZy6mLNhiPJjhvIiZ7kXGoXf18w/Ama0oABWP
+	rj5hizlStJRF4l6L5i55W7GzDEkynGtW9DrWI/zSnOT8sXaE1TaKdsZtVnmK+v68xpLV2GGHQYY
+	H/s5ExX9TrHrdlsDEsD+vQ5DRhqoSHh0C7xuksOPa8+z2Hcw9/xvp9ZPd2uR9IpFnw1D794ueXV
+	/ULe3BnmR0GOlZlO4MBUgsLHaW500/iw17MBHYu9gMdaMssNOqydI4WYwz4hw0xUbGSQ/YBtEPr
+	A/c0t2C31eoVKMmfE6brr1aSXMIkC4McMnpGupaWJgGqRPeY7LNpudMBlGI1a0m+98qW5iVBAoW
+	Q6uLFx9kp6Mknx37bQJBu9LUSoSl2r/3UWdul7u9ymWmhe1kJH9IfMpLumONtskIfR+IwqgYZKJ
+	ShfXafgcbJzHQUe
+X-Received: by 2002:a05:622a:191a:b0:51c:c6c:9d65 with SMTP id d75a77b69052e-52dbd62307fmr79108321cf.1.1787054249506;
+        Tue, 18 Aug 2026 04:57:29 -0700 (PDT)
+Received: from [120.7.1.23] (135-23-94-154.cpe.pppoe.ca. [135.23.94.154])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52db610b491sm37147661cf.8.2026.08.18.04.57.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 04:57:27 -0700 (PDT)
+Subject: Re: [PATCH 5.10 000/389] 5.10.265-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260817132538.796021292@linuxfoundation.org>
+From: Woody Suwalski <terraluna977@gmail.com>
+Message-ID: <253278cf-f171-81f7-2a34-75d081ddf352@gmail.com>
+Date: Tue, 18 Aug 2026 07:57:45 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101
+ Firefox/140.0 SeaMonkey/2.53.24
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <20260817132538.796021292@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 12 Aug 2026, Muhammad Bilal wrote:
+Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.10.265 release.
+> There are 389 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+>
+Built OK on i386, rested boot, no new issues noticed on 23-bit EeePC
 
-> The per-iteration guard in audit_log_entries_show() is:
-> 
-> 	if (ret < 0 || (LOG_ENTRY_SIZE * i) > PAGE_SIZE)
-> 		break;
-> 	...
-> 	memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
-> 	buf += LOG_ENTRY_SIZE;
-
-Hi,
-
-What about the preceeding check:
-
-	if (count * LOG_ENTRY_SIZE > PAGE_SIZE)
-                return -EIO;
-
-Is the second check dead code or how can you get i large enough for it 
-to ever be useful?
-
-> At i == 256 (PAGE_SIZE / LOG_ENTRY_SIZE), LOG_ENTRY_SIZE * i equals
-> PAGE_SIZE exactly, which is not ">" PAGE_SIZE, so the loop does not
-> break and instead writes another LOG_ENTRY_SIZE (16) bytes starting at
-> offset 4096 of the page-sized sysfs output buffer, one entry past its
-> end.
-> 
-> This needs the BIOS to report more than 256 audit log entries, which
-> already exceeds this driver's own documented LOG_MAX_ENTRIES of 254,
-> so it requires a non-compliant or corrupted firmware value rather than
-> the roughly 85 million entries an unrelated integer-overflow read of
-> this code might suggest.
-> 
-> Fix by checking the bound against the offset the write is about to
-> reach, (i + 1), instead of the offset already written.
-> 
-> Fixes: 63e8f906e94e ("platform/x86: hp-bioscfg: surestart-attributes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
->  drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-> index b57e42f29282..6b63fdb84606 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-> @@ -90,7 +90,7 @@ static ssize_t audit_log_entries_show(struct kobject *kobj,
->  					   HPWMI_SURESTART,
->  					   audit_log_buffer, 1, 128);
->  
-> -		if (ret < 0 || (LOG_ENTRY_SIZE * i) > PAGE_SIZE) {
-> +		if (ret < 0 || (LOG_ENTRY_SIZE * (i + 1)) > PAGE_SIZE) {
->  			/*
->  			 * Encountered a failure while reading
->  			 * individual logs. Only a partial list of
-
-Since this block uses break, the following else is unnecessary and should 
-be removed in a separate patch.
-
--- 
- i.
+Tested-by: Woody Suwalski <terraluna977@gmail.com>
 
