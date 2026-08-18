@@ -1,181 +1,173 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013017.outbound.protection.outlook.com [40.107.201.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB4F459AF4;
-	Tue, 18 Aug 2026 11:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787051619; cv=fail; b=l4oLBju6p16AGMp/uU/IOqmi1fOKSnQO5gGdGPa1MM6UFsIfbe7Up4DFSiUnEN5LbGKrLgWAKo/vTQJZmNeZWctBS6POp1EOZIKiy1wSB2WcBPKhLfCb5gJUW7bfMi+JSFr1mVpTyOUqWeQRbrB8YGcbGwdrBxTXD8M+iD49vvQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787051619; c=relaxed/simple;
-	bh=HXQcW25mY6wyPeUYWomLhnjxxrC4DqlxwPhqrotcmuA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=E5u2attXu1pPj+RdxLuvmbThLgszOk83rgHNQ+lqiBQAk2lEoTL7jN9nVkJBGDane70V6xaQx/R75GL5dsTV9CeEOdh1rYCLKir7Q/jXZ5M0JAd4fJgYNIZ2Y2aD07tCnhjBruTj3IkCCxo541TJvvW5j2eEWgcaYa2WtKDPQ0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Aj90WoOc; arc=fail smtp.client-ip=40.107.201.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7243ED5BB
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787052003; cv=none; b=vEMiC0XLlaVHQwvrO6ge68JeHOzu19Ezhx+stc/jOC3dtPnxDzP5DBGXrl3okzrItftrwkspwYbZCHBU0+KJxHeyUtLVbGMLunpTZAYPA2uIDzmlNtstg3rLSDY21It3/0YTMw67nwJkkj0RsA0XnPpberlVuNqzbmgo8QwmHcE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787052003; c=relaxed/simple;
+	bh=FsQ8lxKsS1eKs566ORqTIP6A3CSJsqzxMfwP8jeBP3w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bJqN68HdhpAAZQrbh0tQxbQRHVMaHYfW6uVoi+2OIQY7bk/g9cK9y76nIDC7RreQas2il4YkQcOwDYQb5TYU4cnjBE+gSggJyjAYxLlLsYRlzY5/uofZ9ZekgFbYkxDD+LTN7q8Jqybu0Mj3IyUgAnYAQ4T1CdJVqbT5eF40Fb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c/9thYRi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Aj90WoOc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cUTzc2wCiC/Syx+1TydhE9AP8QRHMk0sbm7ViUzWDK7fylcMrIZMxQbRt/fP2szxGQ6a9RiUWLoCyEPg/cEkzhrZ3WMwZ+XM/pROqVEFRFs9i0xLtLQhIz9+vafShxL806uecEQxj2HOHzye/rH5hfFFnS0G2w8QlkVb8nDBJ5BFbQPospJXUvWFmZtWmisnx2eZQ4o08dvDW95IjCuJMt4uHug5RsUFT8cYPI+Ju6s7JVT5G8gd9CPp0fmXBXBnB3QlQbsYuIJHuM8gJsL9OBIXeHVOAmrC7tPFWaOIxX0qfFmnm7EB9+EOlSPNm7tGQMoRLzPjr24RNryG7bd+/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lLUzXjrh+WWc4l0LXpbfIQ0qVkc588TQYRg808JgDG8=;
- b=oIo+CpNylSVf9DpW0KiVv2Id/1mODjpANCDvEQ2KD2mwzODbjOY1eMCdx1keBzryjp1dLva2DoeqvS+pS/Toqr1S/UoeOpPm7Ns3e4g7G1FKA0BRtNuIpqyxGxIXQASoLiUK9SrRsLYNPpH/XXXF7PyUF4/rSpZakRnvoDWxldW4FdN7bf4q+s6Fmu0XTHru42eg5zZaismpeWWN4oNkDvJBkvAaXTlJZBDNOU7goKoF5emLiOmrb3Dj3Qor3iLtQc6u4kS9yWo2v+VTe7NjgITmbyzb/AguydOaa3uLkHFDIUsgj4Yd27ny14IBk/pZBgZndqL66OcoKYFW9cXkog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lLUzXjrh+WWc4l0LXpbfIQ0qVkc588TQYRg808JgDG8=;
- b=Aj90WoOcDjH4IzSPHLC6pZHFFD4MvbR5KUmqJDai/3YgoYdS5z8NKpGYRqiIirfN/uz95Gnc5oYYhyojqWT01P0w4MsDy9/zOFzIV6Ja2Up19geYu25Kz/uSfFtTIURBNgqxzRQdoEVjXzYAmNylUoWbmWf2WtnK8S7w34BK2CmRTgXHOp2XY7EogXQeeFLBkpKo1xl5/iyf88BVbbJRF6BVAqgr7481ZP2KwrwwBEg/109LxbUnedxXMnfbb3SjW0w0EXYEVTFUilvyF0+L5CeinT+Pl22Wt/A/1ywIuOmJSitxcLH3Er0wlrz10tuAHYVnhslVN3I1/3Tx+OorEw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH1PR12MB9670.namprd12.prod.outlook.com (2603:10b6:610:2af::6)
- by PH7PR12MB5655.namprd12.prod.outlook.com (2603:10b6:510:138::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 11:13:33 +0000
-Received: from CH1PR12MB9670.namprd12.prod.outlook.com
- ([fe80::416:ea1f:d17b:2811]) by CH1PR12MB9670.namprd12.prod.outlook.com
- ([fe80::416:ea1f:d17b:2811%6]) with mapi id 15.21.0315.016; Tue, 18 Aug 2026
- 11:13:33 +0000
-Message-ID: <f039fb9c-465f-479b-a909-2e57943d545a@nvidia.com>
-Date: Tue, 18 Aug 2026 21:13:25 +1000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/migrate_device: avoid out-of-bounds writes for
- compound folios
-To: Andrew Morton <akpm@linux-foundation.org>, Hui Su <sh_def@163.com>
-Cc: david@kernel.org, ziy@nvidia.com, matthew.brost@intel.com,
- joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com,
- gourry@gourry.net, ying.huang@linux.alibaba.com, apopple@nvidia.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260817120758.669807-3-sh_def@163.com>
- <20260817112150.aa6cc927cf501d687336c0ef@linux-foundation.org>
-Content-Language: en-US
-From: Balbir Singh <balbirs@nvidia.com>
-In-Reply-To: <20260817112150.aa6cc927cf501d687336c0ef@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MEVPR01CA0027.ausprd01.prod.outlook.com
- (2603:10c6:220:205::15) To CH1PR12MB9670.namprd12.prod.outlook.com
- (2603:10b6:610:2af::6)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c/9thYRi"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 56899C2BCB3;
+	Tue, 18 Aug 2026 11:20:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787052002;
+	bh=FsQ8lxKsS1eKs566ORqTIP6A3CSJsqzxMfwP8jeBP3w=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=c/9thYRiIfxAlg9hCvhKoSGeAYl8ZArX8nnPe9uAopo9KssJytrKQU5JOpPLOCWmc
+	 1UDCHwHkZRPEq9vFCNX4rQoKs2r0hXlLZJ+abZ3Vu/rhbW2wri27PyjGzOPuMRDSD7
+	 o9ZbvQXIW1Na37L9KBZz30t00gW8XM9/l7pYJjT13eAMxgz/5t92+Ex7JYPIsArD9f
+	 xhAASZUFU1Cnrz7+/ug79A0TU8ni6Nxk1uhurOhVx2vJCbg2+RLgxJjN3DLA1n3TbD
+	 6AKUoTrcJbEWa3wK4vImsuGUIfeYkHGB/JNGQKXJLAHRui739fKqhQ9mSM0n24RV9U
+	 n/86gSqhuCshA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E3E0C5DF70;
+	Tue, 18 Aug 2026 11:20:02 +0000 (UTC)
+From: Jiucheng Xu via B4 Relay <devnull+jiucheng.xu.amlogic.com@kernel.org>
+Date: Tue, 18 Aug 2026 19:19:54 +0800
+Subject: [PATCH 6.12.y] f2fs: fix UAF issue in f2fs_merge_page_bio()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PR12MB9670:EE_|PH7PR12MB5655:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad6f72bd-4979-4e96-f078-08defd19bdc8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	0h5lgHmOyTMMbnNJ5xTOSAasooRAW92bTqSvOXp0MEkfq8KnaBbi2vZ8Y2Tez3yRbx+6XR6SWWg/qSCaWn926nxRPDp4dmBsAmnJgZZe2JxRSo+PyTSn4SSUioTIrgQIzPrtLiRSa8VhxV8u5ixJE5MFeotXvDQiEroXWvA5HI6448TkNmq3jiSQZIo1pfSF01l2JGjtm7WFNXDDoqNsnwLzXnyYekRSraf40+7audbJAosgS2AjDBdq0rVyHelj8s8efCHMcrM4TFYQM3lKkFYv9xPQ7glaEwzKg4CNmp5jgkXCCmQ+jZUuGjR/hG46222dlupS+Hk1+TlpjyJILKucOZShaQmh73ptjSSvt11LptGnMQ8wfrSJZf2khvUnYs6ztmTfiP39aYkBj1LhHRVzjgqADtxVaCjuj8JdrQ2zPqM2LHJorbp32r4AplwF3uVSQk2raidQX0lZX6pFr0PYoEU4wQSxSGX5HDRJ4nydus3/hFjpXvIwU8bEDxAst5w6nGMZ4EPmq3C3S2LW8iE7jDRgptqn5uRydo6dOYoNHdd7nUPuf4GsGbUqtfTVJWbwEQI0oLzG/e3OBlIosrP2Yl0y9iJEy7XzUbARQk8yiHTz7BVbdMo5sY4JPPUPfCJkkKipYOQvUKS/oFPbBxTYcRDNfdaxPDcIF+LgjWc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH1PR12MB9670.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MCs2cWNXaG1jRGFLVmRZYTRPN2lZN0RFem9VV0VnMXNaVlBVU200SWQrTFY0?=
- =?utf-8?B?cUp5M1VQRWNrWnVQVmI3RU55eEppUlRMVkNXWldscWxxNXNHKzVrWU0yWEU2?=
- =?utf-8?B?T2EvQnNaVlAvTlZXOG5rK0MvbDFQYytDODN1UXdTVXZ2UE9VQ2ZhMkpYeUpk?=
- =?utf-8?B?cEZ4TlN6WjFDTUs4YjcyN1JHLzBWaktEb3p1eDk1WXVPazdWMURBWUwwVGFu?=
- =?utf-8?B?MW9xTUdQcm54QzN6dTdDZ0NKZ2tKTUNyakRHL2ZUL0FEb0plME9wMElWU2NP?=
- =?utf-8?B?MUJGeVpNUUVSWUtCVkZsKytDVlBHdHdGdDFtUEdkYVR5YThYaXlveGpkTHBI?=
- =?utf-8?B?UEdqak80YUJ1TW1PUXI5ek1yaU1UZzdmUllXNHpOcVJDOVJGZUpuWHVLcmVa?=
- =?utf-8?B?QzRieHF2YVIwVjJwT2s0ZzdVMG5YU2xzc25YazF2MlBydC9Ma1BqUzdQclQ3?=
- =?utf-8?B?Z24vTmt0eExEYmxNTGRkMWVQYTRhR2FmczdTcXh3Q0JpazZBTzBrN2RBd0xG?=
- =?utf-8?B?OGJQMUxLY21SanZtQlMrZEFDMUFVVlZtbnhIbWRrQ0RhR0tNT1QyMGc5Nzh2?=
- =?utf-8?B?M2xwL2JFS0JWVWxtOFVIdytMTzUwMmZac05iaGJXR2Jpb2lEY0R2eCthVzB2?=
- =?utf-8?B?QkExbkxwWm94bzY5QVg3Y2NTTGFuVnliTHJoSVluRmtpbXhhWGk5aGhCaVJo?=
- =?utf-8?B?L1FmTDN5VnNGeXNDNTk2dFVOOElFTS8yTXJNZ1BkNUc3akQrUjlqUXRTTHhS?=
- =?utf-8?B?MUdMd2daRTF6enFOZENTOXErTDBZVWFUdHg5MFBBeks3K2FrMlpMWm9DeUNI?=
- =?utf-8?B?YkpNY2ZuQXVlMWQxUnE0YS9qWEVTalV2ZDlCOERnUXVwUmNGY3ptOTd0QS9B?=
- =?utf-8?B?Tng4VVZHV0xUZVcxM1hUSHhUSkNidExSWmg3b2ZBR21yVHBnSDlFNUVTMTd6?=
- =?utf-8?B?NDlsL1ZtNlFTYTJhVXEvdzc4Yzh6S3RaWUZxazVhN3BjeTVGUzNOMVQxbWRN?=
- =?utf-8?B?L0kzZlhySWlMRlFtQlAxTVFaUXVZRGRIVHdid1BLT2VyOHlFVnovZUlmQW5L?=
- =?utf-8?B?UUV2dEVlbEFVeEorTGRZTDAwbHMySkt6MWxuQVpLL3RzQ1UwMG13b25YMG84?=
- =?utf-8?B?OEVnQ2diMkc5em9nM3RLajdqanRZN1lrSzVYL0lQTXhmMWNsT3BQT1Zwb01p?=
- =?utf-8?B?YWQxbTlIN2NIRUZoNHF4QzZTM1MrM0FxOURWTXVDY0cxQXN5UWwzbldQNHRF?=
- =?utf-8?B?anhxaFRYcnFGdjF1bmx2TE85S09mZzJKOTI5QjBRMEpSeThrWUJMajRWTkpl?=
- =?utf-8?B?endNUTR4c2dEeTNLL3J0QTcwM1dSZ002ei9RL1BkalZ1alpLdnhXdTVCcnpS?=
- =?utf-8?B?OXhTdlYvWEhtK1ozMHpBMDZFMmVSbCs1L1RjcmZZVnNjWVI1cUJSSFVNTkd1?=
- =?utf-8?B?Vk1kbGFHZUhESTIwRWFGNkpSNVFveGtkSTdLclRweXhVVkVtVFo3MkNzaE1m?=
- =?utf-8?B?YUZ4RVp5K09VRzdEMG1hTHNndWxPdlNHcnVBaGZkcE1xMU9VT2p3alVGc1F6?=
- =?utf-8?B?N1NCTk5IN2NBZ0VaVkFoenFQMmFNSERJeVdOSnE0VjhTb3hvc2Zab3lqWFFy?=
- =?utf-8?B?ZE9ua3YrSVFQbHlrMFhlUTM3T2JDSFB2UTl4TW9wOGE2TFFqM2RPSFZWNFFr?=
- =?utf-8?B?REl4bXNSS0JqUzltSDQxTW4rc3hLdTlXNEdqM1ptSThjbFBVOXhnWXdLZFNq?=
- =?utf-8?B?Zy9kenByN1NyZG1BUkJlUXNNaHVuaXQxMklDd21DSlpWVzd1MjU2MjZMMHM2?=
- =?utf-8?B?K1JCS212dDJpZTFrU2NjQndVQUk5YW1hZFpTUVF4eFhpcnc4ZkIzWVFhMHR0?=
- =?utf-8?B?amFUU2NHNmRlTGRCQnQyZHl2VDhkek5VbVN1ZjU2L1RmR1pQa1hQWi96dDNS?=
- =?utf-8?B?RXBlb2ZSZmtJMDBQMWtsOVZ6V2EzN3ZjY0Rad2xFcUxZbXdBelNyNFZFN3hB?=
- =?utf-8?B?YmNOZko5a3h0TU50bDNDb2hOeTNTU0FQcmJVK25pZnB2emEvSjFnKzZhdFpC?=
- =?utf-8?B?SnpIdVR3bjcyU3cybDZJcVVrdmhadFJxeE5jZ3E3UzQ4ck9YWGNOcHNMYy9s?=
- =?utf-8?B?YWtjand4RFFUSWUyVzFUTnlNSVFwNVMzanVEMENrTU56QkFoTEI0M2hUVGdx?=
- =?utf-8?B?YXZibVY1Tm9mcGlBaVlCUU4ydWdxTktRdmJjYU9jV0UwTFd3c0xrQlpPMU5w?=
- =?utf-8?B?KzZkUDdCZ2VncHIvcll0VjF1NWFXRllqMzRrQ3JGZ1dZOGdUWC83Vk5BU0M2?=
- =?utf-8?B?dG9pYUx0dXJtRXBiVVNrWjZSMlIwOUd3d0drR3BNZDhxNnlaeXViUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad6f72bd-4979-4e96-f078-08defd19bdc8
-X-MS-Exchange-CrossTenant-AuthSource: CH1PR12MB9670.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 11:13:33.5493
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AhtUYqtzitdNf3RotO4kXB71xwqFiquvKLjbqG3Z+7uB8UUCeL9eSiTCqnT+iqIL63SkaU4ZnMWq4lLlwWGyMg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5655
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260818-origin-linux-6-12-y-v1-1-720b168ce6de@amlogic.com>
+X-B4-Tracking: v=1; b=H4sIANk/hGoC/x3MQQ5AMBBA0avIrI3oiGpcRSyUwSRS0oZoxN01l
+ m/x/wOBvXCANnvA8yVBdpeg8gzGdXALo0zJQCXpsqEKdy+LONzEnTdqVIQRlWlMXVlrLBGk8vA
+ 8y/1fO9CFoiJC/74f+Pgb8m0AAAA=
+X-Change-ID: 20260723-origin-linux-6-12-y-187853bb8b22
+To: stable@vger.kernel.org, jianxin.pan@amlogic.com, tuan.zhang@amlogic.com
+Cc: JY <JY.Ho@mediatek.com>, Chao Yu <chao@kernel.org>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, Jiucheng Xu <jiucheng.xu@amlogic.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787052001; l=3676;
+ i=jiucheng.xu@amlogic.com; s=20250821; h=from:subject:message-id;
+ bh=+CTJfT4QqV3cDORFOfPy4xRThZejsNENMJbh2v65OjE=;
+ b=MsW0FhClYBObcYByBToUDcjqNDZ8woLF/VYSkp+qW+sC3j5RYuw5eHOHwvOj1rXGKLSC+auMl
+ t/jjY7niu8zAYfj7dtv7N113z1vPjpowWFsppF5SvIFhSCdjOxPlIBa
+X-Developer-Key: i=jiucheng.xu@amlogic.com; a=ed25519;
+ pk=Q18IjkdWCCuncSplyu+dYqIrm+n42glvoLFJTQqpb2o=
+X-Endpoint-Received: by B4 Relay for jiucheng.xu@amlogic.com/20250821 with
+ auth_id=498
+X-Original-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Reply-To: jiucheng.xu@amlogic.com
 
-On 8/18/26 4:21 AM, Andrew Morton wrote:
-> On Mon, 17 Aug 2026 20:08:00 +0800 Hui Su <sh_def@163.com> wrote:
-> 
->> migrate_device_range() and migrate_device_pfns() clear the entries
->> following a compound folio so that the PFN arrays retain their
->> page-granular representation.
->>
->> If a compound folio extends beyond the end of the caller-provided range,
->> the loops clear all following folio entries without limiting them to the
->> number of slots remaining in the npages-sized array, causing an
->> out-of-bounds write.
->>
->> Do not proceed with a compound folio if its page-granular representation
->> does not fit entirely in the remaining PFN array. If this happens, drop
->> any reference and lock acquired for the folio, clear the remaining
->> entries, and stop collecting.
->>
->> Observed with a KASAN x86 QEMU kernel using the HMM
->> migrate_anon_huge_zero selftest. Closing /dev/hmm_dmirror0 after
->> migrating an anonymous huge page to device memory exercises:
->>
->>   dmirror_fops_release()
->>     -> dmirror_device_evict_chunk()
->>       -> migrate_device_range()
-> 
-> It isn't clear (to me, at least) what "exercises:" means.  Was there a
-> WARN?  Did the kernel crash?  Did it erase all my cat videos?
-> 
-> IOW, in detail, what are the userspace-visible effects of the bug? 
-> Please add this info to the changelog and maintain it.
-> 
-> Sashiko might have found some things.  Some pre-existing, some newly added:
-> 	https://sashiko.dev/#/patchset/20260817120758.669807-3-sh_def@163.com
-> 
-> 
+From: Jiucheng Xu <jiucheng.xu@amlogic.com>
 
-userspace-visible effects are a function of the usage of the API by the device
-driver. If the device driver passes in npages that don't account for PMD pages,
-it would be an issue. In the case above, closing the device will evict pages
-from the device back to the CPU, but I am surprised that the size of npages was
-not properly split, we should fix that as well.
+commit edf7e9040fc52c922db947f9c6c36f07377c52ea upstream.
 
-FYI: I've tried reading through Sashiko's report, but there is too much
-pre-existing content that it points to and it can be quite time consuming. I am
-working on adding new test cases to try and catch some of the issues found
+As JY reported in bugzilla [1],
 
-Balbir
+Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+pc : [0xffffffe51d249484] f2fs_is_cp_guaranteed+0x70/0x98
+lr : [0xffffffe51d24adbc] f2fs_merge_page_bio+0x520/0x6d4
+CPU: 3 UID: 0 PID: 6790 Comm: kworker/u16:3 Tainted: P    B   W  OE      6.12.30-android16-5-maybe-dirty-4k #1 5f7701c9cbf727d1eebe77c89bbbeb3371e895e5
+Tainted: [P]=PROPRIETARY_MODULE, [B]=BAD_PAGE, [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+Workqueue: writeback wb_workfn (flush-254:49)
+Call trace:
+ f2fs_is_cp_guaranteed+0x70/0x98
+ f2fs_inplace_write_data+0x174/0x2f4
+ f2fs_do_write_data_page+0x214/0x81c
+ f2fs_write_single_data_page+0x28c/0x764
+ f2fs_write_data_pages+0x78c/0xce4
+ do_writepages+0xe8/0x2fc
+ __writeback_single_inode+0x4c/0x4b4
+ writeback_sb_inodes+0x314/0x540
+ __writeback_inodes_wb+0xa4/0xf4
+ wb_writeback+0x160/0x448
+ wb_workfn+0x2f0/0x5dc
+ process_scheduled_works+0x1c8/0x458
+ worker_thread+0x334/0x3f0
+ kthread+0x118/0x1ac
+ ret_from_fork+0x10/0x20
+
+[1] https://bugzilla.kernel.org/show_bug.cgi?id=220575
+
+The panic was caused by UAF issue w/ below race condition:
+
+kworker
+- writepages
+ - f2fs_write_cache_pages
+  - f2fs_write_single_data_page
+   - f2fs_do_write_data_page
+    - f2fs_inplace_write_data
+     - f2fs_merge_page_bio
+      - add_inu_page
+      : cache page #1 into bio & cache bio in
+        io->bio_list
+  - f2fs_write_single_data_page
+   - f2fs_do_write_data_page
+    - f2fs_inplace_write_data
+     - f2fs_merge_page_bio
+      - add_inu_page
+      : cache page #2 into bio which is linked
+        in io->bio_list
+						write
+						- f2fs_write_begin
+						: write page #1
+						 - f2fs_folio_wait_writeback
+						  - f2fs_submit_merged_ipu_write
+						   - f2fs_submit_write_bio
+						   : submit bio which inclues page #1 and #2
+
+						software IRQ
+						- f2fs_write_end_io
+						 - fscrypt_free_bounce_page
+						 : freed bounced page which belongs to page #2
+      - inc_page_count( , WB_DATA_TYPE(data_folio), false)
+      : data_folio points to fio->encrypted_page
+        the bounced page can be freed before
+        accessing it in f2fs_is_cp_guarantee()
+
+It can reproduce w/ below testcase:
+Run below script in shell #1:
+for ((i=1;i>0;i++)) do xfs_io -f /mnt/f2fs/enc/file \
+-c "pwrite 0 32k" -c "fdatasync"
+
+Run below script in shell #2:
+for ((i=1;i>0;i++)) do xfs_io -f /mnt/f2fs/enc/file \
+-c "pwrite 0 32k" -c "fdatasync"
+
+So, in f2fs_merge_page_bio(), let's avoid using fio->encrypted_page after
+commit page into internal ipu cache.
+
+Fixes: 0b20fcec8651 ("f2fs: cache global IPU bio")
+Reported-by: JY <JY.Ho@mediatek.com>
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
+---
+ fs/f2fs/data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 68891c086b382905d62317d424f20ef58282eb75..16c15360605b0f092d0ddf5f2161bcbf53a288e8 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -950,7 +950,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+ 		wbc_account_cgroup_owner(fio->io_wbc, page_folio(fio->page),
+ 					 PAGE_SIZE);
+ 
+-	inc_page_count(fio->sbi, WB_DATA_TYPE(page, false));
++	inc_page_count(fio->sbi, WB_DATA_TYPE(fio->page, false));
+ 
+ 	*fio->last_block = fio->new_blkaddr;
+ 	*fio->bio = bio;
+
+---
+base-commit: 25c09b42358e73e1476e517b296edb6344f2e4bd
+change-id: 20260723-origin-linux-6-12-y-187853bb8b22
+
+Best regards,
+-- 
+Jiucheng Xu <jiucheng.xu@amlogic.com>
+
+
