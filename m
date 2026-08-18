@@ -1,165 +1,135 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FEC3B811F;
-	Tue, 18 Aug 2026 08:32:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0CC3B8BCC
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:33:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787041937; cv=none; b=YR0xt009kGC6jvKNYj/wiAj9cBG+qjCjiFQm5GvBbDwiGL3KeO1K4Gq1A/95AjhvxiRr4L3oer8O7iBz1JAsW6vDaq4dye1sW5NJYjL9puKEyWDsN1YVxqU60J5bONZQOv9elHOE7eVrncdxJzXcc5e6tg9z+FTlPNz71Bs7Cmg=
+	t=1787042011; cv=none; b=f5Uk0fymS+Oxe5FPGedLDEp12WUJLHzk1dnh0z/5YUkzXdcH2kOmqOpR7ZW0ItBP1kNhDfNUd3wnyFh/6ANwXwrexQPV1FavhiLDQ55n8RpxRcCnsmCNw1EvDJHifAWhyyTxhVSjx2FY3HhVyzll8c6HxA9vpFV+EJQukCAbxjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787041937; c=relaxed/simple;
-	bh=8gWzpZryodg//Tt6gkCoheUeq+Zzndr2R8oDIMpEIpk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JWfciPpJlDsRtALpy0a63iMukuOGxJbid7PsVpLlVINJ4plc+cdIhHXJNJfFSvEEif/c491q/KG+zS51rADIlIIGHzWy2LVcs14uJVYpsmrh6ji9ikL0wxyT7UppxBwI89VNe1odH2N7JJbt59BIWH0lOzwdpiXdXVelcFRs/uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=XD6u/0i+; arc=none smtp.client-ip=194.59.206.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1787042011; c=relaxed/simple;
+	bh=RlsS7vAu3DE/r5tm5+GKRG8WE9EmSc1cMP6e7fbOCVU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XGRPFTpmq4Ysp9R9qhuYrnVr+G10+E1IT6xsjGprpiLu9p8hOIleN9oaLL8ydS3xUCGLBICN+S8fn+cobXTE10t6DvLnksJU1momeW18vJNiuKwLKNPoXlusLt8b/c+9QgqKMj0tdKEzyjBj/Zr0cCRDeSY2I8LsRYVgDnxqub0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FbazJZhL; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="XD6u/0i+"
-Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hPNGz3lDRz4CyS;
-	Tue, 18 Aug 2026 10:32:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1787041931;
-	bh=8gWzpZryodg//Tt6gkCoheUeq+Zzndr2R8oDIMpEIpk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XD6u/0i+/Rau8gNSjM3A6B+2JW3/9sxWqJIRdRTpea1tmCFiZM5EhySKroNjFyINB
-	 IYAFlwip/zF0NhZSSLjLhLuhuy1hqw1JmKlYU/4VMqM/Zbl36KZTMe7hhw4qLaCQOh
-	 u3XjxS+eOwT94u0bXwvq1JJ3RM9poCD3n3pUYGui0kvw0kfgRpD9ssmgCAfKbWwJgN
-	 4cYvRCyvbXJ4PF+jqBJy0H3E+BszIcFytUy9nHefsim2JIouuAQU8tfm7TqgKwQuib
-	 N2+z1bIArTFPSVvkVTVT2zckXXZTy8WeAiWoMbacsQCPOUXTNTQaL/WpRjo+s6K0e6
-	 6owEJKz0bPxUA==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hPNGz31Qqz7xMN;
-	Tue, 18 Aug 2026 10:32:11 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hPNGy0mg7z8sb7;
-	Tue, 18 Aug 2026 10:32:10 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id D18A55FAAF;
-	Tue, 18 Aug 2026 10:32:04 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <2719a7f9-71cf-447b-b4fa-a53e598d3d5a@leemhuis.info>
-Date: Tue, 18 Aug 2026 10:32:03 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FbazJZhL"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38e08baf860so4361018a91.2
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:33:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787042009; x=1787646809; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=srZLzFpNfDNrD79+dnb6Flm08rVfyHpmgm9TRApXS9U=;
+        b=FbazJZhLJC5zX3DES6CHukut/CyoJuVmjFufMTFroVu7H9+eMJiv/4W/Jx7+N6Q9gR
+         Uu2VBvmDIU+BlnCabCX11wo7rr6dnvBmi8LL9zukHQ6+dImrljL7sq1l2bUiKLd9k/BL
+         VLwK286v13Cmj0cO6vE/qUVVsKrneHNStRwSB6SpB0axfWJRRfClMs4fjs2VNgjiEMpk
+         sM2GgbPaRcf+TplZPflzOMzBPp0urZs43UXapdawl26GtY0kPf1gzBZ9I/gKmxoyIaf7
+         Kj8gYqmgpZgRJwtCDJOJnPOUhQRexOvww2fAVbFPewQ2UPYVwxcFnUB/FrN1C6hmTh5A
+         0Rpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787042009; x=1787646809;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=srZLzFpNfDNrD79+dnb6Flm08rVfyHpmgm9TRApXS9U=;
+        b=cJf9UrOv8zgHNqhY3eJvW12INjN/umZEvvFBWcRHOYYou9/3Mh5UbXg1rrurwwvwBa
+         H+J9UedNhnxXANQoZBUv9nE4A9kq9JPWOPzy3KBVLGzrZHLrz4HCKqRcxnpYIBZJg9e7
+         xCUkiJ9uxw0PAMa8exIza+Sgeih8+83Aj4Nk3y0Uj1dUyywBof1OzkE2AHvjOoilPaBO
+         N6l22huQzt4cLSwAjl1JiYqWxn7LPnim03Emskp3vo+E37fOglLB/AWrJ76dvncC8Y+Z
+         jduqfqo57cJtrHKLH5ZFsVzwpb99Tq5m2xsirtTtPgEhU5nLnc9nQJKW9HytVyr0umYo
+         mQ+A==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3+hQkhDlSSBzZN8MO7VheBUuCbeVYq1QHQvou3AJKpKZdBd08kr5PaYizxgcWIN0uK8KmCXs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+PKGnZM9E9pXourMsoNp8yt+j0hBNHPEs6lUCYP+EJrnYBbc4
+	eulIukBhd2kTj8Cx5M4W+7jChnDTIrO4c4lAsbmyt/DOD78lodArJrgH
+X-Gm-Gg: AR+sD10U7nBxTzeIPBLc7NCkLSfhUOV3VM0DW6G1V0Ah0SZgTu1+Hxtd/xxIXIGmBKk
+	u9O6TAYLLyR1qpVEqR4Mbc1ztR+ihnyDS8DyvZpX0aqR7ogRfuwLXMCp3bl/TRQ7NxyKO07o3IE
+	y0Ojh2/7vordaQ9pJcWPyR99/hxfwDgKuDAihvNSaLQENULnRhPTvoXL0F2CfsbRZ6c//TzREH6
+	+5jwJApWKk3DWkL1m9fy++bRaZ/Pg0oi/toC3uDnETRR+qN1WRuLoID7YdwFmB2NnsTEvNJAfPo
+	Strvpch2L1sxRXmo/gTZRLub+LKVNQ6V8wYCKsIQROyrlDYgTINQ9+5oCP/yxOWmPNC+8kDgYW1
+	DGbOydM2t3+K0hjFr3dnUHFX3hYkFjzrAsaNRcce1RGoXMpm3kmq/aE6eTHsB3B/H6kFY3XfNht
+	vOSTYTxbcORhSvmyt7EBHU1mS8rzXU1duIV9FoB0V/pVubeSzBm6UZpAJXE4W8uGemmts=
+X-Received: by 2002:a17:90b:5291:b0:36a:5d1f:7b6 with SMTP id 98e67ed59e1d1-3933bd18849mr34288276a91.2.1787042008953;
+        Tue, 18 Aug 2026 01:33:28 -0700 (PDT)
+Received: from localhost ([2402:e280:3e0d:544:91b3:77c4:f31d:d706])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-326794c0c94sm27801981eec.9.2026.08.18.01.33.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 01:33:28 -0700 (PDT)
+From: Vaibhav Nagare <nagarevaibhav@gmail.com>
+X-Google-Original-From: Vaibhav Nagare <vnagare@redhat.com>
+To: stern@rowland.harvard.edu,
+	gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vaibhav Nagare <vnagare@redhat.com>
+Subject: [PATCH] usb: ehci: fix QTD list corruption in qh_completions
+Date: Tue, 18 Aug 2026 14:03:23 +0530
+Message-ID: <20260818083323.2270580-1-vnagare@redhat.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: typec: mux: Fix typec_switch_match()
-To: Marek Vasut <marex@nabladev.com>, linux-usb@vger.kernel.org
-Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- kernel@dh-electronics.com, linux-kernel@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260817182302.146546-1-marex@nabladev.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260817182302.146546-1-marex@nabladev.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178704192528.3564116.6843811556363461498@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: D18A55FAAF
-X-NC-CID: /Bx6R4kcJ3GShYDC85Bp7vJBFzp1xv5TR5uNsXCFgLZpDNNxlmc=
+Content-Transfer-Encoding: 8bit
 
-On 8/17/26 20:22, Marek Vasut wrote:
-> The fwnode_typec_switch_get() sporadically returns NULL instead of an
-> -EPROBE_DEFER for orientation-switch described in DT.
+In qh_completions(), when completing a URB at a URB boundary
+(last->urb != urb), ehci_urb_done() is called which drops ehci->lock
+via usb_hcd_giveback_urb() for the completion callback. While the lock
+is dropped, a concurrent ehci_urb_dequeue() (e.g. from a TX timeout
+recovery) can modify the QTD list, making the 'tmp' pointer saved by
+list_for_each_safe() stale. Continuing iteration with a stale pointer
+leads to list_del() corruption and a kernel panic:
 
-Hi Marek! Just to make sure, have you seen the patch submission
-"usb: typec: mux: initialize orientation switch array"?
-https://lore.kernel.org/all/20260804083434.20885-1-i@4t.pw/
+    list_del corruption. prev->next should be ff27e4e01aefa580,
+    but was ff27e4e01aefa1c0
+    kernel BUG at lib/list_debug.c:51!
+    Call Trace:
+      qh_completions+0x28f/0x640
+      ehci_work.part.0+0x1d5/0x330
+      ehci_irq+0x3d2/0x490
 
-It has a fixes tag for the commit you mention and reads: ""Commit
-a53b4f9c51a9 ("usb: typec: mux: avoid duplicated orientation switches")
-started using the orientation switch result array as state for duplicate
-detection, but left the array uninitialized.
+This was observed on systems with an HPE iLO5 Virtual NIC (cdc_ncm)
+where repeated NETDEV WATCHDOG TX timeouts trigger concurrent URB
+unlinks that race with the qh_completions lock-drop window.
 
-The first match therefore scans indeterminate stack contents before any
-result has been stored. [...]""
+Fix this by freeing the completed QTD and restarting the list scan
+via the existing rescan label after ehci_urb_done(). This is safe
+because already-processed QTDs have been removed via list_del() and
+the list is strictly shrinking, guaranteeing forward progress.
 
-Not my area of expertise, but it sounds related, that's why I wanted to
-ensure you are aware of it. If it's something else: sorry!
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+---
+ drivers/usb/host/ehci-q.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-Ciao, Thorsten
-
-> This makes it
-> impossible to discern whether the DT does describe an orientation-switch
-> which did not probe yet, or whether the DT does not describe the switch.
-> This happens with gpio-sbu-mux connected to an I2C GPIO expander.
-> 
-> The class_find_device() on typec_switch_match() may return NULL in case
-> the mux did not probe just yet early on boot. The sw_devs[] array can be
-> empty on boot as well. If these two conditions occur, then the conditional
-> if (to_typec_switch_dev(dev) == sw_devs[i]) evaluates to true and the match
-> function returns NULL, which propagates to fwnode_typec_switch_get() which
-> makes it look as if the orientation-switch was not described in DT.
-> 
-> This is incorrect, because the mux driver will probe a bit later on, but
-> at that point, the caller of fwnode_typec_switch_get() already got the
-> NULL return value. The NULL return value also does not trigger IS_ERR(),
-> therefore the caller driver interprets this as if the orientation-switch
-> is not described in DT, and does not return -EPROBE_DEFER to try again,
-> even if it should.
-> 
-> Fix this by checking the class_find_device() return value, and return
-> -EPROBE_DEFER if it is NULL right away. If the return value is not NULL,
-> perform the deduplication test, and if that test passes, consider the
-> return value to be already non-NULL.
-> 
-> Fixes: a53b4f9c51a9 ("usb: typec: mux: avoid duplicated orientation switches")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Cc: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Cc: kernel@dh-electronics.com
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-usb@vger.kernel.org
-> ---
-> NOTE: A similar change was reverted in
->       f576c75f95a5 ("Revert "usb: typec: mux: avoid duplicated mux switches"")
->       Maybe the orientation switch commit also needs a revert ?
->       Or the mux switch revert can be undone and fixed using this NULL check ?
-> ---
->  drivers/usb/typec/mux.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/typec/mux.c b/drivers/usb/typec/mux.c
-> index 9b908c46bd7df..2bc7e8edb3cbd 100644
-> --- a/drivers/usb/typec/mux.c
-> +++ b/drivers/usb/typec/mux.c
-> @@ -56,17 +56,19 @@ static void *typec_switch_match(const struct fwnode_handle *fwnode,
->  	 * function "defers probe" for now.
->  	 */
->  	dev = class_find_device(&typec_mux_class, NULL, fwnode,
->  				switch_fwnode_match);
-> +	if (!dev)
-> +		return ERR_PTR(-EPROBE_DEFER);
->  
->  	/* Skip duplicates */
->  	for (i = 0; i < TYPEC_MUX_MAX_DEVS; i++)
->  		if (to_typec_switch_dev(dev) == sw_devs[i]) {
->  			put_device(dev);
->  			return NULL;
->  		}
->  
-> -	return dev ? to_typec_switch_dev(dev) : ERR_PTR(-EPROBE_DEFER);
-> +	return to_typec_switch_dev(dev);
->  }
->  
->  /**
->   * fwnode_typec_switch_get - Find USB Type-C orientation switch
+diff --git a/drivers/usb/host/ehci-q.c b/drivers/usb/host/ehci-q.c
+index ba37a9fcab92..c715648e97ab 100644
+--- a/drivers/usb/host/ehci-q.c
++++ b/drivers/usb/host/ehci-q.c
+@@ -328,7 +328,16 @@ qh_completions (struct ehci_hcd *ehci, struct ehci_qh *qh)
+ 		if (last) {
+ 			if (likely (last->urb != urb)) {
+ 				ehci_urb_done(ehci, last->urb, last_status);
+-				last_status = -EINPROGRESS;
++				/*
++				 * ehci_urb_done() drops ehci->lock for the
++				 * completion callback. The QTD list may have
++				 * been modified (e.g. by URB unlink during
++				 * TX timeout recovery). The 'tmp' saved by
++				 * list_for_each_safe() may be stale.
++				 * Free last and restart the scan.
++				 */
++				ehci_qtd_free(ehci, last);
++				goto rescan;
+ 			}
+ 			ehci_qtd_free (ehci, last);
+ 			last = NULL;
+-- 
+2.54.0
 
