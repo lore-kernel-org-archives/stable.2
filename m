@@ -1,161 +1,131 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E549045FFBB
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B5E455161
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787051127; cv=none; b=q17XOmr5s1hom0u5I+cn8r2SCUDX+5wWJI2wujq5RPTsnMZ3APoMKuctJojMjgagmQ2zDo/+Zssl/kmvNPANerNR7irOuyDyUTG8qtHfwwFxbpidAI590sM53AlVrBgFeyBH+Ve+UdK6xtWuvET//MXx5oRi/1V0YcBcdCtuGj0=
+	t=1787051500; cv=none; b=jXreXpCs0LNgFXAsEbfN2sIKnslsMvHxK+vWbIrj4EdPTmZQmgzgHLqprS+rlVPFEq6Fglcf5WUD2IqIYQ3bSsdXbPq+yXlTA0nd92SpdgNP6y/c1YoLFYkcb075WD4dcyIX9wbpUBcg1odAJmVoLXeLlh+c4S1+PWtzt3Qtu4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787051127; c=relaxed/simple;
-	bh=7PttoYG+N72lGp3+n6J9QSHqeN61a9qbM4HiGVTu35A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VZ2kPL6FBcCAWQLvmfaYnyr1RzVJpE//pNS9PHjyap27Ddc4f1sFqYhX+i3tGYiKnuHBMDjp3Tz6E3qkS1Dl9J9FEYPrDbezDvVcKj9mNlKDWqdZX1APsyc2d8uQ1U+JZP0Xaw47IbqrqVnxxlodvlSOpVKKUwROkx0tvgaGEr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=KYRrE11e; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1787051500; c=relaxed/simple;
+	bh=BbY6AugiYJJO+Aqx8xAwWg0CsYBvQjrLuUBuwkgsj7Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=Fu7rpVVUbEKxmSbQtnwU4M6oAXm63CuZz+mTtiDhbhhAwZftg//9I234zBD9QpAEVVWTCiCTwNWu0XQJx6h3R9S391FZIWFQ9OHskwnU3A/NX6jk8l/m57NNHTRTdPUviYR4kUXjrPd/ob8UoifheD8FIXw4uEDJzYmiHrEdc30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gNSbI3B/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=IPVafMcR; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="KYRrE11e"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d5cad1a6baso10156465ad.3
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 04:05:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gNSbI3B/";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="IPVafMcR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787051497;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q7xmBaR8c3MOstN/SERsMR2kSJUtTOjfrtXkiSiGFzw=;
+	b=gNSbI3B/gy4lNsBY50oU0N8Z6Gi+VSL2KVl/QKdYcbR8tpG8YnghBmtq91d0YlRfGraXC4
+	fCPzSLoOiGGh3RA7uYtqoCY691gB7vIX0V+OFDsK9sbzipwulLJD8dzMviPE3dwfHbOg90
+	eaKFK4wp28GjTyuUu4JJ453zElnuNDc=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-62-iqlrpZeSNICshBRioSaX4A-1; Tue, 18 Aug 2026 07:11:35 -0400
+X-MC-Unique: iqlrpZeSNICshBRioSaX4A-1
+X-Mimecast-MFC-AGG-ID: iqlrpZeSNICshBRioSaX4A_1787051495
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-47f4bff865cso2443051f8f.0
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 04:11:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1787051124; x=1787655924; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F00tHSyJsJ6CzdE6v/TT1V5MB6XClnKFlQNlIPg7vzw=;
-        b=KYRrE11eQZHheIf2C+D+OmCJeSpNybTxWskb5Afe63jK8UW5rPOJdS7srdR0uREgeY
-         aQmoFXB3vq3BRZJYggLcp562GZsHIuTBVNtUbzeOKoaRfg3QZgjiaPHs51GRr2VyT8RY
-         BeBqhhL3HaWJlDWxKnl+4U7SVAyu4uXPNPP8e73+ipaoYHRsc/06ibFzZUM9Ka0lcTMC
-         Ip9orNX2y+8DbVqUSpbO8TXz0N0qu6/wal41rRl37cVeS0LXhp1SrHLQZPawXDgcMQxG
-         ASte5BjeBkbsK1MGttIb2ScMpkZRbUevGNswHX5+PpUcu8Zza7XfapoAWEEvtsCLcXZa
-         MqGQ==
+        d=redhat.com; s=google; t=1787051494; x=1787656294; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q7xmBaR8c3MOstN/SERsMR2kSJUtTOjfrtXkiSiGFzw=;
+        b=IPVafMcR4tzMz4HZbMLoLm3J9a9pyXAjuMGsNBUvddu7HQ/VuLOE02FhtIwvh3af/e
+         eBXlgc0pkyMzCZ4Jmg+NMM0ncWwO5mJclOjEYLCaP4zMTt3ahdS+7wXuOnVIOmfMesjT
+         GUqIr76JvR3Oa7GL1K+u61GOAEtl1H2BlKGV7RCtIwPBLsfSzzEPn3oy51bzrHh4wJbz
+         NuvB9wpT+GWxOOaoM9X7SIKz0oCkWUKMQ+9uXsXHEkdx6zPoihTyGDHGttxR/yzw0lU6
+         jqJtXaTH3EtwbprDX/Xx4hXpfm1db5IZM6teyFAmo4U8qDHxTtAGMbuGAJp+waKwG1ys
+         BA/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787051124; x=1787655924;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F00tHSyJsJ6CzdE6v/TT1V5MB6XClnKFlQNlIPg7vzw=;
-        b=r4BKWoU3m4jPbkMKaLI3NIRRQp06DuGnv3GmVuBbeC2p6OcKBYADxev9ZbL+ppdcM9
-         DbU9/JQavesOtifE/Xs7rOzNMlExhgyKN5h+CpV5aoh8VKE9KUpUml+90unKgLEQ7oK5
-         XrYtHJ0T3gqNHoGE472iJU9KqXtE/7t9FSErBpMxKv66UpwCJyFqx0KQW9V8PjO3MchR
-         t6Q4MKZJWqPDlFqvpW/gbe35K/8GZUFb2PxHAyU3CU9WNuh/Ov4tSBNG4TDZwAOgj7Z0
-         z8N+vlWRaiR4gfcyNeRNpkzG457HXvlPjhosobYYxPL8yU4P910sXmKZShUXhDoUs4rw
-         8BrA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr/ilwmtigJChK3nZDd2MGFB3QLGPc9OwHEumHoznmGgfx7rOSo3LdKS3ggJhtJ4ddSB6zOXY0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzDLXHU12CQlXl9v4BsMeUnuoOqzg8n7p4t4d5nDf/tseeBqAt3
-	xZ97NScuBKm1T4nLX9DsLov41RlGurTUZisgtdewmryzIxA+I6NujPXyeYxuzVwIQlc=
-X-Gm-Gg: AR+sD12PDyYpvcMCryXJ9UuveW5tEGmj+6VT31Q//PX7M6X7WpURBp3vkQ/g2WL3kuh
-	Uuxh/bR/3KZY9PoitBwcFExS9HnbU/JV1LFwIxg5ELVzSE9L8DH4j2WIVZMN94Bn0tgb8Sbnr4/
-	+50oTxr3CuQqIS7bgmM6XGE4glZDamClOKik6j5GYHV7hRwEpSVACfGXaW7aH+zrOGr1Nex0W/b
-	asrU8slJq92hsYpI8dpY0KMeSNadma21kfsojXXKERhlwQIB2eI2VsX/yxFQovkD+qQgAeNG/dd
-	2YmrnVPimaQstmfVOrPpmZEg0Pwk3pGEUGqNy4VcXrxlLW4oAwVDnjRQfJleu+qwIN5gjFj5XWU
-	QJDcl/6ZucW3CwaVUt3BYrbIf1tOLj90SJSXXe589aTNnkK5QJVxes4ghfPZTJzCRLapb1iS3wO
-	YTXRdL3ovYPDc/NrWFNedoh4VPJIQlgFokFlPyQqcapjGLKK4dckNAHk/8NawSZmJuPVm+
-X-Received: by 2002:a17:903:2311:b0:2cf:afe8:b722 with SMTP id d9443c01a7336-2d5c5149013mr98394785ad.11.1787051123928;
-        Tue, 18 Aug 2026 04:05:23 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bcf36500sm15298765ad.5.2026.08.18.04.05.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 04:05:23 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH] nvme-tcp: check the data direction of a C2HData PDU
-Date: Tue, 18 Aug 2026 20:04:05 +0900
-Message-ID: <20260818110405.590548-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1787051494; x=1787656294;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=q7xmBaR8c3MOstN/SERsMR2kSJUtTOjfrtXkiSiGFzw=;
+        b=cX4gJR3gbWCB+ZAZso0AbmtPtIN4t4kTkbDShJxUwse+oRWWlYO7Hx/eHoKauPzKP+
+         aRDEMeg0db5zxIyRYCricrNjugCTSy+hMVySvLdCPLse2ffLfaGffnaX1yGbZhkPGALC
+         WhYKAjTfp70eUD7tNq2/v4MLYlD/oVCKQy/Ib+xMFxK0mFO1z4Gl6nNlncViZjy54uhP
+         J1cY02jD3AyRuZ5acl/C7xxKHmKn8VE0ZuEwg8cSprsJ1Zz8qUwvNyl3t57Uk0zZO7G8
+         dJf90yk5zP8kX5ynRsO+sjVaoeO8YZpL8kU6npbqjqVn5WLZ2vgbpqB7ItBjmN1OI5mE
+         /Xvw==
+X-Forwarded-Encrypted: i=1; AHgh+RoHuPFueBKu31NcVx5Su9hk426DodBndgdxJsM6CInR9kX+iiUo286IFVf8w7z+j6BjSmnf2ho=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9IgKFV6VBZc8yS4DZL5guek07m78M/lWJE2Pt+xNS3C5y/0HE
+	NgrOQbwhEr97nbslcGEYFlM7sjiOLjMZDBwv14mq1i4IZ1DUwcCWGXhMqt/yZEDYHTx1zAv/zDL
+	29LwbCbBdisppf57WwYsFkkxw2xeHoPzuVD0+2Q86U5fbKTguJKLKo3BL0Q==
+X-Gm-Gg: AR+sD105t5Gj2MdqyNMa3C3xfx/P3INPoLmsQY7KwzJ94emcHJ5FoPV/T8BnvX7VidA
+	1QYAa9/uLzZiJNCmIHgsq4Qzbe4MFfEyu6rj3IByfFR2NdseoaN3blWUV8Dm9bLKzXUlqi7dl0y
+	hTkFSxrnnJ92BeQF4S+oh9HFKTkQ8urFp7E2b2qDGTz1WefM6sKaBONHkd6j8MYa7NWt1MXlL2l
+	kqbc34fsOE9SCLCeJbAj+TzMUtsUWi/SPdW/Bw2WwwXRseXdfOHZwoNyx69xHaNLw6bMaNqggJ7
+	1Su4qL7UNARyvckui/T6MLZKwIth5VgT/krvi8TTylPSHRSg3ojlSXKOD9zAJLkZvCmoezLckVV
+	k+0n5j9EFkVRBgyvl3pXcECyXSK3o6bx80fpQYAI0mXd4oIRFtLbbliBeZQATDUXuClnk36ktb+
+	E=
+X-Received: by 2002:a05:6000:4201:b0:47f:e760:e5b9 with SMTP id ffacd0b85a97d-482a903c1c1mr11739161f8f.18.1787051494519;
+        Tue, 18 Aug 2026 04:11:34 -0700 (PDT)
+X-Received: by 2002:a05:6000:4201:b0:47f:e760:e5b9 with SMTP id ffacd0b85a97d-482a903c1c1mr11739063f8f.18.1787051494124;
+        Tue, 18 Aug 2026 04:11:34 -0700 (PDT)
+Received: from [192.168.188.103] (ip239-44-231-195.pool-bba.aruba.it. [195.231.44.239])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5a7bc6esm11928055f8f.19.2026.08.18.04.11.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 04:11:33 -0700 (PDT)
+Message-ID: <3bc731d7-38c3-4ffd-94f8-e59cde66f5db@redhat.com>
+Date: Tue, 18 Aug 2026 13:11:31 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3] net/ionic: avoid OOB TX partner lookup for
+ hwstamp RXQ
+To: Anand Khoje <anand.a.khoje@oracle.com>,
+ Brett Creeley <brett.creeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Abhijit Gangurde <abhijit.gangurde@amd.com>, Shannon Nelson
+ <sln@onemain.com>, Leon Romanovsky <leon@kernel.org>,
+ Eric Joyner <eric.joyner@amd.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, Kees Cook <kees@kernel.org>,
+ Mohammad Heib <mheib@redhat.com>, Jacob Keller <jacob.e.keller@intel.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260813083705.454897-1-anand.a.khoje@oracle.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260813083705.454897-1-anand.a.khoje@oracle.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-nvme_tcp_handle_c2h_data() finds the request by command id and checks
-that it has a payload, but it does not check that the command asked for
-data to be read.  A controller that answers a write command with C2HData
-therefore reaches nvme_tcp_recv_data(), where _copy_to_iter() hits
-WARN_ON_ONCE(i->data_source) and returns 0.  The receive path turns that
-into -EFAULT and resets the controller.
+On 8/13/26 10:37 AM, Anand Khoje wrote:
+> The dedicated hardware timestamp RX queue is allocated with q->index
+> equal to lif->ionic->nrxqs_per_lif. The normal txqcqs array only
+> contains the regular queue pairs, so using that index to set rxq->partner
+> can read one entry past txqcqs[] and then write through the derived
+> pointer.
+> Only link RX/TX partners for normal queue-pair indexes. Leave the hwstamp
+> RX queue unpaired, and make the XDP_TX path abort cleanly if an RX queue
+> has no TX partner.
+> 
+> Fixes: 8eeed8373e1c ("ionic: Add XDP_TX support")
+> Signed-off-by: Anand Khoje <anand.a.khoje@oracle.com>
+> Reviewed-by: Si-Wei Liu <si-wei.liu@oracle.com>
+> Reviewed-by: Shannon Nelson <sln@onemain.com>
+> Cc: stable@vger.kernel.org
+This is net material, you should have set accordingly the target tree
+into the subj prefix. Also your SoB should come last.
 
-No data is copied, so this is not memory corruption.  What a controller
-gets is a kernel warning it can raise at will, which is fatal on a host
-booted with panic_on_warn.
+No need to resend just for this, but keep in mind for future submissions.
 
-The send path already knows the direction - it consults rq_data_dir()
-when it builds a command - and nvme_tcp_handle_r2t() checks the length
-and the offset of the request it names.  The C2HData path does not check
-the direction at all.
-
-Reject a C2HData PDU whose command is not a read.  Rejecting it fails
-the command and resets the controller, as the neighbouring check in this
-function does; what goes away is the warning.
-
-  [    6.885580] ------------[ cut here ]------------
-  [    6.886457] WARNING: lib/iov_iter.c:193 at _copy_to_iter+0x289/0x1330, CPU#0: kworker/0:1H/71
-  [    6.888137] CPU: 0 UID: 0 PID: 71 Comm: kworker/0:1H Not tainted 7.2.0-rc5-NVMETCP-gf5098b6bae76 #1 PREEMPT(lazy) 
-  [    6.891165] Workqueue: nvme_tcp_wq nvme_tcp_io_work
-  [    6.891875] RIP: 0010:_copy_to_iter+0x289/0x1330
-  [    6.903739] Call Trace:
-  [    6.904085]  <TASK>
-  [    6.909254]  __skb_datagram_iter+0x433/0x820
-  [    6.911026]  skb_copy_datagram_iter+0x37/0x120
-  [    6.911622]  nvme_tcp_recv_skb+0xa07/0x4320
-  [    6.913378]  __tcp_read_sock+0x1ab/0x810
-  [    6.915788]  nvme_tcp_try_recv+0x152/0x1e0
-  [    6.918222]  nvme_tcp_io_work+0x1e4/0x6c0
-  [    6.926906]  </TASK>
-  [    6.927226] ---[ end trace 0000000000000000 ]---
-  [    6.927878] nvme nvme0: queue 1 failed to copy request 0x71 data
-  [    6.928709] nvme nvme0: receive failed:  -14
-
-Fixes: 3f2304f8c6d6 ("nvme-tcp: add NVMe over TCP host driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-Applies on top of "nvme-tcp: do not accept C2HData based on
-blk_rq_payload_bytes() alone".
-
-Measured over a user-space target that answers every write with C2HData.
-The warning appeared in 5 of 5 runs without this patch and in none of 5
-with it, in each of three shapes: a buffered 8 KiB write, a 4 KiB write
-carried in the command capsule, and a discard.  In every run the command
-ids the target answered matched the ones the kernel named.  A conforming
-target is unaffected over 5 runs each way, including writes and a
-passthrough read, which rq_data_dir() classifies as a read.
-
-Those runs were on 7.2-rc5 with this patch as the only change.  Repeating
-the write, the in-capsule write and the conforming-target arms three
-times each on the base this patch applies to - 7.2-rc5 plus that patch
-and its predecessor - gave the same counts.
-
- drivers/nvme/host/tcp.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 85a87ed6df936..a62d6e48f7190 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -679,6 +679,13 @@ static int nvme_tcp_handle_c2h_data(struct nvme_tcp_queue *queue,
- 		return -ENOENT;
- 	}
- 
-+	if (rq_data_dir(rq) != READ) {
-+		dev_err(queue->ctrl->ctrl.device,
-+			"queue %d tag %#x unexpected data for a write\n",
-+			nvme_tcp_queue_id(queue), rq->tag);
-+		return -EIO;
-+	}
-+
- 	req = blk_mq_rq_to_pdu(rq);
- 	if (!blk_rq_payload_bytes(rq) || !req->curr_bio || !req->data_len) {
- 		dev_err(queue->ctrl->ctrl.device,
--- 
-2.43.0
+/P
 
