@@ -1,36 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421423E833E
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:36:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82AD17BED0
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:40:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787052995; cv=none; b=YAIHNbw0c80uq4R3teVEXjJFFkeTHXwuaHGUPRGdraEMgJ8JqC9f1vn2zL0CitU6Bsty7/vbjKN+/TLAyekYwXJS/zC9pFwi+C8vnSz4UoCckp1Mw7pqzK5yEAITQ2DbkEwQf0EboY27qaJNyuyIOfwOpcmRaIvgWNDWd/Rvstg=
+	t=1787053209; cv=none; b=ZQ3CEunzMW+Z9VlSwuXorQFV522TwmcdZ2wR3D8jBmZqdYcGgoWROB+dlaqE97wyzn+ITI+FN91V2jZJMzNyRq4fSotu1Bjfl8ne4UwimUzi9k0Ql5JJCHI1lpP7yJ9qx5jd5G3Jq3XugTdeC4uCE1VoFsTd2wsQtSb8e1rVT+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787052995; c=relaxed/simple;
-	bh=nd29pd/D9Q4mhvnE987MUOnI1NhuSFuVa1B/UVjmafw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ehxSlw0RgfUTovRaKFoTQLVl1JiyniA5VVpGoG8r+ICoh3ndiO4sp+e5YOWfv56cmVOkut0WKC0LleWycCTcz9kPkbnTawhLvgQokuurGoMy9ZoSHNufB9AjIieNaQWt/gLVBK8PXPGYhIBKuyOaeUwWsbgj95tvnT74iEjR8Hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PhisjdY+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787053209; c=relaxed/simple;
+	bh=ayXa1HjRcltgoJkDVPk8cfmiiwmqyIVAVKZE14EvQp0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cmGm7on7a237XfX6sGWjsUDztr4mzuiV1SYUDUk+4JgbALPp5ExnWstRhM/glFn3WwxsUusiFRquzItSg4AfYt43gh+gfkErwHPoH5QuESjEO74OFEoX679yDK0TLb/LxfnuoZpHljXjGF8Io/XKocseL8bvvRiMCFvVHFw06jw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ddKP+Y4J; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PhisjdY+"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C9C38C2BCB3;
-	Tue, 18 Aug 2026 11:36:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ddKP+Y4J"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 40EFAC19425;
+	Tue, 18 Aug 2026 11:40:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787052994;
-	bh=nd29pd/D9Q4mhvnE987MUOnI1NhuSFuVa1B/UVjmafw=;
+	s=k20201202; t=1787053209;
+	bh=ayXa1HjRcltgoJkDVPk8cfmiiwmqyIVAVKZE14EvQp0=;
 	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=PhisjdY+Hx+KWnJpfokFbRa5f1tznQq58CP4dYYFG2VcNWmVQMyjHc9fp8fXTELHZ
-	 8LGiN0MeRSiYgi5irCQxFpsEz1jZ11d/F1wq3SP2z9zrjksKE7nlfv9IPdr1GyJatW
-	 NKMVWGVAPw8CqPFKoPXZjnzls4FH8rGvfHitSShZnrfVzZvO8RGPuKhsr18pYRGQAO
-	 7+zY4gacZ7LR8hBZj/o4Hew3gNgrlhkGSVXBV1PdIKayO0uFhLdErz66EtHI62yQGK
-	 8/MlNloHwDK6Smy57wSUuS5hHIdxRVd1Xb8MRXQVpfIx5hC8xyMIeyeKTG12Cn8vw+
-	 o5S+UmfS4QpmA==
+	b=ddKP+Y4JuwQN1hdFLS1FKPVEvSu71jXwAr5TYdWSx4BgVmpj6lykDPMXGNuOEhBk/
+	 gBhtC7EGWwS2bJX+NiqtJ75Xe3wxnZpXsd9DPsbc2eFzNcGBHlNNuVqwlNrVY6fmAx
+	 81VRRykuJPUX/u3bVojQqG9VAs7nXJ4o9XCbYfvvpiG2Hc+u2NKuJ7og06b7UXzvol
+	 +RtDBDgDHZB+mKxAslKqQdS1Fu1d60+K0q79eyPPMPp2uNKdKPcczeSurtYPME1FQp
+	 i8QsUPc0dwg3Qe/7Fi/FehoOCB8oRSWrUYliktFXF1LiOiqsyp/U8OPeibC79qcHD8
+	 qYj3u6i50XCuw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B776CC5DF70;
-	Tue, 18 Aug 2026 11:36:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D88AC5DF7D;
+	Tue, 18 Aug 2026 11:40:09 +0000 (UTC)
 From: Jiucheng Xu via B4 Relay <devnull+jiucheng.xu.amlogic.com@kernel.org>
-Date: Tue, 18 Aug 2026 19:36:33 +0800
-Subject: [PATCH 6.1.y] f2fs: fix UAF issue in f2fs_merge_page_bio()
+Date: Tue, 18 Aug 2026 19:40:05 +0800
+Subject: [PATCH 5.15.y] f2fs: fix UAF issue in f2fs_merge_page_bio()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,21 +39,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-origin-linux-6-1-y-v1-1-95a5d1026e99@amlogic.com>
-X-B4-Tracking: v=1; b=H4sIAMBDhGoC/x3MQQqAIBBA0avErJtwlAy6SrSQnGogLJQiie6et
- HyL/x9IHIUT9NUDkS9JsocCqiuYVhcWRvHFoJW2qtMG9yiLBNwknDdaJMw46dZT55Q3iqCER+R
- Z7n86gG2oyTC+7weRWmerawAAAA==
-X-Change-ID: 20260723-origin-linux-6-1-y-c25d17a0d301
+Message-Id: <20260818-origin-linux-5-15-y-v1-1-aa5e9c007ce2@amlogic.com>
+X-B4-Tracking: v=1; b=H4sIAJREhGoC/x3MSwqAMAwA0atI1kbaSKt4FXHhJ9aAVGlRFPHuF
+ pdvMfNA5CAcockeCHxKlM0n6DyDcem9Y5QpGUiRVRWVuAVx4nEVf1xoUBu8kWhSNTFTNVhI5R5
+ 4luu/tmAKbYobuvf9ADSLJ0VtAAAA
+X-Change-ID: 20260723-origin-linux-5-15-y-22d082ee27b6
 To: stable@vger.kernel.org
 Cc: jianxin.pan@amlogic.com, tuan.zhang@amlogic.com, 
  JY <JY.Ho@mediatek.com>, Chao Yu <chao@kernel.org>, 
  Jaegeuk Kim <jaegeuk@kernel.org>, Jiucheng Xu <jiucheng.xu@amlogic.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787052993; l=3675;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787053208; l=3662;
  i=jiucheng.xu@amlogic.com; s=20250821; h=from:subject:message-id;
- bh=c/UhZb9WgmV+UnL/5sRY2Pn4ZIFbnK0Mjnx+q7thcUA=;
- b=fCmZ55sctZEgqD2YusINLJtpQqYN/blTZaC5D/pbs5kRhn6RzrDXikioe137bqaGBC0K0X4NM
- iVqEX3urQ33Ac8fE/Wh2eIkvQ7xhoNhJ/Q8nDL+YQ4qXR1LT1RppEWU
+ bh=ndlZKDrxIhS1a2CAth8teODEBWhWS51oqIvWDYaKJBQ=;
+ b=M1rbhdWglSELNl89qEU7/AuhshczWFzt50ceH/FdBC/1b0su5Rc2nFywLksTy3/0/P2UcBlWk
+ pWMyzpW+JmMAw46afZGSX6fei7jjOUhxeK6ppfB4r7o1fkOGnI2ypYM
 X-Developer-Key: i=jiucheng.xu@amlogic.com; a=ed25519;
  pk=Q18IjkdWCCuncSplyu+dYqIrm+n42glvoLFJTQqpb2o=
 X-Endpoint-Received: by B4 Relay for jiucheng.xu@amlogic.com/20250821 with
@@ -150,22 +150,22 @@ Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 73457d7109ca40733aa1edc0074cf9f108d02393..94c46b1b04c5c94ff0fca7a1fdfe891b3f41357a 100644
+index c74b27eba94b1e7ae2c07407b159d58f3a1f28e7..90cb8560af1d0ac0df2fe25cad34817ffd978be2 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -974,7 +974,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+@@ -926,7 +926,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
  	if (fio->io_wbc)
  		wbc_account_cgroup_owner(fio->io_wbc, fio->page, PAGE_SIZE);
  
--	inc_page_count(fio->sbi, WB_DATA_TYPE(page, false));
-+	inc_page_count(fio->sbi, WB_DATA_TYPE(fio->page, false));
+-	inc_page_count(fio->sbi, WB_DATA_TYPE(page));
++	inc_page_count(fio->sbi, WB_DATA_TYPE(fio->page));
  
  	*fio->last_block = fio->new_blkaddr;
  	*fio->bio = bio;
 
 ---
-base-commit: e4f7d8be268ecf717f94ee2e242afa79ddeacaed
-change-id: 20260723-origin-linux-6-1-y-c25d17a0d301
+base-commit: aabd761612dbeb7d40750d485da219d11433718a
+change-id: 20260723-origin-linux-5-15-y-22d082ee27b6
 
 Best regards,
 -- 
