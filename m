@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDF737AA9C;
-	Tue, 18 Aug 2026 17:19:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD57B2FF641;
+	Tue, 18 Aug 2026 17:21:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787073576; cv=none; b=n2nnv12B9yi5fmQNjiP8/TiQlvtt3K0nuLrMiJDRmO6GR1kQbZZGeJ7a8vR0IPimBryPIZ84OnSPzUGLIQLkfzZihHm7WU9rhylb/i3+sAjEla3QRiM4EPtGHzcRO+L33RlDaYIecqF/NqQy5gfui5H/rv4yF/ngxoLRUJRF3hs=
+	t=1787073665; cv=none; b=mUFTzc7OaFdBCjkfp/lAKdX2P8PM7TjJmh8QSdEwYJ7tc1sTGldDBpM0dpRHwBUNfbxl577q3BwvG/Fb3tmXS6YS+JA99laBO09d10MXGTbMi05a9mk9BPoiUwq3QztXK0sWHzdot3mXfQ2vEU3aS3tfqbU01N3hZu9b93z/1gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787073576; c=relaxed/simple;
-	bh=ZY3wAGy4/nk5lRjHgPOiHQQ2qpYgamdxe08qsuCgAuA=;
+	s=arc-20240116; t=1787073665; c=relaxed/simple;
+	bh=gI7UhZ1exmvD/QIMKgqX6w1TdP0/7sGc9Q0Ny9Vc9Zc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jLOkEjUNkWcHJMsraGZuAtixzqVaZtSz9RWVxec/nYApO+Xmb8VTbNXvoFeCvX4gZwKyX5akLx7AkqXtGxfcCAocgyX4W19NwZeZX8pbjtONRqYQP3J6jxnrJbKvBLa95QNClndzsuNtO9Hxz3iGv/slCKyo1G1Gv4/BnSg2gHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ixEfGvLA; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=cxd69cl4siHrmMsRDK0d4v8t7f5I5m9Oma8t5DttiZJxfwpRbrB7fGvzawUJLArj6YE+6QuMPey1ZLsVZW7IlDFcdErUd2kwrKns3zv9+cYBp+Vg3ZT2NM9G/BesIROxSl5oFFDHeNUBrPEscOMIGVwfALeGONc67lQtoqlmRfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iqnz9UMl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ixEfGvLA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A005B1F000E9;
-	Tue, 18 Aug 2026 17:19:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iqnz9UMl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287EE1F000E9;
+	Tue, 18 Aug 2026 17:20:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787073574;
-	bh=codh8Et1wTA8GwH2SxVdXCDGWvWVotpR40DaZsbuOm8=;
+	s=k20260515; t=1787073664;
+	bh=usamnhvWOycZ6oPtfGQuy9B/PR/s1qj690CQK8wra7o=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ixEfGvLA08oUut+wZO9gqjF363gehhEiquE+kroGE9Qtisc+xbewQP5ZBEb7gFAOA
-	 KbNI7AqSIDYDy9cun29i8iwrhyKyLmIgC0CQ73atPQ//U2VoxL56zmbzmwRKr3L6AL
-	 gc/I9cMk5JQdLA5TGLPGXAJcG2ak/cFBKAFKOrfD+etXsYCRI0VMoq4XDZi/AR4nG6
-	 nwrnwZHNE8CA10F+kKtRYjjeNXsIrVMykJ8A5y6wdrNY0xTXpyUHnAzV4835+X9p6I
-	 DRU9OMCFfLp5BM18S39jAexljLZ4SNVtabdKrHShQSCRkmYaIcnY96qooYC++7XdNQ
-	 jJkS7Qp59oRpA==
-Message-ID: <712c2aeb-c0fa-40ef-a086-3898ac44fd25@kernel.org>
-Date: Tue, 18 Aug 2026 19:19:25 +0200
+	b=Iqnz9UMlga0okF1l0c78suFZFQqYyb/ObiOdyh+5jt9rAwZC0OV+2JSpzQFp4Dm8d
+	 tNPT/9KgLPaoglwZUx3ptPjCPh3TtIYbdrb/EHKwrp/rOCW3Ltp3fWWNzXVoUsgX1Q
+	 zqrawh25u4vR/w28ZPvRyBvjYsbon7qmiWdxfTxQoPcByhyrVh76yfPPCjTH6hkHMV
+	 uxJZEv46cyMr1O34mR4cyBWx6L96nNfAbGujhe+6Jr5ojCFODvgSkDaVPXpRmDB7rB
+	 43dbF/Z/RDsCrFz9cDuxdUT/Q79YIc5xkssqVBHTrmtMDzooAvR6G+nKc1lu6zZ7qZ
+	 xsrzNfIOjOMZw==
+Message-ID: <397f60ab-4a3d-438f-a7db-4c598af13f1c@kernel.org>
+Date: Tue, 18 Aug 2026 19:20:58 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,19 +35,16 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] mm/mempolicy: skip zone device folios when
- queueing folios
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, ljs@kernel.org, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, usama.arif@linux.dev, vbabka@kernel.org,
- jannh@google.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
- apopple@nvidia.com, balbirs@nvidia.com, stable@vger.kernel.org
-References: <20260817220810.1175596-1-gourry@gourry.net>
- <20260817220810.1175596-4-gourry@gourry.net>
+Subject: Re: [PATCH] mm, swap: ratelimit bad swap entry reports
+To: Breno Leitao <leitao@debian.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Miaohe Lin <linmiaohe@huawei.com>, Oscar Salvador <osalvador@suse.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ stable@vger.kernel.org
+References: <20260818-swap_part_one-v1-1-a4fc58119fc0@debian.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -94,36 +91,27 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260817220810.1175596-4-gourry@gourry.net>
+In-Reply-To: <20260818-swap_part_one-v1-1-a4fc58119fc0@debian.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/18/26 00:08, Gregory Price wrote:
-> queue_folios_pte_range() already pairs vm_normal_folio() with an
-> explicit folio_is_zone_device() check before adding folios to the
-> migration pagelist.
+On 8/18/26 11:03, Breno Leitao wrote:
+> A corrupt page table hands the same bogus entry to get_swap_device() on
+> every access to the mapping, and every rejection is logged. One machine
+> logged 6185620 copies of the same line in a few hours.
 > 
-> vm_normal_folio() alone does not reject zone device memory (a present
-> device-coherent page in a normal VMA is returned as "normal").
+> swap_dup_entry_direct() prints the same message from the fork path, once
+> per call: the WARN_ON_ONCE() guarding it warns once, the pr_err() inside
+> does not.
 > 
-> Mirror the explicit check in queue_folios_pmd() as well.
+> Rate limit all three prints.
 > 
-> queue_folios_pmd() uses pmd_folio() directly and can encounter a present
-> zone device PMD - e.g. a device-coherent THP.
-> 
-> This is not filtered by existing checks:
->   !pmd_present()   - only rejects non-present device-private and
->                      migration entries
-> 
->   vma_migratable() - excludes DAX and VM_PFNMAP.
-> 
-> The early return also means such a folio is no longer counted in
-> qp->nr_failed under MPOL_MF_STRICT.  This is the same pattern used
-> by queue_folios_pte_range() (skipping zone device without failing).
-> 
-> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> Fixes: 23b230ba8ac3 ("mm/swap: print bad swap offset entry in get_swap_device")
+> Reviewed-by: Barry Song <baohua@kernel.org>
+> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> Acked-by: Kairui Song <kasong@tencent.com>
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 > ---
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
