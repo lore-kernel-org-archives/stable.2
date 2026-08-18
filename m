@@ -1,163 +1,168 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1E641F366
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787041216; cv=none; b=RBE+qbAiBKkPxaP3U0vPvbYyBdPLiRR7gmUrb9taYfQ1Ys5GNeY96HYvSFaB1SzuxPKkOMUM7w4ZzMcuHpfop79hAnKfgqrpvSApgpVREW3nJpvabj/fn9snIiFmejXF/JNU1jFPJfXcGEZUArip+XNd8SEfzeCynLkJg9gHNA0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787041216; c=relaxed/simple;
-	bh=ycovQT/558FlnXscF8m7zxc9zLWWsuZv+tlyiAi8cKY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gqVs1heAmFwx59sb1Bd4zaFzOSG+ZbKwh7yLk8mZNwlHWUWJSz0ewI6GUoAKHpq1FLhsxsySgH0kuppIplw8LtIgTAiHnF4rBaHes2nuJr0S6QnNBCAavTsgMv48rTRVhPQ0G6csTMUo8rtKjuXZIqUieOUbli7O/ecPnwkcB/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lMhLpZWN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Rk/Dh+KU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C303446B0
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:25:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787041543; cv=pass; b=QUyqy6G3s/RezY1h9kCdRUFF16MBXPEnc3U7kc2ItiFKwE6rl3dwyh+2vanVolG8wtwgbRuD/jFw3mIbgJVjAxGUx48B7Qr/S+pBjUPrgH87xqGeQEDnv6v5DhHOWrl4v+5hZb1SfiuUV8orFGfBXpYZzL+ct6xptmQBKVsOqbw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787041543; c=relaxed/simple;
+	bh=DJT11aK4BEheJPP/qY8HOdFg5c0h+5gAbI1rRLgLv24=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=bUMhYCtKK165jFbEstgkLF8nHgFZkgAouOJIH3GitICCXBnEQApU6agE3+pMxNU+8fIMYy0rV0qF6FXILJMf24QRZ2+nDOBDAeM9qScqCren/pDhyfLJoRKyMx+7wVZ0DqdA7IuzzEIUHjewIWj8V1/FdcyIiqddz/vhHVLyCEE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZA39j0q9; arc=pass smtp.client-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lMhLpZWN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Rk/Dh+KU"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I8BI6V243024
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:20:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=S1i9yeznsxYEHXqB0fIApER1
-	x8xqRjP0230BnDCm118=; b=lMhLpZWNqmD3WPWL4aYj8Xq0MKgo3kKIX7AiyAbz
-	0Mq1Z1SwYNka1cX2xOUg6H9XaexhQU5W1g5i/nHptNOkHZc0rbZRzM3dPkid80ED
-	+e80UEaTXPm1Z804gd0wNoYrNTxQpDzkbyZXIi9pE0zq8WNtj7faIjW6rMAHRghT
-	9aG6ibjjQZVndnPz0Id3Vi0amNqpsWNzHL8tSwf6x2fMUqdrrGk1tvgHEUU3AJF2
-	bxo43gjnC6NraQOczXYG4mGiPfjFGC5LaaRlIJXp1/m8tAgSHfP/UE4lo+lT1y9R
-	nmGOPWDKorGdyEF1HARP69JpRX+8+nFPi0nTNVQf5aRk3Q==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4ea2hg4m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:20:13 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52d7b3adda4so43174381cf.3
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:20:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZA39j0q9"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39c9a3acd40so29964851fa.3
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:25:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787041540; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TVF9Go/tgrPer+xn9zz5fidsc8rSrrOHfe6BLF//16ipDCX58LgcfWBfYsdPzGr7qP
+         kjgWXVSWuSHmtlYQOhiSz+e/ZnpWxk6Ojv85iVrJJF+BUjqddGKNbKX88u3+zKbQYC7v
+         nMgqVQvk6uOhvI7ATbcVEQSyA7KJ66wITZgndUA0SZAa+s0xpEFyiSobNWAR6Q6lh4z1
+         D1LD7YO3vWOabKL/toI14OSanehsamcvrWXPFx+a/2S4hpmGBUdgoHXzhoiDmLr4hyqE
+         7DS/W0VwW13xMw/y/xJbgTlQm9qfg7NK6tBynQ5J56SaQzj/zCjKj3nU/eDTqKd/1gLy
+         X/5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=AFqjh8HzrXpWibQdtihVChZ+YGjEXJtHt987hhzQmKs=;
+        fh=dNgM7mYlNcxLEuKDa+6GeEFAQGRfv/T9wApdaOqQ3ko=;
+        b=s5xs6SIXRnaDw7QgwmGrnVO49hZN9xfEhZhxhyltRLkGd3LyzFXn9to21SHEzPg7Ig
+         ARSGd68gDNsCVGB5qG9Fo2CfSph3r573k7x5E9v2XZfOC8bwXnHjKhT8wWsDVwcvj57E
+         Xt9G03xlJE4/B3Af3DTO1Y8PmFseJ804Sx/Yt1zK2K+mnNKNLU0kSvi1JyxWMUWsS4y4
+         Qq6zYvEN+3JHexdoQd1c3C4mi9WZZ+N90J4KgmrxncUGOaXNvkzqwBkegGAx7QQVBG45
+         SfcDzmHq66uf4qmo0O/PqlRQS+qLKZKjJVSkdoBa+x0MhhcoTfxGMlLvBxEnUhbSkTJG
+         xEGw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787041213; x=1787646013; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S1i9yeznsxYEHXqB0fIApER1x8xqRjP0230BnDCm118=;
-        b=Rk/Dh+KU87vZv7JskT6DAxlqQ5xbTctGTn5E2uRLoUmPW56AkOOrV/SSv+at+36All
-         Y3o2T1Ma9/Ba+d/qPxdQjCHhwjMfL/Jzm5QQA39QKA06WRQCN0+x/q25T+Umw6C1G8CW
-         MlEQ6IUC2zENksfGVyv2iIpyA84VCxeBNhvKrfiwd7uw/87rUH898O05ly8QeST0imfX
-         x0AeH0zIEoG5yTL69Ni2VDLIPcnYUjGXd3l5SAHnwXTAn1C7ZnTfeO9ptmoQTx/KZMBf
-         aSR3pyxx6g2UcvHlWR4/7EjgZNSTM0mhADMPVasyMNcvoC6uRM2iTU3ydBjwin69oq5t
-         f7NQ==
+        d=gmail.com; s=20251104; t=1787041540; x=1787646340; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AFqjh8HzrXpWibQdtihVChZ+YGjEXJtHt987hhzQmKs=;
+        b=ZA39j0q9mwAJRkAWxKGtroIIAtNUI5Ng8vUyGEgmxB6VhWrqDh+MzBtG8Z2Df/jOoA
+         sKW4ziafRZ89eiDGouyVqnt1PXk/1O3QLh6hAYgv5orGJZnbE0oge/pHh7CV+zuKT8G3
+         LYAxskEDS9JJNgDdFF9hk2gPRZjlg5mPuwHymO/N4LHUCFpWhP6EkSG1dJnInR4tos/K
+         ZHnu9unsPTJl/Jrq0ih0Hc9tXYnz+gZx+gYRTK3A1CU0Zzr1fPiVcUDEj6bA3PZt1fD4
+         bD19Mspm7t+57cdMcddzuK7fYPodTw+qhnA2QNdgsfZbCH+MC0arDY6ZNDTbV0swWeGy
+         ypRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787041213; x=1787646013;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S1i9yeznsxYEHXqB0fIApER1x8xqRjP0230BnDCm118=;
-        b=WTWYeg1QwQqyFcP7KBotHW2jXN3jAXt3nOy+ArfltMrSuRqNLFgxFM3dG8fkT8Ok/8
-         TxkqMBBYwn+zIjsmC9P2PLNjVdzhYqWQVk7IjDb36N2b04GK+eUyahtxxXHJxSE0Zd8J
-         2TY7/8XI/amEeB8YfdOfp4CwJANJ+/FJHCiuD2o8qK4lWLR4cp16kZRd9OxMpPaMnYMk
-         NwZlNxHkz9dfHN22yDP1TRnEnegIWok0sSAwxGEPIYT3WqEXnk5+/FjtQmOnmeO9JTpe
-         E7CylQgzY5s23WP+KmW+2w7NEGMOQo5VYn5IMbCDpxLY+B3evdN+H1gYVkh99Eq/iB1f
-         /k5A==
-X-Forwarded-Encrypted: i=1; AHgh+Rr2pgc6h3rFpTau1+2623c6XbEZpdnTdIO1gsh3pMtM7BNM5zNmMhThOqVreW5RbBALVMy1p9w=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwO3QiGdJv28MXfjXsFmKxNz8Z4mYmIjH8LiN9cOj1lN9ebmJEu
-	Hxs1PwPoOAbq/PQoswbJSRybLnJRDJPT6vpaY4m1G/AWUjP6s5ilrzEqGk3aS9n7yfdd9Dhno97
-	irVR7wpOz2DJaYVuNK/nQNgov5ZjfQu1+bCTH87j+RtU43rEfq25YIoDEvRE=
-X-Gm-Gg: AR+sD13Jucb8kX+lOjAMCtTQ7yVTdHe3c/Jr7h+UEctJMoeUsFEv9icsIyYBckSQhiK
-	O4pMjbz/mvQCj7vDYUbAdFP6kTB0PnIS7UiCCQeADMXg07UzdXUHEfcW9eDV8MpLtC18zXFtKLM
-	O2zteZtgQm/AFhFG0k1iKqt3yyQEsnrRaWoxQC4+cGk/X5rSts5lLUBHbX+Fb/QD1Et79lF4Gpk
-	CmB/c/tPx1VJiyMcSS024P1Chi90LujMDUep4BwYpz5UOJGnpsipKK35ZiIbEgfqUUt1WaVZa2x
-	It0VlpKVUFflvFynz8k73Epg8rRwRVPdP66tdP3SX4HRi2cljfivI43GO6vBpldWw444gem7Hne
-	smyHQNeeOuBukzH/358NDRJwx226sRQxu6E+bnJsBT9mJh41gjOVebqrwQB+876ttx0nYPKpnZO
-	irflAcbp5nar1a
-X-Received: by 2002:ac8:5f8c:0:b0:517:8470:2d2d with SMTP id d75a77b69052e-52dbd71dacdmr55780591cf.29.1787041212930;
-        Tue, 18 Aug 2026 01:20:12 -0700 (PDT)
-X-Received: by 2002:ac8:5f8c:0:b0:517:8470:2d2d with SMTP id d75a77b69052e-52dbd71dacdmr55780501cf.29.1787041212387;
-        Tue, 18 Aug 2026 01:20:12 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a16b0e55fcsm9764021fa.16.2026.08.18.01.20.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 01:20:11 -0700 (PDT)
-Date: Tue, 18 Aug 2026 11:20:09 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: venus: Fix iova allocation from restrict
- region
-Message-ID: <jf2zzsnwe66owxs4rgpugbipaztw2xxeejz6q7vjvnttq3lnz5@spdh5ylsqggp>
-References: <20260812-reserve_iova_in_driver-v1-0-ed62f801275c@oss.qualcomm.com>
- <20260812-reserve_iova_in_driver-v1-2-ed62f801275c@oss.qualcomm.com>
- <hzu33hharafxhfdnr5tr23ti2tmtjhls3iwbvmtfllwcv232m5@nvxemt5ijf4n>
- <8a9b417f-11cf-4dd8-af3f-494afa38b868@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1787041540; x=1787646340;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AFqjh8HzrXpWibQdtihVChZ+YGjEXJtHt987hhzQmKs=;
+        b=CO8Kz49vX5xvEScXnVufSuuzimAORJwqM37R9/9DOhNWMgJXF8x2DEZ1OWzoLChBW1
+         zB9VeQaFnJmU2aigAcRB6kTVN7KDe2LWrMQAcsTEIG0LvH5PNR1GIF+hTkg00VQ7Q7Wk
+         qhtlJWNjB+bEZ3jWTpQPc+bcooXZVVPoAVBDNkuVQbs7Pfr66nON8EKxpO08vtGa5gGk
+         M9BKXxMLdyepsqTzXEFupmcSB/RvuydjPZywu6cKpDyR83tgusteHdgeF2yVkEWEGISw
+         Zu0JW+Y/JwoEn2AfAghNtxNYXuzs8f0sIByrDnxJvxrLePCYmcvzhQWnALoTnIyyr4yG
+         DMeg==
+X-Forwarded-Encrypted: i=1; AHgh+RrReCpVO7/tyVOVtQEufv3fNS63vTq25b+pU1yIWBZH+2XId5FQ72FmNMk27rBYHHi8sCmNtVU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyaXvT+L0FAaI1JxfUdgC35KMixe4hFwnmitGbv38bhPg3ekuA/
+	/plT/rqROOMY3uFO5NNEXZTm8Um5Vcp53gCjvsgGAkMqnkx6YEQ3ioGAwB4pzQ77qJlb8CgDC9v
+	/bBFUTeNa5RA+EqqaIFvwAw84z4JYUcA=
+X-Gm-Gg: AR+sD113X4jfhB9M2v6kmcJnqMTemsheOcJ8NRTVHfNKi8is3GmpvK6asKhXXU6/Wqw
+	QPkFyv1s1QMOf7Pc6/Ts6xzB1J6PeljJ5IDOsmYJUDVqgiar7rlTS73kcxumnLGiKRmUbEyJJfp
+	Feeru4NIfav+XCNA0UCmndtOg5w5Bqm5ACLgfAWLU/VhK4Gz61blStUbU0YNZHNu793pNaVlVii
+	kZ79EmDrjTLyPDFyvA+/R9fg/xtFFiddimz48q6ZwzBcI+Mx13oVShCueYkvdduh/+o2cyZxMws
+	JKRFDswBqRxJNHovKhspH4FYXMoObMHiO3ho/e0NPmRj/Q==
+X-Received: by 2002:a05:651c:2103:b0:39a:ee64:36f4 with SMTP id
+ 38308e7fff4ca-3a17516851bmr8813871fa.1.1787041539838; Tue, 18 Aug 2026
+ 01:25:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8a9b417f-11cf-4dd8-af3f-494afa38b868@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA2MCBTYWx0ZWRfXwkhnwxl7jms9
- GpHpV0FrMJ/qT9ZXacdYotKTYJ4GU/IfedYd8e3wndJWCRoXk5sOzjWVXGTB3L5Uvs+0pIX6s/P
- GBPsJmZycfnTYfSpIPn0TgXE4oYhqDaPSlzOPTe0az71mghSgeXpoV3u6Jj/y0l+fwMGEg1h4UT
- vyIHnaxD8yK0AgFdhvoFHVL91j7iyQX8DxWsTUa0d/xqvCaBLycJkQgtNE2Mq06TguwkoORdEeG
- AZs1cioe1XW7K+5FtRYAHXsI82l75Le24RglvAiTIY/+PovWNTXduQzbp7XQlDWs1xio9gMEefj
- 0iVfmk6n9w6HtHpPimJaJbBhvAFP1DLAqg09vyX1LTETNdYI23V4J3dDiFqpTpzB2hodDliTqOt
- 88dp055U/W85lQ6YUvH9IixQMcuKPqFqk96yyF+UnUGOjCH8aLGYVBXIKkIEZAwDtLUPuu/qTqv
- fjmZIQuFw9Y8qQlUpxQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA2MCBTYWx0ZWRfX5P8yI84QVhbc
- X47AotUgJut4Ln1SwSGTDV7tOudkbxWHP9duZvG7SF92q/SEfVRx0PiXKIAIT+y2K3iNqS6L4I8
- mXBvXIVrwqKLEF4g4pC7sRBUHVbn7Uo=
-X-Authority-Analysis: v=2.4 cv=XtfK/1F9 c=1 sm=1 tr=0 ts=6a8415be cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=PHneWq3mTtEDJPo0Y0MA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: 1wH2_W8hWJmovm2axUtcKToKruIj0rIa
-X-Proofpoint-GUID: 1wH2_W8hWJmovm2axUtcKToKruIj0rIa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- phishscore=0 clxscore=1015 suspectscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180060
+From: PANZ <panz.development@gmail.com>
+Date: Tue, 18 Aug 2026 10:25:27 +0200
+X-Gm-Features: AcwNN1VRNToSE64_qqetuINC4oPAxG8EulkO8jxh2qP4RjtvZkYBWSdc6WMgTOM
+Message-ID: <CAFinCN9OV6fS8acwZjqsp9WR7r9tKk2afdc0y9RuAsmmmJpWnw@mail.gmail.com>
+Subject: [PATCH] HID: asus: fix touchpad multitouch initialization regression
+To: jikos@kernel.org, bentiss@kernel.org
+Cc: denis.benato@linux.dev, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Aug 18, 2026 at 01:25:58PM +0530, Vikash Garodia wrote:
-> 
-> On 8/18/2026 12:34 PM, Dmitry Baryshkov wrote:
-> > On Wed, Aug 12, 2026 at 04:25:59PM +0530, Vishnu Reddy wrote:
-> > > The VPU issues DMA through several SMMU streams, and the hardware does
-> > > not give every stream the same addressable range. The non-pixel stream
-> > > cannot address the low 600MB of IOVA space, while the pixel stream can
-> > > address the full range:
-> > >      +-----------------------------------------------------------+
-> > >      | non-pixel stream addressable range (600 MB - 3.5 GB)      |
-> > >      | 0x25800000 - 0xe0000000                                   |
-> > >      +-----------------------------------------------------------+
-> > >      | pixel stream addressable range (0 - 3.5 GB)               |
-> > >      | 0x00000000 - 0xe0000000                                   |
-> > >      +-----------------------------------------------------------+
-> > Does this split apply to all generations of Venus? We support MSM8916,
-> > for example. There has been work to enable MSM8974.
-> 
-> Yes, applicable for all VPUs
+In Linux 7.1, commit 7253091766de ("HID: asus: do not abort probe when
+not necessary")
+and commit 0919db9f3583 ("HID: asus: always fully initialize devices")
+introduced regressions in the probe sequence for ASUS I2C/HID touchpads
+(such as on the ASUS E200HA):
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+1. asus_start_multitouch() was placed inside the claimed input check block:
+     if (drvdata->input && (hdev->claimed & HID_CLAIMED_INPUT))
+   On ASUS touchpads, (hdev->claimed & HID_CLAIMED_INPUT) evaluates to
+   false during asus_probe(), skipping asus_start_multitouch().
 
+2. The asus_report_id_init loop in asus_probe() was executed unconditionally
+   for all devices, which sends keyboard initialization feature requests
+   (asus_kbd_init) to touchpad endpoints, corrupting touchpad probe state.
 
+This patch fixes both issues by:
+- Skipping keyboard report initialization for touchpad devices (!drvdata->tp).
+- Moving asus_start_multitouch() outside the claimed input check block so
+  multitouch initialization is always executed for touchpads.
+
+Tested on ASUS E200HA (where touchpad functionality is fully restored)
+and ASUS VivoBook Flip 14 TP401MA (confirming zero regressions).
+
+Fixes: 7253091766de ("HID: asus: do not abort probe when not necessary")
+Fixes: 0919db9f3583 ("HID: asus: always fully initialize devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: ppanzenboeck <panz.development@gmail.com>
+---
+ drivers/hid/hid-asus.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index 3f5e96900b67..7f19ca1e5a1b 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -1294,12 +1294,14 @@ static int asus_probe(struct hid_device *hdev,
+const struct hid_device_id *id)
+  return ret;
+  }
+
+- for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
+- if (asus_has_report_id(hdev, asus_report_id_init[r])) {
+- ret = asus_kbd_init(hdev, asus_report_id_init[r]);
+- if (ret < 0)
+- hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
+- asus_report_id_init[r], ret);
++ if (!drvdata->tp) {
++ for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
++ if (asus_has_report_id(hdev, asus_report_id_init[r])) {
++ ret = asus_kbd_init(hdev, asus_report_id_init[r]);
++ if (ret < 0)
++ hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
++ asus_report_id_init[r], ret);
++ }
+  }
+  }
+
+@@ -1327,12 +1329,12 @@ static int asus_probe(struct hid_device *hdev,
+const struct hid_device_id *id)
+  drvdata->input->name = "Asus TouchPad";
+  else
+  drvdata->input->name = "Asus Keyboard";
++ }
+
+- if (drvdata->tp) {
+- ret = asus_start_multitouch(hdev);
+- if (ret)
+- goto err_stop_hw;
+- }
++ if (drvdata->tp) {
++ ret = asus_start_multitouch(hdev);
++ if (ret)
++ goto err_stop_hw;
+  }
+
+  return 0;
 -- 
-With best wishes
-Dmitry
+2.47.0
