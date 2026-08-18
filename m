@@ -1,76 +1,76 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF225348463
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 23:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E3A2EEE7E
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 23:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787096400; cv=none; b=o5yrG1w8OS2hKyj8n/SBEZbGNGrBdCxCkEeRoXv0mgVP1cwSGAwXoIEnKOHUxPwvyfF03FfU74gmqIDKuj1Y5Yg6FwS1kBx+az37Q/+7+72Bcs3txrWxP3cE9MtnSZhjDSBbBs/rZZD/7adrvWOmXDXrQ4JWmbG/N3IuKLzft94=
+	t=1787096561; cv=none; b=D93GgpAbyOMH+O+skGVX5mJ/yQ1Z6V0ELUN28XmJTgrK+by/TT3YI6QZQaH+QTZ4aVDp4HW9s4esabSN4lc4ZS94Kkc9lHyAj3NVW7Ax7nI2fltfdGHxdXV35nTG4c+Ks6g5bkAe0qJAfYV3qxAHItUlbUzALjgeLls2YBCq1rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787096400; c=relaxed/simple;
+	s=arc-20240116; t=1787096561; c=relaxed/simple;
 	bh=8r8QO+4ER2+//xLMw+ASVsCY+J5pLhvzRmo3gmqz4t8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L/VPh6Dh8ujaVU8oDN4vk5HpzvX+cHpOMbLnJKEwmgfhiBjkPFO11u4WPw1aiBncCTnyEDPGl03R65xDIFl1N6APkgT8OnjalEIGR6eZh/R+IF/P/sMd9WqsUISUnScQCCf+w+F1rTtYcJ0jsxUX7gMAsHoX3wcxmIJIYS0Y2jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=Fo69EgwU; arc=none smtp.client-ip=185.125.188.122
+	 MIME-Version; b=UADIOTR/dast3Rs3tuK0dgx6TJX8ecPG7dNB8XCLpBGhLyMCY5LCBihUoVZQCqJ3qw/UDfrQDVnGoaGOKWTdTY3eblzp3LNaUYhBVEZOj4Gdh4yfAZScD3dgGfR0VyXi6r1o0KQdD4ys4eIAGHhQh+NNPGq4RCWMAJKs79veUkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=pvbQmWPc; arc=none smtp.client-ip=185.125.188.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="Fo69EgwU"
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="pvbQmWPc"
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 32D143FBB3
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 23:39:48 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 6FBB53F0B5
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 23:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1787096388;
+	s=20251003; t=1787096556;
 	bh=QBANzmFBSt8Y3fp9MCaKxc8YXM7abkGyzuSUIwtQgT4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version;
-	b=Fo69EgwUg96ZpqaCHMZKdzUNK8MMBoGT7shCIZcC7RxgrukERuEHAJds0t5LXqxKb
-	 6LnfESDXJ2mArIDug+cnl96qsQX/S+DLjE+mIVFCjwNGJ0QCxBaf9q0dHT/0+Dkm0P
-	 bWVMGJdm2bxPDGiyAEFe2XE5Q592Z4PtpQik5vPP9FdCMsbQpaULy6Z56GtnsXL78v
-	 Bx58B2LmvRx0SI+zgrkiziYGmJReSihmiXxXElWfoJxyE770dqEbAWAvpKR8a6hBaB
-	 1fz5nS13wmiCSAB4i8ZAj0z0w/bwPNQ4EsBoD0wED/wOB5CE9vLg2hXRtdxztE8AHy
-	 M9jT49taLRm6hVRw2npyJPGTYxAUodIC2wLm2WGfy5c8bSoSPIktGyBLLqcmFB9oCg
-	 NWpUbOWA7uciBqcwadnmOdBzOXOd5RrRs3hjYmsVGS6zp5voqcSVN1bBHztEFPY/ip
-	 zUu019c/fh2HEw6tpCmyumK0qWIqCzSLOWCd8FzS04nurazbahHDw3/mhGQQqkxOPY
-	 0jQtH3H4eVUolOsf6uFE+eHKIK8IS1+MZ6NwZ0cQZrzwLfBqOp5XnHfIaifH7/0uP0
-	 lgxanym+evaUym4Np6LdjMLLlkpk6JX5rBxiE2dAxk2CTmswfq+wz8y3lPFFbRK+Tw
-	 AR3NbonRdWf8QZAHf/OunWtk=
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66c9841d667so703623d50.3
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 16:39:48 -0700 (PDT)
+	b=pvbQmWPcW1OvsfeGLTrdxn2Dmml5O8VQ/MJR/XrLtYVXicDsbGqEos2QvrRXxX5Py
+	 yLlo5p6NKkApEYUYMEL84phUPJJKrkPxpt+knGky5rvh845Mh+E7rw0pB6+9O7MrHO
+	 7AdgWYQcvUeSly8uS6XTRvg2dcYApBKWAkWbUA16ZxKjotvZsJvDAPxRaHIRREjXFR
+	 tBaLDTgTMolej4yNQ2JxBF3QcoEFUgolCx1CW7hWLEF8yxZDEh3zQXXOe+ZW1MOafM
+	 iGBsbO+nSW2HxmeJYj/KMSXHb7I1v9cRzA56Rvo43NGJkWRol2nvq8k2FpVz99HH6o
+	 YwnFRBG2h8l1z0Mj5hU6LR6DYJvO7PciSGNEKYytrKOeniuBTPpCok1KWSXH2d5T1X
+	 I9ukh7x/u6OWDZhoMk5FUq96M0uT8Es3GuFpFNa/pFcr2o3G95uk3wKYJJlkV/+1uH
+	 gFcRJF87OfBPDXi6OtSK3oMQCaUsdOyenzTgMpWUAhsAbJUpUnQNMR7gTT4X20ypId
+	 kDsBvl1Mmbu7o/74R3PxXRvxQK1DDjNx0jmNe2HyhLPdSXR9s4qf/PDA48rme+Y0w6
+	 WyEpRrqfsMwEwfuAgv0iPl9gSjXS8TwRqcIrezuEs5obWH23/41VrLkhzQINPNeN1h
+	 TiAk3cVJtK2iR7wfFRk3nZsE=
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-81e735bcceaso9506197b3.3
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 16:42:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787096387; x=1787701187;
+        d=1e100.net; s=20251104; t=1787096555; x=1787701355;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
         bh=QBANzmFBSt8Y3fp9MCaKxc8YXM7abkGyzuSUIwtQgT4=;
-        b=ELY9czbZcZk3iyiuss7jiHBjtW+KQQ+iEc76e33qMpM4CpiTd48D60N2HfTiyWq3Gl
-         /8TitcIAo87m6xGi+NUER2OmbKvWbZGK+zJAVhfotqQozduxRZEN1T5mAt8Cevl9KdqK
-         Pzaql0VPflqGIG5n96mGIDGoxcJVHOHzABPJ/kiJt7ZiXQZxC9oB+IHbiBvOUkhubEVE
-         CqV2QegiWk9umgcJoKhNLGjalEXnrq01ODnr4bvE9GDYeMk9Hwt+DSdgrseqam2CgMnF
-         63tMYk1XVCijdsWcxJKAWyE9L4/WGo8LRch/wSMLFRVBTXr5e8p4p8K2+H+zmLkvi/B9
-         UtKA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7GSWmRhSSbS/udFnVCZST2ui/WAFvJeyWI9KJTVkLZuF6EdMvlebdLL+xS6NNsIO9m45fFV4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwX3AEumMlirU7ngRDNsvNZNHE+iFWKpLDxBrhQ5lP8+iadEBD0
-	PmBOamPDf0+yR30Kd4mBx1RHNK5PVcd22XUrL7zZ6XJjQ22Z+oiqRLSQqhUOaeemijztoddNaFn
-	vFUQBhfJifZ6POdd+tpH2WeRNzzo1OWjMSZGRZEFd8GLmjT0YxZdyBsofNA2Gte0g8q9fdAPu9g
+        b=ZhMhv56+DGFeyqt7zODCaCLQjexu/L38XllKLgvYsWKUZsV5eP4JRQkZfVKk4AnX2l
+         5VlZu7KEoaPwv+l+551TN1VI/1fYQqE10EekP6EOyx/B0/SDvVHsEq3IJdJOw3BPBB6/
+         dsAMVJKMJM7s/xdXSGNBk8xZi6mNIfZhQHandX1i0JDj2j0+GpPio2wwZ0vfKkYrOFem
+         sHOn0xdCFTfnAD4h/P4LrrsN+eTZRD6+Y4jAYAjmpWNHza6CDEskWHAabMhcTKqNj2ri
+         X0u/Jx+C8jn4NDFLXi7XaZUCBm4bxPlhlMVb3Og+OLbPNEjZnui2W8OClc/PubbpHm5S
+         KVLA==
+X-Forwarded-Encrypted: i=1; AHgh+RoWJo5RSBLJTide3Eyc70SK3ViLMWWisy4BG8LQy3z+is4EIJbDknAj4oUDUY6svlDlYdtq+jQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxH+wO3seaHrvscWpdtT/VNmGre1vWFk4idr0Rw1LPB3AI99JS9
+	A867dpE+UUokdFzyEl/VaBFVBLQYI36O0q2CxgSM0LaeRYSMe5CtdNAJ4e3hvTerd2DG5IyZYCz
+	iaSi1R30tUQzq68ausa9151a1HBG42ZsnAGMroXDjpTdkYcPgCjGfLT2Pnx5nycacss+ifqCHJQ
 	==
-X-Gm-Gg: AR+sD13S4A1EvGfPfZQE2abIarFu5dvIwFBXXqyUvekpo6dml2d5xs2kN0xiNj8MgAu
-	NR7Owfsbcpmn3OYzDSsbtHH5uUVsUuuWteGYCqITt+R3m19eqzPFTVU80H3hxFpyHXdigyVXBhA
-	M86qZS4OV2yYZYkkKSUWn2FZIn61G4cld1gkg+gs6RkJdSvWmKnsKjHbFyUrsi1CKU8zN+od9CC
-	3H330vT2+FuMAddQwnH+npX/NFAxl/O30t4tYaFKKrrfhql9sBtM5gD1TW08A2LBFQxkQ9Z4jP5
-	Hv762pFkczr8GTBFG2f0R5ycDp1ZcEZZ1VKmpWyf1gFrm4DaxdbgxVL7PUqYCQhj7CryqqDpPYe
-	cH++DW5Se++8CC8s=
-X-Received: by 2002:a05:690e:1c1a:b0:664:ddca:8183 with SMTP id 956f58d0204a3-66ccb6d63c5mr217167d50.52.1787096386834;
-        Tue, 18 Aug 2026 16:39:46 -0700 (PDT)
-X-Received: by 2002:a05:690e:1c1a:b0:664:ddca:8183 with SMTP id 956f58d0204a3-66ccb6d63c5mr217117d50.52.1787096384812;
-        Tue, 18 Aug 2026 16:39:44 -0700 (PDT)
+X-Gm-Gg: AR+sD10vuvzM1OJzGYr+7T5MoyXzh1cfUADmkTOoe24lUimx+gSRJNvblHstwxeFUfx
+	o/m4r6e/ighrCwwYn9LR6swK+lYoOUhgoJIGEIxOBcisEvVB2I95ySpnog0j9IgxPCGe7uZDPj3
+	+a9Imzf22Cyr9/fap8T9yKpmR8VQinqZmdGemEpQOEYNuwIXzioQWiG4MXDjvQLDu7sYNg+WhSt
+	62Ei4/KJijYCnpgRg0cKPRMQiDLF1Yd1UUzvOmtVQdxf7W6HBRzgX7vjIqOWEH1MYcQkVXFQofw
+	Fz5o8H0+efv9+3jiMYAK548QNYi/qdvzi5BHZfdN8MU4oklgQCg/YF0GWaDJyZhIsDR5P1FFH4t
+	lQG5TG8icylFgcpc=
+X-Received: by 2002:a05:690c:e691:20b0:81d:5806:ecc7 with SMTP id 00721157ae682-844dd142937mr2983867b3.1.1787096555264;
+        Tue, 18 Aug 2026 16:42:35 -0700 (PDT)
+X-Received: by 2002:a05:690c:e691:20b0:81d:5806:ecc7 with SMTP id 00721157ae682-844dd142937mr2983567b3.1.1787096553250;
+        Tue, 18 Aug 2026 16:42:33 -0700 (PDT)
 Received: from localhost ([2001:67c:1562:8007::aac:4bc4])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66ccb172b96sm180454d50.15.2026.08.18.16.39.43
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-84512c4072fsm842827b3.17.2026.08.18.16.42.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 16:39:44 -0700 (PDT)
+        Tue, 18 Aug 2026 16:42:33 -0700 (PDT)
 From: Rickey Castillo <rickey.castillo.valenzuela@canonical.com>
 To: rickey.castillo.valenzuela@canonical.com
 Cc: Ankit Garg <nktgrg@google.com>,
@@ -82,11 +82,11 @@ Cc: Ankit Garg <nktgrg@google.com>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>
 Subject: [SRU][N:linux-gcp 1/2] gve: fix header buffer corruption with header-split and HW-GRO
-Date: Tue, 18 Aug 2026 17:39:32 -0600
-Message-ID: <20260818233933.18570-2-rickey.castillo.valenzuela@canonical.com>
+Date: Tue, 18 Aug 2026 17:42:25 -0600
+Message-ID: <20260818234226.18814-2-rickey.castillo.valenzuela@canonical.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260818233933.18570-1-rickey.castillo.valenzuela@canonical.com>
-References: <20260818233933.18570-1-rickey.castillo.valenzuela@canonical.com>
+In-Reply-To: <20260818234226.18814-1-rickey.castillo.valenzuela@canonical.com>
+References: <20260818234226.18814-1-rickey.castillo.valenzuela@canonical.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
