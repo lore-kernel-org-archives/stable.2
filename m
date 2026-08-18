@@ -1,123 +1,139 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1B62DC331
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 22:54:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2513803F4
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 22:57:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787093689; cv=none; b=C8xuMi0wvBxU/bu8nuGTHBW3O6Hld5vlyBkjGXwMfHvbzn2KHRRaGaDHY/LcAxNmOEwetAJ69n8xj2s8zxjnSYMr1qPX0H+tehKemWN8VGb552+JNB0k1oC3ryUZub93gBIRuixjgXX2HXbkTKl8fRcyTV9qL2qpuewb7NeyqV8=
+	t=1787093847; cv=none; b=ASh/ao7uM00UU1roUKjOhTNcQXhYCH0p5oROo4lDt3u84zUlQ+OAbuKIbLyjs5Kmm2Iqk8D/wH6yQVRn7puwSqNviyvFDiuUym66Wgz9LT9j9RUYDI9lxQw0cUVNadaBuJVfhNq950mv1EcOZk15ctGUflmzsqtyi+2hw3HsyWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787093689; c=relaxed/simple;
-	bh=6btL7nZ0S1u/4+3eC7ZeMGV5W3QJ8MpeIZr6Im2drno=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ELKf3nhEvFsTFlcoN4+e/5H1Kt976keeq07pCf6yvQiAVqtQyKsdnkoa/uFNz1JAtAPea6uV61aGj8sQY1Mqpur9LNEymtW4BhQZrFHh67DyVdQzKiUpAsuF+dP63VgD1MWSBrQRuyPn+O8TscpTpzk5omacFb63OkTAIo7RwJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=mspdUP8d; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1787093847; c=relaxed/simple;
+	bh=HTIdMGUHqS/osSpWpW46rgjJQbdTjfpN1jBAZx6ihik=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BShcaa131LDBsy7Ho2b1V6KPZQl483HEw3BbMRfZ47NzCkk0HvwSGNZ5v5EQmBFbCkJ1q4TxQfjIXU8ACYyT1BNJTs8aVZeYUTpkXGpTcPo0V+o/RojJfKzlEQy0Z4sGYOIqDIVWP6puvu/igaHr2/Ay9eLnMfXq5fkuMJri9oM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=truenas.com; spf=pass smtp.mailfrom=truenas.com; dkim=pass (2048-bit key) header.d=truenas.com header.i=@truenas.com header.b=kH40H3Y4; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=truenas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=truenas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="mspdUP8d"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ca12086c06eso255494a12.0
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 15:54:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=truenas.com header.i=@truenas.com header.b="kH40H3Y4"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49954b88fffso3851135e9.0
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 15:57:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787093688; x=1787698488; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gz2RTF0eU9/58HpSEWg5xF4pRvWmWGVnJVKoAZtXolU=;
-        b=mspdUP8dZc83P9DZiYQ7upxxaZdVnc+P5O+l5UCWTaEELuOuMQzI1CTG3sNrjZCiYr
-         W5TwWA2/UT5a/fusKi7s+9X5MYiG6/avhCq10bsBMqjhxD1oggxx1tXyxtNdNAhC0QKE
-         lKw/WhIGCGYXXMrlHdJ4UTkWG2G8YGZ84ANw2qc8SFwj/s72EVyi1hQio+cXlnKecp0u
-         JjL2knFzEwI6Xr5uRRM616wg9e4i9r9HaHyadA4Okt8P4MDomTrSA6zzoTB1pSUf9kpQ
-         Zvp1IvkkwvVeZusut031Ign0Vd8p+JwXqRxGBoCcRLVZ3DCCCL00GTiXAlh03bkNjE4C
-         5voQ==
+        d=truenas.com; s=google; t=1787093843; x=1787698643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=19HV3yb8dX6m7sjFj5qTXT28ekBXnozbu06g0duSsTk=;
+        b=kH40H3Y4E1JyGwZHQDb/EQ98K1Y2ldgpzkQ0N8Oq9mvSVkXtV22fDsos9Bn3lx8FeQ
+         Q4Lxnfe2Y582D3e/KYNo9tsuMjuz16GWG059yK71DXa2hG/5R+6YXnfNQViqAZCPHO7U
+         Bep2K4/aXqSy6stYxPJjYSMgKSKdXJCzSaMmZdM5iNmyUANkL+ebkr5hBzLZr4rcQvza
+         dJwMLHbFFs9ur4P133I/AkpfkW+i/IJ4W3hVpznR7h2AeQBEyiZl06Oi0WCPvROUryqw
+         Zd2MbCy0Mg6Q3R8rEQGjo2EcTUlyQB8djEahO1nuTOHjlmfVmUxWq2Nx+Po0xZbe/s59
+         u+oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787093688; x=1787698488;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Gz2RTF0eU9/58HpSEWg5xF4pRvWmWGVnJVKoAZtXolU=;
-        b=qEm0M5/jMreG+rtItp0RcV4F4F0HKIlEw8cV2FB4XpNoFR2GfXiB1hrnI8VwGVN2j8
-         7iRPtCzzza1CztvNRqTa5Jve0naJTI6n2i3/O6HJYEK+8h8yrRmL7TAGmJyO/vj281Sy
-         3RdmHI7p7Vi2Hoh6mwjA1UHEoU03js9NT3p/I5hWGtCu4mcZIzsHs0LXIr+m6co06Wl6
-         4o/OyoFDofJ7QOGAY4QKrcMfdjxL4yWkv0KiP9T5x9pibeAt27D6mHr/JKi/sRL8m6+U
-         6UMAGZliZbQ2ex7HT87euTxMiC2vvgiqeg1iRTsf9LpHwIqoFg0LPciBBJ389wYvL/Uj
-         Maxw==
-X-Forwarded-Encrypted: i=1; AHgh+Rqw9+pIz6HQQ9rCilWoP9nxTbFPMFayxEN1mI+E9W6hYSllJGMtPYR+VdOvdh08FmbgxlijUKE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzyL9MKjxSMniit4TODcVEVHfHMkyOhnr3Y0QEsFGdaHgrjj0/i
-	d0TIKZcQHEyxeqC7zV9EahZf5S3VjJRsYDEtuD6ds5up7diwlVh8uRhHFeTJu4gitfo=
-X-Gm-Gg: AR+sD13OH1eTBCK5NEQ1icAgD2QMB8SsttIQ4mD/uYHPKzu+2c9Scc+/YSlE7YcpATu
-	NxWggFzaj64CgBwVoH04QPHYit6bQbxEZdMofXLk0yLuHthPg/ZSiY1EcRw1FAPFB1i4NKUIMHK
-	AxyDmYUB40R5ku9kAkKAw5bwytEy3zfkIpcfYUgKILw7wG/knNyYoIdBM5lhTJOc4RQ4S9i0btd
-	l85HyCcQm5eXSAWz/xbrNGYYNYWdYTfjmeH3I6e18ha7O4i/qhfv1QbrjMuVMlvFFQQkPhJU5XK
-	OTWA9Ie+LOHNAJ3iLKWJGxUrWUWZI85f4pjkD6BaCvhpR6M0LIEEdLgTgKsvoroFilYjQh8qqmq
-	cY4ACJcoVs9kH8dj2C5wYWMMeOAyeQJ/skONoWkzqUamPg/vT93igrdKoJuIfqpAbNnPcAwbhQl
-	n46gEabr1sDaybSmLtERdTgfXNPbBv7xEQK0m9uFTx8A==
-X-Received: by 2002:a17:90b:2241:b0:380:105f:8ffd with SMTP id 98e67ed59e1d1-39581228dbdmr396372a91.16.1787093687536;
-        Tue, 18 Aug 2026 15:54:47 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:4d::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fbbe817sm102834a91.2.2026.08.18.15.54.46
+        d=1e100.net; s=20251104; t=1787093843; x=1787698643;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=19HV3yb8dX6m7sjFj5qTXT28ekBXnozbu06g0duSsTk=;
+        b=g5fhDdAUSx7W29VZAyv2PTXsaTm6QVFd4DyO9h7aUk+TXlRLJ5+rP6OQfQIE37zJet
+         TY3vrpoUhy6lQ5mDxXTaRoNZ9tJ69JtpPzOJCVbtPnZLoUab0j2USurXL9aXpXSHJXL9
+         QmOmEFDGRGISaV9F6B622gKjPPy0CZFZbG0ieqK6b1hUei38c6sfmoZNtKuEs8J8UKL9
+         H/xROAGKzyC6/t6wFypyBkolc1q8PdRkanK/R0yOYMk7aBhajfleeVu/7A4JWN+zVs7d
+         4zkT3OoYvLoJMf8Lnh5TDHFQNFlqIw5ATt2AX5zPPE3W6SQ0PUJgV/lgup0H+K9nNBDT
+         Gejw==
+X-Forwarded-Encrypted: i=1; AHgh+RrGf5aJceXqKUkvcPTBhUfoCRQD/AO/MJ8xOq/WbSqltCm+ewzDQS3O2xKWR8Ei/CS8dV1Hhy4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1X7CahQuZ6kFNoW9r0Y0L25m64PgQE5eZ7wLr2/0wqs+NzpjC
+	JE4jarhaZd/zvwGYaKjksqJZjhTmkfWQm3o067xVNwSwwjJEQC6zWFDGFdJZ1P2yHw==
+X-Gm-Gg: AR+sD135Bg2XN/j/6XpoOAbbHLGSGuYVm/yAew5+Lw7SDnFke3glYSIovZbxy6nq54f
+	DNdGIpVuOB3ImoS73HnpAEz3pHYSHEz0PRDsMwTC/P/+9F7bc/NgkZDFbnmJXO3pk3qcKtPb33z
+	cPfjyrWwbkKyKsOcOPpW5s5P/jqDwBn0EFh2gh6yzvhmlPkCGt4Wk1LskyizUcG3GwtTT+70VMO
+	sq+APRNJoJCmVTIslTz4tlN/C/9ENgQFKbwrylJsxPsqpfQhP/uB5xr7wT5Zea30X9baGNDKVcO
+	40OUOI+rMGU7PBuXid0iJ2zuYiPU2QQ5+6uiIAZBEtgR46osMMFjoNJLCS1KF9XVs/Iuu+YcWMX
+	U+dR1DKzMKMU2jDQp5NFaR/I2BAl+V9xy+Sdw4QJ6TU04UlmAqEoMLAXpkLHItskdp1Qex5c3Y1
+	t1DqrXHhTbRT7emSEjrjoj9KcfrVmbc70BCQmQY+Ua
+X-Received: by 2002:a05:600c:19cf:b0:499:728c:4704 with SMTP id 5b1f17b1804b1-499aa1b993bmr5258655e9.12.1787093842851;
+        Tue, 18 Aug 2026 15:57:22 -0700 (PDT)
+Received: from hamza-PC ([2400:adc1:158:c700::1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b14b8038sm508137f8f.20.2026.08.18.15.57.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 15:54:46 -0700 (PDT)
-Date: Tue, 18 Aug 2026 15:54:46 -0700
-From: Joe Damato <joe@dama.to>
-To: Michael Chan <michael.chan@broadcom.com>
-Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	horms@kernel.org, linux-kernel@vger.kernel.org,
+        Tue, 18 Aug 2026 15:57:22 -0700 (PDT)
+From: Ameer Hamza <ameer.hamza@truenas.com>
+To: cel@kernel.org,
+	jlayton@kernel.org,
+	neil@brown.name,
+	okorniev@redhat.com,
+	Dai.Ngo@oracle.com,
+	tom@talpey.com
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alexander.motin@truenas.com,
+	caleb.stjohn@truenas.com,
+	ameer.hamza@truenas.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: bnxt: ring the doorbell when SW USO exits early
-Message-ID: <aoTittBOp+bv1aTz@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	horms@kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-References: <20260818211540.2991183-1-joe@dama.to>
- <CACKFLikEOu--B+q88X0pQsHQ0MuLM2onJKWnGGetSptgEpLrsw@mail.gmail.com>
+Subject: [PATCH 1/2] NFSD: Fix duplicate fsnotify access events for iterator READs
+Date: Wed, 19 Aug 2026 03:57:14 +0500
+Message-ID: <20260818225715.572140-1-ameer.hamza@truenas.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACKFLikEOu--B+q88X0pQsHQ0MuLM2onJKWnGGetSptgEpLrsw@mail.gmail.com>
 
-On Tue, Aug 18, 2026 at 03:36:42PM -0700, Michael Chan wrote:
-> On Tue, Aug 18, 2026 at 2:15 PM Joe Damato <joe@dama.to> wrote:
+A READ served without splice emits two fsnotify access events; a
+local read of the same file emits one. vfs_iocb_iter_read() emits
+an access event when the read succeeds, and nfsd_finish_read()
+emits a second one for the same READ. An inotify watch on an
+exported file sees each of these READs twice, so anything counting
+accesses counts double. READs take this path whenever nfsd does
+not use splice, for example with sec=krb5i or sec=krb5p, or when
+nfsd_disable_splice_read is set, as the NFSD_IO_DONTCACHE and
+NFSD_IO_DIRECT modes do. Spliced READs are not affected, since
+splice_direct_to_actor() emits no event and nfsd_finish_read()
+emits their only one.
 
-[...]
+Move the fsnotify_access() call from nfsd_finish_read() into
+nfsd_splice_read(), the one path whose VFS helper does not emit
+it. Each READ now emits exactly one access event whichever path
+serves it. Measured with an inotify watch: the iterator path drops
+from two events per READ to one, and the splice path is unchanged
+at one.
 
-> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> > index f317f60414e8..3c58b1d94ac9 100644
-> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> > @@ -223,9 +223,7 @@ netdev_tx_t bnxt_sw_udp_gso_xmit(struct bnxt *bp,
-> >         netdev_tx_sent_queue(txq, skb->len);
-> >
-> >         WRITE_ONCE(txr->tx_prod, prod);
-> > -       /* Sync BDs before doorbell */
-> > -       wmb();
-> > -       bnxt_db_write(bp, &txr->tx_db, prod);
-> > +       bnxt_txr_db_kick(bp, txr, prod);
-> 
-> The patch looks good to me.  But a slightly simpler approach is to
-> just set txr->kick_pending here.  Upon return, the new logic above
-> will always ring the doorbell for the success case.  By doing this, we
-> don't need to export bnxt_txr_db_kick().
+Suggested-by: Chuck Lever <cel@kernel.org>
+Link: https://lore.kernel.org/linux-nfs/2ed0ee16-c20e-44bd-9e7a-f5b71764f14f@app.fastmail.com/
+Fixes: 507df40ebf316 ("NFSD: Hoist rq_vec preparation into nfsd_read()")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Ameer Hamza <ameer.hamza@truenas.com>
+---
+ fs/nfsd/vfs.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Ah, right. Sorry I missed that; I was rushing too quickly to get this
-out :)
+diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+index f9131827d391e..f45d4ad70b964 100644
+--- a/fs/nfsd/vfs.c
++++ b/fs/nfsd/vfs.c
+@@ -1046,7 +1046,6 @@ static __be32 nfsd_finish_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 		nfsd_stats_io_read_add(nn, fhp->fh_export, host_err);
+ 		*eof = nfsd_eof_on_read(file, offset, host_err, *count);
+ 		*count = host_err;
+-		fsnotify_access(file);
+ 		trace_nfsd_read_io_done(rqstp, fhp, offset, *count);
+ 		return 0;
+ 	} else {
+@@ -1084,6 +1083,9 @@ __be32 nfsd_splice_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	if (!host_err)
+ 		host_err = splice_direct_to_actor(file, &sd,
+ 						  nfsd_direct_splice_actor);
++	/* splice_direct_to_actor() does not emit an fsnotify event */
++	if (host_err >= 0)
++		fsnotify_access(file);
+ 	return nfsd_finish_read(rqstp, fhp, file, offset, count, eof, host_err);
+ }
+ 
 
-I'll send a v2 tomorrow that simplfies the patch as you suggested. Thanks.
+base-commit: c5f58d03c50196301ac2ce7da81e8be33eba57c6
+-- 
+2.53.0
+
