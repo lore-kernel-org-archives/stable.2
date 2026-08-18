@@ -1,129 +1,165 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD085336884
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:32:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FEC3B811F;
+	Tue, 18 Aug 2026 08:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787041933; cv=none; b=t9Z5TvUuVoOCLDA8qU4l2zvfAW+FPyWVuik950N+HVBfQfnXwHKyD2uYxubqVaQQEUMcjxVQzEiongKCrVgbzn1mfP+/8+i4QctRiXu06ieE5AyRGTacGQ4J4qJUrEDatmgUv+CfHyc5U3WJdvQKr2IJZq5AcZGFo5ZmSo4/8EA=
+	t=1787041937; cv=none; b=YR0xt009kGC6jvKNYj/wiAj9cBG+qjCjiFQm5GvBbDwiGL3KeO1K4Gq1A/95AjhvxiRr4L3oer8O7iBz1JAsW6vDaq4dye1sW5NJYjL9puKEyWDsN1YVxqU60J5bONZQOv9elHOE7eVrncdxJzXcc5e6tg9z+FTlPNz71Bs7Cmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787041933; c=relaxed/simple;
-	bh=I2norSdTmLGJ/BWeCNZKtsiEtdjE2ZSG9EdEOc+y864=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W0S3K9OGao2Q66BtHWPJ2UBsw7C/NXkXulPXzbrP1Ic1BUC1XZsQwLPncm9CUuOi4kGa0GKvASJksxqcCWYb3cuxbBVBprLEEQiu+lHWd9aVEMBZVBNFaTajUzDtiNJrtKtzToihzDnQ02ju2fYRjev9fP7seDZJrg/0EqmVUYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f5h85rJ6; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787041937; c=relaxed/simple;
+	bh=8gWzpZryodg//Tt6gkCoheUeq+Zzndr2R8oDIMpEIpk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JWfciPpJlDsRtALpy0a63iMukuOGxJbid7PsVpLlVINJ4plc+cdIhHXJNJfFSvEEif/c491q/KG+zS51rADIlIIGHzWy2LVcs14uJVYpsmrh6ji9ikL0wxyT7UppxBwI89VNe1odH2N7JJbt59BIWH0lOzwdpiXdXVelcFRs/uU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=XD6u/0i+; arc=none smtp.client-ip=194.59.206.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f5h85rJ6"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4954a32cf1eso22241735e9.3
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:32:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787041930; x=1787646730; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QG/UVFd2ACFMYaMnp0CQ6c77bR9FNNHaHabNi47aSho=;
-        b=f5h85rJ6l0ZIRucfpk51Gf41TC8wgXbvEw4nSd1500AmjpAObUmxZOdPcAroEVuhWo
-         eHTXbR9mDFewi/ik16oXZUiBPukUU+lTB4LmWy+i0i+Na0D+323P0HkvYEIWEgupu/lI
-         mZZE6jcy50PTWxkxn49s3zgWgcjJC4oMbfZ9srUpV1lBb//ZM0u1tWvdJ742J0RGYMC6
-         xL65XRYGtTR9C1bqiTC3GOAkMqUG/bULviAbPILC3mJvuth5WcMCxkFEenWFpFwedKPf
-         h5R6DOqOryifLitz91zLEyLW+LdPnfZkA33mKgIv/6hZjx38yiPsxB877AhVOY3wC0zP
-         XMNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787041930; x=1787646730;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QG/UVFd2ACFMYaMnp0CQ6c77bR9FNNHaHabNi47aSho=;
-        b=Yh35ANq9hdmu4soTdTwILHlcwx66fxGDH7aTd75uDVsPoh4FzgrPezpuQ/LorxZteX
-         WLyaFAHKduRyJotzAdEatvf2m7kXSHMmM9MYwgDzANbOEZ3otiyULEDrRKWTv9U84Gx7
-         9eCWJV4H/UqJY0e8qb4jynUPKXzCpFKNUJe0GDknr+W4eRRzBnYXdO5G2CohF9BbgNuc
-         QJmBr65QI4Ol4D/sh6MfnkEPnNyuqDh7lHxBTRK2qOWjzzUcajROSxjBeVz8A05rYbey
-         cpbqTjHvGx19ZuUfkCxSUtxRmkRuK7SRGlnzi3AO6xzYyA4w11qukO3YJgoXFCk7r95w
-         wEXA==
-X-Forwarded-Encrypted: i=1; AHgh+RpjTbj1iYVXrHoPjc8ZQHSw/kGjxTlRFxLUPTxSJPRQc2Wq5DORcE8OZwwNNc1wdO5P3oESoEc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyysRncDaB8hFBdnMSB9v8ZecQFhUjxAs7UyL1KYsOd/vYTwrca
-	uK50aHYOfcpgP0vH89GmzFf1LZXp+mnCZCTSIBbfdGFzgR2INRJ7wrVf
-X-Gm-Gg: AR+sD12PdN8j3Maq01LaJmy/gA1HAp+Tkr3gmGZ6r1L7j+BoLJY3Mg4NoqPyfuMxobq
-	/5z4wU/6PxMHouUU2ND5hN2mA1t875xi4BbQ6DOuzckRQGJr52Uw0ihzu70pDHEVH5FqI/IUiQO
-	Rgry64UXM1oIMalqtQqrNDBRX9uAoxH0kMtILfRjJT00DmnfpFUgrnIwV4K4G8Vu730kxPI3upR
-	klNUEjXI31owvyvOxhvXQY8CTid3cMKvMqothHgVnTw2hOrA2zjNQdPfzLh6tgjgsm+nqRThlrE
-	P2MaZk/GrhWDxO6pIVV3/RBru8pWMLXMXFS2/V1KlwRsmp0T7PPGKkHDygZ7DBWC4D/W2ioDpNY
-	kgbqPxrK75N4pnpqIMRgDTEG8XzPYYxb6HpGEWNG7zPjqLkVNrxuw8CNnWDKMgEUBYkvSibCYZn
-	+UX5i2HGQFp+C1Ehk3QanH/Wt/jUU7IEYSKbXass4FN/huY12UOxlC5bpvaQ838ivYqLD/q4ApO
-	QQ7Txpzn9EaCw==
-X-Received: by 2002:a05:600c:5397:b0:493:bb6b:5bb5 with SMTP id 5b1f17b1804b1-499879857d0mr519017545e9.13.1787041919339;
-        Tue, 18 Aug 2026 01:31:59 -0700 (PDT)
-Received: from anthony.local ([2a06:c701:9cc4:c200:33d8:8ea2:e077:ebe1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49996109652sm289304505e9.4.2026.08.18.01.31.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 01:31:58 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: Fabio Piparo <holofermes@gmail.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/ssd130x: Set the address window in ssd132x_clear_screen()
-Date: Tue, 18 Aug 2026 11:31:40 +0300
-Message-ID: <20260818083143.37939-1-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817152500.703770-1-holofermes@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="XD6u/0i+"
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hPNGz3lDRz4CyS;
+	Tue, 18 Aug 2026 10:32:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1787041931;
+	bh=8gWzpZryodg//Tt6gkCoheUeq+Zzndr2R8oDIMpEIpk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XD6u/0i+/Rau8gNSjM3A6B+2JW3/9sxWqJIRdRTpea1tmCFiZM5EhySKroNjFyINB
+	 IYAFlwip/zF0NhZSSLjLhLuhuy1hqw1JmKlYU/4VMqM/Zbl36KZTMe7hhw4qLaCQOh
+	 u3XjxS+eOwT94u0bXwvq1JJ3RM9poCD3n3pUYGui0kvw0kfgRpD9ssmgCAfKbWwJgN
+	 4cYvRCyvbXJ4PF+jqBJy0H3E+BszIcFytUy9nHefsim2JIouuAQU8tfm7TqgKwQuib
+	 N2+z1bIArTFPSVvkVTVT2zckXXZTy8WeAiWoMbacsQCPOUXTNTQaL/WpRjo+s6K0e6
+	 6owEJKz0bPxUA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hPNGz31Qqz7xMN;
+	Tue, 18 Aug 2026 10:32:11 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hPNGy0mg7z8sb7;
+	Tue, 18 Aug 2026 10:32:10 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id D18A55FAAF;
+	Tue, 18 Aug 2026 10:32:04 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <2719a7f9-71cf-447b-b4fa-a53e598d3d5a@leemhuis.info>
+Date: Tue, 18 Aug 2026 10:32:03 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: typec: mux: Fix typec_switch_match()
+To: Marek Vasut <marex@nabladev.com>, linux-usb@vger.kernel.org
+Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ kernel@dh-electronics.com, linux-kernel@vger.kernel.org,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20260817182302.146546-1-marex@nabladev.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260817182302.146546-1-marex@nabladev.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178704192528.3564116.6843811556363461498@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: D18A55FAAF
+X-NC-CID: /Bx6R4kcJ3GShYDC85Bp7vJBFzp1xv5TR5uNsXCFgLZpDNNxlmc=
 
-Hi Fabio,
+On 8/17/26 20:22, Marek Vasut wrote:
+> The fwnode_typec_switch_get() sporadically returns NULL instead of an
+> -EPROBE_DEFER for orientation-switch described in DT.
 
-> ssd132x_clear_screen() sends its zeroes without setting the column and
-> row ranges first, so they land in whatever window the last
-> ssd132x_update_rect() left programmed.
+Hi Marek! Just to make sure, have you seen the patch submission
+"usb: typec: mux: initialize orientation switch array"?
+https://lore.kernel.org/all/20260804083434.20885-1-i@4t.pw/
 
-Good catch, I noticed the same asymmetry. But as Sashiko pointed out and
-you confirmed, ssd132x_clear_screen() is not reachable today, so there is
-no user-visible bug being fixed here. I don't think this should go to
-stable, and I would drop both the Cc: stable and the Fixes: tag in a v2.
+It has a fixes tag for the commit you mention and reads: ""Commit
+a53b4f9c51a9 ("usb: typec: mux: avoid duplicated orientation switches")
+started using the orientation switch result array as state for duplicate
+detection, but left the array uninitialized.
 
-There is a second reason the clear cannot work in its current form. The
-driver does not override .atomic_commit_tail, so
-drm_atomic_helper_commit_tail() runs
-drm_atomic_helper_commit_modeset_disables() before
-drm_atomic_helper_commit_planes(). By the time the plane's atomic_disable
-runs, ssd130x_encoder_atomic_disable() has already sent DISPLAY_OFF and
-called ssd130x_power_off(). So even with the !plane_state->crtc guard
-fixed, the clear would be writing pixels into a controller that is
-already powered down.
+The first match therefore scans indeterminate stack contents before any
+result has been stored. [...]""
 
-None of this makes the patch wrong - I do believe in making functions do
-what they are supposed to do. It does mean this is a cleanup rather than
-a fix, though, and that it cannot be verified on hardware until the
-disable path itself is sorted out.
+Not my area of expertise, but it sounds related, that's why I wanted to
+ensure you are aware of it. If it's something else: sorry!
 
-> +	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, 0, columns - 1);
-> +	if (ret < 0)
-> +		return;
-> +
-> +	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, 0, height - 1);
-> +	if (ret < 0)
-> +		return;
+Ciao, Thorsten
 
-This duplicates the window setup that ssd132x_update_rect() already does.
-I would rather see those two commands factored out into a small helper
-(e.g. ssd132x_set_window()) and called from both places.
+> This makes it
+> impossible to discern whether the DT does describe an orientation-switch
+> which did not probe yet, or whether the DT does not describe the switch.
+> This happens with gpio-sbu-mux connected to an I2C GPIO expander.
+> 
+> The class_find_device() on typec_switch_match() may return NULL in case
+> the mux did not probe just yet early on boot. The sw_devs[] array can be
+> empty on boot as well. If these two conditions occur, then the conditional
+> if (to_typec_switch_dev(dev) == sw_devs[i]) evaluates to true and the match
+> function returns NULL, which propagates to fwnode_typec_switch_get() which
+> makes it look as if the orientation-switch was not described in DT.
+> 
+> This is incorrect, because the mux driver will probe a bit later on, but
+> at that point, the caller of fwnode_typec_switch_get() already got the
+> NULL return value. The NULL return value also does not trigger IS_ERR(),
+> therefore the caller driver interprets this as if the orientation-switch
+> is not described in DT, and does not return -EPROBE_DEFER to try again,
+> even if it should.
+> 
+> Fix this by checking the class_find_device() return value, and return
+> -EPROBE_DEFER if it is NULL right away. If the return value is not NULL,
+> perform the deduplication test, and if that test passes, consider the
+> return value to be already non-NULL.
+> 
+> Fixes: a53b4f9c51a9 ("usb: typec: mux: avoid duplicated orientation switches")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Cc: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Cc: kernel@dh-electronics.com
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-usb@vger.kernel.org
+> ---
+> NOTE: A similar change was reverted in
+>       f576c75f95a5 ("Revert "usb: typec: mux: avoid duplicated mux switches"")
+>       Maybe the orientation switch commit also needs a revert ?
+>       Or the mux switch revert can be undone and fixed using this NULL check ?
+> ---
+>  drivers/usb/typec/mux.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/mux.c b/drivers/usb/typec/mux.c
+> index 9b908c46bd7df..2bc7e8edb3cbd 100644
+> --- a/drivers/usb/typec/mux.c
+> +++ b/drivers/usb/typec/mux.c
+> @@ -56,17 +56,19 @@ static void *typec_switch_match(const struct fwnode_handle *fwnode,
+>  	 * function "defers probe" for now.
+>  	 */
+>  	dev = class_find_device(&typec_mux_class, NULL, fwnode,
+>  				switch_fwnode_match);
+> +	if (!dev)
+> +		return ERR_PTR(-EPROBE_DEFER);
+>  
+>  	/* Skip duplicates */
+>  	for (i = 0; i < TYPEC_MUX_MAX_DEVS; i++)
+>  		if (to_typec_switch_dev(dev) == sw_devs[i]) {
+>  			put_device(dev);
+>  			return NULL;
+>  		}
+>  
+> -	return dev ? to_typec_switch_dev(dev) : ERR_PTR(-EPROBE_DEFER);
+> +	return to_typec_switch_dev(dev);
+>  }
+>  
+>  /**
+>   * fwnode_typec_switch_get - Find USB Type-C orientation switch
 
-Note that ssd132x_update_rect() cannot just be called from
-ssd132x_clear_screen() the way ssd133x_update_rect() could be from
-ssd133x_clear_screen(): it takes the R8 shadow buffer and packs pairs of
-pixels into data_array, and clear_screen() only has the data_array from
-the CRTC state. In the SSD135x series I have in flight,
-ssd135x_clear_screen() does call ssd135x_update_rect() with a full-screen
-rect, but only because no pixel conversion is involved there.
-
--- 
-Thanks,
-Amit
