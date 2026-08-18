@@ -1,157 +1,119 @@
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB853DDB18
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 10:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487373E1D0D;
+	Tue, 18 Aug 2026 10:27:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787048699; cv=none; b=NSpGwHXtK5KqK5AcpZo4GW7G8WPQVwpSNMtGI6lCNamphXGQcnYc6fhQc3MMh1NHdOk5jOPXmTaec3frL7g6FsgnqKukABXyZNqnmk/yhDw9jCGtNr7MW/T+Etq48acGowvldbQ2Cnr0+HutE9pM7oDncpyDAjPjwHsfqOAek7w=
+	t=1787048865; cv=none; b=Oc7tnN/94lGnZ1PTLDonjXe5pK+SshxptyFxFZyo62OzBQEUqtHVSKzeNM4jBQDPFaJe7DKOc5x81rPG3mHeAtyWFOFTsayyLThKsFNxqELITNUjXnljLYZBDP2uMqhgjMzES2ToAz3ycYcGaC6UZtbmtDEws/PsfPcTafMssqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787048699; c=relaxed/simple;
-	bh=PsZSjY3nKTv0UBfsn+/xUSAeSFImVT8zFG7CaYg5bck=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gyliEKg3yUzYzqtvg7OnfhgiK+WbiNCTjkuAJ1qGcF1tYfxPLRvjK9bbb9c1FtOgcsuYkXnd3p6EgwWcG7+WgL6ORH3eyzWETojcw0tysMcl3YK+orgi69E6QGjWyr3xbTX1GjpCSp+7F9cKXfiyn3KlfV5oUAFcIT0P/FCgCHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=cu9SdKwH; arc=none smtp.client-ip=209.85.160.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1787048865; c=relaxed/simple;
+	bh=GXgGPEmG2nAL/3V0alBc6f1p3PlfxdbLnEePsmCZkAg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S1yvbEl1/1CSS4OXRuQmxK9z0hwV8ECDGBJz1RvqpJ3bk1WKlfMcDtBhzjlnHShwlzJK9n7ztx7cEyzxsB3wxSJs+LbMnZ+zboPc6MaYYAcwRJTHX8K43RsRKlUv9yM+eUYev9ka9Pppkelbqbp1Oqe0JltM+aGU2crIRuE9Opk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=PnOcOqT1; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="cu9SdKwH"
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-4560d6f82edso3132622fac.3
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 03:24:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787048695; x=1787653495; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uXLEFrJeiYa1zJxHzcs8UOhualbeMtxu7j0/N8xRs0M=;
-        b=cu9SdKwHuIzkjfSPh4owFiITl09M6xWBdIi5zQ9DTFanXL+n8DOfvLgiq6WYdTWPLk
-         JshdCA+GJPEHBMMLPkEIws7NLvwcssC9URsOEaFijcXFWiajCuxOHiNKd1IK6oHCSqLD
-         b5qNzCe2usSLCjqAy3zPDlS9H/C9xAFdu9q+I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787048695; x=1787653495;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uXLEFrJeiYa1zJxHzcs8UOhualbeMtxu7j0/N8xRs0M=;
-        b=pPtfhQZHt9Hq8+Rknye9r5Ki6gD6D2/13rwq1wolK5GEFJctNVVLOxN+QKhv2ZOr+y
-         mq7DlCirWMgW61mkJDYRSw6/NxDVEqCY7bcOzIZtiAKsFAwAMzlK6tqRnrzguOwY43nG
-         pexWlv1ivNZnTw062qZm/1yeHEFAh7DhcaSPU5plSmhDZyiXz78FrwifbZelo7dbF4Zo
-         vFYgBefiOhsvTXzz4JKKqFP5jaRbMfmlE81cAlohoZJr5wg0ZR2kUX2Ny5vpGkiglQub
-         2s0DK0hHvqIE5tekIOEdeowJeSbepQy8xdWbI4cS0XMSWyaj0uP1UXmyBkFF3ST2z81Q
-         A6BA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq4tCJ1InQwNcNVOiqJ+XQJF1vhtJkGWqyJWYlD2wcE0Tyweo7AmaoxBjojrntkeg1v8IpBPMs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDuHwJluYu/mFoIDiRmC/Cr/Zq73Nlv0EjjLeSZSlY+M7NTSwc
-	15XPUJkzPsFweQJLO5RU+JKclvcCMifWB1sP5lPiwwJzS3HkgX2DYXuf9LTFlGzMhwoF5TbcB62
-	jdA3iyw==
-X-Gm-Gg: AR+sD10gYr9dL7z09rfjYmWTFgy/9uT8wYy/2fYWSQYyPb69Wi9c/mex8X0TpF/FtWH
-	tceqaHAaCV9Z3jq0ZxNLo4PerneM2KfLjT03GstiOWFDMoI0dUCO4Xkf1e8H+4fRVmHG9pl6DSr
-	zhQozkOUyewQyluXU5Em7O7vVSbo2NlLqwlCFDOxsohqJ1Ue8ba0dUgjzGpNkWUMDVN5NdgIq1J
-	rSfThz1MO2g3DKlbKA/bMD2ECbZ8tPXd43Fes0aYixRYBIuDfgLl9UpqLlLmXsoUq5sTrQRXvn4
-	wzG6SPq9S+DlSqi82gpaZbPKzy3Fksd5Es+GpenfLZerbWYoVgcmHnyQvFhimfZz+JbzCtc8lon
-	I2OpKns8IkeYRNKj+uhG1KJvs9/trxTH1v1CbqPoHvYOVkAyEBZx3Q7XVJ7/oIdcAgehfMv2Dfl
-	2ZSnK5OVqSncUnWhEs4pvc7eSOJm1knhdE9xaLgsOFluUHKCcEQc/9Gu+099HZIJc1dPlYCANNm
-	FP8W5zcMWujeIy3FIbTNoQe+aWEhtMr07tDiYyMggR3s3FaInA=
-X-Received: by 2002:a05:620a:2a13:b0:936:86d9:e1c5 with SMTP id af79cd13be357-93704b0d83cmr671382385a.18.1787048260861;
-        Tue, 18 Aug 2026 03:17:40 -0700 (PDT)
-Received: from majuu.waya (bras-base-kntaon1621w-grc-04-184-144-29-222.dsl.bell.ca. [184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-937010e7fc0sm299346985a.20.2026.08.18.03.17.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 03:17:40 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	stable@vger.kernel.org,
-	vega@nebusec.ai,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Subject: [PATCH net 1/2] net/sched: bound TCA_STAB overhead to prevent qdisc soft lockup
-Date: Tue, 18 Aug 2026 06:17:34 -0400
-Message-Id: <20260818101735.16655-1-jhs@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="PnOcOqT1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=RNau7PoN9jPuhQBuyRX+TK9/M06EXITtJzuKcbQ4VNc=; b=PnOcOqT15LymYMz8g9fk1the1M
+	Yc7CVJF3ixz4P3eyghLuh7xnMP4OdkPrYWI08/3r05/5qGp9jBQnbKqLt9ZDsEjFCr8x8iyBLpRFu
+	V5FJqkG+999vnqPaP+tChlXte6Rqyo99YCD6akQv8nNpme79LqRFO6YX77t3zEVDDJhlP7+wxQWub
+	1poC8yV64Y9beW0DAKXyhZdV+/jTbPtQ3EcJle06pyh7JWN6N/SDCURHlD36LdPuxY3Dtz8CYFBBN
+	xiXqTRDa0ahl5zUw+KggbtnY8b0rLrzzUBzZwdehY06lo1Obfsuvi4AbUycXQNx8Q938HR0VRimV9
+	SZl25gPA==;
+Received: from [31.4.136.12] (helo=[192.168.1.126])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1wwH2K-005ZCb-4a; Tue, 18 Aug 2026 12:27:16 +0200
+Message-ID: <83e32ca0-56c9-4d3c-b337-a7c01199b4e1@igalia.com>
+Date: Tue, 18 Aug 2026 12:27:13 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm: Fix drm_crtc_commit leak if signaled when
+ PAGE_FLIP_EVENT is used
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, stable@vger.kernel.org, Leo Li <sunpeng.li@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
+References: <20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-qdisc_get_stab() copies the TCA_STAB_BASE overhead from userspace
-without bounding it. A huge overhead (e.g. 2147483000) combined with
-a small DRR class quantum (1) makes qdisc_calculate_pkt_len() set a
-~2 GiB accounting length, so drr_dequeue() spins ~2 billion times
-adding quantum=1 to the deficit under the qdisc spinlock with BH
-disabled, producing a soft lockup / RCU stall.
 
-The same unbounded stab overhead also lets qdisc_pkt_len() overflow
-the per-flow counters of other qdiscs (fq_codel, hhf, sfq), which
-were recently clamped per-qdisc; bounding the overhead at the source
-closes the root cause for all of them.
 
-Reject overhead > 65535 (matching QFQ_MAX_LMAX and the max single
-skb length) in qdisc_get_stab(); legitimate L1 overheads are a few
-dozen bytes at most.
+On 27/07/2026 22:45, Thadeu Lima de Souza Cascardo wrote:
+> Commit 1c6ceeee6ebb ("drm/atomic: Fix memleak on ERESTARTSYS during
+> non-blocking commits") fixed a very similar issue when the event was
+> allocated by drm_atomic_helper_setup_commit() itself.
+>
+> However, if the event is allocated in prepare_signaling(), it will also be
+> set to NULL in complete_signaling(), which prevents drm_crtc_commit from
+> being put in __drm_atomic_helper_crtc_destroy_state().
+>
+> Dropping the reference when the event is set to NULL at
+> complete_signaling() fixes the leak.
+>
+> The leak can be reproduced by sending a signal to the thread using
+> DRM_MODE_PAGE_FLIP_EVENT and using a sw_sync fence to cause the atomic
+> ioctl to block at drm_atomic_helper_wait_for_fences(). It happened both
+> with amdgpu and vkms.
 
-vega@nebusec.ai provided PoCs for both DRR and ETS demonstrating the
-soft lockup.
+Nice catch!
 
-Conditions to recreate the bug:
-- require CONFIG_SOFTLOCKUP_DETECTOR=y
-- Create a veth pair (or use lo) and attach a root qdisc with a
-  TCA_STAB overhead near INT_MAX, e.g.:
-    tc qdisc add dev veth0 root handle 1: \
-        stab mtu 2048 tsize 0 overhead 2147483000 drr
-  (or ... ets bands 1 strict 0 quanta 1 priomap 0 0 ... for ETS).
-- Add a class with a tiny quantum of 1:
-    tc class add dev veth0 parent 1: classid 1:1 drr quantum 1
-- Send one small packet (e.g. `ping` or a single UDP datagram) on the
-  device; the ~2 GiB accounting length makes the deficit loop spin
-  billions of times under the qdisc lock, tripping the softlockup
-  detector (panic with kernel.softlockup_panic=1).
-- Reachable as root, or from an unprivileged user in a fresh user+net
-  namespace (`unshare -Urn`) with namespace-local CAP_NET_ADMIN
-  (Level 2).
+- Do you have a reproducer or is there an IGT test that triggers this issue?
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: vega@nebusec.ai
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
- include/net/pkt_sched.h | 1 +
- net/sched/sch_api.c     | 5 +++++
- 2 files changed, 6 insertions(+)
+- cc'ing Leo and Harry as well because they worked on the similar issue 
+and must be interested in it.
 
-diff --git a/include/net/pkt_sched.h b/include/net/pkt_sched.h
-index 18a419cd9d94..a4c1b7b0263d 100644
---- a/include/net/pkt_sched.h
-+++ b/include/net/pkt_sched.h
-@@ -12,6 +12,7 @@
+- I think it should point to stable # v4.11+ as in commit 1c6ceeee6ebb
 
- #define DEFAULT_TX_QUEUE_LEN	1000
- #define STAB_SIZE_LOG_MAX	30
-+#define STAB_OVERHEAD_MAX	65535
+Reviewed-by: Melissa Wen <mwen@igalia.com>
 
- struct qdisc_walker {
- 	int	stop;
-diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
-index 65b35528d125..cdcf861c85f5 100644
---- a/net/sched/sch_api.c
-+++ b/net/sched/sch_api.c
-@@ -544,6 +544,11 @@ static struct qdisc_size_table *qdisc_get_stab(struct nlattr *opt,
- 		return ERR_PTR(-EINVAL);
- 	}
+Thanks!
 
-+	if (abs(s->overhead) > STAB_OVERHEAD_MAX) {
-+		NL_SET_ERR_MSG(extack, "Invalid size table overhead");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	stab = kmalloc_flex(*stab, data, tsize);
- 	if (!stab)
- 		return ERR_PTR(-ENOMEM);
--- 
-2.43.0
+>
+> Fixes: 24835e442f28 ("drm: reference count event->completion")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> ---
+>   drivers/gpu/drm/drm_atomic_uapi.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index e997917819e8..7b951af5ab32 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -1563,6 +1563,8 @@ static void complete_signaling(struct drm_device *dev,
+>   		 * to prevent a double free in drm_atomic_commit_clear.
+>   		 */
+>   		if (event && (event->base.fence || event->base.file_priv)) {
+> +			if (crtc_state->commit && crtc_state->commit->abort_completion)
+> +				drm_crtc_commit_put(crtc_state->commit);
+>   			drm_event_cancel_free(dev, &event->base);
+>   			crtc_state->event = NULL;
+>   		}
+>
+> ---
+> base-commit: d5efb1e1b1d7cd27c642654042f80d19a7ba3caf
+> change-id: 20260727-drm_crtc_atomic_commit_leak-4de5e75162b3
+>
+> Best regards,
+> --
+> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>
 
