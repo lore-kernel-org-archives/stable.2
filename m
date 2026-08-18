@@ -1,79 +1,67 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30406344036
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 14:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CD21DA60D;
+	Tue, 18 Aug 2026 15:00:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787064946; cv=none; b=YSrfCUHG+zpXfNF9eG32ZZMm5HkHhpoxyyim2Oa/k4cfT91YFsw0b0msqCT2Cfz5RCfezigphGDSs0CTy5mU1PkIAiHfHnaHLrToPhwkjq73Gv+rOls9l5HHTlJNeJSyuSYWYGCROJSrfS78mDSMded2qInRqbyvovI+KSHlBxk=
+	t=1787065248; cv=none; b=FpQnvYYrD6bjvBqd+R7J5MJVpnx8/WaocKeYoHl49kGSPWIhAo5Acxn8/1OnJdxvF8GvmGQZANrp11v95dlaFy4yXnwse4VmnAxWsOrDBlDbYOCeOqSNE4SRVXdKbLK9e0TbHF7zKD6k4TbJr8x7R4SNPKM7DgRn8Du0WXw1rlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787064946; c=relaxed/simple;
-	bh=cBojm8RkVX6FRIrkZj9tO4jHBWALogJ6xQ3/fRKghc0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LU0K7HzdsXhZI7uXvxnkejbrZaARxEjaAyD774ELCGx349csQexL8hS2wY9yl8mGmGLfsLwM8UJMmfLImrAU95xxfFn3Q5v7hmatuRDQyiavXAzpB/PX38iM8VvwkV0MOgWyiPmdqL6/JoZ8v0qFaTOwrHOuRK2B7+u+HDA8dpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHzr1RHK; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787065248; c=relaxed/simple;
+	bh=geAxcum7c/dj+hk+H0/LINFb0jj708HeBqzRjzrEowo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tCrSzZMsXhII6YbTKJ0wcdSHlxvlHNoBUEalK6xt9uMfys2SLLnams3lm0+fo1xSz9Z6gYEORD94N4fNlxEmRGaPVZ+axK4/qKjGFj3IisBewmO8Xk2CTYmsDXI/rXHrcOm242sgSB5JC5xtYqK80zMEZ3ffekpULwGBH9GeP50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=r+ej3+4D; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Mhumq221; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHzr1RHK"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ceb096e675so53480485ad.0
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 07:55:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787064944; x=1787669744; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YsFaoS644NH2HkD0bh5kmr+46rtAuXi0WRjeGi4FwF4=;
-        b=UHzr1RHKNWo/7uDDbcqtSRB443DT27So1KBIHmYRkfeOdO5g+9n1fObM6ziWvimRFD
-         OtYBxVMJX1BRmbsgV9hRkkKrgKtS/l0plrb+3rIbWCJGy3sDjA9bahxGq2f87KLqwx0T
-         z/4cc7bqgOL/c7jjHGdr5X3xQLAdoYPgPXY6fruoUgOi0IVLOK329fmL30lhQUTNoaTU
-         CMJ88aRhyO8uSx7zlAjl3xjrAVgI/GcFPtLXY5eyxbcKOLo6cnGBHRQMrkds8zoT6y01
-         37RxMyNig8KB71OQLuDbDreJVkSKaNPtI8mlgKvUqCSZCljzr87SXsuqBC9workKc92d
-         1DqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787064944; x=1787669744;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YsFaoS644NH2HkD0bh5kmr+46rtAuXi0WRjeGi4FwF4=;
-        b=edU5TSqwGQnQBE/YZArV5E/amLKQ+a4HefwfbwGnrpVcBdsnE5uNhyhijonk/Hknpw
-         2QJt2+udFnrfCN8oA40F9Uj24SrwOqxnf9USNqbzVGOvQDcrUtSRJsC46TsF6uDmntTB
-         nutRa4het7IsY/arEAmd79nYZpoAXyh99JbeKpBPLM4ZuoYF/hbiLrei6gXFXWhY9Dhf
-         mAzdD6RWP3IvlMpAnvwbaSRsPUYwZL0o7ZCu6IdGVaBIWHN+i4/YjVp9bNI+rPEUi5nq
-         cg19BQb5dJ37GwfgCr+B2V/zofzeQDzXXnCH2U/rgbi70fccSjhCGr86/NaPY+/Q6URV
-         AcOg==
-X-Forwarded-Encrypted: i=1; AHgh+RqPfgOkqmVgpGB4B1V06xaGT1px22x3GEqC/IOcJJqW3x0e8J9HuSUH9/8u0ALZumPnSN1hZqk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzt1H0UO1PikgNAi+APAcQYJOdoAmoRxvSZTQTaDqTgCpi/AETs
-	qtzY7+CypNLE5JQm3qszQRGk3SdJNBH8Q0K9wXYBbpoxj1ypXkCyPGzD
-X-Gm-Gg: AR+sD12VQz2wlOf7i1yOtEtz1jgyzCM7E9NJmwdZEiRXhIZ4cWl8/LOhJFntNL7GZrV
-	54+npUTxt/XkWFnx74GyiJbWye/h9xtcpealltYZkUjj1u7ZAIHHgWJIPy8F2u3+C3m5fuDh6cd
-	N6FyVzGkGZYMU6LRXYZfSUlRn8nWRSYsi4ZTTEThFSiT4EXeZo6oUJmMoz2RJL0B2/Y9ZkmvUmq
-	TFef9WsT/00Ypy356KAXPoc38gVVehAqhRGUbsIO47OvlHp7eX8/LV7sZMl8rv0CVXwmQoFsjlL
-	s6RNSwP6PUKYfY+rBX/bIqXukPe9gWM+iUjV0gDBgzCQLhg5a49DQWob6kLH0xtziqyYYqcPm+o
-	hw8W5K1jnTSKPTO15btfqttZj5KEcPai4RVDhJB1ge4GsO7HaO2F6P7DbkcblBid1+8nUgSOcjX
-	CrJ0X3DfcjI2u7FPsE+z8j6xHVoF4Ju2wOYftySXm/g8bqNf4pPJJPFlAzf59Z27jjViYloR243
-	wYnMXQa0X4=
-X-Received: by 2002:a17:90b:17c5:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-3933b874ad6mr34245555a91.10.1787064944280;
-        Tue, 18 Aug 2026 07:55:44 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39339d00eafsm7363740a91.1.2026.08.18.07.55.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 07:55:43 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Sunmin Jeong <s_min.jeong@samsung.com>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Yeongjin Gil <youngjin.gil@samsung.com>,
-	Yunji Kang <yunji0.kang@samsung.com>,
-	zhanxusheng@xiaomi.com,
-	linux-f2fs-devel@lists.sourceforge.net,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="r+ej3+4D";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Mhumq221"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hPXvB1Cp9zMlMg;
+	Tue, 18 Aug 2026 17:00:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1787065238;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=fzSp6XdF4qx9FvRVGbtcxUKO0CVaFkqpl04Pebdb8JE=;
+	b=r+ej3+4D1Hxky7xJNBzfXLLXodmjz87H56YWXAdeh9M8AnmHfmjAszxV8acIKJ/36qHrEB
+	IrcNwuK+ncbPbvsBhKUJVAV3635Kexn70ujhCJHMlN0imXxo+l08UyoDe3nFPUbPUhlTUu
+	bfw76gAZdX3AZ4yEuJD1Q1Yz7TotxSJBW0GknYnTT5PhZgtZXAQ/UU0/zRehHmz6kg+o21
+	70c5z5A/mC/eqioNe1MUUhR5YR4GiFYumpg3V4RBtfda+7PQq27n73k69VNt4bKbNFauK9
+	DK5df70u5a4dhgCglqSnb9+XMNGPZidbO9f6dkNakFnyMR8/NgkcI7z5lJotPg==
+From: Qing Ming <a0yami@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1787065235;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=fzSp6XdF4qx9FvRVGbtcxUKO0CVaFkqpl04Pebdb8JE=;
+	b=Mhumq221Fdr0s8CVGtRCtK481Y0GDUogPduetl9bAwhOw61+jCJgy3KpBHhaNl1fiYgMcF
+	LOl9pc/QruXU76CQzqkej+TwvkrU9Elq2hNqWyVHkOADF+iPIC7RtxZDD978kMgoTuN3Gj
+	Q4t+vykdSUBYIAVG2aWNn+wFg0qYjF7lHJ24Jf+ZCl35IYrqdj40qJCQHunHZERWxSiRHx
+	BXIQMK7VvDzrVjz8WclWqQNTB/LrZsX+WIGkfAeNjRxGBuCO9EI7TW+CwkiGrtVHGNr45m
+	gUUiXEMv9Ypp+NQZjlUDsnS0sLp0BJJcimcArc27gFTwPN4FUr7BhfGmui9KKA==
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Harald Welte <laforge@gnumonks.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	horms@kernel.org,
+	kuniyu@google.com,
+	osmocom-net-gprs@lists.osmocom.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng1024@gmail.com>
-Subject: [PATCH v2] f2fs: fix i_size when pinned fallocate partially fails
-Date: Tue, 18 Aug 2026 22:55:35 +0800
-Message-ID: <20260818145535.449055-1-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	Qing Ming <a0yami@mailbox.org>,
+	stable@vger.kernel.org
+Subject: [PATCH net v5] gtp: serialize PDP context updates
+Date: Tue, 18 Aug 2026 23:00:00 +0800
+Message-ID: <20260818150000.7670-1-a0yami@mailbox.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,76 +69,152 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 62b6b3cf25f229d6e6a
+X-MBO-RS-META: wb5a6z8qiobbp7ehbq1or3ar4mq6imtq
 
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+PDP contexts can be deleted through GTP_CMD_DELPDP or while the GTP
+network device is being unregistered. The latter is serialized by RTNL,
+but the generic-netlink delete path only holds RCU.
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Running both paths concurrently can therefore make both paths delete the
+same PDP context. The issue was found through static analysis and
+reproduced on a KASAN-enabled kernel by a simple two-thread program
+racing GTP_CMD_DELPDP against RTM_DELLINK:
 
-Commit 4275b59673eb ("f2fs: fix to round down start offset of fallocate
-for pin file") moved the allocation loop's start down to a section
-boundary, but the error path still converts @expanded against @pg_start,
-which holds the unrounded start.
+  Oops: general protection fault, probably for non-canonical address
+  KASAN: maybe wild-memory-access in range
+         [0xdead000000000120-0xdead000000000127]
+  RIP: gtp_genl_del_pdp+0x1c1/0x420 [gtp]
+  RBP: dead000000000122
 
-@pg_start exists for that conversion: commit 88f2cfc5fa90 ("f2fs: fix to
-update last i_size if fallocate partially succeeds") added it as an
-immutable base because map.m_lblk moves every round.  Each round now maps
-exactly sec_blks blocks starting from rounddown(pg_start, sec_blks), so
-pg_start + expanded overshoots the last allocated block by
-pg_start % sec_blks, and a partial failure leaves i_size covering a tail
-that was never allocated.  Nothing corrects that afterwards either, since
-file_dont_truncate() has already cleared FADVISE_TRUNC_BIT.
+The second deletion dereferenced the poisoned hlist pprev pointer.
 
-It needs a start offset that is not section aligned plus a fallocate that
-hits ENOSPC partway, so the error path runs with expanded > 0.  On an
-80 MiB image with 2 MiB sections:
+Serialize gtp_pdp_add(), gtp_genl_del_pdp(), and gtp_dellink() with a
+shared mutex. Keep the mutex held until the final use of a PDP context in
+the NEWPDP path, and keep the RCU read-side section around the complete
+PDP context use in the DELPDP path.
 
-  truncate -s 80M img
-  mkfs.f2fs -s 1 -f img
-  mount -o loop img /mnt
-  touch /mnt/pinned
-  f2fs_io pinfile set /mnt/pinned
-  # 2093056 = block 511, so pg_start % sec_blks = 511
-  f2fs_io fallocate 0 2093056 536870912 /mnt/pinned
-  stat -c %s /mnt/pinned
-  filefrag -v /mnt/pinned
-
-The last extent ends at block 10737 either way.  Before, i_size is
-46075904, block 11249, so 511 blocks of it were never allocated, and
-filefrag does not mark the last extent eof.  After, i_size is 43982848,
-block 10738, and eof is back.  A kernel from before that commit also
-shows no overshoot.
-
-Keep @pg_start pointing at where allocation actually begins.
-
-Fixes: 4275b59673eb ("f2fs: fix to round down start offset of fallocate for pin file")
+Fixes: 459aa660eb1d ("gtp: add initial driver for datapath of GPRS Tunneling Protocol (GTP-U)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Assisted-by: Codex:gpt-5
+Signed-off-by: Qing Ming <a0yami@mailbox.org>
 ---
-v1->v2:
-- Added the reproducer and the before/after numbers to the changelog,
-  as asked by Chao Yu.  No code change.
+v5:
+- Keep gtp_pdp_lock held through the final pctx use in the NEWPDP path.
+- Keep the RCU read-side section around the full pctx use in the DELPDP
+  path.
 
-v1: https://lore.kernel.org/r/20260817022723.3324123-1-zhanxusheng@xiaomi.com
+v4: https://lore.kernel.org/netdev/20260814031526.118216-1-a0yami@mailbox.org/
 
- fs/f2fs/file.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/net/gtp.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 4b52c56d71f0..cc0d2b8c4684 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -1919,8 +1919,9 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
- 		block_t sec_len;
+diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
+index 9a12cc53da00..2f6e77cce385 100644
+--- a/drivers/net/gtp.c
++++ b/drivers/net/gtp.c
+@@ -12,6 +12,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
  
- 		if (map.m_lblk % sec_blks) {
--			map.m_lblk = rounddown(map.m_lblk, sec_blks);
--			map.m_len = pg_end - map.m_lblk;
-+			pg_start = rounddown(map.m_lblk, sec_blks);
-+			map.m_lblk = pg_start;
-+			map.m_len = pg_end - pg_start;
- 			if (off_end)
- 				map.m_len++;
- 		}
--- 
-2.43.0
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/skbuff.h>
+ #include <linux/udp.h>
+ #include <linux/rculist.h>
+@@ -108,6 +109,7 @@ struct gtp_net {
+ };
+ 
+ static u32 gtp_h_initval;
++static DEFINE_MUTEX(gtp_pdp_lock);
+ 
+ static struct genl_family gtp_genl_family;
+ 
+@@ -151,7 +153,8 @@ static struct pdp_ctx *gtp0_pdp_find(struct gtp_dev *gtp, u64 tid, u16 family)
+ 
+ 	head = &gtp->tid_hash[gtp0_hashfn(tid) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == family &&
+ 		    pdp->gtp_version == GTP_V0 &&
+ 		    pdp->u.v0.tid == tid)
+@@ -168,7 +171,8 @@ static struct pdp_ctx *gtp1_pdp_find(struct gtp_dev *gtp, u32 tid, u16 family)
+ 
+ 	head = &gtp->tid_hash[gtp1u_hashfn(tid) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == family &&
+ 		    pdp->gtp_version == GTP_V1 &&
+ 		    pdp->u.v1.i_tei == tid)
+@@ -185,7 +189,8 @@ static struct pdp_ctx *ipv4_pdp_find(struct gtp_dev *gtp, __be32 ms_addr)
+ 
+ 	head = &gtp->addr_hash[ipv4_hashfn(ms_addr) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == AF_INET &&
+ 		    pdp->ms.addr.s_addr == ms_addr)
+ 			return pdp;
+@@ -220,7 +225,8 @@ static struct pdp_ctx *ipv6_pdp_find(struct gtp_dev *gtp,
+ 
+ 	head = &gtp->addr_hash[ipv6_hashfn(ms_addr) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == AF_INET6 &&
+ 		    ipv6_pdp_addr_equal(&pdp->ms.addr6, ms_addr))
+ 			return pdp;
+@@ -1555,9 +1561,11 @@ static void gtp_dellink(struct net_device *dev, struct list_head *head)
+ 	struct pdp_ctx *pctx;
+ 	int i;
+ 
++	mutex_lock(&gtp_pdp_lock);
+ 	for (i = 0; i < gtp->hash_size; i++)
+ 		hlist_for_each_entry_safe(pctx, next, &gtp->tid_hash[i], hlist_tid)
+ 			pdp_context_delete(pctx);
++	mutex_unlock(&gtp_pdp_lock);
+ 
+ 	list_del(&gtp->list);
+ 	unregister_netdevice_queue(dev, head);
+@@ -2053,6 +2061,7 @@ static int gtp_genl_new_pdp(struct sk_buff *skb, struct genl_info *info)
+ 		goto out_unlock;
+ 	}
+ 
++	mutex_lock(&gtp_pdp_lock);
+ 	pctx = gtp_pdp_add(gtp, sk, info);
+ 	if (IS_ERR(pctx)) {
+ 		err = PTR_ERR(pctx);
+@@ -2060,6 +2069,7 @@ static int gtp_genl_new_pdp(struct sk_buff *skb, struct genl_info *info)
+ 		gtp_tunnel_notify(pctx, GTP_CMD_NEWPDP, GFP_KERNEL);
+ 		err = 0;
+ 	}
++	mutex_unlock(&gtp_pdp_lock);
+ 
+ out_unlock:
+ 	rtnl_unlock();
+@@ -2134,6 +2144,8 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
+ 	if (!info->attrs[GTPA_VERSION])
+ 		return -EINVAL;
+ 
++	mutex_lock(&gtp_pdp_lock);
++
+ 	rcu_read_lock();
+ 
+ 	pctx = gtp_find_pdp(sock_net(skb->sk), info->attrs);
+@@ -2154,6 +2166,7 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
+ 
+ out_unlock:
+ 	rcu_read_unlock();
++	mutex_unlock(&gtp_pdp_lock);
+ 	return err;
+ }
+ 
 
+base-commit: a3dee9bb902ee4357fa02e49b415d7724ee0140a
+-- 
+2.53.0
