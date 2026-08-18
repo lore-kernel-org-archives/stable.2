@@ -1,160 +1,111 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A71D3C1979
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 10:17:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723DD3B637E;
+	Tue, 18 Aug 2026 10:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787048266; cv=none; b=RH6DigqSH5lLc5FT+SCpJ1JCCMqT0Ykek5d4AEod/PVAFRxrDS8ndYNOBF0F9bLfxXsyVFwc+GXEXc6pX5fPTNpsTfqgdW4zPCvDS4dhrYQf6a+a4ybtuikqA7CRZqcTEabI5H+uyb9L0NLa3HnZODqEeFeb+QG6sW/dW1lHLkk=
+	t=1787048317; cv=none; b=gLw4cm7TvCm7nD1F4G4ewVchABVvFTOxRalRlZMkpUQuKVPAxCWZJt9/LYrvYHW5e0QkSMcOxXjUGrvmzFSpH/umx3VsLWfepqEanA9kmH2dV3yDXPIzJZuyH//GV3yXdwClN/QjXK6sWH7IJNrs/HFH1tgobXTEyXraUr0gcjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787048266; c=relaxed/simple;
-	bh=/I3fqurkIVvuHLg56QKuZbaJJhBk7ENuiTDNDBMN0Tk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=o84f2dtgYMjA2mxq7bSChUFflXPhm4dag+/Bk7wu+F0txGIofavKEqzGhVTu95/Yis8iajSCKDrnVODemhiCZ6TRlsrfD1gLSsjw5hsjGeI6e0RSg/Soz6FP38Nrn6aQc7kVJvKvdnmmb9+J0UcFLXf0X2Gtej/vMssqDr9AAHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=IqIDnPTY; arc=none smtp.client-ip=209.85.222.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1787048317; c=relaxed/simple;
+	bh=W1YH3+8VVyvfEepL+yHDGcRwlem1OIr1djZsbDMYCGI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p1G5xVdMRfQLxV06qynilKWYxdD4yZy4o34fIs4LTugLlkFxo8/wsjZA0jjOcXGAsPWHTG7lvYqwfbrGUtINGkgKk6AAScDTE0Af/HzL1vONOseCBgvm2Wrv6EY6Znbi8Ww5ESI93mj9hHaYjXK4lQ9oZLh5YLlOwVcV7ZrS/BI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KV386nPW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="IqIDnPTY"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-9349ad9c857so438990785a.1
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 03:17:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787048262; x=1787653062; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gxq5ZSvaEO4ApbVTxKVnsTovrfCAc4uzDIUjvK/vOu4=;
-        b=IqIDnPTYJbQiubqEUZk4klKwNvaDAl8UojdlM3oy2w6mcf5aJljMHnIM2cupcmmsx/
-         e35at+V7d6BpIbm2QU51LX+u4WjootA8hDBCiYedTliE2ovvDCy7FVmcNoRJoOLVlI2W
-         YZ9RqR9ROsZ+NQ+nQzGqwTVJt73M1G02/rhOM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787048262; x=1787653062;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gxq5ZSvaEO4ApbVTxKVnsTovrfCAc4uzDIUjvK/vOu4=;
-        b=c/HgSBIGiHf9ZKnrmtC+aso53u2Zj/OYuXnINPIb2P1CML39Thoi3xqT7cQuZKCaYz
-         rdVMAVdIWUJHdLVIQDpt2jcxRire66FnSQUNL/7nxbOxdQ2WTpH47cXTKtCy0ZAQrOju
-         RHNxWb+QT7ucsjWFm7IzskYkt5jNyV5x0NZRXskQ2WCUCf8JiKElMpHuXng8ZLYdNY5y
-         R+ZRoeMB97TKkZL17i+xd1Gh8jZKYcHUgXaGBOo8VPxRrb+PjbkFK9rHJFo+Rg4EiD3D
-         bWOPuX5yL9zr7IAru1lOsp8E4xX4iO1qG1By0PuLUuGtpz8fxqrKYc/twHbUBO2JXowe
-         sYBw==
-X-Forwarded-Encrypted: i=1; AHgh+Rop5buP6m/JKwzjciJpbbAq2eTHRIo6bTdFCqhOoHjY7/iRoAOMUTWue5bwEvmrmk3uYGFwo9o=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/pa/moW0+n+RlYXmptTlt7UhuE31MbVWB4G8jr2owppTngRqG
-	Z1sBW5D69oXNcd7aGym5cvlV1NiEa2IAKWZNBPLWmGOfmuf2gGZuvctFlpzMAP+RCQ==
-X-Gm-Gg: AR+sD13glisLxTQd01kcfkL1dY8/briwsriM7eUWgqT+0WcYDoccLncNG+qNQ0hLjPr
-	amUavaBccAdGTYzpwCJGyke+PwlA0aTviQmvJldT5yPS2IX8GOlckt3e9H9r5wGEySXqYKwbxNE
-	tbsxcOz5alDtvDShT2c6FrN6bMAeHtvX5RZfQss69+h+xWL0VvbA1XCt9E/ljZCiRWcosaCP3NS
-	aVgbIJAyALc5ICpYcViU3HCO+aigHoD5bnCmrrdUoGTXq5BlaiYeiueJbkQdkc8t3JJhLkbRJFW
-	OyPpyZKfEWV/MhNrSXebB11uN7KvxsUYgPQaXSrCOPlOUXRNw7AI/i8N+iijkqiu1XrOtmROXfE
-	X1WE86uJOQ4jH4mH4+7dqDN5nbH3weC7A/dug0YkeQAk9qj6qUc7telWX9HXWcJ1AbthWBUl/v4
-	YBs654iSfSgSz0nDQga3iQMKt7Oe1cC1GFGoQDj6PYJgzUJdqvrFMg7RaajbK6hV2iRBnOFmhkO
-	GrAs1o/bYNpX541Uaqon1KId6pL2Hw24lpeb5t2FdDFfg==
-X-Received: by 2002:a05:620a:284f:b0:92e:8a8d:ec1f with SMTP id af79cd13be357-936d22ce70emr3509189485a.24.1787048262181;
-        Tue, 18 Aug 2026 03:17:42 -0700 (PDT)
-Received: from majuu.waya (bras-base-kntaon1621w-grc-04-184-144-29-222.dsl.bell.ca. [184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-937010e7fc0sm299346985a.20.2026.08.18.03.17.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 03:17:41 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	stable@vger.kernel.org,
-	vega@nebusec.ai,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Subject: [PATCH net 2/2] selftests: tc-testing: add TCA_STAB overhead rejection tests for DRR and ETS
-Date: Tue, 18 Aug 2026 06:17:35 -0400
-Message-Id: <20260818101735.16655-2-jhs@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260818101735.16655-1-jhs@mojatatu.com>
-References: <20260818101735.16655-1-jhs@mojatatu.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KV386nPW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECAF21F000E9;
+	Tue, 18 Aug 2026 10:18:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787048316;
+	bh=jwMVdHrvk7kTvruvTnXxLTgiBwjN9S2XLihzM95fzKA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KV386nPWRRE08204XuIMIhxBIzXbvitBA2n8kC55lLchcC5H77jxWoNLp+CcZpgn3
+	 2LTsZDmsFve1IDOETXFC31pTaUC6MfVOaYE6NuvXCjh/RzCry0bp9mbFs2YZLEwSi6
+	 oDATN7X738a1cU1OBcGN4JFa2c6YxmKRqdxEVKExxYfuq7Doi24xvNkSfVcJwA4zmV
+	 a35f81ArZpZD7kevePUAlhXuTZMr71l2xfygQfsQub6A0mylXm3vaZqOT0UlpqPG07
+	 FpGyINUmTYl6VeIi1AW37N4uDPvYztCq/elHtEVXuU9F7lFFLOmQMxTQAQ+7ebylFv
+	 jC9UKQtXv+BQw==
+Message-ID: <63b6eb28-dc1b-4e51-89c0-1591ff216da5@kernel.org>
+Date: Tue, 18 Aug 2026 12:18:31 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Bluetooth: hci_bcm4377: Ignore reserved PHY in ext adv
+ reports on BCM4378
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-bluetooth@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260818-fix-bcm4378-ext-adv-v1-1-81a143eac194@kernel.org>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260818-fix-bcm4378-ext-adv-v1-1-81a143eac194@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add tdc test cases that verify a qdisc with an oversized TCA_STAB
-overhead (2147483000) is rejected. Without the fix, the qdisc is
-accepted and a single packet drives the deficit loop into a soft
-lockup; with the fix, the add fails with -EINVAL.
+On 18.08.26 11:49, Lorenzo Stoakes (ARM) wrote:
+> Commit ed2a2ef16a6b ("Bluetooth: Add quirk to ignore reserved PHY bits in
+> LE Extended Adv Report") added a quirk to handle creative use of the
+> reserved bits in the PHY fields for 4388 controllers in Apple silicon.
+> 
+> I observed the same issue with the BCM4378 Bluetooth controller (14e4:5f69,
+> rev 05) on an Apple MacBook Pro (13-inch, M2, 2022):
+> 
+>> HCI Event: LE Meta Event (0x3e) plen 51
+>        LE Extended Advertising Report (0x0d)
+>          Num reports: 1
+>          Entry 0
+>            Event type: 0x2513
+>              Props: 0x0013
+>                Connectable
+>                Scannable
+>                Use legacy advertising PDUs
+>              Data status: Complete
+>              Reserved (0x2500)
+>            Legacy PDU Type: Reserved (0x2513)
+>            Address type: Random (0x01)
+>            Address: EA:C1:82:F0:24:C6 (Static)
+>            Primary PHY: Reserved
+>            Secondary PHY: No packets
+>            SID: no ADI field (0xff)
+>            TX power: 127 dBm
+>            RSSI: -57 dBm (0xc7)
+>            Periodic advertising interval: 0.00 msec (0x0000)
+>            Direct address type: Public (0x00)
+>            Direct address: 00:00:00:00:00:00 (OUI 00-00-00)
+>            Data length: 25
+> 
+> This results in the firmware rejecting connection attempts with
+> "Unsupported Feature or Parameter Value" (0x11).
+> 
+> Fix the issue by using the same quirk for BCM4378 devices too.
+> 
+> I tested this locally and confirmed that the issue is resolved.
+> 
+> This was observed when attempting to connect a Kinesis Advantage 360
+> keyboard to the MacBook.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Fixes: 2e7ed5f5e69b ("Bluetooth: hci_sync: Use advertised PHYs on hci_le_ext_create_conn_sync")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-Reported-by: vega@nebusec.ai
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
- .../tc-testing/tc-tests/qdiscs/drr.json       | 20 +++++++++++++++++++
- .../tc-testing/tc-tests/qdiscs/ets.json       | 20 +++++++++++++++++++
- 2 files changed, 40 insertions(+)
+Reviewed-by: Sven Peter <sven@kernel.org>
 
-diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/drr.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/drr.json
-index 2b61d8d79bde..7713eb35aaeb 100644
---- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/drr.json
-+++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/drr.json
-@@ -86,5 +86,25 @@
-         "teardown": [
-             "$TC qdisc del dev $DUMMY root"
-         ]
-+    },
-+    {
-+        "id": "d1e2",
-+        "name": "Reject DRR qdisc with oversized TCA_STAB overhead",
-+        "category": [
-+            "qdisc",
-+            "drr"
-+        ],
-+        "plugins": {
-+            "requires": "nsPlugin"
-+        },
-+        "setup": [
-+        ],
-+        "cmdUnderTest": "$TC qdisc add dev $DUMMY handle 1: root stab overhead 2147483000 drr",
-+        "expExitCode": "2",
-+        "verifyCmd": "$TC qdisc show dev $DUMMY",
-+        "matchPattern": "qdisc drr",
-+        "matchCount": "0",
-+        "teardown": [
-+        ]
-     }
- ]
-diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/ets.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/ets.json
-index ee09e6d6fdf3..da7ae626f7e1 100644
---- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/ets.json
-+++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/ets.json
-@@ -1007,5 +1007,25 @@
-         "teardown": [
-             "echo \"1\" > /sys/bus/netdevsim/del_device"
-         ]
-+    },
-+    {
-+        "id": "f3a4",
-+        "name": "Reject ETS qdisc with oversized TCA_STAB overhead",
-+        "category": [
-+            "qdisc",
-+            "ets"
-+        ],
-+        "plugins": {
-+            "requires": "nsPlugin"
-+        },
-+        "setup": [
-+        ],
-+        "cmdUnderTest": "$TC qdisc add dev $DUMMY handle 1: root stab overhead 2147483000 ets bands 1 strict 0 quanta 1",
-+        "expExitCode": "2",
-+        "verifyCmd": "$TC qdisc show dev $DUMMY",
-+        "matchPattern": "qdisc ets",
-+        "matchCount": "0",
-+        "teardown": [
-+        ]
-     }
- ]
--- 
-2.43.0
+Kinda surprised no one ran into this so far tbh.
+
+
+Best,
+
+
+Sven
+
 
