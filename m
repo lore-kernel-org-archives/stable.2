@@ -1,93 +1,112 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72594392C4C;
-	Tue, 18 Aug 2026 13:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4558A451980;
+	Tue, 18 Aug 2026 13:59:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787061220; cv=none; b=GIDZd9EzTg5JUNp+HR6TyYnG3Xx8NmhNCYMYAWmPvSZ6aMNxrZYn20/cFkMDjCcbfZ0CUccdpk9T1NhBgo3UHNKQE6UyipLuZQQrsPViat1AlIzQXTcn3dw+FbIyiQJ7NDwfBTiTJ7Yj+Clkvuh9Isd847EIN1CSAZaLHAl1d5U=
+	t=1787061543; cv=none; b=erBtRDqN2JBUnOyBnxARFlC28dD+GYquph9buvlrmrcW3vThXghCEv7RBnOK2wm70yc6t7vGJ66A1AXoZnING5jtdiY8tyJ8MLkrj0T5c2rcKLyllnGtlEf93mlJsX8WQ2Mq1NKJpREIkqZ8jWs1J+s2954SNIJUZN+3Qnxlu1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787061220; c=relaxed/simple;
-	bh=e1tuGGIP/ZBZCvqevNu0/K1XTDfvFeK+Xm8w4RcQAic=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iHXr3FCVVn1VgMT3d9j4D0M6AxD4n6fXFbmp0ODCC1rANtbc1Xn6QzIfDiIwVDj+wE3++49s3+HzqRK81Iw65LK4iMc3h6Wa9M4ohenv8XRCJY2fdEMoloHsjoCFElSqlg2wye67cG9VenpVayTuMYASAw1/9Ijzw4Nq/ESXLGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=G0qBUXxe; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1787061543; c=relaxed/simple;
+	bh=HkRqaq1bppOapJdI6Znqno4j3pC+nLGwmFM6kH8Rja4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U6do32dmNK55vNQrQy2zIL15cabqH2DPxlHM+6olkB+2QfZVA3NwOsrJPGzqt8yF5fqkR3a0OOHsAoeneQjADE+CjagB/F8OgagUmjG0V97BFAvhZk5EQhaFhJsXC5t99rOwP9K8/ZovgRSN/ExUOnb7KN5oE9p018PYBVJL1sY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VIG0vdbQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="G0qBUXxe"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4a6d2cde8;
-	Tue, 18 Aug 2026 21:53:24 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Helge Deller <deller@gmx.de>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dave Airlie <airlied@gmail.com>,
-	Tomi Valkeinen <tomi.valkeinen@ti.com>,
-	linux-omap@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] fbdev: omapfb: panel-dsi-cm: initialize lock before registering display
-Date: Tue, 18 Aug 2026 21:53:18 +0800
-Message-Id: <20260818135318.1957283-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VIG0vdbQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 961071F00A3D;
+	Tue, 18 Aug 2026 13:59:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787061541;
+	bh=IUwCSKDdvc2Hd6HBWRbeUXBKw/UjY3Ju8eE9RP9agVU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VIG0vdbQsIQACw9W71TaQkhdzpEtJhF+ZqIlu3U3jZxBcEXkDXHosJPnSXjBNtxGz
+	 HRN3ZkdX+C2VR8OXaa9/+gifwH3kEE6OHotB1qG+9WzzNAl/GhyG4M5YCFgf76ME68
+	 Bo6ZO/+0jfzWndEk6E8bT+uRdyrCT5o7Gp2Te7fixHal+jwPT4xscq3P2eD3fFcpG/
+	 y9xpiE0c5qWEoJJyau1c6LRtp1KQQgUGfFx8tSSuPukz+5OBQ/FOtwPStU7+6dirjL
+	 2HSJnthgwZk6jmxKQkEhzDVNQ18dI+h0x4BCrMbKbrBVNpr23B+TAjOpC8Dw0pZUss
+	 8zFFa4q0nwX3A==
+Message-ID: <151c7b8e-8ae7-4355-81bb-51fd487ef418@kernel.org>
+Date: Tue, 18 Aug 2026 15:58:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa01525f6e303a1kunm72eec736112e9a
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQhlPVkIaSxgfSkpPQ0lMSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=G0qBUXxeocdkLCIoutjgBg2bW2KZzL0MMhhr5go1jone8lqArYrEx392j8fvU7hKyeADD48P3x9yYzvSsZZxZmw+XGGj5N0i2tv9yKx74lWGwpObIE5iRlIxJymIB4BgTxSH6XNiQrB4AheC42H9pWUbPvEGU4wuWrwklBQDJXI=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=s8wa7yiZYDJ20bpSxGQc5WMiume6jdmMCtn+WJuBMr4=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] virt: vboxguest: fix use-after-free in balloon work
+To: Fan Wu <fanwu01@zju.edu.cn>, arnd@arndb.de, gregkh@linuxfoundation.org
+Cc: virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260818081139.399994-1-fanwu01@zju.edu.cn>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260818081139.399994-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-dsicm_probe() registers the display before initializing ddata->lock.
-Once omapdss_register_display() publishes the display, another consumer
-can reach a dsicm callback that takes this mutex while it is still
-uninitialized.
+Hi,
 
-Initialize the mutex before registering the display so the published
-callbacks always see a valid lock.
+On 18-Aug-26 10:11, Fan Wu wrote:
+> VMMDEV_EVENT_BALLOON_CHANGE_REQUEST is reported only after a guest
+> userspace client enables it with VBOXGUEST_IOCTL_SET_EVENT_FILTER.
+> The interrupt handler then queues the balloon work, which reads and
+> writes the mem_balloon.get_req and change_req request buffers.
+> 
+> vbg_pci_remove() calls free_irq() before vbg_core_exit(), but
+> free_irq() only waits for the handler to return, not for any work it
+> has queued.  A balloon work still running on system_wq therefore
+> touches the request buffers after vbg_core_exit() has freed them:
+> 
+>   CPU 0 (remove)          IRQ handler              system_wq
+>   free_irq()              schedule_work(...)
+>                          return
+>   vbg_core_exit()
+>     vbg_req_free(...)                             vbg_balloon_work()
+>                                                    req->event_ack = ...
+> 
+> Fix this by calling cancel_work_sync() on mem_balloon.work in
+> vbg_core_exit(), before the request buffers are freed.  The worker
+> does not requeue itself, and the interrupt handler, the only place
+> that queues it, can no longer run when vbg_core_exit() is reached:
+> vbg_pci_remove() has already called free_irq(), and on the probe
+> error path the irq was never requested.  Draining the work once is
+> therefore sufficient.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: 0ba002bc4393 ("virt: Add vboxguest driver for Virtual Box Guest integration")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-Fixes: f76ee892a99e ("omapfb: copy omapdss & displays for omapfb")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks, patch looks good to me:
 
-diff --git a/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c b/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c
-index 1d75f27c6b80..ce1d4d5f4034 100644
---- a/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c
-+++ b/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c
-@@ -1151,14 +1151,14 @@ static int dsicm_probe(struct platform_device *pdev)
- 	dssdev->caps = OMAP_DSS_DISPLAY_CAP_MANUAL_UPDATE |
- 		OMAP_DSS_DISPLAY_CAP_TEAR_ELIM;
- 
-+	mutex_init(&ddata->lock);
-+
- 	r = omapdss_register_display(dssdev);
- 	if (r) {
- 		dev_err(dev, "Failed to register panel\n");
- 		goto err_reg;
- 	}
- 
--	mutex_init(&ddata->lock);
--
- 	atomic_set(&ddata->do_update, 0);
- 
- 	ddata->reset_gpio = devm_gpiod_get(&pdev->dev, "reset", GPIOD_OUT_LOW);
--- 
-2.34.1
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+Regards,
+
+Hans
+
+
+
+
+> ---
+>  drivers/virt/vboxguest/vboxguest_core.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/virt/vboxguest/vboxguest_core.c b/drivers/virt/vboxguest/vboxguest_core.c
+> index b177a534b6a4..884e69d00f72 100644
+> --- a/drivers/virt/vboxguest/vboxguest_core.c
+> +++ b/drivers/virt/vboxguest/vboxguest_core.c
+> @@ -1048,6 +1048,8 @@ int vbg_core_init(struct vbg_dev *gdev, u32 fixed_events)
+>   */
+>  void vbg_core_exit(struct vbg_dev *gdev)
+>  {
+> +	cancel_work_sync(&gdev->mem_balloon.work);
+> +
+>  	vbg_heartbeat_exit(gdev);
+>  	vbg_guest_mappings_exit(gdev);
+>  
 
