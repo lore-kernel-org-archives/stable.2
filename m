@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027AA226D18;
-	Tue, 18 Aug 2026 17:39:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C15530D3E0;
+	Tue, 18 Aug 2026 17:39:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787074745; cv=none; b=m19hjx4EgH3cjbg6k+QSQqVWgIJNZJSXQ0Gvwt7mBNeX1+iWnFlu+SV999rwj6a+82UdAQ5emOwTwJUZzi+/9LVaFEYRDFxNoX//dZTK91D3e050r7hnVOIznYkfpH3SooI62vEU4Umw9ZcU0qaHyOSORZJmRPVvT/6FElSAEOo=
+	t=1787074767; cv=none; b=l7OT+4BtoRftLX77arjXStp5eFfaSz20MYK8E8MuNTZQ39znEHl5X59KwwPE7zRblESwWLJzCiCRUf/4BGYoxJJBzSRhEshe60tgZxsSJKJ/riXBtX3inbON6Ok3BiswDg2NkJMVqHqHzYf1+5E9DE7e6x2F3BIwkEWghX4V5z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787074745; c=relaxed/simple;
-	bh=loAphD++F5F+ODofjKZuk4fwTC6hvA11p5sJDFFfoVI=;
+	s=arc-20240116; t=1787074767; c=relaxed/simple;
+	bh=S3m+dUX5DvIumhyknMw3Bj+IVUe+BqD1uPOTav5B2KM=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=p/OKpF5shQyFOtq3GzpzUQnTMWe4N3FuZyhjIP43Y9BoZ+PkLcm4/bsJoqJsMR/r0Qyu65z9iJm02Wc6ocCHXkBDAZfEv8U8DsrncClRIFHFDjFjI/L+QUuHLeF4EYvOomo9U/EcCddNws8SaOED994WaA8YTLrVQV/GciKCT0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BigtRrJK; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=U9X5GGX2Me211V0JcARcCwijLouq5zecFstzOB8QV8ppDe7FwuebIfSPGildTxX3P27N5ez9xK6+9qZxi57hM1NUTvBpgusWLgavNWZn8xAG0hgWhkzFa/2cZsUjDxfZyEzitC0IPmv61KWL6ibBurzkkbOubEkWVaxwa7X4/xA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BfiyWiVM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BigtRrJK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C63531F000E9;
-	Tue, 18 Aug 2026 17:39:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BfiyWiVM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E8981F000E9;
+	Tue, 18 Aug 2026 17:39:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787074743;
-	bh=cBUG/aFVbnBvexeXKOjJQTo/Cdbax88oUFNJ1PI6Tgs=;
+	s=k20260515; t=1787074766;
+	bh=P2jfVtVVMgmPti/mxygu6b8VQ9yP/XMG0s/OzqIKvAE=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=BigtRrJKMJrucZXyv+0Er46Ava4IsE3aSX1OMxdLNmwlJdPDAGQ9++rMNvvy4CzXZ
-	 Yys/Dik74lKzxqhvV5liz/6x1RPRroB/QzdZE6sGsWKm4D2Dphm4pYX4ou87GvqaWq
-	 BBARJOpTtc22wyj3DF4qf6E9RM5HGCTr/YM7RqPwGrHp/cjOc/TmjIhnV1tNEHtlUt
-	 LfKRU7hhzHkpUC21ujzO0uhu8OSEEQFQ+YUAtRLwpuLswpxevxAFAFBpwKC4XmHQ7E
-	 1MZxoMfNj/gj8py/EVyaMBe0YZ3pakw+moqqX/BHhbUfVEoIxH4apth4VrdwwHeoCb
-	 3bekxPKHBN+Dw==
+	b=BfiyWiVMNtpYuuxLCzvRktuyz3pK/u6/nYdxKBzH/Ulph/5+J4TaVMeqg71GRK7DG
+	 1p5XT72hVZks8e3+tUy6k5CjFmhZdNjSx1aSRow9dNWnNVLyMTHIQZ504eLN3Ck3r5
+	 BWd91w8w+zrFWYKbX1LQwCMuff7gqt+2yLzVOMEFb4dbRkgIL0YZn8ijxlHddMWhid
+	 kKkrmSsJ5c/hdp14S4f/T84iFu2n0erH9E8Lvj/3YkbekZVtUZBu8SvmchF4E1i7lj
+	 Ua4wlJHMgNbRgLHkdj3cYPJAAMscC2TmYA0I9/SCHVyNxmcfgtoTu/NA5opgMwd05k
+	 CsU3aO1Fca+vw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93A8F3927043;
-	Tue, 18 Aug 2026 17:38:16 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A203927043;
+	Tue, 18 Aug 2026 17:38:38 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,39 +37,43 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net V3 RESEND] net/mlx5e: do not HW-GRO coalesce small
- frames
+Subject: Re: [PATCH net v2] net: openvswitch: fix nf_connlabels leak in
+ ovs_ct_init
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <178707469522.2194892.9488420568567548375.git-patchwork-notify@kernel.org>
-Date: Tue, 18 Aug 2026 17:38:15 +0000
-References: <20260816064259.3279548-1-tariqt@nvidia.com>
-In-Reply-To: <20260816064259.3279548-1-tariqt@nvidia.com>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- benishay@nvidia.com, gal@nvidia.com, gmj@meta.com, khalidm@nvidia.com,
- leon@kernel.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
- mbloch@nvidia.com, saeedm@nvidia.com, stable@vger.kernel.org
+ <178707471727.2194892.12887232737858132657.git-patchwork-notify@kernel.org>
+Date: Tue, 18 Aug 2026 17:38:37 +0000
+References: <20260815151729.3757984-1-ruoyuw560@gmail.com>
+In-Reply-To: <20260815151729.3757984-1-ruoyuw560@gmail.com>
+To: Ruoyu Wang <ruoyuw560@gmail.com>
+Cc: aconole@redhat.com, echaudro@redhat.com, i.maximets@ovn.org,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, pshelar@ovn.org, yihung.wei@gmail.com,
+ netdev@vger.kernel.org, dev@openvswitch.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Sun, 16 Aug 2026 09:42:59 +0300 you wrote:
-> From: Glenn Judd <gmj@meta.com>
+On Sat, 15 Aug 2026 23:17:29 +0800 you wrote:
+> ovs_ct_init() acquires a connlabels reference before initializing the
+> conntrack limit state. If ovs_ct_limit_init() fails, its error is returned
+> directly. The pernet core does not invoke the exit callback for the
+> operation whose initialization failed, so ovs_ct_exit() cannot drop the
+> reference.
 > 
-> When hardware GRO (SHAMPO) coalesces a small IPv4/TCP segment that was
-> padded up to the 60-byte minimum Ethernet frame, the trailing padding is
-> folded into the merged payload causing padding to be delivered
-> to the user as payload.
+> This leaves labels_used elevated when Open vSwitch pernet registration
+> fails for an existing network namespace. Subsequent conntrack entries in
+> that namespace may allocate label extensions even though Open vSwitch
+> failed to register.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,V3,RESEND] net/mlx5e: do not HW-GRO coalesce small frames
-    https://git.kernel.org/netdev/net/c/e2466392a0b8
+  - [net,v2] net: openvswitch: fix nf_connlabels leak in ovs_ct_init
+    https://git.kernel.org/netdev/net/c/f9de5db270a4
 
 You are awesome, thank you!
 -- 
