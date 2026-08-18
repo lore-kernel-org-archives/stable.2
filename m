@@ -1,34 +1,72 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48A8A30274D;
-	Tue, 18 Aug 2026 08:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from mail-wm2-f7.google.com (mail-wm2-f7.google.com [74.125.225.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F313845A6
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:14:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787040781; cv=none; b=csLZUQ2BF1BTvPCbHFBvtRBnn2T3cW4y3aYgzpqO1tYSQ3s46TweSGbDl4jD4EmK9TPyJrngWtZTBkEXRNJ3Hiu8c1rfjVX+vouwQNg2CrshJsMbWsygxy0J/9nxZNsPfBFmFkbLCd3MzwyM+Ycn1iLV5IIeNe+4Ov1tEuQmsTE=
+	t=1787040877; cv=none; b=GnObA/bviYzvAmMASwn9aem8T3pCP10ybtB4tvkqK7LcSLp08OWKY4NEgwckbetpSlyQwP9twLSLsPYVTyeyd7av0JNs7rhDlmOzgCZnlPkI2rewVuQr6fnigWBQx/MJB+NToqd0zCkIG+QAH9MBZIABmen46KkCLl5Q7kR8N3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787040781; c=relaxed/simple;
-	bh=8Rkk4e5WTxH3+6c3o6Adc8ngZf6wgKB9h5G6sxCUzg4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SHnK7c8wIQCUgFx2cYDIPvGzT2M94Gp1npOzVzQWMRyPASoohwcOYOwLgSkFQfi/siMBPiG6czcx1NKmRtpXWvFDn0PtoMD9Ifk/X0AN/vO2TZyWjKGAfvX+Adu8AyQclzzHpM5ZqBUZJ3ZPUSZp9/5TqxmjlhgC1mkf9pY+9Bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wC3gX3zE4Rq0_uiAA--.35410S3;
-	Tue, 18 Aug 2026 16:12:36 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgA3T3HyE4RqELh4BA--.51434S2;
-	Tue, 18 Aug 2026 16:12:35 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: hansg@kernel.org,
-	arnd@arndb.de,
-	gregkh@linuxfoundation.org
-Cc: virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] virt: vboxguest: fix use-after-free in balloon work
-Date: Tue, 18 Aug 2026 08:11:39 +0000
-Message-Id: <20260818081139.399994-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1787040877; c=relaxed/simple;
+	bh=LGEEYwrDDjYlI4xq3y3au/4mSR/WgnhKjANJvWo0y+U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ifZ4vs444Zloa7hiiJtL2uSj4es+09QYUnDZsnnrqe3aya6Gt1NWlLs02kRDbUbSS4Npab0hBsVdHxJEvkSrX4rhIV5Q/KepeaxxPb6qPS18o1GD2OwfP9BIQoYQE/vX460Xd5Yc+0Ynr3c6Ghqv+xbQshtpqUF20CPp5rKpCv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Yadjh3MM; arc=none smtp.client-ip=74.125.225.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Yadjh3MM"
+Received: by mail-wm2-f7.google.com with SMTP id 5b1f17b1804b1-498074920dcso18401265e9.1
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:14:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1787040874; x=1787645674; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5pAmmE6k6SRufhwVUzL6Niq7/iJdZAFyLPpQR+7pDuk=;
+        b=Yadjh3MMXBKE+//RsUKOKlyK7zP9LfJDXprDePZt0hS3KzdevEPLAKwRTZbv79W3R3
+         r6rBYgCFYSkjE8v1UdwwYNlVEitSOYmZAPtbzDV50QvvwopEi4gT6UCz4fy5Gaxh62ac
+         ABMgMhtiBnH7DQw6xiKWi+V4v8r9J2RU3ogH5mPviQTeq9Dbdd0qg8xJqRbu3NoQzXBf
+         FphaRA32HuETZzWrcAFlbhC8OkkNgPLGtx6ZQD4+/XrWI5f5p/mk/8aJ+X3bR4KjfqYu
+         rf93Nbe75zHzWOKhZDWEEh8AJCNXwGsjkr8A5LGrwICEbPAdRSeqfdYlZnF60R9hZIex
+         tqrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787040874; x=1787645674;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5pAmmE6k6SRufhwVUzL6Niq7/iJdZAFyLPpQR+7pDuk=;
+        b=T5yjTu13ma08hkBhpkb+OuKSM9UIC9sizxJjJVdggi3qECaDoipaKfwDTDr85qN/qF
+         HaDd6JtYmx9ZvCTi5vzd5BcSkAnS7HQQ+iwP1HdeYZp2iFNpSaGJ8Twe8fwziUeHO+U7
+         Dv/YVGtEp8+sU84/eCMpi07Jdb9PpNyUQPEZbHipVPlqhWWETXGJQGA6sijRYRICX7m+
+         ncEj0LO4senunTbnk0nhJDZOp2VN35A5+MHqkJAAyR/yFTbYXhPmtSbCZMEV2G59P9Ar
+         +hxJdQyMYBaWiKijQa1c6dVwRqTY2b+XXdDF+V9k+3ZyWs+IPhnFYPkeVq8U3ry1/47g
+         X/GQ==
+X-Gm-Message-State: AOJu0Yz1uc7cU4d77Q/vQuZNhap9zsCKSsZ7ScMMbzAw8/ZXyWe/v8w+
+	bgvKLYYxRLiIzxHOb4/bAbiFztlkAJNXcQDsmpBg5ATu5zw7ESA/RbKCrAsHpLgl624LSvGn9GU
+	MequFcSrSgxrZ
+X-Gm-Gg: AR+sD10urruK+8xKx85usZqx7xbo3YTEdiDAckTXppQd9w4PZScKlZb9t3aKGF3zsPk
+	7R+afrU721rJGiPKSB6oM6I+XsAUAwvzs2XVVs/gKpIHwgqJyDBngQNBRu8xo+D3IF4gnHGVN5l
+	KxHJ7VF+kynpRCvhLIGvWPyTSxOdyo1pnAK2pvtNVNcREZEL2yI/b9u3vN53Q5DBoGE15RjNwhm
+	hPWgDlWL3Zum1rrvcN735mxOOUGwOPJG/3f8sgsAI+fNJC7UpFZa4adboIOMeGJ+lIbmWaz+MOd
+	mhQL+jyOLToqfeNyznJzcyOKtwVTPqmelEAHS2wwLEL23QPb9fXvcXwCVuNPwuizZVOp0I5PeKv
+	EjyqQ6kfHzg0Fe0IQmKN5aev8MXwn+IrTYp81mFa0j+2bkkn/zXUmSQUTJrrSd7c7z3mndTexFQ
+	mt7kV730L2Li7gKTAi5w1qKC7d9ngLSbHof1mRubB7rhv3h01bPG9U0XDzg6xWf7+IyZxdasO12
+	87UqXOLUkZM/eqLeg==
+X-Received: by 2002:a05:600c:c171:b0:499:7f38:d77 with SMTP id 5b1f17b1804b1-4999fb2e1dbmr111259955e9.6.1787040873602;
+        Tue, 18 Aug 2026 01:14:33 -0700 (PDT)
+Received: from localhost (27-240-49-235.adsl.fetnet.net. [27.240.49.235])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3954d3b3b91sm5227715a91.13.2026.08.18.01.14.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 01:14:33 -0700 (PDT)
+From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+To: stable@vger.kernel.org
+Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
+	STAR Labs SG <info@starlabs.sg>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>
+Subject: [PATCH stable 6.12 1/4] bpf: Fix linked reg delta tracking when src_reg == dst_reg
+Date: Tue, 18 Aug 2026 16:14:19 +0800
+Message-ID: <20260818081428.57938-1-shung-hsi.yu@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,77 +74,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgA3T3HyE4RqELh4BA--.51434S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?wdwB/gXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WNUZUskktimozYxW8ba9i/wgnDXgVi0t5G+j51kPNETvrdH
-	TeUHjVrNU9pXGHEeLL2p9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7tFyrCrWkAr17Xw4fWr1kXrc_yoW8ZFykpr
-	W3Cr9IkayUKF4Utw1xt3Wjva4ru3s2yr9rurW0vw1ayrsIyryjvr45CrWjvFZ5AF18KF1r
-	trsYqr98KrWUJwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-VMMDEV_EVENT_BALLOON_CHANGE_REQUEST is reported only after a guest
-userspace client enables it with VBOXGUEST_IOCTL_SET_EVENT_FILTER.
-The interrupt handler then queues the balloon work, which reads and
-writes the mem_balloon.get_req and change_req request buffers.
+From: Daniel Borkmann <daniel@iogearbox.net>
 
-vbg_pci_remove() calls free_irq() before vbg_core_exit(), but
-free_irq() only waits for the handler to return, not for any work it
-has queued.  A balloon work still running on system_wq therefore
-touches the request buffers after vbg_core_exit() has freed them:
+commit d7f14173c0d5866c3cae759dee560ad1bed10d2e upstream.
 
-  CPU 0 (remove)          IRQ handler              system_wq
-  free_irq()              schedule_work(...)
-                         return
-  vbg_core_exit()
-    vbg_req_free(...)                             vbg_balloon_work()
-                                                   req->event_ack = ...
+Consider the case of rX += rX where src_reg and dst_reg are pointers to
+the same bpf_reg_state in adjust_reg_min_max_vals(). The latter first
+modifies the dst_reg in-place, and later in the delta tracking, the
+subsequent is_reg_const(src_reg)/reg_const_value(src_reg) reads the
+post-{add,sub} value instead of the original source.
 
-Fix this by calling cancel_work_sync() on mem_balloon.work in
-vbg_core_exit(), before the request buffers are freed.  The worker
-does not requeue itself, and the interrupt handler, the only place
-that queues it, can no longer run when vbg_core_exit() is reached:
-vbg_pci_remove() has already called free_irq(), and on the probe
-error path the irq was never requested.  Draining the work once is
-therefore sufficient.
+This is problematic since it sets an incorrect delta, which sync_linked_regs()
+then propagates to linked registers, thus creating a verifier-vs-runtime
+mismatch. Fix it by just skipping this corner case.
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 0ba002bc4393 ("virt: Add vboxguest driver for Virtual Box Guest integration")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Fixes: 98d7ca374ba4 ("bpf: Track delta between "linked" registers.")
+Reported-by: STAR Labs SG <info@starlabs.sg>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Link: https://lore.kernel.org/r/20260407192421.508817-1-daniel@iogearbox.net
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+[shung-hsi.yu: contextual difference due to commit 7a433e519364 ("bpf: Support
+negative offsets, BPF_SUB, and alu32 for linked register tracking") not
+backported. ]
+Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
 ---
- drivers/virt/vboxguest/vboxguest_core.c | 2 ++
- 1 file changed, 2 insertions(+)
+Checked that after this patchset is applied, no new test failure
+occurs[1] when compared to baseline[2] (which currently has some
+failures unrelated to this patchset).
 
-diff --git a/drivers/virt/vboxguest/vboxguest_core.c b/drivers/virt/vboxguest/vboxguest_core.c
-index b177a534b6a4..884e69d00f72 100644
---- a/drivers/virt/vboxguest/vboxguest_core.c
-+++ b/drivers/virt/vboxguest/vboxguest_core.c
-@@ -1048,6 +1048,8 @@ int vbg_core_init(struct vbg_dev *gdev, u32 fixed_events)
-  */
- void vbg_core_exit(struct vbg_dev *gdev)
- {
-+	cancel_work_sync(&gdev->mem_balloon.work);
-+
- 	vbg_heartbeat_exit(gdev);
- 	vbg_guest_mappings_exit(gdev);
+1: https://github.com/kernel-patches/linux-stable/actions/runs/32108723314/
+2: https://github.com/kernel-patches/linux-stable/actions/runs/32061193394/
+---
+ kernel/bpf/verifier.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 77183b436da5..eb84924799a4 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -14543,7 +14543,8 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
+ 	 */
+ 	if (env->bpf_capable &&
+ 	    BPF_OP(insn->code) == BPF_ADD && !alu32 &&
+-	    dst_reg->id && is_reg_const(src_reg, false)) {
++	    dst_reg->id && is_reg_const(src_reg, false) &&
++	    !(BPF_SRC(insn->code) == BPF_X && insn->src_reg == insn->dst_reg)) {
+ 		u64 val = reg_const_value(src_reg, false);
  
+ 		if ((dst_reg->id & BPF_ADD_CONST) ||
+
+base-commit: 25c09b42358e73e1476e517b296edb6344f2e4bd
 -- 
-2.34.1
+2.55.0
 
