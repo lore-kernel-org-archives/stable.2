@@ -1,73 +1,73 @@
-Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
+Received: from mail-wm2-f2.google.com (mail-wm2-f2.google.com [74.125.225.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4D539EB47
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:14:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9B239EB47
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:14:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787040881; cv=none; b=Qb+BfIGzI8ndt/C/l8zzrGYcUTcF2HE+oj0q8/8ldrcjVfXO1p+BZRpml96NecYEOzBs8CCPBur1XIYy5uzNIJL/2H+jjFhH9hp5bWqK6v0NzZb2Fgl83KXo2jnUnuMNJtbhKJLOXu9WpiQx8ryO+PVLHZOhA4fOrkZU/cWF4FI=
+	t=1787040886; cv=none; b=kSSxzY1i6IM33kjNlw/DbRGr1p2sX6DHqsD/XZKc6nofIg23ERK7i+PbDdRip+PT6UJfqqDFEAlOcvMKJFiRXgWSIHf9nKFzPVWjJ4GJPFM/kaBqSSPtHT/z//x5jP3u+qAwz5xSsDx4VeIL3+BwKg46VwuxMVSnNkUoW5AGxe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787040881; c=relaxed/simple;
-	bh=gOfqvfcaBfUegwgi53QMffIYNK8wRK8rOY0Pwj8EoF4=;
+	s=arc-20240116; t=1787040886; c=relaxed/simple;
+	bh=J2upd+yNE3Zr7UUaQMWfOXPeu1SRiznp/2k0hZlMus4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r0rCDQ07sRGak0O9/n0ElRmvlzAtT8X0pHp7yNIK1/e0CJQdVbequArUpCt0skDYi5TQDDyAUrbQ5WnvCUIvkuCB3WcuWVjtKsLv5Y/yMufJ9VImq7Buyt7sjgQKSyxAGCJ0vQxBjVXDOamHuPappHhp2XyWmXxe2JWTsuP2hR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=QmIlNVd0; arc=none smtp.client-ip=74.125.225.137
+	 MIME-Version; b=JH6l+/42ZpkvoDb8m8YWnnmgTq17MgSeyD8xAYPmJLw413ea/P+54o5cTwI1WaqmhTCzXq5O7+UfxgsbKLRKxK+5nFce23XrxAmCqQBQCZsJgsofwxU0tA6Muf8WYWOw8///CQXjolUBdbYZ5IIHXNhDSgwIh0lTV99YWXGEttQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=RPGVt7md; arc=none smtp.client-ip=74.125.225.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="QmIlNVd0"
-Received: by mail-wm2-f9.google.com with SMTP id 5b1f17b1804b1-49556ce3549so18889575e9.0
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:14:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="RPGVt7md"
+Received: by mail-wm2-f2.google.com with SMTP id 5b1f17b1804b1-4926d058720so9648265e9.0
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:14:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787040878; x=1787645678; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1787040883; x=1787645683; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CAe3EyE5yp/fepJWO36UIb2SLqa/osz3kekJke6xxDo=;
-        b=QmIlNVd0rWXJnnUEnqNbpa00Xfuzotn6e7uE+FF75Nr0sCMq62AJiH1nDtslzWAviy
-         gaYSFw0Ejb6bA0pJaFEsbmhtS491olJmluhf3MMYmme1xJ4LuKgf6YJ24/4TGnDSn1A5
-         H4T3ysTDobr1xrz0NkQwHLmPTyCti0RypEy9oFRZR+3QdYnqYB0Hz9r1T5qKC5+7iARM
-         9ZcS42oNH9YQE/JGncZzodNH6TVKEsu/U6fVvxLMiOJDwTs+VjuzZl8q1ryzMrRYhuoU
-         qjexqgQp5wyLcSbVNQa3QwhunUpAjNyjc886zZbML7obmdS/jVcFzWb86c6AeBilEUQX
-         N1wg==
+        bh=uqcPnIgXtAq3peqC3TX4olmvnZpLtINTfDaeSemjLFU=;
+        b=RPGVt7md1V/4aPq6/GxHFkBxhIZfVB8eYrGba/W3iS4GjgmOo/kuMW3Aq6u4tkoYN5
+         tpQqrPCxqLlJuCcknUx5P3qT/0YpJYXSnME6e+s9OYpZwR2sRPU+1MvJp5MV9GItanPH
+         TYHfpvW3+2zYckX8ySi74pA3eOurbArlkFl/UugTcG1tGzK2lF5V6bjBOkz+K2PCvX0x
+         VlgPAkbIsmyMcCWLXtbzXjX2nkCVDzuL/uj+fTRoit1PiRCDl2Am6xpdZdY+b4fJjiK2
+         tjtJ3M1ZgaBubOLYD3cAPwUc35vLugltsP+x5cHAXX4yK4nOb492iHhKy+6X+epSWODF
+         vUnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787040878; x=1787645678;
+        d=1e100.net; s=20251104; t=1787040883; x=1787645683;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CAe3EyE5yp/fepJWO36UIb2SLqa/osz3kekJke6xxDo=;
-        b=M5Bte7YOy5Qc5ZZATCSuKqh226/FUhpM01kuo73mj006GzdMK2YeZjK/3H6EaYzK+i
-         9YuozaBmXB/4Pt9MO9G4HL2M+KmSstMQ3zNo0qGJJOr7D3XpZDs9RvWaQswDxWSiUqDZ
-         iprCCn9ON0eFQ8/5CkLBMfClg3yNAyvR7HW494RIJasTcSuEzrlEW3uYMg7iTdNsSb4v
-         7TULQl2/3PFqtuHtV/6UgCFC+0FT/VOsFyZHMjZD+oas3PTjKzsnSi0t42eeIWbiOzol
-         bVU/LOljgQLP2I/7OOPM0VT/B3k+N7B+2h9+/XHlCHNrmWm4TTf0isCrKRRrV2MBSIlD
-         ZGuA==
-X-Gm-Message-State: AOJu0YwpqZ8LdExU4mEdI3fLV1j9NY1uTJr0CzAh4JbwoZ1OwwKC+uc6
-	5UBFvmyXrJuxTQNJyOgCSy1e1dDH9Sfd3mfi4lZYlzc7jeh5ID5LTf+oYeh2VMT9UVfcf+1p6aZ
-	BzTGD8JUnbkFN
-X-Gm-Gg: AR+sD13DBRv/u66F9CANvEUkmIg8+AyREcUDqIGQxSKHfT5onVsvquFVyQP0iltHfsA
-	7RV7UVY6g+YutiyJF1+Aiw3FXgcx7xRAWSTpeLxWlCJ9XYIZsua4FGbZ3k+NHbbNZLuhd2YoNqM
-	IGywgkiMcihnU9wQ+fKE6XuE2B2iDqXTj+cdEJUqnj5TP1A5S+Gct3CXfhhYRZzNu4QJ7KICpxP
-	yH6LjOQLuDVVrW6YDJP6yodMYXEs3g9iIvbrMG57MWKj62O6dBz96nGwAYrmvvmVIrcD1FRcjtJ
-	GHY5xD2F7YRZoBQZMfpiqYcGllTqymSk0UFkGfnRLTZ/AUou0Dr4+tU1Syr79q4NKnOIZsabafQ
-	3Qa9U2Qda3KAiAXWEWnuLBg5q4u1Lo7ri0H5WHOTSvwl4Zz+n4cHlloFArVqlYEE2a8JWCctuuD
-	80wLdvHglRhXuM6E3uh5lLwtx5Hh6PEjj6X8WPWt2lW8jEfMQ+atCSSkqEF7XiGs3WLDv2jjno4
-	jTOtIrFrjx2Sj7nRQ==
-X-Received: by 2002:a05:600c:3b23:b0:499:8ae1:b900 with SMTP id 5b1f17b1804b1-4998ae1bb69mr391080785e9.12.1787040878062;
-        Tue, 18 Aug 2026 01:14:38 -0700 (PDT)
+        bh=uqcPnIgXtAq3peqC3TX4olmvnZpLtINTfDaeSemjLFU=;
+        b=IzrFpCjfQHdvgWstdD20Pe/+pkRhggSeyFBcCQ2jwViSXaDk75VQSQcBRZIftPNdzE
+         OoYlOP7wigJPil9CumJETZknnvhX8MwM8UpFm0ysbiS3/PBYyOOsXgDxXraTR1+nkSG0
+         1fJQaSATfGyA+H+V8QS5PNE5eDgtEreRs40OwlP2H49ThfheHzZcfCP7Cgm/BblshQOr
+         pR5XshcsVpVvK8L8ndIdiKmZB6IWSdR5lJ2PYJJoLxVKvx8RRFA54RFILUbqD2B8m7aS
+         kZDTGLiqHRMcMnQCKjSgzXVFGMRCA4njxsetgKI5Fm2oK3sgMPbsMyHqXB3Fj9eSCMCl
+         lLyw==
+X-Gm-Message-State: AOJu0YzW/I/WK3Wp8PcLFPpHMlZq+hvpv33dij6Bl/6DlgyuOQ/WnZAP
+	ji0IN8EHdpEKya9kgq4FwXTpKBodFQh8GGInqiTVgKkAbEg0r3lRLZTTeNmKzD+gTMxmmBjKuYZ
+	RGKWBBiAZRZMQ
+X-Gm-Gg: AR+sD113dusS7McJbouad1HEutjqVs4wd9Slq0yraKidy+ndKmRjVV/dlR1iY3m84jg
+	xU0hfoZJ26smi1Wm7/fTr9kvJJXnCxHtus6QwHSq90XwVBjZetEDNzyBEUqK4WJbQgMj3bXBX4O
+	rFiP3IEmmDPdb+vPmjkYOFyZofHEtMmxspyv4oPOl2F702CBouwvwgRzEh6s3yzvU3jcYaCgLjt
+	HXQDisYT6uc/VO2TjKb9KLJh3ljj0LQNwhBojQ4Gq+/xWdBNbRFwA169s3EElG5e0qxR/pb+4SR
+	mflNxxGzB8MHyg97+1ClqJN94stjNbForfiL26f2atPm7HIiuhWJOWYafqLojzIY6lgBkKBNe3l
+	/qgZUPrp0IbgRIj5kJmKEUYfmqaaOdsBO4Hkep1BmTvMRSq2KpS+4aOkI55L6Cpe5pW21a5HQjC
+	9/Hy5DFOjEKgYQtNX4y8VqSVDhTO7EeHIOeDDoDr0p8yiZ3UpFB0WftMbKRhE0icjCZXBP/fkj5
+	56Rmj5d0ObwFH1zJw==
+X-Received: by 2002:a05:600c:828c:b0:495:3da3:beb with SMTP id 5b1f17b1804b1-49989345963mr509509245e9.10.1787040883050;
+        Tue, 18 Aug 2026 01:14:43 -0700 (PDT)
 Received: from localhost (27-240-49-235.adsl.fetnet.net. [27.240.49.235])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3954d3b40basm5247299a91.14.2026.08.18.01.14.36
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851b401de34sm1530757b3a.5.2026.08.18.01.14.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 01:14:37 -0700 (PDT)
+        Tue, 18 Aug 2026 01:14:41 -0700 (PDT)
 From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
 To: stable@vger.kernel.org
 Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
 	STAR Labs SG <info@starlabs.sg>,
 	Daniel Borkmann <daniel@iogearbox.net>,
 	Alexei Starovoitov <ast@kernel.org>
-Subject: [PATCH stable 6.12 2/4] bpf: Clear delta when clearing reg id for non-{add,sub} ops
-Date: Tue, 18 Aug 2026 16:14:20 +0800
-Message-ID: <20260818081428.57938-2-shung-hsi.yu@suse.com>
+Subject: [PATCH stable 6.12 3/4] selftests/bpf: Add tests for delta tracking when src_reg == dst_reg
+Date: Tue, 18 Aug 2026 16:14:21 +0800
+Message-ID: <20260818081428.57938-3-shung-hsi.yu@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260818081428.57938-1-shung-hsi.yu@suse.com>
 References: <20260818081428.57938-1-shung-hsi.yu@suse.com>
@@ -81,159 +81,112 @@ Content-Transfer-Encoding: 8bit
 
 From: Daniel Borkmann <daniel@iogearbox.net>
 
-commit 1b327732c84640c1e3da487eefe9d00cc9f2dd34 upstream.
+commit ed2eecdc0c6613353bc1565e900d2b23237713da upstream.
 
-When a non-{add,sub} alu op such as xor is performed on a scalar
-register that previously had a BPF_ADD_CONST delta, the else path
-in adjust_reg_min_max_vals() only clears dst_reg->id but leaves
-dst_reg->delta unchanged.
+Extend the verifier_linked_scalars BPF selftest with a rX += rX test
+such that the div-by-zero path is rejected in the fixed case.
 
-This stale delta can propagate via assign_scalar_id_before_mov()
-when the register is later used in a mov. It gets a fresh id but
-keeps the stale delta from the old (now-cleared) BPF_ADD_CONST.
-This stale delta can later propagate leading to a verifier-vs-
-runtime value mismatch.
+  # LDLIBS=-static PKG_CONFIG='pkg-config --static' ./vmtest.sh -- ./test_progs -t verifier_linked_scalars
+  [...]
+  ./test_progs -t verifier_linked_scalars
+  #612/1   verifier_linked_scalars/scalars: find linked scalars:OK
+  #612/2   verifier_linked_scalars/sync_linked_regs_preserves_id:OK
+  #612/3   verifier_linked_scalars/scalars_neg:OK
+  #612/4   verifier_linked_scalars/scalars_neg_sub:OK
+  #612/5   verifier_linked_scalars/scalars_neg_alu32_add:OK
+  #612/6   verifier_linked_scalars/scalars_neg_alu32_sub:OK
+  #612/7   verifier_linked_scalars/scalars_pos:OK
+  #612/8   verifier_linked_scalars/scalars_sub_neg_imm:OK
+  #612/9   verifier_linked_scalars/scalars_double_add:OK
+  #612/10  verifier_linked_scalars/scalars_sync_delta_overflow:OK
+  #612/11  verifier_linked_scalars/scalars_sync_delta_overflow_large_range:OK
+  #612/12  verifier_linked_scalars/scalars_alu32_big_offset:OK
+  #612/13  verifier_linked_scalars/scalars_alu32_basic:OK
+  #612/14  verifier_linked_scalars/scalars_alu32_wrap:OK
+  #612/15  verifier_linked_scalars/scalars_alu32_zext_linked_reg:OK
+  #612/16  verifier_linked_scalars/scalars_alu32_alu64_cross_type:OK
+  #612/17  verifier_linked_scalars/scalars_alu32_alu64_regsafe_pruning:OK
+  #612/18  verifier_linked_scalars/alu32_negative_offset:OK
+  #612/19  verifier_linked_scalars/spurious_precision_marks:OK
+  #612/20  verifier_linked_scalars/scalars_self_add_clears_id:OK
+  #612/21  verifier_linked_scalars/scalars_self_add_alu32_clears_id:OK
+  #612     verifier_linked_scalars:OK
+  Summary: 1/21 PASSED, 0 SKIPPED, 0 FAILED
 
-The clear_id label already correctly clears both delta and id.
-Make the else path consistent by also zeroing the delta when id
-is cleared. More generally, this introduces a helper clear_scalar_id()
-which internally takes care of zeroing. There are various other
-locations in the verifier where only the id is cleared. By using
-the helper we catch all current and future locations.
-
-Fixes: 98d7ca374ba4 ("bpf: Track delta between "linked" registers.")
-Reported-by: STAR Labs SG <info@starlabs.sg>
 Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/r/20260407192421.508817-2-daniel@iogearbox.net
+Link: https://lore.kernel.org/r/20260407192421.508817-3-daniel@iogearbox.net
 Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-[shung-hsi.yu:
- - reverse 'off' -> 'delta' renaming done later in commit 3d91c618aca4 ("bpf:
-   rename bpf_reg_state->off to bpf_reg_state->delta")
- - kept "dst_reg->live |= REG_LIVE_WRITTEN", which got removed in commit
-   107e16979905 ("bpf: disable and remove registers chain based liveness")
- - dropped hunk in scalar_byte_swap(), which was added later in commit
-   9d2119984224 ("bpf: Add bitwise tracking for BPF_END")
- - dropped hunk in clear_singular_ids(), which was added later in commit
-   b2a0aa3a8739 ("bpf: Clear singular ids for scalars in is_state_visited()")]
 Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
 ---
- kernel/bpf/verifier.c | 48 ++++++++++++++++++++++---------------------
- 1 file changed, 25 insertions(+), 23 deletions(-)
+ .../bpf/progs/verifier_linked_scalars.c       | 57 +++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index eb84924799a4..c77df8654111 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -4635,27 +4635,30 @@ static bool __is_pointer_value(bool allow_ptr_leaks,
- 	return reg->type != SCALAR_VALUE;
+diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+index 8f755d2464cf..1b3b44f5f910 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
++++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+@@ -31,4 +31,61 @@ l1:						\
+ "	::: __clobber_all);
  }
  
-+static void clear_scalar_id(struct bpf_reg_state *reg)
++/*
++ * Test that r += r (self-add, src_reg == dst_reg) clears the scalar ID
++ * so that sync_linked_regs() does not propagate an incorrect delta.
++ */
++SEC("socket")
++__failure
++__msg("div by zero")
++__naked void scalars_self_add_clears_id(void)
 +{
-+	reg->id = 0;
-+	reg->off = 0;
++	asm volatile ("						\
++	call %[bpf_get_prandom_u32];				\
++	r6 = r0;		/* r6 unknown, id A */		\
++	r7 = r6;		/* r7 linked to r6, id A */	\
++	call %[bpf_get_prandom_u32];				\
++	r8 = r0;		/* r8 unknown, id B */		\
++	r9 = r8;		/* r9 linked to r8, id B */	\
++	if r7 != 1 goto l_exit_%=;				\
++	/* r7 == 1; sync propagates: r6 = 1 (known, id A) */	\
++	r6 += r6;		/* r6 = 2; should clear id */	\
++	if r7 == r9 goto l_exit_%=;				\
++	/* Bug: r6 synced to r7(1)+delta(2)=3; Fix: r6 = 2 */	\
++	if r6 == 3 goto l_exit_%=;				\
++	r0 /= 0;						\
++l_exit_%=:							\
++	r0 = 0;							\
++	exit;							\
++"	:
++	: __imm(bpf_get_prandom_u32)
++	: __clobber_all);
 +}
 +
- static void assign_scalar_id_before_mov(struct bpf_verifier_env *env,
- 					struct bpf_reg_state *src_reg)
- {
- 	if (src_reg->type != SCALAR_VALUE)
- 		return;
--
--	if (src_reg->id & BPF_ADD_CONST) {
--		/*
--		 * The verifier is processing rX = rY insn and
--		 * rY->id has special linked register already.
--		 * Cleared it, since multiple rX += const are not supported.
--		 */
--		src_reg->id = 0;
--		src_reg->off = 0;
--	}
--
-+	/*
-+	 * The verifier is processing rX = rY insn and
-+	 * rY->id has special linked register already.
-+	 * Cleared it, since multiple rX += const are not supported.
-+	 */
-+	if (src_reg->id & BPF_ADD_CONST)
-+		clear_scalar_id(src_reg);
-+	/*
-+	 * Ensure that src_reg has a valid ID that will be copied to
-+	 * dst_reg and then will be used by sync_linked_regs() to
-+	 * propagate min/max range.
-+	 */
- 	if (!src_reg->id && !tnum_is_const(src_reg->var_off))
--		/* Ensure that src_reg has a valid ID that will be copied to
--		 * dst_reg and then will be used by sync_linked_regs() to
--		 * propagate min/max range.
--		 */
- 		src_reg->id = ++env->id_gen;
- }
- 
-@@ -5093,7 +5096,7 @@ static int check_stack_read_fixed_off(struct bpf_verifier_env *env,
- 				 * coerce_reg_to_size will adjust the boundaries.
- 				 */
- 				if (get_reg_width(reg) > size * BITS_PER_BYTE)
--					state->regs[dst_regno].id = 0;
-+					clear_scalar_id(&state->regs[dst_regno]);
- 			} else {
- 				int spill_cnt = 0, zero_cnt = 0;
- 
-@@ -14554,8 +14557,7 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
- 			 * If the register already went through rX += val
- 			 * we cannot accumulate another val into rx->off.
- 			 */
--			dst_reg->off = 0;
--			dst_reg->id = 0;
-+			clear_scalar_id(dst_reg);
- 		} else {
- 			dst_reg->id |= BPF_ADD_CONST;
- 			dst_reg->off = val;
-@@ -14565,7 +14567,7 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
- 		 * Make sure ID is cleared otherwise dst_reg min/max could be
- 		 * incorrectly propagated into other registers by sync_linked_regs()
- 		 */
--		dst_reg->id = 0;
-+		clear_scalar_id(dst_reg);
- 	}
- 	return 0;
- }
-@@ -14689,7 +14691,7 @@ static int check_alu_op(struct bpf_verifier_env *env, struct bpf_insn *insn)
- 							assign_scalar_id_before_mov(env, src_reg);
- 						copy_register_state(dst_reg, src_reg);
- 						if (!no_sext)
--							dst_reg->id = 0;
-+							clear_scalar_id(dst_reg);
- 						coerce_reg_to_size_sx(dst_reg, insn->off >> 3);
- 						dst_reg->live |= REG_LIVE_WRITTEN;
- 						dst_reg->subreg_def = DEF_NOT_SUBREG;
-@@ -14716,7 +14718,7 @@ static int check_alu_op(struct bpf_verifier_env *env, struct bpf_insn *insn)
- 						 * propagated into src_reg by sync_linked_regs()
- 						 */
- 						if (!is_src_reg_u32)
--							dst_reg->id = 0;
-+							clear_scalar_id(dst_reg);
- 						dst_reg->live |= REG_LIVE_WRITTEN;
- 						dst_reg->subreg_def = env->insn_idx + 1;
- 					} else {
-@@ -14727,7 +14729,7 @@ static int check_alu_op(struct bpf_verifier_env *env, struct bpf_insn *insn)
- 							assign_scalar_id_before_mov(env, src_reg);
- 						copy_register_state(dst_reg, src_reg);
- 						if (!no_sext)
--							dst_reg->id = 0;
-+							clear_scalar_id(dst_reg);
- 						dst_reg->live |= REG_LIVE_WRITTEN;
- 						dst_reg->subreg_def = env->insn_idx + 1;
- 						coerce_subreg_to_size_sx(dst_reg, insn->off >> 3);
-@@ -15558,7 +15560,7 @@ static void __collect_linked_regs(struct linked_regs *reg_set, struct bpf_reg_st
- 		e->is_reg = is_reg;
- 		e->regno = spi_or_reg;
- 	} else {
--		reg->id = 0;
-+		clear_scalar_id(reg);
- 	}
- }
- 
++/* Same as above but with alu32 such that w6 += w6 also clears id. */
++SEC("socket")
++__failure
++__msg("div by zero")
++__naked void scalars_self_add_alu32_clears_id(void)
++{
++	asm volatile ("						\
++	call %[bpf_get_prandom_u32];				\
++	w6 = w0;						\
++	w7 = w6;						\
++	call %[bpf_get_prandom_u32];				\
++	w8 = w0;						\
++	w9 = w8;						\
++	if w7 != 1 goto l_exit_%=;				\
++	w6 += w6;						\
++	if w7 == w9 goto l_exit_%=;				\
++	if w6 == 3 goto l_exit_%=;				\
++	r0 /= 0;						\
++l_exit_%=:							\
++	r0 = 0;							\
++	exit;							\
++"	:
++	: __imm(bpf_get_prandom_u32)
++	: __clobber_all);
++}
++
+ char _license[] SEC("license") = "GPL";
 -- 
 2.55.0
 
