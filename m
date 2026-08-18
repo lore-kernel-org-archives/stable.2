@@ -1,118 +1,175 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DE7348C5D
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 22:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7733B17C211
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 22:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787091286; cv=none; b=n3yrit6wtu5wIrODnMA2MAmM+ls/d+Iys4iI2oqizmrjqAi7t9Hr11WX7mpq0oLzb6IM1wshUWSVQj/rbyR+FhvJNqPAITBJ4v9ipEhGM+uZYrjdf4dRueYR8Qn5CIZgylpyYk5QvfXQHoT/Hl96S+3CPlm+cf2X8CtByVFyehs=
+	t=1787091347; cv=none; b=n4L5kAh5DJHoIxwcr6vinJ2YD3mwnKRtf8NUTzC8YMC6rwE6YZBQrwTMRmhScu2VICd47mP6HdLDADvTWAOIoShfp4XIIgLUo98Mbat22HiV6cFUrCeLHgZOPIxWEMt+nQRWmLE10ghMHUEuzDbHe1zDRmJ/Wy3477hiBup3FcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787091286; c=relaxed/simple;
-	bh=+/H+wBy1+ETyZpr5acESYNGEUWdWsdU4YXrENI7QCgQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fWiIP1KLIr5pGZx8k101oxR94VBbhUGFIxYuZ9cAPSBiPzdB15RBfnpTwnb5BuFd0lzL5KiTEarEN5/y0K4xcyUuES+9U1A0OoN7SZNpCbHqJARMSTWLSkQtyrMfRSU4Ph9K3fFQtd0Wv9P2yudprHO23MnM1W6A+JjJvT5uyEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HuY9p5Zj; arc=none smtp.client-ip=209.85.221.51
+	s=arc-20240116; t=1787091347; c=relaxed/simple;
+	bh=dWqEdlMOvfDAahIlhYX2TCEpWuCGjP3Ra2LKtaKwRjY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tauSJGBclLb3FKImxTN61ZEh6npZ+h+5gF33eBTlB7oG7PoJNGCr2uOSqMvwcc9xFa0y50SjYW1GKWuC1ZX2wDoAhfhE7WeSTOyXfud/gCD9Ut1rbL7uSQOOMtXLMHwYYh7hK7zu+y0G6JCeUHB/89ro92SoDv4p/03cYOL5IsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HbNH/Gbj; arc=none smtp.client-ip=209.85.215.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HuY9p5Zj"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47fe2d179e2so185037f8f.1
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 15:14:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HbNH/Gbj"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cbb8b54fcf8so280719a12.0
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 15:15:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787091283; x=1787696083; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=efM3F+wFbP0mAVU02OW9oAVJkwM8FLNE+I19WeQALlE=;
-        b=HuY9p5Zj23pcNkb9huJiePbYawpN0OU3jt9HT7QCfyGaB+I0V7Buy19La+pBAVqBDM
-         eyrkwrePD1b3mo8AC9y9WBweVs/2Hz5LOQOEBD0eOTKZwZ9qKfCKGiz12M0qrpjFZIBq
-         hxQylH0GyBH1IAwDz0AtmTDg1w+re60HDL3AsKs8qj/ERH7yKqAfW5K4mVT5bwro3cYi
-         bT24+QtnvFuJzmzZ8dp879zAW7tXxiL8dfcSxDZ5Pw4/r1pZD1OeJiQvx8wuxDVTwfr9
-         sKAfqg6Dg+o2OFx+tHifLwxCvneyAom554txle2iwtaviSb5mRIlHAvoqPKk2Vmmrfjf
-         sWcw==
+        d=gmail.com; s=20251104; t=1787091346; x=1787696146; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bMc/RV8+QamD995c7SJc+0xKaf5peRvcqbfVUWFdgW4=;
+        b=HbNH/Gbj19/920POKG/OzRzdrIsFVupTTzZo+tZeYJ03BbaarTBLx4uO7rKf3/Lqgc
+         9GRP7atgfCITxVr44MbP/mYdJSg4VoMSvOQ4NHrkQaRoOeqL5UI127lfpMp2mWs5ge+U
+         MTHSh11ctiWd58n4IH00/ufHn2rJI1UheGGIOFkb630hLmKwsJsncgJTi/2dD5/urtuB
+         prnus2+xqRtel+uIDbArJj4ZzaArC+GuNzcK9mLSionHCtLS0m4hX31ZVYf+McAkUfXs
+         ckQraZBDswoYQc9lWqeQMVLLBsGkdY6LEuuWqa17aKPuPvQDfXyd9Mj4KxDPZ3yEyc5A
+         S/tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787091283; x=1787696083;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=efM3F+wFbP0mAVU02OW9oAVJkwM8FLNE+I19WeQALlE=;
-        b=Lv7+Q5t+zzIXd+4hMUjvbBDHW2ByUlrKazh8fp4g226U48Lmv2zJT3A79iFokXjWbQ
-         VFeapBoSRcvvKuLg42L8oSOuzPmqjTRyYz7bogU9yVIv/X3Or3hMaz27ZpaWSUehivZw
-         hRY/cgoX4WRlziCcvqZrZQd7TJIw1ImDeFiqDudf0B5gbDbtv3sXEveRWmQ46dcYi7j1
-         jjOpx02HZb7hr6Km5rxyOpSESpRGjRaagK71iBdQR4wxpg4zQK6YN2sJSXxSN3LGe7+T
-         4oUFZzgmN4aq0RQhfw2/+Onetbi8EqVF/H684nRmwRidLgx/S8JNHcZaHWjqU+Dd25dU
-         8k2g==
-X-Forwarded-Encrypted: i=1; AHgh+Rre/448SI5JNh4RVXI/SouFSMRfpLnN402lGtFhudLHDD0Gt4m6N9T7EC7Z9sVbYLTwxP8PPbg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0AR0EAT212TzknLb+HZwWdL8sGDVbWDk0FhrRV0PKmCwhuuKI
-	yIpZ3vyb/bu10TSynoI6Xnk60UPQOSRkxJAmuVKpb9yXqLamMdSFpoFi
-X-Gm-Gg: AR+sD126PMWIg6ve0Wg0bLrzk7jFvbUMEP6XXU8IabMTxdqVWEn8hKIyn/Yzkijn2ho
-	SLJVRuYXCwTuc8ARqUzpGUW9m8Oo+dKPwWqRsMEAi6sBmtoNXxFY2DpnQIpAZeQFIZxsvMsySf5
-	i2PK9Vg1/K9NpwHFGSY1fzptkcp5VUFAPuPFZxELKNszZllhJmjIJHR/ozMjr79Fs4m9hnFYqL6
-	zRKY2It2Ke+qF2bb/YyPYG49WHabecQwH4xUe6U6mvfsfI6wXY5x4HlZQydDqzUiKRzfo5oTImV
-	bgARZecJfchkLZUg++tuLQcgXYAnR2L3GZRBr6cf8ltIFdI/8KQaQcEslvhxoLYCh3ZVQt+/GhX
-	hL7udG4HAEqWymYFDd7lshtttKYHtkc88SmNK5lQvH+x2TA7sgdkL48k72bZ2nHSU6ugw0x5Bjf
-	b7GR+GVYiSTSmdvmcfHw1gR4QdrcRoqOCv5VdrU6J/pS98HI1QnXWEVwjq7IiiRgjeMpdRqkNMf
-	ig8Qg==
-X-Received: by 2002:adf:e18a:0:b0:481:56ec:b422 with SMTP id ffacd0b85a97d-482b07d6433mr2245539f8f.9.1787091283389;
-        Tue, 18 Aug 2026 15:14:43 -0700 (PDT)
-Received: from foxbook (bfg7.neoplus.adsl.tpnet.pl. [83.28.44.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b1450e54sm429660f8f.11.2026.08.18.15.14.42
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 18 Aug 2026 15:14:43 -0700 (PDT)
-Date: Wed, 19 Aug 2026 00:15:11 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Mario Limonciello <superm1@kernel.org>
-Cc: Rishabh Jain <rishabh.jain1198@gmail.com>, Mathias Nyman
- <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] usb: pci-quirks: always assert xHCI OS ownership
-Message-ID: <20260819001511.45b3621b.michal.pecio@gmail.com>
-In-Reply-To: <2d13e2ae-f5da-4951-bbe4-be7bb0b296cf@kernel.org>
-References: <20260815014534.77850-1-rishabh.jain1198@gmail.com>
-	<69fdc442-a4f2-42e0-80f6-6b35cbc207bf@kernel.org>
-	<20260816220306.64c615f2.michal.pecio@gmail.com>
-	<2d13e2ae-f5da-4951-bbe4-be7bb0b296cf@kernel.org>
+        d=1e100.net; s=20251104; t=1787091346; x=1787696146;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bMc/RV8+QamD995c7SJc+0xKaf5peRvcqbfVUWFdgW4=;
+        b=f/UBlbhAeB91il/kZHNfEEnAsqdpi4RQw3b4pTEflpVtRtqH0dhgFKSVC3JDQAigS9
+         bICDYvwXbLSmUs0tgbMPyGIx8Z4pj0guMaBOmpv+RJrzXzdc/Xf4Ces/et93hxnhJpmM
+         yutO5hzRIz3H8A5/35Fpk14Wd7cSu7kbx0W5Gzpp0iiZgNUFtNT3zlw04RGFkhdMe0j8
+         p1zCMsNvlTQ6IBLYfyknYfNt6ff7zvZa/xFCnL9cVRWc5K0Qr7DBcM42rys8aiiL5Q+b
+         q9RlwatagtW5Por0U7Hd6bI25isC97qvZzVEtF4uZYs3fYoK+nXwdwkar55rOEhfdZj7
+         nclw==
+X-Forwarded-Encrypted: i=1; AHgh+RpQyEPSxxyZ3cY+PKku4AgogjFVJs0YD8n2lZnvkaXQK932pfALUuIu272J5jVFMqC2NhnYAOo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfTGPcedKjVnmng5WzbHVcrcnjWS3bkie0ojEZxexFaDTevlh8
+	bIBUEZuS4XSw6jzFcC+NUw940nGkMcH6PakQw8eC3GBIJ3b2WnApkCxC
+X-Gm-Gg: AR+sD11AGVDxfvdDJvWhYRjC1OmPfxUdCA61f2y2hZYNeST29MsPoEk6aMzEYiHD1GA
+	6L7QoRI1nnHncxcrpcHMJCVZSHe/NcESW506IjmgV6GzqZySzSym6WwOYncJLa+TQTxnIr+cAfZ
+	84n296rvd2l0Cu+hn8W37Ombrd6Z5aBXyjEFkWzaU8wY3ltpV6kp6nkFl39xGW4p0oa+Xwlj4pn
+	H31su3TR+uO3b/cTJP937WANd3GZhIk5WHNMZtshhSz3jyPL2E7kphsR7ZwSzwy/sQbRENXuQHJ
+	MeDkDjaYjCwuB00Qz3deTI7n6R/8AhibBcmBY8rcp8/k69fEGS4WnX3vHZ7SpQBFovg93MMfkOm
+	HCMWTJGwiLcQD/G4XWLUKSNULdb1fph1Oi1czZZEOlpvcpAlCkcdTbvpNnf4kfb+6l3ZmHjiI1U
+	Yri5Zf7jSz3RekE6pRpI/8psLHM8ev5Qn+UOEPPDyDSn5c4jG8bTWhzQeHElTXCNNbPOa96+Q8u
+	R5EFRKKYo8QbFRRL1GjxAexPsCa41XLrvxc77i9sg==
+X-Received: by 2002:a05:6a20:e212:b0:3c3:9993:d5c3 with SMTP id adf61e73a8af0-3cd0113f017mr558202637.9.1787091345774;
+        Tue, 18 Aug 2026 15:15:45 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf10d497sm223707eec.14.2026.08.18.15.15.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 15:15:44 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: netdev@vger.kernel.org
+Cc: jhs@mojatatu.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH net] net/sched: act_skbmod: Fix headroom COW leading to page cache corruption
+Date: Wed, 19 Aug 2026 03:15:17 +0500
+Message-ID: <20260818221519.75088-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, 16 Aug 2026 16:00:47 -0500, Mario Limonciello wrote:
-> On 8/16/26 15:03, Michal Pecio wrote:
-> > Not sure if this has anything to do with PROM21, or if some BIOS
-> > is just trying to use the xHC at resume because it's permitted to.
-> > Then it makes too many changes for Restore State to still work.
-> > 
-> > Potentially, such bugs may have happened and been left unsolved or
-> > "solved" with RESET_ON_RESUME quirks and other hacks.  
-> 
-> What do you think about making this a series with each of those
-> quirks dropped one-by-one?  The head patch (a variation of this one)
-> could go to stable and the rest of the commits dropping those can go
-> to linux-next.
+tcf_skbmod_act() calls skb_ensure_writable(skb, max_edit_len) to ensure
+the modified packet header is writable before rewriting Ethernet addresses
+or setting ECN bits.
 
-Hard to tell. All we have is a wild theory. I couldn't even test what
-happens when the BIOS claims an unclaimed xHC during resume from S3,
-because my BIOS doesn't do that even when I clear the "OS owned" bit
-before suspending.
+However, skb_ensure_writable() only pulls and COWs memory starting from
+skb->data onwards. At ingress or on forwarded packets, the Ethernet
+header (or network header) may reside in the headroom at a negative
+offset (skb_mac_offset(skb) < 0).
 
-Those quirks may be wrong in the sense that they weren't specific to
-the particular PCI IDs, but to some particular buggy BIOSes or kernels
-in the past. Maybe those problems don't exist, maybe they still do.
+Because skb_cow() is omitted for negative offsets, writes via
+ether_addr_copy() or INET_ECN_set_ce() modify shared headroom in-place
+on cloned SKBs (e.g., cloned by tc mirred, bpf_clone_redirect, or
+packet capture sockets). This can result in silent packet corruption
+and page cache corruption.
 
-I have completely disabled RESET_ON_RESUME on my test system with no
-apparent ill efects so far.
+Fix this by ensuring that if the target header starts at a negative
+offset in the headroom, skb_cow(skb, -offset) is called to unshare the
+headroom before ensuring writability across the header span.
 
-OTOH, I tried disabling the "broken streams (UAS)" quirk on ASM1042.
-While the kernel crash which those chips used to cause has been fixed
-long ago, it turns out they just don't work correctly (Set TR Deq is
-a No-Op with streams). So I'm not rushing to remove this quirk.
+Fixes: 86da71b57383 ("net_sched: Introduce skbmod action")
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+ net/sched/act_skbmod.c | 37 ++++++++++++++++++++++++-------------
+ 1 file changed, 24 insertions(+), 13 deletions(-)
 
-Regards,
-Michal
+diff --git a/net/sched/act_skbmod.c b/net/sched/act_skbmod.c
+index a8e2b83ebae5..cd2a6e974e6f 100644
+--- a/net/sched/act_skbmod.c
++++ b/net/sched/act_skbmod.c
+@@ -22,13 +22,24 @@
+ 
+ static struct tc_action_ops act_skbmod_ops;
+ 
++static int skbmod_ensure_writable(struct sk_buff *skb, int offset, int len)
++{
++	if (offset < 0) {
++		if (skb_cow(skb, -offset))
++			return -ENOMEM;
++		if (offset + len > 0)
++			return skb_ensure_writable(skb, offset + len);
++		return 0;
++	}
++	return skb_ensure_writable(skb, offset + len);
++}
++
+ TC_INDIRECT_SCOPE int tcf_skbmod_act(struct sk_buff *skb,
+ 				     const struct tc_action *a,
+ 				     struct tcf_result *res)
+ {
+ 	struct tcf_skbmod *d = to_skbmod(a);
+ 	struct tcf_skbmod_params *p;
+-	int max_edit_len, err;
+ 	u64 flags;
+ 
+ 	tcf_lastuse_update(&d->tcf_tm);
+@@ -38,7 +49,6 @@ TC_INDIRECT_SCOPE int tcf_skbmod_act(struct sk_buff *skb,
+ 	if (unlikely(p->action == TC_ACT_SHOT))
+ 		goto drop;
+ 
+-	max_edit_len = skb_mac_header_len(skb);
+ 	flags = p->flags;
+ 
+ 	/* tcf_skbmod_init() guarantees "flags" to be one of the following:
+@@ -52,19 +62,20 @@ TC_INDIRECT_SCOPE int tcf_skbmod_act(struct sk_buff *skb,
+ 		switch (skb_protocol(skb, true)) {
+ 		case cpu_to_be16(ETH_P_IP):
+ 		case cpu_to_be16(ETH_P_IPV6):
+-			max_edit_len += skb_network_header_len(skb);
++			if (skbmod_ensure_writable(skb, skb_network_offset(skb),
++						   skb_network_header_len(skb)))
++				goto drop;
+ 			break;
+ 		default:
+ 			goto out;
+ 		}
+-	} else if (!skb->dev || skb->dev->type != ARPHRD_ETHER) {
+-		goto out;
+-	}
+-
+-	err = skb_ensure_writable(skb, max_edit_len);
+-	if (unlikely(err)) /* best policy is to drop on the floor */
+-		goto drop;
++	} else {
++		if (!skb->dev || skb->dev->type != ARPHRD_ETHER)
++			goto out;
+ 
++		if (skbmod_ensure_writable(skb, skb_mac_offset(skb), ETH_HLEN))
++			goto drop;
++	}
+ 	if (flags & SKBMOD_F_DMAC)
+ 		ether_addr_copy(eth_hdr(skb)->h_dest, p->eth_dst);
+ 	if (flags & SKBMOD_F_SMAC)
+-- 
+2.43.0
