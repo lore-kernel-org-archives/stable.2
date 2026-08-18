@@ -1,94 +1,82 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79591332EC8;
-	Tue, 18 Aug 2026 15:50:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DAF332EC8;
+	Tue, 18 Aug 2026 15:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787068246; cv=none; b=Nts3Bi4nsGyUHn66ucLcpFjyY6kiugXrBWaR3HFfAbSHP8diKlUKCkYnlvrVqSQrcDGs1lZCoxwz+4QVYCco/a3kaeT6JQu3v879/Lklzv2xp200f5jRANw4lKoqsVUpL1eTsvNar2S8JiPAtxwjLHkK2/pT9KHbC9E7Ei7pG6M=
+	t=1787068289; cv=none; b=W9WkVtULWgs2isXtrm7/mxwVgyyljRGje38lgHSygrQQYh6SSFn10WuoKhhLcwSKELIWmuVNNj/EG7Bv/KvFdtA0s2nYIo0obs04wVI0SuZnlVOnZGxeezqgzayEF/XCs2pEgC3wMtxsqOVayxJv41YetL4VxU1cdkuJWTsrpfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787068246; c=relaxed/simple;
-	bh=fO0vk990GWu+qM19d1DAlmLcgS1lPVAR+gmsboyI+Zg=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=cUXB5SmyoH9j4mJc1EBwBGiCLGANQb0ePeO+poUV7CLU/D7tfiBhluWA+lWEUXR3PY0tL3McIydwwS5cbYRosHtA4ytf5FIwb8nx+nnR3YfR17xIych+zsCcpAJOrQ7ehi4EfCuWgPYOVm/+fGIu5k1qfX+Cl+UJWYM7Zmoku8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=kub2EcLW; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1787068289; c=relaxed/simple;
+	bh=Uc424Ig3xZxjpBwoQgZKsFm3kgSkPofk4vgDch+zVZo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FkrRM2DH0i8Bft3fFiKlmox4T8eJNGNWGmYy1nFGdaZx5W5AnhGMNIfWNhwmrhv0pSCMnZG1w4/Ph+LaB+ESnmEFDN/EB+hkTTi2bljyUfe3gm3mmz8kRV7TJm0VTdSnWBeAnyaudo0HrfmwZhxr5wVoY2BcCVigksggJsqdHIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VKYq2dJp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="kub2EcLW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=/Is1IO0CL+6lf/eNip0kVaaOQEnMfMLHfrp7LkxjZ4w=; b=kub2EcLWjDnwqwGz9mgtrA51Q6
-	FVrU6sX/NLF/UyhFlNkf6CI/g4m5i7nqb6J86TCfhY2i/D7C7maEZUDkag5H5Xmd5CBHOKLn2GYV9
-	dlyzfRIFr6bDo7DpXGc0uJXl3GHBfJXZuQflyU6c1DsBmgJNDblix2CpKRZSr3654gdm4rDH39ZI9
-	2mJ2SIMElUVUBkvbhr98YKzwMRU37BLFZbpmA1leXQx7KyAqbvNUD6V6A2OafpJlkzw3R4X4KvMfD
-	a5jyZ/cVuFT5SaVlxng7dGvhKTliGj+3byvUBA2EHAXDD9ltd8B8kCYrIIL1Drb+fzqbHfRLmT0Jn
-	qdAvcnPw==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1wwM5L-00000000pVs-3yHr;
-	Tue, 18 Aug 2026 09:50:44 -0600
-Message-ID: <d533699d-fc7c-4642-87f8-0bfed554b0a7@deltatee.com>
-Date: Tue, 18 Aug 2026 09:50:42 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VKYq2dJp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC68B1F000E9;
+	Tue, 18 Aug 2026 15:51:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787068288;
+	bh=oFgje19bDU+PCeMihEc7qTV4tjvpwf92Zh/6IfL0ngI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VKYq2dJp2CD3GHD1Lb+S21TP2AOBKe4fbLNzpa9/NYxG80lRRCxnyceauxDvFFARJ
+	 UKtO7W24gAv0UfdNjG/BXZx+Kvs46IT3GjEr+3rTu45O8nCNVqtrkXKhrBjAZrzUqZ
+	 QZJ0CBiiDIUBkUVaIWFFNCP0xKaaPezqFv0pNVR9IojrXdsMZ254EK+UfxfWM6QBss
+	 3ueGaxBPwbNU5hepT9cYCBGtwqRQGf6ishwKC1tlv3Yxs8t+aYd/yqpy1cHicOZ6Lg
+	 qRivkvVhJzuFEUwwniUo+1Lsn9XAN7gDc5FYsn/YrDUtIngn57zY3shWYqTlwlkIsu
+	 8Ol02rwVdkzRw==
+Date: Tue, 18 Aug 2026 16:51:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/181] 6.12.104-rc1 review
+Message-ID: <ba2aab20-d984-4367-81d3-d7cf3d5232c1@sirena.org.uk>
+References: <20260817132535.394764707@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Shivank Garg <shivankg@amd.com>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: stable@vger.kernel.org, dmaengine@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
- Frank Li <Frank.Li@nxp.com>
-References: <20260818-dmaengine-kref-fix-v4-0-c6ef991462a0@amd.com>
- <20260818-dmaengine-kref-fix-v4-3-c6ef991462a0@amd.com>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260818-dmaengine-kref-fix-v4-3-c6ef991462a0@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: shivankg@amd.com, vkoul@kernel.org, Frank.Li@kernel.org, akpm@linux-foundation.org, stable@vger.kernel.org, dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, Frank.Li@nxp.com
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v4 3/4] dmaengine: fix use-after-free in dma_chan_put()
- and dma_release_channel()
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vphgpMmuZeebT+8+"
+Content-Disposition: inline
+In-Reply-To: <20260817132535.394764707@linuxfoundation.org>
+X-Cookie: Smile!  You're on Candid Camera.
 
 
+--vphgpMmuZeebT+8+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 2026-08-17 21:43, Shivank Garg wrote:
-> When dma_device_put() drops the last reference on chan->device->ref,
-> dma_device_release() runs and may free the dma_device along with its
-> channels.
-> 
-> dma_chan_put() then still reads chan->device->owner via
-> dma_chan_to_owner() for the trailing module_put(). KASAN catches it:
-> 
-> 	slab-use-after-free in dma_chan_put+0x3e6/0x4c0
-> 	Read of size 8 by task insmod/6319
-> 	Freed by task 6319:
-> 	  kfree+0x225/0x470
-> 	  dma_chan_put+0x395/0x4c0
-> 	  dmaengine_put+0xf8/0x160
-> 
-> Cache the module owner in dma_chan_put() before the put so the trailing
-> module_put() does not need chan->device.
-> 
-> Fixes: 8ad342a86359 ("dmaengine: Add reference counting to dma_device struct")
-> Suggested-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260518-dmaengine-kref-fix-v1-1-4d6125048fb7@amd.com
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
+On Mon, Aug 17, 2026 at 03:31:34PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.104 release.
+> There are 181 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Nice catch, looks right to me and the patch is really easy to
-understand. Thanks!
+Tested-by: Mark Brown <broonie@kernel.org>
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+--vphgpMmuZeebT+8+
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqEf3QACgkQJNaLcl1U
+h9DoPwf/RpfvIXa53Ji9HALD4an9dSXmreCVlYMwnkYqKdZXkK8yeeNttPyf2eUw
+0I0n7Zht7MGHTssO279EONN4nQCXr1jY4xj+VxOcS9c4bbQcy8PODeiCuXJeMMQ+
++72piQm4/XL1WS137qXxwmJC4f4/ICMFLueMuJ1y02XrimO6etiGbn8cTiME3/qL
+ABqz+ozX2HBTjjdQdLXuaBg6yQFuC/uxGBiZJbRfsw892iSlx4oacDJ09/NGMS22
+KHuEB5IqfpnzP74OPLIcsxliCkN8+3k8nvNLUl70plbb+7mbM9hBbgj8a2H+xQYI
+4FSTw7OS+h09L45oKbrp7fbw8nvXpQ==
+=Q3KG
+-----END PGP SIGNATURE-----
+
+--vphgpMmuZeebT+8+--
