@@ -1,216 +1,127 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C843769E7;
-	Tue, 18 Aug 2026 04:45:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E2E23D7F0;
+	Tue, 18 Aug 2026 04:47:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787028337; cv=none; b=d4CG7lvYrePBbZyCIagzeXEs83xr/OypxbvVrHfwY2O3yLtRIiGuZnObGqt7u6QE0uNz+jljAHzC1mS2VFrtVCgE1tHDyixUei5aOB++tEATgIS38sLyrVAtukpT9/z+IfUtan0Krfc52GNrIDzlW0r3cJ3M8mqkg3seLYMiAB0=
+	t=1787028440; cv=none; b=HWiucZzIn9Dfxn6L+HgSr9dTL9znpa26Q9Q14niAzT9m4CyYqMSXGY9lX1T0494qr1XtsY3hYqnteeNWL2mo2HJlg3/ii9iL6HVS/2FLRAwephFFg32fxcnec+61RRKogRFcpgO6OTKeSPZUwwEEvlB4ERqAGNgZxq18s6jm1VE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787028337; c=relaxed/simple;
-	bh=5/DvxvEwvJWLlpNbVsdrDFY8Xsn/e7wV7y4aKTu4NYA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HST4Jabsp3dI1P9AIv45c9JcFJIS9BGpgpsyGTAsONwKE0CEcFpWCAi3kVN9tZFrbnqM+0QwL6FRvQZM3k122LjzsNeW8GKMcNFBoR+6hhSPyatOQ7NocQrPxT5wKTwlFk/Vp26cU9fGR8bAQN4BO+xgkdZqnVM2mn+zDUkhZTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=NXq3r9NS; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787028440; c=relaxed/simple;
+	bh=gRV8QeQ74Po1bVon06AJq4OjeL79GNP8cm9tv8PnsrA=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=gxGFax7aJUjIDRRx1/axwXbPn01YC81TV3nwzeTAwVrKqCGyHAqK2Ftpw0owMrdaZrBDMzYhFfH4UBr0Kn9YbaVJT0watY34b36uk8mCezism+LSmWbeJzOqJ2+ajcRVW5K0pUazsRvnzF6lcmys3MKoPEy4EzznODZ+3PBRFbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=JlMsbSRl; arc=none smtp.client-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="NXq3r9NS"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67HM2C6c2527979;
-	Tue, 18 Aug 2026 04:45:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=y5ydXHje6PqHCvFUZ
-	HFbkL4Mrbt+ZMSusvaRTitCHxw=; b=NXq3r9NSZSfA5jmVS99n9kL7HOtz8hL2K
-	TIkw1Cq8GTOXV/SsiLomEAYssrHimT6LDtlmUQ99sWJAiZzUeaGPrne6eHEBCF4O
-	JIiH38R1RzyWCYlLrqKugjt16ug7tk1vIAPz6DLHCKYVBlcxL8cTFjEFtdyTPFbf
-	YXvQGVPZUrNK6MwtomDIJp8vL3C4Xk4XqyxD+8H5AvtzvFq9xWgwfetHS0qpN4uQ
-	08xNYK75d12spelpOjwgwN4XA7sZeh6c7jMPi7cqUnT8QYExLtGkw5qs4FLSO3mf
-	fST+EGhEZ370iWemK1C2VTEltrHnNmraABFCdAec3a2lfgoxB9wMw==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g2dhkwx9h-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 18 Aug 2026 04:45:16 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67I4fI5G020824;
-	Tue, 18 Aug 2026 04:45:15 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g34ng95hx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 18 Aug 2026 04:45:15 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67I4jBqb49676548
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 18 Aug 2026 04:45:11 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4B2AC20049;
-	Tue, 18 Aug 2026 04:45:11 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2A51A2004D;
-	Tue, 18 Aug 2026 04:44:57 +0000 (GMT)
-Received: from li-1cb9f04c-2ae1-11b2-a85c-a8a0a83790a8.ibm.com.com (unknown [9.39.17.69])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 18 Aug 2026 04:44:56 +0000 (GMT)
-From: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-To: bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Cc: hbathini@linux.ibm.com, maddy@linux.ibm.com, ast@kernel.org,
-        andrii@kernel.org, daniel@iogearbox.net, shuah@kernel.org,
-        linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
-        venkat88@linux.ibm.com, yeswanth@linux.ibm.com, skb99@linux.ibm.com
-Subject: [PATCH v12 8/8] selftests/bpf: Add tailcall verifier selftest for powerpc64
-Date: Tue, 18 Aug 2026 10:13:41 +0530
-Message-ID: <0a70cdb21d953c55cd2b39a1754190d7542af165.1787027080.git.skb99@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1787027080.git.skb99@linux.ibm.com>
-References: <cover.1787027080.git.skb99@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="JlMsbSRl"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=McZMtrUa3hzu0hmypcB7NhE1Zyyi8suts0Khhwn9SGU=;
+	b=JlMsbSRlu4gGhwvCetSIAp9Ez0mXGF5lMdEZG9PDhnRs/GdbJEcQGtGF4dbV1N2N/Mlrjb/Jc
+	OLCMJfOh7NZTl/YOqzq0DO/mXKzWfpmffMuiHjTmrh4t+XGbQ+at+yoeTCLZAwpT5fsw/kBs4x4
+	ruWAdsRthoJzEm7TcbdryEA=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hPH2s4fBjzRhR0;
+	Tue, 18 Aug 2026 12:36:21 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 61B4340561;
+	Tue, 18 Aug 2026 12:47:00 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 18 Aug 2026 12:46:59 +0800
+Subject: Re: [PATCH v6.12.y 1/2] mtd: ubi: skip programming unused bits in ubi
+ headers
+To: Dominique Martinet <dominique.martinet@atmark-techno.com>,
+	<stable@vger.kernel.org>
+CC: Richard Weinberger <richard@nod.at>, Miquel Raynal
+	<miquel.raynal@bootlin.com>, <linux-mtd@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, Cheng Ming Lin <chengminglin@mxic.com.tw>
+References: <20260818-ubi-backports-v1-0-324d6816d2ae@atmark-techno.com>
+ <20260818-ubi-backports-v1-1-324d6816d2ae@atmark-techno.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <3fec694c-386d-2227-fe72-25e2c909a5a4@huawei.com>
+Date: Tue, 18 Aug 2026 12:46:58 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <20260818-ubi-backports-v1-1-324d6816d2ae@atmark-techno.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDAzMSBTYWx0ZWRfX+LNFigaJ/w3d
- LFZFUnz8VckOHpKfFeDifPDQe5Q9KH070nU2b17yM9RMs6QmiRtwO6AvsfeZ/obe8Xp+AXxYWgL
- Y6xuvXHiKmiHRzhpn9qFR6VMJPk7ebzYLIhq8e5hWtC1VRKET9Z2IVDhiH3ThABiSAaSZDqwAEi
- 8WBd/pUrU40R3GwTOBN0nzKI+3BcxNGxdJNedu6H1rCXv6+BKEuB87dmlUq6BTRtzGPCWpoBKtE
- +PF0nkl1tCPP1zFCNef5rY9Kh7mpRjfjrCE6sjL8gfpb2glFpXnvUAPwmqr+tYOF65nyqAGGQ0s
- kH8utaM/0hPzqz3zJ1M6cbZ93hHqJZj8bXhbTecjGqpzv2dhAk5csbOsAJicERv8H3jnrjqUZB+
- HjXDXX6zVKSMiW0cOetGPdHfxQc55FVDmegQp9C83m1qjK8MULh2g+rhrglRnYjFnvSvUy1c+iL
- c+DbeD/CZiQYrQqTnAQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDAzMSBTYWx0ZWRfX8irZF6mbjsCV
- Du13Q/rQiapMkXElrwABEI4w5R0lQY1oQvGRVUStg2KUJFvis0RQH2v4z2ztu1uP6kigtlJ2+2x
- mcv1Xuv/qkkWSlErmIAPMk0wZtrFhoc=
-X-Authority-Analysis: v=2.4 cv=JKkLdcKb c=1 sm=1 tr=0 ts=6a83e35c cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=YHohsJt5VkgNoF_SymIA:9
-X-Proofpoint-ORIG-GUID: YXIJL93hMLRDANGdMv4CyMqJmXIBTaOx
-X-Proofpoint-GUID: YXIJL93hMLRDANGdMv4CyMqJmXIBTaOx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
- lowpriorityscore=0 clxscore=1015 adultscore=0 impostorscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608180031
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-From: Abhishek Dubey <adubey@linux.ibm.com>
+在 2026/8/18 10:09, Dominique Martinet 写道:
+> From: Cheng Ming Lin <chengminglin@mxic.com.tw>
+> 
+> This patch prevents unnecessary programming of bits in ec_hdr and
+> vid_hdr that are not used or read during normal UBI operation. These
+> unused bits are typcially already set to 1 in erased flash and do not
+> need to be explicitly programmed to 0 if they are not used.
+> 
+> Programming such unused areas offers no functional benefit and may
+> result in unnecessary flash wear, reducing the overall lifetime of the
+> device. By skipping these writes, we preserve the flash state as much as
+> possible and minimize wear caused by redundant operations.
+> 
+> This change ensures that only necessary fields are written when preparing
+> UBI headers, improving flash efficiency without affecting functionality.
+> 
+> Additionally, the Kioxia TC58NVG1S3HTA00 datasheet (page 63) also notes
+> that continuous program/erase cycling with a high percentage of '0' bits
+> in the data pattern can accelerate block endurance degradation.
+> This further supports avoiding large 0x00 patterns.
+> 
+> Link: https://europe.kioxia.com/content/dam/kioxia/newidr/productinfo/datasheet/201910/DST_TC58NVG1S3HTA00-TDE_EN_31442.pdf
+> 
+> Signed-off-by: Cheng Ming Lin <chengminglin@mxic.com.tw>
+> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> Signed-off-by: Richard Weinberger <richard@nod.at>
+> (cherry picked from commit 77530d1a78ca5c274e37d6494a965223672630b2)
+> Signed-off-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
+> ---
+>   drivers/mtd/ubi/io.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+> 
 
-Verifier testcase result for tailcalls:
 
-# ./test_progs -t verifier_tailcall
-
-#618/1   verifier_tailcall/invalid map type for tail call:OK
-
-#618/2   verifier_tailcall/invalid map type for tail call @unpriv:OK
-
-#618     verifier_tailcall:OK
-
-#619/1   verifier_tailcall_jit/main:OK
-
-#619     verifier_tailcall_jit:OK
-
-Summary: 2/3 PASSED, 0 SKIPPED, 0 FAILED
-
-Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
----
- .../bpf/progs/verifier_tailcall_jit.c         | 76 +++++++++++++++++++
- 1 file changed, 76 insertions(+)
-
-diff --git a/tools/testing/selftests/bpf/progs/verifier_tailcall_jit.c b/tools/testing/selftests/bpf/progs/verifier_tailcall_jit.c
-index 48fa34d2959f..880c4636b000 100644
---- a/tools/testing/selftests/bpf/progs/verifier_tailcall_jit.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_tailcall_jit.c
-@@ -91,6 +91,82 @@ __jited("	popq	%rax")
- __jited("	jmp	{{.*}}")		/* jump to tail call tgt   */
- __jited("L0:	leave")
- __jited("	{{(retq|jmp	0x)}}")		/* return or jump to rethunk */
-+__arch_powerpc64
-+/* program entry for main(), regular function prologue */
-+__jited("	nop")
-+__jited("...")                          /* ld 2, 16(13) absent with CONFIG_PPC_KERNEL_PCREL */
-+__jited("	li 9, 0")
-+__jited("	std 9, -8(1)")
-+__jited("	mflr 0")
-+__jited("	std 0, 16(1)")
-+__jited("	stdu 1, {{.*}}(1)")
-+/*
-+ * load address and call sub() via count register
-+ *
-+ * Address materialization differs between PCREL and non-PCREL kernels.
-+ * Skip the address generation sequence and verify only that the call
-+ * target is loaded into CTR before branching.
-+ */
-+__jited("...")
-+__jited("...")
-+__jited("...")
-+__jited("...")
-+__jited("...")
-+__jited("	mtctr 12")
-+__jited("	bctrl")
-+__jited("	mr	8, 3")
-+__jited("	li 8, 0")
-+__jited("	addi 1, 1, {{.*}}")
-+__jited("	ld 0, 16(1)")
-+__jited("	mtlr 0")
-+__jited("	mr	3, 8")
-+__jited("	blr")
-+__jited("...")
-+__jited("func #1")
-+/* subprogram entry for sub() */
-+__jited("	nop")
-+__jited("...")                          /* ld 2, 16(13) absent with CONFIG_PPC_KERNEL_PCREL */
-+/* tail call prologue for subprogram */
-+__jited("	ld 10, 0(1)")
-+__jited("	ld 9, -8(10)")
-+__jited("	cmpldi	9, 33")
-+__jited("	bt	{{.*}}, {{.*}}")
-+__jited("	addi 9, 10, -8")
-+__jited("	std 9, -8(1)")
-+__jited("	lis {{.*}}, {{.*}}")
-+__jited("	sldi {{.*}}, {{.*}}, 32")
-+__jited("	oris {{.*}}, {{.*}}, {{.*}}")
-+__jited("	ori {{.*}}, {{.*}}, {{.*}}")
-+__jited("	li {{.*}}, 0")
-+__jited("	lwz 9, {{.*}}({{.*}})")
-+__jited("	slwi {{.*}}, {{.*}}, 0")
-+__jited("	cmplw	{{.*}}, 9")
-+__jited("	bf	0, {{.*}}")
-+/* bpf_tail_call implementation */
-+__jited("	ld 9, -8(1)")
-+__jited("	cmpldi	9, 33")
-+__jited("	bf	{{.*}}, {{.*}}")
-+__jited("	ld 9, 0(9)")
-+__jited("	cmpldi	9, 33")
-+__jited("	bt	{{.*}}, {{.*}}")
-+__jited("	addi 9, 9, 1")
-+__jited("	mulli 10, {{.*}}, 8")
-+__jited("	add 10, 10, {{.*}}")
-+__jited("	ld 10, {{.*}}(10)")
-+__jited("	cmpldi	10, 0")
-+__jited("	bt	{{.*}}, {{.*}}")
-+__jited("	ld 10, {{.*}}(10)")
-+__jited("	addi 10, 10, {{.*}}")    /* offset depends on CONFIG_PPC_KERNEL_PCREL */
-+__jited("	mtctr 10")
-+__jited("	ld 10, -8(1)")
-+__jited("	cmpldi	10, 33")
-+__jited("	bt	{{.*}}, {{.*}}")
-+__jited("	addi 10, 1, -8")
-+__jited("	std 9, 0(10)")
-+__jited("	bctr")
-+__jited("	mr	3, 8")
-+__jited("	blr")
-+
- SEC("tc")
- __naked int main(void)
- {
--- 
-2.55.0
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> diff --git a/drivers/mtd/ubi/io.c b/drivers/mtd/ubi/io.c
+> index a4999bce435f..915eb64cb001 100644
+> --- a/drivers/mtd/ubi/io.c
+> +++ b/drivers/mtd/ubi/io.c
+> @@ -868,6 +868,8 @@ int ubi_io_write_ec_hdr(struct ubi_device *ubi, int pnum,
+>   		return -EROFS;
+>   	}
+>   
+> +	memset((char *)ec_hdr + UBI_EC_HDR_SIZE, 0xFF, ubi->ec_hdr_alsize - UBI_EC_HDR_SIZE);
+> +
+>   	err = ubi_io_write(ubi, ec_hdr, pnum, 0, ubi->ec_hdr_alsize);
+>   	return err;
+>   }
+> @@ -1150,6 +1152,14 @@ int ubi_io_write_vid_hdr(struct ubi_device *ubi, int pnum,
+>   		return -EROFS;
+>   	}
+>   
+> +	if (ubi->vid_hdr_shift) {
+> +		memset((char *)p, 0xFF, ubi->vid_hdr_shift);
+> +		memset((char *)p + ubi->vid_hdr_shift + UBI_VID_HDR_SIZE, 0xFF,
+> +		       ubi->vid_hdr_alsize - (ubi->vid_hdr_shift + UBI_VID_HDR_SIZE));
+> +	} else {
+> +		memset((char *)p + UBI_VID_HDR_SIZE, 0xFF, ubi->vid_hdr_alsize - UBI_VID_HDR_SIZE);
+> +	}
+> +
+>   	err = ubi_io_write(ubi, p, pnum, ubi->vid_hdr_aloffset,
+>   			   ubi->vid_hdr_alsize);
+>   	return err;
+> 
 
