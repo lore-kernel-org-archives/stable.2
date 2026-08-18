@@ -1,132 +1,139 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-149.mta0.migadu.com [91.218.175.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B1B3890E3;
-	Tue, 18 Aug 2026 09:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E833C1400
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 09:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787043927; cv=none; b=EzygWkMyaKAA7JFRuunNFJfbPCWuouf3dUwh4kUaf+0LsA2Cn9gskXONgwXdV6npnW42Prs9LdCyxOOEII82AHebvFgO1HkRHcWSCRtvgOqSHqXEYevrmvR/mB/acVJnLltAql0xArkWft5tEorljdYtTJte0iUsnTMFZ8PIdXg=
+	t=1787044422; cv=none; b=DLqxFygASjCFVjmZBwp5JNdT9zecmwLSfgJt7qSseHladedQyt3DeJOcTdtSqBeaFP3sLGT4JlQjJ1/Auy/U7M+lUs6w73ML8F4f7S8EwNsHJPm1zkGxTx6FLtDWJQ6YDPie+GvAAJhpehXxWNbZFz0W24kVxmG7KGQB2tkIIVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787043927; c=relaxed/simple;
-	bh=ArDP+xPYo7L5LAYvlcf9r4ybgRs7cFmSGQ6qSx53NAc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IhzblMKyb2Jjf160D7EPxweyEJV5TP0DFjhygWxkAbf7ZZwDyg0nTI1TlUipZnuCuCxqKItOIuHQoaelLDyzfW0DSx8Kejo8Nmu9DVQ+kxTxredCAODM5apjXCRLl2kaDklno4UMNEvgj2PsVskU5ZNdZy5QK81LMSgaFErYEe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=tF8nDEJA; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1787044422; c=relaxed/simple;
+	bh=lt2HcI6nybCzyfFRr8ydY9sXKqJ/ZC2gaShlnnB1P2U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bj+uGg4OELm8jboMTOCR6DLwR1Fgokcll00WuBavpkgEyqg1BWlpVrWPJ+y2iSK9kE0REPm7PlZeRPFMmxNLdZnCTBaVRlfPStIkemPkHrtLnp7f7xbQ4Zrq1aGr6Sa2/me5X7hO2uX64L5efP52eAdUu5AXCkQ4v1VLHh2wduc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Vb1eC3i4; arc=none smtp.client-ip=91.218.175.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="tF8nDEJA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=WrGJ0Uzan2ImOgGQ7YbCggxDQmGPpBly/qZdeZQEPEA=; b=tF8nDEJAH/tN1K5TjYvoLFMr1T
-	P2nnwgywH71lmQPJ6nXvavL1Xg87U+19sM8AGEAyVRNlXM/L1Pwv94w2+d9U9wgOOnTElJw+uz8mx
-	GQ8SaNKxTW3oo4OF8QaYq82rbl6QTUrpqk9Wxk5JDUxkYkuUTgySdfpHOMer6llD2wnnCbOTUfSqu
-	M8o8XIcqb+Y7bG5h4bAObhaKFL0MKG++oF2tds+sS3EQeZxc6kGT0JDrxj0pBuKTEmNXy7RW6pB17
-	MHajD6M1+8s8gAYkgySj/1rUTGUBAZ617kqC4KZOCf9yQ7QKmzr+JqXu9y10uuBl1U0oCuHu7B/DH
-	OZYNXayg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1wwFkh-008tsS-2x;
-	Tue, 18 Aug 2026 09:05:00 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Tue, 18 Aug 2026 02:03:40 -0700
-Subject: [PATCH] mm, swap: ratelimit bad swap entry reports
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Vb1eC3i4"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lt2HcI6nybCzyfFRr8ydY9sXKqJ/ZC2gaShlnnB1P2U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787044417; v=1; x=1787649217;
+ b=Vb1eC3i4JkiAysSOLwQeJXxHjsX+T7TxP+quiRRr+wSXdQ7qHu+idHpRCUTsJcmz8IYoalb9
+ wu4SthnS4sdvk0XlIZJfMMH8hAoY/ikcOk/pVAoM66AW8jp1LJDvNZxcQtGv6Z6yvmAeV/RGT81
+ bvRyZhETnWYzuEvggnqp+moc=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [10.80.0.99] (151.61.14.130)
+	by smtp.migadu.com with ESMTPS id 6b73d90c19bbb78d;
+	Tue, 18 Aug 2026 09:13:27 +0000
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5847901f-6080-4b8b-98d4-6693d64fb748@linux.dev>
+Date: Tue, 18 Aug 2026 11:13:23 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] HID: asus: fix touchpad multitouch initialization
+ regression
+To: Panz Dev <panz.development@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260818085623.18467-1-panz.development@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20260818085623.18467-1-panz.development@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-swap_part_one-v1-1-a4fc58119fc0@debian.org>
-X-B4-Tracking: v=1; b=H4sIAOwfhGoC/x3MUQqAIBAFwKss7ztBg8K8SkRIrbU/JhoVSHcPm
- gNMReEsXOCoIvMlRY4IR6YhLLuPGytZ4QitbnttjVXl9mlOPp/zEVkZv+rAfWf1wGgIKXOQ5//
- G6X0/C6NS318AAAA=
-X-Change-ID: 20260818-swap_part_one-1ad0fe65809e
-To: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
- David Hildenbrand <david@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
- Oscar Salvador <osalvador@suse.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- stable@vger.kernel.org, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1799; i=leitao@debian.org;
- h=from:subject:message-id; bh=ArDP+xPYo7L5LAYvlcf9r4ybgRs7cFmSGQ6qSx53NAc=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqhCA3s9yhmIJelTJ+LbL97xgDf/DG4nsncIyY/
- q8Ez43ZtbSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaoQgNwAKCRA1o5Of/Hh3
- bVHkD/wPyu0OuSilyXkZ9gP8CY90hf2yoZqTHyBIbB7U6XHUZVkK7NA6XXsqX78Ut6ANTYReAs4
- fSq3DBrrwBaJ44JxHfcoy2XMZ4bQw5sq8l53DuHuTgT5vMytpX2nbWHBwNqGk8V7w1wmMKyQPUR
- +Rm2XfzESaU2F621Ckqu/GiElwfb0uuDsjAVRwdXHLTyUCWjrQKC5bVgs2nL6MgMBJZIJJJepMV
- GhXbiWOOkDn8wDs1SF4NadPhP5xmkxbCp1rsXso8nMKfbQYMBNJHlMg9VY2hYFnSRcBwGcJRTCj
- LNNBZ2TyhJm6YXidk+UibhjIpw3e+fQWeViL8+Z+bAUMiFzhgNxP6jlEtZzfvpfvyh76uUTniS3
- jshFN3XhO9KN8gcjZd9pGu99u6T29aOdJTdwgMN8zMlGlX/+cmCo4AjGAtADaovGh4inuCf6E6W
- uds+y5D9iy3fftgSZ8TJjCYZC2c9hEfASKNVQzu5hD7sU1qWxbJ0qwPXmE0S51PbnMMj/AsoWiS
- DPWetHpXchHyGGBGLHxlUo7fJJTEzuuK0/dquhAuYB2UFRqJvRsVME14tC1qH8q/EnUCupq0fBa
- lleFSjsddMfJDesAKCwUDzkzO/N9RrD02ldBjLCWxaLHcCsrRF36SlQmkA95s8HfguvRERzeBcB
- 6kwyk46pb8bl7Rw==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
 
-A corrupt page table hands the same bogus entry to get_swap_device() on
-every access to the mapping, and every rejection is logged. One machine
-logged 6185620 copies of the same line in a few hours.
 
-swap_dup_entry_direct() prints the same message from the fork path, once
-per call: the WARN_ON_ONCE() guarding it warns once, the pr_err() inside
-does not.
+On 8/18/26 10:56, Panz Dev wrote:
+> In Linux 7.1, commit 7253091766de ("HID: asus: do not abort probe when not necessary")
+> and commit 0919db9f3583 ("HID: asus: always fully initialize devices")
+> introduced regressions in the probe sequence for ASUS I2C/HID touchpads
+> (such as on the ASUS E200HA):
+>
+> 1. asus_start_multitouch() was placed inside the claimed input check block:
+>      if (drvdata->input && (hdev->claimed & HID_CLAIMED_INPUT))
+>    On ASUS touchpads, (hdev->claimed & HID_CLAIMED_INPUT) evaluates to
+>    false during asus_probe(), skipping asus_start_multitouch().
+>
+> 2. The asus_report_id_init loop in asus_probe() was executed unconditionally
+>    for all devices, which sends keyboard initialization feature requests
+>    (asus_kbd_init) to touchpad endpoints, corrupting touchpad probe state.
+>
+> This patch fixes both issues by:
+> - Skipping keyboard report initialization for touchpad devices (!drvdata->tp).
+> - Moving asus_start_multitouch() outside the claimed input check block so
+>   multitouch initialization is always executed for touchpads.
+>
+> Tested on ASUS E200HA (where touchpad functionality is fully restored)
+> and ASUS VivoBook Flip 14 TP401MA (confirming zero regressions).
+Hi,
 
-Rate limit all three prints.
+thanks for this! I forgot to exclude touchpads from that init sequence.
+> Fixes: 7253091766de ("HID: asus: do not abort probe when not necessary")
+> Fixes: 0919db9f3583 ("HID: asus: always fully initialize devices")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Panz Dev <panz.development@gmail.com>
+> ---
+>  drivers/hid/hid-asus.c | 22 ++++++++++++----------
+>  1 file changed, 12 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> index 3f5e96900b67..7f19ca1e5a1b 100644
+> --- a/drivers/hid/hid-asus.c
+> +++ b/drivers/hid/hid-asus.c
+> @@ -1294,12 +1294,14 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  		return ret;
+>  	}
+>
+> -	for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
+> -		if (asus_has_report_id(hdev, asus_report_id_init[r])) {
+> -			ret = asus_kbd_init(hdev, asus_report_id_init[r]);
+> -			if (ret < 0)
+> -				hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
+> -					 asus_report_id_init[r], ret);
+> +	if (!drvdata->tp) {
+> +		for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
+> +			if (asus_has_report_id(hdev, asus_report_id_init[r])) {
+> +				ret = asus_kbd_init(hdev, asus_report_id_init[r]);
+> +				if (ret < 0)
+> +					hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
+> +						 asus_report_id_init[r], ret);
+> +			}
+>  		}
+>  	}
+>
+> @@ -1327,12 +1329,12 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  			drvdata->input->name = "Asus TouchPad";
+>  		else
+>  			drvdata->input->name = "Asus Keyboard";
+> +	}
+>
+> -		if (drvdata->tp) {
+> -			ret = asus_start_multitouch(hdev);
+> -			if (ret)
+> -				goto err_stop_hw;
+> -		}
+> +	if (drvdata->tp) {
+> +		ret = asus_start_multitouch(hdev);
+> +		if (ret)
+> +			goto err_stop_hw;
+>  	}
+I think this will re-introduce the security vulnerability fixed in the commit that led to me
+creating the "HID: asus: do not abort probe when unnecessary"...
 
-Cc: stable@vger.kernel.org
-Fixes: 23b230ba8ac3 ("mm/swap: print bad swap offset entry in get_swap_device")
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-Acked-by: Kairui Song <kasong@tencent.com>
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- mm/swapfile.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Furthermore if that drvdata->input && (hdev->claumed & HID_CLAIMED_INPUT) doesn't
+evaluate to true it would be useful to know what part is false and that code that prevents
+null/invalid dereference is wrong, and since I tried touching it the least possible it means
+there is also the need to change the && back into ||, but that would undo the "keep the
+proper name of the device" for keyboards...
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index dacef34a3ed7a..53bf01d5f7f11 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -1899,11 +1899,11 @@ struct swap_info_struct *get_swap_device(swp_entry_t entry)
- 
- 	return si;
- bad_nofile:
--	pr_err("%s: %s%08lx\n", __func__, Bad_file, entry.val);
-+	pr_err_ratelimited("%s: %s%08lx\n", __func__, Bad_file, entry.val);
- out:
- 	return NULL;
- put_out:
--	pr_err("%s: %s%08lx\n", __func__, Bad_offset, entry.val);
-+	pr_err_ratelimited("%s: %s%08lx\n", __func__, Bad_offset, entry.val);
- 	percpu_ref_put(&si->users);
- 	return NULL;
- }
-@@ -3883,7 +3883,7 @@ int swap_dup_entry_direct(swp_entry_t entry)
- 
- 	si = swap_entry_to_info(entry);
- 	if (WARN_ON_ONCE(!si)) {
--		pr_err("%s%08lx\n", Bad_file, entry.val);
-+		pr_err_ratelimited("%s%08lx\n", Bad_file, entry.val);
- 		return -EINVAL;
- 	}
- 
-
----
-base-commit: e6664f2b33db9b6811eb4cec109f06cb2b4f458d
-change-id: 20260818-swap_part_one-1ad0fe65809e
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+With these in mind would you want to try fixing them all at once?
+>  	return 0;
