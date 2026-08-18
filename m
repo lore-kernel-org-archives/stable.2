@@ -1,192 +1,163 @@
-Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3F23845A6
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1E641F366
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:20:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787040891; cv=none; b=RTrc/6CeS4oDcxQiOrzy+tELoxYJOR0urIlAPdcdQTdfqamWQDstH7ijhkq1jBAB+HRql5bLSh8C4LRkKGuX+wc71Uw9mJ+XbSeLi9IYMpd5dQ487QX1DDp4augfkGskzjSTEVV3OeZYyitlZ7f3+VOGlwAv3jKgZWG3CpsC4VA=
+	t=1787041216; cv=none; b=RBE+qbAiBKkPxaP3U0vPvbYyBdPLiRR7gmUrb9taYfQ1Ys5GNeY96HYvSFaB1SzuxPKkOMUM7w4ZzMcuHpfop79hAnKfgqrpvSApgpVREW3nJpvabj/fn9snIiFmejXF/JNU1jFPJfXcGEZUArip+XNd8SEfzeCynLkJg9gHNA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787040891; c=relaxed/simple;
-	bh=pGZsZITJItgVWsf9XyJJbczhAEmv8y5Zh6KzPg7DYTo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IBNKqKRW8yqTEgD9Myh1o0uHHZOyOnPaZS8G1v289xIDM45WV7ceh6g6Tf5eNKHonE4w7d+i1e/KJN8dE9GAnOLEk9DyzgrzKVMW6plfycpZL2Sn68IqQu0zJAuQeENO0y7L0tJHHtGmTouRQOZPb6twzJAHPoh223V/BrbQllk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=YNZNvKF1; arc=none smtp.client-ip=74.125.225.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1787041216; c=relaxed/simple;
+	bh=ycovQT/558FlnXscF8m7zxc9zLWWsuZv+tlyiAi8cKY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gqVs1heAmFwx59sb1Bd4zaFzOSG+ZbKwh7yLk8mZNwlHWUWJSz0ewI6GUoAKHpq1FLhsxsySgH0kuppIplw8LtIgTAiHnF4rBaHes2nuJr0S6QnNBCAavTsgMv48rTRVhPQ0G6csTMUo8rtKjuXZIqUieOUbli7O/ecPnwkcB/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lMhLpZWN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Rk/Dh+KU; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="YNZNvKF1"
-Received: by mail-wm2-f9.google.com with SMTP id 5b1f17b1804b1-49550ec5b41so4346045e9.1
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:14:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lMhLpZWN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Rk/Dh+KU"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I8BI6V243024
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:20:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=S1i9yeznsxYEHXqB0fIApER1
+	x8xqRjP0230BnDCm118=; b=lMhLpZWNqmD3WPWL4aYj8Xq0MKgo3kKIX7AiyAbz
+	0Mq1Z1SwYNka1cX2xOUg6H9XaexhQU5W1g5i/nHptNOkHZc0rbZRzM3dPkid80ED
+	+e80UEaTXPm1Z804gd0wNoYrNTxQpDzkbyZXIi9pE0zq8WNtj7faIjW6rMAHRghT
+	9aG6ibjjQZVndnPz0Id3Vi0amNqpsWNzHL8tSwf6x2fMUqdrrGk1tvgHEUU3AJF2
+	bxo43gjnC6NraQOczXYG4mGiPfjFGC5LaaRlIJXp1/m8tAgSHfP/UE4lo+lT1y9R
+	nmGOPWDKorGdyEF1HARP69JpRX+8+nFPi0nTNVQf5aRk3Q==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4ea2hg4m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:20:13 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52d7b3adda4so43174381cf.3
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 01:20:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787040888; x=1787645688; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YZxhB/5exl1lgMbq7eah+okLtpNH0eiL1HCb7Eb+Ptw=;
-        b=YNZNvKF1WVVL6yc7txT3SXBBgFmqR+6KRY8O1gU2AioQtz6cIPA6B4lzq8oy48gHi8
-         t1aWsK5KVrk0RhdUt49vU6pUqW6D2S9foqYjwvqwNCX9fkGAS0k/Xasf5/zg/g1eqcU0
-         1u15uZZJPQGs0Bs9SCd9Y4ziiguaq6UFPfO1g5gbt9K8bKRz9ZKHCvBhV8Nlko8wKgwP
-         k9ZUcC5N0qwCkizMie10KSkDP/y1gb9XXXKvpnmy406uXuPyCSTP9PsTPdN6Rre4+CKL
-         ZqJRxT9xcY0TzHqBzuNPHHfj2jfCkt6r7rorN3ukCzBA9V/8UkjAFv9/tnFWuFfZpGn8
-         JeUw==
+        d=oss.qualcomm.com; s=google; t=1787041213; x=1787646013; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=S1i9yeznsxYEHXqB0fIApER1x8xqRjP0230BnDCm118=;
+        b=Rk/Dh+KU87vZv7JskT6DAxlqQ5xbTctGTn5E2uRLoUmPW56AkOOrV/SSv+at+36All
+         Y3o2T1Ma9/Ba+d/qPxdQjCHhwjMfL/Jzm5QQA39QKA06WRQCN0+x/q25T+Umw6C1G8CW
+         MlEQ6IUC2zENksfGVyv2iIpyA84VCxeBNhvKrfiwd7uw/87rUH898O05ly8QeST0imfX
+         x0AeH0zIEoG5yTL69Ni2VDLIPcnYUjGXd3l5SAHnwXTAn1C7ZnTfeO9ptmoQTx/KZMBf
+         aSR3pyxx6g2UcvHlWR4/7EjgZNSTM0mhADMPVasyMNcvoC6uRM2iTU3ydBjwin69oq5t
+         f7NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787040888; x=1787645688;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YZxhB/5exl1lgMbq7eah+okLtpNH0eiL1HCb7Eb+Ptw=;
-        b=GHyFc6tifCSnVEZtbwMkO+oirb/d3785ud4ednGtiDbAlMwI70x7rFm8GkuXynMN7m
-         2xYfwlyRaSyegiuaMDMZXmawMOgKG58O910DlHIedwXNFWmI+tXIpkZ6uwqcCbL3g8H+
-         Sko4s3FyNi7SxJVqxI3A7Pj+uwJNLE6FldRLzjO92/UUUEP3Z2wHPvy1UKCopt/WMiXT
-         3wFS8BbphwgxfVMQMxnIMRgosmnH5HnCZR2NL66e2HOrHuc5ufvU2qW3M41TJ+6ucP3h
-         noel8qtry/ocnB3CQJ0Hg7YJoqGvNRpSZ0tu0N28vQ9N4ganKYUoNlY9uA1DisluHyi6
-         iViQ==
-X-Gm-Message-State: AOJu0YwYVg81NhMJ9azW0+8Pr+mq+hubVOLfhmv6E7nZipgGj3IS0WtQ
-	PkGV8WFl3QH6g8Eiw1LHm3mHLlxbrU3REkcKNiaWEYMusVAK5gPrT0xIFjjOk9e0syX9nCLhzTb
-	JuRatBqa3ZKCl
-X-Gm-Gg: AR+sD12s8mQr0W16SHW0PUt5gkh5Vf/nRsVv6SWsuDWc1zFgB9iFv1DqXBPesWEi2Tx
-	EFRxQtcIIdjMAZr9rKeo2JryX8Uh6QigGuY8idMViXRRdjZxnlpzdS8r1BcZLQZNDTb8fEy636B
-	BSm4l4jaIyVE80NdArHmtItgWRYFRyPGr7oeYkZc/ReGFpcAdkNbiz64GYyelCFUJ6eoWXc8T6W
-	PpDgP1NrvWqIQ4etZTtNwOxaaCVvEvUWaAzMGdBtWcJghjJuuA7kILlbkd+Bl5gMDdWhudAwnAF
-	l9o/ohdQ2Gy+8hs3kdIxWpfg86Smn4lxQNTvqHGJTAUjDQJsteFFOkkG8/7Bp693oXHpFZULX5C
-	pxy/d2eru1eoGgxcxRlprayGRHvq3R7hnA9+80YHrzojmE7lsXBMK+mZ0hdwUaMGgil1CaYZDBV
-	tQhh9ZSnlS1C72t7IYqAduuc+qpreziAYoiexrSIC7enY8CWb5foNZxSUlaSp1y8hyLuMyfB368
-	kVXBG94F0EKzgQlAg==
-X-Received: by 2002:a05:600c:2114:b0:499:5210:c537 with SMTP id 5b1f17b1804b1-4998792e462mr341968075e9.1.1787040887793;
-        Tue, 18 Aug 2026 01:14:47 -0700 (PDT)
-Received: from localhost (27-240-49-235.adsl.fetnet.net. [27.240.49.235])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5c1ed50absm11507285ad.72.2026.08.18.01.14.46
+        d=1e100.net; s=20251104; t=1787041213; x=1787646013;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S1i9yeznsxYEHXqB0fIApER1x8xqRjP0230BnDCm118=;
+        b=WTWYeg1QwQqyFcP7KBotHW2jXN3jAXt3nOy+ArfltMrSuRqNLFgxFM3dG8fkT8Ok/8
+         TxkqMBBYwn+zIjsmC9P2PLNjVdzhYqWQVk7IjDb36N2b04GK+eUyahtxxXHJxSE0Zd8J
+         2TY7/8XI/amEeB8YfdOfp4CwJANJ+/FJHCiuD2o8qK4lWLR4cp16kZRd9OxMpPaMnYMk
+         NwZlNxHkz9dfHN22yDP1TRnEnegIWok0sSAwxGEPIYT3WqEXnk5+/FjtQmOnmeO9JTpe
+         E7CylQgzY5s23WP+KmW+2w7NEGMOQo5VYn5IMbCDpxLY+B3evdN+H1gYVkh99Eq/iB1f
+         /k5A==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2pgc6h3rFpTau1+2623c6XbEZpdnTdIO1gsh3pMtM7BNM5zNmMhThOqVreW5RbBALVMy1p9w=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwO3QiGdJv28MXfjXsFmKxNz8Z4mYmIjH8LiN9cOj1lN9ebmJEu
+	Hxs1PwPoOAbq/PQoswbJSRybLnJRDJPT6vpaY4m1G/AWUjP6s5ilrzEqGk3aS9n7yfdd9Dhno97
+	irVR7wpOz2DJaYVuNK/nQNgov5ZjfQu1+bCTH87j+RtU43rEfq25YIoDEvRE=
+X-Gm-Gg: AR+sD13Jucb8kX+lOjAMCtTQ7yVTdHe3c/Jr7h+UEctJMoeUsFEv9icsIyYBckSQhiK
+	O4pMjbz/mvQCj7vDYUbAdFP6kTB0PnIS7UiCCQeADMXg07UzdXUHEfcW9eDV8MpLtC18zXFtKLM
+	O2zteZtgQm/AFhFG0k1iKqt3yyQEsnrRaWoxQC4+cGk/X5rSts5lLUBHbX+Fb/QD1Et79lF4Gpk
+	CmB/c/tPx1VJiyMcSS024P1Chi90LujMDUep4BwYpz5UOJGnpsipKK35ZiIbEgfqUUt1WaVZa2x
+	It0VlpKVUFflvFynz8k73Epg8rRwRVPdP66tdP3SX4HRi2cljfivI43GO6vBpldWw444gem7Hne
+	smyHQNeeOuBukzH/358NDRJwx226sRQxu6E+bnJsBT9mJh41gjOVebqrwQB+876ttx0nYPKpnZO
+	irflAcbp5nar1a
+X-Received: by 2002:ac8:5f8c:0:b0:517:8470:2d2d with SMTP id d75a77b69052e-52dbd71dacdmr55780591cf.29.1787041212930;
+        Tue, 18 Aug 2026 01:20:12 -0700 (PDT)
+X-Received: by 2002:ac8:5f8c:0:b0:517:8470:2d2d with SMTP id d75a77b69052e-52dbd71dacdmr55780501cf.29.1787041212387;
+        Tue, 18 Aug 2026 01:20:12 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a16b0e55fcsm9764021fa.16.2026.08.18.01.20.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 01:14:46 -0700 (PDT)
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: stable@vger.kernel.org
-Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-	STAR Labs SG <info@starlabs.sg>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>
-Subject: [PATCH stable 6.12 4/4] selftests/bpf: Add tests for stale delta leaking through id reassignment
-Date: Tue, 18 Aug 2026 16:14:22 +0800
-Message-ID: <20260818081428.57938-4-shung-hsi.yu@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260818081428.57938-1-shung-hsi.yu@suse.com>
-References: <20260818081428.57938-1-shung-hsi.yu@suse.com>
+        Tue, 18 Aug 2026 01:20:11 -0700 (PDT)
+Date: Tue, 18 Aug 2026 11:20:09 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: venus: Fix iova allocation from restrict
+ region
+Message-ID: <jf2zzsnwe66owxs4rgpugbipaztw2xxeejz6q7vjvnttq3lnz5@spdh5ylsqggp>
+References: <20260812-reserve_iova_in_driver-v1-0-ed62f801275c@oss.qualcomm.com>
+ <20260812-reserve_iova_in_driver-v1-2-ed62f801275c@oss.qualcomm.com>
+ <hzu33hharafxhfdnr5tr23ti2tmtjhls3iwbvmtfllwcv232m5@nvxemt5ijf4n>
+ <8a9b417f-11cf-4dd8-af3f-494afa38b868@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8a9b417f-11cf-4dd8-af3f-494afa38b868@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA2MCBTYWx0ZWRfXwkhnwxl7jms9
+ GpHpV0FrMJ/qT9ZXacdYotKTYJ4GU/IfedYd8e3wndJWCRoXk5sOzjWVXGTB3L5Uvs+0pIX6s/P
+ GBPsJmZycfnTYfSpIPn0TgXE4oYhqDaPSlzOPTe0az71mghSgeXpoV3u6Jj/y0l+fwMGEg1h4UT
+ vyIHnaxD8yK0AgFdhvoFHVL91j7iyQX8DxWsTUa0d/xqvCaBLycJkQgtNE2Mq06TguwkoORdEeG
+ AZs1cioe1XW7K+5FtRYAHXsI82l75Le24RglvAiTIY/+PovWNTXduQzbp7XQlDWs1xio9gMEefj
+ 0iVfmk6n9w6HtHpPimJaJbBhvAFP1DLAqg09vyX1LTETNdYI23V4J3dDiFqpTpzB2hodDliTqOt
+ 88dp055U/W85lQ6YUvH9IixQMcuKPqFqk96yyF+UnUGOjCH8aLGYVBXIKkIEZAwDtLUPuu/qTqv
+ fjmZIQuFw9Y8qQlUpxQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA2MCBTYWx0ZWRfX5P8yI84QVhbc
+ X47AotUgJut4Ln1SwSGTDV7tOudkbxWHP9duZvG7SF92q/SEfVRx0PiXKIAIT+y2K3iNqS6L4I8
+ mXBvXIVrwqKLEF4g4pC7sRBUHVbn7Uo=
+X-Authority-Analysis: v=2.4 cv=XtfK/1F9 c=1 sm=1 tr=0 ts=6a8415be cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=PHneWq3mTtEDJPo0Y0MA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: 1wH2_W8hWJmovm2axUtcKToKruIj0rIa
+X-Proofpoint-GUID: 1wH2_W8hWJmovm2axUtcKToKruIj0rIa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
+ phishscore=0 clxscore=1015 suspectscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180060
 
-From: Daniel Borkmann <daniel@iogearbox.net>
+On Tue, Aug 18, 2026 at 01:25:58PM +0530, Vikash Garodia wrote:
+> 
+> On 8/18/2026 12:34 PM, Dmitry Baryshkov wrote:
+> > On Wed, Aug 12, 2026 at 04:25:59PM +0530, Vishnu Reddy wrote:
+> > > The VPU issues DMA through several SMMU streams, and the hardware does
+> > > not give every stream the same addressable range. The non-pixel stream
+> > > cannot address the low 600MB of IOVA space, while the pixel stream can
+> > > address the full range:
+> > >      +-----------------------------------------------------------+
+> > >      | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+> > >      | 0x25800000 - 0xe0000000                                   |
+> > >      +-----------------------------------------------------------+
+> > >      | pixel stream addressable range (0 - 3.5 GB)               |
+> > >      | 0x00000000 - 0xe0000000                                   |
+> > >      +-----------------------------------------------------------+
+> > Does this split apply to all generations of Venus? We support MSM8916,
+> > for example. There has been work to enable MSM8974.
+> 
+> Yes, applicable for all VPUs
 
-commit cac16ce1e3786bd98cec0c108e3bc06ed3d3c6a9 upstream.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Extend the verifier_linked_scalars BPF selftest with a stale delta test
-such that the div-by-zero path is rejected in the fixed case.
 
-  # LDLIBS=-static PKG_CONFIG='pkg-config --static' ./vmtest.sh -- ./test_progs -t verifier_linked_scalars
-  [...]
-  ./test_progs -t verifier_linked_scalars
-  #612/1   verifier_linked_scalars/scalars: find linked scalars:OK
-  #612/2   verifier_linked_scalars/sync_linked_regs_preserves_id:OK
-  #612/3   verifier_linked_scalars/scalars_neg:OK
-  #612/4   verifier_linked_scalars/scalars_neg_sub:OK
-  #612/5   verifier_linked_scalars/scalars_neg_alu32_add:OK
-  #612/6   verifier_linked_scalars/scalars_neg_alu32_sub:OK
-  #612/7   verifier_linked_scalars/scalars_pos:OK
-  #612/8   verifier_linked_scalars/scalars_sub_neg_imm:OK
-  #612/9   verifier_linked_scalars/scalars_double_add:OK
-  #612/10  verifier_linked_scalars/scalars_sync_delta_overflow:OK
-  #612/11  verifier_linked_scalars/scalars_sync_delta_overflow_large_range:OK
-  #612/12  verifier_linked_scalars/scalars_alu32_big_offset:OK
-  #612/13  verifier_linked_scalars/scalars_alu32_basic:OK
-  #612/14  verifier_linked_scalars/scalars_alu32_wrap:OK
-  #612/15  verifier_linked_scalars/scalars_alu32_zext_linked_reg:OK
-  #612/16  verifier_linked_scalars/scalars_alu32_alu64_cross_type:OK
-  #612/17  verifier_linked_scalars/scalars_alu32_alu64_regsafe_pruning:OK
-  #612/18  verifier_linked_scalars/alu32_negative_offset:OK
-  #612/19  verifier_linked_scalars/spurious_precision_marks:OK
-  #612/20  verifier_linked_scalars/scalars_self_add_clears_id:OK
-  #612/21  verifier_linked_scalars/scalars_self_add_alu32_clears_id:OK
-  #612/22  verifier_linked_scalars/scalars_stale_delta_from_cleared_id:OK
-  #612/23  verifier_linked_scalars/scalars_stale_delta_from_cleared_id_alu32:OK
-  #612     verifier_linked_scalars:OK
-  Summary: 1/23 PASSED, 0 SKIPPED, 0 FAILED
-
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/r/20260407192421.508817-4-daniel@iogearbox.net
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
----
- .../bpf/progs/verifier_linked_scalars.c       | 55 +++++++++++++++++++
- 1 file changed, 55 insertions(+)
-
-diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-index 1b3b44f5f910..fb44f1770dab 100644
---- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-@@ -88,4 +88,59 @@ l_exit_%=:							\
- 	: __clobber_all);
- }
- 
-+/*
-+ * Test that stale delta from a cleared BPF_ADD_CONST does not leak
-+ * through assign_scalar_id_before_mov() into a new id, causing
-+ * sync_linked_regs() to compute an incorrect offset.
-+ */
-+SEC("socket")
-+__failure
-+__msg("div by zero")
-+__naked void scalars_stale_delta_from_cleared_id(void)
-+{
-+	asm volatile ("						\
-+	call %[bpf_get_prandom_u32];				\
-+	r6 = r0;		/* r6 unknown, gets id A */	\
-+	r6 += 5;		/* id A|ADD_CONST, delta 5 */	\
-+	r6 ^= 0;		/* id cleared; delta stays 5 */	\
-+	r8 = r6;		/* new id B, stale delta 5 */	\
-+	r8 += 3;		/* id B|ADD_CONST, delta 3 */	\
-+	r9 = r6;		/* id B, stale delta 5 */	\
-+	if r9 != 10 goto l_exit_%=;				\
-+	/* Bug: r8 = 10+(3-5) = 8; Fix: r8 = 10+(3-0) = 13 */	\
-+	if r8 == 8 goto l_exit_%=;				\
-+	r0 /= 0;						\
-+l_exit_%=:							\
-+	r0 = 0;							\
-+	exit;							\
-+"	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
-+/* Same as above but with alu32. */
-+SEC("socket")
-+__failure
-+__msg("div by zero")
-+__naked void scalars_stale_delta_from_cleared_id_alu32(void)
-+{
-+	asm volatile ("						\
-+	call %[bpf_get_prandom_u32];				\
-+	w6 = w0;						\
-+	w6 += 5;						\
-+	w6 ^= 0;						\
-+	w8 = w6;						\
-+	w8 += 3;						\
-+	w9 = w6;						\
-+	if w9 != 10 goto l_exit_%=;				\
-+	if w8 == 8 goto l_exit_%=;				\
-+	r0 /= 0;						\
-+l_exit_%=:							\
-+	r0 = 0;							\
-+	exit;							\
-+"	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
- char _license[] SEC("license") = "GPL";
 -- 
-2.55.0
-
+With best wishes
+Dmitry
