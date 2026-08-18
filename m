@@ -1,136 +1,165 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBEB3822A6
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 22:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3796F384CD5
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 23:18:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787093849; cv=none; b=hwYxuBtjsLQ4MA8LL1YqTlfOBc0DkBDyc2AgK0vqQ5ISNAjY9L9ColcfAAb63eDyXWb+eKTTkmclfYC5+P2rV3a5tgNkxkSOrGnrmf/Go/Z/1GtpdAhQ2+4cvg/X3zk1JjaNkUvg0MtARdC+n/mMhoU7x3Rr+QtRM8PAz+oED2s=
+	t=1787095086; cv=none; b=K3rNHIea8U1i/ScACohFmd8TKsA6YBmWezVGm/BygqdvEEsBJIFAw9rtRzp6sAbm9lCkEU7cnd6BPigvR+gyx3xlwBW2fK5WSvCZconHhEJBTpNIBCSrIwvLA3HyUDUVpKapfgRsrzgFdqC7SB1c9liMU3GDFB+2zcQwmZlJWI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787093849; c=relaxed/simple;
-	bh=4yqtNfi/fYBjQwSuqMa3CVq0J9dlgvGFOgN32ellYD0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qvSqtUgaGOWMvaaAgbhdWXWL5i1Uw/g6P7liNYnEqiq1wM7iCHKBc8eGwaCszPTvTPctblM763/f3j0l79J6WLKu/0njJ9l20uArWgHyOco1QfQ+004V/N0rukP9y58AE/QYwE+4CbXzaXFKxHsZukEUIx2n5WS63yBEqppItn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=truenas.com; spf=pass smtp.mailfrom=truenas.com; dkim=pass (2048-bit key) header.d=truenas.com header.i=@truenas.com header.b=FB/nSPyK; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=truenas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=truenas.com
+	s=arc-20240116; t=1787095086; c=relaxed/simple;
+	bh=a8IOTYHpzARDBkDXw7Oai/tzL+r3gsDh+8SANcfGXjg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZfUrZJMsOnHgxPB31luhfuepPVI3LXdHvXPF7pWOoWGecrfWpibg2r3/dwPniiieSJbWcMSNHNNG0sNuVZaexuSn8brhqMb3CNgVfqjGCRVjL2Y8xLA8yboBkEFMQtOqbBzsZoJbm5aaRiIxzHz4G5FHdiGJWn09eIOcuHD7EIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CGNmYkqK; arc=none smtp.client-ip=209.85.167.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=truenas.com header.i=@truenas.com header.b="FB/nSPyK"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4957eefd361so2774535e9.1
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 15:57:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CGNmYkqK"
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b2a73d5fc3so40884e87.1
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 16:18:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=truenas.com; s=google; t=1787093845; x=1787698645; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e+zxtlZCZV0FZ0F54ec9MsjwqafxLqyL4TeKljBaAqM=;
-        b=FB/nSPyK181vzEcHJPH8yTqR3FEIVupz1y63NNOCR3zMEMqhJ28jjT06FaRx5KAC60
-         Yu7PKrURgECK6zQelEvS++So+u/t6r5MBd/7Aak8buykskEKcYzoIU2164XRxyJ2DwyV
-         jqpNsgwDsh19nIzJvR87KxqbHaQb5NozI2mIfXhW2fU7p5vDZYvRizbxQZoWN0HYx6Kq
-         meNtbRbHGirwkv5YBf2cgXkJh2lqEKzi1e7z+JqjtU3SYnERZWbwjhDqFhEtr5tEQQrB
-         3boLiMFD0sfac1acE3TJt4DG/SNlioAPT0bhWnw/lHcU9QIV23R7GOxYeTkd4w3I3Zxb
-         7jaw==
+        d=linaro.org; s=google; t=1787095082; x=1787699882; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=azicBGUhuLKBlVAXIqSFD4EKWplTYg8gpsiCO/t2g/Q=;
+        b=CGNmYkqKQWoKGH41Id2BAn7W9SO5PFWE/QIFxaclbUx3fZJiZSciMddLrVApf7/nYo
+         EZZV7oqBqEUhXu2Y/lL5n3uqw8ByTxjAmT19Hs9+6+glt7zKHN2BbJxjywX+YcsrXLBr
+         csA+Xt5xDYlCM8I6U0FpLBmLaE6PC/xj+9ZuFGVT9YQNE5MQsYioFvS44VoVoQIadBox
+         ME0IslyHnd1Uv46o0LGmFerfwZSJ805gDaKuwfvITN4Gj37z8kLNs5Ba6hBDEuu3AtzG
+         lhHFNi/eaZZ7RzpPGlAz0UXgPsGgPz6wgL+eJR4ioLfFbsjoiv2frOAlq0czNsrgsNBd
+         /inA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787093845; x=1787698645;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e+zxtlZCZV0FZ0F54ec9MsjwqafxLqyL4TeKljBaAqM=;
-        b=e7GHHTwITO5cXPCr6MdL34CcVNO6ywQLVuWLM2Fqi+jZK1K717u5NIARrIFbuBeGAA
-         SZEvwmmhshFbp4sMFQeSCZxejZbvIz/UgcJ+5qQUXHcdxAiz34dkn6JVtxsWlMHcVUXC
-         +EvyndQi96ytj3iVeNp2zlTv6TxMGRmB8qD5bLERzIC/ct7UA2Sm2H7chVbkuWMD+0Kl
-         tldAT5SmwLse9hd0ult1+uNXnliadSVfjEQPLcSkIH7ZPbGHWY15q6ZQS/zxKZWtaXfV
-         Pces13AnxrfwSFxMG1K6FrVlnQ6XQ3m8vn68j+2jm+aitTWD6qFFioXUR/+et9zAyB8v
-         zx5w==
-X-Forwarded-Encrypted: i=1; AHgh+RqrRCqm/j7dFYbdGq0NskG0I2cPeu3UuOAviOk9lle9FyplWCrykSTb6Te9UwKLCfi4tnxBd8g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwdTva1PeLlAE8/7itOOO+jb9474Zr0Wid0fylENNoMvQF2dcmG
-	V+qP4GA+4V+r+rPpQcCd+9GxnSXX94Fd3vOK7i+WA3WXhfTQ2ZfEmer9jq8NnSizbw==
-X-Gm-Gg: AR+sD104jGy3wtjdmWmuESKTUVD87l/1u6jl7aPQcDyy/o85wreIKONpRTqVR2Kfigg
-	sXh+bxtsNOWP4+1sxY676u3XLaCNPhXzEPLfMUqRtQ/IQoXPv9SWeKfDbGh2Kx2GsjPerGnf4ds
-	htPWJJlnpW/pagwarcylpBGizNgq93qjXjt6m4EXeTsniBefc0baM9Gu+DGJPqV8i/oflQt/xgo
-	z8klIfGrG1StNYHzVz738+qnVRact3KyZI3SMi7qj81/3e5IyXep7hhCQxZbimgp6PRF2bDwEaH
-	mCFtyqO5Zng9g3WdFy3YJb0QNt72CLNMaG+/UBBz/wInCV7MpzTZoKSVv4/wzW1T2sFEof/gVb6
-	zrdxZO5HiEz9qSf2hFe3sB+SC81sen5CTQks0UnU2ddmr6hmENswA5iKyrHAwNn87O03sJ9raTV
-	OvBZdoX/Txxocc4HC9j6xhRR0vu8yH8L3LIcmT3RVs
-X-Received: by 2002:a05:600c:8715:b0:499:90f3:13b8 with SMTP id 5b1f17b1804b1-499aa1c4410mr6608165e9.12.1787093845476;
-        Tue, 18 Aug 2026 15:57:25 -0700 (PDT)
-Received: from hamza-PC ([2400:adc1:158:c700::1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b14b8038sm508137f8f.20.2026.08.18.15.57.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 15:57:24 -0700 (PDT)
-From: Ameer Hamza <ameer.hamza@truenas.com>
-To: cel@kernel.org,
-	jlayton@kernel.org,
-	neil@brown.name,
-	okorniev@redhat.com,
-	Dai.Ngo@oracle.com,
-	tom@talpey.com
-Cc: linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	alexander.motin@truenas.com,
-	caleb.stjohn@truenas.com,
-	ameer.hamza@truenas.com,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] NFSD: Update the atime for iterator READs
-Date: Wed, 19 Aug 2026 03:57:15 +0500
-Message-ID: <20260818225715.572140-2-ameer.hamza@truenas.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260818225715.572140-1-ameer.hamza@truenas.com>
-References: <20260818225715.572140-1-ameer.hamza@truenas.com>
+        d=1e100.net; s=20251104; t=1787095082; x=1787699882;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=azicBGUhuLKBlVAXIqSFD4EKWplTYg8gpsiCO/t2g/Q=;
+        b=UFVBk/2bPyxyKNfCuCnqzRY2FpNhJk4QsihkeaQvvjTMd92I+evxnlM/KU4TFQZDd1
+         Z7Z69OCeJ/lNKfgJcDNN0w3sRGBzSs45/EjiObUYeu1BU5ReXWLL/jnzIw7zsihuCi4M
+         Lg+y8pyH1Ulp5h9rb66SwBqqAj0iZ8hRZjt3wcyNcHO0rmuoHtt10N62vzz6KUrsb7ID
+         x0MzEgFEDEncwBiesPikkOLFrIhKrUhj6VS1B9lMMfP1ajuQvj+YHRd6yu5FsJ7eDge9
+         8KhBfg6HYcQzTX+KteCMUNElF3l2P6z+v+ZX/aKvapPsn8rG2sJOIKGUkLi5+e1ipPn0
+         14NA==
+X-Forwarded-Encrypted: i=1; AHgh+RqnLQYm/6BnZRbIvA6kegsRRtBgzmWU9ceFvjkEDT0JzoqFA/qs00mHYSu5l7vVwP6lEA3mDOs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw62d8wSLqcKwADwadrYmUGPnqy7ZFfvgDOpffNREPrec8VWsNI
+	4Nza+yEnQGw3Yrv/stFzmG0H2MiyGhA5ZoqflaQgMVety/eR1SCn2JnbOLxx8l3SiqU=
+X-Gm-Gg: AR+sD13Z/uwBvY8Ri5O+1BAjeTo2MOG6Uq6FxUnpJRe3gGGcPILpm5qOYPg/c6nFXZN
+	/UmxGQ+P8erXX/wkdTYf0NtgnjNiNTmZfibo7gzQBEkZANySI21vsTyGy5mCkCBg59jpoZWzeay
+	Kkp+0bhHhhY7X4zh5G73KhINlrdSikKr7A9tnegft3rlAuLlgTEWdQO04navZFjv2pbqx+i1Ifp
+	65wbhOBWw8sDSSL0Az+JvLCyRX3IEbpke6DHTAgl0mQ8DcZS0YLrnQGq4NipuYBvT4TLq2iVIEO
+	2pinIlqzTXJ6fwXDcFRJZ3T0Km6M03I7ZdnIp6r1qiSrPrP3rMGAe0sJ8820vuC7+rDs6WjpppO
+	PZb53T5emBmv6KL1V7rKdfbRhT6jBFnC1SI4BNkydQramoGixbb1NplGTya5TrrR/gwIaE3B3ds
+	lo9hkLZESqVcNxLbsNU8DtoRoNvkEJMvVMGI7gd9HwBGxFn+2KK+7l/ifhO4WbO+NqgZcIaDZFX
+	O1QaeFzTLHrb9lbSTUdWvkA7aytl+PJW/vM1Esq2Q==
+X-Received: by 2002:a05:6512:31cf:b0:5ae:cfd3:4753 with SMTP id 2adb3069b0e04-5b478bdf314mr34845e87.3.1787095082233;
+        Tue, 18 Aug 2026 16:18:02 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b47885ac3esm59601e87.28.2026.08.18.16.18.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 16:18:01 -0700 (PDT)
+Message-ID: <db94c578-2bfb-4297-9955-fba690ecfe39@linaro.org>
+Date: Wed, 19 Aug 2026 02:18:00 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] i2c: qcom-cci: fix device_node refcount leak in
+ cci_probe()/cci_remove()
+To: Liu Zhenlong <dragonliu2018@gmail.com>, linux-i2c@vger.kernel.org
+Cc: konrad.dybcio@oss.qualcomm.com, stable@vger.kernel.org,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Wolfram Sang <wsa@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260815140931.53297-1-dragonliu2018@gmail.com>
+ <20260818175750.4205-1-dragonliu2018@gmail.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260818175750.4205-1-dragonliu2018@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-A READ served by nfsd_iter_read() or nfsd_direct_read() leaves the
-atime update to the filesystem's ->read_iter, and not every
-implementation does it: fuse_dax_read_iter() carries a TODO for
-it, and kernfs_fop_read_iter() does not touch the atime at all. On
-a fuse DAX export, READs never advance the atime, no matter how
-often clients read the file. Spliced READs are not affected, since
-splice_direct_to_actor() ends with file_accessed(). nfsd serves
-whatever filesystem is exported, so it cannot rely on every
-->read_iter keeping the convention.
+Hi Liu.
 
-Call file_accessed() after each successful vfs_iocb_iter_read().
+On 8/18/26 20:57, Liu Zhenlong wrote:
+> The of_node_put() matching of_node_get() runs after i2c_del_adapter(),
+> whose trailing memset() zeroes adap->dev and thus adap->dev.of_node,
+> making the put a no-op and leaking the node on every adapter removal
+> and error cleanup.
+> 
+> Use a devm action: the pointer is captured at registration, out of
+> reach of that memset(), and devres runs the put once on probe failure
+> and detach, replacing the three manual of_node_put() calls.  The
+> setup loop uses the scoped iterator form so the child node is released
+> automatically if devm_add_action_or_reset() fails mid-loop.
+> 
+> Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Fixes: 02a4a69667a2 ("i2c: qcom-cci: don't put a device tree node before i2c_add_adapter()")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Liu Zhenlong <dragonliu2018@gmail.com>
+> ---
+> Changes in v2:
+> - Rework the fix to use a devm action (cci_put_of_node) instead of
+>    caching the pointer before i2c_del_adapter(), per Konrad Dybcio.
+>    The pointer is captured at registration, out of reach of the
+>    memset() in i2c_del_adapter(); the three manual of_node_put() calls
+>    are removed.
+> - Use for_each_available_child_of_node_scoped() so the child
+>    reference is released if devm_add_action_or_reset() fails mid-loop.
+> 
+>   drivers/i2c/busses/i2c-qcom-cci.c | 20 +++++++++++---------
+>   1 file changed, 11 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+> index bdeda3979c48..d3528c7d15bd 100644
+> --- a/drivers/i2c/busses/i2c-qcom-cci.c
+> +++ b/drivers/i2c/busses/i2c-qcom-cci.c
+> @@ -497,10 +497,14 @@ static const struct dev_pm_ops qcom_cci_pm = {
+>   	SET_RUNTIME_PM_OPS(cci_suspend_runtime, cci_resume_runtime, NULL)
+>   };
+>   
+> +static void cci_put_of_node(void *data)
+> +{
+> +	of_node_put(data);
+> +}
+> +
+>   static int cci_probe(struct platform_device *pdev)
+>   {
+>   	struct device *dev = &pdev->dev;
+> -	struct device_node *child;
+>   	struct resource *r;
+>   	struct cci *cci;
+>   	int ret, i;
+> @@ -516,7 +520,7 @@ static int cci_probe(struct platform_device *pdev)
+>   	if (!cci->data)
+>   		return -ENOENT;
+>   
+> -	for_each_available_child_of_node(dev->of_node, child) {
+> +	for_each_available_child_of_node_scoped(dev->of_node, child) {
+>   		struct cci_master *master;
+>   		u32 idx;
+>   
+> @@ -537,6 +541,9 @@ static int cci_probe(struct platform_device *pdev)
+>   		master->adap.algo = &cci_algo;
+>   		master->adap.dev.parent = dev;
+>   		master->adap.dev.of_node = of_node_get(child);
+> +		ret = devm_add_action_or_reset(dev, cci_put_of_node, child);
 
-Reported-by: Chuck Lever <cel@kernel.org>
-Closes: https://lore.kernel.org/linux-nfs/2ed0ee16-c20e-44bd-9e7a-f5b71764f14f@app.fastmail.com/
-Fixes: 507df40ebf316 ("NFSD: Hoist rq_vec preparation into nfsd_read()")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Ameer Hamza <ameer.hamza@truenas.com>
----
- fs/nfsd/vfs.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+I believe the new cci_put_of_node() and the original of_node_put() functions
+are type compatible, therefore a function type cast could be sufficient here:
 
-diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-index f45d4ad70b964..f017729cc1be0 100644
---- a/fs/nfsd/vfs.c
-+++ b/fs/nfsd/vfs.c
-@@ -1144,6 +1144,9 @@ nfsd_direct_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 	if (host_err >= 0) {
- 		unsigned int pad = offset - dio_start;
- 
-+		/* Not every ->read_iter implementation updates the atime */
-+		file_accessed(nf->nf_file);
-+
- 		/* The returned payload starts after the pad */
- 		rqstp->rq_res.page_base = pad;
- 
-@@ -1229,6 +1232,9 @@ __be32 nfsd_iter_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 	trace_nfsd_read_vector(rqstp, fhp, offset, *count - total);
- 	iov_iter_bvec(&iter, ITER_DEST, rqstp->rq_bvec, v, *count - total);
- 	host_err = vfs_iocb_iter_read(file, &kiocb, &iter);
-+	/* Not every ->read_iter implementation updates the atime */
-+	if (host_err >= 0)
-+		file_accessed(file);
- 	return nfsd_finish_read(rqstp, fhp, file, offset, count, eof, host_err);
- }
- 
+    (void (*)(void *))of_node_put
+
+In any case the change seems to correct, thank you for the fix!
+
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+
 -- 
-2.53.0
-
+Best wishes,
+Vladimir
