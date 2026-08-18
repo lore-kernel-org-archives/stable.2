@@ -1,159 +1,115 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D080411F8B
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 09:45:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4295E448388
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 09:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787046338; cv=none; b=PbUNJ9+DHRvzmztj2Z3nOSXhWH62gvALJqCJPeoGE9Q4M37AL9CP13xATWzSzGPixE2Af4+/hWfEg3Fbj6n0fV7nCrvRfVgkqUEprYNOISg3PuFHUzTSXlIui4MGXZPn2IYwd0bkaTchmoBpexgeYdImBTRVEBHd4UrD89E0qtk=
+	t=1787046523; cv=none; b=kwiypzAbgSbdg4GWRhii1TO1Wq0BGdtXAOfmSijqJDSR+AUudpCTw0UM6b9lOQbon6Vj4OkmU55fDMEIc1qlQ5d2UC/BNFuxwC4Q/NzcU3eamObyJtxRz67qhDh6cyRkF9A7FErXPLpPDlEXJTQjB46V3o1CZot3TM+rLhhb+ZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787046338; c=relaxed/simple;
-	bh=4SkzOidhvnxWCRowJi5VGUs1BjdwjDVLRVBmyyUgQ1c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=B13BMAJvWznUBbC8TZhyAbFZ7kjMULlOQD3O9r1wq+stjQR28K6DK5dV5AtyYOlDlVQPAIwiQKToqLhm7keoOnC1nZX6699YncQz2NBWRqtgFvzt5qTQ8nwLflHr0NTWo67CQVTUZ1m4GrH4uzsTJmzYhfCjFpwHrLln56S5u/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aJF6zsk8; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787046523; c=relaxed/simple;
+	bh=unQoIGrH+GdH1GgLxg0HACekFDr+tzBFfd3w+6X3r8g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ors/x9EdCPC9sLQbDb2MJjqOorGiMOZ5wWUL+Ymf68BQ+D2ul5tsvFEe4qZiCBoqnTqxIh+ITXT9+v/o5UxG7WB/t0fwH5peP1283mbeMdW4yDdx4aT8LtGULniPtz5VSg4zLKkP7mjRE6wTWeijhfs74FoL7nenRKoL8QcXihA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=R/uMBlbD; arc=none smtp.client-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aJF6zsk8"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so4474298a91.0
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 02:45:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787046335; x=1787651135; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hmO09z6pBU4zBJCgyFsTIyoPSkYviKeQVFdIYHsjxTQ=;
-        b=aJF6zsk8HbqBUEF5yLUrEBXHBCq2SEMbIqbGYPApyy5T+XTOQFyjfVq05ZNF0t/kLA
-         uiHFgQAuo7Jux7RaoHZgUKFA6qoQ0OmFXLx6vjb7yOKxqwbKKU2y8qpqhSsrNL8KvLKR
-         pc/NtsD5bolcA2Loha0dh2PuNiXsPtPkPYbMQYoh8WqQj6AvNYK3KMrFBZYZfE/4wPro
-         Ia2muMzNUBrv1a6AY7CZgFilZR2wNBwu1RMMpquYMAKaNJVnoioWphl6ShzP5SLLUFkS
-         j21vTQvuN8Cnq02/6tm4brjrxauGcmN+uh+k7kpl+cshbFQFkThY/7wmvv6FsTu6Dnu9
-         O81g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787046335; x=1787651135;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hmO09z6pBU4zBJCgyFsTIyoPSkYviKeQVFdIYHsjxTQ=;
-        b=jvely/uNbsTFGCLW7dZrrNiIm8nTjBeNiP+fjCimJJ1DfMtgWjeGHuKyyXxu3pGfB6
-         FMegkViiu1j8Q9jLjVmyvxjXsUY3MCjaqsLVZx4Mo2pyZDWvmgTJtbqCjFhKf0Wpzbgb
-         gO22ZbvFwv3wyuQ+WVMBFcPiUM+gFd5Dm/VrC8VAi2t39aWaVi2QYR/T8nlAezFpQqE5
-         MWKZboj0UDQoVDcY593Kwb6afpToNA6P3hnOjRQjWLzRmFc4RbyVhsa52IBBPid4Uv6w
-         Q8IlgZHPuwQun/YyyAzWSw3DaoH+v/3RS9qb3tiaofaOwErR+dPabXeu/OsLWzqjHXVx
-         psOA==
-X-Forwarded-Encrypted: i=1; AHgh+RrrkcM0Sj6F06Jmn+SyhA1SogZpQKROWRSuUN9G4VFqLXzhbRhLAXA1ybpdSs9zg58WsAF0qtI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxygXhOMUMH7Fn7Kl2sdwLZ3zKGGD4EMLGMuSpoyx7h+s40yTVO
-	l7oqrErgac8d3e/Jjw+RQYb1824WWXjuaMyttCJ/i3GAI5M665QJZEiN
-X-Gm-Gg: AR+sD12BVGGpMRfRo09vd+tX/kR9bB8eVUuVZQLXXt+gbInX7e/eZpVJW4KkU9WJxvM
-	x0JiwPltuWAa4R9wqz1a/Kfq249n2gL82krtgUz0j3kWLy7264CVwcHBH1W8/VBYUhXoi3VvfxA
-	A3MBt7C1ewoOiXgQjuSJlZvezeNkJisAKxFRgH2zo4H5rH4kHXMsqDoQLoRiPDaRXIZuB/R+OJM
-	tMKzikimoQeQiD23wvMq6GBr/hxnYAlMsVv5C/LNzRMYig4q5v6VuaKzq+ohBIEy+47D0Cv8w//
-	zhUJ0sA1tcUN53Fmrc3XCA4Dd+v7U2CkDnBgOJntS+7m80dsbDuo+5fwryJIQ2fSHI/SF5mAids
-	9XEjDDBVMyipVtowZsfNLEQYY3mo4OvTaS+T/q5NvALlyQRKSDeogvlQpZwUTe9gpQ0GQ3ZSTrR
-	kxdECx6Kr+NaO2m/D2Lu6ygLOQlQzQdDyLwWvwbLz15A+xEMmWs86D6djtRdOQ4ar077498bGjO
-	jWXOg==
-X-Received: by 2002:a17:90b:4fce:b0:37c:6910:5758 with SMTP id 98e67ed59e1d1-3955a3dd55fmr10319086a91.1.1787046335508;
-        Tue, 18 Aug 2026 02:45:35 -0700 (PDT)
-Received: from hyunchul-PC02.lge.net ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39531fbb41esm7978237a91.10.2026.08.18.02.45.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 02:45:34 -0700 (PDT)
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>,
-	ntfs@lists.linux.dev,
-	rtm@csail.mit.edu,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ntfs: reject invalid MFT LCNs from boot sector
-Date: Tue, 18 Aug 2026 18:45:20 +0900
-Message-ID: <20260818-fix-negative-mft-lcn-v1-1-b7b0b206f2da@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="R/uMBlbD"
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
+	by cmsmtp with ESMTPS
+	id wGM5w4ZYcusRSwGPSwk1i1; Tue, 18 Aug 2026 09:47:06 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id wGPRwfndBxg8YwGPRwc1nS; Tue, 18 Aug 2026 09:47:05 +0000
+X-Authority-Analysis: v=2.4 cv=R44DGcRX c=1 sm=1 tr=0 ts=6a842a19
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=clWHoDtF10NeT/mzylEGUN/EGi4aulMN63qkD+2LsTo=; b=R/uMBlbDvtaKrPlJ7OFCz0qjCW
+	eqQJywhzH6gCUqtiBPyuKC5KbV6jD6DxdC3mnv1ULHmDZh0EATHmY2SbGuGBG5kniH+TYrOoxMHSa
+	3qPs9IKjVyeA8+JhVQbdlnQnXEeog4nscqZlVxwwnJpv1N6zX0aalCcIsZofpdRdP0spC1HR/QH6o
+	rZpxy8ji0oQ5HQk0X1ZWwKH0f6DZYRrHxCuFlXkRz6v7+e0M8DFBkSAWcd3Efi9bid691NNIR5h3o
+	9u/LJRf+9pjmfHuQdUnvjfDApAQA9VcB14byPpUAzovr52l3+0/IUxdFK0GyO5+ZVkzvmycOdU/3N
+	QReymiyw==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:55228 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <re@w6rz.net>)
+	id 1wwGPQ-000000027WE-3jt9;
+	Tue, 18 Aug 2026 03:47:04 -0600
+Message-ID: <36fb0ac2-ef3f-4be8-9ce8-1cfe720170a6@w6rz.net>
+Date: Tue, 18 Aug 2026 02:47:03 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2387; i=hyc.lee@gmail.com;
- h=from:subject:message-id; bh=4SkzOidhvnxWCRowJi5VGUs1BjdwjDVLRVBmyyUgQ1c=;
- b=owEBbQKS/ZANAwAKATTyMPr3jkjTAcsmYgBqhClU2oiZwfjcTMFenw8/lTVpUGIsotHAi3255
- Z6DYh/0YYuJAjMEAAEKAB0WIQTVhSnMU3bjbW4eb2I08jD6945I0wUCaoQpVAAKCRA08jD6945I
- 0+SJD/4jZ2+5HVPf48AYEbSr9mfxJtEveHj+Ddz/EKgMZQjQ2xg9FrebKxzfpNBOVOhCFMI1PGC
- dJdi+0janHr/GpqOwUXEg9jIF2XyATVXwBbBxAn2RjFyk/sLHWjUz4nD7vC2WtS49F/IhvprTZ7
- HWTPboihtIDFyuKXYyby4vj5yFtmErCNNXzNRP8SubYgc9WVY98DjtOF7bPIeCXHwL69YGgQogb
- nsjAQswWiZUdpYPvJXhOdh89TCad49TFXOW10q9DeEt+1NeXZmr58Rs9OfReZhzZP7g51KslBG5
- tAVujweN7h6I8AFw++j58VIaBe8viByCOxSwgpRtSrmrRB9x+aSuT3Sl4hNNTgB82lqAtXOadp+
- UUXhWwmi1NMq6fz8mQKLcMO5XtuvODkReI9wnVd11AtbE+fMvkzaZhZl9vjUREc5+qB+ElPvirV
- qShjgsBwowsgsQg5O4PQK5/Cu/gp4qLlfpUyanAbDQhrkhEETOZKne/GpxjVmYgL7RuaMtOpr9x
- 3MtzAzMs6ZHfjWfMwmFssRYdQqhUDsrfKzVOoSObbRE+vLX0kF+ajK0irbbQY2HTOdh+2ticIJv
- ABpsCGCFTNnwhdWA7+GrOn/y8yU34yPoUoYZSFA8l8gt3JC9bd10ZG7+EpgwYBZbLr1UQkrRJYs 1ExgES4vfkL+V0w==
-X-Developer-Key: i=hyc.lee@gmail.com; a=openpgp; fpr=D58529CC5376E36D6E1E6F6234F230FAF78E48D3
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 000/271] 7.1.9-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260817132536.752504388@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wwGPQ-000000027WE-3jt9
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:55228
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfHXRYoP1fHg6oJrlyIpAsYTOoE2Ha1gPpS7Gh495zSrgsAh6crNhNtnSjkyt5SEtCQpjtjKHqcUa3IIMmFwsspq2jFPAPBvsWHIewGIOgWF38HTKdeL2
+ UzPc2ZfsyaQViHWrpKeyHrlNo6hU7+m7zRSkjjMoMRNEjUO6y0wpH4cPl4Je5ao7yhODYwvFO6SckQ==
 
-The NTFS boot sector stores the MFT and MFTMirr locations as unsigned
-64-bit LCNs, but parse_ntfs_boot_sector() decoded them into an s64.
-A crafted high-bit value could therefore become negative and pass
-the existing upper-bound check. The invalid value then propagated into
-the MFT zone allocator and could result in an out-of-bounds access to
-lcn_empty_bits_per_page.
+On 8/17/26 06:28, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.9 release.
+> There are 271 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Wed, 19 Aug 2026 13:23:44 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.9-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator")
-Closes: https://lore.kernel.org/all/57514.1787000602@localhost
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
----
- fs/ntfs/super.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 8abe7bee4c0d..8a712cafe954 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -645,7 +645,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
- {
- 	unsigned int sectors_per_cluster, sectors_per_cluster_bits, nr_hidden_sects;
- 	int clusters_per_mft_record, clusters_per_index_record;
--	s64 ll;
-+	u64 ll;
- 
- 	vol->sector_size = le16_to_cpu(b->bpb.bytes_per_sector);
- 	vol->sector_size_bits = ffs(vol->sector_size) - 1;
-@@ -755,14 +755,14 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
- 	 * the same as it is much faster on 32-bit CPUs.
- 	 */
- 	ll = le64_to_cpu(b->number_of_sectors) >> sectors_per_cluster_bits;
--	if ((u64)ll >= 1ULL << 32) {
-+	if (ll >= 1ULL << 32) {
- 		ntfs_error(vol->sb, "Cannot handle 64-bit clusters.");
- 		return false;
- 	}
- 	vol->nr_clusters = ll;
- 	ntfs_debug("vol->nr_clusters = 0x%llx", vol->nr_clusters);
- 	ll = le64_to_cpu(b->mft_lcn);
--	if (ll >= vol->nr_clusters) {
-+	if (ll >= (u64)vol->nr_clusters) {
- 		ntfs_error(vol->sb, "MFT LCN (%lli, 0x%llx) is beyond end of volume.  Weird.",
- 				ll, ll);
- 		return false;
-@@ -770,7 +770,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
- 	vol->mft_lcn = ll;
- 	ntfs_debug("vol->mft_lcn = 0x%llx", vol->mft_lcn);
- 	ll = le64_to_cpu(b->mftmirr_lcn);
--	if (ll >= vol->nr_clusters) {
-+	if (ll >= (u64)vol->nr_clusters) {
- 		ntfs_error(vol->sb, "MFTMirr LCN (%lli, 0x%llx) is beyond end of volume.  Weird.",
- 				ll, ll);
- 		return false;
-
----
-base-commit: df7dce2090342170b7643d36f694204cae7792a9
-change-id: 20260818-fix-negative-mft-lcn-596257dd23c8
-
-Best regards,
--- 
-Thanks,
-Hyunchul
+Tested-by: Ron Economos <re@w6rz.net>
 
