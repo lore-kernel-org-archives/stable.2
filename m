@@ -1,82 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AB93B1EE2;
-	Tue, 18 Aug 2026 16:31:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8790047DF9B
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 16:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787070689; cv=none; b=R8+wauYgsUopjs/K2ZdVH3V9/kwhHfHyxmbmesaK77uC2qNscYDL0Bzz9U3OougOE7rMgUV8JuHxZ7A71KiNyvjZw4cfz2pncIj7y/nwyfMuqntalDlntX7niyOBCpRfLsI7aR8Tj7RspGNNGu7ROhI25IJBkGPK36I4Ac2E0lA=
+	t=1787070814; cv=none; b=h8zLOwveMotdfbWDCnqm/4SCySp0GZJPugmBOUXDZpdpvZDm50e1s8SZP+GIIZ3eImPifoPLHCVW7rI1ba6CDaZ7Y89pMFi5DyneP+YBjmh3xfys+Mea9ZBs+Yk9z56scj6M0hFPnA5DHX3L+fHjvI3qJwWzlQ1nXWwZsKpJCcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787070689; c=relaxed/simple;
-	bh=mFrI09yznPtQJq4VCwF5cCv3nhHVJbtQX+VRLhwvac0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZMNeGb9oPu3z3PcIR5XLEUmnP1XYwtrHsk9PbdHORxV0f94NovaUxWsK6wimRsxctBGU+Nvv4g6wtY+cw7D26jP7LFWwQV0rrXI7y9mEyr96+a8x9RRLMZ4Bs85wx8bqE4KqK4k59iR/t9rJ3M1jKAacuCNwLsErisPmKsSumt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0vdRL1J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787070814; c=relaxed/simple;
+	bh=1ChsaIcUzV3z7iB7jMoE6zl17GNTpbstTGoBWWpJ91U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=n3i+8zLpr6YXQnZae+wjW+yJ52PngB5MeqYAdinEw/iidhIhAsSJry7ljJMBBwxEr3JZjLu/c6E/ncDgNTMYZ472LF3Dq59mmmdntba8cV3MLYRUrw3Ly0vl5WiK7OlwlwpNSW7lpdHxVhzbrZCDXMKagnBoYYONnFkZuylg/YI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MetsjYp2; arc=none smtp.client-ip=91.218.175.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0vdRL1J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDCE81F000E9;
-	Tue, 18 Aug 2026 16:31:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787070688;
-	bh=7sDACzkJNSH2asI4Kk0C+nf0kMoRvRHHZpslmlGoxNM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G0vdRL1JiLdCpVYHmhCRJC1H2777aqvrui+FlVNsHxFntfpfv6V4rfJymTwmttCi8
-	 7hlshdaFssIggPYcc5YteKJXIdBXC2PMRkGOTrTJJNJZqdq0AXhE2ogVv5RKKamv1s
-	 DT1GImSsKAwRWWIpp9E28ms8+s2+RVxuFRwOX+gwwAFkJGe7HzRZcU0rsR6UYvfnDS
-	 wz2mTSCqepb14+5mxYULh+BHWjNW9BFGmdCXt9MtTD0eYKzXtbPqSKjx+b6IIGLmhL
-	 GbumtLn0gRQSsT7crSYeWoDE651nnX4YueDI9oXWZ153DSCD0W56zI2gQBNsL8wcMf
-	 eXwLnynY0y4DA==
-Date: Tue, 18 Aug 2026 17:31:22 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 6.1 000/609] 6.1.183-rc1 review
-Message-ID: <55fa3efd-824c-42ca-ab1d-14b2609f10b4@sirena.org.uk>
-References: <20260817132543.039278408@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MetsjYp2"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1ChsaIcUzV3z7iB7jMoE6zl17GNTpbstTGoBWWpJ91U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787070807; v=1; x=1787675607;
+ b=MetsjYp2ne19b457OA/yVMsB6UKXRPMfPefweaQt0QnDHUf/SLZbAT/kyfFiAi2ppKpCvAlN
+ MbX9V6xesjjnq/gE+IttL5GTKTR49qiZZWpjNth0nvmuwwPtb1/9Ep/s9yYLaNOIPS6AHB5GDRO
+ QACCJFfFGTDPolURMb6n4IJ4=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2a04:ee41:4:15d4:8934:f21b:2683:d2a4] (2a04:ee41:4:15d4:8934:f21b:2683:d2a4)
+	by smtp.migadu.com with ESMTPS id d413b1b951dd68e1;
+	Tue, 18 Aug 2026 16:33:17 +0000
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <51f3705f-6338-4892-86cb-d059e8101f8a@linux.dev>
+Date: Tue, 18 Aug 2026 18:33:16 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dWcLMMjuqSfvl1r/"
-Content-Disposition: inline
-In-Reply-To: <20260817132543.039278408@linuxfoundation.org>
-X-Cookie: Smile!  You're on Candid Camera.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] RDMA/siw: Fix use-after-free in siw_accept()
+To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>, jgg@ziepe.ca,
+ leon@kernel.org
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260801213632.1086548-1-shuangpeng.kernel@gmail.com>
+From: Bernard Metzler <bernard.metzler@linux.dev>
+In-Reply-To: <20260801213632.1086548-1-shuangpeng.kernel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 01.08.2026 23:36, Shuangpeng Bai wrote:
+
+Sorry I was away for 3 weeks and can review only now.
+
+> siw_accept() looks up the QP supplied by userspace. If that QP is
+> already in RTS, the function jumps to error cleanup before associating
+> the incoming CEP with it.
+> 
+We test against any QP state other than expected
+SIW_EPSTATE_RECVD_MPAREQ. The QP should never be in RTS here, since
+it moves to RTS only after the user issued this accept we are in
+and the RDMA CM core code makes sure a user does that only one time
+per QP.
+We typically end up in that error path, if the user spent to much time
+in a new connection indication/accept path, while the peer already
+closed that half open connection. So I don't follow that comment above.
+
+Were you able to force such state mismatch?
 
 
---dWcLMMjuqSfvl1r/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> The cleanup tests whether qp->cep is non-NULL and assumes the current
+> call installed the association. However, qp->cep can point to the CEP
+> of an existing connection. The cleanup then drops a reference from the
 
-On Mon, Aug 17, 2026 at 03:24:56PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.183 release.
-> There are 609 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Can that happen? QP numbers should be unique, maintained by
+xa_alloc()/xa_erase(). A cep cannot be transferred among QP's.
 
-Tested-by: Mark Brown <broonie@kernel.org>
+> incoming cep, not qp->cep. Once the incoming endpoint loses its
+> remaining references, this can free it before the subsequent cep->qp
+> store, causing a use-after-free. It also clears the existing QP
+> association.
+> 
+> Only release the association reference when qp->cep is the incoming
+> CEP. This preserves an existing association and avoids accessing the
+> freed endpoint.
+> 
+> Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> ---
+>   drivers/infiniband/sw/siw/siw_cm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw/siw_cm.c
+> index 87c79527ac09..0245b25e7271 100644
+> --- a/drivers/infiniband/sw/siw/siw_cm.c
+> +++ b/drivers/infiniband/sw/siw/siw_cm.c
+> @@ -1751,7 +1751,7 @@ int siw_accept(struct iw_cm_id *id, struct iw_cm_conn_param *params)
+>   	cep->state = SIW_EPSTATE_CLOSED;
+>   
+>   	siw_free_cm_id(cep);
+> -	if (qp->cep) {
+> +	if (qp->cep == cep) {
 
---dWcLMMjuqSfvl1r/
-Content-Type: application/pgp-signature; name="signature.asc"
+Is it really possible we have (qp->cep != cep)?
+Were you able to create such situation?
 
------BEGIN PGP SIGNATURE-----
+Did you run into use_after_free?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqEiNkACgkQJNaLcl1U
-h9BatQgAgjFZxKCVqGm195/n2hia3I+gsdgct1FVMNpHbv4cflnROOL5Xy9CfJ48
-20ttohLFtgnWKa1XVUcPAW6rwo3/dMbR1ddX5kvAbksS7jAF/3bqZO1LLGNBTNuG
-Dh/ai+43+msBUvZXoeKlmTmN0G3NqnVhlKmXzr5McMXHXP5mHanDtHfHwI8asSxM
-CYXS2V77hCBikb2Cnmv3x/OOr0xK8zDo7iOSnbTsSNxgRU9uF+duTTxHcYG9URc/
-xYIZDpaEMxAjnLZrKMftHKy6J4lAianyVty3SjHkSdotQgoQjMlyl3GdnCCHfsQc
-VT6vt6WJjLh7YSYFxUyoyJGDaVxchA==
-=iNyB
------END PGP SIGNATURE-----
-
---dWcLMMjuqSfvl1r/--
+Thanks very much!
+Bernard.>   		siw_cep_put(cep);
+>   		qp->cep = NULL;
+>   	}
