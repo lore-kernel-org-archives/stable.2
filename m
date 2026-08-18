@@ -1,115 +1,132 @@
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B013A381C
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 10:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C763A6B65
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 10:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787047541; cv=none; b=pB6Rrn9Aj9i9c5Nq6OqBNNFuQ6pqeIYzG4UKh2y2d2/Dg8awYyemvAQxpfrRphFuB7My/1KrnU8agV1fhgTU8ZJ6bJN1Auornn35zvRIRjIBwlGzIeKhElqtdbNtKI99nPlqkNJc1wJmVO7fLxIht9UHJMrQZOp9P2CnZuXzGAs=
+	t=1787047858; cv=none; b=MHtFmdsB3qPgBzqGO676xobiMHwAHz4cKvFPJrc3BpLqLRzF9hbTYs1bfabGenAX7UCGpFzhpwHMCrK838gd/2IRfA1xAwPU9Kt0M+r5m32J2TgzBB/ZcL6KpRWHF50F3WgbQKjUpTl3ZEXDr5Wu9zl7AeqpzFCzs7j0MVaed4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787047541; c=relaxed/simple;
-	bh=QFBckaYk9XqU5F9TE8XIrlBL4t8kCU/cH/emXb2z1mA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Onfa/10tXEbFWPkPusG8KNMQbyaY7CksZZSCrSdq14SOdyBGZACvuLf3O6I26rVyO3t7uKj3w8MURGxSbocsYcxRnuoN2FkmntjY1Dc2oNAApTWCy41SrkzU0bqd8F3cIwuFuGiONigAILGa9c70Hg+59pMufTVrk+RDHya9WlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=gWibWY5H; arc=none smtp.client-ip=35.89.44.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1787047858; c=relaxed/simple;
+	bh=b6y5g+oATIwnjJyMfH13cCLW5NgD3VT0oeURdRj6zec=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JT2cguvid7X4Q6EAg3b4y2fg3GYFOslBIN79o10XxcJUw+MuFwQ87mP0/nNqNv6e7IFN2p+gmP60annveW4dF2azG4ovHFLBsHtp7p3L/NKFvTDzQETjFMsdb4b/TCSWN2yzREav06wOlqkK3N3pKrJgA60kq9DXO5iC60o8Awc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=GiCv/Wt7; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="gWibWY5H"
-Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
-	by cmsmtp with ESMTPS
-	id w2Z1wMWs1hJKMwGhPwpOU1; Tue, 18 Aug 2026 10:05:39 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id wGhOwL0yOooyIwGhOw0ioW; Tue, 18 Aug 2026 10:05:39 +0000
-X-Authority-Analysis: v=2.4 cv=AZ6xH2XG c=1 sm=1 tr=0 ts=6a842e73
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=8jKBAO/7BNap5iOtVDAuawwbhAJbBlRjBsfuCs4oyr0=; b=gWibWY5HK64BzEi3yt0LFOi64X
-	imLuo7Ucsa63gZBqXoBDXipjk8QFvhyrYtsC7VPZTqmfIIOva1X9SbFWl8Df0hVzbqdR5SzAC/ezl
-	i1jMa5cED3yqSDLYRWmqWUvxGGzwJVhekuKinTts6Di5XdEMdk8GX0HtpzTsr7lv1vLa7vPWUlSpK
-	y9seQbAtCxIVrrxKiXRpo4W+X8sy18MrjUPEcVQutyvrtbt1gHhjWhqwStHYK/J4WoZle9zEJ4jw/
-	BY8F63IebxwFq+OEbI8c7qeoxqFvSNzaXNUzgqwh7S8mwXcAu/LIW/kGMuaWD0xv9o8lgpXNpt219
-	aoENSupg==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:37848 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <re@w6rz.net>)
-	id 1wwGhN-00000002I3R-3ojn;
-	Tue, 18 Aug 2026 04:05:37 -0600
-Message-ID: <5c9904f8-f43b-4fe2-b999-f7de1a506599@w6rz.net>
-Date: Tue, 18 Aug 2026 03:05:36 -0700
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="GiCv/Wt7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=+qpV
+	1haIAilTDjoLksnJ1qlHTSgPtxXBNbxP5qzGEjU=; b=GiCv/Wt72ZW8XjYS+2Jq
+	b7LFBVGFo6f8bS1IrUiQgvDkZvVeI7KG1vTNPcuUkVHNB+pUj/wXImxa8JdIOcSx
+	2eLmGYO2gcFIi6Lq9eqzq1NRquclgr1ZvzR067vNYCUdz8yQ5EYnOt/36n9YIBw3
+	ZmLN/hRRwByEZpdxWFwqaEEYa0+xK8pj60/THwKLWyo+ZZme51Yo7dcHYZYHIBZW
+	RbzHx9Jf/4pjbk03Rv7+QvjzFLkUgcMNh5vlXdOK6i2eGfnFfCKAHNJ9I8Evv4wS
+	K4/Orp06K1BrrQu6HKWL2aD/pt2tCpTmSvWf1SVQGAoKoRXfb4pXtaLy/Z38jh1g
+	fw==
+Received: (qmail 3753300 invoked from network); 18 Aug 2026 12:10:52 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 18 Aug 2026 12:10:52 +0200
+X-UD-Smtp-Session: l3s3148p1@nQ9zgE9ZPsAujnuP
+Date: Tue, 18 Aug 2026 12:10:52 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 03/12] rtc: rzn1: fix weekday underflow when alarm
+ crosses month boundary
+Message-ID: <aoQvrL8cnnK7uxqw@ninjato>
+References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260706175138.12587-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 000/156] 6.6.152-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260817132534.666299318@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260817132534.666299318@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wwGhN-00000002I3R-3ojn
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:37848
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 19
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfCKarO6YxXrqmxx+SJW1HNJJPHRBZKajCcC92f4K51V3Xt+84wnjreK7kXc/o99EzPIm/W5ecPeOe1q5hv8M9Cr3PM7QONvwJRL0jg9RVt4cT6iEcedv
- d+1uTj+v0XgfAVG+bVYEYBveGg6MeAbjuL8fWUECUV/CtWGMjs3HVTo2GN7jlLUuwuk7ETktmyWtag==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GYv+4uDsaZtm/RpA"
+Content-Disposition: inline
+In-Reply-To: <20260706175138.12587-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On 8/17/26 06:32, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.152 release.
-> There are 156 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Wed, 19 Aug 2026 13:23:44 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.152-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+--GYv+4uDsaZtm/RpA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Tested-by: Ron Economos <re@w6rz.net>
+On Mon, Jul 06, 2026 at 06:51:29PM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>=20
+> In rzn1_rtc_set_alarm(), the driver attempts to calculate the weekday
+> for an alarm by computing the day delta between the alarm time and the
+> current time:
+>=20
+>     days_ahead =3D tm->tm_mday - tm_now.tm_mday;
+>     wday =3D (tm_now.tm_wday + days_ahead) % 7;
+>=20
+> However, if an alarm is scheduled for the beginning of the next month
+> while the current time is at the end of the month (e.g., current day is
+> 31, alarm day is 1), `tm->tm_mday - tm_now.tm_mday` results in a negative
+> value (-30). Since `days_ahead` is an unsigned int, this underflows to a
+> large positive number, leading to an incorrect `wday` being written to
+> the RZN1_RTC_ALW register. As a result, the alarm fails to fire.
+>=20
+> Fix this by utilizing the already computed `alarm` time64_t timestamp.
+> Convert it back into an rtc_time struct via rtc_time64_to_tm(), which
+> automatically handles month boundaries and correctly populates the
+> `tm_wday` field.
+>=20
+> Fixes: b5ad1bf00d2c4 ("rtc: rzn1: Add alarm support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
+These messages look a bit LLM-generated. Is this true? What about the
+code?
+
+> -	days_ahead =3D tm->tm_mday - tm_now.tm_mday;
+> -	wday =3D (tm_now.tm_wday + days_ahead) % 7;
+> +	rtc_time64_to_tm(alarm, &alarm_tm);
+
+This conversion is superfluous, we already have 'tm'? So, I think we can
+skip the whole conversion block here and use?
+
+	writel(BIT(tm->tm_wday), rtc->base + RZN1_RTC_ALW);
+
+Only lightly tested, please double check.
+
+
+--GYv+4uDsaZtm/RpA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqEL6wACgkQFA3kzBSg
+KbbdEQ//X7ob1iohhSuIpEda7+mX2iYuHaEJ6g3q4Wapr8DOqaW/F1NHNGPoAkrh
+k2ih3YYX1XgjAx9he3kiprn9eJwzP7p9BU1EljIhuLfL5gtzLSuFWx1y8FZom3VY
+caTFfLU1t206Ly1WykSNWYsXI9hX7DOY1mRobv5XhSDWBtSUt6L0ezlYsusrcpG3
+9ydizeH9/jXg6vpDBCGl3tbsJILtlnuSqZUXJb4YuO5EHkVV4geawAK28YWaCoLm
+sDYZkx9Ww8sA/m37DGPD6aKhxcT8BAxoaGTkct90RvwbOxmtS0gljL184No0OWxo
+UyCzWWBAqOunVZeqMhZ+26MDUHnmMrc5WPj/82AQvylrj7kawK1xJV37fVdCVtaU
+OZtNPj/YE7z3QaE/af7tvXm9frb4hSF5iYpdD7hvqISPt3/qtxmfW6V8dInVeg+Y
+6AZ0K1iFQ7378YI32Z09XmpdyfcWCWNfMRPdyCAdKenlQW6QUERtUxTFWHOuWWWj
+ujqVaz1XCpdhI8fJwV7+mBuzJJjpjTY+azFbjrJA0qDu6AVs2gIjTs4QqBKIzxZj
+IDaRXOUchOqii5qVAeBfLZPg1YWXyuXA5b/kWpq3c9dyEzGiTFmmy/yW4sM0+Wrk
+eYpV4g5vk9/jJQh+pthi78VJ21rhGJRghAB6peP6C87ZeESWSHE=
+=KqXE
+-----END PGP SIGNATURE-----
+
+--GYv+4uDsaZtm/RpA--
