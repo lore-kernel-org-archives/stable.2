@@ -1,154 +1,126 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CE538425B
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 07:04:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC142377EAF;
+	Tue, 18 Aug 2026 07:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787036676; cv=none; b=IcocoWk3Mp+SnFDGhUwpyk0D3TCtT2Ercak1+AynwIApBqJjWwy0luQyAX8Q+RiuvzN19sW1UlvDCUcosq9p+rjXsOXrkcyDFv6UZIEJLP5xq4fUqsg07w8N0YOLAKIsUJSyZRgIQAyjcj79hA8vOB182xcYwnuLdB6xRz4jYWY=
+	t=1787037160; cv=none; b=lygcwEqewyesjnfv6nT6gXa5rlTHYumALIsLCIeHYDW5ryVk9e/ygJ8V8z9wIiI+2nrb0PR8tTyJJJXYBDubMl1Bkm2F6sjhsSCJx8Kd6o1pqKFm3GL6a7QKtcaF9msTQWbzjfR6kIi0ffJ7mwhM4sMjpH2KkWICDSteK4nuUxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787036676; c=relaxed/simple;
-	bh=ThRsgajCuLLz7ale0e/tNKwOYjzS8xUMXExnnZBkfnk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NekY+a8l9wLopJu44dOmFUHGBa64YQmXfM2hdkQ2EuV3LgHq8nKc0A98KjQCpoZax1WXZAxYRwVNDJHSwqjCGe/XHWJTTU6xRqQt8Z39KHu4z7shOhXha8Iok5nertuCAJhwZWPShELEHbfKlPZYb9/P46HHww+VwgCWSuA4BOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DyEexKNb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jz0ZNM1I; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DyEexKNb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jz0ZNM1I"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I73Sw7173135
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 07:04:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=EwT+2J3bGB7Z6ksti2cShfP/
-	roINGoif1NSZ5f9uv8Q=; b=DyEexKNbkjtaGslxttBMhkoil9u1z4EZBZ30A8DT
-	7xUzf2DSfXbAYjL+ON7E3VzOyJVfxvfMHWjBwE9CS+uXkyqcDbojiAesOm8teIVu
-	HyNUMkXY69YQTbM+UwvH8iFpeMNeH4fCqPZEtrgJ6GHUSZgtS3XTRsVy8zBTHxy/
-	mT9Z9rrT5G+dUna4RJBMbe0nnpuBF35BoCkegG48PLBQD/xvXsRDOiZT/P9oPqtt
-	rjFYkqQZGyDTj4iwSqyOQ7ncm9CQMxfDBDPJxg83c1FMDUuikHho8/mjROhRim66
-	kdUAvxQkvSLN7mzfiRPn1f4ImZBEaXyRsHSxEsF41YIG6Q==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4eqts22f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 07:04:33 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e9a2b95b5so744895185a.2
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 00:04:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787036673; x=1787641473; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EwT+2J3bGB7Z6ksti2cShfP/roINGoif1NSZ5f9uv8Q=;
-        b=Jz0ZNM1Iwq9K0oFYgsTD6tlTCF9tLY9GXDSaK3GrOlD43mAIi2EKFFMdqJ7GhJsvPd
-         E3oON7bTajC71u1UWCvqpUHS8Q0dcCkmnEwal1ALZ1VVdkJAvX9egGHHUlubtmGe6ENo
-         0HetQMQzwW3o3O3wOo4NTR2bLESFum8rCdGNZyN8gofHK/5mcNe1v7QS0hLZxrUpDi4Z
-         MNiHQ5Pv88rfDYigwvbE5faC9FzOBJf9DAWi8LtYZpHaOa6T8v0VMdOV9Bgdap1r5Jn5
-         kmvBAaVhS5tFWc4bcC2BknRaaS4bJSU5rSHlTm0cxYjQhMYPPa20D6iyJgaL6ADGbi72
-         EZKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787036673; x=1787641473;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EwT+2J3bGB7Z6ksti2cShfP/roINGoif1NSZ5f9uv8Q=;
-        b=pnkQMHHJBYy0mzlMmx55q1FRRSpyAsP7KaCrJCEHoRgzsYYs852Wc/DvFJ6+SIk/SS
-         OdpHtv0/Z6cCdtLMZWbpCaUdgT6rsf1gmWfI67MX2lV2dtpdURhXAU1OY8j7qTa/dECq
-         O2a5M9qZdPRu695wfObeU1n+2tUR50ExbxWazUQoGdCjLLUnNOGA0jstajJ+0r9WNzK7
-         q2seXVEtA4tcW8cl3MXS+RxVPvjmMnywwQmrQAAw65yNMvx8SlPrK3YeEUVZCJQo+3Tk
-         3YdCLD2qUCUCv0/RvfKnHdMEvWIGSsaya2W9BaBRGuR+T0FhooI8XesQAX+GlkSMAzOs
-         Eygw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7b6fxs37K7XXsSYtOMp0LAN5eyoBgcW1zUPy/rVFGytf644AqqT66yC89iQ9db3zJD8BrZQs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyH1Acl7NEFVAHbRxJ4wsl0FBYDf1Po+jLfzRSc9adcXuv6CHi1
-	eUY7+ETdJ4pRvRwNqsujNrplViK+wrlfuP3VuaDhEBpbjo+tyPSXlQXMmbkI+5o/N/d0ujTJhy0
-	oHSypFRVV7GFhbN+rWlP2ylwGnO+E4sMaWzY4ERAsxFULj+R1A+91ssP8fyCtF+HXymnLTkYh
-X-Gm-Gg: AR+sD10U/d0i6F5dATYGvT3dVYrF6pDGhaz6rMX8Gx6DK4UEF2pkGcaW8eM5LLZVrvH
-	HASffPXLu4tsojwV9KndO8Al1MZMOI5ATNUtAxjTidUoBKWxr+xN8amfh/r5peGb5Mej5foVkt4
-	wtVvPU3UMWqDkMNvoYpBrHAhmsZJ8d2xeGGEGiDAuvY9x2ohlll1Sh2qeaD2AOkgrpMEjHd/kbb
-	BzgIOOZPuiIXyyETqIHZhtNHflhs2x91mvqDVCt2UIoGqZX9YlNPFw10fIzvYC2xwcUOnQpA6fL
-	f5zLIKJRwYe006fYgQEoq4OyHiw+6cYQTM2orGfAftIDxxpJsISg8IMuCIbcmPOxVygxoEr9Iw1
-	LBucpTTdUJhPwjBujK+sSKiH0Zx4+JRHpkqmmXGmq2f7Gjr/tFIO0NfeQNDdtW6L1KYRtsdL/dw
-	7ZEJ4GYFNxTrhI
-X-Received: by 2002:a05:620a:1d04:b0:92e:e7e0:ea45 with SMTP id af79cd13be357-936d2345575mr3266878285a.47.1787036673092;
-        Tue, 18 Aug 2026 00:04:33 -0700 (PDT)
-X-Received: by 2002:a05:620a:1d04:b0:92e:e7e0:ea45 with SMTP id af79cd13be357-936d2345575mr3266874385a.47.1787036672695;
-        Tue, 18 Aug 2026 00:04:32 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b46d00b86esm978056e87.63.2026.08.18.00.04.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 00:04:31 -0700 (PDT)
-Date: Tue, 18 Aug 2026 10:04:29 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: venus: Fix iova allocation from restrict
- region
-Message-ID: <hzu33hharafxhfdnr5tr23ti2tmtjhls3iwbvmtfllwcv232m5@nvxemt5ijf4n>
-References: <20260812-reserve_iova_in_driver-v1-0-ed62f801275c@oss.qualcomm.com>
- <20260812-reserve_iova_in_driver-v1-2-ed62f801275c@oss.qualcomm.com>
+	s=arc-20240116; t=1787037160; c=relaxed/simple;
+	bh=49VUbThxB5QRREb8Cd0EpD8ZQJ9ev4ClaAHrI3mEXCw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mlIOqLVovY/bScBhn2z6q/9yNH21E5KXpAnlVCdRKqpFSaZsI1by0ejuirYuA2+nCG74ZZ5XQ8NHJ4DJIxReExTtmTHy5hHz7lQN4wWXTMNGwUMeVUBXy53p+rIcbzqTnMpsB8P95Pg4Yld/rBpApG0npRJ6nmNPFXzkAh020iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 1d2c7e3a9ad411f19a56ed5b684f684d-20260818
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:14c5fa69-8e4a-4c81-bdb4-4a6228f9c7cc,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:724328a2c185be15cdd89d39ff062eb3,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1d2c7e3a9ad411f19a56ed5b684f684d-20260818
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 547478389; Tue, 18 Aug 2026 15:12:03 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: cem@kernel.org,
+	darrick.wong@oracle.com,
+	chandanrlinux@gmail.com
+Cc: linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] xfs: fix array bounds checking in log recovery
+Date: Tue, 18 Aug 2026 15:11:58 +0800
+Message-Id: <20260818071158.286555-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812-reserve_iova_in_driver-v1-2-ed62f801275c@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA1MSBTYWx0ZWRfX/QkyFAeRP8JE
- uu9oI4cPLIOwyrhjxPz5y5262/L6FLGOE5bIQzs2MuMu3C2DtccRMnjiT8uSIdWwWleYGInFc8x
- vhJNbfP4YW72Otj7igLLba558ItkLn0=
-X-Proofpoint-ORIG-GUID: ZqM4DVSQEtGMe0rprcU6wkcjEdzjsWBJ
-X-Authority-Analysis: v=2.4 cv=UfFhjqSN c=1 sm=1 tr=0 ts=6a840401 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=4BULcDCo1EIeXDFKsSoA:9
- a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: ZqM4DVSQEtGMe0rprcU6wkcjEdzjsWBJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA1MSBTYWx0ZWRfX//GyHysyzPVT
- kOh7UYNnUnb/GH+vbPHfko2Y32uW8UYsnT0POqKKEEAKCkVW4KuCW7lFM5s5900MApA9n8tjBR5
- OHeJm24hwSbLWpzs3eoqDlm6b/oG9rj0oRQ0qQcFLDvCvxpP3rlB1osBzbbF1mi31dZKC4m8UFq
- qCfQkJivrUOdEifo2ZCHIpCUD9M9hIQUvpISVHaItqatQ5Stp8LmLKNu/DgUdOp+JZdMjW7/AHH
- jjNM7Joc4hg8QfXyDegfBXTM/qakbX+2U7ECaxw3qXl7bHJ/Io9TTGJ9GMCVqj0ntsvyd3DjB9y
- rVPjvrqVRK//M1SaA1jMuxd/UAjTNipjeKRE4UYE13d/mOEbgEW3wA/mBITtZXTV2MZa53ylQzB
- /1e9VM4GNDteSkmoePwOoUNJASGc5imQCDhLj94hJ30qWlwJzZtEtZkpad9yLs7xiilGwSl3V4/
- oU855l8o+4c1bgxirpA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0
- spamscore=0 priorityscore=1501 clxscore=1015 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180051
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 12, 2026 at 04:25:59PM +0530, Vishnu Reddy wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> cannot address the low 600MB of IOVA space, while the pixel stream can
-> address the full range:
->     +-----------------------------------------------------------+
->     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->     | 0x25800000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
->     | pixel stream addressable range (0 - 3.5 GB)               |
->     | 0x00000000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
+The log recovery code increments array indices based on bits set in
+blf_data_map without verifying that the indices stay within the bounds
+of the item->ri_buf array.
 
-Does this split apply to all generations of Venus? We support MSM8916,
-for example. There has been work to enable MSM8974.
+Since blf_data_map is from untrusted log data, a malicious log could set
+many bits while ri_total is small, causing array index overflow.
 
+This can result in an out-of-bounds access during log recovery, causing
+a kernel crash or memory corruption.
+
+This patch adds array bounds checking for ri_buf access in
+xlog_recover_do_reg_buffer() and xlog_recover_do_inode_buffer().
+
+The check in xlog_recover_do_inode_buffer() is placed right before the
+actual array access, not after incrementing the index, to avoid false
+positives when processing the last valid region.
+
+Fixes: 1094d3f12363 ("xfs: refactor log recovery buffer item dispatch for pass2 commit functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/xfs/xfs_buf_item_recover.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+index 123456789abc..defghijklmnop 100644
+--- a/fs/xfs/xfs_buf_item_recover.c
++++ b/fs/xfs/xfs_buf_item_recover.c
+@@ -483,6 +483,14 @@ xlog_recover_do_reg_buffer(
+ 			if (bit == -1)
+ 				break;
+ 			nbits = xfs_contig_bits(buf_f->blf_data_map,
++						buf_f->blf_map_size, bit);
++
++			/*
++			 * The bitmap can have more bits set than there are regions
++			 * in ri_buf, so we must check array bounds before using the
++			 * index to access ri_buf[i].
++			 */
++			if (XFS_IS_CORRUPT(mp, i >= item->ri_total)) {
++				xfs_alert(mp,
++		"Buffer log item index (%d) exceeds allocated regions (%d).",
++					i, item->ri_total);
++				return -EFSCORRUPTED;
++			}
++
+ 			ASSERT(nbits > 0);
+ 			ASSERT(item->ri_buf[i].iov_base != NULL);
+ 			ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
+@@ -687,6 +695,16 @@ xlog_recover_do_inode_buffer(
+ 			if (next_unlinked_offset < reg_buf_offset)
+ 				continue;
+ 
++			/*
++			 * Check array bounds here (right before accessing ri_buf)
++			 * rather than after incrementing item_index. This avoids
++			 * incorrectly rejecting logs when item_index reaches
++			 * ri_total after processing the final valid region.
++			 */
++			if (XFS_IS_CORRUPT(mp, item_index >= item->ri_total)) {
++				xfs_alert(mp,
++		"Inode buffer log item index (%d) exceeds allocated regions (%d).",
++				item_index, item->ri_total);
++				return -EFSCORRUPTED;
++			}
++
+ 			ASSERT(item->ri_buf[item_index].iov_base != NULL);
+ 			ASSERT((item->ri_buf[item_index].iov_len % XFS_BLF_CHUNK) == 0);
+ 			ASSERT((reg_buf_offset + reg_buf_bytes) <= BBTOB(bp->b_length));
 -- 
-With best wishes
-Dmitry
+2.25.1
