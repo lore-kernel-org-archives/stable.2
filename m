@@ -1,72 +1,37 @@
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24936347BD4
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 04:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FF419049B;
+	Tue, 18 Aug 2026 04:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787028938; cv=none; b=SZ6z0HNno36KdB6Ih4/hRAmv+3T3rnVr1qgyGraLQ3n0Jh8/McbFlf32fHj5AzTjv67pNrUAA0ybXXLiy8j7i2isrY+34OHJzIo3OkJvZXchWDlDa4jD9xQEMnSPO52dsoJa1/un4JoDHG3ysw2BVcq8rjcUljwuQ4KY1uemzEU=
+	t=1787029101; cv=none; b=vEwek9f7nVRja0FeGWC0bhIKnE1yxzUatX4EU0eJMvAK+UD9HB8F2seG0L+rOYtHeGFbzqlzPJRMMDVGu7ru6ZaCnKHRVOV+P0Ir2RTYdNveNEGloa/JYyoWoSxJWMFK9yW80DFjCljYhxt9ssuOjXd+HH/AJWDTPHB1qXVJls8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787028938; c=relaxed/simple;
-	bh=o4+aZ6qS0S9nkK81uPz+cUCUIngJN+MKKpptDZdgbkk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ah8pzUtpH7Br6k641A9x3xFoSQzi4A82ZXf+xB5kLFcWc3Zws8UWvkLP1IXjX/F+EcU4ixbOx8zDyJR9AUwb16Hs2x3xPi5nybM8Q/IkPBfLrQCB5iUQcpqvNzXF0DJ1wK2Lq7nGSd4IlZ4uNu5w/SKrCDIYRZNsTDWLagPEKH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R9+r6LDA; arc=none smtp.client-ip=209.85.219.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787029101; c=relaxed/simple;
+	bh=7OVz7dOOrKHJmoXUfbZIey0um5f+c2mye9lnrDg8uYo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=a+sFoIwEY804MKR53MGoiOQaePJWWS3afF14eDfKJFoGc7ahX56GtOUuSo8Dre+Yb0Lt9W9FkNFZCFz3gxr0YsiwfsuSpZCJLsNLoacosyfhmKnM4RsV57BYpZkUWpL+uI/EJgwLFpFkFIPY7ymhmotMoolQUEX4SY94ZXC+IzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=WUpPntwQ; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R9+r6LDA"
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-8f186025973so38926426d6.0
-        for <stable@vger.kernel.org>; Mon, 17 Aug 2026 21:55:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787028936; x=1787633736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Wc1B4UKGofVVH26ecK+ofT0cydYY+iUUwt3ZyLVBedk=;
-        b=R9+r6LDA3Xn+S/lYbFDZCeT8SGWO01cNC4BvR7OwUBV6EM4RPLA5M7UWrLWvPKTDK3
-         GLLdICa8NOVoEtU4Ve/nPkW8HeOc2DKUAZFHJgiWBN/JvjXQco/uAxS/wtF5DEFv1cbX
-         OSb53Xr86zUHNM+sqCUHyDp1l4fGLRptFimOnuGHvaFb8Sb0rlXSvtpyiH5keKVrc4xm
-         cPNs/d8YnTihaA1lI9qHzj0NObvHVgikRLm9W8U5M8XywTsLmcq+vRaafgNc0PWIHdOX
-         j2Kh6XFPoHgVX73fE7oy+RJcLfg257xx/AydkZAgyi/d/kLf1ZSNzxHWrYyyvKOFjNTs
-         Qkpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787028936; x=1787633736;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wc1B4UKGofVVH26ecK+ofT0cydYY+iUUwt3ZyLVBedk=;
-        b=R8pvFXDwglW8jQZtOCdP2MDkczoAVwmtQF3I+xV7YhvcflYHVGVKhtNXtZF7jegTrk
-         7yRUoR+u7Yx4FWC4AQRBf8BwfTnj8LI3ixdzKFz7A9IrrC6OWSa9h16EFRAcsiV68QfC
-         y/ofBEj0vtkmTFd5O11NZecOtX1RQib800XavMYEoa8/7+CklnmaAhrZplgHBOFSpdWI
-         4bfgr53GpbydEPkg9Tw5S2oXu1itg6F09/iEph0T7/gimocrsgZzO37Ahez3XGNLV6lu
-         /1bo/XsikDb6sYK8nTLkiR4/wS/c9ygeA0RubqkSu8Y+YAGBe+LffUpLwVfDB5KZsBCU
-         scIw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp4d/L/dFmwfLNEyeHHFlOYc9s+Ut/uzyxpIE+zaOLmN9ohPFl2GjIKUTJG0ZeY+wnyO0bIgHY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfacNUkHmMJLztfhlAG9IL0PuUVe0KlOkg5Bq7jRXhEIZMj3Ux
-	9Tk9I3G46ag2ab+ANzFQjpMRVPyGANsNCGJLnqT8o2nFQVhPn8MYhUae
-X-Gm-Gg: AR+sD13q9IV87mCsW1KpFUE1N5t/FdRr7ZgayoC/ypMulHqAZzHrMLsb4Zjf3IkbUdS
-	cl7jdtiKz4V0RvP/iWW3aFZt8aPyCIav3LRT1tETrc/8xevE+O+Qbx358AkvnxbMUn+x+PD0xcY
-	DbtLdR8dEOiPYWme3tt+wTE1rbm4gGx/GVy6pO2ALvMqaRi48GgN2TqFNBr2Gqc0+tj5X7rcVa9
-	+ApaedjuP9jn6kowNYxj5cNQl4xbMrxhqWrf6stbpKP9XpfRcmEZaPiMYcUuL0qvQxln3Gf9YxV
-	mh2L3MZpHtA57zIPkgqpHUJESZPZrTCaa3wwjOTnXUNYFC9mVvDfQ0rZdh1vMGSgeAb4sRsOSdh
-	LRv+wRz5ydx0QZVS0Q2FgcYshKZTX97Q01sCmuQoEdm+5WgsQ3wFBZdEdCISdrNQ+u8uO3lSrKx
-	IT96KRExLk1cBgkvYacIOZ5ZkkpSckb7P9nUhxd90NKVMYryFqwds6/pJaN9/Fl4q6HOw062cnF
-	YJFtahCnVkTn9tfdA==
-X-Received: by 2002:a05:6214:53c3:b0:906:2b80:4684 with SMTP id 6a1803df08f44-90a91cf1279mr338284886d6.3.1787028936056;
-        Mon, 17 Aug 2026 21:55:36 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c4d0c0360sm12345536d6.16.2026.08.17.21.55.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 21:55:35 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="WUpPntwQ"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a5b56963;
+	Tue, 18 Aug 2026 12:58:13 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: "Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: James Bottomley <James.Bottomley@suse.de>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: dvb-core: remove active network interfaces on release
-Date: Tue, 18 Aug 2026 00:55:21 -0400
-Message-ID: <20260818045521.1600266-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] scsi: target: file: reject configfs-backed paths in configfs stores
+Date: Tue, 18 Aug 2026 12:58:07 +0800
+Message-Id: <20260818045807.1519433-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,69 +39,121 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0133bfce303a1kunm5b4c6f7a1004f6
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHkMZVkpPH0IYH0gZHkJOQ1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=WUpPntwQkB7EIgXC2Cj+ktHJVXq8sHqFC7bTQ2KP/BPlUPHzV0Z9jjMxD0LqXUOlkJhxXAvoOYCv5M1vB+QL4eSCBJZ4Mv9WnMaissrYD5jSd5fRGkiJypcPI5EryZoJw/1el/y24ugDLPEaGu9Can3NN+TycVMaBz4adH+p2t4=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=+qLDLYB5zBcm54HIVhHmOzhqWqYYLYqCzHz/Wk6MAEI=;
+	h=date:mime-version:subject:message-id:from;
 
-dvb_net_release() marks the DVB net instance as exiting and then calls
-dvb_net_remove_if() for each network interface.  The latter rejects an
-interface while it is in use, but the release path cannot propagate the
-result and leaves the netdev registered and its feed active.  Callers may
-then proceed to tear down the demux and driver resources on which that feed
-depends.
+FILEIO paths can be opened from configfs store callbacks while configfs
+holds the item's frag_sem.
 
-In ttusb-budget, a concurrent netdev open can be starting an isochronous
-feed while disconnect passes the failed interface removal and frees the
-driver's URBs.  If URB submission fails, the feed-start error path can then
-call usb_kill_urb() on an URB freed by disconnect.
+target_dev_enable_store() reaches fd_configure_device() and
+pi_prot_type_store() reaches fd_init_prot(). Both helpers call
+filp_open() on user-controlled FILEIO paths. If either path resolves
+inside configfs, the lookup can re-enter __configfs_open_file() and try
+to take the same frag_sem again.
 
-Keep returning -EBUSY when userspace explicitly requests removal of an
-active interface, but use the exit state to let the final release proceed.
-Unregister the netdev first so the networking core blocks new opens,
-synchronizes with an open already in progress, and invokes ndo_stop for an
-active interface.  Wait for the feed-management work to finish before
-freeing the netdev.  Since set_multicast_list_wq can restart a feed after
-ndo_stop(), stop any feed left by a completed work item.
+Reject configfs-backed FILEIO paths before calling filp_open(). Resolve
+existing paths with kern_path(), and when O_CREAT may create the last
+component, fall back to checking the parent directory with
+kern_path_parent(). Keep reporting ordinary path lookup failures instead
+of silently bypassing the existing FILEIO error paths.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: c66ac9db8d4a ("[SCSI] target: Add LIO target core v4.0.0-rc6")
+Fixes: 0f5e2ec46dd6 ("target/file: Add DIF protection init/format support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/media/dvb-core/dvb_net.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ drivers/target/target_core_file.c | 50 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
-index a2159b2bc176..a5726a006bc1 100644
---- a/drivers/media/dvb-core/dvb_net.c
-+++ b/drivers/media/dvb-core/dvb_net.c
-@@ -1404,18 +1404,26 @@ static int dvb_net_remove_if(struct dvb_net *dvbnet, unsigned long num)
+diff --git a/drivers/target/target_core_file.c b/drivers/target/target_core_file.c
+index 2d78ef7..4351300 100644
+--- a/drivers/target/target_core_file.c
++++ b/drivers/target/target_core_file.c
+@@ -19,6 +19,7 @@
+ #include <linux/module.h>
+ #include <linux/vmalloc.h>
+ #include <linux/falloc.h>
++#include <linux/namei.h>
+ #include <linux/uio.h>
+ #include <linux/scatterlist.h>
+ #include <scsi/scsi_proto.h>
+@@ -86,6 +87,33 @@ static struct se_device *fd_alloc_device(struct se_hba *hba, const char *name)
+ 	return &fd_dev->dev;
+ }
+ 
++static int fd_validate_fileio_path(const char *path)
++{
++	struct path lookup_path = {};
++	struct dentry *dentry;
++	int ret;
++
++	ret = kern_path(path, LOOKUP_FOLLOW, &lookup_path);
++	if (!ret) {
++		ret = !strcmp(lookup_path.dentry->d_sb->s_type->name, "configfs") ?
++			-EINVAL : 0;
++		path_put(&lookup_path);
++		return ret;
++	}
++	if (ret != -ENOENT)
++		return ret;
++
++	dentry = kern_path_parent(path, &lookup_path);
++	if (IS_ERR(dentry))
++		return PTR_ERR(dentry);
++
++	ret = !strcmp(lookup_path.dentry->d_sb->s_type->name, "configfs") ?
++		-EINVAL : 0;
++	dput(dentry);
++	path_put(&lookup_path);
++	return ret;
++}
++
+ static bool fd_configure_unmap(struct se_device *dev)
  {
- 	struct net_device *net = dvbnet->device[num];
- 	struct dvb_net_priv *priv;
-+	bool exiting;
+ 	struct file *file = FD_DEV(dev)->fd_file;
+@@ -137,6 +165,17 @@ static int fd_configure_device(struct se_device *dev)
+ 		flags &= ~O_DSYNC;
+ 	}
  
- 	if (!dvbnet->state[num])
- 		return -EINVAL;
- 	priv = netdev_priv(net);
--	if (priv->in_use)
-+	mutex_lock(&dvbnet->remove_mutex);
-+	exiting = dvbnet->exit;
-+	mutex_unlock(&dvbnet->remove_mutex);
-+	if (priv->in_use && !exiting)
- 		return -EBUSY;
++	ret = fd_validate_fileio_path(fd_dev->fd_dev_name);
++	if (ret) {
++		if (ret == -EINVAL)
++			pr_err("configfs-backed path is not valid for FILEIO backend: %s\n",
++			       fd_dev->fd_dev_name);
++		else
++			pr_err("FILEIO backend path lookup failed for %s: %d\n",
++			       fd_dev->fd_dev_name, ret);
++		goto fail;
++	}
++
+ 	file = filp_open(fd_dev->fd_dev_name, flags, 0600);
+ 	if (IS_ERR(file)) {
+ 		pr_err("filp_open(%s) failed\n", fd_dev->fd_dev_name);
+@@ -847,6 +886,17 @@ static int fd_init_prot(struct se_device *dev)
+ 	snprintf(buf, FD_MAX_DEV_PROT_NAME, "%s.protection",
+ 		 fd_dev->fd_dev_name);
  
--	dvb_net_stop(net);
--	flush_work(&priv->set_multicast_list_wq);
--	flush_work(&priv->restart_net_feed_wq);
- 	pr_info("removed network interface %s\n", net->name);
- 	unregister_netdev(net);
-+	flush_work(&priv->set_multicast_list_wq);
-+	flush_work(&priv->restart_net_feed_wq);
-+	/*
-+	 * set_multicast_list_wq may have restarted a feed after ndo_stop().
-+	 */
-+	if (priv->secfeed || priv->tsfeed)
-+		dvb_net_feed_stop(net);
- 	dvbnet->state[num]=0;
- 	dvbnet->device[num] = NULL;
- 	free_netdev(net);
++	ret = fd_validate_fileio_path(buf);
++	if (ret) {
++		if (ret == -EINVAL)
++			pr_err("configfs-backed path is not valid for FILEIO protection: %s\n",
++			       buf);
++		else
++			pr_err("FILEIO protection path lookup failed for %s: %d\n",
++			       buf, ret);
++		return ret;
++	}
++
+ 	prot_file = filp_open(buf, flags, 0600);
+ 	if (IS_ERR(prot_file)) {
+ 		pr_err("filp_open(%s) failed\n", buf);
 -- 
-2.43.0
-
+2.34.1
