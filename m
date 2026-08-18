@@ -1,40 +1,47 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2355630F540;
-	Tue, 18 Aug 2026 14:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F19334C1D;
+	Tue, 18 Aug 2026 14:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.128.210.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787063309; cv=none; b=WZS4cS27kDXiqMr2deeGojNs4EG9X1Rau5sJf+oc9z2quc2BioIxdBatZbytmh92c5lalqfHaPAhMKTfZ+6QICqPgy+ZwH1eg0sPTHLM4JRwc+uWNNyEgBLVPC9Vu4QxO5tHWP3ih82c72Id79WCexb79FW6PEdYESrL+/HD66c=
+	t=1787063717; cv=none; b=bliwwPgXESLqlds7ca55xDsShvExjVfahtNkVDG93LCnUNGpFBro3EpbnShdSMHZo1hNzIMrnOzGPjZep64znTNto24Zg0EBHgKCyixzCfDmEIwN2ZIn/E26Kxx1E1VLSS04C4A82ygc8GwkF+5XVWgd/s1lW3M/EUDozpFWkOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787063309; c=relaxed/simple;
-	bh=BmJMDvIB5tZvlWW3RPhRyMRf5zBfwAa7UO+xuPD2i+w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=blYwXCz1GbAbS11F0WiI1kR/q21+1ThicaLJtC9PpzzXj5hiW1b92UAmUGuETnd26MoDew7cfSRQ2UXC0ABbuNN1Sh9p0FpkyUS0HxVjupSisi6tprG0mXQS7okULTsnYTZeLwuBIeYzRP/EiQRnCltIUorXHE1c4/2PU6uONuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=SI1eXrur; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="SI1eXrur"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4a6e04b0d;
-	Tue, 18 Aug 2026 22:28:17 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
+	s=arc-20240116; t=1787063717; c=relaxed/simple;
+	bh=f0jw8XwgtOX9QIFi5/PwWcbMVVopSLxD8BXBpxAFvsg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Oj9hdGA7avG2WNfe3OUcx4grWB947hlrF+QYAG7YklsDWLYbjbSF8CboFE0uGpPiSaFCca0E15ldtxzY4FjDB+fDCo28dzrcTtbnThP7HzjBAYXk9OLw2BG7AC6NH3E5T/d6i0H2GuRyOEjWRC4BvvjeiCzqbKmtsNeLLtUzNNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net; spf=pass smtp.mailfrom=librecast.net; arc=none smtp.client-ip=185.128.210.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
+From: Brett A C Sheffield <bacs@librecast.net>
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org,
+	patches@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] iio: admv1013: initialize callback mutex before registering notifier
-Date: Tue, 18 Aug 2026 22:28:11 +0800
-Message-Id: <20260818142811.2264343-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	Brett A C Sheffield <bacs@librecast.net>
+Subject: Re: [PATCH 5.10 000/389] 5.10.265-rc1 review
+Date: Tue, 18 Aug 2026 14:06:00 +0000
+Message-ID: <20260818140608.30735-1-bacs@librecast.net>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260817132538.796021292@linuxfoundation.org>
+References: <20260817132538.796021292@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,47 +49,13 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa01545e65103a1kunmda569f1e1140f2
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHU9LVhpPGE9IGk5DQhoaH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=SI1eXrurPfUxEb4nvj5ytcIYZWSHfzTHJG+o5/2Pn0M5ZajzC/LQAqOBAK3e0culp+DmLWSh2WM23vKUuetu/bPq8Sn5x2uHAR5MudqdkUhLpdo1tY2cyIANN0xj0YURjj0RFm1T0r/ZDvKBCnwpDAxBUn4CArr01zOcC+gzUAw=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=7Q9kKJLvsmdB2XcgcCutx5ITfkGMgdUqIVLVh9TwIaI=;
-	h=date:mime-version:subject:message-id:from;
 
-admv1013_probe() registers a clock notifier whose callback takes
-st->lock on POST_RATE_CHANGE. Initialize the mutex before
-devm_clk_notifier_register() so the callback cannot observe an
-uninitialized lock during probe.
+# Librecast Test Results
 
-Fixes: da35a7b526d9 ("iio: frequency: admv1013: add support for ADMV1013")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/iio/frequency/admv1013.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+020/020 [ OK ] liblcrq
+010/010 [ OK ] libmld
+120/120 [ OK ] liblibrecast
 
-diff --git a/drivers/iio/frequency/admv1013.c b/drivers/iio/frequency/admv1013.c
-index d8e8d541990f..932f094f2b04 100644
---- a/drivers/iio/frequency/admv1013.c
-+++ b/drivers/iio/frequency/admv1013.c
-@@ -594,12 +594,12 @@ static int admv1013_probe(struct spi_device *spi)
- 				     "failed to get the LO input clock\n");
- 
- 	st->nb.notifier_call = admv1013_freq_change;
-+	mutex_init(&st->lock);
-+
- 	ret = devm_clk_notifier_register(&spi->dev, st->clkin, &st->nb);
- 	if (ret)
- 		return ret;
- 
--	mutex_init(&st->lock);
--
- 	ret = admv1013_init(st, vcm_uv);
- 	if (ret) {
- 		dev_err(&spi->dev, "admv1013 init failed\n");
--- 
-2.34.1
+CPU/kernel: Linux auntie 5.10.265-rc1-01074-gd2f1aa5b909d #1 SMP Tue Aug 18 13:42:37 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
+
+Tested-by: Brett A C Sheffield <bacs@librecast.net>
