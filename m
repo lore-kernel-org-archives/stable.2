@@ -1,313 +1,210 @@
-Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C4C2BE05E;
-	Tue, 18 Aug 2026 13:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2CF47884C
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 13:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787059723; cv=none; b=DCxh2lZ/5Tg34Q8DIaeUJh8DsSFXcnK8+Pe1NPsa1Z+5wr5e1pzRbr1Ouo+0Eue0An2ilSouln5E0avjj1oJ1HczORvQBbWaw79XxT0W+CUDoMHiDN7MwgydE0rNzbpCVReW7fnqdbbTq731vBftMLLuXZzMfyXFLV3okhmMPVQ=
+	t=1787059821; cv=none; b=u8yQ8Ut/IDTOe8lsfkbWotc+H38D0+vOYVLck8tESDdWNUSCDNefvCk7GvgRZfqFbLPXBzgH8PnEx7mLzsor7jzOfwFikAWKhABj0g7+kZACyZomdlK1c+xlOjK6JzXFiGhzk/3RIuWxKmTeAvy79ygj/z707RphpE8yY+5Gt+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787059723; c=relaxed/simple;
-	bh=gxyDXngT9cPy5aax/33wXUPsrJj9LJswLD+bH2CuFyk=;
-	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Subject; b=lHmYvJnDZDlc2EH1GJmKx8Q7sv4Kn0WEnUyb4UoDF3K0RR9GnwDZfJzXc1jSF2gSyD42PS3pZ3eSFyqM3qn4XZWhGfH61513mpEqRHyVgiiuxoer+02C+3wfy6bh88Nrqq5uF3UFyafSSwfFBqVSY0yVSDQSYuZOq6/CYyCEIoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=dt7tJBfL; arc=none smtp.client-ip=166.70.13.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
+	s=arc-20240116; t=1787059821; c=relaxed/simple;
+	bh=GcZ6gVgviXLmCcUpCRJ49yG184OqDRHwV8Vvc9hbBbE=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version; b=lfDvDcLXPIpgeEti9eUEhYJz8EW8+g3aoSUPLpGOIkbXLYr+TNW1VhpujHRZErRrkOVO9YmktASrlYLbbbI0ArYM9B+C9yFaN9eRhi0hJ+bxWd3uQiBwJ0wtTy+2vafbl57a/dT3sezZIrBSl0flNsIZLX4sHKdmZH4JiekzYyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=1ChuxtDJ; arc=none smtp.client-ip=46.14.118.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="dt7tJBfL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
-	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
-	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=gxyDXngT9cPy5aax/33wXUPsrJj9LJswLD+bH2CuFyk=; b=dt7tJBfLS15fZTjqrlFWll+1xq
-	qZpcUnZz9Is4af1poLHD8KN6WOO6zHdkOBrCPJgtC+s24ZFy9T+v+JO80HXpbkEPR0x95dEoj4BEf
-	j2xTNooeweJs+nDodkdeahtc0fDmNrYfFINq62AjuFvGVYs1UqzIFN3V5/wDC71bWI3M=;
-Received: from in02.mta.xmission.com ([166.70.13.52]:36954)
-	by out03.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1wwJJo-008tSU-F7; Tue, 18 Aug 2026 06:53:28 -0600
-Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:53222 helo=email.froward.int.ebiederm.org.xmission.com)
-	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1wwJJm-0035V7-Dy; Tue, 18 Aug 2026 06:53:28 -0600
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-Cc: joel.granados@kernel.org,  kees@kernel.org,  brauner@kernel.org,
-  oleg@redhat.com,  mingo@redhat.com,  peterz@infradead.org,
-  akpm@linux-foundation.org,  jack@suse.cz,  avagin@gmail.com,
-  ptikhomirov@virtuozzo.com,  mjguzik@gmail.com,  include@grrlz.net,
-  legion@kernel.org,  linux-kernel@vger.kernel.org,
-  linux-fsdevel@vger.kernel.org,  AutonomousCodeSecurity@microsoft.com,
-  tgopinath@linux.microsoft.com,  kys@microsoft.com,
-  stable@vger.kernel.org
-In-Reply-To: <20260814040944.16561-1-blbllhy@gmail.com> (Cen Zhang's message
-	of "Fri, 14 Aug 2026 00:09:44 -0400")
-References: <20260814040944.16561-1-blbllhy@gmail.com>
-Date: Tue, 18 Aug 2026 07:53:17 -0500
-Message-ID: <87h5krk2te.fsf@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="1ChuxtDJ"
+Received: from [192.168.16.44] (port=15732 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1wwJsz-000000000TF-0DmP;
+	Tue, 18 Aug 2026 15:29:49 +0200
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1787059788; h=from:subject:to:date:message-id;
+	bh=GcZ6gVgviXLmCcUpCRJ49yG184OqDRHwV8Vvc9hbBbE=;
+	b=1ChuxtDJ6osfoC8o44+PbsZIgu0NIzXYC2HSBllu6GkTWDFTOKTvyBXCw70Qxsh5GScta0ckZHv
+	rrFCt4UOEpCsYDGdxKFgynLfGImgXhWq5wABOmmulyoBnGUwsos1JTpBFbesKp4MQtXSqWWhB+emx
+	eukC1Oc0R8FOpxZoRTQ=
+Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Tue, 18 Aug 2026 15:29:48 +0200
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: <linux-bluetooth@vger.kernel.org>
+CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
+	<linux-kernel@vger.kernel.org>, Valentin Kindschi
+	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
+Subject: [PATCH v4 2/2] Bluetooth: hci_event: clear HCI_LE_ADV only on a created connection
+Date: Tue, 18 Aug 2026 15:29:35 +0200
+Message-ID: <20260818132935.1083808-3-valentin.kindschi@fiveco.ch>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260818132935.1083808-1-valentin.kindschi@fiveco.ch>
+References: <20260818132935.1083808-1-valentin.kindschi@fiveco.ch>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-XM-SPF: eid=1wwJJm-0035V7-Dy;;;mid=<87h5krk2te.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.198.28;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
-X-XM-AID: U2FsdGVkX1+yMuRZZ0BH9ovp2EX3l4m2tVg/f3LoQvw=
-X-Spam-Level: *
-X-Spam-Virus: No
-X-Spam-Report: 
-	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
-	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-	*      [score: 0.5000]
-	*  1.2 LotsOfNums_01 BODY: Lots of long strings of numbers
-	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
-	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
-	*      [sa02 1397; Body=1 Fuz1=1 Fuz2=1]
-	*  1.0 T_XMDrugObfuBody_08 obfuscated drug references
-	*  0.0 T_TooManySym_01 4+ unique symbols in subject
-X-Spam-DCC: XMission; sa02 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: *;"Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 1572 ms - load_scoreonly_sql: 0.05 (0.0%),
-	signal_user_changed: 4.5 (0.3%), b_tie_ro: 3.1 (0.2%), parse: 1.32
-	(0.1%), extract_message_metadata: 20 (1.2%), get_uri_detail_list: 4.5
-	(0.3%), tests_pri_-2000: 33 (2.1%), tests_pri_-1000: 2.4 (0.2%),
-	tests_pri_-950: 1.16 (0.1%), tests_pri_-900: 0.87 (0.1%),
-	tests_pri_-90: 97 (6.2%), check_bayes: 95 (6.0%), b_tokenize: 17
-	(1.1%), b_tok_get_all: 15 (0.9%), b_comp_prob: 5 (0.3%),
-	b_tok_touch_all: 52 (3.3%), b_finish: 1.01 (0.1%), tests_pri_0: 714
-	(45.4%), check_dkim_signature: 0.61 (0.0%), check_dkim_adsp: 4.3
-	(0.3%), poll_dns_idle: 674 (42.9%), tests_pri_10: 1.66 (0.1%),
-	tests_pri_500: 692 (44.1%), rewrite_mail: 0.00 (0.0%)
-Subject: Re: [PATCH v4] reboot: fix cad_pid use-after-free race
-X-SA-Exim-Connect-IP: 166.70.13.52
-X-SA-Exim-Rcpt-To: stable@vger.kernel.org, kys@microsoft.com, tgopinath@linux.microsoft.com, AutonomousCodeSecurity@microsoft.com, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, legion@kernel.org, include@grrlz.net, mjguzik@gmail.com, ptikhomirov@virtuozzo.com, avagin@gmail.com, jack@suse.cz, akpm@linux-foundation.org, peterz@infradead.org, mingo@redhat.com, oleg@redhat.com, brauner@kernel.org, kees@kernel.org, joel.granados@kernel.org, blbllhy@gmail.com
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out03.mta.xmission.com); SAEximRunCond expanded to false
+X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
+ FIVECO-MX01.fiveco.local (192.168.16.44)
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.8.18.125719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 10%
+X-SASI-Hits: ADVERT_CODE2 0.400000, BODY_SIZE_6000_6999 0.000000,
+ BODY_SIZE_7000_LESS 0.000000, CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000,
+ DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000, HTML_00_10 0.050000,
+ IN_REP_TO 0.000000, MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000,
+ NO_FUR_HEADER 0.000000, NO_URI_HTTPS 0.000000, OUTBOUND 0.000000,
+ OUTBOUND_SOPHOS 0.000000, REFERENCES 0.000000, SENDER_NO_AUTH 0.000000,
+ WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000, WEBMAIL_X_IP_HDR 0.000000,
+ __ADVERT_CODE2 0.000000, __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000,
+ __BULK_NEGATE 0.000000, __CC_NAME 0.000000, __CC_NAME_DIFF_FROM_ACC 0.000000,
+ __CC_REAL_NAMES 0.000000, __COURIER_PHRASE 0.000000, __CT 0.000000,
+ __CTE 0.000000, __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000,
+ __DKIM_ALIGNS_2 0.000000, __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000,
+ __DQ_NEG_IP 0.000000, __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000,
+ __HAS_FROM 0.000000, __HAS_MSGID 0.000000, __HAS_REFERENCES 0.000000,
+ __HAS_XOIP 0.000000, __HAS_X_MAILER 0.000000,
+ __INVOICE_MULTILINGUAL 0.000000, __IN_REP_TO 0.000000,
+ __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000, __MIME_TEXT_P1 0.000000,
+ __MIME_VERSION 0.000000, __MSGID_DOMAIN_IN_REFERENCES 0.000000,
+ __MULTIPLE_RCPTS_CC_X2 0.000000, __NO_HTML_TAG_RAW 0.000000,
+ __OUTBOUND_SOPHOS_FUR 0.000000, __OUTBOUND_SOPHOS_FUR_IP 0.000000,
+ __OUTBOUND_SOPHOS_FUR_RDNS 0.000000, __RCVD_CTE 0.000000,
+ __RCVD_EXIM_4_96_AES_128 0.000000, __RCVD_FROM_HOMEUSER 0.000000,
+ __REFERENCES 0.000000, __SANE_MSGID 0.000000, __SL_HEAVY 0.000000,
+ __SUBJ_ALPHA_END 0.000000, __SUBJ_ALPHA_NEGATE 0.000000,
+ __SUBJ_STARTS_S_BRACKETS 0.000000, __TO_MALFORMED_2 0.000000,
+ __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000, __URI_NO_WWW 0.000000,
+ __URI_NS 0.000000
 
-"Cen Zhang (Microsoft)" <blbllhy@gmail.com> writes:
+le_conn_complete_evt() clears HCI_LE_ADV before looking at the event
+status, on the premise stated in its comment that all controllers stop
+advertising when a connection is created.
 
-> cad_pid is a single kernel-wide struct pid pointer. proc_do_cad_pid()
-> reads it and passes it to pid_vnr() without protecting the lifetime of
-> the referenced struct pid. A concurrent writer can replace cad_pid and
-> drop the final reference to the old struct pid after the reader has
-> loaded the pointer but before pid_vnr() has finished dereferencing it,
-> causing a use-after-free.
->
-> kill_cad_pid() has the same lifetime race when it passes cad_pid to
-> kill_pid().
->
-> At the time this issue was reported, an unprivileged user could reach the
-> sysctl through user and PID namespaces because cad_pid was registered in
-> pid_table[]. Moving cad_pid back to the global reboot sysctl table
-> corrected that namespace and permission mismatch, but did not fix the
-> underlying lifetime race.
->
-> Fix this by treating cad_pid as an RCU-protected pointer at both read
-> sites and by waiting for a grace period before dropping the old reference
-> on the write side.
->
-> call_rcu(&old_pid->rcu, ...) cannot be used here because free_pid()
-> also queues pid->rcu; queueing the same rcu_head twice can corrupt the
-> RCU callback list.
+That premise only holds when a connection was actually created. On a
+non-zero status none was, and the controller is still advertising: after
+the host issues LE Create Connection Cancel the event arrives with
+Unknown Connection Identifier (0x02), and a connection timeout behaves
+the same way. Clearing the flag there leaves the host believing
+advertising is off while the controller has it on.
 
-Dumb question why not a mutex to protect cad_pid?
+It is also wrong for extended advertising, where several sets can be
+advertising at once. hci_cc_le_set_ext_adv_enable() is careful about
+this - on disabling one set it walks hdev->adv_instances and only clears
+HCI_LE_ADV once no instance is still enabled. The unconditional clear
+here discards that bookkeeping, so one set connecting drops the flag
+while the others keep advertising.
 
-All of the bare rcu_dereference and rcu_assign_pointer makes me go hmmm.
+The direction of the error matters. A flag left set is self-correcting:
+hci_disable_advertising_sync() sends LE Set Advertising Enable(0) and
+the command complete puts the state back. A flag left clear is not,
+because that same function returns early without sending anything while
+the flag is clear:
 
-Especially when we are talking an interface that is expected to be
-called maybe once.  RCU to protect it's data structures seems a bit
-overkill.
+  - LE Set Advertising Parameters is then sent to a controller that is
+    still advertising, and is correctly rejected with Command Disallowed
+    (0x0c);
+  - hci_enable_advertising_sync() returns at that point, before the
+    LE Set Advertising Enable that would set HCI_LE_ADV again.
 
-Yes KASAN crashed but that was because someone was abusing it.
-Oleg's change should have reduced the set of processes that can
-abuse this.
+On a controller without LE Extended Advertising that is reachable from
+here: hci_schedule_adv_instance_sync() re-arms adv_instance_expire every
+HCI_DEFAULT_ADV_DURATION (2 s) and its "already advertising" shortcut
+tests HCI_LE_ADV, which can no longer become true, so the parameter
+write is retried for as long as advertising is configured:
 
-Now it is just a matter of keeping root from doing something stupid.
-AKA changing cad_pid while pressing "Ctrl-Alt-Del".
-So why not a mutex?
+  Bluetooth: hci0: Opcode 0x2006 failed: -16
 
+Only clear the flag when a connection was established.
 
-I am still not convinced there are any users of changing CAD pid.
-But I can see it being easier to write a patch to handle them,
-then to figure out if they exist.  Still something tricky like
-using RCU seems way way overkill.
+Note this is not on its own sufficient to stop that retry loop - the
+redundant enable queued by hci_le_conn_failed() clears HCI_LE_ADV itself
+and recreates the same mismatch, which patch 1 addresses. This patch
+fixes the event handler reporting a state the controller is not in.
 
-Eric
+Verified on the affected device (BCM43455, legacy advertising only) with
+this patch and patch 1 applied. A 221 s btmon capture with an out-of-range
+peer at -90 dBm contains two outgoing connection attempts that the host
+cancelled, each producing exactly the event this patch changes:
 
+  < LE Set Advertising Parameters  0x2006   Success
+  < LE Set Advertising Enable      0x200a   Success
+  < LE Create Connection Cancel    0x200e   Success
+  > LE Connection Complete   Unknown Connection Identifier (0x02), central
 
-> Original KASAN crash stack:
->   kernel/pid.c:545 pid_nr_ns()        # reads freed pid->level
->   kernel/pid.c:556 pid_vnr()          # calls pid_nr_ns()
->   kernel/pid.c:775 proc_do_cad_pid()  # calls pid_vnr(cad_pid)
->
-> Fixes: 9ec52099e4b8 ("[PATCH] replace cad_pid by a struct pid")
-> Reported-by: AutonomousCodeSecurity@microsoft.com
-> Closes: https://lore.kernel.org/all/20260717210143.4734-1-blbllhy@gmail.com/
-> Link: https://lore.kernel.org/all/alz5ZYLE4kaq_v2P@redhat.com/
-> Link: https://lore.kernel.org/all/al4ICz9biJKtdZc4@redhat.com/
-> Suggested-by: Mateusz Guzik <mjguzik@gmail.com>
-> Suggested-by: Bradley Morgan <include@grrlz.net>
-> Suggested-by: Oleg Nesterov <oleg@redhat.com>
-> Suggested-by: Eric W. Biederman <ebiederm@xmission.com>
-> Suggested-by: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
-> ---
-> v4:
->  - Rebase on sysctl-next after Oleg's cad_pid sysctl placement change.
->  - Fold the two-patch v3 series into a single lifetime fix.
->  - Move kill_cad_pid() implementation to kernel/signal.c.
->  - Export kill_cad_pid() and stop exporting the raw cad_pid pointer.
->  - Update proc_do_cad_pid() in kernel/reboot.c.
->  - Add explicit includes for the RCU API and kill_cad_pid().
->  - Preserve the original unprivileged impact context while noting that
->    the namespace permission path has been fixed separately.
->
-> v3:
->  - Keep kill_cad_pid() inside the RCU read-side critical section
->    instead of taking a pid reference, as suggested by Oleg.
->
-> v2:
->  - Split out kill_cad_pid() deinline into a preparatory patch.
->  - Annotate cad_pid as __rcu and use rcu_dereference().
->  - Protect kill_cad_pid() by taking a pid reference under RCU.
->  - Add a comment explaining why synchronize_rcu() is used instead of
->    call_rcu().
->
->  include/linux/sched.h        |  2 +-
->  include/linux/sched/signal.h |  5 +----
->  init/main.c                  |  2 +-
->  kernel/reboot.c              | 19 +++++++++++++++----
->  kernel/signal.c              | 12 ++++++++++++
->  5 files changed, 30 insertions(+), 10 deletions(-)
->
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index 373bcc0598d1..31ce72b1233c 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -1767,7 +1767,7 @@ static inline bool is_lazy_mmu_mode_active(void)
->  }
->  #endif
->  
-> -extern struct pid *cad_pid;
-> +extern struct pid __rcu *cad_pid;
->  
->  /*
->   * Per process flags
-> diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
-> index 584ae88b435e..d45a5476b97d 100644
-> --- a/include/linux/sched/signal.h
-> +++ b/include/linux/sched/signal.h
-> @@ -562,10 +562,7 @@ static inline sigset_t *sigmask_to_save(void)
->  	return res;
->  }
->  
-> -static inline int kill_cad_pid(int sig, int priv)
-> -{
-> -	return kill_pid(cad_pid, sig, priv);
-> -}
-> +int kill_cad_pid(int sig, int priv);
->  
->  /* These can be the second arg to send_sig_info/send_group_sig_info.  */
->  #define SEND_SIG_NOINFO ((struct kernel_siginfo *) 0)
-> diff --git a/init/main.c b/init/main.c
-> index e363232b428b..19a10d0c2760 100644
-> --- a/init/main.c
-> +++ b/init/main.c
-> @@ -1636,7 +1636,7 @@ static noinline void __init kernel_init_freeable(void)
->  	 */
->  	set_mems_allowed(node_states[N_MEMORY]);
->  
-> -	cad_pid = get_pid(task_pid(current));
-> +	rcu_assign_pointer(cad_pid, get_pid(task_pid(current)));
->  
->  	smp_prepare_cpus(setup_max_cpus);
->  
-> diff --git a/kernel/reboot.c b/kernel/reboot.c
-> index f070c5c1103a..d177d89fcc33 100644
-> --- a/kernel/reboot.c
-> +++ b/kernel/reboot.c
-> @@ -13,7 +13,9 @@
->  #include <linux/kexec.h>
->  #include <linux/kmod.h>
->  #include <linux/kmsg_dump.h>
-> +#include <linux/rcupdate.h>
->  #include <linux/reboot.h>
-> +#include <linux/sched/signal.h>
->  #include <linux/suspend.h>
->  #include <linux/syscalls.h>
->  #include <linux/syscore_ops.h>
-> @@ -24,8 +26,7 @@
->   */
->  
->  static int C_A_D = 1;
-> -struct pid *cad_pid;
-> -EXPORT_SYMBOL(cad_pid);
-> +struct pid __rcu *cad_pid;
->  
->  #if defined(CONFIG_ARM)
->  #define DEFAULT_REBOOT_MODE		= REBOOT_HARD
-> @@ -1371,10 +1372,14 @@ static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffe
->  {
->  	struct ctl_table tmp_table = *table;
->  	struct pid *new_pid;
-> +	struct pid *old_pid;
->  	pid_t tmp_pid;
->  	int r;
->  
-> -	tmp_pid = pid_vnr(cad_pid);
-> +	rcu_read_lock();
-> +	tmp_pid = pid_vnr(rcu_dereference(cad_pid));
-> +	rcu_read_unlock();
-> +
->  	tmp_table.data = &tmp_pid;
->  
->  	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
-> @@ -1385,7 +1390,13 @@ static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffe
->  	if (!new_pid)
->  		return -ESRCH;
->  
-> -	put_pid(xchg(&cad_pid, new_pid));
-> +	old_pid = unrcu_pointer(xchg(&cad_pid, RCU_INITIALIZER(new_pid)));
-> +	/*
-> +	 * Wait for cad_pid readers before put_pid().  We cannot use
-> +	 * call_rcu() here because free_pid() already owns pid->rcu.
-> +	 */
-> +	synchronize_rcu();
-> +	put_pid(old_pid);
->  	return 0;
->  }
->  
-> diff --git a/kernel/signal.c b/kernel/signal.c
-> index 9c2b32c4d755..464732c44554 100644
-> --- a/kernel/signal.c
-> +++ b/kernel/signal.c
-> @@ -1891,6 +1891,18 @@ int kill_pid(struct pid *pid, int sig, int priv)
->  }
->  EXPORT_SYMBOL(kill_pid);
->  
-> +int kill_cad_pid(int sig, int priv)
-> +{
-> +	int ret;
-> +
-> +	rcu_read_lock();
-> +	ret = kill_pid(rcu_dereference(cad_pid), sig, priv);
-> +	rcu_read_unlock();
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL(kill_cad_pid);
-> +
->  #ifdef CONFIG_POSIX_TIMERS
->  /*
->   * These functions handle POSIX timer signals. POSIX timers use
->
-> base-commit: 8d75c338f0bcecaa6c9af67f86c176b67b6acf3e
+Nothing follows either one; the next command is an unrelated scan restart
+70 ms later. Over the whole capture: 7 LE Set Advertising Parameters sent,
+all Success; 10 LE Set Advertising Enable, all Success; no Command
+Disallowed of any opcode, and no 2 s cadence anywhere. Two central
+connections to other peers completed normally afterwards, with feature
+exchange and a connection parameter update, so advertising was still live
+across the cancelled attempts.
+
+The extended advertising case above is a code argument, not a measurement:
+this controller has no LE Extended Advertising, so that path is not
+exercised by the capture.
+
+Fixes: fbd96c151cdc ("Bluetooth: Fix clearing HCI_LE_ADV for LE connections")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5 btmon
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+---
+Changes in v4:
+- Test !status instead of status != HCI_ERROR_UNKNOWN_CONN_ID, per review:
+  a connection timeout should not clear the flag either. Built and tested
+  on the device in that form; the capture quoted above is from this
+  version, so the effect is now measured rather than inferred as in v2/v3.
+- Note the extended-advertising case raised in review: several sets can be
+  advertising at once, and hci_cc_le_set_ext_adv_enable() already tracks
+  that per instance, which the unconditional clear here was discarding.
+- On Advertising Timeout (0x3c), which v2/v3 used to justify a narrower
+  test: a controller can report it, since hci_le_directed_advertising_sync()
+  uses high duty cycle directed advertising. Not clearing the flag there is
+  harmless because directed advertising is always bracketed by
+  hci_pause_advertising_sync() / hci_resume_advertising_sync() in
+  hci_le_create_conn_sync(), and the resume re-schedules with force=true,
+  which bypasses the HCI_LE_ADV shortcut. le_conn_timeout() also disables
+  advertising itself on the peripheral path.
+- A stale-set flag is self-correcting (hci_disable_advertising_sync() then
+  sends the disable) whereas a stale-clear flag is self-sustaining, which is
+  the bug here, so erring towards set is the safer direction.
+
+Changes in v3:
+- Shortened the subject and removed hard tabs from the changelog (GitLint).
+
+Changes in v2:
+- Rebased onto bluetooth-next; no functional change.
+  v1's hci_event.c context lacked the hci_store_wake_reason() call
+  present in mainline, so the hunk did not apply.
+
+ net/bluetooth/hci_event.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
+--- a/net/bluetooth/hci_event.c
++++ b/net/bluetooth/hci_event.c
+@@ -5720,10 +5720,11 @@ static void le_conn_complete_evt(struct hci_dev *hdev, u8 status,
+ 	hci_dev_lock(hdev);
+ 	hci_store_wake_reason(hdev, bdaddr, bdaddr_type);
+ 
+-	/* All controllers implicitly stop advertising in the event of a
+-	 * connection, so ensure that the state bit is cleared.
++	/* Advertising stops when a connection is created. On a failed
++	 * connection it keeps running, so leave the state bit alone.
+ 	 */
+-	hci_dev_clear_flag(hdev, HCI_LE_ADV);
++	if (!status)
++		hci_dev_clear_flag(hdev, HCI_LE_ADV);
+ 
+ 	/* Check for existing connection:
+ 	 *
+--
+2.34.1
