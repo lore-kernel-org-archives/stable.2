@@ -1,127 +1,111 @@
-Received: from mout-b-201.mailbox.org (mout-b-201.mailbox.org [195.10.208.61])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCC423D295;
-	Tue, 18 Aug 2026 21:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.10.208.61
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587B623ED5E;
+	Tue, 18 Aug 2026 21:52:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787087972; cv=none; b=hD1uUzpo9dS6n5dhsytV5zbzOYjg2YHZCbXuHgQyWtU6DZDIyQTMjz2hUp2bnlULpQ+nq3gJ0p8WmWpVzaIvvNLPKS/eKGC7o1qBugtoSoh431RmbeHhIRFDhq4PKL0mUkulr1RujSyAc/13B3gloLF/CfPI94cxNSXjZtsS0YI=
+	t=1787089946; cv=none; b=HkJvoP56d7vYekOu4DciAFdh5S59LjEplQRUV+/Isp67IDCSfXZkV/IXYF4AR8/172H+BGsXotkUecALkQgPzlwWyAtAr8BXf3dAPxghxrhixAjABegYrkPQtIXs64NsGhsv6k9vn6n8vTrrqAgq0Blmng9eBtpDC4UMRZ3fRZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787087972; c=relaxed/simple;
-	bh=kQz66puCRVnLyKOloizJFDK26uF8TvoSa7iWtnW1XRM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S/l4l4jGLP2IA8iOLFGaITT2vwaEpiYgpGS12bpK0QlfHKXsKQooIsUinCkJoC9V9cmSNN51m5EEvNw0rVvILU3C/c6ZXgs8VT4wToht56V5zqTWT7ftikapel1BwY57GSCeYzTGdMJUWVmqijaYp06iBp2OmwUaXGWp7Lt4Kt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com; spf=pass smtp.mailfrom=mandelbit.com; dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b=aJIpaXrq; arc=none smtp.client-ip=195.10.208.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+	s=arc-20240116; t=1787089946; c=relaxed/simple;
+	bh=5rB3CzCVwjhOp1/bYvMXX/zf9TBvXxRkfs+sPNutojs=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=NS8FbXCnzgL9KeHHZRZ7ocjxM2Zvm9mNwqyfYq5ZqHqjxu9dMbbHmX41DxTt8duokD946PNNIpkFLko9wCZdzyijNKq7x42+Xeu+cAprbnsym1v4KXebCohQBoyk13OnArASKW+zVNdrkKF/gd5Rm09BRppfMowwc8lT8QkDDrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDjoExYd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b="aJIpaXrq"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-201.mailbox.org (Postfix) with ESMTPS id 4hPj5g54wSzLlp3;
-	Tue, 18 Aug 2026 23:10:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1787087415;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=7Q3hDPXp0xk1P22OvHP1aQ20Ay86PDu6Al/V+H6iHXk=;
-	b=aJIpaXrqgRbgJvUEIOfqpyZ/s28Z8p13Zx8IaLm9q/eQByw1p5RWZGXrU8BviWTOuC0Laf
-	jjSya8Jp7TU+emxahfCFfQSLQur/5wn2iaJSqDAVG76NZ4kM3iiKo3icvjPreGnRysa2JW
-	uqrGKkC8kDs9AIrH8Mzngu/82a8OTWbPkDRSyeZFUsrn1Ex1ViJ3J+hVIlKoIMx9NGZudz
-	RIC5AT0zgiLjqgzBW+OJQKJj3InkMCkyOJFmYlJYMEZNPlVZaAttNHVhu5UGmEtd+odjTl
-	2FgGatBz3s10aK0GUM9R6y6MkFE353zM6fPlwQJnQuzNzSRL+/UxFzlVfdTP3Q==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
-From: Ralf Lici <ralf@mandelbit.com>
-To: Saeed Mahameed <saeedm@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>,
-	netdev@vger.kernel.org
-Cc: Ralf Lici <ralf@mandelbit.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Boris Pismenny <borisp@nvidia.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Emeel Hakim <ehakim@nvidia.com>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Simon Horman <horms@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net/mlx5e: advertise MACsec offload only when supported
-Date: Tue, 18 Aug 2026 23:09:38 +0200
-Message-ID: <1b7ebced14243c1b342923a25bcc44ec77c45907.1787086511.git.ralf@mandelbit.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDjoExYd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2CD1F000E9;
+	Tue, 18 Aug 2026 21:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787089945;
+	bh=NpeHBToS6yPyfIxplx9AMeP2CHKJr5xgLNRGxEKyLxQ=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=bDjoExYdLzJj3dsXRoadqw1Mn7b4iugxnL60WLCyLbDE7mhlRkZMecu37jEMhy6uo
+	 xt5QVZM+5NQZ8FlngqQH1s5UXSvbKABRTdj8DaKFNMeKq2jB08cdB+ZVXUXrHxlbio
+	 y68d1g7u0UoTMg3hk9pPgh4EUW0K7FREYiOVmbNS9HqlE/q/x7k2l860L9w03hcIpW
+	 tQ7gM8zynr3X0kyWKd7TResFV3C69B90gFOYCk/8F9VyeApTAqbACut+nSb00JrTUX
+	 wA4ub4r4/dqM3tRZNoW0s9jjJloG5cYpOzsRP+15QsjWnFvS9DrQqbO9vOrRs5+KjS
+	 XGPXOCXIbWsUw==
+Date: Tue, 18 Aug 2026 16:52:24 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4hPj5g54wSzLlp3
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ stable@vger.kernel.org, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Stefan Schmidt <stefan.schmidt@linaro.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, linux-kernel@vger.kernel.org, 
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Mansur Alisha Shaik <mansur@codeaurora.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Bryan O'Donoghue <bod@kernel.org>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260818-iris-fixes-dma-pseq-fint-v2-2-8dc8c4b3880e@oss.qualcomm.com>
+References: <20260818-iris-fixes-dma-pseq-fint-v2-0-8dc8c4b3880e@oss.qualcomm.com>
+ <20260818-iris-fixes-dma-pseq-fint-v2-2-8dc8c4b3880e@oss.qualcomm.com>
+Message-Id: <178708994427.782078.4185269965925097284.robh@kernel.org>
+Subject: Re: [PATCH v2 2/5] dt-bindings: media: qcom,sc7280-venus: Add
+ dma-coherent property
 
-Commit 339ccec8d43d ("net/mlx5: Enable MACsec offload feature for VLAN
-interface") added NETIF_F_HW_MACSEC unconditionally to vlan_features so
-that VLAN devices could inherit MACsec offload support.
 
-mlx5e_build_nic_netdev subsequently copies vlan_features into
-hw_features and features. As a result, all mlx5e NIC netdevices
-advertise MACsec hardware offload, even when the firmware does not
-support it and the driver does not install macsec_ops.
+On Tue, 18 Aug 2026 21:24:15 +0530, Vishnu Reddy wrote:
+> The venus video hardware on SC7280 is IO-coherent hardware: even though
+> the driver does dma_sync*() calls for the input and output buffers, the
+> venus node still needs to declare dma-coherent so that the DMA mapping
+> layer relies on this hardware level snooping to keep the CPU cache and
+> the DMA buffers in sync. This avoids the unnecessary cache clean or
+> invalidate operations performed by the dma_sync*() calls, which are not
+> required once hardware level snooping is enabled via dma-coherent.
+> 
+> Add the dma-coherent property to the venus node to describe this
+> hardware capability.
+> 
+> Fixes: 37613aee2179 ("arm64: dts: qcom: sc7280: Add venus DT node")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
 
-Set the MACsec feature bits in mlx5e_macsec_build_netdev, after device
-capabilities have been validated. This preserves MACsec-over-VLAN
-support and the ethtool feature control on capable devices, without
-advertising either on unsupported hardware.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Fixes: 339ccec8d43d ("net/mlx5: Enable MACsec offload feature for VLAN interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ralf Lici <ralf@mandelbit.com>
----
-The issue was reproduced on a ConnectX-4 Lx: ethtool -k reported
-"macsec-hw-offload: on", while creating a MACsec interface with "offload
-mac" failed with EOPNOTSUPP.
+yamllint warnings/errors:
 
-Changes since v1 https://lore.kernel.org/netdev/0a27c8b7308121fd00c528fc99fc3866782d3990.1786783174.git.ralf@mandelbit.com/
-- Set NETIF_F_HW_MACSEC in hw_features as well, preserving ethtool
-  configurability and restoration after an eswitch mode cycle (Sashiko).
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml: Unresolvable reference: /schemas/input/qcom,spmi-haptics.yaml#
 
- drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c | 2 ++
- drivers/net/ethernet/mellanox/mlx5/core/en_main.c         | 1 -
- 2 files changed, 2 insertions(+), 1 deletion(-)
+doc reference errors (make refcheckdocs):
+Documentation/translations/pt_BR/process/security-bugs.rst: :doc:`regular path submission </../../../process/submitting-patches>`
+Documentation/translations/zh_CN/how-to.rst: Documentation/translations/zh_CN/xxx.rst
+arch/arm/xen/enlighten.c: Documentation/devicetree/bindings/arm/xen.txt
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-index daff53ba7d09..38a3415acf7a 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-@@ -1724,6 +1724,8 @@ void mlx5e_macsec_build_netdev(struct mlx5e_priv *priv)
- 	mlx5_core_dbg(priv->mdev, "mlx5e: MACsec acceleration enabled\n");
- 	netdev->macsec_ops = &macsec_offload_ops;
- 	netdev->features |= NETIF_F_HW_MACSEC;
-+	netdev->hw_features |= NETIF_F_HW_MACSEC;
-+	netdev->vlan_features |= NETIF_F_HW_MACSEC;
- 	netif_keep_dst(netdev);
- }
- 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-index f0407a850ea8..cb8ebca58ce8 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-@@ -5851,7 +5851,6 @@ static void mlx5e_build_nic_netdev(struct net_device *netdev)
- 
- 	netdev->vlan_features    |= NETIF_F_SG;
- 	netdev->vlan_features    |= NETIF_F_HW_CSUM;
--	netdev->vlan_features    |= NETIF_F_HW_MACSEC;
- 	netdev->vlan_features    |= NETIF_F_GRO;
- 	netdev->vlan_features    |= NETIF_F_TSO;
- 	netdev->vlan_features    |= NETIF_F_TSO6;
+See https://patchwork.kernel.org/project/devicetree/patch/20260818-iris-fixes-dma-pseq-fint-v2-2-8dc8c4b3880e@oss.qualcomm.com
 
-base-commit: e2466392a0b8496000e12181cb1ee1535eb0da25
--- 
-2.54.0
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
