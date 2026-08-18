@@ -1,141 +1,93 @@
-Received: from mta1.migadu.com (out-240.mta1.migadu.com [95.215.58.240])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFD043B3F4
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 13:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.240
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72594392C4C;
+	Tue, 18 Aug 2026 13:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787060391; cv=none; b=pFVLcOcxzpyajfVZXH+wK5pHaE5G2osqdNEzUvK5rHn6fNTYgZFBKbaSALBdbp1AM4QCp/eW0hzhO49R0/R0+T/DpxmlhNW0wEFgsZMDHq81jYtcVU67QTa4CK2WujXgp+zu1bQj29Uhn+5HbexLUZlavH0dXcLSM8vstSoISSE=
+	t=1787061220; cv=none; b=GIDZd9EzTg5JUNp+HR6TyYnG3Xx8NmhNCYMYAWmPvSZ6aMNxrZYn20/cFkMDjCcbfZ0CUccdpk9T1NhBgo3UHNKQE6UyipLuZQQrsPViat1AlIzQXTcn3dw+FbIyiQJ7NDwfBTiTJ7Yj+Clkvuh9Isd847EIN1CSAZaLHAl1d5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787060391; c=relaxed/simple;
-	bh=UO2prC+9gZc9HrbV5lfB5QMWufcfETeUdC0Fe7EGUtc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jZnClwKHWd6V5JBrDVHIk+T1PJ/7onSuTr1xts/I4ue709y9HgBTeMtkLhaQtoRWKCWPh9KRrEZMI7eLprEBIxghpZik8EO0b/9GrtP2MXmqr0dsCwCvmrl15Wr/rvxjLrIjk0PC6PdWeJAJ1BdzXpjPD6JRPBl9n7hHUo4K5NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=m2VHNx29; arc=none smtp.client-ip=95.215.58.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787061220; c=relaxed/simple;
+	bh=e1tuGGIP/ZBZCvqevNu0/K1XTDfvFeK+Xm8w4RcQAic=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iHXr3FCVVn1VgMT3d9j4D0M6AxD4n6fXFbmp0ODCC1rANtbc1Xn6QzIfDiIwVDj+wE3++49s3+HzqRK81Iw65LK4iMc3h6Wa9M4ohenv8XRCJY2fdEMoloHsjoCFElSqlg2wye67cG9VenpVayTuMYASAw1/9Ijzw4Nq/ESXLGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=G0qBUXxe; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="m2VHNx29"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UO2prC+9gZc9HrbV5lfB5QMWufcfETeUdC0Fe7EGUtc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787060387; v=1; x=1787665187;
- b=m2VHNx29Z0GvFkF7+lSDT/yqLQSdCCML6vEvtzPwAtpD89rNce2a8dNZbrd61ceTs94ZX0tc
- zqqGRN8i29ptip6X2ZfMkhRa2YtfcyN72vNuZOhkPee8pPyUbKJXrjtLmnFY9ScQSDoVjEEzsMY
- Dhx/nCvI4ctSihSEXJWy1l/s=
-X-Envelope-To: stable@vger.kernel.org
-Received: from linux.dev (62.216.208.217)
-	by mta11.migadu.com with ESMTPS id 073b82d9ffc1d5ee;
-	Tue, 18 Aug 2026 13:39:37 +0000
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 18 Aug 2026 15:39:35 +0200
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Hans de Goede <hansg@kernel.org>, stable@vger.kernel.org,
-	Mark Pearson <markpearson@lenovo.com>,
-	platform-driver-x86@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] platform/x86: think-lmi: Fix current password length
- check
-Message-ID: <aoRgl4fG_t07FqVK@linux.dev>
-References: <20260813082049.41209-2-thorsten.blum@linux.dev>
- <daeefbce-83f6-f161-71f5-38730fe9c9d5@linux.intel.com>
- <aoRa_PwLxneo9Juv@linux.dev>
- <dddaae9d-88d4-bf7b-3bc1-76cd115742c2@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="G0qBUXxe"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a6d2cde8;
+	Tue, 18 Aug 2026 21:53:24 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Helge Deller <deller@gmx.de>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dave Airlie <airlied@gmail.com>,
+	Tomi Valkeinen <tomi.valkeinen@ti.com>,
+	linux-omap@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] fbdev: omapfb: panel-dsi-cm: initialize lock before registering display
+Date: Tue, 18 Aug 2026 21:53:18 +0800
+Message-Id: <20260818135318.1957283-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <dddaae9d-88d4-bf7b-3bc1-76cd115742c2@linux.intel.com>
+X-HM-Tid: 0aa01525f6e303a1kunm72eec736112e9a
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQhlPVkIaSxgfSkpPQ0lMSlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=G0qBUXxeocdkLCIoutjgBg2bW2KZzL0MMhhr5go1jone8lqArYrEx392j8fvU7hKyeADD48P3x9yYzvSsZZxZmw+XGGj5N0i2tv9yKx74lWGwpObIE5iRlIxJymIB4BgTxSH6XNiQrB4AheC42H9pWUbPvEGU4wuWrwklBQDJXI=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=s8wa7yiZYDJ20bpSxGQc5WMiume6jdmMCtn+WJuBMr4=;
+	h=date:mime-version:subject:message-id:from;
 
-On Tue, Aug 18, 2026 at 04:20:10PM +0300, Ilpo Järvinen wrote:
-> On Tue, 18 Aug 2026, Thorsten Blum wrote:
-> > On Tue, Aug 18, 2026 at 02:28:50PM +0300, Ilpo Järvinen wrote:
-> > > On Thu, 13 Aug 2026, Thorsten Blum wrote:
-> > > > current_password_store() checks the password length before removing the
-> > > > trailing newline, which can reject valid passwords that are exactly
-> > > > ->maxlen bytes long.
-> > > > 
-> > > > It also passes ->maxlen to strscpy(), which truncates passwords without
-> > > > a newline.
-> > > > 
-> > > > Use strchrnul() to measure the password length up to the newline, then
-> > > > copy that many bytes and add a trailing NUL terminator.
-> > > > 
-> > > > Fixes: a40cd7ef22fb ("platform/x86: think-lmi: Add WMI interface support on Lenovo platforms")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> > > > ---
-> > > > Changes in v2:
-> > > > - Keep and reword the newline comment
-> > > > - v1: https://lore.kernel.org/r/20260810132018.156868-3-thorsten.blum@linux.dev/
-> > > > ---
-> > > >  drivers/platform/x86/lenovo/think-lmi.c | 8 ++++----
-> > > >  1 file changed, 4 insertions(+), 4 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platform/x86/lenovo/think-lmi.c
-> > > > index e215e86e3db7..d0ceb6aaa69e 100644
-> > > > --- a/drivers/platform/x86/lenovo/think-lmi.c
-> > > > +++ b/drivers/platform/x86/lenovo/think-lmi.c
-> > > > @@ -438,14 +438,14 @@ static ssize_t current_password_store(struct kobject *kobj,
-> > > >  	struct tlmi_pwd_setting *setting = to_tlmi_pwd_setting(kobj);
-> > > >  	size_t pwdlen;
-> > > >  
-> > > > -	pwdlen = strlen(buf);
-> > > > +	/* Strip newline; setting password won't work if one is present. */
-> > > > +	pwdlen = strchrnul(buf, '\n') - buf;
-> > > >  	/* pwdlen == 0 is allowed to clear the password */
-> > > >  	if (pwdlen && ((pwdlen < setting->minlen) || (pwdlen > setting->maxlen)))
-> > > >  		return -EINVAL;
-> > > >  
-> > > > -	strscpy(setting->password, buf, setting->maxlen);
-> > > > -	/* Strip out CR if one is present, setting password won't work if it is present */
-> > > > -	strreplace(setting->password, '\n', '\0');
-> > > > +	memcpy(setting->password, buf, pwdlen);
-> > > > +	setting->password[pwdlen] = '\0';
-> > > 
-> > > Hi,
-> > > 
-> > > I don't understand why is this strscpy() -> memcpy() conversion required? 
-> > 
-> > It's not required, strscpy() would also work.
-> > 
-> > > Wouldn't it work with:
-> > > 
-> > > 	strscpy(..., pwdlen);
-> > > 
-> > > ?
-> > 
-> > However, strscpy(setting->password, buf, pwdlen) wouldn't work because
-> > pwdlen is the number of characters to copy, but the destination buffer
-> > size also needs to include room for the NUL terminator. Since there is
-> > no NUL before pwdlen, it would copy only pwdlen - 1 characters and set
-> > setting->password[pwdlen - 1] = '\0'.
-> 
-> Okay, I was thinking in my mind if I've a off-by-one error in my 
-> suggestion but didn't want to spend too much time on figuring it out.
-> 
-> > strscpy(setting->password, buf, pwdlen + 1) would work, but since we
-> > already know that exactly pwdlen bytes need to be copied, memcpy() is
-> > sufficient.
-> 
-> It may work, but since you then go to nul terminate it yourself, I think 
-> using the existing function is way better than memcpy() + custom nul 
-> termination code.
+dsicm_probe() registers the display before initializing ddata->lock.
+Once omapdss_register_display() publishes the display, another consumer
+can reach a dsicm callback that takes this mutex while it is still
+uninitialized.
 
-I used memcpy() because we already determined the string length pwdlen,
-which strscpy() would have to determine again internally.
+Initialize the mutex before registering the display so the published
+callbacks always see a valid lock.
 
-The performance difference shouldn't matter here, so it's mostly a
-matter of style or personal preference. I'm fine either way.
+Fixes: f76ee892a99e ("omapfb: copy omapdss & displays for omapfb")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks,
-Thorsten
+diff --git a/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c b/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c
+index 1d75f27c6b80..ce1d4d5f4034 100644
+--- a/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c
++++ b/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c
+@@ -1151,14 +1151,14 @@ static int dsicm_probe(struct platform_device *pdev)
+ 	dssdev->caps = OMAP_DSS_DISPLAY_CAP_MANUAL_UPDATE |
+ 		OMAP_DSS_DISPLAY_CAP_TEAR_ELIM;
+ 
++	mutex_init(&ddata->lock);
++
+ 	r = omapdss_register_display(dssdev);
+ 	if (r) {
+ 		dev_err(dev, "Failed to register panel\n");
+ 		goto err_reg;
+ 	}
+ 
+-	mutex_init(&ddata->lock);
+-
+ 	atomic_set(&ddata->do_update, 0);
+ 
+ 	ddata->reset_gpio = devm_gpiod_get(&pdev->dev, "reset", GPIOD_OUT_LOW);
+-- 
+2.34.1
+
