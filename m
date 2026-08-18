@@ -1,34 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F40237F32F;
-	Tue, 18 Aug 2026 08:35:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8AC38E8B8;
+	Tue, 18 Aug 2026 08:37:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787042148; cv=none; b=VcfX2hUveN+tgSKuuWAS0N45Xi+9Eyw6am/PuyEmxMSOX7Q6+MPs8zkFCUCbotUiaPXma2YH5axq7xowbTC78FfYTuRzYrrP2wJcmf9Up1peYJELll8DeTUNVrhGBziShfQQTeI9Xb4fXRJrLcRBmlhhpjp+UTB8wDaqiYsJzGg=
+	t=1787042266; cv=none; b=NDdUdbhJxzwxVPzhKimF0ib6sozU6CXlseQECzAhxah2mt76ZI8ffxpVO1Cmdfk7HljuOR24emdYigb46ZNTwtLNe71f38XHWZxoFxP2rN9lz/PPBjaXuww1LiksvTgW+KXLqVWm4PT0mGlJG66JQhRfZg7245eAVtwQaHpr8rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787042148; c=relaxed/simple;
-	bh=huMdxlT3xnjN5bvGGWYblTVfARng4WVe22VMrtYpl40=;
+	s=arc-20240116; t=1787042266; c=relaxed/simple;
+	bh=FGuXiPKOOqlAUG7Xkonnp++yI8Q/umMV4clf2uyCVkw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bvt3sHjxI8BFIi/VG4nvtltBEeDHcWuOqHm9NzvwUSiDYBVnUsrDdfVTyiRnwVgbJrqDz271qUr+P7YBlv3H4VxNdliHanBNCVlMmKEK5WAiL5Wd0qocrVzDlCWtQKPClCflx0VfE0IOvNbwaffwKvEIvwvBEpT7yZVzWUWvzHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E966F1F000E9;
-	Tue, 18 Aug 2026 08:35:46 +0000 (UTC)
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1wwFIN-00000000nW2-3Pfh;
-	Tue, 18 Aug 2026 10:35:43 +0200
-Date: Tue, 18 Aug 2026 10:35:43 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Russell King <rmk+kernel@arm.linux.org.uk>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] dmaengine: pl330: fix autosuspend cleanup during removal
-Message-ID: <aoQZX1h-9vobiHev@hovoldconsulting.com>
-References: <20260808094452.2752443-1-lgs201920130244@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=DhsRkYjPukZwV3eyh3OCLpnJngu1gLFF+Je1dcV6H7GwhP089PbR3fzPavJmh6O8EjXh51dAj2qqypz6LcldW6QapLLQJSnTDQEvPAIPOeO9bzOjJ3LafCToz39YXfJTpI2FP/Mm5DKL1uJ+VwW8ZxxARUak3vfYBtqZmnHOLDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bzKtS+ji; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bzKtS+ji"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C6A1F000E9;
+	Tue, 18 Aug 2026 08:37:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787042264;
+	bh=sB29a7zPO3bvYEvzTvcfyhz4wMWiAfzmngR5D4xl6bE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bzKtS+jifSoNQw5Sa1Gg5OHsojjR6BgHYNfNLLh/dVMsoldtNibel8iPaJvKTQ77T
+	 xarVmfaKOEuoiD0wXRFNOtPIAX/Fy/QX9nPBodaQ6macY9LMRwrrhiTaEZ3vhsacJy
+	 JBgSqRTyqPLQyJeuKj8IHznxXGN3uwWreCU4VoOg=
+Date: Tue, 18 Aug 2026 10:36:07 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Vaibhav Nagare <nagarevaibhav@gmail.com>
+Cc: stern@rowland.harvard.edu, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Vaibhav Nagare <vnagare@redhat.com>
+Subject: Re: [PATCH] usb: ehci: fix QTD list corruption in qh_completions
+Message-ID: <2026081833-stoppage-charting-dcc9@gregkh>
+References: <20260818083323.2270580-1-vnagare@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,38 +40,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260808094452.2752443-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260818083323.2270580-1-vnagare@redhat.com>
 
-On Sat, Aug 08, 2026 at 05:44:52PM +0800, Guangshuo Li wrote:
-> pl330_probe() calls pm_runtime_use_autosuspend(), but pl330_remove()
-> does not call the matching pm_runtime_dont_use_autosuspend() when
-> removing the device.
+On Tue, Aug 18, 2026 at 02:03:23PM +0530, Vaibhav Nagare wrote:
+> In qh_completions(), when completing a URB at a URB boundary
+> (last->urb != urb), ehci_urb_done() is called which drops ehci->lock
+> via usb_hcd_giveback_urb() for the completion callback. While the lock
+> is dropped, a concurrent ehci_urb_dequeue() (e.g. from a TX timeout
+> recovery) can modify the QTD list, making the 'tmp' pointer saved by
+> list_for_each_safe() stale. Continuing iteration with a stale pointer
+> leads to list_del() corruption and a kernel panic:
 > 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during teardown, this reference is not dropped and usage_count remains
-> unbalanced.
-
-As I've explained elsewhere, this is just misleading. There is no usage
-count leak here as the count is balanced whenever the user re-enables
-autosuspend through sysfs (by writing a non-negative timeout).
-
-Drivers should clean up after themselves and disable autosuspend, but
-this is more of a clean up than a fix and should not be backported.
-
-You've sent upwards of 60 of these in the matter of a just a few days,
-some which have even been picked up. Please send follow-ups (replies or
-v2s) as soon as possible to prevent further of these from getting
-merged.
-
-> Add the missing pm_runtime_dont_use_autosuspend() call before restoring
-> the runtime PM usage reference in the remove path.
+>     list_del corruption. prev->next should be ff27e4e01aefa580,
+>     but was ff27e4e01aefa1c0
+>     kernel BUG at lib/list_debug.c:51!
+>     Call Trace:
+>       qh_completions+0x28f/0x640
+>       ehci_work.part.0+0x1d5/0x330
+>       ehci_irq+0x3d2/0x490
 > 
-> This issue was found by manual code inspection.
+> This was observed on systems with an HPE iLO5 Virtual NIC (cdc_ncm)
+> where repeated NETDEV WATCHDOG TX timeouts trigger concurrent URB
+> unlinks that race with the qh_completions lock-drop window.
 > 
-> Fixes: ae43b3289186 ("ARM: 8202/1: dmaengine: pl330: Add runtime Power Management support v12")
+> Fix this by freeing the completed QTD and restarting the list scan
+> via the existing rescan label after ehci_urb_done(). This is safe
+> because already-processed QTDs have been removed via list_del() and
+> the list is strictly shrinking, guaranteeing forward progress.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
 
-Johan
+Does not match your From: line.
+
+> ---
+>  drivers/usb/host/ehci-q.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/host/ehci-q.c b/drivers/usb/host/ehci-q.c
+> index ba37a9fcab92..c715648e97ab 100644
+> --- a/drivers/usb/host/ehci-q.c
+> +++ b/drivers/usb/host/ehci-q.c
+> @@ -328,7 +328,16 @@ qh_completions (struct ehci_hcd *ehci, struct ehci_qh *qh)
+>  		if (last) {
+>  			if (likely (last->urb != urb)) {
+>  				ehci_urb_done(ehci, last->urb, last_status);
+> -				last_status = -EINPROGRESS;
+> +				/*
+> +				 * ehci_urb_done() drops ehci->lock for the
+> +				 * completion callback. The QTD list may have
+> +				 * been modified (e.g. by URB unlink during
+> +				 * TX timeout recovery). The 'tmp' saved by
+> +				 * list_for_each_safe() may be stale.
+> +				 * Free last and restart the scan.
+> +				 */
+
+Did a LLM write this?
+
+thanks,
+
+greg k-h
