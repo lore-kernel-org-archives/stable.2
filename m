@@ -1,183 +1,146 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F31469856
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAFD4657F5
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787053300; cv=none; b=IfLkmhTzm9IIm8Ga3MIM8ZAUQ9bygEud5YB1qPiF3ejPWWYU1HEKZWoweqwJ6MmTnPT2wjc38tSxSFsXy2WKf0i6KcVCKy1G0iSHS4bOuE21gxhGG1DzP7bu5Mq82wPUl5urxDCskwSV6smEkxiw9SZsIxxnrYoaoO7gtBSrORE=
+	t=1787053349; cv=none; b=Pq/t5t+QLTuL4AuAmwFng54Ca56XHbFExOqB/EkKM4eIq0gWsDVEMkBS1/kU1Lxv5JqDIw40Qqd5oARy9qK8X5AYQQ3JQQdknH7Y1AD5TZ+//zvSMQX0vuW1iTaW1kt/QcS9VAgQN0o/BC6ROY6y86z0/iYBzLjyjg+ozZmKOnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787053300; c=relaxed/simple;
-	bh=RvSxX6oZmGjbe6YiEyqFFCX3HSBjb2y7CH1DHWUF4JQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AbKagbEjWKpkMkeEDFwgqcwruBIwWbR/v9dsyFoaffjoxUWWNeB5r2KFW5Gs3fE/52+1OuMpy706TaLiBx+Elx8a+IsmrZ2vfA21TT0baCKd4CRQVCfxWZ5wcIOd9rdbpXEABN0MbeH7TfuUg96tATxJuYG4vz6nhQho464UL8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DxzsYLiR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NRxyIfMo; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787053349; c=relaxed/simple;
+	bh=IOpDNvkEnFnrZ6EcBnAkBbqLV+BZ1aPCJvKd0Hacm2U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=POcleANlOnpQ8OBXun/lvfcgjUR6IoxS/yEElrkbRMpP9AoqrXXAMQAuoSklrJrDyNmtt7xDoocaCdBNkI19Md2OF4yFNIdHvM64IPDMLibhqv17Hpw1vR0543Y3y37SbLjsjxMJQVLBf3P3+/3jkYaAURqH8/dWVB0Sd2ePbxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C43VYSh2; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DxzsYLiR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NRxyIfMo"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IABZE23979120
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:41:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SO7C2httQArhnA51QW3MHKUNt1SVTvkobwzu19rnX1M=; b=DxzsYLiR8+xHE/+y
-	NOWyZLo2omRYNX7il+FNbDRuohPl2DsdHqWmDktrN7C0OkQ4dhXQ9QU5caRmER5s
-	QjtAYl6Wqbdw1mAu/Yfb856z7r0mz83vRDvmcvBKOI+pJ6uzDMeoeFFmdSCCyTLq
-	55ZZgT6qO7dX8CVJPEdDAv1UZMRHHOBdzmTCXleMzld8oJo/G2wu/ZnaX/FBGzWC
-	eQW5lY4ZG30V6B2VU74cPozX2K7MOvXpYIPAJAx0IqbWPgzzVcbmp44rHWG0TGz4
-	L+n8w+o0ekgugvcLzTz1PDsMPFGRDF68v58kf/zxwdvwXhtdAyUvK4Gfv+Nl+7mJ
-	zGd3Sg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4ebpt87y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:41:38 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-930bd2bfc45so124763385a.1
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 04:41:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C43VYSh2"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f93b2fe4cso2497252f8f.0
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 04:42:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787053297; x=1787658097; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SO7C2httQArhnA51QW3MHKUNt1SVTvkobwzu19rnX1M=;
-        b=NRxyIfMoGBkCtnwZpsZb8IGBCfVDwFvnUUIQLIqGi9tylk8KR0f1ZGY3kcNKhDQgYY
-         Lq9B3yWL68PM7F47yyz8AYmn9SwPmT0Ozk46gFHHFRv/PNVCHdCjD7cW5uGtdnZMnuyC
-         yGH3kU+cbpxj/Ftsgy3JKk/48+DwylagR6nUr8VYuolvvH0LMdZ5Nz7lwsTk47kDufcG
-         N2JIlg73igD3NrvnBYiLu2hqZkvQ1XvdmZ6JTaXpnUAIHwM0ovW4Bt9913GMLBOqWAoA
-         DLVMtey47cgDS8wJ6ajqkzu8VHCbE7Nsi7S5xSN4dlXiH9M9+UtfEakra+PrFVFTyZqh
-         2jtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787053297; x=1787658097;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787053346; x=1787658146; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SO7C2httQArhnA51QW3MHKUNt1SVTvkobwzu19rnX1M=;
-        b=Xkm6bdRUj6jMYrKuXFUobTFb6nn/P3YfKpdveXP+z7g1MXpqMAS3cGFGCAZAovvnkE
-         K2Ig3ndgv15hb5s60yPtnbdge/Zb25pC+YA0PRHhaQj4Q39BQ9ufh7VNAiUomHXmbdmr
-         vMN+P94X9LzZSP5ahdR4K2thTnpj75uz+ufntuZm6Q72uMSAYPgUOd0G/YIGVtBpf4Dn
-         ney1SZmFdHv+vRb/qjFzeIFMQo+VaY8b7n4U1vZOmEW/yWzh/W2jZjiebxXX83eYqspZ
-         ASsEo3GG1ivCn8ctqTPLC7nGXvlWfHpWNh/5Ssr3NUGOX5A3dLuFtTnOZSEeUGKjRB3u
-         VZrA==
-X-Forwarded-Encrypted: i=1; AHgh+RqN3aTyL5n+uKTtp2JP2BYvzLr702cCs4WE+rewJovAKM9RFlcphYrgHUxHZJoestnP4acafFs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCf2W8aQ1x4UP53sGwfxaoazEW14Dz4XHI0Mb2M21hQclEfakw
-	21meYCRyys40yjp0Bhw9VDyvHToU6oE4KCJVTRUV4N0ZULMPs30sejzC/eBOZYPHXmb3NlqnmO5
-	fLq3R1uqjJs9sVa5Z9tJCGYh4vkkrnYZP4vKitTGSv1huQn+ZPbLQHqmBH0A=
-X-Gm-Gg: AR+sD13d6EXIk7nQl1Wkkme+SVIqTWYPBhH0wDjvKz+c1GhmVDwktTUPn9QqYYdPfYe
-	lT8CNNNsPdz6PrW9wRnZmm/HgYd4pB6Kg8zmTf7pVOCtspYg1Ri2j4FWo7pOhmVY8M5ys2QGZRi
-	JoIvqGMgcYOHzPKuDtwECR+TKLw624fmUQgF32OxA08fFx/Xy8AuoZHLVUqePCukjdnZzggs4r4
-	P3AOWDPq3e1LhJ+CZe7H12S4zdPCGBL/3P7QYK18udYmoIc4/JqYYswUQgTQCw7OtZkrz63TekI
-	o88ipC7j17w+WEsYrfFsvQQv6/sgjDWblUndWTwfBGiqUQYuJX157R7DevCOB5ALoH101Nhs7YC
-	ltztN0vAemqNVVwDt1JlDxoVN
-X-Received: by 2002:a05:620a:4505:b0:92e:601b:8d43 with SMTP id af79cd13be357-936d22734femr2373145885a.1.1787053297405;
-        Tue, 18 Aug 2026 04:41:37 -0700 (PDT)
-X-Received: by 2002:a05:620a:4505:b0:92e:601b:8d43 with SMTP id af79cd13be357-936d22734femr2373142085a.1.1787053296955;
-        Tue, 18 Aug 2026 04:41:36 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3d8530d3bsm1811320a12.10.2026.08.18.04.41.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 04:41:35 -0700 (PDT)
-Message-ID: <15b13316-a9b5-4577-9be1-98f4de17951d@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 13:41:33 +0200
+        bh=C0Lkar/FZUF71jSh3gVWEuj9Qdc3ucoRXfitsWLZ7XY=;
+        b=C43VYSh2KNpRpo85M/DzIlVGk6Bz01GVBxX/5aWpma8P0A+hus02T6VkxSJvnzSmN+
+         QvbPKGxl6koF3a3AMZJz8o6utCoVDKGTRCSqyYREyoWy1DzyVbu+SmEd0PTeVEjHUSar
+         EdGIfUVvBdiukzJq0iC4tSjeKZgy6Xacix032U+V1hk0BfHgoa+oWn3vhbLDgYEXZX7X
+         iKKWY96q/H/RqqDWfduc2/0EFbal9X9K+55Ehly1lBIfeCVSQt7+NznVSO2TT3l4y4wO
+         5+ClNCferrr1X3oRHiaWMj3yJD/ADPlp07V2WPOyZ/RRlXOVudBamYYqzcRCaLuiw+Ye
+         kpjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787053346; x=1787658146;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C0Lkar/FZUF71jSh3gVWEuj9Qdc3ucoRXfitsWLZ7XY=;
+        b=KAsxHaHPf529lUzE8aro8YOmfmqIvsKIb7GC79nJhIY8y8wolwq+HkHEAdIeAG6EWs
+         iCPaO6xhj4RdsCq8eTsfSlYnVPUzvWL2I6WyWbRGbPDGE4iDDRBPyjjoKQWVEWyfO89n
+         yGsxPStdMRjSbmfbvlqmMlmeuTJDkPXym7mqbCpn2aavweJhVRddPb9CWGO5fH33sP+N
+         jnVs49dVa7CElOVGVx0XdkWizwiovDIGTpVa3fT6B0w7wfwc3kQbtqQfnV4Zv5WxIeuA
+         M89nNdRjonzXBjUMX0MGgOV5EHWfiOgAm/xLL8rsnT+pMT7TbFsjhFTqdN7Ez51GC3zH
+         phIQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrU2tQFOlwLG1DOa51rEuzbaQAbr2L8fFVX/ScWtKEzXWfe7CNv7A9XSqgxyBQGB0NoSUOcCMY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkFK5F4DvNwKgpapQHGId4TuzcUhO3k5A34WmKuvM66heH8V6A
+	HxeBOX3wdv6QjoSm9Yx+uHN+q1gUMz/WFivtWDb9d+ItuxYohj8/dOCv
+X-Gm-Gg: AR+sD111mKzsudIJagGmEuJyy/kasQGt9EeiU0+RtK4dyp+cBMLjNzFttlK9AuW0ClQ
+	PSyge8SW21VWsc3zZO66iPLYV0WT3W6mi8gIoOnnSb3/BTvLgU/ndoqw8FNGyoDtT+zShxaom2N
+	I5VItLCbKo0iyQ2oJe0hPBNvsVtaWCwgDxPhv2H8q2yB8UjD7so21wvpQ/2BexLeDpp6tbbT9vN
+	PNCv2yVx1lvP2P/kgC1Dc4AjHZl65a9xytOs3P0Ju0mQhKbNFN9jx/WivKB9CoXZz8OytchVIeP
+	rm9h1HG0IxsI6z8v+7EqV2eYCwC6c/F2a25ySIzwRMjT1B9KeA5flhw+x/MFdrDZDf3/qxCaeXl
+	qsUrkMgfMtP8sjuUX2jVkNij8K3F/cP0EXn+DoSTj/DX2X25WVPtX9I0n8NLqTTz6DlRHmjm/E1
+	vV8PWILVVnXCy3WNDk6qcsCmE50oA0W0+4H/0Qz6cXkFKc/+y30wHzuq8I6H7zou3B0A==
+X-Received: by 2002:a05:6000:290e:b0:47f:776f:3838 with SMTP id ffacd0b85a97d-481606f682dmr48887208f8f.6.1787053331518;
+        Tue, 18 Aug 2026 04:42:11 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4998780397esm28680785e9.3.2026.08.18.04.42.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 04:42:11 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Stefan Agner <stefan@agner.ch>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Frieder Schrempf <frieder.schrempf@kontron.de>,
+	Edward Karpicz <webmaster@toradex.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] mtd: rawnand: vf610_nfc: fix reads on chips with more than 64 bytes of OOB
+Date: Tue, 18 Aug 2026 13:42:07 +0200
+Message-ID: <20260818114208.2780311-2-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260818114208.2780311-1-mehmet.fide@gmail.com>
+References: <20260818114208.2780311-1-mehmet.fide@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: qcom-cci: fix device_node refcount leak in
- cci_probe()/cci_remove()
-To: Liu Zhenlong <dragonliu2018@gmail.com>, loic.poulain@oss.qualcomm.com,
-        rfoss@kernel.org, andi.shyti@kernel.org
-Cc: vladimir.zapolskiy@linaro.org, wsa@kernel.org, andersson@kernel.org,
-        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260815140931.53297-1-dragonliu2018@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260815140931.53297-1-dragonliu2018@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 1L9DOeg2mW9URiz5I3IE1OhL80hBfVZZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA4NiBTYWx0ZWRfX1j0PpyzkJLov
- yBLKSU0b5oKZMm1LvsX6ef6i8DyQ4IQXclCP68AHbZxr09zAUSm4Jbg9iJlfqawKAJKl2K3rfYY
- MyrpuOkXUwuoRDqk+HsImqYaZXtTBpN/nP5/BoBTOwjcJ/sih/8sXjX8h0LoHIDGtH/8TTZXHrF
- JAkzCjHglsLTmCumjkN2cSy+hw7vSTGPMJ3yOpZAwMYudt44d4EBGZXVTm16B8Ku+nTrzgyF67Q
- 9ALW82VK5gdINL1PuwnR/firf3EM8VcEuurDwhkc1XTXl88jxHmB/8IJRajo9kalFC86fw4j9KU
- z6bHkW0Zx181KBuopbRfWpqpSY319xuIDB7iOOUx8tgfpNdf/TLGP9U5MMxttGUxA8MdW8JQhVp
- wnTLrOlG1ncxe4jux4wZGSp1MVslX/u9K+fgDoHTp7FVZ/1ZXQvsoIV39vKP+Xnn1tpnJtbb822
- 6n+qz7nhcD8yV0hcAwg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA4NiBTYWx0ZWRfXzWWEsV0JXzAZ
- fkzufvnZMZz63fN6iSmXQcjRgim0/uf2Msfkn5r6DmzanovE5oayDg8nqRPyToRGDXDSfb/Pet8
- P7hUU42YN3q+vDm1HIpZCAs/szdpftE=
-X-Authority-Analysis: v=2.4 cv=FsU1OWrq c=1 sm=1 tr=0 ts=6a8444f2 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=S-fymDIK2t4towvNsLcA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: 1L9DOeg2mW9URiz5I3IE1OhL80hBfVZZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-18_01,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 clxscore=1015 malwarescore=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180086
+Content-Transfer-Encoding: 8bit
 
-On 8/15/26 4:09 PM, Liu Zhenlong wrote:
-> cci_probe() calls of_node_get() to take an extra reference on the
-> child device_node when assigning it to the adapter device.  The
-> matching of_node_put() calls exist in both the error cleanup path
-> and cci_remove(), but they are placed after i2c_del_adapter().
-> 
-> i2c_del_adapter() clears adap->dev with memset() at the end (commit
-> bd4bc3dbded9 ("i2c: Clear i2c_adapter.dev on adapter removal")), which
-> zeroes adap->dev.of_node before of_node_put() runs, turning it into a
-> no-op.  The reference taken by of_node_get() is never released, leaking
-> the device_node on every cleanup of already-registered adapters and
-> every adapter removal.
-> 
-> The commit that added of_node_get() and the matching of_node_put()
-> calls placed the puts after i2c_del_adapter(), so the bug has been
-> present since the fix was introduced.
-> 
-> Cache the pointer before calling i2c_del_adapter(), the same approach
-> used in i2c-mux (i2c_mux_del_adapters) and mtd (commit 56570bdad5e3
-> ("mtd: core: Fix refcount error in del_mtd_device()")).
-> 
-> The of_node_put() in the i2c_add_adapter() failure path (before any
-> i2c_del_adapter() runs) is correct and left unchanged.
-> 
-> Fixes: 02a4a69667a2 ("i2c: qcom-cci: don't put a device tree node before i2c_add_adapter()")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Liu Zhenlong <dragonliu2018@gmail.com>
-> ---
->  drivers/i2c/busses/i2c-qcom-cci.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-> index bdeda3979c48..61c535b8196f 100644
-> --- a/drivers/i2c/busses/i2c-qcom-cci.c
-> +++ b/drivers/i2c/busses/i2c-qcom-cci.c
-> @@ -618,8 +618,10 @@ static int cci_probe(struct platform_device *pdev)
->  
->  	for (--i ; i >= 0; i--) {
->  		if (cci->master[i].cci) {
-> +			struct device_node *node = cci->master[i].adap.dev.of_node;
-> +
->  			i2c_del_adapter(&cci->master[i].adap);
-> -			of_node_put(cci->master[i].adap.dev.of_node);
-> +			of_node_put(node);
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-The fix seems correct, but the way it's done is still fragile - someone/a bot
-will surely come around in a couple weeks with a ""simplification"" undoing
-your change. Would a devm action here be a better choice?
+The driver only implements the 64-byte OOB layout, so attach_chip()
+shrinks mtd->oobsize when the chip provides more. That clamp does not
+survive: nand_scan_tail() runs nanddev_init() after ->attach_chip(), and
+it restores mtd->oobsize from the memory organization, which still holds
+the value detected from the chip.
 
-Konrad
+The driver therefore transfers writesize + the chip's full OOB size, so
+the hardware ECC parity ends up at a different offset than the layout the
+controller was set up for, and every ECC-protected read fails with
+-EBADMSG.
+
+Measured on a Colibri VF61 (MX30LF4G28AC, 2048-byte pages, 112 bytes of
+OOB): with the clamp lost, UBI cannot read the erase counter headers of
+the pages U-Boot has just written, and the on-flash bad block table
+written by an older kernel reads back with ECC errors, so the board does
+not boot. Kernels before commit a7ab085d7c16 ("mtd: rawnand: Initialize
+the nand_device object") are not affected because nothing overwrote the
+clamp there, which is why the same chip works with a v4.4 kernel and
+with U-Boot, whose copy of this driver has no memory organization to
+restore the value from. Edward Karpicz reported that the clamp no longer
+takes effect on this chip; see the link below.
+
+Clamp the memory organization as well so the driver's 64-byte layout
+stays in effect, and log the truncation once, as it decides which
+on-flash layout the system uses.
+
+Reported-by: Edward Karpicz <webmaster@toradex.com>
+Link: https://community.toradex.com/t/colibri-vf50-vf61-on-the-current-bsp-mainline-u-boot-v2026-07-and-linux-6-18-lts/30735
+Fixes: a7ab085d7c16 ("mtd: rawnand: Initialize the nand_device object")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+---
+ drivers/mtd/nand/raw/vf610_nfc.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mtd/nand/raw/vf610_nfc.c b/drivers/mtd/nand/raw/vf610_nfc.c
+index 9940681810cf..f27ef2b0884d 100644
+--- a/drivers/mtd/nand/raw/vf610_nfc.c
++++ b/drivers/mtd/nand/raw/vf610_nfc.c
+@@ -771,8 +771,14 @@ static int vf610_nfc_attach_chip(struct nand_chip *chip)
+ 	}
+ 
+ 	/* Only 64 byte ECC layouts known */
+-	if (mtd->oobsize > 64)
++	if (mtd->oobsize > 64) {
++		dev_info(nfc->dev,
++			 "using 64 of %d OOB bytes, ECC layout is unchanged\n",
++			 mtd->oobsize);
+ 		mtd->oobsize = 64;
++		/* nand_scan_tail() restores mtd->oobsize from the memorg */
++		nanddev_get_memorg(&chip->base)->oobsize = 64;
++	}
+ 
+ 	/* Use default large page ECC layout defined in NAND core */
+ 	mtd_set_ooblayout(mtd, nand_get_large_page_ooblayout());
+-- 
+2.54.0
+
