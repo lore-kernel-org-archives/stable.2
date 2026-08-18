@@ -1,173 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7243ED5BB
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 11:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C23946A607;
+	Tue, 18 Aug 2026 11:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787052003; cv=none; b=vEMiC0XLlaVHQwvrO6ge68JeHOzu19Ezhx+stc/jOC3dtPnxDzP5DBGXrl3okzrItftrwkspwYbZCHBU0+KJxHeyUtLVbGMLunpTZAYPA2uIDzmlNtstg3rLSDY21It3/0YTMw67nwJkkj0RsA0XnPpberlVuNqzbmgo8QwmHcE=
+	t=1787052055; cv=none; b=YqktrHQyf3SvxQ8Gz8FaSXvj0r+Z2ZQGz9hj0iNvmTnLMKRm9lWewbRKqGT43CxxoGP9MUH6ejlj9KIfJvfrBxJAHmfx2yEn8sfBiHw0QIwCWaemLe15reUV102RVw9aD76yg5zL5IoM6c+AtbqbpCsMcCQ0cav9oW8R1VqQuVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787052003; c=relaxed/simple;
-	bh=FsQ8lxKsS1eKs566ORqTIP6A3CSJsqzxMfwP8jeBP3w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bJqN68HdhpAAZQrbh0tQxbQRHVMaHYfW6uVoi+2OIQY7bk/g9cK9y76nIDC7RreQas2il4YkQcOwDYQb5TYU4cnjBE+gSggJyjAYxLlLsYRlzY5/uofZ9ZekgFbYkxDD+LTN7q8Jqybu0Mj3IyUgAnYAQ4T1CdJVqbT5eF40Fb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c/9thYRi; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787052055; c=relaxed/simple;
+	bh=E8oVBzZFTC54iQVSjK8cWT01QTEOTgNniR36YRlfbWE=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=i2XovPOsziMMWj5S8OtVIUVUgIiBqAipOY4tc+Lu4JM0O0cCYTY1fTNL2BT2ujCLqF9sx8jQjfdaKaz06BQ2zFmWxfllSqRV1vYrBJVic7vwiqcGweOiV5FXZab0dBKeLADawJl1TTrXt9cLE3qAQz+qWhI3eF77Yv8M6lzllP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFWrqmq0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c/9thYRi"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 56899C2BCB3;
-	Tue, 18 Aug 2026 11:20:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787052002;
-	bh=FsQ8lxKsS1eKs566ORqTIP6A3CSJsqzxMfwP8jeBP3w=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=c/9thYRiIfxAlg9hCvhKoSGeAYl8ZArX8nnPe9uAopo9KssJytrKQU5JOpPLOCWmc
-	 1UDCHwHkZRPEq9vFCNX4rQoKs2r0hXlLZJ+abZ3Vu/rhbW2wri27PyjGzOPuMRDSD7
-	 o9ZbvQXIW1Na37L9KBZz30t00gW8XM9/l7pYJjT13eAMxgz/5t92+Ex7JYPIsArD9f
-	 xhAASZUFU1Cnrz7+/ug79A0TU8ni6Nxk1uhurOhVx2vJCbg2+RLgxJjN3DLA1n3TbD
-	 6AKUoTrcJbEWa3wK4vImsuGUIfeYkHGB/JNGQKXJLAHRui739fKqhQ9mSM0n24RV9U
-	 n/86gSqhuCshA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E3E0C5DF70;
-	Tue, 18 Aug 2026 11:20:02 +0000 (UTC)
-From: Jiucheng Xu via B4 Relay <devnull+jiucheng.xu.amlogic.com@kernel.org>
-Date: Tue, 18 Aug 2026 19:19:54 +0800
-Subject: [PATCH 6.12.y] f2fs: fix UAF issue in f2fs_merge_page_bio()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFWrqmq0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD9771F000E9;
+	Tue, 18 Aug 2026 11:20:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787052053;
+	bh=yR2/vbESTOGTrlA0NejpUt4u/yY5VBbYmiH2teXVvnE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=CFWrqmq0kJXdmOH2Tbf9Tj26dJvao0x0uzPVzXLDTCQH5np/QbN0Xym7r6ZcHZPvi
+	 cr4VCK86/a4V4fW56msRgvztaIezEDPe72AcZbgNOkh6NADhDZxuElw/g/QTmgC74B
+	 B2EmUogZucACI9b4jWR0wIQebO/t7xjKAVpKvhVXapQTk+STDFjoatYNamS3Z3U2Tm
+	 z610J5k0rHsKqbVkoLDAByi9/n6KiO9i7vSIt0ShASzONRnGhnLUrdvVcDESEN1ope
+	 3E6py+vGnbukndbD1Vh9tBB1hOtxx2SRfvclOv5Jodt9nI0EEonbKlTBM67vSo0emz
+	 JhtPfFlfpHMaw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D091B3926658;
+	Tue, 18 Aug 2026 11:20:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-origin-linux-6-12-y-v1-1-720b168ce6de@amlogic.com>
-X-B4-Tracking: v=1; b=H4sIANk/hGoC/x3MQQ5AMBBA0avIrI3oiGpcRSyUwSRS0oZoxN01l
- m/x/wOBvXCANnvA8yVBdpeg8gzGdXALo0zJQCXpsqEKdy+LONzEnTdqVIQRlWlMXVlrLBGk8vA
- 8y/1fO9CFoiJC/74f+Pgb8m0AAAA=
-X-Change-ID: 20260723-origin-linux-6-12-y-187853bb8b22
-To: stable@vger.kernel.org, jianxin.pan@amlogic.com, tuan.zhang@amlogic.com
-Cc: JY <JY.Ho@mediatek.com>, Chao Yu <chao@kernel.org>, 
- Jaegeuk Kim <jaegeuk@kernel.org>, Jiucheng Xu <jiucheng.xu@amlogic.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787052001; l=3676;
- i=jiucheng.xu@amlogic.com; s=20250821; h=from:subject:message-id;
- bh=+CTJfT4QqV3cDORFOfPy4xRThZejsNENMJbh2v65OjE=;
- b=MsW0FhClYBObcYByBToUDcjqNDZ8woLF/VYSkp+qW+sC3j5RYuw5eHOHwvOj1rXGKLSC+auMl
- t/jjY7niu8zAYfj7dtv7N113z1vPjpowWFsppF5SvIFhSCdjOxPlIBa
-X-Developer-Key: i=jiucheng.xu@amlogic.com; a=ed25519;
- pk=Q18IjkdWCCuncSplyu+dYqIrm+n42glvoLFJTQqpb2o=
-X-Endpoint-Received: by B4 Relay for jiucheng.xu@amlogic.com/20250821 with
- auth_id=498
-X-Original-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
-Reply-To: jiucheng.xu@amlogic.com
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v3] net/ionic: avoid OOB TX partner lookup for
+ hwstamp RXQ
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178705200565.2032994.16418553734393767214.git-patchwork-notify@kernel.org>
+Date: Tue, 18 Aug 2026 11:20:05 +0000
+References: <20260813083705.454897-1-anand.a.khoje@oracle.com>
+In-Reply-To: <20260813083705.454897-1-anand.a.khoje@oracle.com>
+To: Anand Khoje <anand.a.khoje@oracle.com>
+Cc: brett.creeley@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ abhijit.gangurde@amd.com, sln@onemain.com, leon@kernel.org,
+ eric.joyner@amd.com, vadim.fedorenko@linux.dev, kees@kernel.org,
+ mheib@redhat.com, jacob.e.keller@intel.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Hello:
 
-commit edf7e9040fc52c922db947f9c6c36f07377c52ea upstream.
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-As JY reported in bugzilla [1],
+On Thu, 13 Aug 2026 08:37:05 +0000 you wrote:
+> The dedicated hardware timestamp RX queue is allocated with q->index
+> equal to lif->ionic->nrxqs_per_lif. The normal txqcqs array only
+> contains the regular queue pairs, so using that index to set rxq->partner
+> can read one entry past txqcqs[] and then write through the derived
+> pointer.
+> Only link RX/TX partners for normal queue-pair indexes. Leave the hwstamp
+> RX queue unpaired, and make the XDP_TX path abort cleanly if an RX queue
+> has no TX partner.
+> 
+> [...]
 
-Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-pc : [0xffffffe51d249484] f2fs_is_cp_guaranteed+0x70/0x98
-lr : [0xffffffe51d24adbc] f2fs_merge_page_bio+0x520/0x6d4
-CPU: 3 UID: 0 PID: 6790 Comm: kworker/u16:3 Tainted: P    B   W  OE      6.12.30-android16-5-maybe-dirty-4k #1 5f7701c9cbf727d1eebe77c89bbbeb3371e895e5
-Tainted: [P]=PROPRIETARY_MODULE, [B]=BAD_PAGE, [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-Workqueue: writeback wb_workfn (flush-254:49)
-Call trace:
- f2fs_is_cp_guaranteed+0x70/0x98
- f2fs_inplace_write_data+0x174/0x2f4
- f2fs_do_write_data_page+0x214/0x81c
- f2fs_write_single_data_page+0x28c/0x764
- f2fs_write_data_pages+0x78c/0xce4
- do_writepages+0xe8/0x2fc
- __writeback_single_inode+0x4c/0x4b4
- writeback_sb_inodes+0x314/0x540
- __writeback_inodes_wb+0xa4/0xf4
- wb_writeback+0x160/0x448
- wb_workfn+0x2f0/0x5dc
- process_scheduled_works+0x1c8/0x458
- worker_thread+0x334/0x3f0
- kthread+0x118/0x1ac
- ret_from_fork+0x10/0x20
+Here is the summary with links:
+  - [net-next,v3] net/ionic: avoid OOB TX partner lookup for hwstamp RXQ
+    https://git.kernel.org/netdev/net-next/c/d92255b405fb
 
-[1] https://bugzilla.kernel.org/show_bug.cgi?id=220575
-
-The panic was caused by UAF issue w/ below race condition:
-
-kworker
-- writepages
- - f2fs_write_cache_pages
-  - f2fs_write_single_data_page
-   - f2fs_do_write_data_page
-    - f2fs_inplace_write_data
-     - f2fs_merge_page_bio
-      - add_inu_page
-      : cache page #1 into bio & cache bio in
-        io->bio_list
-  - f2fs_write_single_data_page
-   - f2fs_do_write_data_page
-    - f2fs_inplace_write_data
-     - f2fs_merge_page_bio
-      - add_inu_page
-      : cache page #2 into bio which is linked
-        in io->bio_list
-						write
-						- f2fs_write_begin
-						: write page #1
-						 - f2fs_folio_wait_writeback
-						  - f2fs_submit_merged_ipu_write
-						   - f2fs_submit_write_bio
-						   : submit bio which inclues page #1 and #2
-
-						software IRQ
-						- f2fs_write_end_io
-						 - fscrypt_free_bounce_page
-						 : freed bounced page which belongs to page #2
-      - inc_page_count( , WB_DATA_TYPE(data_folio), false)
-      : data_folio points to fio->encrypted_page
-        the bounced page can be freed before
-        accessing it in f2fs_is_cp_guarantee()
-
-It can reproduce w/ below testcase:
-Run below script in shell #1:
-for ((i=1;i>0;i++)) do xfs_io -f /mnt/f2fs/enc/file \
--c "pwrite 0 32k" -c "fdatasync"
-
-Run below script in shell #2:
-for ((i=1;i>0;i++)) do xfs_io -f /mnt/f2fs/enc/file \
--c "pwrite 0 32k" -c "fdatasync"
-
-So, in f2fs_merge_page_bio(), let's avoid using fio->encrypted_page after
-commit page into internal ipu cache.
-
-Fixes: 0b20fcec8651 ("f2fs: cache global IPU bio")
-Reported-by: JY <JY.Ho@mediatek.com>
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
----
- fs/f2fs/data.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 68891c086b382905d62317d424f20ef58282eb75..16c15360605b0f092d0ddf5f2161bcbf53a288e8 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -950,7 +950,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
- 		wbc_account_cgroup_owner(fio->io_wbc, page_folio(fio->page),
- 					 PAGE_SIZE);
- 
--	inc_page_count(fio->sbi, WB_DATA_TYPE(page, false));
-+	inc_page_count(fio->sbi, WB_DATA_TYPE(fio->page, false));
- 
- 	*fio->last_block = fio->new_blkaddr;
- 	*fio->bio = bio;
-
----
-base-commit: 25c09b42358e73e1476e517b296edb6344f2e4bd
-change-id: 20260723-origin-linux-6-12-y-187853bb8b22
-
-Best regards,
+You are awesome, thank you!
 -- 
-Jiucheng Xu <jiucheng.xu@amlogic.com>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
