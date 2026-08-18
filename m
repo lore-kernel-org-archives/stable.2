@@ -1,41 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F63045FFAC
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 17:57:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EAB047AF65
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 17:57:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787075872; cv=none; b=f54Qd4Epgc0vrcihJZdBot1X9IxL/UWuJylEiIAWrYFajrIfBmPQqUFFaehuuiOHCUwFUCs6O+ISXkZT5HQ57kv8+wV1AgKXHpe1oldYxjYNR4HmfC1NrWMyDUFNhlPhTADPl+BIbDw2wjq0IjAavFcPZbJ4a1EHTlVSDSjNnFU=
+	t=1787075873; cv=none; b=M0pYZTr8T5a9RqKZ0K91KEUIDAwXrYGQlqH2lKLLvhwARQy9ozB2l1DagvZINlpxao871zRLtedkaQHC9QUIZJNtrsilThoKtyGut5nIVgFqbWlRcznroRd6lQnQ2htoRNVrhSe3AqOkwJEL00n9i8BcSoGVcyUU7oObqHWhnyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787075872; c=relaxed/simple;
-	bh=5a+OcSgC8CuM08Dqbxl+0nsRVXHDfAwi+e6G+IgxVbA=;
+	s=arc-20240116; t=1787075873; c=relaxed/simple;
+	bh=HR7I/Rv+0Qgz8DlqLv6LWVlChV2EHKWycAqFjMyBqW0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HvEz+OMwAQruyDRzM4fMgi6tqdZg2K/3AVGdujk1gSDXAAMuvErTKKC50JUAKIHYnVdXogJ96/luLVIIc3SHDOJIc/6+WjiMIMc9dzbR/MG39eQquNHUEFkw582sVH8og32Ry7rJo8CSWwjFU2cdnVuI3aF4t+CFUcNAqt73rgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQmFhTgI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=vF7jk7cpvfCeLShFcjUb0EW68J+vOaE/uz6JccdDRAeypMXdM8RbfQgMnPB0m29a/Sa5NMVq1CFXEiUOObZnYVVgOvoWVnehDPWDKkssaoHySdjv1HM1DJmUExRxUz9zluIYapMRqgGq862a8N+80F3deP3EigQvpPuTPH57+y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aLAzgind; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQmFhTgI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAEAC1F000E9;
-	Tue, 18 Aug 2026 17:57:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aLAzgind"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7798E1F00A3A;
+	Tue, 18 Aug 2026 17:57:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787075871;
-	bh=ZOwRQOYzjasQvlPZJeqbM8Vb4SCoD3VhyZR88MJjiII=;
+	s=k20260515; t=1787075872;
+	bh=Ac/1VZjvsWRocdEDGsJDZs2a+ZC6CnTr9jKHO6X64Bg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gQmFhTgI5F0uZYs2cksnJCypegyyOjQDbgMmaGQHXyeDn6lPun9ltkwgn2kZ7gd8a
-	 lJwdSZvzog11eNJcxBIlXIQM9k8FDzkwgzfgZIaKDifex/YkIw+mcnj041VGnVpgLQ
-	 1KfDQBkJnls47XQ+FmLYsj8lmtmWMVzZyycnMikFLKggg5qZik2HAg0vcMbqKnwdwX
-	 BuDm8vdz7b5lLWBXI5ysh3MM4iYN8BNeHqm6HViYvsECfczRjeotDoBtOgGD4ui3iv
-	 fl/wTTWkOE75sxtNcoIEozeB3LngPBsQe/rbFQIimKI6LV5A+0rL2E24F0O4hdB8c7
-	 nADaLUDULwfeQ==
+	b=aLAzgindGjrnUKxCuyS2O/uGBDa7Zgy6zKk4iYIX0wY13iZPV1UqwQuKnytFzfksy
+	 e4q5JRJCaTpRcxwWh+ZV8dYImjZiltUmh+BuBQquWlUiLFNUTo71gLvzfhkhvezosZ
+	 3pI9UDFBh7ov88TH62lWNf/AHE5u1tXwAiR0Q9vLKczBuS+pyU5BOJHHTYXSjRL2gi
+	 +OpqzPPfj6aocQkuKGYSW6kLKeTul1sydABBEaW2VY6OSwM2G/Cj6SJ1AlAiRpcb+e
+	 k+D66Wm4B5NmlC3UKM7VfQiOpV6Zucw8JBYzEBGDTUGnuPAoXz1sCeoJvosaJFYamq
+	 ahcaxe8ggurYw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.de>,
+Cc: Baul Lee <baul.lee@xbow.com>,
+	Federico Kirschbaum <federico.kirschbaum@xbow.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] ALSA: usx2y: Fix potential leaks of uninitialized memory
-Date: Tue, 18 Aug 2026 13:57:48 -0400
-Message-ID: <20260818175749.2748626-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] ALSA: usx2y: bound the hwdep mmap fault offset
+Date: Tue, 18 Aug 2026 13:57:49 -0400
+Message-ID: <20260818175749.2748626-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081720-deviant-snipping-e432@gregkh>
+In-Reply-To: <20260818175749.2748626-1-sashal@kernel.org>
 References: <2026081720-deviant-snipping-e432@gregkh>
+ <20260818175749.2748626-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,125 +47,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Baul Lee <baul.lee@xbow.com>
 
-[ Upstream commit 4e268db74770b454b877ab5260f1868a457d212c ]
+[ Upstream commit 2ca1eea3cd17930daffe9e429a7c89232036ec24 ]
 
-usx2y drivers may expose the allocated pages via mmap, but it performs
-zero-clear only for the struct size, not aligned with the page size.
-This leaves out some uninitialized trailing bytes.
+snd_us428ctls_vm_fault() turns the faulting page offset into a kernel
+address with no bound of any kind:
 
-This patch fixes the clearance to cover all memory that are exposed to
-user-space.
+	offset = vmf->pgoff << PAGE_SHIFT;
+	vaddr = (char *)(...)->us428ctls_sharedmem + offset;
+	page = virt_to_page(vaddr);
+	get_page(page);
+	vmf->page = page;
 
-Link: https://lore.kernel.org/r/20210517131545.27252-5-tiwai@suse.de
+	return 0;
+
+snd_us428ctls_mmap() checks only the length of the mapping, never the
+offset, and us428ctls_sharedmem is a single page from
+alloc_pages_exact().  For a character device file_mmap_size_max()
+returns ULONG_MAX, so the mm layer imposes no ceiling either.  Every page
+offset above zero resolves to a struct page outside the object, and the
+handler installs it into the caller's address space read-write; the vma
+is not marked read-only.
+
+The caller picks the page frame with a single mmap() argument and gets
+read-write access to a page of kernel memory it does not own; an offset
+that lands in an unpopulated vmemmap region oopses instead.
+
+A process that can open the hwdep node of an attached US-X2Y reaches
+this after loading the FPGA image through the same node; no capability
+check is involved.
+
+On 7.2.0-rc5 (arm64), mmap() with a large offset:
+
+  Unable to handle kernel paging request at virtual address fffffdffc45d5ac8
+  pc : snd_us428ctls_vm_fault+0x68/0x140 [snd_usb_usx2y]
+  Call trace:
+   snd_us428ctls_vm_fault+0x68/0x140 [snd_usb_usx2y]
+   __do_fault
+   __handle_mm_fault
+   handle_mm_fault
+   el0_da
+
+Reject any offset outside the shared region.  The pcm hwdep handler in
+usx2yhwdeppcm.c computes its address the same way and needs the same
+bound.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+Reported-by: Baul Lee <baul.lee@xbow.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Link: https://patch.msgid.link/20260805013445.38283-1-baul.lee@xbow.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: 2ca1eea3cd17 ("ALSA: usx2y: bound the hwdep mmap fault offset")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/usx2y/usX2Yhwdep.c      |  8 ++++----
- sound/usb/usx2y/usbus428ctldefs.h |  2 ++
- sound/usb/usx2y/usbusx2y.c        |  2 +-
- sound/usb/usx2y/usx2yhwdeppcm.c   | 13 ++++++++-----
- 4 files changed, 15 insertions(+), 10 deletions(-)
+ sound/usb/usx2y/usX2Yhwdep.c    | 2 ++
+ sound/usb/usx2y/usx2yhwdeppcm.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
 diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
-index 2d4e943be2da..0ed50be89271 100644
+index 0ed50be89271..eeafe580d038 100644
 --- a/sound/usb/usx2y/usX2Yhwdep.c
 +++ b/sound/usb/usx2y/usX2Yhwdep.c
-@@ -55,17 +55,17 @@ static int snd_us428ctls_mmap(struct snd_hwdep *hw, struct file *filp, struct vm
- 		return -EBUSY;
+@@ -29,6 +29,8 @@ static vm_fault_t snd_us428ctls_vm_fault(struct vm_fault *vmf)
+ 		   vmf->pgoff);
  
- 	/* if userspace tries to mmap beyond end of our buffer, fail */
--	if (size > PAGE_ALIGN(sizeof(struct us428ctls_sharedmem))) {
--		snd_printd("%lu > %lu\n", size, (unsigned long)sizeof(struct us428ctls_sharedmem));
-+	if (size > US428_SHAREDMEM_PAGES) {
-+		snd_printd("%lu > %lu\n", size, (unsigned long)US428_SHAREDMEM_PAGES);
- 		return -EINVAL;
- 	}
- 
- 	if (!us428->us428ctls_sharedmem) {
- 		init_waitqueue_head(&us428->us428ctls_wait_queue_head);
--		us428->us428ctls_sharedmem = alloc_pages_exact(sizeof(struct us428ctls_sharedmem), GFP_KERNEL);
-+		us428->us428ctls_sharedmem = alloc_pages_exact(US428_SHAREDMEM_PAGES, GFP_KERNEL);
- 		if (!us428->us428ctls_sharedmem)
- 			return -ENOMEM;
--		memset(us428->us428ctls_sharedmem, -1, sizeof(struct us428ctls_sharedmem));
-+		memset(us428->us428ctls_sharedmem, -1, US428_SHAREDMEM_PAGES);
- 		us428->us428ctls_sharedmem->ctl_snapshot_last = -2;
- 	}
- 	area->vm_ops = &us428ctls_vm_ops;
-diff --git a/sound/usb/usx2y/usbus428ctldefs.h b/sound/usb/usx2y/usbus428ctldefs.h
-index 06b27d23d3c2..9ba15d974e63 100644
---- a/sound/usb/usx2y/usbus428ctldefs.h
-+++ b/sound/usb/usx2y/usbus428ctldefs.h
-@@ -89,3 +89,5 @@ struct us428ctls_sharedmem {
- 	struct us428_p4out	p4out[N_US428_P4OUT_BUFS];
- 	int			p4out_last, p4out_sent;
- };
-+
-+#define US428_SHAREDMEM_PAGES	PAGE_ALIGN(sizeof(struct us428ctls_sharedmem))
-diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
-index 34d5f5379632..ac584795606c 100644
---- a/sound/usb/usx2y/usbusx2y.c
-+++ b/sound/usb/usx2y/usbusx2y.c
-@@ -376,7 +376,7 @@ static void snd_usx2y_card_private_free(struct snd_card *card)
- 	usb_free_urb(usx2y->in04_urb);
- 	if (usx2y->us428ctls_sharedmem)
- 		free_pages_exact(usx2y->us428ctls_sharedmem,
--				 sizeof(*usx2y->us428ctls_sharedmem));
-+				 US428_SHAREDMEM_PAGES);
- 	if (usx2y->card_index >= 0 && usx2y->card_index < SNDRV_CARDS)
- 		snd_usx2y_card_used[usx2y->card_index] = 0;
- }
+ 	offset = vmf->pgoff << PAGE_SHIFT;
++	if (offset >= US428_SHAREDMEM_PAGES)
++		return VM_FAULT_SIGBUS;
+ 	vaddr = (char *)((struct usx2ydev *)vmf->vma->vm_private_data)->us428ctls_sharedmem + offset;
+ 	page = virt_to_page(vaddr);
+ 	get_page(page);
 diff --git a/sound/usb/usx2y/usx2yhwdeppcm.c b/sound/usb/usx2y/usx2yhwdeppcm.c
-index 9219341d71c7..b988a4870de4 100644
+index b988a4870de4..3f6e87f30f7e 100644
 --- a/sound/usb/usx2y/usx2yhwdeppcm.c
 +++ b/sound/usb/usx2y/usx2yhwdeppcm.c
-@@ -485,6 +485,9 @@ static int usx2y_usbpcm_urbs_start(struct snd_usx2y_substream *subs)
- 	return err;
- }
+@@ -674,6 +674,8 @@ static vm_fault_t snd_usx2y_hwdep_pcm_vm_fault(struct vm_fault *vmf)
+ 	void *vaddr;
  
-+#define USX2Y_HWDEP_PCM_PAGES	\
-+	PAGE_ALIGN(sizeof(struct snd_usx2y_hwdep_pcm_shm))
-+
- /*
-  * prepare callback
-  *
-@@ -501,11 +504,11 @@ static int snd_usx2y_usbpcm_prepare(struct snd_pcm_substream *substream)
- 	snd_printdd("snd_usx2y_pcm_prepare(%p)\n", substream);
- 
- 	if (!usx2y->hwdep_pcm_shm) {
--		usx2y->hwdep_pcm_shm = alloc_pages_exact(sizeof(struct snd_usx2y_hwdep_pcm_shm),
-+		usx2y->hwdep_pcm_shm = alloc_pages_exact(USX2Y_HWDEP_PCM_PAGES,
- 							 GFP_KERNEL);
- 		if (!usx2y->hwdep_pcm_shm)
- 			return -ENOMEM;
--		memset(usx2y->hwdep_pcm_shm, 0, sizeof(struct snd_usx2y_hwdep_pcm_shm));
-+		memset(usx2y->hwdep_pcm_shm, 0, USX2Y_HWDEP_PCM_PAGES);
- 	}
- 
- 	mutex_lock(&usx2y->pcm_mutex);
-@@ -692,8 +695,8 @@ static int snd_usx2y_hwdep_pcm_mmap(struct snd_hwdep *hw, struct file *filp, str
- 		return -EBUSY;
- 
- 	/* if userspace tries to mmap beyond end of our buffer, fail */
--	if (size > PAGE_ALIGN(sizeof(struct snd_usx2y_hwdep_pcm_shm))) {
--		snd_printd("%lu > %lu\n", size, (unsigned long)sizeof(struct snd_usx2y_hwdep_pcm_shm));
-+	if (size > USX2Y_HWDEP_PCM_PAGES) {
-+		snd_printd("%lu > %lu\n", size, (unsigned long)USX2Y_HWDEP_PCM_PAGES);
- 		return -EINVAL;
- 	}
- 
-@@ -711,7 +714,7 @@ static void snd_usx2y_hwdep_pcm_private_free(struct snd_hwdep *hwdep)
- 	struct usx2ydev *usx2y = hwdep->private_data;
- 
- 	if (usx2y->hwdep_pcm_shm)
--		free_pages_exact(usx2y->hwdep_pcm_shm, sizeof(struct snd_usx2y_hwdep_pcm_shm));
-+		free_pages_exact(usx2y->hwdep_pcm_shm, USX2Y_HWDEP_PCM_PAGES);
- }
- 
- int usx2y_hwdep_pcm_new(struct snd_card *card)
+ 	offset = vmf->pgoff << PAGE_SHIFT;
++	if (offset >= USX2Y_HWDEP_PCM_PAGES)
++		return VM_FAULT_SIGBUS;
+ 	vaddr = (char *)((struct usx2ydev *)vmf->vma->vm_private_data)->hwdep_pcm_shm + offset;
+ 	vmf->page = virt_to_page(vaddr);
+ 	get_page(vmf->page);
 -- 
 2.53.0
 
