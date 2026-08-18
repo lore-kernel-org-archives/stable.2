@@ -1,545 +1,298 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D6039F160;
-	Tue, 18 Aug 2026 15:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18F93812FB;
+	Tue, 18 Aug 2026 15:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787066883; cv=none; b=kbeiJteeytX+dV9Uy/pxRNm66l0akyjiThzG+4V/1kWiLPyvMeP76A7EBs3HBMVlGI0wQagxD9KHJ55IXrFi9DzsSeTUhqKAx9aDedMFzcTDwl1agmA2gzO8RWIQ14Ji5fk1AKZZm96eiElkq1L2wJBHX5897H92YGaHooAzw4M=
+	t=1787066988; cv=none; b=Pi1BfuvwmQrT086Bna4zgzKV6YAo0byXQqg1vUXmcx+RygmDyxL0dJb7FTQ0WnH8QI6JEmQudnfLUgp1/uw7CN327adei41NqdEnn4uvAVSl/AonAW6DTG+aPyk/ZZUogVY7wuvVerapepENEQeMbneI5Mfd/pqrGovRbWAU3YE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787066883; c=relaxed/simple;
-	bh=mWl5l1+waYMdWZU1hitSC+mQFQrrPClv0MFpq5wLiKk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dv+GU0K6pRsWMtM2dT64hjWtkYUfwx18UmRZEH46cdDc4GEnR7MuUDML5pUjI7RccZ4qvDRIoFijhJqHRCkP5a8M7f+acVEsC36vF4JflvhAvYxI9rMRIATXre7d/QczV7dw0YQBovhaGuB/zKdSAlBnV67NbwYu2Z23+uLxJnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ikMEVN73; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787066988; c=relaxed/simple;
+	bh=xl0NyXNqSvTP56iARQ/D0BKi55b3jNZbbiRk3wgwyk4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BKThDcoYQ6ykC9Z8JrPGTswL7HlFW8uJezM1OQhnrR0zE0JTbdyq3RkRXfLP3RgqJEKtsaDujDCPUrS25pO2BtylsK5j/JX4SzMN8VyXvz2AiF/a9veprPXHKYxzoReOIX1TcURSMtpxO8MOQCPixc/+EdFfVbiYSYBt4aQVLM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=r2mx6SYv; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ikMEVN73"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 811631F000E9;
-	Tue, 18 Aug 2026 15:27:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787066881;
-	bh=JhXloICc+UqKv2q5ru7puIMMw3HuImiQgtG8gSewRqE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ikMEVN73DR/eZPfgW+G79Txun+vnK+roH8GFlonvy0mJrRL1jEIuGXOvlHEVvN2Ac
-	 HVMN6QmvbgIw/eukQ6zKIa6um4ZLk7ANV1mvX5f1P+4eGpriBUV2wdo9nb/0HcNYZN
-	 g/nM+2DgitR4fc+a+KVXhztOWXxeOMo84PSphiYON4Hf86NmamnsdIzWl++qvXD8D1
-	 xOJDCi+jYOWkC5EWYr3wti9P7RQsh4eQ4at5vkXl0D/BGG0CvbUMhJylRDCdlQv4Rq
-	 7XvNEajTEXSgJgzqBvcstTUxeHPLlB7IWWdtnNYsbZmcc7Llb02oiBqr1KNDnjsYD4
-	 T2FVV3Mn91g8Q==
-Date: Tue, 18 Aug 2026 16:27:40 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	James Bottomley <James.Bottomley@hansenpartnership.com>, Hagen Paul Pfeifer <hagen@jauu.net>, 
-	Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org, 
-	Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/secretmem: properly account locked pages
-Message-ID: <aoRx-VLojNCSBPUj@lucifer>
-References: <20260814-secretmem-accounting-v1-1-d2f8c677980b@kernel.org>
- <178706447572.2799959.13846195033539124794.b4-review@b4>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="r2mx6SYv"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IE3Zkv455087;
+	Tue, 18 Aug 2026 15:29:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=adT1B1
+	9TjTjVHbV+6tXcTgDOYZLt+4FWuGuxN8YIy5A=; b=r2mx6SYvk/hRQgqgF92eqK
+	xBp2gu5DgZEDNsQ/ZwLz0Bi6Bt+UX3lj7om03tGtGZ51q7CWF32WB6G6RLRJgxPC
+	DP9HUEABov6vgQ5xcD9YnbarfUOWq+4jP37njU4fok6p2T+8H8BzbiSOwNcp7VBf
+	UDmyk20lE7JRPfXIoMeu3pm0MRlxRU2Vxa00hK338c2mPHS2U0XBaZXEHx5SXyOR
+	4RRlv3o9rrnxpid9T1N6e84DDtX0gtXCeV9NaL8XkSM4wOJ6JSnqPHLKpn/EaYGg
+	FvWIsAT3OenmP9j0ANjTqCRDbpnrQNL2jtEQ0u0lYwF4IM9l1q5K0oXG/4UADAww
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g2fm3s4p3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 15:29:26 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67IFQOQS020197;
+	Tue, 18 Aug 2026 15:29:25 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g33xh3w3t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 15:29:25 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67IFTLcp47251746
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 18 Aug 2026 15:29:21 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1B5B520043;
+	Tue, 18 Aug 2026 15:29:21 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 19E1E20040;
+	Tue, 18 Aug 2026 15:29:16 +0000 (GMT)
+Received: from [9.39.17.238] (unknown [9.39.17.238])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 18 Aug 2026 15:29:15 +0000 (GMT)
+Message-ID: <f0877836-771e-4f87-bf7b-adc7053d8446@linux.ibm.com>
+Date: Tue, 18 Aug 2026 20:59:15 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178706447572.2799959.13846195033539124794.b4-review@b4>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v6 1/3] net/smc: fix use-after-free of the LLC qentry
+ in smc_llc_srv_add_link()
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>, alibuda@linux.alibaba.com,
+        dust.li@linux.alibaba.com, wenjia@linux.ibm.com, kuba@kernel.org,
+        davem@davemloft.net, edumazet@google.com, pabeni@redhat.com
+Cc: leitao@debian.org, horms@kernel.org, mjambigi@linux.ibm.com,
+        tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
+        guangguan.wang@linux.alibaba.com, kees@kernel.org,
+        gustavoars@kernel.org, netdev@vger.kernel.org,
+        linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260811231902.47089-1-yhlee@isslab.korea.ac.kr>
+ <20260811231902.47089-2-yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: Sidraya Jayagond <sidraya@linux.ibm.com>
+In-Reply-To: <20260811231902.47089-2-yhlee@isslab.korea.ac.kr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: HVmFH0Dq7NDAPlFAaSHP9FCOrXOpKxgN
+X-Proofpoint-ORIG-GUID: iIWA3Bmrpev1fNI1VUGPY8WetMFYBMO1
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDExMCBTYWx0ZWRfX4qAOgw9+5jU9
+ B3xw7ykniW16ac/ej184Avrde6C7kxU1uq3eMWtOhd7ja5KrnUvVDtGLz3WGNiT5xg0D6igDwWN
+ pFDenC1eOyT7rgnbI6Tq/CHuzJpSRs4=
+X-Authority-Analysis: v=2.4 cv=WtQb99fv c=1 sm=1 tr=0 ts=6a847a57 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=kukDy1qahNa2q44RZiwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDExMCBTYWx0ZWRfX24F9QwQRwMHe
+ nF1W2GkS2bhBeHMk+Zjou8o3I3G5L7zB13ZCqVYO80Kk5r+7qsWQQkkKEPy0z2Ae6cXIXzUHz1I
+ 6newb0Vi8XwJUuTdJtTdZk3tirIkmKJxvDVkeBfBYjuEtaqajPii8O5vebVI70NfFTMfkGXzEaj
+ NZczenBB3dvww2jSs8wvhLP03foGpiVRNRo0O6ZSDMNvDvYFp5dnWaeqe0Nl1t6ij1fRq1udbxy
+ YX45hx7wd6SMeIOtdFo+0WWqYyX1Y+LySNzqSXQQnJKiYsrAD9BSU5Ie9qJdlft9POzdPQkkwOC
+ 4QH2dQ19XiTOsLc1aL1O2C60hydpmWrKLIqBh3SsN52mpcZ2YtH4lSVNrAsQPV4t4Yx8Tq7BJ8b
+ psfV/i+nfTZHP33arVHw6bdvEQEtjQgweSkrH3ngnZ6X1DEpF/VLFVjDCiNd/7iByeqHD02gavv
+ sN0OBHlm8N67W1SMRLA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-18_02,2026-08-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 clxscore=1011 adultscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608180110
 
-On Tue, Aug 18, 2026 at 05:47:55PM +0300, Mike Rapoport wrote:
-> > secretmem has a relatively laissez-faire attitude to accounting the folios
-> > it allocates.
-> >
-> > The intention is that the memory is treated as if it were mlock()'d and
-> > thus is limited by the RLIMIT_MEMLOCK limit if the CAP_IPC_LOCK capability
-> > is not in place (which broadly allows unlimited ranges of mlock()'d
-> > memory).
-> >
-> > The lifecycle for memfd accounting against this limit is - account on
-> > map, unaccount on unmap.
-> >
-> > But the lifecycle of memfd folios is allocate on fault, deallocate on inode
-> > eviction.
-> >
-> > This mismatch is problematic because the folios are unevictable and remain
-> > so until the inode is evicted.
-> >
-> > This is established using mapping_set_unevictable() setting the
-> > AS_UNEVICTABLE flag in the relevant address_space data structure.
-> >
-> > This is problematic as it eliminates usual mlock() semantics - mapping
-> > folios then unmapping them does not clear their unevictable state, since it
-> > depends on AS_UNEVICTABLE, not PG_mlocked.
-> >
-> > This is checked by folio_evictable() which first checks for AS_UNEVICTABLE
-> > before looking at PG_mlocked, which is cleared on unmap via
-> > munlock_vma_folio().
-> >
-> > A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
-> > map then unmap and VmLck no longer counts the secretmem range, nor are they
-> > accounted in the process's RSS even if mapped again, meaning the OOM killer
-> > won't know to kill the process.
-> >
-> > This can also be achieved by forking the process, as VMA_LOCKED_BIT is
-> > cleared for VMAs copied to the child process, whose VmLck will be 0.
-> >
-> > A user without the CAP_IPC_LOCK capability can therefore repeatedly
-> > map/unmap (or map/fork) and consume all available system memory with
-> > unevictable folios and cause system instability.
-> >
-> > Worse, the OOM killer will not be able to resolve the situation.
-> >
-> > Additionally, this fd can be passed between processes and over fork so a
-> > per-process limit simply does not make sense.
-> >
-> > There is precedent for addressing this issue - io_uring, perf, skbuff,
-> > iommufd and xdp all perform the precise lifetime management required here
-> > using an alternative method - tracking the number of locked pages in
-> > struct user_struct->locked_vm.
-> >
-> > Add secretmem to this list and account locked folios over the lifetime of
-> > the inode to reflect the actual lifetime of the folios, while bypassing
-> > this if the user has the CAP_IPC_LOCK capability.
-> >
-> > As a result the semantics change - the RLIMIT_MEMLOCK limit is per-user not
-> > per-process to reflect the actual scope of the allocated folios, and this
-> > limit is shared between secretmem and io_uring, etc.
-> >
-> > However this is reasonable given the need to track this limit in the actual
-> > scope in which it applies.
-> >
-> > Since GUP rejects secretmem mappings, setting VMA_LOCKED_BIT does not
-> > result in memory being faulted in on map, another wrinkle with the mlock()
-> > accounting.
-> >
-> > This also leads to another oddity from the previous implementation -
-> > mlock_future_ok() was checked on mmap() but since nothing is faulted in
-> > right away, this check was more or less meaningless. Therefore drop this.
-> >
-> > There is simply no reason to carry on marking the mapping as mlock()'d
-> > since it's misleading and the lifecycle is now correctly handled, so remove
-> > this too.
-> >
-> > Additionally, fix the selftest which checks the limit as this now must
-> > assert SIGBUS on limit violation on fault-in.
-> >
-> > Also assert there that the limit applies to the lifetime of the fd rather
-> > than the mapping by trying to map a single page past the maximum rlimit -
-> > previously this would have succeeded as the prior unmap would have reset
-> > the mlock limit.
-> >
-> > __secretmem_account_pages() is essentially a duplicate of the code that
-> > io_uring etc. use, but since this is a bug fix that needs backporting,
-> > defer any de-duplication efforts to a follow-up.
->
-> Can the commit message here be a page rather than a folio? ;-)
 
-It's a very involved problem and the solution is subtle, imperfect, and needs to
-be clearly argued.
 
-So sorry, it's order-9+ folio-shaped ;)
+On 12/08/26 4:49 am, Yehyeong Lee wrote:
+> smc_llc_srv_add_link() keeps add_llc pointing into the queue entry:
+> 
+>   add_llc = &qentry->msg.add_link;			smc_llc.c:1482
+>   ...
+>   smc_llc_save_add_link_info(link_new, add_llc);	smc_llc.c:1494
+>   smc_llc_flow_qentry_del(&lgr->llc_flow_lcl);		smc_llc.c:1495
+>   ...
+>   u8 *llc_msg = smc_link_shared_v2_rxbuf(link) ?
+> 	(u8 *)lgr->wr_rx_buf_v2 : (u8 *)add_llc;	smc_llc.c:1504
+>   smc_llc_save_add_link_rkeys(link, link_new, llc_msg);	smc_llc.c:1506
+> 
+> smc_llc_flow_qentry_del() kfree()s the entry, so on a link without a shared
+> v2 receive buffer the pointer handed to smc_llc_save_add_link_rkeys() is
+> already freed.  Before the Fixes: commit that branch always used
+> lgr->wr_rx_buf_v2 and add_llc was not used after the free.
+> 
+> Reproduced on an unpatched tree over rxe, with KASAN, kasan_multi_shot
+> and a link forced to max_recv_sge == 1: the entry is freed and read by
+> the same call, and the freeing frame is smc_llc_srv_add_link() itself.
+> 
+>   [    2.523161] BUG: KASAN: slab-use-after-free in smc_llc_save_add_link_rkeys+0x333/0x350
+>   [    2.523499] Read of size 2 at addr ffff8880052194de by task kworker/0:1/11
+>   [    2.523789] 
+>   [    2.523862] CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted 7.2.0-rc5-p0-g2c9dd296545d #35 PREEMPT(lazy) 
+>   [    2.523865] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>   [    2.523866] Workqueue: smc_hs_wq smc_listen_work
+>   [    2.523869] Call Trace:
+>   [    2.523870]  <TASK>
+>   [    2.523871]  dump_stack_lvl+0x53/0x70
+>   [    2.523872]  print_report+0xd0/0x630
+>   [    2.523874]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+>   [    2.523876]  ? smc_llc_save_add_link_rkeys+0x333/0x350
+>   [    2.523878]  kasan_report+0xce/0x100
+>   [    2.523879]  ? smc_llc_save_add_link_rkeys+0x333/0x350
+>   [    2.523881]  smc_llc_save_add_link_rkeys+0x333/0x350
+>   [    2.523883]  ? smcr_buf_reg_lgr+0x2a4/0x660
+>   [    2.523885]  smc_llc_srv_add_link+0xaa2/0x1e50
+>   [    2.523888]  ? _printk+0xba/0xf0
+>   [    2.523897]  ? __pfx_smc_llc_srv_add_link+0x10/0x10
+>   [    2.523899]  ? down_write+0xb0/0x130
+>   [    2.523903]  ? __pfx_down_write+0x10/0x10
+>   [    2.523905]  smc_listen_work+0x489e/0x4d00
+>   [    2.523907]  ? kmem_cache_free+0x1c6/0x3a0
+>   [    2.523911]  ? __pfx_smc_listen_work+0x10/0x10
+>   [    2.523913]  ? release_sock+0x148/0x1d0
+>   [    2.523915]  ? smc_tcp_listen_work+0xb4f/0xfc0
+>   [    2.523917]  ? _raw_spin_lock_irq+0x80/0xe0
+>   [    2.523918]  ? __pfx__raw_spin_lock_irq+0x10/0x10
+>   [    2.523920]  process_one_work+0x633/0x1030
+>   [    2.523922]  ? assign_work+0x11d/0x370
+>   [    2.523924]  worker_thread+0x45b/0xd10
+>   [    2.523926]  ? __pfx_worker_thread+0x10/0x10
+>   [    2.523928]  ? __pfx_worker_thread+0x10/0x10
+>   [    2.523929]  kthread+0x2c6/0x3b0
+>   [    2.523931]  ? recalc_sigpending+0x15c/0x1e0
+>   [    2.523934]  ? __pfx_kthread+0x10/0x10
+>   [    2.523935]  ret_from_fork+0x36e/0x5a0
+>   [    2.523937]  ? __pfx_ret_from_fork+0x10/0x10
+>   [    2.523938]  ? __switch_to+0x572/0xdd0
+>   [    2.523943]  ? __pfx_kthread+0x10/0x10
+>   [    2.523944]  ret_from_fork_asm+0x1a/0x30
+>   [    2.523947]  </TASK>
+>   [    2.523948] 
+>   [    2.531253] Allocated by task 48:
+>   [    2.531399]  kasan_save_stack+0x33/0x60
+>   [    2.531570]  kasan_save_track+0x14/0x30
+>   [    2.531737]  __kasan_kmalloc+0x8f/0xa0
+>   [    2.531905]  __kmalloc_cache_noprof+0x158/0x370
+>   [    2.532100]  smc_llc_enqueue+0x72/0x560
+>   [    2.532268]  smc_wr_rx_tasklet_fn+0x474/0xa80
+>   [    2.532491]  tasklet_action_common+0x20f/0x8a0
+>   [    2.532714]  handle_softirqs+0x18e/0x590
+>   [    2.532886]  do_softirq+0x3b/0x60
+>   [    2.533036]  __local_bh_enable_ip+0x61/0x70
+>   [    2.533221]  __alloc_skb+0x732/0x890
+>   [    2.533384]  rxe_init_packet+0x16b/0x4f0
+>   [    2.533567]  prepare_ack_packet+0xb8/0x830
+>   [    2.533760]  rxe_receiver+0x495/0x96e0
+>   [    2.533933]  do_work+0x144/0x470
+>   [    2.534078]  process_one_work+0x633/0x1030
+>   [    2.534257]  worker_thread+0x45b/0xd10
+>   [    2.534424]  kthread+0x2c6/0x3b0
+>   [    2.534569]  ret_from_fork+0x36e/0x5a0
+>   [    2.534737]  ret_from_fork_asm+0x1a/0x30
+>   [    2.534907] 
+>   [    2.534980] Freed by task 11:
+>   [    2.535112]  kasan_save_stack+0x33/0x60
+>   [    2.535279]  kasan_save_track+0x14/0x30
+>   [    2.535444]  kasan_save_free_info+0x3b/0x60
+>   [    2.535625]  __kasan_slab_free+0x43/0x70
+>   [    2.535798]  kfree+0x121/0x380
+>   [    2.535935]  smc_llc_srv_add_link+0x9a8/0x1e50
+>   [    2.536128]  smc_listen_work+0x489e/0x4d00
+>   [    2.536305]  process_one_work+0x633/0x1030
+>   [    2.536482]  worker_thread+0x45b/0xd10
+>   [    2.536652]  kthread+0x2c6/0x3b0
+>   [    2.536794]  ret_from_fork+0x36e/0x5a0
+>   [    2.536958]  ret_from_fork_asm+0x1a/0x30
+>   [    2.537133] 
+>   [    2.537205] The buggy address belongs to the object at ffff888005219480
+>   [    2.537205]  which belongs to the cache kmalloc-96 of size 96
+>   [    2.537719] The buggy address is located 94 bytes inside of
+>   [    2.537719]  freed 96-byte region [ffff888005219480, ffff8880052194e0)
+>   [    2.538216] 
+>   [    2.538289] The buggy address belongs to the physical page:
+>   [    2.538524] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x5219
+>   [    2.538857] flags: 0x100000000000000(node=0|zone=1)
+>   [    2.539066] page_type: f5(slab)
+>   [    2.539210] raw: 0100000000000000 ffff888001041280 dead000000000122 0000000000000000
+>   [    2.539534] raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
+>   [    2.539863] page dumped because: kasan: bad access detected
+>   [    2.540098] 
+>   [    2.540170] Memory state around the buggy address:
+>   [    2.540379]  ffff888005219380: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>   [    2.540684]  ffff888005219400: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>   [    2.540988] >ffff888005219480: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+>   [    2.541291]                                                     ^
+>   [    2.541548]  ffff888005219500: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
+>   [    2.541857]  ffff888005219580: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
+> 
+> The offset is past the 72-byte queue entry because the out-of-bounds read
+> fixed by the next patch is on the same line; what this patch removes is the
+> free at smc_llc_srv_add_link+0x9a8 happening before the read at +0xaa2.
+> 
+> Detach the entry instead of freeing it there, and free it at the single
+> exit label.  The reject path has to detach as well, otherwise it would be
+> freed twice.
+> 
+> This changes only the lifetime of the entry.  The same read still runs past
+> its end until the next two patches bound it, so a backport wants all three.
+> 
+> Fixes: 27ef6a9981fe ("net/smc: support SMC-R V2 for rdma devices with max_recv_sge equals to 1")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+> ---
+> Changes since v5: return through the existing exit label.
+> 
+>  net/smc/smc_llc.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/net/smc/smc_llc.c b/net/smc/smc_llc.c
+> index 954b2ff1815c..055a03eee5b5 100644
+> --- a/net/smc/smc_llc.c
+> +++ b/net/smc/smc_llc.c
+> @@ -1481,7 +1481,7 @@ int smc_llc_srv_add_link(struct smc_link *link,
+>  	}
+>  	add_llc = &qentry->msg.add_link;
+>  	if (add_llc->hd.flags & SMC_LLC_FLAG_ADD_LNK_REJ) {
+> -		smc_llc_flow_qentry_del(&lgr->llc_flow_lcl);
+> +		smc_llc_flow_qentry_clr(&lgr->llc_flow_lcl);
+>  		rc = -ENOLINK;
+>  		goto out_err;
+>  	}
+> @@ -1492,7 +1492,8 @@ int smc_llc_srv_add_link(struct smc_link *link,
+>  		lgr_new_t = SMC_LGR_ASYMMETRIC_PEER;
+>  	}
+>  	smc_llc_save_add_link_info(link_new, add_llc);
+> -	smc_llc_flow_qentry_del(&lgr->llc_flow_lcl);
+> +	/* add_llc still points into qentry, so only detach it here */
+> +	smc_llc_flow_qentry_clr(&lgr->llc_flow_lcl);
+>  
+>  	rc = smc_ib_ready_link(link_new);
+>  	if (rc)
+> @@ -1512,14 +1513,14 @@ int smc_llc_srv_add_link(struct smc_link *link,
+>  	rc = smc_llc_srv_conf_link(link, link_new, lgr_new_t);
+>  	if (rc)
+>  		goto out_err;
+> -	kfree(ini);
+> -	return 0;
+> +	goto out;
+>  out_err:
+>  	if (link_new) {
+>  		link_new->state = SMC_LNK_INACTIVE;
+>  		smcr_link_clear(link_new, false);
+>  	}
+>  out:
+> +	kfree(qentry);
+>  	kfree(ini);
+>  	if (send_req_add_link_resp)
+>  		smc_llc_send_req_add_link_response(req_qentry);
 
->
-> > Reported-by: Daehyeon Ko <4ncienth@gmail.com>
-> > Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
-> > Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> >
-> > diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
-> > index 4cc52698e214..8d7e5521f7cd 100644
-> > --- a/include/linux/sched/user.h
-> > +++ b/include/linux/sched/user.h
-> > @@ -25,7 +25,8 @@ struct user_struct {
-> >
-> >  #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
-> >  	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
-> > -	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
-> > +	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
-> > +	defined(CONFIG_SECRETMEM)
-> >  	atomic_long_t locked_vm;
-> >  #endif
-> >  #ifdef CONFIG_WATCH_QUEUE
-> > diff --git a/mm/secretmem.c b/mm/secretmem.c
-> > index d29865075b6e..537fe5b1222f 100644
-> > --- a/mm/secretmem.c
-> > +++ b/mm/secretmem.c
-> > @@ -18,6 +18,8 @@
-> >  #include <linux/secretmem.h>
-> >  #include <linux/set_memory.h>
-> >  #include <linux/sched/signal.h>
-> > +#include <linux/sched/user.h>
-> > +#include <linux/cred.h>
-> >
-> >  #include <uapi/linux/magic.h>
-> >
-> > @@ -47,10 +49,107 @@ bool secretmem_active(void)
-> >  	return !!atomic_read(&secretmem_users);
-> >  }
-> >
-> > +struct secretmem_inode_state {
-> > +	struct user_struct	*user;
-> > +	atomic_long_t		nr_pages_accounted;
-> > +};
-> > +
-> > +static bool __secretmem_account_pages(struct user_struct *user,
-> > +		unsigned long nr_pages)
-> > +{
-> > +	unsigned long page_limit, cur_pages, new_pages;
-> > +
-> > +	if (!nr_pages)
-> > +		return true;
-> > +
-> > +	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
-> > +
-> > +	cur_pages = atomic_long_read(&user->locked_vm);
-> > +	do {
-> > +		new_pages = cur_pages + nr_pages;
-> > +		if (new_pages > page_limit)
-> > +			return false;
-> > +	} while (!atomic_long_try_cmpxchg(&user->locked_vm,
-> > +					  &cur_pages, new_pages));
-> > +	return true;
-> > +}
-> > +
-> > +static bool secretmem_account_folio(struct secretmem_inode_state *state,
-> > +		const struct folio *folio)
-> > +{
-> > +	unsigned long nr_pages;
-> > +
-> > +	if (!state)
-> > +		return true;
-> > +
-> > +	nr_pages = folio_nr_pages(folio);
-> > +	if (!__secretmem_account_pages(state->user, nr_pages))
-> > +		return false;
-> > +
-> > +	atomic_long_add(nr_pages, &state->nr_pages_accounted);
-> > +	return true;
-> > +}
-> > +
-> > +static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
-> > +		unsigned long nr_pages)
-> > +{
-> > +	atomic_long_sub(nr_pages, &state->user->locked_vm);
-> > +	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
-> > +}
-> > +
-> > +static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
-> > +		struct folio *folio)
-> > +{
-> > +	if (!state)
-> > +		return;
-> > +
-> > +	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
-> > +}
-> > +
-> > +static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
-> > +{
-> > +	unsigned long nr_pages_accounted;
-> > +
-> > +	if (!state)
-> > +		return;
-> > +
-> > +	nr_pages_accounted = atomic_long_read(&state->nr_pages_accounted);
-> > +	__secretmem_unaccount_pages(state, nr_pages_accounted);
-> > +}
-> > +
-> > +static void secretmem_destroy_inode_priv(struct inode *inode)
-> > +{
-> > +	struct secretmem_inode_state *state = inode->i_private;
-> > +
-> > +	if (!state)
-> > +		return;
-> > +
-> > +	secretmem_unaccount_all_folios(state);
-> > +	free_uid(state->user);
-> > +	kfree(state);
-> > +}
-> > +
-> > +static int secretmem_init_inode_priv(struct inode *inode)
->
-> Can _init and _destroy live closer to their callers please?
-
-OK.
-
->
-> > +{
-> > +	struct secretmem_inode_state *state;
-> > +
-> > +	if (ns_capable_noaudit(&init_user_ns, CAP_IPC_LOCK))
-> > +		return 0;
->
-> The check happens only on inode creation, so if a privileged process,
-> e.g. a container engine, passes the fd to an unprivileged process, the
-> accounting issue remains.
-
-Hmm, yeah and I guess that is a secretmem process.
-
-And the actual bug is that somebody can unmap then remap then ftruncate(), and
-this would re-open that again.
-
-I think best to just remove the check.
-
-Updating but not enforcing for CAP_IPC_LOCK is problematic too since any
-unprivileged process that happens to fault will get yeeted while privileged ones
-are fine and that's not what you want.
-
-And privileged processes can increase the lock limit as necessary anyway.
-
-Probably sensible users of this fault in early anyway.
-
-So yup will remove the check (also simplifies the code).
-
->
-> > +
-> > +	state = kzalloc_obj(*state, GFP_KERNEL);
->
-> GFP_KERNEL is implicit for kzalloc_obj(), isn't it?
-
-OK, will fix.
-
->
-> > +	if (!state)
-> > +		return -ENOMEM;
-> > +
-> > +	state->user = get_uid(current_user());
-> > +	inode->i_private = state;
-> > +	return 0;
-> > +}
-> > +
-> >  static vm_fault_t secretmem_fault(struct vm_fault *vmf)
-> >  {
-> >  	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
-> >  	struct inode *inode = file_inode(vmf->vma->vm_file);
-> > +	struct secretmem_inode_state *state = inode->i_private;
-> >  	pgoff_t offset = vmf->pgoff;
-> >  	gfp_t gfp = vmf->gfp_mask;
-> >  	unsigned long addr;
-> > @@ -72,8 +171,15 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
-> >  			goto out;
-> >  		}
-> >
-> > +		if (!secretmem_account_folio(state, folio)) {
->
-> Oh, this is getting really hairy :(
-> We need better gotos in secretmem_fault(), it could be a nice
-> preparation patch, but I don't feel very strongly about it.
-
-I'm accounting for the fact that it's intended for backport so not doing
-cleanups alongside it.
-
-This is correct and was checked very carefully :)
-
->
-> > +			folio_put(folio);
-> > +			ret = VM_FAULT_SIGBUS;
-> > +			goto out;
-> > +		}
-> > +
-> >  		err = set_direct_map_invalid_noflush(folio_page(folio, 0));
-> >  		if (err) {
-> > +			secretmem_unaccount_folio(state, folio);
-> >  			folio_put(folio);
-> >  			ret = vmf_error(err);
-> >  			goto out;
-> > @@ -82,6 +188,7 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
-> >  		__folio_mark_uptodate(folio);
-> >  		err = filemap_add_folio(mapping, folio, offset, gfp);
-> >  		if (unlikely(err)) {
-> > +			secretmem_unaccount_folio(state, folio);
-> >  			/*
-> >  			 * If a split of large page was required, it
-> >  			 * already happened when we marked the page invalid
-> > @@ -115,19 +222,17 @@ static const struct vm_operations_struct secretmem_vm_ops = {
-> >  static int secretmem_release(struct inode *inode, struct file *file)
-> >  {
-> >  	atomic_dec(&secretmem_users);
-> > +	secretmem_destroy_inode_priv(inode);
-> > +
-> >  	return 0;
-> >  }
-> >
-> >  static int secretmem_mmap_prepare(struct vm_area_desc *desc)
-> >  {
-> > -	const unsigned long len = vma_desc_size(desc);
-> > -
-> >  	if (!vma_desc_test_any(desc, VMA_SHARED_BIT, VMA_MAYSHARE_BIT))
-> >  		return -EINVAL;
-> >
-> > -	vma_desc_set_flags(desc, VMA_LOCKED_BIT, VMA_DONTDUMP_BIT);
-> > -	if (!mlock_future_ok(desc->mm, /*is_vma_locked=*/ true, len))
-> > -		return -EAGAIN;
-> > +	vma_desc_set_flags(desc, VMA_DONTDUMP_BIT);
-> >  	desc->vm_ops = &secretmem_vm_ops;
-> >
-> >  	return 0;
-> > @@ -192,15 +297,23 @@ static struct file *secretmem_file_create(unsigned long flags)
-> >  	struct file *file;
-> >  	struct inode *inode;
-> >  	const char *anon_name = "[secretmem]";
-> > +	int err;
-> >
-> >  	inode = anon_inode_make_secure_inode(secretmem_mnt->mnt_sb, anon_name, NULL);
-> >  	if (IS_ERR(inode))
-> >  		return ERR_CAST(inode);
-> >
-> > +	err = secretmem_init_inode_priv(inode);
-> > +	if (err)
-> > +		goto err_free_inode;
-> > +
-> >  	file = alloc_file_pseudo(inode, secretmem_mnt, "secretmem",
-> >  				 O_RDWR | O_LARGEFILE, &secretmem_fops);
-> > -	if (IS_ERR(file))
-> > +	if (IS_ERR(file)) {
-> > +		secretmem_destroy_inode_priv(inode);
->
-> Please use goto for error handling here.
-
-I guess you mean something like the below. OK.
-
-err_free_inode_priv_inode:
-	secretmem_destroy_inode_priv(inode);
-err_free_inode:
-	iput(inode);
-	return ERR_PTR(err);
-
->
-> > +		err = PTR_ERR(file);
-> >  		goto err_free_inode;
-> > +	}
-> >
-> >  	mapping_set_gfp_mask(inode->i_mapping, GFP_USER);
-> >  	mapping_set_unevictable(inode->i_mapping);
-> > @@ -218,7 +331,7 @@ static struct file *secretmem_file_create(unsigned long flags)
-> >
-> >  err_free_inode:
-> >  	iput(inode);
-> > -	return file;
-> > +	return ERR_PTR(err);
-> >  }
-> >
-> >  SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
-> > diff --git a/tools/testing/selftests/mm/memfd_secret.c b/tools/testing/selftests/mm/memfd_secret.c
-> > index aac4f795c327..626e7033b72f 100644
-> > --- a/tools/testing/selftests/mm/memfd_secret.c
-> > +++ b/tools/testing/selftests/mm/memfd_secret.c
-> > @@ -15,6 +15,8 @@
-> >  #include <sys/resource.h>
-> >  #include <sys/capability.h>
-> >
-> > +#include <setjmp.h>
-> > +#include <signal.h>
-> >  #include <stdlib.h>
-> >  #include <string.h>
-> >  #include <unistd.h>
-> > @@ -22,6 +24,8 @@
-> >  #include <stdio.h>
-> >  #include <fcntl.h>
-> >
-> > +#include <sys/mman.h>
-> > +
-> >  #include "kselftest.h"
-> >
-> >  #define fail(fmt, ...) ksft_test_result_fail(fmt, ##__VA_ARGS__)
-> > @@ -31,6 +35,7 @@
-> >  #ifdef __NR_memfd_secret
-> >
-> >  #define PATTERN	0x55
-> > +#define MLOCK_LIMIT_CAP	(8UL << 20)
->
-> A comment about why capping at 8MB would be nice.
-
-OK.
-
->
-> >  static const int prot = PROT_READ | PROT_WRITE;
-> >  static const int mode = MAP_SHARED;
-> > @@ -39,6 +44,13 @@ static unsigned long page_size;
-> >  static unsigned long mlock_limit_cur;
-> >  static unsigned long mlock_limit_max;
-> >
-> > +static sigjmp_buf fault_env;
-> > +
-> > +static void sigbus_handler(int sig)
-> > +{
-> > +	siglongjmp(fault_env, 1);
-> > +}
-> > +
-> >  static int memfd_secret(unsigned int flags)
-> >  {
-> >  	return syscall(__NR_memfd_secret, flags);
-> > @@ -57,10 +69,32 @@ static void test_file_apis(int fd)
-> >  		pass("file IO is blocked as expected\n");
-> >  }
-> >
-> > -static void test_mlock_limit(int fd)
-> > +/* GUP disallows automatic fault-in of secretmem, so do it manually. */
-> > +static bool fault_in_secretmem(char *mem, size_t len)
-> > +{
-> > +	if (sigsetjmp(fault_env, 1))
-> > +		return false;
-> > +	memset(mem, PATTERN, len);
-> > +	return true;
-> > +}
-> > +
-> > +static void test_mlock_limit(void)
-> >  {
-> >  	size_t len;
-> >  	char *mem;
-> > +	int fd;
-> > +
-> > +	/* Locked pages have an inode lifetime, so need a new fd. */
-> > +	fd = memfd_secret(0);
-> > +	if (fd < 0) {
-> > +		fail("memfd_secret failed: %s\n", strerror(errno));
-> > +		return;
-> > +	}
-> > +
-> > +	if (ftruncate(fd, mlock_limit_max * 2)) {
-> > +		fail("ftruncate failed: %s\n", strerror(errno));
-> > +		goto out_close;
-> > +	}
->
-> Can't we ftruncate to this size in main and be done?
-
-I think we should be able to, will change unless it's somehow a problem.
-
->
-> >
-> >  	len = mlock_limit_cur;
-> >  	if (len % page_size != 0)
-> > @@ -69,19 +103,48 @@ static void test_mlock_limit(int fd)
-> >  	mem = mmap(NULL, len, prot, mode, fd, 0);
-> >  	if (mem == MAP_FAILED) {
-> >  		fail("unable to mmap secret memory\n");
-> > -		return;
-> > +		goto out_close;
-> > +	}
-> > +
-> > +	if (!fault_in_secretmem(mem, len)) {
-> > +		munmap(mem, len);
-> > +		fail("unable to fault in secret memory\n");
-> > +		goto out_close;
->
-> Please don't mix cleanup styles, goto err_do_cleanup is the preferred
-> way.
-
-OK will change.
-
->
-> --
-> Sincerely yours,
-> Mike.
->
-
---
-Cheers, Lorenzo
+Reviewed-by: Sidraya Jayagond <sidraya@linux.ibm.com>
