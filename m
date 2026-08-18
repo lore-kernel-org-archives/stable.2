@@ -1,81 +1,40 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1071D54FA
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 07:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9EB23EA97;
+	Tue, 18 Aug 2026 07:36:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787038396; cv=none; b=pPdCCABeHhhKj/bkdzyqcxKs4AF11UjFYWzQBeUJFlfKDuuuOy8tix3PcwJe1XSvBWpJoaWBxx7IBFO/WsN2+/Zt3M1qqtLAqHcS0Y95tZBvlZ95ZS183x49RgEBTDSx7ONlmV2sMozEJJvqwa2M7ycVt/MsKzSd9hahlRb9NDc=
+	t=1787038568; cv=none; b=HKeSlM9QeI7GfyqJiuGvV/pNc3OviUpqaklYroZ2l3SEAoxSYnQs6RzwHn7Sl6Sb3i3hWfmP5vwLxq2WftY/n7HDRf7yAmINIifsmR1d/0WX4zTmvJKBuyLEt0aAN3NLrdjWn15GVYssy1NBtPjqgXl7qU0pflS2iPW1EYx5TxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787038396; c=relaxed/simple;
-	bh=yXgCy1ZNVXJy5+9cLGZeE5uyn6X/ULoiPOSTm8c6YUw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cEcNMxudnU17qVsCQNcYwpd+11Zq7OrpUaO7ZK8UA3PyPQSmWlWoRHEUTlf8eYwmUytQVwWkTScXrNDrTUm3qzNMVogS6UoXl7agYQMtqh14FiAlJbkxnzcnl1nyqFMUwmpBNUC93vxa1u5EZiDjqKx2MZdgtfr1wcBhABjDZ10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=omGXeGGH; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787038568; c=relaxed/simple;
+	bh=uTp+uLto/TEqOTFzZDptyQ6pUb6Frc5lNvFWs20Y3xA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kEmO011sU2NRAzaNbSGXSGxesPR1HRs89QQLGZ6jHDgPVfZu5OJHpJXC9lb2q41nXgSDyPO9aegCUlSnobX8252FCoXMtNVOEw2tRP4giS1Z1CyBZtXZ1oOUZpxpM33Lhd6TGr7WMi5qc6uyYbPWtCQrH4AaYvHMUkaPkt6zAKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=mcOYsRl9; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="omGXeGGH"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38e58034d05so3298123a91.2
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 00:33:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787038394; x=1787643194; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/uWawcNhMBUKk6HeN3hgFqps7RI+QPHqIhbrb/vDwOg=;
-        b=omGXeGGHNIVr4TSBnze/IEREK9nZDy6QmfMeBoJivBQcQ607dwapdT8HOq39RDtdeY
-         StbpV61/c+WRxZ9tztgegXoA8vFj2b1w6ccV1PAj1+oRhf4YpO3umDEGrtr2mGwdx547
-         OJEgP78J4XyNy+qBewNVdWEWSkSy1cBta+YywQcmElijr6Hi/D7Gbg5YgopRVo1cYpwP
-         vEwR2nl7szCUVtzymiao4UMBUe4TerhY6F0zG68t4gnuM9Wf6OgtopEM6qPrLQEisSyC
-         KpQhJorAvFmWh1anSsSrQ2U/gS472ixyN+R/FHgi3d4E6lHN1Sr4FVlRU/exLXcUkqoi
-         krNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787038394; x=1787643194;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/uWawcNhMBUKk6HeN3hgFqps7RI+QPHqIhbrb/vDwOg=;
-        b=qC/zhq2ong8C1TAUiQXOt7ri4+YdN3kL9GX0c16LHBHoB16cm1DdrjOKaKjus3Xrac
-         GmNgbjmHcVMBL1UsimEm8sUZbtOKcAMLEm7EjA2tnefuLmEhlxaYPbtw2/554kZhgcut
-         9Z+qiq6rO8Gxgfyk0MRbeTTbrsKC6W1rCOr+jU/lLiAcWohmhhv1V907j1tV8+HWEb9s
-         oEq9RL2q2P0d697UKVhlr6yYSdMZPU4lLcb+TPfqP6xKhfvkgj8WppkFuqy5taFURxzz
-         lspMQ2Jo6q1vzsP7pkd8RlNI1l8RjbIsMzlHwTPqqlfmzNZsEB7y/1xH/FO3UhABenOw
-         CNvw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq/0/jvRtNvtdPCEbN9QhHtQd0f80lYT+08Bh63wEz0aQX64tFkzvREHnrmI3Bh2MTyFtOCLuc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwIPn6FGkX1weEHIYKmFFDIHwhvxoJVOvm4DRUcN7IZvXrG1yk9
-	Nn1U2lcoNhYOOUnEEFoqFqceMtpyJ1NdWCijOB5PffHTQsJqlvRLqJM/
-X-Gm-Gg: AR+sD11IkMVWQQWftPHButaCrwWnSqvDj1ZmdSoTofOzvTtbwKUWTzrPXYjuCdgqyil
-	8BvDpNXoYtUlkNq3WdG1Vy5UpL1WIvnRrHBnVDOs7Hmk8uUuKykaSAWtZ5tcqDtv27gAWZDoruc
-	rX71b25+EJji2oVKON44zpCVBusMe/lAkTOjAo6J2l+tRE1Q6r6Rv9QHgQhCvrfe25LfXxREzc+
-	iyFAphqyZzzuZtO0umPZo6Q6eZhWqHBrRwSPcozTqGNdqYu8RFZgLWsnBbbQ9hug3NWo9IUFn65
-	f7ZJsK4xhrANQu3jucksWrr7stKVA9KPW8q21CScduDqcpPJi8mGKKgAUuqtx5q5UuV7y+boo5t
-	5/MKes4FiTZ1b2DtZKXCGiFvejWX8/Fey4D2txwM7u+khR/NRlvGKsIvEs7iWXSol8sZGO2wKll
-	91j+d02PbLF66b0HvUJwp7qwmSEYOCS0WwyahM/hihH25Jwk4l0sCbqjy77DHW/RxAiVk=
-X-Received: by 2002:a17:90b:3941:b0:38d:f5bb:e0f4 with SMTP id 98e67ed59e1d1-3955a3dadfcmr8356105a91.1.1787038394439;
-        Tue, 18 Aug 2026 00:33:14 -0700 (PDT)
-Received: from localhost ([2402:e280:3e0d:544:91b3:77c4:f31d:d706])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327af7934cbsm3654442eec.6.2026.08.18.00.33.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 00:33:13 -0700 (PDT)
-From: Vaibhav Nagare <nagarevaibhav@gmail.com>
-X-Google-Original-From: Vaibhav Nagare <vnagare@redhat.com>
-To: horms@kernel.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com
-Cc: andrew+netdev@lunn.ch,
-	matvey.kovalev@ispras.ru,
-	Pavel.Zhigulin@kaspersky.com,
-	aelior@marvell.com,
-	manishc@marvell.com,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="mcOYsRl9"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a6132812;
+	Tue, 18 Aug 2026 15:35:56 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: "Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: James Bottomley <James.Bottomley@suse.de>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Vaibhav Nagare <vnagare@redhat.com>
-Subject: [PATCH net v5] qede: Fix NULL pointer dereference in TPA fragment processing
-Date: Tue, 18 Aug 2026 13:03:09 +0530
-Message-ID: <20260818073309.2266072-1-vnagare@redhat.com>
-X-Mailer: git-send-email 2.54.0
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH v2] scsi: target: file: avoid recursive configfs open in fd_init_prot()
+Date: Tue, 18 Aug 2026 15:35:39 +0800
+Message-Id: <20260818073539.1555605-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260818045807.1519433-1-runyu.xiao@seu.edu.cn>
+References: <20260818045807.1519433-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,92 +42,193 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa013cc61b903a1kunm1ff69152105bd3
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTEsdVh0YSkxNSkxLHhhNQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=mcOYsRl9y+9t4ROPQO6DjJeE0KHSxvMtSLQ43Ww4YF4Oey0Vg97BCIYhp5vadPCYH0/CSaAvwAKW0e2P1owXs151xi8qk95NQXd0icxuPNwWCC/Ue+IafdA0HgQ1WwWDwdtxC8TzR2LmHdMebrfxd52ctS+20EuN7czLO+INNcc=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=4IWrbNq7h4KF+lauRZBDNE72SQyrFEFofHbGv3OQkn4=;
+	h=date:mime-version:subject:message-id:from;
 
-Under memory pressure, the qede driver encounters NULL pointer
-dereferences when processing TPA continuation fragments.
+pi_prot_type_store() runs under the configfs item's frag_sem.  For
+FILEIO devices it calls fd_init_prot(), which rebuilds a
+"$FILE.protection" pathname from fd_dev_name and opens it with
+filp_open().  If that pathname resolves inside configfs, the open path
+can re-enter configfs while the store callback still holds frag_sem.
 
-Commit 8a8633978b84 ("qede: Add build_skb() support.") accidentally
-dropped the assignment of tpa_info->buffer.data in qede_tpa_start().
+By the time fd_init_prot() runs, the backing file has already been
+configured and pinned in fd_dev->fd_file.  Instead of reopening a
+user-controlled pathname, derive the protection sidecar from the
+configured backing file itself: reject configfs-backed backing files,
+take the opened file's parent dentry, and open or create
+"<resolved-name>.protection" there with direct dentry operations.
 
-When memory pressure causes an SKB allocation failure in qede_tpa_start(),
-the driver sets tpa_start_fail = true and attempts to recycle the physical
-page later in qede_tpa_end() via qede_reuse_page(). However, because
-buffer.data was left uninitialized (NULL), qede_reuse_page() pushes a
-"ghost" BD (valid DMA mapping but NULL data pointer) back into the
-active Rx ring.
+This keeps the PI sidecar tied to the configured backing file, avoids a
+new pathname walk from the configfs store path, and also rejects
+stacked filesystems whose real backing file lives on configfs.
 
-The next time the hardware uses this ring slot, it passes a NULL page
-to qede_fill_frag_skb(), causing a kernel panic.
-
-Example crash from production system:
- BUG: unable to handle kernel NULL pointer dereference at 0x8
- RIP: qede_fill_frag_skb+0x96/0x430 [qede]
- Call Trace:
-   qede_rx_int+0xb06/0x1de0
-   qede_poll+0x2f4/0x6c0
-   __napi_poll+0x2d/0x130
-
-Fix the root cause by restoring the tpa_info->buffer.data assignment
-in qede_tpa_start(), ensuring valid pages are correctly tracked and
-recycled. Additionally, update the stale comment for
-struct qede_agg_info::buffer to reflect its current usage.
-
-Fixes: 8a8633978b84 ("qede: Add build_skb() support.")
-Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 0f5e2ec46dd6 ("target/file: Add DIF protection init/format support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+
+v2:
+- narrow the scope to 022 / fd_init_prot() only
+- drop the earlier shared 022/023 pathname helper attempt
+- use LOOKUP_CREATE so a missing sidecar can actually be created
+- open or create the PI sidecar next to the configured backing file
 ---
-  v5: Addressed AI review feedback from Jakub Kicinski:
-    - Dropped redundant fast-path hardening code (NULL checks, early exits, 
-      and consume/recycle loop logic) as the root cause fix makes ghost BDs 
-      mathematically unreachable.
-    - Updated stale struct qede_agg_info::buffer comment in qede.h to 
-      reflect its current non-preallocated usage.
-    - Corrected commit title formatting in Fixes: tag.
-  v4: Fix err: label handling as identified by Jakub Kicinski:
-    - Restored tpa_info->buffer.data assignment in qede_tpa_start().
-    - Reverted err: label in qede_tpa_end() to use tpa_start_fail flag.
-  v3: Addressed AI review feedback:
-    - Fixed NULL pointer recycling and array bounds check order.
-  v2: Addressed AI review feedback from Simon Horman:
-    - Added net_ratelimit() and fixed NULL buffer recycling.
-  v1: https://lore.kernel.org/netdev/20260709044704.141507-1-vnagare@redhat.com/
+ drivers/target/target_core_file.c | 102 +++++++++++++++++++++++++++---
+ drivers/target/target_core_file.h |   1 -
+ 2 files changed, 94 insertions(+), 9 deletions(-)
 
- drivers/net/ethernet/qlogic/qede/qede.h    | 8 ++++----
- drivers/net/ethernet/qlogic/qede/qede_fp.c | 1 +
- 2 files changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/qlogic/qede/qede.h b/drivers/net/ethernet/qlogic/qede/qede.h
-index 042a75f34060..0e7a0c2c1765 100644
---- a/drivers/net/ethernet/qlogic/qede/qede.h
-+++ b/drivers/net/ethernet/qlogic/qede/qede.h
-@@ -303,10 +303,10 @@ enum qede_agg_state {
- };
+diff --git a/drivers/target/target_core_file.c b/drivers/target/target_core_file.c
+index 2d78ef74633c..b7810ccceb44 100644
+--- a/drivers/target/target_core_file.c
++++ b/drivers/target/target_core_file.c
+@@ -19,6 +19,10 @@
+ #include <linux/module.h>
+ #include <linux/vmalloc.h>
+ #include <linux/falloc.h>
++#include <linux/limits.h>
++#include <linux/magic.h>
++#include <linux/mount.h>
++#include <linux/namei.h>
+ #include <linux/uio.h>
+ #include <linux/scatterlist.h>
+ #include <scsi/scsi_proto.h>
+@@ -86,6 +90,86 @@ static struct se_device *fd_alloc_device(struct se_hba *hba, const char *name)
+ 	return &fd_dev->dev;
+ }
  
- struct qede_agg_info {
--	/* rx_buf is a data buffer that can be placed / consumed from rx bd
--	 * chain. It has two purposes: We will preallocate the data buffer
--	 * for each aggregation when we open the interface and will place this
--	 * buffer on the rx-bd-ring when we receive TPA_START. We don't want
-+	/* buffer is used to retain the Rx consumer descriptor when a TPA
-+	 * session starts. If the SKB allocation fails during TPA_START,
-+	 * we use this saved buffer to safely recycle the physical page
-+	 * back into the rx-bd-ring via qede_reuse_page(). We don't want
- 	 * to be in a state where allocation fails, as we can't reuse the
- 	 * consumer buffer in the rx-chain since FW may still be writing to it
- 	 * (since header needs to be modified for TPA).
-diff --git a/drivers/net/ethernet/qlogic/qede/qede_fp.c b/drivers/net/ethernet/qlogic/qede/qede_fp.c
-index 33e18bb69774..2d42e51ff992 100644
---- a/drivers/net/ethernet/qlogic/qede/qede_fp.c
-+++ b/drivers/net/ethernet/qlogic/qede/qede_fp.c
-@@ -845,6 +845,7 @@ static void qede_tpa_start(struct qede_dev *edev,
- 					      pad, false);
- 	tpa_info->buffer.page_offset = sw_rx_data_cons->page_offset;
- 	tpa_info->buffer.mapping = sw_rx_data_cons->mapping;
-+	tpa_info->buffer.data = sw_rx_data_cons->data;
++static bool fd_backing_file_is_configfs(struct file *file)
++{
++	return d_real(file_dentry(file), D_REAL_DATA)->d_sb->s_magic ==
++	       CONFIGFS_MAGIC;
++}
++
++static int fd_open_prot_file(struct file *file, int flags, umode_t mode,
++			     struct file **filep)
++{
++	struct dentry *backing_dentry = file_dentry(file);
++	struct path parent_path = {
++		.mnt = mntget(file->f_path.mnt),
++		.dentry = dget_parent(backing_dentry),
++	};
++	struct path prot_path = { .mnt = parent_path.mnt };
++	struct file *prot_file;
++	struct qstr prot_qname;
++	char *prot_name;
++	size_t prot_name_len;
++	int ret;
++
++	if (fd_backing_file_is_configfs(file)) {
++		ret = -EINVAL;
++		goto out_put_parent;
++	}
++
++	prot_name_len = backing_dentry->d_name.len + strlen(".protection");
++	if (prot_name_len > NAME_MAX) {
++		ret = -ENAMETOOLONG;
++		goto out_put_parent;
++	}
++
++	prot_name = kmalloc(prot_name_len + 1, GFP_KERNEL);
++	if (!prot_name) {
++		ret = -ENOMEM;
++		goto out_put_parent;
++	}
++
++	memcpy(prot_name, backing_dentry->d_name.name, backing_dentry->d_name.len);
++	memcpy(prot_name + backing_dentry->d_name.len, ".protection",
++	       strlen(".protection") + 1);
++	prot_qname = QSTR_INIT(prot_name, prot_name_len);
++
++	inode_lock_nested(d_inode(parent_path.dentry), I_MUTEX_PARENT);
++	prot_path.dentry = lookup_one_qstr_excl(&prot_qname, parent_path.dentry,
++						LOOKUP_CREATE);
++	if (IS_ERR(prot_path.dentry)) {
++		ret = PTR_ERR(prot_path.dentry);
++		goto out_unlock;
++	}
++
++	if (d_is_negative(prot_path.dentry)) {
++		ret = mnt_want_write_file(file);
++		if (ret)
++			goto out_dput;
++
++		prot_file = dentry_create(&prot_path, flags, mode, current_cred());
++		mnt_drop_write_file(file);
++	} else {
++		prot_file = dentry_open(&prot_path, flags & ~O_CREAT,
++					current_cred());
++	}
++	if (IS_ERR(prot_file)) {
++		ret = PTR_ERR(prot_file);
++		goto out_dput;
++	}
++
++	*filep = prot_file;
++	ret = 0;
++
++out_dput:
++	dput(prot_path.dentry);
++out_unlock:
++	inode_unlock(d_inode(parent_path.dentry));
++	kfree(prot_name);
++out_put_parent:
++	path_put(&parent_path);
++	return ret;
++}
++
+ static bool fd_configure_unmap(struct se_device *dev)
+ {
+ 	struct file *file = FD_DEV(dev)->fd_file;
+@@ -827,7 +911,6 @@ static int fd_init_prot(struct se_device *dev)
+ 	struct file *prot_file, *file = fd_dev->fd_file;
+ 	struct inode *inode;
+ 	int ret, flags = O_RDWR | O_CREAT | O_LARGEFILE | O_DSYNC;
+-	char buf[FD_MAX_DEV_PROT_NAME];
  
- 	if (unlikely(!tpa_info->skb)) {
- 		DP_NOTICE(edev, "Failed to allocate SKB for gro\n");
+ 	if (!file) {
+ 		pr_err("Unable to locate fd_dev->fd_file\n");
+@@ -844,13 +927,16 @@ static int fd_init_prot(struct se_device *dev)
+ 	if (fd_dev->fbd_flags & FDBD_HAS_BUFFERED_IO_WCE)
+ 		flags &= ~O_DSYNC;
+ 
+-	snprintf(buf, FD_MAX_DEV_PROT_NAME, "%s.protection",
+-		 fd_dev->fd_dev_name);
+-
+-	prot_file = filp_open(buf, flags, 0600);
+-	if (IS_ERR(prot_file)) {
+-		pr_err("filp_open(%s) failed\n", buf);
+-		ret = PTR_ERR(prot_file);
++	ret = fd_open_prot_file(file, flags, 0600, &prot_file);
++	if (ret) {
++		if (ret == -EINVAL)
++			pr_err("configfs-backed FILEIO backends cannot store PI metadata\n");
++		else if (ret == -ENAMETOOLONG)
++			pr_err("protection sidecar name is too long for FILEIO backend: %pd.protection\n",
++			       file_dentry(file));
++		else
++			pr_err("failed to open FILEIO protection sidecar for %pd: %d\n",
++			       file_dentry(file), ret);
+ 		return ret;
+ 	}
+ 	fd_dev->fd_prot_file = prot_file;
+diff --git a/drivers/target/target_core_file.h b/drivers/target/target_core_file.h
+index 929b1ecd544e..1b4c1b43827f 100644
+--- a/drivers/target/target_core_file.h
++++ b/drivers/target/target_core_file.h
+@@ -7,7 +7,6 @@
+ #define FD_VERSION		"4.0"
+ 
+ #define FD_MAX_DEV_NAME		256
+-#define FD_MAX_DEV_PROT_NAME	FD_MAX_DEV_NAME + 16
+ #define FD_DEVICE_QUEUE_DEPTH	32
+ #define FD_MAX_DEVICE_QUEUE_DEPTH 128
+ #define FD_BLOCKSIZE		512
 -- 
-2.54.0
-
+2.34.1
