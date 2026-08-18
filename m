@@ -1,115 +1,131 @@
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4295E448388
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 09:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797982931D5;
+	Tue, 18 Aug 2026 09:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787046523; cv=none; b=kwiypzAbgSbdg4GWRhii1TO1Wq0BGdtXAOfmSijqJDSR+AUudpCTw0UM6b9lOQbon6Vj4OkmU55fDMEIc1qlQ5d2UC/BNFuxwC4Q/NzcU3eamObyJtxRz67qhDh6cyRkF9A7FErXPLpPDlEXJTQjB46V3o1CZot3TM+rLhhb+ZE=
+	t=1787046585; cv=none; b=fFzoRvNdSYnXdg3xcxBJYi70apUBAasKO6NNAQhZF6EcDm7f9I2mENRNYu+QpEnXUGW5tVLy+dgJZkpR3V6nTkRu2DNOUzru/4not0b3hkfJmORZYiyAkhjhmCv82X/9aub5id+nfv13Vv1x6eHwvVm1ghVw+sVCxe8sAnz12rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787046523; c=relaxed/simple;
-	bh=unQoIGrH+GdH1GgLxg0HACekFDr+tzBFfd3w+6X3r8g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ors/x9EdCPC9sLQbDb2MJjqOorGiMOZ5wWUL+Ymf68BQ+D2ul5tsvFEe4qZiCBoqnTqxIh+ITXT9+v/o5UxG7WB/t0fwH5peP1283mbeMdW4yDdx4aT8LtGULniPtz5VSg4zLKkP7mjRE6wTWeijhfs74FoL7nenRKoL8QcXihA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=R/uMBlbD; arc=none smtp.client-ip=35.89.44.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1787046585; c=relaxed/simple;
+	bh=y5GD6lS0t2jnsBMwQDdXpyEkybJrOftyeRvVeWJIWFc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XvBD+hkVzJxmHF69tZFTfFh96Bs5kKKjDuv0FNRtPxq+tszY9R/hl0nigkOdFANCj0leMAlJzuPtjq/qzHxjr3+QjzSGG58W5b0Q8OQQ1aSO3mG6ziMAL3hlqye68Po2/UAHjC+Pk7cEGI4C6x9vGO9k5jQ8T5B9nueou8u5kQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mp127J7X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="R/uMBlbD"
-Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
-	by cmsmtp with ESMTPS
-	id wGM5w4ZYcusRSwGPSwk1i1; Tue, 18 Aug 2026 09:47:06 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id wGPRwfndBxg8YwGPRwc1nS; Tue, 18 Aug 2026 09:47:05 +0000
-X-Authority-Analysis: v=2.4 cv=R44DGcRX c=1 sm=1 tr=0 ts=6a842a19
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=clWHoDtF10NeT/mzylEGUN/EGi4aulMN63qkD+2LsTo=; b=R/uMBlbDvtaKrPlJ7OFCz0qjCW
-	eqQJywhzH6gCUqtiBPyuKC5KbV6jD6DxdC3mnv1ULHmDZh0EATHmY2SbGuGBG5kniH+TYrOoxMHSa
-	3qPs9IKjVyeA8+JhVQbdlnQnXEeog4nscqZlVxwwnJpv1N6zX0aalCcIsZofpdRdP0spC1HR/QH6o
-	rZpxy8ji0oQ5HQk0X1ZWwKH0f6DZYRrHxCuFlXkRz6v7+e0M8DFBkSAWcd3Efi9bid691NNIR5h3o
-	9u/LJRf+9pjmfHuQdUnvjfDApAQA9VcB14byPpUAzovr52l3+0/IUxdFK0GyO5+ZVkzvmycOdU/3N
-	QReymiyw==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:55228 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <re@w6rz.net>)
-	id 1wwGPQ-000000027WE-3jt9;
-	Tue, 18 Aug 2026 03:47:04 -0600
-Message-ID: <36fb0ac2-ef3f-4be8-9ce8-1cfe720170a6@w6rz.net>
-Date: Tue, 18 Aug 2026 02:47:03 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mp127J7X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB6A1F000E9;
+	Tue, 18 Aug 2026 09:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787046584;
+	bh=+3gQstz+ynLenZZkOIHRG2TEYZzSHYIitb2qWK/ts+w=;
+	h=From:Date:Subject:To:Cc;
+	b=Mp127J7X2WYfzJHcXaLguKI0yBVpMLYIP9vedFanrNG6QmKilyIXCzDYvExuVcTUg
+	 1wbfOeMevZRupYhrZDUa92eRQUV9jcdoHPM+G+H8SC/MeDwY4koLjNLwCTNTZOuoQa
+	 wVKFnsomqqj+g9uip8WtnQjnJ+ypHQnXlw1Z4vc0FdFlYN6EYqwtW09gS/CEc7ZiFD
+	 uYVA3NXKn3L+SlFdErNN+/Jdg3qt388skhOSaSvNAisCoFqLPNqAyztpKgBDOlYABq
+	 CPqPTXXK/GHXybs9Y4w2pb91WPubUTsr5rp/v1HV3okJLRyQOG7yjMAkCwGafesmWX
+	 mdE2QEScmZJyg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 18 Aug 2026 10:49:34 +0100
+Subject: [PATCH] Bluetooth: hci_bcm4377: Ignore reserved PHY in ext adv
+ reports on BCM4378
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 000/271] 7.1.9-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260817132536.752504388@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wwGPQ-000000027WE-3jt9
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:55228
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 19
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHXRYoP1fHg6oJrlyIpAsYTOoE2Ha1gPpS7Gh495zSrgsAh6crNhNtnSjkyt5SEtCQpjtjKHqcUa3IIMmFwsspq2jFPAPBvsWHIewGIOgWF38HTKdeL2
- UzPc2ZfsyaQViHWrpKeyHrlNo6hU7+m7zRSkjjMoMRNEjUO6y0wpH4cPl4Je5ao7yhODYwvFO6SckQ==
+Message-Id: <20260818-fix-bcm4378-ext-adv-v1-1-81a143eac194@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bkEzVPpKdChdaw9ZaIQQ/T3pO
+ DAzD2RKTBmG5oFEN2c+YgXZNuC2Oa6E7CtDJzotrLQYuODi9l4Zi1QunP2NwijjlAte6wVqeSa
+ q2n8dp/f9AOPzgC5lAAAA
+X-Change-ID: 20260818-fix-bcm4378-ext-adv-0737c3cfd66b
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Marcel Holtmann <marcel@holtmann.org>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2533; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=y5GD6lS0t2jnsBMwQDdXpyEkybJrOftyeRvVeWJIWFc=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJatDZdiBD26Z6Xf+nL2WZpx1a+tqLKTMmZzpGielYcB
+ SaPZG06SlkYxLgYZMUUWZ5/Ed8fJBI2r/OCvxvMHFYmkCEMXJwCMJGinwz/lBVsyhezFPzeFSVb
+ bhmXP+1RBfs0Wb4gbcHlsnuPygYIMDJ0nph/O/0ue4bR/nOmXcGmIhsS/96p0rX5fE30tPWmz7v
+ 4AA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On 8/17/26 06:28, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.9 release.
-> There are 271 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Wed, 19 Aug 2026 13:23:44 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.9-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+Commit ed2a2ef16a6b ("Bluetooth: Add quirk to ignore reserved PHY bits in
+LE Extended Adv Report") added a quirk to handle creative use of the
+reserved bits in the PHY fields for 4388 controllers in Apple silicon.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+I observed the same issue with the BCM4378 Bluetooth controller (14e4:5f69,
+rev 05) on an Apple MacBook Pro (13-inch, M2, 2022):
 
-Tested-by: Ron Economos <re@w6rz.net>
+> HCI Event: LE Meta Event (0x3e) plen 51
+      LE Extended Advertising Report (0x0d)
+        Num reports: 1
+        Entry 0
+          Event type: 0x2513
+            Props: 0x0013
+              Connectable
+              Scannable
+              Use legacy advertising PDUs
+            Data status: Complete
+            Reserved (0x2500)
+          Legacy PDU Type: Reserved (0x2513)
+          Address type: Random (0x01)
+          Address: EA:C1:82:F0:24:C6 (Static)
+          Primary PHY: Reserved
+          Secondary PHY: No packets
+          SID: no ADI field (0xff)
+          TX power: 127 dBm
+          RSSI: -57 dBm (0xc7)
+          Periodic advertising interval: 0.00 msec (0x0000)
+          Direct address type: Public (0x00)
+          Direct address: 00:00:00:00:00:00 (OUI 00-00-00)
+          Data length: 25
+
+This results in the firmware rejecting connection attempts with
+"Unsupported Feature or Parameter Value" (0x11).
+
+Fix the issue by using the same quirk for BCM4378 devices too.
+
+I tested this locally and confirmed that the issue is resolved.
+
+This was observed when attempting to connect a Kinesis Advantage 360
+keyboard to the MacBook.
+
+Assisted-by: Claude:claude-fable-5
+Fixes: 2e7ed5f5e69b ("Bluetooth: hci_sync: Use advertised PHYs on hci_le_ext_create_conn_sync")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ drivers/bluetooth/hci_bcm4377.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/bluetooth/hci_bcm4377.c b/drivers/bluetooth/hci_bcm4377.c
+index 925d0a635945..66d49b471544 100644
+--- a/drivers/bluetooth/hci_bcm4377.c
++++ b/drivers/bluetooth/hci_bcm4377.c
+@@ -2490,6 +2490,7 @@ static const struct bcm4377_hw bcm4377_hw_variants[] = {
+ 		.has_bar0_core2_window2 = true,
+ 		.broken_mws_transport_config = true,
+ 		.broken_le_coded = true,
++		.broken_le_ext_adv_report_phy = true,
+ 		.send_calibration = bcm4378_send_calibration,
+ 		.send_ptb = bcm4378_send_ptb,
+ 	},
+
+---
+base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
+change-id: 20260818-fix-bcm4378-ext-adv-0737c3cfd66b
+
+Best regards,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
