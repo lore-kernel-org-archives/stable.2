@@ -1,125 +1,176 @@
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B75D135A53
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 15:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6168D477983;
+	Tue, 18 Aug 2026 16:01:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787068789; cv=none; b=SbxN0aUI4kwyHgYh4CJUIrouff2Ua05WaxtWBnRqLV7IhHqdfM95LcH5/AkkDmvIDNge4rc/6FECRvzuSHWstL7kWBTrvN+HTX8w4EMP+tqSDZ93k4ZdZsM287FtQ/tz/R65Wro9CKa2zJfBagr3Tz8kKRbs0UcUIhN4Pg0FXKQ=
+	t=1787068890; cv=none; b=VAXoBhWpeI/uRmqDydFxKSmtkPBMy6yv907m/wkty+0iJOFS8O587dCdc+29nse2h612XXgBZ6C79aPwwaTyibJ9g3Rdo+Eue8PwiN046sU5t6F52ld7JVy89BhRBnuwHR+BOCINB9ZNn7niAXWNeeXNjE2w3EeVwU85KeMNqQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787068789; c=relaxed/simple;
-	bh=lVXDNJkWGF2Ydi7So6FnKajkXb6/q5NeGUQY8BOmulY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sTl1NALq+R8OwN+u/OLp/xJ8xBFu3plEEaMzaB+orIjetzKcQ5KOOeOnoHWh0y1jgSgqCglgOcPGRUT34e9TS3jDiYwYoRsuUNzpbADwN6jsScciiEuoFhR9Bkv2BK7r2nmrSHGTIm7qPKLmmai8ZWmBvRfMCYUVlu20DI3Zsks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=bumqRksM; arc=none smtp.client-ip=209.85.222.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1787068890; c=relaxed/simple;
+	bh=T7JYQMkq3KtJ8HRVAnuEdXgNXPTmppuXPrV+NLf3n7s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gD2RY6iXd0C5E1z6FsSih/QVvQsYkC3ZDMOCjzEx1Sl7NM5wIyjfWh6XlkOwHf1xA97UAcWw+cQylLMnIYuEC1j1FqoX7wuxiFQ1tc9rKhRSZTdg3mliFhzdr/olkMRVS6Az8U74wDkOz08AfzVDvbNjtLEwfCDfsMO1KjfMPy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=igqCOKAT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="bumqRksM"
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-92e6391b114so2596185a.3
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 08:59:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1787068787; x=1787673587; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uxYxH/7HzEDjlFU2mzmA8K0o8o4GrlI50HpnOIkwdkk=;
-        b=bumqRksMRRO1OkmIQMDiNkaQthHmPwQoCMkvvhZnNoh2pLyLWfMoU7WYMGAgM7AqVa
-         F8Ek9vEe/rYDghypjMTCTMPw5mxmIK3NMScUmPSVaLdPHUixpmf97VaFGB+dn+eJgd0u
-         LTiM1o4Tcgx05OVDWcYwzxmzmYvHzrLpFh63S6UnwFIt+NpUqoshnNxebVDRBpHBINaX
-         E7Ub/Kn/Xo/8wXhCHpyP7eAqlGjmVzLaQPXQNLTG5MfqFJsQENzNviussB+Y3Thq8s3U
-         1jiv+Zl6A1RHKZmYm/1PUuboLq8mCmYZSaLD1lGSaW4hbYg/1OeOvAzSQBz2hyLwiug1
-         WRpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787068787; x=1787673587;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uxYxH/7HzEDjlFU2mzmA8K0o8o4GrlI50HpnOIkwdkk=;
-        b=MYk1oMkBMXbV2pL4gRc+DqcJC6jxFNOSlYW+lKwyk6h7sNIspXbs5MzrdXpukcbi0g
-         Q0LEP78alfrVCz/pvObwsdqcwMg/f3OsYu4cg2oUssVX7/ouw8oDRIKdTEC1Q7/8BQmQ
-         Xat/cnnXLvg+2qHEHSr0MQ51mC9Y4DY2ip3MhDRxAbtTpKHRYnv10wh/hv/KG8cA9zz6
-         NxVjKuc/H8WzmtKna8iMuKYuxcnkJwNy5xqVjC8WJg0dJSYyx/ebgOiVP+U4E+1JNui0
-         NIxyaxjQRprk+HpKOJQK5FRs66NB+qYMioS8davbC/6tdhmagTxQGfZ/uk64/BYTTthB
-         yJig==
-X-Forwarded-Encrypted: i=1; AHgh+RrN7cEe+FPWu/GRi/gHgbDApwGt0UmkczfCzN8zAe4aQEeaSha7DuA3OOi2Y66AAYWVyzrfdw4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyecEzKHmZTzw/A5npFiS3ftN3ZJ6qvGSvCafnXO4NKNKPyNLC/
-	gCGIPK3zCDFCNfm9WGp/p2BAMHXBdmswlkOia0NX+wRPrOT8a1aES7ybcgdXP+DEKw==
-X-Gm-Gg: AR+sD13xOJqmw1LDOvGxaN3MIV23nPEFfrVHBbOtwlTPBU8nBMWJr5vK08n3ErpKotg
-	ry/y/npFEvsyv6pU2bDo3fHLBw4jcJKdCSI3oeSuO7gCuYElywJ4GemHHCP9KuM6qIAjN4A4qOW
-	Pwf7V6tUNmK9dxFWC2LuYEUYfS8g1EISPk9S/RfpukJqX7gB9lEgxwS3CjzkhsNjvoVGvAmwpy+
-	v4itkU5Rs4OY0jkx/0XGPa96P89RdvFu56dLcM1Sxoph4Vk59qcz4Rs2OjV4d55R6RwK7S0a0OC
-	BFQE4iBD3mtrgz+PWqDHgAsmeThm0ceyMVqjpuHG6/o6cBWzrTc9OdjhmGClKfGMzlaHzAhGxY8
-	HNro2if11ftkmMNMwt5LLdCONs0aufX8cOrRHA93UEc0CAgUkb3iWM6OwUP45922U5JSKv24M5m
-	sac1eiQnhjQjypgl8oavzXXiPvGXwftkF8iXG+O7ANaKoczWrRt+/x0IciuNR4pQ==
-X-Received: by 2002:a05:620a:3f9c:b0:930:771e:e8d0 with SMTP id af79cd13be357-936d22cf265mr2826435485a.25.1787068786893;
-        Tue, 18 Aug 2026 08:59:46 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::dfd8])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-937010240absm364999385a.0.2026.08.18.08.59.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 08:59:46 -0700 (PDT)
-Date: Tue, 18 Aug 2026 11:59:44 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: gregkh@linuxfoundation.org, christophe.jaillet@wanadoo.fr,
-	festevam@gmail.com, eeodqql09@gmail.com, kees@kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="igqCOKAT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81A471F000E9;
+	Tue, 18 Aug 2026 16:01:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787068887;
+	bh=vUs4Uk6bsbg//akSHlRKqVfj3MQp0uzLIj/vIKWSeC0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=igqCOKAThyQbc03/ALtgAMPq4IoLavKoAXgoivCGuNOzlQIMyEC/pgTy0NJwzJuqr
+	 nGw9f3SvHVCPFdY8iOyzEMYRYDZKY6ksA/VBnOOZMxI+NiJjkcPsvTuhrGx2OJXza/
+	 qX5fvLPOQzBm7ij1gD30/IWnJmkmbmB0rUTzSGwQXEnNXQ8B38aqCvQoBTWzg4m5sD
+	 99O9+MuG4A4ShMzg5HFNg4X/8N8jQN+ZiovoSd31+6ETIAlxOyDzgL7ARmtWfvGkG9
+	 D+jMfld2PVyITvV0wsO/MtWQ+4GddV5Zvqr0Jea48GWJV2hHso/dXBXwwwcKj4zf0l
+	 gFokpm/LwqVrg==
+From: Simon Horman <horms@kernel.org>
+To: ralf@mandelbit.com
+Cc: Simon Horman <horms@kernel.org>,
+	saeedm@nvidia.com,
+	tariqt@nvidia.com,
+	mbloch@nvidia.com,
+	netdev@vger.kernel.org,
+	leon@kernel.org,
+	borisp@nvidia.com,
+	sd@queasysnail.net,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	ehakim@nvidia.com,
+	sbhatta@marvell.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: gadget: f_mass_storage: fix null pointer
- dereference in fsg_common_set_num_buffers()
-Message-ID: <536a46fc-beaf-470e-959d-0ca5062ce541@rowland.harvard.edu>
-References: <20260818035904.10324-1-jeffinphilip14@gmail.com>
+Subject: Re: [PATCH net] net/mlx5e: Advertise MACsec offload only when supported
+Date: Tue, 18 Aug 2026 17:01:14 +0100
+Message-ID: <20260818160114.643278-1-horms@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <0a27c8b7308121fd00c528fc99fc3866782d3990.1786783174.git.ralf@mandelbit.com>
+References: <0a27c8b7308121fd00c528fc99fc3866782d3990.1786783174.git.ralf@mandelbit.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260818035904.10324-1-jeffinphilip14@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 18, 2026 at 09:29:04AM +0530, Jeffin Philip wrote:
-> Previously fsg_num_buffers_validate() was removed as it was not
-> necessary due to Kconfig setting the limits for n from 2 to 256 with
-> default as 2. However, setting the page content in such a way that
-> kstrtou8() reflects n value as either 0 or 1 bypasses these
-> restrictions leading to a null pointer dereference if n is 0. Fix
-> this by adding a check for n < 2 and returning -EINVAL if n is
-> either 0 or 1 consistent with Kconfig logic.
-> 
-> Reported-by: syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=791be35f1fbcc85d06d7
-> Fixes: fe5a6c48fd95 ("usb: gadget: storage: get rid of fsg_num_buffers_validate()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/0a27c8b7308121fd00c528fc99fc3866782d3990.1786783174.git.ralf@mandelbit.com?part=1
+---
+--- Patch [1]: [PATCH net] net/mlx5e: Advertise MACsec offload only when supported ---
+commit 38bf72f7e49d9a5074017d708c51a11b180b96fb
+Author: Ralf Lici <ralf@mandelbit.com>
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+net/mlx5e: Advertise MACsec offload only when supported
 
-> ---
-> Changes in v2:
->  - Change check from n = 0 to n < 2 consistent with Kconfig logic
-> ---
->  drivers/usb/gadget/function/f_mass_storage.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gadget/function/f_mass_storage.c
-> index a50743caf083..4e743be220cc 100644
-> --- a/drivers/usb/gadget/function/f_mass_storage.c
-> +++ b/drivers/usb/gadget/function/f_mass_storage.c
-> @@ -2747,6 +2747,9 @@ int fsg_common_set_num_buffers(struct fsg_common *common, unsigned int n)
->  	struct fsg_buffhd *bh, *buffhds;
->  	int i;
+The patch moves the NETIF_F_HW_MACSEC assignment to vlan_features out of
+mlx5e_build_nic_netdev() and into mlx5e_macsec_build_netdev(), so that
+only devices whose capabilities were validated advertise MACsec hardware
+offload.
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
+> index daff53ba7d09f..9a3850457bd22 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
+> @@ -1724,6 +1724,7 @@ void mlx5e_macsec_build_netdev(struct mlx5e_priv *priv)
+>  	mlx5_core_dbg(priv->mdev, "mlx5e: MACsec acceleration enabled\n");
+>  	netdev->macsec_ops = &macsec_offload_ops;
+>  	netdev->features |= NETIF_F_HW_MACSEC;
+> +	netdev->vlan_features |= NETIF_F_HW_MACSEC;
+>  	netif_keep_dst(netdev);
+>  }
+
+[Severity: High]
+[Finding: main-1-0]
+[Sources: opus-5]
+Should this hunk also set netdev->hw_features |= NETIF_F_HW_MACSEC?
+
+mlx5e_macsec_build_netdev() runs at the very end of
+mlx5e_build_nic_netdev(), which is after the snapshots:
+
+	netdev->hw_features       = netdev->vlan_features;
+	...
+	netdev->features          = netdev->hw_features;
+	...
+	mlx5e_macsec_build_netdev(priv);
+
+So on a MACsec-capable device the bit now lands in features and
+vlan_features but never in hw_features, whereas before the patch it
+reached hw_features through the vlan_features copy.
+
+Does this turn macsec-hw-offload into a fixed feature for users?
+ethtool_set_features() masks requests against dev->hw_features:
+
+net/ethtool/ioctl.c:ethtool_set_features() {
+	...
+	if (valid & ~dev->hw_features) {
+		valid &= dev->hw_features;
+		ret |= ETHTOOL_F_UNSUPPORTED;
+	}
+	...
+}
+
+With the bit absent from hw_features, ethtool -k reports
+macsec-hw-offload as [fixed] and ethtool -K ethX macsec-hw-offload off
+fails, which was a working knob since 339ccec8d43d.
+
+The second effect is that the offload does not come back after an
+eswitch mode cycle. register_netdevice() computes:
+
+net/core/dev.c:register_netdevice() {
+	...
+	dev->wanted_features = dev->features & dev->hw_features;
+	...
+}
+
+so NETIF_F_HW_MACSEC is not in wanted_features either, and it only
+survives in dev->features via:
+
+include/linux/netdevice.h:netdev_get_wanted_features() {
+	return (dev->features & ~dev->hw_features) | dev->wanted_features;
+}
+
+When the device enters switchdev mode, mlx5e_fix_features() ->
+mlx5e_fix_uplink_rep_features() strips it:
+
+drivers/net/ethernet/mellanox/mlx5/core/en_main.c:mlx5e_fix_uplink_rep_features() {
+	...
+	features &= ~NETIF_F_HW_MACSEC;
+	if (netdev->features & NETIF_F_HW_MACSEC)
+		netdev_warn(netdev, "Disabling HW MACsec offload, not supported in switchdev mode\n");
+	...
+}
+
+and __netdev_update_features() writes that mask back into dev->features.
+After that the bit is in none of features, wanted_features or
+hw_features, and nothing re-adds it: mlx5e_macsec_build_netdev() is only
+reachable from mlx5e_build_nic_netdev(), whose only caller is
+_mlx5e_probe(). The legacy-mode restore path
+mlx5e_netdev_attach_nic_profile() -> mlx5e_netdev_change_profile() ->
+mlx5e_netdev_attach_profile() does not re-run it.
+
+Can this make devlink dev eswitch set ... mode switchdev followed by
+mode legacy leave ip link add ... type macsec offload mac failing with
+EOPNOTSUPP until mlx5_core is reloaded? Before the patch the bit lived
+in hw_features and wanted_features and was restored automatically.
+
+Since the patch carries Cc: stable, this behaviour change would be
+backported as well.
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+> index f0407a850ea82..cb8ebca58ce82 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+> @@ -5851,7 +5851,6 @@ static void mlx5e_build_nic_netdev(struct net_device *netdev)
 >  
-> +	if (n < 2)
-> +		return -EINVAL;
-> +
->  	buffhds = kzalloc_objs(*buffhds, n);
->  	if (!buffhds)
->  		return -ENOMEM;
-> -- 
-> 2.55.0
-> 
-> 
+>  	netdev->vlan_features    |= NETIF_F_SG;
+>  	netdev->vlan_features    |= NETIF_F_HW_CSUM;
+> -	netdev->vlan_features    |= NETIF_F_HW_MACSEC;
+>  	netdev->vlan_features    |= NETIF_F_GRO;
+>  	netdev->vlan_features    |= NETIF_F_TSO;
+>  	netdev->vlan_features    |= NETIF_F_TSO6;
