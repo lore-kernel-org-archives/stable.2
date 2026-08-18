@@ -1,65 +1,49 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C0D390229;
-	Tue, 18 Aug 2026 01:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555A8378D88;
+	Tue, 18 Aug 2026 02:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787018125; cv=none; b=ZTFhQUFRfQ6p8ENo6eQ/4aesgtP+SQcxdmo7B+vUwkOKBeu8kb4PK7gXmucbKNlGSXAnDMsD++ACM8hgXTSqkWo6auZSv50Qcq7fb1TZ3KcEeBuNCKoZhy/82bQuWDmhM1xVY4JwNAQ5g38XoayUKaBQBTZS1U2sZhxKDk07R2A=
+	t=1787018534; cv=none; b=s/K4YGVBJipYfDO6IV3NASJjPENuGvRROcM4oBcSjfCUNJ8KMhl2SVhD9kmyekp4RlnfklnPnTk72SannICWkJVNXuRzxzhvqeaGGJNzj2YI+Vqqz47rsq6uBeNVvFDzy2nEEBuG5kYFAbG7V8yDDn9jDQIJpg3cdN07+dOw/Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787018125; c=relaxed/simple;
-	bh=1Mmjf8XmWqCbcLWeakoMZYc6KYsrB7yE+pMr1yyJtUY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Ia1zDa5Es2UnnNPWd0ACK2WnavmJC+sJCvzzo2n/jcAQe4ArWo5k8bjbOysdkj0Og1WbGczXYtifo6vQeHy45ynchu7Okt4mEKSbKsc7WAk2puxUU4M8Z/dsGEkToS2gGg9CLmieyoRG78SEro2VyQb4BF2Z44gGdMKQxiXQyEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=dWVVEENd; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="dWVVEENd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787018034;
-	bh=ErZG5FUYtEr7+4AWMo2fsb7dx742uhvfXbRl41KcURw=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=dWVVEENdE6RaASZUmh6yQ2bNDbY+ldnWcuACw7ybgK+CnM04/kjb8D73tZhAegQV5
-	 gvE5fmkz7cZxCz9hmr1iY/MeSoJxde7nbr15mS4VTgCnQX5Hgpq0O9xeJB0w0OzdC2
-	 VTkCweuhgcC+iARybSe5Rlu+G8sRPZBelJYj2e0Q=
-X-QQ-mid: esmtpsz17t1787018028t44f0a510
-X-QQ-Originating-IP: qnmYM8sBksGvulo0VUPuUig7ogs1i7owAfdEehjvh9U=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 18 Aug 2026 09:53:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 12254403041516689430
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
+	s=arc-20240116; t=1787018534; c=relaxed/simple;
+	bh=R2CpwLH3MOsz/89+daXlOOtJLTuU4AfW7o5Ustx7Chc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nOHlZ/1yCT/5lUNTrgzJzAcCp2i/NehISXk1rjbKftRDi1EyreJFOmCFE2wncbHV9sSF8toQlj/GXPhEyCftdVj/k7ZRIwreEBcfFxLi4pmNB2Pa21+O6ekOGavpl61gcxN5kqrr5uTBiJmjlHQM6K1jPrwCoY0k9cHglvP6ZSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: cbf28c4c9aa811f19a56ed5b684f684d-20260818
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:2e756e8e-868e-4abe-97ed-fd5c509f500a,IP:0,U
+	RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:d53577bf6258bb2744bc6d4e3c308ab3,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:2,IP:ni
+	l,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
+	:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: cbf28c4c9aa811f19a56ed5b684f684d-20260818
+X-User: yanlonglong@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <yanlonglong@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1052384791; Tue, 18 Aug 2026 10:01:59 +0800
+From: longlong yan <yanlonglong@kylinos.cn>
+To: linux-usb@vger.kernel.org,
+	valentina.manea.m@gmail.com,
 	shuah@kernel.org,
-	sr@sladewatkins.com,
+	skhan@linuxfoundation.org,
 	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.6 000/156] 6.6.152-rc1 review
-Date: Tue, 18 Aug 2026 09:53:42 +0800
-Message-Id: <20260818015342.2756394-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260817132534.666299318@linuxfoundation.org>
-References: <20260817132534.666299318@linuxfoundation.org>
+	i@zenithal.me
+Cc: longlong yan <yanlonglong@kylinos.cn>
+Subject: [PATCH] usbip: tools: fix wrong variable and double le16toh in list_gadget_devices
+Date: Tue, 18 Aug 2026 10:01:40 +0800
+Message-ID: <20260818020140.1863-1-yanlonglong@kylinos.cn>
+X-Mailer: git-send-email 2.47.1.windows.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,41 +51,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: No4GWyI4cWt6QtacbaOX9e8RxzgwtqWuE4IAbn+EneWSK/3Tf9SjZK4l
-	xB3V3tWBCJ3QGSVZo5xOe6urnprhsdM9K3Tvra4NAOGFbMZd7dem++QjBV6w/wDLrdm55kH
-	h4X6rLz6zuyakEl62oKI3efLBPsJFJBHprllK6dGIhIPIalBy5AfJu0dARfkcQvKR2VLzI9
-	5XdNrmkucMxd74eXPrOYjXLB+Ngbkq/pAyp/l3sKjdV4Ckm5BOlxA73NqJKpvCWlomd3PeW
-	FnybckJFaqUVw9QrVIks+gDWZD4rKVUqDtH98iEhU5Ec0rJljaCrd7soooET8/lwKTObltR
-	lIBseRS3KXawz+is7gcrae3uf3H4KTFFfsKOaqEyt6POjIonq4wHnGG1N9E/sn7FGqM4Cks
-	mXQ6lWTdhAFkbrNPUTf/k8pjlCnxen2OeO413o3zZvg+8rYnuvzFHjqO1xitawopz2QxFP9
-	amM6QIOlHnVP17SYVD5/U8E/sz7YHqWkm8u00ogckhNbYyKh3v7kH8UU/55UVOpkbU8sVZt
-	tPngI32c2Q4tArKm5sHQRIlMWqlrY02f5sftyTwMbTLqfNEjogFeZItlxwjRKRHkThNXGmO
-	z4HuN040pOSHVOFWNqTEf/SfYjPhAKIpYuP7kowhTFtPVigUbLA1TuSI34x90kvkxmbSXRX
-	0NUOAeKBoZBpQpsYYsbOdZN2oGCMCPUNNamxd7VoDKynUUeMWLAwRj2bUA7VSqAsh9gqHCA
-	uKrOHw+UiFyrShNA98fg80mx21/dKii6V9qpgIx/MDxLBB04Aw8QJ/Wn3VJcIlrHKvOX/0x
-	8R1LSW6PU3N1+WcmxQc0vgswho0IfGrl8ELNtmIez39vkc6gmqT6J+MTiUPEdmwOzWmuqvO
-	3DPBn3UOW6nZBf75wXzLBDToRbfUap4KdMeicjiyqC4P/t4GFuHBPbb2VN8z/CPstUpjwZD
-	ruvgAQAvP7TkLIq4PrKCo5ImwbPdNLI6LEQqYNI4eOSuK1pWTTivcYMKx3uQmSTzQPUuI4k
-	YFLf3Qdk+4ZI5cC8MBa+InA2Jo7Go16nepKk/JIiuADk/BrzOxtw9+TINHJks=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+In list_gadget_devices(), the sprintf() call for idProduct_buf incorrectly
+uses idVendor instead of idProduct due to a copy-paste mistake. This causes
+the displayed product ID of vudc gadget devices to always show the vendor
+ID instead.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+Additionally, usbip_names_get_product() is called with le16toh() on
+idVendor and idProduct values that were already converted from
+little-endian to host byte order on the preceding lines. This double
+conversion produces incorrect vendor/product IDs on big-endian
+architectures, leading to wrong product name lookups.
 
-Best Regards
-Wentao Guan
+Fixes: e0546fd8b748 ("usbip: tools: Start using VUDC backend in usbip tools")
+Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
+---
+ tools/usb/usbip/src/usbip_list.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-Log:
-Linux version 6.6.152-rc1-arm64-desktop-hwe-g9a239823f9ad (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
-Linux version 6.6.152-rc1-arm64-desktop-hwe-g9a239823f9ad (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Tue Aug 18 02:58:25 CST 2026
-Linux version 6.6.152-rc1-loong64-desktop-hwe-g9a239823f9ad (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
-Linux version 6.6.152-rc1-loong64-desktop-hwe-g9a239823f9ad (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Tue Aug 18 03:15:28 CST 2026
-Linux version 6.6.152-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP 
-Linux version 6.6.152-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Tue Aug 18 03:31:15 CST 2026
-Linux version 6.6.152-rc1-amd64-desktop-hwe-g9a239823f9ad (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
-Linux version 6.6.152-rc1-amd64-desktop-hwe-g9a239823f9ad (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Tue Aug 18 02:40:05 CST 2026
+diff --git a/tools/usb/usbip/src/usbip_list.c b/tools/usb/usbip/src/usbip_list.c
+index 3d810bcca02f..85e6a8a1fc36 100644
+--- a/tools/usb/usbip/src/usbip_list.c
++++ b/tools/usb/usbip/src/usbip_list.c
+@@ -298,13 +298,12 @@ static int list_gadget_devices(bool parsable)
+ 		idVendor = le16toh(d_desc->idVendor);
+ 		sprintf(idVendor_buf, "0x%4x", idVendor);
+ 		idProduct = le16toh(d_desc->idProduct);
+-		sprintf(idProduct_buf, "0x%4x", idVendor);
++		sprintf(idProduct_buf, "0x%4x", idProduct);
+ 		busid = udev_device_get_sysname(dev);
+ 
+ 		/* Get product name. */
+ 		usbip_names_get_product(product_name, sizeof(product_name),
+-					le16toh(idVendor),
+-					le16toh(idProduct));
++					idVendor, idProduct);
+ 
+ 		/* Print information. */
+ 		print_device(busid, idVendor_buf, idProduct_buf, parsable);
+-- 
+2.43.0
 
