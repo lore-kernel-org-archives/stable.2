@@ -1,54 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E7138B124
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 07:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA04025B08D
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 07:32:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787038321; cv=none; b=JRpJ8YY0sBQU03BDI7VI/M1Kze4c547VrVZNDlnPp6eltrW8Xp15n6rNyM7zFkjgndvZ9z+lyUfbW2vB+SDeQUce7OuJEdJ8oiP9d3mRfmWnLwh+Lz6uMSn7Wn+VEpSHxwj8hiX9v+6kGXyjtNmW5kIbhvvV3F3y0pfFzZA+478=
+	t=1787038351; cv=none; b=RTTprYiFp/YrFFWC/T/6PsJZRJjH3qDfIRNtk8HX3L6iIzac++gwf2tmB/ueK2k+WWehfH1IicPfP6koBIQ+THJtXPWonJOFJ3JsHLE7+5AAqUXbI3bFr1f+WKjcZxvIdKCshIAUbeDAMS6LYkvbcO0q0LYfKH9rwFjH47iytoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787038321; c=relaxed/simple;
-	bh=+qYEbrsbxj7e9WQzvoPeckK44XOr8IeXkOfRcwGoItc=;
+	s=arc-20240116; t=1787038351; c=relaxed/simple;
+	bh=gWVKoELc41Q4ODZB1q8SMDrSdFTmOOLGWTN6c1AFAtU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dN7r6LlyaGPYH9CJ2np+gckmj/NP3yZfn/rQhtbnu8XJYYPCq5Dw7AfHVrJQCKISBxLtVBrlLAe/K6QqFwAJ+hdFFk5tLxVg8SCWWyAV5gx7wB/hTqqwc2X+8F6Mcg/ID2v67k+HxrHBxQOozYxlxWFrk0xDaQEWBAAwo30W8VQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jwmmCRaE; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=E1P3NtiZyAWMAbFRNvSzrbLg11ePq/pelctqdsp98ZkUcRooKlEEhJr+doBzgohiy4F85yLikwaNq02IWNU3p/OU6CGlh6VGiPf74rPIdgzIvvfn2vZ1iIhYnx8Iqa8lwWlpG8Rnv10zlKN62glbm1k3ow3BsBUFJ0ok4km+qoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=na3h10R2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jwmmCRaE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60ECD1F00A3A
-	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 07:31:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="na3h10R2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9885F1F00A3A
+	for <stable@vger.kernel.org>; Tue, 18 Aug 2026 07:32:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787038318;
-	bh=fgU1zVBtw16i3Xm5dVnrej6Xkx66zn4xXZdqZiqmMe4=;
+	s=k20260515; t=1787038349;
+	bh=e/55hTSdvUMsXq7z6LxDTJi6siRoDAYgW8jGyft10fM=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jwmmCRaEd7pqX2Mbtyl5Nr0TzvSVYM9cYBUrrRhk+kwvToYclAE3VIY+EbKo3BFhS
-	 cxQhNeEnvoETGEBY4cHJxHUd01LcM0Z4jq3sSy1GSERO54yW8vnlZmOLqxN4NYOrsR
-	 /Gu+g+CTozsQWrotWzm/cLmtdPMZzzNjbtc5lDOuVYW27uFu7izpk82tugmLVm8CZI
-	 8eXuSeA01JRlP840fihBFPDj70oBJEtIru/MsdocGW/bJwquGwEpPA+y6EI3sA5ipP
-	 O7wYm0CpHEGP9COziZ9TKPXXmQxCsKFyxI1sa8cuKMPDh420tkQ5UeD1nzm77aCoAI
-	 M4Wh9YBtrfpkg==
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c15cb6f5c12so786001766b.0
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 00:31:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq1kFtSs+mrvccnvhBJ15zcU4Fa/icvafhJK0G6416LGt+i43qG87dROgZDc6saQoKOgdWcRhE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywqwqk8FP3q4GiIZV7rU7UZ+kbFi2HZI7HFJH6JWpZQPJaf8b4c
-	nQD4OgKc879AsUww4h1pjjYb8M2WPMFv99EX8cck3EVNLgAo2QsGFW+ehtL9yh0VOKJgvfE0Q47
-	MXau4CSZ3gkiRG5CUl9VRFxVVt3IFIRQ=
-X-Received: by 2002:a17:906:fe02:b0:c16:9edc:612e with SMTP id
- a640c23a62f3a-c212a090d19mr1497844066b.3.1787038316995; Tue, 18 Aug 2026
- 00:31:56 -0700 (PDT)
+	b=na3h10R2b5vozIoca5z+mguPGClZ4AanuATliEWV1y8lk0nN+ZVg7XybohUPZiNZk
+	 NZyKCi2Toi70dsWp8svlBPRRGkDn4nN3Qey6pKb75KjfNCnWmGeWKTIwq6vqdOUWO0
+	 Umw1NdlGJqFgMO8F4vyMfA/oiNcQmYnDpeGCDUc2M2yi1Nhck+kQH1NDNSDcY4G2C9
+	 IQl9GyUdlAxhHbP3cDGLNgnsr16Yia0pZh7DEKoXRXXLl0YweuSiwTh3lbxGlqLPzP
+	 WuTLDoXKeEMYWNDs8bKsCkk9VUB5oS11fb5+N4g0UJ7ojrkhTJaPtmj+8HJGao8Du3
+	 +Q4JRb9YVscAg==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a17c04563fso6339310a12.3
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 00:32:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoCh4hjFzwzGy4qqdUsIBbH/fv28Idjg2mKGzSNoozEgAsZo4qaRInVXO17ZvrZspkN1aUzwDw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQT4CIXlTqDJmsAwjHVPNpqY0fSqXr0VRj0mMSPc2D0QpoZ5Wr
+	Kl3EcBCgJKNLpaaOEAg5l3HO/U+JZ97AMM/TNrE+kXYzCvPwxWHEJaDalyXDIC+KGc1vneVgkj4
+	vgTo/aTq0nL/TjJLsMT5OrR60TbrKzNQ=
+X-Received: by 2002:a05:6402:4345:b0:6a1:29ca:681e with SMTP id
+ 4fb4d7f45d1cf-6a38a927f6dmr13487735a12.7.1787038348259; Tue, 18 Aug 2026
+ 00:32:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817171657.212776-1-sorenson@redhat.com>
-In-Reply-To: <20260817171657.212776-1-sorenson@redhat.com>
+References: <20260817171651.212730-1-sorenson@redhat.com>
+In-Reply-To: <20260817171651.212730-1-sorenson@redhat.com>
 From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 18 Aug 2026 16:31:45 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8sLqY_j4yRQy1vassOwqovocJACH71Y2Zsv1YSetYs+w@mail.gmail.com>
-X-Gm-Features: AcwNN1Wyl_fTX05l4Fm8c5G-HZiGJsoB1qry4FfCMhYS_uF0xlXDr7lpTUK1Lxk
-Message-ID: <CAKYAXd8sLqY_j4yRQy1vassOwqovocJACH71Y2Zsv1YSetYs+w@mail.gmail.com>
-Subject: Re: [PATCH] smb: client: fix use-before-check of ReparseDataLength in reparse_buf_ptr()
+Date: Tue, 18 Aug 2026 16:32:16 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-5mhDQ=2VYkvcE8KRiiMBJXSFiiYwTY9DNNVdsMaF3=A@mail.gmail.com>
+X-Gm-Features: AcwNN1UTgT6BGES4hWTDWJFq783w-ccGdA01bNHp2__GkFQ2Cu9_UCmwahtbntk
+Message-ID: <CAKYAXd-5mhDQ=2VYkvcE8KRiiMBJXSFiiYwTY9DNNVdsMaF3=A@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: fix ALIGN() overflow in symlink_data() error
+ context loop
 To: Frank Sorenson <sorenson@redhat.com>
 Cc: linux-cifs@vger.kernel.org, stfrench@microsoft.com, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -57,26 +58,18 @@ Content-Transfer-Encoding: quoted-printable
 On Tue, Aug 18, 2026 at 2:17=E2=80=AFAM Frank Sorenson <sorenson@redhat.com=
 > wrote:
 >
-> reparse_buf_ptr() reads buf->ReparseDataLength before checking that
-> count covers the full fixed header:
+> The check added by commit 7d9a7f1f96cd compared the post-ALIGN length
+> against the remaining buffer, but ALIGN() itself can overflow: for
+> ErrorDataLength near UINT32_MAX (e.g. 0xFFFFFFF9), ALIGN(x, 8) wraps
+> to 0, so the subsequent bounds check passes, and the loop advances by
+> zero bytes leaving 'p' pointing into stale data.
 >
->     buf =3D (struct reparse_data_buffer *)((u8 *)io + off);
->     len =3D sizeof(*buf);                          /* 8 bytes */
->     rdlen =3D le16_to_cpu(buf->ReparseDataLength); /* offset 4, 2 bytes *=
-/
+> Fix by checking the raw ErrorDataLength against the remaining space
+> before applying ALIGN(), then checking again after.  Since raw_len is
+> bounded by the buffer, raw_len + 7 cannot overflow, so the second check
+> is an exact post-alignment bounds guard.
 >
->     if (count < len || count < rdlen + len)      /* check comes after */
->
-> struct reparse_data_buffer has ReparseDataLength at offset 4.  If a
-> server returns OutputCount < 6, the read at offset 4-5 reaches past
-> the end of the received data.  The off+count bounds against iov_len
-> were already validated, but that does not protect against count being
-> smaller than sizeof(*buf).
->
-> Split the check: verify count >=3D sizeof(*buf) before reading
-> ReparseDataLength, then verify count covers the data region.
->
-> Fixes: a158bb66b137 ("smb: client: optimise reparse point querying")
+> Fixes: 76894f3e2f71 ("cifs: improve symlink handling for smb2+")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Frank Sorenson <sorenson@redhat.com>
 Will appy it to #for-next with Paulo's acked-by tag.
