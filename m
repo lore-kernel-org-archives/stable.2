@@ -1,150 +1,104 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DA247CA99;
-	Tue, 18 Aug 2026 16:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98EC0392C56;
+	Tue, 18 Aug 2026 16:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787070101; cv=none; b=uim/yCPRaacnn9/9WRqS2BcwSp5FH+T8vG4KUSB9MeQdhghmaqPny3OdzqeUMC3P3j2c63DHqpMBLL1WhVCNK79EEAhER27iQISPl+ph/IxTQRCbKaCE3wz2GKm/ywx95arIeJfvOQI3d7+CtQNQ7e6Ri3SDBAFdDyAO+gkTRgw=
+	t=1787070125; cv=none; b=fc4SMIUQDFc/oaWD1+gAFMOETp7PXpozwn6ZST2kTrziAfkzbdFDHBtZP3EniqUAY2+hb9qMqxwFji5PklwjgSyLTkWiSekAjQ/7FjZ6eysmtdVq15mfXGaVV1bIvbMXz5R3k39/f70hkmmGzSwwL+myB++iSy1mmFdd/wH96R4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787070101; c=relaxed/simple;
-	bh=+bdjKlJ20YmD1d23zXtV4qvvYiYRZDYQfhFFijPPmJg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D5uYjnbCk+fn5LZxZoON9oKoDW9UVf8OTsAUuD5LCOQc/ZMScHWctnWxMixBvLfscAlzI0U1KeQuZge16I6PxMMuGqdNwohC9DCuU0+9+vyNUzru4SpRUEDQAO/ggNxSYfpM9CN4da7kB9GfxX4rDNMrRJbvew378GL0qi/KdiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=s2kzsF+4; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jj60/ihW; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1787070125; c=relaxed/simple;
+	bh=MHuo5CCg5FPgnXwZaXG7MDvuz4t39Kg+ZeD1Nl+DRT0=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=aBLQN2xYEnbPBLW+hDFOh6KCFa7Ckz0pyR1m9XfmbGmmOdXb6iXh9aX2YAjUV6L9CZDA9HKsGjgp8nffPXxuLIQ8X2mAwaDCzc7WV0CL9i4iMjOb7jCS6ppaUsLXeup8zf6hE2+VIVcVXmOYIL4JcmSvlEk9M/P1bAHZIMvOmlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=p8Hocy0m; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="s2kzsF+4";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jj60/ihW"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hPZhT4DKczMlKX;
-	Tue, 18 Aug 2026 18:21:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1787070089;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=VrITOwwiLa7v+dQLyFD6kE9M7/ckSEBFVhkdoe0ZhVE=;
-	b=s2kzsF+4gtZ9ITfmBc4ieT+NBpbDejvpiRcQ7QOFLNF8kNHR9USyWRSw6dc3PikDUsHBIP
-	lzYuEissyI1IW7jr7jmK6mGpkPslFAolEzc+98wmKcPgFMVHeUxQ+JXo9XDzHqmp9pCvfS
-	yQuViBmtF1IiFYhyQMgLhuPVc79V53ZuN3RQuEzb7nR10wkO+SALgov3+HM4i8YxDHoviW
-	0LDqR6vsEbKou8cqzq4+V1gxXUU7NjXDQhiLzyfdywaKJy0fSbiXgUORiH13DkF10wwJ3D
-	kR8tmhtmCSJsbGekyrHQ9F33hTiLk/D3PFJjP35LZdO+D2bRafveZQqiyGgjfQ==
-From: Qing Ming <a0yami@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1787070088;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=VrITOwwiLa7v+dQLyFD6kE9M7/ckSEBFVhkdoe0ZhVE=;
-	b=jj60/ihWoOa7hdglq48P5JhBx5kJF0rt/2VC02bJQ0GPElncPtEoQqqRllLPnxHvb8TEGq
-	qqihbz5V+MqHj9jt1WaFqtUWtAzb1Njnrb15LM9wyXipuByh2+D79HIPL+gvPu45x0a3XR
-	njjvHwsYKiAnUXiI6sJBp1dgwMvDV085T0Z3S4JtSCZ9YyBZN3LjzV0RJxz/jvTRCPY2Eq
-	O59v65lE7w60wTu13lj547S2wnMo8lZaVK9gSfLKV64Nec6Q7sxYwTV3RBTLpfXQisG1VC
-	dHbVTSUhDIQUd83FXioMwKTtgT0Z8/hn6DRbzyzTOP5ZU6gOtYEogXICZiMYjg==
-To: Eric Dumazet <edumazet@google.com>,
-	Neal Cardwell <ncardwell@google.com>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Dmitry Safonov <0x7f454c46@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Qing Ming <a0yami@mailbox.org>,
-	stable@vger.kernel.org
-Subject: [PATCH net] tcp: fix AO info use-after-free in tcp_ao_connect_init()
-Date: Wed, 19 Aug 2026 00:21:08 +0800
-Message-ID: <20260818162108.11456-1-a0yami@mailbox.org>
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="p8Hocy0m"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=NCpNajcjLcKhB50ECJ7NOsUtAJuVK2tIlFJWyWHXWJQ=; b=p8Hocy0mI2ANMtc1ZYGcuSUp/N
+	n7E/5SvgMicWEMlf57SNQAX8VSwNSgOv26/XYK6iSHdGuC9Z5+cY7VES/i354ObEJAyoyZqqXZLvc
+	E9GaUvpquRWvFeQTCHWf0ks6tbc1GmsD1sc4nw2Bn7dLRMP/XmbcJsi/DpkFDtkixi5p7GCzMThg4
+	GTDr6a4tPjKA5WH1Pp9Vg52907Utmf2nc+OIfAA1alzE0CZnF2kP4SQRY0IXI9/VYkXlz0pQzuSVq
+	5jTNMjQ/lCO05mxedLpX2fZE9pqzX3ALJe9rlGCCX3z3/arnZUHagxG9IuZ0DkuzizdQUZ95rEXJg
+	50Un9nxg==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1wwMZZ-00000000q31-1Eso;
+	Tue, 18 Aug 2026 10:21:57 -0600
+Message-ID: <c9e8b7e6-6a3b-4443-8632-81f2a2a4f79d@deltatee.com>
+Date: Tue, 18 Aug 2026 10:21:56 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: acd1c96c9237518072b
-X-MBO-RS-META: hotxfyexccp7scb5gi39bdfrq1s5di71
+User-Agent: Mozilla Thunderbird
+To: Shivank Garg <shivankg@amd.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: stable@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>
+References: <20260818-dmaengine-kref-fix-v4-0-c6ef991462a0@amd.com>
+ <20260818-dmaengine-kref-fix-v4-4-c6ef991462a0@amd.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260818-dmaengine-kref-fix-v4-4-c6ef991462a0@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: shivankg@amd.com, vkoul@kernel.org, Frank.Li@kernel.org, akpm@linux-foundation.org, stable@vger.kernel.org, dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, Frank.Li@nxp.com
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v4 4/4] dmaengine: wait for RCU readers before releasing
+ dma_device
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-tcp_v4_connect() adds a SYN-SENT socket to the ehash before calling
-tcp_connect().  If TCP-AO is configured, tcp_connect() first verifies that
-a key matches the peer and the bound device's current L3 master.
-tcp_ao_connect_init() later resolves the L3 master again and removes keys
-which do not match it.
 
-The socket lock does not stabilize the bound device's VRF membership.
-Detaching the device from its VRF between the initial validation and the
-L3-master calculation in tcp_ao_connect_init() can therefore make the
-validation succeed while initialization observes the default L3 domain and
-removes the only key.  The subsequent AO lookup then fails, so the no-key
-path clears tp->ao_info and frees it directly.
 
-The receive path can find the socket in the ehash and load tp->ao_info
-under RCU before acquiring the socket lock.  A reader which loaded the old
-pointer can thus continue into tcp_inbound_ao_hash() after the direct free.
+On 2026-08-17 21:43, Shivank Garg wrote:
+> diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+> index d075051dd187..604c9af19936 100644
+> --- a/drivers/dma/dmaengine.c
+> +++ b/drivers/dma/dmaengine.c
+> @@ -429,6 +429,12 @@ static void dma_device_release(struct kref *ref)
+>  	list_del_rcu(&device->global_node);
+>  	dma_channel_rebalance();
+>  
+> +	/*
+> +	 * Wait for RCU readers (e.g. dma_issue_pending_all()) that may still
+> +	 * be traversing dma_device_list before the device is freed.
+> +	 */
+> +	synchronize_rcu();
+> +
+>  	if (device->device_release)
+>  		device->device_release(device);
+>  }
+> 
 
-The issue was found during a static audit of TCP-AO object lifetime.  An
-unprivileged reproducer in self-created user and network namespaces raced
-connect() with detaching a veth from its VRF while sending TCP-AO segments.
-It triggered the same KASAN report on two fresh boots:
+A couple minor points on this:
 
-  BUG: KASAN: slab-use-after-free in tcp_inbound_ao_hash+0x585/0x19f0
-  Write of size 8 at addr ffff88800bf88128 by task tcp_ao_vrf_race/232
+1. I think the comment, as is, isn't useful. It's pretty clear the
+synchronize_rcu() call is paired with the list_del_rcu() call above it.
 
-  Call Trace:
-   tcp_inbound_ao_hash+0x585/0x19f0
-   tcp_inbound_hash+0x677/0xa80
-   tcp_v4_rcv+0x1c3e/0x3ab0
+2. The new synchronize_rcu() call will delay for a grace period with the
+dma_list_mutex lock held. Is that okay? It might be, but if so, it could
+use a note in the commit message.
 
-  Allocated by task 235:
-   tcp_ao_alloc_info+0x43/0xf0
-   tcp_ao_add_cmd+0xdf7/0x13b0
-   do_tcp_setsockopt+0x168c/0x2640
+Besides that, these are minor points and the patch does fix a real issue so:
 
-  Freed by task 235:
-   kfree+0x1b8/0x550
-   tcp_connect+0x252/0x4f00
-   tcp_v4_connect+0x1114/0x1720
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 
-The bad address is 40 bytes inside the freed 128-byte object, matching the
-tcp_ao_info counters.key_not_found field.  The two runs used 1000 attempts
-each, reached the no-key path 366 and 411 times, and produced one and two
-KASAN reports respectively.  With this change, the same reproducer reached
-the no-key path 366 times in 1000 attempts without a KASAN report or oops.
+Thanks,
 
-Use tcp_ao_destroy_sock() for the no-key path.  It unpublishes the AO info,
-updates the socket memory and static-key accounting, and defers the free
-until after an RCU grace period.
+Logan
 
-Fixes: 248411b8cb89 ("net/tcp: Wire up l3index to TCP-AO")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Qing Ming <a0yami@mailbox.org>
----
- net/ipv4/tcp_ao.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/net/ipv4/tcp_ao.c b/net/ipv4/tcp_ao.c
-index e4ec60a33496..4dc5910da076 100644
---- a/net/ipv4/tcp_ao.c
-+++ b/net/ipv4/tcp_ao.c
-@@ -1191,8 +1191,7 @@ void tcp_ao_connect_init(struct sock *sk)
- 		 * at least one tcp-ao key that matches the remote peer.
- 		 */
- 		WARN_ON_ONCE(1);
--		rcu_assign_pointer(tp->ao_info, NULL);
--		kfree(ao_info);
-+		tcp_ao_destroy_sock(sk, false);
- 	}
- }
- 
-
-base-commit: a3dee9bb902ee4357fa02e49b415d7724ee0140a
--- 
-2.53.0
 
