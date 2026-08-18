@@ -1,108 +1,94 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C785377AAC;
-	Tue, 18 Aug 2026 15:49:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79591332EC8;
+	Tue, 18 Aug 2026 15:50:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787068177; cv=none; b=mrBf1Gp23YB+WpEFPwOkL7lDy3C6C8is3Y1bHpX8d2mUireu7x07xB7w5ofwzBMrCQF3e4VPHX5NJsvNBOCXaLLZ7RZKVMM82ORVcUqAzFCl3yZQyY8z/NzpDKmXN9dO3sTj9cjjKFHapNrocbhvTQLDS4F9wEv2bENonT4eo6U=
+	t=1787068246; cv=none; b=Nts3Bi4nsGyUHn66ucLcpFjyY6kiugXrBWaR3HFfAbSHP8diKlUKCkYnlvrVqSQrcDGs1lZCoxwz+4QVYCco/a3kaeT6JQu3v879/Lklzv2xp200f5jRANw4lKoqsVUpL1eTsvNar2S8JiPAtxwjLHkK2/pT9KHbC9E7Ei7pG6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787068177; c=relaxed/simple;
-	bh=tC6+Ykg2AJDYKu3X2Gn0TPF8iUrXk//6O45xXE52eM8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Xs56ajLWNYTQPFTICmaL0XFljpyjQhCV1ckwHHBMPqN7APqRUbK4UeIWVwhnMBpWBoYwPW2UyS/ZSwSD05vPOJlr0b9sp9Nw90Iamz5gMixI8Y2pgnTiItpRW8a2Sy/C+Te/cssMsqGewDFLxC+ZRxsWI2Pfm731ruWcUTiwge4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=C5zvcsqD; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1787068246; c=relaxed/simple;
+	bh=fO0vk990GWu+qM19d1DAlmLcgS1lPVAR+gmsboyI+Zg=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=cUXB5SmyoH9j4mJc1EBwBGiCLGANQb0ePeO+poUV7CLU/D7tfiBhluWA+lWEUXR3PY0tL3McIydwwS5cbYRosHtA4ytf5FIwb8nx+nnR3YfR17xIych+zsCcpAJOrQ7ehi4EfCuWgPYOVm/+fGIu5k1qfX+Cl+UJWYM7Zmoku8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=kub2EcLW; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="C5zvcsqD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787068087;
-	bh=tC6+Ykg2AJDYKu3X2Gn0TPF8iUrXk//6O45xXE52eM8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=C5zvcsqDmDNc8ozKEGjRd4fhMiNcMAxT6PLQNbsaJF2SFIOhVEvsVOYZQd1DVO+Yv
-	 guDyGPpEj4cU46bMvFNIkRa1zl1SNxwcL38Nf6CQVFNnsOcSvXSXluF8S5LxOuDd6C
-	 5yIaonFmqfmRpWll7mQwHVbEvZLZG6no29MECso0=
-X-QQ-mid: zesmtpgz5t1787068081t5902bc93
-X-QQ-Originating-IP: IVL2sHTPvKookZKE7IBSz5F9RZ51I68l0gPv2ME2yKE=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 18 Aug 2026 23:47:58 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2033148876574600725
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.18 000/250] 6.18.45-rc1 review 
-Date: Tue, 18 Aug 2026 23:47:56 +0800
-Message-Id: <20260818154756.2900434-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260817132536.466235697@linuxfoundation.org>
-References: <20260817132536.466235697@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="kub2EcLW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=/Is1IO0CL+6lf/eNip0kVaaOQEnMfMLHfrp7LkxjZ4w=; b=kub2EcLWjDnwqwGz9mgtrA51Q6
+	FVrU6sX/NLF/UyhFlNkf6CI/g4m5i7nqb6J86TCfhY2i/D7C7maEZUDkag5H5Xmd5CBHOKLn2GYV9
+	dlyzfRIFr6bDo7DpXGc0uJXl3GHBfJXZuQflyU6c1DsBmgJNDblix2CpKRZSr3654gdm4rDH39ZI9
+	2mJ2SIMElUVUBkvbhr98YKzwMRU37BLFZbpmA1leXQx7KyAqbvNUD6V6A2OafpJlkzw3R4X4KvMfD
+	a5jyZ/cVuFT5SaVlxng7dGvhKTliGj+3byvUBA2EHAXDD9ltd8B8kCYrIIL1Drb+fzqbHfRLmT0Jn
+	qdAvcnPw==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1wwM5L-00000000pVs-3yHr;
+	Tue, 18 Aug 2026 09:50:44 -0600
+Message-ID: <d533699d-fc7c-4642-87f8-0bfed554b0a7@deltatee.com>
+Date: Tue, 18 Aug 2026 09:50:42 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MxRSPV+z0HAoDg1KuyAl92iM2pF7PotsJx7Ctc4Qdx+4xFXoNGjA2K/J
-	YjDeOpTpyxw/pu2HQJv/VRblmmZS/6wRTyVXYlHfXsJffjerXrDbLAUS6BiKDO8KtfsduRU
-	V8JN0A4qQktv1v3d1iGYjaTJhSpO/lqN0U2s0cHXysCquVnAqtm1Aul08chifgwO02gdJYB
-	ymHipdCHc51eOwfIsfiJeMC6uIFIfbB67MW34rV+cFmQlx3L9axBUzZkkjO/4E0MM6woNS9
-	vamgljmqIZeI87uUMg+9+Y587Yadf8rHeVZCYBVLtreHyaihvN3BLbWrrmhe64bzY1mmMpW
-	zOxEHFE/6KQcwhq5VOGXJVMWCjeG6sOwgHbiagBvJ37UHCltcqNON6jloF6+knYLhtddDh2
-	4mke8GlvDSiwnDfhh/ZrRBYkRXtixZ6H6mov8UKnpbGgP4GbE4Q+UpPl19P5c+zao9pH46e
-	3eohqZON+EAQQ8tJ0NDe3zUAYkMCBr5QkuULDJTj0nhrAWxyGYQKEYPvT7pIpWTnLwESXVx
-	gN1uiF4KBgDjZfUfRPH1uiUY34LUAZGzS3b1yWOOQoB+ZqWMvFRuN0o/vpSph02tGmFH5BE
-	mDijmYkTaKwOgzwAv5KR4AFT/apNOW1bRn30Ic+Z7NeJl07eeQMySr7kPdZZdz++OOLmtgG
-	H1tZxerVt6cgom7j2UVdph+X3qGfeptRe5T7Ymf38VZz/qGbY29pbK6OflkvTKqbWOxirAv
-	1zRXruCGwSvEfhk82OmkoJ7GaB/7qwWpimuKi78Y/nWcdx8QkipQ6+UxkUpEYM9DT5CjrOs
-	F2WbxQZySJxs02rHMga/sqcU+3x6tdhB32WYNSREW+/Zm+99S1Oy/NU6oSmO6aEAzZ/f1ZS
-	2uZIL5q91OG+kXbBPbiMdURJdx8uZx2FYYyVNg3zQIsAjHCwuP9RzKQPXlODXHulzggHhB6
-	7IzjzFoSelLPskSihwXxcTZ4wXI3J8QSvZniANCcH5QSFACBl0r+YzGiqVA2gWu92JKMLF7
-	5Hnnu/MAQpAM2MId9lZBkBVb6+wf6GV0D4TsOUuIyCD5arTwd35HmZL3D+3klBpXlkVCxZa
-	becV1c4iXDfmwbABURW4rHPSj3bbj6IDG7hZerAmvB0boHw0X8FxMr2XLE8ltPylw==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+To: Shivank Garg <shivankg@amd.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: stable@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>
+References: <20260818-dmaengine-kref-fix-v4-0-c6ef991462a0@amd.com>
+ <20260818-dmaengine-kref-fix-v4-3-c6ef991462a0@amd.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260818-dmaengine-kref-fix-v4-3-c6ef991462a0@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: shivankg@amd.com, vkoul@kernel.org, Frank.Li@kernel.org, akpm@linux-foundation.org, stable@vger.kernel.org, dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, Frank.Li@nxp.com
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v4 3/4] dmaengine: fix use-after-free in dma_chan_put()
+ and dma_release_channel()
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-Best Regards
-Wentao Guan
+On 2026-08-17 21:43, Shivank Garg wrote:
+> When dma_device_put() drops the last reference on chan->device->ref,
+> dma_device_release() runs and may free the dma_device along with its
+> channels.
+> 
+> dma_chan_put() then still reads chan->device->owner via
+> dma_chan_to_owner() for the trailing module_put(). KASAN catches it:
+> 
+> 	slab-use-after-free in dma_chan_put+0x3e6/0x4c0
+> 	Read of size 8 by task insmod/6319
+> 	Freed by task 6319:
+> 	  kfree+0x225/0x470
+> 	  dma_chan_put+0x395/0x4c0
+> 	  dmaengine_put+0xf8/0x160
+> 
+> Cache the module owner in dma_chan_put() before the put so the trailing
+> module_put() does not need chan->device.
+> 
+> Fixes: 8ad342a86359 ("dmaengine: Add reference counting to dma_device struct")
+> Suggested-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260518-dmaengine-kref-fix-v1-1-4d6125048fb7@amd.com
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Shivank Garg <shivankg@amd.com>
 
-Log:
-Linux version 6.18.45-rc1-gbd7005a98dd1 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.18.45-rc1-gbd7005a98dd1 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Tue Aug 18 14:22:15 CST 2026
-Linux version 6.18.45-rc1-gbd7005a98dd1 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.18.45-rc1-gbd7005a98dd1 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Tue Aug 18 14:39:54 CST 2026
-Linux version 6.18.45-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.18.45-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Tue Aug 18 14:59:32 CST 2026
-Linux version 6.18.45-rc1-gbd7005a98dd1 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.18.45-rc1-gbd7005a98dd1 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Tue Aug 18 14:01:23 CST 2026
+Nice catch, looks right to me and the patch is really easy to
+understand. Thanks!
+
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 
