@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238CC3F2113
-	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69C23D3327
+	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787125656; cv=none; b=B6k1FAA4i8ulkqLJq4EPP81+5Li+DVArVq4p5vsaZ3CcrG9+b6oQVtiAqhiC1yV2cLwApo7MRjxFSThTi90bYtxdag5cTs+2v+S9iL++ySbQzvM0uNjMtZzm6aX6OKk7x6t+b+lo0rUQqz87sJptDSe4JudkAZoILg0MlLLawys=
+	t=1787125665; cv=none; b=fvSR0eQKDvqeHmdPO3ygFR9YzAYGtm8hXy4n7W08j0El+ElJMBH228jQB0GI3TXj7gXcFlWNe7EDFAHXYfTnFQz7Rsu5C8G/SGIUb0sRp8sRvOh7PdaJjyqXFEvSYNlktnlA1cEHOzdG5Ts3YcTTwlrIM84wo/2Jh5bOuwYlMJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787125656; c=relaxed/simple;
-	bh=+Hi6780Kv5VmSIKC6qy2EAXIan5Vh6UN8yxK7Ra3YD0=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=KfSPJPurgzLI4dDVDKD7KrE4KzlDOCkuE47fWA1ZYwCDt+rykm+DurH1Ma43Pm0dsczVvPrG/5ng3f3vYquN5pkJe7KUCEEK1+TvpQoV2MG/CEaXXlxEfOePtoK7J7uEcArfF92PKmCrjtmzf32cVy6CzX8xySWdmSh/qZNfZ8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b3tUpNqG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787125665; c=relaxed/simple;
+	bh=7Tkb2tiYsa+b2gnBsAOTgikXGg2RbnzW0atMUAGh+UY=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=nNaoq4Xp9Yla5BKNairXOrWxPZQIDvce0ZcQfHrMaz1VtV8DXj7zon19A+0Zok8QvXLLIRppWFuWwzR7xrS4+POBbRhhXwv+jA/uU9QzzkaDpHg+B/rtDFYcQo9oS/maUAP27tGSR1Reg3F9uN5w8uJ/Sg8fB8q10q57mJnbGJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N+1pmtHq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b3tUpNqG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142FE1F00AC4;
-	Wed, 19 Aug 2026 07:47:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N+1pmtHq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 603401F000E9;
+	Wed, 19 Aug 2026 07:47:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787125655;
-	bh=D6P4pEMtSeIe6QqEdrgO7ddsuowuna2fe3urrv5dtug=;
+	s=korg; t=1787125664;
+	bh=Z/KRQpEvSD4nvVrY+9syGVm9OcSeQjN+L5I0M4YcEAY=;
 	h=Subject:To:From:Date;
-	b=b3tUpNqGpKPFW189b/b5vVWuUs0EANh4eGA9zlqB3Cu7FGDmLPbGvfp1bR0LWwG9r
-	 7FogOktq+QJIQK4eBUVqltk11cvSO64/1iTFOyRwpz82MBiqm13oNnRPq9860onxkQ
-	 6UloHFc3r0J3rsc2M2Y2ESqOy1JOMsLvlCWxsKZs=
-Subject: patch "iio: light: opt4060: Reject integration times with a non-zero seconds" added to char-misc-next
+	b=N+1pmtHqI2AmUgC+ivt1599voA2OiG4oAs0nJTQxwYl5s/ZAGusQh2Ov1+ciD119u
+	 f3GGuaTQX3mQG7xmn1wjV4H74+c/yeRLYJlHCouZ+9PwrAYYgUOX4WTaBNPZu0gnBG
+	 xPkSnSROXc601mj+23A7RHxRI1XLDxSVQHKB52os=
+Subject: patch "iio: light: opt4060: Fix incorrect register name in threshold read" added to char-misc-next
 To: vidhu.linux@gmail.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 19 Aug 2026 09:44:37 +0200
-Message-ID: <2026081937-sulphate-phonebook-2bdd@gregkh>
+Date: Wed, 19 Aug 2026 09:44:38 +0200
+Message-ID: <2026081938-remover-sizable-dc51@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: light: opt4060: Reject integration times with a non-zero seconds
+    iio: light: opt4060: Fix incorrect register name in threshold read
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,43 +54,40 @@ during the merge window.
 If you have any questions about this process, please let me know.
 
 
-From b7e6e9af0d723afdec92364d5e7e064eeef44c8e Mon Sep 17 00:00:00 2001
+From ad367638212a9f2495ecfa59c886f0cfb7934e9c Mon Sep 17 00:00:00 2001
 From: Vidhu Sarwal <vidhu.linux@gmail.com>
-Date: Wed, 15 Jul 2026 06:45:42 +0530
-Subject: iio: light: opt4060: Reject integration times with a non-zero seconds
- part
+Date: Wed, 15 Jul 2026 06:45:44 +0530
+Subject: iio: light: opt4060: Fix incorrect register name in threshold read
+ error message
 
-When setting the integration time, opt4060_write_raw() only uses
-val2 and ignores val. As a result, a write such as 1.000600 is
-accepted and programmed as 600 us, silently discarding the whole
-seconds part.
+opt4060_get_thresholds() correctly reads OPT4060_THRESHOLD_HIGH, but
+logs "Failed to read THRESHOLD_LOW." if the read fails. This is a
+copy-and-paste mistake, as the preceding low-threshold read already uses
+the correct error message.
 
-Since all supported integration times are less than one second, any
-non-zero val represents an invalid input. Reject such values instead
-of silently accepting them.
+Update the error message to reference OPT4060_THRESHOLD_HIGH.
 
 Fixes: 0c6db4506ad0 ("iio: light: Add support for TI OPT4060 color sensor")
 Signed-off-by: Vidhu Sarwal <vidhu.linux@gmail.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/light/opt4060.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/iio/light/opt4060.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/iio/light/opt4060.c b/drivers/iio/light/opt4060.c
-index c391ad3271c6..cf6f69e5be35 100644
+index e3aabfb14d5d..f79dd342937d 100644
 --- a/drivers/iio/light/opt4060.c
 +++ b/drivers/iio/light/opt4060.c
-@@ -632,6 +632,9 @@ static int opt4060_write_raw(struct iio_dev *indio_dev,
+@@ -810,7 +810,7 @@ static int opt4060_get_thresholds(struct opt4060_chip *chip, u32 *th_lo, u32 *th
  
- 	switch (mask) {
- 	case IIO_CHAN_INFO_INT_TIME:
-+		if (val)
-+			return -EINVAL;
-+
- 		int_time = opt4060_als_time_to_index(val2);
- 		if (int_time < 0)
- 			return int_time;
+ 	ret = regmap_read(chip->regmap, OPT4060_THRESHOLD_HIGH, &regval);
+ 	if (ret) {
+-		dev_err(chip->dev, "Failed to read THRESHOLD_LOW.\n");
++		dev_err(chip->dev, "Failed to read THRESHOLD_HIGH.\n");
+ 		return ret;
+ 	}
+ 	*th_hi = opt4060_calc_val_from_th_reg(regval);
 -- 
 2.55.0
 
