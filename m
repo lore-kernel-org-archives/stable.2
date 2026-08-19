@@ -1,32 +1,68 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8346A3BE144;
-	Wed, 19 Aug 2026 03:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1273138BF6A
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 03:39:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787110464; cv=none; b=MXJrkP8wctRpjvnQTYWuUMjRxQuIuXSh6b9mcLr6AXUn8f9HNrzp7CPkd7XxWzq1iyvV9JpJ21wCiiRrsN+MLXdXxw167az9TloLpLfanoU+eeWVK8u95gVoro1gcoUn92aQYBZA20StswWeHBq8MTIUsf93019ACawxSHsqF5g=
+	t=1787110756; cv=none; b=MMmAGRHT8nZB+0ykKXVBjfvd4UVIWKNn6P25Lud/sO2jfAkZp35pfM2ZoUAJK6HjPx0onx7sNSUj6vZePeRz+fbttnX0Tv69StmfW72UJc0pqoUTRcSl87jbIeo6KCWb02dL0SO1BCBETl+E0EoefWc+pTQ37D5vvhBp6UIysZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787110464; c=relaxed/simple;
-	bh=N0k3FyIRGDu8LPoHLuZj9wEA4NlMY13agQYSVcA1LEE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JiHPzF+g5TKrEyzQk/6VBGmoU6hnP90DYALUPykuVwRJfLTNdC1el1jPB6/1XXm6Xg3XUdvMC4Zg3V7TMwdssYVGkR92AjLuAIeaX5XlsM6EETf0LfxiRDTEPWjxvrpFM4NjN17CSRY2yxDgP24TQdJ5sVzw+MXe5rOB3M+nf0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wBXUH80JIVqCuamAA--.20479S3;
-	Wed, 19 Aug 2026 11:34:13 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgBXOzQ0JIVqHe5NAw--.22543S2;
-	Wed, 19 Aug 2026 11:34:12 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-hwmon@vger.kernel.org
-Cc: linux@roeck-us.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] hwmon: (gpio-fan) fix use-after-free in alarm work
-Date: Wed, 19 Aug 2026 03:33:17 +0000
-Message-Id: <20260819033317.446191-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1787110756; c=relaxed/simple;
+	bh=s0cOOj4h5pNjkKOsuDdDUCJxMXDpbWuREEibCHORmFQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SI9EKSeH8FEGbEbNUCOGJBz0/MIMrgiY1RPvbbABqpYii3bQ9PJEt9YPNR0t2fnk5GL5QpR5nxfbz8V96/IoeM+Oi1X03aQvZ11/L5qsQ0/GikD5GVcFFBJsVUAYqSsqE+r0CIJyvfPYDltaJJ4ZptxHujZn/yDQlJJZQjcV25Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mMyR10RF; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mMyR10RF"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-381b831d535so955966a91.0
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 20:39:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787110754; x=1787715554; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PU1yvxIOqoyoxZTo0QwlPy97Mpv8yx+t7SpyCWg2sl4=;
+        b=mMyR10RFbkOrjhaTmknl1DSr2DIgPDHsfoTNgI99blUBHUwIFOOwXkkUeF4Iiv/DE3
+         jvOvNw/pwtMvO+flH4WTdqwRu+DzeCoOQn+MrISYw7BrO3NhnQAUFgzlXsuNLVoLRwFi
+         U6pjL4ZCZ9i43PWwYD1PDklWSs/fH2yetBcuPeSB9cMOuoQn2NEqpmkKWOya08fFZOFw
+         JtNh/LrJdf4ghy3fYo7eo47rXRoE5tcXpSDFPFxxfmSkUeD3o5vY28jH7J3r5veCuZf2
+         BXyGV3b+0mWAiFos9KvOXOyxZIVIXWJ76ONA1PJThhV4RzYrCZnXzvwihQNFCcp5b0gX
+         mQbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787110754; x=1787715554;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PU1yvxIOqoyoxZTo0QwlPy97Mpv8yx+t7SpyCWg2sl4=;
+        b=gQCddIKmW1FZILf7C9sHaHlKXpyhm+sB/un09JylVGFubjI4ECA1aUcTZkgY+uNjqr
+         XN3PZqHjgLS1aHX1jgVU2mLhTkbRla4eJdvzsubehV07xSMgvAfQA1maZJBCIBcyO9O+
+         tV9KSBCPu0+ZSZM7NoRYNcN25PR/E468gznC9orv2QWB6X/jtGM8wyFE8bPOwS2GrLH1
+         Bpo097pN76ktfe7zX6nkEQJG2C03oStdxa0rRTHufa1W8oLQDbhHDfIK4enxnu/RckZC
+         34KcvcuyWyXMQFXfsskZjM4JNucnLqA/u3CaZan8eiP6JU78DNvgbSIw8ewQPyUkXtAX
+         ld/g==
+X-Gm-Message-State: AOJu0YzwhhoX63GbiqVsvLVEHS4hdNw+ypr3bDkQyRpYANnufyQBLo1Y
+	AqKaRTvZxFAVo7St2taOTQ1b6gXTNI9fkZ3xwE4GV/xQU+ZrdgiLdAkuFouOUH4a
+X-Gm-Gg: AR+sD10ZcNZXk9FruJnC0p7THdt08/w6fAzxwMNo8KDBCboiJBdLjGJloG2mqCPY4fx
+	Iz/HkeXi+HL9ExWtqZ4puP1Zz3HIH+1t0/W+H2e/0oqvrxpN8qbauiGDi3QIsQEt+Ew37d7n0sn
+	/K05m9tCYHAUWxMmfDzjXOFRTevFjUKSY9qPOp1dU1AfPpPo2xYE0Tqas3GjKIRx/yTyaCGbEPS
+	DCMLCAH4GjSIARuVHZNiLImhBLTVFrUUD+N83kRUlvAnPg/wpxVmHRm9T+8SnDTBauqoj/N5GDL
+	El5gkxcZkBc/4F89dpGpRFI4W2rYzECzC+hrU6Nk0TwMCuXVQAnn1aerQK0zqtkI9TrOxtXEwGT
+	E6IIj1akk1geiNX0oK8Keth06hwSmdcezIxWQfZX9MNa3H9/6VxzsiD1MfEXnrLXYo0DBkwUJSz
+	YYQ5LdFNBbaYfI0A4cUibgfzt5UzD6VhtUNsQvJhVUK4sJojXDh8gwL0aE6F0V+DrDo+72vdnLt
+	JBW77cDVo1YsKaBOBPJXg==
+X-Received: by 2002:a17:90b:5606:b0:38e:49c0:75a7 with SMTP id 98e67ed59e1d1-39580aa7748mr3388744a91.8.1787110753805;
+        Tue, 18 Aug 2026 20:39:13 -0700 (PDT)
+Received: from localhost.localdomain ([103.167.26.54])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ae1416dsm2321290c88.11.2026.08.18.20.39.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 18 Aug 2026 20:39:13 -0700 (PDT)
+From: Keqiang Duan <duankeqiangcym@gmail.com>
+To: duankeqiangcym@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH] KVM: VMX: Clear GUEST_ACTIVITY_STATE when userspace makes a vCPU RUNNABLE
+Date: Wed, 19 Aug 2026 11:38:52 +0800
+Message-Id: <20260819033852.93084-1-duankeqiangcym@gmail.com>
+X-Mailer: git-send-email 2.39.2 (Apple Git-143)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -34,81 +70,170 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgBXOzQ0JIVqHe5NAw--.22543S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?rgfCxgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZyJWlwwH4lwJ/FbVmDy1tzXF2cRfWggV2uYMJ3wWHFmSrQi
-	eS2N8HlTu7OB5WlT6B2p9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7Zr1xuw43WF4xCrWrtFWrZwc_yoW8ZF1fpa
-	98GFWFkr4kGF47XF1a9FsF9ry5Jw4xWrW2kFy7K34Syr15tr1kWr1j9342grn0yrW8K3W3
-	tFWSqrsY9ayUZFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
 
-fan_alarm_irq_handler() queues fan_data->alarm_work, but nothing
-cancels it.  fan_alarm_notify() dereferences fan_data and its hwmon
-device.  On unbind, devres frees the interrupt, which only waits for
-the handler itself, and then releases the hwmon device and fan_data,
-so a pending fan_alarm_notify() can run after those frees.
+Force a vCPU out of its hardware-tracked halted state when userspace
+explicitly declares the vCPU RUNNABLE via KVM_SET_MP_STATE, i.e. clear
+VMCS.GUEST_ACTIVITY_STATE if it says the vCPU is halted.  Add an optional
+kvm_x86_ops hook to do the clearing, as SVM has no equivalent VMCB field.
 
-Replace INIT_WORK() with devm_work_autocancel(), registered before
-devm_request_irq().  The devres cleanup then frees the interrupt
-first, so no new work can be queued, and cancels the work while
-fan_data and the hwmon device are still alive.
+When HLT-exiting is disabled for a VM (KVM_CAP_X86_DISABLE_EXITS with
+KVM_X86_DISABLE_EXITS_HLT, e.g. QEMU's "-overcommit cpu-pm=on"), a guest
+HLT halts the physical CPU instead of exiting to KVM, and hardware saves
+GUEST_ACTIVITY_STATE=HLT into the VMCS on the next VM-Exit.  That field is
+sticky: it survives VM-Exit/VM-Enter and is only cleared by vmx_clear_hlt()
+on event injection, or by vmx_vcpu_reset() on INIT / vCPU creation.
 
-This issue was found by an in-house static analysis tool.
+Nothing clears it on a userspace-driven state change.  KVM_SET_REGS only
+writes the software register cache and KVM_SET_MP_STATE only writes
+vcpu->arch.mp_state; kvm_vcpu_running() likewise consults software state
+only.  A VMM that emulates a machine reset therefore ends up with a vCPU
+that KVM happily VM-Enters while hardware refuses to fetch instructions.
 
-Fixes: d6fe1360f42e ("hwmon: add generic GPIO fan driver")
+Reproduce with a Linux guest by triggering a panic/kdump on a non-boot
+vCPU: nmi_shootdown_cpus() parks the other vCPUs -- including vCPU0 -- in
+crash_nmi_callback(), which does local_irq_disable() followed by a bare
+HLT.  The capture kernel then resets the machine via port 0xCF9.  QEMU
+rewrites RIP to 0xfff0 and sets mp_state to RUNNABLE, but vCPU0's
+GUEST_ACTIVITY_STATE is still HLT, so the BSP never executes the reset
+vector, never sends SIPIs, and the entire VM hangs at "reboot: machine
+restart" forever.  Only destroying and recreating the VM recovers it.
+
+Clearing the state is always safe: waking from HLT is architecturally
+permitted to be spurious, and every HLT in the kernel is inside a loop.
+Hook KVM_SET_MP_STATE rather than the VM-Enter path so that the clearing
+is driven by an explicit userspace declaration, and so that no work is
+added to vmx_vcpu_run().
+
+Note, vmx_clear_hlt() loses its "static" qualifier as the kvm_x86_ops table
+now lives in vmx/main.c.  TDX cannot disable HLT-exiting and KVM cannot
+access a TD's VMCS, so vt_clear_hlt() short-circuits for TD vCPUs,
+following the existing vt_*() wrapper pattern.
+
+Fixes: caa057a2cad6 ("KVM: X86: Provide a capability to disable HLT intercepts")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Keqiang Duan <duankeqiangcym@gmail.com>
 ---
- drivers/hwmon/gpio-fan.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ arch/x86/include/asm/kvm-x86-ops.h |  1 +
+ arch/x86/include/asm/kvm_host.h    |  7 +++++++
+ arch/x86/kvm/vmx/main.c            | 13 +++++++++++++
+ arch/x86/kvm/vmx/vmx.c             |  2 +-
+ arch/x86/kvm/vmx/x86_ops.h         |  1 +
+ arch/x86/kvm/x86.c                 | 13 +++++++++++++
+ 6 files changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
-index 084828e1e281..7f36e5f6f223 100644
---- a/drivers/hwmon/gpio-fan.c
-+++ b/drivers/hwmon/gpio-fan.c
-@@ -12,6 +12,7 @@
- #include <linux/slab.h>
- #include <linux/interrupt.h>
- #include <linux/irq.h>
-+#include <linux/devm-helpers.h>
- #include <linux/platform_device.h>
- #include <linux/err.h>
- #include <linux/kstrtox.h>
-@@ -84,6 +85,7 @@ static DEVICE_ATTR_RO(fan1_alarm);
- static int fan_alarm_init(struct gpio_fan_data *fan_data)
- {
- 	int alarm_irq;
-+	int err;
- 	struct device *dev = fan_data->dev;
- 
+diff --git a/arch/x86/include/asm/kvm-x86-ops.h b/arch/x86/include/asm/kvm-x86-ops.h
+index e213c9ae3e30..dd9026c1071c 100644
+--- a/arch/x86/include/asm/kvm-x86-ops.h
++++ b/arch/x86/include/asm/kvm-x86-ops.h
+@@ -82,6 +82,7 @@ KVM_X86_OP(interrupt_allowed)
+ KVM_X86_OP(nmi_allowed)
+ KVM_X86_OP(get_nmi_mask)
+ KVM_X86_OP(set_nmi_mask)
++KVM_X86_OP_OPTIONAL(clear_hlt)
+ KVM_X86_OP(enable_nmi_window)
+ KVM_X86_OP(enable_irq_window)
+ KVM_X86_OP_OPTIONAL(update_cr8_intercept)
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 283847619ff8..e5a0758536e1 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1607,6 +1607,13 @@ struct kvm_x86_ops {
+ 	int (*nmi_allowed)(struct kvm_vcpu *vcpu, bool for_injection);
+ 	bool (*get_nmi_mask)(struct kvm_vcpu *vcpu);
+ 	void (*set_nmi_mask)(struct kvm_vcpu *vcpu, bool masked);
++	/*
++	 * Force the vCPU out of any hardware-tracked halted/inactive state so
++	 * that it will fetch and execute instructions on the next VM-Enter.
++	 * Only needed by VMX, where VMCS.GUEST_ACTIVITY_STATE persists across
++	 * VM-Exit/VM-Enter; SVM has no equivalent VMCB field.
++	 */
++	void (*clear_hlt)(struct kvm_vcpu *vcpu);
+ 	/* Whether or not a virtual NMI is pending in hardware. */
+ 	bool (*is_vnmi_pending)(struct kvm_vcpu *vcpu);
  	/*
-@@ -94,7 +96,11 @@ static int fan_alarm_init(struct gpio_fan_data *fan_data)
- 	if (alarm_irq <= 0)
- 		return 0;
+diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
+index 0ff3230fd95e..74ce9dd70419 100644
+--- a/arch/x86/kvm/vmx/main.c
++++ b/arch/x86/kvm/vmx/main.c
+@@ -601,6 +601,18 @@ static void vt_set_nmi_mask(struct kvm_vcpu *vcpu, bool masked)
+ 	vmx_set_nmi_mask(vcpu, masked);
+ }
  
--	INIT_WORK(&fan_data->alarm_work, fan_alarm_notify);
-+	err = devm_work_autocancel(dev, &fan_data->alarm_work,
-+				   fan_alarm_notify);
-+	if (err)
-+		return err;
++static void vt_clear_hlt(struct kvm_vcpu *vcpu)
++{
++	/*
++	 * TDX doesn't support disabling HLT-exiting, and KVM can't access a
++	 * TD's VMCS, so there is never any hardware halted state to clear.
++	 */
++	if (is_td_vcpu(vcpu))
++		return;
 +
- 	irq_set_irq_type(alarm_irq, IRQ_TYPE_EDGE_BOTH);
- 	return devm_request_irq(dev, alarm_irq, fan_alarm_irq_handler,
- 				IRQF_SHARED, "GPIO fan alarm", fan_data);
++	vmx_clear_hlt(vcpu);
++}
++
+ static void vt_enable_nmi_window(struct kvm_vcpu *vcpu)
+ {
+ 	/* Refer to the comments in tdx_inject_nmi(). */
+@@ -964,6 +976,7 @@ struct kvm_x86_ops vt_x86_ops __initdata = {
+ 	.nmi_allowed = vt_op(nmi_allowed),
+ 	.get_nmi_mask = vt_op(get_nmi_mask),
+ 	.set_nmi_mask = vt_op(set_nmi_mask),
++	.clear_hlt = vt_op(clear_hlt),
+ 	.enable_nmi_window = vt_op(enable_nmi_window),
+ 	.enable_irq_window = vt_op(enable_irq_window),
+ 	.update_cr8_intercept = vt_op(update_cr8_intercept),
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index e3bfe6aca1a0..8ad79c60ecc6 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -1909,7 +1909,7 @@ int vmx_skip_emulated_instruction(struct kvm_vcpu *vcpu)
+ 	return skip_emulated_instruction(vcpu);
+ }
+ 
+-static void vmx_clear_hlt(struct kvm_vcpu *vcpu)
++void vmx_clear_hlt(struct kvm_vcpu *vcpu)
+ {
+ 	/*
+ 	 * Ensure that we clear the HLT state in the VMCS.  We don't need to
+diff --git a/arch/x86/kvm/vmx/x86_ops.h b/arch/x86/kvm/vmx/x86_ops.h
+index cdb38d940cfb..45e47f502a37 100644
+--- a/arch/x86/kvm/vmx/x86_ops.h
++++ b/arch/x86/kvm/vmx/x86_ops.h
+@@ -95,6 +95,7 @@ int vmx_interrupt_allowed(struct kvm_vcpu *vcpu, bool for_injection);
+ int vmx_nmi_allowed(struct kvm_vcpu *vcpu, bool for_injection);
+ bool vmx_get_nmi_mask(struct kvm_vcpu *vcpu);
+ void vmx_set_nmi_mask(struct kvm_vcpu *vcpu, bool masked);
++void vmx_clear_hlt(struct kvm_vcpu *vcpu);
+ void vmx_enable_nmi_window(struct kvm_vcpu *vcpu);
+ void vmx_enable_irq_window(struct kvm_vcpu *vcpu);
+ void vmx_update_cr8_intercept(struct kvm_vcpu *vcpu, int tpr, int irr);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index d94b59140c45..7777cf88a96b 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -9058,6 +9058,19 @@ int kvm_arch_vcpu_ioctl_set_mpstate(struct kvm_vcpu *vcpu,
+ 	}
+ 
+ 	kvm_set_mp_state(vcpu, mp_state->mp_state);
++
++	/*
++	 * Force the vCPU out of any hardware-tracked inactive state, e.g. VMX's
++	 * GUEST_ACTIVITY_STATE=HLT.  That state is sticky across VM-Exit and
++	 * VM-Enter and is not touched by any other ioctl, so a vCPU that halted
++	 * with HLT-exiting disabled (KVM_X86_DISABLE_EXITS_HLT) stays wedged
++	 * even after userspace declares it RUNNABLE and rewrites its registers,
++	 * e.g. when a VMM emulates a machine reset.  Waking from HLT is
++	 * architecturally allowed to be spurious, so clearing it is always safe.
++	 */
++	if (vcpu->arch.mp_state == KVM_MP_STATE_RUNNABLE)
++		kvm_x86_call(clear_hlt)(vcpu);
++
+ 	kvm_make_request(KVM_REQ_EVENT, vcpu);
+ 
+ 	ret = 0;
+
+base-commit: 1b731e5ded480bd1e5546aed35584238661ce72e
+-- 
+2.24.3
+
 
