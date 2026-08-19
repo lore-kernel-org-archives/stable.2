@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F103D34BB
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 19:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4054078D3
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 19:08:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787166536; cv=none; b=gUtTL1K+c9nlxGELEcIZfYvDyQWqI/uNOMUYmvr+Z7Aes3y2POOgYXWBhGbj4/l/x5LhV5TzpqSxt8GIzIbInl/9HOM5Cn4iHt37naH7zE0sH5XqEE9LqLUKs2B4aDsLbQhMbm4RfDO6p0Jw8h4vsLYoTw5EEZFhcFUvOxJKh38=
+	t=1787166537; cv=none; b=CVtG48aQz07GpR1taX3eQexGHchg7Ns1QYi6lCcPt3Xeeb0LiDEmXKyMTh2UrRHXYPTjzRmpdFc6bM6YHo0S2QEEAfpsalXJwQw8p0k9Ap/2x8evNAKoEvt2bTEsAxt5KGddDqLI4dsRvL6pzE+Bqq35t/nBU5tH2cSpvVEYuTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787166536; c=relaxed/simple;
-	bh=ilPdTUjxhICutNInYN/fC0okwYCOZVNIm5oFku0b9jw=;
+	s=arc-20240116; t=1787166537; c=relaxed/simple;
+	bh=Djw/N3csbhtn1Ha79p8OFMXYSEIjHbr13J2yf0KlGu4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KE4pvwGkAC8X9THLCSGEHat0BYLs9nzkT9eI8mW8X6IlurG68cUNJ3lKIx5fXFzGLmX2n930d0U/xcXWJI+5qTNdtxORq683b/BRXULgVuwsii6ChT80853xQj7PbA8kJ7mHHh2Bb3YRhx1kWLcV/GxKYPQgGd0MMd3L1pI+12s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhlX9y8d; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sGn2vs1Q4gmwPMGZrsEBDYQepixDXG/uc535BXozKYdhO6QpJPmUasSI5oVXSIe0EggIwgw6JYWOW0nwMI5BL03ibmRNXqFuUh4gQyn3bRNJt+tYjeFGfmX3Mx7RK0LQ5Nancwz7JuxdNhZEjeGcPUzAerOvlJkS8OkB2C3jAbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9EiXJiZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhlX9y8d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 700B21F000E9;
-	Wed, 19 Aug 2026 19:08:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9EiXJiZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ED661F00A3D;
+	Wed, 19 Aug 2026 19:08:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787166535;
-	bh=lhhPLKCb/OXDM6aAJucfaNWiCP/iqlwCwyEJNcuLJHY=;
+	s=k20260515; t=1787166536;
+	bh=0aVeahzdGk7lxwlFXh5ZSVbLQzluw0hBzrP3u0cRqoM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bhlX9y8d41kUoqtaKoaJ8wun8kkbe9mFjt+HG5BlZi90EEkR9qaVVC/EgB/yv9DlV
-	 LXz9wKwAkZ5ZijdWuE1gOcgyfQ/2kA38BAXhKGcghybu23Cuis3h2C8nqGj8IA/Wkt
-	 ekZZd8ny/QEYN+RMfI1aQG4zK0gV7Kqk0f8veZbrKVp14eGORFCglfH6yCPkdmdFQV
-	 3eh/NkmslN4VBmdJ/EUtk37oiwDaVUcu5RycPrdJWORpyphEapLFzM1PyKE90gmCIa
-	 GMI+G7X/Rhfm/4uuA/I/sNYAVHhUcHajWWQ0+Vro98B+HljZXO5aqAEPSpAWjDUpfT
-	 VMepNR2UyUYUw==
+	b=K9EiXJiZn7xklwpToyHTwdWtGykUpzvohgOH8AdMTEN1xnkTPxOV01YpRKkwpNjiM
+	 bOmnykMYh7TfpaOkv+LhmWwlWrOamuY/VZto7SxPyPXbpDMDHmHYmfD/pzBTMGHvHP
+	 tsZGVvDEKkFD4EUl8SMHFX6ejdL/Tc3AwjN28VOqezG0A/URmBYNcEvmMOb5r4qNEh
+	 K22Q9Y40qkg3D0CQN5K9AHHoJs1VK2wjZHBe05DzdlE4rr0x3rvZjs9LgnsIT0d0A+
+	 G6idoNv6XjLJV2G4wrN+mhivS6lGpkIp6HykIOxOhZmDHYyn1rtX9qz8VWmdi2YdXY
+	 0DwgZY5WNh0kA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
 	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
-	Tony Luck <tony.luck@intel.com>,
 	Nikolay Borisov <nik.borisov@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] x86/mce: Remove __mcheck_cpu_init_early()
-Date: Wed, 19 Aug 2026 15:08:49 -0400
-Message-ID: <20260819190851.563607-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] x86/mce: Set CR4.MCE last during init
+Date: Wed, 19 Aug 2026 15:08:50 -0400
+Message-ID: <20260819190851.563607-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081738-avert-freebie-72be@gregkh>
+In-Reply-To: <20260819190851.563607-1-sashal@kernel.org>
 References: <2026081738-avert-freebie-72be@gregkh>
+ <20260819190851.563607-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,82 +49,84 @@ Content-Transfer-Encoding: 8bit
 
 From: Yazen Ghannam <yazen.ghannam@amd.com>
 
-[ Upstream commit 9f34032ec0deef58bd0eb7475f1981adfa998648 ]
+[ Upstream commit cfffcf97997bd35f4a59e035523d1762568bdbad ]
 
-The __mcheck_cpu_init_early() function was introduced so that some
-vendor-specific features are detected before the first MCA polling event done
-in __mcheck_cpu_init_generic().
+Set the CR4.MCE bit as the last step during init. This brings the MCA
+init order closer to what is described in the x86 docs.
 
-Currently, __mcheck_cpu_init_early() is only used on AMD-based systems and
-additional code will be needed to support various system configurations.
+x86 docs:
+  AMD		Intel
+  		MCG_CTL
+  MCA_CONFIG	MCG_EXT_CTL
+  MCi_CTL	MCi_CTL
+  MCG_CTL
+  CR4.MCE	CR4.MCE
 
-However, the current and future vendor-specific code should be done during
-vendor init. This keeps all the vendor code in a common location and
-simplifies the generic init flow.
+Current Linux:
+  AMD		Intel
+  CR4.MCE	CR4.MCE
+  MCG_CTL	MCG_CTL
+  MCA_CONFIG	MCG_EXT_CTL
+  MCi_CTL	MCi_CTL
 
-Move all the __mcheck_cpu_init_early() code into mce_amd_feature_init().
+Updated Linux:
+  AMD		Intel
+  MCG_CTL	MCG_CTL
+  MCA_CONFIG	MCG_EXT_CTL
+  MCi_CTL	MCi_CTL
+  CR4.MCE	CR4.MCE
+
+The new init flow will match Intel's docs, but there will still be a
+mismatch for AMD regarding MCG_CTL. However, there is no known issue with this
+ordering, so leave it for now.
 
 Signed-off-by: Yazen Ghannam <yazen.ghannam@amd.com>
 Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
-Reviewed-by: Tony Luck <tony.luck@intel.com>
 Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
-Tested-by: Tony Luck <tony.luck@intel.com>
-Link: https://lore.kernel.org/20250825-wip-mca-updates-v5-6-865768a2eef8@amd.com
+Link: https://lore.kernel.org/20250908-wip-mca-updates-v6-0-eef5d6c74b9c@amd.com
 Stable-dep-of: a213dfaa2596 ("x86/mce: Set up the polling timer before CMCI discovery")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kernel/cpu/mce/amd.c  |  4 ++++
- arch/x86/kernel/cpu/mce/core.c | 14 --------------
- 2 files changed, 4 insertions(+), 14 deletions(-)
+ arch/x86/kernel/cpu/mce/core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/mce/amd.c b/arch/x86/kernel/cpu/mce/amd.c
-index dac4564e1d7ca..4bb317a54f2e1 100644
---- a/arch/x86/kernel/cpu/mce/amd.c
-+++ b/arch/x86/kernel/cpu/mce/amd.c
-@@ -674,6 +674,10 @@ void mce_amd_feature_init(struct cpuinfo_x86 *c)
- 	u32 low = 0, high = 0, address = 0;
- 	int offset = -1;
- 
-+	mce_flags.overflow_recov = cpu_feature_enabled(X86_FEATURE_OVERFLOW_RECOV);
-+	mce_flags.succor	 = cpu_feature_enabled(X86_FEATURE_SUCCOR);
-+	mce_flags.smca		 = cpu_feature_enabled(X86_FEATURE_SMCA);
-+	mce_flags.amd_threshold	 = 1;
- 
- 	for (bank = 0; bank < this_cpu_read(mce_num_banks); ++bank) {
- 		if (mce_flags.smca)
 diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-index d8f3d9af8acf0..ba28988c575cf 100644
+index ba28988c575cf..c95698dd648ac 100644
 --- a/arch/x86/kernel/cpu/mce/core.c
 +++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -2011,19 +2011,6 @@ static int __mcheck_cpu_ancient_init(struct cpuinfo_x86 *c)
- 	return 0;
+@@ -1836,8 +1836,6 @@ static void __mcheck_cpu_init_generic(void)
+ 	bitmap_fill(all_banks, MAX_NR_BANKS);
+ 	machine_check_poll(MCP_UC | MCP_QUEUE_LOG | m_fl, &all_banks);
+ 
+-	cr4_set_bits(X86_CR4_MCE);
+-
+ 	rdmsrl(MSR_IA32_MCG_CAP, cap);
+ 	if (cap & MCG_CTL_P)
+ 		wrmsr(MSR_IA32_MCG_CTL, 0xffffffff, 0xffffffff);
+@@ -2258,6 +2256,7 @@ void mcheck_cpu_init(struct cpuinfo_x86 *c)
+ 	__mcheck_cpu_init_clear_banks();
+ 	__mcheck_cpu_check_banks();
+ 	__mcheck_cpu_setup_timer();
++	cr4_set_bits(X86_CR4_MCE);
  }
  
--/*
-- * Init basic CPU features needed for early decoding of MCEs.
-- */
--static void __mcheck_cpu_init_early(struct cpuinfo_x86 *c)
--{
--	if (c->x86_vendor == X86_VENDOR_AMD || c->x86_vendor == X86_VENDOR_HYGON) {
--		mce_flags.overflow_recov = !!cpu_has(c, X86_FEATURE_OVERFLOW_RECOV);
--		mce_flags.succor	 = !!cpu_has(c, X86_FEATURE_SUCCOR);
--		mce_flags.smca		 = !!cpu_has(c, X86_FEATURE_SMCA);
--		mce_flags.amd_threshold	 = 1;
--	}
--}
--
- static void mce_centaur_feature_init(struct cpuinfo_x86 *c)
- {
- 	struct mca_config *cfg = &mca_cfg;
-@@ -2266,7 +2253,6 @@ void mcheck_cpu_init(struct cpuinfo_x86 *c)
- 
- 	mca_cfg.initialized = 1;
- 
--	__mcheck_cpu_init_early(c);
+ /*
+@@ -2425,6 +2424,7 @@ static void mce_syscore_resume(void)
  	__mcheck_cpu_init_generic();
- 	__mcheck_cpu_init_vendor(c);
+ 	__mcheck_cpu_init_vendor(raw_cpu_ptr(&cpu_info));
  	__mcheck_cpu_init_clear_banks();
++	cr4_set_bits(X86_CR4_MCE);
+ }
+ 
+ static struct syscore_ops mce_syscore_ops = {
+@@ -2444,6 +2444,7 @@ static void mce_cpu_restart(void *data)
+ 	__mcheck_cpu_init_generic();
+ 	__mcheck_cpu_init_clear_banks();
+ 	__mcheck_cpu_init_timer();
++	cr4_set_bits(X86_CR4_MCE);
+ }
+ 
+ /* Reinit MCEs after user configuration changes */
 -- 
 2.53.0
 
