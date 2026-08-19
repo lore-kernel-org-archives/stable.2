@@ -1,159 +1,177 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9E02853E0;
-	Wed, 19 Aug 2026 20:27:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFAB9440636
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 20:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787171273; cv=none; b=grNb8ObB8Wyl/P4uoRz3Iq4qcFlrBCI4ENOcFMOt2tvAZsjkfSsiqiDW5RV50v5x3t7dhVY/GpGO8aI4U8wNR0gyMrH0l/gomNeeQrBlCKpS9BUdncF3hiMlamp+dimWW9KuBtbJqChokMKVE70xlcRUEw1fsskdmS90Px+G9V4=
+	t=1787171639; cv=none; b=Gzy8zWMyaqL0VdMB2paTRUNWb3i34D/yE5HrIH8ga7pjW7eNRkaW6xw8oabaTOn1cLskRONXabVKSMx1iCCOIB++VOfFbAStUFhtVKVG8dAPUSQXgQrAESmpGhPT6Y352o5jZIK3QsOb1/GrJC25u+dV9IFLE2yrjTBzBrOpl7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787171273; c=relaxed/simple;
-	bh=AyldoyEBn/2ou+fuE9ZHQgIfWO0cEyEhzmiIxOLjLWw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u0nvCFVhxssLIvJEj/A3aGzMNNonPqmA6+0unnHNYK7qRZh2r2kt7MgCairzNnG7u0umzhGeeF1KFEhusO7rWyFdCMrfDDlLlIVI4bI3xSaXJLTGEFvxX4QYxnwQ/FFo3Xlqfc2kSekQY22bZvWuyEt24FTybThfxfKDYXYn0YU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io; spf=pass smtp.mailfrom=bur.io; dkim=pass (2048-bit key) header.d=bur.io header.i=@bur.io header.b=KnetYzJI; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kmlqrqVk; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
+	s=arc-20240116; t=1787171639; c=relaxed/simple;
+	bh=bvijR6UOVgGrT1+tBf081NUxEFiDBwRj6/iaXp2oNgM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=nCCPgnrOTJN6SqPysC/Y4icmeGgGmQVl8oxUcSy1jPOab9AgBrj+QUlR1F9JSWvgc1mYqGnUmSQLrbdK8VcRPm7x6ddk44OU9sVi6twj8HQxo50sb7OlqLRB8msIAu/iP1ghj+eBb00JRsGCUGuKIkvBnqK0Chpvea3Vu+dRPos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ozPJuFDo; arc=none smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bur.io header.i=@bur.io header.b="KnetYzJI";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kmlqrqVk"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 6ABFFEC0174;
-	Wed, 19 Aug 2026 16:27:50 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Wed, 19 Aug 2026 16:27:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1787171270; x=1787257670; bh=1FxtkVCQJ/
-	RY68QE8HMiIEYoHMQWxZ4NDcj9PkdkFoo=; b=KnetYzJIx06H/rUrjcCt8Dkf4s
-	IhzmGBaMwMnB9avGCGSO0b2ZhUoe5MxfnXy5Lkn9biBViJn6FCWRHE2mkdVSZ2zf
-	69i3I0pgBmST7dYhwWa6M7oDd5Pk9XmDNVTHEx1fo7/sdGeL0D0+zAtKyydzdert
-	uisHsV4kNQ+stpgE4lp5jd9mJKvTrZbblGv7ioBpLQU2DFd59biiqX+O4plRzP4X
-	PuILq3Easi6VQbZBdjCtnh/VoiWSlHwBdNSGNSCL3gdor6RKp6DQ3hmtZpueZfgq
-	DI0EgP5lvGvC0ygoz5Dt53aplmPEn7OjltonHRavGX+cJVEnJ9WjEDV+pgdw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1787171270; x=1787257670; bh=1FxtkVCQJ/RY68QE8HMiIEYoHMQWxZ4NDcj
-	9PkdkFoo=; b=kmlqrqVkZ8TBJnkAXoV98xI6Tdjyyqk6go0WCVvomhKJCG1//BT
-	n1O5F0yrheULWI5A4y0cd+CodixTxkCWPjaWUA41i1AWPbXGz5V1VltRDRWxL0hs
-	ylzmT1P/sN1EFA5xfGd3hxCiaxPBDhkwODxxAbFirHPm9plO4Hx/hbEL3cmcOdaQ
-	rdJUlgQFxCIR8k+vsh5qMIuvUwv8qciTwMxikd+D2wEVLgurYcEjyiKiT/G1qmiE
-	m4LLdAQoVZmvDYIo8xYI1DVqJkbv5dy5Kfsa4C9VZjwTrHEay/r9+AsHzVpv1EzL
-	Ii9dvBzBbAIJ+X3JGMk0sbXMOvsioE8Z89g==
-X-ME-Sender: <xms:xRGGanuwpXOiHbWAmNjpwKxoGV72HHDwM1a3nz7PJiROuuLWFHg7fw>
-    <xme:xRGGakV5Y2wRRY9OsCgSICnnz7-rcpOplaDHkvejcXi3iU6xvRjGivEyKG8WnLhMY
-    FjRYvV2xG_w_zhNBt-63kLoV7-rfc6yDOsZposwqJYGDJe0dBtujffl>
-X-ME-Received: <xmr:xRGGany7tfZFiv4t8pPZKvFLCzdCSSf9zrclD_tjdDkvieY_upIc4E_NcetlFaqb-9xVhPNp8OCr0nergWOkDDpmysw>
-X-ME-Proxy-Cause: dmFkZTEulO96cc1bVbyXB5XL5VoXJFkVnVWKa3Lh0Kvo61cbZ+4WYv0j5db1S8rWhH7984
-    J/vhzeL9RyrkFkailvPNjtzi2AAqQ70oQH24b3BMGVKkANLbvdlwwoj0mOblzvMCNNe15X
-    mLnqpJslv0wN1sjzrqxxCDrTXDsTpPFNiIn/QJwHy1A7rQyqXC20hilBuRRFz+2zffFxD3
-    0xHsZe+D2VECsyOK+upQnpjrsYP7lXo+mSwvS12Wl27B0UlU4YFxzsBR0CT4WqjRc/zfSb
-    PyQbm/ETYwYzwys5B2d26O1wKnYVHFyfWi2hYNdqTkGaBhGy5ZColCySeHnXD5VV/oQ9Y8
-    SLdaIKeAlzwmHnCrg7xaUTKNHrl5nxND1hV7ZoexpISucea2z/KCroNoedZFJHMTrLLGAc
-    MoDQmkLSYXgGYs2oQsoJIFYZJB2f8L6M1io2xjqzu7j3uOChs35w2iztr8LUTowd+qXUwa
-    dS3xdFdWVhW2JfQXU4tVsFB/BeW+oXUj6kJoZ8zViBJ1YoUz8HP4swENpigByQ7zjYrF5r
-    myeBitzBTd9Bk9o51jB2IgI3Sj6lZFAkRC/BbuXGvhEqYlVgTpAY3aPKVA60SzkXqDwYMT
-    uFiJCy7anZknPpOXY/3tvnwzELTUmdF6p2yCdDjxUZulPFM68KdxCBycWvkQ
-X-ME-Proxy: <xmx:xhGGarGmU21R0N6BZniAiQrMC0R0WMr-6ozP_jUZGu3Hc1l110cRfQ>
-    <xmx:xhGGass43qXvx1-ZcvqmedCLrh9lq_RBRG1WOvCZ8RSdypKcrdgqBw>
-    <xmx:xhGGarDNdt5L1xvMjnEgP4Bt8BvbX3Rn-QcmqjRjNksXY2Qeag-Ojg>
-    <xmx:xhGGanBKLPovg14Lh8BjG_iVMdF4e8oqIqlTZ6fkzO-WaCAGatgPmg>
-    <xmx:xhGGaqLej7vGYng0jg7-XZfZyOGaWJ1f2DsR1-WbJ-Ii6EN16yCWbkWu>
-Feedback-ID: i083147f8:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 19 Aug 2026 16:27:49 -0400 (EDT)
-Date: Wed, 19 Aug 2026 13:27:26 -0700
-From: Boris Burkov <boris@bur.io>
-To: Leo Martins <loemra.dev@gmail.com>
-Cc: linux-btrfs@vger.kernel.org, kernel-team@fb.com,
-	Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
-	Filipe Manana <fdmanana@suse.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	Josef Bacik <josef@toxicpanda.com>, Qu Wenruo <wqu@suse.com>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] btrfs: abort transaction before releasing tree_log_mutex
- on commit failure
-Message-ID: <20260819202726.GA3622042@zen.localdomain>
-References: <698c480ec13cd6e74c2175924f614b7e324e6cc3.1787099421.git.loemra.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ozPJuFDo"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66c70f05859so2611411d50.1
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 13:33:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787171637; x=1787776437; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JJDZ3zG6BST+HSWSWwE8GsdZoVMnM7ou/ROzox6VqsE=;
+        b=ozPJuFDov2/LqWqL1UOQtOwU3dLIdQN7ZyILPofc15tchfbFofFAeH2HvFRL0317ZH
+         CHZjcp2eBLOTbJAUcUcaSTWgWsWEV4mMpMMKUXWPpzz4FE5ZFbf3wd28+NjmO+3huy/4
+         9pxGvy2k/y708aQpSNK6JsBmakyNb3kLFuX+LHaOtCdJS2H0EDynzq0PsaL4NUR1B835
+         GGmgR/hhEiloYBgBUyAE8lRuW9KpWBaP882u7ua/k9r1+4/B50+U0B9CqXfFWAfYRIGI
+         QWQ36Dzs3UK6no73kbvo8P444j8G3Z8zKMOfvgvxQF2NBNc/IxHR8TeCSY0jBz9B3rdu
+         CTvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787171637; x=1787776437;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JJDZ3zG6BST+HSWSWwE8GsdZoVMnM7ou/ROzox6VqsE=;
+        b=VyIKqBHb93wjpIDDRkUqITTAj0LzCNFvLbMcxQiSasZVhK+ELWKetn93fPCSDqHBP4
+         0cg+fFz+vd4EesB9k/h0bOaivSvcwrMv3Jcy0dKJLyDtSO8QjR5my/uSPWCQNYM1wazW
+         KDCwwgEcNSmR0drYNmCDV5/VXZ70XBgCQG9Bcuq7OI6TnXk87cJwFGx5vUlHPmam32Pc
+         DlOWlhGfvPxgbDDo2WcEHeFo5oeJGq+8nu82W2/h1T8R0aW5QhZS0WFERULVxQTfh8n6
+         6XBFz6/KwwN5KoIWO/8h7cS3c2EMu1I6TFK6u2iNGqiatQ3PGl+DtcBOZO0+xBQli4HB
+         ru9A==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8SaE7MLKnzW+EhVPrA4GwBdXAtP61tpXsrswwrMPY3BVv3zIg4RFoaPGlkNnE2ZaGrCyOJqU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDWXS6t2Pe0mTV7Y00uYrvBf8BKHBEzPwh0RFIDFbQmz3dHSeL
+	agBbIpdkG3lsZU1acpM4iMyQsIPj+zJnvVPX4yKh2wYEaMDwemWzzleBVo7nGKU4TA==
+X-Gm-Gg: AR+sD12TPUfU2zYEdJs3BRKxTGr7qSIpOjLqwaGW38RzQDGMLirNgxJ4n9JQJyRGZ6B
+	AC1obccYaYqhN9EhsVSEKkrDZlsuDVbWRTbTVDNYA8vP81raaTEyDaiBUll2wHTrciXkOFCr/P7
+	doZR7f7UwiygdSkoERSzK2mpRD0PZjJm5LpfUQimeZ8i2N7h/7ZKXq58queoSwF547+qHHrXd4V
+	wl+wK5+DS+UJBB3roSccxL6xwVkBR0eOGW4bkT2hA4PWgeK1XYzZrJAyP/eB87tNJpOnG3H2t3F
+	gSI+SI4s2GfAWmS2aEN0DqoSK9m9RhA38cijZZx8eQBAM0uCP0d9AH7vwFF/rRrtiY7IwsmZYFL
+	12mA/+r0Qa+I/uK6MlX/rm+up24xQQ6by/2FsEmF/S/A8JaZlYmf9CdkVhRCzSGOrzFIExg6aBx
+	39VEqlr88z26Sh5jGyswitBA6ksK4cg4oThHaBxhTWzzmaddTJ9sMxsCZd9WE5ZAX6eqlqEZAD+
+	+LLELCFLTKKweD3ggHCEr51i8Y+dH6bqd9wx6Wu9w3J+h+K
+X-Received: by 2002:a05:690e:1a46:b0:663:9a0a:7b80 with SMTP id 956f58d0204a3-66ccb61cec0mr2093887d50.19.1787171636227;
+        Wed, 19 Aug 2026 13:33:56 -0700 (PDT)
+Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-84512e347e8sm15186657b3.20.2026.08.19.13.33.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 13:33:55 -0700 (PDT)
+Date: Wed, 19 Aug 2026 13:33:42 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: Kiryl Shutsemau <kas@kernel.org>
+cc: Usama Arif <usama.arif@linux.dev>, Hugh Dickins <hughd@google.com>, 
+    Andrew Morton <akpm@linux-foundation.org>, baohua@kernel.org, 
+    baolin.wang@linux.alibaba.com, david@kernel.org, dev.jain@arm.com, 
+    lance.yang@linux.dev, liam@infradead.org, linux-kernel@vger.kernel.org, 
+    linux-mm@kvack.org, ljs@kernel.org, nico.pache@linux.dev, 
+    ryan.roberts@arm.com, ziy@nvidia.com, nphamcs@gmail.com, 
+    hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
+    kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio
+ on zap
+In-Reply-To: <aoWw_iKEDLjKL2jr@thinkstation>
+Message-ID: <5bd5c5fe-0d55-9fec-aadf-477891428887@google.com>
+References: <20260819101222.3732660-1-usama.arif@linux.dev> <aoWw_iKEDLjKL2jr@thinkstation>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <698c480ec13cd6e74c2175924f614b7e324e6cc3.1787099421.git.loemra.dev@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Aug 18, 2026 at 05:40:10PM -0700, Leo Martins wrote:
-> When transaction metadata writeout fails in btrfs_commit_transaction(),
-> the current code only logs the error, drops tree_log_mutex and then goes
-> through cleanup_transaction(), which aborts the transaction and records
-> the fs error.
+On Wed, 19 Aug 2026, Kiryl Shutsemau wrote:
+> On Wed, Aug 19, 2026 at 03:12:22AM -0700, Usama Arif wrote:
+> > zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
+> > file case, but not the dirty bit.  The pte path does propagate it, in
+> > zap_present_folio_ptes() and so does the pmd split path, in
+> > __split_huge_pmd_locked().
+> > 
+> > For most file mappings the omission is harmless, because writing to a
+> > shared file mapping goes through page_mkwrite(), which dirties the
+> > folio.  tmpfs is different: it has no page_mkwrite(), and
+> > vma_wants_writenotify() is false for it, so a *read* fault on a
+> > MAP_SHARED tmpfs mapping installs a writable pmd via do_read_fault().
+> > do_read_fault() does not call fault_dirty_shared_page(), so subsequent
+> > stores through that mapping set only the hardware dirty bit in the pmd
+> > and never call folio_mark_dirty().
+> >
+> > A shmem folio allocated by a fault
+> > is marked uptodate but not dirty (see the clear: block in
+> > shmem_get_folio_gfp()), so PG_dirty is never set at all.
+> > 
+> > Unmapping such a folio - munmap(), or exit_mmap() when the process dies
+> > - then loses the only record that it was written, because zap_huge_pmd()
+> > drops the pmd without transferring the dirty bit.  Reclaim afterwards
+> > sees a clean shmem folio: the whole swap-out block in
+> > shrink_folio_list() is inside "if (folio_test_dirty(folio))", so
+> > pageout() is skipped and the folio falls into __remove_mapping().
+> > There, folio_is_file_lru() is false for a swapbacked folio, so no shadow
+> > entry is created and __filemap_remove_folio(folio, NULL) simply empties
+> > the i_pages slot.  The data is freed without ever being written to swap,
+> > and the next fault on that index returns a freshly zeroed folio.
+> > 
+> > This is silent data loss for any process that keeps state in a
+> > MAP_SHARED tmpfs segment across an unmap - for example a cache handed
+> > from one process generation to the next through /dev/shm.  It requires
+> > the folio to be PMD-mapped, so it only shows up once shmem THP is
+> > enabled (which is what we did in Meta fleet and started noticing crashes);
+> > with THP off the pte path transfers the dirty bit correctly.
+> > It also only becomes visible when swap is enabled, because with no swap
+> > device shmem folios (which are on the anon LRU) are not scanned by
+> > reclaim at all, so the clean folio is never dropped.
+> > 
+> > Reproduced on x86_64 with a tmpfs mounted huge=within_size: read-fault a
+> > 2MB-backed region, write a known pattern through the resulting mapping,
+> > munmap, force reclaim of the cgroup, then re-map and read back.  Without
+> > this patch the region reads back as zeros and vmstat shows zswpout 0 -
+> > the data was discarded rather than swapped.  With this patch the region
+> > reads back correctly and the pages are swapped out as expected.  With
+> > huge=never, or when the first touch is a write, the test passes either
+> > way.
 > 
-> That is too late for the tree log side. A log sync can already be
-> waiting on tree_log_mutex, because the committing transaction is moved
-> to TRANS_STATE_UNBLOCKED while that mutex is held, which lets fsyncs
-> join the next transaction and queue up in btrfs_sync_log(). Once the
-> failed commit drops tree_log_mutex, such a log sync acquires it, sees
-> BTRFS_FS_ERROR() still clear, and writes super_for_commit. That
-> superblock holds the roots prepared for the transaction that has just
-> failed to write out its metadata, so it can point at tree blocks that
-> never reached the disk, and the next mount fails with a parent transid
-> mismatch.
+> +Hugh.
 > 
-> Commit 165ea85f1483 ("btrfs: do not write supers if we have an fs
-> error") fixed this class of problem by making btrfs_sync_log() check for
-> an fs error right after taking tree_log_mutex. That check only works if
-> the commit path publishes the fs error before it releases the same
-> mutex, and commit 68d4ece9c30e ("btrfs: don't call
-> btrfs_handle_fs_error() in btrfs_commit_transaction()") removed the only
-> thing that did so.
-> 
-> Restore the ordering by aborting the transaction while tree_log_mutex is
-> still held. We have a transaction handle here, so this does not need to
-> bring back the btrfs_handle_fs_error() call: __btrfs_abort_transaction()
-> records the fs error itself, which is all btrfs_sync_log() looks at, and
-> the error message put in its place is kept.
-> 
-> This is what commit 3810ab40afa5 ("btrfs: abort transaction on error in
-> write_all_supers()") already does for the next call in this function.
-> 
-> This is reproducible on an unmodified kernel by failing the first
-> couple of bios of a transaction commit with fail_make_request while a
-> concurrent fsync workload keeps log syncs queued on tree_log_mutex.
-> 
-> Fixes: 68d4ece9c30e ("btrfs: don't call btrfs_handle_fs_error() in btrfs_commit_transaction()")
-> Cc: stable@vger.kernel.org # 7.0+
+> Oopsie.
 
-Reviewed-by: Boris Burkov <boris@bur.io>
+How ghastly! Thanks for finding and fixing, Usama.
 
-> Signed-off-by: Leo Martins <loemra.dev@gmail.com>
-> ---
->  fs/btrfs/transaction.c | 6 ++++++
->  1 file changed, 6 insertions(+)
 > 
-> diff --git a/fs/btrfs/transaction.c b/fs/btrfs/transaction.c
-> index 13a7e5f4e08c..ed850bf0546a 100644
-> --- a/fs/btrfs/transaction.c
-> +++ b/fs/btrfs/transaction.c
-> @@ -2583,6 +2583,12 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans)
->  	ret = btrfs_write_and_wait_transaction(trans);
->  	if (unlikely(ret)) {
->  		btrfs_err(fs_info, "error while writing out transaction: %pe", ERR_PTR(ret));
-> +		/*
-> +		 * Abort before releasing tree_log_mutex, so a log sync waiting
-> +		 * on it sees the fs error and skips writing super_for_commit
-> +		 * for this failed transaction. See btrfs_sync_log().
-> +		 */
-> +		btrfs_abort_transaction(trans, ret);
->  		mutex_unlock(&fs_info->tree_log_mutex);
->  		goto scrub_continue;
->  	}
-> -- 
-> 2.53.0-Meta
+> I'm confused why it took a decade to discover the bug...
+> Maybe read ahead of write for shmem is too rare, I donno.
+
+It isn't entirely clear from the report, but this is all about modifying
+a 2MiB+ *hole* in a shmem file through an mmap thereof, with first fault
+a read fault not a write fault.  I suppose only a few proceed in that way
+(though truncating an empty file to some size and then mmap'ing that size
+is very normal).
+
+Or everybody who tried to report this bug, wrote their report into a
+2MiB hole in a shmem file through an mmap thereof.
+
+Other than holes, all shmem folios are dirty throughout (and re-marked
+dirty as soon as brought back from swap): so for most, it doesn't matter
+what the pmd says.
+
+This raised a dim memory, took a while to locate what I was remembering:
+e1f1b1572e8d ("mm/huge_memory.c: fix data loss when splitting a file pmd")
+from 2018.
+
+Not quite the same; but what a pity that one didn't prompt any of us
+to look further and find what Usama now has.
+
 > 
+> > 
+> > Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+> 
+> This would be more precise: b5072380eb61 ("thp: support file pages in zap_huge_pmd()")
+> 
+> Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
+> 
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
+
+Acked-by: Hugh Dickins <hughd@google.com>
