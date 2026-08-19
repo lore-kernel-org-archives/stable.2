@@ -1,108 +1,220 @@
-Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-218.mta1.migadu.com [95.215.58.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F019489861;
-	Wed, 19 Aug 2026 16:30:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22D048662F
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 16:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787157037; cv=none; b=SYZMCFyN5gRZL/t5fVCH+nMfnqMNkGnpkLqxvl05lHtcZ9GwWTOc2C4uYV7KJ7/Lek5q1/b9CfND8KOwjqbIeomJGErUSEY04HCjx5/75GofJ32o1oaHM/DGpeejJZuo1OXGDTFTab4ZmlDC+7CI2WDoE/Blje0s5pUR/ijiREc=
+	t=1787157160; cv=none; b=uzbXi8dXe/R1cMHFIrYd9WI3tLhgrqG14k1DxSFlJ39rS/lA3ar+hjqcjbgNLhWTqlSxMDaQlKjTuFo8/92BREmKMtxZ5jbiw7el4dMceA8YQ78ihfiCPbg8YNac+Wf8yq2qrGwS1ugJuQSLmOBu142boiBXg6DQfvLtk5tnA0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787157037; c=relaxed/simple;
-	bh=k6v3SaglDUCewteuFXVt6DG1RzLNMb4XdvCSAQj3l2o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LzCtysO+6mCOdGSNvmbP9nWNtyukJvB6EQmFFe79t3g2u6GvhAIZw4UiWM0mptPMN41wNoY5H37m5TwAfMcGvjMsSUt4srU/xo1d/ClAGwuRkXK27S9ii8XWrfTpwTPX9vtvwb/m6mLYk8KLiMmxwLEoax0av9M4uKo52uv8D2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=astier.eu; spf=pass smtp.mailfrom=astier.eu; dkim=pass (2048-bit key) header.d=astier.eu header.i=@astier.eu header.b=bXsVS9j1; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PVOuqDA+; arc=none smtp.client-ip=202.12.124.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=astier.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astier.eu
+	s=arc-20240116; t=1787157160; c=relaxed/simple;
+	bh=zxkoUC4bgxUtiTO0LYujsc/ZDtFLJGnt/5/oXxFaLqo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PN++FGP+Pf3ELSK/dQi8SloyPatTAZszsLgCAGfHXc6O402n3RYwDwGXRz1qtcsqerFGsuByqvHFVvtF+aOfdpNhEzEBHW2/eYljgSueiCmcTjPkBa1nLeYhSi+K9DQ1qwFatADSnGX7K4S/6i/0z/Mog4idHANsbh7lD8vf9HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kauuV0qv; arc=none smtp.client-ip=95.215.58.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astier.eu header.i=@astier.eu header.b="bXsVS9j1";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PVOuqDA+"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 88BD27A0105;
-	Wed, 19 Aug 2026 12:30:34 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Wed, 19 Aug 2026 12:30:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=astier.eu; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1787157034; x=1787243434; bh=LB3LEC2789
-	H9F6ctczT5CnNl4kze8bV2MjpmR+VQNo8=; b=bXsVS9j1bJYZIH+AMis6yzkqjK
-	mZ0op4lcg029P+QU+YRoAA9DQtR84Kn5iC8/dTuSW0UcncCZvg6Rv5+SzBp43bry
-	3NMiBtHDeyQyyYJpbptfe4JqqHOEIoE6qRlPiiV3mJe3VYkSifK03glR1bonhjcL
-	W35jYRZP9MfjInov8HfGAUMHlhO4P3rtEf0/b9NerAL/jhuu/DsTh7lJkR9AJ191
-	6GkowoYWdcnhwt6UUsG8wm6J6aMLdH5m0bnQjMMJFnzzgp7jq7H2gzyhy912OGFk
-	CIHoVqlklhd/gOrgrklhQ9y0K9htW7NoSagmukN4j/N5T9JtsfTljSpd2+wQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1787157034; x=1787243434; bh=LB3LEC2789H9F6ctczT5CnNl4kze8bV2Mjp
-	mR+VQNo8=; b=PVOuqDA+ZUMH5T7nzEC4tTN65OhF2iM3bs1bDtRpotDe7qrbLmD
-	UovBm6O3IWMJTU5pophMQcvArsZFgm2lKFmf0W5rRbtP4B9QIV8saotXeWFdLOAx
-	5aEmz+xatlr0T60/oRgK3P6x0Q652gKLfhAWw8dt6VxJoo64zZ1z9XXOEkbiXEQN
-	IfTSK3ii9hbmn4RYKgxNIcEudz1ptzncV+/DrV4wfjIubv45GZGRPsHZiyI+gpIF
-	sY7afZ0oo6ocDpxj6PBCCOY6clXW+REDrrENOIQY7t9bxnMbKNhcNVuCTFSJWZe1
-	0wmWw7q63i58yOI5Ci6HyEj2uw4dnwLn+0Q==
-X-ME-Sender: <xms:KtqFaqXhr_DbHVFZd8HOGlrFM6AmRPrk0e5Z7BRq0zGAqUTurlo19Q>
-    <xme:KtqFaoF7Wh_1NaR8RPKlvwtBk5UJoQymCXgDtZPLvaZbW0aa1nns7kzYA1r4ISHdQ
-    enkVR81g426hZFqdEYPkcbK9WER5p5_cP1laddxHL-VENcKzHBvrw>
-X-ME-Received: <xmr:KtqFauc4fpKem4fFCPHwgV2zxc1B_Af0cEMoOfBit28voLUgG_JV_VNfo_5r4_rnLan1jaUmtdw6Ik9MbbViNF7n6fEUB_67W5hxmVKv>
-X-ME-Proxy-Cause: dmFkZTFsj9NIgBuR6iJa4VFFAlbKVoABCIV0mkCBM5PDdMqMI9XJ7JFRL1XmbKEQNHYyG6
-    UQjkFQBOgzznIbtfTxsCsFUo2lV8caIHHoWn67BxV01gtR52KmYtfdrCtmrD0jFd4y/hSM
-    oQTBDSBA9FU01x9+Bkqp56Z8lTx6u5ZVWoYJ0mHQNrJZY16isfAGkVPQJt+lGveRGkL1ga
-    H3sZZGNDzHXO0FDy67Mf/zvZa++XH2ft9dEUXWrG6qoJRVXjasKmxL3kkngtxsm3bies5s
-    OjV2pcbEGHGafNvRXSfXJMuoM7JelHnnTGb858fSXfIFQE0VgKqV1YgEekO+ogAXYlQ0oH
-    QPo5vJDxjnUYq3ldKnCBsffH1aVde2i481zAjd4n00uD7fKrp69RdfWeqXMz41TJ79h3VQ
-    IHkDRdFlORdpqX1jEgVqtOLVKmX/bWb3ijOvb8Pen70sWCw9nRwptaO3u7/sq4HVJKciLa
-    kU0RqHL+0om7JsJiI8WWZYzu/PPVvuKMOWoL3grrzwOhjE8/HJrjZP28uf00L7ORLAPiag
-    v3/KasRKa1jpLjFKLVEvAqvg/OuWF96m7zW9tAxEYZ4RqMyMXXcmGGzW7CahQH4/XKE9UC
-    O2cvm6CHk40+vsQwAOawlCqTd3RFzotksW5Ea+a02FcrmSyw3jqa5LwdMyXg
-X-ME-Proxy: <xmx:KtqFahIezpHklumOxypxulN7p_9IKrn_y_imwC7DJTTXf2PBG13Crg>
-    <xmx:KtqFarFBmO5uRogQN_VcS1U1t_Nacpni0V5xxGw0wKZS4Xv_OZJFrQ>
-    <xmx:KtqFasA_dmbf-OFPqbdeo2mdWECXIbH2MqrSPwEh7nyueiyz8iY4wg>
-    <xmx:KtqFam__YmvQYkFFBWwHGZ7SSu6AfUOUxqyCT-zNVSGDS2eLa-5yXA>
-    <xmx:KtqFauDIk7P4SnERXvKJAYgn2uRfKxIncAaXX9DR5AEdAZMkLSNjW704>
-Feedback-ID: iccec46d4:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 19 Aug 2026 12:30:11 -0400 (EDT)
-Date: Wed, 19 Aug 2026 18:29:35 +0200
-From: Anisse Astier <anisse@astier.eu>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-efi@vger.kernel.org, x86@kernel.org, stable@vger.kernel.org,
-	Ravi Bangoria <ravi.bangoria@amd.com>
-Subject: Re: [PATCH] efivarfs: Rate limit statfs() handler
-Message-ID: <aoXZ7xBT546YKdOY@kanto>
-References: <20260818141150.905336-1-ardb@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kauuV0qv"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zxkoUC4bgxUtiTO0LYujsc/ZDtFLJGnt/5/oXxFaLqo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787157155; v=1; x=1787761955;
+ b=kauuV0qvk+nddmk8N88Tg4r9m+tmv11v81X1/Ote7n7vArJhi78VlCePe4bCi6wipuBNmBqJ
+ Oemk6UdiCpOOGRG/8KPlgCxKr3DI76E7nV60SkZfCqGckQRYxL12QATKpLoKrGCeJ776cpoqm38
+ QENTxzivd8lKC/ZFizop58tQ=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2a03:83e0:1126:4:9d:a05e:5bd8:c200] (2620:10d:c092:500::4:a428)
+	by smtp.migadu.com with ESMTPS id f5385ad13ce1f56a;
+	Wed, 19 Aug 2026 16:32:35 +0000
+X-Mizu-Trace-ID: f5385ad13ce1f56a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <1d0271fc-9f60-4b7f-8b89-e82a4f7034d5@linux.dev>
+Date: Wed, 19 Aug 2026 17:32:28 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260818141150.905336-1-ardb@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio
+ on zap
+To: Lance Yang <lance.yang@linux.dev>, kas@kernel.org
+Cc: hughd@google.com, akpm@linux-foundation.org, baohua@kernel.org,
+ baolin.wang@linux.alibaba.com, david@kernel.org, dev.jain@arm.com,
+ liam@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ ljs@kernel.org, nico.pache@linux.dev, ryan.roberts@arm.com, ziy@nvidia.com,
+ nphamcs@gmail.com, hannes@cmpxchg.org, riel@surriel.com,
+ shakeel.butt@linux.dev, kernel-team@meta.com, stable@vger.kernel.org
+References: <aoWw_iKEDLjKL2jr@thinkstation>
+ <20260819161728.70270-1-lance.yang@linux.dev>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <20260819161728.70270-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Ard,
 
-I like the new approach, it's much simpler and easier to understand
 
-On Tue, Aug 18, 2026 at 04:11:50PM +0200, Ard Biesheuvel wrote:
-> Ravi reports that statfs() may be called by unprivileged users on the
-> efivarfs mount point, which may result in a flood of calls to the
-> QueryVariableInfo() runtime service. These calls are disproportionately
-> costly on x86 systems where the variable store is backed by SMM, as each
-> SMM entry requires a rendez-vous of all the CPUs.
+On 19/08/2026 17:17, Lance Yang wrote:
 > 
-> So rate limit the calls to QueryVariableInfo() at twice per second, and
+> On Wed, Aug 19, 2026 at 03:31:40PM +0100, Kiryl Shutsemau wrote:
+>> On Wed, Aug 19, 2026 at 03:12:22AM -0700, Usama Arif wrote:
+> [...]
+>>> ---
+>>>  mm/huge_memory.c | 2 ++
+>>>  1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>>> index ced400f72d43a..afbb5974bd225 100644
+>>> --- a/mm/huge_memory.c
+>>> +++ b/mm/huge_memory.c
+>>> @@ -2449,6 +2449,8 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+>>>  		add_mm_counter(mm, mm_counter_file(folio),
+>>>  			       -HPAGE_PMD_NR);
+>>>  
+>>> +		if (is_present && pmd_dirty(pmdval))
+>>> +			folio_mark_dirty(folio);
+>>
+>> Unrelated to your patch, but noticed while looking at it: we drop the rmap
+>> here under the pmd lock, while the TLB flush is deferred to
+>> tlb_finish_mmu(). The pte path handles this with
+>> tlb_delay_rmap()/force_flush (5df397dec7c4), but there's no pmd equivalent:
+>> tlb_flush_rmap_batch() only knows folio_remove_rmap_ptes(), and
+>> zap_huge_pmd() uses tlb_remove_page_size(), which takes no delay_rmap.
+> 
+> Well spotted!
+> 
+>> Doesn't matter for shmem, but xfs & friends do get PMD-order folios, and
+> 
+> Right. pageout() cannot pass its refcount check while PMD mapping still
+> holds an extra folio ref, and mmu_gather drops that ref only after TLB
+> flush.
+> 
+>> do_set_pmd() makes the pmd dirty+writable once page_mkwrite() has run. So
+>> folio_mkclean() can clean the folio while another CPU still stores through a
+>> stale TLB entry -- silently lost write, no PG_dirty left behind.
+> 
+> Yep. Writeback can run folio_mkclean() while that ref is still held,
+> though, and with rmap already gone it misses the PMD ...
+> 
+>> I think we need to fix this too.
+> 
+> +1
+> 
+>> Wanna give it a try?
+> 
+> zap_huge_pmd() only handles one PMD under PTL anyway ... how about just
+> flushing before folio_remove_rmap_pmd()?
+> 
+> ---8<---
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index afbb5974bd22..6fb34924ef66 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -2531,6 +2531,14 @@ bool zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>  	is_present = pmd_present(orig_pmd);
+>  	folio = normal_or_softleaf_folio_pmd(vma, addr, orig_pmd, is_present);
+>  	has_deposit = has_deposited_pgtable(vma, orig_pmd, folio);
+> +	/*
+> +	 * folio_mkclean() relies on the rmap to find writable mappings.
+> +	 * Flush stale TLB entries before removing it below.
+> +	 */
+> +	if (folio && is_present && !folio_test_anon(folio) &&
+> +	    pmd_dirty(orig_pmd))
+> +		tlb_flush_mmu_tlbonly(tlb);
+> +
+>  	if (folio)
+>  		zap_huge_pmd_folio(mm, vma, orig_pmd, folio, is_present);
+>  	if (has_deposit)
+> ---
 
-It's already a high-rate in performance sensitive environment. I'd have
-gone higher at once per 10 seconds for example. But really, this is
-minor, so please consider this:
 
-Reviewed-by: <anisse@astier.eu>
+I am currently at below to reduce tlb flushes, but still WIP
 
-Regards,
 
-Anisse
+diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
+index bdcc2778ac64f..60bdd6287b5a9 100644
+--- a/include/asm-generic/tlb.h
++++ b/include/asm-generic/tlb.h
+@@ -301,6 +301,12 @@ bool __tlb_remove_folio_pages(struct mmu_gather *tlb, struct page *page,
+  * function, except we define it before the 'struct mmu_gather'.
+  */
+ #define tlb_delay_rmap(tlb) (((tlb)->delayed_rmap = 1), true)
++/*
++ * Like tlb_delay_rmap() but without the side effect, for callers that must
++ * flush rather than delay: can another CPU still reach this mapping through a
++ * stale TLB entry once its rmap entry is gone? Not during fullmm teardown.
++ */
++#define tlb_rmap_needs_flush(tlb) (!(tlb)->fullmm)
+ extern void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma);
+ #endif
+
+@@ -315,6 +321,7 @@ extern void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma);
+  */
+ #ifndef tlb_delay_rmap
+ #define tlb_delay_rmap(tlb) (false)
++#define tlb_rmap_needs_flush(tlb) (false)
+ static inline void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma) { }
+ #endif
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index afbb5974bd225..76d8d5cf92ee0 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2493,6 +2493,33 @@ static bool has_deposited_pgtable(struct vm_area_struct *vma, pmd_t pmdval,
+        return folio && folio_test_anon(folio);
+ }
+
+
++static bool pmd_zap_needs_tlb_flush(struct mmu_gather *tlb, pmd_t pmdval,
++                                   struct folio *folio, bool is_present)
++{
++       struct address_space *mapping;
++
++       if (!is_present || !pmd_dirty(pmdval) || folio_test_anon(folio))
++               return false;
++       if (!tlb_rmap_needs_flush(tlb))
++               return false;
++
++       mapping = folio_mapping(folio);
++       return mapping && mapping_can_writeback(mapping);
++}
++
+ /**
+  * zap_huge_pmd - Zap a huge THP which is of PMD size.
+  * @tlb: The MMU gather TLB state associated with the operation.
+@@ -2531,8 +2558,15 @@ bool zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+        is_present = pmd_present(orig_pmd);
+        folio = normal_or_softleaf_folio_pmd(vma, addr, orig_pmd, is_present);
+        has_deposit = has_deposited_pgtable(vma, orig_pmd, folio);
+-       if (folio)
++       if (folio) {
++               /* Flush before zap_huge_pmd_folio() drops the rmap entry. */
++               if (pmd_zap_needs_tlb_flush(tlb, orig_pmd, folio, is_present)) {
++                       tlb_flush_mmu_tlbonly(tlb);
++                       /* Re-arm: tlb_remove_page_size() needs tlb->end set. */
++                       tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
++               }
+                zap_huge_pmd_folio(mm, vma, orig_pmd, folio, is_present);
++       }
+        if (has_deposit)
+                zap_deposited_table(mm, pmd);
+
+> 
+> Cheers, Lance
+> 
+>>
+>>>  		if (is_present && pmd_young(pmdval) &&
+>>>  		    likely(vma_has_recency(vma)))
+>>>  			folio_mark_accessed(folio);
+>>> -- 
+>>> 2.53.0-Meta
+>>>
+>>
+>> -- 
+>>  Kiryl Shutsemau / Kirill A. Shutemov
+>>
+
