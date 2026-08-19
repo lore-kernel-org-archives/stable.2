@@ -1,90 +1,80 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0003B449B37
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 10:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEDA345ED7
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 10:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787136010; cv=none; b=QdJGTpA/MJ9Dc9GxzQrNQcXAXbLYzs626e8nclZjUN82tyQb/rBcfGuxBF/mypLr/51F4LHRGJ4drKEPKAQVHusBJJvvBj9Zpn3G1pWrzCoqRuPuwUVctoO+unehGvA4EKqaZ00FMvGS/s9YnPyRoiOVpNfDQtGRYKMUg5BeP8U=
+	t=1787136286; cv=none; b=gAq8ppOKr6OBE+A2MbYTimRj4yLnPp465bBY+wBSPixygZoO84MB0I4cue8nJe0np+1P1b/GTO6Rjos+wVoVfzXfSYIRgMKJIodAMFVBfsQbKqzXFx2MDGCrJOHLoh0UIfLqB1BCWrl2glgG3BlvZbGmxZDJQgJ6enKFzJbYpWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787136010; c=relaxed/simple;
-	bh=5fmAaxImXhb9DVCIm6rQf2g2DAKEL8lDwCzTCOBuKFs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M2p1tW9A29MNgNldnYtRaFL5V+5uT9n9qM0tRxYxdeS9c0hnz98eiBV8P5CuoaYSTOigu+a0hBqc4yzHTubvAifojG+qkgaixXs4BZbe7pkWqtiB0j05Oxo3yLlBpmyaEkrqPjlyjdjTrpDE5teTSF19GJGl7fBYKsAupHNktYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T0PrZVgO; arc=none smtp.client-ip=209.85.216.48
+	s=arc-20240116; t=1787136286; c=relaxed/simple;
+	bh=JMmW7X9llhVLh4tgVzKcuRGQaGeUo8lmg2UIbEtqdUA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QrOhXIk7GdH1w/dP/2IBbakDFn1DvSQnGsuTTjzW+Xua4utxQTDOprr+CyDBzFxyyy0rpwLKzL1vdUCqDxufSVuD55TGgy4jA5fgawfPP1+DZ6yM2p4ym8QXlzIzKHydnfQCuOF4ZKIdzCgLUX3nNoXCHobqIkn2zTp2F/YaWwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c797+PHR; arc=none smtp.client-ip=209.85.167.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T0PrZVgO"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e69bdb0fcso844619a91.1
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 03:40:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c797+PHR"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5aebd52488cso1007531e87.2
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 03:44:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787136006; x=1787740806; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=35kkPCJ/2LvdcW4cQVn4DKW/qTDdzoABPZcDG7evXUU=;
-        b=T0PrZVgO0rdklDQmpw0xoLn+Ea3FEtRRQfEVgilN06KnmANu09WhO8uQ0/DYof8o7m
-         hff/6EPz3gqYREBJGAyyqhNIKdqyhLCeZgs7ioSeU2JMB+2GrDbItgZ7ANHzxlY9UyJc
-         P5qds2Ep5yXxOBQTFlcBr8cSunKD9YvJpmYLmrkKi3JbaKLxpEOJ01+2xsnh6/itdxol
-         9S24dAm4O692POu6B5anzck6FsMdt/0JCdxaKL8dHugYm4uVeaiwwBRmq9ILuj7nO3lD
-         wKWhZAmT3wkAx75zYfD906F10URWzfBY3d5xFEu1Et0Bob8uPLmX/U12KtilG30iuSn9
-         hOqA==
+        d=gmail.com; s=20251104; t=1787136283; x=1787741083; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=px3AKvC/vdgfBn94qjvmBeOftPFpPm1SynC6dbLUxb0=;
+        b=c797+PHRwZ+xZZlXZXY6DEOAJIBwvk54c0GqPHL2YRI3zY6uy4p/lRR/Mf1T0tZhcD
+         F4fipczlGmW6/OiYUfG+C6iodleXItIK90Vfv61q4ZGRI9fd3Um7c6PKhOws0FgdKdZo
+         sXqgNnJCkVUgdCFPP5cdRDuQBl8Iy5acWLHkH7wEl1hhHyY1MZ3O50vESaroNcXdBW88
+         YZsd6QypqRwbTxNusC/4bR96kWraQlliENClYr6Q97GP9rq96PmZAHSFUviTbVsBVA+6
+         mI6x6AteRcsRcb7kzB2iVkr5HttitSBWz9b204A8iWp1BrNYCQuZD+d9McW9ZhjkkT62
+         YzXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787136006; x=1787740806;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=35kkPCJ/2LvdcW4cQVn4DKW/qTDdzoABPZcDG7evXUU=;
-        b=D/4kSARYDPjJzQpq88Imhzu0LhsnWxop3LVl7gHPjkCLhsFjHF9M6j/sSEsskly3LC
-         NvV48MO0n0CSXQKraEseJ+z3gMi1uVlhCMVb+UZ7nZTHQZjtmAGQHPkOkoxTEeJJ/Aui
-         v7ORZJWY+977km9kDoHcHjX4knR7tNQ6Kf5VYWpUpmslPT2RbHGXOkkWNoEpL8m1pAaJ
-         v+PXzUFk10IPTcPp+pYDw1PQjwBQDTMKgsYOAuYR1nw5JY0FSGDsUayM6YRsXi75ETku
-         CIZUXYNz/3t3EXpzTiuwneiwGDHDfO4PUsP+HpCY8QANOccLE+mPkptFxeAbdJf0Z4fr
-         EsVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrgGvWxwop0OfzWrffBl4vGq8bESdOI+qJYhygFFHOdklDhtMmmuKIfTo2PqTKbr8XyUb1QCR8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIy88sCpz8GxBT0TONFWm3RxGQevw3CpSjKhlByAEBPK7kmx29
-	8zhnJ5GuiqBpipiPOZGffx4v0ReKwxIUgKfX9/YMGeWfwd1DB2pZNsRX
-X-Gm-Gg: AR+sD1040G5lmpQXDC7BZVZ7bNKGNl+uDgsh7ap0n8GW3mq9z/p5AUhbVFFyqRM9JzG
-	4ckw+v0/9fRzYWhAYrThTOsZW/gSpCiZ799VbL825+e6o6vC/czPBaDBr1DGL5xMOQqzNuUksmj
-	10OnjJUOi8bh7NzEaDiaeYW6y+0YOuqjPN8bN8qTmXnDZroClYxRIFcYJePVCCiLvd7ZJ1X5IjW
-	fA8IJgOQi+6niC6WCbapt1DOyHNnAJlX87rYZvwpKXvYNiNFnAmSzeD9Y7COCVG0+AYvrwQDcQv
-	SofgvO2L2mTCvdu6QjhkQtoAlnEHaKRuGl5KJg8LQ38ryXxnxmenXIEHq1Gp/uluURvKpl8KjJf
-	qHthdRfAg/e/1E46TRU+eEqu6VXrjUbrR5QKFuX1EFASRmHY3ecTo0vD14yfFmE/769/is/ZDGc
-	DSJO2e7QJCV0wmxS2FplXBwrOAPVJ8efaSgmp3wZfhJ6Z9y+dqpRLmFIzsbIr9QR1ZvQBQkFRih
-	SM9Y2Z2Xj0h9+pPzPBe6bLLIGalGnwRc0gQSkzBl/nVQDHzolWxXt9rmcSgh9vuEQnLV3FsZ/JI
-	a78k2wcuEA==
-X-Received: by 2002:a17:90b:4d0b:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-3958127d8bdmr6290926a91.15.1787136005521;
-        Wed, 19 Aug 2026 03:40:05 -0700 (PDT)
-Received: from iku.example.org ([2401:4900:1c07:efb3:a897:a9b5:e171:c935])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef77fc0sm11169630eec.8.2026.08.19.03.39.58
+        d=1e100.net; s=20251104; t=1787136283; x=1787741083;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=px3AKvC/vdgfBn94qjvmBeOftPFpPm1SynC6dbLUxb0=;
+        b=XE0Vt2lrxFPDtvIjGiXgk9D0UhlmEDxjc+RXu4xZ23wAnIoTeyENLb3YQ5oT6BhhD4
+         R7eeRpr4VOMeHSpx17SALr9m98Exb/hGIlYOWH93xUN2k5XNxEMCltUv0uoXHO3LSdRd
+         2wIcdIUxmL3HNycdv+6A0NykPAoXTbiae4DTrIG94OlPigfdCqFy3t0NgScr/ADXPztq
+         wQw34KKHGOBX8xf5/T3NyEFrTiJxGRjqS/XLWBn9HQOM5SJ2uyBPAn3fkFSFu2x2FdVT
+         pywnYFIf7S5bH+FTxuFw7L3JPJplV1srh99xjozZ8KY39HyFpjXYlNFRAzryrbZcyrHT
+         r+Ew==
+X-Forwarded-Encrypted: i=1; AHgh+RoFHCq0UyV4eLoTNYkdLYiHcwjYOgSU35sAfLxYQxLIrHRQpHPA12fD7I0HxVYNNcUE5ya/xe0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzI4I3zidmAWEblR8LAS63m+XOBMz2Dt1oA3iK2J3xzTgpZxh1r
+	iwaZuNTEhnfO83DmMvdR1XZbHupOr39aB9IpQ0VVxkNV7bZ0zaX7tM1tzE0iRp3g
+X-Gm-Gg: AR+sD13hLu0YkJ9OQxFv8BpS71CFh0Xt66B9ckvA/ab2sGvzGKeUywj5D2ZOkE+p2q5
+	+P6c1L78VzFBXJyUfOjBzM04O2g/yf4IgCgERWj5l/QaE1m3OIFSzD6cESp7Sdg1taVlCOhnqLU
+	KDg7S7lC0GCIotCx//USgeU2oSl3gV0g21HNZDg4iovtwSmqvJy4f9hMmjQ/T5ZaF8ob3gM9v+j
+	qNAkCyNihID/8U9XEcaP8wHWovNQQPhUejtTnGPoUTZk/2C3rtAtTl9J1aFe/kdYJtaMB1smV0Z
+	/tlrGIeXnFwFDloIBXZ903qhXQiSHOh27YNzZBMi8VFcjKRvpBUKXVojQq+X/wH1wlbhIXlOVWC
+	6G4UqUA80E1HFPmZQJJjEpbJOthUm4aK0uJDp/kVR9RG5TB78kk4PH1JIC+gtvx3u468gT4F9Xo
+	j1qs4Mb7AdHYbiyDUTZFPDnmgE/J6NykM3+tEt1VbP0AJ3jXEhqkYWnySO6jg/jRGmcaogDsRMJ
+	bXqFwI++SY13bjxaokUy5Rq1wtbSabE
+X-Received: by 2002:ac2:4f03:0:b0:5ae:b01a:d213 with SMTP id 2adb3069b0e04-5b47892e750mr1257864e87.3.1787136282553;
+        Wed, 19 Aug 2026 03:44:42 -0700 (PDT)
+Received: from dau-home-pc.. ([95.139.142.55])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4788539e3sm440890e87.13.2026.08.19.03.44.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 03:40:05 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-rtc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        Wed, 19 Aug 2026 03:44:41 -0700 (PDT)
+From: Anton Danilov <littlesmilingcloud@gmail.com>
+To: netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Thomas Graf <tgraf@suug.ch>,
+	Daniel Borkmann <daniel@iogearbox.net>,
 	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 03/15] rtc: rzn1: Fix weekday underflow when alarm crosses month boundary
-Date: Wed, 19 Aug 2026 11:39:14 +0100
-Message-ID: <20260819103926.2136712-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH net] ipip: fix skb leak in collect_md mode when metadata_dst allocation fails
+Date: Wed, 19 Aug 2026 13:43:39 +0300
+Message-ID: <20260819104338.432631-2-littlesmilingcloud@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,63 +83,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+In collect_md mode ipip_tunnel_rcv() returns 0 without freeing the skb
+when ip_tun_rx_dst() fails to allocate the metadata_dst. ipip_rcv() and
+mplsip_rcv() are registered as xfrm_tunnel handlers, so tunnel4_rcv()
+and tunnelmpls4_rcv() read the zero return as "the packet has been
+consumed" and do not free it either. The skb is leaked.
 
-rzn1_rtc_set_alarm() calculates the alarm weekday from the difference
-between the alarm day and the current day of the month. When the alarm
-crosses a month boundary, this difference can become negative. Since
-days_ahead is unsigned, it underflows and results in an incorrect
-weekday being programmed into RZN1_RTC_ALW.
+The other tunnel drivers all dispose of the packet at this point:
+ip6_tunnel.c jumps to its drop label, ip_gre.c and ip6_gre.c return
+PACKET_REJECT, which makes gre_rcv() free the skb. Only ipip returns 0.
 
-The RTC core already provides a fully populated struct rtc_time for
-the alarm, including the correct tm_wday. Use tm->tm_wday directly
-instead of recalculating the weekday from the day-of-month.
+Jump to the existing drop label instead. It frees the skb and still
+returns 0, so the packet keeps being reported as consumed, which is what
+we want here: the outer header has already been pulled, and neither the
+remaining handlers nor an ICMP unreachable have any use for it.
 
-This avoids the underflow and ensures alarms scheduled across a month
-boundary use the correct weekday.
+Triggering this needs an ipip or mplsip tunnel in collect_md mode and an
+atomic allocation failure, which is why it has gone unnoticed.
 
-Fixes: b5ad1bf00d2c4 ("rtc: rzn1: Add alarm support")
+Fixes: cfc7381b3002 ("ip_tunnel: add collect_md mode to IPIP tunnel")
 Cc: stable@vger.kernel.org
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Assisted-by: Claude-Code:claude-opus-5
+Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
 ---
-v3->v4:
-- Made use of tm->tm_wday directly instead of recalculating the weekday
-  from the day-of-month.
-- Updated commit message.
+ net/ipv4/ipip.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v2->v3:
-- New patch to fix weekday underflow when alarm crosses month boundary.
----
- drivers/rtc/rtc-rzn1.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
-
-diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index aa27ad7f5941..8c70dbf8c7ec 100644
---- a/drivers/rtc/rtc-rzn1.c
-+++ b/drivers/rtc/rtc-rzn1.c
-@@ -260,7 +260,6 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 	struct rzn1_rtc *rtc = dev_get_drvdata(dev);
- 	struct rtc_time *tm = &alrm->time, tm_now;
- 	unsigned long alarm, farest;
--	unsigned int days_ahead, wday;
- 	int ret;
+diff --git a/net/ipv4/ipip.c b/net/ipv4/ipip.c
+index b643194f57d2..ddf62b45566b 100644
+--- a/net/ipv4/ipip.c
++++ b/net/ipv4/ipip.c
+@@ -248,7 +248,7 @@ static int ipip_tunnel_rcv(struct sk_buff *skb, u8 ipproto)
  
- 	ret = rzn1_rtc_read_time(dev, &tm_now);
-@@ -273,13 +272,9 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 	if (time_after(alarm, farest))
- 		return -ERANGE;
- 
--	/* Convert alarm day into week day */
--	days_ahead = tm->tm_mday - tm_now.tm_mday;
--	wday = (tm_now.tm_wday + days_ahead) % 7;
--
- 	writel(bin2bcd(tm->tm_min), rtc->base + RZN1_RTC_ALM);
- 	writel(bin2bcd(tm->tm_hour), rtc->base + RZN1_RTC_ALH);
--	writel(BIT(wday), rtc->base + RZN1_RTC_ALW);
-+	writel(BIT(tm->tm_wday), rtc->base + RZN1_RTC_ALW);
- 
- 	rtc->tm_alarm = alrm->time;
- 
+ 			tun_dst = ip_tun_rx_dst(skb, flags, 0, 0);
+ 			if (!tun_dst)
+-				return 0;
++				goto drop;
+ 			ip_tunnel_md_udp_encap(skb, &tun_dst->u.tun_info);
+ 		}
+ 		skb_reset_mac_header(skb);
 -- 
-2.43.0
+2.47.3
 
