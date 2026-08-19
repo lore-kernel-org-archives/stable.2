@@ -1,152 +1,113 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0583433BC5
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 09:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787131067; cv=none; b=cpU70hyWtOWb0cH6RQEUtvJkwnTk1Wew3grHqdIaBI08NMsRFFjECzwdTNmqxemYzcVd5OCsdikJTdWg3aZczum7wpZ1/fbOvb2Fd8x9KaIaGd3Ifv43PCm5gmjSAN0UtSRbIjOEikJ9Ln7HeWJb5wHWmnw6+z15hBruth7N1xA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787131067; c=relaxed/simple;
-	bh=yKd0NOqvnUZEXHXx+SmVyZErpDxsdELkJs/BqkIVgrQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uVia7eZGcOkKNMOUlJBeytxafM0F/Hfh3ok27+WgnZe4KcLf4qqabHZzwdk86aS7pz5wti2uaFxRX+olE4hPBH2MG+2UvpjOINHiLvCN/hsFmm9kRQ4hX5RmlSIYHu0P52M/9CayuPLCvtkfbw41mP4gPP6PQEn6Q/RgI71mCyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+gB9ZnF; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E1243550C
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 09:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787131081; cv=pass; b=jd7uNJUwacSKCZvnRbLsq70rNtMwuyz7CsHfm1ciiNFbdLSxmlo6boI+xCdtN/mYc8gLiDVS9tL2Cy3ygLakzWL7XJgKObNU9u0P69yRGRieCiU95zizi6byAzmejIip7vdhneSu79CXfGkKXKvG9wFWW0R68S16JQFO7udhMHk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787131081; c=relaxed/simple;
+	bh=kVzk6H4/xbY+K1aXAI3iqSMLKy1QzYUGKLXPF6MwLSc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GrW0BI4aQHB1exYnqiSkAaElotXu0NMxWzMIOwCO3+ci97oJn7Pfqxdi90tTAWG2GxAggdpnBL62fgk6D57fK4CJZYN+aMfMBxNj0jPqbJ48KHvfU/p2nghlyTRvsv7HswnqmbN9woD0sMwqq33LdbCxX3xdKvDYaJRRs6d+Su4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in; spf=none smtp.mailfrom=rajagiritech.edu.in; dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b=GNM3V+YF; arc=pass smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=rajagiritech.edu.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+gB9ZnF"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so1242379a91.0
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 02:17:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b="GNM3V+YF"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1670dad7a8so116280066b.3
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 02:17:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787131064; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IJ+QE1Dh/7YnWxvhZpS7P0O40eqjSda5I17lCKO4d53MLUvZ6y7A9UjVpxRPqg8+bP
+         R+Ikhc/rn+7rvzklHxzuQLC+n5M6CC9JqLwLjIR0QQn12heJoPK3bNPOhdW0XFXHiMaA
+         h9U+Bx4YL2d4+WnnOiOT67UzIxN8WRWss5HO0ccQ3kaWJFeVu1p+8903tC7J4zJZc0YO
+         7rvxUfnrS/+UKSL6LYb0DEf3rjm57Z29GR18T99WototkOf+CORCUboVXO9vvMFGc4B3
+         E4dUmMRUTCXKLnOb9+kbzcavDAVETyFNUnD4dB/Rx/Oo7rKAdooaq9vxCPbADooqiowE
+         OWXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=cbOII4SMA5lAflDDNgVaa5UMQMG1XG5eogBSO/8/gOU=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=EXL6I5u0/cCJQD+2kg4Z0BIbk9yV75PiVTraEHp6UOj2wtIYABM9uF8YEWPbUJA39w
+         LU1lpL1l/3N4XE5BXXIWOJrVra9l1naZMg8g1h90lkRfFD5nwCeXIUwxPWeIhY6d7OY0
+         UHrpUDi7JpXoKSgdXS2lIWkl6nlQ4Allt49/ADCr3gQ20jmDAKBWkY4icpniV0ueN3Up
+         8K+8Xmb/eWu1CFsZHiBA43kzQdQNcnTvC3N8kY74EhnFtqxiz0QtDWo4HJCzl3pVYoj/
+         n0RoXzVQSHLZ+agW8t4+/QXU+2Mlg/U0DdjfAGc/Lby7Bchw6U46PMTC2f0DUrTvLcUp
+         IkeA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787131054; x=1787735854; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HgKYKxxGawS+Y3KPMd3fgnzXO0x1m/t52oc7d3V1CPs=;
-        b=L+gB9ZnFoXS0/HCnNFT17L0WiEnrwIAi8khyS7y9WUSNAeEy984NjxfoA5SMjZGE6+
-         6W6f2Xz75ZQYtIvplI5aG9/+gt4WqgJr7KDT/ffIJ4YSSGTh3PkP3drvYecrYZABq/Yh
-         5pP2j6Cu/gXiTXuT9PfzGFPR9ytSCbs6UnhriUgaJucjT6du7OoffFLqUk5WFgKhE1XW
-         nCAHq1W7Df/9GsZOgSvZyiiYi2kfRmrKRTV5bBqnabVhVI3IdwkVasW6Hv2rJW6EcC0u
-         3il21KtVyycnVXIHKYikx6f9ohBdzBrlPS9UtUX4mhz++hPAO+gEPu1X+a3VRHMJ0Glq
-         Ob3g==
+        d=rajagiritech-edu-in.20251104.gappssmtp.com; s=20251104; t=1787131064; x=1787735864; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cbOII4SMA5lAflDDNgVaa5UMQMG1XG5eogBSO/8/gOU=;
+        b=GNM3V+YFuFytnR3V85U9A9O7/cFIvEbRxo+rZ0mo8SPSdQv9h36/b3ALqylG8mxCWN
+         F7ELguIXWKhu4bOPkFr5XxqC6Lw7I9cLdFnOcmaERFQHrp8RVlOhrIi8fcfKMkd3gmbN
+         uHY4De04sGDvlkIYPu4X2P7aTO+CPgZAmQDbJmKpw828Aj1C12HFmKPPlyXAuwhKiOYX
+         xA8QqMnaSMk77n9Y1r+qc1tXKEYrddC75fiapaOAbWGiY8u6LCS2bmhJ+MymuYWiCbtR
+         77+QFtULAWeMawVaIrjPrKLqIPcYqtqD7N59s02AO4yoKnvbnnnkPT7UTFBm1bDkDKCQ
+         ivvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787131054; x=1787735854;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=HgKYKxxGawS+Y3KPMd3fgnzXO0x1m/t52oc7d3V1CPs=;
-        b=sGOYgnY4W+/UnfA8IByTNlk+eYMu3C0Z3sP5fjQZEJk7NR9jhBzytSFVCTAsris+/a
-         4MQPJjcj5z+n+XLukGoCNp/RL+Z7Q3uiw1b5k9tSQxLOpR1dZK3emhc+nQAzPbjJ1TmV
-         xfXqVHBgS3VI+BXRrtDqxrFFQANsA2GnQOwndaS/sfWU14aVQlcD22jjVv8B/mgnjxYA
-         kEjZCXW135NAuD8QubHzZWZ1a20Jbx5FVjSfwHNhLW8Mcv3i8OyOr1E0mwyXWfVfsPxC
-         0wCzG31Vyarc198gshkAcPqardAYnTcJHKpDmQTl3R8m8QwlQtOwWbKQJ6icaFtqyAxF
-         AGTw==
-X-Forwarded-Encrypted: i=1; AHgh+RqTP1PSwciQZs1LSvn+SDiei5GXgGIcbut7ap2h75Iq0UaMjty9L6k1n50GUOuQHd2CcXjAAzg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGzU3jfIevTDFAcSSfeRrqnBXj+yyndv9dBWFGdt/oNpctSbeH
-	EIkkpa3Bs9yWZFXFBHdF4kdhaEC1zF63MwyHrIM1/7VIFMM/aaCB3Clf
-X-Gm-Gg: AR+sD11Zn6yBBd2KtxPV1ws+oqZkvHul3jIQguneSVeeNUIEVw0u8X1JRGzcU9/jArL
-	1d3iSyEi7dx0OKW0XVgsKzI4/0EXVOnQ/IeBpoI7P0yYCi2dQ0jAaYeBAZLqVi3j6d6iwCuVg7b
-	xNzNCyqHa0MbuocXCFEl4He5Axhu7aHiedemuj9Iymf0XxUvSMvYUUbrbw4sLJLh/HUc1dhfviq
-	5nceSlzwNzDBtbWhLQEI9ykUH8/GKVcpPeWflyTUQC8SWDc7vM9eqvSK8Om27iFYMVE1tCFC3jM
-	ciUlCPPu3VemdeikvbXxXkPHhf1yRBB56e0Y9BZh1J9LkdwG9fXPA3Nu2mHy+XNU3C7FNOHowRc
-	1v0TCE/oEuKM35ZAeGvTqqpAULwbaYzitB/ya60Vc34nShAqAzd4r/P+nXB2oeT2GMgYgD3EPfV
-	bXND/QpCNZG7bkFD5q+r++hLSxRalv/890b8m+B5dNG2IrgaDtHKtGZCr7C5n+1134nU2vpA==
-X-Received: by 2002:a17:90b:4e8f:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-39580a50d67mr6579598a91.2.1787131054307;
-        Wed, 19 Aug 2026 02:17:34 -0700 (PDT)
-Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.101.42])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fb30541sm1875737a91.13.2026.08.19.02.17.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 02:17:33 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Wed, 19 Aug 2026 17:17:01 +0800
-Subject: [PATCH v2] drm/nouveau/nv04: check cursor buffer object size
- before upload
+        d=1e100.net; s=20251104; t=1787131064; x=1787735864;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cbOII4SMA5lAflDDNgVaa5UMQMG1XG5eogBSO/8/gOU=;
+        b=Sj8xr8zCbNRKdpmYAHqlBLMwjenU351QtMK/m1jTfVZ29O5+Q7v9F/TxWXRAY+k9px
+         k1pAh19ICmsGoFHy6J4Fl4urcnxPu06TcnxtucnqqwSaOsmfbcb41Zjmjs7gsUjZ3V13
+         5c3+FoFnxMuyV205zz49gZpQrULP2snsTQG+VCR2cwUhr/qX4DFaJhj7liTCSbseYjl0
+         R8TQSgchRc0T78Pqg6VBJX6WpmQCqvHRgPNhAwQOG5WzDWQJnWoFM3EMA5BCBzf4/ZCA
+         7t5VA+zQjHjQoc9yuFtUKZJNDOFhIZ3RDCHBmsQM2/1Vmjr3LT9x6Y+qfH+jlcxUi+aP
+         h5yA==
+X-Gm-Message-State: AOJu0YyszXuLqmoLiyuyRr/IKII0k6Eezy/QHLDwIGI+WFWOVm/ogRXQ
+	4dVho6/97SKZERNc9fD8Fa17gVtM3GJ54OMXngp3+SdgoIe68KS7pVOa0X9NJ2FF2MAAurKUtTl
+	VxL+G/j2Ej3jnWWlpnzIJ0lvrVcR6z/s4U3sTOjvoG7Mp9FHf+BlcUCgUow==
+X-Gm-Gg: AR+sD13Ra/TleG3d06qIurm84x07QBg4uz3uCxoRWhLSNHcaHabXln0gkn0FGgETs3Q
+	9iXyiRyZK7fDZN2FdwLrGGQmxfDUAFXN0qNu4u4/H5TDXB2lnbxSZa/7F1VbK82Czo7Oekvhr1M
+	u0mdpYkvaX38k2eyJoZkxSaII9hRsZ86LmQZCLLJ6PnPXiQvSoaeYxbXbT8ZaJyAX3YXGc7Nu6n
+	2Aclk80kyg3jwp+brchRKyd4/qPtx1yDE3Lj6Y73j+tawDvYRItSkGNT+O65Nlm00ZeDN7Lsn2k
+	7U0w6k5hMUIg5tj2mAGRFVighDcFwBZOTSFjZcM5Yt+u6ascbv5GCNr2Y25U8uLyDyaHwDPCW1T
+	DqzJjCPTxfHjyw7aOlioRDSzJA/kfQEI8lzh7PVpDBA7CMyFlnUyhXi2dFVX910sAwvkg4ChNO/
+	TxtRsUT7kisD3+6A==
+X-Received: by 2002:a17:906:6a0b:b0:c16:2dc0:e1ed with SMTP id
+ a640c23a62f3a-c23f9317367mr180650566b.4.1787131064517; Wed, 19 Aug 2026
+ 02:17:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260819-nouveau-nv04-cursor-oob-v2-1-63eb8d0c847f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAIx0hWoC/4WNSw6CMBRFt0I69pl+DBpH7sMw6OcBz0hrWtpoS
- Pcu4AIcnuTccxeWMBImdm0WFrFQouBXkIeG2VH7AYHcykxy2fKLUOBDLqgz+MJPYHNMIUIIBrS
- TpuVcOFSOretXxJ7ee/ne/Thl80A7b7nNGCnNIX726yI27/9LESBA9QqNOjsplLsNk6bn0YaJd
- bXWL7GoJb3QAAAA
-X-Change-ID: 20260813-nouveau-nv04-cursor-oob-ad2b6001de3d
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dave Airlie <airlied@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787131049; l=2269;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=yKd0NOqvnUZEXHXx+SmVyZErpDxsdELkJs/BqkIVgrQ=;
- b=3C4upJJdGASxXPTYB5K57J6xhcml4PoXkh2TeciUednabbD7qnhs5S1jUJs0UdydjzTeemBIR
- b9h0HYcOlVFCXGw7fZOCKq5rljXg9qF9dLGLhCHUbCGf4C2W8UCaqMt
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+References: <20260817132536.752504388@linuxfoundation.org>
+In-Reply-To: <20260817132536.752504388@linuxfoundation.org>
+From: Jeffrin Thalakkottoor <jeffrin@rajagiritech.edu.in>
+Date: Wed, 19 Aug 2026 14:47:06 +0530
+X-Gm-Features: AcwNN1UiULEM3MbnwL4VuzhY4xiT3pEXAY6LKKTg1jmDWoLEzDqkTP8LLsJWmrE
+Message-ID: <CAG=yYwmxBjeuho30BMmfscK_r0WRcMykfKcKqHXVdD1Oh8KNtw@mail.gmail.com>
+Subject: Re: [PATCH 7.1 000/271] 7.1.9-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
 
-nv04_crtc_cursor_set() validates only the 64x64 cursor geometry, not the
-size of the backing GEM object, before nv11_cursor_upload() /
-nv04_cursor_upload() read up to 64 * 64 * 4 = 16384 bytes from it via
-nouveau_bo_rd32() at hardware-fixed offsets.
+  hello,
 
-nv04 uses a legacy cursor_set callback with a NULL cursor plane, so
-drm_mode_cursor_common() passes the raw handle to the driver without
-building a drm_framebuffer; the framebuffer path's size check never runs.
+ Compiled and booted  7.1.9-rc1 (using qemu-system-x86_64)
 
-A client with DRM master can thus supply an undersized GEM object and
-trigger an out-of-bounds read, as nouveau_bo_map() only kmaps
-PFN_UP(size) pages.
+No new typical dmesg regressions .
 
-Reject undersized buffers before mapping, as gma500's
-gma_crtc_cursor_set() does. The bound is computed with array3_size() so
-the width * height * 4 product saturates to SIZE_MAX instead of
-overflowing. The check precedes nouveau_bo_map(), so the error path only
-drops the GEM reference via the existing 'out:' label.
+Tested-by: Jeffrin Jose T <jeffrin@rajagiritech.edu.in>
 
-Fixes: 6ee738610f41 ("drm/nouveau: Add DRM driver for NVIDIA GPUs")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Suggested-by: Lyude Paul <lyude@redhat.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
----
-Changes in v2:
-- Compute the size bound with array3_size() so the width * height * 4 product cannot overflow (Lyude Paul).
-- Link to v1: https://patch.msgid.link/20260813-nouveau-nv04-cursor-oob-v1-1-3f3eb37d213d@gmail.com
----
- drivers/gpu/drm/nouveau/dispnv04/crtc.c | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/crtc.c b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-index 500fd77b87d1..07251cf83df9 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-@@ -1000,6 +1000,11 @@ nv04_crtc_cursor_set(struct drm_crtc *crtc, struct drm_file *file_priv,
- 		return -ENOENT;
- 	cursor = nouveau_gem_object(gem);
- 
-+	if (gem->size < array3_size(width, height, 4)) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
- 	ret = nouveau_bo_map(cursor);
- 	if (ret)
- 		goto out;
-
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260813-nouveau-nv04-cursor-oob-ad2b6001de3d
-
-Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
-
+--
+software engineer
+rajagiri school of engineering and technology
