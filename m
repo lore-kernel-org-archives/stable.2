@@ -1,116 +1,180 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D9D49481B
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 19:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787168706; cv=pass; b=cjHixmQocyAA/odqgp1NXzJokJi/7Gnh575X1H9jRVKRZhNn/e9D7mpkYreeiF/18mnuG4ISyWPsKGEIlCT7dsD4UGLVKtRBvkxiDKDQFmBPYIJ9qUKbzdB/VUtJb059SiibxJiIihUYHmJ2U4Pa4BpzBn2QA1OHwCJgLwEhU1w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787168706; c=relaxed/simple;
-	bh=jDe4RMOgjhezMH46ShnCzUw1v/GgnSCnH6ivctRleCA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xaue5bZOGi4fU+9qpIDLhKw8TLGHUVDfeVdabCMGMJMHf+9tlEuf/3+QJX96XhAgln9MwTPPsDAq9x7KlUwU2Be64tbfJToCpfiwdGIcFczbezWe9/l0y386eMg3wbb0/tPagqDKXEB1Y7o+3xfogKH+G95+EJjjGM1TLxD18Hg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=lkdqnEX7; arc=pass smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E4744063C
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 20:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787169842; cv=none; b=aJ1F0YQDVYgOqnOwls+VZCy6ocT23XrMVyZe63VSH3tCb9uUjbCKgy9/gFYN0uy4Nv5plV4KcfAzKw1+tRJzO+aVtXiVuI997GiHJy9qk8tqJWDzusGzk60TbbmCpx/RlMIyv8ZaRVn/25/ie9fXw0DarpaPbP2TKh+skLCkUHg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787169842; c=relaxed/simple;
+	bh=MsiP6KvuFXVWtKqDJ1MlJ7Sw07kIRl3SDKNVzAfj8ZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q3GKeuJrUz9muW+qtGYpnrulEInz/jIf9RFzzakb2chshiq+o/X7jVP9o8QRFAm8sGjReemGBAwlLG59hb7yXlYymdzwDGQZBQHfjkF2M/z0qsztWDEMZFnDY2bZ+76T3ep16fA/wdZASKAAexMDer9/GxHSESWUv0+zRkcBCGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gFHmhiLm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="lkdqnEX7"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84faf87d19dso1511269b3a.3
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 12:45:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787168702; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KKa/RBVJnjxmmGOrX4Qzw10tWxToJ3R60CtsG7LYULcgWkGmuM0f3rrTfAf+G9tYw7
-         EoauOWrNiToKny5UBmqVB0RSiu3Mzx/EGHo+SpCozSfIRWKZMoCGv/g35BuJTeL9teho
-         bpkPbxTXyFu/WzW9fQF/ydJwBqJdaOQ9Jnk8AumTqBd7CWnA077sdWcEij9WdTQ+8V8v
-         BTZG+qPt/hqoiTmB2tQx8KAAeBvizlu+veW1RuMEKFPHnKjX6qG6k9XNN2kkv+tNX3u5
-         DdFVozfW1Yyj+oM0T1Aji1HI41sXiETNbyUH+InaAg3d1gzjtmOlYmSvyEIC6khOxSOs
-         dAvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jDe4RMOgjhezMH46ShnCzUw1v/GgnSCnH6ivctRleCA=;
-        fh=P+0OFC6hDjlDDoatlDICujiJKoQcj9YtbzhUf6k38us=;
-        b=G/GAXDRMyC+GPl1pCNCx2y/wa2sP1j2PwnkjkI251nsa5D0+d+/g2TIeE1LAr7Rq/0
-         OhyBciE8xo0wCCXSFX8ZE6J2TfBf4rj8TLuDNHTBP9qD0AjbvcneConkVM6Y45EP/A4Z
-         dA9JlZt4HFrzSFcqgSz8tN+kJ/KRGcv4X3VelaGQXrjaL1KswpEZf0Jv69Xo9QdWWvM/
-         V+Cl31kTBmffHACcM1wr3smrlkHR0Q9NpWN5gDYM7GiPdAzxAIrFNzPhktGj6gkPwv7+
-         t+rXB1Cs8qlfLjzuKDY1a5cyNjB2PZOl3do5x6m8fVnL9H6kGfQrD0k3FnbiGIaKfNiC
-         uf0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787168702; x=1787773502; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jDe4RMOgjhezMH46ShnCzUw1v/GgnSCnH6ivctRleCA=;
-        b=lkdqnEX7Bs3G3er9XyEm+0c11ldTcttVSTTVqaQ6nMZqD4wocZrpzX97qJg7g83SP7
-         t6H1idvtJUSHBjxcbXGlf/1oOCrwMbUiCA4IGgLbMO63sdfjSPFblHAhWZfBeT7jQ34C
-         xENIECo6E5awaA4VcYRO1shDCkgHcC28U9Abk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787168702; x=1787773502;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jDe4RMOgjhezMH46ShnCzUw1v/GgnSCnH6ivctRleCA=;
-        b=XB1z5FittEAqpM+X/7GO7qYefFlQEVcB04tdw1uNicRM4yZhYu6dZ9NYq8wb0S28dm
-         XvkbXswKDqkb9sGbKaeaDcHMAWgdtc+ITWGHyuz43v2uL9lxruEExt/eyuKCf4ySmwo3
-         jttRIsFjYOnc2JahuckdpD95oBAaK5Imxsai267vZUgUZd0g20cPDtoR+v6vg04LLZ6j
-         XDhlso2a8gbTW66BV/zl1p28/gpCB8bDpap8c1LUPDLZJ13gj8ZUg/npkF6/blwPFlk5
-         Vf7giYIulcpyDrDpXdWCrh9RNZ5r6hkCM6c/vTkp2IwPm3/Wbn92xVrQrGQ3JFGWCqts
-         HSPw==
-X-Forwarded-Encrypted: i=1; AHgh+RqOipdFlK36Hrh3VqgM2H9h4eNcwUDot8RjIhzGxSFhKjeUBR0sYnRc1chOQSDnYp41iCAEctk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJ5rf6RP7L23Kp4YLWNVv34j1z5O0sab6GZ78NCiA/BYtILwcq
-	s99ExVjo3yW4qJI6zZ6jh/3qlO/LkzVYRcDbZKw9jb9BB3Jtz3D+q7+e7cPU7cpXKw1whgA5Pqz
-	3pMTd78CdTD8sTttj4fpNo218a4mdJCw4W2647ovk
-X-Gm-Gg: AR+sD11RKufHQP1btvuhijg8fDe5dYfkf3SEViuUTr02VQovyEl6g6EeGB9gxktLW8M
-	61Bc2zQ9zg9itaZVzmqJ852TpXfTUi0kUY+kQbN495C8gEjZ1fM8dOTiO8FU4m+SjlYk+3fDxq/
-	zmJtOL/APe7XAuqClgX40Gby4BJLd5b84y1IKxsnxW4l0+OLuEvN3v84ZsyhfJGagcAWcAnpYxv
-	LMTM8LnLumUjbMKDG0M2DIjhCjjTK6lyeTjnwhRiT/lnwjkNCDEUeVz3NdYK+jsEeJQwLYjXebn
-	1tAmcduR3HXy7jan54QVG+HHcqYrShO4vRDjFjv4aiFfoi2QbnGUqllY6/gXnQ==
-X-Received: by 2002:a05:6a00:3d4f:b0:84e:b7ed:7d50 with SMTP id
- d2e1a72fcca58-851d3963defmr10807492b3a.16.1787168701779; Wed, 19 Aug 2026
- 12:45:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gFHmhiLm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27EC51F000E9;
+	Wed, 19 Aug 2026 20:03:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787169840;
+	bh=IRTZw5VkiwaYxQfWCj/IZSRovaeWlSW6Ean3pPfn9Tk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gFHmhiLmwKBcERoZ5jd7tQ7MPQBFzPJTfVDBS+QHWQBBeaahLPRNuxrMcC0igICdj
+	 8UJJja0AQjmuZWeIhqEI43fJJB8yPer2AVKjg4XrKYdHnT7zvrw4tjrpUi2/6HZBJ+
+	 Qd1NVb4Y0PsfsDsQeRQEzKe2zRaIzVV/+uJYnpTt/BRkKIzN/iaf5twJZ4bDfErmMk
+	 wwuK/zjMpzpfkli89nCJxIpxS7r9QYjcYPeK4Ui2x8XZDae4K9Kgl4zCQSfZ4Ek9qr
+	 +ooG+P8429ZzzW5wNq5xNnTCGMVDzm8qaeycujUQctnQL5Br2UPvRyQDMIB+i4A/MN
+	 SqGTCfyqhsR5A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	David Carlier <devnexen@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Toshi Kani <toshi.kani@hpe.com>,
+	"Uladzislau Rezki (Sony)" <urezki@gmail.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/ptdump: always stabilise against page table freeing using init_mm
+Date: Wed, 19 Aug 2026 16:03:56 -0400
+Message-ID: <20260819200356.851305-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026081758-womb-earthlike-dfac@gregkh>
+References: <2026081758-womb-earthlike-dfac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819143136.57350-1-jhs@mojatatu.com> <CANn89iLRPjpKF6xrWz=pv5cWXT6FxCDmOprXKrkDRgQH4Jin-w@mail.gmail.com>
- <CAM0EoMmc=CNVO0h1miKSO63uYH9f6YkX6=z+itqALT9tAYtcog@mail.gmail.com>
- <CANn89iK+xzagk9faUSjHQj+9kTnWn0wg6tRez5XtkE14G+SCvQ@mail.gmail.com>
- <CAM0EoM=6C=yarfbjtegiobdK9jvLzLwJSSMxFBYDiG6XtZQ35w@mail.gmail.com> <CANn89iLD-c930HoW0tf+A3c+5ANHv7iRzy0wFt-HqNFswtee9g@mail.gmail.com>
-In-Reply-To: <CANn89iLD-c930HoW0tf+A3c+5ANHv7iRzy0wFt-HqNFswtee9g@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Wed, 19 Aug 2026 15:44:48 -0400
-X-Gm-Features: AcwNN1V99rR847SZXdnEMkm7cBtpoxTJZqSrQNy8-DwUpwkE5RcNIZz_017ZO-o
-Message-ID: <CAM0EoM=dvzBUxeXVGw83uqqe0Kp0y-6e33hiJ0u1R=KNn9-qAg@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: sched: fix quantum/backlog overflow in fq,
- fq_codel, fq_pie, hhf, sfq
-To: Eric Dumazet <edumazet@google.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, stable@vger.kernel.org, vega@nebusec.ai, 
-	Victor Nogueira <victor@mojatatu.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 19, 2026 at 12:01=E2=80=AFPM Eric Dumazet <edumazet@google.com>=
- wrote:
->
-> On Wed, Aug 19, 2026 at 5:31=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.co=
-m> wrote:
-> >
-> > Ok. So one patch per file?
->
-> I would have done that, but you are the net/sched maintainer, I will
-> certainly respect your choice :)
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-No worries - lets hear from the esteemed sashikos, if they complain i
-will resend with separate patches.
+[ Upstream commit 27c32e5538344b13c1505a08861e04620c125d47 ]
 
-cheers,
-jamal
+Previous commits have established the invariant that kernel page table
+freeing is performed while an mmap read lock on init_mm is held, which
+fixes races between ptdump and kernel page table freeing over init_mm.
+
+However, x86 and arm64 can perform a ptdump over an mm other than init_mm
+via ptdump_walk_pgd() and since kernel memory ranges are shared across
+non-kernel mm's, this means that the race still exists for these cases.
+
+Fix this by acquiring a nested mmap write lock for init_mm in
+ptdump_walk_pgd().
+
+This is safe as we take this after mmap write locking the mm, and nothing
+acquires the init_mm lock first before locking an arbitrary mm, so no
+deadlock is possible.
+
+Also update walk_page_range_debug() to assert that init_mm is write
+locked, add a comment explaining why and remove some redundant code, and
+eliminate the unnecessary and confusing invocation of
+walk_kernel_page_table_range().
+
+We can safely remove the non-NULL check for walk.mm, as the mmap lock
+asserts would NULL pointer deref if it was (and of course no callers do
+this).
+
+The first point at which ptdump can race kernel page table freeing is
+commit b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page
+table"), so we target this in the Fixes tag.
+
+Link: https://lore.kernel.org/20260723-series-vmap-race-fix-v6-4-8cc77dcc0018@kernel.org
+Fixes: b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andy Lutomirski <luto@kernel.org>
+Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Cc: "Borislav Petkov (AMD)" <bp@alien8.de>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: David Carlier <devnexen@gmail.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Toshi Kani <toshi.kani@hpe.com>
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ Adapted the hunk to `walk_page_range_novma()` since 5.15 lacks the `walk_page_range_debug()` rename and the `walk_kernel_page_table_range()` dispatch, keeping the existing `!walk.mm` guard. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/pagewalk.c | 8 ++++++++
+ mm/ptdump.c   | 7 +++++++
+ 2 files changed, 15 insertions(+)
+
+diff --git a/mm/pagewalk.c b/mm/pagewalk.c
+index 8ebde6aed6fc8..51708eff11eff 100644
+--- a/mm/pagewalk.c
++++ b/mm/pagewalk.c
+@@ -505,6 +505,14 @@ int walk_page_range_novma(struct mm_struct *mm, unsigned long start,
+ 		return -EINVAL;
+ 
+ 	mmap_assert_write_locked(walk.mm);
++	/*
++	 * x86, arm64 ptdump allow walks of efi mm's and x86 ptdump allows walks
++	 * of arbitrary mm's.
++	 *
++	 * However, they both must also hold the init_mm lock to account for
++	 * concurrent kernel page table freeing.
++	 */
++	mmap_assert_write_locked(&init_mm);
+ 
+ 	return walk_pgd_range(start, end, &walk);
+ }
+diff --git a/mm/ptdump.c b/mm/ptdump.c
+index f07a3d9c2dae2..7dd5fc3740e96 100644
+--- a/mm/ptdump.c
++++ b/mm/ptdump.c
+@@ -146,11 +146,18 @@ void ptdump_walk_pgd(struct ptdump_state *st, struct mm_struct *mm, pgd_t *pgd)
+ 
+ 	get_online_mems();
+ 	mmap_write_lock(mm);
++	/* To stabilise kernel page tables we must hold the init_mm lock too. */
++	if (mm != &init_mm)
++		mmap_write_lock_nested(&init_mm, SINGLE_DEPTH_NESTING);
++
+ 	while (range->start != range->end) {
+ 		walk_page_range_novma(mm, range->start, range->end,
+ 				      &ptdump_ops, pgd, st);
+ 		range++;
+ 	}
++
++	if (mm != &init_mm)
++		mmap_write_unlock(&init_mm);
+ 	mmap_write_unlock(mm);
+ 	put_online_mems();
+ 
+-- 
+2.53.0
+
