@@ -1,286 +1,124 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3167132A3FE;
-	Wed, 19 Aug 2026 17:44:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787161449; cv=pass; b=nt8xfekRYVbQrWPpfrEc2YgdUYYaCmzap/wufQyCFxFNbrHRWQYE1Kvb4e2Z5+QV9MXXr4HaEt8eQ2ud+HKG+EWG/1esjRdhJmOfkDjaZK63JERHO3KnxxrIa4EP45GNXHAMkszDbr9OrDohPpnOFlX8CRTxo17tz8fgL668e7U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787161449; c=relaxed/simple;
-	bh=zoml0604Hk368cD4ThGyEaxHhqMObCUkMl0mUFuPWpo=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=Z+YoBulrlCDnGZf1p4O9QMfht8JddYPkCSm7YLdjKvdxr0Gehu/6tjXCnidMbVHvtIJWQrznA/s50hzz3afickZrcj8J87dXBze+fxVUeOR2e+xjuybxZ4XIJqEK5vugCI8zfwb9UJJo0vi3GHa+Y+5OaEWbgA14Jy1Mke3+7oM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=pCqXQpDZ; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6CC480DC0
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 18:00:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787162414; cv=none; b=Ukm1oM8aMOcLtioHjDcKlbnu/M2SiHoYgPgr2udYNrpqyfzVSM+FHwA0brvmHTZmPJXApLRYhN5SYHAyxhKoS/PKgz9We97O1YbKspI8j3ILVHjRIzposXvbvFGcZamyrLq3fJO9+hriN/easy2xkyAoFVtoUDZC6yIxCTD4WBY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787162414; c=relaxed/simple;
+	bh=ENtvYKYEhz5FjfsHNNre0679dXILkBcT7wr5GO5Ucec=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ny5/2RBu9CFlFaoSj5553oEJsZdz8XIH6BMVe/a0djCcg6X9xauy+SO+6/w2lpzAIrFUJYCKt02s7XaaaL0xr6N/qgGXlDb2Z295ut9hHTkzzoVd9PGrvRb8Bj7Mhv9OdP2oKPgQ+TAxfp/XksJuM563fBJzrnsUGRXJE3dUMUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=IlFQ7QCl; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="pCqXQpDZ"
-ARC-Seal: i=1; a=rsa-sha256; t=1787161435; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=jlPBFvVNB7ANx7KcoCvqkMDVeVPGQu9CZPxTcBfC/laJLL2JkTxf4vTYmIotIUv5mpz5aOEXSi1AWzQWx4RTV7kTv/o4k6f/u2R29jA1HnzAgvjdI5FdTgZ04zJmdgGtpSktVsH1DcGYf27LIAL2WCy+xNkeb+P8LNCTzoPv8o0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787161435; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=cD9Om299Pjgub1y5Untoy91MwqEVCH/vm59izD2DJlU=; 
-	b=LLsHOb30WXjfX1mFhAuFB4Yz2Axo8purSyrT5vW2RRufw58kPIEY9UF0b5YISZoQjZqQBJsSeKcn7FovMnwyA6Ti31OIS0yJf7ajsAd11hrPeViqeYnaozLxgcL35U+qxklvnSXoeIbGxm+Z9BM7uLJkzM9G6P8JyLNm+5OrnnY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787161435;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=cD9Om299Pjgub1y5Untoy91MwqEVCH/vm59izD2DJlU=;
-	b=pCqXQpDZ8nY2I2VfDguZdgnR0Ey3i8+M1yEP+2PkT9zCH8C86agk0dOPQsg4c11n
-	4uq7eORsCegsPbbQm+Qab/4lkjJ183nqnNvMQdQPnAE8xfTDHtkmTNSQrnrlMCPXNVT
-	1U2b+1s7ETfD6WN+VGUi1HMv/zm2qtHOCMOAhb40Av6VXwXffvtfVaPPiKcfr29t/cC
-	M+kRco3ghYaaXAAGxJ2WZsl7gLKB3xiPAvU/NTi1MP9gOrC9MdyjqtOQ9fERFi6ILpG
-	y2FvNVQqQQ/N2fsbBXjwf1pApI36nEDrqA1tNI1HWAnSSRyUbjd3q+I7AOd+wbrptNn
-	EVC6n2lJMA==
-Received: by mx.zohomail.com with SMTPS id 1787161433743255.80128562505138;
-	Wed, 19 Aug 2026 10:43:53 -0700 (PDT)
-Message-ID: <c5dc4cae4f4f33c98ee96d4d15da446b9fbf1f59.camel@rong.moe>
-Subject: Re: [PATCH 0/2] iommu/amd: Do not request ACS when IOMMU is not
- going to be initialized
-From: Rong Zhang <i@rong.moe>
-To: Ankit Soni <Ankit.Soni@amd.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Suravee Suthikulpanit	
- <suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, Will
- Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Joerg Roedel
- <jroedel@suse.de>,  Huang Rui <ray.huang@amd.com>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
-In-Reply-To: <zm24u35jq6ruz5teu6sevoe447esrqim3gn24s4bdb7kvncz6z@rmhomnfqzwht>
-References: <20260811-amd-iommu-fix-acs-v1-0-d64e2172408d@rong.moe>
-		 <zm24u35jq6ruz5teu6sevoe447esrqim3gn24s4bdb7kvncz6z@rmhomnfqzwht>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 01:38:35 +0800
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="IlFQ7QCl"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc147d86bebso145809a12.0
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 11:00:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1787162412; x=1787767212; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ENtvYKYEhz5FjfsHNNre0679dXILkBcT7wr5GO5Ucec=;
+        b=IlFQ7QClHKR0jRNTezLWoQBtfEiDuPqnSDzVqOikla5NlqBmLRN0wYiGiM11WADPmH
+         Aaj1+kDJDts9wexrs5qenbyfWjK+/5C6ztxAWZo0PHRo0PUbNaMrYG7P77Nz1b12NFHB
+         6luN8xqm7768So0f8lUHKsfoaXaO7n3hZebbu7+fswCVW/msxkea4BlQ7Fd4EoJiC8RI
+         Uug7OPGnd5BbaItxA8dFQnp1r+yNhhgpfgvvGFoSh2RvfYtdGXQyGzwgtJsTfY44okNU
+         yjrGrsxthSBKkZwwefjN0w3zyq9/Sp9/Ll5OWlNSaoUDR+tOQmzZx2FzrHepJJaiKrJA
+         XWpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787162412; x=1787767212;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ENtvYKYEhz5FjfsHNNre0679dXILkBcT7wr5GO5Ucec=;
+        b=IbYv60JgPBjtP2NlL6/UJj4pOpJ26Pr6SCqI8CjdtLQCE09cPCnEsUxnCSi+0TTrnP
+         Hhdb5YimE9yBxj5FTBWnuILqwU1L40SBcLwN/NkgzG3TB8itp6MdCCBqan5Gbeo5mcFu
+         24bkk4wWcEZGFJT1ifJOaMvtxe5V/azZ5iWTNG+w0EWT28fZWfY5MOWM980vcGZOn/aY
+         1o41e2Las6/pTfdEYZkUlr0wv9gIlKNSQxpQeChSvzWI3KcZ9ys0+j46i1ubhxqprts1
+         QVE4jHGIvGiQbwbH6NT6Ld1kKo4ZPepQBXFum5KJIhMUKLB0VrwBMLe0V9yRUDOAjk2E
+         tjeA==
+X-Forwarded-Encrypted: i=1; AHgh+RodCilynqq1OF6qkKfhXGXqpI0HrgGkQCG46qJgfo31X4gDquyYoC15gZaOEeb/W1lSodqaIkQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdNSe/UnntCwiJkEZ/a6mIjGhJHM0GVf1GuMX6Dnitxzt8Bxq6
+	XfRlX+ZaajYbqCjdMWqsxh7E5YZ4ZfMhZ5hHZf8qMFt1o7mO2uhxS41M5V82theR/7A=
+X-Gm-Gg: AR+sD12QDtmLpFzClDduEHMjk3O20wEcphvoyMDrCVwqvomfAyURblIaERXpmsXDosk
+	bKxYattHzkLJNnPLSbyzmhrVlu1FuH8XFtWSZZDgegABN69ZBxvlNH9mNjgkzR9PvRGlZSwrrI7
+	wQoLHxVorilAMHUZnBK+sPKtWWOUD+zDlMDUEfUjrSPsXC3GiZt9w19PAWuJ+rokSvBztG48Sez
+	Qbs+Y2YFOW40bvWDFGrkq1p9o+oa3vM8ZhC8MN6wSMVrrJS+nHSZkwud/DmRbrc7gfdAo72TA0N
+	sL+A8kkrSUE0wHiJC4d+zzk4HfuUW95jy3YgKf5hMrnHyQFYWwQOlmUfAQ4SAQChW4sr23aCKkI
+	9740282N+MufMLGqbTfJvZG4eHPho9kse2Mytv99zIhpVWZUbexrmnZZB/e+Vu30xIX4XJLBIo2
+	67UVhz4xSExwmOhqRsfXJXyFbS9XWlZQ7YLYNGDYFRCQRPEqFagUQGv3tKEmpOmqj1uNiY9WOlu
+	FzZT1yt4SFj/fM=
+X-Received: by 2002:a05:6a21:60c3:b0:3cc:dce8:1109 with SMTP id adf61e73a8af0-3cd14c6b137mr1001854637.3.1787162412361;
+        Wed, 19 Aug 2026 11:00:12 -0700 (PDT)
+Received: from dev-jrangi.dev.purestorage.com ([208.88.159.128])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-327bf10b584sm15843476eec.16.2026.08.19.11.00.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 11:00:11 -0700 (PDT)
+From: Jasjeet Rangi <jrangi@purestorage.com>
+To: yazen.ghannam@amd.com
+Cc: Smita.KoralahalliChannabasappa@amd.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	dgiani@purestorage.com,
+	hpa@zytor.com,
+	jrangi@purestorage.com,
+	linux-edac@vger.kernel.org,
+	mingo@redhat.com,
+	msaggi@purestorage.com,
+	rhan@purestorage.com,
+	rjethwani@purestorage.com,
+	stable@vger.kernel.org,
+	tglx@kernel.org,
+	tony.luck@intel.com,
+	x86@kernel.org
+Subject: Re: [PATCH v2 1/2] x86/mce/amd: Fix inverted interrupt enablement during storm handling
+Date: Wed, 19 Aug 2026 10:59:38 -0700
+Message-ID: <20260819175939.2068993-1-jrangi@purestorage.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260819140647.GA2416@yaz-khff2.amd.com>
+References: <20260819140647.GA2416@yaz-khff2.amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Ankit,
 
-Thanks for your review.
+On Wed, Aug 19, 2026 at 7:07 AM Yazen Ghannam <yazen.ghannam@amd.com> wrote:
+>
+> IMO, disabling the interrupt is the best way to manage the storm. The
+> reason for Intel to set a high limit is to keep the interrupt enabled.
+> The reason to keep the interrupt enabled is because the same interrupt
+> line is used for reporting "uncorrectable,no action" errors. This isn't
+> necessary on AMD because there's a separate interrupt line for those
+> errors: Deferred error interrupt.
 
-On Wed, 2026-08-19 at 10:32 +0000, Ankit Soni wrote:
-> On Tue, Aug 11, 2026 at 04:36:17AM +0800, Rong Zhang wrote:
-> > The AMD IOMMU Initialization State Machine has the following state
-> > transition diagram (only the very first states are showed, and the
-> > `IOMMU_' prefix is omitted):
-> >=20
-> >    START_STATE
-> >         |
-> >         v
-> > [0] detect_ivrs() --> NOT_FOUND
-> >         | ok
-> >         v
-> >   IVRS_DETECTED
-> >         |
-> >         v
-> > [1] amd_iommu_disabled? (amd_iommu=3Doff) --> IOMMU_CMDLINE_DISABLED
-> >         | no
-> >         v
-> > [2] early_amd_iommu_init()
-> >         |
-> >         +-- [3] amd_iommu_detected? (!iommu=3Doff && ...) -+
-> >         | yes                                            |  =20
-> >         +-- ... --> IOMMU_INIT_ERROR <-------------------+
-> >         | ok
-> >         v
-> > IOMMU_ACPI_FINISHED
-> >         |
-> >         v
-> >        ...
-> >=20
-> > [0] always calls pci_request_acs() as long as there's a valid IVRS tabl=
-e
-> > and no Stoney Ridge graphics. This is not optimal as ACS is not require=
-d
-> > in an [amd_]iommu=3Doff boot.
-> >=20
-> > In a normal boot, ACS is requested due to amd_iommu_detect() requesting
-> > IVRS_DETECTED.
-> >=20
-> >     pci_request_acs+0x9/0x18
-> >     iommu_go_to_state+0x106/0x1a20
-> >     amd_iommu_detect+0x1c/0x50
-> >     pci_iommu_alloc+0x26/0x40
-> >     mm_core_init+0xa/0x120
-> >     start_kernel+0x527/0x7a0
-> >     x86_64_start_reservations+0x24/0x30
-> >     x86_64_start_kernel+0xd1/0xe0
-> >     common_startup_64+0x13e/0x158
-> >=20
-> > This is intended to ensure ACS is requested before the PCI core
-> > initialization, or else a !CONFIG_IRQ_REMAP, nointremap or intremap=3Do=
-ff
-> > boot would be broken.
-> >=20
-> > However, in an amd_iommu=3Doff boot, the state machine still requests A=
-CS
-> > at the exact same time, as amd_iommu_detect() has nothing to do with
-> > amd_iommu_disabled.
-> >=20
-> > Even worse, in an iommu=3Doff boot, though amd_iommu_detect() bails out
-> > early, ACS is still requested due to amd_iommu_prepare() requesting
-> > IOMMU_ACPI_FINISHED, which is called by irq_remapping_prepare() thanks
-> > to CONFIG_X86_LOCAL_APIC (always set on X86_64) and CONFIG_IRQ_REMAP
-> > (enabled by defconfig), unless nointremap or intremap=3Doff is also pas=
-sed
-> > to cmdline.
-> >=20
-> >     pci_request_acs+0x9/0x18
-> >     iommu_go_to_state+0x106/0x1a20
-> >     amd_iommu_prepare+0x15/0x40
-> >     irq_remapping_prepare+0x43/0x60
-> >     enable_IR_x2apic+0x22/0x190
-> >     x86_64_probe_apic+0xa/0x50
-> >     apic_intr_mode_init+0x70/0xd0
-> >     x86_late_time_init+0x28/0x40
-> >     start_kernel+0x6f9/0x7a0
-> >     ...
-> >=20
-> > In both cases, [2] is still gated due to the [1] or [3] check, so that
-> > IOMMU can be disabled per cmdline.
-> >=20
-> > Technically, it makes no sense to detect IVRS at all in an
-> > [amd_]iommu=3Doff boot or if IOMMU is not supported due to platform
-> > settings. This is probably why amd_iommu_detect() bails out before
-> > requesting IVRS_DETECTED. Apparently only bailing out there is not
-> > sufficient, and the bailing-out paths should really have been parts of
-> > the state machine.
-> >=20
-> > Fix it by moving the bailing-out paths and [1] to the right place in th=
-e
-> > state machine (i.e., before [0]), and always requesting IVRS_DETECTED i=
-n
-> > amd_iommu_detect() to initialize the state machine early and properly.
-> > This doesn't change the IOMMU initialization/failure sequence since
-> > commit 9f81ca8d1fd6 ("iommu/amd: Don't call early_amd_iommu_init() when
-> > AMD IOMMU is disabled").
-> >=20
-> > Signed-off-by: Rong Zhang <i@rong.moe>
-> > ---
-> > Rong Zhang (2):
-> >       iommu/amd: Do not request ACS when IOMMU is not going to be initi=
-alized
-> >       iommu/amd: Remove ad-hoc checks that are never true
->=20
-> Hi,
->=20
-> Thanks for the cleanup, and the analysis of the ACS call paths matches wh=
-at I see.
-> Two things worth a look before this goes in.
->=20
-> 1. Patch 2: I don't think the !amd_iommu_detected check in
->    early_amd_iommu_init() is unreachable. pci_iommu_alloc() returns early=
- for
->    xen_pv_domain() before calling amd_iommu_detect(), but Xen PV still se=
-ts
->=20
-> 	x86_init.irqs.intr_mode_init =3D x86_64_probe_apic;
->=20
->    so x86_64_probe_apic() -> enable_IR_x2apic() -> irq_remapping_prepare(=
-) ->
->    amd_iommu_prepare() enters the state machine anyway, and none of the n=
-ew
->    IOMMU_START_STATE conditions are true. That check looks like
->    the only thing currently stopping early_amd_iommu_init() from running
->    there. Could you double-check that case before dropping it?
+Agreed. Also that was the original intent of the patch that this
+thread/patch is fixing. From the commit message for 5c4663ed1eac
+("x86/mce: Handle AMD threshold interrupt storms"):
+```
+But, unlike CMCI, do not set thresholds and reduce interrupt rate on
+a storm. Rather, disable the interrupt on the corresponding CPU and bank.
+Re-enable back the interrupts if enough consecutive polls of the bank show no
+corrected errors (30, as programmed by Intel).
+```
 
-This has been resolved by PATCH 1, where the checks have been embedded
-into the state machine.
-
-I did some quick tests by commenting out the call to amd_iommu_detect()
-in pci_iommu_alloc(), and adding a debug WARN() to iommu_go_to_state().
-When I booted a VM with emulated IOMMU (-device amd-iommu) and with
-either `amd_iommu=3Doff' or `iommu=3Doff':
-
-[    0.081948] APIC: Switch to symmetric I/O mode setup
-[    0.082553] ------------[ cut here ]------------
-[    0.083144] init_state: 0 =3D> 9, ret: -22
-[    0.083617] WARNING: drivers/iommu/amd/init.c:3506 at iommu_go_to_state+=
-0xf18/0x1c00, CPU#0: swapper/0/0
-[    0.084809] Modules linked in:
-[    0.085122] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-02579=
--ge0f12714fa53-dirty #38 PREEMPT(lazy)
-[    0.086124] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.1=
-7.0-debian-1.17.0-1 04/01/2014
-[    0.087076] RIP: 0010:iommu_go_to_state+0xf23/0x1c00
-[    0.087629] Code: 1b e7 2c 00 eb 12 c7 05 0f e7 2c 00 06 00 00 00 eb 03 =
-90 0f 0b 45 31 f6 48 8d 3d e8 90 b6 ff 8b 15 fa e6 2c 00 44 89 f1 89 de <67=
-> 48 0f b9 3a 45 85 f6 0f 84 f4 f0 ff ff e8 8a c0 73 fe 48 8b 05
-[    0.089556] RSP: 0000:ffffffff93a03e40 EFLAGS: 00010202
-[    0.090039] RAX: 00000000fffffff9 RBX: 0000000000000000 RCX: 00000000fff=
-fffea
-[    0.090677] RDX: 0000000000000009 RSI: 0000000000000000 RDI: ffffffff93d=
-17440
-[    0.091338] RBP: ffff8fbd47fd5c80 R08: 3fffffffffffdfff R09: ffffffff93b=
-20aa8
-[    0.092025] R10: 0000000000000002 R11: 0000000000000002 R12: 00000000000=
-0001b
-[    0.092662] R13: 0000000000000000 R14: 00000000ffffffea R15: 00000000000=
-14770
-[    0.093319] FS:  0000000000000000(0000) GS:ffff8fbdb3634000(0000) knlGS:=
-0000000000000000
-[    0.094055] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    0.094572] CR2: ffff8fbd4728f000 CR3: 0000000006844000 CR4: 00000000000=
-100b0
-[    0.095214] Call Trace:
-[    0.095437]  <TASK>
-[    0.095628]  amd_iommu_prepare+0x15/0x40
-[    0.096025]  irq_remapping_prepare+0x43/0x60
-[    0.096406]  enable_IR_x2apic+0x22/0x190
-[    0.096759]  x86_64_probe_apic+0xa/0x50
-[    0.097130]  apic_intr_mode_init+0x70/0xd0
-[    0.097495]  x86_late_time_init+0x28/0x40
-[    0.097858]  start_kernel+0x6f9/0x7a0
-[    0.098209]  x86_64_start_reservations+0x24/0x30
-[    0.098629]  x86_64_start_kernel+0xd1/0xe0
-[    0.099016]  common_startup_64+0x13e/0x158
-[    0.099393]  </TASK>
-[    0.099595] ---[ end trace 0000000000000000 ]---
-[    0.100266] x2apic enabled
-[    0.100758] APIC: Switched APIC routing to: physical x2apic
-
-...where 0 is IOMMU_START_STATE and 9 is IOMMU_CMDLINE_DISABLED.
-
-Therefore, embedding the checks into the state machine ensures the checks
-are done in all initialization paths and makes replicating the same
-checks in state transition methods unnecessary.
-
->=20
-> 2. Patch 1 Fixes: 9f81ca8d1fd6 doesn't look right - it only moved the
->    amd_iommu_disabled check ahead of early_amd_iommu_init() and left
->    IOMMU_START_STATE and detect_ivrs() alone, so ACS was requested with
->    amd_iommu=3Doff both before and after it. The commit that actually put
->    pci_request_acs() on the detect path is 1adb7d31b051 ("iommu/amd: Fix
->    pci_request_acs() call-place"). I'd drop Fixes: and Cc: stable and pos=
-t
->    this as a cleanup.
-
-Makes sense. Will drop them when resubmitting. I will defer to your
-opinion on my explanation to the first question before resubmitting :)
+> It's fair to set a low threshold limit. Some users want to see corrected
+> errors without needing to poll. And they'd like to see them ASAP.
+>
+> The threshold limit isn't much of a contributor to interrupt storms. A
+> stuck bit/failing device will likely trigger a storm whether the limit
+> is '1' or '4095'.
+Agreed. Thanks for clarifying.
 
 Thanks,
-Rong
-
->=20
-> -Ankit
->=20
-> >=20
-> >  drivers/iommu/amd/init.c | 36 ++++++++++++++----------------------
-> >  1 file changed, 14 insertions(+), 22 deletions(-)
-> > ---
-> > base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-> > change-id: d58d0f31-amd-iommu-fix-acs-8f3d4aba8183
-> >=20
-> > Thanks,
-> > Rong
-> >=20
+Jasjeet
