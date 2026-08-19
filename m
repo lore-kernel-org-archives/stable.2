@@ -1,188 +1,143 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E52386C39;
-	Wed, 19 Aug 2026 12:04:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787141074; cv=none; b=g/Ms53V0fVLi/WROGwEfppG6URSWCFAEpKyUN7hM5NAdYBw6eZP8/z2Wvo/A2fFdfe/P6UFySDCfxoUN10o/49QpGitcuzFNsowFxE6c4t2XfLRxFJ4Z5oCnUAml6DA4meZLUUqzV2mzqs2J35KyBAR8CNtAdtm+PFnhb9zPq5c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787141074; c=relaxed/simple;
-	bh=4JaOfFlUP8bO46smg6ipx9sDPvlzvl8+K2iwdtAEKas=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V1690VEhXRpYyA9OhSHDaIixKL/7gdPJa/HoI6rEKJgHBE7u7OQrbxXnquadTtwbJkKIC0sjoLKYEpXSTHoURJEyZg/9ynLVTjOOPd8v1XYUUey6UXWcDC44b+H5ifuGDGxjj1ZnmqxyO9ZyEaOWWVgFvqCUyOJCl4IqzANxcCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J9KzGzS3; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5513CF039
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 12:15:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787141742; cv=pass; b=uKrKufOe0joF6gRohO9M6c44aj62mexPtfUIg962+kbqGgglaKOKWq8lYDDTdxVBCdiSB86v2uJndZ+2nJBnk4Gs1bc5Fe5+FPftTutAuUR6xBtkTO/I1QwJMERHCvWBaDX560CinsGzjlF+9Hnu4oh1aeqDWX043czaeBM3tWI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787141742; c=relaxed/simple;
+	bh=4fMeCgiEb7KH5DAj6ObJDXdV0rN1foJUWuxcGDEvDxg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j1DmK9DwKUbLB3Gl+/kf7BnLG9eNjk2rt1eKQsVpJhBRE5g9goD7c1UYBh2XVBOBYiI2vylZGJKJ47DUaOZMqajpBms7fOdYAOdU//s1Ejr9kch1/DETYeWIZS5xio9VT+hkQoez2E2t3UojG6/sl4QTZcU8ruWZ10aEl2XRqKM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lBks0T6j; arc=pass smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J9KzGzS3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787141073; x=1818677073;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=4JaOfFlUP8bO46smg6ipx9sDPvlzvl8+K2iwdtAEKas=;
-  b=J9KzGzS3ZRcxmRJdJrZngpENpQqYVLKu2b+dMjYeSXZZPx9KEospW0hj
-   wpaCi2pcH2FxKZgToHiaaF0EKkCu0S/UpYETkJONDK8TraKRzmUhYei8y
-   Pz+WdHwmNA7+XjEaz+UU8jZWSASXbNi/HkzGN46nPN0cSrlqR3Xt9R6DA
-   onM6/84Xgp3tSJ6T6DuP3C9bAwy9gfz2rilDoU+c1kLjTDKJHBJqlHmo/
-   /oD8D7iUkB3fBFb4V4jvDwUPSbwaonN5BBQeNcqb8MEsDyhKiNrA8KsOs
-   u/obA5AOHEcolovjRD3R0cPae/dlku/HRk7paVWb5/WQtEzpgg+pcQPg9
-   Q==;
-X-CSE-ConnectionGUID: GeCdfM7QRCCpBr3U52Kyqw==
-X-CSE-MsgGUID: Kg9I+XBWTfGK2qgzFyoqcA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="105183878"
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="105183878"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 05:04:31 -0700
-X-CSE-ConnectionGUID: zB78kJC4QpyNPhWyA1r+JQ==
-X-CSE-MsgGUID: 7KGAeJ+eRCqLMFSCSmJkbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="265073201"
-Received: from pae-d-dell-r7525-263.igk.intel.com ([172.28.191.240])
-  by orviesa008.jf.intel.com with ESMTP; 19 Aug 2026 05:04:28 -0700
-From: Przemyslaw Korba <przemyslaw.korba@intel.com>
-To: kuba@kernel.org
-Cc: aleksandr.loktionov@intel.com,
-	andrew+netdev@lunn.ch,
-	anthony.l.nguyen@intel.com,
-	danisjiang@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	horms@kernel.org,
-	moonafterrain@outlook.com,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	przemyslaw.kitszel@intel.com,
-	rafal.romanowski@intel.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net 07/13] ice: support SBQ posted writes with non-posted support for CGU
-Date: Wed, 19 Aug 2026 14:07:55 +0200
-Message-ID: <20260819120755.187078-1-przemyslaw.korba@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260723155750.717839-1-kuba@kernel.org>
-References: <20260723155750.717839-1-kuba@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lBks0T6j"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so9128335e9.0
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 05:15:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787141739; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ERezdCWBdQ6oRkcBG5GJx+FvTnU4uQy2f/LulM68IfoFfLury5by+coZesRgpJZ0s8
+         9OuugF5zD0NIUCdXMjz3Sg0yQFrZ+IV2NwgIJjJHI+Km+az7TzbBth2CpYFcLwS5oSoU
+         m3Cp+H7WZD15D4w849kIddVOgEshIpalAyxXjkKEThnTaSEh2N+Ay7t9YiYjRrruHC0s
+         KV8whmr9Pt07lBtZXy6wryTOdlJOTmo698jrNTU5wdGPrzjpJzhy4AsvTO0/Uc+ZHIOD
+         mAhJHf3CZXgg4KC0yB6+pqKUVKVS8XHwI060vfuDtljclIqHxCWMYds8tT8z1OeKtpWw
+         h9BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=72eOsfV6zir1DGDYJWBdwYLSoDHNbYLfxtcu28MhLOE=;
+        fh=IJDlt71holQC9YFo+krm/VTVZaZgeMPKWtcN2jFakEU=;
+        b=LlxYpS6eXBdcGKlWfvISzTKuRzOIkVLXyQjpo52VN9GYFB8au8/xQHlG9fznicxEH3
+         OAx+rSKaWl2f/GrxZWs5kq2a96G+vqlPYy/UxA0XcG6OG6j5MWOQ7/eNM+R3/cEiI+uY
+         LmWmiFB5rmDt++u0uo3KLvBfacHgR3Xu/XfLORwuVBstSc3W06XP6UwWWU9fGtZSxEXg
+         cOP1ZRKi4xD5xkYgLkbx9egIZtAwlfXeP2iz8DNwpib4HbvLcJDaeuKXSyZNS9HtvhuT
+         izkzBTicRO0sJ+6BbWJWbvMWcyTZ9HnYXCquuF7kXDL4LUIKIId5dkoRMZQHjlsZEDbN
+         wp8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787141739; x=1787746539; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=72eOsfV6zir1DGDYJWBdwYLSoDHNbYLfxtcu28MhLOE=;
+        b=lBks0T6j9HEpObbvpWeAGBePdh6GTjy9+iMWAEIfOojnKud/r9HCMFRj4R/cJHas+P
+         0xvlucBqgFvSj/lquo1MD5iq7/r+kQe2jgx1jRchXjH4dAlVLegN1FvOEoY4V1DE1DYu
+         EzoJus8MPsnYk/ErA9qC/V5v0JWCBLkVrZK+O2nbsDh8rYfRrNK8qec5NsJcTlpiVsZK
+         1C4Lt0xgJl/jxAhsr/BBwbA6Ap0AnpXLI6tpNoGO6/YET+sKn9kWKUkLNZO7fcGnX5mI
+         THGQRZwGEAV6JWxsbS4NN0wFYSdwefeh3uDP1Uxhv0HGowPOZNseFG5593cIpeVOSiNH
+         aveA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787141739; x=1787746539;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=72eOsfV6zir1DGDYJWBdwYLSoDHNbYLfxtcu28MhLOE=;
+        b=T97V8y8Z4DlfdoLz2q0RySq4ZemGlPeUo8AUstCZZh3GhByOj+aYIwFy3Zc4G/Ci4F
+         ePKETArHnHEjd9kZbd7tw29TSVj5S7mvX1u8GF3og/6ZL8HCcco6Ibw8tJh29ofQRZGk
+         2X3x1/BmHdg8QAolRqEPBhYq/BKFxreYyqadpV7Wd2iyrXX8bPRuKmwLm8l48jZyvVlx
+         TmgGvR7fxPKSaSymmfvlBF1p3pXVqHhvq0Zv1fldTUtMVdoEK8T6WsTAi0O2vjrvaeci
+         D4uipYJNSOVFdLq4su/SM3J/OXLJCngs7JOyErMZDJtaZBEc6txQoJ+sgm288X/iZewS
+         3S1A==
+X-Forwarded-Encrypted: i=1; AHgh+RqpbJiyohZkzzwex83yApFo9pYgrWEr8OoZK+cagng9u6b9LWSTjIdQfJjGQz2nvIuYOQ8qSb4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwUfgc1aY8Zr7y5VTl4U8C0zZzOoLiHCdSksGrKZxoDNmxVqGZI
+	j/igme323aCOCrj7Hkh47qdde2+0qm5TuBEitrk5OUnV0RCezpt9DEZaUttYXkrIcLdQnqVDk3O
+	8fpvkytoOm3ABn3CheyMMc/IVcW3JbdUmCebE69Y=
+X-Gm-Gg: AR+sD12jlbX/bxxINRnSKkNn/fgIgSXlKli/otQ9ymBR2SBTnlXpclQFGjkvnlVwyky
+	F6zkDJCgOM7bc8wmlHG4ajz+MDO+JzsAFVh0Fn3SgmD6NxOjlyOjrCUS/Yyp1vd7jqi3Du/adeJ
+	VwtSHVv2jJQ51XBD+hRxKYQVfrhM1JHUlvOrxkCs16Uu8xpsB8S3roD6UKDbmdEegLGlaCf5sE9
+	iI/atGfC+fapp6leZpkPnATkfyocMYxKLtlBXagtD14qCx1Uwy3KrhrVL6fM/ZOzHAz2oHyJNhK
+	+o213CZBbHNJr7R8puMXACxazWKJsWpJZ1nXCz892hkFhTAkpUVZn9+W1BlkIJ4/tHAyzu93ZFQ
+	Dsw==
+X-Received: by 2002:a05:600c:3f12:b0:499:7a4f:d13d with SMTP id
+ 5b1f17b1804b1-499aa199777mr77339065e9.4.1787141738948; Wed, 19 Aug 2026
+ 05:15:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260724025322.2341205-1-sammiee5311@gmail.com> <CANLsYkz+h6ONmvhgdfGLNu21J+LrMSySFw9sxRcR4ZxLwPfbsg@mail.gmail.com>
+In-Reply-To: <CANLsYkz+h6ONmvhgdfGLNu21J+LrMSySFw9sxRcR4ZxLwPfbsg@mail.gmail.com>
+From: HyeongJun An <sammiee5311@gmail.com>
+Date: Wed, 19 Aug 2026 21:15:27 +0900
+X-Gm-Features: AcwNN1UpRanTlUxzoBhHyJNzchxXX5y3Agcm4VcHLo9-bTKNg0iBcNni_1ps50w
+Message-ID: <CAJciObG2OahhKz+t9pbA1yCHz4pFQLK6EKmZMwY2zxqD33SgQg@mail.gmail.com>
+Subject: Re: [PATCH] remoteproc: elf_loader: bound the section header table
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-sure, can do that
+Thanks for taking a look!
 
-> >  	/* Wait for the command to complete. If it finishes within the
-> >  	 * timeout, copy the descriptor back to temp.
-> >  	 */
-> 
-> [ ... ]
-> 
-> > diff --git a/drivers/net/ethernet/intel/ice/ice_ptp_hw.c b/drivers/net/ethernet/intel/ice/ice_ptp_hw.c
-> > index 8e5f97835954..c6049097f49d 100644
-> > --- a/drivers/net/ethernet/intel/ice/ice_ptp_hw.c
-> > +++ b/drivers/net/ethernet/intel/ice/ice_ptp_hw.c
-> > @@ -352,6 +352,20 @@ void ice_ptp_src_cmd(struct ice_hw *hw, enum ice_ptp_tmr_cmd cmd)
-> >  static void ice_ptp_exec_tmr_cmd(struct ice_hw *hw)
-> >  {
-> >  	struct ice_pf *pf = container_of(hw, struct ice_pf, hw);
-> > +	struct ice_sbq_msg_input msg = {
-> > +		.dest_dev = ice_sbq_dev_phy_0,
-> > +		.opcode = ice_sbq_msg_rd,
-> > +	};
-> > +	int err;
-> > +
-> > +	/* Flush SBQ to ensure posted writes complete before SYNC command.
-> > +	 * Skip for E810 - FW always sends completions, so writes are synchronous.
-> > +	 */
-> > +	if (hw->mac_type != ICE_MAC_E810) {
-> > +		err = ice_sbq_rw_reg(hw, &msg, LIBIE_AQ_FLAG_RD);
-> > +		if (err)
-> > +			dev_warn(ice_hw_to_dev(hw), "Failed to flush SBQ: %d\n", err);
-> > +	}
-> 
-> [Medium]
-> When ice_sbq_rw_reg() fails here (for example -EBUSY when
-> hw->reset_ongoing is set, or -ENOSPC / -EIO / -ETIMEDOUT from
-> ice_sq_send_cmd()), the code logs a warning and then unconditionally
-> proceeds to issue wr32(GLTSYN_CMD_SYNC, SYNC_EXEC_CMD).
-> 
-> The commit message states:
-> 
->     Flush the SBQ by reading address 0 from the PHY 0 before issuing SYNC
->     command to ensure that writes to all PHYs were completed
-> 
-> If the flush is what "ensures that writes to all PHYs were completed",
-> does silently continuing on flush failure reopen the race the patch is
-> trying to close?
-> 
-> ice_ptp_exec_tmr_cmd() returns void, and none of its callers
-> (ice_ptp_tmr_cmd, ice_start_phy_timer_e82x / eth56g,
-> ice_sync_phy_timer_e82x / eth56g,
-> ice_read_phy_and_phc_time_e82x / eth56g) can react to the failure. Should
-> this path propagate the error, or at least skip the SYNC issue when the
-> flush fails?
-> 
-> Also, is a non-rate-limited dev_warn appropriate in this hot PTP path?
-> Repeated failures (for example during a reset storm) could flood the
-> kernel log.
-> 
+On Wed, Aug 19, 2026 at 1:42 AM Mathieu Poirier
+<mathieu.poirier@linaro.org> wrote:
+> On Thu, 23 Jul 2026 at 20:53, HyeongJun An <sammiee5311@gmail.com> wrote:
+> > +       /* find_table() reads the header at shstrndx even with no sections */
+>
+> Right, but if there is no sections, @shnum in find_tables is 0 and not
+> arm is done.
 
-yeah, making sure it returns earlier on failure is a good idea.
+The loop is skipped, but there is one load before it:
 
-> [Medium]
-> Does the phy_0-only flush actually order writes issued to other SBQ
-> destinations?
-> 
-> ice_write_phy_eth56g() now issues posted writes and picks the
-> destination via ice_ptp_get_dest_dev_e825():
-> 
->     static enum ice_sbq_dev_id ice_ptp_get_dest_dev_e825(struct ice_hw *hw,
->                                                          u8 port)
->     {
->         ...
->         if ((!ice_is_dual(hw) && tgt_phy == 1) ||
->             (ice_is_dual(hw) && tgt_phy != curr_phy))
->             return ice_sbq_dev_phy_0_peer;
->         else
->             return ice_sbq_dev_phy_0;
->     }
-> 
-> So on single-complex E825-C with ports >= ports_per_phy, and on
-> dual-complex E825-C for cross-complex writes, posted writes can go to
-> ice_sbq_dev_phy_0_peer. The flush here reads from a hardcoded
-> ice_sbq_dev_phy_0:
-> 
->     struct ice_sbq_msg_input msg = {
->         .dest_dev = ice_sbq_dev_phy_0,
->         .opcode = ice_sbq_msg_rd,
->     };
-> 
-> If the SBQ does not enforce global commit ordering across distinct
-> neighbor destinations, does a read completing on phy_0 guarantee that a
-> previously-issued posted write to phy_0_peer has landed on the destination
-> device before GLTSYN_CMD_SYNC executes?
-> 
-> The commit message says:
-> 
->     Flush the SBQ by reading address 0 from the PHY 0 before issuing SYNC
->     command to ensure that writes to all PHYs were completed
-> 
-> Is that guarantee documented for cross-destination SBQ traffic, or should
-> the flush also target ice_sbq_dev_phy_0_peer (and any other destination
-> that received a posted write) on multi-PHY / dual-complex E825-C?
-> 
+  :266  name_table_shdr = shdr + (shstrndx * elf_shdr_get_size);
+  :268  name_table = elf_data + elf_shdr_get_sh_offset(class, name_table_shdr);
+  :270  for (i = 0; i < shnum; i++, shdr += elf_shdr_get_size) {
 
-I tested mainly on E830. If someone is using E-825 device it indeed
-might be different. I've heard some information that it
-causes failure on some setups, but I asked an waiting on some details
-regarding what sort of failure it is and what's the failing device.
-Will most likely need that information before sending new version.
+:268 reads sh_offset out of the header at index shstrndx, before shnum is
+tested at :270.  Both callers, :336 and :380, reach find_table() without
+checking shnum.  The value is unused when shnum is 0, so it is a 4 or 8
+byte read past the buffer and nothing worse.
 
-> >  
-> >  	if (!ice_is_primary(hw))
-> >  		hw = ice_get_primary_hw(pf);
-> 
-> [ ... ]
+> > +       shend = size_add(size_mul(elf_shdr_get_size, (size_t)shstrndx + 1), shoff);
+>
+> Why the shstrndx + 1?
+
+To hold the header at index shstrndx the table needs shstrndx + 1 entries.
+It is keyed on shstrndx and not shnum because nothing here requires
+e_shstrndx < e_shnum.
+
+> Also, there is no point in doing this check if @shnum is 0.  Please
+> move this block in the "if (shnum)".
+
+The check it replaces, :95, sits outside any shnum test today, so moving
+it in loses what master already has.
+
+If you want it inside, the way there is to drop the read:
+
+if (!shnum)
+return NULL;
+
+at the top of find_table().  The loop already falls through to return NULL
+at :313, so it changes nothing today, and the bound can then go inside
+"if (shnum)".
+
+I am happy to do either.  Let me know which you would prefer for v2.
+
+Thanks a lot!
