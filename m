@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22583E9C29
-	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:45:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFB23EF666
+	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:45:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787125517; cv=none; b=La44I/2v+296eqDljaDjhg63N/D62YnyAEkn+JSfb5jSQiPyS9ptv0waNouTJDzT3cKkLs7xbfQ4zd9xH2ySuNDB3+68k1rPK0SJd38pAM7866TYwx8PYvw+F+hhySDkcVv/xPYQM9Y1G+sSjd9RzziHXDhmBaueQvbUjEb77Y0=
+	t=1787125522; cv=none; b=BBmkb/KtsGLFm+cvFKCCz5dN9KgMH+IKlhm27Ybd3cFlKregOPQ9kQOBhMj0gQ2n3w0knqLpMZDYLNeP47bLUJjSYLrWv6bDmdRSlX/k/ipJqygEih7FGhUNUbcDBUOytWGTK7hAUlQpR9/AaiVcnsF5+IJPrFPqTvk9q0hfSo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787125517; c=relaxed/simple;
-	bh=dDbdGFoxbeZe90NFdL4PsowL+hyAHuJrt6MkgQEAxuE=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=eb2fm+92LKusIcaQPwrti3IJ+JFgUItGgxHm8qhAdEgZXcPMNbY8xDBWLL0b+VPACdtlRdb097bKr9tTaVj5m9qxg2xdNRb8QghA6KzsAT6j6/6PwjSmd8GP1/C0unTGA/1czXlo018qarxViLReIic84ZiT0Dv5RkVec6l9ZM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MNB6uSTh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787125522; c=relaxed/simple;
+	bh=5wA3XVH6RLBpizBHOw9f4AJZeji6gSmuWzB428lf2/c=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=AamObc7yE/CMWbP9par48/jIfZzBPeGfcgwnAKt7+0wapzDfl//aQB8L6YC9gKA6+tmWEGGQnJiY1GAvMKrOo/bsRr2b0JvolHne1Y0YZZij9Bn+5traYYrh7SLZrtix5Hu8L+VopN0lsqRutxLkbHdGlUGkeWF1Z1wqmWudd8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hVwiCkBo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MNB6uSTh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A5C1F000E9;
-	Wed, 19 Aug 2026 07:45:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hVwiCkBo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4E01F000E9;
+	Wed, 19 Aug 2026 07:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787125515;
-	bh=n/zCuMRWH6ze7ruojvO3kZnIphJNKbnix+R+9oj4huk=;
+	s=korg; t=1787125520;
+	bh=w7pZ9GeTlFSPySrlJmKgY0NmpX4ZVaPLagSry0T9yP0=;
 	h=Subject:To:From:Date;
-	b=MNB6uSThtKnmNE1C8otK1beFmfmK+wXL2GHyTUCwtk+qfzdRLnF4gBZG63bmiWMYE
-	 suaL9zw7yp+07Y7676lE7XAWYLSrIKwO5mFaGPO7mKJw8zjmYc5aH7dDKHCIB83Lx5
-	 4/o5uiQkzuEI8j6NfVcxNLviU5i/W190qt7vPIPo=
-Subject: patch "iio: light: opt4060: Reject integration times with a non-zero seconds" added to char-misc-testing
-To: vidhu.linux@gmail.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
+	b=hVwiCkBo06dqT9asjcEWNEfwcLhbB/6F6s4oWtd/Ec45z8kMphnR300evyiK2Ylht
+	 i32PUamxaTnNUtP4vMSYlIOu2m0y0ySwCKDOm3+OPIhs3UNBgVdPvZAz7edy0n5lZA
+	 ILoCj6SQW9ck38caxIxbScx1RqY5J6nZ7VH0Yis4=
+Subject: patch "iio: light: opt4001: Fix incompatible pointer type passed to" added to char-misc-testing
+To: nikhilgtr@gmail.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 19 Aug 2026 09:44:06 +0200
-Message-ID: <2026081906-duty-smoky-03eb@gregkh>
+Date: Wed, 19 Aug 2026 09:44:07 +0200
+Message-ID: <2026081907-dupe-perkiness-2226@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: light: opt4060: Reject integration times with a non-zero seconds
+    iio: light: opt4001: Fix incompatible pointer type passed to
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,43 +54,51 @@ after it passes testing, and the merge window is open.
 If you have any questions about this process, please let me know.
 
 
-From b7e6e9af0d723afdec92364d5e7e064eeef44c8e Mon Sep 17 00:00:00 2001
-From: Vidhu Sarwal <vidhu.linux@gmail.com>
-Date: Wed, 15 Jul 2026 06:45:42 +0530
-Subject: iio: light: opt4060: Reject integration times with a non-zero seconds
- part
+From afa28741c9a2cf6edb2e41e25ff146a562160bb3 Mon Sep 17 00:00:00 2001
+From: Nikhil Gautam <nikhilgtr@gmail.com>
+Date: Tue, 14 Jul 2026 17:01:32 +0530
+Subject: iio: light: opt4001: Fix incompatible pointer type passed to
+ div_u64_rem()
 
-When setting the integration time, opt4060_write_raw() only uses
-val2 and ignores val. As a result, a write such as 1.000600 is
-accepted and programmed as 600 us, silently discarding the whole
-seconds part.
+div_u64_rem() takes a u32 * for the remainder but is passed val2, which
+is an int *. There is no functional impact as int and u32 have the same
+size and representation on all supported architectures and the remainder
+is always smaller than the divisor, so it fits in the positive range of
+int. Fix the type mismatch by using a local u32 for the remainder and
+assigning the result to *val2.
 
-Since all supported integration times are less than one second, any
-non-zero val represents an invalid input. Reject such values instead
-of silently accepting them.
-
-Fixes: 0c6db4506ad0 ("iio: light: Add support for TI OPT4060 color sensor")
-Signed-off-by: Vidhu Sarwal <vidhu.linux@gmail.com>
+Fixes: 9a9608418292 ("iio: light: Add support for TI OPT4001 light sensor")
+Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/light/opt4060.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/iio/light/opt4001.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/light/opt4060.c b/drivers/iio/light/opt4060.c
-index c391ad3271c6..cf6f69e5be35 100644
---- a/drivers/iio/light/opt4060.c
-+++ b/drivers/iio/light/opt4060.c
-@@ -632,6 +632,9 @@ static int opt4060_write_raw(struct iio_dev *indio_dev,
+diff --git a/drivers/iio/light/opt4001.c b/drivers/iio/light/opt4001.c
+index 288e699734af..944923cb8f28 100644
+--- a/drivers/iio/light/opt4001.c
++++ b/drivers/iio/light/opt4001.c
+@@ -173,6 +173,7 @@ static int opt4001_read_lux_value(struct iio_dev *indio_dev,
+ 	u8 crc;
+ 	u8 calc_crc;
+ 	u64 lux_raw;
++	u32 rem;
+ 	int ret;
  
- 	switch (mask) {
- 	case IIO_CHAN_INFO_INT_TIME:
-+		if (val)
-+			return -EINVAL;
-+
- 		int_time = opt4060_als_time_to_index(val2);
- 		if (int_time < 0)
- 			return int_time;
+ 	ret = regmap_read(chip->regmap, OPT4001_LIGHT1_MSB, &light1);
+@@ -199,8 +200,8 @@ static int opt4001_read_lux_value(struct iio_dev *indio_dev,
+ 
+ 	lux_raw = lux_raw << exp;
+ 	lux_raw = lux_raw * chip->chip_info->mul;
+-	*val = div_u64_rem(lux_raw, chip->chip_info->div, val2);
+-	*val2 = *val2 * 100;
++	*val = div_u64_rem(lux_raw, chip->chip_info->div, &rem);
++	*val2 = rem * 100;
+ 
+ 	return IIO_VAL_INT_PLUS_NANO;
+ }
 -- 
 2.55.0
 
