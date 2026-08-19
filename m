@@ -1,179 +1,197 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7F53BA25F
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787151155; cv=pass; b=rrdLOM2TkXlRJZV6okRDHza6GzsY2YJPmK/ZoHVCs1S8nISVgyeiqxDP/cpYsJoYfoR1hTg0h9ksSXf3Du0LtjnbyFhPcwFcFbVKcTLg24Rd6aLoLxupiBo0SMdVhEVtDGcoNJVS/gv0ZTr4Ux18uQ6DSmPpa8/OKE4Zx/nS3Bg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787151155; c=relaxed/simple;
-	bh=xX7tul4hXcBSX9qG+ACteaG47P6VqHGByp7AxU87r8E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GlHztQdUi0bbd4Q1HIU8iIhi3SIm66sEOafgwA/xgknxPWbEk7tvFKG4k0aTocZzg9FLE4HhAxRRJWius3dOuhitNdX/lsXa4THTsui0k+HTYU7o1v3jazaD98MaC4p58z1leeQ8Ow8idOM/MpSK6pmyydbg0LOEb9T+YGDjrc8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=G3XpoIPE; arc=pass smtp.client-ip=209.85.222.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AAB352008
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:56:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787151364; cv=none; b=dmwTiydidai01EXLxUgJa3Gu/aIucSx5hp7yN70zfIDLaikQ8Fwvet3X4o8RYbhW0xS1LffFvShSpKaFwYYooKccpg6BpNl5+ir7YaOK5rAZcX6xBWI1kKh5gWqOabizFUDCilTm5rIAehcPnspTbsz4cAVhznQ70s+elt0YgLE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787151364; c=relaxed/simple;
+	bh=8epAJQngPWzcN+cL7c93aUQRfJMb8MDkduY3m2ThrOM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TjhJJQXUI8as7dQtKakxKCm2fvYxeZcVxtwEF710KjRVpb1Q9B+vpyj0rebImjTcUeSLmRD3Y5fSDq1FMi45r5JeZF9LFLZApmamA4VoDxD+WnwsGYF3flJAZi0sV42UHsuu+66Ous10K/cIFtkTxFIwG7UvySsqGiDoJLg+3Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HrNLXK0H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="G3XpoIPE"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-92e57a753f9so93286085a.2
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 07:52:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787151152; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CBhrexMPtNkg7FgYNsq+7U589uk4A5CKc2pSBi1elqZPtIvFV4z78f4R68vn4qpq0f
-         UvjEa1xyZ77GgNWyt4tINkVvMro2ZKYsl8Nr/Hp8EkFA5Dhkdwq8WuOYBHWx9R3OZZbH
-         X2DPvC3B15trXG5AbyrWMqyPs7+BTjoB2ywPoG1R+oDoxnhKfs+uPMsFhfE05pQxcrVV
-         Qdpx28xTZGQTPhB81mu1HgLAdsssSKusbEizwI6iBUO/BNyU5zj/ByDwyhbzDxs5pihd
-         JAJHqqY/4sW7RVJrk+43/UvMe4sUjrswLj6vRhibiWfM7SyXNjTSIAt6pqhxVI+SzAlQ
-         C8Ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=e37xg4Cf7pXUssRAo8BCWvtHI0TL4IZrMsLP0V2hG2U=;
-        fh=i3IwhoEMF91tY+GnTilxbebUVplaz5k7AvxLb8jk5w4=;
-        b=R9bKvJa9WMqwdPwQbPZ46LnuJfl32V7quMNPJIK7POvLWN0xW9hRfNqhJ428adxjYm
-         GT0XzC9QBKH5Ww8qIoXBRaM5BEe/INpoodBtAVTVqQlsgnwQiWLpnxGzgmBVzVPVhPxl
-         X6tPV0BebxAZVTVAsD+tYSTzaUiRmhYyc9T87Ht2kt+ChljKZ7W9RlnzuGQRmFyq88uT
-         YMhu55c57J/S6tCE3TtTUpi3TGsfI45fM/DKOUTnT2dqlzpCCjuntXuCDfBPlseKtF3m
-         BVOPm1kPOK8TJ2LHlOAdSHJAjiuDp3/z+dPBLowJImqOpIM9CSM7CUdxi+h9+SffgyI3
-         FwFA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787151152; x=1787755952; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e37xg4Cf7pXUssRAo8BCWvtHI0TL4IZrMsLP0V2hG2U=;
-        b=G3XpoIPEHaz2PtFcb6F4rspT4WyESdoFjVwjOqMIP/w8AH+hnk/p0HvOgf5zOqExAe
-         FcVQkZJTBYPDWShWEKCHM4+JovFscNpbDEnTDxAf1m6T1Cf96yuVMkSOl0HkWTdymLZS
-         jLv/gMuNR+PHibz0tmmGLIQ6kcbINlFRX90fVtv13Rq+TTdnkH+LZM+servwkwKo5stn
-         vAuaKvOntzJyUfcW0vnEMshgTqSaY1x86rkQ5ZLQjuZnID0iF2l/ikvavETzwNneWLee
-         8M0MLJyJH2tLQaCGwGRu5aa8syL8kNYZ8qi98e8dVeAyoyRUpcjxlriSTqVmxPtvZzFj
-         NI6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787151152; x=1787755952;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e37xg4Cf7pXUssRAo8BCWvtHI0TL4IZrMsLP0V2hG2U=;
-        b=nkm2Cgromlid/9Bg5LkKySppnbCEcEs01il5sERIsO+eHWBdfQVczAQudMChcDhacP
-         BWqZn+Vj2zHhlZsXz3yUtjPPUVELhvtOmaK7TaOBc3WTeJ38/kNpx0yaEBFSOQywWDEm
-         Bd6AXbJOgH/rPmevKKV/dc8JMYQoXELU7iiMLgnZfhUSsLFOiTMZK8xPWnGTA2zZ9pAf
-         DHE9BjeGidMpxbzRW8O0nSRTRr6zvtPoZXqn4UO2t9mlHP6Smxbrc+6xkFm9qWvUupnp
-         fk/FCZgI6q4zru1BafVVtmS0p1qgVVCEnuA+FtNwGV5vVio5wbXqTPuzoWXqRx6yXKyq
-         RWMQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rri9VhfsUiXeDpxhw6xS83/+RgwacF/EKKf3PI1+wYhYF4cgadjv1lxM+GucqZAO4+CI5C/a1g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxdQOINeeiHTTI0ywNsC8K57lkrZMLLUvFqOEfmMDt3RFFHyAqq
-	4GaZuZ3O6Eter+NDwicE8W3n7PbEUlk1GFAS4N8kNkLrRz8/tYClxSQHPaGkcKfxnt7/k2Xp9Y2
-	74Nsw+UVQxjnC2gqPTwqaK/lVc+Ink4H6KNGrbiqW
-X-Gm-Gg: AR+sD10cq4yR2yk0pG1WrgyrmOyyB6H6NpNQjNtcVwZ2HwhiTNKbojoeJuSNfF/eF6j
-	arfEHE/kYKY0Mr4GWTavbqTh89docRSj5GykTGP0ViLyYwboKsCfsKHD3w/JjF5wXYLHYD0uvkc
-	55F0lZGv2fSf2jPhjBcHeGOcsk5Xd0te75evXATV4VRIY1JjDIvQ5qBN2WoQSrBQBs8yFrpsVnx
-	UEhmjObmQc472hin+9DEa984llJ3kC9X1kAijpsrH0jlEkweTkuipFbXk3/PBz63T0gTyv9tTh9
-	uG1szvlFuySZHWBkXCTIadeI0jb7la5Ln3FSLtvGx/B28wZB9Vcn9PDRH0lZ6kRxkGb/1oeGBoN
-	vQedx/OeNTTrm2RgO8quTMyQe1G3s8SblIKy8idLHlTHSLJBXQZlHSA5FA1Ic09eAN+q8VoQllD
-	Ttem4LfTY4sZb3SlE=
-X-Received: by 2002:a05:620a:1a0b:b0:936:9b1f:d3fa with SMTP id
- af79cd13be357-9371e65b207mr508702885a.43.1787151151775; Wed, 19 Aug 2026
- 07:52:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HrNLXK0H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D131F000E9;
+	Wed, 19 Aug 2026 14:55:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787151358;
+	bh=W804lazQgHG0HcH5bSvR6XX1Vk+jNyWAQyfr8VLMI5k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HrNLXK0HeXPWE3vX1SkNyhYh0ibyxLzobGDeHPOC0fqeqy+sXWd2kIUNuc95AOdaP
+	 RhQm/yT3nJEpoX2/5HL9GwJNz4vxFdoNxEJhVOx15v5RzuLEikDNnWcpnsPgeBIDFs
+	 8QzLhArghVV9O8J8pRoVapxKL5LxjaW62Hcjxq5imrPKBoUi034SuRgbV2mA68fSZD
+	 8JxgK899AViivJ73poqMBQ6DyqXV6FqdFza21MTfYkKupJQP3mkimKB+EFgxiIbrWy
+	 /SfYBf69qmi8Jhqh+nXlfeohMcB01fwdlVRrSx6B6T/W40ze7CYvsXAfr3Z/A9XNYR
+	 m6cL/WnU8mYTQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Shen Yongchao <grayhat@foxmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] KVM: SVM: Serialize accesses to the owner and mirror list with separate lock
+Date: Wed, 19 Aug 2026 10:55:56 -0400
+Message-ID: <20260819145556.3898276-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026081728-swore-various-658b@gregkh>
+References: <2026081728-swore-various-658b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819143213.57401-1-jhs@mojatatu.com>
-In-Reply-To: <20260819143213.57401-1-jhs@mojatatu.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Wed, 19 Aug 2026 16:52:18 +0200
-X-Gm-Features: AcwNN1Xp6InSXOSnLzrSDbazyiPc2lWYJwdnLOyeKjlzuUXiTDsmBqpqmz7lAM4
-Message-ID: <CANn89iLM1JT7xeANTFYOxaOKuz1qSmM4yugRDg4y=uFwP7bdEw@mail.gmail.com>
-Subject: Re: [PATCH net v2] net/sched: bound qdisc_pkt_len to prevent qdisc
- soft lockup
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, stable@vger.kernel.org, vega@nebusec.ai, 
-	Victor Nogueira <victor@mojatatu.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 19, 2026 at 4:33=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com>=
- wrote:
->
-> qdisc_get_stab() accepts a user-supplied size table, and
-> __qdisc_calculate_pkt_len() amplifies qdisc_pkt_len() through the
-> overhead, the size-table data (u16), and size_log (up to
-> STAB_SIZE_LOG_MAX).  A crafted stab can therefore set qdisc_pkt_len()
-> to ~1 GiB for an ordinary skb.  Per-flow deficit schedulers such as
-> DRR and ETS replenish one quantum per loop iteration; with a tiny
-> quantum (1) they spin billions of times under the qdisc lock,
-> producing a soft lockup / RCU stall.
->
-> Cap the final qdisc_pkt_len() to GSO_MAX_SIZE so the size-table
-> amplification cannot drive deficit schedulers into an unbounded loop.
-> A legitimate size table (e.g. qfq's overhead 999999999, which is
-> handled by dropping) is still accepted.
->
-> Conditions to recreate the bug:
-> - CONFIG_NET_SCHED=3Dy, CONFIG_NET_SCH_DRR=3Dy (or CONFIG_NET_SCH_ETS=3Dy=
-).
-> - Attach a DRR (or ETS) root qdisc with a crafted TCA_STAB that
->   amplifies qdisc_pkt_len to ~1 GiB (e.g. size_log=3D15, data=3D[32768]).
-> - Add a class with a tiny quantum of 1 and send one small packet; the
->   deficit loop spins billions of times under the qdisc lock and trips
->   the softlockup detector (panic with kernel.softlockup_panic=3D1).
-> - Reachable as root or from an unprivileged user in a fresh user+net
->   namespace (unshare -Urn) with namespace-local CAP_NET_ADMIN.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: vega@nebusec.ai
-> Tested-by: Victor Nogueira <victor@mojatatu.com>
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> ---
-> v1 -> v2
->
-> 1. Sigh. The v1 overhead cap broke the existing qfq tdc test 5993, caught=
- by
->    running the whole tdc.sh instead of affected qdiscs reported reported =
-by
->    poc. That test legitimately uses stab overhead 999999999 qfq and expec=
-ts
->    the qdisc to be accepted (exit 0) with packets dropped.
->
-> 2. Better Fix: cap the final qdisc_pkt_len() to GSO_MAX_SIZE(524280) in
->    __qdisc_calculate_pkt_len() per sashikos[1][2] suggestions
->
-> 3. Given existence of tdc 5993 we dont need the tdc test created earlier
->    since the essence of that test is covered in tdc 5993.
->
-> [1] https://sashiko.dev/#/patchset/20260818101735.16655-1-jhs@mojatatu.co=
-m
-> [2] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260818101735.16=
-655-1-jhs@mojatatu.com
-> ---
->  net/sched/sch_api.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
-> index 65b35528d125..ad4f117ff55a 100644
-> --- a/net/sched/sch_api.c
-> +++ b/net/sched/sch_api.c
-> @@ -610,8 +610,11 @@ void __qdisc_calculate_pkt_len(struct sk_buff *skb,
->
->         pkt_len <<=3D stab->szopts.size_log;
->  out:
-> -       if (unlikely(pkt_len < 1))
-> -               pkt_len =3D 1;
-> +       /* A size table can inflate qdisc_pkt_len() beyond any real packe=
-t
-> +        * (via overhead, the data table, or size_log); cap it so deficit
-> +        * schedulers such as DRR/ETS terminate their refill loops.
-> +        */
-> +       pkt_len =3D clamp_t(int, pkt_len, 1, GSO_MAX_SIZE);
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-Yeah, although it is a bit strange to mention GSO_MAX_SIZE in a function wh=
-ich
-does not take care of GSO packets.
+[ Upstream commit 1d78d33275ef2a16c6d080910b291d0a97a0e613 ]
+
+Interaction between KVM_CAP_VM_MOVE_ENC_CONTEXT_FROM and
+KVM_CAP_VM_COPY_ENC_CONTEXT_FROM can cause two separate issues:
+
+- in sev_migrate_from(), when the destination KVM is a mirror, the mirror
+  entry is moved from the source's list to the owner's mirror_vms list,
+  without holding the owner's lock unlike other writers of the owner's
+  mirror list (sev_vm_copy_enc_context_from(), sev_vm_destroy()).
+  A concurrent COPY or destroy can race with sev_migrate_from() and
+  corrupt the list.
+
+- In sev_vm_destroy(), the *owner* is still active and could receive
+  concurrently a KVM_CAP_VM_MOVE_ENC_CONTEXT_FROM that causes
+  sev->enc_context_owner to change.  In this case the incorrect VM
+  receives kvm_put_kvm().
+
+The second issue needs particular care because the owner could disappear
+altogether (even though the race window is impossibly small) between
+reading it and locking it.  There is thus no way to perform the checks
+under the owner lock without putting struct kvm under SLAB_TYPESAFE_BY_RCU
+(which would allow kvm_get_kvm_safe() under RCU critical section).
+
+It is much simpler to just use a global lock, since the critical
+sections are so small and the new lock is always a leaf lock.
+
+Fixes: b2125513dfc0 ("KVM: SEV: Allow SEV intra-host migration of VM with mirrors")
+Cc: stable@vger.kernel.org
+Reported-by: Shen Yongchao <grayhat@foxmail.com>
+Link: https://lore.kernel.org/kvm/tencent_625C0F42824E542C72B34733392AF2C49709@qq.com/
+Link: https://lore.kernel.org/kvm/tencent_DDC4E4352EC91CAC05A9A8F4E55E8C96730A@qq.com/
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ Replaced `to_kvm_sev_info(src->enc_context_owner)` with `&to_kvm_svm(src->enc_context_owner)->sev_info` since that helper doesn't exist, and adjusted context for absent `vmsa_features`/`ghcb_version` fields. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/kvm/svm/sev.c | 34 +++++++++++++++++++++++++---------
+ arch/x86/kvm/svm/svm.h |  1 +
+ 2 files changed, 26 insertions(+), 9 deletions(-)
+
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index afa3d9d8823a..0ba286bd50c2 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -68,6 +68,8 @@ module_param_named(debug_swap, sev_es_debug_swap_enabled, bool, 0444);
+ static u8 sev_enc_bit;
+ static DECLARE_RWSEM(sev_deactivate_lock);
+ static DEFINE_MUTEX(sev_bitmap_lock);
++/* Protects kvm_sev_info's enc_context_owner, mirror_vms and mirror_entry.  */
++static DEFINE_MUTEX(sev_mirror_lock);
+ unsigned int max_sev_asid;
+ static unsigned int min_sev_asid;
+ static unsigned long sev_me_mask;
+@@ -1713,18 +1715,18 @@ static void sev_migrate_from(struct kvm *dst_kvm, struct kvm *src_kvm)
+ 	dst->asid = src->asid;
+ 	dst->handle = src->handle;
+ 	dst->pages_locked = src->pages_locked;
+-	dst->enc_context_owner = src->enc_context_owner;
+ 	dst->es_active = src->es_active;
+ 
+ 	src->asid = 0;
+ 	src->active = false;
+ 	src->handle = 0;
+ 	src->pages_locked = 0;
+-	src->enc_context_owner = NULL;
+ 	src->es_active = false;
+ 
+ 	list_cut_before(&dst->regions_list, &src->regions_list, &src->regions_list);
+ 
++	mutex_lock(&sev_mirror_lock);
++
+ 	/*
+ 	 * If this VM has mirrors, "transfer" each mirror's refcount of the
+ 	 * source to the destination (this KVM).  The caller holds a reference
+@@ -1741,13 +1743,16 @@ static void sev_migrate_from(struct kvm *dst_kvm, struct kvm *src_kvm)
+ 	 * If this VM is a mirror, remove the old mirror from the owners list
+ 	 * and add the new mirror to the list.
+ 	 */
+-	if (is_mirroring_enc_context(dst_kvm)) {
++	if (is_mirroring_enc_context(src_kvm)) {
+ 		struct kvm_sev_info *owner_sev_info =
+-			&to_kvm_svm(dst->enc_context_owner)->sev_info;
++			&to_kvm_svm(src->enc_context_owner)->sev_info;
+ 
++		dst->enc_context_owner = src->enc_context_owner;
++		src->enc_context_owner = NULL;
+ 		list_del(&src->mirror_entry);
+ 		list_add_tail(&dst->mirror_entry, &owner_sev_info->mirror_vms);
+ 	}
++	mutex_unlock(&sev_mirror_lock);
+ 
+ 	kvm_for_each_vcpu(i, dst_vcpu, dst_kvm) {
+ 		dst_svm = to_svm(dst_vcpu);
+@@ -2125,12 +2130,15 @@ int sev_vm_copy_enc_context_from(struct kvm *kvm, unsigned int source_fd)
+ 	 * disappear until we're done with it
+ 	 */
+ 	source_sev = &to_kvm_svm(source_kvm)->sev_info;
+-	kvm_get_kvm(source_kvm);
+ 	mirror_sev = &to_kvm_svm(kvm)->sev_info;
+-	list_add_tail(&mirror_sev->mirror_entry, &source_sev->mirror_vms);
+ 
+ 	/* Set enc_context_owner and copy its encryption context over */
++	mutex_lock(&sev_mirror_lock);
++	kvm_get_kvm(source_kvm);
++	list_add_tail(&mirror_sev->mirror_entry, &source_sev->mirror_vms);
+ 	mirror_sev->enc_context_owner = source_kvm;
++	mutex_unlock(&sev_mirror_lock);
++
+ 	mirror_sev->active = true;
+ 	mirror_sev->asid = source_sev->asid;
+ 	mirror_sev->fd = source_sev->fd;
+@@ -2166,11 +2174,19 @@ void sev_vm_destroy(struct kvm *kvm)
+ 
+ 	/* If this is a mirror_kvm release the enc_context_owner and skip sev cleanup */
+ 	if (is_mirroring_enc_context(kvm)) {
+-		struct kvm *owner_kvm = sev->enc_context_owner;
++		struct kvm *owner_kvm;
+ 
+-		mutex_lock(&owner_kvm->lock);
++		mutex_lock(&sev_mirror_lock);
++		owner_kvm = sev->enc_context_owner;
+ 		list_del(&sev->mirror_entry);
+-		mutex_unlock(&owner_kvm->lock);
++		sev->enc_context_owner = NULL;
++
++		/*
++		 * The reference to owner_kvm cannot move after sev_mirror_lock is
++		 * released.  Release it before kvm_put_kvm() so that owner_kvm is
++		 * never destroyed inside sev_mirror_lock.
++		 */
++		mutex_unlock(&sev_mirror_lock);
+ 		kvm_put_kvm(owner_kvm);
+ 		return;
+ 	}
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index cf0a516a9f8c..0191b0d28741 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -86,6 +86,7 @@ struct kvm_sev_info {
+ 	unsigned long pages_locked; /* Number of pages locked */
+ 	struct list_head regions_list;  /* List of registered regions */
+ 	u64 ap_jump_table;	/* SEV-ES AP Jump Table address */
++	/* The three fields below are protected by sev_mirror_lock */
+ 	struct kvm *enc_context_owner; /* Owner of copied encryption context */
+ 	struct list_head mirror_vms; /* List of VMs mirroring */
+ 	struct list_head mirror_entry; /* Use as a list entry of mirrors */
+-- 
+2.53.0
+
