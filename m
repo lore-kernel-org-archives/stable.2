@@ -1,75 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.amicon.ru (unknown [77.108.111.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3F537CD45
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 09:34:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23FA2D9484;
+	Wed, 19 Aug 2026 09:33:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.108.111.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787132042; cv=none; b=lDFki8SYRBTqDlADGk8HZTaeehOMTGsbYa7ik28/nmQOt+7Qq85NxUX4+mk0qM3STR0zgHi6ZkO+X33JTEBXCLDw56nAFuhFsj6WVXy7T4Q4Kgb+UmKLhzB9iaBMe6F1YepIb/694XvYBTY7Kf3fmCmn3f+v3/vmT87+9onObts=
+	t=1787132041; cv=none; b=ogQeZp4TABp8Uxcgb83NSPUh3NQXuWFhG6/wXEFN2Nqcm1/TQdbrIWTGHGHW1SE15X/gr4/AAxoheVT7e+snj+PcFmXWcJn8fpEPq1UzlW5Ju/Gh35kvBO4RTWBoquNAwoE2BbyqFVFHQozN//iJY5yt1xHJbL+XH1ndPRcChxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787132042; c=relaxed/simple;
-	bh=nMW59yym3IgqRgbFA+MQBGYob6zkxVBDFHp0FrbWD2Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DEzd2lVYqVtu2mcwQPCe2ZncJICG/LAWkNNrxPQAbH5IvUDGLwRRfrb917E//yQ77lst3hk1BdVzLifjAlmw928y8C3KFXeial48Z2k3iQPt1PJxfLU/nu5swz1+8oIPOi2DphRQs9YDo77vh+CQ7EsgAdIk5o3sgEPzYjBRKbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n9OjIazF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787132041; c=relaxed/simple;
+	bh=kXAsaXEapjGekR0SKDzQ3qc47yMzVUW7M+ikDRB+Ge8=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=ISdiFGod93EdzeSJMHSRZ/LC7TXRAyHkNRf/jxedvsUO37o0L7vh66bfFfPjOVtFttU7ngD5gcmeAh0e0xmhZF8t6IBRNOqyWbdVis2ZapR7jT26Wxp+6uOffa+16pHakEv3mAvWcrjQsngVh+bg9BPGZY62KR5Pgl/jtOqjkx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru; spf=pass smtp.mailfrom=amicon.ru; dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.b=CwZjTqn1; arc=none smtp.client-ip=77.108.111.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amicon.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n9OjIazF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC461F00A3F
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 09:34:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787132040;
-	bh=nMW59yym3IgqRgbFA+MQBGYob6zkxVBDFHp0FrbWD2Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=n9OjIazFhrhRL/RFERBiFsvc2Cok9Yme3Bn/nR7SLnjSbnJCVG4m53krcpDDrZbzb
-	 Ne3aSdMCbqMq7oisYqyS72SaruXZNKkE17+RZ2JlZDHhLVDXZbqGYj8iYFuvQjdXYR
-	 XBBnzee3dLbTGXNERDGRin4JAIbwgedb7KnpiklHjzwExbHUsCz0SPye4TE/uKl7iV
-	 NUrWYlbLRjqn9q8Ugg902aydWRJ8kVdOVRRlwkyEZML8BdBd0LDx8A2AN+4G9OzdSp
-	 FLVAi3AZKU1uqftQ4m+WmdQPrRwRp6IIvI4Wvl4pb0T5eZEFQeD9KDqOHwf7/yp/yb
-	 N+uNevs5gJrXg==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c15b1da6b82so79623766b.1
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 02:34:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrPpNXtk/17SHeqGW8XrROLsgdDvL/AYRkDt2ZKihI56OdHlufS5KPuiF/w9uSKCiw6bIigg1M=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz70v96JutJ8adRzEVWrBJarke4n3KXMfa5UOrYeVHske0eRHCz
-	0fYht+R/wWYOiVkdUL3IZHzqOIhQXXsitP0ubb/XhTcl5b4khbHiknRQaEbqvEtNL5SoxlBJUlS
-	tEULRC96YxMYk5uKoLmBEnPZ7Te1HBvw=
-X-Received: by 2002:a17:907:84b:b0:c20:1c9d:8d4b with SMTP id
- a640c23a62f3a-c23f929e232mr173617566b.2.1787132039434; Wed, 19 Aug 2026
- 02:33:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.b="CwZjTqn1"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=amicon.ru; s=mail; c=simple/simple;
+	t=1787132027; h=from:subject:to:date:message-id;
+	bh=kXAsaXEapjGekR0SKDzQ3qc47yMzVUW7M+ikDRB+Ge8=;
+	b=CwZjTqn1m7h2rnMdofaKtvupPPw5BDNleY1DlXyKaLdzkfrMHZWri8LgVTfPcqWNCxV1o82SOyv
+	SJQVudk8Xqqk5mz/qykx5OYD20+nlOwjCQmtSkdEtB01xB0ma6G5xukIZNi2eLcZUoT76FPHAO+SZ
+	qa3MNnX7wCXzyVzyqDHE38Sj6UqVmk2DWeqaMSXaR0M9a3p4m29NJUwbYuUJ3JdpYiSy7jkgPgiMh
+	jVEsipYABHvltXIkD4wW9ivzS27swU2xPjj4ZtMMJ0rqaU1k9oaTaY7R4EkWSzfMYVo2IS1YTSRoD
+	u/kCiOHZ1hiXdo59Ejs0mnVNQh2aFl7mCxLA==
+Received: from dish.amicon.lan (172.16.30.10) by mail.amicon.lan
+ (192.168.0.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.27; Wed, 19 Aug
+ 2026 12:33:47 +0300
+From: Daniil Iskhakov <dish@amicon.ru>
+To: <stable@vger.kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: Daniil Iskhakov <dish@amicon.ru>, Achim Leubner
+	<achim_leubner@adaptec.com>, "James E.J. Bottomley" <jejb@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	<linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Agalakov Daniil
+	<ade@amicon.ru>, Roman Razov <rrv@amicon.ru>, <lvc-project@linuxtesting.org>
+Subject: [PATCH 5.10] scsi: gdth: ensure event string is NUL-terminated
+Date: Wed, 19 Aug 2026 12:35:20 +0300
+Message-ID: <20260819093542.23409-1-dish@amicon.ru>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819-fix-negative-mft-lcn-v2-1-ed9e0d3ee814@gmail.com>
-In-Reply-To: <20260819-fix-negative-mft-lcn-v2-1-ed9e0d3ee814@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 19 Aug 2026 18:33:46 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9vGE3pLjEfamqjr0unkxfyHzySC7nMwRb+xheMOjV7Pw@mail.gmail.com>
-X-Gm-Features: AcwNN1XqxfJAxLhq1Q7Z7uXO3O_iVFOxCTsCX-z25CqoMDVMDOUO5YTKSONL8Ag
-Message-ID: <CAKYAXd9vGE3pLjEfamqjr0unkxfyHzySC7nMwRb+xheMOjV7Pw@mail.gmail.com>
-Subject: Re: [PATCH v2] ntfs: reject invalid MFT LCNs from boot sector
-To: Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev, rtm@csail.mit.edu, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: mail.amicon.lan (192.168.0.59) To mail.amicon.lan
+ (192.168.0.59)
 
-On Wed, Aug 19, 2026 at 4:19=E2=80=AFPM Hyunchul Lee <hyc.lee@gmail.com> wr=
-ote:
->
-> The NTFS boot sector stores the MFT and MFTMirr locations as unsigned
-> 64-bit LCNs, but parse_ntfs_boot_sector() decoded them into an s64.
-> A crafted high-bit value could therefore become negative and pass
-> the existing upper-bound check. The invalid value then propagated into
-> the MFT zone allocator and could result in an out-of-bounds access to
-> lcn_empty_bits_per_page.
->
-> Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator=
-")
-> Reported-by: Robert Morris <rtm@csail.mit.edu>
-> Closes: https://lore.kernel.org/all/57514.1787000602@localhost
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
-Applied it to #ntfs-next.
-Thanks!
+No upstream commit exists for this patch. GDT driver was removed from
+kernel in commit 0653c358d2dc ("scsi: Drop gdth driver").
+
+For GDT_PCIMPR controllers, the driver copies up to 256 bytes from the
+controller event buffer and later handles the result as a C string.
+
+If the firmware does not provide a NUL byte within the buffer,
+gdth_log_event() may read beyond event_string through printk() and
+sprintf().
+
+Force the last byte of event_string to NUL after copying it from the
+controller. This preserves shorter strings and safely truncates an
+unterminated full-length event.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Co-developed-by: Agalakov Daniil <ade@amicon.ru>
+Signed-off-by: Agalakov Daniil <ade@amicon.ru>
+Signed-off-by: Daniil Iskhakov <dish@amicon.ru>
+---
+ drivers/scsi/gdth.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/scsi/gdth.c b/drivers/scsi/gdth.c
+index 5d801388680b..744fc1bf1855 100644
+--- a/drivers/scsi/gdth.c
++++ b/drivers/scsi/gdth.c
+@@ -2562,6 +2562,7 @@ static irqreturn_t __gdth_interrupt(gdth_ha_str *ha,
+                         if (ha->dvr.event_string[i] == 0)
+                             break;
+                     }
++                    ha->dvr.event_string[255] = 0;
+                 }
+             }
+             writeb(0xff, &dp6m_ptr->i960r.edoor_reg);
+-- 
+2.43.0
