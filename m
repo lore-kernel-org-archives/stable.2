@@ -1,137 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468C42E06ED
-	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D822E06ED
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787125637; cv=none; b=LdsnhbWWnT0nzKkHPnaZQ9cfw087vsG+VMy9SqqK9VKsMJP9iudYGI5BIfDuwXbbf5seEpglHiz7un4WSmy985kmAhegbo6h7oUNaEwSPeSH9YhdFOZGXnyMqCoT/aiflIPGVG24kJCTVnK5JWu1M6Xv4Zh8Si4jIU6xeRxtHVc=
+	t=1787125641; cv=none; b=cTGci+kzMKmMBzrNvIRiV3jWQIFAIdaSPVwMw/H3ROUsvjtwdPxrVdav6Yf0DgY2RWm9Gq0K3+RictfdLfG3HO1dZaX9GI81UNI1WaVxPX6oJ0EkPSRuuzkWzSmJb90+5dUzcKYm9+InQCLAl8V08/CmLHqA9pQ6A82imZ+ntMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787125637; c=relaxed/simple;
-	bh=m8PBWOKPZZxgON00ruJEhOjBS0Ajq1Sbq4Lr1ITh1CU=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=fR1AGzBSCIJv0my/kPG/JzuXjYmebpHT6oJuNrR+nBbKBwfeEHpzY3CW8zCm+8oyoFpDb1YF3iYaI0raEpTAsErQny0QenD5U9llLoTjyi5F7Wk9Y+hkA2Xi+R35z1klV5AVAmyuoVzqTYGRaSIt+WKGwjPpmw4AWwn/eJf8Gos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ggfP3Oz0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787125641; c=relaxed/simple;
+	bh=//EXAfp3i+kQ/jKN8wDzvz/IYi7mnsdrIjYMRGRHySU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=NoBBZfX3CKJtLxyp8YO5nqqn0o2aD/ZfNXZiOHtl+0fvQ6THtgg/YzdgA1K1IFp5TI8JsI2vo4zrldqGd1OukbiE5WEwtpXon9EyVpYX2mWiEQ3PU6TdXNp7wemx2PgCt+P5Bm7CovN3OKM1W2pxSKQ7Bnsn8vFo7vBA/Dk8uUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MNIpqqMS; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ggfP3Oz0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF20B1F000E9;
-	Wed, 19 Aug 2026 07:47:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787125635;
-	bh=STwMFl6b1I4ZRzsPq/cXV++o07BID78mGI6PgzEdFOo=;
-	h=Subject:To:From:Date;
-	b=ggfP3Oz0uQdkG8I6Hr40840733EzZYSQyEcAJO3VHwsArqnr7DVc/j8U029SzS1Ce
-	 IHInlR2NjUadc71/qlrhJ1b7uM9AG37ozLCs3O/Wc8+qjblBHRjcefdVOO1PKB6hk/
-	 ClM/VEvkcmw1N6R9hvQd2isMRSsTQPbgfJLj7jcg=
-Subject: patch "iio: buffer: Tie IIO dma fence lock lifetime to the fence" added to char-misc-next
-To: lars@metafoo.de,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 19 Aug 2026 09:44:36 +0200
-Message-ID: <2026081936-underpass-shorthand-a940@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MNIpqqMS"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso693465a91.3
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 00:47:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787125639; x=1787730439; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hGC3VW1w2On4iBJIoAiFEhqx16sfxNjUYYtbVUVIBwg=;
+        b=MNIpqqMSBykFIVrfaYNGNdwOecA6WvAwQL2X3EUBHr8EiHAIRqv3rtEDeFGlfjVYnJ
+         NuHiECYdcOVJI0brl7s3xK6HfoFKQxwnKcLLPheNUZeT4n378LXtkAxQ78n9fQm09UPr
+         CeXvjwaTjeUAGHYtnz8rh3fY1NhKH26E9mByHMMgapTQlNZ3p6pD0R6PpawvYglbKXLN
+         dgBQqej7ws6TochMPk+jXfcpZejq+mWgHjp3Om+JxToTk0v+GT1kALSo3Ni3IUYyjJps
+         /Y06Gv8v4t/dnZ/+Jjah/MjunYkMf+lST6ORE61Zt8hoARx1U7WZMgMW1KI0UxlZFMax
+         /OPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787125639; x=1787730439;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hGC3VW1w2On4iBJIoAiFEhqx16sfxNjUYYtbVUVIBwg=;
+        b=gNjth3+94d07/pK9J5R9LLdU7wuiK11uTRHwwVOa/0L01fhe8V515MjEjkFdbuLzH7
+         h25yPPE/9semvUWbjNi7lN1+BWN+jDNXyvrscqTU2+7HH9rlKSYvFG9H7sBETJJF+biF
+         3eJXy7v0LDgy8tsDeE4p3OiW9PpJRZCwVzWQ6uDegORedzvlAnlsgxTHhs+zmFJJICj/
+         g0u9RgT3uCMlMN74y1qUlroBvmLXXkbJTDlqGbii08PY+whfXU97VG30OPXjmpFkvEBl
+         Ggp4pPQbPTujC3Tx6xxHPCNF3dLKMMoWpuvehQAzwtfWPmnS06MuCaPTH2fWVnnbiNS2
+         LGMg==
+X-Forwarded-Encrypted: i=1; AHgh+RpGckKuwSxPQBHVy9iOfY0PBSFAkH80b+tvzgoziAozIS+zD+FmAIU7fcSn6vceayj1SPrxrFA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy0Max9nRRf45V6nMws1BiBmuximsp4B+SJ9b+bdiJ6NKRUpwaZ
+	nE1jISchnlagOdo6Ef+MyX6mFqtLh0PGjrSnx3duPMC1QamJlaHfrovB
+X-Gm-Gg: AR+sD1214GLzENvkkq84New8N6Kw1s99RlE7x1DtcI2lVVCufx7ZkXChfVMtbgFE69k
+	ntZkoSOnpyHKnuWiz8NYZ02+ksA44YuU2CiiwgLGmna8m88FOgen8yKuHWXgfCokKP+vupJLqLJ
+	iNRhcm30ygJJQJ05xKTpKaFeZsc5m74qbrz/6kWTDtnmfedE5AmCiOPD1gxOeWIRh1+DPSRiNuH
+	V1YXAQMx09qEDXStRLXz5uzdu5PrCLKbiE+WCWHASQBw4UQDlJx9cUfxSFjDFmekVIScGpph/mX
+	qgpgFTFZ5RKbDx+14iND3YmouFHze5UIGPRMHcsxxpour8tPwppmE9Gw+AMXGvrJtfePpG4l2cH
+	jQp63kz0ZGUtSUVft09JfJMThw533OBXzTYvKMHuGF4F9x3RONxAP4GnOCMlKpTQyqHcsYLjOJj
+	jck5/5EsPaFmwoMFJQKAotQC3pFfIc7YCreBgeRU7pZnxqB5Gn+AM45b/UK/0GE9vfIt6Hqd7Cq
+	3tsbZRd7w==
+X-Received: by 2002:a17:90b:164c:b0:381:28e0:6259 with SMTP id 98e67ed59e1d1-3958107fcd8mr4799653a91.9.1787125639535;
+        Wed, 19 Aug 2026 00:47:19 -0700 (PDT)
+Received: from DESKTOP-SWORD.taile2ffa1.ts.net ([240d:f:771:4e00:f0ff:edd1:42d5:8f3f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957f9aaa12sm1701170a91.5.2026.08.19.00.47.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 00:47:19 -0700 (PDT)
+From: Tien Phan <tienpp@gmail.com>
+To: security@kernel.org
+Cc: Greg KH <greg@kroah.com>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	NeilBrown <neil@brown.name>,
+	Jeff Layton <jlayton@kernel.org>,
+	stable@vger.kernel.org,
+	Tien Phan <tienpp@gmail.com>
+Subject: [PATCH v3] nfsd: fix use-after-free of DRC slot in nfsd4_sequence()
+Date: Wed, 19 Aug 2026 16:47:01 +0900
+Message-Id: <20260819074701.1312702-1-tienpp@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260819054326.1265334-1-tienpp@gmail.com>
+References: <20260819054326.1265334-1-tienpp@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+nfsd4_sequence() loads the slot for the client-supplied seq->slotid
+(bounded only by se_fchannel.maxreqs), then on the reduce-ack path frees
+every slot in [se_target_maxslots, maxreqs) with free_session_slots()
+without checking that the loaded slot is outside that range.
 
-This is a note to let you know that I've just added the patch titled
+Once the DRC shrinker has lowered se_target_maxslots below maxreqs, a
+client using seq->slotid >= se_target_maxslots has its own slot freed and
+then dereferenced and written (slot->sl_seqid, cstate->slot): a
+use-after-free.
 
-    iio: buffer: Tie IIO dma fence lock lifetime to the fence
+Reject such a slotid before freeing the slots.
 
-to my char-misc git tree which can be found at
-    git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
-in the char-misc-next branch.
-
-The patch will show up in the next release of the linux-next tree
-(usually sometime within the next 24 hours during the week.)
-
-The patch will also be merged in the next major kernel release
-during the merge window.
-
-If you have any questions about this process, please let me know.
-
-
-From f25ec4627d935dedfb5fe83bd2c2678cdcc19611 Mon Sep 17 00:00:00 2001
-From: Lars-Peter Clausen <lars@metafoo.de>
-Date: Wed, 15 Jul 2026 08:42:44 -0700
-Subject: iio: buffer: Tie IIO dma fence lock lifetime to the fence
-
-The `iio_dma_fence` implementation currently uses a lock embedded in the
-`iio_dmabuf_priv`. But the `iio_dma_fence` can outlive the
-`iio_dmabuf_priv`, which can cause a use-after-free.
-
-Tie the lifetime of the lock to the lifetime of the fence by embedding them
-in the same struct.
-
-We can't just hold a reference to the `iio_dmabuf_priv` from the
-`iio_dma_fence` since `iio_buffer_dmabuf_release()` might sleep and the
-fence release callback is not allowed to sleep.
-
-Note that the `dma_fence` framework now has an internal lock that gets used
-when the passing `NULL` for `lock` in `dma_fence_init()`, but in order to
-allow this patch to be backportable use an external lock.
-
-Reported-by: codex:gpt-5.6
-Fixes: 3e26d9f08fbe ("iio: core: Add new DMABUF interface infrastructure")
-Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Fixes: fc8738c68d0b ("nfsd: add support for freeing unused session-DRC slots")
+Cc: stable@vger.kernel.org # 6.14+
+Reported-by: Sentinel (automated analysis agent)
+Assisted-by: Claude (Anthropic)
+Signed-off-by: Tien Phan <tienpp@gmail.com>
 ---
- drivers/iio/industrialio-buffer.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+v3: trim commit message; drop the added in-code comment (Greg KH).
+v2: add Reported-by:/Assisted-by: trailers (Greg KH); fix NeilBrown address.
+v1: https://lore.kernel.org/all/20260819054326.1265334-1-tienpp@gmail.com/
+ fs/nfsd/nfs4state.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
-index 04b3916f89e2..31c06bffdce8 100644
---- a/drivers/iio/industrialio-buffer.c
-+++ b/drivers/iio/industrialio-buffer.c
-@@ -47,9 +47,6 @@ struct iio_dmabuf_priv {
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index a42f34842d77..def1ea534e18 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -4575,9 +4575,14 @@ nfsd4_sequence(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
  
- 	u64 context;
+ 	if (session->se_target_maxslots < session->se_fchannel.maxreqs &&
+ 	    slot->sl_generation == session->se_slot_gen &&
+-	    seq->maxslots <= session->se_target_maxslots)
++	    seq->maxslots <= session->se_target_maxslots) {
+ 		/* Client acknowledged our reduce maxreqs */
++		if (seq->slotid >= session->se_target_maxslots) {
++			status = nfserr_badslot;
++			goto out_put_session;
++		}
+ 		free_session_slots(session, session->se_target_maxslots);
++	}
  
--	/* Spinlock used for locking the dma_fence */
--	spinlock_t lock;
--
- 	struct dma_buf_attachment *attach;
- 	struct sg_table *sgt;
- 	enum dma_data_direction dir;
-@@ -58,6 +55,7 @@ struct iio_dmabuf_priv {
- 
- struct iio_dma_fence {
- 	struct dma_fence base;
-+	spinlock_t lock; /* protects base */
- 	struct iio_dmabuf_priv *priv;
- 	struct work_struct work;
- };
-@@ -1706,7 +1704,6 @@ static int iio_buffer_attach_dmabuf(struct iio_dev_buffer_pair *ib,
- 	if (!priv)
- 		return -ENOMEM;
- 
--	spin_lock_init(&priv->lock);
- 	priv->context = dma_fence_context_alloc(1);
- 
- 	dmabuf = dma_buf_get(fd);
-@@ -1896,6 +1893,8 @@ static int iio_buffer_enqueue_dmabuf(struct iio_dev_buffer_pair *ib,
- 		goto err_attachment_put;
- 	}
- 
-+	spin_lock_init(&fence->lock);
-+
- 	fence->priv = priv;
- 
- 	seqno = atomic_add_return(1, &priv->seqno);
-@@ -1906,7 +1905,7 @@ static int iio_buffer_enqueue_dmabuf(struct iio_dev_buffer_pair *ib,
- 	 * the dma_fence.
- 	 */
- 	dma_fence_init(&fence->base, &iio_buffer_dma_fence_ops,
--		       &priv->lock, priv->context, seqno);
-+		       &fence->lock, priv->context, seqno);
- 
- 	ret = iio_dma_resv_lock(dmabuf, nonblock);
- 	if (ret)
+ 	buflen = (seq->cachethis) ?
+ 			session->se_fchannel.maxresp_cached :
 -- 
-2.55.0
-
+2.34.1
 
