@@ -1,109 +1,82 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-150.mta1.migadu.com [95.215.58.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CA03D0934;
-	Wed, 19 Aug 2026 06:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE3A3C4574
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 06:29:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787120743; cv=none; b=gMJ/KbKpHcG7rQK6fCJKvhL0Eqf/qz22FAINkix6/3gM2a/H+KR+UQf9jdVoR6xoaOgvLWKR8Yvbo1PqkWQkcSh7F1Vv+OJt4CxvnrAOluiNxUz9SHrqUoDeAlTtyVik/w8ShwhzQGRt4Ee3hMzKyyfu3bVB3UKzWYxHVAoOHVQ=
+	t=1787120944; cv=none; b=g8BLGSqgrFKo/utqn9y/vecTFY1TP7FyT1U8NH+nrtetqtdW9uT2x07jl3ag6xhL2d2WSp+DWVZAcpZXO5qoHuCaEa8dpOIrQqwg2RYfJxapA2EadHantTgILkuQsdPYZqM/rAZ04sUS1Ilmy8kboonW9fq7Iz3Kt8LPsTN6Q4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787120743; c=relaxed/simple;
-	bh=31Y2OOXv1aNQHI3J2fxbeLDomI0JMcqsp2rDEtm12lU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bMDbgjNYeh/9kX3CYX8upeCmnVcUOiLSX0rQ0Cl+TQyovjcPcY2Oo+VH+SAcL2BuDcFAEPxruCRtBSQLVFhEVL9iKpnw3bZS2jTGAXk1mwpP+sksVV+EwfBzfZDdmxIniNEVs+HzW57mnZpIWeexchAxp1bVdAifwSM8X+P9vcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 99E55200C95;
-	Wed, 19 Aug 2026 08:25:39 +0200 (CEST)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1wwZk3-002FUK-1h;
-	Wed, 19 Aug 2026 08:25:39 +0200
-Received: from pengutronix.de (unknown [89.207.172.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 17FD15860DF;
-	Wed, 19 Aug 2026 06:25:38 +0000 (UTC)
-Date: Wed, 19 Aug 2026 08:25:36 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Fan Wu <12321260@zju.edu.cn>
-Cc: Fan Wu <fanwu01@zju.edu.cn>, linux-can@vger.kernel.org, 
-	Vincent Mailhol <mailhol@kernel.org>, Mark Brown <broonie@kernel.org>, 
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] can: kvaser_pciefd: fix use-after-free in bec poll timer
-Message-ID: <20260819-amethyst-spider-of-development-85130a-mkl@pengutronix.de>
-References: <20260818063832.383829-1-fanwu01@zju.edu.cn>
- <20260818-ambrosial-courageous-carp-1162c8-mkl@pengutronix.de>
- <D2ED044B-6B32-4FB4-B9FF-E65497B84A25@zju.edu.cn>
+	s=arc-20240116; t=1787120944; c=relaxed/simple;
+	bh=8CB/lE4/49sfkaUzUzFM0kUF7Peyvb1rL/t6EKc0jA0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SAN3vVDOEJq3+XtzjBPOmT9EovlYI6J3HkA076IytkXAjl5nA2tdHKpyhzfJBHcjrbQ1HHY0Bppu8eAhJk+WSavRt7OPwDHxhH8qZ2HjmKXjDiaT1d2aqORqHUVU3JzLOaKCj+g7tO+MbZyXa1fb/8RzPbVVcAmfdY/Wh3EXgGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xNSagfxq; arc=none smtp.client-ip=95.215.58.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xNSagfxq"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8CB/lE4/49sfkaUzUzFM0kUF7Peyvb1rL/t6EKc0jA0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787120940; v=1; x=1787725740;
+ b=xNSagfxqxXIwuiPIKBdzuETzXkIxO0hv5oVL2oLJXJCLrZhalTkjkDlZ7m6GpqVNuyq/wVf+
+ xzPEojG/GGq4T2eTwGxtgDVl5TuQae3cEfoiJsgd0dqbTEgdvRu3XpdJcnTLBeCkQcRZ3dVz6Rr
+ x5pSGZc+Y8NepYWjBfKsZKT4=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2601:647:6300:a030:bc85:bf86:ea62:1b8a] (2601:647:6300:a030:bc85:bf86:ea62:1b8a)
+	by smtp.migadu.com with ESMTPS id 1f7a16524ac85e93;
+	Wed, 19 Aug 2026 06:28:50 +0000
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0167d920-1cad-4117-ac19-870a340601d7@linux.dev>
+Date: Tue, 18 Aug 2026 23:28:47 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x6oxu6rwav2tj2rt"
-Content-Disposition: inline
-In-Reply-To: <D2ED044B-6B32-4FB4-B9FF-E65497B84A25@zju.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] RDMA/rxe: copy send WQE to kernel buffer before
+ processing
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Moni Shoua <monis@mellanox.com>,
+ linux-rdma@vger.kernel.org, stable@vger.kernel.org
+References: <20260816104432.849996-1-tristmd@gmail.com>
+ <2063d67f-27c5-4329-aaf5-39823f9de6ff@linux.dev>
+ <20260818133319.4128416-1-tristmd@gmail.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20260818133319.4128416-1-tristmd@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+在 2026/8/18 6:33, Tristan Madani 写道:
+> Hi Yanjun,
+> 
+> Thank you for the review.
+> 
+> Regarding concern 2: unless I am mistaken, rxe_sender() calls
+> rxe_requester() then rxe_completer() sequentially in the same
+> work item (rxe_req.c:836), and do_task() prevents re-entry, so
+> the requester and completer should not run concurrently on the
+> same QP. But please correct me if there is a scheduling path
+> I missed.
+> 
+> Either way, using WRITE_ONCE() for the state and status fields
+> instead of a bulk memcpy() is cleaner and eliminates any concern
+> about tearing from concurrent userspace writes (concern 1). I
+> will send v2 with targeted WRITE_ONCE() writebacks for just the
+> fields that need to be visible, dropping the bulk memcpy.
 
---x6oxu6rwav2tj2rt
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] can: kvaser_pciefd: fix use-after-free in bec poll timer
-MIME-Version: 1.0
+Sounds good. Please go ahead and send v2 so we can look at the actual 
+implementation and discuss based on the code.
 
-On 18.08.2026 21:22:51, Fan Wu wrote:
-> Hi Marc,
->
-> Yes. The driver has three timer_delete() call sites, all for
-> bec_poll_timer.
->
-> The calls in kvaser_pciefd_bus_on() and kvaser_pciefd_stop() are runtime
-> cancellations: the CAN device stays alive after both, and the timer must
-> stay rearmable for the next open/bus-on cycle, since the interrupt
-> handler arms it from handle_error_packet(), handle_status_resp() and
-> handle_status_packet().  Converting either one to timer_shutdown_sync()
-> would make those later mod_timer() calls no-ops.  The stop() flush-timeout
-> path, which skips its timer_delete() entirely, is also covered: the device
-> is still alive there, and remove() still shuts the timer down
-> unconditionally.
->
-> kvaser_pciefd_remove() is different: its timer_delete() is followed by
-> free_irq() and then by the final free_candev(), while the interrupt
-> handler can still rearm the timer.  That is the call converted by this
-> patch, which also adds timer_shutdown_sync() to
-> kvaser_pciefd_teardown_can_ctrls(), the probe-error path that frees the
-> CAN devices after free_irq().
+Best regards,
+Yanjun Zhu
 
-Thanks for the explanation.
+> 
+> Best regards,
+> Tristan Madani
 
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---x6oxu6rwav2tj2rt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCaoVMXQAKCRDMOmT6rpmt
-0qMuAQDyz4+BUCe/00dUZ2oXyb8zFZNenzRj0zqLS3jQYrTKvQEA2ACowyu+IipL
-rCZv3Iv8/fu3+KRyk6INBF9BmvhFLQc=
-=kCD6
------END PGP SIGNATURE-----
-
---x6oxu6rwav2tj2rt--
