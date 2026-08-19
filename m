@@ -1,133 +1,182 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72959357D10;
-	Wed, 19 Aug 2026 11:40:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787139646; cv=none; b=lu+44+zjQBgIWz/LPgY4TrA0aVxRegroEFKn2BIt1gV7+MhmAmRlpuJYLTUuohphhCp9t84rBRc03DYc1E0r2buk16FMTOfRD2F2Smean9A87hGQAff+8IopWuHtvxPdwWX3H5kEQOL6KsMcyVJHLmPuArBxTq9PeN2K6GhR5H0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787139646; c=relaxed/simple;
-	bh=r9TNEQtg86en8rlSGP7PDYC32L2IrLWyUBPQsCHV3ck=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gipsSWbtRbMdv8mBbuluwIJRNGBu6I6+F2DDzRE1RX1CHK8ovtVu40OeLiK1upFWy1bkAjdxK5M0txl7k7LoxnxCLyA915yy9NuRdvDveh91ruM1Bl34yS+BHDkOPYf8XZLV6fyyrp/updvWZCkhbUdwPW8aABTH5A/l9dDJNgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kFlcQ7D9; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF82381AE4
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 11:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787139789; cv=pass; b=N1aF6+0BGRcXn+K6D0RgrpqZntfPcmrYnPADsV3PGkNlClYbk58FbAf3KETSoVPzQ2tWwwwa25QWHCzwDQFdx4vkbAqisA+V1KQiOLYoIIoDRnKSwDPe0BWgQV1viJQokqVurn9AOqotnMKLuZxjzl4eefF0XV9PIyjIhRaJtDM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787139789; c=relaxed/simple;
+	bh=08kL7JbQEa8fJNQW+ej623AwIur83mUMehYAetGta8A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lqUrX2bgyBrnzCEkJJAqrxGWG9E1aZm+wmjKEy6CxZFXRSrr0x4Rqe9ndO6zwTOOhF3fp6fdVTpO4ui2piTpIifiK6IvM18RIE5ImYIY0AGSTlz/ijbaPNtwXASpixb8G1VSy1Z7srIQVAPNk5Y3dNRvhG/gYqOrnz0LnZu/xzU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kB1u61St; arc=pass smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kFlcQ7D9"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JAVjUX3228291;
-	Wed, 19 Aug 2026 11:40:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=ukg47i
-	7KvmIA6RseooDPi8jZv0ZiBYLTZtw1/r4wpz0=; b=kFlcQ7D99ZX2tRM6IMxgxE
-	IV3tZk3GNK0+yKAn5Z0WkkJtEcIE9M7u0FB39Jhul+sV8NqNfTNQGJkjAe+CFeyV
-	LLcwV4hv2oOCD9+/Fryxquwdg/4YWALIskQv/ECKwJLPK6nVmpVuB/un6NToWdA4
-	QqCLBIeaCbMHdN+jfQvkVoD7rSMkPURQD9K+iSiJ1vaoTfegCFJHflKLS7Pv8bef
-	J8/h+REtUWImrGk4Apb1/ERa5OOy3bmzhe12LEjUxq3pQddah2IVKVFM6xE6lUZK
-	t/ThOWQCA2X9WuUVOC91a82LAjv/+zg2yWnsJtWQZXjSCkvlf1Vkxf012swsZlyg
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g4yu43aa9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 19 Aug 2026 11:40:40 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67JBQLwL006718;
-	Wed, 19 Aug 2026 11:40:39 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g33xh8mb2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 19 Aug 2026 11:40:39 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67JBeZ5942205440
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 19 Aug 2026 11:40:35 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8EFBA20043;
-	Wed, 19 Aug 2026 11:40:35 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A4DAB20040;
-	Wed, 19 Aug 2026 11:40:34 +0000 (GMT)
-Received: from li-ce58cfcc-320b-11b2-a85c-85e19b5285e0 (unknown [9.87.134.55])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Wed, 19 Aug 2026 11:40:34 +0000 (GMT)
-Date: Wed, 19 Aug 2026 13:40:33 +0200
-From: Halil Pasic <pasic@linux.ibm.com>
-To: Anthony Krowiak <akrowiak@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org, jjherne@linux.ibm.com, borntraeger@de.ibm.com,
-        mjrosato@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
-        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
-        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
-        gor@linux.ibm.com, stable@vger.kernel.org,
-        Halil Pasic
- <pasic@linux.ibm.com>
-Subject: Re: [PATCH v5 7/9] s390/vfio-ap: Fix hot-unplug skipped when last
- AP adapter or domain removed
-Message-ID: <20260819134033.535fc52e.pasic@linux.ibm.com>
-In-Reply-To: <20260812200240.818004-8-akrowiak@linux.ibm.com>
-References: <20260812200240.818004-1-akrowiak@linux.ibm.com>
-	<20260812200240.818004-8-akrowiak@linux.ibm.com>
-Organization: IBM
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kB1u61St"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39c7ed5410bso6414331fa.0
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 04:43:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787139785; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ODXHYP45atgWWHsjoEMCGkCWT+srblMY07Nd1sW2Jv6Dg1q9JC0h4HJXjd4SaC2jQh
+         QmlCeQvmzjraV1RuqV7N4miPU6bxhJty7rSXF7ttFJfNiSIk16cmAXbUqlHFwSJVdxba
+         Qq4r+uYdt/9MaX4HB3ZyVDC3FDUAHUmpZfhgut1CCwrBC/G3UDTZtnsk8kJ8XO0FTLYF
+         /qrsuZyYoMTrVJ62wcdGUNHsLfm751Qpod9e1YApPetgXj8D0nmEord27bcpqssQ0V+m
+         Z9eB1IcsAf4+ew1HScJRYl766a3fBadN2wXSXLaDNkj8Ak3wwgM2K3Em5m2U+YJLfhmm
+         ftZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rruUpDInQvQQuqMyUIBpR8nVOpeVCVZSdKEK5ZtInD4=;
+        fh=Jxr+MOQcaQYb6y4pbcOMDiWnFaQfWGwceVOXRq6R/Rg=;
+        b=j9k3f/otpfUjK16NWc/pBrApI/B1hrK+1Gt5b+HStXPesqC6xDAvrPE2GH4ZqMX+qV
+         IYieJ+6OExskysZzZUBtqlQJ2ZmoDLsgDat+rf65ZtVUCY/1/Kgde48yPBhOaNV7/4fn
+         tBhbnftJXlLAea8JYSuvpIyRLlVVgdnbNQkyXwxM8xXTdAHVVxXQzKRg3xLxq1ve16Cp
+         aBpWM3Hlr+s5NxI/YdDMer7degTQFMYH1Yez34CDrQ43kHVnTfL5CfbO1+M0M7/ILC3c
+         9aEEpEQBKXAu/21opw+y8Z2hkruWItW8tY3aJ6Y+Zyt5ACjq4C9AVfot2piWYaTbRFy5
+         aP5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787139785; x=1787744585; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rruUpDInQvQQuqMyUIBpR8nVOpeVCVZSdKEK5ZtInD4=;
+        b=kB1u61StMBPj4ZUwlTwHo+rDCRoAE5H5sTiEx11AuTUvin8iPliLRtBKxaC05+2QNC
+         8UCoND2pA8Rs7/VjUmE+YAy4z3Oi0aG/5+k04EQ6DnLfCcCRXfidCVAjYP8KeBUvWKNr
+         dwiTBGKay8aNf/Vx9ewIF3VmaBVFTUvNsmyNI/liOafSUBX3lYUv6FJ63UtIUxmU0yaI
+         wMCB8dzreVt/D1PCrSLbKFDhB2Tz8h5jQkvO/xIAnI8A88l2mkPtcZQ5fypWyZ7qpsAY
+         6D8+0wrUe83CmR/almLB207xYt1t4X4dyEWNyuEJBYpWo+QhAfYKOakQM7qajdrRaADn
+         Lehw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787139785; x=1787744585;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rruUpDInQvQQuqMyUIBpR8nVOpeVCVZSdKEK5ZtInD4=;
+        b=e+LHKLV1bb3AEKAwfrcKLPzEdVB7r1hG0QhnlA7c+y5jkQfPxOEckofBYvNGvKH54K
+         NnVdxyYfw9UBrZccvanbGGpiJdxEu7A9lHCdSfWMZFiBc3A04jtxIrtOfRAkFEhCElta
+         q9aaKfdgNo0vuwGLwJhcVWUW7lGzHbSezaij6kS9Ciu6C8bqnVD7lEqkpXQChYT+thsa
+         DuGkuxDLrfrx5GBGwufg4rqIcJi/u9xz3eptQq15SVx3ZofflNyP7WyvwlrIWKNlnhaW
+         Gkl6g1hsWzEppWNZu/0niFzheAYMbHwIKegJORRWlHRIrJ4rUK0GhmtrcTOh+F83sloF
+         m00g==
+X-Forwarded-Encrypted: i=1; AHgh+RphyDxATC1M6YizX7hpn82N/qMIgKoi14mCiu6xdoRn7WwSbCvUw8c94stvAb1RmebcKlsZv2I=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyELHm/Mmjw9y6wjfEi7+8OwHmI3FDKO1MwHhwRhRE0a2mFRe7z
+	o9dU0ARshk59N/PuhfOuMcB5gJMC+dd8fO7SvWKwDtLZJXMClBMZzdOg2zVe0FHqqfqc+DRJN0f
+	XvW+JzxuPbCYUDabEQiXkbVbuK6a+oZg=
+X-Gm-Gg: AR+sD12sJW/EyKpMC0AGalA3Gzws73wzvZFsA1SK0aUQbP6HdpDp2kAO+UkzSBGbThb
+	tytNFVciGZCb4gxtJEzyJD2SvtBbTT8O6JUssVumhzRZvLI2rQXAOvdPaSPAl9bOPJZdmCAiiDN
+	BALAHOgy1TkoWzPK6SHavusVoD+UahwJGjcCEZH3BWFylDgIi8d7/+ScLo88XkyVDG+5P2pOspY
+	z+kUzmIcpleCLDFpTIqPLAXvj2BjP8GTnobSP+o5ew1LxWra+XSEGGg1zNx5j9OzTJGmgFBVTx7
+	Qr2xlrMRQqinJ8VHNg5mGBezea9GFR5KmF+cXO/XwNbdwfVKxCP/ybSQEQnPIpxHa7cPGVd91zC
+	bqYvGYlsakjQUe1mO9Ogi0UZyow==
+X-Received: by 2002:a2e:bea5:0:b0:3a1:85a0:c5c1 with SMTP id
+ 38308e7fff4ca-3a1899c16f4mr8655901fa.11.1787139784486; Wed, 19 Aug 2026
+ 04:43:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=CpuPtH4D c=1 sm=1 tr=0 ts=6a859638 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=Gm9r7fe_Tw3zQ87jZCMA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: stXROtBFUUAg5YgqItTK5zeFD5MQ-OcE
-X-Proofpoint-GUID: stXROtBFUUAg5YgqItTK5zeFD5MQ-OcE
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDA4OSBTYWx0ZWRfXwXW4BG0GiNba
- Gg9AqOmK5pYObF1e9V5529Uqh6g5rKsotUao+cSfLCE6nElNyiB1f3mxdp5rUAiFz8Ggo3/WZPe
- 8QiQ3J9tRrL2kY4HzdgYY62TzHIYoNQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDA4OSBTYWx0ZWRfX3Tn6ws+i7nQ+
- 6zlzctdOJp5vHVUupRxvlUMqqoR1teSa1M/zcT1KnV2deOlUb1AVLhRF85cZCBP6tdfLjI4m4F1
- 2sSTjgv95/cLmPQwj/LOqOBpmk0oImmwASLEymGQYC9zqwvMMfjFx/Bukjbdef4JJ3n2O+cxMN0
- 2Vn82NvNttL3FH8wsyicVE8H1AXCvGcC/V57xtFupbhrJ7oxguObXWdpeLMHh0BG/yI07s3EQhE
- cSCelQqhWdMvwLDH8qvbhORQ13ntNHrh7Vf85+sXNZHumRCMT5YnYTk9EXqGAAtvSVLJ8WhKli1
- QXkjJqRSKS5exrf6xrEjJBQlEqfJbZIW267fXGuf1ydVhH/HjfHPGOz91fayFqCEf5VrQ0i4xzM
- vzjWOBk9L5+L1KD40mENwoU3WeG1ssZtRBCnlkfbdNzIc5bzDP2A9VFACW7eWnVtfrTT4UPjXkf
- NVncn97G/CKTuIQSwtQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_03,2026-08-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 bulkscore=0 malwarescore=0 phishscore=0
- lowpriorityscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608190089
+References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
+ <20260817215428.84740-1-gvalkov@gmail.com> <20260819-generous-nickel-dalmatian-b6bb08@quoll>
+In-Reply-To: <20260819-generous-nickel-dalmatian-b6bb08@quoll>
+From: George Valkov <gvalkov@gmail.com>
+Date: Wed, 19 Aug 2026 14:42:52 +0300
+X-Gm-Features: AcwNN1X_uzL9E44yhbWS_M41oClBHdMfV11eL6pc59WJx0lXGGLZ-ZZh_4cYzLM
+Message-ID: <CADOrJmYfBe3ADun_kFjFSH6YOSTX7Vu3UsFsL57yuRdaQ=eJCA@mail.gmail.com>
+Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag marvell,ignore-regulatory-hint
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch, 
+	krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com, 
+	kees@kernel.org, miriam.rachel.korenblit@intel.com, wenst@chromium.org, 
+	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
+	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
+	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
+	Frank.Li@nxp.com, chunfan.chen@gmail.com, 
+	linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 12 Aug 2026 16:02:38 -0400
-Anthony Krowiak <akrowiak@linux.ibm.com> wrote:
+On Wed, 19 Aug 2026 at 12:42, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On Tue, Aug 18, 2026 at 12:54:26AM +0300, Georgi Valkov wrote:
+> >
+> > diff --git a/Documentation/devicetree/bindings/net/wireless/marvell,sd8=
+787.yaml b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.ya=
+ml
+> > index 930b700b73d0..5f235cb9f3e5 100644
+> > --- a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yam=
+l
+> > +++ b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yam=
+l
+> > @@ -59,6 +59,12 @@ properties:
+> >      description: Calibration data for sub-band 3 in the 5GHz band.
+> >      maxItems: 502
+> >
+> > +  marvell,ignore-regulatory-hint:
+> > +    $ref: /schemas/types.yaml#/definitions/flag
+> > +    description:
+> > +      Ignore an incorrect regulatory hint from ROM,
+> > +      so userspace can set the correct regulatory domain.
+> > +
+>
+> Same comments, so you just ignored entire feedback?
 
-> @@ -2568,24 +2568,28 @@ static void vfio_ap_mdev_hot_unplug_cfg(struct ap_matrix_mdev *matrix_mdev,
->  					unsigned long *aqrem,
->  					unsigned long *cdrem)
->  {
-> -	int do_hotplug = 0;
-> +	bool do_hotplug = false;
->  
+Do you mean this feedback? I already replied to it:
+> > Anyway, property looks like SW choice. You must describe hardware
+> > instead.
+>
+> I am sorry, I do not understand what you want me to do?
+> Can you please send a diff or a clear description suitable for people
+> who have way less experience than you?
 
-Nit: The name is IMHO somewhat misleading. If we are already touching
-all uses of the variable and its type maybe we can use the opportunity
-to change it's name as well.
 
-Some ideas: update_apcb, changed, matrix_changed.
+> Again: you need to describe the hardware, in commit msg, in property
+> name and in description. You cannot tell SW what to do, that's not the
+> purpose of bindings.
 
-[..]
->  
->  	if (do_hotplug)
->  		vfio_ap_mdev_update_guest_apcb(matrix_mdev);
-> -- 
+I still don't understand what I should do?
+Can you please show me an example of the changes you want?
+Else I'm likely to make a wrong guess and implement it. That obviously
+won't help.
+
+The commit message already describes the issue with WRT3200ACM and WRT32x.
+
+About the description, do you want me to do something like this?
+    description:
+      Ignore an incorrect regulatory hint from ROM,
+      so userspace can set the correct regulatory domain.
++    WRT3200ACM and WRT32x are known to need this.
+
+About the property name or flag, do you want me to add a separate flag
+for each affected hardware device?
+- wrt3200acm,ignore-regulatory-hint
+- wrt3200x,ignore-regulatory-hint
+- the list may grow if someone decides to add other devices
+- and the driver will need to support all of them
+- that doesn't make sense, because it isn't scalable
+
+> How did you fix the threading problem I mentioned in v3?
+
+How can I fix a threading problem?
+I don't really know what the correct thing to do is, once I forgot to add
+a version tag in v4. So I just added v5 in my next submission.
+I'm new to sending mails using git. So far I've learned that I can do this:
+git send-email --thread --in-reply-to=3D<Message-ID> =E2=80=A6
+and I use the last Message-ID.
+
+Krzysztof,
+I am thankful when I receive criticism from you or anyone else, because
+this helps improve my PR and it helps me learn. A clear communication
+along with examples and links to documentation can make this process
+easier and more productive. Thank you!
+
+Georgi Valkov
