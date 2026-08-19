@@ -1,122 +1,167 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C169B2C237E
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 21:33:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787175194; cv=pass; b=q8fjuhU0XZZB77ZQ7Nscuu2Vf9pGj/PmgsToxMnJw4QRFpsohSbXyATijuOIvX9jvGn8k7yfwrTZxlbzCmFCUJywe1BIPyjCv6ostiCx4RklmECdsLT3R8OP4BRuyoCe35KYN59YKaKz1Vdl4XrEPx4rwWbaYoFriAVNuDkLUJI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787175194; c=relaxed/simple;
-	bh=0yuQiTtflkY/YAVo5ipfAt9RToVOI1Q74XMibElEASQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CnBjPPVqsYpVI3O/SfJrlUItNr1xHWBKoam00+bmSpFZ97hTKv84+5KME9RwDRDsouW+Sa8VUUiGVMsKmeABKsSttkouwWN2huMGYPwpsGYPP34I9wi5w7K1X75BqbF+v3BL7DLXKfPSCOjY0X1jTuVr4/Q/PcHg7zKGE62Fi0s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lxKML53a; arc=pass smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1DC3D3CE2
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 21:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787175313; cv=none; b=UhqsTOe4L90hz5ml69KGgzlCnu2VTo0MQqmnMEjM/zhAqXjC3DJDbqzKpNyUmxiiebh+iCh1OcM64KT7zyWgGxNsTf9kmVu2r7rIVKsUwb+rBHFf6grvIiqDIo5FZamAjtLlkWZfNtcQKOBn1xqhDrUsMikiQrysx5iJHNxArH8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787175313; c=relaxed/simple;
+	bh=XCyWI21c6Ia4UYKaZMPJwr2tuL0rzz7GONunasW8keE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Kd7tGLP2Vt2Erkj0mjzqcS6o6kA13Vre3pjfHrk8u8pIGaNSgpJzaMH1MEHE8EW6DPXJTA6iAJlLPq43X/O/wDryrQLYGno9cu51fJsQrSRcW3t4e8qtOWXqh008AcPdby7JxjD3LQf8Ws4IpGaTlgK7ug40DNOGiGo1jtPP86I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hkt2rffq; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lxKML53a"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b14b207e05so102084eaf.3
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:33:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787175191; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QHArzKBph/Mi/N5kHqRy2aTbd/CjH8Vrqu7m8y+ctXfunD1XHlG30BgeM4RD/UwcBw
-         FbpF96K6MkkYYobfl4V9YQ/mCGfmtdDKjBWFMC7XgjreDMYIOp+I1hKWrXOP6Qh8CTBj
-         M+zr98xibFfNFJK4Gaov0eSUrO4jMA7kIsJWxWR20MXQKVioqeCsnyPIJ6OZCr57TP4o
-         Mg+4o0ql2h7PtpGcHWAJlTK4okrey74WZJIwqTF/pJLtULwXI5Ma/YLC9FIRSihSvaZp
-         MJhWx/0TXehgormbahFwaz7PdRjyxTdzrsA07UrAaAnxaZp1OiPnJGJAlGk81Ft4nYWj
-         e/Kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=gx2FaQwosf6l9TDjg935G3BICKMlJHtJrPTe2w1aBGk=;
-        fh=SYW08DPr4+cpqYhShH1dz0q+Zg/9a8bXcjzjt/URZ3M=;
-        b=eUYje46JpWJNIvJjyvQcte3Y7S1kfFwTxEB3txSCiZKivA3y/Rz28ruZK26/0BXtCW
-         HReBKt8ZZ3XoRlg/kO4Gvzq4YkXUSpxhcnbh5x7/jN+roUfSOfpvDue/Vpqg7qE6DQuc
-         fzJuPuGR2VmWIbHkgicctFDa+AZhwMA11DcAybgx2/OF1iZmf9OYhTFBB8b3nnDH/SSk
-         TtMzzrDKamtZf3TD4z+sLXQrBzOtiE4lbWqaIjP/vq17HUba3qptOQcwmQcm8X5t1Uq9
-         5OrFrWn4BbVkJBvwnth6R+UTP8hgoZEj8irDNCMODK7h4UtonevRoRaiByNRothJW5vH
-         kD6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hkt2rffq"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49800c6a846so16032595e9.3
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:35:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787175191; x=1787779991; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gx2FaQwosf6l9TDjg935G3BICKMlJHtJrPTe2w1aBGk=;
-        b=lxKML53aLPuhxb2t8kolIm5WWEv5xumqH9H8lPg1Ws4Ovb6TNIF9FUswmirvLUUvi7
-         gRn70XtB7VTSxXnk5hOwFVDNXE+TXjkPNHbIyzQBWubjnWfMwFFRAr0Gkn0zw2jBk4tz
-         GSixoA6eCT7Y8Rm9+OcBA0ETY188k5JE6dZfT/J/pKF9bGTtw1UIlEZtb58GwcHSOuPn
-         dVUVZnjT+QNyQPwxiqAZyDD0DUXIjMwSTHiIWsRTOTtEtTwCvKmPN0Lr8pswKUcFg6ID
-         c23ewvnEivrrFWLRLNv10LoB0GUYI5ch0VJug2H79QJ2ttqRoUMu9pSZmsKn5V3qaaKp
-         sU8A==
+        d=gmail.com; s=20251104; t=1787175303; x=1787780103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XoBJmiYxKbOhM9EJaI6KrJ7+GoQWOfMWCpsZ2kanZl4=;
+        b=Hkt2rffqbv+NASAbl+uxj2WE1L7qNfmhlq0C00DdEAk8t486A9L9M17dNbstMf9bm8
+         UhG1jfiiz3dJbAFfiG6IJYBvg1y6poSnk2WafHZoTnXx6KvOUKesERfoHTYK7+zzU8Sc
+         n+WN01NGHAPtzRxZyfOzSkV1u4zg/GVaHXhhqbJjacTDeXeFG+4owynBNAsB5ibp4CF+
+         lpwjEdHXky132FYCkp8NM4C51kgSAJ1+mLyF3wFGlrKlup9Yf+1E/GgJPMgRIGlTQ/Ik
+         AJ55Nl9uPDzRRMoKL8EReLga2Accp5yk2I+8Dq+4wCiD+LWOFjsbkCxNi4/B56z+su1G
+         ptRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787175191; x=1787779991;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gx2FaQwosf6l9TDjg935G3BICKMlJHtJrPTe2w1aBGk=;
-        b=mjkiUj2Vl9kbe2z4moBgfZQA4LRaimI+B8j0RV2bEnf5fNZ/2Ulheqj/4cmgitdrAy
-         j9v0jPchbAyb1lrmB+w5xAM4hnHp4HLlb00dhZl/C4txzazwosnXWAmvYW850M0FAJ6K
-         ApDoazODz3X/LF1ap89nlCz1OfQatK5xxflD7mY3moM1A0SrhGzo5G2I6nf1SXZoIoIS
-         lJhaT8wlcOqQaxexSlfldenD7mFDjr4QbCJ0bu4l1Fn+GGLuIjqqZKw521WVJAA5/ZSq
-         d/wL75UixD2gdark8xkbNbmpnTZJ+JVyp0gPCLVfNu5U6pIvpcsq0eBmHV8UqxK3so34
-         8bmA==
-X-Forwarded-Encrypted: i=1; AHgh+RrrF+ADBb1QbdAkKppS9gkDtas8XibB0IRHtWyyqD9SjpICH6Q50KLmXaUiecY2fzQuDOQzSWU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIS95g/cs8/Fw6dIdAms0ef3A6QErAfEEPPwnSjkGtAkpRwJAI
-	Y9jfdzWre3ZEGR4TV0983anV5PFykowR7foyqrcHTPqkfLMmE28M3U5kwVMEnFz+CVb2q1PA8jQ
-	q+2CisQewT8QyXm1qh3pfPn/TiteVxHs=
-X-Gm-Gg: AR+sD11Ajoe/lUQwpeVDOizI2h0p645PjBvlNCpjiALJPZufJFxZwp6W8CDLmSDc9Hj
-	bmiyt9MtEOxkKk+l10UGvYDoA8kOo4FHwxkafPWiNK/LenrZ+5UusAROyU2P+q0K4p5xoVHKmdd
-	c2c3ZyQkw0o9D5R9rNwUuDozrr/pmyCPytcCOH2Zsypdu6QCJ+zmxcFHVSJ2L7FaPEosHK+TEzt
-	ZzMMID9xv952qdoahA9bMhnkOezy5TtIbVYEM2hzVFuL3JlXWXsHvit6pwh3usmjAAq/n2fSESo
-	dTQLhvWVnjE2eGqFrpyHspTYQP1JXM4YxB6ltIVHS8GNllR7RbmyKt8pz5DtpE6Jn0fvBa6R8NE
-	=
-X-Received: by 2002:a05:6820:a09:b0:6aa:e70f:301e with SMTP id
- 006d021491bc7-6b13c32f644mr7794601eaf.8.1787175191390; Wed, 19 Aug 2026
- 14:33:11 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787175303; x=1787780103;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XoBJmiYxKbOhM9EJaI6KrJ7+GoQWOfMWCpsZ2kanZl4=;
+        b=Y8LD4ATNgCWZLrq+jejdK86nzi0unL+n6LQU0InGsrpRig61i5MOsO7daYkDUyAV/o
+         to/bTBr10qn1Whsne88erZJ4BrqpUZ74T1duWpgdQfBOPDeecgOc1LbJdC9DAe+4txcV
+         VTBnlJQnXi7noACB1kDG/B1O6vBPu06GG4kljJOBkPH3CnYR8kNf7yDYVwJxYKdDQ6Ef
+         Hdzr2rQWOzPYzc1NVwVXWu5Y38DOb7bdJiAZ8fjh5EhCpZE91FgYjJ251UQsTbvUumZj
+         8iJ0iY9/o+OkPCH3Hg6wLHJJp+NaqJ9/YIp5EEeIC4Q2CaMmPUlQGqm2HsUD5RYz7k/+
+         qi6A==
+X-Forwarded-Encrypted: i=1; AHgh+RqafwyPslv134aboiQ0sOOUO5cphYcdvmgcpL6UcibJ2gyzhAd/xnjHj8usJiveAcsj79CFybA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBuQhqtctsIC2QrfG8HbMG9li0jd0+rsnQ393VCcpK06DMZaGa
+	SNg698EekK4emT0Q1XJhigaaT6rIcAQTyUeBoeS2RZwkdNDnAHWroLkh
+X-Gm-Gg: AR+sD115lcxc9UYbp9Hlt0TazhFXXOEcs8WJYqRhOrbTjj6kHMbUb3SBMxxIe4k/Zrm
+	efXFcPlq6jY4O25Dbn+YMOAJn58xVkcef5ydeV5dQA69u8at25zoGRFYYxo213W3JOyzgl8v/Xv
+	SehhAdKie/4F9apIcVN/UtgO8MeUQPY0R4BoaMX7bFDoymy5DS94KlwVX4RP9gnhJrCSjSAFaGU
+	giU85cx1cl59sJzhY5XZ4cZ2cW8qgFEjvpUgjrlpqqi+A4i3ycie0VfodnBsKoq8bD80i39KODv
+	NuffSswAYjqo6AWukvPPoaULm5KEK8xCBADxKwGnmKLTHdl1MBITV5AZkfpvMFBA0zr7DBmPwRH
+	wfoyyboclwi5BaJ7gVYUtWZY8mJzzlvVQSIX6ajgKuPEgLobgPUIa4YKIMr08icdORfz5Ur+Rse
+	pw5J7mSwDFyuowC9dLkJVDTj/+YKGopK7fxHH1JeYZKHOZqfo49VM3l8HdJSWnpJXN+IC3sXZNA
+	RJqiPwoAKMmAYq8Va3TG2XONNs7t28LdR0h2T018+xZepwO
+X-Received: by 2002:a05:600c:37c6:b0:499:60bf:c6f7 with SMTP id 5b1f17b1804b1-499aa1dbb12mr157441035e9.13.1787175302615;
+        Wed, 19 Aug 2026 14:35:02 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499b19dba34sm9633365e9.9.2026.08.19.14.35.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 14:35:02 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH v3] media: v4l2-isp: reject zero-sized parameter blocks
+Date: Wed, 19 Aug 2026 22:34:56 +0100
+Message-ID: <20260819213459.1220894-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260818105642.65381-1-devnexen@gmail.com>
+References: <20260818105642.65381-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260818105642.65381-1-devnexen@gmail.com> <aoXC2xL-J21mcxW9@zed>
-In-Reply-To: <aoXC2xL-J21mcxW9@zed>
-From: David CARLIER <devnexen@gmail.com>
-Date: Wed, 19 Aug 2026 22:32:59 +0100
-X-Gm-Features: AcwNN1W5zcg_-tTwF3YLwQ8dh2q7T81Rk5bauiLW9pzbMrBtNue3gCWN0-vjtsE
-Message-ID: <CA+XhMqzZqLFeDfNLxmXUTpc_FauD9C2odaSQb9HfWxKMmpf6Sw@mail.gmail.com>
-Subject: Re: [PATCH v2] media: v4l2-isp: reject zero-sized parameter blocks
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Jacopo,
+v4l2_isp_params_validate_buffer() walks the blocks of a parameters
+buffer by adding block->size to the current offset, but never bounds
+that size from below. A block with size 0 is not caught by the
+block->size > buffer_size test, and the comparison against info->size
+passes as well when the driver's type_info[] entry is an uninitialised
+hole, both sizes being 0. The walk then makes no forward progress and
+loops forever.
 
-On Wed, Aug 19, 2026 at 04:56:33PM +0200, Jacopo Mondi wrote:
-> shouldn't we refuse the whole parameters buffer right away instead of
-> ignoring the 'type' block ?
+Drivers build their type_info[] arrays with designated initialisers
+indexed by their block type enumeration, so an enumerator left without
+an entry leaves a zeroed hole rather than failing the build. Drivers
+call the validator from vb2 .buf_prepare, so such a hole turns a
+VIDIOC_QBUF on the parameters video device into an unkillable task
+spinning with the queue mutex held.
 
-Yes, let's do that. It costs nothing either: with the header size check
-the walk always makes progress, so skipping is no longer needed to avoid
-the stall.
+Reject a block smaller than its own header. A block's size includes its
+header, so anything below that is malformed whatever the driver table
+contains, and rejecting it is what keeps the walk moving. Blocks
+carrying only a header to disable a block are exactly that size and
+still pass.
 
-v3 keeps that check and replaces the skip with:
+An empty type info entry can then no longer stall the walk, but a block
+matched against it is only constrained by that header size check. Reject
+such a block explicitly: the driver does not implement the type and
+cannot tell whether the block content is meaningful, and accepting it
+silently would leave that content unconstrained until a later kernel
+implements the type and starts validating it.
 
-      info = &type_info[block->type];
-      if (!info->size) {
-              dev_dbg(dev, "Unsupported block type %u at offset %zu\n",
-                      block->type, block_offset);
-              return -EINVAL;
-      }
+Fixes: 3cb6de6fafb8 ("media: v4l2-core: Introduce v4l2-isp.c")
+Cc: stable@vger.kernel.org
+Suggested-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ drivers/media/v4l2-core/v4l2-isp.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-which also leaves the rest of the loop unindented.
+diff --git a/drivers/media/v4l2-core/v4l2-isp.c b/drivers/media/v4l2-core/v4l2-isp.c
+index 1eb46e080afa..efe994b4c4d7 100644
+--- a/drivers/media/v4l2-core/v4l2-isp.c
++++ b/drivers/media/v4l2-core/v4l2-isp.c
+@@ -84,6 +84,13 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
+ 			return -EINVAL;
+ 		}
+ 
++		if (block->size < sizeof(*block)) {
++			dev_dbg(dev,
++				"Invalid block size %u at offset %zu\n",
++				block->size, block_offset);
++			return -EINVAL;
++		}
++
+ 		if (block->size > buffer_size) {
+ 			dev_dbg(dev, "Premature end of parameters data\n");
+ 			return -EINVAL;
+@@ -99,12 +106,25 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
+ 			return -EINVAL;
+ 		}
+ 
++		/*
++		 * An empty type info entry denotes a block type the driver
++		 * does not support. Reject the buffer instead of ignoring the
++		 * block: accepting it silently would let userspace fill it
++		 * with data that a later kernel, once it implements the type,
++		 * would validate and possibly reject.
++		 */
++		info = &type_info[block->type];
++		if (!info->size) {
++			dev_dbg(dev, "Unsupported block type %u at offset %zu\n",
++				block->type, block_offset);
++			return -EINVAL;
++		}
++
+ 		/*
+ 		 * Match the block reported size against the type info provided
+ 		 * one, but allow the block to only contain the header in
+ 		 * case it is going to be disabled.
+ 		 */
+-		info = &type_info[block->type];
+ 		if (block->size != info->size &&
+ 		    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
+ 		    block->size != sizeof(*block))) {
+-- 
+2.55.0
 
-Cheers.
