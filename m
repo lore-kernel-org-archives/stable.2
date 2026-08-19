@@ -1,118 +1,159 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 69AED3559CA;
-	Wed, 19 Aug 2026 02:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787106037; cv=none; b=IzsSTf9SQM1C3FpW5QgjrOVtx3XfliEWtyVTSKR4ENOgpadRoQ5B87YYrmB8GmEDA4jwkAJbWKB4rJebastImHXNPeuvG2DdoQl3A/oonktVw9SnmUa+uwmMVEIE9jW08GKHF40KGVQvJZ0zBmYEcVLSRSuwY6wikZK3/m64SGQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787106037; c=relaxed/simple;
-	bh=OXEufZy6jRZLSh8G4vNttI4g37voPQPxQMaRI9h5bR8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mshWS/fm7I8zXzJnCdf0LqA6Y7HbWEZWShyB8wnfLW3wDp6J8hjyn0v01ziG0i3O84iZe4Y7ciIXyzJy8ctJoMCTzxArqGgzL6uccsr6Do0jV/CHjc6vz4g3nu7BI7yDJjShEFYHFSxyMpzIAUYf7BpiTCCDIMd/F4mIN7DpfFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=4.193.249.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wC3gX3bEoVq7JmmAA--.42198S3;
-	Wed, 19 Aug 2026 10:20:12 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgCHiaPbEoVqNqb7Aw--.26282S2;
-	Wed, 19 Aug 2026 10:20:11 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] serial: imx: cancel RS485 trigger hrtimers in shutdown and remove
-Date: Wed, 19 Aug 2026 02:19:16 +0000
-Message-Id: <20260819021916.442827-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07143559CA
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 02:22:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787106158; cv=pass; b=RmyHCQH4pS2VKy93FhulVrKboiQyIlAcbqo5Qw3FkcpT3dY/Wgfw8+BemP7WH4k2lbWNZqvQIP6HA5hvU/S9+1rHleW4NFXpnnG87uVwNTrXwxJ+vHNmKF2b+mScWcVO2O5RovXTcUkbEvjvasxRyTeRmrtjyP9Yx/P58v7qPb8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787106158; c=relaxed/simple;
+	bh=5GYdROF3y/KvoZOEokyr7HJNK+G6/Ew2bTh6+vySWoo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gb7Mov9vokO2T7eO+TArmWnTckrhRlH/o4ceo2d9uNEN6tjG9n86uM0Pdq2+kuMM90LijNCKRxByxzH0Y2/o9+eCDha1+ZmANTqckYJKZ7sLYEnoui+SGjk7p+uxzBgIC7O0AQMzih6o0C7oC5saqb6XcPDg4m0NirR2FgyD6Ow=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pgzWhFAi; arc=pass smtp.client-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pgzWhFAi"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-92e54f8c051so35048185a.3
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 19:22:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787106155; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HMqn5/2o6XFWHRCmKCfA1nvb3i+kmldpZOk5Fp0KZUKtFRcpnCztMukZZqWgiLFR9w
+         C87st0LbH09sloDgpp86O9bESdkP0jVJ8AaXRX5NEYqBoEvpplPvnGfWmw6M2GNEpcvH
+         SD1M0MbBs8yxNuGZD4v0U5naC3YwJfAWMZsxII4QEdzCF0lNzBiek2/DiVxgzpS0PTAc
+         QRrlvVZLzs4I1DwlwN2dzEM/6G8gCeB6e1nn1kzW/bYyE+Ls1eSPdleuj1glFYvJLzbn
+         psPDZ0uQqF1W4/zWgDfjkrysM3U6wvNJtkm8Kt8r98hN1kxLRpbQKBnYK3BCgXgXLb9S
+         FGPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gpRJv4Mp23YkEXUctQWMGQFThMmtk/9orPPH7o5EEeo=;
+        fh=CcqqZDVU0sq8Q6xvh+qQuJ36Wp9bmEtD/mwSIeJM04E=;
+        b=QoSJaeNRf1hzA7zs0MCEft3hIXXw+bEY9rCOu5vIRhm9n3C9yDgsWrSGYZEXtRsoXe
+         3oau/KdTNEllEoRnhVmSvXusqMB1aN/PnD/wpISfttv2i7d1RZYvzWvIN/LM+9JPPM0l
+         LMTOQsfw+ZpI3+CLFVKubYHbJlFpy9bO8x9Sp1c8jpZt1HR2+Lu6y0R4Exw4Xrdwdo3C
+         dmag5atUCT3kApClIbngr6awe9W7R4KSVS+YoJFdVDwwfcXN+EDMFg7AD3U69BiYSlwv
+         PT2t+owbBT+NpowYDxDGnqXroSayWn/1hiRKKN+t+IPT2QDYpz1zJvbBmu7XyzydKAFB
+         yx1g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787106155; x=1787710955; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gpRJv4Mp23YkEXUctQWMGQFThMmtk/9orPPH7o5EEeo=;
+        b=pgzWhFAi1UI/09Sjzanvq+GR+/xD9ynvzM+RkY3oXq6gpjTG/qaPMYOssLp+F3ixME
+         rC3jBVQd/ABO7kV4QzBCVmBd9DV14CVpd0OloXO7IEAFgyaK/4vHYmxIi18kBFaA4TnU
+         pbtszmCYD/98BSZOqDBX8SIl7a3NUqUDJNFAEWuK3m+J4lLlaokPdm6AEYUtMVDTIGQ2
+         rehA9hOUFR/4aa8OlaHTbxgAud28KpHH2+1GMwzydEqdZSiOKUhp5ig8MuHQltISGnms
+         y3ylhpFK7uAZe0GVNdFuENqvLGdlab7EABNt1EZuX0b+Hb3rnbw0MMyacrm+SOdSNM/M
+         EYJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787106155; x=1787710955;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gpRJv4Mp23YkEXUctQWMGQFThMmtk/9orPPH7o5EEeo=;
+        b=XD2nP1b3QL9H8SEF8atMDWScKVbnqaOx/N/6HYisBqALWkO8+jjm9OA44M5+LK1497
+         7Q6zlweaOHYTgxhIbHfl5sADesOMx/yjct35yfqBvhqB1bucTRaq8RgXq65XmKtxRzVe
+         SsM7w5+IBGDcZB4hBOV0I5gmeXcrYmhtcsgP/qx4TQVIVhlDQ8cgjVm+AZGMIq+ItK/p
+         6kknPqbHVz/uYv2eOcOe0wLUqCFuXJChgVu+IHopC7nFop+ABIjMA1rw9Lp2RlgItRQ+
+         P32wehmGIT1Qv4j7LpifmL6wP4DZBlLCjSjfsZGn7abOP9Jm0MlvuFmHtaQo47cvC6QZ
+         Hcvg==
+X-Forwarded-Encrypted: i=1; AHgh+Rqd9BTRMfRbdX5GM2UtuOgSbEBI2MkdNlz3YSVFgiLMlABjN7iRWMh99mb3tD7LjcDhi3uyC8E=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlUegSCjhmkCOS0LAB33NI4xeEyjLcav/KSBO7OS8qoZpShYZi
+	DPT4BO/hX7hb/qc/nAlN7856jzOf6KlcQL5jBtbwKFBIaZOhlflS7wcMjAFe2oN+vEAm9w51HgS
+	jqqXUdILrJJWqu33gUrkcst6At6m4AiU=
+X-Gm-Gg: AR+sD13HRufnYU40tN0D7ytOQ9By4MN/SqIaqxOLdZPngU/eblZ85Q99UwE+QET54nw
+	171zpCbSo1c7kT3ZfD+n/ODpxFMFy8muVols2UCqNz5TktG79KIO75n+Wa0KujZKiSHFoJ2qJkd
+	FnTLGn6h1RHcXMRy4B4SGwNdv430ADwW/n2oSXD64S172ey2PhM9dtmtYORjHy5iQiOMKnGVCMP
+	WgRLxBbOXea1MUmKViAIX1STUSjY4mNhRuYdQ3xb9rzUX9DJFFfmSa3Ri5ENKlYsJy/47Mh4/7x
+	xyOKRjGuKCNjGgaWyMYGCzfOFDRn4HDyvRPco2MMzfM0v+0TbGUlGSxD
+X-Received: by 2002:a05:620a:1b86:b0:931:3ff3:30b1 with SMTP id
+ af79cd13be357-9371e2036dfmr190855685a.4.1787106154920; Tue, 18 Aug 2026
+ 19:22:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgCHiaPbEoVqNqb7Aw--.26282S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?hwMz9wXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBFqHGffgUj/kiZ79lR96Dn6tPZKPn6Kv4uFpy6/Kyifm6gz
-	W5tHy1KOfp+zmAq5OVip9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7Kw48Kw4xXr4kJFWrCr47Jrc_yoW8tryxpF
-	Z2gr9IkFWqqa1SvanrAF1jgFW5twn3AFW7Gr1xGa4Fv398JF1FkF13KFZYvFW7t34UtFWa
-	vr48tr4DCFZrtFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
-	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
-	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
-	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
-	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
+References: <20260818054709.282196-1-physicalmtea@gmail.com>
+In-Reply-To: <20260818054709.282196-1-physicalmtea@gmail.com>
+From: Jia Jia <physicalmtea@gmail.com>
+Date: Wed, 19 Aug 2026 10:21:57 +0800
+X-Gm-Features: AcwNN1WMlM3A0kVn0JUwWoFXgehU9bp1VN0RuZWr2DIeBqxYb0PcrHL0eS72BEQ
+Message-ID: <CAJwVaM+D_yyU5E7w415HVwG_eMTrv3V6HiXa6Jc3wboWZJxs-w@mail.gmail.com>
+Subject: Re: [PATCH] virtio_console: do not free control-out buffers on remove
+To: amit@kernel.org, mst@redhat.com, jasowangio@gmail.com
+Cc: xuanzhuo@linux.alibaba.com, eperezma@redhat.com, arnd@arndb.de, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The rs485 delay hrtimers trigger_start_tx and trigger_stop_tx are
-embedded in the devm allocated struct imx_port, and their callbacks
-reach the port through container_of() and touch registers under the
-port lock.  Nothing cancels them synchronously: the tx paths only
-call hrtimer_try_to_cancel(), which does not wait for a running
-callback, and the bounded wait in imx_uart_shutdown() can give up,
-force tx_state to OFF, and leave a timer armed.  After
-imx_uart_remove() returns, devm frees the port and a late callback
-dereferences freed memory.
+>
+> __send_control_msg() publishes &portdev->cpkt as the control-out
+> virtqueue cookie. remove_vqs() walks every virtqueue and passes leftover
+> cookies to free_buf(), which treats them as struct port_buffer and
+> reads sgpages.
+>
+> If a control message is still on c_ovq when the device is unbound,
+> free_buf() reads past the ports_device object.
+>
+> KASAN reported the use through:
+>
+>         free_buf
+>         remove_vqs
+>         virtcons_remove
+>         unbind_store
+>
+> Drain c_ovq without freeing. The packet lives in portdev and is released
+> with it.
+>
+> Fixes: a7a69ec0d8e4 ("virtio_console: free buffers after reset")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+> ---
+>  drivers/char/virtio_console.c | 20 +++++++++++++++++---
+>  1 file changed, 17 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.c
+> index 9a33217c68d9..6e9bf064826e 100644
+> --- a/drivers/char/virtio_console.c
+> +++ b/drivers/char/virtio_console.c
+> @@ -1886,10 +1886,24 @@ static void remove_vqs(struct ports_device *portdev)
+>
+>         virtio_device_for_each_vq(portdev->vdev, vq) {
+>                 struct port_buffer *buf;
+> +               unsigned int len;
+>
+> -               flush_bufs(vq, true);
+> -               while ((buf = virtqueue_detach_unused_buf(vq)))
+> -                       free_buf(buf, true);
+> +               /*
+> +                * c_ovq cookies are &portdev->cpkt, not port_buffer.
+> +                * Detach them but do not free_buf().
+> +                */
+> +               if (vq == portdev->c_ovq) {
 
-Cancel both timers at the end of imx_uart_shutdown(), after the port
-lock is dropped and before the clocks are disabled, and again in
-imx_uart_remove() before the devm free: serial core does not call the
-driver shutdown on every path that reaches remove().
+The non-multiport case was not considered here; fixed in PATCH v2.
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: bd78ecd6056d ("serial: imx: use hrtimers for rs485 delays")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/tty/serial/imx.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
-index 251a50c8aa38..86c99f73c50a 100644
---- a/drivers/tty/serial/imx.c
-+++ b/drivers/tty/serial/imx.c
-@@ -1707,6 +1707,10 @@ static void imx_uart_shutdown(struct uart_port *port)
- 
- 	uart_port_unlock_irqrestore(&sport->port, flags);
- 
-+	/* The rs485 trigger callbacks take the port lock and touch registers. */
-+	hrtimer_cancel(&sport->trigger_start_tx);
-+	hrtimer_cancel(&sport->trigger_stop_tx);
-+
- 	clk_disable_unprepare(sport->clk_per);
- 	clk_disable_unprepare(sport->clk_ipg);
- }
-@@ -2649,6 +2653,10 @@ static void imx_uart_remove(struct platform_device *pdev)
- 	struct imx_port *sport = platform_get_drvdata(pdev);
- 
- 	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
-+
-+	/* Serial core can reach remove() without calling the driver shutdown. */
-+	hrtimer_cancel(&sport->trigger_start_tx);
-+	hrtimer_cancel(&sport->trigger_stop_tx);
- }
- 
- static void imx_uart_restore_context(struct imx_port *sport)
-
+> +                       spin_lock(&portdev->c_ovq_lock);
+> +                       while (virtqueue_get_buf(vq, &len))
+> +                               ;
+> +                       while (virtqueue_detach_unused_buf(vq))
+> +                               ;
+> +                       spin_unlock(&portdev->c_ovq_lock);
+> +               } else {
+> +                       flush_bufs(vq, true);
+> +                       while ((buf = virtqueue_detach_unused_buf(vq)))
+> +                               free_buf(buf, true);
+> +               }
+>                 cond_resched();
+>         }
+>         portdev->vdev->config->del_vqs(portdev->vdev);
+> --
+> 2.34.1
