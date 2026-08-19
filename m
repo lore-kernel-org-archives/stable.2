@@ -1,95 +1,92 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93BC3932CD;
-	Wed, 19 Aug 2026 14:18:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6907A3F65E7;
+	Wed, 19 Aug 2026 14:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787149127; cv=none; b=bbu22SbNjlkcdlU68nF9M0bynguPilpNjQ3RmHBRD+NosPog4CsNvX4J7btamtURFQ4OUXUNmk/LNlI0plMQ3ZLjQuC/JCyM2TZfwNKe3pV1ni0Qw5/p71/8Iw9Mw3GY/rCv2GNM6p9972WxD2ni0gvLwQGpe3dvX9FYGIACAuU=
+	t=1787149196; cv=none; b=pkdO1GUYTtfzM/jlXuDocv54Yiye7hgdhLp5waA9aRIW/BVTG98hf3s/KCM6h3RwYWKhpWCpeiFG0TKDAMgff7WjwENQ6jfC208DB1W35pj1ODTmETvvMtKJ5gZvYtFU2iEEwzq4U2vGxfaMn7ucu8MgZB5cTI4EbZZ+e3p11bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787149127; c=relaxed/simple;
-	bh=FDcqC7yK+HUZxK6hWJEWGefrVRToM3+W6DEaIdbmuvU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=P3tJ963Ms/Hskd3LVIX57o1MD3XGvsBWi+Yv2A1DZMx5GvpU/fiJCRBUFJpZ8ky6zX+okL2RBNhPHxt76CEUjkFXQLAoGdCC2nqBBmiXkzjKldehcC/X4LlAQAGhl2A/0piRaG6feqgVgXz9g/gBxEf6oO2vc9KGbY/UiUB38OI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=JIdI711y; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1787149196; c=relaxed/simple;
+	bh=eIf3uf9b94n0cauaXxTxg8+Xq05zT7f01ZIILCfdkVA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SGSzJR/WP3dm3UCoBsFvSnrueomuWMJkD1C8vhWsZcg9mNkliH8bqD4pRo3N8gFIYeQ9OdlnsxrglLkYQCml087cWQRY8dHjJiIxqmIdh/wM446RbDzLImEjSgErbgKt7p3K6lhlCQ+AVQHqTi4OJbindB+/BAd3yyjVm0hKxo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aU+WwN/x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="JIdI711y"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4a93deeef;
-	Wed, 19 Aug 2026 22:18:39 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v2] iio: admv1013: initialize callback mutex before registering notifier
-Date: Wed, 19 Aug 2026 22:17:51 +0800
-Message-Id: <20260819141751.44223-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260819014611.18db8689@jic23-huawei>
-References: <20260819014611.18db8689@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aU+WwN/x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51F801F000E9;
+	Wed, 19 Aug 2026 14:19:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787149195;
+	bh=eVGSUqUhGi8YP9xabsA38iZbVV4kFc0PiRnwuIwPrGc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aU+WwN/x9i28+AD9AAWogvHC54qAKTpGuP9nTt//p4zFRnqaWRa1X2r3ZfKSLw+UI
+	 Eg+Se7kneVbLol06VNilJB0/eV5KPW88Wi7TYYUeBVcQuQocwmtPvlfaQE2vQT150G
+	 SS+w7kgT3njH2wphOxR6cJpM5EQQatCWBLmJ492C04kcS/VrABKpSYCnJiYt72ul62
+	 yA/hpWxalIBtdfC+TI+mTtCkqwLXPbaSHCEFElIxyWOPHX10398tGvRkfNUjXrgwhA
+	 NJaXap8/hd86KV51isr79ZwauyQ8xClY+9KRj7c0Su5PnhArruCbNQQSFLQ9FRG9mN
+	 HVsyAvA/9R71Q==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1wwh8z-00000001DdM-0Cfm;
+	Wed, 19 Aug 2026 16:19:53 +0200
+Date: Wed, 19 Aug 2026 16:19:53 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Muhammad Bilal <meatuni001@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mmc: vub300: fix Use-After-Free of inactivity_timer on
+ disconnect and probe failure
+Message-ID: <aoW7iR8Rp4hUCtHq@hovoldconsulting.com>
+References: <20260818210322.53266-1-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa01a636ea403a1kunmb3c26dc5141599
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGEsdVktNT05LTUIeHUxPH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=JIdI711yaopE/SjZ7xfiKf+EqHScjGeCZIpv7h00tRpmEn+dGLEd4COc5K2wzseFx38F4KXsnDNUlBoUH7x0kN9mL2DWIPk8aZqkVlqfF4EQPmnY0SpSDMgUCIfzixeTYNSwFZgleVJwKil+3tbTdybq3EiZUQcWbbO+G5JM5l4=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=2KszgFWj7ls5VeqHqLyXSgARTHFRtBwixOrJj/mDkbI=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818210322.53266-1-meatuni001@gmail.com>
 
-admv1013_probe() registers a clock notifier whose callback takes st->lock
-on POST_RATE_CHANGE. Initialize the mutex before
-devm_clk_notifier_register() so the callback cannot observe an
-uninitialized lock during probe.
+On Wed, Aug 19, 2026 at 02:03:22AM +0500, Muhammad Bilal wrote:
+> The vub300 driver arms inactivity_timer during probe and acquires a kref
+> reference for the running timer. However, vub300_disconnect() sets
+> vub300->interface = NULL and drops the driver's kref without shutting down
+> the timer via timer_shutdown_sync().
+> 
+> If the timer expires after the host is removed and vub300 is freed,
+> or if concurrent work items re-arm the timer,
+> vub300_inactivity_timer_expired() accesses the already freed vub300
+> structure, causing a Use-After-Free.
 
-Use devm_mutex_init() so the lock lifetime is tied to the device and
-cleanup stays paired with the rest of the managed probe resources.
+No, this cannot happen as the timer holds another reference.
 
-Fixes: da35a7b526d9 ("iio: frequency: admv1013: add support for ADMV1013")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/iio/frequency/admv1013.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+> Fix this by explicitly shutting down inactivity_timer via
+> timer_shutdown_sync() and releasing the timer's kref reference in
+> vub300_disconnect() and probe error cleanup paths.
+> 
+> Fixes: 88095e7b473a ("mmc: Add new VUB300 USB-to-SD/SDIO/MMC driver")
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 
-diff --git a/drivers/iio/frequency/admv1013.c b/drivers/iio/frequency/admv1013.c
-index d8e8d541990f..ff599b5c88ef 100644
---- a/drivers/iio/frequency/admv1013.c
-+++ b/drivers/iio/frequency/admv1013.c
-@@ -594,11 +594,13 @@ static int admv1013_probe(struct spi_device *spi)
- 				     "failed to get the LO input clock\n");
- 
- 	st->nb.notifier_call = admv1013_freq_change;
--	ret = devm_clk_notifier_register(&spi->dev, st->clkin, &st->nb);
-+	ret = devm_mutex_init(&spi->dev, &st->lock);
- 	if (ret)
- 		return ret;
- 
--	mutex_init(&st->lock);
-+	ret = devm_clk_notifier_register(&spi->dev, st->clkin, &st->nb);
-+	if (ret)
-+		return ret;
- 
- 	ret = admv1013_init(st, vcm_uv);
- 	if (ret) {
--- 
-2.34.1
+How was this "issue" found? Are you using an LLM?
+
+> ---
+>  drivers/mmc/host/vub300.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
+> index 8e45dc1a4a12..9f84bd1531e2 100644
+> --- a/drivers/mmc/host/vub300.c
+> +++ b/drivers/mmc/host/vub300.c
+> @@ -2350,6 +2350,8 @@ static int vub300_probe(struct usb_interface *interface,
+>  
+>  err_stop_io:
+>  	vub300->interface = NULL;
+> +	timer_shutdown_sync(&vub300->inactivity_timer);
+> +	kref_put(&vub300->kref, vub300_delete);
+>  	kref_put(&vub300->kref, vub300_delete);
+
+And this results in a reference underflow.
+
+Johan
