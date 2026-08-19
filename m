@@ -1,216 +1,170 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010064.outbound.protection.outlook.com [52.101.201.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E3B33CEA8;
-	Wed, 19 Aug 2026 14:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787148423; cv=fail; b=McNpYzCpyXVyyA8UsmejUN/+XzbL83YLBYS0+dKEvQyTJWTJeysdTED3Sw0lHpBIuiy+oZwpCBbwFMdSmBbg6HOCwBpX5Ddkz1TqHp72YcW5TW+6fCI+CFPagBvcHtgd4YjttBMWnChPSd/iZWTGRx/aSOMvEstqkIXzEG47Tm0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787148423; c=relaxed/simple;
-	bh=nnQ+mzUI79D8wUjeFOOALAn5vYA7IPymC6KQzyjNyOc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=U2I86zr/wO6IMr5URtvdhIa7HIpjKqKdCFRKcffDcRlVCalUl2y9uwrqUJkiGjRqswFjOnifs6pIqQkjK0cnsNqfPTrFlhIdB5+1XWjlLz9uHBqO4qFQwFlOGB71efqyLA0zAh8d1wVCk9k6OFl2fd3QwelLI8GFHRyIW54YiWM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Hh67fBl/; arc=fail smtp.client-ip=52.101.201.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A5436894B;
+	Wed, 19 Aug 2026 14:13:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787148792; cv=none; b=oPmNd/6KSDAjwkydWKiB0jN7MpC1ZVPbwAm45Uh0sxHMvSZtvCf6eetxXo1pnOvhLWuORA/wX1pdBkmfNm/7aNR5V7AmJRDXEYo098G1crxwg0aR018jkPgozzt+FH0UWxaudwpb7+sJ5H7g9/9sEcBMgprP2Z/CyQ1dH1Nu0Fs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787148792; c=relaxed/simple;
+	bh=vzugEPzKEAl4Wl9/Ee4J7nZ2eT5h+6pHZZGLBaa0RWQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HxdgcKoUWMed8f1h5/DZ69EoXGO0S11UMfHzpLJdtAwuePMeuseFzevt+j02phr2AOdMzYm8pnwuslH5+OYpFBaiS/2Q5JRJC59b/eaiTMORO8nE4BFlfyyl6n4m3KM4XTIswQCoLf/tkmSiZDPrHuditwKo5AdtImZtTKUM8R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f+ffgoSf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Hh67fBl/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KWOf1i72mgSafCxfmMejrqup05xL4DRY15ffpH/soqUwskejXOUa00iZzRKs064MTnnCc4nI72NZFC1yahvwtRIXA0my2U+7n/e6woPZNKe64gqZDIYe8aU5lxeiNR1G56M+NsrFjCIbWnTrNvtMhpLpQl0JWi9qRkRMNfZq73N/6tSsRJWJ6vsnsFcJr0/HqNPNtpKHEvX1rk1I96IuPLhKGSTR87mtrLeQljW/KWUB29kSFe5NEwETA6QZzGhQP1+0efUq/p3FBW/P2SCaj6Nn200IhNu6KdTOLTaMW/bpiHQDX626QmbI2qn+FrRJV37FTCDiY8b+HLAPPhYQoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XxkMgbsbJeiZ+qn6j/mm+Y8jgj0Mo8o0gCHs7KiOpik=;
- b=naStti/GDztxQ5dGuGSZNHqtckB/K02GKD+cQDEBGt2sfl1DeZ0OkHOAkTW9jbDVOYvwlfi8PZUe1ylvZQS/ecE74EzwujQ5h4M2BG6AXRMmVM5j1lkXMonEhyz1cX4PRRS+Pmgp91BRlfv1cBlh3wJC4X37axo7tR4CIMnG9vPGClx2JcTOe1pUzub03ZY0jdbikQgxnL/vQ9HMniIcaM3L/Lr+OH39UPka1+VE5RM371syRhUyZefOotkgVjD8wKpcFiiyASvrC05vyJn7m9xgT63tnJ1YgdIL+NAZ3IEeHwm5tuQmDdh0O0I4QxxWL7NC2dBtLB9SwkGOA5Q4eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XxkMgbsbJeiZ+qn6j/mm+Y8jgj0Mo8o0gCHs7KiOpik=;
- b=Hh67fBl/jGuaJdgjZgTZMJxp9aboW8IqN0O373zev7nUVeR8W6YSHiQ9EOPVRTWC1j4JaqXCzo4XXVvQfHwtVut0i9U8LioXhP81VUwp8oPYhqSWt6fOEEARVxWYfb2+w/4aWsICLpSFTqqXjoBBlCrCYJkGezGRDEASr0LjuXc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- DS0PR12MB9728.namprd12.prod.outlook.com (2603:10b6:8:226::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.8; Wed, 19 Aug 2026 14:06:58 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 14:06:58 +0000
-Date: Wed, 19 Aug 2026 10:06:47 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Jasjeet Rangi <jrangi@purestorage.com>
-Cc: bp@alien8.de, Smita.KoralahalliChannabasappa@amd.com,
-	dave.hansen@linux.intel.com, dgiani@purestorage.com, hpa@zytor.com,
-	linux-edac@vger.kernel.org, mingo@redhat.com,
-	msaggi@purestorage.com, rhan@purestorage.com,
-	rjethwani@purestorage.com, stable@vger.kernel.org, tglx@kernel.org,
-	tony.luck@intel.com, x86@kernel.org
-Subject: Re: [PATCH v2 1/2] x86/mce/amd: Fix inverted interrupt enablement
- during storm handling
-Message-ID: <20260819140647.GA2416@yaz-khff2.amd.com>
-References: <20260818190250.GAaoSsWiKOuj4gRYsl@fat_crate.local>
- <20260819064601.1972932-1-jrangi@purestorage.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260819064601.1972932-1-jrangi@purestorage.com>
-X-ClientProxiedBy: BL0PR05CA0017.namprd05.prod.outlook.com
- (2603:10b6:208:91::27) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f+ffgoSf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2367C1F000E9;
+	Wed, 19 Aug 2026 14:13:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787148791;
+	bh=8rCBde+co1ucElRQ0M5LrzYrP3N65B+sxQPqAQOOurQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=f+ffgoSf8IeDZ1MIDekX5uW8oRdMi/p8L9ZVPaGBdADTgB+ZTDflmQE1rwZpfZNzV
+	 bhgxD7DB/fqfGhPalA83QT1KMUxvwQQmzaWanpHenakkoGeEe3NRxGz6xaqNX6PhNb
+	 WAZeHG9ovL8I8UWwNoKc0fcHbxgCz9dp3/ilWOg84oi6mQDVc4m9hT3weBJeTSvAFt
+	 MxEDZcYbh2EGlQ+qSVH+NiUX9rYJx/TAqjseGpBTWCiigKF1bGbHAaAOK1yTjqrKYT
+	 hZ5wKhkXpDJftyqEZ78LM6NAEX8b53b8G0xLRf+JYxwH1lx0+HK2ZZoPGGec1aIEK9
+	 Moh2bzIbWwoJg==
+Message-ID: <54d45248-1a06-43db-b71b-3d5e0fda9de4@kernel.org>
+Date: Wed, 19 Aug 2026 16:13:02 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|DS0PR12MB9728:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ac2adc5-b84d-4797-1d0e-08defdfb21ea
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|56012099006|3023799007|6133799003|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	uFJLBVPq0ojs8eUPUTmeNhFX3lUgZqjXdwJBHHLhBIcDSkuSpdtPgOK3hULZjXBVyCb9YQWP0tkk7iPPorGzGUWHObu2ec+TZuciJLxoJFpWZt91y7QAAlHG0C67KTeKIBENQR0OnFQ7Bm2OUBt3o57Ubg8OkGjaM/GZ7megU7jPPvlTXUp0ipb4SGsYNN/800prcrGPoMc1mJYuUbKkshDW3vpcTgKYOhH7+ClAaiQXtYALpJYVbNsF2rmvrycH829YhTb34eAzyOV3KaVF2sOf/CFfo2KDuCSzirNdpLN+gBcC40KIpZz3EHt4l3xFj7UQW/4h3a+fo7xx85W95PcbL2eJ+HNjHl5/9uLtbhmNAqcqcfjVamyGg6ZOdWQ60+yff+Drbf13nG9FasLuGhm4Saf7NhTBZkcicylB+3b2aQOPLA2C3R6MWBrKgxQzDSWsS3TlXQ/9oLGfzvZM5eBrnWMY9MK8cA4fSkzqkgrHrLMcFULY3BHGtlM/ZBbseBRmkmvCO3ggcyESVKQ4pvSqKIHowQwAUPXgCqCk5GDwluhUtZBuuAUUUdriKrRDfBrqEVi4P9pqaCm8k4wLJ64PHUfUnvC0MihurXo0syJ3vgUHXsw04Jv9ip2/wcuBpOToZdNJtIraXzZM39ykUFozwh94gXomdaJEjDuptGc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(56012099006)(3023799007)(6133799003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NzkwMXJ0OTJDcDZUNDB5UkRNNDNQbTdHbmdiTi9DeDNvdnlYY05SdkNEc1J2?=
- =?utf-8?B?bUFrVllWeWRzeExQVndMTGJDTDMwdHBHRGJLVDlRRDhVWm9hcUxBMW5ONk9U?=
- =?utf-8?B?dGJCM0t5M1ErdmVVOTZYYmw2N24zN3c0MjM4eTV2SG5rcmlRcWlhT01BSmY3?=
- =?utf-8?B?R2hwcld6dW1UTjB0OXllOW5MVUs3WU1yd1lNcDBBa3VOUS94ZHUyL1FONjVO?=
- =?utf-8?B?WW1yMWZiNFh2ZnFET29MRmJSOHRNeGJFVWUwaFowZXd2ekVpYnJVd0dTME1k?=
- =?utf-8?B?c3pGbXgxQytxZVJ6Vit4bit2OEFMVi9rVTVaK0VyejlxM2c4RHlkQUY5NE83?=
- =?utf-8?B?UzdUSGJqak91eENNa2hvdVoySWhMamkvMzBKK1BVZ1ExNU0zNUdUcFF0NlBT?=
- =?utf-8?B?ajFrVWpZL3Q5bnUrSStDYnd5MHMvNlBlRlhIYXhwZXFFS25OQm51ZUdaYkJa?=
- =?utf-8?B?azgvOVlxZEsrdXlZclBVWVE3dDJSTWpPR3NndStXWlAyNEhVOW9LQkhBSTR3?=
- =?utf-8?B?N2xwcGREYVUzVis5QWZscDAxRXV5cmhkdTNycHVTZzVUZkhnZHpWZEhjSEg0?=
- =?utf-8?B?aHMxbjRPUHNjYU1ORE9YQk8vWXFFN1lKQkMrd0U2UUVBM3hnaU9iaXU4bFhm?=
- =?utf-8?B?eGJaL0gwZVlxcFBlY0hRU1FVOWtPdTJwQ0VZQllSL3NBVm9vN2ZYSnU0eDBz?=
- =?utf-8?B?NFUxdTJXZW43MkFtb3duNDhZSE9jZkFPekNKSmIwSFlRcmZ5Q09zUVhTRmxu?=
- =?utf-8?B?TTdQZGRwSEFCTGRLT1g1VmxsZUloMGgzZmltN2NLb2hsQTRoWTB0MEl5NnFN?=
- =?utf-8?B?cnE1dVpOSVpUUVppYU9CKzRHdDEra2FyVmVyWUhCRTlSbkdEV1NORDltZStQ?=
- =?utf-8?B?UXpjOTVFM1g1T1JFb0h2clVqSzE1S25Zc1VERE5XZnZBK0VEMEZFS1Exd0V5?=
- =?utf-8?B?aENISW5ON3dCVElVaWx3VEc4UnFDOVdaT2pOclR3cTRpekRvdEZ5b0RmOGk1?=
- =?utf-8?B?aGpHZk9tL1QwYWpRVlMzRW5Qb09jV3NuQ1VvaENqbUtON2prdzk3UTdCSjll?=
- =?utf-8?B?VnUzRHZKSm1JeGhSUEl2RThXQ3ZReE04VEZCelBMQndha01oWEt1RC9KV0ZN?=
- =?utf-8?B?bzBhMW1sTEtoZzhENXU5LzNqZnZhUWJvUVBjZHBzaHZjUGNiTFhXQ2xDSFFO?=
- =?utf-8?B?d1RwTTRzNXpsc2tVUEJEWGw1Z0s5bHpWL3VhbkdRVkk0M0VzeURLSmx1S0lL?=
- =?utf-8?B?Nm45QTZzQXpJNHgxa1FhOGloWS9GbUxZWTZQSG5seDRDTnJEbVlRb3ArU0pG?=
- =?utf-8?B?NURjK3RPTWZIaUcyVVpPemwvZktpalNicDNKMmR0OW1UWmRSc0MvbUozWjAz?=
- =?utf-8?B?OTE1NHhEK3J5L1FDWnBKckQzV1R1elZZbmdRZ3dGMkcraFlLa1lPQVdQK3ZR?=
- =?utf-8?B?M0N3MTdQdGdrT3kvNjlzUnMyV2ZqTW1HeDd1WU5wOVFzWkF5MXh6VUxtWUtq?=
- =?utf-8?B?OENZS1NHcU9kbmVXNjFvajI5ZDVSOEJwZDE5ZlgzS3hJbWZ6QUVpc3grOHU3?=
- =?utf-8?B?Zk1DVEtGRzAyK1lCeDdtMmlpQnY2ZHNUcG1wQnoxSlJzQSsya2Myc3dWM0x4?=
- =?utf-8?B?NHMxM25hYnlXc0dCNkFSRk04djB6M09GMVhqNHhkS3NVV3NkdGZ5dDhxdjNE?=
- =?utf-8?B?eVNOMzlQVDBSMFlrM3Q3bXh5dDF2WGxDc0JzNjNBanBpSXJJMDAySHlyUTVr?=
- =?utf-8?B?cXFEa3oyYnhPbnhCTWdPVllDdXVpMGlBUXhjM1haR0owM1ZrQkJYZ3MxVG9K?=
- =?utf-8?B?Qm1RV2ZjOHZWZ0ZRb2lWb0g0OTl5TG9tZDVia28vMDE5cjVFZkpMVS92Q1RE?=
- =?utf-8?B?cDdrL0JmQ29qZGRNcENTMHRpYkdsMU5UNzBXU3NFd3dNMlcrWnE3dzF1Y01q?=
- =?utf-8?B?RXFocWZBOHgrRURDRnl1a3hRZVlGYm5Rdmg2NThQWUgxMWJyMzkvSXFSQVJr?=
- =?utf-8?B?T3dHendGWFFRU0IvcDluaDNOcjJ6c2RyZ2NHVnVqNUZPQ1lnYkQ0UjN6VGg4?=
- =?utf-8?B?cnAyU1FSSjc1M0lMcmtzOW9aS2o0UkxobjFzYU0zNWZRN1JRWHU4SmRrYnBW?=
- =?utf-8?B?VkIxOEpjMVBKSkJqWXpjOCtERFlPZU4xdnBpQVI4bHFVcDJremZzVTYwV1gy?=
- =?utf-8?B?SVJpZnA4bVNHeDlCWHp0bm51dDFYeGpneCttYVhrSW0zUHZWUTlXdUx1WXFa?=
- =?utf-8?B?NTdwME04OWI5MmhscmNSY2JTR2FJamhwL1gybnNwcEJ2VVBORGg2NGxLN21s?=
- =?utf-8?Q?HYMwSjThCfZC1g7o3i?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ac2adc5-b84d-4797-1d0e-08defdfb21ea
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 14:06:58.3529
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bEj1ibxy9HyyXPsEugZZ9wifYm85ns0zNhgCKFXTZS1eGH+JDNqkyUNKezwGNhYMKjFjVNs0JP4UJzacQBjPMg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9728
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio
+ on zap
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, baohua@kernel.org,
+ baolin.wang@linux.alibaba.com, dev.jain@arm.com, lance.yang@linux.dev,
+ liam@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ ljs@kernel.org, nico.pache@linux.dev, ryan.roberts@arm.com, ziy@nvidia.com,
+ kas@kernel.org, nphamcs@gmail.com, hannes@cmpxchg.org, riel@surriel.com,
+ shakeel.butt@linux.dev, kernel-team@meta.com
+Cc: stable@vger.kernel.org
+References: <20260819101222.3732660-1-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260819101222.3732660-1-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 19, 2026 at 12:46:00AM -0600, Jasjeet Rangi wrote:
-> I'm ok with the queued patch because it still fixes an important bug
-> (disabling interrupts on storm end is not correct). The rest of this
-> reply is talking about the concern that storms are not handled
-> properly in the AMD driver. I can make that a new patch thread if we
-> agree to make the behavior more Intel like.
+On 8/19/26 12:12, Usama Arif wrote:
+> zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
+> file case, but not the dirty bit.  The pte path does propagate it, in
+> zap_present_folio_ptes() and so does the pmd split path, in
+> __split_huge_pmd_locked().
 > 
-> On Tue, Aug 18, 2026 at 12:03 PM Borislav Petkov <bp@alien8.de> wrote:
-> > On Mon, Aug 17, 2026 at 12:51:08PM -0600, Jasjeet Rangi wrote:
-> > > Inverting `on` in mce_amd_handle_storm() alone is not enough because
-> > > clear_bank() will immediately and unconditionally enable the interrupt
-> > > again.
-> >
-> > And?
-> >
-> > What would happen then?
-> >
-> > Did you read my previous reply?
+> For most file mappings the omission is harmless, because writing to a
+> shared file mapping goes through page_mkwrite(), which dirties the
+> folio.  tmpfs is different: it has no page_mkwrite(), and
+> vma_wants_writenotify() is false for it, so a *read* fault on a
+> MAP_SHARED tmpfs mapping installs a writable pmd via do_read_fault().
+> do_read_fault() does not call fault_dirty_shared_page(), so subsequent
+> stores through that mapping set only the hardware dirty bit in the pmd
+> and never call folio_mark_dirty().  A shmem folio allocated by a fault
+> is marked uptodate but not dirty (see the clear: block in
+> shmem_get_folio_gfp()), so PG_dirty is never set at all.
 > 
-> On AMD a machine_check_poll() call will not necessarily set ErrCnt to 0.
-> In fact, it will not reset ErrCnt at all unless the overflow bit is
-> set. And the overflow bit gets set when it's time to generate an
-> interrupt. (Yazen and Smita please correct me if I'm wrong)
+> Unmapping such a folio - munmap(), or exit_mmap() when the process dies
+> - then loses the only record that it was written, because zap_huge_pmd()
+> drops the pmd without transferring the dirty bit.  Reclaim afterwards
+> sees a clean shmem folio: the whole swap-out block in
+> shrink_folio_list() is inside "if (folio_test_dirty(folio))", so
+> pageout() is skipped and the folio falls into __remove_mapping().
+> There, folio_is_file_lru() is false for a swapbacked folio, so no shadow
+> entry is created and __filemap_remove_folio(folio, NULL) simply empties
+> the i_pages slot.  The data is freed without ever being written to swap,
+> and the next fault on that index returns a freshly zeroed folio.
+> 
+> This is silent data loss for any process that keeps state in a
+> MAP_SHARED tmpfs segment across an unmap - for example a cache handed
+> from one process generation to the next through /dev/shm.  It requires
+> the folio to be PMD-mapped, so it only shows up once shmem THP is
+> enabled (which is what we did in Meta fleet and started noticing crashes);
+> with THP off the pte path transfers the dirty bit correctly.
+> It also only becomes visible when swap is enabled, because with no swap
+> device shmem folios (which are on the anon LRU) are not scanned by
+> reclaim at all, so the clean folio is never dropped.
+> 
+> Reproduced on x86_64 with a tmpfs mounted huge=within_size: read-fault a
+> 2MB-backed region, write a known pattern through the resulting mapping,
+> munmap, force reclaim of the cgroup, then re-map and read back.  Without
+> this patch the region reads back as zeros and vmstat shows zswpout 0 -
+> the data was discarded rather than swapped.  With this patch the region
+> reads back correctly and the pages are swapped out as expected.  With
+> huge=never, or when the first touch is a write, the test passes either
+> way.
+> 
+> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
+>  mm/huge_memory.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index ced400f72d43a..afbb5974bd225 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -2449,6 +2449,8 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+>  		add_mm_counter(mm, mm_counter_file(folio),
+>  			       -HPAGE_PMD_NR);
+>  
+> +		if (is_present && pmd_dirty(pmdval))
+> +			folio_mark_dirty(folio);
 
-Right, that's in threshold_restart_block().
+We don't need that for anon folios, though. So best to just resemble
+zap_present_folio_ptes() logic and do it only for !anon folios?
 
-> 
-> The threshold is not always high on AMD either. Since eeb3f76d73ba
-> (x86/mce: Save and use APEI corrected threshold limit)
-> it gets the value from the BIOS. The default on an AMD system I was
-> using was only 10. So ErrCnt will get reset to 4085 on that system
-> when the overflow bit is set. That is enough to not meaningfully
-> reduce the interrupt rate during an interrupt storm.
-> 
-> Unlike Intel, the AMD driver doesn't set the threshold to an extremely
-> large value when storm mode is turned on. It keeps it set to the same
-> configured value (default from BIOS).
-> 
-> So if interrupts are left enabled during storm mode like they would be
-> even with the queued patch, the AMD driver doesn't really reduce the
-> interrupt rate during a storm like the Intel driver does.
-> 
-> If we don't want to diverge from Intel, then the correct thing to do is
-> to update the AMD driver to do what the Intel driver does. I.e. don't
-> disable interrupts, but set the threshold_limit to a large value like
-> THRESHOLD_MAX during storm on, and restore it to what it was before upon
-> storm off.
+-- 
+Cheers,
 
-IMO, disabling the interrupt is the best way to manage the storm. The
-reason for Intel to set a high limit is to keep the interrupt enabled.
-The reason to keep the interrupt enabled is because the same interrupt
-line is used for reporting "uncorrectable,no action" errors. This isn't
-necessary on AMD because there's a separate interrupt line for those
-errors: Deferred error interrupt.
-
-> 
-> > Yeah, we don't protect users from themselves, you know :)
-> 
-> I don't think having threshold=1 on AMD is too crazy. On the Intel
-> driver for example it defaults to 1 if not overridden by the BIOS.
-> ```
-> /* Linux non-storm CMCI threshold (may be overridden by BIOS) */
-> #define CMCI_THRESHOLD		1
-> ```
-> 
-> > We do clear MCi_MISC[ErrCnt] to 0 so that's the "highest' value we can do
-> > before we raise an interrupt there :)
-> And on AMD it does not get set to 0 after an interrupt. It gets set to
-> THRESHOLD_MAX - threshold_limit. So if your limit is 10, the ErrCnt will
-> get reset to 4085. This is the behavior since eeb3f76d73ba
-> (x86/mce: Save and use APEI corrected threshold limit). Prior to that
-> ErrCnt would get reset to 0 by default on AMD.
-> 
-
-It's fair to set a low threshold limit. Some users want to see corrected
-errors without needing to poll. And they'd like to see them ASAP.
-
-The threshold limit isn't much of a contributor to interrupt storms. A
-stuck bit/failing device will likely trigger a storm whether the limit
-is '1' or '4095'.
-
-Thanks,
-Yazen
+David
