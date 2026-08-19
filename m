@@ -1,174 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0170A3932DC
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:56:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B4947A875;
+	Wed, 19 Aug 2026 14:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787151403; cv=none; b=HED+lnvZTqaPZNMzdIGMvTddRL9Dnf7dCLdSLHhUcj69fAvAAqmO0Pj8QFY+EDCio0ZcGjUqUOi8Gk3rkB4jh5afqvLkanFBVMKqNOnJ19pMVcI5Yp2O3djiagjDEW+R01+I8MG+1SIYIBOrwyTrZRCuWlKKc7owBBxFLC1DAME=
+	t=1787151411; cv=none; b=X0zDI/LwVBOdjl6US1c7rnp4+i72Ches2D8+WpdxGQTCpRLKkemeswBMFxZNfML2I/TsNZORJX1zuyD1dOGAMLNiLROgGri0Lp6RKY+RWQOc2NgJ7Y2o8H93BNw8GSIOliMeFRPjoJpVyA8t8qoY0IxhWJNiCDCUWVwexG0inQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787151403; c=relaxed/simple;
-	bh=j+hepk3nt7tN0jjjtNNbUX9Con6lDO/iNQitcTTyinA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BzzU0Di/dgO7bxRTtmV119NFCtFV4UAAhrVBRDi2EeG927BoPHICgx+kYbIQv+pjCzmWDg1VzyvBg9gmDcmizSpyB+u6+ZduUZY5UCabAG8gpnrUhGdgC3SlGoctt0YIc4OlYHz6byNWZ49OsPP9p4SU9pauVkH2PBVkQYuRrgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cLT7fykg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787151411; c=relaxed/simple;
+	bh=FOm1i0Lfsfb1A6Zt1WGtl44whvkO3XeGfDcxRIW1PBE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P9Nvd7Io11wKVFM6u/JwsemEfWfXx5K1oe+6oFBP50dzNlYs+O373ai8hO+Nh2xsPnwb9P9TORRpqMiK4QEKey0vUxQByqvIbd6ZjbFr3n8N0SfeH6StMcxKbhja+Q5tmTuTEg7ODvgDO/YMHey0JgcWUcIeJcgAZTzoTQeOsEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=IljBzVV1; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cLT7fykg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7DAF1F00A3A;
-	Wed, 19 Aug 2026 14:56:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787151392;
-	bh=RATOM4PEPoYWMB4eVPnhMls+ZRKqhJ5e9JazmHGtxPE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cLT7fykgCy+KstXuzGPYcZKXAS9Lpg4QH7M9b5y9qYyhqQnzkf4ZDJ/QNNNPSyw8A
-	 iE5xRd9bQYf8mMZ1pI7C6DbmCrdWlTTbO1FLN+Yll8koLPOQcMqDGQ6AVNTlttUcmK
-	 dek6c8Daub3hoxI/8d1l7sGH/oPuuvKyjusl2tLfE7c7DgURt32ZEnu8uDHOLk+uOq
-	 K+XtnqNvoe/6mzr6GJakyWDCV7YvzWGXxXi4zagonMveJWC/nDeLPEwtT69wi7+Ax2
-	 RWFvcmQaOArYqMmi+z2WR1e6POGhW3Rh86gDD3CjobQq+QyY9GVbS+pBNbG+GHNjip
-	 8Q0VN5Qs7MBeA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] ring-buffer: Make ring_buffer_{un}map() simpler with guard(mutex)
-Date: Wed, 19 Aug 2026 10:56:27 -0400
-Message-ID: <20260819145628.3900889-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260819145628.3900889-1-sashal@kernel.org>
-References: <2026081709-tank-childcare-2caa@gregkh>
- <20260819145628.3900889-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IljBzVV1"
+Received: from ideasonboard.com (mob-109-113-29-237.net.vodafone.it [109.113.29.237])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 84A4043;
+	Wed, 19 Aug 2026 16:55:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1787151316;
+	bh=FOm1i0Lfsfb1A6Zt1WGtl44whvkO3XeGfDcxRIW1PBE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IljBzVV1zv+zVcIoViz+ezrgAMoeYQfWV/PVmGLnlDy2SiA/mWtmQeFzr15KWvFp5
+	 ceN2OLdIxicVTcDurALybtpMTA2hgvcYcMfkSIYaRxmRFHcz9NG+1IhLVJ6egrWz+t
+	 Ab2bOdiYgH1GBFHwYmGsq8y8HpmoMe/HzuUuPObA=
+Date: Wed, 19 Aug 2026 16:56:33 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: v4l2-isp: reject zero-sized parameter blocks
+Message-ID: <aoXC2xL-J21mcxW9@zed>
+References: <20260818105642.65381-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260818105642.65381-1-devnexen@gmail.com>
 
-From: Steven Rostedt <rostedt@goodmis.org>
+Hi David
 
-[ Upstream commit 60bc720e10eac397b3adae975095df77bc368b88 ]
+On Tue, Aug 18, 2026 at 11:56:42AM +0100, David Carlier wrote:
+> v4l2_isp_params_validate_buffer() walks the blocks of a parameters
+> buffer by adding block->size to the current offset, but never bounds
+> that size from below. A block with size 0 is not caught by the
+> block->size > buffer_size test, and the comparison against info->size
+> passes as well when the driver's type_info[] entry is an uninitialised
+> hole, both sizes being 0. The walk then makes no forward progress and
+> loops forever.
+>
+> Drivers build their type_info[] arrays with designated initialisers
+> indexed by their block type enumeration, so an enumerator left without
+> an entry leaves a zeroed hole rather than failing the build. Drivers
+> call the validator from vb2 .buf_prepare, so such a hole turns a
+> VIDIOC_QBUF on the parameters video device into an unkillable task
+> spinning with the queue mutex held.
+>
+> Reject a block smaller than its own header. A block's size includes its
+> header, so anything below that is malformed whatever the driver table
+> contains, and rejecting it is what keeps the walk moving. Blocks
+> carrying only a header to disable a block are exactly that size and
+> still pass.
+>
+> An empty type info entry can then no longer stall the walk, so skip
+> such a block instead of failing the whole buffer: drivers may reserve
+> uAPI block types they do not implement yet, and are free to ignore the
+> block when processing the buffer.
+>
+> Fixes: 3cb6de6fafb8 ("media: v4l2-core: Introduce v4l2-isp.c")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+> v2:
+> - skip a block whose type info entry is empty instead of
+>   matching it against a zeroed entry, so a type the driver
+>   does not implement is ignored rather than failing the
+>   whole buffer (Jacopo)
+> - reworded the commit message, which no longer leans on
+>   rppx1: its missing AWBG_POST entry is being fixed at
+>   https://patchwork.linuxtv.org/project/linux-media/list/?series=29170
+>
+>  drivers/media/v4l2-core/v4l2-isp.c | 41 ++++++++++++++++++++----------
+>  1 file changed, 28 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/media/v4l2-core/v4l2-isp.c b/drivers/media/v4l2-core/v4l2-isp.c
+> index 1eb46e080afa..439477b2b941 100644
+> --- a/drivers/media/v4l2-core/v4l2-isp.c
+> +++ b/drivers/media/v4l2-core/v4l2-isp.c
+> @@ -84,6 +84,13 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
+>  			return -EINVAL;
+>  		}
+>
+> +		if (block->size < sizeof(*block)) {
+> +			dev_dbg(dev,
+> +				"Invalid block size %u at offset %zu\n",
+> +				block->size, block_offset);
+> +			return -EINVAL;
+> +		}
+> +
 
-Convert the taking of the buffer->mutex and the cpu_buffer->mapping_lock
-over to guard(mutex) and simplify the ring_buffer_map() and
-ring_buffer_unmap() functions.
+This looks good
 
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Vincent Donnefort <vdonnefort@google.com>
-Link: https://lore.kernel.org/20250527122009.267efb72@gandalf.local.home
-Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
-Stable-dep-of: 7c727dfce6be ("ring-buffer: Prevent resizing of persistent ring buffer")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/ring_buffer.c | 35 +++++++++++------------------------
- 1 file changed, 11 insertions(+), 24 deletions(-)
+>  		if (block->size > buffer_size) {
+>  			dev_dbg(dev, "Premature end of parameters data\n");
+>  			return -EINVAL;
+> @@ -100,23 +107,31 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
+>  		}
+>
+>  		/*
+> -		 * Match the block reported size against the type info provided
+> -		 * one, but allow the block to only contain the header in
+> -		 * case it is going to be disabled.
+> +		 * An empty type info entry denotes a block type the driver
+> +		 * does not support. Skip the block, it is up to the driver to
+> +		 * ignore it when processing the buffer.
+>  		 */
+>  		info = &type_info[block->type];
+> -		if (block->size != info->size &&
+> -		    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
+> -		    block->size != sizeof(*block))) {
+> -			dev_dbg(dev,
+> -				"Invalid block size %u (expected %zu) at offset %zu\n",
+> -				block->size, info->size, block_offset);
+> -			return -EINVAL;
+> +		if (info->size) {
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 93f5c8326aec..d11bdcfad94e 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -7105,36 +7105,34 @@ int ring_buffer_map(struct trace_buffer *buffer, int cpu,
- {
- 	struct ring_buffer_per_cpu *cpu_buffer;
- 	unsigned long flags, *subbuf_ids;
--	int err = 0;
-+	int err;
- 
- 	if (!cpumask_test_cpu(cpu, buffer->cpumask))
- 		return -EINVAL;
- 
- 	cpu_buffer = buffer->buffers[cpu];
- 
--	mutex_lock(&cpu_buffer->mapping_lock);
-+	guard(mutex)(&cpu_buffer->mapping_lock);
- 
- 	if (cpu_buffer->user_mapped) {
- 		err = __rb_map_vma(cpu_buffer, vma);
- 		if (!err)
- 			err = __rb_inc_dec_mapped(cpu_buffer, true);
--		mutex_unlock(&cpu_buffer->mapping_lock);
- 		return err;
- 	}
- 
- 	/* prevent another thread from changing buffer/sub-buffer sizes */
--	mutex_lock(&buffer->mutex);
-+	guard(mutex)(&buffer->mutex);
- 
- 	err = rb_alloc_meta_page(cpu_buffer);
- 	if (err)
--		goto unlock;
-+		return err;
- 
- 	/* subbuf_ids include the reader while nr_pages does not */
- 	subbuf_ids = kcalloc(cpu_buffer->nr_pages + 1, sizeof(*subbuf_ids), GFP_KERNEL);
- 	if (!subbuf_ids) {
- 		rb_free_meta_page(cpu_buffer);
--		err = -ENOMEM;
--		goto unlock;
-+		return -ENOMEM;
- 	}
- 
- 	atomic_inc(&cpu_buffer->resize_disabled);
-@@ -7162,11 +7160,7 @@ int ring_buffer_map(struct trace_buffer *buffer, int cpu,
- 		atomic_dec(&cpu_buffer->resize_disabled);
- 	}
- 
--unlock:
--	mutex_unlock(&buffer->mutex);
--	mutex_unlock(&cpu_buffer->mapping_lock);
--
--	return err;
-+	return 0;
- }
- 
- /*
-@@ -7194,24 +7188,22 @@ int ring_buffer_unmap(struct trace_buffer *buffer, int cpu)
- {
- 	struct ring_buffer_per_cpu *cpu_buffer;
- 	unsigned long flags;
--	int err = 0;
- 
- 	if (!cpumask_test_cpu(cpu, buffer->cpumask))
- 		return -EINVAL;
- 
- 	cpu_buffer = buffer->buffers[cpu];
- 
--	mutex_lock(&cpu_buffer->mapping_lock);
-+	guard(mutex)(&cpu_buffer->mapping_lock);
- 
- 	if (!cpu_buffer->user_mapped) {
--		err = -ENODEV;
--		goto out;
-+		return -ENODEV;
- 	} else if (cpu_buffer->user_mapped > 1) {
- 		__rb_inc_dec_mapped(cpu_buffer, false);
--		goto out;
-+		return 0;
- 	}
- 
--	mutex_lock(&buffer->mutex);
-+	guard(mutex)(&buffer->mutex);
- 	raw_spin_lock_irqsave(&cpu_buffer->reader_lock, flags);
- 
- 	/* This is the last user space mapping */
-@@ -7226,12 +7218,7 @@ int ring_buffer_unmap(struct trace_buffer *buffer, int cpu)
- 	rb_free_meta_page(cpu_buffer);
- 	atomic_dec(&cpu_buffer->resize_disabled);
- 
--	mutex_unlock(&buffer->mutex);
--
--out:
--	mutex_unlock(&cpu_buffer->mapping_lock);
--
--	return err;
-+	return 0;
- }
- 
- int ring_buffer_map_get_reader(struct trace_buffer *buffer, int cpu)
--- 
-2.53.0
+This, however, makes me wonder: if userspace creates block of type
+'type' and the driver has a 0-initialized hole for that 'type',
+shouldn't we refuse the whole parameters buffer right away instead of
+ignoring the 'type' block ?
 
+The reasoning is that drivers might have holes (I would argue they
+shouldn't, but as you noticed one already escaped us in rppx1) and if
+userspace sends a block for an un-handled type and we just ignore it,
+userspace can theoretically populate the block with garbage and nobody
+will notice. A few kernel version later that block type becomes
+supported and suddenly the configuration gets validated and possibly
+rejected, breaking a userspace application that used to work fine.
+
+What do you think ?
+
+> +			/*
+> +			 * Match the block reported size against the type info
+> +			 * provided one, but allow the block to only contain the
+> +			 * header in case it is going to be disabled.
+> +			 */
+> +			if (block->size != info->size &&
+> +			    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
+> +			    block->size != sizeof(*block))) {
+> +				dev_dbg(dev,
+> +					"Invalid block size %u (expected %zu) at offset %zu\n",
+> +					block->size, info->size, block_offset);
+> +				return -EINVAL;
+> +			}
+> +
+> +			if (info->block_validate &&
+> +			    info->block_validate(dev, block))
+> +				return -EINVAL;
+>  		}
+>
+> -		if (info->block_validate && info->block_validate(dev, block))
+> -			return -EINVAL;
+> -
+>  		block_offset += block->size;
+>  		buffer_size -= block->size;
+>  	}
+> --
+> 2.55.0
+>
