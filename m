@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F740343D63
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 11:15:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316A63D47B4
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 11:15:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787138103; cv=none; b=tTBFL2qFuHd/HYDwSSw4kO18ooqny78kxRUIxJtKTyOc+lx0sWePGVOWY+mmR/NNs09b9AuitxByGFTBDBF4T3mvudVB9Zqufs9OG3Kj1NkLpKIw21xNK3p7t8fL53SNuBR8McE9Jg9RD7gTmKZo3B2AyLxnVGaX3XhDaCaT5kI=
+	t=1787138117; cv=none; b=BQBGnOBMvQQ+RBoB17+mlF+rUV6Va8BGQoKFNdzp3PoqhIgXLNCni33f6yyxaF6FdtmNTLIJtlt75Q7kpqLHszSGRW5AeWWghwLlVDX89jCFeEfMGkPuoZFuoGaD/pUlHe1U1fjlZ8fDdmmDuCEDoWzk941P40hUYZUtoH2TZO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787138103; c=relaxed/simple;
-	bh=EoJWtthd+4OSZhxbmxJVrglXe7LW+4OYSSlTB2Yl7Z0=;
+	s=arc-20240116; t=1787138117; c=relaxed/simple;
+	bh=+tb5gofvpoi57YeN7lhpthATcBQ6hBRJheWgTa0kl6A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lIrJDSAHhUqRjuf9pF1J0SSKXSvws0ls82bk5Io5/UEcfWo9MfevoxvsrtWdmzYwaj4XlI/deTjSAyHXINnGCyvn+i2RVYVCGNS/IE1/XfYA2oE4vp545swOA04u9+UXwsxW8dXSaQzdNjDyiRx1GzLhVOGVKJvC7e4g6sCo6f4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kk3pCJZr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BYJ7RvLL/0ler35XBpkROYRnIey2lq4EUcyiXvOlOrfR3MNgQcCj9c5VTlgjbyGL1iCFLU1fLdR4NsFd49fzaiZmqfjYnuFktzNbVKpuE2YN1NekgZOwDS1O+JE4grImxiBwkOCoFOHun/u36Pw22tg2dA1eDKacm2PjlltQtsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=na9Quv+d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kk3pCJZr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8FE1F000E9;
-	Wed, 19 Aug 2026 11:15:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="na9Quv+d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72AD1F000E9;
+	Wed, 19 Aug 2026 11:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787138102;
-	bh=6Msi2tYJ1tpG8IboBmQH6ftOt+pePQWrno8/HEV62Fo=;
+	s=k20260515; t=1787138115;
+	bh=JOY9IKbmTxYFaPQXYZhPuOmyPi+iC1iDs+mV//0POi4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kk3pCJZrglvSiAw4IloF1AKCb2Vfuhgf5uCcJztJFu9DyXBTEE1RiWrckifxG87py
-	 ZxkKgDNCPhoMGKYQy7AkUaJPDyDqBHaoIHecfQb3dznBjCW1CFcIrsIc9RkZQVN2l4
-	 tXFnRmf55A703HKrbAdKntpt0IZC5wUotLMGivmtj3pHsw/K8igLf0HiZor98uxr1N
-	 7IyqL8GoaUKQ9gKvz2/0GlXYlAt2bz2QgwgZjbyYXxU3K5VmhrKqA73+yxMk2hQ9Gg
-	 4phEbRS34uyT8TQvAdIWj2ToqbWJyUENZr4OCNlGCmO+JdFTQr6PZVQOC6Z+TsYS1b
-	 wn9uTI5nLKNfQ==
+	b=na9Quv+dU3xoOY1aiVMFuPaEgSr22Zw0fj4wXgAsX33eVfkCEx34KwjL8bnFcmeVM
+	 ZJp05yGJ3xlv5MOfLZvoWDMu11GDj5ZDi4zI1oYkDDb9/wkFYV+LYdZ/qJvv4sh/Z0
+	 9kDHqzWgSiKEpF/vQZ5OdSojUoQQ0BCWeLA3DuJVNOgc2Ar6LXNAnJ7RwsfnXdSEl7
+	 DjuI9b6SjmLKcw5rjZqSQfYUDuDIfeHlH8NbTYNBnm7MaEiEoPha9W5E42ZDELpyLb
+	 vd8+zYpt7zMyH3eGeT6afE6aIdgYNKpMdXa5fqLfB2bqZnCi2at7++KiLM1O3Z3RXl
+	 W/k58IiZpV0Cw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Sashiko AI <sashiko-bot@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Matt Fleming <mfleming@cloudflare.com>,
-	Suren Baghdasaryan <surenb@google.com>,
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	Ren Wei <enjou1224z@gmail.com>,
+	Vega <vega@nebusec.ai>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] sched/psi: Shut down rtpoll_timer in psi_cgroup_free()
-Date: Wed, 19 Aug 2026 07:14:59 -0400
-Message-ID: <20260819111459.3552196-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/page_table_check: skip special zero mappings
+Date: Wed, 19 Aug 2026 07:15:13 -0400
+Message-ID: <20260819111513.3552759-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081707-cozy-flier-448d@gregkh>
-References: <2026081707-cozy-flier-448d@gregkh>
+In-Reply-To: <2026081741-service-sandbank-1034@gregkh>
+References: <2026081741-service-sandbank-1034@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,74 +48,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-[ Upstream commit 5457025fa8ca3c0d2732109513de839e3e797190 ]
+[ Upstream commit 8db4bab826ccc9ec10fa41736a48031cd338d392 ]
 
-psi_schedule_rtpoll_work() is called locklessly from the scheduler hotpath
-and can race psi_trigger_destroy() taking down the last rtpoll trigger under
-rtpoll_trigger_lock:
+page_table_check_set() and page_table_check_clear() account mappings based
+on PageAnon().  Shared zero-page PTEs and huge zero PMDs are special
+mappings, but page_table_check can still account them as file-backed
+pages.
 
-  psi_schedule_rtpoll_work()        psi_trigger_destroy()
+An unprivileged process can populate enough zero mappings to overflow
+file_map_count and hit the existing BUG_ON().  The PTE path can do this
+with the shared zero page, and the PMD path can do the same with huge zero
+mappings.
 
-  rcu_read_lock();
-  task = rcu_dereference(rtpoll_task);
-                                    rcu_assign_pointer(rtpoll_task, NULL);
-                                    timer_delete(&rtpoll_timer);
-  mod_timer(&rtpoll_timer, ...);
-  rcu_read_unlock();
-                                    synchronize_rcu();
-                                    kthread_stop(task_to_destroy);
+Skip special zero mappings in the user page-table accounting paths.  Keep
+the PTE-side pte_special() check, and identify huge zero PMDs from the
+mapped folio instead of pmd_special().  That covers architectures where
+pmd_special() is a no-op without adding huge_zero_pfn checks to the
+generic counter helpers.
 
-The group can then be freed with the re-armed timer still pending, and
-poll_timer_fn() runs on freed memory.
-
-461daba06bdc ("psi: eliminate kthread_worker from psi trigger scheduling
-mechanism") deleted the timer synchronously after the synchronize_rcu(),
-which prevented this but raced trigger creation instead: the deletion could
-cancel the timer that a new trigger set armed during the grace period and,
-as creation also reinitialized the timer at the time, corrupt it.
-8f91efd870ea ("psi: Fix race between psi_trigger_create/destroy") moved the
-initialization into group_init() and the deletion into the locked section,
-trading the creation races for the window above.
-
-Neither placement in the destruction path works. A pending timer firing
-while the group is alive is harmless though. poll_timer_fn() just wakes the
-rtpoll waitqueue and doesn't re-arm itself. Bind the timer to the group's
-lifetime instead and shut it down in psi_cgroup_free(). Nothing can arm it
-by then. timer_shutdown_sync() because the timer is never armed again.
-
-Fixes: 8f91efd870ea ("psi: Fix race between psi_trigger_create/destroy")
-Cc: stable@vger.kernel.org # v5.10+
-Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260711000434.36C4A1F000E9@smtp.kernel.org/
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Tested-by: Matt Fleming <mfleming@cloudflare.com>
-Acked-by: Suren Baghdasaryan <surenb@google.com>
-[ Adapted `cgroup->psi->` to embedded `cgroup->psi.`, `rtpoll_timer` to `poll_timer`, and `timer_shutdown_sync()` to `timer_delete_sync()`. ]
+Link: https://lore.kernel.org/cover.1784717203.git.zhilinz@nebusec.ai
+Link: https://lore.kernel.org/e94478e4fb7912fb7e8ebebed5ce85d00dc9a69d.1784717203.git.zhilinz@nebusec.ai
+Fixes: df4e817b7108 ("mm: page table check")
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Signed-off-by: Ren Wei <enjou1224z@gmail.com>
+Reported-by: Vega <vega@nebusec.ai>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Assisted-by: Codex:gpt-5.4
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/psi.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ mm/page_table_check.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
-index debaeb07ae53..f31ae8834775 100644
---- a/kernel/sched/psi.c
-+++ b/kernel/sched/psi.c
-@@ -950,6 +950,12 @@ void psi_cgroup_free(struct cgroup *cgroup)
+diff --git a/mm/page_table_check.c b/mm/page_table_check.c
+index 4eeca782b888..0a5ab62c9c59 100644
+--- a/mm/page_table_check.c
++++ b/mm/page_table_check.c
+@@ -150,18 +150,29 @@ void __page_table_check_pte_clear(struct mm_struct *mm, pte_t pte)
+ 	if (&init_mm == mm)
  		return;
  
- 	cancel_delayed_work_sync(&cgroup->psi.avgs_work);
-+	/*
-+	 * A psi_schedule_poll_work() call racing the last trigger's
-+	 * destruction may have re-armed the timer after psi_trigger_destroy()
-+	 * deleted it. Spurious firing while the group is alive is harmless.
-+	 */
-+	timer_delete_sync(&cgroup->psi.poll_timer);
- 	free_percpu(cgroup->psi.pcpu);
- 	/* All triggers must be removed by now */
- 	WARN_ONCE(cgroup->psi.poll_states, "psi: trigger leak\n");
+-	if (pte_user_accessible_page(pte)) {
++	if (pte_user_accessible_page(pte) && !pte_special(pte)) {
+ 		page_table_check_clear(pte_pfn(pte), PAGE_SIZE >> PAGE_SHIFT);
+ 	}
+ }
+ EXPORT_SYMBOL(__page_table_check_pte_clear);
+ 
++static inline bool page_table_check_huge_zero_pmd(pmd_t pmd)
++{
++	unsigned long pfn = pmd_pfn(pmd);
++
++	if (!pfn_valid(pfn))
++		return false;
++
++	return is_huge_zero_folio(page_folio(pfn_to_page(pfn)));
++}
++
+ void __page_table_check_pmd_clear(struct mm_struct *mm, pmd_t pmd)
+ {
+ 	if (&init_mm == mm)
+ 		return;
+ 
+-	if (pmd_user_accessible_page(pmd)) {
++	if (pmd_user_accessible_page(pmd) &&
++	    !page_table_check_huge_zero_pmd(pmd)) {
+ 		page_table_check_clear(pmd_pfn(pmd), PMD_SIZE >> PAGE_SHIFT);
+ 	}
+ }
+@@ -205,7 +216,7 @@ void __page_table_check_ptes_set(struct mm_struct *mm, pte_t *ptep, pte_t pte,
+ 
+ 	for (i = 0; i < nr; i++)
+ 		__page_table_check_pte_clear(mm, ptep_get(ptep + i));
+-	if (pte_user_accessible_page(pte))
++	if (pte_user_accessible_page(pte) && !pte_special(pte))
+ 		page_table_check_set(pte_pfn(pte), nr, pte_write(pte));
+ }
+ EXPORT_SYMBOL(__page_table_check_ptes_set);
+@@ -231,7 +242,8 @@ void __page_table_check_pmds_set(struct mm_struct *mm, pmd_t *pmdp, pmd_t pmd,
+ 
+ 	for (i = 0; i < nr; i++)
+ 		__page_table_check_pmd_clear(mm, *(pmdp + i));
+-	if (pmd_user_accessible_page(pmd))
++	if (pmd_user_accessible_page(pmd) &&
++	    !page_table_check_huge_zero_pmd(pmd))
+ 		page_table_check_set(pmd_pfn(pmd), stride * nr, pmd_write(pmd));
+ }
+ EXPORT_SYMBOL(__page_table_check_pmds_set);
 -- 
 2.53.0
 
