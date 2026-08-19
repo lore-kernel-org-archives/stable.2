@@ -1,88 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E9C37475B;
-	Wed, 19 Aug 2026 23:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E9637475B
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 23:32:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787182227; cv=none; b=JFYXT2OM67A/OQAcE36FQNW20R7D6CdxoeL6UjRFyLdf6EC4ZyfMcHSeKiCqXxBBajXpLSBRT+a1pi73YYp1AzxHsTTM1Tt1ADaFZzDBlq2OYc7RLZ9nOwn3WKcWWhG/9lA6ThWz60LEuH2vokzWDo/AuwJ5wzgFg9luewAQCAM=
+	t=1787182344; cv=none; b=Zxp+Ozfey1yxDG94e+9F30LjmWzK6utz6aRgnc656VvS5nAdj2coXfshvnwR6ZlyCgCeNkWc2zzD4sn2t4UoaOsawJdWvdHaNQ0ZAzLI58WYcLifaB3E3oUni9XxX8QHtdyvLHruqTplEuy3EgqRmtFsNcPQUiO9iKuW2OV3NEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787182227; c=relaxed/simple;
-	bh=8Iw1U5pGc70aMMwVaNrcN8fEBP8J93smjw8l3aseGVc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y9f9msYxP3ZWCG6xU65PM9F2rCkgTclz66qhjl7/reA8s+CQbK1EShBST0wRbAfNjX4tnAulOuVRASyRCYhtXuJT8rMUpanmrXFxGD2pIt07eAh1S++hGdCca9oujd3YIrfTxSlFEytOoR9DxcQS+1lVtBFR7TLghw+set5CU9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMPAbZFr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787182344; c=relaxed/simple;
+	bh=0IKdMwWw8MeoLI4HAXFOswTW0yNbMN9YDdEes+7tPUw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kovaJwek353vdd4uyyYWcmnQZkSVUrTjyDZIDiUvQzpA3gebH3ErrB5Q6NOWTn7OO9Ygi2jVrhEKC918RAS/fpd2Hx1lnZ/btXLNS1/L3wUmcdLmK3TQcRP899DHR6SN8XpDbahIgUXDKMxh3m3nT1sXrOLdc3YofBk+q08PyCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=FlDFAKv1; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMPAbZFr"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5282A1F000E9;
-	Wed, 19 Aug 2026 23:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787182226;
-	bh=5WGjeYTHMaQ10etp1Q4zg42jJ9SEkLl1Q6F1MzgCNZk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PMPAbZFrLavfGbp79aUg3oFrFxwgp8bBUl/bFfCwah2JCOM1epuOweaS7sGZ0hipG
-	 GjtlYel6s0wVhVburtDF4L5sxwSZaqXdeI9Xgl5WHXWTFU2vKrKiFdo2IZgtkOBOQs
-	 J4v1VviP2Uq0HlqQGaPVU5NMYikZEXHo7QrGGclwy/NT4InH7B+YIdKoyoZ/DpzHV2
-	 vH9Fg7elzkV/NBezyrhaqABBh03U7Vq4698FYZ/oRtTieiocXYaM+9gyhaRcE410uJ
-	 xwzOCA2+KGtyHrVEkIGKKvLPlmkyyCGQXsRkDXy948xYXHgawDZS6tnxP4tIPgxPee
-	 j9QZBx0IegSBA==
-Date: Wed, 19 Aug 2026 16:30:25 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: hch@lst.de, cem@kernel.org, stable@vger.kernel.org,
-	linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 1/6] xfs: fix xfs_rtrmapbt_mem_cursor for non-rmap
- filesystems
-Message-ID: <20260819233025.GF6072@frogsfrogsfrogs>
-References: <178659861838.833922.2269351780488724470.stgit@frogsfrogsfrogs>
- <178659861897.833922.17703139818760252058.stgit@frogsfrogsfrogs>
- <aoVKR4HmS3Hi7WBg@infradead.org>
- <20260819231943.GD6072@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="FlDFAKv1"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d560775ca2so12429435ad.1
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 16:32:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787182341; x=1787787141; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QkfK+n4pBa8IvbBuEdCKRmANPwZqjt2vhK+NoTYINkg=;
+        b=FlDFAKv15ooE3J6v61xuJsOC1B/oNdBj6waRKj6QpwuvnIedyEBAgAIB5W0J6xn8az
+         ltcP0rTzzWBzaXai/Nqvuf4nQyGgWtsfQSdGtHInJ3d/jY7pdWUE4EYZ9b2S5NUKdzFb
+         /HtUnAM61q03Zzg9bp60RtpX6fZ7DibxCEz7R5ZcBfbAtx3A77Mxld4o77t39FJlGwqi
+         eHv/stTiOnSOVeKwDNk+tCT/Lk+3pF2UT0fuymUZSQeEC5w5lGK2tDicIlGSL143cdqN
+         ao8W/ZuHIgdyEttZfyX1bckZ3l+uepa09taUUEZplHJA1V0RhRrfvOY9TjxaxfFpXjx3
+         j9Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787182341; x=1787787141;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QkfK+n4pBa8IvbBuEdCKRmANPwZqjt2vhK+NoTYINkg=;
+        b=rY7O7SZZI2Ko3yN8MIqiPbMjKDIdOu44StGqBIHpndST/hxdOJWc2xrCytFVTyI8jA
+         hAFVBdOcbj/YpSeRNX/i6iICpiDOuiqKCu04Ci0OGBTGfS1rKuxmwlQtZUO7922ukYZE
+         trUA4HrvBwKAa5RyjNUlkvaorQR0r0k+WmGEmmJjZlKbKgLRrNejoqEQ/xSz6g6lX7qe
+         BlVRhmcbux6+4/suz3PE2dYC6aPiwffYP1LS4REBRrtzJ/oUFBWfno+//k4liShsHc5Z
+         UUb9fh8CVowudhMLZduKe0LdoZEUjDMCPGjIbTReYNAGO+7VdBUbH2ODdm/boTgMmt3g
+         BGxA==
+X-Forwarded-Encrypted: i=1; AHgh+RpXtC1/+6FSByqHymi8w5+KUrsS+5soZfjJi6RenBa91g8SNOcYNz3ZL5Ibx+k3rnSXwsZjJ0c=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5jAlcRIZMee85w+VNgxhIcNh7Zhlb+UsMXNP8ijb1yV1Jd6Gn
+	b4x4r53/g09e7fMmTBi41WwVNyfnngKT2tSHVaQEbDzsiAvPAi5RlOw93XyoGpAkJes=
+X-Gm-Gg: AR+sD11Ar1vwQI1Ld9JbtkEFDE7S07FHhgfYquHsDM1FWAlKuieSl8ViL42hGd9wZ26
+	6DcDu0CanFIMhTq/Qc/PWp7zcjLFoac8fTJSBKMlYYaEj/+pq/An+3Go7wanFqwemYzJ4f6BDNt
+	FLUCEavvv7K1w/VJAQRq6pV2XcTdieHeMUIh7MIUCAICYEaoeO6fQxV4qtxWGlquVUnNhX03p5d
+	NOyZvhokvM5ab2n4t4lDe5RfhegD/pLofeEI6Kkfv2TicxXWj4goMvDLPVdH9sv9viHB0HFH8Pf
+	4Vb3NQRvaSJZvnvIFMc5JK07ch8eADTKL8CZpu0awzCcOmBSG37zrbVhVt3tE77zgjizJdcep0y
+	lcDyTj4dDoRZ1ngHT75NvLhJzXtanAosAA43xGcKmiW71Bjwpe3P858n8w4d+JkhWafRLr2AaJj
+	NRfeTLPMG2su6pN14sdcFoLJZ20PfA6jTHw/1vcUhhWWw=
+X-Received: by 2002:a17:90b:5484:b0:37d:f983:7b5 with SMTP id 98e67ed59e1d1-3958110cfc4mr15615141a91.9.1787182341460;
+        Wed, 19 Aug 2026 16:32:21 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:73::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395ada67783sm39772a91.3.2026.08.19.16.32.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 16:32:20 -0700 (PDT)
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org,
+	Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Joe Damato <joe@dama.to>
+Cc: horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: bnxt: ring the doorbell when SW USO exits early
+Date: Wed, 19 Aug 2026 16:32:11 -0700
+Message-ID: <20260819233213.3673149-1-joe@dama.to>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260819231943.GD6072@frogsfrogsfrogs>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 19, 2026 at 04:19:43PM -0700, Darrick J. Wong wrote:
-> On Tue, Aug 18, 2026 at 11:16:39PM -0700, Christoph Hellwig wrote:
-> > On Wed, Aug 12, 2026 at 10:25:40PM -0700, Darrick J. Wong wrote:
-> > > From: Darrick J. Wong <djwong@kernel.org>
-> > > 
-> > > It's possible to construct an in-memory rtrmap btree for filesystems
-> > > that don't have the rmap feature enabled.  The kernel doesn't do this,
-> > > but xfs_repair will, if asked to reindex a filesystem that has rtreflink
-> > > enabled but not rtrmap.  Therefore, we must create the cursor with
-> > > enough levels to handle a maximally sized btree possible.
-> > 
-> > Should repair initialize m_rtrmap_maxlevels instead of overallocating
-> > in the kernel?
-> 
-> I'd prefer not to because (a) m_rtrmap_maxlevels is used in various
-> places (like computing transaction reservations) outside of creating
-> in-memory btrees and that would be weird on a non-rmap filesystem; (b)
-> the regular rmap code in xfs_repair already allocates biggish cursors
-> for in-memory btrees this way; and (c) I don't think it matters much
-> even in the kernel because if we're that low on memory then we're not
-> going to be able to create a replacement rmap record set in memory to
-> stage the rmapbt regeneration anyway.
-> 
-> That said, a more targetted way would be to add a maxlevels parameter to
-> xfs_{rt,}rmapbt_mem_cursor() and let the caller figure out the optimal
-> setting for their context -- online repair can use
-> mp->m_{rt,}rmap_maxlevels because it only creates in-memory rmap btrees
-> when rmap is enabled; and xfs_repair can use
-> xfs_{rt,}rmap_maxlevels_ondisk() for the weird (reflink && !rmap) case.
-> 
-> How does that sound?
+When a burst of packets is handed down to the driver, the driver defers
+the doorbell to the end by setting txr->kick_pending = 1. The normal TX
+path handles this, but the SW USO path can miss it if it returns
+early.
 
-On second thought ... the slab cache that we use to create rtrmapbt
-cursors always makes them big enough for xfs_rtrmap_maxlevels_ondisk()
-levels, so we always consume that much memory no matter what we set
-bc_nlevels to in xfs_rtrmapbt_mem_cursor().
+If bnxt_sw_udp_gso_xmit runs but returns early with NETDEV_TX_BUSY and
+txr->kick_pending was previously set to 1, then the TX queue can
+stall because the driver wrote some BDs but never wrote the doorbell.
+The device won't know to do the TX which would generate the completion
+that would wake the queue back up.
 
---D
+Simplify bnxt_sw_udp_gso_xmit to set txr->kick_pending in its success
+case and check the flag on return. The added check after
+bnxt_sw_udp_gso_xmit returns ensures that any pending doorbells are
+written handling both successful USO and any early returns, which
+prevents the TX queue stall mentioned above.
+
+This TX queue stall was observed on a production system with a netdev TX
+watchdog informing about the queue stall.
+
+Fixes: cc5d90667db8 ("net: bnxt: Implement software USO")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joe Damato <joe@dama.to>
+Reviewed-by: Michael Chan <michael.chan@broadcom.com>
+---
+
+v2:
+  - Simplfy the patch as Michael suggested, setting txr->kick_pending in the
+    USO code instead of exporting and calling bnxt_txr_db_kick.
+  - Update commit message and remove stale comment.
+
+v1: https://lore.kernel.org/netdev/20260818211540.2991183-1-joe@dama.to/
+
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c     | 10 ++++++++--
+ drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c |  4 +---
+ 2 files changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index 9377bf675981..d3cb25abb632 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -485,6 +485,7 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	struct bnxt_sw_tx_bd *tx_buf;
+ 	__le32 lflags = 0;
+ 	skb_frag_t *frag;
++	netdev_tx_t ret;
+ 
+ 	i = skb_get_queue_mapping(skb);
+ 	if (unlikely(i >= bp->tx_nr_rings)) {
+@@ -510,8 +511,13 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ #endif
+ 	if (skb_is_gso(skb) &&
+ 	    (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4) &&
+-	    !(bp->flags & BNXT_FLAG_UDP_GSO_CAP))
+-		return bnxt_sw_udp_gso_xmit(bp, txr, txq, skb);
++	    !(bp->flags & BNXT_FLAG_UDP_GSO_CAP)) {
++		ret = bnxt_sw_udp_gso_xmit(bp, txr, txq, skb);
++		if (txr->kick_pending)
++			bnxt_txr_db_kick(bp, txr, txr->tx_prod);
++
++		return ret;
++	}
+ 
+ 	free_size = bnxt_tx_avail(bp, txr);
+ 	if (unlikely(free_size < skb_shinfo(skb)->nr_frags + 2)) {
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+index f317f60414e8..f7e18bea0fb8 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+@@ -223,9 +223,7 @@ netdev_tx_t bnxt_sw_udp_gso_xmit(struct bnxt *bp,
+ 	netdev_tx_sent_queue(txq, skb->len);
+ 
+ 	WRITE_ONCE(txr->tx_prod, prod);
+-	/* Sync BDs before doorbell */
+-	wmb();
+-	bnxt_db_write(bp, &txr->tx_db, prod);
++	txr->kick_pending = 1;
+ 
+ 	if (unlikely(bnxt_tx_avail(bp, txr) <= bp->tx_wake_thresh))
+ 		netif_txq_try_stop(txq, bnxt_tx_avail(bp, txr),
+
+base-commit: 61eb236c41c2a4717015dff18016a75a5eb90052
+-- 
+2.53.0-Meta
+
