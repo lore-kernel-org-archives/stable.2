@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598583F39EB
-	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:45:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630443F12CB
+	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:45:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787125551; cv=none; b=InLTsOKvsjsDT0xmE4254V0w7i6Yavuj50AL+YMNpq20KRYmdQ27YfmCcjtSC0ID/r+/XMowt3gKEFGoNM61xR6a3dn9xSQHrMHkub4SlxkwEzT20qy873SucJVO093o5ihwICaJSPfW9r8TrNYgR0KgnwtM+KucXXSSMYpweAk=
+	t=1787125553; cv=none; b=lVR49K4FhIJj0n5Bnrohs/2b+wlgTpNefUy8SCR2+qI1Fg65BIzQgYxzM/8B7uFikl9tFe5+MCBhVC28Lti086gOvrulayrwj1i5NSl27C+j4n4ERTWSf1AjMMBOiNOoXA25/+Xf+2S9VlftplwE4IUJmPbTqD0zLE6Lgltv1zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787125551; c=relaxed/simple;
-	bh=yoj/UHBoIgMtUx8cmvFEtnDNXWc+R3Mz4e5go8h+Ozg=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=DRksAxxXN+r792W/meLlgwkEQbNv4TvYXmiAglOgLxdCMTsQI0k8Qj+t10Zqw+8B4h8kWHhlmbmf+aBz2b7rUTozdV9voKufLjSE+8dtW0ljM141glR5hnIXbRNcbKteJnC7Nb9ijQMxCda8+0981irBC7U896Wd7v0Y8PCCpWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LNO/BTN4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787125553; c=relaxed/simple;
+	bh=KR9x1tjwwI4E5Gi6kgBOKIV9iRd23pTKd3Jst5QajV0=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=TRR19rI0Ip5o7uHr28mqEtD60nhGqX0vIojp6IqlVMAD/ttrfLbApy/gA1/aTXGXGEgJJ9Q6w1EvHhd/JplCft6oWQZ5WXueabtvC5tiHJO7qyAg0WWzSHhgWxzkzzwDVt4A/9wbfz0x2mFxckcMrVPj3NmQ/bmQcoUEMpIxvrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hzT4z/in; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LNO/BTN4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D2FA1F000E9;
-	Wed, 19 Aug 2026 07:45:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hzT4z/in"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C530F1F00A3A;
+	Wed, 19 Aug 2026 07:45:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787125545;
-	bh=FSonPhKi/MX1/nqG9PCcpV6QAcGP4DskSjbwr8P8kEg=;
+	s=korg; t=1787125549;
+	bh=ZVAXOxE6TRzR10io+nCWBQE6vYDtpCKf0BwGWc8c254=;
 	h=Subject:To:From:Date;
-	b=LNO/BTN4a4GNyOHZKTcN7cfSb78KBRobS8GIvW+AuxCEEieu853Q9lvd9GYADA3DI
-	 TrRKaB0RU2Kl5ORWEK8MBVcYUggMOkgphzjv72SQe0S/8h8X0FBHXO73NCUR2yXj4v
-	 MdmcBqck2aE94qKAM2bgNAj1B+gxBC6K3/DAKMHs=
-Subject: patch "iio: adc: adi-axi-adc: add data size support for AD408X backend" added to char-misc-testing
+	b=hzT4z/in7EM+6TXaIPMEJ9p8ZiRcMY3vVzldeL+S37FNQqT3sjBU7XWjbsPM2Zxke
+	 oIsLsXzTPGHOpZla0ObiqyjFruQ+eQ3H7O3LOuOCRKrNDMohgaJwufN6iDaACYU/n6
+	 x7FFJEIr0wVlhfzMETruP9ihJXiHFVF4VhMwk2Rg=
+Subject: patch "iio: adc: ad4080: configure backend data size" added to char-misc-testing
 To: antoniu.miclaus@analog.com,Stable@vger.kernel.org,dlechner@baylibre.com,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 19 Aug 2026 09:44:08 +0200
-Message-ID: <2026081908-proofs-excursion-1cfa@gregkh>
+Message-ID: <2026081908-gallon-paper-9280@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: adc: adi-axi-adc: add data size support for AD408X backend
+    iio: adc: ad4080: configure backend data size
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,80 +54,48 @@ after it passes testing, and the merge window is open.
 If you have any questions about this process, please let me know.
 
 
-From 60f6f7fd5f89c7f55991c5dc59f3ccc74cd6efd7 Mon Sep 17 00:00:00 2001
+From d39afd249d1ef5cb03b6f1dc22a68e6385de413d Mon Sep 17 00:00:00 2001
 From: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Date: Mon, 13 Jul 2026 11:40:42 +0300
-Subject: iio: adc: adi-axi-adc: add data size support for AD408X backend
+Date: Mon, 13 Jul 2026 11:40:43 +0300
+Subject: iio: adc: ad4080: configure backend data size
 
-The AD408X AXI core can pack the sample data on the bus using different
-word widths. Expose this through the data_size_set backend operation so
-that frontends can program the packet format field (bits 3:2 of the
-CNTRL_3 register) according to the ADC resolution: 20-bit, 16-bit and
-14-bit map to packet format values 0, 1 and 2 respectively.
+The AXI backend needs to know the ADC word width in order to pack the
+sample data correctly on the bus. During channel setup, program the
+backend packet format via iio_backend_data_size_set() using the channel
+resolution, so the data is transferred according to the device's
+realbits.
 
+The backend packet format field defaults to 20-bit packing, so the
+20-bit parts (AD4080/AD4081/AD4082, AD4880) were unaffected. The 16-bit
+(AD4083/AD4084/AD4085, AD4884) and 14-bit (AD4086/AD4087/AD4088) parts,
+however, were left packing data at the wrong width, producing corrupt
+buffered captures.
+
+Fixes: 6c3e7265734b ("iio: adc: ad4080: add support for AD4084")
 Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
 Reviewed-by: David Lechner <dlechner@baylibre.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/adc/adi-axi-adc.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ drivers/iio/adc/ad4080.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/iio/adc/adi-axi-adc.c b/drivers/iio/adc/adi-axi-adc.c
-index ced0a2321ecf..aac6f4a0705e 100644
---- a/drivers/iio/adc/adi-axi-adc.c
-+++ b/drivers/iio/adc/adi-axi-adc.c
-@@ -54,6 +54,10 @@
- #define   AXI_AD485X_PACKET_FORMAT_24BIT	0x1
- #define   AXI_AD485X_PACKET_FORMAT_32BIT	0x2
- #define   AXI_AD408X_CNTRL_3_FILTER_EN_MSK	BIT(0)
-+#define   AXI_AD408X_CNTRL_3_PACKET_FORMAT_MSK	GENMASK(3, 2)
-+#define   AXI_AD408X_PACKET_FORMAT_20BIT	0x0
-+#define   AXI_AD408X_PACKET_FORMAT_16BIT	0x1
-+#define   AXI_AD408X_PACKET_FORMAT_14BIT	0x2
+diff --git a/drivers/iio/adc/ad4080.c b/drivers/iio/adc/ad4080.c
+index 8d2953341b15..8feb0c7f7fcb 100644
+--- a/drivers/iio/adc/ad4080.c
++++ b/drivers/iio/adc/ad4080.c
+@@ -698,6 +698,11 @@ static int ad4080_setup_channel(struct ad4080_state *st, unsigned int ch)
+ 	if (ret)
+ 		return ret;
  
- #define ADI_AXI_ADC_REG_SYNC_STATUS		0x0068
- #define   ADI_AXI_ADC_SYNC_STATUS_ADC_SYNC_MSK	BIT(0)
-@@ -437,6 +441,31 @@ static int axi_adc_ad408x_filter_type_set(struct iio_backend *back,
- 				 AXI_AD408X_CNTRL_3_FILTER_EN_MSK);
- }
++	ret = iio_backend_data_size_set(st->back[ch],
++					st->info->channels[0].scan_type.realbits);
++	if (ret)
++		return ret;
++
+ 	if (!st->lvds_cnv_en)
+ 		return 0;
  
-+static int axi_adc_ad408x_data_size_set(struct iio_backend *back,
-+					unsigned int size)
-+{
-+	struct adi_axi_adc_state *st = iio_backend_get_priv(back);
-+	unsigned int val;
-+
-+	switch (size) {
-+	case 20:
-+		val = AXI_AD408X_PACKET_FORMAT_20BIT;
-+		break;
-+	case 16:
-+		val = AXI_AD408X_PACKET_FORMAT_16BIT;
-+		break;
-+	case 14:
-+		val = AXI_AD408X_PACKET_FORMAT_14BIT;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return regmap_update_bits(st->regmap, ADI_AXI_ADC_REG_CNTRL_3,
-+				  AXI_AD408X_CNTRL_3_PACKET_FORMAT_MSK,
-+				  FIELD_PREP(AXI_AD408X_CNTRL_3_PACKET_FORMAT_MSK, val));
-+}
-+
- static int axi_adc_ad408x_interface_data_align(struct iio_backend *back,
- 					       u32 timeout_us)
- {
-@@ -660,6 +689,7 @@ static const struct iio_backend_ops adi_ad408x_ops = {
- 	.free_buffer = axi_adc_free_buffer,
- 	.data_sample_trigger = axi_adc_data_sample_trigger,
- 	.filter_type_set = axi_adc_ad408x_filter_type_set,
-+	.data_size_set = axi_adc_ad408x_data_size_set,
- 	.interface_data_align = axi_adc_ad408x_interface_data_align,
- 	.num_lanes_set = axi_adc_num_lanes_set,
- 	.debugfs_reg_access = iio_backend_debugfs_ptr(axi_adc_reg_access),
 -- 
 2.55.0
 
