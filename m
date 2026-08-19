@@ -1,42 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8353637BE93
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 19:08:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859343C3F6A
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 19:08:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787166523; cv=none; b=G1cwMGWJHft/tB+6V3yta+4093s8ec0jThUZdTpoZxCZkqCATMbVfkYojcFCvzz65Z/wP72BaNBNvKqyit4wi10UmOeMET6qdPR21pzKLf8Wt0nxpVo8K8sQXPNEcHvjgk9ov2Q49+YHt+gBL3DyWm6RatrHi0q3AELYmpdhlZI=
+	t=1787166524; cv=none; b=JX/7ZKtguL2hFnRq20HWmjZf50zLEYvChkBjPyfReM++n3uAE0u+gIjmW19iU6WP4OsxsjdPpSvQgY9OtzGOQZ/k5/FNWFN7LY582b+Rx7AwNRzt9/5ADbgpE2du0QJDt9qmjxKvxyzS00IbBL+WxOdIgZ4EgH5Vx5JD/BlK6t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787166523; c=relaxed/simple;
-	bh=aDmrK+0rpaAYnbVjb38UFvFKPBjzp22oUr411dJ7NEM=;
+	s=arc-20240116; t=1787166524; c=relaxed/simple;
+	bh=5L/erPvlrzRevbeS960ba66iYawh/iBGuRmzhAEDeOE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XRnWym3m65r7D3I4HIGUDeezpI/23filkM5wPE7sm2WxCIzc+iZKFbaUPI95CA9vi2oShCaH3DOgpP1lfCv9XXaq6zu0hDxA1+sTDyS+nCDoSMpJOJO9NujajFm8ABv0W55DsXW/8Bo6qZC4eW9FXPJuzpWDvcLa6BTByXrMSCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZJou0Rcq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rQgG3+LX9HqVoxg3zC9UpVn42l3V7qs5KGyS1Dx2PJRibkQhkkqgKBgSAnTGzAC5JC0lb/bqBgVzhwuvIGkjU5/Ug36KNqLUYwKxPxrPbl3hWlvgd1W9syzMxj+SpzOgeCsc9qCGeS+K2ysSzryfrmVtci5plmWA3O0UtQaqYNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYcYBx+J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZJou0Rcq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95A941F00A3F;
-	Wed, 19 Aug 2026 19:08:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYcYBx+J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98FCF1F00A3D;
+	Wed, 19 Aug 2026 19:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787166522;
-	bh=ByAAC6NynRLx7QaqWGFxh+EWEZGvldHxLDwutnckGFw=;
+	s=k20260515; t=1787166523;
+	bh=nNZEA914Uz0FgYCaWYO8zC6wx0jYK+qHNytMDe9Nr3U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZJou0RcqsfaT6U20D2SYNQQIHOu0NUuayZUXl98o5nqLwtT7AWdRgBbYe2zYIvTCE
-	 DtpcKaC5+PAFceAZr/UB+EBGS5GIKcomyo9iwRn3KTyg0fKRMaaLgJUbyUrNFJueHG
-	 uAacJVn7osWJhgZkrae+mH/XI5wdRQUCVq2INOJW9RNlIBYC+0aGx8TZYuf0E+rc4+
-	 iMe6TbXVTHh0kxY+4iXmWcua6g/5zQF4X1wDeb4v2IAjFkG2vVPUU64EELhqV0Ac96
-	 RuSMlMOfUH95XVjAfq7HQSbJUTy0aE+buHtOiky7CS7eYxjtn4mDelKi22FwrY1Xuq
-	 m9KR+Zc/eQKWA==
+	b=kYcYBx+JI2DA14uc2wOxI9cUKU0yuJjnBeeZRBngpxmL6NBpWY7DQfHGTKmLzANK+
+	 zJBOoNoc5ax/DkSsiMfJvv/7491iPF1pzHFzsfFqysoHRlk7UTVEVoamI2rqREcRgp
+	 2bkljo8Zd2FxqWv6KdjrsbidizX+oL067vXrdIKL9X20kUHUtwai+PjtjLjunU1Fl4
+	 HvCXkKKSqpFl06pj3k5FQiV8kkQu6lVyK9Bbypr0fJmbIiLAc4jC32d0fKTgXwRf4L
+	 gRhZXvga1DQJ3DUAEY4d/o1j09Lox5gYe7HBUyvzrGcq/Sv8bg9LPjz+4YFGUpUblT
+	 azS0sodMy73XQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xin Long <lucien.xin@gmail.com>,
-	Simon Horman <simon.horman@corigine.com>,
-	Aaron Conole <aconole@redhat.com>,
-	Florian Westphal <fw@strlen.de>,
+Cc: Hyunjung Ko <hj351016@gmail.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/4] openvswitch: move key and ovs_cb update out of handle_fragments
-Date: Wed, 19 Aug 2026 15:08:35 -0400
-Message-ID: <20260819190836.561493-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/4] net/sched: act_ct: fix sk_buff leak when the header checks reject a packet
+Date: Wed, 19 Aug 2026 15:08:36 -0400
+Message-ID: <20260819190836.561493-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260819190836.561493-1-sashal@kernel.org>
 References: <2026081753-suffix-dill-686c@gregkh>
@@ -49,114 +47,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xin Long <lucien.xin@gmail.com>
+From: Hyunjung Ko <hj351016@gmail.com>
 
-[ Upstream commit 1b83bf4489cbc47d88976291cc967a17adb8e118 ]
+[ Upstream commit 8a7ed561671aa6a911a2de99e59ef670a4d0b1df ]
 
-This patch has no functional changes and just moves key and ovs_cb update
-out of handle_fragments, and skb_clear_hash() and skb->ignore_df change
-into handle_fragments(), to make it easier to move the duplicate code
-from handle_fragments() into nf_conntrack_ovs later.
+tcf_ct_handle_fragments() runs its header sanity checks before handing
+anything to the defragmentation engine:
 
-Note that it changes to pass info->family to handle_fragments() instead
-of key for the packet type check, as info->family is set according to
-key->eth.type in ovs_ct_copy_action() when creating the action.
+	if (family == NFPROTO_IPV4)
+		err = tcf_ct_ipv4_is_fragment(skb, &frag);
+	else
+		err = tcf_ct_ipv6_is_fragment(skb, &frag);
+	if (err || !frag)
+		return err;
 
-Signed-off-by: Xin Long <lucien.xin@gmail.com>
-Reviewed-by: Simon Horman <simon.horman@corigine.com>
-Reviewed-by: Aaron Conole <aconole@redhat.com>
-Acked-by: Florian Westphal <fw@strlen.de>
+tcf_ct_ipv4_is_fragment() returns -EINVAL or -ENOMEM;
+tcf_ct_ipv6_is_fragment() adds -EPROTO when ipv6_find_hdr() fails. None of
+them frees or queues the skb, so on that path the caller still owns it.
+
+tcf_ct_act() however funnels every non-zero return into the
+ownership-transfer exit:
+
+	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag);
+	if (err)
+		goto out_frag;
+	...
+out_frag:
+	if (err != -EINPROGRESS)
+		tcf_action_inc_drop_qstats(&c->common);
+	return TC_ACT_CONSUMED;
+
+TC_ACT_CONSUMED means the action took ownership of the skb, so no caller
+frees it - sch_handle_ingress(), sch_handle_egress() and
+tcf_qevent_handle() all deliberately skip the free for that verdict. The
+skb is therefore orphaned: one sk_buff plus its data buffer is leaked per
+malformed packet, unbounded. Note the drop counter is already incremented
+for these errors, so the statistics claim a drop that never happens.
+
+Three different ownership states reach out_frag: today - the skb may be
+queued by the defrag engine (-EINPROGRESS), already freed by
+nf_ct_handle_fragments(), or still owned by us. Tell the caller which of
+those it is, and free the packet ourselves in the last case, which
+restores the TC_ACT_SHOT behaviour that predated the Fixes: commit.
+
+Reproduced on v7.2-rc6 with a 54-byte frame carrying a 40-byte IPv6
+header with nexthdr = 0 (hop-by-hop) and nothing after it, on a
+clsact ingress chain with "action ct". kmemleak reports one leaked
+232-byte skbuff_head_cache object plus its 704-byte data buffer per
+packet; with this patch it reports none.
+
+Fixes: 3f14b377d01d ("net/sched: act_ct: fix skb leak and crash on ooo frags")
+Cc: stable@vger.kernel.org # v6.8+
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Link: https://patch.msgid.link/20260806101235.809370-1-hj351016@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 8a7ed561671a ("net/sched: act_ct: fix sk_buff leak when the header checks reject a packet")
+[ Dropped upstream's `bool add_helper = false;` context line, absent on 6.1, keeping only the new `bool skb_is_ours = false;` declaration. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/openvswitch/conntrack.c | 37 +++++++++++++++++++++++++------------
- 1 file changed, 25 insertions(+), 12 deletions(-)
+ net/sched/act_ct.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
-diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
-index 3bb361e70cdd4..0085e87f10f63 100644
---- a/net/openvswitch/conntrack.c
-+++ b/net/openvswitch/conntrack.c
-@@ -496,13 +496,12 @@ static int ovs_ct_helper(struct sk_buff *skb, u16 proto)
- /* Returns 0 on success, -EINPROGRESS if 'skb' is stolen, or other nonzero
-  * value if 'skb' is freed.
-  */
--static int handle_fragments(struct net *net, struct sw_flow_key *key,
--			    u16 zone, struct sk_buff *skb)
-+static int handle_fragments(struct net *net, struct sk_buff *skb,
-+			    u16 zone, u8 family, u8 *proto, u16 *mru)
- {
--	struct ovs_skb_cb ovs_cb = *OVS_CB(skb);
- 	int err;
- 
--	if (key->eth.type == htons(ETH_P_IP)) {
-+	if (family == NFPROTO_IPV4) {
- 		enum ip_defrag_users user = IP_DEFRAG_CONNTRACK_IN + zone;
- 
- 		memset(IPCB(skb), 0, sizeof(struct inet_skb_parm));
-@@ -510,9 +509,9 @@ static int handle_fragments(struct net *net, struct sw_flow_key *key,
- 		if (err)
- 			return err;
- 
--		ovs_cb.mru = IPCB(skb)->frag_max_size;
-+		*mru = IPCB(skb)->frag_max_size;
- #if IS_ENABLED(CONFIG_NF_DEFRAG_IPV6)
--	} else if (key->eth.type == htons(ETH_P_IPV6)) {
-+	} else if (family == NFPROTO_IPV6) {
- 		enum ip6_defrag_users user = IP6_DEFRAG_CONNTRACK_IN + zone;
- 
- 		memset(IP6CB(skb), 0, sizeof(struct inet6_skb_parm));
-@@ -523,22 +522,35 @@ static int handle_fragments(struct net *net, struct sw_flow_key *key,
- 			return err;
- 		}
- 
--		key->ip.proto = ipv6_hdr(skb)->nexthdr;
--		ovs_cb.mru = IP6CB(skb)->frag_max_size;
-+		*proto = ipv6_hdr(skb)->nexthdr;
-+		*mru = IP6CB(skb)->frag_max_size;
- #endif
- 	} else {
- 		kfree_skb(skb);
- 		return -EPFNOSUPPORT;
- 	}
- 
-+	skb_clear_hash(skb);
-+	skb->ignore_df = 1;
-+
-+	return 0;
-+}
-+
-+static int ovs_ct_handle_fragments(struct net *net, struct sw_flow_key *key,
-+				   u16 zone, int family, struct sk_buff *skb)
-+{
-+	struct ovs_skb_cb ovs_cb = *OVS_CB(skb);
-+	int err;
-+
-+	err = handle_fragments(net, skb, zone, family, &key->ip.proto, &ovs_cb.mru);
-+	if (err)
-+		return err;
-+
- 	/* The key extracted from the fragment that completed this datagram
- 	 * likely didn't have an L4 header, so regenerate it.
- 	 */
- 	ovs_flow_key_update_l3l4(skb, key);
--
- 	key->ip.frag = OVS_FRAG_TYPE_NONE;
--	skb_clear_hash(skb);
--	skb->ignore_df = 1;
- 	*OVS_CB(skb) = ovs_cb;
- 
+diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
+index 81c023f8433cc..f6b2f693e21d5 100644
+--- a/net/sched/act_ct.c
++++ b/net/sched/act_ct.c
+@@ -854,8 +854,15 @@ static int tcf_ct_ipv6_is_fragment(struct sk_buff *skb, bool *frag)
  	return 0;
-@@ -1318,7 +1330,8 @@ int ovs_ct_execute(struct net *net, struct sk_buff *skb,
- 		return err;
+ }
  
- 	if (key->ip.frag != OVS_FRAG_TYPE_NONE) {
--		err = handle_fragments(net, key, info->zone.id, skb);
-+		err = ovs_ct_handle_fragments(net, key, info->zone.id,
-+					      info->family, skb);
- 		if (err)
- 			return err;
- 	}
++/* On error, tells the caller whether it still owns @skb and must free it
++ * itself.  @skb is ours only when the header checks below reject the packet
++ * before it is handed to the defragmentation engine; once nf_ct_handle_
++ * fragments() has been called the skb is either queued (-EINPROGRESS) or has
++ * already been freed by it.
++ */
+ static int tcf_ct_handle_fragments(struct net *net, struct sk_buff *skb,
+-				   u8 family, u16 zone, bool *defrag)
++				   u8 family, u16 zone, bool *defrag,
++				   bool *skb_is_ours)
+ {
+ 	enum ip_conntrack_info ctinfo;
+ 	struct nf_conn *ct;
+@@ -872,8 +879,12 @@ static int tcf_ct_handle_fragments(struct net *net, struct sk_buff *skb,
+ 		err = tcf_ct_ipv4_is_fragment(skb, &frag);
+ 	else
+ 		err = tcf_ct_ipv6_is_fragment(skb, &frag);
+-	if (err || !frag)
++	if (err) {
++		*skb_is_ours = true;
+ 		return err;
++	}
++	if (!frag)
++		return 0;
+ 
+ 	mru = tc_skb_cb(skb)->mru;
+ 
+@@ -1124,6 +1135,7 @@ static int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+ 	struct nf_hook_state state;
+ 	int nh_ofs, err, retval;
+ 	struct tcf_ct_params *p;
++	bool skb_is_ours = false;
+ 	bool skip_add = false;
+ 	bool defrag = false;
+ 	struct nf_conn *ct;
+@@ -1160,9 +1172,18 @@ static int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+ 	 */
+ 	nh_ofs = skb_network_offset(skb);
+ 	skb_pull_rcsum(skb, nh_ofs);
+-	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag);
+-	if (err)
++	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag,
++				      &skb_is_ours);
++	if (err) {
++		/* The skb is still ours only when the header checks rejected
++		 * it; returning TC_ACT_CONSUMED for such a packet would leak
++		 * it, since no caller frees an skb it was told it no longer
++		 * owns.
++		 */
++		if (skb_is_ours)
++			goto drop;
+ 		goto out_frag;
++	}
+ 
+ 	err = tcf_ct_skb_network_trim(skb, family);
+ 	if (err)
 -- 
 2.53.0
 
