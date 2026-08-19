@@ -1,120 +1,143 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 02A23489894;
-	Wed, 19 Aug 2026 16:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C460E392838
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 16:28:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787156490; cv=none; b=j4ii69pmVQKQJ9SvAMj1LZT0WTGYlqV5OsnkUg2VyKUkt/0PclBNybxsm+DQIlSuQqwo4MW9EC81AZikin6xQgzbgjDyy4NGc5EzyxxYl5HgI3MNRjuLFj6JLDF5CA0Ow9aw8UNgFOhGQcahnCJgnHpo8I6Go0MErxGBPWcosjw=
+	t=1787156915; cv=none; b=iv41mQuq2O0XSDk816ywiy+jrYPovRk2TQ59em5LI1f3QWfcLRTv2SH0rXMAm2+co+guFr8HIvStknksC2hw3Qahe83tZYmnSVqAml8Wquz1h2KfzCftrO3AkXgrwIZPzDs3ZrHyWs+iAe7KKecHI8K2vUOxJc6fqz1mntGnUYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787156490; c=relaxed/simple;
-	bh=PpZFtuIoTKyDwxjHax5jjMkVxp4w90jeEEsNoliWSa0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PlmOJZCgu407UEHAw1IT7iTw9maMJJ3o0GbxQKl48RA2dh+LrtC/wA0KumYZRoR2iAqvgOUx2zfA2mmpoWJjuKbBmMm9ziOA1SSQmanYLrmsVLJMv141HVBJhZ/ELX89Ogp/VmhrnImjWi9NG7c0UEgW22OLRMq3BdLPK0GkOhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCHUX3_14VqJoapAA--.2143S3;
-	Thu, 20 Aug 2026 00:21:19 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgBXijH+14VqXrFQAw--.34652S2;
-	Thu, 20 Aug 2026 00:21:18 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-usb@vger.kernel.org
-Cc: bryan.odonoghue@linaro.org,
-	heikki.krogerus@linux.intel.com,
-	gregkh@linuxfoundation.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] usb: typec: qcom-pmic-typec: disable cc_debounce_dwork on stop
-Date: Wed, 19 Aug 2026 16:19:50 +0000
-Message-Id: <20260819161950.77858-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1787156915; c=relaxed/simple;
+	bh=gzfJs5HYntu8gcGCJ6sAjebyKzMhabA2OudsbWoFFYw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=KuB3QWlCStCQfYXW8PHIkpEjaxZHx2PBYiMYu5Lx8eJ6k78aOCpqZ0lo9v7Z3wVGSVCShmuhupMjKyvSjht5HOVocdfSjPmFu0wGyxQ75nJvEqK1/wg3FiAULDN/KsMkPvgbDi40eTwu1ALoT+BbIxBrVvnbqKj3fmOibuYIZy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KV4NyNGE; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KV4NyNGE"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc132709c76so1391255a12.3
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 09:28:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787156905; x=1787761705; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+B8j39F6K6IPnckNY9ZHScQQlOhyC0PWjU+Co8ybQzs=;
+        b=KV4NyNGEEhtn5LTFoPGMEfcHtx5FjjZPJBx49z+5hmAed75BojHES1DFKqNGG1/v/X
+         F5epLoZup3Nb6yLkkxYVCnpvO8DLgyLDgDZEOqzkbabpbmhaVLa8OMhSe+KXfAopotkt
+         OwTDBuYGO8PRxgdwVQFWwBFvc0d7HsQGczyzl3qUOeR4O89d9vM/EDPpIDQI7AyzMbJO
+         aH0O4xRzO5PhmstZ9RqsGlcFURCN852yePh6NdCRHrXysehbQ1D4HdiYharjg7UpMSZN
+         xeqIdyk4OQOsLsMyj2fJ9xiAz/tDY/wVdmV3yQi9AAPhwIWGCBPizwFsUFletUvp4yDt
+         KQKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787156905; x=1787761705;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+B8j39F6K6IPnckNY9ZHScQQlOhyC0PWjU+Co8ybQzs=;
+        b=UJ7mVyu2OGOJUR7pWxWD4F746Ww8GH76rnrTZVUNlC2er9iE2rTcfMz4FfMzISe3X4
+         zGNExqu0InH73cvt/F7rsAtIpYYLqSRIG4pLnT6yuBMuuvuPGi3BWHEiAQV7IufnV6cI
+         NJXW7+4WOuNjSVjewNRXoWNdCy4olo50QBL9DcM75dPS1VPNupMDvrHfDdpk3nt7/6GX
+         kzaIQYYZ5K/qZiTvlkna1k0oHq2uczp0I7diwF7uF9IVVT2xPD7a5jRhfWAXMhF5xAJu
+         45SWK3G4o0M6UVZ8W0N8Unk+DrNWgyfRWsbVCQDWk0OFiQLRdwFtkKd/vsEP4GY2QdAY
+         DdPw==
+X-Forwarded-Encrypted: i=1; AHgh+RrrK9xZVcpJBU0P/hr5S0UZyqxWRH1GapQXo9JqBEASeyFG8U/vfl2S0Uz89sysdVS02VEzh3Q=@vger.kernel.org
+X-Gm-Message-State: AOJu0YznYrP70rNlTaM+UqkBYiAp6OCrT7cE5YXIvAzV4JEdHO+iU2DF
+	qr7PKC5nvQffmzCCMjJvBorkI7+/HTSBSxXLTIp6LstkAmZ2APTtJxcmLbMspp1OBuPSpqwkA40
+	2FI5tDg==
+X-Received: from pgar15.prod.google.com ([2002:a05:6a02:2e8f:b0:c99:aff5:707b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:12c7:b0:3c3:cc3e:a9
+ with SMTP id adf61e73a8af0-3cd00dd6be8mr9394127637.4.1787156904767; Wed, 19
+ Aug 2026 09:28:24 -0700 (PDT)
+Date: Wed, 19 Aug 2026 09:28:18 -0700
+In-Reply-To: <CAMGffEmqrrFN6O2oqtAZC3iTD5UJrhVK80bmJLkof28C=uAfvQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgBXijH+14VqXrFQAw--.34652S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?75XOIgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZw9aOy/B7Vzi9F2BqiMai8zX9QFBDONEy5cQTGhGfC78tFp
-	zTnTfYHlKbj98dYeW/XN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxWFyfGw1UtF18AFyDCw1Utwc_yoW5GryDpa
-	98trZrGrykGa9rXr9xtFsFvF4jga17Ar9rJ3y2g343tF1qqw1jyrWUtFyI9F15CFWxJFy3
-	tr43XFy3A3Z8WFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aVCY1x0267AK
-	xVWUJVW8JwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7rcfUUUUU
+Mime-Version: 1.0
+References: <20260817132535.394764707@linuxfoundation.org> <20260817132539.879554007@linuxfoundation.org>
+ <521b22fa-ef09-4449-909f-0120edfc4b24@oracle.com> <CAMGffEmqrrFN6O2oqtAZC3iTD5UJrhVK80bmJLkof28C=uAfvQ@mail.gmail.com>
+Message-ID: <aoXZohqTkyXQmteX@google.com>
+Subject: Re: [PATCH 6.12 111/181] KVM: SVM: Add support to initialize SEV/SNP
+ functionality in KVM
+From: Sean Christopherson <seanjc@google.com>
+To: Jinpu Wang <jinpu.wang@cloud.ionos.com>
+Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
+	patches@lists.linux.dev, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Ashish Kalra <ashish.kalra@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	liam.merwick@oracle.com, Sasha Levin <sashal@kernel.org>, vegard.nossum@oracle.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-cc_debounce_dwork lives on the system workqueue but is armed from
-tcpm callbacks (set_cc/start_toggling).  Those callbacks run on tcpm's
-kthread worker which is only destroyed by tcpm_unregister_port(), after
-port_stop() has already returned, opening a potential race window where
-tcpm's worker flush re-arms the work.
+On Wed, Aug 19, 2026, Jinpu Wang wrote:
+> Hi Harshit,
+>=20
+> On Wed, Aug 19, 2026 at 9:12=E2=80=AFAM Harshit Mogalapalli
+> <harshit.m.mogalapalli@oracle.com> wrote:
 
-Use disable_delayed_work_sync() in port_stop() to cancel any pending
-instance and prevent future schedule_delayed_work() calls from
-succeeding.  Also unwind a failed port_start() through port_stop(),
-which otherwise jumps straight to tcpm_unregister_port() and leaves
-the same window open after a failed probe.
+...
 
-This issue was found by an in-house static analysis tool.
+> > > diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+> > > index 6cec696461da2..bd0344bacaf1e 100644
+> > > --- a/arch/x86/kvm/svm/sev.c
+> > > +++ b/arch/x86/kvm/svm/sev.c
+> > > @@ -2972,6 +2972,7 @@ void __init sev_set_cpu_caps(void)
+> > >   void __init sev_hardware_setup(void)
+> > >   {
+> > >       unsigned int eax, ebx, ecx, edx, sev_asid_count, sev_es_asid_co=
+unt;
+> > > +     struct sev_platform_init_args init_args =3D {0};
+> > >       bool sev_snp_supported =3D false;
+> > >       bool sev_es_supported =3D false;
+> > >       bool sev_supported =3D false;
+> > > @@ -3088,6 +3089,15 @@ void __init sev_hardware_setup(void)
+> > >       sev_supported_vmsa_features =3D 0;
+> > >       if (sev_es_debug_swap_enabled)
+> > >               sev_supported_vmsa_features |=3D SVM_SEV_FEAT_DEBUG_SWA=
+P;
+> > > +
+> > > +     if (!sev_enabled)
+> > > +             return;
+> > > +
+> > > +     /*
+> > > +      * Do both SNP and SEV initialization at KVM module load.
+> > > +      */
+> > > +     init_args.probe =3D true;
+> > > +     sev_platform_init(&init_args);
+> > >   }
 
-Fixes: a4422ff22142 ("usb: typec: qcom: Add Qualcomm PMIC Type-C driver")
-Cc: stable@vger.kernel.org # v6.10+
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c      | 3 +--
- drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 2 ++
- 2 files changed, 3 insertions(+), 2 deletions(-)
+...
 
-diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
-index 35320f89d..f42c9e65f 100644
---- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
-+++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
-@@ -101,7 +101,7 @@ static int qcom_pmic_typec_probe(struct platform_device *pdev)
- 
- 	ret = tcpm->port_start(tcpm, tcpm->tcpm_port);
- 	if (ret)
--		goto port_unregister;
-+		goto port_stop;
- 
- 	ret = tcpm->pdphy_start(tcpm, tcpm->tcpm_port);
- 	if (ret)
-@@ -117,7 +117,6 @@ static int qcom_pmic_typec_probe(struct platform_device *pdev)
- 	tcpm->pdphy_stop(tcpm);
- port_stop:
- 	tcpm->port_stop(tcpm);
--port_unregister:
- 	tcpm_unregister_port(tcpm->tcpm_port);
- fwnode_remove:
- 	fwnode_handle_put(tcpm->tcpc.fwnode);
-diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-index 429bd42a0..fdc379fc4 100644
---- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-+++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-@@ -694,6 +694,8 @@ static void qcom_pmic_typec_port_stop(struct pmic_typec *tcpm)
- 
- 	for (i = 0; i < pmic_typec_port->nr_irqs; i++)
- 		disable_irq(pmic_typec_port->irq_data[i].irq);
-+
-+	disable_delayed_work_sync(&pmic_typec_port->cc_debounce_dwork);
- }
- 
- int qcom_pmic_typec_port_probe(struct platform_device *pdev,
+> That looks like the case, we only use kvm as module, didn't hit the issue=
+.
+> > The relevant upstream commits are:
+> >
+> > 435b344a7042 ("crypto: ccp: Add external API interface for PSP module
+> > initialization")
+> > 44e70718df4f ("KVM: SVM: Ensure PSP module is initialized if KVM module
+> > is built-in")
+> > 409f45387c93 ("x86/sev: Fix broken SNP support with KVM module built-in=
+")
+> >
+> >
+> > https://lore.kernel.org/stable/cover.1739226950.git.ashish.kalra@amd.co=
+m/
+> >
+> >
+> > Could the KVM maintainers confirm whether 6.12.y needs this full series=
+?
 
+Yes, we should also backport the above fixes to 6.12.y.
+
+> > Probably could be done after this cycle, but still noting it here.
+
+Yes, sadly this patch is needed to make SNP usable for *any* configuration,=
+ due
+to bb1c84647025 ("crypto: ccp - Move SEV/SNP Platform initialization to KVM=
+")
+already being in 6.12.
