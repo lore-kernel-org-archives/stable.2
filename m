@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B4135836E
-	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747ED35836E
+	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787125628; cv=none; b=JMsiNv9kykb4qwAikMdbm8sCR0rKffGk+1BlxY2Ais9uOJ0Q7zQWtgzfM1uYushRbep5s4zRF7zHPBuPj97EvJi3Mc601jDeOq0dDhq14YZj2FK7mjcRWBM99TgJQe787CS19a7EjqkEqEp8Gg72SlxvEaVIdYuwUwM2Fdr6wGI=
+	t=1787125632; cv=none; b=DCwFt6dk+Co+4NwU+Mji5I4Z5VscRWNkv8ONeqcgh9qSn8RlJ/IerxuZzVxw/a5ynwKwAZwlJ0gEF2xclzF5QeyY8jh0DVoZyYbGCR9u6+C5PqIXemNohTk8U+Gqfjx00TvgHXTHHHiJhy7qUCE3W9vxIW0HDUW6bUeivCNzXhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787125628; c=relaxed/simple;
-	bh=pVOj7OIuVqdGB6+4wBPw7JoTqyTJbcpZZCXu5S1QkBs=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=RSxg7z7Pt9iHhU59vWP60zBxcpDQqusD2WvcDOZEbgHbe/fCUeaAgCyyAcGSUDMfHhu0ugL2NOXC30KczJABq6UasGQfHAOLMdfbKpOg2Mxg2IH/S0uE8HS04jifmLGnxnoqyO7xHOJ7dcD9uvXmN7ejOounfOF+JTy1JYxZbEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=n0rQQyTd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787125632; c=relaxed/simple;
+	bh=wuCQ6OoNgdhjgIfVsXA+lNfF98bS5MHrhq837jM8p6U=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=dOJbOkwG0QwBl/rn7rBoaqLsdoZtSlRwBuALmgZSAh6MBS1B53kWBNAGbPP9UyzJuCXWjdi+VfvWFpC9Na29pkh0CuVmGYVSj/a/Gr65TQYT7Ws/IlpvBJDdLmDSXLPFSCp3RGZBsm2+6DznnAUzt30fEFy6oy28EAtnUbEYedQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Gy5aEFzu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="n0rQQyTd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36C8A1F00A3A;
-	Wed, 19 Aug 2026 07:47:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Gy5aEFzu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7772A1F000E9;
+	Wed, 19 Aug 2026 07:47:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787125627;
-	bh=70uIzEAWjXFxDhO7e586W+TpiLbq7cDeYhvztpB4q/E=;
+	s=korg; t=1787125631;
+	bh=dFLiSQwShY620dKnbhHDEb7lA7ac17RG7SHEb4pNBvU=;
 	h=Subject:To:From:Date;
-	b=n0rQQyTdMEEbpuXX91H2p4zD5OZgMWfSeGepqNkrlpwOT2t7IfLZIKuBXE2F3SJJM
-	 SOQ5XPS7LBsZQVPpzZqmV7w0/vkgslPnN7wzthRDdMWbCEIq7bCwHGcaYKeR7h5CMM
-	 UJX/MLT3CEUOhRSGQiTZhjfAj0gfwgGiyqjwbxP4=
-Subject: patch "iio: dac: ad3552r-hs: fix scnprintf() buffer bound in data source" added to char-misc-next
-To: bbnpreetsingh@gmail.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
+	b=Gy5aEFzuDuiSIbVsLS8sxU9ML9lchpSvAclYy/4Tkf2yckLJcS1Q33LiVPksu5/wW
+	 28PMzaT7kzrZ+0F0s+pSnTVUHGSumrDHKODAaAP1MwdAax6YVh23qvyqbLfWzerSeT
+	 P7QohkWExvZGNQWNq8xoF/LduZC9u5I7coiQgnvE=
+Subject: patch "iio: light: gp2ap002: Disable regulators on resume failure" added to char-misc-next
+To: acharyalaxman8848@gmail.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com,linusw@kernel.org
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 19 Aug 2026 09:44:35 +0200
-Message-ID: <2026081935-sterling-duress-d55b@gregkh>
+Message-ID: <2026081934-sharply-barbecue-0934@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: dac: ad3552r-hs: fix scnprintf() buffer bound in data source
+    iio: light: gp2ap002: Disable regulators on resume failure
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,49 +54,63 @@ during the merge window.
 If you have any questions about this process, please let me know.
 
 
-From f2c5c76306fadb834dd5ea76cab0b7cd447e6035 Mon Sep 17 00:00:00 2001
-From: Babanpreet Singh <bbnpreetsingh@gmail.com>
-Date: Sat, 18 Jul 2026 18:22:36 +0000
-Subject: iio: dac: ad3552r-hs: fix scnprintf() buffer bound in data source
- show
+From a41000ba3a230bed1e422f283486ff8f77fe0d30 Mon Sep 17 00:00:00 2001
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Date: Sat, 4 Jul 2026 14:19:12 +0545
+Subject: iio: light: gp2ap002: Disable regulators on resume failure
 
-ad3552r_hs_show_data_source_avail() formats the available data source
-names into a 128-byte stack buffer, but bounds each scnprintf() with
-PAGE_SIZE instead of the buffer size, so the bound does not protect
-the destination at all.
+If enabling VIO fails after VDD has been enabled, runtime resume
+returns without disabling VDD. Likewise, if device reinitialization
+fails, both supplies remain enabled. The runtime PM core keeps the
+device suspended when its resume callback fails, so the supplies must
+be restored to the suspended state.
 
-This cannot overflow today - dbgfs_attr_source[] has two entries,
-"normal" and "ramp-16bit", 18 bytes formatted - but the bound stops
-protecting the stack the day the table grows. Use sizeof(buf) so the
-bound matches the destination.
+Disable the supplies enabled by the callback before returning an error.
 
-Found by smatch:
-
-  drivers/iio/dac/ad3552r-hs.c:593 ad3552r_hs_show_data_source_avail()
-  error: scnprintf() 'buf[len]' too small (128 vs 4096)
-
-Fixes: b1c5d68ea66e ("iio: dac: ad3552r-hs: add support for internal ramp")
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Babanpreet Singh <bbnpreetsingh@gmail.com>
+Fixes: 97d642e23037 ("iio: light: Add a driver for Sharp GP2AP002x00F")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/dac/ad3552r-hs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/light/gp2ap002.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/dac/ad3552r-hs.c b/drivers/iio/dac/ad3552r-hs.c
-index 6bc64f53bce9..5d6c2517a7a8 100644
---- a/drivers/iio/dac/ad3552r-hs.c
-+++ b/drivers/iio/dac/ad3552r-hs.c
-@@ -591,7 +591,7 @@ static ssize_t ad3552r_hs_show_data_source_avail(struct file *f,
- 	int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(dbgfs_attr_source); i++) {
--		len += scnprintf(buf + len, PAGE_SIZE - len, "%s ",
-+		len += scnprintf(buf + len, sizeof(buf) - len, "%s ",
- 				 dbgfs_attr_source[i]);
+diff --git a/drivers/iio/light/gp2ap002.c b/drivers/iio/light/gp2ap002.c
+index a8db514cca5e..05773e24931b 100644
+--- a/drivers/iio/light/gp2ap002.c
++++ b/drivers/iio/light/gp2ap002.c
+@@ -669,7 +669,7 @@ static int gp2ap002_runtime_resume(struct device *dev)
+ 	ret = regulator_enable(gp2ap002->vio);
+ 	if (ret) {
+ 		dev_err(dev, "failed to enable VIO regulator in resume path\n");
+-		return ret;
++		goto out_disable_vdd;
  	}
- 	buf[len - 1] = '\n';
+ 
+ 	msleep(20);
+@@ -677,13 +677,19 @@ static int gp2ap002_runtime_resume(struct device *dev)
+ 	ret = gp2ap002_init(gp2ap002);
+ 	if (ret) {
+ 		dev_err(dev, "re-initialization failed\n");
+-		return ret;
++		goto out_disable_vio;
+ 	}
+ 
+ 	/* Re-activate the IRQ */
+ 	enable_irq(gp2ap002->irq);
+ 
+ 	return 0;
++
++out_disable_vio:
++	regulator_disable(gp2ap002->vio);
++out_disable_vdd:
++	regulator_disable(gp2ap002->vdd);
++	return ret;
+ }
+ 
+ static DEFINE_RUNTIME_DEV_PM_OPS(gp2ap002_dev_pm_ops, gp2ap002_runtime_suspend,
 -- 
 2.55.0
 
