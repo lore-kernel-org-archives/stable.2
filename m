@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859343C3F6A
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 19:08:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F103D34BB
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 19:08:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787166524; cv=none; b=JX/7ZKtguL2hFnRq20HWmjZf50zLEYvChkBjPyfReM++n3uAE0u+gIjmW19iU6WP4OsxsjdPpSvQgY9OtzGOQZ/k5/FNWFN7LY582b+Rx7AwNRzt9/5ADbgpE2du0QJDt9qmjxKvxyzS00IbBL+WxOdIgZ4EgH5Vx5JD/BlK6t8=
+	t=1787166536; cv=none; b=gUtTL1K+c9nlxGELEcIZfYvDyQWqI/uNOMUYmvr+Z7Aes3y2POOgYXWBhGbj4/l/x5LhV5TzpqSxt8GIzIbInl/9HOM5Cn4iHt37naH7zE0sH5XqEE9LqLUKs2B4aDsLbQhMbm4RfDO6p0Jw8h4vsLYoTw5EEZFhcFUvOxJKh38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787166524; c=relaxed/simple;
-	bh=5L/erPvlrzRevbeS960ba66iYawh/iBGuRmzhAEDeOE=;
+	s=arc-20240116; t=1787166536; c=relaxed/simple;
+	bh=ilPdTUjxhICutNInYN/fC0okwYCOZVNIm5oFku0b9jw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rQgG3+LX9HqVoxg3zC9UpVn42l3V7qs5KGyS1Dx2PJRibkQhkkqgKBgSAnTGzAC5JC0lb/bqBgVzhwuvIGkjU5/Ug36KNqLUYwKxPxrPbl3hWlvgd1W9syzMxj+SpzOgeCsc9qCGeS+K2ysSzryfrmVtci5plmWA3O0UtQaqYNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYcYBx+J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KE4pvwGkAC8X9THLCSGEHat0BYLs9nzkT9eI8mW8X6IlurG68cUNJ3lKIx5fXFzGLmX2n930d0U/xcXWJI+5qTNdtxORq683b/BRXULgVuwsii6ChT80853xQj7PbA8kJ7mHHh2Bb3YRhx1kWLcV/GxKYPQgGd0MMd3L1pI+12s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhlX9y8d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYcYBx+J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98FCF1F00A3D;
-	Wed, 19 Aug 2026 19:08:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhlX9y8d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 700B21F000E9;
+	Wed, 19 Aug 2026 19:08:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787166523;
-	bh=nNZEA914Uz0FgYCaWYO8zC6wx0jYK+qHNytMDe9Nr3U=;
+	s=k20260515; t=1787166535;
+	bh=lhhPLKCb/OXDM6aAJucfaNWiCP/iqlwCwyEJNcuLJHY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kYcYBx+JI2DA14uc2wOxI9cUKU0yuJjnBeeZRBngpxmL6NBpWY7DQfHGTKmLzANK+
-	 zJBOoNoc5ax/DkSsiMfJvv/7491iPF1pzHFzsfFqysoHRlk7UTVEVoamI2rqREcRgp
-	 2bkljo8Zd2FxqWv6KdjrsbidizX+oL067vXrdIKL9X20kUHUtwai+PjtjLjunU1Fl4
-	 HvCXkKKSqpFl06pj3k5FQiV8kkQu6lVyK9Bbypr0fJmbIiLAc4jC32d0fKTgXwRf4L
-	 gRhZXvga1DQJ3DUAEY4d/o1j09Lox5gYe7HBUyvzrGcq/Sv8bg9LPjz+4YFGUpUblT
-	 azS0sodMy73XQ==
+	b=bhlX9y8d41kUoqtaKoaJ8wun8kkbe9mFjt+HG5BlZi90EEkR9qaVVC/EgB/yv9DlV
+	 LXz9wKwAkZ5ZijdWuE1gOcgyfQ/2kA38BAXhKGcghybu23Cuis3h2C8nqGj8IA/Wkt
+	 ekZZd8ny/QEYN+RMfI1aQG4zK0gV7Kqk0f8veZbrKVp14eGORFCglfH6yCPkdmdFQV
+	 3eh/NkmslN4VBmdJ/EUtk37oiwDaVUcu5RycPrdJWORpyphEapLFzM1PyKE90gmCIa
+	 GMI+G7X/Rhfm/4uuA/I/sNYAVHhUcHajWWQ0+Vro98B+HljZXO5aqAEPSpAWjDUpfT
+	 VMepNR2UyUYUw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hyunjung Ko <hj351016@gmail.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
+	Tony Luck <tony.luck@intel.com>,
+	Nikolay Borisov <nik.borisov@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/4] net/sched: act_ct: fix sk_buff leak when the header checks reject a packet
-Date: Wed, 19 Aug 2026 15:08:36 -0400
-Message-ID: <20260819190836.561493-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] x86/mce: Remove __mcheck_cpu_init_early()
+Date: Wed, 19 Aug 2026 15:08:49 -0400
+Message-ID: <20260819190851.563607-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260819190836.561493-1-sashal@kernel.org>
-References: <2026081753-suffix-dill-686c@gregkh>
- <20260819190836.561493-1-sashal@kernel.org>
+In-Reply-To: <2026081738-avert-freebie-72be@gregkh>
+References: <2026081738-avert-freebie-72be@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,131 +48,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+From: Yazen Ghannam <yazen.ghannam@amd.com>
 
-[ Upstream commit 8a7ed561671aa6a911a2de99e59ef670a4d0b1df ]
+[ Upstream commit 9f34032ec0deef58bd0eb7475f1981adfa998648 ]
 
-tcf_ct_handle_fragments() runs its header sanity checks before handing
-anything to the defragmentation engine:
+The __mcheck_cpu_init_early() function was introduced so that some
+vendor-specific features are detected before the first MCA polling event done
+in __mcheck_cpu_init_generic().
 
-	if (family == NFPROTO_IPV4)
-		err = tcf_ct_ipv4_is_fragment(skb, &frag);
-	else
-		err = tcf_ct_ipv6_is_fragment(skb, &frag);
-	if (err || !frag)
-		return err;
+Currently, __mcheck_cpu_init_early() is only used on AMD-based systems and
+additional code will be needed to support various system configurations.
 
-tcf_ct_ipv4_is_fragment() returns -EINVAL or -ENOMEM;
-tcf_ct_ipv6_is_fragment() adds -EPROTO when ipv6_find_hdr() fails. None of
-them frees or queues the skb, so on that path the caller still owns it.
+However, the current and future vendor-specific code should be done during
+vendor init. This keeps all the vendor code in a common location and
+simplifies the generic init flow.
 
-tcf_ct_act() however funnels every non-zero return into the
-ownership-transfer exit:
+Move all the __mcheck_cpu_init_early() code into mce_amd_feature_init().
 
-	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag);
-	if (err)
-		goto out_frag;
-	...
-out_frag:
-	if (err != -EINPROGRESS)
-		tcf_action_inc_drop_qstats(&c->common);
-	return TC_ACT_CONSUMED;
-
-TC_ACT_CONSUMED means the action took ownership of the skb, so no caller
-frees it - sch_handle_ingress(), sch_handle_egress() and
-tcf_qevent_handle() all deliberately skip the free for that verdict. The
-skb is therefore orphaned: one sk_buff plus its data buffer is leaked per
-malformed packet, unbounded. Note the drop counter is already incremented
-for these errors, so the statistics claim a drop that never happens.
-
-Three different ownership states reach out_frag: today - the skb may be
-queued by the defrag engine (-EINPROGRESS), already freed by
-nf_ct_handle_fragments(), or still owned by us. Tell the caller which of
-those it is, and free the packet ourselves in the last case, which
-restores the TC_ACT_SHOT behaviour that predated the Fixes: commit.
-
-Reproduced on v7.2-rc6 with a 54-byte frame carrying a 40-byte IPv6
-header with nexthdr = 0 (hop-by-hop) and nothing after it, on a
-clsact ingress chain with "action ct". kmemleak reports one leaked
-232-byte skbuff_head_cache object plus its 704-byte data buffer per
-packet; with this patch it reports none.
-
-Fixes: 3f14b377d01d ("net/sched: act_ct: fix skb leak and crash on ooo frags")
-Cc: stable@vger.kernel.org # v6.8+
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Link: https://patch.msgid.link/20260806101235.809370-1-hj351016@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Dropped upstream's `bool add_helper = false;` context line, absent on 6.1, keeping only the new `bool skb_is_ours = false;` declaration. ]
+Signed-off-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
+Reviewed-by: Tony Luck <tony.luck@intel.com>
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+Tested-by: Tony Luck <tony.luck@intel.com>
+Link: https://lore.kernel.org/20250825-wip-mca-updates-v5-6-865768a2eef8@amd.com
+Stable-dep-of: a213dfaa2596 ("x86/mce: Set up the polling timer before CMCI discovery")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/act_ct.c | 29 +++++++++++++++++++++++++----
- 1 file changed, 25 insertions(+), 4 deletions(-)
+ arch/x86/kernel/cpu/mce/amd.c  |  4 ++++
+ arch/x86/kernel/cpu/mce/core.c | 14 --------------
+ 2 files changed, 4 insertions(+), 14 deletions(-)
 
-diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-index 81c023f8433cc..f6b2f693e21d5 100644
---- a/net/sched/act_ct.c
-+++ b/net/sched/act_ct.c
-@@ -854,8 +854,15 @@ static int tcf_ct_ipv6_is_fragment(struct sk_buff *skb, bool *frag)
+diff --git a/arch/x86/kernel/cpu/mce/amd.c b/arch/x86/kernel/cpu/mce/amd.c
+index dac4564e1d7ca..4bb317a54f2e1 100644
+--- a/arch/x86/kernel/cpu/mce/amd.c
++++ b/arch/x86/kernel/cpu/mce/amd.c
+@@ -674,6 +674,10 @@ void mce_amd_feature_init(struct cpuinfo_x86 *c)
+ 	u32 low = 0, high = 0, address = 0;
+ 	int offset = -1;
+ 
++	mce_flags.overflow_recov = cpu_feature_enabled(X86_FEATURE_OVERFLOW_RECOV);
++	mce_flags.succor	 = cpu_feature_enabled(X86_FEATURE_SUCCOR);
++	mce_flags.smca		 = cpu_feature_enabled(X86_FEATURE_SMCA);
++	mce_flags.amd_threshold	 = 1;
+ 
+ 	for (bank = 0; bank < this_cpu_read(mce_num_banks); ++bank) {
+ 		if (mce_flags.smca)
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index d8f3d9af8acf0..ba28988c575cf 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -2011,19 +2011,6 @@ static int __mcheck_cpu_ancient_init(struct cpuinfo_x86 *c)
  	return 0;
  }
  
-+/* On error, tells the caller whether it still owns @skb and must free it
-+ * itself.  @skb is ours only when the header checks below reject the packet
-+ * before it is handed to the defragmentation engine; once nf_ct_handle_
-+ * fragments() has been called the skb is either queued (-EINPROGRESS) or has
-+ * already been freed by it.
-+ */
- static int tcf_ct_handle_fragments(struct net *net, struct sk_buff *skb,
--				   u8 family, u16 zone, bool *defrag)
-+				   u8 family, u16 zone, bool *defrag,
-+				   bool *skb_is_ours)
+-/*
+- * Init basic CPU features needed for early decoding of MCEs.
+- */
+-static void __mcheck_cpu_init_early(struct cpuinfo_x86 *c)
+-{
+-	if (c->x86_vendor == X86_VENDOR_AMD || c->x86_vendor == X86_VENDOR_HYGON) {
+-		mce_flags.overflow_recov = !!cpu_has(c, X86_FEATURE_OVERFLOW_RECOV);
+-		mce_flags.succor	 = !!cpu_has(c, X86_FEATURE_SUCCOR);
+-		mce_flags.smca		 = !!cpu_has(c, X86_FEATURE_SMCA);
+-		mce_flags.amd_threshold	 = 1;
+-	}
+-}
+-
+ static void mce_centaur_feature_init(struct cpuinfo_x86 *c)
  {
- 	enum ip_conntrack_info ctinfo;
- 	struct nf_conn *ct;
-@@ -872,8 +879,12 @@ static int tcf_ct_handle_fragments(struct net *net, struct sk_buff *skb,
- 		err = tcf_ct_ipv4_is_fragment(skb, &frag);
- 	else
- 		err = tcf_ct_ipv6_is_fragment(skb, &frag);
--	if (err || !frag)
-+	if (err) {
-+		*skb_is_ours = true;
- 		return err;
-+	}
-+	if (!frag)
-+		return 0;
+ 	struct mca_config *cfg = &mca_cfg;
+@@ -2266,7 +2253,6 @@ void mcheck_cpu_init(struct cpuinfo_x86 *c)
  
- 	mru = tc_skb_cb(skb)->mru;
+ 	mca_cfg.initialized = 1;
  
-@@ -1124,6 +1135,7 @@ static int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 	struct nf_hook_state state;
- 	int nh_ofs, err, retval;
- 	struct tcf_ct_params *p;
-+	bool skb_is_ours = false;
- 	bool skip_add = false;
- 	bool defrag = false;
- 	struct nf_conn *ct;
-@@ -1160,9 +1172,18 @@ static int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 	 */
- 	nh_ofs = skb_network_offset(skb);
- 	skb_pull_rcsum(skb, nh_ofs);
--	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag);
--	if (err)
-+	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag,
-+				      &skb_is_ours);
-+	if (err) {
-+		/* The skb is still ours only when the header checks rejected
-+		 * it; returning TC_ACT_CONSUMED for such a packet would leak
-+		 * it, since no caller frees an skb it was told it no longer
-+		 * owns.
-+		 */
-+		if (skb_is_ours)
-+			goto drop;
- 		goto out_frag;
-+	}
- 
- 	err = tcf_ct_skb_network_trim(skb, family);
- 	if (err)
+-	__mcheck_cpu_init_early(c);
+ 	__mcheck_cpu_init_generic();
+ 	__mcheck_cpu_init_vendor(c);
+ 	__mcheck_cpu_init_clear_banks();
 -- 
 2.53.0
 
