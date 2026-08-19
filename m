@@ -1,165 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB3F43C058
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 11:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72959357D10;
+	Wed, 19 Aug 2026 11:40:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787139588; cv=none; b=ZwxyIbl+oouMpJlQyUKlh+olVt0SJs9aFwePlHjYBeBYPSOs3iErJSw+ibFFDoRvfBbNbFKDQOSAzr1K1OrMb3tHF94mpDmzaIldGqL2JJ0n434uQwP5TAKnnQ9Q5LQfpDKJwb1bZwRdQcf608Ojwm2sHPJRafuxQE0to/znIrU=
+	t=1787139646; cv=none; b=lu+44+zjQBgIWz/LPgY4TrA0aVxRegroEFKn2BIt1gV7+MhmAmRlpuJYLTUuohphhCp9t84rBRc03DYc1E0r2buk16FMTOfRD2F2Smean9A87hGQAff+8IopWuHtvxPdwWX3H5kEQOL6KsMcyVJHLmPuArBxTq9PeN2K6GhR5H0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787139588; c=relaxed/simple;
-	bh=B/CiFG8GQZ/gmqTdxlFGtNrsEwMuo6oszw+OjSukdnQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OZ9V+5HAhiy/NW5gV77NnESVPkvNLA4cyq8k7ZuPaiCkAABWa/gNQk+cxix9s23pvgnfH74OyCeLaMMUwTlyPELB5dCRpH72cC1bsfvT1pa7l/yOEoMSXXqAjmDrrIHd8L4jUFdZL3j23XuJR8LBE2NW1671JfO+8zb6VI9t48c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OIjFV9al; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787139646; c=relaxed/simple;
+	bh=r9TNEQtg86en8rlSGP7PDYC32L2IrLWyUBPQsCHV3ck=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gipsSWbtRbMdv8mBbuluwIJRNGBu6I6+F2DDzRE1RX1CHK8ovtVu40OeLiK1upFWy1bkAjdxK5M0txl7k7LoxnxCLyA915yy9NuRdvDveh91ruM1Bl34yS+BHDkOPYf8XZLV6fyyrp/updvWZCkhbUdwPW8aABTH5A/l9dDJNgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kFlcQ7D9; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OIjFV9al"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AE711F00A3A;
-	Wed, 19 Aug 2026 11:39:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787139587;
-	bh=q7M0VmL8o3f1/1/hKxY8u9RJOCAGF6f6mEXz4xSK4Ic=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OIjFV9al5PW56vTvKKwYLMDgD6eScFmEeH6dgc/aX3AyFTnXWOK7oIx7UCo5ZS0dh
-	 4mGcNTgs17zH6PZpR6jpPbECICImiPedcD8alpD/pAaJ/Ua0jiX/Vax0VPiKl447yB
-	 5s8PkIeNTXT3i5Rv2Zrzn8/3QZHPrOlR0xf9x/lqrfqFna+1kK94xdl/oVHe8gpU8v
-	 tqq3A57TYbNiLj11VGkoB7goi5DQDH5KNf2BQAmsCVlPoRo5OYZXEs/Wj63UqSC6aI
-	 ZjSFO4s4bZNpGHqMGuVT55wHQlhw82SUsM35TO2oeIuzAFIyjTcDM23MHca7LvQHMC
-	 K6v1VesVtP9RA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] tls: rx: restore msg_iter before TLS 1.3 optimistic retry
-Date: Wed, 19 Aug 2026 07:39:44 -0400
-Message-ID: <20260819113944.3620902-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260819113944.3620902-1-sashal@kernel.org>
-References: <2026081717-verbalize-stylist-2627@gregkh>
- <20260819113944.3620902-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kFlcQ7D9"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JAVjUX3228291;
+	Wed, 19 Aug 2026 11:40:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=ukg47i
+	7KvmIA6RseooDPi8jZv0ZiBYLTZtw1/r4wpz0=; b=kFlcQ7D99ZX2tRM6IMxgxE
+	IV3tZk3GNK0+yKAn5Z0WkkJtEcIE9M7u0FB39Jhul+sV8NqNfTNQGJkjAe+CFeyV
+	LLcwV4hv2oOCD9+/Fryxquwdg/4YWALIskQv/ECKwJLPK6nVmpVuB/un6NToWdA4
+	QqCLBIeaCbMHdN+jfQvkVoD7rSMkPURQD9K+iSiJ1vaoTfegCFJHflKLS7Pv8bef
+	J8/h+REtUWImrGk4Apb1/ERa5OOy3bmzhe12LEjUxq3pQddah2IVKVFM6xE6lUZK
+	t/ThOWQCA2X9WuUVOC91a82LAjv/+zg2yWnsJtWQZXjSCkvlf1Vkxf012swsZlyg
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g4yu43aa9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 19 Aug 2026 11:40:40 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67JBQLwL006718;
+	Wed, 19 Aug 2026 11:40:39 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g33xh8mb2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 19 Aug 2026 11:40:39 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67JBeZ5942205440
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 19 Aug 2026 11:40:35 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8EFBA20043;
+	Wed, 19 Aug 2026 11:40:35 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A4DAB20040;
+	Wed, 19 Aug 2026 11:40:34 +0000 (GMT)
+Received: from li-ce58cfcc-320b-11b2-a85c-85e19b5285e0 (unknown [9.87.134.55])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Wed, 19 Aug 2026 11:40:34 +0000 (GMT)
+Date: Wed, 19 Aug 2026 13:40:33 +0200
+From: Halil Pasic <pasic@linux.ibm.com>
+To: Anthony Krowiak <akrowiak@linux.ibm.com>
+Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org, jjherne@linux.ibm.com, borntraeger@de.ibm.com,
+        mjrosato@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
+        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
+        gor@linux.ibm.com, stable@vger.kernel.org,
+        Halil Pasic
+ <pasic@linux.ibm.com>
+Subject: Re: [PATCH v5 7/9] s390/vfio-ap: Fix hot-unplug skipped when last
+ AP adapter or domain removed
+Message-ID: <20260819134033.535fc52e.pasic@linux.ibm.com>
+In-Reply-To: <20260812200240.818004-8-akrowiak@linux.ibm.com>
+References: <20260812200240.818004-1-akrowiak@linux.ibm.com>
+	<20260812200240.818004-8-akrowiak@linux.ibm.com>
+Organization: IBM
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=CpuPtH4D c=1 sm=1 tr=0 ts=6a859638 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=Gm9r7fe_Tw3zQ87jZCMA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: stXROtBFUUAg5YgqItTK5zeFD5MQ-OcE
+X-Proofpoint-GUID: stXROtBFUUAg5YgqItTK5zeFD5MQ-OcE
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDA4OSBTYWx0ZWRfXwXW4BG0GiNba
+ Gg9AqOmK5pYObF1e9V5529Uqh6g5rKsotUao+cSfLCE6nElNyiB1f3mxdp5rUAiFz8Ggo3/WZPe
+ 8QiQ3J9tRrL2kY4HzdgYY62TzHIYoNQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDA4OSBTYWx0ZWRfX3Tn6ws+i7nQ+
+ 6zlzctdOJp5vHVUupRxvlUMqqoR1teSa1M/zcT1KnV2deOlUb1AVLhRF85cZCBP6tdfLjI4m4F1
+ 2sSTjgv95/cLmPQwj/LOqOBpmk0oImmwASLEymGQYC9zqwvMMfjFx/Bukjbdef4JJ3n2O+cxMN0
+ 2Vn82NvNttL3FH8wsyicVE8H1AXCvGcC/V57xtFupbhrJ7oxguObXWdpeLMHh0BG/yI07s3EQhE
+ cSCelQqhWdMvwLDH8qvbhORQ13ntNHrh7Vf85+sXNZHumRCMT5YnYTk9EXqGAAtvSVLJ8WhKli1
+ QXkjJqRSKS5exrf6xrEjJBQlEqfJbZIW267fXGuf1ydVhH/HjfHPGOz91fayFqCEf5VrQ0i4xzM
+ vzjWOBk9L5+L1KD40mENwoU3WeG1ssZtRBCnlkfbdNzIc5bzDP2A9VFACW7eWnVtfrTT4UPjXkf
+ NVncn97G/CKTuIQSwtQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_03,2026-08-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608190089
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+On Wed, 12 Aug 2026 16:02:38 -0400
+Anthony Krowiak <akrowiak@linux.ibm.com> wrote:
 
-[ Upstream commit 1c8629651cb54f7b51db8fc0b1a9944e4a4b0f5e ]
+> @@ -2568,24 +2568,28 @@ static void vfio_ap_mdev_hot_unplug_cfg(struct ap_matrix_mdev *matrix_mdev,
+>  					unsigned long *aqrem,
+>  					unsigned long *cdrem)
+>  {
+> -	int do_hotplug = 0;
+> +	bool do_hotplug = false;
+>  
 
-tls_decrypt_sg() advances msg->msg_iter when it maps user pages for
-the optimistic TLS 1.3 zero-copy path. If the decrypted record turns
-out not to be unpadded application data, tls_decrypt_sw() retries into
-a kernel skb, but leaves the iterator advanced.
+Nit: The name is IMHO somewhat misleading. If we are already touching
+all uses of the variable and its type maybe we can use the opportunity
+to change it's name as well.
 
-The subsequent copy from the skb then writes decrypted bytes again at
-a later point in the caller iovecs while recvmsg() reports only the
-post-retry length. A TLS peer can trigger this after the receiver
-enables TLS_RX_EXPECT_NO_PAD.
+Some ideas: update_apcb, changed, matrix_changed.
 
-Revert the iterator by the number of bytes consumed by the optimistic
-mapping before retrying without zero-copy.
-
-Add a selftest which sends a TLS 1.3 control record with
-TLS_RX_EXPECT_NO_PAD enabled and verifies that recvmsg() does not
-overwrite later iovecs beyond the returned length.
-
-Fixes: ce61327ce989 ("tls: rx: support optimistic decrypt to user buffer with TLS 1.3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Link: https://patch.msgid.link/20260804125528.2139928-1-Jeremy.Jean@oss.cyber.gouv.fr
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/tls/tls_sw.c                  |  2 ++
- tools/testing/selftests/net/tls.c | 57 +++++++++++++++++++++++++++++++
- 2 files changed, 59 insertions(+)
-
-diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
-index 2b875369d523..5c55a16ed593 100644
---- a/net/tls/tls_sw.c
-+++ b/net/tls/tls_sw.c
-@@ -1727,6 +1727,8 @@ tls_decrypt_sw(struct sock *sk, struct tls_context *tls_ctx,
- 	/* If opportunistic TLS 1.3 ZC failed retry without ZC */
- 	if (unlikely(darg->zc && prot->version == TLS_1_3_VERSION &&
- 		     darg->tail != TLS_RECORD_TYPE_DATA)) {
-+		iov_iter_revert(&msg->msg_iter, strp_msg(darg->skb)->full_len -
-+				prot->overhead_size);
- 		darg->zc = false;
- 		if (!darg->tail)
- 			TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXNOPADVIOL);
-diff --git a/tools/testing/selftests/net/tls.c b/tools/testing/selftests/net/tls.c
-index 1264a20c1a04..9388e77a1b21 100644
---- a/tools/testing/selftests/net/tls.c
-+++ b/tools/testing/selftests/net/tls.c
-@@ -1650,6 +1650,63 @@ TEST_F(tls, recv_efault)
- }
- 
- #define TLS_RECORD_TYPE_HANDSHAKE      0x16
-+
-+TEST_F(tls_basic, recvmsg_nopad_retry_iov)
-+{
-+	char payload[32];
-+	char first_iov[sizeof(payload)];
-+	char later_iov[sizeof(payload) * 2];
-+	char expected_later_iov[sizeof(later_iov)];
-+	char cbuf[CMSG_SPACE(sizeof(char))];
-+	struct tls_crypto_info_keys tls13;
-+	struct iovec iov[] = {
-+		{ .iov_base = first_iov, .iov_len = sizeof(first_iov) },
-+		{ .iov_base = later_iov, .iov_len = sizeof(later_iov) },
-+	};
-+	struct msghdr msg = {
-+		.msg_iov = iov,
-+		.msg_iovlen = ARRAY_SIZE(iov),
-+		.msg_control = cbuf,
-+		.msg_controllen = sizeof(cbuf),
-+	};
-+	int one = 1;
-+	int ret;
-+	int i;
-+
-+	if (self->notls)
-+		SKIP(return, "no TLS support");
-+
-+	tls_crypto_info_init(TLS_1_3_VERSION, TLS_CIPHER_AES_GCM_128,
-+			     &tls13, 0);
-+
-+	ret = setsockopt(self->fd, SOL_TLS, TLS_TX, &tls13, tls13.len);
-+	ASSERT_EQ(ret, 0);
-+
-+	ret = setsockopt(self->cfd, SOL_TLS, TLS_RX, &tls13, tls13.len);
-+	ASSERT_EQ(ret, 0);
-+
-+	ret = setsockopt(self->cfd, SOL_TLS, TLS_RX_EXPECT_NO_PAD,
-+			 &one, sizeof(one));
-+	ASSERT_EQ(ret, 0);
-+
-+	for (i = 0; i < sizeof(payload); i++)
-+		payload[i] = 0x40 + i;
-+	memset(first_iov, 0xa5, sizeof(first_iov));
-+	memset(later_iov, 0x5a, sizeof(later_iov));
-+	memset(expected_later_iov, 0x5a, sizeof(expected_later_iov));
-+
-+	/* A control record forces optimistic TLS 1.3 RX to retry. */
-+	ret = tls_send_cmsg(self->fd, TLS_RECORD_TYPE_HANDSHAKE,
-+			    payload, sizeof(payload), 0);
-+	ASSERT_EQ(ret, sizeof(payload));
-+
-+	ret = recvmsg(self->cfd, &msg, 0);
-+	ASSERT_EQ(ret, sizeof(payload));
-+	EXPECT_EQ(memcmp(first_iov, payload, sizeof(payload)), 0);
-+	EXPECT_EQ(memcmp(later_iov, expected_later_iov,
-+			 sizeof(later_iov)), 0);
-+}
-+
- /* key_update, length 1, update_not_requested */
- static const char key_update_msg[] = "\x18\x00\x00\x01\x00";
- static void tls_send_keyupdate(struct __test_metadata *_metadata, int fd)
--- 
-2.53.0
-
+[..]
+>  
+>  	if (do_hotplug)
+>  		vfio_ap_mdev_update_guest_apcb(matrix_mdev);
+> -- 
