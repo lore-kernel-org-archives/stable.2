@@ -1,165 +1,187 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618413A1A22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624E33AAF57
 	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:56:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787151384; cv=none; b=FKTEceuAeX8oKXLWGrWSnBp2S7aiDBmHNXrnMxNtKKRfQ8c1fru+bDq4T6vUq3taH4aarJo1l/ooj9rzK49t38EoJTQzDbibqigYrGVd3AU5qBeU2S4KnOwBTF2IhCIICiIzP/HxxELkAtGFT19YwBpyVHfystpk4nrlX7ylExo=
+	t=1787151385; cv=none; b=uGqHVMljPn72l/wYHnyCmZRHvi85T6d0cEN2zoyulzn72q6B0lWh9RWkRXXR4fRSZ765zljOQ4atyS8shZ+hnAav8isK70N9eukSLyOmNXqbGYPMc8gk5i6gW8ylLtPW2HHffOcHqguzTFvL6NA/PxiWcH4YldtxjHIsQST/EyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787151384; c=relaxed/simple;
-	bh=DKvvNEs6UeCfvDLKm2U6pz33QdK4/N1HizWTPFM0OAo=;
+	s=arc-20240116; t=1787151385; c=relaxed/simple;
+	bh=ExybWqohdgaANCm+kk/koDpDKul2LMabMe+bcJTeUhs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=biMrZ8h+1Bfb0yVZGxMcAVr98xdtCsUt5g7FClRP1A52yPdD4iSS7GfGhhmZiuuCGw9e6HtYzZefOEwRaFRz3sUsmfhr/C7depIwHmU2XZFuBHOJrp57sVtr5HBZ7YlfEAkNQPWgrOc/kqq1kql8MfkKuEvkJ99yHlTlRlGl1ZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqkmXfwL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bjRD+uI04WY+6kLfSnYsLDhlsOfNZkfrXGYBmo0n+2H49d13V9tP7K2ninS6hAxQv3ozj8zK5tPIufknoZIJxV3t01Eh4GlDimHqWONgVWULnOct+6aHlXNWfx/XtKxmqWvX/Eyj+NHFALMSWWXVBxaDULwIlXUN9cactZTr6r0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O39LjekO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqkmXfwL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 914501F00ACA;
-	Wed, 19 Aug 2026 14:56:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O39LjekO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D3B1F00A3A;
+	Wed, 19 Aug 2026 14:56:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787151373;
-	bh=ssbu3uy38u8HkFoXCQzKCjqLB9df0cSnVJTW4LawQ48=;
+	s=k20260515; t=1787151374;
+	bh=gtr2xS3IGv3hE/sW3IdpzxozW3E6b96o0SXpzheg0eA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oqkmXfwLTMedKFUWA9BB0xcVMId+d6A2l09riWNSVb67MlfW/ng1poE0fSP0RyIHu
-	 gVbe6Hc1XMBQhdAj9fNanyhXoJyypBEX4IVvuOJz/X2wkxayDbK0Zlt/JFuiOPDlYi
-	 g77tcemTq9eYknz6K+i91QcbsOsS623DXVWDgW9eYna80JLEzuL7S86pfRYcPss9pm
-	 V4WIgbAcl6WnO4xpwgYv6/SvOQjWDE7N/39VcoLKnFcSaJpew1Jxf7yi6SoFhWzPnk
-	 e73u6gQYgiaUEJrge7YDPeCuQCDqRJTOnODcr3lPR/SKjejYnBdP/jrsvw2AH6CK2O
-	 4nsTW0IYg8cWw==
+	b=O39LjekOSrLjbW6K+iVrP6wXC9cQ32gNCcURuWBgj3rD7dgX5Ju4QgJjF2Lx8bop3
+	 NI2Tu6UMJd9ukjqrti6Po+hG8I1F/Ds5/MGE7vz1iTX7B8vzzm0S3uf7S4678m8kIK
+	 9/svtQopBJkHeKpS6cE0VCuPF2/IS3D1rqYZnUplhMbRdgFjESzB+5YIocpte2G3Hc
+	 LpsGamB3iKKSgb4BOkaeNq1r7GrOWl8QrWq/AZcZfY8Sw1+CMbBGik9bYgwEtPur7E
+	 dahLj3Pb1HE7b291vltQY7lZw5sG6ZOW9EJrdpYeOkH0R6F9RL+m1hwuYI9fDm3axc
+	 8wtrkQ5scMoOw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	David Carlier <devnexen@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Toshi Kani <toshi.kani@hpe.com>,
+	"Uladzislau Rezki (Sony)" <urezki@gmail.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] tls: rx: restore msg_iter before TLS 1.3 optimistic retry
-Date: Wed, 19 Aug 2026 10:56:09 -0400
-Message-ID: <20260819145609.3899291-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] mm/ptdump: always stabilise against page table freeing using init_mm
+Date: Wed, 19 Aug 2026 10:56:02 -0400
+Message-ID: <20260819145602.3898518-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260819145609.3899291-1-sashal@kernel.org>
-References: <2026081717-cupcake-probiotic-dc66@gregkh>
- <20260819145609.3899291-1-sashal@kernel.org>
+In-Reply-To: <20260819145602.3898518-1-sashal@kernel.org>
+References: <2026081757-agreed-lagging-0a18@gregkh>
+ <20260819145602.3898518-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit 1c8629651cb54f7b51db8fc0b1a9944e4a4b0f5e ]
+[ Upstream commit 27c32e5538344b13c1505a08861e04620c125d47 ]
 
-tls_decrypt_sg() advances msg->msg_iter when it maps user pages for
-the optimistic TLS 1.3 zero-copy path. If the decrypted record turns
-out not to be unpadded application data, tls_decrypt_sw() retries into
-a kernel skb, but leaves the iterator advanced.
+Previous commits have established the invariant that kernel page table
+freeing is performed while an mmap read lock on init_mm is held, which
+fixes races between ptdump and kernel page table freeing over init_mm.
 
-The subsequent copy from the skb then writes decrypted bytes again at
-a later point in the caller iovecs while recvmsg() reports only the
-post-retry length. A TLS peer can trigger this after the receiver
-enables TLS_RX_EXPECT_NO_PAD.
+However, x86 and arm64 can perform a ptdump over an mm other than init_mm
+via ptdump_walk_pgd() and since kernel memory ranges are shared across
+non-kernel mm's, this means that the race still exists for these cases.
 
-Revert the iterator by the number of bytes consumed by the optimistic
-mapping before retrying without zero-copy.
+Fix this by acquiring a nested mmap write lock for init_mm in
+ptdump_walk_pgd().
 
-Add a selftest which sends a TLS 1.3 control record with
-TLS_RX_EXPECT_NO_PAD enabled and verifies that recvmsg() does not
-overwrite later iovecs beyond the returned length.
+This is safe as we take this after mmap write locking the mm, and nothing
+acquires the init_mm lock first before locking an arbitrary mm, so no
+deadlock is possible.
 
-Fixes: ce61327ce989 ("tls: rx: support optimistic decrypt to user buffer with TLS 1.3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Link: https://patch.msgid.link/20260804125528.2139928-1-Jeremy.Jean@oss.cyber.gouv.fr
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Also update walk_page_range_debug() to assert that init_mm is write
+locked, add a comment explaining why and remove some redundant code, and
+eliminate the unnecessary and confusing invocation of
+walk_kernel_page_table_range().
+
+We can safely remove the non-NULL check for walk.mm, as the mmap lock
+asserts would NULL pointer deref if it was (and of course no callers do
+this).
+
+The first point at which ptdump can race kernel page table freeing is
+commit b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page
+table"), so we target this in the Fixes tag.
+
+Link: https://lore.kernel.org/20260723-series-vmap-race-fix-v6-4-8cc77dcc0018@kernel.org
+Fixes: b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andy Lutomirski <luto@kernel.org>
+Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Cc: "Borislav Petkov (AMD)" <bp@alien8.de>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: David Carlier <devnexen@gmail.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Toshi Kani <toshi.kani@hpe.com>
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/tls/tls_sw.c                  |  2 ++
- tools/testing/selftests/net/tls.c | 57 +++++++++++++++++++++++++++++++
- 2 files changed, 59 insertions(+)
+ mm/pagewalk.c | 14 +++++++++-----
+ mm/ptdump.c   |  7 +++++++
+ 2 files changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
-index 39021fab3c59..5ff814269224 100644
---- a/net/tls/tls_sw.c
-+++ b/net/tls/tls_sw.c
-@@ -1727,6 +1727,8 @@ tls_decrypt_sw(struct sock *sk, struct tls_context *tls_ctx,
- 	/* If opportunistic TLS 1.3 ZC failed retry without ZC */
- 	if (unlikely(darg->zc && prot->version == TLS_1_3_VERSION &&
- 		     darg->tail != TLS_RECORD_TYPE_DATA)) {
-+		iov_iter_revert(&msg->msg_iter, strp_msg(darg->skb)->full_len -
-+				prot->overhead_size);
- 		darg->zc = false;
- 		if (!darg->tail)
- 			TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXNOPADVIOL);
-diff --git a/tools/testing/selftests/net/tls.c b/tools/testing/selftests/net/tls.c
-index cfce63c7253a..73a777347227 100644
---- a/tools/testing/selftests/net/tls.c
-+++ b/tools/testing/selftests/net/tls.c
-@@ -1605,6 +1605,63 @@ TEST_F(tls, recv_efault)
- }
+diff --git a/mm/pagewalk.c b/mm/pagewalk.c
+index 3172ce96d66c..831330aa7f7b 100644
+--- a/mm/pagewalk.c
++++ b/mm/pagewalk.c
+@@ -568,12 +568,16 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
+ 	 * to account for page table freeing on vmap huge page mapping.
+ 	 */
+ 	mmap_assert_write_locked(mm);
++	/*
++	 * x86, arm64 ptdump allow walks of efi mm's and x86 ptdump allows walks
++	 * of arbitrary mm's.
++	 *
++	 * However, they both must also hold the init_mm lock to account for
++	 * concurrent kernel page table freeing.
++	 */
++	mmap_assert_write_locked(&init_mm);
  
- #define TLS_RECORD_TYPE_HANDSHAKE      0x16
+-	/* For convenience, we allow traversal of kernel mappings. */
+-	if (mm == &init_mm)
+-		return walk_kernel_page_table_range(start, end, ops,
+-						    pgd, private);
+-	if (start >= end || !walk.mm)
++	if (start >= end)
+ 		return -EINVAL;
+ 
+ 	return walk_pgd_range(start, end, &walk);
+diff --git a/mm/ptdump.c b/mm/ptdump.c
+index 0b8c9eb6aa29..9ce9fed8a987 100644
+--- a/mm/ptdump.c
++++ b/mm/ptdump.c
+@@ -155,11 +155,18 @@ void ptdump_walk_pgd(struct ptdump_state *st, struct mm_struct *mm, pgd_t *pgd)
+ 
+ 	get_online_mems();
+ 	mmap_write_lock(mm);
++	/* To stabilise kernel page tables we must hold the init_mm lock too. */
++	if (mm != &init_mm)
++		mmap_write_lock_nested(&init_mm, SINGLE_DEPTH_NESTING);
 +
-+TEST_F(tls_basic, recvmsg_nopad_retry_iov)
-+{
-+	char payload[32];
-+	char first_iov[sizeof(payload)];
-+	char later_iov[sizeof(payload) * 2];
-+	char expected_later_iov[sizeof(later_iov)];
-+	char cbuf[CMSG_SPACE(sizeof(char))];
-+	struct tls_crypto_info_keys tls13;
-+	struct iovec iov[] = {
-+		{ .iov_base = first_iov, .iov_len = sizeof(first_iov) },
-+		{ .iov_base = later_iov, .iov_len = sizeof(later_iov) },
-+	};
-+	struct msghdr msg = {
-+		.msg_iov = iov,
-+		.msg_iovlen = ARRAY_SIZE(iov),
-+		.msg_control = cbuf,
-+		.msg_controllen = sizeof(cbuf),
-+	};
-+	int one = 1;
-+	int ret;
-+	int i;
+ 	while (range->start != range->end) {
+ 		walk_page_range_debug(mm, range->start, range->end,
+ 				      &ptdump_ops, pgd, st);
+ 		range++;
+ 	}
 +
-+	if (self->notls)
-+		SKIP(return, "no TLS support");
-+
-+	tls_crypto_info_init(TLS_1_3_VERSION, TLS_CIPHER_AES_GCM_128,
-+			     &tls13, 0);
-+
-+	ret = setsockopt(self->fd, SOL_TLS, TLS_TX, &tls13, tls13.len);
-+	ASSERT_EQ(ret, 0);
-+
-+	ret = setsockopt(self->cfd, SOL_TLS, TLS_RX, &tls13, tls13.len);
-+	ASSERT_EQ(ret, 0);
-+
-+	ret = setsockopt(self->cfd, SOL_TLS, TLS_RX_EXPECT_NO_PAD,
-+			 &one, sizeof(one));
-+	ASSERT_EQ(ret, 0);
-+
-+	for (i = 0; i < sizeof(payload); i++)
-+		payload[i] = 0x40 + i;
-+	memset(first_iov, 0xa5, sizeof(first_iov));
-+	memset(later_iov, 0x5a, sizeof(later_iov));
-+	memset(expected_later_iov, 0x5a, sizeof(expected_later_iov));
-+
-+	/* A control record forces optimistic TLS 1.3 RX to retry. */
-+	ret = tls_send_cmsg(self->fd, TLS_RECORD_TYPE_HANDSHAKE,
-+			    payload, sizeof(payload), 0);
-+	ASSERT_EQ(ret, sizeof(payload));
-+
-+	ret = recvmsg(self->cfd, &msg, 0);
-+	ASSERT_EQ(ret, sizeof(payload));
-+	EXPECT_EQ(memcmp(first_iov, payload, sizeof(payload)), 0);
-+	EXPECT_EQ(memcmp(later_iov, expected_later_iov,
-+			 sizeof(later_iov)), 0);
-+}
-+
- /* key_update, length 1, update_not_requested */
- static const char key_update_msg[] = "\x18\x00\x00\x01\x00";
- static void tls_send_keyupdate(struct __test_metadata *_metadata, int fd)
++	if (mm != &init_mm)
++		mmap_write_unlock(&init_mm);
+ 	mmap_write_unlock(mm);
+ 	put_online_mems();
+ 
 -- 
 2.53.0
 
