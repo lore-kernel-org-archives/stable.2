@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631F41F942;
-	Wed, 19 Aug 2026 23:09:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C7D1F942;
+	Wed, 19 Aug 2026 23:10:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787180998; cv=none; b=FLf4UmwYWaWRNIFRWzRoreGtvotifWlO/y04rpyaM3jQkh8++sto9UHSwd5L8yJUvYu83dB0pJYcMVjbWbC7N+t3smVVfd1SQTR/uDYexIHElebpxGUv4lslRoTwSu1tNJ7i16mgSz3bRdn9wR3ANHiiKPfuvVr2HGjD1U7JETs=
+	t=1787181004; cv=none; b=SQ50gI+0etWdq3Vkq+stCQu3R4TlEn+kFFZol1HhmNXMPCpuxQ6uxhInyLYd2iw47WUxPP/y9z7fWsMsDlzBZnz1JHT6pnYY4tSMHyjb1EaIOjnZXZgb6IIzu4mDhZrZ655sl/8/jqH34gQHJPbV7AtZKs0Uj0wspe5vVb9E4s8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787180998; c=relaxed/simple;
-	bh=/FEG26D+sa/7sriN55UB6u03YL4u4CWR85ubKYD7zIk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=szG9KIuFVbJlpJzQKIV1l4T6l6fejj78C933+uroLVBqysY+XqUMnajIKAGIM5kdXhrNffpWBiau3Tm2pmTMX1PNCd/r4W9zXa+Y8BZMBZLAOF58EVg8iIxwBLHveei37KXBV2Hs2imcV04J+Zw+P3KJP3NMn7mF/ywevVGn1Ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UNnanCph; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787181004; c=relaxed/simple;
+	bh=di8lDjxqjEUu2frXVo5i67auNBzudR9399AU6vo3m3k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=cusrw2i9uphmhbNtWiWp44AExzELbRnCnbU+txWKy0udImdN9Uq5cZMMpJ7PzsckQpOpuZWwZgI0+fESMHoLNJ9CynxZHerAuDsVOv11OS4J1F/dJ5OoZtUdxyqlwo/ga73aAO/DWCqq/bSW+cJRyLV7hqIxu0xZVzt5DSGtC3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDYwFiIN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UNnanCph"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356491F000E9;
-	Wed, 19 Aug 2026 23:09:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDYwFiIN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8C81F00A3A;
+	Wed, 19 Aug 2026 23:09:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787180997;
-	bh=92sAIl034UVvrjZzhGbIXHo8EB/Zw9a0LG/wt2JppBc=;
-	h=From:Subject:Date:To:Cc;
-	b=UNnanCphHmtaW87zNtZsjZwFU8YPz6DPmMXoMfNkJmqefcPkklsscYXWBbaJwmTdA
-	 1Z4ybYz2uCQK/1fyICi/suG8Wu65HbcrlqqNqx+IRb4GkzHqC8bmO2cmtBAC+sZjLH
-	 L3KZfLuSPN3Lldt4rEQC8QN0DEehi6VsZv/+lanVMVAoLVKGJjn52gNvAoNJhkD45o
-	 +KmNbPF58TAuL85ZNqFt1v0ba47yRCIngIa7vV3DlxxT8pttVau2KOfFTLas2i9CYf
-	 xqoeAPWx3itc9oVCEKZRP7DqPkmw1LAUffUeh4MbOwB4Eun/dFh4xKmBHUBwtpchSJ
-	 Y3yFNRcPXyhEQ==
+	s=k20260515; t=1787181002;
+	bh=oi3boUOkzX5Fioh5QmD8x8BL+37Kty3nYY/z7h2oQHc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=eDYwFiINKf5JbSo6traJNjGvUNvKn2Unt9Mn6smDBILf9U4IUjkavUTgZifrwAqWz
+	 yHg63NRllhrOKx0FYHRTAnQEAJye3rBPsUdbDyayXpuJkpFlXBkKEuuvULhKm1uNQh
+	 uFw5cSDqUo8t7aYpG2l/zs5xxp+EV6lIKe3EgTZz9RB7nUbdh7VPc7eVkofqYfts21
+	 oQ57GFjvCl991rqZpYLkXO1kryScw1Rl4kMbQK6S8/W0ciJkY9C9yMMzW7FzMBv89y
+	 eSAs/5Hweo3P3eeNosdIxb3CuCE6WYwnbsV6466bcipRitbqkmTMhU32oBuD4lO+MW
+	 oXtK+8lEO8qSw==
 From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH v2 00/22] coredump: allow to create sparse coredumps on the
- coredump socket
-Date: Thu, 20 Aug 2026 01:09:17 +0200
-Message-Id: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
+Date: Thu, 20 Aug 2026 01:09:18 +0200
+Subject: [PATCH v2 01/22] powerpc/spufs: don't dump more than the note
+ supports
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,11 +38,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WOTQ6CMBCFr2K6toQWpcSV9zAs+jNCRVoyhaoh3
- N0WD+Dym3nvy1tJALQQyOWwEoRog/UuAT8eiO6l64Bak5jwktdlwxh9eRyo9ghmGScaJokBKGu
- YEEYIVbITSdUJ4W7fu/bW/jgs6gF6zq6cUDLVFEqn+3waZZgBiygKnr+9DbPHz74qsmz5MyAyW
- lJtKmgUg+pcm+sA6OBZeOxIu23bF3rg5DzpAAAA
-X-Change-ID: 20260811-work-coredump-sparse-18177d77b014
+Message-Id: <20260820-work-coredump-sparse-v2-1-ba32dd718c51@kernel.org>
+References: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
+In-Reply-To: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>, 
  Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -56,106 +54,113 @@ Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>,
  linux-kselftest@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-362b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4846; i=brauner@kernel.org;
- h=from:subject:message-id; bh=/FEG26D+sa/7sriN55UB6u03YL4u4CWR85ubKYD7zIk=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS1me9jEyk5ridXtlf7sdyUsk0Vh8zOBQpZf5je1Smha
- lFjqPazo5SFQYyLQVZMkcWh3SRcbjlPxWajTA2YOaxMIEMYuDgFYCIaCgx/Je7qLMi4uN9p6pnC
- 21/2lK9fY7bMhIlhz12ZCa+P/r7/Ipzhf9n3Tn7B1qd3XGJj+lcn7n30o2ZRdHTxgoeChrvWP7v
- vwQAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3760; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=di8lDjxqjEUu2frXVo5i67auNBzudR9399AU6vo3m3k=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS1me9TjBGxXp7x+/vRRGW9M5M2n/7oyc3z+ml+gd7Fy
+ R/NLvMldZSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExkzk5Ghq0i3AvsrVfacrDG
+ 83rFf/V/tkh9scZ9doFOg8K4k60TJzMyPDh05Nhn5ucTt2d8To4zOzjJMvnqDo53zzS7GIOEy1h
+ kuAA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-A coredump generated via the coredump socket ends up transferring
-zeroed data when a mapping contains holes. For a large process that
-maps a bunch of data that's wasting a ton of work.
+The spufs_arch_write_note() function puts notes in the header and uses
+them to fin where the next note starts. The spufs_coredump_read[] array
+provides the sizes of the notes:
 
-Jacob ran into this and Josef has bitched^wcomplained about this to me
-before. I dislike the coredump_filter bit solution in [1] which stops
-each PT_LOAD at the last populated page.
+	dump_skip_to(cprm, roundup(cprm->pos - ret + sz, 4));
 
-The problem is real though. I don't think coredump_filter is where we
-need to solve this. That mask says which kinds of memory to include and
-it propagates across fork and exec, whereas what is being selected here
-is an encoding mechanism.
+In this call @ret is the amount of data the dump callback wrote. @sz is
+the declared size. So the position moves backwards if the callback
+wrote more data than the declared size.
 
-I also think that the usermodehelper - may it swiftly die - isn't really
-salvagable for this and it's not the future anyway. The coredump socket
-already has a handshake for stuff like this.
+For three note sizes that is the case:
 
-I always had an idea how this would look like but punted on it back
-then. So here it is.
+(1) signal1 sets sizeof(u32) and dumps u64 via sizeof(ctx->csa.spu_chnldata_RW[3])
+(2) signal2 sets sizeof(u32) and dumps u64 via sizeof(ctx->csa.spu_chnldata_RW[4])
+(3) ibox_info sets sizeof(u32) and dumps a u64 via puint_mb_R
 
-A server that raises COREDUMP_RECORDS in coredump_ack->mask doesn't get
-the coredump as a plain byte stream but as a sequence of records. Each
-one a struct coredump_record_header followed by what it describes. A
-data record carries its bytes. If a server also raises COREDUMP_SPARSE,
-zero records are sent for unpopulated mappings. They only indicate how
-many zero bytes need to be written and do not include data. Reassembling
-the records gives back the same coredump. A debugger and everything else
-still see an ordinary core file and nothing outside the coredump server
-has to learn anything.
+The note is 4 byte aligned. The dump_emit() call wrote the dump_align(4)
+just before the note. So if @ret is 8 and @sz is 4 the position ends up
+4 bytes before the current position which means cprm->to_skip is now
+negative.
 
-Numbers from the selftests, on a kernel built from this series:
+For __dump_skip() with size_t that means the pipe or socket gets 2^52
+PAGE_SIZE zeroes. This also means a file seeks backwards and overwrites
+the four bytes that it just wrote.
 
-- a process with 128 threads: 1424153 bytes on the socket for a
-  coredump of 1075150848 bytes
-- a 256MB mapping with the first and last page touched: 188793 bytes on
-  the socket for a coredump of 268890112 bytes
-- the same 256MB mapping with COREDUMP_RECORDS alone: 271009312 bytes on
-  the socket, so the record overhead itself is under one percent
+Before commit 5456ffdee666 ("powerpc/spufs: simplify spufs core
+dumping") this was benign because this truncated (on purpose, I
+presume):
 
-The first one is the interesting case. Almost all of it is thread stacks.
-All stacks are 8MB reservations that are nearly all holes. And they are
-holes in the middle of the dump rather than at the end.
+	u32 data;
 
-Link: https://lore.kernel.org/all/20260731171336.2255844-1-jalalonde@meta.com [1]
+	data = ctx->csa.spu_chnldata_RW[3];
+	...
+	copy_to_user(buf, &data, 4)
 
+and after said commit things became fscked. So let's truncate this
+again. Not truncation means the wrong bits will be picked on big endian.
+
+Afaict, spufs is effectively dead so the fix probably doesn't matter in
+the grand scheme of things.
+
+Fixes: 5456ffdee666 ("powerpc/spufs: simplify spufs core dumping")
+Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Changes in v2:
-- Use standard naming aligning with other subsystems.
-- Add a termination record to make this really clean.
-- Link to v1: https://patch.msgid.link/20260811-work-coredump-sparse-v1-0-cd3e8b1e356d@kernel.org
+ arch/powerpc/platforms/cell/spufs/file.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
----
-Christian Brauner (22):
-      powerpc/spufs: don't dump more than the note supports
-      coredump: refuse negative skips
-      coredump: set the minimum send buffer size
-      selftests/coredump: discard the right amount after the coredump request
-      selftests/coredump: collapse the expected request check into the helper
-      selftests/coredump: add a separate helper header
-      coredump: pin the protocol struct sizes
-      coredump: move the negotiated mask into struct coredump_params
-      coredump: deduplicate the to_skip flush
-      coredump: make the dump helper return bool
-      coredump: always chunk writes
-      coredump: clean up coredump state handling
-      coredump: add COREDUMP_RECORDS to the coredump socket protocol
-      coredump: add COREDUMP_SPARSE to the coredump socket protocol
-      tools: sync coredump.h header
-      coredump: send the coredump in records if requested
-      coredump: describe the holes when COREDUMP_SPARSE is negotiated
-      selftests/coredump: test COREDUMP_RECORDS and COREDUMP_SPARSE
-      selftests/coredump: hand the record stream to a sink
-      selftests/coredump: put a hole in the middle of a sparse mapping
-      selftests/coredump: simulate a blob store
-      selftests/coredump: show how to inspect the task to decide how the coredump should be sent
+diff --git a/arch/powerpc/platforms/cell/spufs/file.c b/arch/powerpc/platforms/cell/spufs/file.c
+index de7494748fec..6f86d87e3749 100644
+--- a/arch/powerpc/platforms/cell/spufs/file.c
++++ b/arch/powerpc/platforms/cell/spufs/file.c
+@@ -956,10 +956,12 @@ spufs_signal1_release(struct inode *inode, struct file *file)
+ static ssize_t spufs_signal1_dump(struct spu_context *ctx,
+ 		struct coredump_params *cprm)
+ {
++	u32 data;
++
+ 	if (!ctx->csa.spu_chnlcnt_RW[3])
+ 		return 0;
+-	return spufs_dump_emit(cprm, &ctx->csa.spu_chnldata_RW[3],
+-			       sizeof(ctx->csa.spu_chnldata_RW[3]));
++	data = ctx->csa.spu_chnldata_RW[3];
++	return spufs_dump_emit(cprm, &data, sizeof(data));
+ }
+ 
+ static ssize_t __spufs_signal1_read(struct spu_context *ctx, char __user *buf,
+@@ -1089,10 +1091,12 @@ spufs_signal2_release(struct inode *inode, struct file *file)
+ static ssize_t spufs_signal2_dump(struct spu_context *ctx,
+ 		struct coredump_params *cprm)
+ {
++	u32 data;
++
+ 	if (!ctx->csa.spu_chnlcnt_RW[4])
+ 		return 0;
+-	return spufs_dump_emit(cprm, &ctx->csa.spu_chnldata_RW[4],
+-			       sizeof(ctx->csa.spu_chnldata_RW[4]));
++	data = ctx->csa.spu_chnldata_RW[4];
++	return spufs_dump_emit(cprm, &data, sizeof(data));
+ }
+ 
+ static ssize_t __spufs_signal2_read(struct spu_context *ctx, char __user *buf,
+@@ -1965,10 +1969,12 @@ static const struct file_operations spufs_mbox_info_fops = {
+ static ssize_t spufs_ibox_info_dump(struct spu_context *ctx,
+ 		struct coredump_params *cprm)
+ {
++	u32 data;
++
+ 	if (!(ctx->csa.prob.mb_stat_R & 0xff0000))
+ 		return 0;
+-	return spufs_dump_emit(cprm, &ctx->csa.priv2.puint_mb_R,
+-			       sizeof(ctx->csa.priv2.puint_mb_R));
++	data = ctx->csa.priv2.puint_mb_R;
++	return spufs_dump_emit(cprm, &data, sizeof(data));
+ }
+ 
+ static ssize_t spufs_ibox_info_read(struct file *file, char __user *buf,
 
- arch/powerpc/platforms/cell/spufs/file.c           |   18 +-
- fs/binfmt_elf.c                                    |   12 +-
- fs/binfmt_elf_fdpic.c                              |   12 +-
- fs/coredump.c                                      |  325 ++++--
- include/linux/binfmts.h                            |    3 +-
- include/linux/coredump.h                           |   33 +-
- include/uapi/linux/coredump.h                      |   79 +-
- tools/include/uapi/linux/coredump.h                |   79 +-
- .../coredump/coredump_socket_protocol_test.c       |  783 ++++++++++++-
- tools/testing/selftests/coredump/coredump_test.h   |   31 +-
- .../selftests/coredump/coredump_test_helpers.c     | 1171 +++++++++++++++++++-
- .../selftests/coredump/coredump_test_helpers.h     |   53 +
- 12 files changed, 2399 insertions(+), 200 deletions(-)
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260811-work-coredump-sparse-18177d77b014
+-- 
+2.53.0
 
