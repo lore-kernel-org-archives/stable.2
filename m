@@ -1,65 +1,65 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFE1435A84
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 10:39:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0003B449B37
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 10:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787136001; cv=none; b=Gevmo1Uz5JJiUShdx3Edk2MWN5xa78A9eVhkzhOUu0uxgehdj8hQU2AtY8MVmyH5USwaDfcRqlgGn60Ae1BkDiQ+KPAg/JN41fbXl/u5KDTqP8L75Wkno45sIfbCa0wP4mRW9JqqinTb0A0aehlJWw3hhaH+IKS9luzXPQnKZlo=
+	t=1787136010; cv=none; b=QdJGTpA/MJ9Dc9GxzQrNQcXAXbLYzs626e8nclZjUN82tyQb/rBcfGuxBF/mypLr/51F4LHRGJ4drKEPKAQVHusBJJvvBj9Zpn3G1pWrzCoqRuPuwUVctoO+unehGvA4EKqaZ00FMvGS/s9YnPyRoiOVpNfDQtGRYKMUg5BeP8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787136001; c=relaxed/simple;
-	bh=qDcB+Mkl6hrvJLtzWJ/l4rkGLgqhuvNTVfKWLhnH62Q=;
+	s=arc-20240116; t=1787136010; c=relaxed/simple;
+	bh=5fmAaxImXhb9DVCIm6rQf2g2DAKEL8lDwCzTCOBuKFs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DIPWQuYynvcMejFnr+MLh5w1wTDk3+a7arBwFCrWX79W0u7uPASW4zB6XdlnEea2dNct2XxiEUve/kKbyfpqDbdWFCBjzjLvlbxc+HTcOibzTWZCD+GBOFG1ShOdyYqw2BctxFaeS85rx+VCqMBm99iGa5TsoHwz05a5ulxamM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UH58KPQe; arc=none smtp.client-ip=209.85.215.177
+	 MIME-Version; b=M2p1tW9A29MNgNldnYtRaFL5V+5uT9n9qM0tRxYxdeS9c0hnz98eiBV8P5CuoaYSTOigu+a0hBqc4yzHTubvAifojG+qkgaixXs4BZbe7pkWqtiB0j05Oxo3yLlBpmyaEkrqPjlyjdjTrpDE5teTSF19GJGl7fBYKsAupHNktYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T0PrZVgO; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UH58KPQe"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc149372c14so478298a12.1
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 03:39:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T0PrZVgO"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e69bdb0fcso844619a91.1
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 03:40:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787135999; x=1787740799; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787136006; x=1787740806; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=X3zcIIt2Vy30AFXeLDvAuFYCcKu6Lcu6lcEJtD928ow=;
-        b=UH58KPQeMapf4Mg1NDvvrOGP4mPYNynntmy16iMgpLqrc5U1n67XiMFwKybHsrsBDF
-         kfDYeAbyK29QxZICSQDDXjzpdclRr11RMXWo8+R+dm0C792q58oWD7CFflVkuKxDMUn6
-         K5tq06CQSCcFhc/ipFFU63eNWqFTcVH9J1SmhURPOIam9du41v7wUCD+9UD2sBvuj8Pi
-         jzYS6GKLmTs5FxD6CdqcmmLAwDlSsOtQNwXpHgKCnpis/sYMVyMZ/WWsc0C6YKA8/5RP
-         maFDR0+XILcu0jX2OgIcNmbOXMZgz8qm8dG5DjGTFiQQuGr+pnG2gJisZctfgedsvLVq
-         4yJQ==
+        bh=35kkPCJ/2LvdcW4cQVn4DKW/qTDdzoABPZcDG7evXUU=;
+        b=T0PrZVgO0rdklDQmpw0xoLn+Ea3FEtRRQfEVgilN06KnmANu09WhO8uQ0/DYof8o7m
+         hff/6EPz3gqYREBJGAyyqhNIKdqyhLCeZgs7ioSeU2JMB+2GrDbItgZ7ANHzxlY9UyJc
+         P5qds2Ep5yXxOBQTFlcBr8cSunKD9YvJpmYLmrkKi3JbaKLxpEOJ01+2xsnh6/itdxol
+         9S24dAm4O692POu6B5anzck6FsMdt/0JCdxaKL8dHugYm4uVeaiwwBRmq9ILuj7nO3lD
+         wKWhZAmT3wkAx75zYfD906F10URWzfBY3d5xFEu1Et0Bob8uPLmX/U12KtilG30iuSn9
+         hOqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787135999; x=1787740799;
+        d=1e100.net; s=20251104; t=1787136006; x=1787740806;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X3zcIIt2Vy30AFXeLDvAuFYCcKu6Lcu6lcEJtD928ow=;
-        b=Nqhvj/p90Nhv5JybVWe4ykfxmwjhVgCVDWq+AeOLTkAkQSSyF9StB5SInyFIwM+XqW
-         PV0RSEEsbmNhCrzRHYn6nb3OsvjTnQVssrU1VqiKGeRnHsehy7Jja2vM5PGKRUbuYxfa
-         y+d5xpFNWXk3/2eQdugQnFl+dckcIHf6SbghPkDNfA+2jzKsZwMKDZOfIFdqrqYSaxZy
-         ukWX9Vc/ccqhozcHL1HNBQUSplQ2co2Pco2mrvDNgu4j5Q70LO3PDapwA/JjKD91ln9J
-         EoDjGqAuTgZYQdvIP1/bml/MN2SvggWdtUuX463GybpAzWbrA8Gcm1E0zNgAXgnve9VQ
-         VIWw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro9+KFS2AQ5qBvXlDdERErRhn//pKmim1SFz4wNNxRRL3nCWRDlRbpUVG+nKMuX7LsgnRJOooM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTpGD89mKOYLmJ7ijLUpcUP6vOg1R+PpG9rNH/T/6xgkfVO5wl
-	IpdHaxxJAxT38wlZ45cQKM0+I/zEpOMGkJ5KK6h4dtyhJ6SW8H7nPgwf
-X-Gm-Gg: AR+sD119gRwYaSFrhgKTAM3+I9V9n2G/kXE/f+nKj4MZggR48ipbZAWj40J/bWd3rZu
-	a6tB3Q0E8hGMyy6hT7kGNEq3IzdDIPGJT0A6ChOsEhxEwOR17cDPLlowN5D8ET4Bk8Q5oOAmGrS
-	CWWaJxGSuI6J6s509Fm8Ata4BvFk2KZoKrweDJlQQySOfFLSnJ6q5arG/OYsxaXt+twSYGnAQtE
-	pLRk7mgIsAv/cLbTjzOMsb5nrzUhasPkAdjtBJ6CrfOa5zUO2h3lDpsB0VZoUypz7VldsMiSUAi
-	85d9GrI2hfBjNEb3Vku9AS0kx731El4HczAGASZR9aZs9ZDuA8zSKgTzLp2ZtLJfMayrpKFMqgu
-	pdQrb35Qdg2BTgYSJAPCb/8Lqhc/3CRoIAYhu7r8ms8oNrrW32Ky4vteG+IF8uwLtDEVf3D6AUw
-	smEzlurkupxZxB671fcHr/SbfF8NPVpGK0Md+OTD8g09r2aWJX4aSs0Ug5YtYgqPUi8V8gp7KIL
-	l5K9aDFvjf13Yxvwj1tYElOFC9gHSNxz2xnx7CmZHlq9ApE60f6vGvIo8GIieEf5RP5Svdtpq5j
-	IJyWwuCTPGOuNdgGQ9t/
-X-Received: by 2002:a05:6a21:3398:b0:3cb:8280:71f8 with SMTP id adf61e73a8af0-3cd0130416emr6883921637.18.1787135998592;
-        Wed, 19 Aug 2026 03:39:58 -0700 (PDT)
+        bh=35kkPCJ/2LvdcW4cQVn4DKW/qTDdzoABPZcDG7evXUU=;
+        b=D/4kSARYDPjJzQpq88Imhzu0LhsnWxop3LVl7gHPjkCLhsFjHF9M6j/sSEsskly3LC
+         NvV48MO0n0CSXQKraEseJ+z3gMi1uVlhCMVb+UZ7nZTHQZjtmAGQHPkOkoxTEeJJ/Aui
+         v7ORZJWY+977km9kDoHcHjX4knR7tNQ6Kf5VYWpUpmslPT2RbHGXOkkWNoEpL8m1pAaJ
+         v+PXzUFk10IPTcPp+pYDw1PQjwBQDTMKgsYOAuYR1nw5JY0FSGDsUayM6YRsXi75ETku
+         CIZUXYNz/3t3EXpzTiuwneiwGDHDfO4PUsP+HpCY8QANOccLE+mPkptFxeAbdJf0Z4fr
+         EsVQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrgGvWxwop0OfzWrffBl4vGq8bESdOI+qJYhygFFHOdklDhtMmmuKIfTo2PqTKbr8XyUb1QCR8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIy88sCpz8GxBT0TONFWm3RxGQevw3CpSjKhlByAEBPK7kmx29
+	8zhnJ5GuiqBpipiPOZGffx4v0ReKwxIUgKfX9/YMGeWfwd1DB2pZNsRX
+X-Gm-Gg: AR+sD1040G5lmpQXDC7BZVZ7bNKGNl+uDgsh7ap0n8GW3mq9z/p5AUhbVFFyqRM9JzG
+	4ckw+v0/9fRzYWhAYrThTOsZW/gSpCiZ799VbL825+e6o6vC/czPBaDBr1DGL5xMOQqzNuUksmj
+	10OnjJUOi8bh7NzEaDiaeYW6y+0YOuqjPN8bN8qTmXnDZroClYxRIFcYJePVCCiLvd7ZJ1X5IjW
+	fA8IJgOQi+6niC6WCbapt1DOyHNnAJlX87rYZvwpKXvYNiNFnAmSzeD9Y7COCVG0+AYvrwQDcQv
+	SofgvO2L2mTCvdu6QjhkQtoAlnEHaKRuGl5KJg8LQ38ryXxnxmenXIEHq1Gp/uluURvKpl8KjJf
+	qHthdRfAg/e/1E46TRU+eEqu6VXrjUbrR5QKFuX1EFASRmHY3ecTo0vD14yfFmE/769/is/ZDGc
+	DSJO2e7QJCV0wmxS2FplXBwrOAPVJ8efaSgmp3wZfhJ6Z9y+dqpRLmFIzsbIr9QR1ZvQBQkFRih
+	SM9Y2Z2Xj0h9+pPzPBe6bLLIGalGnwRc0gQSkzBl/nVQDHzolWxXt9rmcSgh9vuEQnLV3FsZ/JI
+	a78k2wcuEA==
+X-Received: by 2002:a17:90b:4d0b:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-3958127d8bdmr6290926a91.15.1787136005521;
+        Wed, 19 Aug 2026 03:40:05 -0700 (PDT)
 Received: from iku.example.org ([2401:4900:1c07:efb3:a897:a9b5:e171:c935])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef77fc0sm11169630eec.8.2026.08.19.03.39.52
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef77fc0sm11169630eec.8.2026.08.19.03.39.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 03:39:58 -0700 (PDT)
+        Wed, 19 Aug 2026 03:40:05 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -79,9 +79,9 @@ Cc: linux-rtc@vger.kernel.org,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 02/15] rtc: rzn1: Handle EPROBE_DEFER for optional pps interrupt
-Date: Wed, 19 Aug 2026 11:39:13 +0100
-Message-ID: <20260819103926.2136712-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v4 03/15] rtc: rzn1: Fix weekday underflow when alarm crosses month boundary
+Date: Wed, 19 Aug 2026 11:39:14 +0100
+Message-ID: <20260819103926.2136712-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -95,45 +95,60 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Check for -EPROBE_DEFER from platform_get_irq_byname_optional() and handle
-the deferred probe request properly.
+rzn1_rtc_set_alarm() calculates the alarm weekday from the difference
+between the alarm day and the current day of the month. When the alarm
+crosses a month boundary, this difference can become negative. Since
+days_ahead is unsigned, it underflows and results in an incorrect
+weekday being programmed into RZN1_RTC_ALW.
 
-Although the "pps" interrupt is optional, an error code of -EPROBE_DEFER
-indicates that the interrupt subsystem is not yet ready. Intercept this
-specific error condition, assign it to the return value, and jump to the
-dis_runtime_pm label to avoid ignoring a valid probe deferral.
+The RTC core already provides a fully populated struct rtc_time for
+the alarm, including the correct tm_wday. Use tm->tm_wday directly
+instead of recalculating the weekday from the day-of-month.
 
-Fixes: eea7791e00f33 ("rtc: rzn1: implement one-second accuracy for alarms")
+This avoids the underflow and ensures alarms scheduled across a month
+boundary use the correct weekday.
+
+Fixes: b5ad1bf00d2c4 ("rtc: rzn1: Add alarm support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 ---
 v3->v4:
-- Added Reviewed-by tag from Wolfram.
+- Made use of tm->tm_wday directly instead of recalculating the weekday
+  from the day-of-month.
+- Updated commit message.
 
 v2->v3:
-- No changes
-
-v1->v2:
-- No changes
+- New patch to fix weekday underflow when alarm crosses month boundary.
 ---
- drivers/rtc/rtc-rzn1.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/rtc/rtc-rzn1.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
 diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index 305f10a8a85b..aa27ad7f5941 100644
+index aa27ad7f5941..8c70dbf8c7ec 100644
 --- a/drivers/rtc/rtc-rzn1.c
 +++ b/drivers/rtc/rtc-rzn1.c
-@@ -464,6 +464,10 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
- 	}
+@@ -260,7 +260,6 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
+ 	struct rzn1_rtc *rtc = dev_get_drvdata(dev);
+ 	struct rtc_time *tm = &alrm->time, tm_now;
+ 	unsigned long alarm, farest;
+-	unsigned int days_ahead, wday;
+ 	int ret;
  
- 	irq = platform_get_irq_byname_optional(pdev, "pps");
-+	if (irq == -EPROBE_DEFER) {
-+		ret = irq;
-+		goto dis_runtime_pm;
-+	}
- 	if (irq >= 0)
- 		ret = devm_request_irq(&pdev->dev, irq, rzn1_rtc_1s_irq, 0, "RZN1 RTC 1s", rtc);
+ 	ret = rzn1_rtc_read_time(dev, &tm_now);
+@@ -273,13 +272,9 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
+ 	if (time_after(alarm, farest))
+ 		return -ERANGE;
+ 
+-	/* Convert alarm day into week day */
+-	days_ahead = tm->tm_mday - tm_now.tm_mday;
+-	wday = (tm_now.tm_wday + days_ahead) % 7;
+-
+ 	writel(bin2bcd(tm->tm_min), rtc->base + RZN1_RTC_ALM);
+ 	writel(bin2bcd(tm->tm_hour), rtc->base + RZN1_RTC_ALH);
+-	writel(BIT(wday), rtc->base + RZN1_RTC_ALW);
++	writel(BIT(tm->tm_wday), rtc->base + RZN1_RTC_ALW);
+ 
+ 	rtc->tm_alarm = alrm->time;
  
 -- 
 2.43.0
