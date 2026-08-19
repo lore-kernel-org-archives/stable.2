@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870EB2E06ED
-	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E39D35836E
+	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787125670; cv=none; b=OojNhpkKaTiTqh/2uIxtK2SW4jqH7es6xiq27XZbDdc9du0w9NUbwQDvqxwbuFxa6RNnDnNQdw5LY1wN+BCylmy32mocBMnYfZUmOLYXJ11NIjCtnENUMV2X+nVqim0j6a5NSJCnk3HX4vnRNB5b52zQrO2Q6cyphZTUN7eaWew=
+	t=1787125675; cv=none; b=KHDiF7ESZP5E4OqBS5Jc2U+Jhtm4LRcnZdexKzp9LQmvVqErsLuztqH1a2xWtfbCL3mAmytarQ325Z6Z6QY+v1fRSuj6/ECq3TjwFlOkDEohAeuLrmKP7QvpPEO5xnKsEhf/4/qlGTLK7ZDvh2mg6nIEb7/9DCSkXvwdVAjjJHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787125670; c=relaxed/simple;
-	bh=5x44vgi52IYg0az/frUdCN2yddqlJSVvfOzUorHEBRM=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=OVuhSrHzr0w+1rKDU5viPub7dgpyRykLkdgnDHVfQIj8Hu6bRY3tG9biBV2z4rmihRDh+aODOyPhAzknz3goipu+cekA6BpP7ypPaoZ5Jyj1COkDbIp0jepx/toxSLzkdirBzOjreJ9pXpFusRRF/oTYqdXstmc1wPK7Gnpj5cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mF7Jaxt6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787125675; c=relaxed/simple;
+	bh=Hra2PL49ixG7SdvsGMec5kwuB50ori3t0CNu/Qofbpc=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=qM8W56Lp5I10BNxDBf/+0GY1s09ac7c9lLpFbCjrifyukEXx8RUE/VDQp4Ur9fgJ6eEIuYeBBlCCnelL074HIg4pMf7qIudrCj9PWGy/yuUEqgtJzOG8XBoVTKPKZUkzIyp+ic5X66gmLeNTofzy1qy2CuoRZeryuRDVJtZKfcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hmWtapws; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mF7Jaxt6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CCD31F000E9;
-	Wed, 19 Aug 2026 07:47:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hmWtapws"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B831F000E9;
+	Wed, 19 Aug 2026 07:47:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787125669;
-	bh=emIF/Cbtag2EtjVKh6veEkllQmpXKQQQaXY1xKeWkKk=;
+	s=korg; t=1787125674;
+	bh=Z/ZKu3c9jGTjrwQYXh0ZKXVWGk8PxTrJy8asbd6/Em8=;
 	h=Subject:To:From:Date;
-	b=mF7Jaxt6f4Bw9Iq5qkOaoVIID9bBiV9u8gbL9hl5ykbISl+rZCJA/+b4BHPgLtcm4
-	 lTyr8qW/W/xoNm3GwkiiW459Jv+LIzFx4TvbVPmzhMGVYdIxWfmq+NKJ2MgHGOJ3dV
-	 3WH1jYLX4gwI6UtCjpP+pCI/jNO2aGhSPpXdPPeE=
-Subject: patch "iio: light: opt4001: Fix power down clearing bits of the wrong" added to char-misc-next
-To: nikhilgtr@gmail.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jic23@kernel.org,jonathan.cameron@oss.qualcomm.com
+	b=hmWtapws4n4UXlCPJSrqt6j5uDWYxPuWRBxI48ArYr8DozrrndhK/doHN0IEXTpx+
+	 rSa/0MPD6trv6cjiJQdRArTqxmDeAwQ/pht/V+LW1PVhZN9YlALbX9i6pn8/oF9qfy
+	 CqvuiRA9hQ2g7MLCITnegzBFPhL2SsNkSQgT/boo=
+Subject: patch "iio: light: opt4001: Fix incompatible pointer type passed to" added to char-misc-next
+To: nikhilgtr@gmail.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 19 Aug 2026 09:44:38 +0200
-Message-ID: <2026081938-agony-overshoot-b00d@gregkh>
+Message-ID: <2026081938-diagram-senior-2922@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: light: opt4001: Fix power down clearing bits of the wrong
+    iio: light: opt4001: Fix incompatible pointer type passed to
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,73 +54,51 @@ during the merge window.
 If you have any questions about this process, please let me know.
 
 
-From 3b2cd82c524c75a2173f2e3f874652a75f81cd1d Mon Sep 17 00:00:00 2001
+From afa28741c9a2cf6edb2e41e25ff146a562160bb3 Mon Sep 17 00:00:00 2001
 From: Nikhil Gautam <nikhilgtr@gmail.com>
-Date: Tue, 14 Jul 2026 17:01:31 +0530
-Subject: iio: light: opt4001: Fix power down clearing bits of the wrong
- register
+Date: Tue, 14 Jul 2026 17:01:32 +0530
+Subject: iio: light: opt4001: Fix incompatible pointer type passed to
+ div_u64_rem()
 
-opt4001_power_down() intends to clear the operating mode bits in the
-CTRL register but reads OPT4001_DEVICE_ID instead of OPT4001_CTRL, so
-the value written back to CTRL contains device ID bits rather than the
-current configuration.
+div_u64_rem() takes a u32 * for the remainder but is passed val2, which
+is an int *. There is no functional impact as int and u32 have the same
+size and representation on all supported architectures and the remainder
+is always smaller than the divisor, so it fits in the positive range of
+int. Fix the type mismatch by using a local u32 for the remainder and
+assigning the result to *val2.
 
-Fix and simplify this by using regmap_clear_bits() on the CTRL register
-directly in the devm action, and drop opt4001_power_down() which has no
-other users.
-
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
 Fixes: 9a9608418292 ("iio: light: Add support for TI OPT4001 light sensor")
 Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/light/opt4001.c | 27 ++++-----------------------
- 1 file changed, 4 insertions(+), 23 deletions(-)
+ drivers/iio/light/opt4001.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iio/light/opt4001.c b/drivers/iio/light/opt4001.c
-index dd152d921b48..288e699734af 100644
+index 288e699734af..944923cb8f28 100644
 --- a/drivers/iio/light/opt4001.c
 +++ b/drivers/iio/light/opt4001.c
-@@ -222,33 +222,14 @@ static int opt4001_set_conf(struct opt4001_chip *chip)
- 	return ret;
+@@ -173,6 +173,7 @@ static int opt4001_read_lux_value(struct iio_dev *indio_dev,
+ 	u8 crc;
+ 	u8 calc_crc;
+ 	u64 lux_raw;
++	u32 rem;
+ 	int ret;
+ 
+ 	ret = regmap_read(chip->regmap, OPT4001_LIGHT1_MSB, &light1);
+@@ -199,8 +200,8 @@ static int opt4001_read_lux_value(struct iio_dev *indio_dev,
+ 
+ 	lux_raw = lux_raw << exp;
+ 	lux_raw = lux_raw * chip->chip_info->mul;
+-	*val = div_u64_rem(lux_raw, chip->chip_info->div, val2);
+-	*val2 = *val2 * 100;
++	*val = div_u64_rem(lux_raw, chip->chip_info->div, &rem);
++	*val2 = rem * 100;
+ 
+ 	return IIO_VAL_INT_PLUS_NANO;
  }
- 
--static int opt4001_power_down(struct opt4001_chip *chip)
--{
--	struct device *dev = &chip->client->dev;
--	int ret;
--	unsigned int reg;
--
--	ret = regmap_read(chip->regmap, OPT4001_DEVICE_ID, &reg);
--	if (ret) {
--		dev_err(dev, "Failed to read configuration\n");
--		return ret;
--	}
--
--	/* MODE_OFF is 0x0 so just set bits to 0 */
--	reg &= ~OPT4001_CTRL_OPER_MODE_MASK;
--
--	ret = regmap_write(chip->regmap, OPT4001_CTRL, reg);
--	if (ret)
--		dev_err(dev, "Failed to set configuration to power down\n");
--
--	return ret;
--}
--
- static void opt4001_chip_off_action(void *data)
- {
- 	struct opt4001_chip *chip = data;
-+	int ret;
- 
--	opt4001_power_down(chip);
-+	ret = regmap_clear_bits(chip->regmap, OPT4001_CTRL, OPT4001_CTRL_OPER_MODE_MASK);
-+	if (ret)
-+		dev_err(&chip->client->dev, "Failed to power down\n");
- }
- 
- static const struct iio_chan_spec opt4001_channels[] = {
 -- 
 2.55.0
 
