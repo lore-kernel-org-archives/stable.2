@@ -1,143 +1,184 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316A63D47B4
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 11:15:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66DFD285060
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 11:23:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787138117; cv=none; b=BQBGnOBMvQQ+RBoB17+mlF+rUV6Va8BGQoKFNdzp3PoqhIgXLNCni33f6yyxaF6FdtmNTLIJtlt75Q7kpqLHszSGRW5AeWWghwLlVDX89jCFeEfMGkPuoZFuoGaD/pUlHe1U1fjlZ8fDdmmDuCEDoWzk941P40hUYZUtoH2TZO8=
+	t=1787138617; cv=none; b=jOGS1F/Yz0Jt0phyyZNx2E0fwysQT3RL0AY6IrWeRRvVjnkOVYRlpZ2Nnv3GvQG2bGMiMWAKnHm/54JPL7sHZWQy7EjdtLuZEWOdfzI11ffcgczcejsC+6uB/NxqG/qbRoVTNcfcHirvD0Kq5GIssdEpqR6cX9ta/RDUTM3HzqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787138117; c=relaxed/simple;
-	bh=+tb5gofvpoi57YeN7lhpthATcBQ6hBRJheWgTa0kl6A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BYJ7RvLL/0ler35XBpkROYRnIey2lq4EUcyiXvOlOrfR3MNgQcCj9c5VTlgjbyGL1iCFLU1fLdR4NsFd49fzaiZmqfjYnuFktzNbVKpuE2YN1NekgZOwDS1O+JE4grImxiBwkOCoFOHun/u36Pw22tg2dA1eDKacm2PjlltQtsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=na9Quv+d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787138617; c=relaxed/simple;
+	bh=FDVGHMpHGqMr7bYnzMaKOdyo9yQDyCmSKQ+608dZVCw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sGe1/V0vSpwMTbjru7ZtoqBECIM0JpYA/g3hlrUt4/6heS1WvnDaUety8Qr534v3/UW53oLqQ7URPTLo6gjRMV9M9/uEdwA1L+eMsnyrUaTRIDOEAtMC6Y10Q/K9gGWlyQz50C85OXDt5CK8v6RKr2P82wmMOjKAlhQtob4SzQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QujEUw2e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="na9Quv+d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72AD1F000E9;
-	Wed, 19 Aug 2026 11:15:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QujEUw2e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C187D1F000E9;
+	Wed, 19 Aug 2026 11:23:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787138115;
-	bh=JOY9IKbmTxYFaPQXYZhPuOmyPi+iC1iDs+mV//0POi4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=na9Quv+dU3xoOY1aiVMFuPaEgSr22Zw0fj4wXgAsX33eVfkCEx34KwjL8bnFcmeVM
-	 ZJp05yGJ3xlv5MOfLZvoWDMu11GDj5ZDi4zI1oYkDDb9/wkFYV+LYdZ/qJvv4sh/Z0
-	 9kDHqzWgSiKEpF/vQZ5OdSojUoQQ0BCWeLA3DuJVNOgc2Ar6LXNAnJ7RwsfnXdSEl7
-	 DjuI9b6SjmLKcw5rjZqSQfYUDuDIfeHlH8NbTYNBnm7MaEiEoPha9W5E42ZDELpyLb
-	 vd8+zYpt7zMyH3eGeT6afE6aIdgYNKpMdXa5fqLfB2bqZnCi2at7++KiLM1O3Z3RXl
-	 W/k58IiZpV0Cw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Ren Wei <enjou1224z@gmail.com>,
-	Vega <vega@nebusec.ai>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/page_table_check: skip special zero mappings
-Date: Wed, 19 Aug 2026 07:15:13 -0400
-Message-ID: <20260819111513.3552759-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081741-service-sandbank-1034@gregkh>
-References: <2026081741-service-sandbank-1034@gregkh>
+	s=k20260515; t=1787138616;
+	bh=jjX1JtpYSJ86xTYLYzULvA3ezzNT6nDt148GCUKNUcs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=QujEUw2eFC9CIKdUeNOQyWGwAsu/YlNBQsOAb9y3FyV/R1dAQHdlgABGeagmRIH/R
+	 D3G9TghrlLtZAEb4MT2Fh9vrTgdm7Yyp2xG0v0jCDvJzdIYSJ2Jg6TFw7nCI2fze8j
+	 kZWwyGYvZCBB9BCsq4DBu+3QcbzIDUavXbIVJ01lZBw7hsVt3B/xyMo6swUpIlcyEw
+	 sXcAKtEGI3fQq0Gpuhj4kqWpTxmAbIVtwSOLFp3b2duroKKxPoYEo6Vosy3DhlJpmh
+	 IV+CrpnVBeEmOY6/DzfbITp3/ItY4l9WcHK3ujtwvM48XcEtFKUdppRzKBom6ojjpN
+	 NsQcZGrbkJPqg==
+Message-ID: <d12a1f09d718f4b7ba7a8101806f858f2a6140bd.camel@kernel.org>
+Subject: Re: [PATCH v3] nfsd: fix use-after-free of DRC slot in
+ nfsd4_sequence()
+From: Jeff Layton <jlayton@kernel.org>
+To: Tien Phan <tienpp@gmail.com>, security@kernel.org
+Cc: Greg KH <greg@kroah.com>, Chuck Lever <chuck.lever@oracle.com>,
+ NeilBrown	 <neil@brown.name>, stable@vger.kernel.org
+Date: Wed, 19 Aug 2026 07:23:33 -0400
+In-Reply-To: <20260819074701.1312702-1-tienpp@gmail.com>
+References: <20260819054326.1265334-1-tienpp@gmail.com>
+	 <20260819074701.1312702-1-tienpp@gmail.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+On Wed, 2026-08-19 at 16:47 +0900, Tien Phan wrote:
+> nfsd4_sequence() loads the slot for the client-supplied seq->slotid
+> (bounded only by se_fchannel.maxreqs), then on the reduce-ack path frees
+> every slot in [se_target_maxslots, maxreqs) with free_session_slots()
+> without checking that the loaded slot is outside that range.
+>=20
+> Once the DRC shrinker has lowered se_target_maxslots below maxreqs, a
+> client using seq->slotid >=3D se_target_maxslots has its own slot freed a=
+nd
+> then dereferenced and written (slot->sl_seqid, cstate->slot): a
+> use-after-free.
+>=20
+> Reject such a slotid before freeing the slots.
+>=20
+> Fixes: fc8738c68d0b ("nfsd: add support for freeing unused session-DRC sl=
+ots")
+> Cc: stable@vger.kernel.org # 6.14+
+> Reported-by: Sentinel (automated analysis agent)
+> Assisted-by: Claude (Anthropic)
+> Signed-off-by: Tien Phan <tienpp@gmail.com>
+> ---
+> v3: trim commit message; drop the added in-code comment (Greg KH).
+> v2: add Reported-by:/Assisted-by: trailers (Greg KH); fix NeilBrown addre=
+ss.
+> v1: https://lore.kernel.org/all/20260819054326.1265334-1-tienpp@gmail.com=
+/
+>  fs/nfsd/nfs4state.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+> index a42f34842d77..def1ea534e18 100644
+> --- a/fs/nfsd/nfs4state.c
+> +++ b/fs/nfsd/nfs4state.c
+> @@ -4575,9 +4575,14 @@ nfsd4_sequence(struct svc_rqst *rqstp, struct nfsd=
+4_compound_state *cstate,
+> =20
+>  	if (session->se_target_maxslots < session->se_fchannel.maxreqs &&
+>  	    slot->sl_generation =3D=3D session->se_slot_gen &&
+> -	    seq->maxslots <=3D session->se_target_maxslots)
+> +	    seq->maxslots <=3D session->se_target_maxslots) {
+>  		/* Client acknowledged our reduce maxreqs */
+> +		if (seq->slotid >=3D session->se_target_maxslots) {
+> +			status =3D nfserr_badslot;
+> +			goto out_put_session;
+> +		}
+>  		free_session_slots(session, session->se_target_maxslots);
+> +	}
+> =20
+>  	buflen =3D (seq->cachethis) ?
+>  			session->se_fchannel.maxresp_cached :
 
-[ Upstream commit 8db4bab826ccc9ec10fa41736a48031cd338d392 ]
+I think this problem is already fixed (and more comprehensively) by
+this patch in Chuck's nfsd-testing branch:
 
-page_table_check_set() and page_table_check_clear() account mappings based
-on PageAnon().  Shared zero-page PTEs and huge zero PMDs are special
-mappings, but page_table_check can still account them as file-backed
-pages.
+    f5d22e372f4a nfsd: don't free session slots that are still in use
 
-An unprivileged process can populate enough zero mappings to overflow
-file_map_count and hit the existing BUG_ON().  The PTE path can do this
-with the shared zero page, and the PMD path can do the same with huge zero
-mappings.
-
-Skip special zero mappings in the user page-table accounting paths.  Keep
-the PTE-side pte_special() check, and identify huge zero PMDs from the
-mapped folio instead of pmd_special().  That covers architectures where
-pmd_special() is a no-op without adding huge_zero_pfn checks to the
-generic counter helpers.
-
-Link: https://lore.kernel.org/cover.1784717203.git.zhilinz@nebusec.ai
-Link: https://lore.kernel.org/e94478e4fb7912fb7e8ebebed5ce85d00dc9a69d.1784717203.git.zhilinz@nebusec.ai
-Fixes: df4e817b7108 ("mm: page table check")
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Signed-off-by: Ren Wei <enjou1224z@gmail.com>
-Reported-by: Vega <vega@nebusec.ai>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-Assisted-by: Codex:gpt-5.4
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/page_table_check.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/mm/page_table_check.c b/mm/page_table_check.c
-index 4eeca782b888..0a5ab62c9c59 100644
---- a/mm/page_table_check.c
-+++ b/mm/page_table_check.c
-@@ -150,18 +150,29 @@ void __page_table_check_pte_clear(struct mm_struct *mm, pte_t pte)
- 	if (&init_mm == mm)
- 		return;
- 
--	if (pte_user_accessible_page(pte)) {
-+	if (pte_user_accessible_page(pte) && !pte_special(pte)) {
- 		page_table_check_clear(pte_pfn(pte), PAGE_SIZE >> PAGE_SHIFT);
- 	}
- }
- EXPORT_SYMBOL(__page_table_check_pte_clear);
- 
-+static inline bool page_table_check_huge_zero_pmd(pmd_t pmd)
-+{
-+	unsigned long pfn = pmd_pfn(pmd);
-+
-+	if (!pfn_valid(pfn))
-+		return false;
-+
-+	return is_huge_zero_folio(page_folio(pfn_to_page(pfn)));
-+}
-+
- void __page_table_check_pmd_clear(struct mm_struct *mm, pmd_t pmd)
- {
- 	if (&init_mm == mm)
- 		return;
- 
--	if (pmd_user_accessible_page(pmd)) {
-+	if (pmd_user_accessible_page(pmd) &&
-+	    !page_table_check_huge_zero_pmd(pmd)) {
- 		page_table_check_clear(pmd_pfn(pmd), PMD_SIZE >> PAGE_SHIFT);
- 	}
- }
-@@ -205,7 +216,7 @@ void __page_table_check_ptes_set(struct mm_struct *mm, pte_t *ptep, pte_t pte,
- 
- 	for (i = 0; i < nr; i++)
- 		__page_table_check_pte_clear(mm, ptep_get(ptep + i));
--	if (pte_user_accessible_page(pte))
-+	if (pte_user_accessible_page(pte) && !pte_special(pte))
- 		page_table_check_set(pte_pfn(pte), nr, pte_write(pte));
- }
- EXPORT_SYMBOL(__page_table_check_ptes_set);
-@@ -231,7 +242,8 @@ void __page_table_check_pmds_set(struct mm_struct *mm, pmd_t *pmdp, pmd_t pmd,
- 
- 	for (i = 0; i < nr; i++)
- 		__page_table_check_pmd_clear(mm, *(pmdp + i));
--	if (pmd_user_accessible_page(pmd))
-+	if (pmd_user_accessible_page(pmd) &&
-+	    !page_table_check_huge_zero_pmd(pmd))
- 		page_table_check_set(pmd_pfn(pmd), stride * nr, pmd_write(pmd));
- }
- EXPORT_SYMBOL(__page_table_check_pmds_set);
--- 
-2.53.0
-
+If you're scanning for bugs in sunrpc/nfsd/nlm, then please do check
+whether they've already been fixed in the development trees before you
+waste your time.
+--=20
+Jeff Layton <jlayton@kernel.org>
