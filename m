@@ -1,163 +1,150 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90B63093CF
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787150023; cv=pass; b=mniD7uzf9u4Rqx++27j3duEZxqL8QHY32IdxfDQSxJuQ1vrB1YQhU7FygcSxgdxTFRmyuNmLLyRPt9uQYXAzUwDyn+tTYKN5izvKVK6Yu0zShei369CAT/CzAq5Khgloqo2iZPwII+kJORBHjMtZQrMWb7uWYVpO2OsovNI77AQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787150023; c=relaxed/simple;
-	bh=71ybj3J5oMv8gnAsFJwnucxiEQA5mI0LVBfOSfWmgws=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gJObD+8py+Zfw8NFSxP6VinHXYtGf9A6au59ID5hncSg3GVHUE9dIzAqkGqXySAuVy+qxxRmC/tRXhwn1hSWQmG7WgV8ZT+sx8d4rcyH0WJeNB/7zAzPm+hBbLwjJWyEBaGItz63+HpXSErTic0a7cmZSOnO92MddUT6qM8GKRE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iqqimmtn; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F44D3B9935
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787150026; cv=none; b=FaWpRcKP9c6SpqW7kswe0du6wArwMavBRr5am/DdqCeH6Ox/TFKJlNR9aF3TyOJ5xvUbycQ7rcO23opdI+uJmKd2HI6uPcpA/Ql1+sJDbWtrnrhqXrgAnI6oVXRhn6xTeIGuAxKZHt64thUHrsokZ87Jz5Vvq5S/BAaLwPEGZto=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787150026; c=relaxed/simple;
+	bh=vOX6ffyG/ieT0WE8b5wbPDo0xpG31cy3dM5nOQq2zn8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=fovLZeo9W97l7Y8deA/VPr7K9et1VOm2+nTs8x9fnjs/jddLWS3VkS1owrssVYnPZgzHnX0rXCbZTKEQtAyWm5L6bcIrYKA3LR6nSxWrnjnmMc6C5xiMmrVKkwEaBotefxWjkycGimERAL6jcLD/ad7waKOo/k2Xcn7YbzlQrRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=DQKDRwzF; arc=none smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iqqimmtn"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso1792594a12.0
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 07:33:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787150020; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ipQqbwuSCpL50YkQGXaz12/oj0lf054iZa34nJ+kaFFlz71jhUyoDU/DDGX0A+zkrc
-         Tngjn5S4AcNZ60RwDITm0BWAhF+BUiqIgMIQZIj4vKhZ6/p85sftt4xZ8GD0VThrklJK
-         r38jx1XUgcAc5BpfPxFIrtSjG93UYWz6KYIgQ0nrpcDHZfhqARoNy19tFtt3Tdrdozo4
-         kHIbSr7Csv8lkjiRoqLTPF4rtAX9oW1MuzGS/oLRRxqz4eQN7lGhheIMzhYaENrr7jW9
-         DnHL/SGeDLdBl9XIkG5ihVNhYuxdWFyxS7ZdMaUaJarHbmCHyKEG8KXO24aSSVxmskXg
-         8VaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MAp55mMLGdj4NQRUlCWpenDN+bi6NWCNXDNRlrNgoy0=;
-        fh=z6ugPVjU+tbeVN7NCmBIzpciztoDkofhkfKikIZdnhQ=;
-        b=lQUh8xRaOkQpCgE6Bzzf4yAdrKn+rE3ju8Nwmvvcmc5XJ5X8+7+1MgVRBc6/1e2eMX
-         f0bwRYt9n+R9HoFWg6t4im0PLgshVDbpPeDCkePrPkC5vWw21NeguMLUTly1Jp78m8BU
-         uXqJiKSjIGVsRbggkwAmzYtVvHGknrFRO3BkYAaGtzprMGGyeW/Dh1TYEGI/5uC+UIVi
-         F6g/XSHao3HLwGVtjGfq9vwc99X8tS1U2w0Bpv/MIyEka5h9/o/5U1jlD0RLoA5+iIun
-         0J9OEIMb6AaZinjID9PZcpcEGgvoCrcKkD7ANaglwGZd2cjbiwD6/fX+G/H/D0XlnYC5
-         vKhw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="DQKDRwzF"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-51c2a818fc4so7028381cf.2
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 07:33:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787150020; x=1787754820; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MAp55mMLGdj4NQRUlCWpenDN+bi6NWCNXDNRlrNgoy0=;
-        b=iqqimmtneQwNLwcEPud3BJWbpUeCTQ7VUL890NGB5o0r7TkqRcl7JAWJZiIZXsCfIh
-         LuaDMncNAgiy54/RSzREq2W174cjKvfdN0aZcvyQVZ2t+//Lt5Hue4atPzc8rUOiMWb6
-         vpucteoHoK8WSa4x/DGJVqi67PM+fdrmAFTAeb04nuL1QmmdAcD6dP8pyBKnw04aKp9i
-         Mkszv+00bVe2nb86JINBanK4IcByheXsqG1L21y1fOv7ECQQSzlVRQmHOebbMA3Mijon
-         WakqCTuzHiAgO7jIS3oTVp/uInd6BfvxpV28ZuIqhjxo3WWodf6r9wj1d+174nFQUEm/
-         VXOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787150020; x=1787754820;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=mojatatu.com; s=google; t=1787150024; x=1787754824; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MAp55mMLGdj4NQRUlCWpenDN+bi6NWCNXDNRlrNgoy0=;
-        b=WCO/Ckuj6As6DffmgDjUZh47ucVuZzm5ZpQxPsv+8twH/TmFZCkGeixfO45sA0YmHL
-         l+5/QvyYIxUSVTD7dTSK1uUjL814snJ2jz0vwiQXTiRqie4MTUaayAL9OpHHm1qpLG1Q
-         2VSZ6dcoQu4tPXoyrH9s8Rtf7RsbFz8iJdA/Q1SvzddcZFQX+igul9YY0Ukv8D8lIDwZ
-         6A0ty5obaNhQITlxylzdpPW8HicS1yNlwH8nAJ4AEiN8NAjLs5xLa7IDK7vBiJ9M3J40
-         B+9soEw1rXVdrNY63CUd8eXH7IsIvwYlGKuZB76Qe0nC4uwkTlumSXv0SBjUfUzXEIpC
-         nfww==
-X-Forwarded-Encrypted: i=1; AHgh+RqMbe/JVMJzbXNdfePUG2ZS73KEDlB1NidlO+wzwiKtvzG1bnm/0F/Ci20/ICkP1xQwuBiQyOY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjUSe6LqQ9hoEfScssJTP8U0zueogfj775RllNq1ZcW/UJv7T6
-	CLGJjpkprgjEUKtgijcJu7YyrQrGMbBtN6168VDnwppNspxyavhoRPUDKWOQ3UO7qkCKt7IYad+
-	VHTMoKwmkbxP7MjqQQAoFJkLEaL0MmuM=
-X-Gm-Gg: AR+sD12bjK++/X1wfI/liyH9Zz+3uJemzsQWn0xk7h34aF9wJT5LxSoAJr8bo1xEMzb
-	VQ4H3ddenqMc+atNOe2rgtWsSH2yOWsyG2J8Dl0sFjZNOS713tJ0jx52YVNkRhRgaTNGKlCC+Po
-	MXRDf5aBTfeY++9tsdonaMAu7qMMYUqa1AKGfqerMZo6ruf1mRXFRpkbW6XXOq7CGMO6nrvaOtE
-	w0vfIhtuRNUkbyXQHmJcwymIXSAflHghGTVUQbInq/cI1yH4lAwd6aU1NepwScY2MECRLTbSls2
-	Bmu894YmOfhkanPoB78AEpTpedK0JgwwZq2a48cuqVek+e0O0sBWSlBSY184TPOsNg/WFLbA2iN
-	nSscJ4mNjYZoO8eR66AojuV8f1ANXyhiaAFRleuFKeow=
-X-Received: by 2002:a17:907:d506:b0:c21:792:8257 with SMTP id
- a640c23a62f3a-c242e364b6fmr405411966b.15.1787150020054; Wed, 19 Aug 2026
- 07:33:40 -0700 (PDT)
+        bh=ejuOPt68qhDY4noBlNOcm7rYGgb1gdrrIu92QM8wUXg=;
+        b=DQKDRwzFvE514r1SSQSu57hX4Gvr+7mmyVFOZ9iVCcKAPbYaNd9TkkfYldQD8fTVGf
+         mJhZ+TFhTv101fwOKct1vblnP97euy+fr+OQAnl8vfrQ1h/qfY2KLrlNaNZIvzJx4eqb
+         dt5U3+HcZ7MMcNFoBKYg+Pxn9DfuBmhcNa8kg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787150024; x=1787754824;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ejuOPt68qhDY4noBlNOcm7rYGgb1gdrrIu92QM8wUXg=;
+        b=q3sDUZ9P/1sd12eOKuW4KQ8hANZ8wADDyFJ+QXfTk6NFLz1CkSs1Fuk6896n+Y7Kwa
+         ffzhrcJHk0HImYOAdrNhnEEYpfFakgTsMMY3bfCpGdvNeaV1UsE+Lgx4QoqgFHghaJKh
+         iDLkQgsj5LUF0moCAy3xOnQBvt2kuWqjX+fHxmmFIp+/k+PHGG2vjs5ociZxi3oxQV4P
+         ol5ng8CZn/8mSLZPKj2+Orks4CQVqNYpnAUM9VE++cNd3M/4Xr2Rp/RJ/MI0lq0zBS9e
+         hhrAArna5ZqrU9k2li6DW3yaU/GFhYJho8kzJv2toDs40ESE32zzStrL8lE36MBjiYqC
+         8EDg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5qXdalwZoReuv2YYdHWklpsM1ZIIuXzLkgaFNVjGLu3dsdJNN4xSqDYUMM23Z1jVJpD0Xc74=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxzbk5/39A/epYIrcgUHaS25kw9e4AlphmZdl4hEauCRkrwe6tb
+	R3Ys6bsk/QgQKxRCkiMcqR6VtuvgX2Ia/IW5DOR/xdqYHc1en1K907goR6R2bC5BrA==
+X-Gm-Gg: AR+sD126HNxswV9/xr6JjDeRg98GjsGEkNQfLLdG/RDUe6nNfAv2UagFwQK0oF2c86c
+	NjBy9Fzt0JjBLmmqVVcmvnctMCf9Pvvp27qe6iVRElx4zFPenDPcTtNI72zSBmNm/uaW379Me5V
+	neoPojaOy8VgiWf4Gp9ununRY0D7YUfzESxV8aKtpb3IoIWkXuPEfDRUWl+L1P+mi+2Tu3UFkQX
+	iU6NtOaQhgztlulwfx2v41MShojtDykSBrz1zT1NT1V5Nf4wtrtZM2a3NmN2Hp0JPOhoRn57/I1
+	mTN02sNMTTSj9K6J3+XiDjMekWbS2zbXwMVShOKgWeQk2fTkY8P1afbGyizgpD4SgpYOSNwUXuh
+	ujLPSIupSr5nwFbmEJ/YOz1/qGZMkcpptFAiokdiM/UGUW6z7k92zxXln30h8uVPeZH6ETk0kol
+	3w0JK4XeUb7PfkjRCvHhBy23HG+mRYJR9IakfnJLwRvI1WomKNkiv+
+X-Received: by 2002:ac8:7dd2:0:b0:52d:824c:4856 with SMTP id d75a77b69052e-52dd5c5358amr45530651cf.31.1787150023966;
+        Wed, 19 Aug 2026 07:33:43 -0700 (PDT)
+Received: from majuu.waya ([184.144.29.222])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52dd872f61esm11871901cf.23.2026.08.19.07.33.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 07:33:43 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	stable@vger.kernel.org,
+	vega@nebusec.ai,
+	Victor Nogueira <victor@mojatatu.com>
+Subject: [PATCH net v2] net/sched: bound qdisc_pkt_len to prevent qdisc soft lockup
+Date: Wed, 19 Aug 2026 10:32:13 -0400
+Message-Id: <20260819143213.57401-1-jhs@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260818210322.53266-1-meatuni001@gmail.com> <aoW7iR8Rp4hUCtHq@hovoldconsulting.com>
-In-Reply-To: <aoW7iR8Rp4hUCtHq@hovoldconsulting.com>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Wed, 19 Aug 2026 19:33:25 +0500
-X-Gm-Features: AcwNN1U2NqsKGE6UtzZCK8YAN1WJvKH2WepR77b6ZIJOP-mGimuqt2krQdAHeEo
-Message-ID: <CADqcGB=ZbfAkM_90ty7=_QD3eqJd8f7urXKvTnagdv09U9RRAA@mail.gmail.com>
-Subject: Re: [PATCH] mmc: vub300: fix Use-After-Free of inactivity_timer on
- disconnect and probe failure
-To: Johan Hovold <johan@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Johan,
+qdisc_get_stab() accepts a user-supplied size table, and
+__qdisc_calculate_pkt_len() amplifies qdisc_pkt_len() through the
+overhead, the size-table data (u16), and size_log (up to
+STAB_SIZE_LOG_MAX).  A crafted stab can therefore set qdisc_pkt_len()
+to ~1 GiB for an ordinary skb.  Per-flow deficit schedulers such as
+DRR and ETS replenish one quantum per loop iteration; with a tiny
+quantum (1) they spin billions of times under the qdisc lock,
+producing a soft lockup / RCU stall.
 
-You're right, thank you for catching this. I traced through
-vub300_probe() and vub300_inactivity_timer_expired() again: the
-kref_get() taken right before add_timer() is exactly the extra
-reference the timer holds, and the timer callback releases it itself
-and stops rearming once vub300->interface is NULL. So the UAF I
-described can't happen with the code as it stands.
+Cap the final qdisc_pkt_len() to GSO_MAX_SIZE so the size-table
+amplification cannot drive deficit schedulers into an unbounded loop.
+A legitimate size table (e.g. qfq's overhead 999999999, which is
+handled by dropping) is still accepted.
 
-I should also be upfront that this was flagged by Sashiko, and I did
-not verify the reference counting closely enough myself before sending
-it.
-That's on me. Dropping this patch.
+Conditions to recreate the bug:
+- CONFIG_NET_SCHED=y, CONFIG_NET_SCH_DRR=y (or CONFIG_NET_SCH_ETS=y).
+- Attach a DRR (or ETS) root qdisc with a crafted TCA_STAB that
+  amplifies qdisc_pkt_len to ~1 GiB (e.g. size_log=15, data=[32768]).
+- Add a class with a tiny quantum of 1 and send one small packet; the
+  deficit loop spins billions of times under the qdisc lock and trips
+  the softlockup detector (panic with kernel.softlockup_panic=1).
+- Reachable as root or from an unprivileged user in a fresh user+net
+  namespace (unshare -Urn) with namespace-local CAP_NET_ADMIN.
 
-Sorry for the noise.
-Muhammad Bilal
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: vega@nebusec.ai
+Tested-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+---
+v1 -> v2
 
-On Wed, Aug 19, 2026 at 7:19=E2=80=AFPM Johan Hovold <johan@kernel.org> wro=
-te:
->
-> On Wed, Aug 19, 2026 at 02:03:22AM +0500, Muhammad Bilal wrote:
-> > The vub300 driver arms inactivity_timer during probe and acquires a kre=
-f
-> > reference for the running timer. However, vub300_disconnect() sets
-> > vub300->interface =3D NULL and drops the driver's kref without shutting=
- down
-> > the timer via timer_shutdown_sync().
-> >
-> > If the timer expires after the host is removed and vub300 is freed,
-> > or if concurrent work items re-arm the timer,
-> > vub300_inactivity_timer_expired() accesses the already freed vub300
-> > structure, causing a Use-After-Free.
->
-> No, this cannot happen as the timer holds another reference.
->
-> > Fix this by explicitly shutting down inactivity_timer via
-> > timer_shutdown_sync() and releasing the timer's kref reference in
-> > vub300_disconnect() and probe error cleanup paths.
-> >
-> > Fixes: 88095e7b473a ("mmc: Add new VUB300 USB-to-SD/SDIO/MMC driver")
-> > Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
->
-> How was this "issue" found? Are you using an LLM?
->
-> > ---
-> >  drivers/mmc/host/vub300.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-> > index 8e45dc1a4a12..9f84bd1531e2 100644
-> > --- a/drivers/mmc/host/vub300.c
-> > +++ b/drivers/mmc/host/vub300.c
-> > @@ -2350,6 +2350,8 @@ static int vub300_probe(struct usb_interface *int=
-erface,
-> >
-> >  err_stop_io:
-> >       vub300->interface =3D NULL;
-> > +     timer_shutdown_sync(&vub300->inactivity_timer);
-> > +     kref_put(&vub300->kref, vub300_delete);
-> >       kref_put(&vub300->kref, vub300_delete);
->
-> And this results in a reference underflow.
->
-> Johan
+1. Sigh. The v1 overhead cap broke the existing qfq tdc test 5993, caught by
+   running the whole tdc.sh instead of affected qdiscs reported reported by
+   poc. That test legitimately uses stab overhead 999999999 qfq and expects
+   the qdisc to be accepted (exit 0) with packets dropped.
+
+2. Better Fix: cap the final qdisc_pkt_len() to GSO_MAX_SIZE(524280) in
+   __qdisc_calculate_pkt_len() per sashikos[1][2] suggestions
+
+3. Given existence of tdc 5993 we dont need the tdc test created earlier
+   since the essence of that test is covered in tdc 5993.
+
+[1] https://sashiko.dev/#/patchset/20260818101735.16655-1-jhs@mojatatu.com
+[2] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260818101735.16655-1-jhs@mojatatu.com
+---
+ net/sched/sch_api.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
+index 65b35528d125..ad4f117ff55a 100644
+--- a/net/sched/sch_api.c
++++ b/net/sched/sch_api.c
+@@ -610,8 +610,11 @@ void __qdisc_calculate_pkt_len(struct sk_buff *skb,
+ 
+ 	pkt_len <<= stab->szopts.size_log;
+ out:
+-	if (unlikely(pkt_len < 1))
+-		pkt_len = 1;
++	/* A size table can inflate qdisc_pkt_len() beyond any real packet
++	 * (via overhead, the data table, or size_log); cap it so deficit
++	 * schedulers such as DRR/ETS terminate their refill loops.
++	 */
++	pkt_len = clamp_t(int, pkt_len, 1, GSO_MAX_SIZE);
+ 	qdisc_skb_cb(skb)->pkt_len = pkt_len;
+ }
+ 
+-- 
+2.43.0
+
