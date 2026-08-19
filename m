@@ -1,102 +1,157 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F3693C109A;
-	Wed, 19 Aug 2026 06:42:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55382F0673
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 06:47:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787121770; cv=none; b=jQWt2WVZo4DwmolrtJ5QDPa0/V9D10UKWyDuIbWPgDWuf1zifgxs7bjJ4b77v4xiAfzWqkravAPG61HTCqqnTUTldZq30OQKNgTpGDV6WnKXuJb7trXJKueLN/HEXCix+P+hnQtdxCe+ILlEmqBLxlBwdSN8WxcXjgkm59DtKPY=
+	t=1787122049; cv=none; b=QARAM9yA8gWEkTdHWQr4vdb37+w7RgqcgSqIT8g/hAgQZHSreUXYqRr7pK1vpgcLlIGDCsTwoJMtlRgr0J4DmdutgV6pyCBtoJpknNsExWDvn4yyu7mgJ3UuUfiXcA6vrBYWfRVaHxqFuuoFNWE5AYvLYikMTa/k0EXLudioolk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787121770; c=relaxed/simple;
-	bh=lZIDQoOOoz3iM0k+k7zjbJaDlAAGeBZJIqClYMnS1Gk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FWjvTCbQg7204F9/uscmJ/pXTuReFT0HzoLbq2tLXGB0WNZfyhyuCALiq6tXOuIG4Dvu7VL/d/DIyuk4cqhOJuc1QJvDKrRubpcYRm1/E+uRcgTPdCWW3ydIpKzUsMwrvFrMCBU1WwsKQyjhHE2pl8duB6WludzQVKpCMg/2DDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wBnQX5dUIVq9qGnAA--.35636S3;
-	Wed, 19 Aug 2026 14:42:38 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgBn1cpbUIVqpb79Aw--.36573S2;
-	Wed, 19 Aug 2026 14:42:36 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: miriam.rachel.korenblit@intel.com,
-	linux-wireless@vger.kernel.org
-Cc: johannes.berg@intel.com,
-	ilan.peer@intel.com,
-	linux-kernel@vger.kernel.org,
+	s=arc-20240116; t=1787122049; c=relaxed/simple;
+	bh=J+IH0iBWUho0n59I4fFvUXGr07W2uQyqez732m0nLkk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VbADl07gQtM27cIbjrl0L5c5Mdq6eA800jXTKbgmKYy/je6Pqc2q4uQhskquw2aiBAtwVTYGIz/EPQokCD287D05UNjTQLQ3yCe06prnE+DYGO4Eex67z35WXlmkxM1nB8KOgm4XMXxkNURDC7s+odP45Pm4EMyLHsB5ZaDq8FY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=QBAEF1C0; arc=none smtp.client-ip=209.85.160.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="QBAEF1C0"
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-451fd21113cso810956fac.1
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 23:47:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1787122047; x=1787726847; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Qmx7PRjO8t3Kyi4PLheaoV8VPnsksfNJxeWi0FWrHIo=;
+        b=QBAEF1C02y8RgR5++m4LnzVId3tdZuoNnukytGd1353+pQxlYYURb4JiEneGGe1X9w
+         ZX+pM4+P3DmMGdnd/RLNtlVmJA8hFRR0/Z7c5InfTLsn4If9zZ6K3uAzaHm22KNwZfWW
+         1NAaQqxt/iJJRRlPgQEJ/Oup1fcbLNfxzm4/IzalxN74Gz/XbvDwob6ZJ1a/w+k3cZpT
+         wOW4uVepLHruXp+y/jOjI8qVhLPlkNEAaw0t75pzZhA4mheTH14Qd3HEzqP8iP4fgyTJ
+         fbxmPeVF4JkJ8svR5a/fGk3jHqQsEx7q9RfSzfzOqabZyU8xjMZtBcMT/7Ex7QdQeesG
+         IsFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787122047; x=1787726847;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qmx7PRjO8t3Kyi4PLheaoV8VPnsksfNJxeWi0FWrHIo=;
+        b=SxAMBQ5LZY6tnPV1Pm7tbdt90PfJ4gIU4V5nDnrUAM4rxHF2o/lJLnI9yBaLIyAcz2
+         M9WdFvofHm3+7jaIXNuAkK6Kv56kPQuO2Q80TeiQJIeYPMOCEMGhQuoFgNbBc2ORibsr
+         P1Y57Vjuf9JZFYpaLZDKcYVDiFTZRXZ7YGxWqs3lfjYn66HPVlTiT5eU4GpLIw92V7Pp
+         WSoduwIu5W+iga7orbb1AgElWYEHo4ekUmG3JRhfvdKFfd4zhkcbvNsvZ/bEJDBAuGx1
+         U6vFX05EF5DpStI+0Aql4hPVPdxUTppYIdAbbFGFlH//R5qpH6F04CdD+qke06g8JEsw
+         aq2w==
+X-Forwarded-Encrypted: i=1; AHgh+RodiIB0toZCA37N5m+RQ6wVmnBj51JF9TbFqXTk8pG0EkIzd+ZTSniz7pesd/X/S+Tj/LWzP0I=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVPQZWHkj3UPjhg7t+jLrWv0qbrWdzLyDiTVmxMRuhEaOvHlc4
+	BuOqHp2UjWKEtvI1p0T4WjM4KJjI9ZO34m4d647YPrf3hZoMFFtWmL5XFFs3unbbQnA=
+X-Gm-Gg: AR+sD11ueAxXCNoaKS5zVLL7qlSseLTSPMZL84Pkntg3VfmioMg5CRjzXnEpcVTWQgF
+	AXauDzpx+UVAMhjfmu8LOz7iZwtYDqhI1JlFOmF/ZrNBb1gru4eaKmFFR57JhlQUQ8ioG1iDoYk
+	UZb9ohq+qwGu89szgmgl/69LVutvqMl4eu/FFpunsUN4aYc8uF7VHjXykkAL3eLIpTM5GYe7jqf
+	lxk57PL1tXFl9kJ9ywJTCZX47O6S3Z+CUTpXUaE/1UXn66pesPKZ5FIDUbI2QXzD6dPgD08WFPj
+	RHwIAWIy1E4p0uS9XXjtF74dso5IRVOq0XpWYSLV1QEBWRzIOVqEAohAEoXBIsG3nm9D10TceL+
+	FVstvqwoCTCccofUp0ADuroPqOqzHPmLQFKhGEMndXkIbfMxDm3or8F3UZh5teg98aAzzVKz7pj
+	qsdOHAfHYTM7O3b2mEF5a47jTab34ewr+fzuA7KG3qoKaQA4BTtpnUESPnWO4LRxhBowV5pgv2z
+	pI0CcsVl7kmbhc=
+X-Received: by 2002:a05:6870:d405:b0:44c:5514:80ae with SMTP id 586e51a60fabf-462f66fbe27mr2314998fac.3.1787122046507;
+        Tue, 18 Aug 2026 23:47:26 -0700 (PDT)
+Received: from dev-jrangi.dev.purestorage.com ([208.88.159.128])
+        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-462fb003c0fsm612872fac.16.2026.08.18.23.47.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 23:47:25 -0700 (PDT)
+From: Jasjeet Rangi <jrangi@purestorage.com>
+To: bp@alien8.de
+Cc: Smita.KoralahalliChannabasappa@amd.com,
+	dave.hansen@linux.intel.com,
+	dgiani@purestorage.com,
+	hpa@zytor.com,
+	jrangi@purestorage.com,
+	linux-edac@vger.kernel.org,
+	mingo@redhat.com,
+	msaggi@purestorage.com,
+	rhan@purestorage.com,
+	rjethwani@purestorage.com,
 	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] wifi: iwlwifi: mvm: fix use-after-free in MEI scan work
-Date: Wed, 19 Aug 2026 06:41:39 +0000
-Message-Id: <20260819064139.15270-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	tglx@kernel.org,
+	tony.luck@intel.com,
+	x86@kernel.org,
+	yazen.ghannam@amd.com
+Subject: Re: [PATCH v2 1/2] x86/mce/amd: Fix inverted interrupt enablement during storm handling
+Date: Wed, 19 Aug 2026 00:46:00 -0600
+Message-ID: <20260819064601.1972932-1-jrangi@purestorage.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260818190250.GAaoSsWiKOuj4gRYsl@fat_crate.local>
+References: <20260818190250.GAaoSsWiKOuj4gRYsl@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgBn1cpbUIVqpb79Aw--.36573S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?//IYCwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI2JmA4ZISfe0HWiyBsO4pnbmA3jX6LpOmW94e5KT8E8D512
-	8+L0YQ9+13Yd+lPi3aep9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7uF4UZF4UuF18uFW5Kr4Dtrc_yoW8CFWDpF
-	ZxC34UAr4j9FWIy3y5Ka1fuF95Jw4Yg393CFW5K3s8Jrn0qF1Yyr109ay7ZryFyFWkA3ya
-	vF4DtFW5WFn5X3cCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-While a MEI limited scan is in progress, iwl_mvm_mei_filter_scan()
-queues beacon and probe-response frames and schedules
-iwl_mvm_mei_scan_work() to re-inject matching frames into mac80211.
+I'm ok with the queued patch because it still fixes an important bug
+(disabling interrupts on storm end is not correct). The rest of this
+reply is talking about the concern that storms are not handled
+properly in the AMD driver. I can make that a new patch thread if we
+agree to make the behavior more Intel like.
 
-Nothing cancels this work.  When the driver is unloaded,
-iwl_op_mode_mvm_stop() eventually frees mvm as part of
-ieee80211_free_hw().  A queued or running work item could then
-dereference the freed mvm: its handler obtains mvm with
-container_of(), takes mvm->mutex, and accesses csme_conn_info, which
-the stop path frees before ieee80211_free_hw().
+On Tue, Aug 18, 2026 at 12:03 PM Borislav Petkov <bp@alien8.de> wrote:
+> On Mon, Aug 17, 2026 at 12:51:08PM -0600, Jasjeet Rangi wrote:
+> > Inverting `on` in mce_amd_handle_storm() alone is not enough because
+> > clear_bank() will immediately and unconditionally enable the interrupt
+> > again.
+>
+> And?
+>
+> What would happen then?
+>
+> Did you read my previous reply?
 
-Cancel and drain the work in iwl_mvm_mac_stop(), after RX has been
-stopped and after releasing mvm->mutex, which the work handler takes.
-Also purge queued scan results.
+On AMD a machine_check_poll() call will not necessarily set ErrCnt to 0.
+In fact, it will not reset ErrCnt at all unless the overflow bit is
+set. And the overflow bit gets set when it's time to generate an
+interrupt. (Yazen and Smita please correct me if I'm wrong)
 
-This issue was found by an in-house static analysis tool.
+The threshold is not always high on AMD either. Since eeb3f76d73ba
+(x86/mce: Save and use APEI corrected threshold limit)
+it gets the value from the BIOS. The default on an AMD system I was
+using was only 10. So ErrCnt will get reset to 4085 on that system
+when the overflow bit is set. That is enough to not meaningfully
+reduce the interrupt rate during an interrupt storm.
 
-Fixes: 0d2558838ee8 ("wifi: iwlwifi: modify scan request and results when in link protection")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Unlike Intel, the AMD driver doesn't set the threshold to an extremely
+large value when storm mode is turned on. It keeps it set to the same
+configured value (default from BIOS).
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c b/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c
-index 74bd4038f..8b123f6df 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c
-@@ -1423,6 +1423,10 @@ void iwl_mvm_mac_stop(struct ieee80211_hw *hw, bool suspend)
- 	 */
- 	cancel_work_sync(&mvm->async_handlers_wk);
- 	wiphy_work_cancel(hw->wiphy, &mvm->async_handlers_wiphy_wk);
-+
-+	/* The work takes mvm->mutex, so cancel it after releasing the mutex. */
-+	cancel_work_sync(&mvm->mei_scan_filter.scan_work);
-+	skb_queue_purge(&mvm->mei_scan_filter.scan_res);
- }
+So if interrupts are left enabled during storm mode like they would be
+even with the queued patch, the AMD driver doesn't really reduce the
+interrupt rate during a storm like the Intel driver does.
 
- struct iwl_mvm_phy_ctxt *iwl_mvm_get_free_phy_ctxt(struct iwl_mvm *mvm)
+If we don't want to diverge from Intel, then the correct thing to do is
+to update the AMD driver to do what the Intel driver does. I.e. don't
+disable interrupts, but set the threshold_limit to a large value like
+THRESHOLD_MAX during storm on, and restore it to what it was before upon
+storm off.
 
+> Yeah, we don't protect users from themselves, you know :)
+
+I don't think having threshold=1 on AMD is too crazy. On the Intel
+driver for example it defaults to 1 if not overridden by the BIOS.
+```
+/* Linux non-storm CMCI threshold (may be overridden by BIOS) */
+#define CMCI_THRESHOLD		1
+```
+
+> We do clear MCi_MISC[ErrCnt] to 0 so that's the "highest' value we can do
+> before we raise an interrupt there :)
+And on AMD it does not get set to 0 after an interrupt. It gets set to
+THRESHOLD_MAX - threshold_limit. So if your limit is 10, the ErrCnt will
+get reset to 4085. This is the behavior since eeb3f76d73ba
+(x86/mce: Save and use APEI corrected threshold limit). Prior to that
+ErrCnt would get reset to 0 by default on AMD.
+
+Thanks,
+Jasjeet
