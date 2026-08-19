@@ -1,238 +1,152 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4E53C3F75
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 08:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787129954; cv=pass; b=mirrR8a6gMIwQ4puBNxbtESGy+8Eab644pKPZC5GRHQKCLi6Pq/7ATUukaykGWzmJLBciGU6qornuNfTQ4tjdVfR02kZWZynN6i5XzD1UUWdYm75AgxdlGlC1V4qFl67nW6tQN6DABsWET+o/pOfVmuV+XHK59Tqe+aCvCa1zOY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787129954; c=relaxed/simple;
-	bh=POU4QgGjlkB1m401znQIYU3NrwHbaXA8RwN9Ac5rsHY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s1VV6Q8JYAlvLiqFlPFfB6aiTzvEUTGyJImLY97QIS5Crhx6gVTX0jcxAizfukoeJLSU8wdnuVClsj64qyXR68E0oU4avEylruckIMnN0gRKQBaoBN6wd4WjK5XZrzLXeMDivQQbuPy0bwUb4r32iIwlt19XTgrc5EqKsRJ8jqQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b=LBB61TGB; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0583433BC5
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 09:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787131067; cv=none; b=cpU70hyWtOWb0cH6RQEUtvJkwnTk1Wew3grHqdIaBI08NMsRFFjECzwdTNmqxemYzcVd5OCsdikJTdWg3aZczum7wpZ1/fbOvb2Fd8x9KaIaGd3Ifv43PCm5gmjSAN0UtSRbIjOEikJ9Ln7HeWJb5wHWmnw6+z15hBruth7N1xA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787131067; c=relaxed/simple;
+	bh=yKd0NOqvnUZEXHXx+SmVyZErpDxsdELkJs/BqkIVgrQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uVia7eZGcOkKNMOUlJBeytxafM0F/Hfh3ok27+WgnZe4KcLf4qqabHZzwdk86aS7pz5wti2uaFxRX+olE4hPBH2MG+2UvpjOINHiLvCN/hsFmm9kRQ4hX5RmlSIYHu0P52M/9CayuPLCvtkfbw41mP4gPP6PQEn6Q/RgI71mCyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+gB9ZnF; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b="LBB61TGB"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a10d6f455dso118588a12.1
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 01:59:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787129950; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n/L6z6oIohPjaISrbZ3uj+jd1W09se2hUTMnn5r8nMV0VWu9QEp+FwQpvrrKukufjW
-         vIz94rWlWECXUvDwn+AV4L3tCO/Gm0NSEHgvFFTotDaXFlngys2wrKgeu/23133ErI1G
-         Uet2p9eAVmSMomRxAvY5XPVyV0rD1GOIK2yIEBsZmRTcEQajQhfaD88b2wexBpPYOO89
-         kHOs0yj1ar6cD3AStd4RbWX8XGo1/ALr86MIisNzUN3RptESiPm+NFAbjfj8B5bg4VKa
-         gKm9FsyoID/ppr45ukfVsTc5KMxgYNP7hSj6ySoXw1tcB+A69pWK1gOwDm1vBKC4qBqk
-         H0jw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v6LqpiNyutcjnM2YuW2WgPqXG0K1W5YBbJLrp6yBCYY=;
-        fh=+Obk6ZXr+4upCi4V6/p8uUYnsYMVYk+v7/1gR2DzM9M=;
-        b=D2DZ4cL86ZME23K9LWr/JfK8lXI3GJcr9jHwUjfcBGNGVt/4EW5yNpbPjctzYY+7AB
-         AQUxycjbHcXDTJ8GwjME5VCIZ9hMGKIsJlQi1HVM4FYVKfDiR4CJv/a8iTpw1aKgB5l2
-         vTa/sGrKURU4ps9q00tS+sXYXwuhnUiOtDeCkuF57at7cHksBHLrE1yigwVHCnU7daKm
-         ELkxiuBBohCiVSycbBeNynGV/URF1peLAL3dZEbmLeYEaWvw/PY93OZtX442ATjwMbM2
-         fg/oS3o6BzQhS5xnqV2a+/RMpIt7hJi19KwvJwIFW5cnfzTf1h4XGUyNj/STyfEyHyRj
-         9R3g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+gB9ZnF"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so1242379a91.0
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 02:17:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.ionos.com; s=google; t=1787129950; x=1787734750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v6LqpiNyutcjnM2YuW2WgPqXG0K1W5YBbJLrp6yBCYY=;
-        b=LBB61TGBB0u0SdZeElefRiUMzWHSBMUtQlJOut1FMRwiHtBYC8JEgESBiQyxzBtY5F
-         ialZb/v/Uas+u2HEXp4aAWaYhFIr5wuLKiKlQoJeWsB4bl/Y99+BSko0I43KYpirJq4W
-         /fltRrW2IOtGOTN7FsNb0gp8GggKtPD7CuwkG0p8MyufZQbQrNCrf5kuwYFFlO4m1h3b
-         bLuOIrzaCzKrt7WTHMVIe0HNxLQQKK1aXdWabsie9yVAwh9rjucGSpxstw5Ht9w0GcxE
-         KRbfYZPiAE4dm1I5gRTTH5Dt/eMS1qAc55CfjWOYskWfEUYuRCwmeGcPFeA9TYWMbhG/
-         Mpqw==
+        d=gmail.com; s=20251104; t=1787131054; x=1787735854; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HgKYKxxGawS+Y3KPMd3fgnzXO0x1m/t52oc7d3V1CPs=;
+        b=L+gB9ZnFoXS0/HCnNFT17L0WiEnrwIAi8khyS7y9WUSNAeEy984NjxfoA5SMjZGE6+
+         6W6f2Xz75ZQYtIvplI5aG9/+gt4WqgJr7KDT/ffIJ4YSSGTh3PkP3drvYecrYZABq/Yh
+         5pP2j6Cu/gXiTXuT9PfzGFPR9ytSCbs6UnhriUgaJucjT6du7OoffFLqUk5WFgKhE1XW
+         nCAHq1W7Df/9GsZOgSvZyiiYi2kfRmrKRTV5bBqnabVhVI3IdwkVasW6Hv2rJW6EcC0u
+         3il21KtVyycnVXIHKYikx6f9ohBdzBrlPS9UtUX4mhz++hPAO+gEPu1X+a3VRHMJ0Glq
+         Ob3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787129950; x=1787734750;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v6LqpiNyutcjnM2YuW2WgPqXG0K1W5YBbJLrp6yBCYY=;
-        b=KbEpzjX1VmsF+sME8czFgQNWCJ4homk6MiV/Y8TILcElUJKpk+eKuMc2ZZye2vBXRV
-         hHgopBqBqkRAyMR3FigqFUOv7fGF0o5qQkyFiYKc1sMNwF9mcmPeEMVB1/YJ2rCYRHZF
-         3uggF7nWF5QEkpndkxJIbca51kOZNseq8+ZwZGC5pA849GzUFc9DiHXinBgYbMv1PIPy
-         3i0S8A0RV0N8H6ZlkIUbMQJmPdXhid2NWAYoyGNKh/14Xj422HJAAvsuYnTe6Xa0sd3S
-         7HzGpbuedU0+WlNgQzw5z1bNXvdq4XkU7ko8Ciua45v4KGlYCr+H1NffXjccpYYdMAth
-         9suw==
-X-Forwarded-Encrypted: i=1; AHgh+RpDXmqctGYZXoVKyHOyJi/SA8uXZpuhSX7lYhmWdDzKx44R3e6Zj9dbWgJgQqVJTLVy3pVSmGE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZTwhVXl3I5Pz6RRTVli1ofh+ew+HkmgBSM+9ZQ4ZYbYLzRzBD
-	pGRrb0q0oEz+y8o/4o3n200/dGWKGce+BH99d2/03caDU1oFWwAziULVTm30pOCW63xFJO3K9/M
-	N6iu/roagqAgjowPyKdAhtnhmC3NszqgRT6+Gp+wlTQ==
-X-Gm-Gg: AR+sD13HHakjX262Zoe2RHa4CMWoa3jEmgO8Akkgb5pnT9uzxWIyXoiXXlfMcn4PtiW
-	kNRSSSvWvgR4aZTaXmSvra4uz1jvDurc36b/yPJ0kOGGAa/PWgjtcB5zEa0FKICptZ6Bm+XQ9VT
-	qjJfNpsRxAuuYzEKHm8ARjIc24HK5evmPr0FLjXe9L5pSM2lIRw6UwBhBxfM0DroNeEeDTS+tSH
-	D06uIfNbJhi3QSxaAiVCi06nH+gFC+Z+R5REgf92WZiA63ogC+/XCOu4ooU6OxrKsWu3iP5EItl
-	h2aMWzA+OgGfBvKe8RH8E/A8eQ692hF5DVzC73SdvsS7
-X-Received: by 2002:a17:907:960b:b0:c20:c5f4:e19f with SMTP id
- a640c23a62f3a-c242e36cb2dmr96307066b.4.1787129949839; Wed, 19 Aug 2026
- 01:59:09 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787131054; x=1787735854;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=HgKYKxxGawS+Y3KPMd3fgnzXO0x1m/t52oc7d3V1CPs=;
+        b=sGOYgnY4W+/UnfA8IByTNlk+eYMu3C0Z3sP5fjQZEJk7NR9jhBzytSFVCTAsris+/a
+         4MQPJjcj5z+n+XLukGoCNp/RL+Z7Q3uiw1b5k9tSQxLOpR1dZK3emhc+nQAzPbjJ1TmV
+         xfXqVHBgS3VI+BXRrtDqxrFFQANsA2GnQOwndaS/sfWU14aVQlcD22jjVv8B/mgnjxYA
+         kEjZCXW135NAuD8QubHzZWZ1a20Jbx5FVjSfwHNhLW8Mcv3i8OyOr1E0mwyXWfVfsPxC
+         0wCzG31Vyarc198gshkAcPqardAYnTcJHKpDmQTl3R8m8QwlQtOwWbKQJ6icaFtqyAxF
+         AGTw==
+X-Forwarded-Encrypted: i=1; AHgh+RqTP1PSwciQZs1LSvn+SDiei5GXgGIcbut7ap2h75Iq0UaMjty9L6k1n50GUOuQHd2CcXjAAzg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGzU3jfIevTDFAcSSfeRrqnBXj+yyndv9dBWFGdt/oNpctSbeH
+	EIkkpa3Bs9yWZFXFBHdF4kdhaEC1zF63MwyHrIM1/7VIFMM/aaCB3Clf
+X-Gm-Gg: AR+sD11Zn6yBBd2KtxPV1ws+oqZkvHul3jIQguneSVeeNUIEVw0u8X1JRGzcU9/jArL
+	1d3iSyEi7dx0OKW0XVgsKzI4/0EXVOnQ/IeBpoI7P0yYCi2dQ0jAaYeBAZLqVi3j6d6iwCuVg7b
+	xNzNCyqHa0MbuocXCFEl4He5Axhu7aHiedemuj9Iymf0XxUvSMvYUUbrbw4sLJLh/HUc1dhfviq
+	5nceSlzwNzDBtbWhLQEI9ykUH8/GKVcpPeWflyTUQC8SWDc7vM9eqvSK8Om27iFYMVE1tCFC3jM
+	ciUlCPPu3VemdeikvbXxXkPHhf1yRBB56e0Y9BZh1J9LkdwG9fXPA3Nu2mHy+XNU3C7FNOHowRc
+	1v0TCE/oEuKM35ZAeGvTqqpAULwbaYzitB/ya60Vc34nShAqAzd4r/P+nXB2oeT2GMgYgD3EPfV
+	bXND/QpCNZG7bkFD5q+r++hLSxRalv/890b8m+B5dNG2IrgaDtHKtGZCr7C5n+1134nU2vpA==
+X-Received: by 2002:a17:90b:4e8f:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-39580a50d67mr6579598a91.2.1787131054307;
+        Wed, 19 Aug 2026 02:17:34 -0700 (PDT)
+Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.101.42])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fb30541sm1875737a91.13.2026.08.19.02.17.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 02:17:33 -0700 (PDT)
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+Date: Wed, 19 Aug 2026 17:17:01 +0800
+Subject: [PATCH v2] drm/nouveau/nv04: check cursor buffer object size
+ before upload
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817132535.394764707@linuxfoundation.org> <20260817132539.879554007@linuxfoundation.org>
- <521b22fa-ef09-4449-909f-0120edfc4b24@oracle.com>
-In-Reply-To: <521b22fa-ef09-4449-909f-0120edfc4b24@oracle.com>
-From: Jinpu Wang <jinpu.wang@cloud.ionos.com>
-Date: Wed, 19 Aug 2026 10:58:57 +0200
-X-Gm-Features: AcwNN1XurzPwR7awOPzLb57kAKAR4d79LccUPmimiEZT5l1Ul5JEpUvyXAsYtLM
-Message-ID: <CAMGffEmqrrFN6O2oqtAZC3iTD5UJrhVK80bmJLkof28C=uAfvQ@mail.gmail.com>
-Subject: Re: [PATCH 6.12 111/181] KVM: SVM: Add support to initialize SEV/SNP
- functionality in KVM
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
-	patches@lists.linux.dev, Sean Christopherson <seanjc@google.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Ashish Kalra <ashish.kalra@amd.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, liam.merwick@oracle.com, 
-	Sasha Levin <sashal@kernel.org>, vegard.nossum@oracle.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260819-nouveau-nv04-cursor-oob-v2-1-63eb8d0c847f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAIx0hWoC/4WNSw6CMBRFt0I69pl+DBpH7sMw6OcBz0hrWtpoS
+ Pcu4AIcnuTccxeWMBImdm0WFrFQouBXkIeG2VH7AYHcykxy2fKLUOBDLqgz+MJPYHNMIUIIBrS
+ TpuVcOFSOretXxJ7ee/ne/Thl80A7b7nNGCnNIX726yI27/9LESBA9QqNOjsplLsNk6bn0YaJd
+ bXWL7GoJb3QAAAA
+X-Change-ID: 20260813-nouveau-nv04-cursor-oob-ad2b6001de3d
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dave Airlie <airlied@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+ stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787131049; l=2269;
+ i=whi4ed0g@gmail.com; h=from:subject:message-id;
+ bh=yKd0NOqvnUZEXHXx+SmVyZErpDxsdELkJs/BqkIVgrQ=;
+ b=3C4upJJdGASxXPTYB5K57J6xhcml4PoXkh2TeciUednabbD7qnhs5S1jUJs0UdydjzTeemBIR
+ b9h0HYcOlVFCXGw7fZOCKq5rljXg9qF9dLGLhCHUbCGf4C2W8UCaqMt
+X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
+ pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 
-Hi Harshit,
+nv04_crtc_cursor_set() validates only the 64x64 cursor geometry, not the
+size of the backing GEM object, before nv11_cursor_upload() /
+nv04_cursor_upload() read up to 64 * 64 * 4 = 16384 bytes from it via
+nouveau_bo_rd32() at hardware-fixed offsets.
 
-On Wed, Aug 19, 2026 at 9:12=E2=80=AFAM Harshit Mogalapalli
-<harshit.m.mogalapalli@oracle.com> wrote:
->
-> Hi Jack, Greg, Sasha,
->
->
-> On 17/08/26 7:03 pm, Greg Kroah-Hartman wrote:
-> > 6.12-stable review patch.  If anyone has any objections, please let me =
-know.
-> >
-> > ------------------
-> >
-> > From: Ashish Kalra <ashish.kalra@amd.com>
-> >
-> > commit 6f1d5a3513c2370bbd6115dd430906bc2f4bdc53 upstream.
-> >
-> > Move platform initialization of SEV/SNP from CCP driver probe time to
-> > KVM module load time so that KVM can do SEV/SNP platform initialization
-> > explicitly if it actually wants to use SEV/SNP functionality.
-> >
-> > Add support for KVM to explicitly call into the CCP driver at load time
-> > to initialize SEV/SNP. If required, this behavior can be altered with K=
-VM
-> > module parameters to not do SEV/SNP platform initialization at module l=
-oad
-> > time. Additionally, a corresponding SEV/SNP platform shutdown is invoke=
-d
-> > during KVM module unload time.
-> >
-> > Continue to support SEV deferred initialization as the user may have th=
-e
-> > file containing SEV persistent data for SEV INIT_EX available only late=
-r
-> > after module load/init.
-> >
-> > Suggested-by: Sean Christopherson <seanjc@google.com>
-> > Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-> > Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
-> > Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-> > Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > ---
-> >   arch/x86/kvm/svm/sev.c | 12 ++++++++++++
-> >   1 file changed, 12 insertions(+)
-> >
-> > diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-> > index 6cec696461da2..bd0344bacaf1e 100644
-> > --- a/arch/x86/kvm/svm/sev.c
-> > +++ b/arch/x86/kvm/svm/sev.c
-> > @@ -2972,6 +2972,7 @@ void __init sev_set_cpu_caps(void)
-> >   void __init sev_hardware_setup(void)
-> >   {
-> >       unsigned int eax, ebx, ecx, edx, sev_asid_count, sev_es_asid_coun=
-t;
-> > +     struct sev_platform_init_args init_args =3D {0};
-> >       bool sev_snp_supported =3D false;
-> >       bool sev_es_supported =3D false;
-> >       bool sev_supported =3D false;
-> > @@ -3088,6 +3089,15 @@ void __init sev_hardware_setup(void)
-> >       sev_supported_vmsa_features =3D 0;
-> >       if (sev_es_debug_swap_enabled)
-> >               sev_supported_vmsa_features |=3D SVM_SEV_FEAT_DEBUG_SWAP;
-> > +
-> > +     if (!sev_enabled)
-> > +             return;
-> > +
-> > +     /*
-> > +      * Do both SNP and SEV initialization at KVM module load.
-> > +      */
-> > +     init_args.probe =3D true;
-> > +     sev_platform_init(&init_args);
-> >   }
-> >
->
-> I ran an AI-assisted backport review and checked the finding against
-> 6.12.y. The backport appears to be missing the ordering used upstream
-> when kvm_amd is built-in.
->
-> Upstream ensures that the PSP driver is ready before KVM continues:
->
->         if (IS_BUILTIN(CONFIG_KVM_AMD) && sev_module_init())
->                 goto out;
->
-> It also initializes the SNP RMP table from AMD IOMMU initialization:
->
->         if (snp_rmptable_init())
->                 goto disable_snp;
->
-> 6.12.y has no sev_module_init() call and still initializes the RMP table
-> through a later initcall:
->
->         device_initcall(snp_rmptable_init);
->
-> The backport can therefore reach:
->
->         init_args.probe =3D true;
->         sev_platform_init(&init_args);
->
-> before the PSP device exists. The call returns -ENODEV and its result is
-> ignored. KVM can then enable SVM before SNP/RMP setup has completed.
-> Since bb1c84647025 removed probe-time platform initialization, this can
-> leave encrypted guests unable to start.
->
-That looks like the case, we only use kvm as module, didn't hit the issue.
-> The relevant upstream commits are:
->
-> 435b344a7042 ("crypto: ccp: Add external API interface for PSP module
-> initialization")
-> 44e70718df4f ("KVM: SVM: Ensure PSP module is initialized if KVM module
-> is built-in")
-> 409f45387c93 ("x86/sev: Fix broken SNP support with KVM module built-in")
->
->
-> https://lore.kernel.org/stable/cover.1739226950.git.ashish.kalra@amd.com/
->
->
-> Could the KVM maintainers confirm whether 6.12.y needs this full series
-> ? Probably could be done after this cycle, but still noting it here.
-+1
->
-> thanks,
-> Harshit
-Thanks!
-> >   void sev_hardware_unsetup(void)
-> > @@ -3103,6 +3113,8 @@ void sev_hardware_unsetup(void)
-> >
-> >       misc_cg_set_capacity(MISC_CG_RES_SEV, 0);
-> >       misc_cg_set_capacity(MISC_CG_RES_SEV_ES, 0);
-> > +
-> > +     sev_platform_shutdown();
-> >   }
-> >
-> >   int sev_cpu_init(struct svm_cpu_data *sd)
->
+nv04 uses a legacy cursor_set callback with a NULL cursor plane, so
+drm_mode_cursor_common() passes the raw handle to the driver without
+building a drm_framebuffer; the framebuffer path's size check never runs.
+
+A client with DRM master can thus supply an undersized GEM object and
+trigger an out-of-bounds read, as nouveau_bo_map() only kmaps
+PFN_UP(size) pages.
+
+Reject undersized buffers before mapping, as gma500's
+gma_crtc_cursor_set() does. The bound is computed with array3_size() so
+the width * height * 4 product saturates to SIZE_MAX instead of
+overflowing. The check precedes nouveau_bo_map(), so the error path only
+drops the GEM reference via the existing 'out:' label.
+
+Fixes: 6ee738610f41 ("drm/nouveau: Add DRM driver for NVIDIA GPUs")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Suggested-by: Lyude Paul <lyude@redhat.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+---
+Changes in v2:
+- Compute the size bound with array3_size() so the width * height * 4 product cannot overflow (Lyude Paul).
+- Link to v1: https://patch.msgid.link/20260813-nouveau-nv04-cursor-oob-v1-1-3f3eb37d213d@gmail.com
+---
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/nouveau/dispnv04/crtc.c b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
+index 500fd77b87d1..07251cf83df9 100644
+--- a/drivers/gpu/drm/nouveau/dispnv04/crtc.c
++++ b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
+@@ -1000,6 +1000,11 @@ nv04_crtc_cursor_set(struct drm_crtc *crtc, struct drm_file *file_priv,
+ 		return -ENOENT;
+ 	cursor = nouveau_gem_object(gem);
+ 
++	if (gem->size < array3_size(width, height, 4)) {
++		ret = -EINVAL;
++		goto out;
++	}
++
+ 	ret = nouveau_bo_map(cursor);
+ 	if (ret)
+ 		goto out;
+
+---
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+change-id: 20260813-nouveau-nv04-cursor-oob-ad2b6001de3d
+
+Best regards,
+--  
+Zhenhao Wan <whi4ed0g@gmail.com>
+
