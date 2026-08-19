@@ -1,214 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E6C32BF5D;
-	Wed, 19 Aug 2026 13:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE79337699
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 13:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787144497; cv=none; b=Lw4FVBb0n7C8fj6PEjp3CKMmrYsNcEbWpwUkmpgNkv12KcNseWPd+Sj6qmZJ6fEUkEzn3OIXubj5U2IE9rz3IAv/4id1MbbqUWaYzhfPHnhaMLh8Oe9gDyt+/Zxqm6MxN01p/mwCXhsHs6e/QZv6pVwnpL6XKO2KqAYxTQj45dY=
+	t=1787145285; cv=none; b=QRAiYDRoNIO/wGAITgNLKNfHxYigIfqjQgapkT9xTNSiMW7Rhaa2LYVwVZ3YZe8qNIDraH7iFxSPHdu4F2f+WfL+FATPtVgon0KvKUBO+KjNjCqiAhCsNFx5w+hn2FwKABS/An1BR/oHwRqr/0oenieOXQKHACIEUcB65rzml2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787144497; c=relaxed/simple;
-	bh=xxLMFYpzzwZpgMQLDu9GPeOAJIq9pDUJ7rjie4FR0Xg=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=qyE6JFj43RRdPRaA/FQv0Aw2Dloo2DQphzTO1noYFmKvLuSh6B0NtT0s8/f4Q/zfXdHUuJe4Pv1qkMiJj2DMKenKa+2TpER7Veb0knDGzpQuhcCl9gWuva9jzh3pM0m0AQ6A3qbTFJhKGoLJ+uUgNRBxupBgR0NzoLvxfEjRXiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cW1nQSZq; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787145285; c=relaxed/simple;
+	bh=RCr3nOUng3cORR5flGuZas6z0ULDaAO+wDQhBJjNv4s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ljic9duY5+Ua2KvWLXqFnXGNeHPwLp7XVAAuVNf52jsN9X1/1PrT/q4rRgcUUyXx/a6cVjE9M4EIWrTHH6t99iZpOBv3BPA5tBwaBnmUoLWgkaOWBI47MHOcUKCm2ED/xakY7GrjPmNlFcTyDNZXZq5BJcUXPsEWRc0BmGoVZSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YZKRvwen; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U2A2tgkY; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cW1nQSZq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787144495; x=1818680495;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=xxLMFYpzzwZpgMQLDu9GPeOAJIq9pDUJ7rjie4FR0Xg=;
-  b=cW1nQSZqhOIjbfYPCE2BTn92siUKg22QTzomZEi7oISYiAvl7MW9On+y
-   Htf6ZfzCj3Pnq1N8Cpgbf6FpOOSX/XWcme7iRUBTTGKBnctRDWJlmhHwt
-   sLWI2aOKJgMq8/79moE38LD4+nz8z46fHYLf2v/urBV9me+ZTscvNjMob
-   qMbtKxeMTCShFp87eaiBlXg4+ZRmK1S1WWypeoOJHVQRNrW0pBfDx2SbL
-   II+mOFWsrIClF1FM2k1X3vQwVBPZHpkI/E9KaGDDtFqqA4Y0euJsZUXbA
-   4iMa3IHdcQLij0lPyUNSuh6+JncEQ+SejXKwEMlICoiAcwRNlX5bTomvB
-   Q==;
-X-CSE-ConnectionGUID: 2pf4NlS1ShCtHgdpTwGlFw==
-X-CSE-MsgGUID: fX/NStm9SRySQob8h4jOyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="97992290"
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="97992290"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 06:01:34 -0700
-X-CSE-ConnectionGUID: heavkqUnTJeWG3HwI3ik6w==
-X-CSE-MsgGUID: 9XqHon8WSD+em/PWWOVSIw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="265087405"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.190])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 06:01:31 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 19 Aug 2026 16:01:25 +0300 (EEST)
-To: David Laight <david.laight.linux@gmail.com>
-cc: Thorsten Blum <thorsten.blum@linux.dev>, 
-    Mark Pearson <mpearson-lenovo@squebb.ca>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Hans de Goede <hansg@kernel.org>, stable@vger.kernel.org, 
-    Mark Pearson <markpearson@lenovo.com>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] platform/x86: think-lmi: Fix current password length
- check
-In-Reply-To: <20260819134314.54a6f835@pumpkin>
-Message-ID: <b17089a0-7c51-1f53-24d4-93a1e13f557c@linux.intel.com>
-References: <20260813082049.41209-2-thorsten.blum@linux.dev> <daeefbce-83f6-f161-71f5-38730fe9c9d5@linux.intel.com> <aoRa_PwLxneo9Juv@linux.dev> <dddaae9d-88d4-bf7b-3bc1-76cd115742c2@linux.intel.com> <aoRgl4fG_t07FqVK@linux.dev>
- <20260819134314.54a6f835@pumpkin>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YZKRvwen";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U2A2tgkY"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JD0CNa901360
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 13:14:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SKFqy4Xe1zWA3eV617cMxEXyAiEWPIbn6jwL4vyO1S0=; b=YZKRvwenfTL4WI2Y
+	kt9PJpIan3gvYc2ryiUf+zX8AxYJifYD51XlRT/nff34kDjBilJ0iiYIJ2TYmylV
+	BCtfvOQI5LB90K+ubk7/56C+EGNUWztkQCbf3CTImK3CyaPw5haFEGNiLo7GrDBF
+	cMCZIrLvJznqOJ9fvYh6D0OL/xMH6jNWgX+F4/Xgez+noSHIMEfwWJGHrHEJm6GU
+	cfqn/KKR8Dn2PWDV4JKUSkgRKxshg+7q1oN8oOi5St0ozD1lOGbAxKHjJN7v1WIr
+	AKLipN1e0s3ebEuycROgdR3ngSTFf/WhBQxyxylSM+f9TXg9FVMQqRxLV3WC2ubs
+	2x1fpA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yfpuabf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 13:14:40 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52ddb567146so741531cf.2
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 06:14:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787145279; x=1787750079; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SKFqy4Xe1zWA3eV617cMxEXyAiEWPIbn6jwL4vyO1S0=;
+        b=U2A2tgkYruPhrqibRdY26qPDb8eo1i+HGji13aRomGXMgk7OobFrMLiJqQMJMMYOzQ
+         tIPg+IcAKANqLyivLlAppN/r82PDguzOneeS3f+enNFnc7KC3HVAzQVjhnpTYEbMZlSG
+         vZTuDVemng2VM6+7DmgojRvBS2NvaoFihstFkIspKjfMyvoIdICbN5jFUU51pkjkRaU7
+         Zuq5etFCFEg74ZhyXszFpmZObAn9VarR7rWKXsRvy26PsTel0MtnXRBAiWHLg0fDEvaM
+         9ohqh+87FH49usroJY5UHXKw/CwflEkCuhSc3fqafghRQd3fDqur44No4+3f5CjiifUW
+         C3Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787145279; x=1787750079;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SKFqy4Xe1zWA3eV617cMxEXyAiEWPIbn6jwL4vyO1S0=;
+        b=d82BTUV+y0/z95foALKFDlOvtUlkfUoDggrlISvoFbTA12G+mXxCnfYZ2TfIPgL6fX
+         CfcFhXkEBhdHIzatocrKVokTzKnvvAnHqRJXg6y6xtSXkf8iiZ5D19umk251dAeD7uJi
+         WcoNmwHVesLrrde98ioSnXyfB/SuQyKonobxpXNUN0ykPZXg/MVEDTPdRyHQ8n9qtXK3
+         8y9PPzWfyWrMH+UZY9YHx4DsbCkc8ZlvJtRsucv6aXWL4AM6X+GiyO79TTqw2ksXaCkV
+         IJ6pHLIPcCkHpIIdL8d7RFL73KkkGKs9A0lv4Spcz3AgfMeDAKzF5bDILIFtGitPWFLm
+         52Xw==
+X-Forwarded-Encrypted: i=1; AHgh+RoEIckDi4n15205FR4gbexNAsEU77Rs2Jf/dpWrT0WoCV9JQp3/3Q/MRaw/FP4CAGjJ9CBYoSY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwvBTz3iqiA19Pi8veEyNjMd4Q2yZ0b5N6o+bcRJ3+QcHTKktBp
+	BagIwrgDrgYC6Sd4YMmfUKmiL5KflRVmo2BC3A1ms8rVG79gn3F9Mfr9hZF4O1HVsVEIzfC08uV
+	JaDbu9R9tFru9xcjBFLS0CuhbW3MOoARCUWqoGhtX/iYpfhcZj3VVVthPqjU=
+X-Gm-Gg: AR+sD10K51D0ZopAJtt1CUAwZKBfMiKhup6venSpqUffHp+kxLznYKO8fNhYxEehoaA
+	cJjWCfjt8WnIBaueUdcRnAA8eXDNRMJGK9fjxhfze2S2PH4GCEJVNm59QLD68eSOpw/PIdrzAq5
+	w4axGg1LtyO3bTgqMoSnd2pH44N3DYnaeA0UgzbD/IiPFm6oNpk52wua5PARBMvTCQIWWxeXlCP
+	Z55ZToagW3PLWZ6TM6FbXfOxuFA0/RDcvbu5MW4GN+ou19HlijqxgMxcH70pxvS8zQYUa+1TDQL
+	yN9JsJ+HeI7FnHYfnMSh1OrFqFcUgatbmWZOCZTSDz4y4H0CDpEMQXREOnNVQSp5ZvZIeYDLQrI
+	8mnl1dGAguFQBSxfTrM+LWvmz
+X-Received: by 2002:a05:622a:588:b0:51b:f9e0:87b0 with SMTP id d75a77b69052e-52dd579195emr30916301cf.2.1787145278949;
+        Wed, 19 Aug 2026 06:14:38 -0700 (PDT)
+X-Received: by 2002:a05:622a:588:b0:51b:f9e0:87b0 with SMTP id d75a77b69052e-52dd579195emr30915831cf.2.1787145278493;
+        Wed, 19 Aug 2026 06:14:38 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c243c277ba8sm70288366b.56.2026.08.19.06.14.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 19 Aug 2026 06:14:37 -0700 (PDT)
+Message-ID: <3b924a67-a229-4836-abc9-0985e3e10d4d@oss.qualcomm.com>
+Date: Wed, 19 Aug 2026 15:14:36 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-2123993934-1787144485=:1169"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323328-2123993934-1787144485=:1169
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] soc: qcom: geni-se: Fix write to read-only firmware
+ buffer
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260819-fix-write-to-read-only-firmware-buffer-v1-1-be86532fe122@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260819-fix-write-to-read-only-firmware-buffer-v1-1-be86532fe122@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: vVmf9Kywq_uXqSpyykXbwqp_GkCEVvrN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDEwMyBTYWx0ZWRfX5HK4oVMEqrDk
+ MwRYuj2iGg8L8oTNKulg0FNa4R/HrPuoL4/unoRVHMeT4xFbnfOJcVvClYrXeWpe3KldjSKT5pD
+ 3L4uCYIRowDDELkjJy5cR8yAXGhS+fwJwkFOELY4YeYmgwxK3QbXmeDEtroAa88RV5x9kVdBoYU
+ 12/mmAtkTrt8VO3iufN5kA4wdonwrS2IQOHpYfGp/n38+Ud8560PkNFEC3ZRXyImZEfJSrgQY4Z
+ bEQ9pWYOTmlCS1zGdiL03N01HMa/SnhGQIFiQqcTDl7+7MqyEhsTM/Rv5wmeOkQnIEpxKvKqs9x
+ QWzU5CDYIoQSIaCUGg7mmkLuIwREcXcQmPEZ4WYa+hy/c7a5lbsRyfnRtJwU37EEnkcUQhXWS8t
+ C2Fmgw0RGPQ0jk+vnQotpEt4T81pIx33ALOwXyK+5QmPlItN4lxe0DOzP4ucJC4wzwSXmUKjPWh
+ fcMBfY/QVJ45zsZSfvw==
+X-Authority-Analysis: v=2.4 cv=aMrAb79m c=1 sm=1 tr=0 ts=6a85ac40 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=nqMQGrT_VeaHhdO9ox0A:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: vVmf9Kywq_uXqSpyykXbwqp_GkCEVvrN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDEwMyBTYWx0ZWRfX1xAytlavKkoc
+ Xk2hCPDQWR1nR7BEuV4mwinSwMDMW1NFwC8DuLRc2ERXRMeDSzFCBkZvvP2HzVG51QewOO1X/Gp
+ QqOiZwxqdo10Jg1PwXikfXgSQmR7atY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_03,2026-08-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 spamscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190103
 
-On Wed, 19 Aug 2026, David Laight wrote:
+On 8/19/26 12:14 PM, Viken Dadhaniya wrote:
+> geni_find_protocol_fw() casts fw->data to a non-const struct se_fw_hdr
+> pointer and writes back a rounded-up fw_size value:
+> 
+>         sefw->fw_size_in_items = cpu_to_le16(fw_size);
+> 
+> The firmware subsystem maps the firmware blob read-only. Writing through
+> the cast pointer causes a level-3 permission fault on AArch64 and
+> crashes the kernel during driver probe.
 
-> On Tue, 18 Aug 2026 15:39:35 +0200
-> Thorsten Blum <thorsten.blum@linux.dev> wrote:
->=20
-> > On Tue, Aug 18, 2026 at 04:20:10PM +0300, Ilpo J=C3=A4rvinen wrote:
-> > > On Tue, 18 Aug 2026, Thorsten Blum wrote: =20
-> > > > On Tue, Aug 18, 2026 at 02:28:50PM +0300, Ilpo J=C3=A4rvinen wrote:=
- =20
-> > > > > On Thu, 13 Aug 2026, Thorsten Blum wrote: =20
-> > > > > > current_password_store() checks the password length before remo=
-ving the
-> > > > > > trailing newline, which can reject valid passwords that are exa=
-ctly =20
-> > > > > > ->maxlen bytes long. =20
-> > > > > >=20
-> > > > > > It also passes ->maxlen to strscpy(), which truncates passwords=
- without
-> > > > > > a newline.
-> > > > > >=20
-> > > > > > Use strchrnul() to measure the password length up to the newlin=
-e, then
-> > > > > > copy that many bytes and add a trailing NUL terminator.
-> > > > > >=20
-> > > > > > Fixes: a40cd7ef22fb ("platform/x86: think-lmi: Add WMI interfac=
-e support on Lenovo platforms")
-> > > > > > Cc: stable@vger.kernel.org
-> > > > > > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> > > > > > ---
-> > > > > > Changes in v2:
-> > > > > > - Keep and reword the newline comment
-> > > > > > - v1: https://lore.kernel.org/r/20260810132018.156868-3-thorste=
-n.blum@linux.dev/
-> > > > > > ---
-> > > > > >  drivers/platform/x86/lenovo/think-lmi.c | 8 ++++----
-> > > > > >  1 file changed, 4 insertions(+), 4 deletions(-)
-> > > > > >=20
-> > > > > > diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/=
-platform/x86/lenovo/think-lmi.c
-> > > > > > index e215e86e3db7..d0ceb6aaa69e 100644
-> > > > > > --- a/drivers/platform/x86/lenovo/think-lmi.c
-> > > > > > +++ b/drivers/platform/x86/lenovo/think-lmi.c
-> > > > > > @@ -438,14 +438,14 @@ static ssize_t current_password_store(str=
-uct kobject *kobj,
-> > > > > >  =09struct tlmi_pwd_setting *setting =3D to_tlmi_pwd_setting(ko=
-bj);
-> > > > > >  =09size_t pwdlen;
-> > > > > > =20
-> > > > > > -=09pwdlen =3D strlen(buf);
-> > > > > > +=09/* Strip newline; setting password won't work if one is pre=
-sent. */
-> > > > > > +=09pwdlen =3D strchrnul(buf, '\n') - buf;
-> > > > > >  =09/* pwdlen =3D=3D 0 is allowed to clear the password */
-> > > > > >  =09if (pwdlen && ((pwdlen < setting->minlen) || (pwdlen > sett=
-ing->maxlen)))
-> > > > > >  =09=09return -EINVAL;
-> > > > > > =20
-> > > > > > -=09strscpy(setting->password, buf, setting->maxlen);
-> > > > > > -=09/* Strip out CR if one is present, setting password won't w=
-ork if it is present */
-> > > > > > -=09strreplace(setting->password, '\n', '\0');
-> > > > > > +=09memcpy(setting->password, buf, pwdlen);
-> > > > > > +=09setting->password[pwdlen] =3D '\0'; =20
-> > > > >=20
-> > > > > Hi,
-> > > > >=20
-> > > > > I don't understand why is this strscpy() -> memcpy() conversion r=
-equired?  =20
-> > > >=20
-> > > > It's not required, strscpy() would also work.
-> > > >  =20
-> > > > > Wouldn't it work with:
-> > > > >=20
-> > > > > =09strscpy(..., pwdlen);
-> > > > >=20
-> > > > > ? =20
-> > > >=20
-> > > > However, strscpy(setting->password, buf, pwdlen) wouldn't work beca=
-use
-> > > > pwdlen is the number of characters to copy, but the destination buf=
-fer
-> > > > size also needs to include room for the NUL terminator. Since there=
- is
-> > > > no NUL before pwdlen, it would copy only pwdlen - 1 characters and =
-set
-> > > > setting->password[pwdlen - 1] =3D '\0'. =20
-> > >=20
-> > > Okay, I was thinking in my mind if I've a off-by-one error in my=20
-> > > suggestion but didn't want to spend too much time on figuring it out.
-> > >  =20
-> > > > strscpy(setting->password, buf, pwdlen + 1) would work, but since w=
-e
-> > > > already know that exactly pwdlen bytes need to be copied, memcpy() =
-is
-> > > > sufficient. =20
->=20
-> No that overwrites past the end out the output buffer.
+Bug 1
 
-Hi David,
+> Remove the write-back. fw_size is u16, so incrementing 0xffff wraps
+> to 0, letting the bounds check pass for an unchecked size; widen it to
+> u32. The bounds check used the unrounded fw_size, so a segment with an
+> odd word count can pass validation but trigger an out-of-bounds read
+> during the copy;
 
-So are you suggesting ->password cannot hold a maxlen long password or=20
-what?
+Bug 2
 
-> > > It may work, but since you then go to nul terminate it yourself, I th=
-ink=20
-> > > using the existing function is way better than memcpy() + custom nul=
-=20
-> > > termination code. =20
-> >=20
-> > I used memcpy() because we already determined the string length pwdlen,
-> > which strscpy() would have to determine again internally.
-> >=20
-> > The performance difference shouldn't matter here, so it's mostly a
-> > matter of style or personal preference. I'm fine either way.
->=20
-> Personally I'd always use memcpy() if the size is known.
->=20
-> Whoever added the strscpy() should have used the size of the array not
-> the soft bound for the password length (which is limited by the array siz=
-e).
->=20
-> In any case the code could be:
-> =09pwdlen =3D count;
-> =09if (pwdlen && buf[pwdlen - 1] =3D=3D '\n')
-> =09=09pwdlen--;
-> =09...
-> =09memcpy(setting->password, buf, pwdlen);
-> =09setting->password[pwdlen] =3D 0;
-> =09return count;
-> }
->=20
-> I'm sure there could be (might even be) a helper to copy some
-> characters and append a '\0'.
+> round up before computing fw_end. The caller re-reads
+> fw_size_in_items directly, bypassing the validated value; propagate it
+> via a new fw_size_out parameter.
 
-Are you perhaps looking for strscpy() ? :-)
+Bug 3
 
---
- i.
---8323328-2123993934-1787144485=:1169--
+> While at it, fix serial_protocol being compared with le32_to_cpu();
+> the field is __le16, which would cause the protocol match to always
+> fail on big-endian.
+
+Bug 4
+
+Please split this up
+
+Konrad
