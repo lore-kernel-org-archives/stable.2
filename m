@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9CA3F54DD
-	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238CC3F2113
+	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787125651; cv=none; b=adYoGa4Z5LRI4pKBkpWLhSM6oREAtCGbUHSzdgZ2qTMKbCcLc6lnjT2PWnu7z9FsDpbvtKF5hx+92tYsbRr3S5pTyoQ0ZBl/DzBOGAGP0fHga9lZGQFcoAW7fKLvTHKi0ap6zvgdh8rkbMvx8+nLhcutKtRoG9OFgG1iEYeukbo=
+	t=1787125656; cv=none; b=B6k1FAA4i8ulkqLJq4EPP81+5Li+DVArVq4p5vsaZ3CcrG9+b6oQVtiAqhiC1yV2cLwApo7MRjxFSThTi90bYtxdag5cTs+2v+S9iL++ySbQzvM0uNjMtZzm6aX6OKk7x6t+b+lo0rUQqz87sJptDSe4JudkAZoILg0MlLLawys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787125651; c=relaxed/simple;
-	bh=TouhOspaZhIvvCHx8LUeBeEvFTvCKXfQrLkgV56KyqM=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=ZJAfK17m8+uj40fT27HzA/t+wPxS8EHB/MsY00kNobCt0xkwfVF0VIPqLbHtwXOjzWgpDvOXsZGakis5MgSUn6WVDxuK0hSLXuB3JnTlYU/ubv9Bs6pEHFePrax01/7oedwCJHPw6D7uURNC0PMyuEUt2ClI+mqOjrEskxpfMjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ft9Wxg29; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787125656; c=relaxed/simple;
+	bh=+Hi6780Kv5VmSIKC6qy2EAXIan5Vh6UN8yxK7Ra3YD0=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=KfSPJPurgzLI4dDVDKD7KrE4KzlDOCkuE47fWA1ZYwCDt+rykm+DurH1Ma43Pm0dsczVvPrG/5ng3f3vYquN5pkJe7KUCEEK1+TvpQoV2MG/CEaXXlxEfOePtoK7J7uEcArfF92PKmCrjtmzf32cVy6CzX8xySWdmSh/qZNfZ8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b3tUpNqG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ft9Wxg29"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90C41F000E9;
-	Wed, 19 Aug 2026 07:47:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b3tUpNqG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142FE1F00AC4;
+	Wed, 19 Aug 2026 07:47:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787125650;
-	bh=1fMPK5mCMQm7kQ+7Sdc/zGYTHfh+7ZgscFeJ3hDR46w=;
+	s=korg; t=1787125655;
+	bh=D6P4pEMtSeIe6QqEdrgO7ddsuowuna2fe3urrv5dtug=;
 	h=Subject:To:From:Date;
-	b=ft9Wxg29SdBLKpyGnr9LFTLXiwPe5cfvihrLAlv9zisDU8HkNU9RqPFDTbnCfdoSn
-	 Te0vd4Hu1jGHUqN0pbt98LtjPtUNC31DyJ81iSE/wBZWXBCmLJ6IIgsusNSr3RS7Kq
-	 MslxIUL9bN79M46qD0cVDMTQdQ3vXpeGrUX9UtD8=
-Subject: patch "iio: light: ltrf216a: fix runtime PM reference leak in error path" added to char-misc-next
-To: vidhu.linux@gmail.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com,joshua.crofts1@gmail.com
+	b=b3tUpNqGpKPFW189b/b5vVWuUs0EANh4eGA9zlqB3Cu7FGDmLPbGvfp1bR0LWwG9r
+	 7FogOktq+QJIQK4eBUVqltk11cvSO64/1iTFOyRwpz82MBiqm13oNnRPq9860onxkQ
+	 6UloHFc3r0J3rsc2M2Y2ESqOy1JOMsLvlCWxsKZs=
+Subject: patch "iio: light: opt4060: Reject integration times with a non-zero seconds" added to char-misc-next
+To: vidhu.linux@gmail.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 19 Aug 2026 09:44:37 +0200
-Message-ID: <2026081937-overnight-component-ccc7@gregkh>
+Message-ID: <2026081937-sulphate-phonebook-2bdd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: light: ltrf216a: fix runtime PM reference leak in error path
+    iio: light: opt4060: Reject integration times with a non-zero seconds
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,48 +54,43 @@ during the merge window.
 If you have any questions about this process, please let me know.
 
 
-From c132aef0e757a39036b1d40faf0569f2e343b13e Mon Sep 17 00:00:00 2001
+From b7e6e9af0d723afdec92364d5e7e064eeef44c8e Mon Sep 17 00:00:00 2001
 From: Vidhu Sarwal <vidhu.linux@gmail.com>
-Date: Mon, 13 Jul 2026 07:58:29 +0530
-Subject: iio: light: ltrf216a: fix runtime PM reference leak in error path
+Date: Wed, 15 Jul 2026 06:45:42 +0530
+Subject: iio: light: opt4060: Reject integration times with a non-zero seconds
+ part
 
-ltrf216a_get_lux() acquires a runtime PM reference by calling
-ltrf216a_set_power_state(data, true). However, if
-ltrf216a_read_data() fails, the function returns immediately without
-dropping the reference.
+When setting the integration time, opt4060_write_raw() only uses
+val2 and ignores val. As a result, a write such as 1.000600 is
+accepted and programmed as 600 us, silently discarding the whole
+seconds part.
 
-This leaves the runtime PM usage count unbalanced, preventing the device
-from autosuspending after a failed read.
+Since all supported integration times are less than one second, any
+non-zero val represents an invalid input. Reject such values instead
+of silently accepting them.
 
-Fix this by releasing the runtime PM reference before returning from the
-error path.
-
-Fixes: 83f0bcd40d5c ("iio: light: Add support for ltrf216a sensor")
+Fixes: 0c6db4506ad0 ("iio: light: Add support for TI OPT4060 color sensor")
 Signed-off-by: Vidhu Sarwal <vidhu.linux@gmail.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/light/ltrf216a.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/iio/light/opt4060.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/iio/light/ltrf216a.c b/drivers/iio/light/ltrf216a.c
-index aad96fc91565..dd8f3260b1d8 100644
---- a/drivers/iio/light/ltrf216a.c
-+++ b/drivers/iio/light/ltrf216a.c
-@@ -248,11 +248,10 @@ static int ltrf216a_get_lux(struct ltrf216a_data *data)
- 		return ret;
+diff --git a/drivers/iio/light/opt4060.c b/drivers/iio/light/opt4060.c
+index c391ad3271c6..cf6f69e5be35 100644
+--- a/drivers/iio/light/opt4060.c
++++ b/drivers/iio/light/opt4060.c
+@@ -632,6 +632,9 @@ static int opt4060_write_raw(struct iio_dev *indio_dev,
  
- 	greendata = ltrf216a_read_data(data, LTRF216A_ALS_DATA_0);
-+	ltrf216a_set_power_state(data, false);
- 	if (greendata < 0)
- 		return greendata;
- 
--	ltrf216a_set_power_state(data, false);
--
- 	lux = greendata * data->info->lux_multiplier * LTRF216A_WIN_FAC;
- 
- 	return lux;
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_INT_TIME:
++		if (val)
++			return -EINVAL;
++
+ 		int_time = opt4060_als_time_to_index(val2);
+ 		if (int_time < 0)
+ 			return int_time;
 -- 
 2.55.0
 
