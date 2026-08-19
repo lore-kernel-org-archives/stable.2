@@ -1,183 +1,303 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF8E3B9D8C;
-	Wed, 19 Aug 2026 14:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98064746B0
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787149912; cv=none; b=d59r169SB/V/lpW51KB2lpUlsRv2IE8X//HI47gt9pEOsYd9+8NDXUFw1rqfzBH1WoVxGgtzd8xqsWYTuDQ0xgQAk/fJUHzyFzTqOj7jQ36Xh7Af5+UBaQO7A5YKKcW1dNvJKyA4HKDgzXkiYGUQYSAW7SObKSNnP/egDMEwPqo=
+	t=1787149919; cv=none; b=rZpWFYs6NfZDkjFtwOEnDWaQlUE9Z0N8AyPC01NKqELJjMRIEuDnrdxW22mM3ijgmwV7ny15WENprwybHz1A+gsW7NAgnuYZgSzoQs5oE6AOWYijUSfu27Bu0A32RgakMWtI4EJTr+4jVdPMU0YvDhVljhIuu3NLPGziJWjlLpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787149912; c=relaxed/simple;
-	bh=7W4o1OJURvnOdIThrJxaRqjbhXtD6H2a2kzLrkk0yA8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cmgtkJjPnzpIiSQT8zWX4V21/jmVkM1pL0CF5UryZu2PaLo75HkDRFeeesouy27+ovk15E7F6MwjGqCNtcPNus3IYTp7aDUe2myi++o+HGI/o6GZSVprfjy5XR7RN5/0hg6QC5TSHjVMGIzNrN1bZHSjDCspqwCjc95B9v1Gn1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hSP5n2xW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787149919; c=relaxed/simple;
+	bh=1MKRDKwuRIIHvknKmyIquQOvqu3uhZBcKDY16r6pLn4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O3BnjkYHwEt8kdreG7x/Oh65qB7Xgt+zpnn6gn8tQFf6jrRurqflLpoIx7+tMPvsAmUHo5qvbhCDZFh5UhaZkdDKnlmgJM6JyU53ueo2giMXbhkuBHD8PFZNZsF1GsQHBCYTAq5QWj+6ovl9+4MOfnfUO1sCFHgRv+2uQhqXGk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=ArbsRggO; arc=none smtp.client-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hSP5n2xW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B141F00A3D;
-	Wed, 19 Aug 2026 14:31:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787149908;
-	bh=o9hL2zPKdPgs0tnH+5d/gk+ueKMxp9P+vcuepzTiVwA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hSP5n2xWxVocs+JOnjL7+TVh4fWHw+ON9XGYiY95OdunuzN5Xew1X+o+WeiwBMaeX
-	 Cfae7yrOqIREMT8+3VTLBk+6XtFMaJbupCZIpsZKMMADmBvxmwfnP1NOgJxetnynHl
-	 kNxHAmDOtJ62NtmBulrhIE7+o75v5vE27C9QgsV66y+4CPAC3wFP5sBJYl1UPoN9Fs
-	 FgV4+3GaPbT6B5pmdZjTpp8oFqxDvEIsW75IgrkdoRaEwCI1eTynzVITAzeTommc22
-	 QkkMXBlE/GjXepaS7rReSyyaaXWr1r6odQOtPzdpcJQ5VnAcyhbs8+pzHONCMDWaPr
-	 NozeBn9BDdjiw==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 851771980050;
-	Wed, 19 Aug 2026 10:31:42 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Wed, 19 Aug 2026 10:31:46 -0400
-X-ME-Sender: <xms:Tb6Faok3i-dm0H9rS3jUX0pvk9UpAelOaKToC4HOs9R-BtSwEjbRAA>
-    <xme:Tb6Fas6JeZeTtHLs_JZqQ7Aaf-gSXkVXXP3CG9TvUb7cObGFUhjS_5uVF6DxfGGMp
-    NG_ngo1k7rXzcUO7SX9OjmUuAY861Y9bmtu2FNE9lyZoLkVesCdTA>
-X-ME-Received: <xmr:Tb6FajoGnUk1mdca6i9OLwpTyrHyQa9_7mTQqMQPLYZWveVvQ3p9cIA15RQ>
-X-ME-Proxy-Cause: dmFkZTF42tJSbts6mf9F9oXTzfvss1tjtzDvWnFg8m061QZeTeF6vhFaQtDHjL2/3ftFnB
-    aFPcb4p6MUdN9+3pb/2vojcWzemgyDQMIo0qqiBYTAENbnrXMi9Aot+OJ732H+/iOj4TkQ
-    UW6KOX/5Nsng3IBn01i8dwcK1UIQbngydn8TCkAboN6DwoIpZieNOVoKs7klySzQYvfmy/
-    CMNONe8gzzXK43jqFi8fypPcac9ti5PY7WBwwuIDD2R2A71esJbhvYZarcBkdAfthU2FHB
-    IMDubUYkgARIYkMwk7hg4B+eywnxtAvE8QvciQ8Cb3tA61BE3eG+n+iuR5yFdyKKXuvOf2
-    MUWP/gOzPpLyyJgH7J4k0hNNF5D1FLsfoxY1HA2dnEGlYWZnfD13tUkrL+d8SDmO6yWbmL
-    Ihw3ACASJwTCqR+0xnPnByDptuOYfA2xwvoqlTkTUnx1cfLlOiuhLPErhrACzRlGtwP3tV
-    ZEruxLZdn5cuBwphmxbOpTdGoELe6maSK8G3791ODUBQ66kSHieDPDWDNuzM015LiGlf40
-    JVxZlacB/ThSuAi7JWj07OYQonYJOa5jJs/KgKdk5gNlZRRtdWpEADS2TuoMjO7vq817kb
-    apfDs73DhCFvKWVdbneCaAvkzoPQSS9Vr0fXTackII+vnHFl28eXhupToV0g
-X-ME-Proxy: <xmx:Tb6FaiRkGuqUee6HTPf8rrhL7Iy2hqoiH2zbWXY_Zt6W-pbS62a2Fg>
-    <xmx:Tr6FaoWS9afcEduZQM4WavzqMSykfvLVu7uSi135f01UPIMOt1IuZA>
-    <xmx:Tr6FahDvq-GC9zKAavZwR1cuCEYJJO1ZDaPVhCGKzcMBPmdCjAqmnQ>
-    <xmx:Tr6Fans-9q00rNpr9Hh_tvdSnfNSC6scLBUwNNAroJps6CKERhzcKw>
-    <xmx:Tr6FakrIA3RMIT7DTz4DYCAUxXHTebrJMM5bfyc-3yFgCAYdJKuv8m-g>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 19 Aug 2026 10:31:41 -0400 (EDT)
-Date: Wed, 19 Aug 2026 15:31:40 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>, Hugh Dickins <hughd@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, baohua@kernel.org, 
-	baolin.wang@linux.alibaba.com, david@kernel.org, dev.jain@arm.com, lance.yang@linux.dev, 
-	liam@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, 
-	nico.pache@linux.dev, ryan.roberts@arm.com, ziy@nvidia.com, nphamcs@gmail.com, 
-	hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio
- on zap
-Message-ID: <aoWw_iKEDLjKL2jr@thinkstation>
-References: <20260819101222.3732660-1-usama.arif@linux.dev>
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="ArbsRggO"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6aaf3f54dbeso893440eaf.2
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 07:31:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1787149915; x=1787754715; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VkoXOaewtypOLXOO1su20hvl0GXnYwGIOvpcPDd9wJQ=;
+        b=ArbsRggO0ZnBh1eHy/StL473bhtYKkNy8+EC7ueY0Vba8R22lnScbJmQ6LIMpygJby
+         fODYhTEgUtUA2XLDQeIGeXNypTZiQA3XnrU4jMbuJ/KQYnRN2yspi1/arzM3Ramc29NM
+         q6gv2Z2CtNNnMzkr3HSFCjQZ34hzqe4vtfJdI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787149915; x=1787754715;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VkoXOaewtypOLXOO1su20hvl0GXnYwGIOvpcPDd9wJQ=;
+        b=E8nEhAngQh3h4q5vyQ0e4DhCFMxtIRz4Wkyl91z0n/67woBzjt38cswX+CkD0O7Zt3
+         Yekz6jluTcyos+pPXksiSQc5JRqT3pTOhceT/RtY2WH8SR+31+BkBzRd8sm+CJtZw4dg
+         U0pc7PPBCJn+9yzBXDZDo78utXIv8w/XWhuAHhaeGrmndwpxf7vk8PNakBfiFq9TJwYP
+         mhJVr00LC3fjjIXnJJoQEY2IA643Em9r1GZSmJoPPPALY0PBQv5zt/GDG1Xbt6VJBwv5
+         QPtLj0OAuwwk6IZkYG3V+CH8/l6GIhd4HneAE58YC8b9cLdfjksoiezWL+cLLX3DSY6D
+         I2uQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpawhRWL5Ur2sptzz679t5hYB7rJEz39sWTV3KQ9u03PXiaQI4bCdrc2E+U4U7dFQvSC2oKQjg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwziytGEeiPT3Qi2jdgJojGboL2Wblw25fd5bOFopOJGvQRK2f/
+	F1B/tpVD4949n1LZ54XBUvx8dz/UKfXkKWdNFNvgL5yM1qr5iEVdlxv2Ne9o4LP3Pw==
+X-Gm-Gg: AR+sD119i9xRd82sZxuhdx2UWOoR+upWrFSdmymaabvl4w4HvEYpvcbU0A0ydanJ/tR
+	6yUfXPReoj5+KgFUPQSyjNWdvS1PC171cOiNq3Cjb6ZL3t9r5gH8FJYqWHXVqFimzna/ZdgkcQ4
+	e1FkasYoSCyPsMTpdcB5dkCiniDbNg62GiLsLS3yZt6PHprUTIhNxczTGjLyRg5gTHfMXtQFAO/
+	5tHSaaLf2fYFy540AFx+pzaLbMc/reDoM0luIeuxN7JWB5jL3PU8L9HjGTsfe8JsItAM3pQr5NT
+	Fq45VlbsybXy/Vm5qgi3MV3ptun+MIgQEJ3xreOuE4LbHflLMVCCB9R51zAG1DmEsHjj1fLubYe
+	cEWs8qaPh5MoPMlGDVeCO8GTApSUcv6vrz4vjKqzo93efa39voYGatfWA6iYYPQ2x9Zw7yic47r
+	CEifcY+shSdZdo/TzxGjIQKOUX1Vu5/tWvxef89LlSV1p3QyzjiVCjmRNhzzFJ3Olky9LbxUiCs
+	4j3gfMU+vnIElC1eCg8q97XNvXb/OmdTyxVzrSoHxJl2w==
+X-Received: by 2002:a05:6820:818a:b0:6aa:e176:bcb5 with SMTP id 006d021491bc7-6b13c33635bmr4710780eaf.14.1787149913209;
+        Wed, 19 Aug 2026 07:31:53 -0700 (PDT)
+Received: from majuu.waya (bras-base-kntaon1621w-grc-04-184-144-29-222.dsl.bell.ca. [184.144.29.222])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-45f226904b6sm5324071fac.0.2026.08.19.07.31.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 07:31:52 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	stable@vger.kernel.org,
+	vega@nebusec.ai,
+	Victor Nogueira <victor@mojatatu.com>
+Subject: [PATCH net v2] net: sched: fix quantum/backlog overflow in fq, fq_codel, fq_pie, hhf, sfq
+Date: Wed, 19 Aug 2026 10:31:35 -0400
+Message-Id: <20260819143136.57350-1-jhs@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260819101222.3732660-1-usama.arif@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 19, 2026 at 03:12:22AM -0700, Usama Arif wrote:
-> zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
-> file case, but not the dirty bit.  The pte path does propagate it, in
-> zap_present_folio_ptes() and so does the pmd split path, in
-> __split_huge_pmd_locked().
-> 
-> For most file mappings the omission is harmless, because writing to a
-> shared file mapping goes through page_mkwrite(), which dirties the
-> folio.  tmpfs is different: it has no page_mkwrite(), and
-> vma_wants_writenotify() is false for it, so a *read* fault on a
-> MAP_SHARED tmpfs mapping installs a writable pmd via do_read_fault().
-> do_read_fault() does not call fault_dirty_shared_page(), so subsequent
-> stores through that mapping set only the hardware dirty bit in the pmd
-> and never call folio_mark_dirty().
->
-> A shmem folio allocated by a fault
-> is marked uptodate but not dirty (see the clear: block in
-> shmem_get_folio_gfp()), so PG_dirty is never set at all.
-> 
-> Unmapping such a folio - munmap(), or exit_mmap() when the process dies
-> - then loses the only record that it was written, because zap_huge_pmd()
-> drops the pmd without transferring the dirty bit.  Reclaim afterwards
-> sees a clean shmem folio: the whole swap-out block in
-> shrink_folio_list() is inside "if (folio_test_dirty(folio))", so
-> pageout() is skipped and the folio falls into __remove_mapping().
-> There, folio_is_file_lru() is false for a swapbacked folio, so no shadow
-> entry is created and __filemap_remove_folio(folio, NULL) simply empties
-> the i_pages slot.  The data is freed without ever being written to swap,
-> and the next fault on that index returns a freshly zeroed folio.
-> 
-> This is silent data loss for any process that keeps state in a
-> MAP_SHARED tmpfs segment across an unmap - for example a cache handed
-> from one process generation to the next through /dev/shm.  It requires
-> the folio to be PMD-mapped, so it only shows up once shmem THP is
-> enabled (which is what we did in Meta fleet and started noticing crashes);
-> with THP off the pte path transfers the dirty bit correctly.
-> It also only becomes visible when swap is enabled, because with no swap
-> device shmem folios (which are on the anon LRU) are not scanned by
-> reclaim at all, so the clean folio is never dropped.
-> 
-> Reproduced on x86_64 with a tmpfs mounted huge=within_size: read-fault a
-> 2MB-backed region, write a known pattern through the resulting mapping,
-> munmap, force reclaim of the cgroup, then re-map and read back.  Without
-> this patch the region reads back as zeros and vmstat shows zswpout 0 -
-> the data was discarded rather than swapped.  With this patch the region
-> reads back correctly and the pages are swapped out as expected.  With
-> huge=never, or when the first touch is a write, the test passes either
-> way.
+Several qdiscs derive their per-flow quantum or backlog from psched_mtu()
+or accumulate qdisc_pkt_len() into a u32/int counter without an overflow
+or zero clamp, which can drive the dequeue/credit-refill loop into a soft
+lockup or a NULL deref.
 
-+Hugh.
+vega@nebusec.ai provided reports and PoCs which illustrated the following:
 
-Oopsie.
+- sch_fq: fq_init() computes quantum = 2 * psched_mtu() with no overflow
+  check; a huge MTU wraps it into the sign bit, and fq_dequeue()'s
+  credit-refill loop spins forever. TCA_FQ_INITIAL_QUANTUM is also
+  unbounded up to INT_MAX in fq_change().
+- sch_fq_codel: fq_codel_enqueue() accumulates qdisc_pkt_len() into a u32
+  per-flow backlog; a crafted TCA_STAB inflates pkt_len to 1 GiB so a few
+  packets wrap the counter to 0, and fq_codel_drop() then picks an empty
+  flow and derefs NULL. fq_codel_init() also sets quantum =
+  psched_mtu() with no clamp, so a huge MTU makes the deficit loop spin.
+- sch_fq_pie: fq_pie_init() sets quantum = psched_mtu() with no clamp and
+  fq_pie_change() accepts any u32 quantum; same deficit-loop spin as
+  fq_codel on a huge-MTU dummy device.
+- sch_hhf: hhf_init() sets quantum = psched_mtu() with no overflow check;
+  a huge MTU makes weight * quantum overflow the signed deficit, and
+  hhf_dequeue() loops forever.
+- sch_sfq: sfq_init() sets quantum = psched_mtu() (unsigned); a huge MTU
+  makes allot = INT_MIN, and INT_MIN + INT_MIN is UB that toggles between
+  INT_MIN and 0 forever.
 
-I'm confused why it took a decade to discover the bug...
-Maybe read ahead of write for shmem is too rare, I donno.
+Clamp the quantum to a sane range at init/change time so the dequeue loops
+terminate and the drop path never selects an empty flow. The clamps live in
+the init/change paths, not the per-packet fast path, so no hot-path cost is
+added for a configuration issue.
 
-> 
-> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+Conditions to recreate the bug: a device whose MTU (plus hard_header_len)
+is large enough that 2 * psched_mtu() or psched_mtu() wraps into the sign
+bit (e.g. a dummy device with max_mtu == 0 accepting a huge MTU), or a
+crafted TCA_STAB that inflates qdisc_pkt_len to ~1 GiB. Requires
+CAP_NET_ADMIN in a user namespace (Level 2) to configure the qdisc and MTU.
 
-This would be more precise: b5072380eb61 ("thp: support file pages in zap_huge_pmd()")
+Fixes: afe4fd062416 ("pkt_sched: fq: Fair Queue packet scheduler")
+Fixes: 4b549a2ef4be ("fq_codel: Fair Queue Codel AQM")
+Fixes: ec97ecf1ebe4 ("net: sched: add Flow Queue PIE packet scheduler")
+Fixes: 10239edf86f1 ("net-qdisc-hhf: Heavy-Hitter Filter (HHF) qdisc")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: vega@nebusec.ai
+Tested-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+---
+v1 to v2
+Changes based on feedback from Eric and Sashikos[1][2] on V1.
 
-Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
+1. Drop the fast-path changes in fq_dequeue() (Eric)
 
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
->  mm/huge_memory.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index ced400f72d43a..afbb5974bd225 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -2449,6 +2449,8 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
->  		add_mm_counter(mm, mm_counter_file(folio),
->  			       -HPAGE_PMD_NR);
->  
-> +		if (is_present && pmd_dirty(pmdval))
-> +			folio_mark_dirty(folio);
+2. Clamp to a range, not just a lower bound (Eric). Uses
+   clamp_t(u32, ..., 1, 1 << 20) (upper bound 1M; lower bound 1, not 256).
+   Sashiko (gemini, nipa gpt-5-6-sol-1-5) pointed out the v1 max_t() left
+   bit 31 set, so a 0x80000000 quantum survived and still spun.
+   Upper bound is 1M, not Eric's suggested 16M. fq_change() already caps
+   TCA_FQ_QUANTUM at 1M; using 16M in fq_init() would be inconsistent.
 
-Unrelated to your patch, but noticed while looking at it: we drop the rmap
-here under the pmd lock, while the TLB flush is deferred to
-tlb_finish_mmu(). The pte path handles this with
-tlb_delay_rmap()/force_flush (5df397dec7c4), but there's no pmd equivalent:
-tlb_flush_rmap_batch() only knows folio_remove_rmap_ptes(), and
-zap_huge_pmd() uses tlb_remove_page_size(), which takes no delay_rmap.
+3. Clamp TCA_FQ_INITIAL_QUANTUM in fq_change() too (Eric). It was unbounded
+   up to INT_MAX; v2 clamps it to > 0 && <= 1M, matching TCA_FQ_QUANTUM.
 
-Doesn't matter for shmem, but xfs & friends do get PMD-order folios, and
-do_set_pmd() makes the pmd dirty+writable once page_mkwrite() has run. So
-folio_mkclean() can clean the folio while another CPU still stores through a
-stale TLB entry -- silently lost write, no PG_dirty left behind.
+4. Fold fq_codel_init() quantum clamp (Sashiko gemini + nipa gpt-5-6-sol-1-6)
 
-I think we need to fix this too.
+5. Fold fq_pie_init()/fq_pie_change() quantum clamp (Sashiko gemini):
 
-Wanna give it a try?
+6. Reword the hhf/sfq comments (Sashiko nipa gpt-5-6-sol-2-15, gpt-5-6-sol-2-14)
 
->  		if (is_present && pmd_young(pmdval) &&
->  		    likely(vma_has_recency(vma)))
->  			folio_mark_accessed(folio);
-> -- 
-> 2.53.0-Meta
-> 
+[1]https://sashiko.dev/#/patchset/20260818101130.16203-1-jhs@mojatatu.com        
+[2]https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260818101130.16203-1-jhs@mojatatu.com
+---
+ net/sched/sch_fq.c       | 17 ++++++++++++-----
+ net/sched/sch_fq_codel.c | 16 ++++++++++++++--
+ net/sched/sch_fq_pie.c   |  9 ++++++---
+ net/sched/sch_hhf.c      | 12 ++++++++++++
+ net/sched/sch_sfq.c      |  8 ++++++++
+ 5 files changed, 52 insertions(+), 10 deletions(-)
 
+diff --git a/net/sched/sch_fq.c b/net/sched/sch_fq.c
+index 7cae082a9847..f7c92df085e7 100644
+--- a/net/sched/sch_fq.c
++++ b/net/sched/sch_fq.c
+@@ -1112,9 +1112,16 @@ static int fq_change(struct Qdisc *sch, struct nlattr *opt,
+ 		}
+ 	}
+ 
+-	if (tb[TCA_FQ_INITIAL_QUANTUM])
+-		WRITE_ONCE(q->initial_quantum,
+-			   nla_get_u32(tb[TCA_FQ_INITIAL_QUANTUM]));
++	if (tb[TCA_FQ_INITIAL_QUANTUM]) {
++		u32 initial_quantum = nla_get_u32(tb[TCA_FQ_INITIAL_QUANTUM]);
++
++		if (initial_quantum > 0 && initial_quantum <= (1 << 20)) {
++			WRITE_ONCE(q->initial_quantum, initial_quantum);
++		} else {
++			NL_SET_ERR_MSG_MOD(extack, "invalid initial quantum");
++			err = -EINVAL;
++		}
++	}
+ 
+ 	if (tb[TCA_FQ_FLOW_DEFAULT_RATE])
+ 		pr_warn_ratelimited("sch_fq: defrate %u ignored.\n",
+@@ -1226,8 +1233,8 @@ static int fq_init(struct Qdisc *sch, struct nlattr *opt,
+ 
+ 	sch->limit		= 10000;
+ 	q->flow_plimit		= 100;
+-	q->quantum		= 2 * psched_mtu(qdisc_dev(sch));
+-	q->initial_quantum	= 10 * psched_mtu(qdisc_dev(sch));
++	q->quantum		= clamp_t(u32, 2 * psched_mtu(qdisc_dev(sch)), 1, 1 << 20);
++	q->initial_quantum	= clamp_t(u32, 10 * psched_mtu(qdisc_dev(sch)), 1, 1 << 20);
+ 	q->flow_refill_delay	= msecs_to_jiffies(40);
+ 	q->flow_max_rate	= ~0UL;
+ 	q->time_next_delayed_flow = ~0ULL;
+diff --git a/net/sched/sch_fq_codel.c b/net/sched/sch_fq_codel.c
+index 6cce86ba383c..19dde45794a6 100644
+--- a/net/sched/sch_fq_codel.c
++++ b/net/sched/sch_fq_codel.c
+@@ -152,12 +152,24 @@ static unsigned int fq_codel_drop(struct Qdisc *sch, unsigned int max_packets,
+ 	 * amortizing this linear lookup to one cache line per drop.
+ 	 */
+ 	for (i = 0; i < q->flows_cnt; i++) {
+-		if (q->backlogs[i] > maxbacklog) {
++		if (q->backlogs[i] > maxbacklog && q->flows[i].head) {
+ 			maxbacklog = q->backlogs[i];
+ 			idx = i;
+ 		}
+ 	}
+ 
++	/* TCA_STAB can inflate qdisc_pkt_len enough to wrap per-flow
++	 * backlogs (u32) to zero; fall back to a flow with packets.
++	 */
++	if (maxbacklog == 0) {
++		for (i = 0; i < q->flows_cnt; i++) {
++			if (q->flows[i].head) {
++				idx = i;
++				break;
++			}
++		}
++	}
++
+ 	/* Our goal is to drop half of this fat flow backlog */
+ 	threshold = maxbacklog >> 1;
+ 
+@@ -516,7 +528,7 @@ static int fq_codel_init(struct Qdisc *sch, struct nlattr *opt,
+ 	q->flows_cnt = 1024;
+ 	q->memory_limit = 32 << 20; /* 32 MBytes */
+ 	q->drop_batch_size = 64;
+-	q->quantum = psched_mtu(qdisc_dev(sch));
++	q->quantum = max(256U, psched_mtu(qdisc_dev(sch)));
+ 	INIT_LIST_HEAD(&q->new_flows);
+ 	INIT_LIST_HEAD(&q->old_flows);
+ 	codel_params_init(&q->cparams);
+diff --git a/net/sched/sch_fq_pie.c b/net/sched/sch_fq_pie.c
+index 069e1facd413..8fe6634b9aa9 100644
+--- a/net/sched/sch_fq_pie.c
++++ b/net/sched/sch_fq_pie.c
+@@ -340,8 +340,11 @@ static int fq_pie_change(struct Qdisc *sch, struct nlattr *opt,
+ 		WRITE_ONCE(q->p_params.beta,
+ 			   nla_get_u32(tb[TCA_FQ_PIE_BETA]));
+ 
+-	if (tb[TCA_FQ_PIE_QUANTUM])
+-		WRITE_ONCE(q->quantum, nla_get_u32(tb[TCA_FQ_PIE_QUANTUM]));
++	if (tb[TCA_FQ_PIE_QUANTUM]) {
++		u32 quantum = max(256U, nla_get_u32(tb[TCA_FQ_PIE_QUANTUM]));
++
++		WRITE_ONCE(q->quantum, quantum);
++	}
+ 
+ 	if (tb[TCA_FQ_PIE_MEMORY_LIMIT])
+ 		WRITE_ONCE(q->memory_limit,
+@@ -427,7 +430,7 @@ static int fq_pie_init(struct Qdisc *sch, struct nlattr *opt,
+ 	pie_params_init(&q->p_params);
+ 	sch->limit = 10 * 1024;
+ 	q->p_params.limit = sch->limit;
+-	q->quantum = psched_mtu(qdisc_dev(sch));
++	q->quantum = max(256U, psched_mtu(qdisc_dev(sch)));
+ 	q->sch = sch;
+ 	q->ecn_prob = 10;
+ 	q->flows_cnt = 1024;
+diff --git a/net/sched/sch_hhf.c b/net/sched/sch_hhf.c
+index d85cb0263b67..483e70df0ce8 100644
+--- a/net/sched/sch_hhf.c
++++ b/net/sched/sch_hhf.c
+@@ -624,6 +624,18 @@ static int hhf_init(struct Qdisc *sch, struct nlattr *opt,
+ 	q->hhf_evict_timeout = HZ;      /* 1  sec */
+ 	q->hhf_non_hh_weight = 2;
+ 
++	if (!opt) {
++		u64 non_hh_quantum = (u64)q->quantum * q->hhf_non_hh_weight;
++
++		/* A device with max_mtu == 0 (e.g. dummy) accepts an MTU that
++		 * makes weight * quantum overflow the signed deficit and spin
++		 * hhf_dequeue() forever. Fall back to a sane minimum quantum
++		 * when the weighted product overflows or is zero.
++		 */
++		if (non_hh_quantum == 0 || non_hh_quantum > INT_MAX)
++			q->quantum = 256;
++	}
++
+ 	if (opt) {
+ 		int err = hhf_change(sch, opt, extack);
+ 
+diff --git a/net/sched/sch_sfq.c b/net/sched/sch_sfq.c
+index 77675f9a4c46..0e8d034ef2e3 100644
+--- a/net/sched/sch_sfq.c
++++ b/net/sched/sch_sfq.c
+@@ -800,6 +800,14 @@ static int sfq_init(struct Qdisc *sch, struct nlattr *opt,
+ 	q->divisor = SFQ_DEFAULT_HASH_DIVISOR;
+ 	q->maxflows = SFQ_DEFAULT_FLOWS;
+ 	q->quantum = psched_mtu(qdisc_dev(sch));
++	/* A device with max_mtu == 0 (e.g. dummy) accepts an MTU that makes
++	 * psched_mtu() wrap into the sign bit; that would set slot->allot
++	 * negative and spin sfq_dequeue() forever. Fall back to a safe
++	 * positive quantum so the refill loop terminates; the qdisc_pkt_len
++	 * cap in __qdisc_calculate_pkt_len() bounds the deficit depth.
++	 */
++	if ((int)q->quantum <= 0)
++		q->quantum = 10 * 1024;
+ 	q->perturb_period = 0;
+ 	get_random_bytes(&q->perturbation, sizeof(q->perturbation));
+ 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.43.0
+
