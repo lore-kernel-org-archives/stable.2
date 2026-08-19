@@ -1,24 +1,24 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E17633CEA8;
-	Wed, 19 Aug 2026 14:03:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE27A4772A4;
+	Wed, 19 Aug 2026 14:03:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787148231; cv=none; b=s9CdDyfDU8qFffxJB3o2ri95F3pOHKjJIHPydcc8VGcmNEkV40LUe/hPh19z1FneMxzl0qFqBVA+S0ggg5bR/X2/VaSufwP7s6odEtCk+gWI9jq+oJiFa1jxSmYdLYQzOb6Y+OwFqKCE3fD+QJiSIqiok91HvatHozOMGRAHJb4=
+	t=1787148235; cv=none; b=IpLFhSxG6DneZQMPX9XwkdGl4TEPCenDTcxDropCPkDj/9x9nbLvzvAP7rXHkCF5/GWtCzfIb8wqE7p2kAp+jm/ysn/zux39Tt17Mq6llz3v1t1qGjJ4P8ZsKmA4hfYPqtNU54rEiXobnAbR5qVwQNfzHblrEJHTgiDsFDCoxeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787148231; c=relaxed/simple;
-	bh=O4zVFv0h0AbnejAEIck23ijFfGICiboLN9/IOGuB8OQ=;
+	s=arc-20240116; t=1787148235; c=relaxed/simple;
+	bh=kzNWiLHM/1/Z7GUe8dG0cndFY4pFa401S1+/zmMM9JQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=t98JpTF+gsUICJayThF6+x37h14yfu5tHIpQ2WzXf1hkqe048wEEddO+CQKxNZE9AwkjPOFFKstKh6lAjbNN98BnFIn3RriHgwNWN1hySeu5lX06uw/yLfMheBV2qFeZi2CFep2vamWJ5gANBoFbSMa6CIJ6wd/mwFnljHL94q8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=gIMQ6qd/; arc=none smtp.client-ip=101.71.155.101
+	 MIME-Version; b=puhvtVA85QV0W0ujhMV2osmIu/sL/bC8uuR2UmOSRoYqeBMWsyclWjH1T1ScuC+ylsI4ftUvWTOoWHKCMNelSesNVOEua0lCnCJu4K5XLvxN72aD6tuIr1+lNl3JahDDTRmqjMMrNBaoHvLvl0FkfHJ1+A/9pB8jPtYAF8VVkEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=eyZfHJPA; arc=none smtp.client-ip=45.254.49.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="gIMQ6qd/"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="eyZfHJPA"
 Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4a93dedeb;
-	Wed, 19 Aug 2026 22:03:43 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a93deded;
+	Wed, 19 Aug 2026 22:03:48 +0800 (GMT+08:00)
 From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 To: Tudor Ambarus <tudor.ambarus@linaro.org>
 Cc: Pratyush Yadav <pratyush@kernel.org>,
@@ -32,12 +32,13 @@ Cc: Pratyush Yadav <pratyush@kernel.org>,
 	stable@vger.kernel.org,
 	Runyu Xiao <runyu.xiao@seu.edu.cn>,
 	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v4 0/2] mtd: spi-nor: core: Fix RWW wait locking
-Date: Wed, 19 Aug 2026 22:03:35 +0800
-Message-Id: <20260819140337.36775-1-runyu.xiao@seu.edu.cn>
+Subject: [PATCH v4 2/2] mtd: spi-nor: core: Unprepare after interrupted RWW wait
+Date: Wed, 19 Aug 2026 22:03:37 +0800
+Message-Id: <20260819140337.36775-3-runyu.xiao@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <0a15f6e8-f1ca-4945-9bd5-2b64a2802a58@linaro.org>
+In-Reply-To: <20260819140337.36775-1-runyu.xiao@seu.edu.cn>
 References: <0a15f6e8-f1ca-4945-9bd5-2b64a2802a58@linaro.org>
+ <20260819140337.36775-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,35 +46,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa01a55c2a103a1kunm0db6d2d0140e23
+X-HM-Tid: 0aa01a55d98003a1kunm0db6d2d0140e2c
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGEhPVk1CGkxMGUkaTEoeT1YeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTR5MVhlNHhlDSExPGR9MS1YeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
 	xVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=gIMQ6qd/Ob7wmjOjFLStVHr5f/anG1TNz3ut/EaRzsEslpEX9d87r8wsnIObv4GaTg7zCN0wPYPdwX90qMLAXqpiHGpeNfrPf5DQQvWFa8bGvqbY6gIQOchXYR5ecK5P1njj1LoCKvO/FpqkU4fOvs9vxyKTNR3F5uEnh6fp3gY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=NAFliVJdCx2HCK/wB7WQHg3vR4GfL1qd0xIF3s5+vxE=;
+	b=eyZfHJPA1IC/3LJrlNuQCRVbVAuGSsWmfIeEf2gvORk3JeFrlP66I8OMWCSZA2lDM0veBsbvZLZHgkIkZUfu+A4uj5JlMaeQYaP1kJnkJq2Dcs97DRO8UkSB7LiLGLnaw1La4nvB46J+IaHjPlWYgez+BgLYPSdefsOv8Zt+Y5Y=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=YzavkBzAhnxid9s07HfUC9Bg5vaUt0KhGfcnHKf2bjQ=;
 	h=date:mime-version:subject:message-id:from;
 
-The RWW wait helpers must not block while evaluating the wait
-condition. In the current code, spi_nor_rww_start_exclusive() can leave
-nor->lock held on a false return. Also, if a killable RWW wait is
-interrupted after spi_nor_prep(), the controller setup must be undone.
+spi_nor_prep_and_lock() calls spi_nor_prep() before waiting. If the wait
+is interrupted, the controller setup is left active.
 
-Patch 1 switches the four RWW start helpers to conditional scoped mutex
-guards so the wait condition never sleeps and the mutex is always
-released before returning.
-Patch 2 unprepares the controller on interrupted waits in the three
-spi_nor_prep_and_lock() helpers.
+Call spi_nor_unprep() before returning an error from each helper.
 
-Runyu Xiao (2):
-  mtd: spi-nor: core: Fix mutex leak in spi_nor_rww_start_exclusive()
-  mtd: spi-nor: core: Unprepare after interrupted RWW wait
+Fixes: 74df43b3f626 ("mtd: spi-nor: Enhance locking to support reads while writes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
- drivers/mtd/spi-nor/core.c | 93 ++++++++++++++++++++++----------------
- 1 file changed, 54 insertions(+), 39 deletions(-)
+Changes in v4:
+- Add the cleanup for interrupted RWW waits as a separate patch.
+- Use the original RWW locking commit in Fixes.
+---
+ drivers/mtd/spi-nor/core.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-base-commit: 2b533e775aec580cf60074417f4ca00ac9cf3580
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index d5c6a925862e..52264e24eb4b 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -1348,6 +1348,9 @@ int spi_nor_prep_and_lock(struct spi_nor *nor)
+ 		ret = wait_event_killable(nor->rww.wait,
+ 					  spi_nor_rww_start_exclusive(nor));
+ 
++	if (ret)
++		spi_nor_unprep(nor);
++
+ 	return ret;
+ }
+ 
+@@ -1421,6 +1424,9 @@ static int spi_nor_prep_and_lock_pe(struct spi_nor *nor, loff_t start, size_t le
+ 		ret = wait_event_killable(nor->rww.wait,
+ 					  spi_nor_rww_start_pe(nor, start, len));
+ 
++	if (ret)
++		spi_nor_unprep(nor);
++
+ 	return ret;
+ }
+ 
+@@ -1496,6 +1502,9 @@ static int spi_nor_prep_and_lock_rd(struct spi_nor *nor, loff_t start, size_t le
+ 		ret = wait_event_killable(nor->rww.wait,
+ 					  spi_nor_rww_start_rd(nor, start, len));
+ 
++	if (ret)
++		spi_nor_unprep(nor);
++
+ 	return ret;
+ }
+ 
 -- 
 2.34.1
+
