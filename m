@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2D73C1D43
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 03:32:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F92B38E8CA
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 03:32:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787110356; cv=none; b=KXR5eD5az8Xt7nM/XkBddxJgx2E3+Ej0H519c5J6s/EzP60ZKc4DEC89cyL/66a4RzKzk5in/wgayfm4EVOnGjNUH7ODFGYTM3l2S2LVhG4/mwOS+bf/J1v6vOc9mObpYv2fMggu7yLLhUuUCwIEvRjjW3OA2NcfO28L0z1IBy8=
+	t=1787110357; cv=none; b=EIIBRCU+GfMlQctIxMXwf7WLPwzX0va/pkYRgrpEbMeOFIwCXr4W5aKFFJYMoAYDU7JtWgNG4IcjA//de5imNWOYe1GB6559ukM+SqVBoH0bmZCE600zO9/aLMRzidr3zmNU7pYVVIG+6QQCWo0zUZaiCfJWnm7/uXy0mJprz4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787110356; c=relaxed/simple;
-	bh=6v1lXS1RC5qX9igi/umx8sB9EI0dGbxgSOX6xB+Q0c4=;
+	s=arc-20240116; t=1787110357; c=relaxed/simple;
+	bh=9OBZAQXbGQxJjSmq2uex97x/V04hlE5wqr5ijrBGFQo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AR8lKDMR2dSWheaNZiry1iRcJimJTxSbFyNx/fsthFpMmS9gd0mq+EBr+waEU3E4jDMgrre3b0imaMoBtH3Bo2oHrO1LJYbd2Pg/dW9pq5mCSkhZdnaDeyz1BUdLvtTlCr8+PAb3WtrfcLNVlCtUtswfmJNS0BbOR16oKSMm96E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdG2V5gF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LjTI/pUzGV4Mq2N6sM4+iVaR8L4wq0gEt1ftCW4V2xOV6ObWJmYblWRwOTijPZmBmnA+TZsG8lZd07gAqX7pTzphG2Log3aVocckak53nJb2znuDyVuPw12/wb0qCldPPxdbkXugW8bL3wOYMe7LYrvUxPP4OLp6V/kuPbbJPG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ul7nv88D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdG2V5gF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C4C1F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ul7nv88D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081F31F00A3D;
 	Wed, 19 Aug 2026 03:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787110354;
-	bh=g4eeoRNHUKBkuv2AofupOHTPLHATKXotSQvoqmSNtSE=;
+	s=k20260515; t=1787110356;
+	bh=gWmjwiTffPOMN4vXT7OwWtLy6jUj0/x/8YBfTdmvru8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UdG2V5gFynfuAnrOOXzz2Uoj5BtPgvrQJ7h7X+HvM7UoW2hzKtEYnK0H8LljQfC7j
-	 9Jd79opM8GrJtYHpcb/n69TIP7zRxhRNlXziiRTlpD5JKADPitgTWvJK66XBCQswfi
-	 ZF2lXolcp/1gy63HmUrwVNHbTnOFmg26/AXAe1LGrpRSEHZrRiQby8AyLm7SsDcn2l
-	 csswazjbm4R704cT6PnowMDbev4WSCbOw0U/JdipsmTR4/keER7g4IxOprqpBdzYRJ
-	 GGm0j6eVJQFksLiRAUy8cYdcKXYvVkregdSxVe8IzFtwW1oeGhgLnlydNnKWL5AR3k
-	 w20Ak6Nbg3WDw==
+	b=Ul7nv88DpNwf00N8wDL+B8Qx/uITI2Hlry6CEGGHAM/dhRZf4o8LCP/NIipJuabd9
+	 fz2OTyHyG0dZ/FNc1hIJSP5cXjO0ALp09jeQCKNQb5nzVbt02A2oqSMpYEb6O3bpab
+	 /dCxGvgsV5m4AlOWW6Y4XV02IC8wSWT2iwLEsx8pjLNcBBHXveC+uhAFtB0ZG0y8/R
+	 aNHru+cLyHjpibrkBtT+YasDkR6QfXrAgmE8wcBG0pc1G/xTpTo9cR+LLHW/SX20oC
+	 BkRXHuDpwSWfTdDuMMwHjxzR1IVm9zKJOTeBm+QMFDyNd/vuRu214kfm4I6yNAAf8L
+	 6fMgWuClC7HJg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: stable@vger.kernel.org,
+	jianxin.pan@amlogic.com,
+	tuan.zhang@amlogic.com
 Cc: Sasha Levin <sashal@kernel.org>,
-	Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-	STAR Labs SG <info@starlabs.sg>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>
-Subject: Re: [PATCH stable 6.12 1/4] bpf: Fix linked reg delta tracking when src_reg == dst_reg
-Date: Tue, 18 Aug 2026 23:32:17 -0400
-Message-ID: <20260818220420.3@kernel.org>
+	JY <JY.Ho@mediatek.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Jiucheng Xu <jiucheng.xu@amlogic.com>,
+	Jiucheng Xu via B4 Relay <devnull+jiucheng.xu.amlogic.com@kernel.org>
+Subject: Re: [PATCH 6.12.y] f2fs: fix UAF issue in f2fs_merge_page_bio()
+Date: Tue, 18 Aug 2026 23:32:18 -0400
+Message-ID: <20260818220420.4@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260818081428.57938-1-shung-hsi.yu@suse.com>
-References: <20260818081428.57938-1-shung-hsi.yu@suse.com>
+In-Reply-To: <20260818-origin-linux-6-12-y-v1-1-720b168ce6de@amlogic.com>
+References: <20260818-origin-linux-6-12-y-v1-1-720b168ce6de@amlogic.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +50,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 18, 2026 at 04:14:19PM +0800, Shung-Hsi Yu wrote:
-> [PATCH stable 6.12 1/4] bpf: Fix linked reg delta tracking when src_reg == dst_reg
+On Tue, Aug 18, 2026 at 07:19:54PM +0800, Jiucheng Xu wrote:
+> [PATCH 6.12.y] f2fs: fix UAF issue in f2fs_merge_page_bio()
 
-Queued the series for 6.12, thanks.
+Queued for 6.12, thanks.
+
+I kept Chao Yu as the author of the commit, since this is his upstream
+patch, and recorded your backport with a note above the trailers.
 
 -- 
 Thanks,
