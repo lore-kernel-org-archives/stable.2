@@ -1,97 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3612F745D
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 16:37:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783D24772BA
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 16:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787157426; cv=none; b=cmy0AroJZCxgDBUAO8jxmcNXsk1C/Bz4NWo1M97d2BzNn6+frffr9mlEJr9RC91Yg95uTiQp3cfF+NzQJpMXOmj+EgqWatichyyLKgiwTcl7DYlAWtQFrb35DQ8wDrHeOJaVtHT08EVsBPcAySubkJ4N7H66jLg6rOowbOu4bOQ=
+	t=1787157698; cv=none; b=ScYWoMGMR1vOZJxQnJOUG6AKWSr0toBZBeyl4n3NxjFBeoOyteztXDz+K4a3Wh18N8jpzpDS4LuEjDCpIokCS7D+vqnSjGVQ3CXHBqIyqou6Mdqi2zMWtXkQwggU6fwGqv5vgX6Wxp/iGmdqGh+rPvs2bYKBezZFvwkhRNyjMBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787157426; c=relaxed/simple;
-	bh=pr/mOrKNrihbvxZpK9+jrONIYord+BLta6/NkM4PkzQ=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=IEC2xxYvmCfh8yO3SAq3qrezS3upYVJDPmplNpEAasBLLchRccFNDR3O21Nmg9j1iU9BmF2Nv5gPOS54fSmftmuHaNkYBep4WL3MAewRV5U3awg0RGtmLXEakqBmYqqhfWIodQ+EGMZcltOOul4M06Aon9BipiDhCy3Dl5EhXEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZNNO9kn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787157698; c=relaxed/simple;
+	bh=Z4w0jhcQvhCI0bosMo9w46ys/yNsvZhp5zSOIajIGvQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=JrW0yFBdIETgNM3tOHj0FOeihGWsdPIOkfbESt/7Uw1+W8IK9fXySbctU6Ljkj6IxjbI1Sgcx1ZfY5rRnMMj1RASNvjchWhcaQIt/EIsZtEV0GWo2zKcnu/HFaQppQYzeeNGVggY3ib9M360kdhv2rXOPGgmb3Ve32EDnj6jDw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Xrv05/ql; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZNNO9kn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05E581F00A3A;
-	Wed, 19 Aug 2026 16:37:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787157425;
-	bh=QsHEuqcdf3ru8nPwtUEXSBpm0W4HyNiSw2503P8ARO0=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=gZNNO9knt/IoPYcaBewn5z/dBrZWDxjSpCRAH0E/jnKKf5zwgPzZQp6jkGtMrsgP9
-	 sGdfG2zfHaizAMfGO+760bkER1ybyTXWDXqoICkyoPev7mnmmlaILeEUyyyYBwbd/V
-	 0CbAYGwHtGnM5m++Pg0q6+HP+eRo0gidxBQEPOU4NpVF/P3fZWirTefPKCvg+/xa6I
-	 q1GWF3Q2nCQhjFKBIviBcxRYTDePGjC1HMKk+20oobf27L77JJJ4nF6o+j1EoAT7dM
-	 hnShgcTnZSg0ejmd80JOL+99252chZfwQje6ffKnvQg9kJc2/4Kmct/lD4XSVm866q
-	 V6HZh+Y6wOmzQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7BC3B1980045;
-	Wed, 19 Aug 2026 12:37:03 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Wed, 19 Aug 2026 12:37:03 -0400
-X-ME-Sender: <xms:rduFaiU8F0gYhF-BU0aQxYSkZxjxqXbvQOHpStDZLnfb40ycOR2YWg>
-    <xme:rduFapatmPUyspDRf3f6ubDj39g4XRNZTt5DjONIUhORcJvtg7AXwnDym_4HOySN2
-    BVBchoW4ufjKVK_xF6ywGS2oXnQ7dk8ymA0Gxa7tSmFleEWuXA0R-I>
-X-ME-Proxy-Cause: dmFkZTEzE8aUVDxTong4hnJ8VtE8fbJv1fo/B8hPJ4CFDN4gIvKOB1NJX9QKNYv9Rbu5RZ
-    eL2U24IvdfMCHAmV9/P0i6/hAjxED07ZY2b8lyCwTfAHrNcCy4lQy1xFOIXubynYm7EeDx
-    2nlK6MaafCQhEsDxZoHeHJYhYjUyWhBTndcE8ZdUGhniMga51nvraSBabg6TmhwBvQlvZj
-    PMmfBtSfUbWyjK/G1HcIUdXqmrGaCfgBDYC+0Wk3DU73t83bPlwwXEAYrbxliS/IVx/zoO
-    qCttFHVkH+YMxXACmwWtdSFTrpTOrx0yTqf1qTBP1NOl34AiX3WDRp5/QOwBSj6K+dkSad
-    i+at6FvHlacWjaFTa4YCzIAcumiI7ggi21l9zGrrNqT0ZyxzIgd46aDv22Z/9jyyX0EGH6
-    ru4EYG6SiErKJNyRQn0stwtAVk3ch4MvCmBrcmryhwRX/uFMwNRGrNVSf38vyEntgo4Qe2
-    XVRKh3QrY5eiLsONrqMfXQYJj6djEk5tquuZEvB5vfJI5XAOrtTANIYnpg35Ic0fQ4zhHu
-    zYg2jG+0xUQ05wv1PRtFACcv4OA1cQyleeYn5Ebt3p1GR53f8tOgl6F0upMQdpyRouHZDy
-    +pUeBVSF28qiPD8A0rvk8Yx2D07xHmkgZjXMuBQsYwhTX++giHcyeWeFVMnw
-X-ME-Proxy: <xmx:r9uFamj527aITrtzXMZGw2fHBz95aXNq8VZnSxFu-uhe1OS-e2pmjA>
-    <xmx:r9uFav_6mJ0VQdVOTrjbTpCurx1KIqFvmqOIHZLxX1AHYvk3pI7KSA>
-    <xmx:r9uFappA8WYY0i_pGU7QrkINlFR4ojZClXAHjiJbwGm7upnKGniA2g>
-    <xmx:r9uFavUeLKbnOscmORzSAi9Z3r3qIvhs7ELMIqEkPDvKPzbANzqd9w>
-    <xmx:r9uFagCnOK1Ee_P0vwXj-8p2CYAoy8Gmlfz3dhP5jFDsNNWPfbyu99t->
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 965E0F80071; Wed, 19 Aug 2026 12:37:01 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Xrv05/ql"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84e024d2129so1952905b3a.2
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 09:41:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787157697; x=1787762497; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=G2Hz1YJdLVa7+hLxZtMeHXHTsMIJrFof6Tpk0CJAbWU=;
+        b=Xrv05/qlyVVjlIoQe0a0aqODhxhSwJvjZAuAKTtW4AZyFT8nYFDlza7K2zyU08Gsle
+         9tnwX2KpVBe9SIcVctBQ6ij5bc+Ibare0X9VGPjf4lACg6iZo+BVvjE8OzxTEHXoyEBE
+         CXxLCGP5hO+QOdW4ELL+hupXj/5SDf843vm+WyRBO4HBY7le97x2hsG5SxnoMjTsXuii
+         b42LvktGZJSCrdiMIvoFXK5ICmBSZBsibb8OsK8Uej6RNcN8FkhC59Hg0uwOAW4fFVFS
+         0Kz0toVafLfDg/u3zx4/W2RQhnnojZB7+qxHOKlnZD/CANSAG9UKfkvryB78bHEJyPp1
+         hGXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787157697; x=1787762497;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G2Hz1YJdLVa7+hLxZtMeHXHTsMIJrFof6Tpk0CJAbWU=;
+        b=HAix1Eb9j1W+HTiDzWobB0v9oUbY/2mt7x4vu6eXdmn2AZFKLxZCFoLdVrwqi8+/Mw
+         V4+JjtZxvKLhc6Iy9NZeTPbFPX0utMan4trCKvYASlfF2bnW1bPZDMv5XWXFgxrvxiJk
+         MyKQjwXbSxnInZYL4NuTZL68KNiNE8vFAi8jxRYoe/v0aod6zb5xvCppP2VrXwfMAkyh
+         TWEZcr68xFvlvSzbeo1EgDJ7ACocS5YiwRw8qnhMZx39hnMKaIoukVQLE8w3l1QI1H0a
+         4H56JJoPxl60Ja8ntPNCVaEoZc1ITjaJhy6tXerNMJGedhN5i7KGqU5PBAyo45O8N18t
+         ylYA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro/Y2hbL2XKLoaI5hxUKKZ2whDlrBZwvYZdJaBgrYFM+7EcLF1OBLaMnO4mcl+uzqeubyfghJg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/v0MNEyLjtaOnuJlf0Yz1THTJkom8vxak6PPoQcsI9LO1XYgW
+	/hqR+48beO5+98KjM1bgcN2+NYQG6buva8g23T7WRLepiJrDKBOgerHNlqZ5u2mhLiFeIfmudu2
+	r1eOcJQ==
+X-Received: from pfew13-n2.prod.google.com ([2002:a05:6a00:c1cd:20b0:851:c4fc:fe2b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1c82:b0:851:d12e:389b
+ with SMTP id d2e1a72fcca58-851d39598c3mr10615556b3a.14.1787157696399; Wed, 19
+ Aug 2026 09:41:36 -0700 (PDT)
+Date: Wed, 19 Aug 2026 09:41:35 -0700
+In-Reply-To: <CAKSQd8UyzWweM15-9ehaCaYYJYw+N8z9pFon2J+3sehqm=Ukbg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Wed, 19 Aug 2026 19:36:40 +0300
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Anisse Astier" <anisse@astier.eu>
-Cc: linux-efi@vger.kernel.org, x86@kernel.org, stable@vger.kernel.org,
- "Ravi Bangoria" <ravi.bangoria@amd.com>
-Message-Id: <e4153579-37a2-424b-b96b-eb0f1d8085be@app.fastmail.com>
-In-Reply-To: <aoXZ7xBT546YKdOY@kanto>
-References: <20260818141150.905336-1-ardb@kernel.org> <aoXZ7xBT546YKdOY@kanto>
-Subject: Re: [PATCH] efivarfs: Rate limit statfs() handler
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <CAKSQd8V=wfVrUxeU+fDRgKJBLdiyCkkY2SRY+OoRBNE68LFnCg@mail.gmail.com>
+ <abe4535e-c72b-4df2-99be-064479b685ec@intel.com> <CAKSQd8UyzWweM15-9ehaCaYYJYw+N8z9pFon2J+3sehqm=Ukbg@mail.gmail.com>
+Message-ID: <aoXcv795N-xmtTDl@google.com>
+Subject: Re: [PATCH v2] KVM: x86: Remove AMX-TF32 enumeration
+From: Sean Christopherson <seanjc@google.com>
+To: Christian Ludloff <ludloff@gmail.com>
+Cc: Dave Hansen <dave.hansen@intel.com>, "Chang S. Bae" <chang.seok.bae@intel.com>, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, pbonzini@redhat.com, 
+	stable@vger.kernel.org, Zhao Liu <zhao1.liu@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Aug 18, 2026, Christian Ludloff wrote:
+> On Tue, Aug 18, 2026 at 5:55=E2=80=AFPM Dave Hansen <dave.hansen@intel.co=
+m> wrote:
+> > On 7/24/26 08:37, Christian Ludloff wrote:
+> > >> My understanding is that the revert was considered because TF32 neve=
+r
+> > >> reached any implementation. If that's incorrect, I'd certainly welco=
+me a
+> > >> correction.
+> > > Both TF32 and TRANSPOSE made it into a product that shipped.
+> > >
+> > > Not from Intel... but.
+> > >
+> > > So their CPUID feature flags and their opcodes aren't reclaimable
+> > > and efforts to rip out their software support are counterproductive.
+> >
+> > What would folks' preference be on how Intel should document this going
+> > forward? Just leave it as it as enumerating TF32?
+> >
+> > There are notes in the SDM like:
+> >
+> >         Intel=C2=AE MPX has been deprecated and will not be available o=
+n any
+> >         future processors.
+> >
+> > There could be a note like that for the TF32, I would imagine.
+>=20
+> Yes, that terse sentence works.
+>   Once for AMX-TRANSPOSE.
+>   Once for AMX-TF32.
 
+Maybe use a similar approach as is done for the HYPERVISOR bit (0x1.ECX[31)=
+, and
+have the "Field Name" entry say Not Used, and then use the "Description" to=
+ explain
+why?  E.g.
 
-On Wed, 19 Aug 2026, at 19:29, Anisse Astier wrote:
-> Hi Ard,
->
-> I like the new approach, it's much simpler and easier to understand
->
-> On Tue, Aug 18, 2026 at 04:11:50PM +0200, Ard Biesheuvel wrote:
->> Ravi reports that statfs() may be called by unprivileged users on the
->> efivarfs mount point, which may result in a flood of calls to the
->> QueryVariableInfo() runtime service. These calls are disproportionately
->> costly on x86 systems where the variable store is backed by SMM, as each
->> SMM entry requires a rendez-vous of all the CPUs.
->> 
->> So rate limit the calls to QueryVariableInfo() at twice per second, and
->
-> It's already a high-rate in performance sensitive environment. I'd have
-> gone higher at once per 10 seconds for example. But really, this is
-> minor, so please consider this:
->
-> Reviewed-by: <anisse@astier.eu>
->
+  Register        Field Name      Description                             D=
+omain
+  EAX[6]          Not Used        Intel processors always return 0.       P=
+latform
+                                  Allocated for backwards compatibility
+                                  with software that expects this to
+                                  enumerate AMX_TF32.
 
-Thanks!
+Or Christian's terse version (I kinda like the terse version).
+
+  Register        Field Name      Description                             D=
+omain
+  EAX[6]          Not Used        Intel processors always return 0.       P=
+latform
+                                  Once for AMX_TF32.
+
+=20
+> If you want the back references:
+>   TRANSPOSE got dropped from ISE #059 and APX #007.
+>   TF32 got dropped from ISE #062.
+>=20
+> In terms of the opcodes, it is like MPX too: no recycling for
+> a long time. Luckily there is plenty of remaining space.
+>=20
+> --
+> C.
