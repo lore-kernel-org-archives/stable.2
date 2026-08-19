@@ -1,140 +1,238 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4A94252AE;
-	Wed, 19 Aug 2026 08:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787129477; cv=none; b=Y4XpUVtM6mmGDSGnhS0b3tdCy8QvkCwR0o8tWc3BF6vx6dVCEH77OPsl3uKFX2OBL50WVi2/MBa9tM7qm4uV/8+6iXNuqIEyxreWW8EqKsOYNRY/xJvdjS0wPV4aDv994vzSKnhMFG6uoLyIqxGK+g07q2DSna3W33bda9faXGk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787129477; c=relaxed/simple;
-	bh=TUEkS8610yFZ5NGf0Xl4UBB7A3BrCqBlaqaQ5SiVQM4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OZNMQEbQI24EfP9bsdjx/3gPc0kqDB2QUYD7OGhuuG5yqviuWH9Drm10XcMTcLCAgnXQWIDXxK/HOyUv90S8fj22g6YtSrspy0Gku8ZxLvNgophvZf3ppJjpAocDT5Pa2wtxCqcBHye9Enc0XghLKIgZnAykXJa9PZO/SE4CaHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=o4Slmqs2; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4E53C3F75
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 08:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787129954; cv=pass; b=mirrR8a6gMIwQ4puBNxbtESGy+8Eab644pKPZC5GRHQKCLi6Pq/7ATUukaykGWzmJLBciGU6qornuNfTQ4tjdVfR02kZWZynN6i5XzD1UUWdYm75AgxdlGlC1V4qFl67nW6tQN6DABsWET+o/pOfVmuV+XHK59Tqe+aCvCa1zOY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787129954; c=relaxed/simple;
+	bh=POU4QgGjlkB1m401znQIYU3NrwHbaXA8RwN9Ac5rsHY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s1VV6Q8JYAlvLiqFlPFfB6aiTzvEUTGyJImLY97QIS5Crhx6gVTX0jcxAizfukoeJLSU8wdnuVClsj64qyXR68E0oU4avEylruckIMnN0gRKQBaoBN6wd4WjK5XZrzLXeMDivQQbuPy0bwUb4r32iIwlt19XTgrc5EqKsRJ8jqQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b=LBB61TGB; arc=pass smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="o4Slmqs2"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67J6W7sV1544811;
-	Wed, 19 Aug 2026 08:51:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=X2tJql
-	l+Fi4HNShPax6UVCV1yJsPcFkMEGIW0WeqA9Q=; b=o4Slmqs2Y2OsEJyWuCGeuB
-	6Q1jCk2gvwGXIbIL480gzvU3yeIIWICRFnKigb7MOepRUCjtAXUAum0QD6GBu5Qg
-	s1xFeH+hkf+XhEJtJ76km0GTVZmgO0XHoLMBtITjiAw2oVLNFclDEAemiha3c84I
-	mlAeTMip3PKlFCeGpuiwsY4gZj6u6f2DjqAJX0nVQA5xJOeT/NkUqjf+dizDCuGH
-	vbZUV5kQLk3Mdkqglw24SfBQaCOhbCi4mA49VcOxsByIeuOEZQR0NGSS9OhHmjW+
-	02oEs190/4urnyU2mjxU3eOa8pg0DFO2MW9eXSX1xYlv0JsMETn8XD5WGEYrjDvg
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g4yu22jvf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 19 Aug 2026 08:51:13 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67J8fMg7018364;
-	Wed, 19 Aug 2026 08:51:13 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g33ek8169-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 19 Aug 2026 08:51:13 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67J8p9f643450734
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 19 Aug 2026 08:51:09 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0151820040;
-	Wed, 19 Aug 2026 08:51:09 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C479E20043;
-	Wed, 19 Aug 2026 08:51:08 +0000 (GMT)
-Received: from [127.0.1.1] (unknown [9.87.85.9])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 19 Aug 2026 08:51:08 +0000 (GMT)
-From: Tobias Schumacher <ts@linux.ibm.com>
-Date: Wed, 19 Aug 2026 10:50:57 +0200
-Subject: [PATCH 4/7] s390/pci: fix MSI directed-mode teardown IRQ bit count
+	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b="LBB61TGB"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a10d6f455dso118588a12.1
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 01:59:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787129950; cv=none;
+        d=google.com; s=arc-20260327;
+        b=n/L6z6oIohPjaISrbZ3uj+jd1W09se2hUTMnn5r8nMV0VWu9QEp+FwQpvrrKukufjW
+         vIz94rWlWECXUvDwn+AV4L3tCO/Gm0NSEHgvFFTotDaXFlngys2wrKgeu/23133ErI1G
+         Uet2p9eAVmSMomRxAvY5XPVyV0rD1GOIK2yIEBsZmRTcEQajQhfaD88b2wexBpPYOO89
+         kHOs0yj1ar6cD3AStd4RbWX8XGo1/ALr86MIisNzUN3RptESiPm+NFAbjfj8B5bg4VKa
+         gKm9FsyoID/ppr45ukfVsTc5KMxgYNP7hSj6ySoXw1tcB+A69pWK1gOwDm1vBKC4qBqk
+         H0jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=v6LqpiNyutcjnM2YuW2WgPqXG0K1W5YBbJLrp6yBCYY=;
+        fh=+Obk6ZXr+4upCi4V6/p8uUYnsYMVYk+v7/1gR2DzM9M=;
+        b=D2DZ4cL86ZME23K9LWr/JfK8lXI3GJcr9jHwUjfcBGNGVt/4EW5yNpbPjctzYY+7AB
+         AQUxycjbHcXDTJ8GwjME5VCIZ9hMGKIsJlQi1HVM4FYVKfDiR4CJv/a8iTpw1aKgB5l2
+         vTa/sGrKURU4ps9q00tS+sXYXwuhnUiOtDeCkuF57at7cHksBHLrE1yigwVHCnU7daKm
+         ELkxiuBBohCiVSycbBeNynGV/URF1peLAL3dZEbmLeYEaWvw/PY93OZtX442ATjwMbM2
+         fg/oS3o6BzQhS5xnqV2a+/RMpIt7hJi19KwvJwIFW5cnfzTf1h4XGUyNj/STyfEyHyRj
+         9R3g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.ionos.com; s=google; t=1787129950; x=1787734750; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v6LqpiNyutcjnM2YuW2WgPqXG0K1W5YBbJLrp6yBCYY=;
+        b=LBB61TGBB0u0SdZeElefRiUMzWHSBMUtQlJOut1FMRwiHtBYC8JEgESBiQyxzBtY5F
+         ialZb/v/Uas+u2HEXp4aAWaYhFIr5wuLKiKlQoJeWsB4bl/Y99+BSko0I43KYpirJq4W
+         /fltRrW2IOtGOTN7FsNb0gp8GggKtPD7CuwkG0p8MyufZQbQrNCrf5kuwYFFlO4m1h3b
+         bLuOIrzaCzKrt7WTHMVIe0HNxLQQKK1aXdWabsie9yVAwh9rjucGSpxstw5Ht9w0GcxE
+         KRbfYZPiAE4dm1I5gRTTH5Dt/eMS1qAc55CfjWOYskWfEUYuRCwmeGcPFeA9TYWMbhG/
+         Mpqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787129950; x=1787734750;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v6LqpiNyutcjnM2YuW2WgPqXG0K1W5YBbJLrp6yBCYY=;
+        b=KbEpzjX1VmsF+sME8czFgQNWCJ4homk6MiV/Y8TILcElUJKpk+eKuMc2ZZye2vBXRV
+         hHgopBqBqkRAyMR3FigqFUOv7fGF0o5qQkyFiYKc1sMNwF9mcmPeEMVB1/YJ2rCYRHZF
+         3uggF7nWF5QEkpndkxJIbca51kOZNseq8+ZwZGC5pA849GzUFc9DiHXinBgYbMv1PIPy
+         3i0S8A0RV0N8H6ZlkIUbMQJmPdXhid2NWAYoyGNKh/14Xj422HJAAvsuYnTe6Xa0sd3S
+         7HzGpbuedU0+WlNgQzw5z1bNXvdq4XkU7ko8Ciua45v4KGlYCr+H1NffXjccpYYdMAth
+         9suw==
+X-Forwarded-Encrypted: i=1; AHgh+RpDXmqctGYZXoVKyHOyJi/SA8uXZpuhSX7lYhmWdDzKx44R3e6Zj9dbWgJgQqVJTLVy3pVSmGE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZTwhVXl3I5Pz6RRTVli1ofh+ew+HkmgBSM+9ZQ4ZYbYLzRzBD
+	pGRrb0q0oEz+y8o/4o3n200/dGWKGce+BH99d2/03caDU1oFWwAziULVTm30pOCW63xFJO3K9/M
+	N6iu/roagqAgjowPyKdAhtnhmC3NszqgRT6+Gp+wlTQ==
+X-Gm-Gg: AR+sD13HHakjX262Zoe2RHa4CMWoa3jEmgO8Akkgb5pnT9uzxWIyXoiXXlfMcn4PtiW
+	kNRSSSvWvgR4aZTaXmSvra4uz1jvDurc36b/yPJ0kOGGAa/PWgjtcB5zEa0FKICptZ6Bm+XQ9VT
+	qjJfNpsRxAuuYzEKHm8ARjIc24HK5evmPr0FLjXe9L5pSM2lIRw6UwBhBxfM0DroNeEeDTS+tSH
+	D06uIfNbJhi3QSxaAiVCi06nH+gFC+Z+R5REgf92WZiA63ogC+/XCOu4ooU6OxrKsWu3iP5EItl
+	h2aMWzA+OgGfBvKe8RH8E/A8eQ692hF5DVzC73SdvsS7
+X-Received: by 2002:a17:907:960b:b0:c20:c5f4:e19f with SMTP id
+ a640c23a62f3a-c242e36cb2dmr96307066b.4.1787129949839; Wed, 19 Aug 2026
+ 01:59:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260819-s390_irq_domain_fixes-v1-4-826ff27b6e97@linux.ibm.com>
-References: <20260819-s390_irq_domain_fixes-v1-0-826ff27b6e97@linux.ibm.com>
-In-Reply-To: <20260819-s390_irq_domain_fixes-v1-0-826ff27b6e97@linux.ibm.com>
-To: Niklas Schnelle <schnelle@linux.ibm.com>,
-        Gerd Bayer <gbayer@linux.ibm.com>,
-        Julian Ruess <julianr@linux.ibm.com>, Farhan Ali <alifm@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Halil Pasic <pasic@linux.ibm.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Tobias Schumacher <ts@linux.ibm.com>,
-        stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=AdqB2XXG c=1 sm=1 tr=0 ts=6a856e81 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=HZfvwOHSaoXKuVtsHEEA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: GjJ6vVpTghGTrR3g2iY6JDSunex6PZwZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDA2MyBTYWx0ZWRfX2UZRO+yDlHG5
- PQo5VLaulvPLyXOQoFNsFZDL7MCQBvHYlqNuR19cFXDvW71ZIHWF3+csOnzkE6R3QkVRQEgp3ic
- rRRxUuV1sQxeATemOvbSRfuTCc0YNZw9ca8qPrdFx48LuPoa1ghzdOE+XtekYfuO+eBd4G1hfE0
- pla/eGRgCGSKNBWg91ehofzv8C+N5fbr8Tca3BktZrSNkCTnvnw+PnJct2JDEwivzlspJov/Tbl
- szATi6KMn7vrUcsjjgQDILbV41oQm6VGJieFaf50jeni7DB9iAhQT62ZeoIHegIs/6rP8/J2bHN
- m/I4Lap164ZRH6MMt5ost0yVtz/cRzYVN1ahSH0udvh3ltDw+HACI+Mh79NvG0EJ1Pj+Y/3XLKT
- kJRZ8UXwjxUQ4FxmTNE6TEN0wMYFsokQ9LP1WWZbDaWKGFzixAc+vbhFSbJwGce/y0yNCZ4oz8A
- 01GgkakgyHTujwZ/4jw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDA2MyBTYWx0ZWRfX5qaOCQhsIXnf
- XHvZ1JL2l1S63Xn0fKwYo/z4BrBNywd3shZSykv0K0fkwPvJWHObmoxRC1K7RKTEo0JFpsZkr81
- nHM//AqjZOuEc/MR8wrPA6tNbmGqsEA=
-X-Proofpoint-ORIG-GUID: GjJ6vVpTghGTrR3g2iY6JDSunex6PZwZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_02,2026-08-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0
- impostorscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608190063
+References: <20260817132535.394764707@linuxfoundation.org> <20260817132539.879554007@linuxfoundation.org>
+ <521b22fa-ef09-4449-909f-0120edfc4b24@oracle.com>
+In-Reply-To: <521b22fa-ef09-4449-909f-0120edfc4b24@oracle.com>
+From: Jinpu Wang <jinpu.wang@cloud.ionos.com>
+Date: Wed, 19 Aug 2026 10:58:57 +0200
+X-Gm-Features: AcwNN1XurzPwR7awOPzLb57kAKAR4d79LccUPmimiEZT5l1Ul5JEpUvyXAsYtLM
+Message-ID: <CAMGffEmqrrFN6O2oqtAZC3iTD5UJrhVK80bmJLkof28C=uAfvQ@mail.gmail.com>
+Subject: Re: [PATCH 6.12 111/181] KVM: SVM: Add support to initialize SEV/SNP
+ functionality in KVM
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
+	patches@lists.linux.dev, Sean Christopherson <seanjc@google.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Ashish Kalra <ashish.kalra@amd.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, liam.merwick@oracle.com, 
+	Sasha Levin <sashal@kernel.org>, vegard.nossum@oracle.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On s390 with directed interrupts enabled, zpci_msi_teardown_directed()
-frees the platform's maximum number of MSI bits (zdev->max_msi) instead
-of the actual allocated count (zdev->msi_nr_irqs). This corrupts the
-shared IRQ bitmap used by all PCI functions, causing lost interrupts and
-heap corruption. Fix zpci_msi_teardown_directed() to only free the
-actual allocated IRQ bit count.
+Hi Harshit,
 
-Fixes: f770950a4709 ("s390/pci: Migrate s390 IRQ logic to IRQ domain API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
----
- arch/s390/pci/pci_irq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
-index 5e934ac990ac..e9eda846cb2d 100644
---- a/arch/s390/pci/pci_irq.c
-+++ b/arch/s390/pci/pci_irq.c
-@@ -349,7 +349,7 @@ static struct airq_struct zpci_airq = {
- 
- static void zpci_msi_teardown_directed(struct zpci_dev *zdev)
- {
--	airq_iv_free(zpci_ibv[0], zdev->msi_first_bit, zdev->max_msi);
-+	airq_iv_free(zpci_ibv[0], zdev->msi_first_bit, zdev->msi_nr_irqs);
- 	zdev->msi_first_bit = -1U;
- 	zdev->msi_nr_irqs = 0;
- }
-
--- 
-2.53.0
-
+On Wed, Aug 19, 2026 at 9:12=E2=80=AFAM Harshit Mogalapalli
+<harshit.m.mogalapalli@oracle.com> wrote:
+>
+> Hi Jack, Greg, Sasha,
+>
+>
+> On 17/08/26 7:03 pm, Greg Kroah-Hartman wrote:
+> > 6.12-stable review patch.  If anyone has any objections, please let me =
+know.
+> >
+> > ------------------
+> >
+> > From: Ashish Kalra <ashish.kalra@amd.com>
+> >
+> > commit 6f1d5a3513c2370bbd6115dd430906bc2f4bdc53 upstream.
+> >
+> > Move platform initialization of SEV/SNP from CCP driver probe time to
+> > KVM module load time so that KVM can do SEV/SNP platform initialization
+> > explicitly if it actually wants to use SEV/SNP functionality.
+> >
+> > Add support for KVM to explicitly call into the CCP driver at load time
+> > to initialize SEV/SNP. If required, this behavior can be altered with K=
+VM
+> > module parameters to not do SEV/SNP platform initialization at module l=
+oad
+> > time. Additionally, a corresponding SEV/SNP platform shutdown is invoke=
+d
+> > during KVM module unload time.
+> >
+> > Continue to support SEV deferred initialization as the user may have th=
+e
+> > file containing SEV persistent data for SEV INIT_EX available only late=
+r
+> > after module load/init.
+> >
+> > Suggested-by: Sean Christopherson <seanjc@google.com>
+> > Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+> > Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
+> > Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+> > Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
+> > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > ---
+> >   arch/x86/kvm/svm/sev.c | 12 ++++++++++++
+> >   1 file changed, 12 insertions(+)
+> >
+> > diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+> > index 6cec696461da2..bd0344bacaf1e 100644
+> > --- a/arch/x86/kvm/svm/sev.c
+> > +++ b/arch/x86/kvm/svm/sev.c
+> > @@ -2972,6 +2972,7 @@ void __init sev_set_cpu_caps(void)
+> >   void __init sev_hardware_setup(void)
+> >   {
+> >       unsigned int eax, ebx, ecx, edx, sev_asid_count, sev_es_asid_coun=
+t;
+> > +     struct sev_platform_init_args init_args =3D {0};
+> >       bool sev_snp_supported =3D false;
+> >       bool sev_es_supported =3D false;
+> >       bool sev_supported =3D false;
+> > @@ -3088,6 +3089,15 @@ void __init sev_hardware_setup(void)
+> >       sev_supported_vmsa_features =3D 0;
+> >       if (sev_es_debug_swap_enabled)
+> >               sev_supported_vmsa_features |=3D SVM_SEV_FEAT_DEBUG_SWAP;
+> > +
+> > +     if (!sev_enabled)
+> > +             return;
+> > +
+> > +     /*
+> > +      * Do both SNP and SEV initialization at KVM module load.
+> > +      */
+> > +     init_args.probe =3D true;
+> > +     sev_platform_init(&init_args);
+> >   }
+> >
+>
+> I ran an AI-assisted backport review and checked the finding against
+> 6.12.y. The backport appears to be missing the ordering used upstream
+> when kvm_amd is built-in.
+>
+> Upstream ensures that the PSP driver is ready before KVM continues:
+>
+>         if (IS_BUILTIN(CONFIG_KVM_AMD) && sev_module_init())
+>                 goto out;
+>
+> It also initializes the SNP RMP table from AMD IOMMU initialization:
+>
+>         if (snp_rmptable_init())
+>                 goto disable_snp;
+>
+> 6.12.y has no sev_module_init() call and still initializes the RMP table
+> through a later initcall:
+>
+>         device_initcall(snp_rmptable_init);
+>
+> The backport can therefore reach:
+>
+>         init_args.probe =3D true;
+>         sev_platform_init(&init_args);
+>
+> before the PSP device exists. The call returns -ENODEV and its result is
+> ignored. KVM can then enable SVM before SNP/RMP setup has completed.
+> Since bb1c84647025 removed probe-time platform initialization, this can
+> leave encrypted guests unable to start.
+>
+That looks like the case, we only use kvm as module, didn't hit the issue.
+> The relevant upstream commits are:
+>
+> 435b344a7042 ("crypto: ccp: Add external API interface for PSP module
+> initialization")
+> 44e70718df4f ("KVM: SVM: Ensure PSP module is initialized if KVM module
+> is built-in")
+> 409f45387c93 ("x86/sev: Fix broken SNP support with KVM module built-in")
+>
+>
+> https://lore.kernel.org/stable/cover.1739226950.git.ashish.kalra@amd.com/
+>
+>
+> Could the KVM maintainers confirm whether 6.12.y needs this full series
+> ? Probably could be done after this cycle, but still noting it here.
++1
+>
+> thanks,
+> Harshit
+Thanks!
+> >   void sev_hardware_unsetup(void)
+> > @@ -3103,6 +3113,8 @@ void sev_hardware_unsetup(void)
+> >
+> >       misc_cg_set_capacity(MISC_CG_RES_SEV, 0);
+> >       misc_cg_set_capacity(MISC_CG_RES_SEV_ES, 0);
+> > +
+> > +     sev_platform_shutdown();
+> >   }
+> >
+> >   int sev_cpu_init(struct svm_cpu_data *sd)
+>
