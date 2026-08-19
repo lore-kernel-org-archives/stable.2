@@ -1,143 +1,108 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C460E392838
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 16:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F019489861;
+	Wed, 19 Aug 2026 16:30:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787156915; cv=none; b=iv41mQuq2O0XSDk816ywiy+jrYPovRk2TQ59em5LI1f3QWfcLRTv2SH0rXMAm2+co+guFr8HIvStknksC2hw3Qahe83tZYmnSVqAml8Wquz1h2KfzCftrO3AkXgrwIZPzDs3ZrHyWs+iAe7KKecHI8K2vUOxJc6fqz1mntGnUYU=
+	t=1787157037; cv=none; b=SYZMCFyN5gRZL/t5fVCH+nMfnqMNkGnpkLqxvl05lHtcZ9GwWTOc2C4uYV7KJ7/Lek5q1/b9CfND8KOwjqbIeomJGErUSEY04HCjx5/75GofJ32o1oaHM/DGpeejJZuo1OXGDTFTab4ZmlDC+7CI2WDoE/Blje0s5pUR/ijiREc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787156915; c=relaxed/simple;
-	bh=gzfJs5HYntu8gcGCJ6sAjebyKzMhabA2OudsbWoFFYw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=KuB3QWlCStCQfYXW8PHIkpEjaxZHx2PBYiMYu5Lx8eJ6k78aOCpqZ0lo9v7Z3wVGSVCShmuhupMjKyvSjht5HOVocdfSjPmFu0wGyxQ75nJvEqK1/wg3FiAULDN/KsMkPvgbDi40eTwu1ALoT+BbIxBrVvnbqKj3fmOibuYIZy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KV4NyNGE; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1787157037; c=relaxed/simple;
+	bh=k6v3SaglDUCewteuFXVt6DG1RzLNMb4XdvCSAQj3l2o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LzCtysO+6mCOdGSNvmbP9nWNtyukJvB6EQmFFe79t3g2u6GvhAIZw4UiWM0mptPMN41wNoY5H37m5TwAfMcGvjMsSUt4srU/xo1d/ClAGwuRkXK27S9ii8XWrfTpwTPX9vtvwb/m6mLYk8KLiMmxwLEoax0av9M4uKo52uv8D2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=astier.eu; spf=pass smtp.mailfrom=astier.eu; dkim=pass (2048-bit key) header.d=astier.eu header.i=@astier.eu header.b=bXsVS9j1; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PVOuqDA+; arc=none smtp.client-ip=202.12.124.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=astier.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astier.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KV4NyNGE"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc132709c76so1391255a12.3
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 09:28:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787156905; x=1787761705; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+B8j39F6K6IPnckNY9ZHScQQlOhyC0PWjU+Co8ybQzs=;
-        b=KV4NyNGEEhtn5LTFoPGMEfcHtx5FjjZPJBx49z+5hmAed75BojHES1DFKqNGG1/v/X
-         F5epLoZup3Nb6yLkkxYVCnpvO8DLgyLDgDZEOqzkbabpbmhaVLa8OMhSe+KXfAopotkt
-         OwTDBuYGO8PRxgdwVQFWwBFvc0d7HsQGczyzl3qUOeR4O89d9vM/EDPpIDQI7AyzMbJO
-         aH0O4xRzO5PhmstZ9RqsGlcFURCN852yePh6NdCRHrXysehbQ1D4HdiYharjg7UpMSZN
-         xeqIdyk4OQOsLsMyj2fJ9xiAz/tDY/wVdmV3yQi9AAPhwIWGCBPizwFsUFletUvp4yDt
-         KQKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787156905; x=1787761705;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+B8j39F6K6IPnckNY9ZHScQQlOhyC0PWjU+Co8ybQzs=;
-        b=UJ7mVyu2OGOJUR7pWxWD4F746Ww8GH76rnrTZVUNlC2er9iE2rTcfMz4FfMzISe3X4
-         zGNExqu0InH73cvt/F7rsAtIpYYLqSRIG4pLnT6yuBMuuvuPGi3BWHEiAQV7IufnV6cI
-         NJXW7+4WOuNjSVjewNRXoWNdCy4olo50QBL9DcM75dPS1VPNupMDvrHfDdpk3nt7/6GX
-         kzaIQYYZ5K/qZiTvlkna1k0oHq2uczp0I7diwF7uF9IVVT2xPD7a5jRhfWAXMhF5xAJu
-         45SWK3G4o0M6UVZ8W0N8Unk+DrNWgyfRWsbVCQDWk0OFiQLRdwFtkKd/vsEP4GY2QdAY
-         DdPw==
-X-Forwarded-Encrypted: i=1; AHgh+RrrK9xZVcpJBU0P/hr5S0UZyqxWRH1GapQXo9JqBEASeyFG8U/vfl2S0Uz89sysdVS02VEzh3Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0YznYrP70rNlTaM+UqkBYiAp6OCrT7cE5YXIvAzV4JEdHO+iU2DF
-	qr7PKC5nvQffmzCCMjJvBorkI7+/HTSBSxXLTIp6LstkAmZ2APTtJxcmLbMspp1OBuPSpqwkA40
-	2FI5tDg==
-X-Received: from pgar15.prod.google.com ([2002:a05:6a02:2e8f:b0:c99:aff5:707b])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:12c7:b0:3c3:cc3e:a9
- with SMTP id adf61e73a8af0-3cd00dd6be8mr9394127637.4.1787156904767; Wed, 19
- Aug 2026 09:28:24 -0700 (PDT)
-Date: Wed, 19 Aug 2026 09:28:18 -0700
-In-Reply-To: <CAMGffEmqrrFN6O2oqtAZC3iTD5UJrhVK80bmJLkof28C=uAfvQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=astier.eu header.i=@astier.eu header.b="bXsVS9j1";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PVOuqDA+"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 88BD27A0105;
+	Wed, 19 Aug 2026 12:30:34 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Wed, 19 Aug 2026 12:30:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=astier.eu; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1787157034; x=1787243434; bh=LB3LEC2789
+	H9F6ctczT5CnNl4kze8bV2MjpmR+VQNo8=; b=bXsVS9j1bJYZIH+AMis6yzkqjK
+	mZ0op4lcg029P+QU+YRoAA9DQtR84Kn5iC8/dTuSW0UcncCZvg6Rv5+SzBp43bry
+	3NMiBtHDeyQyyYJpbptfe4JqqHOEIoE6qRlPiiV3mJe3VYkSifK03glR1bonhjcL
+	W35jYRZP9MfjInov8HfGAUMHlhO4P3rtEf0/b9NerAL/jhuu/DsTh7lJkR9AJ191
+	6GkowoYWdcnhwt6UUsG8wm6J6aMLdH5m0bnQjMMJFnzzgp7jq7H2gzyhy912OGFk
+	CIHoVqlklhd/gOrgrklhQ9y0K9htW7NoSagmukN4j/N5T9JtsfTljSpd2+wQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1787157034; x=1787243434; bh=LB3LEC2789H9F6ctczT5CnNl4kze8bV2Mjp
+	mR+VQNo8=; b=PVOuqDA+ZUMH5T7nzEC4tTN65OhF2iM3bs1bDtRpotDe7qrbLmD
+	UovBm6O3IWMJTU5pophMQcvArsZFgm2lKFmf0W5rRbtP4B9QIV8saotXeWFdLOAx
+	5aEmz+xatlr0T60/oRgK3P6x0Q652gKLfhAWw8dt6VxJoo64zZ1z9XXOEkbiXEQN
+	IfTSK3ii9hbmn4RYKgxNIcEudz1ptzncV+/DrV4wfjIubv45GZGRPsHZiyI+gpIF
+	sY7afZ0oo6ocDpxj6PBCCOY6clXW+REDrrENOIQY7t9bxnMbKNhcNVuCTFSJWZe1
+	0wmWw7q63i58yOI5Ci6HyEj2uw4dnwLn+0Q==
+X-ME-Sender: <xms:KtqFaqXhr_DbHVFZd8HOGlrFM6AmRPrk0e5Z7BRq0zGAqUTurlo19Q>
+    <xme:KtqFaoF7Wh_1NaR8RPKlvwtBk5UJoQymCXgDtZPLvaZbW0aa1nns7kzYA1r4ISHdQ
+    enkVR81g426hZFqdEYPkcbK9WER5p5_cP1laddxHL-VENcKzHBvrw>
+X-ME-Received: <xmr:KtqFauc4fpKem4fFCPHwgV2zxc1B_Af0cEMoOfBit28voLUgG_JV_VNfo_5r4_rnLan1jaUmtdw6Ik9MbbViNF7n6fEUB_67W5hxmVKv>
+X-ME-Proxy-Cause: dmFkZTFsj9NIgBuR6iJa4VFFAlbKVoABCIV0mkCBM5PDdMqMI9XJ7JFRL1XmbKEQNHYyG6
+    UQjkFQBOgzznIbtfTxsCsFUo2lV8caIHHoWn67BxV01gtR52KmYtfdrCtmrD0jFd4y/hSM
+    oQTBDSBA9FU01x9+Bkqp56Z8lTx6u5ZVWoYJ0mHQNrJZY16isfAGkVPQJt+lGveRGkL1ga
+    H3sZZGNDzHXO0FDy67Mf/zvZa++XH2ft9dEUXWrG6qoJRVXjasKmxL3kkngtxsm3bies5s
+    OjV2pcbEGHGafNvRXSfXJMuoM7JelHnnTGb858fSXfIFQE0VgKqV1YgEekO+ogAXYlQ0oH
+    QPo5vJDxjnUYq3ldKnCBsffH1aVde2i481zAjd4n00uD7fKrp69RdfWeqXMz41TJ79h3VQ
+    IHkDRdFlORdpqX1jEgVqtOLVKmX/bWb3ijOvb8Pen70sWCw9nRwptaO3u7/sq4HVJKciLa
+    kU0RqHL+0om7JsJiI8WWZYzu/PPVvuKMOWoL3grrzwOhjE8/HJrjZP28uf00L7ORLAPiag
+    v3/KasRKa1jpLjFKLVEvAqvg/OuWF96m7zW9tAxEYZ4RqMyMXXcmGGzW7CahQH4/XKE9UC
+    O2cvm6CHk40+vsQwAOawlCqTd3RFzotksW5Ea+a02FcrmSyw3jqa5LwdMyXg
+X-ME-Proxy: <xmx:KtqFahIezpHklumOxypxulN7p_9IKrn_y_imwC7DJTTXf2PBG13Crg>
+    <xmx:KtqFarFBmO5uRogQN_VcS1U1t_Nacpni0V5xxGw0wKZS4Xv_OZJFrQ>
+    <xmx:KtqFasA_dmbf-OFPqbdeo2mdWECXIbH2MqrSPwEh7nyueiyz8iY4wg>
+    <xmx:KtqFam__YmvQYkFFBWwHGZ7SSu6AfUOUxqyCT-zNVSGDS2eLa-5yXA>
+    <xmx:KtqFauDIk7P4SnERXvKJAYgn2uRfKxIncAaXX9DR5AEdAZMkLSNjW704>
+Feedback-ID: iccec46d4:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 19 Aug 2026 12:30:11 -0400 (EDT)
+Date: Wed, 19 Aug 2026 18:29:35 +0200
+From: Anisse Astier <anisse@astier.eu>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-efi@vger.kernel.org, x86@kernel.org, stable@vger.kernel.org,
+	Ravi Bangoria <ravi.bangoria@amd.com>
+Subject: Re: [PATCH] efivarfs: Rate limit statfs() handler
+Message-ID: <aoXZ7xBT546YKdOY@kanto>
+References: <20260818141150.905336-1-ardb@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260817132535.394764707@linuxfoundation.org> <20260817132539.879554007@linuxfoundation.org>
- <521b22fa-ef09-4449-909f-0120edfc4b24@oracle.com> <CAMGffEmqrrFN6O2oqtAZC3iTD5UJrhVK80bmJLkof28C=uAfvQ@mail.gmail.com>
-Message-ID: <aoXZohqTkyXQmteX@google.com>
-Subject: Re: [PATCH 6.12 111/181] KVM: SVM: Add support to initialize SEV/SNP
- functionality in KVM
-From: Sean Christopherson <seanjc@google.com>
-To: Jinpu Wang <jinpu.wang@cloud.ionos.com>
-Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
-	patches@lists.linux.dev, Tom Lendacky <thomas.lendacky@amd.com>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	liam.merwick@oracle.com, Sasha Levin <sashal@kernel.org>, vegard.nossum@oracle.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818141150.905336-1-ardb@kernel.org>
 
-On Wed, Aug 19, 2026, Jinpu Wang wrote:
-> Hi Harshit,
->=20
-> On Wed, Aug 19, 2026 at 9:12=E2=80=AFAM Harshit Mogalapalli
-> <harshit.m.mogalapalli@oracle.com> wrote:
+Hi Ard,
 
-...
+I like the new approach, it's much simpler and easier to understand
 
-> > > diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-> > > index 6cec696461da2..bd0344bacaf1e 100644
-> > > --- a/arch/x86/kvm/svm/sev.c
-> > > +++ b/arch/x86/kvm/svm/sev.c
-> > > @@ -2972,6 +2972,7 @@ void __init sev_set_cpu_caps(void)
-> > >   void __init sev_hardware_setup(void)
-> > >   {
-> > >       unsigned int eax, ebx, ecx, edx, sev_asid_count, sev_es_asid_co=
-unt;
-> > > +     struct sev_platform_init_args init_args =3D {0};
-> > >       bool sev_snp_supported =3D false;
-> > >       bool sev_es_supported =3D false;
-> > >       bool sev_supported =3D false;
-> > > @@ -3088,6 +3089,15 @@ void __init sev_hardware_setup(void)
-> > >       sev_supported_vmsa_features =3D 0;
-> > >       if (sev_es_debug_swap_enabled)
-> > >               sev_supported_vmsa_features |=3D SVM_SEV_FEAT_DEBUG_SWA=
-P;
-> > > +
-> > > +     if (!sev_enabled)
-> > > +             return;
-> > > +
-> > > +     /*
-> > > +      * Do both SNP and SEV initialization at KVM module load.
-> > > +      */
-> > > +     init_args.probe =3D true;
-> > > +     sev_platform_init(&init_args);
-> > >   }
+On Tue, Aug 18, 2026 at 04:11:50PM +0200, Ard Biesheuvel wrote:
+> Ravi reports that statfs() may be called by unprivileged users on the
+> efivarfs mount point, which may result in a flood of calls to the
+> QueryVariableInfo() runtime service. These calls are disproportionately
+> costly on x86 systems where the variable store is backed by SMM, as each
+> SMM entry requires a rendez-vous of all the CPUs.
+> 
+> So rate limit the calls to QueryVariableInfo() at twice per second, and
 
-...
+It's already a high-rate in performance sensitive environment. I'd have
+gone higher at once per 10 seconds for example. But really, this is
+minor, so please consider this:
 
-> That looks like the case, we only use kvm as module, didn't hit the issue=
-.
-> > The relevant upstream commits are:
-> >
-> > 435b344a7042 ("crypto: ccp: Add external API interface for PSP module
-> > initialization")
-> > 44e70718df4f ("KVM: SVM: Ensure PSP module is initialized if KVM module
-> > is built-in")
-> > 409f45387c93 ("x86/sev: Fix broken SNP support with KVM module built-in=
-")
-> >
-> >
-> > https://lore.kernel.org/stable/cover.1739226950.git.ashish.kalra@amd.co=
-m/
-> >
-> >
-> > Could the KVM maintainers confirm whether 6.12.y needs this full series=
-?
+Reviewed-by: <anisse@astier.eu>
 
-Yes, we should also backport the above fixes to 6.12.y.
+Regards,
 
-> > Probably could be done after this cycle, but still noting it here.
-
-Yes, sadly this patch is needed to make SNP usable for *any* configuration,=
- due
-to bb1c84647025 ("crypto: ccp - Move SEV/SNP Platform initialization to KVM=
-")
-already being in 6.12.
+Anisse
