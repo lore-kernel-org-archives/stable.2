@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747ED35836E
-	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468C42E06ED
+	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787125632; cv=none; b=DCwFt6dk+Co+4NwU+Mji5I4Z5VscRWNkv8ONeqcgh9qSn8RlJ/IerxuZzVxw/a5ynwKwAZwlJ0gEF2xclzF5QeyY8jh0DVoZyYbGCR9u6+C5PqIXemNohTk8U+Gqfjx00TvgHXTHHHiJhy7qUCE3W9vxIW0HDUW6bUeivCNzXhI=
+	t=1787125637; cv=none; b=LdsnhbWWnT0nzKkHPnaZQ9cfw087vsG+VMy9SqqK9VKsMJP9iudYGI5BIfDuwXbbf5seEpglHiz7un4WSmy985kmAhegbo6h7oUNaEwSPeSH9YhdFOZGXnyMqCoT/aiflIPGVG24kJCTVnK5JWu1M6Xv4Zh8Si4jIU6xeRxtHVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787125632; c=relaxed/simple;
-	bh=wuCQ6OoNgdhjgIfVsXA+lNfF98bS5MHrhq837jM8p6U=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=dOJbOkwG0QwBl/rn7rBoaqLsdoZtSlRwBuALmgZSAh6MBS1B53kWBNAGbPP9UyzJuCXWjdi+VfvWFpC9Na29pkh0CuVmGYVSj/a/Gr65TQYT7Ws/IlpvBJDdLmDSXLPFSCp3RGZBsm2+6DznnAUzt30fEFy6oy28EAtnUbEYedQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Gy5aEFzu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787125637; c=relaxed/simple;
+	bh=m8PBWOKPZZxgON00ruJEhOjBS0Ajq1Sbq4Lr1ITh1CU=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=fR1AGzBSCIJv0my/kPG/JzuXjYmebpHT6oJuNrR+nBbKBwfeEHpzY3CW8zCm+8oyoFpDb1YF3iYaI0raEpTAsErQny0QenD5U9llLoTjyi5F7Wk9Y+hkA2Xi+R35z1klV5AVAmyuoVzqTYGRaSIt+WKGwjPpmw4AWwn/eJf8Gos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ggfP3Oz0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Gy5aEFzu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7772A1F000E9;
-	Wed, 19 Aug 2026 07:47:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ggfP3Oz0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF20B1F000E9;
+	Wed, 19 Aug 2026 07:47:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787125631;
-	bh=dFLiSQwShY620dKnbhHDEb7lA7ac17RG7SHEb4pNBvU=;
+	s=korg; t=1787125635;
+	bh=STwMFl6b1I4ZRzsPq/cXV++o07BID78mGI6PgzEdFOo=;
 	h=Subject:To:From:Date;
-	b=Gy5aEFzuDuiSIbVsLS8sxU9ML9lchpSvAclYy/4Tkf2yckLJcS1Q33LiVPksu5/wW
-	 28PMzaT7kzrZ+0F0s+pSnTVUHGSumrDHKODAaAP1MwdAax6YVh23qvyqbLfWzerSeT
-	 P7QohkWExvZGNQWNq8xoF/LduZC9u5I7coiQgnvE=
-Subject: patch "iio: light: gp2ap002: Disable regulators on resume failure" added to char-misc-next
-To: acharyalaxman8848@gmail.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com,linusw@kernel.org
+	b=ggfP3Oz0uQdkG8I6Hr40840733EzZYSQyEcAJO3VHwsArqnr7DVc/j8U029SzS1Ce
+	 IHInlR2NjUadc71/qlrhJ1b7uM9AG37ozLCs3O/Wc8+qjblBHRjcefdVOO1PKB6hk/
+	 ClM/VEvkcmw1N6R9hvQd2isMRSsTQPbgfJLj7jcg=
+Subject: patch "iio: buffer: Tie IIO dma fence lock lifetime to the fence" added to char-misc-next
+To: lars@metafoo.de,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 19 Aug 2026 09:44:35 +0200
-Message-ID: <2026081934-sharply-barbecue-0934@gregkh>
+Date: Wed, 19 Aug 2026 09:44:36 +0200
+Message-ID: <2026081936-underpass-shorthand-a940@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: light: gp2ap002: Disable regulators on resume failure
+    iio: buffer: Tie IIO dma fence lock lifetime to the fence
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,63 +54,83 @@ during the merge window.
 If you have any questions about this process, please let me know.
 
 
-From a41000ba3a230bed1e422f283486ff8f77fe0d30 Mon Sep 17 00:00:00 2001
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Date: Sat, 4 Jul 2026 14:19:12 +0545
-Subject: iio: light: gp2ap002: Disable regulators on resume failure
+From f25ec4627d935dedfb5fe83bd2c2678cdcc19611 Mon Sep 17 00:00:00 2001
+From: Lars-Peter Clausen <lars@metafoo.de>
+Date: Wed, 15 Jul 2026 08:42:44 -0700
+Subject: iio: buffer: Tie IIO dma fence lock lifetime to the fence
 
-If enabling VIO fails after VDD has been enabled, runtime resume
-returns without disabling VDD. Likewise, if device reinitialization
-fails, both supplies remain enabled. The runtime PM core keeps the
-device suspended when its resume callback fails, so the supplies must
-be restored to the suspended state.
+The `iio_dma_fence` implementation currently uses a lock embedded in the
+`iio_dmabuf_priv`. But the `iio_dma_fence` can outlive the
+`iio_dmabuf_priv`, which can cause a use-after-free.
 
-Disable the supplies enabled by the callback before returning an error.
+Tie the lifetime of the lock to the lifetime of the fence by embedding them
+in the same struct.
 
-Fixes: 97d642e23037 ("iio: light: Add a driver for Sharp GP2AP002x00F")
-Assisted-by: Codex:gpt-5
-Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+We can't just hold a reference to the `iio_dmabuf_priv` from the
+`iio_dma_fence` since `iio_buffer_dmabuf_release()` might sleep and the
+fence release callback is not allowed to sleep.
+
+Note that the `dma_fence` framework now has an internal lock that gets used
+when the passing `NULL` for `lock` in `dma_fence_init()`, but in order to
+allow this patch to be backportable use an external lock.
+
+Reported-by: codex:gpt-5.6
+Fixes: 3e26d9f08fbe ("iio: core: Add new DMABUF interface infrastructure")
+Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/light/gp2ap002.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/iio/industrialio-buffer.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iio/light/gp2ap002.c b/drivers/iio/light/gp2ap002.c
-index a8db514cca5e..05773e24931b 100644
---- a/drivers/iio/light/gp2ap002.c
-+++ b/drivers/iio/light/gp2ap002.c
-@@ -669,7 +669,7 @@ static int gp2ap002_runtime_resume(struct device *dev)
- 	ret = regulator_enable(gp2ap002->vio);
- 	if (ret) {
- 		dev_err(dev, "failed to enable VIO regulator in resume path\n");
--		return ret;
-+		goto out_disable_vdd;
+diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
+index 04b3916f89e2..31c06bffdce8 100644
+--- a/drivers/iio/industrialio-buffer.c
++++ b/drivers/iio/industrialio-buffer.c
+@@ -47,9 +47,6 @@ struct iio_dmabuf_priv {
+ 
+ 	u64 context;
+ 
+-	/* Spinlock used for locking the dma_fence */
+-	spinlock_t lock;
+-
+ 	struct dma_buf_attachment *attach;
+ 	struct sg_table *sgt;
+ 	enum dma_data_direction dir;
+@@ -58,6 +55,7 @@ struct iio_dmabuf_priv {
+ 
+ struct iio_dma_fence {
+ 	struct dma_fence base;
++	spinlock_t lock; /* protects base */
+ 	struct iio_dmabuf_priv *priv;
+ 	struct work_struct work;
+ };
+@@ -1706,7 +1704,6 @@ static int iio_buffer_attach_dmabuf(struct iio_dev_buffer_pair *ib,
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+-	spin_lock_init(&priv->lock);
+ 	priv->context = dma_fence_context_alloc(1);
+ 
+ 	dmabuf = dma_buf_get(fd);
+@@ -1896,6 +1893,8 @@ static int iio_buffer_enqueue_dmabuf(struct iio_dev_buffer_pair *ib,
+ 		goto err_attachment_put;
  	}
  
- 	msleep(20);
-@@ -677,13 +677,19 @@ static int gp2ap002_runtime_resume(struct device *dev)
- 	ret = gp2ap002_init(gp2ap002);
- 	if (ret) {
- 		dev_err(dev, "re-initialization failed\n");
--		return ret;
-+		goto out_disable_vio;
- 	}
- 
- 	/* Re-activate the IRQ */
- 	enable_irq(gp2ap002->irq);
- 
- 	return 0;
++	spin_lock_init(&fence->lock);
 +
-+out_disable_vio:
-+	regulator_disable(gp2ap002->vio);
-+out_disable_vdd:
-+	regulator_disable(gp2ap002->vdd);
-+	return ret;
- }
+ 	fence->priv = priv;
  
- static DEFINE_RUNTIME_DEV_PM_OPS(gp2ap002_dev_pm_ops, gp2ap002_runtime_suspend,
+ 	seqno = atomic_add_return(1, &priv->seqno);
+@@ -1906,7 +1905,7 @@ static int iio_buffer_enqueue_dmabuf(struct iio_dev_buffer_pair *ib,
+ 	 * the dma_fence.
+ 	 */
+ 	dma_fence_init(&fence->base, &iio_buffer_dma_fence_ops,
+-		       &priv->lock, priv->context, seqno);
++		       &fence->lock, priv->context, seqno);
+ 
+ 	ret = iio_dma_resv_lock(dmabuf, nonblock);
+ 	if (ret)
 -- 
 2.55.0
 
