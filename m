@@ -1,140 +1,121 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0AC52D3EEB
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 01:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787104124; cv=pass; b=UypOjnDbBoliBoHkCQLE7KTDXyjVFLN4sXbbFaenbnTsBfhmBfklFFzwIMXAqDPCHpNhhZK7Ovd8Ey3rFJBY80gKshfLdxSgxK6ZFTltnvBN+znXgwmXtt8IKT8ibq79mVI4Yf/pas7yMKJpQj/voPPDBEuNcxkR9sa9sHeRxtE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787104124; c=relaxed/simple;
-	bh=0joFlQFKze2VUT6irZ3O1wZRJqUgaSpfC8SHNl1LCZk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iSFzRGNQV2tMCX4FQ72zwTxyFJ3SBp7dV3/fKK0aqxUYc7Gbrsr2ouf+K4Fqkfkz1xv6Fu2AyZ8MhxsuYh2JYifrBGt1O8oz8Udqcg16yMJHpAOEL1SeALINAzRI87R/HZ3lorjhlkrMaIiMedZlhkXJDzMNCyRFcDVB7otzIT0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r8sUS/vw; arc=pass smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908E5238C2A;
+	Wed, 19 Aug 2026 01:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787104504; cv=none; b=tgA7oSO0QE6k7gLGVhZ79oQh9Vf7H22G+dUY0eDFajdHaNpdR4ppuvD1OlTvV/X2wnK16UcrTDsRiB5zlLn/fbKF0FGScXYdsbKHWZaWoF5sGQiQb6FPpE+7BRQk2mRigDo0+Tg1LI1giibntueoUX/GsggJGqx8ZBFvPaGCFt8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787104504; c=relaxed/simple;
+	bh=Mti3lBCAFpdUbwx/fhXIyya1Jx2nivpinlaQa8aGj7o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Htt7+dWr3gPryvIwkg41WtmlOhLIsGExbnGYA1eGmjh8hzqq/P9JXOYq7V1uQA89Z5iBRNcIJ+P3bpk8J70RV38M1fCtezndPHHVhsmrfFaIUYTPKIthIelJsxP/RhsYuagGPrUpmKEViAaMGwEZhAJTZCv8qLukf5vwyfYzHWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=mjq7a5MY; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DNi2lctc; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r8sUS/vw"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c169ae1cb26so307001666b.1
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 18:48:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787104121; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GRReT82daEl5LfX+pC7F9tY0W7n6V/vxMyhHrw3Vyb8odeQ3lxYxR59vlqTXBvEmNY
-         NUo/pg+OWOk75kE6UBXJ1NOzIYTgzvQgRPXjizLZn/pwwMLevC2d7qtVshdNzeEbuBqQ
-         4uVH6D0PWGw2nQEeEXSMcgjS1/1FjJ1+/RQUA/65r7k91Lq64S7eVgqBMZ0wTLWLkd93
-         PjMPnhRaDGHpx8Sz7Av5kNGYOEn+E2ZJKKaxYdjgAg6hQiSTmcCISG3zy+tmu/0flP5T
-         WRovoIijgOjCi71WadjzS5gPmts0zgAxR/44OVoOg2UPtr7RpqszHN9sXK+y7Fr/oHLg
-         ssLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:dkim-signature;
-        bh=lsCtmvkS36zvX0w2r9pYrglPyEHrvikivJeQKgrGG38=;
-        fh=ZwxvlfRk6oeXXg4dpPzj8D6M4vDGhKeEAVWrsnH1EyM=;
-        b=CSs1fIu/S+fA+ZEmOTKrg7rxQSbLzZDwGRCOyn/W5jayviGiDdllGacdM71+7iJa3u
-         VLuVWmv2jtQliS9kIOlHC/pTUTPPjAg1cONhSyrHPDkbeLpg2mCwYS7qveV60EjnTe5v
-         1tejWhtRFjCEQoUuSkTN8d1epBrO6/71hbe0RQ50JMcJdztqbQ50VOS6PNn6RXc0xPKu
-         ght31nJUwUKQSKK3o9bMVwEo4D+LZU65Z+MYg/hi8ADgTvYxnpiCDP7hsDkXWsvWI029
-         rUTtnrO4s2Dg7sYarRK+F6EExqlOCafDq7kDJx5qW3dC/9sBWAiAOjd+g6eobUaB9EOp
-         iOCQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787104121; x=1787708921; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lsCtmvkS36zvX0w2r9pYrglPyEHrvikivJeQKgrGG38=;
-        b=r8sUS/vwemYzO8YHnfPCZnxrOz6R+5DUyUucBpcO/Po6JBzwjYqSSVhhgA/ZcaDnRA
-         4pn0ZPmCciXgfhUlTXRzdo88hd/YFQFpE9jmQzcEK0NmARHA3+7Rr3EiZR3JfOkyO9Pw
-         nvowT+715Kex6znGdrKkOHUpwy0wmRc2rFxkCOirFIGw8Z3GYYc//ieJz+18CwjIo2Uc
-         UALOZZJmuwueJj7rV6Af/EUv5D9UR6ypM6YrE/RO67B3kH1O5ZGPwwY3Cq8OzwTQbibw
-         m/aZGk8y09vopjHNjSdQgwEUmOPfS9KCnnaHWghPxjMY+kp4YAgJ0b2ZbLKbG7OE9B7g
-         tdhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787104121; x=1787708921;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lsCtmvkS36zvX0w2r9pYrglPyEHrvikivJeQKgrGG38=;
-        b=LQSfqyVubK9af6K52Z8Eyzs0Ujsu6HxNdZrSFWEN0lWROypWG+4gs/i9n+WL5G+8og
-         uYHhSBpTfT45zF+Bd4SP4At1SFjF7xnRDUbf2THXSPHUGXNq//HXngI8UtMDx9jlnE/K
-         SLn8xOQY7WkKx9a7ajvJSKK9cyM2fZ95IYUEOcDN5nl2xMIojp6svmv+86VQVqmZZTgS
-         KyW9zoSGCjb4Pu/XrgFVaWKZuiJbEf2OzaBqMKpwY1WnVQFEKpUsENiHw3eeqYnt2wGP
-         IxRj/2VllOubOBqhwjp9qDQM9t0uZ2oqg/TGMg/rZdKP5vlRRUy9CTuUQkIZTwXRykGG
-         F01w==
-X-Forwarded-Encrypted: i=1; AHgh+RpN+Rt18BZHJYcDyFIpKNwvLESkEk/5DyPSyR4BMLzeRwrDHa2GtV/9rdzBpfJRHOfa1XWRoAY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0pfI+Tyo3z5pgctqHOo2QdImWRC6IkB0OW7OEP9g+7hL6GDTY
-	d5oogtIy4lhYlGWn0U86b501Lc7CyHmWIAZgry5bySLyUh1rKspJLYAzyUrnB66C+GM2TnUFsFh
-	bj7sqzFhNMtJvNYGSYQTrcQjXzz6JbdY=
-X-Gm-Gg: AR+sD128uYYyecT/TF71qPZDFJtFiF3z2/MmVXylwYrAFTukc9D2DDLWZYSBB0+MTTn
-	L//KErCV6xcg/4aGnRlvpc1SDUNEoVpz6h3djsJCnDX6avBwjWX6Z1lDFUIxmnStY3VoY38pdqZ
-	OV6dIJhOH5swU14+P5RzvdlzSPLXTkTmkMPBy2SUqD3HqopKJJomqzH55xwkpOxbFw1j5LfTFa/
-	3FsvHAKjk3eOdFCB152fyWgnRDZlZNlZzKCu9/qWdZg+gYceK4pl3a3ernVUyDo+j9azmTPBrJI
-	cKNHn0Fm6cQycL4RBf0qXw4tbbkgT09bSa7xk24vPUlNVUrDjYlUEd35SmIOvyHbcEw8NbCO53p
-	Vgw==
-X-Received: by 2002:a17:907:7b9b:b0:c21:4698:ee9e with SMTP id
- a640c23a62f3a-c238d4350f3mr56079666b.7.1787104120708; Tue, 18 Aug 2026
- 18:48:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="mjq7a5MY";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DNi2lctc"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id 497701D000E7;
+	Tue, 18 Aug 2026 21:55:01 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-01.internal (MEProxy); Tue, 18 Aug 2026 21:55:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1787104501;
+	 x=1787190901; bh=t/Z6bGi3UZwJnRtU69C68ollMPJLPwLewcpFYV89Uak=; b=
+	mjq7a5MYEm9lVktGtEipa5jRi5QLGuWOR/na8TO4KACq2x2BJiHYmaFyFeTRi/nP
+	BqkTLrO+ptvqrh4cfgtSE0wHnJr5jAi8qpJHhNB7ScysR1FyzC+gt1017GAxPsqO
+	CqxrjKpsqOdD+FeVUhqXpYh3oKvdb4GGSA/ujv5VTIax3KedQL0o1W5X9J0WKWMk
+	WRpz3RFMG5BEN3paKgQ7EdQ6HhWO9Ib+jCrgk/WA0Ap3xU5oOv1jVzBDjcK9MIlq
+	czFoRCvO7bEfbhC2Q8XihALCBIxb/4cpCwUC0NdfbrNVoj2MQZkAOtyMK7g01uW+
+	ucwnRtinSZ/mR6QwYfYEbg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787104501; x=
+	1787190901; bh=t/Z6bGi3UZwJnRtU69C68ollMPJLPwLewcpFYV89Uak=; b=D
+	Ni2lctcD73isYBjMMygeGI4Tv3jTOFvS7lwcyr2IhVJlUWMbGJhp/iWBd8WSvVE6
+	ayRKm7VEQ0ks3EJFCDN3DtvS/2bg0khq1iX923F5aAvzazV//UjWENiqDkenP42R
+	a4cfEMUcy0AafGEdExCNs0SEB37mwmZj3AjmsN+F77Yb0HaXqdT9PunYJm4C8WAZ
+	cymjwHHTnGRgF0KlQcP4J3l+0VLnjq8PuMJRoemBoPe+1RoVV+7xiUOBjyidb6HA
+	TU9vlNfVSYD7zc+NSSOuQ36xa+w3xB6Rri9yZxePViEkjwT/Uggn1uCHHgAN47yc
+	NDq81Hr7B3Y3uAggo9zmg==
+X-ME-Sender: <xms:9AyFasEHwAfNHOhMy5k3v4iuouh-W7YzmxiGR_6ZhHiDCcrzznEFpw>
+    <xme:9AyFahMCqjNOLAlaFBklHWcU9-KOTyS0yt2NoWSYwZZJTQUjYGkhjEZUpww2XGKB6
+    CkQB-Bjduh4aKAM71weaxIKp1RlYMY9d5CqgQys4zK8um0SwbL8eg>
+X-ME-Received: <xmr:9AyFahrb1ymHscTAdLjcMdrjf3os1tu-rB9VDfqEq_2Q8wtzGR5wzK4OcizMdwH1CEu_ZDxSbpWoqO0mFimj-IR-PPOZ_rv2>
+X-ME-Proxy-Cause: dmFkZTFYB5/TG62xVUugBv8Eau0zNUZ/7fZoXUmfYoEuRSUdcEmRsAgUv184X5gVvu5hnp
+    YLydHRIuyOYU5Y3sVdoaCl7JeAX2UPKchJ6UzLrech5CdBAJivYr/D5TJRNWZmBTwJXDhM
+    6GQ1HX9FMdqXiWxyahee6wUsWhqqqoJCMt4pXvsmAPsXb8O2mBsJDcpdG1C9Wsnhl4Jm7Y
+    TMbv8jbaW2HBXcyouy+61Bp4dD3TIdUVUbyuq/KUB4ezsrh7zSVlR/cmyF45GapSj9GqYP
+    bAD0L0vm330iDvqMdBqVXV9IZamjTsFAYjr5Ijy2tO/hHoGPcAeLz06UavCQle8ClLZJfe
+    h2+I/uTplBU3Xys0H+sTGYqht2UK7RhFoBE1fX8OpjVuQEno9Sv2njZ4oBQGVY1BHNhIxN
+    9AR6jNKWHE8KhSeVPTtB+IaETNhizj6Qoja1WDtRBGWqKXf6tb+UJUqMH71onSsiM0KfXU
+    mqUqHMospc0hDhPZmD1yPWL5nhEIKdWl9AYk2aR4VG+KV8/exEdBvacZqVYEtDqtm7dElO
+    yLtXoixeHIuOhI4UtR09gRaZV5UwxoKqO578f8ipkcGXWuGPmTRdvHME7kUsrRPiyKJf7Y
+    VmF1sBw3Ae3AuyAuCaS5oXKjd07a9qOUGzh4yuf+afbb+Go92qdoGtWnGUbw
+X-ME-Proxy: <xmx:9AyFaiCQLJtEAT5jyQ9Vcukft89Uikd3UvCHE8Wp5QuWkoyryNjPIw>
+    <xmx:9AyFaqPWYTTRJGoIxiC9773mx1zbA3DuGWBYAphYWF1Ko6otGSV-yQ>
+    <xmx:9AyFagBsHi0zPSbAOJeyT_XvBv8DdbGNLN-J-Zn3K5dzTAEN5tlQZQ>
+    <xmx:9AyFao8dxiQ07o5VTn0wrmfuAE2PLU9tZpJLhQhRKmOH0n7_HldIZg>
+    <xmx:9QyFah6a0fAEhDiIrHhR2rWS5qDwkA57UlB_dS58ZSBT0X-npOJ0wAt6>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 18 Aug 2026 21:54:58 -0400 (EDT)
+Message-ID: <6da7cc7b-7212-434a-bf76-528a2491cb3c@pobox.com>
+Date: Tue, 18 Aug 2026 18:54:57 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKSQd8V=wfVrUxeU+fDRgKJBLdiyCkkY2SRY+OoRBNE68LFnCg@mail.gmail.com>
- <abe4535e-c72b-4df2-99be-064479b685ec@intel.com>
-In-Reply-To: <abe4535e-c72b-4df2-99be-064479b685ec@intel.com>
-Reply-To: ludloff@gmail.com
-From: Christian Ludloff <ludloff@gmail.com>
-Date: Tue, 18 Aug 2026 18:48:29 -0700
-X-Gm-Features: AcwNN1WStHFp7p4p1eOrc7FqRDLjsrfvmvwB_O2N-MMedPQitFU8wUiQ0JSfFx8
-Message-ID: <CAKSQd8UyzWweM15-9ehaCaYYJYw+N8z9pFon2J+3sehqm=Ukbg@mail.gmail.com>
-Subject: Re: [PATCH v2] KVM: x86: Remove AMX-TF32 enumeration
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: "Chang S. Bae" <chang.seok.bae@intel.com>, Sean Christopherson <seanjc@google.com>, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, pbonzini@redhat.com, 
-	stable@vger.kernel.org, Zhao Liu <zhao1.liu@intel.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/250] 6.18.45-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260817132536.466235697@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260817132536.466235697@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 18, 2026 at 5:55=E2=80=AFPM Dave Hansen <dave.hansen@intel.com>=
- wrote:
-> On 7/24/26 08:37, Christian Ludloff wrote:
-> >> My understanding is that the revert was considered because TF32 never
-> >> reached any implementation. If that's incorrect, I'd certainly welcome=
- a
-> >> correction.
-> > Both TF32 and TRANSPOSE made it into a product that shipped.
-> >
-> > Not from Intel... but.
-> >
-> > So their CPUID feature flags and their opcodes aren't reclaimable
-> > and efforts to rip out their software support are counterproductive.
->
-> What would folks' preference be on how Intel should document this going
-> forward? Just leave it as it as enumerating TF32?
->
-> There are notes in the SDM like:
->
->         Intel=C2=AE MPX has been deprecated and will not be available on =
-any
->         future processors.
->
-> There could be a note like that for the TF32, I would imagine.
+On 8/17/26 6:29 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.45 release.
+> There are 250 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Wed, 19 Aug 2026 13:23:44 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.45-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Yes, that terse sentence works.
-  Once for AMX-TRANSPOSE.
-  Once for AMX-TF32.
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-If you want the back references:
-  TRANSPOSE got dropped from ISE #059 and APX #007.
-  TF32 got dropped from ISE #062.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-In terms of the opcodes, it is like MPX too: no recycling for
-a long time. Luckily there is plenty of remaining space.
-
---
-C.
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
