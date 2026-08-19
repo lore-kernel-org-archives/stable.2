@@ -1,107 +1,97 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D298D37C929;
-	Wed, 19 Aug 2026 09:36:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4AC3E00B6;
+	Wed, 19 Aug 2026 09:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787132179; cv=none; b=r3LPP1k1QsLrcNbPw9lBBc7joTT043X7/eP9bhSbdvR+E4L72rGkFV8JkqGJ+1cncHip94u3lw4armb2dLlWeuy3FDvMSYh30A80dKVfaookr5mI1kSNBzVUx/fdcUE/LimXS+jZMoZqBSkBcE0NRFEGFYINWu7QwGFy5gBZcD4=
+	t=1787132278; cv=none; b=tRP2kwpfbXSNZ7lO15sYY7/Llgf6IhpPjnFvADcry9jcR52IfxMFHVD9DT0orwUjxNusL1LKnF+F+ltyA54QtJJYLJWZT9i0P+K2BP14nncuJZZ/IGs5Yh8SsIPus926nLztN9DFPZ5l71bKXPd8U6wwOXNrNXsRBLxA5fN9hZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787132179; c=relaxed/simple;
-	bh=mtYxa/cP+mVeQA1/tOeZeGzeookG16Dmsup9Q8azDr4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ikd1VKVKVgHJNJFAatJkTPQKCsJUOofVidbXiDiPAnfz9Hky6EFwT+ABCTxdIwPMfyKcxju75EIERCP0frqg4Dh36FNpPAE131G0A0kGk4hJr7B3qkNbfpDUP/GQ9kBUMNfUn3vbSas/GZxVj1HVnSiWH/jTRbGa6zhSENxd27w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=aBvpiCw1; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787132278; c=relaxed/simple;
+	bh=+dRrp3AIN5yuXrdz9NBDxWPSQf9XYQieTKK904kbAHk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SpR/uPBg15BOhZo2Jxput7pEcN0U4QQ/Hz3tZ3JsBs5FDuUpvakY6RenYoJgJymAxdi219qSA5pLJCjmF5DSySVii+YomCu+5HgXAMEgc4JnXYenP1QmnC7oTfSyoKnu6K/dCkiVJxP/C5elOceMzqNMN8Y/FlS82goDiqicLnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=jXnnvXbG; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="aBvpiCw1"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 1A59A1A1733;
-	Wed, 19 Aug 2026 09:36:16 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DA5775FF42;
-	Wed, 19 Aug 2026 09:36:15 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6183711C75549;
-	Wed, 19 Aug 2026 11:36:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787132174; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=A/xkCgha8hwURYD4JLDAys/B3Rx8Yg7BIQ8wcjbJ8pA=;
-	b=aBvpiCw1ob+oCjwxCmm+OR1N8ofj/xI5b4XVzCKGGbngDdvamdczTbSMEu7X8ztCigmDhm
-	s2UlWvtNO1vFr+OOmMPbZKlF0NkqeJYVo3/ggwcwkKlSJHVRL6V3bDt7Y8dzlrYqXDxo4r
-	HbcOAZb4sDz90JiC2zetjIc/bWju9ub4afYRngYVK2np5gdh4vTqW3+Y4u4Q78Xq7/v6fd
-	yov9yJOX4Hn9g4DbwDH8brDYaavwdpKlG6m0NyThj40/WfcPWbdz2O1tgwRM6VSFZAoFki
-	MQ2BPR1ptAuZn6oxdmHyPupXkUgzFJS4czdUYKYi9/woDA4x8xFRo8VxLmrzMg==
-Date: Wed, 19 Aug 2026 11:36:09 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Linus Walleij <linusw@kernel.org>, Frieder
- Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] drm/bridge: ti-sn65dsi83: Propagate error in
- sn65dsi83_reset_pipe()
-Message-ID: <20260819113609.2a8bc92b@bootlin.com>
-In-Reply-To: <20260810-ti-sn65dsi83-fixes-v4-2-ae9c95c8d162@geanix.com>
-References: <20260810-ti-sn65dsi83-fixes-v4-0-ae9c95c8d162@geanix.com>
-	<20260810-ti-sn65dsi83-fixes-v4-2-ae9c95c8d162@geanix.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="jXnnvXbG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=59z/QIjvMe1nZvRPKTLdtPO+qnUK1cyCF9JMys/gphA=; b=jXnnvXbGNAkklpAFCdrJRz3UHz
+	mGzA3QeExJvWQRdKTliGMH38WGUbA76Fjx5uf90pyd4sl70xXoa6AViG3lMwTpTcBZf2juMA+w8wW
+	SMQakrQjib8KbQ4Njfdg/p0bcq7b/5179QJ4i0eK6+WX40ZY2Xm9zlTrB0JKewpEm4MQ7yjehkIfL
+	v0/TD+eYfqG0m325kZZZSzzSnV6GfF69f9ZMtlH3evsyrVpKWKe8YGojrP4CM6XYzCKyDFUX+jI/I
+	BtkLXEa2zhR+GWkVPRyOL3UDbXHPS8srTsn0w3gfmv9sNmXrB5KxxEbo5OODO3SZEciBr9LHg39LL
+	pThXjZ5g==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wwck3-0000000DRFX-3146;
+	Wed, 19 Aug 2026 09:37:51 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 2E67630030F; Wed, 19 Aug 2026 11:37:51 +0200 (CEST)
+Date: Wed, 19 Aug 2026 11:37:51 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
+	Emil Tsalapatis <emil@etsalapatis.com>, ElXreno <elxreno@gmail.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] sched/core: Handle pick_task() releasing the rq lock
+Message-ID: <20260819093751.GI1247881@noisy.programming.kicks-ass.net>
+References: <20260807210221.232543-1-tj@kernel.org>
+ <20260807210221.232543-2-tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260807210221.232543-2-tj@kernel.org>
 
-Hi Esben,
-
-On Mon, 10 Aug 2026 09:19:41 +0200
-Esben Haabendal <esben@geanix.com> wrote:
-
-> Propagate the error code from drm_bridge_helper_reset_crtc(), so that
-> callers has a chance to handle the failure.
+On Fri, Aug 07, 2026 at 11:02:16AM -1000, Tejun Heo wrote:
+> Core scheduling's pick_next_task() breaks when a ->pick_task()
+> implementation can release the rq lock. The selection state derived on entry
+> is only valid while the lock is held continuously. Once a pick can drop the
+> lock, an interleaving selection can invalidate all of it: the single-CPU
+> fast path can commit an uncookied pick although the core went cookied during
+> the release, and forceidle committed by the interleaving selection skews the
+> restarted pass's accounting.
 > 
-> Fixes: ad5c6ecef27e ("drm: bridge: ti-sn65dsi83: Add error recovery mechanism")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
-> ---
->  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Fix it by restarting the whole selection when a pick returns RETRY_TASK
+> after releasing the lock: a single restart point above the state derivation
+> replaces the per-loop restart labels, so a retry picks up state committed by
+> interleaving selections and accounts and resets forceidle like a fresh
+> selection would.
 > 
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> index 0ccfff401b2a..475224c5a5d8 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> @@ -403,7 +403,7 @@ static int sn65dsi83_reset_pipe(struct sn65dsi83 *sn65dsi83)
->  	drm_modeset_drop_locks(&ctx);
->  	drm_modeset_acquire_fini(&ctx);
->  
-> -	return 0;
-> +	return err;
->  }
->  
->  static void sn65dsi83_reset_work(struct work_struct *ws)
+> need_sync and fi_before latch across retries. Clock validity can't be
+> re-derived - there is no program-ordered way to tell whether the own and
+> core rq clocks are still updated after the lock was released, as other
+> lockers' pin cycles may or may not have invalidated them. When restarting,
+> clear core_clock_updated so that the sibling loop re-updates the core rq,
+> and update the own rq clock if invalidated.
 > 
+> Fixes: 4c95380701f5 ("sched/ext: Fold balance_scx() into pick_task_scx()")
+> Cc: stable@vger.kernel.org # v6.19+
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 
-I have sent my 'Reviewed-by' too late on the v3. Sorry about that.
+Suppose the SMT siblings CPU0 and CPU1; this core sched pick nonsense
+runs on CPU0 and does that multi pick thing.
 
-Here it is for this v4.
+For CPU0 it pulls a task from the global DSQ, places it in the local
+DSQ, and returns that as the pick. No retry, all good.
 
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+Then for CPU1 it does the same, but hits a RETRY, so it stuffs the task
+back on the global DSQ and return RETRY.
 
-Best regards,
-Hervé
+Then on retry we find a FIFO task on CPU0, because lock-break and all
+that.
+
+Now we pick the FIFO task, but have not had an opportunity to put the
+CPU0 task back into the global DSQ.
+
+This is still possible, right?
