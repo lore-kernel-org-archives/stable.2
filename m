@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBCC3D6476;
-	Wed, 19 Aug 2026 07:18:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07703CB57B;
+	Wed, 19 Aug 2026 07:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787123881; cv=none; b=TD1j/7KzMrooKSeEu0GKHtyAtPC57eRJjvum1EekQN2CWrLtLea/fbdfiOpL7FdrIltZKl5OQKkNYdnvFH2SNtc/RTHJ1oh7z1ajOEx3YocstekXS3G05PDIgymcFsK0k02K1dCbKkE1CM5Hw8kfJO3n7jih7RTlp/l74CzCZ5g=
+	t=1787123912; cv=none; b=BBmURr+OQg+7il2T4pMzq2bR3ngGdRMqTRDqac+Q6RKR5jQhjoOpwblzRyCENPIsWU0KVrLDlMAPItubzNK16NqbPmv1RUFeaR1wV3hQSjETF7uEG6BANk7ypfdBeRr9frjymZZ6XMjztI2SCxbV5TgYpYTdlM53TZx+1WAlDwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787123881; c=relaxed/simple;
-	bh=nJPv0FsU8yQd3cl+i57E+G3bOHVMBXDauyCziT8meqw=;
+	s=arc-20240116; t=1787123912; c=relaxed/simple;
+	bh=pcwvfb3ivhOkWSLegrsz8kIIRMTLR8cdrzbnOc3npuA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PXKQ/iDydJNMq6/AuOjofVbEEskcLnTW2gDZskg1qYkqpnNTrgsZG6AcLJGTLVkIeJF6vdG76JW7rP+l1wy+IYYYgnEqAmzQfZtozCQCg6c8jZcVDfyllN7cTa5sm3diQvMfHOK5v3Eus8qVCKSrir9TZTecY3pvWGYg2BnqfnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HAF8xuWJ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FUmPsnpSk6Cwj/XtiIon1Mx0koaSIczzW8+LM8lxVAjnr2UdgxeiwaFiqXpd4ivjqQYD3F9vRAHxXIokOVj84fyQfbFZ9o82w+UhWaAuF1tSMHtr9rVtRrWN+zKky9qy55B5aV1f3hNsV/GwluQ704MJg1xHM3azO5FQ1fqtY3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R8NZFKH+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HAF8xuWJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147641F000E9;
-	Wed, 19 Aug 2026 07:17:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R8NZFKH+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985CB1F000E9;
+	Wed, 19 Aug 2026 07:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787123879;
-	bh=9SGcuRYCnyzFASPmzXdMg0CNQg90nsP++ry1445hiS4=;
+	s=k20260515; t=1787123910;
+	bh=oaLIuywnH4SyCV/RCpoCYLZAD29H5M8DUZxH9KYY0dE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HAF8xuWJFHDk97YjnAAK3DgkpocHUx0J/wgFVhPv+IRT9jNA6ut4uN5cspIQdjsZr
-	 D4/BO/i0wFNxqf/IpmUpfbzaOFA01nQABBZqKhQ9Kg0bep064n7JnQsRxzuizO/ua8
-	 e0Pjy6I1Zcf3l05TSGWtf+0Y5hC/hpw3ViBm9+hmGqE7q/i7MQtc+YP165KqAymtUm
-	 jISKokqxgrEIPimoWsBg2jwm3DlvsVoYVr1R1n04XgVTr0Hjd3JIWTrRoGpITIyDPP
-	 lqnQdl9cJ0TkFV02+Kt2FflOCkQzzDGANQWSIO+NXABnvTWmgdwKQnufiK0wzaP7rS
-	 9KvcgrWbBXH6w==
-Date: Wed, 19 Aug 2026 09:17:54 +0200
+	b=R8NZFKH+UtAN7P2cvw8Sll3E1ipc7xtNQloWNieuC8n5gQRnhDvPV5Zu3HKpQpfzj
+	 cK2lOUs3bfRe39Iem64Uj7z1kOXGejKSeUZAySRWnSZOmnGwLEnhpeeHyTPM00XwvY
+	 kibr/sfSMEMjKUkuiG6uG+uRCE7Kn04hjmsnX3IjGd+evuSPBMj1UtKlUbZqIi1Whx
+	 mAEvGzPcJYGR52DwHyiYg1/GJTNZoHt2oE5a1OrwXQpvzamEomJ8XNZacZTRgkQeMM
+	 NWjSi1iu6GW1Va2/dorVXOJLhNIb9Yjmo6FbGhLwDsxAgJQ7r9j55x0mtnoScHDqrr
+	 Q0y/dAEXbhGyQ==
+Date: Wed, 19 Aug 2026 09:18:26 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
@@ -40,11 +40,11 @@ Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
 	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	devicetree@vger.kernel.org, stable@vger.kernel.org, 
 	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: Re: [PATCH v2 5/5] media: iris: Fix frame interval enumeration for
- non-divisor framerates
-Message-ID: <20260819-fat-shrew-of-agility-16bb0b@quoll>
+Subject: Re: [PATCH v2 4/5] media: iris: Fix power-off ordering to disable
+ power domain after clocks
+Message-ID: <20260819-truthful-porcupine-from-eldorado-bbf912@quoll>
 References: <20260818-iris-fixes-dma-pseq-fint-v2-0-8dc8c4b3880e@oss.qualcomm.com>
- <20260818-iris-fixes-dma-pseq-fint-v2-5-8dc8c4b3880e@oss.qualcomm.com>
+ <20260818-iris-fixes-dma-pseq-fint-v2-4-8dc8c4b3880e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,37 +53,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260818-iris-fixes-dma-pseq-fint-v2-5-8dc8c4b3880e@oss.qualcomm.com>
+In-Reply-To: <20260818-iris-fixes-dma-pseq-fint-v2-4-8dc8c4b3880e@oss.qualcomm.com>
 
-On Tue, Aug 18, 2026 at 09:24:18PM +0530, Vishnu Reddy wrote:
-> iris_enum_frameintervals() advertised frame intervals using
-> V4L2_FRMIVAL_TYPE_STEPWISE with step=1/MAXIMUM_FPS where MAXIMUM_FPS
-> is 480. This caused client to enumerate only framerates of the form
-> MAXIMUM_FPS/n (where n is a positive integer), restricting support to
-> exact divisors of MAXIMUM_FPS (e.g., 480, 240, 160, 120, 96, 80, 60,
-> 30, 24, 1).
+On Tue, Aug 18, 2026 at 09:24:17PM +0530, Vishnu Reddy wrote:
+> In iris_vpu_power_off_hw(), iris_disable_power_domains() was called
+> before the associated clocks (IRIS_BSE_HW_CLK, IRIS_HW_AHB_CLK,
+> IRIS_HW_CLK) were disabled and unprepared. This reverses the correct
+> power-down sequence: with the power domain already removed, the
+> subsequent clk_disable_unprepare() calls end up operating on
+> clock-controller hardware that is no longer powered, which can hang
+> or behave unpredictably.
 > 
-> Framerates that are not exact divisors of MAXIMUM_FPS, such as 29 fps,
-> 25 fps, were excluded from the enumerated list. There is no hardware
-> restriction to framerates that are exact divisors of MAXIMUM_FPS. This
-> caused GStreamer caps negotiation to fail with an "internal data
-> stream error" when encoding content at such framerates.
+> Reorder the calls so iris_disable_power_domains() runs after all
+> three clocks are disabled, ensuring clocks are always turned off
+> while their power domain is still active, and mirroring the reverse
+> of the power-on sequence.
 > 
-> Fix this by using V4L2_FRMIVAL_TYPE_CONTINUOUS. With CONTINUOUS type,
-> GStreamer creates a continuous framerate range [1, max_fps], allowing
-> any integer framerate within the range to pass caps negotiation. The
-> step field is set to 1/1 as required by the V4L2 specification for
-> continuous frame intervals.
-> 
-> Fixes: a6882431a138 ("media: iris: Add support for ENUM_FRAMESIZES/FRAMEINTERVALS for encoder")
+> Fixes: bb8a95aa038e ("media: iris: implement power management")
 > Cc: stable@vger.kernel.org
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_vpu_common.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> index e4847c107709..3cd493b06d84 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> @@ -223,10 +223,10 @@ int iris_vpu_power_off_controller(struct iris_core *core)
+>  void iris_vpu_power_off_hw(struct iris_core *core)
+>  {
+>  	dev_pm_genpd_set_hwmode(core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN], false);
+> -	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
+>  	iris_disable_unprepare_clock(core, IRIS_BSE_HW_CLK);
+>  	iris_disable_unprepare_clock(core, IRIS_HW_AHB_CLK);
+>  	iris_disable_unprepare_clock(core, IRIS_HW_CLK);
+> +	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
 
-Why is driver patch AFTER the dts? What is the dependency?
-
-Dependency on DTS is in general a no go. I looked at cover letter and
-could not find explanation - where is it?
-
-Please read both submitting patches documents.
+Really, how is this depending on dma-coherent DTS patch?
 
 Best regards,
 Krzysztof
