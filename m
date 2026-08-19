@@ -1,216 +1,172 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010051.outbound.protection.outlook.com [52.101.201.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A227E3A0E97
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 15:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95853C199C;
+	Wed, 19 Aug 2026 15:31:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787153459; cv=pass; b=N+UuAWLmebQ8Ht+SrBTGfSlzkC5JJ2FtF1JFJFjUW6PP2gmq7QgIjAl8OGJ60ZRWwwq4iDca1spgFXM25SJQ5JM0v1I4yuomlLU6oZ3VXvR9DYmnxmaL3IUx+dOkmTCF35ieArsa0+SSJsSEUV30sanYDCwS4sE03hI/qN3V5ac=
+	t=1787153484; cv=fail; b=Ae7hPEzaWQ+y+O2Q7LcigmObwHhsA4TZ5GZwI8ys9jtHZaDmL6cwf1fYBBRUYrogmZ5gfteRF7nLJp56WKi4+gV/1srjQLHnkLDv8zisEwoMC7AXCujckUd22dUwFfD2ghGMzb1lAPRm4yLEyJOF6wMk1bp2qh8aRYr5MsWk5sM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787153459; c=relaxed/simple;
-	bh=AsxeJXe7AG3EGXokEu00mEkjMQDxpxVbNdVtS1j1bec=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BMBIHHvrSwBPNKPmkiPcgDfRzD+JpYnG9pSGQY4lFazfs/v8QCBenmc36jmAMt9EulLQ6RtOqjSlNf0Gc+7DoZ6kltQoxb3TA9OaeKjtd3OJsxTRJ5IbEGsYXDSBBjMV1FwVGLBJTkADr+QncB8cRduDYIxFIiKWV3LtM05yJIA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=qLpjTrsA; arc=pass smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1787153484; c=relaxed/simple;
+	bh=Rp9xPQR2SD6ZdwpGGgqDdviirCeQsNj02WwhTsH7I1I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=CAZv38ABA40AgE70GwlH3wMyBraR4DOSUaSwWCwAajdxgcOFxn6wAEZf+agTpP2pBrcCqHoINxhAGboOE2+X2PxLC8UY/IVhQhs+W0xmeZpCmU7guB8LYc1yZmSx+93B+NLjZGxc9ByBbocwM86yV8CRUj027C7LArLgtSWc1P0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bJmTqkXY; arc=fail smtp.client-ip=52.101.201.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="qLpjTrsA"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84a2dcede83so1435658b3a.3
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 08:30:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787153456; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lt1IpzMvPpf3QisRZWVlY2PBNFb80pCTjQ6z+cwivYfkoobqM/fQlBtAv6y9qA6gGJ
-         zVRgfIoSvwkQXmzvhANr2EYDVJtZ3n/fAf4Mi9DbxWpYdkAM1VHAlMJ7KRx5u7hirA59
-         gqr1fX1z8F0PnHMN1IgOngf8A/jWFD5esdb/By0FLfUCMD8LiTlwmPV+v7ERy6cfu6nz
-         jGjlnJ42wqB4ETenLNaldTn6bx63QqPIt6COQhk6MYcv6O+aPuSDbw0nKb5L5dDJWBBR
-         4UqVUC2eEoIGG/SmQlsds/HRXq5YstkVXwlySZh+w+NctHjkZn5u7eTeyAZTJX8MIx80
-         p4EA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FGG5sZDbz/pMhpQNy7eCICRgxAJaB2imxiqmELSVOJw=;
-        fh=ZrXIl3AtUgypXItRfo/p9VHjOOhwYlw5FFYE+MIUM+Y=;
-        b=FM8tNukAkTEctU4wgxDP1IWgMFhswVubKEvlPrFehSI+zmmQ57k7sd4qDfCfJ8p0QW
-         M9ZRU2XAdAo332Njtnv1kRdIJxu+/xtdRPpwc9QTGxGecJtOYmFAjsqQEJV2o+wHOLKs
-         Hig4+NmiqtZ6ut07kqixIV1vycvrfySI1eu6SWcZuKb94cZOwjSeL5kf2Y7vKCJ2A0lx
-         L+fhoJ3rcSLWEekyX0xTirH3zx74WddM6Xxg8DCRln2vzZrOvnZYegvNDt9/9BXlkB2k
-         NVj9yp0WLBTHDjZHxx5/bVX5Nje2K/dWWQepJ4L4boNJJPST6yZodZSYHyYLBc0p5Dgt
-         Ed/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787153456; x=1787758256; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FGG5sZDbz/pMhpQNy7eCICRgxAJaB2imxiqmELSVOJw=;
-        b=qLpjTrsAdmXxiAoFmzBldIgkayhzEpM3QVtCB87DOaHe7F2+zwKwf1YHsHOeHQTaXW
-         qWkEZkHEFJ7JiJU/DQFQfxAPmWDNfhCGz6GE36aVE5wCE2bkVee/PzcJuyyRfFphaWaX
-         HMsUEU1ecriiuRk8PWihaSvMMBUOsG0CKIAPY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787153456; x=1787758256;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FGG5sZDbz/pMhpQNy7eCICRgxAJaB2imxiqmELSVOJw=;
-        b=DYZTUg8i38zUGYQb5W8C9fWOxsrSl8d8L4oHAMCc0Xej0k+Jp6OYenNoDSvUb9sTXN
-         vhYy/vTrbtHN6J2uy2W9cCAW4zkKKyaUXWb+j9aetYGtZ7YF9ujg2td5TFNa4YBhW8TO
-         9kwxnjPZ/lZ6habpdy18X8+L2YwiUXr4heKKLoDaRu+x7/8Ywtn2jdaqboBevD442VQP
-         asdDEW16q/RUYBexufXqAGv3e70b0NOie5LFxEVwZDiEsk6EIsgsgmJEA46ZRbCqCsKO
-         FKfrhQTSw0yik8r/xXvEkxmoJHcwuPAB5mIb8W8aDfBla1ORInyxK23rzN4ceflTjntD
-         ENvw==
-X-Forwarded-Encrypted: i=1; AHgh+RpLMf+KWEx7e07kw7jaLQyIn77H3eek0Lz7+52rpSNpP8T5PIRFTwWlh2VE8qtMAccXxDMvPXA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMj6UHkpgqkDN5LnvyoMIr/IVS+XK+RcHikzkFaddXS3agGgA/
-	spIzexWL3tllQ+BnDFqdFDHkDqOWwTgOZrgJ8zJChTEI1q1TNsfT9W1iLnlwh4pMnlbNNNY7tRh
-	fHToD38SlYq8Lmv5peHp4lYn3jQsYzmCU+dPsid2e
-X-Gm-Gg: AR+sD12vvveZ6h7CuiLGKKG/jF8HZTGWxny87F64C5jJGxoN/aoor0fvGcScZRpzzPy
-	U8Rn2TCSK5I3/xAQg09q3Rl7aZ95i+r0qift69hn+BqlXI4lOWu1DbLborzt0aKpY6nLWMZAap4
-	Z7dwfh3k7dTCpd4RcAQ3Inoz5aQBImEtT9Yvz6j/OKQdTgKl/G8fggqaQKtvhdPh46BA0lfO18h
-	mVsYsrnVxBEfS6hpN/RCFnQ563gaEF0X/FpT87NMu8TytTPVNPAImEJhGAEOLg9dM0n+cRzfDb2
-	bVniGPu0WxW4B9it0mjYFLGeeK4T0Xe2s3W0zTNafA7ZZw==
-X-Received: by 2002:a05:6a00:4309:b0:847:8b11:5966 with SMTP id
- d2e1a72fcca58-851d38313f0mr9788438b3a.1.1787153455194; Wed, 19 Aug 2026
- 08:30:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bJmTqkXY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y783Xnl2S6CELvTj6pDMeoIr9jknLrKVy45YWIzv5WczoyVXZ0IhjU114zPLJWFQAsZPmqQN1Sa1Xi71QMdnlZWgussCHDE9FbNvV6pW1U+OKft1u5wO+4sxufsuQEEdYgrxF72lG8yYUd2koeKTKcA+zdqinOZzCB7LOXfyfuFaHKaVaJ9xEEsrd4zssseakuZ7bWh19/bCw3bwDD4glc3ArUMRuRId0TsZ7jNLROzafjqDfyumI6sS4qx2568QisMP6i4PDRfrvkCRBxRy8ZmQqItBp3ERpg4q2a4rS/XtYoGfOMDrOUlLUhtF6fS96xV2foaixecKxhzvGrWvAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uUz6egqlRNJcKzjL0VAlywc8nilTKKvAcJCVANICp2Q=;
+ b=wEgo6AsjXRxaAxCcvPr7d+jFR986Rszlkq4SNsQfeZK/j+hT6Cjwg71dmeJaJTUMgCL7aw8+MRoh7pn8Smnp25CBdjqC5DVlg+dB84dEgv/0qDfwpfPZSVnMjY/BvL2QiHd1RqUnYxZRWHaS4thyta5XlD4SADoftMO1Fisa7+XBZIQFp2WXqLhDbo93AUOADYccKIXhUMWRUQg6vIZW9uvviIQaGftP9zgwGkAAMk8ydwBJI6pMhOfduZlgSR+X+HXJ3Yb8JRo0PrqruS37owRxxbAIO9KkDSQCCAkjWD2Gwu0pb30JUhShH6ROeEXjjLiZzox+fvii0pl5GXOgZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uUz6egqlRNJcKzjL0VAlywc8nilTKKvAcJCVANICp2Q=;
+ b=bJmTqkXY85ojJ0iMM6dYIS+DVX7UnUxvQrBku63HDi6/WqKVYaA55t/FkKJznXOFp5fuGXnbPV8bUzNmzMWcuIxSmtDTX5NQh6wnxgGNc9mdSb5zz0Idh0B88CJH5yByixjH/frx9HIu8lIqvGX3vjDZ0LVBWqfWTBEbmsx3hn97lA/sP2Bhk3GJkKTJnBmzUsxZixuGwxdWkL+zY+MJY7ogpZm/7cazprZkcZUIJ1SZ99ZLSRSfH1j7CUem46emcCjmt0U8QHpuKXbkV71mXzHJ/1CYF22je52PDZY144OS3lXB3sG4L2Hsy3ZlZBCBILsWaqYEtOHdf1MbjdVBtQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12)
+ by PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
+ 2026 15:31:19 +0000
+Received: from SA3PR12MB7901.namprd12.prod.outlook.com
+ ([fe80::6f7f:5844:f0f7:acc2]) by SA3PR12MB7901.namprd12.prod.outlook.com
+ ([fe80::6f7f:5844:f0f7:acc2%5]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
+ 15:31:19 +0000
+Date: Wed, 19 Aug 2026 18:31:09 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Zihan Xi <zihanx@nebusec.ai>
+Cc: netdev@vger.kernel.org, horms@kernel.org, davem@davemloft.net,
+	pch@ordbogen.com, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Vega <vega@nebusec.ai>
+Subject: Re: [PATCH net 1/1] ipv4: Fix fib_rebalance() divide-by-zero race
+Message-ID: <20260819153109.GB1248049@shredder>
+References: <cover.1786812660.git.zihanx@nebusec.ai>
+ <2080e22819c552b0d186563eda255a44c68404f7.1786812660.git.zihanx@nebusec.ai>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2080e22819c552b0d186563eda255a44c68404f7.1786812660.git.zihanx@nebusec.ai>
+X-ClientProxiedBy: FR0P281CA0148.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:96::9) To SA3PR12MB7901.namprd12.prod.outlook.com
+ (2603:10b6:806:306::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819143213.57401-1-jhs@mojatatu.com> <CANn89iLM1JT7xeANTFYOxaOKuz1qSmM4yugRDg4y=uFwP7bdEw@mail.gmail.com>
- <CAM0EoMkUXGW0WNV4Y3rLUyJUDxFcmd7knYoF3ynHQWjUXHRTQQ@mail.gmail.com> <CANn89iJSR0kaRWtg+tkC2dfaOnCsG0TEcS=wS6oPOFuY5f0hjA@mail.gmail.com>
-In-Reply-To: <CANn89iJSR0kaRWtg+tkC2dfaOnCsG0TEcS=wS6oPOFuY5f0hjA@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Wed, 19 Aug 2026 11:30:44 -0400
-X-Gm-Features: AcwNN1XfHpR_W8n6IWSvk9TX31Je14P24nZwSQVhEES-Fn4PkiWX3hY1Y6D4DtU
-Message-ID: <CAM0EoMmhjJyBZArFUdVBzzw6Ko6C9thDgOL-VMU1jDTAhS_qYA@mail.gmail.com>
-Subject: Re: [PATCH net v2] net/sched: bound qdisc_pkt_len to prevent qdisc
- soft lockup
-To: Eric Dumazet <edumazet@google.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, stable@vger.kernel.org, vega@nebusec.ai, 
-	Victor Nogueira <victor@mojatatu.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB7901:EE_|PH7PR12MB5974:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f91d931-bc25-4bbb-a946-08defe06ea8d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|10067099003|11063799006|5023799004|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	wj26zIMGmurYrK7Bn5b4STVLewD4CLq5XZvQb68B53Pl6chY0/Niugqce9LT5GVS2GxegX9DoSICTlZIJ/ah9PkLjmqKtGyxAETXhdc5OlxYpywdSECBXY88kfCp8twRjAH+SU73Ne6EiAm1rhIZuGrrn3sFCIYiWh5xoJ6EphGqvEM0dT0IMR/MpYcCGQoHsgcIWGLFIV6HFGEHIrMptUKO/NVOc3d+Kd174Nci0DEa7Gt3fm2s3sjklwY45jc0jvQEwpfi64ajPVSL7avuQd2ksHCLeQC2OIOTi8QqmTteW/rwdvPj5ER6yx4UEIgWt3WtQcKMcicWRO6v35RyiUEdMlqEI8h9gqLpwwg/L+cKn3rJiZe7UJfUtXBlaPFksJheAFRuLYtOkHF9cLSbV0eN6a8diTZmSlJw1PnLsovKnnMqm9fjhLc8a/OH3FaVs1LdXjuz4YCPfoAEJOLU5U6rWEFNFj5YxIfhQtgCH5Obpw3z1mvpWFOyDqtj/JTj8v+IHh79T+FchSPfMxs66iUVXcRBQM64U1OMOWfbPtQphDApH3Z3bwHtf8MEZo0dIIRwssMH+Y3+DZPDzBy5duy6FkZGGxqBU4bIj+mUbUQgWisDbLej8TUMJOrd9R8Bs84HoH2nIMswGGAhqGYngne4Um+MqJ72ysVrPoYZ+No=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB7901.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rCw9B70wK1TQNHOsDrxiR8Wa3FsmILh12Q32yHbCKUL5Vll2Jn7deO7DGS1k?=
+ =?us-ascii?Q?eOPXNYhICfdIp6yQGNkOMTkxJqSSgZ6ptys+jDLO+xkoKPNAhseJgmh04SuW?=
+ =?us-ascii?Q?SUUZPOAnd1G79lY93Co2lFaec5nIy9qtIO3uxkpqkdS+pUPm+EJZVALlQPVU?=
+ =?us-ascii?Q?ckUcpRLRTJDQvMWWHQqk4E960EW5puupxdprq68or2gsHmhO4TzluBrsf0Hq?=
+ =?us-ascii?Q?sJxA83vddJYacKKNADjiDQ1mZn8ni0EgJX2XImprmqpdECuVNTAWGjHOqsgu?=
+ =?us-ascii?Q?hfkwldijAoewcBs2WltEKXIUjXr+N8RoucjltsnQpcR/6feiSqPSvV4MJIPx?=
+ =?us-ascii?Q?gue7BjKrT7qec7ccPV+8DLrnsEU+N259Po0VKXy+AHOwi2Z+iwt9OakgF0pT?=
+ =?us-ascii?Q?O5QujZ66Ow16puhPS0HO+oKa+IQrgwACGmwJSqH7imXgIU8Gl4HFxAdWXZo4?=
+ =?us-ascii?Q?Xx/osg/ZiFDMbvY8lARiounR6sbxacx84+Sc7fwhChLiUO0EVtq9Acx0ckdV?=
+ =?us-ascii?Q?xWX9syWKYZ8vBHOHv+7dW6ZkpnesrxAvymQJPibF81hE9HcWxb87s2ogyTts?=
+ =?us-ascii?Q?/NDN7DJX8UWCCM0nsjiB/EGQZZiddWVPyPFYvgJx8Mc6pwkj5/Zee88Pn8zM?=
+ =?us-ascii?Q?z1nBWZxwU1iYLWfW6fBAgjgIQbhGlW0paqisL2XgbI1MQ63mJUo+63w3JAy2?=
+ =?us-ascii?Q?0GrhV+YhBo5HwpKh5OdihtoAcyQFSIdtPaHw/ec4iCD+BDpEfkNIFWDuGihP?=
+ =?us-ascii?Q?eWvKsrrilBGdL3/2re8/2Yeh8DwLK/HTC59YA9FIoVYHa4on+uLse+hsuaPS?=
+ =?us-ascii?Q?nqO9PwcTeamDCvpBxiYIx6NXHW8XoS/6urk81i1zOEVfnefs+Pe5BQPjxGW/?=
+ =?us-ascii?Q?pYF42vTwsNC0JBldy4aXGv0HmLGP+EP3NWhTRKSPefbx0t1NVIhUM4zfXGWU?=
+ =?us-ascii?Q?FjB7urdxt71fdCer7L6TrCC1jQi8Pyb/e/0RlL2e7OGu1pczejrp15AN2Hq4?=
+ =?us-ascii?Q?3F+3oUw2Jx6JMwvKe7XWhJT/gMQpn6xCTuNhpGMLYCJdxrPzIpnoQlew+SF6?=
+ =?us-ascii?Q?H/JYhiwSjNZyQVWfIAMaYquz3dalG1SyoEHJuoREDfApgeWemaEakBRX+ujz?=
+ =?us-ascii?Q?TUdAsWaW2zPzd0x+WxO8FuPzsoAD2LyPPk3ABrRfH/fzO2ho6UIjckFrkDye?=
+ =?us-ascii?Q?KDPLBClreiqDb70+snOOU5ZU3N7oM+DLzF+qXPIfSse4IMEUg3opiyzzB7/2?=
+ =?us-ascii?Q?1Kdwow1DiFwSQXA2T19CuF1hDia8wkMZKlqXXU1sny7rwqt5XTXlZuP/nJu4?=
+ =?us-ascii?Q?sOYHX7fFmy13VJygAj5Hs6BHwyFpUZSuZ3zU1qvdZCErfmRgq0RenhMauVxB?=
+ =?us-ascii?Q?P+OjLiitphYOwA6stNAKzO4gEZwGZG2NuuAxlrToKLVZSkVSyn2al7zdvQH+?=
+ =?us-ascii?Q?w0TeXhzK5kVG27OxnMAFNO7b3eK0inpxppIPo1KCn/uW4m+AfsCkYAi7H5li?=
+ =?us-ascii?Q?+QZsrGYAXuV2qzB8GiRs1bgF6jRNz+0ZWDmsA0ijLiVO+Lg/LnDY6M0FrWqP?=
+ =?us-ascii?Q?UB7wJWOuVesmdKeucAN0xpeOw9yx6R4CH/ptnIUBpTUoFBydgiNGgdBCH9sE?=
+ =?us-ascii?Q?dOBHq5dKiiuFxapyDSy15yuQ2QV81IanI/AzoISrKKpKnqBqZ/6sUPamcAUW?=
+ =?us-ascii?Q?fpoGb5E+EmD0dP5oqlmuiYrwXayZc7ixOD3TKuwoDZyZSoRB?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f91d931-bc25-4bbb-a946-08defe06ea8d
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7901.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 15:31:19.3281
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lm3X8DOVic7Rwh2Ie7KBwAeecQwizB01qXib0b5To2bVI0VWvC4eg3boHVslNfdm3leWVx/pnMKCsY9N5Zjl5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5974
 
-On Wed, Aug 19, 2026 at 11:15=E2=80=AFAM Eric Dumazet <edumazet@google.com>=
- wrote:
->
-> On Wed, Aug 19, 2026 at 4:58=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.co=
-m> wrote:
-> >
-> > On Wed, Aug 19, 2026 at 10:52=E2=80=AFAM Eric Dumazet <edumazet@google.=
-com> wrote:
-> > >
-> > > On Wed, Aug 19, 2026 at 4:33=E2=80=AFPM Jamal Hadi Salim <jhs@mojatat=
-u.com> wrote:
-> > > >
-> > > > qdisc_get_stab() accepts a user-supplied size table, and
-> > > > __qdisc_calculate_pkt_len() amplifies qdisc_pkt_len() through the
-> > > > overhead, the size-table data (u16), and size_log (up to
-> > > > STAB_SIZE_LOG_MAX).  A crafted stab can therefore set qdisc_pkt_len=
-()
-> > > > to ~1 GiB for an ordinary skb.  Per-flow deficit schedulers such as
-> > > > DRR and ETS replenish one quantum per loop iteration; with a tiny
-> > > > quantum (1) they spin billions of times under the qdisc lock,
-> > > > producing a soft lockup / RCU stall.
-> > > >
-> > > > Cap the final qdisc_pkt_len() to GSO_MAX_SIZE so the size-table
-> > > > amplification cannot drive deficit schedulers into an unbounded loo=
-p.
-> > > > A legitimate size table (e.g. qfq's overhead 999999999, which is
-> > > > handled by dropping) is still accepted.
-> > > >
-> > > > Conditions to recreate the bug:
-> > > > - CONFIG_NET_SCHED=3Dy, CONFIG_NET_SCH_DRR=3Dy (or CONFIG_NET_SCH_E=
-TS=3Dy).
-> > > > - Attach a DRR (or ETS) root qdisc with a crafted TCA_STAB that
-> > > >   amplifies qdisc_pkt_len to ~1 GiB (e.g. size_log=3D15, data=3D[32=
-768]).
-> > > > - Add a class with a tiny quantum of 1 and send one small packet; t=
-he
-> > > >   deficit loop spins billions of times under the qdisc lock and tri=
-ps
-> > > >   the softlockup detector (panic with kernel.softlockup_panic=3D1).
-> > > > - Reachable as root or from an unprivileged user in a fresh user+ne=
-t
-> > > >   namespace (unshare -Urn) with namespace-local CAP_NET_ADMIN.
-> > > >
-> > > > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > > > Reported-by: vega@nebusec.ai
-> > > > Tested-by: Victor Nogueira <victor@mojatatu.com>
-> > > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > > > ---
-> > > > v1 -> v2
-> > > >
-> > > > 1. Sigh. The v1 overhead cap broke the existing qfq tdc test 5993, =
-caught by
-> > > >    running the whole tdc.sh instead of affected qdiscs reported rep=
-orted by
-> > > >    poc. That test legitimately uses stab overhead 999999999 qfq and=
- expects
-> > > >    the qdisc to be accepted (exit 0) with packets dropped.
-> > > >
-> > > > 2. Better Fix: cap the final qdisc_pkt_len() to GSO_MAX_SIZE(524280=
-) in
-> > > >    __qdisc_calculate_pkt_len() per sashikos[1][2] suggestions
-> > > >
-> > > > 3. Given existence of tdc 5993 we dont need the tdc test created ea=
-rlier
-> > > >    since the essence of that test is covered in tdc 5993.
-> > > >
-> > > > [1] https://sashiko.dev/#/patchset/20260818101735.16655-1-jhs@mojat=
-atu.com
-> > > > [2] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260818101=
-735.16655-1-jhs@mojatatu.com
-> > > > ---
-> > > >  net/sched/sch_api.c | 7 +++++--
-> > > >  1 file changed, 5 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
-> > > > index 65b35528d125..ad4f117ff55a 100644
-> > > > --- a/net/sched/sch_api.c
-> > > > +++ b/net/sched/sch_api.c
-> > > > @@ -610,8 +610,11 @@ void __qdisc_calculate_pkt_len(struct sk_buff =
-*skb,
-> > > >
-> > > >         pkt_len <<=3D stab->szopts.size_log;
-> > > >  out:
-> > > > -       if (unlikely(pkt_len < 1))
-> > > > -               pkt_len =3D 1;
-> > > > +       /* A size table can inflate qdisc_pkt_len() beyond any real=
- packet
-> > > > +        * (via overhead, the data table, or size_log); cap it so d=
-eficit
-> > > > +        * schedulers such as DRR/ETS terminate their refill loops.
-> > > > +        */
-> > > > +       pkt_len =3D clamp_t(int, pkt_len, 1, GSO_MAX_SIZE);
-> > >
-> > > Yeah, although it is a bit strange to mention GSO_MAX_SIZE in a funct=
-ion which
-> > > does not take care of GSO packets.
-> >
-> > well... there are many many references to gso under net/sched. What
-> > dont you like about this specific things?
->
-> I just mentioned that __qdisc_calculate_pkt_len() never was updated to
-> deal with GSO packets.
->
-> It assumes packets with a single set of headers.
->
+On Mon, Aug 17, 2026 at 01:12:10PM +0000, Zihan Xi wrote:
+> fib_rebalance() reads ignore_routes_with_linkdown while summing active
+> nexthop weights and then reads it again while calculating each upper
+> bound. Sysctl writes are not serialized by RTNL. If all nexthops are
+> link-down, a concurrent 1-to-0 change can leave total at zero and make
+> the second pass divide by zero.
+> 
+> Route insertion and link-state updates call fib_rebalance() under RTNL,
+> and netlink devconf changes are already protected by RTNL. Make the
+> sysctl handler take the per-net RTNL lock before changing
+> ignore_routes_with_linkdown. This gives both passes a stable policy view
+> without adding work to route lookup or rebalance paths.
+> 
+> Fixes: 0e884c78ee19 ("ipv4: L3 hash-based multipath")
+> Cc: stable@vger.kernel.org
+> Reported-by: Vega <vega@nebusec.ai>
+> Assisted-by: Codex:gpt-5.4
+> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 
-I see. I was looking for something reasonable. The problem is maximum
-real skb->len is UINT_MAX and with stab amplification it can get a
-small packet into a GB.
-Would you prefer a new #define in pkt_sched.h to put an upper bound
-(QDISC_PKT_LEN_MAX)?
-Something else?
+I think that this is a better direction:
 
-cheers,
-jamal
+https://lore.kernel.org/netdev/20260817013237.2797-1-blbllhy@gmail.com/
 
+Instead of taking RTNL, make it consistent with IPv6 and mark all the
+nexthops as dead (upper_bound = -1) when total==0, as the first pass
+indicated. Something like [1].
 
-> This is fine, I am sure nobody uses this stuff anymore.
+It's true that it can lead to incorrect upper bounds if a concurrent
+1-to-0 change didn't result in total==0: during the second pass we will
+account for nexthops that we skipped in the first pass.
+
+It's not very interesting. This sysctl was never meant to be configured
+on the fly and the kernel doesn't rebalance nexthop groups when it is
+toggled.
+
+Let's wait for the IPv6 patch to be applied so that you could reference
+it in the commit message.
+
+[1]
+diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+index 0483519b7fb0..7a362f2e2c2b 100644
+--- a/net/ipv4/fib_semantics.c
++++ b/net/ipv4/fib_semantics.c
+@@ -874,7 +874,7 @@ static void fib_rebalance(struct fib_info *fi)
+ 	change_nexthops(fi) {
+ 		int upper_bound;
+ 
+-		if (nexthop_nh->fib_nh_flags & RTNH_F_DEAD) {
++		if (!total || nexthop_nh->fib_nh_flags & RTNH_F_DEAD) {
+ 			upper_bound = -1;
+ 		} else if (ip_ignore_linkdown(nexthop_nh->fib_nh_dev) &&
+ 			   nexthop_nh->fib_nh_flags & RTNH_F_LINKDOWN) {
