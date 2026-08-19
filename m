@@ -1,111 +1,132 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE891E515
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 16:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787155312; cv=pass; b=BTt6OjIEZJem92Cb7yaECZ8sXBRTW+a5WtPtbPTwixr+BtZM0e5lU3o4FEg2VemjC/AJb7wwNpHT6tjElOQH5cyEsEF3+3dm0Xe/4+PXp/9gUBuXGzsqgy4PdHcm2YGruLcy6nLRdb7IeeXuMj7ahaWAPDrt8XYu4SVw5AXFrXY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787155312; c=relaxed/simple;
-	bh=43WgxPth44CuqYCSLaQiPb0iqpI35dSY+V5djWAef50=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=U6MUacQ2DCs3WizyHHaSaNmFBdSq3QA3m1AJ1dc91QTyA9sjEqXoLZYQfD4VHZ9MShv0yhSxJPY7O6bG9YI2vEQV+qwEaKkpfktxAcQaG3GbKI1SSmMNz3TZk0XKEttZ6bMv3cm7901403yx12dJJJKFjTMBtaq9yr1ANcmb98o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wXRSAFWU; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01FA848662F;
+	Wed, 19 Aug 2026 16:09:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787155761; cv=none; b=WbJx8TESXXv1oVntN0iONohgzT6cOjbZKMOV1LbzWZpnF6t0B27zmX5FPDK4DSJ1ccg8GRb6pX+5U0IYb1r2iuLt83mqm92FQp8QpYeTzc+7PL3AixDeqMxMlOUy1jQO29hoX2dvLsX2i329RUpRmxfVQPAOduZ04Mv2zK7e+xo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787155761; c=relaxed/simple;
+	bh=vyBInu7Tm9q5ns7vgEaEBClsZMsrSMd4w13hBn9wiMY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WVWp+wcct/4ZiJqYYWyPgM9iSbFYw6hlEC/2BH1fmdqcXjay8YKT1Y0li08j1IWBY/yo7YwUCMNLRtBdu6UV4sQwhTEzlNoXhOJfZHst4KIrMNPqiJLERahXVSYiL2541TWkri4S/RnA1lo2SaRAgwr1dNqnidhad+o2b/6MJds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HOJKhE6Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wXRSAFWU"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-52d7ef16f91so6182691cf.3
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 09:01:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787155309; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sgqR7rQSTskoM8U0eoL5I5CoVKswpetUgJyrWrixqy7clotKQ7FLsbXycpnPMwXx9y
-         nIzweUe43lxlOf3vse2mS0Lm73EmxSzHKMyU2NSI62Gnw5VGOSWNkOt1n2dMavqCalhb
-         y93DGd/o32sVnap47OrE/zitHhcJiOYk2AMlwS0MrIojDM7xIN7xYFIr4mVO0tzaxnlE
-         wRuuczDx1VRmGw4otdI9o0cuS+kY4UHBcsEv9oL/gFj13fyDYwPuc+56nAeq/ae8HGe8
-         HtEeh46SfB7ro9dqPm5lhQdEp4A8pOluRuxMV1khJ5+TkxCaBsmqiVRJM2L4LSd8YoIa
-         dKRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=43WgxPth44CuqYCSLaQiPb0iqpI35dSY+V5djWAef50=;
-        fh=hCUn4LPjBWntOYJOvXghgj/E7eoQ/xCgVpCRD5fulRI=;
-        b=Ett8NY7m4kPIp6baewSmL56haAxzil9SeLtouzvlEl585WEO7wbUADuzJdybLzoIta
-         xO3mjw+wSUf2uRIeUn07trQK8XqREH2mrBwwfrcr8EWS0+eIiA7LkqM7sSHN3JFxVflA
-         +IyBBu85Qj809GxO3pnOI9TUmuNgs2AUDFYYZRJK/X9+njtv+g23lfrHAc5fxSreH/05
-         DEXiot75mOlEgBgUxmmu4QYnx2zGsjsn5dbS0SIsY96SwrHzw6QR7Q8KoFr7dd/reC01
-         L0LcQm4dTIrEtQaEI4Q2igKsK386H+K2LuQoHT/Mh35LPcmTwjPV93SmPXJj4UQxSmz0
-         CNFA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787155309; x=1787760109; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=43WgxPth44CuqYCSLaQiPb0iqpI35dSY+V5djWAef50=;
-        b=wXRSAFWUQQ3TQOvrajf8zo7AJwTr4d6Mc+0HJr5FnBuVXoyZzeqGce4jQ7F2VNh536
-         aLi5qEb8YIBAN7lmwSx8AsWnD0epiqSQQfSqm56w+rHdV5ed3VE8f+c/+NT4YZ7XpuZN
-         ZHuYMbiKNDTLenDwJtYWgR4QmkhP5JWCc6pK7nr8hsUYTCO12QrcNZVboC9NXkZ2pVAc
-         xZ9leFfMfdHDO75eDTJyLc4XMY8ERs5U0AYJnC4f/hSB9ci60sRvVXdZ9wP35vrvTyFx
-         BOm+IfwEXX78KV+lEYzbRz8kzn5tSjudTJrsWMF2NTC20LWpQ6so0MP6laq/wU1niqai
-         qOSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787155309; x=1787760109;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=43WgxPth44CuqYCSLaQiPb0iqpI35dSY+V5djWAef50=;
-        b=dP8UpRa1mNPO9gM6jlLFXnGRnD2XME4gcNXJTC79amv1mbhthr1c2R63Xj1kkEPI6J
-         CzAkDg10bakk3fRSEpPoFNTi6VOqbYscwvpHzxcYqxskUjjR2SExcPnd1wB3fpXyErAG
-         tp52e6lktUXVWkmpQG8eCTibaWFZmPDGusZxUC09nenSjFDiR2gmsF9jVdywn6H6fQPs
-         OQobNF7OED3gHLRhqpGYrJRqQv8Fp9ika+YZVvDfTCWHzPrSGtUNO5yHiCSixqsaAi6X
-         Lhuxn3lRWRaJrRG8uhKbQ8zYuDP8+z9xmCThSEV24Ee5da7wCDHC6n4xYPyc0JcQCt6w
-         0sPg==
-X-Forwarded-Encrypted: i=1; AHgh+RomqwcsPx6hxoBxu/EZE8shGSWiO9vy5q30V5sRkzH3fC4IBqZfieLN3uBG0OnMneD0QWi8iLs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCjbzZC+8MVJayjzX1/Isx2qi2RSgPPPUXhuWubKKgICFr/X5z
-	ne26l6yn4Jz5TH3KDsSk5UukaVAnZXaiNlxdL6Dd6QiqumRe2xH+vbJvqzUM5joG8wP0RImAyjV
-	qnFUazXGRdcAA5KZhuXqnOeWaNHIMjcK385gZkCrt
-X-Gm-Gg: AR+sD12yZ2quyIfAwz1f52AEhOltxn6y/iUuocITxaZigyV2FRCvrpUXcprYTtFqbAH
-	t8PMV+8CEAUmcmkI1Dvct4x2mhKF2NzwEHcIYYEVF08x6rii/ufl6mnhxSh8b0oR33yv8nNYn8y
-	BT49+Pc4MOfv8Xs8eXXBLzbuqnV+MHTpt8790z7Q6ZMLN8n5unfbumBAaYg3kzeg2oHOzTQL4pO
-	Dsg5XwV+TF6aiDNg1FapHRrLRi3anz4ejRgAJTZ26bOJGPjWai2zYhWOz+H7RwqgY/ce3eZWE3z
-	JReIISvt1I1QzPpHzfCl1J++FYDFXih0b+ATMvsFPCGrneivYx+e5VEbmiaGZm30yMAd0DKXpF6
-	5RzlRLBG2wwT2mPPHz9FcU9ZHgV05PT62g3cRdAl56fvGDJKeCAVhU/5EZHd/PymtRrVmZisk3D
-	QoIcYldWdQX2fz8U8=
-X-Received: by 2002:a05:622a:1f87:b0:528:22:8c61 with SMTP id
- d75a77b69052e-52dd5caceadmr58314551cf.38.1787155308636; Wed, 19 Aug 2026
- 09:01:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HOJKhE6Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215971F000E9;
+	Wed, 19 Aug 2026 16:09:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787155759;
+	bh=63V/Ij2B9WrOrIN2e2zHaSp/qasYhzA6FfRA6dqG5dE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HOJKhE6QS17uYsGjRHWX/10MHY1v1FQtfamHsWROPjC4W1e30OS75ZZhE/FlHuLHk
+	 JlA6cbf5GrzAQq1aJE2kXvjz/M3mxFgzeH6hcZy1bg887ih+kWUIH3WEvniS1FUHko
+	 f8YGIOhYiEMOuzBgg/da9wIR0wfdVGX9uRtn6A43EsvkQfSSfF9AsfZi03KJ6qA9AP
+	 V57RYR+ColbGaPdAWY8sGcIL2XVw1JMdpD2Ue1AuGazkqrgvaG7I6vI4WWh6cmRMvx
+	 WUd8LeDNIpmMpgdgOFTk9eXWlfvlOTF6HHD8ezwbFSHAScUReKcXCNxQ1cAR83ZCN1
+	 iiub28M0gMLHQ==
+Date: Wed, 19 Aug 2026 17:09:13 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, baohua@kernel.org, 
+	baolin.wang@linux.alibaba.com, david@kernel.org, dev.jain@arm.com, lance.yang@linux.dev, 
+	liam@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	nico.pache@linux.dev, ryan.roberts@arm.com, ziy@nvidia.com, kas@kernel.org, 
+	nphamcs@gmail.com, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio
+ on zap
+Message-ID: <aoXVDppXAxte7Hzl@gremlin>
+References: <20260819101222.3732660-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819143136.57350-1-jhs@mojatatu.com> <CANn89iLRPjpKF6xrWz=pv5cWXT6FxCDmOprXKrkDRgQH4Jin-w@mail.gmail.com>
- <CAM0EoMmc=CNVO0h1miKSO63uYH9f6YkX6=z+itqALT9tAYtcog@mail.gmail.com>
- <CANn89iK+xzagk9faUSjHQj+9kTnWn0wg6tRez5XtkE14G+SCvQ@mail.gmail.com> <CAM0EoM=6C=yarfbjtegiobdK9jvLzLwJSSMxFBYDiG6XtZQ35w@mail.gmail.com>
-In-Reply-To: <CAM0EoM=6C=yarfbjtegiobdK9jvLzLwJSSMxFBYDiG6XtZQ35w@mail.gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Wed, 19 Aug 2026 18:01:37 +0200
-X-Gm-Features: AcwNN1UxvWHBCT8HDHQEZVo6y7JWszgVh6-23ZZ3QgUYycuQqHowaQerrtfBw9s
-Message-ID: <CANn89iLD-c930HoW0tf+A3c+5ANHv7iRzy0wFt-HqNFswtee9g@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: sched: fix quantum/backlog overflow in fq,
- fq_codel, fq_pie, hhf, sfq
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, stable@vger.kernel.org, vega@nebusec.ai, 
-	Victor Nogueira <victor@mojatatu.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260819101222.3732660-1-usama.arif@linux.dev>
 
-On Wed, Aug 19, 2026 at 5:31=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com>=
- wrote:
+On Wed, Aug 19, 2026 at 03:12:22AM -0700, Usama Arif wrote:
+> zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
+> file case, but not the dirty bit.  The pte path does propagate it, in
+> zap_present_folio_ptes() and so does the pmd split path, in
+> __split_huge_pmd_locked().
 >
-> Ok. So one patch per file?
+> For most file mappings the omission is harmless, because writing to a
+> shared file mapping goes through page_mkwrite(), which dirties the
+> folio.  tmpfs is different: it has no page_mkwrite(), and
+> vma_wants_writenotify() is false for it, so a *read* fault on a
+> MAP_SHARED tmpfs mapping installs a writable pmd via do_read_fault().
+> do_read_fault() does not call fault_dirty_shared_page(), so subsequent
+> stores through that mapping set only the hardware dirty bit in the pmd
+> and never call folio_mark_dirty().  A shmem folio allocated by a fault
+> is marked uptodate but not dirty (see the clear: block in
+> shmem_get_folio_gfp()), so PG_dirty is never set at all.
+>
+> Unmapping such a folio - munmap(), or exit_mmap() when the process dies
+> - then loses the only record that it was written, because zap_huge_pmd()
+> drops the pmd without transferring the dirty bit.  Reclaim afterwards
+> sees a clean shmem folio: the whole swap-out block in
+> shrink_folio_list() is inside "if (folio_test_dirty(folio))", so
+> pageout() is skipped and the folio falls into __remove_mapping().
+> There, folio_is_file_lru() is false for a swapbacked folio, so no shadow
+> entry is created and __filemap_remove_folio(folio, NULL) simply empties
+> the i_pages slot.  The data is freed without ever being written to swap,
+> and the next fault on that index returns a freshly zeroed folio.
+>
+> This is silent data loss for any process that keeps state in a
+> MAP_SHARED tmpfs segment across an unmap - for example a cache handed
+> from one process generation to the next through /dev/shm.  It requires
+> the folio to be PMD-mapped, so it only shows up once shmem THP is
+> enabled (which is what we did in Meta fleet and started noticing crashes);
+> with THP off the pte path transfers the dirty bit correctly.
+> It also only becomes visible when swap is enabled, because with no swap
+> device shmem folios (which are on the anon LRU) are not scanned by
+> reclaim at all, so the clean folio is never dropped.
 
-I would have done that, but you are the net/sched maintainer, I will
-certainly respect your choice :)
+Good lord.
+
+>
+> Reproduced on x86_64 with a tmpfs mounted huge=within_size: read-fault a
+> 2MB-backed region, write a known pattern through the resulting mapping,
+> munmap, force reclaim of the cgroup, then re-map and read back.  Without
+> this patch the region reads back as zeros and vmstat shows zswpout 0 -
+> the data was discarded rather than swapped.  With this patch the region
+> reads back correctly and the pages are swapped out as expected.  With
+> huge=never, or when the first touch is a write, the test passes either
+> way.
+>
+> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+
+Thanks for this! LGTM so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  mm/huge_memory.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index ced400f72d43a..afbb5974bd225 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -2449,6 +2449,8 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+>  		add_mm_counter(mm, mm_counter_file(folio),
+>  			       -HPAGE_PMD_NR);
+>
+> +		if (is_present && pmd_dirty(pmdval))
+> +			folio_mark_dirty(folio);
+>  		if (is_present && pmd_young(pmdval) &&
+>  		    likely(vma_has_recency(vma)))
+>  			folio_mark_accessed(folio);
+> --
+> 2.53.0-Meta
+>
+
+--
+Cheers, Lorenzo
