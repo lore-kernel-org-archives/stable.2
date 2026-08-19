@@ -1,175 +1,188 @@
-Received: from mout.web.de (mout.web.de [212.227.17.11])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E63E846A;
-	Wed, 19 Aug 2026 11:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E52386C39;
+	Wed, 19 Aug 2026 12:04:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787140669; cv=none; b=HuWUKzVRroO18a6A9GcBH8+cGaOCVMyaeAtlqCPGHJQhp2vVfaX1gD18K3UNA7is5DWCxKbPnoDPYR9X+E+gqJGXp8ycyzbq+dwHXtMSLootslrfFW157jWzpy2JkwElIu6nxl9A77WCz5gW56ApuZCWfc0SkBSwK6EmymDVwoI=
+	t=1787141074; cv=none; b=g/Ms53V0fVLi/WROGwEfppG6URSWCFAEpKyUN7hM5NAdYBw6eZP8/z2Wvo/A2fFdfe/P6UFySDCfxoUN10o/49QpGitcuzFNsowFxE6c4t2XfLRxFJ4Z5oCnUAml6DA4meZLUUqzV2mzqs2J35KyBAR8CNtAdtm+PFnhb9zPq5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787140669; c=relaxed/simple;
-	bh=r1K6h9j7IK720pkFFbS/gcz/lr2ZBCiz3V9XWNjAkjc=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=iB0iYa8sWK2uu0M9wR7mH525Othnt6PAD0rNYF+n+98k41SSy+dQ2hHs07YQOnojLd0Xtk7sYMjSlg2RC1Synvr9ufmoHk4bwIodU66tfedKJltvHXyHpq+iomf61/nIwjYdXbjV39xH6N7iR8aXfpHOBSksQfveuUQwZwUA4JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=EnDkXACi; arc=none smtp.client-ip=212.227.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1787141074; c=relaxed/simple;
+	bh=4JaOfFlUP8bO46smg6ipx9sDPvlzvl8+K2iwdtAEKas=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=V1690VEhXRpYyA9OhSHDaIixKL/7gdPJa/HoI6rEKJgHBE7u7OQrbxXnquadTtwbJkKIC0sjoLKYEpXSTHoURJEyZg/9ynLVTjOOPd8v1XYUUey6UXWcDC44b+H5ifuGDGxjj1ZnmqxyO9ZyEaOWWVgFvqCUyOJCl4IqzANxcCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J9KzGzS3; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="EnDkXACi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1787140662; x=1787745462; i=markus.elfring@web.de;
-	bh=4JUp1TvC29Y0XdBxPcuuofIQeL97+Wmk7E2pqYVVd9c=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=EnDkXACifA8AeP+vF1D/doNfX2hPqt5EGcVss2KTHJ+/i4gZDgwTTIxqr2UJomFe
-	 Txj4xITg1PrFZ2kHV16P3aC9zJaqBB14QEEzXH1U9v7cwuAvpVgf/Z7nsEVPS2Gap
-	 i+yRL97q9UWQJ7FGFBOykA8ZRzJ3rsxfP2+4rZmchYA1HKgdF+fr6IkbMHLddJt5C
-	 p4mhGWCFqYmXEDsW+Ik/BgBfgP7p10I0RtIQM6H4aNobRb0/iV7yA3RVUoy7Bf5qL
-	 pZVhv8ab92kQ4bdF1xzXKkUBUtW4tMZiMlhmOS1pVFqzsKTM0nhg+n5nWIz27zGQq
-	 1zLtv5w2IIgz2Wk0LA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MxYX5-1wlIAp0OAD-00tbht; Wed, 19
- Aug 2026 13:57:42 +0200
-Message-ID: <ee366627-a286-46b8-b343-7f88064a25de@web.de>
-Date: Wed, 19 Aug 2026 13:57:39 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J9KzGzS3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787141073; x=1818677073;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=4JaOfFlUP8bO46smg6ipx9sDPvlzvl8+K2iwdtAEKas=;
+  b=J9KzGzS3ZRcxmRJdJrZngpENpQqYVLKu2b+dMjYeSXZZPx9KEospW0hj
+   wpaCi2pcH2FxKZgToHiaaF0EKkCu0S/UpYETkJONDK8TraKRzmUhYei8y
+   Pz+WdHwmNA7+XjEaz+UU8jZWSASXbNi/HkzGN46nPN0cSrlqR3Xt9R6DA
+   onM6/84Xgp3tSJ6T6DuP3C9bAwy9gfz2rilDoU+c1kLjTDKJHBJqlHmo/
+   /oD8D7iUkB3fBFb4V4jvDwUPSbwaonN5BBQeNcqb8MEsDyhKiNrA8KsOs
+   u/obA5AOHEcolovjRD3R0cPae/dlku/HRk7paVWb5/WQtEzpgg+pcQPg9
+   Q==;
+X-CSE-ConnectionGUID: GeCdfM7QRCCpBr3U52Kyqw==
+X-CSE-MsgGUID: Kg9I+XBWTfGK2qgzFyoqcA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="105183878"
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
+   d="scan'208";a="105183878"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 05:04:31 -0700
+X-CSE-ConnectionGUID: zB78kJC4QpyNPhWyA1r+JQ==
+X-CSE-MsgGUID: 7KGAeJ+eRCqLMFSCSmJkbw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
+   d="scan'208";a="265073201"
+Received: from pae-d-dell-r7525-263.igk.intel.com ([172.28.191.240])
+  by orviesa008.jf.intel.com with ESMTP; 19 Aug 2026 05:04:28 -0700
+From: Przemyslaw Korba <przemyslaw.korba@intel.com>
+To: kuba@kernel.org
+Cc: aleksandr.loktionov@intel.com,
+	andrew+netdev@lunn.ch,
+	anthony.l.nguyen@intel.com,
+	danisjiang@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	horms@kernel.org,
+	moonafterrain@outlook.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	przemyslaw.kitszel@intel.com,
+	rafal.romanowski@intel.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 07/13] ice: support SBQ posted writes with non-posted support for CGU
+Date: Wed, 19 Aug 2026 14:07:55 +0200
+Message-ID: <20260819120755.187078-1-przemyslaw.korba@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260723155750.717839-1-kuba@kernel.org>
+References: <20260723155750.717839-1-kuba@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org,
- Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>,
- Frieder Schrempf <frieder.schrempf@kontron.de>,
- Herve Codina <herve.codina@bootlin.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Linus Walleij <linusw@kernel.org>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Marek Vasut <marex@denx.de>, Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-References: <20260810-ti-sn65dsi83-fixes-v4-3-ae9c95c8d162@geanix.com>
-Subject: Re: [PATCH v4 3/3] drm/bridge: ti-sn65dsi83: Support LVDS Channel B
- on SN65DSI84
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20260810-ti-sn65dsi83-fixes-v4-3-ae9c95c8d162@geanix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:9X8xJNqqSDy5L+/Xi4A1PPG9Mb75bkoa06QyoOFYQDj10XI25UJ
- 0G/e6MZD+PK1PcgL1HgkZbSLM7y1Q/9MpRbDhs+yq8XGtZfe4htMllyFVjt1eT5h4LZKhyQ
- iw2J2xcrTA2bp843GZ3Kcpaa71biDYZXhziXHG6UMTlOyeTmY/yk8RHZeZvaXlaeo3i3NdG
- gKxrWyIfkENPERRfWnsoA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:82+q6PYEpeI=;5w5SrlpHPtRijm2hbaQr0dPgzxv
- 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
+Content-Transfer-Encoding: 8bit
 
-> This adds support for =E2=80=A6
+sure, can do that
 
-  Add support for?
+> >  	/* Wait for the command to complete. If it finishes within the
+> >  	 * timeout, copy the descriptor back to temp.
+> >  	 */
+> 
+> [ ... ]
+> 
+> > diff --git a/drivers/net/ethernet/intel/ice/ice_ptp_hw.c b/drivers/net/ethernet/intel/ice/ice_ptp_hw.c
+> > index 8e5f97835954..c6049097f49d 100644
+> > --- a/drivers/net/ethernet/intel/ice/ice_ptp_hw.c
+> > +++ b/drivers/net/ethernet/intel/ice/ice_ptp_hw.c
+> > @@ -352,6 +352,20 @@ void ice_ptp_src_cmd(struct ice_hw *hw, enum ice_ptp_tmr_cmd cmd)
+> >  static void ice_ptp_exec_tmr_cmd(struct ice_hw *hw)
+> >  {
+> >  	struct ice_pf *pf = container_of(hw, struct ice_pf, hw);
+> > +	struct ice_sbq_msg_input msg = {
+> > +		.dest_dev = ice_sbq_dev_phy_0,
+> > +		.opcode = ice_sbq_msg_rd,
+> > +	};
+> > +	int err;
+> > +
+> > +	/* Flush SBQ to ensure posted writes complete before SYNC command.
+> > +	 * Skip for E810 - FW always sends completions, so writes are synchronous.
+> > +	 */
+> > +	if (hw->mac_type != ICE_MAC_E810) {
+> > +		err = ice_sbq_rw_reg(hw, &msg, LIBIE_AQ_FLAG_RD);
+> > +		if (err)
+> > +			dev_warn(ice_hw_to_dev(hw), "Failed to flush SBQ: %d\n", err);
+> > +	}
+> 
+> [Medium]
+> When ice_sbq_rw_reg() fails here (for example -EBUSY when
+> hw->reset_ongoing is set, or -ENOSPC / -EIO / -ETIMEDOUT from
+> ice_sq_send_cmd()), the code logs a warning and then unconditionally
+> proceeds to issue wr32(GLTSYN_CMD_SYNC, SYNC_EXEC_CMD).
+> 
+> The commit message states:
+> 
+>     Flush the SBQ by reading address 0 from the PHY 0 before issuing SYNC
+>     command to ensure that writes to all PHYs were completed
+> 
+> If the flush is what "ensures that writes to all PHYs were completed",
+> does silently continuing on flush failure reopen the race the patch is
+> trying to close?
+> 
+> ice_ptp_exec_tmr_cmd() returns void, and none of its callers
+> (ice_ptp_tmr_cmd, ice_start_phy_timer_e82x / eth56g,
+> ice_sync_phy_timer_e82x / eth56g,
+> ice_read_phy_and_phc_time_e82x / eth56g) can react to the failure. Should
+> this path propagate the error, or at least skip the SYNC issue when the
+> flush fails?
+> 
+> Also, is a non-rate-limited dev_warn appropriate in this hot PTP path?
+> Repeated failures (for example during a reset storm) could flood the
+> kernel log.
+> 
 
-See also:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/submitting-patches.rst?h=3Dv7.2#n94
+yeah, making sure it returns earlier on failure is a good idea.
 
-Regards,
-Markus
+> [Medium]
+> Does the phy_0-only flush actually order writes issued to other SBQ
+> destinations?
+> 
+> ice_write_phy_eth56g() now issues posted writes and picks the
+> destination via ice_ptp_get_dest_dev_e825():
+> 
+>     static enum ice_sbq_dev_id ice_ptp_get_dest_dev_e825(struct ice_hw *hw,
+>                                                          u8 port)
+>     {
+>         ...
+>         if ((!ice_is_dual(hw) && tgt_phy == 1) ||
+>             (ice_is_dual(hw) && tgt_phy != curr_phy))
+>             return ice_sbq_dev_phy_0_peer;
+>         else
+>             return ice_sbq_dev_phy_0;
+>     }
+> 
+> So on single-complex E825-C with ports >= ports_per_phy, and on
+> dual-complex E825-C for cross-complex writes, posted writes can go to
+> ice_sbq_dev_phy_0_peer. The flush here reads from a hardcoded
+> ice_sbq_dev_phy_0:
+> 
+>     struct ice_sbq_msg_input msg = {
+>         .dest_dev = ice_sbq_dev_phy_0,
+>         .opcode = ice_sbq_msg_rd,
+>     };
+> 
+> If the SBQ does not enforce global commit ordering across distinct
+> neighbor destinations, does a read completing on phy_0 guarantee that a
+> previously-issued posted write to phy_0_peer has landed on the destination
+> device before GLTSYN_CMD_SYNC executes?
+> 
+> The commit message says:
+> 
+>     Flush the SBQ by reading address 0 from the PHY 0 before issuing SYNC
+>     command to ensure that writes to all PHYs were completed
+> 
+> Is that guarantee documented for cross-destination SBQ traffic, or should
+> the flush also target ice_sbq_dev_phy_0_peer (and any other destination
+> that received a posted write) on multi-PHY / dual-complex E825-C?
+> 
+
+I tested mainly on E830. If someone is using E-825 device it indeed
+might be different. I've heard some information that it
+causes failure on some setups, but I asked an waiting on some details
+regarding what sort of failure it is and what's the failing device.
+Will most likely need that information before sending new version.
+
+> >  
+> >  	if (!ice_is_primary(hw))
+> >  		hw = ice_get_primary_hw(pf);
+> 
+> [ ... ]
