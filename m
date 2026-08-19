@@ -1,106 +1,140 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEEA175A8B
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 01:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787104107; cv=none; b=OPdsCfzzPN425L8Nt13SoJsxGUD8eMCwltgbAcF7wsyooe4lrvrAtro5fViuMKmheKAhNsItgEJWKf5dJqTmHc4IgTaJ6ntQNuwD59fIqJNnDqLAU31MdDrciijsBNhof1qiZzrZsLoob7kOXRYp5d8S3oQUqcrwpBVSGCC3p24=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787104107; c=relaxed/simple;
-	bh=7zDtK1+SZ1zwQMNGkR53n6SIlbE7b0OVVJ8QZq0aRRI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jqNS6KjTdcbJAnWwRUJL7fzKSlNmAMyjdgppGLYDDJCPY1RskL/tFVZgB8WdtXNbFykQ/iVFLICNVPj+dFo9g41yunwB3JoRwnCpjxHfsFs0W0/EglSFVwvv2HYdU5UshPPr+6C9LptXsWY0FmN0qGZdfZAMMVB3PS66wlIhQXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=wQkjyuPy; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0AC52D3EEB
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 01:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787104124; cv=pass; b=UypOjnDbBoliBoHkCQLE7KTDXyjVFLN4sXbbFaenbnTsBfhmBfklFFzwIMXAqDPCHpNhhZK7Ovd8Ey3rFJBY80gKshfLdxSgxK6ZFTltnvBN+znXgwmXtt8IKT8ibq79mVI4Yf/pas7yMKJpQj/voPPDBEuNcxkR9sa9sHeRxtE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787104124; c=relaxed/simple;
+	bh=0joFlQFKze2VUT6irZ3O1wZRJqUgaSpfC8SHNl1LCZk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iSFzRGNQV2tMCX4FQ72zwTxyFJ3SBp7dV3/fKK0aqxUYc7Gbrsr2ouf+K4Fqkfkz1xv6Fu2AyZ8MhxsuYh2JYifrBGt1O8oz8Udqcg16yMJHpAOEL1SeALINAzRI87R/HZ3lorjhlkrMaIiMedZlhkXJDzMNCyRFcDVB7otzIT0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r8sUS/vw; arc=pass smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="wQkjyuPy"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84862b0d5aeso558940b3a.2
-        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 18:48:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r8sUS/vw"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c169ae1cb26so307001666b.1
+        for <stable@vger.kernel.org>; Tue, 18 Aug 2026 18:48:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787104121; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GRReT82daEl5LfX+pC7F9tY0W7n6V/vxMyhHrw3Vyb8odeQ3lxYxR59vlqTXBvEmNY
+         NUo/pg+OWOk75kE6UBXJ1NOzIYTgzvQgRPXjizLZn/pwwMLevC2d7qtVshdNzeEbuBqQ
+         4uVH6D0PWGw2nQEeEXSMcgjS1/1FjJ1+/RQUA/65r7k91Lq64S7eVgqBMZ0wTLWLkd93
+         PjMPnhRaDGHpx8Sz7Av5kNGYOEn+E2ZJKKaxYdjgAg6hQiSTmcCISG3zy+tmu/0flP5T
+         WRovoIijgOjCi71WadjzS5gPmts0zgAxR/44OVoOg2UPtr7RpqszHN9sXK+y7Fr/oHLg
+         ssLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=lsCtmvkS36zvX0w2r9pYrglPyEHrvikivJeQKgrGG38=;
+        fh=ZwxvlfRk6oeXXg4dpPzj8D6M4vDGhKeEAVWrsnH1EyM=;
+        b=CSs1fIu/S+fA+ZEmOTKrg7rxQSbLzZDwGRCOyn/W5jayviGiDdllGacdM71+7iJa3u
+         VLuVWmv2jtQliS9kIOlHC/pTUTPPjAg1cONhSyrHPDkbeLpg2mCwYS7qveV60EjnTe5v
+         1tejWhtRFjCEQoUuSkTN8d1epBrO6/71hbe0RQ50JMcJdztqbQ50VOS6PNn6RXc0xPKu
+         ght31nJUwUKQSKK3o9bMVwEo4D+LZU65Z+MYg/hi8ADgTvYxnpiCDP7hsDkXWsvWI029
+         rUTtnrO4s2Dg7sYarRK+F6EExqlOCafDq7kDJx5qW3dC/9sBWAiAOjd+g6eobUaB9EOp
+         iOCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1787104106; x=1787708906; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=siuYPloOqsDQiXuJrGNEWodYtqI8v97Pc5mC2E0cvrM=;
-        b=wQkjyuPy1wsE50PrHHezZqXeY9ZNaX3VyfHLTQNdajIkY7nTn89OVj1tj/fiF3wEv3
-         +Dps52Xdl1nOdTCdv+ixU6afPmx/NfXz6uu/KGL1/3l0mG4ORjqbqrAMGqt035J+ziiH
-         SVu19m/zwGp79t1AFgvxU8RsW0z2s0jOKuUmMrVaBIrkUNiEpkafVHlHSwGSMSG8hVtc
-         U5yKa7gAo/t7HFUQE5zoxY/zE5ZitYHp9jvK0BF5yEL5r27vwlcO6F7sMsCNXzze57f5
-         O6MeACgbVoCWI37SN6Jon3f7DYpaPyjRV7Ol4B7meue23q/7XkUD3VgIn0fvku+Q6wim
-         HgUQ==
+        d=gmail.com; s=20251104; t=1787104121; x=1787708921; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lsCtmvkS36zvX0w2r9pYrglPyEHrvikivJeQKgrGG38=;
+        b=r8sUS/vwemYzO8YHnfPCZnxrOz6R+5DUyUucBpcO/Po6JBzwjYqSSVhhgA/ZcaDnRA
+         4pn0ZPmCciXgfhUlTXRzdo88hd/YFQFpE9jmQzcEK0NmARHA3+7Rr3EiZR3JfOkyO9Pw
+         nvowT+715Kex6znGdrKkOHUpwy0wmRc2rFxkCOirFIGw8Z3GYYc//ieJz+18CwjIo2Uc
+         UALOZZJmuwueJj7rV6Af/EUv5D9UR6ypM6YrE/RO67B3kH1O5ZGPwwY3Cq8OzwTQbibw
+         m/aZGk8y09vopjHNjSdQgwEUmOPfS9KCnnaHWghPxjMY+kp4YAgJ0b2ZbLKbG7OE9B7g
+         tdhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787104106; x=1787708906;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=siuYPloOqsDQiXuJrGNEWodYtqI8v97Pc5mC2E0cvrM=;
-        b=TLXmIvELXg0wr0gYfKlCNxKu73k4ILTbkczS5DxKIVGLWaux6KA6U7A5gkCSVauT7Z
-         IUV0vFkCbwM+cxVstFEPGfzdCuWh7IgsHIbEYZ7JCwYfcAtezmcrkqb/5m+us4lTVFO7
-         aDSIVj+qUzRs0f5rR7NLRiZSqFjSmxBENTal4ZMLbm+dUUVHw8q6YysiKHqk5WFZSWJn
-         ot0tLfrWEdhoJ2NeYdI8Gxv8jMVpWQQshSKE+dR/9lSkOz7Iel/rv30v4Yfa0/x8xaME
-         h5jjlAbxlUbwGHDz9E1nvTKhFbKRiwXmfDWEAIpmlmtvhzrsaMdD+kdLKeRpFYQGAo2A
-         +WmQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rryu4hwYzninlpxipNbeFUFb3TeQA8aICSNP2CwxDKutDiEussLxWBSIu6q+DhGOfLjNnb668E=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfFmQS8bfHFihhM1Q/IQPHpd2hlAKDGhfuo5u1shu0pYk66qc5
-	ruugFhJwmNPP1KBX0O38msOp3oxu2IzGivt2A1qKM2OGgFdLSZNm1UBBv+giszU+Q4s=
-X-Gm-Gg: AR+sD11GlpwJje3XaqpXYHVEZ1y0/lKT6/ZgtLZ9lH25kE8Byh+H0BnWQxwXbbAZ5mv
-	1b9K3BkDR+U/trfe2NY+yjXowrHok5Ys8bBAoLyRXW4+JXfSL4YQ09gf9si2UHxziFPXgpG+R4N
-	BXVcm2y+TYjF1OLLKPbkhmmwoyj3/6+FYTSpVpQqeIOFI+mYnSKN/HSx2LnuV37MC+NJvxkjPYd
-	mVMYbmqMdrcVK8PvNeYW4pcCseWtSjmWjoGyUZcXIapxTnTTpVVtrEyMykcuFnfEYFWEoyQInbR
-	lsqVywUOL1RExmdk+kTfXRBIHsQLWQNKYaDl+S6bF19fIEke4rIrBFH8EnIRuI+APk2r7CmWIOt
-	rUC6YJCnuEmJg+L7rr59cnW4Yb1hJ0hMxfrslLOxXQtrisW65mNW3BsQvLtiZrNJHVq2yO9LZ2o
-	Xzsusi9oElmYg3IGJRs3fodKi+VbCoJo8pvwoxqMpdjyLN44I1UxSIUVWFEO1t0rppA0keLOyyb
-	89o4P8=
-X-Received: by 2002:a05:6a00:3a07:b0:84e:2382:f4f0 with SMTP id d2e1a72fcca58-851d36d2909mr1516620b3a.4.1787104105938;
-        Tue, 18 Aug 2026 18:48:25 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851d33a5b72sm79345b3a.23.2026.08.18.18.48.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 18:48:25 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: bvanassche@acm.org
-Cc: linux-rdma@vger.kernel.org,
-	jgg@ziepe.ca,
-	leon@kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] RDMA/srp: fix use-after-free of a request in srp_destroy_qp()
-Date: Wed, 19 Aug 2026 10:48:15 +0900
-Message-ID: <20260819014815.642500-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1787104121; x=1787708921;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lsCtmvkS36zvX0w2r9pYrglPyEHrvikivJeQKgrGG38=;
+        b=LQSfqyVubK9af6K52Z8Eyzs0Ujsu6HxNdZrSFWEN0lWROypWG+4gs/i9n+WL5G+8og
+         uYHhSBpTfT45zF+Bd4SP4At1SFjF7xnRDUbf2THXSPHUGXNq//HXngI8UtMDx9jlnE/K
+         SLn8xOQY7WkKx9a7ajvJSKK9cyM2fZ95IYUEOcDN5nl2xMIojp6svmv+86VQVqmZZTgS
+         KyW9zoSGCjb4Pu/XrgFVaWKZuiJbEf2OzaBqMKpwY1WnVQFEKpUsENiHw3eeqYnt2wGP
+         IxRj/2VllOubOBqhwjp9qDQM9t0uZ2oqg/TGMg/rZdKP5vlRRUy9CTuUQkIZTwXRykGG
+         F01w==
+X-Forwarded-Encrypted: i=1; AHgh+RpN+Rt18BZHJYcDyFIpKNwvLESkEk/5DyPSyR4BMLzeRwrDHa2GtV/9rdzBpfJRHOfa1XWRoAY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0pfI+Tyo3z5pgctqHOo2QdImWRC6IkB0OW7OEP9g+7hL6GDTY
+	d5oogtIy4lhYlGWn0U86b501Lc7CyHmWIAZgry5bySLyUh1rKspJLYAzyUrnB66C+GM2TnUFsFh
+	bj7sqzFhNMtJvNYGSYQTrcQjXzz6JbdY=
+X-Gm-Gg: AR+sD128uYYyecT/TF71qPZDFJtFiF3z2/MmVXylwYrAFTukc9D2DDLWZYSBB0+MTTn
+	L//KErCV6xcg/4aGnRlvpc1SDUNEoVpz6h3djsJCnDX6avBwjWX6Z1lDFUIxmnStY3VoY38pdqZ
+	OV6dIJhOH5swU14+P5RzvdlzSPLXTkTmkMPBy2SUqD3HqopKJJomqzH55xwkpOxbFw1j5LfTFa/
+	3FsvHAKjk3eOdFCB152fyWgnRDZlZNlZzKCu9/qWdZg+gYceK4pl3a3ernVUyDo+j9azmTPBrJI
+	cKNHn0Fm6cQycL4RBf0qXw4tbbkgT09bSa7xk24vPUlNVUrDjYlUEd35SmIOvyHbcEw8NbCO53p
+	Vgw==
+X-Received: by 2002:a17:907:7b9b:b0:c21:4698:ee9e with SMTP id
+ a640c23a62f3a-c238d4350f3mr56079666b.7.1787104120708; Tue, 18 Aug 2026
+ 18:48:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAKSQd8V=wfVrUxeU+fDRgKJBLdiyCkkY2SRY+OoRBNE68LFnCg@mail.gmail.com>
+ <abe4535e-c72b-4df2-99be-064479b685ec@intel.com>
+In-Reply-To: <abe4535e-c72b-4df2-99be-064479b685ec@intel.com>
+Reply-To: ludloff@gmail.com
+From: Christian Ludloff <ludloff@gmail.com>
+Date: Tue, 18 Aug 2026 18:48:29 -0700
+X-Gm-Features: AcwNN1WStHFp7p4p1eOrc7FqRDLjsrfvmvwB_O2N-MMedPQitFU8wUiQ0JSfFx8
+Message-ID: <CAKSQd8UyzWweM15-9ehaCaYYJYw+N8z9pFon2J+3sehqm=Ukbg@mail.gmail.com>
+Subject: Re: [PATCH v2] KVM: x86: Remove AMX-TF32 enumeration
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: "Chang S. Bae" <chang.seok.bae@intel.com>, Sean Christopherson <seanjc@google.com>, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, pbonzini@redhat.com, 
+	stable@vger.kernel.org, Zhao Liu <zhao1.liu@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/18/26 9:26 AM, Bart Van Assche wrote:
-> This patch introduces a race condition because it associates a single
-> CQE data structure with multiple concurrently submitted work requests.
+On Tue, Aug 18, 2026 at 5:55=E2=80=AFPM Dave Hansen <dave.hansen@intel.com>=
+ wrote:
+> On 7/24/26 08:37, Christian Ludloff wrote:
+> >> My understanding is that the revert was considered because TF32 never
+> >> reached any implementation. If that's incorrect, I'd certainly welcome=
+ a
+> >> correction.
+> > Both TF32 and TRANSPOSE made it into a product that shipped.
+> >
+> > Not from Intel... but.
+> >
+> > So their CPUID feature flags and their opcodes aren't reclaimable
+> > and efforts to rip out their software support are counterproductive.
+>
+> What would folks' preference be on how Intel should document this going
+> forward? Just leave it as it as enumerating TF32?
+>
+> There are notes in the SDM like:
+>
+>         Intel=C2=AE MPX has been deprecated and will not be available on =
+any
+>         future processors.
+>
+> There could be a note like that for the TF32, I would imagine.
 
-Thanks for looking at this.
+Yes, that terse sentence works.
+  Once for AMX-TRANSPOSE.
+  Once for AMX-TF32.
 
-struct ib_cqe holds one member.  After this patch ch->reg_cqe.done and
-ch->inv_cqe.done are written only in srp_create_ch_ib(), either before
-the first QP exists or after srp_destroy_qp() has drained and destroyed
-the previous one, and both writes store the same value every time.
-srp_handle_qp_err() finds the channel through cq->cq_context, so neither
-handler reads the cqe back.
+If you want the back references:
+  TRANSPOSE got dropped from ISE #059 and APX #007.
+  TF32 got dropped from ISE #062.
 
-The sharing is not new: one command posts up to mr_per_cmd REG_MR work
-requests, all carrying &req->reg_cqe.  ib_srpt shares ch->zw_cqe the
-same way this patch shares ch->reg_cqe.  Could you point at the two work
-requests you have in mind?
+In terms of the opcodes, it is like MPX too: no recycling for
+a long time. Luckily there is plenty of remaining space.
 
-One thing does get worse: "for CQE %p" in srp_handle_qp_err() used to
-differ per request and now takes one of two values per channel.
-
-If a completion has to identify its work request here, I accept that and
-will drop patch 1.  Should patch 2 then carry Cc: stable?  Patch 1 is
-the one tagged now.
-
-Best regards,
-
-Yehyeong Lee
+--
+C.
