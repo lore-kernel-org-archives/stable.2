@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E39D35836E
-	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:47:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633A93DC857
+	for <Stable@vger.kernel.org>; Wed, 19 Aug 2026 07:48:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787125675; cv=none; b=KHDiF7ESZP5E4OqBS5Jc2U+Jhtm4LRcnZdexKzp9LQmvVqErsLuztqH1a2xWtfbCL3mAmytarQ325Z6Z6QY+v1fRSuj6/ECq3TjwFlOkDEohAeuLrmKP7QvpPEO5xnKsEhf/4/qlGTLK7ZDvh2mg6nIEb7/9DCSkXvwdVAjjJHE=
+	t=1787125684; cv=none; b=UWV7dNWzKG31uoddJTX4yvdu0RoyNGLzClaD68KS6vGjfkoYeVsAxBjZ+4R7LxC5bMtLYrMYSy7l4aq/jNRgbI0qwG3gy02sxU79NKzOWzD4hbENk8nvjzKfHfotX1LgMeFQN1hd0EgAuuN1QwKaS1n/XWH1tywmeErpy+9Dnsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787125675; c=relaxed/simple;
-	bh=Hra2PL49ixG7SdvsGMec5kwuB50ori3t0CNu/Qofbpc=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=qM8W56Lp5I10BNxDBf/+0GY1s09ac7c9lLpFbCjrifyukEXx8RUE/VDQp4Ur9fgJ6eEIuYeBBlCCnelL074HIg4pMf7qIudrCj9PWGy/yuUEqgtJzOG8XBoVTKPKZUkzIyp+ic5X66gmLeNTofzy1qy2CuoRZeryuRDVJtZKfcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hmWtapws; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787125684; c=relaxed/simple;
+	bh=ayDVlMqHQ83s0KAlHIwwqJ9h9h8fV3matZOBmppCIn4=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=DWTI4fBBUjevZ2sVdA7NTpGeom92++u2kJOPDof4Ue8uq9j60sWkbZF3bdA/7OuknjwnRRifbgKZ3yeYp9U+7YXfx3bE11oZlsVXHm0UFshIamAC19t6t1nfqc9Djd4bRCroC3mKJzpe71YmPtdmcOoh3S/8ydlOBxopbNnuUVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BQdBq3UM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hmWtapws"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B831F000E9;
-	Wed, 19 Aug 2026 07:47:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BQdBq3UM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B3961F000E9;
+	Wed, 19 Aug 2026 07:48:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787125674;
-	bh=Z/ZKu3c9jGTjrwQYXh0ZKXVWGk8PxTrJy8asbd6/Em8=;
+	s=korg; t=1787125683;
+	bh=4xmwa4Ebq6LvZyBTaQEK+AbMXFcNLoe44h3lBIoQ6pg=;
 	h=Subject:To:From:Date;
-	b=hmWtapws4n4UXlCPJSrqt6j5uDWYxPuWRBxI48ArYr8DozrrndhK/doHN0IEXTpx+
-	 rSa/0MPD6trv6cjiJQdRArTqxmDeAwQ/pht/V+LW1PVhZN9YlALbX9i6pn8/oF9qfy
-	 CqvuiRA9hQ2g7MLCITnegzBFPhL2SsNkSQgT/boo=
-Subject: patch "iio: light: opt4001: Fix incompatible pointer type passed to" added to char-misc-next
+	b=BQdBq3UM3afcce9ZK3ombJJOI3p1E/l6db2bAHbkc50AIyWuFTTDITiR3Tt7JxIBT
+	 Aeudzl+7A5PBfM5EnCP8dwIuzAIy7Lc8kDaUd57oAqT6P1IkEyfnAQPV/h9fyq6DC8
+	 PuDyuHQLfvQNUcQUGAiTLUMe22GvlnELkwln9El4=
+Subject: patch "iio: light: opt4001: Fix reversed GENMASK() arguments in fault count" added to char-misc-next
 To: nikhilgtr@gmail.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 19 Aug 2026 09:44:38 +0200
-Message-ID: <2026081938-diagram-senior-2922@gregkh>
+Date: Wed, 19 Aug 2026 09:44:39 +0200
+Message-ID: <2026081939-bright-frightful-3d03@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: light: opt4001: Fix incompatible pointer type passed to
+    iio: light: opt4001: Fix reversed GENMASK() arguments in fault count
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,18 +54,16 @@ during the merge window.
 If you have any questions about this process, please let me know.
 
 
-From afa28741c9a2cf6edb2e41e25ff146a562160bb3 Mon Sep 17 00:00:00 2001
+From d64bfd9f3352b9d9bdeca06de1a0a1c1bd47b896 Mon Sep 17 00:00:00 2001
 From: Nikhil Gautam <nikhilgtr@gmail.com>
-Date: Tue, 14 Jul 2026 17:01:32 +0530
-Subject: iio: light: opt4001: Fix incompatible pointer type passed to
- div_u64_rem()
+Date: Tue, 14 Jul 2026 17:01:34 +0530
+Subject: iio: light: opt4001: Fix reversed GENMASK() arguments in fault count
+ mask
 
-div_u64_rem() takes a u32 * for the remainder but is passed val2, which
-is an int *. There is no functional impact as int and u32 have the same
-size and representation on all supported architectures and the remainder
-is always smaller than the divisor, so it fits in the positive range of
-int. Fix the type mismatch by using a local u32 for the remainder and
-assigning the result to *val2.
+GENMASK(h, l) requires h >= l, but OPT4001_CTRL_FAULT_COUNT is defined
+as GENMASK(0, 1). The define is currently unused so there is no
+functional impact, but fix it before anyone builds on it, and add the
+_MASK suffix for consistency with the neighbouring definitions.
 
 Fixes: 9a9608418292 ("iio: light: Add support for TI OPT4001 light sensor")
 Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
@@ -73,32 +71,22 @@ Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/light/opt4001.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/iio/light/opt4001.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/iio/light/opt4001.c b/drivers/iio/light/opt4001.c
-index 288e699734af..944923cb8f28 100644
+index 2448d6330489..aa3d87995b7c 100644
 --- a/drivers/iio/light/opt4001.c
 +++ b/drivers/iio/light/opt4001.c
-@@ -173,6 +173,7 @@ static int opt4001_read_lux_value(struct iio_dev *indio_dev,
- 	u8 crc;
- 	u8 calc_crc;
- 	u64 lux_raw;
-+	u32 rem;
- 	int ret;
+@@ -39,7 +39,7 @@
+ #define OPT4001_CTRL_OPER_MODE_MASK      GENMASK(5, 4)
+ #define OPT4001_CTRL_LATCH_MASK          GENMASK(3, 3)
+ #define OPT4001_CTRL_INT_POL_MASK        GENMASK(2, 2)
+-#define OPT4001_CTRL_FAULT_COUNT         GENMASK(0, 1)
++#define OPT4001_CTRL_FAULT_COUNT_MASK    GENMASK(1, 0)
  
- 	ret = regmap_read(chip->regmap, OPT4001_LIGHT1_MSB, &light1);
-@@ -199,8 +200,8 @@ static int opt4001_read_lux_value(struct iio_dev *indio_dev,
- 
- 	lux_raw = lux_raw << exp;
- 	lux_raw = lux_raw * chip->chip_info->mul;
--	*val = div_u64_rem(lux_raw, chip->chip_info->div, val2);
--	*val2 = *val2 * 100;
-+	*val = div_u64_rem(lux_raw, chip->chip_info->div, &rem);
-+	*val2 = rem * 100;
- 
- 	return IIO_VAL_INT_PLUS_NANO;
- }
+ /* OPT4001 constants */
+ #define OPT4001_DEVICE_ID_VAL            0x121
 -- 
 2.55.0
 
