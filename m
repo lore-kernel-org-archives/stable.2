@@ -1,65 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624E33AAF57
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:56:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7837F3AC0FC
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 14:56:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787151385; cv=none; b=uGqHVMljPn72l/wYHnyCmZRHvi85T6d0cEN2zoyulzn72q6B0lWh9RWkRXXR4fRSZ765zljOQ4atyS8shZ+hnAav8isK70N9eukSLyOmNXqbGYPMc8gk5i6gW8ylLtPW2HHffOcHqguzTFvL6NA/PxiWcH4YldtxjHIsQST/EyQ=
+	t=1787151401; cv=none; b=Q8GzS67G11FTMdJCdyWn8G972Te+IXJrC/Ce7SJewxWnYhRWQfNZJPNuHVm7cN/eM7JpC3pNFiVR8l9D/0BYuEsgUKHpWNXRlbZi1lBpMzUvAIXTpDfBJkWbbjCmWJOpW6+N/3Gbi0rsKPjURoYixZ2q1LB6KoZYkOS8Db1Mk1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787151385; c=relaxed/simple;
-	bh=ExybWqohdgaANCm+kk/koDpDKul2LMabMe+bcJTeUhs=;
+	s=arc-20240116; t=1787151401; c=relaxed/simple;
+	bh=yw/iz8V5wXZiue6OMeHWpm2edtgvgSFZ9sjII5p9zjE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bjRD+uI04WY+6kLfSnYsLDhlsOfNZkfrXGYBmo0n+2H49d13V9tP7K2ninS6hAxQv3ozj8zK5tPIufknoZIJxV3t01Eh4GlDimHqWONgVWULnOct+6aHlXNWfx/XtKxmqWvX/Eyj+NHFALMSWWXVBxaDULwIlXUN9cactZTr6r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O39LjekO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=W5fVgrSS/l1as5RJbTtx42aoqR7s2WggSdYRIc1cziCga4YEdRUX8PnQXtjvo0WkFSLlRQZ62+RL1nXKmE6M7byNKLjZYIeU4YEMrbxoI/QYgyKT+N0smZToyEe66S4uL9qVS7NMKEtItxBNO6gu2Oy7uNr7n2H+7M3r7Rn0q+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f2HKV2FF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O39LjekO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D3B1F00A3A;
-	Wed, 19 Aug 2026 14:56:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f2HKV2FF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2C41F000E9;
+	Wed, 19 Aug 2026 14:56:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787151374;
-	bh=gtr2xS3IGv3hE/sW3IdpzxozW3E6b96o0SXpzheg0eA=;
+	s=k20260515; t=1787151391;
+	bh=VQRvDHzpHG/B2RJ6Y/Jeh7GBmn4JwFWKY4l6HgPx9YA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O39LjekOSrLjbW6K+iVrP6wXC9cQ32gNCcURuWBgj3rD7dgX5Ju4QgJjF2Lx8bop3
-	 NI2Tu6UMJd9ukjqrti6Po+hG8I1F/Ds5/MGE7vz1iTX7B8vzzm0S3uf7S4678m8kIK
-	 9/svtQopBJkHeKpS6cE0VCuPF2/IS3D1rqYZnUplhMbRdgFjESzB+5YIocpte2G3Hc
-	 LpsGamB3iKKSgb4BOkaeNq1r7GrOWl8QrWq/AZcZfY8Sw1+CMbBGik9bYgwEtPur7E
-	 dahLj3Pb1HE7b291vltQY7lZw5sG6ZOW9EJrdpYeOkH0R6F9RL+m1hwuYI9fDm3axc
-	 8wtrkQ5scMoOw==
+	b=f2HKV2FFTQR094jPFvJx0WglbzYnjYuehpIw0lHOxNEEG2Va6Hi9Uccoz6PiEkgel
+	 KcIi/DXqKDqbLWNozvHNjO2qUoTq2D+MS/nzAbwBfcslaDtw7s9qRzk0ggMlTC6eEU
+	 5TMs6ug3Cq0jwIMCWamdvu40Ss5+ICPmlhBJQbsvzx++7At4LkUHiKKMONjJTPmA2B
+	 D/enoO6n7QP5J/KMD9sn9jrrYuOs8ZvKg7+5UQxbxLagiIqcYFHacKKxJXQ8dru/2J
+	 cvOu8HqehVBceMmW8gQRn2HAcoqeICFy+V+Y/FGbUnVCfZv761sbNdswRkV57F48r5
+	 kMCQ3+PSVDUcA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	David Carlier <devnexen@gmail.com>,
-	Dev Jain <dev.jain@arm.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Toshi Kani <toshi.kani@hpe.com>,
-	"Uladzislau Rezki (Sony)" <urezki@gmail.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] mm/ptdump: always stabilise against page table freeing using init_mm
-Date: Wed, 19 Aug 2026 10:56:02 -0400
-Message-ID: <20260819145602.3898518-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] ring-buffer: Simplify ring_buffer_read_page() with guard()
+Date: Wed, 19 Aug 2026 10:56:26 -0400
+Message-ID: <20260819145628.3900889-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260819145602.3898518-1-sashal@kernel.org>
-References: <2026081757-agreed-lagging-0a18@gregkh>
- <20260819145602.3898518-1-sashal@kernel.org>
+In-Reply-To: <2026081709-tank-childcare-2caa@gregkh>
+References: <2026081709-tank-childcare-2caa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,119 +46,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit 27c32e5538344b13c1505a08861e04620c125d47 ]
+[ Upstream commit b2e7c6ed26e90fab1e5e626071e54e3b9ec9cb5a ]
 
-Previous commits have established the invariant that kernel page table
-freeing is performed while an mmap read lock on init_mm is held, which
-fixes races between ptdump and kernel page table freeing over init_mm.
+The function ring_buffer_read_page() had two gotos. One was simply
+returning "ret" and the other was unlocking the reader_lock.
 
-However, x86 and arm64 can perform a ptdump over an mm other than init_mm
-via ptdump_walk_pgd() and since kernel memory ranges are shared across
-non-kernel mm's, this means that the race still exists for these cases.
+There's no reason to use goto to simply return the "ret" variable. Instead
+just return the value.
 
-Fix this by acquiring a nested mmap write lock for init_mm in
-ptdump_walk_pgd().
+The jump to the unlocking of the reader_lock can be replaced by
+guard(raw_spinlock_irqsave)(&cpu_buffer->reader_lock).
 
-This is safe as we take this after mmap write locking the mm, and nothing
-acquires the init_mm lock first before locking an arbitrary mm, so no
-deadlock is possible.
+With these two changes the "ret" variable is no longer used and can be
+removed. The return value on non-error is what was read and is stored in
+the "read" variable.
 
-Also update walk_page_range_debug() to assert that init_mm is write
-locked, add a comment explaining why and remove some redundant code, and
-eliminate the unnecessary and confusing invocation of
-walk_kernel_page_table_range().
-
-We can safely remove the non-NULL check for walk.mm, as the mmap lock
-asserts would NULL pointer deref if it was (and of course no callers do
-this).
-
-The first point at which ptdump can race kernel page table freeing is
-commit b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page
-table"), so we target this in the Fixes tag.
-
-Link: https://lore.kernel.org/20260723-series-vmap-race-fix-v6-4-8cc77dcc0018@kernel.org
-Fixes: b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andy Lutomirski <luto@kernel.org>
-Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Cc: "Borislav Petkov (AMD)" <bp@alien8.de>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: David Carlier <devnexen@gmail.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Toshi Kani <toshi.kani@hpe.com>
-Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Link: https://lore.kernel.org/20250527145216.0187cf36@gandalf.local.home
+Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Stable-dep-of: 7c727dfce6be ("ring-buffer: Prevent resizing of persistent ring buffer")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/pagewalk.c | 14 +++++++++-----
- mm/ptdump.c   |  7 +++++++
- 2 files changed, 16 insertions(+), 5 deletions(-)
+ kernel/trace/ring_buffer.c | 28 +++++++++++-----------------
+ 1 file changed, 11 insertions(+), 17 deletions(-)
 
-diff --git a/mm/pagewalk.c b/mm/pagewalk.c
-index 3172ce96d66c..831330aa7f7b 100644
---- a/mm/pagewalk.c
-+++ b/mm/pagewalk.c
-@@ -568,12 +568,16 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
- 	 * to account for page table freeing on vmap huge page mapping.
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index fcd2363d1296..93f5c8326aec 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -6483,38 +6483,37 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 	struct buffer_data_page *bpage;
+ 	struct buffer_page *reader;
+ 	unsigned long missed_events;
+-	unsigned long flags;
+ 	unsigned int commit;
+ 	unsigned int read;
+ 	u64 save_timestamp;
+-	int ret = -1;
+ 
+ 	if (!cpumask_test_cpu(cpu, buffer->cpumask))
+-		goto out;
++		return -1;
+ 
+ 	/*
+ 	 * If len is not big enough to hold the page header, then
+ 	 * we can not copy anything.
  	 */
- 	mmap_assert_write_locked(mm);
-+	/*
-+	 * x86, arm64 ptdump allow walks of efi mm's and x86 ptdump allows walks
-+	 * of arbitrary mm's.
-+	 *
-+	 * However, they both must also hold the init_mm lock to account for
-+	 * concurrent kernel page table freeing.
-+	 */
-+	mmap_assert_write_locked(&init_mm);
+ 	if (len <= BUF_PAGE_HDR_SIZE)
+-		goto out;
++		return -1;
  
--	/* For convenience, we allow traversal of kernel mappings. */
--	if (mm == &init_mm)
--		return walk_kernel_page_table_range(start, end, ops,
--						    pgd, private);
--	if (start >= end || !walk.mm)
-+	if (start >= end)
- 		return -EINVAL;
+ 	len -= BUF_PAGE_HDR_SIZE;
  
- 	return walk_pgd_range(start, end, &walk);
-diff --git a/mm/ptdump.c b/mm/ptdump.c
-index 0b8c9eb6aa29..9ce9fed8a987 100644
---- a/mm/ptdump.c
-+++ b/mm/ptdump.c
-@@ -155,11 +155,18 @@ void ptdump_walk_pgd(struct ptdump_state *st, struct mm_struct *mm, pgd_t *pgd)
- 
- 	get_online_mems();
- 	mmap_write_lock(mm);
-+	/* To stabilise kernel page tables we must hold the init_mm lock too. */
-+	if (mm != &init_mm)
-+		mmap_write_lock_nested(&init_mm, SINGLE_DEPTH_NESTING);
+ 	if (!data_page || !data_page->data)
+-		goto out;
++		return -1;
 +
- 	while (range->start != range->end) {
- 		walk_page_range_debug(mm, range->start, range->end,
- 				      &ptdump_ops, pgd, st);
- 		range++;
+ 	if (data_page->order != buffer->subbuf_order)
+-		goto out;
++		return -1;
+ 
+ 	bpage = data_page->data;
+ 	if (!bpage)
+-		goto out;
++		return -1;
+ 
+-	raw_spin_lock_irqsave(&cpu_buffer->reader_lock, flags);
++	guard(raw_spinlock_irqsave)(&cpu_buffer->reader_lock);
+ 
+ 	reader = rb_get_reader_page(cpu_buffer);
+ 	if (!reader)
+-		goto out_unlock;
++		return -1;
+ 
+ 	event = rb_reader_event(cpu_buffer);
+ 
+@@ -6548,7 +6547,7 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 		if (full &&
+ 		    (!read || (len < (commit - read)) ||
+ 		     cpu_buffer->reader_page == cpu_buffer->commit_page))
+-			goto out_unlock;
++			return -1;
+ 
+ 		if (len > (commit - read))
+ 			len = (commit - read);
+@@ -6557,7 +6556,7 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 		size = rb_event_ts_length(event);
+ 
+ 		if (len < size)
+-			goto out_unlock;
++			return -1;
+ 
+ 		/* save the current timestamp, since the user will need it */
+ 		save_timestamp = cpu_buffer->read_stamp;
+@@ -6615,7 +6614,6 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 		if (reader->real_end)
+ 			local_set(&bpage->commit, reader->real_end);
  	}
-+
-+	if (mm != &init_mm)
-+		mmap_write_unlock(&init_mm);
- 	mmap_write_unlock(mm);
- 	put_online_mems();
+-	ret = read;
+ 
+ 	cpu_buffer->lost_events = 0;
+ 
+@@ -6642,11 +6640,7 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 	if (commit < buffer->subbuf_size)
+ 		memset(&bpage->data[commit], 0, buffer->subbuf_size - commit);
+ 
+- out_unlock:
+-	raw_spin_unlock_irqrestore(&cpu_buffer->reader_lock, flags);
+-
+- out:
+-	return ret;
++	return read;
+ }
+ EXPORT_SYMBOL_GPL(ring_buffer_read_page);
  
 -- 
 2.53.0
