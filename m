@@ -1,179 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F923C0630
-	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 15:54:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D03480326
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 16:00:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787154889; cv=none; b=SPEPB2I9Rwjr7UZypq4s6m9As2vfNl6/uPAqea/Qr84D4woBf+Iqa9dRGTIUBglX9Nch4AiwJLJXpAiW2FtXwPdo2w/zUWkgixbgCa1FK2eHrmRANfHEZS0mECBUY8or/pZspTlq3cf9feN20e5SmXNEiUQ+yC4rzTKm/QmufyQ=
+	t=1787155209; cv=none; b=OC12j3Gs+Ima6M8vdOpaAIk9qUTl5W4cq9wiH2ou2W4Ph2InJSNecXdwf/sFJ9Hs+VXE7muq72+a8O5o583UVxpV/ikv2CR7lzfRRdpKtFpdq11KH3DnSjBEPQbj81wLjHEODB1MP7sy4EQj6psnOE4qI9WVy+6Q0trZYiOlNbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787154889; c=relaxed/simple;
-	bh=W4AWs+OylKOYkaaLaPEz0MJRRui7aYFqBPttuhFgdGk=;
+	s=arc-20240116; t=1787155209; c=relaxed/simple;
+	bh=BJ/kVaE/61dNOwCMKw6yVJWUCXGmmJw0OAbiOOPSdz8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hEUe9Mk0Dwmz8d+Wd5kuZNDv9ZdHfL3Q0cDg7RyDsrTs6Y7/7WPa1XmxyF8lhRLq9mWC9qlGbocGrSVWNYkNFOb+vvRKLO2AGq4mc7CN8D7wF4iwnZEs4rUZN5S3dgtnL2qLfYpk3pgcE9lN140yKwqiDhT71wLJbiki03gsAfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HS7gUuQe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=eAT7cPeZfPpHG7n/QlDbfkUhOz1gVWeiLcMPJ0aSvtMpo5CavgPnxLa8OCilznAeRWlg7yPolcfSGi1sGPYiL0klroMyc2dEq/jcAMfJerV5Qw13DOD+5ltkquddnuXcslK5HGUjUXOYgjTiA7T5LmiEXYe+vJytRrfb+8cx4Mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NTaOF3pf; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HS7gUuQe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774061F000E9;
-	Wed, 19 Aug 2026 15:54:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787154888;
-	bh=MBviu3D2TbI0421xkv/0ieIJMiy9U99/CtryBt5OaOM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HS7gUuQe+pXzgqstr6Sl511zNVxyn2tEv/nGSM/ZUnZg2ZTeQm2larpRaxEy0P0Oe
-	 mi0lQ8KnA9fuNAyjD59l9gY6TDIn3OESNA92zA6FVfXat93DefawVCcjf19H9Sc5+n
-	 4bQ+APgktLGyYm9/6Gp2eE4MmVnqZhMFEWGQVQdcPNtUAbhbcQUue1gHnzFLt2RQT2
-	 RS9wGCi9g9fXoQJbe3K8w5SEbnjRXwZ3MccSna13z592yrI/GOfDj6dWhoin9uxnQp
-	 1HrbxJ5a8qmOEO9SKVe8RFo2LJZdlRSFBCnYCuI3onrf9y9M+LZCJlqFWHbIBzm17V
-	 G+V2KJculQLkQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Hyunjung Ko <hj351016@gmail.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net/sched: act_gact, act_police: range check the fallback control action
-Date: Wed, 19 Aug 2026 11:54:45 -0400
-Message-ID: <20260819155445.159777-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081710-bronco-grumpily-43a9@gregkh>
-References: <2026081710-bronco-grumpily-43a9@gregkh>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NTaOF3pf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787155207;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yQ3/ySkk4MATWRJyNja7KbHykfH+1xBTq7SfrpfOH5s=;
+	b=NTaOF3pfHVZqCw14v5yo18FM+cr0i/QlisuTix7J0CzJVKYzBURAwrEsp5fwExny7ptHm0
+	12vCIemLq3suVnfGE5wkM9vatGzvJdomQ/hANAhpPMWogU56abXiha5IW0JAcJ+XdhFYVm
+	wDt98jh4vgmID6GxpnHap7efJTOlPsw=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-501-GM-ns7WWP726exDZ-ptw4A-1; Wed,
+ 19 Aug 2026 12:00:01 -0400
+X-MC-Unique: GM-ns7WWP726exDZ-ptw4A-1
+X-Mimecast-MFC-AGG-ID: GM-ns7WWP726exDZ-ptw4A_1787155193
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 78AAD1955DD2;
+	Wed, 19 Aug 2026 15:59:49 +0000 (UTC)
+Received: from GoldenWind.lan (unknown [10.22.89.72])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C237518005BC;
+	Wed, 19 Aug 2026 15:59:44 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Marek Czernohous <mczernohous@gmail.com>
+Cc: stable@vger.kernel.org,
+	"Faith Ekstrand" <faith.ekstrand@collabora.com>,
+	"Dave Airlie" <airlied@redhat.com>,
+	"Marek Czernohous" <marek@czernohous.de>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+	"Marco Crivellari" <marco.crivellari@suse.com>,
+	"Kees Cook" <kees@kernel.org>,
+	"Simona Vetter" <simona@ffwll.ch>,
+	"Ben Skeggs" <bskeggs@redhat.com>,
+	"David Airlie" <airlied@gmail.com>,
+	"Thomas Zimmermann" <tzimmermann@suse.de>,
+	"Maxime Ripard" <mripard@kernel.org>,
+	"Danilo Krummrich" <dakr@kernel.org>,
+	"Jani Nikula" <jani.nikula@intel.com>,
+	"James Jones" <jajones@nvidia.com>,
+	"Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH v2 1/6] drm/nouveau/kms/nv50-: Move DPCD backlight disable into its own function
+Date: Wed, 19 Aug 2026 11:43:48 -0400
+Message-ID: <20260819155934.154125-2-lyude@redhat.com>
+In-Reply-To: <20260819155934.154125-1-lyude@redhat.com>
+References: <20260819155934.154125-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-From: Hyunjung Ko <hj351016@gmail.com>
+Besides using state->dev to access the nouveau_drm device again, there
+should be no functional changes here.
 
-[ Upstream commit 883b56ae58fe657d8497806c7059646e9ba6dbd0 ]
-
-tcf_action_check_ctrlact() range checks the primary control action:
-
-	if (!opcode)
-		ret = action > TC_ACT_VALUE_MAX ? -EINVAL : 0;
-
-TC_ACT_VALUE_MAX is TC_ACT_TRAP, so kernel-internal verdicts above it
-cannot be set that way. But act_gact and act_police each carry a second,
-independent control action supplied by user space that never reaches that
-helper - TCA_GACT_PROB.paction and TCA_POLICE_RESULT. Both only reject
-TC_ACT_GOTO_CHAIN, so any other value is stored verbatim and returned
-verbatim from the action.
-
-In particular user space can store TC_ACT_CONSUMED, which is
-TC_ACT_VALUE_MAX + 1 and is deliberately not part of the UAPI value
-range. That verdict tells every caller the action took ownership of the
-skb, so nobody frees it: sch_handle_ingress(), sch_handle_egress() and
-tcf_qevent_handle() all deliberately skip the free for it. The result is
-one leaked sk_buff plus its data buffer per packet traversing the filter,
-unbounded, for all traffic on the chain including kernel-generated
-packets.
-
-Both are trivially deterministic. act_gact clamps tcfg_pval to >= 1, so
-with pval = 1 gact_determ() returns the fallback for every packet.
-act_police has no mandatory rate, so rate = 0 leaves tcfp_mtu = ~0 and
-tcf_police_mtu_check() always passes.
-
-TC_ACT_CONSUMED was added by commit 720f22fed81b ("net: sched: refactor
-reinsert action"), after both goto-chain guards were written:
-commit 9469f375ab09 ("net/sched: act_gact: disallow 'goto chain' on
-fallback control action") and
-commit c08f5ed5d625 ("net/sched: act_police: disallow 'goto chain' on
-fallback control action"). Neither guard was widened when the new
-verdict appeared.
-
-Factor the existing range test out of tcf_action_check_ctrlact() as
-tcf_action_valid() and apply it to both fallbacks. The helper cannot call
-tcf_action_check_ctrlact() directly because that also allocates a
-goto_chain, which is exactly what these two sites must not do.
-
-Reproduced on v7.2-rc6: kmemleak reports one leaked 232-byte
-skbuff_head_cache object plus its 704-byte data buffer per packet. With
-this patch both configurations are rejected with -EINVAL and kmemleak
-reports none.
-
-Fixes: 720f22fed81b ("net: sched: refactor reinsert action")
-Cc: stable@vger.kernel.org # v5.3+
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Link: https://patch.msgid.link/20260806101252.809593-1-hj351016@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Kept only the new helper lines and dropped the surrounding upstream-only context (CONFIG_INET/tcf_frag_xmit_count block) absent in 5.10. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: f575f2bdb6c3 ("drm/nouveau/kms/nv50-: Remove (nv_encoder->crtc) checks in ->disable callbacks")
+Cc: <stable@vger.kernel.org> # v5.12+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
 ---
- include/net/act_api.h  | 20 ++++++++++++++++++++
- net/sched/act_gact.c   |  5 +++++
- net/sched/act_police.c |  6 ++++++
- 3 files changed, 31 insertions(+)
+ drivers/gpu/drm/nouveau/dispnv50/disp.c | 39 +++++++++++++++++--------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
 
-diff --git a/include/net/act_api.h b/include/net/act_api.h
-index bbc4ab5e04f7..fcf5ac9faf19 100644
---- a/include/net/act_api.h
-+++ b/include/net/act_api.h
-@@ -240,6 +240,26 @@ int tcf_action_check_ctrlact(int action, struct tcf_proto *tp,
- 			     struct netlink_ext_ack *newchain);
- struct tcf_chain *tcf_action_set_ctrlact(struct tc_action *a, int action,
- 					 struct tcf_chain *newchain);
-+
-+/* Range check for a control action supplied by user space.
-+ *
-+ * This is the same test tcf_action_check_ctrlact() applies to the primary
-+ * control action, factored out for the *fallback* control actions
-+ * (act_gact's TCA_GACT_PROB.paction and act_police's TCA_POLICE_RESULT),
-+ * which must not reach tcf_action_check_ctrlact() because they have no
-+ * goto_chain to allocate.  Without it, user space can store kernel-internal
-+ * verdicts such as TC_ACT_CONSUMED, which is TC_ACT_VALUE_MAX + 1 and is
-+ * deliberately not part of the UAPI value range.
-+ */
-+static inline bool tcf_action_valid(int action)
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 2c66e480b5116..a885394f7cb92 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -1561,24 +1561,39 @@ nv50_sor_update(struct nouveau_encoder *nv_encoder, u8 head,
+  * the panel backlight has been shut off? Intel doesn't seem to do this, and uses a
+  * fixed time delay from the vbios…
+  */
++#ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
++static inline void
++nv50_sor_atomic_disable_backlight(struct nouveau_drm *drm,
++				  struct nouveau_encoder *nv_encoder,
++				  struct drm_atomic_commit *state)
 +{
-+	int opcode = TC_ACT_EXT_OPCODE(action);
++	struct nouveau_connector *nv_connector;
++	struct nouveau_backlight *backlight;
++	int ret;
 +
-+	if (!opcode)
-+		return action <= TC_ACT_VALUE_MAX;
-+	return opcode <= TC_ACT_EXT_OPCODE_MAX || action == TC_ACT_UNSPEC;
++	nv_connector = nv50_outp_get_old_connector(state, nv_encoder);
++	if (drm_WARN_ON(drm->dev, !nv_connector))
++		return;
++	backlight = nv_connector->backlight;
++
++	if (!backlight || !backlight->uses_dpcd)
++		return;
++
++	ret = drm_edp_backlight_disable(&nv_connector->aux, &backlight->edp_info);
++	if (ret < 0)
++		NV_ERROR(drm, "Failed to disable backlight on [CONNECTOR:%d:%s]: %d\n",
++			 nv_connector->base.base.id, nv_connector->base.name, ret);
 +}
++#endif
 +
- #endif /* CONFIG_NET_CLS_ACT */
+ static void
+ nv50_sor_atomic_disable(struct drm_encoder *encoder, struct drm_atomic_commit *state)
+ {
+ 	struct nouveau_encoder *nv_encoder = nouveau_encoder(encoder);
+ 	struct nv50_head *head = nv50_head(nv_encoder->crtc);
+-#ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
+-	struct nouveau_connector *nv_connector = nv50_outp_get_old_connector(state, nv_encoder);
+-	struct nouveau_drm *drm = nouveau_drm(nv_encoder->base.base.dev);
+-	struct nouveau_backlight *backlight = nv_connector->backlight;
+-	struct drm_dp_aux *aux = &nv_connector->aux;
+-	int ret;
  
- static inline void tcf_action_stats_update(struct tc_action *a, u64 bytes,
-diff --git a/net/sched/act_gact.c b/net/sched/act_gact.c
-index 73c3926358a0..f8a62a5c8cdd 100644
---- a/net/sched/act_gact.c
-+++ b/net/sched/act_gact.c
-@@ -89,6 +89,11 @@ static int tcf_gact_init(struct net *net, struct nlattr *nla,
- 		p_parm = nla_data(tb[TCA_GACT_PROB]);
- 		if (p_parm->ptype >= MAX_RAND)
- 			return -EINVAL;
-+		if (!tcf_action_valid(p_parm->paction)) {
-+			NL_SET_ERR_MSG(extack,
-+				       "invalid fallback control action");
-+			return -EINVAL;
-+		}
- 		if (TC_ACT_EXT_CMP(p_parm->paction, TC_ACT_GOTO_CHAIN)) {
- 			NL_SET_ERR_MSG(extack,
- 				       "goto chain not allowed on fallback");
-diff --git a/net/sched/act_police.c b/net/sched/act_police.c
-index c30cd3ecb391..35868e2a406b 100644
---- a/net/sched/act_police.c
-+++ b/net/sched/act_police.c
-@@ -134,6 +134,12 @@ static int tcf_police_init(struct net *net, struct nlattr *nla,
+-	if (backlight && backlight->uses_dpcd) {
+-		ret = drm_edp_backlight_disable(aux, &backlight->edp_info);
+-		if (ret < 0)
+-			NV_ERROR(drm, "Failed to disable backlight on [CONNECTOR:%d:%s]: %d\n",
+-				 nv_connector->base.base.id, nv_connector->base.name, ret);
+-	}
++#ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
++	nv50_sor_atomic_disable_backlight(nouveau_drm(state->dev), nv_encoder, state);
+ #endif
  
- 	if (tb[TCA_POLICE_RESULT]) {
- 		tcfp_result = nla_get_u32(tb[TCA_POLICE_RESULT]);
-+		if (!tcf_action_valid(tcfp_result)) {
-+			NL_SET_ERR_MSG(extack,
-+				       "invalid fallback control action");
-+			err = -EINVAL;
-+			goto failure;
-+		}
- 		if (TC_ACT_EXT_CMP(tcfp_result, TC_ACT_GOTO_CHAIN)) {
- 			NL_SET_ERR_MSG(extack,
- 				       "goto chain not allowed on fallback");
+ 	if (nv_encoder->dcb->type == DCB_OUTPUT_TMDS && nv_encoder->hdmi.enabled) {
 -- 
-2.53.0
+2.55.0
 
