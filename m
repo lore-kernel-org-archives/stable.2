@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6831D37DAAE;
-	Wed, 19 Aug 2026 03:32:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE3630FF2A
+	for <stable@vger.kernel.org>; Wed, 19 Aug 2026 03:32:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787110354; cv=none; b=aoHfJSkWc3E4NsIQTd1SQ2kl2YhZOx4VnYfXutf0Lr45QjZRhhJpc8WGNWoUfUowoqNUVAzdgNsIu8h/6Y7Lho+5mvPmwtLYjg8/kHcX8wVlg3Rhbm81qnAiz8y0x1mius5E6utp/ItzIEbT+1pZQL1Lt+t93MPrK5boRaNkJiM=
+	t=1787110354; cv=none; b=lQrfAbVwR3DDKThaAOFoJSeDQMl83IFHi3yXekPjvGb9JOGs1a9C6tgc0AOeX1WJS8CeVz3hQ+LRvkLaA+/jtJqrC9BPnMTaUl+bVneHm0qL99VYLFscKVu4x4lwVyC52RRT6ZEg5ZlZdWPIBSaL5e8VSK74NRAWrEL1+KMqyLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787110354; c=relaxed/simple;
-	bh=Z6yTlG0UMFfArXLh5lgmcLP9n4twNCqgrT+M8qitUBw=;
+	bh=eo8Ea+ogGidsutiQkGTDCrfl6JLk4J8pcIiSN/6VlaM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gb1vBT7IfVCtO1nfTZ/KbvwISkzmkOhNsCWRuMjvzwl+GYcyhwLg6BwPyHhG2tzUjYB5exuILt0dDgEbuBcPbKJbPicH6bdbSZF2yFcOFa2ZvvaLSD2MvdZ1AZT2ru+zJBjGkF12L+64MNDVZh9+LKlPRgvtNF9knKmr7VEGFCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrJSi9I1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=A5+5JItBA8NC6DaZuXVgtgcY1G4KDpis+CQimHQ4EoQN9VXMemPwWcbH14KNnHRKVaSfC7MFbxDgGZe8KtgRvmgfP0GaUiHxuvirgVQCfjosVNeXz0KnoLmGkHjgxRlEpkkVqoc1YvAJW99xNwFEUqKVizKFIowHb1sSm7NwmS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TqPmkPYc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrJSi9I1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 486091F000E9;
-	Wed, 19 Aug 2026 03:32:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TqPmkPYc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3EF1F00A3D;
+	Wed, 19 Aug 2026 03:32:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787110353;
-	bh=BtQbj+u+MUQexSxtJ0tuVp5UZEsWTY/w6sB3Bs6NvNo=;
+	bh=sZyqB/IyqP3H6TMsNHmYPhB5+IjfwZeZzI9F0ZU4gPw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YrJSi9I1Cuf00pkoaLESEI0pc4ydP7v1lDllYIwPSSxpsCkAi/gKg3Rj0QpYK2jac
-	 7Iz00981BsqjbJKc+lOQMjjdPU4JI9cai+fjjKkhA3TV0rAz3S4IC6q+E0qkH4I7pm
-	 fDs9MG2Xy7sf7mDdSmWlBSgdwMg4we8Nx1Kx49kRGdOJY1x+Yc3v8WaA/IK+bVnBek
-	 82Yo1z3tSSLjIm+4rmG/RfdNYgRvAZBS1XM+Inm4ug+Od5VfDYlnCbuB7ezGyR5lV6
-	 04MB1pAgdB2+GHre1ffEau7f5yI0Sp1+zbVVJpLJXWZhsWqhaX8dToeK1CAKOVoZ13
-	 4ZcE2w+VVq6pg==
+	b=TqPmkPYcDhLa+5HahWsBpqaEf+U2S90i5fVj6Qlsb9mB56OE/iO3a7nndJDMGAg0k
+	 8EFS2T60pzVjK7Kp3Z8VYa3MA/H2jaNd551rKpe+maXTXWA9hcYR+QjrJBxEDzvxq1
+	 8I0KwfHkxcG0GvqHOJv5Jk0UJViBitNJCU1M9JJR1WfpuGnJrH49IDAGPWUjobrrRB
+	 Igc0ovQ4TotwVlBUUgGMvi2Q4E8iQNrbmgTFuuEuiy1pR5lDVd7cVNcGX+smYk4DOV
+	 zrCCBXrCyeAnEZoEqizYgea5NWbGEWHgpu+Ni6y0+hPTNz2n0aqqrMx1WHp/X8cZVN
+	 Fw8bZ4QJXCNbQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Weidong Zhu <weizhu@fiu.edu>,
-	linux-block@vger.kernel.org,
-	Chao Shi <coshi036@gmail.com>
-Subject: Re: [stable request] block: stop the timeout timer when releasing a never added disk
-Date: Tue, 18 Aug 2026 23:32:15 -0400
-Message-ID: <20260818220420.1@kernel.org>
+	alifm@linux.ibm.com
+Subject: Re: [PATCH v3 stable 6.1 0/5] s390 KVM PCI backports for 6.1
+Date: Tue, 18 Aug 2026 23:32:16 -0400
+Message-ID: <20260818220420.2@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260817195833.2971170-1-coshi036@gmail.com>
-References: <20260817195833.2971170-1-coshi036@gmail.com>
+In-Reply-To: <20260817201606.3194-1-alifm@linux.ibm.com>
+References: <20260817201606.3194-1-alifm@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,13 +45,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 17, 2026 at 03:58:27PM -0400, Chao Shi wrote:
-> Please consider the following mainline commit for the stable trees:
->
->   26cb8ebbfaf7 ("block: stop the timeout timer when releasing a never
->   added disk")
+On Mon, Aug 17, 2026 at 01:16:01PM -0700, Farhan Ali wrote:
+> This patchset backports the s390 KVM PCI fixes to stable-6.1. The patchset
+> includes one dependency patch (patch 1) from Jason Gunthorpe, to export
+> free_uid(). This is needed to resolve a compilation error.
 
-Queued for 7.1, 6.18, 6.12, 6.6 and 6.1, thanks.
+Queued the series for 6.1, thanks.
 
 -- 
 Thanks,
