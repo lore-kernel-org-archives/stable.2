@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E55C3F8883
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:12:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED233F8883
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:12:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787224343; cv=none; b=SLlIO+iXOLIyvt8Rh5cL1fGcUacofws/2TmMC8nXCwqvwht2oBhEMxYpxk2xIX3XhcQKit+hWr4z4bGmBE5xufJTM1k9ieuDefFk9y+uRXRY9c9Hq8pi4Es/VnvC3T0A8n75IXnuGd9airpRq6eH42wPCCW3TLH1/X2ZZBHe+5g=
+	t=1787224348; cv=none; b=I9eDVKyG6yA9AsRXL9ijj5cmLfYns6zxHs3l8agwHWd1/gIX9dpQ1VMX1w8yiHnicnT1T4FkjpSREapbnV8AEMalt82eZe/7ZeqEEnHjKqAyFb6KUZSwMyK3JJ2tTvvJi0AC74XUwZE466oDwql8GkOiMT69uSMLPs3Of/SCRl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787224343; c=relaxed/simple;
-	bh=eMb3Z6pSVa2dykHZffFBvIUHZetoWIXHEu2tGmDgXbo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=S4m8sBx+gRC0bcmjJs7Z6DEcyN8LTakGj3AXVImBNwsH4IZYKICSp+cRzBmHgevHiJWCCV23fZxt/SZnWDNnv/fLHx9lM0VR28txB9u3XYLEDPsiKoKcG8HYZTLrNxDrwi9iePbyRxeU+EZx0a6hk1hEvZnH+j2Ue+q0y4Ag87I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dTJiLLdq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787224348; c=relaxed/simple;
+	bh=myVXp0tm8Am90cOphkVFCe075RFIKG12mAWph1JFh14=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Hfxb3PprmJF6PWO1YVZt4KHJ3Itc6qvJOBN+PtQwjiQ6psj/9+FnOcpHhRh1ab5TEkA4pGM7eSRzJLwSx75wBk+6W/kFlQA9Cyl0w9fJsdUENznyW8gxbeZMSIkWnNk9g2xAuOt4IsT/1LvJadOLVwVtXWHNxTBwDrK5NJNS/b0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=V7UuxATV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dTJiLLdq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8E221F000E9;
-	Thu, 20 Aug 2026 11:12:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="V7UuxATV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFF9F1F000E9;
+	Thu, 20 Aug 2026 11:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787224342;
-	bh=tbavwgQsmNb3ewwh1en6mrOOLZtNMy9mzSTIk3XnXL8=;
+	s=korg; t=1787224346;
+	bh=LBz2SEXmQBbpRlAG8D50rAZoTDDrQoB6FHJRbEFxXMk=;
 	h=Subject:To:Cc:From:Date;
-	b=dTJiLLdqZObGXlJuQfe1K2IDAS5NIU1AKnlH3sYD9x5qdFUwogGRtcj36al/bp/T2
-	 cfDvcQhelHE+gf5xHHt85kQzIVQs1l22fEzFgxdOr5hrK5a3PFTv8rA7Qi4+gVhyqi
-	 iIc6T4i1/20R+cBhYtDU35vLlT7HYvLRea39vm1s=
-Subject: FAILED: patch "[PATCH] libceph: fix OOB read in decode_watchers() via missing bounds" failed to apply to 6.1-stable tree
+	b=V7UuxATVIGfvzzJfyD8ecg1EfGKHLBylUwdbVuwy7lK+3NM7enmNy15KywU8cfrOl
+	 wf6xYowuIceFY4k1b4vrBJ8DS1bwl2h6J8VgBmFSvnly4+3b68WNaQ+KVx4TkGDLzy
+	 Gm2risXtODry+LSSXDnhVgRWrwZ9TGdYsu78BSyo=
+Subject: FAILED: patch "[PATCH] libceph: fix OOB read in decode_watchers() via missing bounds" failed to apply to 5.10-stable tree
 To: jhapavitra98@gmail.com,Slava.Dubeyko@ibm.com,idryomov@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 13:11:57 +0200
-Message-ID: <2026082057-overload-cycle-4a9a@gregkh>
+Date: Thu, 20 Aug 2026 13:11:58 +0200
+Message-ID: <2026082058-swiftly-hardwood-656a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 00ead17c7de137a692edee59f2772e6af687e8eb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082057-overload-cycle-4a9a@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082058-swiftly-hardwood-656a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
