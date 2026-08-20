@@ -1,182 +1,103 @@
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC5D416862
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A6F416CF9
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787222889; cv=none; b=mi6acfO0cC/4Ry1R1YvSHxEgSKnXdwdzSyTm324ZPjLdbLpzbdzimo/QfDlyfHi71LXcx9w+LD2h6mp5+rBy+b6NHICPFPU+RHxJJNYcZg2rnf6C0nh7yFhkKqzw8MLQiFpePYR3r/YeXGLQK+RlxDGvpZXYrleIUdd8hyjOxkA=
+	t=1787222896; cv=none; b=VwXgvhDzLzPt0eZ8mbf+29W+HAs/N1FufZOkh2Nic/supIcm07mQHBxtAIOV/wxI6Rc8n9obRKFg816rsjAIc1TqV0WThaaW3BZkMTMQSEsqi8DGhC7HIY/mGrqOVn+j99S3Ypm0eRe3XWL40aFA8lqg5Am8rQnfU/wrizz5Jhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787222889; c=relaxed/simple;
-	bh=hokS9DCyB5FmDnRhWbleJPkshKGOwJF7262M4TuYpEo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hcdzCFrolHEaanC3u2HEEhlqF+I+6s+8m+TSZPBH3A31NCIrvFd1KdbLHXuU9sZqlLVBhhjfNq5bXYnFyoeAxJQZNTgA11uynj5OpAQtVSBmAEsjIMrECD5fahNDoIDqp6ccpaKozSkPQR6KSs8jOyrHuEO0jykyJcsnnEgo8rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=FxxahDnp; arc=none smtp.client-ip=185.70.43.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
+	s=arc-20240116; t=1787222896; c=relaxed/simple;
+	bh=YWdXzAeEoEGKnJ37CI0is5FgEsgayPLpy9srNpo12ms=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FvDjNZqEpQThWP53+3byP/SvYne98wbmQBHSwNyiL2VPW01UuCoWXZE5a28CsVs4mi/PpE2LZWqFlLO+zpdkDKIapwLnHenVdtWhgab73lOBEe5xXrHDzMhkiDVDnEgswZKoUVQn/HffUmz3WEYzDm/REv+oPNmfy4Mx0xb5yDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XJmDRPwB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="FxxahDnp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1787222883; x=1787482083;
-	bh=uwvOGSQbUocmVtDCqyVWHaeKXaDp+ifgqe2urcxLCbE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=FxxahDnp7DmVtGESC6AKU0U9qdyONtR9U0XUvWlOUCUWjMpyHDunNMW752NogIZxt
-	 /+k9dfmeeh8RW3iuHFWuJrvLpTGkce+oWEi7ImJDrCtm4FIsZJwu+AMXm1dDyBDsZV
-	 xqdUhA5/ZPBOHC10gs6hxCH2zKwucgA8ix3frkBkAGettH4ShvOTj0Qg5sCHMKl+6q
-	 SJrcCawyMpVUSycXa5ywz5JctfDp6BfwJoEutd8JuAimwqy33eMTtT6kK/6D3xQKJ5
-	 BryC/IqUWSSJQOnIwRnO8InixJwFXYfGIryZprx9V64k7pjqiiAHAswVEOkMuIQs8E
-	 dcYBKQdLk06Pw==
-X-Pm-Submission-Id: 4hQgBj1FVQz1DDWf
-From: Natasha Klaus <natalie.klaus@runtimeverification.com>
-To: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org,
-	mchehab@kernel.org
-Cc: ribalda@chromium.org,
-	noambs2999@gmail.com,
-	david.laight.linux@gmail.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Natasha Klaus <natalie.klaus@runtimeverification.com>
-Subject: [PATCH v2 2/3] media: uvcvideo: Fix integer overflow in frame buffer size calculation
-Date: Thu, 20 Aug 2026 13:47:23 +0300
-Message-Id: <20260820104724.191119-3-natalie.klaus@runtimeverification.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260820104724.191119-1-natalie.klaus@runtimeverification.com>
-References: <20260820104724.191119-1-natalie.klaus@runtimeverification.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XJmDRPwB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A22F1F000E9;
+	Thu, 20 Aug 2026 10:48:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787222895;
+	bh=iDLYyinEgqGY/HYtzND5IFr4QLPyjRSv0+hrarSuww0=;
+	h=Subject:To:Cc:From:Date;
+	b=XJmDRPwBjsWsk75AiaXm3UwgjoMK1wR7IV0gLFjUM+aLujQYTIQRHGj5LRyBcewsm
+	 6+dAjzuTOZ7sUrA39Tjpzk6bRKsmQsQR5c8Neb8ofX8R/VHNNP7X6X443s3Skg33GK
+	 SfEqr8EUj+VVdnbywMgDYsmMaGt6EA8m8HPRl10k=
+Subject: FAILED: patch "[PATCH] selinux: reject a permission value exceeding the class" failed to apply to 6.6-stable tree
+To: hexlabsecurity@proton.me,paul@paul-moore.com,stephen.smalley.work@gmail.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 20 Aug 2026 12:46:37 +0200
+Message-ID: <2026082037-helmet-situated-8162@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Noam Ben Shimon <noambs2999@gmail.com>
 
-In the function uvc_parse_frame(), it recomputes
-dwMaxVideoFrameBufferSize for uncompressed formats. This helps working
-around devices that report it wrong:
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-	frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
-					 * frame->wHeight / 8;
+To reproduce the conflict and resubmit, you may use the following commands:
 
-These three arguments originate from the device's own descriptors, and
-therefore can be decided by it. bpp is a u8 and wWidth and wHeight are
-u16. The expression is evaluated in int, and the maximum value is
-255 * 65535 * 65535 (which is roughly 510 times INT_MAX).
-A device that declares large dimensions therefore overflows a signed
-int here.
-The kernel is built using -fno-strict-overflow, so this wraps rather
-than being miscompiled, but the wrapped value (which is often negative)
-is then divided by 8 and stored in a u32 used as a size.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x d14b5d0e97fccd27974fedc03b903408872907fd
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082037-helmet-situated-8162@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-Two examples for this (using legal field values):
+Possible dependencies:
 
-  - 32 bpp, 16384x4096: the product is exactly 2^31 and wraps to
-    INT_MIN. After division and conversion to u32 the field has the
-    value 4026531840 rather than 268435456.
 
-  - 16 bpp, 16384x16384: the product is exactly 2^32 and wraps to 0.
-    The field holds 0, rather than the correct 536870912.
 
-I don't think memory corruption is a consequence of this. The value
-reaches uvc_queue_setup() as the vb2 buffer size, and every copy on the
-decode path is bounded by buf->length, which uvc_buffer_prepare() gets
-from vb2_plane_size() rather than this field. What a wrapped value does
-instead is make the driver describe the stream inconsistently.
-For an uncompressed format uvc_fixup_video_ctrl() copies it into
-ctrl->dwMaxVideoFrameSize unconditionally, and that becomes the
-sizeimage reported by VIDIOC_G_FMT. This is while width, height and
-bytesperline continue to describe the full frame.
-This also makes uvc_video_validate_buffer() mark error on all frames,
-because it is comparing bytesused against the same number.
+thanks,
 
-Compute the size in 64-bit, and if the result does not fit in the u32
-field then skip the frame descriptor. An uncompressed frame this large
-is probably not a real device, and skipping it leaves the rest of the
-format and the streaming interface usable.
+greg k-h
 
-The rounding also changes from truncation to round-up. Truncation is
-pre-existing rather than introduced here: the original expression used
-integer division, so it has rounded a partial trailing byte away since
-the driver was merged. Rounding up is the right direction for a buffer
-size, and DIV_ROUND_UP() against BITS_PER_BYTE is what the rest of the
-media tree uses for this computation, including uvc_parse_format()
-itself for the FORCE_BPP quirk.
+------------------ original commit in Linus's tree ------------------
 
-Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+From d14b5d0e97fccd27974fedc03b903408872907fd Mon Sep 17 00:00:00 2001
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Date: Mon, 27 Jul 2026 20:30:58 -0500
+Subject: [PATCH] selinux: reject a permission value exceeding the class
+ permission count
+
+perm_read() bounds a permission value by SEL_VEC_MAX but never by the
+nprim of the owning class or common, which is taken verbatim from the
+policy image.  security_get_permissions() then writes perms[value - 1]
+into an nprim-sized kcalloc() array, so a class declaring fewer
+permissions than its largest permission value drives an out-of-bounds
+heap write.  The top-level symbol tables are validated this way; the
+nested per-class permission table is not.
+
+Reject a permission whose value exceeds nprim, which is already set when
+perm_read() runs.  Well-formed policies are unaffected.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Noam Ben Shimon <noambs2999@gmail.com>
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
----
-Changes from Noam's v2:
-- Rebased onto patch 1/3; this patch no longer applies standalone.
-- Diagnostic changed from uvc_dbg(dev, DESCR, ...) to dev_warn() on
-  &streaming->intf->dev, reworded to begin "UVC non compliance: " and to
-  say the frame is skipped. The explicit device and interface numbers are
-  dropped from the message text because dev_warn() already identifies the
-  interface. (The original could not be kept as-is in any case: patch 1/3
-  removes the local alts variable it referenced.)
-- bpp, wWidth and wHeight added to the message text (David Laight), matching
-  the wording of the diagnostic in 3/3.
-- The >> 3 replaced with DIV_ROUND_UP() against BITS_PER_BYTE (David Laight),
-  so a partial trailing byte is no longer dropped. The overflow check is
-  applied to the rounded-up value.
-- The return value is still -EINVAL; what changed is its meaning, which
-  patch 1/3 redefines as "skip this frame descriptor" rather than "fail the
-  whole streaming interface".
-- Last paragraph of the commit message reworded from "reject the frame
-  descriptor ... rejection is consistent with the other checks over
-  malformed-descriptors in this function" to describe skipping instead, and
-  a paragraph added on the rounding change.
-- Ricardo Ribalda's Reviewed-by dropped, as it was given on the unmodified
-  v2.
-- Submitter's Signed-off-by added.
-- Fixes: and Cc: stable lines unchanged.
-- DIV_ROUND_UP changed to DIV_ROUND_UP_ULL per Ricardo's review.
+Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+[PM: tweak comment for line length]
+Signed-off-by: Paul Moore <paul@paul-moore.com>
 
-Rounding up also moves the U32_MAX boundary: two inputs within the field
-limits (bpp=79 at 10077x43161 and bpp=237 at 3359x43161) landed exactly on
-U32_MAX with the old truncation and are now rejected, since the rounded-up
-size is not representable.
-
-Build tested on x86_64 only. No hardware and no UVC gadget were used.
-
- drivers/media/usb/uvc/uvc_driver.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index b94fe5366e55..d7d71418f875 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -295,9 +295,21 @@ static int uvc_parse_frame(struct uvc_device *dev,
- 	 * information. For uncompressed formats this can be fixed by computing
- 	 * the value from the frame size.
- 	 */
--	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED))
--		frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
--						 * frame->wHeight / 8;
-+	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
-+		u64 bufsize;
-+
-+		bufsize = DIV_ROUND_UP_ULL((u64)format->bpp * frame->wWidth *
-+					   frame->wHeight, BITS_PER_BYTE);
-+		if (bufsize > U32_MAX) {
-+			dev_warn(&streaming->intf->dev,
-+				 "UVC non compliance: FRAME %u computed buffer size overflows (%ux%u, %u bpp), skipping it.\n",
-+				 frame->bFrameIndex, frame->wWidth,
-+				 frame->wHeight, format->bpp);
-+			return -EINVAL;
-+		}
-+
-+		frame->dwMaxVideoFrameBufferSize = bufsize;
-+	}
+diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
+index ead504a639e3..5ff4d095ec2e 100644
+--- a/security/selinux/ss/policydb.c
++++ b/security/selinux/ss/policydb.c
+@@ -1175,6 +1175,9 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
+ 	rc = -EINVAL;
+ 	if (perdatum->value < 1 || perdatum->value > SEL_VEC_MAX)
+ 		goto bad;
++	/* indexes an nprim-sized array in security_get_permissions() */
++	if (perdatum->value > s->nprim)
++		goto bad;
  
- 	/*
- 	 * Clamp the default frame interval to the boundaries. A zero
--- 
-2.34.1
+ 	rc = str_read(&key, GFP_KERNEL, fp, len);
+ 	if (rc)
 
