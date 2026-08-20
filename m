@@ -1,142 +1,204 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D018F346777;
-	Thu, 20 Aug 2026 14:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A09D331EDF
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:20:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787235616; cv=none; b=X3hby4HAWGMSE1cHGGdQrfjvuT1Dt0tbe6fH8yWDvPDRCRF6yqWExmQPABjQEYskF2HMPT+wiCwuM/QRnLs6FWpCf3E4Iy5xQDo55X0PfoJjTI3zWLRvL7ZVindzv1ucx7ZhRFljmqXjZxwYbclmMsgzXS3qwXwZOJCatv+v5LE=
+	t=1787235634; cv=none; b=fy9ra3Op/IfMzMsu1S5S0iyF9rT1sZaxjI51wOz84oi+n32x0PdETAwA7qiBeJ2DOdtkJ32olR6yMb/DeWwYhr7cNRN+T+0GL9ez5+lVJ0Wttjoc8s+uDGvDeMYzOh7wrHym/FiGuzXUaRK0lSUeGdIHC8xCJl+OIQ+uTZmqpVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787235616; c=relaxed/simple;
-	bh=ttQTpzZAHRByY/t+FbmsUaAy+7jV/JB4hdf9b9yjKBE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BgZGnL6o+ROvAeGNOPgkfDBq3/KOjf04oiMe2SA8+70U/oj/Gur0JCz4oqMp/QuK4tmw7mb/ujzdOU1gE8q2X6YXN6s9jrbXMH8mdIKZhCriBoAVfRwVPvy5TC1ZvyYoltUgpksXPMiHcvzAgj5e3kBkkrxDteTX2SprbpqVjWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QYo7FXS4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787235634; c=relaxed/simple;
+	bh=q03sFoJeAoIYcf4U3B52nQhVmwGMgJh828VsF5pk1Bc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t+wrHHilgGu9XIXce532VKiukLp8hIGiKI/tZs8JMoNkTvOjryEcp33yteAJKPFX+Y/9rD82RtjiIVyjvxHywrdkIAA+Yw7yuDVK3+nb6PRpvX7UNIcxsWIyRv4HaB1vSZdCSz4tnJXeWT9nH7lG5mXYzKdDI/pmTGwcB4HCY/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGfqIxlD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QYo7FXS4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E43A1F000E9;
-	Thu, 20 Aug 2026 14:20:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGfqIxlD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3F81F000E9;
+	Thu, 20 Aug 2026 14:20:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787235612;
-	bh=OSLaxYy3hudfhxv760+VsoZk4Gq0ilDbTTIwLyTXmQo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QYo7FXS4bK93nAEXvIq+4c7TFmq33NKRD4j4Ur2KByTzMqut1xI3N2Q08sFKX191H
-	 HllyQWDL7B4c7JurUQnJO+JwycFUb2qw/JjBA4h9/3UOyQZSqYjlZMAnBepENgz4Z+
-	 nFBskF2wRckgYTjlComjcrRb52CyR6zWm97tRw0XVsdWdQf20M9PR0q3jMSm7W1hrG
-	 jwuXT9zqTTAcv26UAlMfAMjxTC8lEgRorNe4BIV5oU6CTTLq/ZCP7s9PQYnO3s9Tq7
-	 XVMEfOiAyN1GynfumHmH6IqjTSUuiqC0OyaRj+azr5BAlweEm1XJUHJJ0w+u1mG0Wa
-	 Hq8fhP/KQEc+A==
-Date: Thu, 20 Aug 2026 10:20:11 -0400
+	s=k20260515; t=1787235630;
+	bh=f8tMhsq7PwvzR0ZmEH73mV0Fq5pGu5VdYecnTQtz+UI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XGfqIxlDLnw7JgxkkazBMrfPwIo968DoC5smsP17Z4aLcBxGxkKcvsovkk+35Q7rV
+	 OJOXMcpp6O6tyJKu2W/in2VS/bfkyjQ6jj28JcssCR1WoOnB7IGjKE76NMiYgxs7pp
+	 D93jBjHC9rUm5kO6ueG6KfpqOeakB8kVXRbpNsdcUy1yZt7ZqKRxlDB1z5NJtb8gdQ
+	 Ktl5o2d0f8D0wwJKOfGQELPg8aPaq4fQD67ZIeK9eeWuBx7+E2rIUr+Jg1JGtqgeL0
+	 EhIzW2hi6ZRRwfgWYXGoi+bux+t0er8xlY9GROAHAYsw56JxHbqF67a9L81q83sNlg
+	 lwSgaH52O4WJA==
 From: Sasha Levin <sashal@kernel.org>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: patches@lists.linux.dev, stable@vger.kernel.org,
-	Maoyi Xie <maoyixie.tju@gmail.com>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	Maoyi Xie <maoyi.xie@ntu.edu.sg>, io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH AUTOSEL 7.0] io_uring/wait: honour caller's time
- namespace for IORING_ENTER_ABS_TIMER
-Message-ID: <aocNG_tGBAwo51MY@laps>
-References: <20260520111944.3424570-1-sashal@kernel.org>
- <20260520111944.3424570-26-sashal@kernel.org>
- <5a50c3f5-a5ef-4b2b-821c-5858d8b1ac13@kernel.dk>
- <8e853555-604e-46e5-8e25-a5f80b88e51c@kernel.dk>
- <ahG9meYUQ-YLDwHN@laps>
- <afe1ad86-3454-4092-88d0-bd9753a1b2c8@kernel.dk>
- <aoXlt3pcqsqfp52s@laps>
- <8671f4fb-e9fd-4f1a-bb2d-bfba7bf1bceb@kernel.dk>
+To: stable@vger.kernel.org
+Cc: Baul Lee <baul.lee@xbow.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] net/x25: fix use-after-free of the socket by its timers
+Date: Thu, 20 Aug 2026 10:20:28 -0400
+Message-ID: <20260820142028.1881723-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026081743-unopened-dweller-e5b3@gregkh>
+References: <2026081743-unopened-dweller-e5b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <8671f4fb-e9fd-4f1a-bb2d-bfba7bf1bceb@kernel.dk>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 19, 2026 at 02:53:52PM -0600, Jens Axboe wrote:
->On 8/19/26 11:19 AM, Sasha Levin wrote:
->> On Sat, May 23, 2026 at 08:55:43AM -0600, Jens Axboe wrote:
->>> On 5/23/26 8:45 AM, Sasha Levin wrote:
->>>> On Sat, May 23, 2026 at 08:23:13AM -0600, Jens Axboe wrote:
->>>>> On 5/20/26 5:40 AM, Jens Axboe wrote:
->>>>>> On 5/20/26 5:18 AM, Sasha Levin wrote:
->>>>>>> From: Maoyi Xie <maoyixie.tju@gmail.com>
->>>>>>>
->>>>>>> [ Upstream commit 45d2b37a37ab98484693533496395c610a2cab96 ]
->>>>>>>
->>>>>>> io_uring_enter() with IORING_ENTER_ABS_TIMER takes an absolute
->>>>>>> timespec from the caller via ext_arg->ts. It arms an ABS mode
->>>>>>> hrtimer in __io_cqring_wait_schedule(). The conversion path in
->>>>>>> io_uring/wait.c parses ext_arg->ts inline rather than going
->>>>>>> through io_parse_user_time(). It therefore does not pick up the
->>>>>>> time namespace conversion added by the previous patch.
->>>>>>
->>>>>> Once again - If you auto-pick this one, please also do the other one in
->>>>>> the series, 9cc6bac1bebf8310d2950d1411a91479e86d69a1. Makes no sense to
->>>>>> do just one of them.
->>>>>
->>>>> And once again, no reply. What is going on with stable these days?
->>>>
->>>> Jens, as I've mentioned in the previous mail, I handle the AUTOSEL
->>>> mails weeks after I originally sent them out for reviews.
->>>
->>> And you think that's working fine? I would suggest that's a terrible
->>> process. How are maintainers supposed to deal with that? Patches x and y
->>> are autoselected and an email is sent out. Maintainers react to that,
->>> either saying "no don't pick X" or "if you pick Y, please also do Z".
->>> The expectation would then be a reply that says "ok, doing that" or
->>> whatever might be appropriate there. Instead, it's just silence. And now
->>> I have to follow-up MULTIPLE times to ensure the right thing is being
->>> done. We're about 2 weeks into this particular incidence, and
->>> hilariously, I still have no idea what the state is on your end. Did it
->>> get dropped? Did the other one I asked for get picked up? Nobody knows!
->>
->> Hey Jens,
->>
->> So I took some time to figure it out, and I want to try out a slightly
->> different process to address the concerns you've raised.
->
->Appreciate it!
->
->> Instead of weekly AUTOSEL dumps, I'm just going to do them for a given
->> release after Linus tags it (so I'm going to do all of 7.2 in one go),
->> about a week after the release, and targetting just the LTS trees to
->> reduce the number of commits we backport.
->>
->> This will make it easier for me to handle the volume of mails, and
->> also reduce the number of reviews folks do since we can skip the most
->> recent stable (not LTS) tree.
->>
->> What are your thoughts on this change?
->
->I think that sounds like a great move in the right direction. As you
->probably recall, one of my big objections was lack of response when
->issues were flagged. If one per cycle makes that easier for you to deal
->with, then I'm all for it.
->
->Ideally I'd want AUTOSEL to work _exactly_ like the other patches that
->were grabbed for that stable release. Sent out the same way, at the same
->time, and responsive when issues are raised. If you only want to do one
->AUTOSEL per cycle, then IMHO it should be timed with the regular sending
->out of patches picked for the next stable release. If we have 2 separate
->things going on still, then that's annoying for maintainers to deal
->with. If I was doing this, I'd have AUTOSEL be EXACTLY the same thing as
->normal stable picks, work the same way, with the only difference being
->that they would have the AUTOSEL marker in the subject line.
+From: Baul Lee <baul.lee@xbow.com>
 
-AUTOSEL mostly works within our existing process. The only other extra it gets
-are those AUTOSEL tagged mails that give folks additional few weeks to review
-those commits vs those commits just going in our queue directly.
+[ Upstream commit 2195424c3da2ef1829a63b807e3a900a90e57d85 ]
 
-I'm not sure we want to reduce the review period here: folks argued in the past
-to make it longer (it used to be a week, and about a year or two ago became ~3
-weeks).
+The x25 timers are armed with mod_timer() and cancelled with
+timer_delete(), so a pending timer holds no reference on the socket and a
+cancel does not wait for a callback already running on another CPU.
 
-Otherwise, you'd get the same emails and these AUTOSEL picks would follow
-exactly the same process as any other stable pick.
+x25_heartbeat_expiry() also rearms unconditionally, so it can reinstall
+sk->sk_timer after __x25_destroy_socket() has passed its cancel point.
+The following __sock_put() frees the socket while the timer is still
+queued, and the next expiry uses freed memory.  KASAN reports a
+slab-use-after-free on the kmalloc-2k object freed by close().
 
+timer_delete_sync() cannot be used here: x25_heartbeat_expiry() and
+x25_timer_expiry() both reach the cancels from inside the timer they
+would wait on, through __x25_destroy_socket() and x25_disconnect().
+
+Arm the timers with sk_reset_timer() and cancel them with sk_stop_timer()
+so that an armed timer owns a reference, and release it in both expiry
+handlers.  Rearm the heartbeat only while sk_hashed(sk) is still true,
+since __x25_destroy_socket() unlinks the socket before dropping it.  Arm
+the deferred destroy timer the same way and drop its reference in
+x25_destroy_timer().
+
+Reproduced on net with KASAN, with the heartbeat period shortened so the
+window recurs.  With this patch the reproducer no longer triggers a
+report and /proc/net/x25 drains.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Link: https://patch.msgid.link/20260726220342.47245-1-baul.lee@xbow.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ adjusted context due to `del_timer()` not yet renamed to `timer_delete()` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/x25/af_x25.c    |  4 ++--
+ net/x25/x25_timer.c | 25 ++++++++++++++++---------
+ 2 files changed, 18 insertions(+), 11 deletions(-)
+
+diff --git a/net/x25/af_x25.c b/net/x25/af_x25.c
+index cdc5b4bf5b436..2076f9b5bf3e3 100644
+--- a/net/x25/af_x25.c
++++ b/net/x25/af_x25.c
+@@ -362,6 +362,7 @@ static void x25_destroy_timer(struct timer_list *t)
+ 	struct sock *sk = from_timer(sk, t, sk_timer);
+ 
+ 	x25_destroy_socket_from_timer(sk);
++	sock_put(sk);
+ }
+ 
+ /*
+@@ -397,9 +398,8 @@ static void __x25_destroy_socket(struct sock *sk)
+ 
+ 	if (sk_has_allocations(sk)) {
+ 		/* Defer: outstanding buffers */
+-		sk->sk_timer.expires  = jiffies + 10 * HZ;
+ 		sk->sk_timer.function = x25_destroy_timer;
+-		add_timer(&sk->sk_timer);
++		sk_reset_timer(sk, &sk->sk_timer, jiffies + 10 * HZ);
+ 	} else {
+ 		/* drop last reference so sock_put will free */
+ 		__sock_put(sk);
+diff --git a/net/x25/x25_timer.c b/net/x25/x25_timer.c
+index 9376365cdcc9b..2afa8ecaf509a 100644
+--- a/net/x25/x25_timer.c
++++ b/net/x25/x25_timer.c
+@@ -36,45 +36,45 @@ void x25_init_timers(struct sock *sk)
+ 
+ void x25_start_heartbeat(struct sock *sk)
+ {
+-	mod_timer(&sk->sk_timer, jiffies + 5 * HZ);
++	sk_reset_timer(sk, &sk->sk_timer, jiffies + 5 * HZ);
+ }
+ 
+ void x25_stop_heartbeat(struct sock *sk)
+ {
+-	del_timer(&sk->sk_timer);
++	sk_stop_timer(sk, &sk->sk_timer);
+ }
+ 
+ void x25_start_t2timer(struct sock *sk)
+ {
+ 	struct x25_sock *x25 = x25_sk(sk);
+ 
+-	mod_timer(&x25->timer, jiffies + x25->t2);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t2);
+ }
+ 
+ void x25_start_t21timer(struct sock *sk)
+ {
+ 	struct x25_sock *x25 = x25_sk(sk);
+ 
+-	mod_timer(&x25->timer, jiffies + x25->t21);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t21);
+ }
+ 
+ void x25_start_t22timer(struct sock *sk)
+ {
+ 	struct x25_sock *x25 = x25_sk(sk);
+ 
+-	mod_timer(&x25->timer, jiffies + x25->t22);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t22);
+ }
+ 
+ void x25_start_t23timer(struct sock *sk)
+ {
+ 	struct x25_sock *x25 = x25_sk(sk);
+ 
+-	mod_timer(&x25->timer, jiffies + x25->t23);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t23);
+ }
+ 
+ void x25_stop_timer(struct sock *sk)
+ {
+-	del_timer(&x25_sk(sk)->timer);
++	sk_stop_timer(sk, &x25_sk(sk)->timer);
+ }
+ 
+ unsigned long x25_display_timer(struct sock *sk)
+@@ -108,7 +108,7 @@ static void x25_heartbeat_expiry(struct timer_list *t)
+ 			     sock_flag(sk, SOCK_DEAD))) {
+ 				bh_unlock_sock(sk);
+ 				x25_destroy_socket_from_timer(sk);
+-				return;
++				goto out;
+ 			}
+ 			break;
+ 
+@@ -120,8 +120,14 @@ static void x25_heartbeat_expiry(struct timer_list *t)
+ 			break;
+ 	}
+ restart_heartbeat:
+-	x25_start_heartbeat(sk);
++	/* Do not rearm once __x25_destroy_socket() has unlinked the socket:
++	 * it is past its cancel point and owns the teardown from there on.
++	 */
++	if (sk_hashed(sk))
++		x25_start_heartbeat(sk);
+ 	bh_unlock_sock(sk);
++out:
++	sock_put(sk);
+ }
+ 
+ /*
+@@ -166,4 +172,5 @@ static void x25_timer_expiry(struct timer_list *t)
+ 	} else
+ 		x25_do_timer_expiry(sk);
+ 	bh_unlock_sock(sk);
++	sock_put(sk);
+ }
 -- 
-Thanks,
-Sasha
+2.53.0
+
