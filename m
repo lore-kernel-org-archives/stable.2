@@ -1,196 +1,218 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83DD3E49C7
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787217804; cv=none; b=OQWXXhiFfvmc/28jfyS2Yr7YEqWO8Gmv4d3vl3B0uT/A3f90XKQXDyqdW4LLumHMyHCbvV9v4dRqI2+BP6K1bnXe6Xfr+qzCXESY0nbGaQqQcbeoT5iQuz+IdTvA3afSS66vVuvCgP3gFjP1ROd/GjPia1OC5tP9b6cGH6WsNEs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787217804; c=relaxed/simple;
-	bh=eWXjDm/rNRBZghDqHn6cqTEJsRLefjaNGwagAb1uQXc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aPbz5BU1EEvMySEUSW0v1prcP4qZnQjD3SXSRGGRM7tI0BF9w09gICokPRKcX08J5Xq4CWY8w/pv1MCsMmtohv66fQRIbghCdLMvv8KkUYyGa6vJuraK8vG95eMZQ34XODzGa8KkaYYA9VAaI+JMW5aFBAaEIXO6pc1cgnQNkN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jTQq2QvM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aKp4aleV; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7243F4825
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787218464; cv=pass; b=hSTPNn3gQ0yXexeW5p1xUQ6YN/Hoa1jcTe1Rxws9bvVK9gf6Qc2G8zZstivsgDlpWHlEngi0QbREcNrT0OMYuAKxydCR3kgk1hmRrqxTcxRTiv3M4/1LEYI/ZjgpuuZY7Qq2cJ0so9Tu375tA98c3GBXBlJDPotOl5s6PObU7I8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787218464; c=relaxed/simple;
+	bh=nYYBXc76RfdtU54i/yfZoijMWBxoO6zClIQBh+szfn0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QXtOQFj5o9hcsmKgy1NyBwmbwCOzrKt8zR2mpPsfOub6go0NEfgS9bEkqty66WuLjXbd2fefkxZUx9HUv1qM+KjJgA6XpooZoHnmhd0JoiPS84hfe7DFstmq/EZT5vwo2LHdS3gSE9Vy+6xfbrTmezXy+QwGRcT5mpy3sHCwx14=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S3kOmxpj; arc=pass smtp.client-ip=209.85.208.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jTQq2QvM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aKp4aleV"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67K6VXT91258930
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:23:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	K+pxcnC7LlOtfUPE7WuTxX2VzzLJtGCT7IRYPoYVTdU=; b=jTQq2QvMSp0y/uZN
-	xox1lfpNY6g4oK03nKR3XiaprcFddensAQirhiFcrHptE6B59srTccg81Ye0Kkec
-	7UAemEp+19KkAnoWW6EAu/kewplyAfz7UHdb6m8IMnlVoOSVXUKaqBICyDwbdRWz
-	1aIdWiBU1syOy8qIo4Y6lnfddKhhJKnicaxMDJhkORoX7c0OgPVLMfWtpDScbWBW
-	uIqllcZRvDbzqIh6UQvdzPaepsmziToG77R7CPxQWf7KoqG++h02gGValP+yT9vZ
-	1RPdfumxjSTtqHwvjj6FTqady8l+08Bq+gFceuYigW+81EpA3ytx6xHBe4rmEteQ
-	Zw1iUA==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5es642kj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:23:21 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-ca6bd8a190cso2469649a12.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 02:23:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S3kOmxpj"
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39c953950dfso20049241fa.1
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 02:34:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787218450; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PhcByODvvsSwMeGwreP0NfrAxD/g6OMUDGnTHsbg6FQ0tMC2nQsH0WxMYwCV2aITV4
+         cji+z5kCYvhuWvDS4z2fAkAOH+5IMKYmo8bAWqKkOUjnaaK4vQf36mT0KEt/SOd+kO9H
+         UHZZRS0b7ef26JYT1LE5ceIjtRMaC8ro2V99xr6NslC3wgPS1Ye0sdPFAzYYyMcfwNzZ
+         0+vF7j4iqOPI/Gle0OPE10ykiQBiPPShdMBIpR4BTBgCYmLSgNamkPyPxJkfGksPPvuv
+         lrkMdQ/ErFf0UBKS8S0EPkovwgOiiw1G6QPrArKT+ffeA5J8IkbAoUBiY1dVdWeaSJx7
+         5EkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=nYYBXc76RfdtU54i/yfZoijMWBxoO6zClIQBh+szfn0=;
+        fh=rT/EWcyFX1/Wj7/IMYTNGv+jPEB+SczotipxOx7+WyU=;
+        b=Cf4ZFaJt8f/41TkRmwZ1SXjrWIoSyzjLbLmYE+XErjAGlzhQJq4zE4iJwiG0KQfUJU
+         e4DQMZGq0o51Bwo32li+DA/vA4Nbi0BnxrCoZlYyu3JTfNnpyVmyxlgFL21FtWs2BcUi
+         9U86AESWWFPadOR8r6Y5iMtVioCIRg/wftcJBhyedxfuFjiTcYi2/efSXRGmbtNQav9I
+         E97fmBCrbzodrHKe0oeBf89qeC0Yi0iFOxvKvIp0aZor0aIgeBP4oO7pyrp2obz0k0MI
+         T4wlOapQHAggz6ik8wiTbQX6K7hkqOpgqK/HZHTcA29UDwbQ3rcadp/GxPo8lDuQF8XO
+         1MHg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787217800; x=1787822600; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1787218450; x=1787823250; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K+pxcnC7LlOtfUPE7WuTxX2VzzLJtGCT7IRYPoYVTdU=;
-        b=aKp4aleVVc7/K6fjBd5U5hBIPsk94yhLm0SxJjhMY5hEI8RBYhuIJGAZC6XZKNIMrT
-         N+QD6aI5vjB6/ezLs+WpJLpVsGdCNNoywZSBWzx5dMCY74Io15Sg3I2D+5b5VyAZKN/k
-         bZBmK3V71XNSbkrq+QoV417Dw0y6ka7B5v7z/A7jFhgV16cVs1K1C1atKjuaFNJdFlUY
-         vR9WWSBoL+IBloEwrz2bHGZbn7Q8XrHHTKT3GD9aynXM5F4Mb+hD28jtVTrffGdVh81M
-         ustDko27Un9mMpmLde2phm8KQSmmrlCmYHUb7GEq1RbuStgZTfWZxwdahiVqteMp6YGg
-         aiGA==
+        bh=nYYBXc76RfdtU54i/yfZoijMWBxoO6zClIQBh+szfn0=;
+        b=S3kOmxpjr8hALgLJmQEIN0nbQQ1PFcSjlZ2Rjp4qBk6XLRaTayQE2LWy9+usQDn++e
+         qJrw1kOUZe7DE2bwFxzn4IcKlib2GXJyoL8CCS+Gt/8T7SoUQH3Zx0/9fcm5/ENWwB4V
+         stbQrWbSUKCgXiG9mMLyGC7hLJrxG6uH+XZoW7W6XEIpB6KGFVJl3eVhIInzR07pqleo
+         u/0eHDN4tOqdEG/ZXqS78bRvLNDxaK6BoS0xlKxxJNQe8C4yN7BpJMqubz25ea/5VdKr
+         EYFOapSmNxoahpNxkKUkonR0fXpmsvR+Uvb/kANOuLUZYR/7vVAKJd7EsnjTUgIvdaRL
+         RRTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787217800; x=1787822600;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K+pxcnC7LlOtfUPE7WuTxX2VzzLJtGCT7IRYPoYVTdU=;
-        b=l9v8dUgH2P0UP/d6kxS4lvb16ze1mKx7s3RB9um4VnobKx7xQDQ4yKDHTbejEX8vcz
-         /lknwR6yc/O8rKRmXi1u5DrPiAA2fhBSdcRM4WrzmsPDEHoI2etx73mKIjUqBM4lZLI6
-         t7ezXVTW1Kh+iU2y5alQZiZoR/0IUWzazd5dxAJpPnyaxIp40D1B7ZKGt2Y3QZcEW5Db
-         AEnEt1wzIZBrcTSBJuU7KMXdcKi3+Jd56b0PMa9hdXueXHlmW16sWZUAKuv8ZD14koRM
-         NQQW4sk5Dc9mfXFR5e1QvapvFtFxFGCPJ8T7hKAX+3QGUfN8crRjtGVP2zgsRNB8olL2
-         qMMA==
-X-Forwarded-Encrypted: i=1; AHgh+RrXR3rNuvL1zqbm7aPlsOKpBkV2ngvbgovaHFTslKsQc6nXNOObO/QJvH3RAEP5TQEWb8PMISM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzfj5zdux87Rb+yjsj+vxzKzAL22u/BUAzwl8q7Pdzc1QM7Sh+a
-	Iy/CTn5xzK4h+m1vMEnt3XxiBNuzk61L/zDv/JB6dp4ki5Ik2FAQP9paiyxUXtOIoENXplZgWT2
-	ywWwSWJvROLixB/coGHi6ms/2EzAJmVejlRf9NYOTHgmoII+gCHkBJEnygao=
-X-Gm-Gg: AR+sD11LHACerqmO1IGxEfhG749OA2BDxG/V7cZ/vZKkP5uS+10CwI5WGfiSr5ZU/+g
-	ChL+P7GzV7Jla7Tz4ZcMIYkQc7r/149KDCN/qZYLFG+eyZtjl6rQNXhVvQ5j7cG23mswl0N1Mp5
-	GNXP9VDVEpB9/S2vLfZRnIq2wUvMD63VV61fxUoTWmPsvjNoIukPCZf/JxCrwjlEgwkwszTIX0G
-	FNKmmZ60/fg++eKfPk1+LkPGSxiaCJcm1rgzRBm/gkusOBYbmNwdmPC+evPSzP0aNy4ltlRP+LK
-	GDns1UspoOuWWNFK8VWjzUEntic5nOnOpqoAN1ASVEv1SQwUIT0CC6wBICVWQJCzA9IQZZJ62hB
-	eyLy60g23ru9tgxgmugPYUlVnZtwsXNAWD78k/lMhCuj0wN5dWy5FPUn+tuW7gYDP6a2PKjjR
-X-Received: by 2002:a05:6a21:48c:b0:3bf:7081:9356 with SMTP id adf61e73a8af0-3cd0126b6cfmr21929947637.17.1787217800534;
-        Thu, 20 Aug 2026 02:23:20 -0700 (PDT)
-X-Received: by 2002:a05:6a21:48c:b0:3bf:7081:9356 with SMTP id adf61e73a8af0-3cd0126b6cfmr21929856637.17.1787217800100;
-        Thu, 20 Aug 2026 02:23:20 -0700 (PDT)
-Received: from [10.133.33.222] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc15523b579sm1611537a12.3.2026.08.20.02.23.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 02:23:19 -0700 (PDT)
-Message-ID: <0b8371b8-408c-48a3-a41f-2e2f1079d315@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 17:23:14 +0800
+        d=1e100.net; s=20251104; t=1787218450; x=1787823250;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nYYBXc76RfdtU54i/yfZoijMWBxoO6zClIQBh+szfn0=;
+        b=pVi7WWbz1wozrg4+xw1g9rzfr0C8qDjSX+qnDiMFO71rfNwcmEWtMcjX69nMsJ7H64
+         PhCVpOeJwj5w3V8UGDmic+b9WNeQVU9LSe55VMdG6+qiyGqOSoUTRUSIdjbQchY2M1sm
+         9Hh0ICZYyaYFZTay8JBdNnJ+IU/pXcK/+llmJTitUso/8j0qZSXSGx1F1OdmWqQY9tfI
+         DeNxs1Dae83MUL3CA2X9/9rPbqXJ5ElCnxplaIgRhoJ7SVTNdv+O+A53cBntqXQY6f1t
+         bdK3XcVNmlazw0DXdS27UMrvmZgFml6WArpAMI2qqRxlrX/3nnzbR9Ci3wZDN8VHXXWl
+         /xHQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpOuNlAsk/mmxjGBUFmYtRk6jNllF/j3Vf/ACk2kNOJgOiWhu3Zlfcu0TNsosCm0E9Y6YmlSto=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLTObDWdxWGJ4RxtnX2/cjOZl2bMbFsEmQe2Tw/d3GxsiNlc3B
+	V1pi6sMeta0tGw2r78HGXMmhNw0JDvYx9aDcrWQkiQdEFUFroYbWam4TDwCfrY7C4SXc6GzaJZM
+	xgxrkPALLD1I3eFHF6sgN15UwU2BYrSg=
+X-Gm-Gg: AR+sD10I0+bhzGZN7mFWS6frv6eC8aK5c+w/9UO3Jh5PFbNNhL/odHezuTj+Utc7BPe
+	WEuPnQNRgjOi93PAlkFl/Lzq9LGHLwBOlW2sQuqtqahMtBBf+EBy4NYc+TT86ExI+MU0Tkh+Yq4
+	MJmHAlvZWZ+nbD/B897KQ/Tq5KcOfD/wfYh00/ttxKIC4ufGuCvwROHn7LvmwKFo/rLokliP+iJ
+	d7tBCydrcgh9UeLUAx2gAH4nGRIzE+PIhWgR53ERJD82hSvYggxW8zh2u0USWorQ/qG/zBCHG+j
+	mJpUC7tmYMnEkzPJ69HD7vRNX7am7OEpB1N8wynmKdpsxrm9YWhsESiHDUJvQS2RUEQ0+MHe5nS
+	Wxnh/Uhgzz3sWh7vDbC8zqXs3YA==
+X-Received: by 2002:a05:651c:2118:b0:39e:a64f:d7a9 with SMTP id
+ 38308e7fff4ca-3a189725893mr23369941fa.2.1787218449766; Thu, 20 Aug 2026
+ 02:34:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] cpufreq: loongson3: Make this drvier depend on
- MACH_LOONGSON64
-To: Huacai Chen <chenhuacai@loongson.cn>,
-        "Rafael J . Wysocki" <rafael@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        Huacai Chen <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Xuerui Wang <kernel@xen0n.name>,
-        Jiaxun Yang <jiaxun.yang@flygoat.com>, stable@vger.kernel.org,
-        zhongqiu.han@oss.qualcomm.com
-References: <20260818123921.3600606-1-chenhuacai@loongson.cn>
- <20260818123921.3600606-2-chenhuacai@loongson.cn>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20260818123921.3600606-2-chenhuacai@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=E5/9Y6dl c=1 sm=1 tr=0 ts=6a86c789 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=FBMUh9G_Qb7lsv0hvtoA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-GUID: GwBXjLNIex2rMvRTfmii-MXZOx6Ve9Hb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA2OCBTYWx0ZWRfX29+PJcAPzY7P
- 0rxEYNSAASiRQeUxE1Md+NPTAKvFW9MUBEuuZqO2OsTaYMxl3tqcAb7E7Y66rCMeXxVEMO3vyig
- c3UnVe7CJEH6EFpAt52A0iNbBqFVcZtMiT9DwjHlM2i3Gt3G2bvkfEI9GbrrJ+wFf/ma+IpIU53
- 6Bgf/1AZD6WC5iw6k9LNhbeEsoNXlLCsIQFYaBFgjY86QFsgZ5pPv6xznbeZG1fnrH8/Y7QFos4
- vvoXEMeQV0EispykVby6C6zfYzv5SvasXcavtHxXP8i6UhZB0BOY5kotS+uupGCRve7X61LEtPw
- VacqxrhZ3oMOzC3/uEtqEA5iADTtkPQJXQ4Cb6ivby19DNndvG130U5aDQR2LlfAvNQMtT+sNk0
- BJqJEg1g8aAB1kTrxDBi46H8zO6IQL6RaQM4eEQNiI5GJhiGjQDLujP7fk3+qiMEXtfW125+gBE
- 23n9bMxjgp1lES+m8pg==
-X-Proofpoint-ORIG-GUID: GwBXjLNIex2rMvRTfmii-MXZOx6Ve9Hb
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA2OCBTYWx0ZWRfX1kujWlOxbJkn
- YU+1Y+V0laOtNL1Rb6SfN2sYq0fW2wFC9wTRwzHkhMZbyvWNBhmeU6VcPsJz6iNuRVGauey6FqW
- 2IWAwL2XnUPGnvhy7374+cZeo+14llU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 adultscore=0 priorityscore=1501 suspectscore=0
- phishscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200068
+References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
+ <20260817215428.84740-1-gvalkov@gmail.com> <20260819-generous-nickel-dalmatian-b6bb08@quoll>
+ <CADOrJmYfBe3ADun_kFjFSH6YOSTX7Vu3UsFsL57yuRdaQ=eJCA@mail.gmail.com>
+ <e554c007-67e3-4fbf-b85e-5de02f649e83@kernel.org> <CAGXv+5H7AhZgZ06r9KO3HLZ9Cymkai+Cv9SgVTuSC1PjgGf8hg@mail.gmail.com>
+ <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org> <CADOrJmYxKTyDkKPaKCpH37RsyyZJZ+4uReE--+uvnHmEdNJVOw@mail.gmail.com>
+ <c38cb98e-0746-4b28-b0c9-ce59e8338048@kernel.org>
+In-Reply-To: <c38cb98e-0746-4b28-b0c9-ce59e8338048@kernel.org>
+From: George Valkov <gvalkov@gmail.com>
+Date: Thu, 20 Aug 2026 12:33:56 +0300
+X-Gm-Features: AcwNN1UdyfRyP4qTovLiX62_oFOyy91L008QCKICpAGE3pTfgFyxj68IsFBTyvc
+Message-ID: <CADOrJmb8CTkjRFp7OjynfQSFm3fHT87wemUM4X5yJjTtS=C7tA@mail.gmail.com>
+Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag marvell,ignore-regulatory-hint
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, briannorris@chromium.org, johannes@sipsolutions.net, 
+	andrew@lunn.ch, krzk+dt@kernel.org, francesco@dolcini.it, 
+	johannes.berg@intel.com, kees@kernel.org, miriam.rachel.korenblit@intel.com, 
+	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
+	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
+	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
+	Frank.Li@nxp.com, chunfan.chen@gmail.com, 
+	linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Huacai,
-Just share a few inline comments/questions below:
+On Thu, 20 Aug 2026 at 11:14, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On 20/08/2026 09:50, George Valkov wrote:
+> >
+> >
+> > Krzysztof:
+> >> regulatory-hint for me means usually regdb, but even with your meaning
+> >> you tell SW what to do - ignore hardware regulatory information.
+> >> Property should not tell what SW should do with hardware. Property
+> >> should tell what is happening here in the hardware. In this case: what
+> >> is the reason behind.
+> >>
+> >> IOW, why user of a board in country X, where regulatory data says X,
+> >> should have the correct regulatory data ignored?
+> >
+> > Because users in X buy a board for X and the regulatory data says U.
+> >
+> > Indeed when the ROM regulatory hint is set to US and the driver
+> > reports this to the OS, the wireless-regdb restrictions for US are
+> > applied. This would normally be fine, however the third radio in
+> > WRT3200ACM and WRT32x, reports US on all models including those sold
+> > in the EU and other non US markets. This creates a conflict with
+> > radios 0 and 1, which report FR and also with my correct setting: BG.
+> > With the wireless-regdb restrictions for US, FR and BG applied, radio
+> > 0 refuses to start.
+>
+> So if you move with your router to US, you would need to change DTB?
+> IOW, the DTB is per user? This is obviously wrong... What if one device
+> has correct regulatory data written and you ignore it? Why would you
+> ignore it? If you decide to ignore correct regulatory data, then you can
+> as well ignore it unconditionally and this property is not needed.
 
-On 8/18/2026 8:39 PM, Huacai Chen wrote:
-> 32BIT Loongson machines don't have SMC and FreqCtrl registers, so make
-> this drvier depend on MACH_LOONGSON64.
+All radios on these devices operate according to their certified
+region. The firmware for all radios is closed source, locked-down and
+there is no API to change any regional settings or affect TX power. By
+design, the regulatory information for this platform is configured
+from the devinfo partition mtd3:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts?h=v7.2#n106
 
-Typo --> driver? Likewise the subject.
+cat /dev/mtd3
+admin1_passphrase=[...]
+admin2_passphrase=[...]
+cert_region=EU
+default_passphrase=[...]
+default_ssid=Linksys07770
+deviceType=urn:home-linksys-com:device:Router:1
+devinfo_version=20160121.1
+hw_mac_addr=[...]
+hw_revision=1
+hw_version=48SAM203.0GA
+manufacturer=Linksys, LLC
+manufacturerURL=http://www.linksys.com
+manufacturer_date=2017/12/26
+mfg_data_version=1
+modelDescription=Simultaneous Dual-Band Wireless-AC Gigabit Router
+modelNumber=WRT3200ACM-EU
+serial_number=[...]
+sw_version=v1.0.0
+tc_passphrase=[...]
+tc_ssid=[...]
+uuid_key=[...]
+wps_device_pin=[...]
 
-> 
-> Cc: stable@vger.kernel.org
+The intent of these patch series is not to make the radios operate in
+a region other than the one they are certified for, that's obviously
+not possible. As described in the commit description, the goal is to
+allow the platform to use the correct region, which is stored in the
+devinfo partition. The hard-coded region in the ROM of radio 2
+conflicts with the platform region and should be ignored, otherwise
+radio 0 and 2 won't even start. And yes this applies to the case where
+the user bought the device in Europe and has configured their correct
+country.
 
-Nit, it is better to add fixes tag?  For example:
+With routes that allow the region to be changed, a user can move from
+EU to US, set the region to US and use their device.
+This is not the case with this model. The radios refuse region change
+so the user should not use it in other regions.
+For models sold on the US market, all 3 radios report US. The platform
+also enforces the US region from the devinfo partition. Even if we
+ignore the ROM hint from all radios, the platform will still use US. I
+don't see any regression. My changes are carefully scoped to a
+particular device which needs them and do not affect any other
+devices.
 
-ccf51454145b ("cpufreq: Add Loongson-3 CPUFreq driver support")
+> > Would you approve any of these or suggest a better name for the flag?
+> > Should ROM be in upper or lower case?
+> > I omitted 'in-ROM' to keep it short, because the driver check line is
+> > already longer than 80 characters.
+> > - marvell,ignore-regulatory-hint (current)
+> > - marvell,ignore-regulatory-hint-in-ROM
+> > - marvell,invalid-regulatory-hint-in-ROM
+> > - marvell,invalid-regulatory-hint
+> > - marvell,invalid-regulatory-ROM
+> > - marvell,invalid-reg-hint-in-ROM
+>
+> The point is that the regulatory hint is NOT INVALID. One device was
+> sold in US with US data, so how could it be invalid?
 
-> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-> ---
->   drivers/cpufreq/Kconfig | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/cpufreq/Kconfig b/drivers/cpufreq/Kconfig
-> index db83f3365698..edc1299098d4 100644
-> --- a/drivers/cpufreq/Kconfig
-> +++ b/drivers/cpufreq/Kconfig
-> @@ -288,6 +288,7 @@ endif
->   if LOONGARCH
->   config LOONGSON3_CPUFREQ
->   	tristate "Loongson3 CPUFreq Driver"
-> +	depends on MACH_LOONGSON64
+US devices have no issues, because all radios report US.
+I would love to ask Linksys the same question.
+My router was sold in Bulgaria and radio 3 reports US. Others bought
+it from the UK, DE, etc - same thing. Please allow me some time to
+install a clean firmware and I will post the output from
+iw reg get
+so you can see the incorrect regulatory hint and mix of three regions.
+This will take some time, and I will be left without a working Wi-Fi
+until I recover using UART.
 
-Small nit:
-
-Please feel free to correct me.
-
-There are two MACH_LOONGSON64 symbols in the tree:
-   arch/loongarch/Kconfig: config MACH_LOONGSON64
-                                  def_bool 64BIT
-
-   arch/mips/Kconfig:      config MACH_LOONGSON64
-                                  bool "Loongson 64-bit family of
-                                  machines"
-                                  select ...
-
-The one that actually applies here is the LoongArch one, i.e. this is
-really just "depends on 64BIT".  Since drivers/cpufreq/Kconfig is a
-shared file that also contains an "if MIPS" block, please at least
-is it better to mention it in the changelog which MACH_LOONGSON64 is
-using, because the LoongArch one has no prompt and is therefore
-invisible in menuconfig. Or just write "depends on 64BIT"?
-
-
->   	help
->   	  This option adds a CPUFreq driver for Loongson processors which
->   	  support software configurable cpu frequency.
-
-
--- 
-Thx and BRs,
-Zhongqiu Han
+Georgi Valkov
