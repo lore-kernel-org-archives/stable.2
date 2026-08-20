@@ -1,177 +1,163 @@
-Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2962939A7F6
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:51:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=148.163.152.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787262669; cv=pass; b=ApxUy5HH990SyWvOe2rIEne0qLKPNpSQaS6AFb4a5fmfpuQIs0Y/es5to+VOtgsyWwsMYmJPqeIvtmUXyiGB/9mm3CpsjwHspD9hQOsotlp2y11QgjsAgDpKxwOn2rpwcDzkrQPOoolh8Qw4YNFGNAFlb2Cq4fED0mylnpu/yUc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787262669; c=relaxed/simple;
-	bh=t3iIdI23Z/Asd+i+Fpjs0YQSpaQnGxOTZsa74EYZckw=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=IIef2Qe9qfhA6RWNWf5XgRQBNwdLHrb0GXC2OWLFhM37hHc3rmP62CfZqfMozaNWj81imakHqR3cehXOrA6Q5IUuqaGQCbLug/SzNJJU5Bm7DXjvuYm/qaT6ElOMpCJRA59n4VFfo3D3VRQPscVlEulmoI9kjIYeoms70Z2BGUE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=HkVw3Wtx; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=igyhJeGC; arc=pass smtp.client-ip=148.163.152.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D932F39B4;
+	Thu, 20 Aug 2026 22:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787264417; cv=none; b=lMjT13FanF/8ZGiKcVwV19SpZPsL2JBC1nJXWVh5U0IVxbt2vGzK6WPlPvtslsDlUXS2R6qIMlNxhWUVHBH/QPuPqz3CM+w5NaZbeVwYV/8DK9ikEm1X6ubStMGDbIC5BitHduta6ix14fqHF8GQYfKMPcFCnL0tEhjFQSa9BTo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787264417; c=relaxed/simple;
+	bh=BOTYd7LqC9q1nx0v2p8he/uaKSv32k6sqE3w1RRnF/Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mfKSVGIyGlhr9EYb+1EiBDHdWHYFNkJZl2tEkOBKsE93T8tZrdfpgHaxJv5/XO/EIUDNG/D79k1P1UT+K9q9ZR5i/Gvzy4Asg0XIzY/CxpRC9PO358g8kOOdnN2wW/d300IW2FsZRCmLUMp7HxwjkJ5nYgTo61yZAFfEl9lZAsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0wOXg2ig; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=BNzF3pqd; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vbnUn4D0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FB17yxxo; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="HkVw3Wtx";
-	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="igyhJeGC"
-Received: from pps.filterd (m0354653.ppops.net [127.0.0.1])
-	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67KKuFrd3770530
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:30:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
-	 h=cc:content-type:date:from:message-id:mime-version:subject:to;
-	 s=default; bh=zVmBMwABY0b0sl+zm74njYCYQcuUz3wknze7EpIK0Sw=; b=H
-	kVw3WtxV2Y538pQq//END7+SnbQV+WzqTnPfUxkOnfdv61rC39lXaK9cV/YX4jKz
-	YyRQnjRZftxoZrUQY/yNGx4UK8bsLtp71WL6s3Y/dyR58jQpLwUiOxNMmOBbAkCc
-	qGMa4GqFek1Byw6KGX9PI+mMqz/oqTR4KA9ty/z4kL13lgE/4CcwZ8yCBV0WNo0F
-	cjABzjYf35dVzUBkQVk8g+3hpaeUoEHknokOoNLZhVi8bRct8KuhxBr8/qejNqoj
-	ui7ic/2ReJcxuEtyGZ/vtuLkz2G1urHLeMA42fgmcfD1mazF8RR9T97TjllsUoE6
-	49Fq8LgBV9HehkZBVDPmQ==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4g62fht9y0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:30:53 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8ef8249f871so4435026d6.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:30:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787261453; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HBKO4L36437YPUUB9vrcISlAxaIjJhCoNJdcO7j+IvCHj6iwdIIVRYS7HT9b6vXoxi
-         GRdCTv+Z86IKoqOkQhAN7thZkXQOQxD8Jd8coeoXFh8IU3O/rPxAZ1KmAbzFYDTU4mh7
-         cdsZ3jmfjGzvhYwYF8zgZar4i79Hq/OH/WZmlYxXieY6Ygh5fsNF5MVlEddQL3Tw5f5X
-         c91gKlRVKTVeDqSa9sZZk2nXzD71RwxNn4s5B2qfEPfr2AmfS0Bb6ToiJCzBewh8DC9D
-         44Kz3iww9QzqjIsCJh5gqvH8lcDBrz53xpYkQ0/vsocJKt0p0W6da2aKJ9RE5fJWJRq1
-         0iMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=zVmBMwABY0b0sl+zm74njYCYQcuUz3wknze7EpIK0Sw=;
-        fh=PVC6jltloIgHXELc8RHlCzkWy6ChK4j7ZmSovcxSI8M=;
-        b=blXRUcFzF+/CwVdfwvxNV9BJCyUmMkUWHDC+Yw6rm/vLUugxHpSmkppW5xpkk7PVdq
-         WKU7TBHkDVJNI3xYR5aq6m3pAzP93rHS8pA/6Swb3PncG9bpXkWogsaKY1FHtab1vN2H
-         psgJB9ze1Iwy4EHnJupYWF6L9tlOD2F1ZpBZmatMQQ0VdG+D7NInc93ujDv4QJbdM7zv
-         HnhBI2LBQeRwPmUjfgSsqVi9GFu6iWfbuwTXY7ijkyxobgf7okT8beuoR7XVjM3Sx2pR
-         +aLn3pNHNWnNQKu+iiVGNZfsGceM2NYHQgBuZaGGzxmp3q/07oGbcU9+bIMpBt0eX230
-         3oKA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crowdstrike.com; s=google; t=1787261453; x=1787866253; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zVmBMwABY0b0sl+zm74njYCYQcuUz3wknze7EpIK0Sw=;
-        b=igyhJeGCYwaNQszpO5UHcZaJw6OTPx3clPZTaTCHeV8JQ34H1Atm3u6xiE9dEHFkjU
-         2ZqPapNp5X/lm+XuakZszycaAqLzqmczQyZThApOh0w4law9BR1xDyDrAZZ/qp2w1Cbe
-         srrVxSyMvzoKwH1GqBREeN3PDsMoXglujglx1ea3b/Rj52s0BRwa7Aoz0uS/2qcqO7qB
-         y1C1xW9AgyP0g0n5JeoTVOsyWd9nQuOw3+8zBAeYrVC9J9MNQB/sy6fCvZn8TL90tks2
-         zdvGq8FnYrYnzdRtRPYdSsUHGU8T/Lxx3B3qyngp3mKjxNMnCQorCgKRUfavhuF8XZ5B
-         K4yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787261453; x=1787866253;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zVmBMwABY0b0sl+zm74njYCYQcuUz3wknze7EpIK0Sw=;
-        b=l6/p8tVjTsmXhX3l+UfvRvEqbcS7AAgqeWz3FX33WOIG6sd3oTS/vy6YCUKRpeD5I5
-         hX/CGzDjJD7idHH075foD9OCPvFkSTwlsglNvbwovCBiyjyZWKENWJFDHVwkLn54Pc+o
-         I+aLuJQZUAuZ5Ldbbh2C7RiTCzh6IDLafHP8Hfzl6mXrPKzPMi9C45NbOwT6Q0cS2r9L
-         4MG6MzZyaV76Rls/Qmcks/2RMLtqMCuWPeiuWupHaNZ7YmFuOkWrIA4NeXI/XfotmMG+
-         pOF4qEUG3vekSrGbIleQmYVvmI4xcJnbxE9Kq0gjrnCddOhbAifcZFEokWyHjCdK4wls
-         JDJQ==
-X-Gm-Message-State: AFuF++lJecMT9Oj0Ljty2/UBP+7g0qFCtQOxgc6WSQm3tU45P9dic31/
-	IVkRf4Nmtr4DIbnUT5HzkkFo9cINMt0/7aw3646XJkJ/cuLW5I2NsOjFJvYXHS0HMRsXOuN0UXn
-	YdzWjWykeWjOPFPLcUyw66zlHOkNRXtF4fjrI4ocY+jSv8v1ZPnHggdtrybQbZyuoCQogjv/U7K
-	FqzaO9ei/+FtZvw9EABsQGxIVD/AtUM2NiYGjpvRXBuY8=
-X-Gm-Gg: AR+sD1037S4tdv00yODJmA0X9H16B/mVOk2KHqulazHaj3eu7Piz84ioXSib5AkU3BN
-	UkBWvsyRr4sZl0wQhVqlisWjj740vbBJ4ma1naiFDQ2I8sVAB++99tCBZZmM8959PTvHAu88vg8
-	xNDARvriW+YSBZqegsj/Tyl64+Tvb/L76VXDPI+E8sVR9WCnoF12a5UrgA/g==
-X-Received: by 2002:a05:6214:2606:b0:8fe:b7a6:4ff3 with SMTP id 6a1803df08f44-90c80c883cemr9994476d6.23.1787261452677;
-        Thu, 20 Aug 2026 14:30:52 -0700 (PDT)
-X-Received: by 2002:a05:6214:2606:b0:8fe:b7a6:4ff3 with SMTP id
- 6a1803df08f44-90c80c883cemr9993576d6.23.1787261451963; Thu, 20 Aug 2026
- 14:30:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0wOXg2ig";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BNzF3pqd";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vbnUn4D0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FB17yxxo"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1F9F6836AD;
+	Thu, 20 Aug 2026 22:20:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787264409; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+UYo1YUmYjiLsT0KlUjloBndh6L1gE7npqqcdG7O6gk=;
+	b=0wOXg2igCLpLElcvbOXInsEu1wTk0thze9mBcB3HxlRJ9iw5pwDtWF7+ECgPFjRG/eE2NU
+	mSDcPTyVHmmRI6oxs1kJAZTLp8tadsHEDXpjTc5uIHFN/uIZsIqHa4FAlyE3KN1gBBrvpY
+	oKN9/v5Cp63otwX5tqixf79m+PjLuOE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787264409;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+UYo1YUmYjiLsT0KlUjloBndh6L1gE7npqqcdG7O6gk=;
+	b=BNzF3pqd0X8ULDWj1tbBA16qZ0M3F+T8XUUL+e6gxorjotnvdYoDCHCBfMXD5sC7qPo2GW
+	AUKJTLALnn8gc/AA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vbnUn4D0;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=FB17yxxo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787264405; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+UYo1YUmYjiLsT0KlUjloBndh6L1gE7npqqcdG7O6gk=;
+	b=vbnUn4D0so/Dg4cjNTfXXym2RGI52o7ZHwOSAPxwcZIZcZobLK6HM1yDxXho0cEZSgnxt0
+	ys9+mrQ9xHQLYCtfDnRX7H8QOrwl7V2eSI4lu/oqWK30xTKM2fy8oVsOQVa28PFEPgenFL
+	NY741Jhz+6FRw4HoDANqJrRkNZVMDD0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787264405;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+UYo1YUmYjiLsT0KlUjloBndh6L1gE7npqqcdG7O6gk=;
+	b=FB17yxxo6SQVjG7FjqFd8dURhcYaOSRi0YYKWwJ2a+So1bh97XaU9EiEnYj6zs3A0qa6F7
+	P2S8oAXKR3VA5dBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 95D3C27A8;
+	Thu, 20 Aug 2026 22:20:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id h0w9IZN9h2qQMAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Thu, 20 Aug 2026 22:20:03 +0000
+Date: Thu, 20 Aug 2026 23:20:02 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: kas@kernel.org, usama.arif@linux.dev, hughd@google.com, 
+	akpm@linux-foundation.org, baohua@kernel.org, baolin.wang@linux.alibaba.com, 
+	david@kernel.org, dev.jain@arm.com, liam@infradead.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, ziy@nvidia.com, nphamcs@gmail.com, hannes@cmpxchg.org, 
+	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
+	stable@vger.kernel.org, willy@infradead.org
+Subject: Re: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio
+ on zap
+Message-ID: <aod88sqdJ6qrNBxc@pedro-suse.lan>
+References: <aocFPRgqieScf_yo@pedro-suse.lan>
+ <20260820165334.36401-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-Date: Thu, 20 Aug 2026 17:30:40 -0400
-X-Gm-Features: AcwNN1WmAkz6CIfOJ3-qbyIFHw7o67a--tZpJvbx9ywHQ845dA02m4oMhEMEn_k
-Message-ID: <CAOu3gNgTSWE84fgdc1iUNKwes7E6u_X6b8pjZKBULEJWB=RAqQ@mail.gmail.com>
-Subject: [STABLE REQUEST] ftrace: deprecate the ftrace_enabled disable switch
-To: stable@vger.kernel.org
-Cc: Greg KH <gregkh@linuxfoundation.org>, sashal@kernel.org,
-        Steven Rostedt <rostedt@goodmis.org>,
-        DL Linux Open Source Team <linux-open-source@crowdstrike.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-GUID: nMjVYUmA1QeRugNwyBWIzYIXc7zbdSS8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDE2MCBTYWx0ZWRfX7QUrk/WCHOnL
- qOD5zDpaFzixZVqXkb+cEF1w0TL1RkOmgztbxym8u4XtIZI/o2vpUCWTWkv8Na9LBmpGSTR7bA0
- F8UtXK6vbitxPDbuRL0UfmHqrAsnBfkEmtqkdzy8ipo6iQpjn9IZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDE2MCBTYWx0ZWRfXzv+t50TUZtQX
- 5lbNh/VusMeXCn1/O6syvunrX21kXLOZj1rK8bvHgiqC4j419qGlb28NREVGdAaYKOdb/C0ggJw
- WFY/nJycNq0Cez7asfMXv2bI3DRmgLF+L35AzDBYrIHEtNse8KHyz/FQc3EAWz6RmoLjWwbJtnW
- hGdsKkUnHnG4VaeH2iNKzDj4oSh/AFFRhK2JUegzx605uZDxcwdWDaTCcbUNQMvNrAIKSwH/4+4
- xE1XnBvupWUi1M6bUwqWqi2Gg4Yrqro2JXNvDjXOwqVMez97QJu10kRlGihY3fBkonqo3bavdW5
- o1TTfiPJzcSjI9nQCcTysepIS9tgYR1fX31sEJcZWeA41rUXFQ3PXt/Xdrf57TvYolydwOYEQWS
- xKTVuHs/qY8QmIXBtg0zc39mbrc4fPLTufsW+UxpNss9Yvz5y2Pc5sS/ZGfjcfbC7njwWyo+unq
- uNRCQpYyMPA7FRVRvFg==
-X-Authority-Analysis: v=2.4 cv=OrR/DS/t c=1 sm=1 tr=0 ts=6a87720d cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=KZhmPCYDdY0A:10 a=VkNPw1HP01LnGYTKEx00:22 a=T2KQ53IYiC3MXPrxx8bB:22
- a=GCXdLZfFv8EKBZhKOxZ5:22 a=VwQbUJbxAAAA:8 a=pl6vuDidAAAA:8
- a=YqAk_y5rjQpCD7sbxlsA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-ORIG-GUID: nMjVYUmA1QeRugNwyBWIzYIXc7zbdSS8
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11881
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 clxscore=1015 impostorscore=0 spamscore=0
- lowpriorityscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200160
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820165334.36401-1-lance.yang@linux.dev>
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[kernel.org,linux.dev,google.com,linux-foundation.org,linux.alibaba.com,arm.com,infradead.org,vger.kernel.org,kvack.org,nvidia.com,gmail.com,cmpxchg.org,surriel.com,meta.com];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MISSING_XM_UA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 1F9F6836AD
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 
-Hello stable team,
+On Fri, Aug 21, 2026 at 12:53:34AM +0800, Lance Yang wrote:
+> 
+> >For some context: we were discussing (off-list) the recent report that
+> >systemd-journald had horrible write amplification, worsed quite a bit
+> >by large folios. At the moment, there is quite a lot of write amplification,
+> >but _only_ on mmap writes (if you look at the write(2) paths, you'll see
+> >write_begin and write_end which tactically only dirty what you actually wrote
+> >to, block-wise in the BHs or iomap IFS). This doesn't need to be true.
+> >
+> >What we conjured up was the following: since WP faults always happen on PTEs,
+> >you can simply dirty the block(s) corresponding to that particular PTE (which
+> >naturally points to a page inside the folio, whether it is large or not, doesn't
+> >matter). That way, you can avoid fully dirtying the folio's blocks. This is
+> >something that ATM isn't done by any filesystem, but it really should.
+> >
+> >Obviously this whole idea is thwarted if we keep writable shared file folios
+> >PMD-mapped - you can't get meaningful write notifications apart from "someone
+> >wrote to this folio", which isn't particularly useful once folios get 2M+ large.
+> >So PMD-mapping on a shared-write fault is antithetical to getting useful,
+> >granular write notifications to filesystems.
+> 
+> Just checking I got it right ... for a PMD-order file folio:
+> 
+> read-only mapping  -> PMD-mapped
+> writable mapping   -> PTE-mapped
+> 
+> Then ->page_mkwrite() could dirty only blocks corresponding to faulting
+> PTE, avoiding whole-folio write amplification.
 
-Please consider backporting the following two commits to the stable trees:
+Yes. To be clear, when I said "mapping" I meant "page table (PTE/PMD) entry".
+So something like an mmap(PROT_WRITE, MAP_SHARED) could have PMD-mapped folios,
+until you actually wrote to them (otherwise they're wp'd and huge-PMD-mapped).
 
-  - b0c857049153680e1b6ccb59abf359a4ca523561 ("ftrace: deprecate
-disabling via ftrace_enabled sysctl")
-  - 88b3e7fedc07d940c32eb5c0733a780e944b6b47 ("selftests/livepatch:
-update test-ftrace.sh for deprecated ftrace_enabled")
-
-Both commits were merged into mainline in v7.3 via the 'ftrace-v7.3' tag.
-
-This change addresses a long-standing issue: setting
-kernel.ftrace_enabled=0 silently disables BPF trampolines
-(fentry/fexit) and ftrace-based kprobes/kretprobes. The write succeeds
-and the hooks stop firing without error, while re-enabling silently
-restores them. Livepatch resolved this via FTRACE_OPS_FL_PERMANENT,
-which blocks disabling ftrace while a permanent ops is registered and
-blocks registration while ftrace is disabled. Trampolines had this
-same protection from 2019 to 2022 while sharing a global direct_ops
-marked permanent, but lost it during the 2022 per-trampoline-ops
-split. ftrace based Kprobes never had this protection.
-
-The breakage was introduced in commit 00963a2e75a8 ("bpf: Support
-bpf_trampoline on functions with IPMODIFY (e.g. livepatch)").
-
-With these commits, writing 0 is refused with -EOPNOTSUPP and a
-one-time warning is logged; reads and writing 1 are unaffected. Steven
-Rostedt requested and reviewed this change on the mailing list,
-including the follow-up selftest update.
-
-We would like to backport this to LTS branches starting with 6.1.y,
-where the breaking commit already exists.
-
-Mailing list threads for reference:
-
-  - RFC v1: https://lore.kernel.org/bpf/20260730163544.2042327-1-andrey.grodzovsky@crowdstrike.com/
-  - RFC v3 (final):
-https://lore.kernel.org/bpf/20260806153000.4184871-1-andrey.grodzovsky@crowdstrike.com/
-
-I can provide rebased backports for any trees where these commits do
-not apply cleanly.
-
-Thanks,
-Andrey Grodzovsky
+-- 
+Pedro
