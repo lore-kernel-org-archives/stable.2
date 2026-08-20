@@ -1,113 +1,81 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577F0415B66
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E6A47987B
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787261658; cv=none; b=YJXoqR6bW2jlt4ABxjlA3/RkIWJ5SJ1QHf9hxMjI4gKtMEYw2Jg7nHuX6fEYcuihhZn/FGbPC9EgWaDalkragPpHKde85+JzSo+Kbtoh514stdC6/7Q8KJc6YTBrRsXAR1/c2JePQozOa4GYTWEJTXzCd9abkbrYJZ0reizLYo8=
+	t=1787262351; cv=none; b=IMzTpYht9AL0XzFzp9LQC7aokIL5FayZCvsU42Tgx0aWb/mA/khx8WRBN5fSZa567m2fTu4Os88qloxY8pzywC8nKqfCZETg+t62dE0zJcrZwPf0RfY1ceY1g/bVp4sf2WVcCs/ZkpoH74dNLkmcvg3GydPJBt9yoDzGbuvfC2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787261658; c=relaxed/simple;
-	bh=qIkB8dKBo/wt3b4yl3vtKdq/2WMENY7BkaeDoAJE/Fc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uNw9fDLd3hzz8bLygFjdzn9V1oX9uNabZOhcg31QmktcfLMy9s/AG0q+4cOjfP2tawq6mS3FiE2UbkrVPMXCgfPa7L2KtIWxuTu5GZEVqHfBtsj6PvbSUgEnPLTPIhwB1VH1rMR6DZ86Ak6AvnuLvhYDJpcgRHEYlZCPJQfBf6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NTUC0n5F; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787262351; c=relaxed/simple;
+	bh=kNRZN1iExbgAEESoNBlpBPYNvF3zFeAgrQXMHDuvDyc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UCRsAzSU5z/7AUDoXUDYwF32QWZM1t+hq4AdPmYTHL+XYk+WgQxo2eUGdAbx7WKNJPjbNc7I2U+JGMRyL86GFHY7Y8NflMZ+AbYohUnCqsu2XXkGlCf4MfIb8t9Xg2uh7xCFWIsyIUOziifjGW1j5Fc4Z/fYGp6zvqLFAcNj4bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev; spf=pass smtp.mailfrom=cressey.dev; dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b=cpjlR78D; arc=none smtp.client-ip=91.218.175.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NTUC0n5F"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc147d86bebso215370a12.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:34:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787261657; x=1787866457; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VYXoftc6soVX3yMyRggyhy2ugeoCiVfhvw3PG+iGTkU=;
-        b=NTUC0n5F9GEJXsQoV3BW4/nr3KSgFfXXw6ysp+jQJDdvUiYM1I+vxQCCRH9QEbmLTX
-         leBkOTrRIZiaF1m7g3jEJ+GkLN2YMZXbaoXHnAMoTWbCajxGZsJkPOxsuS1jdMUFU4sd
-         RVAFzNbxIdz6dD+mQSTmFTrR6UNp2g0XJ0v7rTQ+Ig+WlisG8RcD15qpbV977yhQw4Uo
-         2zFIdJN5O8ZgE/RxmK37J1JVLlrXX6K8yOeTq+hClxC4kE3ADQyHUVnG+MNwZbduWQTj
-         GM0O0fK6hF9T3IvyM3FDJ5wTa15fPJafhGGoMEA/W5zHePBi5SIVgsGhp32rmXsQM6mY
-         S2Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787261657; x=1787866457;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VYXoftc6soVX3yMyRggyhy2ugeoCiVfhvw3PG+iGTkU=;
-        b=Ivv3h3dLQ5F5htY3KLTaEpR1ouMLNGEahr13pvXPYpw6/iLfPZOCvoA7tMvYFUmu0A
-         o1tii5Kr+BxEvKE/MS8+OFQsv1wQ8QGz3eO51Zel/RSrdsTHzqn9Mmhkax5JiLealT+X
-         gKha3D7zUxYqbTwCg3jyiP6DTjJURv0HVOfqLU+oqsSFV4akRBtf0DjyUsDzC+dYE/7g
-         3/vXEv8HRyER2H0obAiSMNo9SeNBSO+D3+JcAMTjHdVUEBOVf/hr9hIERUhrP1p6BK4B
-         LxxnIGNdTgtVeAbjjb3PyrLZgO9A/+LDm/LChI0/sf+aZZ6iHvb1xcSJ8N/oVB5yZxzZ
-         07Bg==
-X-Forwarded-Encrypted: i=1; AHgh+RqgYfoE2rKTFfMSXVLVIqE9liImB/bx4Kvt45Y6wvgjVx5F42r3tHTgYJp9qQmWTkC1hMjRw9E=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yznre8+UhqPb6JfAzygAsGHFik1wZFCHWljCwdQqE+29OwHjZ0a
-	qcVa2ahdCgL3wvibpIzg0ppzbOLo0FkE8+yiTwOwuOiRiEUI/0zVwJFL
-X-Gm-Gg: AR+sD100uGnkc+W/p1far25cHGR90Zd+Ag9qR3Rs1NBIAHuq6LRO6PSWoY+I+9OfWvw
-	Gee/aDmV6r3NENIejHUcQ1LeGqgde7cllMbOeJ95Igo50EYnkkS3fJh3OzDKyQ+Bx0W3BcnX/Oq
-	cOEYb6Zkc5Xt0syG0LpUVxAJ9b7WI/dP8VMnLlH1oSEV3n/PzB4+0dGsJykl0V+jZgSHt6xWDC9
-	VLOjqH4M2EkkNMhcQvOZLvsJ26fOXImaQQWAkph/ST71NMfqITRLUhjtjqd/ZOnY6DfPZlCtUCH
-	Ky4pfYLcJxSnmd+YLhaPg6ZiY2jf8Ip73XWSWOzA7NechxTtogPEXq8CJfyKTjJNDdk4ub0tVPp
-	Vv71q2hQCZDOTPp9UPV5e0ObRrZj/1ymADm6PVBQcBnTuB4GkqdAw0SEz9cJpXSSiNMWuyfIVFS
-	z4uEc8z01r5i1+p8c09jWIan5Nm2NuH449naoC1cmNXJqq/qwOUhqXfd3791JdvqdUPYM4XaarF
-	VExjhmhmgmIQaM=
-X-Received: by 2002:a05:6372:a749:b0:3b4:6af4:bdd5 with SMTP id adf61e73a8af0-3cd14fb6375mr10162877637.15.1787261656657;
-        Thu, 20 Aug 2026 14:34:16 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf175399sm34681017eec.26.2026.08.20.14.34.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 14:34:15 -0700 (PDT)
-Message-ID: <708ec0b8-a829-46ce-9c53-e0edb32cbd35@gmail.com>
-Date: Thu, 20 Aug 2026 14:34:14 -0700
+	dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b="cpjlR78D"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kNRZN1iExbgAEESoNBlpBPYNvF3zFeAgrQXMHDuvDyc=;
+ c=simple/simple; d=cressey.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787262347; v=1; x=1787867147;
+ b=cpjlR78DIUoWInrz6BvknqI5c/6Lx1YB3T1vzqT5PQ0w/iTxQR18Ofcb4YXyBx26cReH6xJx
+ F6W1S/3+29Nw+FVyUnyaxW4xUq6RbD+bQOF2khjd4/Nto5nJPdNSN+M6wilpJBLjX4AeQBXLa/5
+ obVPgjdRiGqTMG8Y7ZtW+FtSDy1gb8tBaDKZNzkxhbmsWyxeWaRpdfrlg6xnlkkUuYwPOwfxIoE
+ b6E5bmQQh/my/QZTDACYgtzGouM/13cq/eatn8Qv6wMKPRFOKYcuNSrwo5I9i3avQmZFzYA21FG
+ 5zlC5BcdCQYI/3xnQROHcChSosINpIm8+8RQkx8+r168w==
+X-Envelope-To: stable@vger.kernel.org
+Received: from coder-bcressey-whiskers-0.coder-bcressey-whiskers.remote-dev.svc.cluster.local (35.83.186.167)
+	by smtp.migadu.com with ESMTPS id 0b27810bfabba616;
+	Thu, 20 Aug 2026 21:45:46 +0000
+X-Mizu-Trace-ID: 0b27810bfabba616
+X-Migadu-Flow: FLOW_OUT
+From: Ben Cressey <ben@cressey.dev>
+Subject: [PATCH 0/2] dm-integrity: two fixes for the discard path in
+ integrity_metadata
+Date: Thu, 20 Aug 2026 21:44:56 +0000
+Message-Id: <20260820-dm-integrity-discard-v1-0-196d3618d09a@cressey.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 000/166] 6.6.153-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260820145211.194104353@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260820145211.194104353@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFh1h2oC/22NSw6CMBCGr0JmbUNtxFSvYlz0MYXR2JJpRQ3h7
+ hbcuvz+5wwZmTDDuZmBcaJMKVbY7xpwg4k9CvKVQUl1lFpJ4R+CYsGeqXyEp+wMe3E6aGm87kK
+ nA9TqyBjovc1erj/OT3tDV9atNWFNRmHZRDes0sg0mYKtS6/Ed+R28/99wbJ8AYcA6J21AAAA
+X-Change-ID: 20260820-dm-integrity-discard-9480ad85f58f
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+ Mikulas Patocka <mpatocka@redhat.com>, 
+ Benjamin Marzinski <bmarzins@redhat.com>, Shukai Ni <shukai.ni@kuleuven.be>, 
+ Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
+Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Mike Snitzer <snitzer@redhat.com>, 
+ "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>, 
+ Ben Cressey <ben@cressey.dev>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-On 8/20/26 07:54, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.153 release.
-> There are 166 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.153-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Two small fixes for the REQ_OP_DISCARD branch of integrity_metadata().
+The first one fixes an out-of-bounds write introduced by the keyed
+discard marker patch merged for 7.3: when the tag is smaller than the
+digest, the checksum of the last block in each batch is written past the
+end of the buffer. The second one fixes a much older endless loop on the
+kmalloc-failure fallback with tags larger than 64 bytes.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+1/2 is ordered first because 2/2 on its own would move the 1/2
+overflow from the kmalloc'ed page onto the stack.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+---
+Ben Cressey (2):
+      dm-integrity: fix buffer overflow with keyed discard
+      dm-integrity: fix infinite loop on discard with large tag size
+
+ drivers/md/dm-integrity.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+---
+base-commit: 39c5aa3bd8ec3912d2cd0b3fe092642b0d2b0713
+change-id: 20260820-dm-integrity-discard-9480ad85f58f
+
