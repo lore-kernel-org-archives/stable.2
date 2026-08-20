@@ -1,131 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BBD3B8BC7
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:36:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C213C1095
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:38:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787254594; cv=none; b=mSX5G4BBrjm+xeeKp5IU9hT3QIZ79a0WyjPo7q1njFGm/VpgwYoXPgN78aTxmscjOxzFhS+uk7MTlbRvTKJE6mOvZQ9NmpchoMs8ba8WlQndLrcsb7cAYr6xwYilwdVP4NRgR1O5Uv3yrHMFXewzacAXlh4nvTEyJ1191UhXzic=
+	t=1787254704; cv=none; b=rn/4FVjnYhmgZb7ZzI0orQ9phuO37GjUAnm/mSrZbj7GCtQToxm11MMNvg9HEQd3YYIFgA1OinpiQ5MQCmK4dHkdiU8rQUVg30nXB2b+3SQMncIXAU5vnai8GJ1FIT7bAl5FC1lhRhJAf2xTGBVw3TkXGFzAE6JgMoWbg1hMK/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787254594; c=relaxed/simple;
-	bh=8p++FPRRdPoDCOHZJpCTURR/hfK502I0deHaZW/0EHk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jjJDCPXyEzHFohXaao4RYFxMVtRBxliPQBFy6DOmuIkNuO4oIRFEDWewH+aMU1WcdhTQe1OtTY80HoNuMwgeZjJ4XvtjI2pE8gHUpa93VRo/qg17+TFTTfrYY7MsX59eaZXi4q/2bNvS8Z9KiG/JyANT36uBSnEw6UFrVU5yb5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpjVrMdL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787254704; c=relaxed/simple;
+	bh=OwhTciEBxGvZpMgxmBCoY8U02rBpO4RmcVqbxFQwCsE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aoBRdczY0PMIXIHgjNEoPlvdavGuzqwz2Qslyu2opJxznVv6A4nJ8taaFpfDL5r165tiPZv6zv0vRE855ta/7cKhizIVkVnOm0ct1tJvGiym49Ydjz2J47vV8zllfdZjvJKgA9JMc3Hhfhw7Tog1VTgMoxr2+BZ3h/1BCTikLr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3y3m74q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpjVrMdL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B75C91F00A3D;
-	Thu, 20 Aug 2026 19:36:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3y3m74q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B4F31F00A3E
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787254591;
-	bh=VoE0lQnG3BrU18EVFYfOiMclog0bKjjwHDYyQRKfKk0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BpjVrMdLniuLzE/BNRKhhnH0kQKwh5SvSLtPJSJhr24uLy2MQTchVvG/qLUbCujS0
-	 Y+ODa56io4W67Kt41txyvv7e2GGTO6rKk0x9QZUjBuvmkXp+HlyYSQpjMmHAzgWb4k
-	 XcR7rhcgePDBAeK0usWVpub/cpTOBHfPPmvZtp1gcDXnsYXVJlaK4SrxcSHjQVewL8
-	 uFs56DpWuNYOF/6XutEsX1TiTzI3bCW4sND9qj0bgr3l7PBdr7/tUiTAuaUWURAW+4
-	 2xCXVocveLBh6fv/gXtqnPs1UrYdTNLQ/komFfB7ZAe/zZ4kWoKUFcdURKPksFEHTN
-	 EDcg+uxEIwPCg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	stable@kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Jianping Li <jianping.li@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] misc: fastrpc: Remove buffer from list prior to unmap operation
-Date: Thu, 20 Aug 2026 15:36:26 -0400
-Message-ID: <20260820193626.2274224-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260820193626.2274224-1-sashal@kernel.org>
-References: <2026081715-crucial-stammer-2659@gregkh>
- <20260820193626.2274224-1-sashal@kernel.org>
+	s=k20260515; t=1787254702;
+	bh=1nfrW1dI5XFMPUurIDimqRVaz57NNKLaAOoDXyDYRNM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=l3y3m74qms5yiklitwqvWieYQAkolPD+/NtbjrVGZjwCDG+uDKRRs+Kr1TXtWLQde
+	 xiIbjdhjNmOTPyV7VJLEVA0rVcqKAb8xjX/tPUftfFCC6bImEWXOrq3URaQko8RqSZ
+	 9iqY0U1wHyH6TDiG25Pi37SnlDDnMjujQqpaQRFxv8A8+jJn4tMR9B9vPYJdt5Ux/g
+	 fi42N6B0WSZ6xdDolOJb2/cbb+mw50pD6Gm6pCfjyHVppomU4QoGtqwuqWm9BqPtOc
+	 LbqMGfue3lt+QYnb7EkPATVRdtVBr9CjqtZXL/q/Nmrfn3WvPYJ0IwoiMpYOcFJn/p
+	 TbXybM9C+icAg==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a14f6613fdso4263051fa.0
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:38:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RquuYyk4AvPs16SIv2g0F7Zh3TEdrvZNcjYPf4NUvinHVJ0kIBjxTrnzZEowzXcLd7XfzLZ9wM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvfWo8RGdeyb8+99JrHrYkS9E34ptDOfeDu5ImzC9ur5zkpqss
+	wqHN598VWCfMgcZ9neHbdBtYe6EHTZpR+hhWdm3iZy3b4gU5LJyCONuEKwJhRctjA4db+rCCg9N
+	H/ZCzR+0RgbtPJs1b0g6reOx0DGYCVXw=
+X-Received: by 2002:a05:651c:1542:b0:3a1:a8c8:2e21 with SMTP id
+ 38308e7fff4ca-3a1aec4c778mr2614571fa.9.1787254700990; Thu, 20 Aug 2026
+ 12:38:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <1a001e1fee9.637da6dc3533246.238498880682901704@a0rg.com>
+In-Reply-To: <1a001e1fee9.637da6dc3533246.238498880682901704@a0rg.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 20 Aug 2026 21:37:47 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0itdMNrRuhUBTmW6c1JpTQ4y=J-naj2k+Pti6XmnJuwvw@mail.gmail.com>
+X-Gm-Features: AcwNN1XK6C2ci2cE88zALjTHTG6SK0Z6o0SX6aZiXPtC896epKnwad_0816CyTk
+Message-ID: <CAJZ5v0itdMNrRuhUBTmW6c1JpTQ4y=J-naj2k+Pti6XmnJuwvw@mail.gmail.com>
+Subject: Re: [PATCH v4] ACPI: pfr_update: fix stack buffer overflow in query_capability()
+To: Anirudh Prasad <icarus@a0rg.com>
+Cc: linux-acpi <linux-acpi@vger.kernel.org>, rafaeljwysocki <rafael.j.wysocki@intel.com>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, stable <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+On Fri, Aug 14, 2026 at 10:06=E2=80=AFPM Anirudh Prasad <icarus@a0rg.com> w=
+rote:
+>
+> query_capability() copies four ACPI buffer objects returned by the
+> firmware _DSM into fixed-size u8[16] fields in struct
+> pfru_update_cap_info using memcpy with the firmware-supplied length:
+>
+>   memcpy(&cap_hdr->code_type,
+>          elements[CAP_CODE_TYPE_IDX].buffer.pointer,
+>          elements[CAP_CODE_TYPE_IDX].buffer.length);
+>
+> The same pattern repeats for drv_type, platform_id, and oem_id.
+> If the firmware returns buffer.length > 16 for any of these fields,
+> memcpy writes past the destination array.
+>
+> struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
+> Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
+> are generated when a DSM returns 64-byte buffers, with writes reaching
+> 44 bytes past the end of cap_hdr's [64, 156) frame window into
+> adjacent stack redzones.
+>
+> Introduce a helper pointer to out_obj->package.elements and use it
+> to validate each buffer length against its destination field size
+> before copying, returning -EINVAL if the firmware supplies an
+> oversized buffer.
+>
+> Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update de=
+vice driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
 
-[ Upstream commit 6102ceb4eab845743ee57acd3863fbd06e93c927 ]
+Applied as 7.3-rc material, thanks!
 
-fastrpc_req_munmap_impl() is called to unmap any buffer. The buffer is
-getting removed from the list after it is unmapped from DSP. This can
-create potential race conditions if multiple threads invoke unmap
-concurrently, where one thread may remove the entry from the list while
-another thread's unmap operation is still ongoing.
-
-Fix this by removing the buffer entry from the list before calling the
-unmap operation. If the unmap fails, the entry is re-added to the list
-so that userspace can retry the unmap, or alternatively, the buffer
-will be cleaned up during device release when the DSP process is torn
-down and all DSP-side mappings are freed along with remaining buffers
-in the list.
-
-Fixes: 2419e55e532de ("misc: fastrpc: add mmap/unmap support")
-Cc: stable@kernel.org
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20260724223342.629168-3-srini@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/misc/fastrpc.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 33b4d3bf54a8d..6df7f3ee7a742 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -1409,9 +1409,6 @@ static int fastrpc_req_munmap_impl(struct fastrpc_user *fl, struct fastrpc_buf *
- 				      &args[0]);
- 	if (!err) {
- 		dev_dbg(dev, "unmmap\tpt 0x%09lx OK\n", buf->raddr);
--		spin_lock(&fl->lock);
--		list_del(&buf->node);
--		spin_unlock(&fl->lock);
- 		fastrpc_buf_free(buf);
- 	} else {
- 		dev_err(dev, "unmmap\tpt 0x%09lx ERROR\n", buf->raddr);
-@@ -1425,6 +1422,7 @@ static int fastrpc_req_munmap(struct fastrpc_user *fl, char __user *argp)
- 	struct fastrpc_buf *buf = NULL, *iter, *b;
- 	struct fastrpc_req_munmap req;
- 	struct device *dev = fl->sctx->dev;
-+	int err;
- 
- 	if (copy_from_user(&req, argp, sizeof(req)))
- 		return -EFAULT;
-@@ -1432,6 +1430,7 @@ static int fastrpc_req_munmap(struct fastrpc_user *fl, char __user *argp)
- 	spin_lock(&fl->lock);
- 	list_for_each_entry_safe(iter, b, &fl->mmaps, node) {
- 		if ((iter->raddr == req.vaddrout) && (iter->size == req.size)) {
-+			list_del(&iter->node);
- 			buf = iter;
- 			break;
- 		}
-@@ -1444,7 +1443,14 @@ static int fastrpc_req_munmap(struct fastrpc_user *fl, char __user *argp)
- 		return -EINVAL;
- 	}
- 
--	return fastrpc_req_munmap_impl(fl, buf);
-+	err = fastrpc_req_munmap_impl(fl, buf);
-+	if (err) {
-+		spin_lock(&fl->lock);
-+		list_add_tail(&buf->node, &fl->mmaps);
-+		spin_unlock(&fl->lock);
-+	}
-+
-+	return err;
- }
- 
- static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
--- 
-2.53.0
-
+> ---
+>  drivers/acpi/pfr_update.c | 45 +++++++++++++++++++++------------------
+>  1 file changed, 24 insertions(+), 21 deletions(-)
+>
+> diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
+> index 6283105bb0e8..9afd2c52fdbd 100644
+> --- a/drivers/acpi/pfr_update.c
+> +++ b/drivers/acpi/pfr_update.c
+> @@ -120,7 +120,7 @@ static int query_capability(struct pfru_update_cap_in=
+fo *cap_hdr,
+>                             struct pfru_device *pfru_dev)
+>  {
+>         acpi_handle handle =3D ACPI_HANDLE(pfru_dev->parent_dev);
+> -       union acpi_object *out_obj;
+> +       union acpi_object *out_obj, *elem;
+>         int ret =3D -EINVAL;
+>
+>         out_obj =3D acpi_evaluate_dsm_typed(handle, &pfru_guid,
+> @@ -150,7 +150,9 @@ static int query_capability(struct pfru_update_cap_in=
+fo *cap_hdr,
+>                 goto free_acpi_buffer;
+>         }
+>
+> -       cap_hdr->status =3D out_obj->package.elements[CAP_STATUS_IDX].int=
+eger.value;
+> +       elem =3D out_obj->package.elements;
+> +
+> +       cap_hdr->status =3D elem[CAP_STATUS_IDX].integer.value;
+>         if (cap_hdr->status !=3D DSM_SUCCEED) {
+>                 ret =3D -EBUSY;
+>                 dev_dbg(pfru_dev->parent_dev, "Query cap Error Status:%d\=
+n",
+> @@ -158,29 +160,30 @@ static int query_capability(struct pfru_update_cap_=
+info *cap_hdr,
+>                 goto free_acpi_buffer;
+>         }
+>
+> -       cap_hdr->update_cap =3D out_obj->package.elements[CAP_UPDATE_IDX]=
+.integer.value;
+> +       if (elem[CAP_CODE_TYPE_IDX].buffer.length > sizeof(cap_hdr->code_=
+type) ||
+> +           elem[CAP_DRV_TYPE_IDX].buffer.length > sizeof(cap_hdr->drv_ty=
+pe) ||
+> +           elem[CAP_PLAT_ID_IDX].buffer.length > sizeof(cap_hdr->platfor=
+m_id) ||
+> +           elem[CAP_OEM_ID_IDX].buffer.length > sizeof(cap_hdr->oem_id))
+> +               goto free_acpi_buffer;
+> +
+> +       cap_hdr->update_cap =3D elem[CAP_UPDATE_IDX].integer.value;
+>         memcpy(&cap_hdr->code_type,
+> -              out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointe=
+r,
+> -              out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length=
+);
+> -       cap_hdr->fw_version =3D
+> -               out_obj->package.elements[CAP_FW_VER_IDX].integer.value;
+> -       cap_hdr->code_rt_version =3D
+> -               out_obj->package.elements[CAP_CODE_RT_VER_IDX].integer.va=
+lue;
+> +              elem[CAP_CODE_TYPE_IDX].buffer.pointer,
+> +              elem[CAP_CODE_TYPE_IDX].buffer.length);
+> +       cap_hdr->fw_version =3D elem[CAP_FW_VER_IDX].integer.value;
+> +       cap_hdr->code_rt_version =3D elem[CAP_CODE_RT_VER_IDX].integer.va=
+lue;
+>         memcpy(&cap_hdr->drv_type,
+> -              out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.pointer=
+,
+> -              out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length)=
+;
+> -       cap_hdr->drv_rt_version =3D
+> -               out_obj->package.elements[CAP_DRV_RT_VER_IDX].integer.val=
+ue;
+> -       cap_hdr->drv_svn =3D
+> -               out_obj->package.elements[CAP_DRV_SVN_IDX].integer.value;
+> +              elem[CAP_DRV_TYPE_IDX].buffer.pointer,
+> +              elem[CAP_DRV_TYPE_IDX].buffer.length);
+> +       cap_hdr->drv_rt_version =3D elem[CAP_DRV_RT_VER_IDX].integer.valu=
+e;
+> +       cap_hdr->drv_svn =3D elem[CAP_DRV_SVN_IDX].integer.value;
+>         memcpy(&cap_hdr->platform_id,
+> -              out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.pointer,
+> -              out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length);
+> +              elem[CAP_PLAT_ID_IDX].buffer.pointer,
+> +              elem[CAP_PLAT_ID_IDX].buffer.length);
+>         memcpy(&cap_hdr->oem_id,
+> -              out_obj->package.elements[CAP_OEM_ID_IDX].buffer.pointer,
+> -              out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length);
+> -       cap_hdr->oem_info_len =3D
+> -               out_obj->package.elements[CAP_OEM_INFO_IDX].buffer.length=
+;
+> +              elem[CAP_OEM_ID_IDX].buffer.pointer,
+> +              elem[CAP_OEM_ID_IDX].buffer.length);
+> +       cap_hdr->oem_info_len =3D elem[CAP_OEM_INFO_IDX].buffer.length;
+>
+>         ret =3D 0;
+>
+> --
+> 2.55.0
+>
