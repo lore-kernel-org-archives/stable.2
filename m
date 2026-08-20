@@ -1,108 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F2347DD42;
-	Thu, 20 Aug 2026 17:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787248182; cv=none; b=KfmZ1D0Y/2hWixrsVxvtl4G62Teq437DiKyIaeKEYfLrIFu68V0LRI7L9Tjxe2WJXTF4hqQO7wbQttv7eN+SjhIbdcRJE54Qt5vqLzu03TYQ/09o59YH108JMVNIuVfc+P2/fTKGNnEKhI0XRDV5L38z0ZXxAzsIzaHGo2MzdF8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787248182; c=relaxed/simple;
-	bh=oloLVMAAtlN55QMmnJBmynqwJx8VG3FWk+s3VXMXBLM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lozuFXqmOZcnwsRA2x5ZWX9SjJer6pwYgkCUQkIZs6sJCRaWaZe+DKDpQXt2XN/HkljJvL3tKjLmGb6OeLKgqZOl6xaAk+FqrNIjd8J4HHt+NKDpw69FnwX3Ywz+Doa76I5hcOnCNp5ULSj3SIUwVJ4Oq5a1+HJoMw0wIBp9NW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=emoLfCoE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83A335DA68
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 17:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787248186; cv=pass; b=EUSfCWOnM+0FYpa2Xu0tyn5HZdyvfCKlNdR/x3zzRFMPa9eNZAoxT2qFDFUFFlkicSg8UMZMu9ejJzGCUvCr6A6cSLKV1MAAohGCrdYbSUroS6S7UZQ9gGl7DYuTXVeHI5+Fibau7pHdSKSlMqyBDFVRWOpJW1v94doEd44Etn8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787248186; c=relaxed/simple;
+	bh=scRqJg4KU9XRGMMQmjBz/z1e9UrAgeP4lSxWj+3CvV0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LWPPMVMzfDe9mP65ZP2guU/G1eo9YYykJ/XiuPTK27ShTl9r412+ycCvSc8BDsrcijtZy2rkmFLeo7jwMaS76V1lIdccH47cNIt7ZR7nzO5OO1SDg50HIR0/XJ1kOhl2uSAaiIFGZvhnxhNxuAJRAkHmuZE2sJ7OhqvJTbZ0Jyg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=jC1ktIJq; arc=pass smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="emoLfCoE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ACEA1F000E9;
-	Thu, 20 Aug 2026 17:49:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787248180;
-	bh=PbpF2+/wi+Z2X81SAbCauIhcr6v7msK9bGWpv7eGpv8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=emoLfCoEq//aFEt60Dm/uHzWZL3J+F03JxzzfZUY3PSimQ3XgRekRaiefWMJ4+cB1
-	 d4oc9ch5Z3RJc7+3bE7NqttzWmMI0MJgvvnpFtF2H/4+pgLtTcDUQ6G4ojzlTtJRE6
-	 0NdRHTdawvGen4ThS7tG4k9y4mCq44ziYjsudLAs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Heinz Mauelshagen <heinzm@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 137/303] dm crypt: correct foo* to foo *
-Date: Thu, 20 Aug 2026 16:54:33 +0200
-Message-ID: <20260820145257.392587686@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260820145253.200766705@linuxfoundation.org>
-References: <20260820145253.200766705@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="jC1ktIJq"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ca00f126b7eso121150a12.2
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:49:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787248184; cv=none;
+        d=google.com; s=arc-20260327;
+        b=J7TNtZ0ySfWuJQiKDF9OC2uWmzskCcUa9uygY3DtersH9x3qAjD/sZdV6UIrjlaXda
+         mOg0GfJGkd38knDvkYfs9eBOSkv5aToo0PuPUUvjtpCQejn3BDzRXLe69jfOyGfXd/fQ
+         f6jKcVSggiDsSv8r3YIUbXhdK/ggD3uorRRESDgNpp8oxfBLUmFOaF0IkroMaHSfc5ja
+         5NNNAQqNt/zgf3/NNRrDeIJWrsiSZ/fo1toMWTq+Ad4VSYxwv+e1UGWsV1BzAAiBL9A3
+         UOzTMHeRl0zUe1buBx4gj2y+G9DEcMa9O0iNFiyTBrJZkQ34t60CDazc5GdZco7nbqZ6
+         aXSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CmcwQpObp8rK/yShro+4Scxu1zxgojYuFikiYx3D+pY=;
+        fh=f8EGNBkbLGX97ym1DJRilHv+WvZB0MzCD074UPJgU9M=;
+        b=kZsOghgCHipbaOx0gYMtXJcNFN1fFu7QxOP46fFOtcAQ6WKWPajSLo8HY/qYvkvrJa
+         8cv1YgF6FRCIxxSWBClQvUNpcOr+wS8S++A4J76iFcjMTP51PrpQfBtGycx8xiqfba/4
+         jBruEZCVvzGWTc3yj0Y1BHwrv40RHr03ffxwq/YJr9r+lwQsp03qCnR6UllleXDMpmff
+         hO02WYRILn/cp8SsT8L8vTvOXpO13qbiWHShaXOgYf5J6qI+PVzTJAjAaYusWN57Qfsl
+         at1r3Zq8uou6ZmySEl8hZXCiFr765W6xUmIpywdSkmSjbTvIlLb1DVO8p1MRn8GdNC4X
+         rjXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1787248184; x=1787852984; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CmcwQpObp8rK/yShro+4Scxu1zxgojYuFikiYx3D+pY=;
+        b=jC1ktIJqutxoU4gDiJh1Rhdj5nQQ0WALbuvXq9KSLh3UaZLfHILZmnWzsehygZRVC/
+         TToqJlFLunoGpk64+JYeH7kXXEZjkmtjdiGteFyEC1zb+hWSCLY69+SkS6LJa0wCwNpS
+         ilxmsadFWQtKy7hObE0fuPeFeOAsWYw4a5QcM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787248184; x=1787852984;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CmcwQpObp8rK/yShro+4Scxu1zxgojYuFikiYx3D+pY=;
+        b=AOaSu7sv2jonno3lw1r/Z7v5GrnavQ+u7GbskhJQR8evE81ha1F2v/ofRp+6W/3VQ7
+         LtXD6JZCiEasO0kYuU8gYoLBCvGtSano1fiwJjDTxEVg23zS8Wl8QROXCxVBWVYe/+B3
+         pSldJnOBxV8p5oArsR9F6uHEH+BlcZePF6b/nJOJjwB7S/Uf9bD25I0lOD1oHAsuw3Kg
+         IB8eCfAR3DSmlSK4oeGkUyjShaDW8eUZop8LBH5APwCkCHLUm61wUp5As8fvG/nfqK5J
+         pYEc87bXiFznwHtS6eOnRk9q4aGTp1S8hIFa9PZ/x8PqoCCHNVksLZKG4HLvapJ7pBil
+         +w0w==
+X-Gm-Message-State: AOJu0Yx6r2YkH+O50DWKGxGa8YwH5n37FfNMcVzE0dyDXqPywrkYXQ/h
+	EwRBeQ63D/MTZVVy/z0mPT/ioOJubUkdf1iKjLmBmYoomnsr5JUe9pVXaYRVcSUHGCW/a//fCAp
+	vAzoIAIrY+eVJOM1dSBgwXCUP3Et5DdY2VqaeHhnj
+X-Gm-Gg: AR+sD12g9lbpkyxhsL74ZSAzjJ+VxYuNekU4mbTTepGMhKGRZOFez1hM69g3QObfGoW
+	U7QLdBWjL5sCKBhCGygHaKIC42KdJZRPJOUkTJRVEs6N+SAZ+QJGkeZLLuCB2JNSaQ6E9AssAIK
+	i1i2WLOxaHW4ujONzmBtBYoBkefFxMDg3soPex6Cc4ZU3yr7rklEDwVaT2Rp7VbEcp73mSj/YTZ
+	lZt+98M/buw9CoEpy6hBH+Dr8Cwo1d8NQIlf49XmBRIqt3RV3pqv+pYXuLjTyl3u8pIv3pYHUDU
+	yyXqppXNXo7n+618XcuZ3LJF9wItdHBbKDejz5oxIA==
+X-Received: by 2002:a05:6a00:6ca2:b0:82f:2b0:2809 with SMTP id
+ d2e1a72fcca58-851d3817017mr24869663b3a.1.1787248184012; Thu, 20 Aug 2026
+ 10:49:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260818101735.16655-1-jhs@mojatatu.com> <20260818101735.16655-2-jhs@mojatatu.com>
+In-Reply-To: <20260818101735.16655-2-jhs@mojatatu.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Thu, 20 Aug 2026 13:49:32 -0400
+X-Gm-Features: AcwNN1U-J51-4o4xhcv8Itwt2BV3UxApsKXIGufvIdxkSOh6aH05D8cbn9tzvYo
+Message-ID: <CAM0EoM=J1YnjBLpCOPjDwFOOwAYgZLtOXCYffTmi=w5Ne40bGw@mail.gmail.com>
+Subject: Re: [PATCH net 2/2] selftests: tc-testing: add TCA_STAB overhead
+ rejection tests for DRR and ETS
+To: netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, vega@nebusec.ai, 
+	Victor Nogueira <victor@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Aug 18, 2026 at 6:17=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
+ wrote:
+>
+> Add tdc test cases that verify a qdisc with an oversized TCA_STAB
+> overhead (2147483000) is rejected. Without the fix, the qdisc is
+> accepted and a single packet drives the deficit loop into a soft
+> lockup; with the fix, the add fails with -EINVAL.
+>
+> Reported-by: vega@nebusec.ai
+> Tested-by: Victor Nogueira <victor@mojatatu.com>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> ---
+>  .../tc-testing/tc-tests/qdiscs/drr.json       | 20 +++++++++++++++++++
+>  .../tc-testing/tc-tests/qdiscs/ets.json       | 20 +++++++++++++++++++
+>  2 files changed, 40 insertions(+)
+>
+> diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/drr.json =
+b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/drr.json
+> index 2b61d8d79bde..7713eb35aaeb 100644
+> --- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/drr.json
+> +++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/drr.json
+> @@ -86,5 +86,25 @@
+>          "teardown": [
+>              "$TC qdisc del dev $DUMMY root"
+>          ]
+> +    },
+> +    {
+> +        "id": "d1e2",
+> +        "name": "Reject DRR qdisc with oversized TCA_STAB overhead",
+> +        "category": [
+> +            "qdisc",
+> +            "drr"
+> +        ],
+> +        "plugins": {
+> +            "requires": "nsPlugin"
+> +        },
+> +        "setup": [
+> +        ],
+> +        "cmdUnderTest": "$TC qdisc add dev $DUMMY handle 1: root stab ov=
+erhead 2147483000 drr",
+> +        "expExitCode": "2",
+> +        "verifyCmd": "$TC qdisc show dev $DUMMY",
+> +        "matchPattern": "qdisc drr",
+> +        "matchCount": "0",
+> +        "teardown": [
+> +        ]
+>      }
+>  ]
+> diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/ets.json =
+b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/ets.json
+> index ee09e6d6fdf3..da7ae626f7e1 100644
+> --- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/ets.json
+> +++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/ets.json
+> @@ -1007,5 +1007,25 @@
+>          "teardown": [
+>              "echo \"1\" > /sys/bus/netdevsim/del_device"
+>          ]
+> +    },
+> +    {
+> +        "id": "f3a4",
+> +        "name": "Reject ETS qdisc with oversized TCA_STAB overhead",
+> +        "category": [
+> +            "qdisc",
+> +            "ets"
+> +        ],
+> +        "plugins": {
+> +            "requires": "nsPlugin"
+> +        },
+> +        "setup": [
+> +        ],
+> +        "cmdUnderTest": "$TC qdisc add dev $DUMMY handle 1: root stab ov=
+erhead 2147483000 ets bands 1 strict 0 quanta 1",
+> +        "expExitCode": "2",
+> +        "verifyCmd": "$TC qdisc show dev $DUMMY",
+> +        "matchPattern": "qdisc ets",
+> +        "matchCount": "0",
+> +        "teardown": [
+> +        ]
+>      }
+>  ]
+> --
+> 2.43.0
 
-------------------
+V2 had a different title.
+--
+pw-bot: cr
 
-From: Heinz Mauelshagen <heinzm@redhat.com>
-
-[ Upstream commit ced6e475c3754dad3b63966d79f375d8f7193750 ]
-
-Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
-Signed-off-by: Mike Snitzer <snitzer@kernel.org>
-Stable-dep-of: edf025f08385 ("dm-integrity: don't increment hash_offset twice")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/md/dm-crypt.c |   18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
-
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -990,20 +990,20 @@ static int crypt_iv_elephant(struct cryp
- 	}
- 
- 	if (bio_data_dir(dmreq->ctx->bio_in) != WRITE) {
--		diffuser_disk_to_cpu((u32*)data_offset, cc->sector_size / sizeof(u32));
--		diffuser_b_decrypt((u32*)data_offset, cc->sector_size / sizeof(u32));
--		diffuser_a_decrypt((u32*)data_offset, cc->sector_size / sizeof(u32));
--		diffuser_cpu_to_disk((__le32*)data_offset, cc->sector_size / sizeof(u32));
-+		diffuser_disk_to_cpu((u32 *)data_offset, cc->sector_size / sizeof(u32));
-+		diffuser_b_decrypt((u32 *)data_offset, cc->sector_size / sizeof(u32));
-+		diffuser_a_decrypt((u32 *)data_offset, cc->sector_size / sizeof(u32));
-+		diffuser_cpu_to_disk((__le32 *)data_offset, cc->sector_size / sizeof(u32));
- 	}
- 
- 	for (i = 0; i < (cc->sector_size / 32); i++)
- 		crypto_xor(data_offset + i * 32, ks, 32);
- 
- 	if (bio_data_dir(dmreq->ctx->bio_in) == WRITE) {
--		diffuser_disk_to_cpu((u32*)data_offset, cc->sector_size / sizeof(u32));
--		diffuser_a_encrypt((u32*)data_offset, cc->sector_size / sizeof(u32));
--		diffuser_b_encrypt((u32*)data_offset, cc->sector_size / sizeof(u32));
--		diffuser_cpu_to_disk((__le32*)data_offset, cc->sector_size / sizeof(u32));
-+		diffuser_disk_to_cpu((u32 *)data_offset, cc->sector_size / sizeof(u32));
-+		diffuser_a_encrypt((u32 *)data_offset, cc->sector_size / sizeof(u32));
-+		diffuser_b_encrypt((u32 *)data_offset, cc->sector_size / sizeof(u32));
-+		diffuser_cpu_to_disk((__le32 *)data_offset, cc->sector_size / sizeof(u32));
- 	}
- 
- 	kunmap_atomic(data);
-@@ -1268,7 +1268,7 @@ static unsigned int *org_tag_of_dmreq(st
- {
- 	u8 *ptr = iv_of_dmreq(cc, dmreq) + cc->iv_size +
- 		  cc->iv_size + sizeof(uint64_t);
--	return (unsigned int*)ptr;
-+	return (unsigned int *)ptr;
- }
- 
- static void *tag_from_dmreq(struct crypt_config *cc,
-
-
+>
