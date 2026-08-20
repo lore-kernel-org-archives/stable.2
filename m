@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4F0215161
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 22:28:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6F1215161
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 22:28:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787264881; cv=none; b=A8yZA0wNS4nwKmOzcDDiV6ptZLwpOwEWFK4sYdmeYFHELWrJ2/zMeJNG1ceNUk1kBqd0MiDOeHZCDkCWFKojxp0BQ4+sYowGw6OHFNFjZa8uDH0t900cnm2JWXHR7Aj0eh1Kpy3fZSfYNbmErrb3h5gIecA4CZVF7ybocPydpmc=
+	t=1787264885; cv=none; b=ksL6m0WoCHX/ln4eoRXZfk4EfHbBtVMDnce3CB9MXPmb3yg527TrqiPZvj1G/24BhPbAvq1uR9ZIerm9WPjj4v626XmnCvbsfaoXqhC3bcUllyZDZcEzpkM8EeE3UnQfooHOMjFJg0XtNlVJx+sSwoa3J4j4zcQ/LzcHcbQnAkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787264881; c=relaxed/simple;
-	bh=qsy5aJb37WaM+HptbzgPpG3IycpqFk4jBKAuDAE3FpM=;
+	s=arc-20240116; t=1787264885; c=relaxed/simple;
+	bh=wayy42s7KmZBne6AHpL/hFJdq4l36AOrNauhaprH9zA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m/W1GVuE6knU/fvqG3dmjJU+9REyw2/JBhx0TLk3APULIq5za9+TKpR60cV+6aQJwTK6MFB/7V5M9aRO5yUF+KVybzQ77GYHnsFgbgH+FYFRitsZyfs/P5fNAHg+CSrX6b8rs+jJUp3jyaCSqXzjbIRYKE76BdLlR/hXDlOFrCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CbH7OAXM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hVCaJV7Ak41YOcgg7uDKMEZlqZU2FrE0NZoSqYsmLeNiE0TH8rXoBm3zYfpthNkk+XGJ+hA9w8367VdZMskEBbeGX7WNf+ughn3QoJasCEidu7PVya2zpma1+PjP8neIfkmK12xYWp10BgnpRUlVhAlzNza0icAUDJthCF1YOIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jj8xTVxf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CbH7OAXM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63E941F000E9;
-	Thu, 20 Aug 2026 22:27:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jj8xTVxf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 786371F00A3A;
+	Thu, 20 Aug 2026 22:28:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787264880;
-	bh=7ovW3nmJ0dYMAJi0rQQn70omooXPhhr6z4p4Wv+DBwI=;
+	s=k20260515; t=1787264883;
+	bh=avln2IcH5e9leDfZxi4+xZIukLIwUi/qoKxzErMYEVM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CbH7OAXMFFYCdWuIsVXOXKqVjy3y0zdBNk/aUAL5bmzx9CZqUS7yfL00lXSMwoa8A
-	 H/TLJ3xeE+nar/sjCFDSRnsNaolyCGrPQtks96xZEeALCcWMnEJySn63fjtN6jRlAG
-	 RciHZflMax+jrvEeGPFmswZ/jj+cPc8iVw98O+m1RHdR6d0zO9USnCoXbzC/q1991f
-	 Jo0yfnTajiHJL4Y3dk72KeUDoJ4qtix6aljuRRA42VYVQs1dXDna3EgRXJp8obpIzE
-	 IMD96vVediC2rt9nTXCaGOgu8bUSq4JXuOkczIW53l8S8L+6sbg/w4hrPlwagdc43/
-	 Y6jj+mZeR15yg==
+	b=Jj8xTVxfKm45F7QOSesaIt9l3pPfPMMEpuQMRyR0R4faY1D5CTr9PAjEFaldnt8re
+	 frrNDFtzYFwLhdEmUeU6wKbU4NehQRchLlZncXSo+My0fo7CYohrgoHQBjWN8uZBPT
+	 sTTjCjKXFBHgu+VRT6l8C550bDg39zNRn7i2Yw93lg0HzXlE6yHsKEme8ZcPE24X+D
+	 8c2jafoigBfhHFjVUKPjxwNFxzUPHPWPc/flVMpvgG0fNb+d6DWKTKHLMiogAzK5jt
+	 4YxV9D3Us+A8DG6YlOV+jrxfViwslR4o7sS8uVh5ns5KmYbbyo6Bn34OIEEROL2PJe
+	 Tdg35qIfFgVhA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Koichiro Den <den@valinux.co.jp>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] NTB: ntb_netdev: Preserve RX queue depth on allocation failure
-Date: Thu, 20 Aug 2026 18:27:57 -0400
-Message-ID: <20260820222757.2319999-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] serial: sc16is7xx: rename EFR mutex with generic name
+Date: Thu, 20 Aug 2026 18:27:59 -0400
+Message-ID: <20260820222801.2320182-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081710-mandolin-absence-59b8@gregkh>
-References: <2026081710-mandolin-absence-59b8@gregkh>
+In-Reply-To: <2026081753-ebook-finisher-4e66@gregkh>
+References: <2026081753-ebook-finisher-4e66@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,73 +45,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Koichiro Den <den@valinux.co.jp>
+From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
-[ Upstream commit d2121faf133ac3bf9531b53a7e21273649a08517 ]
+[ Upstream commit d9b2d7ddbb973b981c20b21e9228581bb156f66f ]
 
-ntb_netdev_rx_handler() hands the received skb to the network stack
-before allocating its replacement. If the allocation fails, nothing is
-reposted. Every failure therefore takes one buffer out of the RX queue
-while the interface remains up, and enough failures eventually stall
-reception.
+This mutex is used as a lock when accessing registers that share the same
+address space, not necessarily EFR registers.
 
-A retry path could refill the queue later, but ntb_netdev has none.
-Allocate the replacement first instead. If that fails, drop the packet
-and repost the same skb. This keeps the queue full and lets packet
-delivery resume as soon as memory is available again.
+For example, address 0x06 is shared by MSR, TCR and XOFF1 registers,
+independently of EFR.
 
-Fixes: 548c237c0a99 ("net: Add support for NTB virtual ethernet device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Link: https://patch.msgid.link/20260806032537.3526498-1-den@valinux.co.jp
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ kept HEAD's `struct net_device *ndev = qp_data;` declaration instead of the per-queue context variables, adding only `new_skb` to the existing `skb` declaration ]
+Rename the mutex with a more generic name to avoid misinterpreting its
+usage.
+
+Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Link: https://patch.msgid.link/20251027142957.1032073-3-hugo@hugovil.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 246ac114f485 ("serial: sc16is7xx: enable THRI before filling TX FIFO")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ntb_netdev.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/tty/serial/sc16is7xx.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
-index dade51cf599c6..554ec6e544403 100644
---- a/drivers/net/ntb_netdev.c
-+++ b/drivers/net/ntb_netdev.c
-@@ -100,7 +100,7 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 				  void *data, int len)
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index 13a86f0c2d9b4..a890b0da58947 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -328,7 +328,7 @@ struct sc16is7xx_one_config {
+ struct sc16is7xx_one {
+ 	struct uart_port		port;
+ 	struct regmap			*regmap;
+-	struct mutex			efr_lock; /* EFR registers access */
++	struct mutex			lock; /* For registers sharing same address space. */
+ 	struct kthread_work		tx_work;
+ 	struct kthread_work		reg_work;
+ 	struct kthread_delayed_work	ms_work;
+@@ -436,7 +436,7 @@ static void sc16is7xx_efr_lock(struct uart_port *port)
  {
- 	struct net_device *ndev = qp_data;
--	struct sk_buff *skb;
-+	struct sk_buff *skb, *new_skb;
- 	int rc;
+ 	struct sc16is7xx_one *one = to_sc16is7xx_one(port, port);
  
- 	skb = data;
-@@ -115,6 +115,12 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 		goto enqueue_again;
+-	mutex_lock(&one->efr_lock);
++	mutex_lock(&one->lock);
+ 
+ 	/* Backup content of LCR. */
+ 	one->old_lcr = sc16is7xx_port_read(port, SC16IS7XX_LCR_REG);
+@@ -458,7 +458,7 @@ static void sc16is7xx_efr_unlock(struct uart_port *port)
+ 	/* Restore original content of LCR */
+ 	sc16is7xx_port_write(port, SC16IS7XX_LCR_REG, one->old_lcr);
+ 
+-	mutex_unlock(&one->efr_lock);
++	mutex_unlock(&one->lock);
+ }
+ 
+ static void sc16is7xx_ier_clear(struct uart_port *port, u8 bit)
+@@ -593,7 +593,7 @@ static int sc16is7xx_set_baud(struct uart_port *port, int baud)
+ 			      SC16IS7XX_MCR_CLKSEL_BIT,
+ 			      prescaler == 1 ? 0 : SC16IS7XX_MCR_CLKSEL_BIT);
+ 
+-	mutex_lock(&one->efr_lock);
++	mutex_lock(&one->lock);
+ 
+ 	/* Backup LCR and access special register set (DLL/DLH) */
+ 	lcr = sc16is7xx_port_read(port, SC16IS7XX_LCR_REG);
+@@ -609,7 +609,7 @@ static int sc16is7xx_set_baud(struct uart_port *port, int baud)
+ 	/* Restore LCR and access to general register set */
+ 	sc16is7xx_port_write(port, SC16IS7XX_LCR_REG, lcr);
+ 
+-	mutex_unlock(&one->efr_lock);
++	mutex_unlock(&one->lock);
+ 
+ 	return DIV_ROUND_CLOSEST((clk / prescaler) / 16, div);
+ }
+@@ -756,7 +756,7 @@ static void sc16is7xx_update_mlines(struct sc16is7xx_one *one)
+ 	unsigned long flags;
+ 	unsigned int status, changed;
+ 
+-	lockdep_assert_held_once(&one->efr_lock);
++	lockdep_assert_held_once(&one->lock);
+ 
+ 	status = sc16is7xx_get_hwmctrl(port);
+ 	changed = status ^ one->old_mctrl;
+@@ -787,7 +787,7 @@ static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
+ 	struct uart_port *port = &s->p[portno].port;
+ 	struct sc16is7xx_one *one = to_sc16is7xx_one(port, port);
+ 
+-	mutex_lock(&one->efr_lock);
++	mutex_lock(&one->lock);
+ 
+ 	iir = sc16is7xx_port_read(port, SC16IS7XX_IIR_REG);
+ 	if (iir & SC16IS7XX_IIR_NO_INT_BIT) {
+@@ -834,7 +834,7 @@ static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
  	}
  
-+	new_skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
-+	if (!new_skb) {
-+		ndev->stats.rx_dropped++;
-+		goto enqueue_again;
-+	}
-+
- 	skb_put(skb, len);
- 	skb->protocol = eth_type_trans(skb, ndev);
- 	skb->ip_summed = CHECKSUM_NONE;
-@@ -127,12 +133,7 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 		ndev->stats.rx_bytes += len;
+ out_port_irq:
+-	mutex_unlock(&one->efr_lock);
++	mutex_unlock(&one->lock);
+ 
+ 	return rc;
+ }
+@@ -878,9 +878,9 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
+ 	    (port->rs485.delay_rts_before_send > 0))
+ 		msleep(port->rs485.delay_rts_before_send);
+ 
+-	mutex_lock(&one->efr_lock);
++	mutex_lock(&one->lock);
+ 	sc16is7xx_handle_tx(port);
+-	mutex_unlock(&one->efr_lock);
++	mutex_unlock(&one->lock);
+ }
+ 
+ static void sc16is7xx_reconf_rs485(struct uart_port *port)
+@@ -947,9 +947,9 @@ static void sc16is7xx_ms_proc(struct kthread_work *ws)
+ 	struct sc16is7xx_port *s = dev_get_drvdata(one->port.dev);
+ 
+ 	if (one->port.state) {
+-		mutex_lock(&one->efr_lock);
++		mutex_lock(&one->lock);
+ 		sc16is7xx_update_mlines(one);
+-		mutex_unlock(&one->efr_lock);
++		mutex_unlock(&one->lock);
+ 
+ 		kthread_queue_delayed_work(&s->kworker, &one->ms_work, HZ);
  	}
+@@ -1635,7 +1635,7 @@ int sc16is7xx_probe(struct device *dev, const struct sc16is7xx_devtype *devtype,
+ 		s->p[i].old_mctrl	= 0;
+ 		s->p[i].regmap		= regmaps[i];
  
--	skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
--	if (!skb) {
--		ndev->stats.rx_errors++;
--		ndev->stats.rx_frame_errors++;
--		return;
--	}
-+	skb = new_skb;
+-		mutex_init(&s->p[i].efr_lock);
++		mutex_init(&s->p[i].lock);
  
- enqueue_again:
- 	rc = ntb_transport_rx_enqueue(qp, skb, skb->data, ndev->mtu + ETH_HLEN);
+ 		ret = uart_get_rs485_mode(&s->p[i].port);
+ 		if (ret)
 -- 
 2.53.0
 
