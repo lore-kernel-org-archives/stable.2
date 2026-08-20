@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62185415B8E
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:41:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CAAF3B9D95
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:42:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787222522; cv=none; b=XUkduZED291LmzJUgzDpQGUm1+2cUeBHL74jME6YC3DjIrCdL2R8HNjDjO434sjsCfrsJctw5ugepGpqybnoL6uo2pbjAdHKa2Ght0ie/z+dWUsbnDNnlcWgK5ocC8ZMXExPgkynf0gNeJM6S7Bud7pC6qm9LIL3TeUECgIwACY=
+	t=1787222531; cv=none; b=hDMPSQBkOvNcy4L+g7i/kseDxym2K76/cEeoYaHZwMA2YF0I5muiHMJiKyt6WauRDR7AH18HXaLyUGak+9lfcGyiUKPT3hgna41XSz2r1cV28xVxXnleDArpfmwQhNNgNWkje9QP7qujPMXLq+HhEpf2i17cixbaGh+eaAxtEcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787222522; c=relaxed/simple;
-	bh=p+C2UFf8UZKcDYkVpwtHb2kxX2CEk1PIdh69ZvVC78M=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sULOC7NqB1lWansdt+Y0CX3boZB8sGHjiWFnmTR0LxDZeC4JlYHC4YlV1ah7oTeK+a/yWiDXSbXkg6kzBgPiawipv7TRmQ5KhlCmHE46PYg1KOzfEjeJSrVPHXRkYSWp6qmTFRjXBPIrv3MzFa7YCYY3UReCf2uo8UTD+lBPGog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bxrcoqvB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787222531; c=relaxed/simple;
+	bh=mCdK0yD6hMqcguJ1HMR7iNdh5sIB90f/4bzrqlhTevU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=P9+sjCE03cLUpqRaHpU6uey724HN600zwr5G8uS3mWE/BuMKFFEpPMe9N4+NNYqja8bqygba6dG/W0Ci3GGEdZjem4/xOBGDMtLWZXOtE67X0Z6+FE1OhM90snm7NIjLY0sZiICcfCw2KKt6BQKnBnPldroFQnkPJj6ZtkVzayU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UPEfYeF5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bxrcoqvB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573651F000E9;
-	Thu, 20 Aug 2026 10:41:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UPEfYeF5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22421F000E9;
+	Thu, 20 Aug 2026 10:42:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787222517;
-	bh=u7b0t4hqVkBKVzJiPn1iXrDKv27yDvZt4zKGCsaN4ZU=;
+	s=korg; t=1787222529;
+	bh=W9rUPD/rcgSVNrfzXM5fW7sgqjPTf5XlP9p8vpa6vkg=;
 	h=Subject:To:Cc:From:Date;
-	b=bxrcoqvB6NkwFP0GFUtXkhaVgdA4+4pi7rRKnFNe0jK2repKB3fLShtKcwdmYE9tG
-	 jKZ0fZzFm0oZJbb6J3/mMvF+bgWAHeojHZORARywPIJFET5qZd9GXZgwu9ywaHC1dF
-	 ke5WHdAarpJzubS1FY5mbdqwsbleCvA+l/PK49KA=
-Subject: FAILED: patch "[PATCH] selinux: require a class's permission values to cover its" failed to apply to 5.15-stable tree
-To: hexlabsecurity@proton.me,paul@paul-moore.com,stephen.smalley.work@gmail.com
+	b=UPEfYeF5ebQ5XmMLeagXuc3zc29518IhpRhocq+kJc3OHvl9RSeNH1YqSAZsF1P+U
+	 ulfGlbEvFysAnwHBWeYLlfFC+9orI1B702DIRj3l7eKPQVpzIMTXgj4JJnI5+7uDRt
+	 euiPdqe9G4PIpDIbdUzosl2PiiPxXgFOE0l3TIrY=
+Subject: FAILED: patch "[PATCH] mptcp: avoid combining some incoming suboptions" failed to apply to 5.15-stable tree
+To: matttbe@kernel.org,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 12:41:23 +0200
-Message-ID: <2026082023-agreeing-overbook-66d4@gregkh>
+Date: Thu, 20 Aug 2026 12:42:04 +0200
+Message-ID: <2026082004-brutishly-geranium-d749@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x b98a8ac50775540f3804397ed08f61ef9910bcab
+git cherry-pick -x b6ee361524641f57b2e2363f7737f20e17f67827
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082023-agreeing-overbook-66d4@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082004-brutishly-geranium-d749@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,148 +62,225 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b98a8ac50775540f3804397ed08f61ef9910bcab Mon Sep 17 00:00:00 2001
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Fri, 31 Jul 2026 12:44:10 -0500
-Subject: [PATCH] selinux: require a class's permission values to cover its
- permission count
+From b6ee361524641f57b2e2363f7737f20e17f67827 Mon Sep 17 00:00:00 2001
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Date: Mon, 3 Aug 2026 18:16:34 +0200
+Subject: [PATCH] mptcp: avoid combining some incoming suboptions
 
-security_get_permissions() sizes an array by the class's permissions.nprim
-and fills it at value - 1, from the inherited common's permission table and
-then the class's own. A value no permission defines leaves a NULL that
-sel_make_perm_files() passes to d_alloc_name(), an oops inside
-sel_write_load() that strands selinux_state.policy_mutex and leaves every
-later load in uninterruptible sleep; two permissions sharing a value
-overwrite the first kstrdup(). Bounding each value by nprim catches
-neither, and neither would a count: the symbol table is keyed on the
-permission name, so duplicates pass.
+Some MPTCP suboptions are mutually exclusive according to the RFC8684,
+but also because in different places, the code doesn't expect some
+combinations to be present. That's specially true for suboptions that
+would be present twice, but with different attributes.
 
-Track the values each permission table claims and require them to cover
-exactly what its count declares, rejecting a count no value can reach.
-Conforming policies are unaffected.
+The new restrictions are the same as the ones applied on the output
+side, with mptcp_write_options. The same rules can be reused with a
+small fix: an MP_FASTCLOSE can be used with a DSS when the sender picks
+this option [1], which is not the case on Linux. Here are the rules:
 
+  Which options can be used together?
+
+  X: mutually exclusive
+  O: often used together
+  C: can be used together in some cases
+  P: could be used together but we prefer not to (optimisations)
+
+  | Opt: | MPC  | MPJ  | DSS  | ADD  |  RM  | PRIO | FAIL |  FC  |
+  |------|------|------|------|------|------|------|------|------|
+  | MPC  |------|------|------|------|------|------|------|------|
+  | MPJ  |  X   |------|------|------|------|------|------|------|
+  | DSS  |  X   |  X   |------|------|------|------|------|------|
+  | ADD  |  X   |  X   |  P   |------|------|------|------|------|
+  | RM   |  C   |  C   |  C   |  P   |------|------|------|------|
+  | PRIO |  X   |  C   |  C   |  C   |  C   |------|------|------|
+  | FAIL |  X   |  X   |  C   |  X   |  X   |  X   |------|------|
+  | FC   |  X   |  X   |  P   |  X   |  X   |  X   |  X   |------|
+  | RST  |  X   |  X   |  X   |  X   |  X   |  X   |  O   |  O   |
+  |------|------|------|------|------|------|------|------|------|
+
+The only difference is with the 'P': another stack could send and
+ADD_ADDR with other suboptions (DSS, RM_ADDR), and this should be
+allowed.
+
+A few points of attention:
+
+ - In theory, an MP_CAPABLE could be used with a RM_ADDR, but there is
+   no reason to add it with a SYN. Note that even with a 4th ACK, it
+   doesn't seem to be useful, except when IDs are known in advance via
+   another channel. Better not to break that.
+
+ - Now, combining both an MP_CAPABLE and an MP_JOIN will no longer
+   result to a reject of the two options, but only the second suboption
+   is ignored. That seems OK to do that for this unexpected error. At
+   least now all inconsistent combinations are handled the same way.
+   This could change later in next. This also means the explicit checks
+   for having both MPC + MPJ in subflow.c will now be unreachable.
+   That's fine, they will be removed in a follow-up patch.
+
+ - In case of conflicting combinations, the extra suboption(s) is/are
+   ignored: having such combinations either means the remote peer is
+   buggy, or is evil. The simplest action is then taken in this case:
+   stop processing the current suboption.
+
+ - In mp_opt->suboptions, there is also a bit reserved to the checksum,
+   which can be used in an MP_CAPABLE and a DSS. Each time a DSS option
+   can be used in parallel with another option, the checksum can be set,
+   so the verification is combined into a new OPTIONS_MPTCP_DSS macro.
+
+ - An MP_CAPABLE ACK can carry a Data-Level Length, and an optional
+   Checksum: they are the same as the ones found in a DSS, because a DSS
+   cannot be used in parallel to an MP_CAPABLE. Similarly, even if there
+   is room, a DSS cannot be used with an MP_JOIN.
+
+Fixes: eda7acddf808 ("mptcp: Handle MPTCP TCP options")
 Cc: stable@vger.kernel.org
-Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
+Link: https://www.rfc-editor.org/rfc/rfc8684.html#section-3.5-5.1 [1]
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-2-b8f496d71664@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index 69777e885ae7..d358200817bd 100644
---- a/security/selinux/ss/policydb.c
-+++ b/security/selinux/ss/policydb.c
-@@ -1154,7 +1154,18 @@ int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
- 	return 0;
- }
- 
--static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
-+/*
-+ * Bitmap of the permission values a symtab has claimed.  Values are 1-based
-+ * and bounded by SEL_VEC_MAX, the width of an access vector, so the whole set
-+ * fits in a u32 and the callers reject an nprim past that width.
-+ */
-+static u32 perm_claimed_mask(u32 nprim)
-+{
-+	return nprim ? U32_MAX >> (SEL_VEC_MAX - nprim) : 0;
-+}
-+
-+static int perm_read(struct policydb *p, struct symtab *s,
-+		     struct policy_file *fp, u32 *claimed)
- {
- 	char *key = NULL;
- 	struct perm_datum *perdatum;
-@@ -1178,6 +1189,10 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
- 	/* indexes an nprim-sized array in security_get_permissions() */
- 	if (perdatum->value > s->nprim)
- 		goto bad;
-+	/* two permissions cannot share one slot of that array */
-+	if (*claimed & (1U << (perdatum->value - 1)))
-+		goto bad;
-+	*claimed |= 1U << (perdatum->value - 1);
- 
- 	rc = str_read(&key, GFP_KERNEL, fp, len);
- 	if (rc)
-@@ -1198,7 +1213,7 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
- 	char *key = NULL;
- 	struct common_datum *comdatum;
- 	__le32 buf[4];
--	u32 i, len, nel;
-+	u32 i, len, nel, claimed = 0;
- 	int rc;
- 
- 	comdatum = kzalloc_obj(*comdatum);
-@@ -1225,17 +1240,28 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
- 	if (rc)
- 		goto bad;
- 	comdatum->permissions.nprim = le32_to_cpu(buf[2]);
-+	/* no permission value can reach a slot past SEL_VEC_MAX */
-+	rc = -EINVAL;
-+	if (comdatum->permissions.nprim > SEL_VEC_MAX)
-+		goto bad;
- 
- 	rc = str_read(&key, GFP_KERNEL, fp, len);
- 	if (rc)
- 		goto bad;
- 
- 	for (i = 0; i < nel; i++) {
--		rc = perm_read(p, &comdatum->permissions, fp);
-+		rc = perm_read(p, &comdatum->permissions, fp, &claimed);
- 		if (rc)
- 			goto bad;
- 	}
- 
-+	rc = -EINVAL;
-+	if (claimed != perm_claimed_mask(comdatum->permissions.nprim)) {
-+		pr_err("SELinux:  common %s does not define every permission it declares\n",
-+		       key);
-+		goto bad;
-+	}
-+
- 	hash_eval(&comdatum->permissions.table, "common_permissions", key);
- 
- 	rc = symtab_insert(s, key, comdatum);
-@@ -1369,7 +1395,7 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 	char *key = NULL;
- 	struct class_datum *cladatum;
- 	__le32 buf[6];
--	u32 i, len, len2, ncons, nel, val;
-+	u32 i, len, len2, ncons, nel, val, claimed = 0, inherited = 0;
- 	int rc;
- 
- 	cladatum = kzalloc_obj(*cladatum);
-@@ -1402,6 +1428,10 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 	if (rc)
- 		goto bad;
- 	cladatum->permissions.nprim = le32_to_cpu(buf[3]);
-+	/* no permission value can reach a slot past SEL_VEC_MAX */
-+	rc = -EINVAL;
-+	if (cladatum->permissions.nprim > SEL_VEC_MAX)
-+		goto bad;
- 
- 	ncons = le32_to_cpu(buf[5]);
- 
-@@ -1436,11 +1466,22 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
+diff --git a/net/mptcp/options.c b/net/mptcp/options.c
+index 038eca33c6b1..1057d500577b 100644
+--- a/net/mptcp/options.c
++++ b/net/mptcp/options.c
+@@ -50,6 +50,14 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 			}
  		}
- 	}
- 	for (i = 0; i < nel; i++) {
--		rc = perm_read(p, &cladatum->permissions, fp);
-+		rc = perm_read(p, &cladatum->permissions, fp, &claimed);
- 		if (rc)
- 			goto bad;
- 	}
  
-+	/* the class's own permissions must claim the slots the common leaves */
-+	if (cladatum->comdatum)
-+		inherited = cladatum->comdatum->permissions.nprim;
-+	rc = -EINVAL;
-+	if (claimed != (perm_claimed_mask(cladatum->permissions.nprim) &
-+			~perm_claimed_mask(inherited))) {
-+		pr_err("SELinux:  class %s does not define every permission it declares\n",
-+		       key);
-+		goto bad;
-+	}
++		/* Only the MPC + ACK can be used with a RM_ADDR */
++		if (subopt == OPTION_MPTCP_MPC_ACK) {
++			if ((mp_opt->suboptions & ~OPTION_MPTCP_RM_ADDR) != 0)
++				break;
++		} else if (mp_opt->suboptions != 0) {
++			break;
++		}
 +
- 	hash_eval(&cladatum->permissions.table, "class_permissions", key);
+ 		/* Cfr RFC 8684 Section 3.3.0:
+ 		 * If a checksum is present but its use had
+ 		 * not been negotiated in the MP_CAPABLE handshake, the receiver MUST
+@@ -122,6 +130,11 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 		break;
  
- 	rc = read_cons_helper(p, &cladatum->constraints, ncons, 0, fp);
+ 	case MPTCPOPT_MP_JOIN:
++		/* Can be used with a restricted number of other options */
++		if ((mp_opt->suboptions & ~(OPTION_MPTCP_RM_ADDR |
++					    OPTION_MPTCP_PRIO)) != 0)
++			break;
++
+ 		if (opsize == TCPOLEN_MPTCP_MPJ_SYN) {
+ 			mp_opt->suboptions |= OPTION_MPTCP_MPJ_SYN;
+ 			mp_opt->backup = *ptr++ & MPTCPOPT_BACKUP;
+@@ -153,6 +166,14 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 		break;
+ 
+ 	case MPTCPOPT_DSS:
++		/* Can be used with a restricted number of other options */
++		if ((mp_opt->suboptions & ~(OPTION_MPTCP_ADD_ADDR |
++					    OPTION_MPTCP_RM_ADDR |
++					    OPTION_MPTCP_PRIO |
++					    OPTION_MPTCP_FASTCLOSE |
++					    OPTION_MPTCP_FAIL)) != 0)
++			break;
++
+ 		pr_debug("DSS\n");
+ 		ptr++;
+ 
+@@ -240,6 +261,12 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 		break;
+ 
+ 	case MPTCPOPT_ADD_ADDR:
++		/* Can be used with a restricted number of other options */
++		if ((mp_opt->suboptions & ~(OPTIONS_MPTCP_DSS |
++					    OPTION_MPTCP_RM_ADDR |
++					    OPTION_MPTCP_PRIO)) != 0)
++			break;
++
+ 		mp_opt->echo = (*ptr++) & MPTCP_ADDR_ECHO;
+ 		if (!mp_opt->echo) {
+ 			if (opsize == TCPOLEN_MPTCP_ADD_ADDR ||
+@@ -299,6 +326,14 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 		break;
+ 
+ 	case MPTCPOPT_RM_ADDR:
++		/* Can be used with a restricted number of other options */
++		if ((mp_opt->suboptions & ~(OPTION_MPTCP_MPC_ACK |
++					    OPTIONS_MPTCP_MPJ |
++					    OPTIONS_MPTCP_DSS |
++					    OPTION_MPTCP_ADD_ADDR |
++					    OPTION_MPTCP_PRIO)) != 0)
++			break;
++
+ 		if (opsize < TCPOLEN_MPTCP_RM_ADDR_BASE + 1 ||
+ 		    opsize > TCPOLEN_MPTCP_RM_ADDR_BASE + MPTCP_RM_IDS_MAX)
+ 			break;
+@@ -313,6 +348,13 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 		break;
+ 
+ 	case MPTCPOPT_MP_PRIO:
++		/* Can be used with a restricted number of other options */
++		if ((mp_opt->suboptions & ~(OPTIONS_MPTCP_MPJ |
++					    OPTIONS_MPTCP_DSS |
++					    OPTION_MPTCP_ADD_ADDR |
++					    OPTION_MPTCP_RM_ADDR)) != 0)
++			break;
++
+ 		if (opsize != TCPOLEN_MPTCP_PRIO)
+ 			break;
+ 
+@@ -322,6 +364,11 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 		break;
+ 
+ 	case MPTCPOPT_MP_FASTCLOSE:
++		/* Can be used with a restricted number of other options */
++		if ((mp_opt->suboptions & ~(OPTIONS_MPTCP_DSS |
++					    OPTION_MPTCP_RST)) != 0)
++			break;
++
+ 		if (opsize != TCPOLEN_MPTCP_FASTCLOSE)
+ 			break;
+ 
+@@ -333,6 +380,11 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 		break;
+ 
+ 	case MPTCPOPT_RST:
++		/* Can be used with a restricted number of other options */
++		if ((mp_opt->suboptions & ~(OPTION_MPTCP_FAIL |
++					    OPTION_MPTCP_FASTCLOSE)) != 0)
++			break;
++
+ 		if (opsize != TCPOLEN_MPTCP_RST)
+ 			break;
+ 
+@@ -348,6 +400,11 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 		break;
+ 
+ 	case MPTCPOPT_MP_FAIL:
++		/* Can be used with a restricted number of other options */
++		if ((mp_opt->suboptions & ~(OPTIONS_MPTCP_DSS |
++					    OPTION_MPTCP_RST)) != 0)
++			break;
++
+ 		if (opsize != TCPOLEN_MPTCP_FAIL)
+ 			break;
+ 
+@@ -1406,7 +1463,7 @@ void mptcp_write_options(struct tcphdr *th, __be32 *ptr, struct tcp_sock *tp,
+ 	 *  RM   |  C   |  C   |  C   |  P   |------|------|------|------|
+ 	 *  PRIO |  X   |  C   |  C   |  C   |  C   |------|------|------|
+ 	 *  FAIL |  X   |  X   |  C   |  X   |  X   |  X   |------|------|
+-	 *  FC   |  X   |  X   |  X   |  X   |  X   |  X   |  X   |------|
++	 *  FC   |  X   |  X   |  P   |  X   |  X   |  X   |  X   |------|
+ 	 *  RST  |  X   |  X   |  X   |  X   |  X   |  X   |  O   |  O   |
+ 	 * ------|------|------|------|------|------|------|------|------|
+ 	 *
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index 4a2d40cd7b13..c13680d18994 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -37,6 +37,7 @@
+ 				 OPTION_MPTCP_MPC_ACK)
+ #define OPTIONS_MPTCP_MPJ	(OPTION_MPTCP_MPJ_SYN | OPTION_MPTCP_MPJ_SYNACK | \
+ 				 OPTION_MPTCP_MPJ_ACK)
++#define OPTIONS_MPTCP_DSS	(OPTION_MPTCP_DSS | OPTION_MPTCP_CSUMREQD)
+ 
+ /* MPTCP option subtypes */
+ #define MPTCPOPT_MP_CAPABLE	0
 
