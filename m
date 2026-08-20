@@ -1,118 +1,156 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD8B25B08E
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 22:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F87539C657;
+	Thu, 20 Aug 2026 23:32:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787266748; cv=none; b=roJeXlHZDCQJ7CBrAKyNYw9HXl1h+JYBr1+Aao7/riL/xWen2GaxNXEI5hDPcuSsc1p2EKxQenoN1kmn+77PuCkc5wVcIVChTQUZJHKyFCq+9oihSx2axJEO5Jy/ZqULL5MILnAJFOU/VEM6gmWgdFVbjvYM9VN3OQCbdh3ELk8=
+	t=1787268781; cv=none; b=Zfr8HjdzxPcLN532r9zXqOFg9/+3iNhcFmGizW/nkZe7x/b6LN4uIUvJQEa98wPi9KTz3jsvcTYOnVV7uuFzqOLYAsC0zqdejujHKB7EaHG1DprHxkDd9QGc8TtxuYPnMu9TVZ6ukhf4TQLks96GDMBeR3Zxumj5OfZRLeR7spk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787266748; c=relaxed/simple;
-	bh=ngByA10emgdxM5UHa+RxRnlSjddvX5xzkeSS1kMjDqo=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=KXabdUqgNXYteBQgGB3kTZ2JrJuhWBA/WouzVV8/u7RQuSFw7Cxjc5YuSaLLmyOGbgYhCcA7+0KZtqEGuGIrM/i2p/ptaJ7/Z7+bsTfeQXROah7XQU7zRtMmVjVBcoICpI2cqVTwzghNNl7vRD9UmEoHGKhukhUkMkZjz7Y8LFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=izQmt5uj; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1787268781; c=relaxed/simple;
+	bh=844r1l2yPi3UOQ1ufwoMFajzb4uieNtonJP/U1W6IHQ=;
+	h=Date:To:From:Subject:Message-Id; b=ZqEtHPUwNWzCNk+DoB+ZkRCA9Zy04oTolNrXnfrjdy8FYoo3RcNHq3q+DxFfDOyoIwvcvDT7hNxyFFojotWYgTwPoKDQSXby5tSqbo2Ud+JCv6ADDbo81TwADkE0wJHchzQZnILIpRuAesZjqYlf6bVAfyYwnWoxOdDUeoeO5N0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=pzsEd129; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="izQmt5uj"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso226503a91.3
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 15:59:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="pzsEd129"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3DA1F00ACA;
+	Thu, 20 Aug 2026 23:32:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1787266745; x=1787871545; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qVhhbTAHPzZGUGcmSE3WnC31BC/4bNVQtIpJ4+qTvoc=;
-        b=izQmt5ujbA7hmhnMCJgO/1Vx4Hw+7xsVHTfFUes+F8SY08lnTC6oGziTK6IyBYpcW3
-         8k7GuaDQ0UpvhLv/U/Nk4DQeBz6Yr+183FGtBg96c37JXliW+MHbxuolTEAr645GMIRV
-         pn7aNHUk5PSdJVqr2a7o0y//jeio4bpJ+uEmzSDQjQcpnyZ+tHHeGoSTtcdyvVNY+Ay/
-         bRl9VOPc7nu/TgvUz7xh1G4g6bFjMWtndoDsOXIakeVgofXaB1XoLiW6yZVthqtZVaiv
-         cN6EvvEKwo2h3P6YmJppKNrqHpiZIFjB6A+pOXx3DCxDMjzM2hO9dgPieqYwgL5Y0BRZ
-         2cxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787266745; x=1787871545;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qVhhbTAHPzZGUGcmSE3WnC31BC/4bNVQtIpJ4+qTvoc=;
-        b=qZyf9g8X/1eF8zf3PJgAUmKmmOudGs4ZK8t82cJOOdJlL/zYmmRMt6d3vOe7Ok5ox7
-         YGIjobUMK5d3InWRo0QhTA0ILcdwIJnZg1zQ5dLvYdV3pZhK3gaJ23WM4rs6P91RXN1D
-         VgfiE/r8X1K8COyxwXbjglJtcFPb+kMzlEF/Nwjg3DoueV3/qb7MUYAqLFOFOVAffc4W
-         EblMIniUOAsFWWCoEAnibNUTXLlUC8qLkkp8bn6WYOixG9ELDfvLspCCocxaNHdzCy0O
-         9k4gEHslaH9UEf4JBLvVl12bXrnqtpcnhKgugHeRvPuI9m+EV5TClQ9D/z6Zjl1YJtOd
-         od9A==
-X-Gm-Message-State: AFuF++kYovNxP8UECzcFkJj0aItkYazRJhRXDoYbXRe1pKCOVCwChSZy
-	ia2fGrzk7zhOIzJYJm2Evx9pSXC4eSmufDeC9BNATfTX6804QN8eamD63mD6FgpGPVw=
-X-Gm-Gg: AR+sD12zWe9ZcIzcWLgowr6w5BBZpcZZ7XMJV4nF8wvbFQndGEJ/kf96191vNTDfFB/
-	cgiXcaUf+FIUzY6d89lKXBlb7VQ+MKJCoWuNCKPymlFUId1yD4k3kzmO1jQBzChBGWXbAlI/b0z
-	KVUHB2dCBQpwJ+p2qMDwGrbTCrd+4oNG7WZHAr7n1BXOmyozblqPjxdHbv8mSOT2ugqWq73tehP
-	g9isw1DmbZZlouWaNi4xhj5zh3XJYeSaiFjNEz+VjM/np0O0SEpsDOaDqhlSkCKVz7PatVAzTh0
-	rmjucs+SimnJFEyFK7Mu3bBj8ymafr8n4gfNi1iW+6xXvBm+9A6lN8Z/8js8gGtz7rDV7mclBzk
-	aAindATgtbQDSv+iC5Fm7CEp1WkcyHjkeE48NCu8dfiS2bE8S3yKpNeH5dAIDyi/XYN0Duq6WKo
-	eanswiEdIRFFuF3uKlRGiFFYfET6LgfC5V0KwDEQgwUkw2CPZ2lct2
-X-Received: by 2002:a17:90b:2c87:b0:392:7f74:58c9 with SMTP id 98e67ed59e1d1-395c3a43766mr3258455a91.15.1787266745294;
-        Thu, 20 Aug 2026 15:59:05 -0700 (PDT)
-Received: from b455de3d9de8 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ad69638sm18248948c88.7.2026.08.20.15.59.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 15:59:04 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	d=linux-foundation.org; s=korg; t=1787268772;
+	bh=zUhRjtIc9xJ1Z/4wJ5inHh0y+hgpmO+hWxB0fMFExLg=;
+	h=Date:To:From:Subject;
+	b=pzsEd129eplazyIiSXRu+7FUpy12epbqiqbMobESYLolNKcmz3pm/lr4vNoMe5QUG
+	 2Gx24NlUd74e7S1bG/+ICeDen56b7MfYwvZ77r5C0Hab6bG2vri1KdZxeAROCpXJuX
+	 35Gq8Gy+Ex6+VX1owEID5sf5L/mDkO147wcPNcW8=
+Date: Thu, 20 Aug 2026 16:32:51 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,stable@vger.kernel.org,shakeel.butt@linux.dev,ryan.roberts@arm.com,riel@surriel.com,nphamcs@gmail.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,hughd@google.com,hannes@cmpxchg.org,dev.jain@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,baohua@kernel.org,usama.arif@linux.dev,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-huge_memory-transfer-the-pmd-dirty-bit-to-the-folio-on-zap.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260820233252.0A3DA1F00ACA@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-7.1.y: (build) stack frame size (2096)
- exceeds
- limit (2048) in 'dml314_ModeSuppor...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Thu, 20 Aug 2026 22:59:03 -0000
-Message-ID: <178726674343.934.9433374333508551644@kernelci.org>
 
-New build issue found on stable-rc/linux-7.1.y:
 
+The patch titled
+     Subject: mm/huge_memory: transfer the pmd dirty bit to the folio on zap
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-huge_memory-transfer-the-pmd-dirty-bit-to-the-folio-on-zap.patch
+
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-huge_memory-transfer-the-pmd-dirty-bit-to-the-folio-on-zap.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Usama Arif <usama.arif@linux.dev>
+Subject: mm/huge_memory: transfer the pmd dirty bit to the folio on zap
+Date: Wed, 19 Aug 2026 03:12:22 -0700
+
+zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
+file case, but not the dirty bit.  The pte path does propagate it, in
+zap_present_folio_ptes() and so does the pmd split path, in
+__split_huge_pmd_locked().
+
+For most file mappings the omission is harmless, because writing to a
+shared file mapping goes through page_mkwrite(), which dirties the folio. 
+tmpfs is different: it has no page_mkwrite(), and vma_wants_writenotify()
+is false for it, so a *read* fault on a MAP_SHARED tmpfs mapping installs
+a writable pmd via do_read_fault().  do_read_fault() does not call
+fault_dirty_shared_page(), so subsequent stores through that mapping set
+only the hardware dirty bit in the pmd and never call folio_mark_dirty(). 
+A shmem folio allocated by a fault is marked uptodate but not dirty (see
+the clear: block in shmem_get_folio_gfp()), so PG_dirty is never set at
+all.
+
+Unmapping such a folio - munmap(), or exit_mmap() when the process dies -
+then loses the only record that it was written, because zap_huge_pmd()
+drops the pmd without transferring the dirty bit.  Reclaim afterwards sees
+a clean shmem folio: the whole swap-out block in shrink_folio_list() is
+inside "if (folio_test_dirty(folio))", so pageout() is skipped and the
+folio falls into __remove_mapping().  There, folio_is_file_lru() is false
+for a swapbacked folio, so no shadow entry is created and
+__filemap_remove_folio(folio, NULL) simply empties the i_pages slot.  The
+data is freed without ever being written to swap, and the next fault on
+that index returns a freshly zeroed folio.
+
+This is silent data loss for any process that keeps state in a MAP_SHARED
+tmpfs segment across an unmap - for example a cache handed from one
+process generation to the next through /dev/shm.  It requires the folio to
+be PMD-mapped, so it only shows up once shmem THP is enabled (which is
+what we did in Meta fleet and started noticing crashes); with THP off the
+pte path transfers the dirty bit correctly.  It also only becomes visible
+when swap is enabled, because with no swap device shmem folios (which are
+on the anon LRU) are not scanned by reclaim at all, so the clean folio is
+never dropped.
+
+Reproduced on x86_64 with a tmpfs mounted huge=within_size: read-fault a
+2MB-backed region, write a known pattern through the resulting mapping,
+munmap, force reclaim of the cgroup, then re-map and read back.  Without
+this patch the region reads back as zeros and vmstat shows zswpout 0 - the
+data was discarded rather than swapped.  With this patch the region reads
+back correctly and the pages are swapped out as expected.  With
+huge=never, or when the first touch is a write, the test passes either
+way.
+
+Link: https://lore.kernel.org/20260819101222.3732660-1-usama.arif@linux.dev
+Fixes: b5072380eb61 ("thp: support file pages in zap_huge_pmd()")
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
+Acked-by: Hugh Dickins <hughd@google.com>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- stack frame size (2096) exceeds limit (2048) in 'dml314_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than] in drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.o (drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c) [logspec:kbuild,kbuild.compiler.error]
----
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c:3892:6: error: stack frame size (2096) exceeds limit (2048) in 'dml314_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
- 3892 | void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-      |      ^
-1 error generated.
+ mm/huge_memory.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
-=====================================================
+--- a/mm/huge_memory.c~mm-huge_memory-transfer-the-pmd-dirty-bit-to-the-folio-on-zap
++++ a/mm/huge_memory.c
+@@ -2414,6 +2414,8 @@ static void zap_huge_pmd_folio(struct mm
+ 		add_mm_counter(mm, mm_counter_file(folio),
+ 			       -HPAGE_PMD_NR);
+ 
++		if (is_present && pmd_dirty(pmdval))
++			folio_mark_dirty(folio);
+ 		if (is_present && pmd_young(pmdval) &&
+ 		    likely(vma_has_recency(vma)))
+ 			folio_mark_accessed(folio);
+_
 
-When fixing this issue, please attribute this report according to the
-patch submission rules:
+Patches currently in -mm which might be from usama.arif@linux.dev are
 
-Reported-by: kernelci.org bot <bot@kernelci.org>
+mm-huge_memory-transfer-the-pmd-dirty-bit-to-the-folio-on-zap.patch
+mm-vmstat-mm-memcontrol-add-_monotonic-vmstat-readers.patch
+mm-vmscan-add-pgrotate_anon-and-pgrotate_file-vmstat-counters.patch
+mm-vmscan-reduce-lru_lock-contention-via-vmstat-derived-scan-balance-cost.patch
+mm-memcontrol-avoid-false-sharing-between-vmstats-and-events.patch
 
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:2318f8492f6acdd68704ab04516d4812b0caff15
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  89a96476cd72dc1e1fc0e617e4fad9f5f68546a9
-
-# Builds where the incident occurred:
-
-## x86_64_defconfig+kselftest+x86-board on (x86_64):
-- compiler: clang-21
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6a87162962f33761c0f0cae3
-
-#kernelci issue maestro:2318f8492f6acdd68704ab04516d4812b0caff15
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
