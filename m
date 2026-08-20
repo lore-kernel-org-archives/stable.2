@@ -1,108 +1,100 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3FA52EAD15;
-	Thu, 20 Aug 2026 08:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CE923ED60;
+	Thu, 20 Aug 2026 08:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787215993; cv=none; b=SWe5rMpKW3i7wPy5LyzWDyXX1GWWcLaVMCxXD9t2z+nC2xkyurP8QCeX4WDNvJKZJFWXAcnBJjKMI1csFtJ02c5kq/4beqCoSnO50RDj4YaozaDhRMMf5JX8V7X14qqu6rmf0hr7xlrqhpyI5KGCpC49tJRlOFRIUgQixZeHZV0=
+	t=1787216119; cv=none; b=ldHgOO8spprxO0A6dfN3d4KFPlT9zoZQgIPQxgH9A5uhnExPSo23gDpXLVXUAg1J45aVjaBgVSguIyOuGAa+aVa1DJu+zeTIpNrkHKbdSBlrbQw7EEREGcKIMOM0M63EAtpkk/kmg7eUAr83w0NWvBRDH4MYSzijuMhJIV6A+Qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787215993; c=relaxed/simple;
-	bh=i1KazAqUYsojNEEZaLoMJxR/zL25UZf7ooboUUp5oDY=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=eFmecIYbhpdm9JyfVJgBk4XSLf8Jv0FJcBfvnY9lAqGcagrJoUd4CXS2Uu9kdQBhQRotFoa527Rk3SMkQmaSZ4/HMhg7Mcc/gCJq1pcynslB6iQ2Sd29MO5yc/sGiHOzWMSRepGCdS97aoO1RKPS4euC2c/LpOcgUGWnrGUo8os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.97.62.103])
-	by mtasvr (Coremail) with SMTP id _____wA3IT9swIZqa_OsAA--.3792S3;
-	Thu, 20 Aug 2026 16:53:01 +0800 (CST)
-Received: from smtpclient.apple (unknown [10.97.62.103])
-	by mail-app1 (Coremail) with SMTP id yy_KCgBHS6VswIZqVj0DBA--.21741S2;
-	Thu, 20 Aug 2026 16:53:00 +0800 (CST)
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1787216119; c=relaxed/simple;
+	bh=2dHpovJRuIPpyFvRKNb2g/87fsfOyd4qaCANK448KAo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lrYEs1K8thTo6tY4KfqvsElJX81dquyfNuNIHhQ+qFB8OCAV6V0CXEEBAKt5I+h/BRaVi/E7zX+01Wwv0DkMOMFz5sqIpsW3zREVS4O/LpWn38Lwlf0mTNY/9cTZ30K5PR5K7njLcunXcgDeV9qFw5B6fqx3cEetvje+FI6IX24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d7fa5be69c7411f19a56ed5b684f684d-20260820
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B, HR_CTT_TXT
+	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_DIGIT_LEN
+	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+	HR_SJ_PHRASE_LEN, HR_SJ_PRE_RE, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, UD_TRUSTED, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF
+	GTI_FG_BS, GTI_C_CI, GTI_FG_IT, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:2d148b48-3ec6-4666-8803-a364987f67b4,IP:15,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:15
+X-CID-INFO: VERSION:1.3.19,REQID:2d148b48-3ec6-4666-8803-a364987f67b4,IP:15,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:15
+X-CID-META: VersionHash:7db8b62,CLOUDID:5b2cc51f1a065d8843a5b9d12d3b3499,BulkI
+	D:260820165510OS6TMSDL,BulkQuantity:0,SF:10|64|66|78|80|81|82|83|102|127|8
+	17|841|850|865|898,TC:nil,Content:-10|-8|-5|14|50,EDM:-3,IP:-2,URL:99|1,Fi
+	le:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,
+	DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d7fa5be69c7411f19a56ed5b684f684d-20260820
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <yijiangshan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1316331338; Thu, 20 Aug 2026 16:55:07 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: vadim.fedorenko@linux.dev
+Cc: 13667453960@163.com,
+	andrew+netdev@lunn.ch,
+	ariele@broadcom.com,
+	davem@davemloft.net,
+	dmitry@broadcom.com,
+	edumazet@google.com,
+	eilong@broadcom.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	manishc@marvell.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	sashiko-bot@kernel.org,
+	skalluru@marvell.com,
+	stable@vger.kernel.org,
+	yijiangshan@kylinos.cn,
+	yuvalmin@broadcom.com
+Subject: Re: Re: [PATCH v2] bnx2x: fix NULL pointer dereference in bnx2x_free_mem_bp()
+Date: Thu, 20 Aug 2026 16:54:38 +0800
+Message-Id: <20260820085438.148916-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <d88017c7-7089-4e85-b56e-21175310db93@linux.dev>
+References: <d88017c7-7089-4e85-b56e-21175310db93@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH] usb: typec: qcom-pmic-typec: disable cc_debounce_dwork on
- stop
-From: Fan Wu <12321260@zju.edu.cn>
-In-Reply-To: <e06004a4-4ed8-46f4-a949-8cece1348ddb@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 16:52:50 +0800
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
- linux-usb@vger.kernel.org,
- bryan.odonoghue@linaro.org,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0C4B5340-A0DD-4A8D-B891-97A7303A6064@zju.edu.cn>
-References: <20260819161950.77858-1-fanwu01@zju.edu.cn>
- <e06004a4-4ed8-46f4-a949-8cece1348ddb@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: Apple Mail (2.3774.600.62)
-X-CM-TRANSID:yy_KCgBHS6VswIZqVj0DBA--.21741S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?AVE4jQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBEHgsDLPPt47ASGbQSG6TVxUP6ts+N1MwSADl3GtbYMByGt
-	b6KLQD6mlxSJcUgj5u3N5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoW7Zw45Xry3WF17Ar1fKFyfuFX_yoW8Gr1fpa
-	93Jr90k3ykZFWv9F17KwnrAFyrGr13GrW8Jr1UGrWxAan8GrWftrWFqr4FvF1UCrWkWasI
-	yFWUtFyDuay3tabCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+> Please, review netdev contribution rules at
+> https://docs.kernel.org/process/maintainer-netdev.html
+>
+> Especially patch formatting and 24h cool-down period
 
+Hi Vadim,
 
-> On Aug 20, 2026, at 16:13, Konrad Dybcio =
-<konrad.dybcio@oss.qualcomm.com> wrote:
->=20
-> Doesn't this make disable_irq() get called undesirably?
->=20
-> Konrad
+Thank you for the review and the pointers.
 
-Hi Konrad,
+I will remove the Suggested-by tag in the next version. I also appreciate
+you directing me to the netdev contribution rules — I will carefully read
+through https://docs.kernel.org/process/maintainer-netdev.html and make
+sure to follow the patch formatting guidelines and respect the 24h
+cool-down period for subsequent submissions.
 
-Thanks for pointing this out.
-
-On the port_start() failure path the port IRQs have indeed not been
-enabled: they are requested with IRQF_NO_AUTOEN, and the enable_irq()
-loop is the last step in port_start(). Routing that path through
-port_stop() therefore adds a nested disable_irq() on already-disabled
-IRQs. __disable_irq() only acts when the depth goes 0 -> 1, so this
-is just a counter bump on that leg =E2=80=94 no hardware access, no =
-warning,
-and devm frees those IRQs right after on the same unwind. But I agree
-it is not an ideal cleanup contract.
-
-The reason I routed it through port_stop() is to make sure
-cc_debounce_dwork is disabled and drained before tcpm_unregister_port().
-tcpm_register_port() runs before port_start() and may already have
-queued the TCPM state machine; that worker can call set_cc() or
-start_toggling() and arm the delayed work even when port_start() later
-fails.
-
-If you find the extra disable_irq() undesirable I will revise the
-cleanup so the failed-start path only disables/drains the delayed work,
-leaving port_stop() for the paths where the port was actually started,
-and send an updated patch.
-
-Thanks,
-Fan=
-
+Best regards,
+Jiangshan Yi
