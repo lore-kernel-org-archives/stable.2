@@ -1,458 +1,157 @@
-Received: from mta0.migadu.com (out-245.mta0.migadu.com [91.218.175.245])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A28232720C
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 06:13:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.245
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3E53AEB39
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 06:14:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787206436; cv=none; b=X0slsvtt7KoPz0EHSsRDNpO2fsrrsfRaqb+cLf/zU3ioA5mIXgWXsaoJQ5HcAZjcREeyPIikHNlLLvoy8wLph6sv9RiXh9tIe946rVyCxBtQNEU9v6smXizLis72xCQ1xyLlBSL0LUzYNdZhACJzI/peWHc3kqDb6ey4pl3ml6s=
+	t=1787206442; cv=none; b=jXHhgNE+pOk9f58cGsJzqua8nlGvgqbOngVMIRYuAlvOswQxG6tCEufFBNf12IETyI+UmvYQjHI/YYWWtSOjc3a79BA5Nx2d9jYjZ/NwR6HKzH8k9VviRBW2tZdhE9sNwoBrwfJpMW51ZKya4FOAgRPy8lTRzg3SCLYTOKRCrzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787206436; c=relaxed/simple;
-	bh=OLL9Vg6Y98cx9hk3jOcUkhAPSNsd+cPxxJkp4/MTDQQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ptwRoiNdP2uKFbbNdD+5FAtzoxabBtkP80CpQMu/4oRY+z/boBGQxey0Pe1dSGpDeXpe2ewcZhQ5GIP96PxuyndtT6XiVXp5rrVW+8AmL+Hn9YOcuPv6ouINZAb/cK6LtZ344i8uCk1SQNFhplDDZ6OFuoOKLFklMMvRL4wAn/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gWsdERKG; arc=none smtp.client-ip=91.218.175.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787206442; c=relaxed/simple;
+	bh=5idfiA36NczW41si+OWGL51HGRsYJBjnWxO7ogXCc8M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bVjQSahS71mKv+V1oEpDuxUESmz8OeD3/fNjJDT3fRXQD2HvKlU8jUMe1XcN5H8CxFj7hql5l9TS+WbLzCSWJiFUy1pWJ53Emgd6ZcadlSSEoFGCXUULdoIi6E+nexCfdlBxmrnk51T3f7IWc5H85oBwOeqQaclGiDPyDVQ5yMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E7AH9DAi; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gWsdERKG"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OLL9Vg6Y98cx9hk3jOcUkhAPSNsd+cPxxJkp4/MTDQQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787206433; v=1; x=1787811233;
- b=gWsdERKGxhxJVoYfHa7AK5jWnL5WmZP7GsfSRU21S70/sVZkaZZFFLVQLQ25ItAHsEWHWSRs
- 2HbzNc+zxD8I8SnxQA9/+CIiYiNEPyAPxIryXnE2xsBxj/hDW2jUi/jd1/c7oGmV2l7Sumtix5B
- YNgT8QsbgCpGbCG5Cdm4g9OQ=
-X-Envelope-To: stable@vger.kernel.org
-Received: from localhost (2602:fce1:44f:115e::)
-	by smtp.migadu.com with ESMTPS id 588eb7e31e708159;
-	Thu, 20 Aug 2026 06:13:53 +0000
-X-Mizu-Trace-ID: 588eb7e31e708159
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: pfalcato@suse.de
-Cc: kas@kernel.org,
-	usama.arif@linux.dev,
-	hughd@google.com,
-	akpm@linux-foundation.org,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	david@kernel.org,
-	dev.jain@arm.com,
-	lance.yang@linux.dev,
-	liam@infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E7AH9DAi"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47f84023916so1743864f8f.3
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 23:14:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787206439; x=1787811239; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+0zPOZ4cy1qU8zrYNcuVxcq7JUklUQqhNtrlV/MxG9w=;
+        b=E7AH9DAi27mvWHXeWQF4pPTG34CIkQVMlXTwEpX059psgy3AeLgF1rtszHwT8LM6gF
+         JpYRVv2kojq75qlK/voPyek23nZVE/GLYkm7tO567/s1a89KdohpXrWmqCfvkfQTnsjW
+         P16plr8nwlfRaJL1wfxodV8RuiadRWSTqAkksPw8ENdlslmJmyAFiFXnEsh9Z+xDT9dJ
+         dfUtl7khszq/iwm1UAqg5AgNa9vq82UWZ+me20UU41gotRzJ0TbvBrq249i62SFdzQ29
+         Svvjs9lgODDmcYo9I0H/GcMrAG9QaX9ZrFJCzxPp3BeYGAXseJyDW/j1nts5ck6IVJ65
+         cAkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787206439; x=1787811239;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+0zPOZ4cy1qU8zrYNcuVxcq7JUklUQqhNtrlV/MxG9w=;
+        b=nqp/bCHtyAxrei6e8cvJGpn1Ift8ru3lLV9lLvlao+lJMB6VdHHrWvDj3W5RWlYYjJ
+         BaQL0EzHgNaCKliadvLBdBC2QVGq5t9HYe+IUb6avV+pDCXDTSZsAxnePD+4kDIOpbl5
+         z/14H8f2vr6y77+jW0WpTz9KGULhh2rtMKXp90fgwY5DqW5kcpgXkOKYp8HIX/rcybAp
+         j7OkEFZClhLEi4UXW1reNCoZcjJfls2BPSjwmzG+LC8P79gcPi5Ey1+YXv2Exq5AtIJS
+         tQ++5+wwjLU0R4TIJbVt0Xi4vN5e7PT1eE7ZkQwIoxKUfke5NdHyJjz6VWjuPe5ffZ94
+         YatA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq16aq8Z/mTNBgmWlJ1AqDKF6ekBnVZVcExAohDO/o6X1z33ylcZdPNmKaImUbJizwav58zj/M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHFHD5j3Agyy3cu+L+P81V/XWleIjNdJ56o6+AMbCtn+bmZ1xk
+	pRzMwDeJ4qDKzvWOE7pYnqvdAepe1IgzHEzCRwVB/rarMP0xImhRpRFi
+X-Gm-Gg: AR+sD12EFH4CSYIC9xmmCUDhYAqxeT5gNMnq1F0cBnjcQqL7oQxQ7TESukkKthgGKvH
+	Wh3J4gnkL+GAMBYWUlY5eteLSONkmhWuCDDGGO0OxULk5rSbUrMbHZsL4hS+d4LqdfoQ2ux+Ox3
+	WNlW0Y1QCrzlklb90WwgUlnJn7/Gq1Eb1GNa48R6yB3mNP8k3kRFaNPyem8JsLFdbP+QzXOG+kS
+	xwI+y40gctN2+tT0b8wvo1lVLPlO2TYpS+BykmH+wfLY9KapnJQpTwrZePp5tf5KHYaydH0+qoQ
+	A6Nrfa1DphkJYkZw1Y/wt/RCvXOiDgYr2KuB3Ntow5iKH0HAyCVM4t6SXOV1nVFWHEhgj86JdGJ
+	jaiaSSY69g1TKrqyFnwCA6FwSAMBALLpQrX52LqqSSiyrfqxgITgZIjZHNOGIW/QiTKqDjRc2q8
+	0hIu1aDzp/Du7rm6r+rH5sSrjoozZ6hGTAtCLODAVyzkeszT6/nxYuz5S0HCS/V2B5gtMR9yra7
+	8UbC7b/lYytkqLp6lsH+Cpq7JIfR0diMMQV2Nwtx1AZ5UEKsVggEa6jp3ggR9gdf/qwBA/uuj/v
+	BD45SelN59ZxS0vTekpF9X2JUACOsnFoc2jY5UGnRa/RLN6sye7A58lUGR8Eglr19A+nMgrgVPY
+	ByyU=
+X-Received: by 2002:a05:600c:c493:b0:499:7aa7:eaa7 with SMTP id 5b1f17b1804b1-499aa20c7b1mr165566735e9.15.1787206438796;
+        Wed, 19 Aug 2026 23:13:58 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a476-1a01-141e-2b69-987c-d72d.310.pool.telefonica.de. [2a02:3100:a476:1a01:141e:2b69:987c:d72d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499aa17fc80sm129661355e9.14.2026.08.19.23.13.57
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 19 Aug 2026 23:13:57 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: selinux@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	Ondrej Mosnacek <omosnace@redhat.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Amir Goldstein <amir73il@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-unionfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	ziy@nvidia.com,
-	nphamcs@gmail.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio on zap
-Date: Thu, 20 Aug 2026 14:13:37 +0800
-Message-Id: <20260820061337.24669-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <aoXYh9EPF6QnlvIK@pedro-suse.lan>
-References: <aoXYh9EPF6QnlvIK@pedro-suse.lan>
+Subject: [PATCH] selinux: preserve user SID across nested backing files
+Date: Thu, 20 Aug 2026 08:13:49 +0200
+Message-Id: <20260820061349.10542-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+SELinux saves the user file SID in a backing-file security blob so it
+remains available after mmap() replaces vma->vm_file with a backing file.
 
-On Wed, Aug 19, 2026 at 05:35:41PM +0100, Pedro Falcato wrote:
->On Wed, Aug 19, 2026 at 03:31:40PM +0100, Kiryl Shutsemau wrote:
->> On Wed, Aug 19, 2026 at 03:12:22AM -0700, Usama Arif wrote:
->> > zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
->> > file case, but not the dirty bit.  The pte path does propagate it, in
->> > zap_present_folio_ptes() and so does the pmd split path, in
->> > __split_huge_pmd_locked().
->> > 
->> > For most file mappings the omission is harmless, because writing to a
->> > shared file mapping goes through page_mkwrite(), which dirties the
->> > folio.  tmpfs is different: it has no page_mkwrite(), and
->> > vma_wants_writenotify() is false for it, so a *read* fault on a
->> > MAP_SHARED tmpfs mapping installs a writable pmd via do_read_fault().
->> > do_read_fault() does not call fault_dirty_shared_page(), so subsequent
->> > stores through that mapping set only the hardware dirty bit in the pmd
->> > and never call folio_mark_dirty().
->> >
->> > A shmem folio allocated by a fault
->> > is marked uptodate but not dirty (see the clear: block in
->> > shmem_get_folio_gfp()), so PG_dirty is never set at all.
->> > 
->> > Unmapping such a folio - munmap(), or exit_mmap() when the process dies
->> > - then loses the only record that it was written, because zap_huge_pmd()
->> > drops the pmd without transferring the dirty bit.  Reclaim afterwards
->> > sees a clean shmem folio: the whole swap-out block in
->> > shrink_folio_list() is inside "if (folio_test_dirty(folio))", so
->> > pageout() is skipped and the folio falls into __remove_mapping().
->> > There, folio_is_file_lru() is false for a swapbacked folio, so no shadow
->> > entry is created and __filemap_remove_folio(folio, NULL) simply empties
->> > the i_pages slot.  The data is freed without ever being written to swap,
->> > and the next fault on that index returns a freshly zeroed folio.
->> > 
->> > This is silent data loss for any process that keeps state in a
->> > MAP_SHARED tmpfs segment across an unmap - for example a cache handed
->> > from one process generation to the next through /dev/shm.  It requires
->> > the folio to be PMD-mapped, so it only shows up once shmem THP is
->> > enabled (which is what we did in Meta fleet and started noticing crashes);
->> > with THP off the pte path transfers the dirty bit correctly.
->> > It also only becomes visible when swap is enabled, because with no swap
->> > device shmem folios (which are on the anon LRU) are not scanned by
->> > reclaim at all, so the clean folio is never dropped.
->> > 
->> > Reproduced on x86_64 with a tmpfs mounted huge=within_size: read-fault a
->> > 2MB-backed region, write a known pattern through the resulting mapping,
->> > munmap, force reclaim of the cgroup, then re-map and read back.  Without
->> > this patch the region reads back as zeros and vmstat shows zswpout 0 -
->> > the data was discarded rather than swapped.  With this patch the region
->> > reads back correctly and the pages are swapped out as expected.  With
->> > huge=never, or when the first touch is a write, the test passes either
->> > way.
->> 
->> +Hugh.
->> 
->> Oopsie.
->> 
->> I'm confused why it took a decade to discover the bug...
->> Maybe read ahead of write for shmem is too rare, I donno.
->> 
->> > 
->> > Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
->> 
->> This would be more precise: b5072380eb61 ("thp: support file pages in zap_huge_pmd()")
->> 
->> Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
->> 
->> > Cc: <stable@vger.kernel.org>
->> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
->> > ---
->> >  mm/huge_memory.c | 2 ++
->> >  1 file changed, 2 insertions(+)
->> > 
->> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->> > index ced400f72d43a..afbb5974bd225 100644
->> > --- a/mm/huge_memory.c
->> > +++ b/mm/huge_memory.c
->> > @@ -2449,6 +2449,8 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
->> >  		add_mm_counter(mm, mm_counter_file(folio),
->> >  			       -HPAGE_PMD_NR);
->> >  
->> > +		if (is_present && pmd_dirty(pmdval))
->> > +			folio_mark_dirty(folio);
->> 
->> Unrelated to your patch, but noticed while looking at it: we drop the rmap
->> here under the pmd lock, while the TLB flush is deferred to
->> tlb_finish_mmu(). The pte path handles this with
->> tlb_delay_rmap()/force_flush (5df397dec7c4), but there's no pmd equivalent:
->> tlb_flush_rmap_batch() only knows folio_remove_rmap_ptes(), and
->> zap_huge_pmd() uses tlb_remove_page_size(), which takes no delay_rmap.
->> 
->> Doesn't matter for shmem, but xfs & friends do get PMD-order folios, and
->> do_set_pmd() makes the pmd dirty+writable once page_mkwrite() has run. So
->> folio_mkclean() can clean the folio while another CPU still stores through a
->> stale TLB entry -- silently lost write, no PG_dirty left behind.
->
->Where do you see page_mkwrite being called in the same path as do_set_pmd()?
->Per my understanding of the code, this Should Not Happen, and it really Should
->Not Happen for many, many reasons (write amplification being the main one).
+For nested backing files (overlayfs over overlayfs, or FUSE passthrough
+backed by overlayfs), user_file may itself be a backing file.  Its
+fsec->sid is the SID of the mounter that opened it, rather than the user
+that opened the top-level file.  mprotect() then checks fd { use } against
+the mounter SID.  This can incorrectly deny access without a domain
+transition, or check the wrong target SID after one.
 
-Hmm.. that happens on an initial shared write fault. For non-DAX XFS, the
-path starts with an empty PMD.
+Copy the saved user SID when user_file is a backing file.  Keep using the
+regular file SID for the first backing layer.
 
-TL;DR
+With two nested overlayfs mounts and SELinux enforcing,
+mprotect(PROT_READ) returns EACCES with an fd { use } denial against the
+mounter SID.  With this change, mprotect() succeeds.
 
-With an empty PMD and PMD-order THP allowed, __handle_mm_fault() first
-tries create_huge_pmd(). VM_FAULT_FALLBACK sends the fault to
-handle_pte_fault():
+Fixes: 82544d36b172 ("selinux: fix overlayfs mmap() and mprotect() access checks")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Tested on arm64 QEMU at fd6e2388a3ea with SELinux enforcing and two
+nested overlayfs mounts. The policy omitted only
+base_t -> mounter_t:fd { use } among the relevant cross-domain allows:
 
-static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
-		unsigned long address, unsigned int flags)
-{
-	...
-	if (pmd_none(*vmf.pmd) &&
-	    thp_vma_allowable_order(vma, vm_flags, TVA_PAGEFAULT, PMD_ORDER)) {
-		ret = create_huge_pmd(&vmf);
-		if (ret & VM_FAULT_FALLBACK)
-			goto fallback;
-		else
-			return ret;
-	}
-	...
-fallback:
-	return handle_pte_fault(&vmf);
-}
+  baseline: mprotect(PROT_READ) returned EACCES with that denial
+  patched:  mprotect(PROT_READ) succeeded; test exited 0
 
-create_huge_pmd() dispatches to the filesystem's huge_fault callback:
+This patch fixes SID propagation only. backing_file_user_path() still
+resolves to the middle layer for a nested mapping, so the audit path and
+inode do not correspond to uf_sid, and that layer's mounter is not
+re-checked. Preserving the full user path likely needs a VFS-side change,
+such as having backing_file_open() store file_user_path(user_file).
 
-static inline vm_fault_t create_huge_pmd(struct vm_fault *vmf)
-{
-	struct vm_area_struct *vma = vmf->vma;
-	...
-	if (vma->vm_ops->huge_fault)
-		return vma->vm_ops->huge_fault(vmf, PMD_ORDER);
-	return VM_FAULT_FALLBACK;
-}
+ security/selinux/hooks.c          | 4 +++-
+ security/selinux/include/objsec.h | 2 +-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-For non-DAX XFS, that callback returns VM_FAULT_FALLBACK:
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 1ead2eee1944..8b96934e9992 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -3849,7 +3849,9 @@ static int selinux_backing_file_alloc(struct file *backing_file,
+ 	struct backing_file_security_struct *bfsec;
+ 
+ 	bfsec = selinux_backing_file(backing_file);
+-	bfsec->uf_sid = selinux_file(user_file)->sid;
++	bfsec->uf_sid = (user_file->f_mode & FMODE_BACKING) ?
++				selinux_backing_file(user_file)->uf_sid :
++				selinux_file(user_file)->sid;
+ 
+ 	return 0;
+ }
+diff --git a/security/selinux/include/objsec.h b/security/selinux/include/objsec.h
+index 3c0a16ec978b..853f7266ed18 100644
+--- a/security/selinux/include/objsec.h
++++ b/security/selinux/include/objsec.h
+@@ -87,7 +87,7 @@ struct file_security_struct {
+ };
+ 
+ struct backing_file_security_struct {
+-	u32 uf_sid; /* associated user file fsec->sid */
++	u32 uf_sid; /* top-level user file fsec->sid */
+ };
+ 
+ struct superblock_security_struct {
 
-static vm_fault_t
-xfs_filemap_huge_fault(
-	struct vm_fault		*vmf,
-	unsigned int		order)
-{
-	if (!IS_DAX(file_inode(vmf->vma->vm_file)))
-		return VM_FAULT_FALLBACK;
-	...
-}
+base-commit: fd6e2388a3ea55e58cbbbef840c1d8aa2067dbb3
+-- 
+2.39.5 (Apple Git-154)
 
-XFS installs the huge-fault, regular-fault, and page_mkwrite callbacks
-in the same vm_ops:
-
-static const struct vm_operations_struct xfs_file_vm_ops = {
-	.fault		= xfs_filemap_fault,
-	.huge_fault	= xfs_filemap_huge_fault,
-	...
-	.page_mkwrite	= xfs_filemap_page_mkwrite,
-	...
-};
-
-On the fallback path, handle_pte_fault() leaves an empty PMD without a
-PTE and calls do_pte_missing():
-
-static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
-{
-	...
-	if (unlikely(pmd_none(*vmf->pmd))) {
-		/*
-		 * Leave __pte_alloc() until later: because vm_ops->fault may
-		 * want to allocate huge page, and if we expose page table
-		 * for an instant, it will be difficult to retract from
-		 * concurrent faults and from rmap lookups.
-		 */
-		vmf->pte = NULL;
-		vmf->flags &= ~FAULT_FLAG_ORIG_PTE_VALID;
-	...
-	}
-
-	if (!vmf->pte)
-		return do_pte_missing(vmf);
-	...
-}
-
-For a file VMA, do_pte_missing() calls do_fault():
-
-static vm_fault_t do_pte_missing(struct vm_fault *vmf)
-{
-	if (vma_is_anonymous(vmf->vma))
-		return do_anonymous_page(vmf);
-	else
-		return do_fault(vmf);
-}
-
-do_fault() sends FAULT_FLAG_WRITE + VM_SHARED to do_shared_fault():
-
-static vm_fault_t do_fault(struct vm_fault *vmf)
-{
-	struct vm_area_struct *vma = vmf->vma;
-	...
-	if (!vma->vm_ops->fault) {
-		...
-	} else if (!(vmf->flags & FAULT_FLAG_WRITE))
-		ret = do_read_fault(vmf);
-	else if (!(vma->vm_flags & VM_SHARED))
-		ret = do_cow_fault(vmf);
-	else
-		ret = do_shared_fault(vmf);
-	...
-}
-
-do_shared_fault() first calls __do_fault():
-
-static vm_fault_t do_shared_fault(struct vm_fault *vmf)
-{
-	struct vm_area_struct *vma = vmf->vma;
-	vm_fault_t ret, tmp;
-	struct folio *folio;
-	...
-	ret = __do_fault(vmf);
-	...
-}
-
-__do_fault() invokes the regular fault callback:
-
-static vm_fault_t __do_fault(struct vm_fault *vmf)
-{
-	struct vm_area_struct *vma = vmf->vma;
-	struct folio *folio;
-	vm_fault_t ret;
-	...
-	ret = vma->vm_ops->fault(vmf);
-	...
-	return ret;
-}
-
-For non-DAX XFS, xfs_filemap_fault() reaches filemap_fault():
-
-static vm_fault_t
-xfs_filemap_fault(
-	struct vm_fault		*vmf)
-{
-	struct inode		*inode = file_inode(vmf->vma->vm_file);
-	...
-	return filemap_fault(vmf);
-}
-
-Once that returns the folio, do_shared_fault() calls do_page_mkwrite()
-and then finish_fault():
-
-static vm_fault_t do_shared_fault(struct vm_fault *vmf)
-{
-	struct vm_area_struct *vma = vmf->vma;
-	vm_fault_t ret, tmp;
-	struct folio *folio;
-	...
-	folio = page_folio(vmf->page);
-	...
-	if (vma->vm_ops->page_mkwrite) {
-		folio_unlock(folio);
-		tmp = do_page_mkwrite(vmf, folio);
-		...
-	}
-
-	ret |= finish_fault(vmf);
-	...
-}
-
-do_page_mkwrite() calls the XFS callback installed above and restores
-the original fault flags:
-
-static vm_fault_t do_page_mkwrite(struct vm_fault *vmf, struct folio *folio)
-{
-	vm_fault_t ret;
-	unsigned int old_flags = vmf->flags;
-
-	vmf->flags = FAULT_FLAG_WRITE|FAULT_FLAG_MKWRITE;
-	...
-	ret = vmf->vma->vm_ops->page_mkwrite(vmf);
-	/* Restore original flags so that caller is not surprised */
-	vmf->flags = old_flags;
-	...
-}
-
-So finish_fault() still sees FAULT_FLAG_WRITE. With an empty PMD, no
-fallback requirement, and a PMD-mappable folio, it tries do_set_pmd():
-
-vm_fault_t finish_fault(struct vm_fault *vmf)
-{
-	...
-	if (pmd_none(*vmf->pmd)) {
-		if (!needs_fallback && folio_test_pmd_mappable(folio)) {
-			ret = do_set_pmd(vmf, folio, page);
-			if (ret != VM_FAULT_FALLBACK)
-				return ret;
-		}
-		...
-	}
-	...
-}
-
-After its checks pass, do_set_pmd() takes FAULT_FLAG_WRITE from vmf and
-installs a dirty+writable PMD:
-
-vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page)
-{
-	struct vm_area_struct *vma = vmf->vma;
-	bool write = vmf->flags & FAULT_FLAG_WRITE;
-	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
-	pmd_t entry;
-	...
-	entry = folio_mk_pmd(folio, vma->vm_page_prot);
-	if (write)
-		entry = maybe_pmd_mkwrite(pmd_mkdirty(entry), vma);
-	...
-	set_pmd_at(vma->vm_mm, haddr, vmf->pmd, entry);
-	...
-}
-
-maybe_pmd_mkwrite() sets write permission for VM_WRITE:
-
-pmd_t maybe_pmd_mkwrite(pmd_t pmd, struct vm_area_struct *vma)
-{
-	if (likely(vma->vm_flags & VM_WRITE))
-		pmd = pmd_mkwrite(pmd, vma);
-	return pmd;
-}
-
->Namely, see the comment in wp_huge_pmd():
->	/* COW or write-notify handled on pte level: split pmd. */
->
->if file huge pages get mapped writable, that's a bug.
-
-That comment is about a different path. __handle_mm_fault() calls
-wp_huge_pmd() only when a write/unshare fault hits an existing PMD THP
-which is not writable:
-
-static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
-		unsigned long address, unsigned int flags)
-{
-	...
-	if (pmd_trans_huge(vmf.orig_pmd)) {
-		...
-		if ((flags & (FAULT_FLAG_WRITE|FAULT_FLAG_UNSHARE)) &&
-		    !pmd_write(vmf.orig_pmd)) {
-			ret = wp_huge_pmd(&vmf);
-			if (!(ret & VM_FAULT_FALLBACK))
-				return ret;
-		...
-	}
-	...
-}
-
-If the filesystem huge_fault callback falls back there, wp_huge_pmd()
-splits that existing read-only PMD:
-
-static inline vm_fault_t wp_huge_pmd(struct vm_fault *vmf)
-{
-	struct vm_area_struct *vma = vmf->vma;
-	const bool unshare = vmf->flags & FAULT_FLAG_UNSHARE;
-	vm_fault_t ret;
-	...
-	if (vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) {
-		if (vma->vm_ops->huge_fault) {
-			ret = vma->vm_ops->huge_fault(vmf, PMD_ORDER);
-			if (!(ret & VM_FAULT_FALLBACK))
-				return ret;
-		}
-	}
-
-split:
-	/* COW or write-notify handled on pte level: split pmd. */
-	__split_huge_pmd(vma, vmf->pmd, vmf->address, false);
-
-	return VM_FAULT_FALLBACK;
-}
-
-So I don't think that comment says file PMDs must never be writable. It
-covers a later write fault against an existing read-only PMD. On the
-initial shared write fault above, page_mkwrite runs before do_set_pmd()
-installs the writable file PMD.
-
-Cheers, Lance
-
-> 
->
->-- 
->Pedro
->
