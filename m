@@ -1,79 +1,50 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D7A41D13A
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:16:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CCA422541;
+	Thu, 20 Aug 2026 11:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787224579; cv=none; b=HZ/e+Cw78b1+992xQewjobkqCz4AUJq6J5zCWugYwT6MOgA8syZMAf7ucGhCp6EKll15nubMTZUNEvnBSiboFhsAM5VkSzlFhvdVZbyrUhCAdnCuUQWCfa21VQ0H4UfrLnuiOyn94tSTdPr8Kufhnac2kYPHnh82Wv6b78YBbsw=
+	t=1787224582; cv=none; b=lHMiYzeHoelKJGBski3CD8kDwBd21TUGPBtPpLxvBIdWAk2VZ34Hyv0UC1lRp3j4qjxxED5//6nkM0Uma0YsGNmCIZ/gtkv2D8geWvMEFSUUo5CaGJpQulYRldd+Ux5yUD8olP7GYYhUS2owhR17LQueQU/DmixlbsowK6MHjkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787224579; c=relaxed/simple;
-	bh=vO0izHD2f1ofrT6G0UqWkyQBcgoDbMLoEZdWgvw592E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JAGpIhBkat664KWJTVm7rTc+R+emfArijBNUHQOHjPyHv7hThQTtyQiHQcq9o/oSold7z+FO4E/jIx5oMBrHBTdpMUx7taWYZGHYzIP1cDC1O4NU1Mzfag+C0SO8vpEr0H0gHFcyvOuP8gPBC7iUs4+VaVeLsmloXLKlVDn7KYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RdwBoTS+; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787224582; c=relaxed/simple;
+	bh=i1YRnDEs7RKAczXpM4GNiorJvmoYtNBtPMjrYFo/qNs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kLiBJ7byj5KGzms3mB/v4WWZjbgCpNcdUt4fewCS9rFH5MzpyEnAt0Lk08MjaA3FBGeS7OrRpEhQ2YSm6KS9EUxyRpv3S/Q8RqCzzjG4U+KSe5LhXzv3ZY2jGvx2gsZDk//HcDpC+ans5xBgohlVGeHjJ0Tl4ugl8gRrWSqnmes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=JfRx1o8o; arc=none smtp.client-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RdwBoTS+"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84a2c90e383so553341b3a.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 04:16:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="JfRx1o8o"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787224578; x=1787829378; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xmFjaomKOSQJ0x9BcEAzGij2qfGuvuK5f2g46VdQqOU=;
-        b=RdwBoTS+PBqktKaMXyAE0n7knUQGLTqRAbZJrSyvMR1n01dqwiWdJ/lyDXMQKyMwj3
-         SdtETFoCpeqLKNCDoc+TC4sdQRzevmwYi98T1wjOA1DFCXrG7ArmBioHfZStTj9OT2Kb
-         r6IR9NRorpuThsnJvkDocdqtYp9zhm6qHzMIyHdAZgJ6ZQGePlnBLIy4xJM7ji+2MnDq
-         ZMruzVRDRkpOhKmvzKXEGfsB5tZYm56Mo5n5TYmG+cNeKIeiYRwpChg611UiyFI2h3PP
-         fkNXCll3Ut7WttNd4pCIeqqt+LjGR9fgLClBlPmA9/eLCgFPx4lH/zQFVmbXz7OYHXUO
-         lXhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787224578; x=1787829378;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xmFjaomKOSQJ0x9BcEAzGij2qfGuvuK5f2g46VdQqOU=;
-        b=jBaHGbDlrlwXYQDxZ+qLqga+m6df6tfmttg+MW/5ssxcxRUaFhVy1XSaAZMDsyuxtm
-         gM01onGSR39XguRETERSYtNf+OzjH735JmbnLrIZzwbcdHIefw9Dc1Ij9fBq+LLfu0gp
-         4EL29J+7w49gP2sZUGZEJ+1OxochaJamM4L/j9UbQhaVxyo+lgOCrij50Y5ELROsNnfr
-         eEO87VUnhrPiHijhs5rcYuwjpF5n4+h1us3z8w7xwH6XJOQ9Yx41PMwGDEqTVTcqA8gD
-         luuPd0i9x3NJP2CDuLgTC7RiatvYxgsFMMG/Kcyu0r3sTSJ/IPOxyTFNrvoQaTjP+v4D
-         MqBw==
-X-Forwarded-Encrypted: i=1; AHgh+RoeZ+veKEgpae5UOfctbrC3Zq0JKCKzE0rNKdFNek3F/5zaTKhgv1Xh02VfVijuSYVBtwrluqg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzL9KYhONh22AIMHRyjCoeRken/aCvdkyCIl9WYMYk8KGwF1fyw
-	Yzc3nIQmFlu/4DYjF5CkIh3uDAOwJRqmLq4BeV/RcMYBJphv8OI/c+JI
-X-Gm-Gg: AR+sD10E9CwxxtTn8+bHzE1G14maO9OEShGaePcvw1keMTHV8iIn9A+zIFnjWc7trcE
-	dd8uMRzbJz6ejQI7dRQwpPbcOInLZnHlpSJPR7jO1GulkTNexgnyTrjThhI8sVXaIjRxwZbna+C
-	f8i0W9OG5oci5ObDb8TKgRYmqXIQYvqLOgeNIK40S3wWOiO29g99FTz/INXk4ICJ1bAPyWCmllx
-	nZbUv8wzEM6nSj0Ot6+Vly6BcJ4uZk7ZEChcb7RikD54Qv3N5+9223/wNuPFyV6s82nauWXYwex
-	Nm98gXjPHKtA0DAuXWzhtbd2mcp78+YQoHZndo67Prtx9nIpheT+X+wVdGr4vV5lQREETL4AmJ4
-	TPME/ijRPdajITq9SB1Ctfp+iV71O85CicqTuhwMFz4AHnrTFi4DXefTs2vIdP66SKLod0R+qhD
-	9U+kc1+6mkiAwNtwoYb4/SslwoLHsqkXUobyV9bIq936Uli3cBsSJO4xd9+kToP39thd+ZI8sOO
-	zFW1bSsxJ+a92pdVa/8PeF8BS33OLA/7Wz6lU+j2Amw+9ISfD4+8Bvvowuo9hKA
-X-Received: by 2002:a05:6372:a70f:b0:3cb:b6b0:1b83 with SMTP id adf61e73a8af0-3cd14f251acmr5785817637.9.1787224577549;
-        Thu, 20 Aug 2026 04:16:17 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc15cada6fesm1236455a12.27.2026.08.20.04.16.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 04:16:16 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
+	d=runtimeverification.com; s=protonmail; t=1787224578; x=1787483778;
+	bh=LR78WkMGrhZNAj6P4HYb1ppkVtN8Zbi+rJKZgCG+z3Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=JfRx1o8oW1UYmiggTowPyX8z3RYJ3TccEejiWR3T0hilPdnf+NgOiJQC6hlhDbTP/
+	 tdVuc48IvWFpH4WApRe2YqeIUZBrNN5k8qiercbyayl+FSePBkObWnu5D13XOJjJ9D
+	 fwrQhAJ1MMGC8SEq0RSVcT+fQ6CwrV9fYn3RkFs4ER9JGkw+gkKkGeYr9zJAEysi2C
+	 bKLpE7XuU43ghWevT98Z7H0SyMjbGifaA/z9v2mSVXuX+/WsxI7VAFKxKTh4mHRj7u
+	 oQfmcF+qfUP76GCffc4ndTJ5fvqrfXvblFCL4TFv6gnlaLYIjJGbCIXY0daIBqw2j9
+	 ZCY0nvgxbY6Jw==
+X-Pm-Submission-Id: 4hQgqH5gPvz2SchM
+From: Natasha Klaus <natalie.klaus@runtimeverification.com>
+To: laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org,
+	mchehab@kernel.org
+Cc: ribalda@chromium.org,
+	noambs2999@gmail.com,
+	david.laight.linux@gmail.com,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH 2/2] HID: intel-thc-hid: intel-quickspi: bound the GET REPORT response to report_buf
-Date: Thu, 20 Aug 2026 20:15:58 +0900
-Message-ID: <20260820111558.475304-3-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260820111558.475304-1-sammiee5311@gmail.com>
-References: <20260820111558.475304-1-sammiee5311@gmail.com>
+	Natasha Klaus <natalie.klaus@runtimeverification.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/3] media: uvcvideo: Let uvc_parse_frame() report a skipped frame
+Date: Thu, 20 Aug 2026 14:15:54 +0300
+Message-Id: <20260820111556.232652-2-natalie.klaus@runtimeverification.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260820111556.232652-1-natalie.klaus@runtimeverification.com>
+References: <20260820111556.232652-1-natalie.klaus@runtimeverification.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,63 +53,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-quickspi_handle_input_data() copies a GET_FEATURE or GET_INPUT_REPORT
-response into qsdev->report_buf using a length the controller supplied.
-The only check it passes is against buf_len, the number of bytes the DMA
-delivered, which says nothing about the destination.  report_buf holds
-HIDSPI_OUTPUT_REPORT_SIZE(max(max_output_len, max_input_len)), 68 bytes
-for a controller reporting 64 for both, while the copy is bounded only by
-the 4K DMA packet.
+uvc_parse_frame() returns the descriptor length on success and a
+negative error code on failure, and uvc_parse_format() treats every
+negative value as fatal for the whole streaming interface. There is no
+way for the parser to say "this frame descriptor is unusable, but the
+rest of the format is fine".
 
-The REPORT_DESCRIPTOR_RESPONSE case a few lines up validates against the
-size of its own destination.  Do the same here and let the waiter in
-quickspi_get_report() time out, as the other malformed-frame checks do.
+Change the return convention so it can. Return 0 on success and let the
+caller advance by buffer[0], which is the value the function returned
+anyway. Report a truncated descriptor with -ENODATA, which stays fatal,
+and leave every other negative value to mean "skip this frame descriptor
+and carry on with the next one".
 
-Fixes: 9d8d51735a3a ("HID: intel-thc-hid: intel-quickspi: Add HIDSPI protocol implementation")
+-ENODATA is currently the only error the function can return, so the
+skip path is unreachable until later patches add checks that use it. The
+one behavioural change is the truncated-descriptor diagnostic, which
+moves from uvc_dbg() to dev_warn() so a malformed descriptor is reported
+without the DESCR debug flag. That leaves the local alts variable
+unused, and the kernel builds -Wunused-variable as an error, so it goes
+too.
+
+Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
+Link: https://lore.kernel.org/linux-media/CANiDSCue8yyiGubzbAybRqSUTTFuB=-Y2TZy6yvOx32SpAASWg@mail.gmail.com/
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+Tested-by: Noam Ben Shimon <noambs2999@gmail.com>
+Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
 ---
-This needs commit a59cf84441f9 ("HID: intel-thc-hid: intel-quickspi:
-validate report size before copy") for qsdev->report_buf_size, which is in
-hid.git for-next but not mainline yet.  Same Fixes: tag, so a stable
-backport wants the two in that order.
+The Cc: stable line is present without a Fixes: tag because this patch is
+a prerequisite for 2/3 rather than a fix in its own right. Stable needs
+both or neither: backported alone, 2/3's -EINVAL would revert to meaning
+"discard the whole streaming interface".
 
- .../intel-thc-hid/intel-quickspi/quickspi-protocol.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+The caller checks -ENODATA before counting the frame, per Ricardo's review.
+Behaviour is unchanged either way, since -ENODATA is non-zero, but the fatal
+case reads better first.
 
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-index 847c5ec55569..7d34cc22a11a 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-@@ -161,6 +161,7 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
- 	struct input_report_body *input_body;
- 	u8 *input_report;
- 	u32 input_len;
-+	u32 report_len;
- 	int ret = 0;
+ drivers/media/usb/uvc/uvc_driver.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..b94fe5366e55 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -230,7 +230,6 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 			   u32 **intervals, u8 ftype, int width_multiplier,
+ 			   const unsigned char *buffer, int buflen)
+ {
+-	struct usb_host_interface *alts = streaming->intf->cur_altsetting;
+ 	unsigned int maxIntervalIndex;
+ 	unsigned int interval;
+ 	unsigned int i, n;
+@@ -243,10 +242,10 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 	n = n ? n : 3;
  
- 	input_body = (struct input_report_body *)qsdev->input_buf;
-@@ -210,10 +211,17 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
+ 	if (buflen < 26 + 4 * n) {
+-		uvc_dbg(dev, DESCR,
+-			"device %d videostreaming interface %d FRAME error\n",
+-			dev->udev->devnum, alts->desc.bInterfaceNumber);
+-		return -EINVAL;
++		dev_warn(&streaming->intf->dev,
++			 "UVC non compliance: FRAME descriptor is %d bytes, expected at least %u.\n",
++			 buflen, 26 + 4 * n);
++		return -ENODATA;
+ 	}
  
- 	case GET_FEATURE_RESPONSE:
- 	case GET_INPUT_REPORT_RESPONSE:
--		qsdev->report_len = sizeof(body_hdr->content_id) + input_len;
-+		report_len = sizeof(body_hdr->content_id) + input_len;
-+		if (report_len > qsdev->report_buf_size) {
-+			dev_err_once(qsdev->dev, "Get report response too big: %u\n",
-+				     report_len);
-+			return;
-+		}
-+
-+		qsdev->report_len = report_len;
- 		input_report = input_body->content - sizeof(body_hdr->content_id);
+ 	frame->bFrameIndex = buffer[3];
+@@ -329,7 +328,7 @@ static int uvc_parse_frame(struct uvc_device *dev,
  
--		memcpy(qsdev->report_buf, input_report, qsdev->report_len);
-+		memcpy(qsdev->report_buf, input_report, report_len);
+ 	*intervals += n;
  
- 		qsdev->get_report_cmpl = true;
- 		wake_up_interruptible(&qsdev->get_report_cmpl_wq);
+-	return buffer[0];
++	return 0;
+ }
+ 
+ static int uvc_parse_format(struct uvc_device *dev,
+@@ -492,11 +491,12 @@ static int uvc_parse_format(struct uvc_device *dev,
+ 			ret = uvc_parse_frame(dev, streaming, format, frame,
+ 					      intervals, ftype, width_multiplier,
+ 					      buffer, buflen);
+-			if (ret < 0)
++			if (ret == -ENODATA)
+ 				return ret;
+-			format->nframes++;
+-			buflen -= ret;
+-			buffer += ret;
++			if (!ret)
++				format->nframes++;
++			buflen -= buffer[0];
++			buffer += buffer[0];
+ 		}
+ 	}
+ 
 -- 
-2.43.0
+2.34.1
 
