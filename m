@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B483B9D95
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:42:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD053B9D95
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:42:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787222568; cv=none; b=VvDRT/mPv2h2FzWLVxQqCeEqyAoF9q3P6/GkjDvTSjtglV7VVYAfTjeaoszuoY1uaL1luWg3JmdtDDJK1gqKXDAPBMOpRP8fYt0/y9YK3fe1YxGO4ekhF13vGblFQkUhzUVZZq+2ygwF2uAWVf7hggwHA3Un36m34AL/ErHrRPI=
+	t=1787222574; cv=none; b=GCH7Q2isqW2QRjQ7tw7bS5aKaKtLve+Id6H4rnwKSB7xedrFkqupsvzvrBYJrwwc3t5Y5DpagZ4w8RsADAcqV3Slh4oWtnKUqlUJUSwfuhhYhO7ZwUBDbk38gMLSgtj1deuRuE4RBtvFeD7hdB1pRPcasiwJN3ZeHFEe8QRO+R4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787222568; c=relaxed/simple;
-	bh=ba8PrxWWrP/iVbqM+kJLR3mSlO0e93ezQE3AK1SQH+E=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BYk3TGoB2cpG3JttO47Y/UGFO6Cr6b6YrKs9cBwNDST7H0y5fE+AljJCkDJpeRKlOx5iavFlUkQEh5eKPTK7aStvPlQSu1GUw8l4EzRZnrf9/Hd9n+fZwlFHLRc3pX2ZNu/SJFQFHakqY6AEWqPUhPjxj29il/dDqqy2As8pPrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ukErEWRW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787222574; c=relaxed/simple;
+	bh=NNveZnsWi9kVpeB/ED/qbFpZKVYy3zAVuEQoNRg39qA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mE/VCMJ81OnAJ8MSMSNmGmM6bbk9W51nPx9WkWIY35JBr8K6n2SKM2ImQs3YsAnB6Qt/VBpxm6+YzRW6OwX3I24u00bFDugekGdzN1sLK48RVWIQlhNVF5xYQinwYIcKZd2GGEuRzNlY/Eyjiu25klniN8wGL9hlR8VUovCn6ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0R2OqepD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ukErEWRW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04EA41F000E9;
-	Thu, 20 Aug 2026 10:42:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0R2OqepD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29091F000E9;
+	Thu, 20 Aug 2026 10:42:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787222567;
-	bh=B7twN6cb9rJcFk25Zr1ARxI6aVd53+i0JVuJzRZwHXI=;
+	s=korg; t=1787222572;
+	bh=B+9bYrdU10QzYIqSdafepGalTvGPz8WkRowRtqMmBFU=;
 	h=Subject:To:Cc:From:Date;
-	b=ukErEWRWLyzXSanKw6ZD6TW0MYS3Mywug9Wtk7GLSBGO4THPLpNW4OkZGojKTH30n
-	 xafb9U5/IQZ17PFapCLWWMTT+Ylsjwle6UlQGwU9ULRU260KwjOsIV1uCK5hpFBxtE
-	 az8bWWb4wZfsfhEbQ9qw4qDek6GtlN99tw+5ijrQ=
-Subject: FAILED: patch "[PATCH] mptcp: pm: fix data race in add_addr timer callback" failed to apply to 5.15-stable tree
-To: luoqing@kylinos.cn,kuba@kernel.org,matttbe@kernel.org
+	b=0R2OqepDOzTtW1BibqD1l4mmOrut5sZidIlqBNVGnpujo61HjtVpYJZK66zcOKcid
+	 p92aYaFoedxeryGt8f1/2wNqleCcAO7yHLRr9qqws7Xvg3Vq+6BfhCYmgFXot33PrH
+	 f1MbhJKl6EDNJwo/npNWRlE0l+UsSOz0cxNvj2A4=
+Subject: FAILED: patch "[PATCH] mptcp: pm: fix memory leak from alloc-during-teardown race" failed to apply to 7.1-stable tree
+To: shardul.b@mpiricsoftware.com,kuba@kernel.org,matttbe@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 12:42:26 +0200
-Message-ID: <2026082026-treble-stylized-d851@gregkh>
+Date: Thu, 20 Aug 2026 12:42:45 +0200
+Message-ID: <2026082045-blaming-kiln-83fe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x a7aad5b69d3bdaec20a3ed9284e184502450c0cd
+git cherry-pick -x efc33b5102ff859bacd390a5f30112d8e0c084c0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082026-treble-stylized-d851@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082045-blaming-kiln-83fe@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,60 +62,114 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a7aad5b69d3bdaec20a3ed9284e184502450c0cd Mon Sep 17 00:00:00 2001
-From: Qing Luo <luoqing@kylinos.cn>
-Date: Mon, 3 Aug 2026 18:16:36 +0200
-Subject: [PATCH] mptcp: pm: fix data race in add_addr timer callback
+From efc33b5102ff859bacd390a5f30112d8e0c084c0 Mon Sep 17 00:00:00 2001
+From: Shardul Bankar <shardul.b@mpiricsoftware.com>
+Date: Mon, 3 Aug 2026 18:16:38 +0200
+Subject: [PATCH] mptcp: pm: fix memory leak from alloc-during-teardown race
 
-The timer callback reads entry->retrans_times outside pm.lock to decide
-whether to call mptcp_pm_subflow_established(). Since
-mptcp_pm_announced_del_timer() can concurrently set retrans_times =
-ADD_ADDR_RETRANS_MAX under pm.lock, a race condition exists.
+mptcp_pm_destroy() empties msk->pm.anno_list and
+msk->pm.userspace_pm_local_addr_list under msk->pm.lock during socket
+teardown, dropping the lock between the two.
 
-I discovered this issue while studying the code. AI tools helped me to
-verify the issue can potentially happen under race conditions.
+A concurrent userspace PM genl ANNOUNCE on the same msk holds a sock
+reference via mptcp_token_get_sock() and, in
+mptcp_pm_nl_announce_doit(), calls
+mptcp_userspace_pm_append_new_local_addr() and
+mptcp_pm_announced_alloc(). Both take msk->pm.lock briefly to add to
+their respective lists. Because the genl handler holds a sock reference,
+mptcp_pm_destroy() may run on the same msk via mptcp_disconnect(), which
+invokes mptcp_destroy_common() without dropping the sock refcount,
+before the handler completes.
 
-Use a local 'retransmit' flag set inside pm.lock to capture whether
-retransmission is still possible when the lock is taken. This allows to
-call mptcp_pm_subflow_established() accordingly, and not depending on
-the situation that can be different when checked outside the pm.lock.
+If the lock acquisitions interleave such that mptcp_pm_destroy() empties
+a list first, the later alloc adds its entry to a list head that nothing
+else iterates for this msk, and the entry leaks. kmemleak reports both
+mptcp_pm_add_addr objects (from mptcp_pm_announced_alloc()) and
+mptcp_pm_addr_entry objects (from
+mptcp_userspace_pm_append_new_local_addr()) under sustained concurrent
+ANNOUNCE + close load against the userspace PM.
 
-Fixes: 348d5c1dec60 ("mptcp: move to next addr when timeout")
+Add an MPTCP_PM_DESTROYING bit in msk->pm.status, set by
+mptcp_pm_destroy() under pm.lock before the lists are emptied and
+checked under pm.lock by the alloc paths. Either the alloc takes pm.lock
+first, in which case its entry is on the list when mptcp_pm_destroy()
+frees it; or mptcp_pm_destroy() takes pm.lock first, in which case the
+later alloc observes the bit and refuses.
+
+Found by an MPTCP protocol-flow harness extending BRF (arXiv:2305.08782).
+
+Fixes: 9ab4807c84a4 ("mptcp: netlink: Add MPTCP_PM_CMD_ANNOUNCE")
 Cc: stable@vger.kernel.org
-Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-4-b8f496d71664@kernel.org
+Link: https://patch.msgid.link/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-6-b8f496d71664@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
 diff --git a/net/mptcp/pm.c b/net/mptcp/pm.c
-index 6afd39aea110..c71dcf887683 100644
+index c71dcf887683..64a1236aabee 100644
 --- a/net/mptcp/pm.c
 +++ b/net/mptcp/pm.c
-@@ -380,6 +380,7 @@ static void mptcp_pm_add_addr_timer(struct timer_list *timer)
- 	struct mptcp_sock *msk = entry->sock;
- 	struct sock *sk = (struct sock *)msk;
- 	unsigned int timeout = 0;
-+	bool retransmit;
+@@ -443,6 +443,9 @@ bool mptcp_pm_announced_alloc(struct mptcp_sock *msk,
  
- 	pr_debug("msk=%p\n", msk);
+ 	lockdep_assert_held(&msk->pm.lock);
  
-@@ -412,14 +413,15 @@ static void mptcp_pm_add_addr_timer(struct timer_list *timer)
- 		entry->retrans_times++;
- 	}
++	if (msk->pm.status & BIT(MPTCP_PM_DESTROYING))
++		return false;
++
+ 	add_entry = mptcp_pm_announced_lookup(msk, addr);
+ 	if (add_entry) {
+ 		if (WARN_ON_ONCE(mptcp_pm_is_kernel(msk)))
+@@ -1145,10 +1148,16 @@ void mptcp_pm_worker(struct mptcp_sock *msk)
  
--	if (entry->retrans_times < ADD_ADDR_RETRANS_MAX)
-+	retransmit = entry->retrans_times < ADD_ADDR_RETRANS_MAX;
-+	if (retransmit)
- 		timeout <<= entry->retrans_times;
- 	else
- 		timeout = 0;
+ void mptcp_pm_destroy(struct mptcp_sock *msk)
+ {
++	spin_lock_bh(&msk->pm.lock);
++	msk->pm.status |= BIT(MPTCP_PM_DESTROYING);
++	spin_unlock_bh(&msk->pm.lock);
++
+ 	mptcp_pm_free_announced_list(msk);
  
- 	spin_unlock_bh(&msk->pm.lock);
+-	if (mptcp_pm_is_userspace(msk))
+-		mptcp_userspace_pm_free_local_addr_list(msk);
++	/* Free the userspace local address list unconditionally: the socket
++	 * can be reused (mptcp_disconnect()) and re-selected to a different PM
++	 */
++	mptcp_userspace_pm_free_local_addr_list(msk);
+ }
  
--	if (entry->retrans_times == ADD_ADDR_RETRANS_MAX)
-+	if (!retransmit)
- 		mptcp_pm_subflow_established(msk);
+ void mptcp_pm_data_reset(struct mptcp_sock *msk)
+diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
+index 945aa5afc2dd..2203cc2d2748 100644
+--- a/net/mptcp/pm_userspace.c
++++ b/net/mptcp/pm_userspace.c
+@@ -54,6 +54,10 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
+ 	bitmap_zero(id_bitmap, MPTCP_PM_MAX_ADDR_ID + 1);
  
- out:
+ 	spin_lock_bh(&msk->pm.lock);
++	if (msk->pm.status & BIT(MPTCP_PM_DESTROYING)) {
++		ret = -EINVAL;
++		goto append_err;
++	}
+ 	mptcp_for_each_userspace_pm_addr(msk, e) {
+ 		addr_match = mptcp_addresses_equal(&e->addr, &entry->addr, true);
+ 		if (addr_match && entry->addr.id == 0 && needs_id)
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index c13680d18994..1b80f2d6ec5a 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -190,9 +190,10 @@ enum mptcp_pm_status {
+ 	MPTCP_PM_ESTABLISHED,
+ 	MPTCP_PM_SUBFLOW_ESTABLISHED,
+ 	MPTCP_PM_ALREADY_ESTABLISHED,	/* persistent status, set after ESTABLISHED event */
+-	MPTCP_PM_MPC_ENDPOINT_ACCOUNTED /* persistent status, set after MPC local address is
+-					 * accounted int id_avail_bitmap
+-					 */
++	MPTCP_PM_MPC_ENDPOINT_ACCOUNTED, /* persistent status, set after MPC local address is
++					  * accounted int id_avail_bitmap
++					  */
++	MPTCP_PM_DESTROYING,		/* To fence out PM list allocs */
+ };
+ 
+ enum mptcp_pm_type {
 
