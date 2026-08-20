@@ -1,45 +1,88 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFDFD3DD87B;
-	Thu, 20 Aug 2026 21:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0815346D56E
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:14:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787260481; cv=none; b=KUXgc59HKOZRZkKpsEREroDJNqTipqyvAz0H/uxJROopWbkJMpJzlxpKp5ylgBaEA1F6xwSSjcD0vFOCIdeIPKf8sEFw0+pXOlK2jglUl+T/47JkelGWV4QIHaufLgYUNNhhXuxMSGTRV8M8HMU5KDEW2edpQ0LbCytGHUEOy64=
+	t=1787260493; cv=none; b=KpGjAtxFScRBJgRY68CQyWV3rplqT7ClFl/AHZH6vI9vK3lkWKF47GDLjOonMv3NumExKh63M7Z7xx7mOsakxTHrFrlgMEBI0CZjEcRbLCj8KQ3QXrGqu6AVqgYHQViwZn+SzCWIDXlX1TRJal9vCriD5TRbHCyyjRzWxysT7IY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787260481; c=relaxed/simple;
-	bh=stkbopTI1vtZm3RSXs41CcEU4yW8JbdiXRQG0a2vfMo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pyjcfGhHq+pDPh/kMTPW4IsCkMNG5QUvrjZVULoWBG3cyvs96rc8d9Dap2EZPc5fXykWqM0l309Sv2Rvy6moIlx7c7JNuq4wnSML/JKjWkYEvFUJK7yxY+v5r23b5+WeZDHPbgnN7SMrU6x+XL5bTIZ0AMXRtLZSFuPBDJoZglo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=hx+ZQsw2; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1787260493; c=relaxed/simple;
+	bh=3bWQcr7TNBM46gyKoJNARikO6CH9pGujyVGQNvF9cDo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NLSZw5cMAcs2EsSy595JpOQje0hUJvCqp03kRy5oEb5y8W3mUsQuYpT4i4DjuH6/sLb5k58XKcMmHrC9jShC7G3hFNcVBDAK7eqDpEKA38nplzOFcB+kori49Z4vh5+GAm6cxa7fzlA+tTIWP1Y7QBqJARfiYbjXsbSBoIgjdaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i4YV1//Q; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QHFnCtKG; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="hx+ZQsw2"
-Received: from vm-dev.d0aziqou4eyuzblxqhi51nu2sc.xx.internal.cloudapp.net (unknown [4.246.87.102])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 72B9C20B7128;
-	Thu, 20 Aug 2026 14:13:58 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 72B9C20B7128
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1787260438;
-	bh=JtR5TctMcS/Ts6F1E1F0hudbmG1QYLKTHTLiSiZGywI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=hx+ZQsw27LQPmT/Dkvggt87AYxEvv/YuAqHP74xH4WRNPSHOw6fsjGvlol+cAp4fV
-	 MzqnaGun4KlzFkGQ4+X/vsKMkuGahBrtOtM7EjxOFjSe4qC6M54Tph/V944GkTU8E/
-	 eC2R4duOnm6OqaxJCzKgzSeWcVxN/3tRMF/s6wGw=
-From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
-To: stable@vger.kernel.org
-Cc: steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	raminwo0202@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	apais@linux.microsoft.com
-Subject: [PATCH V1] xfrm: prevent policy_hthresh.work from racing with netns teardown
-Date: Thu, 20 Aug 2026 14:14:18 -0700
-Message-ID: <20260820211418.1409602-1-taherafahimi@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i4YV1//Q";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QHFnCtKG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787260488;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=abqScsiBuwtCwb/Z41XnM7DDFxXR4QW8C2iyjS040tU=;
+	b=i4YV1//QzNQu15FON4vMizNrppH03zdPvxuJRltNvf7hs0PpRY0tOxH40cq9KUijfo1Qoc
+	Wcn4GoNNdFiP4gD88hxJPRlg+bQHgUU+GyIfYep3+Qc7M1utxiAv7NRUmBI8KUHMeDayfI
+	zmpW93dhydztQ5VDaTyBjTXvQ7JCjg8=
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+ [209.85.210.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-554-D1NSogaHO1aqqWR5zEPudg-1; Thu, 20 Aug 2026 17:14:47 -0400
+X-MC-Unique: D1NSogaHO1aqqWR5zEPudg-1
+X-Mimecast-MFC-AGG-ID: D1NSogaHO1aqqWR5zEPudg_1787260486
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7eb6a8c61deso305336a34.3
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:14:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787260486; x=1787865286; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=abqScsiBuwtCwb/Z41XnM7DDFxXR4QW8C2iyjS040tU=;
+        b=QHFnCtKGotoGt1m7MjDG9s5F86wiLnlBRGscWg3CyDNWucZKBR37y44nWPrKtL4wTR
+         yag1XLYeNJCQtjwJz9UHxVvBJqaFoLX7KFNvz6Eb8f4TJYKn3WyHM196IZR/hUkYV3T1
+         0s2Yxxrsve/J93iI8hD1GIW5onw4LdEzOE/1YDOVXgmPdXGxcoYbFXk3xuN4HYRfZ+EU
+         v2LdwdKMCBXggLbjqfK8YsM0kK6SonHO3R7T893DA08ig7WHrodsJblatX3zEMAhdPLU
+         IzYXW4Fo8SQDX0ratTljDjl4Jg+h5TroyY1RvXcQa94P4Rdh6RSZo7VgjSUQSt909XS8
+         KVjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787260486; x=1787865286;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=abqScsiBuwtCwb/Z41XnM7DDFxXR4QW8C2iyjS040tU=;
+        b=AENi29M/obdOaYeA1Tvq5Hjgoc9hugV2apxL/aWWI3zRxXXZUsVOiTtusi4BIpSAtq
+         cN/4qghQUSdOQ//atbV2UWfJ3ahUXeKJ45O9gVWO2ig/9QSmzl16dCEmU1yUoX4l6pav
+         vSI85BEGTLcsSRG7hyTgBHH06lLQGxHftguo0mlIvwYG13MH3zCi/63eDm3wu287NdYa
+         LJtxvMkyTXvJqIsBlXT4fZTEllku1u3WydhyEiJWRdP+rjChqBr5U21vFgJRABfpsMjT
+         9dGXStxGEgb/lEQRLufhtQuX/S321TVt0sKnhjCLT+8yW/fPYvgiJSehrQ2qo7Kamo08
+         7+AQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqqpeZp4aDjtj9mrsiZjSf9PjanwbHP8P6EBNSJWQKtSd5oZW3b1EX525gz4i148LPC5PIqXsk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyNjPKh42tF4EPjRbh6xiWi2NYZvBWA3gtaNkh8IFzfRubT8beY
+	TGgDupgftvd7kjiZuzQszwZmUfPlYCNCwF9kSAsuLO/II+cwnTnBWWBgxHsmgOQ/e893VSPKPPh
+	Ec2IqlewP5ZZH40R4zF57bhO+YqqHllyS/yGWERXSFnuFIL1llHOqs0MSGigZAF4bLQ==
+X-Gm-Gg: AR+sD11qJIXFygnbnXrLQWA6XL40QJIu/d/YzZmVqVy4K4k1pMZWJL2XIcIVSydn32K
+	TWTEZNuoWrWtWAvqr9LeVj4PNKiGztVjjhDQB+lIgKiT4dXCScW6AQ4qcWeHvrIKBbsXX8H+HmN
+	2ikZYFPTiwYK1GnjR5JyrwSOkPdxfl03V1fZn94CrrG/jZFmpBIAXUuC4X6t/HhA0Gdct5W2y3L
+	ZCbvh/Gg7ju6kQMi9toBGYxBBZgmbI0qmAFnj0IulC3reSviAjF53Nb5n6cFlSO0cvGQFn7tMPB
+	fMhRqzBnlFVBDYHFm/cDd0lsP+cSTboxuehSQIdVDQo/RsZqm8Jrm8xTHA/OdUfNwevRWeQ+WpR
+	kr6K/LcvDuYIlsR1Vpi8aJRmH7fMUjLi577fSkGS5AF4Zk4F2nOrKx7kKUZI8CRuHtg==
+X-Received: by 2002:a05:6830:4406:b0:7e6:cfd0:42de with SMTP id 46e09a7af769-7f461563384mr1555230a34.15.1787260486221;
+        Thu, 20 Aug 2026 14:14:46 -0700 (PDT)
+X-Received: by 2002:a05:6830:4406:b0:7e6:cfd0:42de with SMTP id 46e09a7af769-7f461563384mr1555190a34.15.1787260485759;
+        Thu, 20 Aug 2026 14:14:45 -0700 (PDT)
+Received: from bearskin.sorenson.redhat.com.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f43fea4893sm5995884a34.9.2026.08.20.14.14.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 14:14:45 -0700 (PDT)
+From: Frank Sorenson <sorenson@redhat.com>
+To: linux-cifs@vger.kernel.org
+Cc: pc@manguebit.org,
+	linkinjeon@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] cifs: fix i_size inconsistency in smb2_duplicate_extents() on FSCTL failure
+Date: Thu, 20 Aug 2026 16:14:43 -0500
+Message-ID: <20260820211443.1472310-1-sorenson@redhat.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,89 +91,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 29fe3a61bcdce398ee3955101c39f89c01a8a77e ]
+smb2_duplicate_extents() pre-extends the target file before sending
+FSCTL_DUPLICATE_EXTENTS_TO_FILE.  If the FSCTL fails (e.g. ENOSPC,
+byte-range lock conflict, unsupported file combination), the server
+and client i_size are left reflecting the larger size while the data
+in the extended range was never cloned.
 
-An XFRM_MSG_NEWSPDINFO request can queue the per-net work item
-policy_hthresh.work onto the system workqueue. xfrm_hash_rebuild()
-retrieves the enclosing struct net from the work item, so the callback
-can dereference freed memory if it runs after net namespace teardown.
+Save the original i_size before pre-extension and restore it on FSCTL
+failure.  If rollback fails, force revalidation instead.
 
-Upstream prevents this race with disable_work_sync(), which blocks new
-queueing attempts and synchronizes pending or running work. Linux 6.6
-does not provide that workqueue API, and cancel_work_sync() alone is not
-sufficient because another request could queue the work after it returns.
-
-Provide the same guarantee with an XFRM-local work_disabled flag. Protect
-the flag and schedule_work() with the existing policy_hthresh seqlock so
-teardown can atomically stop new queueing attempts. Then use
-cancel_work_sync() to synchronize work that was queued before the flag was
-set. This ensures policy_hthresh.work cannot outlive its struct net.
-
-Fixes: 880a6fab8f6b ("xfrm: configure policy hash table thresholds by netlink")
-Assisted-by: GitHub-Copilot:GPT-5.6 Sol
-Signed-off-by: Tahera Fahimi <taherafahimi@linux.microsoft.com>
-Reviewed-by: Allen Pais <apais@linux.microsoft.com>
+Fixes: cfc63fc8126a ("smb3: fix cached file size problems in duplicate extents (reflink)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
 ---
- include/net/netns/xfrm.h |  1 +
- net/xfrm/xfrm_policy.c   | 19 ++++++++++++++++++-
- 2 files changed, 19 insertions(+), 1 deletion(-)
+ fs/smb/client/smb2ops.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/include/net/netns/xfrm.h b/include/net/netns/xfrm.h
-index 423b52eca908d..99eb5c2ff888b 100644
---- a/include/net/netns/xfrm.h
-+++ b/include/net/netns/xfrm.h
-@@ -23,6 +23,7 @@ struct xfrm_policy_hash {
- struct xfrm_policy_hthresh {
- 	struct work_struct	work;
- 	seqlock_t		lock;
-+	bool			work_disabled;
- 	u8			lbits4;
- 	u8			rbits4;
- 	u8			lbits6;
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 00d9693c13ae7..cc8f4d4b70875 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -1384,7 +1384,10 @@ static void xfrm_hash_rebuild(struct work_struct *work)
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 7d6738ffcb80..38bd344a9740 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -2200,6 +2200,7 @@ smb2_duplicate_extents(const unsigned int xid,
+ 	struct duplicate_extents_to_file dup_ext_buf;
+ 	struct timespec64 ts;
+ 	struct cifs_tcon *tcon = tlink_tcon(trgtfile->tlink);
++	loff_t orig_size;
+ 	u64 asize;
  
- void xfrm_policy_hash_rebuild(struct net *net)
- {
--	schedule_work(&net->xfrm.policy_hthresh.work);
-+	write_seqlock(&net->xfrm.policy_hthresh.lock);
-+	if (!net->xfrm.policy_hthresh.work_disabled)
-+		schedule_work(&net->xfrm.policy_hthresh.work);
-+	write_sequnlock(&net->xfrm.policy_hthresh.lock);
- }
- EXPORT_SYMBOL(xfrm_policy_hash_rebuild);
+ 	/* server fileays advertise duplicate extent support with this flag */
+@@ -2218,7 +2219,8 @@ smb2_duplicate_extents(const unsigned int xid,
+ 			       trgtfile->fid.volatile_fid, tcon->tid,
+ 			       tcon->ses->Suid, src_off, dest_off, len);
+ 	inode = d_inode(trgtfile->dentry);
+-	if (inode->i_size < dest_off + len) {
++	orig_size = i_size_read(inode);
++	if (orig_size < dest_off + len) {
+ 		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
+ 		if (rc)
+ 			goto duplicate_extents_out;
+@@ -2235,6 +2237,23 @@ smb2_duplicate_extents(const unsigned int xid,
+ 	if (ret_data_len > 0)
+ 		cifs_dbg(FYI, "Non-zero response length in duplicate extents\n");
  
-@@ -4181,6 +4184,7 @@ static int __net_init xfrm_policy_init(struct net *net)
- 	net->xfrm.policy_hthresh.rbits6 = 128;
- 
- 	seqlock_init(&net->xfrm.policy_hthresh.lock);
-+	net->xfrm.policy_hthresh.work_disabled = false;
- 
- 	INIT_LIST_HEAD(&net->xfrm.policy_all);
- 	INIT_LIST_HEAD(&net->xfrm.inexact_bins);
-@@ -4206,6 +4210,19 @@ static void xfrm_policy_fini(struct net *net)
- 	unsigned int sz;
- 	int dir;
- 
-+	/* Prevent new policy hash rebuilds before draining the work item.
-+	 *
-+	 * The upstream fix uses disable_work_sync(), which is unavailable
-+	 * in v6.6. Protecting work_disabled and schedule_work() with the
-+	 * same seqlock closes the check-to-queue race, while the subsequent
-+	 * cancel_work_sync() drains work that was queued or running before
-+	 * teardown disabled it.
-+	 */
-+	write_seqlock(&net->xfrm.policy_hthresh.lock);
-+	net->xfrm.policy_hthresh.work_disabled = true;
-+	write_sequnlock(&net->xfrm.policy_hthresh.lock);
-+	cancel_work_sync(&net->xfrm.policy_hthresh.work);
++	if (rc && i_size_read(inode) > orig_size) {
++		int rrc;
 +
- 	flush_work(&net->xfrm.policy_hash_work);
- #ifdef CONFIG_XFRM_SUB_POLICY
- 	xfrm_policy_flush(net, XFRM_POLICY_TYPE_SUB, false);
++		/*
++		 * FSCTL failed after we pre-extended the file.  Attempt to
++		 * restore the original size so the caller sees a consistent
++		 * file rather than a larger file with uncloned content.
++		 */
++		rrc = smb2_set_file_size(xid, tcon, trgtfile, orig_size, false);
++		if (rrc == 0)
++			cifs_resize_file_locked(inode, orig_size);
++		else {
++			CIFS_I(inode)->time = 0; /* force reval */
++			cifs_invalidate_cache(inode, 0);
++		}
++	}
++
+ 	if (rc == 0) {
+ 		qrc = SMB2_query_info(xid, tcon, trgtfile->fid.persistent_fid,
+ 				      trgtfile->fid.volatile_fid, &file_inf);
 -- 
-2.43.0
+2.55.0
 
