@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2BC40DB55
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:07:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D0641A76D
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:08:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787224085; cv=none; b=WNlTMIw8WE73zdeqw105LWHHgp9mt79MzVM2UQ57W5TQcxbgin/SSk3aoKN2/ua2l110Ay+SUJoLInvOD6CWwGHUpEq3TJ8MAGgiPh/giL/NYLZAFhKmHpHxrxSSXRsoHSxjF9aveh6twXlbFjfM2JhAE3QvuD91IvCFQzp33O0=
+	t=1787224093; cv=none; b=E3zPUgShTQKU69CnolWLHGja//CaiE/WHYCPMPxfokmZGXstYptMVF2AyWfGuHUvYpWB6WZ/kVJuaRGEm5+0lekRgkQ8ApOUhWrsnp02G4bxTlNs2ZBhLROA5P8+J1R4pb4IcXgyLNEk2iRU2nilyUgVYqiVv6ddbr+7r6I0fwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787224085; c=relaxed/simple;
-	bh=9HwnN+vjulFoX/8AWcb8CX3fXAqXHx6Ti3y8fJ/mC3Q=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NWHJH9tg+R3KBskpAnSjQIvYejHsIz4GDUcCcZRqrMhIPvtmoO690l7EgI2OhTQbsDuSZQxHaz5C4aCuOYL76j7/2P2tVpAUWZTmcw3J1/lj4dNCIXXqF/7mjZ7OMTQIN2jMxATmOk767iOfHzy9Fog8BwmfP0HsDK5975cxLrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Auc/Vm/Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787224093; c=relaxed/simple;
+	bh=F1tR5spZBQE6mGAdIlo6CsyWhsd5HjLHhdgr0gdpLUg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=l3YodgCBZbI6190dchlIBx6BLSWxHtcDSDDVz5q3XmLG3rHlV9Ml/wBGHkuz+uKoIf8UUUEirkEosWOqDeGkuqNtoVzuXTBjs63dIagixSU6fkc3YfculcsAjsn8mQbOJC7kXyA+/U+dSW/Z+IYObRy32XVrWFpCnwqJMPeIDu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0LqdMewQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Auc/Vm/Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65DDB1F00A3D;
-	Thu, 20 Aug 2026 11:07:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0LqdMewQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AD361F000E9;
+	Thu, 20 Aug 2026 11:08:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787224069;
-	bh=ZzWFv+YJCS6W6scsVAPim6CVQd/ImSDKtuiBOWjTnco=;
+	s=korg; t=1787224083;
+	bh=vzy9eV9Xtg7e2CbQYb30sGsO42spQSPMRSCu7r8c+Tw=;
 	h=Subject:To:Cc:From:Date;
-	b=Auc/Vm/QXBXmQLI7mVASuGVDzxDAZZUkVfAe8hJxSxvbmhtZ/DH4om4/2+KmDiNuO
-	 9R8WSxi6uCbKgs4WV6ERPHMMzb3uyY8mCRNCwpJow+0Os6Gqqp4++IUshwu73gjLzd
-	 qmGGNuk+u+GJpKL0XpKQqK5k81srFSOkhordzlxE=
-Subject: FAILED: patch "[PATCH] Input: atkbd - skip deactivate for HONOR ZQC-P" failed to apply to 5.10-stable tree
-To: DongLin_Lyu@outlook.com,adefka@gmail.com,dmitry.torokhov@gmail.com,donglin_lyu@outlook.com
+	b=0LqdMewQMu6nOD1bPF5k3UKM8rBWMlAV1X6vOs87AgRGzVNmEcb9ZhXT1dT6EeGwg
+	 J06PxftW/nyEU1ey5ufRxZ686NQeRDQWv/jOs71oIVpu0zWkcy26zoGyYVqR6u0/tH
+	 6DnUs0L5+KJFV6dQoJCj8mTMNqgeLzlDvrdHhlFM=
+Subject: FAILED: patch "[PATCH] Input: byd - synchronize timer deletion before freeing" failed to apply to 6.1-stable tree
+To: lilinmao@kylinos.cn,dmitry.torokhov@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 13:07:23 +0200
-Message-ID: <2026082023-salary-deplored-d707@gregkh>
+Date: Thu, 20 Aug 2026 13:07:45 +0200
+Message-ID: <2026082045-whoopee-batboy-8ace@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 410c44b1096789d0c40fbee706520e981dba7bc1
+git cherry-pick -x c83e79c0842ed29860648bcce5022ef0ba5001c6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082023-salary-deplored-d707@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082045-whoopee-batboy-8ace@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,74 +62,39 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 410c44b1096789d0c40fbee706520e981dba7bc1 Mon Sep 17 00:00:00 2001
-From: Donglin Lyu <DongLin_Lyu@outlook.com>
-Date: Sun, 2 Aug 2026 15:37:18 -0700
-Subject: [PATCH] Input: atkbd - skip deactivate for HONOR ZQC-P
+From c83e79c0842ed29860648bcce5022ef0ba5001c6 Mon Sep 17 00:00:00 2001
+From: Linmao Li <lilinmao@kylinos.cn>
+Date: Mon, 20 Jul 2026 14:12:59 +0800
+Subject: [PATCH] Input: byd - synchronize timer deletion before freeing
+ private data
 
-The internal keyboard on the HONOR ZQC-P (HONOR MagicBook Pro 14 2026)
-does not work after boot.
+byd_disconnect() uses timer_delete() before freeing the driver's private
+data.  This does not wait for a running byd_clear_touch() callback, which
+dereferences the private data and its psmouse pointer.  A callback racing
+with disconnect can therefore access the private data after it has been
+freed.  The timer can also still be re-armed by byd_process_byte() while
+the disconnect is in progress.
 
-Using the kernel command line 'i8042.dumbkbd=1' makes the keyboard
-functional, but the CapsLock LED does not work. Adding the
-'atkbd_deactivate_fixup' quirk fixes the keyboard and CapsLock LED
-natively without requiring boot parameters.
+Use timer_shutdown_sync() before freeing the private data: it waits for
+a running callback and turns any later re-arm attempt into a no-op.
 
-DMI: HONOR ZQC-P/ZQC-P-PCB, BIOS 1.09 03/19/2026
-
-Fixes: 9cf6e24c9fbf ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
-Signed-off-by: Donglin Lyu <donglin_lyu@outlook.com>
-Tested-by: Ruslan Shevchenko <adefka@gmail.com>
-Link: https://patch.msgid.link/20260801151115.52709-1-donglin_lyu@outlook.com
+Fixes: 2d5f5611dd0d ("Input: byd - enable absolute mode")
 Cc: stable@vger.kernel.org
-[dtor: keep all HONOR entries together]
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Link: https://patch.msgid.link/20260720061259.1601281-1-lilinmao@kylinos.cn
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-index 6c897282d25f..4c82e988260e 100644
---- a/drivers/input/keyboard/atkbd.c
-+++ b/drivers/input/keyboard/atkbd.c
-@@ -1916,6 +1916,13 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
- 		},
- 		.callback = atkbd_deactivate_fixup,
- 	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HONOR"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "BCC-N"),
-+		},
-+		.callback = atkbd_deactivate_fixup,
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "HONOR"),
-@@ -1923,6 +1930,14 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
- 		},
- 		.callback = atkbd_deactivate_fixup,
- 	},
-+	{
-+		/* HONOR MagicBook Pro 14 2026 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HONOR"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "ZQC-P"),
-+		},
-+		.callback = atkbd_deactivate_fixup,
-+	},
- 	{
- 		/* Lenovo Yoga Air 14 (83QK) */
- 		.matches = {
-@@ -1931,13 +1946,6 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
- 		},
- 		.callback = atkbd_deactivate_fixup,
- 	},
--	{
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "HONOR"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "BCC-N"),
--		},
--		.callback = atkbd_deactivate_fixup,
--	},
- 	{
- 		/* Xiaomi Book Pro 14 (TM2424) */
- 		.matches = {
+diff --git a/drivers/input/mouse/byd.c b/drivers/input/mouse/byd.c
+index f5770a3af2f1..5fc3c629590a 100644
+--- a/drivers/input/mouse/byd.c
++++ b/drivers/input/mouse/byd.c
+@@ -423,7 +423,7 @@ static void byd_disconnect(struct psmouse *psmouse)
+ 	struct byd_data *priv = psmouse->private;
+ 
+ 	if (priv) {
+-		timer_delete(&priv->timer);
++		timer_shutdown_sync(&priv->timer);
+ 		kfree(psmouse->private);
+ 		psmouse->private = NULL;
+ 	}
 
