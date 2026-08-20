@@ -1,148 +1,114 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231043D9DC9
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546F03093B2
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787220753; cv=none; b=cFDJa+1b9NfLW48yIVp3GFTV8QAHOFgKA97AROBdYHdOcCOzTqQoVU/U5yWgBMOpJDroMMl8LZcVYjw4NkfkKIJ9a3PcfVEXVPc/F+N7dkZz3cx5t2gHmGCErEXwFfsZJaEAZrVwqV5l/jcV3KVCNQ5tGhKK/GkSLGXN5pFMCIM=
+	t=1787220930; cv=none; b=sjXvCt1JuYzsl8XZAj0o512BzQHMz5xh4lEqAbpzkXpWLYYkEUQhfJQXUIFb6Ss3voITWUZ2pZ2jPfOsVcA85xMm81hRQ1mPTOGmyzbjOc92ThsZ4O3nlEuTpX1qrVk7xrPKZ58UBW5xkJLCQGKxBipXx9XX5JYKqjfeGBtPLN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787220753; c=relaxed/simple;
-	bh=XTmTbtDy6ZppAH0gZuB5nSq9k5etTSnEdU46LCKHda8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YXkawVPUTVfoVWad71VP4iqerTix7jPl/T7WLmwH/F85c76M3w4rgCNP2f8uZPbmJm2bFkuflDxuaRiHiSRo2xPsCBOt3W+fQ8sPCTfaSZzHrEH3E5xTrcqUHuB768Qom0J1iApCziEG9SmZUArHisok//1TBa40UXGBMaTaL7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com; spf=pass smtp.mailfrom=invisiblethingslab.com; dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b=Me5agFN+; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=XieaARD3; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
+	s=arc-20240116; t=1787220930; c=relaxed/simple;
+	bh=yi52HTwj5/V8AkISUNtnecpfAfVpbB7rUItTur0eknE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=axZIyyEq9jKQfPBLzsh1AXtHt6x8YnuvixowcgFTGmWfDYkRo3FBwnD4o48tdwi25qxVbNdbstDkfVr6KBGi5rYsb5byi3FrmWvSC4ZVIeKNN6W+OqRKzB52TXpeG+Caiyy1SFieLXo5aj20gJue/T6v7SuDFuR4S4JbsLZxPPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gp7LaGCT; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="Me5agFN+";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="XieaARD3"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 2869BEC011A;
-	Thu, 20 Aug 2026 06:12:20 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Thu, 20 Aug 2026 06:12:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm3;
-	 t=1787220740; x=1787307140; bh=sGNqTptE7s6gYdrLB8Z9LpMMoI+yyqIv
-	9WSs2rN7GJ8=; b=Me5agFN+E8UF8H0Wp6vy/FgrkD/W2H5Kgfg81IO8JN3JNqFg
-	sp9YaS1qz09HwTzWXY+w5MyW9bwHKhb0rjrM6rIYsjiWXSX1Slppyh0XnYoUdSio
-	yH9otN71DwCgYZ7+NckQ2lw6NEutJkZQIlVvMTtWhNFbOnr9TGk2YFlocbSJmwci
-	kwcWgaK00yj8wgO1d2q1PEy2Onl1JSfc2ETdEVS/rVymz9wNF7VWYCZUfyPyZPhr
-	k8vftwI2KCkm7ZFCPeNyZg7kZp47wOQg84IO80D/PekszV7hX1hJvkD1R15i8OdX
-	+vugVDDEfADOaq4moL1T37pINFREsyjcdvukBQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1787220740; x=1787307140; bh=sGNqTptE7s6gYdrLB8Z9LpMMoI+y
-	yqIv9WSs2rN7GJ8=; b=XieaARD342wcYHvjfXUJ0EC75HZFCzWAjP7lT2kW763J
-	0xRj15oGd71EgVYSqHXTxRXQp0jy+afLbJKjmoO+JarTylrxVMdMalON9Yo7F9m8
-	xYIA6LO9I4EEWfp4fbz6Y7d1dGeBkm53PjVBIctH7LwnN8wAZRXYWnUukrMvPULj
-	TmMguAmAJSE8STJiKJv6Wv5x5SPSo6P+WNTx+wDq0EO38jP5+fJ8l+D6kxQ1r/W7
-	Eh7JES6tnz6y0UW51tasqhlygGEXBgaX2pU3DnT7eF6QmrfmWr3Hsx2JVtYYDIFT
-	rmg6ko8feWtpAygrAh+ey+nefHUkv8bmal359Varnw==
-X-ME-Sender: <xms:A9OGalKiN3MqgffRbvzYQ0NGV0s7o64A3mLrm77PgIYltLiaGJscQg>
-    <xme:A9OGajbN68jcWgUx0YNhZgfrEnVxh-dBdawnABnudO3FHCIo8_6tOVoxYy04Ns5l7
-    p98eiENAUGzubIN4bFjUH7aiQexjX1KlsoFXN31ATrZFyz2WHk>
-X-ME-Received: <xmr:A9OGav-_0FODOrJDz9FzmT546erxU0wvHnPF9PVFfh9itV3rHABHJgAFqD3j6GEDm5qsBXUIizJByQ>
-X-ME-Proxy-Cause: dmFkZTGZPi6dpTYlHg6VIiYaWHMvOIezsDyxbHXjcalzNSEsRw8SzB0wyFhWhmZcQagGpE
-    OlPNvgg4RMiUTnAebNy8Bpw976A2zZqzYqgOJ30OQloXKVKs9VrQcBADx9G5yD6PbcSMcy
-    Qb3vxmzNDwb3mYrBCGbkhfbJv3Uel6h9lvZgqPDI9O9VGVzpP7/zJBrldxFNvmrM/4EGvM
-    dtNgoFpV6ZLgsCP0XQjT/JVNu/0KxxjrVVuTOLuhZVpnuEbPoUmSvXXwVJPQtx7nKM3a0i
-    KbGnzhOz6CgdcVt59ctG/y+o4XJDfbw6HDsE6QG/2npRTeB6IEOBTQRolBYc7zmfIkpENp
-    FmtwyK+l7fsccfI+zWhXa/IUjMDTG92T/SPy0vZe63b1/L9ruYxPNKNNCl3kt/gKnxbK1N
-    LB6vzSOHT1+R3rDmIDQGn0OudyEUl2IwvDVJ7QlVD1YlNzP5QTGE+qF/aNnU8Xf73AIMNQ
-    KaJTBXl7oNaOugqf1OYExNef6XJGTJvxSRPwEEyM8cm4WPmKZ5R2K+529j50B63v48p7KJ
-    oI2TSqnE5frJbIs6gLk8TNDGgl9gWv9xUti4wI1+qygBOHyw8ywppWbUCbYvWIabFZ+RmY
-    jbqUm7xPG/WbkHVZKJfQi2fevtfeLjI6/1NtMZcquTBL2FtaA4WTGvTTqGBQ
-X-ME-Proxy: <xmx:BNOGasZHJOxNtjUb6QP60v8EUhu2uZ4pVd7ZfZuBA8O7X_KJqLIJcg>
-    <xmx:BNOGarNHK0payi0SADoD1knsXriPgmzJLh4RaJohWXDNSKhC40-dXQ>
-    <xmx:BNOGagC5KRzxn_VNsOduUy50pe5uWMdwnZvWaTBB9e629n9cv9x7gg>
-    <xmx:BNOGaqIg1HmnSJTlb4_p9f0KJe7GArjy9OnVOs6LamWCjmRTELioGg>
-    <xmx:BNOGatd79R7eg2AEMjMnbNoj47tM_hPHdLPFBVNlg-PN43Aw8yqKSLG9>
-Feedback-ID: i792e4853:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 20 Aug 2026 06:12:18 -0400 (EDT)
-From: =?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>
-To: intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	marmarek@invisiblethingslab.com,
-	xen-devel@lists.xenproject.org,
-	=?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV
-Date: Thu, 20 Aug 2026 12:12:12 +0200
-Message-ID: <20260820101212.1608543-1-accek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gp7LaGCT"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f93b2fe4cso1164284f8f.0
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 03:15:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1787220918; x=1787825718; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=73EKv/y0Hi9qvT6SwJd1WZqVvHE7yq7MtYlPP4tI3D4=;
+        b=gp7LaGCTV9mM2p67TAdnwWtXn1B05kzyGKw0YbXpsvQx74eq9Z+uzLc4yofEBbYOLd
+         iOeHcUJc47HgdJceYgvAuXKqk0oWV87ZmPdPwPTR6gC0WhM9pjbpEnLzwfRoa3lw6j4g
+         HtW47v4NzHcs6suHdtmbYaiSXgFCFuQrq+It2+BcdmhzpAv/uXlHQQLEwjX+jFBVfPOD
+         JGT/WpR/Whca6xcgE6CgT3mVYHbZn9qe+X4RCL/FFPytFSFMJYGpYoRQKrm9A7jRQplI
+         rg50XcsnVlkRDDAQbz8HTrJaRuHRK5PNf8b0dj7b6IG9iVO245VNE3fgRFo6Xswazztz
+         MBWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787220918; x=1787825718;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=73EKv/y0Hi9qvT6SwJd1WZqVvHE7yq7MtYlPP4tI3D4=;
+        b=tPYWRb8sNDwlFeZrrzC37wu6l49eiDl3vApPIdwxFlQeLSBc8woRTuy1L4SAU/x9MV
+         Y+Hjuhx1UJOkDjmKmUVpPp8wJnab+61OXkY6vk2S8Ueim8P3AYITX+EToeRD6RMy9j16
+         IpmJtinYT+jWfBTOiEw4dS0Rb1xrjgCUy6YA5YX526++9eMMF9R5zqRGBQIbbdWg3Oxl
+         DRvO7EUCiS39lL65LjL4w3IXS8UR6zR44/YLE5YsJgE1sCfiuQhn0MYNe5Is2MZ/Y+zg
+         zbVAT71bD3blutsOIQ6VylACPe5LVrkVGp/HekjLbdres1VMLayQPlhvcC/BAiSzJuDm
+         5GnQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq4ZZutoZHpezC/rEe32FoB5Xp435sxnE1q0RQmRav3l+kliP3WcB04TX5gqzpYjZpULZorwrY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDE9hT/i9Oq3/d6OPywDrRD60RyvHjx3xHzedQZyllpmHfXaSO
+	HcRHBaiwvR0i4CzLzst2U2rzG1o3rcppiL37h3qPIDDypdpZue/zVqvibXfj8Tdu08I=
+X-Gm-Gg: AR+sD1390qL1Wy02hZ7MyfaqXwNmuzWXUdBceo65my98qkrcNR8K5/xq38IE4eauJY9
+	V063vaaL19gJc+KdMvVj3bkqAAPODEP7dDmbQcEXy+Uo0qrSSghcSiAPP+r0G+7T4j8xELaNgUA
+	ojrSrYgrsWD8VagIDdKk/QNWcWDC9b/QhhQ1HapHPCiYJ02CfYBFXOJjAOjDytDP9VZpOEha3KB
+	y/tuBehEKzl9CmxAyXl7jnhxvYqNNx7d2mpAUPZ8B9j3gj4Dq8b+RAsuK2unitKzZvA9tIA8bEZ
+	GANuuwROP0MQ47KRSXM02HJ3Bi4wyw1iK3WM5nOZF99XbQlW1bxG0pWh6LaNJaddbLdmm0E4bCb
+	TdyuXCu0+Y24Hn+RwtC0V5FRUHj8UOBYrKrCz8OhXgC2rLntxL3mJ8IWSnZlDz5eGnVWDcfoAjw
+	/a+z1VjhbkKqrO+Hfw9CuQAz/eACJf+lWJEI74jYSsLYTICaMfq/hm/aQWg75uJNVBHlxBbP90
+X-Received: by 2002:a05:6000:468c:b0:482:b813:8315 with SMTP id ffacd0b85a97d-482b8138536mr5738861f8f.21.1787220917614;
+        Thu, 20 Aug 2026 03:15:17 -0700 (PDT)
+Received: from [192.168.0.163] ([109.76.167.53])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b14d9783sm11601123f8f.37.2026.08.20.03.15.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 03:15:16 -0700 (PDT)
+Message-ID: <f8d660b2-965c-4955-8ce1-3871f84b3811@linaro.org>
+Date: Thu, 20 Aug 2026 11:15:15 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: typec: qcom-pmic: cancel reset_work on stop
+To: Fan Wu <fanwu01@zju.edu.cn>, linux-usb@vger.kernel.org
+Cc: heikki.krogerus@linux.intel.com, gregkh@linuxfoundation.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260819161448.76597-1-fanwu01@zju.edu.cn>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260819161448.76597-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fixes display corruption on Xen PV dom0, where DMA buffers are not
-guaranteed machine-contiguous, in which case bounce buffering kicks
-in, breaking xe's memory coherency assumptions.
-
-Apply the same workaround i915 carries in i915_sg_segment_size() since
-commit 78a07fe777c4 ("drm/i915: stop abusing swiotlb_max_segment").
-
-Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8382
-Link: https://lore.kernel.org/xen-devel/aYtznP_tT6xNPwf-@mail-itl/
-Link: https://lore.kernel.org/all/20221020110308.1582518-1-hch@lst.de/ # i915 counterpart
-Cc: stable@vger.kernel.org # v6.8+
-Signed-off-by: Szymon Acedański <accek@invisiblethingslab.com>
----
- drivers/gpu/drm/xe/xe_bo.h | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-index e8081af..152bfcf 100644
---- a/drivers/gpu/drm/xe/xe_bo.h
-+++ b/drivers/gpu/drm/xe/xe_bo.h
-@@ -9,6 +9,8 @@
- #include <drm/drm_prime.h>
- #include <drm/ttm/ttm_tt.h>
- 
-+#include <xen/xen.h>
-+
- #include "xe_bo_types.h"
- #include "xe_ggtt.h"
- #include "xe_macros.h"
-@@ -575,6 +577,23 @@ static inline unsigned int xe_sg_segment_size(struct device *dev)
- 	struct scatterlist __maybe_unused sg;
- 	size_t max = BIT_ULL(sizeof(sg.length) * 8) - 1;
- 
-+	/*
-+	 * For Xen PV guests pages aren't contiguous in DMA (machine) address
-+	 * space.  The DMA API takes care of that both in dma_alloc_* (by
-+	 * calling into the hypervisor to make the pages contiguous) and in
-+	 * dma_map_* (by bounce buffering).  But xe (like i915, see commit
-+	 * 78a07fe777c4) ignores the coherency aspects of the DMA API and thus
-+	 * can't cope with bounce buffering actually happening, so add a hack
-+	 * here to force small allocations and mappings when running in PV
-+	 * mode on Xen.
-+	 *
-+	 * Note this will still break if bounce buffering is required for other
-+	 * reasons, like confidential computing hypervisors or PCIe root ports
-+	 * with addressing limitations.
-+	 */
-+	if (xen_pv_domain())
-+		return PAGE_SIZE;
-+
- 	max = min_t(size_t, max, dma_max_mapping_size(dev));
- 
- 	/*
-
-base-commit: b4f95affc66ef76342c1f6bf3849f6c8ade6b9d6
--- 
-2.53.0
-
+On 19/08/2026 17:14, Fan Wu wrote:
+> pdphy_stop() disables IRQs but leaves reset_work pending.  If the IRQ
+> handler schedules it just before disable_irq(), the work runs after
+> remove() frees the struct via devm.
+> 
+> Call cancel_work_sync() after disabling IRQs to close the window.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: a4422ff22142 ("usb: typec: qcom: Add Qualcomm PMIC Type-C driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+>   drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_pdphy.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_pdphy.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_pdphy.c
+> index c8b1463e6..abb9d0321 100644
+> --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_pdphy.c
+> +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_pdphy.c
+> @@ -544,6 +544,8 @@ static void qcom_pmic_typec_pdphy_stop(struct pmic_typec *tcpm)
+>   	for (i = 0; i < pmic_typec_pdphy->nr_irqs; i++)
+>   		disable_irq(pmic_typec_pdphy->irq_data[i].irq);
+>   
+> +	cancel_work_sync(&pmic_typec_pdphy->reset_work);
+> +
+>   	qcom_pmic_typec_pdphy_reset_on(pmic_typec_pdphy);
+>   
+>   	regulator_disable(pmic_typec_pdphy->vdd_pdphy);
+> 
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
