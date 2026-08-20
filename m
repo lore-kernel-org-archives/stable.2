@@ -1,175 +1,193 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E8F26ED40
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 17:12:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D33647ECED
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 17:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787245936; cv=none; b=EnVeyYcaUT0yXioOzCdyXrIOzzrj2y2OYB16VIyUpWHNMMM7WusBT2n7k0PvlMhgBo9MdNaMD949E0CAJy4gb2TBU+9S8TSDWsfp9p76+RjKvkHQX4k5C8AhMW7gf6wUmgG6QUJnSIQelrejrOgVr8Wdo2A5VB/JdSZzvJ1/CAQ=
+	t=1787246577; cv=none; b=C0stfZpI76DgGKVJqdxvmx9wq801jAZJdtrFrLNJSmxkJWI5jDTfLdgqhdXYRC3hfEavqhhGADdCEec1Ro9KB8IeRvdk8kZULc6HzRFEvYuywxTcEaKyumEKcfaUgWVjt0aB1AYRIhQSC1+vqR/Mq4FuTj1mmzJiGGEVT6e2EI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787245936; c=relaxed/simple;
-	bh=D8FPraN71VD39KN1gpQdD92B0qFi+xsvSpMhra3c+do=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=aTI3SJ/98h1QYEgg/rL2VY0QVsbRGAu51tII1hhlIXmWXKJGRiFp0NGJLYdBqytcDw+GKb5pA1fcCIiQa0CT5khoCOw4MOjipb+LrVb0zPRr8EzIGRUzqQtahvuOvzsKNvASuqvXzmJNRkAJOoPiR0yc4H0oW5ruEvpDAjLIYKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=OH4SSzVT; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1787246577; c=relaxed/simple;
+	bh=Zm1oQlw0CaOGPNrnh2kIFTU16TjcwpdnXKlPrF/GQh8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=huHr5H/RG2D+rET6gZhsZovUc2YJW38kTli3VeTBW0mKEaidlEnUFM4EiGOkdh2UsxZfsqnvp9SlPWmmBYMXlgqI58NuGEaxsiGqe5cK6kw3BJ/5Qd0HAIgwCIx93UIZWyfXC64dRq3nBB0VucOjqXsrWQN+V8ag7pGEFlOOYHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=j/be/aKn; arc=none smtp.client-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="OH4SSzVT"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38fdeaed181so36773a91.1
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:12:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="j/be/aKn"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-8efcef23d21so888266d6.2
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:22:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1787245934; x=1787850734; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WDHOzboWyyedJI0AK0XaWF+GldMNcusvvKh1u6SV1rQ=;
-        b=OH4SSzVTAZLC+W26UctQSU36eZZ5MZ4kTfBBayzN3xHLpVfgpyP0xo3/lTD2czXTUb
-         9cYNlf/fwnA0XS+4S55SM/00KnFKp+63PGqYNGYlCR/1BgEbVRkuzFkGZ9uvEAIREUbu
-         N0kbgRHcIVWROZ61PBozuR/pkRd6qJdUjCJeoVXyQR0lHhKBRpx218NbjRvvE37K76Dw
-         YNohVgeB3dsqyWuMkt4sRGDQmo1SQUkpdSDvF3iZOpw2e+HCJc5WjkWGv+ozCNkVj4Oi
-         NINhX/gTZaOlzK5ettmnQeH/dl0XlF7/GPJzv6srJVbDai520F3zjEQf8fpNaFHPmx8s
-         Zg6A==
+        d=rowland.harvard.edu; s=google; t=1787246574; x=1787851374; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/PsthMERcIolX2Su7a+AWUPTiGykOhiKXEjB9LoU7H4=;
+        b=j/be/aKn6UVPSF1hQXm0NlLJHdON0p3lynbaUKcJjhDEvpGVsVgjyAWDuOsgWiBifZ
+         CsL/VUc1J1rk5kPqVl/ul3ypWkE4UfcM591+1w/MlOcHbATcWzw6EKPylx3Ip4PaLa3d
+         6q1Ezs0Wb/VVvTpmpdkzxDHlGnxsafw6qez7D0YnU+6lzI9isHqQRmaFqdkB7k9nj1T/
+         6PteZMC9h7/2y9nQ2Bch9HVAZbLuKABMam6icfqZUdHiguZ3a4jXJH28/9XUCAtoxy1a
+         Eq8owIjOysAbtnvxPErS6v01GpqYUoCmdGs9eUMnvlvowaYULTlOAXoXYvfT/QWb9vap
+         Erzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787245934; x=1787850734;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WDHOzboWyyedJI0AK0XaWF+GldMNcusvvKh1u6SV1rQ=;
-        b=CKoCgONBOQbWRfHuepbvWWcs+lkbur1AYNV+IBLeAshPrABu9nJP0so5nT3W5BmUvG
-         8eqN9cqOsJaTTPTLJk/uDpGMToqfhN0o7Tb/mQKPv0PVCF/N+9HH1t+2IOQp82DPs7W3
-         cxFKbpIjmsbEz9eUFVm2ye0bi6qYfaEXzC5OyeBGzkj6qBxcEjahvi1rwXPNtweQUo1B
-         juEarrS2HpyENHpTK7kpxxVT09HvO6vKvLyFxFJaipC8Ncxp9g+Vyw7g4bcWI57SLsMb
-         Mts4BNaDT/SnywNhskXPgL/b9LS7X9YYINu1aVOv8KhR27AP0afIh47tXiiD2UjF9bNv
-         M6IA==
-X-Gm-Message-State: AFuF++lvsx/Un475rRANcq2nRlq7BPQcyvRX5fAiOm2aP2QSG6PTf0B2
-	/qyDq8Bd6Obv3u87ipEKYr4R1GukrCYg9pgd/EQW+RZRmaHC9QSqo6XDV8jF5ltSK/GPFIsR86S
-	kLq1/
-X-Gm-Gg: AR+sD12mO6gD5cIMVa2wySa8aCXu6X00w0zxOnIhZVAQqUVZLDnKwo3m4ZRYPee9VKy
-	q6/sXLx8A2w8Qc9yyuFzcV4C4dE1F9Ib15ER99ASlirSS34oapHf3BjOI1LVaTLB6PwuEqgaMM/
-	+dej/e4Hs7HZU3ZNqcU/YvrF5MLw0j7Ny13t0QjK/GpAsiy8VbXSwXWN0uanStatMrdnYOdVBUk
-	nt9JyH53TrE3zuRd9BjCfsgkuwyy8zuVZY8c157YTMX9X1MNTy+d6/36YfxKCrtSOX0fNcWCPG3
-	25YuZYtAssLLAB9uW+tzSONKT6tzr3C9RJDmn362zzKW4KGT/KJ6CYl8o5cZYvGL5JEBrrOV883
-	p1sqG/bG/+xKzmbG1eFjAoDTYt8jXuPYbTszgDt3WyzxayDhM0K7wvmu9RteJiECTOnYnEGI71i
-	TutOcVj5L3pH9k6hYxxPtYtG7j8zCYshDNzGn12jBytw8yxEtUuO7FUT9WCpiYsgk2d4krmI3I3
-	km8SbjV8bBJe8IvJ6ZeJ+C2uJE1S2Hlt+ab52DvTFhwSnwl11Pj5SDNFjajcg==
-X-Received: by 2002:a17:90b:4ac9:b0:37f:ed7e:7e42 with SMTP id 98e67ed59e1d1-395810cad6amr25770511a91.14.1787245934060;
-        Thu, 20 Aug 2026 10:12:14 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:4439:8048:bb7:959c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fb17eb5sm8767712a91.3.2026.08.20.10.12.13
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 20 Aug 2026 10:12:13 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Subject: [PATCH 6.1.y v2] net: bonding: fix use-after-free in bond_xmit_broadcast()
-Date: Thu, 20 Aug 2026 13:11:49 -0400
-Message-ID: <20260820171153.31521-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1787246574; x=1787851374;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/PsthMERcIolX2Su7a+AWUPTiGykOhiKXEjB9LoU7H4=;
+        b=lP7aBzpc3mvV0X4Mi2XsOVqcfJJcZgaunsY6+sspuF3C1aLw5J0oQb7NKqt5dvigte
+         vpeqp5NnXXq2mpVOyKNhcsMqh9mKxpsE53pihbxic4uImM0Xo3iyULe0jynOe4GmZzEs
+         NN5K+z4yD32ZBuIZLh3AOfjJ+px3iY+tqTjOWz2YZh2iq6zldE9Y5MWL/lNexy6BMQU0
+         p0EKQyUnCnCHyjdwfz/zLcLcTHQdCc1ZPvVftNjpSjNsrGJJ9YhVLcETL0pyB1NyOgqF
+         1J9m0SbTAcrHrfEtw4JLZrQUDVBaSCfx1DlZH2Ho34dpiLgGI1GCrtiI2WvoAa3D1s4X
+         wKfQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrR2rWKO6skQtNINhMlX0qQ5qy1ys9ouKykQsCO70+lLoFAmc8zt64Mg9LcoLSiWnTkI+Z/br8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1prFA8ZtkzaEVtUmzOeHFD98WD5W3Wfv00fmNBGlqxETzLGL+
+	zpw6IVFS7k/0ZNfV286jgcsKW+tHIyk4auxK2SSxDfkZlmQ/2Wk7U/sgcqJ6QdooPg==
+X-Gm-Gg: AR+sD10clIOI0bh8j3uuXG7q1TPQP+1atZQFr3/zwS7tOXiSKvMv76k3HbxW/VmjH6X
+	IUm5hBHEenZSShJuyDpZ1DWBMLGf1ijSQtiAD0oOwdv37aUN1pj8/qtxvFyutDhK42L7uBxpXzg
+	h8ZHslGP1uFNcsNVCcz+6qYJw8fP/s84pKM/X1oe5keoDZcUhxgHSKTIPI3d3cya5wjnb6TzuaY
+	E0eCrXFVAyEIzFJazGBTuZqnTMhCVI2xikJIWzlUX9wPzr+HBoCSZPV+F+gIUwAUsDYVtZkjAkF
+	QRJ1nG4pathxdFqYr/1VpmQqaFMqQQpt/D5qE/pS5jB3Gaw4qK/HrwI2s4N+laD9k6RYmXDifaS
+	0AnX6mOZ3HQEGajIEMvgS3tFDTTAsb8DNfADCfI1+aKy5gbFpaVJCCYR5alDd898bWK31jUoNms
+	5Eefv4c1kZxbKBhpnWGAAaW3TJCsaqmLfi3F56by1D7+FGBth4hvdmXAB8LHfwsogw3tRgHkrgs
+	upmWo+MrjeBC2RrK86Iy/jPsiEy4FDZ
+X-Received: by 2002:a05:6214:3d0f:b0:90c:4fdd:c6ef with SMTP id 6a1803df08f44-90c5e99081bmr151894786d6.15.1787246573850;
+        Thu, 20 Aug 2026 10:22:53 -0700 (PDT)
+Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c5eee3936sm43169966d6.20.2026.08.20.10.22.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 10:22:52 -0700 (PDT)
+Date: Thu, 20 Aug 2026 13:22:50 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>,
+	gregkh@linuxfoundation.org, rafael@kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com,
+	stable@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v4] driver core: avoid klist_remove() on unattached
+ knode_driver
+Message-ID: <0198b9fe-4bc0-4e12-b788-85aa2c9f8162@rowland.harvard.edu>
+References: <2026082042-coma-moody-5b4e@gregkh>
+ <20260820084557.129908-1-khiemtranzo532001@gmail.com>
+ <DKTWKZFYC6TL.2ZESRE0NWAV2T@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DKTWKZFYC6TL.2ZESRE0NWAV2T@kernel.org>
 
-From: Xiang Mei <xmei5@asu.edu>
+On Thu, Aug 20, 2026 at 06:14:37PM +0200, Danilo Krummrich wrote:
+> (Cc: linux-usb)
+> 
+> On Thu Aug 20, 2026 at 10:45 AM CEST, Nguyen Quang Le Kien wrote:
+> > Fixes: 94e7b1c5ff20 ("[PATCH] Add a klist to struct device_driver for the devices bound to it.")
+> 
+> This is not the correct commit to reference, this commit seems fine.
+> 
+> > diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+> > index 60c005223..4154b4499 100644
+> > --- a/drivers/base/dd.c
+> > +++ b/drivers/base/dd.c
+> > @@ -1354,7 +1354,8 @@ static void __device_release_driver(struct device *dev, struct device *parent)
+> >  		device_unbind_cleanup(dev);
+> >  		device_links_driver_cleanup(dev);
+> >  
+> > -		klist_remove(&dev->p->knode_driver);
+> > +		if (device_is_bound(dev))
+> > +			klist_remove(&dev->p->knode_driver);
+> 
+> This looks like band-aid for the underlying design tension in the USB core
+> (which we should address instead) and does not belong in the driver core.
+> 
+> It's not visible from the above diff, but with this patch the control flow
+> becomes:
+> 
+> 	if (dev->driver) {
+> 		if (device_is_bound(dev))
+> 			klist_remove(&dev->p->knode_driver);
+> 		...
+> 	}
+> 
+> but dev->driver already indicates that the device is bound to dev->driver in
+> this context.
+> 
+> The reason we "need" this check regardless is that usb_driver_claim_interface()
+> (ab)uses dev->driver to indicate that a certain USB driver claimed, or rather
+> reserved, this device.
+> 
+> There are two cases in usb_driver_claim_interface():
+> 
+>   (1) The device to claim is already registered with the driver core, in which
+>       case device_bind_driver(dev) is called and dev->driver is correctly set
+>       during the bind attempt.
+> 
+>   (2) The device to claim was not yet registered with the driver core. This can
+>       happen when the USB interface the driver actually binds to is registered
+>       (and hence probed) before the additional interface the driver wants to
+>       claim is registered. The USB core sets dev->driver independent of the bind
+>       state to indicate it has reserved the interface.
+> 
+> The first case is perfectly fine, but the issue with the second case is that now
+> dev->driver is semantically overloaded:
+> 
+> The USB core treats it as "dev is reserved for dev->driver" and the driver core
+> treats it as "dev is currently binding or bound to dev->driver", but that's not
+> actually the case yet, since device_bind_driver() hasn't been called yet.
+> 
+> IOW, dev->driver should only be set under the device lock before calling
+> device_bind_driver(), and, in case of failure, should be cleared after
+> device_bind_driver() with the device lock still held.
+> 
+> Besides the reported crash, another implication of this is that all other
+> functions from device_release_driver() are called as well, even though
+> device_bind_driver() was never called before, and there is no guarantee that
+> this does not cause other unexpected side effects already or in the future.
+> 
+> I think one solution could be to add a new claimed field to struct usb_interface
+> to indicate that the interface is reserved for a certain driver and make
+> usb_device_match() reject the device if ever probed otherwise.
+> 
+> Another solution (but that's a bit more work) would be to separate interface
+> registration from interface probing in usb_set_configuration(). Of course that
+> needs help from the driver core as well, but it would also get us rid of the
+> slightly odd situation that a driver may operate a claimed device already, even
+> though it is not yet registered with the driver core.
+> 
+> I'd suggest going for a claimed field in struct usb_interface first to fix the
+> immediate problem and then take it from there.
+> 
+> That said, I wonder if there's more to think about with the
+> usb_driver_claim_interface() / usb_driver_release_interface() API.
+> 
+> After having a brief look it seems that drivers have invented various different
+> approaches to protect against the case where userspace could write the claimed
+> interface's name to:
+> 
+> 	/sys/bus/usb/drivers/<driver>/unbind
+> 
+> I think this could be much cleaner if the driver core would support "claimed"
+> devices" natively. OTH, there's only ~20 drivers across USB and PnP though, so
+> probably not worth.
 
-[ Upstream commit 2884bf72fb8f03409e423397319205de48adca16 ]
+I don't object to the idea of adding a "claimed" field to usb_interface.  
 
-bond_xmit_broadcast() reuses the original skb for the last slave
-(determined by bond_is_last_slave()) and clones it for others.
-Concurrent slave enslave/release can mutate the slave list during
-RCU-protected iteration, changing which slave is "last" mid-loop.
-This causes the original skb to be double-consumed (double-freed).
+However, isn't it true that the driver core has always supported the 
+idea of a driver being associated with a device before binding?  In 
+particular, __device_attach() specifically checks for dev->driver being 
+already set.  If it is, the match and probe steps are skipped.
 
-Replace the racy bond_is_last_slave() check with a simple index
-comparison (i + 1 == slaves_count) against the pre-snapshot slave
-count taken via READ_ONCE() before the loop.  This preserves the
-zero-copy optimization for the last slave while making the "last"
-determination stable against concurrent list mutations.
+Are you saying that this code path should be removed as well?
 
-The UAF can trigger the following crash:
+As it is, the driver core does sort of support "claimed devices".  
+Namely, a device is claimed (or probing) if dev->driver is set and 
+device_is_bound(dev) is false.
 
-==================================================================
-BUG: KASAN: slab-use-after-free in skb_clone
-Read of size 8 at addr ffff888100ef8d40 by task exploit/147
-
-CPU: 1 UID: 0 PID: 147 Comm: exploit Not tainted 7.0.0-rc3+ #4 PREEMPTLAZY
-Call Trace:
- <TASK>
- dump_stack_lvl (lib/dump_stack.c:123)
- print_report (mm/kasan/report.c:379 mm/kasan/report.c:482)
- kasan_report (mm/kasan/report.c:597)
- skb_clone (include/linux/skbuff.h:1724 include/linux/skbuff.h:1792 include/linux/skbuff.h:3396 net/core/skbuff.c:2108)
- bond_xmit_broadcast (drivers/net/bonding/bond_main.c:5334)
- bond_start_xmit (drivers/net/bonding/bond_main.c:5567 drivers/net/bonding/bond_main.c:5593)
- dev_hard_start_xmit (include/linux/netdevice.h:5325 include/linux/netdevice.h:5334 net/core/dev.c:3871 net/core/dev.c:3887)
- __dev_queue_xmit (include/linux/netdevice.h:3601 net/core/dev.c:4838)
- ip6_finish_output2 (include/net/neighbour.h:540 include/net/neighbour.h:554 net/ipv6/ip6_output.c:136)
- ip6_finish_output (net/ipv6/ip6_output.c:208 net/ipv6/ip6_output.c:219)
- ip6_output (net/ipv6/ip6_output.c:250)
- ip6_send_skb (net/ipv6/ip6_output.c:1985)
- udp_v6_send_skb (net/ipv6/udp.c:1442)
- udpv6_sendmsg (net/ipv6/udp.c:1733)
- __sys_sendto (net/socket.c:730 net/socket.c:742 net/socket.c:2206)
- __x64_sys_sendto (net/socket.c:2209)
- do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
- entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
- </TASK>
-
-Allocated by task 147:
-
-Freed by task 147:
-
-The buggy address belongs to the object at ffff888100ef8c80
- which belongs to the cache skbuff_head_cache of size 224
-The buggy address is located 192 bytes inside of
- freed 224-byte region [ffff888100ef8c80, ffff888100ef8d60)
-
-Memory state around the buggy address:
- ffff888100ef8c00: fb fb fb fb fc fc fc fc fc fc fc fc fc fc fc fc
- ffff888100ef8c80: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff888100ef8d00: fb fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-                                                    ^
- ffff888100ef8d80: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
- ffff888100ef8e00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-Fixes: 4e5bd03ae346 ("net: bonding: fix bond_xmit_broadcast return value error bug")
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Link: https://patch.msgid.link/20260326075553.3960562-1-xmei5@asu.edu
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Assisted-by: OpenAI:Codex
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Changes in v2:
-- Preserve the upstream changelog, authorship, and trailers.
-- Move the 6.1.y backport rationale and validation below the separator.
-v1: https://lore.kernel.org/r/20260819165924.1184-1-artem@trailofbits.com
-
-Backport of 2884bf72fb8f for CVE-2026-31419. The identical one-line change
-applies to v6.1.183. An unprivileged namespace workload triggered a KASAN
-use-after-free in skb_clone() on v6.1.182 in about one second; with the fix it
-completed 1,180,061 sends and 299 slave-list mutations without a KASAN report,
-oops, lock warning, or BUG. The fix is in 6.6.143, 6.12.95, 6.18.22, and 6.19.12,
-but remains absent from 6.1.y.
-
- drivers/net/bonding/bond_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index 5a71893fc6a962..c4f640292bb59c 100644
---- a/drivers/net/bonding/bond_main.c
-+++ b/drivers/net/bonding/bond_main.c
-@@ -5345,7 +5345,7 @@ static netdev_tx_t bond_xmit_broadcast(struct sk_buff *skb,
- 		if (!(bond_slave_is_up(slave) && slave->link == BOND_LINK_UP))
- 			continue;
- 
--		if (bond_is_last_slave(bond, slave)) {
-+		if (i + 1 == slaves_count) {
- 			skb2 = skb;
- 			skb_used = true;
- 		} else {
--- 
-2.39.5
+Alan Stern
