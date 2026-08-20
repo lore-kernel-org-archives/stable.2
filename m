@@ -1,129 +1,196 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E3B411FB4
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:57:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787223447; cv=pass; b=mnt20zfCtz+kKqxaWNaaEniwIbIae2oWiQ3+FjuZxGpbQwknBPjYEuK7D4qc5oXnhPUeGfVlQi4Wsk3DFfKNGWLPkx/BMsPrwEUzoXhfk1/Im6v3J2/8Hf2sLjdZUS4J/fDYjSP1nNvOooGRUcPKj/YCzvzgH+NL8Pneb9foLNE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787223447; c=relaxed/simple;
-	bh=9jYtyylx2W7dLCyVBh5w5flbhCU/+JBjP9aGJBwO6Iw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L8E5NMNjEy42///z1/zX3ZsIID7e5aov6iDU/95LYrpTtxGkRoXhoHl60+cxC9Ong7CzJbh7CpyNICHoljUwbiJtABHJWw+PFq8lcnpAhTBUg5NalEGbGHb+z1vU8BjbKql8VG6OsQU4bMvdDJ7Lj2J9vH0othqwJqBTtVL+ljs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vH+PWZ4k; arc=pass smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4C43E765A
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787223703; cv=none; b=HkgrxH8+UzM3dJS9OAYJcR5YPuDrOig4iIGFQdY8HXugEkag+bgRXBJuaUAb0xu9gIkIkFmgiQrvxWQfS7HspBcdQqG1l3IHRSNrJIs8sVJIWJu2cQH7KpXLTG7l3+Fz7AxrTOv0nFIBNTuaTSF1fIvOEWNTmLBDUFGKFFgt2H0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787223703; c=relaxed/simple;
+	bh=IvEovyguazzTst5/qps3tppgDBhGjuhTAxzhRbxifZE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iAlQU+pQx8iTL0pziQt8dGYnO4FBFHiKz/sGYk2Gov0mmBlagPCrbdd5wH3tsA5AFuwBxSzeIXTNl/ScPNBx+8Gl5wnyDJHjEwgNeHbNkz5RQMcHXxMY23sfzMf8Kg0Qx5tX1jIL2Pi0O5f8DjKW/Lg6dF+NcZYE5nPPsdSeLSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PosiB4uY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vH+PWZ4k"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-934944f2d22so141721585a.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 03:57:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787223444; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SL42CkIfgEwm5OksBN718rayRSGY1O/XnNyzJvkZ+v9wmbwFTlV9LGnviy1lxKWAHr
-         MNQQLEYctF2JfMio9tA5Ptdv6q3Xqxe4IGkwVrfFXN6jv7c33N55IXnvLwmeeeGqv/aH
-         7yGy66lljSOwvkKBuQwo7BlkGdnmt5rj8a7zZhUrE+eU7hCXq3BzUWHOGrmwxnmvK31p
-         zfTTMSMzqX3iIULHVX/25kK02woeX6Kifl6fEhrQEySClULXNHyXCvJh27pNmdtJmgpd
-         XaB1SFuFocVjdchKk+hMwGhF93Qpo070ouHCwAgMvPEXax9zGMTEvZS5UaJbebRRgz1F
-         F/bQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9jYtyylx2W7dLCyVBh5w5flbhCU/+JBjP9aGJBwO6Iw=;
-        fh=lWN/hmfaUG5AXrSQgevYrcFjiFhuzEM/oxvN5Tuo1yA=;
-        b=FpLVVj23Cos2Z1QQHW7dWI4eEtnOKsnV553P5rQBMUXa4E7s8RzNckLZyu0S66Gj9o
-         Ty2yarmdqUVv2+uo/GTeImU6mTxSxpdlnbOimdbDlSmlFd5wlQVobM/TmecH5q7IyjMy
-         Mkm92lsNDHrdx69U8iuYY7AF/ROA2p8RRyti47QulhnNWOHKX7im96zADe3XAPD6CDwy
-         YghftuA5vTmw6mrVSGAigtZNlP9Lw1ld3K6dxPd0zjRMQrhq+YsnnVGn69Hhl0ZsUCUp
-         seyo9WIy7Ie9PHXRanUi4vhoF+devzns/aOhqWkkIpckwj01y3ZcNM4kYRR2vh7oyhXX
-         59RA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787223444; x=1787828244; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9jYtyylx2W7dLCyVBh5w5flbhCU/+JBjP9aGJBwO6Iw=;
-        b=vH+PWZ4kRaCk7q+/hoUeJPvKKLzE9mCR/GBiwYww1gvDQuQNSm4o3JABuI6JK/3fOg
-         e9famN5/r17Dzglyxh57XsMbPhnYJag3eY+0EmkODlC/YPs5hbRf4WU+QVV5epNu79jl
-         lfdKu4p7v2OGld7/A+GszvGy/1o9rR45TTFXC8GKzFYOUhHhg2EYfqBk5cXyLR9W35S1
-         pHtjqs8wOwtr7Z9lPeREIEhwR2wdgjb0fkpWRvHw0SHxkyqDbYq350LefO/tdvZFBlnY
-         hHUiatk99FC2Dh3hWqI7R0zs4sxTOZ81FBHcqDzhq82VxDhQM9Mx4NkhccH//Kro6oIr
-         qq+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787223444; x=1787828244;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9jYtyylx2W7dLCyVBh5w5flbhCU/+JBjP9aGJBwO6Iw=;
-        b=Q65EZTMkdHWX/Q94zdCrkdhz3zaYU4UI/hf2uQMb+nTQVFtUfirR8bLDrDruDSySNN
-         J+zTEy8XYdSCioQBJmMfixEdcLK8X8EPAkNqvqYIzgmqzqzIrnHY5F9rGiyeA6sjh79+
-         L80VnT6B9QG6t2gv6mYbQbB7Kl6x90KimqIsfPM6EjOZwHOCXbNPENXGMrVuPNv5sQMV
-         qFtGHcQ/tfJq0jVY8ZQO/EnQWLjMZpSyCmHn0MLcZkeDXJ+T6DLWhHM+D7OtjMPP2huO
-         Tvev7SS1Ldnn+XGz4s7z366hjiDV9ZyjDTq04/p4zjSXYxt0WxsaDzrjoaGuIKx64x/D
-         CKRQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqP/wncxX8LUDm7iOTT4IjAwsFrtBWQGVYx7rrYht+ynuhR+Hta5t62oPTrbrZETJEv3+sKRHI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzdKjAD5Z5MGVHk4Id7xs2AhdJE/miv0lUye6pX4iimHOcTJyc
-	j6pvQ7jaD/R5ow3UoV1cPmMNPL3KdRMtgWPUzTKqs94uf8qRVic5Fwgx0aSWkQkikzTVpc5C72l
-	QMCgo5/Bfj9ZV5G/OQPBGBGVWmcvLlL2/aTrkpuUv
-X-Gm-Gg: AR+sD111kkBc0F4zn2I/9XbC+2+gZqw/9E6yc0YvyBSZZltxlP0qr7qujA0B1ewxsha
-	+q6aUFc0y3E6Eb2LErn+Crzvv4uFlbkQ53WbhYEGTlbj4Nb7GexuvRwmTP3c3TsnJrXGVjZZZrf
-	buUNmuVZf8zc7OCw9RjmzhywQtu54nZVTxQiE0pAPMWcyEV/1g49PZyZ77Jhpbc6af+wG/EgXDb
-	dFxwO6DFjt6eGZIRxZiwAfW08IVO6aGkmqAvt4/5jLuU+GNVNzR3DM/FLfDF6987aDx6RjaNtx2
-	RPyNiD0h7sE1tHvPUYsLMmQbhkuOGXIssHEZebc+jEtQqT648DMcO0hjuGpVJLJrvWTFD/RTGkb
-	/GY4XUnZWQTdHPLtlCqmuN0v0COd4qoI2MhVHOAJhlQ0GXq1j6WfRT44eCQ==
-X-Received: by 2002:a05:620a:468e:b0:930:9091:f0ce with SMTP id
- af79cd13be357-9371e302067mr1049789885a.22.1787223443592; Thu, 20 Aug 2026
- 03:57:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PosiB4uY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799C01F000E9;
+	Thu, 20 Aug 2026 11:01:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787223701;
+	bh=neOqON4NPA9fJYhIcwkJ7NJimnO370h+51iOmvt6XF8=;
+	h=Subject:To:Cc:From:Date;
+	b=PosiB4uY5n8vSL8F+2nkjCFuNyugxpCwxyNAujtEoSvj58ZY1Ces0m3A9cPofpaSk
+	 C1eqf3cPIHHbJwfOVhnHw1jEcn3GKFExJkYgjIRGPHLnZMqtdzxENYYcEoRWZuioyx
+	 uktCJ93RbDun9g/xIoEyNKEEVcCVWhyQfRKqY/Vo=
+Subject: FAILED: patch "[PATCH] fbdev: serialize mode sysfs access with lock_fb_info()" failed to apply to 7.1-stable tree
+To: mlbnkm1@gmail.com,deller@gmx.de
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 20 Aug 2026 13:01:36 +0200
+Message-ID: <2026082036-chili-glider-8a45@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815070413.294559-1-jiayuan.chen@linux.dev>
-In-Reply-To: <20260815070413.294559-1-jiayuan.chen@linux.dev>
-From: Eric Dumazet <edumazet@google.com>
-Date: Thu, 20 Aug 2026 12:57:11 +0200
-X-Gm-Features: AcwNN1V-lDNNVkCSZufLYHUNnmdNTo3thCvZLBu1IvrTsUJT8e265xO6leh8BHk
-Message-ID: <CANn89iJ7hfewnOEjD5SSf_3n3iSQAHN8TPspBCyp_Pvy-ibbYw@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/2] net: advertise TCP MSS from the configured
- MTU, not the learned PMTU
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, 
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 15, 2026 at 9:04=E2=80=AFAM Jiayuan Chen <jiayuan.chen@linux.de=
-v> wrote:
->
-> The MSS a host puts in its SYN tells the peer how big a segment it may
-> send us. Right now we can shrink it with a PMTU we learned on our own
-> send path, which is the wrong direction entirely.
->
-> On asymmetric paths this bites - think DSR load balancers, where the
-> request side goes through a smaller-MTU overlay. We learn a small PMTU
-> going out, then advertise a small MSS, and the peer stays capped for the
-> whole connection even though its path back to us is wide. MSS only shows
-> up in the SYN and never grows back.
->
-> On symmetric paths we lose nothing by dropping it either: the peer runs
-> its own PMTU discovery and usually already knows the real path MTU.
->
-> So work out the advertised MSS from the configured route or device MTU
-> and ignore the learned PMTU. Our send side is unchanged, still clamped by
-> tcp_current_mss(). Add ip_dst_mtu_configured()/ip6_dst_mtu_configured()
-> and use them from the two default_advmss() paths.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Fixes: 164a5e7ad531 ("ipv4: ipv4_default_advmss() should use route mtu")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-Reviewed-by: Eric Dumazet <edumazet@google.com>
+The patch below does not apply to the 7.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 061db6b7a910b8378f3b2df64f8c0a3ddc6e85f2
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082036-chili-glider-8a45@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 061db6b7a910b8378f3b2df64f8c0a3ddc6e85f2 Mon Sep 17 00:00:00 2001
+From: Melbin K Mathew <mlbnkm1@gmail.com>
+Date: Thu, 2 Jul 2026 01:42:48 +0200
+Subject: [PATCH] fbdev: serialize mode sysfs access with lock_fb_info()
+
+show_mode(), show_modes(), and store_mode() access fb_info->modelist
+and fb_info->mode without holding lock_fb_info(). store_modes() takes
+lock_fb_info() while replacing the modelist and freeing the old one.
+
+A concurrent reader or writer can load a pointer to an old modelist
+entry before store_modes() frees it, then dereference freed memory or
+store a stale freed pointer in fb_info->mode.
+
+Take lock_fb_info() in show_mode(), show_modes(), and store_mode() to
+serialize with store_modes(). In show_mode(), copy the mode to the
+stack and format after dropping the lock. In store_mode(), split
+activate() into a _locked variant to avoid double-locking, and hold
+the locks for the modelist walk, mode conversion, activation, and
+fb_info->mode assignment together.
+
+Cc: stable@vger.kernel.org # v7.1+
+Signed-off-by: Melbin K Mathew <mlbnkm1@gmail.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
+
+diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
+index af21dc5052df..d3d60c555bb8 100644
+--- a/drivers/video/fbdev/core/fbsysfs.c
++++ b/drivers/video/fbdev/core/fbsysfs.c
+@@ -12,19 +12,24 @@
+ #include "fb_internal.h"
+ #include "fbcon.h"
+ 
++static int activate_locked(struct fb_info *fb_info,
++			    struct fb_var_screeninfo *var)
++{
++	var->activate |= FB_ACTIVATE_FORCE;
++	return fb_set_var_from_user(fb_info, var);
++}
++
+ static int activate(struct fb_info *fb_info, struct fb_var_screeninfo *var)
+ {
+ 	int err;
+ 
+-	var->activate |= FB_ACTIVATE_FORCE;
+ 	console_lock();
+ 	lock_fb_info(fb_info);
+-	err = fb_set_var_from_user(fb_info, var);
++	err = activate_locked(fb_info, var);
+ 	unlock_fb_info(fb_info);
+ 	console_unlock();
+-	if (err)
+-		return err;
+-	return 0;
++
++	return err;
+ }
+ 
+ static int mode_string(char *buf, size_t size, unsigned int offset,
+@@ -65,6 +70,9 @@ static ssize_t store_mode(struct device *device, struct device_attribute *attr,
+ 
+ 	memset(&var, 0, sizeof(var));
+ 
++	console_lock();
++	lock_fb_info(fb_info);
++
+ 	list_for_each_entry(modelist, &fb_info->modelist, list) {
+ 		mode = &modelist->mode;
+ 		i = mode_string(mstr, sizeof(mstr), 0, mode);
+@@ -72,12 +80,22 @@ static ssize_t store_mode(struct device *device, struct device_attribute *attr,
+ 
+ 			var = fb_info->var;
+ 			fb_videomode_to_var(&var, mode);
+-			if ((err = activate(fb_info, &var)))
++			err = activate_locked(fb_info, &var);
++			if (err) {
++				unlock_fb_info(fb_info);
++				console_unlock();
+ 				return err;
++			}
+ 			fb_info->mode = mode;
++			unlock_fb_info(fb_info);
++			console_unlock();
+ 			return count;
+ 		}
+ 	}
++
++	unlock_fb_info(fb_info);
++	console_unlock();
++
+ 	return -EINVAL;
+ }
+ 
+@@ -85,11 +103,20 @@ static ssize_t show_mode(struct device *device, struct device_attribute *attr,
+ 			 char *buf)
+ {
+ 	struct fb_info *fb_info = dev_get_drvdata(device);
++	struct fb_videomode mode;
++	bool have_mode = false;
+ 
+-	if (!fb_info->mode)
++	lock_fb_info(fb_info);
++	if (fb_info->mode) {
++		mode = *fb_info->mode;
++		have_mode = true;
++	}
++	unlock_fb_info(fb_info);
++
++	if (!have_mode)
+ 		return 0;
+ 
+-	return mode_string(buf, PAGE_SIZE, 0, fb_info->mode);
++	return mode_string(buf, PAGE_SIZE, 0, &mode);
+ }
+ 
+ static ssize_t store_modes(struct device *device,
+@@ -137,12 +164,15 @@ static ssize_t show_modes(struct device *device, struct device_attribute *attr,
+ 	const struct fb_videomode *mode;
+ 
+ 	i = 0;
++	lock_fb_info(fb_info);
+ 	list_for_each_entry(modelist, &fb_info->modelist, list) {
+ 		mode = &modelist->mode;
+ 		i += mode_string(buf, PAGE_SIZE, i, mode);
+ 		if (i >= PAGE_SIZE - 1)
+ 			break;
+ 	}
++	unlock_fb_info(fb_info);
++
+ 	return i;
+ }
+ 
+
