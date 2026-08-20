@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB0E442FCB
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:38:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6D7442FB5
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:38:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787229497; cv=none; b=Ge8QyuNWlFnFLx+NLkE3yBb6VZp9yFCRn3BmTnhneqVGs3XvyYVYR3CZ1JkS1PbMlVpStcMF30eX+mqJxZDIRNJlXGCR3QPv+vsjORSPsXVZuktKGPELQvn1NlAC+Vy2npWHFyeGe+U2nligZNO8553KpMV7kAz5ydKLYqJPRCs=
+	t=1787229506; cv=none; b=ufubjhsW6mgaF+qMKybGCx/RMR5lPsLoI8aB4LTP7Wxxkah9VD7SmNoBFgrsRDakMra8/TcaAAsSyeuQrVnmoK0tO3G1H2k8d4mqNdACAIOFfxD24C08o2qVjSOGS3BeeuovawN16d87VCvcpeIPlN7laeT3nqWUtvP7yEnh3WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787229497; c=relaxed/simple;
-	bh=zDI5WijMgyzvR7Rn9MOps6vBpGL0XUHb2ElkwvzrRwc=;
+	s=arc-20240116; t=1787229506; c=relaxed/simple;
+	bh=I3nCoKMMlsaDHclCQ78K3fsSJ1nu9wJUKuhFBIvQM30=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JyAsdr7AG+Qv9c3rDLx1cUBRo9f03dyjYkCMIcx2E7QH8S0uTvkczyfAD+IDSqiLwlZLuIjfqEE8mRSXD5+EspDgy5ydTOUST7ZVhkOitkLyyWvR6vBzZQzTgHES1gzTDn9YI6iw0QhS7Y/VR+DgxAtjt2Y9cpp3tFaiC2OcQNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kjn0Af/O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JH8kZkVT6gBewAAOXksK4f77a8WrN99RTHWcWC2pJxvIJvN4XbhVYTKoZNA8wHOWi3i80CsdafoD1JfY3bExYC++F/XPJbB936sROQTdUlqvTWARECbl2PTVpV69r2QOtPv9UV9ctZ/8iYaA/rumfvrfgQ+k4NfEWiMqpGMnTcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TQ2x92D8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kjn0Af/O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0E991F00A3A;
-	Thu, 20 Aug 2026 12:38:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TQ2x92D8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246D01F000E9;
+	Thu, 20 Aug 2026 12:38:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787229494;
-	bh=dRMld/DAMeUdqcPSgrEbAQgYEzhkCzi+PFlkPHrjL/c=;
+	s=k20260515; t=1787229504;
+	bh=uwYRx7HKWIPZYRkwlTTgj0oUnPmXeW7GtQ4MThMNizY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kjn0Af/ON3RO1vz7qgJyL1HAur9mEojLOFjyLgZtfFarrgoCoUddO+7OI41rslSRk
-	 eZ1o9o8Nppbnn5r8XHeyHPhrgpxvp7eqYz0Cv8a2JkXqNxMDrAxRe0EiK2xi/tyr0l
-	 txz8xfUh1qsWG54teNvWha+AD6yqiA+gX8wZIzkW4iNaoZKm/Am8Bjfb6sxClJ6rR0
-	 NTa38pIfKFMvwpJpSYDR7Am8QASNxW+/+e3kdYQ4z7wC0RKHHZSpE6jE3GRL2VIuxh
-	 eUd2GVntXDt3iu5LymtkuVOr9hUpYauG9rKtmi2Bk1IAdAv6MxwApEGef1I2PDEl0r
-	 8cK0+Y5xG9oCg==
+	b=TQ2x92D8kf5zhn2XpxRvo6PPkjE6BuUgLlDKQk16sCEBeZWiDfVxgYcjWI8V9+c++
+	 1c8zIMX71wYtAZ89y8FfcAsOpFKzIIVpWBFsKPMsfZdPaOPBFB/rU1Vkndq/9eRZNu
+	 LnvjJI25NhYqRbS/ASThfQwgxPHvJT3mZNoy2O47ITT6Y/cPEo/yYkwoOBELXqwd0I
+	 3cjyKVw4oXxUeKdtBptCNmUdvhYpuEg2ZMuVj/SWnP0N8/DLEdrGUOpyejLhxowQ+3
+	 1TI7+Jb5wn0Q7y++ARzlHk0cn2nQJE6r4NfcMDpQt1WdOEH7U89ODLJT8iNDrBD+Ph
+	 eWXYuK5iSGXDQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Koichiro Den <den@valinux.co.jp>,
+Cc: Baul Lee <baul.lee@xbow.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] net: ntb_netdev: Introduce per-queue context
-Date: Thu, 20 Aug 2026 08:38:11 -0400
-Message-ID: <20260820123812.1613639-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] net/x25: fix use-after-free of the socket by its timers
+Date: Thu, 20 Aug 2026 08:38:22 -0400
+Message-ID: <20260820123822.1613838-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081709-sulfate-hardwired-cf00@gregkh>
-References: <2026081709-sulfate-hardwired-cf00@gregkh>
+In-Reply-To: <2026081741-fasting-obtuse-fd95@gregkh>
+References: <2026081741-fasting-obtuse-fd95@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,531 +45,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Koichiro Den <den@valinux.co.jp>
+From: Baul Lee <baul.lee@xbow.com>
 
-[ Upstream commit ee970634c7773f248a0a27d8a645500371ae5249 ]
+[ Upstream commit 2195424c3da2ef1829a63b807e3a900a90e57d85 ]
 
-Prepare ntb_netdev for multi-queue operation by moving queue-pair state
-out of struct ntb_netdev.
+The x25 timers are armed with mod_timer() and cancelled with
+timer_delete(), so a pending timer holds no reference on the socket and a
+cancel does not wait for a callback already running on another CPU.
 
-Introduce struct ntb_netdev_queue to carry the ntb_transport_qp pointer,
-the per-QP TX timer and queue id. Pass this object as the callback
-context and convert the RX/TX handlers and link event path accordingly.
+x25_heartbeat_expiry() also rearms unconditionally, so it can reinstall
+sk->sk_timer after __x25_destroy_socket() has passed its cancel point.
+The following __sock_put() frees the socket while the timer is still
+queued, and the next expiry uses freed memory.  KASAN reports a
+slab-use-after-free on the kmalloc-2k object freed by close().
 
-The probe path allocates a fixed upper bound for netdev queues while
-instantiating only a single ntb_transport queue pair, preserving the
-previous behavior. Also store client_dev for future queue pair
-creation/removal via the ntb_transport API.
+timer_delete_sync() cannot be used here: x25_heartbeat_expiry() and
+x25_timer_expiry() both reach the cancels from inside the timer they
+would wait on, through __x25_destroy_socket() and x25_disconnect().
 
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Link: https://patch.msgid.link/20260305155639.1885517-2-den@valinux.co.jp
+Arm the timers with sk_reset_timer() and cancel them with sk_stop_timer()
+so that an armed timer owns a reference, and release it in both expiry
+handlers.  Rearm the heartbeat only while sk_hashed(sk) is still true,
+since __x25_destroy_socket() unlinks the socket before dropping it.  Arm
+the deferred destroy timer the same way and drop its reference in
+x25_destroy_timer().
+
+Reproduced on net with KASAN, with the heartbeat period shortened so the
+window recurs.  With this patch the reproducer no longer triggers a
+report and /proc/net/x25 drains.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Link: https://patch.msgid.link/20260726220342.47245-1-baul.lee@xbow.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: d2121faf133a ("NTB: ntb_netdev: Preserve RX queue depth on allocation failure")
+[ adjusted context due to `del_timer()` not yet renamed to `timer_delete()` ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ntb_netdev.c | 277 ++++++++++++++++++++++++++-------------
- 1 file changed, 188 insertions(+), 89 deletions(-)
+ net/x25/af_x25.c    |  4 ++--
+ net/x25/x25_timer.c | 25 ++++++++++++++++---------
+ 2 files changed, 18 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
-index fbeae05817e9f..4b65e938d549f 100644
---- a/drivers/net/ntb_netdev.c
-+++ b/drivers/net/ntb_netdev.c
-@@ -53,6 +53,7 @@
- #include <linux/pci.h>
- #include <linux/ntb.h>
- #include <linux/ntb_transport.h>
-+#include <linux/slab.h>
+diff --git a/net/x25/af_x25.c b/net/x25/af_x25.c
+index 733c3616256ae..5db55f3baf0b2 100644
+--- a/net/x25/af_x25.c
++++ b/net/x25/af_x25.c
+@@ -362,6 +362,7 @@ static void x25_destroy_timer(struct timer_list *t)
+ 	struct sock *sk = from_timer(sk, t, sk_timer);
  
- #define NTB_NETDEV_VER	"0.7"
+ 	x25_destroy_socket_from_timer(sk);
++	sock_put(sk);
+ }
  
-@@ -70,11 +71,24 @@ static unsigned int tx_start = 10;
- /* Number of descriptors still available before stop upper layer tx */
- static unsigned int tx_stop = 5;
+ /*
+@@ -397,9 +398,8 @@ static void __x25_destroy_socket(struct sock *sk)
  
-+#define NTB_NETDEV_MAX_QUEUES		64
-+#define NTB_NETDEV_DEFAULT_QUEUES	1
-+
-+struct ntb_netdev;
-+
-+struct ntb_netdev_queue {
-+	struct ntb_netdev *ntdev;
-+	struct ntb_transport_qp *qp;
-+	struct timer_list tx_timer;
-+	u16 qid;
-+};
-+
- struct ntb_netdev {
- 	struct pci_dev *pdev;
-+	struct device *client_dev;
- 	struct net_device *ndev;
--	struct ntb_transport_qp *qp;
--	struct timer_list tx_timer;
-+	unsigned int num_queues;
-+	struct ntb_netdev_queue *queues;
- };
- 
- #define	NTB_TX_TIMEOUT_MS	1000
-@@ -82,14 +96,17 @@ struct ntb_netdev {
- 
- static void ntb_netdev_event_handler(void *data, int link_is_up)
- {
--	struct net_device *ndev = data;
--	struct ntb_netdev *dev = netdev_priv(ndev);
-+	struct ntb_netdev_queue *q = data;
-+	struct ntb_netdev *dev = q->ntdev;
-+	struct net_device *ndev;
-+
-+	ndev = dev->ndev;
- 
--	netdev_dbg(ndev, "Event %x, Link %x\n", link_is_up,
--		   ntb_transport_link_query(dev->qp));
-+	netdev_dbg(ndev, "Event %x, Link %x, qp %u\n", link_is_up,
-+		   ntb_transport_link_query(q->qp), q->qid);
- 
- 	if (link_is_up) {
--		if (ntb_transport_link_query(dev->qp))
-+		if (ntb_transport_link_query(q->qp))
- 			netif_carrier_on(ndev);
+ 	if (sk_has_allocations(sk)) {
+ 		/* Defer: outstanding buffers */
+-		sk->sk_timer.expires  = jiffies + 10 * HZ;
+ 		sk->sk_timer.function = x25_destroy_timer;
+-		add_timer(&sk->sk_timer);
++		sk_reset_timer(sk, &sk->sk_timer, jiffies + 10 * HZ);
  	} else {
- 		netif_carrier_off(ndev);
-@@ -99,10 +116,13 @@ static void ntb_netdev_event_handler(void *data, int link_is_up)
- static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 				  void *data, int len)
+ 		/* drop last reference so sock_put will free */
+ 		__sock_put(sk);
+diff --git a/net/x25/x25_timer.c b/net/x25/x25_timer.c
+index 9376365cdcc9b..2afa8ecaf509a 100644
+--- a/net/x25/x25_timer.c
++++ b/net/x25/x25_timer.c
+@@ -36,45 +36,45 @@ void x25_init_timers(struct sock *sk)
+ 
+ void x25_start_heartbeat(struct sock *sk)
  {
--	struct net_device *ndev = qp_data;
-+	struct ntb_netdev_queue *q = qp_data;
-+	struct ntb_netdev *dev = q->ntdev;
-+	struct net_device *ndev;
- 	struct sk_buff *skb;
- 	int rc;
- 
-+	ndev = dev->ndev;
- 	skb = data;
- 	if (!skb)
- 		return;
-@@ -118,6 +138,7 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 	skb_put(skb, len);
- 	skb->protocol = eth_type_trans(skb, ndev);
- 	skb->ip_summed = CHECKSUM_NONE;
-+	skb_record_rx_queue(skb, q->qid);
- 
- 	if (netif_rx(skb) == NET_RX_DROP) {
- 		ndev->stats.rx_errors++;
-@@ -144,42 +165,43 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
+-	mod_timer(&sk->sk_timer, jiffies + 5 * HZ);
++	sk_reset_timer(sk, &sk->sk_timer, jiffies + 5 * HZ);
  }
  
- static int __ntb_netdev_maybe_stop_tx(struct net_device *netdev,
--				      struct ntb_transport_qp *qp, int size)
-+				      struct ntb_netdev_queue *q, int size)
+ void x25_stop_heartbeat(struct sock *sk)
  {
--	struct ntb_netdev *dev = netdev_priv(netdev);
-+	netif_stop_subqueue(netdev, q->qid);
- 
--	netif_stop_queue(netdev);
- 	/* Make sure to see the latest value of ntb_transport_tx_free_entry()
- 	 * since the queue was last started.
- 	 */
- 	smp_mb();
- 
--	if (likely(ntb_transport_tx_free_entry(qp) < size)) {
--		mod_timer(&dev->tx_timer, jiffies + usecs_to_jiffies(tx_time));
-+	if (likely(ntb_transport_tx_free_entry(q->qp) < size)) {
-+		mod_timer(&q->tx_timer, jiffies + usecs_to_jiffies(tx_time));
- 		return -EBUSY;
- 	}
- 
--	netif_start_queue(netdev);
-+	netif_start_subqueue(netdev, q->qid);
- 	return 0;
+-	del_timer(&sk->sk_timer);
++	sk_stop_timer(sk, &sk->sk_timer);
  }
  
- static int ntb_netdev_maybe_stop_tx(struct net_device *ndev,
--				    struct ntb_transport_qp *qp, int size)
-+				    struct ntb_netdev_queue *q, int size)
+ void x25_start_t2timer(struct sock *sk)
  {
--	if (netif_queue_stopped(ndev) ||
--	    (ntb_transport_tx_free_entry(qp) >= size))
-+	if (__netif_subqueue_stopped(ndev, q->qid) ||
-+	    (ntb_transport_tx_free_entry(q->qp) >= size))
- 		return 0;
+ 	struct x25_sock *x25 = x25_sk(sk);
  
--	return __ntb_netdev_maybe_stop_tx(ndev, qp, size);
-+	return __ntb_netdev_maybe_stop_tx(ndev, q, size);
+-	mod_timer(&x25->timer, jiffies + x25->t2);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t2);
  }
  
- static void ntb_netdev_tx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 				  void *data, int len)
+ void x25_start_t21timer(struct sock *sk)
  {
--	struct net_device *ndev = qp_data;
-+	struct ntb_netdev_queue *q = qp_data;
-+	struct ntb_netdev *dev = q->ntdev;
-+	struct net_device *ndev;
- 	struct sk_buff *skb;
--	struct ntb_netdev *dev = netdev_priv(ndev);
+ 	struct x25_sock *x25 = x25_sk(sk);
  
-+	ndev = dev->ndev;
- 	skb = data;
- 	if (!skb || !ndev)
- 		return;
-@@ -194,13 +216,13 @@ static void ntb_netdev_tx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 
- 	dev_kfree_skb_any(skb);
- 
--	if (ntb_transport_tx_free_entry(dev->qp) >= tx_start) {
-+	if (ntb_transport_tx_free_entry(qp) >= tx_start) {
- 		/* Make sure anybody stopping the queue after this sees the new
- 		 * value of ntb_transport_tx_free_entry()
- 		 */
- 		smp_mb();
--		if (netif_queue_stopped(ndev))
--			netif_wake_queue(ndev);
-+		if (__netif_subqueue_stopped(ndev, q->qid))
-+			netif_wake_subqueue(ndev, q->qid);
- 	}
+-	mod_timer(&x25->timer, jiffies + x25->t21);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t21);
  }
  
-@@ -208,16 +230,20 @@ static netdev_tx_t ntb_netdev_start_xmit(struct sk_buff *skb,
- 					 struct net_device *ndev)
+ void x25_start_t22timer(struct sock *sk)
  {
- 	struct ntb_netdev *dev = netdev_priv(ndev);
-+	u16 qid = skb_get_queue_mapping(skb);
-+	struct ntb_netdev_queue *q;
- 	int rc;
+ 	struct x25_sock *x25 = x25_sk(sk);
  
--	ntb_netdev_maybe_stop_tx(ndev, dev->qp, tx_stop);
-+	q = &dev->queues[qid];
-+
-+	ntb_netdev_maybe_stop_tx(ndev, q, tx_stop);
- 
--	rc = ntb_transport_tx_enqueue(dev->qp, skb, skb->data, skb->len);
-+	rc = ntb_transport_tx_enqueue(q->qp, skb, skb->data, skb->len);
- 	if (rc)
- 		goto err;
- 
- 	/* check for next submit */
--	ntb_netdev_maybe_stop_tx(ndev, dev->qp, tx_stop);
-+	ntb_netdev_maybe_stop_tx(ndev, q, tx_stop);
- 
- 	return NETDEV_TX_OK;
- 
-@@ -229,80 +255,104 @@ static netdev_tx_t ntb_netdev_start_xmit(struct sk_buff *skb,
- 
- static void ntb_netdev_tx_timer(struct timer_list *t)
- {
--	struct ntb_netdev *dev = timer_container_of(dev, t, tx_timer);
--	struct net_device *ndev = dev->ndev;
-+	struct ntb_netdev_queue *q = timer_container_of(q, t, tx_timer);
-+	struct ntb_netdev *dev = q->ntdev;
-+	struct net_device *ndev;
-+
-+	ndev = dev->ndev;
- 
--	if (ntb_transport_tx_free_entry(dev->qp) < tx_stop) {
--		mod_timer(&dev->tx_timer, jiffies + usecs_to_jiffies(tx_time));
-+	if (ntb_transport_tx_free_entry(q->qp) < tx_stop) {
-+		mod_timer(&q->tx_timer, jiffies + usecs_to_jiffies(tx_time));
- 	} else {
- 		/* Make sure anybody stopping the queue after this sees the new
- 		 * value of ntb_transport_tx_free_entry()
- 		 */
- 		smp_mb();
--		if (netif_queue_stopped(ndev))
--			netif_wake_queue(ndev);
-+		if (__netif_subqueue_stopped(ndev, q->qid))
-+			netif_wake_subqueue(ndev, q->qid);
- 	}
+-	mod_timer(&x25->timer, jiffies + x25->t22);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t22);
  }
  
- static int ntb_netdev_open(struct net_device *ndev)
+ void x25_start_t23timer(struct sock *sk)
  {
- 	struct ntb_netdev *dev = netdev_priv(ndev);
-+	struct ntb_netdev_queue *queue;
- 	struct sk_buff *skb;
--	int rc, i, len;
--
--	/* Add some empty rx bufs */
--	for (i = 0; i < NTB_RXQ_SIZE; i++) {
--		skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
--		if (!skb) {
--			rc = -ENOMEM;
--			goto err;
--		}
-+	int rc = 0, i, len;
-+	unsigned int q;
+ 	struct x25_sock *x25 = x25_sk(sk);
  
--		rc = ntb_transport_rx_enqueue(dev->qp, skb, skb->data,
--					      ndev->mtu + ETH_HLEN);
--		if (rc) {
--			dev_kfree_skb(skb);
--			goto err;
-+	/* Add some empty rx bufs for each queue */
-+	for (q = 0; q < dev->num_queues; q++) {
-+		queue = &dev->queues[q];
-+
-+		for (i = 0; i < NTB_RXQ_SIZE; i++) {
-+			skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
-+			if (!skb) {
-+				rc = -ENOMEM;
-+				goto err;
-+			}
-+
-+			rc = ntb_transport_rx_enqueue(queue->qp, skb, skb->data,
-+						      ndev->mtu + ETH_HLEN);
-+			if (rc) {
-+				dev_kfree_skb(skb);
-+				goto err;
-+			}
- 		}
--	}
- 
--	timer_setup(&dev->tx_timer, ntb_netdev_tx_timer, 0);
-+		timer_setup(&queue->tx_timer, ntb_netdev_tx_timer, 0);
-+	}
- 
- 	netif_carrier_off(ndev);
--	ntb_transport_link_up(dev->qp);
-+
-+	for (q = 0; q < dev->num_queues; q++)
-+		ntb_transport_link_up(dev->queues[q].qp);
-+
- 	netif_start_queue(ndev);
- 
- 	return 0;
- 
- err:
--	while ((skb = ntb_transport_rx_remove(dev->qp, &len)))
--		dev_kfree_skb(skb);
-+	for (q = 0; q < dev->num_queues; q++) {
-+		queue = &dev->queues[q];
-+
-+		while ((skb = ntb_transport_rx_remove(queue->qp, &len)))
-+			dev_kfree_skb(skb);
-+	}
- 	return rc;
+-	mod_timer(&x25->timer, jiffies + x25->t23);
++	sk_reset_timer(sk, &x25->timer, jiffies + x25->t23);
  }
  
- static int ntb_netdev_close(struct net_device *ndev)
+ void x25_stop_timer(struct sock *sk)
  {
- 	struct ntb_netdev *dev = netdev_priv(ndev);
-+	struct ntb_netdev_queue *queue;
- 	struct sk_buff *skb;
-+	unsigned int q;
- 	int len;
- 
--	ntb_transport_link_down(dev->qp);
- 
--	while ((skb = ntb_transport_rx_remove(dev->qp, &len)))
--		dev_kfree_skb(skb);
-+	for (q = 0; q < dev->num_queues; q++) {
-+		queue = &dev->queues[q];
-+
-+		ntb_transport_link_down(queue->qp);
- 
--	timer_delete_sync(&dev->tx_timer);
-+		while ((skb = ntb_transport_rx_remove(queue->qp, &len)))
-+			dev_kfree_skb(skb);
- 
-+		timer_delete_sync(&queue->tx_timer);
-+	}
- 	return 0;
+-	del_timer(&x25_sk(sk)->timer);
++	sk_stop_timer(sk, &x25_sk(sk)->timer);
  }
  
- static int ntb_netdev_change_mtu(struct net_device *ndev, int new_mtu)
- {
- 	struct ntb_netdev *dev = netdev_priv(ndev);
-+	struct ntb_netdev_queue *queue;
- 	struct sk_buff *skb;
--	int len, rc;
-+	unsigned int q, i;
-+	int len, rc = 0;
- 
--	if (new_mtu > ntb_transport_max_size(dev->qp) - ETH_HLEN)
-+	if (new_mtu > ntb_transport_max_size(dev->queues[0].qp) - ETH_HLEN)
- 		return -EINVAL;
- 
- 	if (!netif_running(ndev)) {
-@@ -311,41 +361,54 @@ static int ntb_netdev_change_mtu(struct net_device *ndev, int new_mtu)
- 	}
- 
- 	/* Bring down the link and dispose of posted rx entries */
--	ntb_transport_link_down(dev->qp);
-+	for (q = 0; q < dev->num_queues; q++)
-+		ntb_transport_link_down(dev->queues[q].qp);
- 
- 	if (ndev->mtu < new_mtu) {
--		int i;
--
--		for (i = 0; (skb = ntb_transport_rx_remove(dev->qp, &len)); i++)
--			dev_kfree_skb(skb);
-+		for (q = 0; q < dev->num_queues; q++) {
-+			queue = &dev->queues[q];
- 
--		for (; i; i--) {
--			skb = netdev_alloc_skb(ndev, new_mtu + ETH_HLEN);
--			if (!skb) {
--				rc = -ENOMEM;
--				goto err;
--			}
--
--			rc = ntb_transport_rx_enqueue(dev->qp, skb, skb->data,
--						      new_mtu + ETH_HLEN);
--			if (rc) {
-+			for (i = 0;
-+			     (skb = ntb_transport_rx_remove(queue->qp, &len));
-+			     i++)
- 				dev_kfree_skb(skb);
--				goto err;
-+
-+			for (; i; i--) {
-+				skb = netdev_alloc_skb(ndev,
-+						       new_mtu + ETH_HLEN);
-+				if (!skb) {
-+					rc = -ENOMEM;
-+					goto err;
-+				}
-+
-+				rc = ntb_transport_rx_enqueue(queue->qp, skb,
-+							      skb->data,
-+							      new_mtu +
-+							      ETH_HLEN);
-+				if (rc) {
-+					dev_kfree_skb(skb);
-+					goto err;
-+				}
+ unsigned long x25_display_timer(struct sock *sk)
+@@ -108,7 +108,7 @@ static void x25_heartbeat_expiry(struct timer_list *t)
+ 			     sock_flag(sk, SOCK_DEAD))) {
+ 				bh_unlock_sock(sk);
+ 				x25_destroy_socket_from_timer(sk);
+-				return;
++				goto out;
  			}
- 		}
+ 			break;
+ 
+@@ -120,8 +120,14 @@ static void x25_heartbeat_expiry(struct timer_list *t)
+ 			break;
  	}
- 
- 	WRITE_ONCE(ndev->mtu, new_mtu);
- 
--	ntb_transport_link_up(dev->qp);
-+	for (q = 0; q < dev->num_queues; q++)
-+		ntb_transport_link_up(dev->queues[q].qp);
- 
- 	return 0;
- 
- err:
--	ntb_transport_link_down(dev->qp);
-+	for (q = 0; q < dev->num_queues; q++) {
-+		struct ntb_netdev_queue *queue = &dev->queues[q];
- 
--	while ((skb = ntb_transport_rx_remove(dev->qp, &len)))
--		dev_kfree_skb(skb);
-+		ntb_transport_link_down(queue->qp);
-+
-+		while ((skb = ntb_transport_rx_remove(queue->qp, &len)))
-+			dev_kfree_skb(skb);
-+	}
- 
- 	netdev_err(ndev, "Error changing MTU, device inoperable\n");
- 	return rc;
-@@ -404,6 +467,7 @@ static int ntb_netdev_probe(struct device *client_dev)
- 	struct net_device *ndev;
- 	struct pci_dev *pdev;
- 	struct ntb_netdev *dev;
-+	unsigned int q;
- 	int rc;
- 
- 	ntb = dev_ntb(client_dev->parent);
-@@ -411,7 +475,7 @@ static int ntb_netdev_probe(struct device *client_dev)
- 	if (!pdev)
- 		return -ENODEV;
- 
--	ndev = alloc_etherdev(sizeof(*dev));
-+	ndev = alloc_etherdev_mq(sizeof(*dev), NTB_NETDEV_MAX_QUEUES);
- 	if (!ndev)
- 		return -ENOMEM;
- 
-@@ -420,6 +484,16 @@ static int ntb_netdev_probe(struct device *client_dev)
- 	dev = netdev_priv(ndev);
- 	dev->ndev = ndev;
- 	dev->pdev = pdev;
-+	dev->client_dev = client_dev;
-+	dev->num_queues = 0;
-+
-+	dev->queues = kzalloc_objs(*dev->queues, NTB_NETDEV_MAX_QUEUES,
-+				   GFP_KERNEL);
-+	if (!dev->queues) {
-+		rc = -ENOMEM;
-+		goto err_free_netdev;
-+	}
-+
- 	ndev->features = NETIF_F_HIGHDMA;
- 
- 	ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
-@@ -436,26 +510,47 @@ static int ntb_netdev_probe(struct device *client_dev)
- 	ndev->min_mtu = 0;
- 	ndev->max_mtu = ETH_MAX_MTU;
- 
--	dev->qp = ntb_transport_create_queue(ndev, client_dev,
--					     &ntb_netdev_handlers);
--	if (!dev->qp) {
-+	for (q = 0; q < NTB_NETDEV_DEFAULT_QUEUES; q++) {
-+		struct ntb_netdev_queue *queue = &dev->queues[q];
-+
-+		queue->ntdev = dev;
-+		queue->qid = q;
-+		queue->qp = ntb_transport_create_queue(queue, client_dev,
-+						       &ntb_netdev_handlers);
-+		if (!queue->qp)
-+			break;
-+
-+		dev->num_queues++;
-+	}
-+
-+	if (!dev->num_queues) {
- 		rc = -EIO;
--		goto err;
-+		goto err_free_queues;
- 	}
- 
--	ndev->mtu = ntb_transport_max_size(dev->qp) - ETH_HLEN;
-+	rc = netif_set_real_num_queues(ndev, dev->num_queues, dev->num_queues);
-+	if (rc)
-+		goto err_free_qps;
-+
-+	ndev->mtu = ntb_transport_max_size(dev->queues[0].qp) - ETH_HLEN;
- 
- 	rc = register_netdev(ndev);
- 	if (rc)
--		goto err1;
-+		goto err_free_qps;
- 
- 	dev_set_drvdata(client_dev, ndev);
--	dev_info(&pdev->dev, "%s created\n", ndev->name);
-+	dev_info(&pdev->dev, "%s created with %u queue pairs\n",
-+		 ndev->name, dev->num_queues);
- 	return 0;
- 
--err1:
--	ntb_transport_free_queue(dev->qp);
--err:
-+err_free_qps:
-+	for (q = 0; q < dev->num_queues; q++)
-+		ntb_transport_free_queue(dev->queues[q].qp);
-+
-+err_free_queues:
-+	kfree(dev->queues);
-+
-+err_free_netdev:
- 	free_netdev(ndev);
- 	return rc;
- }
-@@ -464,9 +559,13 @@ static void ntb_netdev_remove(struct device *client_dev)
- {
- 	struct net_device *ndev = dev_get_drvdata(client_dev);
- 	struct ntb_netdev *dev = netdev_priv(ndev);
-+	unsigned int q;
- 
- 	unregister_netdev(ndev);
--	ntb_transport_free_queue(dev->qp);
-+	for (q = 0; q < dev->num_queues; q++)
-+		ntb_transport_free_queue(dev->queues[q].qp);
-+
-+	kfree(dev->queues);
- 	free_netdev(ndev);
+ restart_heartbeat:
+-	x25_start_heartbeat(sk);
++	/* Do not rearm once __x25_destroy_socket() has unlinked the socket:
++	 * it is past its cancel point and owns the teardown from there on.
++	 */
++	if (sk_hashed(sk))
++		x25_start_heartbeat(sk);
+ 	bh_unlock_sock(sk);
++out:
++	sock_put(sk);
  }
  
+ /*
+@@ -166,4 +172,5 @@ static void x25_timer_expiry(struct timer_list *t)
+ 	} else
+ 		x25_do_timer_expiry(sk);
+ 	bh_unlock_sock(sk);
++	sock_put(sk);
+ }
 -- 
 2.53.0
 
