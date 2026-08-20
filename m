@@ -1,95 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DC13F0A96;
-	Thu, 20 Aug 2026 15:26:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D94743B3FD;
+	Thu, 20 Aug 2026 15:28:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787239574; cv=none; b=JpBYznJQZoTIn851TLcahrDl0DlzbtmoLGnM3VEuVVdbcqFXeN6vtDj4Nz8uj2VKGwaRfks4dUPVeQbo1mUdwRklfysQ5DpZwgaE0YpTkho4eyy0ABTfUj7DIeQy6Dw6dmpLNG6IFCTf+lFtBOSmiKc1P8+P/zFdbDcLh7bryGc=
+	t=1787239688; cv=none; b=miWg1j6cl1GZGHZM1Iqa1b5Cer5AxH3BYkzHrIIpNixvUFG7f4M47MbT2nrC9pYV6VgcVTWj//gWYQPZF193oT60yzuDDu/uLSXv1Ay3xggnjiDLtgPLzq9M3v2yIJX7FoiKcOORG3uE2ZwcDoPTJ4JYcvnvvqts84P4fB+8kGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787239574; c=relaxed/simple;
-	bh=Wt6q7HaqGrBJtoKKlYJ77UeQ4+xIAOoX0/2jESuoMAw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=duTmyMkSLCBCrit6qZdpRpgSM306fPzX5vTElQ2Sp31xGJSixw5Uq/kUzxrZj5033c4KhsVeXiivZqXpDada21ZqP7lkJCkSnteeEEr7Pg1UtT4qh5IW235jUgCAY3E12ntMiKh+jOmCy+WRzkgf94yzkllOkGAfLaJaU0pHrW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Fz/X4GM0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787239688; c=relaxed/simple;
+	bh=O5zDUPDSE66TRU0zbrIrzGmq5vANQQTCa+jLG1djmuM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dJU3RJy2n1JuWH+QJio+ctPMp5b2VxieLSI90ZtZseMFI8e5sCc6D8HPWfcb0Cqdszj2Za7Qfhvc86ytzQ4s62qZEoeAT4qrfTGQzzBeE5kMcK+3C3q/Ed73SBJ8IJbdX8kOenuDyUBPvmamY08zvSFDM7gRrs5BSpKwUxrRbps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lza45wcw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Fz/X4GM0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECD781F000E9;
-	Thu, 20 Aug 2026 15:26:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787239573;
-	bh=84lumzgcbIjPQqmNzSLvf7jwyYR+7k9SogPtVhXOX/Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Fz/X4GM05ByT01Vhe6OBhvzl2UPDQ4VUph63uAJz+g6PcwQxk8fdE9Yh4loRNNY98
-	 BBU4TVJz41+RYxgDA3SvkXdvPX44n28u0PCSnlGvungCZKyF5diarYfs508r3WGQsE
-	 jJ2jJ0RBExNg8yIsl7FDc6GLLEYUfTJkrF6HJFpY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>
-Subject: [PATCH 6.12 094/220] xfs: only check mergeability of bnobt records
-Date: Thu, 20 Aug 2026 16:54:44 +0200
-Message-ID: <20260820145226.303742081@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260820145223.480031205@linuxfoundation.org>
-References: <20260820145223.480031205@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lza45wcw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996751F00A3D;
+	Thu, 20 Aug 2026 15:28:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787239686;
+	bh=O5zDUPDSE66TRU0zbrIrzGmq5vANQQTCa+jLG1djmuM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Lza45wcwb3xbN3uoPjefPmzjfFIo0y3tcdwBlvp9X2AoGwfWvDmT46aEVafY9+sYU
+	 Kg5Fy+SEPS6dKQuft/wGi92qKZy1+4x3OjKgIY9E0bq5Nlg3TuSglL5aTWwSE4u7/9
+	 ubKG9a/DYzycH/FrbKkKh5izDJE1eBYQ2KZGRS4M4ZcRmpuahSYwqcmLXu7+gLfDYm
+	 zE6Zb1D9ydgG98u7xhpqjrxuCF7UfS969bh+Wex3kzx1iodj8SCcOV7AxvUxaATRrz
+	 982ira5Yp1pOEMe/L2C23JgkIHv5gQnKWtOgwMQQHJBuyDTX3Edz9bqX5eRkofkXdT
+	 9IBp10kep+blw==
+Date: Thu, 20 Aug 2026 16:28:02 +0100
+From: Simon Horman <horms@kernel.org>
+To: Zihan Xi <zihanx@nebusec.ai>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, bhong@brocade.com,
+	stephen@networkplumber.org, sven@brocade.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>
+Subject: Re: [PATCH net 1/1] net: l2tp: ignore multicast notification errors
+ in netlink commands
+Message-ID: <20260820152802.GZ265046@horms.kernel.org>
+References: <cover.1786962220.git.zihanx@nebusec.ai>
+ <e9cf566687c906ba6843f72b28f11a3431a595b5.1786962220.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e9cf566687c906ba6843f72b28f11a3431a595b5.1786962220.git.zihanx@nebusec.ai>
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On Mon, Aug 17, 2026 at 05:21:09PM +0000, Zihan Xi wrote:
+> l2tp_nl_cmd_tunnel_create(), l2tp_nl_cmd_session_create(), and
+> l2tp_nl_cmd_session_modify() update live state before sending their
+> multicast notifications. A notification helper can fail while allocating
+> or encoding the message, or while multicasting it. Returning any such
+> best-effort notification error after the state change makes a successful
+> command look like a failure and can cause retries to accumulate live
+> objects.
 
-------------------
+Is this a theoretical problem, or something that has been observed?
 
-From: Darrick J. Wong <djwong@kernel.org>
+> Keep sending notifications for listener visibility, but do not let their
+> best-effort status overwrite the command result. The explicit (void) casts
+> make this intentional for all notification helper failures.
 
-commit 97efed1091a50e4dbf31307015138b43a972d2e4 upstream.
+I don't think the (void) cast is in keeping with the existing code
+in this file.
 
-In the cntbt (free space by block count) btree, records are not supposed
-to be in startblock order.  Hence the mergeability check is pointless.
-Remove it, since it does nothing, as LOLLM points out.
+> Fixes: 33f72e6f0c67 ("l2tp : multicast notification to the registered listeners")
+> Cc: stable@vger.kernel.org
+> Reported-by: Vega <vega@nebusec.ai>
+> Assisted-by: Codex:gpt-5.4
+> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 
-Cc: stable@vger.kernel.org # v6.4
-Fixes: d5784ae82778d9 ("xfs: flag free space btree records that could be merged")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- fs/xfs/scrub/alloc.c |    5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+I am wondering if you considered extending this patch to
+also cover l2tp_nl_cmd_tunnel_modify().
 
---- a/fs/xfs/scrub/alloc.c
-+++ b/fs/xfs/scrub/alloc.c
-@@ -136,7 +136,7 @@ xchk_allocbt_rec(
- 	const union xfs_btree_rec	*rec)
- {
- 	struct xfs_alloc_rec_incore	irec;
--	struct xchk_alloc	*ca = bs->private;
-+	struct xchk_alloc		*ca = bs->private;
- 
- 	xfs_alloc_btrec_to_irec(rec, &irec);
- 	if (xfs_alloc_check_irec(bs->cur->bc_ag.pag, &irec) != NULL) {
-@@ -144,7 +144,8 @@ xchk_allocbt_rec(
- 		return 0;
- 	}
- 
--	xchk_allocbt_mergeable(bs, ca, &irec);
-+	if (bs->sc->sm->sm_type == XFS_SCRUB_TYPE_BNOBT)
-+		xchk_allocbt_mergeable(bs, ca, &irec);
- 	xchk_allocbt_xref(bs->sc, &irec);
- 
- 	return 0;
-
-
+...
