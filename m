@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DAE435518
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:39:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7248F437472
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:39:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787225951; cv=none; b=CeTnXiLxy6idY1LCWaR5YAxpAynGI6xXHSMXzgfjVXQ4OoocHgsjvWQQze4r2UBkPoClPg3MNyuvfHrhisHGHQahFCR3z5JdYXdvneNFuTYJ+DtYs9IzFZ5x1aTsusMetR1+kCnKyW3BB9iZrNIK3nUgUjwTVUYNUziLSrPtdTs=
+	t=1787225955; cv=none; b=AbkbNWRccvZCMQ8yKoUP7tIvOoOTlly8JhEIIiDpRcAEclLlQ/Ex1cQluYexUqWH/1sW91KD10dqAyUXOkeAdkd+4NifLTyGyH6giAgXq+edKi7oCV1Ne+4Fi/HrPWmgzWLh9xxug9o2flTOwoEA/AtpY0CsdAEvYP+GxdYbueM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787225951; c=relaxed/simple;
-	bh=FMxrJP7F9BMGUvC+OmroX8Ll6zHnnO5h7ITtq1PZZ4A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oqA8jidyiUD+PpZS7N9SfzV7Ufg5dU3tSKNjjG5pVzOMN2rAtTdV32275gIOKZyxOLNpdbN5ifIXvEH1E+yc1ZcyGvaa7QpqY20hn7FRlt0B7AmWphhcRlfqOaG9tJJ4h0RAHCKJKMvTGLmToXh1MWRPlfO2x3+a7ksn8Y0M0+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cb2fH1TW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787225955; c=relaxed/simple;
+	bh=8QXqSMkp19/Bp3Ab/UiTmjPorTpJBf5TCKK95ayP1T0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RSKChiYk1Yd0jIRvRLPVZ2vzST0jrGh9SxEbVgFPjHZuwtXy20aeeBwwMR562GaJd6RYzRyDvKKc/2vqXyxtJp3F7dfMVqTwLKsq/1g+A7u4JAUyET9Ipxf9OanySxQq1QtiDj0QC9xa8j1Lb2QR7uPD3iMJVQgr8nMfD9iftIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=C2Enm0+C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cb2fH1TW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C710C1F000E9;
-	Thu, 20 Aug 2026 11:39:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="C2Enm0+C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81B91F000E9;
+	Thu, 20 Aug 2026 11:39:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787225949;
-	bh=2a8Kf/DISdo+qW2+GRKb21Q8U1W9ESbeIEAUy80SmKk=;
+	s=korg; t=1787225953;
+	bh=IhgSCPQ/HmjTg6TIfrjZeAtjIa2Oe1/cvpt5h3GBMkU=;
 	h=Subject:To:Cc:From:Date;
-	b=cb2fH1TWkmdmRxg+yi9fulM7VSN25X7hdTFpmuenFrtNWLYqN8EOw3yGB+6QyYjzh
-	 dWmOdyLRgnLeymPcVB2USkK3h3n3Qx23VGv8YGu5HYC02lJR+rfN26OkdfeqDRaF6E
-	 kEiYTlcr4+fEatChb8t835pPm7JHnpy2N6cJaUMw=
-Subject: FAILED: patch "[PATCH] drm/amd/display: fix BT.2020 YCbCr limited output CSC matrix" failed to apply to 5.10-stable tree
-To: nlucasgit@gmail.com,alexander.deucher@amd.com,royalnet026@gmail.com,sroy14@alum.utk.edu
+	b=C2Enm0+Cc5lxFWar/dBwK0PeAYAc2Zl7oCNPqZAvVGz0ZzQo+KaWufL9iyKHuDEh1
+	 ztJeg8FP4hbEReyoOOi2mtfGEc2HYczTOkcmuQECc6PfH9NZA8pDWCs07nJO2w8dYu
+	 ZaQAh15QLxGRMmmUV0RlqCD2r5JbKtkWsCA0Xs4E=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: check ASPM on the dGPU host link" failed to apply to 6.1-stable tree
+To: kevinyang.wang@amd.com,Hawking.Zhang@amd.com,alexander.deucher@amd.com,kenneth.feng@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 13:25:09 +0200
-Message-ID: <2026082008-disposal-drapery-87c2@gregkh>
+Date: Thu, 20 Aug 2026 13:26:29 +0200
+Message-ID: <2026082029-grading-pelvis-81de@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2f9a5c0f018d4a1586ee892f81f1383219676415
+git cherry-pick -x 2a9c5154a5650c09ad44ff5e1dff74754e15a3c6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082008-disposal-drapery-87c2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082029-grading-pelvis-81de@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,131 +62,99 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2f9a5c0f018d4a1586ee892f81f1383219676415 Mon Sep 17 00:00:00 2001
-From: Nathan Lucas <nlucasgit@gmail.com>
-Date: Sun, 2 Aug 2026 08:35:23 -0600
-Subject: [PATCH] drm/amd/display: fix BT.2020 YCbCr limited output CSC matrix
+From 2a9c5154a5650c09ad44ff5e1dff74754e15a3c6 Mon Sep 17 00:00:00 2001
+From: Yang Wang <kevinyang.wang@amd.com>
+Date: Wed, 5 Aug 2026 20:39:18 +0800
+Subject: [PATCH] drm/amdgpu: check ASPM on the dGPU host link
 
-COLOR_SPACE_YCBCR2020_TYPE, which is selected for
-COLOR_SPACE_2020_YCBCR_LIMITED color_space, has coefficients that are
-incorrect for limited-range output. Its luma and chroma scaling is
-full-range so output is too bright and colors are incorrect.
+dGPUs with an internal PCIe switch expose graphics functions below the
+switch downstream port. The automatic ASPM check uses the display
+endpoint and evaluates the internal link instead of the host link.
 
-COLOR_SPACE_YCBCR2020_TYPE is closer to a full-range conversion matrix with
-incorrect luma offset, so correct the luma offset for full-range and rename
-it to COLOR_SPACE_YCBCR2020_FULL_TYPE.
+Use the switch upstream port for the check and report the selected
+link.
 
-Add COLOR_SPACE_YCBCR2020_LIMITED_TYPE with correct scaling and range for
-limited-range output.
-
-Fix related functions so COLOR_SPACE_YCBCR2020_LIMITED_TYPE and
-COLOR_SPACE_YCBCR2020_FULL_TYPE are correctly selected based on
-dc_color_space.
-
-Derivation of both matrices follows ITU-T H.273:
-
-Table 4, MatrixCoefficients 9, BT.2020-NCL weights:
-KR = 0.2627, KB = 0.0593, KG = 1 - KR - KB = 0.6780.
-
-Equations 45-47 in matrix form:
-            [  KR             KG             KB            0 ]
-M2020_NCL = [ -KR/(2(1-KB))  -KG/(2(1-KB))   1/2           0 ]
-            [  1/2           -KG/(2(1-KR))  -KB/(2(1-KR))  0 ]
-            [  0              0              0             1 ]
-
-Limited and Full transforms based on equations 30-32 and 36-38 with bit
-depth 10, normalized by 1023:
-
-            [ 876/1023   0         0         64/1023  ]
-MLimited  = [ 0          896/1023  0         512/1023 ]
-            [ 0          0         896/1023  512/1023 ]
-            [ 0          0         0         1        ]
-
-            [ 1023/1023  0         0         0        ]
-    MFull = [ 0          1023/1023 0         512/1023 ]
-            [ 0          0         1023/1023 512/1023 ]
-            [ 0          0         0         1        ]
-
-M2020_NCL_Limited = MLimited x M2020_NCL
-M2020_NCL_Full    = MFull x M2020_NCL
-
-The upper three rows of M2020_NCL_* are stored in CR, Y, CB order. Each
-M2020_NCL_* value is stored as Round(value * 8192) in its 16-bit
-two's-complement representation.
-
-Fixes: 973a9c810c78 ("drm/amd/display: Fix COLOR_SPACE_YCBCR2020_TYPE matrix")
-Assisted-by: OpenAI-Codex:GPT-5.6-Sol
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Satyajit Roy <sroy14@alum.utk.edu>
-Signed-off-by: Nathan Lucas <nlucasgit@gmail.com>
+Fixes: 0ab5d711ec74 ("drm/amd: Refactor `amdgpu_aspm` to be evaluated per device")
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 3b906e1dc7e3c9ff9f7940f6828b367a6a9ec73c)
+(cherry picked from commit 4e0d6f2876e704fff707b18c40dbd383aea4a1c9)
 Cc: stable@vger.kernel.org
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 88446817a71f..7f362c3926c6 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -58,7 +58,8 @@ enum dc_color_space_type {
- 	COLOR_SPACE_RGB_LIMITED_TYPE,
- 	COLOR_SPACE_YCBCR601_TYPE,
- 	COLOR_SPACE_YCBCR709_TYPE,
--	COLOR_SPACE_YCBCR2020_TYPE,
-+	COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
-+	COLOR_SPACE_YCBCR2020_FULL_TYPE,
- 	COLOR_SPACE_YCBCR601_LIMITED_TYPE,
- 	COLOR_SPACE_YCBCR709_LIMITED_TYPE,
- 	COLOR_SPACE_YCBCR709_BLACK_TYPE,
-@@ -110,9 +111,15 @@ static const struct out_csc_color_matrix_type output_csc_matrix[] = {
- 		{ 0xE00, 0xF349, 0xFEB7, 0x1000,
- 		  0x6CE, 0x16E3, 0x24F,  0x200,
- 		  0xFCCB, 0xF535, 0xE00, 0x1000} },
--	{ COLOR_SPACE_YCBCR2020_TYPE,
-+	/* Corrected. Not included in the TODO above. */
-+	{ COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
-+		{ 0x0E04, 0xF31D, 0xFEDF, 0x1004,
-+		  0x0733, 0x1294, 0x01A0, 0x0201,
-+		  0xFC16, 0xF5E6, 0x0E04, 0x1004} },
-+	/* Corrected. Not included in the TODO above. */
-+	{ COLOR_SPACE_YCBCR2020_FULL_TYPE,
- 		{ 0x1000, 0xF149, 0xFEB7, 0x1004,
--		  0x0868, 0x15B2, 0x01E6, 0x201,
-+		  0x0868, 0x15B2, 0x01E6, 0,
- 		  0xFB88, 0xF478, 0x1000, 0x1004} },
- 	{ COLOR_SPACE_YCBCR709_BLACK_TYPE,
- 		{ 0x0000, 0x0000, 0x0000, 0x1000,
-@@ -179,14 +186,14 @@ static bool is_ycbcr709_type(
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index bff3e06a756c..16049bfb627b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1370,6 +1370,31 @@ static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
+ #endif
  }
  
--static bool is_ycbcr2020_type(
--	enum dc_color_space color_space)
-+static bool is_ycbcr2020_limited_type(enum dc_color_space color_space)
- {
--	bool ret = false;
-+	return color_space == COLOR_SPACE_2020_YCBCR_LIMITED;
-+}
- 
--	if (color_space == COLOR_SPACE_2020_YCBCR_LIMITED || color_space == COLOR_SPACE_2020_YCBCR_FULL)
--		ret = true;
--	return ret;
-+static bool is_ycbcr2020_full_type(enum dc_color_space color_space)
++/*
++ * Some dGPUs expose their display endpoint below an internal PCIe switch.
++ * Use the switch upstream port to query the host-facing link.
++ */
++static struct pci_dev *amdgpu_device_get_aspm_pdev(struct amdgpu_device *adev)
 +{
-+	return color_space == COLOR_SPACE_2020_YCBCR_FULL;
++	struct pci_dev *swds, *swus;
++
++	swds = pci_upstream_bridge(adev->pdev);
++	if (!swds ||
++	    (swds->vendor != PCI_VENDOR_ID_ATI &&
++	     swds->vendor != PCI_VENDOR_ID_AMD) ||
++	    pci_pcie_type(swds) != PCI_EXP_TYPE_DOWNSTREAM)
++		return adev->pdev;
++
++	swus = pci_upstream_bridge(swds);
++	if (!swus ||
++	    (swus->vendor != PCI_VENDOR_ID_ATI &&
++	     swus->vendor != PCI_VENDOR_ID_AMD) ||
++	    pci_pcie_type(swus) != PCI_EXP_TYPE_UPSTREAM)
++		return adev->pdev;
++
++	return swus;
++}
++
+ /**
+  * amdgpu_device_should_use_aspm - check if the device should program ASPM
+  *
+@@ -1382,6 +1407,9 @@ static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
+  */
+ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
+ {
++	struct pci_dev *aspm_pdev, *parent;
++	bool enabled;
++
+ 	switch (amdgpu_aspm) {
+ 	case -1:
+ 		break;
+@@ -1396,7 +1424,27 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
+ 		return false;
+ 	if (amdgpu_device_aspm_support_quirk(adev))
+ 		return false;
+-	return pcie_aspm_enabled(adev->pdev);
++
++	/*
++	 * pcie_aspm_enabled() checks the link between its argument and
++	 * the immediate upstream bridge. Use SWUS for dGPUs with an
++	 * internal switch so that this is the host-facing link.
++	 */
++	aspm_pdev = amdgpu_device_get_aspm_pdev(adev);
++	parent = pci_upstream_bridge(aspm_pdev);
++	if (!parent) {
++		dev_dbg(adev->dev, "ASPM: no upstream PCIe link for %s\n",
++			pci_name(aspm_pdev));
++		return false;
++	}
++
++	enabled = pcie_aspm_enabled(aspm_pdev);
++	/* Report the exact link used for the automatic ASPM decision. */
++	dev_dbg(adev->dev, "ASPM: link %s <-> %s is %s\n",
++		pci_name(parent), pci_name(aspm_pdev),
++		enabled ? "enabled" : "disabled");
++
++	return enabled;
  }
  
- static bool is_ycbcr709_limited_type(
-@@ -215,8 +222,10 @@ static enum dc_color_space_type get_color_space_type(enum dc_color_space color_s
- 		type = COLOR_SPACE_YCBCR601_LIMITED_TYPE;
- 	else if (is_ycbcr709_limited_type(color_space))
- 		type = COLOR_SPACE_YCBCR709_LIMITED_TYPE;
--	else if (is_ycbcr2020_type(color_space))
--		type = COLOR_SPACE_YCBCR2020_TYPE;
-+	else if (is_ycbcr2020_limited_type(color_space))
-+		type = COLOR_SPACE_YCBCR2020_LIMITED_TYPE;
-+	else if (is_ycbcr2020_full_type(color_space))
-+		type = COLOR_SPACE_YCBCR2020_FULL_TYPE;
- 	else if (color_space == COLOR_SPACE_YCBCR709)
- 		type = COLOR_SPACE_YCBCR709_BLACK_TYPE;
- 	else if (color_space == COLOR_SPACE_YCBCR709_BLACK)
+ /* if we get transitioned to only one device, take VGA back */
 
