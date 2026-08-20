@@ -1,534 +1,104 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77DB413231;
-	Thu, 20 Aug 2026 12:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 612BA3D3332;
+	Thu, 20 Aug 2026 12:12:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787227954; cv=none; b=CnoD6lRewEI7jzbjk9fxueq473y0kgw7cOuvZwyP/p6RIHPGxASAwXh/7fuM5V9xz+j8ri831eDhKZ2H+nSiXY/JX6KmzmwOYY6TGwUTuoa+omn9mCQiVDjRWj5Rx/20ZrCCQYujUVNM9oZVvHhD4koa06zb0124PP8NvokCsy0=
+	t=1787227980; cv=none; b=h7lPR3+/Cr0vzeuH8OKoo9+xmTAP92PKDzPaB6DshM6uKRmFk3CsuuGliLhKjbVdKPuevrLFu4fqXszFCpJvaNafsrgTBjXRuYMjPgB7LUlx0ARdPw8CMkPt2h8V0letl8z1bPlpQpLvj3lHUaeNL1jrgCYfTQ2XW/ClBGBRHTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787227954; c=relaxed/simple;
-	bh=y0HZVmd7yyASndlKEs9w182mjnp+5ZSCOomHOl6BLqg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RvgH1Izx2yxdiAckR5NGWzO+G798VvXcsLFJFK6Moa9NFWnpoWrNTm8uZJm6zoWa+SkfBirTGAbVYMY2Tm7l/gnUrwp9SBi5XRE3XKEot8DhpfFwcfmM7UvOrNsz8eGEit+c3QbmxmLBOIA/k1B4ZLT/lyOcmVGGGdOi2l102Y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wR1J2NXn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jlJ51zsd; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=z1ZkbN9I; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=eDIJUVK0; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wR1J2NXn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jlJ51zsd";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="z1ZkbN9I";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eDIJUVK0"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 83489834CE;
-	Thu, 20 Aug 2026 12:12:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1787227945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NFwdVqKwmHD/ih3Nqk9KcAgQVCsZzihKUnNM5VjKHG0=;
-	b=wR1J2NXnC5JfzfOs++vPcl9nAHIldJq+3heozi4oTth+7f7NnU+pEO3X8JFUF30+i8lkfn
-	K5m0urc5yoetmEUQWrnQeuqDBN3GcZL2ZV4HvS2dQs12IJXOlsWJ6gAGJaVPcPh10dicus
-	DFugyz1OCt3FNOhsJ3l9ErBDQu880z8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1787227945;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NFwdVqKwmHD/ih3Nqk9KcAgQVCsZzihKUnNM5VjKHG0=;
-	b=jlJ51zsdGloBRoa40TyoQTOrnjl4PbXn4nhaatVd7rM09rooPI9T7VB3bbMRbA8xu3FmTd
-	i92NDYZHNvNZ0lCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=z1ZkbN9I;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=eDIJUVK0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1787227941; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NFwdVqKwmHD/ih3Nqk9KcAgQVCsZzihKUnNM5VjKHG0=;
-	b=z1ZkbN9I/uzN6onF/IEV0Rl2EMS7YPj2H3Z4G+F8Svd/ItaU2dDmYMjbTO9risYKeoLSmk
-	QFU4jK2laqdnS1zjF5SKhN870Hv2SLMkaGGOm7foE5sfjRk+UMaWPCGR2q8Xljjwg1WOPQ
-	06Yt3e1/3+wdpz4DlfGiqeWEpsVuvjc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1787227941;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NFwdVqKwmHD/ih3Nqk9KcAgQVCsZzihKUnNM5VjKHG0=;
-	b=eDIJUVK0Bh3izMrCkAXlmb4evW2tr2nkNroxNaY2P80aNutrarU2eRx1CIdWUG4eaPrQcZ
-	jwFdRaarPWXEtnBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 172A427A8;
-	Thu, 20 Aug 2026 12:12:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id JqUZAiTvhmqpZAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 20 Aug 2026 12:12:20 +0000
-Date: Thu, 20 Aug 2026 13:12:18 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: kas@kernel.org, usama.arif@linux.dev, hughd@google.com, 
-	akpm@linux-foundation.org, baohua@kernel.org, baolin.wang@linux.alibaba.com, 
-	david@kernel.org, dev.jain@arm.com, liam@infradead.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, ziy@nvidia.com, nphamcs@gmail.com, hannes@cmpxchg.org, 
-	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
-	stable@vger.kernel.org, willy@infradead.org
-Subject: Re: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio
- on zap
-Message-ID: <aobp2CtWZBlw4w7E@pedro-suse.lan>
-References: <aoXYh9EPF6QnlvIK@pedro-suse.lan>
- <20260820061337.24669-1-lance.yang@linux.dev>
+	s=arc-20240116; t=1787227980; c=relaxed/simple;
+	bh=5Qtba8SWNI25D2cw00ROmV2pdRUvLXmQ5rmzKJbhORs=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=u7j7JN2PeWOgmd6jeTIgYJVK+cPFzlolXai7z1yUaHF01I04DQ0Y+WiqBIS/qQhskMIXJrWKXguEAq8MWc2vKbX9nPvwuCNRjJIWdgfl68I7k2ma8NLyGEmosRKLDKRO+x3o1/J7rh3gZg4YWnbLgzDtFdk/ZuR87F9HhUYWjpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.97.62.103])
+	by mtasvr (Coremail) with SMTP id _____wCHnnw674Zq_rmtAA--.5449S3;
+	Thu, 20 Aug 2026 20:12:43 +0800 (CST)
+Received: from smtpclient.apple (unknown [10.97.62.103])
+	by mail-app1 (Coremail) with SMTP id yy_KCgDno5s674ZqHEIEBA--.8347S2;
+	Thu, 20 Aug 2026 20:12:42 +0800 (CST)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="xqewysoglul6w752"
-Content-Disposition: inline
-In-Reply-To: <20260820061337.24669-1-lance.yang@linux.dev>
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-patch];
-	MX_GOOD(-0.01)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,linux.dev:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[23];
-	MIME_TRACE(0.00)[0:+,1:+,2:+];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,linux.dev,google.com,linux-foundation.org,linux.alibaba.com,arm.com,infradead.org,vger.kernel.org,kvack.org,nvidia.com,gmail.com,cmpxchg.org,surriel.com,meta.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	HAS_ATTACHMENT(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 83489834CE
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [PATCH] ext4: fix discard work use-after-free on failed mount
+From: Fan Wu <12321260@zju.edu.cn>
+In-Reply-To: <ao3hudzjy2ljujygifsf7bcbffnfhp4uhxln3qkzdbszih3mjf@cqcopsdlkpnw>
+Date: Thu, 20 Aug 2026 20:12:32 +0800
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+ tytso@mit.edu,
+ adilger.kernel@dilger.ca,
+ libaokun@linux.alibaba.com,
+ ojaswin@linux.ibm.com,
+ ritesh.list@gmail.com,
+ yi.zhang@huawei.com,
+ linux-ext4@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <07DD13A9-C435-4F85-936A-1F587AE386D7@zju.edu.cn>
+References: <20260820052102.4616-1-fanwu01@zju.edu.cn>
+ <ao3hudzjy2ljujygifsf7bcbffnfhp4uhxln3qkzdbszih3mjf@cqcopsdlkpnw>
+To: Jan Kara <jack@suse.cz>
+X-Mailer: Apple Mail (2.3774.600.62)
+X-CM-TRANSID:yy_KCgDno5s674ZqHEIEBA--.8347S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?5cHGgwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBHBveKz7IdZn/dIsL83LI4Y+NpLLomzr14EaNv0CGxYmGem
+	BE6pmMLWy8OsxaK3qP8=
+X-Coremail-Antispam: 1Uk129KBj93XoW7AF4rtF1fKFW8uF15uFykZwc_yoW8Jw4Dpr
+	4rCw47K3yDZFWvy3ZFqw47WryIvr45KayrJryIgr1DC3y5Jw18ArW7tayFgFsxGrsYyw4j
+	vw48Xw17GrWrZ3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
+	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
+Hello, Jan
 
---xqewysoglul6w752
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 26-08-20 19:08, Jan Kara wrote:
+> Yes, I think orphan replay is the easiest way how to have running
+> transaction in the journal in this shutdown path.
 
-+CC willy
+Understood, thanks =E2=80=94 I'll describe the trigger in terms of =
+orphan
+replay in v2.
 
-On Thu, Aug 20, 2026 at 02:13:37PM +0800, Lance Yang wrote:
-> 
-> On Wed, Aug 19, 2026 at 05:35:41PM +0100, Pedro Falcato wrote:
-> >On Wed, Aug 19, 2026 at 03:31:40PM +0100, Kiryl Shutsemau wrote:
-> >> On Wed, Aug 19, 2026 at 03:12:22AM -0700, Usama Arif wrote:
-> >> > zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
-> >> > file case, but not the dirty bit.  The pte path does propagate it, in
-> >> > zap_present_folio_ptes() and so does the pmd split path, in
-> >> > __split_huge_pmd_locked().
-> >> > 
-> >> > For most file mappings the omission is harmless, because writing to a
-> >> > shared file mapping goes through page_mkwrite(), which dirties the
-> >> > folio.  tmpfs is different: it has no page_mkwrite(), and
-> >> > vma_wants_writenotify() is false for it, so a *read* fault on a
-> >> > MAP_SHARED tmpfs mapping installs a writable pmd via do_read_fault().
-> >> > do_read_fault() does not call fault_dirty_shared_page(), so subsequent
-> >> > stores through that mapping set only the hardware dirty bit in the pmd
-> >> > and never call folio_mark_dirty().
-> >> >
-> >> > A shmem folio allocated by a fault
-> >> > is marked uptodate but not dirty (see the clear: block in
-> >> > shmem_get_folio_gfp()), so PG_dirty is never set at all.
-> >> > 
-> >> > Unmapping such a folio - munmap(), or exit_mmap() when the process dies
-> >> > - then loses the only record that it was written, because zap_huge_pmd()
-> >> > drops the pmd without transferring the dirty bit.  Reclaim afterwards
-> >> > sees a clean shmem folio: the whole swap-out block in
-> >> > shrink_folio_list() is inside "if (folio_test_dirty(folio))", so
-> >> > pageout() is skipped and the folio falls into __remove_mapping().
-> >> > There, folio_is_file_lru() is false for a swapbacked folio, so no shadow
-> >> > entry is created and __filemap_remove_folio(folio, NULL) simply empties
-> >> > the i_pages slot.  The data is freed without ever being written to swap,
-> >> > and the next fault on that index returns a freshly zeroed folio.
-> >> > 
-> >> > This is silent data loss for any process that keeps state in a
-> >> > MAP_SHARED tmpfs segment across an unmap - for example a cache handed
-> >> > from one process generation to the next through /dev/shm.  It requires
-> >> > the folio to be PMD-mapped, so it only shows up once shmem THP is
-> >> > enabled (which is what we did in Meta fleet and started noticing crashes);
-> >> > with THP off the pte path transfers the dirty bit correctly.
-> >> > It also only becomes visible when swap is enabled, because with no swap
-> >> > device shmem folios (which are on the anon LRU) are not scanned by
-> >> > reclaim at all, so the clean folio is never dropped.
-> >> > 
-> >> > Reproduced on x86_64 with a tmpfs mounted huge=within_size: read-fault a
-> >> > 2MB-backed region, write a known pattern through the resulting mapping,
-> >> > munmap, force reclaim of the cgroup, then re-map and read back.  Without
-> >> > this patch the region reads back as zeros and vmstat shows zswpout 0 -
-> >> > the data was discarded rather than swapped.  With this patch the region
-> >> > reads back correctly and the pages are swapped out as expected.  With
-> >> > huge=never, or when the first touch is a write, the test passes either
-> >> > way.
-> >> 
-> >> +Hugh.
-> >> 
-> >> Oopsie.
-> >> 
-> >> I'm confused why it took a decade to discover the bug...
-> >> Maybe read ahead of write for shmem is too rare, I donno.
-> >> 
-> >> > 
-> >> > Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> >> 
-> >> This would be more precise: b5072380eb61 ("thp: support file pages in zap_huge_pmd()")
-> >> 
-> >> Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
-> >> 
-> >> > Cc: <stable@vger.kernel.org>
-> >> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> >> > ---
-> >> >  mm/huge_memory.c | 2 ++
-> >> >  1 file changed, 2 insertions(+)
-> >> > 
-> >> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> >> > index ced400f72d43a..afbb5974bd225 100644
-> >> > --- a/mm/huge_memory.c
-> >> > +++ b/mm/huge_memory.c
-> >> > @@ -2449,6 +2449,8 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
-> >> >  		add_mm_counter(mm, mm_counter_file(folio),
-> >> >  			       -HPAGE_PMD_NR);
-> >> >  
-> >> > +		if (is_present && pmd_dirty(pmdval))
-> >> > +			folio_mark_dirty(folio);
-> >> 
-> >> Unrelated to your patch, but noticed while looking at it: we drop the rmap
-> >> here under the pmd lock, while the TLB flush is deferred to
-> >> tlb_finish_mmu(). The pte path handles this with
-> >> tlb_delay_rmap()/force_flush (5df397dec7c4), but there's no pmd equivalent:
-> >> tlb_flush_rmap_batch() only knows folio_remove_rmap_ptes(), and
-> >> zap_huge_pmd() uses tlb_remove_page_size(), which takes no delay_rmap.
-> >> 
-> >> Doesn't matter for shmem, but xfs & friends do get PMD-order folios, and
-> >> do_set_pmd() makes the pmd dirty+writable once page_mkwrite() has run. So
-> >> folio_mkclean() can clean the folio while another CPU still stores through a
-> >> stale TLB entry -- silently lost write, no PG_dirty left behind.
-> >
-> >Where do you see page_mkwrite being called in the same path as do_set_pmd()?
-> >Per my understanding of the code, this Should Not Happen, and it really Should
-> >Not Happen for many, many reasons (write amplification being the main one).
-> 
-> Hmm.. that happens on an initial shared write fault. For non-DAX XFS, the
-> path starts with an empty PMD.
-> 
-> TL;DR
-> 
-> With an empty PMD and PMD-order THP allowed, __handle_mm_fault() first
-> tries create_huge_pmd(). VM_FAULT_FALLBACK sends the fault to
-> handle_pte_fault():
-> 
-> static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
-> 		unsigned long address, unsigned int flags)
-> {
-> 	...
-> 	if (pmd_none(*vmf.pmd) &&
-> 	    thp_vma_allowable_order(vma, vm_flags, TVA_PAGEFAULT, PMD_ORDER)) {
-> 		ret = create_huge_pmd(&vmf);
-> 		if (ret & VM_FAULT_FALLBACK)
-> 			goto fallback;
-> 		else
-> 			return ret;
-> 	}
-> 	...
-> fallback:
-> 	return handle_pte_fault(&vmf);
-> }
-> 
-> create_huge_pmd() dispatches to the filesystem's huge_fault callback:
-> 
-> static inline vm_fault_t create_huge_pmd(struct vm_fault *vmf)
-> {
-> 	struct vm_area_struct *vma = vmf->vma;
-> 	...
-> 	if (vma->vm_ops->huge_fault)
-> 		return vma->vm_ops->huge_fault(vmf, PMD_ORDER);
-> 	return VM_FAULT_FALLBACK;
-> }
-> 
-> For non-DAX XFS, that callback returns VM_FAULT_FALLBACK:
-> 
-> static vm_fault_t
-> xfs_filemap_huge_fault(
-> 	struct vm_fault		*vmf,
-> 	unsigned int		order)
-> {
-> 	if (!IS_DAX(file_inode(vmf->vma->vm_file)))
-> 		return VM_FAULT_FALLBACK;
-> 	...
-> }
-> 
-> XFS installs the huge-fault, regular-fault, and page_mkwrite callbacks
-> in the same vm_ops:
-> 
-> static const struct vm_operations_struct xfs_file_vm_ops = {
-> 	.fault		= xfs_filemap_fault,
-> 	.huge_fault	= xfs_filemap_huge_fault,
-> 	...
-> 	.page_mkwrite	= xfs_filemap_page_mkwrite,
-> 	...
-> };
-> 
-> On the fallback path, handle_pte_fault() leaves an empty PMD without a
-> PTE and calls do_pte_missing():
-> 
-> static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
-> {
-> 	...
-> 	if (unlikely(pmd_none(*vmf->pmd))) {
-> 		/*
-> 		 * Leave __pte_alloc() until later: because vm_ops->fault may
-> 		 * want to allocate huge page, and if we expose page table
-> 		 * for an instant, it will be difficult to retract from
-> 		 * concurrent faults and from rmap lookups.
-> 		 */
-> 		vmf->pte = NULL;
-> 		vmf->flags &= ~FAULT_FLAG_ORIG_PTE_VALID;
-> 	...
-> 	}
-> 
-> 	if (!vmf->pte)
-> 		return do_pte_missing(vmf);
-> 	...
-> }
-> 
-> For a file VMA, do_pte_missing() calls do_fault():
-> 
-> static vm_fault_t do_pte_missing(struct vm_fault *vmf)
-> {
-> 	if (vma_is_anonymous(vmf->vma))
-> 		return do_anonymous_page(vmf);
-> 	else
-> 		return do_fault(vmf);
-> }
-> 
-> do_fault() sends FAULT_FLAG_WRITE + VM_SHARED to do_shared_fault():
-> 
-> static vm_fault_t do_fault(struct vm_fault *vmf)
-> {
-> 	struct vm_area_struct *vma = vmf->vma;
-> 	...
-> 	if (!vma->vm_ops->fault) {
-> 		...
-> 	} else if (!(vmf->flags & FAULT_FLAG_WRITE))
-> 		ret = do_read_fault(vmf);
-> 	else if (!(vma->vm_flags & VM_SHARED))
-> 		ret = do_cow_fault(vmf);
-> 	else
-> 		ret = do_shared_fault(vmf);
-> 	...
-> }
-> 
-> do_shared_fault() first calls __do_fault():
-> 
-> static vm_fault_t do_shared_fault(struct vm_fault *vmf)
-> {
-> 	struct vm_area_struct *vma = vmf->vma;
-> 	vm_fault_t ret, tmp;
-> 	struct folio *folio;
-> 	...
-> 	ret = __do_fault(vmf);
-> 	...
-> }
-> 
-> __do_fault() invokes the regular fault callback:
-> 
-> static vm_fault_t __do_fault(struct vm_fault *vmf)
-> {
-> 	struct vm_area_struct *vma = vmf->vma;
-> 	struct folio *folio;
-> 	vm_fault_t ret;
-> 	...
-> 	ret = vma->vm_ops->fault(vmf);
-> 	...
-> 	return ret;
-> }
-> 
-> For non-DAX XFS, xfs_filemap_fault() reaches filemap_fault():
-> 
-> static vm_fault_t
-> xfs_filemap_fault(
-> 	struct vm_fault		*vmf)
-> {
-> 	struct inode		*inode = file_inode(vmf->vma->vm_file);
-> 	...
-> 	return filemap_fault(vmf);
-> }
-> 
-> Once that returns the folio, do_shared_fault() calls do_page_mkwrite()
-> and then finish_fault():
-> 
-> static vm_fault_t do_shared_fault(struct vm_fault *vmf)
-> {
-> 	struct vm_area_struct *vma = vmf->vma;
-> 	vm_fault_t ret, tmp;
-> 	struct folio *folio;
-> 	...
-> 	folio = page_folio(vmf->page);
-> 	...
-> 	if (vma->vm_ops->page_mkwrite) {
-> 		folio_unlock(folio);
-> 		tmp = do_page_mkwrite(vmf, folio);
-> 		...
-> 	}
-> 
-> 	ret |= finish_fault(vmf);
-> 	...
-> }
-> 
-> do_page_mkwrite() calls the XFS callback installed above and restores
-> the original fault flags:
-> 
-> static vm_fault_t do_page_mkwrite(struct vm_fault *vmf, struct folio *folio)
-> {
-> 	vm_fault_t ret;
-> 	unsigned int old_flags = vmf->flags;
-> 
-> 	vmf->flags = FAULT_FLAG_WRITE|FAULT_FLAG_MKWRITE;
-> 	...
-> 	ret = vmf->vma->vm_ops->page_mkwrite(vmf);
-> 	/* Restore original flags so that caller is not surprised */
-> 	vmf->flags = old_flags;
-> 	...
-> }
-> 
-> So finish_fault() still sees FAULT_FLAG_WRITE. With an empty PMD, no
-> fallback requirement, and a PMD-mappable folio, it tries do_set_pmd():
-> 
-> vm_fault_t finish_fault(struct vm_fault *vmf)
-> {
-> 	...
-> 	if (pmd_none(*vmf->pmd)) {
-> 		if (!needs_fallback && folio_test_pmd_mappable(folio)) {
-> 			ret = do_set_pmd(vmf, folio, page);
-> 			if (ret != VM_FAULT_FALLBACK)
-> 				return ret;
-> 		}
-> 		...
-> 	}
-> 	...
-> }
-> 
-> After its checks pass, do_set_pmd() takes FAULT_FLAG_WRITE from vmf and
-> installs a dirty+writable PMD:
-> 
-> vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page)
-> {
-> 	struct vm_area_struct *vma = vmf->vma;
-> 	bool write = vmf->flags & FAULT_FLAG_WRITE;
-> 	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
-> 	pmd_t entry;
-> 	...
-> 	entry = folio_mk_pmd(folio, vma->vm_page_prot);
-> 	if (write)
-> 		entry = maybe_pmd_mkwrite(pmd_mkdirty(entry), vma);
-> 	...
-> 	set_pmd_at(vma->vm_mm, haddr, vmf->pmd, entry);
-> 	...
-> }
-> 
-> maybe_pmd_mkwrite() sets write permission for VM_WRITE:
-> 
-> pmd_t maybe_pmd_mkwrite(pmd_t pmd, struct vm_area_struct *vma)
-> {
-> 	if (likely(vma->vm_flags & VM_WRITE))
-> 		pmd = pmd_mkwrite(pmd, vma);
-> 	return pmd;
-> }
+> I think failed_mount6 should just force the commit to flush out the
+> running transaction before mballoc will be shut down and
+> ext4_mb_release() can also use disable_work() after flush_work() to
+> make sure no new s_discard_work can be queued as a safety measure.
 
-Thanks, this makes sense!
+Agreed =E2=80=94 keeping the journal shutdown at its existing point is =
+safer.
+I'll send a v2 that calls ext4_force_commit() at failed_mount6 before
+ext4_mb_release(), and adds disable_work() after the existing
+flush_work() in ext4_mb_release().
 
-> 
-> >Namely, see the comment in wp_huge_pmd():
-> >	/* COW or write-notify handled on pte level: split pmd. */
-> >
-> >if file huge pages get mapped writable, that's a bug.
-> 
-> That comment is about a different path. __handle_mm_fault() calls
-> wp_huge_pmd() only when a write/unshare fault hits an existing PMD THP
-> which is not writable:
+One detail I noticed while checking the ordering: jbd2 publishes
+j_commit_sequence before invoking the commit callback, so
+ext4_force_commit() can return before that callback has finished.  The
+callback can therefore queue s_discard_work after flush_work() returns.
+disable_work() cancels such a queued instance, but does not wait if it
+has already started executing in that small window.  I have kept
+disable_work() as you suggested; please let me know if you would prefer
+disable_work_sync() for that case.
 
-No. That is simply a bug. There's little reason you wouldn't try do un-WP
-a huge PMD if the idea would be to do PMD granularity for write notifications.
-It isn't, naturally, because that results in horrible write amplification.
+Thanks for the review!
+Fan=
 
-The fix IMO is to make it so write faults on shared mappings with page_mkwrite
-never create a PMD. I don't think it makes sense to add rmap flushing hacks
-for PMDs, when the common case (read + write) instantly and purposefully
-breaks down to the PTE level (such that you really aren't supposed to get
-the above; you'll notice that as soon as the folio gets cleaned, it will
-get broken by the next write fault, period).
-
-See the attached patch. I know willy has been working on related stuff, so
-perhaps he might want to pick it up.
-
-
--- 
-Pedro
-
---xqewysoglul6w752
-Content-Type: text/x-patch; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-mm-always-fallback-to-PTE-mappings-for-shared-write-.patch"
-
-From b2f3fee7f1cc285e6a1fa79e77c58a88a51197b0 Mon Sep 17 00:00:00 2001
-From: Pedro Falcato <pfalcato@suse.de>
-Date: Thu, 20 Aug 2026 13:07:20 +0100
-Subject: [PATCH] mm: always fallback to PTE mappings for shared write faults
-
-Signed-off-by: Pedro Falcato <pfalcato@suse.de>
----
- mm/memory.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index b4be57b590ce..d37f8a0f8355 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5778,6 +5778,16 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
- 		 */
- 		needs_fallback = !shmem_mapping(mapping) &&
- 			file_end < folio_next_index(folio);
-+
-+		if (vma->vm_flags & VM_SHARED && vma->vm_ops->page_mkwrite &&
-+		    vmf->flags & FAULT_FLAG_WRITE) {
-+			/*
-+			 * Filesystems that want write notification want as
-+			 * much granular of a mapping as possible. Don't
-+			 * install writable THPs for those.
-+			 */
-+			needs_fallback = true;
-+		}
- 	}
- 
- 	if (pmd_none(*vmf->pmd)) {
--- 
-2.55.0
-
-
---xqewysoglul6w752--
