@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E70331EA7;
-	Thu, 20 Aug 2026 14:03:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896B7470435;
+	Thu, 20 Aug 2026 14:03:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787234610; cv=none; b=BfjwUCnbuv1JIzAaznSjgI1bf1v9hteA4EiJxxE2ogILDn9b8GUdYnKBhe6017o1flvL8Vozx/qD1zE+O4Cta70sFIYghjg2qi6pyLnBF7W0vZFOkdqu9E+mznt1HkBOmuNqfMgtoW1fqmPWUKRLLqSQyVPWebC/wavYUnOVqFU=
+	t=1787234625; cv=none; b=r16qv4NcGM3q1h148LOAzSff3mulmaaEOLHv0sI5DThOSlJKMy0D4sQbEXKfhH1JlX7BmT6qQ/zdKYxBN0MTRjvxOGnSHe11D+JJi4RMR+0A4FB3f/vN8XBSCqf31+8YLwRkql0bfFpEgZuP0/K2YE/WXXM8MlMhm2m8qgASirw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787234610; c=relaxed/simple;
-	bh=tCCqlZyWdyh63TRc8+dGM9WfTi5BiwIaLvVMXxwzsYw=;
+	s=arc-20240116; t=1787234625; c=relaxed/simple;
+	bh=7RtKrMqHBrDU+svpv+g0dtfRIfipMOGkjX/u+ahi9yY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S5gF/5L3shGh09M+HO7dWVPiG6kaHzjw+8rPajOex5Ao5u8wNeL0MA1L364INy9sdLJGBgurTlD7mjBOIPfISwWeRA7hkSW1H3pNrhYq+YrUpJH4Q0TT3iGrVGIz+dhVubK/oAjQnMrv9kl8+z0tJ7zOmupW5TgyYzyn6X0j9Xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1ffXdaT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Su97ZvOkZs3pscbCLkQkRtGpws66aCUU07qTRA/SQO/hlKmBfC2VcdTbYZS/z10H843BDgtrb6Ot+EJ09zGv9gnplAVzB74pwJsUjeG5hNscDacYdTJaV92UIFBtH6SS5OA/rR0A8rLpC+p/qP579oereO48kavu0MHsxBGnj/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jEMMlhwl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1ffXdaT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D40F1F00A3A;
-	Thu, 20 Aug 2026 14:03:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jEMMlhwl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2AF91F00A3D;
+	Thu, 20 Aug 2026 14:03:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787234609;
-	bh=1pP8q2KxBJVDEMogvb2LKf+VAT3Bwq0uMd2eAm1GmWI=;
+	s=k20260515; t=1787234624;
+	bh=pbDDeV/kJitG9HYutqp56Wzz4+LQLFWle1INseE3WeE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Q1ffXdaTl4qLXiUJYsCj25Cp9QBB2rZw5CZZFk9NlkBvz2tRwtc8klTF1ZEae3sUB
-	 cjorIBg1XW8Ah+uORZdrRmEj+FXim/5LmmertFtZ0EC+pmZlSuYkwAfoLNWXjt5MqX
-	 PXe2/cg1m8ho4rH7Qc9O8VS5GWml+GcVhV3MRJFOGvyOi2IoSV7t4+PsajucSx/L3t
-	 rUvKC11k3J3T9jXb1lC9mPx49t/cCjptP7G/oLo35Pss1gzg856McuQ/DKYPw44Gjf
-	 3vImftj7pahcXUfcVvfU6Kqh9d6kOZ29pNirm0qx+hsp9q0tIMWbv42TLawi692ALw
-	 KN95591X6sWkw==
-Message-ID: <578653c4-a7c7-498b-a283-f3b17f3d4191@kernel.org>
-Date: Thu, 20 Aug 2026 16:03:25 +0200
+	b=jEMMlhwlhJCu82vT6Tq+rLy7WFpM9B7vAWBma+uPcO8ROGUsl4M4Kx9S536N6NuAQ
+	 21+7zOkjEx+Fcfv11uq48ZSS7MMbnBX+hWCKdlOYM5NcQMaZS3diMdM4rXvO4lFw1k
+	 Lp/C0FlDskcbmIx5Tt1ANNxP/nHMPzNmfxTWQ6XUZwUSDqCZ1fMwsXqg+RAVOP2evN
+	 YFS1H1k8xHIIvvlrADuExW6mqI0lKBO+3XgNOAiRehwI8GAa/1eqF2krDWhxagX1h+
+	 VnVnPUCbnCo0Gpt8geX/djKolg7i4cZYA+fb+dE3Jg1UGoiiPbZdmmEOuK1ruVXpjA
+	 FKAahNbr5iMqg==
+Message-ID: <e0a9f6dd-f32d-4ca9-b907-51d8893ecbe9@kernel.org>
+Date: Thu, 20 Aug 2026 16:03:38 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,15 +35,18 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dmaengine: qcom: hidma: fix autosuspend cleanup during
- teardown
-To: Guangshuo Li <lgs201920130244@gmail.com>, Sinan Kaya <okaya@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: xilinx: zynqmp_dma: fix autosuspend cleanup
+ during teardown
+To: Guangshuo Li <lgs201920130244@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Abin Joseph <abin.joseph@amd.com>,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Kees Cook <kees@kernel.org>,
+ Kedareswara rao Appana <appana.durga.rao@xilinx.com>,
+ dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-References: <20260808112551.2786782-1-lgs201920130244@gmail.com>
+References: <20260808115228.2798481-1-lgs201920130244@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,14 +92,14 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260808112551.2786782-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260808115228.2798481-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08/08/2026 13:25, Guangshuo Li wrote:
-> hidma_probe() calls pm_runtime_use_autosuspend(), but neither the probe
-> failure path nor hidma_remove() calls the matching
-> pm_runtime_dont_use_autosuspend() before disabling runtime PM.
+On 08/08/2026 13:52, Guangshuo Li wrote:
+> zynqmp_dma_probe() calls pm_runtime_use_autosuspend(), but its failure
+> paths and zynqmp_dma_remove() do not call the matching
+> pm_runtime_dont_use_autosuspend().
 > 
 > If the autosuspend delay is set to a negative value while autosuspend
 > is enabled, the runtime PM core increments usage_count to prevent
@@ -104,12 +107,17 @@ On 08/08/2026 13:25, Guangshuo Li wrote:
 > during teardown, this reference is not dropped and usage_count remains
 > unbalanced.
 > 
-> Add the missing pm_runtime_dont_use_autosuspend() calls to both the
-> probe failure and remove paths before disabling runtime PM.
+> The documentation for pm_runtime_use_autosuspend() also notes that it
+> is important to undo it with pm_runtime_dont_use_autosuspend() at
+> driver exit time, unless runtime PM was initially enabled with
+> devm_pm_runtime_enable().
+> 
+> Add the missing pm_runtime_dont_use_autosuspend() calls to the probe
+> failure and remove paths.
 > 
 > This issue was found by manual code inspection.
 > 
-> Fixes: 67a2003e0607 ("dmaengine: add Qualcomm Technologies HIDMA channel driver")
+> Fixes: 64c6f7da8c2c ("dmaengine: zynqmp_dma: Add runtime pm support")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
