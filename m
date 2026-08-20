@@ -1,113 +1,104 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658113932CA
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 18:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1782391846;
+	Thu, 20 Aug 2026 18:29:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787250517; cv=none; b=S8sRvRreE9fQjBgqqN5MMTUsg4M2EXeS2jEMrwlyUvxXzNc2vhTc6OC33VYfEDkby5YuNJx+ynKcq6m6J/ZQlsdj3iRo70Jwimm/YeqnyF8YfpG9G/qn/uptIfRpG8LZMVXyvi4ZvnPlZjId3JwrnvN8fmp297n8p7F+zVk4onM=
+	t=1787250573; cv=none; b=i5Wwf2xDwe34c2dXxMr5HMEi6CPmZA+HzWKCkosdtJaswcDtqD+u6iNdkL0buD24FQSkU6AGVet2DUc3uPxL6VdNVpZ6sSDQ9Ex/YkmChjFryZdbLEFe1Ln0RJ3kdHUMhdTdWskDC/gwG1M3QzsT3Xx7CqpuKKzu6dcFi+N0/Tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787250517; c=relaxed/simple;
-	bh=K62eQ1yWB1U2ESSd/iefWVhvrDEsPea2Q4oOaQaWyCQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YqPa0rq8ynLlkmxC61QXsOUi21OlA4W5MUfh30x/VaLj1Gf2yrT1zzotpEjLD0AxW20Q66WLIBOV0OSYZ/cT9mF0JEFW108t8vfDEb8/YlWSUQmawCVLThifW9lpecec7MYiUwIXwHhmtLkD3zOpmEZJrbngpHSl6J+pU8iwOHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AZ04TffS; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787250573; c=relaxed/simple;
+	bh=bvQqQ1Uc7kpnLVhr2wul4wlFBaA+mEgBoM4bFhaTqJA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L79zdtpRDyNqBit2qSjOCsU1Kpk3G4ru7UK9tVuY1izB1SoIrH0uhO7EkTQGn6d+wRSB19Wty+emfEuJhjhSFDGSZJLtzhDqVDUFl6wdvVQWuOV2wIOOhb16dm9sLbwT7VrTm+X1Mxe8MqWxDhp8THZvkyQ8FNab+FhwqDWTxE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ijnBW5ZN; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AZ04TffS"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8edda5d56a5so2103876d6.3
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:28:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787250515; x=1787855315; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7KHPib1wqWSdOYjSbO474SAuPKQRkPz+9y+jPIA9olg=;
-        b=AZ04TffSzhZTNnyPMR/s8B895tKjPMqfrEw/SPbseNKqlAUamH7sZS9Tc8U6NFSG1P
-         yji1cTQACa2bHTQEvtBvVclngx9qESLJMUOkj7ItLPwjDSgtwYnsSz3nGxa1hZgDvcP7
-         Zoj5oh9/S5mMkgY2v5olGk4ReIC8IQB58UTkyqs5XG8PWouEXHGqGwJQT1wUG7+iKOHA
-         S/JXuJB59qieJCr1X3wAqiNeFVFuChHW1vqge52L9Iuh4EsXG2RVF7VgUdNybq+Rt2k9
-         oLm1b9RBjz1uokupQUqqlVfEpRajWK72LCw/nkHDoP0DLwRnaXQWOLuLBJE/bLYZjQy2
-         t2jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787250515; x=1787855315;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7KHPib1wqWSdOYjSbO474SAuPKQRkPz+9y+jPIA9olg=;
-        b=eCSq6oTDkFX9jXbogW+vMWnRQBn5LBQLhzMbA79NenUqsYBGFPjQqs9RTaEOsqBGix
-         p2JQMJASHwb7ISv3uczrQ1ANRylqkvsDXT8kisYFGQh/rTYM7696AUzynbGz50eWgsZr
-         83URwWwTnSUhVrNEt5nl+zTlBbO96k7UXx/7vDlrhrok95TetDEeElEKH52sC3Z3W9p+
-         kZxxJrxOJqt5L8NOojwreZIcXhgkrykTkYEgVAE08u2MJSuiY5KW+rAgb+wKmCNnx8vt
-         JLwi3TBaaQ5HdngyivOyesZcF/TBVW1CLiSleWs+tNn4jd4yORIE4cXtv5oCY7VJpGTD
-         iGfQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq/xb0AEDJIAc+kC9AfIzYmhgV0ZCiQ+YATlAZP6dTG8N9By4I1QqK7tlCHRKoSctKuvazi1tU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2wZc/z8DlHT4rM4VYHFvVExzdj88sUDC5b1gbyT7UaIkiZ/et
-	j715y45k01eI378nk2xLQEcD885/z2dXrZv7wh+/O8Xb/4EPg0OlNwz5
-X-Gm-Gg: AR+sD11elRAzJZP8gGhTFfmY7qeEHGPYHRA3TrDAf6mtwQtK4PYZgXYkuXeQDF+UEun
-	ZZ8kEoNaEsudeaY2B/KAGl2GdADtMJduHIolmioKlxnCfmOTB7P4RkVEs2HxqEr4s4x7jWcIOUW
-	DMw/9tbUtD+3ZqBsA4ZaIMVWnZ6jpNyAIUeLn5pKrhQeSZSJiEGCEEiwJNP9S0ngtZh3TDXPOKJ
-	7Q9KyjKnq2W3yaXnTeAntuuwZx5tXxYXZ12WO/8moJbelzd0NVxM0lDwLTg8rg6g/L9O1qBH7AE
-	fBndr3NSXgW3cupfcCH0iyWo5oZj4p5KAS0Sx2/gGsdSJKGR6lZzcDEtsOtFYrrdvbIV0RVaQ0V
-	JUFMAxwVcSFnoNX2zuKqPTRYqhqJ5IsyBTPXIFFN+c7uZph0D2iR8csA15lVLjMmGntWvzLGnrs
-	5X8h2BBtQh6+vt6cLH1T4bsiUBVNqD+ru8K2EQTUbxRXhwY2ABsASmw1MrgsZEqTo6knBoq2Ifs
-	hF0PRwmU0YJOVk=
-X-Received: by 2002:a05:6214:c49:b0:8f1:d3ee:a8f5 with SMTP id 6a1803df08f44-90c80df8b32mr1076996d6.26.1787250515072;
-        Thu, 20 Aug 2026 11:28:35 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c5f2b5ccesm44072686d6.46.2026.08.20.11.28.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 11:28:34 -0700 (PDT)
-Message-ID: <bc48a982-e8db-49fb-914d-ed8751570c5e@gmail.com>
-Date: Thu, 20 Aug 2026 11:28:31 -0700
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ijnBW5ZN"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 937C211C5EB;
+	Thu, 20 Aug 2026 20:29:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1787250565;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=pYYEy69aM4uXmmudfDrpegj4sjvwe4eXvJ8LgnRtmkQ=;
+	b=ijnBW5ZNOxzypZ/vmAsxYFgvWWET7t3bJYQS9e6mdqagpk7dxP9hsU3NFtnKS53eEZbEhM
+	Gxui5UhddWe62aa1VDbp0OgLp0GVzl1euhJUwVm0IXafSxiP1KAXLdCcREmOa2MgHgDRr5
+	hsp3EaTWRiJvmG4qhj7hWuDiE3varpYQuDyLN8LGOq/vf6k/nBldraPM7Xm6aBhKvwlSAb
+	gOA0u5GRI7tpkfHB3xTL7hrLfQft7V1NGrcceJSLXlPyxBA4g+BhFhCUnvapG7OcVvUAKO
+	7WN5zBL6ypSbqiUHnrgeHc4HmnUOD6qb4t/KGDYCuo1x0TyBU4J1wrnpZIuk2A==
+Date: Thu, 20 Aug 2026 20:29:23 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.1 000/303] 6.1.184-rc1 review
+Message-ID: <aodHg8XQDxFP8VDp@duo.ucw.cz>
+References: <20260820145253.200766705@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 000/303] 6.1.184-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260820145253.200766705@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="pBEof3F4edwrW6K2"
+Content-Disposition: inline
 In-Reply-To: <20260820145253.200766705@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 8/20/26 07:52, Greg Kroah-Hartman wrote:
+
+--pBEof3F4edwrW6K2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi!
+
 > This is the start of the stable review cycle for the 6.1.184 release.
 > There are 303 patches in this series, all will be posted as a response
 > to this one.  If anyone has any issues with these being applied, please
 > let me know.
-> 
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.184-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+We see failure here, too:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+drivers/mmc/host/atmel-mci.c: In function 'atmci_remove':
+4522
+15:52:00
+drivers/mmc/host/atmel-mci.c:2631:31: error: 'struct atmel_mci' has no member named 'bh_work'
+4523
+15:52:00
+ 2631 |         cancel_work_sync(&host->bh_work);
+4524
+15:52:00
+      |                               ^~
+4525
+15:52:00
+make[4]: *** [scripts/Makefile.build:250: drivers/mmc/host/atmel-mci.o] Error 1
+4526
+15:52:00
+make[4]: *** Waiting for unfinished jobs....
+
+..looks same as 5.15 problem.
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2776654125
+
+Best regards,
+									Pavel
+
+--pBEof3F4edwrW6K2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaodHgwAKCRAw5/Bqldv6
+8r21AJ9V1jA8ZcJXbUl6KSBtuWlQT9IWqwCgkQEUz4JuPkwuJQ3Q10FVE6GW5MI=
+=2aVo
+-----END PGP SIGNATURE-----
+
+--pBEof3F4edwrW6K2--
