@@ -1,76 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB62261B8A;
-	Thu, 20 Aug 2026 23:50:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A57731D362
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 23:53:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787269846; cv=none; b=Q2RsUm3yzDjs/k7pQ0QOVp+rxDSw91n0xofOH0LK0/rhUAcrSec6fYWYA0RIor/9vaDRt6Mpqawpzgils1Qyoi5TvEcY2uqNs6hyyfQ9CgoLcVPJOX3QnViL1sCBT7a+DHfIsUky2nGq34C3pRExf7hHBs+dTjxx/ps7VEcR7fo=
+	t=1787269999; cv=none; b=RvVIWLr4LnnFczQ6x01Fv83GRsLYQIB3CTmZI/HBnTOMhcqDG78IJfXgKX39YZYXOF5bMyOBLftorZiOP2XNqEHXWEpaKhG+lHAfOfmeeaIdfOsMg2z8Vh4S7G82tVokVb7sbQTCSAr26B/C3IgUWefKXUVpg2WGmZlHlCauvK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787269846; c=relaxed/simple;
-	bh=IgVE/lr7YofvH8yLY/jmG/IdEV6+Sa6k+Yr1vR/A0TE=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=vGc/KxX6TkSRFxBBaIue6APfQeUUxGdKrBo5YxvhtmKOjpQMqfaGCyC9gPF0DmthHMxCUTpJn8UncddMi+8qhM5eddDvVKHxuP74RpGgrWRpD/q5oszSf3z2PMEmhYJIyO9er1wkfvc6jnrCzXVDEBu0DSUDhDdob6ComZwNbgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bR55DVVi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787269999; c=relaxed/simple;
+	bh=xM6r3AhSMBzvr0yPEMj2z3NZo3h7skMDAXZ8rfJsd4M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YvL2P4ShE+iwuJEijOCuGaxl4R8uc6e/Gw4w2MJGrkR8yypp9WvESUMmxv3NoY8bB39q39SeEmFurgCvrC1r+d7ksscP4S6q1LsSvyMDj3gd+3w+vRjnElGpXjgMSw8LGo09ZNoZJxyswqpAkxoNzKoYEcOUfQSr4c4b/1/a6Lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2igLnz+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bR55DVVi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BFB41F000E9;
-	Thu, 20 Aug 2026 23:50:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2igLnz+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4561F00A3D
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 23:53:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787269844;
-	bh=QRZ+PTDJY57nN80ihzFkuyF+etn9biA6akSbuthcJ34=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=bR55DVViWaTUbBrmSFAtG2etlVFOfgO8u1XLbP0C14GkcBeUv3NmvO28pXXullVwO
-	 OH08nh+WEdjfa3/BcjIFwckU4tfyQDZdFJ0rI612dADw5vjA5RZ4Z9P/QxYq3qNR1Q
-	 6NfHF1goFnzZbnX80/PAVfyL8OP289wJP9g16567UiUMp1BwuLOOtnoQSQiGQueBAL
-	 eR1lvdA+TQLx+dFZsP3ZbPFOWe5HR47ASDyxR/i9PqxQulapkl/Se9sfqzYgovfEV+
-	 xWMylRecxmh69TclPBCAVkJVsKfpcaD2fT7veLaNY3IV+EsS0LkBizc9d2LTddIsaU
-	 fiV6IVLbEfPhw==
-Message-ID: <b12d9999-44b8-4b82-8d6d-72ddcb398cff@kernel.org>
-Date: Fri, 21 Aug 2026 07:50:41 +0800
+	s=k20260515; t=1787269998;
+	bh=xM6r3AhSMBzvr0yPEMj2z3NZo3h7skMDAXZ8rfJsd4M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=j2igLnz+lbz5IqAJeBmMlPgs49w9QclKkVSrLiG9Myd+m/KWIFxiTTQJAh6cckPpE
+	 9wghjxPzUCEkrhd6hxzOW7L/UJKAXixjdte9YkCmwRKXUn9p6krxmZJEFtRHPgE0lo
+	 x2+JWfyPv8cKhZcNRDMWtO9V5lFeruH2T145xZj8Lo01OG7pahZzn3A5g/yBKos7tL
+	 ouH3QvRENGbO5XE/NR03saxE1OBGFYZgM8BTaz6ETgDg/nidOktiuFGurv/Wp+V010
+	 0D9FagNbQCR4JnCbRJxg9NKEZdOIhEom9HcpWdGUyIwLudQk10GF0ZqDQqnEgVDSkF
+	 NaY4IjCJ1l+wA==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c197eaaab00so76501166b.0
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 16:53:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrbYZK0QnkhoegG1I6czFuUyUjZwzq7693gQetD/6Esp+ysZERnUjfsxJXkBKt2kUMyoSxxWOw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwfmchVKxxiTWGCIqVSui9WMa8WZ65VIhx+2YmQIxz81Y0eky22
+	DMl/kJcuiKnk3pYtJaS/w7fVvMPYLbY4faK5Bpbm450G2FEOUD0YdDw6L0c8P3pNe61Smxr8Fl3
+	qxl+mI91ea/Cq38KAopx+LGheGXKcWto=
+X-Received: by 2002:a17:906:4787:b0:c24:6f60:3f7e with SMTP id
+ a640c23a62f3a-c246f60404cmr140093166b.2.1787269996927; Thu, 20 Aug 2026
+ 16:53:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
- stable@vger.kernel.org
-Subject: Re: [f2fs-dev] [PATCH] f2fs: fix to migrate all curseg types during
- free_segment_range
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-References: <20260819180635.1165300-1-daeho43@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260819180635.1165300-1-daeho43@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260820212210.1475817-1-sorenson@redhat.com>
+In-Reply-To: <20260820212210.1475817-1-sorenson@redhat.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 21 Aug 2026 08:53:04 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-a3phtwshP_x-q7ppK7tkQP2ohGvGicDXyLp25xo6sTQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XSAjHTO3R7PTZA26cvzfMVbadR_GcjRszqLSYC5QKgGinY425FE8P4PFU
+Message-ID: <CAKYAXd-a3phtwshP_x-q7ppK7tkQP2ohGvGicDXyLp25xo6sTQ@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: fix copy-paste error in WSL EA length
+ accounting for $LXDEV
+To: Frank Sorenson <sorenson@redhat.com>
+Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/20/26 02:06, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
-> 
-> In free_segment_range(), the curseg evacuation loop only iterates up to
-> NR_CURSEG_PERSIST_TYPE (0..5), missing non-persistent in-memory curseg
-> types such as CURSEG_COLD_DATA_PINNED and CURSEG_ALL_DATA_ATGC.
-> 
-> Even though these in-memory curseg types are not saved in the on-disk
-> checkpoint header, they still occupy active physical segments at runtime.
-> If an active in-memory curseg happens to be allocated within the segment
-> range being truncated during filesystem shrink, failing to evacuate it
-> will cause subsequent writes to the curseg attempting out-of-bounds I/O
-> on the truncated storage range.
-> 
-> Fix this by expanding the curseg evacuation loop upper bound to
-> NR_CURSEG_TYPE to ensure all active curseg types are safely migrated
-> out of the target range.
-> 
-> Fixes: d0b9e42ab615 ("f2fs: introduce inmem curseg")
+On Fri, Aug 21, 2026 at 6:22=E2=80=AFAM Frank Sorenson <sorenson@redhat.com=
+> wrote:
+>
+> The LXDEV block in cifs_query_path_info() uses SMB2_WSL_XATTR_MODE_SIZE
+> (4) instead of SMB2_WSL_XATTR_DEV_SIZE (8), undercounting eas_len by 4
+> bytes per $LXDEV EA.
+>
+> eas_len is used only as a zero/non-zero presence flag so there is no
+> current functional impact, but the value is incorrect and misleading.
+>
+> Fixes: 97db41604555 ("smb: client: parse uid, gid, mode and dev from WSL =
+reparse points")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
-> Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
-
-Reviewed-by: Chao Yu <chao@kernel.org>
-
-Thanks,
+> Cc: Paulo Alcantara <pc@manguebit.org>
+> Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
+Thanks!
