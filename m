@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBD93B840E;
-	Thu, 20 Aug 2026 19:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965263C1F45;
+	Thu, 20 Aug 2026 19:42:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787254865; cv=none; b=sJhaPccv7I8lKqHY4DqnDFQKdRa/LIVKUfDDaRcjC9HvfhLsYpXi3WKv85ZoYmiXKtgJ1Pab+qPhD9vB3MLSqcFKsI8uvOjaAaeluVXbHIeSAa3MPwhUD3ZS5q21zdqXyYTQqmuyiD+0XEa2+oKdgl93NjMoXvz4fV/4lAHq1bk=
+	t=1787254975; cv=none; b=ZeKTU1+d74veVmmJSPgoncGqj9VAJ2so7mfBroThc6sb84Jd6txhA3aHKdcfxoUgAha4iiUpuWcWz0gPzJ6GOtU/vnonmwg8BxMUSKXSn5F6z0fulmnWYI8mN9qsI2sE9bg5XdTuh70dzrOtj/MJCeWa5b11IMky47uJY881IG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787254865; c=relaxed/simple;
-	bh=K4nc2hoZdsVI24iFfFJeoqGHnZW7Sv/s3DtpfuEJOJQ=;
+	s=arc-20240116; t=1787254975; c=relaxed/simple;
+	bh=xqlTrHCEIOwnxXyUutGBU6iU2zNTMhaWfZ6Ens+s6Ig=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=b04NsT7gaYCfN8t57UpU5B3kE1Tp0EXl5AxtCXNGIGFRnMKRedkFFpQGGKfffgIELyh8cuxh4m2GTA2up4A6/RQQ0ImoMQlMJ8+IECKfxaIe1XckNUo1LNfr6TrkfVRRJBx8LyprEDgE3YMtwfXF37nsL2dscLyYpd2Q6bAVbiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GzwmSLcV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ljFFhWljNiwdTwFxJU/32+T0kdjpTuAQjyzZ/AbNSLVFBM3jKzQgGdmhecEnZIheJekv7RBqepzkIjw1+vfEnx56uWMzd3W6a+5uL2kXWpN2O97NuPRb7nIGbq79eRcjvHuYvWdNq5sllPWtzHyPsvvIadh21AiajCY18tWcyJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSGJ8XSL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GzwmSLcV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CFF91F000E9;
-	Thu, 20 Aug 2026 19:41:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSGJ8XSL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E761F000E9;
+	Thu, 20 Aug 2026 19:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787254863;
-	bh=YbVbk3phJPiABIQsr/CWJgb9+r92r342EoMtGsHWBq4=;
+	s=k20260515; t=1787254974;
+	bh=xqlTrHCEIOwnxXyUutGBU6iU2zNTMhaWfZ6Ens+s6Ig=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GzwmSLcVw7tO8govzh2CkZROz2G1lFxxgZ81GyFwAqe6VMGVjBR+yqZ/Y/bS1nVWI
-	 398BXZeHkV95rqdyo21C7D4fJrivJJNWtzgsr4yv5lVd0ZHXWAO2JmMZ8B29tdq0BW
-	 ldQ4hUuh5As5tOZS5pZj/C3Rwfm0ehigc2VMSSgJEquOtHB2EUYUIwwVuhQQwVNmvt
-	 1hNW+FzzJYkIyD/vOvg0Ngbmq4glNPMpLwj7qRAFyc4gOvJi+mBm3NJEg2yy1fpjH9
-	 63SQcVa8Rch16lx3eBEGKKyasEYU1ayt/aMhknb62WPB8Pil6r8Nj/RNLtRG6RxT29
-	 yPAykNgIeTOQQ==
-Date: Thu, 20 Aug 2026 12:41:02 -0700
+	b=jSGJ8XSL5lvkbHzPHkPmnDy8lM1io0JoJw07wk/d1MAtHGAtllgTeH4jjksEsjY+Q
+	 dtlDnHYin2QpLkZJ3TLAiJN2ShrzCfMXZMIDb73BXM6z86xW8sbgCgKl28N9T3/rvB
+	 AjIkQCZYKjn8ChwbSafTAKjxKxsKmTFDdGjX68O1sUsiKrw88NXyj5zYOKirjxlzd8
+	 Rpcom90ycqguGHT2HCiIVNL4Y+mWwdh9Sx600nPP5J/w6Wd5qkaNENxOrSz4wt5TVd
+	 tFlb5dS0KCYWX1WHvPAv23zukPuSdY3CExNd1ZezmB5S0MUD6Ek/br65ZwuOF6RhVl
+	 I+F5Z8UE9Xe+g==
+Date: Thu, 20 Aug 2026 12:42:53 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Jiangshan Yi <yijiangshan@kylinos.cn>
-Cc: skalluru@marvell.com, manishc@marvell.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- vadim.fedorenko@linux.dev, dmitry@broadcom.com, eilong@broadcom.com,
- ariele@broadcom.com, yuvalmin@broadcom.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, 13667453960@163.com, Sashiko
- <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] bnx2x: fix NULL pointer dereference in
- bnx2x_free_mem_bp()
-Message-ID: <20260820124102.41d18d4b@kernel.org>
-In-Reply-To: <20260817151326.765824-1-yijiangshan@kylinos.cn>
-References: <20260817151326.765824-1-yijiangshan@kylinos.cn>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@google.com>, "David S .
+ Miller" <davem@davemloft.net>, Willem de Bruijn
+ <willemdebruijn.kernel@gmail.com>,
+ Muhammad_Hazley_SAMSUDIN_from.TP@tech.gov.sg, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net/packet: defer vmalloc TX_RING free until
+ skbs finish
+Message-ID: <20260820124253.1fd25425@kernel.org>
+In-Reply-To: <20260816235646.76500-1-kylebot@openai.com>
+References: <20260816235646.76500-1-kylebot@openai.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,9 +47,12 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 17 Aug 2026 23:13:26 +0800 Jiangshan Yi wrote:
-> Subject: [PATCH v2] bnx2x: fix NULL pointer dereference in bnx2x_free_mem_bp()
+On Sun, 16 Aug 2026 16:56:46 -0700 Kyle Zeng wrote:
+> Fixes: b013840810c2 ("packet: use percpu mmap tx frame pending refcount")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/netdev/20260721015824.45829-1-kylebot@openai.com/
+> Suggested-by: Eric Dumazet <edumazet@google.com>
+> Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+> Assisted-by: Codex:gpt-5.6-sol
 
-This patch does not apply to net/main, please rebase and repost.
--- 
-pw-bot: cr
+Kyle, we're missing your sign-off tag here.
