@@ -1,50 +1,76 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733BA3D47B3;
-	Thu, 20 Aug 2026 09:57:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EADF3C10A8
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787219828; cv=none; b=MxgRAZ65k30yHnOMSEbnICnGWt7JirRH2Td1Psfz+CR54FVZERJrRDlWcyZb/K1tEmGg2SjQH34mjWFxpjJ395bx74WaX7bdSYovpJ1h8bl72PMYVU4+9L0pyMdccK0n62XyAlSLmc46Rv1sXpv67nAXkNLK8at19FS8zda/dWE=
+	t=1787219870; cv=none; b=YaVzr26rOcDjAwvooQqb2VA0yzWPPgj2mW6L7zUmLPmxd3V9zXeG8M8gplrPuG7ciXW2eh40PbyGsIo4yIUmK3ziuCOAp14sNaR65Wiu1bOwtlRCYpwH+TP9PflB/Lm8aYOVFM80dqr1piyXHvhDQ8/Znxe3tH4/Xb6LHEDI9ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787219828; c=relaxed/simple;
-	bh=EOzJwL2VF71Oj1nlIn9PyZ6GOzLBYhQNyYVB3d7V0Yg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=F/mwBYO1uFbuPV3MIlHarcs0R3HNMQNOilY/+53SK/wTlAX98nWqdcOLjiD6d7y5oiCON4KqGJMoHk6XLW8UAMwUG4zotvFUgzZQx93urzm9skscyICywmP9nGQyroFeBJgAnkL8rH9Nz/9K9DEg9HpfZfp8kD3efsOFhnyJvsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=ExVC14f6; arc=none smtp.client-ip=185.70.43.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
+	s=arc-20240116; t=1787219870; c=relaxed/simple;
+	bh=U/wixShyu10A4AT9h30/voJvGjaqHe845FsoIYSl9ec=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QsTUCrTtZ8UXSU/3yF0HhWJHR7xS7Cm+0Ys2+fiiF5iYwQ/ESowu8aIPE+VJwxYtefRDEJXc2aPO5hwDGG6ClomI7SdqVaF3WKGVEhjdAa3Dt+eflX2sqEgR/vM4J0WiJfpJ/Buel9A2UXkyM22adkNaiX3MKSMdjQyg6B1l7PI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=ZOru24Uz; arc=none smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="ExVC14f6"
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="ZOru24Uz"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-52d7a3defe8so12458061cf.0
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 02:57:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1787219822; x=1787479022;
-	bh=2/bn8C1GiljxycCunjsCAnUpBrSonw1V8BnzctlDV7M=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=ExVC14f6wxk/mhISDM9Qbxc6s249l2GLoQI58Ur07iC8qKkYde6Yyk1wZ69bs6318
-	 gLoYMDvZcMTyB9ZaZCE3VX2HqFgN36AjABgrr4ogBEMaw7inUdo99xlrxJQqe8mgrV
-	 WDQYltTOT/utIxgQy0+Rks+0DhUF3qwDhvratQiW95+VYqaJY4/21Et0ja6166MzLC
-	 kFw4hc4HDBHjLO6iTV9uBo6WhDpsqDFHRPNgsKp6RmVGWXxLMQPisGb76dPNR5ccCs
-	 zv4P9A05XsjToz/A3MbbFnFxl5k+jgBtjlCoiawmck1smVhwBIH+kBczffEAcGhbCt
-	 621d74B5vikVQ==
-X-Pm-Submission-Id: 4hQf3t1Pn8z2ScmM
-From: Natasha Klaus <natalie.klaus@runtimeverification.com>
-To: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org,
-	mchehab@kernel.org
-Cc: ribalda@chromium.org,
-	noambs2999@gmail.com,
-	david.laight.linux@gmail.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        d=mojatatu.com; s=google; t=1787219866; x=1787824666; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hsCp/I13XrlSV13nvixD/aFZtUTWYd+PouN++96+VBo=;
+        b=ZOru24UzSVWvrxNzKwM9yNwv9uquDrWtTMmT9vQ04CMnXOZF98ZDNUTVNWn1Q4aRL1
+         PSW++cY2kwX6dhDVnCsbuZdXcXfVP327hb1a59dM2lZgtJLvRpyNGw9oAMl2Jgm4Oain
+         HxtQKdmK7hhls2vU5yLSRB7f76Rtk/G9PVJbw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787219866; x=1787824666;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hsCp/I13XrlSV13nvixD/aFZtUTWYd+PouN++96+VBo=;
+        b=sdb5qAGm+5+j2+MiOr6p5J0Qvfa8m9tzteKXeG7sSOL/2RWu1lRaXj2dwp/lgEMbUE
+         0tp2w058lMdiOxCSHMA+TovPp2hw9SgNm/M1+M0cxaSQpcMjhcbmrCOM3loT+p0uUENn
+         6nc3CXyC7mC7VtH6YaTVaDc7LjgLsXna98TlvCmHJWvuRp11a5m1AnsnfDbdqn1iuatq
+         HWnTcbwz5hGB93r0aewKgr9SzeoIDZ5qt0i/vLFPwiNn2UbQ9jkSd5DftYCg4C67QL/e
+         AN84mKdLVNlqADH0aAYGP5S/ldV5XCKGmzZAEqrlfvlO2M6M7YiPEe+6Co7sbJMVwKCk
+         +8Gg==
+X-Forwarded-Encrypted: i=1; AHgh+RpslAoDBtr9CZ31eG5Uchnt3ghVR8qaioSRV0Aju/ND/s8u+8gHZ7vjpkwjDgObqtr02lxK4FM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQvc5PVMLq8+1Y2scZK7y2vIV7nQlVL7Y92EvDRtvxniU5mJmS
+	60aYUlre1DUC7NVz6/tnzZUxOLoKRKm8owb/GTRLgKU1fqbMpb+DnOsqS7G3HYBr2A==
+X-Gm-Gg: AR+sD13tzXYpMBY4W47dSap4qLetOvkAZajuLOdr9VugtGmI22qCeoVgigL7qmbntm3
+	52vBc0n2iQr5ZsqLsHrJCtzuQpdDcKPsdwhxC/eXjlqEkZKghQmY6SSdr9YpE7lkbFeNS44KSfQ
+	vBb32/uMZW1oBn58GD5HGZQR2iABWB3SVx1LvqJ2Q9eHJdhJ4y6S8R05VPKUZ52A35ggv9P9V+p
+	RNAyLmJCy1kn9o4VTjW2FynpswLlj14bu4JhU/0URAmnvOf/Z+5QqnXxK2qQFcrOAMbzSHaqgfM
+	bRo9eKhGM98lkZHUWrPa3CuG93wvhG9975Yepc/e4ijUOQTYJCmf64SiDXT13M8ZCu+mVvj1T/Y
+	RSffVnpAEzycy5LYxP5uNxIM+HD14WIL41FYIRD+OxRJpei5hpZM+fsbLyexmS2+10nBlkqOmdi
+	44XYjy4mwOWgOxL/fs3x9jrVyKjLcj2qGfEzlIv/fRbtQY23jVSq0DvkKn2376c3+/k2TcPUUpc
+	z1C62VR0XN/en6fj/o8P9WA39LojSceQOENxTEwZfjjHw==
+X-Received: by 2002:a05:622a:191c:b0:51b:f640:2a4f with SMTP id d75a77b69052e-52dd57bc618mr109829491cf.4.1787219866550;
+        Thu, 20 Aug 2026 02:57:46 -0700 (PDT)
+Received: from majuu.waya (bras-base-kntaon1621w-grc-04-184-144-29-222.dsl.bell.ca. [184.144.29.222])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c5f2b8164sm34565336d6.48.2026.08.20.02.57.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 02:57:46 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
 	stable@vger.kernel.org,
-	Natasha Klaus <natalie.klaus@runtimeverification.com>
-Subject: [PATCH 2/3] media: uvcvideo: Fix integer overflow in frame buffer size calculation
-Date: Thu, 20 Aug 2026 12:56:25 +0300
-Message-Id: <20260820095626.111196-3-natalie.klaus@runtimeverification.com>
+	vega@nebusec.ai,
+	"Victor Nogueira" <victor@mojatatu.com>
+Subject: [PATCH net 1/2] net/sched: pfifo_fast: cap ring size and account to memcg
+Date: Thu, 20 Aug 2026 05:57:41 -0400
+Message-Id: <20260820095742.68511-1-jhs@mojatatu.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260820095626.111196-1-natalie.klaus@runtimeverification.com>
-References: <20260820095626.111196-1-natalie.klaus@runtimeverification.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,132 +79,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Noam Ben Shimon <noambs2999@gmail.com>
+pfifo_fast_init() and pfifo_fast_change_tx_queue_len() allocate skb
+ring arrays sized by dev->tx_queue_len with GFP_KERNEL and no upper
+bound. An unprivileged user (via unshare -Urn) can set a huge
+tx_queue_len and attach many pfifo_fast qdiscs to exhaust global
+memory, causing a system-wide OOM.
 
-In the function uvc_parse_frame(), it recomputes
-dwMaxVideoFrameBufferSize for uncompressed formats. This helps working
-around devices that report it wrong:
+Cap the ring size to 65535 (default tx_queue_len is 1000) and use
+GFP_KERNEL_ACCOUNT so the allocations are charged to the allocating
+process's memory cgroup. A pr_warn_ratelimited is emitted when the
+ring size is capped so the user is not silently clamped.
 
-	frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
-					 * frame->wHeight / 8;
+Conditions to recreate the bug:
+- CONFIG_NET_SCHED=y, CONFIG_VETH=y, CONFIG_USER_NS=y, CONFIG_NET_NS=y.
+- Unprivileged user in a fresh user+net namespace (unshare -Urn).
+- Create a veth pair, set tx_queue_len to a huge value (e.g. 500000)
+  while the devices are down.
+- Attach mq at root, then replace each child queue with pfifo_fast:
+    tc qdisc replace dev veth0 root handle 1: mq
+    tc qdisc replace dev veth0 parent 1:1 pfifo_fast
+    tc qdisc replace dev veth0 parent 1:2 pfifo_fast ...
+- Repeat across many veth pairs. Each pfifo_fast allocates 3 skb_array
+  rings of tx_queue_len entries (~12MB per qdisc at QLEN=500000).
+- On the unfixed kernel this exhausts global memory in ~28 iterations
+  on a 2GB guest -> OOM panic. On the fixed kernel the ring is capped
+  to 65535 entries (~1.5MB per qdisc) and charged to the memcg.
 
-These three arguments originate from the device's own descriptors, and
-therefore can be decided by it. bpp is a u8 and wWidth and wHeight are
-u16. The expression is evaluated in int, and the maximum value is
-255 * 65535 * 65535 (which is roughly 510 times INT_MAX).
-A device that declares large dimensions therefore overflows a signed
-int here.
-The kernel is built using -fno-strict-overflow, so this wraps rather
-than being miscompiled, but the wrapped value (which is often negative)
-is then divided by 8 and stored in a u32 used as a size.
-
-Two examples for this (using legal field values):
-
-  - 32 bpp, 16384x4096: the product is exactly 2^31 and wraps to
-    INT_MIN. After division and conversion to u32 the field has the
-    value 4026531840 rather than 268435456.
-
-  - 16 bpp, 16384x16384: the product is exactly 2^32 and wraps to 0.
-    The field holds 0, rather than the correct 536870912.
-
-I don't think memory corruption is a consequence of this. The value
-reaches uvc_queue_setup() as the vb2 buffer size, and every copy on the
-decode path is bounded by buf->length, which uvc_buffer_prepare() gets
-from vb2_plane_size() rather than this field. What a wrapped value does
-instead is make the driver describe the stream inconsistently.
-For an uncompressed format uvc_fixup_video_ctrl() copies it into
-ctrl->dwMaxVideoFrameSize unconditionally, and that becomes the
-sizeimage reported by VIDIOC_G_FMT. This is while width, height and
-bytesperline continue to describe the full frame.
-This also makes uvc_video_validate_buffer() mark error on all frames,
-because it is comparing bytesused against the same number.
-
-Compute the size in 64-bit, and if the result does not fit in the u32
-field then skip the frame descriptor. An uncompressed frame this large
-is probably not a real device, and skipping it leaves the rest of the
-format and the streaming interface usable.
-
-The rounding also changes from truncation to round-up. Truncation is
-pre-existing rather than introduced here: the original expression used
-integer division, so it has rounded a partial trailing byte away since
-the driver was merged. Rounding up is the right direction for a buffer
-size, and DIV_ROUND_UP() against BITS_PER_BYTE is what the rest of the
-media tree uses for this computation, including uvc_parse_format()
-itself for the FORCE_BPP quirk.
-
-Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Noam Ben Shimon <noambs2999@gmail.com>
-Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Fixes: c5ad119fb6c0 ("net: sched: pfifo_fast use skb_array")
+Reported-by: vega@nebusec.ai
+Tested-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
-Changes from Noam's v2:
-- Rebased onto patch 1/3; this patch no longer applies standalone.
-- Diagnostic changed from uvc_dbg(dev, DESCR, ...) to dev_warn() on
-  &streaming->intf->dev, reworded to begin "UVC non compliance: " and to
-  say the frame is skipped. The explicit device and interface numbers are
-  dropped from the message text because dev_warn() already identifies the
-  interface. (The original could not be kept as-is in any case: patch 1/3
-  removes the local alts variable it referenced.)
-- bpp, wWidth and wHeight added to the message text (David Laight), matching
-  the wording of the diagnostic in 3/3.
-- The >> 3 replaced with DIV_ROUND_UP() against BITS_PER_BYTE (David Laight),
-  so a partial trailing byte is no longer dropped. The overflow check is
-  applied to the rounded-up value.
-- The return value is still -EINVAL; what changed is its meaning, which
-  patch 1/3 redefines as "skip this frame descriptor" rather than "fail the
-  whole streaming interface".
-- Last paragraph of the commit message reworded from "reject the frame
-  descriptor ... rejection is consistent with the other checks over
-  malformed-descriptors in this function" to describe skipping instead, and
-  a paragraph added on the rounding change.
-- Ricardo Ribalda's Reviewed-by dropped, as it was given on the unmodified
-  v2.
-- Submitter's Signed-off-by added.
-- Fixes: and Cc: stable lines unchanged.
+ net/sched/sch_generic.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-Rounding up also moves the U32_MAX boundary: two inputs within the field
-limits (bpp=79 at 10077x43161 and bpp=237 at 3359x43161) landed exactly on
-U32_MAX with the old truncation and are now rejected, since the rounded-up
-size is not representable.
-
-Build tested on x86_64 only. gcc-multilib was not available in my
-environment, so the 32-bit code generation for the DIV_ROUND_UP() on a u64
-was not verified; the divisor is the power-of-two constant BITS_PER_BYTE, so
-I expect a shift rather than a libgcc 64-bit division helper, but I have not
-confirmed it. No hardware and no UVC gadget were used.
-
- drivers/media/usb/uvc/uvc_driver.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index 0cc0e351d139..eb7177ea291d 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -295,9 +295,21 @@ static int uvc_parse_frame(struct uvc_device *dev,
- 	 * information. For uncompressed formats this can be fixed by computing
- 	 * the value from the frame size.
- 	 */
--	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED))
--		frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
--						 * frame->wHeight / 8;
-+	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
-+		u64 bufsize;
-+
-+		bufsize = DIV_ROUND_UP((u64)format->bpp * frame->wWidth *
-+				       frame->wHeight, BITS_PER_BYTE);
-+		if (bufsize > U32_MAX) {
-+			dev_warn(&streaming->intf->dev,
-+				 "UVC non compliance: FRAME %u computed buffer size overflows (%ux%u, %u bpp), skipping it.\n",
-+				 frame->bFrameIndex, frame->wWidth,
-+				 frame->wHeight, format->bpp);
-+			return -EINVAL;
-+		}
-+
-+		frame->dwMaxVideoFrameBufferSize = bufsize;
-+	}
+diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+index ef2b4bf51564..e98fd236afa0 100644
+--- a/net/sched/sch_generic.c
++++ b/net/sched/sch_generic.c
+@@ -910,11 +910,17 @@ static int pfifo_fast_init(struct Qdisc *qdisc, struct nlattr *opt,
+ 	if (!qlen)
+ 		return -EINVAL;
  
- 	/*
- 	 * Clamp the default frame interval to the boundaries. A zero
++	if (qlen > 65535) {
++		pr_warn_ratelimited("pfifo_fast: capping ring size %u to 65535 for dev %s\n",
++				    qlen, qdisc_dev(qdisc)->name);
++		qlen = 65535;
++	}
++
+ 	for (prio = 0; prio < PFIFO_FAST_BANDS; prio++) {
+ 		struct skb_array *q = band2list(priv, prio);
+ 		int err;
+ 
+-		err = skb_array_init(q, qlen, GFP_KERNEL);
++		err = skb_array_init(q, qlen, GFP_KERNEL_ACCOUNT);
+ 		if (err)
+ 			return -ENOMEM;
+ 	}
+@@ -957,8 +963,14 @@ static int pfifo_fast_change_tx_queue_len(struct Qdisc *sch,
+ 		bands[prio] = q;
+ 	}
+ 
++	if (new_len > 65535) {
++		pr_warn_ratelimited("pfifo_fast: capping ring size %u to 65535 for dev %s\n",
++				    new_len, qdisc_dev(sch)->name);
++		new_len = 65535;
++	}
++
+ 	return skb_array_resize_multiple_bh(bands, PFIFO_FAST_BANDS, new_len,
+-					    GFP_KERNEL);
++					    GFP_KERNEL_ACCOUNT);
+ }
+ 
+ struct Qdisc_ops pfifo_fast_ops __read_mostly = {
 -- 
-2.34.1
+2.43.0
 
