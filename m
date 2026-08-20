@@ -1,57 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAAF443A96
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:39:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE5142A7BC
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:39:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787229551; cv=none; b=kXLzIAsuzPihFuf6cixcbZsvVL0NDfcp4JiFRVpNsXZODKWp7EMNVtGdqKhZKdPWF3PhIw03+gkFhcr9nPghW5vn+SAeHgGIPmCTmwsaMvbVPzEPPn/SFd+SV2X3o3mMooh4DDP7zOyI72ITNGIegBcq22+yfuX18tjtLbDOaps=
+	t=1787229558; cv=none; b=FMoofd7Id8OVyihJQmXSzwxerwJLRBrFWWeP56lGpb7y6lK9ZB5MSCWUvEJcX7QiJFk3Tj6/w/AH4t6gUI6XWsbu/Lgkv4gOtRoSQjuJgEZUJovSvDc+HmMMV+OVUUN7UEU+hb1qnI1vHV3Rnlwj9dLNv4355P24Nm4qcrEClrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787229551; c=relaxed/simple;
-	bh=VsrsgX0XVbih11I8qBjlCtygTBIJtNt7aZvRQqbVhYc=;
+	s=arc-20240116; t=1787229558; c=relaxed/simple;
+	bh=3J+tdXkGlev+fbhl4HW1jEMmfHe+6NR1I3/DkToWCog=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PzFXt14Znug5z6Dm1MoYiqlqMsyxTBikNRnLiVP3HmG2b910wxP7eMd+nnwbeeLTRb6tZflex4TZwZ9dCT7rad6GeB1BUCHX4P29lAQZK5ATU0QH5fitYyCFd+Gfm+/4l5ATJlV+FZdDG1xEccvqLjdTFE94fFVBg9bTOntcPbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJYSMSJV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=k1jgw5hhkVprksIxPMz0TzkMExTDljx+Qaa5iGrrUCWSgvV9u6ihGPkDkVeJtA7gV7dl3wKTy9IK99OewuGNg5nNmQJRj2ez5mCI8IUmY2722v0tmmD5g39GTICEP738pa4w6Kh2BCnhTpuziqCgXYhABgo6YbEi0EP580hF0Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sj4CoxzU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJYSMSJV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5301D1F000E9;
-	Thu, 20 Aug 2026 12:39:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sj4CoxzU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED0A21F00A3A;
+	Thu, 20 Aug 2026 12:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787229549;
-	bh=cI2Oqf2F/+PQAs6kXdJqLCXHijrhUf32IMiPKKgHZU0=;
+	s=k20260515; t=1787229556;
+	bh=Oi5mQJ/98/arNBwVJveIlokeuJIHhvWkjEYp1FmuhyQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eJYSMSJV6MM2QTmhSDwFGV88Jx0IxMwH5L/rKth3RHhzqIDhpJILyKTER6WO+IWwc
-	 9C3sfJYLxckqHE6CWvKCfp/LbQVrCSd47ATR0wc2/zw5NiuTM9EmAkpybAaJ4sLTcn
-	 lWkyTIxMWpyB0hnw2JgE5oCU0GklWM7BThjTsj7ps9DOWENJr+M4Ars4yVNARbyVaq
-	 QNHzDv1GEvEtxRy8cJJs3eb4bGEeFNxwfIP5Rg0DOIQD+hNFXCtazS5hvceoQMVqka
-	 MfREuOWozuxLk3OOq5zJSN9XE0/t6a9HLPVadTHUCe/m90ozIxxmdtzfSjTn3cFj2j
-	 GRM+O2bX/dsPQ==
+	b=Sj4CoxzU8dBF9CKn8XxKA7c9DUIYe39DNj5hfmZvqVZI0/+9rPfP2yyoWSc9njb8I
+	 RHLm/V5dxd/Pya8Pz1H7StQbD1pe1my+q6+7UfVCL8cMo25CM4K2nSq7oBriwNYzik
+	 BSIql7cEnj27irz9rtfiEwrC7SjYO8gx/Y+2KJorlmLSFWugmA2r5nTO3qgSwl1hgJ
+	 Ps7xN8xeHiETxYPPwCZM6pHYSxLk436ti/nWx/KXpGTFA/lXvTh9t32lEit63pV1CE
+	 Lwa9hZbZMgGFJlsI2I7ZEHPgH+RdA6bHZgb8/C9YRnqnJZmXT7KC9LSpYoo+TCM3nf
+	 iiACRCQ0IMs2g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Hengbin Zhang <uqbarz@gmail.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Hannes Reinecke <hare@suse.de>,
-	Hugh Dickins <hughd@google.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <npache@redhat.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Yang Shi <shy828301@gmail.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Guangguan Wang <guangguan.wang@linux.alibaba.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	kernel test robot <lkp@intel.com>,
+	Karsten Graul <kgraul@linux.ibm.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/huge_memory: fix huge_zero_pfn race
-Date: Thu, 20 Aug 2026 08:39:05 -0400
-Message-ID: <20260820123905.1614913-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] net/smc: rdma write inline if qp has sufficient inline space
+Date: Thu, 20 Aug 2026 08:39:13 -0400
+Message-ID: <20260820123914.1615169-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081754-outsource-trapping-d56b@gregkh>
-References: <2026081754-outsource-trapping-d56b@gregkh>
+In-Reply-To: <2026081710-untie-barn-6dcc@gregkh>
+References: <2026081710-untie-barn-6dcc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,261 +48,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Guangguan Wang <guangguan.wang@linux.alibaba.com>
 
-[ Upstream commit 33192a26cddea7a7e4ca66e5c3eebd36fa8be2bb ]
+[ Upstream commit 793a7df63071eb09e5b88addf2a569d7bfd3c973 ]
 
-Patch series "mm/huge_memory: fix huge_zero_pfn race", v2.
+Rdma write with inline flag when sending small packages,
+whose length is shorter than the qp's max_inline_data, can
+help reducing latency.
 
-There is a subtle race in the reference-counted huge_zero_folio
-implementation.
+In my test environment, which are 2 VMs running on the same
+physical host and whose NICs(ConnectX-4Lx) are working on
+SR-IOV mode, qperf shows 0.5us-0.7us improvement in latency.
 
-The fast path atomic logic fails to account for the fact that the shrinker
-(which drops the final huge_zero_refcount pin) can overwrite huge_zero_pfn
-with the ~0UL sentinel value in shrink_huge_zero_folio_scan() after a
-racing get_huge_zero_folio() installed a valid value there.
+Test command:
+server: smc_run taskset -c 1 qperf
+client: smc_run taskset -c 1 qperf <server ip> -oo \
+		msg_size:1:2K:*2 -t 30 -vu tcp_lat
 
-This results in huge_zero_folio being correctly set but huge_zero_pfn
-being set incorrectly and thus is_huge_zero_pfn() and consequently
-is_huge_zero_pmd() will misidentify the huge zero folio as being an
-ordinary THP folio.
+The results shown below:
+msgsize     before       after
+1B          11.2 us      10.6 us (-0.6 us)
+2B          11.2 us      10.7 us (-0.5 us)
+4B          11.3 us      10.7 us (-0.6 us)
+8B          11.2 us      10.6 us (-0.6 us)
+16B         11.3 us      10.7 us (-0.6 us)
+32B         11.3 us      10.6 us (-0.7 us)
+64B         11.2 us      11.2 us (0 us)
+128B        11.2 us      11.2 us (0 us)
+256B        11.2 us      11.2 us (0 us)
+512B        11.4 us      11.3 us (-0.1 us)
+1KB         11.4 us      11.5 us (0.1 us)
+2KB         11.5 us      11.5 us (0 us)
 
-This can result in the huge zero folio being split and otherwise treated
-incorrectly.
-
-The solution to this is very subtle as there is an atomic fast path, and
-thus ordering in weakly ordered architectures has to be treated very
-carefully.
-
-The first commit fixes the issue by introducing a spinlock around
-huge_zero_[pfn, folio, refcount] write, with careful consideration paid to
-load/store ordering in the fast path.  It is placed first and kept as
-small as possible so that it can be backported on its own.
-
-The second commit is a pure cleanup which reworks the
-CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic to better separate the persistent
-logic from the dynamically allocated one.
-
-This patch (of 2):
-
-If !CONFIG_PERSISTENT_HUGE_ZERO_FOLIO, the huge_zero_folio is refcounted
-by huge_zero_refcount and returned by mm_get_huge_zero_folio().
-
-When the caller is done with the huge zero page, its reference count is
-decremented.  Only a shrinker can set the reference count to zero.
-
-A race can unfortunately occur between a shrinker decrementing the
-reference count to zero and a concurrent page fault.
-
-This is because shrink_huge_zero_folio_scan() might, if very unlucky, be
-preempted between setting huge_zero_refcount to zero and writing an
-invalid value.
-
-During this time get_huge_zero_folio() could write to huge_zero_pfn before
-shrink_huge_zero_folio_scan() resumes.
-
-In this event the huge zero folio will be persistently misidentified
-causing the THP code path to be entered inappropriately for the huge zero
-folio:
-
-                CPU 0                                   CPU 1
-=======================================|=================================
-shrink_huge_zero_folio_scan()          |
-   atomic_cmpxchg() sets refcount to 0 |
-   xchg() sets huge_zero_folio to NULL | get_huge_zero_folio()
-                 |                     |    atomic_inc_not_zero() -> zero
-      preempted for a long time        |    Allocate new huge zero folio
-                 |                     |    Write valid huge_zero_folio
-                 v                     |    Write valid huge_zero_pfn
-  Overwrite huge_zero_pfn with ~0UL   <--- Invalid overwrite!
-
-This results in is_huge_zero_pfn() and is_huge_zero_pmd() incorrectly
-returning false for a huge zero page which could result in issues like the
-huge zero folio being incorrectly split.
-
-Note that the issue is with huge_zero_pfn not huge_zero_folio, as
-get_huge_zero_folio() uses cmpxchg() gated on huge_zero_folio being NULL
-with a retry loop and shrink_huge_zero_folio_scan() uses xchg() to set
-huge_zero_folio.
-
-Fix the issue by introducing a spinlock, huge_zero_lock, to prevent
-concurrent write of huge_zero_folio, huge_zero_pfn and huge_zero_refcount.
-
-There needs to be significant care taken here to ensure correctness:
-
-The fast path in get_huge_zero_folio() uses atomic_inc_not_zero(), which
-is outside of the critical section, and means huge zero allocation is
-gated on zero huge_zero_refcount.
-
-The fast path doesn't use huge_zero_lock, so the critical section is
-irrelevant to it.
-
-So invariants are required - huge_zero_refcount MUST:
-
-* Only be set in the huge_zero_lock critical section to ensure
-  serialisation of huge_zero_pfn, huge_zero_folio and huge_zero_refcount
-  writes.
-
-* Be set non-zero only AFTER huge_zero_[pfn, folio] are set to valid values
-  so installation of the huge zero folio on read page fault ensures
-  concurrent is_huge_zero_*() calls correctly identify the huge zero folio.
-
-* Be set zero only BEFORE huge_zero_[pfn, folio] are set to NULL and ~0UL
-  respectively, and atomically.
-
-Establish these by:
-
-* Only setting huge_zero_refcount to zero or an absolute value in the
-  huge_zero_lock critical section in get_huge_zero_folio() and
-  shrink_huge_zero_folio_scan(), and always updating atomically there
-  and elsewhere.
-
-* Using atomic_set_release(&huge_zero_refcount) in get_huge_zero_folio()
-  after huge_zero_[pfn, folio] are set. This is paired with
-  atomic_inc_not_zero() to ensure atomic_inc_not_zero() only observes a
-  non-zero value if huge_zero_[pfn, folio] are set.
-
-* Using atomic_cmpxchg() in shrink_huge_zero_folio_scan() (as before) to
-  ensure that it is set zero only when equal to 1 and set atomically.
-
-* atomic_cmpxchg() being fully ordered ensures this is done prior to
-  huge_zero_[folio, pfn] being set to NULL and ~0UL respectively.
-
-Eliminate the retry loop in get_huge_zero_folio() as the atomic_cmpxchg()
-in shrink_huge_zero_folio_scan() is now performed under the lock, and
-replace with an equally locked atomic_inc() to set the reference count
-should the caller be raced on huge zero folio installation.
-
-folio_put() naturally implies a full memory barrier so its ordering is
-maintained correctly.
-
-The huge zero folio also cannot be released except when the shrinker does
-so as it is non-LRU and non-rmappable.
-
-Note that only the huge zero shrinker (via shrink_huge_zero_folio_scan())
-can actually set huge_zero_refcount to zero, which is the count of mm's
-which have at least one huge zero folio installed plus one shrinker pin.
-
-Additionally convert a BUG_ON() to a VM_WARN_ON_ONCE().
-
-Link: https://lore.kernel.org/20260730-fix-refcounted-huge-zero-v2-0-c5d8a41b317f@kernel.org
-Link: https://lore.kernel.org/20260730-fix-refcounted-huge-zero-v2-1-c5d8a41b317f@kernel.org
-Fixes: 3b77e8c8cde5 ("mm/thp: make is_huge_zero_pmd() safe and quicker")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reported-by: Hengbin Zhang <uqbarz@gmail.com>
-Closes: https://lore.kernel.org/linux-mm/20260727154001.4102341-1-uqbarz@gmail.com/
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Hannes Reinecke <hare@suse.de>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Pankaj Raghav <p.raghav@samsung.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Yang Shi <shy828301@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted folio API (`huge_zero_folio`, `folio_pfn`, `folio_put`) to pre-6.11 page naming (`huge_zero_page`, `page_to_pfn`, `__free_pages`) ]
+Signed-off-by: Guangguan Wang <guangguan.wang@linux.alibaba.com>
+Reviewed-by: Tony Lu <tonylu@linux.alibaba.com>
+Tested-by: kernel test robot <lkp@intel.com>
+Acked-by: Karsten Graul <kgraul@linux.ibm.com>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 5d9686af2976 ("net: smc: fix splice entry lifetime imbalance in smc_rx_splice")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/huge_memory.c | 43 +++++++++++++++++++++++++++++--------------
- 1 file changed, 29 insertions(+), 14 deletions(-)
+ net/smc/smc_tx.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index ff95a802d1582..7ab6779849243 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -38,6 +38,7 @@
- #include <linux/sched/sysctl.h>
- #include <linux/memory-tiers.h>
- #include <linux/compat.h>
-+#include <linux/cleanup.h>
+diff --git a/net/smc/smc_tx.c b/net/smc/smc_tx.c
+index a878ea084dbd6..eb03fd0f6dc8d 100644
+--- a/net/smc/smc_tx.c
++++ b/net/smc/smc_tx.c
+@@ -333,12 +333,20 @@ static int smcr_tx_rdma_writes(struct smc_connection *conn, size_t len,
+ 	int rc;
  
- #include <asm/tlb.h>
- #include <asm/pgalloc.h>
-@@ -69,6 +70,7 @@ unsigned long transparent_hugepage_flags __read_mostly =
- static struct shrinker deferred_split_shrinker;
- 
- static atomic_t huge_zero_refcount;
-+static DEFINE_SPINLOCK(huge_zero_lock);
- struct page *huge_zero_page __read_mostly;
- unsigned long huge_zero_pfn __read_mostly = ~0UL;
- 
-@@ -144,7 +146,8 @@ bool hugepage_vma_check(struct vm_area_struct *vma, unsigned long vm_flags,
- static bool get_huge_zero_page(void)
- {
- 	struct page *zero_page;
--retry:
+ 	for (dstchunk = 0; dstchunk < 2; dstchunk++) {
+-		struct ib_sge *sge =
+-			wr_rdma_buf->wr_tx_rdma[dstchunk].wr.sg_list;
++		struct ib_rdma_wr *wr = &wr_rdma_buf->wr_tx_rdma[dstchunk];
++		struct ib_sge *sge = wr->wr.sg_list;
++		u64 base_addr = dma_addr;
 +
-+	/* Paired with atomic_set_release(). */
- 	if (likely(atomic_inc_not_zero(&huge_zero_refcount)))
- 		return true;
++		if (dst_len < link->qp_attr.cap.max_inline_data) {
++			base_addr = (uintptr_t)conn->sndbuf_desc->cpu_addr;
++			wr->wr.send_flags |= IB_SEND_INLINE;
++		} else {
++			wr->wr.send_flags &= ~IB_SEND_INLINE;
++		}
  
-@@ -154,17 +157,22 @@ static bool get_huge_zero_page(void)
- 		count_vm_event(THP_ZERO_PAGE_ALLOC_FAILED);
- 		return false;
- 	}
--	preempt_disable();
--	if (cmpxchg(&huge_zero_page, NULL, zero_page)) {
--		preempt_enable();
-+
-+	/* Paired with critical section in shrink_huge_zero_page_scan(). */
-+	spin_lock(&huge_zero_lock);
-+	if (huge_zero_page) {
-+		/* Somebody else already installed it. */
-+		atomic_inc(&huge_zero_refcount);
-+		spin_unlock(&huge_zero_lock);
- 		__free_pages(zero_page, compound_order(zero_page));
--		goto retry;
-+		return true;
- 	}
-+	WRITE_ONCE(huge_zero_page, zero_page);
- 	WRITE_ONCE(huge_zero_pfn, page_to_pfn(zero_page));
-+	/* Paired with atomic_inc_not_zero(). +1 for shrinker pin. */
-+	atomic_set_release(&huge_zero_refcount, 2);
-+	spin_unlock(&huge_zero_lock);
+ 		num_sges = 0;
+ 		for (srcchunk = 0; srcchunk < 2; srcchunk++) {
+-			sge[srcchunk].addr = dma_addr + src_off;
++			sge[srcchunk].addr = base_addr + src_off;
+ 			sge[srcchunk].length = src_len;
+ 			num_sges++;
  
--	/* We take additional reference here. It will be put back by shrinker */
--	atomic_set(&huge_zero_refcount, 2);
--	preempt_enable();
- 	count_vm_event(THP_ZERO_PAGE_ALLOC);
- 	return true;
- }
-@@ -208,15 +216,22 @@ static unsigned long shrink_huge_zero_page_count(struct shrinker *shrink,
- static unsigned long shrink_huge_zero_page_scan(struct shrinker *shrink,
- 				       struct shrink_control *sc)
- {
--	if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) == 1) {
--		struct page *zero_page = xchg(&huge_zero_page, NULL);
--		BUG_ON(zero_page == NULL);
-+	struct page *zero_page;
-+
-+	/* Paired with critical section in get_huge_zero_page(). */
-+	scoped_guard(spinlock, &huge_zero_lock) {
-+		/* Paired with atomic_inc_not_zero() in get_huge_zero_page(). */
-+		if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) != 1)
-+			return 0;
-+
-+		zero_page = huge_zero_page;
-+		VM_WARN_ON_ONCE(!zero_page);
-+		WRITE_ONCE(huge_zero_page, NULL);
- 		WRITE_ONCE(huge_zero_pfn, ~0UL);
--		__free_pages(zero_page, compound_order(zero_page));
--		return HPAGE_PMD_NR;
- 	}
- 
--	return 0;
-+	__free_pages(zero_page, compound_order(zero_page));
-+	return HPAGE_PMD_NR;
- }
- 
- static struct shrinker huge_zero_page_shrinker = {
+@@ -352,8 +360,7 @@ static int smcr_tx_rdma_writes(struct smc_connection *conn, size_t len,
+ 			src_len = dst_len - src_len; /* remainder */
+ 			src_len_sum += src_len;
+ 		}
+-		rc = smc_tx_rdma_write(conn, dst_off, num_sges,
+-				       &wr_rdma_buf->wr_tx_rdma[dstchunk]);
++		rc = smc_tx_rdma_write(conn, dst_off, num_sges, wr);
+ 		if (rc)
+ 			return rc;
+ 		if (dst_len_sum == len)
 -- 
 2.53.0
 
