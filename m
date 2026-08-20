@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DEDE40B6E0
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:40:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C2A415B87
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:41:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787222459; cv=none; b=EvsHX76Pcr0i7ALwxtqnWZiufydj3tcmHGGTFB0kVwrxoZZ9TOZqHnJsfz8tWUAeDg3jktdsXHt1LYvR6cgcX8fylroci4cllpv7g+lSTjz+sGULGPHzFRBQWnYO2Jn0MSzpoUPFRH4S9d4ov4w5WoFr3q5CFkAeyXqdvR9cd0I=
+	t=1787222486; cv=none; b=hOEIll5ZbJCVAvuHp9nB5XCRQPjtZaenQ4bNq4Enra7ibyiMQ8y+wFkeF3gHF/oC6BNgb0l7gwYuZgI9d85LbJ78FXFXRVhQGZwyBugdF7ue4mz1KJp4sx1y6xYQSSfhj4zZgNC/CnaYuJl9MIwj1sXWiYXYZndMVO0losWCSVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787222459; c=relaxed/simple;
-	bh=acQSKCovUS0hXFSyM70OL1oDygcYH7x3Zofbc5ot0KE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sRsK2PgjXLE7uZcLuRYeVmDPXZF1dN3ZGqNUBupcyOQnoRrpwGPLpWxF6gbgiI0aseQyOxaXdFsWnE+3sB4zkbGm1dLGIEXq5F2lB2VmiPGgILBJlXAJc3j+qtml05DXXv+//AGauhQHmSvjTwARnie+DkNVt7QA37abEUqGOb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MCHmw0FZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787222486; c=relaxed/simple;
+	bh=yGiJAIEuv8MxRFYU3oIZuTRDKTqFI/8useWvB6wzps8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iXzMnsFAPhv/38nVEpbAvYpBa3fgikS3/2v0I+F+5AxRDOoYgtwFbumtI4SmA8D5RRq38S4uk2SYe6VKhqXC9XkNUPbo8AtYbjDak809FpDWps2XE+aifjbyNhVLpCw1bKM1ksEKSuPEld97sgFxmIOSdL4mHV8SdrPvO2qYnVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vLgfTDPj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MCHmw0FZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81C521F000E9;
-	Thu, 20 Aug 2026 10:40:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vLgfTDPj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4EA71F000E9;
+	Thu, 20 Aug 2026 10:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787222457;
-	bh=UWZBjKJ41mS+ZyDqkrQW4CwPPsPJ7maHp6zqUX60q/o=;
+	s=korg; t=1787222484;
+	bh=Q1+minw6QrLsgBnQgVBXSuFip5sdI6AgeDedJz2rono=;
 	h=Subject:To:Cc:From:Date;
-	b=MCHmw0FZqe2x0HriTyMxBSjvmU2UH1RntA3c8LudXW8gSMa0Bj/dtzSYetZYYbSCy
-	 +Ew/Qs0vyeKwJLgBevo02U5vxA2WMlBBEDy2w3OSd7KaoaKXREDEtq2hoYTE2E9PuE
-	 4aQh9XGU8jTkoAEffDMx07O+7bA7wDOdgEXw6snA=
-Subject: FAILED: patch "[PATCH] selinux: reject an unclaimed class value in" failed to apply to 5.15-stable tree
+	b=vLgfTDPjA1VNd2L1mhFqCpTaibZwMp8smUUJQti0nPNq2SZnD9yuJIsE61U3lSBo1
+	 NK5lhXc8OubUjmtycdIVSETtzBLXduda2pQroyTOrsdYkZPhQ0Yfo4IrghNZ4NwXkt
+	 dS5Zw8Pgc7o8MZjyOVhZHWVpzRtj12D1r1+mwU+k=
+Subject: FAILED: patch "[PATCH] selinux: require a class's permission values to cover its" failed to apply to 7.1-stable tree
 To: hexlabsecurity@proton.me,paul@paul-moore.com,stephen.smalley.work@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 12:40:40 +0200
-Message-ID: <2026082040-litmus-embargo-428a@gregkh>
+Date: Thu, 20 Aug 2026 12:41:20 +0200
+Message-ID: <2026082020-unnatural-animosity-f5e9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 22b05fec62c0fe9864cfceb52f7d0f3a34d9b1dd
+git cherry-pick -x b98a8ac50775540f3804397ed08f61ef9910bcab
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082040-litmus-embargo-428a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082020-unnatural-animosity-f5e9@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,23 +62,25 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 22b05fec62c0fe9864cfceb52f7d0f3a34d9b1dd Mon Sep 17 00:00:00 2001
+From b98a8ac50775540f3804397ed08f61ef9910bcab Mon Sep 17 00:00:00 2001
 From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Fri, 31 Jul 2026 12:44:11 -0500
-Subject: [PATCH] selinux: reject an unclaimed class value in
- security_get_classes()
+Date: Fri, 31 Jul 2026 12:44:10 -0500
+Subject: [PATCH] selinux: require a class's permission values to cover its
+ permission count
 
-security_get_classes() sizes an array by p_classes.nprim and fills it at
-value - 1, so a class value the policy never defines leaves a NULL.
-sel_make_classes() passes every entry to sel_make_dir(), reaching the same
-d_alloc_name() dereference as the permission array. The class symbol table
-is allowed to be sparse (policydb_class_isvalid() exists to absorb that),
-but this getter builds its own array straight from the hash table and has
-no such predicate.
+security_get_permissions() sizes an array by the class's permissions.nprim
+and fills it at value - 1, from the inherited common's permission table and
+then the class's own. A value no permission defines leaves a NULL that
+sel_make_perm_files() passes to d_alloc_name(), an oops inside
+sel_write_load() that strands selinux_state.policy_mutex and leaves every
+later load in uninterruptible sleep; two permissions sharing a value
+overwrite the first kstrdup(). Bounding each value by nprim catches
+neither, and neither would a count: the symbol table is keyed on the
+permission name, so duplicates pass.
 
-Fail the lookup when a value went unclaimed instead of handing out the
-NULL. Conforming policies define every class they declare and are
-unaffected.
+Track the values each permission table claims and require them to cover
+exactly what its count declares, rejecting a count no value can reach.
+Conforming policies are unaffected.
 
 Cc: stable@vger.kernel.org
 Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
@@ -86,51 +88,122 @@ Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
 Signed-off-by: Paul Moore <paul@paul-moore.com>
 
-diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
-index 90e81186cb2e..7afce975436e 100644
---- a/security/selinux/ss/services.c
-+++ b/security/selinux/ss/services.c
-@@ -3304,6 +3304,7 @@ int security_get_classes(struct selinux_policy *policy,
- 			 char ***classes, u32 *nclasses)
- {
- 	struct policydb *policydb;
-+	u32 i;
- 	int rc;
- 
- 	policydb = &policy->policydb;
-@@ -3316,16 +3317,29 @@ int security_get_classes(struct selinux_policy *policy,
- 
- 	rc = hashtab_map(&policydb->p_classes.table, get_classes_callback,
- 			 *classes);
--	if (rc) {
--		u32 i;
-+	if (rc)
-+		goto err;
- 
--		for (i = 0; i < *nclasses; i++)
--			kfree((*classes)[i]);
--		kfree(*classes);
-+	/*
-+	 * The class symtab may be sparse, which policydb_class_isvalid() exists
-+	 * to absorb; the callback fills this array by value, so an unclaimed
-+	 * one leaves a NULL that sel_make_classes() hands to sel_make_dir().
-+	 */
-+	for (i = 0; i < *nclasses; i++) {
-+		if (!(*classes)[i]) {
-+			rc = -EINVAL;
-+			goto err;
-+		}
- 	}
- 
- out:
- 	return rc;
-+
-+err:
-+	for (i = 0; i < *nclasses; i++)
-+		kfree((*classes)[i]);
-+	kfree(*classes);
-+	return rc;
+diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
+index 69777e885ae7..d358200817bd 100644
+--- a/security/selinux/ss/policydb.c
++++ b/security/selinux/ss/policydb.c
+@@ -1154,7 +1154,18 @@ int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
+ 	return 0;
  }
  
- static int get_permissions_callback(void *k, void *d, void *args)
+-static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
++/*
++ * Bitmap of the permission values a symtab has claimed.  Values are 1-based
++ * and bounded by SEL_VEC_MAX, the width of an access vector, so the whole set
++ * fits in a u32 and the callers reject an nprim past that width.
++ */
++static u32 perm_claimed_mask(u32 nprim)
++{
++	return nprim ? U32_MAX >> (SEL_VEC_MAX - nprim) : 0;
++}
++
++static int perm_read(struct policydb *p, struct symtab *s,
++		     struct policy_file *fp, u32 *claimed)
+ {
+ 	char *key = NULL;
+ 	struct perm_datum *perdatum;
+@@ -1178,6 +1189,10 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
+ 	/* indexes an nprim-sized array in security_get_permissions() */
+ 	if (perdatum->value > s->nprim)
+ 		goto bad;
++	/* two permissions cannot share one slot of that array */
++	if (*claimed & (1U << (perdatum->value - 1)))
++		goto bad;
++	*claimed |= 1U << (perdatum->value - 1);
+ 
+ 	rc = str_read(&key, GFP_KERNEL, fp, len);
+ 	if (rc)
+@@ -1198,7 +1213,7 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
+ 	char *key = NULL;
+ 	struct common_datum *comdatum;
+ 	__le32 buf[4];
+-	u32 i, len, nel;
++	u32 i, len, nel, claimed = 0;
+ 	int rc;
+ 
+ 	comdatum = kzalloc_obj(*comdatum);
+@@ -1225,17 +1240,28 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
+ 	if (rc)
+ 		goto bad;
+ 	comdatum->permissions.nprim = le32_to_cpu(buf[2]);
++	/* no permission value can reach a slot past SEL_VEC_MAX */
++	rc = -EINVAL;
++	if (comdatum->permissions.nprim > SEL_VEC_MAX)
++		goto bad;
+ 
+ 	rc = str_read(&key, GFP_KERNEL, fp, len);
+ 	if (rc)
+ 		goto bad;
+ 
+ 	for (i = 0; i < nel; i++) {
+-		rc = perm_read(p, &comdatum->permissions, fp);
++		rc = perm_read(p, &comdatum->permissions, fp, &claimed);
+ 		if (rc)
+ 			goto bad;
+ 	}
+ 
++	rc = -EINVAL;
++	if (claimed != perm_claimed_mask(comdatum->permissions.nprim)) {
++		pr_err("SELinux:  common %s does not define every permission it declares\n",
++		       key);
++		goto bad;
++	}
++
+ 	hash_eval(&comdatum->permissions.table, "common_permissions", key);
+ 
+ 	rc = symtab_insert(s, key, comdatum);
+@@ -1369,7 +1395,7 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
+ 	char *key = NULL;
+ 	struct class_datum *cladatum;
+ 	__le32 buf[6];
+-	u32 i, len, len2, ncons, nel, val;
++	u32 i, len, len2, ncons, nel, val, claimed = 0, inherited = 0;
+ 	int rc;
+ 
+ 	cladatum = kzalloc_obj(*cladatum);
+@@ -1402,6 +1428,10 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
+ 	if (rc)
+ 		goto bad;
+ 	cladatum->permissions.nprim = le32_to_cpu(buf[3]);
++	/* no permission value can reach a slot past SEL_VEC_MAX */
++	rc = -EINVAL;
++	if (cladatum->permissions.nprim > SEL_VEC_MAX)
++		goto bad;
+ 
+ 	ncons = le32_to_cpu(buf[5]);
+ 
+@@ -1436,11 +1466,22 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
+ 		}
+ 	}
+ 	for (i = 0; i < nel; i++) {
+-		rc = perm_read(p, &cladatum->permissions, fp);
++		rc = perm_read(p, &cladatum->permissions, fp, &claimed);
+ 		if (rc)
+ 			goto bad;
+ 	}
+ 
++	/* the class's own permissions must claim the slots the common leaves */
++	if (cladatum->comdatum)
++		inherited = cladatum->comdatum->permissions.nprim;
++	rc = -EINVAL;
++	if (claimed != (perm_claimed_mask(cladatum->permissions.nprim) &
++			~perm_claimed_mask(inherited))) {
++		pr_err("SELinux:  class %s does not define every permission it declares\n",
++		       key);
++		goto bad;
++	}
++
+ 	hash_eval(&cladatum->permissions.table, "class_permissions", key);
+ 
+ 	rc = read_cons_helper(p, &cladatum->constraints, ncons, 0, fp);
 
