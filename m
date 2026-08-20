@@ -1,130 +1,168 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ABE19377AB5;
-	Thu, 20 Aug 2026 05:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787203349; cv=none; b=Fyd5sqYgn+vp8AnGc5ukMS5qJS9/O78WYgobm+WjNnEqQokrYf3q7+l0crIh9xmC4dXBTJ1NQ0kZyf7sykx9AyUkt8zqBQbrqj44UQdj0VOOeUhL08dSrn8lcda2bI01k9bLt41nv7yvP6GETbtX7Zpz3pX4ubhe3gsfh0AIheI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787203349; c=relaxed/simple;
-	bh=scEtCK5RzqwngIkECjRt+68QwazEZeFXESS7h25f1i0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qdHz7/urqmnc0mMZcQ/v8h2+C1GPMaDGEjbzQ9ZUTs09zKW0iAeQd2EmelV1XgTmsuQ+HdaeLeR3qNZ9N6BvDpuWPathnxlrCRrWUMEBKZj1OfTGFltl+2V/P+zGRlwhIm/KHIc1dSW+/Ah/D66zf08xzqS69liZjP9Af2EDosM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wBHMS_1joZqhRisAA--.2074S3;
-	Thu, 20 Aug 2026 13:21:58 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgAXLnD1joZqGbKGBA--.17350S2;
-	Thu, 20 Aug 2026 13:21:57 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ext4: fix discard work use-after-free on failed mount
-Date: Thu, 20 Aug 2026 05:21:02 +0000
-Message-Id: <20260820052102.4616-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C494F32720C;
+	Thu, 20 Aug 2026 05:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787204217; cv=fail; b=RpxDmiceaI2TOy4NeUtxz0RRWTp3SqvvPO02cmhm2Yl1VjMb/BYblv/HeYpLZMrd7mWReUvS7Ef+mRNmsvk9Icsk6FAuhupMdTOpX+LNqMlDP1SfPGHj6u0/5d30WtCx2GQoX6t6QVqdRv9sD9xL+lheJHGS6CCjSUAdLUzlhUk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787204217; c=relaxed/simple;
+	bh=mB/vz1HfiP43GuCEAeYSYDchrdI8+8gkhggle2LPp94=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=SxxSkXHN7z2jB6EtjOlYsIOfBZo26nL1Z2gVjWNK59BEOQCDAOSOPEq5ZLMsdA5jB6fHNL18LuuuVxiVHgu4j+9HFIO8dS4OVHvme1nhMY1VbITw99yeTXz37TIhivCAmmA04MW5jn3tMWSHkPW4njw0l/77vgx+ZY1gdlSQBr4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZHft4sk1; arc=fail smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZHft4sk1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787204216; x=1818740216;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=mB/vz1HfiP43GuCEAeYSYDchrdI8+8gkhggle2LPp94=;
+  b=ZHft4sk1KXo2TpdZgFj47hk8lMjWWY2AhY+3dru30N1dXAuSByWd529I
+   xtFVYlIoHyOSkGMg3snX3a2zmba2JUhpKjmLApeGQNs8WjodXHQ2ftPF+
+   J8xZwznCEBIy0KeH21z+H9Oh8Aord38p819phSJxBkDSl+4VKpcf/A2aT
+   5FBgTT4xUzEzP3/8/QaWCgbyjTw5yCuPndIpPQVmPG2pe3FBrgkP1q2RR
+   tFeRY9yoU+4scVDg/Hkli6mrz+41UK83hDLItsO8yZYVYXB2BNL8dU0As
+   Fre274kB9t9l6trrUqwzCIKC6Ekw+EiwvW6/FbFz59r11y7sMmLOywd3T
+   w==;
+X-CSE-ConnectionGUID: 4Olv9tTtTm2+3xQKjNPdfQ==
+X-CSE-MsgGUID: bCSltGUfS/WUZzpDdhy/Bw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="87587280"
+X-IronPort-AV: E=Sophos;i="6.25,232,1779174000"; 
+   d="scan'208";a="87587280"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 22:36:55 -0700
+X-CSE-ConnectionGUID: fTGTzQ3qSiqU/Uo4OM+4iQ==
+X-CSE-MsgGUID: qqw8AbtKQoKpIjABKbo26g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,232,1779174000"; 
+   d="scan'208";a="289339727"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 22:36:54 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 19 Aug 2026 22:36:53 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Wed, 19 Aug 2026 22:36:53 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.65) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 19 Aug 2026 22:36:52 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vV7hMxrKkIMatda2b5nVkJs1WMe3+aU15sdLrJKTUt5bp3be4eEBKUAa/ZFoiBvCLzkemnr1tuD1FxKY71ofHIkhbL8w9pVVofm1XO5c0gzkGbwkGcD4ej0s4W6brHR9EZ1TfbkX5vAFATubgHiheOLhU+3b5uYFZQmkEhMy3iq3BMnmj04WTUwOqSMOWFpU5cQCmBGX0WNk/v4niFEZFVj13WzWd7JXsW2Ne8fDK+yVUia04K6v73Dptnn5ghwk3bURKxAEPtsAZmHX5kg4uHWjNC+YCRS4qAEJaKtUWSwZiSbWYppavQw/BGc7DoB4TMNnbpu+wKUpr0ZWtdnDgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a+kRDHMKU9u+Ct+dtmDow+ld7Ld4p0OcZWf3MC1E5AI=;
+ b=r7HQpYoyYk+gUyYT8iElT6N5zxRk6IffZ66+msksJCQfhQUKwdKnqAi+eFFaMQSafJE0Xxbl5DbB2H3VxDRnoh3AweyBs1yD0D4M4r4QIRhDmV8b1womXWElpZlt0gg1nfS2larRAB+3WsHoL6/vM2lhgMC4Y97i7qOycLLlu+TbD4riMI7m96jWZ/QOdJNRtCVsUEB8WtBJwlQdHvF3prHE3h0UHS2Mk8RIF8CxFOkXDvB8xnga8fF5ToMYRuw4ZYFbgu/OpuTPkWlksC7YSAEj0VQ8gU1Tl45ze39jKJQxqY7ui7WTyGSvtOXL5SX0ui9Nw+RN/CT/ufkH/TLYWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS0PR11MB8018.namprd11.prod.outlook.com (2603:10b6:8:116::12)
+ by DS4PR11MB088494.namprd11.prod.outlook.com (2603:10b6:8:509::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Thu, 20 Aug
+ 2026 05:36:46 +0000
+Received: from DS0PR11MB8018.namprd11.prod.outlook.com
+ ([fe80::47ca:c2e1:9362:422c]) by DS0PR11MB8018.namprd11.prod.outlook.com
+ ([fe80::47ca:c2e1:9362:422c%3]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
+ 05:36:46 +0000
+From: "Guo, Wangyang" <wangyang.guo@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Vishal Badole
+	<Vishal.Badole@amd.com>
+CC: "tglx@kernel.org" <tglx@kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "bp@alien8.de" <bp@alien8.de>, "Li, Tianyou"
+	<tianyou.li@intel.com>, "tim.c.chen@linux.intel.com"
+	<tim.c.chen@linux.intel.com>, "Liang, Dan" <dan.liang@intel.com>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] lib/group_cpus: Snapshot cluster masks to keep grouping
+ hotplug invariant
+Thread-Topic: [PATCH] lib/group_cpus: Snapshot cluster masks to keep grouping
+ hotplug invariant
+Thread-Index: AQHdJj+Ee1DbtlQrWUq8ruRr0C84obaTDPYAgBNuo+A=
+Date: Thu, 20 Aug 2026 05:36:45 +0000
+Message-ID: <DS0PR11MB8018BEAF560F202A1DFCD36992A42@DS0PR11MB8018.namprd11.prod.outlook.com>
+References: <20260807073612.3711269-1-Vishal.Badole@amd.com>
+ <20260807133840.31a194a9cd04d4a2b6d817c1@linux-foundation.org>
+In-Reply-To: <20260807133840.31a194a9cd04d4a2b6d817c1@linux-foundation.org>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR11MB8018:EE_|DS4PR11MB088494:EE_
+x-ms-office365-filtering-correlation-id: 66a66625-c7a2-4601-db0a-08defe7d0616
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|56012099006|38070700021|10067099003|11063799006|4143699003;
+x-microsoft-antispam-message-info: aT1WdIkEGgJFGhCVOJC0FKOZLIDcEJeffM9GdibTkQB8Zs6H0YBKfJArwFvq628UYi0B8CaYtVaaO+u5H7BNqTHhIwaWU/UZbRNLsn+wVOMzvZcKPCeFVhbY3S6zjIxIycnqXL/6XOH6CJArAVTyeOs2hdwy+9RtZvsKcLztS3Aknbqr/urfd7I62fpi91UY48lzdU4Wba3JuGtMa+wnZfQVrkzEc8+B+JKw7n4qutPh30gU5WJz/hP0Ui40Z/YQ2yc6zWdW2RpGDIipKcbUhX4IihCX8BkOyNWUZ8a0mEqPHGnkoDO1PzFMY+F0ozTka3Br83UxU7uB7KkAxcxO1rpalQJ3P2Tw80jAFjaLZbZF5+sYqobxJy+a/LXGvidm68WbVKJvr6gdpBhQefFkORhiPnCjxLmaeqo+w7BQNmtsXN9B3GpzosjPI8rXGI0meYlWDohaC5m+elWyXLnjCB43lJ2l8P9xXm0ldV+wahPux5c7TSpv+Raa9mdbVtLKSszuuTTrTrDl/4/87c2+iSP6MLqBVA+2ysJG+eOfYhKPcZtuwqs0BavlKKvqRa90IPV6Q7KI3pDwoUgirb6gd18o35v8D0j9PX/p80+yZ1smtGUgB9JmYqmb1QYMXgJU1UtEIUQMJpgZbVCPI+J6Ae5qeVpfGbreC0xyt7ukRhOApq1sDlkZQfYp4uxMYT0DqO6buQwtdcTULBGa19C8jiepFT48jIngrXJwqLMQo6w=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8018.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(38070700021)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2qgeWGVRRhsJIPVEJVln/jzYKaoX895wZ1gBKUyA3AEVXHhn8Y7ir0cv5co1?=
+ =?us-ascii?Q?Um0/7hBgHfczeWFMhav5dGeDRbsvZJj5B4UzUXpDfOC2nJ9/CmuAkCoWlRwZ?=
+ =?us-ascii?Q?0xVO+pe4iC7DYDHjfeCKhLUTxoj1QEgf8AbUIo/LwiTSkeJSVqEdJYBPg5Zh?=
+ =?us-ascii?Q?Omy8i0w+hhdiZjj0nNXaJYMdIXye7IVVACi2bmC5UxZH3sPzSNKWTTwM5o3x?=
+ =?us-ascii?Q?bU6P0REHupP/emy2TquaoBoB/c8SUVTRcAgTK2JzyUYd7TFS40XfJHQdxdG5?=
+ =?us-ascii?Q?anzPTnMv1hkWSwfQXMOADgPHXSBHSsQdDw9I0FEHCU6lyM6S4BxXY/TNWSsI?=
+ =?us-ascii?Q?9y0UuxidUAMCYkllSHzCURYIqe4psfUORcNBIqh/BRsD/XZB3nZFS2MXlhU5?=
+ =?us-ascii?Q?OjIK24yvulj33AnV85+p6SECO6iXfhSsWrAociT9lcQXuroeNc+0UqdZywAj?=
+ =?us-ascii?Q?xo9iu6vpcYaS7R9YJFilt1gko9dPJBQvQVczS1IagKwkoYAN185P9Bn306Tc?=
+ =?us-ascii?Q?faNSJz4069ViNcuwzGWWOdUnmNu/ay876Fxt1oYglVmBUPPWAbsFxUIbPV+q?=
+ =?us-ascii?Q?ZWdSKOU43hc0+WKkX24hTsSYJDDk65Exph+Abd0KfWRtOaeX3nXwyLPU1HAW?=
+ =?us-ascii?Q?SuwxWhViTaOv+pRY8J1q8UFeg6pLLPpWsD/6lHLlXMWxnbMGf0XN7FbNqDh+?=
+ =?us-ascii?Q?tIKz3NhSz8TxTSSw4DN5nffRupYhRqL+2raNXhDL10JifIH/TMOx99/sAp5R?=
+ =?us-ascii?Q?AgzV+LMOmIA5c8vE+7+UBrYTs166WRpm2dsv2mTGvNW+pcK5s0tFRw0VgQ7m?=
+ =?us-ascii?Q?6oQmbOH64GaRQaYZElREdU7Sey3t87+M1ASzNLxTECqevyMRFSSX4chFQdVc?=
+ =?us-ascii?Q?IbIeSF1NUY+D0ZRS3c6XRO+A9aq9S773eToGY3MznQQRQzhQfwOYm1jIj0Ze?=
+ =?us-ascii?Q?CmzYnmJiH27XHrPJLPPd2Ot+MX5sZ8voy9mbVEzSA2uz/h85MTB59lR5AIXA?=
+ =?us-ascii?Q?mtuzAfEvGe3vlM6J51ve34CXlij5/sXBKGQJNRbG2vldCfpS0hcyGQ4EPjM1?=
+ =?us-ascii?Q?aA0yryOBoRtvz5hUzBeF5OzLHk/+2E6WMmUunYq1ww8EfOI28qrzKu47LWBr?=
+ =?us-ascii?Q?Vy0vvHf8JCuPxmlNKXijwd4t1AkToOjHtwcdAMWcIpxoPu+fgG62QCT9LQjI?=
+ =?us-ascii?Q?jJibrs+nNdhRJG+B55NgCTSsAJZ026q+jWequxPA281oXxSaT9LfOiDTMIhy?=
+ =?us-ascii?Q?biRRpk2XK5sdH57ZpoKfd0jPsRpA+ErlANAJZQWROfS2kaN/KwNNbqo4R562?=
+ =?us-ascii?Q?mrS97xVVsCYENFoX7HCwyLvr29/Qg//Fe/Qg0Q7xHUW7S3GpQDv5wj+iuXud?=
+ =?us-ascii?Q?l8G+mguhq8hxnxA5QEtt/6eV1gqJhr9Oz75rMKRnvpyw+1o0eopWWqysfy8u?=
+ =?us-ascii?Q?0HGYQQ2yL/9/DvAfRpmeYEHEaBsA2bxclNJjPohfkC2ZVMgUkZDcodCapQt8?=
+ =?us-ascii?Q?u7DoT+2EVrkQ19aD8tKLuwOrJbnKjYI/HIuv6gBbLUlqhqOjZhw6azvF6wmG?=
+ =?us-ascii?Q?DR1Zh6IIqnOeFEhii6bJpgvcD6Y0kyanQgIvET1dSxav5fRSGknIxK4ts7zJ?=
+ =?us-ascii?Q?6l/+0zJhHli4J0NMlJ1fyOi6Iiv1SbSPFyCyUtAcVZjIQtrcZFpT2hpnnOyv?=
+ =?us-ascii?Q?5KkZksia/T+CCmd0439q5UTUHH7DBGal3Hk6PPgT9hF3Z0cZoWjrHJxGtD/b?=
+ =?us-ascii?Q?gUkMiTRh0w=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgAXLnD1joZqGbKGBA--.17350S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?w43tCwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WNc57bz4AM2PfQ2r8oyBzVoKAhPTJ19GJW4x9ioKtcx3hRC
-	6aE3dbRR9nMWLg9i8QWp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxXF1DCw43Wry5Xry3trWfCrX_yoW5Ar15pr
-	sxAw4jkrykZ34vkw43Za1xXFy0ga1F9F4UGryI9rs3Z390qw1IvFsxtFyY9F4qvrW8G3Za
-	vF48G34jgFWvyrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
+X-Exchange-RoutingPolicyChecked: si1DATgvNe7M4YFCPbdWn2jPgUXECuoJdzju3GifJPPG6pJkvdl7u6nkZPzDuQ/OPCqzLj6/8SQuX+Yl8UJGBPiLv6sMo1CEMdVq7abBZLllfZGKzB4jNcbQE8u9onrqyiStibAi55Jc54YxmaYIAndQmKqPo7QQjTCqDhE/BMe6gTsYOaYsCn9iYEGNqnBd1qUl7axLUnTNBzaartI+zzGito3sL6BKb6aA6+ZsBZwK2vEq+fP/c8zAWPhJBrYOwuTc+bjAVpqFgh/Mo3sGa/uot4oKrRvO+i0e34INTkOljm3+8lwVsSYIX1vi03z8CD6gy2QVYb0EaKVLbMUIFA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8018.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66a66625-c7a2-4601-db0a-08defe7d0616
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Aug 2026 05:36:45.9437
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: b9ix5zRVv/0tr2lzJri/m+zSrty60kJEMRkP7j0o3bB0MyjYuDE7YcTxX9qqC9MfgGph4Tql377mZ+JDjHWL5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR11MB088494
+X-OriginatorOrg: intel.com
 
-ext4_put_super() destroys the journal before it calls
-ext4_mb_release(), but the failure unwind of __ext4_fill_super() runs
-the two steps in the opposite order: failed_mount6 calls
-ext4_mb_release(), and the journal is destroyed only later, just above
-failed_mount3a.
+> Thanks for the careful description of what is wrong.  It helps.
+> And things do sounds very wrong.  Could people@intel please prioritize th=
+eir review and testing of this fix?
 
-ext4_mb_release() flushes sbi->s_discard_work before releasing the
-mballoc structures, a drain made unconditional in commit 9ee29d20aab2
-("ext4: always drain queued discard work in ext4_mb_release()").  With
--o discard, the journal destroy that runs afterwards re-arms that work
-after the flush: ext4_journal_destroy() calls ext4_force_commit(), and
-the commit callback, registered once mballoc is initialized, queues
-s_discard_work whenever the discard option is set, even with an empty
-freed-data list.  A quota-enabled mount reaches this with a live
-transaction (ext4_enable_quotas() failing into failed_mount8,
-ext4_quotas_off() on the failed_mount9 path), so the final force
-commit is not a no-op.
-
-Nothing drains s_discard_work after that point: failed_mount3 flushes
-only s_sb_upd_work and the s_err_report timer, and ext4_fill_super()
-then frees sbi with a plain kfree() through ext4_free_sbi().  If the
-system_dfl_wq worker is delayed across the rest of the unwind,
-ext4_discard_work() then accesses the freed sbi, first through
-sbi->s_sb and then while taking sbi->s_md_lock.
-
-This is the pattern fixed for the s_err_report timer in commit
-0ce160c5bdb6 ("ext4: fix timer use-after-free on failed mount"):
-async state armed after the unwind's last drain point.
-
-Destroy the journal at failed_mount6, before ext4_mb_release().  This
-restores the ext4_put_super() order, so the final commit re-arms
-s_discard_work before the flush_work() in ext4_mb_release() drains
-it.  The journal destroy further down the unwind still covers paths
-that enter below failed_mount6; on the failed_mount6..failed_mount9
-paths it does nothing, because ext4_journal_destroy() clears
-sbi->s_journal.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 55cdd0af2bc5 ("ext4: get discard out of jbd2 commit kthread contex")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- fs/ext4/super.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 4b6112e5d6c5..58b210637b57 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -5761,6 +5761,12 @@ failed_mount8: __maybe_unused
- failed_mount7:
- 	ext4_unregister_li_request(sb);
- failed_mount6:
-+	/*
-+	 * The last commit can re-arm s_discard_work, so destroy the
-+	 * journal before ext4_mb_release() flushes it.
-+	 */
-+	if (sbi->s_journal)
-+		ext4_journal_destroy(sbi, sbi->s_journal);
- 	ext4_mb_release(sb);
- 	ext4_flex_groups_free(sbi);
- failed_mount5:
-
+Thanks for highlighting this issue and for the detailed analysis from Visha=
+l.
+I will help review and validate this patch and will follow up on the thread=
+ with any findings or feedback.
