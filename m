@@ -1,117 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9B73D9DC9;
-	Thu, 20 Aug 2026 09:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DC53D45C1;
+	Thu, 20 Aug 2026 10:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787219891; cv=none; b=ZBVENDo3uaqFYlHziqg0fXsi1K7De+DFQTyy9tllic7OplPaTEyb782+RwfvZaZ3k2lEx0IhD0xNvfeyizIUSre0rtfuFdL+wt/quH4N6ih/ceTakfL6ZPLr+BFxURoTvxfj0GEZWye2BwE7Oy00dGa1bpVxWu6JgOjothJh9RY=
+	t=1787220187; cv=none; b=IL5s2TjCoGqs0kZtJyZnuq09r+PwujG2cshdcPxDjJ9sghiRzKV/UZ/5sSE1ctOtPa3coev9i8SZnyEl8QBPVOEVDZRY5W04S/WxiUmWthcShILF96l29Mk6hqXJJKZ75nsApOvgJTrh0odyGH4kAOgylchaG2SCsieH1tPUeKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787219891; c=relaxed/simple;
-	bh=hZCBSCVqYSqJjG/RYe4s9Chfzr/JZMEG/Narie0NAv8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i2HTugRJzRToTutbBTLvEmos2kp8yN5lYjxvurBIiRw+/T434FUTq/vu1hMO+tb1lGuvAu7PNEanWkyf+JVA7TVd7y/4MxRJZww0PjiZg3GfsXH2nTXlRrzxqOUZEVExP3WcsKgtZ/Vy+IUAWuvDd7rppY7xTC+GNM6dVqlfP5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Krd+q4og; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787220187; c=relaxed/simple;
+	bh=yjRzldArbYODxSvNEvZ7dRry3VO1egD2am5/cK5Vqt8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Bd4HTGzSo9UPSko7QBv1g9Dmk6wbC7b+IkbqfsFHbNE2vum1aJFzafF+9REy1fKr+K4yGuLIacmLgL8IUqLPvFi5jYyS7tz8zGay4n8Acy83jl73qqGGgX7d7BCyzw55osIOROKZqIENk0wRSeCe3kQbMgX9s+lfglf7NubCryc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mL0uwQLc; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Krd+q4og"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40C001F000E9;
-	Thu, 20 Aug 2026 09:58:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787219889;
-	bh=iT4z9T84RIeL6znb2/fBeakb7emJXAOiqhHr7wV3+08=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Krd+q4og/0fB1kW3rdAds+20Ego7Xb5YM5StBDwPpduUeo9LwpUy/cJFL5V/aWuZx
-	 p4f3Puwj+qIiRnE4TyEDdp0Ie696AYRcmtGrWgN+waGe2iptja5P1lfVc+v0mVVQj7
-	 HwZVv0bfz0mPqZqwN/G0o48G7FX/6CIgwpFnuMKPBXPEfKYB3mqLVuCaeolwj8hvEy
-	 iv3F3JqXatm6RYexRHTvpH9+BmPTrGRVpbOmP7bnMfROXAbAKeDk2qLOJcUfv2pDyj
-	 sxjRfry++bNCbT7ngzeMQuNBe6OFDSCX4YloKFYtsSrBugOopjLrAT3p3dik8wz+3o
-	 m/sMbaN0iGeag==
-Message-ID: <23e039b9-2c7a-440c-b3dc-3274788d18b2@kernel.org>
-Date: Thu, 20 Aug 2026 11:58:06 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mL0uwQLc"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BF9C61A1768;
+	Thu, 20 Aug 2026 10:02:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9114D602B8;
+	Thu, 20 Aug 2026 10:02:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0D61711C760F1;
+	Thu, 20 Aug 2026 12:02:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787220169; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=J9IkcMn3tZqQRLkfuwau8kV3b82A8qd50t+xwVLTmcs=;
+	b=mL0uwQLcWjES7km3xswrfFIgO3kPR+28koBeAY093sSHY69/2uCC36acHPlX0QHae4QzdI
+	Nqy8HXu2SuKY6A8kgETxqJRRwkFAmti7afRrYrE+SDzWUmy2RyIxWXf6n9cJucsDJ84z0f
+	a0QHXnAsMauSFXkh9PG5dSC+bdo4oAjK/5ko8l7E24c3yGm0b7atzi9gBuOPoDtNWBJz11
+	PAjNBiP/lNRHC+i6ssOdJ7Myz3egTse1iH07x7d/RrLCaq8n2S5EzLq8cRwR6jFHOcqNBi
+	SPGSkgtUbgu43uZHD+lGbqK8xaoAqNpvkmrzXSy00rgSGIJFWv2f2gxhKcgKoQ==
+From: Miguel Gazquez <miguel.gazquez@bootlin.com>
+Date: Thu, 20 Aug 2026 12:02:10 +0200
+Subject: [PATCH 6.12.y] ipv4: start using dst_dev_rcu()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] extcon: lc824206xa: Use devm_work_autocancel() for detect
- work
-To: Fan Wu <fanwu01@zju.edu.cn>, myungjoo.ham@samsung.com,
- cw00.choi@samsung.com
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260805050841.7990-1-fanwu01@zju.edu.cn>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260805050841.7990-1-fanwu01@zju.edu.cn>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260820-cve-2025-40074-v1-1-f045d5f74950@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3bJdilIfBXjgdZV1wOaFomE8
+ O5WPX6TzL8iazLNOFQrks6W7TEWuF2FeBvGq5KdiyEsHffCFGelgpY8895TkNBHbhsvg0M5PZN
+ e7P0LHtHVTuoFp/+eX+GucfrWsG0flmFy3noAAAA=
+X-Change-ID: 20260820-cve-2025-40074-b2b8c05342a1
+To: stable@vger.kernel.org, Eric Dumazet <edumazet@google.com>, 
+ "David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Martin KaFai Lau <kafai@fb.com>, 
+ Wei Wang <weiwan@google.com>
+Cc: thomas.petazzoni@bootlin.com, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Miguel Gazquez <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787220165; l=3915;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=tyMQo+nHOrlj15/tqkrNb1JIaPH5z08HC5uc4TA6Tk8=;
+ b=dedXycg5ejqcSSYocRIam//aOLzLxuxfN576X/Cn/Jm2461iKnd6u9G4/1IhaYk+xtkkpH62g
+ eu2PCB8S7sxBN0d3+687/gB+GPwYJAoC7tsfwYngO2FlDCkaFuvXfzF
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+From: Eric Dumazet <edumazet@google.com>
 
-On 5-Aug-26 07:08, Fan Wu wrote:
-> The detect work is re-armed by the threaded IRQ handler but nothing drains
-> it on detach: devm frees the IRQ before kfree(data) without flushing the
-> workqueue, so a pending work item can run after data is freed, leading to a
-> use-after-free.
-> 
-> Use devm_work_autocancel() so devm LIFO order frees the IRQ before the work
-> is cancelled. Register it after the regulator, extcon and power_supply
-> the work callback dereferences, so those are not freed before the cancel
-> either.
-> 
-> This issue was found by an in-house static analysis tool.
-> Compile-tested only; runtime testing is appreciated.
-> 
-> Fixes: 9e1897cb9568 ("extcon: Add LC824206XA microUSB switch driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+[ Upstream commit 6ad8de3cefdb6ffa6708b21c567df0dbf82c43a8 ]
 
-Thanks, patch looks good to me:
+Change icmpv4_xrlim_allow(), ip_defrag() to prevent possible UAF.
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Change ipmr_prepare_xmit(), ipmr_queue_fwd_xmit(), ip_mr_output(),
+ipv4_neigh_lookup() to use lockdep enabled dst_dev_rcu().
 
-Regards,
+Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20250828195823.3958522-9-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ minor modifications to fix conflict ]
+Signed-off-by: Miguel Gazquez <miguel.gazquez@bootlin.com>
+---
+ net/ipv4/icmp.c        | 6 +++---
+ net/ipv4/ip_fragment.c | 6 ++++--
+ net/ipv4/ipmr.c        | 4 ++--
+ net/ipv4/route.c       | 4 ++--
+ 4 files changed, 11 insertions(+), 9 deletions(-)
 
-Hans
+diff --git a/net/ipv4/icmp.c b/net/ipv4/icmp.c
+index c7af8b914e13..1fc967a60bb9 100644
+--- a/net/ipv4/icmp.c
++++ b/net/ipv4/icmp.c
+@@ -320,17 +320,17 @@ static bool icmpv4_xrlim_allow(struct net *net, struct rtable *rt,
+ 		return true;
+ 
+ 	/* No rate limit on loopback */
+-	dev = dst_dev(dst);
++	rcu_read_lock();
++	dev = dst_dev_rcu(dst);
+ 	if (dev && (dev->flags & IFF_LOOPBACK))
+ 		goto out;
+ 
+-	rcu_read_lock();
+ 	peer = inet_getpeer_v4(net->ipv4.peers, fl4->daddr,
+ 			       l3mdev_master_ifindex_rcu(dev));
+ 	rc = inet_peer_xrlim_allow(peer,
+ 				   READ_ONCE(net->ipv4.sysctl_icmp_ratelimit));
+-	rcu_read_unlock();
+ out:
++	rcu_read_unlock();
+ 	if (!rc)
+ 		__ICMP_INC_STATS(net, ICMP_MIB_RATELIMITHOST);
+ 	else
+diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+index d3abc84a6c02..790df2c5f747 100644
+--- a/net/ipv4/ip_fragment.c
++++ b/net/ipv4/ip_fragment.c
+@@ -483,13 +483,15 @@ static int ip_frag_reasm(struct ipq *qp, struct sk_buff *skb,
+ /* Process an incoming IP datagram fragment. */
+ int ip_defrag(struct net *net, struct sk_buff *skb, u32 user)
+ {
+-	struct net_device *dev = skb->dev ? : skb_dst_dev(skb);
+-	int vif = l3mdev_master_ifindex_rcu(dev);
++	struct net_device *dev;
+ 	struct ipq *qp;
++	int vif;
+ 
+ 	__IP_INC_STATS(net, IPSTATS_MIB_REASMREQDS);
+ 
+ 	/* Lookup (or create) queue header */
++	dev = skb->dev ? : skb_dst_dev_rcu(skb);
++	vif = l3mdev_master_ifindex_rcu(dev);
+ 	qp = ip_find(net, ip_hdr(skb), user, vif);
+ 	if (qp) {
+ 		int ret;
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index de0d9cc7806a..ad0b922ebc73 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -1906,7 +1906,7 @@ static void ipmr_queue_xmit(struct net *net, struct mr_table *mrt,
+ 		goto out_free;
+ 	}
+ 
+-	encap += LL_RESERVED_SPACE(dev) + rt->dst.header_len;
++	encap += LL_RESERVED_SPACE(dst_dev_rcu(&rt->dst)) + rt->dst.header_len;
+ 
+ 	if (skb_cow(skb, encap)) {
+ 		ip_rt_put(rt);
+@@ -1943,7 +1943,7 @@ static void ipmr_queue_xmit(struct net *net, struct mr_table *mrt,
+ 	 * result in receiving multiple packets.
+ 	 */
+ 	NF_HOOK(NFPROTO_IPV4, NF_INET_FORWARD,
+-		net, NULL, skb, skb->dev, dev,
++		net, NULL, skb, skb->dev, dst_dev_rcu(&rt->dst),
+ 		ipmr_forward_finish);
+ 	return;
+ 
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index 4dce0de6ab89..0f31ae4da3d9 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -413,11 +413,11 @@ static struct neighbour *ipv4_neigh_lookup(const struct dst_entry *dst,
+ 					   const void *daddr)
+ {
+ 	const struct rtable *rt = container_of(dst, struct rtable, dst);
+-	struct net_device *dev = dst_dev(dst);
++	struct net_device *dev;
+ 	struct neighbour *n;
+ 
+ 	rcu_read_lock();
+-
++	dev = dst_dev_rcu(dst);
+ 	if (likely(rt->rt_gw_family == AF_INET)) {
+ 		n = ip_neigh_gw4(dev, rt->rt_gw4);
+ 	} else if (rt->rt_gw_family == AF_INET6) {
 
+---
+base-commit: 7155f3c7a69b8480e785f2a4252d31df95daa8d1
+change-id: 20260820-cve-2025-40074-b2b8c05342a1
 
-
-> ---
->  drivers/extcon/extcon-lc824206xa.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/extcon/extcon-lc824206xa.c b/drivers/extcon/extcon-lc824206xa.c
-> index 56938748aea8..adcea69ac221 100644
-> --- a/drivers/extcon/extcon-lc824206xa.c
-> +++ b/drivers/extcon/extcon-lc824206xa.c
-> @@ -19,6 +19,7 @@
->  #include <linux/bits.h>
->  #include <linux/delay.h>
->  #include <linux/device.h>
-> +#include <linux/devm-helpers.h>
->  #include <linux/extcon-provider.h>
->  #include <linux/i2c.h>
->  #include <linux/interrupt.h>
-> @@ -424,7 +425,6 @@ static int lc824206xa_probe(struct i2c_client *client)
->  		return -ENOMEM;
->  
->  	data->client = client;
-> -	INIT_WORK(&data->work, lc824206xa_work);
->  	data->cable = EXTCON_NONE;
->  	data->previous_cable = EXTCON_NONE;
->  	data->usb_type = POWER_SUPPLY_USB_TYPE_UNKNOWN;
-> @@ -463,6 +463,11 @@ static int lc824206xa_probe(struct i2c_client *client)
->  	if (IS_ERR(data->psy))
->  		return dev_err_probe(dev, PTR_ERR(data->psy), "registering power supply\n");
->  
-> +	/* After all resources lc824206xa_work() derefs; before the IRQ producer. */
-> +	ret = devm_work_autocancel(dev, &data->work, lc824206xa_work);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret = devm_request_threaded_irq(dev, client->irq, NULL, lc824206xa_irq,
->  					IRQF_TRIGGER_LOW | IRQF_ONESHOT,
->  					KBUILD_MODNAME, data);
+Best regards,
+--  
+Miguel Gazquez <miguel.gazquez@bootlin.com>
 
