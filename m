@@ -1,133 +1,136 @@
-Received: from 3.mo560.mail-out.ovh.net (3.mo560.mail-out.ovh.net [46.105.58.226])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F38F44E040
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:01:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.58.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABC5455166;
+	Thu, 20 Aug 2026 14:02:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787234502; cv=none; b=WGbHAIxjogJYg6bOeJCClEgkird5TItgfK+LBXaG1NjZ2qkLFrZKrqTTIWSIdBLt7qePPE66Hih+9o1CXjADrgbZOD+u0awQYjiYEaLuGXja0GFORjmphJ2weLD6/117193zJhOWhrudxuK2eO/ZaIUwOn1slD+ktSUfz8c8XB4=
+	t=1787234543; cv=none; b=gUVmGvmiMy6/amYwXq3vs1OyvZs8jaNq3jTDPVjRBd+XQIqx8o5COqNPs9ydSQa4cDZMnZYkvBg3+cs58L7wSUX6StsoLFTFA6tuHdKLagJCq7pcDICN5+J5wnS5UJQoPzjlT1CQuDescLLAXDtJPFsC5CDguVXycx6i69z+MVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787234502; c=relaxed/simple;
-	bh=MhE0/wkYHzuHF8BSJwZYmKYWzxbk/rV3AvAFxVB2hlA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=aa6C7lEF0XfYFGt76+5K/GiPkcmFfhQQlC8JyHSxmbeWQHCOep92aPLe/z8mPAC3UEUNKWBHXwmsPsjiAdkLk6fyinPjek6QA45o5T0OeP/ANJj7BM2yYvdAxSyHm/XJSLi6cbydPYShz/VbwC0j7X3T4VjUfvxhE7+XQXrxJnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net; spf=pass smtp.mailfrom=m-works.net; arc=none smtp.client-ip=46.105.58.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=m-works.net
-Received: from director11.ghost.mail-out.ovh.net (unknown [10.110.54.143])
-	by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4hQlTy6ZBlzBZfC
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:01:26 +0000 (UTC)
-Received: from ghost-submission-c7b579475-5flvk (unknown [10.108.42.231])
-	by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 9EDEEC2980;
-	Thu, 20 Aug 2026 14:01:24 +0000 (UTC)
-Received: from m-works.net ([37.59.142.101])
-	by ghost-submission-c7b579475-5flvk with ESMTPSA
-	id V8Q4F7QIh2o7QAkAoCPlrQ
-	(envelope-from <maciej.andrzejewski@m-works.net>); Thu, 20 Aug 2026 14:01:24 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-101G0040abbf50e-72bc-4bc8-bdce-1a017c43d6c3,
-                    F470D10F53EF0FE28D2744507C2115D6BA5D3262) smtp.auth=maciej.andrzejewski@m-works.net
-X-OVh-ClientIp:144.125.48.245
-Date: Thu, 20 Aug 2026 16:01:23 +0200
-From: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	chris.packham@alliedtelesis.co.nz, daniel@zonque.org,
-	andriy.shevchenko@linux.intel.com, sakari.ailus@linux.intel.com,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
-	maciej.andrzejewski@m-works.net
-Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Daniel Mack <daniel@zonque.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-Subject: [PATCH] uio: uio_pdrv_genirq: restore UIO name without the unit
- address
-Message-ID: <20260820140119.1546932-1-maciej.andrzejewski@m-works.net>
+	s=arc-20240116; t=1787234543; c=relaxed/simple;
+	bh=p+BM9sQZIGea0kaxrRTh1HWCb4ehxgCYeqHApcQLau8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZIJC7djzN5TRKkgn56lcSlV2iNnXM3AJkVUHjnIEC7nxHEymYGSkM4zU5PSwF4uxidCx17gMnDBRHvxRMy3sNp4pA7guJgkYkLmoCylO8k/xqFg4mVGPL5Pz/7DZojmtAStoe6LPHGiYP+BnVRbDtziq6xMaT2IlZ3aMxc165uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HPe3hluC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HPe3hluC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67E261F00A3A;
+	Thu, 20 Aug 2026 14:02:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787234541;
+	bh=FKoP7/iRScaGCla0KLoQxkwR9emkq604HHkB1smPXIo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HPe3hluCuNwsve4vVDy06hd2/M2NxY3NzfeZXhvYCpdqvJesxCobuI+Aeb7K+y8Ho
+	 XcSrb2jhfjx0cB/Ea573N8Zf7stTd88+Ix//qzHgxyIlE8QVdtpus+IbOgmsMIyi3Y
+	 keJZWt77KtMyo4iXBE9ArHS3PGmVIkoiBa2Q0maXDIdsKRHemAnUW1J5ao1/qBKP4W
+	 zCJAlAVTkOGBb1neAHqYMTlXVYH0I1Q17+U2ZZqESGMT4ZKiyCwiV46ZAp8C6bPQV3
+	 Eu9grxB3Qa6/xLvYD1uyBHGLa7ltdDLSHJjK2QUVfhnTz3okC1zNxASdaTisPbCuMc
+	 Y1g1H/E5FATXw==
+Message-ID: <df0f9c8a-07f8-4305-91ef-2b9840294436@kernel.org>
+Date: Thu, 20 Aug 2026 16:02:16 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email 2.43.0
-x-ovh-tracer-id: 627689202175910691
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFYeV71eUF1BGjG8wIvXXDrYCzR03KSiq3cauo9fAV3JDgR6jrZ61LxQt+GNCa77uUPrRGctm5qtW+00wh82aFXRMJyEFrkNS4Nd9BzxEW5w3j4N/xnG2/PAkM6a+Ups5BUTGkvtd+e5My36OIFFAS50/sRt0xxbmE1aoXaLyXQl5xRqwuZFVHtVmxy5iLVi1dpXPDvDk+ZOKgkIWUBG90QDvbo9HCO0Zgqc0hPbwAVKWmaiw56AL6ATQvQGVEXrPZ59cPGmSQuK8WNEORxdtJMEeq67roRQZ3B1sSPZVTb1OMoQnwxdh6+H0iQ1+ZbLrGVUOVmy5f+16Nt/AxfsPChgFOA3xb654vzT4Fd8mKyEwHpgAWib8ODb+G0BfRx0Hx6zRNaLAN+FMLlolerxu6ctXvUbHYV6/4s3XgWuN2iARzyMzQm1uoiZCEgtStF8hZh790iA5TuTuZ+BNTrYSPHGlmXVA/C1Zm4v9ONownLqZa0D2byxTbZhzZd68yVyNX7U7HvvqGasN8jCV6ERSR0ThuaKUZiETOp6IQBEhGetQFzSJeep173dYTqvq7gSYiExy8beWFt5/dNi139p4X/IWqxBr3SnGjlELj8AO4K8PV9j3zYQDzi1BuFzU7Vog9xQBH7zF9Mi52SolfUfJr4eIvqJqOClATBQvF4sjo73w
-
-Commit 90fa0280553a ("uio_pdrv_genirq: convert to use device_property
-APIs") switched the driver to the device_property API so that a UIO
-device can also be described through an ACPI overlay. As part of that
-conversion the default name handed to userspace changed from "%pOFn" to
-"%pfwP".
-
-The two specifiers are not interchangeable. The printk format
-documentation defines %pfwP as the node name including an address if
-there is one, while %pOFn prints the device tree node name with the unit
-address stripped. A node named "dma@a0000000" therefore appeared in
-/sys/class/uio/uioN/name as "dma" up to v6.9 and as "dma@a0000000" from
-v6.10 onwards.
-
-That name is the only stable handle userspace has for a UIO device,
-because the uioN index follows probe order. Applications that resolve a
-device by name, for instance through the libuio uio_find_by_uio_name()
-helper, stop finding it.
-
-Nothing in the conversion suggests the rename was intended.
-Documentation/driver-api/uio-howto.rst still states that the node's name
-without the unit address is exposed as the name for the UIO device in
-userspace, and uio_dmem_genirq still builds its name with %pOFn. The
-"linux,uio-name" property added by commit b0297622a972 ("uio:
-uio_pdrv_genirq: Make UIO name controllable via DT node property")
-already lets a board distinguish several identically named nodes, so the
-default does not need to carry the unit address.
-
-fwnode has no equivalent of the %pOFn name-only modifier, which is
-likely why the closest specifier was picked. Print device tree nodes
-through %pOFn and leave every other firmware node type on %pfwP. This
-driver could not be probed from ACPI before 90fa0280553a, so ACPI
-naming is unaffected.
-
-Should the unit address in the default name turn out to be wanted after
-all, then uio-howto.rst is the file that needs the change instead, and I
-am happy to send that patch rather than this one.
-
-Fixes: 90fa0280553a ("uio_pdrv_genirq: convert to use device_property APIs")
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teardown
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Signed-off-by: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
----
+References: <20260808131624.2854412-1-lgs201920130244@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260808131624.2854412-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Notes:
-    Found on a Zynq UltraScale+ platform where FPGA blocks are exposed
-    through generic-uio nodes. Userspace uses libuio and resolves those
-    devices by name, so the applications stopped finding them after a move
-    from 4.19 to 6.12.
+On 08/08/2026 15:16, Guangshuo Li wrote:
+> adreno_gpu_init() calls pm_runtime_use_autosuspend(), but
+> adreno_gpu_cleanup() does not call the matching
+> pm_runtime_dont_use_autosuspend() during teardown.
+> 
+> If the autosuspend delay is set to a negative value while autosuspend
+> is enabled, the runtime PM core increments usage_count to prevent
+> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> during teardown, this reference is not dropped and usage_count remains
+> unbalanced.
+> 
+> The documentation for pm_runtime_use_autosuspend() also notes that it
+> is important to undo it with pm_runtime_dont_use_autosuspend() at
+> driver exit time, unless runtime PM was initially enabled with
+> devm_pm_runtime_enable().
+> 
+> Add the missing pm_runtime_dont_use_autosuspend() call to
+> adreno_gpu_cleanup().
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: eeb754746b14 ("drm/msm/gpu: use pm-runtime")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
 
-    The single generic-uio node in tree is renamed the same way:
-    uio@d0000000 in arch/arc/boot/dts/vdk_axs10x_mb.dtsi reads back as "uio"
-    before v6.10 and as "uio@d0000000" after it.
+You sent vast amount of patches, all separate, making it very difficult
+to track and respond in efficient way. Do not do that.
 
-    Build tested on x86_64 with W=1 and CONFIG_UIO_PDRV_GENIRQ=m, once with
-    CONFIG_OF=y and once with CONFIG_OF=n. No warnings either way.
+Group your work per subsystem.
 
- drivers/uio/uio_pdrv_genirq.c | 3 +++
- 1 file changed, 3 insertions(+)
+You were asked to clarify and respond to incorrect fixes statement. I do
+not see how you clarified and responded at all.
 
-diff --git a/drivers/uio/uio_pdrv_genirq.c b/drivers/uio/uio_pdrv_genirq.c
-index 0c8d73e7be52..27268c8d1b94 100644
---- a/drivers/uio/uio_pdrv_genirq.c
-+++ b/drivers/uio/uio_pdrv_genirq.c
-@@ -128,6 +128,9 @@ static int uio_pdrv_genirq_probe(struct platform_device *pdev)
 
- 		if (!device_property_read_string(&pdev->dev, "linux,uio-name", &name))
- 			uioinfo->name = devm_kstrdup(&pdev->dev, name, GFP_KERNEL);
-+		else if (is_of_node(node))
-+			uioinfo->name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
-+						       "%pOFn", to_of_node(node));
- 		else
- 			uioinfo->name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
- 						       "%pfwP", node);
---
-2.50.1
+Best regards,
+Krzysztof
