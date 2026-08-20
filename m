@@ -1,93 +1,155 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4316A2D73BC;
-	Thu, 20 Aug 2026 08:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0B33DA5DC;
+	Thu, 20 Aug 2026 08:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787213665; cv=none; b=Eh/0v9H8+oOCyzBNzRHv0Cm1uid/xxSfusZhCnMCLYThRcFNvVpC9C1E2ZtRGFSbuWa9j3wksPxlZWj1cOe/DZzg7sKvxI9v80GfBlLjXbTbAnTR+IZUFn9lPi3E1GwkTJf+++j6WjmhUAUV6rypzX4AuwY0u7EC98qNWrdHVcA=
+	t=1787213686; cv=none; b=ZZztFjUKoyZ7H3OCQh7eFufYoQpk2Da76yr61Nb9ALItjRYODw0JikHBjMx4NM3S99auw4EZeYe/c3JznfztSsUaAUBeXfnDE9uttb4hU6nxawjbdwWhmftrT6hn8rIINn6suFQEu8DQLeyfKKUDKhVcST5BzFNFlTtCz0aITYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787213665; c=relaxed/simple;
-	bh=1A5L8ijJG2tEtIq8gJzYCoIWgbA4oubX/xAZRhZJ21E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PqlQ/69kRlwQFdZVR/i4UGgF7hgUzlPcDELlJPhi9nVp1SiLUZMdDBtzKUwrrEOncUQF0SNhyFtwDfk3WcCb3FShP5BM91hB5cwe+lu/vdiIAijV7g1U4oCs7SlVkiiJxdOFYNHRDCbYrcNPZG97aUaWqhtTvbvtj8Lnu37JLLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 21e3cc209c6f11f19a56ed5b684f684d-20260820
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:2e859270-3c3e-4a3d-801b-1fb4af7d294c,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:01b2380bf8adf81f379fa11415948ba6,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 21e3cc209c6f11f19a56ed5b684f684d-20260820
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1492087287; Thu, 20 Aug 2026 16:14:14 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ntfs: fix resource leak in ntfs_new_attr_flags
-Date: Thu, 20 Aug 2026 16:14:10 +0800
-Message-Id: <20260820081410.152325-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1787213686; c=relaxed/simple;
+	bh=9tPSuXov7GrM+xx4Zc0tr7mC330cYG8dhCPK9zcbXzU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M7npVvIvIsYMs9kUvpyyCprnSCvZBfJKBVHdk+QWq/fKd9t6Y7bvx31wWJB0MuacCKL/J0EDclznzAjTPaE98db4+cjSazh9BvmHvaOpjhJM29pUPFNhJbpUp8wcTyrMFWhF22+dVR3S4zI1t7omg1syAt07gvI7bxspoaG4+ok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFlj5GDQ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFlj5GDQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401171F000E9;
+	Thu, 20 Aug 2026 08:14:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787213678;
+	bh=jPi7sm06f+rNS7fquy7GY9UlFStzSoKD+j+fIOo56U8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MFlj5GDQYfTBb96020wGzI27jJge3IEPrS/7HPMaR0/CmZi3UFGBs8FHwqklsQCmc
+	 PeppwrzCQ7gnFgwmpdwvC1U27xaI3U9+PrdZt/34jyOQN7jKBmSQBxrPvII3A3HB5q
+	 /vG15BaR9eKcchddxD+T7eAPszdqKE4g4/mNgiidJFMEivXl6uDsRnybI8VgkNR76o
+	 w7RNQ1jc/GLXs2h56IxlPaczB3rZRHFYI1ekrc3TWU4/7XOxuvWT9t1Q9Am9sYoYTI
+	 HN4RD+P1iCorA6VCP0jCXr12vDrkxSUGTUrxjOwQZqIJDDSYc6Br80ZvElja3gdBRP
+	 PprSprNFgoaEQ==
+Message-ID: <c38cb98e-0746-4b28-b0c9-ce59e8338048@kernel.org>
+Date: Thu, 20 Aug 2026 10:14:26 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag
+ marvell,ignore-regulatory-hint
+To: George Valkov <gvalkov@gmail.com>, Chen-Yu Tsai <wenst@chromium.org>
+Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch,
+ krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com,
+ kees@kernel.org, miriam.rachel.korenblit@intel.com,
+ rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com,
+ s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
+ sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@nxp.com, chunfan.chen@gmail.com,
+ linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ stable@vger.kernel.org
+References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
+ <20260817215428.84740-1-gvalkov@gmail.com>
+ <20260819-generous-nickel-dalmatian-b6bb08@quoll>
+ <CADOrJmYfBe3ADun_kFjFSH6YOSTX7Vu3UsFsL57yuRdaQ=eJCA@mail.gmail.com>
+ <e554c007-67e3-4fbf-b85e-5de02f649e83@kernel.org>
+ <CAGXv+5H7AhZgZ06r9KO3HLZ9Cymkai+Cv9SgVTuSC1PjgGf8hg@mail.gmail.com>
+ <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org>
+ <CADOrJmYxKTyDkKPaKCpH37RsyyZJZ+4uReE--+uvnHmEdNJVOw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CADOrJmYxKTyDkKPaKCpH37RsyyZJZ+4uReE--+uvnHmEdNJVOw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When handling resident attributes that don't need sparse/compressed
-changes, ntfs_new_attr_flags() returns 0 directly at line 678 without
-calling unmap_mft_record() or ntfs_attr_put_search_ctx(). This leaks
-the MFT record mapping and attribute search context.
+On 20/08/2026 09:50, George Valkov wrote:
+> 
+> 
+> Krzysztof:
+>> regulatory-hint for me means usually regdb, but even with your meaning
+>> you tell SW what to do - ignore hardware regulatory information.
+>> Property should not tell what SW should do with hardware. Property
+>> should tell what is happening here in the hardware. In this case: what
+>> is the reason behind.
+>>
+>> IOW, why user of a board in country X, where regulatory data says X,
+>> should have the correct regulatory data ignored?
+> 
+> Because users in X buy a board for X and the regulatory data says U.
+> 
+> Indeed when the ROM regulatory hint is set to US and the driver
+> reports this to the OS, the wireless-regdb restrictions for US are
+> applied. This would normally be fine, however the third radio in
+> WRT3200ACM and WRT32x, reports US on all models including those sold
+> in the EU and other non US markets. This creates a conflict with
+> radios 0 and 1, which report FR and also with my correct setting: BG.
+> With the wireless-regdb restrictions for US, FR and BG applied, radio
+> 0 refuses to start.
 
-An unprivileged user can cause a denial of service by repeatedly
-calling setxattr(2) with system.ntfs_attrib on files with resident
-attributes, eventually exhausting kernel memory.
+So if you move with your router to US, you would need to change DTB?
+IOW, the DTB is per user? This is obviously wrong... What if one device
+has correct regulatory data written and you ignore it? Why would you
+ignore it? If you decide to ignore correct regulatory data, then you can
+as well ignore it unconditionally and this property is not needed.
 
-Fix by replacing the direct return with goto err_out to ensure proper
-cleanup of resources via the existing cleanup code.
 
-Fixes: e791930240a5 ("ntfs: fix resident conversion in ntfs_new_attr_flags")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- fs/ntfs/ea.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> Would you approve any of these or suggest a better name for the flag?
+> Should ROM be in upper or lower case?
+> I omitted 'in-ROM' to keep it short, because the driver check line is
+> already longer than 80 characters.
+> - marvell,ignore-regulatory-hint (current)
+> - marvell,ignore-regulatory-hint-in-ROM
+> - marvell,invalid-regulatory-hint-in-ROM
+> - marvell,invalid-regulatory-hint
+> - marvell,invalid-regulatory-ROM
+> - marvell,invalid-reg-hint-in-ROM
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 5cd5a4a02d1e..44252f2c2ca6 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -674,8 +674,10 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
- 	}
- 
- 	if (!a->non_resident) {
--		if (!(new_aflags & (ATTR_IS_SPARSE | ATTR_IS_COMPRESSED)))
--			return 0;
-+		if (!(new_aflags & (ATTR_IS_SPARSE | ATTR_IS_COMPRESSED))) {
-+			err = 0;
-+			goto err_out;
-+		}
- 
- 		if (le32_to_cpu(a->data.resident.value_length)) {
- 			pr_err("Can't change sparse/compressed for non-empty file");
--- 
-2.25.1
+The point is that the regulatory hint is NOT INVALID. One device was
+sold in US with US data, so how could it be invalid?
 
+Best regards,
+Krzysztof
