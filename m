@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CEA18DB2A
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 04:21:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D467377034
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 04:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787199699; cv=none; b=RPpTfpEedwAbRj6nS2m0PCdXy9ri0RIpt728/V7gh4d91/ev/Y5SjuM2ejmR7/11NAgR31yrHU/33b/b2GwPJ3LRXTDkLP1oMuYGAbganEGslyysjtoJnTcb5TfvG17J/S95nSyVPDe6/b373piOd2A4ohV1IJR86f1tc7jO/IE=
+	t=1787199700; cv=none; b=km2YJkTCvpRwfR/ysb4rfJc5numEfv+IQvTqcwAUmQ/+f+4/D02fxeyQPMCwI7YmZ4+Tal6dNqFe11M4ZFSXTMDqi72vnsZ2lHfYDfdd1SsG004xeLlK9rmIug9J5sgh9Fl/17L2ZF7fQcaqtBtQQ22eo3S+2Zki51DjmKCO60s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787199699; c=relaxed/simple;
-	bh=1/lktrcl1mUaNF0RcdF7Vz03qhvFhAKK9sAjhkh5l6o=;
+	s=arc-20240116; t=1787199700; c=relaxed/simple;
+	bh=WBopMc9O3oBm+1UJuezst7plDYDXQZZNT/cAkC+TYwM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a3s1JS8tOd0L0hdQNJKJeOLY3wBfljrQQeOUAT+AJZhQHywIJKILksJEfIk3CcfcbJp2uyHur5QpmaJlzAzn9fn3Sb9qqCXc5vio07wig+c/AZvzxwWYBQY25pE4elO55ukHiRi6k5xBB1dLo3GCOPYuhG/gctv3Jj1HwmUamwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oy8ufg6O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=C8m/v+TxVR2FI+OWs99a541lE2Mf2DSUPdUns/crG5gV6kiyf/i3bjoXWkbcyzsHbyhXnVh6fPcO7Lwivsao8l9S3H3bua12R5LRt+Uf6jFuFSqVBwQshLA425mRF78lvWIX3noPUHrVJVdI/IK+4aCXTczWkD92rOUtAMrwm18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oJwFuQv6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oy8ufg6O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819C21F000E9;
-	Thu, 20 Aug 2026 04:21:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oJwFuQv6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 753E01F00A3E;
+	Thu, 20 Aug 2026 04:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787199698;
-	bh=iFuZUtKE/rtt7WSYUQlaJiisrDQORmeo9IajeLDhmq4=;
+	s=k20260515; t=1787199699;
+	bh=ht3Hywn0bOmu65UwrthdlBLGDg24HxWqDJwPSJn+th4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Oy8ufg6ObZu5aNCEnrOLNcd8sZGXxxAvfDSD7USdjEORI2SlttciQvyjUUl4VcCxS
-	 XByqLGQ8ZQeCHedXI1j2CYpjst8cXAXPQ4AKUBKnBv+gYlYEO8i+k787JgKQLOp1ub
-	 XLPM3bE/mOio1j43XPZK5ig7WUwQa0SDA5L98W+Hd/evan1xPhyfZywG4QFmIF1uLt
-	 UIJD1522hftOFtYy7GxzxR7jtUFeNpsAhFoXVspkAKtphgTLMyejVlc62sOKobyMqv
-	 PVqXv6s3ALK5pHfayumn+njxUj6k09mWaffy68JTbq+Ja+IMCgKkcA3TZsHR7gNvM2
-	 vR2HqL/eJNnAQ==
+	b=oJwFuQv6SWLR6XlMbfKDLjK71/J3vbsWTbRzrH1tWRj9cFHuwyo236FJ+3fnyXHB5
+	 q/eNqOv4Txv2U3etoXX0zFWDJp56h35mHyejLLBp0lNPn0pwLnGpOmHCTUNep8vN1C
+	 kyw4k14butSKoekOT2wjcbVNSWPBRjk8kcK9tJXDFHP/eUdH9esHjhFoippzOxe11i
+	 3Akycogx3T3G2zd1eoKWuj6VFbWbOL8NT0mxkL2GCp7BDkQ0Dwyw+UpunGyy6GRGy0
+	 /G639ntRyhwouM/IHm7FrB8/OK08rcQgTJkZxwZfPHsQuyTcJjBBlvUGE64aHZUAvs
+	 GXsNivf1qwlfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Xin Long <lucien.xin@gmail.com>,
-	David Ahern <dsahern@kernel.org>,
+	Aaron Conole <aconole@redhat.com>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/5] net: add a couple of helpers for iph tot_len
-Date: Thu, 20 Aug 2026 00:21:31 -0400
-Message-ID: <20260820042135.1376434-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/5] openvswitch: use skb_ip_totlen in conntrack
+Date: Thu, 20 Aug 2026 00:21:32 -0400
+Message-ID: <20260820042135.1376434-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081754-splendid-scabby-9156@gregkh>
+In-Reply-To: <20260820042135.1376434-1-sashal@kernel.org>
 References: <2026081754-splendid-scabby-9156@gregkh>
+ <20260820042135.1376434-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,70 +50,34 @@ Content-Transfer-Encoding: 8bit
 
 From: Xin Long <lucien.xin@gmail.com>
 
-[ Upstream commit 058a8f7f73aae1cc22b53fcefec031b9e391b54d ]
+[ Upstream commit ec84c955a0d06cef31664bae328d94be7a3e2f03 ]
 
-This patch adds three APIs to replace the iph->tot_len setting
-and getting in all places where IPv4 BIG TCP packets may reach,
-they will be used in the following patches.
-
-Note that iph_totlen() will be used when iph is not in linear
-data of the skb.
+IPv4 GSO packets may get processed in ovs_skb_network_trim(),
+and we need to use skb_ip_totlen() to get iph totlen.
 
 Signed-off-by: Xin Long <lucien.xin@gmail.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
+Reviewed-by: Aaron Conole <aconole@redhat.com>
 Reviewed-by: Eric Dumazet <edumazet@google.com>
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Stable-dep-of: 8a7ed561671a ("net/sched: act_ct: fix sk_buff leak when the header checks reject a packet")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/ip.h  | 21 +++++++++++++++++++++
- include/net/route.h |  3 ---
- 2 files changed, 21 insertions(+), 3 deletions(-)
+ net/openvswitch/conntrack.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/ip.h b/include/linux/ip.h
-index 3d9c6750af627..d11c25f5030a0 100644
---- a/include/linux/ip.h
-+++ b/include/linux/ip.h
-@@ -35,4 +35,25 @@ static inline unsigned int ip_transport_len(const struct sk_buff *skb)
- {
- 	return ntohs(ip_hdr(skb)->tot_len) - skb_network_header_len(skb);
- }
-+
-+static inline unsigned int iph_totlen(const struct sk_buff *skb, const struct iphdr *iph)
-+{
-+	u32 len = ntohs(iph->tot_len);
-+
-+	return (len || !skb_is_gso(skb) || !skb_is_gso_tcp(skb)) ?
-+	       len : skb->len - skb_network_offset(skb);
-+}
-+
-+static inline unsigned int skb_ip_totlen(const struct sk_buff *skb)
-+{
-+	return iph_totlen(skb, ip_hdr(skb));
-+}
-+
-+/* IPv4 datagram length is stored into 16bit field (tot_len) */
-+#define IP_MAX_MTU	0xFFFFU
-+
-+static inline void iph_set_totlen(struct iphdr *iph, unsigned int len)
-+{
-+	iph->tot_len = len <= IP_MAX_MTU ? htons(len) : 0;
-+}
- #endif	/* _LINUX_IP_H */
-diff --git a/include/net/route.h b/include/net/route.h
-index 39be632a9822d..717579169d573 100644
---- a/include/net/route.h
-+++ b/include/net/route.h
-@@ -35,9 +35,6 @@
- #include <linux/cache.h>
- #include <linux/security.h>
+diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
+index 527a181c842c6..f401de5e8b386 100644
+--- a/net/openvswitch/conntrack.c
++++ b/net/openvswitch/conntrack.c
+@@ -1275,7 +1275,7 @@ static int ovs_skb_network_trim(struct sk_buff *skb)
  
--/* IPv4 datagram length is stored into 16bit field (tot_len) */
--#define IP_MAX_MTU	0xFFFFU
--
- #define RTO_ONLINK	0x01
- 
- #define RT_CONN_FLAGS(sk)   (RT_TOS(inet_sk(sk)->tos) | sock_flag(sk, SOCK_LOCALROUTE))
+ 	switch (skb->protocol) {
+ 	case htons(ETH_P_IP):
+-		len = ntohs(ip_hdr(skb)->tot_len);
++		len = skb_ip_totlen(skb);
+ 		break;
+ 	case htons(ETH_P_IPV6):
+ 		len = sizeof(struct ipv6hdr)
 -- 
 2.53.0
 
