@@ -1,157 +1,296 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6045339398;
-	Thu, 20 Aug 2026 12:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787230660; cv=none; b=OD4c8KQW9WGpu1mWsAxNrdUG1ys3oESTxbEo0XHbFsJu16DatFN3p63UCNuVIPU0ArmkvtKJ5lVkvY6NjeLfrNU8ToBq6KjgbLjTSeYJ5wVrxE023KP5Fnn12yP/Hbc24CUGSPxHfBKUa/ab52HeNGVwN5W4A5Nvy6wFIavyQT4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787230660; c=relaxed/simple;
-	bh=NBURnJ/h8jK40DD3L0sAXfodvA9mcG66XWuTjw7j+b0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XD/GndM22teUkI6b3AZkqkm6w3lxrRy5YZo8E8+BdM5kxuFqr4hDfOVxLPY4TGjCPc0OBPzbN1lXqWW5YJ0HI49kPyhZ3Qq0ycwWb1RDWO05KU7AKu/Aj8X6guKwvphxAcxpWD6zgGT2AFuiVCz5o7w1jOEMpA4kw/aa1FA4XKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=iunfu5DJ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B9023D7FF;
+	Thu, 20 Aug 2026 13:01:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787230881; cv=pass; b=WM9iSN7jAWGn0BwXDSDc7Om7Sp0t3GKYdt0JfuUWctnxLkbiQ1a7D848JGZ+JcAipaACX7BO/EASiIE87h9gyPC+4EzBRBJn3lv4EowiNp0Zt/ySG+hwP92LKHFERqBjiLq0wR+aCBIPptC62a2xo8AXHREdV0BmQgYKQUVhAUA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787230881; c=relaxed/simple;
+	bh=IqrLDo+o8ggCy+1lV0BEKJrIpQOKrldsEdmIDhLNoRo=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=PRTE9v9+5yyHFYOpnmU42PFJVPpw6qLgEMxm65jIdnuan7A0IntJ4X3RrpZrYl466x5mRxDR/LRolBEsyop6m6bXVIFShah8dufLK7Vz5DYb1/e2pan5IvzY3hjogB1BoMXXi1QxZ0JmEyQIFUogwQU01r2pnfFDlQMLXx+CJ9w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=PSskaIrW; arc=pass smtp.client-ip=165.173.182.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="iunfu5DJ"
-Received: from ideasonboard.com (mob-109-113-29-237.net.vodafone.it [109.113.29.237])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 23EDE492;
-	Thu, 20 Aug 2026 14:56:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1787230574;
-	bh=NBURnJ/h8jK40DD3L0sAXfodvA9mcG66XWuTjw7j+b0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iunfu5DJAfG2Ho2eUUeKR+7z8rrxdDN8kfPfJgIFcwoBq9cz8YlhcmN3NZuiIYy4k
-	 sBVqz6OnRbUiI2b8l/ce4A6qLxFyaVzIKfi18GxxVmu5kQtwZDbl0NoQySc81KDY9h
-	 f7IWASQVPEZ0UNek04eIeC1RVfOghNYhbNwFEGD4=
-Date: Thu, 20 Aug 2026 14:57:32 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] media: v4l2-isp: reject zero-sized parameter blocks
-Message-ID: <aob5VU6sOBwWUZ0z@zed>
-References: <20260820111722.1233915-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="PSskaIrW"
+ARC-Seal: i=1; a=rsa-sha256; t=1787230870; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=myAzGI5t0yJ0JZTzkxc6zRevGax1kMNRbn2L8QvrmxqV32JlOLjv5vFtHJffqLU8IvOB5g6dAsfXrT1RU3Y3xhJEGw3/5IeDSUTj5DqOFj5dEHW8nTYyaWanpBNmHt3+zMUCBR8UbiX7Ikev+UzLAq3QyfL/B4G0ySYepZuf+lo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1787230870; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=wla6raPHtteBLHHV3A2D4+XYL2OG81Vd8BvqSX4EaZI=; 
+	b=In9a6dQnbR4gv/AkSPKq2ZzpIiYs7UgY8bAU7SsCm0n9P5nkipB42+AAD782lIWzXUTK7AH+OdPlKP/DSN5mhxa19xQuQ74guCOxyzxaXE8oncRrvzaewnbtaju67kyZw6lhr75xjA7rBy6i+I5Vc+Qk8eVgVn+XKsz7V3gCxQ8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787230870;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=wla6raPHtteBLHHV3A2D4+XYL2OG81Vd8BvqSX4EaZI=;
+	b=PSskaIrWnbbHnbGOjvCw0HI0LA/kOHCIqsaznHBx6EhsST3akNZBE458gyhWK0OT
+	Jqajk670SMTPqOm+NTRHpjqRxA03X4aWcZH4JaZB57SxQm2pqrsiZc4ecnq/sXr1sj/
+	A2iQ+AqZxJP3a863PAg4AwPYfxK154L/OR2kzHmvyiOOugbY5PEL+2u3Zb6S4rryOK7
+	91mIRsY/KbclMusp9bj/5kJeqjFqEJk1UhcQM16Kx6IkxXCZBo6H6xXFbsv6f+6hg3I
+	0o0Wg5Qc0d/wLmXUe7OJ+me35OLS8YB5Yook6AZGMTkh66vb/auhL0rtZ7HJaGf3s25
+	/MpJrUvrqQ==
+Received: by mx.zohomail.com with SMTPS id 1787230866468499.0069985737126;
+	Thu, 20 Aug 2026 06:01:06 -0700 (PDT)
+Message-ID: <96f97cf4e509efae5891795a6eb1543db737516c.camel@rong.moe>
+Subject: Re: [PATCH 0/2] iommu/amd: Do not request ACS when IOMMU is not
+ going to be initialized
+From: Rong Zhang <i@rong.moe>
+To: Ankit Soni <Ankit.Soni@amd.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Suravee Suthikulpanit	
+ <suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, Will
+ Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Huang Rui
+ <ray.huang@amd.com>, 	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+In-Reply-To: <sv2id4b3qz34q2tueg4mswgagoh2xr7tsk2eafxcxsqz2z4lkd@qs2hxx5cjcyl>
+References: <20260811-amd-iommu-fix-acs-v1-0-d64e2172408d@rong.moe>
+		 <zm24u35jq6ruz5teu6sevoe447esrqim3gn24s4bdb7kvncz6z@rmhomnfqzwht>
+		 <c5dc4cae4f4f33c98ee96d4d15da446b9fbf1f59.camel@rong.moe>
+		 <sv2id4b3qz34q2tueg4mswgagoh2xr7tsk2eafxcxsqz2z4lkd@qs2hxx5cjcyl>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 20 Aug 2026 20:54:51 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260820111722.1233915-1-devnexen@gmail.com>
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-Hi David
+Hi Ankit,
 
-On Thu, Aug 20, 2026 at 12:17:22PM +0100, David Carlier wrote:
-> v4l2_isp_params_validate_buffer() walks the blocks of a parameters
-> buffer by adding block->size to the current offset, but never bounds
-> that size from below. A block with size 0 is not caught by the
-> block->size > buffer_size test, and the comparison against info->size
-> passes as well when the driver's type_info[] entry is an uninitialised
-> hole, both sizes being 0. The walk then makes no forward progress and
-> loops forever.
->
-> Drivers build their type_info[] arrays with designated initialisers
-> indexed by their block type enumeration, so an enumerator left without
-> an entry leaves a zeroed hole rather than failing the build. Drivers
-> call the validator from vb2 .buf_prepare, so such a hole turns a
-> VIDIOC_QBUF on the parameters video device into an unkillable task
-> spinning with the queue mutex held.
->
-> Reject a block smaller than its own header. A block's size includes its
-> header, so anything below that is malformed whatever the driver table
-> contains, and rejecting it is what keeps the walk moving. Blocks
-> carrying only a header to disable a block are exactly that size and
-> still pass.
->
-> An empty type info entry can then no longer stall the walk, but a block
-> matched against it is only constrained by that header size check. Reject
-> such a block explicitly: the driver does not implement the type and
-> cannot tell whether the block content is meaningful, and accepting it
-> silently would leave that content unconstrained until a later kernel
-> implements the type and starts validating it.
->
-> Fixes: 3cb6de6fafb8 ("media: v4l2-core: Introduce v4l2-isp.c")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
-> v3:
-> - reject a block whose type info entry is empty instead of skipping
->   it, so a type the driver does not implement cannot become
->   unconstrained uAPI (Jacopo)
->
-> v2:
-> - skip an empty type info entry instead of matching the block against
->   a zeroed one
-> - reworded the commit message, which no longer leans on rppx1
->
->  drivers/media/v4l2-core/v4l2-isp.c | 22 +++++++++++++++++++++-
->  1 file changed, 21 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/media/v4l2-core/v4l2-isp.c b/drivers/media/v4l2-core/v4l2-isp.c
-> index 1eb46e080afa..efe994b4c4d7 100644
-> --- a/drivers/media/v4l2-core/v4l2-isp.c
-> +++ b/drivers/media/v4l2-core/v4l2-isp.c
-> @@ -84,6 +84,13 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
->  			return -EINVAL;
->  		}
->
-> +		if (block->size < sizeof(*block)) {
-> +			dev_dbg(dev,
-> +				"Invalid block size %u at offset %zu\n",
-> +				block->size, block_offset);
-> +			return -EINVAL;
-> +		}
-> +
+On Thu, 2026-08-20 at 05:48 +0000, Ankit Soni wrote:
+> On Thu, Aug 20, 2026 at 01:38:35AM +0800, Rong Zhang wrote:
+> > Hi Ankit,
+> >=20
+> > Thanks for your review.
+> >=20
+> > On Wed, 2026-08-19 at 10:32 +0000, Ankit Soni wrote:
+> > > On Tue, Aug 11, 2026 at 04:36:17AM +0800, Rong Zhang wrote:
+> > > > The AMD IOMMU Initialization State Machine has the following state
+> > > > transition diagram (only the very first states are showed, and the
+> > > > `IOMMU_' prefix is omitted):
+> > > >=20
+> > > >    START_STATE
+> > > >         |
+> > > >         v
+> > > > [0] detect_ivrs() --> NOT_FOUND
+> > > >         | ok
+> > > >         v
+> > > >   IVRS_DETECTED
+> > > >         |
+> > > >         v
+> > > > [1] amd_iommu_disabled? (amd_iommu=3Doff) --> IOMMU_CMDLINE_DISABLE=
+D
+> > > >         | no
+> > > >         v
+> > > > [2] early_amd_iommu_init()
+> > > >         |
+> > > >         +-- [3] amd_iommu_detected? (!iommu=3Doff && ...) -+
+> > > >         | yes                                            |  =20
+> > > >         +-- ... --> IOMMU_INIT_ERROR <-------------------+
+> > > >         | ok
+> > > >         v
+> > > > IOMMU_ACPI_FINISHED
+> > > >         |
+> > > >         v
+> > > >        ...
+> > > >=20
+>=20
+> ../..
+>=20
+> > > > ---
+> > > > Rong Zhang (2):
+> > > >       iommu/amd: Do not request ACS when IOMMU is not going to be i=
+nitialized
+> > > >       iommu/amd: Remove ad-hoc checks that are never true
+> > >=20
+> > > Hi,
+> > >=20
+> > > Thanks for the cleanup, and the analysis of the ACS call paths matche=
+s what I see.
+> > > Two things worth a look before this goes in.
+> > >=20
+> > > 1. Patch 2: I don't think the !amd_iommu_detected check in
+> > >    early_amd_iommu_init() is unreachable. pci_iommu_alloc() returns e=
+arly for
+> > >    xen_pv_domain() before calling amd_iommu_detect(), but Xen PV stil=
+l sets
+> > >=20
+> > > 	x86_init.irqs.intr_mode_init =3D x86_64_probe_apic;
+> > >=20
+> > >    so x86_64_probe_apic() -> enable_IR_x2apic() -> irq_remapping_prep=
+are() ->
+> > >    amd_iommu_prepare() enters the state machine anyway, and none of t=
+he new
+> > >    IOMMU_START_STATE conditions are true. That check looks like
+> > >    the only thing currently stopping early_amd_iommu_init() from runn=
+ing
+> > >    there. Could you double-check that case before dropping it?
+> >=20
+> > This has been resolved by PATCH 1, where the checks have been embedded
+> > into the state machine.
+>=20
+> Agreed on patch 1 - the state machine is the right place for those checks=
+ and
+> I have no objection to it. My concern is only patch 2 dropping the
+> "amd_iommu_detected" check.
+>=20
+> >=20
+> > I did some quick tests by commenting out the call to amd_iommu_detect()
+> > in pci_iommu_alloc(), and adding a debug WARN() to iommu_go_to_state().
+> > When I booted a VM with emulated IOMMU (-device amd-iommu) and with
+> > either `amd_iommu=3Doff' or `iommu=3Doff':
+> >=20
+> > [    0.081948] APIC: Switch to symmetric I/O mode setup
+> > [    0.082553] ------------[ cut here ]------------
+> > [    0.083144] init_state: 0 =3D> 9, ret: -22
+> > [    0.083617] WARNING: drivers/iommu/amd/init.c:3506 at iommu_go_to_st=
+ate+0xf18/0x1c00, CPU#0: swapper/0/0
+> > [    0.084809] Modules linked in:
+> > [    0.085122] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-0=
+2579-ge0f12714fa53-dirty #38 PREEMPT(lazy)
+> > [    0.086124] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS=
+ 1.17.0-debian-1.17.0-1 04/01/2014
+> > [    0.087076] RIP: 0010:iommu_go_to_state+0xf23/0x1c00
+> > [    0.087629] Code: 1b e7 2c 00 eb 12 c7 05 0f e7 2c 00 06 00 00 00 eb=
+ 03 90 0f 0b 45 31 f6 48 8d 3d e8 90 b6 ff 8b 15 fa e6 2c 00 44 89 f1 89 de=
+ <67> 48 0f b9 3a 45 85 f6 0f 84 f4 f0 ff ff e8 8a c0 73 fe 48 8b 05
+> > [    0.089556] RSP: 0000:ffffffff93a03e40 EFLAGS: 00010202
+> > [    0.090039] RAX: 00000000fffffff9 RBX: 0000000000000000 RCX: 0000000=
+0ffffffea
+> > [    0.090677] RDX: 0000000000000009 RSI: 0000000000000000 RDI: fffffff=
+f93d17440
+> > [    0.091338] RBP: ffff8fbd47fd5c80 R08: 3fffffffffffdfff R09: fffffff=
+f93b20aa8
+> > [    0.092025] R10: 0000000000000002 R11: 0000000000000002 R12: 0000000=
+00000001b
+> > [    0.092662] R13: 0000000000000000 R14: 00000000ffffffea R15: 0000000=
+000014770
+> > [    0.093319] FS:  0000000000000000(0000) GS:ffff8fbdb3634000(0000) kn=
+lGS:0000000000000000
+> > [    0.094055] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > [    0.094572] CR2: ffff8fbd4728f000 CR3: 0000000006844000 CR4: 0000000=
+0000100b0
+> > [    0.095214] Call Trace:
+> > [    0.095437]  <TASK>
+> > [    0.095628]  amd_iommu_prepare+0x15/0x40
+> > [    0.096025]  irq_remapping_prepare+0x43/0x60
+> > [    0.096406]  enable_IR_x2apic+0x22/0x190
+> > [    0.096759]  x86_64_probe_apic+0xa/0x50
+> > [    0.097130]  apic_intr_mode_init+0x70/0xd0
+> > [    0.097495]  x86_late_time_init+0x28/0x40
+> > [    0.097858]  start_kernel+0x6f9/0x7a0
+> > [    0.098209]  x86_64_start_reservations+0x24/0x30
+> > [    0.098629]  x86_64_start_kernel+0xd1/0xe0
+> > [    0.099016]  common_startup_64+0x13e/0x158
+> > [    0.099393]  </TASK>
+> > [    0.099595] ---[ end trace 0000000000000000 ]---
+> > [    0.100266] x2apic enabled
+> > [    0.100758] APIC: Switched APIC routing to: physical x2apic
+> >=20
+> > ...where 0 is IOMMU_START_STATE and 9 is IOMMU_CMDLINE_DISABLED.
+>=20
+> Commenting out amd_iommu_detect() is right way to emulate this, and the t=
+race=20
+> confirms the entry path. But the boot options are what make it
+> come out clean: amd_iommu=3Doff / iommu=3Doff set amd_iommu_disabled / no=
+_iommu,
+> so IOMMU_START_STATE bails on its first if - that's the 0 =3D> 9., which
+> is clearly visible above.
+>=20
+> But,
+> Xen's own iommu=3D sits on the hypervisor command line and goes to Xen's =
+parser,
+> not to Linux's iommu_setup(), and there no one sets no_iommu or amd_iommu=
+_disabled.
+>=20
+> The wider point is that amd_iommu_detect() never running is the platform =
+mean
+> Linux does not own this IOMMU - Xen opts out of pci_iommu_alloc() and ins=
+talls
+> xen_swiotlb_dma_ops instead. 'amd_iommu_detected' was the only thing maki=
+ng the
+> irq-remapping entry path honour that, so without it (i.e. patch 2 removes=
+ it)=20
+> early_amd_iommu_init() proceeds on hardware the hypervisor owns.
 
-I'm sorry, but now that we refuse empty block info with size == 0,
-wouldn't this be caught by the below
+Ah, indeed! Skipping calling amd_iommu_detect() acts as a kill switch to
+gate IOMMU initialization anyway, and `amd_iommu_detected' is used by in
+this case.
 
-		if (block->size != info->size &&
-		    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
-		    block->size != sizeof(*block))) {
+That said, I believe relying on the flag to gate IOMMU initialization in
+Xen PV is too late that detect_ivrs() has been called.
 
-Do we need to check it here as well ?
+The whole purpose of the series is to prevent calling detect_ivrs() at
+all when unnecessary. Although detect_ivrs() is effectively a no-op due
+to=C2=A0Xen PV always requesting ACS, I still prefer completely skipping it=
+ in
+Xen PV to prevent unnecessarily getting the IVRS table and accessing the
+PCI config space.
 
-nit: the dev_dbg() line fits on 2 lines only.
+After rethinking, I propose disallowing implicit START_STATE =3D>
+IVRS_DETECTED transition. IOW, the IVRS_DETECTED state can only be
+requested explicitly by amd_iommu_detect(). This should also help prevent
+potential bugs if more housekeeping work is added to amd_iommu_detect()
+in the future. In this manner, we should be able to safely remove
+`amd_iommu_detected'.
 
+This will make parts of PATCH 1 unnecessary, but I prefer leaving PATCH 1
+as is it makes the intention clearer.
 
->  		if (block->size > buffer_size) {
->  			dev_dbg(dev, "Premature end of parameters data\n");
->  			return -EINVAL;
-> @@ -99,12 +106,25 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
->  			return -EINVAL;
->  		}
->
-> +		/*
-> +		 * An empty type info entry denotes a block type the driver
-> +		 * does not support. Reject the buffer instead of ignoring the
-> +		 * block: accepting it silently would let userspace fill it
-> +		 * with data that a later kernel, once it implements the type,
-> +		 * would validate and possibly reject.
-> +		 */
-> +		info = &type_info[block->type];
-> +		if (!info->size) {
-> +			dev_dbg(dev, "Unsupported block type %u at offset %zu\n",
-> +				block->type, block_offset);
-> +			return -EINVAL;
-> +		}
-> +
->  		/*
->  		 * Match the block reported size against the type info provided
->  		 * one, but allow the block to only contain the header in
->  		 * case it is going to be disabled.
->  		 */
-> -		info = &type_info[block->type];
->  		if (block->size != info->size &&
->  		    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
->  		    block->size != sizeof(*block))) {
-> --
-> 2.55.0
->
+I will include the proposed change in v2.
+
+Thanks,
+Rong
+
+>=20
+> -Ankit
+>=20
+> >=20
+> > Therefore, embedding the checks into the state machine ensures the chec=
+ks
+> > are done in all initialization paths and makes replicating the same
+> > checks in state transition methods unnecessary.
+> >=20
+> > >=20
+> > > 2. Patch 1 Fixes: 9f81ca8d1fd6 doesn't look right - it only moved the
+> > >    amd_iommu_disabled check ahead of early_amd_iommu_init() and left
+> > >    IOMMU_START_STATE and detect_ivrs() alone, so ACS was requested wi=
+th
+> > >    amd_iommu=3Doff both before and after it. The commit that actually=
+ put
+> > >    pci_request_acs() on the detect path is 1adb7d31b051 ("iommu/amd: =
+Fix
+> > >    pci_request_acs() call-place"). I'd drop Fixes: and Cc: stable and=
+ post
+> > >    this as a cleanup.
+> >=20
+> > Makes sense. Will drop them when resubmitting. I will defer to your
+> > opinion on my explanation to the first question before resubmitting :)
+> >=20
+> > Thanks,
+> > Rong
+> >=20
+> > >=20
+> > > -Ankit
+> > >=20
+> > > >=20
+> > > >  drivers/iommu/amd/init.c | 36 ++++++++++++++----------------------
+> > > >  1 file changed, 14 insertions(+), 22 deletions(-)
+> > > > ---
+> > > > base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> > > > change-id: d58d0f31-amd-iommu-fix-acs-8f3d4aba8183
+> > > >=20
+> > > > Thanks,
+> > > > Rong
+> > > >=20
