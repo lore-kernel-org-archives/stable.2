@@ -1,103 +1,129 @@
-Received: from mta1.migadu.com (out-194.mta1.migadu.com [95.215.58.194])
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E9E47D93B
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 16:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5DD47D92E
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 16:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787244836; cv=none; b=tL84HmODqeepHPw0YmpWMsbcDg3s0KS/obWsMis3OF+hoFdof8w3ENGTWu3VzFINyMuEet3i03xj2LDoPUAFg51wkTl8zfaHNYcUjoVG+2utqvAp0uKCmAg0FAfpisq3R9sVEeRtJKnZoDi/X4rS5k0vqBi+0I/YPZe4Cl+bL2A=
+	t=1787245147; cv=none; b=gzyBlbXzgOS/nR4/67yAYNiMuWMT8c5BEUX6H0bc33y3kenBLqXvqkeTo38M2jIknrzZBhk6pHLJPi5/rWbxQiXgOEwFtlresFC/ZznODBZ9JVxiqROHWrY5hLzpz0OLjrGbqsea0q10UbMoAR0t+CnKHHIIcEv6nrNA7ZCFN+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787244836; c=relaxed/simple;
-	bh=S7ONTvPc0AWI+FMhf0XWlwa4LGzte/bD1qitLf+XJMM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bSNMXh+j5m28V0yH5XxSqI+CoDfni2SCnVEVlEhmOOMNjgs5kVlIIWXUIKN1TbVTZA+lHtsGfuYR7WJcsbqPYEyCnyL8wA6BtE47OVXOSBA3FD7CK1xv4KtKG44OTIEUqmWPhbyoHK94EI2/aGBzbAnIWpEDfopSf6TBgANlsHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CiQXfyz1; arc=none smtp.client-ip=95.215.58.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787245147; c=relaxed/simple;
+	bh=g7LzAuK2LOv99pymj27NbqyBqTriUpGB4sSudd53pnA=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=rHBseZaoIErAao/sTSSdKifAtLeoEMvFnvtxXfpDTioeRwlXz+y7tfm4zR30mKIHxWRkgBrFg6cgPmMifdyfkQTMWr6MVm0qp9RLYAprLaOuhHEdjVuhuiLhMQHzxtAKB9rSf2WQ985oKpfR7siC3HK9kZ9Yc8wWHdNWygna7Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=ZbHJ9HWW; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CiQXfyz1"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=S7ONTvPc0AWI+FMhf0XWlwa4LGzte/bD1qitLf+XJMM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787244832; v=1; x=1787849632;
- b=CiQXfyz1MeO0xhtEbS/v2P2F7gEEtMu4pyCMo2sEvWauuiAX0wkJ8zw2dOpy/PPlaAVKTmFA
- OF8IWfCfQ92hbkEmof1D8gASJY/u/iCiZ/BOiEuY8XMJqOYnWL0YEnYV8cuNUjIcyvWxEzWKk5Y
- Wh3O8wypWt89N+/tlo7uDQl4=
-X-Envelope-To: stable@vger.kernel.org
-Received: from localhost (2602:fce1:44f:115e::)
-	by smtp.migadu.com with ESMTPS id ca54f914b327986e;
-	Thu, 20 Aug 2026 16:53:52 +0000
-X-Mizu-Trace-ID: ca54f914b327986e
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: pfalcato@suse.de
-Cc: kas@kernel.org,
-	usama.arif@linux.dev,
-	hughd@google.com,
-	akpm@linux-foundation.org,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	david@kernel.org,
-	dev.jain@arm.com,
-	liam@infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	ziy@nvidia.com,
-	nphamcs@gmail.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com,
-	stable@vger.kernel.org,
-	willy@infradead.org,
-	Lance Yang <lance.yang@linux.dev>
-Subject: Re: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio on zap
-Date: Fri, 21 Aug 2026 00:53:34 +0800
-Message-Id: <20260820165334.36401-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <aocFPRgqieScf_yo@pedro-suse.lan>
-References: <aocFPRgqieScf_yo@pedro-suse.lan>
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="ZbHJ9HWW"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-c9cf07d2df6so85562a12.2
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1787245145; x=1787849945; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bl++BI8L/JYh+VPKL8SUK1hPKnphWEe+DHbUpZbMtS4=;
+        b=ZbHJ9HWWMTjvVQ70HTxFkSA8G6oMA0AvMyNgi+aXGZSg4Z2zd59QJ+D29GPa0SeIuL
+         XFnTcU7s/YCvwah9rU5Mk3ikEsD2Jcf6lcDR5CrYhXZ/jqWXctG4WLfE/uftOzzs9Mgi
+         Ot/f8zAMDuugOxdH7hiF3zTXDPEv1ghnXj8fu4OBA1PMVR2T/0L9aJ0z9grBCttsQWRN
+         ijlKqKhT1N0r7yWBBw/AcDajSqJ9eEENtFE+0JfIdDJ2C6K+UFPhFnfKjugKs9fGk7il
+         hCgXdM9J+qph+ygNGYw2j83ehGWWiblHV6abPr2YlmTciWyqi0e+Gp4HMqf1yr+J0fr9
+         ucrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787245145; x=1787849945;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bl++BI8L/JYh+VPKL8SUK1hPKnphWEe+DHbUpZbMtS4=;
+        b=LujTz/LDFd/t1jVh3OLC4nwLYk/20g7AZzoa47Tz3D1dxFXHZKGe18Ca5o5uPhGBO1
+         v2KPktL0CGcLHF3DRmWHpyRdThpcd9RyHr1uG7LIr3jTdEu/guGZKKNYmHTYF/NREnsi
+         dA9womuOaI0BpW75Rk2x4ktIRIFpGSEqpxgxDBmIKQL0EGwthb0mbU9Cll1e6rsB4/hR
+         PBjRcoBqrL/pvWdHaL3KLDGo7IQqJNLhDoMiFrw8QrO8NCovHoM4kvu9ni/QpUHPg6iE
+         EAh9+71IV2up15UsFiVNd1RFXDWPp2HKIb9R0vNHFBVhj4B8zXWowkQj3DoldDpYGq0m
+         P3PQ==
+X-Gm-Message-State: AOJu0YxpTt1fk/GHf+6cMW9RjfXIyyWafcc8CoN6C/EkYcxYKB3LKBQF
+	U3Df/KKzwuTuHuvgfmqFTtNmX65UyCORpoEdVtlkWFMEmajpEYBx9kRefacEOYME9Gsz49yolrf
+	a+Fr8
+X-Gm-Gg: AR+sD11GbhDrP5nuyjmfWgYG2qRAY8ZKnW+WkyY7r6Hzk7vZAvb2fEGNqLb9xH/A6NM
+	Xow3PHBT36AbsewZWPLvqh8ZH43TCyQUwYS0tH0KsTy/yz4XKDffnvOnMXQHwqfnJt1ZYamS1bK
+	6wisMATj94v6yCqgluokTVeBeHoT7j0FW530iVpksnntaiyBO0JW5F9IKLmkfBOF6YRNlK8/xFz
+	/3Ktu4wboKuRjzcDoMu89Z2BmxwXJHICrIMEnHOOs8Q8gDDUx20Eao7N3N/XhA4iei81vBHZxXw
+	7w1iM8/9VWADf5u8pz76IgOIxGquZvvtBe0ZmcvKKTUiG/bIMeem6MpmS/lTvqdOUe2jI/mSuHz
+	O0EaSVUALQStgXlO4i/l1VYN9k9vr/JEGnhXb1P45YkWyHG3Vr5dSyVQAX0dNEWHBQGAJesMiqS
+	/1jQdaCSOjajdMXnQjupEDSKfUI7mPlcOuBfM46FEk51dLOvv06+1/
+X-Received: by 2002:a05:6a21:3295:b0:398:c0ba:9ceb with SMTP id adf61e73a8af0-3cd011f4081mr25902843637.12.1787245145328;
+        Thu, 20 Aug 2026 09:59:05 -0700 (PDT)
+Received: from b455de3d9de8 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ae89189sm18438006c88.14.2026.08.20.09.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 09:59:04 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-6.6.y: (build) call to undeclared
+ function
+ '__struct_size'; ISO C99 and later do ...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Thu, 20 Aug 2026 16:59:04 -0000
+Message-ID: <178724514348.764.5467634857434251479@kernelci.org>
 
+New build issue found on stable-rc/linux-6.6.y:
 
->For some context: we were discussing (off-list) the recent report that
->systemd-journald had horrible write amplification, worsed quite a bit
->by large folios. At the moment, there is quite a lot of write amplification,
->but _only_ on mmap writes (if you look at the write(2) paths, you'll see
->write_begin and write_end which tactically only dirty what you actually wrote
->to, block-wise in the BHs or iomap IFS). This doesn't need to be true.
->
->What we conjured up was the following: since WP faults always happen on PTEs,
->you can simply dirty the block(s) corresponding to that particular PTE (which
->naturally points to a page inside the folio, whether it is large or not, doesn't
->matter). That way, you can avoid fully dirtying the folio's blocks. This is
->something that ATM isn't done by any filesystem, but it really should.
->
->Obviously this whole idea is thwarted if we keep writable shared file folios
->PMD-mapped - you can't get meaningful write notifications apart from "someone
->wrote to this folio", which isn't particularly useful once folios get 2M+ large.
->So PMD-mapping on a shared-write fault is antithetical to getting useful,
->granular write notifications to filesystems.
+---
+ call to undeclared function '__struct_size'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration] in lib/overflow_kunit.o (lib/overflow_kunit.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-Just checking I got it right ... for a PMD-order file folio:
+Log excerpt:
+=====================================================
+lib/overflow_kunit.c:1128:24: error: call to undeclared function '__struct_size'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 1128 |         KUNIT_EXPECT_EQ(test, __struct_size(two),
+      |                               ^
+lib/overflow_kunit.c:1130:24: error: call to undeclared function '__struct_size'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 1130 |         KUNIT_EXPECT_EQ(test, __struct_size(eight), 24);
+      |                               ^
+lib/overflow_kunit.c:1131:24: error: call to undeclared function '__struct_size'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 1131 |         KUNIT_EXPECT_EQ(test, __struct_size(empty), sizeof(struct foo));
+      |                               ^
+  CC [M]  drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8183.o
+  CC [M]  arch/x86/kvm/svm/svm.o
+  CC [M]  sound/core/seq/seq_clientmgr.o
+3 errors generated.
+  CC [M]  net/sched/act_gact.o
 
-read-only mapping  -> PMD-mapped
-writable mapping   -> PTE-mapped
+=====================================================
 
-Then ->page_mkwrite() could dirty only blocks corresponding to faulting
-PTE, avoiding whole-folio write amplification.
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
-Is that what you have in mind?
+Reported-by: kernelci.org bot <bot@kernelci.org>
 
-Cheers, Lance
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:d6e00b8a47b68998c5952401dafcb399cd60b7fe
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  0ce9d61969cfccff44a3ac2fa8345f2915ffe708
+
+# Builds where the incident occurred:
+
+## i386_defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (i386):
+- compiler: clang-21
+- config: https://files.kernelci.org/kbuild-clang-21-i386-allmodconfig-6a871ffc62f33761c0f11088/.config
+- dashboard: https://d.kernelci.org/build/maestro:6a871ffc62f33761c0f11088
+
+#kernelci issue maestro:d6e00b8a47b68998c5952401dafcb399cd60b7fe
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
