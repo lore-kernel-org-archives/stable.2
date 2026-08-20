@@ -1,35 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142133BCD0A;
-	Thu, 20 Aug 2026 20:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C5D3769F5;
+	Thu, 20 Aug 2026 20:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.128.210.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787256060; cv=none; b=cpn3QqdBSDUCJeTZuMPYuxkEyGlE5/TeB1orEAhpudaQYdi3y5ErTXF7LHI/jKzXUmLr+3n9//0lUkzBZ9+kvGHIQUjoHmsqty3Q7gHppNlv5FKv49BBrF0RXM2oqjc8wHyFZN82jdVeJGEW2W6As6AGGpYoCxfy5zVIyw/rKPY=
+	t=1787257501; cv=none; b=eJ5NnjGwYXWABwCkuHxAa9LkxQqQxQMGYrh+JB/UpBfTXcFoOhmmAimc+udgr6shllCptRuI9uz96OCFvJv9Z5x+1rQnJ04LCVWd6L5hH54osiGNeE36YeLUR6iU3ldr+dkk7cnop5kULuG3YrRnVMJq65kEevljhN0mBxUC13Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787256060; c=relaxed/simple;
-	bh=8g61RoNHQqAzOOfdY1lbZi9krehjtB0P5RqvcnbLdGI=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=kq7KX7ADjsJzGwwgBQfCODqmjCBPDKcYBsrs3PkvmD12j39x5ljTNfY6U8qYkXT+peGGtRzVGUJtFgOQCkV36VadaRy4xqeuVxaL/YrzhWTCaXSi6+c0Kto6tKnAiJNtq7Cd0ZoWpasey8EG/TaHNitUJ0/FZRpXJVVzQ5XqzI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUVmUW9H; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUVmUW9H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A530C1F000E9;
-	Thu, 20 Aug 2026 20:00:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787256058;
-	bh=DOs0n9SEm4ByeHFXj/fa0wKmj1XGR2iTgtrSlS1at0c=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kUVmUW9HxZlcNTGBcG68Ja3Zh5v6gjGZOOcBQUposCjRnsGtd+XyACBg0lysMSk24
-	 NJRyU3gUb8Hg2itv4O5ffHfiK8VQ+7/hqLnYcMwzZb5+GP0RqGxieYeW3whECmpj4o
-	 yWcLVZquIleYgfc3G0yMG/+o7GbT1C46vuSJbWCMWyFXUTHDXItvk+fY0SAzHevYFb
-	 uEAnOoCeRhk3YHXQuvAys9rlMUzTtpIuIYLGXfCmcY+ELzNaUSclVLUVbWRfEtPOxk
-	 6mj1WwKU2h+j3sozwkVO9ZVB7wAIWhBStI2N/CzwmZiklvsgjlZyZv0NMF2BRvm8ld
-	 kll2HQmzDZ+pA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19918392445B;
-	Thu, 20 Aug 2026 20:00:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1787257501; c=relaxed/simple;
+	bh=nMbklXAK425cklzrDdlNs21CdpLuywKvf8esAIb1Crg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=D4qGEoqfoXdtU9d5m83Gm6njzuLOprgSHi3KKHUpAxqEfJSxosi87eYJnGjanoyPx6amw49Y6wgG+gP/Q8K48RfH6pxO0ujOtHHJY5F8HYlcgfTQqejiUODIi25JNbjFps4JBa9/uUVmtDl9afEemrvxcDvyDSr61nLrj3XAxiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net; spf=pass smtp.mailfrom=librecast.net; arc=none smtp.client-ip=185.128.210.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
+From: Brett A C Sheffield <bacs@librecast.net>
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	Brett A C Sheffield <bacs@librecast.net>
+Subject: Re: [PATCH 5.10 000/235] 5.10.266-rc1 review
+Date: Thu, 20 Aug 2026 20:24:34 +0000
+Message-ID: <20260820202437.52365-1-bacs@librecast.net>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260820145216.426568665@linuxfoundation.org>
+References: <20260820145216.426568665@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,45 +49,13 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] mptcp: fix uninitialized local_id in syncookie
- MP_JOIN
- reconstruction
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178725600863.460874.9689834140806639279.git-patchwork-notify@kernel.org>
-Date: Thu, 20 Aug 2026 20:00:08 +0000
-References: <20260815115205.197151-1-harshitvaru666@gmail.com>
-In-Reply-To: <20260815115205.197151-1-harshitvaru666@gmail.com>
-To: Harshit Varu <harshitvaru666@gmail.com>
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, matttbe@kernel.org,
- martineau@kernel.org, geliang@kernel.org, stable@vger.kernel.org
 
-Hello:
+# Librecast Test Results
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+020/020 [ OK ] liblcrq
+010/010 [ OK ] libmld
+120/120 [ OK ] liblibrecast
 
-On Sat, 15 Aug 2026 17:22:05 +0530 you wrote:
-> mptcp_token_join_cookie_init_state() restores remote_nonce, local_nonce,
-> backup, join_id, token and msk from the saved cookie entry when rebuilding
-> the request socket for a MP_JOIN 4th-ACK handled under SYN cookies, but it
-> does not restore local_id, even though the SYN path saved it.
-> subflow_ulp_clone() then reads that uninitialized field and stores it as
-> the joined subflow's address-ID. Because the request-sock slab is
-> SLAB_TYPESAFE_BY_RCU and not zeroed on allocation, the value is the stale
-> byte of a previously freed request socket, which an off-path peer can
-> influence by sending concurrent MP_JOIN SYNs. This corrupts the path
-> manager's id-based subflow bookkeeping for the connection.
-> 
-> [...]
+CPU/kernel: Linux auntie 5.10.266-rc1-01309-g7ceedcd42fa3 #1 SMP Thu Aug 20 19:44:41 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
 
-Here is the summary with links:
-  - [net] mptcp: fix uninitialized local_id in syncookie MP_JOIN reconstruction
-    https://git.kernel.org/netdev/net/c/b878dfdd12d7
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Tested-by: Brett A C Sheffield <bacs@librecast.net>
