@@ -1,113 +1,117 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BBC38B15B
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 18:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916373921C7
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 18:21:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787248900; cv=none; b=IhUZOfQOr0gv7X3AVrteOzytWK/EJpTUvnHe46kFqPmP8TiNw0tqJcOe/XmzEfoaLRHJpCHX9T4NjNMOQcuohN0jvpztyhudKEOol4m5TwoDjE1ftuxzTA3PSZSPcaab9zV3f4EaO518FMwnMRwDcI/c4k8LFRpp4TiCbGs+7CU=
+	t=1787250094; cv=none; b=IaauPQQ3/+cOoYNxZwoPxmZfEbiHaFyslv6QeU9lKK924JWDHPp+UwBYLIFJr7xhBFBFmRfwS5tfCU5x/D8JEubBev8ttWgNX9HKNGz8exsHRI5RSsaF9sDG8RLCpctOhOwbfnS096iY+jA9WqFYR9EFkvgvWv7/9W/d+PO+Uxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787248900; c=relaxed/simple;
-	bh=KxTpZF2RsrhJWGZKvLp6hljlhcEuDals4RgmZO58QVY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oPDz6U3FWD734lSm5d7QxrjZHTOd2lHKqYyK90nhQYEJvM+iyH7CwQ2tebk8VGtuyCbhTtt1qVwp/N2uO4L4L2xY1Aj211Ke18JId2o174igYS3dm/WHb/IeMjcM2pwLQUSBgwWYcIQncrRQ9WP9KP6Ov3RtPq6IPNXjWKYh/NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BPvTWsws; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787250094; c=relaxed/simple;
+	bh=dW8AsQuFHCyfSA8kPZVHvQ2h7iRXcquypsxriDb5zFY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=f2KRFEnVGchmJ6j4jQ1RZ6eEYRPX2YQEIdPWbPvh1E1s/AhOTfCbPRZhK/8acC17VWAqv+OUm+wWavKWZkJGSEsEqOBXnBPXLxdwpmcrvAd44NKO2iteEqlLf673Bjp1yCwzuWEOiV/ORR2QUhRzythCDl4Uxgdx44ePKGAdwWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rK1GCok1; arc=none smtp.client-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BPvTWsws"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ce7d2adef4so2039265ad.3
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:01:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rK1GCok1"
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-84e024d2129so160953b3a.2
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:21:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787248899; x=1787853699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1787250092; x=1787854892; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hlqcwbHmyeOGRtWViVrwh5tgOZkhPcaz2pk+ge5vkPk=;
-        b=BPvTWsws7fAky9dujUG+h3oZfFIvB7iLoWt0vzn7w6womNURGTouSi6vqsX8jhl2e3
-         Ip37OWaxZ7uy7zwpCWGhd9t3Lc9oI9+BxOQoP/KWRuF2v+JoGu2c2FnUtmJlU5lToCZ1
-         a+tsq1V+EYTiHAPn/sM/LlarEHJYE8jsWsJecSXYVQUdsVD80hUpoqysu2AyMePOBOsw
-         RImosF2b6JUlS4W4wA5Y5GLg0Pfoe6O6zHLp7B1qhPab6lZvUiJluKIRYv/zIjuvp/ph
-         PaI4EjcBFORHkY3Dqvo+IM48ymf+0dMUJJIU5yfcW5cc4QsLhzE6s686PLj2k/HtkGr+
-         GwdA==
+        bh=8uRtyP+BmPXejyGZnMV24TPbdVsG+TQpKLJCr2qOAFI=;
+        b=rK1GCok1pa7D3m9fuy+Ykrw3wlboer79GpK2leBCdnkrm9LhzB26BA0Oyc9rcaOzab
+         yCU3k/WRG3Hf0rYolEUuK2RvVp6YUVa0krrARsDcwqhVj+ZvIcAapJpK+D/mTM9KRCVk
+         Io1QNuu2e6mHkpIf3qdCEwKktOOb3Nl4z48RH70BhxzIvd6r50ak1vMiaXxpUAQsnx8c
+         8KcQjyBiba1q2R87xd3rqJW/7tc9Lv+7V/XgOpEJz0qVUAZH2W+kvgqX5t5b9CqzEIXV
+         GkS9KC7+xkoaWyAjPugXE97Q4Otd5ZUaaKrKlJFXnLSDx112jA7SI0C8x/H2TitoGByr
+         lD2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787248899; x=1787853699;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787250092; x=1787854892;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hlqcwbHmyeOGRtWViVrwh5tgOZkhPcaz2pk+ge5vkPk=;
-        b=DVeVpBaJaRpqCeYTx66ZGe1MaVxvOxlDK/D0tCKEIjP57wWQt+9DdVmNi5aPsy7cth
-         pbNmHZ3lkkJU+V4OHh5ckYSSx09kBPZX6YAIITGgfHgOY8UQV79zZn/ssq6Sl/s1BHTE
-         OZ7l7kO59RWPqsbG+GlHrAUEwx0byPVa0tyGg38otChIrT/48EHBkYPLLzyIgKatRdx2
-         5xDJIolV/c0Ai3i6Uu2l3cL4gt3N/l1MKPwGGbL7crkLRAh4ByPOZAu6Cm9brioLCKjZ
-         hvOnqcgm2HFD5PYNXxo2chFCMbB1p+AwVKFWeCF6WA+FbBNYB6oBtzDIe5jQEp6PFAj1
-         JwNQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrywdhTiL15GheKGMMzDqUiwg2d+gLzlznPjToUXvoRlmi/jN9bt4RLMknwpzGRcirhpZhA7Io=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEZEFikOGPJo03+v5XZPwYhESpzezMZZWuvbSsouiT5qp4EVyR
-	PctRvGNf4Vpl4XgYAo43rq9H2ZRK1mex/NE0wHtVRL8KimUS/ubgSCZo
-X-Gm-Gg: AR+sD12rZInK0GwIxFnrAsAt2nUiDuA093Bg5S+MF6DGqJ5GkF2OB7w4+uCKFATTZ09
-	zyLIL26uRVwmRTgzfhH6kToyX3Mj7+4jHm4isFbJNIM42F/5QgpCYYRFr6mQisfOtRuDBOx4L5i
-	CgNfThOrNYu69tp9zmIV0/fta/i2Trf2EBKfoqKNxhF0E+NBTBR4GIF2awJBkpwRHCzz3nwC+2M
-	DppqzEQMmS9aMNyG0Ttg9u8xTXg/8Ni3H+O9G79i/Ggl6FibJ1frsoWL544ozkKQg2taSVB80T+
-	xXod6Fa1QlPBNOVT4rWAJt5s2fYPQE0hohte3KIrJ+X023Pqhs7UPkP4WyGKcSK0nFr4LYekg7I
-	SiLNdmKImJqMN8W4WrM3kD2T3AdPdVlX+YvyLoJAoqUnZ1r6N8vzq773XcIO2SmjbM2XjWhJW1k
-	R6gPJ6oxlUY//rJ0CT4899ZGec5zLfSYsweUSNKjB875tfxB6Fr438LBTKEhR625o4UP4cHryWi
-	ma0yqrnAhINRyA=
-X-Received: by 2002:a17:90b:3c84:b0:390:b41a:b92b with SMTP id 98e67ed59e1d1-395c3542369mr616048a91.4.1787248898010;
-        Thu, 20 Aug 2026 11:01:38 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395a9e16aa1sm1217463a91.1.2026.08.20.11.01.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 11:01:37 -0700 (PDT)
-Message-ID: <52b90ab8-2503-4cf1-a6aa-767b3c2981d3@gmail.com>
-Date: Thu, 20 Aug 2026 11:01:35 -0700
+        bh=8uRtyP+BmPXejyGZnMV24TPbdVsG+TQpKLJCr2qOAFI=;
+        b=IAp7cESUZmTXBNOTGNTztBdZzFbw86m/ysADAq8CPOGWYx88j7SxJSihocX7Ph6I/p
+         JcxEnXRwNuheWKJ6JGjtikZMo6qQbkCCwqLwOYvpDd8VvAqbhK7L32HMUU8+ppTpT1IG
+         JGHyCifA09l+b6aLnCfJBso73RvztR24a+PM4Ufa4ZGOUvT3LRLOIaJFXS0ICPyR+x4L
+         PuudyhABiZzzgjiDR6rZzWbqGtR2/Jp1lu6Ptv8P0/yVm16wExVURucmsbavW9pIA9B5
+         HWg7Kpd/0qui94l5F+n6dbyARwTmgIGPYx8jHTbtBAr0vmee11Nyy3VEmrjH20X6SZCx
+         lOPQ==
+X-Gm-Message-State: AOJu0YzeiJpDPlUvEz13xpBJlWnZBNvZsIHoymvDhF1UWUAN30CfBhsH
+	iJfXeA+B3uLVTkoYVk0CCaK6CJGncXq8ck+/9UFYellJ5UwUDzA90yvXfXgSsIoyI9PLvrytJDo
+	iwl4yaq+jPnEx4oTA3zwbsvMU5suz4PTnRCEq2g2znjLUxvrCx/nIVLPKSIunRCRMMBTSDu3J7F
+	hDaFcJLj59yD1B8zzDTfDwmIXFGfQpjAAvV8vB/COwrM4XFPPK53o9utJQUy09CeY=
+X-Received: from pfgt21.prod.google.com ([2002:a05:6a00:1395:b0:84e:1951:8efd])
+ (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:10d1:b0:848:5540:2377 with SMTP id d2e1a72fcca58-851d3a7b9bemr23710139b3a.17.1787250091329;
+ Thu, 20 Aug 2026 11:21:31 -0700 (PDT)
+Date: Thu, 20 Aug 2026 18:21:28 +0000
+In-Reply-To: <2026082058-encrypt-lividly-0296@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/272] 5.15.217-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260820145231.229664293@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260820145231.229664293@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <2026082058-encrypt-lividly-0296@gregkh>
+X-Mailer: git-send-email 2.55.0.766.g2966f0265a-goog
+Message-ID: <20260820182128.750922-1-hramamurthy@google.com>
+Subject: [PATCH 6.12.y] gve: fix zero-length skb frag with header-split
+From: Harshitha Ramamurthy <hramamurthy@google.com>
+To: stable@vger.kernel.org
+Cc: Jordan Rhee <jordanrhee@google.com>, Praveen Kaligineedi <pkaligineedi@google.com>, 
+	Ziwei Xiao <ziweixiao@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Harshitha Ramamurthy <hramamurthy@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/20/26 07:53, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.217 release.
-> There are 272 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.217-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Jordan Rhee <jordanrhee@google.com>
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+When header split is enabled and a header-only packet is
+received such as a pure TCP ACK, GVE will indicate an
+RX SKB with a zero-length fragment. If this SKB is then
+hairpinned and sent back out, the GVE TX path will emit
+a zero-length descriptor. Hardware considers this
+an illegal descriptor and stops the queue, causing a
+TX timeout and interface reset.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Fix it by not adding the zero-length skb frag.
+
+Cc: stable@vger.kernel.org
+Fixes: 5e37d8254e7f ("gve: Add header split data path")
+Suggested-by: Praveen Kaligineedi <pkaligineedi@google.com>
+Co-developed-by: Ziwei Xiao <ziweixiao@google.com>
+Signed-off-by: Ziwei Xiao <ziweixiao@google.com>
+Signed-off-by: Jordan Rhee <jordanrhee@google.com>
+Link: https://patch.msgid.link/20260807224315.234152-2-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit 6bf14575c65569dcded90ef78afb8a6d57323f04)
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+---
+ drivers/net/ethernet/google/gve/gve_rx_dqo.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+index 3655f48e9b46..839222ba9e91 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+@@ -850,6 +850,12 @@ static int gve_rx_dqo(struct napi_struct *napi, struct gve_rx_ring *rx,
+ 		rx->rx_hsplit_unsplit_pkt += unsplit;
+ 		rx->rx_hsplit_bytes += hdr_len;
+ 		u64_stats_update_end(&rx->statss);
++
++		if (!buf_len) {
++			gve_enqueue_buf_state(rx, &rx->dqo.recycled_buf_states,
++					      buf_state);
++			return 0;
++		}
+ 	}
+ 
+ 	/* Sync the portion of dma buffer for CPU to read. */
 -- 
-Florian
+2.55.0.766.g2966f0265a-goog
+
