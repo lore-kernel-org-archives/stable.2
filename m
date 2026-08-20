@@ -1,114 +1,82 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from unicom145.biz-email.net (unicom145.biz-email.net [210.51.26.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0546341660
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 02:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787194191; cv=pass; b=qSHQx4u+c+1nlJKE9UXmSU5iGCQw5edZbshgOtLG4T4cBTNUZnWdKX5Tei0Zl8IOXK4h6vPgQkvQuABDP76KF+qklVm3FacRjoraWj18sGp40p3otGp+cEzcfMjzcyoA+wSPw5W41QftzdFP+1LeDerYJyxUh7pFqrtLWfPri2U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787194191; c=relaxed/simple;
-	bh=uLQMpCgvNQT6u8o3sYbGoMAuGk4Q75uyM7cKvkGYx4o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=addaUhcNGwoS9eGm9O6nSqbCJXf6V1g3zC+ALT+5Yu4nu9b+FzoRLS4Q2ftVmT+MNKPTMt307UbnAhAW/mhdCQOg16GWYCRh1fNree/HQJ33ajxwC2mML3qEdPDgUqjRC7KF54FgN8UiCxrNVJ6qUY54saeSjaIY/AHmyBO+JD8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gB87ODFA; arc=pass smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gB87ODFA"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47f92e3c14bso1433063f8f.0
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 19:49:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787194188; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QTPStyX3vgpDY+YwQzXmOHVx+3VSE7aMYwWYNv4rio+0GMeVx+gUSrWyl1ZJ5cRUf8
-         W0frY68Y6htTA1TCmnS65x5MPKjvpn/BBS34Pmc4HFljnuE/lV1+fmOfzh82wsmJj1q6
-         vaVnpC617V4UmZXlkzqMm+JtcXYWKtcbcrEzmQqkcEQlClVSTkz/DoWtGMe9IjQRmg/Q
-         LLXMoAPc54f0v5nvm7h/KQZtdkCSQegFV0Eksesy6I19O0Oi4KVSxeTARVsXZL4nuAei
-         hcF0zWBh5hzz9HmN/O6wRSvkSGe5Cirn71OnC/hDy3NXI3bX+Sy0iACGpgbv3+gfzEah
-         O63A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YjNmQZYAyRysXhmwM6mRYoKV8JMLaurjh7mibsD17wg=;
-        fh=IN7egZaXYaUiWPpUbj3vLQjtStyrlwCEooflBjB5jNA=;
-        b=EepXpLRv5Nry7q8duzVH2tOmv9aJ3LjWHjHwfyBdrkptDeU2fWfRmmeHQGNy29Cxl9
-         OSxtZjK1NLGVKbf2Cn+egphQt/msbjibmgXC4xih/4hLUd4Lqp9oMjv1GxNA4lNo4k8F
-         IM5vOxXtjouDs3jloiQxaRYEpNQ2JNAxeqmvxXh7CyyRsQk7++RQTzXyrBbFa0TVx8og
-         dCThihupRkwfsEbGlhcTp3QkLpWCY0p6nRQ+DRuaHmwkqZTX5P9bZgKOgGaDSqKcx8Nc
-         ZhwsT4hMuXokZV41QRT5pdkD1GArTBPFwDswJEPebAva00gyJmvxOi5cd9Cda3hCIQur
-         B1Ag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787194188; x=1787798988; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YjNmQZYAyRysXhmwM6mRYoKV8JMLaurjh7mibsD17wg=;
-        b=gB87ODFAiekpGSLtddWdaUdwXpMTmndqQLOpNImKtbN7uLw7It0EztFVs6A+k5dF/Y
-         pRBfBHwzg/SEXjSOF1kUNCWvGnYHCj7mEfwF+KONs5mPa3svYJb7lYz09z49j5IEUOtD
-         zga/KVC8TdpXgTFE6jW0OdwLSFhzj/okaFFh3cL9MRHNt/t+c/KpUCw6PWIrRfRvcq7i
-         pgCIMbwXfUKHTK00EmngpW/t38UcUfehICuuJJUwKhYZnNmM+3fJv0oet1fRkpsNOWHL
-         aLwqpNLXtV2nUIvwpzP070IUYcNBFxW+qV0fXDADnh/5djbd+GVkD+1TKk8w77uwgwz3
-         dy1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787194188; x=1787798988;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YjNmQZYAyRysXhmwM6mRYoKV8JMLaurjh7mibsD17wg=;
-        b=hJJgVd8qbObbYWVZPUZ+r4i8EWr+21xX8LTgX1fzigLE0Rjfj1sUIDzc6cQ9ZxAQv6
-         hXtOkW0CotPflzezpOoalGX1/sfdvA0IpF4kwOz8b4OYfMnjA2J9UtDu8liVpxVjTlyc
-         0ZNiQQGAwTA5+0ptYjxAuCFI8sRqscjidfiRp2WIaboXkBq+uyqAhbJCcn/IUBCY4mt4
-         Vcdc31rV85UgdV1EY3eZzGOiA8FcBBtR4H3RylDqZbB5GWH75ZsOgKk3zcnEq0bzAFqd
-         +9AS/CjVoPgBWxY2mo4W4+EANhzfPIrDkWz24WInzXaR6i4Te5K23NUngaKKZ5UGYVJF
-         KDUw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrqx04cJcgqQm8w5hqwC1sD7hhhakA4QhPBNJBZcq2P7ZCv4cpAkaTybmr3U4HvcnbbLXRCJnE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lj+m2djMYQBU5LnxPbaO3yHW40QQC6QQi2vAOhCnjwFOJsGa1f
-	AjHxEnaFu8JT4ese79onW1I32GvhaDoWUgtuomNeAFV9VSkrjjoynysNpoGx44acLc0L/t41SOm
-	+1lyqsVRLi6UkmL4knl2+iKU9fxNurOI=
-X-Gm-Gg: AR+sD11TL02rUQdGP+BgC5cBH2CC9CfNgGHg+MhWeW34BlVu87dLUmCEKw8/V0A0gPC
-	1Y6IxyA8MGJrc6lB0FTrnqjz2A7laa/BTxe2/OuakkQqpDjlSKqSIDvy+4Ly2RE0o/vbLtir2Fd
-	UMwBct3ioC2AhRthX340SR+Bfmv/bY3crNIQQ6aCSDH/BHaVKcO5zXftm56ib8nCn7ryduvbPaO
-	7xBOv5Z8AflOvQmcpqL/5I+sla268YwGfH2U/gCkkJsxESOERLPFpQJ+gdfV1RqbCT/iiccGgu7
-	OAIKYH04tyoSAoi6SzttMnHF0LOBDvCvo9nAD1XXeD88cGnu/clPWghM8NsnQS+LvWTysU0nJDe
-	J3g==
-X-Received: by 2002:a05:6000:2605:b0:481:4f9b:282b with SMTP id
- ffacd0b85a97d-482b1ff75bcmr15946767f8f.21.1787194187872; Wed, 19 Aug 2026
- 19:49:47 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C222F0C74;
+	Thu, 20 Aug 2026 04:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.51.26.145
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787198711; cv=none; b=VRHUuQemc9zS+toMcXBtyxEmpH+wav7R+scOz1tw/sFg8IynDSAnicu6QZO98KVQvNAqzzgWaOHMTJyB3pi7CcLZjz6ccY+moWD7QbLw8Fh4gQzAkJ1H/Ueib7vunaWl4mz2JDwXlr4erO6NFhiXnDnCSNfcgonbphDfXsNN/iU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787198711; c=relaxed/simple;
+	bh=IncoSXmiVEgh1NOXkvOrRs+CKvgnr4mEUn5Wgd8xDO8=;
+	h=Content-Type:MIME-Version:From:To:CC:Subject:Date:Message-ID; b=KDWRdSnBSnIBXanP22A24TEb9JUTODjPZUr80qMf/aKzlX8SxMVCFfGoIwmXepiHQFtu7vWnxbPqngvP/EA6E51lYHB3QmMhgUQj95o4gklJR3Xyd1fTO5+qbJA4J1soUj0aJtG5IU3y6whxEXO7fkyuMHaBZVDzEEOT1f2SdOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=longcheer.com; spf=pass smtp.mailfrom=longcheer.com; arc=none smtp.client-ip=210.51.26.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=longcheer.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=longcheer.com
+Received: from mailsrv01.LongCheer.net
+        by unicom145.biz-email.net ((D)) with ESMTP (SSL) id 202608201203457171;
+        Thu, 20 Aug 2026 12:03:45 +0800
+Received: from [127.0.1.1] (172.16.9.238) by mailsrv01.LongCheer.net
+ (172.16.8.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.33; Thu, 20 Aug
+ 2026 12:03:45 +0800
+Content-Type: multipart/mixed;
+	boundary="===============0251864241573272842=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260724025322.2341205-1-sammiee5311@gmail.com>
- <CANLsYkz+h6ONmvhgdfGLNu21J+LrMSySFw9sxRcR4ZxLwPfbsg@mail.gmail.com>
- <CAJciObG2OahhKz+t9pbA1yCHz4pFQLK6EKmZMwY2zxqD33SgQg@mail.gmail.com> <aoXdbENOmRRx2o6l@p14s>
-In-Reply-To: <aoXdbENOmRRx2o6l@p14s>
-From: HyeongJun An <sammiee5311@gmail.com>
-Date: Thu, 20 Aug 2026 11:49:35 +0900
-X-Gm-Features: AcwNN1WJqBXTwpFIPKhmgdYqdGaXO0a_j5pDFwI-7i8pt0LLpaEeILUKM4l4EAM
-Message-ID: <CAJciObH1ER73km1sf5RtjjoD+1cvcmxt4DsgX-n++=juDmo2Ow@mail.gmail.com>
-Subject: Re: [PATCH] remoteproc: elf_loader: bound the section header table
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: liuqi <liuqi@longcheer.com>
+To: <gregkh@linuxfoundation.org>
+CC: <linux-usb@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: [PATCH] usb-storage: prevent concurrent URB submission in usb_stor_msg_common
+Date: Thu, 20 Aug 2026 12:03:45 +0800
+Message-ID: <870f2627-aeaa-400e-9b6d-ee77eac42be6@mailsrv01.LongCheer.net>
+X-ClientProxiedBy: mailsrv01.LongCheer.net (172.16.8.231) To
+ mailsrv01.LongCheer.net (172.16.8.231)
+tUid: 20268201203451a44a568158615ebba493432f5cb11cd
+X-Abuse-Reports-To: service@corp-email.com
+Abuse-Reports-To: service@corp-email.com
+X-Complaints-To: service@corp-email.com
+X-Report-Abuse-To: service@corp-email.com
 
-On Thu, Aug 20, 2026 at 1:44=E2=80=AFAM Mathieu Poirier
-<mathieu.poirier@linaro.org> wrote:
-> I would assume that if e_shnum is 0, then e_shstrndx would also be 0.
+--===============0251864241573272842==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 
-They are independent.  e_shnum goes to 0 when the section count reaches
-SHN_LORESERVE.  e_shstrndx goes to SHN_XINDEX when the string table's own
-index reaches SHN_LORESERVE.  One keys off the total, the other off one
-section's index, so a conforming image with many sections and its name
-string table at a low index has e_shnum 0 and a small e_shstrndx.
+RnJvbSAwNTRlZDU1YWFhMGQ4MGVkYzkzZDI1ZTQ3NTBkNjdlOTA2NGJiNzdmIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBsaXVxaSA8bGl1cWlAbG9uZ2NoZWVyLmNvbT4KRGF0ZTogVGh1
+LCAyMCBBdWcgMjAyNiAxMToyODo0MyArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIHVzYi1zdG9yYWdl
+OiBwcmV2ZW50IGNvbmN1cnJlbnQgVVJCIHN1Ym1pc3Npb24gaW4KIHVzYl9zdG9yX21zZ19jb21t
+b24KCnVzYl9zdG9yX21zZ19jb21tb24oKSBvbmx5IGNoZWNrcyB0aGUgQUJPUlRJTkcgZmxhZyBi
+ZWZvcmUgc3VibWl0dGluZwp0aGUgVVJCLCBidXQgZG9lcyBub3QgZ3VhcmQgYWdhaW5zdCBjb25j
+dXJyZW50IHN1Ym1pc3Npb25zIHdoZW4gYQpwcmV2aW91cyBVUkIgaXMgc3RpbGwgaW4tZmxpZ2h0
+IChlLmcuLCBmcm9tIGEgQlVMS19NQVhfTFVOIHByb2JlCnJ1bm5pbmcgaW4gc2Nhbl9kd29yayB3
+aGlsZSBzY3NpX2VoIGFsc28gaW52b2tlcyB0aGUgc2FtZSBmdW5jdGlvbikuCgpUaGlzIGxlYWRz
+IHRvICJVUkIgc3VibWl0dGVkIHdoaWxlIGFjdGl2ZSIgd2FybmluZ3MgYW5kIC1FSU5QUk9HUkVT
+UwpyZXR1cm5zIHdoZW4gdXNiX3N1Ym1pdF91cmIoKSBkZXRlY3RzIGFuIGFscmVhZHktcXVldWVk
+L2luLWZsaWdodCBVUkIuCgpGaXggYnkgdXNpbmcgdGVzdF9hbmRfc2V0X2JpdCgpIG9uIFVTX0ZM
+SURYX1VSQl9BQ1RJVkUgdG8gbXV0dWFsbHkKZXhjbHVkZSBjb25jdXJyZW50IHN1Ym1pc3Npb25z
+LiBJZiBhIFVSQiBpcyBhbHJlYWR5IGFjdGl2ZSwgcmV0dXJuCi1FQUdBSU4gdG8gdGhlIGNhbGxl
+ci4KClJlcG9ydGVkLWJ5OiBzeXpib3QrMjJlYTIwZWYzYWZiNjc4NWIxMjJAc3l6a2FsbGVyLmFw
+cHNwb3RtYWlsLmNvbQpTaWduZWQtb2ZmLWJ5OiBsaXVxaSA8bGl1cWlAbG9uZ2NoZWVyLmNvbT4K
+LS0tCiBkcml2ZXJzL3VzYi9zdG9yYWdlL3RyYW5zcG9ydC5jIHwgMTAgKysrKysrKysrKwogMSBm
+aWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL3VzYi9z
+dG9yYWdlL3RyYW5zcG9ydC5jIGIvZHJpdmVycy91c2Ivc3RvcmFnZS90cmFuc3BvcnQuYwppbmRl
+eCBmNzliNDQ5ZDAuLmZmYjE0NTlkMCAxMDA2NDQKLS0tIGEvZHJpdmVycy91c2Ivc3RvcmFnZS90
+cmFuc3BvcnQuYworKysgYi9kcml2ZXJzL3VzYi9zdG9yYWdlL3RyYW5zcG9ydC5jCkBAIC0xMjIs
+NiArMTIyLDE2IEBAIHN0YXRpYyBpbnQgdXNiX3N0b3JfbXNnX2NvbW1vbihzdHJ1Y3QgdXNfZGF0
+YSAqdXMsIGludCB0aW1lb3V0KQogCWlmICh0ZXN0X2JpdChVU19GTElEWF9BQk9SVElORywgJnVz
+LT5kZmxhZ3MpKQogCQlyZXR1cm4gLUVJTzsKIAorCS8qCisJICogUHJldmVudCBjb25jdXJyZW50
+IHN1Ym1pc3Npb25zIG9mIHRoZSBzYW1lIFVSQi4KKwkgKiBJZiBhIFVSQiBpcyBhbHJlYWR5IGlu
+LWZsaWdodCAoZS5nLiwgZnJvbSBhIHByZXZpb3VzCisJICogQlVMS19NQVhfTFVOIHByb2JlIHJ1
+bm5pbmcgaW4gc2Nhbl9kd29yayB3aGlsZSBzY3NpX2VoCisJICogYWxzbyBpbnZva2VzIHRoZSBz
+YW1lIGZ1bmN0aW9uKSwgcmVqZWN0IG5ldyBzdWJtaXNzaW9ucy4KKwkgKi8KKwlpZiAodGVzdF9h
+bmRfc2V0X2JpdChVU19GTElEWF9VUkJfQUNUSVZFLCAmdXMtPmRmbGFncykpCisJCXJldHVybiAt
+RUFHQUlOOworCisKIAkvKiBzZXQgdXAgZGF0YSBzdHJ1Y3R1cmVzIGZvciB0aGUgd2FrZXVwIHN5
+c3RlbSAqLwogCWluaXRfY29tcGxldGlvbigmdXJiX2RvbmUpOwogCi0tIAoyLjQzLjAKCg==
 
-scripts/recordmcount.h:219 set_shnum() zeroes e_shnum from the count alone
-and never touches e_shstrndx.
-
-Thanks.
+--===============0251864241573272842==--
