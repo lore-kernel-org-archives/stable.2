@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551BF2F7F02;
-	Thu, 20 Aug 2026 04:19:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824A2377AB4;
+	Thu, 20 Aug 2026 04:19:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787199574; cv=none; b=TjxQiwuyVxO+s5bkYZ5Cx+vbVGi3Gk94LpMW0M1lT4frQB4wBofKZpFkMtdLRrUKqJ+xKw2wv/5QiBJPF48Z7nAJ05XfYj5YGxwYpnnoBiiVdC+f0/6YaZ6byI9+vlVB1KgjqfmV34J6JEKiiwK3GhyfUr+Eh87QVuLGMkA68Ik=
+	t=1787199575; cv=none; b=u4U15uQ1mTWSzwMe8QKjpsIjTCF3NrblHOZ5lfq2kHgEu4llrkBkUXrEKPN1KM33hApT3pe12GDf0IAyerTjh+YN/uHn3M7UMyF21CAyo8aVLflhZDVZxdsl05hrqFpAMFjmVLVe6F8KRAVKZXdqshPno+Zj8MctC+MFqjgojXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787199574; c=relaxed/simple;
-	bh=yqRH8GtvVQTmDYhvaOflztAX31gudXro+8rxQP7OHLE=;
+	s=arc-20240116; t=1787199575; c=relaxed/simple;
+	bh=dAlLbjRkxBfIrm7DUCRIRbmO3MyWus330Bamjg0il5I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dgHUsCUfOotshS2Uhz+iVyYQf2YAlb/eOqTTlNsakUQGVObh9w70ZgTIpipw2BxDpEPWnDlnF2B6rLMUBzZ0uRTSG97FpOdST5HX0/dphSAATPDSBgN4ZpHVKfw1/nuAx2GDtwrmz4BBzuAV36xm+ciriBNQXKQ6nPKwz3PTuKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KhecQZ7T; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GFn9A5rtiNclRT/BGgeqB5gx/dJoYaXQXaisGugUMudH+uzAlvoE2RGxjBhgr7zfrI+373BobEh27G/hClK/t7RAlRgCLXAp9+J4+b/OaXopLQ69GnJ+OYZ3fQD1aI70GHrYZhzPeU47Lklyj4S30E0KjVagXXsd/LDtiHPuZKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ma6Q09KI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KhecQZ7T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7068E1F00A3E;
-	Thu, 20 Aug 2026 04:19:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ma6Q09KI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452B31F00A3A;
+	Thu, 20 Aug 2026 04:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787199573;
-	bh=SQy1E+wP+JlSVRSFLYABlcoVI3rDiJOmU2Cj7iYxmXg=;
+	s=k20260515; t=1787199574;
+	bh=+R63TSIRcwTf8b7LANj525Ofhu06KmM2wt3KgdBq4cQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KhecQZ7Tsq3QGKLfbgebBz2DuT9BYar1o2vMbRrW+z7jprZn2jemC9Y1d/cL6mavJ
-	 FFFLiuwmj0uEeMKA7J3FjbbWuxBMDLo2gjR3EfaqEbJsWCAwPFPVXAVL+VqBOr8uAK
-	 rK9ILvdlNbDQBKC0UwGD3mx56nJCUmXsxPNU6BjoUR14NAfRi9e3lHIqGlB7XqAylv
-	 eSW7heBVAye9Neyuj+aki23ipdD6u39Z45+AkYRPbUbMRuL56LUBQWlKX/fXovHwhv
-	 6F1a9Ew6EkY5kL7L//vAUcJwyxCuSwSQOkUqTXyM7Sl6B0rh4x8qnJ5z4QRjyaajER
-	 GHhhq/wqfQG8Q==
+	b=Ma6Q09KI8yYT9QxwA0OLAtazDNnEWcbwi+7OHKZMIP96Cel8kTuXQu+huKGMGtUgD
+	 6ruuilVOFqho6a8VIEJo/aMQNlrlvaRMka5IIypLz/Ve+6SrjaG5F3bH7d9eniXbHU
+	 DtA5rKpnz9pZi9Xi6zPVg6KWc5qyKI6ucOj1N5WV55ddh1MZBAUZYSs4XnKqIITo+8
+	 bwVj6INLGoIMYLdXlqDceypC5qcY+Jqx1lr79Y89iCcZM3j5V1kfDZWWIY1sRvzEX6
+	 BC6jv9ucYfCBQHd0ZCQ6H2DQ0tmE9OuKsYVgrQHzZ2O5HKqb0KiUPDa+1cYob+OrOT
+	 vncRbkEtkQWHQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-fscrypt@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: Re: [PATCH 6.1] fscrypt: use the mount idmap for the owner check in fscrypt_ioctl_set_policy()
-Date: Thu, 20 Aug 2026 00:19:23 -0400
-Message-ID: <20260820040907.2@kernel.org>
+	Simon Horman <horms@verge.net.au>,
+	lvs-devel@vger.kernel.org,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	netfilter-devel@vger.kernel.org,
+	Julian Anastasov <ja@ssi.bg>
+Subject: Re: [PATCH -stable 1/1] ipvs: separate destination availability state
+Date: Thu, 20 Aug 2026 00:19:24 -0400
+Message-ID: <20260820040907.3@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260818183821.73242-1-ebiggers@kernel.org>
-References: <20260818183821.73242-1-ebiggers@kernel.org>
+In-Reply-To: <20260818201638.121446-2-ja@ssi.bg>
+References: <20260818201638.121446-2-ja@ssi.bg>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,10 +49,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 18, 2026 at 11:38:21AM -0700, Eric Biggers wrote:
-> commit cf6c993c0feca7984797e634deba3c80342e199a upstream.
+On Tue, Aug 18, 2026 at 11:16:38PM +0300, Julian Anastasov wrote:
+> [ Julian: Backport by removing the hunks from ip_vs_xmit.c ]
 
-Queued for 6.1, thanks.
+Queued for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
