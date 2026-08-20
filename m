@@ -1,155 +1,137 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F6D3769F5
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 02:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8728A370AFC;
+	Thu, 20 Aug 2026 02:19:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787192351; cv=none; b=VI5ewerAq8CJ82Mm9Vs5sV3mEhdAet0rKJ1LrmglBtDF5LHzVvj+WVo/TtlDjB4beMxcOXYkuJ/ZBol6WqPOAS7HTtnGhjtJ/GzbXom7yC8N/FxNaS7Ysr/KagLlE1yyYU48q9/NtQ8COFGU8ZIEOk8LiwWaTFwNsp/PC/wp4PI=
+	t=1787192354; cv=none; b=i9PsSF+fSFJ+jjoydHRT+wYDdnrvcr/eeWRgtLpzZz7JbevwrM3TuZrtMKdpLH4zzSmi8qQ7IA4Yh+KtD01EShA2GOwllfl3fW31qiO5yn5dfEvUubGMfsCjM4PkcE7HhcIEplsQrtI38KEu1vEuT3T7bSnHOe59wL5GJm9nBVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787192351; c=relaxed/simple;
-	bh=XJBm32FpixVa0XcZMETtH0JpwuBFU9LsnysDehf4Oyw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZuotCgDETW+YU8HMeTn+mggy5SkyeaYT0SZruX0hEalXqLJY31fvQFSUMb+RWg1qiTxMjNquFB8yrD0F7t7oA7jADQBegmsS+TjijRn58e4GBHGSvaghGPShRUO6kDJDpMWgFyOW9oMHtAkJKzBJ4gfVLmNc4IPFVr9OnJAojtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vp2/yH4C; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vp2/yH4C"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38125cebfdaso2683101a91.1
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 19:19:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787192349; x=1787797149; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0XMfhi2zIy5MA4h9qyIvYKfFdy8VopSV3LiNkMMuhiY=;
-        b=Vp2/yH4CdcSNaJPeznFk9dpUwDN+hrpS2JqGiE+bAt1j3Uuje0gRIJIrp9/lGqpkaD
-         WMgUD3DmUhvTUUr+eWEm+JZ1uaSZMQSsEqB6JV0etbeuGfConrdO7zHVY6lmAAt7nIBE
-         hAJnU+INDrpePEapaxzrh6Rj+91UlqS8VxfTjioMDUV7cF4lhq4ZS0KGKgMp6zxueqzc
-         +trQdxmM7TWaMGtX1Unu13NXb9+bfKsEgrmu6RGhyfsQK+qf1l/8cOy49bHJUaKOHoB/
-         7Xlx+cLKaiyPW894qUc/ILEAFXybx/3rj528a+0PHOnnT/X9CE/bKSw/G4ECas5uHHwt
-         MH/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787192349; x=1787797149;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0XMfhi2zIy5MA4h9qyIvYKfFdy8VopSV3LiNkMMuhiY=;
-        b=bR8lH5vbOChShkSm4iQjXGgtsGVcF9JHSf4CWWDy4udbCtTShorFTTuhuONH4FmII5
-         LyMnQ/OZDuzNJsb0EZ+DgjV1etPIVX9uCH4iOWKstLZsC7b5cIwhTd7xbY3D7PLtuWEz
-         F1UXfA6P0XGBR2vKOCUNhtwdG//ojRv0BH+GeCxH9OF9oXhXWZeVP9Vd1zWtPa5713aP
-         ESEUU2W19iGYHaAw8srACL5Vdf+0kkNw2kDy8Pm2WRDcyHybfkJr91jVA7nIF79owgsy
-         aWKTlCD5UrPnC+o+6Ko7SbVDS2UURxoAY5o+zmd9NttB57PGHd/XsORzh/khet6rY+5J
-         T7Yw==
-X-Forwarded-Encrypted: i=1; AHgh+RqS2HeuGtrcniqG4Qx+DFX5ZAhftH/X58YZ9tB+9NjAzO6Jz0cr/Na7a7sPaSqcnRiCYl2poUw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mg9YgM7gKhhCyM39haazqr3RynyaSjaT9My+3A9MWPLJBMCnUN
-	hCEPA5kszrwvcWvsXI33mDBGBXzRlq/sgQ8uIYXaW8qfmK8IPJ4/cvt9
-X-Gm-Gg: AR+sD12VV1B5hahFyywO5Fm9y/eri5P/lE/BCpQlMtt3GVvgtHtvRPyLoUSB8zwcZZM
-	9TZcKGxUPoo9KgTttTwLfvaMYog+J0WkEeSjyf7xNWdCyc2P9dy2cHZbzPD/EN58FyGIdJoYJfB
-	tbau/laoAfeksZQI0gax2xWB0sBO4WQmJeGeah9Z+Up5bjSmT281SOXJqzUeyPvqj3D5Q16236f
-	3bqyxgN+j8hBHR36iV9Px5YxDF7Zdp8XLyDMJEcJjG5L033xdZk6Z75BPzET+3uJBaYzBHZ9Ubp
-	gGBYm2B8BoSGd6ulvUvtX7Tw9aIs6Gox+BgV5oH/yOoW2qpaZAwywwkGa4NSlXgLUmuqE/JapBc
-	lTC6s8oWFQbUftPTQSPhOmIloyanwpuZdMrs+FEb6YnvfFlAOJPtoaDixXUuGVgGtabUCbSsBdF
-	eS94/BQZGQjEMjtdbMxlnwMQWhfmRvnOq33n0RqBSG+1BQkLGXNSijaH8hvDKmuqerzCE=
-X-Received: by 2002:a17:90b:5684:b0:395:5eec:b932 with SMTP id 98e67ed59e1d1-39580f6b704mr17560895a91.11.1787192349538;
-        Wed, 19 Aug 2026 19:19:09 -0700 (PDT)
-Received: from hyunchul-PC02.lge.net ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fb17eb5sm5583412a91.3.2026.08.19.19.19.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 19:19:08 -0700 (PDT)
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>,
-	ntfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	Robert Morris <rtm@csail.mit.edu>,
+	s=arc-20240116; t=1787192354; c=relaxed/simple;
+	bh=Q4vnOpmdq8yMGzFxcBH0hfScW02YmBnIesFyAFY9Jek=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZS9RBSinx8IszxoWpifk3b1ioXSUiSfd6+46u//+SeV4eiteOeN9JqVrtPqwU41I/+xld3V4b9l1qg5xMfiJTiyWflD8FjNmJkA07McTBNiBFsi0iXo7EYjTWA9UKuYBFh/tjuVWDlUI0R0JvHqfUHItMdTCJ5fn5XiNDRsf6go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBH8zwZZIZq3GyrAA--.594S3;
+	Thu, 20 Aug 2026 10:19:06 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgCXUpoZZIZq8KgBBA--.27111S2;
+	Thu, 20 Aug 2026 10:19:05 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: gregkh@linuxfoundation.org,
+	tj@kernel.org
+Cc: chenridong@huawei.com,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] ntfs: reject invalid empty mapping pairs
-Date: Thu, 20 Aug 2026 11:18:51 +0900
-Message-ID: <20260820-fix-empty-mp-v2-1-5d3367048b76@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] kernfs: recheck of->released after acquiring the active reference
+Date: Thu, 20 Aug 2026 02:18:10 +0000
+Message-Id: <20260820021810.163082-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1636; i=hyc.lee@gmail.com;
- h=from:subject:message-id; bh=/0gbu5qp0hA9OXbiR9tuMBo3CmE1INmiWop12AnXC9E=;
- b=owEBbQKS/ZANAwAKATTyMPr3jkjTAcsmYgBqhmLYqlj0vIA/9/pa9xxUymiafzMx5CMoNK/oK
- omKnf3h8RGJAjMEAAEKAB0WIQTVhSnMU3bjbW4eb2I08jD6945I0wUCaoZi2AAKCRA08jD6945I
- 0x7+D/9cmQDp0FNxf4gV1c5diHRJ0I6Q+hhKvokPYgsIzzDjT7+4f55RMW/8f1WLbtbZaky4mGT
- aLehpuXLvq0+snbnp4X5qVI6t+nOeyQJr2orgAPmaKUD351HSkUH7v6Ri+jmIqpNNcXMhxvTDUD
- 1RmH6yJ4Vt2Ks3eY8PQ5xL6aMlyV4FjzzSNbhUOsnKjGYkHOSbltGASspXcsCPYoaTC0B/l84FI
- WzbDbzrj4MHeFjG/iGDveIgYyZUcwktSlvNIGrgfpBzERKIw4D3qkO3j8krEAwOrEpTW6NEYe+A
- 8Zaw2eM+a3aeQ4hAZFYdYeK6N/PxlHft/h19Bc6Tk9wc0ftRtn/jF404P4srIv6srvgSNbNjEdB
- NQ4JqpEWVsYfIGx6BiRnEfZBMPHSBdGGXCCY0rH8CFXHtTYdyJz4wK0PegsJwGvx8gmdBPjasfu
- lfCgrmLGyc1ILTx8YqCYMf9AOu5jHIO96kQ8B8KJEfn0p2Ix0NBUpXy3QrL8prnKfBpcwsuOdn8
- oWtz9FcpLPOPe8ZlwSJ+h2gMsiSShkwIebNYOZObRFr6pjxxodm8falfUQLnRvVIySsfHIFTtSY
- BOSnxf5OPzJyY7ngcgdSuywZHfXNRsxe9ET0fEqy7NJ5FsGvjQDOT9KNG0WYP+uQChY4ZYmOQrU
- k80BogXfl11l1ew==
-X-Developer-Key: i=hyc.lee@gmail.com; a=openpgp;
- fpr=D58529CC5376E36D6E1E6F6234F230FAF78E48D3
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgCXUpoZZIZq8KgBBA--.27111S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?MW0qewXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBGQXeKY+XhMOLM+jBDyGHIiSSNfzltiyPRG/I89NU3pWLLF
+	H6zPj208BhChSJWIGubN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoWxZFW5XrW5Zr48tFyUXw43urX_yoW5CFW8pF
+	4fGr4xXr17Ar1DCrsrAF1xuryFv3s3tFW3Xwn7Jwn3A3Wjkwn3tw1Ygr10gry5Jr95Jw4Y
+	v3W7tFyUta45ZacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-Reject an attribute with empty mapping pairs if it has inconsistent=0D
-highest VCN and size.=0D
-=0D
-Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator")=
-=0D
-Reported-by: Robert Morris <rtm@csail.mit.edu>=0D
-Closes: https://lore.kernel.org/all/9519.1786907182@localhost/=0D
-Cc: stable@vger.kernel.org=0D
-Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>=0D
----=0D
-Changes in v2:=0D
-  * Restore reloading highest_vcn after mapping-pairs decoding.=0D
-  * Add the validation of empty mapping-pairs to accept only=0D
-    lowest_vcn =3D=3D 0 and highest_vcn =3D=3D -1.=0D
-=0D
- fs/ntfs/runlist.c | 19 +++++++++++++++++++=0D
- 1 file changed, 19 insertions(+)=0D
-=0D
-diff --git a/fs/ntfs/runlist.c b/fs/ntfs/runlist.c=0D
-index 9eaadbc0ef47..00373e450ea7 100644=0D
---- a/fs/ntfs/runlist.c=0D
-+++ b/fs/ntfs/runlist.c=0D
-@@ -772,6 +772,25 @@ struct runlist_element *ntfs_mapping_pairs_decompress(=
-const struct ntfs_volume *=0D
- 		return ERR_PTR(-EIO);=0D
- 	}=0D
- =0D
-+	/*=0D
-+	 * An empty mapping-pairs array is valid only for a zero-length=0D
-+	 * attribute.=0D
-+	 */=0D
-+	if (!*buf &&=0D
-+	    (vcn ||=0D
-+	     le64_to_cpu(attr->data.non_resident.highest_vcn) !=3D=0D
-+		     (u64)(vcn - 1) ||=0D
-+	     le64_to_cpu(attr->data.non_resident.allocated_size) ||=0D
-+	     le64_to_cpu(attr->data.non_resident.data_size) ||=0D
-+	     le64_to_cpu(attr->data.non_resident.initialized_size))) {=0D
-+		ntfs_error(vol->sb, "Invalid empty mapping pairs array.");=0D
-+		return ERR_PTR(-EIO);=0D
-+	}=0D
-+	if (!vcn && !*buf && old_runlist && old_runlist->rl) {=0D
-+		*new_rl_count =3D old_runlist->count;=0D
-+		return old_runlist->rl;=0D
-+	}=0D
-+=0D
- 	/* Current position in runlist array. */=0D
- 	rlpos =3D 0;=0D
- 	/* Allocate first page and set current runlist size to one page. */=0D
-=0D
----=0D
-base-commit: df7dce2090342170b7643d36f694204cae7792a9=0D
-change-id: 20260819-fix-empty-mp-3f32eb769112=0D
-=0D
-Best regards,=0D
--- =0D
-Thanks,=0D
-Hyunchul=0D
-=0D
+kernfs_get_active_of(), added by commit 3c9ba2777d6c ("kernfs: Fix UAF
+in polling when open file is released"), tests @of->released before
+acquiring the active reference on @of->kn.  A hide/drain/show cycle can
+run between those steps: the drain path releases the open file, and the
+reactivation lets kernfs_get_active() succeed again.  Any entry guarded
+by kernfs_get_active_of() can consequently run its file operation on an
+already released open file; on the cgroup pressure files, the poll
+callback dereferences of->priv while forming &ctx->psi.trigger and can
+hit either stale, freed memory or NULL.
+
+  CPU 0 (kernfs_fop_poll)       CPU 1 (echo 0/1 > cgroup.pressure)
+  -------------------------     ---------------------------------
+  of->released == false         kernfs_show(kn, false)
+  ... preempted ...               kernfs_drain()
+                                   kernfs_release_file()
+                                     ->release(of)  (frees of->priv)
+                                     of->released = true
+                                kernfs_show(kn, true)
+                                  kernfs_activate_one(kn)
+  kernfs_get_active(of->kn)
+  ops->poll(of)
+
+The cycle needs the file operation to be delayed between the two
+steps, but kernfs_show() cycles like the one above are fully
+userspace driven.
+
+Acquire the active reference first and re-check @of->released under
+kernfs_open_file_mutex.  While the reference is held, @kn cannot be
+drained: kernfs_drain() waits for kn->active to reach
+KN_DEACTIVATED_BIAS before draining open files, and the only other
+kernfs_release_file() caller, kernfs_fop_release(), is serialized
+against in-flight file operations by the VFS.  Since
+kernfs_release_file() sets @of->released under the same mutex, a
+false re-read settles the question for good.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 3c9ba2777d6c ("kernfs: Fix UAF in polling when open file is released")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ fs/kernfs/file.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/fs/kernfs/file.c b/fs/kernfs/file.c
+index 9adf36e6364b..561f66e4095a 100644
+--- a/fs/kernfs/file.c
++++ b/fs/kernfs/file.c
+@@ -73,12 +73,22 @@ static struct kernfs_open_node *of_on(struct kernfs_open_file *of)
+ /* Get active reference to kernfs node for an open file */
+ static struct kernfs_open_file *kernfs_get_active_of(struct kernfs_open_file *of)
+ {
+-	/* Skip if file was already released */
+-	if (unlikely(of->released))
++	if (!kernfs_get_active(of->kn))
+ 		return NULL;
+ 
+-	if (!kernfs_get_active(of->kn))
++	/*
++	 * @of->released is set under kernfs_open_file_mutex.  While the
++	 * active reference is held, @kn can't be drained anymore and
++	 * kernfs_fop_release() can't run, so re-reading @of->released
++	 * here settles whether @of was released for good.
++	 */
++	mutex_lock(kernfs_open_file_mutex_ptr(of->kn));
++	if (unlikely(of->released)) {
++		mutex_unlock(kernfs_open_file_mutex_ptr(of->kn));
++		kernfs_put_active(of->kn);
+ 		return NULL;
++	}
++	mutex_unlock(kernfs_open_file_mutex_ptr(of->kn));
+ 
+ 	return of;
+ }
+
