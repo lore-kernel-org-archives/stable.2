@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A96641A900
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B5E3F8ECD
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:14:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787224431; cv=none; b=ESvgIxALhPf5BYoo1w0qLlJ0YRa/QuBa/IBjrlvLNLUSmIX8luftnEPmI1COZOjBNKr8v0GXc8VmrGJvI+yVUsB5TwNXanbcLeVXV1z0GwWFIIZ4QEffMp+Y576HfuGhSUJ51cDjqrnWzmAwWUxIQq93J4sVn8o6FkIvKKYf0M4=
+	t=1787224442; cv=none; b=jQqRxwjce5cmOkKr/IP48s9TPt0iFcXDiQ1KeS7wVpuFAmwcxpNNSpwjk6u5J1TCm20m6iVgMvoOapep/3I9d2OnZWYeMPWo8BMabB7S7bojku1fil1csIbTkSVtDhVEAFHsgIeWxXpGx0qHk0U5vxV0/E4641xNGeqVYG21ndo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787224431; c=relaxed/simple;
-	bh=vtv1VrypPuo45DZeFljHvGi6B4PEJ0gxVBZDt4lWMUI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nXkyDOPgzKqyuBuDyRPZxYZxQ6Np4Oy0E0ijEI/aM6WwDpiTJ3OC5KqTl0rHfsF5vlKv6jsxsNoxfu+4PbfVyq/JZN378A9Leol8g6A0Dx//lODewzPgHA1WKP5NDQtojdPlGJEp61fwsLB05oMO9fbWbnNA2+seebRS6eYHS8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ln1M36pW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787224442; c=relaxed/simple;
+	bh=pNKNX6WQVnZD7HmYJ6yqAZHlLzmAh5BvZ23F7+nGYS0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nDrrxHe3O9HQBRQljC7PUFhbCQugCg5zFyyFD7Ny0tsPHV8UK4t3UXFWkzxeTQa0i93NDaWrJppaNI3/6+iySy7WMavsQ9vCpY4jl1R/WDGJ4wJnEQecMJhqupyvvlckD/Xz631W1mQuuuSP8WnbTx7kJQcf7URgK4jW39KZ5E8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=php25v5z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ln1M36pW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58E91F00A3A;
-	Thu, 20 Aug 2026 11:13:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="php25v5z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341AD1F000E9;
+	Thu, 20 Aug 2026 11:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787224429;
-	bh=st2uvFMxSAHeCAE20mqGZSHcsuY7Ye+ikqUbamKVFwE=;
+	s=korg; t=1787224440;
+	bh=gNGhC7gWvByWVHZeL5RTRzAn7m7xHrexWxjscc4xLKE=;
 	h=Subject:To:Cc:From:Date;
-	b=Ln1M36pW6bW3mkdHsK0Q//RFPH7Hor+pZij0oUL4kjxe5mgJXqNf+jZS1nMq0iasQ
-	 CChlrGqLt2CCAX/ZgPaIpRmcazvgHbCT963lrv7dfnKbh5CkWWqLQACyOTnt5S8vUc
-	 UHw8BoYec4N6Q2Z57u0BRzR5xlwfcPdRalQtnEp4=
-Subject: FAILED: patch "[PATCH] drm/xe/guc_ads: allocate UM queues in a separate BO" failed to apply to 6.12-stable tree
+	b=php25v5zbzJoIBDkeis7w4ZQhyaW31F37NTqHkkwey+6Y9/v+gyKsiOwJIk9ZmN3x
+	 VETIroSC7Hx5Z9qRu324+EadAuRXhmKtbO3su+cXvNq1mMcvO6c0e8nItw+HUCAZ9F
+	 71/z4+ww3xSrgabDZszRxhm/uOKV9l8vpcjBNYDk=
+Subject: FAILED: patch "[PATCH] drm/xe/guc_ads: allocate UM queues in VRAM on dGFX" failed to apply to 6.18-stable tree
 To: jia.yao@intel.com,gwan-gyeong.mun@intel.com,matthew.auld@intel.com,stable@vger.kernel.org,thomas.hellstrom@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 13:13:37 +0200
-Message-ID: <2026082037-mutual-coroner-efeb@gregkh>
+Date: Thu, 20 Aug 2026 13:13:47 +0200
+Message-ID: <2026082047-manned-outer-503f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 99b01815957bd7d848420cb697f79ed11f7f215c
+git cherry-pick -x f342810a141f8a7e8b3786a6e4b6c0695a078a74
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082037-mutual-coroner-efeb@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082047-manned-outer-503f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,22 +62,18 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 99b01815957bd7d848420cb697f79ed11f7f215c Mon Sep 17 00:00:00 2001
+From f342810a141f8a7e8b3786a6e4b6c0695a078a74 Mon Sep 17 00:00:00 2001
 From: Jia Yao <jia.yao@intel.com>
-Date: Tue, 4 Aug 2026 16:50:55 +0000
-Subject: [PATCH] drm/xe/guc_ads: allocate UM queues in a separate BO
+Date: Tue, 4 Aug 2026 16:50:56 +0000
+Subject: [PATCH] drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Move the UM queues into a dedicated BO (ads->um_queue_bo) and avoid
-CPU memset operations on it, which eliminates the CPU as a potential
-cacheline-polluting agent and helps maintain consistency between GAM
-writes and GuC reads.
-
-We also need to ensure the base_dpa for the queue is contiguous on hw
-where this is used instead of a GGTT address. Another good reason to
-split this out to a separate BO.
+On iGPU, the UM queue BO is allocated in system memory. On dGFX, the BO
+was previously created in system memory and later reallocated in
+xe_guc_realloc_post_hwconfig().  Allocate the UM queue BO directly in
+VRAM on dGFX, where it is ultimately required.
 
 Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
 Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
@@ -86,221 +82,50 @@ Cc: <stable@vger.kernel.org> # v6.12+
 Signed-off-by: Jia Yao <jia.yao@intel.com>
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260804165057.129529-2-jia.yao@intel.com
-(cherry picked from commit 6af05de0dc19bbf3aaeec2020fe48b37c834b811)
+Link: https://patch.msgid.link/20260804165057.129529-3-jia.yao@intel.com
+(cherry picked from commit ace076ef0a854ab5940bacc539bf66afd61d118c)
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-index 7ae1d9ac0574..57039cf42ea7 100644
---- a/drivers/gpu/drm/xe/xe_bo.h
-+++ b/drivers/gpu/drm/xe/xe_bo.h
-@@ -6,6 +6,7 @@
- #ifndef _XE_BO_H_
- #define _XE_BO_H_
- 
-+#include <drm/drm_prime.h>
- #include <drm/ttm/ttm_tt.h>
- 
- #include "xe_bo_types.h"
-@@ -548,6 +549,19 @@ void xe_bo_dev_fini(struct xe_bo_dev *bo_device);
- 
- struct sg_table *xe_bo_sg(struct xe_bo *bo);
- 
-+/**
-+ * xe_bo_sg_is_contiguous() - Check if a BO's DMA address space is contiguous.
-+ * @bo: the BO to check (must have a valid sg table, i.e. !xe_bo_is_vram())
-+ * @len: required contiguous length in bytes
-+ *
-+ * Returns true if the first @len bytes of the BO are mapped to a contiguous
-+ * DMA address range.
-+ */
-+static inline bool xe_bo_sg_is_contiguous(struct xe_bo *bo, size_t len)
-+{
-+	return drm_prime_get_contiguous_size(xe_bo_sg(bo)) >= len;
-+}
-+
- /*
-  * xe_sg_segment_size() - Provides upper limit for sg segment size.
-  * @dev: device pointer
 diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
-index 4023700ff2a9..21cf3edef922 100644
+index 21cf3edef922..4023700ff2a9 100644
 --- a/drivers/gpu/drm/xe/xe_guc.c
 +++ b/drivers/gpu/drm/xe/xe_guc.c
-@@ -714,6 +714,12 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
+@@ -714,12 +714,6 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
  	if (ret)
  		return ret;
  
-+	if (guc->ads.um_queue_bo) {
-+		ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc->ads.um_queue_bo);
-+		if (ret)
-+			return ret;
-+	}
-+
+-	if (guc->ads.um_queue_bo) {
+-		ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc->ads.um_queue_bo);
+-		if (ret)
+-			return ret;
+-	}
+-
  	return 0;
  }
  
 diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-index c98454545a85..a411d6440ba6 100644
+index a411d6440ba6..b6d07f2e73bf 100644
 --- a/drivers/gpu/drm/xe/xe_guc_ads.c
 +++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-@@ -63,10 +63,14 @@ ads_to_map(struct xe_guc_ads *ads)
- 
- /*
-  * The Additional Data Struct (ADS) has pointers for different buffers used by
-- * the GuC. One single gem object contains the ADS struct itself (guc_ads) and
-- * all the extra buffers indirectly linked via the ADS struct's entries.
-+ * the GuC. One gem object (ads->bo) contains the ADS struct itself (guc_ads)
-+ * and most of the extra buffers linked via the ADS struct's entries.  The UM
-+ * fault queues (PAGE_FAULT, PAGE_FAULT_RESPONSE, ACCESS_COUNTER rings) are
-+ * kept in a separate BO (ads->um_queue_bo) so that the full memset of ads->bo
-+ * performed on every GT reset does not discard fault descriptors already
-+ * written into the rings by the GPU.
-  *
-- * Layout of the ADS blob allocated for the GuC:
-+ * Layout of the ADS blob (ads->bo):
-  *
-  *      +---------------------------------------+ <== base
-  *      | guc_ads                               |
-@@ -98,10 +102,6 @@ ads_to_map(struct xe_guc_ads *ads)
-  *      +---------------------------------------+
-  *      | padding                               |
-  *      +---------------------------------------+ <== 4K aligned
-- *      | UM queues                             |
-- *      +---------------------------------------+
-- *      | padding                               |
-- *      +---------------------------------------+ <== 4K aligned
-  *      | private data                          |
-  *      +---------------------------------------+
-  *      | padding                               |
-@@ -155,16 +155,6 @@ static size_t guc_ads_capture_size(struct xe_guc_ads *ads)
- 	return PAGE_ALIGN(ads->capture_size);
- }
- 
--static size_t guc_ads_um_queues_size(struct xe_guc_ads *ads)
--{
--	struct xe_device *xe = ads_to_xe(ads);
--
--	if (!xe->info.has_usm)
--		return 0;
--
--	return GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX;
--}
--
- static size_t guc_ads_private_data_size(struct xe_guc_ads *ads)
- {
- 	return PAGE_ALIGN(ads_to_guc(ads)->fw.private_data_size);
-@@ -205,22 +195,12 @@ static size_t guc_ads_capture_offset(struct xe_guc_ads *ads)
- 	return PAGE_ALIGN(offset);
- }
- 
--static size_t guc_ads_um_queues_offset(struct xe_guc_ads *ads)
--{
--	u32 offset;
--
--	offset = guc_ads_capture_offset(ads) +
--		 guc_ads_capture_size(ads);
--
--	return PAGE_ALIGN(offset);
--}
--
- static size_t guc_ads_private_data_offset(struct xe_guc_ads *ads)
- {
- 	size_t offset;
- 
--	offset = guc_ads_um_queues_offset(ads) +
--		guc_ads_um_queues_size(ads);
-+	offset = guc_ads_capture_offset(ads) +
-+		guc_ads_capture_size(ads);
- 
- 	return PAGE_ALIGN(offset);
- }
-@@ -409,6 +389,46 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
- 
- 	ads->bo = bo;
- 
-+	if (xe->info.has_usm) {
-+		/*
-+		 * Allocate a separate BO for the HW fault ring (UM queues).
-+		 *
-+		 * Round the size up to the next power of two so that
-+		 * (system memory, no IOMMU) the TTM pool issues a single
-+		 * alloc_pages(order=N) call, maximising the chance of getting
-+		 * a physically contiguous block.  GuC requires contiguous DPA.
-+		 */
-+		size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
-+						    GUC_UM_HW_QUEUE_MAX);
-+
-+		u32 um_flags = XE_BO_FLAG_SYSTEM |
-+			       XE_BO_FLAG_GGTT |
-+			       XE_BO_FLAG_GGTT_INVALIDATE |
-+			       XE_BO_FLAG_PINNED_NORESTORE;
-+
-+		bo = xe_managed_bo_create_pin_map(xe, tile, um_size, um_flags);
-+		if (IS_ERR(bo))
-+			return PTR_ERR(bo);
-+
-+		/*
-+		 * On pre-Xe3p platforms, GAM (not GuC) accesses the UM queue
-+		 * ring via base_dpa, which must be a contiguous DMA address
-+		 * range.  Verify that the allocated pages are contiguous in
-+		 * DMA address space.
-+		 */
-+		if (!xe_bo_is_vram(bo) &&
-+		    !xe_guc_using_main_gamctrl_queues(ads_to_guc(ads)) &&
-+		    unlikely(!xe_bo_sg_is_contiguous(bo,
-+						     GUC_UM_QUEUE_SIZE *
-+						     GUC_UM_HW_QUEUE_MAX))) {
-+			drm_err(&xe->drm,
-+				"UM fault queue memory is not contiguous in DMA address space; GAM requires contiguous DPA\n");
-+			return -ENOMEM;
-+		}
-+
-+		ads->um_queue_bo = bo;
-+	}
-+
- 	return 0;
- }
- ALLOW_ERROR_INJECTION(xe_guc_ads_init, ERRNO); /* See xe_pci_probe() */
-@@ -820,7 +840,7 @@ static void guc_mmio_reg_state_init(struct xe_guc_ads *ads)
- 
- static void guc_um_init_params(struct xe_guc_ads *ads)
- {
--	u32 um_queue_offset = guc_ads_um_queues_offset(ads);
-+	struct xe_bo *um_bo = ads->um_queue_bo;
- 	struct xe_guc *guc = ads_to_guc(ads);
- 	struct xe_device *xe = ads_to_xe(ads);
- 	u64 base_dpa;
-@@ -830,8 +850,14 @@ static void guc_um_init_params(struct xe_guc_ads *ads)
- 
- 	with_dpa = !xe_guc_using_main_gamctrl_queues(guc);
- 
--	base_ggtt = xe_bo_ggtt_addr(ads->bo) + um_queue_offset;
--	base_dpa = xe_bo_main_addr(ads->bo, PAGE_SIZE) + um_queue_offset;
-+	if (um_bo) {
-+		/* All USM platforms: UM queues in dedicated um_queue_bo */
-+		base_ggtt = xe_bo_ggtt_addr(um_bo);
-+		base_dpa = xe_bo_main_addr(um_bo, PAGE_SIZE);
-+	} else {
-+		/* Platform does not support USM: no UM queues, nothing to do */
-+		return;
-+	}
- 
- 	for (i = 0; i < GUC_UM_HW_QUEUE_MAX; ++i) {
+@@ -393,15 +393,17 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
  		/*
-diff --git a/drivers/gpu/drm/xe/xe_guc_ads_types.h b/drivers/gpu/drm/xe/xe_guc_ads_types.h
-index 48a8e092023f..845c1fbd93a4 100644
---- a/drivers/gpu/drm/xe/xe_guc_ads_types.h
-+++ b/drivers/gpu/drm/xe/xe_guc_ads_types.h
-@@ -16,6 +16,11 @@ struct xe_bo;
- struct xe_guc_ads {
- 	/** @bo: Xe BO for GuC ads blob */
- 	struct xe_bo *bo;
-+	/**
-+	 * @um_queue_bo: Dedicated BO for the HW fault ring (UM queues).
-+	 * NULL if the platform does not support USM.
-+	 */
-+	struct xe_bo *um_queue_bo;
- 	/** @golden_lrc_size: golden LRC size */
- 	size_t golden_lrc_size;
- 	/** @regset_size: size of register set passed to GuC for save/restore */
+ 		 * Allocate a separate BO for the HW fault ring (UM queues).
+ 		 *
+-		 * Round the size up to the next power of two so that
++		 * Round the size up to the next power of two so that on iGPU
+ 		 * (system memory, no IOMMU) the TTM pool issues a single
+ 		 * alloc_pages(order=N) call, maximising the chance of getting
+ 		 * a physically contiguous block.  GuC requires contiguous DPA.
+ 		 */
+-		size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
++		size_t um_size = IS_DGFX(xe) ?
++				 GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX :
++				 roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
+ 						    GUC_UM_HW_QUEUE_MAX);
+ 
+-		u32 um_flags = XE_BO_FLAG_SYSTEM |
++		u32 um_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile) |
+ 			       XE_BO_FLAG_GGTT |
+ 			       XE_BO_FLAG_GGTT_INVALIDATE |
+ 			       XE_BO_FLAG_PINNED_NORESTORE;
 
