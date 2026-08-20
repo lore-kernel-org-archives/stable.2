@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6F1215161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BA435E93E
 	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 22:28:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787264885; cv=none; b=ksL6m0WoCHX/ln4eoRXZfk4EfHbBtVMDnce3CB9MXPmb3yg527TrqiPZvj1G/24BhPbAvq1uR9ZIerm9WPjj4v626XmnCvbsfaoXqhC3bcUllyZDZcEzpkM8EeE3UnQfooHOMjFJg0XtNlVJx+sSwoa3J4j4zcQ/LzcHcbQnAkU=
+	t=1787264886; cv=none; b=IXHsk8JWS++2to0vMB0GP/y+3qJ1XSjjAAtRi6E/tA9zGnXHen94nyLIT5cfFHHAKH2WRL6dUhL34Huml0LPsmlEqgGR7KXTfKyxrTLW3LRosz+menB/BrBBasNCAIW93qXVHjQZAv9pwn+ajQJfcV5WNb2i41BqukloRWTpAnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787264885; c=relaxed/simple;
-	bh=wayy42s7KmZBne6AHpL/hFJdq4l36AOrNauhaprH9zA=;
+	s=arc-20240116; t=1787264886; c=relaxed/simple;
+	bh=jEQkHOe353UbMnTHbbkJuB/M7CC7RAz14L7buqoF3sQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hVCaJV7Ak41YOcgg7uDKMEZlqZU2FrE0NZoSqYsmLeNiE0TH8rXoBm3zYfpthNkk+XGJ+hA9w8367VdZMskEBbeGX7WNf+ughn3QoJasCEidu7PVya2zpma1+PjP8neIfkmK12xYWp10BgnpRUlVhAlzNza0icAUDJthCF1YOIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jj8xTVxf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fG3ZBJKsBqQv0lYQ9+PuPHGmsARZo3vjo9FFVB329+bQ+UaeRLqwCkT0q7h3yIbPQPjlWXHyJbZJQ5OviiDk6+KVzFTyjbJZG/7qrcIlxvxrFIs4MGDQND+AkVefrPxWDsyLDf8vK+SGa9Q5vjUfwcOXYuNDIBJsSBut0V3I+iM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCdPrjpf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jj8xTVxf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 786371F00A3A;
-	Thu, 20 Aug 2026 22:28:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCdPrjpf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33DCC1F00A3D;
+	Thu, 20 Aug 2026 22:28:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787264883;
-	bh=avln2IcH5e9leDfZxi4+xZIukLIwUi/qoKxzErMYEVM=;
+	s=k20260515; t=1787264884;
+	bh=eUuSqjmEcC8o90tVYGFC2vTVb4XbXuAm0Jc0RkX5+dE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jj8xTVxfKm45F7QOSesaIt9l3pPfPMMEpuQMRyR0R4faY1D5CTr9PAjEFaldnt8re
-	 frrNDFtzYFwLhdEmUeU6wKbU4NehQRchLlZncXSo+My0fo7CYohrgoHQBjWN8uZBPT
-	 sTTjCjKXFBHgu+VRT6l8C550bDg39zNRn7i2Yw93lg0HzXlE6yHsKEme8ZcPE24X+D
-	 8c2jafoigBfhHFjVUKPjxwNFxzUPHPWPc/flVMpvgG0fNb+d6DWKTKHLMiogAzK5jt
-	 4YxV9D3Us+A8DG6YlOV+jrxfViwslR4o7sS8uVh5ns5KmYbbyo6Bn34OIEEROL2PJe
-	 Tdg35qIfFgVhA==
+	b=oCdPrjpfjp5BEodeTPKgptQ9wOzQoLJ14pz0Gut6SV2UMFKneN80hqCd5J4ZLJV9A
+	 rrCVgzr1Qv4f4/KTXff6co3pkrSz/vKLVMJspe0yx6ruArO0SkthU/zfTv/6hecXoN
+	 gNnN6UaKn3io+yc+FO4QMaC+x6t6pO4SqaX7WKpwxKHYvKHV/JJgLpEOhfxljJOlYr
+	 MLnDxPd2CGZLpvyXVGBa6ftjC3OJjpjr2wxcZ9yo5xYO5a2xQHd6xsiDzWqdzleepP
+	 lR26nZgX0MbjCGEgU9DT03UOBi2E4jes8kyefxap4UaiV7Z/aZa+5m9GmtyW2caAhJ
+	 J4UkIAtSdfulw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] serial: sc16is7xx: rename EFR mutex with generic name
-Date: Thu, 20 Aug 2026 18:27:59 -0400
-Message-ID: <20260820222801.2320182-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] serial: sc16is7xx: use guards for simple mutex locks
+Date: Thu, 20 Aug 2026 18:28:00 -0400
+Message-ID: <20260820222801.2320182-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081753-ebook-finisher-4e66@gregkh>
+In-Reply-To: <20260820222801.2320182-1-sashal@kernel.org>
 References: <2026081753-ebook-finisher-4e66@gregkh>
+ <20260820222801.2320182-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,135 +48,91 @@ Content-Transfer-Encoding: 8bit
 
 From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
-[ Upstream commit d9b2d7ddbb973b981c20b21e9228581bb156f66f ]
+[ Upstream commit 0f4f88bfd7e7bf3f3293045fffdc63586b0a889f ]
 
-This mutex is used as a lock when accessing registers that share the same
-address space, not necessarily EFR registers.
+Guards can help to make the code more readable, so use them wherever they
+do so.
 
-For example, address 0x06 is shared by MSR, TCR and XOFF1 registers,
-independently of EFR.
-
-Rename the mutex with a more generic name to avoid misinterpreting its
-usage.
+In sc16is7xx_port_irq(), labels and 'rc' locals are eliminated completely.
 
 Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Link: https://patch.msgid.link/20251027142957.1032073-3-hugo@hugovil.com
+Link: https://patch.msgid.link/20251027142957.1032073-6-hugo@hugovil.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: 246ac114f485 ("serial: sc16is7xx: enable THRI before filling TX FIFO")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/sc16is7xx.c | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ drivers/tty/serial/sc16is7xx.c | 23 ++++++++---------------
+ 1 file changed, 8 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-index 13a86f0c2d9b4..a890b0da58947 100644
+index a890b0da58947..8fcfc8b322d10 100644
 --- a/drivers/tty/serial/sc16is7xx.c
 +++ b/drivers/tty/serial/sc16is7xx.c
-@@ -328,7 +328,7 @@ struct sc16is7xx_one_config {
- struct sc16is7xx_one {
- 	struct uart_port		port;
- 	struct regmap			*regmap;
--	struct mutex			efr_lock; /* EFR registers access */
-+	struct mutex			lock; /* For registers sharing same address space. */
- 	struct kthread_work		tx_work;
- 	struct kthread_work		reg_work;
- 	struct kthread_delayed_work	ms_work;
-@@ -436,7 +436,7 @@ static void sc16is7xx_efr_lock(struct uart_port *port)
+@@ -11,6 +11,7 @@
+ #define DEFAULT_SYMBOL_NAMESPACE "SERIAL_NXP_SC16IS7XX"
+ 
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
+@@ -782,18 +783,15 @@ static void sc16is7xx_update_mlines(struct sc16is7xx_one *one)
+ 
+ static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
  {
- 	struct sc16is7xx_one *one = to_sc16is7xx_one(port, port);
- 
--	mutex_lock(&one->efr_lock);
-+	mutex_lock(&one->lock);
- 
- 	/* Backup content of LCR. */
- 	one->old_lcr = sc16is7xx_port_read(port, SC16IS7XX_LCR_REG);
-@@ -458,7 +458,7 @@ static void sc16is7xx_efr_unlock(struct uart_port *port)
- 	/* Restore original content of LCR */
- 	sc16is7xx_port_write(port, SC16IS7XX_LCR_REG, one->old_lcr);
- 
--	mutex_unlock(&one->efr_lock);
-+	mutex_unlock(&one->lock);
- }
- 
- static void sc16is7xx_ier_clear(struct uart_port *port, u8 bit)
-@@ -593,7 +593,7 @@ static int sc16is7xx_set_baud(struct uart_port *port, int baud)
- 			      SC16IS7XX_MCR_CLKSEL_BIT,
- 			      prescaler == 1 ? 0 : SC16IS7XX_MCR_CLKSEL_BIT);
- 
--	mutex_lock(&one->efr_lock);
-+	mutex_lock(&one->lock);
- 
- 	/* Backup LCR and access special register set (DLL/DLH) */
- 	lcr = sc16is7xx_port_read(port, SC16IS7XX_LCR_REG);
-@@ -609,7 +609,7 @@ static int sc16is7xx_set_baud(struct uart_port *port, int baud)
- 	/* Restore LCR and access to general register set */
- 	sc16is7xx_port_write(port, SC16IS7XX_LCR_REG, lcr);
- 
--	mutex_unlock(&one->efr_lock);
-+	mutex_unlock(&one->lock);
- 
- 	return DIV_ROUND_CLOSEST((clk / prescaler) / 16, div);
- }
-@@ -756,7 +756,7 @@ static void sc16is7xx_update_mlines(struct sc16is7xx_one *one)
- 	unsigned long flags;
- 	unsigned int status, changed;
- 
--	lockdep_assert_held_once(&one->efr_lock);
-+	lockdep_assert_held_once(&one->lock);
- 
- 	status = sc16is7xx_get_hwmctrl(port);
- 	changed = status ^ one->old_mctrl;
-@@ -787,7 +787,7 @@ static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
+-	bool rc = true;
+ 	unsigned int iir, rxlen;
  	struct uart_port *port = &s->p[portno].port;
  	struct sc16is7xx_one *one = to_sc16is7xx_one(port, port);
  
--	mutex_lock(&one->efr_lock);
-+	mutex_lock(&one->lock);
+-	mutex_lock(&one->lock);
++	guard(mutex)(&one->lock);
  
  	iir = sc16is7xx_port_read(port, SC16IS7XX_IIR_REG);
- 	if (iir & SC16IS7XX_IIR_NO_INT_BIT) {
-@@ -834,7 +834,7 @@ static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
+-	if (iir & SC16IS7XX_IIR_NO_INT_BIT) {
+-		rc = false;
+-		goto out_port_irq;
+-	}
++	if (iir & SC16IS7XX_IIR_NO_INT_BIT)
++		return false;
+ 
+ 	iir &= SC16IS7XX_IIR_ID_MASK;
+ 
+@@ -833,10 +831,7 @@ static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
+ 		break;
  	}
  
- out_port_irq:
--	mutex_unlock(&one->efr_lock);
-+	mutex_unlock(&one->lock);
- 
- 	return rc;
+-out_port_irq:
+-	mutex_unlock(&one->lock);
+-
+-	return rc;
++	return true;
  }
-@@ -878,9 +878,9 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
+ 
+ static irqreturn_t sc16is7xx_irq(int irq, void *dev_id)
+@@ -878,9 +873,8 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
  	    (port->rs485.delay_rts_before_send > 0))
  		msleep(port->rs485.delay_rts_before_send);
  
--	mutex_lock(&one->efr_lock);
-+	mutex_lock(&one->lock);
+-	mutex_lock(&one->lock);
++	guard(mutex)(&one->lock);
  	sc16is7xx_handle_tx(port);
--	mutex_unlock(&one->efr_lock);
-+	mutex_unlock(&one->lock);
+-	mutex_unlock(&one->lock);
  }
  
  static void sc16is7xx_reconf_rs485(struct uart_port *port)
-@@ -947,9 +947,9 @@ static void sc16is7xx_ms_proc(struct kthread_work *ws)
+@@ -947,9 +941,8 @@ static void sc16is7xx_ms_proc(struct kthread_work *ws)
  	struct sc16is7xx_port *s = dev_get_drvdata(one->port.dev);
  
  	if (one->port.state) {
--		mutex_lock(&one->efr_lock);
-+		mutex_lock(&one->lock);
- 		sc16is7xx_update_mlines(one);
--		mutex_unlock(&one->efr_lock);
-+		mutex_unlock(&one->lock);
+-		mutex_lock(&one->lock);
+-		sc16is7xx_update_mlines(one);
+-		mutex_unlock(&one->lock);
++		scoped_guard(mutex, &one->lock)
++			sc16is7xx_update_mlines(one);
  
  		kthread_queue_delayed_work(&s->kworker, &one->ms_work, HZ);
  	}
-@@ -1635,7 +1635,7 @@ int sc16is7xx_probe(struct device *dev, const struct sc16is7xx_devtype *devtype,
- 		s->p[i].old_mctrl	= 0;
- 		s->p[i].regmap		= regmaps[i];
- 
--		mutex_init(&s->p[i].efr_lock);
-+		mutex_init(&s->p[i].lock);
- 
- 		ret = uart_get_rs485_mode(&s->p[i].port);
- 		if (ret)
 -- 
 2.53.0
 
