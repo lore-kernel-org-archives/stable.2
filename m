@@ -1,104 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C9B353A8D
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 18:35:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381533876A1
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 18:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787250927; cv=none; b=U//X32D0NlIxgFq77T1kuZ80rnTjvLhdXSIdUQZjOHeQrMDJflFdwfJA28Nps7dp4k3P6ZaWKqBB60w9S2WAKfQMpnILaUwGldAKBe+Lj8lbe0hpEfTtC+0U1WJdEQZ9JO5mnpkB9tK/BIBD9vPtsU5Jiwt2kBlBVTse1NbGoL8=
+	t=1787251301; cv=none; b=J+SEcaaVjl/D5w/bj6JO3G0sp93r9Bw6EmvazjZOc0Y2VD/sZpa5eroB/+f/ycSeESJfICJ7TApSb5GR0RU2fYkQfGYT0ch6UyHOJUKmqnqU440zxHPWSUN/6YzkdG2YobNxlib9g+jzFmLm9+lpAxNLH2EYNF7WA+RSBRXdiQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787250927; c=relaxed/simple;
-	bh=TciwayOsxxorse3GHwPR+ReTFwDlI/7fhMU/ChCAlRI=;
+	s=arc-20240116; t=1787251301; c=relaxed/simple;
+	bh=tNLgd/FfC4f53hgSjcu9ATEmRr5XYCTKBn1ygO83kDY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nAWK+qqTpgcHBYXz04ogXoxA9BbxycHP271IO5ZHkvAqSBWJH4mGinT4cQS9fkOlzwahCdCmif/27SAggqyfOF1kU1pHnUxAdjOeEreEnnlAgokLr5O4cL7VnVjboJ0KeBZXKxomnSFNP8TnIa8rovuntj/8ubD6wU5VNOHYWvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q3fq3Mm9; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 MIME-Version; b=DkWnzKBmrIahie6SvM8DMhPI8ohMRw1/eYC/LMIV8wUnUAhM4PEtK3tSA7X2aF1SOlY+W4tmLxTV14TgVF+aizolRmft5wWTxMLqosQEk0ks/bH8htby5+hW4oFEkh7Db/NxDhvzWbd4Oc6JFga1br6J4MRcp5HT7oNxTtwagmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=VgfZFLLY; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q3fq3Mm9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787250926; x=1818786926;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=TciwayOsxxorse3GHwPR+ReTFwDlI/7fhMU/ChCAlRI=;
-  b=Q3fq3Mm97yOuCuVEB4Z32u8RDFTiYRBeg/1H0NDLUo/Ko6zs+jGpxyOV
-   bpkgZIdg+OL7nYe7WES1ZyUb0I1fB9TErQlFNzKdiCOime+lPeI1oEeYj
-   HjBtew6U++VsXz4kWvmahc2puTS2Ivs63sC1+eI3VYT/apzhmwQIbALvp
-   E522hhcun4OAV765p5LbNx3QWlCE2rgHLGvYrtZg+tQZhdSGdJcsyd+K/
-   uDag367+1TXyMbcwK2iJV6y/2xuXHga2UK1KvXeMrngEy4aaXzRTZvGft
-   mgy77oeLc8srFCnDHsfuuukpIQj3XP0K8FRpTOTM5MOHyBL7xO/6k0zDD
-   A==;
-X-CSE-ConnectionGUID: eWs2SxZYRjK1WV7ZYola8g==
-X-CSE-MsgGUID: mITImniuT2yQ4vNzM4aueg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87668370"
-X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; 
-   d="scan'208";a="87668370"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 11:35:25 -0700
-X-CSE-ConnectionGUID: KkKckGODSMqu7NocCHoDcQ==
-X-CSE-MsgGUID: yH4gU0HcSPm28f/WRgCaQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; 
-   d="scan'208";a="266722252"
-Received: from dut6094bmgfrd.fm.intel.com ([10.80.54.89])
-  by orviesa009.jf.intel.com with ESMTP; 20 Aug 2026 11:35:25 -0700
-From: Jia Yao <jia.yao@intel.com>
-To: stable@vger.kernel.org
-Cc: Jia Yao <jia.yao@intel.com>,
-	Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH 6.12.y] drm/xe/guc_ads: use uncached mapping for UM queue BO
-Date: Thu, 20 Aug 2026 18:35:22 +0000
-Message-ID: <20260820183522.1386121-1-jia.yao@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026082055-unhinge-monstrous-7eeb@gregkh>
-References: <2026082055-unhinge-monstrous-7eeb@gregkh>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="VgfZFLLY"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cc7ef7ec27so3269995ad.1
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:41:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1787251299; x=1787856099; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QbbEA8njahnpZFXoKuwhGp1hqSSP84JqOYyTbSBwwxs=;
+        b=VgfZFLLY8YiGUuaxsyeBoZIjhLzQkUj5MPGgUIl+EBkc/pj1xB/VFmDCC+j7E1ruUS
+         BIqHcesTGHldg6IDJ3ZxLKltgB1KYP+YJSnWVnOVKWIrA30ec2SiGXETRUQr0zos2gbX
+         rrmozKjZkdU6IVo5OX4rRo++qqnpq44534Y60+Gfvf/NBXlqSGuTBNYisUBHoqouh9xl
+         Ug7ObTa9EPI+k6kSi1IpsHpSXwa35SEmP574CA3OwdmHQZjA3vo3BV80X1OTzl4HYooc
+         VkzG/+X9TWjumlHH+SjX7sD9RV2IIe6wDq3+xeB7aggK+459Ijk9UeNmUq2AO28zONQM
+         1yAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787251299; x=1787856099;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QbbEA8njahnpZFXoKuwhGp1hqSSP84JqOYyTbSBwwxs=;
+        b=UWiJlsSDZuqgQDNNih4bYJ6P1xgq8YqbA4XSGsVy5Ilai2AlCqi2b7Bn/55gNnZBma
+         YwcS+9ZW/ywj3EXONK42sseLUO1Bf0neOFeDYjt61i8XDVc5PBCyu/ZXlyVPfy0GP+Bf
+         V16qHHz7kGWBxJyOOwhSrGibc8R9SuqcsDJnFfr07E3SE4D5dOLHh8A+Yj4I/xHwIySf
+         LUaiK3COr5h1TvmWDiGudjVwULga2SYNzqPeZaxrO8yd842N2OGn3dUEJQvqG70vQXJ8
+         0wJ7NvaShSsDLyOhSI+7A33ye06/5aqF3ay4SolTXutug9yIKKQ5zNMtXxZBuEPfO7w+
+         YZEw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/U1k8cPy4OlILSYp1uRH5g2iCs7kJkMXtADLwdc8HybiSC6fnFbArHKlwcXFoyRyP+dS+zPE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nq3B1pzfSvUzuLHMrD+Rkc2RIdzOWwsbnsZCzj4j8Lnil4rE5M
+	6YswE2dQq/3eY3qMATHM4KHj1THLWwb0yTrcaa95KzIl0rLrRrE8qSpXIeLO420AOr4n
+X-Gm-Gg: AR+sD11HH2zUJEYeMPhfYG29Nf2OTvbkNQJTGU6hlm/legGFcYWXpKOajjPRvZTXsHy
+	zTWB01PoW0eqOW3epRog0HZKHLLngKCzfIISe7CY4nLK7eANQBypKqTEr4mt9XrNy3qMf9U4sW0
+	tlE/bOJt5iOZZSFzLtbOVA3h8vN5KAE6xw9vMYeRYm48zaTh400SJ2gmSshZMCUm0WdQOjDu8zq
+	8MlaSr6Jiq1kxnafomf3LayTHCfMQypnZKdHi3Yj4Kqo4tGwzldhEQQvlsxaCn8gvxl1OpT9DAQ
+	3o4fVitw1CR0oOgFqxD+U2c1wMUSB167uC4jWPPHYM0JsuVwtHg81/Kvs8OwKeekytOOIXBkAF/
+	Njbr4Tk1EQ/aC5cNPDq3gbuA5JqNVGiThdpGXn5M4ljM2bj4IbS0B0fxkgbQbEBtGDtj/+P5Uo+
+	u2csav1yIAlwhlUMOV1ld163Sw8KKTXCSF46RX5fMDmIENvES+UAvy1OzmbhtEbO1o2QfmqDeRl
+	9EM1UZjPXH+DAs=
+X-Received: by 2002:a17:90a:ec8e:b0:38e:659b:f366 with SMTP id 98e67ed59e1d1-395c2f2d9d1mr1256800a91.0.1787251299357;
+        Thu, 20 Aug 2026 11:41:39 -0700 (PDT)
+Received: from gmail.com ([115.192.250.163])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c46b88e9sm20142a91.7.2026.08.20.11.41.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 11:41:37 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	Zihan Xi <zihanx@nebusec.ai>,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>
+Subject: [PATCH net v2 1/1] net: l2tp: do not propagate multicast notification errors
+Date: Thu, 20 Aug 2026 18:40:28 +0000
+Message-ID: <54f48e812ca0424c47ffdb9a8182180921f7e6b2.1787247008.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1787247008.git.zihanx@nebusec.ai>
+References: <cover.1787247008.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Pre-Xe3p platform, the GAM write the UM queue through DPA using UC.
-if GuC reads the queue via GGTT (WB), stale data may be observed
-when the cacheline has been polluted by another agent.
+The tunnel create, tunnel modify, session create, and session modify
+netlink handlers send multicast notifications through helpers that can fail
+while allocating or encoding a message, or while multicasting it.
 
-To match the GAM's UC writes, configure the GuC mapping as UC as well.
+For tunnel and session create/modify, a notification is sent after the live
+operation has completed. Returning a best-effort notification error as the
+command result can therefore report failure for an operation that already
+committed and can cause callers to retry and accumulate live objects.
 
-Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: <stable@vger.kernel.org> # v6.12+
-Signed-off-by: Jia Yao <jia.yao@intel.com>
-Reviewed by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260804165057.129529-4-jia.yao@intel.com
-(cherry picked from commit 9daa302a82590eeee7bdc68023ddad302df4b88c)
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-(cherry picked from commit 8d5134ae4177fa4f5a9bc8e71e6656cfc2852882)
+Keep sending notifications for listener visibility, but do not propagate
+their best-effort status as the command result. This also keeps the tunnel
+modify command consistent with the other notification-only paths.
+
+Fixes: 33f72e6f0c67 ("l2tp : multicast notification to the registered listeners")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: Codex:gpt-5.4
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 ---
- drivers/gpu/drm/xe/xe_guc_ads.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+changes in v2:
+  - Extend best-effort notification handling to tunnel_modify.
+  - Follow the existing bare-call style instead of explicit (void) casts.
+  - Document the observed ENOBUFS and committed-state reproduction.
+  - v1 Link: https://lore.kernel.org/all/cover.1786962220.git.zihanx@nebusec.ai/
+ net/l2tp/l2tp_netlink.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-index 35168447a90b..a4932a45120b 100644
---- a/drivers/gpu/drm/xe/xe_guc_ads.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-@@ -413,7 +413,8 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
- 		u32 um_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile) |
- 			       XE_BO_FLAG_GGTT |
- 			       XE_BO_FLAG_GGTT_INVALIDATE |
--			       XE_BO_FLAG_PINNED_NORESTORE;
-+			       XE_BO_FLAG_PINNED_NORESTORE |
-+			       XE_BO_FLAG_NEEDS_UC;
+diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
+index 59457c0c1..fbdd3d055 100644
+--- a/net/l2tp/l2tp_netlink.c
++++ b/net/l2tp/l2tp_netlink.c
+@@ -248,8 +248,8 @@ static int l2tp_nl_cmd_tunnel_create(struct sk_buff *skb, struct genl_info *info
+ 		kfree(tunnel);
+ 		goto out;
+ 	}
+-	ret = l2tp_tunnel_notify(&l2tp_nl_family, info, tunnel,
+-				 L2TP_CMD_TUNNEL_CREATE);
++	l2tp_tunnel_notify(&l2tp_nl_family, info, tunnel,
++			   L2TP_CMD_TUNNEL_CREATE);
+ 	l2tp_tunnel_put(tunnel);
  
- 		bo = xe_managed_bo_create_pin_map(xe, tile, um_size, um_flags);
- 		if (IS_ERR(bo))
+ out:
+@@ -305,8 +305,8 @@ static int l2tp_nl_cmd_tunnel_modify(struct sk_buff *skb, struct genl_info *info
+ 		goto out;
+ 	}
+ 
+-	ret = l2tp_tunnel_notify(&l2tp_nl_family, info,
+-				 tunnel, L2TP_CMD_TUNNEL_MODIFY);
++	l2tp_tunnel_notify(&l2tp_nl_family, info,
++			   tunnel, L2TP_CMD_TUNNEL_MODIFY);
+ 
+ 	l2tp_tunnel_put(tunnel);
+ 
+@@ -645,8 +645,8 @@ static int l2tp_nl_cmd_session_create(struct sk_buff *skb, struct genl_info *inf
+ 		session = l2tp_session_get(net, tunnel->sock, tunnel->version,
+ 					   tunnel_id, session_id);
+ 		if (session) {
+-			ret = l2tp_session_notify(&l2tp_nl_family, info, session,
+-						  L2TP_CMD_SESSION_CREATE);
++			l2tp_session_notify(&l2tp_nl_family, info, session,
++					    L2TP_CMD_SESSION_CREATE);
+ 			l2tp_session_put(session);
+ 		}
+ 	}
+@@ -710,8 +710,8 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
+ 	if (info->attrs[L2TP_ATTR_RECV_TIMEOUT])
+ 		session->reorder_timeout = nla_get_msecs(info->attrs[L2TP_ATTR_RECV_TIMEOUT]);
+ 
+-	ret = l2tp_session_notify(&l2tp_nl_family, info,
+-				  session, L2TP_CMD_SESSION_MODIFY);
++	l2tp_session_notify(&l2tp_nl_family, info,
++			    session, L2TP_CMD_SESSION_MODIFY);
+ 
+ 	l2tp_session_put(session);
+ 
 -- 
 2.43.0
 
