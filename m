@@ -1,128 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 3.mo560.mail-out.ovh.net (3.mo560.mail-out.ovh.net [46.105.58.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE22033F58C;
-	Thu, 20 Aug 2026 14:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F38F44E040
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:01:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.58.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787234475; cv=none; b=iPWviKmyxAJxABfVEmWZXJoKSSoos+TmDvhSahFDLqHyzUETkqNFNdeYZ8kaC1j1Q3kTk8Vrbu4IteVLAjhTcpqFs1341RNsIH4ruqbHY4V46AhQBi6p0kBehaeJ+SrY0k02ILQiV5RrpgvlDEPnyzLzJBvOlHUqdVpCkfI76Ec=
+	t=1787234502; cv=none; b=WGbHAIxjogJYg6bOeJCClEgkird5TItgfK+LBXaG1NjZ2qkLFrZKrqTTIWSIdBLt7qePPE66Hih+9o1CXjADrgbZOD+u0awQYjiYEaLuGXja0GFORjmphJ2weLD6/117193zJhOWhrudxuK2eO/ZaIUwOn1slD+ktSUfz8c8XB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787234475; c=relaxed/simple;
-	bh=ZhZeyH4cUmZhBq/Kcn46arGUb7S0rQCn7/FG/Rzgp1I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jjavx8IWvOTTSc1KTUDUKE9TrXgRRCB0RS8qKB/to2dDtuzoyLkWYKTwGILgYrznlFspKuhHa7IjCf0gcJ8rcsiNwuZao1oxaR+T1qIyqgZZ4x35s0jwmRpAyW1CurA98GD4br3h4NB/DtU4FHBeljubm0xWKcBg41HmFL2xHQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVQTPXQi; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVQTPXQi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518BE1F000E9;
-	Thu, 20 Aug 2026 14:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787234474;
-	bh=kWq4BIqw/keC1n7yxwLNrJo/GuCBdDJ+y3txl8w8/dY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HVQTPXQio2Z0c/yKmgY8DAl9NuVxVomgB7bbv9LtDsd+9q7FRMmrolqUGk8uBft9D
-	 fBx4jFjYVJULmfLoR6vUkkRkJzqZ6Za1R6tXhIF1rmsqc0flw8OFKC0YC9rfvrt4Ti
-	 QYBRXlaI52N48vFG9q4GMUlrxksRL+Tb7R+HAxdi9/zx08UrmNfXCGyDcM7Ae/nOE/
-	 l3Mdy5oCPyuiL8OxcZs+ddu6Blx5QU0GUWq7gFKfcUsUUy8IJdqsV5LNsfaxID384u
-	 vozkuP82pp8ZyubUr/yjwQbacyu8170O7L+r3X6gU+rK7wXRRun+UlJC/rX+krZ1QH
-	 N6L5Vzmj9AdrQ==
-Message-ID: <327de6a8-6c67-4328-83a2-bfea332aba7c@kernel.org>
-Date: Thu, 20 Aug 2026 16:01:07 +0200
+	s=arc-20240116; t=1787234502; c=relaxed/simple;
+	bh=MhE0/wkYHzuHF8BSJwZYmKYWzxbk/rV3AvAFxVB2hlA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=aa6C7lEF0XfYFGt76+5K/GiPkcmFfhQQlC8JyHSxmbeWQHCOep92aPLe/z8mPAC3UEUNKWBHXwmsPsjiAdkLk6fyinPjek6QA45o5T0OeP/ANJj7BM2yYvdAxSyHm/XJSLi6cbydPYShz/VbwC0j7X3T4VjUfvxhE7+XQXrxJnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net; spf=pass smtp.mailfrom=m-works.net; arc=none smtp.client-ip=46.105.58.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=m-works.net
+Received: from director11.ghost.mail-out.ovh.net (unknown [10.110.54.143])
+	by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4hQlTy6ZBlzBZfC
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:01:26 +0000 (UTC)
+Received: from ghost-submission-c7b579475-5flvk (unknown [10.108.42.231])
+	by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 9EDEEC2980;
+	Thu, 20 Aug 2026 14:01:24 +0000 (UTC)
+Received: from m-works.net ([37.59.142.101])
+	by ghost-submission-c7b579475-5flvk with ESMTPSA
+	id V8Q4F7QIh2o7QAkAoCPlrQ
+	(envelope-from <maciej.andrzejewski@m-works.net>); Thu, 20 Aug 2026 14:01:24 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-101G0040abbf50e-72bc-4bc8-bdce-1a017c43d6c3,
+                    F470D10F53EF0FE28D2744507C2115D6BA5D3262) smtp.auth=maciej.andrzejewski@m-works.net
+X-OVh-ClientIp:144.125.48.245
+Date: Thu, 20 Aug 2026 16:01:23 +0200
+From: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	chris.packham@alliedtelesis.co.nz, daniel@zonque.org,
+	andriy.shevchenko@linux.intel.com, sakari.ailus@linux.intel.com,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+	maciej.andrzejewski@m-works.net
+Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Daniel Mack <daniel@zonque.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
+Subject: [PATCH] uio: uio_pdrv_genirq: restore UIO name without the unit
+ address
+Message-ID: <20260820140119.1546932-1-maciej.andrzejewski@m-works.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: qcom-cci: fix autosuspend cleanup
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Wolfram Sang <wsa@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email 2.43.0
+x-ovh-tracer-id: 627689202175910691
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTFYeV71eUF1BGjG8wIvXXDrYCzR03KSiq3cauo9fAV3JDgR6jrZ61LxQt+GNCa77uUPrRGctm5qtW+00wh82aFXRMJyEFrkNS4Nd9BzxEW5w3j4N/xnG2/PAkM6a+Ups5BUTGkvtd+e5My36OIFFAS50/sRt0xxbmE1aoXaLyXQl5xRqwuZFVHtVmxy5iLVi1dpXPDvDk+ZOKgkIWUBG90QDvbo9HCO0Zgqc0hPbwAVKWmaiw56AL6ATQvQGVEXrPZ59cPGmSQuK8WNEORxdtJMEeq67roRQZ3B1sSPZVTb1OMoQnwxdh6+H0iQ1+ZbLrGVUOVmy5f+16Nt/AxfsPChgFOA3xb654vzT4Fd8mKyEwHpgAWib8ODb+G0BfRx0Hx6zRNaLAN+FMLlolerxu6ctXvUbHYV6/4s3XgWuN2iARzyMzQm1uoiZCEgtStF8hZh790iA5TuTuZ+BNTrYSPHGlmXVA/C1Zm4v9ONownLqZa0D2byxTbZhzZd68yVyNX7U7HvvqGasN8jCV6ERSR0ThuaKUZiETOp6IQBEhGetQFzSJeep173dYTqvq7gSYiExy8beWFt5/dNi139p4X/IWqxBr3SnGjlELj8AO4K8PV9j3zYQDzi1BuFzU7Vog9xQBH7zF9Mi52SolfUfJr4eIvqJqOClATBQvF4sjo73w
+
+Commit 90fa0280553a ("uio_pdrv_genirq: convert to use device_property
+APIs") switched the driver to the device_property API so that a UIO
+device can also be described through an ACPI overlay. As part of that
+conversion the default name handed to userspace changed from "%pOFn" to
+"%pfwP".
+
+The two specifiers are not interchangeable. The printk format
+documentation defines %pfwP as the node name including an address if
+there is one, while %pOFn prints the device tree node name with the unit
+address stripped. A node named "dma@a0000000" therefore appeared in
+/sys/class/uio/uioN/name as "dma" up to v6.9 and as "dma@a0000000" from
+v6.10 onwards.
+
+That name is the only stable handle userspace has for a UIO device,
+because the uioN index follows probe order. Applications that resolve a
+device by name, for instance through the libuio uio_find_by_uio_name()
+helper, stop finding it.
+
+Nothing in the conversion suggests the rename was intended.
+Documentation/driver-api/uio-howto.rst still states that the node's name
+without the unit address is exposed as the name for the UIO device in
+userspace, and uio_dmem_genirq still builds its name with %pOFn. The
+"linux,uio-name" property added by commit b0297622a972 ("uio:
+uio_pdrv_genirq: Make UIO name controllable via DT node property")
+already lets a board distinguish several identically named nodes, so the
+default does not need to carry the unit address.
+
+fwnode has no equivalent of the %pOFn name-only modifier, which is
+likely why the closest specifier was picked. Print device tree nodes
+through %pOFn and leave every other firmware node type on %pfwP. This
+driver could not be probed from ACPI before 90fa0280553a, so ACPI
+naming is unaffected.
+
+Should the unit address in the default name turn out to be wanted after
+all, then uio-howto.rst is the file that needs the change instead, and I
+am happy to send that patch rather than this one.
+
+Fixes: 90fa0280553a ("uio_pdrv_genirq: convert to use device_property APIs")
 Cc: stable@vger.kernel.org
-References: <20260812094425.3515179-1-lgs201920130244@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260812094425.3515179-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
+---
 
-On 12/08/2026 11:44, Guangshuo Li wrote:
-> cci_probe() calls pm_runtime_use_autosuspend(), but the remove path
-> does not call the matching pm_runtime_dont_use_autosuspend() before
-> disabling runtime PM.
-> 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without undoing the autosuspend setting during
-> teardown, this reference is not dropped and usage_count remains
-> unbalanced.
-> 
-> Use devm_pm_runtime_set_active_enabled() to manage the runtime PM
-> state. Its managed cleanup disables autosuspend and runtime PM and
-> restores the suspended state on probe failure and driver removal.
-> Remove the now redundant manual runtime PM cleanup.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: e517526195de ("i2c: Add Qualcomm CCI I2C driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Notes:
+    Found on a Zynq UltraScale+ platform where FPGA blocks are exposed
+    through generic-uio nodes. Userspace uses libuio and resolves those
+    devices by name, so the applications stopped finding them after a move
+    from 4.19 to 6.12.
 
-You sent vast amount of patches, all separate, making it very difficult
-to track and respond in efficient way. Do not do that.
+    The single generic-uio node in tree is renamed the same way:
+    uio@d0000000 in arch/arc/boot/dts/vdk_axs10x_mb.dtsi reads back as "uio"
+    before v6.10 and as "uio@d0000000" after it.
 
-Group your work per subsystem.
+    Build tested on x86_64 with W=1 and CONFIG_UIO_PDRV_GENIRQ=m, once with
+    CONFIG_OF=y and once with CONFIG_OF=n. No warnings either way.
 
-You were asked to clarify and respond to incorrect fixes statement. I do
-not see how you clarified and responded at all.
+ drivers/uio/uio_pdrv_genirq.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/uio/uio_pdrv_genirq.c b/drivers/uio/uio_pdrv_genirq.c
+index 0c8d73e7be52..27268c8d1b94 100644
+--- a/drivers/uio/uio_pdrv_genirq.c
++++ b/drivers/uio/uio_pdrv_genirq.c
+@@ -128,6 +128,9 @@ static int uio_pdrv_genirq_probe(struct platform_device *pdev)
+
+ 		if (!device_property_read_string(&pdev->dev, "linux,uio-name", &name))
+ 			uioinfo->name = devm_kstrdup(&pdev->dev, name, GFP_KERNEL);
++		else if (is_of_node(node))
++			uioinfo->name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
++						       "%pOFn", to_of_node(node));
+ 		else
+ 			uioinfo->name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
+ 						       "%pfwP", node);
+--
+2.50.1
