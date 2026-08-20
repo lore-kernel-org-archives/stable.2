@@ -1,94 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA6D36212F;
-	Thu, 20 Aug 2026 15:23:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A425D37E5D8
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 15:23:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787239392; cv=none; b=URiZxWP68xfdJxMU4q4imZJA/agT5OAdmRld5BRaB9pVCQYWzvQjOzPaupfajkWakNo0zcJWMFitY52V1ZzZCRe8kJkhK4ybb3PYOgmwB0L2bplIQDyewwZHyyZPliIRjlctYokLD1AIKlen1x7KmVK8GcKihMKmdVxlo600Cps=
+	t=1787239393; cv=none; b=OT+PfxcEEzbapFFS/1UtacJ1MRmsa80fi+pSnhbHigizXncdEjzZlSOeb9OucuHRL/P8r10N16p438CVIXZQeNwKPp5P9zi99Cc0ZbO8aEw6kw7ORTbedxmeG2NxiaqbZUYCE2Ki5GvQ5zhfeHsKX/A/TxhkS8hBkksKAaymulo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787239392; c=relaxed/simple;
-	bh=G0oTQGx/qgHUiFiIgwU/AvonuibXoj3EWrjid2j3rnE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Pgb5Lnq2eMxKiWwvkMm8qigMwJGoffoyjHJRy7c/Oq5tayWSWVi3xk+jzoSXLLSETRMxat6xOXr+hvaxAYDEu/J/JKD01Zag7e3prCLMBFy+YoLxt3oQK0qJz/rr5LNVgjwG4s//KZ7i1f5oCGwtz8yRcqy2CeJqrE4iLUjOUIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Cvg7HEbs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787239393; c=relaxed/simple;
+	bh=47nd9056KOAYmgY4YVIc5QWABpl5hmE58f8hCzWndQI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ezbrvz1mpn95CactpXuvm0oY2RvbmuYK+CYQuh17mqYMvbKCFOStFTPiK7P50vR/dBdwRflDqdMvZygoilH1d2fYH/ycW59P2HwgOA60KQzmh9sQmXwBQOswWPvcyGkwJcKolRb1lFuU5CLeTn90YGwvvB0ZZ0lvfnhkAFsc3lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z0qS9Rsi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Cvg7HEbs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1DFF1F00A3A;
-	Thu, 20 Aug 2026 15:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787239391;
-	bh=PqKZcDF2h/WvjER4F2IL6RBEjHCqbcxBgwc8W20nTjw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cvg7HEbs2qSmQnMNfrsWxkIATFE0YSOwLjfkjE3DHXP4z1+5IAxoNpQjFdr4JlVQ2
-	 Ud994Mx06GppcMZB/MoeS259il7stZYPqii+wqlR0xt0tqPK1RpzCuY1OOB87OoFAc
-	 dGARnwHl84fKn0QF9dPcfHuNTkF+ojZPq46uQgdk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Qiang Yu <Qiang.Yu@amd.com>,
-	=?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 6.12 033/220] drm/amdgpu: read TRUNCATE_COORD_MODE on gfx12
-Date: Thu, 20 Aug 2026 16:53:43 +0200
-Message-ID: <20260820145224.495589952@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260820145223.480031205@linuxfoundation.org>
-References: <20260820145223.480031205@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z0qS9Rsi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 136F41F000E9;
+	Thu, 20 Aug 2026 15:23:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787239392;
+	bh=KKd8910UZMHQq/I0uxLglRjAsGiypzz0OgWf9+X5MgM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z0qS9RsiQWo4e6YM6pdacr8gtDpCSj0LenjW0DXWzO8upx0AVZ6OYUsOUbFEoJ1Mq
+	 J/Q0uMVodCKqxF9tJPrjutyLMVZBUYtP3FGfAJX8t4rLu0dEgOHT7dqsG0BFVqfkwP
+	 nAT6YlHeGMrQiULpLJEbLWKPwXbI3wrfvpZP/KWgS3sWwgUqRPIovb6fUzsDA2fUeo
+	 MFYjlLp+UARNV3/MOpBqagwx4fnw2jYnoXywZxH3D52nSy3nFfCg2mRMCU52t5nk5I
+	 qdINk/YJ47D+IAQ5E0NTQyqeFvWN8CFgo7J4W0dV9q2GP2BiTVRtnYnAiDKI1SMisw
+	 nU5jjuoOh0wQg==
+Date: Thu, 20 Aug 2026 09:23:10 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Niklas Cassel <cassel@kernel.org>
+Cc: Rihyeon Kim <rihyeon8648@gmail.com>, justin.tee@broadcom.com,
+	nareshgottumukkala83@gmail.com, paul.ely@broadcom.com,
+	axboe@kernel.dk, hch@lst.de, sagi@grimberg.me, kch@nvidia.com,
+	stable@vger.kernel.org,
+	syzbot+f58e57380a6083c4041d@syzkaller.appspotmail.com,
+	linux-nvme@lists.infradead.org
+Subject: Re: [PATCH] nvme-fc: fix double free of fabrics options when
+ nvme_add_ctrl() fails
+Message-ID: <aocb3ogg34WWtRSB@kbusch-mbp>
+References: <20260814143833.1953415-2-cassel@kernel.org>
+ <20260817061815.154794-1-rihyeon8648@gmail.com>
+ <aoMkX_davK7TWlaj@ryzen>
+ <aoXLiFruG5s1nKch@kbusch-mbp>
+ <aoX2wcyhpakryWHX@ryzen>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aoX2wcyhpakryWHX@ryzen>
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Aug 19, 2026 at 08:32:33PM +0200, Niklas Cassel wrote:
+> Hello Keith,
+> 
+> On Wed, Aug 19, 2026 at 09:28:08AM -0600, Keith Busch wrote:
+> > On Mon, Aug 17, 2026 at 05:10:23PM +0200, Niklas Cassel wrote:
+> > > It seems like Keith did prefer your patch, but as you said, your patch does
+> > > not avoid a NULL pointer dereference in nvme_auth_free().
+> > 
+> > But you're replacing a NULL pointer dereference to a derefence to freed
+> > memory. That should be fixed too, and I'm just saying checking a pointer
+> > for NULL before dereferencing it is more clear than checking if a list
+> > is empty.
+> 
+> I am not following.
+> 
+> The options is freed in two different places, depending on if the
+> ops->create_ctrl(dev, opts) call in fabrics.c:nvmf_create_ctrl() was
+> successful or not.
 
-------------------
-
-From: Qiang Yu <Qiang.Yu@amd.com>
-
-commit 2d69604b4d0b9c0c0ac71624b5fafb36cf249729 upstream.
-
-TA_CNTL2.TRUNCATE_COORD_MODE selects whether texture coordinate
-truncation is D3D9/GL/Vulkan conformant. gfx11 reads it and reports it to
-userspace via AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD, but gfx12 never
-read it, so the flag was always reported as 0 and userspace fell back to
-the non-conformant path.
-
-Read it in gfx_v12_0_constants_init() like gfx11 does.
-
-Fixes: 52cb80c12e8a ("drm/amdgpu: Add gfx v12_0 ip block support (v6)")
-Signed-off-by: Qiang Yu <Qiang.Yu@amd.com>
-Reviewed-by: Marek Olšák <maraeo@gmail.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 4261cbc7b03f1f56e95aeaf1492b8690fa5a253e)
-Cc: stable@vger.kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c |    5 +++++
- 1 file changed, 5 insertions(+)
-
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -1692,6 +1692,11 @@ static void gfx_v12_0_constants_init(str
- 	gfx_v12_0_get_tcc_info(adev);
- 	adev->gfx.config.pa_sc_tile_steering_override = 0;
- 
-+	/* Set whether texture coordinate truncation is conformant. */
-+	tmp = RREG32_SOC15(GC, 0, regTA_CNTL2);
-+	adev->gfx.config.ta_cntl2_truncate_coord_mode =
-+		REG_GET_FIELD(tmp, TA_CNTL2, TRUNCATE_COORD_MODE);
-+
- 	/* XXX SH_MEM regs */
- 	/* where to put LDS, scratch, GPUVM in FSA64 space */
- 	mutex_lock(&adev->srbm_mutex);
-
-
+Oh, not that path. You mentioned previously that ctrl->ops is
+dereferenced in other places. I thought this means we can successfully
+add the controller, which means the attributes are visible, but then
+fail something else later that causes the opts to free. Since the
+attribute was visible, something can open it before the device exporting
+is torn down, and access it after the opts were freed.
