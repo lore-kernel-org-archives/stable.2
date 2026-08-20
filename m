@@ -1,80 +1,49 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3E53AEB39
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 06:14:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8A9376A09
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 06:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.128.198.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787206442; cv=none; b=jXHhgNE+pOk9f58cGsJzqua8nlGvgqbOngVMIRYuAlvOswQxG6tCEufFBNf12IETyI+UmvYQjHI/YYWWtSOjc3a79BA5Nx2d9jYjZ/NwR6HKzH8k9VviRBW2tZdhE9sNwoBrwfJpMW51ZKya4FOAgRPy8lTRzg3SCLYTOKRCrzA=
+	t=1787206768; cv=none; b=P1zK7IxQqBm2dvHbX098YW8oP7ivcFpdn/qO0zbzpMX7bHjTMKowiEwp24AG3cwxVnaoCG+HytWwS1YGR0OQN2a3SEIaCwbq4mZ5mgGx5ORyBrbjO+QgHw12tgFU6CllGJTPyW7anPFMgQVsLZuLYZOdfK7I+hd6cfPUcE4rUqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787206442; c=relaxed/simple;
-	bh=5idfiA36NczW41si+OWGL51HGRsYJBjnWxO7ogXCc8M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bVjQSahS71mKv+V1oEpDuxUESmz8OeD3/fNjJDT3fRXQD2HvKlU8jUMe1XcN5H8CxFj7hql5l9TS+WbLzCSWJiFUy1pWJ53Emgd6ZcadlSSEoFGCXUULdoIi6E+nexCfdlBxmrnk51T3f7IWc5H85oBwOeqQaclGiDPyDVQ5yMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E7AH9DAi; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E7AH9DAi"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47f84023916so1743864f8f.3
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 23:14:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787206439; x=1787811239; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+0zPOZ4cy1qU8zrYNcuVxcq7JUklUQqhNtrlV/MxG9w=;
-        b=E7AH9DAi27mvWHXeWQF4pPTG34CIkQVMlXTwEpX059psgy3AeLgF1rtszHwT8LM6gF
-         JpYRVv2kojq75qlK/voPyek23nZVE/GLYkm7tO567/s1a89KdohpXrWmqCfvkfQTnsjW
-         P16plr8nwlfRaJL1wfxodV8RuiadRWSTqAkksPw8ENdlslmJmyAFiFXnEsh9Z+xDT9dJ
-         dfUtl7khszq/iwm1UAqg5AgNa9vq82UWZ+me20UU41gotRzJ0TbvBrq249i62SFdzQ29
-         Svvjs9lgODDmcYo9I0H/GcMrAG9QaX9ZrFJCzxPp3BeYGAXseJyDW/j1nts5ck6IVJ65
-         cAkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787206439; x=1787811239;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+0zPOZ4cy1qU8zrYNcuVxcq7JUklUQqhNtrlV/MxG9w=;
-        b=nqp/bCHtyAxrei6e8cvJGpn1Ift8ru3lLV9lLvlao+lJMB6VdHHrWvDj3W5RWlYYjJ
-         BaQL0EzHgNaCKliadvLBdBC2QVGq5t9HYe+IUb6avV+pDCXDTSZsAxnePD+4kDIOpbl5
-         z/14H8f2vr6y77+jW0WpTz9KGULhh2rtMKXp90fgwY5DqW5kcpgXkOKYp8HIX/rcybAp
-         j7OkEFZClhLEi4UXW1reNCoZcjJfls2BPSjwmzG+LC8P79gcPi5Ey1+YXv2Exq5AtIJS
-         tQ++5+wwjLU0R4TIJbVt0Xi4vN5e7PT1eE7ZkQwIoxKUfke5NdHyJjz6VWjuPe5ffZ94
-         YatA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq16aq8Z/mTNBgmWlJ1AqDKF6ekBnVZVcExAohDO/o6X1z33ylcZdPNmKaImUbJizwav58zj/M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwHFHD5j3Agyy3cu+L+P81V/XWleIjNdJ56o6+AMbCtn+bmZ1xk
-	pRzMwDeJ4qDKzvWOE7pYnqvdAepe1IgzHEzCRwVB/rarMP0xImhRpRFi
-X-Gm-Gg: AR+sD12EFH4CSYIC9xmmCUDhYAqxeT5gNMnq1F0cBnjcQqL7oQxQ7TESukkKthgGKvH
-	Wh3J4gnkL+GAMBYWUlY5eteLSONkmhWuCDDGGO0OxULk5rSbUrMbHZsL4hS+d4LqdfoQ2ux+Ox3
-	WNlW0Y1QCrzlklb90WwgUlnJn7/Gq1Eb1GNa48R6yB3mNP8k3kRFaNPyem8JsLFdbP+QzXOG+kS
-	xwI+y40gctN2+tT0b8wvo1lVLPlO2TYpS+BykmH+wfLY9KapnJQpTwrZePp5tf5KHYaydH0+qoQ
-	A6Nrfa1DphkJYkZw1Y/wt/RCvXOiDgYr2KuB3Ntow5iKH0HAyCVM4t6SXOV1nVFWHEhgj86JdGJ
-	jaiaSSY69g1TKrqyFnwCA6FwSAMBALLpQrX52LqqSSiyrfqxgITgZIjZHNOGIW/QiTKqDjRc2q8
-	0hIu1aDzp/Du7rm6r+rH5sSrjoozZ6hGTAtCLODAVyzkeszT6/nxYuz5S0HCS/V2B5gtMR9yra7
-	8UbC7b/lYytkqLp6lsH+Cpq7JIfR0diMMQV2Nwtx1AZ5UEKsVggEa6jp3ggR9gdf/qwBA/uuj/v
-	BD45SelN59ZxS0vTekpF9X2JUACOsnFoc2jY5UGnRa/RLN6sye7A58lUGR8Eglr19A+nMgrgVPY
-	ByyU=
-X-Received: by 2002:a05:600c:c493:b0:499:7aa7:eaa7 with SMTP id 5b1f17b1804b1-499aa20c7b1mr165566735e9.15.1787206438796;
-        Wed, 19 Aug 2026 23:13:58 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a476-1a01-141e-2b69-987c-d72d.310.pool.telefonica.de. [2a02:3100:a476:1a01:141e:2b69:987c:d72d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499aa17fc80sm129661355e9.14.2026.08.19.23.13.57
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 19 Aug 2026 23:13:57 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: selinux@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Ondrej Mosnacek <omosnace@redhat.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Amir Goldstein <amir73il@gmail.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-unionfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] selinux: preserve user SID across nested backing files
-Date: Thu, 20 Aug 2026 08:13:49 +0200
-Message-Id: <20260820061349.10542-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1787206768; c=relaxed/simple;
+	bh=V4+ISOdVHOx4edqhLj6T6q06bkB70C+CcY4/CYupAJo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gY9DjtVbIyO/PudsyrwC9x7hjIXT3cGOaIPaF1ZUkOHSQvcqNkqeoWW6SZ94zrrcQmfepKnXkcIMcpHxHoGQ0QvvuoXYa506E0imKX/mPdDDccVQBUGJgEM4Q/xNagxTsoXVkSRZ9iJZHU3AUm03rNaCPG76UOIjvbeuyObV+PU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=220.128.198.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from mail.andestech.com (atcpcs55.andestech.com [10.0.1.155])
+	by Atcsqr.andestech.com with ESMTPS id 67K6JJOt001731
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 20 Aug 2026 14:19:19 +0800 (+08)
+	(envelope-from ben717@andestech.com)
+Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs55.andestech.com
+ (10.0.1.155) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.43; Thu, 20 Aug
+ 2026 14:19:19 +0800
+Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
+ (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Aug
+ 2026 14:19:19 +0800
+From: Ben Zong-You Xie <ben717@andestech.com>
+To: <stable@vger.kernel.org>
+CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Sasha Levin
+	<sashal@kernel.org>,
+        Alexandre Ghiti <alexghiti@rivosinc.com>,
+        Palmer Dabbelt
+	<palmer@dabbelt.com>,
+        Paul Walmsley <paul.walmsley@sifive.com>,
+        Albert Ou
+	<aou@eecs.berkeley.edu>,
+        Palmer Dabbelt <palmer@rivosinc.com>,
+        "Ben Zong-You
+ Xie" <ben717@andestech.com>
+Subject: [PATCH 6.1.y] riscv: Don't use PGD entries for the linear mapping
+Date: Thu, 20 Aug 2026 14:19:09 +0800
+Message-ID: <20260820061909.1811239-1-ben717@andestech.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,76 +51,56 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs55.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 67K6JJOt001731
 
-SELinux saves the user file SID in a backing-file security blob so it
-remains available after mmap() replaces vma->vm_file with a backing file.
+From: Alexandre Ghiti <alexghiti@rivosinc.com>
 
-For nested backing files (overlayfs over overlayfs, or FUSE passthrough
-backed by overlayfs), user_file may itself be a backing file.  Its
-fsec->sid is the SID of the mounter that opened it, rather than the user
-that opened the top-level file.  mprotect() then checks fd { use } against
-the mounter SID.  This can incorrectly deny access without a domain
-transition, or check the wrong target SID after one.
+commit 629db01c64ff6cea08fc61b52426362689ef8618 upstream.
 
-Copy the saved user SID when user_file is a backing file.  Keep using the
-regular file SID for the first backing layer.
+Propagating changes at this level is cumbersome as we need to go through
+all the page tables when that happens (either when changing the
+permissions or when splitting the mapping).
 
-With two nested overlayfs mounts and SELinux enforcing,
-mprotect(PROT_READ) returns EACCES with an fd { use } denial against the
-mounter SID.  With this change, mprotect() succeeds.
+Note that this prevents the use of 4MB mapping for sv32 and 1GB mapping for
+sv39 in the linear mapping.
 
-Fixes: 82544d36b172 ("selinux: fix overlayfs mmap() and mprotect() access checks")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Alexandre Ghiti <alexghiti@rivosinc.com>
+Link: https://lore.kernel.org/r/20231108075930.7157-2-alexghiti@rivosinc.com
+Signed-off-by: Palmer Dabbelt <palmer@rivosinc.com>
+[ Ben: Only backport the RV32 guard. 6.1.y can build the RV32 linear
+mapping from PGD entries, and there is no splitting in __set_memory().
+So a one-page permission change mutates 1024 pages.]
+Signed-off-by: Ben Zong-You Xie <ben717@andestech.com>
 ---
-Tested on arm64 QEMU at fd6e2388a3ea with SELinux enforcing and two
-nested overlayfs mounts. The policy omitted only
-base_t -> mounter_t:fd { use } among the relevant cross-domain allows:
+ arch/riscv/mm/init.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-  baseline: mprotect(PROT_READ) returned EACCES with that denial
-  patched:  mprotect(PROT_READ) succeeded; test exited 0
-
-This patch fixes SID propagation only. backing_file_user_path() still
-resolves to the middle layer for a nested mapping, so the audit path and
-inode do not correspond to uf_sid, and that layer's mounter is not
-re-checked. Preserving the full user path likely needs a VFS-side change,
-such as having backing_file_open() store file_user_path(user_file).
-
- security/selinux/hooks.c          | 4 +++-
- security/selinux/include/objsec.h | 2 +-
- 2 files changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 1ead2eee1944..8b96934e9992 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -3849,7 +3849,9 @@ static int selinux_backing_file_alloc(struct file *backing_file,
- 	struct backing_file_security_struct *bfsec;
+diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
+index 72b3462babbf..7e6ea7f0cb68 100644
+--- a/arch/riscv/mm/init.c
++++ b/arch/riscv/mm/init.c
+@@ -666,8 +666,13 @@ void __init create_pgd_mapping(pgd_t *pgdp,
  
- 	bfsec = selinux_backing_file(backing_file);
--	bfsec->uf_sid = selinux_file(user_file)->sid;
-+	bfsec->uf_sid = (user_file->f_mode & FMODE_BACKING) ?
-+				selinux_backing_file(user_file)->uf_sid :
-+				selinux_file(user_file)->sid;
+ static uintptr_t __init best_map_size(phys_addr_t base, phys_addr_t size)
+ {
+-	/* Upgrade to PMD_SIZE mappings whenever possible */
+-	if ((base & (PMD_SIZE - 1)) || (size & (PMD_SIZE - 1)))
++	/*
++	 * Upgrade to PMD_SIZE mappings whenever possible. Not on 32-bit,
++	 * where PMD_SIZE == PGDIR_SIZE: such a mapping is a PGD leaf entry
++	 * that __set_memory() is unable to split.
++	 */
++	if (!IS_ENABLED(CONFIG_64BIT) ||
++	    (base & (PMD_SIZE - 1)) || (size & (PMD_SIZE - 1)))
+ 		return PAGE_SIZE;
  
- 	return 0;
- }
-diff --git a/security/selinux/include/objsec.h b/security/selinux/include/objsec.h
-index 3c0a16ec978b..853f7266ed18 100644
---- a/security/selinux/include/objsec.h
-+++ b/security/selinux/include/objsec.h
-@@ -87,7 +87,7 @@ struct file_security_struct {
- };
- 
- struct backing_file_security_struct {
--	u32 uf_sid; /* associated user file fsec->sid */
-+	u32 uf_sid; /* top-level user file fsec->sid */
- };
- 
- struct superblock_security_struct {
-
-base-commit: fd6e2388a3ea55e58cbbbef840c1d8aa2067dbb3
+ 	return PMD_SIZE;
 -- 
-2.39.5 (Apple Git-154)
+2.34.1
 
