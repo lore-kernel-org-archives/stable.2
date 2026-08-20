@@ -1,113 +1,78 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FA73C13F5
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42DF3C13F5;
+	Thu, 20 Aug 2026 21:21:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787260855; cv=none; b=kG4MUmiX8lRRBUk1SyAIDo84nQbLzAgnYjhvYDzeCKUqfvRrKIYDr//s1ERp/+AWOJ65J+38iDO33HmtQiovi1/lWuNEAaflnSgrTaJUJzrQHrnS7D1YttbpFJKeaRQzRKvJ+qY0KWFX5sBQ5febmK3ybfwAFotHLh2Kk96DbxU=
+	t=1787260864; cv=none; b=Hc4xWpi2Y0WGl1oGvx60ya+t/QwI20GRBM/r18DcesivJoj1v8wZ3vJrsLO2G0lse5iZIsUx6yYH7Okw9qVd220G32lMDi3dpv9LW/p7rHbylXxuQ8eABL+lv1wBqTvpezAECaFbNstXNT5W1GMUqx3HtEo5at/U+cMhc3PzDhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787260855; c=relaxed/simple;
-	bh=J+o9dH3EtFMjqpoc6CIIwziyQDea7+QKvQj34ZKbAWI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oZfJX+54aA2BwIWN7ajdWliFQkJS/98o0cu+SKtisxijvy04OT5gScbhDSNmNgI5NTjMJepFJ7AkxnRg0i5LbOl2PlROAfF88bUgpb+nZUEQ4WAibb3OEHmDvKeoH0S8dAIaTEfFnzDs+kXbNp2KaCyP0Rke0It9epOYb5wz1+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mrchR6th; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787260864; c=relaxed/simple;
+	bh=DNcgQTkBQf2hIYzPb7ktk7cjetRYxnCKlQ68rhPpbdM=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=F83f/YGkIsN1ARE8pNtTlcswKhpT+Q9qPvt5B+8fupshs2QyoGZgs+5iUsHwlayCFuoRH8KtEGcrZFMhDwgc4qVdUNraqi0zrtBgz/kqa16PKMxkuGOJ5wnFDWKZ9SbRy6kC6wlIg1Ig/rnArlq5dnVPDtDUHiwIFjOcBEEpewE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdDZ13lj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mrchR6th"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ccf2360620so3071855ad.3
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:20:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787260854; x=1787865654; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4SwYkwkNmLdvsbCWU4wBK88wpaHOEd82aK+RJCNSoNg=;
-        b=mrchR6th/yvoPsCzzOWFwi3YrCmaAekFNKGxnc4u4o5Qxcx3rDF3Swi5JirTfFo6UV
-         5ZLme4Lc1nnLLHz+0ipDIjDd0xa6ZedUgtgVaEqTns5UdVszt6mAoR5IcRhjdmROkH9E
-         P9uw7CieJMQXY7qjZAgkBGBKta/nFpJBUYxiUZ0bVwO+whuza/1oAaAR7bMXO3wtC7Vk
-         2AwQIAoccpoD9WkyO3j6InniZ/GjizRdXK0CpPCqRAnnrS3jbs9AUGl9pKHhR+5pDpRE
-         +QcAXcqTDDWO+X75qIuZE/4beTRQzLIYa2JVkzmkLWZEZqV4pYOFOYfYu1vNZA3AFZD/
-         KWtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787260854; x=1787865654;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4SwYkwkNmLdvsbCWU4wBK88wpaHOEd82aK+RJCNSoNg=;
-        b=OXZYi/YGc4mhgAZSMXyjZAcH+cKoZvqH1P4Qk/B4AImkawWwU0DlpF7GRLyX+KD5Tc
-         bP9T1/7kzfZSrgFvfTmoNyWIegeLJFLTrHrHheOFTiTSiwmjffWzfDFykkxFEeXfLh6/
-         /vU8/y9saq2tAmXsK9tg2fXbrkZmBl+SLWYxWTuWIrJaWkB4+lk3SADyZ5KVlQiA2/E/
-         lFekQRgXfQzOh+qWiUSWhtNsQ/ESFYkMTbIZ+pND9xtSStZbwo7D0hfcF327TOqeq3jC
-         7FHKq92PjUqNX51a9T40w9wehGMWZ6CfKHV0p3BxIHzXCyfQohUqOGibpH/I3WE2kGSg
-         c0Iw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7HqMAtP+4jK+jLxlc4nDyhmJ670mo7Jcsd//ZPJ5C5zXOkvUpD2uVgQcShOs8GO7jr6aIBT8=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndG+we6JB/kydb1cXtQK3mj0vbiqzfydZG7D9OUHs6W5md8svP
-	fmI698aaanVm7mECFOVk/cUBd4WJW10rn3xDdDQI8ubR0lm4/zzdy3DY
-X-Gm-Gg: AR+sD12WxTFKrL89tvlWQjQug7DB++0z4vuQNxxZH/CayaVBHtGUR6GsGdFb04EjjD3
-	+OZpYiEg52N98RcQF4vbpkDMNSzKFqDBjZ/TUF4Tat/8FVjRVFQLAMP9SRtHW7UrrAkCj5udkDs
-	Fk7MZbhemltNQHxRTXd4SvHtdN2DkmdyDbWPJaazczxE/GmmhvFwA1p6VNptPE2hINgwKtUk9fy
-	fHfNfYYZhqVNP2XDVwGnSGJzEQw9UtOqxdynsGgvMajCpop9j+06RRGhcDa0fOtXqLROq4F2beq
-	UzMYzQ1xPuuPRCmsAhfHJcFUAgBDcZFo/tbqLDgH2XTvu2sN9rKqlWOhtF+uxfPTR0DCuIahx+v
-	6UFXrcDxj5sSX2tOMThMdu6iLbL3wRdSx87/UnuA2TdO3dnCYdS9D4ljdLXH2x0DZbHd1PiyO4L
-	2NTbUAR5TMRQuPL4xUXLgOGr8fFDJC51v4mgda2EoWZ9ZhKQ0ICmR90BHMyjfDTFYgkhzjr/FTE
-	tzCo3AlWpb21GE=
-X-Received: by 2002:a17:90b:1a85:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-395c3aa9e26mr1971749a91.16.1787260853762;
-        Thu, 20 Aug 2026 14:20:53 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327cbb46ff8sm14493836eec.23.2026.08.20.14.20.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 14:20:52 -0700 (PDT)
-Message-ID: <de2d1251-83c4-43f1-918f-9dd27891e446@gmail.com>
-Date: Thu, 20 Aug 2026 14:20:51 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdDZ13lj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 747231F000E9;
+	Thu, 20 Aug 2026 21:21:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787260862;
+	bh=/MsSEeUrcW/6FkkcmaBIPSVkJ82YiN7xLenniToTdDw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=hdDZ13ljdGisw+qb4tXoiJXBynhWxnMiUocwI4YT0u6a21mpLOZ/XSuOUrfVsMd9y
+	 g/0s14JRc1+i4rJZq09uC39q/Q/2VNXhKfbEY9UPbXg45AZXPDfzLi5BB6TI55J7JO
+	 0AAXTcCHn8zYjx3JdNiLeVLyWy2m6nVwk9KVGdtEpszgw7F/AWLm/vAF5t/yU603QC
+	 uq7ql1ZD0DW+tBQ2jv/PBwZVoWy4UKuFKuJsu2iZYAEBGLKVzSpj6ED0EkO0w/wjF3
+	 AXlF1cd+d/sh7YMxSMh2ZANz4Tzi1hSVOLi09x10wAfLTAiZv6Li54I8IVCPIrxmz3
+	 LaBgqQj1QluqQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D09BC3924468;
+	Thu, 20 Aug 2026 21:20:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/217] 6.18.46-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260820145237.531699751@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260820145237.531699751@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: phylink: correctly validate returned PCS in
+ phylink_inband_caps
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178726081238.489531.4616366200802806687.git-patchwork-notify@kernel.org>
+Date: Thu, 20 Aug 2026 21:20:12 +0000
+References: <20260817213009.13924-1-ansuelsmth@gmail.com>
+In-Reply-To: <20260817213009.13924-1-ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: linux@armlinux.org.uk, andrew@lunn.ch, hkallweit1@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ rmk+kernel@armlinux.org.uk, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-On 8/20/26 07:52, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.46 release.
-> There are 217 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.46-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Hello:
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+On Mon, 17 Aug 2026 23:30:03 +0200 you wrote:
+> In phylink_inband_caps(), the PCS returned by mac_select_pcs is only
+> checked if NULL but mac_select_pcs can also return an error pointer.
+> 
+> This can cause a kernel panic as phylink_pcs_inband_caps() only checks
+> if passed PCS is not NULL and directly dereference ops from the phylink_pcs
+> struct.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] net: phylink: correctly validate returned PCS in phylink_inband_caps
+    https://git.kernel.org/netdev/net/c/f2849b1fd059
+
+You are awesome, thank you!
 -- 
-Florian
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
