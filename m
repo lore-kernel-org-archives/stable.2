@@ -1,113 +1,177 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6EC3B6377
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787262407; cv=none; b=RwrIlHHqnOqSfdvR8rFIYVt8E9wkV3+/WfUTEUDX/Q2Et09ZLkchNcKul81KrbmL1tq+rQJxIQ0tFLBj/sF/wIFETkshMIeBC6TLEWm9RoDuJ8Spenvx/QbDFyIIo0RJjf4NPV9msIqr7a5MnNELGBEGKDUrV3J9mYIyER505fw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787262407; c=relaxed/simple;
-	bh=2lT6OB/GtPMoBr9FD1+AT1Nwzq6OXqGxFpN5k/e6z7k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F11GhM6MnRB2SCc3FASE03Qnt5TdipRIfd9Yx8V/iFOa8U3xXaUN+YRu409gcGfcy9akInufKhBl4EDu40/eX6174VM+kuZ0f2YGCLNqdCz5vpGb9py3IeIL5zezSgtZYlY7FimXBGDsEC7Sr839oR+l5nLqc1gKM3HMYq65ItA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TZHR+B8F; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2962939A7F6
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:51:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=148.163.152.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787262669; cv=pass; b=ApxUy5HH990SyWvOe2rIEne0qLKPNpSQaS6AFb4a5fmfpuQIs0Y/es5to+VOtgsyWwsMYmJPqeIvtmUXyiGB/9mm3CpsjwHspD9hQOsotlp2y11QgjsAgDpKxwOn2rpwcDzkrQPOoolh8Qw4YNFGNAFlb2Cq4fED0mylnpu/yUc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787262669; c=relaxed/simple;
+	bh=t3iIdI23Z/Asd+i+Fpjs0YQSpaQnGxOTZsa74EYZckw=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=IIef2Qe9qfhA6RWNWf5XgRQBNwdLHrb0GXC2OWLFhM37hHc3rmP62CfZqfMozaNWj81imakHqR3cehXOrA6Q5IUuqaGQCbLug/SzNJJU5Bm7DXjvuYm/qaT6ElOMpCJRA59n4VFfo3D3VRQPscVlEulmoI9kjIYeoms70Z2BGUE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=HkVw3Wtx; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=igyhJeGC; arc=pass smtp.client-ip=148.163.152.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TZHR+B8F"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38f0f132f56so1015948a91.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:46:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="HkVw3Wtx";
+	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="igyhJeGC"
+Received: from pps.filterd (m0354653.ppops.net [127.0.0.1])
+	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67KKuFrd3770530
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:30:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
+	 h=cc:content-type:date:from:message-id:mime-version:subject:to;
+	 s=default; bh=zVmBMwABY0b0sl+zm74njYCYQcuUz3wknze7EpIK0Sw=; b=H
+	kVw3WtxV2Y538pQq//END7+SnbQV+WzqTnPfUxkOnfdv61rC39lXaK9cV/YX4jKz
+	YyRQnjRZftxoZrUQY/yNGx4UK8bsLtp71WL6s3Y/dyR58jQpLwUiOxNMmOBbAkCc
+	qGMa4GqFek1Byw6KGX9PI+mMqz/oqTR4KA9ty/z4kL13lgE/4CcwZ8yCBV0WNo0F
+	cjABzjYf35dVzUBkQVk8g+3hpaeUoEHknokOoNLZhVi8bRct8KuhxBr8/qejNqoj
+	ui7ic/2ReJcxuEtyGZ/vtuLkz2G1urHLeMA42fgmcfD1mazF8RR9T97TjllsUoE6
+	49Fq8LgBV9HehkZBVDPmQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4g62fht9y0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:30:53 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8ef8249f871so4435026d6.0
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:30:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787261453; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HBKO4L36437YPUUB9vrcISlAxaIjJhCoNJdcO7j+IvCHj6iwdIIVRYS7HT9b6vXoxi
+         GRdCTv+Z86IKoqOkQhAN7thZkXQOQxD8Jd8coeoXFh8IU3O/rPxAZ1KmAbzFYDTU4mh7
+         cdsZ3jmfjGzvhYwYF8zgZar4i79Hq/OH/WZmlYxXieY6Ygh5fsNF5MVlEddQL3Tw5f5X
+         c91gKlRVKTVeDqSa9sZZk2nXzD71RwxNn4s5B2qfEPfr2AmfS0Bb6ToiJCzBewh8DC9D
+         44Kz3iww9QzqjIsCJh5gqvH8lcDBrz53xpYkQ0/vsocJKt0p0W6da2aKJ9RE5fJWJRq1
+         0iMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=zVmBMwABY0b0sl+zm74njYCYQcuUz3wknze7EpIK0Sw=;
+        fh=PVC6jltloIgHXELc8RHlCzkWy6ChK4j7ZmSovcxSI8M=;
+        b=blXRUcFzF+/CwVdfwvxNV9BJCyUmMkUWHDC+Yw6rm/vLUugxHpSmkppW5xpkk7PVdq
+         WKU7TBHkDVJNI3xYR5aq6m3pAzP93rHS8pA/6Swb3PncG9bpXkWogsaKY1FHtab1vN2H
+         psgJB9ze1Iwy4EHnJupYWF6L9tlOD2F1ZpBZmatMQQ0VdG+D7NInc93ujDv4QJbdM7zv
+         HnhBI2LBQeRwPmUjfgSsqVi9GFu6iWfbuwTXY7ijkyxobgf7okT8beuoR7XVjM3Sx2pR
+         +aLn3pNHNWnNQKu+iiVGNZfsGceM2NYHQgBuZaGGzxmp3q/07oGbcU9+bIMpBt0eX230
+         3oKA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787262405; x=1787867205; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mQXCqKcyXrhHXx5UzddqfNL3pKWNMmyEzCsuSg6E3xo=;
-        b=TZHR+B8FGz2V0rZOGib72E87QzqotYzHa7JaVtIbD1Q9grgTq9JA0Jfya8R4szoQaf
-         AKioaIDvC7QSBttO7+FZnZZOlnAiVemDPAAw5dzcpA8Vl/3G9Srr/Fqx3RDP6OwP2AwF
-         S2K8Cnt6g9hFC7MXDXIxAN0dbxAixgTINrTFZxhoOu2wYhJXTv0CnlwYP+i7QcdJv/4B
-         wxTT0Wpl7tb2FS+aAaswgou7g3EkCWtyY8F+CmTtn7MBQAJ0Ip+rg+hFK0bZZDKcKjOJ
-         rEhl2rVZr2wcj1dVXUQ/Y1ELu4uX3/d+dAmIxAGsWxDIwnJ8djqc7vKXIHKpDJHKwYgE
-         xFDA==
+        d=crowdstrike.com; s=google; t=1787261453; x=1787866253; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zVmBMwABY0b0sl+zm74njYCYQcuUz3wknze7EpIK0Sw=;
+        b=igyhJeGCYwaNQszpO5UHcZaJw6OTPx3clPZTaTCHeV8JQ34H1Atm3u6xiE9dEHFkjU
+         2ZqPapNp5X/lm+XuakZszycaAqLzqmczQyZThApOh0w4law9BR1xDyDrAZZ/qp2w1Cbe
+         srrVxSyMvzoKwH1GqBREeN3PDsMoXglujglx1ea3b/Rj52s0BRwa7Aoz0uS/2qcqO7qB
+         y1C1xW9AgyP0g0n5JeoTVOsyWd9nQuOw3+8zBAeYrVC9J9MNQB/sy6fCvZn8TL90tks2
+         zdvGq8FnYrYnzdRtRPYdSsUHGU8T/Lxx3B3qyngp3mKjxNMnCQorCgKRUfavhuF8XZ5B
+         K4yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787262405; x=1787867205;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mQXCqKcyXrhHXx5UzddqfNL3pKWNMmyEzCsuSg6E3xo=;
-        b=eNF8kDiCPB9hj+R2X9fl4pyaa6uakZIHZZFQuc/vOvjdSoY4qXljuq6O7IrpedDw/4
-         UBQcyuM2elVSNOd0uxy/hFOPbelR28zwYNSU6XMrq0PEDFXse52tRNVDSU6MejberntJ
-         aNGmk8in34ODvOnJ3qEodMoqXG9wn1DHh9vZ8Vl3LmKLDa92vLJ6QcW1xCLeCKhcwiah
-         7LoEeWgqiVYnunt9Z+7cPL3cW071hF/AOC9abANj/VghnE1V14ei0vTf9GTsxveG+6r4
-         AyM4O4IDZ6E3r8HAQZEW5XrCItnkSBYiyfn4A6NMNqRWV/Ar3unP2M//xe8hY95oNyhM
-         TnLw==
-X-Forwarded-Encrypted: i=1; AHgh+RrACWt4iKb5UHsfmBwQD1G+XZnG9xAokOiDJTjB1+jAkCnio/2j9rqeGcnu4RkGGoEwJu/9JLY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAahvS4005+3Lwp5NziVrPwHl/6/4gpV5SXNDPemxr64ydySkQ
-	9ma4LYwhHEa16AuyXMfc1QNpLcecTxns9nVlMHf0HGWYXKCYNLwNIkgY
-X-Gm-Gg: AR+sD11nLwQa7Qv+0bKtzd1N5bIVOeSiJSe2cC8N+Qwyy7rmBkk3ZSF5fbFNq2Q/mH+
-	u5Mmu96xuqlx09fQeM2BWhTw51gh/810xexXECxt1yUO29hFTvpX1goZiz9if58LT+IDpWUGTec
-	7/ZQQ7TJ9YjOn7I652nQrFHZDe/gJSmjFu6bIprW0ayMdpn5BXVM23+Xi1JgzUwCBOv0tXUpvjm
-	pMWw/AAuou4Qbx2+pSZKi3on3PBisZzs7+tzW6wxSBJ90VwwmbKbuGxowokep+LNQ91GsQ9m/my
-	v0RCXybtatPEKZGVtxduSD9EZ9yF/uE65A3jlejJiEszISH18/Pdyuktf1xpAa4HifbTkNERHxH
-	qSI5ZrZ478XIv5kAkMlgu5srz4HL4uzjRM2YdPrhn7ZSFiSl9pV7DIle3H3TnO5d0hw+YKGFmd0
-	SfeXVhLyA6LxRHRCTT9+ohaB8aZS7opj6Ax0LP99MgqJ5lecZ5H8DeXu18O2wYsnC797M3OwCxT
-	LcP3XVEfeVdKfkOqPIzJ0QBBQ==
-X-Received: by 2002:a17:90b:3851:b0:381:10a3:8b10 with SMTP id 98e67ed59e1d1-395a06ac272mr11204850a91.14.1787262404673;
-        Thu, 20 Aug 2026 14:46:44 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327d01ff056sm11764692eec.19.2026.08.20.14.46.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 14:46:44 -0700 (PDT)
-Message-ID: <2fec5509-7247-4279-8973-2183a6f0ac01@gmail.com>
-Date: Thu, 20 Aug 2026 14:46:42 -0700
+        d=1e100.net; s=20251104; t=1787261453; x=1787866253;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zVmBMwABY0b0sl+zm74njYCYQcuUz3wknze7EpIK0Sw=;
+        b=l6/p8tVjTsmXhX3l+UfvRvEqbcS7AAgqeWz3FX33WOIG6sd3oTS/vy6YCUKRpeD5I5
+         hX/CGzDjJD7idHH075foD9OCPvFkSTwlsglNvbwovCBiyjyZWKENWJFDHVwkLn54Pc+o
+         I+aLuJQZUAuZ5Ldbbh2C7RiTCzh6IDLafHP8Hfzl6mXrPKzPMi9C45NbOwT6Q0cS2r9L
+         4MG6MzZyaV76Rls/Qmcks/2RMLtqMCuWPeiuWupHaNZ7YmFuOkWrIA4NeXI/XfotmMG+
+         pOF4qEUG3vekSrGbIleQmYVvmI4xcJnbxE9Kq0gjrnCddOhbAifcZFEokWyHjCdK4wls
+         JDJQ==
+X-Gm-Message-State: AFuF++lJecMT9Oj0Ljty2/UBP+7g0qFCtQOxgc6WSQm3tU45P9dic31/
+	IVkRf4Nmtr4DIbnUT5HzkkFo9cINMt0/7aw3646XJkJ/cuLW5I2NsOjFJvYXHS0HMRsXOuN0UXn
+	YdzWjWykeWjOPFPLcUyw66zlHOkNRXtF4fjrI4ocY+jSv8v1ZPnHggdtrybQbZyuoCQogjv/U7K
+	FqzaO9ei/+FtZvw9EABsQGxIVD/AtUM2NiYGjpvRXBuY8=
+X-Gm-Gg: AR+sD1037S4tdv00yODJmA0X9H16B/mVOk2KHqulazHaj3eu7Piz84ioXSib5AkU3BN
+	UkBWvsyRr4sZl0wQhVqlisWjj740vbBJ4ma1naiFDQ2I8sVAB++99tCBZZmM8959PTvHAu88vg8
+	xNDARvriW+YSBZqegsj/Tyl64+Tvb/L76VXDPI+E8sVR9WCnoF12a5UrgA/g==
+X-Received: by 2002:a05:6214:2606:b0:8fe:b7a6:4ff3 with SMTP id 6a1803df08f44-90c80c883cemr9994476d6.23.1787261452677;
+        Thu, 20 Aug 2026 14:30:52 -0700 (PDT)
+X-Received: by 2002:a05:6214:2606:b0:8fe:b7a6:4ff3 with SMTP id
+ 6a1803df08f44-90c80c883cemr9993576d6.23.1787261451963; Thu, 20 Aug 2026
+ 14:30:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 000/228] 7.1.10-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260820145244.450574346@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260820145244.450574346@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
+Date: Thu, 20 Aug 2026 17:30:40 -0400
+X-Gm-Features: AcwNN1WmAkz6CIfOJ3-qbyIFHw7o67a--tZpJvbx9ywHQ845dA02m4oMhEMEn_k
+Message-ID: <CAOu3gNgTSWE84fgdc1iUNKwes7E6u_X6b8pjZKBULEJWB=RAqQ@mail.gmail.com>
+Subject: [STABLE REQUEST] ftrace: deprecate the ftrace_enabled disable switch
+To: stable@vger.kernel.org
+Cc: Greg KH <gregkh@linuxfoundation.org>, sashal@kernel.org,
+        Steven Rostedt <rostedt@goodmis.org>,
+        DL Linux Open Source Team <linux-open-source@crowdstrike.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-GUID: nMjVYUmA1QeRugNwyBWIzYIXc7zbdSS8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDE2MCBTYWx0ZWRfX7QUrk/WCHOnL
+ qOD5zDpaFzixZVqXkb+cEF1w0TL1RkOmgztbxym8u4XtIZI/o2vpUCWTWkv8Na9LBmpGSTR7bA0
+ F8UtXK6vbitxPDbuRL0UfmHqrAsnBfkEmtqkdzy8ipo6iQpjn9IZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDE2MCBTYWx0ZWRfXzv+t50TUZtQX
+ 5lbNh/VusMeXCn1/O6syvunrX21kXLOZj1rK8bvHgiqC4j419qGlb28NREVGdAaYKOdb/C0ggJw
+ WFY/nJycNq0Cez7asfMXv2bI3DRmgLF+L35AzDBYrIHEtNse8KHyz/FQc3EAWz6RmoLjWwbJtnW
+ hGdsKkUnHnG4VaeH2iNKzDj4oSh/AFFRhK2JUegzx605uZDxcwdWDaTCcbUNQMvNrAIKSwH/4+4
+ xE1XnBvupWUi1M6bUwqWqi2Gg4Yrqro2JXNvDjXOwqVMez97QJu10kRlGihY3fBkonqo3bavdW5
+ o1TTfiPJzcSjI9nQCcTysepIS9tgYR1fX31sEJcZWeA41rUXFQ3PXt/Xdrf57TvYolydwOYEQWS
+ xKTVuHs/qY8QmIXBtg0zc39mbrc4fPLTufsW+UxpNss9Yvz5y2Pc5sS/ZGfjcfbC7njwWyo+unq
+ uNRCQpYyMPA7FRVRvFg==
+X-Authority-Analysis: v=2.4 cv=OrR/DS/t c=1 sm=1 tr=0 ts=6a87720d cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=KZhmPCYDdY0A:10 a=VkNPw1HP01LnGYTKEx00:22 a=T2KQ53IYiC3MXPrxx8bB:22
+ a=GCXdLZfFv8EKBZhKOxZ5:22 a=VwQbUJbxAAAA:8 a=pl6vuDidAAAA:8
+ a=YqAk_y5rjQpCD7sbxlsA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-ORIG-GUID: nMjVYUmA1QeRugNwyBWIzYIXc7zbdSS8
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11881
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 clxscore=1015 impostorscore=0 spamscore=0
+ lowpriorityscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200160
 
-On 8/20/26 07:52, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.10 release.
-> There are 228 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.10-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Hello stable team,
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+Please consider backporting the following two commits to the stable trees:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+  - b0c857049153680e1b6ccb59abf359a4ca523561 ("ftrace: deprecate
+disabling via ftrace_enabled sysctl")
+  - 88b3e7fedc07d940c32eb5c0733a780e944b6b47 ("selftests/livepatch:
+update test-ftrace.sh for deprecated ftrace_enabled")
+
+Both commits were merged into mainline in v7.3 via the 'ftrace-v7.3' tag.
+
+This change addresses a long-standing issue: setting
+kernel.ftrace_enabled=0 silently disables BPF trampolines
+(fentry/fexit) and ftrace-based kprobes/kretprobes. The write succeeds
+and the hooks stop firing without error, while re-enabling silently
+restores them. Livepatch resolved this via FTRACE_OPS_FL_PERMANENT,
+which blocks disabling ftrace while a permanent ops is registered and
+blocks registration while ftrace is disabled. Trampolines had this
+same protection from 2019 to 2022 while sharing a global direct_ops
+marked permanent, but lost it during the 2022 per-trampoline-ops
+split. ftrace based Kprobes never had this protection.
+
+The breakage was introduced in commit 00963a2e75a8 ("bpf: Support
+bpf_trampoline on functions with IPMODIFY (e.g. livepatch)").
+
+With these commits, writing 0 is refused with -EOPNOTSUPP and a
+one-time warning is logged; reads and writing 1 are unaffected. Steven
+Rostedt requested and reviewed this change on the mailing list,
+including the follow-up selftest update.
+
+We would like to backport this to LTS branches starting with 6.1.y,
+where the breaking commit already exists.
+
+Mailing list threads for reference:
+
+  - RFC v1: https://lore.kernel.org/bpf/20260730163544.2042327-1-andrey.grodzovsky@crowdstrike.com/
+  - RFC v3 (final):
+https://lore.kernel.org/bpf/20260806153000.4184871-1-andrey.grodzovsky@crowdstrike.com/
+
+I can provide rebased backports for any trees where these commits do
+not apply cleanly.
+
+Thanks,
+Andrey Grodzovsky
