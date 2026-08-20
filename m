@@ -1,63 +1,63 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAD347884A
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 15:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE1536729C
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 15:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787241551; cv=none; b=bqxeRzK+gHBMWWqdW3qi5EZv54KiuvnbKUtBjC4JOpYPuVV/CfO9uu1mqj6JbjGYTtgBkalcMy9FxiwlB8vnkbyiOOh58o3dyuDpC3wFc7Ifp/MLY0DW1CsG/tUQvvHEDsPQof5zNeUu0VOHNLUB3L9aZYf0g8UorDJr4KKoXjo=
+	t=1787241553; cv=none; b=GeQgOyTKZPpUtKaK3V63ilEAmqD9meBsmBrF8UCX+QqmCVlmyL4w9CicmlPYMoHRZJ6cmpF8IxWMvhedN0rL1ZRcurzKfazgFSLBpRuNSPhAir3MQpkm9pemlMJ08YzhguFDbVVcU+7ji5OY6MqBmuSpQnzdZvVaOHtjC1ocpFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787241551; c=relaxed/simple;
-	bh=stHPQub1xNdmZb6RnHmbZ9yrQmJ0AmVBo9UHfgyoEFM=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=K6I5DeMftTy+PgyVdRcfSOZoQeID53UBAkp+go6DYvJJQW+0V2VxmJWhjAWoKl1Iy9mUn3qr/tP6FUsAxkTnJZfKMNvOy9tv2tm5OQBEy1Arf3Exbe13hupqpCT1gqdPH6Wlj1zyPvv0L0tuDvR8T7kFelMSn6Bm/njbhRpSQJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=Cm50g7xT; arc=none smtp.client-ip=209.85.215.182
+	s=arc-20240116; t=1787241553; c=relaxed/simple;
+	bh=Lu6MQ3qckGibzooVCPt3MOG9NdJFH8WK5Fc+IqBmksA=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=NusCZP9Df0r0Cued741AZYSTsRzIIH13p93TtXNsESu6bNQyTylZgfZeIvCw0PzAwjK6AY0y4+JfJCnrOHMjoZV8UuEzyY6MgyDoRqqjcUytAn1um4UuE3BWTJ/5FfhgqcEB6cDlqW7xxJs3sferQtGXE++Gy5Lt9b3Owf66O1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=jZPrHqy1; arc=none smtp.client-ip=209.85.215.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="Cm50g7xT"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc11a905ba5so38764a12.2
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 08:59:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="jZPrHqy1"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc11a30a259so53242a12.3
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 08:59:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1787241549; x=1787846349; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1787241551; x=1787846351; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=2ywqmGh3NQx7J9fcFbxxw+aeUMnbS/J9/aK0PNfeyCU=;
-        b=Cm50g7xTADveajxzXk1jJiChaoTg5vUfJR1FjA9BIqufqAaRFIE2wCy86Q3Ci8N6V0
-         HEGWely8PfUWW3TRk7PIaob+AB3d8AnRsx+tORKmK3JUhi/VxMuhlOLWQQZ38RfUzNoq
-         5l2/rzILGJfs+OMh/xh2U6f3ZQJ4DR+GqAFvOFgg/+v5H7kksRqcpbRCxWJFKGdyprpi
-         pvXn33edoB6OS1SK29YNpIBBCtkB3mVwf5UG9DfIYIXETOokPECL5W+a/N30gU/Kf1Xk
-         4hgWZJ9pKHRYcaukXblPQvMSxvr9LE3gttFT44jnVFjbxvUwAW7glmiN7J7KuvRPnldm
-         n4MA==
+        bh=bpJ4hiOythIIeGfDYaV5KUj+oTLbFTt90Mxx/LKA7/g=;
+        b=jZPrHqy1Wq0mRrzKdX57IKUJCSySg8u5XlJ1kKLX/HioYaq6pemmtb/RZEu8MgWD4T
+         4EHrXg/eRioSULvlhIKB3LpQQBMZwZyDNd3AkcHsPCIe7MQrzQGifoSEbp1LieAk7kac
+         3SeaZqYxcV1z8NzHsOEz3+aLe286oa3cEFyAEZhXZydc334Viz9oRZj4uK3Qetxi5Fph
+         F8JYc+lSB0ZZdbab3bDq58pfJ4E+X8U6SnCc49mtNusT6l28BCZN1AVY/8hnHSN8HNky
+         0AWGAgqSUQCZCD7XMLurWumXHoB5h9xnfES2tK2/3gthzFb5+QVI2fOYKBkLkFQLKplR
+         3oIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787241549; x=1787846349;
+        d=1e100.net; s=20251104; t=1787241551; x=1787846351;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2ywqmGh3NQx7J9fcFbxxw+aeUMnbS/J9/aK0PNfeyCU=;
-        b=f9YNoObaouAg2J5UylsflH62noiehSIbIpU+6ciwu63Gpv6Ok60WBPkianUtgpHsZ6
-         QZ3Kfg3jCFPwG5z02EZNGxrPh/1bfnyPrfrrnSp2ZR8KjWQmkLwlNG0gMgqq/44ZpfI1
-         zzyx1Eu5wHUMUFxlzCpjPir2ZEMvTkUpWCclloFnN91NFnLhxEac6fnhx+zbsUjDaLEQ
-         McEsofIVKhSmJTeKNko/GksEcMuBdzO0Mm77e1sTdF3zQTrZdo2QNm3mIlsW183gwZVQ
-         xoMMTKSAtSHaDAIawm1jk+xNdOp2CazDA1ZqrhRmRwxLm/ZjKqSk7S/ieIuNNjq/WXQj
-         lI3w==
-X-Gm-Message-State: AOJu0YzBYyDtEA2NoXgl0zDYypuV0yfZm3Z0UM84LNfRI0gIzVlQ7WtK
-	Xxu/FYQtw9CsU5ZxruXGkpio7dws5EfmieIab8bcfJnycqdIlQEUs7+o3gj81p2G5LOjhltOGic
-	cpLQT
-X-Gm-Gg: AR+sD12iu3UUqxg4uXh0gVS2/wHhfsv6xe0IL1xSjErmnGL8rbnnTrE4UPlAZoNYpVo
-	1uLCxxogxUwW6DcGeMpqxOZQpjSz2az8FoDcKJp7eYjPqjWWECwtihlnP0rFIEU8w7rkn6fqbgt
-	4PUq+OZv4HyjlvR/gp3RQWQLPY0rIKKtvKBRCOh95bt/VuQSRL3vdCg8ZATQEcsJt6iCeKQPWiP
-	8q2f0U6umyZB9/25zsX1FPFFFQyEV3VsHajfXWCRTAA8Ub855XrUDbSyN+YWMGNOPM6Q1+rYUYX
-	ty+lVnvoF0sdHzkP/XduWH6qolt414L2/sWQHx9/Lk6MuHAI6QE0P4uCvf8PrmlcpVK4KTKa+VL
-	+rUir014n/Yv3OovPKrvVy4yroOh37QO7eWUt6y3cQ1j9ZB7ZCDZ3ZZtcvDg1bX3NWO5f07ED/j
-	llQgAMbSEY04JuRQUcQ89Xm9m7F8cPGp3yuqWGxAhu/lRir29pXUKQ
-X-Received: by 2002:a05:6a20:5483:b0:3b4:6026:6c5d with SMTP id adf61e73a8af0-3cd00e18007mr25898639637.5.1787241549380;
-        Thu, 20 Aug 2026 08:59:09 -0700 (PDT)
+        bh=bpJ4hiOythIIeGfDYaV5KUj+oTLbFTt90Mxx/LKA7/g=;
+        b=CdJiFN6fCYyuEuXFSqUKHpfA6mwXY8WGpmUDvuk9m0V1AdqSDPU57fvK7Lylcok1S4
+         iXTkICwVAN0VSkoXGU15gC8TMrt9Kt0/WoH73JwXAdDjmXk6mXWe2hg7BiamR/+xGX05
+         p3xGJEMRBn/Fm105ZwK7jTQ8Z/wc9ZB/cF0dhlXXscl2Za0wKX8l45ziRpP2+KD+NVik
+         FNJlqaOAU3nZziqEGFoY/dWAzB5+sN/A5reFkh08JY/LcDuRL5khoyHZPfsmoVbwOlcg
+         Z/RnI3BWuWd/lbBkAF6rk9lCeZFP6nnGRydr9uDK2Bb/HNBdxZPWhlwj64U1U6o61SjM
+         rhKA==
+X-Gm-Message-State: AOJu0YyBt38p+FKB43wUpe8KpJXk+2326VX8YWCtjZZ4h9uEhMkqJeRX
+	hzAvcQ38w1kfKKfZHSirWPDp7c8WXHxkDsafBRr33W2Oy/CYFWvo8RwN576hnop8NmBM1occdtK
+	D97t1
+X-Gm-Gg: AR+sD12qvyR4CYQfVyOIimPkHirOQK25Thb0Vu1ljD9X5Xbxh6NA+UMd7pjl/0W6488
+	UiAIGb1UlW2VTf9B8mogir0GcsYucNBt69jBKJWndc/9Iv7EY20k/iC1U99oixMa0xDSfaDv5ip
+	nwXyK/RqakLXKed2vQIVrRm5r4PDSkbecbcrzQOEpqvk5aglnuAL6wxpH7dkiBZ/+4JN/i0bX9H
+	zGn6MGIo2VU8pMar4l225+I17d33dj5BcerWEbxPgKk1uy0Ac0gnqWN5nJCPB2v6LsEEMnkbi1T
+	S+Q5EqeaAzBjjej18sq1kLQdK6Si+79aPFX51/OQPHuCp7ztal2fW2VViCcm2TC7Y4dOJYFHBVS
+	GQRhP7YtkFbKnGDl7aO/PfxmMqFZ2DGOCmzqaRjSYsuR/zZvjsSpGqF6R6MsYoQ5PIuyGcmxtnn
+	MyNL0wZepN5kaVBubMEbNukff0dEHd5hFhRGl6omhZ75zfx/dxXP8H
+X-Received: by 2002:a05:6a20:7f92:b0:3c3:a3f4:5485 with SMTP id adf61e73a8af0-3cd00e53f45mr25492268637.6.1787241551373;
+        Thu, 20 Aug 2026 08:59:11 -0700 (PDT)
 Received: from b455de3d9de8 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf173b02sm18065483eec.27.2026.08.20.08.59.08
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef77be3sm17825489eec.10.2026.08.20.08.59.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 08:59:08 -0700 (PDT)
+        Thu, 20 Aug 2026 08:59:10 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -65,29 +65,29 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?b?W1JFR1JFU1NJT05dIHN0YWJsZS1yYy9saW51eC02LjYueTogKGJ1aWxkKSDigJhz?=
- =?utf-8?b?dHJ1Y3QgYXRtZWxfbWNp4oCZIGhhcyBubyBtZW1iZXIgbmFtZWQg4oCYYmhfd29y?=
- =?utf-8?b?a+KAmSBpbiBkcml2ZXJzL21tYy9oby4uLg==?=
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-6.6.y: (build) no member named 'bh_work'
+ in
+ 'struct atmel_mci' in drivers/mmc/hos...
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Thu, 20 Aug 2026 15:59:08 -0000
-Message-ID: <178724154762.746.5687417139322820415@kernelci.org>
+Date: Thu, 20 Aug 2026 15:59:10 -0000
+Message-ID: <178724154956.746.2797303551549413454@kernelci.org>
 
 New build issue found on stable-rc/linux-6.6.y:
 
 ---
- ‘struct atmel_mci’ has no member named ‘bh_work’ in drivers/mmc/host/atmel-mci.o (drivers/mmc/host/atmel-mci.c) [logspec:kbuild,kbuild.compiler.error]
+ no member named 'bh_work' in 'struct atmel_mci' in drivers/mmc/host/atmel-mci.o (drivers/mmc/host/atmel-mci.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-/tmp/kci/linux/drivers/mmc/host/atmel-mci.c:2661:31: error: ‘struct atmel_mci’ has no member named ‘bh_work’
+/tmp/kci/linux/drivers/mmc/host/atmel-mci.c:2661:26: error: no member named 'bh_work' in 'struct atmel_mci'
  2661 |         cancel_work_sync(&host->bh_work);
-      |                               ^~
+      |                           ~~~~  ^
+1 error generated.
 
 =====================================================
 
@@ -99,23 +99,18 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:f46fdd3213fa9af68112f3670381272cad761cd9
+- dashboard: https://d.kernelci.org/i/maestro:1e3306e098086e2add933463d88e677dbf2f582b
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
 - commit HEAD:  ca37407fccb96f6ba527cc8274afa5038874b131
 
 # Builds where the incident occurred:
 
-## multi_v5_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6a8713ca62f33761c0f0ba28
-
 ## multi_v7_defconfig on (arm):
-- compiler: gcc-15
+- compiler: clang-21
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6a871faa62f33761c0f10cd0
+- dashboard: https://d.kernelci.org/build/maestro:6a87139462f33761c0f0b981
 
-#kernelci issue maestro:f46fdd3213fa9af68112f3670381272cad761cd9
+#kernelci issue maestro:1e3306e098086e2add933463d88e677dbf2f582b
 
 --
 This is an experimental report format. Please send feedback in!
