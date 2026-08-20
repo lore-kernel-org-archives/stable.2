@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EAB46C830;
-	Thu, 20 Aug 2026 14:03:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E70331EA7;
+	Thu, 20 Aug 2026 14:03:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787234588; cv=none; b=Juck62FARE6bsyKKAJC7NdJ6X6gt1J8+mgy3MpK2TVKXVFxTSKngxFLnZ+7GtadSKsLqZWETnFvgjRvAdW4CWr5FfHGf9ZzKMFkF4yRTBfdLCFE5o5+U2Bg/59yISPe1P/OS3lW6a6NS9wbeqQIlvNikwvu+2fwufiYtBHn/zqo=
+	t=1787234610; cv=none; b=BfjwUCnbuv1JIzAaznSjgI1bf1v9hteA4EiJxxE2ogILDn9b8GUdYnKBhe6017o1flvL8Vozx/qD1zE+O4Cta70sFIYghjg2qi6pyLnBF7W0vZFOkdqu9E+mznt1HkBOmuNqfMgtoW1fqmPWUKRLLqSQyVPWebC/wavYUnOVqFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787234588; c=relaxed/simple;
-	bh=Na69ziPsRsqFwUXG6SifxjzBGuTBDF4WMUAsZv5ufpA=;
+	s=arc-20240116; t=1787234610; c=relaxed/simple;
+	bh=tCCqlZyWdyh63TRc8+dGM9WfTi5BiwIaLvVMXxwzsYw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PoNG0EkhJbNPhKqmd3iJs+h66jVD8MTnhOy8Fy9NDZM09T67615ReGwaFC8+i5C4BB1oM52pFMyidcw11a6C0T8D/39gR+hyjt0svx0ev4jyaDmTRmJjtlgmLBZNlsZ8pKCURchc4yGBlXOJF+ulLiLpCutsOsLpxkQQQ0m/kEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijUyUkup; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=S5gF/5L3shGh09M+HO7dWVPiG6kaHzjw+8rPajOex5Ao5u8wNeL0MA1L364INy9sdLJGBgurTlD7mjBOIPfISwWeRA7hkSW1H3pNrhYq+YrUpJH4Q0TT3iGrVGIz+dhVubK/oAjQnMrv9kl8+z0tJ7zOmupW5TgyYzyn6X0j9Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1ffXdaT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijUyUkup"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1485E1F000E9;
-	Thu, 20 Aug 2026 14:03:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1ffXdaT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D40F1F00A3A;
+	Thu, 20 Aug 2026 14:03:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787234587;
-	bh=O+olGW8sSAne5ztFBKekd93eZ1M4z5SDcIB1vPTjF88=;
+	s=k20260515; t=1787234609;
+	bh=1pP8q2KxBJVDEMogvb2LKf+VAT3Bwq0uMd2eAm1GmWI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ijUyUkupX2Xi+zBawxZ8mENBiIsdbIagiS+NTzvYrIWv+GUDl/jQsxc8WqLTBEYbb
-	 2Dl90auPBMXHpxpEx0Ct7ND0nSM/8P+EWscQJRbDAyQ9hQA8zw8jesQeREs5IqQthV
-	 X9uoPygiyqrdKFlbOtW/lCC7hrCrvqfCroKqdMU0w5tX8E2uVBxDX+Dt7uLN5Z4s4z
-	 WcAcujsqHnUpwwy1pEMTam5xRQP7pJr4xUUZvMJe44a+buv+kIqIa+Lwmmvpmy+pZL
-	 Qx7Ncg+AJOHt842a9ak1Bf1Do83qfwW+iiyROp0R/R0YgEpmhk1JfHGjNdYxbUOkzg
-	 di1W9v+rO0eSg==
-Message-ID: <2d997800-b7b5-4700-919c-c4b6e5e926aa@kernel.org>
-Date: Thu, 20 Aug 2026 16:03:04 +0200
+	b=Q1ffXdaTl4qLXiUJYsCj25Cp9QBB2rZw5CZZFk9NlkBvz2tRwtc8klTF1ZEae3sUB
+	 cjorIBg1XW8Ah+uORZdrRmEj+FXim/5LmmertFtZ0EC+pmZlSuYkwAfoLNWXjt5MqX
+	 PXe2/cg1m8ho4rH7Qc9O8VS5GWml+GcVhV3MRJFOGvyOi2IoSV7t4+PsajucSx/L3t
+	 rUvKC11k3J3T9jXb1lC9mPx49t/cCjptP7G/oLo35Pss1gzg856McuQ/DKYPw44Gjf
+	 3vImftj7pahcXUfcVvfU6Kqh9d6kOZ29pNirm0qx+hsp9q0tIMWbv42TLawi692ALw
+	 KN95591X6sWkw==
+Message-ID: <578653c4-a7c7-498b-a283-f3b17f3d4191@kernel.org>
+Date: Thu, 20 Aug 2026 16:03:25 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,14 +35,15 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] crypto: ccree: fix autosuspend cleanup during teardown
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Gilad Ben-Yossef <gilad@benyossef.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: qcom: hidma: fix autosuspend cleanup during
+ teardown
+To: Guangshuo Li <lgs201920130244@gmail.com>, Sinan Kaya <okaya@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-References: <20260808091734.2727295-1-lgs201920130244@gmail.com>
+References: <20260808112551.2786782-1-lgs201920130244@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,13 +89,13 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260808091734.2727295-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260808112551.2786782-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08/08/2026 11:17, Guangshuo Li wrote:
-> init_cc_resources() calls pm_runtime_use_autosuspend(), but neither
-> the probe failure path nor cleanup_cc_resources() calls the matching
+On 08/08/2026 13:25, Guangshuo Li wrote:
+> hidma_probe() calls pm_runtime_use_autosuspend(), but neither the probe
+> failure path nor hidma_remove() calls the matching
 > pm_runtime_dont_use_autosuspend() before disabling runtime PM.
 > 
 > If the autosuspend delay is set to a negative value while autosuspend
@@ -104,11 +105,11 @@ On 08/08/2026 11:17, Guangshuo Li wrote:
 > unbalanced.
 > 
 > Add the missing pm_runtime_dont_use_autosuspend() calls to both the
-> probe failure and device cleanup paths before disabling runtime PM.
+> probe failure and remove paths before disabling runtime PM.
 > 
 > This issue was found by manual code inspection.
 > 
-> Fixes: 4c3f97276e15 ("crypto: ccree - introduce CryptoCell driver")
+> Fixes: 67a2003e0607 ("dmaengine: add Qualcomm Technologies HIDMA channel driver")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
